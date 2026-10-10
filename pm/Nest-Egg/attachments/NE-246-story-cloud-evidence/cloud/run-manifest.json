@@ -1,0 +1,87 @@
+{
+  "ticket": "NE-246",
+  "purpose": "cloud evidence for failed original ALL run; no rerun",
+  "tested_head": "a5f2a1ba9eb64233b56108c3e930c68bffa52158",
+  "tested_parent": "2dab08d7a433d49af5ae8419ddcc794a16c83994",
+  "origin_main_at_test": "7e3289808d00e339c0662f26d1ab61c02de0f9d6",
+  "source_file_count": 148,
+  "engine": "Godot Engine v4.7.2.stable.official.ed1daf0bf",
+  "command": "SHARDS=1 tools/run_tests_changed.sh origin/main",
+  "selection": "ALL; original selector and filters unchanged",
+  "exit_code": 1,
+  "natural_eof": true,
+  "elapsed_seconds": 1390,
+  "groups": 83,
+  "checks": 86162,
+  "new_failures": 126,
+  "known_failures": 0,
+  "script_errors": 3,
+  "failure_classification": {
+    "story_owner_or_stale_test_contract": 87,
+    "independent_product_bugs": 39,
+    "confirmed_environment_caused_failures": 0
+  },
+  "script_error_sites": [
+    {
+      "path": "tests/suite/test_chapter_cutscenes.gd",
+      "line": 55,
+      "raw": "Invalid access to property or key 'steps' on a base object of type 'Dictionary'.",
+      "cause": "stale legacy scene id lookup"
+    },
+    {
+      "path": "autoload/story.gd",
+      "line": 570,
+      "raw": "Invalid operands 'String' and 'bool' in operator '=='.",
+      "cause": "formal story flag result type guard"
+    },
+    {
+      "path": "tests/suite/test_pacing.gd",
+      "line": 76,
+      "raw": "Invalid access to property or key 'ch1_c01_open' on a base object of type 'Dictionary'.",
+      "cause": "stale legacy scene id lookup"
+    }
+  ],
+  "interpretation": "The 126 failed checks are itemized in failures.csv with raw shard line, source assertion path:line, and causal classification. No failure was attributed to cloud/environment limitations from available evidence. Expected negative-fixture ERROR diagnostics remain in raw logs and are not counted as these 3 script errors.",
+  "preflight_and_runner_hashes": {
+    "tools/run_tests_changed.sh": "14d71b3922cd580b9f85b774d431a3ff7e1e7e2ff0c1d5052740aac8b3ae604a",
+    "tools/run_tests_parallel.sh": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba",
+    "tools/select_tests.py": "9ba6c288341e885979d7e171509e907b46b2b7347f1fc99e4145ec5d83986c03",
+    "tools/test_filters.sh": "319fea9acacfdad9f7dab7948ea5a2d76652757623b428829605160a210e678a",
+    "tests/known_failures.txt": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf"
+  },
+  "raw_files": [
+    {
+      "path": "raw/import-network-enabled.raw.log",
+      "bytes": 1017,
+      "sha256": "f15ffd4c558b01611d562c8c257508942bdc2dc542124f423ae2a592a46edfa6"
+    },
+    {
+      "path": "raw/import-private-profile.raw.log",
+      "bytes": 641323,
+      "sha256": "a9c0151d62620d9b7e7d2ac6780c5886b3a5a07748b83b7be2e449123769a78f"
+    },
+    {
+      "path": "raw/import-unconfigured-aborted.raw.log",
+      "bytes": 645994,
+      "sha256": "68c7c32725c7651183c349718f42eeeba2f6c5b1a079f7477d9ad7720eadcdb2"
+    },
+    {
+      "path": "raw/preflight.raw.txt",
+      "bytes": 1487,
+      "sha256": "75efc013a2cc53a14acc66d64c020b9d74213a3e14767eed6c5c3942bfc0e6bb"
+    },
+    {
+      "path": "raw/runner.console.raw.log",
+      "bytes": 14737,
+      "sha256": "71ec8be6070542ac6415da1d459ffccb4f3b95c57ea8cfb12995c88a25ce2ff3"
+    },
+    {
+      "path": "raw/shard_0.log",
+      "bytes": 335632,
+      "sha256": "b8c1110a6d437d908a0b17169eeca3d0077ff12a39b621fb84d912f90fd70ed0"
+    }
+  ],
+  "failure_csv_sha256": "012bf26e23dbb43ba3273e620f241d515afe19d2239f2297a18471a45e532809",
+  "source_manifest_sha256": "b1b2a3b7ba8e7f95903ddc04b1f57b999c5d0222fa4fc6aa48a1d739d9cb7967",
+  "authorship_note": "Evidence-only change. Requested author/committer: Stanley Li <stanley890314@gmail.com>."
+}

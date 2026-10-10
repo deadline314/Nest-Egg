@@ -1,0 +1,180 @@
+{
+  "classification": "CPU independent review; only authorized single-branch fetch; no checkout/index/main/source edits, engine, commit, push",
+  "created_utc": "2026-10-10T18:26:59.397048+00:00",
+  "review_HEAD": "41f326ab09060ebff2b58907ac50122926b9f17d",
+  "caller_review_HEAD": "9333c0d1713bddb6c787d6684241de461d7d84f4",
+  "comparison_base": "2dab08d7a433d49af5ae8419ddcc794a16c83994",
+  "published_base": "7e3289808d00e339c0662f26d1ab61c02de0f9d6",
+  "sources17": [
+    {
+      "path": "autoload/progression.gd",
+      "sha256": "79025630dc6a376d9d6720a532a64d8bc34f9b8e1852abcd31f6821366bfdda9",
+      "blob": "b8da4b0a5dc91c867ee6cc75c5a31de2a3543417",
+      "caller_byte_exact": true
+    },
+    {
+      "path": "autoload/projectile_pool.gd",
+      "sha256": "7d707db302ad3eafbc949709da9d04538468d6270ae2ba1e4c3ba0c0c4b15cca",
+      "blob": "b424c7abb67d7ff9877c85a0010bffc3c7d888ee",
+      "caller_byte_exact": true
+    },
+    {
+      "path": "core/weapon_catalog.gd",
+      "sha256": "5d96b4da4ff1fc364963258a63b9ddc634334a5159aaa3096921ea512b8f7913",
+      "blob": "8d3144a6ea0c3d33a64ae612e80b424dde644e06",
+      "caller_byte_exact": true
+    },
+    {
+      "path": "core/weapon_catalog.gd.uid",
+      "sha256": "75bf5eb4eb2d36690951c04efa0fad0d097fb10888ab6ff60afd73f7a0d9912a",
+      "blob": "6c6df308f0d4dc93314dd6b6b279322b8d26aa00",
+      "caller_byte_exact": true
+    },
+    {
+      "path": "core/weapon_system.gd",
+      "sha256": "91ea8104477174c2e29f127e31994443743ae455ef8ea893b68448394702230b",
+      "blob": "faaad34a36681edb15e6d3ea56b972c79b66ffcf",
+      "caller_byte_exact": true
+    },
+    {
+      "path": "data/scripts/projectile_spec.gd",
+      "sha256": "082e29508b6b87b5281db764b63cb8b4fd4d15c167e285f628a482ba6199583f",
+      "blob": "cb77641bf4572f640f0fad60036aca5101baec4c",
+      "caller_byte_exact": true
+    },
+    {
+      "path": "data/scripts/weapon_data.gd",
+      "sha256": "3b3cb0f85c7151dce81bfa8f06b02bb70135683fb970b1b5cc65a44721cb7ab8",
+      "blob": "e48322f3f62bc1e0593f405fc53344314cf7b6f4",
+      "caller_byte_exact": true
+    },
+    {
+      "path": "data/scripts/weapon_upgrade_data.gd",
+      "sha256": "ec5835db9a95f3d440d61f0b79559091a23113b63c51384d42e61e6326f961e1",
+      "blob": "4f348899b1dc97dcde99372e061c31b5a9f9ed98",
+      "caller_byte_exact": true
+    },
+    {
+      "path": "design/20-campaign-experience/WEAPON_COMBOS.md",
+      "sha256": "5ecbd3cd490b1f9f25e291805e1047cc3cf445a579fe978685311752559a90ae",
+      "blob": "2cebe2a35c23114c39110bc56edcdc152f3fb898",
+      "caller_byte_exact": true
+    },
+    {
+      "path": "game/player/melee_set.gd",
+      "sha256": "587ce5ba303f457c8d87a41894be1f0c09cc1a097d5c332d2b9954a8f9435034",
+      "blob": "40a2d43e9ebc5544258c4267d180e677edef93fb",
+      "caller_byte_exact": true
+    },
+    {
+      "path": "game/player/player.gd",
+      "sha256": "c12ac1c409217b321659a3969e71edf6d1e029acf182a45893ea41e7d72e2c01",
+      "blob": "fe115e55c77d83a752ac0ba2928bfae0fdadb858",
+      "caller_byte_exact": true
+    },
+    {
+      "path": "game/vehicles/vehicle.gd",
+      "sha256": "cf362996fa80d0ab587c27d5de1320d73eb60b90f83f9bf70ab965c473ef5767",
+      "blob": "27ddbad4f525030412c5f23d486bd2d80a204048",
+      "caller_byte_exact": true
+    },
+    {
+      "path": "tests/fixtures/test_no_such_attack_catalog_corrupt.json",
+      "sha256": "6c50bb969b5bf485ae29cb84e3e4916a5d709bbc01d5376e1ff46b18190dfd7b",
+      "blob": "c4b43c68f8a8816dab1def8e9fb4ae3337abb694",
+      "caller_byte_exact": true
+    },
+    {
+      "path": "tests/helpers/contextual_ui_checks.gd",
+      "sha256": "402b544ac82e34735a11be121cd42ae0d274eac7f2cc59d93d77e25a255dfca0",
+      "blob": "a973032f292ba221db2e8c82093f1ce2f19a6f78",
+      "caller_byte_exact": true
+    },
+    {
+      "path": "tests/suite/test_feel.gd",
+      "sha256": "ed9bccac2fef6648f5781ae44c0e11f2efc1dcd1d0031b8e30d936b9acacfeb6",
+      "blob": "eb59150eb19f53ae5ccaccca81ea351dc61185fa",
+      "caller_byte_exact": true
+    },
+    {
+      "path": "tests/suite/test_melee_weapons.gd",
+      "sha256": "dfee6dc19628e80614723a62f70e38da698e65be7d09c46375909a68a620ea01",
+      "blob": "c943f816984992856ca707ea0efdb5129f4c4411",
+      "caller_byte_exact": true
+    },
+    {
+      "path": "tests/suite/test_progression.gd",
+      "sha256": "1383b3aa55ef70fe507d6f693c242443cdbc20ee9252b019d4247125d2b42986",
+      "blob": "56808b6a2ca5889aefb1761c62145cfe02414ac1",
+      "caller_byte_exact": true
+    }
+  ],
+  "balance27_exact_to_base": true,
+  "protected_paths_exact": [
+    "game/main.gd",
+    "game/level/level.gd",
+    "autoload/story.gd",
+    "core/run_snapshot.gd",
+    "game/player/player_visual.gd",
+    "game/rig/character_rig.gd",
+    "game/rig/rig_input.gd",
+    "autoload/fx.gd",
+    "tests/suite/test_phone_booth.gd",
+    "tests/smoke_test.gd",
+    "tools/run_tests_changed.sh",
+    "tools/run_tests_parallel.sh",
+    "tools/select_tests.py",
+    "tools/test_filters.sh",
+    "tests/known_failures.txt"
+  ],
+  "original_assertion_callsite_subsequence": {
+    "tests/suite/test_progression.gd": {
+      "base": 74,
+      "candidate": 145,
+      "exact_order": true
+    },
+    "tests/suite/test_melee_weapons.gd": {
+      "base": 128,
+      "candidate": 145,
+      "exact_order": true
+    },
+    "tests/suite/test_feel.gd": {
+      "base": 148,
+      "candidate": 153,
+      "exact_order": true
+    },
+    "tests/helpers/contextual_ui_checks.gd": {
+      "base": 34,
+      "candidate": 34,
+      "exact_order": true
+    }
+  },
+  "raw12_index_exact": true,
+  "packet_manifest_entries": 51,
+  "packet_manifest_mismatches": [],
+  "final_raw_result": {
+    "actual_recorded_test_HEAD": "25f052ab58c0bd1286bbf04e3ced1fe65d4e66e5",
+    "test_HEAD_object_not_available_via_authorized_branch_fetch": true,
+    "source17_test_manifest_hashes_match_published": true,
+    "groups": 72,
+    "checks": 83447,
+    "failures": 0,
+    "exit": 0,
+    "Script_Parse_Compile": 0,
+    "expected_negative_errors": 180,
+    "exit_diagnostics": 2,
+    "unexpected_errors": 0,
+    "engine": "Godot4.7.2 official headless",
+    "no_Phone_overlay": true,
+    "persistent_header_probe_present": true
+  },
+  "old_Phone_2_failures": "preserved; original uninstrumented causes not attributed, not marked known or fixed",
+  "NE237_PM": "in progress; first2 acceptance checked preexisting, remaining5 unchecked; review-only Commit3 not final delivery",
+  "Root_integration_risks": [
+    "Progression preserve current atomic busy guard, apply only prepare_install and upgrade_catalog hunks",
+    "Player/WeaponSystem/ProjectilePool must narrow compose with ST16 proof/nonlethal paths, not whole-file overwrite",
+    "ContextualUI diagnostic probe separately review; no_Phone_overlay does not mean all diagnostic instrumentation absent",
+    "Main/coldContinue/controller/Forward+ native acceptance pending"
+  ],
+  "source_logic_blockers_found_in_requested_preflight_tail_scope": []
+}

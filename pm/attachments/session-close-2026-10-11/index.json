@@ -1,0 +1,691 @@
+{
+  "status": "HANDOFF_ONLY; unverified code stays off main",
+  "cloud_evidence_head": "16d448d8ed10ae90ba1514c8aaeb942b218ebd2c",
+  "private_source_head": "a5f2a1ba9eb64233b56108c3e930c68bffa52158",
+  "cloud_result": {
+    "checks": 86162,
+    "new_failures": 126,
+    "known_failures": 0,
+    "script_errors": 3,
+    "exit": 1
+  },
+  "cloud_causal_classification": "provisional cloud review; not a root proof that every group is fixed",
+  "files": [
+    {
+      "path": "pm/attachments/session-close-2026-10-11/story-contract-migration.zip",
+      "bytes": 145022,
+      "sha256": "2b02f49344a33b518ae1612637e3aae8bfe108b4f520a3b83d549bf9f93618bf",
+      "files_in_archive": 31
+    },
+    {
+      "path": "pm/attachments/session-close-2026-10-11/story-typed-flag-review.zip",
+      "bytes": 80249,
+      "sha256": "d2017ebbf59373a2b369b35d7c82a81b109cfdc6df618cebbb229a50658ada03",
+      "files_in_archive": 17
+    },
+    {
+      "path": "pm/attachments/session-close-2026-10-11/hud-hover-modal-candidate.zip",
+      "bytes": 118500,
+      "sha256": "d5bffeb91825e6538ce9ab809802e351d929ff4164cd7d8c363d8488f0b162be",
+      "files_in_archive": 13
+    },
+    {
+      "path": "pm/attachments/session-close-2026-10-11/ne246-native-evidence.zip",
+      "bytes": 1128566,
+      "sha256": "eb2c63da6d18406f53a7dab6e1d36fab66eabe7e7b280992b83168c176f8eb0a",
+      "files_in_archive": 42
+    },
+    {
+      "path": "pm/attachments/session-close-2026-10-11/st16-unapplied-source-bundle.zip",
+      "bytes": 2056794,
+      "sha256": "f3764dc4b4b842015758e956f9963ff64f87c78fed16ce57450c884bb1177f3f",
+      "files_in_archive": 480
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-246-story-cloud-evidence/cloud/README.md",
+      "bytes": 2114,
+      "sha256": "224102cf6918e0882c59ee58410bfc1f8d9a7574b1d27ff8dcce6bf589e0b88d"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-246-story-cloud-evidence/cloud/failures.csv",
+      "bytes": 33481,
+      "sha256": "012bf26e23dbb43ba3273e620f241d515afe19d2239f2297a18471a45e532809"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-246-story-cloud-evidence/cloud/raw/import-network-enabled.raw.log",
+      "bytes": 1017,
+      "sha256": "f15ffd4c558b01611d562c8c257508942bdc2dc542124f423ae2a592a46edfa6"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-246-story-cloud-evidence/cloud/raw/import-private-profile.raw.log",
+      "bytes": 641323,
+      "sha256": "a9c0151d62620d9b7e7d2ac6780c5886b3a5a07748b83b7be2e449123769a78f"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-246-story-cloud-evidence/cloud/raw/import-unconfigured-aborted.raw.log",
+      "bytes": 645994,
+      "sha256": "68c7c32725c7651183c349718f42eeeba2f6c5b1a079f7477d9ad7720eadcdb2"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-246-story-cloud-evidence/cloud/raw/preflight.raw.txt",
+      "bytes": 1487,
+      "sha256": "75efc013a2cc53a14acc66d64c020b9d74213a3e14767eed6c5c3942bfc0e6bb"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-246-story-cloud-evidence/cloud/raw/runner.console.raw.log",
+      "bytes": 14737,
+      "sha256": "71ec8be6070542ac6415da1d459ffccb4f3b95c57ea8cfb12995c88a25ce2ff3"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-246-story-cloud-evidence/cloud/raw/shard_0.log",
+      "bytes": 335632,
+      "sha256": "b8c1110a6d437d908a0b17169eeca3d0077ff12a39b621fb84d912f90fd70ed0"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-246-story-cloud-evidence/cloud/run-manifest.json",
+      "bytes": 3701,
+      "sha256": "440fa38c6bf0657201f96fbc28e454d5f08a1b20620226cf7d3ba2054cf5a363"
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-246-story-cloud-evidence/cloud/source-manifest.json",
+      "bytes": 35151,
+      "sha256": "b1b2a3b7ba8e7f95903ddc04b1f57b999c5d0222fa4fc6aa48a1d739d9cb7967"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-246-handoff-reading-tooltip.png",
+      "bytes": 430553,
+      "sha256": "fdd4be0c6dcc54b6aeef363f70f59d809ea5973a549a1dd3fab921daf4e1d4ce"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-246-handoff-pause-tooltip.png",
+      "bytes": 246841,
+      "sha256": "02afa4cf906d453c1a7412ea2b7060a385f238181f0b9a395b716df1ce9a34af"
+    },
+    {
+      "path": "pm/user_guide.md",
+      "bytes": 16534,
+      "sha256": "7c5c695c834305500f2e7f6a208948b8d942ea8fff10da6fe00e738b3a7d1ba1"
+    },
+    {
+      "path": "pm/SESSION_HANDOFF_2026-10-11.md",
+      "bytes": 10516,
+      "sha256": "cdd8e94362141c98111cfd0476268f235f22c02493849f054882d30a97d52a0b"
+    },
+    {
+      "path": "pm/attachments/session-close-2026-10-11/owned-diagnostic-sources.zip",
+      "bytes": 46560,
+      "sha256": "b8b300fd1556fa187b65b769d05551d17630fdce82d34c069ec7ee74a951b0be",
+      "files_in_archive": 18
+    },
+    {
+      "path": "pm/attachments/session-close-2026-10-11/bg31-historical-evidence.zip",
+      "sha256": "bba459ff974e5f3d420b5cb01e6575739db8db3eeb2912a9bd8be1e76dfd6986",
+      "bytes": 478388
+    },
+    {
+      "path": "pm/attachments/session-close-2026-10-11/weapon-cpu-README.md",
+      "sha256": "f76f1a498128d45bc9f7683d8ccc14579f6f09673dd4af49e79ab580af8ede58",
+      "bytes": 7612
+    },
+    {
+      "path": "pm/attachments/session-close-2026-10-11/weapon-cpu-audit.json",
+      "sha256": "b0a4dbae81f3d488817d7ded77c903012b93cd0b951cba1d1de4f3f65a2d7b7b",
+      "bytes": 6922
+    },
+    {
+      "path": "pm/.gdignore",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "pm/attachments/session-close-2026-10-11/.gitattributes",
+      "sha256": "730a35ae3d558080083c3103d9ac8100c3f6561678092abe341701dfa331eb1d",
+      "bytes": 29
+    },
+    {
+      "path": "pm/Nest-Egg/attachments/NE-246-story-cloud-evidence/cloud/.gitattributes",
+      "sha256": "7b148d2b04f5cd5c3d71e198fcf756d5a18b8e8559012c7ecf06b7a3161b3798",
+      "bytes": 84
+    },
+    {
+      "path": "pm/attachments/session-close-2026-10-11/bg31-publication-receipt.json",
+      "sha256": "bb8f6a3d01abf0830407bc5a86e8287732a762741e5a7d04c40a745982a4d5e7",
+      "bytes": 4240
+    },
+    {
+      "path": "pm/attachments/session-close-2026-10-11/final-source-sync-receipt.json",
+      "sha256": "77789c8f6a1adca0b1fc941151d7203699d5a709a256d4a3a1257bf28756ef97",
+      "bytes": 2229
+    },
+    {
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-primary-main/README.md",
+      "sha256": "04d02cc95d7772c58d49fdd9c4f6923533e9821c611e5b3089082d5fc06821aa",
+      "bytes": 3823,
+      "preimage_sha256": "249953a8f19ef96b8b1ce0426681143749aafa58f32ccf617724832dbbd48d70"
+    }
+  ],
+  "cleanup_plan": [
+    {
+      "root": "C:\\Users\\stanl\\.codex\\worktrees\\chapter-one-runtime\\Nest-Egg",
+      "path": "tools/bg31_main_thread_canvas_probe.gd",
+      "sha256": "78750cc8a937780b5232cc43c1eba2f015c5151ded59c3f8470d5efdc47b0e9f",
+      "bytes": 15279,
+      "reason": "Session-owned standalone diagnostic; archived, not runtime dependency"
+    },
+    {
+      "root": "C:\\Users\\stanl\\.codex\\worktrees\\chapter-one-runtime\\Nest-Egg",
+      "path": "tools/bg31_main_thread_canvas_probe.gd.uid",
+      "sha256": "d1eb9b73e120106aae84a2bf18146d8f481c3cba7d101195be1b07dba5ea9761",
+      "bytes": 20,
+      "reason": "Session-owned standalone diagnostic; archived, not runtime dependency"
+    },
+    {
+      "root": "C:\\Users\\stanl\\.codex\\worktrees\\chapter-one-runtime\\Nest-Egg",
+      "path": "tools/bg31_main_thread_canvas_probe.tscn",
+      "sha256": "4c8a8b81eefd5295fdcec07bb3efdea31eb1ece50eb7d3e72e095e927b421b65",
+      "bytes": 203,
+      "reason": "Session-owned standalone diagnostic; archived, not runtime dependency"
+    },
+    {
+      "root": "C:\\Users\\stanl\\.codex\\worktrees\\chapter-one-runtime\\Nest-Egg",
+      "path": "tools/bg31_prefetch_canvas_probe.gd",
+      "sha256": "e72842c2fe98a6fe20e6fed25d4acf0f3c86f4b41829d751adb7231b7c2325db",
+      "bytes": 11233,
+      "reason": "Session-owned standalone diagnostic; archived, not runtime dependency"
+    },
+    {
+      "root": "C:\\Users\\stanl\\.codex\\worktrees\\chapter-one-runtime\\Nest-Egg",
+      "path": "tools/bg31_prefetch_canvas_probe.gd.uid",
+      "sha256": "6b22125472c2d24d5e1f1623d95c47f3b3eb35ffa48f46db227fd202b2ef7329",
+      "bytes": 20,
+      "reason": "Session-owned standalone diagnostic; archived, not runtime dependency"
+    },
+    {
+      "root": "C:\\Users\\stanl\\.codex\\worktrees\\chapter-one-runtime\\Nest-Egg",
+      "path": "tools/bg31_prefetch_canvas_probe.tscn",
+      "sha256": "3d34d4a29861141360d7671cbf606b1aeab47901fedf2a16c553fd0642c67003",
+      "bytes": 198,
+      "reason": "Session-owned standalone diagnostic; archived, not runtime dependency"
+    },
+    {
+      "root": "C:\\Users\\stanl\\.codex\\worktrees\\chapter-one-runtime\\Nest-Egg",
+      "path": "tools/ch1_once_ali_probe.gd",
+      "sha256": "2242dcdfc4cebdcf5f872071d44eda753f74d08330563b9fd62d8415bb95291e",
+      "bytes": 26054,
+      "reason": "Session-owned standalone diagnostic; archived, not runtime dependency"
+    },
+    {
+      "root": "C:\\Users\\stanl\\.codex\\worktrees\\chapter-one-runtime\\Nest-Egg",
+      "path": "tools/ch1_once_ali_probe.gd.uid",
+      "sha256": "fa9a79ad06d2b2ada9aa574843dc57512064535cd759039c549b464dabd185e7",
+      "bytes": 20,
+      "reason": "Session-owned standalone diagnostic; archived, not runtime dependency"
+    },
+    {
+      "root": "C:\\Users\\stanl\\.codex\\worktrees\\chapter-one-runtime\\Nest-Egg",
+      "path": "tools/ch1_once_ali_probe.tscn",
+      "sha256": "8819e63089ce4a11868e1998feb2c43be22f93d4c5ee898614ee21ae322fb6f7",
+      "bytes": 180,
+      "reason": "Session-owned standalone diagnostic; archived, not runtime dependency"
+    },
+    {
+      "root": "C:\\Users\\stanl\\.codex\\worktrees\\chapter-one-runtime\\Nest-Egg",
+      "path": "tools/ch1_once_ali_reading_rid_probe.gd",
+      "sha256": "334c654af65538380e89da665d3ceabf44dd1c868ebc1e7ccee3a47d0725e1ba",
+      "bytes": 31799,
+      "reason": "Session-owned standalone diagnostic; archived, not runtime dependency"
+    },
+    {
+      "root": "C:\\Users\\stanl\\.codex\\worktrees\\chapter-one-runtime\\Nest-Egg",
+      "path": "tools/ch1_once_ali_reading_rid_probe.gd.uid",
+      "sha256": "f975a5a6905b61ced3d67198fd18e61d21985b6e80615fd11957c3d6c022fdc9",
+      "bytes": 20,
+      "reason": "Session-owned standalone diagnostic; archived, not runtime dependency"
+    },
+    {
+      "root": "C:\\Users\\stanl\\.codex\\worktrees\\chapter-one-runtime\\Nest-Egg",
+      "path": "tools/ch1_once_ali_reading_rid_probe.tscn",
+      "sha256": "e7d4c855814d111433367bbee922c30463a7616ae88c8e9689f0a3bd44d6c369",
+      "bytes": 195,
+      "reason": "Session-owned standalone diagnostic; archived, not runtime dependency"
+    },
+    {
+      "root": "C:\\Users\\stanl\\.codex\\worktrees\\chapter-one-runtime\\Nest-Egg",
+      "path": "tools/ch1_once_ali_rid_probe.gd",
+      "sha256": "df7154971d534ecc2d83e9ed43970b04579ea32d215a9cec6efaac2716cd2f28",
+      "bytes": 31718,
+      "reason": "Session-owned standalone diagnostic; archived, not runtime dependency"
+    },
+    {
+      "root": "C:\\Users\\stanl\\.codex\\worktrees\\chapter-one-runtime\\Nest-Egg",
+      "path": "tools/ch1_once_ali_rid_probe.gd.uid",
+      "sha256": "dba2a254a7c2150723f15a81ff0567b25b4d2514bae96eceefaba9ed84f2f8d7",
+      "bytes": 19,
+      "reason": "Session-owned standalone diagnostic; archived, not runtime dependency"
+    },
+    {
+      "root": "C:\\Users\\stanl\\.codex\\worktrees\\chapter-one-runtime\\Nest-Egg",
+      "path": "tools/ch1_once_ali_rid_probe.tscn",
+      "sha256": "4defa4d0f99589cdbb0222bf1685c13fcade4504f9b31beb6d0349cc71da3c3e",
+      "bytes": 187,
+      "reason": "Session-owned standalone diagnostic; archived, not runtime dependency"
+    },
+    {
+      "root": "C:\\Users\\stanl\\.codex\\worktrees\\chapter-one-runtime\\Nest-Egg",
+      "path": "tools/ne246_combat_reading_native_probe.gd",
+      "sha256": "218d30911f4cdf9d512a8fa7ca43815a1695b18fec818f1618f8d05eb7694f91",
+      "bytes": 17635,
+      "reason": "Session-owned standalone diagnostic; archived, not runtime dependency"
+    },
+    {
+      "root": "C:\\Users\\stanl\\.codex\\worktrees\\chapter-one-runtime\\Nest-Egg",
+      "path": "tools/ne246_combat_reading_native_probe.gd.uid",
+      "sha256": "022cd2d270c0973b289e1735daa7e5b7a3db8471c6bd19c0a538fd4ff985ef88",
+      "bytes": 19,
+      "reason": "Session-owned standalone diagnostic; archived, not runtime dependency"
+    },
+    {
+      "root": "C:\\Users\\stanl\\.codex\\worktrees\\chapter-one-runtime\\Nest-Egg",
+      "path": "tools/ne246_combat_reading_native_probe.tscn",
+      "sha256": "b397084b3c904e8eff60cef3512d8a87590c234688d42b3e36b023ccea5fcc1e",
+      "bytes": 209,
+      "reason": "Session-owned standalone diagnostic; archived, not runtime dependency"
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/.gitattributes",
+      "sha256": "f06202a408fef9b9ea69bb6b1cb8160dbb0378c5bb67a444d510d231813824c8",
+      "bytes": 30,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/candidate/freeze-manifest.json",
+      "sha256": "e440ddb49400f36e46f6582e97707ef2c3d497e5226f78af1877c09281cb4e9f",
+      "bytes": 2265,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/copied-evidence-index.json",
+      "sha256": "b16823d5ad46e7a3d7d76160d6fa50e6fae3fb8fdb5ba9f4308ba980661e6c6e",
+      "bytes": 6865,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/primary-import/import.log",
+      "sha256": "160724c29accaf086e5f0aab961d053eae6196e3e0d73232b116e29d0b611c3e",
+      "bytes": 30961,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/primary-import/result.json",
+      "sha256": "ead89ff063e96bcda7f2450e2fbee820763223c442aa1cd54cba59431d6c8998",
+      "bytes": 453,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/primary-production/memory.actual.translation",
+      "sha256": "c10292c74cb9e9d56917c378ac534892b34a24b7923dd556d308d97ff4b010b5",
+      "bytes": 1563,
+      "reason": "Unused generated CSV translation/import",
+      "archived": false
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/primary-production/memory.csv",
+      "sha256": "4ca8007ff0f09b9b0bdf3b3172a651be51ee44d44ac98687083ab4a51187a40d",
+      "bytes": 1158,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/primary-production/memory.csv.import",
+      "sha256": "aedab983597454e7b7882452f5c26c0a720dea2ef06ae984f9244dcc8538c2e3",
+      "bytes": 876,
+      "reason": "Unused generated CSV translation/import",
+      "archived": false
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/primary-production/memory.private.translation",
+      "sha256": "12d7bc091576bf3058ff717969be3a6fbbce01d4182ae7983d076ab4fb2bf48e",
+      "bytes": 1700,
+      "reason": "Unused generated CSV translation/import",
+      "archived": false
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/primary-production/memory.working.translation",
+      "sha256": "1e2c906d8d931d33a391a687d76120e21eeb024ebc5ffd763596c2f2525d2194",
+      "bytes": 1700,
+      "reason": "Unused generated CSV translation/import",
+      "archived": false
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/primary-production/native.log",
+      "sha256": "1449b874d70053510175a5504fc438b8c89122f149b7b3dfd5663d547bbbe598",
+      "bytes": 205,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/primary-production/report.json",
+      "sha256": "a7e87ca69207182304e54f37f4e4d14d95ede24b4e6f1ed83f70079e6c2cbb2b",
+      "bytes": 569391,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/primary-production/result.json",
+      "sha256": "c2233b174cb43212699c1b9ed15f8a20298e4cd08246afe49103cf8c654bb8d1",
+      "bytes": 752,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/primary-production/source-manifest.json",
+      "sha256": "06063711806297d7c0a83690bc9ee6691633bc5245b173c77f66f2b8b6e3271e",
+      "bytes": 1343424,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/primary-tests/launch.json",
+      "sha256": "61ec31329049b4b949f0495ceba21f85c4c83fea06e061a3c9a5ecc16543f2f2",
+      "bytes": 299,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/primary-tests/result.json",
+      "sha256": "ef2ecf8417cced0f9bca06b44f4226fcf6f7fde1c936042965513721f4519695",
+      "bytes": 713,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/primary-tests/runner.log",
+      "sha256": "cb2e81c2720821227ca7185e0107b7d84fe3c5679b604746846441b08c82f113",
+      "bytes": 447,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/primary-tests/shard_0.log",
+      "sha256": "4b59efbf3f9f5a1a099fa9fc32facf440d0af11a5a0b9410c73f0a9746cc228e",
+      "bytes": 17876,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/primary-tests-first-red/result.json",
+      "sha256": "54bfa9ad59726bbc40334f8c1edf6f344aee662fb2322823df277291002c766a",
+      "bytes": 184,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/primary-tests-first-red/root-stop-classification.json",
+      "sha256": "4317a262fb90d7a4ea65f816efe9b121710f1347c89ad41808868ae8e2c7f7c6",
+      "bytes": 491,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/primary-tests-first-red/runner.log",
+      "sha256": "6bd4383dbae6741beded54e4d5fe8ca3dd5b28e881ec0081530bbe2c4315b12e",
+      "bytes": 539,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/primary-tests-first-red/shard_0.log",
+      "sha256": "7ddd53938e1e9b43e88e71eac42dfe6adc8262c6f542e3c6922d8a2cb4475569",
+      "bytes": 3129,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-main/cold-complete-memory.csv",
+      "sha256": "29c6515fb4ad36b4a93fa2367808f1af5fb521976991b3e895f647b7c9b3a4f5",
+      "bytes": 2197,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-main/cold-complete-memory.csv.import",
+      "sha256": "c47505f8370f7f09ded8fbfb69946da83acd8b2353bc3a251930fae0df75fc9e",
+      "bytes": 930,
+      "reason": "Unused generated CSV translation/import",
+      "archived": false
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-main/cold-complete-memory.owned.translation",
+      "sha256": "b2dde8776e674487d28ff434d080ad79e7d2c02b10cc0e7d5a917dd239485b81",
+      "bytes": 2562,
+      "reason": "Unused generated CSV translation/import",
+      "archived": false
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-main/cold-complete-memory.private.translation",
+      "sha256": "de55a7247f617aadd661046fa1765d0caac63599ef557f5ac6c0a07417c28de7",
+      "bytes": 2840,
+      "reason": "Unused generated CSV translation/import",
+      "archived": false
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-main/cold-complete-memory.working.translation",
+      "sha256": "5b78da72b4e88e497a92f8511e5f1301fdf05ebfda2efc87edaf8f31281f3952",
+      "bytes": 2812,
+      "reason": "Unused generated CSV translation/import",
+      "archived": false
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-main/cold-complete-summary.json",
+      "sha256": "fe439370a520b8b56f6fe7fb49270e8b6454c5a99c1e807ec2b3cefd075a300f",
+      "bytes": 2549,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-main/cold-complete-wrapper.json",
+      "sha256": "3c655fad8c9c119b7ea38fb45d7b6a5720e62fcc5f3beed3fbbc0a3441d14390",
+      "bytes": 1007,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-main/cold-complete.log",
+      "sha256": "dc3b277974cff20c61e0ac059e69f759a2475c7dbb67629e359ab36b86b29e79",
+      "bytes": 23268,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-main/record-rejection-memory.csv",
+      "sha256": "14f953031e1bfca5fda85906b220b43e4e988c0209de646cddfed2ea81f8ec6c",
+      "bytes": 4659,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-main/record-rejection-memory.csv.import",
+      "sha256": "b11bb83dde39bc067fa1e2a5d18de57103a86312d260ec6bbeef7c64b65c5f6d",
+      "bytes": 952,
+      "reason": "Unused generated CSV translation/import",
+      "archived": false
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-main/record-rejection-memory.owned.translation",
+      "sha256": "5e86f260ce7ef53ec64c188ce51dabce720fa62e5f6e90a52ed172f565d7bbea",
+      "bytes": 4882,
+      "reason": "Unused generated CSV translation/import",
+      "archived": false
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-main/record-rejection-memory.private.translation",
+      "sha256": "ee0d23e910d90297ae22dc5ade53ba556066f2ec17a97b6b343201493e0df56d",
+      "bytes": 5660,
+      "reason": "Unused generated CSV translation/import",
+      "archived": false
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-main/record-rejection-memory.working.translation",
+      "sha256": "3924a9aa8d456f75cc80dd4a7934a5375f0f2c903d321f8cc7b1e0fc0a75723b",
+      "bytes": 5572,
+      "reason": "Unused generated CSV translation/import",
+      "archived": false
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-main/record-rejection-summary.json",
+      "sha256": "948b3b3aa531112c3660ad4505480adb3b06c5b60c59503bfed4473df184836b",
+      "bytes": 8063,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-main/record-rejection-wrapper.json",
+      "sha256": "f55a2558d9e1ee22ac5231acc7216373b0bae02c24e6f799be62933e5361eb2f",
+      "bytes": 1012,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-main/record-rejection.log",
+      "sha256": "333b2e6e7b3f56f072ebf1f47908c6486b7a988997aba7a4ad3d8adcca7779f4",
+      "bytes": 6745,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-production/memory.actual.translation",
+      "sha256": "6cb9583b1be6aa30030197b03599079f6d618e479308ee8f20f0e381d1163b68",
+      "bytes": 1827,
+      "reason": "Unused generated CSV translation/import",
+      "archived": false
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-production/memory.csv",
+      "sha256": "a0fdfe2a6bd762667d0bd875a4b578123c338b4aadb1da23097bcadf96d4cf05",
+      "bytes": 1484,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-production/memory.csv.import",
+      "sha256": "dff5e237238a58bcf11ed813f73b58a304cdb26e4542a133708b5f32beae2f9c",
+      "bytes": 877,
+      "reason": "Unused generated CSV translation/import",
+      "archived": false
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-production/memory.private.translation",
+      "sha256": "1ba4e5cf6570db92fbc36be828e4755c1fcf15f0c722ca5bd263f53e9ea4b865",
+      "bytes": 1996,
+      "reason": "Unused generated CSV translation/import",
+      "archived": false
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-production/memory.working.translation",
+      "sha256": "adeac19d8b5f78f6edadc649b36b34d93bdb990bec30aaf94993a3ff54c1cedf",
+      "bytes": 1996,
+      "reason": "Unused generated CSV translation/import",
+      "archived": false
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-production/native.log",
+      "sha256": "8922cdb53607d444f3b85df7c9216f4ce803bb76d5c7d83634c9a3c58dac5449",
+      "bytes": 205,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-production/report.json",
+      "sha256": "10dc201643705a88756406b2655ebaae0158eb15e75485fe959fc9950b278bb8",
+      "bytes": 568868,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/private-production/result.json",
+      "sha256": "50a4c1225efe87f0e69bdfc62a9db96d7fb0864f39d2eb91473b131079b42d9f",
+      "bytes": 739,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    },
+    {
+      "root": "C:\\Github\\Nest-Egg",
+      "path": "pm/Nest-Egg-BG/attachments/BG-31-render-fix/review/audit.json",
+      "sha256": "0e26c7c2c083e2002d7df21a6d6ccf901b34307b47c404b7ff486a7ae47f1825",
+      "bytes": 11275,
+      "reason": "Session-owned historical evidence archived once",
+      "archived": true
+    }
+  ],
+  "cleanup_status": "COMPLETED_65_EXACT_FILES",
+  "external_work_preserved": [
+    "primary BG-17",
+    "primary ST-1",
+    "foreign untracked artwork/UID",
+    "other Sessions and unmerged worktrees"
+  ],
+  "bg31_historical_raw_files": 31,
+  "unused_generated_csv_metadata": 16,
+  "stop_development_requested": true,
+  "bg31_main_commit": "1ade0c7fc3ed4545e737d07a611a2a838941088d",
+  "tests4": "2576/0 original selected7",
+  "final_sync_runtime_count": 7790,
+  "final_sync_runtime_bytes_unchanged": true,
+  "own_remote_branch_old_patch_equivalence": "git cherry origin/main origin/codex/bg31-main-thread-prefetch: - 1cc56d292fc36e6169549609e552a2ed48744a4e",
+  "no_more_development": true,
+  "cleanup_receipt": "cleanup-receipt.json",
+  "cleanup_receipt_sha256": "6096187ea2e0ef6b2ea85a024397c73950e96e7c5078ddd0d08f4ed069559461",
+  "pm_asset_import_excluded": true,
+  "raw_whitespace_policy": "Original raw output preserved byte-for-byte; only cloud/raw Git whitespace checks accept its original trailing spaces."
+}

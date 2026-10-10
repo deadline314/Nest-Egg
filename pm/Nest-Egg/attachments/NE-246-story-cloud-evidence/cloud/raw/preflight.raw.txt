@@ -1,0 +1,26 @@
+cwd=/workspace/work/ne246-review/checkout
+head=a5f2a1ba9eb64233b56108c3e930c68bffa52158
+parent=2dab08d7a433d49af5ae8419ddcc794a16c83994
+origin_main=7e3289808d00e339c0662f26d1ab61c02de0f9d6
+changed_vs_parent=148
+selector=ALL
+runner_hashes
+14d71b3922cd580b9f85b774d431a3ff7e1e7e2ff0c1d5052740aac8b3ae604a  tools/run_tests_changed.sh
+0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba  tools/run_tests_parallel.sh
+9ba6c288341e885979d7e171509e907b46b2b7347f1fc99e4145ec5d83986c03  tools/select_tests.py
+319fea9acacfdad9f7dab7948ea5a2d76652757623b428829605160a210e678a  tools/test_filters.sh
+b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf  tests/known_failures.txt
+candidate_lf_hashes
+cf1e279f486d0e9497150d9ff3639f651960db70b5ce4f4e307a21f9037b80e4  core/story_run_source.gd
+78eaaed37e0f473a5ce0c864ce579ae5604ebc9bfe2806bfa998e421f00e469c  core/run_snapshot.gd
+a10fa32095196f7f3e719587386482cac12b59b48525bb5e3e917e16e1365148  core/story_run_commit_port.gd
+011317ebc170e2209ac3e598db3f798d76814ce737533becafb39cf2c24fd9b4  tools/formal_radio_native_acceptance_driver.gd
+bb1c57022c2e0226e24d5bef3fee277954ae680d60603d48000e9481ce9cab1d  tools/ne246_formal_reading_native_probe.gd
+status
+## HEAD (no branch)
+?? game/projectiles/projectile_art.gd.uid
+?? tools/environment_steam_probe.gd.uid
+?? tools/pixel_ui_capture.gd.uid
+?? tools/projectile_visual_capture.gd.uid
+disk_bytes=1333952512
+memory_events=low 0 high 0 max 153922 oom 0 oom_kill 0 oom_group_kill 0 

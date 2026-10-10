@@ -1,0 +1,131 @@
+改到整個專案或測試流程本身，跑全部測試。
+Running 83 groups in 1 processes (logs: /workspace/work/ne246-review/logs/runner)
+  process 0 (estimated 2290 s): main,WorldPromptSuite,UiScreensSuite,UiKitSuite,TransitionSuite,SupplySuite,StrikeEnemiesSuite,StoryLintSuite,StoryContentSuite,StageCoverageWorldSuite,StageCoverageWeaponsSuite,StageCoverageCharactersSuite,SoundStageSuite,SoundLabSuite,SceneSanitySuite,RunSaveSuite,RigMeshSuite,RigActionsSuite,ReloadCuesSuite,ReconEnemiesSuite,ReclaimerSuite,ReadabilityTargetsSuite,QuestMapSuite,ProtagonistMotionSuite,PropsSuite,ProgressionSuite,PostureSuite,PoseMeshSuite,PhoneBoothSuite,PartCreatureSuite,PacingSuite,NpcSuite,NpcLifeSuite,NpcAnimationSuite,NewEnemiesSuite,MusicSuite,MeleeWeaponsSuite,MeleeSuite,MapBubblesSuite,LocomotionSuite,LayerOrderSuite,InputFeelSuite,HitReactionSuite,HeavyGunnerArtDeliverySuite,HeavyEnemiesSuite,FxUpgradesSuite,FxMeleePickupsSuite,FloodPitSuite,FeelToolsSuite,FeelSuite,FeelLabSuite,EyeBlinkSuite,ExposureSuite,ExoticEnemiesSuite,EnvironmentSuite,EnforcerArtDeliverySuite,EnemyVfxSuite,EncounterSuite,EconomySuite,DevMenuSuite,DeathReactionSuite,DeathFlowSuite,CutsceneSuite,ContinuitySuite,CombatHudSuite,CollectiblesSuite,ClipEditorSuite,CharactersSuite,ChapterCutscenesSuite,Chapter2Suite,Chapter2ExpansionSuite,Chapter2ArtSuite,Chapter1MapSuite,Chapter1EnemiesSuite,ChainCreatureSuite,AudioSuite,AttackTokensSuite,AssaultEnemiesSuite,AreasSuite,ApplyPanelSuite,AnimAuditSuite,AmmoTraySuite,AmmoIconsSuite
+[process 0] NEW FAILURE: cancel second same-id request publishes no second completion/reward
+[process 0] NEW FAILURE: ch1_c01_open enforces supported poses
+[process 0] NEW FAILURE: ch1_c01_open has reasons and supports for restricted poses
+[process 0] NEW FAILURE: ch1_c09_wake enforces supported poses
+[process 0] NEW FAILURE: ch1_c14_home enforces supported poses
+[process 0] NEW FAILURE: catalog includes existing translations and chapter subtitles: ja
+[process 0] NEW FAILURE: catalog includes existing translations and chapter subtitles: en
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_egret_brief_revisit (1)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_handoff_confirm (1)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_handoff_accept (1)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_handoff_receipt_prompt (1)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_handoff_receipt (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_handoff_summary_prompt (1)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_handoff_revisit (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_ali_meet_unknown (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_ali_1 (1)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_ali_sit (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_ali_evening_close (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_ali_late_topic (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_ali_evening_revisit (1)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_supper_leave_options (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_supper_pay (1)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_supper_insufficient (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_supper_tab_confirm (1)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_supper_tab (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_supper_tab_goodbye (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_supper_return (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_supper_leave_revisit_paid200 (1)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_supper_leave_revisit_owed200 (1)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_supper_leave_revisit_none (1)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_supper_host_prompt (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_supper_stay_host (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_supper_host_none_prompt (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_supper_stay_host_none (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_ali_4 (1)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_supper_stay_revisit (1)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_clinic_backup_registered (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_clinic_backup_missing (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_home_revisit (1)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_egret_sunday_prompt (1)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_egret_sunday_revisit (1)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_label_watch_revisit (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_label_guitar_revisit (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_label_raincoat_revisit (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_label_fare_revisit (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_lamp_voice_prompt (1)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_lamp_voice_second_prompt (1)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_lamp_voice_later (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_lamp_voice_revisit (1)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_clinic_tray_prompt (1)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_clinic_cloth_look (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_clinic_cloth_decide (1)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_clinic_cloth_take (2)
+[process 0] NEW FAILURE: a conversation has three to eight lines: ch1_t_clinic_cloth_leave (2)
+[process 0] NEW FAILURE: the first death plays the clinic scene directly
+[process 0] NEW FAILURE: the level asks for the respawn only after the scene
+[process 0] NEW FAILURE: the flag is written when the scene finishes
+[process 0] NEW FAILURE: a booth is registered as the respawn point
+[process 0] NEW FAILURE: the registered booth is the nearest one
+[process 0] NEW FAILURE: the next respawn announces the registration
+[process 0] NEW FAILURE: the respawn shows the booth-registered hint (["接下來回廚房吃老 K這次免收的晚飯"])
+[process 0] NEW FAILURE: the player wakes at the booth
+[process 0] NEW FAILURE: flag audit: 旗標「ch1_dinner_done」只有人讀、沒有人寫，永遠不會成立：res://data/levels/ch1_pawnshop.tres 的 requires_flag、res://data/levels/ch1_pawnshop_dawn.tres 的 requires_flag
+[process 0] NEW FAILURE: flag audit: 旗標「ch1_first_death_done」只有人讀、沒有人寫，永遠不會成立：章節 ch1_kasa 死亡場景 ch1_c09_wake 的 unless_flag
+[process 0] NEW FAILURE: flag audit: 旗標「ch1_handoff_done」只有人讀、沒有人寫，永遠不會成立：res://data/levels/ch1_handoff.tres 的 requires_flag
+[process 0] NEW FAILURE: flag audit: 旗標「ch1_heard_brief」只有人讀、沒有人寫，永遠不會成立：res://data/levels/ch1_pawnshop.tres 的 requires_flag、res://data/levels/ch1_pawnshop_dawn.tres 的 requires_flag
+[process 0] NEW FAILURE: flag audit: 旗標「ch1_lounge_evening_done」只有人讀、沒有人寫，永遠不會成立：res://data/levels/ch1_lounge.tres 的 requires_flag、res://data/npcs/ch1_ali_stall.tres 的 requires_flag
+[process 0] NEW FAILURE: flag audit: 旗標「ch1_supper_done」只有人讀、沒有人寫，永遠不會成立：res://data/levels/ch1_stall.tres 的 requires_flag
+[process 0] NEW FAILURE: flag audit: 旗標「ledger_disk_obtained」只有人讀、沒有人寫，永遠不會成立：res://data/levels/ch1_vault.tres 的 requires_flag
+[process 0] NEW FAILURE: the real flag table has no read-without-write flags and no near-duplicate names
+[process 0] NEW FAILURE: finishing the scene writes its flag
+[process 0] NEW FAILURE: reachability: 關卡「res://data/levels/ch1_booth_alley.tres」從起點走不到（出入口的旗標拿不到，或沒有任何出入口通往它）
+[process 0] NEW FAILURE: reachability: 關卡「res://data/levels/ch1_handoff.tres」從起點走不到（出入口的旗標拿不到，或沒有任何出入口通往它）
+[process 0] NEW FAILURE: reachability: 關卡「res://data/levels/ch1_lounge.tres」從起點走不到（出入口的旗標拿不到，或沒有任何出入口通往它）
+[process 0] NEW FAILURE: reachability: 關卡「res://data/levels/ch1_pawnshop_dawn.tres」從起點走不到（出入口的旗標拿不到，或沒有任何出入口通往它）
+[process 0] NEW FAILURE: reachability: 關卡「res://data/levels/ch1_rooftop.tres」從起點走不到（出入口的旗標拿不到，或沒有任何出入口通往它）
+[process 0] NEW FAILURE: reachability: 關卡「res://data/levels/ch1_stall.tres」從起點走不到（出入口的旗標拿不到，或沒有任何出入口通往它）
+[process 0] NEW FAILURE: reachability: 關卡「res://data/levels/ch1_street.tres」從起點走不到（出入口的旗標拿不到，或沒有任何出入口通往它）
+[process 0] NEW FAILURE: reachability: 關卡「res://data/levels/ch1_vault.tres」從起點走不到（出入口的旗標拿不到，或沒有任何出入口通往它）
+[process 0] NEW FAILURE: reachability: 關卡「res://data/levels/ch1_warehouse.tres」從起點走不到（出入口的旗標拿不到，或沒有任何出入口通往它）
+[process 0] NEW FAILURE: reachability: 關卡「res://data/levels/ch1_pawnshop.tres」通往「res://data/levels/ch1_street.tres」的出入口要旗標「ch1_heard_brief」，但整張圖裡沒有一個播得出的場景會設定它
+[process 0] NEW FAILURE: reachability: 關卡「res://data/levels/ch1_pawnshop.tres」通往「res://data/levels/ch1_rooftop.tres」的出入口要旗標「ch1_dinner_done」，但整張圖裡沒有一個播得出的場景會設定它
+[process 0] NEW FAILURE: every level is reachable and every gate flag can be earned, starting from a new game
+[process 0] NEW FAILURE: all 12 levels are reachable from the two starts (3)
+[process 0] NEW FAILURE: the chapter 1 progress flags can all be earned in order
+[process 0] NEW FAILURE: the first play starts
+[process 0] NEW FAILURE: a played scene is recorded as seen
+[process 0] NEW FAILURE: a scene played with once = false repeats
+[process 0] NEW FAILURE: the seen record survives a death (it only resets with a new game)
+[process 0] NEW FAILURE: first death, no booth used: clinic scene played = true
+[process 0] NEW FAILURE: first death, no booth used: respawns right after the scene, no death screen
+[process 0] NEW FAILURE: first death, no booth used: the flag is written after the scene
+[process 0] NEW FAILURE: first death, no booth used: booth newly registered = true
+[process 0] NEW FAILURE: first death, booth already used: clinic scene played = true
+[process 0] NEW FAILURE: first death, booth already used: respawns right after the scene, no death screen
+[process 0] NEW FAILURE: first death, booth already used: the flag is written after the scene
+[process 0] NEW FAILURE: flag lost after several deaths: clinic scene played = true
+[process 0] NEW FAILURE: flag lost after several deaths: respawns right after the scene, no death screen
+[process 0] NEW FAILURE: flag lost after several deaths: the flag is written after the scene
+[process 0] NEW FAILURE: first death in an area without booths: clinic scene played = true
+[process 0] NEW FAILURE: first death in an area without booths: respawns right after the scene, no death screen
+[process 0] NEW FAILURE: first death in an area without booths: the flag is written after the scene
+[process 0] NEW FAILURE: vault: portal wh_upper leads to a chapter 1 area (res://data/levels/ch1_handoff.tres)
+[process 0] NEW FAILURE: lounge: portal lounge_handoff leads to a chapter 1 area (res://data/levels/ch1_handoff.tres)
+[process 0] NEW FAILURE: lounge can be reached from the pawnshop by walking through portals
+[process 0] NEW FAILURE: stall can be reached from the pawnshop by walking through portals
+[process 0] NEW FAILURE: pawnshop_dawn can be reached from the pawnshop by walking through portals
+[process 0] NEW FAILURE: the chapter ends warehouse, vault, lounge, stall, home
+[process 0] NEW FAILURE: ch1_c01_open declares its budget of 20 seconds
+[process 0] NEW FAILURE: ch1_c09_wake declares its budget of 45 seconds
+[process 0] NEW FAILURE: ch1_c14_home declares its budget of 60 seconds
+[process 0] NEW FAILURE: pawnshop: some scene sets the flag that opens pawn_front (ch1_heard_brief)
+[process 0] NEW FAILURE: pawnshop: some scene sets the flag that opens pawn_stairs (ch1_dinner_done)
+[process 0] NEW FAILURE: vault: some scene sets the flag that opens wh_upper (ledger_disk_obtained)
+[process 0] NEW FAILURE: lounge: some scene sets the flag that opens lounge_exit (ch1_lounge_evening_done)
+[process 0] NEW FAILURE: stall: some scene sets the flag that opens stall_home (ch1_supper_done)
+[process 0] NEW FAILURE: pawnshop_dawn: some scene sets the flag that opens pawn_front (ch1_heard_brief)
+[process 0] NEW FAILURE: pawnshop_dawn: some scene sets the flag that opens pawn_stairs (ch1_dinner_done)
+[process 0] NEW FAILURE: the opening cutscene starts the chapter
+[process 0] NEW FAILURE: a scene lists its stage art (0)
+[process 0] NEW FAILURE: finishing the dinner bubbles sets its flag
+[process 0] NEW FAILURE: finishing the briefing talk sets its flag
+[process 0] NEW FAILURE: the two talks with Ali open the lounge exit and the way home
+[process 0] NEW FAILURE: walking: wh_upper leads to lounge (res://data/levels/ch1_handoff.tres)
+[process 0] NEW FAILURE: walking: arrives at handoff_arrival
+[process 0] NEW FAILURE: the dawn pawnshop ends the chapter after its intro
+Detected script errors in output of process 0: /workspace/work/ne246-review/logs/runner/shard_0.log
+checks: 86162, new failures: 126, known failures (tests/known_failures.txt): 0  (wall time 1390 s)
