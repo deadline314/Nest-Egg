@@ -1,0 +1,118 @@
+{
+  "recorded_at_utc": "2026-10-10T14:32:08.856342+00:00",
+  "purpose": "NE-247 affected verification evidence only; no PM status update or source edit",
+  "tested_head": "9e12d04a0d808051132de92258f022bb9963ee30",
+  "tested_base": "aeb45f77f5b99ca962786fb28341f1a87fb9ad4f",
+  "feature_branch": "codex/ne247-dash-silhouette",
+  "remote": "https://github.com/deadline314/Nest-Egg.git",
+  "isolated_checkout": "/workspace/work/ne247-review/checkout",
+  "tracked_worktree_clean": true,
+  "godot": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+  "cgroup": {
+    "cpu_max": "400000 100000",
+    "cpu_cores": 4,
+    "memory_max_bytes": 17179869184,
+    "memory_max_gib": 16,
+    "run_sample_peak_bytes": 17179869184,
+    "memory_events_before": {
+      "low": 0,
+      "high": 0,
+      "max": 116929,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    },
+    "memory_events_after": {
+      "low": 0,
+      "high": 0,
+      "max": 123636,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    }
+  },
+  "runner": {
+    "command": "GODOT=/workspace/.nest-egg-env/bin/godot PYTHONUTF8=1 SHARDS=3 LOG_DIR=/workspace/work/ne247-review/evidence/runner/shards tools/run_tests_changed.sh aeb45f77f5b99ca962786fb28341f1a87fb9ad4f",
+    "actual_argv": [
+      "/bin/bash",
+      "tools/run_tests_changed.sh",
+      "aeb45f77f5b99ca962786fb28341f1a87fb9ad4f"
+    ],
+    "selector": "ALL",
+    "groups": 81,
+    "workers": 3,
+    "exit_code": 0,
+    "elapsed_seconds": 611.471,
+    "summary_line": "checks: 58700, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 607 s)",
+    "shards": [
+      {
+        "log": "shard_0.log",
+        "checks": 36949,
+        "failures": 0,
+        "suite_times": 25,
+        "fail_lines": 0
+      },
+      {
+        "log": "shard_1.log",
+        "checks": 4611,
+        "failures": 0,
+        "suite_times": 27,
+        "fail_lines": 0
+      },
+      {
+        "log": "shard_2.log",
+        "checks": 17140,
+        "failures": 0,
+        "suite_times": 29,
+        "fail_lines": 0
+      }
+    ],
+    "script_error_count": 0,
+    "parse_error_count": 0,
+    "compile_error_count": 0,
+    "raw_ERROR_line_count": 85,
+    "expected_negative_control_ERROR_count": 81,
+    "expected_exit_diagnostic_ERROR_count": 4,
+    "engine_build_note_ERROR_count": 0,
+    "unexpected_ERROR_count": 0,
+    "raw_stderr_bytes": 0,
+    "pid_peak_rss": {}
+  },
+  "imports": [
+    {
+      "phase": "import",
+      "exit_code": 0,
+      "error_lines": 9,
+      "fontconfig_error_lines": 58
+    },
+    {
+      "phase": "import-retry",
+      "exit_code": 0,
+      "error_lines": 4,
+      "fontconfig_error_lines": 0
+    },
+    {
+      "phase": "import-network",
+      "exit_code": 0,
+      "error_lines": 0,
+      "fontconfig_error_lines": 0
+    }
+  ],
+  "source_manifest": {
+    "path": "pm/Nest-Egg/attachments/NE-247-dash-silhouette/git-source-manifest.json",
+    "sha256": "97a5c94e27bb2e6e18285361d69a37516a2c42ced11c2e6538643bc2e9c069af",
+    "entries": 385,
+    "text_lf_verified": 228,
+    "binary_raw_verified": 157,
+    "mismatches": 0,
+    "verification_method": "228 text files: SHA256 after CRLF/CR to LF normalization compared to lf_sha256; 157 binary files: raw SHA256 compared to bytes_sha256."
+  },
+  "frozen_tool_sha256": {
+    "tools/run_tests_changed.sh": "14d71b3922cd580b9f85b774d431a3ff7e1e7e2ff0c1d5052740aac8b3ae604a",
+    "tools/run_tests_parallel.sh": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba",
+    "tools/select_tests.py": "9ba6c288341e885979d7e171509e907b46b2b7347f1fc99e4145ec5d83986c03",
+    "tools/test_filters.sh": "319fea9acacfdad9f7dab7948ea5a2d76652757623b428829605160a210e678a",
+    "tests/known_failures.txt": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf",
+    "tests/smoke_test.gd": "87245f0f65ea0be72849ae3ee954350497c90b6530a6c40f7a92f13fd0ca4c9f"
+  }
+}
