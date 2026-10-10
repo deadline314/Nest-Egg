@@ -49,6 +49,8 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py            
 
 每一步結束，腳本把輸出清單寫進 `work/manifest.json`。
 
+部件檢查以正式引用判斷貼圖用途：除了 `parts.texture` 與握持替代圖，也包含 `eye_states` 的睜眼／半閉／閉眼引用。被引用的眼圖仍逐張检查缺檔、透明孔洞、碎片、支點、法線與發光，不因眨眼使用而略過；未被引用的貼圖仍報警。`check_parts.py` 是來源初篩，原有面積門檻不代表單像素接縫或實際動畫通過。
+
 **透明來源核對**：本 repo 的 `build_character.py` 已在既有 Qwen 提示詞前後加上 RGBA／透明背景說明，`comfy_api.py` 也已接 Qwen Image 2.1 VAE；不用重複加提示詞。官方工作流說明 VAE 支援四通道 alpha，可直接生成透明背景圖（[Comfy-Org：Qwen Image 2.1](https://github.com/Comfy-Org/docs/blob/main/tutorials/image/qwen/qwen-image-2-1.mdx)）。提示詞與工作流只說明預期，交付仍須檢查實際 PNG：分開記錄 RGBA 模式、alpha 分布與人物 bbox，並把原圖以最近鄰原尺寸分別合成黑、灰、白底檢視，也要在實際 Forward+ 場景檢查最終貼圖。alpha=0 的 RGB 值不表示有可見雜點；alpha=1 的洋紅點及帶色半透明邊緣則要看合成後是否形成彩邊，不可只看棋盤格或 `RGBA` 字樣判定透明品質。來源 alpha、SAM 遮罩所有權、最終貼圖外觀及動畫接合是不同檢查；任一項通過都不代替其他項。沿用 `refine.speckle: 30`（`components` 最小連通像素數）與 `alpha_floor: 40` 等既有設定做指定零件清理，不把它們當成容許碎片／孔洞的新驗收門檻；一像素裂縫仍失敗。
 
 **參考圖的透明通道與編輯尺寸（2026-10-10）**：`LoadImage` 把 RGB 和反向 alpha 分成兩個輸出，不能只將 RGB 接到 `TextEncodeQwenImage21`。現有 API 在每個參考槽以 `JoinImageWithAlpha` 合回 RGBA，再交給 Qwen：文字編碼器按 alpha 合成白底，VAE 保留四通道。參考編輯快取已區分這個工作流版本，舊 RGB-only 編輯結果不視為新圖命中；文生圖快取不變，既有定稿不自動重跑或覆寫。真節點 Load→Join→Save 的合成測試保留透明／不透明範圍與 RGB，但浮點合併再存 uint8 可令部分 alpha 相差 1，不能宣稱全部 RGBA byte-exact；精確保留的來源必須另走原圖／遮罩契約，不由模型或 PNG 回存替代。這個輸入修正不保證生成後 alpha、輪廓或解剖合格。

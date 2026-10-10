@@ -1,0 +1,39 @@
+.FF
+======================================================================
+FAIL: test_blink_alternatives_are_used_but_orphan_is_not (__main__.TextureUsageTest.test_blink_alternatives_are_used_but_orphan_is_not)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\tools\comfyui\test_check_parts.py", line 39, in test_blink_alternatives_are_used_but_orphan_is_not
+    self.assertEqual(self.check(), ["orphan: no part uses this texture"])
+AssertionError: Lists differ: ['open: no part uses this texture', 'half: n[95 chars]ure'] != ['orphan: no part uses this texture']
+
+First differing element 0:
+'open: no part uses this texture'
+'orphan: no part uses this texture'
+
+First list contains 3 additional elements.
+First extra element 1:
+'half: no part uses this texture'
+
+- ['open: no part uses this texture',
+-  'half: no part uses this texture',
+-  'closed: no part uses this texture',
+-  'orphan: no part uses this texture']
+? ^
+
++ ['orphan: no part uses this texture']
+? ^
+
+
+======================================================================
+FAIL: test_referenced_blink_file_is_still_checked (__main__.TextureUsageTest.test_referenced_blink_file_is_still_checked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\tools\comfyui\test_check_parts.py", line 45, in test_referenced_blink_file_is_still_checked
+    self.assertNotIn("half: no part uses this texture", problems)
+AssertionError: 'half: no part uses this texture' unexpectedly found in ['open: no part uses this texture', 'half: no part uses this texture', 'half: file half.png is missing', 'closed: no part uses this texture', 'orphan: no part uses this texture']
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.070s
+
+FAILED (failures=2)

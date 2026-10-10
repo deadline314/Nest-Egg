@@ -41,6 +41,10 @@ def check_character(char_id: str, normals: bool = False) -> list[str]:
     problems: list[str] = []
     used = {p.get("texture") for p in definition.get("parts", [])}
     used.update(p["grip_texture"] for p in definition.get("parts", []) if isinstance(p.get("grip_texture"), str))
+    eye_states = definition.get("eye_states")
+    if isinstance(eye_states, dict):
+        used.update(eye_states[key] for key in ("open_texture", "half_texture", "closed_texture")
+                    if isinstance(eye_states.get(key), str))
     for name, tex in definition.get("textures", {}).items():
         if name not in used and not name.endswith("_dmg"):
             problems.append(f"{name}: no part uses this texture")

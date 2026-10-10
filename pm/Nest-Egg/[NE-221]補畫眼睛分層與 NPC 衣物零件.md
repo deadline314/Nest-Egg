@@ -148,3 +148,22 @@ NPC 與凜的動作已有重心轉移、轉頭與說話手勢（NE-206），但�
 ![凜睜眼](images/NE-221-eyes-dual-facing/rin_face_1_open.png) · ![凜半閉](images/NE-221-eyes-dual-facing/rin_face_1_half.png) · ![凜閉眼](images/NE-221-eyes-dual-facing/rin_face_1_closed.png)
 
 [擷取與驗證工具、原始報告及測試](attachments/NE-221-eyes-dual-facing/README.md) · [57張PNG與報告雜湊](attachments/NE-221-eyes-dual-facing/capture-manifest.json) · [原生報告](attachments/NE-221-eyes-dual-facing/native-report.json) · [原生log](attachments/NE-221-eyes-dual-facing/native-run.log)
+
+# Commit-5
+
+## 內文
+
+部件初篩原來把已串接眨眼的半閉、閉眼圖誤報成無人使用，現在會辨識三種眼睛狀態的引用。未使用貼圖、缺檔及原有材質檢查仍正常報警，没有修改破圖門檻。角色圖、骨架、動作與眨眼時序不變；衣襬及全部動作條件保持未勾選，票維持進行中。
+
+### 檢查結果
+
+- 三項CPU回歸修前有兩項失敗，修後全部通過；涵蓋正常引用、缺少眼圖、未引用貼圖與無效配置。
+- 正式九位眨眼角色的引用誤報已消除；凜後髮兩個孔洞警告仍保留（最大762來源像素），整批初篩仍為exit1，沒有宣稱全身美術通過。
+- 固定87de0933乾淨隔離checkout，僅帶本次Python差異，實際run_tests_changed選零個Godot測試、exit0；另跑上述CPU回歸，不假稱遊戲或完整測試通過。
+- Godot4.7.2／RTX4070SUPER／Forward+／HDR2D、共享GPU鎖，原生1440×1000文件預覽，exit0、無SCRIPT ERROR；僅展示檢查修正，沒有重新播放眨眼或衣物。
+
+### 截圖
+
+![眨眼貼圖引用修正與保留的檢查限制：文件預覽，非遊戲驗收](images/NE-221-blink-texture-usage.png)
+
+[重跑與原始紀錄](attachments/NE-221-blink-texture-usage/README.md) · [修前](attachments/NE-221-blink-texture-usage/regression-before.log) · [修後](attachments/NE-221-blink-texture-usage/regression-after.log) · [九角色初篩](attachments/NE-221-blink-texture-usage/parts-after.log) · [受影響選擇](attachments/NE-221-blink-texture-usage/affected-tests.log)。
