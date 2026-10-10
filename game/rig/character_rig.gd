@@ -605,12 +605,15 @@ func _build_parts(skin: Dictionary) -> void:
 			var grip_def: Dictionary = textures.get(str(entry["grip_texture"]), {})
 			var grip_path := base_dir.path_join(str(grip_def.get("file", "")))
 			var offset := RigLibrary.vec2(entry.get("grip_offset"))
-			if not part is Sprite2D or bone_name not in [&"hand_front", &"hand_back"] or grip_def.is_empty() or not ResourceLoader.exists(grip_path) or not offset.is_finite():
-				push_warning("[CharacterRig] %s/%s invalid gripping attachment %s; keeping resting hand" % [skin_id, part_name, entry["grip_texture"]])
+			var grip_scale: Variant = grip_def.get("texture_scale", _texture_scale)
+			var valid_grip_scale := typeof(grip_scale) in [TYPE_INT, TYPE_FLOAT] and is_finite(float(grip_scale)) and float(grip_scale) > 0.0
+			if not part is Sprite2D or bone_name not in [&"hand_front", &"hand_back"] or grip_def.is_empty() or not ResourceLoader.exists(grip_path) or not offset.is_finite() or not valid_grip_scale:
+				push_warning("[CharacterRig] %s/%s invalid gripping attachment %s (texture_scale=%s); keeping resting hand" % [skin_id, part_name, entry["grip_texture"], str(grip_scale)])
 			else:
 				_hand_grips.append({"sprite": part, "bone": bone_name, "open_texture": texture, "open_pivot": pivot,
 					"grip_texture": LitTextures.load_texture(grip_path, Vector2i(RigLibrary.vec2(grip_def.get("size")))),
-					"grip_pivot": RigLibrary.vec2(grip_def.get("pivot")), "offset": offset, "closed": false})
+					"grip_pivot": RigLibrary.vec2(grip_def.get("pivot")), "open_scale": (part as Sprite2D).scale,
+					"grip_scale": Vector2.ONE * float(grip_scale), "offset": offset, "closed": false})
 		target_bone.add_child(part)
 		if int(entry.get("armor_order", 0)) > 0:
 			armor_entries.append([int(entry["armor_order"]), part])
@@ -1411,6 +1414,7 @@ func _update_hand_grips(input: RigInput) -> void:
 		var sprite: Sprite2D = entry["sprite"]
 		sprite.texture = entry["grip_texture"] if closed else entry["open_texture"]
 		sprite.offset = -entry["grip_pivot"] if closed else -entry["open_pivot"]
+		sprite.scale = entry["grip_scale"] if closed else entry["open_scale"]
 		entry["closed"] = closed
 
 

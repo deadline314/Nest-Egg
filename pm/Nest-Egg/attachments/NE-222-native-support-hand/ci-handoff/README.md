@@ -1,0 +1,10 @@
+# NE-237 CI failure handoff
+
+This packet records an existing main CI failure, not a failure hidden as known.
+CI run 38033061478 on 90a73316 (Godot 4.7 stable, Linux) reports three new MeleeSuite failures: test_melee.gd:103 buffered second chain, :104 recovery cancel measured 41 frames against 9, and :112 third heavy combo. The complete failed log is preserved as linux-failed.log.
+
+A clean aa51e05b baseline on Windows Godot 4.7.2, with no support-hand changes, passes 25 checks after refreshing the class cache (shard_0.log). An earlier stale-cache attempt with script errors and zero checks was invalid and is not acceptance evidence. report.json records the actual reproduction environment.
+
+The first merged hand replay on 06c44076 ran six suites in four active headless shards concurrently with the native viewport capture: 8,020 checks, the same three Melee failures. Its complete summary/shards are preserved in ../merge-tests/. After the native capture completed, the same unchanged hand implementation and test assertions passed 8,020 checks in 21s (../merge-tests-no-render/). A separate clean 06c44076 primary checkout without hand edits passed six suites in four shards (7,921 checks, 23s) and standalone MeleeSuite (25 checks); those raw logs and source hashes are in baseline-06c/. The 99-check difference is the new grip-density test. The hand patch has no melee buffer changes. These controls indicate a timing/load concern to investigate, but do not prove its cause or fix the Linux CI failure.
+
+NE-237 moved the melee command buffer to absolute Time.get_ticks_msec expiry. Under CI load, elapsed wall time may consume its 0.22s window before the simulated physics chain; this is a hypothesis requiring the owning session to compare 4.7/Linux scheduler behavior and the intended gameplay timing. Review game/player/melee_command_input.gd and the real Player/test_melee call sequence together. Do not extend known_failures.txt, or treat the green Windows baseline as a Linux CI fix. No Player core changes are included in this hand delivery.

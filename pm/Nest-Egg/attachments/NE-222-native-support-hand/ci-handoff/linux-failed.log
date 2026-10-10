@@ -1,0 +1,21 @@
+full	Run all tests (parallel)	﻿2026-10-10T07:07:07.1111308Z ##[group]Run mkdir -p "$LOG_DIR"
+full	Run all tests (parallel)	2026-10-10T07:07:07.1111519Z ^[[36;1mmkdir -p "$LOG_DIR"^[[0m
+full	Run all tests (parallel)	2026-10-10T07:07:07.1111664Z ^[[36;1mtools/run_tests_parallel.sh^[[0m
+full	Run all tests (parallel)	2026-10-10T07:07:07.1162414Z shell: /usr/bin/bash -e {0}
+full	Run all tests (parallel)	2026-10-10T07:07:07.1162558Z env:
+full	Run all tests (parallel)	2026-10-10T07:07:07.1162672Z   GODOT_VERSION: 4.7-stable
+full	Run all tests (parallel)	2026-10-10T07:07:07.1162871Z   GODOT: /home/runner/work/Nest-Egg/Nest-Egg/Godot_v4.7-stable_linux.x86_64
+full	Run all tests (parallel)	2026-10-10T07:07:07.1163097Z   LOG_DIR: /home/runner/work/_temp/test-logs
+full	Run all tests (parallel)	2026-10-10T07:07:07.1163250Z ##[endgroup]
+full	Run all tests (parallel)	2026-10-10T07:07:10.0849959Z Running 81 groups in 6 processes (logs: /home/runner/work/_temp/test-logs)
+full	Run all tests (parallel)	2026-10-10T07:07:10.0863442Z   process 0 (estimated 202 s): StageCoverageWorldSuite,ChainCreatureSuite,PhoneBoothSuite,NpcSuite,DeathFlowSuite,TransitionSuite,SoundLabSuite,AreasSuite,EyeBlinkSuite
+full	Run all tests (parallel)	2026-10-10T07:07:10.0876141Z   process 1 (estimated 202 s): ReclaimerSuite,AttackTokensSuite,NewEnemiesSuite,AudioSuite,LocomotionSuite,ReloadCuesSuite,MusicSuite,FeelSuite,QuestMapSuite,EnvironmentSuite
+full	Run all tests (parallel)	2026-10-10T07:07:10.0904723Z   process 2 (estimated 201 s): main,ContinuitySuite,StrikeEnemiesSuite,FxUpgradesSuite,AmmoTraySuite,Chapter1EnemiesSuite,ProgressionSuite,MeleeSuite,FeelLabSuite,ProtagonistMotionSuite,StoryLintSuite,StoryContentSuite,RigMeshSuite,RigActionsSuite,ReadabilityTargetsSuite,PoseMeshSuite,PartCreatureSuite,PacingSuite,EnemyVfxSuite,EconomySuite,DevMenuSuite,ClipEditorSuite,CharactersSuite,ChapterCutscenesSuite,Chapter2ArtSuite,ApplyPanelSuite,AmmoIconsSuite
+full	Run all tests (parallel)	2026-10-10T07:07:10.0958995Z   process 3 (estimated 201 s): Chapter2Suite,HeavyEnemiesSuite,DeathReactionSuite,Chapter2ExpansionSuite,HitReactionSuite,MeleeWeaponsSuite,NpcLifeSuite,RunSaveSuite,NpcAnimationSuite,SceneSanitySuite,WorldPromptSuite,PostureSuite
+full	Run all tests (parallel)	2026-10-10T07:07:10.0996543Z   process 4 (estimated 201 s): StageCoverageWeaponsSuite,SoundStageSuite,StageCoverageCharactersSuite,FxMeleePickupsSuite,AnimAuditSuite,CutsceneSuite,CollectiblesSuite,EncounterSuite,InputFeelSuite,ExposureSuite,LayerOrderSuite
+full	Run all tests (parallel)	2026-10-10T07:07:10.1026344Z   process 5 (estimated 201 s): AssaultEnemiesSuite,Chapter1MapSuite,ReconEnemiesSuite,ExoticEnemiesSuite,PropsSuite,UiScreensSuite,SupplySuite,MapBubblesSuite,CombatHudSuite,FloodPitSuite,UiKitSuite,FeelToolsSuite
+full	Run all tests (parallel)	2026-10-10T07:11:27.9261461Z [process 2] NEW FAILURE: the buffered press chains into the second swing
+full	Run all tests (parallel)	2026-10-10T07:11:27.9274034Z [process 2] NEW FAILURE: a hit cancels the recovery early (41 frames of 9)
+full	Run all tests (parallel)	2026-10-10T07:11:27.9287556Z [process 2] NEW FAILURE: the third swing of the combo is the heavy slash
+full	Run all tests (parallel)	2026-10-10T07:11:27.9629729Z checks: 57698, new failures: 3, known failures (tests/known_failures.txt): 0  (wall time 257 s)
+full	Run all tests (parallel)	2026-10-10T07:11:27.9646528Z ##[error]Process completed with exit code 1.

@@ -36,6 +36,34 @@ for hand in hands:
     expected = np.array([displacement @ x, displacement @ y]) / spec["illustration_px_per_wp"]
     assert np.max(np.abs(expected - hand["grip_offset"])) < 0.0003
 print("hand attachments: missing references/wrong bones/unreferenced layers/nonfinite anchors rejected; two independent slots and exported palm offsets agree")
+from cut_layers import load_native_grips
+native = load_native_grips(spec, root)
+assert set(native) == {"hand_left_grip"}
+data, definition = native["hand_left_grip"]
+assert definition["size"] == [226, 142] and definition["pivot"] == [26.0822, 25.9259]
+assert definition["texture_scale"] == 0.018283541156251144
+assert data == (root / spec["native_grips"]["hand_left_grip"]["source"]).read_bytes()
+for field, value in [("source", "tools/comfyui/cut_layers.py"), ("source", "art_src/characters/missing.png"), ("source", None),
+                     ("sha256", "0" * 64), ("size", [225, 142]), ("texture_scale", 0),
+                     ("texture_scale", float("nan")), ("texture_scale", True), ("texture_scale", "0.01"),
+                     ("pivot", [float("inf"), 0]), ("pivot", [0]), ("pivot", [False, 0])]:
+    trial = copy.deepcopy(spec)
+    trial["native_grips"]["hand_left_grip"][field] = value
+    try:
+        load_native_grips(trial, root)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError(f"invalid native grip accepted: {field}={value}")
+for native_setting in [[], {"head": spec["native_grips"]["hand_left_grip"]}, {"hand_left_grip": None}]:
+    try:
+        load_native_grips(dict(spec, native_grips=native_setting), root)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError(f"invalid native grip setting accepted: {native_setting}")
+assert load_native_grips(dict(spec, native_grips={}), root) == {}
+print("native grips: source byte identity/density/pivot; invalid source/hash/size/numeric fields/unreferenced slot rejected")
 from build_character import Build
 
 before = (root / "art/characters/rin/character.json").read_bytes()

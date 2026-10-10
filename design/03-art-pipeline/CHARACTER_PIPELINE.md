@@ -4,6 +4,8 @@
 
 貼圖密度由 spec 的 `tex_px_per_wp / illustration_px_per_wp` 決定，不固定縮成 4 倍或 8 倍。高解析定稿須保留有效來源細節，重算尺寸、pivot、texture_scale、normal、glow 後核對實際載入尺寸；背包子視窗也須按螢幕實際像素渲染。只改 metadata 或放大既有小圖不會增加細節。
 
+局部握持手採不同來源密度時，spec 的 `native_grips` 記錄來源 PNG／SHA、原生尺寸、wrist pivot 及 `texture_scale`；其重建腳本登記到 recipe `source_rebuilds`。切件步驟先驗證來源再保留 PNG 位元組，不縮回舊部件尺寸；原來 grasp、骨架與掛點不變。遊戲只在握持切換時使用該貼圖密度，收槍、持盾、動作與死亡會還原休息手的貼圖、pivot、scale 與 offset。來源 alpha、零件所有權、CPU 重建、接縫及實際 Forward+ 載入分開驗收；不以擷取器手動改 sprite 代替正式載入。
+
 > 來源：2026-10-03 使用者要求把「產出角色原圖 → 拆零件 → 放進 Godot」整條流程寫成腳本，並說明每一步的輸入輸出、零件放在哪裡、日後怎麼替換。凜（NE-17）是第一個依此流程製作的角色。
 
 ## 0. 一句話

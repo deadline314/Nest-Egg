@@ -301,14 +301,15 @@
     "hand_left_grip": {
       "file": "parts/hand_left_grip.png",
       "size": [
-        90,
-        70
+        226,
+        142
       ],
       "pivot": [
-        15.89,
-        35.51
+        26.0822,
+        25.9259
       ],
-      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+      "note": "原生握持部件；來源與重建見 spec.native_grips",
+      "texture_scale": 0.018283541156251144
     },
     "jacket_sleeve_upper": {
       "file": "parts/jacket_sleeve_upper.png",

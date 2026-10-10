@@ -1,0 +1,298 @@
+{
+  "status": "REGISTERED_NATIVE_SUPPORT_HAND_PARTIAL_DELIVERY",
+  "generation": {
+    "seed": 22308,
+    "comfy_job_key": "2b1fc4bab5bb745f54b386d2419187eefe3f90e8",
+    "raw": "source/rin_ne222_support_context_22308_0.png",
+    "raw_sha256": "993fed5e839300642bb0e0ce9ba841de8d02c6ea7529ef750ecfce1d38d30c3a",
+    "raw_mode_size": [
+      [
+        768,
+        768
+      ],
+      "RGBA"
+    ],
+    "raw_alpha": {
+      "min": 252,
+      "max": 255,
+      "alpha_zero_pixels": 0,
+      "interpretation": "no transparent background; use SAM owner mask for extraction"
+    },
+    "qwen_job": {
+      "steps": 25,
+      "cfg": 1.0,
+      "sampler": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0,
+      "resolution": 768,
+      "unet": "qwen-image-2.1-UC-int8_convrot.safetensors",
+      "clip": "qwen3vl_8b_int8_convrot.safetensors",
+      "vae": "qwen_image_2.1_vae_bf16.safetensors",
+      "cache_device": "off"
+    },
+    "reference": {
+      "native_capture_crop": "source/actual-rifle-back_human-crop-native.png",
+      "crop_xyxy_exclusive": [
+        1011,
+        433,
+        1331,
+        673
+      ],
+      "crop_size": [
+        320,
+        240
+      ],
+      "reference": "source/actual-support-context-nearest2-reference.png",
+      "nearest_scale": 2,
+      "canvas_offset": [
+        64,
+        144
+      ]
+    },
+    "prompt": "In <image1>, change only the small human support hand under the rifle's horizontal fore-end. Keep its wrist attached to the same blue sleeve on the left. Turn the flat closed fist into a natural left hand supporting the rifle: palm below the existing fore-end, opposed thumb curling over its upper edge, and four distinct bent fingers curling around its underside and side. The index is a support finger, not a trigger finger. The rifle hides part of the grasp. Show clean anatomically plausible overlapping digit contours; exactly one hand with five digits. Keep the rifle, sleeve, their position and their silhouettes unchanged. Keep the same restrained inked anime cel shading, skin midtone and line weight. No new gun, forearm, glove, extra fingers, photorealism or glossy skin. Remove the background, and output a PNG image."
+  },
+  "sam": {
+    "checkpoint": "sam3.1_multiplex_fp16.safetensors",
+    "threshold": 0.3,
+    "refine_iterations": 2,
+    "points": {
+      "pos": [
+        [
+          311,
+          409
+        ],
+        [
+          376,
+          473
+        ],
+        [
+          445,
+          455
+        ],
+        [
+          471,
+          410
+        ]
+      ],
+      "neg": [
+        [
+          370,
+          315
+        ],
+        [
+          207,
+          418
+        ],
+        [
+          516,
+          477
+        ],
+        [
+          312,
+          522
+        ]
+      ]
+    },
+    "mask": "sam/support_hand.png",
+    "mask_sha256": "70a724378cb2f452be7465f845af5ce26db83cc6295ebd88a25316900a888baa",
+    "binary": true,
+    "bbox_xyxy_exclusive": [
+      267,
+      358,
+      493,
+      500
+    ],
+    "opaque_pixels": 23399,
+    "connected_components_8": 1
+  },
+  "registration": {
+    "logical_slot": "hand_back",
+    "existing_grip_offset_skeleton_units": [
+      1.67408,
+      -0.01506
+    ],
+    "candidate_size": [
+      226,
+      142
+    ],
+    "pivot_wrist_px": [
+      26.0822,
+      25.9259
+    ],
+    "texture_scale": 0.018283541156251144,
+    "no_bone_rest_or_grip_offset_changes": true,
+    "no_resampling": true
+  },
+  "outputs": {
+    "diffuse": {
+      "path": "overrides/hand_back.png",
+      "sha256": "d4da7778be1c6df46797795d2aff09799bb928fa645df278afe16825a2ee4f89"
+    },
+    "normal": {
+      "path": "overrides/hand_back_n.png",
+      "sha256": "22e3eeeb6699cdfd7b0141b2418661b85d40e2ebe9ffb78afd33e96d5ef8e6a7"
+    }
+  },
+  "rebuild": {
+    "script": "rebuild.py",
+    "helper": "tools/comfyui/cut_layers.py:make_normal_map",
+    "helper_sha256": "5c662add546e3ccc0b23f1e0e8a817f8d86608a4e53dc923cf47e8b7cdf64154",
+    "checks_per_run": 45,
+    "replay_1": "../../../../pm/Nest-Egg/attachments/NE-222-native-support-hand/source-replay-1.json",
+    "replay_2": "../../../../pm/Nest-Egg/attachments/NE-222-native-support-hand/source-replay-2.json",
+    "outputs_byte_equal_across_replays": true,
+    "negative_controls": [
+      "one-pixel extra owner",
+      "one-pixel missing owner",
+      "wrong crop",
+      "wrong scale",
+      "wrong pivot",
+      "changed source hash"
+    ],
+    "script_sha256": "915c62412ec261af1f64b3d3117f4d89aaf97cec5718f3ebff4e105c876be8ca"
+  },
+  "native_review": {
+    "renderer": "Forward+ / Vulkan",
+    "gpu": "NVIDIA GeForce RTX 4070 SUPER",
+    "captures": 108,
+    "checks": 1274,
+    "errors": 0,
+    "evidence": "../../../../pm/Nest-Egg/attachments/NE-222-native-support-hand/native-capture.json",
+    "production_api": true,
+    "no_post_animate_sprite_mutation": true,
+    "limits": "Rear support-hand partial delivery; occluded thumb, front mechanical hand, all-motion seams and complete character appearance are not accepted by this evidence."
+  },
+  "player_ranged_weapon_mapping": {
+    "rifle": "rifle",
+    "spread": "shotgun",
+    "smg": "smg",
+    "railgun": "railgun",
+    "launcher": "launcher",
+    "laser": "laser",
+    "pistol": "pistol",
+    "mech_cannon": "rifle"
+  },
+  "files": {
+    ".gitattributes": {
+      "sha256": "37c34de77e44b1e02452c95ebe3f0b3c6391f5677505b61ff5c5d6cc02adea1c",
+      "bytes": 37
+    },
+    "overrides/build-manifest.json": {
+      "sha256": "5349c69ed0ccbf53d940793bb9b9777eb93e11e81cf0fcfa3e8b04e729ff9a51",
+      "bytes": 2331
+    },
+    "overrides/hand_back.png": {
+      "sha256": "d4da7778be1c6df46797795d2aff09799bb928fa645df278afe16825a2ee4f89",
+      "bytes": 43377,
+      "png": {
+        "size": [
+          226,
+          142
+        ],
+        "mode": "RGBA"
+      }
+    },
+    "overrides/hand_back_n.png": {
+      "sha256": "22e3eeeb6699cdfd7b0141b2418661b85d40e2ebe9ffb78afd33e96d5ef8e6a7",
+      "bytes": 33749,
+      "png": {
+        "size": [
+          226,
+          142
+        ],
+        "mode": "RGBA"
+      }
+    },
+    "README.md": {
+      "sha256": "d495edf62433d6bb2c08c6d5f9be7402b88bcb9015a6d33569e9ea48f8d57a86",
+      "bytes": 6399
+    },
+    "rebuild.py": {
+      "sha256": "915c62412ec261af1f64b3d3117f4d89aaf97cec5718f3ebff4e105c876be8ca",
+      "bytes": 9352
+    },
+    "sam/point-spec.json": {
+      "sha256": "60d2130e169b005671ac0efb314ed88c6f0fd19570e91a514c16cfa6e3ed842d",
+      "bytes": 439
+    },
+    "sam/raw/sam_5098bda3_0.png": {
+      "sha256": "70a724378cb2f452be7465f845af5ce26db83cc6295ebd88a25316900a888baa",
+      "bytes": 3678,
+      "png": {
+        "size": [
+          768,
+          768
+        ],
+        "mode": "RGB"
+      }
+    },
+    "sam/sam.log": {
+      "sha256": "3db5ad84bae51e1bc7143cde95de5b0ee0d6006eb93e860982ffc445e8febbac",
+      "bytes": 252
+    },
+    "sam/sam_5098bda3.graph.json": {
+      "sha256": "9f6582bb44387427f0b8fc812d74cb121437aa346d06b06c487c0f3d1e6ed5e0",
+      "bytes": 1120
+    },
+    "sam/support_hand.png": {
+      "sha256": "70a724378cb2f452be7465f845af5ce26db83cc6295ebd88a25316900a888baa",
+      "bytes": 3678,
+      "png": {
+        "size": [
+          768,
+          768
+        ],
+        "mode": "RGB"
+      }
+    },
+    "source/actual-rifle-back_human-crop-native.png": {
+      "sha256": "62d42bfa01e7a96f3134a91521b60ea444b2ec32efac37fe041ac77b3ae67ca0",
+      "bytes": 23078,
+      "png": {
+        "size": [
+          320,
+          240
+        ],
+        "mode": "RGBA"
+      }
+    },
+    "source/actual-support-context-nearest2-reference.png": {
+      "sha256": "1aea812967ced6ab731ab06aeba3f6ffbba70940d0b6199079438d9802e13da4",
+      "bytes": 31651,
+      "png": {
+        "size": [
+          768,
+          768
+        ],
+        "mode": "RGBA"
+      }
+    },
+    "source/candidate.json": {
+      "sha256": "dad378ebe854a8d26ff921415fb99b85ebcaed2deb96c0f3c5f6930b8d9e556f",
+      "bytes": 1694
+    },
+    "source/generate.log": {
+      "sha256": "27b5f5712dabd0e0abde4c0465f19db412b36db59d4ca606e6729cd3afd0ebeb",
+      "bytes": 379
+    },
+    "source/rin_ne222_support_context_22308.graph.json": {
+      "sha256": "d198151c33f27b9e08fb47577b489a6256eef7f982cfc0dd3eaf06626e3db799",
+      "bytes": 2772
+    },
+    "source/rin_ne222_support_context_22308.job.json": {
+      "sha256": "068a89724791c4f96e48cf014e0d2287070b5bb0cb867d1439583e34ab692c6a",
+      "bytes": 66
+    },
+    "source/rin_ne222_support_context_22308_0.png": {
+      "sha256": "993fed5e839300642bb0e0ce9ba841de8d02c6ea7529ef750ecfce1d38d30c3a",
+      "bytes": 234618,
+      "png": {
+        "size": [
+          768,
+          768
+        ],
+        "mode": "RGBA"
+      }
+    }
+  }
+}

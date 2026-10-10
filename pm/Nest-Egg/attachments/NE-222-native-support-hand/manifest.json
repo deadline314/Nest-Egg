@@ -1,0 +1,452 @@
+{
+  "status": "PARTIAL_NATIVE_SUPPORT_HAND_DELIVERY",
+  "files": {
+    "affected-tests/shard_0.log": {
+      "sha256": "e164a4a8fcceb4bf6079134d47ebc93a32a9b04d44aecb7e9cdfbcf18a12e9da",
+      "bytes": 164
+    },
+    "affected-tests/shard_1.log": {
+      "sha256": "ca3331475071ab314987543bf2b3f7f08529fc4b0a74ac7384c6be153899898f",
+      "bytes": 19638
+    },
+    "affected-tests/shard_2.log": {
+      "sha256": "33efa9ffd5428165ce89d143f2eaaf8c0ab085fc21066934363135969cda9a45",
+      "bytes": 7544
+    },
+    "affected-tests/shard_3.log": {
+      "sha256": "30aa6bc99bc5067120aa603c805ad557a78cefe5f626f79eb4591785c57cde2d",
+      "bytes": 104467
+    },
+    "affected-tests/shard_4.log": {
+      "sha256": "d6d690442fe24bc4f4ee091aea0ee9c191e49f36ee7caa4b727b1fcb6329fef4",
+      "bytes": 9108
+    },
+    "affected-tests/shard_5.log": {
+      "sha256": "f57e90e243caf21f47d301ed5821bcc912e862cb350ca7f43ee1b5c7dad092aa",
+      "bytes": 10259
+    },
+    "affected-tests/shard_6.log": {
+      "sha256": "cfc335bfcc956f795e0070a2db93ac3bfdb205ea972d3b9e996d5471bb594656",
+      "bytes": 27394
+    },
+    "affected-tests/shard_7.log": {
+      "sha256": "f340bf0e3e7fe10e9625dfdda783582b930d59aa83ae6ba7be12aa62effbd771",
+      "bytes": 7843
+    },
+    "affected-tests/summary.log": {
+      "sha256": "96c739c15130fd56438c6c7e94b494b2f903a59d57794f49248b672e6327e766",
+      "bytes": 2382
+    },
+    "capture_api.gd": {
+      "sha256": "0214684144c5c1a3945e5b3e78146f9e45a9ea4ad7705860a8f6fd2064fd83b8",
+      "bytes": 13777
+    },
+    "capture_base.gd": {
+      "sha256": "a58dc641e9b7804101e86a4d49a5c5efcf1644f9e997a68750680c08072d1b93",
+      "bytes": 26895
+    },
+    "characters-green.log": {
+      "sha256": "569b34ece145be5819ee736b92d3e6d703184015b9e67cb1a3185fb8eafaff65",
+      "bytes": 4765
+    },
+    "characters-red-baseline.log": {
+      "sha256": "2bc5121be218c4e4bc86b696a6b42639fe9e01668b2a75c068ac7c14bae2d17e",
+      "bytes": 1004
+    },
+    "ci-handoff/baseline-06c/parallel-6suite/data_0/Godot/app_userdata/Nest Egg/logs/godot.log": {
+      "sha256": "3b7efde6f192593b549fb36d7ce131d77ac3151abeef6e7516a0397b6121d555",
+      "bytes": 26590
+    },
+    "ci-handoff/baseline-06c/parallel-6suite/data_1/Godot/app_userdata/Nest Egg/logs/godot.log": {
+      "sha256": "63685af694dfd5d67e0b792afca9afe565b7151641adfbb0abb38e05560a79ec",
+      "bytes": 1767
+    },
+    "ci-handoff/baseline-06c/parallel-6suite/data_2/Godot/app_userdata/Nest Egg/logs/godot.log": {
+      "sha256": "5c45dcb8267152c85136d19bdd185e4ad062f09168056d5d7e96b4a1b34abeb3",
+      "bytes": 1623
+    },
+    "ci-handoff/baseline-06c/parallel-6suite/data_3/Godot/app_userdata/Nest Egg/logs/godot.log": {
+      "sha256": "4bc02607e0b879a7da410fce206b666929a8e7411fe74dc7463eca07d76cc03d",
+      "bytes": 155
+    },
+    "ci-handoff/baseline-06c/parallel-6suite/shard_0.log": {
+      "sha256": "3b7efde6f192593b549fb36d7ce131d77ac3151abeef6e7516a0397b6121d555",
+      "bytes": 26590
+    },
+    "ci-handoff/baseline-06c/parallel-6suite/shard_1.log": {
+      "sha256": "63685af694dfd5d67e0b792afca9afe565b7151641adfbb0abb38e05560a79ec",
+      "bytes": 1767
+    },
+    "ci-handoff/baseline-06c/parallel-6suite/shard_2.log": {
+      "sha256": "5c45dcb8267152c85136d19bdd185e4ad062f09168056d5d7e96b4a1b34abeb3",
+      "bytes": 1623
+    },
+    "ci-handoff/baseline-06c/parallel-6suite/shard_3.log": {
+      "sha256": "4bc02607e0b879a7da410fce206b666929a8e7411fe74dc7463eca07d76cc03d",
+      "bytes": 155
+    },
+    "ci-handoff/baseline-06c/README.md": {
+      "sha256": "8b4416412f71369b4893109ed088a3a8e68b5049a7c3153b642eaec3787bc3cd",
+      "bytes": 1782
+    },
+    "ci-handoff/baseline-06c/report.json": {
+      "sha256": "4618fb91b506b313cac3ee53bc7173b25bc2e23f1bad84af7fabe6a410754c26",
+      "bytes": 10208
+    },
+    "ci-handoff/baseline-06c/single-melee/data_0/Godot/app_userdata/Nest Egg/logs/godot.log": {
+      "sha256": "fd655814ce76118b28687d8622cb02dbcea08a8f8caaa3daa1ab2ac03cf2078f",
+      "bytes": 803
+    },
+    "ci-handoff/baseline-06c/single-melee/shard_0.log": {
+      "sha256": "fd655814ce76118b28687d8622cb02dbcea08a8f8caaa3daa1ab2ac03cf2078f",
+      "bytes": 803
+    },
+    "ci-handoff/class-cache-refresh.log": {
+      "sha256": "cb2551dce49cb070668e5d83a8cc8b6d27f9c182751311f50de1cc537cafcdb8",
+      "bytes": 648189
+    },
+    "ci-handoff/linux-failed.log": {
+      "sha256": "a0a961606be86f8cc94b9ca9a444d2eb5e3dea61cbb5f2e4907b06f57c548e98",
+      "bytes": 3457
+    },
+    "ci-handoff/README.md": {
+      "sha256": "1cf35fa7920409fac4d35ba3e1416871c332ab9bb2a3890b8fdd709e81a52aca",
+      "bytes": 2060
+    },
+    "ci-handoff/report.json": {
+      "sha256": "e1beb86a5fff6eebd354d2eafb473a46dd2c5814a4d3e9d522f6d9369e8d5db6",
+      "bytes": 2091
+    },
+    "ci-handoff/shard_0.log": {
+      "sha256": "309967e1dec61d2d5d74d09d7770795cc723ee74d8e71b59788ee9d2c67e7d3c",
+      "bytes": 803
+    },
+    "export-full-cut.json": {
+      "sha256": "d8621e37120546f89f26a795487e433a6a150cc584f73d10ebcf1fc5179eea0c",
+      "bytes": 7817
+    },
+    "export-full-cut.log": {
+      "sha256": "a686b427b1678a5e2b78beb3816d8a796363fba258017ea8d84809528e2a0d97",
+      "bytes": 433
+    },
+    "legacy/character.json": {
+      "sha256": "20cd9902e03ddf3f17b96adad3776cacab06c6e092b3e014e3736315adb91bad",
+      "bytes": 12087
+    },
+    "legacy/hand_left_grip.png": {
+      "sha256": "109d252d0633790cb4017aa9d263909fd40b09b7ffd4d2ecc72e676e683e5e24",
+      "bytes": 8810
+    },
+    "legacy/hand_left_grip_n.png": {
+      "sha256": "47d66e5b2d2170db8873490f48df3de6faa80c0b8fdbb2014400319ff16173b3",
+      "bytes": 9418
+    },
+    "mask-delivery.log": {
+      "sha256": "74e3e8351cd45966af549512770725172f14d56f87915cb037adeebe0de17955",
+      "bytes": 638
+    },
+    "merge-tests/shard_0.log": {
+      "sha256": "ac38d15af52ca2e1fdb190805c918c64791ac788c62fb47eabf9fe239720cfb3",
+      "bytes": 154
+    },
+    "merge-tests/shard_1.log": {
+      "sha256": "f41387ea1a56b5fc779c9b59bc5dc0f33f85725ea2b0f43fe22691b95ad626f3",
+      "bytes": 967
+    },
+    "merge-tests/shard_2.log": {
+      "sha256": "f8f3504aa268a60bb911139b2c3c6d5cda9121a13dcbc68e8471b8df37c99472",
+      "bytes": 1623
+    },
+    "merge-tests/shard_3.log": {
+      "sha256": "34613c294c504b79ecc8ca6c2a1255fb672d3734ad466a464ba8ed6a98f0cb80",
+      "bytes": 34717
+    },
+    "merge-tests/summary.log": {
+      "sha256": "09c084559bbb1cd4f444276774174946cccedd4836f6e03b342b2a7e75a4d74d",
+      "bytes": 627
+    },
+    "merge-tests-no-render/shard_0.log": {
+      "sha256": "0e871607e5fdecd2c88db2af73cbb176faea174c114e6727cff6e4ea7541ab6f",
+      "bytes": 154
+    },
+    "merge-tests-no-render/shard_1.log": {
+      "sha256": "4c987ea289500b3b286beca83d54620e63297c7aaed261537b8f97abf19b5b74",
+      "bytes": 803
+    },
+    "merge-tests-no-render/shard_2.log": {
+      "sha256": "56bfb56ca376926b2f1bb8318add641baa2c6274c8277eff83deb88a717747f4",
+      "bytes": 34717
+    },
+    "merge-tests-no-render/shard_3.log": {
+      "sha256": "26c5ebfb26b3ca7305957b780ad1ec527575098f35be08de47156aa3e8e10225",
+      "bytes": 1623
+    },
+    "merge-tests-no-render/summary.log": {
+      "sha256": "51f9dd48724f04b74ec29fbb0b018fac4aaaaf75b3b7857e03eaa9d095c9bec8",
+      "bytes": 416
+    },
+    "native-capture.json": {
+      "sha256": "28f70884f1153acf5986efb1290e90e4b959f30f72ec02b0f1566729fff680bb",
+      "bytes": 216271
+    },
+    "native-forwardplus.log": {
+      "sha256": "9edbe54bd4468133d33d68277b4cf847fac7ef63c398a97467dfa8ab3cab4be6",
+      "bytes": 217
+    },
+    "pairdiff/all_visuals_laser_down_fleft_z23p78_pairdiff.json": {
+      "sha256": "bcc65a3f9cd951387f2a69ace37a300afc884c01ffe7348738e8af72b105c73a",
+      "bytes": 210
+    },
+    "pairdiff/all_visuals_laser_down_fright_z23p78_pairdiff.json": {
+      "sha256": "5b378af211e490fd886eb7be838413c3d0c36c09c1cc7468961ccab114a32760",
+      "bytes": 211
+    },
+    "pairdiff/all_visuals_laser_level_fleft_z23p78_pairdiff.json": {
+      "sha256": "302b3a5e409e6033e398183105c9600a5a116c97d0d99404e51bbd2020062ab7",
+      "bytes": 209
+    },
+    "pairdiff/all_visuals_laser_level_fright_z23p78_pairdiff.json": {
+      "sha256": "e86543b7c0bf49ad58380ae22a385d153f0e916a386420a0862ac45ea08bb3e7",
+      "bytes": 210
+    },
+    "pairdiff/all_visuals_laser_up_fleft_z23p78_pairdiff.json": {
+      "sha256": "e76fe5874c9bb0c5c3b7702bbd0467193b27f927f9a6d87d614cfc019767e29b",
+      "bytes": 207
+    },
+    "pairdiff/all_visuals_laser_up_fright_z23p78_pairdiff.json": {
+      "sha256": "bd504a4a314e8f7129d8bdbd05c782cee5b17af9546590b55413a1b78ba05c88",
+      "bytes": 209
+    },
+    "pairdiff/all_visuals_launcher_down_fleft_z23p78_pairdiff.json": {
+      "sha256": "717fff555f530abbb8ba9ab59911ca34ae29e5a7f119f7e871a86cc47f1b1a5e",
+      "bytes": 213
+    },
+    "pairdiff/all_visuals_launcher_down_fright_z23p78_pairdiff.json": {
+      "sha256": "317cdda9cffcf81b539772def58a0a8cd22227025258b90365755eb3767d640a",
+      "bytes": 214
+    },
+    "pairdiff/all_visuals_launcher_level_fleft_z23p78_pairdiff.json": {
+      "sha256": "ae380af2ed531fdc42ca71800b7b0e5cdeea024a6c5bef25ff19e262572c87a0",
+      "bytes": 212
+    },
+    "pairdiff/all_visuals_launcher_level_fright_z23p78_pairdiff.json": {
+      "sha256": "b09b866e3cee7bda3039eca618f8881c915970f47f9e40ceae6b68c83c42a3eb",
+      "bytes": 212
+    },
+    "pairdiff/all_visuals_launcher_up_fleft_z23p78_pairdiff.json": {
+      "sha256": "9f97c517180f516c3e8fd5d8f063b7f0e0be160466d3ad7632134a912675757f",
+      "bytes": 211
+    },
+    "pairdiff/all_visuals_launcher_up_fright_z23p78_pairdiff.json": {
+      "sha256": "84ed75671516e6db804d6a28cd3dd8d2f97923ed9f10ef080044963a66942665",
+      "bytes": 212
+    },
+    "pairdiff/all_visuals_pistol_down_fleft_z23p78_pairdiff.json": {
+      "sha256": "cc5f6cc3b23bab06fd336024e5bba14efda29ea4a65fa7df83914e627fee15ba",
+      "bytes": 225
+    },
+    "pairdiff/all_visuals_pistol_down_fright_z23p78_pairdiff.json": {
+      "sha256": "0975d704d0090862bff311174a5ae2ecbff8011117099b648daefcb7a40e9320",
+      "bytes": 226
+    },
+    "pairdiff/all_visuals_pistol_level_fleft_z23p78_pairdiff.json": {
+      "sha256": "c6e538f7ea0c1f8c187888a53650c9a0870b1235141410d8c3c26bc23a6702b9",
+      "bytes": 225
+    },
+    "pairdiff/all_visuals_pistol_level_fright_z23p78_pairdiff.json": {
+      "sha256": "03ac85ad4fb7ceb8ae6872dc8485ea7b798f3ab60b014fc6d7bb3f9661a9ba34",
+      "bytes": 226
+    },
+    "pairdiff/all_visuals_pistol_up_fleft_z23p78_pairdiff.json": {
+      "sha256": "d625d17e57c861744f8a4750a8b2f01bb34da899d9297130eaf68d5295f30e34",
+      "bytes": 209
+    },
+    "pairdiff/all_visuals_pistol_up_fright_z23p78_pairdiff.json": {
+      "sha256": "d7751f66c8de7f201be5d5d662e39830832178e9dd41b0a3bcb0b09fc61a59fa",
+      "bytes": 210
+    },
+    "pairdiff/all_visuals_railgun_down_fleft_z23p78_pairdiff.json": {
+      "sha256": "6d662ef8687cf90957bc1989da7ab36d7d7f538036dfd877f08a5a711176a015",
+      "bytes": 226
+    },
+    "pairdiff/all_visuals_railgun_down_fright_z23p78_pairdiff.json": {
+      "sha256": "b4e468fdd65fe5dd86189fe98222773b93387e3e443b6a669674790caf8a7888",
+      "bytes": 227
+    },
+    "pairdiff/all_visuals_railgun_level_fleft_z23p78_pairdiff.json": {
+      "sha256": "f5e1a59ad2b63d477b064fe41a52bdbaacd0e1361c355dc5afa305cd983222d8",
+      "bytes": 211
+    },
+    "pairdiff/all_visuals_railgun_level_fright_z23p78_pairdiff.json": {
+      "sha256": "f8c28ac44ee56999addec2183c0b773118d272ff9c177f944b883e1e2a421713",
+      "bytes": 212
+    },
+    "pairdiff/all_visuals_railgun_up_fleft_z23p78_pairdiff.json": {
+      "sha256": "31b4036a7cd71c631678cb011ec71e88f0e17b3d2a858e02977ceee4d922f4d9",
+      "bytes": 210
+    },
+    "pairdiff/all_visuals_railgun_up_fright_z23p78_pairdiff.json": {
+      "sha256": "79567ce24108cc401271c7eb985bb7cd80cf0b506b8a17abb1e762f5caf3cfbd",
+      "bytes": 211
+    },
+    "pairdiff/all_visuals_smg_down_fleft_z23p78_pairdiff.json": {
+      "sha256": "d52daed9516831558ab7539ce48cf8123a4ccc25d799a36d31f9efdd626ece28",
+      "bytes": 208
+    },
+    "pairdiff/all_visuals_smg_down_fright_z23p78_pairdiff.json": {
+      "sha256": "0cca7f782354db6d84fafff08fc97856f476d3058ff38ddb5ada343419e0a081",
+      "bytes": 209
+    },
+    "pairdiff/all_visuals_smg_level_fleft_z23p78_pairdiff.json": {
+      "sha256": "669f62fb448370a00bd22b7dccf2d7fef0601a1bfb1c72a339fd48ab7bc58824",
+      "bytes": 207
+    },
+    "pairdiff/all_visuals_smg_level_fright_z23p78_pairdiff.json": {
+      "sha256": "0f8bfa70ebbcd697fcc0729573e28269c42f602a2baeb88117bdcfe6f5a1607a",
+      "bytes": 208
+    },
+    "pairdiff/all_visuals_smg_up_fleft_z23p78_pairdiff.json": {
+      "sha256": "14fec68a2d63501491bf3c937985fae87b3f502e3b91ba11e984ce8c99f75e0b",
+      "bytes": 206
+    },
+    "pairdiff/all_visuals_smg_up_fright_z23p78_pairdiff.json": {
+      "sha256": "d105f3148ab83b1e53815aba086fd94353e35ef2e271a59bb09448dc7a248a67",
+      "bytes": 207
+    },
+    "pairdiff/crouch_down_fleft_-1_rifle_z23p78_pairdiff.json": {
+      "sha256": "81559cacebd4246a137bdf6c72626fba6c1255a59917e11eaee24477169a4049",
+      "bytes": 221
+    },
+    "pairdiff/crouch_down_fright_1_rifle_z23p78_pairdiff.json": {
+      "sha256": "835f7a21b5f1d0ed9eb87bc835668036d5b9d92e73c811637e3edd70f2ba7036",
+      "bytes": 222
+    },
+    "pairdiff/crouch_level_fleft_-1_rifle_z23p78_pairdiff.json": {
+      "sha256": "8032800a62bcb12cfb9c007003840aae62fd3090a351cd05ceb2778491ffa131",
+      "bytes": 221
+    },
+    "pairdiff/crouch_level_fright_1_rifle_z23p78_pairdiff.json": {
+      "sha256": "8b44b579f80bc2c672a5dada1dc87340b8b008c149a74b4cf9f843fb001ddd3c",
+      "bytes": 221
+    },
+    "pairdiff/crouch_up_fleft_-1_rifle_z23p78_pairdiff.json": {
+      "sha256": "11bdc9c1bfe96250e4858128c6a12cd92b5a46cd59280c86a5a035f4115e16ee",
+      "bytes": 219
+    },
+    "pairdiff/crouch_up_fright_1_rifle_z23p78_pairdiff.json": {
+      "sha256": "56ec5679b3bbe1938576dfcdf42d9a1ce74b5e0f6b5545cf21050cf83409e78d",
+      "bytes": 220
+    },
+    "pairdiff/game_stand_level_left_rifle_pairdiff.json": {
+      "sha256": "76b2709045b513656f1736a7aff9544e5d922faa77d1c83a693b16b3919ebc31",
+      "bytes": 211
+    },
+    "pairdiff/game_stand_level_right_rifle_pairdiff.json": {
+      "sha256": "44408026811966b8f089d85f837e64c61b56453192c26920dddec85fe4ce8963",
+      "bytes": 213
+    },
+    "pairdiff/normal_off_level_right_pairdiff.json": {
+      "sha256": "4e8780757785e5a6f6df50f08b9cacc4272466afd18efbdf6020f30a9a7f8571",
+      "bytes": 209
+    },
+    "pairdiff/portable_shotgun_down_fleft_z23p78_pairdiff.json": {
+      "sha256": "649881fc20d5fe0d687a75988c15749590fe3d7c856808d63099a03f89e4834a",
+      "bytes": 209
+    },
+    "pairdiff/portable_shotgun_down_fright_z23p78_pairdiff.json": {
+      "sha256": "4f0ec566d1f6e7c01738a537a8d969bd5664b7cd3faf158e2471c1867298dda5",
+      "bytes": 210
+    },
+    "pairdiff/portable_shotgun_up_fleft_z23p78_pairdiff.json": {
+      "sha256": "1996acf092585d08e2436a84b3066a9309188ee8e8e082b2bae1ac25b8e951c8",
+      "bytes": 207
+    },
+    "pairdiff/portable_shotgun_up_fright_z23p78_pairdiff.json": {
+      "sha256": "6733b3c2a3806d4d1c1209a40fe66c2ac8a80c59e5def0cbdd7409b945fd896f",
+      "bytes": 206
+    },
+    "pairdiff/stand_down_fleft_-1_rifle_z23p78_pairdiff.json": {
+      "sha256": "773a84809efc5fedc6572a5ea87489bd45e9e9396192af91fbf40601e522cf76",
+      "bytes": 220
+    },
+    "pairdiff/stand_down_fright_1_rifle_z23p78_pairdiff.json": {
+      "sha256": "37696a1cb2e967daeac81f6cfb84300d3370d95425fdc027b0171a83aff40c1f",
+      "bytes": 221
+    },
+    "pairdiff/stand_level_fleft_-1_rifle_z23p78_pairdiff.json": {
+      "sha256": "8b4ee0b9dc3e74981bcf70e30c18769c43223bd4353371b46129975a231c655e",
+      "bytes": 220
+    },
+    "pairdiff/stand_level_fright_1_rifle_z23p78_pairdiff.json": {
+      "sha256": "b3abccf1211e0379564e65c1b0292b3c344704ee347384b44a66b5979f285912",
+      "bytes": 220
+    },
+    "pairdiff/stand_level_left_shotgun_pairdiff.json": {
+      "sha256": "1a6530a83b6f1fb375187cb77ca89d53ea894daa1622ae9b4203b782ec99c9dd",
+      "bytes": 210
+    },
+    "pairdiff/stand_level_right_shotgun_pairdiff.json": {
+      "sha256": "a23a887f5662d906dafc7d8d2405b5c42e783bee9b3ff5fdb1a40f9545945158",
+      "bytes": 212
+    },
+    "pairdiff/stand_up_fleft_-1_rifle_z23p78_pairdiff.json": {
+      "sha256": "9d231ac2104a7539d45d91143d01a11ea0969fe2b9c1a233a819768b2b779692",
+      "bytes": 217
+    },
+    "pairdiff/stand_up_fright_1_rifle_z23p78_pairdiff.json": {
+      "sha256": "61c2a6636a98ec29854185e9645106cf64e094e5476809d460c4db2e5834105f",
+      "bytes": 219
+    },
+    "pairdiff/white_edge_level_right_pairdiff.json": {
+      "sha256": "c8bc0cc70a9a071fd436e5cdc9a3349c28355909dd132496556f8a79557279ff",
+      "bytes": 195
+    },
+    "portable-cpu.log": {
+      "sha256": "3d2690133f52b0b6987579c2750fa5498cb2a520bf9776ccafe2b8eae09055d6",
+      "bytes": 188
+    },
+    "portable_support_capture.gd": {
+      "sha256": "c3313efc6da66b0a866bfdcb867133b514c588db98eda05ac3289673e1394147",
+      "bytes": 8623
+    },
+    "portable_support_capture.tscn": {
+      "sha256": "7293bcccf689d3dfd3231eebce83b7fece7c540c1062e34f11924338c87571c3",
+      "bytes": 265
+    },
+    "README.md": {
+      "sha256": "8f9542282a26d330fc6fbb87453d6e35d6941d402680b3acf91de289fd0c42a1",
+      "bytes": 5351
+    },
+    "registration.json": {
+      "sha256": "7c0781ab012def1ebcaf48ab5a859199d220f85d8fa9d80bd9d56fb13079b71f",
+      "bytes": 5025
+    },
+    "source-manifest-at-export.json": {
+      "sha256": "696824cc42146a795a7c449e433e321e8d16f4d09fc685662b8fd72f0fa49bf8",
+      "bytes": 8674
+    },
+    "source-replay-1.json": {
+      "sha256": "5349c69ed0ccbf53d940793bb9b9777eb93e11e81cf0fcfa3e8b04e729ff9a51",
+      "bytes": 2331
+    },
+    "source-replay-1.log": {
+      "sha256": "2e4f8574117bd4ad5ee462ec7402a9c6debdf06f15d6e6d343a9c08d0c8f7e2f",
+      "bytes": 366
+    },
+    "source-replay-2.json": {
+      "sha256": "5349c69ed0ccbf53d940793bb9b9777eb93e11e81cf0fcfa3e8b04e729ff9a51",
+      "bytes": 2331
+    },
+    "source-replay-2.log": {
+      "sha256": "2e4f8574117bd4ad5ee462ec7402a9c6debdf06f15d6e6d343a9c08d0c8f7e2f",
+      "bytes": 366
+    },
+    "test_native_grip_export.py": {
+      "sha256": "1f94423bb7ba3917454ab908627e428b6aa89f76bbd59604647c5136f0343ba8",
+      "bytes": 16015
+    }
+  },
+  "image_sha_index": "native-capture.json",
+  "image_count": 108,
+  "limits": "Not whole-character or all-motion acceptance."
+}

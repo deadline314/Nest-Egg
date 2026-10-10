@@ -1,0 +1,26 @@
+{
+  "source": ".godot\\ne222-rifle-new-parts-plan\\references-v2\\actual-rifle-back_human-crop-native.png",
+  "source_sha256": "62d42bfa01e7a96f3134a91521b60ea444b2ec32efac37fe041ac77b3ae67ca0",
+  "reference_sha256": "1aea812967ced6ab731ab06aeba3f6ffbba70940d0b6199079438d9802e13da4",
+  "reference_transform": {
+    "integer_nearest_scale": 2,
+    "offset": [
+      64,
+      144
+    ]
+  },
+  "prompt": "In <image1>, change only the small human support hand under the rifle's horizontal fore-end. Keep its wrist attached to the same blue sleeve on the left. Turn the flat closed fist into a natural left hand supporting the rifle: palm below the existing fore-end, opposed thumb curling over its upper edge, and four distinct bent fingers curling around its underside and side. The index is a support finger, not a trigger finger. The rifle hides part of the grasp. Show clean anatomically plausible overlapping digit contours; exactly one hand with five digits. Keep the rifle, sleeve, their position and their silhouettes unchanged. Keep the same restrained inked anime cel shading, skin midtone and line weight. No new gun, forearm, glove, extra fingers, photorealism or glossy skin. Remove the background, and output a PNG image.",
+  "requested_seed": 22308,
+  "steps": 25,
+  "cfg": 1,
+  "policy": "Candidate only. Only hand-owned pixels may later be extracted; preserve original weapon/sleeve bytes and verify actual grip and wrist separately.",
+  "raw_output": "_gen\\rin_ne222_support_context_22308_0.png",
+  "raw_sha256": "993fed5e839300642bb0e0ce9ba841de8d02c6ea7529ef750ecfce1d38d30c3a",
+  "raw_size_mode": [
+    [
+      768,
+      768
+    ],
+    "RGBA"
+  ]
+}

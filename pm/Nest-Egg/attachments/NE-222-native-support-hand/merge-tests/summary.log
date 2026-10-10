@@ -1,0 +1,9 @@
+Running 6 groups in 6 processes (logs: D:/NestEggVerification/ne222-native-hand-scale/merge-06c44076)
+  process 0 (estimated 8 s): AnimAuditSuite
+  process 1 (estimated 3 s): MeleeSuite
+  process 2 (estimated 1 s): ProtagonistMotionSuite
+  process 3 (estimated 0 s): RigMeshSuite,RigActionsSuite,CharactersSuite
+[process 1] NEW FAILURE: the buffered press chains into the second swing
+[process 1] NEW FAILURE: a hit cancels the recovery early (41 frames of 9)
+[process 1] NEW FAILURE: the third swing of the combo is the heavy slash
+checks: 8020, new failures: 3, known failures (tests/known_failures.txt): 0  (wall time 21 s)

@@ -1,0 +1,122 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME Chapter2Suite 60.0
+ERROR: [NpcAnimator] res://art/rigs/npc_animations.json 沒有 poses「no_such_pose」，改用「stand」。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _entry (res://game/rig/npc_animator.gd:191)
+       [1] _body_pose (res://game/rig/npc_animator.gd:50)
+       [2] update (res://game/rig/humanoid_animator.gd:242)
+       [3] animate (res://game/rig/character_rig.gd:217)
+       [4] _rig_with (res://tests/suite/test_npc_animation.gd:30)
+       [5] _test_fallbacks (res://tests/suite/test_npc_animation.gd:179)
+       [6] run (res://tests/suite/test_npc_animation.gd:16)
+       [7] _test_loops (res://tests/suite/test_npc_animation.gd:162)
+       [8] _rig_with (res://tests/suite/test_npc_animation.gd:32)
+       [9] frames (res://tests/suite/test_suite.gd:23)
+       [10] _frames (res://tests/smoke_test.gd:122)
+ERROR: [NpcAnimator] res://art/rigs/npc_animations.json 沒有 loops「no_such_loop」，改用無。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _entry (res://game/rig/npc_animator.gd:191)
+       [1] _body_pose (res://game/rig/npc_animator.gd:78)
+       [2] update (res://game/rig/humanoid_animator.gd:242)
+       [3] animate (res://game/rig/character_rig.gd:217)
+       [4] _rig_with (res://tests/suite/test_npc_animation.gd:30)
+       [5] _test_fallbacks (res://tests/suite/test_npc_animation.gd:179)
+       [6] run (res://tests/suite/test_npc_animation.gd:16)
+       [7] _test_loops (res://tests/suite/test_npc_animation.gd:162)
+       [8] _rig_with (res://tests/suite/test_npc_animation.gd:32)
+       [9] frames (res://tests/suite/test_suite.gd:23)
+       [10] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME NpcAnimationSuite 1.5
+SUITE_TIME NpcLifeSuite 3.5
+SUITE_TIME AnimAuditSuite 8.8
+WORM_TURN_METRICS max_visible_uv_step=3.70000123977661 opposing_tail_samples=3
+ERROR: [RigLibrary] 無法讀取定義檔：res://art/creatures/no_such_creature.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:132)
+       [1] load_json (res://game/rig/rig_library.gd:21)
+       [2] setup (res://game/creature/chain_creature.gd:80)
+       [3] _test_bad_data_is_safe (res://tests/suite/test_chain_creature.gd:281)
+       [4] run (res://tests/suite/test_chain_creature.gd:22)
+       [5] _test_severing (res://tests/suite/test_chain_creature.gd:275)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:605)
+       [8] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME ChainCreatureSuite 18.6
+WARNING: [CharacterRig] rin/hand_back invalid gripping attachment hand_left_grip (texture_scale=0); keeping resting hand
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _build_parts (res://game/rig/character_rig.gd:611)
+       [1] setup (res://game/rig/character_rig.gd:118)
+       [2] _test_rin_hand_grip_density (res://tests/suite/test_characters.gd:114)
+       [3] run (res://tests/suite/test_characters.gd:45)
+       [4] _test_rigs (res://tests/suite/test_characters.gd:337)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin/hand_back invalid gripping attachment hand_left_grip (texture_scale=-1.0); keeping resting hand
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _build_parts (res://game/rig/character_rig.gd:611)
+       [1] setup (res://game/rig/character_rig.gd:118)
+       [2] _test_rin_hand_grip_density (res://tests/suite/test_characters.gd:114)
+       [3] run (res://tests/suite/test_characters.gd:45)
+       [4] _test_rigs (res://tests/suite/test_characters.gd:337)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin/hand_back invalid gripping attachment hand_left_grip (texture_scale=inf); keeping resting hand
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _build_parts (res://game/rig/character_rig.gd:611)
+       [1] setup (res://game/rig/character_rig.gd:118)
+       [2] _test_rin_hand_grip_density (res://tests/suite/test_characters.gd:114)
+       [3] run (res://tests/suite/test_characters.gd:45)
+       [4] _test_rigs (res://tests/suite/test_characters.gd:337)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin/hand_back invalid gripping attachment hand_left_grip (texture_scale=nan); keeping resting hand
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _build_parts (res://game/rig/character_rig.gd:611)
+       [1] setup (res://game/rig/character_rig.gd:118)
+       [2] _test_rin_hand_grip_density (res://tests/suite/test_characters.gd:114)
+       [3] run (res://tests/suite/test_characters.gd:45)
+       [4] _test_rigs (res://tests/suite/test_characters.gd:337)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin/hand_back invalid gripping attachment hand_left_grip (texture_scale=0.02); keeping resting hand
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _build_parts (res://game/rig/character_rig.gd:611)
+       [1] setup (res://game/rig/character_rig.gd:118)
+       [2] _test_rin_hand_grip_density (res://tests/suite/test_characters.gd:114)
+       [3] run (res://tests/suite/test_characters.gd:45)
+       [4] _test_rigs (res://tests/suite/test_characters.gd:337)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin/hand_back invalid gripping attachment hand_left_grip (texture_scale=true); keeping resting hand
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _build_parts (res://game/rig/character_rig.gd:611)
+       [1] setup (res://game/rig/character_rig.gd:118)
+       [2] _test_rin_hand_grip_density (res://tests/suite/test_characters.gd:114)
+       [3] run (res://tests/suite/test_characters.gd:45)
+       [4] _test_rigs (res://tests/suite/test_characters.gd:337)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:122)
+WARNING: [CharacterRig] rin/hand_back invalid gripping attachment hand_left_grip (texture_scale=<null>); keeping resting hand
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _build_parts (res://game/rig/character_rig.gd:611)
+       [1] setup (res://game/rig/character_rig.gd:118)
+       [2] _test_rin_hand_grip_density (res://tests/suite/test_characters.gd:114)
+       [3] run (res://tests/suite/test_characters.gd:45)
+       [4] _test_rigs (res://tests/suite/test_characters.gd:337)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:122)
+SUITE_TIME CharactersSuite 0.5
+SUITE_TIME Chapter1EnemiesSuite 6.3
+checks: 1888, failures: 0

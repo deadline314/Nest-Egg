@@ -1,0 +1,62 @@
+{
+  "status": "REGISTERED_NATIVE_SUPPORT_HAND_PARTIAL_DELIVERY",
+  "raw_output_alpha": {
+    "min": 252,
+    "max": 255,
+    "transparent_pixels": 0,
+    "extraction": "SAM 3.1 binary owner mask; not native alpha transparency"
+  },
+  "sam_owner": {
+    "bbox_xyxy": [
+      267,
+      358,
+      493,
+      500
+    ],
+    "size": [
+      226,
+      142
+    ],
+    "opaque_pixels": 23399,
+    "connected_components_8": 1
+  },
+  "registration": {
+    "pivot_wrist_px": [
+      26.0822,
+      25.9259
+    ],
+    "texture_scale": 0.018283541156251144,
+    "existing_hand_back_grip_offset_skeleton_units": [
+      1.67408,
+      -0.01506
+    ],
+    "bone_or_grip_change": false
+  },
+  "outputs_sha256": {
+    "hand_back.png": "d4da7778be1c6df46797795d2aff09799bb928fa645df278afe16825a2ee4f89",
+    "hand_back_n.png": "22e3eeeb6699cdfd7b0141b2418661b85d40e2ebe9ffb78afd33e96d5ef8e6a7"
+  },
+  "inputs_sha256": {
+    "raw": "993fed5e839300642bb0e0ce9ba841de8d02c6ea7529ef750ecfce1d38d30c3a",
+    "sam_mask": "70a724378cb2f452be7465f845af5ce26db83cc6295ebd88a25316900a888baa",
+    "context_ref": "1aea812967ced6ab731ab06aeba3f6ffbba70940d0b6199079438d9802e13da4",
+    "source_crop": "62d42bfa01e7a96f3134a91521b60ea444b2ec32efac37fe041ac77b3ae67ca0",
+    "qwen_graph": "d198151c33f27b9e08fb47577b489a6256eef7f982cfc0dd3eaf06626e3db799",
+    "qwen_job": "068a89724791c4f96e48cf014e0d2287070b5bb0cb867d1439583e34ab692c6a",
+    "sam_graph": "9f6582bb44387427f0b8fc812d74cb121437aa346d06b06c487c0f3d1e6ed5e0",
+    "sam_points": "60d2130e169b005671ac0efb314ed88c6f0fd19570e91a514c16cfa6e3ed842d",
+    "source_metadata": "dad378ebe854a8d26ff921415fb99b85ebcaed2deb96c0f3c5f6930b8d9e556f",
+    "cut_layers": "5c662add546e3ccc0b23f1e0e8a817f8d86608a4e53dc923cf47e8b7cdf64154"
+  },
+  "checks": 45,
+  "negative_controls": {
+    "one_pixel_extra_owner": "caught",
+    "one_pixel_missing_owner": "caught",
+    "wrong_crop": "caught",
+    "wrong_scale": "caught",
+    "wrong_pivot": "caught",
+    "changed_source_hash": "caught"
+  },
+  "normal_map": "tools/comfyui/cut_layers.py:make_normal_map; generated from cropped RGB + SAM alpha",
+  "visual_status": "Registered support-hand source; native production API and wrist evidence are recorded separately. Thumb is occluded by rifle draw order; this is not whole-character or all-animation acceptance."
+}

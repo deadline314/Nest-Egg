@@ -1,0 +1,21 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME CharactersSuite 2.2
+checks: 559, failures: 16
+FAIL: native grip density applies without resampling: 0.01828354115625/1
+FAIL: native grip density applies without resampling: 0.01828354115625/-1
+FAIL: bad density rejects the grip safely: 0/1
+FAIL: bad density rejects the grip safely: 0/-1
+FAIL: bad density rejects the grip safely: -1.0/1
+FAIL: bad density rejects the grip safely: -1.0/-1
+FAIL: bad density rejects the grip safely: inf/1
+FAIL: bad density rejects the grip safely: inf/-1
+FAIL: bad density rejects the grip safely: nan/1
+FAIL: bad density rejects the grip safely: nan/-1
+FAIL: bad density rejects the grip safely: 0.02/1
+FAIL: bad density rejects the grip safely: 0.02/-1
+FAIL: bad density rejects the grip safely: true/1
+FAIL: bad density rejects the grip safely: true/-1
+FAIL: bad density rejects the grip safely: <null>/1
+FAIL: bad density rejects the grip safely: <null>/-1

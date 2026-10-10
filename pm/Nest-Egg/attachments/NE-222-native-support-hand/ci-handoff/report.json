@@ -1,0 +1,35 @@
+{
+  "checkout": "C:/Users/stanl/Github/Nest-Egg",
+  "head": "aa51e05bfcb5d05dd63dd7055b007645644eaef9",
+  "tracked_worktree_clean": true,
+  "ci_runtime": "Godot 4.7-stable Linux x86_64",
+  "local_runtime": "Godot 4.7.2.stable.official.ed1daf0bf Windows console/headless",
+  "class_cache_refresh": {
+    "command": "D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/gpu_lock.py -- C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe --headless --editor --path . --quit",
+    "exit_code": 0,
+    "log": "class-cache-refresh.log",
+    "script_errors": 0
+  },
+  "targeted_suite": {
+    "command": "tools/run_tests_parallel.sh --only=MeleeSuite",
+    "shards": 1,
+    "checks": 25,
+    "new_failures": 0,
+    "known_failures": 0,
+    "exit_code": 0,
+    "log": "logs-after-cache/shard_0.log"
+  },
+  "ci_failures_from_supplied_log": [
+    "the buffered press chains into the second swing",
+    "a hit cancels the recovery early (41 frames of 9)",
+    "the third swing of the combo is the heavy slash"
+  ],
+  "change_correlation": {
+    "commit": "90a73316 NE-237: unlock five selectable melee continuations and preserve resource/recovery costs",
+    "player_changed": "Introduced MeleeCommandInput and replaced the simulation-delta melee buffer countdown with an absolute Time.get_ticks_msec deadline.",
+    "test_changed": false,
+    "buffer_window_seconds": 0.22,
+    "diagnosis": "Strong timing-regression candidate, not reproduced locally: a wall-clock deadline can expire before the cancel window is reached when CI process scheduling is delayed. All three CI failures follow from the same expired buffered command; 41 frames is consistent with waiting through the combo window after the chain was missed. Local Godot 4.7.2 targeted suite passes; the CI failure was Godot 4.7-stable on Linux, so runtime/scheduling differences remain unisolated."
+  },
+  "scope_limits": "Read-only diagnosis. No formal files changed. Initial attempt before cache refresh failed during unrelated unresolved global-class parse errors and was stopped; it is not counted. No CI runtime was available locally."
+}

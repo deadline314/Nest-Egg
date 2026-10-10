@@ -1,0 +1,232 @@
+{
+  "status": "CPU_EXPORT_CONTRACT_PASS_NOT_NATIVE_VISUAL_OR_FORMAL_ACCEPTANCE",
+  "checks": 68,
+  "inputs": {
+    "cut_layers_sha256": "5c662add546e3ccc0b23f1e0e8a817f8d86608a4e53dc923cf47e8b7cdf64154",
+    "cut_layers_sha_pinned_by_rebuild": "5c662add546e3ccc0b23f1e0e8a817f8d86608a4e53dc923cf47e8b7cdf64154",
+    "rin_side_spec_sha256": "a67e87de30122d1ded684290b6b31d50b0696b849ea75a86c83c0dc07996dcba",
+    "source_manifest_sha256": "696824cc42146a795a7c449e433e321e8d16f4d09fc685662b8fd72f0fa49bf8",
+    "rebuild_script_sha256": "915c62412ec261af1f64b3d3117f4d89aaf97cec5718f3ebff4e105c876be8ca",
+    "source_sha256": "d4da7778be1c6df46797795d2aff09799bb928fa645df278afe16825a2ee4f89",
+    "raw_sha256": "993fed5e839300642bb0e0ce9ba841de8d02c6ea7529ef750ecfce1d38d30c3a",
+    "mask_sha256": "70a724378cb2f452be7465f845af5ce26db83cc6295ebd88a25316900a888baa",
+    "size": [
+      226,
+      142
+    ],
+    "pivot": [
+      26.0822,
+      25.9259
+    ],
+    "texture_scale": 0.018283541156251144,
+    "owner_pixels": 23399,
+    "bbox_xyxy": [
+      267,
+      358,
+      493,
+      500
+    ]
+  },
+  "positive_export": {
+    "native_grip_file_sha256": "d4da7778be1c6df46797795d2aff09799bb928fa645df278afe16825a2ee4f89",
+    "character_metadata_before_after": {
+      "before": {
+        "file": "parts/hand_left_grip.png",
+        "size": [
+          226,
+          142
+        ],
+        "pivot": [
+          26.0822,
+          25.9259
+        ],
+        "note": "原生握持部件；來源與重建見 spec.native_grips",
+        "texture_scale": 0.018283541156251144
+      },
+      "after": {
+        "file": "parts/hand_left_grip.png",
+        "size": [
+          226,
+          142
+        ],
+        "pivot": [
+          26.0822,
+          25.9259
+        ],
+        "texture_scale": 0.018283541156251144,
+        "note": "原生握持部件；來源與重建見 spec.native_grips"
+      }
+    },
+    "legacy_grip_offset": [
+      1.67408,
+      -0.01506
+    ],
+    "other_part_texture_count": 29,
+    "other_part_textures": [
+      {
+        "name": "arm_left_lower.png",
+        "sha256": "5e13a611b7f3ce74ecdfbdca7220f6dbb1ad1fe85fafe0c6b82bfc04c70b2b59"
+      },
+      {
+        "name": "arm_left_upper.png",
+        "sha256": "b0dbfc072577b20add0496eeda744ff015b190d0ba9c9a36e52b9b6a67f2a006"
+      },
+      {
+        "name": "arm_lower.png",
+        "sha256": "16dcc04f76d89cbcab2cd3ddf1ca2b634a96baef016bf4ae588e827c1a0911a8"
+      },
+      {
+        "name": "arm_upper.png",
+        "sha256": "a153b20c67733c56561e8076acb2a83a65729e635c666c160d337873aa2d043e"
+      },
+      {
+        "name": "armor_jacket.png",
+        "sha256": "cc69d10458f55644f2cf3f1c34ab5918ae9251176898ec6573fc5eb7568100b6"
+      },
+      {
+        "name": "foot.png",
+        "sha256": "1bfff06cfe3c11bcaf2182c4bb6db3513697ff58cde439c487594624ea36cae9"
+      },
+      {
+        "name": "foot_glow.png",
+        "sha256": "09bfe7d89e4b2f4927bfce3c468d19a7636e7a845ad3540ab03213d3bacbfe62"
+      },
+      {
+        "name": "hair_back_1.png",
+        "sha256": "8ccb56bab2f3a8fcb0ae9f2fdf9fbf434dc75228107702ff2ca74c0aaa008e63"
+      },
+      {
+        "name": "hair_back_2.png",
+        "sha256": "1e5ee7326c1c3f4d6efd97aacc85c4b20cb2df236e479cd8f11ac1a4cb97fa79"
+      },
+      {
+        "name": "hand.png",
+        "sha256": "db5db2e306cea2d67a7058d7aa14c580b79fecedc99b9f37c4beba6eecfe9a03"
+      },
+      {
+        "name": "hand_grip.png",
+        "sha256": "882f2d74588aed4669a6650386c4004c810b8e05ebda76b2816657a671171617"
+      },
+      {
+        "name": "hand_left.png",
+        "sha256": "03696ce5f24f02c935be5b38163bc63e926807c9a42cc6eeba4c3c7caa6d5bde"
+      },
+      {
+        "name": "head.png",
+        "sha256": "a17f75ea88cadc52f7f9201508216c3fb2195024026469015a168bd850d1dc7e"
+      },
+      {
+        "name": "head_closed.png",
+        "sha256": "6f62dd215f674d9789a3fb3f7cca2497689f9252b3db973b790c0c31dd6a4caf"
+      },
+      {
+        "name": "head_half.png",
+        "sha256": "a4dedd7ee5354d8921206eb9c6f40397807483236facc5f45e3e5a5702c18df2"
+      },
+      {
+        "name": "holster.png",
+        "sha256": "6a60b1c8b4c241de84876140e7c682c071d6ee396abec3042f2832610521eb98"
+      },
+      {
+        "name": "jacket_hem.png",
+        "sha256": "8c8a3b674b471e3e336592138097c04174fb99a45862f93f0ad5b4fedf55f130"
+      },
+      {
+        "name": "jacket_sleeve_lower.png",
+        "sha256": "d43145d747f56682d6ae4e61e2031dd461661b98f4952edd773f7f31656d3a13"
+      },
+      {
+        "name": "jacket_sleeve_upper.png",
+        "sha256": "3d2b748276a40c10c4d842a0b24243d2a9cdeaad0f45cf07a04f3cd0b72b968d"
+      },
+      {
+        "name": "leg_lower.png",
+        "sha256": "414c016fe453c22470ee6a9eef5fa4c8e804d2df5016fa27cb743190f3a1c67d"
+      },
+      {
+        "name": "leg_lower_dmg.png",
+        "sha256": "4bc537ad1d090bed3beb95ce1d1f91e52dbd2474cdd0d8b5213ad6e0e82e8ad2"
+      },
+      {
+        "name": "leg_upper.png",
+        "sha256": "c21fea7b2ea1cd4687b92162ca37ca7914a9d6274090bc3af60ffbcb1dc07f12"
+      },
+      {
+        "name": "leg_upper_dmg.png",
+        "sha256": "4801cb6d5c5c6e0db605d103accca9786a8d8cf8c65fe7effafb7587a0d884c1"
+      },
+      {
+        "name": "pelvis.png",
+        "sha256": "f1eb1ffd402ce5a4ca3d5a0e054b76a16111e9878a8c9073c8a5ae9443807330"
+      },
+      {
+        "name": "pelvis_dmg.png",
+        "sha256": "62292217a0b4ec5a76393026415df903bc47f21ec033bca24d723b162d5a27f7"
+      },
+      {
+        "name": "pelvis_glow.png",
+        "sha256": "ba0c9e8ae5c85427a0cb4b565cf0895a5640d3a181015d47c1998081e4cc49d3"
+      },
+      {
+        "name": "torso.png",
+        "sha256": "9cb49daa7a166a2f7ed31e44f3995c8e5192446294f5c41d0aa67a40263e3d4f"
+      },
+      {
+        "name": "torso_dmg.png",
+        "sha256": "63f88f3339bb2b14ff017213c06dfee702ecb6b7ed52523a8d9e1a384d480afa"
+      },
+      {
+        "name": "torso_glow.png",
+        "sha256": "f03c4ed588da7573e7e9808862ce83ea2929d4415e11310ae8b5858dfbdb82f7"
+      }
+    ],
+    "other_character_texture_metadata_identical": true,
+    "part_metadata_identical": true,
+    "rig_sha256": "6704bf4a597aded8d1a4350e6c8bb20e553628ae42233eee7636bd654c9f705e",
+    "no_grip_normal_map_written_by_main": true
+  },
+  "negative_controls": [
+    {
+      "case": "bad source hash",
+      "error": "spec.native_grips.hand_left_grip: source hash, RGBA or size differs",
+      "existing_outputs_unchanged": true
+    },
+    {
+      "case": "wrong source size",
+      "error": "spec.native_grips.hand_left_grip: source hash, RGBA or size differs",
+      "existing_outputs_unchanged": true
+    },
+    {
+      "case": "nonfinite density",
+      "error": "spec.native_grips.hand_left_grip: invalid source, density or pivot",
+      "existing_outputs_unchanged": true
+    },
+    {
+      "case": "zero density",
+      "error": "spec.native_grips.hand_left_grip: invalid source, density or pivot",
+      "existing_outputs_unchanged": true
+    },
+    {
+      "case": "invalid source path",
+      "error": "spec.native_grips.hand_left_grip: invalid source, density or pivot",
+      "existing_outputs_unchanged": true
+    },
+    {
+      "case": "foreign unreferenced slot",
+      "error": "spec.native_grips.foreign_slot: requires a referenced gripping attachment",
+      "existing_outputs_unchanged": true
+    }
+  ],
+  "main_logs": {
+    "native_1": [
+      "rig bones: 20  textures: 27  parts: 30"
+    ],
+    "native_2": [
+      "rig bones: 20  textures: 27  parts: 30"
+    ],
+    "without_native": [
+      "rig bones: 20  textures: 27  parts: 30"
+    ]
+  },
+  "meaning": "Executed the current production cut_layers.main against the actual Rin side spec and source work tree, writing all outputs only under .godot. No source or formal character files were written. Normal-map regeneration is a separate step and was not tested."
+}

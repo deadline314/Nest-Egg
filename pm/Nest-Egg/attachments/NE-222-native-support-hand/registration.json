@@ -1,0 +1,166 @@
+{
+  "status": "CPU_REGISTERED_CANDIDATE_NOT_ACCEPTED",
+  "seed": 22308,
+  "source_hashes": {
+    ".godot\\ne222-rifle-new-parts-plan\\references-v2\\actual-rifle-back_human-crop-native.png": "62d42bfa01e7a96f3134a91521b60ea444b2ec32efac37fe041ac77b3ae67ca0",
+    ".godot\\ne222-rifle-new-parts-plan\\context-edit-v3\\actual-support-context-nearest2-reference.png": "1aea812967ced6ab731ab06aeba3f6ffbba70940d0b6199079438d9802e13da4",
+    ".godot\\ne222-rifle-new-parts-plan\\context-edit-v3\\_gen\\rin_ne222_support_context_22308_0.png": "993fed5e839300642bb0e0ce9ba841de8d02c6ea7529ef750ecfce1d38d30c3a",
+    ".godot\\ne222-rifle-new-parts-plan\\context-edit-v3\\support-hand-source-candidate.png": "abb003bda1c3703c1a5ffeb79eac427a8908555d4910866e74105f9d8e1f085f",
+    ".godot\\ne222-rifle-new-parts-plan\\context-edit-v3\\sam\\support_hand.png": "70a724378cb2f452be7465f845af5ce26db83cc6295ebd88a25316900a888baa",
+    "art\\characters\\rin\\character.json": "20cd9902e03ddf3f17b96adad3776cacab06c6e092b3e014e3736315adb91bad",
+    "art\\weapons\\weapons.json": "4e284708a2df9dd154c1a15cd8526c48f527bb6b248c26e6a61ea55d9b0d3cde",
+    "art\\weapons\\rifle.png": "484f7756b0cf232fa9f52df1f0aff2851f1f37294172e9453f420afc1288ce5b",
+    "art\\weapons\\rifle_glow.png": "68c836e45dd6f452e73a302089f5af39f5428e7068977550342174ee8820972e",
+    "art\\characters\\rin\\parts\\hand_left_grip.png": "109d252d0633790cb4017aa9d263909fd40b09b7ffd4d2ecc72e676e683e5e24",
+    ".godot\\rin-hand-lighting-review\\runtime-native-2620\\manifest.json": "9f01a0ce495a2759e117f4c252271dab2a34e8b6a7ceeb0b4b15a14c3930c6fc"
+  },
+  "sam": {
+    "binary": true,
+    "bbox_xyxy": [
+      267,
+      358,
+      493,
+      500
+    ],
+    "opaque_pixels": 23399,
+    "connected_components": 1
+  },
+  "reference_mapping": {
+    "native_capture_crop_xyxy": [
+      1011,
+      433,
+      1331,
+      673
+    ],
+    "native_crop_size": [
+      320,
+      240
+    ],
+    "nearest_integer_scale": 2,
+    "offset_qwen_px": [
+      64,
+      144
+    ],
+    "qwen_output_px_per_canonical_hand_texel": 2.2998826999999995,
+    "canonical_texels_per_qwen_output_px": 0.434804783739623,
+    "capture_camera_zoom": 23.78,
+    "rin_body_scale": 1.15,
+    "formal_hand_texture_scale": 0.04205
+  },
+  "formal_rig": {
+    "hand_back_grip_offset_skeleton_units": [
+      1.67408,
+      -0.01506
+    ],
+    "base_texture_size": [
+      90,
+      70
+    ],
+    "base_pivot": [
+      15.89,
+      35.51
+    ],
+    "weapon": {
+      "file": "art/weapons/rifle.png",
+      "size": [
+        104,
+        36
+      ],
+      "texture_scale": 0.25,
+      "grip": [
+        30,
+        22
+      ],
+      "foregrip": [
+        64,
+        20
+      ]
+    }
+  },
+  "candidate_registration": {
+    "raw_texture_size": [
+      226,
+      142
+    ],
+    "raw_texture_scale": 0.018283541156251144,
+    "raw_texture_pivot_wrist_px": [
+      26.0822,
+      25.9259
+    ],
+    "canonical_size_equivalent_at_0p04205": [
+      98.266,
+      61.742
+    ],
+    "rounded_resample_size_option_at_0p04205": [
+      98,
+      62
+    ],
+    "registered_foregrip_native_crop_px": [
+      160.3221,
+      119.5511
+    ],
+    "bone_wrist_native_crop_px_from_real_anchor_minus_offset": [
+      114.5411,
+      119.9629
+    ],
+    "bone_wrist_qwen_input_px": [
+      293.0822,
+      383.9259
+    ],
+    "bbox_left_edge_approx_wrist_qwen_px": [
+      273,
+      404
+    ],
+    "anchor_is_weapon_foregrip_registration_not_palm_center": true,
+    "expected_foregrip_from_pivot_plus_grip_offset_qwen_px": [
+      384.6443,
+      383.1022
+    ],
+    "grip_registration_residual_qwen_px": [
+      0.0,
+      0.0
+    ],
+    "candidate_mask_at_wrist_and_foregrip": true,
+    "no_bone_or_grip_offset_change": true
+  },
+  "source_palette_diagnostic": {
+    "candidate_source_rgb_median": [
+      225.0,
+      173.0,
+      144.0
+    ],
+    "existing_hand_rgb_median": [
+      244.0,
+      191.0,
+      162.0
+    ],
+    "candidate_skin_pixels": 23233,
+    "existing_skin_pixels": 3988,
+    "tint_or_brightness_adjustment_applied": false
+  },
+  "cpu_contact_preview": {
+    "hand_screen_px_per_candidate_texture_px": 0.5,
+    "rifle_screen_px_per_weapon_texture_px": 6.836749999999999,
+    "weapon_drawn_after_hand": true,
+    "weapon_glow_or_lit_normal_previewed": false,
+    "scene_tint_applied": false,
+    "capture_context_historically_tinted_back_parts": 0.62,
+    "current_parts_tint": 1.0
+  },
+  "self_checks": {
+    "source_rgb_retained_in_raw_crop": true,
+    "sam_alpha_matches_candidate": true,
+    "one_pixel_foreign_owner_negative": "caught",
+    "one_pixel_missing_owner_negative": "caught",
+    "normal_map_source": "tools/comfyui/cut_layers.py:make_normal_map",
+    "normal_is_visual_acceptance": false
+  },
+  "not_verified": [
+    "natural silhouette and five-digit readability in full character",
+    "arm/sleeve continuity under pose changes",
+    "native Forward+ lighting with actual normal map",
+    "kneeling pose",
+    "other 2H weapon compatibility",
+    "native weapon contact acceptance"
+  ]
+}

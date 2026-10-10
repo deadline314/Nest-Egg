@@ -1,0 +1,213 @@
+{
+  "status": "CLEAN_06C_FOUR_SHARD_BASELINE_DID_NOT_REPRODUCE_MELEE_FAILURES",
+  "scope": "CPU/headless test reproduction only; no formal source/test/player edits, no GPU run by this agent",
+  "project_root": "C:\\Users\\stanl\\Github\\Nest-Egg",
+  "initial_primary_head_before_root_fast_forward": "aa51e05bfcb5d05dd63dd7055b007645644eaef9",
+  "initial_primary_tracked_status": "clean (git status --short --untracked-files=no and git diff --name-only HEAD were empty); no hand files modified",
+  "tested_head": "06c440760b91f882a8da2d1aedced1f7c04fcc50",
+  "tested_tracked_status": "clean",
+  "godot": "Godot Engine v4.7.2.stable.official.ed1daf0bf",
+  "godot_executable_sha256": "c8f0a6bc45a19b33541501e57f6f7cd972ab18453743266339d495cbbe846643",
+  "parallel_command": "GODOT=C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe SHARDS=4 LOG_DIR=.godot/ne222-native-hand-scale/ci-melee-review-06c/parallel-6suite PATH=D:/ComfyUI/.venv/Scripts:$PATH bash tools/run_tests_parallel.sh --only=CharactersSuite,RigMeshSuite,RigActionsSuite,ProtagonistMotionSuite,AnimAuditSuite,MeleeSuite 4",
+  "parallel_result": {
+    "checks": 7921,
+    "new_failures": 0,
+    "known_failures": 0,
+    "wall_seconds": 23,
+    "processes": 4,
+    "shard_assignments": {
+      "0": [
+        "RigMeshSuite",
+        "AnimAuditSuite"
+      ],
+      "1": [
+        "RigActionsSuite",
+        "MeleeSuite"
+      ],
+      "2": [
+        "ProtagonistMotionSuite"
+      ],
+      "3": [
+        "CharactersSuite"
+      ]
+    },
+    "raw_logs": {
+      "shard_0.log": {
+        "sha256": "43183bdc30def842092a63476d03fef5960481c1bf046d632dc3207c3faee29e",
+        "bytes": 27011,
+        "suites": [
+          {
+            "suite": "AnimAuditSuite",
+            "seconds": 10.6
+          },
+          {
+            "suite": "RigMeshSuite",
+            "seconds": 1.0
+          }
+        ],
+        "checks_line": "checks: 557, failures: 0",
+        "fail_lines": [],
+        "script_error_lines": [],
+        "expected_diagnostic_error_lines": []
+      },
+      "shard_1.log": {
+        "sha256": "ec8d0066398476fa851293ca0c0472acd5c5db8ca60fbe64d8795a3fbd790de7",
+        "bytes": 1799,
+        "suites": [
+          {
+            "suite": "RigActionsSuite",
+            "seconds": 2.1
+          },
+          {
+            "suite": "MeleeSuite",
+            "seconds": 3.7
+          }
+        ],
+        "checks_line": "checks: 4299, failures: 0",
+        "fail_lines": [],
+        "script_error_lines": [],
+        "expected_diagnostic_error_lines": [
+          "ERROR: [HumanoidAnimator] res://art/rigs/action_poses.json 沒有專屬動作「no_such_action」",
+          "ERROR: [MeleeSet] res://data/feel/melee.json 沒有招式「test_no_such_attack」，改用預設"
+        ]
+      },
+      "shard_2.log": {
+        "sha256": "511367c95b6f985f1b66631a847fc860b658da339a3dbbd5564159c8ea21ed4f",
+        "bytes": 1648,
+        "suites": [
+          {
+            "suite": "ProtagonistMotionSuite",
+            "seconds": 2.5
+          }
+        ],
+        "checks_line": "checks: 2605, failures: 0",
+        "fail_lines": [],
+        "script_error_lines": [],
+        "expected_diagnostic_error_lines": []
+      },
+      "shard_3.log": {
+        "sha256": "94daf3f3a95626bc20e5b6adf19bda48a7ef0f6d692b270dc187a998d762b19a",
+        "bytes": 160,
+        "suites": [
+          {
+            "suite": "CharactersSuite",
+            "seconds": 3.2
+          }
+        ],
+        "checks_line": "checks: 460, failures: 0",
+        "fail_lines": [],
+        "script_error_lines": [],
+        "expected_diagnostic_error_lines": []
+      }
+    }
+  },
+  "single_melee_command": "GODOT=C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe SHARDS=1 LOG_DIR=.godot/ne222-native-hand-scale/ci-melee-review-06c/single-melee PATH=D:/ComfyUI/.venv/Scripts:$PATH bash tools/run_tests_parallel.sh --only=MeleeSuite 1",
+  "single_melee_result": {
+    "checks": 25,
+    "new_failures": 0,
+    "known_failures": 0,
+    "wall_seconds": 12,
+    "raw_logs": {
+      "shard_0.log": {
+        "sha256": "3e9a654576aa0088ba467c4d5549cac3fec9ebb33b4f6a18e5e86e85af818764",
+        "bytes": 819,
+        "suites": [
+          {
+            "suite": "MeleeSuite",
+            "seconds": 3.8
+          }
+        ],
+        "checks_line": "checks: 25, failures: 0",
+        "fail_lines": [],
+        "script_error_lines": [],
+        "expected_diagnostic_error_lines": [
+          "ERROR: [MeleeSet] res://data/feel/melee.json 沒有招式「test_no_such_attack」，改用預設"
+        ]
+      }
+    }
+  },
+  "comparison_prior_root_run": {
+    "summary_path": "D:/NestEggVerification/ne222-native-hand-scale/merge-06c44076-summary.log",
+    "summary_sha256": "78de9f5cebaee511c836ad1d449e65959aa511417094108ce3d8d46afd3d2182",
+    "summary_excerpt": "Runner summary says 6 groups / 6 nominal processes; four process IDs (0–3) were actually assigned work (logs: D:/NestEggVerification/ne222-native-hand-scale/merge-06c44076)\n  process 0 (estimated 8 s): AnimAuditSuite\n  process 1 (estimated 3 s): MeleeSuite\n  process 2 (estimated 1 s): ProtagonistMotionSuite\n  process 3 (estimated 0 s): RigMeshSuite,RigActionsSuite,CharactersSuite\n[process 1] NEW FAILURE: the buffered press chains into the second swing\n[process 1] NEW FAILURE: a hit cancels the recovery early (41 frames of 9)\n[process 1] NEW FAILURE: the third swing of the combo is the heavy slash\nchecks: 8020, new failures: 3, known failures (tests/known_failures.txt): 0  (wall time 21 s)\n",
+    "melee_shard_path": "D:/NestEggVerification/ne222-native-hand-scale/merge-06c44076/shard_1.log",
+    "melee_shard_sha256": "7983cc7bfa2c872501136ba75e8e3dce87386ad49d0a7c7c3d9eb5cc209b239d",
+    "melee_failure_lines": [
+      "FAIL: the buffered press chains into the second swing",
+      "FAIL: a hit cancels the recovery early (41 frames of 9)",
+      "FAIL: the third swing of the combo is the heavy slash"
+    ],
+    "note": "Root confirmed the run was effectively four processes; the summary header reports six nominal processes, but only process IDs 0–3 have assignments. Root-workspace comparison had other edits and concurrent capture/load; it shows a flaky failure but does not isolate load as cause.",
+    "effective_process_count": 4
+  },
+  "file_sha256": {
+    "game/player/player.gd": {
+      "path": "game/player/player.gd",
+      "sha256": "7272e09c0f1ac0b7fc666efe10309de584495dcadf36ad9495c908b08b61c902"
+    },
+    "game/player/melee_set.gd": {
+      "path": "game/player/melee_set.gd",
+      "sha256": "f2d4f53b36c9bfd1e6d582db663cdbfe4c71d9fa423cb5eb0c1c36ef1f78e734"
+    },
+    "game/player/melee_data.gd": {
+      "path": "game/player/melee_data.gd",
+      "sha256": "52e14a7490c27ef6757d9fc0590d76b408eb3eb5c3bc267c291e3b19a76aba8a"
+    },
+    "game/player/melee_command_input.gd": {
+      "path": "game/player/melee_command_input.gd",
+      "sha256": "76e6ff52dfd621b58426b58012fba740abc8242c82a8ef2ca5e8b629c3fe8ba2"
+    },
+    "autoload/feel.gd": {
+      "path": "autoload/feel.gd",
+      "sha256": "1b7feafd549991978346dd54e75d832cb5f08508cccf520f363d78ac2ff799bb"
+    },
+    "data/feel/melee.json": {
+      "path": "data/feel/melee.json",
+      "sha256": "d048899fb33fda9dce6332052ec27199cfb98296ff7bfa605d83aa1438f69cde"
+    },
+    "data/feel/input.json": {
+      "path": "data/feel/input.json",
+      "sha256": "3fda3281db6430fb09a95db740118fdf691f706c3fd2ed5024dc99faae649148"
+    },
+    "data/feel/events.json": {
+      "path": "data/feel/events.json",
+      "sha256": "49b7c4615f9d9e3545db6269a760201061554cb598f509992befca218acb00a1"
+    },
+    "tests/suite/test_melee.gd": {
+      "path": "tests/suite/test_melee.gd",
+      "sha256": "64fd4af922f7dca74d4f9e3ff098fca6e273076db8cc407273b75dfb88be59bc"
+    },
+    "tests/smoke_test.gd": {
+      "path": "tests/smoke_test.gd",
+      "sha256": "fcef9118c7b7df128d9f409748492ec64beb22c815f4c09b400e5e5846438849"
+    },
+    "tools/run_tests_parallel.sh": {
+      "path": "tools/run_tests_parallel.sh",
+      "sha256": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba"
+    },
+    "tests/known_failures.txt": {
+      "path": "tests/known_failures.txt",
+      "sha256": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf"
+    },
+    "Godot 4.7.2 console exe": {
+      "path": "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe",
+      "sha256": "c8f0a6bc45a19b33541501e57f6f7cd972ab18453743266339d495cbbe846643"
+    },
+    "Git Bash exe": {
+      "path": "C:/Program Files/Git/bin/bash.exe",
+      "sha256": "09fd0d59234f9e297feed914e3307f8167ef149296dd039b8189824f43e352a0"
+    }
+  },
+  "timing_contract": {
+    "test": "tests/suite/test_melee.gd::_test_hit_cancel_and_combo (about lines 87-119): buffered press; count physics frames to index advance; assert <= recovery*60-3; verify third input selects heavy.",
+    "input_deadline": "game/player/melee_command_input.gd::queue_command uses Time.get_ticks_msec() + int(MeleeData.buffer_time()*1000); remaining() uses same monotonic clock. Input data sets melee_buffer=0.22s.",
+    "simulation_clock": "game/player/player.gd::_tick_timers(delta) calls _tick_melee(delta) from _physics_process; recovery advances in physics delta; data light_1 recovery=0.16s, cancel_after=0.05s.",
+    "hit_freeze": "data/feel/events.json player_melee_hit freeze=0.05s; player defers Feel.play on first connected hit with targets [self]. MeleeCommandInput PROCESS_MODE_ALWAYS intentionally keeps input expiry advancing during parent freeze.",
+    "interpretation": "Under scheduling pressure a wall-clock command expiry and physics-tick recovery/cancel window can drift. This is a plausible timing cause for the prior buffered-chain miss; this clean run did not reproduce it, so no causal proof or threshold change is claimed."
+  },
+  "limitations": [
+    "The clean run used four headless processes and no concurrent GPU work; it does not reproduce the prior overloaded D-workspace condition.",
+    "The prior D run had three MeleeSuite failures while unrelated selected suites passed, but it differed in workspace state/load and cannot by itself prove a load-only cause.",
+    "No runtime code, timing threshold, or test was changed."
+  ]
+}

@@ -42,6 +42,7 @@ func run() -> void:
 	_test_weapons()
 	await _test_rigs()
 	await _test_rin_hand_grips()
+	_test_rin_hand_grip_density()
 
 
 func _test_rin_hand_grips() -> void:
@@ -94,6 +95,57 @@ func _test_rin_hand_grips() -> void:
 	runner.get_tree().root.add_child(other)
 	check(other.setup("enforcer") and other._hand_grips.is_empty(), "unconfigured characters retain their original hands and zero grasp offsets")
 	other.free()
+
+
+func _test_rin_hand_grip_density() -> void:
+	var cache_path := RigLibrary.CHARACTER_PATH % "rin"
+	var original := RigLibrary.character("rin")
+	for value: Variant in [&"missing", 0.018283541156251144, 0, -1.0, INF, NAN, "0.02", true, null]:
+		var fixture := original.duplicate(true)
+		var missing := typeof(value) == TYPE_STRING_NAME
+		var valid: bool = missing or (typeof(value) == TYPE_FLOAT and is_finite(value) and float(value) > 0.0)
+		if not missing:
+			fixture["textures"]["hand_left_grip"]["texture_scale"] = value
+		else:
+			fixture["textures"]["hand_left_grip"].erase("texture_scale")
+		RigLibrary._json_cache[cache_path] = fixture
+		var rig := CharacterRig.new()
+		runner.get_tree().root.add_child(rig)
+		check(rig.setup("rin"), "grip density fixture builds: %s" % str(value))
+		RigLibrary._json_cache[cache_path] = original
+		var hand := rig.bone(&"hand_back").get_node_or_null("hand_back") as Sprite2D
+		check(hand != null and hand.get_parent() == rig.bone(&"hand_back"), "invalid density preserves the attached resting hand: %s" % str(value))
+		if hand == null:
+			rig.free()
+			continue
+		var rest_scale := hand.scale
+		var rest_texture := hand.texture
+		var rest_offset := hand.offset
+		var input := RigInput.new()
+		input.two_handed = true
+		input.on_floor = true
+		rig.set_weapon("rifle")
+		for side in [1, -1]:
+			input.facing = side
+			input.aim_dir = Vector2(side, -0.3)
+			for frame in 30: rig.animate(1.0 / 60.0, input)
+			var expected_scale := float(value) if valid and not missing else float(original["texture_scale"])
+			check(hand.scale.is_equal_approx(Vector2.ONE * expected_scale), "native grip density applies without resampling: %s/%d" % [str(value), side])
+			if valid:
+				var foregrip := (RigLibrary.vec2(rig.weapon_def()["foregrip"]) - RigLibrary.vec2(rig.weapon_def()["grip"])) * rig.weapon_scale()
+				var palm := rig.bone(&"hand_back").to_global(rig.hand_grip_offset(&"hand_back"))
+				check(palm.distance_to(rig.weapon_root().to_global(foregrip)) < 0.025, "native grip density preserves the authored weapon attachment: %s/%d" % [str(value), side])
+			else:
+				check(hand.texture == rest_texture and hand.offset == rest_offset and rig.hand_grip_offset(&"hand_back") == Vector2.ZERO, "bad density rejects the grip safely: %s/%d" % [str(value), side])
+		for state in [&"one_hand", &"shield", &"action", &"dead", &"unarmed"]:
+			input.two_handed = state != &"one_hand"
+			input.shield_forward = state == &"shield"
+			input.action = &"rin.phone_call" if state == &"action" else &""
+			input.dead = state == &"dead"
+			rig.set_weapon("" if state == &"unarmed" else "rifle")
+			rig.animate(1.0 / 60.0, input)
+			check(hand.scale == rest_scale and hand.texture == rest_texture and hand.offset == rest_offset, "resting hand density and attachment restore: %s/%s" % [str(value), str(state)])
+		rig.free()
 
 
 func _test_rin_density() -> void:

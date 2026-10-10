@@ -1,0 +1,51 @@
+{
+  "load": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "rin_ne222_support_context_22308_0.png"
+    }
+  },
+  "ckpt": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "sam3.1_multiplex_fp16.safetensors"
+    }
+  },
+  "d0": {
+    "class_type": "SAM3_Detect",
+    "inputs": {
+      "model": [
+        "ckpt",
+        0
+      ],
+      "image": [
+        "load",
+        0
+      ],
+      "threshold": 0.3,
+      "refine_iterations": 2,
+      "individual_masks": false,
+      "positive_coords": "[{\"x\": 311, \"y\": 409}, {\"x\": 376, \"y\": 473}, {\"x\": 445, \"y\": 455}, {\"x\": 471, \"y\": 410}]",
+      "negative_coords": "[{\"x\": 370, \"y\": 315}, {\"x\": 207, \"y\": 418}, {\"x\": 516, \"y\": 477}, {\"x\": 312, \"y\": 522}]"
+    }
+  },
+  "m0": {
+    "class_type": "MaskToImage",
+    "inputs": {
+      "mask": [
+        "d0",
+        0
+      ]
+    }
+  },
+  "s0": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "m0",
+        0
+      ],
+      "filename_prefix": "sampt_445cfc_0"
+    }
+  }
+}

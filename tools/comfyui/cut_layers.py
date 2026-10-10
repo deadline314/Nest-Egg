@@ -166,6 +166,35 @@ def make_normal_map(rgba: np.ndarray) -> np.ndarray:
     return normal
 
 
+def load_native_grips(spec: dict, root: Path) -> dict:
+    """Keep registered hand edits at their own density instead of resampling the source."""
+    grips = spec.get("native_grips", {})
+    if not isinstance(grips, dict):
+        raise ValueError("spec.native_grips must be an object")
+    referenced = {u.get("grip_texture") for p in spec["parts"].values() for u in p.get("uses", [])}
+    result = {}
+    for name, config in grips.items():
+        if name not in referenced or not isinstance(config, dict):
+            raise ValueError(f"spec.native_grips.{name}: requires a referenced gripping attachment")
+        if not isinstance(config.get("source"), str):
+            raise ValueError(f"spec.native_grips.{name}: source must be a registered path")
+        source = (root / config["source"]).resolve()
+        scale, pivot = config.get("texture_scale"), config.get("pivot")
+        if (not source.is_relative_to(root / "art_src/characters") or not source.is_file()
+                or type(scale) not in (int, float) or not math.isfinite(scale) or scale <= 0
+                or not isinstance(pivot, list) or len(pivot) != 2
+                or any(type(v) not in (int, float) or not math.isfinite(v) for v in pivot)):
+            raise ValueError(f"spec.native_grips.{name}: invalid source, density or pivot")
+        data = source.read_bytes()
+        with Image.open(source) as image:
+            if (image.mode != "RGBA" or list(image.size) != config.get("size")
+                    or hashlib.sha256(data).hexdigest() != config.get("sha256")):
+                raise ValueError(f"spec.native_grips.{name}: source hash, RGBA or size differs")
+        result[name] = (data, {"file": f"parts/{name}.png", "size": config["size"],
+                              "pivot": pivot, "texture_scale": scale, "note": "原生握持部件；來源與重建見 spec.native_grips"})
+    return result
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--spec", required=True)
@@ -174,6 +203,7 @@ def main() -> None:
     ap.add_argument("--rig", required=True)
     args = ap.parse_args()
     spec = json.loads(Path(args.spec).read_text(encoding="utf8"))
+    native_grips = load_native_grips(spec, Path(__file__).resolve().parents[2])
     work = Path(args.work)
     k = spec["tex_px_per_wp"] / spec["illustration_px_per_wp"]
     px_wp = spec["tex_px_per_wp"]
@@ -348,6 +378,9 @@ def main() -> None:
         grasp = inverse @ np.array([*np.array(spec["parts"][name]["grasp"]) * k, 1.0])
         offset = (grasp - np.array(textures[name]["pivot"])) / px_wp
         entry.update(grip_texture=name, grip_offset=[round(float(v), 5) for v in offset])
+    for name, (data, definition) in native_grips.items():
+        (out_parts / f"{name}.png").write_bytes(data)
+        textures[name] = definition
     # swap in the new files only now that everything above worked
     for path in (work / "overrides").glob("*.png"):
         target = out_parts / path.name
