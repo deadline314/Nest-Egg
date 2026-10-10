@@ -139,3 +139,7 @@ NE-222 Commit-9 的測試與原生連續演出保存在 `pm/Nest-Egg/images/NE-2
 參考：[Godot CanvasItem light](https://docs.godotengine.org/en/stable/tutorials/shaders/shader_reference/canvas_item_shader.html)、[Godot 4.7原始渲染程式](https://github.com/godotengine/godot/blob/4.7/servers/rendering/renderer_rd/shaders/canvas.glsl)、[Spine姿勢專用部件](https://esotericsoftware.com/blog/Rigging-new-poses-tutorial)、[Spine權重工作流程](https://esotericsoftware.com/blog/Mesh-weight-workflows)。官方流程支持先製作新姿勢的對應部件，再核對bind與權重；不是把站姿髖部反覆旋轉成坐姿。
 
 使用者這次的診間坐姿及跪姿臀腿輪廓仍為拒收：球狀／扭曲臀部、折片及尖角不是曝光修正的驗收範圍。坐姿與跪姿各自需要來源歸屬、正確人體及新部件；透明接點、骨長、來源完整度、inverse bind、共享接邊、500頂點／四骨影響、進出、兩面向及實際舞台支撐分開通過後才能採用。原站姿定稿保留。原生照片與回歸記錄見NE-222 Commit-38。
+
+## 來源明暗也須驗收（NE-222）
+
+接點alpha沒有孔洞，不代表全彩部件正確。使用者圈出的長直線陰影先對位至原圖，分別檢查來源明暗、部件描邊與變形後重疊；原圖已畫出的不自然長暗帶不能靠骨架或遮暗消除。局部生成要量測指定區域外的RGBA差異，記錄實際改動，不能以提示詞要求保留就宣稱像素不變。保留原圖、標記圖和原尺寸素材對照；沒有近遠側歸屬、底層、綁定與原生全動作驗證的新圖仍不採用。

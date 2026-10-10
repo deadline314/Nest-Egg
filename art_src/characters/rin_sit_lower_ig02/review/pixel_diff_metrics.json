@@ -1,0 +1,124 @@
+{
+  "ig01": {
+    "path": "C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\art_src\\characters\\rin_sit_lower_ig01\\raw\\source.png",
+    "sha256": "8115265f8ca9e0dbb554c172a8a39f70148b5ab700b3cfd639f4abb690ea9550",
+    "size": [
+      1037,
+      1516
+    ],
+    "mode": "RGBA"
+  },
+  "ig02": {
+    "path": "C:\\Users\\stanl\\.codex\\worktrees\\character-art-baseline\\Nest-Egg\\art_src\\characters\\rin_sit_lower_ig02\\raw\\source.png",
+    "sha256": "4d6f40cabb7854071d5b7be71bf2185089e425043c1da0adbc7e1cf29bffc520",
+    "size": [
+      1037,
+      1516
+    ],
+    "mode": "RGBA"
+  },
+  "image": {
+    "shape_hw": [
+      1516,
+      1037,
+      4
+    ],
+    "total_pixels": 1572092,
+    "changed_pixels": 487597,
+    "changed_channel_bytes": 1541475,
+    "changed_bbox_xyxy_inclusive": [
+      0,
+      32,
+      1036,
+      1495
+    ],
+    "max_abs_channel_delta": 255
+  },
+  "regions": {
+    "target_roi": {
+      "half_open_xyxy": {
+        "box": [
+          85,
+          284,
+          224,
+          568
+        ],
+        "pixels": 39476,
+        "changed_pixels": 35930,
+        "changed_channel_bytes": 110654,
+        "alpha_changed_pixels": 5155,
+        "rgb_changed_pixels": 35445,
+        "outside_roi": {
+          "pixels": 1532616,
+          "changed_pixels": 451667,
+          "changed_channel_bytes": 1430821,
+          "alpha_changed_pixels": 143109,
+          "rgb_changed_pixels": 438740
+        }
+      },
+      "inclusive_xyxy": {
+        "box": [
+          85,
+          284,
+          225,
+          569
+        ],
+        "pixels": 39900,
+        "changed_pixels": 36214,
+        "changed_channel_bytes": 111509,
+        "alpha_changed_pixels": 5165,
+        "rgb_changed_pixels": 35727,
+        "outside_roi": {
+          "pixels": 1532192,
+          "changed_pixels": 451383,
+          "changed_channel_bytes": 1429966,
+          "alpha_changed_pixels": 143099,
+          "rgb_changed_pixels": 438458
+        }
+      }
+    },
+    "broad_hip_roi": {
+      "half_open_xyxy": {
+        "box": [
+          65,
+          250,
+          380,
+          575
+        ],
+        "pixels": 102375,
+        "changed_pixels": 91267,
+        "changed_channel_bytes": 283739,
+        "alpha_changed_pixels": 17085,
+        "rgb_changed_pixels": 90098,
+        "outside_roi": {
+          "pixels": 1469717,
+          "changed_pixels": 396330,
+          "changed_channel_bytes": 1257736,
+          "alpha_changed_pixels": 131179,
+          "rgb_changed_pixels": 384087
+        }
+      },
+      "inclusive_xyxy": {
+        "box": [
+          65,
+          250,
+          381,
+          576
+        ],
+        "pixels": 103016,
+        "changed_pixels": 91612,
+        "changed_channel_bytes": 284782,
+        "alpha_changed_pixels": 17223,
+        "rgb_changed_pixels": 90417,
+        "outside_roi": {
+          "pixels": 1469076,
+          "changed_pixels": 395985,
+          "changed_channel_bytes": 1256693,
+          "alpha_changed_pixels": 131041,
+          "rgb_changed_pixels": 383768
+        }
+      }
+    }
+  },
+  "regions_convention": "Pixel box values from task treated as half-open [x0,y0,x1,y1); both half-open and inclusive counts reported."
+}

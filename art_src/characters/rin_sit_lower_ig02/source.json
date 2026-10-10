@@ -1,0 +1,34 @@
+{
+  "status": "CANDIDATE_NOT_ADOPTED_OR_ACCEPTED",
+  "provider": "builtin image_gen edit",
+  "model": null,
+  "seed": null,
+  "workflow": null,
+  "raw_original": "C:/Users/stanl/.codex/generated_images/01a1189b-f3e1-72e1-8e74-087f7a0c431f/exec-0fe7684c-5858-41c2-9b95-02d40d6d0d83.png",
+  "source": "raw/source.png",
+  "sha256": "4d6f40cabb7854071d5b7be71bf2185089e425043c1da0adbc7e1cf29bffc520",
+  "size": [
+    1037,
+    1516
+  ],
+  "mode": "RGBA",
+  "requested_transparent_background": true,
+  "prompt": "prompt.txt",
+  "references": [
+    {
+      "path": "art_src/characters/rin_sit_lower_ig01/raw/source.png",
+      "sha256": "8115265f8ca9e0dbb554c172a8a39f70148b5ab700b3cfd639f4abb690ea9550",
+      "purpose": "unaccepted seated source with authored hip shadow"
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-222-user-hip-shadow-line.png",
+      "sha256": "63477fef23668361c7352cf7df1cbbbf932e35e5a7689d157767e8692471b232",
+      "purpose": "user-annotated rejection reference only"
+    }
+  ],
+  "limitations": [
+    "Local hip-shading correction only; generation output is not guaranteed identical outside target ROI.",
+    "No independent near/far leg ownership, hidden completion, landmarks, inverse-bind registration, normal/glow or native animation acceptance yet.",
+    "Boot perspective and low-alpha fringes remain subject to review; no formal game asset replaced."
+  ]
+}

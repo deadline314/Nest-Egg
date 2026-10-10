@@ -1,0 +1,33 @@
+{
+  "status": "CANDIDATE_NOT_ADOPTED_OR_ACCEPTED",
+  "provider": "builtin image_gen edit",
+  "model": null,
+  "seed": null,
+  "workflow": null,
+  "raw_original": "C:/Users/stanl/.codex/generated_images/01a1189b-f3e1-72e1-8e74-087f7a0c431f/exec-08f3376c-85f1-4054-a014-1e29f5698ff2.png",
+  "source": "raw/source.png",
+  "sha256": "8115265f8ca9e0dbb554c172a8a39f70148b5ab700b3cfd639f4abb690ea9550",
+  "size": [
+    1037,
+    1516
+  ],
+  "mode": "RGBA",
+  "requested_transparent_background": true,
+  "prompt": "prompt.txt",
+  "references": [
+    {
+      "path": "art_src/characters/rin2/base_rgba.png",
+      "sha256": "401888dc14dcca469428e4df45c07648e36fd1822497031f8c28213fafc24fd9",
+      "purpose": "approved standing design"
+    },
+    {
+      "path": "art_src/characters/rin_pose_variants/00_bind_reference/sit/armor.png",
+      "sha256": "62601703d9c8b7dd43409e5c7163061702a48642ed2a4cec72dfe4e8a04795c7",
+      "purpose": "legacy seated bind diagnostic, anatomy not accepted"
+    }
+  ],
+  "limitations": [
+    "No registered source joints, independent ownership, hidden layers, inverse bind, normal/glow or native animation validation yet.",
+    "Native alpha edge and changed boot design/proportions need comparison; image is not formal game art."
+  ]
+}
