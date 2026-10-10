@@ -1,0 +1,491 @@
+[
+  {
+    "char": "enforcer",
+    "facing": 1,
+    "joint": "neck",
+    "radius": 28,
+    "rect": [
+      1664,
+      0,
+      128,
+      128
+    ],
+    "pose": "aim_up",
+    "zoom": 3.4,
+    "file": "aim_up_3.4_001.png",
+    "frame": 1,
+    "seconds": 0.0333333333333333,
+    "components": 1,
+    "hole_pixels": 4,
+    "center_alpha": 255,
+    "crop": "neck-aim_up-3.4-001.png",
+    "hole_alpha_values": [
+      122,
+      119,
+      0,
+      48
+    ],
+    "zero_holes": 1
+  },
+  {
+    "char": "enforcer",
+    "facing": 1,
+    "joint": "neck",
+    "radius": 28,
+    "rect": [
+      1664,
+      0,
+      128,
+      128
+    ],
+    "pose": "dead",
+    "zoom": 3.4,
+    "file": "dead_3.4_004.png",
+    "frame": 4,
+    "seconds": 0.0833333333333333,
+    "components": 1,
+    "hole_pixels": 4,
+    "center_alpha": 255,
+    "crop": "neck-dead-3.4-004.png",
+    "hole_alpha_values": [
+      65,
+      11,
+      10,
+      11
+    ],
+    "zero_holes": 0
+  },
+  {
+    "char": "enforcer",
+    "facing": 1,
+    "joint": "wrist_front",
+    "radius": 28,
+    "rect": [
+      1408,
+      0,
+      128,
+      128
+    ],
+    "pose": "dead",
+    "zoom": 3.4,
+    "file": "dead_3.4_002.png",
+    "frame": 2,
+    "seconds": 0.05,
+    "components": 1,
+    "hole_pixels": 3,
+    "center_alpha": 254,
+    "crop": "wrist_front-dead-3.4-002.png",
+    "hole_alpha_values": [
+      78,
+      87,
+      91
+    ],
+    "zero_holes": 0
+  },
+  {
+    "char": "enforcer",
+    "facing": 1,
+    "joint": "wrist_back",
+    "radius": 28,
+    "rect": [
+      1536,
+      0,
+      128,
+      128
+    ],
+    "pose": "dead",
+    "zoom": 3.4,
+    "file": "dead_3.4_006.png",
+    "frame": 6,
+    "seconds": 0.116666666666667,
+    "components": 1,
+    "hole_pixels": 3,
+    "center_alpha": 255,
+    "crop": "wrist_back-dead-3.4-006.png",
+    "hole_alpha_values": [
+      46,
+      72,
+      8
+    ],
+    "zero_holes": 0
+  },
+  {
+    "char": "enforcer",
+    "facing": 1,
+    "joint": "neck",
+    "radius": 8,
+    "rect": [
+      1664,
+      0,
+      128,
+      128
+    ],
+    "pose": "dead",
+    "zoom": 1.0,
+    "file": "dead_1.0_013.png",
+    "frame": 13,
+    "seconds": 0.233333333333333,
+    "components": 1,
+    "hole_pixels": 2,
+    "center_alpha": 255,
+    "crop": "neck-dead-1.0-013.png",
+    "hole_alpha_values": [
+      0,
+      24
+    ],
+    "zero_holes": 1
+  },
+  {
+    "char": "enforcer",
+    "facing": 1,
+    "joint": "knee_front",
+    "radius": 28,
+    "rect": [
+      384,
+      0,
+      128,
+      128
+    ],
+    "pose": "crouch",
+    "zoom": 3.4,
+    "file": "crouch_3.4_002.png",
+    "frame": 2,
+    "seconds": 0.05,
+    "components": 1,
+    "hole_pixels": 2,
+    "center_alpha": 255,
+    "crop": "knee_front-crouch-3.4-002.png",
+    "hole_alpha_values": [
+      4,
+      95
+    ],
+    "zero_holes": 0
+  },
+  {
+    "char": "enforcer",
+    "facing": 1,
+    "joint": "neck",
+    "radius": 28,
+    "rect": [
+      1664,
+      0,
+      128,
+      128
+    ],
+    "pose": "jump",
+    "zoom": 3.4,
+    "file": "jump_3.4_002.png",
+    "frame": 2,
+    "seconds": 0.05,
+    "components": 1,
+    "hole_pixels": 2,
+    "center_alpha": 255,
+    "crop": "neck-jump-3.4-002.png",
+    "hole_alpha_values": [
+      22,
+      88
+    ],
+    "zero_holes": 0
+  },
+  {
+    "char": "enforcer",
+    "facing": 1,
+    "joint": "neck",
+    "radius": 28,
+    "rect": [
+      1664,
+      0,
+      128,
+      128
+    ],
+    "pose": "block",
+    "zoom": 3.4,
+    "file": "block_3.4_000.png",
+    "frame": 0,
+    "seconds": 0.0166666666666667,
+    "components": 1,
+    "hole_pixels": 2,
+    "center_alpha": 255,
+    "crop": "neck-block-3.4-000.png",
+    "hole_alpha_values": [
+      15,
+      70
+    ],
+    "zero_holes": 0
+  },
+  {
+    "char": "enforcer",
+    "facing": 1,
+    "joint": "neck",
+    "radius": 8,
+    "rect": [
+      1664,
+      0,
+      128,
+      128
+    ],
+    "pose": "aim_up",
+    "zoom": 1.0,
+    "file": "aim_up_1.0_002.png",
+    "frame": 2,
+    "seconds": 0.05,
+    "components": 1,
+    "hole_pixels": 1,
+    "center_alpha": 255,
+    "crop": "neck-aim_up-1.0-002.png",
+    "hole_alpha_values": [
+      1
+    ],
+    "zero_holes": 0
+  },
+  {
+    "char": "enforcer",
+    "facing": 1,
+    "joint": "neck",
+    "radius": 8,
+    "rect": [
+      1664,
+      0,
+      128,
+      128
+    ],
+    "pose": "crouch",
+    "zoom": 1.0,
+    "file": "crouch_1.0_000.png",
+    "frame": 0,
+    "seconds": 0.0166666666666667,
+    "components": 1,
+    "hole_pixels": 1,
+    "center_alpha": 255,
+    "crop": "neck-crouch-1.0-000.png",
+    "hole_alpha_values": [
+      0
+    ],
+    "zero_holes": 1
+  },
+  {
+    "char": "enforcer",
+    "facing": 1,
+    "joint": "neck",
+    "radius": 8,
+    "rect": [
+      1664,
+      0,
+      128,
+      128
+    ],
+    "pose": "jump",
+    "zoom": 1.0,
+    "file": "jump_1.0_005.png",
+    "frame": 5,
+    "seconds": 0.1,
+    "components": 1,
+    "hole_pixels": 1,
+    "center_alpha": 255,
+    "crop": "neck-jump-1.0-005.png",
+    "hole_alpha_values": [
+      0
+    ],
+    "zero_holes": 1
+  },
+  {
+    "char": "enforcer",
+    "facing": 1,
+    "joint": "neck",
+    "radius": 8,
+    "rect": [
+      1664,
+      0,
+      128,
+      128
+    ],
+    "pose": "block",
+    "zoom": 1.0,
+    "file": "block_1.0_001.png",
+    "frame": 1,
+    "seconds": 0.0333333333333333,
+    "components": 1,
+    "hole_pixels": 1,
+    "center_alpha": 255,
+    "crop": "neck-block-1.0-001.png",
+    "hole_alpha_values": [
+      0
+    ],
+    "zero_holes": 1
+  },
+  {
+    "char": "enforcer",
+    "facing": 1,
+    "joint": "neck",
+    "radius": 8,
+    "rect": [
+      1664,
+      0,
+      128,
+      128
+    ],
+    "pose": "stagger",
+    "zoom": 1.0,
+    "file": "stagger_1.0_000.png",
+    "frame": 0,
+    "seconds": 0.0166666666666667,
+    "components": 1,
+    "hole_pixels": 1,
+    "center_alpha": 255,
+    "crop": "neck-stagger-1.0-000.png",
+    "hole_alpha_values": [
+      0
+    ],
+    "zero_holes": 1
+  },
+  {
+    "char": "enforcer",
+    "facing": 1,
+    "joint": "elbow_back",
+    "radius": 8,
+    "rect": [
+      1280,
+      0,
+      128,
+      128
+    ],
+    "pose": "dead",
+    "zoom": 1.0,
+    "file": "dead_1.0_005.png",
+    "frame": 5,
+    "seconds": 0.1,
+    "components": 1,
+    "hole_pixels": 1,
+    "center_alpha": 255,
+    "crop": "elbow_back-dead-1.0-005.png",
+    "hole_alpha_values": [
+      0
+    ],
+    "zero_holes": 1
+  },
+  {
+    "char": "enforcer",
+    "facing": 1,
+    "joint": "elbow_front",
+    "radius": 8,
+    "rect": [
+      1152,
+      0,
+      128,
+      128
+    ],
+    "pose": "dead",
+    "zoom": 1.0,
+    "file": "dead_1.0_007.png",
+    "frame": 7,
+    "seconds": 0.133333333333333,
+    "components": 1,
+    "hole_pixels": 1,
+    "center_alpha": 255,
+    "crop": "elbow_front-dead-1.0-007.png",
+    "hole_alpha_values": [
+      0
+    ],
+    "zero_holes": 1
+  },
+  {
+    "char": "enforcer",
+    "facing": 1,
+    "joint": "knee_back",
+    "radius": 28,
+    "rect": [
+      512,
+      0,
+      128,
+      128
+    ],
+    "pose": "run",
+    "zoom": 3.4,
+    "file": "run_3.4_045.png",
+    "frame": 45,
+    "seconds": 0.766666666666667,
+    "components": 1,
+    "hole_pixels": 1,
+    "center_alpha": 255,
+    "crop": "knee_back-run-3.4-045.png",
+    "hole_alpha_values": [
+      11
+    ],
+    "zero_holes": 0
+  },
+  {
+    "char": "enforcer",
+    "facing": 1,
+    "joint": "knee_front",
+    "radius": 28,
+    "rect": [
+      384,
+      0,
+      128,
+      128
+    ],
+    "pose": "run",
+    "zoom": 3.4,
+    "file": "run_3.4_081.png",
+    "frame": 81,
+    "seconds": 1.36666666666667,
+    "components": 1,
+    "hole_pixels": 1,
+    "center_alpha": 255,
+    "crop": "knee_front-run-3.4-081.png",
+    "hole_alpha_values": [
+      11
+    ],
+    "zero_holes": 0
+  },
+  {
+    "char": "enforcer",
+    "facing": 1,
+    "joint": "neck",
+    "radius": 28,
+    "rect": [
+      1664,
+      0,
+      128,
+      128
+    ],
+    "pose": "crouch",
+    "zoom": 3.4,
+    "file": "crouch_3.4_000.png",
+    "frame": 0,
+    "seconds": 0.0166666666666667,
+    "components": 1,
+    "hole_pixels": 1,
+    "center_alpha": 255,
+    "crop": "neck-crouch-3.4-000.png",
+    "hole_alpha_values": [
+      59
+    ],
+    "zero_holes": 0
+  },
+  {
+    "char": "enforcer",
+    "facing": 1,
+    "joint": "knee_front",
+    "radius": 28,
+    "rect": [
+      384,
+      0,
+      128,
+      128
+    ],
+    "pose": "jump",
+    "zoom": 3.4,
+    "file": "jump_3.4_005.png",
+    "frame": 5,
+    "seconds": 0.1,
+    "components": 1,
+    "hole_pixels": 1,
+    "center_alpha": 255,
+    "crop": "knee_front-jump-3.4-005.png",
+    "hole_alpha_values": [
+      127
+    ],
+    "zero_holes": 0
+  }
+]
