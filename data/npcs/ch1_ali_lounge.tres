@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="NpcData" load_steps=5 format=3]
+[gd_resource type="Resource" script_class="NpcData" load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/npc_data.gd" id="1_npc_data"]
 [ext_resource type="Script" path="res://data/scripts/npc_talk.gd" id="2_npc_talk"]
+[ext_resource type="Script" path="res://data/scripts/npc_reaction.gd" id="3_npc_reaction"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("2_npc_talk")
@@ -11,6 +12,21 @@ scene = &"ch1_t_ali_1"
 script = ExtResource("2_npc_talk")
 scene = &"ch1_t_ali_2"
 min_talks = 1
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("3_npc_reaction")
+gesture = &"check_watch"
+max_talks = 0
+
+[sub_resource type="Resource" id="Resource_3"]
+script = ExtResource("3_npc_reaction")
+gesture = &"nod"
+requires_flag = &"ch1_met_ali"
+
+[sub_resource type="Resource" id="Resource_4"]
+script = ExtResource("3_npc_reaction")
+gesture = &"self"
+min_deaths = 1
 
 [resource]
 script = ExtResource("1_npc_data")
@@ -22,3 +38,4 @@ loop = &"wipe_hands"
 facing = -1
 prompt = "{interact} 和阿梨說話"
 talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0"), SubResource("Resource_1")])
+reactions = Array[ExtResource("3_npc_reaction")]([SubResource("Resource_2"), SubResource("Resource_3"), SubResource("Resource_4")])

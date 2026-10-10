@@ -128,6 +128,7 @@ func _shatter() -> void:
 	Fx.impact(center, Vector2.UP, data.color.lightened(0.3), 8)
 	Feel.play(&"breakable_break")
 	Sfx.play(&"glass_break" if big else &"crate_break", -2.0)
+	EventBus.world_noise.emit(global_position, 0.8)  # 東西碎掉的聲響：附近的人會轉頭看（NE-240）
 	_disable()
 	broken.emit(self)
 	if data.is_explosive():

@@ -30,6 +30,8 @@ func run() -> void:
 	await _test_cinematic_framing()
 	await _test_formal_portal_preview()
 	await _test_waiter_teardown()
+	_test_reaction_selection()
+	await _test_awareness()
 	_remove_test_scenes()
 	Story.auto_skip = true
 
@@ -693,4 +695,96 @@ func _test_once_object() -> void:
 	object._talk()
 	await frames(3)
 	check(object.talk_count == 1, "repeating a once-only investigation does not increment its count")
+	await end_level(level)
+
+
+# ---------------------------------------------------------------------------
+# 走近反應與聽到聲響（NE-240）
+# ---------------------------------------------------------------------------
+
+func _reaction(gesture: StringName, conditions := {}) -> NpcReaction:
+	var reaction := NpcReaction.new()
+	reaction.gesture = gesture
+	for key: String in conditions:
+		reaction.set(key, conditions[key])
+	return reaction
+
+
+## 挑反應：初見、回訪、凜死過之後、旗標；越後面越優先；once 做過就跳過；資料錯誤會被驗證擋下。
+func _test_reaction_selection() -> void:
+	var npc := _npc(&"test_react", [_talk(TEST_SCENE_A)], "old_k")
+	npc.reactions = [_reaction(&"greet", {"max_talks": 0}), _reaction(&"dismiss", {"min_talks": 1}),
+			_reaction(&"nod", {"requires_flag": &"test_flag"}), _reaction(&"rub_neck", {"min_deaths": 1, "once": true})]
+	var seen := func(_scene: StringName) -> bool: return false
+	var no_flag := func(_flag: StringName) -> bool: return false
+	var flag := func(f: StringName) -> bool: return f == &"test_flag"
+	check(npc.pick_reaction(0, seen, 0, no_flag) == 0, "first meeting: greet")
+	check(npc.pick_reaction(2, seen, 0, no_flag) == 1, "revisit: a different reaction")
+	check(npc.pick_reaction(2, seen, 0, flag) == 2, "after a story flag: the later reaction wins")
+	check(npc.pick_reaction(2, seen, 1, flag) == 3, "after Rin has died: the worried reaction")
+	check(npc.pick_reaction(2, seen, 1, flag, Callable(), {3: true}) == 2, "a once reaction is skipped after it was done")
+	check(npc.validate().is_empty(), "valid reactions pass validation (%s)" % ", ".join(npc.validate()))
+	npc.reactions = [_reaction(&"no_such_gesture"), _reaction(&"nod", {"max_talks": 0, "min_talks": 2}), null]
+	check(npc.validate().size() == 3, "unknown gestures, impossible conditions and empty entries are reported (%d)" % npc.validate().size())
+	for path in DirAccess.get_files_at(NPC_DIR):
+		if path.ends_with(".tres"):
+			var real := load(NPC_DIR.path_join(path)) as NpcData
+			check(real != null and real.validate().is_empty(), "%s validates with its reactions" % path)
+	var ch1_old_k := load("res://data/npcs/ch1_old_k.tres") as NpcData
+	check(ch1_old_k.reactions.size() >= 3, "Old K has first-meet, revisit and after-death reactions")
+
+
+## 實際關卡：走近時做反應（有冷卻、說話中不做）；附近開槍會縮一下並轉頭看，連續三聲就蹲下抱頭，安靜後站起來回到工作；
+## once 反應做過會存在檢查點狀態裡。
+func _test_awareness() -> void:
+	Story.auto_skip = true
+	var data := _npc(&"test_aware", [_talk(TEST_SCENE_A)], "old_k")
+	data.loop = &"wipe_hands"
+	data.reactions = [_reaction(&"greet", {"max_talks": 0, "once": true}), _reaction(&"dismiss", {"min_talks": 1})]
+	var level := await start_level(_level_data({"A": data}))
+	var npc := _find_npc(level, 14)
+	check(npc != null and npc.awareness != null, "a rigged npc has awareness")
+	if npc == null or npc.awareness == null:
+		await end_level(level)
+		return
+	var awareness := npc.awareness
+	level.player.global_position = npc.global_position + Vector2(-NpcAwareness.NOTICE_RANGE - 80.0, -2)
+	await physics_frames(4)
+	check(awareness.reactions_done == 0, "no reaction while the player is far away")
+	level.player.global_position = npc.global_position + Vector2(-NpcAwareness.NOTICE_RANGE + 20.0, -2)
+	await physics_frames(3)
+	check(awareness.reactions_done == 1, "walking up triggers a reaction")
+	var life := (npc._actor.rig.animator as NpcAnimator)._life
+	check(life != null and life.current_gesture() == &"greet", "the first meeting is a greeting (%s)" % (life.current_gesture() if life != null else &"?"))
+	level.player.global_position = npc.global_position + Vector2(-NpcAwareness.NOTICE_RANGE - 80.0, -2)
+	await physics_frames(3)
+	level.player.global_position = npc.global_position + Vector2(-NpcAwareness.NOTICE_RANGE + 20.0, -2)
+	await physics_frames(3)
+	check(awareness.reactions_done == 1, "walking back and forth does not repeat it right away (cooldown)")
+	var state: Variant = npc.capture_state()
+	check(typeof(state) == TYPE_DICTIONARY and (state["reacted"] as Array).has(0), "a once reaction is saved with the checkpoint")
+	# 聲響：遠的聽不到；近的縮一下並轉頭；三聲就蹲下
+	level.player.global_position = npc.global_position + Vector2(-NpcAwareness.NOTICE_RANGE - 80.0, -2)
+	await physics_frames(2)
+	EventBus.world_noise.emit(npc.global_position + Vector2(NpcAwareness.NOISE_RADIUS * 2.0, 0), 1.0)
+	check(awareness.startles == 0, "a gunshot far away is not heard")
+	EventBus.world_noise.emit(npc.global_position + Vector2(40, -10), Portal.RATTLE_NOISE)
+	await physics_frames(2)
+	check(awareness.startles == 0 and awareness.look_direction() == 1, "a rattling locked door only makes the npc look over")
+	await physics_frames(int(NpcAwareness.LOOK_HOLD * 60.0) + 2)
+	EventBus.world_noise.emit(npc.global_position + Vector2(60, -10), 1.0)
+	await physics_frames(2)
+	check(awareness.startles == 1, "a nearby gunshot makes the npc flinch")
+	check(npc._actor.facing == 1, "and turn toward the sound")
+	for i in 2:
+		await physics_frames(int(NpcAwareness.STARTLE_COOLDOWN * 60.0) + 2)
+		EventBus.world_noise.emit(npc.global_position + Vector2(60, -10), 1.0)
+	await physics_frames(2)
+	check(awareness.is_cowering() and npc._actor.pose == &"squat", "three shots in a few seconds: the npc ducks and covers")
+	check(npc._actor._input.npc_loop == &"", "and stops working")
+	await physics_frames(int((NpcAwareness.COWER_QUIET + 0.5) * 60.0))
+	check(not awareness.is_cowering() and npc._actor.pose == data.pose, "after it is quiet again the npc stands back up")
+	check(npc._actor._input.npc_loop == &"wipe_hands", "and goes back to work")
+	await physics_frames(int(NpcAwareness.LOOK_HOLD * 60.0))
+	check(npc._actor.facing == data.facing, "and turns back to where it was facing")
 	await end_level(level)

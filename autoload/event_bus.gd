@@ -35,6 +35,8 @@ signal boss_bar_closed
 
 ## 機關頻道切換（開關 → 同頻道的閘門與升降梯）。
 signal mechanism_toggled(channel: StringName, active: bool)
+## 世界裡的大聲響（開槍、爆炸、東西碎掉）：附近的場景人物會縮一下、轉頭看（NE-240）。loudness 1＝一聲槍響。
+signal world_noise(world_position: Vector2, loudness: float)
 signal checkpoint_reached(position: Vector2)
 signal lives_changed(lives: int)
 signal codex_card_unlocked(card_id: StringName, is_new: bool)

@@ -39,6 +39,9 @@ var _prompt_player: Player
 var _talking := false
 var _cooldown := 0.0
 var _time := 0.0
+## 走近反應與聽到聲響的反應（NE-240）；只有有骨架的人物才有。
+var awareness: NpcAwareness
+var _looking := false
 
 
 func configure(p_data: NpcData, p_cell: Vector2i) -> void:
@@ -127,19 +130,43 @@ func _build_visual() -> void:
 	_actor.set_pose(data.pose)
 	_actor.set_loop(data.loop, data.loop_scale)
 	_actor.face(data.facing)
+	if not rig_id.is_empty():
+		awareness = NpcAwareness.new(_actor, data)
+		EventBus.world_noise.connect(_on_world_noise)
 
 
 func _physics_process(delta: float) -> void:
 	_time += delta
 	_cooldown = maxf(0.0, _cooldown - delta)
 	if _actor != null:
-		_actor.set_listening(_player_in_range and not _talking)
-	if _player_in_range:
+		_actor.set_listening(_player_in_range and not _talking and (awareness == null or not awareness.is_cowering()))
+	if awareness != null:
+		var player := get_tree().get_first_node_in_group(&"player") as Node2D
+		if awareness.step(delta, global_position, player.global_position if player != null else Vector2.INF, _talking):
+			awareness.react(_reaction_context())
+		var look := awareness.look_direction()
+		if look != 0 and not _talking:
+			_actor.face(look)
+		elif _looking and not _player_in_range:
+			_actor.face(data.facing)  # 看完聲音來源，轉回原本的方向
+		_looking = look != 0
+	if _player_in_range and (awareness == null or awareness.look_direction() == 0 or _talking):
 		_face_player()
+	if _player_in_range:
 		if _cooldown <= 0.0 and not _talking and not get_tree().paused and Input.is_action_just_pressed(&"interact") \
 				and Story.framing.is_interaction_target(self):
 			_talk()
 	queue_redraw()
+
+
+## 挑走近反應用的讀取函式（與挑對話同一套條件來源）。
+func _reaction_context() -> Dictionary:
+	return {"talks": talk_count, "seen": Story.was_seen, "deaths": GameState.deaths, "flag": GameState.has_flag, "item": StoryItems.owns}
+
+
+func _on_world_noise(world_position: Vector2, loudness: float) -> void:
+	if awareness != null and is_inside_tree():
+		awareness.hear(global_position, world_position, loudness, _talking)
 
 
 func _face_player() -> void:
@@ -290,7 +317,7 @@ func capture_state() -> Variant:
 	var claimed_list: Array = []
 	for index in claimed:
 		claimed_list.append(index)
-	return {"talks": talk_count, "claimed": claimed_list}
+	return {"talks": talk_count, "claimed": claimed_list, "reacted": awareness.capture() if awareness != null else []}
 
 
 func restore_state(state: Variant) -> void:
@@ -299,6 +326,8 @@ func restore_state(state: Variant) -> void:
 	if typeof(state) != TYPE_DICTIONARY:
 		return
 	talk_count = maxi(0, int((state as Dictionary).get("talks", 0)))
+	if awareness != null:
+		awareness.restore((state as Dictionary).get("reacted", []))
 	var raw: Variant = (state as Dictionary).get("claimed", [])
 	if typeof(raw) == TYPE_ARRAY:
 		for index: Variant in raw:

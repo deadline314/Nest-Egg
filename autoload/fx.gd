@@ -420,6 +420,7 @@ func burst(position: Vector2, color: Color, amount := 8, speed := 120.0, lifetim
 
 ## 彈殼拋出（往射擊反方向上方）。
 func casing(position: Vector2, facing: int) -> void:
+	EventBus.world_noise.emit(position, 1.0)  # 每一發子彈都會拋彈殼：當作一聲槍響（NE-240，附近的人會縮一下）
 	if _soft == null:
 		return
 	var velocity := Vector2(-facing * randf_range(40.0, 80.0), randf_range(-140.0, -90.0))
@@ -516,6 +517,7 @@ func _on_hit_confirmed(world_position: Vector2, killed: bool) -> void:
 
 ## 範圍爆炸（延後一影格生效，避免在物理回呼中查詢空間）。damage = 0 時只有視覺。
 func explosion(position: Vector2, radius: float, damage: int, team: Combat.Team, source_id: StringName, color := Palette.WARNING) -> void:
+	EventBus.world_noise.emit(position, clampf(radius / 30.0, 1.5, 3.0))
 	if _container == null:
 		return
 	var blast := Explosion.new()

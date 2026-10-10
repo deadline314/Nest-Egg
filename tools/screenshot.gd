@@ -1,7 +1,7 @@
 extends Node
 ## 開發工具：自動擷取遊戲畫面（檢查美術、光影、UI 排版用）。
 ## 用法：godot res://tools/screenshot.tscn -- --out=/絕對路徑/資料夾 [--scenario=名稱]
-## 情境：all（預設）、stages、hud、spots（--scenario=spots:關卡檔:名稱）、environment、cutscene、screens、flow、transition、ui、settings、mouse_aim、block、story、story_ch2、portraits、rin_damage、rin_fit、rin_light、rin_perf、cast_lineup、chapter2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals、npc、death、menus
+## 情境：all（預設）、stages、hud、spots（--scenario=spots:關卡檔:名稱）、reactions（--scenario=reactions:關卡id:欄，NE-240 人物反應）、environment、cutscene、screens、flow、transition、ui、settings、mouse_aim、block、story、story_ch2、portraits、rin_damage、rin_fit、rin_light、rin_perf、cast_lineup、chapter2、collectibles、progression、supply、reclaimer、props、new_enemies、dynamic_hud、weapons、reload、consumables、story_items、inventory、lighting、postfx、brightness、quality、combat_light、normals、npc、death、menus
 ## 需要可渲染的環境（有 GPU 或軟體 Vulkan / OpenGL）。
 
 const LEVEL_PATH := "res://data/levels/level_01.tres"
@@ -87,6 +87,10 @@ func _run() -> void:
 		return
 	if _scenario.begins_with("place:"):
 		await _run_place()
+		get_tree().quit()
+		return
+	if _scenario.begins_with("reactions:"):
+		await _run_reactions()
 		get_tree().quit()
 		return
 	if _scenario.begins_with("arena"):
@@ -2261,6 +2265,60 @@ func _run_place() -> void:
 	level_camera_snap()
 	await _settle(40)
 	_capture("place_%s_%s" % [level_id, tag])
+	level.queue_free()
+	await _settle(4)
+
+
+## 場景人物的反應（NE-240）：--scenario=reactions:關卡id:欄——主角從遠處走到那一欄旁邊，每 0.25 秒拍一張（走近反應）；
+## 再在人物旁邊連開三槍（世界聲響），每 0.5 秒拍一張（縮一下→蹲下抱頭→安靜後站起來）。檔名 reactions_<關卡>_<序號>。
+func _run_reactions() -> void:
+	var parts := _scenario.split(":")
+	if parts.size() < 3:
+		push_error("[screenshot] reactions 需要 reactions:關卡id:欄")
+		return
+	var level_id := parts[1]
+	var tile := int(parts[2])
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load("res://data/levels/%s.tres" % level_id))
+	add_child(level)
+	await _settle(25)
+	level.hud.visible = false
+	level.player.health.setup(999, 0.0)
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		node.queue_free()
+	var layout: LevelLayout = level._layout
+	var npc: NpcActor = null
+	for node in get_tree().get_nodes_in_group(NpcActor.GROUP):
+		if (node as NpcActor).cell.x == tile:
+			npc = node
+	if npc == null:
+		push_error("[screenshot] %s 第 %d 欄沒有場景人物" % [level_id, tile])
+		level.queue_free()
+		return
+	var floor_y := npc.global_position.y - 2.0  # 多層地圖：用人物自己的地面，不從地圖頂端找
+	level.player.global_position = Vector2((tile - 12) * layout.tile_size + 8.0, floor_y)
+	level.player.velocity = Vector2.ZERO
+	level_camera_snap()
+	await get_tree().create_timer(1.0).timeout
+	level.player.global_position = Vector2((tile - 4) * layout.tile_size + 8.0, floor_y)
+	level_camera_snap()
+	var index := 0
+	for i in 6:
+		await get_tree().create_timer(0.25).timeout
+		_capture("reactions_%s_%02d" % [level_id, index])
+		index += 1
+	var noise_at := Vector2((tile + 3) * layout.tile_size, floor_y - 20.0)
+	for i in 10:
+		if i in [0, 3, 6]:
+			EventBus.world_noise.emit(noise_at, 1.0)
+		await get_tree().create_timer(0.5).timeout
+		_capture("reactions_%s_%02d" % [level_id, index])
+		index += 1
+	for i in 4:
+		await get_tree().create_timer(1.0).timeout
+		_capture("reactions_%s_%02d" % [level_id, index])
+		index += 1
 	level.queue_free()
 	await _settle(4)
 

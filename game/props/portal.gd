@@ -12,6 +12,10 @@ const LOCKED_TOAST_COOLDOWN := 1.2
 const DOOR_LAMP := Rect2(0.0, 0.5 / 48.0, 4.0 / 28.0, 2.0 / 48.0)
 ## 梯子貼圖上扶手外緣的位置（占梯寬的比例）：對應 cel_fixtures.py 的 ladder()。
 const LADDER_RAIL_EDGE := 2.5 / 20.0
+## 鎖住的門被試著打開時，門框晃動的秒數與幅度（像素），以及附近的人會轉頭看的聲響大小（NE-240：不會嚇到人）。
+const RATTLE_TIME := 0.35
+const RATTLE_PX := 1.2
+const RATTLE_NOISE := 0.35
 
 var data: PortalData
 var cell := Vector2i.ZERO
@@ -21,11 +25,13 @@ var _player_in_range := false
 var _armed := true
 var _time := 0.0
 var _toast_left := 0.0
+var _rattle_left := 0.0
 var _prompt: WorldPrompt
 var _cinematic_notice: WorldPrompt
 var _preview_valid := false
 ## 門或梯子的貼圖（墊在後面的子節點）；讀不到貼圖時是 null，改用簡單畫法。
 var _art: Sprite2D
+var _art_origin := Vector2.ZERO
 
 
 func configure(p_data: PortalData, p_cell: Vector2i) -> void:
@@ -79,6 +85,7 @@ func _ready() -> void:
 		_art = FixtureArt.attach(self, &"ladder_segment", frame_top_left, Vector2(data.width, data.height), true)
 	elif data.style != "road" and data.style != "hidden":
 		_art = FixtureArt.attach(self, &"door_steel", frame_top_left, Vector2(data.width, data.height))
+	_art_origin = frame_top_left
 	if data.style != "road" and data.style != "hidden":
 		var light := LightKit.create_point_light(_accent(), 70.0, 0.5, false)
 		light.position = Vector2(0, -data.height * 0.5)
@@ -115,6 +122,11 @@ func try_use() -> bool:
 		if _toast_left <= 0.0 and not data.locked_text.is_empty():
 			_toast_left = LOCKED_TOAST_COOLDOWN
 			EventBus.toast_requested.emit(data.locked_text)
+		if data.mode == PortalData.Mode.INTERACT and _rattle_left <= 0.0:
+			# 門把轉不動：門框晃一下、喀一聲，附近的人轉頭看
+			_rattle_left = RATTLE_TIME
+			Sfx.play(&"switch", -12.0, 0.1, 0, 0.7)
+			EventBus.world_noise.emit(global_position + Vector2(0.0, -data.height * 0.5), RATTLE_NOISE)
 		return false
 	if _preview_valid:
 		Story.framing.interaction_started(self)
@@ -125,6 +137,7 @@ func try_use() -> bool:
 func _physics_process(delta: float) -> void:
 	_time += delta
 	_toast_left = maxf(0.0, _toast_left - delta)
+	_rattle_left = maxf(0.0, _rattle_left - delta)
 	if _player_in_range and _armed and data.mode == PortalData.Mode.INTERACT \
 			and Input.is_action_just_pressed(&"interact") and not get_tree().paused \
 			and (not _preview_valid or Story.framing.is_interaction_target(self)):
@@ -149,6 +162,13 @@ func _on_body_exited(body: Node2D) -> void:
 	_armed = true
 
 
+## 鎖門晃動目前的水平位移（像素），沒在晃時為 0。
+func _rattle_offset() -> float:
+	if _rattle_left <= 0.0:
+		return 0.0
+	return RATTLE_PX * (_rattle_left / RATTLE_TIME) * sin(_rattle_left * 90.0)
+
+
 func _accent() -> Color:
 	if data.is_locked_door() or (data.requires_flag != &"" and not GameState.has_flag(data.requires_flag)):
 		return Palette.DANGER.darkened(0.2)
@@ -161,6 +181,12 @@ func _draw() -> void:
 	var half := data.width * 0.5
 	var top := -float(data.height)
 	var accent := _accent()
+	var shake := _rattle_offset()
+	if shake != 0.0:
+		draw_set_transform(Vector2(shake, 0.0))
+	if _art != null:
+		# 門與梯子的貼圖是子節點，跟著框一起晃
+		_art.position = _art_origin + Vector2(shake, 0.0)
 	match data.style:
 		"ladder":
 			if _art != null:

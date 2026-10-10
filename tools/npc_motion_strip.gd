@@ -2,7 +2,8 @@ extends Node2D
 ## 開發工具：NPC／過場演員的「連續畫面」與動作量測（NE-250）。
 ## 每格都是同一個角色從 0 秒模擬到該時間點（同一角色的亂數種子固定，所以每格是同一段表演的不同瞬間）。
 ## 用法：godot --path . res://tools/npc_motion_strip.tscn -- --out=/絕對路徑.png --chars=old_k,mei --script=converse
-##   --script=名稱：SCRIPTS 裡的表演腳本（converse 待機→說話→聆聽、sit_cycle 站→坐→站、lean_cycle、wave、idle），
+##   --script=名稱：SCRIPTS 裡的表演腳本（converse 待機→說話→聆聽、sit_cycle 站→坐→站、lean_cycle、wave、idle、
+##            cower 聽到槍響縮一下→蹲下抱頭→站起來、greet 工作中抬頭招呼），
 ##            或 loop:循環名稱[@stand|sit|lean|squat]（工作循環），或 gallery:手勢1,手勢2…（每格一個手勢，停在重音後 0.25 秒，檢查舉手時的接縫）。
 ##   --frames=格數（預設 10）、--from=第一格的秒數、--step=每格間隔秒數（預設依腳本）、--zoom=放大（預設 2.2＝遊戲；3.4＝過場）、
 ##   --facing=-1 看左面向、--bright 亮背景。
@@ -14,11 +15,15 @@ const SCRIPTS := {
 	"converse": {"length": 12.0, "step": 0.4, "from": 0.8, "segments": [[0.0, "idle"], [1.0, "talk"], [6.0, "listen"], [10.0, "idle"]]},
 	"talk": {"length": 20.0, "step": 0.2, "from": 2.0, "segments": [[0.0, "idle"], [1.0, "talk"]]},
 	"sit_cycle": {"length": 7.0, "step": 0.15, "from": 0.85, "segments": [[0.0, "idle"], [1.0, "sit"], [4.0, "idle"]]},
+	"crouch_cycle": {"length": 7.0, "step": 0.15, "from": 0.85, "segments": [[0.0, "idle"], [1.0, "squat"], [4.0, "idle"]]},
 	"stand_up": {"length": 5.0, "step": 0.1, "from": 2.9, "segments": [[0.0, "sit"], [3.0, "idle"]]},
 	"lean_cycle": {"length": 7.0, "step": 0.2, "from": 0.8, "segments": [[0.0, "idle"], [1.0, "lean"], [4.0, "lean_listen"], [5.5, "idle"]]},
 	"wave": {"length": 5.0, "step": 0.15, "from": 0.4, "segments": [[0.0, "idle"], [0.5, "wave"], [3.0, "idle"]]},
 	"idle": {"length": 40.0, "step": 3.0, "from": 1.0, "segments": [[0.0, "idle"]]},
 	"listen": {"length": 20.0, "step": 1.0, "from": 1.0, "segments": [[0.0, "listen"]]},
+	# NE-240：聽到槍響縮一下、再兩聲蹲下抱頭、安靜後站起來回去工作（cue:手勢＝在那個時間點做指定手勢）
+	"cower": {"length": 9.0, "step": 0.5, "from": 0.6, "segments": [[0.0, "loop:wipe_hands"], [1.0, "cue:flinch"], [2.4, "squat"], [2.4, "cue:cover_head"], [6.0, "cue:release"], [6.0, "loop:wipe_hands"]]},
+	"greet": {"length": 4.0, "step": 0.15, "from": 0.9, "segments": [[0.0, "loop:wipe_hands"], [1.0, "cue:greet"]]},
 }
 const METRIC_BONES: Array[StringName] = [&"head", &"neck", &"chest", &"arm_front_upper", &"arm_front_lower", &"hand_front", &"arm_back_upper", &"arm_back_lower", &"leg_front_upper", &"leg_front_lower", &"leg_back_upper", &"leg_back_lower"]
 const DT := 1.0 / 60.0
@@ -85,7 +90,7 @@ func _script_def() -> Dictionary:
 static func apply_state(input: RigInput, script: Dictionary, t: float, facing: int) -> void:
 	var state := "idle"
 	for segment: Array in script["segments"]:
-		if t >= float(segment[0]):
+		if t >= float(segment[0]) and not str(segment[1]).begins_with("cue:"):
 			state = str(segment[1])
 	input.facing = facing
 	input.aim_dir = Vector2(float(facing), 0.0)
@@ -137,8 +142,20 @@ func _simulate(rig: CharacterRig, input: RigInput, script: Dictionary, until: fl
 	var t := 0.0
 	while t < until - 0.0001:
 		apply_state(input, script, t, _facing)
+		_cue(rig, script, t)
 		rig.animate(DT, input)
 		t += DT
+
+
+## 腳本裡 cue:手勢 的時間點到了就讓角色做那個手勢。
+static func _cue(rig: CharacterRig, script: Dictionary, t: float) -> void:
+	for segment: Array in script["segments"]:
+		var state := str(segment[1])
+		if state.begins_with("cue:") and t >= float(segment[0]) and t - DT < float(segment[0]) and rig.animator is NpcAnimator:
+			if state == "cue:release":
+				(rig.animator as NpcAnimator).release_gesture()
+			else:
+				(rig.animator as NpcAnimator).play_gesture(StringName(state.trim_prefix("cue:")))
 
 
 # ---------------------------------------------------------------------------
@@ -241,6 +258,7 @@ static func record(rig: CharacterRig, script: Dictionary, facing := 1) -> Dictio
 	var t := 0.0
 	while t < float(script["length"]):
 		apply_state(input, script, t, facing)
+		_cue(rig, script, t)
 		rig.animate(DT, input)
 		for bone_name in METRIC_BONES:
 			var bone := rig.bone(bone_name)

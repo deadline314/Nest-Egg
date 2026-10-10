@@ -852,6 +852,23 @@ def build_stall():
 # 場景人物（ST-12）：地圖上說話的人。台詞在劇本（build_ch1_story.py）：玩家靠近按互動鍵才說的是 dialogue 場景，到達時冒的是氣泡。
 # ---------------------------------------------------------------------------
 NPC_DIR = os.path.join(ROOT, 'data', 'npcs')
+# 走近時的短反應（NE-240）：不開口、不鎖操作，只用身體。清單越後面越優先（符合條件的最後一個勝出）。
+# 欄位對應 NpcReaction：gesture（art/rigs/npc_animations.json 的 gestures）、max_talks（0＝初見）、min_talks（1＝回訪）、
+# min_deaths（凜死過之後）、requires_flag／unless_flag、once。
+REACTIONS = {
+    # 老 K：初見抬頭招呼；吃過晚飯後點個頭；回訪時揮手要她別杵著；凜死過之後揉後頸（擔心又說不出口）
+    'ch1_old_k': [dict(gesture='greet', max_talks=0), dict(gesture='nod', requires_flag='ch1_dinner_done'),
+                  dict(gesture='dismiss', min_talks=1), dict(gesture='rub_neck', min_deaths=1)],
+    # 鷺（靠牆、手抱胸）：初見只點頭；交代完差事後抬下巴示意「還不去」；回訪時揉眼（夜班累）
+    'ch1_egret': [dict(gesture='nod', max_talks=0), dict(gesture='rub_eyes', min_talks=1),
+                  dict(gesture='chin_up', requires_flag='ch1_heard_brief')],
+    # 阿梨（復原館）：初見看一下錶（還在值班）；認識之後點頭；凜死過之後手按胸口
+    'ch1_ali_lounge': [dict(gesture='check_watch', max_talks=0), dict(gesture='nod', requires_flag='ch1_met_ali'),
+                       dict(gesture='self', min_deaths=1)],
+    # 阿梨（麵攤）：認出凜就揮手；給過地址之後點頭；凜死過之後手按胸口
+    'ch1_ali_stall': [dict(gesture='wave_hi', requires_flag='ch1_met_ali'), dict(gesture='nod', requires_flag='knows_ali_address'),
+                      dict(gesture='self', min_deaths=1)],
+}
 NPCS = {
     'ch1_old_k': dict(name='老 K', speaker='old_k', rig='old_k', loop='wipe_hands', facing=-1, prompt='{interact} 和老 K 說話',
                       talks=[('ch1_t_oldk_1', 0), ('ch1_t_oldk_2', 1), ('ch1_t_oldk_d1', 1, 1), ('ch1_t_oldk_d4', 1, 4)]),
@@ -879,12 +896,27 @@ def write_npc_files():
             if min_deaths:
                 body.append(f'min_deaths = {min_deaths}')
             subs.append(w.sub(body))
+        reaction_subs = []
+        reaction_script = w.ext('res://data/scripts/npc_reaction.gd', 'Script') if REACTIONS.get(ident) else None
+        for r in REACTIONS.get(ident, []):
+            body = [f'script = ExtResource("{reaction_script}")', f'gesture = &"{r["gesture"]}"']
+            for key in ('max_talks', 'min_talks', 'min_deaths'):
+                if key in r:
+                    body.append(f'{key} = {r[key]}')
+            for key in ('requires_flag', 'unless_flag'):
+                if key in r:
+                    body.append(f'{key} = &"{r[key]}"')
+            if r.get('once'):
+                body.append('once = true')
+            reaction_subs.append(w.sub(body))
         lines = [f'script = ExtResource("{w.script_id}")', f'id = &"{ident}"', f'display_name = {json.dumps(n["name"], ensure_ascii=False)}',
                  f'speaker = "{n["speaker"]}"', f'rig_id = "{n["rig"]}"']
         if n.get('pose'):
             lines.append(f'pose = &"{n["pose"]}"')
         lines += [f'loop = &"{n["loop"]}"', f'facing = {n["facing"]}', f'prompt = {json.dumps(n["prompt"], ensure_ascii=False)}',
                   f'talks = Array[ExtResource("{talk_script}")]([' + ', '.join(f'SubResource("{x}")' for x in subs) + '])']
+        if reaction_subs:
+            lines.append(f'reactions = Array[ExtResource("{reaction_script}")]([' + ', '.join(f'SubResource("{x}")' for x in reaction_subs) + '])')
         with open(os.path.join(NPC_DIR, f'{ident}.tres'), 'w', encoding='utf-8') as f:
             f.write(w.render(lines))
 

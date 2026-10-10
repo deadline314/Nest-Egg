@@ -24,6 +24,8 @@ enum Kind { PERSON, OBJECT }
 @export var prompt: String = ""
 ## 對話清單（見 NpcTalk）。
 @export var talks: Array[NpcTalk] = []
+## 走近時的短反應（見 NpcReaction，NE-240）：不開口、不鎖操作，初見、回訪、凜死過之後、劇情前後可以不同。
+@export var reactions: Array[NpcReaction] = []
 
 
 func prompt_text() -> String:
@@ -57,6 +59,18 @@ func pick_talk(talk_count: int, seen_scene: Callable, deaths := 0, flag_reader: 
 	return picked
 
 
+## 挑出這次走近要做的反應（符合條件的最後一個；once 的反應做過就跳過，done 是做過的位置）。沒有可用的回傳 -1。
+func pick_reaction(talk_count: int, seen_scene: Callable, deaths := 0, flag_reader: Callable = Callable(), item_reader: Callable = Callable(), done: Dictionary = {}) -> int:
+	var picked := -1
+	for index in reactions.size():
+		var reaction := reactions[index]
+		if reaction == null or (reaction.once and done.has(index)):
+			continue
+		if reaction.matches(talk_count, seen_scene, deaths, flag_reader, item_reader):
+			picked = index
+	return picked
+
+
 func validate() -> PackedStringArray:
 	var problems := PackedStringArray()
 	if id == &"":
@@ -73,6 +87,12 @@ func validate() -> PackedStringArray:
 		problems.append("人物 %s 的工作循環「%s」不存在（art/rigs/npc_animations.json 的 loops）" % [id, loop])
 	if loop_scale <= 0.0 or loop_scale > 3.0:
 		problems.append("人物 %s 的 loop_scale 必須在 0~3 之間" % id)
+	var gestures: Variant = RigLibrary.load_json(NpcAnimator.DATA_PATH).get("gestures", {})
+	for reaction in reactions:
+		if reaction == null:
+			problems.append("人物 %s 的反應清單有空項目" % id)
+		else:
+			problems.append_array(reaction.validate(id, gestures if typeof(gestures) == TYPE_DICTIONARY else {}))
 	for talk in talks:
 		if talk == null:
 			problems.append("人物 %s 的對話清單有空項目" % id)

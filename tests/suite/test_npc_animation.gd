@@ -381,8 +381,14 @@ func _test_motion_data_bones() -> void:
 				check((data.get("gestures", {}) as Dictionary).has(gesture_name), "%s's %s gesture exists: %s" % [skin, section, gesture_name])
 
 
-## 坐 3 秒再站起來：骨盆升起 20% 時上身已經比坐著時前傾（先把重心移到腳上）；坐下與起身全程沒有跳格。
+## 坐（或蹲）3 秒再站起來：骨盆升起 20% 時上身已經比坐著時前傾（先把重心移到腳上）；坐下與起身全程沒有跳格。
+## 蹲是 NE-240 聽到連續槍響時蹲下抱頭用的，深蹲會碰到骨盆下沉上限，也要平順。
 func _test_posture_transitions() -> void:
+	for low_pose: StringName in [&"sit", &"crouch"]:
+		await _test_posture_cycle(low_pose)
+
+
+func _test_posture_cycle(low_pose: StringName) -> void:
 	for skin in NPC_SKINS:
 		var holder := Node2D.new()
 		runner.get_tree().root.add_child(holder)
@@ -400,7 +406,7 @@ func _test_posture_transitions() -> void:
 		var chests: Array[float] = []
 		for i in int(7.0 / dt):
 			var t := i * dt
-			input.npc_pose = &"sit" if t >= 1.0 and t < 4.0 else &"stand"
+			input.npc_pose = low_pose if t >= 1.0 and t < 4.0 else &"stand"
 			rig.animate(dt, input)
 			if t >= 0.5:
 				for bone in watched:
@@ -417,7 +423,7 @@ func _test_posture_transitions() -> void:
 				if jerk > worst:
 					worst = jerk
 					where = "%s@%.2fs" % [bone, 0.5 + i * dt]
-		check(worst < 0.035, "%s: sitting down and standing up have no popping frames (%.4f at %s; old code 0.106)" % [skin, worst, where])
+		check(worst < 0.035, "%s: %s down and standing up have no popping frames (%.4f at %s; old code 0.106)" % [skin, low_pose, worst, where])
 		var seated_hip := hips[0]
 		var standing_hip := hips[hips.size() - 1]
 		var seated_chest := chests[0]
@@ -426,8 +432,8 @@ func _test_posture_transitions() -> void:
 			if (seated_hip - hips[i]) >= 0.2 * (seated_hip - standing_hip):
 				lean = chests[i] - seated_chest
 				break
-		check(seated_hip - standing_hip > 2.0, "%s: the hips rise when standing up (%.1f px)" % [skin, seated_hip - standing_hip])
-		check(lean > 0.08, "%s: leans the upper body forward before rising (%.3f rad)" % [skin, lean])
+		check(seated_hip - standing_hip > 2.0, "%s: the hips rise when standing up from %s (%.1f px)" % [skin, low_pose, seated_hip - standing_hip])
+		check(lean > 0.08, "%s: leans the upper body forward before rising from %s (%.3f rad)" % [skin, low_pose, lean])
 		holder.queue_free()
 		await frames(1)
 

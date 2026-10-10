@@ -348,6 +348,17 @@ func follow(bone: StringName, target: float, delta: float) -> float:
 	return x
 
 
+## 提早結束指定的手勢（從目前的位置與速度收回，不跳）；沒有在播放指定手勢時不動。
+func release_cue() -> void:
+	if cue_active():
+		_hands.release()
+
+
+## 正在播放指定的手勢（過場指定、走近反應、聽到聲響）：NPC 動畫器會先把工作循環淡出，手不會同時做兩件事。
+func cue_active() -> bool:
+	return _hands.active() and _hands_kind == "cue"
+
+
 ## 正在播放的手勢或小動作名稱（沒有時是空的；測試與除錯用）。
 func current_gesture() -> StringName:
 	return _hands.name if _hands.active() else &""

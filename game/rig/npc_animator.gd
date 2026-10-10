@@ -17,6 +17,8 @@ const LOOP_FADE := 0.45
 const DEFAULT_TRANSITION := 0.45
 ## 姿勢下沉與搆腳下沉交叉時的圓滑寬度（腿長的比例）。
 const SAG_BLEND := 0.012
+## 骨盆下沉接近上限時的圓滑寬度（像素）。
+const SHIFT_CAP_BLEND := 3.0
 ## 起身時腳收回到身體下方所用的進度（前 55%，比骨盆升起早）。
 const FEET_TUCK := 0.55
 ## 站→坐開頭把腳的 IK 淡入、坐→站做完之後把腳的 IK 淡掉的秒數（快的角色也不少於這個時間，否則換腳的那幾格會跳）。
@@ -59,8 +61,6 @@ var _feet_to: Dictionary = {}
 var _feet_weight := 0.0
 ## 坐↔站切換中，站姿交接位置的「搆腳下沉」佔多少（0＝純姿勢、1＝完全是交接位置）：讓骨盆高度平順地收斂到交接位置。
 var _feet_floor := 0.0
-## 起身的最後一段，正在把腳的 IK 交還給站姿。
-var _feet_releasing := false
 var _posture_u := 1.0
 var _feet_floor_def: Dictionary = {}
 ## 工作循環：目前播放的循環、淡入淡出權重、累計圈數（小數＝圈內進度）與這一圈的長度、幅度倍率（每圈略有不同）。
@@ -100,7 +100,7 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 		pose[&"arm_back_upper"] = _far_arm_tuck.x
 		pose[&"arm_back_lower"] = _far_arm_tuck.y
 	# 生命感：緩慢飄動、重心轉移、轉頭看一下、呼吸速率變化與嘆氣、說話前吸氣與重音手勢、聆聽點頭、小動作。
-	var busy := input.waving or _loop_name != &""
+	var busy := input.waving or _loop_name != &"" or input.npc_loop != &""
 	var life := _life.step(delta, {"posture": input.npc_pose, "talking": input.talking, "listening": input.listening, "busy": busy,
 			"thigh": _rig.rest(&"leg_front_lower").length()})
 	_add_bones(pose, life["bones"], 1.0)
@@ -132,6 +132,12 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 		if not String(bone_name).begins_with("_"):
 			pose[bone_name] = _life.follow(bone_name, float(pose[bone_name]), delta)
 	return pose
+
+
+## 提早結束指定的手勢（例如蹲下抱頭之後站起來）：從目前位置平順收回。
+func release_gesture() -> void:
+	if _life != null:
+		_life.release_cue()
 
 
 ## 姿勢切換的進度（0~1，主要動作的緩動後進度；沒有在切換時是 1）。過場演員從座位起身時，用它讓身體落回地面與起身同步。
@@ -183,10 +189,12 @@ func _post_pose(delta: float, _input: RigInput) -> void:
 	for offset in offsets:
 		var need := _leg_length - sqrt(maxf(0.0, reach * reach - offset.x * offset.x))
 		sag = _smooth_max(sag, need, SAG_BLEND * _leg_length)
-	if _feet_w >= 1.0 or not _feet_releasing:
+	# 深蹲會碰到共用的下沉上限 GROUND_MAX_SHIFT：硬夾的話起身時骨盆要等下沉低於上限才突然開始動，這裡先平滑地靠近上限
+	sag = _soft_cap(sag, GROUND_MAX_SHIFT - 0.25, SHIFT_CAP_BLEND)
+	if _feet_w >= 1.0 or not _use_npc:
 		_place_feet(offsets, angles, _feet_w, sag, reach_ratio, true)
 		return
-	# 起身最後把 IK 交還給站姿（這時腿已是站姿）：骨盆高度在「站姿自己貼地的高度」與「IK 的下沉」之間按權重內插，
+	# IK 只佔一部分（坐、蹲的開頭淡入，或起身最後交還給站姿）：骨盆高度在「站姿自己貼地的高度」與「IK 的下沉」之間按權重內插，
 	# 而不是把下沉乘上權重——那會讓骨盆升高、IK 腿被拉直到奇異點而跳格。站姿貼地高度在 IK 之前用原本的腿算（不會互相影響）。
 	var planted := clampf(_ground_y - _lowest_foot_y(), -GROUND_MAX_SHIFT, GROUND_MAX_SHIFT)
 	_place_feet(offsets, angles, _feet_w, sag, reach_ratio, false)
@@ -200,6 +208,12 @@ func _post_pose(delta: float, _input: RigInput) -> void:
 
 static func _smoother(u: float) -> float:
 	return u * u * u * (u * (u * 6.0 - 15.0) + 10.0)
+
+
+## 軟上限：低於 cap − width 時原樣不變，之上以指數平順地靠近 cap（一階連續，永遠不超過 cap）。
+static func _soft_cap(x: float, cap: float, width: float) -> float:
+	var knee := cap - width
+	return x if x <= knee else cap - width * exp(-(x - knee) / width)
 
 
 ## 平滑的最大值：a、b 差距遠大於 width 時就是 max，接近時圓滑過渡。
@@ -229,7 +243,6 @@ func _step_posture(data: Dictionary, mine: Dictionary, posture: StringName, delt
 		_trans_t = 0.0
 	if _trans_t < 0.0:
 		_feet_floor = 0.0
-		_feet_releasing = false
 		_base_now = target
 		_feet_to = target_feet
 		_feet_weight = 0.0 if target_feet.is_empty() else 1.0
@@ -264,7 +277,6 @@ func _step_posture(data: Dictionary, mine: Dictionary, posture: StringName, delt
 	var handoff := _feet_handoff(data)
 	_feet_floor = 0.0
 	_feet_floor_def = handoff
-	_feet_releasing = false
 	if not _feet_from.is_empty() and not target_feet.is_empty():
 		_feet_to = _lerp_feet(_feet_from, target_feet, u)
 		_feet_weight = 1.0
@@ -278,7 +290,6 @@ func _step_posture(data: Dictionary, mine: Dictionary, posture: StringName, delt
 		_feet_to = _lerp_feet(_feet_from, handoff, u, NpcGesture._smooth(clampf(raw / FEET_TUCK, 0.0, 1.0)))
 		_feet_weight = 1.0 - NpcGesture._smooth(clampf((_trans_t - duration) / HANDOFF_TIME, 0.0, 1.0))
 		_feet_floor = u
-		_feet_releasing = _trans_t >= duration
 	else:
 		_feet_to = {}
 		_feet_weight = 0.0
@@ -345,7 +356,8 @@ func _step_loop(data: Dictionary, input: RigInput, pose: Dictionary, delta: floa
 		_loop_name = input.npc_loop
 		_loop_u = 0.0
 		_loop_cycle = -1
-	var want := 1.0 if input.npc_loop == _loop_name and _loop_name != &"" else 0.0
+	# 指定的手勢（招呼、縮一下）做的時候工作先停一下，做完再接回去
+	var want := 1.0 if input.npc_loop == _loop_name and _loop_name != &"" and not (_life != null and _life.cue_active()) else 0.0
 	_w_loop = move_toward(_w_loop, want, delta / LOOP_FADE)
 	if _loop_name == &"":
 		return

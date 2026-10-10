@@ -86,6 +86,17 @@ func set_loop(loop_name: StringName, scale := 1.0) -> void:
 	_input.npc_loop_scale = scale
 
 
+## 做一個手勢或小動作（art/rigs/npc_animations.json 的 gestures，NE-250）；沒有骨架、不是 NPC 動畫器或手勢不存在時回傳 false。
+func play_gesture(gesture_name: StringName) -> bool:
+	return rig != null and rig.animator is NpcAnimator and (rig.animator as NpcAnimator).play_gesture(gesture_name)
+
+
+## 提早結束正在做的指定手勢（從目前位置收回）。
+func release_gesture() -> void:
+	if rig != null and rig.animator is NpcAnimator:
+		(rig.animator as NpcAnimator).release_gesture()
+
+
 ## 說話中（點頭與手勢）。
 func set_talking(value: bool) -> void:
 	_input.talking = value
