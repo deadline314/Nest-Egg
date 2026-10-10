@@ -14,6 +14,12 @@ extends Resource
 @export var requires_flag: StringName = &""
 @export var unless_flag: StringName = &""
 @export var requires_item: StringName = &""
+## 目前手上有這件原件才用這一段（交出後不再符合）。
+@export var requires_held_item: StringName = &""
+## 手上沒有這件原件才用這一段（未取得或已交出）。
+@export var unless_held_item: StringName = &""
+## 這件原件本輪已交出才用這一段（交付後的回訪）。
+@export var requires_transferred_item: StringName = &""
 ## Investigation scenes can be tracked once; old NPC reward/checkpoint rules stay unchanged.
 @export var once: bool = false
 @export_group("Reward")
@@ -25,6 +31,13 @@ extends Resource
 @export var story_item: StoryItemData
 ## 領取時顯示的提示；空白時依內容自動產生。
 @export var reward_text: String = ""
+
+
+## 交給 StoryRules 判斷的原件條件；只有設定了才建立字典。
+func custody_conditions() -> Dictionary:
+	if requires_held_item == &"" and unless_held_item == &"" and requires_transferred_item == &"":
+		return {}
+	return {"requires_held_item": requires_held_item, "unless_held_item": unless_held_item, "requires_transferred_item": requires_transferred_item}
 
 
 func has_reward() -> bool:

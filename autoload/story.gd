@@ -72,6 +72,8 @@ var _waiters: Dictionary[int, bool] = {}
 var _request_results: Dictionary[int, bool] = {}
 var _passive_requests: Dictionary[StringName, Array] = {}
 var _resetting_presentation := false
+## 選項選到的交付在場景播完才生效；取消、死亡或換區時丟棄（場景 id → 物品 id 清單）。
+var _pending_transfers: Dictionary[StringName, Array] = {}
 var framing: CinematicFraming
 var _layer: DialogueLayer
 var _player: CutscenePlayer
@@ -134,7 +136,7 @@ func _ready() -> void:
 	add_child(_layer)
 	_layer.cinematic_finished.connect(_on_cinematic_finished)
 	_layer.radio_finished.connect(_on_passive_finished)
-	scene_finished.connect(_apply_scene_flags)
+	scene_finished.connect(_apply_scene_results)
 	scene_finished.connect(func(id: StringName) -> void:
 		_completed[id] = true
 		GameState.request_story_save())
@@ -217,16 +219,42 @@ func chapter_ids() -> Array[StringName]:
 	return ids
 
 
-## 場景結束時設定它的 set_flags（旗標名稱清單，存進 GameState 的本輪旗標；出入口的 requires_flag 與之後的劇情分支都看它）。
-func _apply_scene_flags(id: StringName) -> void:
+## 場景結束時套用結果：set_flags（旗標名稱清單，出入口的 requires_flag 與之後的劇情分支都看它）與
+## transfer_items（交出原件；場景本身或玩家選到的選項宣告）。交付前先確認全部原件仍在手上，
+## 任一件不在就整段結果不生效並記錄場景與物品，避免「旗標說交了、盤還在身上」的半套狀態。
+func _apply_scene_results(id: StringName) -> void:
+	var pending: Array = _pending_transfers.get(id, [])
+	_pending_transfers.erase(id)
 	var scene: Variant = _scenes.get(String(id), null)
 	if typeof(scene) != TYPE_DICTIONARY:
 		return
+	var transfers := StoryRules.transfer_ids(scene)
+	for item: Variant in pending:
+		if not transfers.has(StringName(item)):
+			transfers.append(StringName(item))
+	for item in transfers:
+		if not StoryItems.holds(item):
+			push_error("[Story] 場景 %s 結束時手上沒有原件 %s，這段結果（旗標與交付）未生效" % [id, item])
+			return
 	var flags: Variant = (scene as Dictionary).get("set_flags", [])
-	if typeof(flags) != TYPE_ARRAY:
-		return
-	for flag: Variant in flags:
-		GameState.set_flag(StringName(str(flag)))
+	if typeof(flags) == TYPE_ARRAY:
+		for flag: Variant in flags:
+			GameState.set_flag(StringName(str(flag)))
+	for item in transfers:
+		StoryItems.transfer(item)
+
+
+## 舊名稱：既有呼叫端與測試沿用，行為同 _apply_scene_results。
+func _apply_scene_flags(id: StringName) -> void:
+	_apply_scene_results(id)
+
+
+## 場景宣告的交付原件是否都還在手上（沒有宣告時為 true）。
+func can_transfer_for(id: StringName) -> bool:
+	for item in StoryRules.transfer_ids(_scenes.get(String(id), {})):
+		if not StoryItems.holds(item):
+			return false
+	return true
 
 
 ## 檢查劇本是否符合守則，回傳問題清單（空代表沒問題）：講者存在且有頭像、過場／通訊的句數、每句有文字。
@@ -241,6 +269,9 @@ func validate() -> PackedStringArray:
 		var mode := str(scene.get("mode", "radio"))
 		if scene.has("set_flags") and (typeof(scene["set_flags"]) != TYPE_ARRAY or (scene["set_flags"] as Array).any(func(f: Variant) -> bool: return str(f).is_empty())):
 			problems.append("場景 %s 的 set_flags 必須是非空的旗標名稱清單" % scene_id)
+		problems.append_array(StoryRules.validate_transfers("場景 %s" % scene_id, scene))
+		if scene.has("transfer_items") and mode not in [String(MODE_CINEMATIC), String(MODE_ANIMATED), String(MODE_DIALOGUE)]:
+			problems.append("場景 %s（%s）不能交出原件：只有可取消回撤的過場與對話可以交付" % [scene_id, mode])
 		if mode == String(MODE_ANIMATED):
 			problems.append_array(CutsceneChecker.validate(scene_id, scene, _speakers))
 			continue
@@ -559,6 +590,7 @@ func reset_active_presentation(reason: StringName = &"leave") -> void:
 	_framing_token = 0
 	var pending := _cinematic_queue
 	_cinematic_queue = []
+	_pending_transfers.clear()
 	if interrupted != &"":
 		if not _completed.has(interrupted):
 			_seen.erase(interrupted)
@@ -622,6 +654,9 @@ func _enqueue_request(id: StringName, once: bool, context: Dictionary, waiting :
 			push_warning("[Story] 找不到劇情場景：%s" % id)
 		return 0
 	if once and _seen.has(id):
+		return 0
+	if not can_transfer_for(id):
+		push_warning("[Story] 場景 %s 要交出的原件不在手上，未開始播放" % id)
 		return 0
 	_request_serial += 1
 	var request := _request_serial
@@ -805,6 +840,15 @@ func apply_choice(option: Dictionary) -> void:
 	var flags: Variant = option.get("set_flags", {})
 	for flag: Variant in StoryRules.flag_names(flags):
 		GameState.set_flag(StringName(str(flag)), flags[flag] if flags is Dictionary else true)
+	var transfers := StoryRules.transfer_ids(option)
+	if transfers.is_empty():
+		return
+	if _current_cinematic == &"":
+		push_warning("[Story] 選項 %s 要交出原件，但沒有進行中的場景可以承接，已忽略" % option.get("id", ""))
+		return
+	var queued: Array = _pending_transfers.get(_current_cinematic, [])
+	queued.append_array(transfers)
+	_pending_transfers[_current_cinematic] = queued
 
 
 ## Skip uses explicit defaults, so gates cannot depend on an unanswered question.

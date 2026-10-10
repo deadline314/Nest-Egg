@@ -36,6 +36,7 @@ var _steps_done: Dictionary[StringName, int] = {}
 
 func run() -> void:
 	await _test_story_features()
+	await _test_story_custody()
 	_test_checker()
 	_test_stages()
 	await _test_play_all_steps()
@@ -692,6 +693,123 @@ func _test_story_features() -> void:
 	Story._scene_chapter.erase("test_story_choice")
 	Story._scene_chapter.erase("test_story_object")
 	Story._death_sequences = previous_sequences
+	GameState.flag_defaults = previous_defaults
+	GameState.world_flags = previous_flags
+	StoryItems.restore(previous_items)
+	Story.restore_progress(previous_seen)
+	Story.auto_skip = previous_auto
+
+
+## ST-3：故事分得出「曾取得」與「目前持有」的原件；交付只在場景播完才生效，取消、略過預設或重播都不會交出或復生原件。
+func _test_story_custody() -> void:
+	const DISK := &"ch1_data_disk"
+	var previous_auto := Story.auto_skip
+	var previous_flags := GameState.world_flags.duplicate(true)
+	var previous_defaults := GameState.flag_defaults.duplicate(true)
+	var previous_items := StoryItems.snapshot()
+	var previous_seen := Story.progress_snapshot()
+	for id in ["test_story_choice", "test_story_object", "test_story_handoff", "test_story_handoff_choice"]:
+		Story._scenes.erase(id)
+		Story._scene_chapter.erase(id)
+	check(Story.load_chapter("res://tests/fixtures/story_features.json"), "custody fixture loads through the chapter API")
+	check(Story.validate().is_empty(), "custody fixture scenes pass startup validation")
+	var held_only := StoryItems.snapshot()
+	held_only["owned"] = [String(DISK)]
+	held_only["held"] = [String(DISK)]
+	held_only["transferred"] = []
+	held_only["unseen"] = []
+	check(StoryItems.restore(held_only) and StoryItems.holds(DISK), "custody: the run starts this check holding the original disk")
+	check(StoryRules.eligible({"requires_held_item": "ch1_data_disk"}, GameState.has_flag, StoryItems.owns), "custody: a held original satisfies the held condition")
+	check(not StoryRules.eligible({"requires_transferred_item": "ch1_data_disk"}, GameState.has_flag, StoryItems.owns), "custody: an undelivered original is not treated as handed over")
+	check(not StoryRules.eligible({"unless_held_item": "ch1_data_disk"}, GameState.has_flag, StoryItems.owns), "custody: unless_held blocks while the original is in hand")
+
+	# 取消：場景開始後在播完前被死亡打斷，原件仍在手上、完成旗標不寫。
+	Story.auto_skip = false
+	check(Story.play(&"test_story_handoff", false), "custody: the handoff scene starts while the disk is held")
+	await frames(2)
+	Story.reset_active_presentation(&"death")
+	await frames(2)
+	check(StoryItems.holds(DISK) and not StoryItems.was_transferred(DISK) and not GameState.has_flag(&"test_story_handed"), "custody: cancelling an unfinished handoff keeps the original and writes no result")
+
+	# 選項延後交付：選了「交出」但場景被取消，仍不交出；略過時用預設「留著」，也不交出。
+	check(Story.play(&"test_story_handoff_choice", false), "custody: the confirmation scene starts")
+	var player: CutscenePlayer = null
+	for i in 120:
+		player = Story._player
+		if is_instance_valid(player) and player.choice_active():
+			break
+		await frames(1)
+	check(is_instance_valid(player) and player.choose(0), "custody: the player can explicitly choose to hand over the disk")
+	check(StoryItems.holds(DISK), "custody: choosing to hand over waits for the scene to finish")
+	Story.reset_active_presentation(&"leave")
+	await frames(2)
+	check(StoryItems.holds(DISK) and not StoryItems.was_transferred(DISK), "custody: leaving mid-confirmation cancels the pending delivery")
+	Story.auto_skip = true
+	check(Story.play(&"test_story_handoff_choice", false), "custody: a skipped confirmation still plays its defaults")
+	await frames(3)
+	check(StoryItems.holds(DISK), "custody: skipping resolves to keeping the disk, never an implied delivery")
+
+	# 明確確認並播完：交出原件；歷史仍在。
+	Story.auto_skip = false
+	check(Story.play(&"test_story_handoff_choice", false), "custody: the confirmation scene starts again")
+	for i in 120:
+		player = Story._player
+		if is_instance_valid(player) and player.choice_active():
+			break
+		await frames(1)
+	check(is_instance_valid(player) and player.choose(0), "custody: the delivery is confirmed")
+	for i in 240:
+		if not Story.is_cinematic_active():
+			break
+		await frames(1)
+	check(not StoryItems.holds(DISK) and StoryItems.was_transferred(DISK) and StoryItems.owns(DISK), "custody: a finished confirmed delivery hands over the original but keeps its history")
+	check(StoryRules.eligible({"requires_transferred_item": "ch1_data_disk"}, GameState.has_flag, StoryItems.owns) and StoryRules.eligible({"requires_item": "ch1_data_disk"}, GameState.has_flag, StoryItems.owns) and StoryRules.eligible({"unless_held_item": "ch1_data_disk"}, GameState.has_flag, StoryItems.owns), "custody: story conditions now see obtained, not held, and transferred")
+
+	# 重播與續玩：場景不能再交一次，原件不會因為取得流程或讀檔回到手上。
+	Story.auto_skip = true
+	check(not Story.play(&"test_story_handoff", false), "custody: a delivery scene refuses to replay once the original is gone")
+	check(not StoryItems.acquire(DISK, false) and not StoryItems.holds(DISK), "custody: pickups and scene grants cannot recreate the delivered original")
+	Story.reset_active_presentation(&"death")
+	check(StoryItems.was_transferred(DISK) and not StoryItems.holds(DISK), "custody: a later death keeps the completed delivery")
+	var wire: Variant = JSON.parse_string(JSON.stringify(StoryItems.snapshot()))
+	StoryItems.restore(held_only)
+	check(StoryItems.restore(wire) and StoryItems.was_transferred(DISK) and not StoryItems.holds(DISK), "custody: a saved and continued run keeps the disk delivered")
+
+	# 場景層級交付：播完同時寫旗標與交付；交付前原件不在就整段不生效。
+	StoryItems.restore(held_only)
+	GameState.set_flag(&"test_story_handed", false)
+	check(Story.play(&"test_story_handoff", false), "custody: a scene-level delivery starts")
+	await frames(3)
+	check(GameState.has_flag(&"test_story_handed") and StoryItems.was_transferred(DISK), "custody: scene completion writes its flag and delivery together")
+	StoryItems.restore(held_only)
+	GameState.set_flag(&"test_story_handed", false)
+	StoryItems._held.erase(DISK)
+	Story._scenes["test_bad_cutscene_handoff"] = Story._scenes["test_story_handoff"]
+	Story._apply_scene_results(&"test_bad_cutscene_handoff")
+	Story._scenes.erase("test_bad_cutscene_handoff")
+	check(not GameState.has_flag(&"test_story_handed"), "custody: a delivery that lost its original writes no partial result")
+
+	# 資料檢查與人物對話條件。
+	check(not StoryRules.validate_transfers("x", {"transfer_items": ["no_such_item"]}).is_empty() and not StoryRules.validate_transfers("x", {"transfer_items": []}).is_empty(), "custody: unknown or empty transfer lists are reported with their location")
+	var bad_default := {"options": [{"id": "give", "text": "交出。", "transfer_items": ["ch1_data_disk"]}, {"id": "keep", "text": "留著。"}], "default": "give"}
+	check(Array(StoryRules.validate_choice("x", bad_default)).any(func(p: String) -> bool: return p.contains("default")), "custody: a default option may not hand over an original")
+	var npc := NpcData.new()
+	npc.id = &"test_counter"
+	var before_talk := NpcTalk.new()
+	before_talk.scene = &"test_story_object"
+	before_talk.requires_held_item = DISK
+	var after_talk := NpcTalk.new()
+	after_talk.scene = &"test_story_object"
+	after_talk.requires_transferred_item = DISK
+	npc.talks = [before_talk, after_talk]
+	var holding := func(kind: StringName, _id: StringName) -> bool: return kind == &"held"
+	var delivered := func(kind: StringName, _id: StringName) -> bool: return kind == &"transferred"
+	var never := func(_id: StringName) -> bool: return false
+	check(npc.pick_talk(0, never, 0, GameState.has_flag, never, holding) == 0 and npc.pick_talk(0, never, 0, GameState.has_flag, never, delivered) == 1, "custody: NPC talks switch between holding and delivered lines")
+
+	for id in ["test_story_choice", "test_story_object", "test_story_handoff", "test_story_handoff_choice"]:
+		Story._scenes.erase(id)
+		Story._scene_chapter.erase(id)
 	GameState.flag_defaults = previous_defaults
 	GameState.world_flags = previous_flags
 	StoryItems.restore(previous_items)

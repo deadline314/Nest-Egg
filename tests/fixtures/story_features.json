@@ -1,6 +1,6 @@
 {
   "for_chapter": "ch1_kasa",
-  "flag_defaults": {"test_story_decision": false, "test_story_visits": 0, "test_story_route": ""},
+  "flag_defaults": {"test_story_decision": false, "test_story_visits": 0, "test_story_route": "", "test_story_handed": false},
   "death_sequences": [
     {"min_deaths": 1, "skippable": false, "steps": [
       {"kind": "line", "speaker": "rin", "text": "我還記得回去的路。", "time": 0.4},
@@ -21,6 +21,19 @@
         {"do": "branch", "requires_flag": "test_story_route", "steps": [{"do": "wait", "time": 0.01}], "else_steps": [{"do": "wait", "time": 0.02}]}
       ]
     },
-    "test_story_object": {"mode": "bubbles", "lines": [{"speaker": "rin", "text": "這件物品留著熟悉的痕跡。"}]}
+    "test_story_object": {"mode": "bubbles", "lines": [{"speaker": "rin", "text": "這件物品留著熟悉的痕跡。"}]},
+    "test_story_handoff": {"mode": "dialogue", "set_flags": ["test_story_handed"], "transfer_items": ["ch1_data_disk"], "lines": [
+      {"speaker": "rin", "text": "我把資料盤放進交接櫃，確認鎖已經扣上。"},
+      {"speaker": "rin", "text": "收據印出來以後，這件事就算交代完了。"},
+      {"speaker": "rin", "text": "接下來只要等對方來取件就好。"}]},
+    "test_story_handoff_choice": {
+      "mode": "animated", "overlay": true,
+      "steps": [
+        {"do": "choice", "text": "現在就把資料盤交出去嗎？", "default": "keep", "options": [
+          {"id": "give", "text": "把資料盤放進交接櫃。", "transfer_items": ["ch1_data_disk"], "steps": [{"do": "title", "text": "你把資料盤交了出去。", "time": 0.3}]},
+          {"id": "keep", "text": "我先把資料盤留在身上。", "steps": [{"do": "title", "text": "你決定再等一下。", "time": 0.1}]}
+        ]}
+      ]
+    }
   }
 }
