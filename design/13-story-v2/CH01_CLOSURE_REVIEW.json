@@ -4,7 +4,7 @@
   "status": "script_review_passed_ready_for_production_not_runtime_acceptance",
   "date": "2026-10-10",
   "baseline_sha": "2c90b9e2593fe47c00cd7aec1bff08f96e5da780",
-  "script_sha256": "55afc2af42f109e84563e69f71f2dca2232be2283ac1196a460d14f36a8099d1",
+  "script_sha256": "7eb5272fea09329fa42c23d97163514834a5f0e28931b721d98b7397b7acdd0c",
   "review_kind": "author_self_review_root_independent_readthrough_and_static_document_checks",
   "independent_review": {
     "status": "passed_script_review",
@@ -761,5 +761,28 @@
   "freeze": {
     "state": "frozen_for_root_readthrough",
     "reason": "Author applied root script review requests; no generator/PM/runtime changes before root direction."
+  },
+  "source_implementation_review": {
+    "date": "2026-10-10",
+    "baseline_commit": "5366453717f9488d16b661a67299a7ad6360f242",
+    "previous_script_sha256": "55afc2af42f109e84563e69f71f2dca2232be2283ac1196a460d14f36a8099d1",
+    "updated_script_sha256": "2cc3126cc69a79564715d9d1bd4a7fb39fb190c36b3a1151e29c0b2f73cc6ecb",
+    "status": "passed_source_review_after_independent_confirmation_of_exact_updated_script_sha256",
+    "kind": "root_source_readthrough_and_independent_cpu_full_source_review",
+    "corrections": [
+      "Cloth pickup does not assume the delivery receipt exists before first death.",
+      "Recorded voice wording supports both the real booth and the clinic playback.",
+      "Clinic exit does not assume the first death happened after reaching the warehouse.",
+      "Only the canonical later_pay receipt means a previously issued tab has been settled."
+    ],
+    "source_input_hashes": "Earlier source_sha256 entries retain their recorded baseline meaning; they are not a claim that new source implementations remain byte-identical.",
+    "runtime_verified": false,
+    "human_native_language_review": false
+  },
+  "source_repair_review": {
+    "baseline_sha": "a52e57ea47e775f9aefc229eca8f712dc8a0183e",
+    "reason": "Split the M17 document sentence found by the actual StoryLint test; monetary meaning is unchanged.",
+    "runtime_acceptance": false,
+    "independent_source_readthrough": true
   }
 }

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch1_lounge_bill"
+display_name = "今晚餐酒明細"
+description = "明確點餐後才成立的200餐酒單；宵夜麵不收費。是否結清請看今晚的結帳紀錄。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 34
+chapter = &"ch1_kasa"
+body = "復原餐120信用點；酒80信用點；合計200。離店前再結；陪坐與宵夜麵不另收費。此紙列消費明細，不代表已付。是否已付、招待或保留欠條，請核對當晚實際結帳紀錄。"
+trigger = 3
+icon = "doc_stub"

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch1_lounge_tab"
+display_name = "餐酒200欠條"
+description = "凜親自確認保留的餐酒欠條，未付200，無利息、無抵押。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 35
+chapter = &"ch1_kasa"
+body = "餐酒200信用點／未付。現在不扣款、不加息、不抵押資料盤。之後可主動確認付清；不從次晨720報酬、市集代墊40或阿梨私人債務自動抵扣。本條與委託回執分開保管。"
+trigger = 3
+icon = "doc_notice"

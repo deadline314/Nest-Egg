@@ -1,15 +1,24 @@
 #!/usr/bin/env python3
-"""第一章「傘」的劇本資料產生器（ST-2、ST-9）：輸出 data/story/ch1_kasa.json 與場景舞台 data/cutscene/stages/ch1_*.json。
+"""第一章正式劇本來源入口（ST-9）。
 
-台詞以 design/13-story-v2/CH01_SCRIPT_REVIEW.md 與 DIALOGUE_READABILITY.md 的完整句子基線為準。這個腳本把分鏡表轉成現有的過場動畫資料：
-- 動畫過場（animated）：C1-xx，用 BG-11 場景立繪當舞台；超過連續 3 句台詞時自動插入短停頓（過場檢查器的限制）。
-- 過場（cinematic）與通訊（radio）：玩法段的對話；通訊每段最多 2 句、過場每段最多 6 句。
-- 對話選項、旗標分支與可互動物件的短台詞屬於 ST-3，這裡先用「預設的那一條路」寫成線性場景；場景結束時用 set_flags 設旗標。
-- 日文與英文只放★關鍵句（雙關與標誌性台詞）：欄位 ja、en 與 transcreate: true，缺漏時遊戲只顯示中文。
-用法：python3 tools/story/build_ch1_story.py
+最高製作稿：design/13-story-v2/CH01_CLOSURE_SCRIPT.md。
+完整分支／段尾結果／11個任務語義在 ch1_closure.py；預設CLI及build()
+保持既有36場已發布來源。新作者契約必須經真 runtime backend 轉譯；不能
+把明確購買或取物變成預設代選與 set_flags，不能發出未知 handler。
+
+CPU檢查：python tools/story/build_ch1_story.py --check-closure-source
+既有重建：python tools/story/build_ch1_story.py
+新稿輸出：python tools/story/build_ch1_story.py --production（接口未到位時拒絕，無寫檔）
 """
+import argparse
 import json
 import os
+import sys
+
+try:
+    from .ch1_closure import ProductionNotReady, build_source, compile_production, source_report
+except ImportError:
+    from ch1_closure import ProductionNotReady, build_source, compile_production, source_report
 
 ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
 OUT = os.path.join(ROOT, 'data', 'story', 'ch1_kasa.json')
@@ -288,6 +297,10 @@ def lines_scene(scene_id, mode, lines, then=None, flags=None, bark=False):
 # ---------------------------------------------------------------------------
 
 def build():
+    """Populate the published SCENES API; new closure is an explicit opt-in."""
+    SCENES.clear()
+    RESPAWN.clear()
+    DEATH_SCENES.clear()
     # ---------------------------------------------------------------------
     # 過場 1／3：開場（≤20 秒）：雨、水位、老 K、差事、一成照抽。其他劇情都在地圖上（氣泡、廣播、人物對話）。
     # 設計與逐窗口表見 design/13-story-v2/CH01_NARRATIVE_V2.md。
@@ -525,17 +538,62 @@ def build():
     ], budget=60.0)
 
 
-def main():
+def build_production_source():
+    """Return complete authored source; this does not change loaded game data."""
+    return build_source()
+
+
+def _retained_document(source):
+    build()
+    # ST-16's P06 owns the upstream exit.  Do not replay the old trial-gun intro
+    # after that exit or fabricate a completed prologue in this chapter source.
+    superseded = set(source.segments) | {"ch1_c01_open", "ch1_t_ali_2", "ch1_t_ali_3"}
+    retained = {ident: scene for ident, scene in SCENES.items() if ident not in superseded}
+    return {"chapter": CHAPTER, "speakers": SPEAKERS, "respawn_scenes": RESPAWN,
+            "death_scenes": DEATH_SCENES, "scenes": retained}
+
+
+def production_backend():
+    # ST-22 and NE-231 handovers are pending.  Do not implement a pretend adapter
+    # or expose CLI capability overrides to bypass production binding checks.
+    return None
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--check-closure-source", action="store_true", help="CPU source/producer report; never writes Story JSON or stages")
+    mode.add_argument("--production", action="store_true", help="Compile new authored closure only with a real production backend")
+    args = parser.parse_args(argv)
+    if args.check_closure_source:
+        report = source_report(build_production_source())
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 1 if report["source_errors"] else 0
+    if args.production:
+        source = build_production_source()
+        backend = production_backend()
+        try:
+            # Refuse BEFORE retained presentation, stages or any file writes.
+            if backend is None:
+                compile_production(source)
+            data = compile_production(source, backend, _retained_document(source))
+        except (ProductionNotReady, ValueError) as error:
+            print(str(error), file=sys.stderr)
+            print("Loaded ch1_kasa.json and stages were not written. Use --check-closure-source for pending producer/binding details.", file=sys.stderr)
+            return 2
+    else:
+        build()
+        data = {"chapter": CHAPTER, "speakers": SPEAKERS, "respawn_scenes": RESPAWN,
+                "death_scenes": DEATH_SCENES, "scenes": SCENES}
     os.makedirs(STAGE_DIR, exist_ok=True)
     for stage_id, (scene, top, bottom, rain, glow, extra) in STAGES.items():
         write_stage(stage_id, scene, top, bottom, rain, glow, extra)
-    build()
-    data = {"chapter": CHAPTER, "speakers": SPEAKERS, "respawn_scenes": RESPAWN, "death_scenes": DEATH_SCENES, "scenes": SCENES}
-    with open(OUT, 'w') as f:
+    with open(OUT, 'w', encoding='utf-8', newline='\n') as f:
         json.dump(data, f, ensure_ascii=False, indent=1)
         f.write('\n')
-    print('wrote', OUT, f'({len(SCENES)} scenes)')
+    print('wrote', OUT, f'({len(data["scenes"])} scenes)')
+    return 0
 
 
 if __name__ == '__main__':
-    main()
+    raise SystemExit(main())

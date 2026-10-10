@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch1_delivery_receipt"
+display_name = "交盤驗收回執"
+description = "原盤已由委託方驗收。次晨核對800報酬與80抽成，預計淨額720。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 32
+chapter = &"ch1_kasa"
+body = "委託：碼頭保險箱資料盤取回。實體已驗收，原盤由委託方保管。報酬800信用點，次晨核對。一成抽成由老 K依既有約定處理；預計凜淨額720，尚未入帳。閱覽授權限市場修繕代收批號M17與付款附件，非原盤持有權。"
+trigger = 3
+icon = "doc_stub"

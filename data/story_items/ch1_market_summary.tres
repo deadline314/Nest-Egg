@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch1_market_summary"
+display_name = "市場M17待查摘要"
+description = "這筆代收缺付款附件。它是待查記錄，不能直接當作待付結論。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 33
+chapter = &"ch1_kasa"
+body = "市場修繕代收批號為M17，記錄本金為200信用點。本期利息為20信用點，代收簿記載待收120信用點，但付款附件缺失。以上為待查記錄，不等於合法待付結論。須在市集代收處找同批收據、租攤合約與代收簿核對；本頁無法證明已付金額。查核安排與額外報酬次晨另行說明。"
+trigger = 3
+icon = "doc_log"

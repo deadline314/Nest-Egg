@@ -1,0 +1,130 @@
+{
+  "latest_baseline": "c744a44f2d7b87a345a0a883cae3f1df0efe8f51",
+  "source_lf_sha256": {
+    "tools/story/build_ch1_story.py": "bfb180628922b7cd067006d95e1bb6b2737aff07bf484e3f538f185a699c5367",
+    "tools/story/ch1_closure.py": "ab633a2abd15326770c1e165cf1b219b8b47d702117863ea5dd0c56248643e6c",
+    "tests/smoke_test.gd": "c6739c0d48559daeb0cfd5af092137f4c2fc3e669d4b2ba8e83171680c0849ee",
+    "design/13-story-v2/CH01_CLOSURE_SCRIPT.md": "7eb5272fea09329fa42c23d97163514834a5f0e28931b721d98b7397b7acdd0c",
+    "design/13-story-v2/CH01_CLOSURE_REVIEW.json": "207a7d6c08fc5ae10a089d423437edb2858e851ce6ebe4d07749c200261bfe13",
+    "design/20-campaign-experience/CH1_PRODUCTION_INTEGRATION.md": "7243229c188549ec31ff02556670a2d63b2ffdab86fce21e7c80a79d743dd4e5",
+    "data/story_items/ch1_delivery_receipt.tres": "19923607cbe11f45bfc01e72fda15e2f962875f021cdfde07088f4439c731bfd",
+    "data/story_items/ch1_market_summary.tres": "1ad9ef373ec4a7e6f48a35297099ac975d59401822cc70576ceb5e790d738628",
+    "data/story_items/ch1_lounge_bill.tres": "034306102639f0d3fa15b74b5c9c1518a4882da35843de8a32b87f43a1f893ee",
+    "data/story_items/ch1_lounge_tab.tres": "768ad093aa7c2a1b53bb7a84685544f813bb9eff5e2a900d91ca6675a634d91a"
+  },
+  "evidence": {
+    "cpu-review-raw.log": {
+      "raw_sha256": "c1ed5eccba677ffd2d474c96461353807b065c8cd6cfb4d28c0c80366a2b487b",
+      "git_lf_sha256": "05fecdbc392693d777743317ae051db3c4fca1b95805aa20a88016adee05168d"
+    },
+    "initial-failure-raw.log": {
+      "raw_sha256": "30ce5f8e78cbf726d53843ae90c4f363b223a14b25ff90b1dc6f22510e533d9e",
+      "git_lf_sha256": "5af5873f26144a8b69eae07db678c1bbd77a78c0a93668476d2b1177e2c6ca35"
+    },
+    "initial-failure-console-raw.log": {
+      "raw_sha256": "660483dc6789af9fa1d77d49b2b2b145a5b3d2e6cd7fe8bf81c78db78ba0156e",
+      "git_lf_sha256": "1b8fe0babedd72c80dcd2cbd5caa5661526a750ac63e1da85e181a6163df21cd"
+    },
+    "paper-target-raw.log": {
+      "raw_sha256": "5ea4dee080b95c33d504e3fff7a34b12b0a3f8f99b3980fbee25821cebde3307",
+      "git_lf_sha256": "45db189162c56132aa5fff907a3f78102c61614752e293f02cbb79a57bdeaced"
+    },
+    "paper-target-console-raw.log": {
+      "raw_sha256": "f8557d9b4f73012b4b4e8e059d1efb026da7e6ed5dc1e78592e825e76228f8d0",
+      "git_lf_sha256": "90f4ea6df6cda89783ae44ceef5432b52a7869434f6efb63b8fdb2cb2b27bb86"
+    },
+    "a52-full-failure-raw.log": {
+      "raw_sha256": "c461e4774209656fbca2925787964cb66b0edb8f6bf520ac5e5f2499ab479bcd",
+      "git_lf_sha256": "d1d3c608babd8f95d4c89d83a5fe59f04f554675de3369384a2472c3777777cb"
+    },
+    "a52-full-failure-console-raw.log": {
+      "raw_sha256": "0bb11e43592fb24c4652f259b37685ecd0962d549beb3447ffda477409b04f20",
+      "git_lf_sha256": "ba27f4ed99863183efa2fad2009543235c0073593c824afea332a0ad08c106b5"
+    },
+    "feel-diagnostic-raw.log": {
+      "raw_sha256": "cd03de2759240046c0b6086179b1bed22d3d2cd9c3982b4dd7c09393dd669efc",
+      "git_lf_sha256": "184937d5bf861cddbb73885bd5bc024d761bf317addc459f1223790012e0f308"
+    },
+    "feel-diagnostic-console-raw.log": {
+      "raw_sha256": "9919078f82e08e074cb4bc639f5509fec67783b44a5faf5faaa992bdc42b4d94",
+      "git_lf_sha256": "cd8b6fc2ed49ea14bfa555b13b1107cbb070724bfdb11940bdf2ad40d5831d2b"
+    },
+    "d68-full-green-raw.log": {
+      "raw_sha256": "13688e31510282d5139b8882734a03d312689cab14ce70c44bc21098656540a9",
+      "git_lf_sha256": "9f6b961e88008d5b7f147b70cfb7e018d46ed1285e0f4e81840629774a5163f6"
+    },
+    "d68-full-green-console-raw.log": {
+      "raw_sha256": "cddaed0d0c2c3f81c0ac3949d8d0ff4758c4c5ca36e9af7161c0d6318b610d0b",
+      "git_lf_sha256": "bc61732d3166e90c6b10f4bfc195605ebfed2f5094107d9889923d65013a2d82"
+    },
+    "d68-import-raw.log": {
+      "raw_sha256": "118214f226d9448283afd94062f6ef0beb5dab120a06f261b378fba7d22c85db",
+      "git_lf_sha256": "30f860d0e32f3db628170e78ca0ed83f817cc4a1f09d077d34b4267319182937"
+    },
+    "c744-import-raw.log": {
+      "raw_sha256": "65ba579ab072783cd19ae6f730ffe21e97dd303aebdfe64f07c499c8ff3b4448",
+      "git_lf_sha256": "03e52d33de9c059142e987e7f27b3f75788d058024b14a9371f1fe5baa6b80c9"
+    },
+    "c744-integration-raw.log": {
+      "raw_sha256": "ee96434d60ea87092e9a3819c0b6549ad90eaaaeac65728851587796d4abbb4e",
+      "git_lf_sha256": "cda1385be109ffd2a835e1df92b468b964b6a704fbe8a70f7f4946ab5351d45c"
+    },
+    "c744-integration-console-raw.log": {
+      "raw_sha256": "3cb9788fdfc0ae9af9bab9c4f43cb67d557bee0b5f860297ce1ebdb647d4d369",
+      "git_lf_sha256": "7c0ea2250711d5858a84b47c857608289b28387cb0b02f0386aa5e860e080a98"
+    },
+    "independent-source-review.py": {
+      "git_lf_sha256": "97c55c89fbc9b36924b97e47552cd84327f586c327f17eef24843b0315a1ac5d"
+    }
+  },
+  "loaded_lf_sha256": {
+    "data/story/ch1_kasa.json": "6d020b5940b96a08a318687bbd6ab0329576bae8a5b54666d22d929f7b2197b4",
+    "data/cutscene/stages/blue_sky_seam.json": "1d9d020bd11a09a3bbe990648af5036bb4eef65ae49202c38f44b9901fc79a65",
+    "data/cutscene/stages/ch1_dawn_noodle_stall.json": "87adaa3497c75f1baac78c7a65ebfe5d0a7d8e2b719c7018ec626c8acc4bbe8b",
+    "data/cutscene/stages/ch1_pawnshop_front.json": "ca4af617b226e39c45d9ef1d51cfdd5d35a6cbe63b177e971794362c47971990",
+    "data/cutscene/stages/ch1_pawnshop_kitchen.json": "fc7f1a1e09bd5fb2c378b2badeea7a5baa7507960278de58ae1416827b152e70",
+    "data/cutscene/stages/ch1_revival_lounge.json": "1e13a360f09225e01b24d914ec12cfcda2f2e1a8ad2b65a9783df32fead9d0de",
+    "data/cutscene/stages/ch1_revival_room.json": "59a19c8175dec0f2844eb596f546dbda21c1481c396c61123e578e9e3fbda4d1",
+    "data/cutscene/stages/ch1_rooftop.json": "ec0266770653a2df9d9939d7f6994db1047dfe874e251b6d3b3d3d35b13d5097",
+    "data/cutscene/stages/elevator_rise.json": "1543ab3ca7a2dda1bb971cce95314e67070c56f409087a5efb23b147e292f410",
+    "data/cutscene/stages/hangar_red.json": "507f73f9e42c0ac630578a7d1d8bdd195dfde27bfe6e2cf32ec14bbe125adaea",
+    "data/cutscene/stages/old_k_shop.json": "a6f39a302a241191bfb30c2faef047bccb02b3c3628ba781537bf9f5710fce72",
+    "data/cutscene/stages/old_k_shop_dawn.json": "c223b3c0be9182e7baea2bb7b89f6b0af5a8d596915d4be6c752f8b792e87935",
+    "data/cutscene/stages/rainy_harbor.json": "c75f5a27003c79beb49976c6e07247493185d7cb09f56ed0312689c70e23fb1b",
+    "data/cutscene/stages/shaft_descent.json": "afe0d7f3c89038b3ad1ab878ed115e70171897b9912871c75e84298f44a1846e",
+    "data/cutscene/stages/terminal_room.json": "a392902585f9a53a6d05d15e1e93eb29932ef05ea39e7262df0b7f5412569f9b",
+    "data/cutscene/stages/test_room.json": "4a0feb1338a4b8355aada79dd999935dc2b6b731a569c2c0fe873ed7024ec1cb",
+    "data/cutscene/stages/transfer_corridor.json": "48d3726cb99186120d8bd49f4bba344692b30f57614d15e4ea74a3c99bca9cb9",
+    "data/cutscene/stages/white_room.json": "bb470e1adbbb8b14dca2f382514e9667d23459b2c2caa2a4a09325a77f2291af"
+  },
+  "full_original_selector": {
+    "baseline": "d68ddb79a041d8d76ffb076ce48fb0b38c5834ba",
+    "groups": 80,
+    "checks": 54352,
+    "new_failures": 0,
+    "known_failures": 0,
+    "natural_exit": 0,
+    "wall_seconds": 1190,
+    "raw_error_count": 83
+  },
+  "latest_integration": {
+    "groups": [
+      "main",
+      "CollectiblesSuite",
+      "RunSaveSuite",
+      "StoryLintSuite",
+      "StoryContentSuite",
+      "EconomySuite"
+    ],
+    "checks": 3438,
+    "new_failures": 0,
+    "known_failures": 0,
+    "natural_exit": 0,
+    "wall_seconds": 105,
+    "raw_error_count": 9
+  },
+  "script_parse_compile_errors": 0,
+  "formal_production_exported": false,
+  "runtime_playthrough_verified": false,
+  "screenshots": "N/A source-only phase; no changed rendered scene"
+}

@@ -1,0 +1,10 @@
+受影響的測試：AmmoIconsSuite,AmmoTraySuite,ApplyPanelSuite,Chapter1MapSuite,Chapter2ExpansionSuite,Chapter2Suite,ChapterCutscenesSuite,ClipEditorSuite,CollectiblesSuite,CombatHudSuite,ContinuitySuite,CutsceneSuite,DeathFlowSuite,DeathReactionSuite,DevMenuSuite,EconomySuite,FeelSuite,FxMeleePickupsSuite,InputFeelSuite,LayerOrderSuite,MeleeWeaponsSuite,MusicSuite,NpcAnimationSuite,NpcSuite,PacingSuite,ProgressionSuite,PropsSuite,QuestMapSuite,RunSaveSuite,SceneSanitySuite,SoundLabSuite,SoundStageSuite,StageCoverageCharactersSuite,StageCoverageWeaponsSuite,StageCoverageWorldSuite,StoryContentSuite,StoryLintSuite,SupplySuite,TransitionSuite,UiScreensSuite,main
+Running 41 groups in 1 processes (logs: C:/tmp/st9-source-evidence/changed)
+  process 0 (estimated 1240 s): main,UiScreensSuite,TransitionSuite,SupplySuite,StoryLintSuite,StoryContentSuite,StageCoverageWorldSuite,StageCoverageWeaponsSuite,StageCoverageCharactersSuite,SoundStageSuite,SoundLabSuite,SceneSanitySuite,RunSaveSuite,QuestMapSuite,PropsSuite,ProgressionSuite,PacingSuite,NpcSuite,NpcAnimationSuite,MusicSuite,MeleeWeaponsSuite,LayerOrderSuite,InputFeelSuite,FxMeleePickupsSuite,FeelSuite,EconomySuite,DevMenuSuite,DeathReactionSuite,DeathFlowSuite,CutsceneSuite,ContinuitySuite,CombatHudSuite,CollectiblesSuite,ClipEditorSuite,ChapterCutscenesSuite,Chapter2Suite,Chapter2ExpansionSuite,Chapter1MapSuite,ApplyPanelSuite,AmmoTraySuite,AmmoIconsSuite
+[process 0] NEW FAILURE: story item catalog loads 26 items (got 30)
+[process 0] NEW FAILURE: story item icon exists: ch1_delivery_receipt
+[process 0] NEW FAILURE: story item icon exists: ch1_market_summary
+[process 0] NEW FAILURE: story item icon exists: ch1_lounge_bill
+[process 0] NEW FAILURE: story item icon exists: ch1_lounge_tab
+[process 0] NEW FAILURE: every story item text passes the quality check: [警告／單句長度] 道具 ch1_market_summary 第 3 句：一句 43 字，超過 40 字建議拆開：「市場修繕代收／批號M17／記錄本金200／本期利息20／代收簿待收120／付款附件缺失」
+checks: 8585, new failures: 6, known failures (tests/known_failures.txt): 0  (wall time 705 s)

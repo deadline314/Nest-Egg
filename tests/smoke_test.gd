@@ -407,7 +407,13 @@ func _test_story() -> void:
 ## 設定與改鍵：改用測試專用設定檔，結束後還原，不影響玩家設定。
 func _test_story_items() -> void:
 	var catalog := StoryItems.catalog()
-	_check(catalog.size() == 26, "story item catalog loads 26 items (got %d)" % catalog.size())
+	_check(catalog.size() >= 26, "story item catalog retains the established collection")
+	# 新增資料不必重寫總數；必要紙本仍逐件驗證，不能意外變成自動獎勵或探索計數。
+	for paper_id: StringName in [&"ch1_delivery_receipt", &"ch1_market_summary", &"ch1_lounge_bill", &"ch1_lounge_tab"]:
+		var paper := StoryItems.find(paper_id)
+		_check(paper != null, "chapter one key paper exists: %s" % paper_id)
+		if paper != null:
+			_check(paper.trigger == StoryItemData.Trigger.MANUAL and not paper.is_collectible(), "key paper requires explicit story result: %s" % paper_id)
 	var ids: Dictionary[StringName, bool] = {}
 	var last_order := -INF
 	for item in catalog:
