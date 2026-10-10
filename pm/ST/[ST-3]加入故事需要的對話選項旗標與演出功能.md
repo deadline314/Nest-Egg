@@ -179,3 +179,22 @@ NE-223 交接指出 Godot 4.7 沒有 `bool(String)` 建構子。ST-3 的旗標�
 | 截圖 | 不適用；本階段沒有新增遊戲畫面 |
 
 [完整來源與原始驗證紀錄](attachments/ST-3-conditions/manifest.json)／[正式接入界線](../../design/20-campaign-experience/STORY_CONDITION_CONTRACT.md)。
+
+
+# Commit-7
+
+## 內文
+
+一段故事可能同時扣款、交出原件、給紙物與記錄完成；其中一項拒絕時，不能先接受前面的結果。新增整段結果的獨立預檢框架：依開始時的條件檢查完整結果，任何錯誤只回拒絕，不留下半份提案，也不改變目前遊戲狀態。重播、已完成段、壞帳本或未登記來源同樣拒絕。
+
+### 測試結果
+
+| 項目 | 結果 |
+|---|---|
+| 經濟局部回歸 | 278項、0新失敗、0已知失敗，原runner自然退出0 |
+| 原受影響測試（109f2ea30） | 原選取經濟套件278項全過，8秒，自然退出0 |
+| 執行紀錄 | 匯入與測試無SCRIPT ERROR、Parse Error、Compile Error或ERROR；負向交易警告保留 |
+| 來源核對 | 已測程式內容與提交來源SHA一致，既有原測試保留 |
+| 截圖 | 不適用；本階段沒有新增遊戲畫面 |
+
+[完整來源與原始驗證紀錄](attachments/ST-3-result-plan/manifest.json)／[驗證界線](../../design/20-campaign-experience/STORY_RESULT_BATCH.md)。

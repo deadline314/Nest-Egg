@@ -13,6 +13,7 @@ const MAX_RATIO := 0.80
 
 func run() -> void:
 	preload("res://tests/helpers/story_transaction_checks.gd").run(self)
+	preload("res://tests/helpers/story_result_plan_checks.gd").run(self)
 	_test_pawn_rules()
 	_test_pawn_snapshot()
 	_test_death_cap()

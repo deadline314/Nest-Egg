@@ -1,0 +1,54 @@
+{
+  "baseline": "109f2ea30ac68244e69ae1f0e387fe224a9939f1",
+  "source_lf_sha256": {
+    "core/story_result_plan.gd": "006dbf02a8893b243eebb621d739d4074767a244d73e3d0e55e9503f4d896d8d",
+    "tests/helpers/story_result_plan_checks.gd": "5218bd936747fb6c64ce0a909ae72516dda653a15b17e64a4b98655b874000e2",
+    "tests/suite/test_economy.gd": "a30e755e903defed027eb96a1508697554eebcc391eabf15055bea23d691501e",
+    "design/20-campaign-experience/STORY_RESULT_BATCH.md": "f60534c56231acc3f6fabea2a3689aec7c03f14be880060033facc9d5bceb0f1",
+    "design/20-campaign-experience/STORY_ATOMIC_INSTALL_PLAN.md": "beb571b4d161c3c690b686fd9ea89e07fb65ba5abb49bd95433c16d6a6ca7050",
+    "core/story_result_plan.gd.uid": "c32adf0d09f4aeb1348f72fe000acc32005b9d3a54ef9abd9bf603e7f8c158f0",
+    "tests/helpers/story_result_plan_checks.gd.uid": "a04631d6136c8b9fbe0f231de8dfcae7c4dc1ab7bbd4cc93ef56c9dd507fb96b"
+  },
+  "evidence_hashes": {
+    "import-raw.log": {
+      "raw_sha256": "794dc1dcf1e4c732adab1294014540298e150f571ce0c7aca5022ff43a090074",
+      "git_lf_sha256": "c94dc9a65ca97a0e01b5c4659763fcbbbbca554d490f91c14d4be4e8afff96fd"
+    },
+    "target-console-raw.log": {
+      "raw_sha256": "42bd293b6da6c4a57c97bd438b8c3ff1bd2e2e8c947133ea075cb35a888fb468",
+      "git_lf_sha256": "544254f0dad0805be8c4a8e8708a023bb6613008139999ea5c04da958decf7a3"
+    },
+    "target-raw.log": {
+      "raw_sha256": "998383ae9480333089f344f8850928575712ad146cfd7eee350c9cb77411f540",
+      "git_lf_sha256": "b991fc15d18ac35dc524b6993c975cfedfd0538843c8c6028c46995b6bdabed3"
+    },
+    "changed-console-raw.log": {
+      "raw_sha256": "5a85e2b5b0ea7794005e14beeb36c3fb96ce511be4b256bddcb2ae953db2c5f9",
+      "git_lf_sha256": "ae70e4d79dd9834b7b842909ee8ba170d065bbdb156837d0b966dbc576035c01"
+    },
+    "changed-raw.log": {
+      "raw_sha256": "998383ae9480333089f344f8850928575712ad146cfd7eee350c9cb77411f540",
+      "git_lf_sha256": "b991fc15d18ac35dc524b6993c975cfedfd0538843c8c6028c46995b6bdabed3"
+    },
+    "import-exit.txt": {
+      "raw_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_lf_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "target-exit.txt": {
+      "raw_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_lf_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "changed-exit.txt": {
+      "raw_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_lf_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    }
+  },
+  "changed_checks": 278,
+  "original_selector": "EconomySuite",
+  "runner_exit": 0,
+  "raw_errors": 0,
+  "script_errors": 0,
+  "formal_scene_installed": false,
+  "live_install_implemented": false,
+  "screenshots": "N/A pure backend source-only phase"
+}
