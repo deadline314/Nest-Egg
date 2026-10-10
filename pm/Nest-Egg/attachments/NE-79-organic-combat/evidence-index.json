@@ -1,0 +1,59 @@
+{
+  "head": "212768fa4a98e9db5bb1b3f4c067ef6027c7547d",
+  "case": "NE-79 enforcer / shield_rusher",
+  "renderer": "Forward+ / Vulkan 1.4.351 / NVIDIA GeForce RTX 4070 SUPER",
+  "godot": "4.7.2-stable (official)",
+  "checks": 16,
+  "failures": 0,
+  "raw_manifest_sha256": "e5a02c7a55cf0679af0b27c93e87d2eb488632118a9262df3ca55771dcbd69bc",
+  "native_log_sha256": "9c7a2778ada4c434fb5f2054d0c692abd77411145f85fc7abd2441021b03d43a",
+  "cpu_log_sha256": "faff67b661a588abbc427cfa689c48f07e5eecfd098c358bef2a2ba69f3bed23",
+  "images": {
+    "NE79_enforcer_charge_skid.png": {
+      "sha256": "1867ed26e0965705a2669816765f35744044f0e40c86780767148cfe24d5a7c7",
+      "bytes": 119983,
+      "size": [
+        1280,
+        720
+      ]
+    },
+    "NE79_enforcer_rear_hit.png": {
+      "sha256": "da011c081780986c2c2e6c51ad2caa3ef96e4127d9cebaf714beed0aa94efec5",
+      "bytes": 151510,
+      "size": [
+        1280,
+        720
+      ]
+    },
+    "NE79_enforcer_windup.png": {
+      "sha256": "06bd2c07bc5d063279dfb9332cad5ed7e70a2eb18494847c3bc5a732884b3ee3",
+      "bytes": 147946,
+      "size": [
+        1280,
+        720
+      ]
+    }
+  },
+  "source_sha256": {
+    "enemy_base": "95cf1cc9ef2e9b15b2d95f5e79955a75869461026c9df2fb3bd637eaa8fa6ce2",
+    "enemy_behavior": "e069fea62b4b34ddd4ba4f869a6cbb4451c33916b448928cc6eacb9eba2a1800",
+    "enemy_data": "ee357583b7f55b6910af80692d9b08be2b1db54b2a2070957e69442c7f5bc5a3",
+    "fixture_scene": "968bbdc7e7acf16f4b7cac92e2c32dfa9b864a686519555ce33d4960273ba624",
+    "fixture_script": "00d0bf1d730bba13d3da1280cd31c466fd79aab17d4baeaac0fe8086ee31c041",
+    "heavy_behavior": "aee5919b9ffe0442ca2ad0c9adf7b5fa0beb4cd6a3ee361183f47e0ecc965354",
+    "heavy_data": "88479c5c1cb3332e7a4b36c9e28be0412894e8e3a769a0a7df72b570ce227bae",
+    "hurtbox": "8da545725886ae29c64eda534de3f4a7483ba0ce667aef84545796debf9edc7d",
+    "level": "c85262f80873b64581d8c07fd5832310e851be01001ef14c3eba321942815d1c",
+    "physics_fixture": "60e7a4061566e31a6302fb4365ae14e02838fa5570554ab9fe3699dfae0328e4",
+    "pistol_data": "69ca264cd4ab2146777f12993e2f7cfcd5b91cc3e5cc9fe6b0473aa8d17dad8a",
+    "pistol_projectile": "424eb245b7ffdf2216c96c484b93897b018cf3292cc672c6b06bac837a1021c7",
+    "player": "4a2abf7533d4cb5ab19e4fa188424f48ceb52168c4f2470db539b63a8a9ed55c",
+    "projectile": "183c6ad9f4bcfbfd71a1475f1409e7a3402dc8f85f466a2ed8d4dcf480ebe534",
+    "projectile_pool": "2ff6726d61598d9bc55031e4133dd37821ec392aadff7ffcca43b8b542c7ba4d",
+    "warden_behavior": "3410ce2b8680b63b92f8f88b6f65e5cb42d3d9fed32f28bf29b63f5549054aba",
+    "warden_data": "41760c61a715254fdfaa8f211ae234cf99fb4913ebf5f77366971276bab0d06e",
+    "weapon_system": "8fd5494bc3aefee8c3ced8d931b2129f2a174bc26b504bbb6b1d72b6da2abdd7"
+  },
+  "public_replay_cpu_log_sha256": "000db61c6dbc05e0f8f293d3f13b376e23729421e76e263b85eb5e224d75cd44",
+  "public_replay_cpu_manifest_sha256": "025ed28a67b9c07edbe67324b35794a92eb8b171893ba634520d655d85bb00bb"
+}

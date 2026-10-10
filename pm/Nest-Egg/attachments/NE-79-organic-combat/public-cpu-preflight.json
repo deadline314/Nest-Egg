@@ -1,0 +1,276 @@
+{
+	"case": "NE-79 enforcer / shield_rusher",
+	"checks": 13,
+	"enemy_data": "res://data/enemies/shield_rusher.tres",
+	"events": [
+		{
+			"data": {
+				"head": "212768fa4a98e9db5bb1b3f4c067ef6027c7547d"
+			},
+			"event": "start",
+			"t_msec": 0
+		},
+		{
+			"data": {
+				"enemy_facing": -1,
+				"enemy_fsm": "windup",
+				"enemy_health": 8,
+				"enemy_id": "shield_rusher",
+				"enemy_position": [
+					384.0,
+					320.0
+				],
+				"enemy_shield_layers": 0,
+				"player_health": 12,
+				"player_position": [
+					288.0,
+					320.0
+				],
+				"uses_actual_rig": true
+			},
+			"event": "spawned",
+			"t_msec": 1702
+		},
+		{
+			"data": {
+				"enemy_position": [
+					384.0,
+					320.0
+				],
+				"fsm_time": 0.05,
+				"state": "windup"
+			},
+			"event": "fsm_state",
+			"t_msec": 1702
+		},
+		{
+			"data": {
+				"enemy_facing": -1,
+				"enemy_fsm": "windup",
+				"fsm_time": 0.05
+			},
+			"event": "natural_windup",
+			"t_msec": 1702
+		},
+		{
+			"data": {
+				"ammo_before": 12,
+				"enemy_facing": -1,
+				"health_before": 8,
+				"muzzle_world": [
+					277.277191162109,
+					261.726531982422
+				],
+				"origin_side_sign": -1.0,
+				"player_aim": [
+					0.877684533596039,
+					0.479238897562027
+				],
+				"player_weapon": "pistol",
+				"projectile_spec": "res://data/projectiles/pistol_shot.tres"
+			},
+			"event": "front_fire_request",
+			"t_msec": 1702
+		},
+		{
+			"data": {
+				"origin": [
+					373.049560546875,
+					314.534362792969
+				],
+				"part": "",
+				"source_id": "player_pistol"
+			},
+			"event": "enemy_hurtbox_blocked",
+			"t_msec": 1788
+		},
+		{
+			"data": {
+				"kind": "blocked"
+			},
+			"event": "hit_marker",
+			"t_msec": 1789
+		},
+		{
+			"data": {
+				"ammo_after": 11,
+				"ammo_before": 12,
+				"enemy_health_after": 8,
+				"enemy_health_before": 8,
+				"markers": [
+					"blocked"
+				],
+				"projectile_active_count": 0,
+				"result": "blocked"
+			},
+			"event": "front_projectile_result",
+			"t_msec": 1801
+		},
+		{
+			"data": {
+				"enemy_position": [
+					384.0,
+					320.0
+				],
+				"fsm_time": 0.0,
+				"state": "charge"
+			},
+			"event": "fsm_state",
+			"t_msec": 2146
+		},
+		{
+			"data": {
+				"enemy_fsm": "charge",
+				"fsm_time": 0.0,
+				"player_health": 12
+			},
+			"event": "natural_attack",
+			"t_msec": 2146
+		},
+		{
+			"data": {
+				"enemy_position": [
+					114.0,
+					320.0
+				],
+				"fsm_time": 0.0,
+				"state": "skid"
+			},
+			"event": "fsm_state",
+			"t_msec": 3243
+		},
+		{
+			"data": {
+				"enemy_fsm": "skid",
+				"enemy_position": [
+					114.0,
+					320.0
+				],
+				"enemy_velocity": [
+					-300.0,
+					0.0
+				],
+				"player_health_after": 6,
+				"player_health_before": 12
+			},
+			"event": "attack_end",
+			"t_msec": 3243
+		},
+		{
+			"data": {
+				"enemy_facing": -1,
+				"enemy_health_before": 8,
+				"muzzle_world": [
+					197.945083618164,
+					262.550994873047
+				],
+				"origin_side_sign": 1.0,
+				"player_position": [
+					210.0,
+					320.0
+				],
+				"state": "skid"
+			},
+			"event": "rear_fire_request",
+			"t_msec": 3277
+		},
+		{
+			"data": {
+				"amount": 1,
+				"origin": [
+					67.6166229248047,
+					310.684448242188
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 3513
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 3513
+		},
+		{
+			"data": {
+				"enemy_health_after": 7,
+				"enemy_health_before": 8,
+				"markers": [
+					"hit"
+				],
+				"result": "damaged"
+			},
+			"event": "rear_projectile_result",
+			"t_msec": 3526
+		}
+	],
+	"failures": [],
+	"godot": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"head": "212768fa4a98e9db5bb1b3f4c067ef6027c7547d",
+	"level_fixture": "res://tests/fixtures/cover_map.json",
+	"source_sha256": {
+		"character_json": "d1967fcd8f61c1677d5418fea421c0636198ea199ad23ef41a18b965bc221986",
+		"enemy_base": "95cf1cc9ef2e9b15b2d95f5e79955a75869461026c9df2fb3bd637eaa8fa6ce2",
+		"enemy_behavior": "e069fea62b4b34ddd4ba4f869a6cbb4451c33916b448928cc6eacb9eba2a1800",
+		"enemy_data": "ee357583b7f55b6910af80692d9b08be2b1db54b2a2070957e69442c7f5bc5a3",
+		"enforcer_texture_sources": {
+			"res://art/characters/enforcer/parts/arm_lower.png": "51f2dac017d37eb437d5bca720e9330419313e435c3dedae0a0a6d5651a75b95",
+			"res://art/characters/enforcer/parts/arm_lower_n.png": "ff0d36aa1cec85d1d33d9a125334083825007ce2da538282c419bb09cd912cc7",
+			"res://art/characters/enforcer/parts/arm_upper.png": "e1d900396cd0b5f17b59a5763e0cf5ce9ef37dba540e851229cef5324ecaa94f",
+			"res://art/characters/enforcer/parts/arm_upper_n.png": "63440c5c5b0a6ab6abd419b2845f1c029a53d7b176ed4ba8a1091b680cb9938f",
+			"res://art/characters/enforcer/parts/armor_chest.png": "daaa4a36da86b8f4432ec8df69d2502cacc812be0caab0309590034788f15aa3",
+			"res://art/characters/enforcer/parts/armor_chest_n.png": "e90ad8ac640695e8a524f42e094c74ca193f27913ef6d93d6c48386cd8a4859e",
+			"res://art/characters/enforcer/parts/armor_forearm.png": "1b9e3658f308fec86f763e2fddfe551a5be2b14b20da9fc61f13fcd6a163b4fe",
+			"res://art/characters/enforcer/parts/armor_forearm_n.png": "4cc204ed30008e3dee22c01135fa3aef575f3b1eb1001e773e726275d0de242c",
+			"res://art/characters/enforcer/parts/armor_knee.png": "cabfbc176eb06ec36dc3900289e783f53e05f7b16ee177a0721745cb159daaaf",
+			"res://art/characters/enforcer/parts/armor_knee_n.png": "1a80b11c73fdb6256c3570008a5950ed662a69cc32073bb4a7db92cb85cfc9bb",
+			"res://art/characters/enforcer/parts/armor_shoulder.png": "c66e132482f29cd1b1a932ff1eb84890cb0e1bed02222e8931827ad41778f861",
+			"res://art/characters/enforcer/parts/armor_shoulder_n.png": "5893fcb77efc1b5dfc303d4fb3321d6b31e2d54833dc79a957d4a783aeea6244",
+			"res://art/characters/enforcer/parts/foot.png": "25d8ef17928840de2ab11c95b486cc38ad18b60f6a3600724795f9f102afd70b",
+			"res://art/characters/enforcer/parts/foot_n.png": "46a9f4777dcd6257b22cd40ae023b2492e28741f6146f410e0302b1239e2243c",
+			"res://art/characters/enforcer/parts/hand.png": "d90ee46e9f457ced959d3d6ae8de4ce837e85bc37d0612052bc6f883a22a5967",
+			"res://art/characters/enforcer/parts/hand_n.png": "9cde2d25a13f260e8acdb54ff5c35556c07decb51c185acd423fc0f6bf4d883c",
+			"res://art/characters/enforcer/parts/head.png": "0e173082bb422670da222c7ffe9d1e32d58721374c81871e6e6600083c10a941",
+			"res://art/characters/enforcer/parts/head_glow.png": "0efc6aabaa5d5ad5fcdba588bf96eb628f1d08141b26f9f8184791e24da16c67",
+			"res://art/characters/enforcer/parts/head_n.png": "eec947d9bcbbccaa356041c4e74a70dc82fe0e6f1b52825730bcdde88e504ee1",
+			"res://art/characters/enforcer/parts/leg_lower.png": "1556b526bb4f68d66299f7e822c666ad6ae778355d4943b3937ec62f39ad9e2e",
+			"res://art/characters/enforcer/parts/leg_lower_n.png": "2c06d11904c6eb5db09a11927bb525d2b42853525adbbfc0435fb00ac1e9f172",
+			"res://art/characters/enforcer/parts/leg_upper.png": "1579ec6ef806c027dc73b4ff0d9e2a9d1fa55ead6c44401be0cecce1e70ab926",
+			"res://art/characters/enforcer/parts/leg_upper_n.png": "bca9419c1074a6f1a9519ec29df1eb67c69b232acfd80f1257b121ed799a9212",
+			"res://art/characters/enforcer/parts/pelvis.png": "36516293a4aad98e4cbaabadbf796b1489e74e0dc86f589894657d99fbd87207",
+			"res://art/characters/enforcer/parts/pelvis_n.png": "ab86cad04ab79cd59dbb8e3798646ddc36ea8a535d6ec6a870df615b13d6baa8",
+			"res://art/characters/enforcer/parts/riot_shield.png": "a9844f2cec03c7705fb524f1899d7d0762bbed4ede4fd30e10f6c899b8531e93",
+			"res://art/characters/enforcer/parts/riot_shield_glow.png": "7184b2b999e67da8a0a3f0751349945e43bea77dfb046ab7ccc3f5294bcdeeb3",
+			"res://art/characters/enforcer/parts/riot_shield_n.png": "0eafdfd3e467b05b06aee513e76b20d404c33f983620b4d89b0b70cd987e8089",
+			"res://art/characters/enforcer/parts/torso.png": "1dc484d1b3b7b165b739f2216a47ee3ec21fadd4de1e8183043c26ef559dcf58",
+			"res://art/characters/enforcer/parts/torso_glow.png": "2ea2283cc3b79c75b6756fb1d21cab3c96653a0352c516d6224db9858a3d3dcd",
+			"res://art/characters/enforcer/parts/torso_n.png": "c09a6a2ef567e5f185cb69da1ef06f4ccd34fa3c79c1b28b3d4eae7d0863fdeb"
+		},
+		"fixture_scene": "cc231b1a5e949f1aabb08b90fe08fff3bfc5cb468e58f4225f9b7d777ca1098b",
+		"fixture_script": "35c56249457b1edc683b80e2eb4d0b2c791f4b89e3b54caccbec0341d044657c",
+		"hurtbox": "8da545725886ae29c64eda534de3f4a7483ba0ce667aef84545796debf9edc7d",
+		"level": "c85262f80873b64581d8c07fd5832310e851be01001ef14c3eba321942815d1c",
+		"physics_fixture": "60e7a4061566e31a6302fb4365ae14e02838fa5570554ab9fe3699dfae0328e4",
+		"pistol_data": "69ca264cd4ab2146777f12993e2f7cfcd5b91cc3e5cc9fe6b0473aa8d17dad8a",
+		"pistol_projectile": "424eb245b7ffdf2216c96c484b93897b018cf3292cc672c6b06bac837a1021c7",
+		"player": "4a2abf7533d4cb5ab19e4fa188424f48ceb52168c4f2470db539b63a8a9ed55c",
+		"projectile": "183c6ad9f4bcfbfd71a1475f1409e7a3402dc8f85f466a2ed8d4dcf480ebe534",
+		"projectile_pool": "2ff6726d61598d9bc55031e4133dd37821ec392aadff7ffcca43b8b542c7ba4d",
+		"rig_json": "48d3de2bdc778c582382dd64d304073a065d641b7b3bb286db0329715349f3cd",
+		"weapon_system": "8fd5494bc3aefee8c3ced8d931b2129f2a174bc26b504bbb6b1d72b6da2abdd7"
+	}
+}
