@@ -33,3 +33,4 @@ health_drop_chance = 0.15
 rig_skin = "grenadier"
 rig_weapon = "launcher"
 credit_value = 12
+hurt_parts = Array[Dictionary]([{"id": "head", "bone": "head", "offset": Vector2(0, -4), "size": Vector2(9, 10), "mult": 1.5}])

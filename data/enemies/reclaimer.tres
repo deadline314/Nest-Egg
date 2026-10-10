@@ -35,3 +35,4 @@ credit_value = 120
 rig_skin = "reclaimer"
 rig_weapon = ""
 rig_actions = { "dash_windup": "reclaimer.windup_slash", "dash": "reclaimer.slash", "rail_windup": "reclaimer.windup_overhead", "dash_recover": "reclaimer.recover" }
+hurt_parts = Array[Dictionary]([{"id": "head", "bone": "head", "offset": Vector2(0, -4), "size": Vector2(9, 10), "mult": 1.0}])

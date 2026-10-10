@@ -36,5 +36,5 @@ health_drop_chance = 0.0
 rig_skin = "warden"
 rig_weapon = "minigun"
 credit_value = 100
-hurt_parts = Array[Dictionary]([{"id": "core", "bone": "core_port", "offset": Vector2(0, 0), "size": Vector2(10, 12), "mult": 1.0}])
+hurt_parts = Array[Dictionary]([{"id": "core", "bone": "core_port", "offset": Vector2(0, 0), "size": Vector2(10, 12), "mult": 1.0}, {"id": "head", "bone": "head", "offset": Vector2(3, -8), "size": Vector2(11, 12), "mult": 1.0}])
 rig_actions = { "burst_windup": "warden.brace", "leap_windup": "warden.windup_overhead", "leap": "warden.slam", "fan_windup": "warden.brace", "summon_windup": "warden.windup_overhead", "phase_shift": "warden.vent", "core_windup": "warden.core_open", "core_recover": "warden.core_close" }

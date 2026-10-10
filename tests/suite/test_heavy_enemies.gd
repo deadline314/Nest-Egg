@@ -6,6 +6,7 @@ extends EnemySuiteBase
 const FLAMER_PATH := "res://data/enemies/flamer.tres"
 const GUNNER_PATH := "res://data/enemies/heavy_gunner.tres"
 const WARDEN_PATH := "res://data/enemies/warden.tres"
+const WATCHDOG_PATH := "res://data/enemies/watchdog.tres"
 const PISTOL_SHOT_PATH := "res://data/projectiles/pistol_shot.tres"
 
 
@@ -20,8 +21,11 @@ func run() -> void:
 	await _test_gunner_armor()
 	await _test_warden_core_cannon()
 	await _test_warden_core_origin()
+	await _test_visible_heads_are_hittable()
+	await _test_watchdog_head_shot()
 	await _test_core_hit_along_path()
 	await _test_path_resolution_contract()
+	await _test_watchdog_head_in_warehouse()
 	await _test_codex_unlocks()
 	await check_defeatable_on_every_difficulty([FLAMER_PATH, GUNNER_PATH])
 
@@ -347,7 +351,7 @@ func _test_codex_unlocks() -> void:
 
 
 # ---------------------------------------------------------------------------
-# 命中部位與畫面一致（NE-248 外露核心）
+# 命中部位與畫面一致（NE-252 看門狗頭部、NE-248 外露核心）
 # ---------------------------------------------------------------------------
 
 ## 畫面上零件的世界外框（Sprite2D 或關節網格）。
@@ -399,6 +403,85 @@ func _shot(enemy: Enemy, origin: Vector2, target: Vector2) -> Array:
 	await physics_frames(25)
 	enemy.health.damaged.disconnect(record)
 	return hits
+
+
+## 所有骨架敵人：畫面上的頭（零件中心）都落在整體或部位受擊框內，兩個面向都一樣；不能有「看得到打不到」的頭。
+func _test_visible_heads_are_hittable() -> void:
+	await open_level(10.0)
+	for file in DirAccess.get_files_at("res://data/enemies"):
+		if not file.ends_with(".tres"):
+			continue
+		var data := load("res://data/enemies/" + file) as EnemyData
+		if data == null or data.rig_skin.is_empty():
+			continue
+		var enemy := spawn("res://data/enemies/" + file, 40.0)
+		await physics_frames(2)
+		if enemy.rig == null or not enemy.rig.has_bone(&"head"):
+			enemy.queue_free()
+			continue
+		for side: int in [-1, 1]:
+			await _freeze_facing(enemy, side)
+			var head := _head_center(enemy)
+			var covered := enemy.hurtbox.contains_point(head)
+			for part in enemy.hurtbox.parts:
+				covered = covered or (part.enabled and part.contains_point(head))
+			check(head != Vector2.INF and covered, "%s's visible head is inside a hurt box (facing %d, head %s)" % [data.id, side, head])
+		enemy.queue_free()
+		await physics_frames(2)
+	await end_level(level)
+
+
+## 看門狗：瞄準畫面上的頭開槍，算頭部命中（部位倍率、弱點回饋），左右兩邊、兩個面向都一樣；
+## 真正的玩家手槍（_try_fire）斜向上射頭也一樣；射身體仍是一般命中。
+func _test_watchdog_head_shot() -> void:
+	await open_level(10.0)
+	var dog := spawn(WATCHDOG_PATH, 45.0)
+	await physics_frames(2)
+	var base_damage := (load(PISTOL_SHOT_PATH) as ProjectileSpec).damage
+	for side: int in [-1, 1]:
+		for from: int in [-1, 1]:
+			await _freeze_facing(dog, side)
+			var head := _head_center(dog)
+			var hits := await _shot(dog, head + Vector2(from * 140.0, 0), head)
+			check(hits.size() == 1 and hits[0][0] == &"head" and hits[0][2] and hits[0][1] > roundi(base_damage),
+					"a shot at the watchdog's drawn head is a head hit (facing %d, from %d): %s" % [side, from, hits])
+			dog.health.setup(dog.data.max_health, 0.0)
+	# 各招式與第二階段：頭的部位判定跟著畫面上的頭走。
+	dog.set_physics_process(true)
+	for phase: int in [1, 2]:
+		dog.set("_phase", phase)
+		for state: StringName in [&"idle", &"burst_windup", &"leap_windup", &"fan_windup", &"phase_shift"]:
+			dog.fsm.transition(state)
+			await physics_frames(12)
+			var drawn := _head_center(dog)
+			var head_box: Hurtbox = null
+			for part in dog.hurtbox.parts:
+				if part.part_id == &"head":
+					head_box = part
+			check(head_box != null and head_box.contains_point(drawn), "the head box follows the drawn head in %s (phase %d)" % [state, phase])
+	dog.set("_phase", 1)
+	await _freeze_facing(dog, -1)
+	var body := dog.hurtbox.center() + Vector2(0, 12)
+	var body_hits := await _shot(dog, body + Vector2(-140, 0), body)
+	check(body_hits.size() == 1 and body_hits[0][0] == &"" and not body_hits[0][2], "a body shot stays an ordinary hit: %s" % [body_hits])
+	# 真正的玩家：站在地上斜向上瞄準頭開一槍。
+	await _freeze_facing(dog, -1)
+	var player := level.player
+	place_player(dog.global_position.x / 16.0 - 9.0)
+	player.set_physics_process(false)
+	await physics_frames(2)
+	var head := _head_center(dog)
+	player.aim_dir = (head - player.muzzle_position()).normalized()
+	player.facing = 1
+	var hits: Array = []
+	var record := func(info: DamageInfo) -> void: hits.append([info.part, info.weak_hit])
+	dog.health.damaged.connect(record)
+	player._try_fire()
+	await physics_frames(25)
+	dog.health.damaged.disconnect(record)
+	check(hits.size() == 1 and hits[0][0] == &"head" and hits[0][1], "the real player pistol aimed at the watchdog's head scores a head hit: %s" % [hits])
+	player.set_physics_process(true)
+	await end_level(level)
 
 
 ## 監管者的外露核心藏在身體框裡：子彈先碰到身體框，但彈道會穿過核心，就算核心命中（雙倍、弱點、只扣一次）。
@@ -464,4 +547,40 @@ func _test_path_resolution_contract() -> void:
 	check(box.resolve_along(edge, Vector2.RIGHT, 3.0, func(_a: Vector2, _b: Vector2) -> bool: return true) == box, "a blocked path keeps the body hit")
 	check(box.resolve_along(edge, Vector2.ZERO) == box.resolve_at(edge), "no direction falls back to the contact point")
 	check(box.resolve_along(core, Vector2.LEFT).part_id == &"core", "a contact already inside the core uses it")
+	await end_level(level)
+
+
+## 正式的第一章碼頭倉庫：看門狗自然醒來後，真正的玩家手槍瞄準畫面上的頭開槍，算頭部命中（左右兩邊各一次）。
+func _test_watchdog_head_in_warehouse() -> void:
+	level = await start_level(load("res://data/levels/ch1_warehouse.tres") as LevelData)
+	level.player.health.setup(999, 0.0)
+	var dog: Enemy = null
+	for node in level._entities.get_children():
+		if node is Enemy and (node as Enemy).data.id == &"watchdog":
+			dog = node
+	check(dog != null, "the warehouse places the watchdog")
+	if dog == null:
+		await end_level(level)
+		return
+	var player := level.player
+	for side: int in [-1, 1]:
+		player.global_position = dog.global_position + Vector2(side * 96.0, 0.0)
+		player.velocity = Vector2.ZERO
+		var settled := await wait_state(dog, &"idle", 240)
+		await physics_frames(1)
+		for frame in 180:
+			if player._fire_cooldown_left <= 0.0 and not player.loadout.is_reloading():
+				break
+			await physics_frames(1)
+		var head := _head_center(dog)
+		player.aim_dir = (head - player.muzzle_position()).normalized()
+		player.facing = -side
+		var hits: Array = []
+		var record := func(info: DamageInfo) -> void: hits.append([info.part, info.weak_hit])
+		dog.health.damaged.connect(record)
+		player._try_fire()
+		await physics_frames(20)
+		dog.health.damaged.disconnect(record)
+		check(settled and hits.size() == 1 and hits[0][0] == &"head" and hits[0][1],
+				"in the warehouse, the real pistol aimed at the woken watchdog's head scores a head hit (player side %d): %s" % [side, hits])
 	await end_level(level)

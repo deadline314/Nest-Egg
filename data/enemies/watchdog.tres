@@ -40,3 +40,4 @@ light_part = &"head"
 light_offset = Vector2(6, -4)
 light_mark = Vector2(2.5, 1.5)
 light_calm_states = PackedStringArray("dormant")
+hurt_parts = Array[Dictionary]([{"id": "head", "bone": "head", "offset": Vector2(3, -8), "size": Vector2(11, 12), "mult": 1.5}])
