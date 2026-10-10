@@ -1,0 +1,207 @@
+{
+  "source": "Root explicit task message reports personally viewing both before PNGs and accepting genuine original blue FX; Native9 pair already personally viewed",
+  "before_root_visual_accepted": true,
+  "before_raw_report_flag_left_false": true,
+  "after_root_visual_accepted": true,
+  "cpu_reviewer_did_not_represent_own_pixel_review": true,
+  "matched_scenario_pairs": [
+    {
+      "scenario": "pistol-dark-right-ground",
+      "before_image": "NE247-before-00-pistol-dark-right-ground.png",
+      "after_image": "NE247-00-pistol-dark-right-ground.png",
+      "before_image_sha256": "861a1b0e051ea5a87f507d55bcd657ce1d9cb9b68bf97b7d2278322da818ac01",
+      "before_image_dimensions": [
+        1600,
+        900
+      ],
+      "after_image_sha256": "bd08b5bd8b9a5cca5aea45b4d070ee666ef5c473dcbdfb01a2bccb25daf95c3c",
+      "after_image_dimensions": [
+        1600,
+        900
+      ],
+      "before_scenario": {
+        "air": false,
+        "cell": 19,
+        "direction": 1,
+        "id": "pistol-dark-right-ground"
+      },
+      "after_scenario": {
+        "air": false,
+        "cell": 19,
+        "direction": 1,
+        "id": "pistol-dark-right-ground",
+        "quality": 2,
+        "reduce": false,
+        "weapon": "pistol"
+      },
+      "actual_position_both": [
+        355.333343505859,
+        319.997741699219
+      ],
+      "actual_velocity_both": [
+        360.0,
+        0.0
+      ],
+      "actual_facing_both": 1,
+      "before_real_dash_elapsed": 0.1,
+      "before_old_blue_fx_count": 4,
+      "after_active_snapshot_count": 3,
+      "after_oldest_snapshot_age": 0.0935333333333335,
+      "after_worldshot_timing": {
+        "actual_oldest_age": 0.0935333333333335,
+        "actual_signed_world_x_distance": 37.8689880371094,
+        "criterion_met": true,
+        "draw_frame_valid": true,
+        "minimum_oldest_age": 0.085,
+        "minimum_signed_world_x_distance": 30.6,
+        "oldest_source_id": 484559556537,
+        "required_samples": 2,
+        "scope": "captured draw-frame origin versus current corresponding source draw-frame origin; world units, not camera/screen pixels"
+      },
+      "before_quality": 2,
+      "after_quality": 2,
+      "before_reduce_flashes": false,
+      "after_reduce_flashes": false,
+      "before_particles": 1.0,
+      "after_particles": "native tool actual setter1.0 before cases; not a per-row recorded scalar",
+      "same_frame_claimed": false
+    },
+    {
+      "scenario": "pistol-lit-left-air",
+      "before_image": "NE247-before-01-pistol-lit-left-air.png",
+      "after_image": "NE247-01-pistol-lit-left-air.png",
+      "before_image_sha256": "21685d1eefd0e6f8e3e26d267e4f479a4eff3af7e13e1c47e8b95c2cbd4b896b",
+      "before_image_dimensions": [
+        1600,
+        900
+      ],
+      "after_image_sha256": "ddeb4670909cb81e042a6177386b16afa400b62557b1f2d77c7446b3a9d34029",
+      "after_image_dimensions": [
+        1600,
+        900
+      ],
+      "before_scenario": {
+        "air": true,
+        "cell": 58,
+        "direction": -1,
+        "id": "pistol-lit-left-air"
+      },
+      "after_scenario": {
+        "air": true,
+        "cell": 58,
+        "direction": -1,
+        "id": "pistol-lit-left-air",
+        "quality": 2,
+        "reduce": false,
+        "weapon": "pistol"
+      },
+      "actual_position_both": [
+        885.569458007813,
+        294.705780029297
+      ],
+      "actual_velocity_both": [
+        -360.0,
+        0.0
+      ],
+      "actual_facing_both": -1,
+      "before_real_dash_elapsed": 0.1,
+      "before_old_blue_fx_count": 3,
+      "after_active_snapshot_count": 3,
+      "after_oldest_snapshot_age": 0.0923655555555558,
+      "after_worldshot_timing": {
+        "actual_oldest_age": 0.0923655555555558,
+        "actual_signed_world_x_distance": 40.2960205078125,
+        "criterion_met": true,
+        "draw_frame_valid": true,
+        "minimum_oldest_age": 0.085,
+        "minimum_signed_world_x_distance": 30.6,
+        "oldest_source_id": 484559556537,
+        "required_samples": 2,
+        "scope": "captured draw-frame origin versus current corresponding source draw-frame origin; world units, not camera/screen pixels"
+      },
+      "before_quality": 2,
+      "after_quality": 2,
+      "before_reduce_flashes": false,
+      "after_reduce_flashes": false,
+      "before_particles": 1.0,
+      "after_particles": "native tool actual setter1.0 before cases; not a per-row recorded scalar",
+      "same_frame_claimed": false
+    }
+  ],
+  "rejected_first_native": {
+    "accepted": false,
+    "actual_engine_pid": 9156,
+    "wrapper_original_natural_eof": true,
+    "effective_natural_eof": false,
+    "classification": "manual_stop after class-cache SCRIPT errors; Root rejection supersedes wrapper; no screenshot acceptance"
+  },
+  "success": {
+    "actual_engine_pid": 18364,
+    "checks": 808,
+    "failures": 0,
+    "exit": 0,
+    "natural_eof": true,
+    "normal_scene": true,
+    "error_lines": 0
+  },
+  "clean_import": {
+    "actual_engine_pid": 12520,
+    "exit": 0,
+    "error_lines": 0,
+    "approximately_seconds": 222,
+    "peak_working_set_bytes": 2319618048,
+    "engine_run_by": "Root, not CPU reviewer"
+  },
+  "os_memory": {
+    "ne247-before-import-1": {
+      "samples": 444,
+      "actual_engine_pids": [
+        12520
+      ],
+      "maximum_working_set_bytes": 2319618048,
+      "maximum_private_bytes": 2418339840,
+      "raw_sha256": "bd8f599536a2e1aa9df3e0ca70365b3608f7220a927e80da46a56cbf64acf305",
+      "measurement": "actual OS process memory; not VRAM or matched baseline overhead",
+      "first_observed_elapsed_seconds": 0.016,
+      "last_observed_elapsed_seconds": 221.813,
+      "approximate_duration_seconds": 222
+    },
+    "ne247-before-native-2": {
+      "samples": 25,
+      "actual_engine_pids": [
+        18364
+      ],
+      "maximum_working_set_bytes": 588591104,
+      "maximum_private_bytes": 897921024,
+      "raw_sha256": "3d89404aa0230706c64071a2e42171c9428ba37437bc38133e8ae1704d829bb6",
+      "measurement": "actual OS process memory; not VRAM or matched baseline overhead"
+    },
+    "ne247-native-check-9": {
+      "samples": 161,
+      "actual_engine_pids": [
+        11040
+      ],
+      "maximum_working_set_bytes": 638205952,
+      "maximum_private_bytes": 942194688,
+      "raw_sha256": "f56c7d4c1c83343c6459a944762dde9c5785305153f55d8eec5f36c7f974b601",
+      "measurement": "actual OS process memory; not VRAM or matched baseline overhead"
+    }
+  },
+  "tool_identity": [
+    {
+      "path": "tools/dash_silhouette_before_probe.gd",
+      "sha256": "a5df665cddcf0d8c5b1be2110f53b4a77e201362f7f031e607da6d06b33514e7",
+      "archive_as": "dash_silhouette_before_probe.gd.txt"
+    },
+    {
+      "path": "tools/dash_silhouette_before_probe.tscn",
+      "sha256": "b72fe52d565c18059d19e3c2929868a7626c0f31ca3055506137b49d3ff7b97b",
+      "archive_as": "dash_silhouette_before_probe.tscn.txt"
+    }
+  ],
+  "normal_candidate_package_index_sha256": "5469ec36662b4899ba8e0ea9b5989ff34d39ffa6cf93a6e5a7161416d33e6a43",
+  "normal_candidate_freeze_sha256": "0eed6157c2382282bc6bef1367bc6ec6619efca86c542a72967ba58795e854cb",
+  "external_launcher_sha256": "f37b972ba892913091c2401225e0c1243001a164de75feb3e2f1639e5e3e093d",
+  "runtime_sources_guard_sha256": "5741fa8529e89a090e420e7568cc68eedd9391b5425e7c015ba6aa78a3096126",
+  "remaining": "Cloud original ALL and PM247 delivery remain Root work; not marked complete here"
+}

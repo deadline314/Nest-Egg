@@ -1,0 +1,508 @@
+{
+  "scope": "Exact reviewed evidence-only copy; no product/PM/Git mutation by reviewer",
+  "max_files": 128,
+  "max_total_bytes": 67108864,
+  "max_file_bytes": 16777216,
+  "actual_files": 83,
+  "actual_total_bytes": 10492810,
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 8729,
+      "sha256": "88955ad906b4f5cbe69315baffea38e57fa3a6ed31c487c1de6a1133c86432b0",
+      "original_path": "CPU-derived concise evidence interpretation and exact limits"
+    },
+    {
+      "path": "after-pair-reference/NE247-00-pistol-dark-right-ground.png",
+      "bytes": 857601,
+      "sha256": "bd08b5bd8b9a5cca5aea45b4d070ee666ef5c473dcbdfb01a2bccb25daf95c3c",
+      "original_path": "C:/tmp/ne247-native-check-9/NE247-00-pistol-dark-right-ground.png"
+    },
+    {
+      "path": "after-pair-reference/NE247-01-pistol-lit-left-air.png",
+      "bytes": 1146428,
+      "sha256": "ddeb4670909cb81e042a6177386b16afa400b62557b1f2d77c7446b3a9d34029",
+      "original_path": "C:/tmp/ne247-native-check-9/NE247-01-pistol-lit-left-air.png"
+    },
+    {
+      "path": "after-pair-reference/NE247-report.json",
+      "bytes": 673558,
+      "sha256": "f99cdf67249281a0c262d399e98861374ada75d79ef32a0d13843ac4c279b68c",
+      "original_path": "C:/tmp/ne247-native-check-9/NE247-report.json"
+    },
+    {
+      "path": "after-pair-reference/memory-summary.json",
+      "bytes": 1233,
+      "sha256": "b10a3b17601ec6045b813cc144943ced46983d6661b3a9bab9a7e40b19c96086",
+      "original_path": "C:/tmp/ne247-native-check-9/memory-summary.json"
+    },
+    {
+      "path": "after-pair-reference/native-stderr.log",
+      "bytes": 696,
+      "sha256": "394eeb3b28e72a706d1981bc01ef95b0b407d1bc4f4386935850528a97f1ecd9",
+      "original_path": "C:/tmp/ne247-native-check-9/native-stderr.log"
+    },
+    {
+      "path": "after-pair-reference/native-stdout.log",
+      "bytes": 343,
+      "sha256": "186f3c6c1e8318747d91ec139dc66b0bc1fde577021934a2fcff8356cfff88aa",
+      "original_path": "C:/tmp/ne247-native-check-9/native-stdout.log"
+    },
+    {
+      "path": "after-pair-reference/os-memory.csv",
+      "bytes": 6643,
+      "sha256": "f56c7d4c1c83343c6459a944762dde9c5785305153f55d8eec5f36c7f974b601",
+      "original_path": "C:/tmp/ne247-native-check-9/os-memory.csv"
+    },
+    {
+      "path": "after-pair-reference/runtime-manifest.json",
+      "bytes": 45628,
+      "sha256": "4ee20c8ee030c69fe4745b0508c07eb3c1b4191bffb71f816dceb5ffd30e9198",
+      "original_path": "C:/tmp/ne247-native-check-9/runtime-manifest.json"
+    },
+    {
+      "path": "after-pair-reference/wrapper-result.json",
+      "bytes": 907,
+      "sha256": "1e2f48205403dc09a28240053ce366e4d4950d2327df820f869ebc4a86bec196",
+      "original_path": "C:/tmp/ne247-native-check-9/wrapper-result.json"
+    },
+    {
+      "path": "before-accepted/NE247-before-00-pistol-dark-right-ground.png",
+      "bytes": 865582,
+      "sha256": "861a1b0e051ea5a87f507d55bcd657ce1d9cb9b68bf97b7d2278322da818ac01",
+      "original_path": "C:/tmp/ne247-before-native-2/NE247-before-00-pistol-dark-right-ground.png"
+    },
+    {
+      "path": "before-accepted/NE247-before-01-pistol-lit-left-air.png",
+      "bytes": 1094389,
+      "sha256": "21685d1eefd0e6f8e3e26d267e4f479a4eff3af7e13e1c47e8b95c2cbd4b896b",
+      "original_path": "C:/tmp/ne247-before-native-2/NE247-before-01-pistol-lit-left-air.png"
+    },
+    {
+      "path": "before-accepted/NE247-before-report.json",
+      "bytes": 45573,
+      "sha256": "ff909da4c8d50f30d2d015de7e7f107c17a9a61613639319922cc4f1e4648fa0",
+      "original_path": "C:/tmp/ne247-before-native-2/NE247-before-report.json"
+    },
+    {
+      "path": "before-accepted/native-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_path": "C:/tmp/ne247-before-native-2/native-stderr.log"
+    },
+    {
+      "path": "before-accepted/native-stdout.log",
+      "bytes": 231,
+      "sha256": "9ee16980ffc1e915afe4c0f73b77cfb09850db75df44151c62838aa99db73edc",
+      "original_path": "C:/tmp/ne247-before-native-2/native-stdout.log"
+    },
+    {
+      "path": "before-accepted/os-memory.csv",
+      "bytes": 1067,
+      "sha256": "3d89404aa0230706c64071a2e42171c9428ba37437bc38133e8ae1704d829bb6",
+      "original_path": "C:/tmp/ne247-before-native-2/os-memory.csv"
+    },
+    {
+      "path": "before-accepted/runtime-manifest.json",
+      "bytes": 43764,
+      "sha256": "9922c50563880a5c3dda1dc1aaf15985704f339a2181fd66a9102e517db8e73c",
+      "original_path": "C:/tmp/ne247-before-native-2/runtime-manifest.json"
+    },
+    {
+      "path": "before-accepted/wrapper-result.json",
+      "bytes": 1003,
+      "sha256": "d6a6328bb873e12dd1f0a29a4b47172c4edc18bd2c5a4f2094e67729bc7958dc",
+      "original_path": "C:/tmp/ne247-before-native-2/wrapper-result.json"
+    },
+    {
+      "path": "before-clean-import/import.log",
+      "bytes": 1420914,
+      "sha256": "b518ed5f226bbade4661051ea75113db5f1e544c19ef18f7a17747aa342e374e",
+      "original_path": "C:/tmp/ne247-before-import-1/import.log"
+    },
+    {
+      "path": "before-clean-import/memory.csv",
+      "bytes": 15729,
+      "sha256": "bd8f599536a2e1aa9df3e0ca70365b3608f7220a927e80da46a56cbf64acf305",
+      "original_path": "C:/tmp/ne247-before-import-1/memory.csv"
+    },
+    {
+      "path": "before-clean-import/result.json",
+      "bytes": 312,
+      "sha256": "8fffbbce30904c026e1cce3d15b84b810c7ecb606d170ac22d864d75af402a0e",
+      "original_path": "C:/tmp/ne247-before-import-1/result.json"
+    },
+    {
+      "path": "before-rejected/native-stderr.log",
+      "bytes": 3245359,
+      "sha256": "28030f950e6477c4e4c2d21f00cc9c5a97de6a08862f9fee97366f9de5455c14",
+      "original_path": "C:/tmp/ne247-before-native-1/native-stderr.log"
+    },
+    {
+      "path": "before-rejected/native-stdout.log",
+      "bytes": 160,
+      "sha256": "f68c06c44ed8f52d491fe384d5aaeb8f382bf967373ae164272e20d87fc3e930",
+      "original_path": "C:/tmp/ne247-before-native-1/native-stdout.log"
+    },
+    {
+      "path": "before-rejected/os-memory.csv",
+      "bytes": 6602,
+      "sha256": "68f9fa85a2c127ce05cf342422054c95c9612d25d5c50d31eee73cd3b65f16f0",
+      "original_path": "C:/tmp/ne247-before-native-1/os-memory.csv"
+    },
+    {
+      "path": "before-rejected/root-rejection.json",
+      "bytes": 324,
+      "sha256": "706a3fb3a4e8610ab017a107fb258b07fd4b50d47d8aabe8e974afffc2bf8ed5",
+      "original_path": "C:/tmp/ne247-before-native-1/root-rejection.json"
+    },
+    {
+      "path": "before-rejected/runtime-manifest.json",
+      "bytes": 43764,
+      "sha256": "9922c50563880a5c3dda1dc1aaf15985704f339a2181fd66a9102e517db8e73c",
+      "original_path": "C:/tmp/ne247-before-native-1/runtime-manifest.json"
+    },
+    {
+      "path": "before-rejected/wrapper-result.json",
+      "bytes": 1003,
+      "sha256": "fb0fb0cc5abcebc42a78568a2aa2339fe966514a9272bfa72d65b388e4992bd8",
+      "original_path": "C:/tmp/ne247-before-native-1/wrapper-result.json"
+    },
+    {
+      "path": "original-critical-sources/data/levels/ch1_pawnshop.tres.txt",
+      "bytes": 3694,
+      "sha256": "16e807ae44bcca29a9e20bddbe0a3c115714de3c6295b40f339c0f7b7bac07cc",
+      "original_path": "C:/tmp/ne247-before-scene-review/original-critical-sources/data/levels/ch1_pawnshop.tres"
+    },
+    {
+      "path": "original-critical-sources/data/levels/ch1_pawnshop_map.json.txt",
+      "bytes": 5148,
+      "sha256": "616c065a87b59780da426317ce3052336c334b7f66f9bba438d9b43209e01f4c",
+      "original_path": "C:/tmp/ne247-before-scene-review/original-critical-sources/data/levels/ch1_pawnshop_map.json"
+    },
+    {
+      "path": "original-critical-sources/data/player/player_tuning.tres.txt",
+      "bytes": 1320,
+      "sha256": "495611fa31574ee4059ae1661294ebe05626c0fb07a9f2ab74f675da474d6d98",
+      "original_path": "C:/tmp/ne247-before-scene-review/original-critical-sources/data/player/player_tuning.tres"
+    },
+    {
+      "path": "original-critical-sources/game/level/level.gd.txt",
+      "bytes": 52888,
+      "sha256": "f9fdf1769a4f373d25b4639958041eb0323ef08e708e45479d125ab2127f18e7",
+      "original_path": "C:/tmp/ne247-before-scene-review/original-critical-sources/game/level/level.gd"
+    },
+    {
+      "path": "original-critical-sources/game/player/player.gd.txt",
+      "bytes": 54816,
+      "sha256": "6ba9447d438180e2872e97f97a01fb136fb86b3cc7359f57a5654de9e95c1d11",
+      "original_path": "C:/tmp/ne247-before-scene-review/original-critical-sources/game/player/player.gd"
+    },
+    {
+      "path": "original-critical-sources/game/player/player_visual.gd.txt",
+      "bytes": 16974,
+      "sha256": "5bc6a6d2e5a9a510412acd735025c0fe537bd616510780c9a36d23764cf80f56",
+      "original_path": "C:/tmp/ne247-before-scene-review/original-critical-sources/game/player/player_visual.gd"
+    },
+    {
+      "path": "original-critical-sources/tools/viewport_capture.gd.txt",
+      "bytes": 387,
+      "sha256": "3a41272cf893fd32f7a4db93d4843f46ebee9dffb8881487f172b123466e05f3",
+      "original_path": "C:/tmp/ne247-before-scene-review/original-critical-sources/tools/viewport_capture.gd"
+    },
+    {
+      "path": "root-acceptance-receipt.json",
+      "bytes": 7406,
+      "sha256": "8139cec8cbed9504f45a5acbe891d29b41e7710bdc8f3ba4faf9e3dec254d41d",
+      "original_path": "CPU-derived from exact preserved raw plus explicit Root statement"
+    },
+    {
+      "path": "source-comparison.json",
+      "bytes": 201587,
+      "sha256": "7ab2b977c738dabc362b730bbf8b88632578de785bfad1563d9bfe04a739f817",
+      "original_path": "CPU-derived from exact preserved raw plus explicit Root statement"
+    },
+    {
+      "path": "source-differences/after/autoload/settings.gd.txt",
+      "bytes": 13140,
+      "sha256": "796ca45f5eb7e732997f93fd4af74114589c98fb8ad17082f482d1d9bae6256f",
+      "original_path": "C:/Users/stanl/.codex/worktrees/contextual-game-ui/Nest-Egg/autoload/settings.gd"
+    },
+    {
+      "path": "source-differences/after/data/environment/facades/apartment.tres.txt",
+      "bytes": 666,
+      "sha256": "bf010624e52adcc522b3226208fb29ca8dc6c2818911661d41dde3e3323c6184",
+      "original_path": "C:/Users/stanl/.codex/worktrees/contextual-game-ui/Nest-Egg/data/environment/facades/apartment.tres"
+    },
+    {
+      "path": "source-differences/after/data/environment/facades/brick_block.tres.txt",
+      "bytes": 841,
+      "sha256": "eb51e109bffb0138fb95ad566ed5f230135a14021b57cbc50e81da8dbfed1cb8",
+      "original_path": "C:/Users/stanl/.codex/worktrees/contextual-game-ui/Nest-Egg/data/environment/facades/brick_block.tres"
+    },
+    {
+      "path": "source-differences/after/data/environment/facades/facility_wall.tres.txt",
+      "bytes": 701,
+      "sha256": "50e91b981a48206305b75d9349868df82d24ec1809df471100e2c5f156341469",
+      "original_path": "C:/Users/stanl/.codex/worktrees/contextual-game-ui/Nest-Egg/data/environment/facades/facility_wall.tres"
+    },
+    {
+      "path": "source-differences/after/data/environment/facades/shopfront.tres.txt",
+      "bytes": 669,
+      "sha256": "43b5909dd3233770e869d7215a2f3069f7597aedd335bff4a7ea7abc78f41b8b",
+      "original_path": "C:/Users/stanl/.codex/worktrees/contextual-game-ui/Nest-Egg/data/environment/facades/shopfront.tres"
+    },
+    {
+      "path": "source-differences/after/data/environment/facades/shutter_block.tres.txt",
+      "bytes": 704,
+      "sha256": "282dba225fb02a1f2ed9c28395f24fd26a40f7e8b6f57ea01a745b13817c81b6",
+      "original_path": "C:/Users/stanl/.codex/worktrees/contextual-game-ui/Nest-Egg/data/environment/facades/shutter_block.tres"
+    },
+    {
+      "path": "source-differences/after/data/environment/facades/warehouse.tres.txt",
+      "bytes": 769,
+      "sha256": "b0fc86b4e710fc40f44e88dfd4ec60ca23938113ff5ce13928fe8e9d290c4f42",
+      "original_path": "C:/Users/stanl/.codex/worktrees/contextual-game-ui/Nest-Egg/data/environment/facades/warehouse.tres"
+    },
+    {
+      "path": "source-differences/after/data/environment/materials/asphalt.tres.txt",
+      "bytes": 507,
+      "sha256": "ea0a839616389864f58f5dfe0b443d365859d9286231ade65a3d2317143ba4e6",
+      "original_path": "C:/Users/stanl/.codex/worktrees/contextual-game-ui/Nest-Egg/data/environment/materials/asphalt.tres"
+    },
+    {
+      "path": "source-differences/after/data/environment/materials/concrete.tres.txt",
+      "bytes": 507,
+      "sha256": "71786249eab3fb61368391652a2a8b587334aba49226063c626b6bc7e6adcc43",
+      "original_path": "C:/Users/stanl/.codex/worktrees/contextual-game-ui/Nest-Egg/data/environment/materials/concrete.tres"
+    },
+    {
+      "path": "source-differences/after/data/environment/materials/facility_floor.tres.txt",
+      "bytes": 519,
+      "sha256": "e4ec3bfb7115baa61dc221d06eb2741bdb72ea953331f0ed5d544277ae20c961",
+      "original_path": "C:/Users/stanl/.codex/worktrees/contextual-game-ui/Nest-Egg/data/environment/materials/facility_floor.tres"
+    },
+    {
+      "path": "source-differences/after/data/environment/materials/rooftop.tres.txt",
+      "bytes": 499,
+      "sha256": "b6bbc7c81ee3e65d98d805ecfde4c8d6b86e4753119a4a1d23cdbd2c48d9d5f7",
+      "original_path": "C:/Users/stanl/.codex/worktrees/contextual-game-ui/Nest-Egg/data/environment/materials/rooftop.tres"
+    },
+    {
+      "path": "source-differences/after/game/player/player.gd.txt",
+      "bytes": 54883,
+      "sha256": "18515903534edebe4503a054b8667d324f494a75c7a9129d8d3eb1bad6314fa4",
+      "original_path": "C:/Users/stanl/.codex/worktrees/contextual-game-ui/Nest-Egg/game/player/player.gd"
+    },
+    {
+      "path": "source-differences/after/game/player/player_visual.gd.txt",
+      "bytes": 16338,
+      "sha256": "d168a657af4dee2f6d5563ec36a42245d1f695c3b150118ecca6af83ba44a1ae",
+      "original_path": "C:/Users/stanl/.codex/worktrees/contextual-game-ui/Nest-Egg/game/player/player_visual.gd"
+    },
+    {
+      "path": "source-differences/after/tests/smoke_test.gd.txt",
+      "bytes": 98940,
+      "sha256": "87245f0f65ea0be72849ae3ee954350497c90b6530a6c40f7a92f13fd0ca4c9f",
+      "original_path": "C:/Users/stanl/.codex/worktrees/contextual-game-ui/Nest-Egg/tests/smoke_test.gd"
+    },
+    {
+      "path": "source-differences/after/tests/suite/test_fx_upgrades.gd.txt",
+      "bytes": 24584,
+      "sha256": "0117176d0cc1592bdbeb5f955626aa1e516f2d264bba23ded11e8ae0d832b23d",
+      "original_path": "C:/Users/stanl/.codex/worktrees/contextual-game-ui/Nest-Egg/tests/suite/test_fx_upgrades.gd"
+    },
+    {
+      "path": "source-differences/after/ui/settings_screen.gd.txt",
+      "bytes": 27743,
+      "sha256": "1d51b5fddd48eb7e1af285a014bd0ace0df3e1dbd98d54ef59f46cc526a8037f",
+      "original_path": "C:/Users/stanl/.codex/worktrees/contextual-game-ui/Nest-Egg/ui/settings_screen.gd"
+    },
+    {
+      "path": "source-differences/before/autoload/settings.gd.txt",
+      "bytes": 12726,
+      "sha256": "8e6dc038c8dbb6294e98ec92b0deabff17d3280ed51fc32fe518a04918e24312",
+      "original_path": "C:/Github/Nest-Egg/autoload/settings.gd"
+    },
+    {
+      "path": "source-differences/before/data/environment/facades/apartment.tres.txt",
+      "bytes": 677,
+      "sha256": "22a11b5d39000941d23c385dd368c191d523e90b3b679a12dc9b8883f168c0d5",
+      "original_path": "C:/Github/Nest-Egg/data/environment/facades/apartment.tres"
+    },
+    {
+      "path": "source-differences/before/data/environment/facades/brick_block.tres.txt",
+      "bytes": 852,
+      "sha256": "11a990c7567968de64f01b73d1371897e880d99a5d5fc414a1b6ad2f39d661cb",
+      "original_path": "C:/Github/Nest-Egg/data/environment/facades/brick_block.tres"
+    },
+    {
+      "path": "source-differences/before/data/environment/facades/facility_wall.tres.txt",
+      "bytes": 712,
+      "sha256": "bc6d8a0a0c5337af15bdac674ad309c23810768b5663b28798457e7e39ab5de9",
+      "original_path": "C:/Github/Nest-Egg/data/environment/facades/facility_wall.tres"
+    },
+    {
+      "path": "source-differences/before/data/environment/facades/shopfront.tres.txt",
+      "bytes": 680,
+      "sha256": "6c1f8432d7321479e5ea298ca2036676fc7cc3b9b6c89d7f0149bb3b856f932f",
+      "original_path": "C:/Github/Nest-Egg/data/environment/facades/shopfront.tres"
+    },
+    {
+      "path": "source-differences/before/data/environment/facades/shutter_block.tres.txt",
+      "bytes": 715,
+      "sha256": "a1b2d9d910249ea6d54acfa5592da41915d633bb96db8276ab07571a7b07cac1",
+      "original_path": "C:/Github/Nest-Egg/data/environment/facades/shutter_block.tres"
+    },
+    {
+      "path": "source-differences/before/data/environment/facades/warehouse.tres.txt",
+      "bytes": 780,
+      "sha256": "0a00f400e9425c9780be45cce340290f4df9791c588e37f4d11411f8b5077711",
+      "original_path": "C:/Github/Nest-Egg/data/environment/facades/warehouse.tres"
+    },
+    {
+      "path": "source-differences/before/data/environment/materials/asphalt.tres.txt",
+      "bytes": 520,
+      "sha256": "059429dc063cd1dd48e0c354c5e2fdbdfe16cf6fb4080f4e36d3328d28b194e6",
+      "original_path": "C:/Github/Nest-Egg/data/environment/materials/asphalt.tres"
+    },
+    {
+      "path": "source-differences/before/data/environment/materials/concrete.tres.txt",
+      "bytes": 520,
+      "sha256": "cf19ac8d04aedd524ed3f629d0733e195f8efa2be930d95c848eaf956b381538",
+      "original_path": "C:/Github/Nest-Egg/data/environment/materials/concrete.tres"
+    },
+    {
+      "path": "source-differences/before/data/environment/materials/facility_floor.tres.txt",
+      "bytes": 532,
+      "sha256": "57e7583b6f6ca79df0d07a3e376ffe1c1aa8c8820d60f625ea2bab71a83df4cc",
+      "original_path": "C:/Github/Nest-Egg/data/environment/materials/facility_floor.tres"
+    },
+    {
+      "path": "source-differences/before/data/environment/materials/rooftop.tres.txt",
+      "bytes": 512,
+      "sha256": "03f575678f835b866cd8ec3bd99445771822f39ba815cfb4d74ffeb3838254cb",
+      "original_path": "C:/Github/Nest-Egg/data/environment/materials/rooftop.tres"
+    },
+    {
+      "path": "source-differences/before/game/player/player.gd.txt",
+      "bytes": 54816,
+      "sha256": "6ba9447d438180e2872e97f97a01fb136fb86b3cc7359f57a5654de9e95c1d11",
+      "original_path": "C:/Github/Nest-Egg/game/player/player.gd"
+    },
+    {
+      "path": "source-differences/before/game/player/player_visual.gd.txt",
+      "bytes": 16974,
+      "sha256": "5bc6a6d2e5a9a510412acd735025c0fe537bd616510780c9a36d23764cf80f56",
+      "original_path": "C:/Github/Nest-Egg/game/player/player_visual.gd"
+    },
+    {
+      "path": "source-differences/before/tests/smoke_test.gd.txt",
+      "bytes": 96926,
+      "sha256": "a48b09cff80716b677262a19a0568c7808f2a07642e9c3ebc8e500241b637dca",
+      "original_path": "C:/Github/Nest-Egg/tests/smoke_test.gd"
+    },
+    {
+      "path": "source-differences/before/tests/suite/test_fx_upgrades.gd.txt",
+      "bytes": 23809,
+      "sha256": "e905e7a88e3bbec5a6a326be7bccfc8604d40d8db54ec9f627056c052e4cbec3",
+      "original_path": "C:/Github/Nest-Egg/tests/suite/test_fx_upgrades.gd"
+    },
+    {
+      "path": "source-differences/before/ui/settings_screen.gd.txt",
+      "bytes": 26925,
+      "sha256": "f19355db2a2b559b4a9c7f620a52df4ca540af7e732cf5fb9347c7db708c4cf7",
+      "original_path": "C:/Github/Nest-Egg/ui/settings_screen.gd"
+    },
+    {
+      "path": "tool-archive/README.md",
+      "bytes": 4858,
+      "sha256": "4453cffaaf60b231e8b4e5686171f5ce175fd7e7d3bb28b9d6b1cda149318250",
+      "original_path": "C:/tmp/ne247-before-scene-review/README.md"
+    },
+    {
+      "path": "tool-archive/cpu-receipt.json",
+      "bytes": 1627,
+      "sha256": "fb03ef6745638d88eb4e39679e72f1f86bcdc7999535f99e86f0efe9cb86b72f",
+      "original_path": "C:/tmp/ne247-before-scene-review/cpu-receipt.json"
+    },
+    {
+      "path": "tool-archive/dash_silhouette_before_probe.gd.txt",
+      "bytes": 11037,
+      "sha256": "a5df665cddcf0d8c5b1be2110f53b4a77e201362f7f031e607da6d06b33514e7",
+      "original_path": "C:/tmp/ne247-before-scene-review/candidate/tools/dash_silhouette_before_probe.gd"
+    },
+    {
+      "path": "tool-archive/dash_silhouette_before_probe.tscn.txt",
+      "bytes": 217,
+      "sha256": "b72fe52d565c18059d19e3c2929868a7626c0f31ca3055506137b49d3ff7b97b",
+      "original_path": "C:/tmp/ne247-before-scene-review/candidate/tools/dash_silhouette_before_probe.tscn"
+    },
+    {
+      "path": "tool-archive/freeze-manifest.json",
+      "bytes": 86546,
+      "sha256": "0eed6157c2382282bc6bef1367bc6ec6619efca86c542a72967ba58795e854cb",
+      "original_path": "C:/tmp/ne247-before-scene-review/freeze-manifest.json"
+    },
+    {
+      "path": "tool-archive/freeze_cpu.py.txt",
+      "bytes": 3664,
+      "sha256": "41a73cf8df02ee8cabff417f967302d7fab3b0ebf3eef422f769582e6cce21bd",
+      "original_path": "C:/tmp/ne247-before-scene-review/freeze_cpu.py"
+    },
+    {
+      "path": "tool-archive/new-tools.diff",
+      "bytes": 11616,
+      "sha256": "afce41c9d1cd91a4f76ac91fc1ef140b4cae190d8d1497dbb0d5397505a1b1ac",
+      "original_path": "C:/tmp/ne247-before-scene-review/new-tools.diff"
+    },
+    {
+      "path": "tool-archive/package-index.json",
+      "bytes": 2611,
+      "sha256": "5469ec36662b4899ba8e0ea9b5989ff34d39ffa6cf93a6e5a7161416d33e6a43",
+      "original_path": "C:/tmp/ne247-before-scene-review/package-index.json"
+    },
+    {
+      "path": "tool-archive/prepare_runtime_manifest.py.txt",
+      "bytes": 3089,
+      "sha256": "5741fa8529e89a090e420e7568cc68eedd9391b5425e7c015ba6aa78a3096126",
+      "original_path": "C:/tmp/ne247-before-scene-review/prepare_runtime_manifest.py"
+    },
+    {
+      "path": "tool-archive/root-adoption-receipt.json",
+      "bytes": 301,
+      "sha256": "30feab95c941a2c9e4cc2c9797ca9453d30d3862be4a3ccc1a09045a60205883",
+      "original_path": "C:/tmp/ne247-before-scene-review/root-adoption-receipt.json"
+    },
+    {
+      "path": "tool-archive/run_before.ps1.txt",
+      "bytes": 4772,
+      "sha256": "f37b972ba892913091c2401225e0c1243001a164de75feb3e2f1639e5e3e093d",
+      "original_path": "C:/tmp/ne247-before-scene-review/run_before.ps1"
+    },
+    {
+      "path": "unlisted-after-current/after/core/lit_textures.gd.txt",
+      "bytes": 2481,
+      "sha256": "f182155263f59d82ebb649d2b1c98739260a8e5e8b379966bb08ef07897a8082",
+      "original_path": "C:/Users/stanl/.codex/worktrees/contextual-game-ui/Nest-Egg/core/lit_textures.gd"
+    },
+    {
+      "path": "unlisted-after-current/after/game/level/world_layers.gd.txt",
+      "bytes": 2531,
+      "sha256": "31abd99829afd45a2a81651ac7ddf0360806699eb91dc2759122b5204ad6fb72",
+      "original_path": "C:/Users/stanl/.codex/worktrees/contextual-game-ui/Nest-Egg/game/level/world_layers.gd"
+    },
+    {
+      "path": "unlisted-after-current/before/core/lit_textures.gd.txt",
+      "bytes": 2481,
+      "sha256": "f182155263f59d82ebb649d2b1c98739260a8e5e8b379966bb08ef07897a8082",
+      "original_path": "C:/Github/Nest-Egg/core/lit_textures.gd"
+    },
+    {
+      "path": "unlisted-after-current/before/game/level/world_layers.gd.txt",
+      "bytes": 2531,
+      "sha256": "31abd99829afd45a2a81651ac7ddf0360806699eb91dc2759122b5204ad6fb72",
+      "original_path": "C:/Github/Nest-Egg/game/level/world_layers.gd"
+    }
+  ]
+}
