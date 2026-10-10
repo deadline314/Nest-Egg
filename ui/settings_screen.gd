@@ -47,6 +47,8 @@ var _capture_slot := 0
 
 
 func _ready() -> void:
+	# 本頁底部已有聚焦說明，疊在暫停頁裡時不讓暫停頁的說明列重複顯示。
+	add_to_group(FocusHintBar.OWN_HINTS_GROUP)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_cancel_hold = Timer.new()
 	_cancel_hold.one_shot = true

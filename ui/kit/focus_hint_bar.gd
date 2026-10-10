@@ -8,6 +8,9 @@ extends PanelContainer
 
 enum Placement { BOTTOM_CENTER, BOTTOM_RIGHT, BELOW, INLINE }
 
+## 自己已經顯示聚焦說明的畫面（設定、任務與地圖）加入這個群組；疊在 scope 裡時說明列不重複顯示。
+const OWN_HINTS_GROUP := &"own_focus_hints"
+
 const MARGIN := 6.0
 
 var placement := Placement.BOTTOM_CENTER
@@ -80,7 +83,8 @@ func _on_focus_changed(control: Control) -> void:
 func _refresh() -> void:
 	var control: Control = _focused.get_ref() as Control if _focused != null else null
 	var tip := ""
-	if is_instance_valid(control) and control.is_visible_in_tree() and _scope.is_visible_in_tree() and _scope.is_ancestor_of(control):
+	if is_instance_valid(control) and control.is_visible_in_tree() and _scope.is_visible_in_tree() and _scope.is_ancestor_of(control) \
+			and not _inside_own_hints(control):
 		tip = control.tooltip_text.strip_edges()
 	_label.text = tip
 	visible = not tip.is_empty()
@@ -89,6 +93,15 @@ func _refresh() -> void:
 		reset_size()
 		if placement != Placement.INLINE:
 			_place()
+
+
+func _inside_own_hints(control: Node) -> bool:
+	var node := control
+	while node != null and node != _scope:
+		if node.is_in_group(OWN_HINTS_GROUP):
+			return true
+		node = node.get_parent()
+	return false
 
 
 func _place() -> void:

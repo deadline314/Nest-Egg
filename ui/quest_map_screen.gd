@@ -29,6 +29,8 @@ var _buttons: Array[Button] = []
 
 
 func _ready() -> void:
+	# 本頁底部已有聚焦說明，疊在暫停頁裡時不讓暫停頁的說明列重複顯示。
+	add_to_group(FocusHintBar.OWN_HINTS_GROUP)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	UiKit.fill_parent(self)
 	theme = UiKit.theme()
