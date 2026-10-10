@@ -1,0 +1,38 @@
+FF.F
+======================================================================
+FAIL: test_one_missing_positive_pixel_rejects_whole_batch (__main__.PointMaskValidationTests.test_one_missing_positive_pixel_rejects_whole_batch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\tools\comfyui\test_point_mask_validation.py", line 68, in test_one_missing_positive_pixel_rejects_whole_batch
+    self.assert_rejected_atomically(r'boot.*pos.*1.*1')
+  File "C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\tools\comfyui\test_point_mask_validation.py", line 49, in assert_rejected_atomically
+    with self.assertRaisesRegex(ValueError, message):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_one_wrong_negative_pixel_rejects_whole_batch (__main__.PointMaskValidationTests.test_one_wrong_negative_pixel_rejects_whole_batch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\tools\comfyui\test_point_mask_validation.py", line 64, in test_one_wrong_negative_pixel_rejects_whole_batch
+    self.assert_rejected_atomically(r'boot.*neg.*2.*2')
+  File "C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\tools\comfyui\test_point_mask_validation.py", line 49, in assert_rejected_atomically
+    with self.assertRaisesRegex(ValueError, message):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_wrong_native_mask_dimensions_reject_whole_batch (__main__.PointMaskValidationTests.test_wrong_native_mask_dimensions_reject_whole_batch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\tools\comfyui\test_point_mask_validation.py", line 72, in test_wrong_native_mask_dimensions_reject_whole_batch
+    self.assert_rejected_atomically(r'hand.*size')
+  File "C:\Users\stanl\.codex\worktrees\character-art-baseline\Nest-Egg\tools\comfyui\test_point_mask_validation.py", line 49, in assert_rejected_atomically
+    with self.assertRaisesRegex(ValueError, message):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.045s
+
+FAILED (failures=3)

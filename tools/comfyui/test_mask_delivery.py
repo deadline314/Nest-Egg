@@ -358,18 +358,25 @@ def main():
             paths = []
             for key in reversed(savers):  # execution order need not equal prompt order
                 p = out / (f"{job}_{key}_0.png" if len(savers) > 1 else f"{job}_0.png")
-                p.write_bytes(key.encode())
+                if "positive_coords" in graph["d0"]["inputs"]:
+                    mask = Image.new("L", (8, 8), 255)
+                    mask.putpixel((0, 0), int(key[1:]))
+                    mask.save(p)
+                else:
+                    p.write_bytes(key.encode())
                 paths.append(p)
             return paths
 
         with patch.object(sam_masks, "run", run), patch.object(sam_masks, "upload", return_value="input"), \
                 patch.object(comfy_guard, "ensure_server"):
+            point_image = out / "point-input.png"
+            Image.new("RGB", (8, 8), "gray").save(point_image)
             for prompts in [["head"], ["head", "legs"]]:
                 masks = sam_masks.segment("input", prompts, directory)
                 assert [p.read_bytes() for p in masks.values()] == [f"s{i}".encode() for i in range(len(prompts))]
                 jobs = {key: {"pos": [(1, 2)]} for key in prompts}
-                masks = sam_masks.segment_points("input", directory, jobs)
-                assert [p.read_bytes() for p in masks.values()] == [f"s{i}".encode() for i in range(len(prompts))]
+                masks = sam_masks.segment_points(str(point_image), directory, jobs)
+                assert [Image.open(p).getpixel((0, 0)) for p in masks.values()] == list(range(len(prompts)))
     print("mask delivery: lock, source cache, batch mapping, spec validation, Godot failure detection, selective output and atomic override rejection passed")
 
 

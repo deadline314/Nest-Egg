@@ -68,6 +68,14 @@ def segment_points(image_path: str, out_dir: str, jobs: dict, threshold: float =
     """Point-prompted segmentation: jobs = {name: {"pos": [(x, y), ...], "neg": [(x, y), ...]}} (pixels of the picture).
     Lets SAM cut finer than a text prompt can, e.g. only the forearm of a one-piece prosthetic arm."""
     import json
+    from PIL import Image
+    with Image.open(image_path) as image:
+        size = image.size
+    for key, points in jobs.items():
+        for role in ("pos", "neg"):
+            for x, y in points.get(role, []):
+                if not (0 <= int(x) < size[0] and 0 <= int(y) < size[1]):
+                    raise ValueError(f"{image_path}: {key} {role} point {(x, y)} is outside size {size}")
     comfy_guard.ensure_server()
     name = upload(image_path)
     g = {"load": {"class_type": "LoadImage", "inputs": {"image": name}},
@@ -81,11 +89,24 @@ def segment_points(image_path: str, out_dir: str, jobs: dict, threshold: float =
         g[f"s{i}"] = {"class_type": "SaveImage", "inputs": {"images": [f"m{i}", 0], "filename_prefix": f"sampt_{uuid.uuid4().hex[:6]}_{i}"}}
     job = "sam_" + uuid.uuid4().hex[:8]
     paths = run(g, job)
+    pending = {}
+    # A model can ignore a point; validate the whole batch before replacing reviewed masks.
+    for i, (key, points) in enumerate(jobs.items()):
+        source = next(p for p in paths if p.name == (f"{job}_s{i}_0.png" if len(jobs) > 1 else f"{job}_0.png"))
+        with Image.open(source) as image:
+            mask = image.convert("L")
+        if mask.size != size:
+            raise ValueError(f"{source}: {key} mask size {mask.size} differs from source size {size}")
+        for role in ("pos", "neg"):
+            for x, y in points.get(role, []):
+                value = mask.getpixel((int(x), int(y)))
+                if (value > 127) != (role == "pos"):
+                    raise ValueError(f"{source}: {key} {role} point {(x, y)} has mask value {value}")
+        pending[key] = source
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
     result = {}
-    for i, key in enumerate(jobs):
-        source = next(p for p in paths if p.name == (f"{job}_s{i}_0.png" if len(jobs) > 1 else f"{job}_0.png"))
+    for key, source in pending.items():
         path = out / f"{slug(key)}.png"
         path.write_bytes(source.read_bytes())
         result[key] = path

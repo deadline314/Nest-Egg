@@ -1,0 +1,20 @@
+{
+  "status": "RECORDED_MASK_DELIVERY_REJECTED_NOT_ANATOMY_ACCEPTANCE",
+  "source_sha256": "e0fc1cceb3adbc860cd639c689f2809848702080b47a051ad082d4a50b3a6242",
+  "mask_sha256": "8bed6f50b4ef816c75fea78d66f2398746caf5bc55bc3f4ee62c2b5cedfe9409",
+  "gpu_or_new_model_inference": false,
+  "cases": [
+    {
+      "role": "pos",
+      "rejected": true,
+      "existing_mask_unchanged": true,
+      "error": "C:\\Users\\stanl\\AppData\\Local\\Temp\\sam-recorded-rejection-wd_xzpi6\\sam_aff25fd5_0.png: near_boot pos point (820, 1330) has mask value 0"
+    },
+    {
+      "role": "neg",
+      "rejected": true,
+      "existing_mask_unchanged": true,
+      "error": "C:\\Users\\stanl\\AppData\\Local\\Temp\\sam-recorded-rejection-1_sdeaju\\sam_f9ce2cda_0.png: near_boot neg point (515, 605) has mask value 255"
+    }
+  ]
+}
