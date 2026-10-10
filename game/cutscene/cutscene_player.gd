@@ -61,7 +61,10 @@ var _overlay_mode := false
 var _current_where := ""
 var _next_is_say := false
 var _choice: VBoxContainer
+const CHOICE_BACKING := Color(0.02, 0.04, 0.07, 0.86)
 var _choice_options: Array[Dictionary] = []
+## 目前的選擇步驟（含 default）；沒有選擇時為空。
+var _choice_step: Dictionary = {}
 var _chosen := -1
 var _pending_steps: Array = []
 
@@ -648,6 +651,7 @@ func choose(index: int) -> bool:
 
 func _do_choice(step: Dictionary) -> void:
 	_choice_options = StoryRules.options(step, GameState.has_flag, StoryItems.owns)
+	_choice_step = step
 	if _choice_options.is_empty():
 		push_warning("[Cutscene] %s 沒有可用選項，已略過" % _current_where)
 		return
@@ -658,12 +662,28 @@ func _do_choice(step: Dictionary) -> void:
 	_choice.theme = UiKit.theme()
 	_choice.z_index = EFFECT_Z + 20
 	_choice.add_theme_constant_override(&"separation", 8)
+	# 深色底板：選擇疊在亮舞台或遊戲畫面上時，提示與說明仍然清楚。
+	_choice.draw.connect(func() -> void:
+		_choice.draw_rect(Rect2(Vector2(-16, -12), _choice.size + Vector2(32, 24)), CHOICE_BACKING))
+	_choice.resized.connect(_choice.queue_redraw)
 	_root.add_child(_choice)
-	_choice.add_child(UiKit.label(str(step.get("text", "請選擇接下來的行動。")), UiKit.FS_BODY, Palette.CYAN))
+	var prompt := UiKit.label(str(step.get("text", "請選擇接下來的行動。")), UiKit.FS_BODY, Palette.CYAN)
+	prompt.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	prompt.custom_minimum_size = Vector2(448, 0)
+	_choice.add_child(prompt)
+	# 選項說明：焦點（滑鼠、鍵盤或手把）停在哪一項，就在下方用一句話說清楚它的後果。
+	var explain := UiKit.label("", UiKit.FS_BODY, Palette.UI_MUTED)
+	explain.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	explain.custom_minimum_size = Vector2(448, 0)
 	for i in _choice_options.size():
 		var button := UiKit.button(str(_choice_options[i].get("text", "繼續。")), choose.bind(i))
 		button.custom_minimum_size = Vector2(448, 32)
+		var note := str(_choice_options[i].get("explanation", ""))
+		button.tooltip_text = note
+		button.focus_entered.connect(func() -> void: explain.text = note)
+		button.mouse_entered.connect(func() -> void: explain.text = note)
 		_choice.add_child(button)
+	_choice.add_child(explain)
 	_layout_safe_rect(Story.framing.safe_rect())
 	(_choice.get_child(1) as Button).grab_focus()
 	var mouse_mode := Input.mouse_mode
@@ -678,6 +698,7 @@ func _do_choice(step: Dictionary) -> void:
 	if option.get("steps") is Array:
 		_pending_steps = option.steps.duplicate(true)
 	_choice.queue_free()
+	_choice_step = {}
 	Input.mouse_mode = mouse_mode
 
 

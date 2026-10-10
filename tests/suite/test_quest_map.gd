@@ -55,8 +55,8 @@ func _test_catalog(catalog: QuestCatalog) -> void:
 
 
 func _test_real_maps(maps: QuestMapIndex) -> void:
-	check(maps.areas.size() == 9, "nine real chapter areas indexed")
-	check(maps.parse_count == 9, "each area parses once")
+	check(maps.areas.size() == 10, "ten real chapter areas indexed (with the handoff cabinet)")
+	check(maps.parse_count == 10, "each area parses once")
 	var count := maps.parse_count
 	for path: String in maps.areas:
 		var area: Dictionary = maps.areas[path]
@@ -146,7 +146,7 @@ func _test_ui(catalog: QuestCatalog, maps: QuestMapIndex) -> void:
 	check(screen._page == "quests" and screen._selected == "nav_test_side", "keyboard return goes back to selected task")
 	screen.show_page("world")
 	await frames(3)
-	check(screen._canvas._markers.size() == 9, "world shows all nine real areas")
+	check(screen._canvas._markers.size() == 10, "world shows all ten real areas")
 	await _joy(JOY_BUTTON_B)
 	await frames(2)
 	check(screen._page == "quests", "controller return goes back one level")

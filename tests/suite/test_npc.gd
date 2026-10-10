@@ -213,10 +213,11 @@ func _test_formal_portal_preview() -> void:
 	level.player.global_position = portal.global_position + Vector2(-70, 0)
 	level.player.velocity = Vector2.ZERO
 	await frames(3)
-	GameState.clear_flag(&"knows_ali_address")
+	var gate := portal.data.requires_flag
+	GameState.clear_flag(gate)
 	Story.framing._physics_process(1.0)
 	check(not portal.preview_available() and Story.framing.selected_target() != portal, "locked formal movie entrance does not preview")
-	GameState.set_flag(&"knows_ali_address")
+	GameState.set_flag(gate)
 	Story.framing._physics_process(1.0)
 	check(portal.preview_available() and Story.framing.selected_target() == portal, "unlocked formal portal previews before its actual interaction area")
 	check(not portal._player_in_range and not portal.interaction_available(), "80px preview does not falsely advertise being within the real portal interaction area")
@@ -350,7 +351,12 @@ func _test_data() -> void:
 		check(npc.pick_talk(0, Story.was_seen) >= 0, "npc has a first conversation: %s" % file)
 		for talk in npc.talks:
 			check(Story.has_scene(talk.scene), "npc talk scene exists: %s -> %s" % [file, talk.scene])
-			check(str((Story._scenes[String(talk.scene)] as Dictionary).get("mode")) == "dialogue", "npc talk is a dialogue scene: %s" % talk.scene)
+			# 人物與物件的入口可以是分派：每條路線都必須是玩家主動、鎖操作的對話（對話或疊加動畫），不能是通訊或氣泡。
+			var scene: Dictionary = Story._scenes[String(talk.scene)]
+			var targets: Array = [talk.scene] if str(scene.get("mode")) != "dispatch" else scene.get("routes", []).map(func(route: Dictionary) -> String: return str(route.get("target", "")))
+			for target: Variant in targets:
+				var mode := str((Story._scenes.get(str(target), {}) as Dictionary).get("mode"))
+				check(mode == "dialogue" or mode == "animated", "npc talk is a dialogue scene: %s -> %s (%s)" % [talk.scene, target, mode])
 			if talk.story_item != null:
 				check(talk.story_item.is_collectible(), "npc reward item is a collectible: %s" % talk.story_item.id)
 		if npc.kind == NpcData.Kind.PERSON:

@@ -35,6 +35,13 @@ RES = {
     'E': 'res://data/npcs/ch1_egret.tres',
     'Y': 'res://data/npcs/ch1_ali_lounge.tres',
     'Q': 'res://data/npcs/ch1_ali_stall.tres',
+    # 可調查的物件（ST-9）：交接櫃、當舖四件舊物的標籤、電話亭旁的耳機通訊；台詞在劇本的分派場景
+    '⌑': 'res://data/npcs/ch1_handoff_cabinet.tres',
+    'ⓦ': 'res://data/npcs/ch1_label_watch.tres',
+    'ⓖ': 'res://data/npcs/ch1_label_guitar.tres',
+    'ⓡ': 'res://data/npcs/ch1_label_raincoat.tres',
+    'ⓕ': 'res://data/npcs/ch1_label_fare.tres',
+    'ⓥ': 'res://data/npcs/ch1_lamp_voice.tres',
     'z': 'res://data/enemies/ch1_inspector.tres',  # 迷你頭目：收帳人·督察（傷會留著）；B 是引擎保留的頭目戰場字元
     # 道具
     'i': 'res://data/consumables/med_injector.tres',
@@ -90,13 +97,19 @@ PORTALS = {
     'U': dict(id='wh_vault', to=AREA('vault'), target='vault_prev', mode=1, prompt='', style='road', w=20, h=44),
     # 倉庫深處（保險庫與上層走道）
     'M': dict(id='vault_prev', to=AREA('warehouse'), target='wh_vault', mode=1, prompt='', style='road', w=20, h=44),
-    'L': dict(id='wh_upper', to=AREA('lounge'), target='', mode=0, prompt='{interact} 上層通道（過去就回不來了）', style='door'),
+    'L': dict(id='wh_upper', to=AREA('handoff'), target='handoff_arrival', mode=0, prompt='{interact} 上層通道：前往館外交接櫃', style='door',
+              requires='ledger_disk_obtained', locked='資料盤還在保險箱，取出後再走上層通道。'),
+    # 復原館外的交接櫃
+    '↳': dict(id='handoff_arrival', to=AREA('vault'), target='wh_upper', mode=0, prompt='{interact} 返回倉庫上層', style='road', w=24, h=44),
+    '↦': dict(id='handoff_lounge', to=AREA('lounge'), target='lounge_handoff', mode=0, prompt='{interact} 進復原館', style='door', w=28, h=72,
+              requires='ch1_handoff_done', locked='先在藍燈櫃交盤、取回執並保留摘要，再進店歇腳。'),
     # 復原館
+    '↩': dict(id='lounge_handoff', to=AREA('handoff'), target='handoff_lounge', mode=0, prompt='{interact} 回館外交接櫃', style='door', w=24, h=72),
     'G': dict(id='lounge_exit', to=AREA('stall'), target='', mode=1, prompt='', style='road', w=20, h=44,
-              requires='ch1_met_ali', locked='先和阿梨說話。'),
+              requires='ch1_lounge_evening_done', locked='先和阿梨說完今晚的話，再去門外麵攤。'),
     # 宵夜麵攤
-    'Z': dict(id='stall_home', to=AREA('pawnshop_dawn'), target='pawn_front', mode=0, prompt='{interact} 回家後播放劇情。', style='door', preview='ch1_c14_home',
-              requires='knows_ali_address', locked='先吃點東西，和阿梨說話。'),
+    'Z': dict(id='stall_home', to=AREA('pawnshop_dawn'), target='pawn_front', mode=0, prompt='{interact} 回當舖', style='door', preview='ch1_c14_home',
+              requires='ch1_supper_done', locked='先和阿梨說好去留與今晚的帳；不需要先知道地址。'),
 }
 
 # 鎖場遭遇用的動態字元（每個遭遇一個範圍字元、一個閘門字元）：希臘字母，不會和其他字元衝突。
@@ -429,6 +442,12 @@ def build_pawnshop():
     a.hint(38, '移動 {move_left}/{move_right}，跳躍 {jump}（按久跳更高）')
     a.hint(46, '按 {inventory} 開背包：武器改裝、道具與文件都在這裡')
     a.prop('pawnshop_front__tag_shelf', 33)
+    # 老 K 留著的四件舊物：架上的懷錶與雨衣、牆上的吉他、門邊的船錢罐，各自一張標籤（可選支線）。
+    a.stand(34, 'ⓦ')
+    a.stand(37, 'ⓡ')
+    a.stand(48, 'ⓖ')
+    a.stand(45, 'ⓕ')
+    a.prop('pawnshop_front__fare_jar', 45)
     a.prop('basement_door__locked_iron_door', 42)
     a.stand(43, 'K')
     a.prop('pawnshop_front__wall_instruments', 49, y=14)
@@ -615,6 +634,7 @@ def build_booth_alley():
     a.stand(4, 'J')
     a.stand(6, 'P')
     a.stand(26, 'C')
+    a.stand(29, 'ⓥ')
     a.hint(22, '電話亭：按 {interact} 備份。死了會從最近的電話亭醒來')
     a.stand(18, 'c')
     a.stand(44, 'c')
@@ -830,6 +850,7 @@ def build_warehouse_pair():
 def build_lounge():
     a = Area('lounge', '復原館', 56, 20, indoor=True)
     a.ceiling(1, 54, 10)
+    a.stand(2, '↩')
     a.stand(4, 'P')
     a.stand(52, 'G')
     a.trigger(12, 'ch1_b_lounge')
@@ -847,6 +868,22 @@ def build_lounge():
     for x in (10, 24, 38, 50):
         a.lamp(x, 11)
     a.zone(0, 'lounge_safe')  # 復原館是安全區：亮級，進來明顯比街上亮
+    return a
+
+
+def build_handoff():
+    """復原館外：倉庫上層通道出來的雨棚下，藍燈交接櫃收盤吐回執，旁邊就是復原館的門。"""
+    a = Area('handoff', '復原館外交接櫃', 48, 20)
+    a.stand(4, 'P')
+    a.stand(6, '↳')
+    a.trigger(10, 'ch1_b_handoff')
+    a.stand(18, '⌑')
+    a.prop('clinic__report_cabinet', 18)
+    a.stand(44, '↦')
+    a.ceiling(14, 46, 4)
+    a.lamp(18, 14)
+    a.zone(0, 'market')
+    a.features = {'landmark': '藍燈交接櫃（x=18）：雨棚下唯一亮著的櫃子，旁邊是復原館的門'}
     return a
 
 
@@ -894,11 +931,26 @@ NPCS = {
     'ch1_old_k': dict(name='老 K', speaker='old_k', rig='old_k', loop='wipe_hands', facing=-1, prompt='{interact} 和老 K 說話',
                       talks=[('ch1_t_oldk_1', 0), ('ch1_t_oldk_2', 1), ('ch1_t_oldk_d1', 1, 1), ('ch1_t_oldk_d4', 1, 4)]),
     'ch1_egret': dict(name='鷺', speaker='egret', rig='egret', pose='lean', loop='yawn', facing=-1, prompt='{interact} 聽鷺說差事',
-                      talks=[('ch1_t_egret_1', 0), ('ch1_t_egret_2', 1)]),
+                      talks=[('ch1_dispatch_brief', 0)]),
+    # 阿梨說完今晚的話就收店去門外麵攤：館內與麵攤不會同時有兩個阿梨。
     'ch1_ali_lounge': dict(name='阿梨', speaker='ali', rig='ali', loop='wipe_hands', facing=-1, prompt='{interact} 和阿梨說話',
-                           talks=[('ch1_t_ali_1', 0), ('ch1_t_ali_2', 1)]),
+                           talks=[('ch1_dispatch_ali_lounge', 0)], spawn_unless_flag='ch1_lounge_evening_done'),
     'ch1_ali_stall': dict(name='阿梨', speaker='ali', rig='ali', loop='stir', facing=-1, prompt='{interact} 和阿梨說話',
-                          talks=[('ch1_t_ali_3', 0), ('ch1_t_ali_4', 1)]),
+                          talks=[('ch1_dispatch_ali_stall', 0)], spawn_requires_flag='ch1_lounge_evening_done'),
+    # 物件（kind=1）：玩家按互動鍵讀或使用，台詞由分派場景依進度挑選。
+    'ch1_handoff_cabinet': dict(name='委託交接櫃', speaker='terminal', rig='', loop='', facing=1, kind=1,
+                                prompt='{interact} 查看委託交接櫃', talks=[('ch1_dispatch_cabinet', 0)]),
+    'ch1_label_watch': dict(name='懷錶的標籤', speaker='label', rig='', loop='', facing=1, kind=1, prompt='{interact} 讀懷錶的標籤',
+                            talks=[('ch1_dispatch_label_watch', 0)]),
+    'ch1_label_guitar': dict(name='吉他的標籤', speaker='label', rig='', loop='', facing=1, kind=1, prompt='{interact} 讀吉他的標籤',
+                             talks=[('ch1_dispatch_label_guitar', 0)]),
+    'ch1_label_raincoat': dict(name='雨衣的標籤', speaker='label', rig='', loop='', facing=1, kind=1, prompt='{interact} 讀雨衣的標籤',
+                               talks=[('ch1_dispatch_label_raincoat', 0)]),
+    'ch1_label_fare': dict(name='船錢罐的標籤', speaker='label', rig='', loop='', facing=1, kind=1, prompt='{interact} 讀船錢罐的標籤',
+                           talks=[('ch1_dispatch_label_fare', 0)]),
+    # 聽過電話亭的錄音後，才能在亭邊用耳機問燈那個聲音的事（可選支線）。
+    'ch1_lamp_voice': dict(name='耳機通訊', speaker='lamp', rig='', loop='', facing=1, kind=1, prompt='{interact} 用耳機問燈錄音的事',
+                           talks=[('ch1_dispatch_voice', 0)], spawn_requires_flag='ch1_recording_heard'),
 }
 
 
@@ -932,6 +984,11 @@ def write_npc_files():
             reaction_subs.append(w.sub(body))
         lines = [f'script = ExtResource("{w.script_id}")', f'id = &"{ident}"', f'display_name = {json.dumps(n["name"], ensure_ascii=False)}',
                  f'speaker = "{n["speaker"]}"', f'rig_id = "{n["rig"]}"']
+        if n.get('kind'):
+            lines.append(f'kind = {n["kind"]}')
+        for field in ('spawn_requires_flag', 'spawn_unless_flag'):
+            if n.get(field):
+                lines.append(f'{field} = &"{n[field]}"')
         if n.get('pose'):
             lines.append(f'pose = &"{n["pose"]}"')
         lines += [f'loop = &"{n["loop"]}"', f'facing = {n["facing"]}', f'prompt = {json.dumps(n["prompt"], ensure_ascii=False)}',
@@ -1072,6 +1129,7 @@ THEMES = {
     'warehouse': ('concrete', ['warehouse'], 'hangar_wall', 0.0, 'sky_storm', ['dock_warehouse']),
     'vault': ('concrete', ['warehouse'], 'hangar_wall', 0.0, 'sky_storm', ['dock_warehouse']),
     'lounge': ('facility_floor', ['facility_wall'], 'facility_panel', 0.0, 'sky_storm', ['revival_lounge']),
+    'handoff': ('asphalt', ['facility_wall', 'shutter_block'], None, 0.22, 'sky_storm', ['clinic', 'revival_lounge']),
     'stall': ('asphalt', ['shopfront', 'shutter_block'], None, 0.22, 'sky_dawn', ['dawn_noodle_stall']),
 }
 SCENE_PROPS = 'res://data/environment/scene_props/%s'
@@ -1112,9 +1170,12 @@ def write_theme(area, theme_key):
 
 
 # 每個區域的劇情接點：進場過場、機關頻道播放的場景（劇本在 tools/story/build_ch1_story.py 產生）
+# done／cleared：真實機關頻道啟動或解除時寫入的劇情旗標（任務目標與後續對話都讀它，不由場景代替世界事件）。
 STORY = {
     'pawnshop': dict(intro='ch1_c01_open'),
-    'warehouse': dict(channels={'watchdog_gate': 'ch1_c11_watchdog'}),
+    'street': dict(cleared={'arena_street_blockade': 'ch1_street_route_open'}),
+    'warehouse': dict(channels={'watchdog_gate': 'ch1_c11_watchdog'},
+                      done={'watchdog_gate': 'watchdog_defeated', 'flood_c': 'ch1_flood_gate_open'}),
     'pawnshop_dawn': dict(intro='ch1_c14_home'),
 }
 
@@ -1178,6 +1239,9 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
         res.append(f'intro_scene = &"{story["intro"]}"')
     if story.get('channels'):
         res.append('channel_scenes = Dictionary[StringName, StringName]({' + ', '.join(f'&"{k}": &"{v}"' for k, v in story['channels'].items()) + '})')
+    for key, field in (('done', 'channel_done_flags'), ('cleared', 'channel_cleared_flags')):
+        if story.get(key):
+            res.append(f'{field} = Dictionary[StringName, StringName](' + '{' + ', '.join(f'&"{k}": &"{v}"' for k, v in story[key].items()) + '})')
     triggers = [scene for _, scene in sorted(area.triggers)]
     # 天亮的當舖與當舖共用地圖：& 標記還在，晚飯場景已經看過，不會重播。
     res.append('story_triggers = PackedStringArray(' + ', '.join(json.dumps(t) for t in triggers) + ')')
@@ -1194,7 +1258,7 @@ def main():
     write_data_files()
     os.makedirs(LEVEL_DIR, exist_ok=True)
     os.makedirs(THEME_DIR, exist_ok=True)
-    areas = [build_pawnshop(), build_rooftop(), build_street(), build_booth_alley(), *build_warehouse_pair(), build_lounge(), build_stall()]
+    areas = [build_pawnshop(), build_rooftop(), build_street(), build_booth_alley(), *build_warehouse_pair(), build_handoff(), build_lounge(), build_stall()]
     problems = []
     for a in areas:
         problems += a.check()
@@ -1223,6 +1287,7 @@ def main():
     write_level(by_id['booth_alley'])
     write_level(by_id['warehouse'])
     write_level(by_id['vault'])
+    write_level(by_id['handoff'])
     write_level(by_id['lounge'])
     write_level(by_id['stall'])
     # 天亮的當舖：同一張地圖，換光影與進場後結束本章。

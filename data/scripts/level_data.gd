@@ -42,6 +42,10 @@ extends Resource
 @export var outro_scene: StringName = &""
 ## 機關頻道被啟動時播放的場景（頻道 -> 場景 id），例如打倒迷你頭目後隔牆升起的通訊；每輪只播一次。
 @export var channel_scenes: Dictionary[StringName, StringName] = {}
+## 機關頻道「啟動」時寫入的劇情旗標（頻道 → 旗標），例如打倒看門狗、打開水閘；只在尚未成立時寫入。
+@export var channel_done_flags: Dictionary[StringName, StringName] = {}
+## 機關頻道「解除」時寫入的劇情旗標，例如鎖場遭遇結束、路障打開。
+@export var channel_cleared_flags: Dictionary[StringName, StringName] = {}
 ## 地圖上 & 字元由左至右對應的劇情場景 id。
 @export var story_triggers: PackedStringArray = PackedStringArray()
 ## 玩家確認才開始的電影入口，與 & 強制事件分開宣告，不改既有觸發語義。

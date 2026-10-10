@@ -32,6 +32,8 @@ const MODE_ANIMATED := &"animated"
 const MODE_DIALOGUE := &"dialogue"
 ## 地圖上的對話氣泡（見 MapBubbles）：不暫停、不鎖操作，講者頭上冒出短句。沒有氣泡宿主（不在關卡裡）或講者不在地圖上時改用通訊。
 const MODE_BUBBLES := &"bubbles"
+## 分派：依 routes 的條件挑第一個成立的場景播放（人物或物件的入口），本身沒有台詞、不記觀看。
+const MODE_DISPATCH := &"dispatch"
 ## 對話長度守則（見 design/04-story/STORY.md）：過場每段至多 6 句，通訊每段 1～2 句。
 const MAX_CINEMATIC_LINES := 6
 const MAX_RADIO_LINES := 2
@@ -74,6 +76,14 @@ var _passive_requests: Dictionary[StringName, Array] = {}
 var _resetting_presentation := false
 ## 選項選到的交付在場景播完才生效；取消、死亡或換區時丟棄（場景 id → 物品 id 清單）。
 var _pending_transfers: Dictionary[StringName, Array] = {}
+## 選項選到的接續場景（場景 id → 目標）；播完才接，取消時丟棄。
+var _pending_next: Dictionary[StringName, StringName] = {}
+## 段尾結果與章節事實表（見 StoryOutcomes）。
+var outcomes := StoryOutcomes.new()
+## 章節 → 一般復原時寫入的旗標（restoration_flag）。
+var _restoration_flags: Dictionary[StringName, StringName] = {}
+## 帶情境事實的演出鏈所屬請求；請求結束或取消時清除情境事實。
+var _context_request := 0
 var framing: CinematicFraming
 var _layer: DialogueLayer
 var _player: CutscenePlayer
@@ -136,11 +146,13 @@ func _ready() -> void:
 	add_child(_layer)
 	_layer.cinematic_finished.connect(_on_cinematic_finished)
 	_layer.radio_finished.connect(_on_passive_finished)
-	scene_finished.connect(_apply_scene_results)
 	scene_finished.connect(func(id: StringName) -> void:
 		_completed[id] = true
 		GameState.request_story_save())
 	EventBus.player_died.connect(func(_cause: StringName) -> void: reset_active_presentation(&"death"))
+	EventBus.checkpoint_reached.connect(func(_position: Vector2) -> void:
+		for scene in outcomes.scenes_for_event(&"checkpoint"):
+			play(scene))
 	load_all()
 	if FileAccess.file_exists(GameState.STORY_SAVE_PATH):
 		GameState.load_story_progress()
@@ -160,6 +172,8 @@ func load_all() -> void:
 	_respawn_scenes.clear()
 	_death_scenes.clear()
 	_death_sequences.clear()
+	_restoration_flags.clear()
+	outcomes.clear()
 	GameState.flag_defaults.clear()
 	for path in CHAPTER_PATHS:
 		load_chapter(path)
@@ -201,7 +215,18 @@ func load_chapter(path: String) -> bool:
 		_death_scenes[chapter_id] = data["death_scenes"]
 	if data.has("death_sequences"):
 		_death_sequences[chapter_id] = data["death_sequences"]
+	outcomes.merge_chapter(data, path)
+	if data.get("restoration_flag") is String:
+		_restoration_flags[chapter_id] = StringName(data["restoration_flag"])
 	return true
+
+
+## 一般死亡後要從已登記的電話亭醒來（不是初次建檔的診間）時，寫下章節的「在亭子復原過」旗標。
+## 由真正的死亡流程呼叫；不從死亡次數猜測。
+func note_ordinary_restoration(chapter: StringName) -> void:
+	var flag: StringName = _restoration_flags.get(chapter, &"")
+	if flag != &"" and not GameState.has_flag(flag):
+		GameState.set_flag(flag)
 
 
 ## 章節資訊。chapter 留空代表預設章節（第一章）。找不到時回傳空字典。
@@ -222,26 +247,26 @@ func chapter_ids() -> Array[StringName]:
 ## 場景結束時套用結果：set_flags（旗標名稱清單，出入口的 requires_flag 與之後的劇情分支都看它）與
 ## transfer_items（交出原件；場景本身或玩家選到的選項宣告）。交付前先確認全部原件仍在手上，
 ## 任一件不在就整段結果不生效並記錄場景與物品，避免「旗標說交了、盤還在身上」的半套狀態。
-func _apply_scene_results(id: StringName) -> void:
+## results（見 StoryOutcomes）與 set_flags／transfer_items 一起預檢、一起生效。回傳 {ok, failure_scene}：
+## 交易被拒絕時改接 on_failure 指定的場景（例如現金不足），整段結果不生效。
+func _apply_scene_results(id: StringName) -> Dictionary:
 	var pending: Array = _pending_transfers.get(id, [])
 	_pending_transfers.erase(id)
 	var scene: Variant = _scenes.get(String(id), null)
 	if typeof(scene) != TYPE_DICTIONARY:
-		return
+		return {"ok": true, "failure_scene": ""}
 	var transfers := StoryRules.transfer_ids(scene)
 	for item: Variant in pending:
 		if not transfers.has(StringName(item)):
 			transfers.append(StringName(item))
-	for item in transfers:
-		if not StoryItems.holds(item):
-			push_error("[Story] 場景 %s 結束時手上沒有原件 %s，這段結果（旗標與交付）未生效" % [id, item])
-			return
-	var flags: Variant = (scene as Dictionary).get("set_flags", [])
-	if typeof(flags) == TYPE_ARRAY:
-		for flag: Variant in flags:
-			GameState.set_flag(StringName(str(flag)))
-	for item in transfers:
-		StoryItems.transfer(item)
+	var checked := outcomes.preflight(id, scene, transfers)
+	if not checked["ok"]:
+		if str(checked["failure_scene"]).is_empty():
+			push_error("[Story] %s：%s，這段結果（旗標、交付與交易）未生效" % [checked["where"], checked["reason"]])
+		return checked
+	if not outcomes.commit(id, scene, transfers):
+		return {"ok": false, "failure_scene": ""}
+	return {"ok": true, "failure_scene": ""}
 
 
 ## 舊名稱：既有呼叫端與測試沿用，行為同 _apply_scene_results。
@@ -257,6 +282,43 @@ func can_transfer_for(id: StringName) -> bool:
 	return true
 
 
+## 劇情條件讀取的事實（StoryRules.holds 的預設來源）。
+func fact(kind: StringName, id: StringName) -> Variant:
+	match kind:
+		&"flag":
+			return outcomes.flag_value(id)
+		&"held":
+			return StoryItems.holds(id)
+		&"receipt":
+			return outcomes.receipt_recorded(id)
+		&"account":
+			return outcomes.account_state(id)
+	return null
+
+
+## 場景的前置條件（when）是否成立；沒有條件時為 true。
+func scene_available(id: StringName) -> bool:
+	var scene: Dictionary = _scenes.get(String(id), {})
+	return not scene.has("when") or StoryRules.holds(scene["when"])
+
+
+## 分派場景目前會播哪一段（依 routes 順序第一個成立的）；不是分派場景時回傳自己，沒有可播的回傳空。
+func resolve_dispatch(id: StringName) -> StringName:
+	var scene: Dictionary = _scenes.get(String(id), {})
+	if str(scene.get("mode", "")) != String(MODE_DISPATCH):
+		return id if has_scene(id) else &""
+	var routes: Variant = scene.get("routes", [])
+	if routes is Array:
+		for route: Variant in routes:
+			if not route is Dictionary:
+				continue
+			var target := StringName(str((route as Dictionary).get("target", "")))
+			if target != &"" and has_scene(target) and str((_scenes[String(target)] as Dictionary).get("mode", "")) != String(MODE_DISPATCH) \
+					and StoryRules.holds(route.get("when", {})) and scene_available(target) and can_transfer_for(target):
+				return target
+	return &""
+
+
 ## 檢查劇本是否符合守則，回傳問題清單（空代表沒問題）：講者存在且有頭像、過場／通訊的句數、每句有文字。
 func validate() -> PackedStringArray:
 	var problems := PackedStringArray()
@@ -270,6 +332,10 @@ func validate() -> PackedStringArray:
 		if scene.has("set_flags") and (typeof(scene["set_flags"]) != TYPE_ARRAY or (scene["set_flags"] as Array).any(func(f: Variant) -> bool: return str(f).is_empty())):
 			problems.append("場景 %s 的 set_flags 必須是非空的旗標名稱清單" % scene_id)
 		problems.append_array(StoryRules.validate_transfers("場景 %s" % scene_id, scene))
+		problems.append_array(outcomes.validate_scene(scene_id, scene, has_scene))
+		problems.append_array(_validate_targets(scene_id, scene))
+		if mode == String(MODE_DISPATCH):
+			continue
 		if scene.has("transfer_items") and mode not in [String(MODE_CINEMATIC), String(MODE_ANIMATED), String(MODE_DIALOGUE)]:
 			problems.append("場景 %s（%s）不能交出原件：只有可取消回撤的過場與對話可以交付" % [scene_id, mode])
 		if mode == String(MODE_ANIMATED):
@@ -296,6 +362,7 @@ func validate() -> PackedStringArray:
 					problems.append("場景 %s（氣泡%s）的句子超過 %d 字：%s" % [scene_id, "，戰鬥短句" if bool(scene.get("bark", false)) else "", cap, entry.get("text", "")])
 	for scene_id: String in _scenes.keys():
 		problems.append_array(_validate_chain(scene_id, _scenes[scene_id]))
+	problems.append_array(outcomes.validate(has_scene))
 	for chapter_id: StringName in _respawn_scenes:
 		problems.append_array(StoryReactions.validate_respawns(String(chapter_id), _respawn_scenes[chapter_id], has_scene))
 	for chapter_id: StringName in _death_scenes:
@@ -309,16 +376,46 @@ func validate() -> PackedStringArray:
 	return problems
 
 
+## 分派路線、選項接續（target）與條件（when）都要指向存在的場景、格式正確。
+func _validate_targets(scene_id: String, scene: Dictionary) -> PackedStringArray:
+	var problems := PackedStringArray()
+	if str(scene.get("mode", "")) == String(MODE_DISPATCH):
+		var routes: Variant = scene.get("routes", [])
+		if not routes is Array or (routes as Array).is_empty():
+			problems.append("分派場景 %s 需要非空的 routes" % scene_id)
+			return problems
+		for i in (routes as Array).size():
+			var route: Variant = routes[i]
+			var target := str((route as Dictionary).get("target", "")) if route is Dictionary else ""
+			if not _scenes.has(target) or str((_scenes[target] as Dictionary).get("mode", "")) == String(MODE_DISPATCH):
+				problems.append("分派場景 %s 的 routes[%d] 指向不存在或另一個分派場景：%s" % [scene_id, i, target])
+			elif not StoryConditionTree.validate((route as Dictionary).get("when", {}))["valid"]:
+				problems.append("分派場景 %s 的 routes[%d] 條件無效" % [scene_id, i])
+		return problems
+	for entry in StoryRules.entries(scene.get("steps", [])):
+		if entry.has("target") and not _scenes.has(str(entry["target"])):
+			problems.append("場景 %s 的選項 %s 接續不存在的場景：%s" % [scene_id, entry.get("id", ""), entry["target"]])
+		if entry.has("when") and not StoryConditionTree.validate(entry["when"])["valid"]:
+			problems.append("場景 %s 的選項或分支 %s 條件無效：%s" % [scene_id, entry.get("id", ""), StoryConditionTree.validate(entry["when"])["error"]])
+	return problems
+
+
 ## 接續場景（then）：只能接在過場／動畫過場之後，目標必須存在，且不能形成迴圈。
 func _validate_chain(scene_id: String, scene: Variant) -> PackedStringArray:
 	var problems := PackedStringArray()
 	if typeof(scene) != TYPE_DICTIONARY or not (scene as Dictionary).has("then"):
 		return problems
 	var mode := str((scene as Dictionary).get("mode", "radio"))
-	if mode != String(MODE_CINEMATIC) and mode != String(MODE_ANIMATED):
-		problems.append("場景 %s（%s）不能設定 then，只有過場與動畫過場可以接續" % [scene_id, mode])
+	var family := _chain_family(mode)
+	var first := str((scene as Dictionary)["then"])
+	if family == "":
+		problems.append("場景 %s（%s）不能設定 then" % [scene_id, mode])
+		return problems
+	if family == "passive" and _scenes.has(first) and _chain_family(str((_scenes[first] as Dictionary).get("mode", "radio"))) != "passive":
+		problems.append("場景 %s（%s）不能設定 then 接到「%s」：通訊與氣泡只能接通訊或氣泡" % [scene_id, mode, first])
+		return problems
 	var seen: Dictionary = {scene_id: true}
-	var next := str((scene as Dictionary)["then"])
+	var next := first
 	while next != "":
 		if not _scenes.has(next):
 			problems.append("場景 %s 的接續場景「%s」不存在" % [scene_id, next])
@@ -327,11 +424,20 @@ func _validate_chain(scene_id: String, scene: Variant) -> PackedStringArray:
 			problems.append("場景 %s 的接續形成迴圈（%s）" % [scene_id, next])
 			break
 		var next_mode := str((_scenes[next] as Dictionary).get("mode", "radio"))
-		if next_mode != String(MODE_CINEMATIC) and next_mode != String(MODE_ANIMATED):
-			problems.append("場景 %s 的接續場景「%s」是 %s，只能接過場或動畫過場" % [scene_id, next, next_mode])
+		if _chain_family(next_mode) != family:
+			problems.append("場景 %s 的接續場景「%s」是 %s，%s" % [scene_id, next, next_mode, "只能接過場、動畫過場或對話" if family == "presentation" else "只能接通訊或氣泡"])
 		seen[next] = true
 		next = str((_scenes[next] as Dictionary).get("then", ""))
 	return problems
+
+
+## 接續只在同一類演出之間：過場／動畫過場／對話接成同一段鎖操作的演出；通訊／氣泡各自排隊、不鎖操作。
+static func _chain_family(mode: String) -> String:
+	if mode in [String(MODE_CINEMATIC), String(MODE_ANIMATED), String(MODE_DIALOGUE)]:
+		return "presentation"
+	if mode in [String(MODE_RADIO), String(MODE_BUBBLES)]:
+		return "passive"
+	return ""
 
 
 ## 劇本品質檢查（文本風格指南的自動檢查，見 StoryLint）：掃描所有場景台詞與章節卡文字，回傳錯誤與警告。
@@ -423,8 +529,21 @@ func audit_data() -> Dictionary:
 	return {"scenes": _scenes, "respawn": _respawn_scenes, "death": _death_scenes}
 
 
+## 場景的台詞。分派入口回傳所有路線段落的台詞（整條人物線完整走一遍的份量，節奏估計用）；動畫段落取其中的 say。
 func scene_lines(id: StringName) -> Array:
-	return (_scenes.get(String(id), {}) as Dictionary).get("lines", [])
+	var scene: Dictionary = _scenes.get(String(id), {})
+	if str(scene.get("mode", "")) != String(MODE_DISPATCH):
+		return scene.get("lines", [])
+	var result: Array = []
+	for route: Variant in scene.get("routes", []):
+		var target: Dictionary = _scenes.get(str((route as Dictionary).get("target", "")) if route is Dictionary else "", {})
+		if target.has("lines"):
+			result.append_array(target["lines"])
+		else:
+			for step in StoryRules.entries(target.get("steps", [])):
+				if step.get("do") == "say":
+					result.append(step)
+	return result
 
 
 ## 場景現在要念的台詞：累計死亡達到某個變化的門檻就改用那一組，否則用正常台詞。deaths < 0 代表用本輪的累計死亡。
@@ -474,6 +593,11 @@ func _scene_set_flags(id: StringName) -> Array:
 	if typeof(flags) == TYPE_ARRAY:
 		for flag: Variant in flags:
 			result.append(str(flag))
+	if typeof(scene) == TYPE_DICTIONARY:
+		for op in StoryOutcomes.operations(scene):
+			var value: Variant = op.get("value", true)
+			if str(op.get("kind", "")) == "flag" and value is bool and value:
+				result.append(str(op.get("id", "")))
 	return result
 
 
@@ -554,7 +678,11 @@ func is_chained_scene(origin: StringName, segment: StringName) -> bool:
 
 
 func scene_mode(id: StringName) -> StringName:
-	return StringName(str((_scenes.get(String(id), {}) as Dictionary).get("mode", "radio")))
+	var mode := StringName(str((_scenes.get(String(id), {}) as Dictionary).get("mode", "radio")))
+	if mode == MODE_DISPATCH:
+		var target := resolve_dispatch(id)
+		return scene_mode(target) if target != &"" else MODE_DISPATCH
+	return mode
 
 
 ## 對外 scene_started 的 dialogue→cinematic 別名是存檔契約；資格判斷必須讀實際資料模式。
@@ -591,6 +719,9 @@ func reset_active_presentation(reason: StringName = &"leave") -> void:
 	var pending := _cinematic_queue
 	_cinematic_queue = []
 	_pending_transfers.clear()
+	_pending_next.clear()
+	outcomes.context_facts.clear()
+	_context_request = 0
 	if interrupted != &"":
 		if not _completed.has(interrupted):
 			_seen.erase(interrupted)
@@ -638,10 +769,14 @@ func _on_passive_finished(id: StringName, expected_request := 0) -> void:
 	var request := int(requests.pop_front())
 	if requests.is_empty():
 		_passive_requests.erase(id)
+	var applied := _apply_scene_results(id)
 	_finished_request = request
 	scene_finished.emit(id)
 	_finished_request = 0
 	_complete_request(request, true)
+	var next := StringName(str(applied["failure_scene"])) if not applied["ok"] else StringName(str((_scenes.get(String(id), {}) as Dictionary).get("then", "")))
+	if next != &"" and has_scene(next):
+		play(next, applied["ok"])
 
 
 func play(id: StringName, once := true, context: Dictionary = {}) -> bool:
@@ -653,7 +788,12 @@ func _enqueue_request(id: StringName, once: bool, context: Dictionary, waiting :
 		if id != &"":
 			push_warning("[Story] 找不到劇情場景：%s" % id)
 		return 0
+	if str((_scenes[String(id)] as Dictionary).get("mode", "")) == String(MODE_DISPATCH):
+		var target := resolve_dispatch(id)
+		return 0 if target == &"" else _enqueue_request(target, false, context, waiting)
 	if once and _seen.has(id):
+		return 0
+	if not scene_available(id):
 		return 0
 	if not can_transfer_for(id):
 		push_warning("[Story] 場景 %s 要交出的原件不在手上，未開始播放" % id)
@@ -710,6 +850,9 @@ func play_and_wait(id: StringName, once := true, context: Dictionary = {}) -> bo
 func _complete_request(request: int, completed: bool) -> void:
 	if request == 0:
 		return
+	if request == _context_request:
+		outcomes.context_facts.clear()
+		_context_request = 0
 	if _waiters.has(request):
 		_request_results[request] = completed
 	request_settled.emit(request, completed)
@@ -732,6 +875,11 @@ func _start_cinematic(id: StringName, context: Dictionary = {}, request := 0) ->
 	_presentation_context = presentation_context(context)
 	var scene: Dictionary = _scenes.get(String(id), {})
 	var animated := str(scene.get("mode", "")) == String(MODE_ANIMATED)
+	var facts: Variant = scene.get("context_facts", [])
+	if facts is Array and not (facts as Array).is_empty():
+		for key: Variant in facts:
+			outcomes.context_facts[str(key)] = true
+		_context_request = request
 	scene_started.emit(id, MODE_ANIMATED if animated else MODE_CINEMATIC)
 	if auto_skip or Settings.get_skip_cutscenes():
 		apply_default_choices(scene)
@@ -763,7 +911,16 @@ func _on_cinematic_finished(id: StringName) -> void:
 	_current_request = 0
 	framing.release(_framing_token)
 	_framing_token = 0
-	var chained := _queue_chained_scene(id, completed_request)
+	var applied := _apply_scene_results(id)
+	var chosen: StringName = _pending_next.get(id, &"")
+	_pending_next.erase(id)
+	var chained := false
+	if not applied["ok"]:
+		chained = _queue_dynamic_scene(StringName(str(applied["failure_scene"])), completed_request)
+	elif chosen != &"":
+		chained = _queue_dynamic_scene(chosen, completed_request)
+	else:
+		chained = _queue_chained_scene(id, completed_request)
 	_presentation_context = {}
 	_finished_request = completed_request
 	scene_finished.emit(id)
@@ -775,10 +932,22 @@ func _on_cinematic_finished(id: StringName) -> void:
 		_start_cinematic(queued.id, queued.context, queued.request)
 
 
+## 選項或交易失敗指定的接續場景：不論是否看過都接著播（可回到上一個選擇），條件不成立時不接。
+func _queue_dynamic_scene(next: StringName, request: int) -> bool:
+	if next == &"" or not has_scene(next):
+		return false
+	var target := resolve_dispatch(next)
+	if target == &"" or not scene_available(target) or not can_transfer_for(target):
+		return false
+	_seen[target] = true
+	_cinematic_queue.push_front({"id": target, "context": _presentation_context.duplicate(true), "request": request})
+	return true
+
+
 ## 場景設定了 then 時，結束後立刻接著播（排在佇列最前面）；玩家按 Esc 略過時整串都略過，已看過的場景不重播。
 func _queue_chained_scene(id: StringName, request: int) -> bool:
 	var next := StringName(str((_scenes.get(String(id), {}) as Dictionary).get("then", "")))
-	if next == &"" or not has_scene(next) or _seen.has(next):
+	if next == &"" or not has_scene(next) or _seen.has(next) or not scene_available(next):
 		return false
 	if is_instance_valid(_player) and _player.user_skipped:
 		return false
@@ -840,6 +1009,9 @@ func apply_choice(option: Dictionary) -> void:
 	var flags: Variant = option.get("set_flags", {})
 	for flag: Variant in StoryRules.flag_names(flags):
 		GameState.set_flag(StringName(str(flag)), flags[flag] if flags is Dictionary else true)
+	var target := StringName(str(option.get("target", "")))
+	if target != &"" and _current_cinematic != &"":
+		_pending_next[_current_cinematic] = target
 	var transfers := StoryRules.transfer_ids(option)
 	if transfers.is_empty():
 		return

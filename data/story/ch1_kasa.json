@@ -4,7 +4,8 @@
   "title": "第一章　傘",
   "subtitle": "沉港市・下層港區",
   "end_title": "第一章　傘　完",
-  "teaser": "下一章　鷺"
+  "teaser": "下一步：明早核對交盤回執，再去市集查那張缺的附件。",
+  "release_note": "進度已保存。這一版收錄到第一章結束，第二章尚未收錄。"
  },
  "speakers": {
   "egret": {
@@ -27,8 +28,86 @@
    "color": "#9ad7ff",
    "portrait": "res://art/portraits/system.png",
    "formal": true
+  },
+  "terminal": {
+   "name": "交接櫃",
+   "color": "#9ad7ff",
+   "portrait": "res://art/portraits/system.png",
+   "formal": true
+  },
+  "label": {
+   "name": "標籤",
+   "color": "#ded5b0",
+   "portrait": "res://art/portraits/system.png",
+   "formal": true
   }
  },
+ "death_sequences": [
+  {
+   "min_deaths": 1,
+   "skippable": false,
+   "steps": [
+    {
+     "kind": "line",
+     "speaker": "voice",
+     "text": "再來一次，沒關係。",
+     "time": 2.2
+    },
+    {
+     "kind": "line",
+     "speaker": "lamp",
+     "text": "歡迎回來，你又回到亭子了。",
+     "time": 1.8
+    },
+    {
+     "kind": "status",
+     "text": "復原完成，復原費已從身上的信用點扣除。",
+     "time": 1.6
+    },
+    {
+     "kind": "card",
+     "time": 2.4
+    }
+   ]
+  },
+  {
+   "min_deaths": 3,
+   "skippable": false,
+   "steps": [
+    {
+     "kind": "line",
+     "speaker": "lamp",
+     "text": "歡迎回來，路線還接著。",
+     "time": 1.2
+    },
+    {
+     "kind": "status",
+     "text": "復原完成，復原費已結算。",
+     "time": 1.0
+    },
+    {
+     "kind": "card",
+     "time": 1.2
+    }
+   ]
+  },
+  {
+   "min_deaths": 5,
+   "skippable": true,
+   "steps": [
+    {
+     "kind": "line",
+     "speaker": "lamp",
+     "text": "你知道流程的，我們再走一次。",
+     "time": 0.9
+    },
+    {
+     "kind": "card",
+     "time": 0.8
+    }
+   ]
+  }
+ ],
  "respawn_scenes": [
   {
    "scene": "ch1_d_back_a",
@@ -54,6 +133,567 @@
    "unless_flag": "ch1_first_death_done",
    "free": true,
    "register_checkpoint": true
+  }
+ ],
+ "flag_defaults": {
+  "ch1_supper_choice": "unset",
+  "ch1_dinner_done": false,
+  "ch1_heard_brief": false,
+  "ch1_disk_delivered": false,
+  "ch1_disk_receipt_taken": false,
+  "ch1_market_summary_known": false,
+  "ch1_handoff_done": false,
+  "ch1_ali_reception_selected": false,
+  "ch1_met_ali": false,
+  "ch1_ali_evening_talk_done": false,
+  "ch1_lounge_evening_done": false,
+  "ch1_supper_done": false,
+  "ch1_supper_host_accepted": false,
+  "ch1_supper_meal_done": false,
+  "knows_ali_address": false,
+  "sq1_first_supper_done": false,
+  "ch1_first_death_done": false,
+  "ch1_home_done": false,
+  "ch1_complete": false,
+  "ch1_sunday_accepted": false,
+  "asked_egret_sunday": false,
+  "ch1_label_watch_seen": false,
+  "ch1_label_guitar_seen": false,
+  "ch1_label_raincoat_seen": false,
+  "ch1_label_fare_seen": false,
+  "ch1_voice_accepted": false,
+  "ch1_lamp_voice_asked": false,
+  "sq5_lamp_voice_noticed": false,
+  "ch1_grey_cloth_examined": false,
+  "has_grey_cloth": false,
+  "ch1_street_route_open": false,
+  "watchdog_defeated": false,
+  "ch1_flood_gate_open": false,
+  "ledger_disk_obtained": false,
+  "ch1_recording_heard": false,
+  "ch1_booth_restoration_done": false,
+  "ch1_lounge_ordered": false,
+  "ch1_lounge_tab_settled": false,
+  "ch1_labels_started": false,
+  "sq8_first_labels_done": false,
+  "ch1_supper_can_rechoose": false,
+  "ch2_previous_job_settled": false
+ },
+ "transactions": {
+  "ch1.daily_dinner": {
+   "resource": "res://data/story_transactions/ch1_daily_dinner.tres"
+  },
+  "ch1.revival_meal.order": {
+   "resource": "res://data/story_transactions/ch1_revival_meal_order.tres"
+  },
+  "ch1.revival_meal.paid": {
+   "resource": "res://data/story_transactions/ch1_revival_meal_paid.tres"
+  },
+  "ch1.revival_meal.tab": {
+   "resource": "res://data/story_transactions/ch1_revival_meal_tab.tres"
+  },
+  "ch1.revival_meal.gift": {
+   "resource": "res://data/story_transactions/ch1_revival_meal_gift.tres"
+  }
+ },
+ "derived_flags": {
+  "ch1_lounge_ordered": {
+   "receipt": "ch1.revival_meal.order",
+   "status": "recorded"
+  },
+  "ch1_lounge_tab_settled": {
+   "receipt": "ch1.revival_meal.later_pay",
+   "status": "recorded"
+  },
+  "ch1_labels_started": {
+   "any": [
+    {
+     "flag": "ch1_label_watch_seen",
+     "equals": true
+    },
+    {
+     "flag": "ch1_label_guitar_seen",
+     "equals": true
+    },
+    {
+     "flag": "ch1_label_raincoat_seen",
+     "equals": true
+    },
+    {
+     "flag": "ch1_label_fare_seen",
+     "equals": true
+    }
+   ]
+  },
+  "sq8_first_labels_done": {
+   "all": [
+    {
+     "flag": "ch1_label_watch_seen",
+     "equals": true
+    },
+    {
+     "flag": "ch1_label_guitar_seen",
+     "equals": true
+    },
+    {
+     "flag": "ch1_label_raincoat_seen",
+     "equals": true
+    },
+    {
+     "flag": "ch1_label_fare_seen",
+     "equals": true
+    }
+   ]
+  },
+  "ch1_supper_can_rechoose": {
+   "all": [
+    {
+     "any": [
+      {
+       "account": "ch1_lounge",
+       "equals": "none"
+      },
+      {
+       "account": "ch1_lounge",
+       "equals": "open200"
+      }
+     ]
+    },
+    {
+     "not": {
+      "flag": "ch1_supper_host_accepted",
+      "equals": true
+     }
+    },
+    {
+     "not": {
+      "flag": "ch1_supper_meal_done",
+      "equals": true
+     }
+    },
+    {
+     "not": {
+      "flag": "ch1_supper_done",
+      "equals": true
+     }
+    }
+   ]
+  },
+  "ch2_previous_job_settled": {
+   "receipt": "ch1.commission.settled",
+   "status": "recorded"
+  }
+ },
+ "runtime_facts": {
+  "ch1_zero_true_deaths": "deaths_zero",
+  "ch1_true_death_record_known": "always",
+  "ch1_booth_registered": "checkpoint_registered",
+  "ch1_first_clinic_active": "context:first_clinic"
+ },
+ "event_scenes": [
+  {
+   "event": "checkpoint",
+   "scene": "ch1_t_booth_recording"
+  }
+ ],
+ "restoration_flag": "ch1_booth_restoration_done",
+ "quests": [
+  {
+   "id": "ch1_meet_egret",
+   "kind": "main",
+   "title": "吃完飯，上屋頂找鷺",
+   "background": "鷺帶來碼頭的差事。老 K已留晚飯，吃完再上屋頂聽簡報。",
+   "reward": "聽完簡報即可出門，報酬在驗收後核對。",
+   "complete_flag": "ch1_heard_brief",
+   "steps": [
+    {
+     "title": "回廚房吃老 K這次免收的晚飯",
+     "complete_flag": "ch1_dinner_done",
+     "location": {
+      "level": "res://data/levels/ch1_pawnshop.tres",
+      "cell": [
+       89,
+       19
+      ]
+     }
+    },
+    {
+     "title": "上屋頂聽鷺的完整簡報",
+     "complete_flag": "ch1_heard_brief",
+     "location": {
+      "level": "res://data/levels/ch1_rooftop.tres",
+      "cell": [
+       53,
+       17
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "ch1_take_disk",
+   "kind": "main",
+   "title": "到碼頭倉庫取回資料盤",
+   "background": "鷺要保險箱裡的一片盤，市集今晚封路，燈帶你走碼頭。",
+   "reward": "取得後到復原館外交接櫃驗收。",
+   "complete_flag": "ledger_disk_obtained",
+   "steps": [
+    {
+     "title": "清開街道前往碼頭的路障",
+     "complete_flag": "ch1_street_route_open",
+     "location": {
+      "level": "res://data/levels/ch1_street.tres",
+      "cell": [
+       182,
+       19
+      ]
+     }
+    },
+    {
+     "title": "擊倒看門狗，打開倉庫隔牆",
+     "complete_flag": "watchdog_defeated",
+     "location": {
+      "level": "res://data/levels/ch1_warehouse.tres",
+      "cell": [
+       81,
+       16
+      ]
+     }
+    },
+    {
+     "title": "實際開水閘，確認浮橋路保持",
+     "complete_flag": "ch1_flood_gate_open",
+     "location": {
+      "level": "res://data/levels/ch1_warehouse.tres",
+      "cell": [
+       117,
+       16
+      ]
+     }
+    },
+    {
+     "title": "打開保險箱，取出資料盤",
+     "complete_flag": "ledger_disk_obtained",
+     "location": {
+      "level": "res://data/levels/ch1_vault.tres",
+      "cell": [
+       40,
+       16
+      ]
+     }
+    }
+   ],
+   "visible_flags": [
+    "ch1_heard_brief"
+   ],
+   "requires_flags": [
+    "ch1_heard_brief"
+   ],
+   "blocked_reason": "還沒聽完差事。",
+   "suggestion": "上屋頂找鷺，聽完回程安排。"
+  },
+  {
+   "id": "ch1_handoff_disk",
+   "kind": "main",
+   "title": "把資料盤交到館外交接櫃",
+   "background": "鷺安排上層出口接復原館。櫃子收盤後留回執，明早憑它核對錢。",
+   "reward": "保留回執與待查摘要；800報酬次晨另算。",
+   "complete_flag": "ch1_handoff_done",
+   "steps": [
+    {
+     "title": "走上層回程，到館外櫃確認交盤",
+     "complete_flag": "ch1_disk_delivered",
+     "location": {
+      "level": "res://data/levels/ch1_handoff.tres",
+      "cell": [
+       17,
+       19
+      ]
+     }
+    },
+    {
+     "title": "從交接櫃取出驗收回執",
+     "complete_flag": "ch1_disk_receipt_taken",
+     "location": {
+      "level": "res://data/levels/ch1_handoff.tres",
+      "cell": [
+       17,
+       19
+      ]
+     }
+    },
+    {
+     "title": "保留市場M17待查摘要",
+     "complete_flag": "ch1_handoff_done",
+     "location": {
+      "level": "res://data/levels/ch1_handoff.tres",
+      "cell": [
+       17,
+       19
+      ]
+     }
+    }
+   ],
+   "visible_flags": [
+    "ledger_disk_obtained"
+   ],
+   "requires_flags": [
+    "ledger_disk_obtained"
+   ],
+   "blocked_reason": "還沒有取到實體資料盤。",
+   "suggestion": "回保險箱取盤；已交盤可在櫃子補印回執。"
+  },
+  {
+   "id": "ch1_close_evening",
+   "kind": "main",
+   "title": "和阿梨說好今晚的去留",
+   "background": "盤已驗收。阿梨下班邀你吃麵，你可以留下或把帳說清楚先走。",
+   "reward": "兩種決定都能回家；地址只在實際告知後記下。",
+   "complete_flag": "ch1_supper_done",
+   "steps": [
+    {
+     "title": "進復原館，和吧臺的阿梨說話",
+     "complete_flag": "ch1_met_ali",
+     "location": {
+      "level": "res://data/levels/ch1_lounge.tres",
+      "cell": [
+       29,
+       19
+      ]
+     }
+    },
+    {
+     "title": "聽阿梨說下班後的邀請",
+     "complete_flag": "ch1_lounge_evening_done",
+     "location": {
+      "level": "res://data/levels/ch1_lounge.tres",
+      "cell": [
+       29,
+       19
+      ]
+     }
+    },
+    {
+     "title": "到麵攤決定去留，說清楚今晚帳",
+     "complete_flag": "ch1_supper_done",
+     "location": {
+      "level": "res://data/levels/ch1_stall.tres",
+      "cell": [
+       20,
+       19
+      ]
+     }
+    }
+   ],
+   "visible_flags": [
+    "ch1_handoff_done"
+   ],
+   "requires_flags": [
+    "ch1_handoff_done"
+   ],
+   "blocked_reason": "今晚的去留還沒說好。",
+   "suggestion": "到麵攤說話；沒有錢也能保留欠條。"
+  },
+  {
+   "id": "ch1_go_home",
+   "kind": "main",
+   "title": "回當舖，把回執收好",
+   "background": "今晚的事已經說好，明早要對報酬。先回家，老 K還等著燒水。",
+   "reward": "完成第一章，下一步是次晨核對回執。",
+   "complete_flag": "ch1_complete",
+   "steps": [
+    {
+     "title": "從麵攤回當舖，和老 K說話",
+     "complete_flag": "ch1_home_done",
+     "location": {
+      "level": "res://data/levels/ch1_pawnshop_dawn.tres",
+      "cell": [
+       75,
+       19
+      ]
+     }
+    },
+    {
+     "title": "把回執收好，結束今晚",
+     "complete_flag": "ch1_complete",
+     "location": {
+      "level": "res://data/levels/ch1_pawnshop_dawn.tres",
+      "cell": [
+       75,
+       19
+      ]
+     }
+    }
+   ],
+   "visible_flags": [
+    "ch1_supper_done"
+   ],
+   "requires_flags": [
+    "ch1_supper_done"
+   ],
+   "blocked_reason": "今晚的事還沒說清楚。",
+   "suggestion": "和阿梨說好去留；不需要先取得地址。"
+  },
+  {
+   "id": "sq8_ch1_labels",
+   "kind": "side",
+   "title": "讀老 K留下的四張標籤",
+   "background": "貨架上有沒賣出的舊物，老 K還記得它們在等誰。",
+   "reward": "收錄四件標籤，物品仍留在當舖。",
+   "complete_flag": "sq8_first_labels_done",
+   "steps": [
+    {
+     "title": "讀懷錶的標籤",
+     "complete_flag": "ch1_label_watch_seen",
+     "location": {
+      "level": "res://data/levels/ch1_pawnshop.tres",
+      "cell": [
+       32,
+       19
+      ]
+     }
+    },
+    {
+     "title": "讀吉他的標籤",
+     "complete_flag": "ch1_label_guitar_seen",
+     "location": {
+      "level": "res://data/levels/ch1_pawnshop.tres",
+      "cell": [
+       35,
+       19
+      ]
+     }
+    },
+    {
+     "title": "讀雨衣的標籤",
+     "complete_flag": "ch1_label_raincoat_seen",
+     "location": {
+      "level": "res://data/levels/ch1_pawnshop.tres",
+      "cell": [
+       36,
+       19
+      ]
+     }
+    },
+    {
+     "title": "讀船錢罐的標籤",
+     "complete_flag": "ch1_label_fare_seen",
+     "location": {
+      "level": "res://data/levels/ch1_pawnshop.tres",
+      "cell": [
+       45,
+       19
+      ]
+     }
+    }
+   ],
+   "visible_flags": [
+    "ch1_labels_started"
+   ]
+  },
+  {
+   "id": "sq2_ch1_sunday",
+   "kind": "side",
+   "title": "問鷺為什麼留著週日",
+   "background": "她今晚不跟去，週日也不排差事。你可以問，也可以讓她留著自己的事。",
+   "reward": "記下週日不接案，不提前知道她見誰。",
+   "complete_flag": "asked_egret_sunday",
+   "steps": [
+    {
+     "title": "在屋頂問鷺今晚與週日的事",
+     "complete_flag": "asked_egret_sunday",
+     "location": {
+      "level": "res://data/levels/ch1_rooftop.tres",
+      "cell": [
+       53,
+       17
+      ]
+     }
+    }
+   ],
+   "visible_flags": [
+    "ch1_sunday_accepted"
+   ],
+   "requires_flags": [
+    "ch1_heard_brief"
+   ],
+   "blocked_reason": "還沒有聽差事。",
+   "suggestion": "先聽簡報，之後可選擇追問。"
+  },
+  {
+   "id": "sq5_ch1_voice",
+   "kind": "side",
+   "title": "問燈為什麼像電話亭錄音",
+   "background": "亭子裡的舊聲音與耳機裡的燈相似。相似不等於知道錄音者。",
+   "reward": "記錄聲音線索，答案尚未確認。",
+   "complete_flag": "sq5_lamp_voice_noticed",
+   "steps": [
+    {
+     "title": "聽真實電話亭錄音後問燈",
+     "complete_flag": "ch1_lamp_voice_asked",
+     "location": {
+      "level": "res://data/levels/ch1_booth_alley.tres",
+      "cell": [
+       25,
+       19
+      ]
+     }
+    },
+    {
+     "title": "再問錄音是否是他，或先保留",
+     "complete_flag": "sq5_lamp_voice_noticed",
+     "location": {
+      "level": "res://data/levels/ch1_booth_alley.tres",
+      "cell": [
+       25,
+       19
+      ]
+     }
+    }
+   ],
+   "visible_flags": [
+    "ch1_voice_accepted"
+   ],
+   "requires_flags": [
+    "ch1_recording_heard"
+   ],
+   "blocked_reason": "還沒有實際聽過亭子錄音。",
+   "suggestion": "在安全電話亭聽錄音，不需要再死一次。"
+  },
+  {
+   "id": "sq1_ch1_supper",
+   "kind": "side",
+   "title": "留下吃麵，聽阿梨說自己的事",
+   "background": "阿梨下班邀你吃麵。接受之前不用替她還債，也不用替她作明天的決定。",
+   "reward": "實際告知後，把住處與暗號記進本子。",
+   "complete_flag": "sq1_first_supper_done",
+   "steps": [
+    {
+     "title": "明確接受阿梨的邀請並吃麵",
+     "complete_flag": "ch1_supper_meal_done",
+     "location": {
+      "level": "res://data/levels/ch1_stall.tres",
+      "cell": [
+       20,
+       19
+      ]
+     }
+    },
+    {
+     "title": "聽她說完夜話，把實地址記下",
+     "complete_flag": "sq1_first_supper_done",
+     "location": {
+      "level": "res://data/levels/ch1_stall.tres",
+      "cell": [
+       20,
+       19
+      ]
+     }
+    }
+   ],
+   "visible_flags": [
+    "ch1_lounge_evening_done"
+   ]
   }
  ],
  "scenes": {
@@ -163,30 +803,6 @@
     }
    ]
   },
-  "ch1_b_dinner": {
-   "mode": "bubbles",
-   "set_flags": [
-    "ch1_dinner_done"
-   ],
-   "lines": [
-    {
-     "speaker": "old_k",
-     "text": "今天的飯煮好了喔。"
-    },
-    {
-     "speaker": "rin",
-     "text": "這是今天的四十信用點。"
-    },
-    {
-     "speaker": "old_k",
-     "text": "我把紅蘿蔔切很細了啊。"
-    },
-    {
-     "speaker": "rin",
-     "text": "還是看得到。"
-    }
-   ]
-  },
   "ch1_t_oldk_1": {
    "mode": "dialogue",
    "lines": [
@@ -277,46 +893,6 @@
     {
      "speaker": "egret",
      "text": "那老頭永遠在吃飯。"
-    }
-   ]
-  },
-  "ch1_t_egret_1": {
-   "mode": "dialogue",
-   "set_flags": [
-    "ch1_heard_brief"
-   ],
-   "lines": [
-    {
-     "speaker": "egret",
-     "text": "這次要去碼頭倉庫，拿回保險箱裡存著帳目的資料盤。"
-    },
-    {
-     "speaker": "egret",
-     "text": "看門狗是倉庫的保全機甲，牠的脾氣可不好。"
-    },
-    {
-     "speaker": "rin",
-     "text": "是誰委託的？"
-    },
-    {
-     "speaker": "egret",
-     "text": "是天穹那邊要的，我沒追問來路，你也別問。"
-    },
-    {
-     "speaker": "rin",
-     "text": "你不跟我去？"
-    },
-    {
-     "speaker": "egret",
-     "text": "我今晚要去看一個人，下次再跟你說。"
-    },
-    {
-     "speaker": "egret",
-     "text": "你可別一個人死，連陪你喝酒的人都沒有。"
-    },
-    {
-     "speaker": "egret",
-     "text": "看到那座塔沒有？塔頂能看到真的太陽。"
     }
    ]
   },
@@ -524,26 +1100,2340 @@
     }
    ]
   },
-  "ch1_g10_disk": {
+  "ch1_d_back_a": {
    "mode": "radio",
    "lines": [
     {
      "speaker": "lamp",
-     "text": "資料盤記著收帳人的帳，天穹為什麼要查這個？"
-    },
-    {
-     "speaker": "rin",
-     "text": "我不知道來路，錢到了就行。"
+     "text": "歡迎回來。復原費已結算。"
     }
    ]
   },
+  "ch1_d_back_b": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "lamp",
+     "text": "再來一次，沒關係。"
+    }
+   ]
+  },
+  "ch1_d_back_c": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "lamp",
+     "text": "…歡迎回來。"
+    }
+   ]
+  },
+  "ch1_b_dinner": {
+   "mode": "bubbles",
+   "lines": [
+    {
+     "speaker": "old_k",
+     "text": "今天的飯煮好了喔。這頓我煮給你，不用交四十。"
+    },
+    {
+     "speaker": "rin",
+     "text": "那我先記著。"
+    },
+    {
+     "speaker": "old_k",
+     "text": "不是叫你記一筆，叫你趁熱吃。明天的事明天再說。"
+    },
+    {
+     "speaker": "rin",
+     "text": "好，我先趁熱吃。"
+    }
+   ],
+   "then": "ch1_b_dinner_food"
+  },
+  "ch1_b_dinner_food": {
+   "mode": "bubbles",
+   "lines": [
+    {
+     "speaker": "old_k",
+     "text": "我把紅蘿蔔切很細了啊。"
+    },
+    {
+     "speaker": "rin",
+     "text": "還是看得到。"
+    }
+   ],
+   "results": [
+    {
+     "kind": "transaction",
+     "id": "ch1.daily_dinner"
+    },
+    {
+     "kind": "flag",
+     "id": "ch1_dinner_done",
+     "value": true
+    }
+   ]
+  },
+  "ch1_t_egret_1": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "egret",
+     "text": "倉庫保險箱裡有一片資料盤，今晚把它取出來。驗收是八百，不是看一眼就算。"
+    },
+    {
+     "speaker": "rin",
+     "text": "一成照舊，先別算進我能花的錢。"
+    },
+    {
+     "speaker": "egret",
+     "text": "看門狗是倉庫的保全機甲，牠的脾氣可不好。天穹委託的盤，你先照編號取。"
+    },
+    {
+     "speaker": "egret",
+     "text": "拿到盤後走倉庫上層出口。那條路到復原館外的交接櫃，不用帶著盤再穿一次路障。"
+    },
+    {
+     "speaker": "rin",
+     "text": "復原館就是電話亭旁邊那間夜間店？"
+    },
+    {
+     "speaker": "egret",
+     "text": "對，交接櫃在店外，不是交給店裡的人。櫃子收盤後吐回執，明早我跟你對錢。"
+    },
+    {
+     "speaker": "rin",
+     "text": "盤放進櫃子裡，回執由我自己收著，我記住了。"
+    }
+   ],
+   "when": {
+    "flag": "ch1_dinner_done",
+    "equals": true
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch1_heard_brief",
+     "value": true
+    }
+   ]
+  },
+  "ch1_t_egret_brief_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "上層出口接交接櫃，回執別留在櫃裡，明早還要對。"
+    }
+   ],
+   "when": {
+    "flag": "ch1_heard_brief",
+    "equals": true
+   },
+   "then": "ch1_hub_brief"
+  },
+  "ch1_g10_disk_unclaimed": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "lamp",
+     "text": "保險箱可以開了，盤還在裡面，別只顧著找上層出口。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_flood_gate_open",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ledger_disk_obtained",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch1_g10_disk": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "收帳人的徽章還貼在上面。"
+    },
+    {
+     "speaker": "lamp",
+     "text": "那是記帳用的資料盤，天穹要核哪一筆，得等交接櫃驗收。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ledger_disk_obtained",
+      "equals": true
+     },
+     {
+      "item": "ch1_data_disk"
+     }
+    ]
+   },
+   "then": "ch1_g10_disk_return"
+  },
+  "ch1_g10_disk_return": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "我先把盤送到櫃子，錢明早再對。"
+    },
+    {
+     "speaker": "lamp",
+     "text": "上層通道亮了。走到出口前還有守衛，別把盤當通行證。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ledger_disk_obtained",
+      "equals": true
+     },
+     {
+      "item": "ch1_data_disk"
+     }
+    ]
+   }
+  },
+  "ch1_g10_disk_missing": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "lamp",
+     "text": "資料盤還在保險箱，取出後再走上層通道。"
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ledger_disk_obtained",
+     "equals": true
+    }
+   }
+  },
+  "ch1_b_handoff": {
+   "mode": "bubbles",
+   "lines": [
+    {
+     "speaker": "lamp",
+     "text": "藍燈櫃是交盤用的，店門在旁邊。"
+    },
+    {
+     "speaker": "rin",
+     "text": "我先把盤交了，再找地方擦乾。"
+    }
+   ],
+   "when": {
+    "item": "ch1_data_disk"
+   }
+  },
+  "ch1_t_handoff_confirm": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "terminal",
+     "text": "請確認交付資料盤，接收完成後原盤由委託方保管。"
+    },
+    {
+     "do": "choice",
+     "text": "請確認交付資料盤，接收完成後原盤由委託方保管。",
+     "default": "return",
+     "options": [
+      {
+       "id": "deliver",
+       "text": "交付這片資料盤",
+       "explanation": "報酬800次晨核對；原盤交委託方保管。",
+       "target": "ch1_t_handoff_accept"
+      },
+      {
+       "id": "return",
+       "text": "先退出",
+       "explanation": "盤仍由你持有，不取得回執。"
+      }
+     ]
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ledger_disk_obtained",
+      "equals": true
+     },
+     {
+      "item": "ch1_data_disk"
+     },
+     {
+      "not": {
+       "flag": "ch1_disk_delivered",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch1_t_handoff_accept": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "terminal",
+     "text": "資料盤已接收，徽章與委託編號一致。驗收回執已建立。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "item": "ch1_data_disk"
+     },
+     {
+      "not": {
+       "flag": "ch1_disk_delivered",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "item_transfer",
+     "id": "ch1_data_disk"
+    },
+    {
+     "kind": "flag",
+     "id": "ch1_disk_delivered",
+     "value": true
+    }
+   ]
+  },
+  "ch1_t_handoff_receipt_prompt": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "terminal",
+     "text": "原盤已接收，請取驗收回執。"
+    },
+    {
+     "do": "choice",
+     "text": "原盤已接收，請取驗收回執。",
+     "default": "return",
+     "options": [
+      {
+       "id": "take",
+       "text": "取出驗收回執",
+       "explanation": "取回執與電子副本，現在不領錢。",
+       "target": "ch1_t_handoff_receipt"
+      },
+      {
+       "id": "return",
+       "text": "先退出",
+       "explanation": "原盤仍由櫃子保管，可以回來取紙。"
+      }
+     ]
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_disk_delivered",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch1_disk_receipt_taken",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch1_t_handoff_receipt": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "回執出來了，鷺姐明早替你對錢。我把電子副本也留著，雨別讓紙黏成一塊。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "盤交了，錢我明天再核。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_disk_delivered",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch1_disk_receipt_taken",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "item_acquire",
+     "id": "ch1_delivery_receipt"
+    },
+    {
+     "kind": "flag",
+     "id": "ch1_disk_receipt_taken",
+     "value": true
+    }
+   ]
+  },
+  "ch1_t_handoff_summary_prompt": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "紙已拿到，還有缺附件那頁可以留。"
+    },
+    {
+     "do": "choice",
+     "text": "紙已拿到，還有缺附件那頁可以留。",
+     "default": "return",
+     "options": [
+      {
+       "id": "save",
+       "text": "保留可閱覽摘要",
+       "explanation": "保留批號M17與待查欄位，不代表已付或待付的判決。",
+       "target": "ch1_t_handoff_summary"
+      },
+      {
+       "id": "return",
+       "text": "先退出",
+       "explanation": "回執保留，可以回來存摘要。"
+      }
+     ]
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_disk_receipt_taken",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch1_market_summary_known",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch1_t_handoff_summary": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "egret",
+     "text": "盤裡有一筆市場修繕代收沒付款附件。明早上屋頂再談，今晚先把取盤這筆做好。"
+    },
+    {
+     "speaker": "rin",
+     "text": "沒附件是沒付，還是收了沒記？"
+    },
+    {
+     "speaker": "egret",
+     "text": "現在只能說缺一張紙，不能替那個人認欠款。"
+    },
+    {
+     "speaker": "lamp",
+     "text": "這份摘要準你查批號，不是要你再去拿同一片盤。"
+    },
+    {
+     "speaker": "rin",
+     "text": "我留批號和缺的那欄，明早先領錢，再去找收據。"
+    },
+    {
+     "speaker": "egret",
+     "text": "旁邊有熱湯，你把紙收好，別把回執泡進去。"
+    },
+    {
+     "speaker": "rin",
+     "text": "我把帳夾裡面，湯放外面。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_disk_delivered",
+      "equals": true
+     },
+     {
+      "flag": "ch1_disk_receipt_taken",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch1_market_summary_known",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "item_acquire",
+     "id": "ch1_market_summary"
+    },
+    {
+     "kind": "flag",
+     "id": "ch1_market_summary_known",
+     "value": true
+    },
+    {
+     "kind": "flag",
+     "id": "ch1_handoff_done",
+     "value": true
+    }
+   ]
+  },
+  "ch1_t_handoff_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "terminal",
+     "text": "驗收紀錄已保存，次晨到當舖核對報酬。"
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "今晚交的盤不會再算第二片，剩下的是明天的紙。"
+    }
+   ],
+   "when": {
+    "flag": "ch1_handoff_done",
+    "equals": true
+   }
+  },
+  "ch1_b_lounge": {
+   "mode": "bubbles",
+   "lines": [
+    {
+     "speaker": "ali",
+     "text": "想擦乾就進來，桌邊有乾布。"
+    }
+   ],
+   "when": {
+    "flag": "ch1_handoff_done",
+    "equals": true
+   }
+  },
+  "ch1_t_ali_meet_booth": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "ali",
+     "text": "剛從電話亭回來嗎？你可以先把外套上的水擦掉。"
+    },
+    {
+     "speaker": "rin",
+     "text": "我後來在亭子醒過，最早那次是被送到診間。"
+    },
+    {
+     "speaker": "ali",
+     "text": "你想說最早那次，還是先吃一口熱的？"
+    },
+    {
+     "speaker": "rin",
+     "text": "先吃，盤已經交到外面的櫃了。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_handoff_done",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch1_met_ali",
+       "equals": true
+      }
+     },
+     {
+      "not": {
+       "flag": "ch1_ali_reception_selected",
+       "equals": true
+      }
+     },
+     {
+      "all": [
+       {
+        "flag": "ch1_first_death_done",
+        "equals": true
+       },
+       {
+        "flag": "ch1_booth_restoration_done",
+        "equals": true
+       }
+      ]
+     }
+    ]
+   },
+   "then": "ch1_t_ali_1"
+  },
+  "ch1_t_ali_meet_clinic": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "ali",
+     "text": "你手上是初次建檔的紙帶，診間送你出來了？"
+    },
+    {
+     "speaker": "rin",
+     "text": "灰衣人把我送過去，我醒來後走回倉庫，沒有在亭子醒過。"
+    },
+    {
+     "speaker": "ali",
+     "text": "那你這一路又走了一遍。先把紙帶收好，湯不用跟著趕。"
+    },
+    {
+     "speaker": "rin",
+     "text": "回執在本子裡，手上這張我也收。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_handoff_done",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch1_met_ali",
+       "equals": true
+      }
+     },
+     {
+      "not": {
+       "flag": "ch1_ali_reception_selected",
+       "equals": true
+      }
+     },
+     {
+      "all": [
+       {
+        "flag": "ch1_first_death_done",
+        "equals": true
+       },
+       {
+        "flag": "ch1_true_death_record_known",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch1_booth_restoration_done",
+         "equals": true
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "then": "ch1_t_ali_1"
+  },
+  "ch1_t_ali_meet_no_death": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "ali",
+     "text": "外面下了一整夜，你是來等復原的人，還是自己路過？"
+    },
+    {
+     "speaker": "rin",
+     "text": "我是來交盤的，今天還沒用到復原。"
+    },
+    {
+     "speaker": "ali",
+     "text": "這裡也收沒復原過的客人。你想吃餐，還是只坐一下？"
+    },
+    {
+     "speaker": "rin",
+     "text": "我先看價目，坐著算完這筆。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_handoff_done",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch1_met_ali",
+       "equals": true
+      }
+     },
+     {
+      "not": {
+       "flag": "ch1_ali_reception_selected",
+       "equals": true
+      }
+     },
+     {
+      "all": [
+       {
+        "flag": "ch1_true_death_record_known",
+        "equals": true
+       },
+       {
+        "flag": "ch1_zero_true_deaths",
+        "equals": true
+       }
+      ]
+     }
+    ]
+   },
+   "then": "ch1_t_ali_1"
+  },
+  "ch1_t_ali_meet_unknown": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "外面下了一整夜，你想先歇一下嗎？"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我先歇一下，盤已經交了。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_handoff_done",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch1_met_ali",
+       "equals": true
+      }
+     },
+     {
+      "not": {
+       "flag": "ch1_ali_reception_selected",
+       "equals": true
+      }
+     },
+     {
+      "not": {
+       "flag": "ch1_true_death_record_known",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "then": "ch1_t_ali_1"
+  },
+  "ch1_t_ali_1": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "復原餐是一碗補身的熱湯，連肉和麵包是一百二十，酒八十。兩樣一起兩百，離店前再結。"
+    },
+    {
+     "do": "choice",
+     "text": "復原餐是一碗補身的熱湯，連肉和麵包是一百二十，酒八十。兩樣一起兩百，離店前再結。",
+     "default": "return",
+     "options": [
+      {
+       "id": "order",
+       "text": "湯和酒我都要，合計200",
+       "explanation": "現在不扣款，離店前可付清、保留欠條或接受今晚招待。",
+       "target": "ch1_t_ali_order"
+      },
+      {
+       "id": "sit",
+       "text": "先只坐一下",
+       "explanation": "沒有餐酒訂單，不會欠200。",
+       "target": "ch1_t_ali_sit"
+      },
+      {
+       "id": "return",
+       "text": "先返回",
+       "explanation": "不點餐、不扣款，可以再問。"
+      }
+     ]
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_handoff_done",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch1_met_ali",
+       "equals": true
+      }
+     },
+     {
+      "not": {
+       "flag": "ch1_ali_reception_selected",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch1_t_ali_order": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "湯和酒我都要，兩百先記這一晚。"
+    },
+    {
+     "speaker": "ali",
+     "text": "好，等你離店前再一起結帳。今晚的麵不另外收錢。"
+    },
+    {
+     "speaker": "rin",
+     "text": "這邊留給碗，紙不要碰到湯。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_handoff_done",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch1_met_ali",
+       "equals": true
+      }
+     },
+     {
+      "not": {
+       "flag": "ch1_ali_reception_selected",
+       "equals": true
+      }
+     },
+     {
+      "account": "ch1_lounge",
+      "equals": "none"
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "transaction",
+     "id": "ch1.revival_meal.order"
+    },
+    {
+     "kind": "item_acquire",
+     "id": "ch1_lounge_bill"
+    },
+    {
+     "kind": "flag",
+     "id": "ch1_ali_reception_selected",
+     "value": true
+    }
+   ],
+   "then": "ch1_t_ali_name"
+  },
+  "ch1_t_ali_sit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我先只坐一下，不點餐。"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "那就坐著休息吧，桌邊有乾布，不用先留飯錢。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_handoff_done",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch1_met_ali",
+       "equals": true
+      }
+     },
+     {
+      "not": {
+       "flag": "ch1_ali_reception_selected",
+       "equals": true
+      }
+     },
+     {
+      "account": "ch1_lounge",
+      "equals": "none"
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch1_ali_reception_selected",
+     "value": true
+    }
+   ],
+   "then": "ch1_t_ali_name"
+  },
+  "ch1_t_ali_name": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "ali",
+     "text": "您怎麼稱呼？"
+    },
+    {
+     "speaker": "rin",
+     "text": "我叫凜。"
+    },
+    {
+     "speaker": "ali",
+     "text": "我叫阿梨，是梨子的梨。老人說別分梨吃，會把人分開。"
+    },
+    {
+     "speaker": "rin",
+     "text": "我把名字記著，梨我自己吃。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_handoff_done",
+      "equals": true
+     },
+     {
+      "flag": "ch1_ali_reception_selected",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch1_met_ali",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch1_met_ali",
+     "value": true
+    }
+   ]
+  },
+  "ch1_t_ali_2_ordered": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "這湯怎麼是甜的？"
+    },
+    {
+     "speaker": "ali",
+     "text": "梨放進去煮久一點，冷了也沒那麼澀。這是我以前學的做法。"
+    },
+    {
+     "speaker": "rin",
+     "text": "妳把湯留到這麼晚，也是工作？"
+    },
+    {
+     "speaker": "ali",
+     "text": "我也有下班的時候。今晚已經到了，不會把你坐多久都記成工錢。"
+    },
+    {
+     "speaker": "rin",
+     "text": "餐酒的兩百我記著，坐著的不用另開一張。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch1_met_ali",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch1_lounge_evening_done",
+         "equals": true
+        }
+       }
+      ]
+     },
+     {
+      "not": {
+       "flag": "ch1_ali_evening_talk_done",
+       "equals": true
+      }
+     },
+     {
+      "account": "ch1_lounge",
+      "equals": "open200"
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch1_ali_evening_talk_done",
+     "value": true
+    }
+   ],
+   "then": "ch1_t_ali_evening_close"
+  },
+  "ch1_t_ali_2_sit": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "妳收鍋時還放梨？"
+    },
+    {
+     "speaker": "ali",
+     "text": "梨放進去煮久一點，冷了也沒那麼澀。這是我以前學的做法。"
+    },
+    {
+     "speaker": "rin",
+     "text": "妳把湯留到這麼晚，也是工作？"
+    },
+    {
+     "speaker": "ali",
+     "text": "我也有下班的時候。今晚已經到了，不會把你坐多久都記成工錢。"
+    },
+    {
+     "speaker": "rin",
+     "text": "我只坐了一會兒，沒有餐酒這筆。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch1_met_ali",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch1_lounge_evening_done",
+         "equals": true
+        }
+       }
+      ]
+     },
+     {
+      "not": {
+       "flag": "ch1_ali_evening_talk_done",
+       "equals": true
+      }
+     },
+     {
+      "account": "ch1_lounge",
+      "equals": "none"
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch1_ali_evening_talk_done",
+     "value": true
+    }
+   ],
+   "then": "ch1_t_ali_evening_close"
+  },
+  "ch1_t_ali_evening_close": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "外頭剩一碗麵，我下班後才吃。你想留下就一起，不想等也能先走。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我到門口再決定，先把紙收好。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch1_met_ali",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch1_lounge_evening_done",
+         "equals": true
+        }
+       }
+      ]
+     },
+     {
+      "flag": "ch1_ali_evening_talk_done",
+      "equals": true
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch1_lounge_evening_done",
+     "value": true
+    }
+   ]
+  },
+  "ch1_t_ali_death_topic": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "妳不問我今天怎麼死的？"
+    },
+    {
+     "speaker": "ali",
+     "text": "你想講的話我就聽著。你想先把湯喝完，我也不會替你補一個故事。"
+    },
+    {
+     "speaker": "rin",
+     "text": "先讓我喝完，明早還有帳。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_met_ali",
+      "equals": true
+     },
+     {
+      "flag": "ch1_first_death_done",
+      "equals": true
+     },
+     {
+      "account": "ch1_lounge",
+      "equals": "open200"
+     }
+    ]
+   },
+   "then": "ch1_hub_ali_lounge"
+  },
+  "ch1_t_ali_late_topic": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "妳不問我為什麼跑這麼晚？"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "你想講才講，坐一下不需要先交代差事。"
+    }
+   ],
+   "when": {
+    "flag": "ch1_met_ali",
+    "equals": true
+   },
+   "then": "ch1_hub_ali_lounge"
+  },
+  "ch1_t_ali_evening_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "湯鍋我收了，麵在外頭，走不走你自己決定。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_lounge_evening_done",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch1_supper_done",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch1_b_stall": {
+   "mode": "bubbles",
+   "lines": [
+    {
+     "speaker": "ali",
+     "text": "這碗麵還熱，你要留下嗎？"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_lounge_evening_done",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch1_supper_done",
+       "equals": true
+      }
+     },
+     {
+      "flag": "ch1_supper_choice",
+      "equals": "unset"
+     }
+    ]
+   }
+  },
+  "ch1_t_supper_choice_ordered": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "你想先回家，還是留下吃一碗？麵是我請的，不加在餐酒那張。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我想先把今晚這張說清楚，明天那張另算。"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "今晚餐酒兩百，沒有另收陪坐或宵夜錢。你留下，這份我用今天的招待額度結。"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "你先走，可以付清，也可以把欠條留著。"
+    },
+    {
+     "do": "choice",
+     "text": "你先走，可以付清，也可以把欠條留著。",
+     "default": "return",
+     "options": [
+      {
+       "id": "leave",
+       "text": "結清餐酒，先回家。",
+       "explanation": "確認支付200；不足可保留欠條。",
+       "set_flags": {
+        "ch1_supper_choice": "leave"
+       },
+       "target": "ch1_t_supper_leave_options"
+      },
+      {
+       "id": "stay",
+       "text": "留下來吃一碗麵。",
+       "explanation": "接受阿梨今晚的一份餐酒招待；麵不收錢。",
+       "set_flags": {
+        "ch1_supper_choice": "stay"
+       },
+       "target": "ch1_t_supper_host_prompt"
+      },
+      {
+       "id": "return",
+       "text": "先返回，讓我想一下。",
+       "explanation": "暫不作決定，可以再和阿梨說話。"
+      }
+     ]
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch1_lounge_evening_done",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch1_supper_done",
+         "equals": true
+        }
+       },
+       {
+        "flag": "ch1_supper_choice",
+        "equals": "unset"
+       }
+      ]
+     },
+     {
+      "account": "ch1_lounge",
+      "equals": "open200"
+     }
+    ]
+   }
+  },
+  "ch1_t_supper_choice_none": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "你想先回家，還是留下吃一碗？麵是我請的，不加在餐酒那張。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我想先把今晚這張說清楚，明天那張另算。"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "你今晚只坐了一會兒，沒有餐酒帳。想回家就回，麵還是我請的。"
+    },
+    {
+     "do": "choice",
+     "text": "你今晚只坐了一會兒，沒有餐酒帳。想回家就回，麵還是我請的。",
+     "default": "return",
+     "options": [
+      {
+       "id": "leave",
+       "text": "先回家，改天再聊。",
+       "explanation": "沒有餐酒帳，不會扣款。",
+       "set_flags": {
+        "ch1_supper_choice": "leave"
+       },
+       "target": "ch1_t_supper_leave_none"
+      },
+      {
+       "id": "stay",
+       "text": "留下來吃一碗麵。",
+       "explanation": "麵由阿梨請，沒有餐酒帳。",
+       "set_flags": {
+        "ch1_supper_choice": "stay"
+       },
+       "target": "ch1_t_supper_host_none_prompt"
+      },
+      {
+       "id": "return",
+       "text": "先返回，讓我想一下。",
+       "explanation": "暫不作決定，可以再和阿梨說話。"
+      }
+     ]
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch1_lounge_evening_done",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch1_supper_done",
+         "equals": true
+        }
+       },
+       {
+        "flag": "ch1_supper_choice",
+        "equals": "unset"
+       }
+      ]
+     },
+     {
+      "account": "ch1_lounge",
+      "equals": "none"
+     }
+    ]
+   }
+  },
+  "ch1_t_supper_leave_options": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "餐點一百二十加上酒八十，今晚一共兩百。麵我就不吃了，我想先回家。"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "你不用替那碗麵留錢，我留給自己。"
+    },
+    {
+     "do": "choice",
+     "text": "你不用替那碗麵留錢，我留給自己。",
+     "default": "rechoose",
+     "options": [
+      {
+       "id": "pay",
+       "text": "確認支付200信用點",
+       "explanation": "結清今晚餐酒並回家；不足額不扣款。",
+       "target": "ch1_t_supper_pay"
+      },
+      {
+       "id": "defer",
+       "text": "保留200欠條，先回家",
+       "explanation": "現在不扣款、不加息；之後主動付清。",
+       "target": "ch1_t_supper_tab_confirm"
+      },
+      {
+       "id": "rechoose",
+       "text": "回去想一下",
+       "explanation": "還沒付款、簽欠條或接受招待，可以重選。",
+       "when": {
+        "flag": "ch1_supper_can_rechoose",
+        "equals": true
+       },
+       "target": "ch1_t_supper_return"
+      }
+     ]
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_supper_choice",
+      "equals": "leave"
+     },
+     {
+      "not": {
+       "flag": "ch1_supper_done",
+       "equals": true
+      }
+     },
+     {
+      "account": "ch1_lounge",
+      "equals": "open200"
+     }
+    ]
+   }
+  },
+  "ch1_t_supper_pay": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "餐酒兩百，我先結這張，明天的回執另算。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_supper_choice",
+      "equals": "leave"
+     },
+     {
+      "not": {
+       "flag": "ch1_supper_done",
+       "equals": true
+      }
+     },
+     {
+      "account": "ch1_lounge",
+      "equals": "open200"
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "transaction",
+     "id": "ch1.revival_meal.paid"
+    },
+    {
+     "kind": "flag",
+     "id": "ch1_supper_done",
+     "value": true
+    }
+   ],
+   "on_failure": {
+    "insufficient_credits": "ch1_t_supper_insufficient"
+   },
+   "then": "ch1_t_supper_paid_goodbye"
+  },
+  "ch1_t_supper_paid_goodbye": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "ali",
+     "text": "錢我收到了。回去別把濕紙放在爐邊烘，上面的字會掉。"
+    },
+    {
+     "speaker": "rin",
+     "text": "明天我要拿紙對錢，今晚先讓它乾。"
+    },
+    {
+     "speaker": "ali",
+     "text": "我下次還在這裡，你想喝湯再來。"
+    },
+    {
+     "speaker": "rin",
+     "text": "我記住這間店，不把下次也先答應了。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_supper_done",
+      "equals": true
+     },
+     {
+      "account": "ch1_lounge",
+      "equals": "paid200"
+     }
+    ]
+   }
+  },
+  "ch1_t_supper_insufficient": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我現在不夠兩百，不拿明天的錢當今天已經付了。"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "那就先把帳留著，我不加利息。你也可以坐下來，今晚算我請客。"
+    },
+    {
+     "do": "choice",
+     "text": "那就先把帳留著，我不加利息。你也可以坐下來，今晚算我請客。",
+     "default": "return",
+     "options": [
+      {
+       "id": "defer",
+       "text": "保留200欠條，先回家。",
+       "explanation": "現在不扣款、不加息。",
+       "target": "ch1_t_supper_tab_confirm"
+      },
+      {
+       "id": "stay",
+       "text": "回去選留下吃麵。",
+       "explanation": "回去重新決定，尚未接受招待。",
+       "target": "ch1_t_supper_return"
+      },
+      {
+       "id": "return",
+       "text": "先返回。",
+       "explanation": "維持未結帳，可再選。"
+      }
+     ]
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_supper_choice",
+      "equals": "leave"
+     },
+     {
+      "not": {
+       "flag": "ch1_supper_done",
+       "equals": true
+      }
+     },
+     {
+      "account": "ch1_lounge",
+      "equals": "open200"
+     }
+    ]
+   }
+  },
+  "ch1_t_supper_tab_confirm": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "餐酒兩百，現在不扣款、不加息，之後你可以主動付清。"
+    },
+    {
+     "do": "choice",
+     "text": "餐酒兩百，現在不扣款、不加息，之後你可以主動付清。",
+     "default": "return",
+     "options": [
+      {
+       "id": "confirm",
+       "text": "確認保留200欠條",
+       "explanation": "欠條與委託回執分開，不從720報酬自動扣。",
+       "target": "ch1_t_supper_tab"
+      },
+      {
+       "id": "return",
+       "text": "先返回",
+       "explanation": "不建立欠條、不扣款。"
+      }
+     ]
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_supper_choice",
+      "equals": "leave"
+     },
+     {
+      "not": {
+       "flag": "ch1_supper_done",
+       "equals": true
+      }
+     },
+     {
+      "account": "ch1_lounge",
+      "equals": "open200"
+     }
+    ]
+   }
+  },
+  "ch1_t_supper_tab": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "這張我自己記，不放進委託回執。"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "你自己寫清楚就好，沒有復原服務替你簽這張。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_supper_choice",
+      "equals": "leave"
+     },
+     {
+      "not": {
+       "flag": "ch1_supper_done",
+       "equals": true
+      }
+     },
+     {
+      "account": "ch1_lounge",
+      "equals": "open200"
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "transaction",
+     "id": "ch1.revival_meal.tab"
+    },
+    {
+     "kind": "item_acquire",
+     "id": "ch1_lounge_tab"
+    },
+    {
+     "kind": "flag",
+     "id": "ch1_supper_done",
+     "value": true
+    }
+   ],
+   "then": "ch1_t_supper_tab_goodbye"
+  },
+  "ch1_t_supper_tab_goodbye": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "欠條我留著，今晚不會再加，你先回家。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我記住這間店，不把下次也先答應了。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "account": "ch1_lounge",
+      "equals": "owed200"
+     },
+     {
+      "flag": "ch1_supper_done",
+      "equals": true
+     }
+    ]
+   }
+  },
+  "ch1_t_supper_leave_none": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "我今晚只是坐一會兒，沒有點餐。我先回家，下次再來吃。"
+    },
+    {
+     "speaker": "ali",
+     "text": "那就沒有餐酒這張。門口地滑，走外側那塊乾板。"
+    },
+    {
+     "speaker": "ali",
+     "text": "我下次還在這裡，你想喝湯再來。"
+    },
+    {
+     "speaker": "rin",
+     "text": "我記住這間店，不把下次也先答應了。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_supper_choice",
+      "equals": "leave"
+     },
+     {
+      "account": "ch1_lounge",
+      "equals": "none"
+     },
+     {
+      "not": {
+       "flag": "ch1_supper_done",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch1_supper_done",
+     "value": true
+    }
+   ]
+  },
+  "ch1_t_supper_return": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我還沒答應留下，先回去想一下。"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "那就先想，不用替我把話說完。"
+    }
+   ],
+   "when": {
+    "flag": "ch1_supper_can_rechoose",
+    "equals": true
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch1_supper_choice",
+     "value": "unset"
+    }
+   ]
+  },
+  "ch1_t_supper_leave_revisit_paid200": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "今晚的兩百已經結了，麵是我的，你回家吧。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_supper_done",
+      "equals": true
+     },
+     {
+      "flag": "ch1_supper_choice",
+      "equals": "leave"
+     },
+     {
+      "account": "ch1_lounge",
+      "equals": "paid200"
+     }
+    ]
+   }
+  },
+  "ch1_t_supper_leave_revisit_owed200": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "欠條我留著，今晚不會再加，你先回家。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_supper_done",
+      "equals": true
+     },
+     {
+      "flag": "ch1_supper_choice",
+      "equals": "leave"
+     },
+     {
+      "account": "ch1_lounge",
+      "equals": "owed200"
+     }
+    ]
+   }
+  },
+  "ch1_t_supper_leave_revisit_none": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "你沒有點餐，不用為那張空椅留錢。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_supper_done",
+      "equals": true
+     },
+     {
+      "flag": "ch1_supper_choice",
+      "equals": "leave"
+     },
+     {
+      "account": "ch1_lounge",
+      "equals": "none"
+     }
+    ]
+   }
+  },
+  "ch1_t_supper_host_prompt": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我留下。麵是妳請，今晚那份也算妳請？"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "是我自己決定的一份，今晚還沒用。你不用把明天的報酬押給我。"
+    },
+    {
+     "do": "choice",
+     "text": "是我自己決定的一份，今晚還沒用。你不用把明天的報酬押給我。",
+     "default": "return",
+     "options": [
+      {
+       "id": "accept",
+       "text": "接受今晚的招待",
+       "explanation": "餐酒由阿梨招待，不返現金；麵免費。",
+       "target": "ch1_t_supper_stay_host"
+      },
+      {
+       "id": "return",
+       "text": "回去想一下",
+       "explanation": "尚未接受招待，可回去重新決定。",
+       "when": {
+        "flag": "ch1_supper_can_rechoose",
+        "equals": true
+       },
+       "target": "ch1_t_supper_return"
+      }
+     ]
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch1_supper_choice",
+        "equals": "stay"
+       },
+       {
+        "not": {
+         "flag": "ch1_supper_done",
+         "equals": true
+        }
+       }
+      ]
+     },
+     {
+      "account": "ch1_lounge",
+      "equals": "open200"
+     },
+     {
+      "not": {
+       "flag": "ch1_supper_host_accepted",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch1_t_supper_stay_host": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "那我欠妳一碗麵，下次換我請。"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "那就欠著，你願意下次再坐，我就留一張椅子。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch1_supper_choice",
+        "equals": "stay"
+       },
+       {
+        "not": {
+         "flag": "ch1_supper_done",
+         "equals": true
+        }
+       }
+      ]
+     },
+     {
+      "account": "ch1_lounge",
+      "equals": "open200"
+     },
+     {
+      "not": {
+       "flag": "ch1_supper_host_accepted",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "transaction",
+     "id": "ch1.revival_meal.gift"
+    },
+    {
+     "kind": "flag",
+     "id": "ch1_supper_host_accepted",
+     "value": true
+    }
+   ],
+   "then": "ch1_t_supper_stay_meal"
+  },
+  "ch1_t_supper_host_none_prompt": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我留下，麵就這一碗？"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "還有湯，你想添再跟我說。"
+    },
+    {
+     "do": "choice",
+     "text": "還有湯，你想添再跟我說。",
+     "default": "return",
+     "options": [
+      {
+       "id": "accept",
+       "text": "接受這碗麵",
+       "explanation": "只接受麵，不生成餐酒帳。",
+       "target": "ch1_t_supper_stay_host_none"
+      },
+      {
+       "id": "return",
+       "text": "回去想一下",
+       "explanation": "尚未接受招待，可回去重新決定。",
+       "when": {
+        "flag": "ch1_supper_can_rechoose",
+        "equals": true
+       },
+       "target": "ch1_t_supper_return"
+      }
+     ]
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch1_supper_choice",
+        "equals": "stay"
+       },
+       {
+        "not": {
+         "flag": "ch1_supper_done",
+         "equals": true
+        }
+       }
+      ]
+     },
+     {
+      "account": "ch1_lounge",
+      "equals": "none"
+     },
+     {
+      "not": {
+       "flag": "ch1_supper_host_accepted",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch1_t_supper_stay_host_none": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "那我欠妳一碗麵，下次換我請。"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "那就欠著，你願意下次再坐，我就留一張椅子。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch1_supper_choice",
+        "equals": "stay"
+       },
+       {
+        "not": {
+         "flag": "ch1_supper_done",
+         "equals": true
+        }
+       }
+      ]
+     },
+     {
+      "account": "ch1_lounge",
+      "equals": "none"
+     },
+     {
+      "not": {
+       "flag": "ch1_supper_host_accepted",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch1_supper_host_accepted",
+     "value": true
+    }
+   ],
+   "then": "ch1_t_supper_stay_meal"
+  },
+  "ch1_t_supper_stay_meal": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "麵裡也放梨，你不怕人只記得甜？"
+    },
+    {
+     "speaker": "ali",
+     "text": "有人記得甜就再來，有人嫌甜就告訴我。我想開自己的攤，得先有人願意說不好吃。"
+    },
+    {
+     "speaker": "rin",
+     "text": "這碗我吃完了，還沒找到不好吃的地方。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch1_supper_choice",
+        "equals": "stay"
+       },
+       {
+        "not": {
+         "flag": "ch1_supper_done",
+         "equals": true
+        }
+       }
+      ]
+     },
+     {
+      "flag": "ch1_supper_host_accepted",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch1_supper_meal_done",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch1_supper_meal_done",
+     "value": true
+    }
+   ],
+   "then": "ch1_t_supper_stay_address"
+  },
+  "ch1_t_supper_stay_address": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我最近被收帳人盯上，去問租攤的事，也被叫回去對帳。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "他們要妳還多少？我明天也去市集查一張缺的收據。"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "本金我認，已經付過的又被寫進去。那張我得自己看，不能聽誰說就再付。"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "妳想我幫妳付，還是先看妳那張？"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "今晚先不用替我做。你明天有委託，先把你的紙對完；我的事，我想清楚會自己說。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "妳收了攤，平常去哪裡？"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我住市集後樓三樓，從代收處旁的外梯上去。敲兩下再一下，我就知道是你。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我把三樓和外梯記下，沒有答應今晚就去。"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我只是告訴你，不替你排明天。"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "回執放委託那頁，妳的名字放後面，不寫價錢。"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "這一頁留一點空，下次想說的事還裝得下。"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch1_supper_choice",
+        "equals": "stay"
+       },
+       {
+        "not": {
+         "flag": "ch1_supper_done",
+         "equals": true
+        }
+       }
+      ]
+     },
+     {
+      "flag": "ch1_supper_meal_done",
+      "equals": true
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "knows_ali_address",
+     "value": true
+    },
+    {
+     "kind": "flag",
+     "id": "sq1_first_supper_done",
+     "value": true
+    },
+    {
+     "kind": "flag",
+     "id": "ch1_supper_done",
+     "value": true
+    }
+   ]
+  },
+  "ch1_t_ali_4": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "麵吃完就先回家，明天的帳留給明天。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_supper_done",
+      "equals": true
+     },
+     {
+      "flag": "ch1_supper_choice",
+      "equals": "stay"
+     }
+    ]
+   }
+  },
+  "ch1_t_supper_stay_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我住市集後樓三樓，外梯上去，兩下再一下；路你記著，今晚先回家。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_supper_done",
+      "equals": true
+     },
+     {
+      "flag": "knows_ali_address",
+      "equals": true
+     },
+     {
+      "flag": "ch1_supper_choice",
+      "equals": "stay"
+     }
+    ]
+   }
+  },
   "ch1_c09_wake": {
    "mode": "animated",
-   "pose_policy": "supported",
-   "budget": 45.0,
-   "set_flags": [
-    "ch1_first_death_done"
-   ],
    "steps": [
     {
      "do": "scene",
@@ -600,35 +3490,26 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "誰把我弄到這的？"
+     "text": "誰把我送到這裡？我沒在這間診間登記。"
     },
     {
      "do": "say",
      "speaker": "lamp",
-     "text": "一個灰衣人開貨車送你來，沒收錢就走了。"
+     "text": "灰衣人用貨車把你送來，裝備也放在臺邊。你是第一次復原，要先建檔。"
     },
     {
-     "do": "wait",
-     "time": 0.8
-    },
-    {
-     "do": "say",
-     "speaker": "rin",
-     "text": "這間診所我沒登記過。"
-    },
-    {
-     "do": "say",
-     "speaker": "lamp",
-     "text": "這裡用天穹的技術復原身體，第一次來要先建檔。"
+     "do": "camera",
+     "pos": [
+      316,
+      214
+     ],
+     "zoom": 1.55,
+     "time": 1.0
     },
     {
      "do": "say",
      "speaker": "lamp",
-     "text": "建檔後就登記電話亭，下次會在備份的亭子醒來。"
-    },
-    {
-     "do": "wait",
-     "time": 0.35
+     "text": "備份能存你走過的地方，初次建檔是另一件事。這次完成後，下次才在登記的亭子醒來。"
     },
     {
      "do": "say",
@@ -644,248 +3525,188 @@
      "text": "港區少年的聲音，長得都差不多吧。"
     },
     {
-     "do": "wait",
-     "time": 0.9
-    },
-    {
-     "do": "say",
-     "speaker": "rin",
-     "text": "復原也要收費吧？"
-    },
-    {
-     "do": "say",
-     "speaker": "lamp",
-     "text": "這次建檔免費，下次復原要扣信用點，記憶也會磨損。"
-    },
-    {
-     "do": "say",
-     "speaker": "rin",
-     "text": "磨多少？"
-    },
-    {
-     "do": "wait",
-     "time": 0.35
-    },
-    {
-     "do": "say",
-     "speaker": "lamp",
-     "text": "沒人量得準。"
-    },
-    {
-     "do": "wait",
-     "time": 0.8
-    },
-    {
      "do": "camera",
      "pos": [
       316,
-      240.2
+      221
      ],
-     "zoom": 1.25,
-     "time": 0.8
+     "zoom": 1.4,
+     "time": 1.0
     },
     {
-     "do": "pose",
-     "id": "rin",
-     "pose": "idle"
+     "do": "say",
+     "speaker": "lamp",
+     "text": "初次建檔免信用點費，之後復原照登記費扣，記憶也會磨損。"
+    },
+    {
+     "do": "fx",
+     "kind": "noise",
+     "time": 0.4
     },
     {
      "do": "say",
      "speaker": "rin",
-     "text": "我先回去了。"
+     "text": "我以為保單連這個也算好了。"
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "我只知道你這次登記能過，保單那頁得你自己留著。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我先把裝備帶走，回去接著走。"
     },
     {
      "do": "wait",
      "time": 0.5
-    },
-    {
-     "do": "fade",
-     "to": 1.0,
-     "time": 1.2
     }
-   ]
-  },
-  "ch1_d_back_a": {
-   "mode": "radio",
-   "lines": [
-    {
-     "speaker": "lamp",
-     "text": "歡迎回來。復原費已結算。"
-    }
-   ]
-  },
-  "ch1_d_back_b": {
-   "mode": "radio",
-   "lines": [
-    {
-     "speaker": "lamp",
-     "text": "再來一次，沒關係。"
-    }
-   ]
-  },
-  "ch1_d_back_c": {
-   "mode": "radio",
-   "lines": [
-    {
-     "speaker": "lamp",
-     "text": "…歡迎回來。"
-    }
-   ]
-  },
-  "ch1_b_lounge": {
-   "mode": "bubbles",
-   "lines": [
-    {
-     "speaker": "ali",
-     "text": "先坐下喝湯吧，湯還熱著。"
-    }
-   ]
-  },
-  "ch1_t_ali_1": {
-   "mode": "dialogue",
-   "set_flags": [
-    "ch1_met_ali"
    ],
-   "lines": [
-    {
-     "speaker": "ali",
-     "text": "剛從電話亭醒來嗎？"
-    },
-    {
-     "speaker": "rin",
-     "text": "我剛從電話亭醒來。"
-    },
-    {
-     "speaker": "ali",
-     "text": "你還能自己走進來，運氣真好。復原餐是補身的熱湯，要吃餐還是喝酒？"
-    },
-    {
-     "speaker": "rin",
-     "text": "湯和酒我都要。"
-    },
-    {
-     "speaker": "ali",
-     "text": "您貴姓？"
-    },
-    {
-     "speaker": "rin",
-     "text": "我叫凜。"
-    },
-    {
-     "speaker": "ali",
-     "text": "我叫阿梨，名字取的是梨子的梨。別跟人分梨吃，老人說這樣會分開。"
-    },
-    {
-     "speaker": "rin",
-     "text": "我記住了。"
+   "budget": 45.0,
+   "pose_policy": "supported",
+   "when": {
+    "not": {
+     "flag": "ch1_first_death_done",
+     "equals": true
     }
-   ]
-  },
-  "ch1_t_ali_2": {
-   "mode": "dialogue",
-   "lines": [
+   },
+   "results": [
     {
-     "speaker": "rin",
-     "text": "這湯怎麼是甜的？"
-    },
-    {
-     "speaker": "ali",
-     "text": "放了一顆梨。"
-    },
-    {
-     "speaker": "ali",
-     "text": "我下班了。這個不是工作。"
-    },
-    {
-     "speaker": "rin",
-     "text": "這份要多少錢？"
-    },
-    {
-     "speaker": "ali",
-     "text": "放著吧。"
+     "kind": "flag",
+     "id": "ch1_first_death_done",
+     "value": true
     }
-   ]
-  },
-  "ch1_b_stall": {
-   "mode": "bubbles",
-   "lines": [
-    {
-     "speaker": "ali",
-     "text": "先吃一碗熱麵吧。"
-    }
-   ]
-  },
-  "ch1_t_ali_4": {
-   "mode": "dialogue",
-   "lines": [
-    {
-     "speaker": "ali",
-     "text": "吃完再走。"
-    },
-    {
-     "speaker": "rin",
-     "text": "我記住了。"
-    },
-    {
-     "speaker": "ali",
-     "text": "天快亮了。"
-    }
-   ]
-  },
-  "ch1_t_ali_3": {
-   "mode": "dialogue",
-   "set_flags": [
-    "knows_ali_address"
    ],
-   "lines": [
+   "context_facts": [
+    "first_clinic"
+   ],
+   "then": "ch1_t_clinic_tray_prompt"
+  },
+  "ch1_t_clinic_backup_registered": {
+   "mode": "animated",
+   "steps": [
     {
+     "do": "scene",
+     "id": "ch1_revival_room",
+     "pos": [
+      316,
+      205
+     ],
+     "zoom": 1.4,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      316,
+      230.8
+     ],
+     "facing": 1,
+     "scale": 2.5,
+     "weapon": "",
      "speaker": "rin",
-     "text": "這份要多少錢？"
+     "pose": "sit",
+     "pose_reason": "復原後坐在檢查台邊緣醒來。",
+     "pose_support": "診間檢查台座面：舞台 x=316、y=196；腳底由 sit_y 量測。"
     },
     {
-     "speaker": "ali",
-     "text": "不收錢。"
-    },
-    {
+     "do": "say",
      "speaker": "rin",
-     "text": "那我欠你。"
+     "text": "我在街角備份過，還不能直接回亭子？"
     },
     {
-     "speaker": "ali",
-     "text": "那就欠著。"
-    },
-    {
-     "speaker": "ali",
-     "text": "我最近被收帳人盯上了。"
-    },
-    {
-     "speaker": "rin",
-     "text": "他們要你還多少？"
-    },
-    {
-     "speaker": "ali",
-     "text": "錢不是問題。他們一直在加。"
-    },
-    {
-     "speaker": "ali",
-     "text": "我住市集後方三樓，敲三下再敲兩下，我就知道是你。"
+     "do": "say",
+     "speaker": "lamp",
+     "text": "初次建檔是另一件事，這次完成後才回登記的亭子。"
     }
-   ]
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_first_clinic_active",
+      "equals": true
+     },
+     {
+      "flag": "ch1_booth_registered",
+      "equals": true
+     }
+    ]
+   },
+   "then": "ch1_t_clinic_tray_prompt",
+   "pose_policy": "supported"
+  },
+  "ch1_t_clinic_backup_missing": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_revival_room",
+     "pos": [
+      316,
+      205
+     ],
+     "zoom": 1.4,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      316,
+      230.8
+     ],
+     "facing": 1,
+     "scale": 2.5,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "sit",
+     "pose_reason": "復原後坐在檢查台邊緣醒來。",
+     "pose_support": "診間檢查台座面：舞台 x=316、y=196；腳底由 sit_y 量測。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我還沒登記亭子，下次要走回這裡？"
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "完成建檔後登記電話亭，下次在登記的亭子醒來。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_first_clinic_active",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch1_booth_registered",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "then": "ch1_t_clinic_tray_prompt",
+   "pose_policy": "supported"
   },
   "ch1_c14_home": {
    "mode": "animated",
-   "pose_policy": "supported",
-   "budget": 60.0,
    "steps": [
     {
      "do": "scene",
      "id": "ch1_pawnshop_kitchen",
      "pos": [
       320,
-      246.2
+      250
      ],
-     "zoom": 0.86,
-     "fade": 1.4
+     "zoom": 1.0,
+     "fade": 1.0
     },
     {
      "do": "actor",
@@ -896,21 +3717,21 @@
       304
      ],
      "facing": -1,
-     "scale": 3.4,
-     "weapon": ""
+     "scale": 3.8,
+     "pose": "idle"
     },
     {
      "do": "actor",
      "id": "k",
      "kind": "old_k",
+     "speaker": "old_k",
      "pos": [
       120,
       304
      ],
      "facing": -1,
-     "scale": 3.7,
-     "weapon": "",
-     "speaker": "old_k"
+     "scale": 4.2,
+     "pose": "idle"
     },
     {
      "do": "move",
@@ -919,48 +3740,43 @@
       330,
       304
      ],
-     "time": 2.6,
+     "time": 2.0,
      "wait": true,
-     "pose": "walk"
+     "then": "idle"
     },
     {
      "do": "say",
      "speaker": "rin",
-     "text": "老 K，壺裡沒水了。"
-    },
-    {
-     "do": "face",
-     "id": "k",
-     "dir": 1
+     "text": "老 K，壺裡已經沒水了，我先把爐火關掉。"
     },
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "你已經回來了啊。"
+     "text": "你已經回來了啊，我本來想留一壺。"
     },
     {
      "do": "say",
-     "speaker": "old_k",
-     "text": "水燒乾了喔。"
+     "speaker": "rin",
+     "text": "我回來了，資料盤已經交出去，錢明早再核對。"
     },
     {
      "do": "wait",
-     "time": 0.5
-    },
-    {
-     "do": "say",
-     "speaker": "rin",
-     "text": "水已經燒乾了。"
+     "time": 0.35
     },
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "我這記性越來越差了喔。"
+     "text": "八百那張有回執就收好，別拿來墊鍋喔。"
     },
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "我去裝個水。"
+     "text": "這壺燒乾了，不能算水好了。我去裝，今晚不用等它再滾。"
+    },
+    {
+     "do": "sfx",
+     "id": "switch",
+     "volume": -10
     },
     {
      "do": "move",
@@ -969,23 +3785,13 @@
       500,
       304
      ],
-     "time": 2.8,
+     "time": 2.0,
      "wait": true,
-     "pose": "walk"
-    },
-    {
-     "do": "sfx",
-     "id": "switch",
-     "volume": -10
+     "then": "idle"
     },
     {
      "do": "wait",
      "time": 1.4
-    },
-    {
-     "do": "face",
-     "id": "k",
-     "dir": -1
     },
     {
      "do": "move",
@@ -994,18 +3800,14 @@
       190,
       304
      ],
-     "time": 2.8,
+     "time": 2.0,
      "wait": true,
-     "pose": "walk"
+     "then": "idle"
     },
     {
-     "do": "camera",
-     "pos": [
-      292,
-      247.5
-     ],
-     "zoom": 0.88,
-     "time": 1.6
+     "do": "face",
+     "id": "k",
+     "dir": 1
     },
     {
      "do": "wait",
@@ -1014,26 +3816,2205 @@
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "…你什麼時候回來的？"
+     "text": "你什麼時候回來的？"
     },
     {
      "do": "say",
      "speaker": "rin",
-     "text": "我剛剛才回來。"
+     "text": "剛才，我站在這裡叫你關火。"
     },
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "水燒好了喔，來喝一杯。"
+     "text": "我有聽見喔。明天先好好吃飯，再來對帳。"
     },
     {
      "do": "wait",
-     "time": 1.4
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "飯留著，錢我明早再算。"
     },
     {
      "do": "fade",
      "to": 1.0,
-     "time": 1.4
+     "time": 1.0
+    }
+   ],
+   "budget": 60.0,
+   "pose_policy": "supported",
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_supper_done",
+      "equals": true
+     },
+     {
+      "flag": "ch1_handoff_done",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch1_home_done",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch1_home_done",
+     "value": true
+    },
+    {
+     "kind": "flag",
+     "id": "ch1_complete",
+     "value": true
+    }
+   ]
+  },
+  "ch1_t_home_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "回執放乾的那格，飯在鍋裡，明早再算喔。"
+    }
+   ],
+   "when": {
+    "flag": "ch1_home_done",
+    "equals": true
+   }
+  },
+  "ch1_t_egret_sunday_prompt": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "我今晚有自己的事，回執明早對。"
+    },
+    {
+     "do": "choice",
+     "text": "我今晚有自己的事，回執明早對。",
+     "default": "return",
+     "options": [
+      {
+       "id": "ask",
+       "text": "問今晚與週日的事",
+       "explanation": "只問她願意說的，不影響取盤差事。",
+       "set_flags": {
+        "ch1_sunday_accepted": true
+       },
+       "target": "ch1_t_egret_sunday"
+      },
+      {
+       "id": "return",
+       "text": "先去做差事",
+       "explanation": "週日不接案不會鎖住主線。"
+      }
+     ]
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_heard_brief",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "asked_egret_sunday",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch1_t_egret_sunday": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "妳今晚不跟去，是又接了別張差事？"
+    },
+    {
+     "speaker": "egret",
+     "text": "今晚去看一個人，差事明天才算。週日我也不排活。"
+    },
+    {
+     "speaker": "rin",
+     "text": "每個週日都不排，這張表是誰替妳留的？"
+    },
+    {
+     "speaker": "egret",
+     "text": "我自己留的。有人肯讓我坐一會兒，不能每次坐到一半就接電話。"
+    },
+    {
+     "speaker": "rin",
+     "text": "那我明天找妳，不把週日也排進去。"
+    },
+    {
+     "speaker": "egret",
+     "text": "這句你記著，下次有價高的別又說很快就做完。"
+    },
+    {
+     "speaker": "egret",
+     "text": "茶喝掉，不然等你算完，又說熱的不是這杯。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_heard_brief",
+      "equals": true
+     },
+     {
+      "flag": "ch1_sunday_accepted",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "asked_egret_sunday",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "asked_egret_sunday",
+     "value": true
+    }
+   ]
+  },
+  "ch1_t_egret_sunday_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "週日我留給那個人，今天先把你的差事做完。"
+    }
+   ],
+   "when": {
+    "flag": "asked_egret_sunday",
+    "equals": true
+   }
+  },
+  "ch1_t_label_watch": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "label",
+     "text": "送貨員押來的懷錶。他說遲到二十分鐘會被罵，三年沒有贖回。"
+    },
+    {
+     "speaker": "rin",
+     "text": "錶都不走了，你還留二十分鐘？"
+    },
+    {
+     "speaker": "old_k",
+     "text": "他說明天來，我就留到明天喔。櫃子裡多一格，又不會趕人走。"
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch1_label_watch_seen",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch1_label_watch_seen",
+     "value": true
+    }
+   ]
+  },
+  "ch1_t_label_watch_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "送貨員押來的懷錶。他說遲到二十分鐘會被罵，三年沒有贖回。"
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "這件我留著，主人來了才好找。"
+    }
+   ],
+   "when": {
+    "flag": "ch1_label_watch_seen",
+    "equals": true
+   }
+  },
+  "ch1_t_label_guitar": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "label",
+     "text": "押來時已經沒有弦。主人說，彈的人不在了。"
+    },
+    {
+     "speaker": "rin",
+     "text": "沒有弦，也算一件樂器？"
+    },
+    {
+     "speaker": "old_k",
+     "text": "以前彈的人很大聲啦。我聽過，就不用再寫價錢告訴自己。"
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch1_label_guitar_seen",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch1_label_guitar_seen",
+     "value": true
+    }
+   ]
+  },
+  "ch1_t_label_guitar_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "押來時已經沒有弦。主人說，彈的人不在了。"
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "這件我留著，主人來了才好找。"
+    }
+   ],
+   "when": {
+    "flag": "ch1_label_guitar_seen",
+    "equals": true
+   }
+  },
+  "ch1_t_label_raincoat": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "label",
+     "text": "碼頭舊雨衣。主人說，這件曾替另一個人擋過水。"
+    },
+    {
+     "speaker": "rin",
+     "text": "這個袖口破了，水還是會進去。"
+    },
+    {
+     "speaker": "old_k",
+     "text": "那就先替它折好，別讓人穿上才發現。我沒說穿著就不會死喔。"
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch1_label_raincoat_seen",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch1_label_raincoat_seen",
+     "value": true
+    }
+   ]
+  },
+  "ch1_t_label_raincoat_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "碼頭舊雨衣。主人說，這件曾替另一個人擋過水。"
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "這件我留著，主人來了才好找。"
+    }
+   ],
+   "when": {
+    "flag": "ch1_label_raincoat_seen",
+    "equals": true
+   }
+  },
+  "ch1_t_label_fare": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "label",
+     "text": "船錢，留給回不來的人渡河用的。"
+    },
+    {
+     "speaker": "rin",
+     "text": "這罐也算在可賣的貨裡？"
+    },
+    {
+     "speaker": "old_k",
+     "text": "這個不賣。有人回不來，還是要留一筆給他走完路。"
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch1_label_fare_seen",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch1_label_fare_seen",
+     "value": true
+    }
+   ]
+  },
+  "ch1_t_label_fare_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "船錢，留給回不來的人渡河用的。"
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "這件我留著，主人來了才好找。"
+    }
+   ],
+   "when": {
+    "flag": "ch1_label_fare_seen",
+    "equals": true
+   }
+  },
+  "ch1_t_lamp_voice_prompt": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "耳機我還接著，你想問什麼？"
+    },
+    {
+     "do": "choice",
+     "text": "耳機我還接著，你想問什麼？",
+     "default": "return",
+     "options": [
+      {
+       "id": "ask",
+       "text": "問燈為什麼像錄音",
+       "explanation": "記錄相似，不替錄音者填姓名。",
+       "set_flags": {
+        "ch1_voice_accepted": true
+       },
+       "target": "ch1_t_lamp_voice_first"
+      },
+      {
+       "id": "return",
+       "text": "先把路走完",
+       "explanation": "不影響當前主線，下次可再問。"
+      }
+     ]
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_recording_heard",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch1_lamp_voice_asked",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch1_t_lamp_voice_first": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "剛才錄音裡那個聲音跟你很像，你也替他們錄過？"
+    },
+    {
+     "speaker": "lamp",
+     "text": "我只在耳機裡陪你走，亭子播的是舊錄音。港區的喇叭本來都一樣難聽。"
+    },
+    {
+     "speaker": "rin",
+     "text": "你把我的耳機也罵進去了。"
+    },
+    {
+     "speaker": "lamp",
+     "text": "那顆喇叭真該換，我沒有改口。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_recording_heard",
+      "equals": true
+     },
+     {
+      "flag": "ch1_voice_accepted",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch1_lamp_voice_asked",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch1_lamp_voice_asked",
+     "value": true
+    }
+   ],
+   "then": "ch1_t_lamp_voice_second_prompt"
+  },
+  "ch1_t_lamp_voice_second_prompt": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "路線還接著，你要繼續問錄音？"
+    },
+    {
+     "do": "choice",
+     "text": "路線還接著，你要繼續問錄音？",
+     "default": "later",
+     "options": [
+      {
+       "id": "ask",
+       "text": "再問錄音是不是他",
+       "explanation": "他願不願意說，由他自己決定。",
+       "target": "ch1_t_lamp_voice_second"
+      },
+      {
+       "id": "later",
+       "text": "先不問",
+       "explanation": "保留第一次問過的線索，不算第二次答完。",
+       "target": "ch1_t_lamp_voice_later"
+      }
+     ]
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_lamp_voice_asked",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "sq5_lamp_voice_noticed",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch1_t_lamp_voice_second": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "我不是問喇叭。我想知道，說歡迎回來的人是不是你。"
+    },
+    {
+     "speaker": "lamp",
+     "text": "以前的聲音不一定跟現在一樣，我現在不想說這段。你可以先把路走完。"
+    },
+    {
+     "speaker": "rin",
+     "text": "那我記相似，不替你寫答案。"
+    },
+    {
+     "speaker": "lamp",
+     "text": "這樣記就好，回執也別忘了。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_lamp_voice_asked",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "sq5_lamp_voice_noticed",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "sq5_lamp_voice_noticed",
+     "value": true
+    }
+   ]
+  },
+  "ch1_t_lamp_voice_later": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "路線先接著，我回頭再問聲音。"
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "耳機我不掛，你走到下一盞燈再看。"
+    }
+   ],
+   "when": {
+    "flag": "ch1_lamp_voice_asked",
+    "equals": true
+   }
+  },
+  "ch1_t_lamp_voice_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "那段舊聲音我還沒想講，你記相似就好。"
+    }
+   ],
+   "when": {
+    "flag": "sq5_lamp_voice_noticed",
+    "equals": true
+   }
+  },
+  "ch1_t_clinic_tray_prompt": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_revival_room",
+     "pos": [
+      316,
+      205
+     ],
+     "zoom": 1.4,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      316,
+      230.8
+     ],
+     "facing": 1,
+     "scale": 2.5,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "sit",
+     "pose_reason": "復原後坐在檢查台邊緣醒來。",
+     "pose_support": "診間檢查台座面：舞台 x=316、y=196；腳底由 sit_y 量測。"
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "裝備在臺邊，茶杯放在托盤上。你想先看看，還是離開？"
+    },
+    {
+     "do": "choice",
+     "text": "裝備在臺邊，茶杯放在托盤上。你想先看看，還是離開？",
+     "default": "leave",
+     "options": [
+      {
+       "id": "look",
+       "text": "看杯邊的布角",
+       "explanation": "查看真托盤，不在復原回放中取物。",
+       "target": "ch1_t_clinic_cloth_look"
+      },
+      {
+       "id": "backup",
+       "text": "問下次會在哪裡醒來。",
+       "explanation": "復原點的規則，不影響建檔。",
+       "target": "ch1_dispatch_clinic_backup"
+      },
+      {
+       "id": "leave",
+       "text": "先離開診間",
+       "explanation": "不取布也能繼續主線。",
+       "target": "ch1_t_clinic_cloth_leave"
+      }
+     ]
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_first_clinic_active",
+      "equals": true
+     },
+     {
+      "flag": "ch1_first_death_done",
+      "equals": true
+     },
+     {
+      "not": {
+       "item": "ch1_grey_cloth"
+      }
+     }
+    ]
+   },
+   "pose_policy": "supported"
+  },
+  "ch1_t_clinic_cloth_look": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_revival_room",
+     "pos": [
+      316,
+      205
+     ],
+     "zoom": 1.4,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      316,
+      230.8
+     ],
+     "facing": 1,
+     "scale": 2.5,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "sit",
+     "pose_reason": "復原後坐在檢查台邊緣醒來。",
+     "pose_support": "診間檢查台座面：舞台 x=316、y=196；腳底由 sit_y 量測。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "這杯還熱，杯邊怎麼壓了一塊布？"
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "送你來的人留下的，診間的人只說他放完就走。"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch1_first_clinic_active",
+      "equals": true
+     },
+     {
+      "flag": "ch1_first_death_done",
+      "equals": true
+     },
+     {
+      "not": {
+       "item": "ch1_grey_cloth"
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch1_grey_cloth_examined",
+     "value": true
+    }
+   ],
+   "then": "ch1_t_clinic_cloth_decide",
+   "pose_policy": "supported"
+  },
+  "ch1_t_clinic_cloth_decide": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_revival_room",
+     "pos": [
+      316,
+      205
+     ],
+     "zoom": 1.4,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      316,
+      230.8
+     ],
+     "facing": 1,
+     "scale": 2.5,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "sit",
+     "pose_reason": "復原後坐在檢查台邊緣醒來。",
+     "pose_support": "診間檢查台座面：舞台 x=316、y=196；腳底由 sit_y 量測。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "布角沒有名字，我要收起，還是留在這裡？"
+    },
+    {
+     "do": "choice",
+     "text": "布角沒有名字，我要收起，還是留在這裡？",
+     "default": "leave",
+     "options": [
+      {
+       "id": "take",
+       "text": "收起布角",
+       "explanation": "實際挪杯收布；茶不拿走。",
+       "target": "ch1_t_clinic_cloth_take"
+      },
+      {
+       "id": "leave",
+       "text": "留在托盤",
+       "explanation": "不取得物品，也不完成取布節點。",
+       "target": "ch1_t_clinic_cloth_leave"
+      }
+     ]
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch1_first_clinic_active",
+        "equals": true
+       },
+       {
+        "flag": "ch1_first_death_done",
+        "equals": true
+       },
+       {
+        "not": {
+         "item": "ch1_grey_cloth"
+        }
+       }
+      ]
+     },
+     {
+      "flag": "ch1_grey_cloth_examined",
+      "equals": true
+     }
+    ]
+   },
+   "pose_policy": "supported"
+  },
+  "ch1_t_clinic_cloth_take": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_revival_room",
+     "pos": [
+      316,
+      205
+     ],
+     "zoom": 1.4,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      316,
+      230.8
+     ],
+     "facing": 1,
+     "scale": 2.5,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "sit",
+     "pose_reason": "復原後坐在檢查台邊緣醒來。",
+     "pose_support": "診間檢查台座面：舞台 x=316、y=196；腳底由 sit_y 量測。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "布上沒有名字，我先把它收著，茶就留在這裡。"
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "先讓它乾，不要跟濕紙夾一起。"
+    },
+    {
+     "do": "fade",
+     "to": 1.0,
+     "time": 0.8
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch1_first_clinic_active",
+        "equals": true
+       },
+       {
+        "flag": "ch1_first_death_done",
+        "equals": true
+       },
+       {
+        "not": {
+         "item": "ch1_grey_cloth"
+        }
+       }
+      ]
+     },
+     {
+      "flag": "ch1_grey_cloth_examined",
+      "equals": true
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "item_acquire",
+     "id": "ch1_grey_cloth"
+    },
+    {
+     "kind": "flag",
+     "id": "has_grey_cloth",
+     "value": true
+    }
+   ],
+   "pose_policy": "supported"
+  },
+  "ch1_t_clinic_cloth_leave": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_revival_room",
+     "pos": [
+      316,
+      205
+     ],
+     "zoom": 1.4,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      316,
+      230.8
+     ],
+     "facing": 1,
+     "scale": 2.5,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "sit",
+     "pose_reason": "復原後坐在檢查台邊緣醒來。",
+     "pose_support": "診間檢查台座面：舞台 x=316、y=196；腳底由 sit_y 量測。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我先不拿，杯子留這裡。"
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "你要走就先穿好裝備，門口會有人指電話亭。"
+    },
+    {
+     "do": "fade",
+     "to": 1.0,
+     "time": 0.8
+    }
+   ],
+   "when": {
+    "flag": "ch1_first_clinic_active",
+    "equals": true
+   },
+   "pose_policy": "supported"
+  },
+  "ch1_t_booth_recording": {
+   "mode": "radio",
+   "set_flags": [
+    "ch1_recording_heard"
+   ],
+   "lines": [
+    {
+     "speaker": "voice",
+     "text": "歡迎使用天穹備份服務，備份已經完成。"
+    },
+    {
+     "speaker": "voice",
+     "text": "再來一次，沒關係。"
+    }
+   ]
+  },
+  "ch1_dispatch_clinic_backup": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch1_first_clinic_active",
+        "equals": true
+       },
+       {
+        "flag": "ch1_booth_registered",
+        "equals": true
+       }
+      ]
+     },
+     "target": "ch1_t_clinic_backup_registered"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch1_first_clinic_active",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch1_booth_registered",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_t_clinic_backup_missing"
+    }
+   ]
+  },
+  "ch1_hub_brief": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "週日我留給那個人，今天先把你的差事做完。"
+    },
+    {
+     "do": "choice",
+     "text": "還想問鷺什麼？",
+     "default": "leave",
+     "options": [
+      {
+       "id": "egret_brief_revisit",
+       "text": "再確認回程與交接櫃。",
+       "explanation": "可選話題，不影響主線。",
+       "target": "ch1_t_egret_brief_revisit",
+       "when": {
+        "flag": "ch1_heard_brief",
+        "equals": true
+       }
+      },
+      {
+       "id": "leave",
+       "text": "先聊到這裡，我還有事要做。",
+       "explanation": "結束對話，之後可以再來。"
+      }
+     ]
+    }
+   ],
+   "when": {
+    "flag": "asked_egret_sunday",
+    "equals": true
+   }
+  },
+  "ch1_hub_ali_lounge": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "choice",
+     "text": "想和阿梨聊什麼？",
+     "default": "leave",
+     "options": [
+      {
+       "id": "ali_death_topic",
+       "text": "談今天的復原。",
+       "explanation": "可選話題，不影響主線。",
+       "target": "ch1_t_ali_death_topic",
+       "when": {
+        "all": [
+         {
+          "flag": "ch1_met_ali",
+          "equals": true
+         },
+         {
+          "flag": "ch1_first_death_done",
+          "equals": true
+         },
+         {
+          "account": "ch1_lounge",
+          "equals": "open200"
+         }
+        ]
+       }
+      },
+      {
+       "id": "ali_late_topic",
+       "text": "談為什麼這麼晚還在外面。",
+       "explanation": "可選話題，不影響主線。",
+       "target": "ch1_t_ali_late_topic",
+       "when": {
+        "flag": "ch1_met_ali",
+        "equals": true
+       }
+      },
+      {
+       "id": "evening",
+       "text": "問她店裡今晚的事。",
+       "explanation": "聊完阿梨會準備下班。",
+       "target": "ch1_dispatch_ali_evening"
+      },
+      {
+       "id": "leave",
+       "text": "先聊到這裡，我還有事要做。",
+       "explanation": "結束對話，之後可以再來。"
+      }
+     ]
+    }
+   ],
+   "when": {
+    "any": [
+     {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch1_met_ali",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch1_lounge_evening_done",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch1_ali_evening_talk_done",
+         "equals": true
+        }
+       },
+       {
+        "account": "ch1_lounge",
+        "equals": "open200"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch1_met_ali",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch1_lounge_evening_done",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch1_ali_evening_talk_done",
+         "equals": true
+        }
+       },
+       {
+        "account": "ch1_lounge",
+        "equals": "none"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "ch1_dispatch_ali_evening": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch1_met_ali",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch1_lounge_evening_done",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch1_ali_evening_talk_done",
+         "equals": true
+        }
+       },
+       {
+        "account": "ch1_lounge",
+        "equals": "open200"
+       }
+      ]
+     },
+     "target": "ch1_t_ali_2_ordered"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch1_met_ali",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch1_lounge_evening_done",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch1_ali_evening_talk_done",
+         "equals": true
+        }
+       },
+       {
+        "account": "ch1_lounge",
+        "equals": "none"
+       }
+      ]
+     },
+     "target": "ch1_t_ali_2_sit"
+    }
+   ]
+  },
+  "ch1_dispatch_cabinet": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ledger_disk_obtained",
+        "equals": true
+       },
+       {
+        "item": "ch1_data_disk"
+       },
+       {
+        "not": {
+         "flag": "ch1_disk_delivered",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_t_handoff_confirm"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch1_disk_delivered",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch1_disk_receipt_taken",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_t_handoff_receipt_prompt"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch1_disk_receipt_taken",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch1_market_summary_known",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_t_handoff_summary_prompt"
+    },
+    {
+     "when": {
+      "flag": "ch1_handoff_done",
+      "equals": true
+     },
+     "target": "ch1_t_handoff_revisit"
+    }
+   ]
+  },
+  "ch1_dispatch_brief": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch1_dinner_done",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch1_heard_brief",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_t_egret_1"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch1_heard_brief",
+          "equals": true
+         },
+         {
+          "flag": "ch1_sunday_accepted",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "asked_egret_sunday",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "asked_egret_sunday",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_t_egret_sunday"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch1_heard_brief",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "asked_egret_sunday",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_t_egret_sunday_prompt"
+    },
+    {
+     "when": {
+      "flag": "asked_egret_sunday",
+      "equals": true
+     },
+     "target": "ch1_hub_brief"
+    }
+   ]
+  },
+  "ch1_dispatch_ali_lounge": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch1_handoff_done",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch1_met_ali",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch1_ali_reception_selected",
+         "equals": true
+        }
+       },
+       {
+        "all": [
+         {
+          "flag": "ch1_first_death_done",
+          "equals": true
+         },
+         {
+          "flag": "ch1_booth_restoration_done",
+          "equals": true
+         }
+        ]
+       }
+      ]
+     },
+     "target": "ch1_t_ali_meet_booth"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch1_handoff_done",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch1_met_ali",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch1_ali_reception_selected",
+         "equals": true
+        }
+       },
+       {
+        "all": [
+         {
+          "flag": "ch1_first_death_done",
+          "equals": true
+         },
+         {
+          "flag": "ch1_true_death_record_known",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch1_booth_restoration_done",
+           "equals": true
+          }
+         }
+        ]
+       }
+      ]
+     },
+     "target": "ch1_t_ali_meet_clinic"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch1_handoff_done",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch1_met_ali",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch1_ali_reception_selected",
+         "equals": true
+        }
+       },
+       {
+        "all": [
+         {
+          "flag": "ch1_true_death_record_known",
+          "equals": true
+         },
+         {
+          "flag": "ch1_zero_true_deaths",
+          "equals": true
+         }
+        ]
+       }
+      ]
+     },
+     "target": "ch1_t_ali_meet_no_death"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch1_handoff_done",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch1_met_ali",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch1_ali_reception_selected",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch1_true_death_record_known",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_t_ali_meet_unknown"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch1_handoff_done",
+          "equals": true
+         },
+         {
+          "flag": "ch1_ali_reception_selected",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch1_met_ali",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch1_met_ali",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_t_ali_name"
+    },
+    {
+     "when": {
+      "any": [
+       {
+        "all": [
+         {
+          "all": [
+           {
+            "flag": "ch1_met_ali",
+            "equals": true
+           },
+           {
+            "not": {
+             "flag": "ch1_lounge_evening_done",
+             "equals": true
+            }
+           }
+          ]
+         },
+         {
+          "not": {
+           "flag": "ch1_ali_evening_talk_done",
+           "equals": true
+          }
+         },
+         {
+          "account": "ch1_lounge",
+          "equals": "open200"
+         }
+        ]
+       },
+       {
+        "all": [
+         {
+          "all": [
+           {
+            "flag": "ch1_met_ali",
+            "equals": true
+           },
+           {
+            "not": {
+             "flag": "ch1_lounge_evening_done",
+             "equals": true
+            }
+           }
+          ]
+         },
+         {
+          "not": {
+           "flag": "ch1_ali_evening_talk_done",
+           "equals": true
+          }
+         },
+         {
+          "account": "ch1_lounge",
+          "equals": "none"
+         }
+        ]
+       }
+      ]
+     },
+     "target": "ch1_hub_ali_lounge"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "all": [
+           {
+            "flag": "ch1_met_ali",
+            "equals": true
+           },
+           {
+            "not": {
+             "flag": "ch1_lounge_evening_done",
+             "equals": true
+            }
+           }
+          ]
+         },
+         {
+          "flag": "ch1_ali_evening_talk_done",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch1_lounge_evening_done",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_t_ali_evening_close"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch1_lounge_evening_done",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch1_supper_done",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_t_ali_evening_revisit"
+    }
+   ]
+  },
+  "ch1_dispatch_ali_stall": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch1_lounge_evening_done",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch1_supper_done",
+           "equals": true
+          }
+         },
+         {
+          "flag": "ch1_supper_choice",
+          "equals": "unset"
+         }
+        ]
+       },
+       {
+        "account": "ch1_lounge",
+        "equals": "open200"
+       }
+      ]
+     },
+     "target": "ch1_t_supper_choice_ordered"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch1_lounge_evening_done",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch1_supper_done",
+           "equals": true
+          }
+         },
+         {
+          "flag": "ch1_supper_choice",
+          "equals": "unset"
+         }
+        ]
+       },
+       {
+        "account": "ch1_lounge",
+        "equals": "none"
+       }
+      ]
+     },
+     "target": "ch1_t_supper_choice_none"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch1_supper_choice",
+        "equals": "leave"
+       },
+       {
+        "not": {
+         "flag": "ch1_supper_done",
+         "equals": true
+        }
+       },
+       {
+        "account": "ch1_lounge",
+        "equals": "open200"
+       }
+      ]
+     },
+     "target": "ch1_t_supper_leave_options"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch1_supper_choice",
+          "equals": "leave"
+         },
+         {
+          "account": "ch1_lounge",
+          "equals": "none"
+         },
+         {
+          "not": {
+           "flag": "ch1_supper_done",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch1_supper_done",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_t_supper_leave_none"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch1_supper_choice",
+          "equals": "stay"
+         },
+         {
+          "not": {
+           "flag": "ch1_supper_done",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "account": "ch1_lounge",
+        "equals": "open200"
+       },
+       {
+        "not": {
+         "flag": "ch1_supper_host_accepted",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_t_supper_host_prompt"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch1_supper_choice",
+          "equals": "stay"
+         },
+         {
+          "not": {
+           "flag": "ch1_supper_done",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "account": "ch1_lounge",
+        "equals": "none"
+       },
+       {
+        "not": {
+         "flag": "ch1_supper_host_accepted",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_t_supper_host_none_prompt"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "all": [
+           {
+            "flag": "ch1_supper_choice",
+            "equals": "stay"
+           },
+           {
+            "not": {
+             "flag": "ch1_supper_done",
+             "equals": true
+            }
+           }
+          ]
+         },
+         {
+          "flag": "ch1_supper_host_accepted",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch1_supper_meal_done",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch1_supper_meal_done",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_t_supper_stay_meal"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "all": [
+           {
+            "flag": "ch1_supper_choice",
+            "equals": "stay"
+           },
+           {
+            "not": {
+             "flag": "ch1_supper_done",
+             "equals": true
+            }
+           }
+          ]
+         },
+         {
+          "flag": "ch1_supper_meal_done",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "knows_ali_address",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "sq1_first_supper_done",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch1_supper_done",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_t_supper_stay_address"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch1_supper_done",
+        "equals": true
+       },
+       {
+        "flag": "ch1_supper_choice",
+        "equals": "leave"
+       },
+       {
+        "account": "ch1_lounge",
+        "equals": "paid200"
+       }
+      ]
+     },
+     "target": "ch1_t_supper_leave_revisit_paid200"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch1_supper_done",
+        "equals": true
+       },
+       {
+        "flag": "ch1_supper_choice",
+        "equals": "leave"
+       },
+       {
+        "account": "ch1_lounge",
+        "equals": "owed200"
+       }
+      ]
+     },
+     "target": "ch1_t_supper_leave_revisit_owed200"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch1_supper_done",
+        "equals": true
+       },
+       {
+        "flag": "ch1_supper_choice",
+        "equals": "leave"
+       },
+       {
+        "account": "ch1_lounge",
+        "equals": "none"
+       }
+      ]
+     },
+     "target": "ch1_t_supper_leave_revisit_none"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch1_supper_done",
+        "equals": true
+       },
+       {
+        "flag": "knows_ali_address",
+        "equals": true
+       },
+       {
+        "flag": "ch1_supper_choice",
+        "equals": "stay"
+       }
+      ]
+     },
+     "target": "ch1_t_supper_stay_revisit"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch1_supper_done",
+        "equals": true
+       },
+       {
+        "flag": "ch1_supper_choice",
+        "equals": "stay"
+       }
+      ]
+     },
+     "target": "ch1_t_ali_4"
+    }
+   ]
+  },
+  "ch1_dispatch_label_watch": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch1_label_watch_seen",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch1_label_watch_seen",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_t_label_watch"
+    },
+    {
+     "when": {
+      "flag": "ch1_label_watch_seen",
+      "equals": true
+     },
+     "target": "ch1_t_label_watch_revisit"
+    }
+   ]
+  },
+  "ch1_dispatch_label_guitar": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch1_label_guitar_seen",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch1_label_guitar_seen",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_t_label_guitar"
+    },
+    {
+     "when": {
+      "flag": "ch1_label_guitar_seen",
+      "equals": true
+     },
+     "target": "ch1_t_label_guitar_revisit"
+    }
+   ]
+  },
+  "ch1_dispatch_label_raincoat": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch1_label_raincoat_seen",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch1_label_raincoat_seen",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_t_label_raincoat"
+    },
+    {
+     "when": {
+      "flag": "ch1_label_raincoat_seen",
+      "equals": true
+     },
+     "target": "ch1_t_label_raincoat_revisit"
+    }
+   ]
+  },
+  "ch1_dispatch_label_fare": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch1_label_fare_seen",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch1_label_fare_seen",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_t_label_fare"
+    },
+    {
+     "when": {
+      "flag": "ch1_label_fare_seen",
+      "equals": true
+     },
+     "target": "ch1_t_label_fare_revisit"
+    }
+   ]
+  },
+  "ch1_dispatch_voice": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch1_recording_heard",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch1_lamp_voice_asked",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_t_lamp_voice_prompt"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch1_lamp_voice_asked",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "sq5_lamp_voice_noticed",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_t_lamp_voice_second_prompt"
+    },
+    {
+     "when": {
+      "flag": "sq5_lamp_voice_noticed",
+      "equals": true
+     },
+     "target": "ch1_t_lamp_voice_revisit"
     }
    ]
   }

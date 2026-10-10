@@ -36,6 +36,8 @@ enum Category { KEY_ITEM, DOCUMENT, RECORDING }
 @export var trigger: Trigger = Trigger.MANUAL
 ## trigger 為 SCENE_FINISHED 時，要等哪個劇情場景（data/story/*.json 的場景 id）播完。
 @export var trigger_scene: StringName = &""
+## 第一次取得時寫入的劇情旗標（例如拿到資料盤）；交出後旗標仍在，代表「曾經取得」。
+@export var acquire_flag: StringName = &""
 @export_group("Art")
 ## 背包像素圖示的檔名（art/items/icons/<icon>.png）。
 @export var icon: String = ""

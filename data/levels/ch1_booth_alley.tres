@@ -1,12 +1,13 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=10 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
 [ext_resource type="Resource" path="res://data/props/credits_small.tres" id="3_credits_small"]
 [ext_resource type="Resource" path="res://data/story_items/doc_rain_news.tres" id="4_doc_rain_news"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="5_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/alley_calm.tres" id="6_alley_calm"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch1_booth_alley.tres" id="7_ch1_booth_alley"]
+[ext_resource type="Resource" path="res://data/npcs/ch1_lamp_voice.tres" id="5_ch1_lamp_voice"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="6_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/alley_calm.tres" id="7_alley_calm"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch1_booth_alley.tres" id="8_ch1_booth_alley"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("2_portal_data")
@@ -19,10 +20,10 @@ height = 44
 style = "road"
 
 [sub_resource type="Resource" id="Resource_1"]
-script = ExtResource("5_lighting_zone")
+script = ExtResource("6_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("6_alley_calm")
+profile = ExtResource("7_alley_calm")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -33,14 +34,15 @@ height = 24
 legend = Dictionary[String, Resource]({
 "J": SubResource("Resource_0"),
 "c": ExtResource("3_credits_small"),
-"p": ExtResource("4_doc_rain_news")
+"p": ExtResource("4_doc_rain_news"),
+"ⓥ": ExtResource("5_ch1_lamp_voice")
 })
 hints = PackedStringArray("電話亭：按 {interact} 備份。死了會從最近的電話亭醒來")
 chapter = &"ch1_kasa"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("7_ch1_booth_alley")
+environment = ExtResource("8_ch1_booth_alley")
 layout_path = "res://data/levels/ch1_booth_alley_map.json"
-lighting_zones = Array[ExtResource("5_lighting_zone")]([SubResource("Resource_1")])
+lighting_zones = Array[ExtResource("6_lighting_zone")]([SubResource("Resource_1")])
 story_triggers = PackedStringArray()
 death_credit_cap = 250

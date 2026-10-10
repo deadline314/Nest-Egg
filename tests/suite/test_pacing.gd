@@ -4,7 +4,7 @@ extends TestSuite
 ## （PACING_REFERENCE §5.2：首次通關 30–45 分鐘、警訊 <25 / >55；每分鐘遭遇 0.5–0.8；戰鬥區連續無遭遇 ≤ 60 秒；每區 ≤ 8 分鐘）。
 ## 估計用的是常數假設（core/pacing_estimate.gd），有遊測資料之後校正常數，不是量測值。
 
-const IDS: Array[String] = ["pawnshop", "rooftop", "street", "booth_alley", "warehouse", "vault", "lounge", "stall"]
+const IDS: Array[String] = ["pawnshop", "rooftop", "street", "booth_alley", "warehouse", "vault", "handoff", "lounge", "stall"]
 const COMBAT_AREAS: Array[String] = ["street", "warehouse", "vault"]
 const CUTSCENES: Array[String] = ["ch1_c01_open", "ch1_c09_wake", "ch1_c14_home"]
 ## 已知超過每區 8 分鐘的區域（目前沒有；倉庫已在 ST-14 拆成兩張地圖）。要暫時放行時列在這裡，修好之後從清單刪掉。

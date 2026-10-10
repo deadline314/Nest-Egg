@@ -1,0 +1,57 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch1_handoff_cabinet.tres" id="3_ch1_handoff_cabinet"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="4_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/market.tres" id="5_market"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch1_handoff.tres" id="6_ch1_handoff"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"handoff_lounge"
+target_level = "res://data/levels/ch1_lounge.tres"
+target_portal = &"lounge_handoff"
+requires_flag = &"ch1_handoff_done"
+locked_text = "先在藍燈櫃交盤、取回執並保留摘要，再進店歇腳。"
+prompt = "{interact} 進復原館"
+width = 28
+height = 72
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"handoff_arrival"
+target_level = "res://data/levels/ch1_vault.tres"
+target_portal = &"wh_upper"
+prompt = "{interact} 返回倉庫上層"
+width = 24
+height = 44
+style = "road"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("4_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("5_market")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch1_handoff"
+display_name = "復原館外交接櫃"
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"↦": SubResource("Resource_0"),
+"↳": SubResource("Resource_1"),
+"⌑": ExtResource("3_ch1_handoff_cabinet")
+})
+hints = PackedStringArray()
+chapter = &"ch1_kasa"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("6_ch1_handoff")
+layout_path = "res://data/levels/ch1_handoff_map.json"
+lighting_zones = Array[ExtResource("4_lighting_zone")]([SubResource("Resource_2")])
+story_triggers = PackedStringArray("ch1_b_handoff")
+death_credit_cap = 250

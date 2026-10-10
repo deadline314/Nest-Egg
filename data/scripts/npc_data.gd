@@ -22,10 +22,22 @@ enum Kind { PERSON, OBJECT }
 @export var facing: int = -1
 ## 互動提示（一句重點，可用 {interact}）；空白時用「{interact} 和<名字>說話」。
 @export var prompt: String = ""
+## 出現條件：這個旗標成立才在地圖上出現（空白＝不限）；例如阿梨下班後才在門外麵攤。
+@export var spawn_requires_flag: StringName = &""
+## 消失條件：這個旗標成立就不在地圖上（空白＝不限）；例如阿梨收店後館內就沒有她。
+@export var spawn_unless_flag: StringName = &""
 ## 對話清單（見 NpcTalk）。
 @export var talks: Array[NpcTalk] = []
 ## 走近時的短反應（見 NpcReaction，NE-240）：不開口、不鎖操作，初見、回訪、凜死過之後、劇情前後可以不同。
 @export var reactions: Array[NpcReaction] = []
+
+
+## 依劇情旗標決定現在是否在地圖上；flag_reader 預設讀本輪旗標。
+func should_spawn(flag_reader: Callable = Callable()) -> bool:
+	var reader := flag_reader if flag_reader.is_valid() else GameState.has_flag
+	if spawn_requires_flag != &"" and not bool(reader.call(spawn_requires_flag)):
+		return false
+	return spawn_unless_flag == &"" or not bool(reader.call(spawn_unless_flag))
 
 
 func prompt_text() -> String:

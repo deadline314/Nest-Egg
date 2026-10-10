@@ -585,46 +585,18 @@ def _retained_document(source):
             "death_scenes": DEATH_SCENES, "scenes": retained}
 
 
-def production_backend():
-    # ST-22 and NE-231 handovers are pending.  Do not implement a pretend adapter
-    # or expose CLI capability overrides to bypass production binding checks.
-    return None
-
-
 def main(argv=None):
+    """預設輸出正式第一章（作者來源 ch1_closure.py 經 ch1_runtime_backend.py 轉譯）。
+    --check-closure-source 只檢查作者來源、不寫檔。本檔的 build() 仍提供舊稿的舞台與保留場景給轉譯器使用。"""
     parser = argparse.ArgumentParser(description=__doc__)
-    mode = parser.add_mutually_exclusive_group()
-    mode.add_argument("--check-closure-source", action="store_true", help="CPU source/producer report; never writes Story JSON or stages")
-    mode.add_argument("--production", action="store_true", help="Compile new authored closure only with a real production backend")
+    parser.add_argument("--check-closure-source", action="store_true", help="CPU source/producer report; never writes Story JSON or stages")
     args = parser.parse_args(argv)
     if args.check_closure_source:
         report = source_report(build_production_source())
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 1 if report["source_errors"] else 0
-    if args.production:
-        source = build_production_source()
-        backend = production_backend()
-        try:
-            # Refuse BEFORE retained presentation, stages or any file writes.
-            if backend is None:
-                compile_production(source)
-            data = compile_production(source, backend, _retained_document(source))
-        except (ProductionNotReady, ValueError) as error:
-            print(str(error), file=sys.stderr)
-            print("Loaded ch1_kasa.json and stages were not written. Use --check-closure-source for pending producer/binding details.", file=sys.stderr)
-            return 2
-    else:
-        build()
-        data = {"chapter": CHAPTER, "speakers": SPEAKERS, "respawn_scenes": RESPAWN,
-                "death_scenes": DEATH_SCENES, "scenes": SCENES}
-    os.makedirs(STAGE_DIR, exist_ok=True)
-    for stage_id, (scene, top, bottom, rain, glow, extra) in STAGES.items():
-        write_stage(stage_id, scene, top, bottom, rain, glow, extra)
-    with open(OUT, 'w', encoding='utf-8', newline='\n') as f:
-        json.dump(data, f, ensure_ascii=False, indent=1)
-        f.write('\n')
-    print('wrote', OUT, f'({len(data["scenes"])} scenes)')
-    return 0
+    import ch1_runtime_backend
+    return ch1_runtime_backend.main()
 
 
 if __name__ == '__main__':

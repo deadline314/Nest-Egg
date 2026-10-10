@@ -37,6 +37,7 @@ var _steps_done: Dictionary[StringName, int] = {}
 func run() -> void:
 	await _test_story_features()
 	await _test_story_custody()
+	await _test_story_runtime()
 	_test_checker()
 	_test_stages()
 	await _test_play_all_steps()
@@ -816,5 +817,107 @@ func _test_story_custody() -> void:
 	GameState.flag_defaults = previous_defaults
 	GameState.world_flags = previous_flags
 	StoryItems.restore(previous_items)
+	Story.restore_progress(previous_seen)
+	Story.auto_skip = previous_auto
+
+
+## ST-9：正式劇本的執行期契約——分派、前置條件、段尾結果與交易、交易失敗改接、選項接續、衍生旗標、
+## 情境事實、關卡機關與取得物品的旗標、人物出現條件、一般復原旗標。
+func _test_story_runtime() -> void:
+	const IDS := ["test_rt_gate", "test_rt_before", "test_rt_after", "test_rt_order", "test_rt_pay", "test_rt_short", "test_rt_pick", "test_rt_ctx", "test_rt_ctx_check"]
+	var previous_auto := Story.auto_skip
+	var previous_flags := GameState.world_flags.duplicate(true)
+	var previous_defaults := GameState.flag_defaults.duplicate(true)
+	var previous_items := StoryItems.snapshot()
+	var previous_progress := Progression.snapshot()
+	var previous_seen := Story.progress_snapshot()
+	var previous_derived := Story.outcomes.derived_flags.duplicate(true)
+	var previous_facts := Story.outcomes.runtime_facts.duplicate(true)
+	Progression.reset_run()
+	check(Story.load_chapter("res://tests/fixtures/story_runtime.json"), "runtime fixture loads through the chapter API")
+	check(Story.validate().is_empty(), "runtime fixture passes startup validation: %s" % [Story.validate()])
+	Story.auto_skip = true
+	# 分派與前置條件：第一次走「之前」，結果生效後再來就走「之後」。
+	check(Story.resolve_dispatch(&"test_rt_gate") == &"test_rt_before" and not Story.scene_available(&"test_rt_after"), "dispatch picks the first route whose condition holds")
+	check(Story.play(&"test_rt_gate"), "a dispatch entry starts its resolved scene")
+	await frames(3)
+	check(GameState.get_flag(&"test_rt_a") == true and not Story.was_seen(&"test_rt_gate"), "completion results apply and the dispatcher itself is not recorded as seen")
+	check(Story.play(&"test_rt_gate"), "the same entry resolves again after progress")
+	await frames(3)
+	check(GameState.get_flag(&"test_rt_b") == true and GameState.get_flag(&"test_rt_both") == true, "derived flags are recomputed after results apply")
+	# 交易：點餐成立帳單；現金不足時改接不足額場景、整段不生效；有錢時一起扣款與寫旗標。
+	check(Story.play(&"test_rt_order", false), "the order scene starts")
+	await frames(3)
+	check(Story.outcomes.account_state(&"ch1_lounge") == "open200", "an explicit order records the open 200 bill")
+	check(Story.play(&"test_rt_pay", false), "the payment scene starts")
+	await frames(6)
+	check(Story.was_seen(&"test_rt_short") and not GameState.has_flag(&"test_rt_paid") and Story.outcomes.account_state(&"ch1_lounge") == "open200" and Progression.credits == 0, "insufficient credits route to the shortfall scene and apply nothing")
+	Progression.add_credits(500)
+	check(Story.play(&"test_rt_pay", false), "the payment scene starts again with enough credits")
+	await frames(3)
+	check(GameState.has_flag(&"test_rt_paid") and Story.outcomes.account_state(&"ch1_lounge") == "paid200" and Progression.credits == 300, "payment, receipt and flag apply together")
+	# 選項接續：選了才接下一段；略過時用預設「留著」。
+	Story.reset_progress()
+	GameState.set_flag(&"test_rt_a", false)
+	check(Story.play(&"test_rt_pick", false), "the choice scene starts while skipping")
+	await frames(3)
+	check(not Story.was_seen(&"test_rt_before") and GameState.get_flag(&"test_rt_choice") == "unset", "skipping a choice uses the safe default and does not continue")
+	Story.auto_skip = false
+	check(Story.play(&"test_rt_pick", false), "the choice scene starts for real input")
+	var player: CutscenePlayer = null
+	for i in 120:
+		player = Story._player
+		if is_instance_valid(player) and player.choice_active():
+			break
+		await frames(1)
+	check(is_instance_valid(player) and player.choose(0), "the player picks the option with a continuation")
+	for i in 240:
+		if Story.is_cinematic_active() and not (is_instance_valid(Story._player) and Story._player.is_running()):
+			Story.skip_cinematic()
+		if not Story.is_cinematic_active():
+			break
+		await frames(1)
+	check(Story.was_seen(&"test_rt_before") and GameState.get_flag(&"test_rt_choice") == "go" and GameState.get_flag(&"test_rt_a") == true, "the chosen option continues into its target scene and applies its results")
+	# 情境事實：只在這一串演出裡成立。
+	Story.auto_skip = true
+	check(Story.play(&"test_rt_ctx", false), "the context scene starts")
+	await frames(6)
+	check(GameState.has_flag(&"test_rt_ctx_seen") and Story.fact(&"flag", &"test_rt_first") == false, "a context fact enables its chained follow-up and clears when the chain ends")
+	check(not Story.scene_available(&"test_rt_ctx_check"), "outside the chain the context-only follow-up is unavailable")
+	# 關卡機關與取得物品寫入的世界旗標。
+	var level_data := LevelData.new()
+	level_data.channel_done_flags = {&"test_rt_channel": &"test_rt_done"}
+	level_data.channel_cleared_flags = {&"test_rt_channel": &"test_rt_cleared"}
+	var level := Level.new()
+	level.configure(level_data)
+	level._on_channel_toggled(&"test_rt_channel", true)
+	check(GameState.has_flag(&"test_rt_done") and not GameState.has_flag(&"test_rt_cleared"), "a real channel activation writes its level flag")
+	level._on_channel_toggled(&"test_rt_channel", false)
+	check(GameState.has_flag(&"test_rt_cleared"), "a channel release writes its cleared flag")
+	level.free()
+	GameState.set_flag(&"ledger_disk_obtained", false)
+	var empty_items := StoryItems.snapshot()
+	for key in ["owned", "held", "transferred", "unseen"]:
+		empty_items[key] = []
+	StoryItems.restore(empty_items)
+	check(StoryItems.acquire(&"ch1_data_disk", false) and GameState.has_flag(&"ledger_disk_obtained"), "acquiring the disk writes its acquire flag")
+	# 人物出現條件與一般復原旗標。
+	var npc := NpcData.new()
+	npc.spawn_requires_flag = &"test_rt_a"
+	npc.spawn_unless_flag = &"test_rt_b"
+	var reader := func(flags: Dictionary) -> Callable: return func(flag: StringName) -> bool: return flags.get(flag, false)
+	check(not npc.should_spawn(reader.call({})) and npc.should_spawn(reader.call({&"test_rt_a": true})) and not npc.should_spawn(reader.call({&"test_rt_a": true, &"test_rt_b": true})), "npc presence follows its spawn flags")
+	GameState.set_flag(&"ch1_booth_restoration_done", false)
+	Story.note_ordinary_restoration(&"ch1_kasa")
+	check(GameState.has_flag(&"ch1_booth_restoration_done"), "an ordinary booth restoration writes the chapter's restoration flag")
+	for id in IDS:
+		Story._scenes.erase(id)
+		Story._scene_chapter.erase(id)
+	Story.outcomes.derived_flags = previous_derived
+	Story.outcomes.runtime_facts = previous_facts
+	GameState.flag_defaults = previous_defaults
+	GameState.world_flags = previous_flags
+	StoryItems.restore(previous_items)
+	Progression.restore(previous_progress, false)
 	Story.restore_progress(previous_seen)
 	Story.auto_skip = previous_auto

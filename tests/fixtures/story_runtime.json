@@ -1,0 +1,44 @@
+{
+  "for_chapter": "ch1_kasa",
+  "flag_defaults": {"test_rt_a": false, "test_rt_b": false, "test_rt_paid": false, "test_rt_choice": "unset", "test_rt_ctx_seen": false},
+  "derived_flags": {"test_rt_both": {"all": [{"flag": "test_rt_a", "equals": true}, {"flag": "test_rt_b", "equals": true}]}},
+  "runtime_facts": {"test_rt_first": "context:test_first"},
+  "scenes": {
+    "test_rt_gate": {"mode": "dispatch", "routes": [
+      {"when": {"flag": "test_rt_a", "equals": true}, "target": "test_rt_after"},
+      {"when": {}, "target": "test_rt_before"}]},
+    "test_rt_before": {"mode": "dialogue", "results": [{"kind": "flag", "id": "test_rt_a", "value": true}], "lines": [
+      {"speaker": "rin", "text": "第一次來這裡，我先看清楚環境。"},
+      {"speaker": "rin", "text": "櫃子旁邊的燈還亮著，應該有人在顧。"},
+      {"speaker": "rin", "text": "我把這裡記下來，等一下再回來。"}]},
+    "test_rt_after": {"mode": "dialogue", "when": {"flag": "test_rt_a", "equals": true}, "results": [{"kind": "flag", "id": "test_rt_b", "value": true}], "lines": [
+      {"speaker": "rin", "text": "我又回到這裡，櫃子上的燈還亮著。"},
+      {"speaker": "rin", "text": "上次記下的事情，現在都對得上。"},
+      {"speaker": "rin", "text": "這一趟算是確認完了，我可以走了。"}]},
+    "test_rt_order": {"mode": "dialogue", "results": [{"kind": "transaction", "id": "ch1.revival_meal.order"}], "lines": [
+      {"speaker": "rin", "text": "湯和酒我都要，兩百先記這一晚。"},
+      {"speaker": "rin", "text": "現在不扣錢，離店前再一起結清。"},
+      {"speaker": "rin", "text": "我把帳單收好，等一下再對一次。"}]},
+    "test_rt_pay": {"mode": "dialogue", "results": [{"kind": "transaction", "id": "ch1.revival_meal.paid"}, {"kind": "flag", "id": "test_rt_paid", "value": true}],
+      "on_failure": {"insufficient_credits": "test_rt_short"}, "lines": [
+      {"speaker": "rin", "text": "餐酒一共兩百，我現在就結清。"},
+      {"speaker": "rin", "text": "收據我留著，明天對帳時一起看。"},
+      {"speaker": "rin", "text": "這張帳到這裡就算結束了。"}]},
+    "test_rt_short": {"mode": "dialogue", "lines": [
+      {"speaker": "rin", "text": "我身上的錢不夠兩百，現在付不起。"},
+      {"speaker": "rin", "text": "我不會拿明天的報酬假裝已經付了。"},
+      {"speaker": "rin", "text": "這張帳先留著，我之後再來結。"}]},
+    "test_rt_pick": {"mode": "animated", "overlay": true, "steps": [
+      {"do": "choice", "text": "要先去看看嗎？", "default": "back", "options": [
+        {"id": "go", "text": "先去看一下環境。", "explanation": "接著播放下一段。", "target": "test_rt_before", "set_flags": {"test_rt_choice": "go"}},
+        {"id": "back", "text": "先留在這裡。", "explanation": "什麼都不會改變。"}]}]},
+    "test_rt_ctx": {"mode": "dialogue", "context_facts": ["test_first"], "then": "test_rt_ctx_check", "lines": [
+      {"speaker": "rin", "text": "這是只有第一次才會發生的情況。"},
+      {"speaker": "rin", "text": "接下來的對話只在這個情境裡出現。"},
+      {"speaker": "rin", "text": "我先把這件事記在本子上。"}]},
+    "test_rt_ctx_check": {"mode": "dialogue", "when": {"flag": "test_rt_first", "equals": true}, "results": [{"kind": "flag", "id": "test_rt_ctx_seen", "value": true}], "lines": [
+      {"speaker": "rin", "text": "情境還在，所以這段話可以接著說。"},
+      {"speaker": "rin", "text": "等這一串結束，情境就會跟著消失。"},
+      {"speaker": "rin", "text": "下次不是第一次，就不會再出現。"}]}
+  }
+}

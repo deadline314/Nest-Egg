@@ -306,7 +306,7 @@ def _opening(source):
         ("old_k", "今天的飯煮好了喔。這頓我煮給你，不用交四十。"),
         ("rin", "那我先記著。"),
         ("old_k", "不是叫你記一筆，叫你趁熱吃。明天的事明天再說。"),
-        ("rin", "好，我先吃。")), binding="dinner", mode="bubbles", next_scene="ch1_b_dinner_food",
+        ("rin", "好，我先趁熱吃。")), binding="dinner", mode="bubbles", next_scene="ch1_b_dinner_food",
         staging="老K把碗放穩並推筷子。凜鬆開外套袋口，沒有錢或抽屜入款。")
     source.add("ch1_b_dinner_food", "dinner", (("old_k", "我把紅蘿蔔切很細了啊。"), ("rin", "還是看得到。")),
         binding="dinner", mode="bubbles", completion=(transaction("ch1.daily_dinner"), set_flag("ch1_dinner_done")), staging="凜挑紅蘿蔔；段尾真0交易收據與吃飯完成同存，不以flag冒充已有收據。")
@@ -317,7 +317,7 @@ def _opening(source):
         ("egret", "拿到盤後走倉庫上層出口。那條路到復原館外的交接櫃，不用帶著盤再穿一次路障。"),
         ("rin", "復原館就是電話亭旁邊那間夜間店？"),
         ("egret", "對，交接櫃在店外，不是交給店裡的人。櫃子收盤後吐回執，明早我跟你對錢。"),
-        ("rin", "盤放櫃裡，回執留我這裡。我記好了。")),
+        ("rin", "盤放進櫃子裡，回執由我自己收著，我記住了。")),
         binding="brief", when=flag("ch1_dinner_done"), completion=(set_flag("ch1_heard_brief"),),
         staging="紙角由茶杯壓住，鷺畫回程線後收筆。茶與傘不交凜。")
     source.add("ch1_t_egret_brief_revisit", "F01", (("egret", "上層出口接交接櫃，回執別留在櫃裡，明早還要對。"),),
@@ -410,12 +410,12 @@ def _ali_meeting(source):
                  Option("return", "先返回", None, "不點餐、不扣款，可以再問。")),
         staging="菜單先放乾桌；價格與未結帳狀態公開。阿梨不端未點餐的碗。")
     source.add("ch1_t_ali_order", "F04", (("rin", "湯和酒我都要，兩百先記這一晚。"),
-        ("ali", "好，離店前再結。今晚麵不另外收錢。"), ("rin", "這邊留給碗，紙不要碰到湯。")),
+        ("ali", "好，等你離店前再一起結帳。今晚的麵不另外收錢。"), ("rin", "這邊留給碗，紙不要碰到湯。")),
         binding="ali_lounge", when=all_of(flag("ch1_handoff_done"), negate(flag("ch1_met_ali")), negate(flag("ch1_ali_reception_selected")), account("none")),
         completion=(transaction("ch1.revival_meal.order"), grant("ch1_lounge_bill"), set_flag("ch1_ali_reception_selected")), next_scene="ch1_t_ali_name",
         staging="真正訂單段尾事務成功才發明細，現在扣0；碗杯各一次。")
     source.add("ch1_t_ali_sit", "F04", (("rin", "我先只坐一下，不點餐。"),
-        ("ali", "那就坐，桌邊有乾布，不用先留飯錢。")), binding="ali_lounge",
+        ("ali", "那就坐著休息吧，桌邊有乾布，不用先留飯錢。")), binding="ali_lounge",
         when=all_of(flag("ch1_handoff_done"), negate(flag("ch1_met_ali")), negate(flag("ch1_ali_reception_selected")), account("none")), completion=(set_flag("ch1_ali_reception_selected"),), next_scene="ch1_t_ali_name")
     source.add("ch1_t_ali_name", "F04", (("ali", "您怎麼稱呼？"), ("rin", "我叫凜。"),
         ("ali", "我叫阿梨，是梨子的梨。老人說別分梨吃，會把人分開。"),
@@ -440,7 +440,7 @@ def _evening(source):
         completion=(set_flag("ch1_lounge_evening_done"),),
         staging="阿梨收杯、到唯一攤位；館內不留第二個阿梨。沒有未選就塞麵。")
     source.add("ch1_t_ali_death_topic", "F05", (
-        ("rin", "妳不問我今天怎麼死的？"), ("ali", "你想講，我就聽。你想先把湯喝完，我也不用替你補一個故事。"),
+        ("rin", "妳不問我今天怎麼死的？"), ("ali", "你想講的話我就聽著。你想先把湯喝完，我也不會替你補一個故事。"),
         ("rin", "先讓我喝完，明早還有帳。")), binding="ali_lounge",
         when=all_of(flag("ch1_met_ali"), flag("ch1_first_death_done"), account("open200")))
     source.add("ch1_t_ali_late_topic", "F05", (("rin", "妳不問我為什麼跑這麼晚？"),
@@ -477,7 +477,7 @@ def _leave(source):
     unpaid_leave = all_of(flag("ch1_supper_choice", "leave"), negate(flag("ch1_supper_done")), account("open200"))
     back = Option("rechoose", "回去想一下", "ch1_t_supper_return", "還沒付款、簽欠條或接受招待，可以重選。", when=flag("ch1_supper_can_rechoose"))
     source.add("ch1_t_supper_leave_options", "F07", (
-        ("rin", "餐一百二十，酒八十，今晚就兩百。麵我不吃，先回家。"),
+        ("rin", "餐點一百二十加上酒八十，今晚一共兩百。麵我就不吃了，我想先回家。"),
         ("ali", "你不用替那碗麵留錢，我留給自己。")), binding="ali_stall", when=unpaid_leave,
         options=(Option("pay", "確認支付200信用點", "ch1_t_supper_pay", "結清今晚餐酒並回家；不足額不扣款。"),
                  Option("defer", "保留200欠條，先回家", "ch1_t_supper_tab_confirm", "現在不扣款、不加息；之後主動付清。"), back),
@@ -487,12 +487,12 @@ def _leave(source):
         completion=(transaction("ch1.revival_meal.paid"), set_flag("ch1_supper_done")), next_scene="ch1_t_supper_paid_goodbye",
         staging="確認與段尾交易成功才扣200及supper_done；失敗轉不足額，不演已收到錢。")
     source.add("ch1_t_supper_paid_goodbye", "F07", (
-        ("ali", "收到了，回去別把濕紙放爐邊烘，字會掉。"), ("rin", "明天我要拿紙對錢，今晚先讓它乾。"),
+        ("ali", "錢我收到了。回去別把濕紙放在爐邊烘，上面的字會掉。"), ("rin", "明天我要拿紙對錢，今晚先讓它乾。"),
         ("ali", "我下次還在這裡，你想喝湯再來。"), ("rin", "我記住這間店，不把下次也先答應了。")),
         binding="ali_stall", when=all_of(flag("ch1_supper_done"), account("paid200")))
     source.add("ch1_t_supper_insufficient", "F07", (
         ("rin", "我現在不夠兩百，不拿明天的錢當今天已經付了。"),
-        ("ali", "那就先留著，不加利息。你也可以坐下，今晚我請。")), binding="ali_stall", when=unpaid_leave,
+        ("ali", "那就先把帳留著，我不加利息。你也可以坐下來，今晚算我請客。")), binding="ali_stall", when=unpaid_leave,
         options=(Option("defer", "保留200欠條，先回家。", "ch1_t_supper_tab_confirm", "現在不扣款、不加息。"),
                  Option("stay", "回去選留下吃麵。", "ch1_t_supper_return", "回去重新決定，尚未接受招待。"),
                  Option("return", "先返回。", None, "維持未結帳，可再選。")))
@@ -508,7 +508,7 @@ def _leave(source):
     source.add("ch1_t_supper_tab_goodbye", "F07", (("ali", "欠條我留著，今晚不會再加，你先回家。"),
         ("rin", "我記住這間店，不把下次也先答應了。")), binding="ali_stall", when=all_of(account("owed200"), flag("ch1_supper_done")))
     source.add("ch1_t_supper_leave_none", "F07", (
-        ("rin", "我今晚只坐了，沒有點餐。先回家，下次再說。"),
+        ("rin", "我今晚只是坐一會兒，沒有點餐。我先回家，下次再來吃。"),
         ("ali", "那就沒有餐酒這張。門口地滑，走外側那塊乾板。"),
         ("ali", "我下次還在這裡，你想喝湯再來。"), ("rin", "我記住這間店，不把下次也先答應了。")),
         binding="ali_stall", when=all_of(flag("ch1_supper_choice", "leave"), account("none"), negate(flag("ch1_supper_done"))),
@@ -572,19 +572,25 @@ def _stay(source):
 def _clinic_and_home(source):
     # Existing rig IDs, idle/walk and known stage geometry only.  New prop states
     # remain staging requirements for the owning stage/world implementation.
-    clinic_lines = (
-        ("rin", "誰把我送到這裡？我沒在這間診間登記。"),
-        ("lamp", "灰衣人用貨車把你送來，裝備也放在臺邊。你是第一次復原，要先建檔。"),
-        ("lamp", "備份能存你走過的地方，初次建檔是另一件事。這次完成後，下次才在登記的亭子醒來。"),
-        ("lamp", "初次建檔免信用點費，之後復原照登記費扣。"),
-        ("lamp", "復原還有記憶的代價，誰承擔得看連結，不能只看你新身體。"),
-        ("rin", "我以為保單連這個也算好了。"),
-        ("lamp", "我只知道你這次登記能過，保單那頁得你自己留著。"),
-        ("rin", "我先把裝備帶走，回去接著走。"))
-    clinic_steps = [{"do": "scene", "id": "ch1_revival_room", "pos": [316, 235], "zoom": 1.0, "fade": 0.8},
-        {"do": "actor", "id": "rin", "kind": "rin", "pos": [316, 280], "facing": 1, "scale": 2.5, "pose": "idle"}]
-    clinic_steps.extend(beats(*clinic_lines))
-    clinic_steps.append({"do": "fade", "to": 1.0, "time": 0.6})
+    # 初次建檔：舞台、坐姿與光影沿用已量測的診間演出（build_ch1_story 的 ch1_c09_wake），這裡只寫台詞。
+    # 「歡迎回來」與「你的聲音跟電話亭很像」是燈與錄音聲線的伏筆（O03 支線會回頭問），保留原有日英文。
+    clinic_steps = [
+        say("rin", "幹，嘴裡全是金屬味。"),
+        {"do": "wait", "time": 0.8},
+        {**say("lamp", "歡迎回來。你死了十一分鐘。"), "ja": "おかえり。十一分、死んでたよ。", "en": "Welcome back. You were dead for eleven minutes.", "transcreate": True},
+        say("rin", "誰把我送到這裡？我沒在這間診間登記。"),
+        say("lamp", "灰衣人用貨車把你送來，裝備也放在臺邊。你是第一次復原，要先建檔。"),
+        {"do": "camera", "pos": [316, 214], "zoom": 1.55, "time": 1.0},
+        say("lamp", "備份能存你走過的地方，初次建檔是另一件事。這次完成後，下次才在登記的亭子醒來。"),
+        {**say("rin", "你的聲音跟電話亭很像。"), "ja": "電話ボックスの声、お前に似てるな。", "en": "You sound like the phone booth.", "transcreate": True},
+        say("lamp", "港區少年的聲音，長得都差不多吧。"),
+        {"do": "camera", "pos": [316, 221], "zoom": 1.4, "time": 1.0},
+        say("lamp", "初次建檔免信用點費，之後復原照登記費扣，記憶也會磨損。"),
+        {"do": "fx", "kind": "noise", "time": 0.4},
+        say("rin", "我以為保單連這個也算好了。"),
+        say("lamp", "我只知道你這次登記能過，保單那頁得你自己留著。"),
+        say("rin", "我先把裝備帶走，回去接著走。"),
+    ]
     source.add("ch1_c09_wake", "O04", steps=clinic_steps, binding="first_clinic", mode="animated",
         when=all_of(flag("ch1_first_clinic_active"), negate(flag("ch1_first_death_done"))),
         completion=(set_flag("ch1_first_death_done"),),
@@ -603,8 +609,8 @@ def _clinic_and_home(source):
         {"do": "move", "id": "rin", "to": [330, 304], "time": 2.0, "wait": True, "then": "idle"},
     ]
     home_steps.extend(beats(
-        ("rin", "老 K，壺裡沒水了，先把火關掉。"), ("old_k", "你已經回來了啊，我本來想留一壺。"),
-        ("rin", "我回來了，盤也交了，錢明早對。"), ("old_k", "八百那張有回執就收好，別拿來墊鍋喔。"),
+        ("rin", "老 K，壺裡已經沒水了，我先把爐火關掉。"), ("old_k", "你已經回來了啊，我本來想留一壺。"),
+        ("rin", "我回來了，資料盤已經交出去，錢明早再核對。"), ("old_k", "八百那張有回執就收好，別拿來墊鍋喔。"),
         ("old_k", "這壺燒乾了，不能算水好了。我去裝，今晚不用等它再滾。")))
     home_steps.extend([
         {"do": "sfx", "id": "switch", "volume": -10},
@@ -614,9 +620,9 @@ def _clinic_and_home(source):
         {"do": "face", "id": "k", "dir": 1}, {"do": "wait", "time": 3.0},
     ])
     home_steps.extend(beats(("old_k", "你什麼時候回來的？"), ("rin", "剛才，我站在這裡叫你關火。"),
-        ("old_k", "我聽見了喔。明天先吃飯，再把帳對。"), ("rin", "飯留著，錢我明早再算。")))
-    home_steps.extend([{"do": "fade", "to": 1.0, "time": 1.0},
-        {"do": "title", "text": "第一章　傘　完", "sub": "明早核對交盤回執，再談市集附件。", "time": 2.5}])
+        ("old_k", "我有聽見喔。明天先好好吃飯，再來對帳。"), ("rin", "飯留著，錢我明早再算。")))
+    # 章末卡只由關卡結尾播一次（章節資訊的 end_title 與 teaser），這裡不再疊一張同樣的完成卡。
+    home_steps.extend([{"do": "fade", "to": 1.0, "time": 1.0}])
     source.add("ch1_c14_home", "F09", steps=home_steps, binding="home", mode="animated",
         when=all_of(flag("ch1_supper_done"), flag("ch1_handoff_done"), negate(flag("ch1_home_done"))),
         completion=(set_flag("ch1_home_done"), set_flag("ch1_complete")),
@@ -699,7 +705,7 @@ def _optional(source):
         binding="first_clinic", when=all_of(real_clinic, flag("ch1_grey_cloth_examined")),
         options=(Option("take", "收起布角", "ch1_t_clinic_cloth_take", "實際挪杯收布；茶不拿走。"),
                  Option("leave", "留在托盤", "ch1_t_clinic_cloth_leave", "不取得物品，也不完成取布節點。")))
-    source.add("ch1_t_clinic_cloth_take", "O04", (("rin", "布沒有名字，我先留著，茶不拿走。"),
+    source.add("ch1_t_clinic_cloth_take", "O04", (("rin", "布上沒有名字，我先把它收著，茶就留在這裡。"),
         ("lamp", "先讓它乾，不要跟濕紙夾一起。")), binding="first_clinic",
         when=all_of(real_clinic, flag("ch1_grey_cloth_examined")),
         completion=(grant("ch1_grey_cloth", "first_clinic"), set_flag("has_grey_cloth")),

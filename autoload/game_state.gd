@@ -320,7 +320,8 @@ func area_state(area_id: StringName) -> Dictionary:
 	return area_states[key]
 
 
-func set_flag(flag: StringName, value: Variant = true) -> void:
+## request_save = false：呼叫端會在同一步驟自己請求保存（例如取得物品時旗標與物品一起保存）。
+func set_flag(flag: StringName, value: Variant = true, request_save := true) -> void:
 	if flag == &"":
 		push_warning("[GameState] set_flag：旗標名稱是空的")
 		return
@@ -328,7 +329,8 @@ func set_flag(flag: StringName, value: Variant = true) -> void:
 		push_warning("[GameState] flags/%s 無效，保留預設值" % flag)
 		return
 	world_flags[String(flag)] = value
-	request_story_save()
+	if request_save:
+		request_story_save()
 
 
 func has_flag(flag: StringName) -> bool:

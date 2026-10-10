@@ -14,7 +14,8 @@ static func eligible(entry: Dictionary, flag_reader: Callable, item_reader: Call
 	return (requires == &"" or bool(flag_reader.call(requires))) \
 		and (unless == &"" or not bool(flag_reader.call(unless))) \
 		and (item == &"" or bool(item_reader.call(item))) \
-		and custody_allows(entry, custody_reader)
+		and custody_allows(entry, custody_reader) \
+		and (not entry.has("when") or holds(entry["when"]))
 
 
 ## custody_reader(kind, id) -> bool，kind 為 &"held" 或 &"transferred"；未提供時讀 StoryItems（正式遊戲）。
@@ -28,6 +29,51 @@ static func custody_allows(entry: Dictionary, custody_reader: Callable = Callabl
 		if bool(reader.call(kind, id)) == (key == "unless_held_item"):
 			return false
 	return true
+
+
+## 條件樹（格式見 StoryConditionTree.validate）：all／any／not、{flag, equals}、{item}（目前手上有原件）、
+## {receipt, status}（正式交易已記錄）、{account, equals}（餐帳狀態）。空物件代表沒有前置條件。
+## facts(kind, id) 回傳事實：kind 為 &"flag"／&"held"／&"receipt"／&"account"；未提供時讀 Story（正式遊戲）。
+## 格式錯誤一律視為不成立，載入時由 Story.validate 指出位置。
+static func holds(condition: Variant, facts: Callable = Callable()) -> bool:
+	if not condition is Dictionary:
+		return false
+	var raw: Dictionary = condition
+	if raw.is_empty():
+		return true
+	var reader := facts if facts.is_valid() else Story.fact
+	if raw.has("all") or raw.has("any"):
+		var all := raw.has("all")
+		var children: Variant = raw["all"] if all else raw["any"]
+		if not children is Array or (children as Array).is_empty():
+			return false
+		for child: Variant in children:
+			if holds(child, reader) != all:
+				return not all
+		return all
+	if raw.has("not"):
+		return raw["not"] is Dictionary and not (raw["not"] as Dictionary).is_empty() and not holds(raw["not"], reader)
+	if raw.has("flag"):
+		return same_value(reader.call(&"flag", StringName(str(raw["flag"]))), raw.get("equals", true))
+	if raw.has("item"):
+		return bool(reader.call(&"held", StringName(str(raw["item"]))))
+	if raw.has("receipt"):
+		return str(raw.get("status", "")) == "recorded" and bool(reader.call(&"receipt", StringName(str(raw["receipt"]))))
+	if raw.has("account"):
+		return str(reader.call(&"account", StringName(str(raw["account"])))) == str(raw.get("equals", ""))
+	return false
+
+
+## 旗標比對：數字以數值比、其他型別必須相同；未設定（null）只等於 false、""、0 與 "unset"。
+static func same_value(actual: Variant, expected: Variant) -> bool:
+	if actual == null:
+		return expected in [false, "", 0, 0.0, "unset"]
+	var numeric := typeof(actual) in [TYPE_INT, TYPE_FLOAT] and typeof(expected) in [TYPE_INT, TYPE_FLOAT]
+	if numeric:
+		return float(actual) == float(expected)
+	if (actual is String or actual is StringName) and (expected is String or expected is StringName):
+		return str(actual) == str(expected)
+	return typeof(actual) == typeof(expected) and actual == expected
 
 
 static func live_custody(kind: StringName, id: StringName) -> bool:

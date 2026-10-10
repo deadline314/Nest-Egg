@@ -22,8 +22,11 @@
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("2_portal_data")
 id = &"wh_upper"
-target_level = "res://data/levels/ch1_lounge.tres"
-prompt = "{interact} 上層通道（過去就回不來了）"
+target_level = "res://data/levels/ch1_handoff.tres"
+target_portal = &"handoff_arrival"
+requires_flag = &"ledger_disk_obtained"
+locked_text = "資料盤還在保險箱，取出後再走上層通道。"
+prompt = "{interact} 上層通道：前往館外交接櫃"
 style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]

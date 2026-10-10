@@ -265,7 +265,7 @@ func _ready() -> void:
 	UiKit.set_cursor_visible(false)
 	tree_exiting.connect(UiKit.set_cursor_visible.bind(true))
 	EventBus.boss_defeated.connect(_on_boss_defeated)
-	if not data.channel_scenes.is_empty():
+	if not data.channel_scenes.is_empty() or not data.channel_done_flags.is_empty() or not data.channel_cleared_flags.is_empty():
 		EventBus.mechanism_toggled.connect(_on_channel_toggled)  # 關卡釋放時自動斷線
 	# 玩家在這個區域的時候，背景預載鄰居與接下來的過場舞台（下次進場不用當場解碼貼圖）。
 	_initialization_complete = true
@@ -336,13 +336,15 @@ func _begin_intro() -> void:
 			portal.try_use()
 
 
-## 氣泡的講者在地圖上的位置：凜是玩家，其餘是 speaker 對得上的場景人物；找不到回傳 null（該段改用通訊）。
+## 氣泡的講者在地圖上的位置：凜是玩家，其餘是 speaker 對得上、目前在場的場景人物（物件與耳機裡的聲音不算）；
+## 找不到回傳 null（該段改用通訊）。
 func _bubble_anchor(speaker_id: String) -> Node2D:
 	if speaker_id == "rin":
 		return player if is_instance_valid(player) else null
 	for node in get_tree().get_nodes_in_group(NpcActor.GROUP):
 		var npc := node as NpcActor
-		if npc != null and npc.data != null and (npc.data.speaker == speaker_id or String(npc.data.id) == speaker_id):
+		if npc != null and npc.data != null and npc.data.kind == NpcData.Kind.PERSON and npc.is_present() \
+				and (npc.data.speaker == speaker_id or String(npc.data.id) == speaker_id):
 			return npc
 	return null
 
@@ -371,6 +373,10 @@ func _show_chapter_card(title: String, subtitle: String, block: bool, hold := 2.
 
 ## 機關頻道啟動時播放對應的場景（LevelData.channel_scenes）。
 func _on_channel_toggled(channel: StringName, active: bool) -> void:
+	var flags := data.channel_done_flags if active else data.channel_cleared_flags
+	if flags.has(channel) and not GameState.has_flag(flags[channel]):
+		GameState.set_flag(flags[channel])
+		Story.outcomes.refresh_derived()
 	if active and data.channel_scenes.has(channel):
 		Story.play(data.channel_scenes[channel])
 
@@ -938,6 +944,8 @@ func _on_player_died(cause: StringName) -> void:
 	var scene_entry := Story.death_scene_entry(data.chapter, cause) if can_continue else {}
 	_death_entry = scene_entry
 	_death_cause = cause
+	if scene_entry.is_empty() and can_continue and GameState.has_checkpoint:
+		Story.note_ordinary_restoration(data.chapter)
 	_apply_death_to_world(not bool(scene_entry.get("free", false)))
 	# 同一份快照先落死亡計數、世界與扣款；黑幕前必須保存。
 	critical_save_requested.emit()

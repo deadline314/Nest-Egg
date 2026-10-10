@@ -16,6 +16,10 @@ const SCAN_EXTENSIONS: Array[String] = ["tres", "tscn", "gd", "json"]
 static var _flag_write_re := RegEx.create_from_string("set_flag\\(\\s*&?\"([^\"]+)\"")
 static var _flag_read_re := RegEx.create_from_string("has_flag\\(\\s*&?\"([^\"]+)\"")
 static var _portal_read_re := RegEx.create_from_string("requires_flag = &\"([^\"]+)\"")
+static var _spawn_read_re := RegEx.create_from_string("spawn_(?:requires|unless)_flag = &\"([^\"]+)\"")
+static var _acquire_write_re := RegEx.create_from_string("acquire_flag = &\"([^\"]+)\"")
+static var _channel_write_re := RegEx.create_from_string("channel_(?:done|cleared)_flags = Dictionary\\[StringName, StringName\\]\\(\\{([^\\n]*)\\}\\)")
+static var _dict_value_re := RegEx.create_from_string(": &\"([^\"]+)\"")
 
 
 ## 旗標表：{ 旗標: {"writes": [出處…], "reads": [出處…]} }。
@@ -31,6 +35,15 @@ static func flag_table(scenes: Dictionary, death_tables: Dictionary, text_files:
 				_add(table, str(flag), "writes", "場景 %s 的故事分支／結束" % scene_id)
 			for key in ["requires_flag", "unless_flag"]:
 				_add(table, str(entry.get(key, "")), "reads", "場景 %s 的 %s" % [scene_id, key])
+			for flag in condition_flags(entry.get("when", {})):
+				_add(table, flag, "reads", "場景 %s 的條件" % scene_id)
+		for op in StoryOutcomes.operations(scene):
+			if str(op.get("kind", "")) == "flag":
+				_add(table, str(op.get("id", "")), "writes", "場景 %s 的段尾結果" % scene_id)
+		for route: Variant in (scene as Dictionary).get("routes", []):
+			if route is Dictionary:
+				for flag in condition_flags((route as Dictionary).get("when", {})):
+					_add(table, flag, "reads", "分派場景 %s 的路線條件" % scene_id)
 	for chapter: String in death_tables:
 		var entries: Variant = death_tables[chapter]
 		if typeof(entries) != TYPE_ARRAY:
@@ -46,12 +59,57 @@ static func flag_table(scenes: Dictionary, death_tables: Dictionary, text_files:
 		var text: String = text_files[path]
 		for match in _portal_read_re.search_all(text):
 			_add(table, match.get_string(1), "reads", "%s 的 requires_flag" % path)
+		for match in _spawn_read_re.search_all(text):
+			_add(table, match.get_string(1), "reads", "%s 的人物出現條件" % path)
+		for match in _acquire_write_re.search_all(text):
+			_add(table, match.get_string(1), "writes", "%s 取得物品時" % path)
+		for match in _channel_write_re.search_all(text):
+			for value in _dict_value_re.search_all(match.get_string(1)):
+				_add(table, value.get_string(1), "writes", "%s 的機關頻道" % path)
+		if path.ends_with(".json"):
+			_add_chapter_rules(table, path, text)
 		if path.ends_with(".gd"):
 			for match in _flag_write_re.search_all(text):
 				_add(table, match.get_string(1), "writes", "%s 的 set_flag" % path)
 			for match in _flag_read_re.search_all(text):
 				_add(table, match.get_string(1), "reads", "%s 的 has_flag" % path)
 	return table
+
+
+## 章節劇本的旗標規則：執行期事實與一般復原旗標由真實服務寫入；衍生旗標由條件重算（寫）並讀它的條件。
+static func _add_chapter_rules(table: Dictionary, path: String, text: String) -> void:
+	if not text.contains("\"runtime_facts\"") and not text.contains("\"derived_flags\"") and not text.contains("\"restoration_flag\""):
+		return
+	var data: Variant = JSON.parse_string(text)
+	if not data is Dictionary:
+		return
+	var facts: Variant = (data as Dictionary).get("runtime_facts", {})
+	for name: Variant in (facts as Dictionary if facts is Dictionary else {}):
+		_add(table, str(name), "writes", "%s 的執行期事實" % path)
+	var derived: Variant = (data as Dictionary).get("derived_flags", {})
+	for name: Variant in (derived as Dictionary if derived is Dictionary else {}):
+		_add(table, str(name), "writes", "%s 的衍生旗標" % path)
+		for flag in condition_flags(derived[name]):
+			_add(table, flag, "reads", "%s 的衍生旗標 %s" % [path, name])
+	if (data as Dictionary).get("restoration_flag") is String:
+		_add(table, str(data["restoration_flag"]), "writes", "%s 的一般復原" % path)
+
+
+## 條件樹裡讀到的旗標名稱（all／any／not 遞迴）。
+static func condition_flags(condition: Variant) -> Array[String]:
+	var result: Array[String] = []
+	if not condition is Dictionary:
+		return result
+	var raw: Dictionary = condition
+	if raw.has("flag"):
+		result.append(str(raw["flag"]))
+	for key in ["all", "any"]:
+		if raw.get(key) is Array:
+			for child: Variant in raw[key]:
+				result.append_array(condition_flags(child))
+	if raw.has("not"):
+		result.append_array(condition_flags(raw["not"]))
+	return result
 
 
 static func _add(table: Dictionary, flag: String, kind: String, where: String) -> void:
@@ -109,6 +167,9 @@ static func scene_references(scenes: Dictionary, respawn_tables: Dictionary, dea
 			var next := str((scene as Dictionary).get("then", ""))
 			if refs.has(next):
 				(refs[next] as Array).append("場景 %s 的 then" % scene_id)
+			for target in _scene_targets(scene):
+				if refs.has(target):
+					(refs[target] as Array).append("場景 %s 的選項、分派或失敗接續" % scene_id)
 	for tables: Dictionary in [respawn_tables, death_tables]:
 		for chapter: String in tables:
 			if typeof(tables[chapter]) != TYPE_ARRAY:
@@ -157,6 +218,8 @@ static func reachability(model: Dictionary, starts: Array) -> Dictionary:
 		size_before = levels.size() + scenes.size() + flags.size()
 		for level_id: String in levels.keys():
 			var level: Dictionary = (model.get("levels", {}) as Dictionary).get(level_id, {})
+			for flag: Variant in level.get("flags", []):
+				flags[str(flag)] = true
 			for entry: Variant in level.get("scenes", []):
 				if typeof(entry) != TYPE_DICTIONARY:
 					continue
@@ -189,7 +252,28 @@ static func _play(model: Dictionary, scene_id: String, scenes: Dictionary, flags
 		for entry in StoryRules.entries(scene):
 			for flag: Variant in StoryRules.flag_names(entry.get("set_flags", [])):
 				flags[str(flag)] = true
+		for op in StoryOutcomes.operations(scene):
+			if str(op.get("kind", "")) == "flag":
+				flags[str(op.get("id", ""))] = true
+		for target in _scene_targets(scene):
+			_play(model, target, scenes, flags)
 		current = str((scene as Dictionary).get("then", ""))
+
+
+## 一個場景可能接到的其他場景：選項的 target、分派路線、交易失敗的 on_failure（靜態列舉全部分支）。
+static func _scene_targets(scene: Dictionary) -> Array[String]:
+	var result: Array[String] = []
+	for entry in StoryRules.entries(scene.get("steps", [])):
+		if entry.has("target"):
+			result.append(str(entry["target"]))
+	for route: Variant in scene.get("routes", []):
+		if route is Dictionary:
+			result.append(str((route as Dictionary).get("target", "")))
+	var failures: Variant = scene.get("on_failure", {})
+	if failures is Dictionary:
+		for reason: Variant in failures:
+			result.append(str(failures[reason]))
+	return result
 
 
 ## 不可達內容的問題：{"errors", "warnings"}。
@@ -241,6 +325,9 @@ static func level_model(datas: Dictionary, layouts: Dictionary, scenes: Dictiona
 		for entry in data.cinematic_entries:
 			if entry != null:
 				scene_entries.append({"id": str(entry.scene), "after": ""})
+		var level_flags: Array = []
+		for flag: Variant in data.channel_done_flags.values() + data.channel_cleared_flags.values():
+			level_flags.append(str(flag))
 		var portals: Array = []
 		if not data.next_level.is_empty():
 			portals.append({"to": data.next_level, "requires": ""})
@@ -254,7 +341,9 @@ static func level_model(datas: Dictionary, layouts: Dictionary, scenes: Dictiona
 						scene_entries.append({"id": str(talk.scene), "after": str(talk.after_scene)})
 			elif res is MechanismData and (res as MechanismData).start_scene != &"":
 				scene_entries.append({"id": str((res as MechanismData).start_scene), "after": ""})
-		levels[path] = {"scenes": scene_entries, "portals": portals}
+			elif res is StoryItemData and (res as StoryItemData).acquire_flag != &"":
+				level_flags.append(str((res as StoryItemData).acquire_flag))
+		levels[path] = {"scenes": scene_entries, "portals": portals, "flags": level_flags}
 	return {"levels": levels, "scenes": scenes, "always": always, "code_flags": code_flags}
 
 

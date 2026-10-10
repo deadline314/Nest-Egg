@@ -14,6 +14,8 @@ const PROMPT_RADIUS := INTERACT_RANGE
 ## 沒有骨架外觀（記號、剪影）時的提示文字與泡泡位置；有骨架外觀時依實際頭頂高度排（_fit_to_figure）。
 const PROMPT_OFFSET := Vector2(0, -78)
 const BUBBLE_POS := Vector2(0, -48)
+## 出現條件改變時淡入淡出的秒數。
+const PRESENCE_FADE := 0.6
 ## 泡泡底邊離頭頂、提示文字底邊離泡泡頂的距離。
 const BUBBLE_GAP := 4.0
 const LABEL_GAP := 4.0
@@ -42,6 +44,9 @@ var _time := 0.0
 ## 走近反應與聽到聲響的反應（NE-240）；只有有骨架的人物才有。
 var awareness: NpcAwareness
 var _looking := false
+## 依 NpcData 的出現條件目前是否在地圖上。
+var _present := true
+var _fade: Tween
 
 
 func configure(p_data: NpcData, p_cell: Vector2i) -> void:
@@ -88,6 +93,42 @@ func _ready() -> void:
 	Story.framing.register_target(self)
 	if _actor != null and _actor.rig != null:
 		_fit_to_figure()
+	_present = data.should_spawn()
+	_apply_presence(false)
+	Story.scene_finished.connect(_on_story_scene_finished)
+
+
+## 劇情進度改變出現條件時淡入或淡出（例如阿梨收店）；不在地圖上時不能互動、不擋提示。
+func _on_story_scene_finished(_scene: StringName) -> void:
+	var present := data.should_spawn()
+	if present != _present:
+		_present = present
+		_apply_presence(true)
+
+
+func is_present() -> bool:
+	return _present
+
+
+func _apply_presence(animate: bool) -> void:
+	set_deferred(&"monitoring", _present)
+	if not _present:
+		_player_in_range = false
+		Music.set_safe(self, false)
+	if is_instance_valid(_prompt):
+		_prompt.enabled = _present
+	if _fade != null and _fade.is_valid():
+		_fade.kill()
+	if not animate or not is_inside_tree():
+		visible = _present
+		modulate.a = 1.0
+		return
+	visible = true
+	modulate.a = 0.0 if _present else 1.0
+	_fade = create_tween()
+	_fade.tween_property(self, "modulate:a", 1.0 if _present else 0.0, PRESENCE_FADE)
+	if not _present:
+		_fade.tween_callback(hide)
 
 
 ## 等骨架擺好第一個姿勢後量頭頂高度，把泡泡與提示文字排在頭頂上方（站、蹲、靠牆各自對得上，不蓋到臉）。
@@ -181,18 +222,18 @@ func current_talk_index() -> int:
 
 
 func preview_available() -> bool:
-	if data == null or data.kind != NpcData.Kind.PERSON or _talking or _cooldown > 0.0:
+	if data == null or data.kind != NpcData.Kind.PERSON or not _present or _talking or _cooldown > 0.0:
 		return false
 	var index := current_talk_index()
 	return index >= 0 and Story.has_scene(data.talks[index].scene) and Story.scene_mode(data.talks[index].scene) == Story.MODE_DIALOGUE
 
 
 func _prompt_available() -> bool:
-	return _player_in_range and not _talking and is_instance_valid(_prompt_player) and not _prompt_player.is_dead() and _prompt_player.state != Player.State.MOUNTED
+	return _present and _player_in_range and not _talking and is_instance_valid(_prompt_player) and not _prompt_player.is_dead() and _prompt_player.state != Player.State.MOUNTED
 
 
 func interaction_available() -> bool:
-	return _player_in_range and not _talking and _cooldown <= 0.0 and current_talk_index() >= 0
+	return _present and _player_in_range and not _talking and _cooldown <= 0.0 and current_talk_index() >= 0
 
 
 ## 開始對話：說完記下次數並發放獎勵。可用於測試直接呼叫。

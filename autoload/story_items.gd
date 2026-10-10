@@ -153,6 +153,8 @@ func acquire(id: StringName, announce := true) -> bool:
 	_owned[id] = true
 	_held[id] = true
 	_unseen[id] = true
+	if item.acquire_flag != &"" and not GameState.has_flag(item.acquire_flag):
+		GameState.set_flag(item.acquire_flag, true, false)
 	GameState.request_story_save()
 	acquired.emit(item)
 	if announce:

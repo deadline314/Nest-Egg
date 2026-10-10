@@ -88,5 +88,6 @@ environment = ExtResource("24_ch1_warehouse")
 layout_path = "res://data/levels/ch1_warehouse_map.json"
 lighting_zones = Array[ExtResource("22_lighting_zone")]([SubResource("Resource_2")])
 channel_scenes = Dictionary[StringName, StringName]({&"watchdog_gate": &"ch1_c11_watchdog"})
+channel_done_flags = Dictionary[StringName, StringName]({&"watchdog_gate": &"watchdog_defeated", &"flood_c": &"ch1_flood_gate_open"})
 story_triggers = PackedStringArray("ch1_g07_dog", "ch1_g10_pit", "ch1_g10_pit2", "ch1_g10_cross")
 death_credit_cap = 250

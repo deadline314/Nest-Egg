@@ -12,9 +12,9 @@ script = ExtResource("3_portal_data")
 id = &"stall_home"
 target_level = "res://data/levels/ch1_pawnshop_dawn.tres"
 target_portal = &"pawn_front"
-requires_flag = &"knows_ali_address"
-locked_text = "先吃點東西，和阿梨說話。"
-prompt = "{interact} 回家後播放劇情。"
+requires_flag = &"ch1_supper_done"
+locked_text = "先和阿梨說好去留與今晚的帳；不需要先知道地址。"
+prompt = "{interact} 回當舖"
 cinematic_preview_scene = &"ch1_c14_home"
 style = "door"
 

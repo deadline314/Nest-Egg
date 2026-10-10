@@ -3,7 +3,7 @@ extends TestSuite
 ## 第一章（傘）的地圖（ST-6）：八個區域都能解析、出入口互相對得上、從當舖走得到每一個區域、敵人名單與分佈、
 ## 道具只有該放的、新遊戲從當舖開始、依序走過每個出入口時玩家出現在對應的位置、世界在區域之間保留。
 
-const IDS: Array[String] = ["pawnshop", "rooftop", "street", "booth_alley", "warehouse", "vault", "lounge", "stall", "pawnshop_dawn"]
+const IDS: Array[String] = ["pawnshop", "rooftop", "street", "booth_alley", "warehouse", "vault", "handoff", "lounge", "stall", "pawnshop_dawn"]
 const ROSTER_PATH := "res://data/combat/chapter_rosters.json"
 const DESIGN_PATH := "res://data/levels/ch1_design.json"
 ## 遭遇總數與波次區的下限；NE-245 普通遭遇保留波次但不鎖場。
@@ -182,7 +182,7 @@ func _test_portals() -> void:
 	# 單向：從倉庫去復原館之後，復原館沒有回倉庫的門。
 	check(not edges["lounge"].has("vault") and not edges["lounge"].has("warehouse"), "the upper walkway is one way")
 	check(edges["warehouse"].has("vault") and edges["vault"].has("warehouse"), "the warehouse and the vault connect both ways")
-	check(edges["vault"].has("lounge") and edges["lounge"].has("stall") and edges["stall"].has("pawnshop_dawn"), "the chapter ends warehouse, vault, lounge, stall, home")
+	check(edges["vault"].has("handoff") and edges["handoff"].has("lounge") and edges["lounge"].has("stall") and edges["stall"].has("pawnshop_dawn"), "the chapter ends warehouse, vault, handoff cabinet, lounge, stall, home")
 
 
 # ---------------------------------------------------------------------------
@@ -437,12 +437,22 @@ func _test_entry_point() -> void:
 
 ## 每個區域引用的場景都存在；出入口要求的旗標一定有某個場景會設定它。
 func _test_story_hooks() -> void:
+	# 旗標的生產者：場景結束（set_flags 與段尾結果）、真實機關頻道、取得物品。
 	var flags_set: Dictionary[StringName, bool] = {}
 	for id in Story.scene_ids():
 		var scene: Variant = Story._scenes[id]
 		if typeof(scene) == TYPE_DICTIONARY:
 			for flag: Variant in (scene as Dictionary).get("set_flags", []):
 				flags_set[StringName(str(flag))] = true
+			for op in StoryOutcomes.operations(scene):
+				if str(op.get("kind", "")) == "flag":
+					flags_set[StringName(str(op["id"]))] = true
+	for id in _datas:
+		for flag: StringName in _datas[id].channel_done_flags.values() + _datas[id].channel_cleared_flags.values():
+			flags_set[flag] = true
+		for resource in _datas[id].legend.values():
+			if resource is StoryItemData and (resource as StoryItemData).acquire_flag != &"":
+				flags_set[(resource as StoryItemData).acquire_flag] = true
 	for id in _datas:
 		var data := _datas[id]
 		if data.intro_scene != &"":
@@ -468,7 +478,9 @@ func _test_narrative() -> void:
 		if not id.begins_with("ch1_"):
 			continue
 		var mode := str(Story._scenes[id].get("mode", ""))
-		if mode == "animated":
+		# 疊加（overlay）動畫是蓋在遊戲畫面上的對話與選擇面板，不是換舞台的過場；
+		# 同一場過場裡接著播的段落（被 then／選項接續、同一個舞台）算在原本那一場。
+		if mode == "animated" and not bool(Story._scenes[id].get("overlay", false)) and not _continuations().has(id):
 			animated.append(id)
 		elif mode == "cinematic":
 			cinematic.append(id)
@@ -528,10 +540,30 @@ func _test_staging() -> void:
 		var scene: Dictionary = Story._scenes[id]
 		if not str(id).begins_with("ch1_") or str(scene.get("mode", "")) != "animated":
 			continue
-		checked += 1
+		if not bool(scene.get("overlay", false)) and not _continuations().has(id):
+			checked += 1
 		var problems := CutsceneChecker.staging_problems(str(id), scene)
 		check(problems.is_empty(), "%s keeps the actors' feet above the dialogue box: %s" % [id, problems])
 	check(checked == MAX_CUTSCENES, "the chapter's animated scenes were checked (%d)" % checked)
+
+
+## 被其他場景以 then、選項接續或分派路線帶進來的場景 id（同一場演出的後續段落）。
+func _continuations() -> Dictionary:
+	var result := {}
+	for id: String in Story.scene_ids():
+		var scene: Dictionary = Story._scenes[id]
+		var next := str(scene.get("then", ""))
+		if next != "":
+			result[next] = true
+		for entry in StoryRules.entries(scene.get("steps", [])):
+			if entry.has("target"):
+				result[str(entry["target"])] = true
+	for id: String in Story.scene_ids():
+		var scene: Dictionary = Story._scenes[id]
+		if result.has(id) and str(scene.get("mode", "")) == "dispatch":
+			for route: Variant in scene.get("routes", []):
+				result[str((route as Dictionary).get("target", ""))] = true
+	return result
 
 
 ## 預載：區域與過場用到的貼圖路徑找得到、請求只發一次、缺檔不報錯。
@@ -786,27 +818,60 @@ func _prefetch_candidates(directory: String, paths: PackedStringArray) -> void:
 	for child in DirAccess.get_directories_at(directory):
 		_prefetch_candidates(directory.path_join(child), paths)
 
-## 場景結束時設旗標：吃完晚飯才能上樓，聽完差事才能出門。
+## 場景結束時設旗標：吃完晚飯才能上樓，聽完差事才能出門；阿梨的正式對話（點餐、聊天、去留）打開館門與回家的路。
 func _test_story_flags() -> void:
 	GameState.start_new_run(GameState.difficulties[1])
 	Story.reset_progress()
 	check(not GameState.has_flag(&"ch1_dinner_done"), "no flags at the start of a run")
 	Story.auto_skip = true
 	Story.play(&"ch1_b_dinner")
-	await frames(6)
+	await frames(10)
 	check(GameState.has_flag(&"ch1_dinner_done"), "finishing the dinner bubbles sets its flag")
+	check(str(Progression.story_receipt_status(&"ch1.daily_dinner").get("status", "")) == "recorded", "the free dinner records its zero-credit receipt with the flag")
 	check(not GameState.has_flag(&"ch1_heard_brief"), "the rooftop flag is still unset")
-	Story.play(&"ch1_t_egret_1")
+	Story.play(&"ch1_dispatch_brief")
 	await frames(10)
 	check(GameState.has_flag(&"ch1_heard_brief"), "finishing the briefing talk sets its flag")
-	Story.play(&"ch1_t_ali_1")
-	Story.play(&"ch1_t_ali_3")
-	await frames(10)
+	# 前提：資料盤已經在館外交接櫃交完（交接流程另有測試）。
+	GameState.set_flag(&"ch1_handoff_done")
+	Story.auto_skip = false
+	check(await _play_choosing(&"ch1_dispatch_ali_lounge", ["order"]), "meeting Ali plays through an explicit order")
+	check(GameState.has_flag(&"ch1_met_ali") and str(Story.outcomes.account_state(&"ch1_lounge")) == "open200", "ordering records the 200 bill and Ali's name")
+	check(await _play_choosing(&"ch1_dispatch_ali_lounge", ["evening"]), "the evening talk is chosen from Ali's topics")
+	check(GameState.has_flag(&"ch1_lounge_evening_done"), "the evening talk opens the lounge exit")
+	check(await _play_choosing(&"ch1_dispatch_ali_stall", ["stay", "accept"]), "staying for noodles is an explicit choice and acceptance")
 	check(GameState.has_flag(&"ch1_met_ali") and GameState.has_flag(&"knows_ali_address"), "the two talks with Ali open the lounge exit and the way home")
+	check(GameState.has_flag(&"ch1_supper_done") and str(Story.outcomes.account_state(&"ch1_lounge")) == "gifted200", "accepting the treat settles the bill as a gift and opens the way home")
+	Story.auto_skip = true
 	Story.reset_progress()
 
 
+## 播放一段入口並依序選擇選項（選項 id）；回傳整串是否播完。
+func _play_choosing(id: StringName, choices: Array) -> bool:
+	var done := [false, false]
+	var waiter := func() -> void:
+		done[1] = await Story.play_and_wait(id, false)
+		done[0] = true
+	waiter.call()
+	var pending := choices.duplicate()
+	for i in 3000:
+		if done[0]:
+			break
+		var player: CutscenePlayer = Story._player
+		if player != null and player.choice_active():
+			var wanted: String = pending.pop_front() if not pending.is_empty() else ""
+			var index := player._choice_options.find_custom(func(option: Dictionary) -> bool: return str(option.get("id", "")) == wanted)
+			check(index >= 0, "option %s is offered in %s" % [wanted, id])
+			player.choose(maxi(index, 0))
+		elif (player == null or not player.is_running()) and Story.is_cinematic_active():
+			Story.skip_cinematic()  # 對話框：等同玩家讀完按下略過，整段照樣算完成
+		_press_advance()
+		await physics_frames(1)
+	return done[0] and done[1] and pending.is_empty()
+
+
 ## 每個動畫過場真的能從頭播到尾（時間加速）：舞台載得進來、演員建得出來、每個步驟都跑得完，沒有腳本錯誤。
+## 用不帶前置條件與段尾結果的複本播放，只驗演出；選擇題選預設（不做不可逆決定的那一項）。
 func _test_scenes_play_through() -> void:
 	var previous_auto := Story.auto_skip
 	var previous_scale := Engine.time_scale
@@ -817,21 +882,43 @@ func _test_scenes_play_through() -> void:
 			continue
 		if Story._scenes[id].has("then") and not id.ends_with("prologue") and not id.ends_with("c03a_roof"):
 			continue
+		var copy_id := "test_playthrough_" + id
+		var copy: Dictionary = (Story._scenes[id] as Dictionary).duplicate(true)
+		for key in ["when", "results", "on_failure", "context_facts", "then"]:
+			copy.erase(key)
+		for entry in StoryRules.entries(copy.get("steps", [])):
+			entry.erase("target")
+			entry.erase("when")
+		Story._scenes[copy_id] = copy
 		var done := [false]
 		var waiter := func() -> void:
-			await Story.play_and_wait(StringName(id), false)
+			await Story.play_and_wait(StringName(copy_id), false)
 			done[0] = true
 		waiter.call()
 		var waited := 0
 		while not done[0] and waited < 1500:
 			await physics_frames(1)
 			waited += 1
+			_choose_default()
 			_press_advance()
 		check(done[0], "animated scene plays through to its end: %s (%d frames)" % [id, waited])
 		check(not Story.is_cinematic_active(), "back in the game after %s" % id)
+		Story._scenes.erase(copy_id)
 		Story.reset_progress()
 	Engine.time_scale = previous_scale
 	Story.auto_skip = previous_auto
+
+
+func _choose_default() -> void:
+	var player: CutscenePlayer = Story._player
+	if player == null or not player.choice_active():
+		return
+	var step: Dictionary = player._choice_step
+	var index := 0
+	for i in player._choice_options.size():
+		if str(player._choice_options[i].get("id", "")) == str(step.get("default", "")):
+			index = i
+	player.choose(index)
 
 
 ## 模擬玩家按下推進：打字機演完、直接進下一句。
@@ -878,7 +965,8 @@ func _test_walkthrough() -> void:
 		["booth_alley", &"booth_street", "street"],
 		["street", &"street_warehouse", "warehouse"],
 		["warehouse", &"wh_vault", "vault"],
-		["vault", &"wh_upper", "lounge"],
+		["vault", &"wh_upper", "handoff"],
+		["handoff", &"handoff_lounge", "lounge"],
 		["lounge", &"lounge_exit", "stall"],
 		["stall", &"stall_home", "pawnshop_dawn"],
 	]
