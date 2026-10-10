@@ -14,6 +14,7 @@ var ammo_ring: AmmoRing
 var ammo_tray: AmmoTray
 var _gauges: _Gauges
 var weapon_bar: WeaponBar
+var hover_guard: BackgroundHoverGuard
 var _items_label: Label
 var _lives_label: Label
 var _timer_label: Label
@@ -45,6 +46,9 @@ func _ready() -> void:
 	layer = UiLayers.HUD
 	var root := UiKit.full_rect_root(self)
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	# 暫停頁、交談與通訊出現時，背景說明不能蓋住講者、正文或選單。
+	hover_guard = BackgroundHoverGuard.new(root)
+	root.add_child(hover_guard)
 	quest_guidance = QuestGuidance.new()
 	root.add_child(quest_guidance)
 

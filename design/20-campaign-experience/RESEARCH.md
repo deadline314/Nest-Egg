@@ -20,6 +20,7 @@
 | [Godot Windows 匯出](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_windows.html) | 支援嵌入 PCK 單執行檔，總大小有约3.89GB限制 | 累積章節單檔產物、白名單及體積檢查、本機乾淨目錄啟動 |
 | [PlayStation：開發者談戰鬥打擊感](https://blog.playstation.com/2022/10/04/game-developers-explain-what-makes-god-of-war-2018s-combat-tick/) | 動畫、聲音、受擊與命中停顿共同形成重量；攻擊提示分清防禦能力 | 重武器用姿態与時間成本表現；不單靠閃光／震動；盾面与實際判定相符 |
 | [Hades Superstar 官方更新](https://www.supergiantgames.com/blog/hades-superstar-update-patch-notes/) | 盾回收、投射物呈現及單次攻擊重複傷害都需修正 | 視覺、碰撞、反射與單擊傷害一起驗證，不把新素材直接視作戰鬥完成 |
+| [Leyla In Veil 官方 Steam 截圖](https://store.steampowered.com/app/3904870/)（2026-10-11 實際看過 10 張） | 戰鬥 HUD 不加框，集中在左下：彈匣／備彈數字、武器像素剪影、細血條帶心電圖線；左上信用點與會淡出的拾取紀錄；背包左列物品、選中列反白、數量靠右且不足時轉紅、右側角色立繪；分頁圖示兩側標 Q／E；互動以按鍵字母浮在物件上 | 背景 HUD 留在角落、讀取或選單時退讓；選中態用高對比反白而不只靠發光；數量與不足狀態靠顏色加數字；分頁按鍵直接標在分頁旁。沿用 Nest Egg 霓虹色盤、字型與高低多方向地圖，不照抄其紅黑配色與立繪 |
 
 ## 玩家樣本與限制
 

@@ -9,6 +9,7 @@ func run() -> void:
 	await _test_credits_tag()
 	await _test_banner_kinds()
 	await _test_tooltips()
+	await preload("res://tests/helpers/hud_background_hover_checks.gd").run(self)
 	await _test_radio_panel()
 	await _test_radio_card()
 
