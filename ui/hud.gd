@@ -8,6 +8,13 @@ const TOAST_TIME := 2.2
 const CONTROLS_HINT_TIME := 5.0
 ## {動作} 會換成玩家目前設定的按鍵（見 InputBindings.format）。
 const CONTROLS_TEMPLATE := "移動 {move_left}/{move_right}　跳 {jump}　射擊 {shoot}　格擋 {block}　衝刺 {dash}　終結 {melee}　換彈 {reload}　換武器 {weapon_next}／1～4　搭乘 {interact}　背包 {inventory}　暫停 {pause}"
+## 按住與連按的規則（NE-229），一行一件事；設定的「按鍵」「手把」分頁顯示，按鍵名稱跟著目前裝置與改鍵。
+## 對應的判定：放開跳躍會截短跳躍、按住射擊依射速連射、按住格擋持續舉盾、近戰與衝刺有輸入緩衝（data/feel/input.json）。
+const HOLD_RULES: Array[String] = [
+	"按住 {jump} 跳得更高，提早放開就跳得低。",
+	"按住 {shoot} 依射速連射；按住 {block} 持續舉盾。",
+	"出招中先按 {melee} 會接下一段；衝刺快冷卻完時先按 {dash} 會排隊。",
+]
 
 var vitals_tag: VitalsTag
 var ammo_ring: AmmoRing
@@ -203,6 +210,14 @@ static func controls_hint() -> String:
 	if InputBindings.using_gamepad:
 		template = template.replace("／1～4", "")
 	return InputBindings.format(template)
+
+
+## 按住與連按的規則，已換成目前裝置的按鍵名稱。
+static func hold_rules() -> String:
+	var lines := PackedStringArray()
+	for rule in HOLD_RULES:
+		lines.append(InputBindings.format(rule))
+	return "\n".join(lines)
 
 
 ## 完整清單在暫停頁；預設只提示如何重看，不推定玩家完成了教學。

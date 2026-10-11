@@ -14,6 +14,7 @@ static func run(suite: TestSuite) -> void:
 	await _check_shop(suite)
 	await _check_bag(suite)
 	await _check_codex(suite)
+	await _check_hold_rules(suite)
 	InputBindings._set_device(was_gamepad, device)
 	await suite.frames(1)
 
@@ -209,6 +210,25 @@ static func _check_bag(suite: TestSuite) -> void:
 	InputBindings.set_code(&"inventory", 0, original)
 	await suite.frames(3)
 	await suite.end_level(level)
+
+
+## 設定的「按鍵」與「手把」分頁寫出按住／連按規則，按鍵名稱跟著目前裝置與改鍵（NE-229）。
+static func _check_hold_rules(suite: TestSuite) -> void:
+	var settings := SettingsScreen.new()
+	suite.runner.add_child(settings)
+	await suite.frames(3)
+	var labels: Array[Label] = settings._hold_rule_labels
+	suite.check(labels.size() == 2 and labels.all(func(label: Label) -> bool: return label.text.split("\n").size() == Hud.HOLD_RULES.size()), "按鍵與手把分頁都有按住與連按的規則")
+	await _joy(suite, JOY_BUTTON_DPAD_DOWN)
+	suite.check(labels[0].text.contains(InputBindings.joy_label(&"jump")) and labels[0].text.contains(InputBindings.joy_label(&"block")), "用手把時規則顯示手把按鍵（%s）" % labels[0].text.get_slice("\n", 0))
+	InputBindings._set_device(false, -1)
+	var original := InputBindings.get_code(&"jump", 0)
+	InputBindings.set_code(&"jump", 0, KEY_K)
+	await suite.frames(1)
+	suite.check(labels[1].text.begins_with("按住 K "), "改鍵後規則跟著換成新按鍵（%s）" % labels[1].text.get_slice("\n", 0))
+	InputBindings.set_code(&"jump", 0, original)
+	settings.queue_free()
+	await suite.frames(2)
 
 
 ## 圖鑑：手把方向鍵移動焦點，B 關閉。

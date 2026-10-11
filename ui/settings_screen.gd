@@ -38,6 +38,8 @@ var _controller_sliders: Dictionary[String, HSlider] = {}
 var _controller_values: Dictionary[String, Label] = {}
 var _controller_invert: CheckButton
 var _controller_note: Label
+## 「按鍵」與「手把」分頁底部的按住／連按規則（NE-229）。
+var _hold_rule_labels: Array[Label] = []
 var _cancel_hold: Timer
 var _cancel_hold_pressed := false
 
@@ -439,11 +441,15 @@ func _build_bindings_tab() -> Control:
 	scroll.name = "按鍵"
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	scroll.follow_focus = true
+	var column := VBoxContainer.new()
+	column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	column.add_theme_constant_override(&"separation", 10)
+	scroll.add_child(column)
 	var grid := GridContainer.new()
 	grid.columns = 2 + InputBindings.KEY_SLOTS
 	grid.add_theme_constant_override(&"h_separation", 6)
 	grid.add_theme_constant_override(&"v_separation", 4)
-	scroll.add_child(grid)
+	column.add_child(grid)
 
 	var headers: Array[String] = ["動作"]
 	for slot in InputBindings.KEY_SLOTS:
@@ -464,8 +470,24 @@ func _build_bindings_tab() -> Control:
 		for slot in InputBindings.KEY_SLOTS:
 			grid.add_child(_make_binding_button(action, slot, "點擊後按下新按鍵或滑鼠鍵；Backspace 清除"))
 		grid.add_child(_make_binding_button(action, JOY_SLOT, "點擊後按下手把按鈕；搖桿與扳機固定不可改"))
+	column.add_child(_hold_rules_block())
 	ScrollCue.attach(scroll)
 	return scroll
+
+
+## 按住與連按的規則：標題一行，下面每條一句；文字在 _refresh_bindings 依目前裝置更新。
+func _hold_rules_block() -> Control:
+	var block := VBoxContainer.new()
+	block.add_theme_constant_override(&"separation", 2)
+	var title := UiKit.label("按住與連按", 11, Palette.CYAN)
+	_indent(title)
+	block.add_child(title)
+	var rules := UiKit.label("", 11, Palette.UI_MUTED)
+	rules.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_indent(rules)
+	block.add_child(rules)
+	_hold_rule_labels.append(rules)
+	return block
 
 
 func _build_controller_tab() -> Control:
@@ -489,6 +511,7 @@ func _build_controller_tab() -> Control:
 	_controller_note = UiKit.label("", 11, Palette.UI_MUTED)
 	_controller_note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	box.add_child(_controller_note)
+	box.add_child(_hold_rules_block())
 	ScrollCue.attach(scroll)
 	return scroll
 
@@ -544,6 +567,9 @@ func _binding_key(action: StringName, slot: int) -> String:
 
 func _refresh_bindings() -> void:
 	_controller_note.text = InputBindings.format("{inventory_prev_tab}/{inventory_next_tab}切換分頁；改鍵時短按{ui_cancel}可綁定，長按取消。")
+	var rules := Hud.hold_rules()
+	for label in _hold_rule_labels:
+		label.text = rules
 	for entry in InputBindings.ACTIONS:
 		var action: StringName = entry["id"]
 		for slot in InputBindings.KEY_SLOTS:
