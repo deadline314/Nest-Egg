@@ -3,7 +3,7 @@ extends TestSuite
 ## 零件式生物（PartCreature，NE-99／NE-100）：每份資料都建得起來、各狀態外觀不同且沒有 NaN、每格移動量有限、
 ## 壞資料不會崩潰（缺貼圖、缺父零件、不存在的狀態）、有 show 的狀態只顯示指定零件、瞄準與槍口跟著轉。
 
-const CREATURES: Array[String] = ["drone", "searchlight_drone", "repair_drone", "bomber", "shock_hound", "turret", "mimic"]
+const CREATURES: Array[String] = ["drone", "searchlight_drone", "repair_drone", "bomber", "shock_hound", "turret", "mimic", "watchdog"]
 const DT := 1.0 / 60.0
 const MAX_STEP := 6.0
 

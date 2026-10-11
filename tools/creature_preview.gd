@@ -46,6 +46,12 @@ func _ready() -> void:
 			_hit = true
 		elif arg.begins_with("--parts="):
 			_parts_id = arg.trim_prefix("--parts=")
+		elif arg.begins_with("--cell="):
+			var size := arg.trim_prefix("--cell=").split("x")
+			if size.size() == 2 and float(size[0]) > 0.0 and float(size[1]) > 0.0:
+				_cell = Vector2(float(size[0]), float(size[1]))
+		elif arg.begins_with("--cols="):
+			_cols = maxi(1, int(arg.trim_prefix("--cols=")))
 		elif arg.begins_with("--state="):
 			_state = arg.trim_prefix("--state=")
 		elif arg.begins_with("--states="):
@@ -139,7 +145,10 @@ func _capture_worms() -> void:
 
 
 ## --parts=<id>：看零件式生物（PartCreature）：每個狀態一列，由左到右是 0、0.04、0.08…秒的樣子（有步態的以滿速移動）。
+## 大型生物用 --cell=寬x高（每格的畫面像素，預設 70x55）與 --cols=欄數（預設 8）調整版面。
 var _part_rows: Array[Dictionary] = []
+var _cell := Vector2(70.0, 55.0)
+var _cols := 8
 
 
 func _build_parts_sheet() -> void:
@@ -152,14 +161,19 @@ func _build_parts_sheet() -> void:
 	probe.free()
 	var states: Array = (data.get("states", {}) as Dictionary).keys()
 	var gait_speed := float((data.get("gait", {}) as Dictionary).get("full_speed", 80.0))
+	if not _states.is_empty():  # --states=a,b：只看這幾個；walk 是「待機狀態加上滿速移動」，用來看步態
+		states = _states.duplicate()
 	for row in states.size():
-		for col in 8:
+		for col in _cols:
 			var creature := PartCreature.new()
 			creature.setup(_parts_id)
-			creature.scale = Vector2.ONE * (_zoom if _zoom != 0.9 else 1.5)
-			creature.position = Vector2(40.0 + float(col) * 70.0, 40.0 + float(row) * 55.0)
-			add_child(creature)
-			_part_rows.append({"creature": creature, "state": StringName(states[row]), "steps": 30 + col * 3, "speed": gait_speed if str(states[row]).begins_with("run") or str(states[row]).begins_with("walk") or str(states[row]).begins_with("crawl") else 0.0})
+			# 放大倍率放在外層節點：animate 每格把生物自己的 scale.x 設成面向，直接縮放生物會只剩垂直方向被放大
+			var holder := Node2D.new()
+			holder.scale = Vector2.ONE * (_zoom if _zoom != 0.9 else 1.5)
+			holder.position = Vector2(_cell.x * (float(col) + 0.5), _cell.y * (float(row) + 0.85))
+			add_child(holder)
+			holder.add_child(creature)
+			_part_rows.append({"creature": creature, "state": StringName("idle" if str(states[row]) == "walk" else str(states[row])), "steps": 30 + col * 3, "speed": gait_speed if str(states[row]).begins_with("run") or str(states[row]).begins_with("walk") or str(states[row]).begins_with("crawl") else 0.0})
 
 
 func _capture_parts() -> void:
