@@ -252,7 +252,13 @@
         "near": 160,
         "trim": 4,
         "edge_trim": 1,
-        "keep_rim": true
+        "keep_rim": true,
+        "check_removed": [
+          300,
+          696,
+          480,
+          856
+        ]
       }
     },
     "hair": {
@@ -296,7 +302,13 @@
         "trim": 4,
         "stage_silhouette": true,
         "edge_trim": 1,
-        "keep_rim": true
+        "keep_rim": true,
+        "check_removed": [
+          300,
+          696,
+          480,
+          856
+        ]
       }
     }
   },
