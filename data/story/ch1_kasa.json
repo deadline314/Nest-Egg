@@ -513,12 +513,12 @@
    "id": "ch1_meet_egret",
    "kind": "main",
    "title": "吃完飯，上屋頂找鷺",
-   "background": "鷺帶來碼頭的差事。老 K已留晚飯，吃完再上屋頂聽簡報。",
+   "background": "鷺帶來碼頭的差事。老 K 已留晚飯，吃完再上屋頂聽簡報。",
    "reward": "聽完簡報即可出門，報酬在驗收後核對。",
    "complete_flag": "ch1_heard_brief",
    "steps": [
     {
-     "title": "回廚房吃老 K這次免收的晚飯",
+     "title": "回廚房吃老 K 這次免收的晚飯",
      "complete_flag": "ch1_dinner_done",
      "location": {
       "level": "res://data/levels/ch1_pawnshop.tres",
@@ -772,12 +772,12 @@
    "id": "ch1_go_home",
    "kind": "main",
    "title": "回當舖，把回執收好",
-   "background": "今晚的事已經說好，明早要對報酬。先回家，老 K還等著燒水。",
+   "background": "今晚的事已經說好，明早要對報酬。先回家，老 K 還等著燒水。",
    "reward": "完成第一章，下一步是次晨核對回執。",
    "complete_flag": "ch1_complete",
    "steps": [
     {
-     "title": "從麵攤回當舖，和老 K說話",
+     "title": "從麵攤回當舖，和老 K 說話",
      "complete_flag": "ch1_home_done",
      "location": {
       "level": "res://data/levels/ch1_pawnshop_dawn.tres",
@@ -825,8 +825,8 @@
   {
    "id": "sq8_ch1_labels",
    "kind": "side",
-   "title": "讀老 K留下的四張標籤",
-   "background": "貨架上有沒賣出的舊物，老 K還記得它們在等誰。",
+   "title": "讀老 K 留下的四張標籤",
+   "background": "貨架上有沒賣出的舊物，老 K 還記得它們在等誰。",
    "reward": "收錄四件標籤，物品仍留在當舖。",
    "complete_flag": "sq8_first_labels_done",
    "steps": [

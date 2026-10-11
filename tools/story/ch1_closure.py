@@ -253,7 +253,7 @@ def _documents(source):
     source.documents = {
         "ch1_delivery_receipt": {
             "name": "交盤驗收回執", "icon": "doc_stub", "description": "原盤已由委託方驗收。次晨核對800報酬與80抽成，預計淨額720。",
-            "body": "委託：碼頭保險箱資料盤取回。實體已驗收，原盤由委託方保管。報酬800信用點，次晨核對。一成抽成由老 K依既有約定處理；預計凜淨額720，尚未入帳。閱覽授權限市場修繕代收批號M17與付款附件，非原盤持有權。"},
+            "body": "委託：碼頭保險箱資料盤取回。實體已驗收，原盤由委託方保管。報酬800信用點，次晨核對。一成抽成由老 K 依既有約定處理；預計凜淨額720，尚未入帳。閱覽授權限市場修繕代收批號M17與付款附件，非原盤持有權。"},
         "ch1_market_summary": {
             "name": "市場M17待查摘要", "icon": "doc_log", "description": "這筆代收缺付款附件。它是待查記錄，不能直接當作待付結論。",
             "body": "市場修繕代收批號為M17，記錄本金為200信用點。本期利息為20信用點，代收簿記載待收120信用點，但付款附件缺失。以上為待查記錄，不等於合法待付結論。須在市集代收處找同批收據、租攤合約與代收簿核對；本頁無法證明已付金額。查核安排與額外報酬次晨另行說明。"},
@@ -722,8 +722,8 @@ def _quests(source):
         return QuestStep(title, complete_flag, binding)
 
     source.quests = [
-        Quest("ch1_meet_egret", "main", "吃完飯，上屋頂找鷺", "鷺帶來碼頭的差事。老 K已留晚飯，吃完再上屋頂聽簡報。", "聽完簡報即可出門，報酬在驗收後核對。", "ch1_heard_brief",
-            (step("回廚房吃老 K這次免收的晚飯", "ch1_dinner_done", "dinner"), step("上屋頂聽鷺的完整簡報", "ch1_heard_brief", "brief"))),
+        Quest("ch1_meet_egret", "main", "吃完飯，上屋頂找鷺", "鷺帶來碼頭的差事。老 K 已留晚飯，吃完再上屋頂聽簡報。", "聽完簡報即可出門，報酬在驗收後核對。", "ch1_heard_brief",
+            (step("回廚房吃老 K 這次免收的晚飯", "ch1_dinner_done", "dinner"), step("上屋頂聽鷺的完整簡報", "ch1_heard_brief", "brief"))),
         Quest("ch1_take_disk", "main", "到碼頭倉庫取回資料盤", "鷺要保險箱裡的一片盤，市集今晚封路，燈帶你走碼頭。", "取得後到復原館外交接櫃驗收。", "ledger_disk_obtained",
             (step("清開街道前往碼頭的路障", "ch1_street_route_open", "street_clear"), step("擊倒看門狗，打開倉庫隔牆", "watchdog_defeated", "watchdog"),
              step("實際開水閘，確認浮橋路保持", "ch1_flood_gate_open", "flood"), step("打開保險箱，取出資料盤", "ledger_disk_obtained", "disk_pickup")),
@@ -734,12 +734,12 @@ def _quests(source):
         Quest("ch1_close_evening", "main", "和阿梨說好今晚的去留", "盤已驗收。阿梨下班邀你吃麵，你可以留下或把帳說清楚先走。", "兩種決定都能回家；地址只在實際告知後記下。", "ch1_supper_done",
             (step("進復原館，和吧臺的阿梨說話", "ch1_met_ali", "ali_lounge"), step("聽阿梨說下班後的邀請", "ch1_lounge_evening_done", "ali_lounge"),
              step("到麵攤決定去留，說清楚今晚帳", "ch1_supper_done", "ali_stall")), ("ch1_handoff_done",), ("ch1_handoff_done",), "今晚的去留還沒說好。", "到麵攤說話；沒有錢也能保留欠條。"),
-        Quest("ch1_go_home", "main", "回當舖，把回執收好", "今晚的事已經說好，明早要對報酬。先回家，老 K還等著燒水。", "完成第一章，下一步是次晨核對回執。", "ch1_complete",
-            (step("從麵攤回當舖，和老 K說話", "ch1_home_done", "home"), step("把回執收好，結束今晚", "ch1_complete", "home")),
+        Quest("ch1_go_home", "main", "回當舖，把回執收好", "今晚的事已經說好，明早要對報酬。先回家，老 K 還等著燒水。", "完成第一章，下一步是次晨核對回執。", "ch1_complete",
+            (step("從麵攤回當舖，和老 K 說話", "ch1_home_done", "home"), step("把回執收好，結束今晚", "ch1_complete", "home")),
             ("ch1_supper_done",), ("ch1_supper_done",), "今晚的事還沒說清楚。", "和阿梨說好去留；不需要先取得地址。"),
         Quest("ch1_next_morning", "main", "明早核對回執與市集附件", "原盤已交，摘要顯示代收缺付款附件。鷺約好明早核對800報酬與80抽成。", "淨額720只在次晨確認後入帳。", "ch2_previous_job_settled",
             (step("次晨在當舖核對交盤回執與報酬", "ch2_previous_job_settled", "next_morning"),), ("ch1_complete",), ("ch1_complete",), "這個版本尚未包含第二章。", "第一章進度已保存；待正式第二章入口繼續。"),
-        Quest("sq8_ch1_labels", "side", "讀老 K留下的四張標籤", "貨架上有沒賣出的舊物，老 K還記得它們在等誰。", "收錄四件標籤，物品仍留在當舖。", "sq8_first_labels_done",
+        Quest("sq8_ch1_labels", "side", "讀老 K 留下的四張標籤", "貨架上有沒賣出的舊物，老 K 還記得它們在等誰。", "收錄四件標籤，物品仍留在當舖。", "sq8_first_labels_done",
             tuple(step(f"讀{label}的標籤", f"ch1_label_{name}_seen", f"label_{name}") for name, label in (("watch", "懷錶"), ("guitar", "吉他"), ("raincoat", "雨衣"), ("fare", "船錢罐"))), ("ch1_labels_started",)),
         Quest("sq2_ch1_sunday", "side", "問鷺為什麼留著週日", "她今晚不跟去，週日也不排差事。你可以問，也可以讓她留著自己的事。", "記下週日不接案，不提前知道她見誰。", "asked_egret_sunday",
             (step("在屋頂問鷺今晚與週日的事", "asked_egret_sunday", "brief"),), ("ch1_sunday_accepted",), ("ch1_heard_brief",), "還沒有聽差事。", "先聽簡報，之後可選擇追問。"),
