@@ -3,6 +3,8 @@
 
 用法：python tools/select_tests.py [--base origin/main] [--files a b ...] [--explain] [--all]
 輸出：逗號分隔的套件名稱（可直接給 tests/smoke_test.tscn 的 --only=；main 是開頭那一大段流程測試）。沒有受影響的測試就輸出空字串。
+結束代碼：0 成功（含「沒有受影響的測試」）；2 挑選失敗（git 指令失敗、基準不存在、讀不到輸出），原因寫在 stderr，呼叫端不可當成沒有測試。
+git 的輸出一律用 NUL 分隔並以 UTF-8 解碼，不依賴系統編碼（繁中 Windows 的 cp950）或 core.quotePath 設定。
 
 原理（靜態影響分析）：
   1. 為每個檔案建立相依關係：GDScript 用到另一個檔案的 class_name 或單例名稱，或字串裡出現它的 res:// 路徑（或它所在的資料夾）；
@@ -35,24 +37,38 @@ AUTOLOAD_RE = re.compile(r'^(\w+)="\*?res://([^"]+)"', re.M)
 WORD_RE = re.compile(r"[A-Za-z_]\w*")
 
 
+class SelectionError(Exception):
+    """挑不出受影響的測試（git 失敗、基準不存在等）；和「真的沒有受影響的測試」不同，呼叫端必須當成失敗。"""
+
+
+def git_paths(*args):
+    """執行 git 並回傳它列出的路徑。用 -z（NUL 分隔、不加引號）並自己以 UTF-8 解碼，不受系統編碼與 core.quotePath 影響。"""
+    cmd = ["git", *args, "-z"]
+    try:
+        result = subprocess.run(cmd, cwd=ROOT, capture_output=True)
+    except OSError as error:
+        raise SelectionError(f"無法執行 git（{' '.join(cmd)}）：{error}") from error
+    if result.returncode != 0:
+        detail = result.stderr.decode("utf-8", errors="replace").strip() or f"代碼 {result.returncode}"
+        raise SelectionError(f"git 指令失敗（{' '.join(cmd)}）：{detail}")
+    return [name for name in result.stdout.decode("utf-8", errors="replace").split("\0") if name]
+
+
 def tracked_files():
-    out = subprocess.run(["git", "ls-files", "-co", "--exclude-standard"], cwd=ROOT, capture_output=True, text=True, check=True).stdout
-    return [line for line in out.splitlines() if line and not any(part in SKIP_DIRS for part in Path(line).parts)]
+    return [line for line in git_paths("ls-files", "-co", "--exclude-standard") if not any(part in SKIP_DIRS for part in Path(line).parts)]
 
 
 def changed_files(base):
     names = set()
-    for cmd in (["git", "diff", "--name-only", f"{base}...HEAD"], ["git", "diff", "--name-only", "HEAD"], ["git", "ls-files", "-o", "--exclude-standard"]):
-        result = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
-        if result.returncode == 0:
-            names.update(line for line in result.stdout.splitlines() if line)
+    for args in (("diff", "--name-only", f"{base}...HEAD"), ("diff", "--name-only", "HEAD"), ("ls-files", "-o", "--exclude-standard")):
+        names.update(git_paths(*args))
     return sorted(names)
 
 
 def read_text(path):
     try:
         return (ROOT / path).read_text(encoding="utf-8", errors="ignore")
-    except OSError:
+    except (OSError, ValueError):
         return ""
 
 
@@ -160,6 +176,17 @@ def main():
     parser.add_argument("--all", action="store_true")
     parser.add_argument("--explain", action="store_true")
     args = parser.parse_args()
+    for stream in (sys.stdout, sys.stderr):  # 說明文字含中文；主控台編碼不支援時用替代字元，不讓輸出本身當掉
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(errors="backslashreplace")
+    try:
+        return run(args)
+    except SelectionError as error:
+        print(f"select_tests.py：挑選受影響的測試失敗：{error}", file=sys.stderr)
+        return 2
+
+
+def run(args):
     files = tracked_files()
     all_suites = sorted(set(re.findall(r"class_name\s+(\w+Suite)\b", "\n".join(read_text(f) for f in files if f.startswith("tests/suite/")))))
     changed = args.files if args.files is not None else changed_files(args.base)

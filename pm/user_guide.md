@@ -153,6 +153,8 @@
 
 每張實作票：原 `tools/run_tests_changed.sh` 選出的受影響範圍全過 → 真實截圖 → Commit 段落／完成／實際驗收勾選 → 獨立 commit＋push。文件和票不啟動遊戲測試；完整 CI 由既有排程處理，但框架更動若原 selector 要 ALL，不能自行縮小選擇範圍。測試失敗如實保留，CI 新失敗依 AGENTS 優先處理。
 
+受影響測試的挑選工具出錯（git 失敗、基準不存在、繁中 Windows 的 cp950 編碼）時腳本會以失敗結束；看到「沒有受影響的測試要跑」卻改過遊戲程式，就是假通過，要查清楚再交付（[NE-263](Nest-Egg/%5BNE-263%5D%E4%BF%AE%E6%AD%A3Windows%E4%B8%8A%E5%8F%97%E5%BD%B1%E9%9F%BF%E6%B8%AC%E8%A9%A6%E8%A2%AB%E9%9D%9C%E9%BB%98%E7%95%A5%E9%81%8E.md)）。
+
 分支用 `codex/`，推前 fetch origin main／必要 rebase；`git push origin HEAD:main` 只能快轉，確認本機 main＝origin/main。作者與提交者 **Stanley Li <stanley890314@gmail.com>**；commit 訊息沒有模型／工具署名和 Co-Authored-By。通常只刪已合併分支；本次使用者另明確要求移除其他 worktree／舊分支，未驗收內容須先封存、驗 hash 與恢復能力，再依清理紀錄移除。封存不等於程式合併或票完成；遠端拒絕不重試、不繞過。
 
 精選截圖放 `pm/Nest-Egg/images/`（BG／ST依自己的项目也可存），完整 raw／hash／必要來源放票的 attachments。`pm/.gdignore` 排除票據與 CSV 的引擎匯入，避免無用途的翻譯與 import 產物。必要歷史失敗保留一次、有清楚索引；無用途臨時腳本與重複輸出清掉。交接的 WIP 明示未採用、未驗收，避免混入正式遊戲。
