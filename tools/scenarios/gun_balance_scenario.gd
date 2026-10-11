@@ -4,12 +4,15 @@ extends ScenarioBase
 ## 記錄第一次命中時間、擊倒時間、開槍數、命中數、換彈次數與目標被推開的距離。目標不動不還手（只量武器本身）。
 ## 用法：godot --headless --fixed-fps 60 res://tools/screenshot.tscn -- --out=<資料夾> --scenario=gun_balance
 ## 結果印成一行一筆的 GUN_BALANCE JSON，並寫入 <資料夾>/gun-balance.json。
+## 每把槍量兩輪：基礎、買齊這把槍能用的改裝（upgraded）；另外對打不死的木樁量 SUSTAIN_TIME 秒的持續輸出（含換彈）。
 
 const WEAPONS := ["pistol", "smg", "rifle", "spread", "laser", "railgun", "launcher", "mech_cannon"]
 const TARGETS := ["grunt", "collector_brute"]
 const DISTANCES := [64.0, 128.0, 224.0]
 const LIMIT := 12.0
 const PLAYER_TILE := 12.0
+const SUSTAIN_TIME := 6.0
+const SUSTAIN_DISTANCE := 128.0
 
 var _rows: Array[Dictionary] = []
 
@@ -19,13 +22,24 @@ func run() -> void:
 	await clear_enemies()
 	Enemy.activation_culling_enabled = false
 	AimInput.set_virtual_gamepad(player, true)
-	for weapon_id: String in WEAPONS:
-		var weapon := load("res://data/weapons/%s.tres" % weapon_id) as WeaponData
-		if weapon == null:
-			continue
-		for target_id: String in TARGETS:
-			for distance: float in DISTANCES:
-				_rows.append(await _sample(weapon, target_id, distance))
+	Progression.credits = 1000000
+	for upgraded: bool in [false, true]:
+		for weapon_id: String in WEAPONS:
+			var weapon := load("res://data/weapons/%s.tres" % weapon_id) as WeaponData
+			if weapon == null:
+				continue
+			if upgraded:
+				for upgrade in Progression.upgrades_for(weapon):
+					Progression.buy_upgrade(weapon, upgrade)
+			for target_id: String in TARGETS:
+				for distance: float in DISTANCES:
+					var row := await _sample(weapon, target_id, distance)
+					row["upgraded"] = upgraded
+					_rows.append(row)
+			var sustain := await _sample(weapon, "grunt", SUSTAIN_DISTANCE, SUSTAIN_TIME)
+			sustain["upgraded"] = upgraded
+			sustain["sustain_dps"] = snappedf(float(sustain["damage"]) / SUSTAIN_TIME, 0.01)
+			_rows.append(sustain)
 	AimInput.set_virtual_gamepad(player, false)
 	var file := FileAccess.open(out_dir.path_join("gun-balance.json"), FileAccess.WRITE)
 	if file != null:
@@ -33,7 +47,8 @@ func run() -> void:
 	await finish()
 
 
-func _sample(weapon: WeaponData, target_id: String, distance: float) -> Dictionary:
+## sustain_seconds > 0：打不死的木樁，固定量這麼多秒（持續輸出）。
+func _sample(weapon: WeaponData, target_id: String, distance: float, sustain_seconds := 0.0) -> Dictionary:
 	await clear_enemies()
 	place_player(PLAYER_TILE)
 	player.loadout.reset(weapon)
@@ -43,6 +58,8 @@ func _sample(weapon: WeaponData, target_id: String, distance: float) -> Dictiona
 	enemy.data.detect_range = 0.0
 	enemy.data.attack_range = 0.0
 	enemy.data.move_speed = 0.0
+	if sustain_seconds > 0.0:
+		enemy.health.setup(999999, 0.0)
 	# 等上一筆的射擊間隔與換彈結束，每一筆都從「可以開火」開始量。
 	for i in 180:
 		if player._fire_cooldown_left <= 0.0 and not player.loadout.is_reloading():
@@ -72,7 +89,8 @@ func _sample(weapon: WeaponData, target_id: String, distance: float) -> Dictiona
 	_elapsed = 0.0
 	var last_mag := ammo_start
 	Input.action_press(&"shoot")
-	while _elapsed < LIMIT and is_instance_valid(enemy) and not enemy.is_dying():
+	var limit := sustain_seconds if sustain_seconds > 0.0 else LIMIT
+	while _elapsed < limit and is_instance_valid(enemy) and not enemy.is_dying():
 		await get_tree().physics_frame
 		_elapsed += get_physics_process_delta_time()
 		var mag := player.loadout.mag_in(player.loadout.active_slot)
@@ -90,7 +108,7 @@ func _sample(weapon: WeaponData, target_id: String, distance: float) -> Dictiona
 	if is_instance_valid(enemy) and enemy.health.damaged.is_connected(record):
 		enemy.health.damaged.disconnect(record)
 	var row := {
-		"weapon": String(weapon.id), "target": target_id, "distance": distance,
+		"weapon": String(weapon.id), "target": target_id, "distance": distance, "sustain": sustain_seconds > 0.0,
 		"killed": killed, "time_to_kill": snappedf(_elapsed, 0.01) if killed else null,
 		"first_hit_s": snappedf(float(stats["first_hit"]), 0.01) if float(stats["first_hit"]) >= 0.0 else null,
 		"shots": shots, "hits": int(stats["hits"]), "damage": int(stats["damage"]), "reloads": reloads,

@@ -24,9 +24,48 @@ func run() -> void:
 	_test_credits()
 	_test_upgrades()
 	_test_loadout_tuning()
+	_test_no_dominant_gun()
 	_test_snapshot()
 	await _test_pickups_and_checkpoint()
 	await _test_upgrades_page()
+
+
+## 沒有一把槍在每一項都最好（NE-236）：玩家的槍逐一比較射程、單發傷害、連射輸出、含換彈的持續輸出與貫穿，
+## 任何一把都至少有一項輸給另一把槍；衝鋒槍射程短（近中距離的武器）。只看資料；實際打靶見 tools/scenarios/gun_balance_scenario.gd。
+func _test_no_dominant_gun() -> void:
+	var stats: Dictionary = {}
+	for file in DirAccess.get_files_at("res://data/weapons"):
+		if not file.ends_with(".tres"):
+			continue
+		var weapon := load("res://data/weapons/" + file) as WeaponData
+		if weapon == null or weapon.projectile == null or weapon.id == &"mech_cannon":
+			continue  # 機甲加農砲是載具武器，不在玩家的武器欄
+		var spec := weapon.projectile
+		var volley := float(spec.damage * weapon.pellets)
+		var mag := maxf(1.0, float(weapon.magazine_size))
+		stats[weapon.id] = {
+			"range": spec.speed * spec.lifetime,
+			"alpha": volley,
+			"burst": volley / weapon.fire_interval,
+			"sustain": volley * mag / (mag * weapon.fire_interval + weapon.reload_time),
+			"pierce": float(spec.pierce),
+		}
+	var dominant: Array[StringName] = []
+	for id: StringName in stats:
+		var beaten := false
+		for other: StringName in stats:
+			if other == id:
+				continue
+			for key: String in stats[id]:
+				if float(stats[other][key]) > float(stats[id][key]) + 0.0001:
+					beaten = true
+		if not beaten:
+			dominant.append(id)
+	check(stats.size() >= 6 and dominant.is_empty(), "no player gun is best at everything (%d guns, dominant %s)" % [stats.size(), dominant])
+	# 長距離（14 格，槍械實測的最遠一檔）留給步槍、光束與軌道砲；衝鋒槍的子彈飛不到。
+	var long_range := 14.0 * 16.0
+	check(stats.has(&"smg") and stats.has(&"rifle") and float(stats[&"smg"]["range"]) < long_range and float(stats[&"rifle"]["range"]) > long_range,
+			"the SMG trades range for its fire rate: it cannot reach 14 tiles, the rifle can (%.0f vs %.0f px)" % [float(stats.get(&"smg", {}).get("range", 0.0)), float(stats.get(&"rifle", {}).get("range", 0.0))])
 
 
 func _test_melee_catalog_preparation() -> void:
