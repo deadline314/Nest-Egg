@@ -102,7 +102,11 @@ func _drive(choices: Array, finished: Callable) -> void:
 			break
 		var current := String(Story._current_cinematic)
 		var player: CutscenePlayer = Story._player
-		if player != null and player.choice_active():
+		if Story._layer.is_radio_frozen():
+			# 重要通訊（NE-246）凍結世界等確認：像玩家一樣按確認讀完。
+			await _settle(8)
+			Story._layer.advance_radio()
+		elif player != null and player.choice_active():
 			var key := current + ":choice"
 			if _shots.has(key) and not shown.has(key):
 				shown[key] = true
