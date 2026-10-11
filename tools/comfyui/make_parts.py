@@ -379,6 +379,18 @@ def main() -> None:
         for o in c["occluders"]:
             occ |= V[o]
         if "stage" in c:  # the group as it looks in a stage picture where everything in front of it was removed
+            if c.get("check_removed"):
+                # The stage picture must really have removed what was in front. A hand it left on the thigh ends up in the body part and
+                # shows as a second hand as soon as the real hand moves away. Compare the stage with the original inside the box.
+                x0, y0, x1, y1 = c["check_removed"]
+                box = np.zeros((H, W), bool)
+                box[max(y0, 0):y1, max(x0, 0):x1] = True
+                watched = occ & box
+                same = np.abs(stage_rgba[c["stage"]][:, :, :3].astype(int) - rgb.astype(int)).max(2) < 24
+                share = float((watched & same).sum()) / max(int(watched.sum()), 1)
+                if watched.sum() > 200 and share > c.get("check_removed_share", 0.4):
+                    raise ValueError(f"stage {c['stage']} still shows {share:.0%} of what it should have removed inside {c['check_removed']} "
+                                     f"(group {name}): change the stage prompt or seed and run again with --redo-stage {c['stage']}")
             sm = np.zeros((H, W), bool)
             for p_ in g["sam"]:
                 sm |= stage_masks[c["stage"]][p_]

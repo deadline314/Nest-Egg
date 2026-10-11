@@ -15,168 +15,132 @@
     "pelvis": {
       "file": "parts/pelvis.png",
       "size": [
-        172,
-        146
+        183,
+        178
       ],
       "pivot": [
-        80.85,
-        97.93
+        81.57,
+        106.63
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "torso": {
       "file": "parts/torso.png",
       "size": [
-        175,
-        326
+        178,
+        323
       ],
       "pivot": [
-        78.66,
-        302.01
-      ],
-      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
-    },
-    "apron_band": {
-      "file": "parts/apron_band.png",
-      "size": [
-        184,
-        146
-      ],
-      "pivot": [
-        86.85,
-        124.93
-      ],
-      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
-    },
-    "apron": {
-      "file": "parts/apron.png",
-      "size": [
-        206,
-        275
-      ],
-      "pivot": [
-        102.15,
-        17.62
-      ],
-      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
-    },
-    "towel": {
-      "file": "parts/towel.png",
-      "size": [
-        61,
-        162
-      ],
-      "pivot": [
-        63.85,
-        114.93
+        88.91,
+        292.77
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "head": {
       "file": "parts/head.png",
       "size": [
-        180,
-        179
+        147,
+        173
       ],
       "pivot": [
-        90.61,
-        159.45
+        65.44,
+        176.32
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "leg_upper": {
       "file": "parts/leg_upper.png",
       "size": [
-        162,
-        254
+        187,
+        337
       ],
       "pivot": [
-        78.56,
-        -5.95
+        82.77,
+        75.57
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "leg_lower": {
       "file": "parts/leg_lower.png",
       "size": [
-        142,
-        304
+        120,
+        309
       ],
       "pivot": [
-        66.27,
-        9.56
+        57.97,
+        12.01
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "foot": {
       "file": "parts/foot.png",
       "size": [
-        164,
-        103
+        141,
+        138
       ],
       "pivot": [
-        29.74,
-        33.52
+        41.38,
+        56.0
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "arm_upper": {
       "file": "parts/arm_upper.png",
       "size": [
-        97,
-        208
+        87,
+        195
       ],
       "pivot": [
-        37.98,
-        33.68
+        42.15,
+        25.0
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "arm_lower": {
       "file": "parts/arm_lower.png",
       "size": [
-        51,
-        192
+        56,
+        176
       ],
       "pivot": [
-        25.47,
-        9.51
+        25.06,
+        11.72
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "hand": {
       "file": "parts/hand.png",
       "size": [
-        102,
-        62
+        101,
+        55
       ],
       "pivot": [
-        12.67,
-        33.2
+        15.72,
+        31.85
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "head_half": {
       "file": "parts/head_half.png",
       "size": [
-        180,
-        179
+        147,
+        173
       ],
       "pivot": [
-        90.61,
-        159.45
+        65.44,
+        176.32
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "head_closed": {
       "file": "parts/head_closed.png",
       "size": [
-        180,
-        179
+        147,
+        173
       ],
       "pivot": [
-        90.61,
-        159.45
+        65.44,
+        176.32
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     }
@@ -187,42 +151,42 @@
       "texture": "arm_upper",
       "bone": "arm_back_upper",
       "z": -7,
-      "tint": 0.9
+      "tint": 0.8
     },
     {
       "name": "arm_back_lower",
       "texture": "arm_lower",
       "bone": "arm_back_lower",
       "z": -7,
-      "tint": 0.9
+      "tint": 0.8
     },
     {
       "name": "hand_back",
       "texture": "hand",
       "bone": "hand_back",
       "z": -6,
-      "tint": 0.9
+      "tint": 0.8
     },
     {
       "name": "leg_back_upper",
       "texture": "leg_upper",
       "bone": "leg_back_upper",
       "z": -5,
-      "tint": 0.9
+      "tint": 0.8
     },
     {
       "name": "leg_back_lower",
       "texture": "leg_lower",
       "bone": "leg_back_lower",
       "z": -5,
-      "tint": 0.9
+      "tint": 0.8
     },
     {
       "name": "foot_back",
       "texture": "foot",
       "bone": "foot_back",
       "z": -5,
-      "tint": 0.9
+      "tint": 0.8
     },
     {
       "name": "pelvis",
@@ -253,24 +217,6 @@
       "texture": "foot",
       "bone": "foot_front",
       "z": 3
-    },
-    {
-      "name": "apron_band",
-      "texture": "apron_band",
-      "bone": "hip",
-      "z": 4
-    },
-    {
-      "name": "apron",
-      "texture": "apron",
-      "bone": "leg_front_upper",
-      "z": 4
-    },
-    {
-      "name": "towel",
-      "texture": "towel",
-      "bone": "hip",
-      "z": 5
     },
     {
       "name": "head",

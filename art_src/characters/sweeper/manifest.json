@@ -1,7 +1,7 @@
 [
   {
     "step": "parts",
-    "seconds": 78.4,
+    "seconds": 78.6,
     "outputs": [
       "art_src\\characters\\sweeper\\06_parts",
       "art_src\\characters\\sweeper\\06_parts\\ownership.png"
@@ -9,19 +9,29 @@
   },
   {
     "step": "refine",
-    "seconds": 3.1,
+    "seconds": 2.2,
     "outputs": [
       "art_src\\characters\\sweeper\\07_refined"
     ]
   },
   {
-    "step": "damage",
-    "seconds": 0.0,
-    "outputs": []
+    "step": "parts",
+    "seconds": 5.7,
+    "outputs": [
+      "art_src\\characters\\sweeper\\06_parts",
+      "art_src\\characters\\sweeper\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.1,
+    "outputs": [
+      "art_src\\characters\\sweeper\\07_refined"
+    ]
   },
   {
     "step": "textures",
-    "seconds": 3.1,
+    "seconds": 2.3,
     "outputs": [
       "art\\characters\\sweeper\\character.json",
       "art\\rigs\\sweeper.json",
@@ -30,21 +40,21 @@
   },
   {
     "step": "normals",
-    "seconds": 5.0,
+    "seconds": 3.3,
     "outputs": [
       "art\\characters\\sweeper\\parts"
     ]
   },
   {
     "step": "import",
-    "seconds": 7.1,
+    "seconds": 6.9,
     "outputs": [
       ".godot"
     ]
   },
   {
     "step": "parts",
-    "seconds": 3.4,
+    "seconds": 3.6,
     "outputs": [
       "art_src\\characters\\sweeper\\06_parts",
       "art_src\\characters\\sweeper\\06_parts\\ownership.png"
@@ -52,19 +62,14 @@
   },
   {
     "step": "refine",
-    "seconds": 3.0,
+    "seconds": 2.1,
     "outputs": [
       "art_src\\characters\\sweeper\\07_refined"
     ]
   },
   {
-    "step": "damage",
-    "seconds": 0.0,
-    "outputs": []
-  },
-  {
     "step": "textures",
-    "seconds": 3.1,
+    "seconds": 2.3,
     "outputs": [
       "art\\characters\\sweeper\\character.json",
       "art\\rigs\\sweeper.json",
@@ -73,7 +78,37 @@
   },
   {
     "step": "normals",
-    "seconds": 4.3,
+    "seconds": 3.2,
+    "outputs": [
+      "art\\characters\\sweeper\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.8,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.1,
+    "outputs": [
+      "art_src\\characters\\sweeper\\07_refined"
+    ]
+  },
+  {
+    "step": "textures",
+    "seconds": 2.3,
+    "outputs": [
+      "art\\characters\\sweeper\\character.json",
+      "art\\rigs\\sweeper.json",
+      "art\\characters\\sweeper\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.2,
     "outputs": [
       "art\\characters\\sweeper\\parts"
     ]
@@ -87,7 +122,7 @@
   },
   {
     "step": "parts",
-    "seconds": 5.5,
+    "seconds": 2.0,
     "outputs": [
       "art_src\\characters\\sweeper\\06_parts",
       "art_src\\characters\\sweeper\\06_parts\\ownership.png"
@@ -95,19 +130,14 @@
   },
   {
     "step": "refine",
-    "seconds": 3.0,
+    "seconds": 2.2,
     "outputs": [
       "art_src\\characters\\sweeper\\07_refined"
     ]
   },
   {
-    "step": "damage",
-    "seconds": 0.0,
-    "outputs": []
-  },
-  {
     "step": "textures",
-    "seconds": 3.1,
+    "seconds": 2.3,
     "outputs": [
       "art\\characters\\sweeper\\character.json",
       "art\\rigs\\sweeper.json",
@@ -116,7 +146,7 @@
   },
   {
     "step": "normals",
-    "seconds": 4.1,
+    "seconds": 3.2,
     "outputs": [
       "art\\characters\\sweeper\\parts"
     ]
@@ -124,29 +154,6 @@
   {
     "step": "import",
     "seconds": 6.7,
-    "outputs": [
-      ".godot"
-    ]
-  },
-  {
-    "step": "textures",
-    "seconds": 2.5,
-    "outputs": [
-      "art\\characters\\sweeper\\character.json",
-      "art\\rigs\\sweeper.json",
-      "art\\characters\\sweeper\\parts"
-    ]
-  },
-  {
-    "step": "normals",
-    "seconds": 3.4,
-    "outputs": [
-      "art\\characters\\sweeper\\parts"
-    ]
-  },
-  {
-    "step": "import",
-    "seconds": 6.8,
     "outputs": [
       ".godot"
     ]

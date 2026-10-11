@@ -2,7 +2,7 @@
 
     D:/ComfyUI/.venv/Scripts/python.exe art_src/characters/lamp/make_portrait.py
 
-輸入 base_rgba.png（Qwen Image 2.1 文生圖，seed 21831，提示詞在 01_design/prompt.txt）；輸出 art/portraits/lamp.png（256×256，透明背景）。
+輸入 base_rgba.png（Qwen Image 2.1 文生圖，seed 21931，提示詞在 01_design/prompt.txt）；輸出 art/portraits/lamp.png（256×256，透明背景）。
 """
 import hashlib
 from pathlib import Path
@@ -12,8 +12,8 @@ from PIL import Image
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
-BASE_SHA256 = "630d5b8d2bb20b05f3d5b3b4442b0a172dddad7dcdc5de54078639c2572504b7"
-BOX = (401, 32, 681, 312)  # base_rgba.png 的像素：頭頂上方 8 px 起、寬高相同
+BASE_SHA256 = "427ba414b84a7a1a2bb034b27454087767e12aebba3d8fa766b2012ff18803bd"
+BOX = (280, 14, 559, 293)  # base_rgba.png 的像素：頭頂上方 8 px 起、寬高相同
 ALPHA_FLOOR = 40  # 生成圖的背景有 alpha 1～3 的霧，和零件精修用同一個門檻
 SIZE = 256
 

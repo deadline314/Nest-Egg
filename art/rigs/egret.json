@@ -7,23 +7,23 @@
       "parent": "",
       "pos": [
         0.0,
-        -32.11
+        -31.3
       ]
     },
     {
       "name": "chest",
       "parent": "hip",
       "pos": [
-        0.08,
-        -5.74
+        -0.31,
+        -6.55
       ]
     },
     {
       "name": "neck",
       "parent": "chest",
       "pos": [
-        0.59,
-        -14.06
+        -0.51,
+        -12.12
       ]
     },
     {
@@ -31,15 +31,15 @@
       "parent": "neck",
       "pos": [
         0.0,
-        -0.23
+        -0.31
       ]
     },
     {
       "name": "arm_back_upper",
       "parent": "chest",
       "pos": [
-        -4.31,
-        -10.94
+        -2.49,
+        -9.92
       ]
     },
     {
@@ -47,7 +47,7 @@
       "parent": "arm_back_upper",
       "pos": [
         0.0,
-        9.06
+        8.8
       ]
     },
     {
@@ -55,15 +55,15 @@
       "parent": "arm_back_lower",
       "pos": [
         0.0,
-        7.96
+        8.69
       ]
     },
     {
       "name": "arm_front_upper",
       "parent": "chest",
       "pos": [
-        -3.71,
-        -10.94
+        -1.89,
+        -9.92
       ]
     },
     {
@@ -71,7 +71,7 @@
       "parent": "arm_front_upper",
       "pos": [
         0.0,
-        9.06
+        8.8
       ]
     },
     {
@@ -79,7 +79,7 @@
       "parent": "arm_front_lower",
       "pos": [
         0.0,
-        7.96
+        8.69
       ]
     },
     {
@@ -95,7 +95,7 @@
       "parent": "leg_back_upper",
       "pos": [
         0.0,
-        13.53
+        13.38
       ]
     },
     {
@@ -103,7 +103,7 @@
       "parent": "leg_back_lower",
       "pos": [
         0.0,
-        14.51
+        13.66
       ]
     },
     {
@@ -119,7 +119,7 @@
       "parent": "leg_front_upper",
       "pos": [
         0.0,
-        13.53
+        13.38
       ]
     },
     {
@@ -127,16 +127,16 @@
       "parent": "leg_front_lower",
       "pos": [
         0.0,
-        14.51
+        13.66
       ]
     }
   ],
   "weapon_anchor": {
     "bone": "chest",
     "pos": [
-      -2.91,
-      -10.34
+      -1.09,
+      -9.32
     ],
-    "reach": 9.7
+    "reach": 10.24
   }
 }

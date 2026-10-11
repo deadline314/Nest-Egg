@@ -5,57 +5,57 @@
   "scale": 1.0,
   "height": 58.0,
   "seam": 12,
-  "illustration_px_per_wp": 24.98,
-  "tex_px_per_wp": 20,
-  "ground_y": 1503,
+  "illustration_px_per_wp": 20.05,
+  "tex_px_per_wp": 20.0,
+  "ground_y": 1179,
   "joints": {
     "hip": [
-      486,
-      742
+      432,
+      540
     ],
     "neck": [
-      488,
-      284
+      405,
+      188
     ],
     "head": [
-      488,
-      278
+      405,
+      182
     ],
     "head_top": [
-      496,
-      54
+      413,
+      16
     ],
     "waist": [
-      487,
-      581
+      423,
+      417
     ],
     "shoulder": [
-      393,
-      327
+      348,
+      232
     ],
     "elbow": [
-      324,
-      541
+      342,
+      400
     ],
     "palm": [
-      318,
-      763
+      364,
+      562
     ],
     "fingertip": [
-      314,
-      900
+      378,
+      663
     ],
     "knee": [
-      634,
-      1029
+      396,
+      800
     ],
     "ankle": [
-      731,
-      1388
+      362,
+      1073
     ],
     "toe": [
-      909,
-      1379
+      446,
+      1156
     ]
   },
   "groups": {
@@ -64,104 +64,73 @@
       "points": {
         "pos": [
           [
-            358,
-            434
+            345,
+            316
           ],
           [
-            321,
-            652
+            353,
+            481
           ],
           [
-            316,
-            830
+            371,
+            611
           ]
         ],
         "neg": [
           [
-            488,
-            284
+            405,
+            188
           ],
           [
-            706,
-            709
-          ],
-          [
-            634,
-            1029
+            396,
+            800
           ]
         ]
       }
     },
     "arm_far": {
-      "sam": [],
-      "points": {
-        "pos": [
-          [
-            662,
-            651
-          ],
-          [
-            739,
-            752
-          ]
-        ],
-        "neg": [
-          [
-            486,
-            742
-          ],
-          [
-            488,
-            284
-          ],
-          [
-            318,
-            763
-          ],
-          [
-            634,
-            1029
-          ]
-        ]
-      }
+      "sam": [
+        "arm",
+        "hand"
+      ]
     },
     "leg_far": {
       "sam": [],
+      "y": [
+        579,
+        1216
+      ],
       "points": {
         "pos": [
           [
-            433,
-            967
+            455,
+            934
           ],
           [
-            326,
-            1186
+            449,
+            1034
           ],
           [
-            241,
-            1330
-          ],
-          [
-            270,
-            1400
+            490,
+            1076
           ]
         ],
         "neg": [
           [
-            634,
-            1029
+            396,
+            800
           ],
           [
-            731,
-            1388
+            362,
+            1073
           ],
           [
-            486,
-            742
+            432,
+            540
           ],
           [
-            318,
-            763
+            364,
+            562
           ]
         ]
       }
@@ -180,8 +149,15 @@
           "arm"
         ],
         "near": 260,
-        "trim": 4,
+        "trim": 20,
+        "gap_grow": 30,
         "edge_trim": 1,
+        "check_removed": [
+          290,
+          562,
+          445,
+          685
+        ],
         "keep_rim": true,
         "stage_silhouette": true
       }
@@ -195,13 +171,13 @@
       "mode": "upright",
       "pivot": "hip",
       "y": [
-        601,
-        730
+        437,
+        528
       ],
       "caps": [
         {
           "joint": "hip",
-          "radius": 34,
+          "radius": 76,
           "feather": 1.5
         }
       ],
@@ -221,7 +197,7 @@
       "pivot": "waist",
       "y": [
         0,
-        601
+        437
       ],
       "uses": [
         {
@@ -251,13 +227,13 @@
       "to": "knee",
       "mode": "bone",
       "y": [
-        762,
-        1029
+        560,
+        800
       ],
       "caps": [
         {
           "joint": "hip",
-          "radius": 56,
+          "radius": 86,
           "feather": 10
         }
       ],
@@ -281,13 +257,13 @@
       "to": "ankle",
       "mode": "bone",
       "y": [
-        1029,
-        1402
+        800,
+        1087
       ],
       "caps": [
         {
           "joint": "ankle",
-          "radius": 22,
+          "radius": 35,
           "feather": 1.5
         }
       ],
@@ -312,13 +288,13 @@
       "mode": "upright",
       "pivot": "ankle",
       "y": [
-        1380,
+        1065,
         3000
       ],
       "caps": [
         {
           "joint": "ankle",
-          "radius": 33,
+          "radius": 53,
           "feather": 6
         }
       ],
@@ -343,7 +319,7 @@
       "mode": "bone",
       "y": [
         0,
-        541
+        400
       ],
       "uses": [
         {
@@ -365,8 +341,8 @@
       "to": "palm",
       "mode": "bone",
       "y": [
-        541,
-        763
+        400,
+        562
       ],
       "uses": [
         {
@@ -389,7 +365,7 @@
       "mode": "hand",
       "pivot": "palm",
       "y": [
-        763,
+        562,
         3000
       ],
       "uses": [
@@ -502,21 +478,21 @@
     "to": "shoulder",
     "dx": 0.8,
     "dy": 0.6,
-    "reach": 10.46
+    "reach": 9.66
   },
   "stages": [
     {
       "name": "P",
       "from": null,
       "seed": 54,
-      "prompt": "Remove the character's near-side arm entirely, from the shoulder to the fingertips, including its sleeve, its glove and anything it wears, so that a neat round armhole seam is left at the shoulder. No arm and no skin are drawn there. Paint the side of the torso clothing, the belt, the hip and the thigh that were hidden behind the arm, in exactly the same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
+      "prompt": "Remove the character's near-side arm entirely, from the shoulder to the fingertips, including its sleeve, its glove and anything it wears, so that a neat round armhole seam is left at the shoulder. The hand and all its fingers are removed too: nothing of the hand remains in front of the hip or the thigh. No arm, no hand and no skin are drawn there. Paint the side of the torso clothing, the belt, the hip and the thigh that were hidden behind the arm, in exactly the same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
     }
   ],
   "refine": {
     "defringe": {
       "width": 2
     },
-    "speckle": 30,
+    "speckle": 600,
     "smooth_alpha": {
       "parts": [
         "pelvis",
@@ -549,7 +525,11 @@
         "hand",
         "foot",
         "arm_lower",
-        "arm_upper"
+        "arm_upper",
+        "torso",
+        "head",
+        "pelvis",
+        "leg_upper"
       ],
       "radius": 4
     },
@@ -558,84 +538,84 @@
         "part": "torso",
         "poly": [
           [
-            464,
-            386
+            401,
+            276
           ],
           [
-            460,
-            417
+            398,
+            299
           ],
           [
-            450,
-            444
+            391,
+            320
           ],
           [
-            435,
-            466
+            379,
+            336
           ],
           [
-            415,
-            480
+            364,
+            347
           ],
           [
-            393,
-            485
+            348,
+            350
           ],
           [
-            371,
-            480
+            332,
+            347
           ],
           [
-            351,
-            466
+            317,
+            336
           ],
           [
-            336,
-            444
+            305,
+            320
           ],
           [
-            326,
-            417
+            298,
+            299
           ],
           [
-            322,
-            386
+            295,
+            276
           ],
           [
-            326,
-            355
+            298,
+            253
           ],
           [
-            336,
-            328
+            305,
+            233
           ],
           [
-            351,
-            306
+            317,
+            216
           ],
           [
-            371,
-            292
+            332,
+            206
           ],
           [
-            393,
-            287
+            348,
+            202
           ],
           [
-            415,
-            292
+            364,
+            206
           ],
           [
-            435,
-            306
+            379,
+            216
           ],
           [
-            450,
-            328
+            391,
+            233
           ],
           [
-            460,
-            355
+            398,
+            253
           ]
         ]
       }
@@ -646,68 +626,68 @@
         "under": "head",
         "poly": [
           [
-            569,
-            238
+            479,
+            158
           ],
           [
-            566,
-            254
+            476,
+            175
           ],
           [
-            556,
-            269
+            466,
+            189
           ],
           [
-            542,
-            278
+            452,
+            199
           ],
           [
-            525,
-            282
+            435,
+            202
           ],
           [
-            508,
-            278
+            418,
+            199
           ],
           [
-            494,
-            269
+            404,
+            189
           ],
           [
-            485,
-            254
+            394,
+            175
           ],
           [
-            481,
-            238
+            391,
+            158
           ],
           [
-            485,
-            221
+            394,
+            141
           ],
           [
-            494,
-            207
+            404,
+            127
           ],
           [
-            508,
-            197
+            418,
+            117
           ],
           [
-            525,
-            194
+            435,
+            114
           ],
           [
-            542,
-            197
+            452,
+            117
           ],
           [
-            556,
-            207
+            466,
+            127
           ],
           [
-            566,
-            221
+            476,
+            141
           ]
         ]
       },
@@ -716,68 +696,68 @@
         "under": "arm_upper",
         "poly": [
           [
-            419,
-            327
+            374,
+            232
           ],
           [
-            417,
-            337
+            372,
+            242
           ],
           [
-            411,
-            345
+            366,
+            250
           ],
           [
-            403,
-            351
+            358,
+            256
           ],
           [
-            393,
-            353
+            348,
+            258
           ],
           [
-            383,
-            351
+            338,
+            256
           ],
           [
-            375,
-            345
+            330,
+            250
           ],
           [
-            369,
-            337
+            324,
+            242
           ],
           [
-            367,
-            327
+            322,
+            232
           ],
           [
-            369,
-            317
+            324,
+            222
           ],
           [
-            375,
-            309
+            330,
+            214
           ],
           [
-            383,
-            303
+            338,
+            208
           ],
           [
-            393,
-            301
+            348,
+            206
           ],
           [
-            403,
-            303
+            358,
+            208
           ],
           [
-            411,
-            309
+            366,
+            214
           ],
           [
-            417,
-            317
+            372,
+            222
           ]
         ]
       }

@@ -2,7 +2,7 @@
   "id": "egret",
   "display_name": "鷺",
   "rig": "res://art/rigs/egret.json",
-  "texture_scale": 0.05,
+  "texture_scale": 0.05115,
   "scale": 1.0,
   "eye_states": {
     "part": "head",
@@ -12,171 +12,135 @@
   },
   "description": "外觀（skin）定義：textures 是零件圖片的尺寸與支點；parts 是把圖片掛到骨頭上的方式。由 tools/comfyui/cut_layers.py 依分件圖層切出。",
   "textures": {
-    "umbrella": {
-      "file": "parts/umbrella.png",
-      "size": [
-        91,
-        222
-      ],
-      "pivot": [
-        200.72,
-        351.22
-      ],
-      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
-    },
     "pelvis": {
       "file": "parts/pelvis.png",
       "size": [
-        175,
-        163
+        265,
+        207
       ],
       "pivot": [
-        74.16,
-        109.06
+        151.0,
+        120.0
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "torso": {
       "file": "parts/torso.png",
       "size": [
-        220,
-        355
+        252,
+        354
       ],
       "pivot": [
-        96.72,
-        329.22
-      ],
-      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
-    },
-    "coat": {
-      "file": "parts/coat.png",
-      "size": [
-        256,
-        359
-      ],
-      "pivot": [
-        138.72,
-        329.22
-      ],
-      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
-    },
-    "coat_hem": {
-      "file": "parts/coat_hem.png",
-      "size": [
-        276,
-        140
-      ],
-      "pivot": [
-        135.16,
-        114.06
+        144.0,
+        322.0
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "head": {
       "file": "parts/head.png",
       "size": [
-        166,
-        169
+        170,
+        176
       ],
       "pivot": [
-        101.44,
-        159.28
+        62.0,
+        193.0
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "leg_upper": {
       "file": "parts/leg_upper.png",
       "size": [
-        183,
-        330
+        198,
+        368
       ],
       "pivot": [
-        77.88,
-        47.78
+        101.94,
+        93.12
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "leg_lower": {
       "file": "parts/leg_lower.png",
       "size": [
-        162,
-        347
+        144,
+        322
       ],
       "pivot": [
-        81.62,
-        10.14
+        68.61,
+        12.04
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "foot": {
       "file": "parts/foot.png",
       "size": [
-        198,
-        140
+        170,
+        143
       ],
       "pivot": [
-        46.03,
-        55.03
+        43.0,
+        54.0
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "arm_upper": {
       "file": "parts/arm_upper.png",
       "size": [
-        126,
-        233
+        113,
+        215
       ],
       "pivot": [
-        55.53,
-        40.14
+        54.05,
+        28.99
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "arm_lower": {
       "file": "parts/arm_lower.png",
       "size": [
-        98,
-        186
+        113,
+        195
       ],
       "pivot": [
-        54.38,
-        10.18
+        56.09,
+        12.02
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "hand": {
       "file": "parts/hand.png",
       "size": [
-        159,
-        72
+        112,
+        73
       ],
       "pivot": [
-        48.76,
-        32.77
+        20.43,
+        36.36
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "head_half": {
       "file": "parts/head_half.png",
       "size": [
-        166,
-        169
+        170,
+        176
       ],
       "pivot": [
-        101.44,
-        159.28
+        62.0,
+        193.0
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "head_closed": {
       "file": "parts/head_closed.png",
       "size": [
-        166,
-        169
+        170,
+        176
       ],
       "pivot": [
-        101.44,
-        159.28
+        62.0,
+        193.0
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     }
@@ -187,48 +151,42 @@
       "texture": "arm_upper",
       "bone": "arm_back_upper",
       "z": -7,
-      "tint": 0.9
+      "tint": 0.8
     },
     {
       "name": "arm_back_lower",
       "texture": "arm_lower",
       "bone": "arm_back_lower",
       "z": -7,
-      "tint": 0.9
+      "tint": 0.8
     },
     {
       "name": "hand_back",
       "texture": "hand",
       "bone": "hand_back",
       "z": -6,
-      "tint": 0.9
+      "tint": 0.8
     },
     {
       "name": "leg_back_upper",
       "texture": "leg_upper",
       "bone": "leg_back_upper",
       "z": -5,
-      "tint": 0.9
+      "tint": 0.8
     },
     {
       "name": "leg_back_lower",
       "texture": "leg_lower",
       "bone": "leg_back_lower",
       "z": -5,
-      "tint": 0.9
+      "tint": 0.8
     },
     {
       "name": "foot_back",
       "texture": "foot",
       "bone": "foot_back",
       "z": -5,
-      "tint": 0.9
-    },
-    {
-      "name": "umbrella",
-      "texture": "umbrella",
-      "bone": "chest",
-      "z": -3
+      "tint": 0.8
     },
     {
       "name": "pelvis",
@@ -259,18 +217,6 @@
       "texture": "foot",
       "bone": "foot_front",
       "z": 3
-    },
-    {
-      "name": "coat",
-      "texture": "coat",
-      "bone": "chest",
-      "z": 4
-    },
-    {
-      "name": "coat_hem",
-      "texture": "coat_hem",
-      "bone": "hip",
-      "z": 4
     },
     {
       "name": "head",

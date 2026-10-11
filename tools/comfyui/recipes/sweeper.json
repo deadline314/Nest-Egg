@@ -1,5 +1,5 @@
 {
-  "description": "清掃兵（sweeper）的建置配方。來源是功能姿勢的文生圖（art_src/characters/sweeper/01_design/prompt.txt，seed 21841）；建置從 parts 或之後的步驟開始。",
+  "description": "清掃兵（sweeper）的建置配方。來源是功能姿勢的文生圖（art_src/characters/sweeper/01_design/prompt.txt，seed 21941）；建置從 parts 或之後的步驟開始。",
   "id": "sweeper",
   "name": "清掃兵",
   "spec": "tools/comfyui/specs/sweeper_side.json",
@@ -7,10 +7,10 @@
   "work": "art_src/characters/sweeper",
   "design": {
     "size": [
-      1056,
-      1536
+      832,
+      1216
     ],
-    "pick": 21841,
-    "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat colors, bold clean black outlines, hard-edged two-tone shading, saturated neon accents. Full body, strict side view facing right, the whole figure from the top of the head to the boot soles inside the frame with empty margin. Pose: a natural relaxed walk, mid-stride with a moderate step, upright relaxed torso with a neutral straight back, head level; near leg forward and far leg back, both legs and both feet clearly separated with a gap between the thighs; the near arm swings slightly behind the torso and the far arm slightly forward, both hands relaxed and clearly separated from the body. Believable adult anatomy, exactly two arms, two legs, five fingers per hand. Even soft light from the upper left, no bloom, no glow halo, no weapon in the hands, no extra objects, no text. A corporate \"sweeper\" foot soldier of a megacorporation cleanup squad, adult man of average build, face fully hidden. He wears a matte dark teal-grey sealed hazmat-style tactical suit with segmented shoulder and forearm plates, a smooth rounded full-face helmet with a single horizontal cyan visor slit and a small filter canister on the cheek, a chest rig with a corporate barcode patch and a coiled hose to a compact tank on his back, grey gloves, kneepads, and heavy dark grey boots with pale soles. A yellow-and-black hazard stripe band around the upper arm. Thin cyan neon piping at the visor and collar. Drawn with thick bold black ink outlines and hard-edged two-tone cel shadows, saturated colors; not soft, not pastel."
+    "pick": 21941,
+    "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat muted colors, bold clean black outlines, hard-edged two-tone shading, at most one small lit accent. Full body, strict side view facing right, the whole figure from the top of the head to the soles inside the frame, tall in the frame: the figure fills nine tenths of the picture height. The character stands upright and still, like a model sheet: weight evenly on both feet, hips and shoulders level, the spine vertical, the chest not pushed out and the lower back not arched, the head level. The near arm hangs straight down beside the thigh with an open empty hand; it is not swept back. The far arm is hidden behind the torso. The feet are a small step apart with the far foot half a step ahead, so the far shin and the far shoe show in front of the near leg. A corporate cleanup trooper, a man of average build, about seven heads tall, the face fully hidden. He wears a sealed matte grey-blue hazard suit with a few plain segmented plates on the shoulder, the forearm and the knee; a smooth rounded closed helmet with one narrow dark visor that has a thin cyan light; a filter canister on the cheek; a compact air tank on his back with one short hose; a plain chest rig with a barcode patch; one dull orange hazard band around the upper arm; grey work gloves; heavy dark grey boots. The suit is rain-streaked and scuffed, with dried mud on the boots. Empty hands. Uneven rough hand-inked linework with varied line weight, gritty grime and fabric wrinkles where the cloth bends, slightly asymmetrical, lived-in and worn, matte not glossy, not airbrushed, no idealized perfect face. Few large plain shapes, no decorative details beyond the ones described. Even overcast light, no glow, no bloom, no text."
   }
 }

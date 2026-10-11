@@ -1,7 +1,7 @@
 [
   {
     "step": "parts",
-    "seconds": 147.5,
+    "seconds": 76.4,
     "outputs": [
       "art_src\\characters\\ali\\06_parts",
       "art_src\\characters\\ali\\06_parts\\ownership.png"
@@ -9,14 +9,29 @@
   },
   {
     "step": "refine",
-    "seconds": 3.3,
+    "seconds": 2.2,
+    "outputs": [
+      "art_src\\characters\\ali\\07_refined"
+    ]
+  },
+  {
+    "step": "parts",
+    "seconds": 5.8,
+    "outputs": [
+      "art_src\\characters\\ali\\06_parts",
+      "art_src\\characters\\ali\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.1,
     "outputs": [
       "art_src\\characters\\ali\\07_refined"
     ]
   },
   {
     "step": "textures",
-    "seconds": 4.0,
+    "seconds": 2.7,
     "outputs": [
       "art\\characters\\ali\\character.json",
       "art\\rigs\\ali.json",
@@ -26,21 +41,21 @@
   },
   {
     "step": "normals",
-    "seconds": 4.9,
+    "seconds": 3.2,
     "outputs": [
       "art\\characters\\ali\\parts"
     ]
   },
   {
     "step": "import",
-    "seconds": 7.5,
+    "seconds": 7.0,
     "outputs": [
       ".godot"
     ]
   },
   {
     "step": "parts",
-    "seconds": 4.0,
+    "seconds": 3.6,
     "outputs": [
       "art_src\\characters\\ali\\06_parts",
       "art_src\\characters\\ali\\06_parts\\ownership.png"
@@ -48,14 +63,14 @@
   },
   {
     "step": "refine",
-    "seconds": 3.6,
+    "seconds": 2.1,
     "outputs": [
       "art_src\\characters\\ali\\07_refined"
     ]
   },
   {
     "step": "textures",
-    "seconds": 4.3,
+    "seconds": 2.6,
     "outputs": [
       "art\\characters\\ali\\character.json",
       "art\\rigs\\ali.json",
@@ -65,33 +80,28 @@
   },
   {
     "step": "normals",
-    "seconds": 4.4,
+    "seconds": 3.2,
     "outputs": [
       "art\\characters\\ali\\parts"
     ]
   },
   {
     "step": "import",
-    "seconds": 6.9,
+    "seconds": 6.7,
     "outputs": [
       ".godot"
     ]
   },
   {
     "step": "refine",
-    "seconds": 3.7,
+    "seconds": 2.1,
     "outputs": [
       "art_src\\characters\\ali\\07_refined"
     ]
   },
   {
-    "step": "damage",
-    "seconds": 0.0,
-    "outputs": []
-  },
-  {
     "step": "textures",
-    "seconds": 4.2,
+    "seconds": 2.7,
     "outputs": [
       "art\\characters\\ali\\character.json",
       "art\\rigs\\ali.json",
@@ -101,7 +111,7 @@
   },
   {
     "step": "normals",
-    "seconds": 4.3,
+    "seconds": 3.2,
     "outputs": [
       "art\\characters\\ali\\parts"
     ]
@@ -114,8 +124,23 @@
     ]
   },
   {
+    "step": "parts",
+    "seconds": 1.9,
+    "outputs": [
+      "art_src\\characters\\ali\\06_parts",
+      "art_src\\characters\\ali\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.1,
+    "outputs": [
+      "art_src\\characters\\ali\\07_refined"
+    ]
+  },
+  {
     "step": "textures",
-    "seconds": 3.5,
+    "seconds": 2.6,
     "outputs": [
       "art\\characters\\ali\\character.json",
       "art\\rigs\\ali.json",
@@ -125,7 +150,7 @@
   },
   {
     "step": "normals",
-    "seconds": 3.4,
+    "seconds": 3.3,
     "outputs": [
       "art\\characters\\ali\\parts"
     ]

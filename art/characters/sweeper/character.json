@@ -9,36 +9,36 @@
     "pelvis": {
       "file": "parts/pelvis.png",
       "size": [
-        259,
-        181
+        181,
+        185
       ],
       "pivot": [
-        154.56,
-        117.03
+        86.63,
+        111.66
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "torso": {
       "file": "parts/torso.png",
       "size": [
-        291,
-        322
+        258,
+        325
       ],
       "pivot": [
-        179.56,
-        296.78
+        157.73,
+        293.88
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "head": {
       "file": "parts/head.png",
       "size": [
-        175,
-        188
+        163,
+        185
       ],
       "pivot": [
-        62.8,
-        193.72
+        52.9,
+        181.87
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
       "glow": "parts/head_glow.png"
@@ -46,72 +46,72 @@
     "leg_upper": {
       "file": "parts/leg_upper.png",
       "size": [
-        174,
-        350
+        171,
+        337
       ],
       "pivot": [
-        73.26,
-        95.27
+        82.2,
+        77.72
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "leg_lower": {
       "file": "parts/leg_lower.png",
       "size": [
-        215,
+        136,
         324
       ],
       "pivot": [
-        75.45,
-        10.02
+        69.79,
+        12.15
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "foot": {
       "file": "parts/foot.png",
       "size": [
-        205,
-        129
+        159,
+        139
       ],
       "pivot": [
-        48.51,
-        50.72
+        46.21,
+        52.43
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "arm_upper": {
       "file": "parts/arm_upper.png",
       "size": [
-        131,
-        217
+        103,
+        208
       ],
       "pivot": [
-        54.19,
-        43.91
+        50.67,
+        33.4
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "arm_lower": {
       "file": "parts/arm_lower.png",
       "size": [
-        132,
-        189
+        96,
+        184
       ],
       "pivot": [
-        52.97,
-        10.14
+        48.93,
+        12.19
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "hand": {
       "file": "parts/hand.png",
       "size": [
-        136,
-        88
+        133,
+        75
       ],
       "pivot": [
-        31.99,
-        38.13
+        20.12,
+        37.58
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     }

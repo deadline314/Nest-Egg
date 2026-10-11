@@ -47,6 +47,9 @@ const DEFAULT_MOTION := {
 	"torso": {"hip_swing": 0.0, "chest_counter": 0.0, "chest_wobble": 0.0, "wobble_phase": 0.0, "head_hold": 0.0},
 	"inertia": {"gain": 0.0, "ref_accel": 1600.0, "stiffness": 90.0, "damping": 11.0, "max": 0.3},
 	"crouch": {"hip_drop": 8.0, "chest": 0.18, "legs": [-1.25, 2.05, -0.55, 1.85], "kneel": {}},
+	# 空手時手臂怎麼垂、怎麼擺：hang＝[前上臂, 前前臂, 後上臂, 後前臂]（弧度；負的往前）。前手垂在身側、後手略往前，
+	# 兩隻手臂的角度不能一樣，否則站著時會並排在同一側，看起來像一邊長了兩隻手。swing＝滿速時上臂前後擺的幅度，停下來就不擺。
+	"arms": {"hang": [0.02, -0.18, -0.2, -0.28], "swing": 0.38},
 	"air": {"rise": {"chest": 0.05, "legs": [-0.95, 1.4, 0.35, 0.7]}, "fall": {"chest": -0.05, "legs": [-0.35, 0.45, 0.45, 0.25]},
 			"apex": {"chest": 0.0, "legs": [-0.6, 0.9, 0.4, 0.5]}, "apex_speed": 0.0, "takeoff": {"time": 0.0, "chest": 0.0, "legs": [0.0, 0.0, 0.0, 0.0]}},
 	"dash": {"forward": {"chest": 0.38, "legs": [-1.0, 0.6, 0.85, 1.0]}, "back": {"chest": -0.22, "legs": [0.5, 0.9, -0.7, 0.4]}, "hip_drop": 0.0},
@@ -926,8 +929,9 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 	if weapon.is_empty():
 		# 沒有武器：雙手自然下垂、隨步伐輕擺（不是伸出去握著空氣）。
 		weapon_root.visible = false
-		_set_rotation(&"arm_front_upper", 0.2 + sin(_phase) * 0.4)
-		_set_rotation(&"arm_front_lower", -0.3)
+		var hang := _arm_hang()
+		_set_rotation(&"arm_front_upper", hang[0] + sin(_phase) * _arm_swing(input))
+		_set_rotation(&"arm_front_lower", hang[1])
 		_set_rotation(&"hand_front", HAND_FOLLOWS_FOREARM)
 	else:
 		weapon_root.visible = true
@@ -944,9 +948,9 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 		_reach_arm(&"arm_back_upper", &"arm_back_lower", &"hand_back", grip + (offset - _rig.hand_grip_offset(&"hand_back")).rotated(aim_angle), aim_angle)
 	else:
 		# 空著的後手自然下垂、隨步伐輕擺。
-		var swing := sin(_phase + PI) * 0.4
-		_set_rotation(&"arm_back_upper", 0.2 + swing)
-		_set_rotation(&"arm_back_lower", -0.3)
+		var hang := _arm_hang()
+		_set_rotation(&"arm_back_upper", hang[2] + sin(_phase + PI) * _arm_swing(input))
+		_set_rotation(&"arm_back_lower", hang[3])
 		_set_rotation(&"hand_back", HAND_FOLLOWS_FOREARM)
 	if not action_arms.is_empty():
 		var w := smoothstep(0.0, 1.0, _action_w)
@@ -954,6 +958,19 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 			_rig.bone(bone_name).rotation = lerp_angle(_rig.bone(bone_name).rotation, float(action_arms[bone_name]), w)
 		weapon_root.position = weapon_root.position.lerp(action_hand, w)
 		weapon_root.rotation = lerp_angle(weapon_root.rotation, action_weapon_angle, w)
+
+
+## 空手時四段手臂的垂放角度（動作資料 arms.hang）；資料不是四個數字時用預設值。
+func _arm_hang() -> Array:
+	var hang: Variant = (_motion["arms"] as Dictionary).get("hang")
+	if typeof(hang) == TYPE_ARRAY and (hang as Array).size() >= 4:
+		return hang
+	return (DEFAULT_MOTION["arms"] as Dictionary)["hang"]
+
+
+## 空手時上臂的擺幅：跟著水平速度從 0 增加到 arms.swing（半速就擺滿），站著不擺。
+func _arm_swing(input: RigInput) -> float:
+	return float((_motion["arms"] as Dictionary).get("swing", 0.0)) * clampf(absf(input.velocity.x) / maxf(1.0, input.run_speed) * 2.0, 0.0, 1.0)
 
 
 ## 兩段骨頭的 IK：手肘朝下彎，目標超出臂長時手臂伸直指向目標。hand_angle 為手部最終角度（骨架空間）。

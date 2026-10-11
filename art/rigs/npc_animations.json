@@ -2,7 +2,7 @@
   "description": "NPC 動畫資料（NpcAnimator 讀取）。角度單位是弧度，以面向右的骨架空間為準：骨頭靜止時朝下，負值＝往前（面向的方向）抬。poses 是基本姿勢（bones 各骨頭的角度、hip_x／hip_y 骨盆位移，y 為正往下；feet 讓兩隻腳用 IK 平放在地上：x＝前腳與後腳相對骨盆的前後位置（單位＝大腿長）、sag＝骨盆下沉（單位＝髖到踝的腿長），比例讓不同身高的骨架共用，坐與蹲用它，腳才不會懸空或陷地）；overlays 是疊加動作（talk 說話、listen 聆聽、wave 揮手），開關時淡入淡出；loops 是每個角色專屬的工作循環。track＝一條正弦：bone（可用 _hip_x／_hip_y）、mean 平均、amp 幅度、period 週期（秒）、phase 相位；gated＝只在 gate 的「發生」時段出現，inv＝只在 gate 的「沒發生」時段出現。幅度與節奏改這裡就好，不需要改程式；NPC 資料的 loop_scale 可以整體放大縮小。 life 是待機的生命感層（NpcLife）的預設：drift 各骨頭各自緩慢飄動（週期由角色與骨頭決定，不同步）、breath 呼吸速率變化與偶爾的嘆氣、shift 站著時換腳站、glance 轉頭看一下、beat 說話的重音手勢與開口前吸氣、follow 追目標角度的彈簧（w 角頻率、z 阻尼比，< 1 會有一點過衝）；每個角色在 art/motion/<角色>.json 的 npc.life 逐項蓋過（amount 整體幅度、tempo 事件頻率）。",
   "poses": {
     "stand": {"hip_x": 0, "hip_y": 0, "bones": {
-      "arm_front_upper": 0.06, "arm_front_lower": -0.12, "arm_back_upper": 0.14, "arm_back_lower": -0.1,
+      "arm_front_upper": 0.03, "arm_front_lower": -0.14, "arm_back_upper": -0.18, "arm_back_lower": -0.24,
       "leg_front_upper": -0.06, "leg_front_lower": 0.06, "leg_back_upper": 0.1, "leg_back_lower": 0.04}},
     "sit": {"hip_x": 0, "hip_y": 0, "feet": {"x": [1.0, 0.83], "sag": 0.475}, "bones": {
       "chest": 0.05, "leg_front_upper": -1.5, "leg_front_lower": 1.55, "leg_back_upper": -1.4, "leg_back_lower": 1.45,

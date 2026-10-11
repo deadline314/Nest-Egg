@@ -1,5 +1,5 @@
 {
-  "description": "收帳人·槍手（collector_gunner）的建置配方。來源是功能姿勢的文生圖（art_src/characters/collector_gunner/01_design/prompt.txt，seed 21851）；建置從 parts 或之後的步驟開始。",
+  "description": "收帳人·槍手（collector_gunner）的建置配方。來源是功能姿勢的文生圖（art_src/characters/collector_gunner/01_design/prompt.txt，seed 21951）；建置從 parts 或之後的步驟開始。",
   "id": "collector_gunner",
   "name": "收帳人·槍手",
   "spec": "tools/comfyui/specs/collector_gunner_side.json",
@@ -7,10 +7,10 @@
   "work": "art_src/characters/collector_gunner",
   "design": {
     "size": [
-      1056,
-      1536
+      832,
+      1216
     ],
-    "pick": 21851,
-    "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat colors, bold clean black outlines, hard-edged two-tone shading, saturated neon accents. Full body, strict side view facing right, the whole figure from the top of the head to the boot soles inside the frame with empty margin. Pose: a natural relaxed walk, mid-stride with a moderate step, upright relaxed torso with a neutral straight back, head level; near leg forward and far leg back, both legs and both feet clearly separated with a gap between the thighs; the near arm swings slightly behind the torso and the far arm slightly forward, both hands relaxed and clearly separated from the body. Believable adult anatomy, exactly two arms, two legs, five fingers per hand. Even soft light from the upper left, no bloom, no glow halo, no weapon in the hands, no extra objects, no text. A harbor loan-shark debt collector gunman, adult man in his thirties, lean and wiry, unmasked: a sharp tired face with stubble, slicked-back dark hair, a toothpick in his mouth and tinted amber glasses. He wears a wine-red leather bomber jacket properly worn and zipped half way, sleeves on both arms down to the wrists, with a gold embroidered abacus emblem on the upper sleeve; a cream shirt with an open collar and a thin gold chain; an empty brown leather shoulder holster strap across the chest; slim black trousers with a ledger-book pouch on the belt; pointed black leather shoes. Thin amber neon piping along the jacket zipper. Drawn with thick bold black ink outlines and hard-edged two-tone cel shadows, saturated colors; not soft, not pastel."
+    "pick": 21951,
+    "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat muted colors, bold clean black outlines, hard-edged two-tone shading, at most one small lit accent. Full body, strict side view facing right, the whole figure from the top of the head to the soles inside the frame, tall in the frame: the figure fills nine tenths of the picture height. The character stands upright and still, like a model sheet: weight evenly on both feet, hips and shoulders level, the spine vertical, the chest not pushed out and the lower back not arched, the head level. The near arm hangs straight down beside the thigh with an open empty hand; it is not swept back. The far arm is hidden behind the torso. The feet are a small step apart with the far foot half a step ahead, so the far shin and the far shoe show in front of the near leg. A harbour debt collector gunman, a man in his thirties, about seven heads tall, lean and wiry. Slicked-back dark hair coming loose, stubble, tired narrow eyes, a slightly crooked nose, a toothpick in the corner of his mouth. He wears a faded wine-red vinyl jacket that ends at the belt, zipped half way, the collar cracked with age, the sleeves down to the wrists; a cheap cream shirt with the collar open; an empty brown leather shoulder-holster strap across the chest; black trousers gone shiny at the knees; a small ledger pouch on the belt; worn black leather shoes with scuffed toes. Empty hands. Uneven rough hand-inked linework with varied line weight, gritty grime and fabric wrinkles where the cloth bends, slightly asymmetrical, lived-in and worn, matte not glossy, not airbrushed, no idealized perfect face. Few large plain shapes, no decorative details beyond the ones described. Even overcast light, no glow, no bloom, no text."
   }
 }
