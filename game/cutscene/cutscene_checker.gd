@@ -196,6 +196,10 @@ static func staging_problems(scene_id: String, scene: Dictionary) -> PackedStrin
 					# 舞台不存在的錯誤由 _check_stage 回報；這裡只在讀得到時取地面線，不重複記錄。
 					var stage_id := StringName(str(step.get("id", "")))
 					stage_floor = float(StageLibrary.definition(stage_id).get("floor", NAN)) if StageLibrary.exists(stage_id) else NAN
+					# 換舞台（同一段裡切鏡）時播放器會清掉所有演員（CutscenePlayer._do_scene），這裡跟著重新追蹤。
+					feet.clear()
+					heights.clear()
+					poses.clear()
 				if (step as Dictionary).has("pos"):
 					cam = StageLayers.vec2_of(step["pos"])
 				if (step as Dictionary).has("zoom"):
@@ -226,14 +230,17 @@ static func staging_problems(scene_id: String, scene: Dictionary) -> PackedStrin
 		if not SETTLED_STEPS.has(kind) and index < (steps as Array).size():
 			continue
 		for id: String in feet:
+			# 鏡頭外的演員（切到另一個人的單人鏡頭時）看不到，腳與頭都不檢查。
+			var on_screen_x := absf(feet[id].x - cam.x) * zoom <= STAGE_SIZE.x * 0.5
+			if not on_screen_x:
+				continue
 			var screen_y := STAGE_SIZE.y * 0.5 + (feet[id].y - cam.y) * zoom
 			if screen_y > FEET_MAX_SCREEN_Y and not reported.has(id):
 				reported[id] = true
 				problems.append("%s 第 %d 步：演員「%s」的腳底在畫面 y=%.0f，會被對話框蓋住（上限 %.0f）；把鏡頭中心往下移或降低縮放" % [scene_id, index, id, screen_y, FEET_MAX_SCREEN_Y])
 			var tall := float(heights.get(id, 0.0)) * float(POSE_HEIGHT.get(poses.get(id, "idle"), 1.0))
-			var on_screen_x := absf(feet[id].x - cam.x) * zoom <= STAGE_SIZE.x * 0.5
 			var head_y := STAGE_SIZE.y * 0.5 + (feet[id].y - tall - cam.y) * zoom
-			if tall > 0.0 and on_screen_x and head_y < LETTERBOX_BAR + HEAD_MARGIN and not head_reported.has(id):
+			if tall > 0.0 and head_y < LETTERBOX_BAR + HEAD_MARGIN and not head_reported.has(id):
 				head_reported[id] = true
 				problems.append("%s 第 %d 步：演員「%s」的頭頂在畫面 y=%.0f，被上方黑邊切掉（黑邊到 %.0f）；把鏡頭拉遠或把鏡頭中心往上移" % [scene_id, index, id, head_y, LETTERBOX_BAR])
 	return problems

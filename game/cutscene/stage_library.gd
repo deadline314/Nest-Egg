@@ -1,7 +1,7 @@
 class_name StageLibrary
 extends RefCounted
 ## 過場場景（舞台）庫：讀取 data/cutscene/stages/<id>.json 並快取。
-## 檔案內容：{"layers": [圖層定義…], "camera": {"pos": [x, y], "zoom": 1.0}, "ambient": "#hex"（可選）}
+## 檔案內容：{"layers": [圖層定義…], "camera": {"pos": [x, y], "zoom": 1.0}, "floor": 地面線 y, "floors": [其他地面線 y…]（可選，例如玻璃牆後的室內地面）, "ambient": "#hex"（可選）}
 
 const DIR := "res://data/cutscene/stages"
 

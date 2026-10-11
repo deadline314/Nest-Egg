@@ -141,6 +141,7 @@
   "ch3_k_at_office_seen": false,
   "ye_handwriting_seen": false,
   "sq7_ye_name_seen": false,
+  "ch3_trade_half_heard": false,
   "ch3_trade_listened": false,
   "ch3_trade_overheard": false,
   "ch3_l2_route_announced": false,
@@ -4379,11 +4380,74 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch3_office_hall",
+     "pos": [
+      330,
+      243.5
+     ],
+     "zoom": 0.88,
+     "fade": 1.0
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      595,
+      300
+     ],
+     "facing": -1,
+     "scale": 2.95,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "ye",
+     "kind": "ye",
+     "pos": [
+      360,
+      285
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ye"
+    },
+    {
+     "do": "sfx",
+     "id": "pickup",
+     "volume": -10
+    },
+    {
      "do": "say",
      "speaker": "label",
      "text": "取件格的回執寫著：風控接待收件，月報17查核件。",
      "ja": "受け取り棚の受付票にはこうあった：リスク管理窓口受理、月報17 査核件。",
      "en": "The receipt in the pickup slot reads: Risk Control desk received, Monthly Report 17 audit file."
+    },
+    {
+     "do": "actor",
+     "id": "old_k",
+     "kind": "old_k",
+     "pos": [
+      -60,
+      285
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "old_k"
+    },
+    {
+     "do": "move",
+     "id": "old_k",
+     "to": [
+      245,
+      285
+     ],
+     "time": 3.2
     },
     {
      "do": "say",
@@ -4393,6 +4457,16 @@
      "en": "The side door opened a crack. Old K pocketed his visitor card and walked to Folio's desk."
     },
     {
+     "do": "camera",
+     "pos": [
+      399,
+      254
+     ],
+     "zoom": 1.05,
+     "time": 1.6,
+     "wait": true
+    },
+    {
      "do": "say",
      "speaker": "rin",
      "text": "他叫我別上來，自己卻在這裡。",
@@ -4400,18 +4474,20 @@
      "en": "He told me not to come up, yet he's right here."
     },
     {
-     "do": "wait",
-     "time": 0.35
+     "do": "pose",
+     "id": "rin",
+     "pose": "listen"
     },
     {
      "do": "say",
      "speaker": "lamp",
      "text": "我只知道你那張公文送到了，裡面的約不是我排的。",
+     "style": "whisper",
      "ja": "公文が届いたことしか知りません。中の約束は私が組んだものではありません。",
      "en": "I only know your document was delivered. The appointment inside wasn't my arrangement."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "not": {
      "flag": "ch3_petition_receipt_taken",
@@ -4433,7 +4509,8 @@
      "kind": "item_acquire",
      "id": "ch3_intake_receipt"
     }
-   ]
+   ],
+   "then": "ch3_t_c19_watch"
   },
   "ch3_t_c18_revisit": {
    "mode": "animated",
@@ -4475,11 +4552,131 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch3_office_hall",
+     "pos": [
+      285,
+      250
+     ],
+     "zoom": 1.2,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "old_k",
+     "kind": "old_k",
+     "pos": [
+      245,
+      285
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "old_k"
+    },
+    {
+     "do": "actor",
+     "id": "ye",
+     "kind": "ye",
+     "pos": [
+      360,
+      285
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ye",
+     "loop": "read_note"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      595,
+      300
+     ],
+     "facing": -1,
+     "scale": 2.95,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "listen"
+    },
+    {
+     "do": "camera",
+     "pos": [
+      300,
+      250
+     ],
+     "zoom": 1.2,
+     "time": 2.2
+    },
+    {
      "do": "say",
      "speaker": "label",
      "text": "葉把透明傘掛在桌旁，停筆，把手背翻向自己，補了一行字才翻開檔案。",
      "ja": "葉は透明な傘を机脇に掛け、ペンを止めて手の甲を自分へ向け、一行書き足してからファイルを開いた。",
      "en": "Folio hung a clear umbrella by the desk, stopped writing, turned the back of her hand toward herself, and wrote one more line before opening the file."
+    },
+    {
+     "do": "pose",
+     "id": "ye",
+     "pose": "idle",
+     "loop": ""
+    },
+    {
+     "do": "wait",
+     "time": 0.5
+    },
+    {
+     "do": "scene",
+     "id": "ch3_office_hall",
+     "pos": [
+      399,
+      254
+     ],
+     "zoom": 1.05,
+     "fade": 0.0
+    },
+    {
+     "do": "actor",
+     "id": "old_k",
+     "kind": "old_k",
+     "pos": [
+      245,
+      285
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "old_k"
+    },
+    {
+     "do": "actor",
+     "id": "ye",
+     "kind": "ye",
+     "pos": [
+      360,
+      285
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ye"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      595,
+      300
+     ],
+     "facing": -1,
+     "scale": 2.95,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "listen"
     },
     {
      "do": "say",
@@ -4492,11 +4689,12 @@
      "do": "say",
      "speaker": "lamp",
      "text": "你看到她的習慣，還不知道她為什麼這樣做。",
+     "style": "whisper",
      "ja": "彼女の癖は見えたが、なぜそうするのかはまだわからない。",
      "en": "You've seen her habit. You don't know yet why she does it."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "all": [
      {
@@ -4523,6 +4721,56 @@
   "ch3_t_c19_choice": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch3_office_hall",
+     "pos": [
+      399,
+      254
+     ],
+     "zoom": 1.05,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "old_k",
+     "kind": "old_k",
+     "pos": [
+      245,
+      285
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "old_k"
+    },
+    {
+     "do": "actor",
+     "id": "ye",
+     "kind": "ye",
+     "pos": [
+      360,
+      285
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ye"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      595,
+      300
+     ],
+     "facing": -1,
+     "scale": 2.95,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "listen"
+    },
     {
      "do": "say",
      "speaker": "label",
@@ -4575,7 +4823,7 @@
      "en": "You can hear the talk through the door gap. The waiting platform sits against a solid wall, so you can stop here."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "all": [
      {
@@ -4595,11 +4843,112 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch3_office_hall",
+     "pos": [
+      300,
+      250
+     ],
+     "zoom": 1.2,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "old_k",
+     "kind": "old_k",
+     "pos": [
+      245,
+      285
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "old_k"
+    },
+    {
+     "do": "actor",
+     "id": "ye",
+     "kind": "ye",
+     "pos": [
+      360,
+      285
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ye",
+     "loop": "read_note"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      595,
+      300
+     ],
+     "facing": -1,
+     "scale": 2.95,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "listen"
+    },
+    {
      "do": "say",
      "speaker": "label",
      "text": "葉的手背上寫著一行字：「他叫阿翰。你愛他。」",
      "ja": "葉の手の甲に一行：「彼は阿翰（アハン）。あなたは彼を愛している。」",
      "en": "Folio's hand bore one line: 'His name is Ahan. You love him.'"
+    },
+    {
+     "do": "scene",
+     "id": "ch3_office_hall",
+     "pos": [
+      399,
+      254
+     ],
+     "zoom": 1.05,
+     "fade": 0.0
+    },
+    {
+     "do": "actor",
+     "id": "old_k",
+     "kind": "old_k",
+     "pos": [
+      245,
+      285
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "old_k"
+    },
+    {
+     "do": "actor",
+     "id": "ye",
+     "kind": "ye",
+     "pos": [
+      360,
+      285
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ye"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      595,
+      300
+     ],
+     "facing": -1,
+     "scale": 2.95,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "listen"
     },
     {
      "do": "say",
@@ -4616,7 +4965,7 @@
      "en": "The reel in the drawer also says Ahan. I haven't asked her about it."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "all": [
      {
@@ -4648,11 +4997,112 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch3_office_hall",
+     "pos": [
+      300,
+      250
+     ],
+     "zoom": 1.2,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "old_k",
+     "kind": "old_k",
+     "pos": [
+      245,
+      285
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "old_k"
+    },
+    {
+     "do": "actor",
+     "id": "ye",
+     "kind": "ye",
+     "pos": [
+      360,
+      285
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ye",
+     "loop": "read_note"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      595,
+      300
+     ],
+     "facing": -1,
+     "scale": 2.95,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "listen"
+    },
+    {
      "do": "say",
      "speaker": "label",
      "text": "葉的手背上寫著一行字：「他叫阿翰。你愛他。」",
      "ja": "葉の手の甲に一行：「彼は阿翰（アハン）。あなたは彼を愛している。」",
      "en": "Folio's hand bore one line: 'His name is Ahan. You love him.'"
+    },
+    {
+     "do": "scene",
+     "id": "ch3_office_hall",
+     "pos": [
+      399,
+      254
+     ],
+     "zoom": 1.05,
+     "fade": 0.0
+    },
+    {
+     "do": "actor",
+     "id": "old_k",
+     "kind": "old_k",
+     "pos": [
+      245,
+      285
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "old_k"
+    },
+    {
+     "do": "actor",
+     "id": "ye",
+     "kind": "ye",
+     "pos": [
+      360,
+      285
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ye"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      595,
+      300
+     ],
+     "facing": -1,
+     "scale": 2.95,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "listen"
     },
     {
      "do": "say",
@@ -4669,7 +5119,7 @@
      "en": "I'll note this name. I won't guess at their relationship."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "all": [
      {
@@ -4703,9 +5153,60 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch3_office_hall",
+     "pos": [
+      285,
+      250
+     ],
+     "zoom": 1.2,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "old_k",
+     "kind": "old_k",
+     "pos": [
+      245,
+      285
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "old_k"
+    },
+    {
+     "do": "actor",
+     "id": "ye",
+     "kind": "ye",
+     "pos": [
+      360,
+      285
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ye"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      595,
+      300
+     ],
+     "facing": -1,
+     "scale": 2.95,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "listen"
+    },
+    {
      "do": "say",
      "speaker": "old_k",
      "text": "妳收了她那份備份，我不是來賣第二次。你們排外勤前，先看清她會碰到什麼。",
+     "style": "whisper",
      "ja": "バックアップは受け取ったでしょう。二度売る気はない。外勤の前に、彼女の行く先を確かめてください。",
      "en": "You took her backup. I'm not here to sell it twice. Before you schedule field work, see what she'll run into."
     },
@@ -4713,93 +5214,206 @@
      "do": "say",
      "speaker": "ye",
      "text": "資料在天穹保管，交付人是你。這一點沒有改。",
+     "style": "whisper",
      "ja": "データは天穹が保管し、引き渡し人はあなたのままです。変わりません。",
      "en": "Skydome holds the data. You're still the handover party. That hasn't changed."
+    },
+    {
+     "do": "scene",
+     "id": "ch3_office_hall",
+     "pos": [
+      399,
+      254
+     ],
+     "zoom": 1.05,
+     "fade": 0.0
+    },
+    {
+     "do": "actor",
+     "id": "old_k",
+     "kind": "old_k",
+     "pos": [
+      245,
+      285
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "old_k"
+    },
+    {
+     "do": "actor",
+     "id": "ye",
+     "kind": "ye",
+     "pos": [
+      360,
+      285
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ye"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      595,
+      300
+     ],
+     "facing": -1,
+     "scale": 2.95,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "listen"
+    },
+    {
+     "do": "wait",
+     "time": 0.9
+    },
+    {
+     "do": "scene",
+     "id": "ch3_office_hall",
+     "pos": [
+      285,
+      250
+     ],
+     "zoom": 1.2,
+     "fade": 0.0
+    },
+    {
+     "do": "actor",
+     "id": "old_k",
+     "kind": "old_k",
+     "pos": [
+      245,
+      285
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "old_k"
+    },
+    {
+     "do": "actor",
+     "id": "ye",
+     "kind": "ye",
+     "pos": [
+      360,
+      285
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ye"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      595,
+      300
+     ],
+     "facing": -1,
+     "scale": 2.95,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "listen"
     },
     {
      "do": "say",
      "speaker": "old_k",
      "text": "妳上次答應的條件，不是讓她一直去換命。我今天要你把危險的派案停掉。",
+     "style": "whisper",
      "ja": "前回あなたが受け入れた条件は、彼女に命を賭けさせ続けるためのものではない。今日は危険な派遣を止めてほしい。",
      "en": "The terms you agreed to weren't meant to keep her trading her life. Today I want the dangerous assignments stopped."
-    },
-    {
-     "do": "wait",
-     "time": 0.35
     },
     {
      "do": "say",
      "speaker": "ye",
      "text": "樣本要活著，研究才有意義。我可以撤掉清理區的排案，不能答應所有街上都安全。",
+     "style": "whisper",
      "ja": "サンプルは生きていてこそ研究に意味がある。清掃区域の派遣は取り消せるが、街の全てが安全だとは約束できない。",
      "en": "Samples have to stay alive for the research to mean anything. I can pull the cleanup-zone assignments, but I can't promise every street is safe."
+    },
+    {
+     "do": "camera",
+     "pos": [
+      260,
+      250
+     ],
+     "zoom": 1.2,
+     "time": 1.8
+    },
+    {
+     "do": "wait",
+     "time": 0.6
     },
     {
      "do": "say",
      "speaker": "old_k",
      "text": "她不知道那份資料是我交的，妳別把這個拿到她面前。",
+     "style": "whisper",
      "ja": "彼女はあのデータを私が渡したことを知りません。彼女の前では持ち出さないで。",
      "en": "She doesn't know I handed over that data. Don't bring it up in front of her."
     },
     {
-     "do": "say",
-     "speaker": "ye",
-     "text": "你把資料交來，換的條件也已經執行。這件事不是她同意過的，我不替你把它說成同意。",
-     "ja": "資料は受け取った。条件も実行済みだ。これは彼女が同意したことではない。あなたのために同意だと言い換えはしない。",
-     "en": "You handed over the data, and the terms have already been carried out. She didn't agree to this, and I won't call it her consent for you."
+     "do": "scene",
+     "id": "ch3_office_hall",
+     "pos": [
+      399,
+      254
+     ],
+     "zoom": 1.05,
+     "fade": 0.0
+    },
+    {
+     "do": "actor",
+     "id": "old_k",
+     "kind": "old_k",
+     "pos": [
+      245,
+      285
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "old_k"
+    },
+    {
+     "do": "actor",
+     "id": "ye",
+     "kind": "ye",
+     "pos": [
+      360,
+      285
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ye"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      595,
+      300
+     ],
+     "facing": -1,
+     "scale": 2.95,
+     "weapon": "",
+     "speaker": "rin"
     },
     {
      "do": "wait",
-     "time": 0.35
-    },
-    {
-     "do": "say",
-     "speaker": "old_k",
-     "text": "我知道她沒答應，我沒讓她看。",
-     "ja": "彼女が承諾していないのは知っている。見せてもいない。",
-     "en": "I know she didn't agree. I didn't let her see it."
-    },
-    {
-     "do": "say",
-     "speaker": "ye",
-     "text": "那就先履行眼前的條件。你守原協議，我保留既有安排，別讓她碰這份協議。",
-     "ja": "では、目の前の条件を先に履行してください。あなたは元の協定を守り、私は既存の取り決めを保つ。この協定には彼女を関わらせないで。",
-     "en": "Then carry out the terms in front of you first. You keep the original agreement, I keep the existing arrangement, and keep her away from this one."
-    },
-    {
-     "do": "say",
-     "speaker": "old_k",
-     "text": "不要再把她送到會死的地方。",
-     "ja": "もう彼女を死ぬような場所へ送らないで。",
-     "en": "Stop sending her to places where she could die."
-    },
-    {
-     "do": "wait",
-     "time": 0.35
-    },
-    {
-     "do": "say",
-     "speaker": "ye",
-     "text": "我剛收到一份月報異議。有人把排除欄對出來了，你家那位也會對紙。",
-     "ja": "月報への異議が届いたところだ。誰かが除外欄を突き合わせた。あなたのところの人も紙で照合するだろう。",
-     "en": "I just received an objection to the monthly report. Someone matched the exclusion column, and your side will check it against paper too."
-    },
-    {
-     "do": "say",
-     "speaker": "old_k",
-     "text": "這張你回你的，我回去跟她說。",
-     "ja": "返事はそちらでどうぞ。私は戻って彼女に話す。",
-     "en": "Answer your side of this. I'll go tell her."
-    },
-    {
-     "do": "say",
-     "speaker": "ye",
-     "text": "回覆只能走收件人，不替你撤。",
-     "ja": "返信は受取人経由のみ。あなたの代わりに取り下げはしない。",
-     "en": "Replies can only go through the recipient. I won't withdraw it for you."
+     "time": 1.1
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "all": [
      {
@@ -4808,7 +5422,577 @@
      },
      {
       "not": {
-       "flag": "ch3_trade_overheard",
+       "flag": "ch3_trade_half_heard",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch3_trade_half_heard",
+     "value": true
+    }
+   ],
+   "then": "ch3_dispatch_back_c20_middle"
+  },
+  "ch3_t_c20_middle": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch3_office_hall",
+     "pos": [
+      399,
+      254
+     ],
+     "zoom": 1.05,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "old_k",
+     "kind": "old_k",
+     "pos": [
+      245,
+      285
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "old_k"
+    },
+    {
+     "do": "actor",
+     "id": "ye",
+     "kind": "ye",
+     "pos": [
+      360,
+      285
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ye"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      595,
+      300
+     ],
+     "facing": -1,
+     "scale": 2.95,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "原來那份資料是他親手交出去的。",
+     "ja": "あのデータは、彼が自分の手で渡したものだったんだ。",
+     "en": "So he was the one who handed that data over, with his own hands."
+    },
+    {
+     "do": "choice",
+     "text": "原來那份資料是他親手交出去的。",
+     "default": "leave",
+     "options": [
+      {
+       "id": "stay",
+       "text": "忍住，聽他們說完。",
+       "explanation": "安全的過場，他們不會發現你。",
+       "target": "ch3_t_c20_rest",
+       "ja": "こらえて、最後まで聞く。",
+       "en": "Hold back and hear them out.",
+       "explanation_ja": "安全な場面。二人には気づかれない。",
+       "explanation_en": "Safe scene. They won't notice you."
+      },
+      {
+       "id": "door",
+       "text": "伸手推門。",
+       "explanation": "想進去當面問；燈會先叫住你。",
+       "target": "ch3_t_c20_hold",
+       "ja": "扉に手をかける。",
+       "en": "Reach for the door.",
+       "explanation_ja": "入って問い詰めたい。でも先に燈が止める。",
+       "explanation_en": "You want to confront them. Wick will stop you first."
+      },
+      {
+       "id": "leave",
+       "text": "先退開，晚點再回來聽。",
+       "explanation": "之後回等候臺，從這裡接著聽。",
+       "ja": "いったん離れて、後で聞きに戻る。",
+       "en": "Step away for now and come back to listen later.",
+       "explanation_ja": "後で待機台に戻れば、ここから続きを聞ける。",
+       "explanation_en": "Return to the waiting bench later to pick up from here."
+      }
+     ],
+     "ja": "あのデータは、彼が自分の手で渡したものだったんだ。",
+     "en": "So he was the one who handed that data over, with his own hands."
+    }
+   ],
+   "pose_policy": "supported",
+   "when": {
+    "all": [
+     {
+      "flag": "ch3_trade_half_heard",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch3_trade_listened",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch3_t_c20_hold": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch3_office_hall",
+     "pos": [
+      399,
+      254
+     ],
+     "zoom": 1.05,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "old_k",
+     "kind": "old_k",
+     "pos": [
+      245,
+      285
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "old_k"
+    },
+    {
+     "do": "actor",
+     "id": "ye",
+     "kind": "ye",
+     "pos": [
+      360,
+      285
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ye"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      595,
+      300
+     ],
+     "facing": -1,
+     "scale": 2.95,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      560,
+      300
+     ],
+     "time": 0.6,
+     "wait": true
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "現在推門，他們會換一套說法。你要聽的是他們以為沒人在時說的話。",
+     "style": "whisper",
+     "ja": "今入ったら、二人は言い方を変える。聞くべきなのは、誰もいないと思って話していることだ。",
+     "en": "Open that door now and they'll change their story. What you need is what they say when they think no one is listening."
+    },
+    {
+     "do": "pose",
+     "id": "rin",
+     "pose": "listen"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我知道，我先聽完再說。",
+     "ja": "わかってる。まず最後まで聞く。",
+     "en": "I know. I'll hear it all first."
+    }
+   ],
+   "pose_policy": "supported",
+   "when": {
+    "all": [
+     {
+      "flag": "ch3_trade_half_heard",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch3_trade_listened",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "then": "ch3_t_c20_rest"
+  },
+  "ch3_t_c20_rest": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch3_office_hall",
+     "pos": [
+      285,
+      250
+     ],
+     "zoom": 1.2,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "old_k",
+     "kind": "old_k",
+     "pos": [
+      245,
+      285
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "old_k"
+    },
+    {
+     "do": "actor",
+     "id": "ye",
+     "kind": "ye",
+     "pos": [
+      360,
+      285
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ye"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      595,
+      300
+     ],
+     "facing": -1,
+     "scale": 2.95,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "listen"
+    },
+    {
+     "do": "say",
+     "speaker": "ye",
+     "text": "你把資料交來，換的條件也已經執行。這件事不是她同意過的，我不替你把它說成同意。",
+     "style": "whisper",
+     "ja": "資料は受け取った。条件も実行済みだ。これは彼女が同意したことではない。あなたのために同意だと言い換えはしない。",
+     "en": "You handed over the data, and the terms have already been carried out. She didn't agree to this, and I won't call it her consent for you."
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "我知道她沒答應，我沒讓她看。",
+     "style": "whisper",
+     "ja": "彼女が承諾していないのは知っている。見せてもいない。",
+     "en": "I know she didn't agree. I didn't let her see it."
+    },
+    {
+     "do": "scene",
+     "id": "ch3_office_hall",
+     "pos": [
+      399,
+      254
+     ],
+     "zoom": 1.05,
+     "fade": 0.0
+    },
+    {
+     "do": "actor",
+     "id": "old_k",
+     "kind": "old_k",
+     "pos": [
+      245,
+      285
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "old_k"
+    },
+    {
+     "do": "actor",
+     "id": "ye",
+     "kind": "ye",
+     "pos": [
+      360,
+      285
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ye"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      595,
+      300
+     ],
+     "facing": -1,
+     "scale": 2.95,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "listen"
+    },
+    {
+     "do": "wait",
+     "time": 0.8
+    },
+    {
+     "do": "branch",
+     "requires_flag": "sq7_ye_name_seen",
+     "steps": [
+      {
+       "do": "say",
+       "speaker": "rin",
+       "text": "她手背上記著要記得的人，說到我卻只說樣本。",
+       "ja": "手の甲には忘れたくない人の名前を書いているのに、私のことは「サンプル」としか言わない。",
+       "en": "She keeps the person she wants to remember written on her hand, but when she talks about me, I'm only a sample."
+      }
+     ],
+     "else_steps": []
+    },
+    {
+     "do": "scene",
+     "id": "ch3_office_hall",
+     "pos": [
+      285,
+      250
+     ],
+     "zoom": 1.2,
+     "fade": 0.0
+    },
+    {
+     "do": "actor",
+     "id": "old_k",
+     "kind": "old_k",
+     "pos": [
+      245,
+      285
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "old_k"
+    },
+    {
+     "do": "actor",
+     "id": "ye",
+     "kind": "ye",
+     "pos": [
+      360,
+      285
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ye"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      595,
+      300
+     ],
+     "facing": -1,
+     "scale": 2.95,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "listen"
+    },
+    {
+     "do": "say",
+     "speaker": "ye",
+     "text": "那就先履行眼前的條件。你守原協議，我保留既有安排，別讓她碰這份協議。",
+     "style": "whisper",
+     "ja": "では、目の前の条件を先に履行してください。あなたは元の協定を守り、私は既存の取り決めを保つ。この協定には彼女を関わらせないで。",
+     "en": "Then carry out the terms in front of you first. You keep the original agreement, I keep the existing arrangement, and keep her away from this one."
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "不要再把她送到會死的地方。",
+     "style": "whisper",
+     "ja": "もう彼女を死ぬような場所へ送らないで。",
+     "en": "Stop sending her to places where she could die."
+    },
+    {
+     "do": "camera",
+     "pos": [
+      300,
+      250
+     ],
+     "zoom": 1.2,
+     "time": 1.6
+    },
+    {
+     "do": "wait",
+     "time": 0.4
+    },
+    {
+     "do": "say",
+     "speaker": "ye",
+     "text": "我剛收到一份月報異議。有人把排除欄對出來了，你家那位也會對紙。",
+     "style": "whisper",
+     "ja": "月報への異議が届いたところだ。誰かが除外欄を突き合わせた。あなたのところの人も紙で照合するだろう。",
+     "en": "I just received an objection to the monthly report. Someone matched the exclusion column, and your side will check it against paper too."
+    },
+    {
+     "do": "scene",
+     "id": "ch3_office_hall",
+     "pos": [
+      399,
+      254
+     ],
+     "zoom": 1.05,
+     "fade": 0.0
+    },
+    {
+     "do": "actor",
+     "id": "old_k",
+     "kind": "old_k",
+     "pos": [
+      245,
+      285
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "old_k"
+    },
+    {
+     "do": "actor",
+     "id": "ye",
+     "kind": "ye",
+     "pos": [
+      360,
+      285
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ye"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      595,
+      300
+     ],
+     "facing": -1,
+     "scale": 2.95,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "listen"
+    },
+    {
+     "do": "wait",
+     "time": 0.7
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "這張你回你的，我回去跟她說。",
+     "style": "whisper",
+     "ja": "返事はそちらでどうぞ。私は戻って彼女に話す。",
+     "en": "Answer your side of this. I'll go tell her."
+    },
+    {
+     "do": "move",
+     "id": "old_k",
+     "to": [
+      420,
+      285
+     ],
+     "time": 1.6
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      640,
+      300
+     ],
+     "time": 0.8,
+     "wait": true
+    },
+    {
+     "do": "say",
+     "speaker": "ye",
+     "text": "回覆只能走收件人，不替你撤。",
+     "style": "whisper",
+     "ja": "返信は受取人経由のみ。あなたの代わりに取り下げはしない。",
+     "en": "Replies can only go through the recipient. I won't withdraw it for you."
+    },
+    {
+     "do": "face",
+     "id": "old_k",
+     "dir": -1
+    },
+    {
+     "do": "move",
+     "id": "old_k",
+     "to": [
+      -60,
+      285
+     ],
+     "time": 3.0
+    },
+    {
+     "do": "wait",
+     "time": 1.4
+    }
+   ],
+   "pose_policy": "supported",
+   "when": {
+    "all": [
+     {
+      "flag": "ch3_trade_half_heard",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch3_trade_listened",
        "equals": true
       }
      }
@@ -4826,6 +6010,42 @@
   "ch3_t_c20_react": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch3_office_hall",
+     "pos": [
+      399,
+      254
+     ],
+     "zoom": 1.05,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "ye",
+     "kind": "ye",
+     "pos": [
+      360,
+      285
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ye"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      640,
+      300
+     ],
+     "facing": -1,
+     "scale": 2.95,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "rin",
@@ -4876,7 +6096,7 @@
      "en": "I won't question him now. I'll note what I heard today first."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "all": [
      {
@@ -4896,14 +6116,65 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch3_office_hall",
+     "pos": [
+      399,
+      254
+     ],
+     "zoom": 1.05,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "ye",
+     "kind": "ye",
+     "pos": [
+      360,
+      285
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ye"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      640,
+      300
+     ],
+     "facing": -1,
+     "scale": 2.95,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
      "do": "say",
      "speaker": "rin",
      "text": "我收起筆記從候梯廊回去，不進辦公室。",
      "ja": "メモをしまって、エレベーター廊下から戻る。事務室には入らない。",
      "en": "I put the notes away and head back through the lift corridor. I'm not going into the office."
+    },
+    {
+     "do": "face",
+     "id": "rin",
+     "dir": 1
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      760,
+      300
+     ],
+     "time": 1.8,
+     "wait": true
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "results": [
     {
      "kind": "flag",
@@ -4920,6 +6191,42 @@
   "ch3_t_c20_revisit": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch3_office_hall",
+     "pos": [
+      399,
+      254
+     ],
+     "zoom": 1.05,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "ye",
+     "kind": "ye",
+     "pos": [
+      360,
+      285
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ye"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      595,
+      300
+     ],
+     "facing": -1,
+     "scale": 2.95,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "label",
@@ -4962,7 +6269,7 @@
      "en": "The inner office door is shut. No more voices come from inside."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "flag": "ch3_trade_overheard",
     "equals": true
@@ -7039,6 +8346,23 @@
      "when": {
       "all": [
        {
+        "flag": "ch3_trade_half_heard",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch3_trade_listened",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch3_t_c20_middle"
+    },
+    {
+     "when": {
+      "all": [
+       {
         "flag": "ye_handwriting_seen",
         "equals": true
        },
@@ -7327,6 +8651,28 @@
       ]
      },
      "target": "ch3_t_c19_choice"
+    }
+   ]
+  },
+  "ch3_dispatch_back_c20_middle": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch3_trade_half_heard",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch3_trade_listened",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch3_t_c20_middle"
     }
    ]
   },

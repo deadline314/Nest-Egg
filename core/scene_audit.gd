@@ -107,7 +107,7 @@ static func audit_stages(scenes: Dictionary, stage_def: Callable) -> Array[Dicti
 		var scene := scenes[scene_id] as Dictionary
 		if str(scene.get("mode", "")) != "animated":
 			continue
-		var floor_y := -1.0
+		var floor_lines: Array[float] = []
 		var stage_id := ""
 		var def: Dictionary = {}
 		var poses: Dictionary = {}  # 演員 id → 目前姿勢
@@ -119,7 +119,7 @@ static func audit_stages(scenes: Dictionary, stage_def: Callable) -> Array[Dicti
 				"scene":
 					stage_id = id
 					def = stage_def.call(stage_id)
-					floor_y = float(def.get("floor", -1.0))
+					floor_lines = stage_floor_lines(def)
 					poses.clear()
 					places.clear()
 					actor_scales.clear()
@@ -129,13 +129,13 @@ static func audit_stages(scenes: Dictionary, stage_def: Callable) -> Array[Dicti
 						var key := "%s|%s" % [stage_id, step.get("kind", id)]
 						(scales.get_or_add(key, []) as Array).append(float(step["scale"]))
 						actor_scales[id] = float(step["scale"])
-					_check_stage_feet(issues, scene_id, stage_id, floor_y, str(poses[id]), step.get("pos", null), "演員 %s" % id)
+					_check_stage_feet(issues, scene_id, stage_id, floor_lines, str(poses[id]), step.get("pos", null), "演員 %s" % id)
 					_check_stage_contact(issues, scene_id, stage_id, def, "演員 %s" % id, str(poses[id]), step.get("pos", null), places, id, actor_scales)
 				"pose":
 					poses[id] = str(step.get("pose", "idle"))
 					_check_stage_contact(issues, scene_id, stage_id, def, "演員 %s" % id, str(poses[id]), null, places, id, actor_scales)
 				"move":
-					_check_stage_feet(issues, scene_id, stage_id, floor_y, str(poses.get(id, "idle")), step.get("to", null), "演員 %s 走到" % id)
+					_check_stage_feet(issues, scene_id, stage_id, floor_lines, str(poses.get(id, "idle")), step.get("to", null), "演員 %s 走到" % id)
 					poses[id] = str(step.get("then", "idle"))  # 走到之後換成 then 的姿勢（播放器的預設是 idle）
 					_check_stage_contact(issues, scene_id, stage_id, def, "演員 %s 走到" % id, str(poses.get(id, "idle")), step.get("to", null), places, id, actor_scales)
 	for key: String in scales:
@@ -205,12 +205,32 @@ static func _check_stage_contact(issues: Array[Dictionary], scene_id: String, st
 	issues.append_array(StageFitAudit.contact_issues(scene_id, stage_id, def, label, pose, places[id], actor_scale))
 
 
-static func _check_stage_feet(issues: Array[Dictionary], scene_id: String, stage_id: String, floor_y: float, pose: String, pos: Variant, label: String) -> void:
-	if floor_y < 0.0 or not (pos is Array) or (pos as Array).size() < 2 or STAGE_FREE_POSES.has(pose):
+## 舞台上演員可以站的地面線：主地面 floor，加上 floors 列出的其他地面（例如玻璃牆後面的室內地板，比走廊高一點）。
+## 沒有 floor 的舞台回傳空陣列（不檢查腳底）；floors 裡不是數字的值略過。
+static func stage_floor_lines(def: Dictionary) -> Array[float]:
+	var lines: Array[float] = []
+	var main := float(def.get("floor", -1.0))
+	if main < 0.0:
+		return lines
+	lines.append(main)
+	var extra: Variant = def.get("floors", [])
+	if extra is Array:
+		for value: Variant in extra:
+			if value is float or value is int:
+				lines.append(float(value))
+	return lines
+
+
+static func _check_stage_feet(issues: Array[Dictionary], scene_id: String, stage_id: String, floor_lines: Array[float], pose: String, pos: Variant, label: String) -> void:
+	if floor_lines.is_empty() or not (pos is Array) or (pos as Array).size() < 2 or STAGE_FREE_POSES.has(pose):
 		return
 	var feet := float((pos as Array)[1])
-	if absf(feet - floor_y) > STAGE_FLOOR_TOLERANCE:
-		_add(issues, WARN, "stage_feet", "%s／%s" % [scene_id, stage_id], "%s 腳底 y=%.0f，舞台地板在 %.0f（差 %.0f 像素）" % [label, feet, floor_y, feet - floor_y])
+	var nearest := floor_lines[0]
+	for line in floor_lines:
+		if absf(feet - line) < absf(feet - nearest):
+			nearest = line
+	if absf(feet - nearest) > STAGE_FLOOR_TOLERANCE:
+		_add(issues, WARN, "stage_feet", "%s／%s" % [scene_id, stage_id], "%s 腳底 y=%.0f，最近的舞台地面在 %.0f（差 %.0f 像素）" % [label, feet, nearest, feet - nearest])
 
 
 # ---------------------------------------------------------------------------

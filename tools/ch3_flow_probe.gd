@@ -40,7 +40,8 @@ func _run() -> void:
 		"ch3_t_c04_counter": "ST-21-c04-zhi", "ch3_t_c08_population:choice": "ST-21-c08-reconcile",
 		"ch3_t_c10_scan": "ST-21-c10-gatekeeper", "ch3_t_c12_aftercare": "ST-21-c12-aftercare",
 		"ch3_t_c15_welcome:choice": "ST-21-c15-lin", "ch3_t_c16_propose:choice": "ST-21-c16-proposal",
-		"ch3_t_c20_trade": "ST-21-c20-trade", "ch3_t_c22_door": "ST-21-c22-supper", "ch3_t_c23_invite:choice": "ST-21-c23-sunday",
+		"ch3_t_c18_box": "ST-21-c18-wide", "ch3_t_c19_watch": "ST-21-c19-glass", "ch3_t_c20_trade": "ST-21-c20-trade",
+		"ch3_t_c20_middle:choice": "ST-21-c20-middle", "ch3_t_c20_rest": "ST-21-c20-rest", "ch3_t_c22_door": "ST-21-c22-supper", "ch3_t_c23_invite:choice": "ST-21-c23-sunday",
 	}
 	GameState.start_new_run(GameState.difficulties[1])
 	Story.reset_progress()
@@ -141,9 +142,14 @@ func _run() -> void:
 		_check(str(GameState.get_flag(&"room_choice")) == "unset", "skipping the proposal keeps the room unset")
 	# C18～C21 辦公接待廊。
 	await _enter("office_hall")
-	await _talk(&"ch3_petition_box")
+	# 取回執後一路接到手背的字與等候臺的選擇（不走一段看一段）。完整路線在談話中段先退開，回等候臺從中段接著聽；
+	# 最短路線在中段伸手推門，被燈叫住後聽完。
+	await _talk(&"ch3_petition_box", ["read", "listen", "leave"] if _full() else ["listen", "door", "record"])
 	_check(GameState.has_flag(&"ch3_petition_receipt_taken") and GameState.has_flag(&"ch3_k_at_office_seen"), "taking the receipt shows Old K at the office")
-	await _talk(&"ch3_waiting_bench", ["read", "listen", "record"] if _full() else ["listen", "record"])
+	if _full():
+		_check(GameState.has_flag(&"ch3_trade_half_heard") and not GameState.has_flag(&"ch3_trade_listened"), "stepping away mid-conversation keeps the first half heard")
+		_check(Story.resolve_dispatch(&"ch3_dispatch_bench") == &"ch3_t_c20_middle", "the waiting bench resumes at the middle of the conversation")
+		await _talk(&"ch3_waiting_bench", ["stay", "record"])
 	_check(GameState.has_flag(&"ch3_trade_overheard") and StoryItems.holds(&"ch3_trade_note"), "the trade is recorded only after Rin confirms the note")
 	_check(GameState.has_flag(&"sq7_ye_name_seen") == _full(), "reading the name on Folio's hand is optional")
 	_check(await _wait_flag(&"ch3_l2_route_announced"), "Wick announces the walking route home")

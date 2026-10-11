@@ -305,7 +305,7 @@ func _test_links() -> void:
 # ---------------------------------------------------------------------------
 
 func _test_stages() -> void:
-	var defs := {"room": {"floor": 300}, "bare": {}}
+	var defs := {"room": {"floor": 300}, "bare": {}, "glass": {"floor": 300, "floors": [270]}}
 	var resolve := func(id: String) -> Dictionary: return defs.get(id, {})
 	var scenes := {
 		"good": {"mode": "animated", "steps": [
@@ -328,11 +328,18 @@ func _test_stages() -> void:
 			{"do": "actor", "id": "b", "kind": "nurse", "pos": [200, 250], "scale": 3.0},
 		]},
 		"not_animated": {"mode": "radio", "steps": []},
+		# 玻璃牆後的室內地面登記在 floors：站在那條線上的人不算浮空。
+		"two_floors": {"mode": "animated", "steps": [
+			{"do": "scene", "id": "glass"},
+			{"do": "actor", "id": "inside", "kind": "k", "pos": [100, 271]},
+			{"do": "actor", "id": "outside", "kind": "rin", "pos": [300, 301]},
+		]},
 	}
 	var issues := SceneAudit.audit_stages(scenes, resolve)
 	var feet := issues.filter(func(i: Dictionary) -> bool: return i["code"] == "stage_feet")
 	check(feet.size() == 2, "an actor floating above the floor and one walking below it are reported, not the seated or squatting ones (%d)" % feet.size())
 	check(not str(feet).contains("good"), "a scene with feet on the floor is clean")
+	check(not str(feet).contains("two_floors"), "actors on a stage's second floor line (behind the glass) are not floating")
 	var spread := issues.filter(func(i: Dictionary) -> bool: return i["code"] == "stage_scale")
 	check(spread.size() == 1 and str(spread[0]["where"]).contains("nurse"), "two nurses at scale 2.0 and 3.0 on one stage are reported")
 

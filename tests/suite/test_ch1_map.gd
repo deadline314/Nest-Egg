@@ -538,6 +538,15 @@ func _test_staging() -> void:
 	# 鏡頭和姿勢連著換的時候，等到台詞才檢查：先把鏡頭拉遠再開口就不算違規。
 	var regrouped := {"steps": [{"do": "scene", "id": "x", "pos": [320, 180], "zoom": 1.0}, tall_actor, {"do": "camera", "pos": [320, 180], "zoom": 0.8}, {"do": "say", "speaker": "rin", "text": "測試。"}]}
 	check(CutsceneChecker.staging_problems("test_head_regroup", regrouped).is_empty(), "framing is judged when the shot settles, not between consecutive setup steps")
+	# 正反打：鏡頭外的演員不檢查；同一段裡換舞台（硬切）時播放器清掉演員，檢查也跟著重新追蹤。
+	var off_frame := {"steps": [{"do": "scene", "id": "x", "pos": [100, 180], "zoom": 1.2}, {"do": "actor", "id": "a", "pos": [600, 320]}, {"do": "say", "speaker": "rin", "text": "測試。"}]}
+	check(CutsceneChecker.staging_problems("test_off_frame", off_frame).is_empty(), "an actor outside the shot is not judged by where the dialogue box would be")
+	var recut := {"steps": [{"do": "scene", "id": "x", "pos": [320, 180], "zoom": 1.0}, {"do": "actor", "id": "a", "pos": [320, 220]}, {"do": "say", "speaker": "rin", "text": "測試。"},
+			{"do": "scene", "id": "x", "pos": [320, 100], "zoom": 1.0}, {"do": "say", "speaker": "rin", "text": "測試。"}]}
+	check(CutsceneChecker.staging_problems("test_recut", recut).is_empty(), "a cut to a new stage forgets the previous shot's actors")
+	var recut_bad := recut.duplicate(true)
+	(recut_bad["steps"] as Array).insert(4, {"do": "actor", "id": "b", "pos": [320, 200]})
+	check(CutsceneChecker.staging_problems("test_recut_bad", recut_bad).size() == 1, "an actor placed after the cut is still checked")
 	var checked := 0
 	for id in Story.scene_ids():
 		var scene: Dictionary = Story._scenes[id]

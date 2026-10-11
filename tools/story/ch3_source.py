@@ -15,7 +15,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from ch1_closure import (Option, ProductionSource, Quest, QuestStep, all_of, any_of, flag, grant, item,  # noqa: E402
                          negate, set_flag, transaction)
-from build_ch1_story import actor as stage_actor, stage as stage_scene  # noqa: E402
+from build_ch1_story import (actor as stage_actor, cam as stage_cam, face as stage_face, move as stage_move,  # noqa: E402
+                             pose as stage_pose, say as stage_say, sfx as stage_sfx, stage as stage_scene, wait as stage_wait)
 from chapter_compiler import route_back_to_choices  # noqa: E402
 from ch1_closure import beats  # noqa: E402
 
@@ -125,7 +126,7 @@ DISPATCH = {
     "room_late": ["ch3_t_c16_locked", "ch3_t_c16_late", "ch3_t_c16_late_revisit"],
     "proposal": ["ch3_t_c16_propose", "ch3_t_c16_repropose"],
     "petition": ["ch3_t_c18_box", "ch3_t_c18_revisit"],
-    "bench": ["ch3_t_c19_early", "ch3_t_c19_watch", "ch3_t_c20_react", "ch3_t_c19_choice", "ch3_t_c20_revisit"],
+    "bench": ["ch3_t_c19_early", "ch3_t_c19_watch", "ch3_t_c20_react", "ch3_t_c20_middle", "ch3_t_c19_choice", "ch3_t_c20_revisit"],
     "c19_read": ["ch3_t_c19_read_tape", "ch3_t_c19_read_new"],
 }
 
@@ -602,71 +603,242 @@ def _showroom(source: ProductionSource):
 # ---------------------------------------------------------------------------
 # S3 天穹辦公接待廊：C18 取回執、C19 手背的字（SQ7-G2）、C20 交易、C21 回去的路
 # ---------------------------------------------------------------------------
+# 正式過場（偷聽戲）的分鏡規則，參考與取捨見 design/13-story-v2/CH03_OFFICE_STAGING.md：
+# 1. 先用全景交代誰在哪：凜在門外走廊、老 K 與葉在玻璃會議室裡，門縫透出光。
+# 2. 室內的談話用「隔著玻璃」的鏡頭：窗框與玻璃反光畫在演員前面，台詞用低語（灰字、慢速），字幕一律保留。
+# 3. 每兩三句切回凜的反應鏡頭；情緒放在聽的人身上，不放在說的人身上。
+# 4. 談話中段讓玩家選：忍住聽完、伸手推門（燈叫住她）或先退開；退開後回等候臺從中段接著聽，不重播前半。
+# 5. 最後停在凜身上收尾。
+
+OFFICE_STAGE = "ch3_office_hall"
+# 舞台座標量自 art/environment/scenes/tianqiong_corridor.webp（1536×864 縮 0.5 鋪滿，-64..704 × -36..396）：
+# 走廊地面從 y≈296 開始，凜站在 300；玻璃會議室的底框在 285～294，室內的人站在 285（底框剛好碰到鞋底）。
+# 側門在 x 521～651，門縫在左緣；玻璃牆的直框在 187、307.5、419.5，玻璃在 514 結束。
+OFFICE_FLOOR = 300
+OFFICE_INSIDE = 285
+# 身高（骨架站立高 × 縮放）：凜 58.3 × 2.95 ≈ 172，接近門高 227 的四分之三（約 1.6 公尺）；
+# 室內兩人在玻璃後一兩公尺，縮放 2.4（約 135～140）。
+OFFICE_CAST = {"rin": (595, OFFICE_FLOOR, 2.95), "old_k": (245, OFFICE_INSIDE, 2.4), "ye": (360, OFFICE_INSIDE, 2.4)}
+# 鏡頭：(x, y, 縮放, 這個鏡頭裡最低的腳底線)。x 的範圍讓畫面不超出立繪；室內鏡頭讓凜留在畫面外（她不在這個鏡頭裡）。
+OFFICE_SHOTS = {
+    "wide": (330, 243.5, 0.88, OFFICE_FLOOR),
+    "rin": (399, 254, 1.05, OFFICE_FLOOR),
+    "inside": (285, 250, 1.2, OFFICE_INSIDE),
+    "ye": (300, 250, 1.2, OFFICE_INSIDE),
+}
+# 舞台立繪壓暗一階：走廊與窗外都是白色，角色的白髮與淺色衣服才不會糊成一片（同 NE-251 的處理）。
+OFFICE_TONE = (0.769, 0.8, 0.839)
+
+
+def _toned(rgb) -> str:
+    return "#%02x%02x%02x" % tuple(round(c * t) for c, t in zip(rgb, OFFICE_TONE))
+
+
+def office_stage() -> dict:
+    """辦公接待廊的舞台資料（data/cutscene/stages/ch3_office_hall.json 由 build_ch3_story.py 寫出）。
+    窗框、底框與反光畫在演員前面（depth front），室內的人看起來在玻璃後面；凜站在玻璃結束之後，不會被蓋到。"""
+    glass_top, trim_top, trim_bottom, glass_end = 42, OFFICE_INSIDE, 294, 516
+    mullion = _toned((195, 208, 218))
+    front = lambda layer: dict(layer, depth="front")  # noqa: E731
+    layers = [
+        {"kind": "gradient", "top": "#141c26", "bottom": "#222c38", "parallax": 0.0},
+        # 立繪下緣在 396；全景鏡頭的下緣多露出幾個像素，用同色的地板補上。
+        {"kind": "rect", "rect": [-200, 392, 1040, 160], "color": _toned((238, 238, 238))},
+        {"kind": "sprite", "path": "res://art/environment/scenes/tianqiong_corridor.webp", "pos": [-64, -36.0], "scale": 0.5,
+         "filter": "linear", "source_width": 1536, "modulate": _toned((255, 255, 255))},
+        # 會議室裡的午後陽光；走廊這一側壓暗，偷聽的人站在暗處。
+        {"kind": "glow", "pos": [250, 150], "radius": 260, "color": "#ffe6bf", "intensity": 0.7, "additive": True, "alpha": 0.2,
+         "pulse": 0.05, "pulse_depth": 0.15},
+        {"kind": "glow", "pos": [640, 230], "radius": 240, "color": "#0c121b", "intensity": 1.0, "alpha": 0.45},
+        # 側門開了一道縫：左緣一條暗縫，縫裡透出會議室的冷光，在走廊地上拉出一道光。
+        {"kind": "poly", "points": [[521, 66], [527, 66], [527, 293], [521, 293]], "color": "#2e3640"},
+        {"kind": "poly", "points": [[524.5, 70], [526, 70], [526, 292], [524.5, 292]], "color": "#e8f2ff", "alpha": 0.85},
+        {"kind": "poly", "points": [[521, 294], [527, 294], [566, 340], [500, 340]], "color": "#e8f2ff", "alpha": 0.18},
+        {"kind": "glow", "pos": [525, 200], "radius": 46, "color": "#dcecff", "intensity": 0.6, "additive": True, "alpha": 0.3},
+        {"kind": "motes", "count": 18, "color": "#fff4dc", "opacity": 0.25, "area": [0, 80, 510, 200], "drift": [1, -2], "size": 1.0, "seed": 31},
+        # 以下在演員前面：玻璃牆的直框、玻璃結束的立柱、底框與反光。
+        front({"kind": "rect", "rect": [186, glass_top, 2, trim_top - glass_top], "color": mullion}),
+        front({"kind": "rect", "rect": [306.5, glass_top, 2, trim_top - glass_top], "color": mullion}),
+        front({"kind": "rect", "rect": [418.5, glass_top, 2, trim_top - glass_top], "color": mullion}),
+        front({"kind": "rect", "rect": [512, glass_top, 4, trim_bottom - glass_top], "color": _toned((230, 233, 234))}),
+        front({"kind": "rect", "rect": [-64, trim_top, glass_end + 64, trim_bottom - trim_top], "color": _toned((173, 183, 193))}),
+        front({"kind": "rect", "rect": [-64, trim_top + 1, glass_end + 64, 1.5], "color": _toned((243, 246, 248))}),
+        front({"kind": "poly", "points": [[-64, glass_top], [glass_end, glass_top], [glass_end, trim_top], [-64, trim_top]],
+               "color": "#e6f0fa", "alpha": 0.07}),
+        front({"kind": "poly", "points": [[70, glass_top], [118, glass_top], [40, trim_top], [-8, trim_top]], "color": "#ffffff", "alpha": 0.08}),
+        front({"kind": "poly", "points": [[330, glass_top], [350, glass_top], [282, trim_top], [262, trim_top]], "color": "#ffffff", "alpha": 0.06}),
+    ]
+    # floors：玻璃牆後的會議室地面（舞台檢查據此判斷室內的人站在地上，不是浮空）。
+    return {"camera": {"pos": list(OFFICE_SHOTS["wide"][:2]), "zoom": OFFICE_SHOTS["wide"][2]}, "floor": OFFICE_FLOOR,
+            "floors": [OFFICE_INSIDE], "layers": layers}
+
+
+def _cut(shot: str, fade: float = 0.0) -> dict:
+    """換到某個鏡頭（舞台重建，fade 0 是硬切）。之後要重新放演員。"""
+    x, y, zoom, feet = OFFICE_SHOTS[shot]
+    return stage_scene(OFFICE_STAGE, x=x, y=y, zoom=zoom, fade_in=fade, feet=feet)
+
+
+def _pan(shot: str, t: float = 1.4, wait_for: bool = True) -> dict:
+    """在同一個舞台上把鏡頭推到某個鏡頭（不重建演員）。"""
+    x, y, zoom, feet = OFFICE_SHOTS[shot]
+    return stage_cam(x, y, zoom, t=t, wait_for=wait_for, feet=feet)
+
+
+def _cast(*who: str, rin_x: float | None = None, rin_pose: str | None = None, ye_loop: str | None = None) -> list[dict]:
+    facing = {"rin": -1, "old_k": 1, "ye": -1}
+    steps = []
+    for ident in who:
+        x, y, scale = OFFICE_CAST[ident]
+        if ident == "rin" and rin_x is not None:
+            x = rin_x
+        steps.append(stage_actor(ident, ident, x, y, facing=facing[ident], scale=scale, speaker=ident, weapon="",
+                                 pose=rin_pose if ident == "rin" else None, loop=ye_loop if ident == "ye" else None))
+    return steps
+
+
+def _shot(shot: str, *who: str, fade: float = 0.0, **cast) -> list[dict]:
+    return [_cut(shot, fade)] + _cast(*who, **cast)
+
+
+def _hear(speaker: str, text: str) -> dict:
+    """門縫聽到的話：低語（灰字、慢速），字幕照常顯示。"""
+    return stage_say(speaker, text, style="whisper")
+
 
 def _office(source: ProductionSource):
     receipt = flag("ch3_petition_receipt_taken")
     seen = flag("ye_handwriting_seen")
     traded = flag("ch3_trade_overheard")
     name_seen = flag("sq7_ye_name_seen")
-    source.add("ch3_t_c18_box", "C18", (
-        ("label", "取件格的回執寫著：風控接待收件，月報17查核件。"),
-        ("label", "側門開了一道縫，老 K 收起來客卡，走到葉的桌前。"),
-        ("rin", "他叫我別上來，自己卻在這裡。"),
-        ("lamp", "我只知道你那張公文送到了，裡面的約不是我排的。")),
+    half = flag("ch3_trade_half_heard")
+    listened = flag("ch3_trade_listened")
+    say_ = beats
+    # C18：全景交代位置。凜在門外拿回執，老 K 從會議室另一頭走進來；鏡頭再推到凜身上。
+    source.add("ch3_t_c18_box", "C18", steps=[
+        *_shot("wide", "rin", "ye", fade=1.0),
+        stage_sfx("pickup", -10),
+        *say_(("label", "取件格的回執寫著：風控接待收件，月報17查核件。")),
+        stage_actor("old_k", "old_k", -60, OFFICE_INSIDE, facing=1, scale=OFFICE_CAST["old_k"][2], speaker="old_k", weapon=""),
+        stage_move("old_k", OFFICE_CAST["old_k"][0], OFFICE_INSIDE, t=3.2, wait_for=False),
+        *say_(("label", "側門開了一道縫，老 K 收起來客卡，走到葉的桌前。")),
+        _pan("rin", t=1.6),
+        *say_(("rin", "他叫我別上來，自己卻在這裡。")),
+        stage_pose("rin", "listen"),
+        _hear("lamp", "我只知道你那張公文送到了，裡面的約不是我排的。")],
         when=negate(receipt), mode="animated",
-        completion=(set_flag("ch3_petition_receipt_taken"), set_flag("ch3_k_at_office_seen"), grant("ch3_intake_receipt")))
+        completion=(set_flag("ch3_petition_receipt_taken"), set_flag("ch3_k_at_office_seen"), grant("ch3_intake_receipt")),
+        next_scene="ch3_t_c19_watch")
     source.add("ch3_t_c18_revisit", "C18", (("label", "取件格空了，回執已經收在筆記裡。"),), when=receipt)
 
     source.add("ch3_t_c19_early", "C19", (("label", "候梯迴廊的等候臺。公文取件格在左邊。"),), when=negate(receipt))
-    source.add("ch3_t_c19_watch", "C19", (
-        ("label", "葉把透明傘掛在桌旁，停筆，把手背翻向自己，補了一行字才翻開檔案。"),
-        ("rin", "她先在手上補字，才繼續談。"),
-        ("lamp", "你看到她的習慣，還不知道她為什麼這樣做。")),
+    # C19：隔著玻璃看葉的手。鏡頭往葉推一點，看完切回凜。
+    source.add("ch3_t_c19_watch", "C19", steps=[
+        *_shot("inside", "old_k", "ye", "rin", fade=0.25, rin_pose="listen", ye_loop="read_note"),
+        _pan("ye", t=2.2, wait_for=False),
+        *say_(("label", "葉把透明傘掛在桌旁，停筆，把手背翻向自己，補了一行字才翻開檔案。")),
+        stage_pose("ye", "idle", loop=""),
+        stage_wait(0.5),
+        *_shot("rin", "old_k", "ye", "rin", rin_pose="listen"),
+        *say_(("rin", "她先在手上補字，才繼續談。")),
+        _hear("lamp", "你看到她的習慣，還不知道她為什麼這樣做。")],
         when=all_of(receipt, negate(seen)), mode="animated", completion=(set_flag("ye_handwriting_seen"),),
         next_scene="ch3_t_c19_choice")
-    source.add("ch3_t_c19_choice", "C19", (("label", "門縫裡的談話聽得見。等候臺靠著實牆，可以停在這裡。"),),
+    source.add("ch3_t_c19_choice", "C19", steps=[
+        *_shot("rin", "old_k", "ye", "rin", fade=0.25, rin_pose="listen"),
+        *say_(("label", "門縫裡的談話聽得見。等候臺靠著實牆，可以停在這裡。"))],
                when=all_of(seen, negate(traded)), options=(
                    _opt("read", "看清葉手背上那一行。", "ch3_dispatch_c19_read", "可選，看清就記下這個名字。", when=negate(name_seen)),
                    _opt("listen", "留下，聽完這段談話。", "ch3_t_c20_trade", "安全的過場，聽完要自己確認記錄。"),
                    _opt("leave", "先退回樣品房。", None, "之後可以再來。")))
-    source.add("ch3_t_c19_read_tape", "C19", (
-        ("label", "葉的手背上寫著一行字：「他叫阿翰。你愛他。」"),
-        ("rin", "她把一個名字寫在身上，像怕它不見。"),
-        ("rin", "抽屜那捲也寫阿翰，我還沒有問過她。")),
-        when=all_of(flag("sq7_ahan_clip_heard"), negate(name_seen)), mode="animated",
-        completion=(set_flag("sq7_ye_name_seen"), transaction("ch3.sq7_name")), next_scene="ch3_t_c19_choice")
-    source.add("ch3_t_c19_read_new", "C19", (
-        ("label", "葉的手背上寫著一行字：「他叫阿翰。你愛他。」"),
-        ("rin", "她把一個名字寫在身上，像怕它不見。"),
-        ("rin", "我先記這個名字，不替他們猜關係。")),
-        when=all_of(negate(flag("sq7_ahan_clip_heard")), negate(name_seen)), mode="animated",
-        completion=(set_flag("sq7_ye_name_seen"), transaction("ch3.sq7_name")), next_scene="ch3_t_c19_choice")
 
-    source.add("ch3_t_c20_trade", "C20", (
-        ("old_k", "妳收了她那份備份，我不是來賣第二次。你們排外勤前，先看清她會碰到什麼。"),
-        ("ye", "資料在天穹保管，交付人是你。這一點沒有改。"),
-        ("old_k", "妳上次答應的條件，不是讓她一直去換命。我今天要你把危險的派案停掉。"),
-        ("ye", "樣本要活著，研究才有意義。我可以撤掉清理區的排案，不能答應所有街上都安全。"),
-        ("old_k", "她不知道那份資料是我交的，妳別把這個拿到她面前。"),
-        ("ye", "你把資料交來，換的條件也已經執行。這件事不是她同意過的，我不替你把它說成同意。"),
-        ("old_k", "我知道她沒答應，我沒讓她看。"),
-        ("ye", "那就先履行眼前的條件。你守原協議，我保留既有安排，別讓她碰這份協議。"),
-        ("old_k", "不要再把她送到會死的地方。"),
-        ("ye", "我剛收到一份月報異議。有人把排除欄對出來了，你家那位也會對紙。"),
-        ("old_k", "這張你回你的，我回去跟她說。"),
-        ("ye", "回覆只能走收件人，不替你撤。")),
-        when=all_of(seen, negate(traded)), mode="animated", completion=(set_flag("ch3_trade_listened"),), next_scene="ch3_t_c20_react")
-    source.add("ch3_t_c20_react", "C20", (
-        ("rin", "他拿我的備份談條件，回家卻只說吃飯。"),
-        ("lamp", "我聽到的是交付與條件，價碼和原因還沒說清。我沒有這份協議。"),
-        ("rin", "我現在不問他，先把今天聽到的記下來。")),
-        when=all_of(flag("ch3_trade_listened"), negate(traded)), options=(
+    def read_name(last_line):
+        return [*_shot("ye", "old_k", "ye", "rin", fade=0.25, rin_pose="listen", ye_loop="read_note"),
+                *say_(("label", "葉的手背上寫著一行字：「他叫阿翰。你愛他。」")),
+                *_shot("rin", "old_k", "ye", "rin", rin_pose="listen"),
+                *say_(("rin", "她把一個名字寫在身上，像怕它不見。"), ("rin", last_line))]
+    source.add("ch3_t_c19_read_tape", "C19", steps=read_name("抽屜那捲也寫阿翰，我還沒有問過她。"),
+               when=all_of(flag("sq7_ahan_clip_heard"), negate(name_seen)), mode="animated",
+               completion=(set_flag("sq7_ye_name_seen"), transaction("ch3.sq7_name")), next_scene="ch3_t_c19_choice")
+    source.add("ch3_t_c19_read_new", "C19", steps=read_name("我先記這個名字，不替他們猜關係。"),
+               when=all_of(negate(flag("sq7_ahan_clip_heard")), negate(name_seen)), mode="animated",
+               completion=(set_flag("sq7_ye_name_seen"), transaction("ch3.sq7_name")), next_scene="ch3_t_c19_choice")
+
+    # C20 前半：條件與交付。室內兩句、凜的反應、室內兩句，最後一句推近再切回凜。
+    source.add("ch3_t_c20_trade", "C20", steps=[
+        *_shot("inside", "old_k", "ye", "rin", fade=0.25, rin_pose="listen"),
+        _hear("old_k", "妳收了她那份備份，我不是來賣第二次。你們排外勤前，先看清她會碰到什麼。"),
+        _hear("ye", "資料在天穹保管，交付人是你。這一點沒有改。"),
+        *_shot("rin", "old_k", "ye", "rin", rin_pose="listen"),
+        stage_wait(0.9),
+        *_shot("inside", "old_k", "ye", "rin", rin_pose="listen"),
+        _hear("old_k", "妳上次答應的條件，不是讓她一直去換命。我今天要你把危險的派案停掉。"),
+        _hear("ye", "樣本要活著，研究才有意義。我可以撤掉清理區的排案，不能答應所有街上都安全。"),
+        stage_cam(260, 250, 1.2, t=1.8, wait_for=False, feet=OFFICE_INSIDE),
+        stage_wait(0.6),
+        _hear("old_k", "她不知道那份資料是我交的，妳別把這個拿到她面前。"),
+        *_shot("rin", "old_k", "ye", "rin"),
+        stage_wait(1.1)],
+        when=all_of(seen, negate(half)), mode="animated", completion=(set_flag("ch3_trade_half_heard"),),
+        next_scene="ch3_t_c20_middle")
+    # 中段的選擇：情緒先給玩家表達（推門會被燈叫住，不懲罰）；退開後回等候臺從這裡接著聽。
+    source.add("ch3_t_c20_middle", "C20", steps=[
+        *_shot("rin", "old_k", "ye", "rin", fade=0.25),
+        *say_(("rin", "原來那份資料是他親手交出去的。"))],
+        when=all_of(half, negate(listened)), options=(
+            _opt("stay", "忍住，聽他們說完。", "ch3_t_c20_rest", "安全的過場，他們不會發現你。"),
+            _opt("door", "伸手推門。", "ch3_t_c20_hold", "想進去當面問；燈會先叫住你。"),
+            _opt("leave", "先退開，晚點再回來聽。", None, "之後回等候臺，從這裡接著聽。")))
+    source.add("ch3_t_c20_hold", "C20", steps=[
+        *_shot("rin", "old_k", "ye", "rin", fade=0.25),
+        stage_move("rin", 560, OFFICE_FLOOR, t=0.6),
+        _hear("lamp", "現在推門，他們會換一套說法。你要聽的是他們以為沒人在時說的話。"),
+        stage_pose("rin", "listen"),
+        *say_(("rin", "我知道，我先聽完再說。"))],
+        when=all_of(half, negate(listened)), mode="animated", next_scene="ch3_t_c20_rest")
+    # C20 後半：協議與月報異議。葉提到異議時推近，老 K 說要回去時凜退開一步，最後停在凜身上。
+    source.add("ch3_t_c20_rest", "C20", steps=[
+        *_shot("inside", "old_k", "ye", "rin", fade=0.25, rin_pose="listen"),
+        _hear("ye", "你把資料交來，換的條件也已經執行。這件事不是她同意過的，我不替你把它說成同意。"),
+        _hear("old_k", "我知道她沒答應，我沒讓她看。"),
+        *_shot("rin", "old_k", "ye", "rin", rin_pose="listen"),
+        stage_wait(0.8),
+        {"do": "branch", "requires_flag": "sq7_ye_name_seen",
+         "steps": [stage_say("rin", "她手背上記著要記得的人，說到我卻只說樣本。")], "else_steps": []},
+        *_shot("inside", "old_k", "ye", "rin", rin_pose="listen"),
+        _hear("ye", "那就先履行眼前的條件。你守原協議，我保留既有安排，別讓她碰這份協議。"),
+        _hear("old_k", "不要再把她送到會死的地方。"),
+        _pan("ye", t=1.6, wait_for=False),
+        stage_wait(0.4),
+        _hear("ye", "我剛收到一份月報異議。有人把排除欄對出來了，你家那位也會對紙。"),
+        *_shot("rin", "old_k", "ye", "rin", rin_pose="listen"),
+        stage_wait(0.7),
+        _hear("old_k", "這張你回你的，我回去跟她說。"),
+        stage_move("old_k", 420, OFFICE_INSIDE, t=1.6, wait_for=False),
+        stage_move("rin", 640, OFFICE_FLOOR, t=0.8),
+        _hear("ye", "回覆只能走收件人，不替你撤。"),
+        stage_face("old_k", -1),
+        stage_move("old_k", -60, OFFICE_INSIDE, t=3.0, wait_for=False),
+        stage_wait(1.4)],
+        when=all_of(half, negate(listened)), mode="animated", completion=(set_flag("ch3_trade_listened"),), next_scene="ch3_t_c20_react")
+    source.add("ch3_t_c20_react", "C20", steps=[
+        *_shot("rin", "ye", "rin", fade=0.25, rin_x=640),
+        *say_(("rin", "他拿我的備份談條件，回家卻只說吃飯。"),
+              ("lamp", "我聽到的是交付與條件，價碼和原因還沒說清。我沒有這份協議。"),
+              ("rin", "我現在不問他，先把今天聽到的記下來。"))],
+        when=all_of(listened, negate(traded)), options=(
             _opt("record", "把聽到的談話記進筆記。", "ch3_t_c20_recorded", "只記今天聽到的，不闖進辦公室。"),
             _opt("later", "先站一下再記。", None, "之後回等候臺確認記錄。")))
-    source.add("ch3_t_c20_recorded", "C20", (("rin", "我收起筆記從候梯廊回去，不進辦公室。"),),
-               mode="animated", completion=(set_flag("ch3_trade_overheard"), grant("ch3_trade_note")),
-               next_scene="ch3_t_c21_route")
-    source.add("ch3_t_c20_revisit", "C20", (("label", "辦公內門關著，裡面已經沒有說話聲。"),), when=traded, options=(
+    source.add("ch3_t_c20_recorded", "C20", steps=[
+        *_shot("rin", "ye", "rin", fade=0.25, rin_x=640),
+        *say_(("rin", "我收起筆記從候梯廊回去，不進辦公室。")),
+        stage_face("rin", 1),
+        stage_move("rin", 760, OFFICE_FLOOR, t=1.8)],
+        mode="animated", completion=(set_flag("ch3_trade_overheard"), grant("ch3_trade_note")),
+        next_scene="ch3_t_c21_route")
+    source.add("ch3_t_c20_revisit", "C20", steps=[
+        *_shot("rin", "ye", "rin", fade=0.25),
+        *say_(("label", "辦公內門關著，裡面已經沒有說話聲。"))], when=traded, options=(
         _opt("read", "看清葉留在手背上的那一行。", "ch3_dispatch_c19_read", "可選，剛才沒看清的話。", when=negate(name_seen)),
         _opt("leave", "從候梯迴廊回去。", None, "回當舖吃飯。")))
     source.add("ch3_t_c21_route", "C21", (

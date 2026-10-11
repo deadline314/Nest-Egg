@@ -2,6 +2,7 @@ extends Node
 ## ST-22 安全區截圖：在真關卡裡播序章開場、第一章的診間醒來與回家過場，到指定台詞時截圖，確認演員的頭在 21:9 遮幅內。
 ## 只推進台詞、不改劇情；每段播完就結束。用法：
 ## godot --path . res://tools/cinematic_safe_area_capture.tscn -- --out=<絕對路徑資料夾>
+## 其他章節的截圖工具繼承這支，覆寫 level_path、shots、story_file、shot_prefix 與 _prepare（例如 tools/ch3_office_capture.gd）。
 
 const LEVEL := "res://data/levels/ch1_pawnshop_dawn.tres"
 ## 場景 id → 要截圖的台詞（含這句的畫面）。
@@ -13,6 +14,12 @@ const SHOTS := {
 }
 
 var _out := ""
+## 子類別可以覆寫：關卡、場景與台詞、譯文來源的劇本檔、截圖檔名前綴（場景 id 會去掉 id_prefix）。
+var level_path := LEVEL
+var shots: Dictionary = SHOTS
+var story_file := "res://data/story/ch1_kasa.json"
+var shot_prefix := "ST-22"
+var id_prefix := "ch1_"
 
 
 func _ready() -> void:
@@ -34,7 +41,7 @@ func _translations() -> Dictionary:
 	var result := {}
 	if Story.language == StoryLocale.SOURCE_LANGUAGE:
 		return result
-	var data: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/story/ch1_kasa.json"))
+	var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(story_file))
 	var stack: Array = [data]
 	while not stack.is_empty():
 		var node: Variant = stack.pop_back()
@@ -47,20 +54,26 @@ func _translations() -> Dictionary:
 	return result
 
 
+## 播某個場景之前的準備（子類別設定該場景成立需要的進度旗標）。
+func _prepare(_id: StringName) -> void:
+	pass
+
+
 func _run() -> void:
 	Story.auto_skip = false
 	GameState.start_new_run(GameState.difficulties[1])
 	for flag in [&"ch1_supper_done", &"ch1_handoff_done"]:
 		GameState.set_flag(flag)
 	var level := Level.new()
-	level.configure(load(LEVEL))
+	level.configure(load(level_path))
 	get_tree().root.add_child(level)
 	await _frames(60)
 	Story.reset_active_presentation(&"route")
 	var translated := _translations()
-	for id: StringName in SHOTS:
+	for id: StringName in shots:
+		_prepare(id)
 		# 選了日文或英文（--story-language）時，要找的台詞換成同一句的譯文（ST-2）。
-		var wanted: Array = SHOTS[id].map(func(zh: String) -> String: return translated.get(zh, zh))
+		var wanted: Array = shots[id].map(func(zh: String) -> String: return translated.get(zh, zh))
 		var taken := 0
 		if not Story.play(id, false):
 			print("FAIL could not start %s" % id)
@@ -80,7 +93,7 @@ func _run() -> void:
 			var complete := player._dialogue.is_complete()
 			if taken < wanted.size() and text == wanted[taken] and complete:
 				await _frames(50)  # 鏡頭移動完
-				var name := "ST-22-%s-%d%s" % [String(id).trim_prefix("ch1_"), taken + 1, "" if Story.language == "zh" else "-" + Story.language]
+				var name := "%s-%s-%d%s" % [shot_prefix, String(id).trim_prefix(id_prefix), taken + 1, "" if Story.language == "zh" else "-" + Story.language]
 				if DisplayServer.get_name() == "headless":
 					print("reached %s" % name)
 				else:

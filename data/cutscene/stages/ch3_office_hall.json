@@ -1,0 +1,304 @@
+{
+ "camera": {
+  "pos": [
+   330,
+   243.5
+  ],
+  "zoom": 0.88
+ },
+ "floor": 300,
+ "floors": [
+  285
+ ],
+ "layers": [
+  {
+   "kind": "gradient",
+   "top": "#141c26",
+   "bottom": "#222c38",
+   "parallax": 0.0
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    -200,
+    392,
+    1040,
+    160
+   ],
+   "color": "#b7bec8"
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scenes/tianqiong_corridor.webp",
+   "pos": [
+    -64,
+    -36.0
+   ],
+   "scale": 0.5,
+   "filter": "linear",
+   "source_width": 1536,
+   "modulate": "#c4ccd6"
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    250,
+    150
+   ],
+   "radius": 260,
+   "color": "#ffe6bf",
+   "intensity": 0.7,
+   "additive": true,
+   "alpha": 0.2,
+   "pulse": 0.05,
+   "pulse_depth": 0.15
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    640,
+    230
+   ],
+   "radius": 240,
+   "color": "#0c121b",
+   "intensity": 1.0,
+   "alpha": 0.45
+  },
+  {
+   "kind": "poly",
+   "points": [
+    [
+     521,
+     66
+    ],
+    [
+     527,
+     66
+    ],
+    [
+     527,
+     293
+    ],
+    [
+     521,
+     293
+    ]
+   ],
+   "color": "#2e3640"
+  },
+  {
+   "kind": "poly",
+   "points": [
+    [
+     524.5,
+     70
+    ],
+    [
+     526,
+     70
+    ],
+    [
+     526,
+     292
+    ],
+    [
+     524.5,
+     292
+    ]
+   ],
+   "color": "#e8f2ff",
+   "alpha": 0.85
+  },
+  {
+   "kind": "poly",
+   "points": [
+    [
+     521,
+     294
+    ],
+    [
+     527,
+     294
+    ],
+    [
+     566,
+     340
+    ],
+    [
+     500,
+     340
+    ]
+   ],
+   "color": "#e8f2ff",
+   "alpha": 0.18
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    525,
+    200
+   ],
+   "radius": 46,
+   "color": "#dcecff",
+   "intensity": 0.6,
+   "additive": true,
+   "alpha": 0.3
+  },
+  {
+   "kind": "motes",
+   "count": 18,
+   "color": "#fff4dc",
+   "opacity": 0.25,
+   "area": [
+    0,
+    80,
+    510,
+    200
+   ],
+   "drift": [
+    1,
+    -2
+   ],
+   "size": 1.0,
+   "seed": 31
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    186,
+    42,
+    2,
+    243
+   ],
+   "color": "#96a6b7",
+   "depth": "front"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    306.5,
+    42,
+    2,
+    243
+   ],
+   "color": "#96a6b7",
+   "depth": "front"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    418.5,
+    42,
+    2,
+    243
+   ],
+   "color": "#96a6b7",
+   "depth": "front"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    512,
+    42,
+    4,
+    252
+   ],
+   "color": "#b1bac4",
+   "depth": "front"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    -64,
+    285,
+    580,
+    9
+   ],
+   "color": "#8592a2",
+   "depth": "front"
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    -64,
+    286,
+    580,
+    1.5
+   ],
+   "color": "#bbc5d0",
+   "depth": "front"
+  },
+  {
+   "kind": "poly",
+   "points": [
+    [
+     -64,
+     42
+    ],
+    [
+     516,
+     42
+    ],
+    [
+     516,
+     285
+    ],
+    [
+     -64,
+     285
+    ]
+   ],
+   "color": "#e6f0fa",
+   "alpha": 0.07,
+   "depth": "front"
+  },
+  {
+   "kind": "poly",
+   "points": [
+    [
+     70,
+     42
+    ],
+    [
+     118,
+     42
+    ],
+    [
+     40,
+     285
+    ],
+    [
+     -8,
+     285
+    ]
+   ],
+   "color": "#ffffff",
+   "alpha": 0.08,
+   "depth": "front"
+  },
+  {
+   "kind": "poly",
+   "points": [
+    [
+     330,
+     42
+    ],
+    [
+     350,
+     42
+    ],
+    [
+     282,
+     285
+    ],
+    [
+     262,
+     285
+    ]
+   ],
+   "color": "#ffffff",
+   "alpha": 0.06,
+   "depth": "front"
+  }
+ ]
+}
