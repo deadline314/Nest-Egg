@@ -79,7 +79,7 @@ func _test_vfx2_pieces() -> void:
 	var atlas := VfxAtlas.texture()
 	check(atlas != null and atlas.get_width() == VfxAtlas.CELL * VfxAtlas.COLUMNS, "the effect atlas is built")
 	var image := atlas.get_image()
-	for cell in 8:
+	for cell in VfxAtlas.Cell.size():
 		var region := VfxAtlas.region(cell)
 		var opaque := 0
 		for y in range(int(region.position.y), int(region.end.y), 4):
@@ -87,6 +87,22 @@ func _test_vfx2_pieces() -> void:
 				if image.get_pixel(x, y).a > 0.1:
 					opaque += 1
 		check(opaque > 12, "atlas cell %d is painted (%d samples)" % [cell, opaque])
+	# 雲團是平塗色塊：邊緣只有一圈抗鋸齒，半透明的像素很少。
+	for cell: int in [VfxAtlas.Cell.BLOB_A, VfxAtlas.Cell.BLOB_B]:
+		var region := VfxAtlas.region(cell)
+		var solid := 0
+		var soft := 0
+		for y in range(int(region.position.y), int(region.end.y)):
+			for x in range(int(region.position.x), int(region.end.x)):
+				var alpha := image.get_pixel(x, y).a
+				if alpha > 0.95:
+					solid += 1
+				elif alpha > 0.05:
+					soft += 1
+		check(solid > 1200 and soft * 8 < solid, "atlas cell %d is a hard-edged blob (%d solid, %d soft)" % [cell, solid, soft])
+	check(is_equal_approx(ParticleField.fade_ratio(0.4, 0.0), 0.4), "a particle without hold fades over its whole life")
+	check(is_zero_approx(ParticleField.fade_ratio(0.3, 0.5)) and is_equal_approx(ParticleField.fade_ratio(0.75, 0.5), 0.5)
+			and is_equal_approx(ParticleField.fade_ratio(1.0, 0.5), 1.0), "a held particle keeps its first colour, then fades in the time left")
 	var noise := VfxAtlas.noise_texture().get_image()
 	check(noise.get_width() == 128 and noise.get_pixel(10, 10).r >= 0.0, "the tileable noise exists")
 	var field := ParticleField.new()

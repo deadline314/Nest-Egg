@@ -11,6 +11,7 @@ const SOURCE_DIRS: Array[String] = ["res://game", "res://autoload", "res://core"
 func run() -> void:
 	await _test_ring_surface()
 	await _test_dual_team_explosion()
+	await _test_blast_shape()
 	_test_exposure_budget()
 	_test_source_literals()
 	await _test_projectile_trails()
@@ -340,6 +341,48 @@ func _test_dual_team_explosion() -> void:
 	check(flashes[0] == 1, "dual-team barrel emits one ambient flash")
 	check(level.player.health.current < 999 and enemy.health.current < 999, "deduplicating blast visuals preserves damage to both teams")
 	await end_level(level)
+
+
+## 貼地的爆炸只往上炸開、火球不沉到地板底下；半空中的爆炸四面炸開。
+func _test_blast_shape() -> void:
+	await open_level(10.0)
+	level.player.health.setup(999, 0.0)
+	await physics_frames(2)
+	var feet := level.player.global_position
+	var soft: ParticleField = Fx._soft
+	var before := soft.alive_count()
+	var floor_y := Fx._floor_below(feet + Vector2(60, -8), 48.0)
+	check(not is_nan(floor_y) and absf(floor_y - feet.y) < 4.0, "the ground under a blast is found (%.1f vs feet %.1f)" % [floor_y, feet.y])
+	check(is_nan(Fx._floor_below(feet + Vector2(60, -160), 48.0)), "a blast high in the air has no ground under it")
+	Fx.explosion(feet + Vector2(60, -8), 64.0, 0, Combat.Team.PLAYER, &"test_blast_ground")
+	var blobs := _blast_blobs(soft)
+	check(soft.alive_count() - before >= 6 and blobs.size() >= 6, "a blast is built from flat cloud layers (%d blobs)" % blobs.size())
+	var sunk := 0
+	var downward := 0
+	for index: int in blobs:
+		if soft._pos[index].y > floor_y + 0.5:
+			sunk += 1
+		if soft._vel[index].y > 0.5:
+			downward += 1
+	check(sunk == 0 and downward == 0, "a grounded blast opens upward only (%d below the floor, %d heading down)" % [sunk, downward])
+	await frames(90)
+	check(_blast_blobs(soft).is_empty(), "the fireball and its smoke are gone within 1.5 seconds")
+	Fx.explosion(feet + Vector2(60, -160), 40.0, 0, Combat.Team.PLAYER, &"test_blast_air", Palette.CYAN)
+	downward = 0
+	for index: int in _blast_blobs(soft):
+		if soft._vel[index].y > 0.5:
+			downward += 1
+	check(downward > 0, "a blast in the air opens in every direction")
+	await frames(4)
+	await end_level(level)
+
+
+func _blast_blobs(field: ParticleField) -> PackedInt32Array:
+	var result := PackedInt32Array()
+	for index in ParticleField.CAPACITY:
+		if field._life[index] > 0.0 and (field._cell[index] == VfxAtlas.Cell.BLOB_A or field._cell[index] == VfxAtlas.Cell.BLOB_B):
+			result.append(index)
+	return result
 
 
 ## NE-238: a fast head must hit a thin target before its visible tail crosses it.

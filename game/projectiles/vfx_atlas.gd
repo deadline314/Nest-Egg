@@ -5,10 +5,12 @@ extends RefCounted
 ##       RING 衝擊環（細環加柔邊）、SHARD 碎片（不規則多邊形加亮邊）、FLARE 星芒（十字光芒）、EMBER 餘燼（小亮點加光暈）。
 ## 每格 64×64，圖集 256×128。貼圖是白色加透明度，顏色由粒子的調色決定。
 
-enum Cell { GLOW, PUFF_A, PUFF_B, STREAK, RING, SHARD, FLARE, EMBER }
+enum Cell { GLOW, PUFF_A, PUFF_B, STREAK, RING, SHARD, FLARE, EMBER, BLOB_A, BLOB_B }
 
 const CELL := 64
 const COLUMNS := 4
+## 一朵雲團外圈有幾個圓。
+const BLOB_LOBES := 6
 
 static var _texture: ImageTexture
 static var _noise: ImageTexture
@@ -53,7 +55,8 @@ static func region(cell: int) -> Rect2:
 
 
 static func _build() -> Image:
-	var image := Image.create(CELL * COLUMNS, CELL * 2, false, Image.FORMAT_RGBA8)
+	var rows := ceili(float(Cell.size()) / float(COLUMNS))
+	var image := Image.create(CELL * COLUMNS, CELL * rows, false, Image.FORMAT_RGBA8)
 	image.fill(Color(1, 1, 1, 0))
 	_paint_glow(image, Cell.GLOW)
 	_paint_puff(image, Cell.PUFF_A, 11)
@@ -63,6 +66,8 @@ static func _build() -> Image:
 	_paint_shard(image, Cell.SHARD)
 	_paint_flare(image, Cell.FLARE)
 	_paint_ember(image, Cell.EMBER)
+	_paint_blob(image, Cell.BLOB_A, 5)
+	_paint_blob(image, Cell.BLOB_B, 23)
 	return image
 
 
@@ -156,3 +161,21 @@ static func _paint_ember(image: Image, cell: int) -> void:
 			var core := 1.0 - smoothstep(0.0, 0.22, d)
 			var halo := pow(clampf(1.0 - d, 0.0, 1.0), 3.0) * 0.45
 			_put(image, cell, x, y, core + halo)
+
+
+## 硬邊的雲團：幾個大小不一的圓疊成一朵，邊緣只留一像素抗鋸齒。平塗色塊的火球與濃煙用（賽璐璐畫風）。
+static func _paint_blob(image: Image, cell: int, seed_value: int) -> void:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = seed_value
+	var c := (CELL - 1) * 0.5
+	var lobes: Array[Vector3] = [Vector3(c, c, c * 0.6)]  # x、y、半徑
+	for i in BLOB_LOBES:
+		var angle := TAU * (float(i) + rng.randf_range(-0.3, 0.3)) / float(BLOB_LOBES)
+		var reach := c * rng.randf_range(0.36, 0.5)
+		lobes.append(Vector3(c + cos(angle) * reach, c + sin(angle) * reach, c * rng.randf_range(0.3, 0.45)))
+	for y in CELL:
+		for x in CELL:
+			var cover := 0.0
+			for lobe in lobes:
+				cover = maxf(cover, lobe.z - Vector2(x - lobe.x, y - lobe.y).length() + 0.5)
+			_put(image, cell, x, y, cover)

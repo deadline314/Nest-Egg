@@ -33,6 +33,7 @@ xvfb-run -a -s "-screen 0 1280x720x24" godot_x11 --path . --rendering-driver vul
 | `--scenario=exposure_sweep@關卡檔@間隔` | 整張地圖每隔幾欄量一次 |
 | `tools/rig_preview.tscn` | 角色姿勢、動作、接縫（`--chars --closeup --zoom --joints --level --rigid --gait --action`） |
 | `tools/rig_perf_probe.tscn` | 骨架動畫每格成本 |
+| `tools/vfx_exposure_probe.tscn` ＋ `tools/vfx_exposure_sheet.py` | 每一份光影設定下的槍口、敵人死亡、油桶爆炸連拍與全白比例（`--level` 換成真實關卡、`--stress` 量連續爆炸的每影格間隔）；改爆炸或新增光影設定後重跑 |
 | `tools/ne251_wake_probe.tscn -- --mode=route\|isolated\|resume\|sweep` | 過場舞台上主角頭部的純白比例，以及白髮和正後方背景分不分得開（`route` 走真正的倉庫溺斃 → 診間醒來；`sweep` 量所有有主角登場的舞台）；門檻純白 2%、糊掉 5% |
 
 量測陷阱（都踩過）：

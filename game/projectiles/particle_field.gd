@@ -3,13 +3,15 @@ extends Node2D
 ## 高效能粒子場：所有火花／煙／餘燼／碎片都在「同一個節點」內以固定容量陣列模擬與繪製，貼圖共用 VfxAtlas 一張圖集（一次批次繪製）。
 ## 不產生任何新節點、不會隨戰鬥規模成長記憶體（環形緩衝，滿了覆蓋最舊的粒子）。
 ##
-## 每顆粒子有：起訖大小、起訖顏色（含透明度）、旋轉與自轉、重力、阻力、閃爍、沿速度拉長（火花拖尾）。
+## 每顆粒子有：起訖大小、起訖顏色（含透明度）、旋轉與自轉、重力、阻力、閃爍、沿速度拉長（火花拖尾）、變色前停留的時間。
 ## additive＝true 時用加法混合（發光、光暈、火花、餘燼，顏色超過 1 會觸發泛光）；false 是一般混合（煙、灰塵、碎片）。
 ## 舊的 emit()（形狀 SPARK／SQUARE／CASING／DUST）仍可用，內部對應到新的貼圖。
 
 enum Shape { SPARK, SQUARE, CASING, DUST }
 
 const CAPACITY := 1536
+## 起始顏色最多停留到生命的這個比例（之後一定要留時間漸變，不會整顆突然消失）。
+const MAX_HOLD := 0.9
 
 @export var additive := false
 
@@ -27,6 +29,7 @@ var _gravity := PackedFloat32Array()
 var _drag := PackedFloat32Array()
 var _flicker := PackedFloat32Array()
 var _stretch := PackedFloat32Array()
+var _hold := PackedFloat32Array()
 var _cell := PackedByteArray()
 var _seed := PackedFloat32Array()
 var _cursor := 0
@@ -53,6 +56,7 @@ func _ready() -> void:
 	_drag.resize(CAPACITY)
 	_flicker.resize(CAPACITY)
 	_stretch.resize(CAPACITY)
+	_hold.resize(CAPACITY)
 	_cell.resize(CAPACITY)
 	_seed.resize(CAPACITY)
 	var canvas_material := CanvasItemMaterial.new()
@@ -63,9 +67,10 @@ func _ready() -> void:
 
 
 ## 完整版：cell＝VfxAtlas.Cell；size0→size1 是直徑（像素）；col0→col1 隨生命漸變；rotation／spin（弧度、弧度／秒）；
-## stretch＞0 時沿速度方向拉長（長度＝速度×stretch）；flicker＞0 時亮度隨機閃爍。
+## stretch＞0 時沿速度方向拉長（長度＝速度×stretch）；flicker＞0 時亮度隨機閃爍；
+## hold＝生命的前多少比例維持起始顏色，之後才漸變（平塗色塊用：先保持實心，最後才退場）。
 func emit_ex(position: Vector2, velocity: Vector2, life: float, cell: int, size0: float, size1: float, col0: Color, col1: Color,
-		gravity := 0.0, drag := 1.5, rotation := 0.0, spin := 0.0, stretch := 0.0, flicker := 0.0) -> void:
+		gravity := 0.0, drag := 1.5, rotation := 0.0, spin := 0.0, stretch := 0.0, flicker := 0.0, hold := 0.0) -> void:
 	if _pos.is_empty():
 		return
 	var i := _cursor
@@ -86,6 +91,7 @@ func emit_ex(position: Vector2, velocity: Vector2, life: float, cell: int, size0
 	_drag[i] = drag
 	_flicker[i] = flicker
 	_stretch[i] = stretch
+	_hold[i] = clampf(hold, 0.0, MAX_HOLD)
 	_cell[i] = cell
 	_seed[i] = randf() * TAU
 
@@ -104,6 +110,11 @@ func emit(position: Vector2, velocity: Vector2, color: Color, life: float, size:
 					gravity, drag, randf() * TAU, randf_range(-1.0, 1.0))
 		_:
 			emit_ex(position, velocity, life, VfxAtlas.Cell.EMBER, size * 4.0, size * 1.5, color, faded, gravity, drag)
+
+
+## 顏色漸變到哪裡（0＝起始色、1＝結束色）：生命的前 hold 比例停在起始色，之後線性走完。
+static func fade_ratio(age: float, hold: float) -> float:
+	return age if hold <= 0.0 else maxf(0.0, (age - hold) / (1.0 - hold))
 
 
 func alive_count() -> int:
@@ -139,7 +150,7 @@ func _draw() -> void:
 		if _life[i] <= 0.0:
 			continue
 		var age := 1.0 - _life[i] / _max_life[i]  # 0 新生 → 1 將死
-		var c := _col0[i].lerp(_col1[i], age)
+		var c := _col0[i].lerp(_col1[i], fade_ratio(age, _hold[i]))
 		if _flicker[i] > 0.0:
 			var f := 1.0 - _flicker[i] * (0.5 + 0.5 * sin(time * 38.0 + _seed[i] * 7.0))
 			c = Color(c.r * f, c.g * f, c.b * f, c.a)

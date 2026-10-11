@@ -24,6 +24,17 @@ const RING_POOL_SIZE := 5
 const PARTICLE_SCALE := 0.5
 const FLARE_SCALE := 0.7
 const SHOCK_SCALE := 0.55
+## 爆炸的時間（秒）：白熱核心一瞬、火球撐住再退場、濃煙留到最後；照亮四周的光跟火球一樣久。
+const BLAST_CORE_TIME := 0.1
+const BLAST_FIRE_TIME := 0.46
+## 爆炸中心離地面不到「半徑 × 這個倍率」就算貼地。
+const BLAST_GROUND_REACH := 0.75
+const BLAST_SMOKE_TIME := 1.1
+const BLAST_SMOKE := Color(0.17, 0.14, 0.15, 0.88)
+## 爆炸的光：照到半徑的幾倍遠、顏色往紅偏多少。
+const BLAST_LIGHT_REACH := 5.0
+const BLAST_LIGHT_WARMTH := 0.3
+const BLAST_LIGHT_ENERGY := 2.0
 const CLOTH_TEAR_COLOR := Color(0.24, 0.27, 0.32, 0.9)
 ## 特效的 HDR 亮度上限（同 LightKit.HDR_PEAK_MAX，LightKit.glow 本身就會夾住）：測試（FxUpgradesSuite）會掃描程式裡寫死的倍率，
 ## 並對每個光影設定檢查泛光超出量在預算內。Fx.hdr() 只是讓呼叫端更明白「這裡有上限」。
@@ -41,6 +52,7 @@ var _last_blast_position := Vector2.INF
 var _lights: Array[PointLight2D] = []
 var _light_tweens: Array[Tween] = []
 var _next_light := 0
+var _floor_query := PhysicsRayQueryParameters2D.new()
 var _hitstop_log: Array[Vector2] = []  # [發生時間（毫秒）, 秒數]
 var _slowmo_until_msec := 0
 var _slowmo_ready_msec := 0
@@ -55,6 +67,7 @@ func hdr(color: Color, intensity: float) -> Color:
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	_floor_query.collision_mask = Layers.SOLID
 	EventBus.hit_confirmed.connect(_on_hit_confirmed)
 
 
@@ -465,7 +478,7 @@ func steam_jet(position: Vector2) -> void:
 # ---------------------------------------------------------------------------
 
 ## 短暫閃光（槍口、爆炸、終結技）。光源池循環使用，不會無限增加。
-func flash_light(position: Vector2, color: Color, radius: float, energy: float, duration: float) -> void:
+func flash_light(position: Vector2, color: Color, radius: float, energy: float, duration: float, hold := 0.0) -> void:
 	if _lights.is_empty():
 		return
 	var index := _next_light
@@ -486,6 +499,8 @@ func flash_light(position: Vector2, color: Color, radius: float, energy: float, 
 	light.energy = energy
 	light.enabled = true
 	var tween := light.create_tween()
+	if hold > 0.0:
+		tween.tween_interval(hold)
 	tween.tween_property(light, "energy", 0.0, duration).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tween.tween_callback(light.set.bind("enabled", false))
 	_light_tweens[index] = tween
@@ -513,14 +528,16 @@ func explosion(position: Vector2, radius: float, damage: int, team: Combat.Team,
 	_container.add_child.call_deferred(blast)
 	if not _explosion_visual(position, radius, color):
 		return  # keep both damage teams, but emit their visual/audio/flash only once
-	flash_light(position, color, radius * 4.0, 2.2, 0.35)
-	# 整個環境光被閃亮一下：爆炸越大越亮。
-	EventBus.ambient_flash_requested.emit(color.lerp(Palette.WHITE, 0.5), clampf(0.12 + radius / 160.0, 0.2, 0.5), 0.3)
+	# 爆炸照亮四周：整個環境光被帶亮（爆炸越大越亮），再加一盞以爆炸為中心的暖光照近處的地面與角色；
+	# 兩者都跟火球一樣久，火球還亮著的時候四周不會先暗掉。
+	flash_light(position, color.lerp(Palette.DANGER, BLAST_LIGHT_WARMTH), radius * BLAST_LIGHT_REACH, BLAST_LIGHT_ENERGY, BLAST_FIRE_TIME * 0.6, BLAST_FIRE_TIME * 0.5)
+	EventBus.ambient_flash_requested.emit(color.lerp(Palette.WHITE, 0.3), clampf(0.08 + radius / 260.0, 0.12, 0.32), BLAST_FIRE_TIME)
 	Feel.shake_strength(clampf(radius / 6.0, 2.0, 8.0), 0.25)
 	Sfx.play(&"explosion_small" if radius < SMALL_EXPLOSION_RADIUS else &"explosion", -2.0, 0.1)
 
 
-## 爆炸的視覺：核心閃光、火球、煙、火花、餘燼、碎片、衝擊波（半徑越大越誇張）。
+## 爆炸的視覺：一瞬的白熱核心、平塗分層的火球（亮黃心、橘色團），火球退場後露出後面的濃煙，
+## 加上火花、餘燼、碎片與衝擊波；貼地的爆炸只往上炸開，並在地面留一道暖色反光（半徑越大越誇張）。
 func _explosion_visual(position: Vector2, radius: float, color: Color) -> bool:
 	if _glow == null:
 		return false
@@ -531,12 +548,72 @@ func _explosion_visual(position: Vector2, radius: float, color: Color) -> bool:
 	_last_blast_msec = now
 	_last_blast_position = position
 	var r := maxf(8.0, radius)
-	_glow.emit_ex(position, Vector2.ZERO, 0.12, VfxAtlas.Cell.GLOW, r * 1.2, r * 2.4, Color(1.8, 1.5, 1.1, 0.6), Color(color.r * 1.4, color.g * 1.1, color.b, 0.0))
-	flare(position, color, r * 2.2, 0.14)
-	fire(position, r * 0.45, color, 7, 0.45)
-	smoke(position + Vector2(0, -r * 0.2), 6, r * 0.5, 1.2, r * 0.7)
+	var floor_y := _floor_below(position, r * BLAST_GROUND_REACH)
+	var grounded := not is_nan(floor_y)
+	fireball(position, r, color, grounded)
+	# 貼地時白熱核心往上抬，光暈才不會溢到地板底下。
+	var core := Vector2(position.x, minf(position.y, floor_y - r * 0.55)) if grounded else position
+	_glow.emit_ex(core, Vector2.ZERO, BLAST_CORE_TIME, VfxAtlas.Cell.GLOW, r * 0.8, r * 1.4, Color(1.2, 0.95, 0.6, 0.4), Color(color.r, color.g * 0.8, color.b * 0.6, 0.0))
+	flare(core, color, r * 1.3, 0.1)
+	if grounded:
+		# 地面反光：一道壓扁的暖光貼在地上，跟火球一起退。
+		var reach := r * 3.2
+		_glow.emit_ex(Vector2(position.x + reach * 0.5, floor_y), Vector2(1.0, 0.0), BLAST_FIRE_TIME, VfxAtlas.Cell.GLOW, r * 0.22, r * 0.1,
+				Color(color.r * 1.2, color.g * 0.9, color.b * 0.6, 0.55), Color(color.r, color.g * 0.5, color.b * 0.3, 0.0), 0.0, 0.0, 0.0, 0.0, reach, 0.0, 0.3)
 	sparks(position, color, 14, r * 8.0, 0.4)
 	embers(position, color, 6, r * 1.0, 0.9, r * 0.4)
 	shards(position, color, 5, r * 4.5, 0.9, maxf(5.0, r * 0.16))
 	shock(position, r * 3.2, 0.05, color.lerp(Palette.WHITE, 0.3), 0.55)
 	return true
+
+
+## 平塗分層的火球：最後面是濃煙，外圈的橘色團先撐開、停一下再轉暗退場，中間疊亮黃的團，最裡面是一瞬的白熱心。
+## 每一層都是硬邊色塊，顏色不相加，所以中心不會糊成一片白。grounded＝貼地，只往上半邊炸開。
+func fireball(position: Vector2, radius: float, color: Color, grounded := false) -> void:
+	if _soft == null:
+		return
+	var outer := _particle_count(8)
+	if outer <= 0:
+		return
+	var warm := color.h < 0.2 or color.h > 0.92
+	var hue := color.h - (0.035 if warm else 0.0)
+	var body := Color.from_hsv(fposmod(hue, 1.0), minf(1.0, color.s * 1.25 + 0.1), color.v * (0.95 if warm else 0.78))
+	var soot := Color.from_hsv(body.h, body.s * 0.8, 0.2, 0.0)
+	# 三層的明度要拉開（白熱心最亮、中層次之、外圈最暗）：彩度被調色壓低的場景裡，層次靠明暗分辨。
+	var hot := Color(color.r * 1.05, color.g * 1.05, color.b * 1.05, 1.0)
+	var white := color.lerp(Palette.WHITE, 0.75)
+	white = Color(white.r * 1.6, white.g * 1.6, white.b * 1.6, 1.0)
+	var centre := position + Vector2(0.0, -radius * 0.18) if grounded else position
+	var arc_from := PI if grounded else 0.0
+	var arc_span := PI if grounded else TAU
+	outer = clampi(outer, 3, 12)
+	# 濃煙先放（畫在火球後面），火球退掉才露出來，慢慢往上飄散。
+	var clouds := maxi(2, outer / 2 + 1)
+	for i in clouds:
+		var dir := Vector2.RIGHT.rotated(arc_from + arc_span * (float(i) + randf_range(0.2, 0.8)) / float(clouds))
+		_soft.emit_ex(centre + dir * radius * 0.3, dir * radius * randf_range(0.5, 0.9) + Vector2(0.0, -radius * 0.5), BLAST_SMOKE_TIME * randf_range(0.8, 1.15),
+				VfxAtlas.Cell.BLOB_B if i % 2 == 0 else VfxAtlas.Cell.BLOB_A, radius * 0.7, radius * randf_range(1.0, 1.25),
+				BLAST_SMOKE, Color(BLAST_SMOKE.r, BLAST_SMOKE.g, BLAST_SMOKE.b, 0.0), -18.0, 2.2, randf() * TAU, randf_range(-0.5, 0.5), 0.0, 0.0, 0.35)
+	for i in outer:
+		var dir := Vector2.RIGHT.rotated(arc_from + arc_span * (float(i) + randf_range(0.15, 0.85)) / float(outer))
+		_soft.emit_ex(centre + dir * radius * 0.26, dir * radius * randf_range(1.2, 2.0), BLAST_FIRE_TIME * randf_range(0.85, 1.15),
+				VfxAtlas.Cell.BLOB_A if i % 2 == 0 else VfxAtlas.Cell.BLOB_B, radius * 0.7, radius * randf_range(1.05, 1.25),
+				body, soot, -24.0, 5.0, randf() * TAU, randf_range(-0.9, 0.9), 0.0, 0.0, 0.62)
+	var inner := maxi(2, outer / 2)
+	for i in inner:
+		var dir := Vector2.RIGHT.rotated(arc_from + arc_span * (float(i) + randf_range(0.2, 0.8)) / float(inner))
+		_soft.emit_ex(centre + dir * radius * 0.1, dir * radius * randf_range(0.5, 1.0), BLAST_FIRE_TIME * randf_range(0.55, 0.7),
+				VfxAtlas.Cell.BLOB_B if i % 2 == 0 else VfxAtlas.Cell.BLOB_A, radius * 0.5, radius * randf_range(0.72, 0.86),
+				hot, Color(body.r, body.g, body.b, 0.0), -24.0, 5.0, randf() * TAU, randf_range(-1.2, 1.2), 0.0, 0.0, 0.5)
+	_soft.emit_ex(centre, Vector2.ZERO, BLAST_CORE_TIME * 1.6, VfxAtlas.Cell.BLOB_A, radius * 0.36, radius * 0.5,
+			white, Color(hot.r, hot.g, hot.b, 0.0), 0.0, 0.0, randf() * TAU, 0.0, 0.0, 0.0, 0.6)
+
+
+## position 正下方 reach 像素內的地面高度（世界座標）；沒有地面回傳 NAN。
+func _floor_below(position: Vector2, reach: float) -> float:
+	if _container == null or not _container.is_inside_tree():
+		return NAN
+	_floor_query.from = position + Vector2(0.0, -2.0)
+	_floor_query.to = position + Vector2(0.0, reach)
+	var hit := _container.get_world_2d().direct_space_state.intersect_ray(_floor_query)
+	return (hit["position"] as Vector2).y if not hit.is_empty() else NAN

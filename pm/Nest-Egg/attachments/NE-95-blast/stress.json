@@ -1,0 +1,49 @@
+{
+ "note": "market, light quality high, vsync off, 6 simultaneous blasts x 12 waves, run order after-before-before-after",
+ "runs": [
+  {
+   "explosions_per_wave": 6,
+   "frame_ms_max": 9.743,
+   "frame_ms_median": 6.693,
+   "frame_ms_p90": 7.447,
+   "frames": 455,
+   "profile": "market",
+   "waves": 12,
+   "build": "after",
+   "run": "b1"
+  },
+  {
+   "explosions_per_wave": 6,
+   "frame_ms_max": 9.566,
+   "frame_ms_median": 6.661,
+   "frame_ms_p90": 7.4,
+   "frames": 460,
+   "profile": "market",
+   "waves": 12,
+   "build": "before",
+   "run": "a1"
+  },
+  {
+   "explosions_per_wave": 6,
+   "frame_ms_max": 8.724,
+   "frame_ms_median": 6.595,
+   "frame_ms_p90": 7.406,
+   "frames": 458,
+   "profile": "market",
+   "waves": 12,
+   "build": "before",
+   "run": "a2"
+  },
+  {
+   "explosions_per_wave": 6,
+   "frame_ms_max": 9.575,
+   "frame_ms_median": 6.774,
+   "frame_ms_p90": 7.589,
+   "frames": 449,
+   "profile": "market",
+   "waves": 12,
+   "build": "after",
+   "run": "b2"
+  }
+ ]
+}
