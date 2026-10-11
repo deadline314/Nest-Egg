@@ -14,6 +14,7 @@ What it decides, so that a plain humanoid needs no hand-written spec:
            sliver of the hand stays on the thigh (it would show as a second hand once the arm moves)
   parts    pelvis / torso / thigh / shin / foot / upper arm / forearm / hand, with round joint caps at the hip and the ankle, hidden
            overlaps under the head and at the shoulder, and the armhole of stage P repainted in the colour of the clothes
+Run it twice: once before the parts step, and again (with --force) after it, so that the elbow and wrist snap to the arm mask.
 A character with layered clothes (a coat, an apron, something on the back) still needs its own groups and stages: start from this spec,
 then split them the way egret_side.json and ali_side.json do. Look at 06_parts/ownership.png before going on.
 """
@@ -88,6 +89,8 @@ def main() -> None:
                     help="texture pixels per world pixel (default 20: enough for 4K at twice the gameplay zoom; the protagonist keeps the source density)")
     ap.add_argument("--arm-text", action="store_true",
                     help="pick the near arm with the text prompt 'arm' instead of points (when the point mask comes out ragged or partial)")
+    ap.add_argument("--trim-spikes", help="comma list of parts whose features thinner than 4 px are cut off (a toothpick, a lace end: on screen they "
+                                          "are under a pixel wide and break into loose specks)")
     ap.add_argument("--force", action="store_true")
     args = ap.parse_args()
     work = ROOT / "art_src/characters" / args.id
@@ -128,6 +131,17 @@ def main() -> None:
     # half the body's depth at the hip joint: a thigh cap larger than this is cut off by the silhouette and shows a flat edge when seated
     hip_w = max(knee_w, half_width(alpha, J["hip"], np.array([0.0, 1.0]), 220))
     J = {k: [round(v[0]), round(v[1])] for k, v in J.items()}
+    # Once the arm mask exists (after the first parts step), run this tool again: the elbow and the wrist move onto the arm's centre line.
+    # The pose model often puts them on the arm's edge, and then the wrist's centre is not covered by the forearm or the hand.
+    arm_mask = work / "sam" / ("arm.png" if args.arm_text else "points_arm.png")
+    if arm_mask.exists():
+        mask = np.asarray(Image.open(arm_mask).convert("L").resize(rgba.size)) > 127
+        for name in ("elbow", "palm"):
+            x, y = J[name]
+            xs = np.nonzero(mask[min(max(y, 0), mask.shape[0] - 1)])[0]
+            xs = xs[np.abs(xs - x) < 90]
+            if len(xs):
+                J[name][0] = int(round((xs.min() + xs.max()) / 2))
     far = {name.replace("left_", ""): [round(v[0]), round(v[1])] for name, v in kp.items() if name.startswith("left_")}
     hand_tip = lerp(J["elbow"], J["palm"], 1.3)
     reach = max(40, round(0.45 * math.dist(J["elbow"], J["palm"])))
@@ -200,6 +214,8 @@ def main() -> None:
                    "underlap": [{"part": "torso", "under": "head", "poly": disc(J["neck"][0] + 0.3 * (nose[0] - J["neck"][0]), J["neck"][1] - 0.45 * (J["neck"][1] - nose[1]), 44)},
                                 {"part": "torso", "under": "arm_upper", "poly": disc(J["shoulder"][0], J["shoulder"][1], 26)}]},
     }
+    if args.trim_spikes:
+        spec["refine"]["trim_spikes"] = {"parts": args.trim_spikes.split(","), "radius": 2}
     if args.portrait:
         top = J["head_top"]
         side = 1.4 * (J["neck"][1] - top[1])

@@ -879,5 +879,52 @@
       ]
     ],
     "notes": "Original visible pixels retained. U fills occluded undersuit only; lower_outline bounds completed alpha but retains original colors below stage_until. Existing original design/pose history retained."
+  },
+  {
+    "step": "refine",
+    "seconds": 2.5,
+    "outputs": [
+      "art_src\\characters\\heavy_gunner\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "refine",
+    "seconds": 2.4,
+    "outputs": [
+      "art_src\\characters\\heavy_gunner\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 3.5,
+    "outputs": [
+      "art\\characters\\heavy_gunner\\character.json",
+      "art\\rigs\\heavy_gunner.json",
+      "art\\characters\\heavy_gunner\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 4.5,
+    "outputs": [
+      "art\\characters\\heavy_gunner\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.8,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

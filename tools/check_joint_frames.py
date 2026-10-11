@@ -17,18 +17,29 @@ from scipy import ndimage
 def inspect(alpha):
     solid = alpha >= 128
     # All components and holes count, including a one-pixel defect. No area exemption.
-    _, count = ndimage.label(solid, np.ones((3, 3)))
+    labels, count = ndimage.label(solid, np.ones((3, 3)))
+    # Diagnosis only: a second piece that touches the border of the checked band is the same limb bending back into the band, cut by
+    # the crop; a piece that floats inside the band is a real detached fragment.
+    border = np.zeros(solid.shape, bool)
+    border[0, :] = border[-1, :] = border[:, 0] = border[:, -1] = True
+    sizes = ndimage.sum(solid, labels, range(1, count + 1)) if count else []
+    main = 1 + int(np.argmax(sizes)) if count else 0
+    loose = sum(1 for i in range(1, count + 1) if i != main and not (border & (labels == i)).any())
     holes = ndimage.binary_fill_holes(solid) & ~solid
+    # Diagnosis only, the verdict does not use it: holes that stay closed even when the background may leak diagonally are see-through
+    # holes inside the silhouette; the rest are notches on its edge (two outlines crossing at a crease, a collar, a cuff).
+    enclosed = ndimage.binary_fill_holes(solid, structure=np.ones((3, 3))) & ~solid
     center = alpha[alpha.shape[0] // 2, alpha.shape[1] // 2]
-    return {"components": count, "hole_pixels": int(holes.sum()), "center_alpha": int(center)}
+    return {"components": count, "hole_pixels": int(holes.sum()), "enclosed_pixels": int(enclosed.sum()), "loose_pieces": loose, "center_alpha": int(center)}
 
 
 def self_check():
     alpha = np.zeros((32, 32), np.uint8)
     alpha[2:30, 8:24] = 255
-    assert inspect(alpha) == {"components": 1, "hole_pixels": 0, "center_alpha": 255}
+    assert inspect(alpha) == {"components": 1, "hole_pixels": 0, "enclosed_pixels": 0, "loose_pieces": 0, "center_alpha": 255}
     alpha[12, 12] = 0
     assert inspect(alpha)["hole_pixels"] == 1  # even a one-pixel hole fails
+    assert inspect(alpha)["enclosed_pixels"] == 1  # and it is a real hole, not an edge notch
     alpha[16, :] = 0
     assert inspect(alpha)["components"] == 2 and inspect(alpha)["center_alpha"] == 0
     print("joint checker: intact passes; one-pixel hole and disconnected pair fail")
@@ -66,7 +77,11 @@ def main():
                     summary[key] = summary.get(key, 0) + 1
     report = {"samples": total, "failed_samples": len(failures), "summary": summary, "failures": failures}
     (root / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf8")
+    notch_only = sum(1 for f in failures if f["center_alpha"] >= 128 and not f["enclosed_pixels"] and not f["loose_pieces"])
+    report["edge_notch_only_samples"] = notch_only
+    (root / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf8")
     print(f"joint frames: {len(failures)}/{total} failing samples; {root / 'report.json'}")
+    print(f"  of these, {notch_only} fail only by edge notches or by the band cutting a bent limb (no enclosed hole, no loose piece, centre covered); {len(failures) - notch_only} have a real gap")
     for key, count in summary.items():
         print(f"  {key}: {count}")
     raise SystemExit(1 if failures else 0)

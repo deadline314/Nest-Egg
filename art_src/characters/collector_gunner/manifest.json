@@ -157,5 +157,43 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "parts",
+    "seconds": 6.2,
+    "outputs": [
+      "art_src\\characters\\collector_gunner\\06_parts",
+      "art_src\\characters\\collector_gunner\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.1,
+    "outputs": [
+      "art_src\\characters\\collector_gunner\\07_refined"
+    ]
+  },
+  {
+    "step": "textures",
+    "seconds": 2.2,
+    "outputs": [
+      "art\\characters\\collector_gunner\\character.json",
+      "art\\rigs\\collector_gunner.json",
+      "art\\characters\\collector_gunner\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.2,
+    "outputs": [
+      "art\\characters\\collector_gunner\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.6,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

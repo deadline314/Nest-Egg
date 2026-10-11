@@ -683,5 +683,52 @@
     },
     "armor_knee_outline": null,
     "notes": "Original visible pixels retained. U fills occluded undersuit only; lower_outline bounds completed alpha but retains original colors below stage_until. Existing original design/pose history retained."
+  },
+  {
+    "step": "refine",
+    "seconds": 2.5,
+    "outputs": [
+      "art_src\\characters\\enforcer\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "refine",
+    "seconds": 2.3,
+    "outputs": [
+      "art_src\\characters\\enforcer\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 3.2,
+    "outputs": [
+      "art\\characters\\enforcer\\character.json",
+      "art\\rigs\\enforcer.json",
+      "art\\characters\\enforcer\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.9,
+    "outputs": [
+      "art\\characters\\enforcer\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.8,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

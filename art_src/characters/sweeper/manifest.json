@@ -157,5 +157,43 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "parts",
+    "seconds": 6.3,
+    "outputs": [
+      "art_src\\characters\\sweeper\\06_parts",
+      "art_src\\characters\\sweeper\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.1,
+    "outputs": [
+      "art_src\\characters\\sweeper\\07_refined"
+    ]
+  },
+  {
+    "step": "textures",
+    "seconds": 2.2,
+    "outputs": [
+      "art\\characters\\sweeper\\character.json",
+      "art\\rigs\\sweeper.json",
+      "art\\characters\\sweeper\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.2,
+    "outputs": [
+      "art\\characters\\sweeper\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.6,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]
