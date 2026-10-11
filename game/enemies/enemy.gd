@@ -181,6 +181,8 @@ func _build_components() -> void:
 	if rig == null and not data.creature_skin.is_empty():
 		_build_creature()
 	_build_hurt_parts()
+	# 自帶光源的敵人（資料的 Light 群組有設定才會有）。
+	EnemyGlow.attach(self)
 
 	if data.contact_damage > 0:
 		contact = ContactHitbox.new()

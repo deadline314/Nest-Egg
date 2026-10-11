@@ -28,6 +28,7 @@ func run() -> void:
 	await _test_lamp_fixtures()
 	await _test_lamp_flicker()
 	await _test_wall_shadows()
+	await _test_enemy_glow()
 	_test_import_policy("res://art/environment")
 
 
@@ -1046,3 +1047,113 @@ func _test_wall_shadows() -> void:
 		await frames(4)
 		counts.append(int(Performance.get_monitor(Performance.OBJECT_NODE_COUNT)))
 	check(counts[3] <= counts[1], "反覆進出關卡後節點數不累積（%s）" % str(counts))
+
+
+## 敵人自帶的光（NE-259）：只靠敵人資料；光色表示狀態；跟著頭走；死亡時熄滅；一般敵人不帶燈。
+func _test_enemy_glow() -> void:
+	var glowing := PackedStringArray()
+	for file in DirAccess.get_files_at("res://data/enemies"):
+		if not file.ends_with(".tres"):
+			continue
+		var enemy_data := load("res://data/enemies/" + file) as EnemyData
+		if enemy_data == null:
+			continue
+		if enemy_data.light_radius > 0.0:
+			glowing.append(String(enemy_data.id))
+			check(enemy_data.validate().is_empty() and enemy_data.light_energy > 0.0 and enemy_data.light_part != &"",
+					"帶燈的敵人 %s 的光資料有效，而且指定了跟著哪個零件" % enemy_data.id)
+	check(glowing.has("watchdog") and glowing.has("heavy_gunner"), "看門狗與重裝兵自帶光源（帶燈的有：%s）" % ", ".join(glowing))
+	for plain: String in ["sweeper", "collector_gunner", "collector_brute", "grunt"]:
+		check(not glowing.has(plain), "一般敵人 %s 不帶燈" % plain)
+	var bad := EnemyData.new()
+	bad.behavior = (load("res://data/enemies/sweeper.tres") as EnemyData).behavior
+	bad.light_radius = -5.0
+	check(not bad.validate().is_empty(), "光的半徑是負的會被資料檢查抓到")
+
+	var level := await start_level(load("res://data/levels/ch1_warehouse.tres") as LevelData)
+	for node: Node in runner.get_tree().get_nodes_in_group(&"enemies"):
+		node.queue_free()
+	await frames(2)
+	var feet := level.player.global_position + Vector2(80.0, 0.0)
+	var heavy := _glow_enemy(level, "heavy_gunner", feet)
+	var sweeper := _glow_enemy(level, "sweeper", feet + Vector2(60.0, 0.0))
+	await frames(3)
+	var glow := heavy.find_child("EnemyGlow", false, false) as EnemyGlow
+	check(glow != null and sweeper.find_child("EnemyGlow", false, false) == null, "重裝兵身上有光，清掃兵沒有")
+	if glow == null:
+		await end_level(level)
+		return
+	var light := glow.light()
+	check(light != null and light.is_in_group(LightKit.SCENE_LIGHTS), "敵人的光登記在場景光源裡（由光源預算管理、也會讓角色在牆上投影）")
+	# 光跟著頭：位置在頭骨附近，面向反過來時跟著換邊。
+	var head := heavy.rig.bone(&"head") if heavy.rig != null else null
+	check(head != null and glow.global_position.distance_to(head.global_position) < 16.0, "光的位置跟著頭")
+	var side_before := glow.global_position.x - head.global_position.x if head != null else 0.0
+	heavy.facing = -heavy.facing
+	await frames(3)
+	var side_after := glow.global_position.x - head.global_position.x if head != null else 0.0
+	check(head != null and signf(side_before) != signf(side_after) and not is_zero_approx(side_before), "轉身後光跟著換到另一邊")
+	# 三種狀態：平常是自己的顏色；發現主角變亮；準備攻擊轉成紅色預兆、更亮。
+	heavy._alert_left = 0.0
+	heavy._telegraph_left = 0.0
+	glow._process(1.0)
+	var calm_state := glow.state()
+	var calm_level := glow.level()
+	var calm_color := light.color
+	heavy._alert_left = 5.0
+	glow._process(1.0)
+	var alert_state := glow.state()
+	var alert_level := glow.level()
+	var alert_color := light.color
+	heavy._telegraph_left = 5.0
+	glow._process(1.0)
+	glow._process(1.0)
+	check(calm_state == &"calm" and alert_state == &"alert" and glow.state() == &"telegraph", "光的狀態跟著敵人：平常、發現主角、準備攻擊")
+	check(alert_level > calm_level * 1.3 and glow.level() > alert_level, "發現主角時變亮，準備攻擊時更亮（%.2f → %.2f → %.2f）" % [calm_level, alert_level, glow.level()])
+	check(calm_color.is_equal_approx(heavy.data.light_color) and alert_color.is_equal_approx(heavy.data.light_color)
+			and light.color.r > 0.9 and light.color.b < calm_color.b - 0.2, "平常與發現主角是它自己的顏色，準備攻擊轉成紅色預兆")
+	heavy._alert_left = 0.0
+	heavy._telegraph_left = 0.0
+	# 死亡：光在死亡演出內熄滅。
+	var info := DamageInfo.new()
+	info.amount = 99999
+	info.team = Combat.Team.PLAYER
+	heavy.health.kill(info)
+	var faded := false
+	for step in 90:
+		await frames(1)
+		if not is_instance_valid(heavy) or not is_instance_valid(light) or not light.enabled or light.energy <= 0.02:
+			faded = true
+			break
+	check(faded, "敵人死亡後光在 1.5 秒內熄滅")
+	# 只靠資料就能讓別的敵人帶燈：複製清掃兵的資料、填上光，就有光；找不到指定的零件時退回腳底的位置並記錄，不會壞。
+	var lit_data := (load("res://data/enemies/sweeper.tres") as EnemyData).duplicate() as EnemyData
+	lit_data.light_radius = 60.0
+	lit_data.light_part = &"test_missing_prop_bone"
+	lit_data.light_offset = Vector2(4.0, -30.0)
+	var custom := level._create_enemy(lit_data)
+	custom.position = feet + Vector2(120.0, -2.0)
+	level._entities.add_child(custom)
+	await frames(3)
+	var custom_glow := custom.find_child("EnemyGlow", false, false) as EnemyGlow
+	check(custom_glow != null and custom_glow.light() != null and custom_glow.position.is_equal_approx(Vector2(4.0 * float(custom.facing), -30.0)),
+			"只填資料就能讓敵人帶燈；找不到零件時用相對於腳底的位置")
+	# 6 個帶燈的敵人：同時亮著的燈數不超過光影品質的上限。
+	for index in 6:
+		_glow_enemy(level, "heavy_gunner", feet + Vector2(20.0 + 26.0 * float(index), 0.0))
+	await frames(6)
+	level._light_budget.refresh()
+	check(level._light_budget.active_lights <= LightQuality.max_lights(), "6 個帶燈的敵人時，同時亮著的燈不超過上限（%d／%d）" % [level._light_budget.active_lights, LightQuality.max_lights()])
+	await end_level(level)
+
+
+func _glow_enemy(level: Level, id: String, feet: Vector2) -> Enemy:
+	var enemy_data := (load("res://data/enemies/%s.tres" % id) as EnemyData).duplicate() as EnemyData
+	enemy_data.detect_range = 0.0
+	enemy_data.attack_range = 0.0
+	enemy_data.move_speed = 0.0
+	var enemy := level._create_enemy(enemy_data)
+	enemy.position = feet - Vector2(0.0, 2.0)
+	level._entities.add_child(enemy)
+	enemy.health.setup(999, 0.0)
+	return enemy

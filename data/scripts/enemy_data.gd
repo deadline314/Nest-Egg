@@ -100,6 +100,22 @@ extends Resource
 ## 被玩家擊敗時掉落的信用點（0 = 不掉）。
 @export var credit_value: int = 0
 
+@export_group("Light")
+## 自帶的光（NE-259）：光池半徑（像素），0＝這種敵人不帶燈。只給有道理帶燈的（探照、眼睛、面罩燈條）；
+## 一般敵人不帶燈，暗的區域裡要靠槍燈或場景燈照出來。
+@export_range(0.0, 200.0, 1.0) var light_radius: float = 0.0
+## 平常的光色。發現主角時同色變亮，準備攻擊時轉成全遊戲共用的紅色預兆。
+@export var light_color: Color = Color(0.6, 0.9, 1.0)
+@export_range(0.0, 2.0, 0.05) var light_energy: float = 0.7
+## 光跟著哪個零件走（骨架角色填骨頭名，例如 head；零件式生物填零件名）。空的＝用 light_offset 相對於腳底的位置。
+@export var light_part: StringName = &""
+## 光相對於那個零件的位置（朝右時；面向左邊時 x 會反過來）。
+@export var light_offset: Vector2 = Vector2.ZERO
+## 發光標記的大小（像素）：一小條亮的畫在光的位置上（眼睛、面罩燈條），讓光看得出是從哪裡來的。(0, 0)＝不畫。
+@export var light_mark: Vector2 = Vector2.ZERO
+## 哪些狀態算「還沒發現主角」（光維持平常的亮度）。空的＝用 relaxed_states。頭目類的狀態名稱不一樣時填這裡（例如睡著的 dormant）。
+@export var light_calm_states: PackedStringArray = []
+
 
 func find_projectile(source: StringName) -> ProjectileSpec:
 	if projectile != null and projectile.source_id == source:
@@ -118,6 +134,8 @@ func validate() -> PackedStringArray:
 		problems.append("%s: max_health 必須大於 0" % id)
 	if body_size.x <= 0.0 or body_size.y <= 0.0:
 		problems.append("%s: body_size 必須為正值" % id)
+	if light_radius < 0.0 or light_energy < 0.0 or light_mark.x < 0.0 or light_mark.y < 0.0:
+		problems.append("%s: 自帶的光的半徑、亮度與發光標記不能是負的" % id)
 	if not strike.is_empty():
 		problems.append_array(StrikeSpec.validate(self))
 	return problems
