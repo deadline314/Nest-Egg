@@ -1,6 +1,6 @@
 # [NE-263] 修正 Windows 上受影響測試被靜默略過
 
-> 狀態：進行中
+> 狀態：審查中
 
 ## 內文
 
@@ -15,7 +15,7 @@
 2026-10-11，光影與場景素材 Session 做 BG-36 時發現：改了關卡與燈的程式，腳本卻回報沒有受影響的測試；看 log 才發現挑選工具丟出 `UnicodeDecodeError: 'cp950' codec can't decode byte`。
 
 ### 驗收條件
-- [ ] 在這台 Windows、不設定任何額外環境變數的情況下，改一個遊戲程式檔後跑 `tools/run_tests_changed.sh`，挑出的套件與 `PYTHONUTF8=1` 時相同
+- [x] 在這台 Windows、不設定任何額外環境變數的情況下，改一個遊戲程式檔後跑 `tools/run_tests_changed.sh`，挑出的套件與 `PYTHONUTF8=1` 時相同
 - [x] 挑選工具自己出錯（當掉、git 指令失敗、輸出讀不到）時，腳本以失敗結束並印出原因，不再印「沒有受影響的測試要跑」
 - [x] 真的只改文件或票時，仍然回報沒有受影響的測試並以成功結束
 - [x] Linux 與 CI 的挑選結果和修改前相同（同一組更動挑出同一組套件）
@@ -57,8 +57,25 @@
 | 挑選工具測試 | 11 / 11 通過 |
 | Linux 新舊挑選結果比對 | 95 / 95 組相同 |
 
-分支 `claude/youthful-archimedes-5xi3t0`；提交見[分支上本票的提交](https://github.com/deadline314/Nest-Egg/commits/claude/youthful-archimedes-5xi3t0/pm/Nest-Egg/%5BNE-263%5D%E4%BF%AE%E6%AD%A3Windows%E4%B8%8A%E5%8F%97%E5%BD%B1%E9%9F%BF%E6%B8%AC%E8%A9%A6%E8%A2%AB%E9%9D%9C%E9%BB%98%E7%95%A5%E9%81%8E.md)。
+分支 `claude/youthful-archimedes-5xi3t0`，已併入 main；提交見[本票在 main 的提交](https://github.com/deadline314/Nest-Egg/commits/main/pm/Nest-Egg/%5BNE-263%5D%E4%BF%AE%E6%AD%A3Windows%E4%B8%8A%E5%8F%97%E5%BD%B1%E9%9F%BF%E6%B8%AC%E8%A9%A6%E8%A2%AB%E9%9D%9C%E9%BB%98%E7%95%A5%E9%81%8E.md)。
 
 ### 截圖
 
 ![模擬 cp950 的修改前後：修改前工具當掉卻回報成功；修改後正確挑出套件、出錯時以失敗結束](images/NE-263-cp950-before-after.png)
+
+# Commit-2
+
+## 內文
+
+第一條驗收條件在雲端只能模擬系統編碼，要在這台繁中 Windows 原生實跑才算數。
+
+在這台 Windows（Python 3.12、系統編碼 cp950）的 Git Bash、不設 `PYTHONUTF8` 實跑：修改前的挑選工具丟出票上記的同一個 `UnicodeDecodeError: 'cp950' codec can't decode byte` 當掉；修改後改一個遊戲程式檔（傳送門），腳本挑出 AreasSuite、Chapter1MapSuite、NpcSuite 三個套件並跑完，加上 `PYTHONUTF8=1` 重跑，挑出的是同一組。
+
+### 測試結果
+
+| 項目 | 結果 |
+|---|---|
+| 不設 `PYTHONUTF8` 挑出的套件 | AreasSuite、Chapter1MapSuite、NpcSuite |
+| `PYTHONUTF8=1` 挑出的套件 | 相同三個 |
+| 受影響測試（上述三個套件，兩種設定各跑一次） | 各 1983 項檢查；新失敗 0、已知失敗 0、腳本錯誤 0 |
+| 挑選工具測試（Windows 原生） | 10 / 11 通過；未過的一項是「工具當掉」的測試在比對中文錯誤訊息，Windows 上被接走的錯誤訊息是 cp950、測試以 UTF-8 讀取所以比不到，腳本本身有以失敗結束並印出「沒有跑任何測試」 |
