@@ -677,6 +677,12 @@ func is_chained_scene(origin: StringName, segment: StringName) -> bool:
 	return false
 
 
+## 節奏估計用（PacingEstimate.along_path）：場景的台詞行數、實際模式與宣告的電影秒數。
+func pacing_info(id: StringName) -> Dictionary:
+	var scene: Dictionary = _scenes.get(String(id), {})
+	return {"lines": scene_lines(id).size(), "mode": scene_mode(id), "budget": float(scene.get("budget", 0.0))}
+
+
 func scene_mode(id: StringName) -> StringName:
 	var mode := StringName(str((_scenes.get(String(id), {}) as Dictionary).get("mode", "radio")))
 	if mode == MODE_DISPATCH:

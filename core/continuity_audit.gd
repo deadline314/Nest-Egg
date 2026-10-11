@@ -20,6 +20,9 @@ static var _spawn_read_re := RegEx.create_from_string("spawn_(?:requires|unless)
 static var _acquire_write_re := RegEx.create_from_string("acquire_flag = &\"([^\"]+)\"")
 static var _channel_write_re := RegEx.create_from_string("channel_(?:done|cleared)_flags = Dictionary\\[StringName, StringName\\]\\(\\{([^\\n]*)\\}\\)")
 static var _dict_value_re := RegEx.create_from_string(": &\"([^\"]+)\"")
+static var _training_write_re := RegEx.create_from_string("(?:done|fail)_flag = &\"([^\"]+)\"")
+static var _skip_write_re := RegEx.create_from_string("skip_flags = PackedStringArray\\(([^)]*)\\)")
+static var _quoted_re := RegEx.create_from_string("\"([^\"]+)\"")
 
 
 ## 旗標表：{ 旗標: {"writes": [出處…], "reads": [出處…]} }。
@@ -63,6 +66,11 @@ static func flag_table(scenes: Dictionary, death_tables: Dictionary, text_files:
 			_add(table, match.get_string(1), "reads", "%s 的人物出現條件" % path)
 		for match in _acquire_write_re.search_all(text):
 			_add(table, match.get_string(1), "writes", "%s 取得物品時" % path)
+		for match in _training_write_re.search_all(text):
+			_add(table, match.get_string(1), "writes", "%s 的訓練站" % path)
+		for match in _skip_write_re.search_all(text):
+			for value in _quoted_re.search_all(match.get_string(1)):
+				_add(table, value.get_string(1), "writes", "%s 的略過出口" % path)
 		for match in _channel_write_re.search_all(text):
 			for value in _dict_value_re.search_all(match.get_string(1)):
 				_add(table, value.get_string(1), "writes", "%s 的機關頻道" % path)
@@ -328,6 +336,8 @@ static func level_model(datas: Dictionary, layouts: Dictionary, scenes: Dictiona
 		var level_flags: Array = []
 		for flag: Variant in data.channel_done_flags.values() + data.channel_cleared_flags.values():
 			level_flags.append(str(flag))
+		for flag in data.skip_flags:
+			level_flags.append(flag)
 		var portals: Array = []
 		if not data.next_level.is_empty():
 			portals.append({"to": data.next_level, "requires": ""})
@@ -343,6 +353,14 @@ static func level_model(datas: Dictionary, layouts: Dictionary, scenes: Dictiona
 				scene_entries.append({"id": str((res as MechanismData).start_scene), "after": ""})
 			elif res is StoryItemData and (res as StoryItemData).acquire_flag != &"":
 				level_flags.append(str((res as StoryItemData).acquire_flag))
+			elif res is TrainingData:
+				var training := res as TrainingData
+				for flag in [training.done_flag, training.fail_flag]:
+					if flag != &"":
+						level_flags.append(str(flag))
+				for id in [training.done_scene, training.fail_scene]:
+					if id != &"":
+						scene_entries.append({"id": str(id), "after": ""})
 		levels[path] = {"scenes": scene_entries, "portals": portals, "flags": level_flags}
 	return {"levels": levels, "scenes": scenes, "always": always, "code_flags": code_flags}
 

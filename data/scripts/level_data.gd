@@ -46,6 +46,11 @@ extends Resource
 @export var channel_done_flags: Dictionary[StringName, StringName] = {}
 ## 機關頻道「解除」時寫入的劇情旗標，例如鎖場遭遇結束、路障打開。
 @export var channel_cleared_flags: Dictionary[StringName, StringName] = {}
+## 可略過的區域（序章）：暫停選單出現略過按鈕，確認後寫入 skip_flags 並從 skip_portal 這個出入口離開。
+@export var skip_portal: StringName = &""
+@export var skip_flags: PackedStringArray = PackedStringArray()
+@export var skip_label: String = ""
+@export var skip_note: String = ""
 ## 地圖上 & 字元由左至右對應的劇情場景 id。
 @export var story_triggers: PackedStringArray = PackedStringArray()
 ## 玩家確認才開始的電影入口，與 & 強制事件分開宣告，不改既有觸發語義。

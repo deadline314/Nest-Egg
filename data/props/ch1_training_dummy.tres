@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TrainingData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/training_data.gd" id="1_training_data"]
+
+[resource]
+script = ExtResource("1_training_data")
+id = &"ch1_training_dummy"
+kind = 2
+prompt = "{melee} 靠近橡膠靶，用近戰打中它。"
+requires_flag = &"ch1_prologue_trainer_reached"
+done_flag = &"ch1_prologue_melee_done"
+done_scene = &"ch1_p04_melee"
+reach = Vector2(26, 56)
+height = 52.0

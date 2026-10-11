@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="TrainingData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/training_data.gd" id="1_training_data"]
+
+[resource]
+script = ExtResource("1_training_data")
+id = &"ch1_training_trainer"
+kind = 3
+prompt = "{block} 面向訓練器，亮燈後擋住它的正面攻擊。"
+requires_flag = &"ch1_prologue_melee_done"
+done_flag = &"ch1_prologue_guard_done"
+done_scene = &"ch1_p04_guard"
+fail_scene = &"ch1_p04_fall"
+fail_flag = &"ch1_prologue_fall_shown"
+fail_repeat_text = "機器停了，可以重新開始。"
+reach = Vector2(52, 56)
+height = 52.0

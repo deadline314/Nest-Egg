@@ -42,6 +42,12 @@ RES = {
     'ⓡ': 'res://data/npcs/ch1_label_raincoat.tres',
     'ⓕ': 'res://data/npcs/ch1_label_fare.tres',
     'ⓥ': 'res://data/npcs/ch1_lamp_voice.tres',
+    # 序章（ST-16）：試貨區的老 K、住宅目錄與復原服務單；訓練站見 TRAINING
+    'ⓚ': 'res://data/npcs/ch1_old_k_prologue.tres',
+    'ⓑ': 'res://data/npcs/ch1_old_k_backyard.tres',
+    'ⓒ': 'res://data/npcs/ch1_old_k_counter.tres',
+    'Ⓒ': 'res://data/npcs/ch1_prologue_catalog.tres',
+    'Ⓢ': 'res://data/npcs/ch1_prologue_service_sheet.tres',
     'z': 'res://data/enemies/ch1_inspector.tres',  # 迷你頭目：收帳人·督察（傷會留著）；B 是引擎保留的頭目戰場字元
     # 道具
     'i': 'res://data/consumables/med_injector.tres',
@@ -99,6 +105,9 @@ PORTALS = {
     'M': dict(id='vault_prev', to=AREA('warehouse'), target='wh_vault', mode=1, prompt='', style='road', w=20, h=44),
     'L': dict(id='wh_upper', to=AREA('handoff'), target='handoff_arrival', mode=0, prompt='{interact} 上層通道：前往館外交接櫃', style='door',
               requires='ledger_disk_obtained', locked='資料盤還在保險箱，取出後再走上層通道。'),
+    # 序章：試完器材後從工作桌旁的門回店裡吃晚飯（略過序章也從這裡走）
+    '⇥': dict(id='prologue_exit', to=AREA('pawnshop'), target='pawn_front', mode=0, prompt='{interact} 回店裡吃晚飯', style='door', w=28, h=56,
+              requires='ch1_prologue_exit', locked='先試完器材，再跟老 K 收尾。'),
     # 復原館外的交接櫃
     '↳': dict(id='handoff_arrival', to=AREA('vault'), target='wh_upper', mode=0, prompt='{interact} 返回倉庫上層', style='road', w=24, h=44),
     '↦': dict(id='handoff_lounge', to=AREA('lounge'), target='lounge_handoff', mode=0, prompt='{interact} 進復原館', style='door', w=28, h=72,
@@ -111,6 +120,40 @@ PORTALS = {
     'Z': dict(id='stall_home', to=AREA('pawnshop_dawn'), target='pawn_front', mode=0, prompt='{interact} 回當舖', style='door', preview='ch1_c14_home',
               requires='ch1_supper_done', locked='先和阿梨說好去留與今晚的帳；不需要先知道地址。'),
 }
+
+# 序章訓練站（TrainingData）：字元 -> (檔名, 種類, 提示, 前置旗標, 完成旗標, 完成場景, 範圍, 高度, 額外欄位)
+# 種類：0 走到、1 子彈打靶、2 近戰打靶、3 訓練器（格擋）、4 衝刺穿線。提示都是一句完整的話，按鍵依玩家設定顯示。
+TRAINING = {
+    '①': ('ch1_training_workbench', 0, '走到工作桌前，老 K 會說明今天要試什麼。', '', 'ch1_prologue_bench_done', 'ch1_p02_talk', (20, 40), 8, {}),
+    '②': ('ch1_training_platform', 0, '{jump} 跳上搬貨台，工具就放在上面。', 'ch1_prologue_bench_done', 'ch1_prologue_jump_done', 'ch1_p02_tool', (24, 10), 8, {}),
+    '③': ('ch1_training_range', 0, '到後面的射擊線，老 K 會說明要試什麼。', 'ch1_prologue_jump_done', 'ch1_prologue_range_reached', 'ch1_p03_range', (20, 48), 8, {}),
+    '◎': ('ch1_training_target', 1, '{shoot} 瞄準低處的靶開一槍。', 'ch1_prologue_range_reached', 'ch1_prologue_shot_done', 'ch1_p03_hit', (22, 60), 56, {}),
+    '◉': ('ch1_training_target_high', 1, '{jump} 跳上平台再開槍，試試上面那個靶。', 'ch1_prologue_shot_done', 'ch1_prologue_high_shot_done', 'ch1_p03_high', (22, 60), 56, {}),
+    '④': ('ch1_training_area', 0, '到訓練器前面，老 K 會說明怎麼試。', 'ch1_prologue_shot_done', 'ch1_prologue_trainer_reached', 'ch1_p04_intro', (20, 48), 8, {}),
+    'Ⓓ': ('ch1_training_dummy', 2, '{melee} 靠近橡膠靶，用近戰打中它。', 'ch1_prologue_trainer_reached', 'ch1_prologue_melee_done', 'ch1_p04_melee', (26, 56), 52, {}),
+    'Ⓣ': ('ch1_training_trainer', 3, '{block} 面向訓練器，亮燈後擋住它的正面攻擊。', 'ch1_prologue_melee_done', 'ch1_prologue_guard_done', 'ch1_p04_guard', (52, 56), 52,
+          {'fail_scene': 'ch1_p04_fall', 'fail_flag': 'ch1_prologue_fall_shown', 'fail_repeat_text': '機器停了，可以重新開始。'}),
+    'Ⓛ': ('ch1_training_dash', 4, '{dash} 衝刺穿過訓練線，用走的不算。', 'ch1_prologue_guard_done', 'ch1_prologue_dash_done', 'ch1_p04_dash', (8, 56), 56, {}),
+}
+
+
+def write_training_files():
+    for glyph, (name, kind, prompt, requires, done, scene, reach, height, extra) in TRAINING.items():
+        w = TresWriter('TrainingData', 'res://data/scripts/training_data.gd')
+        body = [f'script = ExtResource("{w.script_id}")', f'id = &"{name}"', f'kind = {kind}', f'prompt = {json.dumps(prompt, ensure_ascii=False)}']
+        if requires:
+            body.append(f'requires_flag = &"{requires}"')
+        body += [f'done_flag = &"{done}"', f'done_scene = &"{scene}"']
+        for key in ('fail_scene', 'fail_flag'):
+            if key in extra:
+                body.append(f'{key} = &"{extra[key]}"')
+        if 'fail_repeat_text' in extra:
+            body.append(f'fail_repeat_text = {json.dumps(extra["fail_repeat_text"], ensure_ascii=False)}')
+        body += [f'reach = Vector2({reach[0]}, {reach[1]})', f'height = {height}.0']
+        with open(os.path.join(PROP_DIR, f'{name}.tres'), 'w', encoding='utf-8') as f:
+            f.write(w.render(body))
+        RES[glyph] = f'res://data/props/{name}.tres'
+
 
 # 鎖場遭遇用的動態字元（每個遭遇一個範圍字元、一個閘門字元）：希臘字母，不會和其他字元衝突。
 DYN_POOL = list('αβγδεζηθικλμνξοπρστυφχψω')
@@ -871,6 +914,47 @@ def build_lounge():
     return a
 
 
+def build_prologue():
+    """序章：雨港門口 → 店裡的工作桌與搬貨台 → 店後射擊線 → 訓練器 → 回櫃台聽服務說明、收尾，從門回店裡吃晚飯。
+    沒有敵人、沒有坑；訓練失誤只會停機，不會死亡。"""
+    a = Area('prologue', '巢蛋當舖・試貨', 120, 20, indoor=True)
+    a.ceiling(13, 118, 10)
+    a.block(13, 13, 10, 16)       # 店門（高 3 格的門洞）
+    a.block(42, 42, 10, 16)       # 店面與後面試貨區之間
+    a.stand(3, 'P')
+    a.prop('harbor_street__umbrella_stand', 9)
+    # 店面：目錄、工作桌、搬貨台
+    a.prop('pawnshop_front__tag_shelf', 19)
+    a.stand(20, 'Ⓒ')
+    a.prop('pawnshop_front__arms_workbench', 26)
+    a.stand(24, '①')
+    a.block(29, 32, 18, 19)       # 兩格高的搬貨台（真的要跳上去）
+    a.put(30, 17, '②')
+    a.stand(34, 'Ⓢ')
+    a.stand(37, 'ⓚ')
+    a.stand(38, 'ⓒ')
+    a.stand(40, '⇥')
+    # 後面試貨區：射擊線、低靶與平台上的高靶
+    a.stand(46, '③')
+    a.stand(60, '◎')
+    a.platform(63, 67, 15)
+    a.stand(68, 'ⓑ')
+    a.put(65, 14, '◉')
+    a.prop('pawnshop_front__leak_bucket', 53)
+    # 訓練器區：橡膠靶、訓練器、衝刺線
+    a.stand(72, '④')
+    a.stand(79, 'Ⓓ')
+    a.stand(90, 'Ⓣ')
+    a.stand(103, 'Ⓛ')
+    a.prop('pawnshop_front__crate_pile', 112)
+    for x in (24, 36, 56, 88, 106):
+        a.lamp(x, 11)
+    a.zone(0, 'rooftop')
+    a.zone(13, 'pawnshop_warm', 6)
+    a.features = {'landmark': '工作桌與搬貨台（x=24～32）：進門就看得到', 'reward': '沒有獎勵；序章只練操作'}
+    return a
+
+
 def build_handoff():
     """復原館外：倉庫上層通道出來的雨棚下，藍燈交接櫃收盤吐回執，旁邊就是復原館的門。"""
     a = Area('handoff', '復原館外交接櫃', 48, 20)
@@ -948,6 +1032,19 @@ NPCS = {
                                talks=[('ch1_dispatch_label_raincoat', 0)]),
     'ch1_label_fare': dict(name='船錢罐的標籤', speaker='label', rig='', loop='', facing=1, kind=1, prompt='{interact} 讀船錢罐的標籤',
                            talks=[('ch1_dispatch_label_fare', 0)]),
+    # 序章：老 K 在店後的櫃台邊等你試完；住宅目錄與服務單是自願閱讀的紙本。
+    'ch1_old_k_prologue': dict(name='老 K', speaker='old_k', rig='old_k', loop='wipe_hands', facing=1, prompt='{interact} 和老 K 說話',
+                               talks=[('ch1_dispatch_prologue_old_k', 0)], spawn_unless_flag='ch1_prologue_jump_done'),
+    # 老 K 的站位跟著練習走（旗標由訓練站當場寫入，淡入淡出換位）：拿到工具後到店後的白線外看試貨，
+    # P03～P04 的話是邊練邊說的氣泡；試完衝刺回櫃台說明服務單、收尾。
+    'ch1_old_k_backyard': dict(name='老 K', speaker='old_k', rig='old_k', loop='wipe_hands', facing=-1, prompt='{interact} 和老 K 說話',
+                               talks=[('ch1_p_k_backyard', 0)], spawn_requires_flag='ch1_prologue_jump_done', spawn_unless_flag='ch1_prologue_dash_done'),
+    'ch1_old_k_counter': dict(name='老 K', speaker='old_k', rig='old_k', loop='wipe_hands', facing=1, prompt='{interact} 和老 K 說話',
+                              talks=[('ch1_dispatch_prologue_old_k', 0)], spawn_requires_flag='ch1_prologue_dash_done'),
+    'ch1_prologue_catalog': dict(name='住宅目錄', speaker='note', rig='', loop='', facing=1, kind=1, prompt='{interact} 翻開住宅目錄',
+                                 talks=[('ch1_p02_catalog', 0)]),
+    'ch1_prologue_service_sheet': dict(name='復原服務單', speaker='note', rig='', loop='', facing=1, kind=1, prompt='{interact} 讀公共復原服務單',
+                                       talks=[('ch1_p05_sheet', 0)]),
     # 聽過電話亭的錄音後，才能在亭邊用耳機問燈那個聲音的事（可選支線）。
     'ch1_lamp_voice': dict(name='耳機通訊', speaker='lamp', rig='', loop='', facing=1, kind=1, prompt='{interact} 用耳機問燈錄音的事',
                            talks=[('ch1_dispatch_voice', 0)], spawn_requires_flag='ch1_recording_heard'),
@@ -1129,6 +1226,7 @@ THEMES = {
     'warehouse': ('concrete', ['warehouse'], 'hangar_wall', 0.0, 'sky_storm', ['dock_warehouse']),
     'vault': ('concrete', ['warehouse'], 'hangar_wall', 0.0, 'sky_storm', ['dock_warehouse']),
     'lounge': ('facility_floor', ['facility_wall'], 'facility_panel', 0.0, 'sky_storm', ['revival_lounge']),
+    'prologue': ('concrete', ['shopfront', 'brick_block'], 'brick', 0.0, 'sky_storm', ['pawnshop_front', 'pawnshop_kitchen', 'harbor_street']),
     'handoff': ('asphalt', ['facility_wall', 'shutter_block'], None, 0.22, 'sky_storm', ['clinic', 'revival_lounge']),
     'stall': ('asphalt', ['shopfront', 'shutter_block'], None, 0.22, 'sky_dawn', ['dawn_noodle_stall']),
 }
@@ -1172,7 +1270,7 @@ def write_theme(area, theme_key):
 # 每個區域的劇情接點：進場過場、機關頻道播放的場景（劇本在 tools/story/build_ch1_story.py 產生）
 # done／cleared：真實機關頻道啟動或解除時寫入的劇情旗標（任務目標與後續對話都讀它，不由場景代替世界事件）。
 STORY = {
-    'pawnshop': dict(intro='ch1_c01_open'),
+    'prologue': dict(intro='ch1_p01_door'),
     'street': dict(cleared={'arena_street_blockade': 'ch1_street_route_open'}),
     'warehouse': dict(channels={'watchdog_gate': 'ch1_c11_watchdog'},
                       done={'watchdog_gate': 'watchdog_defeated', 'flood_c': 'ch1_flood_gate_open'}),
@@ -1256,9 +1354,10 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
 
 def main():
     write_data_files()
+    write_training_files()
     os.makedirs(LEVEL_DIR, exist_ok=True)
     os.makedirs(THEME_DIR, exist_ok=True)
-    areas = [build_pawnshop(), build_rooftop(), build_street(), build_booth_alley(), *build_warehouse_pair(), build_handoff(), build_lounge(), build_stall()]
+    areas = [build_prologue(), build_pawnshop(), build_rooftop(), build_street(), build_booth_alley(), *build_warehouse_pair(), build_handoff(), build_lounge(), build_stall()]
     problems = []
     for a in areas:
         problems += a.check()
@@ -1281,6 +1380,9 @@ def main():
             extra["regions"] = a.regions
         a.grid.write(a.id, (LEVEL_DIR, f'ch1_{a.id}_map.json'), extra)
     by_id = {a.id: a for a in areas}
+    write_level(by_id['prologue'], display_name='巢蛋當舖（試貨）', skip_portal='&"prologue_exit"',
+                skip_flags='PackedStringArray("ch1_prologue_skipped", "ch1_prologue_exit")', skip_label='"略過序章"',
+                skip_note='"略過後直接回店裡吃晚飯，第一個目標照樣交給你；已經練過的動作會保留，沒練過的在暫停選單的操作說明裡。"')
     write_level(by_id['pawnshop'], show_card=True, display_name='當舖')
     write_level(by_id['rooftop'])
     write_level(by_id['street'])

@@ -2,7 +2,7 @@ extends Node
 ## Real primary Main route; semantic UI events, not human play or Story authority.
 const MainScene := preload("res://scenes/main.tscn")
 const Capture := preload("res://tools/viewport_capture.gd")
-const INTRO := &"ch1_c01_open"
+const INTRO := &"ch1_p01_door"
 const ROUNDS := 3
 const MAX_EVENTS := 128
 const RECLAIM_TEXTURE_SLACK_BYTES := 1048576

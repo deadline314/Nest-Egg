@@ -1,0 +1,84 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=24 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/props/ch1_training_workbench.tres" id="3_ch1_training_workbench"]
+[ext_resource type="Resource" path="res://data/props/ch1_training_platform.tres" id="4_ch1_training_platform"]
+[ext_resource type="Resource" path="res://data/props/ch1_training_range.tres" id="5_ch1_training_range"]
+[ext_resource type="Resource" path="res://data/props/ch1_training_area.tres" id="6_ch1_training_area"]
+[ext_resource type="Resource" path="res://data/npcs/ch1_prologue_catalog.tres" id="7_ch1_prologue_catalog"]
+[ext_resource type="Resource" path="res://data/props/ch1_training_dummy.tres" id="8_ch1_training_dummy"]
+[ext_resource type="Resource" path="res://data/props/ch1_training_dash.tres" id="9_ch1_training_dash"]
+[ext_resource type="Resource" path="res://data/npcs/ch1_prologue_service_sheet.tres" id="10_ch1_prologue_service_sheet"]
+[ext_resource type="Resource" path="res://data/props/ch1_training_trainer.tres" id="11_ch1_training_trainer"]
+[ext_resource type="Resource" path="res://data/npcs/ch1_old_k_backyard.tres" id="12_ch1_old_k_backyard"]
+[ext_resource type="Resource" path="res://data/npcs/ch1_old_k_counter.tres" id="13_ch1_old_k_counter"]
+[ext_resource type="Resource" path="res://data/npcs/ch1_old_k_prologue.tres" id="14_ch1_old_k_prologue"]
+[ext_resource type="Resource" path="res://data/props/ch1_training_target_high.tres" id="15_ch1_training_target_high"]
+[ext_resource type="Resource" path="res://data/props/ch1_training_target.tres" id="16_ch1_training_target"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="17_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/rooftop.tres" id="18_rooftop"]
+[ext_resource type="Resource" path="res://data/lighting/pawnshop_warm.tres" id="19_pawnshop_warm"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch1_prologue.tres" id="20_ch1_prologue"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"prologue_exit"
+target_level = "res://data/levels/ch1_pawnshop.tres"
+target_portal = &"pawn_front"
+requires_flag = &"ch1_prologue_exit"
+locked_text = "先試完器材，再跟老 K 收尾。"
+prompt = "{interact} 回店裡吃晚飯"
+width = 28
+height = 56
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("17_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("18_rooftop")
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("17_lighting_zone")
+start_tile = 13
+blend_tiles = 6
+profile = ExtResource("19_pawnshop_warm")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch1_prologue"
+display_name = "巢蛋當舖（試貨）"
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"⇥": SubResource("Resource_0"),
+"①": ExtResource("3_ch1_training_workbench"),
+"②": ExtResource("4_ch1_training_platform"),
+"③": ExtResource("5_ch1_training_range"),
+"④": ExtResource("6_ch1_training_area"),
+"Ⓒ": ExtResource("7_ch1_prologue_catalog"),
+"Ⓓ": ExtResource("8_ch1_training_dummy"),
+"Ⓛ": ExtResource("9_ch1_training_dash"),
+"Ⓢ": ExtResource("10_ch1_prologue_service_sheet"),
+"Ⓣ": ExtResource("11_ch1_training_trainer"),
+"ⓑ": ExtResource("12_ch1_old_k_backyard"),
+"ⓒ": ExtResource("13_ch1_old_k_counter"),
+"ⓚ": ExtResource("14_ch1_old_k_prologue"),
+"◉": ExtResource("15_ch1_training_target_high"),
+"◎": ExtResource("16_ch1_training_target")
+})
+hints = PackedStringArray()
+chapter = &"ch1_kasa"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("20_ch1_prologue")
+layout_path = "res://data/levels/ch1_prologue_map.json"
+lighting_zones = Array[ExtResource("17_lighting_zone")]([SubResource("Resource_1"), SubResource("Resource_2")])
+intro_scene = &"ch1_p01_door"
+story_triggers = PackedStringArray()
+skip_portal = &"prologue_exit"
+skip_flags = PackedStringArray("ch1_prologue_skipped", "ch1_prologue_exit")
+skip_label = "略過序章"
+skip_note = "略過後直接回店裡吃晚飯，第一個目標照樣交給你；已經練過的動作會保留，沒練過的在暫停選單的操作說明裡。"
+death_credit_cap = 250

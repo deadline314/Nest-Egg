@@ -43,6 +43,12 @@ tools/level/build_ch1.py  ──►  data/levels/ch1_*.tres、data/npcs/*.tres�
 - 新旗標都存在既有的本輪旗標裡（`story/flags`），沒有新增存檔欄位；執行期事實不存檔、讀檔後重新計算。
 - 正式交易收據沿用 NE-231 的帳本快照；物品沿用 ST-3 的 held／transferred。
 - 新增可存的世界旗標：`ch1_street_route_open`、`watchdog_defeated`、`ch1_flood_gate_open`、`ledger_disk_obtained`、`ch1_recording_heard`、`ch1_booth_restoration_done`。舊存檔缺這些值時退回預設 false。
+- 序章（ST-16）新增可存旗標：每項練習的完成（`ch1_prologue_bench_done`、`_jump_done`、`_range_reached`、`_shot_done`、`_high_shot_done`、`_trainer_reached`、`_melee_done`、`_guard_done`、`_dash_done`）、訓練器確實打停過（`ch1_prologue_fall_shown`，不是死亡）、聽過服務說明（`ch1_prologue_service_heard`）、完成（`ch1_prologue_done`）、整段略過（`ch1_prologue_skipped`）。出口 `ch1_prologue_exit` 是衍生旗標＝完成、略過或已吃過晚飯任一成立，所以已在第一章的舊存檔不會被倒塞回序章；讀檔（`RunSnapshot.apply`）後重算。
+- 續玩序章時，已完成的練習保持完成，老 K 的站位與訓練站的啟用都由旗標重算，不另存位置或計時。
+
+## 世界物件跟著旗標更新
+
+`GameState.flag_changed(flag, value)` 只在值真的改變時發出。人物依自己的 `spawn_requires_flag`／`spawn_unless_flag` 當場淡入淡出（例如序章老 K 跟著練習換位），不必等某段劇情播完；其他物件要跟旗標連動時接這個訊號，不要每影格輪詢。
 
 ## 與保存分支的對照
 

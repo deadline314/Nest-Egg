@@ -252,7 +252,11 @@ func _ready() -> void:
 
 	_pause_menu = PauseMenu.new()
 	_pause_menu.chapter = data.chapter
+	if data.skip_portal != &"":
+		_pause_menu.skip_label = data.skip_label
+		_pause_menu.skip_note = data.skip_note
 	add_child(_pause_menu)
+	_pause_menu.skip_requested.connect(_skip_area)
 	_pause_menu.retry_requested.connect(_request_retry)
 	_pause_menu.menu_requested.connect(_request_menu)
 
@@ -666,7 +670,7 @@ var _throwables_placed := 0
 
 static func _is_prop_resource(resource: Resource) -> bool:
 	return resource is BreakableData or resource is MechanismData or resource is CreditPileData \
-			or resource is ShopData or resource is NpcData or resource is PortalData or resource is ThrowableData
+			or resource is ShopData or resource is NpcData or resource is PortalData or resource is ThrowableData or resource is TrainingData
 
 
 ## 生成物在本區域裡固定的鍵（資源 id 加格座標）；地圖資料改版後對不上的鍵會被忽略。
@@ -704,6 +708,10 @@ func _create_prop(spawn: Dictionary) -> Node2D:
 		var npc := NpcActor.new()
 		npc.configure(resource as NpcData, cell)
 		return npc
+	if resource is TrainingData:
+		var station := TrainingStation.new()
+		station.configure(resource as TrainingData)
+		return station
 	if resource is ShopData:
 		var shop := resource as ShopData
 		for problem in shop.validate():
@@ -1061,6 +1069,19 @@ func _on_portal_used(portal: Portal) -> void:
 	GameState.pending_portal = portal.data.target_portal
 	GameState.carried_health = player.health.current if player.health != null else -1
 	area_requested.emit(target)
+
+
+## 確認略過這個區域（序章）：寫入略過旗標後從指定出口離開；已經練過的紀錄保留，沒練過的不補。
+func _skip_area() -> void:
+	var portal: Portal = _portals.get(data.skip_portal)
+	if portal == null or _finished:
+		push_error("[Level] %s 的略過出口「%s」不存在，略過取消" % [data.id, data.skip_portal])
+		return
+	Story.reset_active_presentation(&"route")
+	for flag in data.skip_flags:
+		GameState.set_flag(StringName(flag))
+	Story.outcomes.refresh_derived()
+	_on_portal_used(portal)
 
 
 ## 持久世界：把殺掉的敵人、撿走的東西、機關與受傷的頭目存進本輪狀態。

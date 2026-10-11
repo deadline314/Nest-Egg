@@ -3,7 +3,7 @@ extends TestSuite
 ## 第一章（傘）的地圖（ST-6）：八個區域都能解析、出入口互相對得上、從當舖走得到每一個區域、敵人名單與分佈、
 ## 道具只有該放的、新遊戲從當舖開始、依序走過每個出入口時玩家出現在對應的位置、世界在區域之間保留。
 
-const IDS: Array[String] = ["pawnshop", "rooftop", "street", "booth_alley", "warehouse", "vault", "handoff", "lounge", "stall", "pawnshop_dawn"]
+const IDS: Array[String] = ["prologue", "pawnshop", "rooftop", "street", "booth_alley", "warehouse", "vault", "handoff", "lounge", "stall", "pawnshop_dawn"]
 const ROSTER_PATH := "res://data/combat/chapter_rosters.json"
 const DESIGN_PATH := "res://data/levels/ch1_design.json"
 ## 遭遇總數與波次區的下限；NE-245 普通遭遇保留波次但不鎖場。
@@ -13,7 +13,7 @@ const MIN_WAVE_ZONES := 4
 const NEW_KIND_GAP := 12.0
 ## 劇情：動畫過場全章 ≤ 3 次（開場 ≤ 20 秒、診間 ≤ 45 秒、章末 ≤ 60 秒預估），其餘用氣泡、廣播與人物對話。
 const MAX_CUTSCENES := 3
-const CUTSCENE_BUDGETS := {"ch1_c01_open": 20.0, "ch1_c09_wake": 45.0, "ch1_c14_home": 60.0}
+const CUTSCENE_BUDGETS := {"ch1_p01_door": 26.0, "ch1_c09_wake": 45.0, "ch1_c14_home": 60.0}
 ## 同一區域相鄰兩個氣泡觸發點至少相隔這麼多格（約兩個螢幕寬），不讓地圖對話一個接一個。
 const MIN_BUBBLE_GAP := 18
 const FIRST_ENEMY_DISTANCE := 18
@@ -48,6 +48,8 @@ func run() -> void:
 	await _test_every_area_builds()
 	await _test_free_encounters_play_through()
 	await _test_walkthrough()
+	await _test_prologue()
+	await _test_prologue_skip()
 	await _test_state_across_areas()
 
 
@@ -168,9 +170,9 @@ func _test_portals() -> void:
 						found = true
 				check(found, "%s: portal %s arrives at an existing portal (%s in %s)" % [id, portal.id, portal.target_portal, target_id])
 	check(locked == 2, "two locked doors: the basement and the market road (%d)" % locked)
-	# 從當舖出發，沿著出入口走得到每一個區域。
-	var seen: Dictionary[String, bool] = {"pawnshop": true}
-	var queue: Array[String] = ["pawnshop"]
+	# 從新遊戲的序章出發，沿著出入口走得到每一個區域。
+	var seen: Dictionary[String, bool] = {"prologue": true}
+	var queue: Array[String] = ["prologue"]
 	while not queue.is_empty():
 		var current: String = queue.pop_front()
 		for target: String in edges[current]:
@@ -425,10 +427,10 @@ func _test_items() -> void:
 
 
 func _test_entry_point() -> void:
-	# 新遊戲從當舖開始（Main 的入口與第一個區域一致）。
+	# 新遊戲從序章開始（Main 的入口與第一個區域一致），序章的出口接到當舖。
 	var main_script := load("res://game/main.gd") as GDScript
 	# 起點由 data/release/campaign.json 決定（各累積版本共用），Main 的新遊戲讀它。
-	check(CampaignEdition.current().first_level == path_of("pawnshop") and main_script.source_code.contains("CampaignEdition.current().first_level"), "a new game starts at the pawnshop")
+	check(CampaignEdition.current().first_level == path_of("prologue") and main_script.source_code.contains("CampaignEdition.current().first_level"), "a new game starts at the prologue")
 
 
 # ---------------------------------------------------------------------------
@@ -466,7 +468,7 @@ func _test_story_hooks() -> void:
 				check(flags_set.has((resource as PortalData).requires_flag), "%s: some scene sets the flag that opens %s (%s)" % [id, (resource as PortalData).id, (resource as PortalData).requires_flag])
 	check(str(Story.death_scene_entry(&"ch1_kasa", &"flood", 1).get("scene", "")) == "ch1_c09_wake", "the first death plays the recovery room scene (before the respawn)")
 	check(Story.respawn_scene_ids(&"ch1_kasa", 0).is_empty(), "no death, no recovery scene")
-	check(_datas["pawnshop"].intro_scene == &"ch1_c01_open", "the opening cutscene starts the chapter")
+	check(_datas["prologue"].intro_scene == &"ch1_p01_door" and _datas["pawnshop"].intro_scene == &"", "the prologue opening starts a new game and the pawnshop no longer replays the old opening")
 
 
 ## 劇情編排（ST-12）：過場全章 3 次且各自在預算內、沒有鎖操作的舊式過場文字、氣泡觸發點不擠在一起、
@@ -583,7 +585,7 @@ func _test_prefetch() -> void:
 			props_ok = ResourceLoader.exists(path)
 			break
 	check(props_ok, "the listed prop textures exist")
-	var stage_paths := AssetPrefetch.scene_texture_paths(&"ch1_c01_open")
+	var stage_paths := AssetPrefetch.scene_texture_paths(&"ch1_p01_door")
 	check(stage_paths.size() > 0 and stage_paths.has("res://art/environment/scenes/pawnshop_front.webp"), "a scene lists its stage art (%d)" % stage_paths.size())
 	var sent := AssetPrefetch.warm_neighbors(_datas["pawnshop"])
 	check(sent > 0, "warming the neighbors of the pawnshop sends requests (%d)" % sent)
@@ -1133,3 +1135,152 @@ func _check_roster_enemy(enemy: EnemyData, allowed: Array, ident: String) -> voi
 	for projectile in [enemy.projectile] + enemy.extra_projectiles:
 		if projectile != null:
 			check(DefeatCodex.has_card(projectile.source_id), "%s has a matching attack guide: %s" % [ident, projectile.source_id])
+
+
+# ---------------------------------------------------------------------------
+# 序章（ST-16）：每項練習都要真的做到；訓練失誤只停機，不死亡、不計死亡、不碰初次建檔。
+# ---------------------------------------------------------------------------
+
+func _station(level: Level, id: StringName) -> TrainingStation:
+	for node in level.find_children("*", "TrainingStation", true, false):
+		if (node as TrainingStation).data.id == id:
+			return node
+	return null
+
+
+func _put_player(level: Level, station: TrainingStation, dx: float, dy := 0.0) -> void:
+	level.player.global_position = station.global_position + Vector2(dx, dy)
+	level.player.velocity = Vector2.ZERO
+	await physics_frames(3)
+
+
+func _npc_present(level: Level, id: StringName) -> bool:
+	for node in level.get_tree().get_nodes_in_group(NpcActor.GROUP):
+		if (node as NpcActor).data.id == id:
+			return (node as NpcActor).is_present()
+	return false
+
+
+func _test_prologue() -> void:
+	Story.auto_skip = true
+	var level := await start_level(_datas["prologue"])
+	await physics_frames(10)
+	check(GameState.deaths == 0 and not GameState.has_flag(&"ch1_prologue_exit"), "a new game starts the prologue with no death and no exit")
+	var bench := _station(level, &"ch1_training_workbench")
+	var platform := _station(level, &"ch1_training_platform")
+	var target := _station(level, &"ch1_training_target")
+	var dummy := _station(level, &"ch1_training_dummy")
+	var trainer := _station(level, &"ch1_training_trainer")
+	var dash := _station(level, &"ch1_training_dash")
+	check(bench != null and platform != null and target != null and dummy != null and trainer != null and dash != null, "the prologue has the six training stations")
+	if trainer == null or dash == null:
+		await end_level(level)
+		return
+	check(bench.is_active() and not platform.is_active() and not target.is_active(), "only the first practice is active at the start")
+	await _put_player(level, bench, 0)
+	check(GameState.has_flag(&"ch1_prologue_bench_done"), "walking to the workbench completes the movement practice")
+	await physics_frames(20)
+	await _put_player(level, platform, 0, 40)
+	check(not GameState.has_flag(&"ch1_prologue_jump_done"), "standing under the cargo platform does not count as jumping onto it")
+	await _put_player(level, platform, 0)
+	check(GameState.has_flag(&"ch1_prologue_jump_done"), "standing on the cargo platform completes the jump practice")
+	check(_npc_present(level, &"ch1_old_k_backyard") and not _npc_present(level, &"ch1_old_k_prologue") and not _npc_present(level, &"ch1_old_k_counter"), "Old K moves to the backyard the moment the tool is down, without waiting for a scene")
+	GameState.set_flag(&"ch1_prologue_range_reached")
+	await physics_frames(20)
+	var melee_hit := DamageInfo.create(1, Combat.Team.PLAYER, &"test_melee")
+	var bullet := DamageInfo.create(1, Combat.Team.PLAYER, &"test_bullet")
+	bullet.is_projectile = true
+	target._hurtbox.receive(melee_hit)
+	check(not GameState.has_flag(&"ch1_prologue_shot_done"), "a melee hit does not count as a shot on the target")
+	target._hurtbox.receive(bullet)
+	check(GameState.has_flag(&"ch1_prologue_shot_done"), "a real bullet hit on the low target completes the shooting practice")
+	GameState.set_flag(&"ch1_prologue_trainer_reached")
+	await physics_frames(20)
+	var second_bullet := DamageInfo.create(1, Combat.Team.PLAYER, &"test_bullet")
+	second_bullet.is_projectile = true
+	dummy._hurtbox.receive(second_bullet)
+	check(not GameState.has_flag(&"ch1_prologue_melee_done"), "shooting the rubber dummy does not count as melee")
+	dummy._hurtbox.receive(DamageInfo.create(1, Combat.Team.PLAYER, &"test_melee"))
+	check(GameState.has_flag(&"ch1_prologue_melee_done"), "a melee hit on the rubber dummy completes the melee practice")
+	await physics_frames(20)
+	# 訓練器：沒擋就停機（生命補回、不死亡）；面向它舉盾擋下才算完成。
+	var deaths := GameState.deaths
+	await _put_player(level, trainer, -30)
+	var health_before := level.player.health.current
+	for i in 240:
+		if GameState.has_flag(&"ch1_prologue_fall_shown"):
+			break
+		await physics_frames(1)
+	check(GameState.has_flag(&"ch1_prologue_fall_shown") and not GameState.has_flag(&"ch1_prologue_guard_done"), "an unblocked trainer strike stops the machine and records the practice fall")
+	check(level.player.health.current == health_before and not level.player.is_dead() and GameState.deaths == deaths and not GameState.has_flag(&"ch1_first_death_done"), "a practice fall keeps health, adds no death and never touches the first registration")
+	level.player.global_position = trainer.global_position + Vector2(-30, 0)
+	level.player.aim_dir = Vector2.RIGHT
+	for i in 400:
+		level.player.is_blocking = true
+		level.player.aim_dir = Vector2.RIGHT
+		if GameState.has_flag(&"ch1_prologue_guard_done"):
+			break
+		await physics_frames(1)
+	level.player.is_blocking = false
+	check(GameState.has_flag(&"ch1_prologue_guard_done"), "facing the trainer and blocking its strike completes the guard practice")
+	await physics_frames(20)
+	await _put_player(level, dash, -20)
+	await _put_player(level, dash, 20)
+	check(not GameState.has_flag(&"ch1_prologue_dash_done"), "walking across the dash line does not count")
+	await _put_player(level, dash, -20)
+	level.player.state = Player.State.DASH
+	level.player.global_position = dash.global_position + Vector2(20, 0)
+	await physics_frames(2)
+	level.player.state = Player.State.NORMAL
+	check(GameState.has_flag(&"ch1_prologue_dash_done"), "dashing across the line completes the dash practice")
+	check(_npc_present(level, &"ch1_old_k_counter") and not _npc_present(level, &"ch1_old_k_backyard"), "after the dash Old K is back at the counter for the service sheet")
+	# 老 K：先說明復原服務（剛才真的被打停，接「機器停下來」那兩句），再收尾交到第一章的第一個目標。
+	check(Story.resolve_dispatch(&"ch1_dispatch_prologue_old_k") == &"ch1_p05_service_fall", "Old K explains the service with the practice-fall lines after a real fall")
+	Story.play(&"ch1_dispatch_prologue_old_k")
+	await frames(6)
+	check(GameState.has_flag(&"ch1_prologue_service_heard"), "the service explanation completes")
+	var exit: Portal = level._portals.get(&"prologue_exit")
+	check(exit != null and not exit.try_use(), "the exit stays shut until Old K wraps up")
+	Story.play(&"ch1_dispatch_prologue_old_k")
+	await frames(6)
+	check(GameState.has_flag(&"ch1_prologue_done") and GameState.has_flag(&"ch1_prologue_exit"), "the wrap-up call finishes the prologue")
+	var catalog := QuestCatalog.new()
+	catalog.load_story_sources()
+	var first := catalog.list_for("ch1_kasa", "main", false, GameState.world_flags)
+	check(not first.is_empty() and first[0]["id"] == "ch1_meet_egret", "the first chapter objective is ready the moment the prologue ends (%s)" % [first.map(func(q: Dictionary) -> String: return q["id"])])
+	var requested := [""]
+	level.area_requested.connect(func(path: String) -> void: requested[0] = path)
+	check(exit.try_use() and requested[0] == path_of("pawnshop"), "the prologue exit leads into the pawnshop for dinner")
+	check(GameState.deaths == 0, "finishing the prologue never counted a death")
+	await end_level(level)
+
+
+func _test_prologue_skip() -> void:
+	Story.auto_skip = true
+	var level := await start_level(_datas["prologue"])
+	await physics_frames(10)
+	var requested := [""]
+	level.area_requested.connect(func(path: String) -> void: requested[0] = path)
+	var menu := level._pause_menu
+	check(menu.skip_label == "略過序章" and not menu.skip_note.is_empty(), "the pause menu offers a confirmed prologue skip")
+	# 短按：開確認畫面，預設焦點在「繼續練習」；取消完全不改進度。
+	menu.open()
+	menu._skip_button.button_down.emit()
+	menu._skip_button.button_up.emit()
+	menu._skip_button.pressed.emit()
+	check(is_instance_valid(menu._skip_confirm) and menu.get_viewport().gui_get_focus_owner() != null and menu.get_viewport().gui_get_focus_owner().text == "繼續練習", "a short press asks first with focus on keep practicing")
+	menu._cancel_skip()
+	check(not GameState.has_flag(&"ch1_prologue_skipped") and requested[0] == "", "cancelling the skip changes nothing")
+	# 長按：滿一秒直接略過，不再跳確認。
+	menu._skip_button.button_down.emit()
+	menu._process(PauseMenu.SKIP_HOLD * 0.5)
+	check(not GameState.has_flag(&"ch1_prologue_skipped") and menu._skip_button.text.ends_with("%"), "holding shows progress before it skips")
+	menu._process(PauseMenu.SKIP_HOLD)
+	await physics_frames(2)
+	check(GameState.has_flag(&"ch1_prologue_skipped") and GameState.has_flag(&"ch1_prologue_exit") and not GameState.has_flag(&"ch1_prologue_shot_done"), "skipping records the skip and the exit without faking practice")
+	check(requested[0] == path_of("pawnshop"), "skipping leads to the same dinner entrance")
+	var catalog := QuestCatalog.new()
+	catalog.load_story_sources()
+	var first := catalog.list_for("ch1_kasa", "main", false, GameState.world_flags)
+	check(not first.is_empty() and first[0]["id"] == "ch1_meet_egret", "skipping still hands over the first chapter objective")
+	await end_level(level)

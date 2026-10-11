@@ -6,7 +6,7 @@ extends TestSuite
 
 const IDS: Array[String] = ["pawnshop", "rooftop", "street", "booth_alley", "warehouse", "vault", "handoff", "lounge", "stall"]
 const COMBAT_AREAS: Array[String] = ["street", "warehouse", "vault"]
-const CUTSCENES: Array[String] = ["ch1_c01_open", "ch1_c09_wake", "ch1_c14_home"]
+const CUTSCENES: Array[String] = ["ch1_p01_door", "ch1_c09_wake", "ch1_c14_home"]
 ## 已知超過每區 8 分鐘的區域（目前沒有；倉庫已在 ST-14 拆成兩張地圖）。要暫時放行時列在這裡，修好之後從清單刪掉。
 const KNOWN_LONG_AREAS: Array[String] = []
 const MAX_AREA_MINUTES := 8.0
@@ -83,3 +83,17 @@ func _test_real_chapter() -> void:
 	check(rate >= PacingEstimate.TARGET_ENCOUNTERS_PER_MINUTE.x and rate <= PacingEstimate.TARGET_ENCOUNTERS_PER_MINUTE.y, "%.2f encounters a minute is inside the %.1f–%.1f target" % [rate, PacingEstimate.TARGET_ENCOUNTERS_PER_MINUTE.x, PacingEstimate.TARGET_ENCOUNTERS_PER_MINUTE.y])
 	check(float(chapter["cutscene_share"]) <= 0.08, "cutscenes take at most 8%% of the time (%.1f%%)" % (float(chapter["cutscene_share"]) * 100.0))
 	check(int(chapter["encounters"]) >= 22 and int(chapter["encounters"]) <= 26, "the design lists 22–26 encounters (%d)" % int(chapter["encounters"]))
+	_test_prologue(lines)
+
+
+## 序章（ST-16）：首次 3～6 分鐘，鎖操作的電影與對話不超過一半；每項練習都算到可玩時間。
+func _test_prologue(lines: Callable) -> void:
+	var data := load("res://data/levels/ch1_prologue.tres") as LevelData
+	var entry := PacingEstimate.area(data, LevelBuilder.parse(data), lines)
+	check(float(entry["practice"]) >= PacingEstimate.PRACTICE_SECONDS * 5.0, "the prologue counts its five verb practices as play (%.0f s)" % float(entry["practice"]))
+	var opening := PacingEstimate.along_path(entry, PacingEstimate.PROLOGUE_PATH, Story.pacing_info)
+	for id in PacingEstimate.PROLOGUE_PATH:
+		check(Story.has_scene(id), "the prologue path scene exists: %s" % id)
+	var minutes: float = opening["first_time_minutes"]
+	check(minutes >= PacingEstimate.PROLOGUE_MINUTES.x and minutes <= PacingEstimate.PROLOGUE_MINUTES.y, "the prologue is estimated at %.1f minutes, inside %.0f–%.0f" % [minutes, PacingEstimate.PROLOGUE_MINUTES.x, PacingEstimate.PROLOGUE_MINUTES.y])
+	check(float(opening["locked_share"]) <= PacingEstimate.PROLOGUE_MAX_LOCKED_SHARE, "cutscenes and locked dialogue stay under half of the prologue (%.1f%%)" % (float(opening["locked_share"]) * 100.0))

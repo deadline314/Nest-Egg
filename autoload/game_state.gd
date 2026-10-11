@@ -1,5 +1,7 @@
 extends Node
 signal run_save_requested
+## 本輪旗標的值真的改變時發出（同值重寫不發）；世界物件依它即時更新出現條件，不必等劇情播完。
+signal flag_changed(flag: StringName, value: Variant)
 ## 一輪遊戲的狀態：難度、檢查點、殘機與統計。
 ## 關卡重載時由此還原進度，關卡本身保持無狀態。
 
@@ -328,7 +330,11 @@ func set_flag(flag: StringName, value: Variant = true, request_save := true) -> 
 	if not _flag_value_valid(value):
 		push_warning("[GameState] flags/%s 無效，保留預設值" % flag)
 		return
+	var old: Variant = get_flag(flag)
+	var changed: bool = typeof(old) != typeof(value) or old != value
 	world_flags[String(flag)] = value
+	if changed:
+		flag_changed.emit(flag, value)
 	if request_save:
 		request_story_save()
 

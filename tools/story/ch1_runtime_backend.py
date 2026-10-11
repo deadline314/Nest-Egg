@@ -24,13 +24,16 @@ sys.path.insert(0, str(ROOT / "tools/story"))
 
 import build_ch1_story as legacy  # noqa: E402
 from ch1_closure import build_source, validate_source  # noqa: E402
+import prologue_source  # noqa: E402
 
 OUT = ROOT / "data/story/ch1_kasa.json"
 BUBBLE_MAX_CHARS = 30
 BUBBLE_MAX_LINES = 4
 DIALOGUE_MIN_LINES = 3
-# ST-16 的序章接手之前，舊開場仍是新遊戲的入口；序章落地時由 ST-16 移除。
-SUPERSEDED_LEGACY = {"ch1_t_ali_2", "ch1_t_ali_3"}
+# 舊稿裡被正式稿取代的場景；舊開場（試槍與世界說明）由 ST-16 的序章取代，不再出現在遊戲裡。
+SUPERSEDED_LEGACY = {"ch1_t_ali_2", "ch1_t_ali_3", "ch1_c01_open"}
+# 任務的公開時機：第一章的第一個目標在序章結束（或略過）後才出現，序章期間只看得到序章的目標。
+EXTRA_VISIBLE = {"ch1_meet_egret": ["ch1_prologue_exit"]}
 
 # 人物／物件入口的階段順序：越前面越優先（劇本的主線節點先於回訪）。
 DISPATCH_PHASES = {
@@ -363,8 +366,9 @@ def _quests(source):
             steps.append({"title": step.title, "complete_flag": step.complete_flag, "location": {"level": LEVEL % level, "cell": [x, y]}})
         quest = {"id": q.id, "kind": q.kind, "title": q.title, "background": q.background, "reward": q.reward,
                  "complete_flag": q.complete_flag, "steps": steps}
-        if q.visible_flags:
-            quest["visible_flags"] = list(q.visible_flags)
+        visible = list(q.visible_flags) + EXTRA_VISIBLE.get(q.id, [])
+        if visible:
+            quest["visible_flags"] = visible
         if q.requires_flags:
             quest["requires_flags"] = list(q.requires_flags)
             quest["blocked_reason"] = q.blocked_reason
@@ -413,22 +417,28 @@ def compile_document():
     for ident, segment in source.segments.items():
         scenes[ident] = _compile_segment(segment, source, ident in targets, base_scenes.get(ident))
     scenes[BOOTH_RECORDING] = copy.deepcopy(BOOTH_RECORDING_SCENE)
+    prologue_scenes, prologue_quests, prologue_defaults, prologue_derived = prologue_source.build()
+    scenes.update(prologue_scenes)
     _first_clinic(scenes)
     _attach_topics(source, scenes)
     scenes.update(_dispatchers(source, scenes))
     speakers = copy.deepcopy(legacy.SPEAKERS)
     speakers.update(copy.deepcopy(source.speakers))
+    speakers.update(copy.deepcopy(prologue_source.SPEAKERS))
     derived = copy.deepcopy(source.derived_flags)
     derived.update(copy.deepcopy(EXTRA_DERIVED))
+    derived.update(prologue_derived)
+    defaults = _defaults(source, scenes)
+    defaults.update({k: v for k, v in prologue_defaults.items() if k not in defaults})
     return {
         "chapter": {**legacy.CHAPTER, **CHAPTER_EXTRA}, "speakers": speakers, "death_sequences": copy.deepcopy(DEATH_SEQUENCES),
         "respawn_scenes": legacy.RESPAWN, "death_scenes": legacy.DEATH_SCENES,
-        "flag_defaults": _defaults(source, scenes),
+        "flag_defaults": defaults,
         "transactions": {k: {"resource": v["resource"]} for k, v in source.transactions.items() if v["caller"] == "chapter1"},
         "derived_flags": derived, "runtime_facts": dict(RUNTIME_FACTS),
         "event_scenes": [{"event": "checkpoint", "scene": BOOTH_RECORDING}],
         "restoration_flag": "ch1_booth_restoration_done",
-        "quests": _quests(source), "scenes": scenes,
+        "quests": prologue_quests + _quests(source), "scenes": scenes,
     }
 
 

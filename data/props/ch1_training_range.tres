@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TrainingData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/training_data.gd" id="1_training_data"]
+
+[resource]
+script = ExtResource("1_training_data")
+id = &"ch1_training_range"
+kind = 0
+prompt = "到後面的射擊線，老 K 會說明要試什麼。"
+requires_flag = &"ch1_prologue_jump_done"
+done_flag = &"ch1_prologue_range_reached"
+done_scene = &"ch1_p03_range"
+reach = Vector2(20, 48)
+height = 8.0

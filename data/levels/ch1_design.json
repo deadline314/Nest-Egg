@@ -1,5 +1,14 @@
 {
  "areas": {
+  "prologue": {
+   "combat": false,
+   "group": "prologue",
+   "features": {
+    "landmark": "工作桌與搬貨台（x=24～32）：進門就看得到",
+    "reward": "沒有獎勵；序章只練操作"
+   },
+   "encounters": []
+  },
   "pawnshop": {
    "combat": false,
    "group": "pawnshop",

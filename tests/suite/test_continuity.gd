@@ -156,7 +156,7 @@ func _test_real_reachability() -> void:
 		if not (table[flag]["writes"] as Array).is_empty():
 			code_flags.append(flag)  # 只掃檔案（沒有場景）：寫入出處都是程式的 set_flag
 	var model := ContinuityAudit.level_model(datas, layouts, view["scenes"], always, code_flags)
-	var starts := ["res://data/levels/ch1_pawnshop.tres", "res://data/levels/level_01.tres"]
+	var starts := ["res://data/levels/ch1_prologue.tres", "res://data/levels/level_01.tres"]
 	# 程式設定的旗標先排除（讓劇情旗標只能由場景設定，才看得出劇情本身的死結）
 	var strict := model.duplicate(true)
 	var story_flags: Array = []

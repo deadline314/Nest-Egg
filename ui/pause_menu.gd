@@ -4,12 +4,21 @@ extends CanvasLayer
 
 signal retry_requested
 signal menu_requested
+## 確認略過目前這一段（序章）；只有區域資料提供略過出口時才會出現。
+signal skip_requested
+
+## 長按略過按鈕多久直接略過（秒）；短按改開確認畫面（XAG107：長按要有單次確認的替代方式）。
+const SKIP_HOLD := 1.0
 
 ## 死亡或過關畫面出現時由關卡關閉，避免同時開兩個選單。
 var allowed := true
 
 ## 目前章節（Level 建立時指定），暫停畫面右側顯示章節名。
 var chapter: StringName = &"chapter_01"
+## 略過按鈕的文字（例如「略過序章」）；空白＝這個區域不能略過。
+var skip_label := ""
+## 確認畫面上的一句說明：略過後去哪裡、保留什麼。
+var skip_note := ""
 
 var _root: Control
 var _menu_panel: Control
@@ -21,6 +30,10 @@ var _navigation: QuestMapScreen
 var _settings: SettingsScreen
 var _quest_button: Button
 var _map_button: Button
+var _skip_confirm: Control
+var _skip_button: Button
+var _skip_held := -1.0
+var _skip_hold_done := false
 
 
 func _ready() -> void:
@@ -44,6 +57,12 @@ func _ready() -> void:
 	menu.body.add_child(_quest_button)
 	menu.body.add_child(_map_button)
 	menu.body.add_child(UiKit.button("設定", _open_settings, "音量、按鍵、顯示"))
+	if not skip_label.is_empty():
+		_skip_button = UiKit.button(skip_label, _on_skip_pressed, "長按直接%s；短按會再確認一次。" % skip_label)
+		_skip_button.button_down.connect(_on_skip_down)
+		_skip_button.button_up.connect(_reset_skip_hold)
+		_skip_button.focus_exited.connect(_reset_skip_hold)
+		menu.body.add_child(_skip_button)
 	menu.body.add_child(UiKit.button("從檢查點重來", _on_retry, "回到最後的檢查點，武器保留"))
 	menu.body.add_child(UiKit.button("回主選單", _on_menu, "返回主選單；會嘗試保存進度"))
 
@@ -80,6 +99,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		_open_navigation("quests" if event.is_action_pressed(&"quests") else "region")
 		get_viewport().set_input_as_handled()
 		return
+	if is_instance_valid(_skip_confirm) and (event.is_action_pressed(&"pause") or event.is_action_pressed(&"ui_cancel")):
+		_cancel_skip()
+		get_viewport().set_input_as_handled()
+		return
 	if event.is_action_pressed(&"pause") or (_root.visible and event.is_action_pressed(&"ui_cancel")):
 		if _root.visible:
 			close()
@@ -102,6 +125,11 @@ func open() -> void:
 
 
 func close() -> void:
+	_reset_skip_hold()
+	if is_instance_valid(_skip_confirm):
+		_skip_confirm.queue_free()
+		_skip_confirm = null
+		_info_panel.visible = true
 	if is_instance_valid(_navigation):
 		_navigation.queue_free()
 		_navigation = null
@@ -150,6 +178,71 @@ func _on_settings_closed() -> void:
 	_settings = null
 	if _root.visible:
 		_refresh_info()
+
+
+## 略過前先確認：預設焦點在「繼續練習」，取消就回到原本的選單，完全不改進度。
+func _ask_skip() -> void:
+	if is_instance_valid(_skip_confirm):
+		return
+	var panel := UiPanel.new(skip_label, Palette.NEON_YELLOW)
+	panel.position = Vector2(250, 48)
+	panel.custom_minimum_size = Vector2(354, 0)
+	var note := UiKit.label(skip_note, UiKit.FS_BODY, Palette.UI_TEXT)
+	note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	note.custom_minimum_size = Vector2(330, 0)
+	panel.body.add_child(note)
+	var keep := UiKit.button("繼續練習", _cancel_skip, "回到暫停選單，不改任何進度")
+	panel.body.add_child(keep)
+	panel.body.add_child(UiKit.button("確認" + skip_label, _confirm_skip, "直接回店裡吃晚飯，第一章的目標照樣交給你"))
+	_root.add_child(panel)
+	_skip_confirm = panel
+	_info_panel.visible = false
+	keep.grab_focus()
+
+
+func _on_skip_down() -> void:
+	_skip_held = 0.0
+	_skip_hold_done = false
+
+
+func _reset_skip_hold() -> void:
+	_skip_held = -1.0
+	if is_instance_valid(_skip_button):
+		_skip_button.text = skip_label
+
+
+## 長按時按鈕上顯示進度；滿了就直接略過，不再跳確認。
+func _process(delta: float) -> void:
+	if _skip_held < 0.0 or not _root.visible:
+		return
+	_skip_held += delta
+	if _skip_held >= SKIP_HOLD:
+		_skip_hold_done = true
+		_reset_skip_hold()
+		_confirm_skip()
+		return
+	_skip_button.text = "%s…%d%%" % [skip_label, int(_skip_held / SKIP_HOLD * 100.0)]
+
+
+func _on_skip_pressed() -> void:
+	if _skip_hold_done:
+		_skip_hold_done = false
+		return
+	_ask_skip()
+
+
+func _cancel_skip() -> void:
+	if is_instance_valid(_skip_confirm):
+		_skip_confirm.queue_free()
+	_skip_confirm = null
+	_info_panel.visible = true
+	_resume_button.grab_focus()
+
+
+func _confirm_skip() -> void:
+	_cancel_skip()
+	close()
+	skip_requested.emit()
 
 
 func _on_retry() -> void:

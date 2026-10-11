@@ -88,6 +88,5 @@ show_chapter_card = true
 environment = ExtResource("16_ch1_pawnshop")
 layout_path = "res://data/levels/ch1_pawnshop_map.json"
 lighting_zones = Array[ExtResource("13_lighting_zone")]([SubResource("Resource_3"), SubResource("Resource_4")])
-intro_scene = &"ch1_c01_open"
 story_triggers = PackedStringArray("ch1_b_dinner")
 death_credit_cap = 250

@@ -96,10 +96,22 @@ func _ready() -> void:
 	_present = data.should_spawn()
 	_apply_presence(false)
 	Story.scene_finished.connect(_on_story_scene_finished)
+	if data.spawn_requires_flag != &"" or data.spawn_unless_flag != &"":
+		GameState.flag_changed.connect(_on_flag_changed)
+
+
+## 出現條件的旗標由世界事件直接寫入時（例如序章訓練站）當場換位，不等劇情播完。
+func _on_flag_changed(flag: StringName, _value: Variant) -> void:
+	if flag == data.spawn_requires_flag or flag == data.spawn_unless_flag:
+		_refresh_presence()
 
 
 ## 劇情進度改變出現條件時淡入或淡出（例如阿梨收店）；不在地圖上時不能互動、不擋提示。
 func _on_story_scene_finished(_scene: StringName) -> void:
+	_refresh_presence()
+
+
+func _refresh_presence() -> void:
 	var present := data.should_spawn()
 	if present != _present:
 		_present = present

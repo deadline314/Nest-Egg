@@ -177,7 +177,8 @@ func refresh_derived() -> void:
 	for name: String in derived_flags:
 		var value := StoryRules.holds(derived_flags[name])
 		if GameState.get_flag(StringName(name)) != value:
-			GameState.set_flag(StringName(name), value)
+			# 衍生值可由其他旗標重算：不另外請求保存，觸發它的結果或讀檔流程自己會保存。
+			GameState.set_flag(StringName(name), value, false)
 
 
 func scenes_for_event(event: StringName) -> Array[StringName]:

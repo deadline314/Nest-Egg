@@ -192,6 +192,8 @@ static func apply(data: Dictionary, notify := true) -> void:
 	GameState.difficulty = load(data["difficulty"]) as DifficultyData
 	GameState._carried_loadout = {}
 	_apply_components_silent(data)
+	# 衍生旗標依讀入的旗標與帳務重算（舊存檔缺少新加的衍生旗標時補上，例如走過晚飯就算走過序章）。
+	Story.outcomes.refresh_derived()
 	if notify:
 		publish_restored()
 

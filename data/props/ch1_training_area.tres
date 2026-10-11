@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TrainingData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/training_data.gd" id="1_training_data"]
+
+[resource]
+script = ExtResource("1_training_data")
+id = &"ch1_training_area"
+kind = 0
+prompt = "到訓練器前面，老 K 會說明怎麼試。"
+requires_flag = &"ch1_prologue_shot_done"
+done_flag = &"ch1_prologue_trainer_reached"
+done_scene = &"ch1_p04_intro"
+reach = Vector2(20, 48)
+height = 8.0

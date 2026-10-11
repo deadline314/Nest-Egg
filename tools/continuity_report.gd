@@ -36,7 +36,7 @@ func _ready() -> void:
 				if typeof(entry) == TYPE_DICTIONARY:
 					always.append(str((entry as Dictionary).get("scene", "")))
 	var model := ContinuityAudit.level_model(datas, layouts, view["scenes"], always, [])
-	var reach := ContinuityAudit.unreachable_problems(model, ["res://data/levels/ch1_pawnshop.tres", "res://data/levels/level_01.tres"])
+	var reach := ContinuityAudit.unreachable_problems(model, ["res://data/levels/ch1_prologue.tres", "res://data/levels/level_01.tres"])
 	print("== 不可達內容 ==")
 	for message in reach["errors"] as PackedStringArray:
 		print("錯誤：" + message)

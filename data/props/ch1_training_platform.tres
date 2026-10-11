@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TrainingData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/training_data.gd" id="1_training_data"]
+
+[resource]
+script = ExtResource("1_training_data")
+id = &"ch1_training_platform"
+kind = 0
+prompt = "{jump} 跳上搬貨台，工具就放在上面。"
+requires_flag = &"ch1_prologue_bench_done"
+done_flag = &"ch1_prologue_jump_done"
+done_scene = &"ch1_p02_tool"
+reach = Vector2(24, 10)
+height = 8.0

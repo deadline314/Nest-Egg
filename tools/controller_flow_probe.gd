@@ -100,7 +100,7 @@ func _walk_flow() -> void:
 		_check(false, "difficulty confirmation enters a playable level")
 		return
 	var level := _game._screen as Level
-	_check(level.data.resource_path == "res://data/levels/ch1_pawnshop.tres", "real first-area routing is preserved")
+	_check(level.data.resource_path == "res://data/levels/ch1_prologue.tres", "real first-area routing is preserved")
 	_check(is_instance_valid(level.player) and not level.player.is_dead(), "new game exposes a live player")
 	await _button(JOY_BUTTON_BACK)
 	_check(level._inventory.is_open() and _host.get_tree().paused, "Back opens the real inventory")

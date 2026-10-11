@@ -22,6 +22,14 @@ const SWITCH_SECONDS := 20.0
 const FLOOD_PIT_SECONDS := 45.0
 ## 商店與典當的停留（一次）。
 const SHOP_SECONDS := 60.0
+## 序章的一項操作練習（看提示、試做、失手重來一次）。
+const PRACTICE_SECONDS := 10.0
+## 序章目標（ST-16、PROLOGUE.md）：首次 3～6 分鐘，鎖操作的過場與對話不超過一半。
+const PROLOGUE_MINUTES := Vector2(3.0, 6.0)
+const PROLOGUE_MAX_LOCKED_SHARE := 0.5
+## 序章完整路線上依序播出的場景（含一次訓練器失手；自願閱讀與重看不算）。
+const PROLOGUE_PATH: Array[StringName] = [&"ch1_p01_door", &"ch1_p02_talk", &"ch1_p02_tool", &"ch1_p03_range", &"ch1_p03_hit",
+	&"ch1_p04_intro", &"ch1_p04_melee", &"ch1_p04_fall", &"ch1_p04_guard", &"ch1_p04_dash", &"ch1_p05_service_fall", &"ch1_p06_call"]
 ## 第一次玩：學操作、迷路（比熟練者慢的倍率），加上預期死亡次數與每次重來的秒數（走回去、重打）。
 const FIRST_TIME_FACTOR := 1.5
 const EXPECTED_DEATHS := 3
@@ -41,7 +49,7 @@ const MAX_QUIET_SECONDS := 60.0
 static func area(data: LevelData, layout: LevelLayout, scene_lines: Callable, encounters: Array[Vector2] = []) -> Dictionary:
 	var tile := float(layout.tile_size)
 	var width_tiles := layout.width
-	var result := {"walk": float(width_tiles) * tile / WALK_SPEED, "combat": 0.0, "talk": 0.0, "bubbles": 0.0, "pickups": 0.0, "puzzles": 0.0, "shop": 0.0,
+	var result := {"walk": float(width_tiles) * tile / WALK_SPEED, "combat": 0.0, "talk": 0.0, "bubbles": 0.0, "pickups": 0.0, "puzzles": 0.0, "shop": 0.0, "practice": 0.0,
 			"encounters": 0, "quiet_gaps": [], "max_quiet": 0.0, "width_tiles": width_tiles}
 	var enemy_cells: Array[Dictionary] = []  # { x, health }
 	var lock_count := 0
@@ -68,6 +76,13 @@ static func area(data: LevelData, layout: LevelLayout, scene_lines: Callable, en
 			result["pickups"] += PICKUP_SECONDS
 		elif res is ShopData:
 			result["shop"] += SHOP_SECONDS
+		elif res is TrainingData:
+			# 練習本身可玩；完成與失手的劇情保守算成鎖操作的對話。
+			var training := res as TrainingData
+			result["practice"] += PRACTICE_SECONDS if training.kind != TrainingData.Kind.REACH else 0.0
+			for scene in [training.done_scene, training.fail_scene]:
+				if scene != &"":
+					result["talk"] += float(scene_lines.call(scene)) * TALK_LINE_SECONDS
 		elif res is NpcData:
 			for talk in (res as NpcData).talks:
 				if talk != null:
@@ -98,7 +113,7 @@ static func area(data: LevelData, layout: LevelLayout, scene_lines: Callable, en
 	gaps.append(maxf(0.0, float(width_tiles) - cursor) * tile / WALK_SPEED)
 	result["quiet_gaps"] = gaps
 	result["max_quiet"] = gaps.max() if not gaps.is_empty() else 0.0
-	result["total"] = float(result["walk"]) + float(result["combat"]) + float(result["talk"]) + float(result["bubbles"]) + float(result["pickups"]) + float(result["puzzles"]) + float(result["shop"])
+	result["total"] = float(result["walk"]) + float(result["combat"]) + float(result["talk"]) + float(result["bubbles"]) + float(result["pickups"]) + float(result["puzzles"]) + float(result["shop"]) + float(result["practice"])
 	return result
 
 
@@ -119,3 +134,23 @@ static func chapter(areas: Array, cutscene_seconds: float) -> Dictionary:
 
 static func _kill_seconds(health: int) -> float:
 	return APPROACH_SECONDS + float(health) * SECONDS_PER_HEALTH
+
+
+## 序章（或任何短段落）沿一條實際路徑估計：entry 是 area() 的結果（取走路與練習秒數），scenes 是這條路上依序播出的場景，
+## info：Callable(場景 id) -> { lines, mode, budget }。有 budget 的電影照 budget 算；bubbles／radio 邊走邊看算可玩；其餘鎖操作。
+## 回傳 { first_time_minutes, locked_share, locked_seconds, free_seconds }。
+static func along_path(entry: Dictionary, scenes: Array, info: Callable) -> Dictionary:
+	var locked := 0.0
+	var free := float(entry["walk"]) + float(entry["practice"]) + float(entry["pickups"])
+	for id: Variant in scenes:
+		var scene: Dictionary = info.call(StringName(str(id)))
+		var budget := float(scene.get("budget", 0.0))
+		var count := float(scene.get("lines", 0))
+		if budget > 0.0:
+			locked += budget
+		elif str(scene.get("mode", "")) in ["bubbles", "radio"]:
+			free += count * BUBBLE_LINE_SECONDS
+		else:
+			locked += count * TALK_LINE_SECONDS
+	var first_time := free * FIRST_TIME_FACTOR + locked
+	return {"first_time_minutes": first_time / 60.0, "locked_share": locked / maxf(1.0, first_time), "locked_seconds": locked, "free_seconds": free}

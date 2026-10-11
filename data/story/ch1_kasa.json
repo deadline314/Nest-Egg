@@ -40,6 +40,12 @@
    "color": "#ded5b0",
    "portrait": "res://art/portraits/system.png",
    "formal": true
+  },
+  "note": {
+   "name": "紙本",
+   "color": "#ded5b0",
+   "portrait": "res://art/portraits/system.png",
+   "formal": true
   }
  },
  "death_sequences": [
@@ -166,6 +172,9 @@
   "sq5_lamp_voice_noticed": false,
   "ch1_grey_cloth_examined": false,
   "has_grey_cloth": false,
+  "ch1_prologue_service_heard": false,
+  "ch1_prologue_done": false,
+  "ch1_prologue_exit": false,
   "ch1_street_route_open": false,
   "watchdog_defeated": false,
   "ch1_flood_gate_open": false,
@@ -177,7 +186,18 @@
   "ch1_labels_started": false,
   "sq8_first_labels_done": false,
   "ch1_supper_can_rechoose": false,
-  "ch2_previous_job_settled": false
+  "ch2_previous_job_settled": false,
+  "ch1_prologue_bench_done": false,
+  "ch1_prologue_jump_done": false,
+  "ch1_prologue_range_reached": false,
+  "ch1_prologue_shot_done": false,
+  "ch1_prologue_high_shot_done": false,
+  "ch1_prologue_trainer_reached": false,
+  "ch1_prologue_melee_done": false,
+  "ch1_prologue_guard_done": false,
+  "ch1_prologue_dash_done": false,
+  "ch1_prologue_fall_shown": false,
+  "ch1_prologue_skipped": false
  },
  "transactions": {
   "ch1.daily_dinner": {
@@ -282,6 +302,22 @@
   "ch2_previous_job_settled": {
    "receipt": "ch1.commission.settled",
    "status": "recorded"
+  },
+  "ch1_prologue_exit": {
+   "any": [
+    {
+     "flag": "ch1_prologue_done",
+     "equals": true
+    },
+    {
+     "flag": "ch1_prologue_skipped",
+     "equals": true
+    },
+    {
+     "flag": "ch1_dinner_done",
+     "equals": true
+    }
+   ]
   }
  },
  "runtime_facts": {
@@ -298,6 +334,104 @@
  ],
  "restoration_flag": "ch1_booth_restoration_done",
  "quests": [
+  {
+   "id": "ch1_prologue",
+   "kind": "main",
+   "title": "試完器材，回店吃飯",
+   "background": "老 K 今天收了一批靶和訓練器，要你幫忙試。試完晚飯在廚房保溫，鷺說有份差事。",
+   "reward": "熟悉移動、射擊、近戰、格擋與衝刺；不給錢，也不改你的裝備。",
+   "complete_flag": "ch1_prologue_exit",
+   "steps": [
+    {
+     "title": "看看工作桌上今天要試的器材",
+     "complete_flag": "ch1_prologue_bench_done",
+     "location": {
+      "level": "res://data/levels/ch1_prologue.tres",
+      "cell": [
+       24,
+       19
+      ]
+     }
+    },
+    {
+     "title": "取下搬貨台上的試貨工具",
+     "complete_flag": "ch1_prologue_jump_done",
+     "location": {
+      "level": "res://data/levels/ch1_prologue.tres",
+      "cell": [
+       30,
+       17
+      ]
+     }
+    },
+    {
+     "title": "試訓練槍的落點",
+     "complete_flag": "ch1_prologue_shot_done",
+     "location": {
+      "level": "res://data/levels/ch1_prologue.tres",
+      "cell": [
+       58,
+       19
+      ]
+     }
+    },
+    {
+     "title": "試橡膠靶的近戰手感",
+     "complete_flag": "ch1_prologue_melee_done",
+     "location": {
+      "level": "res://data/levels/ch1_prologue.tres",
+      "cell": [
+       77,
+       19
+      ]
+     }
+    },
+    {
+     "title": "試訓練器的正面防禦",
+     "complete_flag": "ch1_prologue_guard_done",
+     "location": {
+      "level": "res://data/levels/ch1_prologue.tres",
+      "cell": [
+       86,
+       19
+      ]
+     }
+    },
+    {
+     "title": "試地上的衝刺訓練線",
+     "complete_flag": "ch1_prologue_dash_done",
+     "location": {
+      "level": "res://data/levels/ch1_prologue.tres",
+      "cell": [
+       101,
+       19
+      ]
+     }
+    },
+    {
+     "title": "回櫃台，聽老 K 說明復原服務",
+     "complete_flag": "ch1_prologue_service_heard",
+     "location": {
+      "level": "res://data/levels/ch1_prologue.tres",
+      "cell": [
+       36,
+       19
+      ]
+     }
+    },
+    {
+     "title": "跟老 K 收尾，從旁邊的門回店裡",
+     "complete_flag": "ch1_prologue_exit",
+     "location": {
+      "level": "res://data/levels/ch1_prologue.tres",
+      "cell": [
+       40,
+       19
+      ]
+     }
+    }
+   ]
+  },
   {
    "id": "ch1_meet_egret",
    "kind": "main",
@@ -328,6 +462,9 @@
       ]
      }
     }
+   ],
+   "visible_flags": [
+    "ch1_prologue_exit"
    ]
   },
   {
@@ -697,112 +834,6 @@
   }
  ],
  "scenes": {
-  "ch1_c01_open": {
-   "mode": "animated",
-   "pose_policy": "supported",
-   "budget": 20.0,
-   "steps": [
-    {
-     "do": "scene",
-     "id": "rainy_harbor",
-     "pos": [
-      320,
-      330
-     ],
-     "fade": 1.0
-    },
-    {
-     "do": "narrate",
-     "lines": [
-      "港區水位三點二公尺，持續上升"
-     ],
-     "time": 1.6
-    },
-    {
-     "do": "fx",
-     "kind": "lightning",
-     "time": 0.5
-    },
-    {
-     "do": "title",
-     "text": "傘",
-     "sub": "かさ　Kasa",
-     "time": 1.8,
-     "color": "#35e0ff"
-    },
-    {
-     "do": "scene",
-     "id": "ch1_pawnshop_front",
-     "pos": [
-      320,
-      291.5
-     ],
-     "zoom": 0.88,
-     "fade": 1.0
-    },
-    {
-     "do": "actor",
-     "id": "rin",
-     "kind": "rin",
-     "pos": [
-      385,
-      348
-     ],
-     "facing": -1,
-     "scale": 3.4,
-     "weapon": "",
-     "pose": "idle"
-    },
-    {
-     "do": "actor",
-     "id": "k",
-     "kind": "old_k",
-     "pos": [
-      175,
-      348
-     ],
-     "facing": 1,
-     "scale": 3.7,
-     "weapon": "",
-     "speaker": "old_k",
-     "loop": "wipe_hands"
-    },
-    {
-     "do": "sfx",
-     "id": "pickup",
-     "volume": -16
-    },
-    {
-     "do": "wait",
-     "time": 0.4
-    },
-    {
-     "do": "say",
-     "speaker": "old_k",
-     "text": "鷺是接案的，她在屋頂等你。"
-    },
-    {
-     "do": "pose",
-     "id": "rin",
-     "pose": "idle"
-    },
-    {
-     "do": "say",
-     "speaker": "rin",
-     "text": "管著這座城的天穹又找我？你還抽一成保我復原？"
-    },
-    {
-     "do": "say",
-     "speaker": "old_k",
-     "text": "保費照抽喔。先去後面試槍。"
-    },
-    {
-     "do": "fade",
-     "to": 1.0,
-     "time": 0.8
-    }
-   ]
-  },
   "ch1_t_oldk_1": {
    "mode": "dialogue",
    "lines": [
@@ -4798,6 +4829,560 @@
     {
      "speaker": "voice",
      "text": "再來一次，沒關係。"
+    }
+   ]
+  },
+  "ch1_p01_door": {
+   "mode": "animated",
+   "pose_policy": "supported",
+   "budget": 26.0,
+   "steps": [
+    {
+     "do": "scene",
+     "id": "rainy_harbor",
+     "pos": [
+      320,
+      330
+     ],
+     "fade": 1.0
+    },
+    {
+     "do": "narrate",
+     "lines": [
+      "沉港市的下層港區，雨沒有停過，水位每晚都在漲。"
+     ],
+     "time": 2.4
+    },
+    {
+     "do": "title",
+     "text": "序章　雨裡的燈",
+     "sub": "巢蛋當舖",
+     "time": 1.8,
+     "color": "#35e0ff"
+    },
+    {
+     "do": "scene",
+     "id": "ch1_pawnshop_front",
+     "pos": [
+      320,
+      298.3
+     ],
+     "zoom": 1.0,
+     "fade": 1.0
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      385,
+      348
+     ],
+     "facing": -1,
+     "scale": 3.4,
+     "weapon": "",
+     "pose": "idle"
+    },
+    {
+     "do": "actor",
+     "id": "k",
+     "kind": "old_k",
+     "pos": [
+      175,
+      348
+     ],
+     "facing": 1,
+     "scale": 3.7,
+     "weapon": "",
+     "speaker": "old_k",
+     "loop": "wipe_hands"
+    },
+    {
+     "do": "sfx",
+     "id": "pickup",
+     "volume": -16
+    },
+    {
+     "do": "say",
+     "speaker": "voice",
+     "text": "沉港市復原服務提醒您，出門前請確認自己的登記與接應地點。"
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "把門帶上喔，雨都跑進來了。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "外面那個門扣又鬆了，我等一下看。"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "先把鞋擦乾。巢蛋當舖收貨，不收你一路踩進來的水。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "你今天收了什麼要我試？"
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "靶跟訓練器都在後面，工作桌上有貨單。今天剛收的，別急著拿出去用。"
+    },
+    {
+     "do": "fade",
+     "to": 1.0,
+     "time": 0.8
+    }
+   ]
+  },
+  "ch1_p02_talk": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "old_k",
+     "text": "目錄又翻到那一頁啦？紙都要被你磨破了。"
+    },
+    {
+     "speaker": "rin",
+     "text": "晴岸那間四十八萬，窗戶下午照得到太陽。"
+    },
+    {
+     "speaker": "old_k",
+     "text": "晴岸是上層的日照區，光是電梯就要換兩趟。你搬箱子別一直看它。"
+    },
+    {
+     "speaker": "rin",
+     "text": "我沒要搬上去。我想把你搬上去。"
+    },
+    {
+     "speaker": "old_k",
+     "text": "我在這裡住得好好的，飯也煮得熟。"
+    },
+    {
+     "speaker": "rin",
+     "text": "你睡的那間，晴天也看不出來。"
+    },
+    {
+     "speaker": "old_k",
+     "text": "那就先把今天過完。你跳上搬貨台拿工具，我替你留飯。"
+    }
+   ]
+  },
+  "ch1_p02_catalog": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "note",
+     "text": "晴岸住宅目錄：日照區邊緣住宅，標價四十八萬信用點。看房須預約，目錄不代表已經購屋。"
+    },
+    {
+     "speaker": "note",
+     "text": "凜的手記：以前存下的兩萬七千四百先記在這裡。還沒拿到的差事錢不算，房子的數字也不會自己變小。"
+    },
+    {
+     "speaker": "rin",
+     "text": "我把這頁折起來，等錢夠了再翻開。"
+    }
+   ]
+  },
+  "ch1_p02_tool": {
+   "mode": "bubbles",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "工具拿到了，先去後面試靶。"
+    }
+   ]
+  },
+  "ch1_p03_range": {
+   "mode": "bubbles",
+   "lines": [
+    {
+     "speaker": "old_k",
+     "text": "靶跟訓練器都是今天剛收的，你用自己的槍幫我試準不準。"
+    },
+    {
+     "speaker": "rin",
+     "text": "彈匣看過了。你站我後面的白線外，別靠近背板。"
+    },
+    {
+     "speaker": "old_k",
+     "text": "我就看它有沒有亂跳。先試低處那個靶，再看上面那個。"
+    },
+    {
+     "speaker": "rin",
+     "text": "這個靶的鉸鏈比外殼新，可能換過裡面的零件。"
+    }
+   ]
+  },
+  "ch1_p03_hit": {
+   "mode": "bubbles",
+   "lines": [
+    {
+     "speaker": "old_k",
+     "text": "落點沒歪，靶也收得住。你再走兩步試，別替它藏毛病。"
+    },
+    {
+     "speaker": "rin",
+     "text": "我收回剛才那句，它的框有點鬆。"
+    },
+    {
+     "speaker": "old_k",
+     "text": "上面那個靶想試就跳上平台，不試也行，訓練器在更後面。"
+    }
+   ]
+  },
+  "ch1_p03_high": {
+   "mode": "bubbles",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "上面的靶也沒歪，跳著打一樣準。"
+    }
+   ]
+  },
+  "ch1_p04_intro": {
+   "mode": "bubbles",
+   "lines": [
+    {
+     "speaker": "old_k",
+     "text": "近戰也試一下。窄巷裡，槍不一定轉得過去。"
+    },
+    {
+     "speaker": "rin",
+     "text": "這個橡膠靶的裂口會刮手，先貼起來再賣。"
+    },
+    {
+     "speaker": "old_k",
+     "text": "貼的在桌邊。訓練器只會往前打，出手前會亮燈，你站穩再靠近它。"
+    },
+    {
+     "speaker": "rin",
+     "text": "我看見燈了。你把它調慢一點，別讓機器把我的手臂折掉。"
+    }
+   ]
+  },
+  "ch1_p04_melee": {
+   "mode": "bubbles",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "打到軟靶也沒有滑手，握得住。"
+    }
+   ]
+  },
+  "ch1_p04_fall": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "old_k",
+     "text": "先站穩，機器停了。別跟一根桿子賭氣喔。"
+    },
+    {
+     "speaker": "rin",
+     "text": "腳沒站穩，墊子邊緣捲起來了。你把它攤平，我再試。"
+    },
+    {
+     "speaker": "old_k",
+     "text": "拉好了。要再試就靠近它，燈亮的時候面向它舉盾。"
+    }
+   ]
+  },
+  "ch1_p04_guard": {
+   "mode": "bubbles",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "擋住了。這台出手前會亮燈，看得出來。"
+    }
+   ]
+  },
+  "ch1_p04_dash": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "槍還能用，靶的框要鎖緊，這台的桿子太長了。"
+    },
+    {
+     "speaker": "old_k",
+     "text": "我記在貨單上了。回櫃台來，那張復原服務單我順便跟你說。"
+    },
+    {
+     "speaker": "rin",
+     "text": "好，我把器材排回原位就過去。"
+    }
+   ]
+  },
+  "ch1_p05_service_fall": {
+   "mode": "dialogue",
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch1_prologue_service_heard",
+     "value": true
+    }
+   ],
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "這上面寫的記憶代價，為什麼不寫在價錢旁邊？"
+    },
+    {
+     "speaker": "old_k",
+     "text": "價錢能補，忘掉的事不一定補得回來喔。"
+    },
+    {
+     "speaker": "rin",
+     "text": "我每次都算進你的那一成了，不是嗎？"
+    },
+    {
+     "speaker": "old_k",
+     "text": "你這邊有保單，先別拿別人的契約套在自己身上。"
+    },
+    {
+     "speaker": "rin",
+     "text": "你每次都這樣講。我至少要知道，出事了該回哪裡。"
+    },
+    {
+     "speaker": "old_k",
+     "text": "到電話亭要真的確認備份，光走過不算。現場要補什麼資料，就問服務的人。"
+    },
+    {
+     "speaker": "rin",
+     "text": "那剛才機器停下來，跟這個沒關係。"
+    },
+    {
+     "speaker": "old_k",
+     "text": "當然沒關係。你是在地墊上站不穩，又不是去拿命試貨。"
+    }
+   ]
+  },
+  "ch1_p05_service_clean": {
+   "mode": "dialogue",
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch1_prologue_service_heard",
+     "value": true
+    }
+   ],
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "這上面寫的記憶代價，為什麼不寫在價錢旁邊？"
+    },
+    {
+     "speaker": "old_k",
+     "text": "價錢能補，忘掉的事不一定補得回來喔。"
+    },
+    {
+     "speaker": "rin",
+     "text": "我每次都算進你的那一成了，不是嗎？"
+    },
+    {
+     "speaker": "old_k",
+     "text": "你這邊有保單，先別拿別人的契約套在自己身上。"
+    },
+    {
+     "speaker": "rin",
+     "text": "你每次都這樣講。我至少要知道，出事了該回哪裡。"
+    },
+    {
+     "speaker": "old_k",
+     "text": "到電話亭要真的確認備份，光走過不算。現場要補什麼資料，就問服務的人。"
+    },
+    {
+     "speaker": "rin",
+     "text": "剛才試貨只是練習，不是復原。"
+    },
+    {
+     "speaker": "old_k",
+     "text": "本來就是喔。你拿器材試手感，不是拿命試貨。"
+    }
+   ]
+  },
+  "ch1_p05_sheet": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "note",
+     "text": "沉港市公共復原服務說明：復原需要有效登記、備份與接應地點，不保證每次都能執行。"
+    },
+    {
+     "speaker": "note",
+     "text": "首次建檔與一般復原不同，請依服務人員指示辦理。"
+    },
+    {
+     "speaker": "note",
+     "text": "復原會產生費用，也可能消耗契約承擔者的記憶。"
+    },
+    {
+     "speaker": "note",
+     "text": "電話亭的確認紀錄用來查找最近的備份與接應位置；地圖上的標記不代表已經辦妥登記。"
+    }
+   ]
+  },
+  "ch1_p06_call": {
+   "mode": "dialogue",
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch1_prologue_done",
+     "value": true
+    },
+    {
+     "kind": "flag",
+     "id": "ch1_prologue_exit",
+     "value": true
+    }
+   ],
+   "lines": [
+    {
+     "speaker": "egret",
+     "text": "我是鷺，人在你家屋頂，待會兒有份差事給你看。"
+    },
+    {
+     "speaker": "rin",
+     "text": "你又不走正門，老 K 還以為雨把屋頂敲壞了。"
+    },
+    {
+     "speaker": "egret",
+     "text": "我怕他又留我修門扣。你吃完飯再上來，這次不催你。"
+    },
+    {
+     "speaker": "old_k",
+     "text": "聽到了喔，先吃飯。試貨的事我來收尾。"
+    },
+    {
+     "speaker": "rin",
+     "text": "門扣我扣緊了，燈也關了。靶的毛病寫在貨單旁邊。"
+    },
+    {
+     "speaker": "old_k",
+     "text": "我都看到了。你先去洗手，飯還熱著，從旁邊那扇門回店裡吃。"
+    }
+   ]
+  },
+  "ch1_p_k_wait": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "器材都在後面，一樣一樣試，試完再回來跟我說。"
+    }
+   ]
+  },
+  "ch1_p_k_backyard": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "我在這裡看著，你一樣一樣試，試完回櫃台找我。"
+    }
+   ]
+  },
+  "ch1_p_k_after": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "飯在廚房保溫，從旁邊那扇門回店裡，吃完再上屋頂。"
+    }
+   ]
+  },
+  "ch1_dispatch_prologue_old_k": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch1_prologue_exit",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch1_dinner_done",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_p_k_after"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch1_prologue_service_heard",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch1_prologue_done",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_p06_call"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch1_prologue_dash_done",
+        "equals": true
+       },
+       {
+        "flag": "ch1_prologue_fall_shown",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch1_prologue_service_heard",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_p05_service_fall"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch1_prologue_dash_done",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch1_prologue_service_heard",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch1_p05_service_clean"
+    },
+    {
+     "when": {},
+     "target": "ch1_p_k_wait"
     }
    ]
   },

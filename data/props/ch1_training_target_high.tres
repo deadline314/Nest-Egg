@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TrainingData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/training_data.gd" id="1_training_data"]
+
+[resource]
+script = ExtResource("1_training_data")
+id = &"ch1_training_target_high"
+kind = 1
+prompt = "{jump} 跳上平台再開槍，試試上面那個靶。"
+requires_flag = &"ch1_prologue_shot_done"
+done_flag = &"ch1_prologue_high_shot_done"
+done_scene = &"ch1_p03_high"
+reach = Vector2(22, 60)
+height = 56.0

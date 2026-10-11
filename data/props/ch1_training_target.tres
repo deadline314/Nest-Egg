@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TrainingData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/training_data.gd" id="1_training_data"]
+
+[resource]
+script = ExtResource("1_training_data")
+id = &"ch1_training_target"
+kind = 1
+prompt = "{shoot} 瞄準低處的靶開一槍。"
+requires_flag = &"ch1_prologue_range_reached"
+done_flag = &"ch1_prologue_shot_done"
+done_scene = &"ch1_p03_hit"
+reach = Vector2(22, 60)
+height = 56.0
