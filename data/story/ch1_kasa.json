@@ -984,7 +984,8 @@
      "speaker": "rin",
      "text": "聽得到。"
     }
-   ]
+   ],
+   "freeze": true
   },
   "ch1_g06_tip_slide": {
    "mode": "radio",
@@ -993,7 +994,8 @@
      "speaker": "lamp",
      "text": "往旁邊滑過去，剛滑出去的瞬間子彈打不到你。"
     }
-   ]
+   ],
+   "freeze": true
   },
   "ch1_g06_tip_blade": {
    "mode": "radio",
@@ -1006,7 +1008,8 @@
      "speaker": "lamp",
      "text": "雖然你的子彈用不完。習慣一下，早晚會換槍。"
     }
-   ]
+   ],
+   "freeze": true
   },
   "ch1_g06_tip_collector": {
    "mode": "radio",
@@ -1015,7 +1018,8 @@
      "speaker": "lamp",
      "text": "前面穿黃衣服的是收帳人，他們替人追債，下手比保全重。"
     }
-   ]
+   ],
+   "freeze": true
   },
   "ch1_g06_clear": {
    "mode": "radio",
@@ -1077,7 +1081,8 @@
      "speaker": "rin",
      "text": "那隻機甲有多大？"
     }
-   ]
+   ],
+   "freeze": true
   },
   "ch1_c11_watchdog": {
    "mode": "radio",
@@ -1090,7 +1095,8 @@
      "speaker": "rin",
      "text": "你看的什麼紀錄？"
     }
-   ]
+   ],
+   "freeze": true
   },
   "ch1_g10_pit": {
    "mode": "radio",
@@ -1103,7 +1109,8 @@
      "speaker": "lamp",
      "text": "踩下踏板後水會漲滿，你得死一次才能開門。"
     }
-   ]
+   ],
+   "freeze": true
   },
   "ch1_g10_pit2": {
    "mode": "radio",
@@ -1116,7 +1123,8 @@
      "speaker": "lamp",
      "text": "死後閘門和水位都會保留，復原後就能走浮橋過去。"
     }
-   ]
+   ],
+   "freeze": true
   },
   "ch1_g10_cross": {
    "mode": "radio",
@@ -1129,7 +1137,8 @@
      "speaker": "lamp",
      "text": "確實很方便，只要你還能醒來。"
     }
-   ]
+   ],
+   "freeze": true
   },
   "ch1_d_back_a": {
    "mode": "radio",
@@ -1285,7 +1294,8 @@
       }
      }
     ]
-   }
+   },
+   "freeze": true
   },
   "ch1_g10_disk": {
    "mode": "radio",
@@ -1310,7 +1320,8 @@
      }
     ]
    },
-   "then": "ch1_g10_disk_return"
+   "then": "ch1_g10_disk_return",
+   "freeze": true
   },
   "ch1_g10_disk_return": {
    "mode": "radio",
@@ -1334,7 +1345,8 @@
       "item": "ch1_data_disk"
      }
     ]
-   }
+   },
+   "freeze": true
   },
   "ch1_g10_disk_missing": {
    "mode": "radio",
@@ -1349,7 +1361,8 @@
      "flag": "ledger_disk_obtained",
      "equals": true
     }
-   }
+   },
+   "freeze": true
   },
   "ch1_b_handoff": {
    "mode": "bubbles",
@@ -4830,7 +4843,8 @@
      "speaker": "voice",
      "text": "再來一次，沒關係。"
     }
-   ]
+   ],
+   "freeze": true
   },
   "ch1_p01_door": {
    "mode": "animated",

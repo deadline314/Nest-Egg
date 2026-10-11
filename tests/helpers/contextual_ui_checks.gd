@@ -6,6 +6,7 @@ static func run(suite: TestSuite) -> void:
 	await _hints(suite)
 	await _dialogue(suite)
 	await _radio_identity_after_authored_reading(suite)
+	await _important_radio_freezes(suite)
 
 
 static func _hints(suite: TestSuite) -> void:
@@ -197,3 +198,65 @@ static func _radio_identity_after_authored_reading(suite: TestSuite) -> void:
 	await suite.end_level(level)
 	Story.auto_skip = previous_skip
 	Settings.set_skip_cutscenes(previous_setting)
+
+
+## NE-246：重要通訊凍結世界、不自動消失；確認一次前進一句；開關暫停選單不提前解凍；取消一定解凍。
+static func _important_radio_freezes(suite: TestSuite) -> void:
+	var level: Level = await suite.start_level(PropsSuite.level_data())
+	var layer: DialogueLayer = Story._layer
+	var old_skip := Story.auto_skip
+	Story.auto_skip = false
+	var line := {"speaker": "old_k", "text": "看門狗只會往前撲，閃開再打牠的背。"}
+	Story._scenes["test_important_radio"] = {"mode": "radio", "freeze": true, "lines": [line, {"speaker": "rin", "text": "知道了，我先閃再打。"}]}
+	Story._scenes["test_important_radio_cancel"] = {"mode": "radio", "freeze": true, "lines": [line]}
+	var finished: Array[StringName] = []
+	var listener := func(id: StringName) -> void: finished.append(id)
+	layer.radio_finished.connect(listener)
+	Story.play(&"test_important_radio")
+	await suite.frames(5)
+	var tree := level.get_tree()
+	suite.check(layer.is_radio_frozen() and tree.paused and layer._radio_root.visible, "important radio freezes the world while it is on screen")
+	var guidance := level.find_children("*", "QuestGuidance", true, false)
+	suite.check(not guidance.is_empty() and (guidance[0] as QuestGuidance)._row.mouse_filter == Control.MOUSE_FILTER_IGNORE, "the quest row's hover tip is off while the radio is being read")
+	var clock := GameState.run_time
+	var player_x := level.player.global_position.x
+	Input.action_press(&"move_right")
+	await suite.frames(150)
+	Input.action_release(&"move_right")
+	suite.check(GameState.run_time == clock and level.player.global_position.x == player_x, "the play clock and the player stay still while reading")
+	suite.check(layer._radio_queue.size() == 2 and layer._radio_text.visible_ratio == 1.0 and layer._radio_continue.text.contains(InputBindings.primary_label(&"ui_accept")),
+		"the line stays until confirmed and shows the current confirm key")
+	level._pause_menu.open()
+	await suite.frames(3)
+	suite.check(level._pause_menu._root.visible and not layer._radio_root.visible, "the pause menu can open over the radio and hides it")
+	level._pause_menu.close()
+	await suite.frames(3)
+	suite.check(tree.paused and layer.is_radio_frozen() and layer._radio_root.visible, "closing the pause menu does not thaw the world early")
+	var accept := InputEventAction.new()
+	accept.action = &"ui_accept"
+	accept.pressed = true
+	layer._radio_input(accept)
+	suite.check(layer._radio_queue.size() == 1 and finished.is_empty(), "one confirm advances exactly one line")
+	layer._radio_text.visible_ratio = 0.5
+	layer._radio_input(accept)
+	suite.check(layer._radio_queue.size() == 1 and layer._radio_text.visible_ratio == 1.0, "a confirm on a half-typed line only completes the text")
+	layer._radio_input(accept)
+	await suite.frames(3)
+	suite.check(finished == [&"test_important_radio"] and not layer.is_radio_frozen() and not tree.paused, "the last confirm ends the radio and thaws the world")
+	for i in 600:
+		if not DialogueLayer.radio_visible():
+			break
+		await suite.frames(1)
+	await suite.frames(2)
+	suite.check(guidance.is_empty() or (guidance[0] as QuestGuidance)._row.mouse_filter == Control.MOUSE_FILTER_PASS, "the quest row's hover tip comes back after reading")
+	Story.play(&"test_important_radio_cancel")
+	await suite.frames(5)
+	suite.check(layer.is_radio_frozen() and tree.paused, "a second important radio freezes again")
+	Story.reset_active_presentation(&"route")
+	await suite.frames(2)
+	suite.check(not layer.is_radio_frozen() and not tree.paused and not finished.has(&"test_important_radio_cancel"), "leaving the area cancels the radio without a freeze or a fake completion")
+	layer.radio_finished.disconnect(listener)
+	Story._scenes.erase("test_important_radio")
+	Story._scenes.erase("test_important_radio_cancel")
+	Story.auto_skip = old_skip
+	await suite.end_level(level)

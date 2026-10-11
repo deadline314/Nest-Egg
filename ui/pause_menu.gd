@@ -91,7 +91,7 @@ func _on_bindings_changed() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	# 設定畫面開啟時由它自己處理輸入（Esc 會先關閉設定）。
-	if is_instance_valid(_navigation) or is_instance_valid(_settings) or GameplayLock.is_locked() or Story.is_cinematic_active():
+	if is_instance_valid(_navigation) or is_instance_valid(_settings) or not GameplayLock.menu_allowed() or Story.is_cinematic_active():
 		return
 	if allowed and (event.is_action_pressed(&"quests") or event.is_action_pressed(&"map")) and (not get_tree().paused or _root.visible):
 		if not _root.visible:
@@ -112,10 +112,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func open() -> void:
-	if GameplayLock.is_locked():
+	if not GameplayLock.menu_allowed():
 		return
 	Fx.reset_time()
-	get_tree().paused = true
+	# 經過 GameplayLock：重要通訊凍結時開關選單，世界仍維持凍結到讀完。
+	GameplayLock.set_base_paused(true)
 	UiKit.set_cursor_visible(true)
 	_root.visible = true
 	Sfx.play(&"ui_confirm", -8.0, 0.0)
@@ -139,7 +140,7 @@ func close() -> void:
 		Sfx.play(&"ui_cancel", -8.0, 0.0)
 	_root.visible = false
 	InputBindings.clear_held_inputs()
-	get_tree().paused = false
+	GameplayLock.set_base_paused(false)
 	UiKit.set_cursor_visible(false)
 
 

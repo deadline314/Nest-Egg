@@ -2,6 +2,8 @@ extends Node
 ## 過場共用鎖：動畫、對話、轉場與阻擋式章節卡都以 acquire / release 管理。
 ## 只在第一把鎖保存原狀；最後一把鎖釋放才還原，結束順序不影響結果。
 ## owner 離開場景樹會自動釋放；正常結束仍應先 release，再發出完成訊號。
+## menu_allowed 的鎖（例如重要通訊的閱讀凍結）允許在上面開暫停選單；選單透過 set_base_paused 開關，
+## 關閉選單不會提前解凍，最後一把鎖釋放時才還原選單留下的基礎狀態。
 
 signal started
 
@@ -19,9 +21,27 @@ func is_locked() -> bool:
 	return not _locks.is_empty()
 
 
+## 目前所有的鎖都允許開暫停選單（沒有鎖也算）。
+func menu_allowed() -> bool:
+	for entry: Dictionary in _locks.values():
+		if not bool(entry["menu_allowed"]):
+			return false
+	return true
+
+
+## 不算過場鎖時的暫停狀態（暫停選單、背包等基礎畫面）。
+func base_paused() -> bool:
+	return _base_paused if is_locked() else get_tree().paused
+
+
+## 只有這把鎖在鎖（用來判斷畫面停住是不是自己造成的）。
+func held_only_by(token: int) -> bool:
+	return _locks.size() == 1 and _locks.has(token)
+
+
 ## mouse_mode = -1 表示不變更游標；其餘值為 Input.MOUSE_MODE_*。
 ## 無效 owner 回傳 0 並記錄錯誤，不留下無法回收的鎖。
-func acquire(owner: Node, mouse_mode := -1) -> int:
+func acquire(owner: Node, mouse_mode := -1, allow_menu := false) -> int:
 	if not is_instance_valid(owner) or not owner.is_inside_tree() or owner.is_queued_for_deletion():
 		push_error("[GameplayLock] owner 必須位於場景樹中且未等待刪除")
 		return 0
@@ -32,7 +52,7 @@ func acquire(owner: Node, mouse_mode := -1) -> int:
 	_next_token += 1
 	var token := _next_token
 	var cleanup := release.bind(token)
-	_locks[token] = {"owner": weakref(owner), "cleanup": cleanup, "mouse_mode": mouse_mode}
+	_locks[token] = {"owner": weakref(owner), "cleanup": cleanup, "mouse_mode": mouse_mode, "menu_allowed": allow_menu}
 	owner.tree_exiting.connect(cleanup, CONNECT_ONE_SHOT)
 	maintain_pause()
 	_apply_mouse_mode()
@@ -60,7 +80,7 @@ func release(token: int) -> void:
 	_apply_mouse_mode()
 
 
-## 換畫面時更新目的畫面的基礎暫停狀態，仍保留正在播放的過場鎖。
+## 換畫面或開關暫停選單時更新基礎暫停狀態，仍保留正在播放的過場鎖。
 func set_base_paused(paused: bool) -> void:
 	_base_paused = paused
 	get_tree().paused = paused or is_locked()

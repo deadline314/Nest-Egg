@@ -3,6 +3,8 @@ extends CanvasLayer
 ## 對話介面（由 Story 服務持有）：
 ##   過場：暫停遊戲、上下黑邊、頭像＋講者名＋逐字顯示；點擊／Enter／射擊／互動鍵推進（第一下先顯示完整句子），Esc 跳過整段。
 ##   通訊：畫面左上角的小面板，不暫停，逐字顯示後依字數停留再自動換下一句；台詞帶 delay 時先收起面板沉默那麼久。
+##   重要通訊（場景資料 freeze: true，NE-246）：顯示時凍結世界（敵人、子彈、計時都停），不自動消失；
+##   確認鍵先補齊句子、再前進一句。凍結期間可開暫停選單，關閉選單不會提前解凍；取消、換區、回選單時一併解除。
 
 signal cinematic_finished(scene_id: StringName)
 signal radio_finished(scene_id: StringName)
@@ -37,7 +39,10 @@ var _radio_bar: ColorRect
 var _radio_slide: Tween
 var _radio_fade: Tween
 var _radio_text: Label
-var _radio_queue: Array[Dictionary] = []  # { id, line, last }
+var _radio_queue: Array[Dictionary] = []  # { id, line, last, freeze }
+var _radio_continue: Label
+## 重要通訊凍結世界用的鎖（0＝沒有凍結）；允許在上面開暫停選單。
+var _radio_lock := 0
 var _radio_hold := 0.0
 ## 這一句顯示前還要沉默幾秒（台詞的 delay）；沉默期間通訊框是收起來的。
 var _radio_wait := 0.0
@@ -78,6 +83,7 @@ static func radio_visible() -> bool:
 
 func _exit_tree() -> void:
 	_radio_layers.erase(get_instance_id())
+	_release_radio_lock()
 
 
 # ---------------------------------------------------------------------------
@@ -153,6 +159,7 @@ func cancel_cinematic() -> void:
 
 
 func cancel_radio() -> void:
+	_release_radio_lock()
 	_cancel_radio_fade()
 	_radio_queue.clear()
 	_radio_active = false
@@ -177,6 +184,7 @@ func _show_line() -> void:
 
 func _input(event: InputEvent) -> void:
 	if not is_cinematic_active():
+		_radio_input(event)
 		return
 	if event.is_action_pressed(&"pause") or event.is_action_pressed(&"ui_cancel"):
 		finish_cinematic()
@@ -195,18 +203,21 @@ func _input(event: InputEvent) -> void:
 # 通訊
 # ---------------------------------------------------------------------------
 
-func enqueue_radio(id: StringName, lines: Array[Dictionary]) -> void:
+## freeze：重要通訊，顯示時凍結世界並等玩家確認（見檔頭）。
+func enqueue_radio(id: StringName, lines: Array[Dictionary], freeze := false) -> void:
 	if lines.is_empty():
 		radio_finished.emit(id)
 		return
 	for i in lines.size():
-		_radio_queue.append({"id": id, "line": lines[i], "last": i == lines.size() - 1})
+		_radio_queue.append({"id": id, "line": lines[i], "last": i == lines.size() - 1, "freeze": freeze})
 	if not _radio_active:
 		_next_radio()
 
 
 func _next_radio() -> void:
 	_cancel_radio_fade()
+	if _radio_queue.is_empty() or not _front_freezes():
+		_release_radio_lock()
 	if _radio_queue.is_empty():
 		_radio_active = false
 		_radio_fade = create_tween()
@@ -221,6 +232,7 @@ func _next_radio() -> void:
 	_radio_bar.color = line["color"]
 	_radio_text.text = line["text"]
 	_radio_text.visible_ratio = 0.0
+	_radio_continue.visible = false
 	_radio_portrait.texture = _portrait_texture(line["portrait"])
 	_radio_portrait.visible = _radio_portrait.texture != null
 	_layout_radio()
@@ -246,7 +258,7 @@ func _process(delta: float) -> void:
 			_text.visible_ratio = minf(1.0, _text.visible_ratio + delta * CHARS_PER_SECOND / maxf(1.0, _text.text.length()))
 		_continue.visible = _text.visible_ratio >= 1.0 and (Settings.get_reduce_ui_motion() or int(_time * 3.0) % 2 == 0)
 		return
-	if get_tree().paused:
+	if not _radio_available():
 		# A pause/block card owns the screen; preserve the exact unread radio clocks.
 		_radio_root.hide()
 		return
@@ -258,9 +270,15 @@ func _process(delta: float) -> void:
 			_radio_root.visible = true
 			_reveal_radio(true)
 		return
+	if _front_freezes() and _radio_lock == 0:
+		_radio_lock = GameplayLock.acquire(self, -1, true)
 	_radio_root.visible = true
 	if _radio_text.visible_ratio < 1.0:
 		_radio_text.visible_ratio = minf(1.0, _radio_text.visible_ratio + delta * RADIO_CHARS_PER_SECOND / maxf(1.0, _radio_text.text.length()))
+		return
+	if _radio_lock != 0:
+		# 重要通訊讀完也不自動消失：等確認。
+		_radio_continue.visible = Settings.get_reduce_ui_motion() or int(_time * 3.0) % 2 == 0
 		return
 	_radio_hold -= delta
 	if _radio_hold <= 0.0:
@@ -268,6 +286,60 @@ func _process(delta: float) -> void:
 		if entry["last"]:
 			radio_finished.emit(entry["id"])
 		_next_radio()
+
+
+## 通訊現在能不能顯示與接受確認：過場、轉場、暫停選單、背包都會讓它先收起來（時鐘不走）。
+## 世界是被自己的凍結鎖停住時仍可讀。
+func _radio_available() -> bool:
+	if is_cinematic_active() or Story.is_cinematic_active():
+		return false
+	if not get_tree().paused:
+		return true
+	return _radio_lock != 0 and GameplayLock.held_only_by(_radio_lock) and not GameplayLock.base_paused()
+
+
+func _front_freezes() -> bool:
+	return not _radio_queue.is_empty() and bool(_radio_queue.front().get("freeze", false))
+
+
+## 重要通訊正在凍結世界（給測試與 HUD 用的唯讀查詢）。
+func is_radio_frozen() -> bool:
+	return _radio_lock != 0
+
+
+func _release_radio_lock() -> void:
+	if _radio_lock != 0:
+		GameplayLock.release(_radio_lock)
+	_radio_lock = 0
+
+
+## 重要通訊的確認：確認鍵、互動鍵或滑鼠左鍵；按住不連發，一次只前進一句。
+func _radio_input(event: InputEvent) -> void:
+	if _radio_lock == 0 or not _radio_active or _radio_wait > 0.0 or not _radio_available():
+		return
+	var click: bool = event is InputEventMouseButton and event.pressed and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT
+	if not (click or event.is_action_pressed(&"ui_accept") or event.is_action_pressed(&"interact")):
+		return
+	get_viewport().set_input_as_handled()
+	advance_radio()
+
+
+## 第一下補齊句子，第二下換下一句；最後一句讀完才結束這段通訊並解凍。
+func advance_radio() -> void:
+	if not _radio_active or _radio_queue.is_empty() or _radio_wait > 0.0:
+		return
+	if _radio_text.visible_ratio < 1.0:
+		_radio_text.visible_ratio = 1.0
+		return
+	var entry: Dictionary = _radio_queue.pop_front()
+	if _radio_queue.is_empty() or not _front_freezes():
+		_release_radio_lock()
+	if entry["last"]:
+		radio_finished.emit(entry["id"])
+		# 完成的回呼可能已經取消或接上新的演出。
+		if _radio_queue.is_empty() and not _radio_active:
+			return
+	_next_radio()
 
 
 # ---------------------------------------------------------------------------
@@ -386,6 +458,8 @@ func _display_changed() -> void:
 func _refresh_skip_hint() -> void:
 	_skip.text = InputBindings.format("{ui_cancel} 跳過")
 	_continue.text = InputBindings.format("{ui_accept} 繼續")
+	if _radio_continue != null:
+		_radio_continue.text = InputBindings.format("{ui_accept} 繼續")
 
 
 func _build_radio() -> void:
@@ -406,6 +480,11 @@ func _build_radio() -> void:
 	_radio_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_radio_text.custom_minimum_size = Vector2(240, 0)
 	column.add_child(_radio_text)
+	_radio_continue = UiKit.label("", UiKit.FS_BODY, Palette.UI_MUTED)
+	_radio_continue.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_radio_continue.visible = false
+	_radio_continue.text = InputBindings.format("{ui_accept} 繼續")
+	column.add_child(_radio_continue)
 
 
 ## 顯示這一句通訊：面板原本隱藏時滑入，否則直接換字；兩者都有提示音。

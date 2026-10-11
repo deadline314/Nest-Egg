@@ -822,7 +822,8 @@ func _enqueue_request(id: StringName, once: bool, context: Dictionary, waiting :
 		_passive_requests[id].append(request)
 		if mode != MODE_BUBBLES or not _play_bubbles(id, request):
 			scene_started.emit(id, MODE_RADIO)
-			_layer.enqueue_radio(id, resolved_lines(id))
+			# 重要通訊凍結世界等確認；自動略過（測試）時照一般通訊播，不卡住流程。
+			_layer.enqueue_radio(id, resolved_lines(id), mode == MODE_RADIO and bool(scene.get("freeze", false)) and not auto_skip)
 	return request
 
 

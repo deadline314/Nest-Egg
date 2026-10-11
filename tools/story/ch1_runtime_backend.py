@@ -405,6 +405,17 @@ def _walk(steps):
                 yield from _walk(step.get(key))
 
 
+# 重要通訊（NE-246）：教學、頭目、謎題提示與劇情通訊顯示時凍結世界、等玩家確認。
+# 只有這些一句話的隨口回應維持不暫停（死後回來的反應、清場後的一句）。
+AMBIENT_RADIO = {"ch1_g06_clear", "ch1_d_back_a", "ch1_d_back_b", "ch1_d_back_c"}
+
+
+def _mark_important_radio(scenes):
+    for ident, scene in scenes.items():
+        if scene.get("mode", "radio") == "radio" and ident not in AMBIENT_RADIO and scene.get("lines"):
+            scene["freeze"] = True
+
+
 def compile_document():
     source = build_source()
     errors = validate_source(source)
@@ -422,6 +433,7 @@ def compile_document():
     _first_clinic(scenes)
     _attach_topics(source, scenes)
     scenes.update(_dispatchers(source, scenes))
+    _mark_important_radio(scenes)
     speakers = copy.deepcopy(legacy.SPEAKERS)
     speakers.update(copy.deepcopy(source.speakers))
     speakers.update(copy.deepcopy(prologue_source.SPEAKERS))

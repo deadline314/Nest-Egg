@@ -19,6 +19,8 @@ var _world_hash := 0
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	# 暫停時也要跑：讀通訊或暫停時關掉這列的滑鼠提示，免得說明框蓋住通訊（NE-246）。
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	UiKit.fill_parent(self)
 	level = get_parent().get_parent().get_parent() as Level
 	if level == null:
@@ -51,6 +53,13 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if level == null or not is_instance_valid(level.player):
+		return
+	var covered := get_tree().paused or DialogueLayer.radio_visible()
+	var filter := Control.MOUSE_FILTER_IGNORE if covered else Control.MOUSE_FILTER_PASS
+	if _row.mouse_filter != filter:
+		_row.mouse_filter = filter
+		_arrow.mouse_filter = filter
+	if get_tree().paused:
 		return
 	_time += delta
 	_idle += delta
