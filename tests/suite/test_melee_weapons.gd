@@ -17,11 +17,13 @@ func run() -> void:
 	await _test_charge()
 	await _test_ui()
 	await _test_gun_unchanged()
+	await _test_real_shot_preflight()
 	await _test_interruptions()
 	await _test_blocked_contact()
 	await _test_held_input()
 	await _test_late_target_hitstop()
 	await _test_optional_tails()
+	await _test_frozen_paid_tail_refusal()
 	await _test_command_paths()
 	await _test_refusals_and_extra_interruptions()
 	await _test_paid_cancels_and_facing()
@@ -888,3 +890,154 @@ func _test_tail_contacts() -> void:
 		if is_instance_valid(close):
 			check(close.health.current == 999, "%s optional tail preserves its close dead zone" % id)
 		await end_level(level)
+
+
+## Real callers, not direct pool/fire substitutes. No frame runs between corruption
+## and the attempt, so every observable side effect belongs to that one attempt.
+func _test_real_shot_preflight() -> void:
+	await open_level(10.0)
+	var player := level.player
+	var vehicle := Vehicle.new()
+	vehicle.configure((load("res://data/vehicles/bulwark.tres") as VehicleData).duplicate(true))
+	level._entities.add_child(vehicle)
+	var sounds := [0]
+	var on_sound := func(_id: StringName) -> void: sounds[0] += 1
+	Sfx.sound_played.connect(on_sound)
+	var saved_marks := InputFeel._marks.duplicate()
+	for fault: String in ["spec_nan", "spec_huge", "spec_damage", "spec_style", "spec_identity", "missing_spec", "sound", "direction", "bloom", "combined_spread", "rate_nan", "rate_zero", "rate_huge"]:
+		var weapon := (load("res://data/weapons/rifle.tres") as WeaponData).duplicate(true)
+		weapon.id = StringName("test_no_such_weapon_preflight_" + fault)
+		weapon.projectile = weapon.projectile.duplicate() # External resources are not deep-cloned by duplicate(true).
+		weapon.recoil = 64.0 # Valid test data makes accidental recoil observable.
+		player.loadout.reset(weapon)
+		weapon = player.loadout.active_weapon()
+		player.velocity = Vector2.ZERO
+		player._visual._fire_flash = 0.0
+		player._visual._input.recoil = 0.0
+		vehicle._muzzle_flash = 0.0
+		player._fire_cooldown_left = 0.0
+		player._melee_cooldown_left = 0.0
+		player.aim_dir = Vector2.RIGHT
+		player.aim_bloom = 0.0
+		player.cyber.debug_set_ability(null)
+		match fault:
+			"spec_nan": weapon.projectile.speed = NAN
+			"spec_huge": weapon.projectile.speed = 1e308
+			"spec_damage": weapon.projectile.damage = 2147483647
+			"spec_style": weapon.projectile.visual_style = "test_no_such_style"
+			"spec_identity": weapon.projectile.source_id = &""
+			"missing_spec": weapon.projectile = null
+			"sound": weapon.fire_sound = &"test_no_such_sound"
+			"direction": player.aim_dir = Vector2(NAN, 0.0)
+			"bloom": player.aim_bloom = NAN
+			"combined_spread":
+				weapon.random_spread_degrees = 360.0
+				player.aim_bloom = 1.0
+			"rate_nan", "rate_zero", "rate_huge":
+				var ability := CyberAbilityData.new()
+				ability.magnitude = NAN if fault == "rate_nan" else (-1.0 if fault == "rate_zero" else 1e308)
+				player.cyber.debug_set_ability(ability)
+				player.cyber._active_left = 1.0
+		InputFeel.mark(&"shoot")
+		var before := _shot_state(player, vehicle, sounds[0])
+		var bloom_before := player.aim_bloom
+		player._try_fire()
+		var after := _shot_state(player, vehicle, sounds[0])
+		for key: String in before:
+			check(before[key] == after[key], "real Player rejects %s before %s changes" % [fault, key])
+		check((is_nan(bloom_before) and is_nan(player.aim_bloom)) or bloom_before == player.aim_bloom, "real Player rejects %s before bloom changes" % fault)
+		print("NE237_SHOT_PREFLIGHT ", JSON.stringify({"caller":"Player", "fault":fault, "before":before, "after":after}))
+		# Player-only bloom/overclock inputs are not vehicle inputs.
+		if fault not in ["bloom", "combined_spread", "rate_nan", "rate_zero", "rate_huge"]:
+			player.velocity = Vector2.ZERO # Isolate this caller from the preceding rejected-shot red.
+			vehicle.data.weapon = weapon
+			vehicle.aim_dir = player.aim_dir
+			vehicle._fire_cooldown = 0.0
+			before = _shot_state(player, vehicle, sounds[0])
+			vehicle._try_fire()
+			after = _shot_state(player, vehicle, sounds[0])
+			for key: String in before:
+				check(before[key] == after[key], "real Vehicle rejects %s before %s changes" % [fault, key])
+			print("NE237_SHOT_PREFLIGHT ", JSON.stringify({"caller":"Vehicle", "fault":fault, "before":before, "after":after}))
+		player.velocity = Vector2.ZERO
+		player.aim_dir = Vector2.RIGHT
+		player.aim_bloom = 0.0
+		player.cyber.debug_set_ability(null)
+		vehicle.aim_dir = Vector2.RIGHT
+	# Exhaustion is graceful degradation of an accepted shot, not unsafe data.
+	var valid := (load("res://data/weapons/rifle.tres") as WeaponData).duplicate(true)
+	player.loadout.reset(valid)
+	vehicle.data.weapon = valid
+	for i in ProjectilePool.MAX_SIZE:
+		ProjectilePool.spawn(valid.projectile, Vector2(160.0, 280.0), Vector2.RIGHT, Combat.Team.PLAYER)
+	check(ProjectilePool.active_count() == ProjectilePool.MAX_SIZE, "the real projectile pool is exhausted for the valid-shot control")
+	var mag := player.loadout.mag_in(player.loadout.active_slot)
+	var sound_before: int = sounds[0]
+	player._fire_cooldown_left = 0.0
+	player._try_fire()
+	check(player.loadout.mag_in(player.loadout.active_slot) == mag - valid.ammo_per_shot and player._fire_cooldown_left == valid.fire_interval, "a valid full-pool Player shot still pays ammo and cooldown")
+	check(sounds[0] > sound_before and player._visual._input.recoil == 1.0, "a valid full-pool Player shot retains accepted feedback")
+	sound_before = sounds[0]
+	vehicle._fire_cooldown = 0.0
+	vehicle._try_fire()
+	check(vehicle._fire_cooldown == valid.fire_interval and vehicle._muzzle_flash == 0.07 and sounds[0] > sound_before, "a valid full-pool Vehicle shot retains cooldown and feedback")
+	check(ProjectilePool.active_count() == ProjectilePool.MAX_SIZE, "full-pool caller controls do not exceed the work/storage budget")
+	Sfx.sound_played.disconnect(on_sound)
+	InputFeel._marks = saved_marks
+	await end_level(level)
+
+
+func _shot_state(player: Player, vehicle: Vehicle, sound_count: int) -> Dictionary:
+	return {"mag":player.loadout.mag_in(player.loadout.active_slot), "cooldown":player._fire_cooldown_left,
+		"velocity":player.velocity, "visual_flash":player._visual._fire_flash, "visual_recoil":player._visual._input.recoil,
+		"vehicle_cooldown":vehicle._fire_cooldown, "vehicle_flash":vehicle._muzzle_flash,
+		"sounds":sound_count, "particles":Fx.particle_count(), "projectiles":ProjectilePool.active_count(),
+		"muzzle_marks":WeaponSystem._last_muzzle_fx.duplicate(), "input_marks":InputFeel._marks.duplicate(), "input_samples":InputFeel.samples}
+
+
+## The paid role belongs to the frozen chain, even if live definitions or their
+## extension label are edited after the preceding real action has finished.
+func _test_frozen_paid_tail_refusal() -> void:
+	for id: String in ["melee_dagger", "melee_maul"]:
+		for fault: String in ["guard_cost", "cancel_after", "missing_tail", "role_relabel"]:
+			await open_level(10.0)
+			var player := _arm(id)
+			var weapon := player.loadout.active_weapon()
+			var set := MeleeData.set_of(weapon)
+			Progression.add_credits(1000)
+			check(Progression.buy_upgrade(weapon, Progression.find_upgrade(set.extension_upgrade())), "%s/%s unlocks a real optional tail" % [id, fault])
+			var base_count := set.combo().size()
+			var tail_id := str(set.combo(true).back())
+			for step in base_count:
+				check(player._try_melee() and player._melee_index == step, "%s/%s naturally executes preceding step %s" % [id, fault, step])
+				await _finish_swing(player)
+			check(player._melee_chain.size() == base_count + 1 and str(player._melee_chain.back()) == tail_id, "%s/%s has the paid tail in its frozen chain" % [id, fault])
+			var live := set.live_attack(tail_id)
+			var saved_tail := live.duplicate(true)
+			var saved_extension: Dictionary = (set._data.extension as Dictionary).duplicate(true)
+			match fault:
+				"guard_cost": live[String("guard_cost")] = 0.0
+				"cancel_after": live[String("cancel_after")] = 0.0
+				"missing_tail": (set._data.attacks as Dictionary).erase(tail_id)
+				"role_relabel":
+					live[String("guard_cost")] = 0.0
+					(set._data.extension as Dictionary)[String("attack")] = str(set.combo()[0])
+			var original_path := set.path
+			set.path += "/test_no_such_attack_live_tail" # Label only this deliberate, post-load negative control.
+			var charge := player.loadout.mag_in(player.loadout.active_slot)
+			var guard_before := player.guard
+			var input_before := InputFeel.samples
+			check(not player._try_melee(), "%s/%s refuses a corrupted frozen paid tail, never a free fallback" % [id, fault])
+			check(player._melee_phase == Player.MeleePhase.NONE and player._melee_index == -1 and player._melee_chain.is_empty(), "%s/%s refusal clears only the stale continuation" % [id, fault])
+			check(player.guard == guard_before and player.loadout.mag_in(player.loadout.active_slot) == charge and InputFeel.samples == input_before, "%s/%s refuses before guard, charge or input resolution" % [id, fault])
+			check(player._melee_commands.remaining() == 0.0 and player._melee_buffer_left == 0.0, "%s/%s leaves no buffered free tail" % [id, fault])
+			print("NE237_FROZEN_TAIL ", JSON.stringify({"weapon":id,"fault":fault,"tail":tail_id,"phase":player._melee_phase,"guard_before":guard_before,"guard_after":player.guard,"charge_before":charge,"charge_after":player.loadout.mag_in(player.loadout.active_slot)}))
+			# Restore authoritative cached JSON before any await or next fixture.
+			set.path = original_path
+			(set._data.attacks as Dictionary)[tail_id] = saved_tail
+			set._data[String("extension")] = saved_extension
+			player._end_melee(false)
+			check(set.validate().is_empty(), "%s/%s restores the original valid live definition" % [id, fault])
+			var fallback := set.attack("test_no_such_attack_base_move")
+			check(not fallback.is_empty() and float(fallback.guard_cost) == 0.0 and float(fallback.windup) > 0.0, "normal missing-base fallback is still a safe light attack")
+			await end_level(level)

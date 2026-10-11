@@ -104,6 +104,7 @@ var _melee_phase := MeleePhase.NONE
 var _melee_time := 0.0
 var _melee_attack: Dictionary = {}
 var _melee_chain: Array = []
+var _melee_paid_tail := "" # Role captured with the chain, not recomputed from live edits.
 var _melee_commands: MeleeCommandInput
 ## 這一段連段用的招式組：沒拿近戰武器是預設近戰，拿著近戰武器是那把武器的組；中途換武器就從第一招重新開始。
 var _melee_set: MeleeSet = MeleeData.default_set()
@@ -644,7 +645,14 @@ func _try_fire() -> void:
 	if _fire_cooldown_left > 0.0 or _melee_cooldown_left > 0.0:
 		return
 	var weapon := loadout.active_weapon()
-	if weapon == null or not weapon.is_valid() or weapon.is_melee():
+	if weapon == null or weapon.is_melee():
+		return
+	var muzzle := muzzle_position()
+	var rate := cyber.fire_rate_scale()
+	if not is_finite(aim_bloom) or aim_bloom < 0.0 or aim_bloom > 1.0:
+		push_error("[WeaponSystem] %s/Player/aim_bloom outside finite 0–1; refusing before shot costs/feedback" % weapon.id)
+		return
+	if not WeaponSystem.can_fire(weapon, muzzle, aim_dir, Combat.Team.PLAYER, 1.0, aim_bloom * AIM_BLOOM_MAX_DEGREES, rate):
 		return
 	var dry := loadout.is_dry() and loadout.reserve_in(loadout.active_slot) == 0
 	if not loadout.consume_ammo():
@@ -653,9 +661,8 @@ func _try_fire() -> void:
 		return
 	if _melee_phase != MeleePhase.NONE:
 		_end_melee(false)
-	_fire_cooldown_left = weapon.fire_interval / cyber.fire_rate_scale()
+	_fire_cooldown_left = weapon.fire_interval / rate
 	InputFeel.resolve(&"shoot")
-	var muzzle := muzzle_position()
 	WeaponSystem.fire(weapon, muzzle, aim_dir, Combat.Team.PLAYER, 1.0, aim_bloom * AIM_BLOOM_MAX_DEGREES)
 	aim_bloom = minf(1.0, aim_bloom + weapon.bloom_per_shot)
 	# 射擊手感：槍口閃光 + 光源 + 鏡頭反向後座 + 彈殼 + 音效。
@@ -664,7 +671,7 @@ func _try_fire() -> void:
 	if weapon.ejects_casing:
 		Fx.casing(aim_origin(), facing)
 	# 射速加快（超頻等）時射擊音效跟著加快、音高不變（NE-182）；射速升級只要改 fire_rate_scale，不必另外處理音效。
-	Sfx.play(weapon.fire_sound, -6.0, 0.06, 0, LOW_AMMO_PITCH if _is_low_ammo(weapon) else 1.0, cyber.fire_rate_scale())
+	Sfx.play(weapon.fire_sound, -6.0, 0.06, 0, LOW_AMMO_PITCH if _is_low_ammo(weapon) else 1.0, rate)
 	if weapon.recoil > 0.0:
 		velocity -= aim_dir * weapon.recoil * (1.0 if not is_on_floor() else 0.3)
 	_visual.notify_fired(weapon.color)
@@ -804,7 +811,11 @@ func _start_melee_attack(continue_combo: bool) -> bool:
 	if continue_combo and _melee_index >= combo.size() - 1:
 		return false
 	var next_index := _melee_index + 1 if continue_combo and _melee_index >= 0 else 0
-	var attack := set.attack(str(combo[next_index]))
+	var tail_id := _melee_paid_tail if continue_combo else set.extension_attack()
+	var attack := set.attack(str(combo[next_index]), not tail_id.is_empty() and str(combo[next_index]) == tail_id)
+	if attack.is_empty():
+		_end_melee(false)
+		return false
 	var cost := float(attack["guard_cost"])
 	if not is_finite(cost) or cost < 0.0 or cost > guard or (cost > 0.0 and _guard_lockout_left > 0.0):
 		_end_melee(false)
@@ -822,6 +833,7 @@ func _start_melee_attack(continue_combo: bool) -> bool:
 	InputFeel.resolve(&"melee")
 	_melee_set = set
 	_melee_chain = combo
+	_melee_paid_tail = tail_id if combo.has(tail_id) else ""
 	_melee_index = next_index
 	_melee_attack = attack
 	_melee_commands.consume()
@@ -905,6 +917,7 @@ func _end_melee(keep_combo := true) -> void:
 	if not keep_combo or _melee_index >= _melee_chain.size() - 1:
 		_melee_index = -1
 		_melee_chain.clear()
+		_melee_paid_tail = ""
 		if _melee_commands != null:
 			_melee_commands.clear()
 		_melee_combo_left = 0.0

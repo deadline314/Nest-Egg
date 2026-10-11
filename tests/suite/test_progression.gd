@@ -14,12 +14,328 @@ const RELOAD_ID := &"quick_reload"
 
 func run() -> void:
 	_test_data()
+	_test_melee_catalog_preparation()
+	_test_unified_weapon_catalog()
+	_test_corrupt_catalog_definitions()
+	_test_nested_catalog_resources()
+	_test_extreme_numeric_definitions()
+	_test_actual_schema_negative_guard()
+	_test_bounded_runtime_fire()
 	_test_credits()
 	_test_upgrades()
 	_test_loadout_tuning()
 	_test_snapshot()
 	await _test_pickups_and_checkpoint()
 	await _test_upgrades_page()
+
+
+func _test_melee_catalog_preparation() -> void:
+	var saved := Progression.snapshot()
+	Progression.reset_run()
+	Progression.add_credits(1000)
+	var purchased: Array[WeaponData] = []
+	for file in DirAccess.get_files_at("res://data/weapons/melee"):
+		if not file.ends_with(".tres"):
+			continue
+		var weapon := load("res://data/weapons/melee/" + file) as WeaponData
+		var upgrade := Progression.find_upgrade(MeleeData.set_of(weapon).extension_upgrade())
+		check(Progression.buy_upgrade(weapon, upgrade), "catalog preparation buys real technique: %s" % weapon.id)
+		purchased.append(weapon)
+	var bought := Progression.snapshot()
+	var prepared := Progression.prepare_install(bought)
+	check(not prepared.has("error"), "all real melee techniques pass strict preparation: %s" % prepared.get("error", "accepted"))
+	check(Progression.snapshot() == bought, "preparation does not mutate live progression")
+	if prepared.has("data"):
+		Progression.reset_run()
+		Progression._install_prepared(prepared.data)
+		for weapon in purchased:
+			check(Progression.has_upgrade(weapon, MeleeData.set_of(weapon).extension_upgrade()), "prepared install retains purchased technique: %s" % weapon.id)
+	var before := Progression.snapshot()
+	for corruption in ["unknown_weapon", "wrong_technique", "repeat", "unknown_upgrade"]:
+		var bad := bought.duplicate(true)
+		match corruption:
+			"unknown_weapon": bad.upgrades.test_no_such_weapon = ["technique_dagger"]
+			"wrong_technique": bad.upgrades.melee_blade = ["technique_dagger"]
+			"repeat": bad.upgrades.melee_dagger = ["technique_dagger", "technique_dagger"]
+			"unknown_upgrade": bad.upgrades.melee_dagger = ["test_catalog_unknown_upgrade"]
+		var rejected := Progression.prepare_install(bad)
+		check(rejected.has("error") and str(rejected.error).begins_with("install/progression/upgrades"), "strict catalog rejects %s with a concrete field" % corruption)
+		check(Progression.snapshot() == before, "rejected %s preserves live state" % corruption)
+	Progression.restore(saved)
+
+
+func _test_unified_weapon_catalog() -> void:
+	var path := "res://core/weapon_catalog.gd"
+	check(ResourceLoader.exists(path), "runtime has one authoritative weapon/profile/upgrade catalog")
+	if not ResourceLoader.exists(path):
+		return
+	var script: Script = load(path)
+	var catalog = script.call(&"load_all")
+	check(catalog.issues.is_empty(), "real authoritative weapon catalog has no invalid definitions: %s" % catalog.issues)
+	check(catalog.default_melee == MeleeData.default_set(), "catalog also includes the actual unarmed/default melee profile")
+	var files := _weapon_definition_files("res://data/weapons")
+	check(catalog.weapons.size() == files.size(), "catalog covers every actual weapon resource, including nested melee")
+	for file in files:
+		var weapon := load(file) as WeaponData
+		var found = catalog.find_weapon(weapon.id)
+		check(found == weapon and found.display_name == weapon.display_name, "catalog keeps actual resource and weapon name: %s" % file)
+		if weapon.is_melee():
+			var profile = catalog.profiles.get(weapon.id)
+			check(profile == MeleeData.set_of(weapon), "catalog references actual runtime melee profile: %s" % weapon.id)
+			var json: JSON = load("res://data/melee/%s.json" % weapon.melee_profile)
+			for attack_id: String in json.data.attacks:
+				var original: Dictionary = json.data.attacks[attack_id]
+				var actual: Dictionary = profile.attack(attack_id)
+				for key in ["windup", "active", "recovery", "damage", "knockback"]:
+					check(actual[key] == original[key], "catalog preserves %s/%s/%s actual definition" % [weapon.id, attack_id, key])
+				check(actual.guard_cost == original.get("guard_cost", 0.0), "catalog preserves %s/%s energy cost" % [weapon.id, attack_id])
+			var upgrade = catalog.find_upgrade(profile.extension_upgrade())
+			check(upgrade == Progression.find_upgrade(profile.extension_upgrade()) and upgrade.applies_to(weapon), "catalog links actual optional upgrade: %s" % weapon.id)
+
+
+func _weapon_definition_files(dir: String) -> PackedStringArray:
+	var result := PackedStringArray()
+	for file in DirAccess.get_files_at(dir):
+		if file.ends_with(".tres"):
+			result.append(dir.path_join(file))
+	for child in DirAccess.get_directories_at(dir):
+		result.append_array(_weapon_definition_files(dir.path_join(child)))
+	return result
+
+
+func _test_corrupt_catalog_definitions() -> void:
+	var script: Script = load("res://core/weapon_catalog.gd")
+	var good := load(RIFLE_PATH) as WeaponData
+	var upgrades: Array[Resource] = []
+	for upgrade in Progression.upgrade_catalog():
+		upgrades.append(upgrade)
+	for kind in ["duplicate", "wrong_type", "nonfinite_fire", "negative_ammo", "missing_projectile", "nonfinite_projectile", "unknown_shape", "missing_profile"]:
+		var bad := good.duplicate() as WeaponData
+		bad.id = &"test_catalog_bad_weapon"
+		var resources: Array[Resource] = [good]
+		match kind:
+			"duplicate": bad.id = good.id
+			"wrong_type": resources.append(Resource.new())
+			"nonfinite_fire": bad.fire_interval = NAN
+			"negative_ammo": bad.magazine_size = -1
+			"missing_projectile": bad.projectile = null
+			"nonfinite_projectile":
+				bad.projectile = bad.projectile.duplicate()
+				bad.projectile.knockback = INF
+			"unknown_shape":
+				bad.melee_profile = "mono_dagger"
+				bad.melee_shape = "test_catalog_unknown_shape"
+			"missing_profile": bad.melee_profile = "test_no_such_attack_catalog"
+		if kind != "wrong_type":
+			resources.append(bad)
+		var catalog = script.call(&"from_resources", resources, upgrades)
+		check(not catalog.issues.is_empty(), "catalog diagnoses %s instead of accepting a bad resource" % kind)
+		check(catalog.weapons.size() == 1 and catalog.find_weapon(good.id) == good, "catalog excludes %s and retains the actual valid resource" % kind)
+		check(catalog.find_weapon(&"test_no_such_weapon") == null, "unknown weapon has no fabricated definition")
+	for kind in ["nan_amount", "unknown_effect", "wrong_weapon", "missing_tail_upgrade", "duplicate_upgrade"]:
+		var bad := Progression.find_upgrade(&"technique_dagger").duplicate() as WeaponUpgradeData
+		var resources: Array[Resource] = [load("res://data/weapons/melee/melee_dagger.tres")]
+		var candidates: Array[Resource] = [bad]
+		match kind:
+			"nan_amount": bad.amount = NAN
+			"unknown_effect": bad.effect = 99
+			"wrong_weapon": bad.melee_weapon_id = &"test_no_such_weapon"
+			"missing_tail_upgrade": bad.id = &"test_catalog_wrong_upgrade"
+			"duplicate_upgrade": candidates.append(bad.duplicate())
+		var catalog = script.call(&"from_resources", resources, candidates)
+		check(not catalog.issues.is_empty(), "catalog diagnoses %s upgrade reference" % kind)
+		if kind != "duplicate_upgrade":
+			check(catalog.weapons.is_empty() and catalog.upgrades.is_empty(), "invalid %s cannot authorize a tail purchase or install" % kind)
+	var original: JSON = load("res://data/melee/mono_dagger.json")
+	for field in ["windup", "damage", "guard_cost", "knockback", "shape", "sweep", "trail", "sounds", "test_catalog_unknown_field"]:
+		var set := MeleeSet.new("res://test_no_such_attack_catalog_corrupt")
+		set._loaded = true
+		set._data = original.data.duplicate(true)
+		var attack: Dictionary = set._data.attacks.stab_1
+		match field:
+			"windup": attack.windup = NAN
+			"damage": attack.damage = 1.0e30
+			"guard_cost": attack.guard_cost = -30.0
+			"knockback": attack.knockback = ["bad", INF]
+			"shape": attack.shape = ["wrong type"]
+			"sweep": attack.sweep = "not boolean"
+			"trail": attack.trail = {"life": "bad"}
+			"sounds": attack.sounds = {"hit": ["not sound"]}
+			_: attack[field] = 1
+		var issues := set.validate()
+		check(not issues.is_empty() and str(issues).contains(field), "corrupt attack reports exact %s field" % field)
+		var fallback := set.attack("stab_1")
+		check(fallback == MeleeSet.DEFAULT_ATTACK, "corrupt %s returns the entire safe attack, never partially invalid values" % field)
+	var invalid := MeleeSet.new("res://tests/fixtures/test_no_such_attack_catalog_corrupt.json")
+	check(not invalid.validate().is_empty(), "loaded corrupt JSON retains its diagnostics after fallback")
+	check(invalid.combo() == ["light"] and invalid.combo(true) == ["light"] and invalid.attack("light") == MeleeSet.DEFAULT_ATTACK, "loaded corrupt JSON cannot expose its broken combo or optional free tail")
+
+
+func _test_nested_catalog_resources() -> void:
+	var script: Script = load("res://core/weapon_catalog.gd")
+	var weapon_dir := "user://test_catalog_nested/weapons"
+	var upgrade_dir := "user://test_catalog_nested/upgrades"
+	DirAccess.make_dir_recursive_absolute(weapon_dir.path_join("extra/deeper"))
+	DirAccess.make_dir_recursive_absolute(upgrade_dir)
+	var weapon := (load(RIFLE_PATH) as WeaponData).duplicate() as WeaponData
+	weapon.id = &"test_catalog_future_weapon"
+	weapon.display_name = "測試型錄步槍"
+	var weapon_path := weapon_dir.path_join("extra/deeper/future.tres")
+	check(ResourceSaver.save(weapon, weapon_path) == OK, "nested catalog fixture saves a real WeaponData resource")
+	check(ResourceSaver.save(Progression.find_upgrade(MAG_ID).duplicate(), upgrade_dir.path_join("mag.tres")) == OK, "nested catalog fixture saves the actual upgrade definition")
+	var catalog = script.call(&"load_all", weapon_dir, upgrade_dir)
+	var loaded = catalog.find_weapon(weapon.id)
+	check(catalog.issues.is_empty() and catalog.weapons.size() == 1 and loaded != null, "new deeply nested weapon is discovered without changing an ID whitelist")
+	if loaded != null:
+		check(loaded.resource_path == weapon_path and loaded.display_name == weapon.display_name and loaded.projectile.damage == weapon.projectile.damage, "nested weapon retains its actual name, source and projectile definition")
+	var missing = script.call(&"load_all", "user://test_catalog_missing_directory", upgrade_dir)
+	check(not missing.issues.is_empty() and str(missing.issues).contains("test_catalog_missing_directory"), "missing catalog directory is reported, not silently accepted")
+	check(missing.weapons.is_empty(), "missing directory exposes no weapon definitions")
+
+
+func _test_extreme_numeric_definitions() -> void:
+	var weapon := (load(RIFLE_PATH) as WeaponData).duplicate() as WeaponData
+	weapon.id = &"test_catalog_extreme_weapon"
+	weapon.pellets = 2147483647
+	check(str(weapon.validate()).contains("pellets"), "extreme pellet count is rejected by its exact field")
+	check(not weapon.is_valid(), "legacy runtime fire guard also rejects an extreme pellet count")
+	for property: Dictionary in weapon.projectile.get_property_list():
+		if property.type != TYPE_FLOAT or (int(property.usage) & PROPERTY_USAGE_STORAGE) == 0:
+			continue
+		var field := String(property.name)
+		var spec := (load(RIFLE_PATH) as WeaponData).projectile.duplicate() as ProjectileSpec
+		spec.set(field, 1.0e308)
+		check(str(spec.validate()).contains(field), "finite double overflow is rejected before Vector2 conversion: %s" % field)
+	for property: Dictionary in weapon.get_property_list():
+		if property.type != TYPE_FLOAT or (int(property.usage) & PROPERTY_USAGE_STORAGE) == 0:
+			continue
+		var field := String(property.name)
+		var bad := weapon.duplicate() as WeaponData
+		bad.pellets = 1
+		bad.set(field, 1.0e308)
+		check(str(bad.validate()).contains(field), "weapon finite extreme reports its exact %s field" % field)
+	for resource: Resource in [weapon, weapon.projectile]:
+		for property: Dictionary in resource.get_property_list():
+			if property.type != TYPE_INT or (int(property.usage) & PROPERTY_USAGE_STORAGE) == 0:
+				continue
+			var field := String(property.name)
+			var bad := resource.duplicate()
+			bad.set(field, 2147483647)
+			check(str(bad.call(&"validate")).contains(field), "integer work/cost limit rejects extreme %s/%s" % [resource.get_class(), field])
+	for resource: Resource in [weapon, weapon.projectile]:
+		var bad := resource.duplicate()
+		bad.set("color", Color(1.0e20, 0.0, 0.0, 1.0))
+		check(str(bad.call(&"validate")).contains("color/r"), "finite HDR extreme is rejected before visual arithmetic")
+	var upgrade := Progression.find_upgrade(&"technique_dagger").duplicate() as WeaponUpgradeData
+	upgrade.amount = 1.0e308
+	check(not upgrade.validate().is_empty(), "technique amount also rejects a finite-double extreme")
+	upgrade.amount = 0.5
+	upgrade.cost = 2147483647
+	check(str(upgrade.validate()).contains("cost"), "upgrade price cannot overflow bounded economy data")
+	var original: JSON = load("res://data/melee/mono_dagger.json")
+	for field in ["advance", "range", "height", "windup", "active", "recovery", "cancel_after", "move_scale", "damage", "stagger", "arc_degrees", "min_range", "guard_cost", "hitstop", "impact", "knockback", "trail"]:
+		var set := MeleeSet.new("res://test_no_such_attack_extreme_numeric")
+		set._loaded = true
+		set._data = original.data.duplicate(true)
+		var attack: Dictionary = set._data.attacks.stab_1
+		if field == "knockback":
+			attack[String("knockback")] = [1.0e308, -1.0e308]
+		elif field == "trail":
+			var trail: Dictionary = attack[String("trail")]
+			trail[String("radius")] = 1.0e308
+		else:
+			attack[String(field)] = 1.0e308
+		check(str(set.validate()).contains(field), "melee finite extreme reports its exact %s field" % field)
+		check(set.attack("stab_1") == MeleeSet.DEFAULT_ATTACK, "extreme %s uses the entire safe attack" % field)
+	var window_set := MeleeSet.new("res://test_no_such_attack_extreme_window")
+	window_set._loaded = true
+	window_set._data = original.data.duplicate(true)
+	window_set._data[String("combo_window")] = 1.0e308
+	check(str(window_set.validate()).contains("combo_window"), "extreme combo window has an exact root-field diagnostic")
+	check(window_set.combo_window() == 0.5, "live extreme combo window returns the existing safe half-second window")
+	var tail_set := MeleeSet.new("res://test_no_such_attack_extreme_tail")
+	tail_set._loaded = true
+	tail_set._data = original.data.duplicate(true)
+	var tail: Dictionary = tail_set._data["attacks"][tail_set._data["extension"]["attack"]]
+	tail[String("advance")] = 1.0e308
+	check(tail_set.combo(true) == tail_set.combo(), "live unsafe tail is not appended as a free fallback finish")
+	var spec := (load(RIFLE_PATH) as WeaponData).projectile.duplicate() as ProjectileSpec
+	spec.source_id = &"test_catalog_runtime"
+	spec.speed = 10000.0
+	check(spec.validate().is_empty(), "documented upper speed boundary remains a valid definition")
+	spec.speed = 10000.01
+	check(str(spec.validate()).contains("speed"), "first value above speed boundary is rejected")
+	weapon.pellets = 64
+	check(weapon.validate().is_empty(), "documented 64 pellet boundary is valid")
+	weapon.pellets = 65
+	check(str(weapon.validate()).contains("pellets"), "first value above pellet boundary is rejected")
+
+
+func _test_actual_schema_negative_guard() -> void:
+	var original: JSON = load("res://data/melee/mono_dagger.json")
+	var set := MeleeSet.new("res://test_no_such_attack_negative_guard_range")
+	set._loaded = true
+	set._data = original.data.duplicate(true)
+	var attack: Dictionary = set._data["attacks"]["stab_1"]
+	attack[String("guard_cost")] = -30.0
+	for key: Variant in attack:
+		check(typeof(key) == TYPE_STRING, "negative guard regression uses actual JSON String keys")
+	var issues := set.validate()
+	check(str(issues).contains("/guard_cost cannot be negative"), "actual-schema negative guard enters the numeric range rejection")
+	check(not str(issues).contains("unknown field"), "negative guard is not mistaken for an unknown key type")
+	check(set.attack("stab_1") == MeleeSet.DEFAULT_ATTACK, "negative actual-schema guard never creates a free or energy-granting move")
+
+
+func _test_bounded_runtime_fire() -> void:
+	var container := Node2D.new()
+	runner.add_child(container)
+	ProjectilePool.bind_container(container)
+	var weapon := (load(RIFLE_PATH) as WeaponData).duplicate() as WeaponData
+	weapon.id = &"test_catalog_runtime"
+	var spec := weapon.projectile.duplicate() as ProjectileSpec
+	spec.source_id = &"test_catalog_runtime"
+	weapon.projectile = spec
+	for count in [0, -1, 65]:
+		check(WeaponSystem.fire_spread(spec, Vector2.ZERO, Vector2.RIGHT, count, 0.0, 0.0, Combat.Team.PLAYER) == 0, "direct spread rejects out-of-budget count %s without entering an unbounded loop" % count)
+	check(ProjectilePool.active_count() == 0, "rejected counts do not consume any pooled projectile")
+	weapon.pellets = 2147483647
+	# Do not hang an unfixed baseline: validate the boundary first, then assert it.
+	if not weapon.is_valid():
+		check(WeaponSystem.fire(weapon, Vector2.ZERO, Vector2.RIGHT, Combat.Team.PLAYER) == 0, "extreme weapon fire safely returns zero")
+	else:
+		check(false, "extreme weapon requires runtime rejection before firing")
+	for field in ["speed", "knockback"]:
+		var bad := spec.duplicate() as ProjectileSpec
+		bad.set(field, 1.0e308)
+		check(ProjectilePool.spawn(bad, Vector2.ZERO, Vector2.RIGHT, Combat.Team.PLAYER) == null, "direct pool rejects finite-double extreme %s before activation" % field)
+		check(WeaponSystem.fire_spread(bad, Vector2.ZERO, Vector2.RIGHT, 1, 0.0, 0.0, Combat.Team.PLAYER) == 0, "direct spread rejects finite-double extreme %s" % field)
+	for multiplier in [NAN, INF, 1.0e308, -1.0]:
+		check(ProjectilePool.spawn(spec, Vector2.ZERO, Vector2.RIGHT, Combat.Team.PLAYER, multiplier) == null, "direct pool rejects unsafe speed multiplier %s" % multiplier)
+		check(WeaponSystem.fire_spread(spec, Vector2.ZERO, Vector2.RIGHT, 1, 0.0, 0.0, Combat.Team.PLAYER, multiplier) == 0, "direct spread rejects unsafe speed multiplier %s" % multiplier)
+	for vector in [Vector2(INF, 0.0), Vector2(NAN, 0.0), Vector2(1.0e20, 0.0)]:
+		check(ProjectilePool.spawn(spec, vector, Vector2.RIGHT, Combat.Team.PLAYER) == null, "pool rejects unsafe origin before activating physics")
+		check(ProjectilePool.spawn(spec, Vector2.ZERO, vector, Combat.Team.PLAYER) == null, "pool rejects unsafe direction before normalizing a float32 vector")
+	var previous_fx := WeaponSystem._last_muzzle_fx.duplicate()
+	var invalid_feedback := weapon.duplicate() as WeaponData
+	invalid_feedback.pellets = 1
+	invalid_feedback.camera_kick = 1.0e308
+	check(not WeaponSystem.muzzle_feedback(invalid_feedback, Vector2.ZERO, Vector2.RIGHT), "unsafe feedback refuses its finite-double extreme before Fx")
+	check(WeaponSystem._last_muzzle_fx == previous_fx, "unsafe feedback does not update its throttle state")
+	for angle in [NAN, INF, 1.0e308, -1.0]:
+		check(WeaponSystem.fire_spread(spec, Vector2.ZERO, Vector2.RIGHT, 1, angle, 0.0, Combat.Team.PLAYER) == 0, "spread rejects unsafe angle %s before trigonometry" % angle)
+	check(ProjectilePool.active_count() == 0, "all numeric rejections leave pool state untouched")
+	check(WeaponSystem.fire_spread(spec, Vector2.ZERO, Vector2.RIGHT, 64, 0.0, 0.0, Combat.Team.PLAYER) == 64, "runtime permits the bounded 64 projectile boundary")
+	for i in ProjectilePool.MAX_SIZE - 65:
+		ProjectilePool.spawn(spec, Vector2.ZERO, Vector2.RIGHT, Combat.Team.PLAYER)
+	check(ProjectilePool.active_count() == ProjectilePool.MAX_SIZE - 1, "real pool has exactly one remaining slot")
+	check(WeaponSystem.fire_spread(spec, Vector2.ZERO, Vector2.RIGHT, 6, 20.0, 0.0, Combat.Team.PLAYER) == 1, "partial capacity returns one real projectile and stops at the first refusal")
+	check(WeaponSystem.fire_spread(spec, Vector2.ZERO, Vector2.RIGHT, 64, 0.0, 0.0, Combat.Team.PLAYER) == 0, "full pool rejects a bounded shot without growing")
+	check(ProjectilePool.active_count() == ProjectilePool.MAX_SIZE, "full pool remains bounded")
+	for child in container.get_children():
+		var projectile := child as Projectile
+		if projectile != null and projectile.active:
+			check(is_finite(projectile.velocity.x) and is_finite(projectile.velocity.y), "every accepted pooled velocity is finite")
+	container.free()
 
 
 func _upgrade(id: StringName) -> WeaponUpgradeData:

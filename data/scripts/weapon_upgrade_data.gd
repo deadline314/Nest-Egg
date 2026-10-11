@@ -46,11 +46,15 @@ func validate() -> PackedStringArray:
 	var problems := PackedStringArray()
 	if id == &"":
 		problems.append("改裝缺少 id")
-	if cost < 1:
-		problems.append("%s 的價格必須至少 1" % id)
+	if display_name.strip_edges().is_empty():
+		problems.append("display_name must name an upgrade")
+	if effect < Effect.MAGAZINE or effect > Effect.MELEE_TECHNIQUE:
+		problems.append("effect unknown upgrade effect")
+	if cost < 1 or cost > 1000000:
+		problems.append("%s/cost must be in 1–1000000" % id)
 	if effect == Effect.MELEE_TECHNIQUE and melee_weapon_id == &"":
 		problems.append("%s 缺少近戰適用武器" % id)
-	if effect != Effect.MELEE_TECHNIQUE and (amount <= 0.0 or amount > 0.9):
+	if not is_finite(amount) or amount < 0.0 or amount > 0.9 or (effect != Effect.MELEE_TECHNIQUE and amount <= 0.0):
 		problems.append("%s 的幅度必須在 0～0.9 之間" % id)
 	if description.is_empty():
 		problems.append("%s 缺少說明" % id)

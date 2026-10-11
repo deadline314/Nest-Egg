@@ -66,17 +66,20 @@ func prepare_install(raw: Variant) -> Dictionary:
 		return {"error": "install/progression containers invalid"}
 	var prepared := PreparedInstall.new()
 	prepared.credits = int(raw["credits"])
-	var weapons: Array[Resource] = ResourceCatalog.load_dir("res://data/weapons", WeaponData, "StoryInstall")
+	var weapon_catalog := WeaponCatalog.load_all()
+	if not weapon_catalog.issues.is_empty():
+		return {"error": "install/progression weapon catalog: " + weapon_catalog.issues[0]}
+	var weapons := weapon_catalog.weapons
 	var weapon_ids: Dictionary = {}
 	for weapon: WeaponData in weapons:
 		weapon_ids[String(weapon.id)] = weapon
 	for weapon: Variant in raw.get("upgrades", {}):
 		if not weapon is String or not weapon_ids.has(weapon) or not raw["upgrades"][weapon] is Array:
-			return {"error": "install/progression/upgrades unknown weapon or invalid list"}
+			return {"error": "install/progression/upgrades unknown weapon or invalid list: %s" % weapon}
 		var ids: Array = []
 		for id: Variant in raw["upgrades"][weapon]:
 			if not id is String or find_upgrade(StringName(id)) == null or ids.has(StringName(id)):
-				return {"error": "install/progression/upgrades unknown or repeated upgrade"}
+				return {"error": "install/progression/upgrades unknown or repeated upgrade: %s/%s" % [weapon, id]}
 			if not find_upgrade(StringName(id)).applies_to(weapon_ids[weapon]):
 				return {"error": "install/progression/upgrades does not apply to this weapon"}
 			ids.append(StringName(id))
@@ -285,8 +288,8 @@ func redeem(item: ConsumableData) -> bool:
 func upgrade_catalog() -> Array[WeaponUpgradeData]:
 	if not _catalog_loaded:
 		_catalog_loaded = true
-		for res in ResourceCatalog.load_dir(UPGRADE_DIR, WeaponUpgradeData, "Progression"):
-			_upgrade_catalog.append(res as WeaponUpgradeData)
+		for res: WeaponUpgradeData in WeaponCatalog.load_all().upgrades:
+			_upgrade_catalog.append(res)
 	return _upgrade_catalog
 
 

@@ -33,6 +33,10 @@ func _reset() -> void:
 func spawn(spec: ProjectileSpec, origin: Vector2, direction: Vector2, team: Combat.Team, speed_multiplier := 1.0) -> Projectile:
 	if _container == null or spec == null:
 		return null
+	var problems := spec.spawn_problems(origin, direction, speed_multiplier)
+	if not problems.is_empty():
+		push_error("[ProjectilePool] %s: %s; refusing activation" % [spec.source_context(), problems])
+		return null
 	var projectile: Projectile
 	if not _free.is_empty():
 		projectile = _free.pop_back()

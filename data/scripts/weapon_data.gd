@@ -2,6 +2,18 @@ class_name WeaponData
 extends Resource
 ## 武器定義。新增武器只需建立新的 .tres，不必改程式。
 
+## Corruption bounds, not balance targets. Every shipped resource remains unchanged.
+const MAX_PELLETS := 64
+const MAX_AMMO := 10000
+const MIN_FIRE_INTERVAL := 0.01
+const NUMERIC_LIMITS := {
+	"fire_interval": 30.0, "reload_time": 120.0, "spread_degrees": 360.0,
+	"random_spread_degrees": 360.0, "melee_length": 512.0, "screen_shake": 100.0,
+	"camera_kick": 512.0, "recoil": 10000.0, "muzzle_light_energy": 32.0,
+	"muzzle_flare_size": 512.0, "muzzle_light_radius": 2048.0, "muzzle_fx_interval": 30.0,
+	"screen_shake_time": 5.0, "bloom_per_shot": 1.0,
+}
+
 @export var id: StringName = &"weapon"
 @export var display_name: String = "武器"
 @export var color: Color = Color.WHITE
@@ -88,4 +100,53 @@ func has_light() -> bool:
 
 
 func is_valid() -> bool:
-	return (is_melee() or projectile != null) and fire_interval > 0.0 and magazine_size >= 0 and reload_time >= 0.0
+	return numeric_problems().is_empty() and (is_melee() or (projectile != null and projectile.validate().is_empty()))
+
+
+## Catalog validation adds identity/profile checks to the runtime numeric guard.
+func validate() -> PackedStringArray:
+	var errors := PackedStringArray()
+	if id == &"" or display_name.strip_edges().is_empty():
+		errors.append("id/display_name must name a weapon")
+	errors.append_array(numeric_problems())
+	if not Sfx.has_named(fire_sound):
+		errors.append("fire_sound unknown sound: " + str(fire_sound))
+	if is_melee():
+		if melee_profile != melee_profile.get_file() or melee_profile in [".", ".."] or melee_profile.contains(":") or melee_profile.contains("\\"):
+			errors.append("melee_profile must name a local profile")
+		if melee_shape not in ["blade", "heavy", "polearm", "whip"] or melee_length <= 0.0:
+			errors.append("melee_shape/melee_length invalid")
+	elif projectile == null:
+		errors.append("projectile missing")
+	else:
+		for problem in projectile.validate():
+			errors.append("projectile " + problem)
+	return errors
+
+
+func numeric_problems() -> PackedStringArray:
+	var errors := PackedStringArray()
+	var components := {"r": color.r, "g": color.g, "b": color.b, "a": color.a}
+	for field: String in components:
+		var value: float = components[field]
+		var limit := 1.0 if field == "a" else 8.0
+		if not is_finite(value) or value < 0.0 or value > limit:
+			errors.append("color/%s outside finite 0–%s" % [field, limit])
+	for field: String in NUMERIC_LIMITS:
+		var value := float(get(field))
+		if not is_finite(value) or value < 0.0 or value > float(NUMERIC_LIMITS[field]):
+			errors.append("%s must be finite in 0–%s" % [field, NUMERIC_LIMITS[field]])
+	if fire_interval < MIN_FIRE_INTERVAL:
+		errors.append("fire_interval below minimum %s" % MIN_FIRE_INTERVAL)
+	for field: String in ["magazine_size", "ammo_per_shot"]:
+		if int(get(field)) < 0 or int(get(field)) > MAX_AMMO:
+			errors.append("%s outside 0–%s" % [field, MAX_AMMO])
+	if max_reserve < -1 or max_reserve > MAX_AMMO:
+		errors.append("max_reserve outside -1–%s" % MAX_AMMO)
+	if ammo_per_shot < 1 or (has_magazine() and ammo_per_shot > magazine_size):
+		errors.append("ammo_per_shot invalid for magazine_size")
+	if pellets < 1 or pellets > MAX_PELLETS:
+		errors.append("pellets outside 1–%s" % MAX_PELLETS)
+	if muzzle_spark_count < 0 or muzzle_spark_count > 80:
+		errors.append("muzzle_spark_count outside 0–80")
+	return errors

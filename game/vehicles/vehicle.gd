@@ -167,10 +167,12 @@ func _drive(delta: float) -> void:
 
 func _try_fire() -> void:
 	var weapon := data.weapon
-	if _fire_cooldown > 0.0 or weapon == null or not weapon.is_valid():
+	if _fire_cooldown > 0.0 or weapon == null:
+		return
+	var muzzle := _muzzle()
+	if not WeaponSystem.can_fire(weapon, muzzle, aim_dir, Combat.Team.PLAYER):
 		return
 	_fire_cooldown = weapon.fire_interval
-	var muzzle := _muzzle()
 	WeaponSystem.fire(weapon, muzzle, aim_dir, Combat.Team.PLAYER)
 	_muzzle_flash = 0.07
 	WeaponSystem.muzzle_feedback(weapon, muzzle, aim_dir)
