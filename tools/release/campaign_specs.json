@@ -6,7 +6,7 @@
   "chapters": [
     {"id": "prologue", "status": "draft", "acceptance_ticket": "ST-16", "entry": "", "terminal": "", "evidence": []},
     {"id": "ch1_kasa", "status": "draft", "acceptance_ticket": "NE-233", "entry": "data/levels/ch1_pawnshop.tres", "terminal": "data/levels/ch1_pawnshop_dawn.tres", "evidence": []},
-    {"id": "chapter_2", "status": "draft", "acceptance_ticket": "NE-234", "entry": "", "terminal": "", "evidence": []},
-    {"id": "chapter_3", "status": "draft", "acceptance_ticket": "NE-235", "entry": "", "terminal": "", "evidence": []}
+    {"id": "ch2_heron", "status": "draft", "acceptance_ticket": "NE-234", "entry": "data/levels/ch2_pawnshop.tres", "terminal": "data/levels/ch2_rooftop.tres", "evidence": []},
+    {"id": "ch3_clearwater", "status": "draft", "acceptance_ticket": "NE-235", "entry": "data/levels/ch3_pawnshop.tres", "terminal": "data/levels/ch3_pawnshop.tres", "evidence": []}
   ]
 }
