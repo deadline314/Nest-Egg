@@ -12,6 +12,7 @@ const NUMERIC_LIMITS := {
 	"camera_kick": 512.0, "recoil": 10000.0, "muzzle_light_energy": 32.0,
 	"muzzle_flare_size": 512.0, "muzzle_light_radius": 2048.0, "muzzle_fx_interval": 30.0,
 	"screen_shake_time": 5.0, "bloom_per_shot": 1.0,
+	"light_range": 2048.0, "light_cone_degrees": 360.0, "light_energy": 32.0, "light_jitter": 1.0,
 }
 
 @export var id: StringName = &"weapon"
