@@ -30,6 +30,7 @@ const SCENARIOS := {
 	"throwables": "res://tools/scenarios/throwables_scenario.gd",
 	"shield_attach": "res://tools/scenarios/shield_attach_scenario.gd",
 	"shield_film": "res://tools/scenarios/shield_film_scenario.gd",
+	"melee_contact": "res://tools/scenarios/melee_contact_scenario.gd",
 	"gun_balance": "res://tools/scenarios/gun_balance_scenario.gd",
 	"creature_combat": "res://tools/scenarios/creature_combat_scenario.gd",
 	"exotic_enemies": "res://tools/scenarios/exotic_enemies_scenario.gd",

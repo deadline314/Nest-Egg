@@ -25,6 +25,8 @@ var impact := -1.0
 ## 打中的部位（受擊框的部位 id，空字串＝整體）；打中傷害倍率大於 1 的部位（弱點）時 weak_hit 為 true。
 var part: StringName = &""
 var weak_hit := false
+## 攻擊實際碰到的點（世界座標，NE-268）；INF＝不知道，受擊方改用自己的身體中心。
+var contact_point := Vector2.INF
 
 
 ## 這次攻擊的衝擊力：沒指定時，傷害 + 擊退力道 / 100（手槍約 1.5、狙擊槍約 2.5、電磁砲約 7）。

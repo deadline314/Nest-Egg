@@ -189,33 +189,37 @@ func _on_area_entered(area: Area2D) -> void:
 func _strike(hurtbox: Hurtbox) -> void:
 	# 依子彈路徑選部位：身體框先被碰到時，沿著彈道在同一個目標裡找外露的核心或頭部（NE-248）。
 	_path_owner = hurtbox.root()
+	var entered := hurtbox
 	hurtbox = hurtbox.resolve_along(global_position, velocity, 3.0, _is_path_blocked)
 	_path_owner = null
+	# 回饋的位置：選中的是身體深處的部位時，放在子彈射進那個部位的點，不停在身體邊緣（NE-268）。
+	var impact := global_position if hurtbox == entered else hurtbox.entry_point(global_position, velocity)
 	# 同一發子彈對同一個目標只算一次（頭與身體的受擊框重疊時也一樣）。
 	var id := hurtbox.health.get_instance_id() if hurtbox.health != null else hurtbox.get_instance_id()
 	if _hit_ids.has(id):
 		return
 	_hit_ids[id] = true
 	var info := _make_damage()
+	info.contact_point = impact
 	match hurtbox.receive(info):
 		Hurtbox.Result.DAMAGED:
-			HitFeedback.play(hurtbox.material_id(), global_position, -velocity.normalized(), spec.color, {"weak": info.weak_hit})
+			HitFeedback.play(hurtbox.material_id(), impact, -velocity.normalized(), spec.color, {"weak": info.weak_hit})
 			if team == Combat.Team.PLAYER:
-				EventBus.hit_confirmed.emit(global_position, hurtbox.health.is_dead)
+				EventBus.hit_confirmed.emit(impact, hurtbox.health.is_dead)
 				EventBus.hit_marker.emit(&"kill" if hurtbox.health.is_dead else (&"weak" if info.weak_hit else &"hit"))
 				if info.weak_hit or info.get_impact() >= HEAVY_NUMBER_IMPACT:
-					EventBus.damage_number.emit(global_position, info.amount, &"weak" if info.weak_hit else &"crit", hurtbox.health.get_instance_id())
+					EventBus.damage_number.emit(impact, info.amount, &"weak" if info.weak_hit else &"crit", hurtbox.health.get_instance_id())
 		Hurtbox.Result.REFLECTED:
 			_reflect(hurtbox.reflect_direction)
 			return
 		Hurtbox.Result.BLOCKED:
 			# 被格擋：火花反彈、子彈直接消失（即使可貫穿）。擁有者自己播格擋回饋時（玩家的盾）不重複播。
 			if not hurtbox.presents_own_guard_feedback:
-				HitFeedback.play(hurtbox.material_id(), global_position, -velocity.normalized(), Palette.WHITE, {"ricochet": true})
+				HitFeedback.play(hurtbox.material_id(), impact, -velocity.normalized(), Palette.WHITE, {"ricochet": true})
 				Sfx.play(&"block", -4.0)
 			if team == Combat.Team.PLAYER:
 				EventBus.hit_marker.emit(&"blocked")
-				EventBus.damage_number.emit(global_position, 0, &"blocked", hurtbox.health.get_instance_id() if hurtbox.health != null else 0)
+				EventBus.damage_number.emit(impact, 0, &"blocked", hurtbox.health.get_instance_id() if hurtbox.health != null else 0)
 			_finish(true)
 			return
 		_:

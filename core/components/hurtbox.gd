@@ -163,6 +163,41 @@ func _segment_span(origin: Vector2, motion: Vector2, margin: float) -> Vector2:
 	return Vector2(t_in, t_out)
 
 
+## 受擊範圍內最靠近 point 的一點（世界座標）：近戰命中回饋放在這裡，打頭就在頭、打身體就在身體，不會落在敵人腳底的原點。
+func closest_point(point: Vector2) -> Vector2:
+	if _shape_node == null:
+		return global_position
+	var xf := _shape_node.global_transform
+	var local := xf.affine_inverse() * point
+	var half := _shape.size * 0.5
+	return xf * Vector2(clampf(local.x, -half.x, half.x), clampf(local.y, -half.y, half.y))
+
+
+## 從 from 沿 direction 射進受擊範圍的第一個點（世界座標）；射線碰不到時退回最近點。子彈選中身體深處的部位時，回饋放在部位上。
+func entry_point(from: Vector2, direction: Vector2) -> Vector2:
+	if _shape_node == null or direction.length_squared() < 0.000001:
+		return closest_point(from)
+	var xf := _shape_node.global_transform
+	var inv := xf.affine_inverse()
+	var o := inv * from
+	var d := inv.basis_xform(direction)
+	var half := _shape.size * 0.5
+	var t_min := 0.0
+	var t_max := INF
+	for axis in 2:
+		if absf(d[axis]) < 0.000001:
+			if absf(o[axis]) > half[axis]:
+				return closest_point(from)
+			continue
+		var t1 := (-half[axis] - o[axis]) / d[axis]
+		var t2 := (half[axis] - o[axis]) / d[axis]
+		t_min = maxf(t_min, minf(t1, t2))
+		t_max = minf(t_max, maxf(t1, t2))
+	if t_min > t_max:
+		return closest_point(from)
+	return xf * (o + d * t_min)
+
+
 func contains_point(point: Vector2, margin := 0.0) -> bool:
 	if _shape_node == null:
 		return false

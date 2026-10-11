@@ -986,6 +986,8 @@ func _melee_hit_pass() -> void:
 	var knock: Array = attack["knockback"]
 	var heavy := int(attack["stagger"]) >= 3
 	var landed_now := false
+	# 武器打到的點：揮擊方向上、攻擊距離約四分之三處；每個目標的回饋放在自己受擊範圍內最靠近這一點的位置（NE-268）。
+	var strike := global_position + Vector2(0.0, -BODY_SIZE.y * 0.55) + _melee_direction(attack) * float(attack["range"]) * 0.75
 	for target_hurtbox in _melee_targets(attack):
 		var id := target_hurtbox.health.get_instance_id() if target_hurtbox.health != null else target_hurtbox.get_instance_id()
 		if _melee_hit_ids.has(id):
@@ -996,18 +998,20 @@ func _melee_hit_pass() -> void:
 		info.attacker = weakref(self)
 		info.freeze_attacker = not _melee_feedback_done and _melee_hit_ids.is_empty()
 		info.origin = global_position
+		var contact := target_hurtbox.closest_point(strike)
+		info.contact_point = contact
 		var result := target_hurtbox.receive(info)
 		if result != Hurtbox.Result.IGNORED:
 			_melee_hit_ids[id] = true
 		if result == Hurtbox.Result.DAMAGED:
 			_melee_landed = true
 			landed_now = true
-			EventBus.hit_confirmed.emit(target_hurtbox.global_position, target_hurtbox.health.is_dead)
+			EventBus.hit_confirmed.emit(contact, target_hurtbox.health.is_dead)
 			EventBus.hit_marker.emit(&"kill" if target_hurtbox.health.is_dead else (&"weak" if info.weak_hit else &"hit"))
 			if info.weak_hit or int(attack["stagger"]) >= 3:
-				EventBus.damage_number.emit(target_hurtbox.global_position + Vector2(0.0, -24.0), info.amount, &"weak" if info.weak_hit else &"crit", target_hurtbox.health.get_instance_id())
-			MeleeFx.hit(target_hurtbox.center(), _melee_direction(attack), _melee_color(attack), StringName(str(attack["impact_fx"])), heavy)
-			HitFeedback.play(target_hurtbox.material_id(), target_hurtbox.global_position, Vector2(-facing, -0.2), Palette.CYAN, {"weak": info.weak_hit})
+				EventBus.damage_number.emit(contact, info.amount, &"weak" if info.weak_hit else &"crit", target_hurtbox.health.get_instance_id())
+			MeleeFx.hit(contact, _melee_direction(attack), _melee_color(attack), StringName(str(attack["impact_fx"])), heavy)
+			HitFeedback.play(target_hurtbox.material_id(), contact, Vector2(-facing, -0.2), Palette.CYAN, {"weak": info.weak_hit})
 	if landed_now and not _melee_feedback_done:
 		_melee_feedback_done = true
 		InputBindings.vibrate(0.25, 0.45 if heavy else 0.2, 0.1)

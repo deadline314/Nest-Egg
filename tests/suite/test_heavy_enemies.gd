@@ -24,6 +24,7 @@ func run() -> void:
 	await _test_visible_heads_are_hittable()
 	await _test_watchdog_head_shot()
 	await _test_core_hit_along_path()
+	await _test_hit_feedback_at_contact()
 	await _test_path_resolution_contract()
 	await _test_watchdog_head_in_warehouse()
 	await _test_codex_unlocks()
@@ -580,6 +581,55 @@ func _test_core_hit_along_path() -> void:
 	place_player(20.0)
 	var wall_hits := await _shot(warden, Vector2(26 * 16.0, core.y), core)
 	check(wall_hits.is_empty(), "a wall in front still stops the shot: %s" % [wall_hits])
+	await end_level(level)
+
+
+## 命中回饋放在實際碰到的地方（NE-268）：近戰的火花、閃光與傷害數字在受擊範圍內、揮擊的高度，不在敵人腳底；
+## 子彈沿彈道選中身體深處的核心時，回饋在核心上，不停在身體邊緣。兩個面向都一樣。
+func _test_hit_feedback_at_contact() -> void:
+	await open_level(10.0)
+	var flashes: Array[Vector2] = []
+	var on_confirm := func(at: Vector2, _killed: bool) -> void: flashes.append(at)
+	EventBus.hit_confirmed.connect(on_confirm)
+	var player := level.player
+	for side: int in [-1, 1]:
+		var grunt := spawn("res://data/enemies/grunt.tres", 60.0)
+		grunt.data = grunt.data.duplicate()
+		grunt.data.detect_range = 0.0
+		grunt.data.attack_range = 0.0
+		await physics_frames(2)
+		grunt.set_physics_process(false)
+		place_player(60.0 - side * 1.6)
+		AimInput.set_virtual_gamepad(player, true)
+		Input.action_press(&"aim_right" if side > 0 else &"aim_left")
+		await physics_frames(8)
+		flashes.clear()
+		player._try_melee()
+		await physics_frames(30)
+		var feet := grunt.global_position
+		var box := grunt.hurtbox
+		check(flashes.size() == 1 and box.contains_point(flashes[0], 1.0) and flashes[0].y < feet.y - grunt.data.body_size.y * 0.4,
+				"a melee hit flashes on the body at swing height, not at the feet (side %d, feet %s): %s" % [side, feet, flashes])
+		Input.action_release(&"aim_right" if side > 0 else &"aim_left")
+		AimInput.set_virtual_gamepad(player, false)
+		grunt.queue_free()
+		await physics_frames(2)
+	var warden := spawn(WARDEN_PATH, 45.0)
+	await physics_frames(2)
+	var core_part: Hurtbox = null
+	for part in warden.hurtbox.parts:
+		if part.part_id == &"core":
+			core_part = part
+	for from: int in [-1, 1]:
+		await _freeze_facing(warden, -1)
+		warden.call(&"_set_core_exposed", true)
+		var core := core_part.center()
+		flashes.clear()
+		var hits := await _shot(warden, core + Vector2(from * 160.0, 0), core)
+		check(hits.size() == 1 and hits[0][0] == &"core" and flashes.size() == 1 and core_part.contains_point(flashes[0], 1.5),
+				"a shot that reaches the core along its path flashes on the core, not at the body edge (from %d): %s %s" % [from, hits, flashes])
+		warden.health.setup(warden.data.max_health, 0.0)
+	EventBus.hit_confirmed.disconnect(on_confirm)
 	await end_level(level)
 
 

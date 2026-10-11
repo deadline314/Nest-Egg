@@ -672,7 +672,7 @@ func _on_damaged(info: DamageInfo) -> void:
 	_update_damage_stage()
 	_flash_left = FLASH_TIME
 	if vfx != null:
-		vfx.play_hit(_center(), -info.knockback.normalized() if info.knockback != Vector2.ZERO else Vector2.UP)
+		vfx.play_hit(info.contact_point if info.contact_point.is_finite() else _center(), -info.knockback.normalized() if info.knockback != Vector2.ZERO else Vector2.UP)
 	if rig != null:
 		rig.flash(0.5 if tier == HitTier.LIGHT else 1.0)
 		rig.set_armor_ratio(health.ratio())
