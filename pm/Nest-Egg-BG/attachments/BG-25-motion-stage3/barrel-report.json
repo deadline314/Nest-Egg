@@ -1,0 +1,160 @@
+{
+	"after_cleanup": {
+		"nodes": 91,
+		"objects": 3330,
+		"orphans": 0,
+		"static_bytes": 136054382,
+		"texture_bytes": 170110976
+	},
+	"checks": 6,
+	"failures": 0,
+	"frame_ms_median": 2.982,
+	"level": "ch1_rooftop",
+	"monitor_physics_s": 0.000288,
+	"monitor_process_s": 0.099209,
+	"no_motion": false,
+	"pause": {
+		"after": {
+			"flow": 2.40294654545452
+		},
+		"before": {
+			"flow": 1.90294654545453
+		},
+		"during": {
+			"flow": 1.90294654545453
+		}
+	},
+	"prop": "rooftop__rain_collecting_barrel",
+	"prop_rect": [
+		544.0,
+		258.0,
+		15.1000003814697,
+		30.0
+	],
+	"quality": "",
+	"reentries": [
+		{
+			"motion_nodes": 1,
+			"nodes": 858,
+			"objects": 5917,
+			"orphans": 0,
+			"static_bytes": 144397169,
+			"texture_bytes": 170450944
+		},
+		{
+			"motion_nodes": 1,
+			"nodes": 858,
+			"objects": 5925,
+			"orphans": 0,
+			"static_bytes": 144420489,
+			"texture_bytes": 174690304
+		},
+		{
+			"motion_nodes": 1,
+			"nodes": 858,
+			"objects": 5913,
+			"orphans": 0,
+			"static_bytes": 144401829,
+			"texture_bytes": 170844160
+		},
+		{
+			"motion_nodes": 1,
+			"nodes": 858,
+			"objects": 5917,
+			"orphans": 0,
+			"static_bytes": 144405233,
+			"texture_bytes": 172331008
+		},
+		{
+			"motion_nodes": 1,
+			"nodes": 858,
+			"objects": 5921,
+			"orphans": 0,
+			"static_bytes": 144425061,
+			"texture_bytes": 173203456
+		},
+		{
+			"motion_nodes": 1,
+			"nodes": 858,
+			"objects": 5913,
+			"orphans": 0,
+			"static_bytes": 144405025,
+			"texture_bytes": 169971712
+		},
+		{
+			"motion_nodes": 1,
+			"nodes": 858,
+			"objects": 5917,
+			"orphans": 0,
+			"static_bytes": 144402401,
+			"texture_bytes": 172613632
+		},
+		{
+			"motion_nodes": 1,
+			"nodes": 858,
+			"objects": 5921,
+			"orphans": 0,
+			"static_bytes": 144426117,
+			"texture_bytes": 172331008
+		},
+		{
+			"motion_nodes": 1,
+			"nodes": 858,
+			"objects": 5913,
+			"orphans": 0,
+			"static_bytes": 144409321,
+			"texture_bytes": 170844160
+		},
+		{
+			"motion_nodes": 1,
+			"nodes": 858,
+			"objects": 5917,
+			"orphans": 0,
+			"static_bytes": 144403973,
+			"texture_bytes": 171741184
+		}
+	],
+	"shots": [
+		{
+			"clocks": {
+				"flow": 0.14517503030303
+			},
+			"drip_stage": "",
+			"file": "barrel-t0000.png",
+			"time": 0.0
+		},
+		{
+			"clocks": {
+				"flow": 0.378448
+			},
+			"drip_stage": "",
+			"file": "barrel-t0250.png",
+			"time": 0.25
+		},
+		{
+			"clocks": {
+				"flow": 0.628460999999999
+			},
+			"drip_stage": "",
+			"file": "barrel-t0500.png",
+			"time": 0.5
+		},
+		{
+			"clocks": {
+				"flow": 0.878558
+			},
+			"drip_stage": "",
+			"file": "barrel-t0750.png",
+			"time": 0.75
+		},
+		{
+			"clocks": {
+				"flow": 1.128609
+			},
+			"drip_stage": "",
+			"file": "barrel-t1000.png",
+			"time": 1.0
+		}
+	],
+	"tag": "barrel"
+}

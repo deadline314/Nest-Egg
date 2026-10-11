@@ -1,0 +1,52 @@
+{
+	"after_cleanup": {
+		"nodes": 91,
+		"objects": 3261,
+		"orphans": 0,
+		"static_bytes": 135147873,
+		"texture_bytes": 160698368
+	},
+	"checks": 1,
+	"failures": 0,
+	"frame_ms_median": 2.886,
+	"level": "ch1_lounge",
+	"monitor_physics_s": 0.000398,
+	"monitor_process_s": 0.099941,
+	"no_motion": false,
+	"prop": "revival_lounge__corner_plant_string_lights",
+	"prop_rect": [
+		640.0,
+		269.0,
+		33.0999984741211,
+		51.0
+	],
+	"quality": "",
+	"reentries": [],
+	"shots": [
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "plant-t0000.png",
+			"time": 0.0
+		},
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "plant-t0400.png",
+			"time": 0.400000005960464
+		},
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "plant-t0800.png",
+			"time": 0.800000011920929
+		},
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "plant-t1200.png",
+			"time": 1.20000004768372
+		}
+	],
+	"tag": "plant"
+}

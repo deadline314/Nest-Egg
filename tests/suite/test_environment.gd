@@ -24,6 +24,7 @@ func run() -> void:
 	_test_chapter_one()
 	await _test_contact_shadow()
 	_test_fixture_art()
+	await _test_local_drip()
 	_test_import_policy("res://art/environment")
 
 
@@ -590,3 +591,61 @@ func _test_fixture_art() -> void:
 			"a missing fixture texture returns null instead of breaking the level")
 	holder.queue_free()
 	FixtureArt.clear_cache()
+
+
+## 滴水（BG-25）：出水口在承接面上方才有效；水滴由上往下、越落越快，落到水面後濺開再等下一滴；
+## 暫停時停住；資料不對就保留靜態圖。
+func _test_local_drip() -> void:
+	var bucket := load("res://data/environment/scene_props/pawnshop_front/pawnshop_front__leak_bucket.tres") as PropData
+	check(bucket != null and bucket.has_drip() and bucket.drip_valid(), "the leak bucket declares a valid drip")
+	var barrel := load("res://data/environment/scene_props/rooftop/rooftop__rain_collecting_barrel.tres") as PropData
+	check(barrel != null and barrel.has_local_flow() and barrel.local_flow_valid() and not barrel.ripple,
+			"the rain barrel uses a local water column instead of rippling the whole image")
+	var bad := PropData.new()
+	bad.size = Vector2(20, 40)
+	bad.drip_period = 1.5
+	bad.drip_from = Vector2(0.5, 0.8)
+	bad.drip_to = Vector2(0.5, 0.2)
+	check(not bad.drip_valid(), "a drip whose mouth is below its surface is rejected")
+	bad.drip_from = Vector2(0.5, 0.1)
+	bad.drip_to = Vector2(0.5, 0.9)
+	bad.drip_period = 0.2
+	check(not bad.drip_valid(), "a drip faster than one drop cycle is rejected")
+	var node := PropNode.new()
+	node.setup(bucket, Vector2(-5000.0, -5000.0))
+	runner.add_child(node)
+	var drip := node.get_node_or_null("LocalDrip") as LocalDrip
+	check(drip != null, "the bucket gets a drip component")
+	if drip != null:
+		var from := bucket.drip_from * bucket.size
+		var to := bucket.drip_to * bucket.size
+		drip.clock = 0.0
+		check(drip.stage() == &"fall" and drip.drop_position().is_equal_approx(from), "a drop starts at the pipe mouth")
+		drip.clock = LocalDrip.FALL_TIME * 0.5
+		var half := drip.drop_position()
+		check(half.y > from.y and half.y < (from.y + to.y) * 0.5, "the drop accelerates: halfway in time is less than halfway down")
+		drip.clock = LocalDrip.FALL_TIME + 0.01
+		check(drip.stage() == &"splash" and drip.drop_position().is_equal_approx(to), "the drop splashes on the water surface")
+		drip.clock = LocalDrip.FALL_TIME + LocalDrip.SPLASH_TIME + 0.05
+		check(drip.stage() == &"wait", "then it waits for the next drop")
+		# 不在畫面內就不走時間；進畫面後才走，暫停時停住。
+		drip.on_screen = false
+		var parked := drip.clock
+		await frames(3)
+		check(is_equal_approx(drip.clock, parked), "an off-screen drip does not advance")
+		drip.on_screen = true
+		await frames(3)
+		check(not is_equal_approx(drip.clock, parked), "an on-screen drip advances")
+		runner.get_tree().paused = true
+		var frozen := drip.clock
+		await frames(3)
+		check(is_equal_approx(drip.clock, frozen), "the drip stops while the game is paused")
+		runner.get_tree().paused = false
+	node.queue_free()
+	var broken := PropNode.new()
+	var broken_data := bucket.duplicate() as PropData
+	broken_data.drip_to = Vector2(0.5, 0.1)
+	broken.setup(broken_data, Vector2(-5000.0, -5000.0))
+	runner.add_child(broken)
+	check(broken.get_node_or_null("LocalDrip") == null, "invalid drip data keeps the static image")
+	broken.queue_free()

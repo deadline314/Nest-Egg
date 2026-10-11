@@ -46,6 +46,11 @@ const TEXTURE_SCALE := 4
 ## 水柱原圖亮部只保留克制反光，不模仿發光彈道。
 @export_range(0.0, 1.0) var flow_glow_gain: float = 0.4
 
+## 滴水：水滴從 drip_from 落到 drip_to（兩點都是貼圖的 0～1 座標，drip_to 是承接的水面），drip_period 秒一滴；0 = 不滴。
+@export var drip_from: Vector2 = Vector2.ZERO
+@export var drip_to: Vector2 = Vector2.ZERO
+@export_range(0.0, 10.0, 0.1) var drip_period: float = 0.0
+
 ## 冒蒸汽（煙囪、通風管）；位置相對於道具左上角。
 @export var steam: bool = false
 @export var steam_offset: Vector2 = Vector2.ZERO
@@ -91,6 +96,18 @@ func local_flow_valid() -> bool:
 		if not Rect2(Vector2.ZERO, Vector2.ONE).encloses(rect):
 			return false
 	return flow_surface.position.y >= flow_region.end.y
+
+
+func has_drip() -> bool:
+	return drip_period > 0.0
+
+
+## 兩個點都在貼圖範圍內、出水口在承接面上方、間隔夠長（一滴落完加水花散開之後才有下一滴）。
+func drip_valid() -> bool:
+	var unit := Rect2(Vector2.ZERO, Vector2.ONE)
+	if not drip_from.is_finite() or not drip_to.is_finite() or not is_finite(drip_period):
+		return false
+	return unit.has_point(drip_from) and unit.has_point(drip_to) and drip_to.y > drip_from.y 			and drip_period >= LocalDrip.FALL_TIME + LocalDrip.SPLASH_TIME
 
 
 func steam_spread_valid() -> bool:

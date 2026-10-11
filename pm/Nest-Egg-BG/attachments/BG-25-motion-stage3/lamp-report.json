@@ -1,0 +1,52 @@
+{
+	"after_cleanup": {
+		"nodes": 91,
+		"objects": 3376,
+		"orphans": 0,
+		"static_bytes": 136842599,
+		"texture_bytes": 179859456
+	},
+	"checks": 1,
+	"failures": 0,
+	"frame_ms_median": 3.522,
+	"level": "ch1_pawnshop",
+	"monitor_physics_s": 0.000314,
+	"monitor_process_s": 0.098844,
+	"no_motion": false,
+	"prop": "pawnshop_kitchen__paper_shade_lamp",
+	"prop_rect": [
+		1408.0,
+		160.0,
+		16.2000007629395,
+		24.0
+	],
+	"quality": "",
+	"reentries": [],
+	"shots": [
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "lamp-t0000.png",
+			"time": 0.0
+		},
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "lamp-t0400.png",
+			"time": 0.400000005960464
+		},
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "lamp-t0800.png",
+			"time": 0.800000011920929
+		},
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "lamp-t1200.png",
+			"time": 1.20000004768372
+		}
+	],
+	"tag": "lamp"
+}

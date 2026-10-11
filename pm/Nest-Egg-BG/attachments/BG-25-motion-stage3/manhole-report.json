@@ -1,0 +1,52 @@
+{
+	"after_cleanup": {
+		"nodes": 91,
+		"objects": 3466,
+		"orphans": 0,
+		"static_bytes": 138412561,
+		"texture_bytes": 192151552
+	},
+	"checks": 1,
+	"failures": 0,
+	"frame_ms_median": 3.307,
+	"level": "ch1_street",
+	"monitor_physics_s": 0.001388,
+	"monitor_process_s": 0.102355,
+	"no_motion": false,
+	"prop": "harbor_street__steam_manhole",
+	"prop_rect": [
+		1888.0,
+		293.0,
+		29.8999996185303,
+		27.0
+	],
+	"quality": "",
+	"reentries": [],
+	"shots": [
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "manhole-t0000.png",
+			"time": 0.0
+		},
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "manhole-t0400.png",
+			"time": 0.400000005960464
+		},
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "manhole-t0800.png",
+			"time": 0.800000011920929
+		},
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "manhole-t1200.png",
+			"time": 1.20000004768372
+		}
+	],
+	"tag": "manhole"
+}

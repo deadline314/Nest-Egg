@@ -1,0 +1,52 @@
+{
+	"after_cleanup": {
+		"nodes": 91,
+		"objects": 3398,
+		"orphans": 0,
+		"static_bytes": 135863867,
+		"texture_bytes": 208277504
+	},
+	"checks": 1,
+	"failures": 0,
+	"frame_ms_median": 3.007,
+	"level": "ch1_warehouse",
+	"monitor_physics_s": 0.001429,
+	"monitor_process_s": 0.103333,
+	"no_motion": false,
+	"prop": "dock_warehouse__hoist_chain",
+	"prop_rect": [
+		544.0,
+		64.0,
+		11.0,
+		96.0
+	],
+	"quality": "",
+	"reentries": [],
+	"shots": [
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "chain-t0000.png",
+			"time": 0.0
+		},
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "chain-t0400.png",
+			"time": 0.400000005960464
+		},
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "chain-t0800.png",
+			"time": 0.800000011920929
+		},
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "chain-t1200.png",
+			"time": 1.20000004768372
+		}
+	],
+	"tag": "chain"
+}

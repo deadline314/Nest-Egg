@@ -1,0 +1,52 @@
+{
+	"after_cleanup": {
+		"nodes": 91,
+		"objects": 3376,
+		"orphans": 0,
+		"static_bytes": 136815347,
+		"texture_bytes": 179859456
+	},
+	"checks": 1,
+	"failures": 0,
+	"frame_ms_median": 3.403,
+	"level": "ch1_pawnshop",
+	"monitor_physics_s": 0.000411,
+	"monitor_process_s": 0.098643,
+	"no_motion": false,
+	"prop": "pawnshop_kitchen__kettle_stove",
+	"prop_rect": [
+		1568.0,
+		291.5,
+		18.6000003814697,
+		28.5
+	],
+	"quality": "",
+	"reentries": [],
+	"shots": [
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "kettle-t0000.png",
+			"time": 0.0
+		},
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "kettle-t0400.png",
+			"time": 0.400000005960464
+		},
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "kettle-t0800.png",
+			"time": 0.800000011920929
+		},
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "kettle-t1200.png",
+			"time": 1.20000004768372
+		}
+	],
+	"tag": "kettle"
+}

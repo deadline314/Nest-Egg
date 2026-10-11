@@ -1,0 +1,168 @@
+{
+	"after_cleanup": {
+		"nodes": 91,
+		"objects": 3378,
+		"orphans": 0,
+		"static_bytes": 136933883,
+		"texture_bytes": 175259648
+	},
+	"checks": 6,
+	"failures": 0,
+	"frame_ms_median": 3.597,
+	"level": "ch1_pawnshop",
+	"monitor_physics_s": 0.000414,
+	"monitor_process_s": 0.102311,
+	"no_motion": false,
+	"pause": {
+		"after": {
+			"drip": 0.669323303030301
+		},
+		"before": {
+			"drip": 0.169323303030301
+		},
+		"during": {
+			"drip": 0.169323303030301
+		}
+	},
+	"prop": "pawnshop_front__leak_bucket",
+	"prop_rect": [
+		1104.0,
+		278.0,
+		20.7000007629395,
+		42.0
+	],
+	"quality": "",
+	"reentries": [
+		{
+			"motion_nodes": 1,
+			"nodes": 971,
+			"objects": 6104,
+			"orphans": 0,
+			"static_bytes": 146131012,
+			"texture_bytes": 182534144
+		},
+		{
+			"motion_nodes": 1,
+			"nodes": 971,
+			"objects": 6089,
+			"orphans": 0,
+			"static_bytes": 146082476,
+			"texture_bytes": 175185920
+		},
+		{
+			"motion_nodes": 1,
+			"nodes": 971,
+			"objects": 6100,
+			"orphans": 0,
+			"static_bytes": 146111824,
+			"texture_bytes": 177078272
+		},
+		{
+			"motion_nodes": 1,
+			"nodes": 971,
+			"objects": 6100,
+			"orphans": 0,
+			"static_bytes": 146119812,
+			"texture_bytes": 180150272
+		},
+		{
+			"motion_nodes": 1,
+			"nodes": 971,
+			"objects": 6106,
+			"orphans": 0,
+			"static_bytes": 146135484,
+			"texture_bytes": 181006336
+		},
+		{
+			"motion_nodes": 1,
+			"nodes": 971,
+			"objects": 6103,
+			"orphans": 0,
+			"static_bytes": 146134732,
+			"texture_bytes": 182845440
+		},
+		{
+			"motion_nodes": 1,
+			"nodes": 971,
+			"objects": 6093,
+			"orphans": 0,
+			"static_bytes": 146105804,
+			"texture_bytes": 180277248
+		},
+		{
+			"motion_nodes": 1,
+			"nodes": 971,
+			"objects": 6098,
+			"orphans": 0,
+			"static_bytes": 146118260,
+			"texture_bytes": 177283072
+		},
+		{
+			"motion_nodes": 1,
+			"nodes": 971,
+			"objects": 6100,
+			"orphans": 0,
+			"static_bytes": 146128692,
+			"texture_bytes": 181972992
+		},
+		{
+			"motion_nodes": 1,
+			"nodes": 971,
+			"objects": 6100,
+			"orphans": 0,
+			"static_bytes": 146120072,
+			"texture_bytes": 178642944
+		}
+	],
+	"shots": [
+		{
+			"clocks": {
+				"drip": 0.00454545454545455
+			},
+			"drip_stage": "fall",
+			"file": "bucket-t0000.png",
+			"time": 0.0
+		},
+		{
+			"clocks": {
+				"drip": 0.165347858585858
+			},
+			"drip_stage": "fall",
+			"file": "bucket-t0150.png",
+			"time": 0.150000005960464
+		},
+		{
+			"clocks": {
+				"drip": 0.30341596969697
+			},
+			"drip_stage": "fall",
+			"file": "bucket-t0300.png",
+			"time": 0.300000011920929
+		},
+		{
+			"clocks": {
+				"drip": 0.43619396969697
+			},
+			"drip_stage": "splash",
+			"file": "bucket-t0420.png",
+			"time": 0.419999986886978
+		},
+		{
+			"clocks": {
+				"drip": 0.56822596969697
+			},
+			"drip_stage": "splash",
+			"file": "bucket-t0550.png",
+			"time": 0.550000011920929
+		},
+		{
+			"clocks": {
+				"drip": 0.909200969696969
+			},
+			"drip_stage": "wait",
+			"file": "bucket-t0900.png",
+			"time": 0.899999976158142
+		}
+	],
+	"tag": "bucket"
+}

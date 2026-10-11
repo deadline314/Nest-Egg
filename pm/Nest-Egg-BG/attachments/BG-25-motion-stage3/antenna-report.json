@@ -1,0 +1,52 @@
+{
+	"after_cleanup": {
+		"nodes": 91,
+		"objects": 3318,
+		"orphans": 0,
+		"static_bytes": 135970202,
+		"texture_bytes": 167735296
+	},
+	"checks": 1,
+	"failures": 0,
+	"frame_ms_median": 2.226,
+	"level": "ch1_rooftop",
+	"monitor_physics_s": 0.000266,
+	"monitor_process_s": 0.098735,
+	"no_motion": false,
+	"prop": "rooftop__antenna_forest",
+	"prop_rect": [
+		1024.0,
+		180.0,
+		40.5999984741211,
+		108.0
+	],
+	"quality": "",
+	"reentries": [],
+	"shots": [
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "antenna-t0000.png",
+			"time": 0.0
+		},
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "antenna-t0400.png",
+			"time": 0.400000005960464
+		},
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "antenna-t0800.png",
+			"time": 0.800000011920929
+		},
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "antenna-t1200.png",
+			"time": 1.20000004768372
+		}
+	],
+	"tag": "antenna"
+}

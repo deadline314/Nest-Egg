@@ -1,0 +1,55 @@
+{
+	"after_cleanup": {
+		"nodes": 91,
+		"objects": 3376,
+		"orphans": 0,
+		"static_bytes": 136715551,
+		"texture_bytes": 179859456
+	},
+	"checks": 3,
+	"failures": 0,
+	"frame_ms_median": 3.693,
+	"level": "ch1_pawnshop",
+	"monitor_physics_s": 0.001049,
+	"monitor_process_s": 0.098996,
+	"no_motion": false,
+	"pause": {
+		"after": {
+			"drip": 1.65740499999999
+		},
+		"before": {
+			"drip": 1.157405
+		},
+		"during": {
+			"drip": 1.157405
+		}
+	},
+	"prop": "pawnshop_front__leak_bucket",
+	"prop_rect": [
+		1104.0,
+		278.0,
+		20.7000007629395,
+		42.0
+	],
+	"quality": "low",
+	"reentries": [],
+	"shots": [
+		{
+			"clocks": {
+				"drip": 0.159993
+			},
+			"drip_stage": "fall",
+			"file": "bucket_low-t0150.png",
+			"time": 0.150000005960464
+		},
+		{
+			"clocks": {
+				"drip": 0.304565818181818
+			},
+			"drip_stage": "fall",
+			"file": "bucket_low-t0300.png",
+			"time": 0.300000011920929
+		}
+	],
+	"tag": "bucket_low"
+}

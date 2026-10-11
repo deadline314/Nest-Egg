@@ -1,0 +1,55 @@
+{
+	"after_cleanup": {
+		"nodes": 91,
+		"objects": 3318,
+		"orphans": 0,
+		"static_bytes": 135850430,
+		"texture_bytes": 167735296
+	},
+	"checks": 3,
+	"failures": 0,
+	"frame_ms_median": 2.42,
+	"level": "ch1_rooftop",
+	"monitor_physics_s": 0.001007,
+	"monitor_process_s": 0.099826,
+	"no_motion": false,
+	"pause": {
+		"after": {
+			"flow": 1.84670903174602
+		},
+		"before": {
+			"flow": 1.34646503174603
+		},
+		"during": {
+			"flow": 1.34646503174603
+		}
+	},
+	"prop": "rooftop__rain_collecting_barrel",
+	"prop_rect": [
+		544.0,
+		258.0,
+		15.1000003814697,
+		30.0
+	],
+	"quality": "low",
+	"reentries": [],
+	"shots": [
+		{
+			"clocks": {
+				"flow": 0.186369777777778
+			},
+			"drip_stage": "",
+			"file": "barrel_low-t0000.png",
+			"time": 0.0
+		},
+		{
+			"clocks": {
+				"flow": 0.686543777777778
+			},
+			"drip_stage": "",
+			"file": "barrel_low-t0500.png",
+			"time": 0.5
+		}
+	],
+	"tag": "barrel_low"
+}

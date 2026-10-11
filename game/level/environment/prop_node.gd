@@ -74,6 +74,14 @@ func _ready() -> void:
 			flow.setup(data, sprite, _glow_sprite)
 		else:
 			push_warning("[PropNode] %s 局部水流 UV 無效，保留靜態圖" % data.id)
+	if data.has_drip():
+		if data.drip_valid():
+			var drip := LocalDrip.new()
+			drip.name = "LocalDrip"
+			add_child(drip)
+			drip.setup(data, flip)
+		else:
+			push_warning("[PropNode] %s 滴水資料無效（出水口要在承接面上方、都在貼圖範圍內），保留靜態圖" % data.id)
 	set_process(data.has_glow or data.light_radius > 0.0 or data.steam)
 	_time = randf() * 10.0
 

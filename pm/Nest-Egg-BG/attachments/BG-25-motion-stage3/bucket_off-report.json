@@ -1,0 +1,34 @@
+{
+	"after_cleanup": {
+		"nodes": 91,
+		"objects": 3376,
+		"orphans": 0,
+		"static_bytes": 136809511,
+		"texture_bytes": 179859456
+	},
+	"checks": 1,
+	"failures": 0,
+	"frame_ms_median": 5.094,
+	"level": "ch1_pawnshop",
+	"monitor_physics_s": 0.001053,
+	"monitor_process_s": 0.100328,
+	"no_motion": true,
+	"prop": "pawnshop_front__leak_bucket",
+	"prop_rect": [
+		1104.0,
+		278.0,
+		20.7000007629395,
+		42.0
+	],
+	"quality": "",
+	"reentries": [],
+	"shots": [
+		{
+			"clocks": {},
+			"drip_stage": "",
+			"file": "bucket_off-t0000.png",
+			"time": 0.0
+		}
+	],
+	"tag": "bucket_off"
+}
