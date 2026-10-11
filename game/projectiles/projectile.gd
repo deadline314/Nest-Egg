@@ -209,9 +209,10 @@ func _strike(hurtbox: Hurtbox) -> void:
 			_reflect(hurtbox.reflect_direction)
 			return
 		Hurtbox.Result.BLOCKED:
-			# 被格擋：火花反彈、子彈直接消失（即使可貫穿）。
-			HitFeedback.play(hurtbox.material_id(), global_position, -velocity.normalized(), Palette.WHITE, {"ricochet": true})
-			Sfx.play(&"block", -4.0)
+			# 被格擋：火花反彈、子彈直接消失（即使可貫穿）。擁有者自己播格擋回饋時（玩家的盾）不重複播。
+			if not hurtbox.presents_own_guard_feedback:
+				HitFeedback.play(hurtbox.material_id(), global_position, -velocity.normalized(), Palette.WHITE, {"ricochet": true})
+				Sfx.play(&"block", -4.0)
 			if team == Combat.Team.PLAYER:
 				EventBus.hit_marker.emit(&"blocked")
 				EventBus.damage_number.emit(global_position, 0, &"blocked", hurtbox.health.get_instance_id() if hurtbox.health != null else 0)

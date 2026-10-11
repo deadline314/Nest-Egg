@@ -17,6 +17,8 @@ var health: HealthComponent
 var guard: Callable = Callable()
 ## 反彈子彈時的飛行方向（例如玩家的準星方向）；零向量代表原路彈回。
 var reflect_direction: Vector2 = Vector2.ZERO
+## 擋下攻擊時由擁有者自己播放格擋回饋（例如玩家的盾：普通格擋、破防各有聲音與火花），子彈就不再另外播一份。
+var presents_own_guard_feedback := false
 ## 傷害倍率（例如頭目露出弱點時 > 1）。部位受擊框（頭、核心）再乘上自己的倍率。
 var damage_scale: float = 1.0
 ## 部位受擊框：掛在整體受擊框（main）底下，共用同一份生命與格擋，部位 id 與倍率各自設定。

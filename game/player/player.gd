@@ -197,6 +197,7 @@ func _ready() -> void:
 	add_child(hurtbox)
 	hurtbox.setup(Combat.Team.PLAYER, health, Vector2.ZERO)
 	hurtbox.guard = _guard
+	hurtbox.presents_own_guard_feedback = true  # 盾的普通格擋、反彈、破防由玩家自己播回饋
 	_update_hurtbox_shape()
 	guard = tuning.guard_max
 
@@ -1356,26 +1357,29 @@ func _on_parry(info: DamageInfo, at: Vector2) -> void:
 	EventBus.player_parried.emit(at)
 
 
+## 一般格擋：扣盾量、往後推一點，接觸點冒白色火花與格擋聲。這一下把盾打破時只播破防的回饋（不疊兩套聲音與火花）。
 func _on_block(info: DamageInfo, at: Vector2) -> void:
-	Feel.play(&"player_block", {"dir": Vector2(-aim_dir.x, 0.0), "origin": at})
 	if not _block_hint_shown:
 		_block_hint_shown = true
 		EventBus.toast_requested.emit("剛舉盾的一瞬間被打中＝完美格擋，可反彈子彈")
 	guard -= maxf(1.0, float(info.amount)) * tuning.guard_cost_per_damage
 	_guard_regen_delay_left = tuning.guard_regen_delay
 	velocity.x -= aim_dir.x * 90.0
+	if guard <= 0.0:
+		_guard_break(at)
+		_emit_guard()
+		return
+	Feel.play(&"player_block", {"dir": Vector2(-aim_dir.x, 0.0), "origin": at})
 	Fx.impact(at, aim_dir, Palette.WHITE, 6)
 	PlayerFx.block(at, info.origin - at)
 	Sfx.play(&"block", -4.0)
 	_visual.notify_block(at)
 	InputBindings.vibrate(0.15, 0.3, 0.09)
-	if guard <= 0.0:
-		_guard_break()
 	_emit_guard()
 
 
-## 破防：短暫硬直且一段時間無法格擋。
-func _guard_break() -> void:
+## 破防：短暫硬直且一段時間無法格擋；碎片從盾被打破的那一點散開。
+func _guard_break(at := Vector2.INF) -> void:
 	_interrupt_melee(true)
 	guard = 0.0
 	is_blocking = false
@@ -1384,8 +1388,9 @@ func _guard_break() -> void:
 	state = State.STAGGERED
 	_stagger_left = tuning.guard_break_stun
 	Feel.play(&"player_guard_break")
-	Fx.burst(aim_origin(), Palette.CYAN, 18, 160.0, 0.4)
+	Fx.burst(at if at.is_finite() else aim_origin(), Palette.CYAN, 18, 160.0, 0.4)
 	Sfx.play(&"guard_break", -3.0, 0.03)
+	InputBindings.vibrate(0.6, 0.5, 0.2)
 	EventBus.toast_requested.emit("護盾破防")
 
 

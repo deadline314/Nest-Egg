@@ -19,6 +19,9 @@ func run() -> void:
 	await _test_player_fx()
 	await _test_shield_presentation()
 	await _test_shield_attachment()
+	await _test_shield_outcomes()
+	await _test_shield_rules_unchanged()
+	await _test_shield_landing_frames()
 	await _test_dash_and_materialize()
 	await DashSilhouetteChecks.run(self)
 	await _test_environment()
@@ -240,6 +243,139 @@ func _test_shield_attachment() -> void:
 	_press_stick(Vector2.ZERO)
 	AimInput.set_virtual_gamepad(player, false)
 	check(failures.is_empty(), "the shield stays attached to the front wrist for every weapon, aim, motion and facing (worst reach %.1f): %s" % [worst, failures.slice(0, 4)])
+	await end_level(level)
+
+
+## 盾的三種結果（NE-239）：普通格擋、完美反彈、破防各自只有自己的聲音與回饋，同一發子彈只結算一次；
+## 接觸點標在真正的來襲方向上，普通格擋把角色往後推。用真正的按鍵舉盾與真的敵方子彈。
+func _test_shield_outcomes() -> void:
+	await open_level(20.0)
+	var player := level.player
+	var visual: PlayerVisual = player._visual
+	var spec := load("res://data/projectiles/grunt_shot.tres") as ProjectileSpec
+	var heard: Array[StringName] = []
+	var listen := func(id: StringName) -> void:
+		if id in [&"block", &"parry", &"guard_break"]:
+			heard.append(id)
+	Sfx.sound_played.connect(listen)
+	AimInput.set_virtual_gamepad(player, true)
+	_press_stick(Vector2.RIGHT)
+	await physics_frames(6)
+	# 普通格擋：舉盾超過完美窗口後，前方斜上來一發。
+	Input.action_press(&"block")
+	await physics_frames(int(ceil(player.parry_window_length() * 60.0)) + 4)
+	var guard_before := player.guard
+	var x_before := player.global_position.x
+	var incoming := Vector2(-1.0, 0.35).normalized()
+	ProjectilePool.spawn(spec, player.global_position + Vector2(0, -Player.BODY_SIZE.y * 0.5) - incoming * 40.0, incoming, Combat.Team.ENEMY)
+	await physics_frames(40)
+	var cost := maxf(1.0, spec.damage) * player.tuning.guard_cost_per_damage
+	check(heard == [&"block"], "a normal block plays only the block sound, once: %s" % [heard])
+	check(is_equal_approx(player.guard, guard_before - cost), "one shot settles the guard cost exactly once (%.1f -> %.1f)" % [guard_before, player.guard])
+	check(visual._shield.impact_direction.is_equal_approx(-incoming), "the impact mark sits where the shot came from (%s)" % visual._shield.impact_direction)
+	check(player.global_position.x < x_before, "a block pushes the player back from the hit")
+	Input.action_release(&"block")
+	await physics_frames(40)
+	# 完美反彈：舉盾的同一刻被打到。只有反彈聲，盾量不變。
+	heard.clear()
+	Input.action_press(&"block")
+	await physics_frames(1)
+	guard_before = player.guard
+	var chest := player.global_position + Vector2(0, -Player.BODY_SIZE.y * 0.5)
+	ProjectilePool.spawn(spec, chest + Vector2(18, 0), Vector2.LEFT, Combat.Team.ENEMY)
+	await physics_frames(20)
+	check(heard == [&"parry"], "a perfect block plays only the parry sound, once: %s" % [heard])
+	check(is_equal_approx(player.guard, guard_before), "a perfect block costs no guard")
+	Input.action_release(&"block")
+	await physics_frames(40)
+	# 破防：最後一點盾量被打掉，只播破防聲，不再疊一個格擋聲與白色火花；角色踉蹌、盾放下。
+	heard.clear()
+	Input.action_press(&"block")
+	await physics_frames(int(ceil(player.parry_window_length() * 60.0)) + 4)
+	player.guard = 0.5
+	ProjectilePool.spawn(spec, player.global_position + Vector2(30, -Player.BODY_SIZE.y * 0.5), Vector2.LEFT, Combat.Team.ENEMY)
+	await physics_frames(30)
+	check(heard == [&"guard_break"], "breaking the guard plays only the break sound: %s" % [heard])
+	check(player.is_guard_broken() and not player.is_blocking and player.state == Player.State.STAGGERED, "a broken guard staggers and lowers the shield")
+	Input.action_release(&"block")
+	_press_stick(Vector2.ZERO)
+	AimInput.set_virtual_gamepad(player, false)
+	Sfx.sound_played.disconnect(listen)
+	await end_level(level)
+
+
+## 舉盾、收盾的畫面過渡不改變防禦規則（NE-239）：完美窗口從按下的那一格起算（盾面還在展開也算），
+## 連按縮短窗口的規則照舊，收盾動畫期間已經不擋。
+func _test_shield_rules_unchanged() -> void:
+	await open_level(20.0)
+	var player := level.player
+	var visual: PlayerVisual = player._visual
+	var tuning := player.tuning
+	var base := clampf(tuning.parry_window, Player.PARRY_WINDOW_MIN, Player.PARRY_WINDOW_MAX)
+	Input.action_press(&"block")
+	await physics_frames(1)
+	await frames(1)
+	check(player.is_blocking and visual._shield.extension < 1.0 and player.is_parry_window(), "the guard is live on the press frame while the shield is still rising (extension %.2f)" % visual._shield.extension)
+	check(is_equal_approx(player.parry_window_length(), base), "a fresh raise keeps the original perfect window (%.3f)" % player.parry_window_length())
+	await physics_frames(15)
+	Input.action_release(&"block")
+	await physics_frames(2)
+	await frames(1)
+	check(not player.is_blocking and visual._shield.extension > 0.0, "while the shield fades out it no longer blocks (extension %.2f)" % visual._shield.extension)
+	Input.action_press(&"block")
+	await physics_frames(1)
+	check(is_equal_approx(player.parry_window_length(), base * tuning.parry_window_repeat_scale), "mashing still shortens the perfect window (%.3f)" % player.parry_window_length())
+	Input.action_release(&"block")
+	await physics_frames(int(ceil(tuning.parry_repeat_time * 60.0)) + 6)
+	Input.action_press(&"block")
+	await physics_frames(1)
+	check(is_equal_approx(player.parry_window_length(), base), "after a pause the full perfect window returns")
+	Input.action_release(&"block")
+	await end_level(level)
+
+
+## 落地的每一格盾都接在手腕上（NE-239）：舉盾起跳，一路量到落地後幾格。
+func _test_shield_landing_frames() -> void:
+	await open_level(20.0)
+	var player := level.player
+	var visual: PlayerVisual = player._visual
+	AimInput.set_virtual_gamepad(player, true)
+	var failures: Array[String] = []
+	var landed_frames := 0
+	for face: float in [1.0, -1.0]:
+		place_player(20.0)
+		await physics_frames(10)
+		Input.action_press(&"block")
+		_press_stick(Vector2(face, 0.0))
+		Input.action_press(&"jump")
+		await physics_frames(4)
+		Input.action_release(&"jump")
+		var was_air := false
+		var after_landing := -1
+		for i in 120:
+			await physics_frames(1)
+			await frames(1)
+			var on_floor := player.is_on_floor()
+			was_air = was_air or not on_floor
+			if was_air and on_floor and after_landing < 0:
+				after_landing = 0
+			var center := visual.to_local(player.global_position + Vector2(0, -Player.BODY_SIZE.y * 0.5))
+			var wrist := visual.shield_wrist_local()
+			var anchor := center + visual._shield.direction * (ShieldSurface.RADIUS - 5.0) * lerpf(0.88, 1.0, visual._shield.extension)
+			var from_body := wrist - center
+			if wrist.distance_to(anchor) > ShieldSurface.RADIUS * 1.5 or absf(from_body.x) > 22.0 or absf(from_body.y) > 36.0:
+				failures.append("face %d frame %d floor %s: reach %.1f wrist %s" % [int(face), i, on_floor, wrist.distance_to(anchor), from_body])
+			if after_landing >= 0:
+				after_landing += 1
+				landed_frames += 1
+				if after_landing > 8:
+					break
+		Input.action_release(&"block")
+		_press_stick(Vector2.ZERO)
+		await physics_frames(20)
+	AimInput.set_virtual_gamepad(player, false)
+	check(landed_frames >= 16, "both jumps were followed through their landing (%d frames)" % landed_frames)
+	check(failures.is_empty(), "the shield stays on the wrist on every frame of the jump and landing: %s" % [failures.slice(0, 4)])
 	await end_level(level)
 
 
