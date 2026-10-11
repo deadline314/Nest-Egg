@@ -8,6 +8,10 @@ signal used(portal: Portal)
 
 const PROMPT_LOCKED_RADIUS := 56.0
 const LOCKED_TOAST_COOLDOWN := 1.2
+## 門貼圖上狀態燈燈座的位置與大小（占門寬、門高的比例）：對應 cel_fixtures.py 的 door()。
+const DOOR_LAMP := Rect2(0.0, 0.5 / 48.0, 4.0 / 28.0, 2.0 / 48.0)
+## 梯子貼圖上扶手外緣的位置（占梯寬的比例）：對應 cel_fixtures.py 的 ladder()。
+const LADDER_RAIL_EDGE := 2.5 / 20.0
 
 var data: PortalData
 var cell := Vector2i.ZERO
@@ -20,6 +24,8 @@ var _toast_left := 0.0
 var _prompt: WorldPrompt
 var _cinematic_notice: WorldPrompt
 var _preview_valid := false
+## 門或梯子的貼圖（墊在後面的子節點）；讀不到貼圖時是 null，改用簡單畫法。
+var _art: Sprite2D
 
 
 func configure(p_data: PortalData, p_cell: Vector2i) -> void:
@@ -68,6 +74,11 @@ func _ready() -> void:
 			_cinematic_notice.reach_check = func() -> bool:
 				return preview_available() and not _player_in_range and Story.framing.selected_target() == self
 			add_child(_cinematic_notice)
+	var frame_top_left := Vector2(-data.width * 0.5, -float(data.height))
+	if data.style == "ladder":
+		_art = FixtureArt.attach(self, &"ladder_segment", frame_top_left, Vector2(data.width, data.height), true)
+	elif data.style != "road" and data.style != "hidden":
+		_art = FixtureArt.attach(self, &"door_steel", frame_top_left, Vector2(data.width, data.height))
 	if data.style != "road" and data.style != "hidden":
 		var light := LightKit.create_point_light(_accent(), 70.0, 0.5, false)
 		light.position = Vector2(0, -data.height * 0.5)
@@ -152,6 +163,13 @@ func _draw() -> void:
 	var accent := _accent()
 	match data.style:
 		"ladder":
+			if _art != null:
+				# 梯子本體是貼圖；扶手外側留一條淡淡的亮線，暗處也看得出這裡可以爬。
+				var edge := Color(accent, 0.55)
+				var rail_x := data.width * LADDER_RAIL_EDGE
+				draw_line(Vector2(-half + rail_x, 0.0), Vector2(-half + rail_x, top), edge, 1.0)
+				draw_line(Vector2(half - rail_x, 0.0), Vector2(half - rail_x, top), edge, 1.0)
+				return
 			var rail := Color(accent, 0.9)
 			draw_line(Vector2(-half + 3.0, 0.0), Vector2(-half + 3.0, top), rail, 1.5)
 			draw_line(Vector2(half - 3.0, 0.0), Vector2(half - 3.0, top), rail, 1.5)
@@ -169,6 +187,11 @@ func _draw() -> void:
 				var x := -4.0 + float(i) * 8.0
 				draw_polyline(PackedVector2Array([Vector2(x, -10.0), Vector2(x + 4.0, -6.0), Vector2(x, -2.0)]), color, 1.2)
 		_:
+			if _art != null:
+				# 門框頂端的狀態燈：上鎖是紅色，可以進去是黃色。
+				var lamp := Vector2(data.width * DOOR_LAMP.size.x, data.height * DOOR_LAMP.size.y)
+				draw_rect(Rect2(Vector2(-lamp.x * 0.5, top + data.height * DOOR_LAMP.position.y), lamp), LightKit.glow(accent, 1.8))
+				return
 			var frame := Rect2(-half, top, data.width, data.height)
 			draw_rect(frame, Color(0.03, 0.04, 0.06, 0.55))
 			draw_rect(frame, LightKit.glow(accent, 1.2), false, 1.5)

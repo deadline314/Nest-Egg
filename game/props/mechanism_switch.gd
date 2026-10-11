@@ -17,6 +17,9 @@ var _player_in_range := false
 var _cooldown := 0.0
 var _time := 0.0
 var _prompt: WorldPrompt
+## 開、關兩張貼圖（拉桿方向不同）；讀不到時是 null，改用簡單畫法。
+var _art_on: Sprite2D
+var _art_off: Sprite2D
 
 
 func configure(p_data: MechanismData, p_cell: Vector2i) -> void:
@@ -30,6 +33,8 @@ func _ready() -> void:
 		queue_free()
 		return
 	LightKit.mark_emissive(self)
+	_art_on = FixtureArt.attach(self, &"switch_box_on", Vector2(-10.0, -20.0), Vector2(20.0, 20.0))
+	_art_off = FixtureArt.attach(self, &"switch_box_off", Vector2(-10.0, -20.0), Vector2(20.0, 20.0))
 	collision_layer = 0
 	collision_mask = Layers.PLAYER
 	monitorable = false
@@ -97,8 +102,14 @@ func restore_state(state: Variant) -> void:
 		queue_redraw()
 
 
-## 開關外觀：底座、拉桿與狀態燈。
+## 開關外觀：底座、拉桿與狀態燈。箱體與拉桿是貼圖（開、關各一張），這裡只畫箱體正面發亮的指示燈。
 func _draw() -> void:
+	var blink_lamp := 1.4 + 0.5 * sin(_time * 4.0)
+	if _art_on != null and _art_off != null:
+		_art_on.visible = active
+		_art_off.visible = not active
+		draw_rect(Rect2(-3.6, -7.6, 3.2, 3.2), LightKit.glow(data.color, blink_lamp if active else 0.6))
+		return
 	draw_rect(Rect2(-7, -14, 14, 14), Palette.TERRAIN_EDGE)
 	draw_rect(Rect2(-7, -14, 14, 14), Palette.TERRAIN_TOP, false, 1.0)
 	var lever_tip := Vector2(-4, -26) if active else Vector2(4, -26)

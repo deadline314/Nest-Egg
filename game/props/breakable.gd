@@ -27,6 +27,8 @@ var _flash := 0.0
 var _shape_node: CollisionShape2D
 var _rim: _Rim
 var _prompt: WorldPrompt
+## 可擊碎牆的貼圖（依牆的大小平鋪）；讀不到或不是牆時是 null。
+var _wall_art: Sprite2D
 
 
 func configure(p_data: BreakableData, p_cell: Vector2i, tile_size: int) -> void:
@@ -48,6 +50,8 @@ func _ready() -> void:
 	_shape_node.shape = shape
 	_shape_node.position = Vector2(0, -size_px.y * 0.5)
 	add_child(_shape_node)
+	if data.look == BreakableData.Look.WALL:
+		_wall_art = FixtureArt.attach(self, &"breakable_wall", Vector2(-size_px.x * 0.5, -size_px.y), size_px, true)
 
 	health = HealthComponent.new()
 	add_child(health)
@@ -183,7 +187,8 @@ func _draw() -> void:
 		BreakableData.Look.GLASS:
 			_draw_glass(rect)
 		BreakableData.Look.WALL:
-			_draw_wall(rect)
+			if _wall_art == null:
+				_draw_wall(rect)
 	_draw_cracks(rect)
 	if _flash > 0.0:
 		draw_rect(rect, Color(1, 1, 1, 0.55 * _flash / FLASH_TIME))

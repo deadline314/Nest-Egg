@@ -5,10 +5,13 @@ extends Node2D
 var text := ""
 
 var _time := 0.0
+## 牌體的貼圖；讀不到時是 null，改用簡單畫法。
+var _art: Sprite2D
 
 
 func _ready() -> void:
 	LightKit.mark_emissive(self)
+	_art = FixtureArt.attach(self, &"hint_sign", Vector2(-8.0, -24.0), Vector2(16.0, 24.0))
 	var prompt := WorldPrompt.new()
 	prompt.text = text
 	prompt.radius = 64.0
@@ -22,9 +25,15 @@ func _process(delta: float) -> void:
 
 
 func _draw() -> void:
+	var glow := LightKit.glow(Palette.CYAN, 1.5 + 0.4 * sin(_time * 3.0))
+	if _art != null:
+		# 牌體是貼圖；這裡只畫螢幕上發亮的驚嘆號與螢幕的亮框，暗處也找得到。
+		draw_rect(Rect2(-6.0, -21.5, 12.0, 8.5), Color(glow, 0.6), false, 1.0)
+		draw_line(Vector2(0, -20.3), Vector2(0, -16.4), glow, 1.6)
+		draw_circle(Vector2(0, -14.6), 0.9, glow)
+		return
 	draw_line(Vector2(0, 0), Vector2(0, -12), Palette.TERRAIN_TOP, 2.0)
 	draw_rect(Rect2(-7, -20, 14, 9), Palette.TERRAIN_EDGE)
-	var glow := LightKit.glow(Palette.CYAN, 1.5 + 0.4 * sin(_time * 3.0))
 	draw_rect(Rect2(-7, -20, 14, 9), glow, false, 1.0)
 	draw_line(Vector2(0, -18), Vector2(0, -15), glow, 1.5)
 	draw_circle(Vector2(0, -13), 0.8, glow)

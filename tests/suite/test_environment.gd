@@ -23,6 +23,7 @@ func run() -> void:
 	await _test_level_without_environment()
 	_test_chapter_one()
 	await _test_contact_shadow()
+	_test_fixture_art()
 	_test_import_policy("res://art/environment")
 
 
@@ -568,3 +569,24 @@ func _shadow_floor(parent: Node2D, rect: Rect2) -> StaticBody2D:
 	floor_body.add_child(node)
 	parent.add_child(floor_body)
 	return floor_body
+
+
+## 關卡固定物件的貼圖（BG-21）：七張都讀得到、依世界尺寸縮放或平鋪；缺圖時回傳 null 讓物件退回簡單畫法。
+func _test_fixture_art() -> void:
+	FixtureArt.clear_cache()
+	for id: StringName in [&"door_steel", &"ladder_segment", &"hint_sign", &"switch_box_on", &"switch_box_off", &"breakable_wall", &"gate_shutter"]:
+		check(FixtureArt.texture(id) != null, "fixture texture loads: " + String(id))
+	var holder := Node2D.new()
+	runner.add_child(holder)
+	var door := FixtureArt.attach(holder, &"door_steel", Vector2(-14.0, -48.0), Vector2(28.0, 48.0))
+	check(door != null and door.show_behind_parent and (door.texture.get_size() * door.scale).is_equal_approx(Vector2(28.0, 48.0)),
+			"a fixture sprite is scaled to its world size and sits behind its owner")
+	var ladder := FixtureArt.attach(holder, &"ladder_segment", Vector2(-10.0, -152.0), Vector2(20.0, 152.0), true)
+	check(ladder != null and ladder.region_enabled and ladder.texture_repeat == CanvasItem.TEXTURE_REPEAT_ENABLED
+			and (ladder.region_rect.size * ladder.scale).is_equal_approx(Vector2(20.0, 152.0)), "a tiled fixture repeats at its native density")
+	FixtureArt.resize(ladder, Vector2(20.0, 40.0), true)
+	check((ladder.region_rect.size * ladder.scale).is_equal_approx(Vector2(20.0, 40.0)), "a tiled fixture can be resized")
+	check(FixtureArt.attach(holder, &"test_missing_prop_fixture", Vector2.ZERO, Vector2(8.0, 8.0)) == null,
+			"a missing fixture texture returns null instead of breaking the level")
+	holder.queue_free()
+	FixtureArt.clear_cache()

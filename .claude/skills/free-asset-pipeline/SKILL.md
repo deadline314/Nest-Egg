@@ -146,6 +146,10 @@ CC0 庫找不到的道具（吊車、龍門吊、控制台、堆高機、閘門�
 - **清單檔會被執行中的工具改寫**（記住新錨點）：批次還在跑時不要編輯 `qwen_props.json`，等它結束。
 - 匯入後 `.import` 檔沒有對應圖的孤兒要刪掉（會讓關卡載入時噴 ERROR）。
 
+### 關卡固定物件用程式畫（BG-21）
+
+門、梯子、提示牌、開關箱、可擊碎牆、閘門這類又小又規則、還要能平鋪的東西，不走 Qwen：`python tools/assets/cel_fixtures.py [--sheet <png>]` 用程式畫到 `art/environment/fixtures/`（每世界像素 8 貼圖像素），畫完跑 `texture_import.py` 再匯入。遊戲端用 `FixtureArt.attach(物件, id, 左上角, 世界尺寸, 是否平鋪)` 墊在物件後面；會發光的狀態燈、符號不畫進貼圖，由物件自己用自發光疊上去。新貼圖比原本的亮線暗，互動物要留一條淡亮線（梯子扶手、提示牌螢幕），暗處才找得到。清單與缺口見 `design/20-campaign-experience/FIXTURE_ASSETS.md`。
+
 ## 9. 場景包：每個場景的背景與專屬物件（BG-11）
 
 大綱（`design/13-story-v2/OUTLINE.md` 第 5 節）的每個場景有一張背景圖與一包專屬物件，放在共用道具庫之外：
