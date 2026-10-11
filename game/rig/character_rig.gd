@@ -216,7 +216,7 @@ func animate(delta: float, input: RigInput) -> void:
 		return
 	facing = input.facing
 	_apply_fill((LightKit.enemy_fill if use_enemy_fill else LightKit.character_fill) if use_level_lighting else 1.0)
-	_apply_light_cap(LightKit.character_light_cap if use_level_lighting else LightKit.character_light_cap_for(1.0, 1.0))
+	_apply_light_cap((LightKit.enemy_light_cap if use_enemy_fill else LightKit.character_light_cap) if use_level_lighting else LightKit.character_light_cap_for(1.0, 1.0))
 	_update_hand_grips(input)
 	animator.update(delta, input)
 	var scene_tree := get_tree()

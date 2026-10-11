@@ -8,6 +8,7 @@ extends Node
 ## --player：每一格把主角放在畫面中央下方最近的地面上（帶著他自己的光），看實際遊玩時的光影；沒有地面的格子不放。
 ##   同時量主角、畫面內敵人的輪廓對比與腳下地面亮邊（算法與門檻同 tools/contrast_probe.gd），寫進索引。
 ## --quality=low|medium|high：這次巡覽改用該光影品質（結束時還原）。
+## --brightness=0~1：這次巡覽改用設定裡的這個亮度（結束時還原），看玩家把亮度調高或調低時的畫面。
 ## --no-shadows：拿掉角色腳下的接觸陰影（量陰影成本時當對照）。索引會記錄每關的陰影數與每格實際花的時間
 ##   （關掉垂直同步後相鄰兩格的間隔，取中位數；引擎的處理時間監測值不是每格時間，不要用）。
 ## --flat 是盤點用的診斷畫面：環境光與背景調成全亮、關掉後製，只看擺放、支撐與圖層；不能拿來驗收光影。
@@ -31,6 +32,7 @@ var _keep_enemies := true
 var _show_player := false
 var _flat := false
 var _walk_player := false
+var _brightness := -1.0
 var _quality := ""
 var _no_shadows := false
 
@@ -58,6 +60,8 @@ func _ready() -> void:
 			_no_shadows = true
 		elif argument.begins_with("--quality="):
 			_quality = argument.trim_prefix("--quality=")
+		elif argument.begins_with("--brightness="):
+			_brightness = clampf(float(argument.trim_prefix("--brightness=")), 0.0, 1.0)
 	if not _out.is_absolute_path() or _levels.is_empty() or DisplayServer.get_name() == "headless":
 		push_error("[SceneTour] 需要原生視窗、--out=<絕對資料夾> 與 --level=<關卡檔名>")
 		get_tree().quit(2)
@@ -76,6 +80,9 @@ func _run() -> void:
 	var quality_before := Settings.get_light_quality()
 	if QUALITY.has(_quality):
 		Settings.set_light_quality(QUALITY[_quality])
+	var brightness_before := Settings.get_brightness()
+	if _brightness >= 0.0:
+		Settings.set_brightness(_brightness)
 	Story.auto_skip = true
 	for id: String in Story.scene_ids():
 		Story._seen[StringName(id)] = true
@@ -86,6 +93,8 @@ func _run() -> void:
 			failures += 1
 	if QUALITY.has(_quality):
 		Settings.set_light_quality(quality_before)
+	if _brightness >= 0.0:
+		Settings.set_brightness(brightness_before)
 	await AudioRelease.settle(get_tree())
 	get_tree().quit(1 if failures > 0 else 0)
 

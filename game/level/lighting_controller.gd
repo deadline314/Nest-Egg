@@ -264,6 +264,7 @@ func _apply() -> void:
 	LightKit.enemy_fill = maxf(1.0, LightKit.character_fill * current.enemy_fill_scale)
 	LightKit.player_light_energy = LightKit.player_light_for(ambient_luma, LightKit.character_fill)
 	LightKit.character_light_cap = LightKit.character_light_cap_for(ambient_luma, LightKit.character_fill)
+	LightKit.enemy_light_cap = LightKit.character_light_cap * LightKit.ENEMY_LIGHT_GAIN
 	LightKit.lamp_power = current.lamp_power
 	_rim_light.color = current.rim_color
 	_rim_light.energy = current.rim_energy
@@ -284,6 +285,7 @@ func _on_exiting() -> void:
 	LightKit.enemy_fill = 1.0
 	LightKit.player_light_energy = LightKit.PLAYER_LIGHT_BASE_ENERGY
 	LightKit.character_light_cap = LightKit.CHARACTER_LIGHT_CAP_MAX
+	LightKit.enemy_light_cap = LightKit.CHARACTER_LIGHT_CAP_MAX * LightKit.ENEMY_LIGHT_GAIN
 	LightKit.lamp_power = 1.0
 	LitTextures.set_enabled(true)
 	if EventBus.lighting_override_requested.is_connected(set_override):

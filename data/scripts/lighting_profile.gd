@@ -11,6 +11,9 @@ const BLENDED: Array[StringName] = [
 
 ## 角色最低可讀亮度（0~1）：環境光再暗，角色補光後至少要有這個亮度。
 const MIN_READABLE_CHARACTER_LUMA := 0.2
+## 亮度分級（BG-33）：依環境光的亮度分成暗、一般、亮。暗的區域要靠槍燈與場景燈才看得清楚；亮的留給安全區與特殊場景。
+const TIER_DARK_BELOW := 0.2
+const TIER_BRIGHT_FROM := 0.35
 ## 特殊情境的顆粒上限：再高就會蓋過文字與人物。
 const MAX_SPECIAL_GRAIN := 0.05
 
@@ -76,6 +79,12 @@ func character_luma() -> float:
 
 
 ## 回傳問題清單（空代表沒問題）。
+## 這份光影設定屬於哪一級亮度：&"dark"、&"normal" 或 &"bright"。
+func brightness_tier() -> StringName:
+	var luma := LightKit.luminance(ambient_color)
+	return &"dark" if luma < TIER_DARK_BELOW else (&"bright" if luma >= TIER_BRIGHT_FROM else &"normal")
+
+
 func validate() -> PackedStringArray:
 	var problems := PackedStringArray()
 	if id == &"":

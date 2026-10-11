@@ -15,7 +15,7 @@ pulse_hz = 0.0
 [resource]
 script = ExtResource("1_script")
 id = &"market"
-ambient_color = Color(0.46,0.405,0.59,1)
+ambient_color = Color(0.28,0.245,0.36,1)
 background_tint = Color(0.95,0.85,1.0,1)
 fog_color = Color(0.56,0.30,0.66,1)
 fog_density = 1.0
@@ -31,6 +31,7 @@ aberration = 0.0022
 lamp_style = SubResource("LampStyle_1")
 neon_energy = 1.0
 character_floor = 0.62
+enemy_fill_scale = 0.6
 lightning_rate = 2.5
 rim_color = Color(1.0,0.35,0.75,1)
-rim_energy = 0.5
+rim_energy = 0.25

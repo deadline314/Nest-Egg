@@ -15,7 +15,7 @@ pulse_hz = 0.0
 [resource]
 script = ExtResource("1_script")
 id = &"alley_calm"
-ambient_color = Color(0.46,0.47,0.62,1)
+ambient_color = Color(0.26,0.265,0.35,1)
 background_tint = Color(0.9,0.9,1.0,1)
 fog_color = Color(0.56,0.30,0.66,1)
 fog_density = 0.6
@@ -33,4 +33,4 @@ neon_energy = 1.0
 character_floor = 0.64
 lightning_rate = 0.0
 rim_color = Color(0.55,0.8,1.0,1)
-rim_energy = 0.35
+rim_energy = 0.2

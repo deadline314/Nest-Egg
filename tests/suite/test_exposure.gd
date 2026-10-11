@@ -22,6 +22,7 @@ func run() -> void:
 	await _test_player_light_follows_the_scene()
 	await _test_enemy_fill_is_separate()
 	await _test_weapon_light()
+	_test_brightness_tiers()
 
 
 func _test_budget_model() -> void:
@@ -288,3 +289,27 @@ func _test_weapon_light() -> void:
 	check(not light.is_lit() and not light._light.enabled, "dying puts the light out at once")
 	AimInput.using_gamepad = false
 	await end_level(level)
+
+
+## 亮度分級（BG-33）：第一章每一區用的光影設定落在它該在的那一級；敵人被光照到時比主角更容易亮起來。
+func _test_brightness_tiers() -> void:
+	var expected := {"market": &"normal", "freight": &"normal", "rooftop": &"normal", "alley_calm": &"normal",
+		"warehouse_interior": &"dark", "pawnshop_warm": &"bright", "lounge_safe": &"bright", "mezzanine_gray": &"bright"}
+	for id: String in expected:
+		var profile := load("res://data/lighting/%s.tres" % id) as LightingProfile
+		check(profile != null and profile.brightness_tier() == expected[id] and profile.validate().is_empty(),
+				"%s is a %s lighting profile (ambient %.2f)" % [id, expected[id], LightKit.luminance(profile.ambient_color) if profile != null else -1.0])
+	var by_level := {"ch1_street": [&"normal"], "ch1_rooftop": [&"normal"], "ch1_booth_alley": [&"normal"], "ch1_stall": [&"normal"],
+		"ch1_warehouse": [&"dark"], "ch1_vault": [&"dark"], "ch1_lounge": [&"bright"], "ch1_pawnshop_dawn": [&"bright"], "ch1_pawnshop": [&"normal", &"bright"]}
+	for level_id: String in by_level:
+		var data := load("res://data/levels/%s.tres" % level_id) as LevelData
+		var tiers: Array = []
+		for zone: LightingZone in data.lighting_zones:
+			if not tiers.has(zone.profile.brightness_tier()):
+				tiers.append(zone.profile.brightness_tier())
+		tiers.sort()
+		var wanted: Array = by_level[level_id]
+		wanted.sort()
+		check(tiers == wanted, "%s uses the %s tier(s) (%s)" % [level_id, wanted, tiers])
+	check(LightKit.ENEMY_LIGHT_GAIN > 1.0 and LightKit.CHARACTER_LIGHT_CAP_MAX * LightKit.ENEMY_LIGHT_GAIN <= LightKit.CHARACTER_EXPOSURE_BUDGET,
+			"a light makes an enemy brighter than it makes the player, within the exposure budget")

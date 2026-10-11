@@ -19,6 +19,7 @@ const NEARBY_LIGHT_ALLOWANCE := 0.2
 ## 單盞光對角色的亮度上限（角色專用的受光，見 art/shaders/character_light.gdshader）：亮場景小、暗場景大。
 const CHARACTER_LIGHT_CAP_MAX := 0.5
 const CHARACTER_LIGHT_CAP_MIN := 0.2
+const ENEMY_LIGHT_GAIN := 1.6
 const PLAYER_LIGHT_BASE_ENERGY := 0.75
 const PLAYER_LIGHT_MIN_ENERGY := 0.15
 ## 離玩家很近的閃光（受傷、格擋反彈、補給…）能量上限：閃光是回饋，不是要把角色照成白色。
@@ -37,6 +38,9 @@ static var character_fill := 1.0
 static var enemy_fill := 1.0
 ## 單盞光對角色的亮度上限目前值，由 LightingController 依環境光與補光更新。
 static var character_light_cap := CHARACTER_LIGHT_CAP_MAX
+## 敵人身上單盞光的亮度上限：比主角高（ENEMY_LIGHT_GAIN 倍），被槍燈或場景燈照到的敵人會明顯亮起來。
+## 主角的上限壓得低是為了白色頭髮不過曝；敵人多半是深色裝甲，沒有這個問題。
+static var enemy_light_cap := CHARACTER_LIGHT_CAP_MAX * ENEMY_LIGHT_GAIN
 ## 玩家身上那盞光目前的能量（亮場景自動調暗，由 LightingController 依光影設定更新，Player 每影格套用）。
 static var player_light_energy := PLAYER_LIGHT_BASE_ENERGY
 ## 場景燈的供電（0~1）：由 LightingController 依光影設定更新，每盞燈依自己的門檻依序熄滅／亮起。

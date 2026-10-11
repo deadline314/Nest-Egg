@@ -38,6 +38,13 @@ func _ready() -> void:
 	_run.call_deferred()
 
 
+## 量測期間主角一律朝右瞄準（敵人站在右邊，槍燈要照著他）。滑鼠只要在視窗上動一下，瞄準就會改回跟滑鼠，
+## 所以每一格都設回來。
+func _process(_delta: float) -> void:
+	AimInput.using_gamepad = true
+	AimInput._last_stick_dir = Vector2.RIGHT
+
+
 func _run() -> void:
 	add_child(LightKit.create_environment())
 	Story.auto_skip = true

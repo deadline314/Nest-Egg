@@ -824,7 +824,7 @@ def build_lounge():
     a.prop('revival_lounge__neon_glass_sign', 10, y=13)
     for x in (10, 24, 38, 50):
         a.lamp(x, 11)
-    a.zone(0, 'market')
+    a.zone(0, 'lounge_safe')  # 復原館是安全區：亮級，進來明顯比街上亮
     return a
 
 
@@ -843,7 +843,7 @@ def build_stall():
     a.prop('dawn_noodle_stall__cat_box_bed', 36)
     a.prop('dawn_noodle_stall__shop_shutter_dawn', 6)
     a.lamp(20, 9)
-    a.zone(0, 'mezzanine_gray')
+    a.zone(0, 'alley_calm')  # 露天的麵攤：和街道同一片夜色（一般級），亮的是攤車自己的燈
     return a
 
 

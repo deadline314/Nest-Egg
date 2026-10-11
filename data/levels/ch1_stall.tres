@@ -4,7 +4,7 @@
 [ext_resource type="Resource" path="res://data/npcs/ch1_ali_stall.tres" id="2_ch1_ali_stall"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="3_portal_data"]
 [ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="4_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/mezzanine_gray.tres" id="5_mezzanine_gray"]
+[ext_resource type="Resource" path="res://data/lighting/alley_calm.tres" id="5_alley_calm"]
 [ext_resource type="Resource" path="res://data/environment/themes/ch1_stall.tres" id="6_ch1_stall"]
 
 [sub_resource type="Resource" id="Resource_0"]
@@ -22,7 +22,7 @@ style = "door"
 script = ExtResource("4_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("5_mezzanine_gray")
+profile = ExtResource("5_alley_calm")
 
 [resource]
 script = ExtResource("1_level_data")
