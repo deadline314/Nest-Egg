@@ -27,6 +27,7 @@ const SCENARIOS := {
 	"boss_hit_parts": "res://tools/scenarios/boss_hit_parts_scenario.gd",
 	"watchdog_fight": "res://tools/scenarios/watchdog_fight_scenario.gd",
 	"watchdog_moves": "res://tools/scenarios/watchdog_moves_scenario.gd",
+	"watchdog_head_aim": "res://tools/scenarios/watchdog_head_aim_scenario.gd",
 	"throwables": "res://tools/scenarios/throwables_scenario.gd",
 	"shield_attach": "res://tools/scenarios/shield_attach_scenario.gd",
 	"shield_film": "res://tools/scenarios/shield_film_scenario.gd",
