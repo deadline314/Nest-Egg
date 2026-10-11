@@ -1527,51 +1527,7 @@
    ]
   },
   "ch1_t_egret_1": {
-   "mode": "dialogue",
-   "lines": [
-    {
-     "speaker": "egret",
-     "text": "倉庫保險箱裡有一片資料盤，今晚把它取出來。驗收是八百，不是看一眼就算。",
-     "ja": "倉庫の金庫に資料ディスクが一枚ある。今夜取り出してくれ。検収は800だ。一目見ただけじゃ勘定に入らないからな。",
-     "en": "There's a data disk in the warehouse safe. Take it out tonight. Acceptance pays 800, and a glance doesn't count."
-    },
-    {
-     "speaker": "rin",
-     "text": "一成照舊，先別算進我能花的錢。",
-     "ja": "いつもの一割はそのままだ。使える金として数えるなよ。",
-     "en": "The usual ten percent stays. Don't count it as money I can spend yet."
-    },
-    {
-     "speaker": "egret",
-     "text": "看門狗是倉庫的保全機甲，牠的脾氣可不好。天穹委託的盤，你先照編號取。",
-     "ja": "番犬は倉庫の警備機甲だ。機嫌がすこぶる悪いぞ。天穹から頼まれた盤だから、まず番号どおりに取りな。",
-     "en": "The Watchdog is the warehouse's security mech, and its temper is no joke. The disk is Skydome's commission, so grab it by its number."
-    },
-    {
-     "speaker": "egret",
-     "text": "拿到盤後走倉庫上層出口。那條路到復原館外的交接櫃，不用帶著盤再穿一次路障。",
-     "ja": "ディスクを手に入れたら、倉庫の上層出口から出な。そのルートなら復元館の外にある引き渡しボックスまで行ける。ディスクを持ったまま、また封鎖線を抜ける必要はない。",
-     "en": "Once you have the disk, take the warehouse's upper exit. That route leads to the handoff cabinet outside the restoration house, so you won't have to carry the disk back through the barricades."
-    },
-    {
-     "speaker": "rin",
-     "text": "復原館就是電話亭旁邊那間夜間店？",
-     "ja": "復元館って、電話ボックスの横にある夜間営業の店のことか？",
-     "en": "Is the restoration house the night shop next to the phone booth?"
-    },
-    {
-     "speaker": "egret",
-     "text": "對，交接櫃在店外，不是交給店裡的人。櫃子收盤後吐回執，明早我跟你對錢。",
-     "ja": "そうだ。引き渡しボックスは店の外にある。店の人間に渡すんじゃない。ボックスがディスクを受け取ったら、受領書を吐き出す。金の精算は明日の朝にしよう。",
-     "en": "Right. The handoff cabinet is outside the shop, not handed to anyone inside. Once it takes the disk, it spits out a receipt. We'll square the money tomorrow morning."
-    },
-    {
-     "speaker": "rin",
-     "text": "盤放進櫃子裡，回執由我自己收著，我記住了。",
-     "ja": "ディスクはボックスに入れる。受領書は自分で持っておく。覚えた。",
-     "en": "I'll put the disk in the cabinet and keep the receipt myself. Got it."
-    }
-   ],
+   "mode": "animated",
    "when": {
     "flag": "ch1_dinner_done",
     "equals": true
@@ -1582,7 +1538,108 @@
      "id": "ch1_heard_brief",
      "value": true
     }
-   ]
+   ],
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_rooftop",
+     "pos": [
+      320,
+      212.3
+     ],
+     "zoom": 1.0,
+     "fade": 1.0
+    },
+    {
+     "do": "actor",
+     "id": "egret",
+     "kind": "egret",
+     "pos": [
+      372,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "egret"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      268,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "倉庫保險箱裡有一片資料盤，今晚把它取出來。驗收是八百，不是看一眼就算。",
+     "ja": "倉庫の金庫に資料ディスクが一枚ある。今夜取り出してくれ。検収は800だ。一目見ただけじゃ勘定に入らないからな。",
+     "en": "There's a data disk in the warehouse safe. Take it out tonight. Acceptance pays 800, and a glance doesn't count."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "一成照舊，先別算進我能花的錢。",
+     "ja": "いつもの一割はそのままだ。使える金として数えるなよ。",
+     "en": "The usual ten percent stays. Don't count it as money I can spend yet."
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "看門狗是倉庫的保全機甲，牠的脾氣可不好。天穹委託的盤，你先照編號取。",
+     "ja": "番犬は倉庫の警備機甲だ。機嫌がすこぶる悪いぞ。天穹から頼まれた盤だから、まず番号どおりに取りな。",
+     "en": "The Watchdog is the warehouse's security mech, and its temper is no joke. The disk is Skydome's commission, so grab it by its number."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "拿到盤後走倉庫上層出口。那條路到復原館外的交接櫃，不用帶著盤再穿一次路障。",
+     "ja": "ディスクを手に入れたら、倉庫の上層出口から出な。そのルートなら復元館の外にある引き渡しボックスまで行ける。ディスクを持ったまま、また封鎖線を抜ける必要はない。",
+     "en": "Once you have the disk, take the warehouse's upper exit. That route leads to the handoff cabinet outside the restoration house, so you won't have to carry the disk back through the barricades."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "復原館就是電話亭旁邊那間夜間店？",
+     "ja": "復元館って、電話ボックスの横にある夜間営業の店のことか？",
+     "en": "Is the restoration house the night shop next to the phone booth?"
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "對，交接櫃在店外，不是交給店裡的人。櫃子收盤後吐回執，明早我跟你對錢。",
+     "ja": "そうだ。引き渡しボックスは店の外にある。店の人間に渡すんじゃない。ボックスがディスクを受け取ったら、受領書を吐き出す。金の精算は明日の朝にしよう。",
+     "en": "Right. The handoff cabinet is outside the shop, not handed to anyone inside. Once it takes the disk, it spits out a receipt. We'll square the money tomorrow morning."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "盤放進櫃子裡，回執由我自己收著，我記住了。",
+     "ja": "ディスクはボックスに入れる。受領書は自分で持っておく。覚えた。",
+     "en": "I'll put the disk in the cabinet and keep the receipt myself. Got it."
+    },
+    {
+     "do": "fade",
+     "to": 1.0,
+     "time": 0.6
+    }
+   ],
+   "pose_policy": "supported"
   },
   "ch1_t_egret_brief_revisit": {
    "mode": "animated",
@@ -2096,33 +2153,7 @@
    }
   },
   "ch1_t_ali_meet_booth": {
-   "mode": "dialogue",
-   "lines": [
-    {
-     "speaker": "ali",
-     "text": "剛從電話亭回來嗎？你可以先把外套上的水擦掉。",
-     "ja": "電話ボックスから戻ってきたところ？まず上着の水を拭いてね。",
-     "en": "Just back from the phone booth? You can wipe the water off your coat first."
-    },
-    {
-     "speaker": "rin",
-     "text": "我後來在亭子醒過，最早那次是被送到診間。",
-     "ja": "あとで電話ボックスで目を覚ました。最初のときは診療所に運ばれた。",
-     "en": "I woke up in the phone booth later. The first time, I was taken to the clinic."
-    },
-    {
-     "speaker": "ali",
-     "text": "你想說最早那次，還是先吃一口熱的？",
-     "ja": "最初のときの話をしたい？それとも先に温かいものを一口食べる？",
-     "en": "Do you want to talk about that first time, or eat something warm first?"
-    },
-    {
-     "speaker": "rin",
-     "text": "先吃，盤已經交到外面的櫃了。",
-     "ja": "先に食べる。ディスクはもう外のボックスに渡した。",
-     "en": "Eat first. The disk's already been handed to the cabinet outside."
-    }
-   ],
+   "mode": "animated",
    "when": {
     "all": [
      {
@@ -2155,36 +2186,81 @@
      }
     ]
    },
-   "then": "ch1_t_ali_1"
-  },
-  "ch1_t_ali_meet_clinic": {
-   "mode": "dialogue",
-   "lines": [
+   "then": "ch1_t_ali_1",
+   "steps": [
     {
+     "do": "scene",
+     "id": "ch1_revival_lounge",
+     "pos": [
+      260,
+      217
+     ],
+     "zoom": 1.1,
+     "fade": 1.0
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      205,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "say",
      "speaker": "ali",
-     "text": "你手上是初次建檔的紙帶，診間送你出來了？",
-     "ja": "手にあるのは初回登録の紙テープ？診療所から送り出されたの？",
-     "en": "Is that first-registration paper tape in your hand? Did the clinic send you out?"
+     "text": "剛從電話亭回來嗎？你可以先把外套上的水擦掉。",
+     "ja": "電話ボックスから戻ってきたところ？まず上着の水を拭いてね。",
+     "en": "Just back from the phone booth? You can wipe the water off your coat first."
     },
     {
+     "do": "say",
      "speaker": "rin",
-     "text": "灰衣人把我送過去，我醒來後走回倉庫，沒有在亭子醒過。",
-     "ja": "灰色の服の男が私を運んだ。目が覚めてから倉庫まで歩いて戻った。電話ボックスでは目覚めてない。",
-     "en": "A gray-coated man took me there. I woke up and walked back to the warehouse. I didn't wake up in the phone booth."
+     "text": "我後來在亭子醒過，最早那次是被送到診間。",
+     "ja": "あとで電話ボックスで目を覚ました。最初のときは診療所に運ばれた。",
+     "en": "I woke up in the phone booth later. The first time, I was taken to the clinic."
     },
     {
+     "do": "say",
      "speaker": "ali",
-     "text": "那你這一路又走了一遍。先把紙帶收好，湯不用跟著趕。",
-     "ja": "じゃあ、あなたはまた同じ道を歩いたのね。紙テープは先にしまって。スープは急いで飲まなくていいからね。",
-     "en": "So you walked the whole way again. Put the paper tape away first, and the soup doesn't need rushing."
+     "text": "你想說最早那次，還是先吃一口熱的？",
+     "ja": "最初のときの話をしたい？それとも先に温かいものを一口食べる？",
+     "en": "Do you want to talk about that first time, or eat something warm first?"
     },
     {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
      "speaker": "rin",
-     "text": "回執在本子裡，手上這張我也收。",
-     "ja": "受領書は手帳に入ってる。手に持ってるこの一枚も、こっちでしまっとく。",
-     "en": "The receipt's in my notebook. I'll keep this one in my hand as well."
+     "text": "先吃，盤已經交到外面的櫃了。",
+     "ja": "先に食べる。ディスクはもう外のボックスに渡した。",
+     "en": "Eat first. The disk's already been handed to the cabinet outside."
     }
    ],
+   "pose_policy": "supported"
+  },
+  "ch1_t_ali_meet_clinic": {
+   "mode": "animated",
    "when": {
     "all": [
      {
@@ -2223,36 +2299,81 @@
      }
     ]
    },
-   "then": "ch1_t_ali_1"
-  },
-  "ch1_t_ali_meet_no_death": {
-   "mode": "dialogue",
-   "lines": [
+   "then": "ch1_t_ali_1",
+   "steps": [
     {
+     "do": "scene",
+     "id": "ch1_revival_lounge",
+     "pos": [
+      260,
+      217
+     ],
+     "zoom": 1.1,
+     "fade": 1.0
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      205,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "say",
      "speaker": "ali",
-     "text": "外面下了一整夜，你是來等復原的人，還是自己路過？",
-     "ja": "外は一晩中雨だったね。復元を待ってる人？それとも通りがかっただけ？",
-     "en": "It's been raining all night. Are you here waiting for restoration, or just passing through?"
+     "text": "你手上是初次建檔的紙帶，診間送你出來了？",
+     "ja": "手にあるのは初回登録の紙テープ？診療所から送り出されたの？",
+     "en": "Is that first-registration paper tape in your hand? Did the clinic send you out?"
     },
     {
+     "do": "say",
      "speaker": "rin",
-     "text": "我是來交盤的，今天還沒用到復原。",
-     "ja": "ディスクを渡しに来ただけだ。今日はまだ復元を使ってない。",
-     "en": "I came to hand in a disk. I haven't used restoration today."
+     "text": "灰衣人把我送過去，我醒來後走回倉庫，沒有在亭子醒過。",
+     "ja": "灰色の服の男が私を運んだ。目が覚めてから倉庫まで歩いて戻った。電話ボックスでは目覚めてない。",
+     "en": "A gray-coated man took me there. I woke up and walked back to the warehouse. I didn't wake up in the phone booth."
     },
     {
+     "do": "say",
      "speaker": "ali",
-     "text": "這裡也收沒復原過的客人。你想吃餐，還是只坐一下？",
-     "ja": "復元していないお客さんも受け入れてるよ。食事にする？それとも少し座っていく？",
-     "en": "We welcome guests who haven't been restored, too. Would you like a meal, or just sit a while?"
+     "text": "那你這一路又走了一遍。先把紙帶收好，湯不用跟著趕。",
+     "ja": "じゃあ、あなたはまた同じ道を歩いたのね。紙テープは先にしまって。スープは急いで飲まなくていいからね。",
+     "en": "So you walked the whole way again. Put the paper tape away first, and the soup doesn't need rushing."
     },
     {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
      "speaker": "rin",
-     "text": "我先看價目，坐著算完這筆。",
-     "ja": "まず値段を確認する。座って、この分の勘定を済ませる。",
-     "en": "I'll look at the prices first. I'll sit and sort out this bill."
+     "text": "回執在本子裡，手上這張我也收。",
+     "ja": "受領書は手帳に入ってる。手に持ってるこの一枚も、こっちでしまっとく。",
+     "en": "The receipt's in my notebook. I'll keep this one in my hand as well."
     }
    ],
+   "pose_policy": "supported"
+  },
+  "ch1_t_ali_meet_no_death": {
+   "mode": "animated",
    "when": {
     "all": [
      {
@@ -2285,12 +2406,118 @@
      }
     ]
    },
-   "then": "ch1_t_ali_1"
+   "then": "ch1_t_ali_1",
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_revival_lounge",
+     "pos": [
+      260,
+      217
+     ],
+     "zoom": 1.1,
+     "fade": 1.0
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      205,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "外面下了一整夜，你是來等復原的人，還是自己路過？",
+     "ja": "外は一晩中雨だったね。復元を待ってる人？それとも通りがかっただけ？",
+     "en": "It's been raining all night. Are you here waiting for restoration, or just passing through?"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我是來交盤的，今天還沒用到復原。",
+     "ja": "ディスクを渡しに来ただけだ。今日はまだ復元を使ってない。",
+     "en": "I came to hand in a disk. I haven't used restoration today."
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "這裡也收沒復原過的客人。你想吃餐，還是只坐一下？",
+     "ja": "復元していないお客さんも受け入れてるよ。食事にする？それとも少し座っていく？",
+     "en": "We welcome guests who haven't been restored, too. Would you like a meal, or just sit a while?"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我先看價目，坐著算完這筆。",
+     "ja": "まず値段を確認する。座って、この分の勘定を済ませる。",
+     "en": "I'll look at the prices first. I'll sit and sort out this bill."
+    }
+   ],
+   "pose_policy": "supported"
   },
   "ch1_t_ali_meet_unknown": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_revival_lounge",
+     "pos": [
+      260,
+      217
+     ],
+     "zoom": 1.1,
+     "fade": 1.0
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      205,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "ali",
@@ -2332,12 +2559,48 @@
      }
     ]
    },
-   "then": "ch1_t_ali_1"
+   "then": "ch1_t_ali_1",
+   "pose_policy": "supported"
   },
   "ch1_t_ali_1": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_revival_lounge",
+     "pos": [
+      260,
+      217
+     ],
+     "zoom": 1.1,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      205,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "ali",
@@ -2403,30 +2666,11 @@
       }
      }
     ]
-   }
+   },
+   "pose_policy": "supported"
   },
   "ch1_t_ali_order": {
-   "mode": "dialogue",
-   "lines": [
-    {
-     "speaker": "rin",
-     "text": "湯和酒我都要，兩百先記這一晚。",
-     "ja": "スープも酒もほしい。200は今夜の分につけておいて。",
-     "en": "I'll take the soup and the wine. Put the 200 on tonight's tab."
-    },
-    {
-     "speaker": "ali",
-     "text": "好，等你離店前再一起結帳。今晚的麵不另外收錢。",
-     "ja": "わかった。店を出るときにまとめてお会計しましょうね。今夜の麺は別料金にはしないから。",
-     "en": "Okay, we'll settle up together before you leave. The noodles tonight aren't charged extra."
-    },
-    {
-     "speaker": "rin",
-     "text": "這邊留給碗，紙不要碰到湯。",
-     "ja": "ここは器のスペースにしといて。紙をスープに近づけるな。",
-     "en": "Save this spot for the bowl. Keep the paper away from the soup."
-    }
-   ],
+   "mode": "animated",
    "when": {
     "all": [
      {
@@ -2466,12 +2710,107 @@
      "value": true
     }
    ],
-   "then": "ch1_t_ali_name"
+   "then": "ch1_t_ali_name",
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_revival_lounge",
+     "pos": [
+      260,
+      217
+     ],
+     "zoom": 1.1,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      205,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "湯和酒我都要，兩百先記這一晚。",
+     "ja": "スープも酒もほしい。200は今夜の分につけておいて。",
+     "en": "I'll take the soup and the wine. Put the 200 on tonight's tab."
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "好，等你離店前再一起結帳。今晚的麵不另外收錢。",
+     "ja": "わかった。店を出るときにまとめてお会計しましょうね。今夜の麺は別料金にはしないから。",
+     "en": "Okay, we'll settle up together before you leave. The noodles tonight aren't charged extra."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "這邊留給碗，紙不要碰到湯。",
+     "ja": "ここは器のスペースにしといて。紙をスープに近づけるな。",
+     "en": "Save this spot for the bowl. Keep the paper away from the soup."
+    }
+   ],
+   "pose_policy": "supported"
   },
   "ch1_t_ali_sit": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_revival_lounge",
+     "pos": [
+      260,
+      217
+     ],
+     "zoom": 1.1,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      205,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "rin",
@@ -2518,38 +2857,11 @@
      "value": true
     }
    ],
-   "then": "ch1_t_ali_name"
+   "then": "ch1_t_ali_name",
+   "pose_policy": "supported"
   },
   "ch1_t_ali_name": {
-   "mode": "dialogue",
-   "lines": [
-    {
-     "speaker": "ali",
-     "text": "您怎麼稱呼？",
-     "ja": "お名前を伺ってもいいですか？",
-     "en": "May I ask your name?"
-    },
-    {
-     "speaker": "rin",
-     "text": "我叫凜。",
-     "ja": "凛だ。",
-     "en": "I'm Rin."
-    },
-    {
-     "speaker": "ali",
-     "text": "我叫阿梨，是梨子的梨。老人說別分梨吃，會把人分開。",
-     "ja": "梨って書いて「なし」。年寄りは、梨は分けて食べるなって言うの。分けると人も離れちゃうからって。",
-     "en": "I'm Pear, like the fruit. Old folks say never split a pear, or you'll split up a pair.",
-     "transcreate": true
-    },
-    {
-     "speaker": "rin",
-     "text": "我把名字記著，梨我自己吃。",
-     "ja": "名前は覚えとく。梨は分けずに、自分で食べる。",
-     "en": "I'll remember the name. The pear I'll eat whole, by myself.",
-     "transcreate": true
-    }
-   ],
+   "mode": "animated",
    "when": {
     "all": [
      {
@@ -2574,42 +2886,88 @@
      "id": "ch1_met_ali",
      "value": true
     }
-   ]
-  },
-  "ch1_t_ali_2_ordered": {
-   "mode": "dialogue",
-   "lines": [
+   ],
+   "steps": [
     {
-     "speaker": "rin",
-     "text": "這湯怎麼是甜的？",
-     "ja": "このスープ、なんで甘いんだ？",
-     "en": "Why is this soup sweet?"
+     "do": "scene",
+     "id": "ch1_revival_lounge",
+     "pos": [
+      260,
+      217
+     ],
+     "zoom": 1.1,
+     "fade": 0.6
     },
     {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      205,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "say",
      "speaker": "ali",
-     "text": "梨放進去煮久一點，冷了也沒那麼澀。這是我以前學的做法。",
-     "ja": "梨を長めに煮てるの。冷めても渋くならないのよ。昔に覚えた作り方なの。",
-     "en": "I simmer the pear a little longer, so it doesn't turn astringent once it cools. I learned this way a long time ago."
+     "text": "您怎麼稱呼？",
+     "ja": "お名前を伺ってもいいですか？",
+     "en": "May I ask your name?"
     },
     {
+     "do": "say",
      "speaker": "rin",
-     "text": "妳把湯留到這麼晚，也是工作？",
-     "ja": "こんな遅くまでスープを残してるのも仕事か？",
-     "en": "Keeping the soup this late, is that part of your job too?"
+     "text": "我叫凜。",
+     "ja": "凛だ。",
+     "en": "I'm Rin."
     },
     {
+     "do": "say",
      "speaker": "ali",
-     "text": "我也有下班的時候。今晚已經到了，不會把你坐多久都記成工錢。",
-     "ja": "私も仕事を上がる時間はあるの。今夜はもう上がり。どれだけ座っていても、それで料金は取らないから。",
-     "en": "I do knock off eventually. Tonight's done, and I won't charge you for however long you sit."
+     "text": "我叫阿梨，是梨子的梨。老人說別分梨吃，會把人分開。",
+     "ja": "梨って書いて「なし」。年寄りは、梨は分けて食べるなって言うの。分けると人も離れちゃうからって。",
+     "en": "I'm Pear, like the fruit. Old folks say never split a pear, or you'll split up a pair.",
+     "transcreate": true
     },
     {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
      "speaker": "rin",
-     "text": "餐酒的兩百我記著，坐著的不用另開一張。",
-     "ja": "食事と酒の200は覚えとく。座ってる分は別に伝票を切らなくていい。",
-     "en": "I'll note the 200 for the meal and wine. Sitting doesn't need its own tab."
+     "text": "我把名字記著，梨我自己吃。",
+     "ja": "名前は覚えとく。梨は分けずに、自分で食べる。",
+     "en": "I'll remember the name. The pear I'll eat whole, by myself.",
+     "transcreate": true
+    },
+    {
+     "do": "fade",
+     "to": 1.0,
+     "time": 0.6
     }
    ],
+   "pose_policy": "supported"
+  },
+  "ch1_t_ali_2_ordered": {
+   "mode": "animated",
    "when": {
     "all": [
      {
@@ -2645,42 +3003,88 @@
      "value": true
     }
    ],
-   "then": "ch1_t_ali_evening_close"
-  },
-  "ch1_t_ali_2_sit": {
-   "mode": "dialogue",
-   "lines": [
+   "then": "ch1_t_ali_evening_close",
+   "steps": [
     {
-     "speaker": "rin",
-     "text": "妳收鍋時還放梨？",
-     "ja": "鍋を片づけるときにも梨を入れるのか？",
-     "en": "Do you still add pear when you clean up the pot?"
+     "do": "scene",
+     "id": "ch1_revival_lounge",
+     "pos": [
+      260,
+      217
+     ],
+     "zoom": 1.1,
+     "fade": 1.0
     },
     {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      205,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "這湯怎麼是甜的？",
+     "ja": "このスープ、なんで甘いんだ？",
+     "en": "Why is this soup sweet?"
+    },
+    {
+     "do": "say",
      "speaker": "ali",
      "text": "梨放進去煮久一點，冷了也沒那麼澀。這是我以前學的做法。",
      "ja": "梨を長めに煮てるの。冷めても渋くならないのよ。昔に覚えた作り方なの。",
      "en": "I simmer the pear a little longer, so it doesn't turn astringent once it cools. I learned this way a long time ago."
     },
     {
+     "do": "say",
      "speaker": "rin",
      "text": "妳把湯留到這麼晚，也是工作？",
      "ja": "こんな遅くまでスープを残してるのも仕事か？",
      "en": "Keeping the soup this late, is that part of your job too?"
     },
     {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
      "speaker": "ali",
      "text": "我也有下班的時候。今晚已經到了，不會把你坐多久都記成工錢。",
      "ja": "私も仕事を上がる時間はあるの。今夜はもう上がり。どれだけ座っていても、それで料金は取らないから。",
      "en": "I do knock off eventually. Tonight's done, and I won't charge you for however long you sit."
     },
     {
+     "do": "say",
      "speaker": "rin",
-     "text": "我只坐了一會兒，沒有餐酒這筆。",
-     "ja": "少ししか座ってない。食事と酒の代金はないだろ。",
-     "en": "I only sat for a while. There's no meal or wine charge."
+     "text": "餐酒的兩百我記著，坐著的不用另開一張。",
+     "ja": "食事と酒の200は覚えとく。座ってる分は別に伝票を切らなくていい。",
+     "en": "I'll note the 200 for the meal and wine. Sitting doesn't need its own tab."
     }
    ],
+   "pose_policy": "supported"
+  },
+  "ch1_t_ali_2_sit": {
+   "mode": "animated",
    "when": {
     "all": [
      {
@@ -2716,12 +3120,125 @@
      "value": true
     }
    ],
-   "then": "ch1_t_ali_evening_close"
+   "then": "ch1_t_ali_evening_close",
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_revival_lounge",
+     "pos": [
+      260,
+      217
+     ],
+     "zoom": 1.1,
+     "fade": 1.0
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      205,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "妳收鍋時還放梨？",
+     "ja": "鍋を片づけるときにも梨を入れるのか？",
+     "en": "Do you still add pear when you clean up the pot?"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "梨放進去煮久一點，冷了也沒那麼澀。這是我以前學的做法。",
+     "ja": "梨を長めに煮てるの。冷めても渋くならないのよ。昔に覚えた作り方なの。",
+     "en": "I simmer the pear a little longer, so it doesn't turn astringent once it cools. I learned this way a long time ago."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "妳把湯留到這麼晚，也是工作？",
+     "ja": "こんな遅くまでスープを残してるのも仕事か？",
+     "en": "Keeping the soup this late, is that part of your job too?"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我也有下班的時候。今晚已經到了，不會把你坐多久都記成工錢。",
+     "ja": "私も仕事を上がる時間はあるの。今夜はもう上がり。どれだけ座っていても、それで料金は取らないから。",
+     "en": "I do knock off eventually. Tonight's done, and I won't charge you for however long you sit."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我只坐了一會兒，沒有餐酒這筆。",
+     "ja": "少ししか座ってない。食事と酒の代金はないだろ。",
+     "en": "I only sat for a while. There's no meal or wine charge."
+    }
+   ],
+   "pose_policy": "supported"
   },
   "ch1_t_ali_evening_close": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_revival_lounge",
+     "pos": [
+      260,
+      217
+     ],
+     "zoom": 1.1,
+     "fade": 0.6
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      205,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "ali",
@@ -2735,6 +3252,11 @@
      "text": "我到門口再決定，先把紙收好。",
      "ja": "戸口に着いてから決める。先に紙をしまっておく。",
      "en": "I'll decide at the door. First, I'll put the paper away."
+    },
+    {
+     "do": "fade",
+     "to": 1.0,
+     "time": 0.6
     }
    ],
    "when": {
@@ -2765,30 +3287,11 @@
      "id": "ch1_lounge_evening_done",
      "value": true
     }
-   ]
+   ],
+   "pose_policy": "supported"
   },
   "ch1_t_ali_death_topic": {
-   "mode": "dialogue",
-   "lines": [
-    {
-     "speaker": "rin",
-     "text": "妳不問我今天怎麼死的？",
-     "ja": "今日どうやって死んだか、聞かないの？",
-     "en": "Aren't you going to ask how I died today?"
-    },
-    {
-     "speaker": "ali",
-     "text": "你想講的話我就聽著。你想先把湯喝完，我也不會替你補一個故事。",
-     "ja": "話したいなら聞くよ。先にスープを飲みたいなら、それでもいい。あなたの代わりに話を作ったりはしないからね。",
-     "en": "If you want to talk, I'll listen. If you'd rather finish your soup first, that's fine too. I won't make up a story for you."
-    },
-    {
-     "speaker": "rin",
-     "text": "先讓我喝完，明早還有帳。",
-     "ja": "先に飲ませて。明朝にもまだ帳簿があるから。",
-     "en": "Let me finish first. I still have accounts in the morning."
-    }
-   ],
+   "mode": "animated",
    "when": {
     "all": [
      {
@@ -2805,12 +3308,107 @@
      }
     ]
    },
-   "then": "ch1_hub_ali_lounge"
+   "then": "ch1_hub_ali_lounge",
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_revival_lounge",
+     "pos": [
+      260,
+      217
+     ],
+     "zoom": 1.1,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      205,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "妳不問我今天怎麼死的？",
+     "ja": "今日どうやって死んだか、聞かないの？",
+     "en": "Aren't you going to ask how I died today?"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "你想講的話我就聽著。你想先把湯喝完，我也不會替你補一個故事。",
+     "ja": "話したいなら聞くよ。先にスープを飲みたいなら、それでもいい。あなたの代わりに話を作ったりはしないからね。",
+     "en": "If you want to talk, I'll listen. If you'd rather finish your soup first, that's fine too. I won't make up a story for you."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "先讓我喝完，明早還有帳。",
+     "ja": "先に飲ませて。明朝にもまだ帳簿があるから。",
+     "en": "Let me finish first. I still have accounts in the morning."
+    }
+   ],
+   "pose_policy": "supported"
   },
   "ch1_t_ali_late_topic": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_revival_lounge",
+     "pos": [
+      260,
+      217
+     ],
+     "zoom": 1.1,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      205,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "rin",
@@ -2830,7 +3428,8 @@
     "flag": "ch1_met_ali",
     "equals": true
    },
-   "then": "ch1_hub_ali_lounge"
+   "then": "ch1_hub_ali_lounge",
+   "pose_policy": "supported"
   },
   "ch1_t_ali_evening_revisit": {
    "mode": "animated",
@@ -2890,8 +3489,43 @@
   },
   "ch1_t_supper_choice_ordered": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_dawn_noodle_stall",
+     "pos": [
+      360,
+      262
+     ],
+     "zoom": 1.3,
+     "fade": 1.0
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      425,
+      300
+     ],
+     "facing": -1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      270,
+      300
+     ],
+     "facing": 1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "ali",
@@ -2994,12 +3628,48 @@
       "equals": "open200"
      }
     ]
-   }
+   },
+   "pose_policy": "supported"
   },
   "ch1_t_supper_choice_none": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_dawn_noodle_stall",
+     "pos": [
+      360,
+      262
+     ],
+     "zoom": 1.3,
+     "fade": 1.0
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      425,
+      300
+     ],
+     "facing": -1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      270,
+      300
+     ],
+     "facing": 1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "ali",
@@ -3091,12 +3761,48 @@
       "equals": "none"
      }
     ]
-   }
+   },
+   "pose_policy": "supported"
   },
   "ch1_t_supper_leave_options": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_dawn_noodle_stall",
+     "pos": [
+      360,
+      262
+     ],
+     "zoom": 1.3,
+     "fade": 0.6
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      425,
+      300
+     ],
+     "facing": -1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      270,
+      300
+     ],
+     "facing": 1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "rin",
@@ -3172,12 +3878,48 @@
       "equals": "open200"
      }
     ]
-   }
+   },
+   "pose_policy": "supported"
   },
   "ch1_t_supper_pay": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_dawn_noodle_stall",
+     "pos": [
+      360,
+      262
+     ],
+     "zoom": 1.3,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      425,
+      300
+     ],
+     "facing": -1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      270,
+      300
+     ],
+     "facing": 1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "rin",
@@ -3218,36 +3960,11 @@
    "on_failure": {
     "insufficient_credits": "ch1_t_supper_insufficient"
    },
-   "then": "ch1_t_supper_paid_goodbye"
+   "then": "ch1_t_supper_paid_goodbye",
+   "pose_policy": "supported"
   },
   "ch1_t_supper_paid_goodbye": {
-   "mode": "dialogue",
-   "lines": [
-    {
-     "speaker": "ali",
-     "text": "錢我收到了。回去別把濕紙放在爐邊烘，上面的字會掉。",
-     "ja": "金は受け取ったよ。帰ったら濡れた紙をコンロのそばで乾かさないでね。字が消えちゃうから。",
-     "en": "Got the money. When you get home, don't dry that wet paper by the stove. The writing will come off."
-    },
-    {
-     "speaker": "rin",
-     "text": "明天我要拿紙對錢，今晚先讓它乾。",
-     "ja": "明日は紙を照らし合わせて金を確認するから、今夜は乾かしておく。",
-     "en": "I need the paper to check the money tomorrow, so I'll let it dry tonight."
-    },
-    {
-     "speaker": "ali",
-     "text": "我下次還在這裡，你想喝湯再來。",
-     "ja": "次もここにいるから、スープが飲みたくなったらまた来て。",
-     "en": "I'll be here next time too. Come back if you want soup."
-    },
-    {
-     "speaker": "rin",
-     "text": "我記住這間店，不把下次也先答應了。",
-     "ja": "この店は覚えておく。次の約束は、まだしない。",
-     "en": "I'll remember this place. I won't promise next time yet."
-    }
-   ],
+   "mode": "animated",
    "when": {
     "all": [
      {
@@ -3259,12 +3976,123 @@
       "equals": "paid200"
      }
     ]
-   }
+   },
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_dawn_noodle_stall",
+     "pos": [
+      360,
+      262
+     ],
+     "zoom": 1.3,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      425,
+      300
+     ],
+     "facing": -1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      270,
+      300
+     ],
+     "facing": 1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "錢我收到了。回去別把濕紙放在爐邊烘，上面的字會掉。",
+     "ja": "金は受け取ったよ。帰ったら濡れた紙をコンロのそばで乾かさないでね。字が消えちゃうから。",
+     "en": "Got the money. When you get home, don't dry that wet paper by the stove. The writing will come off."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "明天我要拿紙對錢，今晚先讓它乾。",
+     "ja": "明日は紙を照らし合わせて金を確認するから、今夜は乾かしておく。",
+     "en": "I need the paper to check the money tomorrow, so I'll let it dry tonight."
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我下次還在這裡，你想喝湯再來。",
+     "ja": "次もここにいるから、スープが飲みたくなったらまた来て。",
+     "en": "I'll be here next time too. Come back if you want soup."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我記住這間店，不把下次也先答應了。",
+     "ja": "この店は覚えておく。次の約束は、まだしない。",
+     "en": "I'll remember this place. I won't promise next time yet."
+    },
+    {
+     "do": "fade",
+     "to": 1.0,
+     "time": 0.6
+    }
+   ],
+   "pose_policy": "supported"
   },
   "ch1_t_supper_insufficient": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_dawn_noodle_stall",
+     "pos": [
+      360,
+      262
+     ],
+     "zoom": 1.3,
+     "fade": 1.0
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      425,
+      300
+     ],
+     "facing": -1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      270,
+      300
+     ],
+     "facing": 1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "rin",
@@ -3335,12 +4163,48 @@
       "equals": "open200"
      }
     ]
-   }
+   },
+   "pose_policy": "supported"
   },
   "ch1_t_supper_tab_confirm": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_dawn_noodle_stall",
+     "pos": [
+      360,
+      262
+     ],
+     "zoom": 1.3,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      425,
+      300
+     ],
+     "facing": -1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      270,
+      300
+     ],
+     "facing": 1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "ali",
@@ -3394,12 +4258,48 @@
       "equals": "open200"
      }
     ]
-   }
+   },
+   "pose_policy": "supported"
   },
   "ch1_t_supper_tab": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_dawn_noodle_stall",
+     "pos": [
+      360,
+      262
+     ],
+     "zoom": 1.3,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      425,
+      300
+     ],
+     "facing": -1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      270,
+      300
+     ],
+     "facing": 1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "rin",
@@ -3448,12 +4348,48 @@
      "value": true
     }
    ],
-   "then": "ch1_t_supper_tab_goodbye"
+   "then": "ch1_t_supper_tab_goodbye",
+   "pose_policy": "supported"
   },
   "ch1_t_supper_tab_goodbye": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_dawn_noodle_stall",
+     "pos": [
+      360,
+      262
+     ],
+     "zoom": 1.3,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      425,
+      300
+     ],
+     "facing": -1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      270,
+      300
+     ],
+     "facing": 1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "ali",
@@ -3467,6 +4403,11 @@
      "text": "我記住這間店，不把下次也先答應了。",
      "ja": "この店は覚えておく。次の約束は、まだしない。",
      "en": "I'll remember this place. I won't promise next time yet."
+    },
+    {
+     "do": "fade",
+     "to": 1.0,
+     "time": 0.6
     }
    ],
    "when": {
@@ -3480,36 +4421,11 @@
       "equals": true
      }
     ]
-   }
+   },
+   "pose_policy": "supported"
   },
   "ch1_t_supper_leave_none": {
-   "mode": "dialogue",
-   "lines": [
-    {
-     "speaker": "rin",
-     "text": "我今晚只是坐一會兒，沒有點餐。我先回家，下次再來吃。",
-     "ja": "今夜は少し座っただけで、注文はしてない。先に帰って、次に食べに来る。",
-     "en": "I only sat here for a while tonight and didn't order anything. I'm heading home, and I'll come back to eat next time."
-    },
-    {
-     "speaker": "ali",
-     "text": "那就沒有餐酒這張。門口地滑，走外側那塊乾板。",
-     "ja": "じゃあ夕食と酒の勘定はなしね。入口が滑るから、外側の乾いた板の上を歩いて。",
-     "en": "Then there's no meal-and-drinks tab. The doorway is slippery, so walk on the dry board on the outside."
-    },
-    {
-     "speaker": "ali",
-     "text": "我下次還在這裡，你想喝湯再來。",
-     "ja": "次もここにいるから、スープが飲みたくなったらまた来て。",
-     "en": "I'll be here next time too. Come back if you want soup."
-    },
-    {
-     "speaker": "rin",
-     "text": "我記住這間店，不把下次也先答應了。",
-     "ja": "この店は覚えておく。次の約束は、まだしない。",
-     "en": "I'll remember this place. I won't promise next time yet."
-    }
-   ],
+   "mode": "animated",
    "when": {
     "all": [
      {
@@ -3534,12 +4450,123 @@
      "id": "ch1_supper_done",
      "value": true
     }
-   ]
+   ],
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_dawn_noodle_stall",
+     "pos": [
+      360,
+      262
+     ],
+     "zoom": 1.3,
+     "fade": 0.6
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      425,
+      300
+     ],
+     "facing": -1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      270,
+      300
+     ],
+     "facing": 1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我今晚只是坐一會兒，沒有點餐。我先回家，下次再來吃。",
+     "ja": "今夜は少し座っただけで、注文はしてない。先に帰って、次に食べに来る。",
+     "en": "I only sat here for a while tonight and didn't order anything. I'm heading home, and I'll come back to eat next time."
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "那就沒有餐酒這張。門口地滑，走外側那塊乾板。",
+     "ja": "じゃあ夕食と酒の勘定はなしね。入口が滑るから、外側の乾いた板の上を歩いて。",
+     "en": "Then there's no meal-and-drinks tab. The doorway is slippery, so walk on the dry board on the outside."
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我下次還在這裡，你想喝湯再來。",
+     "ja": "次もここにいるから、スープが飲みたくなったらまた来て。",
+     "en": "I'll be here next time too. Come back if you want soup."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我記住這間店，不把下次也先答應了。",
+     "ja": "この店は覚えておく。次の約束は、まだしない。",
+     "en": "I'll remember this place. I won't promise next time yet."
+    },
+    {
+     "do": "fade",
+     "to": 1.0,
+     "time": 0.6
+    }
+   ],
+   "pose_policy": "supported"
   },
   "ch1_t_supper_return": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_dawn_noodle_stall",
+     "pos": [
+      360,
+      262
+     ],
+     "zoom": 1.3,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      425,
+      300
+     ],
+     "facing": -1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      270,
+      300
+     ],
+     "facing": 1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "rin",
@@ -3553,6 +4580,11 @@
      "text": "那就先想，不用替我把話說完。",
      "ja": "じゃあ先に考えて。私のために言い切らなくていいから。",
      "en": "Then think it over first. You don't need to finish that for my sake."
+    },
+    {
+     "do": "fade",
+     "to": 1.0,
+     "time": 0.6
     }
    ],
    "when": {
@@ -3565,7 +4597,8 @@
      "id": "ch1_supper_choice",
      "value": "unset"
     }
-   ]
+   ],
+   "pose_policy": "supported"
   },
   "ch1_t_supper_leave_revisit_paid200": {
    "mode": "animated",
@@ -3656,8 +4689,43 @@
   },
   "ch1_t_supper_host_prompt": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_dawn_noodle_stall",
+     "pos": [
+      360,
+      262
+     ],
+     "zoom": 1.3,
+     "fade": 0.6
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      425,
+      300
+     ],
+     "facing": -1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      270,
+      300
+     ],
+     "facing": 1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "rin",
@@ -3733,12 +4801,48 @@
       }
      }
     ]
-   }
+   },
+   "pose_policy": "supported"
   },
   "ch1_t_supper_stay_host": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_dawn_noodle_stall",
+     "pos": [
+      360,
+      262
+     ],
+     "zoom": 1.3,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      425,
+      300
+     ],
+     "facing": -1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      270,
+      300
+     ],
+     "facing": 1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "rin",
@@ -3793,12 +4897,48 @@
      "value": true
     }
    ],
-   "then": "ch1_t_supper_stay_meal"
+   "then": "ch1_t_supper_stay_meal",
+   "pose_policy": "supported"
   },
   "ch1_t_supper_host_none_prompt": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_dawn_noodle_stall",
+     "pos": [
+      360,
+      262
+     ],
+     "zoom": 1.3,
+     "fade": 0.6
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      425,
+      300
+     ],
+     "facing": -1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      270,
+      300
+     ],
+     "facing": 1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "rin",
@@ -3874,12 +5014,48 @@
       }
      }
     ]
-   }
+   },
+   "pose_policy": "supported"
   },
   "ch1_t_supper_stay_host_none": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_dawn_noodle_stall",
+     "pos": [
+      360,
+      262
+     ],
+     "zoom": 1.3,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      425,
+      300
+     ],
+     "facing": -1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      270,
+      300
+     ],
+     "facing": 1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "rin",
@@ -3930,30 +5106,11 @@
      "value": true
     }
    ],
-   "then": "ch1_t_supper_stay_meal"
+   "then": "ch1_t_supper_stay_meal",
+   "pose_policy": "supported"
   },
   "ch1_t_supper_stay_meal": {
-   "mode": "dialogue",
-   "lines": [
-    {
-     "speaker": "rin",
-     "text": "麵裡也放梨，你不怕人只記得甜？",
-     "ja": "麺にも梨を入れてるのか。甘いとしか覚えてもらえなくなるけど、いいのか？",
-     "en": "You put pear in the noodles too? Aren't you worried people will only remember it as sweet?"
-    },
-    {
-     "speaker": "ali",
-     "text": "有人記得甜就再來，有人嫌甜就告訴我。我想開自己的攤，得先有人願意說不好吃。",
-     "ja": "甘いと覚えてくれたら、また来てね。甘すぎるなら教えてくれればいい。自分の屋台を開きたいから、まずは不味いって言ってくれる人がいないとね。",
-     "en": "If people remember it as sweet, they can come back. If it's too sweet, they can tell me. I want to open my own stall, so first I need someone to say when it's bad."
-    },
-    {
-     "speaker": "rin",
-     "text": "這碗我吃完了，還沒找到不好吃的地方。",
-     "ja": "この一杯は食べ終わった。まだ不味いところは見つからない。",
-     "en": "I've finished this bowl. I haven't found anything wrong with it yet."
-    }
-   ],
+   "mode": "animated",
    "when": {
     "all": [
      {
@@ -3989,11 +5146,113 @@
      "value": true
     }
    ],
-   "then": "ch1_t_supper_stay_address"
+   "then": "ch1_t_supper_stay_address",
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_dawn_noodle_stall",
+     "pos": [
+      360,
+      262
+     ],
+     "zoom": 1.3,
+     "fade": 0.6
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      425,
+      300
+     ],
+     "facing": -1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      305,
+      300.0
+     ],
+     "facing": 1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "sit",
+     "pose_reason": "留下來吃阿梨請的麵，坐在攤前的長凳上。",
+     "pose_support": "麵攤長凳座面：舞台 x=290～320、y=276.4（舞台 furniture 的 stool）；腳底由 sit_y 量測。"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "麵裡也放梨，你不怕人只記得甜？",
+     "ja": "麺にも梨を入れてるのか。甘いとしか覚えてもらえなくなるけど、いいのか？",
+     "en": "You put pear in the noodles too? Aren't you worried people will only remember it as sweet?"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "有人記得甜就再來，有人嫌甜就告訴我。我想開自己的攤，得先有人願意說不好吃。",
+     "ja": "甘いと覚えてくれたら、また来てね。甘すぎるなら教えてくれればいい。自分の屋台を開きたいから、まずは不味いって言ってくれる人がいないとね。",
+     "en": "If people remember it as sweet, they can come back. If it's too sweet, they can tell me. I want to open my own stall, so first I need someone to say when it's bad."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "這碗我吃完了，還沒找到不好吃的地方。",
+     "ja": "この一杯は食べ終わった。まだ不味いところは見つからない。",
+     "en": "I've finished this bowl. I haven't found anything wrong with it yet."
+    }
+   ],
+   "pose_policy": "supported"
   },
   "ch1_t_supper_stay_address": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_dawn_noodle_stall",
+     "pos": [
+      360,
+      262
+     ],
+     "zoom": 1.3,
+     "fade": 0.6
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      425,
+      300
+     ],
+     "facing": -1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      305,
+      300.0
+     ],
+     "facing": 1,
+     "scale": 1.7,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "sit",
+     "pose_reason": "留下來吃阿梨請的麵，坐在攤前的長凳上。",
+     "pose_support": "麵攤長凳座面：舞台 x=290～320、y=276.4（舞台 furniture 的 stool）；腳底由 sit_y 量測。"
+    },
     {
      "do": "say",
      "speaker": "ali",
@@ -4082,9 +5341,13 @@
      "text": "這一頁留一點空，下次想說的事還裝得下。",
      "ja": "そのページは少し空けておいて。次に言いたいことも入るようにね。",
      "en": "Leave that page a little empty, so there's room for whatever I want to say next time."
+    },
+    {
+     "do": "fade",
+     "to": 1.0,
+     "time": 0.6
     }
    ],
-   "overlay": true,
    "when": {
     "all": [
      {
@@ -4123,7 +5386,8 @@
      "id": "ch1_supper_done",
      "value": true
     }
-   ]
+   ],
+   "pose_policy": "supported"
   },
   "ch1_t_ali_4": {
    "mode": "animated",
@@ -4686,8 +5950,43 @@
   },
   "ch1_t_egret_sunday_prompt": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_rooftop",
+     "pos": [
+      320,
+      212.3
+     ],
+     "zoom": 1.0,
+     "fade": 1.0
+    },
+    {
+     "do": "actor",
+     "id": "egret",
+     "kind": "egret",
+     "pos": [
+      372,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "egret"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      268,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "egret",
@@ -4740,54 +6039,11 @@
       }
      }
     ]
-   }
+   },
+   "pose_policy": "supported"
   },
   "ch1_t_egret_sunday": {
-   "mode": "dialogue",
-   "lines": [
-    {
-     "speaker": "rin",
-     "text": "妳今晚不跟去，是又接了別張差事？",
-     "ja": "今夜はついて来ないのか。別の仕事でも受けたのか？",
-     "en": "You're not coming along tonight. Did you take another job?"
-    },
-    {
-     "speaker": "egret",
-     "text": "今晚去看一個人，差事明天才算。週日我也不排活。",
-     "ja": "今夜は人に会いに行くんだ。仕事は明日からだね。日曜も仕事は入れてないよ。",
-     "en": "Tonight I'm going to see someone, and the job counts from tomorrow. I'm not booking any work on Sunday either."
-    },
-    {
-     "speaker": "rin",
-     "text": "每個週日都不排，這張表是誰替妳留的？",
-     "ja": "毎週日曜は空けてるのか。そのスケジュール、誰が押さえてくれてるんだ？",
-     "en": "You keep every Sunday free. Who's holding that schedule for you?"
-    },
-    {
-     "speaker": "egret",
-     "text": "我自己留的。有人肯讓我坐一會兒，不能每次坐到一半就接電話。",
-     "ja": "自分で取ってあるんだよ。座らせてくれる人がいるんでね、座ってる途中で毎回電話に出るわけにはいかないのさ。",
-     "en": "I reserved it myself. Someone lets me sit down for a while, and I can't pick up the phone halfway through every time."
-    },
-    {
-     "speaker": "rin",
-     "text": "那我明天找妳，不把週日也排進去。",
-     "ja": "じゃあ明日また来る。日曜の予定には入れない。",
-     "en": "Then I'll come find you tomorrow and won't book Sunday either."
-    },
-    {
-     "speaker": "egret",
-     "text": "這句你記著，下次有價高的別又說很快就做完。",
-     "ja": "そのことは覚えとけよ。次に割のいい仕事が来ても、またすぐ終わるとか言うなよ。",
-     "en": "Remember that. Next time a high-paying job comes up, don't tell me again it'll be done quickly."
-    },
-    {
-     "speaker": "egret",
-     "text": "茶喝掉，不然等你算完，又說熱的不是這杯。",
-     "ja": "お茶を飲みな。計算が終わるころには冷めて、これは熱くないなんて言い出すんだろ。",
-     "en": "Drink your tea. By the time you finish counting, it'll be cold and you'll be saying this isn't the hot one."
-    }
-   ],
+   "mode": "animated",
    "when": {
     "all": [
      {
@@ -4812,7 +6068,108 @@
      "id": "asked_egret_sunday",
      "value": true
     }
-   ]
+   ],
+   "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_rooftop",
+     "pos": [
+      320,
+      212.3
+     ],
+     "zoom": 1.0,
+     "fade": 0.6
+    },
+    {
+     "do": "actor",
+     "id": "egret",
+     "kind": "egret",
+     "pos": [
+      372,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "egret"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      268,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "妳今晚不跟去，是又接了別張差事？",
+     "ja": "今夜はついて来ないのか。別の仕事でも受けたのか？",
+     "en": "You're not coming along tonight. Did you take another job?"
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "今晚去看一個人，差事明天才算。週日我也不排活。",
+     "ja": "今夜は人に会いに行くんだ。仕事は明日からだね。日曜も仕事は入れてないよ。",
+     "en": "Tonight I'm going to see someone, and the job counts from tomorrow. I'm not booking any work on Sunday either."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "每個週日都不排，這張表是誰替妳留的？",
+     "ja": "毎週日曜は空けてるのか。そのスケジュール、誰が押さえてくれてるんだ？",
+     "en": "You keep every Sunday free. Who's holding that schedule for you?"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "我自己留的。有人肯讓我坐一會兒，不能每次坐到一半就接電話。",
+     "ja": "自分で取ってあるんだよ。座らせてくれる人がいるんでね、座ってる途中で毎回電話に出るわけにはいかないのさ。",
+     "en": "I reserved it myself. Someone lets me sit down for a while, and I can't pick up the phone halfway through every time."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "那我明天找妳，不把週日也排進去。",
+     "ja": "じゃあ明日また来る。日曜の予定には入れない。",
+     "en": "Then I'll come find you tomorrow and won't book Sunday either."
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "這句你記著，下次有價高的別又說很快就做完。",
+     "ja": "そのことは覚えとけよ。次に割のいい仕事が来ても、またすぐ終わるとか言うなよ。",
+     "en": "Remember that. Next time a high-paying job comes up, don't tell me again it'll be done quickly."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "茶喝掉，不然等你算完，又說熱的不是這杯。",
+     "ja": "お茶を飲みな。計算が終わるころには冷めて、これは熱くないなんて言い出すんだろ。",
+     "en": "Drink your tea. By the time you finish counting, it'll be cold and you'll be saying this isn't the hot one."
+    },
+    {
+     "do": "fade",
+     "to": 1.0,
+     "time": 0.6
+    }
+   ],
+   "pose_policy": "supported"
   },
   "ch1_t_egret_sunday_revisit": {
    "mode": "animated",
@@ -6529,8 +7886,43 @@
   },
   "ch1_hub_ali_lounge": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_revival_lounge",
+     "pos": [
+      260,
+      217
+     ],
+     "zoom": 1.1,
+     "fade": 0.6
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      205,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.4,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "choice",
      "text": "想和阿梨聊什麼？",
@@ -6659,7 +8051,8 @@
       ]
      }
     ]
-   }
+   },
+   "pose_policy": "supported"
   },
   "ch1_dispatch_ali_evening": {
    "mode": "dispatch",

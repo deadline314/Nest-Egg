@@ -11,7 +11,8 @@ const MIN_ENCOUNTERS := 22
 const MAX_ENCOUNTERS := 26
 const MIN_WAVE_ZONES := 4
 const NEW_KIND_GAP := 12.0
-## 劇情：動畫過場全章 ≤ 3 次（開場 ≤ 20 秒、診間 ≤ 45 秒、章末 ≤ 60 秒預估），其餘用氣泡、廣播與人物對話。
+## 劇情：不由玩家發起、自己播出的動畫過場全章 ≤ 3 次（開場 ≤ 20 秒、診間 ≤ 45 秒、章末 ≤ 60 秒預估），其餘用氣泡、廣播與人物對話。
+## 玩家走過去和人說話才開始的舞台談話（屋頂的鷺、復原館與麵攤的阿梨，ST-9）不算在內，但一樣要通過構圖檢查。
 const MAX_CUTSCENES := 3
 const CUTSCENE_BUDGETS := {"ch1_p01_door": 26.0, "ch1_c09_wake": 45.0, "ch1_c14_home": 60.0}
 ## 同一區域相鄰兩個氣泡觸發點至少相隔這麼多格（約兩個螢幕寬），不讓地圖對話一個接一個。
@@ -507,7 +508,7 @@ func _test_narrative() -> void:
 		var mode := str(Story._scenes[id].get("mode", ""))
 		# 疊加（overlay）動畫是蓋在遊戲畫面上的對話與選擇面板，不是換舞台的過場；
 		# 同一場過場裡接著播的段落（被 then／選項接續、同一個舞台）算在原本那一場。
-		if mode == "animated" and not bool(Story._scenes[id].get("overlay", false)) and not _continuations().has(id):
+		if mode == "animated" and not bool(Story._scenes[id].get("overlay", false)) and not _continuations().has(id) and not _talk_entries().has(id):
 			animated.append(id)
 		elif mode == "cinematic":
 			cinematic.append(id)
@@ -572,15 +573,19 @@ func _test_staging() -> void:
 	(recut_bad["steps"] as Array).insert(4, {"do": "actor", "id": "b", "pos": [320, 200]})
 	check(CutsceneChecker.staging_problems("test_recut_bad", recut_bad).size() == 1, "an actor placed after the cut is still checked")
 	var checked := 0
+	var talks := 0
 	for id in Story.scene_ids():
 		var scene: Dictionary = Story._scenes[id]
 		if not str(id).begins_with("ch1_") or str(scene.get("mode", "")) != "animated":
 			continue
-		if not bool(scene.get("overlay", false)) and not _continuations().has(id):
+		if not bool(scene.get("overlay", false)) and not _continuations().has(id) and not _talk_entries().has(id):
 			checked += 1
+		elif not bool(scene.get("overlay", false)):
+			talks += 1
 		var problems := CutsceneChecker.staging_problems(str(id), scene)
 		check(problems.is_empty(), "%s keeps the actors' feet above the dialogue box and their heads below the 21:9 bar: %s" % [id, problems])
 	check(checked == MAX_CUTSCENES, "the chapter's animated scenes were checked (%d)" % checked)
+	check(talks >= 30, "the rooftop, lounge and noodle stall talks are staged and checked (%d)" % talks)
 
 
 ## 被其他場景以 then、選項接續或分派路線帶進來的場景 id（同一場演出的後續段落）。
@@ -599,6 +604,34 @@ func _continuations() -> Dictionary:
 		if result.has(id) and str(scene.get("mode", "")) == "dispatch":
 			for route: Variant in scene.get("routes", []):
 				result[str((route as Dictionary).get("target", ""))] = true
+	return result
+
+
+## 玩家主動開始的談話：人物或物件的對話入口（分派路線的目標）與交易失敗時改接的段落，加上它們接續的段落。
+func _talk_entries() -> Dictionary:
+	var result := {}
+	for id in _datas:
+		for resource in _datas[id].legend.values():
+			if resource is NpcData:
+				for talk in (resource as NpcData).talks:
+					result[String(talk.scene)] = true
+	var pending: Array = result.keys()
+	while not pending.is_empty():
+		var id := str(pending.pop_back())
+		var scene: Dictionary = Story._scenes.get(id, {})
+		var next: Array = []
+		for route: Variant in scene.get("routes", []):
+			next.append(str((route as Dictionary).get("target", "")))
+		next.append(str(scene.get("then", "")))
+		if scene.get("on_failure") is Dictionary:
+			for failure: Variant in (scene["on_failure"] as Dictionary).values():
+				next.append(str(failure))
+		for entry in StoryRules.entries(scene.get("steps", [])):
+			next.append(str(entry.get("target", "")))
+		for target: String in next:
+			if target != "" and not result.has(target):
+				result[target] = true
+				pending.append(target)
 	return result
 
 

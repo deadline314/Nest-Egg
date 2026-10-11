@@ -146,6 +146,9 @@ func _run() -> void:
 		return
 	_shots = {
 		"ch1_t_label_watch": "ST-9-label-watch",
+		"ch1_t_egret_1": "ST-9-roof-brief",
+		"ch1_t_ali_name": "ST-9-lounge-name",
+		"ch1_t_supper_stay_meal": "ST-9-stall-seated",
 		"ch1_t_handoff_confirm:choice": "ST-9-handoff-confirm",
 		"ch1_t_handoff_summary": "ST-9-handoff-summary",
 		"ch1_t_ali_1:choice": "ST-9-ali-order-menu",

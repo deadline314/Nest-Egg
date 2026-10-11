@@ -408,6 +408,106 @@ def _walk(steps):
                 yield from _walk(step.get(key))
 
 
+# 劇本的三場主要談話在對應場景的舞台上演（ST-9；SCRIPT_CH01 第 2.2 節：1.03 屋頂、1.11 復原館、1.12 天亮的麵攤）。
+# 只有這場戲本身的段落上舞台；事後回頭找人時的一兩句回應（revisit）留在地圖上，不打斷操作。
+# 縮放沿用各舞台已量測的值（build_ch1_story.SCALE：麵攤的攤車與桌凳也照 1.7 放），同舞台的人用同一個縮放，身高差由骨架決定。
+# 站位：兩人面向對方；麵攤的長凳登記成座位（舞台資料的 furniture），站著的人不站進凳子裡。
+STAGED_TALKS = {
+    "roof": {
+        "stage": "ch1_rooftop", "camera": (320, 200, 1.0),
+        "cast": (("egret", "egret", 372, -1), ("rin", "rin", 268, 1)),
+        "scenes": ("ch1_t_egret_1", "ch1_t_egret_sunday_prompt", "ch1_t_egret_sunday"),
+    },
+    "lounge": {
+        "stage": "ch1_revival_lounge", "camera": (260, 217, 1.1),
+        "cast": (("ali", "ali", 300, -1), ("rin", "rin", 205, 1)),
+        "scenes": ("ch1_t_ali_meet_booth", "ch1_t_ali_meet_clinic", "ch1_t_ali_meet_no_death", "ch1_t_ali_meet_unknown",
+                   "ch1_t_ali_1", "ch1_t_ali_order", "ch1_t_ali_sit", "ch1_t_ali_name", "ch1_hub_ali_lounge",
+                   "ch1_t_ali_death_topic", "ch1_t_ali_late_topic", "ch1_t_ali_2_ordered", "ch1_t_ali_2_sit",
+                   "ch1_t_ali_evening_close"),
+    },
+    "stall": {
+        "stage": "ch1_dawn_noodle_stall", "camera": (360, 262, 1.3),
+        "cast": (("ali", "ali", 425, -1), ("rin", "rin", 270, 1)),
+        "scenes": ("ch1_t_supper_choice_ordered", "ch1_t_supper_choice_none", "ch1_t_supper_leave_options",
+                   "ch1_t_supper_pay", "ch1_t_supper_paid_goodbye", "ch1_t_supper_insufficient", "ch1_t_supper_tab_confirm",
+                   "ch1_t_supper_tab", "ch1_t_supper_tab_goodbye", "ch1_t_supper_leave_none", "ch1_t_supper_return",
+                   "ch1_t_supper_host_prompt", "ch1_t_supper_stay_host", "ch1_t_supper_host_none_prompt",
+                   "ch1_t_supper_stay_host_none", "ch1_t_supper_stay_meal", "ch1_t_supper_stay_address"),
+        # 留下吃麵之後凜坐上長凳（座面 y=276.4，x 290～320），之後的段落維持坐著。
+        "seated": {"from": ("ch1_t_supper_stay_meal", "ch1_t_supper_stay_address"), "x": 305, "seat_y": 276.4,
+                   "reason": "留下來吃阿梨請的麵，坐在攤前的長凳上。",
+                   "support": "麵攤長凳座面：舞台 x=290～320、y=276.4（舞台 furniture 的 stool）；腳底由 sit_y 量測。"},
+    },
+}
+# 從地圖走進舞台的第一段用完整淡入；同一場戲接著播的段落只用很短的淡入，站位不變，看起來是同一個鏡頭。
+STAGE_FADE_ENTRY = 1.0
+STAGE_FADE_CONTINUE = 0.25
+STAGE_FADE_BOTH = 0.6
+STAGE_FADE_OUT = 0.6
+
+
+def _scene_links(scene):
+    """這個場景會直接接到哪些場景（then、選項的 target、分派的 target）。"""
+    out = set()
+    if scene.get("then"):
+        out.add(scene["then"])
+    for route in scene.get("routes", []):
+        if route.get("target"):
+            out.add(route["target"])
+    for step in _walk(scene.get("steps", [])):
+        if step.get("target"):
+            out.add(step["target"])
+    return out
+
+
+def _stage_talks(scenes):
+    """把 STAGED_TALKS 列的段落搬上舞台：對話改成逐句的過場台詞，前面補佈景與演員，播完沒有下一段的收黑幕。"""
+    for name, spec in STAGED_TALKS.items():
+        group = set(spec["scenes"])
+        missing = sorted(group - set(scenes))
+        if missing:
+            raise CompileError(f"舞台談話 {name}：場景不存在 {missing}")
+        linked_inside = set()
+        linked_outside = set()
+        for ident, scene in scenes.items():
+            for target in _scene_links(scene):
+                if target in group:
+                    (linked_inside if ident in group else linked_outside).add(target)
+        stage_id = spec["stage"]
+        floor = legacy.FLOOR[stage_id]
+        x, y, zoom = spec["camera"]
+        seated = spec.get("seated", {})
+        for ident in spec["scenes"]:
+            scene = scenes[ident]
+            if scene.get("variants"):
+                raise CompileError(f"舞台談話 {name}：{ident} 有依死亡次數換句的變體，舞台台詞不支援")
+            if scene.get("mode") == "dialogue":
+                body = [{"do": "say", "speaker": l["speaker"], "text": l["text"]} for l in scene.pop("lines", [])]
+            elif scene.get("mode") == "animated":
+                body = [s for s in scene.get("steps", []) if s.get("do") not in ("scene", "actor")]
+            else:
+                raise CompileError(f"舞台談話 {name}：{ident} 是 {scene.get('mode')}，不能上舞台")
+            inside, outside = ident in linked_inside, ident in linked_outside
+            fade_in = STAGE_FADE_BOTH if inside and outside else (STAGE_FADE_CONTINUE if inside else STAGE_FADE_ENTRY)
+            sit = ident in seated.get("from", ())
+            cast = []
+            for actor_id, kind, ax, facing in spec["cast"]:
+                scale = legacy.actor_scale(stage_id, "rin")
+                if sit and actor_id == "rin":
+                    cast.append(legacy.actor(actor_id, kind, seated["x"], legacy.sit_y(stage_id, "rin", seated["seat_y"]), facing,
+                                             scale=scale, speaker=actor_id, pose="sit",
+                                             pose_reason=seated["reason"], pose_support=seated["support"]))
+                else:
+                    cast.append(legacy.actor(actor_id, kind, ax, floor, facing, scale=scale, speaker=actor_id))
+            steps = [legacy.stage(stage_id, x, y, zoom, fade_in)] + cast + legacy.spaced(body)
+            ends = not scene.get("then") and not any(s.get("do") == "choice" for s in body)
+            if ends:
+                steps.append(legacy.fade(1.0, STAGE_FADE_OUT))
+            scene.pop("overlay", None)
+            scene.update(mode="animated", steps=steps, pose_policy="supported")
+
+
 # 重要通訊（NE-246）：教學、頭目、謎題提示與劇情通訊顯示時凍結世界、等玩家確認。
 # 只有這些一句話的隨口回應維持不暫停（死後回來的反應、清場後的一句）。
 AMBIENT_RADIO = {"ch1_g06_clear", "ch1_d_back_a", "ch1_d_back_b", "ch1_d_back_c"}
@@ -436,6 +536,7 @@ def compile_document():
     _first_clinic(scenes)
     _attach_topics(source, scenes)
     scenes.update(_dispatchers(source, scenes))
+    _stage_talks(scenes)
     _mark_important_radio(scenes)
     speakers = copy.deepcopy(legacy.SPEAKERS)
     speakers.update(copy.deepcopy(source.speakers))
