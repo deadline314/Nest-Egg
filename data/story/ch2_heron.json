@@ -716,7 +716,6 @@
   },
   "ch2_t_s01_settle": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -779,6 +778,7 @@
      "en": "Ten percent, as before. I take 80, you get 720."
     }
    ],
+   "overlay": true,
    "when": {
     "not": {
      "receipt": "ch1.commission.settled",
@@ -957,7 +957,6 @@
   },
   "ch2_t_s02_power": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -1015,6 +1014,7 @@
      "en": "All three wires are loose. Now connect the power wire. It goes into the hole marked Power."
     }
    ],
+   "overlay": true,
    "when": {
     "not": {
      "flag": "ch2_radio_repaired",
@@ -1038,7 +1038,6 @@
   },
   "ch2_t_s02_antenna": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -1096,6 +1095,7 @@
      "en": "All three wires are loose. Now connect the antenna wire. It goes into the hole marked Antenna."
     }
    ],
+   "overlay": true,
    "when": {
     "not": {
      "flag": "ch2_radio_repaired",
@@ -1119,7 +1119,6 @@
   },
   "ch2_t_s02_speaker": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -1177,6 +1176,7 @@
      "en": "All three wires are loose. Now connect the speaker wire. It goes into the hole marked Source."
     }
    ],
+   "overlay": true,
    "when": {
     "not": {
      "flag": "ch2_radio_repaired",
@@ -1200,7 +1200,6 @@
   },
   "ch2_t_s02_tune": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -1239,6 +1238,7 @@
      "en": "First get the needle between the two tick marks, then turn it to where the sound is clearest."
     }
    ],
+   "overlay": true,
    "when": {
     "not": {
      "flag": "ch2_radio_repaired",
@@ -1262,7 +1262,6 @@
   },
   "ch2_t_s02_broadcast": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -1360,6 +1359,7 @@
      "en": "You may not remember your name, but if your things are still around, that's a start."
     }
    ],
+   "overlay": true,
    "when": {
     "not": {
      "flag": "ch2_radio_repaired",
@@ -1448,7 +1448,6 @@
   },
   "ch2_t_s02_relisten": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -1493,6 +1492,7 @@
      "en": "I still have one hat. If anyone recognizes the stitching on the brim, please leave a message at Harbor District Radio."
     }
    ],
+   "overlay": true,
    "when": {
     "all": [
      {
@@ -1567,6 +1567,42 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch1_rooftop",
+     "pos": [
+      320,
+      214.0
+     ],
+     "zoom": 1.0,
+     "fade": 1.0
+    },
+    {
+     "do": "actor",
+     "id": "egret",
+     "kind": "egret",
+     "pos": [
+      372,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "egret"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      268,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
      "do": "say",
      "speaker": "egret",
      "text": "小鬼，坐到裡面來，那塊板凳今天還沒有泡水。",
@@ -1613,7 +1649,7 @@
      "en": "Going to open a tab for the rain too? Drink first. The tea won't wait for your sums."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "not": {
      "flag": "ch2_brief_done",
@@ -1625,6 +1661,42 @@
   "ch2_t_s03_brief": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_rooftop",
+     "pos": [
+      320,
+      214.0
+     ],
+     "zoom": 1.0,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "egret",
+     "kind": "egret",
+     "pos": [
+      372,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "egret"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      268,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "egret",
@@ -1672,7 +1744,7 @@
      "en": "Only when the attachments match is it done. Knocking out the collectors won't grow you a receipt."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "not": {
      "flag": "ch2_brief_done",
@@ -1684,6 +1756,42 @@
   "ch2_t_s03_rain": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_rooftop",
+     "pos": [
+      320,
+      214.0
+     ],
+     "zoom": 1.0,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "egret",
+     "kind": "egret",
+     "pos": [
+      372,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "egret"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      268,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "egret",
@@ -1706,7 +1814,7 @@
      "en": "At least you don't have to pay an insurance premium for this cup."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "not": {
      "flag": "ch2_brief_done",
@@ -1727,7 +1835,6 @@
   },
   "ch2_t_egret_hub": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -1791,6 +1898,7 @@
      "en": "The tea's still warm, so ask whatever you want now."
     }
    ],
+   "overlay": true,
    "when": {
     "all": [
      {
@@ -1996,8 +2104,43 @@
   },
   "ch2_t_s22_tea": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_rooftop",
+     "pos": [
+      320,
+      214.0
+     ],
+     "zoom": 1.0,
+     "fade": 1.0
+    },
+    {
+     "do": "actor",
+     "id": "egret",
+     "kind": "egret",
+     "pos": [
+      372,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "egret"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      268,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "egret",
@@ -2066,6 +2209,7 @@
      "en": "Checking the tables is fine. You don't have to trust them just because every sheet is signed. The Far Shore is over there too, the sun-lit residential block in your catalog. Look if you like, but don't buy it for Old K first."
     }
    ],
+   "pose_policy": "supported",
    "when": {
     "all": [
      {
@@ -2093,6 +2237,42 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch1_rooftop",
+     "pos": [
+      320,
+      214.0
+     ],
+     "zoom": 1.0,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "egret",
+     "kind": "egret",
+     "pos": [
+      372,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "egret"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      268,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
      "do": "say",
      "speaker": "rin",
      "text": "我先看表，房子還差得遠。",
@@ -2107,7 +2287,7 @@
      "en": "Don't count me in tomorrow. I'm not taking jobs on Sunday."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "all": [
      {
@@ -2136,6 +2316,42 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch1_rooftop",
+     "pos": [
+      320,
+      214.0
+     ],
+     "zoom": 1.0,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "egret",
+     "kind": "egret",
+     "pos": [
+      372,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "egret"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      268,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
      "do": "say",
      "speaker": "rin",
      "text": "那個人還在等你嫌吵，我沒排你的活。",
@@ -2150,7 +2366,7 @@
      "en": "You finally didn't fill my blank day for me. Today, kid, you win."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "flag": "sq2_sunday_heard",
     "equals": true
@@ -2160,6 +2376,42 @@
   "ch2_t_s22_sunday_unknown": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_rooftop",
+     "pos": [
+      320,
+      214.0
+     ],
+     "zoom": 1.0,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "egret",
+     "kind": "egret",
+     "pos": [
+      372,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "egret"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      268,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "rin",
@@ -2175,7 +2427,7 @@
      "en": "There's someone I have to see. Work can't take up that day."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "not": {
      "flag": "sq2_sunday_heard",
@@ -2187,6 +2439,42 @@
   "ch2_t_s22_greycoat": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch1_rooftop",
+     "pos": [
+      320,
+      214.0
+     ],
+     "zoom": 1.0,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "egret",
+     "kind": "egret",
+     "pos": [
+      372,
+      262
+     ],
+     "facing": -1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "egret"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      268,
+      262
+     ],
+     "facing": 1,
+     "scale": 2.2,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "rin",
@@ -2227,7 +2515,7 @@
      "en": "Finish your tea before you go. This time I really won't try to hold you back."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "results": [
     {
      "kind": "flag",
@@ -2352,7 +2640,6 @@
   },
   "ch2_t_s06_open": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -2430,6 +2717,7 @@
      "en": "Ask me first, okay?"
     }
    ],
+   "overlay": true,
    "when": {
     "not": {
      "flag": "ch2_market_contact_done",
@@ -2439,7 +2727,6 @@
   },
   "ch2_t_s06_pay_confirm": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -2478,6 +2765,7 @@
      "en": "Advance forty credits. Only today's collection is lifted; Pear's debt is not settled."
     }
    ],
+   "overlay": true,
    "when": {
     "not": {
      "flag": "ch2_market_contact_done",
@@ -2487,7 +2775,6 @@
   },
   "ch2_t_s06_open_again": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -2526,6 +2813,7 @@
      "en": "Ask me first, okay?"
     }
    ],
+   "overlay": true,
    "when": {
     "not": {
      "flag": "ch2_market_contact_done",
@@ -2757,7 +3045,6 @@
   },
   "ch2_t_s06_ali_paid_revisit": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -2796,6 +3083,7 @@
      "en": "I remember the forty you advanced. Would you like to hear about the stall first?"
     }
    ],
+   "overlay": true,
    "when": {
     "all": [
      {
@@ -3228,7 +3516,6 @@
   },
   "ch2_t_s07_bowls": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -3267,6 +3554,7 @@
      "en": "If you want soup, wash these three bowls first, okay? I've used up everything I tested."
     }
    ],
+   "overlay": true,
    "when": {
     "not": {
      "flag": "ch2_ali_home_visit",
@@ -3296,7 +3584,6 @@
   },
   "ch2_t_s07_wash": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -3343,7 +3630,8 @@
      "ja": "洗った器は乾燥棚に置く。左の棚は乾いている。",
      "en": "Rinsed bowls go on the drying rack. The left rack is dry."
     }
-   ]
+   ],
+   "overlay": true
   },
   "ch2_t_s07_wash_wrong": {
    "mode": "animated",
@@ -3669,7 +3957,6 @@
   },
   "ch2_t_s10_principal": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -3715,6 +4002,7 @@
      "en": "Three slips lie on the table. First, find out how much principal is still left."
     }
    ],
+   "overlay": true,
    "when": {
     "all": [
      {
@@ -3758,7 +4046,6 @@
   },
   "ch2_t_s10_interest": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -3803,7 +4090,8 @@
      "ja": "次に、払い済みの利息をもう一度計上している欄を見つけよ。",
      "en": "Next, find which column counts the interest already paid a second time."
     }
-   ]
+   ],
+   "overlay": true
   },
   "ch2_t_s10_interest_wrong": {
    "mode": "animated",
@@ -3821,7 +4109,6 @@
   },
   "ch2_t_s10_batch": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -3866,7 +4153,8 @@
      "ja": "最後に、この帳簿がどこへ送られるかを確かめる。",
      "en": "Finally, confirm where this account is sent."
     }
-   ]
+   ],
+   "overlay": true
   },
   "ch2_t_s10_batch_wrong": {
    "mode": "animated",
@@ -4136,7 +4424,6 @@
   },
   "ch2_t_s12_choice": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -4214,6 +4501,7 @@
      "en": "The side box's pause latch is blocked by the panel and can't be used. Continuing is risky, and nothing guarantees that both of them avoid paying a price."
     }
    ],
+   "overlay": true,
    "when": {
     "not": {
      "flag": "ch2_yong_subdued",
@@ -4924,7 +5212,6 @@
   },
   "ch2_t_s16_page": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -4986,6 +5273,7 @@
      "en": "You didn't erase it for me, so I can go and talk about it myself. Do you want to come with me to request a correction, or leave the paper with me for now?"
     }
    ],
+   "overlay": true,
    "when": {
     "all": [
      {
@@ -5112,7 +5400,6 @@
   },
   "ch2_t_s16_need": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -5150,6 +5437,7 @@
      "en": "Do you want to ask about the stall now?"
     }
    ],
+   "overlay": true,
    "when": {
     "not": {
      "flag": "ch2_ali_need_asked",
@@ -5206,7 +5494,6 @@
   },
   "ch2_t_s17_offer": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -5251,6 +5538,7 @@
      "en": "Don't put tonight on my tab too. I'll come back another time."
     }
    ],
+   "overlay": true,
    "when": {
     "all": [
      {
@@ -5295,7 +5583,6 @@
   },
   "ch2_t_s17_open": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -5371,6 +5658,7 @@
      "en": "Pear opens the guest book and checks the next booked guest."
     }
    ],
+   "overlay": true,
    "when": {
     "not": {
      "flag": "guest_book_completed",
@@ -5380,7 +5668,6 @@
   },
   "ch2_t_s18_ticket": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -5418,7 +5705,8 @@
      "ja": "今日何を食べたか、誰かに聞いてほしいんだ。娘はよく聞いてくれた。娘が二十六のとき、帰ってこなかった。",
      "en": "I want someone to ask what I ate today. She used to ask. My daughter didn't come home the year she turned twenty-six."
     }
-   ]
+   ],
+   "overlay": true
   },
   "ch2_t_s18_dad": {
    "mode": "animated",
@@ -5436,7 +5724,6 @@
   },
   "ch2_t_s18_name": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -5488,7 +5775,8 @@
      "ja": "今日は魚を食べたけど、食べきれなかった。あの子はいつも魚の骨を左の小皿に取ってくれた。私が面倒がらないようにって。",
      "en": "I ate fish today, but I didn't finish it. She always put the bones on the small plate on the left so I wouldn't have to fuss with them."
     }
-   ]
+   ],
+   "overlay": true
   },
   "ch2_t_s18_wrong": {
    "mode": "animated",
@@ -5538,7 +5826,6 @@
   },
   "ch2_t_s19_band": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -5583,7 +5870,8 @@
      "ja": "ここに座りますね。何からお話ししましょうか？",
      "en": "I'll sit here. What would you like to talk about first?"
     }
-   ]
+   ],
+   "overlay": true
   },
   "ch2_t_s19_wrong_death": {
    "mode": "animated",
@@ -5601,7 +5889,6 @@
   },
   "ch2_t_s19_quiet": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -5664,7 +5951,8 @@
      "ja": "ネギは抜いて、梨のスープだけでいいわ。",
      "en": "No scallions, just the pear soup."
     }
-   ]
+   ],
+   "overlay": true
   },
   "ch2_t_s19_wrong_soup": {
    "mode": "animated",
@@ -5714,7 +6002,6 @@
   },
   "ch2_t_s20_letter": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -5759,7 +6046,8 @@
      "ja": "聞くことはできます。でも、彼の代わりに承諾はできません。",
      "en": "I can listen, but I can't agree on his behalf."
     }
-   ]
+   ],
+   "overlay": true
   },
   "ch2_t_s20_wrong": {
    "mode": "animated",
@@ -5784,7 +6072,6 @@
   },
   "ch2_t_s20_story": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
     {
      "do": "say",
@@ -5836,7 +6123,8 @@
      "ja": "今は彼の名前を線で消したい。でも、手紙は出さないといけない。",
      "en": "Now I want to cross his name off, but the letter still has to go out."
     }
-   ]
+   ],
+   "overlay": true
   },
   "ch2_t_s20_wrong_fine": {
    "mode": "animated",

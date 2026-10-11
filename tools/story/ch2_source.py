@@ -15,6 +15,24 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from ch1_closure import (Option, ProductionSource, Quest, QuestStep, all_of, any_of, beats, flag, grant, item,  # noqa: E402
                          negate, receipt, say, set_flag, transaction, transfer)
+from build_ch1_story import actor as stage_actor, stage as stage_scene  # noqa: E402
+
+# 舞台演出：屋頂的茶沿用第一章的屋頂舞台（地面線 262、凜縮放 2.2；鷺的骨架只比凜高 3%，同舞台用同一個縮放）。
+# 兩人站在茶座兩側、面向對方（0.40W 與 0.60W）；接續的段落沿用同一個舞台與站位，只用很短的淡入。
+ROOF_STAGE = "ch1_rooftop"
+ROOF_FLOOR = 262
+ROOF_SCALE = 2.2
+
+
+def _roof_cast(fade: float = 1.0) -> list[dict]:
+    return [stage_scene(ROOF_STAGE, x=320, y=200, zoom=1.0, fade_in=fade),
+            stage_actor("egret", "egret", 372, ROOF_FLOOR, facing=-1, scale=ROOF_SCALE, speaker="egret"),
+            stage_actor("rin", "rin", 268, ROOF_FLOOR, facing=1, scale=ROOF_SCALE, speaker="rin")]
+
+
+def _on_roof(lines: tuple, opening: bool = False) -> list[dict]:
+    """屋頂舞台上的一段對話：開場淡入，接續的段落沿用站位、極短淡入。"""
+    return _roof_cast(1.0 if opening else 0.25) + beats(*lines)
 
 CHAPTER = {
     "id": "ch2_heron", "title": "第二章　鷺", "subtitle": "沉港市・霓虹市集",
@@ -208,26 +226,26 @@ def _morning(source: ProductionSource):
 
 def _rooftop(source: ProductionSource):
     brief = flag("ch2_brief_done")
-    source.add("ch2_t_s03_tea", "S03", (
+    source.add("ch2_t_s03_tea", "S03", steps=_on_roof((
         ("egret", "小鬼，坐到裡面來，那塊板凳今天還沒有泡水。"),
         ("rin", "你每次都說今天，這木頭已經腫了。"),
         ("rin", "傘骨斷了，你那邊在漏。"),
         ("egret", "我這件外套本來就濕，兩邊一起濕才不會歪。"),
         ("rin", "我記著這杯茶，傘不用算。"),
-        ("egret", "你還要替雨開一個帳啊？先喝，茶不會等你算完。")),
+        ("egret", "你還要替雨開一個帳啊？先喝，茶不會等你算完。")), opening=True),
         when=negate(brief), next_scene="ch2_t_s03_brief", mode="animated")
-    source.add("ch2_t_s03_brief", "S03", (
+    source.add("ch2_t_s03_brief", "S03", steps=_on_roof((
         ("egret", "市場查核證只讓你進公眾攤道，後面的帳房還是阿勇管。阿勇是這一帶收帳人的頭。"),
         ("egret", "昨晚盤裡那筆代收款有批號，收據卻不在。去代收處找當天的租攤合約和收款存根。"),
         ("rin", "我先看原本，再聽他們怎麼算。"),
         ("egret", "天穹要找誰多收了錢，我只要他們別拿攤商的錢墊掉。你看見不對的地方就寫，不用替誰挑好看的。"),
         ("rin", "查完這筆就能結案？"),
-        ("egret", "附件對得上才算，光把收帳的人打趴不會長出收據。")),
+        ("egret", "附件對得上才算，光把收帳的人打趴不會長出收據。")), opening=False),
         when=negate(brief), next_scene="ch2_t_s03_rain", mode="animated")
-    source.add("ch2_t_s03_rain", "S03", (
+    source.add("ch2_t_s03_rain", "S03", steps=_on_roof((
         ("egret", "你看雨別只看腳下。屋頂先響、雨棚再響，你就知道市場哪條路積水了。"),
         ("rin", "所以你喝茶也在看路。"),
-        ("egret", "至少我這杯不用你付保費。")),
+        ("egret", "至少我這杯不用你付保費。")), opening=False),
         when=negate(brief), completion=(set_flag("ch2_brief_done"), grant("ch2_check_card")), mode="animated")
     # 簡報後的話題：週日（SQ2）、重擊的練法、再聽一次查帳的重點。
     sunday_asked_ch1 = flag("asked_egret_sunday")
@@ -262,33 +280,33 @@ def _rooftop(source: ProductionSource):
 
     # S22 章末：兩只茶杯、索引、週日、灰衣人、通路接上。
     ready = all_of(flag("ch2_audit_submitted"), flag("ch2_egret_returned"))
-    source.add("ch2_t_s22_tea", "S22", (
+    source.add("ch2_t_s22_tea", "S22", steps=_on_roof((
         ("egret", "這杯先喝，別等我死了才幫我收。"),
         ("rin", "今天你把人家帳房撞壞了，茶錢恐怕不夠賠。"),
         ("egret", "帳對出來了，他的椅子倒下去也值。"),
         ("rin", "代收那筆對完了，可是診所月報還在上面。明天我從廣場貨梯過去，看原來的。"),
-        ("egret", "去查表可以，不用每張都有簽名就信它。晴岸也在那邊，就是你那本目錄的日照區住宅。想看就看，不先替老頭子買。")),
+        ("egret", "去查表可以，不用每張都有簽名就信它。晴岸也在那邊，就是你那本目錄的日照區住宅。想看就看，不先替老頭子買。")), opening=True),
         when=all_of(ready, negate(flag("ch2_heron_closed"))), options=(
             _opt("go", "明天去夾層診所核對原表。", "ch2_t_s22_decided", "確認明天的去向，接著聊完今晚的茶。"),
             _opt("wait", "先把茶喝完再說。", None, "回到屋頂，之後再來確認。")))
-    source.add("ch2_t_s22_decided", "S22", (
+    source.add("ch2_t_s22_decided", "S22", steps=_on_roof((
         ("rin", "我先看表，房子還差得遠。"),
-        ("egret", "明天別算我，週日我不接案。")),
+        ("egret", "明天別算我，週日我不接案。")), opening=False),
         when=all_of(ready, negate(flag("ch2_heron_closed"))), mode="animated", next_scene="ch2_dispatch_s22_sunday")
-    source.add("ch2_t_s22_sunday_known", "S22", (
+    source.add("ch2_t_s22_sunday_known", "S22", steps=_on_roof((
         ("rin", "那個人還在等你嫌吵，我沒排你的活。"),
-        ("egret", "妳終於沒替我把空白填滿，今天算妳贏一次。")),
+        ("egret", "妳終於沒替我把空白填滿，今天算妳贏一次。")), opening=False),
         when=flag("sq2_sunday_heard"), mode="animated", next_scene="ch2_t_s22_greycoat")
-    source.add("ch2_t_s22_sunday_unknown", "S22", (
+    source.add("ch2_t_s22_sunday_unknown", "S22", steps=_on_roof((
         ("rin", "你不是每次都說最後一次，怎麼還留週日？"),
-        ("egret", "有個人要見，工作不能佔那天。")),
+        ("egret", "有個人要見，工作不能佔那天。")), opening=False),
         when=negate(flag("sq2_sunday_heard")), mode="animated", next_scene="ch2_t_s22_greycoat")
-    source.add("ch2_t_s22_greycoat", "S22", (
+    source.add("ch2_t_s22_greycoat", "S22", steps=_on_roof((
         ("rin", "對面那個人一直看這邊，他今天是不是先我們進市場？"),
         ("egret", "看見了不代表知道，我們明天再看。"),
         ("lamp", "港區的通路都接上了，市場後門能回當舖街口。上層那條還沒通，明天得從廣場走。"),
         ("rin", "我先回去，老 K 留了飯。"),
-        ("egret", "喝完再走，這次我真不追妳。")),
+        ("egret", "喝完再走，這次我真不追妳。")), opening=False),
         mode="animated", completion=(set_flag("ch2_heron_closed"), set_flag("harbor_walk_ready")))
     source.add("ch2_t_s22_revisit", "S22", (("egret", "明天別算我，週日我不接案。"),), when=flag("ch2_heron_closed"))
 

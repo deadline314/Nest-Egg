@@ -82,11 +82,15 @@ def _compile_segment(segment, spec: ChapterSpec, inside_presentation: bool) -> d
     scene = {}
     results = _results(segment)
     lines = _say_lines(segment.steps)
+    # 有舞台（scene 步驟）的段落是正式過場：不疊在地圖上，演員的姿勢要寫理由與支撐（同第一章的 pose_policy）。
+    staged = any(s.get("do") == "scene" for s in segment.steps)
     if segment.options:
-        scene.update(mode="animated", overlay=True, steps=[copy.deepcopy(s) for s in segment.steps] + [_choice_step(segment, spec)])
+        scene.update(mode="animated", steps=[copy.deepcopy(s) for s in segment.steps] + [_choice_step(segment, spec)])
+        if not staged:
+            scene["overlay"] = True
     elif segment.mode == "animated":
         scene.update(mode="animated", steps=[copy.deepcopy(s) for s in segment.steps])
-        if not any(s.get("do") == "scene" for s in segment.steps):
+        if not staged:
             scene["overlay"] = True
     elif segment.mode in ("radio", "bubbles"):
         scene.update(mode=segment.mode, lines=lines)
@@ -96,6 +100,8 @@ def _compile_segment(segment, spec: ChapterSpec, inside_presentation: bool) -> d
         scene.update(mode="bubbles", lines=lines)
     else:
         scene.update(mode="animated", overlay=True, steps=[copy.deepcopy(s) for s in segment.steps])
+    if staged and scene.get("mode") == "animated":
+        scene["pose_policy"] = "supported"
     if segment.when:
         scene["when"] = copy.deepcopy(segment.when)
     if results:

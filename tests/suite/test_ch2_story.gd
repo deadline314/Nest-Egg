@@ -23,6 +23,7 @@ func run() -> void:
 	_test_story_gates()
 	_test_ledger_install()
 	_test_street_line()
+	_test_staging()
 	await _test_chapter_link()
 
 
@@ -150,6 +151,20 @@ func _test_street_line() -> void:
 	var layout := LevelBuilder.parse(data)
 	check(is_equal_approx(layout.ground_y, 20.0 * layout.tile_size), "the street line ignores the wide canopy (%.0f)" % layout.ground_y)
 	check(is_equal_approx(layout.surface_heights[40], 13.0 * layout.tile_size), "the canopy is still the top surface of its columns")
+
+
+## 屋頂的茶是正式過場：演員腳底在對話框之上、頭不進黑邊、場景資料通過檢查（同第一章的規則）。
+func _test_staging() -> void:
+	var checked := 0
+	var problems := PackedStringArray()
+	for id in Story.scene_ids():
+		var scene: Dictionary = Story._scenes[id]
+		if not str(id).begins_with("ch2_") or str(scene.get("mode", "")) != "animated" or bool(scene.get("overlay", false)):
+			continue
+		checked += 1
+		problems.append_array(CutsceneChecker.validate(String(id), scene, Story._speakers))
+		problems.append_array(CutsceneChecker.staging_problems(String(id), scene))
+	check(checked >= 8 and problems.is_empty(), "the %d staged chapter 2 scenes pass the cutscene and framing checks: %s" % [checked, problems])
 
 
 ## 第一章的天亮章末接第二章的早上；屋頂的章末對話寫下旗標就結束本章。
