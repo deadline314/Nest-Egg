@@ -185,13 +185,19 @@ func _test_thrown_barrel_explodes_on_contact() -> void:
 	check(level.player.carry.speed_scale() < 0.7, "a heavy barrel slows the carrier")
 	await _aim(Vector2(1, -0.25).normalized())
 	var before := grunt.health.current
+	var blasts_before: Vector2 = Fx.get("_last_blast_position")
 	await _press(&"shoot")
+	var blast_at := Vector2.INF
 	for i in 120:
 		if not is_instance_valid(barrel):
 			break
+		blast_at = barrel.world_center()
 		await physics_frames(1)
 	await physics_frames(4)
 	check(not is_instance_valid(barrel) and grunt.health.current < before, "a thrown barrel explodes on the enemy (%d -> %d)" % [before, grunt.health.current])
+	# 爆炸畫面走全遊戲共用的火球（NE-95），不是油桶自己的一套。
+	var blast: Vector2 = Fx.get("_last_blast_position")
+	check(blast != blasts_before and blast.distance_to(blast_at) < 24.0, "the barrel blast is drawn by the shared fireball at the barrel (%s, barrel %s)" % [blast, blast_at])
 	_release_aim()
 	await end_level(level)
 
@@ -307,6 +313,19 @@ func _test_chapter_one_placement() -> void:
 		if items > 0 and barrels > 0:
 			areas_with_items += 1
 	check(areas_with_items >= 2, "chapter 1 has throwables and barrels in at least two areas (%d)" % areas_with_items)
+	# 地圖字元全章通用（由產生器 tools/level/build_ch1.py 登記）：同一個字元在每個區域都是同一種東西，投擲物不能借用別的字元。
+	var meaning: Dictionary = {}
+	for file in DirAccess.get_files_at("res://data/levels"):
+		if not (file.begins_with("ch1_") and file.ends_with(".tres")):
+			continue
+		var area := load("res://data/levels/" + file) as LevelData
+		for c: String in area.legend:
+			var res: Resource = area.legend[c]
+			if res == null or res.resource_path.is_empty() or res.resource_path.contains("::"):
+				continue  # 出入口是各區域自己的內嵌資源，只比對共用的資源檔
+			if not meaning.has(c):
+				meaning[c] = res.resource_path
+			check(meaning[c] == res.resource_path, "%s: map character '%s' means %s here but %s elsewhere" % [file, c, res.resource_path, meaning[c]])
 	# 重進同一個區域：數量跟地圖一樣，不會越來越多。
 	var warehouse := load("res://data/levels/ch1_warehouse.tres") as LevelData
 	level = await start_level(warehouse)

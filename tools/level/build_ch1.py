@@ -58,6 +58,11 @@ RES = {
     's': 'res://data/props/ch1_gate_c.tres',
     'v': 'res://data/props/ch1_gate_watchdog.tres',
     'W': 'res://data/props/ch1_flood_pit.tres',
+    # 場地投擲物（NE-254）：撿起來丟；油桶被打中或丟中會燒引信爆炸。字元避開引擎保留字（# = ^ | ~ P C H B * & 與數字）
+    'D': 'res://data/throwables/fuel_barrel.tres',
+    '%': 'res://data/throwables/crate_small.tres',
+    'I': 'res://data/throwables/pipe.tres',
+    '@': 'res://data/throwables/concrete_chunk.tres',
 }
 
 # 出入口：字元 -> (id, 目標區域, 目標出入口, 模式, 提示, 鎖住提示, 外觀, 寬, 高)
@@ -576,6 +581,13 @@ def build_street():
     a.hint(201, '碼頭倉庫：看門狗睡在大廳深處，走進去再決定要不要叫醒牠')
     a.encounter('出口伏擊', 183, 187, [(184, 'd', 14), (186, 'd', 11)])
     a.stand(188, 'e')
+    # 場地投擲物（NE-254）：街心的油桶在兩層平台之間，引敵人靠近再射爆；路障前備好鐵管、箱子與另一個油桶。
+    a.stand(95, '%')
+    a.stand(96, '%')
+    a.stand(104, 'D')
+    a.stand(155, 'I')
+    a.stand(157, '%')
+    a.stand(165, 'D')
     # 道具：背景立面
     a.prop('harbor_street__fish_cart', 14)
     a.prop('harbor_street__parked_scooter', 42)
@@ -653,13 +665,20 @@ def build_warehouse_full():
     a.encounter('前廳左', 28, 34, [(30, 'g')])
     a.encounter('前廳右', 36, 42, [(38, 'g')])
     a.encounter('吊車下', 44, 50, [(47, 'k', 13)])
-    a.encounter('看門狗', 52, 60, [(56, 'w')])      # 迷你頭目 A：不鎖場，傷會留著
+    a.encounter('看門狗', 52, 60, [(58, 'w')])      # 迷你頭目 A：不鎖場，傷會留著（NE-253：鍊子地盤的左緣剛好在貨櫃右邊）
     a.stand(28, 'c')
     a.stand(66, 'c')
     a.stand(68, 'c')
     a.hint(70, '打倒看門狗，前方的隔牆才會升起。')
     a.stand(73, 'v')
-    a.prop('dock_warehouse__watchdog_dock', 60)
+    a.prop('dock_warehouse__watchdog_dock', 58)
+    # 場地投擲物（NE-254）：看門狗地盤兩側各一個油桶（丟進地盤或趁牠撲過來時射爆），閘門廳前有鐵管、箱子與高處的水泥塊。
+    a.stand(56, 'D')
+    a.stand(61, 'D')
+    a.stand(41, 'I')
+    a.stand(43, '%')
+    a.stand(44, '%')
+    a.put(46, 13, '@')
     a.prop('dock_warehouse__hoist_chain', 34, y=9)
     a.prop('dock_warehouse__searchlight_post', 11)
     a.prop('dock_warehouse__wrapped_pallets', 41)
@@ -672,6 +691,8 @@ def build_warehouse_full():
     a.stand(90, 'a')
     a.hint(92, '按 {interact} 操作開關，控制同一頻道的閘門。')
     a.encounter('開關守衛', 93, 96, [(95, 'b')])
+    a.stand(108, 'D')   # NE-254：閘門廳的油桶與箱子，給後面兩名清掃兵
+    a.stand(110, '%')
     a.block(97, 99, 14, 16)
     a.region(97, 99, 14, 16, 'container_rust')
     a.block(101, 103, 12, 16)

@@ -1,32 +1,32 @@
 [gd_resource type="Resource" script_class="LevelData" load_steps=28 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
-[ext_resource type="Resource" path="res://data/props/ch1_switch_a.tres" id="2_ch1_switch_a"]
-[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="3_portal_data"]
-[ext_resource type="Resource" path="res://data/props/ch1_switch_b.tres" id="4_ch1_switch_b"]
-[ext_resource type="Resource" path="res://data/props/ch1_flood_pit.tres" id="5_ch1_flood_pit"]
-[ext_resource type="Resource" path="res://data/props/ch1_gate_a.tres" id="6_ch1_gate_a"]
-[ext_resource type="Resource" path="res://data/enemies/collector_brute.tres" id="7_collector_brute"]
-[ext_resource type="Resource" path="res://data/props/credits_small.tres" id="8_credits_small"]
-[ext_resource type="Resource" path="res://data/enemies/drone.tres" id="9_drone"]
-[ext_resource type="Resource" path="res://data/enemies/sweeper.tres" id="10_sweeper"]
-[ext_resource type="Resource" path="res://data/consumables/med_injector.tres" id="11_med_injector"]
-[ext_resource type="Resource" path="res://data/enemies/collector_gunner.tres" id="12_collector_gunner"]
-[ext_resource type="Resource" path="res://data/story_items/doc_dike_log.tres" id="13_doc_dike_log"]
-[ext_resource type="Resource" path="res://data/props/ch1_gate_b.tres" id="14_ch1_gate_b"]
-[ext_resource type="Resource" path="res://data/props/ch1_gate_c.tres" id="15_ch1_gate_c"]
-[ext_resource type="Resource" path="res://data/props/ch1_gate_watchdog.tres" id="16_ch1_gate_watchdog"]
-[ext_resource type="Resource" path="res://data/enemies/watchdog.tres" id="17_watchdog"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="18_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/warehouse_interior.tres" id="19_warehouse_interior"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch1_warehouse.tres" id="20_ch1_warehouse"]
-[ext_resource type="Resource" path="res://data/throwables/fuel_barrel.tres" id="t_fuel_barrel"]
-[ext_resource type="Resource" path="res://data/throwables/crate_small.tres" id="t_crate_small"]
-[ext_resource type="Resource" path="res://data/throwables/pipe.tres" id="t_pipe"]
-[ext_resource type="Resource" path="res://data/throwables/concrete_chunk.tres" id="t_concrete_chunk"]
+[ext_resource type="Resource" path="res://data/throwables/crate_small.tres" id="2_crate_small"]
+[ext_resource type="Resource" path="res://data/throwables/concrete_chunk.tres" id="3_concrete_chunk"]
+[ext_resource type="Resource" path="res://data/props/ch1_switch_a.tres" id="4_ch1_switch_a"]
+[ext_resource type="Resource" path="res://data/throwables/fuel_barrel.tres" id="5_fuel_barrel"]
+[ext_resource type="Resource" path="res://data/throwables/pipe.tres" id="6_pipe"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="7_portal_data"]
+[ext_resource type="Resource" path="res://data/props/ch1_switch_b.tres" id="8_ch1_switch_b"]
+[ext_resource type="Resource" path="res://data/props/ch1_flood_pit.tres" id="9_ch1_flood_pit"]
+[ext_resource type="Resource" path="res://data/props/ch1_gate_a.tres" id="10_ch1_gate_a"]
+[ext_resource type="Resource" path="res://data/enemies/collector_brute.tres" id="11_collector_brute"]
+[ext_resource type="Resource" path="res://data/props/credits_small.tres" id="12_credits_small"]
+[ext_resource type="Resource" path="res://data/enemies/drone.tres" id="13_drone"]
+[ext_resource type="Resource" path="res://data/enemies/sweeper.tres" id="14_sweeper"]
+[ext_resource type="Resource" path="res://data/consumables/med_injector.tres" id="15_med_injector"]
+[ext_resource type="Resource" path="res://data/enemies/collector_gunner.tres" id="16_collector_gunner"]
+[ext_resource type="Resource" path="res://data/story_items/doc_dike_log.tres" id="17_doc_dike_log"]
+[ext_resource type="Resource" path="res://data/props/ch1_gate_b.tres" id="18_ch1_gate_b"]
+[ext_resource type="Resource" path="res://data/props/ch1_gate_c.tres" id="19_ch1_gate_c"]
+[ext_resource type="Resource" path="res://data/props/ch1_gate_watchdog.tres" id="20_ch1_gate_watchdog"]
+[ext_resource type="Resource" path="res://data/enemies/watchdog.tres" id="21_watchdog"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="22_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/warehouse_interior.tres" id="23_warehouse_interior"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch1_warehouse.tres" id="24_ch1_warehouse"]
 
 [sub_resource type="Resource" id="Resource_0"]
-script = ExtResource("3_portal_data")
+script = ExtResource("7_portal_data")
 id = &"wh_street"
 target_level = "res://data/levels/ch1_street.tres"
 target_portal = &"street_warehouse"
@@ -36,7 +36,7 @@ height = 48
 style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]
-script = ExtResource("3_portal_data")
+script = ExtResource("7_portal_data")
 id = &"wh_vault"
 target_level = "res://data/levels/ch1_vault.tres"
 target_portal = &"vault_prev"
@@ -46,10 +46,10 @@ height = 44
 style = "road"
 
 [sub_resource type="Resource" id="Resource_2"]
-script = ExtResource("18_lighting_zone")
+script = ExtResource("22_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("19_warehouse_interior")
+profile = ExtResource("23_warehouse_interior")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -58,35 +58,35 @@ display_name = "碼頭倉庫"
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
-"A": ExtResource("2_ch1_switch_a"),
+"%": ExtResource("2_crate_small"),
+"@": ExtResource("3_concrete_chunk"),
+"A": ExtResource("4_ch1_switch_a"),
+"D": ExtResource("5_fuel_barrel"),
+"I": ExtResource("6_pipe"),
 "O": SubResource("Resource_0"),
-"R": ExtResource("4_ch1_switch_b"),
+"R": ExtResource("8_ch1_switch_b"),
 "U": SubResource("Resource_1"),
-"W": ExtResource("5_ch1_flood_pit"),
-"a": ExtResource("6_ch1_gate_a"),
-"b": ExtResource("7_collector_brute"),
-"c": ExtResource("8_credits_small"),
-"d": ExtResource("9_drone"),
-"g": ExtResource("10_sweeper"),
-"i": ExtResource("11_med_injector"),
-"k": ExtResource("12_collector_gunner"),
-"l": ExtResource("13_doc_dike_log"),
-"r": ExtResource("14_ch1_gate_b"),
-"s": ExtResource("15_ch1_gate_c"),
-"v": ExtResource("16_ch1_gate_watchdog"),
-"w": ExtResource("17_watchdog"),
-"T": ExtResource("t_fuel_barrel"),
-"x": ExtResource("t_crate_small"),
-"p": ExtResource("t_pipe"),
-"n": ExtResource("t_concrete_chunk")
+"W": ExtResource("9_ch1_flood_pit"),
+"a": ExtResource("10_ch1_gate_a"),
+"b": ExtResource("11_collector_brute"),
+"c": ExtResource("12_credits_small"),
+"d": ExtResource("13_drone"),
+"g": ExtResource("14_sweeper"),
+"i": ExtResource("15_med_injector"),
+"k": ExtResource("16_collector_gunner"),
+"l": ExtResource("17_doc_dike_log"),
+"r": ExtResource("18_ch1_gate_b"),
+"s": ExtResource("19_ch1_gate_c"),
+"v": ExtResource("20_ch1_gate_watchdog"),
+"w": ExtResource("21_watchdog")
 })
 hints = PackedStringArray("留意大廳深處的看門狗，死亡後牠仍會保留部分傷勢。", "打倒看門狗，前方的隔牆才會升起。", "先在電話亭 B2 備份，再往倉庫裡走。", "按 {interact} 操作開關，控制同一頻道的閘門。", "留意牆上的水位刻度，前方水坑會漲水。", "進入前方的倉庫深處，保險箱旁有守衛。")
 chapter = &"ch1_kasa"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("20_ch1_warehouse")
+environment = ExtResource("24_ch1_warehouse")
 layout_path = "res://data/levels/ch1_warehouse_map.json"
-lighting_zones = Array[ExtResource("18_lighting_zone")]([SubResource("Resource_2")])
+lighting_zones = Array[ExtResource("22_lighting_zone")]([SubResource("Resource_2")])
 channel_scenes = Dictionary[StringName, StringName]({&"watchdog_gate": &"ch1_c11_watchdog"})
 story_triggers = PackedStringArray("ch1_g07_dog", "ch1_g10_pit", "ch1_g10_pit2", "ch1_g10_cross")
 death_credit_cap = 250
