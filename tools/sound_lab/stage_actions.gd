@@ -7,6 +7,13 @@ extends RefCounted
 const PREFIX := "act_"
 ## 每個情境結束前多等一下，讓延遲的聲音層與尾音響完（也讓記錄完整）。
 const TAIL_TIME := 0.6
+## 等連段可以接下一段最多等幾秒的遊戲時間（超過就照按，讓測試看到沒接上）。
+const MELEE_CHAIN_TIMEOUT := 1.5
+## 連段時限剩不到這麼多秒就不再等節奏，馬上接。
+const MELEE_CHAIN_MARGIN := 0.1
+## 一段最多按幾次、按下後等幾個物理影格確認有出招。
+const MELEE_TAP_TRIES := 3
+const MELEE_START_TICKS := 3
 ## 連射時每隔幾秒重新瞄準一次。
 const AIM_REFRESH_TIME := 0.04
 
@@ -181,11 +188,52 @@ func act_melee(params: Dictionary) -> void:
 		return
 	arena.aim_right()
 	var attacks := clampi(int(params.get("attacks", 1)), 1, MeleeData.combo().size())
+	var gap := float(params.get("gap", 0.34))
+	var token := _token
 	for i in attacks:
-		await arena.tap(&"melee")
-		if not await _wait(float(params.get("gap", 0.34)) if i < attacks - 1 else 0.7):
-			return
+		for attempt in MELEE_TAP_TRIES:
+			if i > 0 and not await _wait_melee_chain(i - 1, gap if attempt == 0 else 0.0):
+				return
+			await arena.tap(&"melee")
+			# 這一下有沒有真的出招：按鍵的緩衝用真實時間算，機器忙到一個物理影格比緩衝還久時這一下會被吃掉，要再按一次。
+			for _tick in MELEE_START_TICKS:
+				if _melee_reached(i):
+					break
+				await arena.get_tree().physics_frame
+			if token != _token:
+				return
+			if _melee_reached(i):
+				break
+	# 最後一段揮完（命中聲響過）才收尾。
+	if not await _wait(0.7) or not await _wait_until(func() -> bool: return arena.player == null or arena.player._melee_phase == Player.MeleePhase.NONE, MELEE_CHAIN_TIMEOUT):
+		return
 	await _wait(TAIL_TIME)
+
+
+func _melee_reached(step: int) -> bool:
+	return arena.player == null or arena.player._melee_index >= step
+
+
+## 等到可以接連段的下一段：第 step 段已經出招，而且現在按近戰會接上（命中後可取消，或剛收完、連段時限還沒過）。
+## 照 gap 秒的節奏按，但不拖到連段時限快過（揮空時時限只有一半）。全程用物理影格計時：機器忙的時候
+## 計時器跑得比遊戲時間快，照秒數按會按太早或太晚，連段就斷了（NE-261）。回傳 false 代表被取代。
+func _wait_melee_chain(step: int, gap: float) -> bool:
+	var token := _token
+	var tick := 1.0 / float(Engine.physics_ticks_per_second)
+	var waited := 0.0
+	while waited < MELEE_CHAIN_TIMEOUT:
+		var player := arena.player
+		if player == null:
+			break
+		if player._melee_index == step and player.is_melee_cancellable():
+			var closing := player._melee_phase == Player.MeleePhase.NONE and player._melee_combo_left <= MELEE_CHAIN_MARGIN
+			if waited >= gap or closing:
+				break
+		await arena.get_tree().physics_frame
+		if token != _token:
+			return false
+		waited += tick
+	return token == _token
 
 
 ## 終結技：把敵人打到可終結的血量（會暈眩），玩家在身邊按近戰。enemy（預設 grunt）。
