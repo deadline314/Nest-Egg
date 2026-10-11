@@ -162,30 +162,6 @@ def main() -> None:
         layers[e["part"]][:, :, 3][m > 0] = 0
         print(f"  erase {e['part']}: {int(m.sum())} px")
 
-    # {"part": "pelvis", "to": "leg_upper"}: the pelvis of a standing source is as wide as both hips. What is in front of the near thigh
-    # is the far hip: left on the pelvis it stays behind as a block whenever the far leg is not exactly under it. The pelvis front runs
-    # from its full width at its top in an S-curve into the thigh's front line at the hip joint, and follows that line below it.
-    # Sources face right, so "front" is +x. (make_parts does the same for parts cut with `front_line`.) Not for a figure whose thigh part is
-    # much thinner than its hip (thigh plates cut as separate parts): the pelvis would shrink to a wedge.
-    for e in cfg.get("taper_front", []):
-        alpha, thigh = layers[e["part"]][:, :, 3], layers[e["to"]][:, :, 3] > 127
-        hip_y, knee_y = int(spec["joints"]["hip"][1]), int(spec["joints"]["knee"][1])
-        rows = np.arange(hip_y + int(0.3 * (knee_y - hip_y)), hip_y + int(0.75 * (knee_y - hip_y)))
-        rows = rows[thigh[rows].any(1)]
-        own = np.nonzero((alpha > 127).any(1))[0]
-        if len(rows) < 20 or not len(own):
-            print(f"  taper_front {e['part']}: skipped (no thigh or pelvis to measure)")
-            continue
-        line = np.polyfit(rows, W - 1 - thigh[rows, ::-1].argmax(1), 1)
-        y0 = int(e.get("top", own.min()))
-        x_top = float(np.polyval(line, hip_y)) + e.get("margin", 2)
-        strip = max(float(np.nonzero((alpha[y0:y0 + 10] > 127).any(0))[0].max()) - x_top, 0.0)
-        s = np.clip((yy - y0) / max(hip_y - y0, 1), 0.0, 1.0)
-        xx = np.mgrid[0:H, 0:W][1]
-        cut = (yy >= y0) & (xx > np.where(yy < hip_y, x_top + strip * (1.0 - s * s * (3.0 - 2.0 * s)), np.polyval(line, yy) + e.get("margin", 2)))
-        print(f"  taper_front {e['part']}: {int((cut & (alpha > 0)).sum())} px, strip {strip:.0f} px")
-        alpha[cut] = 0
-
     for e in cfg.get("claim", []):
         m = np.zeros((H, W), np.uint8)
         cv2.fillPoly(m, [np.array(e["poly"], np.int32)], 1)

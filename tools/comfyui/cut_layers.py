@@ -335,12 +335,24 @@ def main() -> None:
             pb = by_name[parent]
             pos = [0.0, round(float(np.linalg.norm(J[pb["tip"]] - joint_of(parent))) / px_wp, 2)]
         bones.append({"name": name, "parent": parent, "pos": pos})
+    # spec.sway: [{"id", "part", "from": [x, y], "to": [x, y], "width", ...spring values}] in source-picture pixels. Hair or a hem that is
+    # baked into a part's picture bends around `from` towards `to` (the rig's shader does it): no extra part, no extra bone.
+    springs = list(spec.get("springs", []))
+    for entry in spec.get("sway", []):
+        if entry["part"] not in transforms:
+            raise ValueError(f"spec.sway {entry.get('id')}: part {entry['part']} was not cut")
+        part, piv = spec["parts"][entry["part"]], textures[entry["part"]]["pivot"]
+        ex, ey = frame(part["mode"], J[part["from"]], J[part["to"]])
+        pivot_pt = J[part.get("pivot", part["from"])]
+        local = [[round(float((np.array(pt, float) * k - pivot_pt) @ axis + piv[i]), 1) for i, axis in enumerate((ex, ey))] for pt in (entry["from"], entry["to"])]
+        springs.append({"id": entry["id"], "warp": {"part": entry["part"], "from": local[0], "to": local[1], "width": round(float(entry["width"]) * k, 1)},
+                        **{key: entry[key] for key in ("rest", "gain", "stiffness", "damping", "min", "max", "trail", "lift", "wind") if key in entry}})
     ac = spec["weapon_anchor"]
     anchor = (J[ac["to"]] - J[ac["from"]]) / px_wp
     rig = {"id": Path(args.rig).stem,
            "description": "人形骨架（7.5 頭身版）。座標單位為世界像素，原點在腳底，面向右（+X），Y 軸向下；骨頭靜止時沿 +Y 延伸。長度由立繪量出（" + NOTE + "）。",
            "bones": bones,
-           **({"springs": spec["springs"]} if "springs" in spec else {}),
+           **({"springs": springs} if springs else {}),
            "weapon_anchor": {"bone": ac["bone"], "pos": [round(float(anchor[0]) + ac["dx"], 2), round(float(anchor[1]) + ac["dy"], 2)], "reach": ac["reach"]}}
     rig_text = json.dumps(rig, ensure_ascii=False, indent=2) + "\n"
 

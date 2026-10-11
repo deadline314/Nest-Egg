@@ -630,7 +630,7 @@ def main() -> None:
     seam = spec.get("seam", 10)
     parts: dict[str, np.ndarray] = {}
     straight: dict[str, np.ndarray] = {}  # the part before its round joint caps were added
-    ramp: dict[tuple[str, str], np.ndarray] = {}
+    ramp: dict[tuple[str, str], tuple[float, int, float, int]] = {}
     own_cut: dict[str, np.ndarray] = {}  # part -> what its own front_line cut away (the seam it grows afterwards must not take it back)
     front_cut: dict[str, np.ndarray] = {}  # group -> what a front_line cut away (the far thigh): no part of the group may take it back
     for pname, pdef in spec["parts"].items():
@@ -670,25 +670,24 @@ def main() -> None:
                 starts = [2.0 * j_bot[0] - float(np.nonzero(r)[0].min()) for r in (grp[y_bot - 8:y_bot + 8, :, 3] > 127) if r.any()]
             if len(top_row) and starts:
                 x_bot = float(np.median(starts)) + fl.get("margin", 2)
-                x_top = min(float(top_row.max()) + fl.get("margin", 2), j_top[0] + fl.get("widen", 1.15) * (x_bot - j_bot[0]))
-                # What is in front of the line is the far hip and thigh; no part keeps it (the far leg is the near leg's copy, drawn at
-                # its own hip). A limb also loses what is in front of the line above the joint (the "ear" of its round cap, which would
-                # swing out of the trouser front). The pelvis runs from its full width under the belt in an S-curve into the line at the
-                # hip: left as a block, the front of the far hip stays behind as a lump whenever the far leg is not exactly under it.
-                strip = max(float(top_row.max()) - x_top, 0.0)
-                below = (yy >= y_top) & (xx > x_top + (x_bot - x_top) * np.clip((yy - y_top) / max(y_bot - y_top, 1), 0.0, 1.5))
-                if pdef.get("mode") == "bone":
-                    beyond = below | (xx > x_top)
-                else:
-                    y0 = int(pdef["y"][0]) if "y" in pdef else y_top
-                    t = np.clip((yy - y0) / max(y_top - y0, 1), 0.0, 1.0)
-                    beyond = below | ((yy >= y0) & (xx > x_top + strip * (1.0 - t * t * (3.0 - 2.0 * t))))
+                # the silhouette's front edge under the hip: the narrowest row of the limb's first quarter (a jacket hem or a hand hanging
+                # there widens single rows; they are not the leg)
+                fronts = [int(np.nonzero(r)[0].max()) for r in (grp[y_top:y_top + max((y_bot - y_top) // 4, 1), :, 3] > 127) if r.any()]
+                x_top = float(min(fronts)) + fl.get("margin", 2)
+                # The line starts at the silhouette's own front edge at the `from` joint: at the hip the thigh is as wide as the whole hip
+                # (both hips of a source drawn slightly from the front), and it narrows to the near leg's width at the knee. Thigh and
+                # pelvis then share one disc around the hip joint (the spec puts that joint in the middle of the hip, caps of half its
+                # width), so nothing sticks out and nothing is missing at any angle - standing, legs apart, or sitting.
+                # (Tried and dropped: a thin thigh with the far hip left on the pelvis - a lump; the pelvis tapered into the thin thigh -
+                # the lower body lacks a piece; the far leg on its own hip further forward - the legs cross when one of them goes back.)
+                below = (yy >= y_top) & (yy <= y_bot + 0.5 * (y_bot - y_top)) & (xx > x_top + (x_bot - x_top) * (yy - y_top) / max(y_bot - y_top, 1))
+                beyond = below
                 region &= ~beyond
                 own_cut[pname] = beyond
-                if pdef.get("mode") == "bone":  # the part that hangs from this one (the shin) leaves the line gradually, 1 px in 2 rows: no ledge in front of the knee
-                    ramp[(pdef["group"], fl.get("to", pdef["to"]))] = (yy >= y_bot - seam) & (xx > x_top + (x_bot - x_top) * (yy - y_top) / max(y_bot - y_top, 1) + np.maximum(yy - y_bot, 0) * 0.5)
+                if pdef.get("mode") == "bone":  # the part that hangs from this one (the shin) follows the same line past the joint
+                    ramp[(pdef["group"], fl.get("to", pdef["to"]))] = (x_top, y_top, x_bot, y_bot)
                 front_cut[pdef["group"]] = front_cut.get(pdef["group"], np.zeros((H, W), bool)) | below
-                print(f"front_line {pname}: x {x_top:.0f} at y {y_top} -> x {x_bot:.0f} at y {y_bot}, strip {strip:.0f} px")
+                print(f"front_line {pname}: x {x_top:.0f} at y {y_top} -> x {x_bot:.0f} at y {y_bot}")
         straight[pname] = region
         # caps: a rigid joint (hip, shoulder, wrist, ankle, neck) turns without showing a corner or a gap only when both parts keep a round
         # disc of the group around the joint they turn on; a straight cut alone leaves an angular silhouette as soon as the limb swings.
@@ -711,6 +710,21 @@ def main() -> None:
             main_ = lab_ == (1 + int(np.argmax(st_[1:, cv2.CC_STAT_AREA]))) if n_ > 1 else region
             region = main_ if pdef["blob"] == "main" else region & ~main_
         parts[pname] = region
+    # parts.<name>.end_disc = <part that hangs from this one>: near its end joint the part keeps only the round cap around that joint;
+    # the rest goes to the next part. A shin cut by a row keeps a wedge of the boot's instep (the instep rises above the ankle row in
+    # front of it), which swings out of the boot like a thorn as soon as the ankle turns.
+    for pname, pdef in spec["parts"].items():
+        child = pdef.get("end_disc")
+        if child in parts and pname in parts:
+            cap = next((c for c in pdef.get("caps", []) if c["joint"] == pdef["to"]), None)
+            if cap is not None:
+                center = cap.get("center", spec["joints"][cap["joint"]])
+                give = parts[pname] & (yy >= center[1] - cap["radius"]) & (cap_distance((H, W), center) > cap["radius"])
+                parts[pname] &= ~give
+                straight[pname] = straight[pname] & ~give
+                parts[child] |= give
+                straight[child] = straight[child] | give
+                print(f"end_disc {pname} -> {child}: {int(give.sum())} px")
     # parts.<name>.unclaimed = [y0, y1]: the pixels of the part's group in these rows that no part of the group took go to this part. Between
     # a pelvis cut above the hip and a thigh cut below it only the round caps hold pixels: on a wide figure the front of the hip lies outside
     # both discs, belongs to nobody, and opens as a notch as soon as the far leg swings back.
@@ -752,8 +766,17 @@ def main() -> None:
             grown &= ~own_cut[pname]
         elif pdef["group"] in front_cut:  # ... and a neighbour (the shin) does not grow into what the line cut away: a thorn in front of the knee
             grown &= ~front_cut[pdef["group"]] | region
-            if (pdef["group"], pdef.get("from")) in ramp:
-                grown &= ~ramp[(pdef["group"], pdef["from"])]
+            line = ramp.get((pdef["group"], pdef.get("from")))
+            if line is not None:
+                # The shin leaves the thigh's line gradually (1 px in 2 rows: no ledge in front of the knee). Only a few pixels of mask
+                # drift are trimmed that way; more than 12 px in front of the line is taken for the drawing itself (a knee pad) and
+                # stays whole. parts.<shin>.front_ramp = px per row says it is not: the far leg's trouser, gathered over its boot, that
+                # no mask separated - the shin is then cut along the line, however far the picture reaches in front of it.
+                x_top, y_top, x_bot, y_bot = line
+                cut = (yy >= y_bot - seam) & (xx > x_top + (x_bot - x_top) * (yy - y_top) / max(y_bot - y_top, 1) + np.maximum(yy - y_bot, 0) * pdef.get("front_ramp", 0.5))
+                rows = np.nonzero((region & cut).any(1))[0]
+                drift = int((region & cut)[rows].sum(1).max()) if len(rows) else 0
+                grown &= ~cut if drift <= 12 or "front_ramp" in pdef else ~cut | region
         if "minus_group" in pdef:
             grown &= ~(complete[pdef["minus_group"]][:, :, 3] > 127)
         grown = largest_blobs(grown)

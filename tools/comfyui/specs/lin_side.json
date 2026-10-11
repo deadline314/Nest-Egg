@@ -10,7 +10,7 @@
   "ground_y": 1178,
   "joints": {
     "hip": [
-      400,
+      408,
       563
     ],
     "neck": [
@@ -139,7 +139,7 @@
       "caps": [
         {
           "joint": "hip",
-          "radius": 62,
+          "radius": 74,
           "feather": 1.5
         }
       ],
@@ -152,12 +152,8 @@
       ],
       "unclaimed": [
         551,
-        589
-      ],
-      "front_line": {
-        "from": "hip",
-        "to": "knee"
-      }
+        637
+      ]
     },
     "torso": {
       "group": "body",
@@ -197,14 +193,14 @@
       "to": "knee",
       "mode": "bone",
       "y": [
-        583,
+        563,
         830
       ],
       "caps": [
         {
           "joint": "hip",
-          "radius": 71,
-          "feather": 10
+          "radius": 76,
+          "feather": 6
         }
       ],
       "uses": [
@@ -250,7 +246,8 @@
           "bone": "leg_front_lower",
           "z": 3
         }
-      ]
+      ],
+      "end_disc": "foot"
     },
     "foot": {
       "group": "body",
@@ -858,5 +855,25 @@
         130
       ]
     ]
-  }
+  },
+  "sway": [
+    {
+      "id": "hem_back",
+      "part": "pelvis",
+      "from": [
+        345,
+        440
+      ],
+      "to": [
+        333,
+        518
+      ],
+      "width": 50,
+      "gain": 0.3,
+      "stiffness": 110,
+      "damping": 13,
+      "min": -0.1,
+      "max": 0.22
+    }
+  ]
 }

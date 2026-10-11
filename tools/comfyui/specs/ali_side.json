@@ -10,7 +10,7 @@
   "ground_y": 1177,
   "joints": {
     "hip": [
-      411,
+      420,
       560
     ],
     "neck": [
@@ -56,6 +56,14 @@
     "toe": [
       462,
       1149
+    ],
+    "apron_root": [
+      440,
+      452
+    ],
+    "apron_mid": [
+      440,
+      600
     ]
   },
   "groups": {
@@ -134,13 +142,29 @@
         "head"
       ]
     },
-    "body": {
-      "sam": [],
-      "rest": true,
+    "apron": {
+      "sam": [
+        "apron",
+        "towel"
+      ],
       "complete": {
         "stage": "P",
         "occluders": [
           "arm"
+        ],
+        "near": 120,
+        "trim": 4,
+        "mask_close": 5
+      }
+    },
+    "body": {
+      "sam": [],
+      "rest": true,
+      "complete": {
+        "stage": "U",
+        "occluders": [
+          "arm",
+          "apron"
         ],
         "near": 260,
         "trim": 20,
@@ -171,7 +195,7 @@
       "caps": [
         {
           "joint": "hip",
-          "radius": 64,
+          "radius": 79,
           "feather": 1.5
         }
       ],
@@ -184,13 +208,8 @@
       ],
       "unclaimed": [
         548,
-        586
-      ],
-      "front_line": {
-        "far": "leg_far",
-        "from": "hip",
-        "to": "knee"
-      }
+        639
+      ]
     },
     "torso": {
       "group": "body",
@@ -230,14 +249,14 @@
       "to": "knee",
       "mode": "bone",
       "y": [
-        580,
+        560,
         824
       ],
       "caps": [
         {
           "joint": "hip",
-          "radius": 73,
-          "feather": 10
+          "radius": 81,
+          "feather": 6
         }
       ],
       "uses": [
@@ -285,7 +304,8 @@
           "bone": "leg_front_lower",
           "z": 3
         }
-      ]
+      ],
+      "end_disc": "foot"
     },
     "foot": {
       "group": "body",
@@ -387,6 +407,26 @@
           "z": 10
         }
       ]
+    },
+    "apron": {
+      "group": "apron",
+      "from": "apron_root",
+      "to": "apron_mid",
+      "mode": "bone",
+      "pivot": "apron_root",
+      "y": [
+        0,
+        4000
+      ],
+      "uses": [
+        {
+          "name": "apron",
+          "bone": "coat_1",
+          "z": 4,
+          "root_attach": true,
+          "bend_partner": "coat_2"
+        }
+      ]
     }
   },
   "glow": {},
@@ -476,6 +516,16 @@
     {
       "name": "foot_front",
       "parent": "leg_front_lower"
+    },
+    {
+      "name": "coat_1",
+      "parent": "hip",
+      "at": "apron_root"
+    },
+    {
+      "name": "coat_2",
+      "parent": "coat_1",
+      "at": "apron_mid"
     }
   ],
   "weapon_anchor": {
@@ -492,6 +542,12 @@
       "from": null,
       "seed": 54,
       "prompt": "Remove the character's near-side arm entirely, from the shoulder to the fingertips, including its sleeve, its glove and anything it wears, so that a neat round armhole seam is left at the shoulder. The hand and all its fingers are removed too: nothing of the hand remains in front of the hip or the thigh. No arm, no hand and no skin are drawn there. Paint the side of the torso clothing, the belt, the hip and the thigh that were hidden behind the arm, in exactly the same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
+    },
+    {
+      "name": "U",
+      "from": "P",
+      "seed": 64,
+      "prompt": "Remove the black waist apron completely from the picture, including its waistband and the beige towel tucked into it, nothing of the apron is left. In its place paint what was hidden behind it: the hem of her mint-green work shirt at the waist and her plain grey work trousers on both thighs from the waist down to the knees, with a few wrinkles, in exactly the same art style and colors as the trousers below the knees. There is no hole and nothing see-through. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the upper body, the lower legs and the shoes."
     }
   ],
   "refine": {
@@ -892,5 +948,47 @@
         115
       ]
     ]
-  }
+  },
+  "sway": [
+    {
+      "id": "hair",
+      "part": "head",
+      "from": [
+        362,
+        95
+      ],
+      "to": [
+        356,
+        185
+      ],
+      "width": 45,
+      "gain": 0.22,
+      "stiffness": 120,
+      "damping": 12,
+      "min": -0.14,
+      "max": 0.2
+    }
+  ],
+  "springs": [
+    {
+      "bone": "coat_1",
+      "rest": 0.0,
+      "gain": 0.3,
+      "stiffness": 110,
+      "damping": 14,
+      "min": -0.12,
+      "max": 0.22,
+      "drape": "leg_front_upper",
+      "drape_gain": 0.8
+    },
+    {
+      "bone": "coat_2",
+      "rest": 0.0,
+      "gain": 0.22,
+      "stiffness": 100,
+      "damping": 12,
+      "min": -0.1,
+      "max": 0.18
+    }
+  ]
 }

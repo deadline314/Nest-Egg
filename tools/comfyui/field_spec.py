@@ -68,6 +68,28 @@ def half_width(alpha: np.ndarray, at, axis, limit: int = 140) -> float:
     return float(min(runs))
 
 
+def center_hip(spec: dict, body_png: Path) -> None:
+    """Thigh and pelvis share one disc around the hip joint, so nothing sticks out or is missing at any angle (standing, legs apart,
+    sitting): the joint moves to the middle of the leg under the hip, both caps get half its width, the thigh begins at the hip row and
+    the pelvis keeps nothing below it but that disc. Needs the body group without arms (05_groups/body.png: second run, after `parts`)."""
+    body = np.array(Image.open(body_png).convert("RGBA"))[:, :, 3] > 127
+    hy, ky = int(spec["joints"]["hip"][1]), int(spec["joints"]["knee"][1])
+    rows = [np.nonzero(r)[0] for r in body[hy:hy + (ky - hy) // 4] if r.any()]  # the leg under the hem: a jacket or a hand widens single rows
+    if not rows:
+        return
+    back, front = max(int(r.min()) for r in rows), min(int(r.max()) for r in rows)
+    radius = (front - back) / 2
+    spec["joints"]["hip"][0] = round((front + back) / 2)
+    spec["parts"]["leg_upper"]["y"][0] = hy
+    for cap in spec["parts"]["leg_upper"]["caps"]:
+        if cap["joint"] == "hip":
+            cap.update({"radius": round(radius + 2), "feather": 6})
+    for cap in spec["parts"]["pelvis"]["caps"]:
+        if cap["joint"] == "hip":
+            cap.update({"radius": round(radius), "feather": 1.5})
+    spec["parts"]["pelvis"]["unclaimed"] = [hy - 12, hy + round(radius)]
+
+
 def lerp(a, b, t: float) -> list:
     return [round(a[0] + (b[0] - a[0]) * t), round(a[1] + (b[1] - a[1]) * t)]
 
@@ -190,14 +212,13 @@ def main() -> None:
     parts = {
         "pelvis": {"group": "body", "from": "waist", "to": "hip", "mode": "upright", "pivot": "hip", "y": [waist[1] + 20, hip[1] - 12],
                    "unclaimed": [hip[1] - 12, hip[1] + 26],
-                   **({} if far_thigh_open else {"front_line": {"from": "hip", "to": "knee", **({} if args.far_foot_only else {"far": "leg_far"})}}),  # the front of the hip beyond the round caps stays with the pelvis
                    "caps": [{"joint": "hip", "radius": round(0.75 * hip_w), "feather": 1.5}], "uses": [{"name": "pelvis", "bone": "hip", "z": 0}]},
         "torso": {"group": "body", "from": "waist", "to": "neck", "mode": "upright", "pivot": "waist", "y": [0, waist[1] + 20], "uses": [{"name": "torso", "bone": "chest", "z": 1}]},
         "head": {"group": "head", "from": "head", "to": "head_top", "mode": "upright", "pivot": "head", "uses": [{"name": "head", "bone": "head", "z": 5}]},
         "leg_upper": {"group": "body", "from": "hip", "to": "knee", "mode": "bone", "y": [hip[1] + 20, knee[1]],
                       **({} if far_thigh_open else {"front_line": {} if args.far_foot_only else {"far": "leg_far"}}),  # the far thigh is not part of the near one
                       "caps": [{"joint": "hip", "radius": round(0.85 * hip_w), "feather": 10}], "uses": uses("leg_upper", -5, 3)},
-        "leg_lower": {"group": "body", "from": "knee", "to": "ankle", "mode": "bone", "y": [knee[1], ankle[1] + 14],
+        "leg_lower": {"group": "body", "from": "knee", "to": "ankle", "mode": "bone", "y": [knee[1], ankle[1] + 14], "end_disc": "foot",
                       "caps": [{"joint": "ankle", "radius": round(0.9 * ankle_w), "feather": 1.5}], "uses": uses("leg_lower", -5, 3)},
         "foot": {"group": "body", "from": "ankle", "to": "toe", "mode": "upright", "pivot": "ankle", "y": [ankle[1] - 8, 3000],
                  "caps": [{"joint": "ankle", "radius": round(1.35 * ankle_w), "feather": 6}],
@@ -235,6 +256,8 @@ def main() -> None:
         side = 1.4 * (J["neck"][1] - top[1])
         x0 = J["neck"][0] - side * 0.55
         spec["dialog_portrait"] = {"box": [round(x0), round(top[1] - 8), round(x0 + side), round(top[1] - 8 + side)], "out": f"art/portraits/{args.id}.png", "size": 256}
+    if (work / "05_groups" / "body.png").exists():
+        center_hip(spec, work / "05_groups" / "body.png")
     spec_path.write_text(json.dumps(spec, ensure_ascii=False, indent=2) + "\n", encoding="utf8")
     recipe = {"description": f"{args.name}（{args.id}）的建置配方。來源是功能姿勢的文生圖（art_src/characters/{args.id}/01_design/prompt.txt，seed {args.seed}）；建置從 parts 或之後的步驟開始。",
               "id": args.id, "name": args.name, "spec": f"tools/comfyui/specs/{args.id}_side.json", "rig": f"art/rigs/{args.id}.json",

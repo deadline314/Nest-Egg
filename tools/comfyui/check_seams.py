@@ -13,8 +13,8 @@ The joint audit (tools/rig_joint_audit) counts holes between two parts. It canno
   ragged    the outline of a limb jumps in and out by several pixels: a mask stopped at a hand, a holster or a shadow and bit a
             notch out of the limb, or left a fringe ("torn")
   step      two parts of one limb do not have the same width where they meet (thigh / shin at the knee, upper arm / forearm)
-  block     just above the hip joint the pelvis still reaches well in front of the thigh: the front of the far hip was left on it as
-            a block, which stands out as a lump whenever the far leg is not exactly under it
+  block     just above the hip joint the pelvis reaches well in front of the thigh: the front of the far hip was left on it as a
+            block, which stands out as a lump whenever the far leg is not exactly under it
   front     at the knee the front edges of thigh and shin do not meet (a seam grown back over a cut, a shin cut along another line):
             a flap or a ledge when the knee bends
   detached  a limb part begins far from the joint it turns on (a far forearm of which only the cuff was drawn): when the limb is

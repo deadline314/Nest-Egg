@@ -10,7 +10,7 @@
   "ground_y": 1191,
   "joints": {
     "hip": [
-      409,
+      422,
       570
     ],
     "neck": [
@@ -171,7 +171,7 @@
       "caps": [
         {
           "joint": "hip",
-          "radius": 66,
+          "radius": 72,
           "feather": 1.5
         }
       ],
@@ -184,13 +184,8 @@
       ],
       "unclaimed": [
         558,
-        596
-      ],
-      "front_line": {
-        "far": "leg_far",
-        "from": "hip",
-        "to": "knee"
-      }
+        642
+      ]
     },
     "torso": {
       "group": "body",
@@ -230,14 +225,14 @@
       "to": "knee",
       "mode": "bone",
       "y": [
-        590,
+        570,
         832
       ],
       "caps": [
         {
           "joint": "hip",
-          "radius": 75,
-          "feather": 10
+          "radius": 74,
+          "feather": 6
         }
       ],
       "uses": [
@@ -285,7 +280,8 @@
           "bone": "leg_front_lower",
           "z": 3
         }
-      ]
+      ],
+      "end_disc": "foot"
     },
     "foot": {
       "group": "body",
@@ -893,5 +889,25 @@
         111
       ]
     ]
-  }
+  },
+  "sway": [
+    {
+      "id": "watch_chain",
+      "part": "pelvis",
+      "from": [
+        420,
+        505
+      ],
+      "to": [
+        420,
+        580
+      ],
+      "width": 20,
+      "gain": 0.5,
+      "stiffness": 80,
+      "damping": 6,
+      "min": -0.5,
+      "max": 0.5
+    }
+  ]
 }

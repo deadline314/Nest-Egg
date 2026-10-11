@@ -371,5 +371,41 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.6,
+    "outputs": [
+      "art_src\\characters\\old_k\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.3,
+    "outputs": [
+      "art\\characters\\old_k\\character.json",
+      "art\\rigs\\old_k.json",
+      "art\\characters\\old_k\\parts",
+      "art\\portraits\\old_k.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.5,
+    "outputs": [
+      "art\\characters\\old_k\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.9,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

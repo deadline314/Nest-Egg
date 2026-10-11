@@ -14,7 +14,7 @@
       "name": "chest",
       "parent": "hip",
       "pos": [
-        -0.15,
+        -0.8,
         -6.28
       ]
     },
@@ -95,7 +95,7 @@
       "parent": "leg_back_upper",
       "pos": [
         0.0,
-        13.1
+        13.16
       ]
     },
     {
@@ -119,7 +119,7 @@
       "parent": "leg_front_upper",
       "pos": [
         0.0,
-        13.1
+        13.16
       ]
     },
     {
@@ -129,6 +129,28 @@
         0.0,
         13.83
       ]
+    }
+  ],
+  "springs": [
+    {
+      "id": "watch_chain",
+      "warp": {
+        "part": "pelvis",
+        "from": [
+          80.0,
+          53.7
+        ],
+        "to": [
+          80.0,
+          128.6
+        ],
+        "width": 20.0
+      },
+      "gain": 0.5,
+      "stiffness": 80,
+      "damping": 6,
+      "min": -0.5,
+      "max": 0.5
     }
   ],
   "weapon_anchor": {

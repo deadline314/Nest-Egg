@@ -130,5 +130,41 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.5,
+    "outputs": [
+      "art_src\\characters\\resident\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.2,
+    "outputs": [
+      "art\\characters\\resident\\character.json",
+      "art\\rigs\\resident.json",
+      "art\\characters\\resident\\parts",
+      "art\\portraits\\resident.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.3,
+    "outputs": [
+      "art\\characters\\resident\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 7.0,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

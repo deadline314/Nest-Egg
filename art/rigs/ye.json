@@ -14,7 +14,7 @@
       "name": "chest",
       "parent": "hip",
       "pos": [
-        -0.34,
+        -0.74,
         -6.16
       ]
     },
@@ -95,7 +95,7 @@
       "parent": "leg_back_upper",
       "pos": [
         0.0,
-        13.31
+        13.33
       ]
     },
     {
@@ -119,7 +119,7 @@
       "parent": "leg_front_upper",
       "pos": [
         0.0,
-        13.31
+        13.33
       ]
     },
     {
@@ -129,6 +129,28 @@
         0.0,
         14.17
       ]
+    }
+  ],
+  "springs": [
+    {
+      "id": "hair",
+      "warp": {
+        "part": "head",
+        "from": [
+          31.2,
+          55.1
+        ],
+        "to": [
+          28.3,
+          128.0
+        ],
+        "width": 44.4
+      },
+      "gain": 0.22,
+      "stiffness": 120,
+      "damping": 12,
+      "min": -0.14,
+      "max": 0.2
     }
   ],
   "weapon_anchor": {

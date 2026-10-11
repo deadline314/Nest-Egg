@@ -181,12 +181,13 @@ func _init(rig: CharacterRig) -> void:
 	if _global_pos.has(&"leg_front_upper"):
 		_leg_length = maxf(8.0, _ground_y - _global_pos[&"leg_front_upper"].y)
 	for entry in (rig.springs() if not rig.springs().is_empty() else DEFAULT_SPRINGS):
-		var bone_name := StringName(str(entry.get("bone", "")))
-		if not rig.has_bone(bone_name):
+		var bone_name := _spring_key(entry)
+		if not entry.has("warp") and not rig.has_bone(bone_name):
 			continue  # 這個骨架沒有這根骨頭（例如舊骨架的衣襬）：略過
 		_springs.append(entry)
 		_spring_angle[bone_name] = 0.0
 		_spring_velocity[bone_name] = 0.0
+	_far_arm_tuck = _measure_far_arm_tuck()
 	_record_idle_feet()
 
 
@@ -282,6 +283,7 @@ func update(delta: float, input: RigInput) -> void:
 				_pin_feet()
 	if input.dead:
 		_rest_corpse()
+	_drape_hems()
 	if not input.dead:
 		_solve_arms(input, aim_angle)
 		_forward_kinematics()  # 手臂 IK 之後重算一次，位置快取才是最終的姿勢
@@ -699,13 +701,38 @@ func _blend_land_legs(pose: Dictionary) -> void:
 		pose[LEGS[i]] = lerpf(float(pose[LEGS[i]]), float(folded[i]), k)
 
 
+## 垂在腿前的下襬（圍裙、長衣襬）在坐下、蹲下時搭在大腿上：彈簧資料寫 "drape": 大腿骨頭名（可加 "drape_tip": 第二節骨頭）。大腿抬起超過 DRAPE_FROM 弧度後，
+## 下襬逐漸跟著大腿轉；走路的擺腿幅度在這之下，下襬不跟（跟了就會像裂成兩片）。腿的 IK 都做完之後才呼叫。
+const DRAPE_FROM := 0.55
+const DRAPE_FULL := 1.1
+func _drape_hems() -> void:
+	for spring in _springs:
+		if not spring.has("drape"):
+			continue
+		var hem := _rig.bone(_spring_key(spring))
+		var thigh := _rig.bone(StringName(str(spring["drape"])))
+		if hem == null or thigh == null or hem.get_parent() != thigh.get_parent():
+			continue
+		var follow := thigh.rotation * smoothstep(DRAPE_FROM, DRAPE_FULL, absf(thigh.rotation)) * float(spring.get("drape_gain", 1.0))
+		hem.rotation += follow
+		# 比大腿長的下襬（長圍裙）：過了膝蓋的那一段垂下來，不是一塊板子伸出去。"drape_tip": 下襬第二節的骨頭名。
+		var tip := _rig.bone(StringName(str(spring.get("drape_tip", ""))))
+		if tip != null:
+			tip.rotation -= follow * float(spring.get("drape_tip_gain", 0.9))
+
+
+## 彈簧的名字：有骨頭的用骨頭名，區域擺動（warp）用自己的 id。
+func _spring_key(spring: Dictionary) -> StringName:
+	return StringName(str(spring.get("id", ""))) if spring.has("warp") else StringName(str(spring.get("bone", "")))
+
+
 ## 對所有次級動態彈簧（衣襬、頭髮）注入角速度：資料的 impulse 乘上事件強度與各彈簧自己的 gain，沒設定就不動。
 func _kick_springs(event: String, strength: float) -> void:
 	var amount := float((_motion["impulse"] as Dictionary)[event]) * strength
 	if is_zero_approx(amount):
 		return
 	for spring in _springs:
-		var bone_name := StringName(str(spring.get("bone", "")))
+		var bone_name := _spring_key(spring)
 		_spring_velocity[bone_name] = float(_spring_velocity[bone_name]) + amount * float(spring.get("gain", 0.5))
 
 
@@ -954,9 +981,16 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 				input.melee_second_target - _rig.hand_grip_offset(&"hand_back").rotated(input.melee_second_angle), input.melee_second_angle)
 	else:
 		# 空著的後手自然下垂、隨步伐輕擺。
-		var hang := _arm_hang()
-		_set_rotation(&"arm_back_upper", hang[2] + sin(_phase + PI) * _arm_swing(input))
-		_set_rotation(&"arm_back_lower", hang[3])
+		var far_hang := _far_arm_hang()
+		var far_swing := sin(_phase + PI) * _arm_swing(input)
+		if far_hang == _far_arm_tuck:  # 藏在身體後面的手，擺動也不探出去（只露出一隻沒有前臂的手，比不擺更糟）
+			far_swing = clampf(far_swing, -_far_arm_swing_limit, _far_arm_swing_limit)
+			# 跑步時上身前傾、肩膀跟著往前：依現在的肩與髖重算，手才留在髖的正後方
+			var far_reach := _rig.rest(&"arm_back_lower").length() + _rig.rest(&"hand_back").length()
+			var far_forward := float(_global_pos[&"leg_front_upper"].x) - float(_global_pos[&"arm_back_upper"].x)
+			far_hang.x = -asin(clampf(far_forward / far_reach, -0.6, 0.6)) - FAR_ARM_ELBOW * 0.5 - float(_global_angle.get(_rig.parent_of(&"arm_back_upper"), 0.0))
+		_set_rotation(&"arm_back_upper", far_hang.x + far_swing)
+		_set_rotation(&"arm_back_lower", far_hang.y)
 		_set_rotation(&"hand_back", HAND_FOLLOWS_FOREARM)
 	_rig.second_hand_on_weapon = _second_hand_reaches(input, weapon)
 	if not action_arms.is_empty():
@@ -976,6 +1010,36 @@ func _second_hand_reaches(input: RigInput, weapon: Dictionary) -> bool:
 	var reach := _rig.rest(&"arm_back_lower").length() + _rig.rest(&"hand_back").length()
 	var distance: float = (input.melee_second_target - (_global_pos[&"arm_back_upper"] as Vector2)).length()
 	return distance <= reach * SECOND_HAND_REACH and distance >= reach * 0.25
+
+
+## 空著垂下的遠側手臂要藏在身體後面：側面看一個站著的人，遠側的手被髖擋住。垂放角度依這副骨架量出來——
+## 讓遠側手腕落在髖關節（腿的中心）正後方。固定角度做不到：肩與髖的前後距離每個角色不同，手會從髖的前緣或後緣探出來，
+## 只看得到一隻沒有前臂的手，像同一側長了兩隻手。回傳 (上臂, 前臂) 的角度；量不出來時回傳 INF，沿用資料的角度。
+var _far_arm_tuck := Vector2.INF
+var _far_arm_swing_limit := INF
+const FAR_ARM_BODY_SHARE := 0.75
+const FAR_ARM_HAND := 1.5
+const FAR_ARM_ELBOW := -0.08
+func _measure_far_arm_tuck() -> Vector2:
+	for bone_name: StringName in [&"arm_back_upper", &"arm_back_lower", &"hand_back", &"leg_front_upper"]:
+		if not _global_pos.has(bone_name):
+			return Vector2.INF
+	var reach := _rig.rest(&"arm_back_lower").length() + _rig.rest(&"hand_back").length()
+	if reach < 1.0:
+		return Vector2.INF
+	var forward := float(_global_pos[&"leg_front_upper"].x) - float(_global_pos[&"arm_back_upper"].x)
+	# 擺動時手也要留在身體後面：手腕離髖中心不超過「身體半寬減掉半個手掌」。半寬用肩到髖中心的前後距離估（背在肩的位置）。
+	_far_arm_swing_limit = asin(clampf(maxf(absf(forward) * FAR_ARM_BODY_SHARE - FAR_ARM_HAND, 0.0) / reach, 0.0, 0.6))
+	return Vector2(-asin(clampf(forward / reach, -0.6, 0.6)) - FAR_ARM_ELBOW * 0.5, FAR_ARM_ELBOW)
+
+
+## 空手時遠側手臂的垂放角度：動作資料自己寫了 arms.hang 的角色用資料的，其他角色用量出來的藏手角度。
+func _far_arm_hang() -> Vector2:
+	var hang := _arm_hang()
+	var default_hang: Array = (DEFAULT_MOTION["arms"] as Dictionary)["hang"]
+	if _far_arm_tuck.is_finite() and is_equal_approx(float(hang[2]), float(default_hang[2])) and is_equal_approx(float(hang[3]), float(default_hang[3])):
+		return _far_arm_tuck
+	return Vector2(float(hang[2]), float(hang[3]))
 
 
 ## 空手時四段手臂的垂放角度（動作資料 arms.hang）；資料不是四個數字時用預設值。
@@ -1104,7 +1168,7 @@ func _update_springs(delta: float, v: Vector2, input: RigInput) -> void:
 	var steps := maxi(1, ceili(delta / (1.0 / 120.0)))
 	var dt := delta / steps
 	for spring in _springs:
-		var bone_name := StringName(str(spring.get("bone", "")))
+		var bone_name := _spring_key(spring)
 		var base := trail * float(spring.get("trail", 1.0)) + lift * float(spring.get("lift", 1.0)) + wind * float(spring.get("wind", 1.0))
 		if input.dead:
 			base = 0.6
@@ -1117,6 +1181,11 @@ func _update_springs(delta: float, v: Vector2, input: RigInput) -> void:
 		var angle: float = _spring_angle[bone_name]
 		for i in steps:
 			velocity += ((target - angle) * stiffness - velocity * damping) * dt
-			angle = clampf(angle + velocity * dt, low, high)
+			angle += velocity * dt
+			if angle < low or angle > high:  # 撞到上下限就停在那裡，不帶著速度繼續頂（否則放開時會彈一大下）
+				angle = clampf(angle, low, high)
+				velocity = 0.0
 		_spring_velocity[bone_name] = velocity
 		_spring_angle[bone_name] = angle
+		if spring.has("warp"):
+			_rig.set_sway(bone_name, angle)

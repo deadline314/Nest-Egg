@@ -6,6 +6,8 @@ extends HumanoidAnimator
 ## 沿用 HumanoidAnimator 的骨架計算、彈簧骨（頭髮、衣襬）與套用流程，只換掉「目標角度怎麼算」：
 ## 角色在走、跑、跳、蹲、格擋、倒下、持武器或瞄準時，仍交給人形動畫器處理（過場裡的演員常常這樣用）。
 
+## 遠側手臂的姿勢角度在這個範圍內算「垂著」（弧度）。
+const FAR_ARM_HANGING := 0.4
 const DATA_PATH := "res://art/rigs/npc_animations.json"
 const FADE_SPEED := 5.0
 const GATE_EDGE := 0.25
@@ -53,6 +55,10 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 	if not _feet_def.is_empty():
 		_feet_last = _feet_def
 	_add_bones(pose, base.get("bones", {}), 1.0)
+	# 這個姿勢的遠側手臂只是垂著（上臂、前臂都接近垂直）：改用這副骨架量出來的藏手角度，手才不會從髖前緣探出來。
+	if _far_arm_tuck.is_finite() and absf(float(pose.get(&"arm_back_upper", 1.0))) < FAR_ARM_HANGING and absf(float(pose.get(&"arm_back_lower", 1.0))) < FAR_ARM_HANGING:
+		pose[&"arm_back_upper"] = _far_arm_tuck.x
+		pose[&"arm_back_lower"] = _far_arm_tuck.y
 	var mine: Dictionary = _motion["npc"]  # 這個角色自己的站姿微調與說話的速度、幅度
 	if input.npc_pose == &"stand":
 		_add_bones(pose, mine["stand"], 1.0)  # 這個角色自己的站姿微調（只在站著時）

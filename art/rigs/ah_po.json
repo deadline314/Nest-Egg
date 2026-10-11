@@ -155,7 +155,10 @@
       "stiffness": 110,
       "damping": 14,
       "min": -0.12,
-      "max": 0.22
+      "max": 0.22,
+      "drape": "leg_front_upper",
+      "drape_gain": 0.8,
+      "drape_tip": "coat_2"
     },
     {
       "bone": "coat_2",

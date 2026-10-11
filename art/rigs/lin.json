@@ -14,7 +14,7 @@
       "name": "chest",
       "parent": "hip",
       "pos": [
-        -0.24,
+        -0.62,
         -5.94
       ]
     },
@@ -95,7 +95,7 @@
       "parent": "leg_back_upper",
       "pos": [
         0.0,
-        12.68
+        12.69
       ]
     },
     {
@@ -119,7 +119,7 @@
       "parent": "leg_front_upper",
       "pos": [
         0.0,
-        12.68
+        12.69
       ]
     },
     {
@@ -129,6 +129,28 @@
         0.0,
         12.84
       ]
+    }
+  ],
+  "springs": [
+    {
+      "id": "hem_back",
+      "warp": {
+        "part": "pelvis",
+        "from": [
+          21.8,
+          -4.9
+        ],
+        "to": [
+          10.4,
+          69.2
+        ],
+        "width": 47.5
+      },
+      "gain": 0.3,
+      "stiffness": 110,
+      "damping": 13,
+      "min": -0.1,
+      "max": 0.22
     }
   ],
   "weapon_anchor": {

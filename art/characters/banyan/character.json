@@ -15,11 +15,11 @@
     "pelvis": {
       "file": "parts/pelvis.png",
       "size": [
-        188,
-        187
+        200,
+        201
       ],
       "pivot": [
-        99.98,
+        107.34,
         111.52
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
@@ -51,19 +51,19 @@
     "leg_upper": {
       "file": "parts/leg_upper.png",
       "size": [
-        140,
-        339
+        200,
+        346
       ],
       "pivot": [
-        86.71,
-        81.56
+        107.93,
+        88.88
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "leg_lower": {
       "file": "parts/leg_lower.png",
       "size": [
-        141,
+        113,
         289
       ],
       "pivot": [

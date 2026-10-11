@@ -15,6 +15,7 @@ func run() -> void:
 	await _test_hands_follow_forearm()
 	await _test_enemy_data()
 	_test_motion_is_not_shared()
+	await _test_far_hand_and_hems()
 
 
 func _rig(skin: String, input: RigInput, settle := 40) -> CharacterRig:
@@ -241,3 +242,31 @@ func _field(profile: Dictionary, path: String) -> float:
 		node = (node as Dictionary).get(part, {}) if typeof(node) == TYPE_DICTIONARY else {}
 	return float(node) if typeof(node) == TYPE_FLOAT or typeof(node) == TYPE_INT else NAN
 
+
+## 空手的遠側手藏在身體後面（NE-218：髖前緣探出一隻沒有前臂的手）、圍裙坐下時搭在腿上、區域擺動的資料有接到零件。
+func _test_far_hand_and_hems() -> void:
+	for skin: String in ["vig", "yong", "ali"]:
+		for speed: float in [0.0, 60.0, 150.0]:
+			var input := RigInput.new()
+			input.two_handed = false
+			input.velocity = Vector2(speed, 0.0)
+			var rig := await _rig(skin, input, 90)
+			var worst := 0.0
+			for i in 60:  # 一整個擺臂週期
+				rig.animate(1.0 / 60.0, input)
+				worst = maxf(worst, absf(rig.bone(&"hand_back").global_position.x - rig.bone(&"leg_front_upper").global_position.x))
+			check(worst <= 3.0, "%s at speed %.0f: the empty far wrist stays behind the hip (%.1f world px from its centre)" % [skin, speed, worst])
+			rig.get_parent().queue_free()
+	var seated := RigInput.new()
+	seated.two_handed = false
+	seated.npc_pose = &"sit"
+	var sitting := CharacterRig.new()
+	var holder := Node2D.new()
+	runner.get_tree().root.add_child(holder)
+	holder.add_child(sitting)
+	check(sitting.setup("ali", "npc"), "npc rig builds: ali")
+	for i in 90:
+		sitting.animate(1.0 / 60.0, seated)
+	check(sitting.bone(&"coat_1").rotation < -0.5, "ali's apron lies on her lap when she sits (%.2f)" % sitting.bone(&"coat_1").rotation)
+	check(not sitting._sway_targets.is_empty(), "ali's hair sway region is bound to her head part")
+	holder.queue_free()

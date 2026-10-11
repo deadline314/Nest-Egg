@@ -193,6 +193,9 @@ func _ready() -> void:
 	elif not _action.is_empty():
 		for i in 6:
 			_spawn(_chars[0], str(SHEET_WEAPONS.get(_chars[0], "")), Vector2(60 + i * 100, 330), "action:%d" % i, _zoom if _zoom != 6.5 else 2.4)
+	elif _npc and _closeup:  # 最多四個角色並排的 NPC 站姿（NPC 在遊戲裡站著的樣子；不加 --npc 的近拍是戰鬥待機）
+		for i in mini(_chars.size(), 4):
+			_spawn(_chars[i], "", Vector2(80 + i * 160, 330), "stand", _zoom if _zoom != 6.5 else 3.6)
 	elif _npc:
 		for i in NPC_POSES.size():
 			_spawn(_chars[0], "", Vector2(50 + i * 80, 330), NPC_POSES[i], _zoom if _zoom != 6.5 else 2.2)

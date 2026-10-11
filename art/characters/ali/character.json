@@ -15,11 +15,11 @@
     "pelvis": {
       "file": "parts/pelvis.png",
       "size": [
-        174,
-        178
+        166,
+        192
       ],
       "pivot": [
-        83.57,
+        89.97,
         106.63
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
@@ -27,11 +27,11 @@
     "torso": {
       "file": "parts/torso.png",
       "size": [
-        178,
+        176,
         323
       ],
       "pivot": [
-        88.91,
+        87.91,
         292.77
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
@@ -51,19 +51,19 @@
     "leg_upper": {
       "file": "parts/leg_upper.png",
       "size": [
-        120,
-        337
+        165,
+        347
       ],
       "pivot": [
-        82.77,
-        75.57
+        90.65,
+        85.07
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "leg_lower": {
       "file": "parts/leg_lower.png",
       "size": [
-        111,
+        105,
         309
       ],
       "pivot": [
@@ -111,12 +111,24 @@
     "hand": {
       "file": "parts/hand.png",
       "size": [
-        101,
-        54
+        98,
+        51
       ],
       "pivot": [
         15.55,
-        27.85
+        24.81
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "apron": {
+      "file": "parts/apron.png",
+      "size": [
+        152,
+        308
+      ],
+      "pivot": [
+        75.64,
+        26.84
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -217,6 +229,14 @@
       "texture": "foot",
       "bone": "foot_front",
       "z": 3
+    },
+    {
+      "name": "apron",
+      "texture": "apron",
+      "bone": "coat_1",
+      "z": 4,
+      "root_attach": true,
+      "bend_partner": "coat_2"
     },
     {
       "name": "head",

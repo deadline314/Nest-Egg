@@ -10,7 +10,7 @@
   "ground_y": 1133,
   "joints": {
     "hip": [
-      410,
+      418,
       598
     ],
     "neck": [
@@ -171,7 +171,7 @@
       "caps": [
         {
           "joint": "hip",
-          "radius": 82,
+          "radius": 72,
           "feather": 1.5
         }
       ],
@@ -184,13 +184,8 @@
       ],
       "unclaimed": [
         586,
-        624
-      ],
-      "front_line": {
-        "far": "leg_far",
-        "from": "hip",
-        "to": "knee"
-      }
+        670
+      ]
     },
     "torso": {
       "group": "body",
@@ -230,14 +225,14 @@
       "to": "knee",
       "mode": "bone",
       "y": [
-        618,
+        598,
         836
       ],
       "caps": [
         {
           "joint": "hip",
-          "radius": 94,
-          "feather": 10
+          "radius": 74,
+          "feather": 6
         }
       ],
       "uses": [
@@ -285,7 +280,8 @@
           "bone": "leg_front_lower",
           "z": 3
         }
-      ]
+      ],
+      "end_disc": "foot"
     },
     "foot": {
       "group": "body",
@@ -898,5 +894,43 @@
     "allow": {
       "ragged:leg_lower": "褲管收口與靴筒本來就有寬窄"
     }
-  }
+  },
+  "sway": [
+    {
+      "id": "hair",
+      "part": "head",
+      "from": [
+        335,
+        125
+      ],
+      "to": [
+        330,
+        225
+      ],
+      "width": 45,
+      "gain": 0.22,
+      "stiffness": 120,
+      "damping": 12,
+      "min": -0.14,
+      "max": 0.2
+    },
+    {
+      "id": "hem_back",
+      "part": "pelvis",
+      "from": [
+        325,
+        490
+      ],
+      "to": [
+        312,
+        632
+      ],
+      "width": 60,
+      "gain": 0.3,
+      "stiffness": 110,
+      "damping": 13,
+      "min": -0.1,
+      "max": 0.22
+    }
+  ]
 }

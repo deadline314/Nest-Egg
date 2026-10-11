@@ -253,5 +253,41 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.7,
+    "outputs": [
+      "art_src\\characters\\repairman_chen\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.1,
+    "outputs": [
+      "art\\characters\\repairman_chen\\character.json",
+      "art\\rigs\\repairman_chen.json",
+      "art\\characters\\repairman_chen\\parts",
+      "art\\portraits\\repairman_chen.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.4,
+    "outputs": [
+      "art\\characters\\repairman_chen\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 7.0,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

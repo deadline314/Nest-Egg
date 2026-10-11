@@ -10,7 +10,7 @@
   "ground_y": 1166,
   "joints": {
     "hip": [
-      430,
+      436,
       579
     ],
     "neck": [
@@ -163,7 +163,7 @@
       "caps": [
         {
           "joint": "hip",
-          "radius": 66,
+          "radius": 68,
           "feather": 1.5
         }
       ],
@@ -176,12 +176,8 @@
       ],
       "unclaimed": [
         567,
-        605
-      ],
-      "front_line": {
-        "from": "hip",
-        "to": "knee"
-      }
+        647
+      ]
     },
     "torso": {
       "group": "body",
@@ -221,14 +217,14 @@
       "to": "knee",
       "mode": "bone",
       "y": [
-        599,
+        579,
         837
       ],
       "caps": [
         {
           "joint": "hip",
-          "radius": 75,
-          "feather": 10
+          "radius": 70,
+          "feather": 6
         }
       ],
       "uses": [
@@ -274,7 +270,8 @@
           "bone": "leg_front_lower",
           "z": 3
         }
-      ]
+      ],
+      "end_disc": "foot"
     },
     "foot": {
       "group": "body",
@@ -882,5 +879,61 @@
         110
       ]
     ]
-  }
+  },
+  "sway": [
+    {
+      "id": "ponytail",
+      "part": "head",
+      "from": [
+        365,
+        116
+      ],
+      "to": [
+        340,
+        181
+      ],
+      "width": 30,
+      "gain": 0.4,
+      "stiffness": 90,
+      "damping": 9,
+      "min": -0.3,
+      "max": 0.45
+    },
+    {
+      "id": "badge",
+      "part": "torso",
+      "from": [
+        505,
+        300
+      ],
+      "to": [
+        518,
+        410
+      ],
+      "width": 18,
+      "gain": 0.5,
+      "stiffness": 80,
+      "damping": 6,
+      "min": -0.5,
+      "max": 0.5
+    },
+    {
+      "id": "hem_back",
+      "part": "pelvis",
+      "from": [
+        368,
+        460
+      ],
+      "to": [
+        356,
+        592
+      ],
+      "width": 55,
+      "gain": 0.3,
+      "stiffness": 110,
+      "damping": 13,
+      "min": -0.1,
+      "max": 0.22
+    }
+  ]
 }
