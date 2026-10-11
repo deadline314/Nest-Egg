@@ -11,7 +11,7 @@ const SLOT_ROOT := "user://runs"
 const SLOT_FILE := "slot-1.json"
 const FALLBACK_DEVELOPMENT_ID := "demo-0.1"
 const MAX_ID_LENGTH := 64
-const DEFAULT_FIRST_LEVEL := "res://data/levels/ch1_pawnshop.tres"
+const DEFAULT_FIRST_LEVEL := "res://data/levels/ch1_prologue.tres"
 
 ## 存檔目錄與存檔 release 欄位使用的識別；開發版沿用舊的 demo-0.1，既有開發存檔不需搬移。
 var id := FALLBACK_DEVELOPMENT_ID

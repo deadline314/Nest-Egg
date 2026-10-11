@@ -97,6 +97,13 @@ func disarm() -> void:
 	_armed = false
 
 
+## 這個點是否落在出入口的觸發範圍（範圍以腳下為底、往上 height）；margin 給角色身體寬度。
+func contains_point(point: Vector2, margin := 8.0) -> bool:
+	if data == null:
+		return false
+	return Rect2(position + Vector2(-data.width * 0.5, -data.height), Vector2(data.width, data.height)).grow(margin).has_point(point)
+
+
 func is_armed() -> bool:
 	return _armed
 

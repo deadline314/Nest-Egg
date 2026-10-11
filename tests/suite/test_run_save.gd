@@ -211,4 +211,5 @@ func run() -> void:
 	preload("res://tests/helpers/run_restore_checks.gd").run(self)
 	preload("res://tests/helpers/campaign_edition_checks.gd").run(self)
 	preload("res://tests/helpers/required_item_checks.gd").run(self)
+	await preload("res://tests/helpers/resume_portal_checks.gd").run(self)
 	GameState.start_new_run(GameState.difficulties[1])

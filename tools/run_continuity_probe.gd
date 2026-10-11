@@ -5,8 +5,9 @@ extends Node
 ##   growth_death_write/read  買招式、領獎後在電話亭區真的死亡並當影格關閉：扣款一次、招式保留、獎勵不重領
 ##   repair_write/read    區域資源遺失與導覽損毀：保留成長與故事，退回可玩區域並提示
 ##   item_write/read      旗標記得已取得、未交出的必要物品在存檔裡缺件：依旗標補回並提示
+##   disk_write/read/delivered  正式資料盤路線：金庫真的撿起 → 重開仍在、任務完成 → 交接櫃交出 → 重開不補回
 ##   edition_end          序章至第一章：章末停在完成卡，存檔寫在自己的版本目錄
-##   edition_next         序章至第二章（下一章用明確標示的 fixture）：接續第一章版的存檔，原檔不改
+##   edition_next         序章至第二章：接續第一章版在章末保存的存檔，直接進第二章入口，原檔不改
 ##   edition_again        序章至第二章再開一次：直接用自己的槽，不再從舊版匯入
 ##   edition_newer        只收錄序章的版本：看到較新版本存檔只提示，不讀不寫
 ## 用法：godot --headless --path . res://tools/run_continuity_probe.tscn -- --save-dir=<絕對隔離目錄> --mode=<模式> [--edition=<版本 id>]
@@ -15,10 +16,12 @@ extends Node
 const MainScript := preload("res://game/main.gd")
 const Capture := preload("res://tools/viewport_capture.gd")
 const DAWN := "res://data/levels/ch1_pawnshop_dawn.tres"
-const FIXTURE_NEXT := "res://data/levels/level_02.tres"
+const NEXT_CHAPTER := "res://data/levels/ch2_pawnshop.tres"
 const TECHNIQUE := &"technique_blade"
 const REWARD := "res://data/story_transactions/ch1_commission_settled.tres"
 const PAWN_ITEM := &"shield_cell"
+const VAULT := "res://data/levels/ch1_vault.tres"
+const DISK := &"ch1_data_disk"
 
 var _failures := PackedStringArray()
 var _checks := 0
@@ -30,8 +33,6 @@ var _capture_dir := ""
 var _main: Node
 var _closing := false
 var _started_scenes: Array[StringName] = []
-## fixture 改的是快取中的資源；持有引用，避免被釋放後從磁碟重讀成原樣。
-var _fixture_levels: Array[LevelData] = []
 
 
 func _ready() -> void:
@@ -64,8 +65,6 @@ func _run() -> void:
 			await _finish()
 			return
 		CampaignEdition.override_current(edition)
-	if _mode in ["edition_next", "edition_again"]:
-		_install_next_chapter_fixture()
 	Story.scene_started.connect(func(id: StringName, _mode_name: StringName) -> void: _started_scenes.append(id))
 	_main = MainScript.new()
 	_main.set("_run_store", RunSaveStore.new(_slot(CampaignEdition.current().id)))
@@ -83,6 +82,9 @@ func _run() -> void:
 		"repair_read": await _repair_read()
 		"item_write": await _item_write()
 		"item_read": await _item_read()
+		"disk_write": await _disk_write()
+		"disk_read": await _disk_read()
+		"disk_delivered": await _disk_delivered()
 		"edition_end": await _edition_end()
 		"edition_next": await _edition_next()
 		"edition_again": await _edition_again()
@@ -334,6 +336,62 @@ func _item_read() -> void:
 	_check(saved["story"]["items"]["held"].has("ch1_data_disk") and not saved.has("notices"), "next save contains the repaired item")
 
 
+func _disk_write() -> void:
+	_main.call("_on_start_requested", GameState.difficulties[1])
+	await _wait_level()
+	_main.call("_on_area_requested", VAULT)
+	await _wait_level(VAULT)
+	var level := _main.get("_screen") as Level
+	var disk: CollectiblePickup = null
+	for node in level.get("_entities").get_children():
+		if node is CollectiblePickup and node.item != null and node.item.id == DISK:
+			disk = node
+	_check(disk != null, "real data disk pickup exists in the vault")
+	if disk == null:
+		return
+	disk._apply(level.player)
+	disk._consume()
+	await _frames(30)
+	_check(StoryItems.holds(DISK) and GameState.has_flag(&"ledger_disk_obtained"), "picking up the disk holds it and records the story flag")
+	var catalog := QuestCatalog.new()
+	catalog.load_story_sources()
+	_check(QuestCatalog.status(catalog.find("ch1_take_disk"), GameState.story_progress_snapshot()["flags"]) == "completed", "main quest 'take the disk' completes from the real flag")
+	_close_and_record()
+
+
+func _disk_read() -> void:
+	_main.call("_on_continue_requested")
+	await _wait_level()
+	await _frames(20)
+	var level := _main.get("_screen") as Level
+	_check(level != null and level.data.resource_path == VAULT, "restart continues in the vault: %s" % (level.data.resource_path if level != null else "<none>"))
+	_check(StoryItems.holds(DISK) and GameState.has_flag(&"ledger_disk_obtained"), "disk and flag survive a real restart")
+	var copies := 0
+	for node in level.get("_entities").get_children():
+		if node is CollectiblePickup and node.item != null and node.item.id == DISK:
+			copies += 1
+	_check(copies == 0, "the vault does not spawn a second disk after restart")
+	# 交接櫃：到交接區，播放玩家選「交付這片資料盤」後的正式場景（物品轉移與交出旗標都是場景結果）。
+	# 分派場景在略過模式的預設選項是「先退出」，所以不用它代替玩家的選擇。
+	_main.call("_on_area_requested", "res://data/levels/ch1_handoff.tres")
+	await _wait_level("res://data/levels/ch1_handoff.tres")
+	Story.play(&"ch1_t_handoff_accept")
+	var deadline := Time.get_ticks_msec() + 20000
+	while not GameState.has_flag(&"ch1_disk_delivered") and Time.get_ticks_msec() < deadline:
+		await _frames(5)
+	await _frames(20)
+	_check(GameState.has_flag(&"ch1_disk_delivered") and not StoryItems.holds(DISK), "cabinet scene delivers the disk and records delivery")
+	_close_and_record()
+
+
+func _disk_delivered() -> void:
+	var menu := _main.get("_screen") as MainMenu
+	_check(menu != null and not menu.save_notice.contains("資料盤"), "no repair notice for a delivered disk")
+	_main.call("_on_continue_requested")
+	await _wait_level()
+	_check(GameState.has_flag(&"ch1_disk_delivered") and not StoryItems.holds(DISK), "delivered disk stays delivered after restart, not given back")
+
+
 # --- 累積版本 ---------------------------------------------------------------
 
 func _edition_end() -> void:
@@ -382,11 +440,11 @@ func _edition_next() -> void:
 	_main.call("_on_continue_requested")
 	await _wait_level()
 	var level := _main.get("_screen") as Level
-	_check(level != null and level.data.resource_path == FIXTURE_NEXT, "completed chapter continues into the next included chapter, not the completion card")
+	_check(level != null and level.data.resource_path == NEXT_CHAPTER, "completed chapter continues into the next included chapter, not the completion card")
 	_check(Progression.credits == expected["progression"]["credits"], "credits carry across editions")
 	var store: RunSaveStore = _main.get("_run_store")
 	var saved := store.read()
-	_check(saved.get("release") == "through-chapter_2" and saved.get("level") == FIXTURE_NEXT and not saved.get("chapter_complete", true), "continued progress is saved in the newer edition's own slot")
+	_check(saved.get("release") == "through-ch2_heron" and saved.get("level") == NEXT_CHAPTER and not saved.get("chapter_complete", true), "continued progress is saved in the newer edition's own slot")
 	_check(FileAccess.get_sha256(_slot("through-ch1_kasa")) == FileAccess.get_file_as_string(_directory.path_join("ch1.sha256")), "older edition save file is byte-identical")
 	_close_program()
 
@@ -398,12 +456,12 @@ func _edition_again() -> void:
 	await _wait_level()
 	_check(String(_main.get("_import_path")).is_empty(), "no second import from the older edition")
 	var level := _main.get("_screen") as Level
-	_check(level != null and level.data.resource_path == FIXTURE_NEXT, "own slot resumes in the next chapter")
+	_check(level != null and level.data.resource_path == NEXT_CHAPTER, "own slot resumes in the next chapter")
 
 
 func _edition_newer() -> void:
 	var before := {}
-	for id in ["through-ch1_kasa", "through-chapter_2"]:
+	for id in ["through-ch1_kasa", "through-ch2_heron"]:
 		before[id] = FileAccess.get_sha256(_slot(id))
 	var menu := _main.get("_screen") as MainMenu
 	_check(menu != null and not menu.continue_available and menu.save_notice.contains("序章至第二章"), "smaller edition only explains which edition to use: %s" % (menu.save_notice if menu != null else "<none>"))
@@ -414,16 +472,6 @@ func _edition_newer() -> void:
 	for id in before:
 		_check(FileAccess.get_sha256(_slot(id)) == before[id], "%s save untouched" % id)
 	_check(not FileAccess.file_exists(_slot(CampaignEdition.current().id)), "nothing written for the smaller edition")
-
-
-## 明確標示的 fixture：正式第二章尚未交付，只在記憶體中把第一章末區接到舊示範區並標為 chapter_2，驗證跨章接續的路由。
-func _install_next_chapter_fixture() -> void:
-	var dawn := load(DAWN) as LevelData
-	var next := load(FIXTURE_NEXT) as LevelData
-	dawn.next_level = FIXTURE_NEXT
-	next.chapter = &"chapter_2"
-	_fixture_levels = [dawn, next]
-	print("[ContinuityProbe] FIXTURE: %s -> %s (chapter_2, in memory only)" % [DAWN, FIXTURE_NEXT])
 
 
 # --- 共用 ------------------------------------------------------------------
@@ -493,10 +541,14 @@ func _check(condition: bool, message: String) -> void:
 
 
 ## 等主流程把新區域真的放上畫面（轉場在軟體渲染下可能多花幾秒）。
-func _wait_level(limit_msec := 60000) -> void:
+## path 給定時要等到畫面真的換成那一區（換區時舊畫面在轉場結束前仍在樹上）。
+func _wait_level(path := "", limit_msec := 60000) -> void:
 	var deadline := Time.get_ticks_msec() + limit_msec
 	await _frames(20)
-	while not (_main.get("_screen") is Level and (_main.get("_screen") as Level).is_inside_tree()) and Time.get_ticks_msec() < deadline:
+	while Time.get_ticks_msec() < deadline:
+		var level := _main.get("_screen") as Level
+		if level != null and level.is_inside_tree() and (path.is_empty() or (level.data != null and level.data.resource_path == path)):
+			break
 		await _frames(5)
 
 

@@ -844,6 +844,11 @@ func _spawn_player() -> void:
 	var entry: Portal = _portals.get(_entry_portal)
 	if entry != null:
 		entry.disarm()
+	# 續玩或復原點出生時，若正好站在走過即觸發的出入口裡，也要先離開一次才觸發，
+	# 否則第一個物理影格就把剛讀回來的玩家送到別區（NE-230）。
+	for portal: Portal in _portals.values():
+		if portal != entry and portal.contains_point(player.position):
+			portal.disarm()
 
 
 ## 玩家出現的位置：穿過的出入口 > 這個區域的檢查點 > 起點 P。出入口找不到時記錄具體位置並退回起點。
