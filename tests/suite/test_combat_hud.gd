@@ -10,6 +10,7 @@ func run() -> void:
 	await _test_banner_kinds()
 	await _test_tooltips()
 	await _test_radio_panel()
+	await _test_radio_card()
 
 
 func _test_boss_bar() -> void:
@@ -99,3 +100,64 @@ func _test_radio_panel() -> void:
 		await runner.get_tree().physics_frame
 		if not layer._radio_active:
 			break
+
+
+## 通訊對話框的外觀（NE-274）：名牌只有名字；講者的顏色用在頭像框與名牌；頭像格是固定的方格、沒有頭像也不留空框；
+## 長句之後接短句會縮回去；看得出這一句還會停多久；字不超出面板。
+func _test_radio_card() -> void:
+	var level := await start_level(PropsSuite.level_data())
+	var layer: DialogueLayer = Story._layer
+	var old_skip := Story.auto_skip
+	Story.auto_skip = false
+	layer.cancel_radio()
+	await frames(2)
+	var card := layer._radio_root as RadioCard
+	check(card != null, "通訊對話框是通訊卡片")
+	if card == null:
+		Story.auto_skip = old_skip
+		await end_level(level)
+		return
+	var long_line: Array[Dictionary] = [{"name": "老K", "color": Color("ffd23f"), "portrait": "res://art/portraits/old_k.png",
+		"text": "倉庫的電是從隔壁偷接的，燈會閃。看到快壞的燈就繞過去，別站在下面。"}]
+	layer.enqueue_radio(&"test_card_long", long_line)
+	# 卡片在自己的畫面更新裡跟上講者的顏色：等到它更新過（機器忙的時候幾個物理影格可能擠在同一個畫面影格）。
+	for i in 60:
+		await frames(1)
+		if card._cell_box.border.is_equal_approx(Color("ffd23f")):
+			break
+	check(layer._radio_name.text == "老K", "名牌只寫講者的名字（%s）" % layer._radio_name.text)
+	check(card._cell_box.border.is_equal_approx(Color("ffd23f")) and card._box.bracket.a > 0.0 and card._plate_box.border != RadioCard.EDGE,
+			"頭像框、角標與名牌的邊用講者的顏色")
+	check(card.radio_speaking(), "字還在出現時訊號格是「講話中」")
+	var early := card.size.y
+	check(layer.radio_hold_ratio() < 0.0, "字還在出現時不顯示停留線")
+	for i in 600:
+		if layer._radio_text.visible_ratio >= 1.0:
+			break
+		await frames(1)
+	await frames(3)
+	var tall := card.size.y
+	var cell := card._cell.size
+	check(layer._radio_text.get_line_count() >= 2, "長句排成兩行")
+	check(is_equal_approx(early, tall), "面板一出現就是兩行的高度，逐字顯示時不會中途長高（%.0f → %.0f）" % [early, tall])
+	check(is_equal_approx(cell.x, RadioCard.PORTRAIT_SIZE) and is_equal_approx(cell.y, RadioCard.PORTRAIT_SIZE), "頭像格是固定的方格，不跟著句子拉長（%s）" % cell)
+	check(card.get_global_rect().grow(1.0).encloses(layer._radio_text.get_global_rect()), "字在面板裡面")
+	var first := layer.radio_hold_ratio()
+	await frames(30)
+	var later := layer.radio_hold_ratio()
+	check(first > 0.0 and first <= 1.0 and later < first and not card.radio_speaking(), "整句出現後停留線開始倒數（%.2f → %.2f）" % [first, later])
+	# 接一句沒有頭像的短句：縮回一行、頭像格還在。
+	layer.cancel_radio()
+	var short_line: Array[Dictionary] = [{"name": "不明訊號", "color": Color("9aa7b4"), "portrait": "", "text": "有人嗎。"}]
+	layer.enqueue_radio(&"test_card_short", short_line)
+	for i in 60:
+		await frames(1)
+		if card._cell_box.border.is_equal_approx(Color("9aa7b4")) and card.size.y < tall - 4.0:
+			break
+	check(card.size.y < tall - 4.0, "長句之後接短句，面板縮回去（%.0f → %.0f）" % [tall, card.size.y])
+	check(not card.portrait.visible and card._cell.visible and is_equal_approx(card._cell.size.x, RadioCard.PORTRAIT_SIZE),
+			"沒有頭像的講者：頭像格還在（畫只有聲音的波形），不留空框")
+	check(card._cell_box.border.is_equal_approx(Color("9aa7b4")), "換講者時顏色跟著換")
+	layer.cancel_radio()
+	Story.auto_skip = old_skip
+	await end_level(level)

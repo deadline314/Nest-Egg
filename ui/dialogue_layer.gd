@@ -12,7 +12,6 @@ const RADIO_CHARS_PER_SECOND := 60.0
 const RADIO_HOLD_BASE := 1.6
 const RADIO_HOLD_PER_CHAR := 0.055
 const PORTRAIT_SIZE := 56.0
-const RADIO_PORTRAIT_SIZE := 32.0
 const RADIO_HOME := Vector2(170, 82)
 const RADIO_SLIDE := 28.0
 
@@ -373,7 +372,7 @@ func _layout_radio() -> void:
 	var width := minf(300.0, maxf(160.0, _safe_rect.end.x - _radio_home.x - 8))
 	_radio_root.custom_minimum_size.x = width
 	_radio_root.size.x = width
-	_radio_text.custom_minimum_size.x = maxf(64, width - 74)
+	_radio_text.custom_minimum_size.x = maxf(64, width - (_radio_root as RadioCard).side_width())
 
 
 func _display_changed() -> void:
@@ -390,42 +389,19 @@ func _refresh_skip_hint() -> void:
 
 
 func _build_radio() -> void:
-	_radio_root = PanelContainer.new()
+	var card := RadioCard.new()
+	card.hold_source = radio_hold_ratio
+	_radio_root = card
 	_radio_root.theme = UiKit.theme()
 	_radio_root.position = RADIO_HOME
 	_radio_root.custom_minimum_size = Vector2(300, 0)
-	_radio_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_radio_root.visible = false
-	var box := DialogueMaterial.panel("radio")
-	box.margins(8, 6, 10, 6)
-	_radio_root.add_theme_stylebox_override(&"panel", box)
 	add_child(_radio_root)
-	var row := HBoxContainer.new()
-	row.add_theme_constant_override(&"separation", 8)
-	_radio_root.add_child(row)
-	# 講者顏色條 + 頭像框（從側邊滑入時一起移動）。
-	_radio_bar = ColorRect.new()
-	_radio_bar.custom_minimum_size = Vector2(2, 0)
-	_radio_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	row.add_child(_radio_bar)
-	var frame := PanelContainer.new()
-	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var frame_box := ChamferBox.make(Color(0.03, 0.06, 0.09, 0.96), Palette.CYAN, 3, 2)
-	frame_box.margins(2, 2, 2, 2)
-	frame.add_theme_stylebox_override(&"panel", frame_box)
-	row.add_child(frame)
-	_radio_portrait = TextureRect.new()
-	_radio_portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	_radio_portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	_radio_portrait.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
-	_radio_portrait.custom_minimum_size = Vector2(RADIO_PORTRAIT_SIZE, RADIO_PORTRAIT_SIZE)
-	frame.add_child(_radio_portrait)
-	var column := VBoxContainer.new()
-	column.add_theme_constant_override(&"separation", 0)
-	row.add_child(column)
-	_radio_name = UiKit.label("", UiKit.FS_BODY, Palette.CYAN)
-	_radio_name.clip_text = true
-	column.add_child(_radio_name)
+	# 外觀（講者顏色、頭像格、名牌、訊號格、停留線）都在 RadioCard，這裡只管排隊、計時與擺放；設顏色條的顏色就是設講者的顏色。
+	_radio_bar = card.accent
+	_radio_portrait = card.portrait
+	_radio_name = card.name_label
+	var column := card.column
 	_radio_text = UiKit.label("", UiKit.FS_BODY, Palette.UI_TEXT)
 	_radio_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_radio_text.custom_minimum_size = Vector2(240, 0)
@@ -468,3 +444,14 @@ func _place(control: Control, preset: Control.LayoutPreset, rect: Rect2) -> void
 
 func _portrait_texture(path: String) -> Texture2D:
 	return RigLibrary.optional_texture(path) if not path.is_empty() else null
+
+
+## 這一句通訊還剩多少停留時間（0～1，給面板畫停留線）；字還在出現、沉默中、或這一句要等玩家確認時回傳 -1（不畫）。
+func radio_hold_ratio() -> float:
+	if not _radio_active or _radio_wait > 0.0 or _radio_text.visible_ratio < 1.0:
+		return -1.0
+	# 重要通訊（凍結世界、等確認）沒有倒數。
+	if has_method(&"is_radio_frozen") and bool(call(&"is_radio_frozen")):
+		return -1.0
+	var total := RADIO_HOLD_BASE + _radio_text.text.length() * RADIO_HOLD_PER_CHAR
+	return clampf(_radio_hold / maxf(0.01, total), 0.0, 1.0)

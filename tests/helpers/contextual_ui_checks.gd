@@ -106,14 +106,14 @@ static func _dialogue(suite: TestSuite) -> void:
 	var context_before := Story._presentation_context.duplicate(true)
 	Story._presentation_context = {"framing_source":"object", "source_id":"fixture-reader"}
 	layer.start_cinematic(&"ui_object_fixture", lines)
-	suite.check(layer._name.text.begins_with("閱讀") and not layer._portrait.visible, "real presentation context switches reading identity and removes empty portrait slot")
+	suite.check(layer._dialogue_kind == "object" and not layer._name.text.contains("/") and not layer._portrait.visible, "real presentation context switches to the reading panel without a kind label and removes empty portrait slot")
 	layer.cancel_cinematic()
 	Story._presentation_context = context_before
 	var radio: Array[Dictionary] = [{"name": "通訊員", "color": Palette.CYAN, "portrait": "", "text": "前方道路已確認，請留意屋頂的出口。"}]
 	layer.enqueue_radio(&"ui_radio_fixture", radio)
 	suite.check(layer._radio_root.modulate.a == 1.0 and layer._radio_slide == null, "reduce motion reveals radio immediately without input delay")
 	layer._layout_cinematic(CinematicFraming.rect_for(Vector2(640,360)))
-	suite.check(layer._radio_root.position.y >= 82 and layer._radio_name.text.contains("通訊"), "radio is identified and leaves the existing y52 quest objective row unobscured")
+	suite.check(layer._radio_root.position.y >= 82 and layer._radio_name.text == "通訊員", "radio shows only its speaker and leaves the existing y52 quest objective row unobscured")
 	layer.cancel_radio()
 	Settings.set_ui_text_scale(old_scale)
 	Settings.set_reduce_ui_motion(old_motion)
@@ -171,7 +171,7 @@ static func _radio_identity_after_authored_reading(suite: TestSuite) -> void:
 		var observer := func(id: StringName) -> void: finished.append(id)
 		layer.radio_finished.connect(observer)
 		layer.enqueue_radio(&"radio_market_mei", lines)
-		suite.check(layer._radio_name.text.begins_with("通訊") and layer._radio_name.text.contains(str(first.name)) and not layer._radio_name.text.contains(reading_title), "radio identifies its own authored speaker, never the preceding object")
+		suite.check(layer._radio_name.text == str(first.name) and not layer._radio_name.text.contains(reading_title), "radio identifies its own authored speaker, never the preceding object")
 		suite.check(layer._portrait == cinematic_portrait and layer._name_plate.get_theme_stylebox(&"panel") == reading_style, "radio cannot replace cinematic portrait or reading nameplate")
 		var texture := RigLibrary.optional_texture(str(first.portrait)) if not str(first.portrait).is_empty() else null
 		suite.check(layer._radio_portrait.texture == texture and layer._radio_portrait.visible == (texture != null), "radio updates its own portrait visibility from its own actual texture")

@@ -24,6 +24,6 @@ static func nameplate(kind: String) -> ChamferBox:
 	return box
 
 
-static func header(kind: String, speaker: String) -> String:
-	var identity := "閱讀" if kind == "object" else ("通訊" if kind == "radio" else "交談")
-	return identity + ("　/　" + speaker if not speaker.is_empty() else "")
+## 名牌只寫講者（閱讀時是物件名稱）；不加「交談／通訊／閱讀」字樣，種類由面板材質與顏色區分。
+static func header(_kind: String, speaker: String) -> String:
+	return speaker
