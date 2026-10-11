@@ -1,7 +1,8 @@
 class_name FogLayer
 extends Node2D
 ## 地面霧氣：貼地的半透明色帶與緩慢飄移的霧團，只畫在鏡頭範圍內。
-## 霧貼著每一欄實際的地面（鏡頭中央往下第一個可站的面），不畫進地面的剖面；霧團是邊緣淡出的柔光，不是實心圓。
+## 霧貼著每一欄實心的地面（鏡頭中央往下第一個實心格的頂面），不畫進地面的剖面，也不積在懸空的單向走道上；
+## 霧團是邊緣淡出的柔光，不是實心圓。
 
 const BAND_HEIGHT := 70.0
 const BLOBS := 7
@@ -85,14 +86,18 @@ func _draw() -> void:
 				Color(_tinted(blob), clampf(BLOB_ALPHA * density, 0.0, 1.0)))
 
 
-## world_x 這一欄的地面高度（世界 y）：從 from_y 往下第一個可站的面；沒有就回傳 INF。
+## world_x 這一欄的地面高度（世界 y）：從 from_y 往下第一個實心格的頂面；沒有就回傳 INF。
+## 單向平台不算：霧會沉到下面的地面，不會積在半空中的走道上。
 func _floor_at(world_x: float, from_y: float) -> float:
 	if layout == null:
 		return ground_y
 	var column := int(floor(world_x / layout.tile_size))
 	if column < 0 or column >= layout.width:
 		return INF
-	return layout.floor_below(column, maxi(0, int(from_y / layout.tile_size)))
+	for row in range(maxi(0, int(from_y / layout.tile_size)), layout.height):
+		if layout.cell(column, row) == LevelBuilder.SOLID:
+			return float(row * layout.tile_size)
+	return INF
 
 
 ## 霧團被附近光源染色：越靠近光源越接近光源的顏色，光池之外維持霧本來的冷色。
