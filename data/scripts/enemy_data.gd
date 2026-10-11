@@ -65,6 +65,9 @@ extends Resource
 @export var ability_radius: float = 0.0
 @export var ability_damage: int = 0
 
+## 行為自己的參數（字典，各行為腳本讀需要的欄位、沒寫的用預設；例如票據投手的一次丟幾張、扇形多寬）。
+@export var behavior_params: Dictionary = {}
+
 @export_group("Strike")
 ## 貼身與鎖鏈類攻擊（StrikeEnemy）的參數：判定範圍、高度帶、出招區間、鎖鏈與鉤子等；欄位說明與預設見 StrikeSpec。其他敵人留空。
 @export var strike: Dictionary = {}

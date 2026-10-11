@@ -13,6 +13,9 @@ var max_health: int = 3
 var invulnerability_time: float = 0.0
 var current: int = 0
 var is_dead: bool = false
+## 受傷最多扣到這個值（0＝可以死亡）。劇情頭目在門檻前停住用（例如血量 25% 的選擇、制伏前不會被打死）；
+## 已經低於它時不再往下扣，但仍算命中（受擊回饋照常）。
+var floor_health: int = 0
 
 var _invulnerable_left: float = 0.0
 
@@ -54,7 +57,7 @@ func can_take_damage(info: DamageInfo = null) -> bool:
 func take_damage(info: DamageInfo) -> bool:
 	if info == null or info.amount <= 0 or not can_take_damage(info):
 		return false
-	current = maxi(0, current - info.amount)
+	current = maxi(mini(maxi(0, floor_health), current), current - info.amount)
 	if invulnerability_time > 0.0:
 		grant_invulnerability(invulnerability_time)
 	damaged.emit(info)

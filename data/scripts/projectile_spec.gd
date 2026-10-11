@@ -34,7 +34,7 @@ const INTEGER_LIMITS := {"damage": 10000, "stagger": 1000, "pierce": 512,
 
 @export_group("Visual")
 ## Shape is decorative; radius remains the shared physical head radius.
-@export_enum("round", "rifle", "compact", "pellet", "energy", "rail", "grenade", "shell", "organic", "wave") var visual_style: String = "round"
+@export_enum("round", "rifle", "compact", "pellet", "energy", "rail", "grenade", "shell", "organic", "wave", "paper") var visual_style: String = "round"
 ## Maximum decorative trail in world pixels, independent of speed and frame rate.
 @export_range(0.0, 40.0) var trail_distance: float = 14.0
 @export var radius: float = 3.0
@@ -52,7 +52,7 @@ func validate() -> PackedStringArray:
 	if source_id == &"":
 		errors.append("source_id missing")
 	errors.append_array(numeric_problems())
-	if visual_style not in ["round", "rifle", "compact", "pellet", "energy", "rail", "grenade", "shell", "organic", "wave"]:
+	if visual_style not in ["round", "rifle", "compact", "pellet", "energy", "rail", "grenade", "shell", "organic", "wave", "paper"]:
 		errors.append("visual_style unknown style: " + visual_style)
 	return errors
 

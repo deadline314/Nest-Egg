@@ -5,6 +5,8 @@ const INK := Color(0.055, 0.065, 0.085, 0.95)
 static var _dart := PackedVector2Array([Vector2(0.9, 0), Vector2(-0.55, -0.65), Vector2(-0.85, 0), Vector2(-0.55, 0.65)])
 static var _diamond := PackedVector2Array([Vector2(0.9, 0), Vector2(0, -0.9), Vector2(-0.9, 0), Vector2(0, 0.9)])
 static var _shell := PackedVector2Array([Vector2(0.9, 0), Vector2(0.1, -0.75), Vector2(-0.75, -0.75), Vector2(-0.75, 0.75), Vector2(0.1, 0.75)])
+## 紙頁：略斜的平行四邊形（看起來像飄著的單子，不像子彈）。
+static var _sheet := PackedVector2Array([Vector2(-0.9, -0.35), Vector2(0.75, -0.75), Vector2(0.9, 0.35), Vector2(-0.75, 0.75)])
 static var _octagon := PackedVector2Array([Vector2(0.9, 0.35), Vector2(0.35, 0.9), Vector2(-0.35, 0.9), Vector2(-0.9, 0.35), Vector2(-0.9, -0.35), Vector2(-0.35, -0.9), Vector2(0.35, -0.9), Vector2(0.9, -0.35)])
 
 
@@ -48,6 +50,12 @@ static func paint(canvas: CanvasItem, spec: ProjectileSpec, color: Color, team: 
 		"wave":
 			canvas.draw_arc(Vector2.ZERO, 0.8, -1.8, 1.8, 10, head, 0.4)
 			canvas.draw_arc(Vector2(-0.3, 0), 0.5, -1.7, 1.7, 8, core, 0.25)
+		"paper":
+			# 收帳單：米白的紙頁斜著飛，紅色印章一角（敵方的暖色在紙邊，不靠發光）。
+			canvas.draw_colored_polygon(_sheet, Color(0.93, 0.9, 0.8))
+			canvas.draw_line(Vector2(-0.55, -0.15), Vector2(0.35, -0.45), Color(0.45, 0.42, 0.38), 0.18)
+			canvas.draw_line(Vector2(-0.45, 0.2), Vector2(0.45, -0.1), Color(0.45, 0.42, 0.38), 0.18)
+			canvas.draw_circle(Vector2(0.45, 0.35), 0.22, color)
 		_:
 			canvas.draw_circle(Vector2.ZERO, 0.74, head)
 			canvas.draw_line(Vector2(-0.3, 0), Vector2(0.45, 0), core, 0.45)
@@ -99,6 +107,10 @@ static func _outline(canvas: CanvasItem, style: String, r: float) -> void:
 			canvas.draw_circle(Vector2(0.45 * r, -0.18 * r), 0.4 * r + border, INK)
 		"wave":
 			canvas.draw_arc(Vector2.ZERO, r * 0.8, -1.8, 1.8, 10, INK, r * 0.4 + border)
+		"paper":
+			canvas.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE * (r + border))
+			canvas.draw_colored_polygon(_sheet, INK)
+			canvas.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 		"round":
 			canvas.draw_circle(Vector2.ZERO, 0.74 * r + border, INK)
 		"rifle", "rail", "energy", "grenade", "shell":

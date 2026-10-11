@@ -15,6 +15,7 @@ func run() -> void:
 	_test_data()
 	await _test_watchdog_flow()
 	_test_watchdog_pattern_data()
+	_test_framework_extensions()
 	await _test_watchdog_habits()
 	await _test_watchdog_leash_yank()
 	await _test_watchdog_phases()
@@ -119,6 +120,42 @@ func _test_watchdog_pattern_data() -> void:
 	var custom := BossPattern.parse({"custom_kinds": ["bash", "burst"], "bar_name": "裝置", "moves": {"a": {"kind": "bash"}, "b": {"kind": "sweep"}}}, "test://custom", true)
 	check(custom.moves.has(&"a") and not custom.moves.has(&"b"), "a declared custom kind is accepted, an undeclared one is skipped")
 	check(custom.custom_kinds.size() == 1 and custom.custom_kinds[0] == &"bash" and custom.bar_name == "裝置", "custom kinds cannot shadow built-ins; the bar name is read: %s" % [custom.errors])
+
+
+## 頭目框架的擴充（NE-265 起）：新招式種類、階段組、增援、標記、標籤與血量下限；錯的資料記錄位置並退回安全預設，看門狗的資料不受影響。
+func _test_framework_extensions() -> void:
+	var dog := BossPattern.load_for(&"watchdog")
+	check(dog.phase_sets.size() == 1 and dog.mark_config.is_empty() and (dog.phases[0]["summon"] as Dictionary).is_empty(),
+			"the watchdog has no phase sets, mark or summons (the new fields are additive)")
+	var data := {"moves": {"s": {"kind": "slam"}, "f": {"kind": "fan"}, "r": {"kind": "rush"}},
+			"phases": [{"until": 0.5, "moves": ["s", "f"], "event": "pause", "damage_bonus": 1, "recover_scale": 1.5,
+				"summon": {"every": 4, "max_alive": 2, "total": 3, "spawn_tiles": [5, 9]}}, {"moves": ["r"]}],
+			"phase_sets": {"later": [{"moves": ["s"], "speed": 0.8}]},
+			"habits": {"marked": ["s"], "pad": ["r"], "marked_stacks": 4},
+			"mark": {"max": 5, "pads": [{"tile": 3}]},
+			"parts": {"lock": {"open": "tag:subdue", "closed": "hidden"}}}
+	var pattern := BossPattern.parse(data, "test://extended", true)
+	check(pattern.errors.is_empty(), "the extended boss format reads without errors: %s" % [pattern.errors])
+	check(str(pattern.phases[0]["event"]) == "pause" and int(pattern.phases[0]["damage_bonus"]) == 1 and int((pattern.phases[0]["summon"] as Dictionary)["total"]) == 3,
+			"phase events, damage bonus and summons are read")
+	check(pattern.phase_list("later")[0]["speed"] == 0.8 and pattern.phase_for(0.9, "later") == 0, "a named phase set is read and used")
+	check(pattern.part_open(&"lock", 0, false, &"", PackedStringArray(["subdue"])) and not pattern.part_open(&"lock", 0, false, &""),
+			"tag:<name> opens a part only while the boss holds that tag")
+	check(pattern.marked_stacks == 4 and (pattern.habits["pad"] as Array).has(&"r"), "the marked and pad habit bands are read")
+	var broken := BossPattern.parse({"moves": {"s": {"kind": "slam"}}, "phases": [{"moves": ["s"], "summon": {"every": 3}}],
+			"phase_sets": {"default": []}, "mark": 5, "parts": {"p": {"open": "tag:"}}}, "test://broken", true)
+	check((broken.phases[0]["summon"] as Dictionary).is_empty() and broken.mark_config.is_empty() and broken.errors.size() >= 3,
+			"broken summon, phase set, mark and tag data fall back safely and are reported: %s" % [broken.errors])
+	check(broken.phase_list("missing") == broken.phases, "an unknown phase set falls back to the default phases")
+	var health := HealthComponent.new()
+	health.setup(20, 0.0)
+	health.floor_health = 5
+	check(health.take_damage(DamageInfo.create(30, Combat.Team.PLAYER, &"test")) and health.current == 5 and not health.is_dead,
+			"a health floor stops damage at the threshold without dying (the hit still registers)")
+	health.floor_health = 0
+	health.take_damage(DamageInfo.create(30, Combat.Team.PLAYER, &"test"))
+	check(health.is_dead, "without a floor the same hit is lethal")
+	health.free()
 
 
 func _spawn_dog() -> PatternBoss:

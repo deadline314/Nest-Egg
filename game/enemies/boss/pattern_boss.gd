@@ -1,7 +1,9 @@
 class_name PatternBoss
 extends Enemy
 ## 資料驅動的頭目（NE-253）：招式、階段、攻擊習慣、鍊子（地盤）與部位開關都來自 data/bosses/<id>.json（BossPattern）。
-## 這個類別只提供「招式種類」的動作（撲咬、點射、吠叫震波、標記轟炸、跳壓）與共用流程，新頭目以資料組合，不必再寫一份狀態機。
+## 這個類別只提供「招式種類」的動作（撲咬、點射、吠叫震波、標記轟炸、跳壓、蓄力重擊、扇形投擲、衝向地點）與共用流程，新頭目以資料組合，不必再寫一份狀態機。
+## 共用機制（都由資料開啟）：階段增援（summon）、階段事件（event，交給子類別的 _on_phase_event）、玩家身上的標記與地墊（BossMark）、
+## 標籤（tags，部位規則 tag:<名稱> 用）、階段組（phase_sets，例如劇情頭目復原後換一套階段）。
 ## 流程：睡著（可選）→ 登場 → 待機（依習慣選招）→ 預兆 → 出招 → 收招／被鍊子扯回 → 待機；血量跨過門檻時換階段。
 ## 階段由目前血量推得，所以持久世界保留的損血（persists_damage）也會保留斷掉的零件與鍊子。
 ## 設計與格式見 design/15-combat-feel/BOSS_FIGHTS.md。
@@ -20,9 +22,19 @@ const POUNCE_MIN_AIR := 0.2
 const MISSILE_SOURCE := &"boss_missile"
 const MISSILE_COLOR := Color(1.0, 0.45, 0.2)
 const CHAIN_LINKS := 18
+## 蓄力重擊：出招（往前踏、判定）最長的時間。
+const SLAM_MAX_TIME := 0.6
+## 衝向地點：最長時間（撞牆或到不了就停）。
+const RUSH_MAX_TIME := 1.6
 
 var pattern: BossPattern
 var phase := 0
+## 目前使用的階段組（BossPattern.phase_sets 的名稱）。
+var phase_set := BossPattern.DEFAULT_SET
+## 頭目腳本掛上的標籤（部位規則 tag:<名稱>、子類別判斷用）。
+var tags := PackedStringArray()
+## 玩家身上的標記與地墊（資料有 mark 才建立）。
+var mark: BossMark
 var _awake := false
 var _move_id: StringName = &""
 var _last_move: StringName = &""
@@ -49,6 +61,19 @@ var _parts_key := ""
 var _break_hits := 0
 var _interrupted := false
 var _retreat_left := 0.0
+## 蓄力重擊：這一擊的結果（hit 打中、blocked 被擋、whiff 揮空）、判定是否已經出過。
+var _slam_result: StringName = &""
+var _slam_done := false
+var _slam_query := RectangleShape2D.new()
+## 衝向地點的目標 x。
+var _rush_x := 0.0
+## 收招時間（進入收招時依結果與階段算好）；硬直秒數（0＝依招式資料）。
+var _recover_time := 0.4
+var _stagger_override := 0.0
+## 增援：還活著的、已經叫出來的總數、下一次的倒數。
+var _summons: Array[WeakRef] = []
+var _summoned := 0
+var _summon_left := 0.0
 
 
 func _uses_activation_culling() -> bool:
@@ -74,13 +99,18 @@ func _setup_states() -> void:
 	fsm.add(&"idle", _idle_tick)
 	fsm.add(&"windup", _windup_tick, _windup_enter)
 	fsm.add(&"act", _act_tick, _act_enter)
-	fsm.add(&"recover", _recover_tick)
+	fsm.add(&"recover", _recover_tick, _recover_enter)
 	fsm.add(&"yanked", _yanked_tick, _yanked_enter, _yanked_exit)
 	fsm.add(&"phase_shift", _phase_shift_tick, _phase_shift_enter)
 	for kind in pattern.custom_kinds:
 		if not _implements_kind(kind):
 			push_error("[PatternBoss] %s 的資料宣告了招式種類「%s」，但 %s 沒有實作；用到它的招式不會被選" % [data.id, kind, get_script().resource_path])
-	_apply_phase(pattern.phase_for(_health_ratio()), false)
+	if not pattern.mark_config.is_empty():
+		mark = BossMark.new()
+		mark.name = "BossMark"
+		add_child(mark)
+		mark.configure(self, pattern.mark_config, String(data.id))
+	_apply_phase(pattern.phase_for(_health_ratio(), phase_set), false)
 	if pattern.wake_range > 0.0:
 		fsm.start(&"dormant")
 	else:
@@ -92,7 +122,28 @@ func _health_ratio() -> float:
 
 
 func current_phase() -> Dictionary:
-	return pattern.phases[phase]
+	var list := pattern.phase_list(phase_set)
+	return list[clampi(phase, 0, list.size() - 1)]
+
+
+## 換一套階段（例如劇情頭目復原後、制伏中）；perform 時演出階段轉換。
+func use_phase_set(set_name: String, perform := true) -> void:
+	phase_set = set_name if pattern.phase_sets.has(set_name) else BossPattern.DEFAULT_SET
+	if phase_set != set_name:
+		RigLibrary.report_once("pattern_boss_set:%s:%s" % [data.id, set_name], "[PatternBoss] %s 沒有階段組「%s」，改用 default" % [data.id, set_name])
+	_apply_phase(pattern.phase_for(_health_ratio(), phase_set), perform)
+
+
+func has_tag(tag: String) -> bool:
+	return tags.has(tag)
+
+
+func set_tag(tag: String, on: bool) -> void:
+	if on and not tags.has(tag):
+		tags.append(tag)
+	elif not on and tags.has(tag):
+		tags.remove_at(tags.find(tag))
+	_refresh_parts()
 
 
 func current_move() -> StringName:
@@ -128,6 +179,8 @@ func _wake() -> void:
 	EventBus.boss_started.emit(pattern.bar_name if not pattern.bar_name.is_empty() else data.display_name, health.max_health)
 	EventBus.boss_health_changed.emit(health.current, health.max_health)
 	Feel.play(&"boss_intro")
+	if mark != null:
+		mark.start()
 	if fsm.current == &"":
 		fsm.start(&"intro")
 	else:
@@ -177,9 +230,11 @@ func _idle_tick(delta: float) -> void:
 ## 依攻擊習慣選招：被鍊子扯過就先換招；否則看距離帶（太近、地盤內、地盤外）。不連續用同一招（招式標 repeat 的例外）。
 func choose_move() -> StringName:
 	var available: Array[StringName] = current_phase()["moves"]
-	var band := _band()
-	var listed: Array = pattern.habits.get("after_yank", []) if _yanked_recently else pattern.habits.get(band, [])
-	var candidates := _filter_moves(listed, available)
+	var candidates: Array[StringName] = []
+	for band in habit_bands():
+		candidates = _filter_moves(pattern.habits.get(band, []), available)
+		if not candidates.is_empty():
+			break
 	if candidates.is_empty():
 		candidates = _filter_moves(available, available)
 	if candidates.is_empty():
@@ -206,7 +261,21 @@ func _filter_moves(listed: Array, available: Array[StringName]) -> Array[StringN
 	return result
 
 
-## 招式本身的使用條件：撲咬要玩家在同一層地面附近、牠能撲到的方向。
+## 這一次選招依序看的習慣帶：剛被扯回 → 玩家帶著標記走向亮墊（搶地墊）→ 玩家身上標記很多（貪）→ 距離帶。
+func habit_bands() -> PackedStringArray:
+	var bands := PackedStringArray()
+	if _yanked_recently:
+		bands.append("after_yank")
+	if mark != null:
+		if mark.stacks >= pattern.pad_stacks and mark.player_heading_to_lit_pad():
+			bands.append("pad")
+		if mark.stacks >= pattern.marked_stacks:
+			bands.append("marked")
+	bands.append(_band())
+	return bands
+
+
+## 招式本身的使用條件：撲咬要玩家在同一層地面附近、牠能撲到的方向；衝向地墊要有亮著的地墊。
 func _move_usable(id: StringName) -> bool:
 	var target := _target()
 	if target == null:
@@ -214,6 +283,9 @@ func _move_usable(id: StringName) -> bool:
 	match StringName(pattern.moves[id]["kind"]):
 		&"lunge":  # 同一層地面、而且朝玩家的方向還有鍊子長度可以撲
 			return absf(target.global_position.y - global_position.y) < 48.0 and _leash_room(signi(int(target.global_position.x - global_position.x))) > 24.0
+		&"rush":
+			if str(pattern.moves[id]["params"].get("target", "pad")) == "pad":
+				return mark != null and mark.rush_target_x(global_position) != INF
 	var kind := StringName(pattern.moves[id]["kind"])
 	if pattern.custom_kinds.has(kind):
 		return _implements_kind(kind) and _custom_move_usable(id, kind)
@@ -268,6 +340,8 @@ func _windup_enter() -> void:
 			_plan_missiles()
 		&"pounce":
 			_plan_pounce()
+		&"rush":
+			_plan_rush()
 		var kind:
 			_custom_windup_enter(kind)
 
@@ -275,7 +349,8 @@ func _windup_enter() -> void:
 func _windup_tick(_delta: float) -> void:
 	velocity.x = 0.0
 	var kind := StringName(_move().get("kind", &""))
-	if kind == &"bark" or (kind == &"burst" and not is_aim_locked()):
+	# 蓄力重擊最後 lock 秒不再轉身（看到判定區定住就能閃）；點射與扇形投擲鎖定瞄準。
+	if kind == &"bark" or (kind == &"slam" and _telegraph_left > _param("lock", 0.3)) or ((kind == &"burst" or kind == &"fan") and not is_aim_locked()):
 		_face_target()
 		_aim_dir = _direction_to_target()
 	elif pattern.custom_kinds.has(kind):
@@ -302,6 +377,17 @@ func _act_enter() -> void:
 			var air_time := 2.0 * POUNCE_VELOCITY / _gravity
 			velocity = Vector2(clampf((_pounce_x - global_position.x) / air_time, -POUNCE_MAX_SPEED, POUNCE_MAX_SPEED), -POUNCE_VELOCITY)
 			Fx.dust(global_position, 8, 80.0)
+		&"slam":
+			_slam_result = &"whiff"
+			_slam_done = false
+			velocity.x = facing * _param("advance_speed", 160.0) * _speed()
+			Sfx.play(&"dash", -8.0)
+		&"fan":
+			_fire_fan()
+		&"rush":
+			velocity.x = signf(_rush_x - global_position.x) * _param("speed", 300.0) * _speed()
+			Fx.dust(global_position, 8, 90.0)
+			Sfx.play(&"dash", -4.0)
 		var kind:
 			_custom_act_enter(kind)
 
@@ -315,21 +401,56 @@ func _act_tick(delta: float) -> void:
 		&"pounce":
 			if fsm.time_in_state >= POUNCE_MIN_AIR and is_on_floor():
 				_pounce_land()
-		&"bark", &"missiles":
+		&"slam":
+			_slam_tick()
+		&"rush":
+			_rush_tick(delta)
+		&"bark", &"missiles", &"fan":
 			fsm.transition(&"recover")
 		var kind:
 			_custom_act_tick(kind, delta)
 
 
+## 收招時間：招式資料的 recover × 階段的 recover_scale；蓄力重擊揮空時再乘 whiff_recover（撲空的反擊空檔），被擋下乘 blocked_recover。
+func _recover_enter() -> void:
+	var seconds := float(_move().get("recover", 0.4)) * float(current_phase().get("recover_scale", 1.0))
+	if StringName(_move().get("kind", &"")) == &"slam":
+		match _slam_result:
+			&"whiff":
+				seconds *= _param("whiff_recover", 2.0)
+			&"blocked":
+				seconds *= _param("blocked_recover", 1.5)
+	_recover_time = seconds / _speed()
+
+
+## 收招結束：招式資料有 next 就直接接下一招（連段），否則回到待機。
 func _recover_tick(delta: float) -> void:
 	velocity.x = move_toward(velocity.x, 0.0, LUNGE_BRAKE * delta)
-	if fsm.time_in_state >= float(_move().get("recover", 0.4)) / _speed():
-		fsm.transition(&"idle")
+	if fsm.time_in_state < _recover_time:
+		return
+	var next := StringName(str(_params().get("next", "")))
+	if next != &"" and pattern.moves.has(next) and _target() != null and _move_usable(next):
+		_move_id = next
+		_last_move = next
+		fsm.transition(&"windup")
+		return
+	fsm.transition(&"idle")
 
 
-## 點射的瞄準是否已鎖定（預兆剩下 lock 秒以內）。
+## 收招還剩幾秒（揮空的反擊空檔、測試與機器人用）。
+func recover_left() -> float:
+	return maxf(0.0, _recover_time - fsm.time_in_state) if fsm.is_in(&"recover") else 0.0
+
+
+## 最近一次蓄力重擊的結果：hit、blocked、whiff；還沒出過是空白。
+func last_slam_result() -> StringName:
+	return _slam_result
+
+
+## 會鎖定瞄準的招式（點射、扇形投擲）：預兆剩下 lock 秒以內就不再跟著玩家。
 func is_aim_locked() -> bool:
-	return fsm.is_in(&"windup") and StringName(_move().get("kind", &"")) == &"burst" and _telegraph_left <= _param("lock", 0.25)
+	var kind := StringName(_move().get("kind", &""))
+	return fsm.is_in(&"windup") and (kind == &"burst" or kind == &"fan") and _telegraph_left <= _param("lock", 0.25)
 
 
 func _speed() -> float:
@@ -436,6 +557,94 @@ func _pounce_land() -> void:
 	fsm.transition(&"yanked")
 
 
+## 蓄力重擊的判定區（本地座標）：身體前緣往前 reach、高 height；預兆時畫在地上的就是這一塊。
+func slam_rect() -> Rect2:
+	var reach := _param("reach", 40.0)
+	var height := _param("height", 44.0)
+	var front := data.body_size.x * 0.5
+	var left := front if facing > 0 else -front - reach
+	return Rect2(Vector2(left, -height), Vector2(reach, height))
+
+
+## 蓄力重擊：往前踏一小步，active_at 秒時判定一次；結果決定收招（打中照常、被擋稍長、揮空最長）。
+func _slam_tick() -> void:
+	var active_at := _param("active_at", 0.08)
+	if not _slam_done and fsm.time_in_state >= active_at:
+		_slam_done = true
+		velocity.x = 0.0
+		var rect := slam_rect()
+		_slam_result = _strike_player(global_position + rect.get_center(), rect.size,
+				int(_param("damage", 2)) + int(current_phase().get("damage_bonus", 0)),
+				StringName(str(_params().get("source", "%s_slam" % data.id))), _param("knockback", 160.0))
+		Feel.shake_strength(_param("shake", 4.0), 0.2)
+		Fx.dust(global_position + Vector2(facing * (data.body_size.x * 0.5 + _param("reach", 40.0) * 0.6), 0), 10, 110.0)
+		Sfx.play(&"explosion_small", -8.0)
+	if fsm.time_in_state >= clampf(_param("active_time", 0.25), active_at + 0.05, SLAM_MAX_TIME):
+		fsm.transition(&"recover")
+
+
+## 對判定區裡的玩家受擊框造成一次傷害；回傳 hit、blocked（被盾或完美格擋擋下）或 whiff。
+func _strike_player(center: Vector2, size: Vector2, amount: int, source: StringName, knock: float) -> StringName:
+	_slam_query.size = size
+	var params := PhysicsShapeQueryParameters2D.new()
+	params.shape = _slam_query
+	params.transform = Transform2D(0.0, center)
+	params.collision_mask = Layers.PLAYER_HURTBOX
+	params.collide_with_areas = true
+	params.collide_with_bodies = false
+	for hit in get_world_2d().direct_space_state.intersect_shape(params, 4):
+		var box := hit.get("collider") as Hurtbox
+		if box == null:
+			continue
+		var side := signf(box.global_position.x - global_position.x)
+		var info := DamageInfo.create(maxi(1, amount), Combat.Team.ENEMY, source, Vector2((side if side != 0.0 else float(facing)) * knock, -60.0))
+		info.origin = _center()
+		info.attacker = weakref(self)
+		match box.receive(info):
+			Hurtbox.Result.DAMAGED:
+				return &"hit"
+			Hurtbox.Result.BLOCKED, Hurtbox.Result.REFLECTED:
+				return &"blocked"
+	return &"whiff"
+
+
+## 扇形投擲：預兆最後 lock 秒鎖定方向，出招時沿鎖定方向丟出一排慢速投射物；投射物之間有縫，可以跳過或蹲過。
+func _fire_fan() -> void:
+	var spec := _projectile(str(_params().get("projectile", "")))
+	if spec == null:
+		return
+	var count := clampi(int(_param("count", 5)), 1, 9)
+	var spread := clampf(_param("spread", 40.0), 0.0, 120.0)
+	WeaponSystem.fire_spread(spec, _muzzle(), _aim_dir, count, spread, 0.0, Combat.Team.ENEMY, _projectile_speed_multiplier())
+	if creature != null:
+		creature.kick()
+	_rig_input.recoil = 1.0
+	Sfx.play(&"shot_spread", -8.0)
+
+
+## 衝向地點：target＝pad（亮著的地墊，搶在玩家前面踩掉）或 player（玩家腳下）。
+func _plan_rush() -> void:
+	var target := _target()
+	_rush_x = global_position.x
+	if str(_params().get("target", "pad")) == "pad" and mark != null:
+		var x := mark.rush_target_x(global_position)
+		_rush_x = x if x != INF else global_position.x
+	elif target != null:
+		_rush_x = target.global_position.x
+	facing = 1 if _rush_x >= global_position.x else -1
+
+
+func _rush_tick(delta: float) -> void:
+	var remaining := absf(_rush_x - global_position.x)
+	if remaining <= 2.0 or is_on_wall() or fsm.time_in_state > RUSH_MAX_TIME:
+		velocity.x = 0.0
+		if mark != null:
+			mark.boss_arrived(global_position)
+		fsm.transition(&"recover")
+		return
+	velocity.x = signf(_rush_x - global_position.x) * minf(_param("speed", 300.0) * _speed(), remaining / maxf(delta, 0.0001))
+
+
 ## 被鍊子扯回（或跳壓落地）的硬直：往後退一小段、背部電源打開。
 func _yanked_enter() -> void:
 	_staggered = true
@@ -454,7 +663,7 @@ func _yanked_enter() -> void:
 
 func _yanked_tick(delta: float) -> void:
 	velocity.x = move_toward(velocity.x, 0.0, LUNGE_BRAKE * 0.5 * delta)
-	var seconds := _param("break_stagger", 1.2) if _interrupted else _param("stagger", 1.6)
+	var seconds := _stagger_override if _stagger_override > 0.0 else (_param("break_stagger", 1.2) if _interrupted else _param("stagger", 1.6))
 	if fsm.time_in_state >= seconds:
 		fsm.transition(&"idle")
 
@@ -464,6 +673,7 @@ func _yanked_exit() -> void:
 	if _yanked_recently:
 		_retreat_left = pattern.leash_retreat
 	_interrupted = false
+	_stagger_override = 0.0
 	_refresh_parts()
 
 
@@ -476,14 +686,15 @@ func _on_health_changed(current: int, maximum: int) -> void:
 		EventBus.boss_health_changed.emit(current, maximum)
 	if current <= 0 or _dying:
 		return
-	var next := pattern.phase_for(_health_ratio())
+	var next := pattern.phase_for(_health_ratio(), phase_set)
 	if next > phase:
 		_apply_phase(next, _awake)
 
 
 ## 套用階段：換武器外觀、藏起脫落的零件、更新部位與裝甲；演出時停頓並提示（死後回來時直接套用，不演出）。
 func _apply_phase(index: int, perform: bool) -> void:
-	phase = clampi(index, 0, pattern.phases.size() - 1)
+	phase = clampi(index, 0, pattern.phase_list(phase_set).size() - 1)
+	_summon_left = float((current_phase()["summon"] as Dictionary).get("every", 0.0)) * 0.5
 	var config := current_phase()
 	if rig != null:
 		if config["weapon"] != null:
@@ -501,9 +712,16 @@ func _apply_phase(index: int, perform: bool) -> void:
 		Fx.burst(_center(), Palette.WARNING, 24, 240.0, 0.5)
 		if not str(config["enter_toast"]).is_empty():
 			EventBus.toast_requested.emit(str(config["enter_toast"]))
+		if not str(config["event"]).is_empty() and _on_phase_event(StringName(str(config["event"]))):
+			return  # 子類別接手（例如劇情暫停），不播一般的階段轉換
 		if fsm.is_in(&"act") and StringName(_move().get("kind", &"")) == &"pounce":
 			return  # 空中不打斷，落地後再演出
 		fsm.transition(&"phase_shift")
+
+
+## 階段事件（資料 phases[].event）：子類別覆寫，回傳 true 代表已經接手，不播一般的階段轉換。
+func _on_phase_event(_event: StringName) -> bool:
+	return false
 
 
 func _phase_shift_enter() -> void:
@@ -523,10 +741,10 @@ func _phase_shift_tick(_delta: float) -> void:
 ## 標 hidden 的部位（例如藏在身體裡的背部電源、壞掉的槍臂）關著時打不到。
 func _refresh_parts() -> void:
 	var move := _move_id if fsm.is_in(&"windup") or fsm.is_in(&"act") else &""
-	_parts_key = "%d|%s|%s" % [phase, move, _staggered]
+	_parts_key = _parts_state_key(move)
 	for id: StringName in _parts_by_id:
 		var part := _parts_by_id[id]
-		var open := pattern.part_open(id, phase, _staggered, move)
+		var open := pattern.part_open(id, phase, _staggered, move, tags)
 		part.enabled = open or pattern.part_armored_when_closed(id, phase, _staggered)
 		part.guard = Callable() if open else _armored_part_guard
 		_part_open[id] = open
@@ -545,8 +763,65 @@ func _physics_process(delta: float) -> void:
 	if pattern == null or _dying:
 		return
 	var move := _move_id if fsm.is_in(&"windup") or fsm.is_in(&"act") else &""
-	if _parts_key != "%d|%s|%s" % [phase, move, _staggered]:
+	if _parts_key != _parts_state_key(move):
 		_refresh_parts()
+	if _awake and fsm.current not in [&"phase_shift", &"intro", &"dormant"]:
+		_tick_summons(delta)
+
+
+func _parts_state_key(move: StringName) -> String:
+	return "%s|%d|%s|%s|%s" % [phase_set, phase, move, _staggered, ",".join(tags)]
+
+
+# ---------------------------------------------------------------------------
+# 增援（階段資料的 summon）
+# ---------------------------------------------------------------------------
+
+func _tick_summons(delta: float) -> void:
+	var config: Dictionary = current_phase()["summon"]
+	if config.is_empty() or data.summon == null or data.summon.behavior == null or _summoned >= int(config["total"]):
+		return
+	_summon_left -= delta
+	if _summon_left > 0.0:
+		return
+	_summon_left = float(config["every"])
+	if alive_summons() >= int(config["max_alive"]):
+		return
+	var tiles: PackedFloat32Array = config["spawn_tiles"]
+	_spawn_summon(tiles[_summoned % tiles.size()] * 16.0)
+
+
+func _spawn_summon(x: float) -> void:
+	var parent := get_parent() as Node2D
+	if parent == null:
+		return
+	var minion := data.summon.behavior.new() as Enemy
+	if minion == null:
+		push_error("[PatternBoss] %s 的增援 %s 的 behavior 不是 Enemy" % [data.id, data.summon.id])
+		return
+	minion.configure(data.summon)
+	var at := _floor_at(Vector2(x, global_position.y - 8.0))
+	minion.position = parent.to_local(at)
+	parent.add_child.call_deferred(minion)
+	_summons.append(weakref(minion))
+	_summoned += 1
+	Fx.burst(at + Vector2(0, -16.0), data.summon.color, 10, 120.0)
+
+
+## 還活著的增援數（死掉或移除的會從清單拿掉）。
+func alive_summons() -> int:
+	var kept: Array[WeakRef] = []
+	for ref in _summons:
+		var minion := ref.get_ref() as Enemy
+		if minion != null and not minion.is_queued_for_deletion() and not minion.is_dying():
+			kept.append(ref)
+	_summons = kept
+	return kept.size()
+
+
+## 這場已經叫出來的增援總數（重試時不會因為重新進場而變多：增援只在頭目醒著時才出現）。
+func summoned_total() -> int:
+	return _summoned
 
 
 ## 打斷：招式資料的 break_part 在預兆中被打中 break_hits 次，就取消這招並硬直（背部電源也會露出）。
@@ -580,8 +855,16 @@ func _on_blocked(info: DamageInfo) -> void:
 
 
 
+## 完美格擋讓攻擊者暈眩：招式資料有 parry_stagger 的（例如蓄力重擊）改成硬直並打開硬直時的部位；其他招式照舊不受影響。
 func _on_stunned() -> void:
-	pass
+	if not (fsm.is_in(&"windup") or fsm.is_in(&"act")):
+		return
+	var seconds := _param("parry_stagger", 0.0)
+	if seconds <= 0.0:
+		return
+	_stagger_override = seconds
+	_slam_result = &"blocked"
+	fsm.transition(&"yanked")
 
 
 # ---------------------------------------------------------------------------
@@ -718,6 +1001,13 @@ func _draw_overlay() -> void:
 				draw_arc(head, 6.0 + 10.0 * t, 0.0, TAU, 20, Color(LightKit.glow(Palette.WARNING, 2.0), 0.3 + 0.5 * t), 1.5)
 			&"pounce":
 				_draw_shadow(Vector2(_pounce_x, global_position.y), t)
+			&"slam":
+				_draw_slam_zone(t)
+			&"fan":
+				_draw_fan_lines(t)
+			&"rush":
+				var color := Color(LightKit.glow(Palette.DANGER, 1.2 + t), 0.3 + 0.4 * t)
+				draw_line(Vector2(0, -2), Vector2(_rush_x - global_position.x, -2), color, 2.0)
 	if not _marks.is_empty():
 		var t := 1.0 - clampf(_telegraph_left / maxf(0.01, telegraph_seconds(_move_id)), 0.0, 1.0)
 		var radius := _param("radius", 22.0)
@@ -767,6 +1057,27 @@ func _draw_lunge_path(t: float) -> void:
 	draw_line(from, from.lerp(to, minf(1.0, t * 1.6)), color, 2.0)
 	if _lunge_hits_leash:
 		draw_line(to + Vector2(0, -12), to + Vector2(0, 2), Color(LightKit.glow(Palette.WARNING, 2.0), 0.4 + 0.5 * t), 2.0)
+
+
+## 蓄力重擊的預兆：地上的判定區從腳邊往前填滿，越接近出招越亮（紅＝要打到你）。
+func _draw_slam_zone(t: float) -> void:
+	var rect := slam_rect()
+	var width := rect.size.x * minf(1.0, t * 1.3)
+	var from_x := rect.position.x if facing > 0 else rect.end.x - width
+	var color := Color(LightKit.glow(Palette.DANGER, 1.0 + 1.4 * t), 0.25 + 0.5 * t)
+	draw_rect(Rect2(Vector2(from_x, -3.0), Vector2(width, 3.0)), color)
+	var edge := rect.end.x if facing > 0 else rect.position.x
+	draw_line(Vector2(edge, -1.0), Vector2(edge, -10.0 - 8.0 * t), color, 1.5)
+
+
+## 扇形投擲的預兆：扇形的左右兩條邊線，鎖定後變亮變實。
+func _draw_fan_lines(t: float) -> void:
+	var origin := to_local(_muzzle())
+	var spread := deg_to_rad(clampf(_param("spread", 40.0), 0.0, 120.0))
+	var locked := is_aim_locked()
+	var color := Color(LightKit.glow(Palette.DANGER, 1.6 if locked else 0.9 + 0.5 * t), 0.7 if locked else 0.2 + 0.35 * t)
+	for side: float in [-0.5, 0.5]:
+		draw_line(origin, origin + _aim_dir.rotated(spread * side) * 70.0, color, 1.0)
 
 
 func _draw_shadow(world: Vector2, t: float) -> void:
