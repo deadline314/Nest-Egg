@@ -7,10 +7,15 @@ extends RefCounted
 
 
 static func run(suite: TestSuite) -> void:
+	# 合成的手把事件會把輸入裝置切成手把；結束時還原，後面的套件才不會沿用手把的按鍵圖示與版面。
+	var was_gamepad := InputBindings.using_gamepad
+	var device := InputBindings.active_device
 	await _check_main_menu(suite)
 	await _check_pause_pages(suite)
 	await _check_modal_passthrough(suite)
 	await _check_entry_hint(suite)
+	InputBindings._set_device(was_gamepad, device)
+	await suite.frames(1)
 
 
 static func _check_main_menu(suite: TestSuite) -> void:
