@@ -19,6 +19,8 @@ The joint audit (tools/rig_joint_audit) counts holes between two parts. It canno
             a flap or a ledge when the knee bends
   detached  a limb part begins far from the joint it turns on (a far forearm of which only the cuff was drawn): when the limb is
             raised, the hand floats in the air
+  spur      a long sliver a few pixels wide hangs off a part (a cut outline left the edge of the neighbouring sleeve on a jacket
+            panel): on screen it is thinner than a pixel, a hairline next to the body that breaks into loose specks when it turns
 A finding that is the drawing itself (hip armour that really is wider than the thigh) is listed in the spec with its reason:
     "seam_checks": {"allow": {"overhang": "tasset plates ride the pelvis"}}
 """
@@ -35,6 +37,7 @@ ROOT = Path(__file__).resolve().parents[2]
 DETACHED_PX = 14.0
 BLOCK_PX, FRONT_PX = 12.0, 9.0  # the shin may leave the line by 6 px over these 12 rows (make_parts ramp)
 OVERHANG_PX, OVERHANG_BACK_PX, RAGGED_PX, STEP_SHARE = 7.0, 24.0, 7.0, 0.22  # the buttock is behind the thigh's line by nature
+SPUR_WIDTH_PX, SPUR_LENGTH_PX = 7, 30  # hair is thin by nature: hair and head parts are not checked
 LIMBS = [("leg_upper", "leg_lower", "knee"), ("arm_upper", "arm_lower", "elbow")]
 
 
@@ -157,7 +160,28 @@ def check(recipe_path: Path) -> list[str]:
             gap = detached(mask, joints[joint])
             if gap > DETACHED_PX:
                 found.append(f"detached: {name} begins {gap:.0f} px away from its joint {joint} (nothing is drawn between them when the limb is raised)")
+    for name in spec["parts"]:
+        if name.startswith(("hair", "head")) or name.endswith("_dmg") or f"spur:{name}" in allow:
+            continue
+        mask = layer(name)
+        if mask is not None and mask.any():
+            length, x, y = spur(mask)
+            if length >= SPUR_LENGTH_PX:
+                found.append(f"spur: a sliver {length} px long and under {SPUR_WIDTH_PX} px wide hangs off {name} at ({x}, {y}) (a hairline that breaks into specks; refine.erase)")
     return found
+
+
+def spur(mask: np.ndarray) -> tuple[int, int, int]:
+    """Longest piece of the part that is thinner than SPUR_WIDTH_PX: (its length, x, y of its bounding box), (0, 0, 0) if there is none."""
+    yy, xx = np.ogrid[-3:4, -3:4]
+    thin = mask & ~ndimage.binary_opening(mask, structure=xx * xx + yy * yy <= 9)
+    labels, count = ndimage.label(thin, np.ones((3, 3)))
+    best = (0, 0, 0)
+    for i, box in enumerate(ndimage.find_objects(labels), 1):
+        length = max(box[0].stop - box[0].start, box[1].stop - box[1].start)
+        if length > best[0] and int((labels[box] == i).sum()) <= length * SPUR_WIDTH_PX:  # a sliver, not a ragged fringe along an edge
+            best = (length, box[1].start, box[0].start)
+    return best
 
 
 def detached(mask: np.ndarray, joint: list[float]) -> float:
@@ -188,6 +212,9 @@ def self_test() -> None:
     assert block(pelvis, thigh, 200, 500) < 6
     assert front_step(thigh, shin, 500) > 25 and front_step(shin, shin, 520) == 0
     assert detached(shin, [125, 500]) < 1 and detached(shin, [125, 420]) > 70
+    assert spur(shin)[0] < 10             # only the rounded-off corners
+    shin[440:500, 100:104] = True        # a 4 px wide sliver hanging 60 px above the shin's corner
+    assert spur(shin)[0] >= 55, spur(shin)
     print("check_seams self-test: ok")
 
 

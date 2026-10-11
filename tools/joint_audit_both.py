@@ -1,6 +1,6 @@
 """Which joint-audit failures are cracks a player can see: the samples that fail BOTH ways of drawing the joint.
 
-    python tools/joint_audit_both.py <pair-only audit dir> <as-worn audit dir> [--top N]
+    python tools/joint_audit_both.py <pair-only audit dir> <as-worn audit dir> [--top=N] [--sheet=<png>]
 
 rig_joint_audit draws a joint two ways:
   --pair-only  only the two adjoining parts. Finds a gap between them, but also fails wherever the joint is covered by a third part the
@@ -39,6 +39,74 @@ def main() -> None:
     print(" ", dict(per))
     for key, count in kinds.most_common(top):
         print(" ", key, count)
+    sheet = next((a.split("=", 1)[1] for a in sys.argv[1:] if a.startswith("--sheet=")), "")
+    if sheet:
+        class_sheet(Path(args[0]), pair, Path(args[1]), worn, Path(sheet))
+
+
+def kind_of(f: dict) -> str:
+    if f["loose_pieces"]:
+        return "loose"
+    if f["center_alpha"] < 128:
+        return "center"
+    if f["enclosed_pixels"]:
+        return "encl"
+    return "split" if f["components"] > 1 else "notch"
+
+
+def class_sheet(pair_dir: Path, pair: dict, worn_dir: Path, worn: dict, out: Path, half: int = 22, scale: int = 11, cols: int = 6) -> None:
+    """--sheet=<png>: every kind of failure, outline notches included, with one enlarged crop each and the offending pixels outlined.
+    A number says how often; whether it is a crack, a garment's own opening or a speck is decided by looking, so look at every tile."""
+    import numpy as np
+    from PIL import Image, ImageDraw
+    from scipy import ndimage
+
+    def index(report: dict) -> dict:
+        return {(f["char"], f["facing"], f["joint"], f["pose"], f["zoom"], f["frame"]): f for f in report["failures"]}
+
+    a, b = index(pair), index(worn)
+    tiles = []
+    for tag, keys, src, folder in (("both", a.keys() & b.keys(), b, worn_dir), ("pair-only", a.keys() - b.keys(), a, pair_dir), ("worn-only", b.keys() - a.keys(), b, worn_dir)):
+        classes = collections.defaultdict(list)
+        for k in keys:
+            classes[(k[0], k[2], kind_of(src[k]))].append(k)
+        for (char, joint, kind), ks in sorted(classes.items(), key=lambda t: -len(t[1])):
+            ks.sort(key=lambda k: (-k[4], k[1] != 1, k[5]))  # the cutscene zoom, facing right, earliest frame
+            f = src[ks[0]]
+            x, y, w, h = f["rect"]
+            crop = Image.open(folder / f["file"]).convert("RGBA").crop((x, y, x + w, y + h))
+            solid = np.array(crop)[:, :, 3] >= 128
+            if kind in ("loose", "split"):
+                labels, count = ndimage.label(solid, np.ones((3, 3)))
+                bad = solid & (labels != 1 + int(np.argmax(ndimage.sum(solid, labels, range(1, count + 1)))))
+            elif kind == "center":
+                bad = np.zeros_like(solid)
+                bad[h // 2, w // 2] = True
+            else:
+                bad = ndimage.binary_fill_holes(solid, structure=np.ones((3, 3)) if kind == "encl" else None) & ~solid
+            ys, xs = np.nonzero(bad)
+            cx, cy = (int(xs.mean()), int(ys.mean())) if len(ys) else (w // 2, h // 2)
+            x0, y0 = min(max(0, cx - half), w - 2 * half), min(max(0, cy - half), h - 2 * half)
+            backdrop = Image.new("RGBA", crop.size, (255, 0, 255, 255))
+            backdrop.alpha_composite(crop)
+            tile = backdrop.crop((x0, y0, x0 + 2 * half, y0 + 2 * half)).resize((2 * half * scale,) * 2, Image.NEAREST).convert("RGB")
+            draw = ImageDraw.Draw(tile)
+            for yy, xx in list(zip(ys, xs))[:40]:
+                draw.rectangle([(xx - x0) * scale, (yy - y0) * scale, (xx - x0 + 1) * scale - 1, (yy - y0 + 1) * scale - 1], outline=(0, 255, 0))
+            label = f"#{len(tiles) + 1} {tag} {char} {joint} {kind} x{len(ks)} {f['pose']} z{f['zoom']} f{f['frame']}"
+            draw.rectangle([0, 0, tile.width, 13], fill=(0, 0, 0))
+            draw.text((2, 1), label, fill=(255, 255, 0))
+            print(" ", label)
+            tiles.append(tile)
+    if not tiles:
+        print("  no failures: no sheet written")
+        return
+    side = 2 * half * scale
+    canvas = Image.new("RGB", (side * cols, side * ((len(tiles) + cols - 1) // cols)), (30, 30, 30))
+    for i, tile in enumerate(tiles):
+        canvas.paste(tile, ((i % cols) * side, (i // cols) * side))
+    canvas.save(out)
+    print(f"  {len(tiles)} kinds -> {out}")
 
 
 if __name__ == "__main__":

@@ -75,9 +75,14 @@ def main() -> None:
     head = np.asarray(Image.open(head_path).convert("RGBA"))
     base = Image.open(work / "base_rgba.png").convert("RGBA")
     eyes = work / "eyes"
+    state = spec.get("eye_states", {})
+    for name in ("half", "closed"):  # reviewed eye pictures registered by another script (rin: extras/register.py) are not ours to replace
+        registered = state.get("sources", {}).get(name, {}).get("path", "")
+        if registered and (ROOT / registered).resolve().parent != eyes.resolve():
+            raise SystemExit(f"[make_eye_states] {spec_path.name}: eye_states.sources.{name} is {registered}, not made by this tool. "
+                             f"Its own script rebuilds it ({', '.join(recipe.get('source_rebuilds', [])) or 'see the spec'}); nothing was changed")
     (eyes / "raw").mkdir(parents=True, exist_ok=True)
     (eyes / "raw" / ".gdignore").touch()
-    state = spec.get("eye_states", {})
     box = tuple(state.get("head_box") or head_box(head[:, :, 3], base.size))
     reference = eyes / "raw" / "head_reference.png"
     base.crop(box).save(reference)
