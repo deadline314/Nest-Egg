@@ -1,0 +1,114 @@
+{
+ "props": [
+  {
+   "id": "training_range__steel_target",
+   "scene": "training_range",
+   "seed": 6201,
+   "fit": "meters",
+   "height_m": 1.8,
+   "texture_scale": 12,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A home-made reactive steel shooting target on a stand seen straight from the front: at the top an octagonal steel plate painted with chipped white and faded red rings and pocked with bullet dents, bolted through a thick coil spring onto a rusty tripod welded from rebar, a tan sandbag draped over the tripod feet to weigh it down, a small cream paper pawn tag tied to the frame with string, proportions about two wide to five tall.",
+   "anchor": {
+    "size": [
+     21.6,
+     54.0
+    ]
+   },
+   "new": {
+    "display_name": "彈簧鋼靶",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "training_range__rubber_dummy",
+   "scene": "training_range",
+   "seed": 6202,
+   "fit": "meters",
+   "height_m": 1.75,
+   "texture_scale": 12,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "A battered rubber sparring dummy seen straight from the side: an armless humanoid torso and bald head moulded from dark red-brown rubber, mounted on a thick steel coil spring on a round weighted base made from an old truck wheel rim, grey duct-tape patches on the ribs, old slash marks, a white chalk cross drawn on the chest, a small cream paper pawn tag tied round the neck, proportions about two wide to five tall.",
+   "anchor": {
+    "size": [
+     21.0,
+     52.5
+    ]
+   },
+   "new": {
+    "display_name": "橡膠假人靶",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "training_range__striker_body",
+   "scene": "training_range",
+   "seed": 6203,
+   "fit": "meters",
+   "height_m": 1.75,
+   "texture_scale": 12,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "The armless body of a home-built sparring machine seen straight from the front: a squat steel column welded from a salvaged washing-machine drum and car engine parts on a heavy bolted base plate with two sandbags on it, a round steel hub at shoulder height with one empty axle socket on its left side and one on its right side, a wire-caged signal lamp with dark unlit glass on the very top, exposed black cables, a yellow and black hazard striped band around the waist, a small cream paper pawn tag, the machine has no arms at all, proportions about two wide to five tall.",
+   "anchor": {
+    "size": [
+     21.0,
+     52.5
+    ]
+   },
+   "new": {
+    "display_name": "訓練器機身",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "training_range__striker_arm",
+   "scene": "training_range",
+   "seed": 6204,
+   "fit": "meters",
+   "height_m": 0.24,
+   "texture_scale": 16,
+   "normal": {
+    "profile": "cylinder_h"
+   },
+   "prompt": "One single mechanical striker arm lying perfectly horizontal seen straight from the side: a grey steel tube with a bolted pivot ring at the left end and a fat red-brown leather boxing pad wrapped with grey tape at the right end, a short hydraulic damper along the tube, proportions about five wide to one tall.",
+   "anchor": {
+    "size": [
+     30.0,
+     7.2
+    ]
+   },
+   "new": {
+    "display_name": "訓練器手臂",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "training_range__light_gate",
+   "scene": "training_range",
+   "seed": 6205,
+   "fit": "meters",
+   "height_m": 1.9,
+   "texture_scale": 12,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "A photo-sensor timing gate post seen straight from the side: a slim grey steel pole on a small weighted tripod base, yellow and black hazard tape wound around the pole, a boxy sensor head on top with a round dark glass lens facing right and a small unlit signal lamp above it, a coiled black cable running down the pole, a small cream paper pawn tag, proportions about one wide to six tall.",
+   "anchor": {
+    "size": [
+     9.5,
+     57.0
+    ]
+   },
+   "new": {
+    "display_name": "衝刺計時桿",
+    "category": "scene"
+   }
+  }
+ ]
+}

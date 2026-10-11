@@ -11,6 +11,15 @@ const POLL_INTERVAL := 0.25
 const ACTIVE_COLOR := Color(1.0, 0.62, 0.2)
 const IDLE_COLOR := Color(0.45, 0.5, 0.58)
 const DONE_COLOR := Color(0.35, 0.85, 0.55)
+## TrainingData.Kind → data/environment/training_art.json 的鍵（REACH 是地上的站位標記，沒有器材圖）。
+const ART_KEYS := {
+	TrainingData.Kind.TARGET: "target",
+	TrainingData.Kind.DUMMY: "dummy",
+	TrainingData.Kind.TRAINER: "trainer",
+	TrainingData.Kind.DASH_LINE: "dash_line",
+}
+## 狀態燈「輪到你」時一個來回的秒數（緩慢起伏，不是閃爍）。
+const LAMP_PULSE_SECONDS := 1.4
 
 signal completed(station: TrainingStation)
 
@@ -25,6 +34,13 @@ var _flash := 0.0
 var _prompt: WorldPrompt
 var _health: HealthComponent
 var _hurtbox: Hurtbox
+## 器材的圖（BG-37）；讀不到時是 null，改用簡單畫法。
+var _art: TrainingArt
+var _time := 0.0
+var _arm_pose := &"rest"
+var _strike_side := 1.0
+## 命中火花的頂點（重複使用，不每格配置）。
+var _spark := PackedVector2Array([Vector2.ZERO, Vector2.ZERO, Vector2.ZERO, Vector2.ZERO, Vector2.ZERO, Vector2.ZERO, Vector2.ZERO, Vector2.ZERO])
 
 
 func configure(p_data: TrainingData) -> void:
@@ -39,6 +55,11 @@ func _ready() -> void:
 	for problem in data.validate():
 		push_error("[TrainingStation] %s" % problem)
 	z_index = WorldLayers.ENTITY_BEHIND
+	if ART_KEYS.has(data.kind):
+		_art = TrainingArt.build(self, ART_KEYS[data.kind])
+	if _art != null:
+		# 器材本體受環境光與場景燈影響；訓練站自己只畫發亮的狀態燈。
+		LightKit.mark_emissive(self)
 	if data.kind in [TrainingData.Kind.TARGET, TrainingData.Kind.DUMMY]:
 		_health = HealthComponent.new()
 		_health.setup(1_000_000, 0.0)
@@ -82,6 +103,7 @@ func _physics_process(delta: float) -> void:
 		_refresh()
 		if was_active != _active:
 			_phase = &"idle"
+			_pose_arms(&"rest")
 	_flash = maxf(0.0, _flash - delta)
 	if not _active:
 		return
@@ -112,17 +134,30 @@ func _run_trainer(player: Player, offset: Vector2, delta: float) -> void:
 				_phase = &"warn"
 				_phase_left = TRAINER_WARN
 				Sfx.play(&"switch", -10.0)
+				_pose_arms(&"warn")
 				queue_redraw()
 		&"warn":
 			queue_redraw()
 			if _phase_left <= 0.0:
+				_strike_side = -1.0 if offset.x < 0.0 else 1.0
+				_pose_arms(&"strike", int(_strike_side))
 				_strike(player, offset)
 				_phase = &"cooldown"
 				_phase_left = TRAINER_COOLDOWN
 		&"cooldown":
+			# 出手後停一下再收回，看得出剛才打了哪一邊。
+			if _phase_left <= TRAINER_COOLDOWN - 0.3:
+				_pose_arms(&"rest")
 			if _phase_left <= 0.0:
 				_phase = &"idle"
 				queue_redraw()
+
+
+func _pose_arms(phase: StringName, side := 0) -> void:
+	if _art == null or phase == _arm_pose:
+		return
+	_arm_pose = phase
+	_art.set_arm_phase(phase, side)
 
 
 ## 出手一次：只打前方有效距離內的玩家。擋下＝完成；打中＝停機並把生命補回（訓練不會致死）。
@@ -156,6 +191,8 @@ func _on_hit(info: DamageInfo) -> void:
 	if not _active:
 		return
 	_flash = 0.2
+	if _art != null:
+		_art.hit(info.knockback.x if info.knockback.x != 0.0 else global_position.x - info.origin.x)
 	queue_redraw()
 	var wanted_projectile := data.kind == TrainingData.Kind.TARGET
 	if info.is_projectile == wanted_projectile:
@@ -178,15 +215,65 @@ func _complete() -> void:
 	queue_redraw()
 
 
-func _process(_delta: float) -> void:
-	if _flash > 0.0:
+func _process(delta: float) -> void:
+	# 有器材圖時，輪到的站的燈號會緩慢起伏；其餘狀態是靜止的，不用每格重畫。
+	if _art != null and _active:
+		_time += delta
+		queue_redraw()
+	elif _flash > 0.0 or (_art != null and _art.is_processing()):
 		queue_redraw()
 
 
-## 器材外觀：簡潔的剪影，顏色表示狀態（灰＝還沒輪到、橘＝現在練這個、綠＝完成）。
+## 器材外觀。有器材圖（BG-37）時只畫狀態燈與命中的閃光；圖讀不到時退回簡潔的剪影。
+## 狀態不只靠顏色分：還沒輪到＝暗的空心圈、現在練這個＝橘色實心加緩慢起伏的光暈、完成＝綠色實心加勾。
 func _draw() -> void:
 	if data == null:
 		return
+	if _art != null:
+		_draw_state_lamp()
+		return
+	_draw_fallback()
+
+
+func _draw_state_lamp() -> void:
+	# 燈裝在器材上，器材被打得晃動時跟著一起動。
+	var at := _art.lamp_at.rotated(_art.rotation)
+	var warn := _phase == &"warn"
+	if _done:
+		draw_circle(at, 2.2, LightKit.glow(DONE_COLOR, 1.6))
+		draw_polyline(PackedVector2Array([at + Vector2(3.6, -0.4), at + Vector2(5.0, 1.2), at + Vector2(7.6, -2.4)]), LightKit.glow(DONE_COLOR, 1.6), 1.0)
+	elif warn:
+		# 訓練器的預兆：燈整顆亮起並放大，不閃爍（搭配手臂後拉）。
+		draw_circle(at, 4.6, Color(LightKit.glow(Color(1.0, 0.45, 0.1), 1.2), 0.35))
+		draw_circle(at, 2.8, LightKit.glow(Color(1.0, 0.45, 0.1), 2.0))
+	elif _active:
+		var pulse := 0.5 + 0.5 * sin(_time * TAU / LAMP_PULSE_SECONDS)
+		draw_circle(at, 3.4 + pulse * 1.6, Color(LightKit.glow(ACTIVE_COLOR, 1.1), 0.18 + 0.2 * pulse))
+		draw_circle(at, 2.2, LightKit.glow(ACTIVE_COLOR, 1.5 + 0.4 * pulse))
+	else:
+		draw_arc(at, 2.0, 0.0, TAU, 12, Color(IDLE_COLOR, 0.85), 0.8)
+	if _flash > 0.0:
+		# 命中的火花：小的四芒星，不用整顆圓把器材蓋住。訓練器的火花在出手那一側的拳墊前。
+		var center := Vector2(0, -data.height * 0.7)
+		if data.kind == TrainingData.Kind.TRAINER:
+			center = Vector2(_strike_side * 34.0, -data.height * 0.74)
+		_draw_spark(center, 3.0 + 7.0 * (_flash / 0.25), Color(LightKit.glow(Color(1.0, 0.8, 0.45), 1.6), 0.85))
+
+
+func _draw_spark(center: Vector2, radius: float, color: Color) -> void:
+	var inner := radius * 0.28
+	_spark[0] = center + Vector2(0, -radius)
+	_spark[1] = center + Vector2(inner, -inner)
+	_spark[2] = center + Vector2(radius, 0)
+	_spark[3] = center + Vector2(inner, inner)
+	_spark[4] = center + Vector2(0, radius)
+	_spark[5] = center + Vector2(-inner, inner)
+	_spark[6] = center + Vector2(-radius, 0)
+	_spark[7] = center + Vector2(-inner, -inner)
+	draw_colored_polygon(_spark, color)
+
+
+func _draw_fallback() -> void:
 	var color := DONE_COLOR if _done else (ACTIVE_COLOR if _active else IDLE_COLOR)
 	var outline := Color(0.05, 0.06, 0.09, 0.9)
 	var h := data.height

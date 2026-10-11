@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"training_range__striker_body"
+display_name = "訓練器機身"
+texture = "res://art/environment/scene_props/training_range/training_range__striker_body.png"
+size = Vector2(18, 52.5)
+category = &"scene"

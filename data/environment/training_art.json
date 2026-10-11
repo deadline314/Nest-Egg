@@ -1,0 +1,47 @@
+{
+ "_doc": "序章訓練器材的外觀（BG-37）。kinds 的鍵對應訓練種類；prop 是 pack 裡的場景物件 id（圖由 assets_src/pipeline/training_fixtures.json 生成）。座標是像素，以器材腳底中央為原點、y 向上為負。lamp＝狀態燈的位置（畫在器材上真的會裝燈的地方，跟著器材一起晃）；sway_deg＝被打中時最多晃幾度；arm＝訓練器的手臂（shoulder 肩膀位置、spread 兩肩各往外幾像素、rest／warn／strike 三個姿勢的角度，0 是水平、正的往下垂）。",
+ "pack": "res://data/environment/scene_props/training_range",
+ "kinds": {
+  "target": {
+   "prop": "training_range__steel_target",
+   "lamp": [
+    0,
+    -33
+   ],
+   "sway_deg": 9
+  },
+  "dummy": {
+   "prop": "training_range__rubber_dummy",
+   "lamp": [
+    5.5,
+    -36
+   ],
+   "sway_deg": 12
+  },
+  "trainer": {
+   "prop": "training_range__striker_body",
+   "lamp": [
+    0,
+    -50
+   ],
+   "arm": {
+    "prop": "training_range__striker_arm",
+    "shoulder": [
+     0,
+     -40
+    ],
+    "spread": 8,
+    "rest_deg": 28,
+    "warn_deg": -52,
+    "strike_deg": -4
+   }
+  },
+  "dash_line": {
+   "prop": "training_range__light_gate",
+   "lamp": [
+    -0.5,
+    -55.5
+   ]
+  }
+ }
+}

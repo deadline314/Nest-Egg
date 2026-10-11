@@ -24,6 +24,7 @@ func run() -> void:
 	_test_chapter_one()
 	await _test_contact_shadow()
 	_test_fixture_art()
+	await _test_training_art()
 	await _test_local_drip()
 	await _test_lamp_fixtures()
 	await _test_lamp_flicker()
@@ -599,6 +600,77 @@ func _test_fixture_art() -> void:
 			"a missing fixture texture returns null instead of breaking the level")
 	holder.queue_free()
 	FixtureArt.clear_cache()
+
+
+## 序章訓練器材的圖（BG-37）：四種器材都有圖、底部貼在腳底、大小對主角身高合理；被打中會晃再停下來；
+## 訓練器的手臂後拉、朝玩家那一邊出手、再收回；沒有對應資料的種類回傳 null，訓練站退回簡單畫法。
+func _test_training_art() -> void:
+	TrainingArt.clear_cache()
+	var holder := Node2D.new()
+	runner.add_child(holder)
+	var hero_height := 58.0
+	for key: String in ["target", "dummy", "trainer", "dash_line"]:
+		var art := TrainingArt.build(holder, key)
+		check(art != null and art.show_behind_parent, "training art builds behind its station: " + key)
+		if art == null:
+			continue
+		var body := art.get_child(0) as PropNode
+		check(body != null and body.data != null and absf(body.position.y + body.data.size.y) < 0.01
+				and absf(body.position.x + body.data.size.x * 0.5) < 0.01, "training art stands on the station's feet: " + key)
+		check(body != null and body.data.size.y > hero_height * 0.75 and body.data.size.y < hero_height * 1.25,
+				"training equipment is about as tall as the hero: " + key)
+		check(art.lamp_at.y < -body.data.size.y * 0.5, "the state lamp sits on the upper half of the equipment: " + key)
+		check(not art.is_processing(), "idle training art does not run every frame: " + key)
+	var target := TrainingArt.build(holder, "target")
+	target.hit(1.0)
+	check(target.is_processing(), "a hit starts the sway")
+	var peak := 0.0
+	for i in 240:
+		await runner.get_tree().process_frame
+		if target.rotation < peak - 0.01:
+			break
+		peak = maxf(peak, target.rotation)
+	check(peak > deg_to_rad(2.0) and peak < deg_to_rad(15.0), "a hit from the left tips the target to the right within its limit (peak %.3f rad)" % peak)
+	for i in 240:
+		if not target.is_processing():
+			break
+		await runner.get_tree().process_frame
+	check(not target.is_processing() and target.rotation == 0.0, "the sway settles upright and stops updating")
+	# 掉格時（一格 0.25 秒）彈簧不能算爆：幅度仍在上限內，最後一樣停下來。
+	target.hit(-1.0)
+	var worst := 0.0
+	for i in 40:
+		target._process(0.25)
+		worst = maxf(worst, absf(target.rotation))
+	check(worst < deg_to_rad(15.0) and target.rotation == 0.0 and not target.is_processing(),
+			"the sway stays bounded and settles even with very long frames (worst %.3f rad)" % worst)
+	var trainer := TrainingArt.build(holder, "trainer")
+	var left := trainer.get_node_or_null("ArmLeft") as Node2D
+	var right := trainer.get_node_or_null("ArmRight") as Node2D
+	check(left != null and right != null and is_equal_approx(left.rotation, -right.rotation) and right.rotation > 0.0,
+			"the trainer has two mirrored arms hanging at rest")
+	if left != null and right != null:
+		var rest := right.rotation
+		trainer.set_arm_phase(&"warn")
+		for i in 90:
+			await runner.get_tree().process_frame
+		check(right.rotation < 0.0 and is_equal_approx(left.rotation, -right.rotation), "both arms pull back and up during the warning")
+		var pulled := right.rotation
+		trainer.set_arm_phase(&"strike", -1)
+		for i in 30:
+			await runner.get_tree().process_frame
+		check(absf(left.rotation) < absf(pulled) * 0.5 and is_equal_approx(right.rotation, rest),
+				"the strike swings the arm on the player's side and the other arm returns to rest")
+		trainer.set_arm_phase(&"rest")
+		for i in 120:
+			if not trainer.is_processing():
+				break
+			await runner.get_tree().process_frame
+		check(not trainer.is_processing() and is_equal_approx(left.rotation, -rest), "the arms return to rest and stop updating")
+	check(TrainingArt.build(holder, "reach") == null and TrainingArt.build(holder, "test_missing_kind") == null,
+			"a kind without art returns null so the station keeps its simple drawing")
+	holder.queue_free()
+	TrainingArt.clear_cache()
 
 
 ## 滴水（BG-25）：出水口在承接面上方才有效；水滴由上往下、越落越快，落到水面後濺開再等下一滴；
