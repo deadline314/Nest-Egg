@@ -55,7 +55,9 @@ func _run() -> void:
 	level._entities.add_child(station)
 	await _frames(4)
 	station._open()
-	await _frames(30)
+	# 用實際時間等開啟動畫（淡入與掃描線）跑完：GPU 很快時 30 影格不到動畫長度，會拍到半透明的過渡畫面。
+	await get_tree().create_timer(InventoryScreen.OPEN_TIME + 0.4, true, false, true).timeout
+	await _frames(2)
 	await _capture("shop", station._screen)
 	print("UI_TEXTSCALE_SWEEP issues=", _issues.size())
 	for issue in _issues:
@@ -76,15 +78,35 @@ func _capture(name: String, root: Node) -> void:
 
 
 ## 可見的 Label 超出畫面，或文字比自己的框寬（沒有自動換行也沒有省略）就記一筆。
+## 可捲動清單裡還沒捲到的列不算問題（捲動區本身在畫面內就讀得到）；但清單有更多內容卻沒有捲動提示，記一筆。
 func _audit(page: String, root: Node) -> void:
 	var view := Rect2(Vector2.ZERO, get_viewport().get_visible_rect().size)
+	var scrolled_out := 0
 	for label: Label in root.find_children("*", "Label", true, false):
 		if not label.is_visible_in_tree() or label.text.strip_edges().is_empty():
 			continue
 		var rect := label.get_global_rect()
-		if not view.encloses(rect.grow(-0.5)):
+		var scroll := _scroll_owner(label)
+		var bounds := view.intersection(scroll.get_global_rect()) if scroll != null else view
+		if scroll != null and view.encloses(scroll.get_global_rect().grow(-0.5)) and not bounds.encloses(rect.grow(-0.5)):
+			scrolled_out += 1
+		elif not view.encloses(rect.grow(-0.5)):
 			_issues.append("%s：「%s」超出畫面 %s" % [page, label.text.left(16), rect])
 		elif label.autowrap_mode == TextServer.AUTOWRAP_OFF and label.text_overrun_behavior == TextServer.OVERRUN_NO_TRIMMING and label.clip_text:
 			var need := label.get_theme_font(&"font").get_string_size(label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, label.get_theme_font_size(&"font_size")).x
 			if need > rect.size.x + 1.0:
 				_issues.append("%s：「%s」被裁切（需要 %.0f，只有 %.0f）" % [page, label.text.left(16), need, rect.size.x])
+	for scroll: ScrollContainer in root.find_children("*", "ScrollContainer", true, false):
+		var bar := scroll.get_v_scroll_bar()
+		if scroll.is_visible_in_tree() and bar.max_value - bar.page > 1.0 and ScrollCue.of(scroll) == null:
+			_issues.append("%s：捲動區「%s」還有內容但沒有捲動提示" % [page, scroll.name])
+	print("UI_TEXTSCALE_SWEEP %s 捲動區內尚未捲到的文字 %d 筆（不算問題）" % [page, scrolled_out])
+
+
+static func _scroll_owner(node: Node) -> ScrollContainer:
+	var parent := node.get_parent()
+	while parent != null:
+		if parent is ScrollContainer:
+			return parent
+		parent = parent.get_parent()
+	return null

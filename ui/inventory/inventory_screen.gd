@@ -190,6 +190,8 @@ func _build_layout() -> void:
 	_hint_label.position = Vector2(MARGIN.x, 360 - MARGIN.y - FOOTER_HEIGHT + 2)
 	_hint_label.size = Vector2(320, 18)
 	_hint_label.clip_text = true
+	# 放大文字時說明比狀態列長：用省略號收尾，不從字的中間切開（完整說明在右側細節）。
+	_hint_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	_frame.add_child(_hint_label)
 	_legend_label = UiKit.label("", 9, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
 	_legend_label.position = Vector2(640 - MARGIN.x - LEGEND_WIDTH, 360 - MARGIN.y - FOOTER_HEIGHT + 4)

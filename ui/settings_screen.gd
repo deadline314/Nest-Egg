@@ -305,6 +305,7 @@ func _build_display_tab() -> Control:
 		Settings.set_damage_numbers(on)
 		Sfx.play(&"ui_confirm", -6.0, 0.0))
 	box.add_child(_damage_numbers)
+	ScrollCue.attach(scroll)
 	return scroll
 
 
@@ -463,6 +464,7 @@ func _build_bindings_tab() -> Control:
 		for slot in InputBindings.KEY_SLOTS:
 			grid.add_child(_make_binding_button(action, slot, "點擊後按下新按鍵或滑鼠鍵；Backspace 清除"))
 		grid.add_child(_make_binding_button(action, JOY_SLOT, "點擊後按下手把按鈕；搖桿與扳機固定不可改"))
+	ScrollCue.attach(scroll)
 	return scroll
 
 
@@ -487,6 +489,7 @@ func _build_controller_tab() -> Control:
 	_controller_note = UiKit.label("", 11, Palette.UI_MUTED)
 	_controller_note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	box.add_child(_controller_note)
+	ScrollCue.attach(scroll)
 	return scroll
 
 

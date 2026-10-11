@@ -2478,7 +2478,7 @@ func _run_cutscene() -> void:
 	await _settle(4)
 
 
-## 各介面畫面：主選單、難度、設定、圖鑑、暫停、死亡、結算。
+## 各介面畫面：主選單、難度、設定、圖鑑、暫停、背包各分頁、死亡、結算。
 func _run_screens() -> void:
 	var menu := MainMenu.new()
 	add_child(menu)
@@ -2512,15 +2512,27 @@ func _run_screens() -> void:
 	await _wait(0.6)
 	_capture("screens_pause")
 	level._pause_menu.close()
-	var card := DefeatCodex.unlock(&"grunt_shot")
-	var death := DeathScreen.new()
-	death.setup(card, true)
-	level.add_child(death)
-	await _wait(0.2)
+	# 背包：每個分頁各拍一張（文字放大時檢查清單、細節與狀態列）。
+	level._inventory.open()
+	await _wait(0.5)
+	for tab in level._inventory._pages.size():
+		level._inventory.select_tab(tab)
+		await _wait(0.35)
+		_capture("screens_inventory_%d" % tab)
+	level._inventory.close()
+	await _wait(0.4)
+	# 走真正的死亡流程：主角倒下 → 結算 → 關卡自己開死亡畫面；背景的操作提示與教學看板依死亡狀態收起。
+	level.player.health.kill(DamageInfo.create(99, Combat.Team.ENEMY, &"grunt_shot"))
+	await _wait(Level.DEATH_SCREEN_DELAY + 0.2)
+	var death: DeathScreen = null
+	for child in level.get_children():
+		if child is DeathScreen:
+			death = child
+	if death == null:
+		push_warning("[screenshot] screens：這次死亡走特殊死亡場景，沒有出現死亡畫面")
 	_capture("screens_death_noise")
 	await _wait(1.0)
 	_capture("screens_death")
-	death.queue_free()
 	level.queue_free()
 	await _settle(4)
 	GameState.kills = 17

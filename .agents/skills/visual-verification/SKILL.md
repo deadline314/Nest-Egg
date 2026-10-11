@@ -39,8 +39,8 @@ xvfb-run -a -s "-screen 0 1280x720x24" godot_x11 --path . --rendering-driver vul
 | `tools/lamp_gallery.tscn` | 場景燈具一覽：每一款亮與熄滅、原本的裝法與掛在桿子上的樣子 |
 | `tools/weapon_light_probe.tscn` | 槍燈：在真實關卡套上暗的光影，每把槍朝三個方向各拍一張；量開、關槍燈時 8 格外敵人的亮度，以及開火時每影格的耗時（開、關交替量）。這支工具也能原封不動拿去量還沒有槍燈的舊版本 |
 | `tools/vfx_exposure_probe.tscn` ＋ `tools/vfx_exposure_sheet.py` | 每一份光影設定下的槍口、敵人死亡、油桶爆炸連拍與全白比例（`--level` 換成真實關卡、`--stress` 量連續爆炸的每影格間隔）；改爆炸或新增光影設定後重跑 |
-| `tools/screenshot.tscn --scenario=screens --text-scale=1.2` | 主選單、難度、設定、圖鑑、暫停、死亡、結算一次拍完；`--text-scale` 寫入獨立設定檔，`--size=寬x高` 改視窗大小 |
-| `tools/ui_textscale_sweep.tscn [--text-scale=1.2]` | 設定四個分頁與補給商店，並列出超出畫面或被裁切的文字（可捲動清單裡的列不算問題） |
+| `tools/screenshot.tscn --scenario=screens --text-scale=1.2` | 主選單、難度、設定、圖鑑、暫停、背包各分頁、死亡、結算一次拍完；`--text-scale` 寫入獨立設定檔，`--size=寬x高` 改視窗大小 |
+| `tools/ui_textscale_sweep.tscn [--text-scale=1.2]` | 設定四個分頁與補給商店，並列出超出畫面或被裁切的文字；捲動區裡還沒捲到的列只計數不算問題，但有更多內容卻沒有捲動提示會列出 |
 | `tools/quest_map_probe.tscn --text-scale=1.2` | 任務與地圖各分頁的放大文字版面；`--fixtures` 畫面會標示驗證樣本 |
 | `tools/hud_hover_modal_capture.tscn [--legacy]` | 滑鼠停在 HUD 上再開暫停頁／通訊／交談；`--legacy` 拿掉守門重現修前畫面 |
 | `tools/pickup_feed_capture.tscn` | 拾取紀錄與舊的中央取得橫幅對照 |

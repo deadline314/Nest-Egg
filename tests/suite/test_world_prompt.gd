@@ -12,6 +12,7 @@ func run() -> void:
 	await _test_modal_suppression()
 	await _test_keycaps()
 	await _test_screen_edge()
+	await _test_dead_player_suppression()
 
 
 func _test_modal_suppression() -> void:
@@ -28,6 +29,34 @@ func _test_modal_suppression() -> void:
 	check(prompt.is_showing(), "releasing modal control restores the actual reachable invitation")
 	stage.queue_free()
 	await frames(2)
+
+
+## 倒下之後死亡畫面接手：教學與互動提示不再對倒地的主角顯示（NE-228）。
+func _test_dead_player_suppression() -> void:
+	var stage := Node2D.new()
+	runner.add_child(stage)
+	var player := FakePlayer.new()
+	player.add_to_group(&"player")
+	stage.add_child(player)
+	var prompt := _spawn_prompt(stage, 0.0, "移動 {move_left}/{move_right}")
+	prompt._process(1.0)
+	check(prompt.is_showing(), "a living player still sees the nearby tutorial prompt")
+	player.dead = true
+	prompt._process(1.0)
+	prompt._process(1.0)
+	check(not prompt.is_showing(), "a dead player is not invited to move, jump or interact")
+	player.dead = false
+	prompt._process(1.0)
+	check(prompt.is_showing(), "the prompt returns after the player is back on their feet")
+	stage.queue_free()
+	await frames(2)
+
+
+class FakePlayer extends Node2D:
+	var dead := false
+
+	func is_dead() -> bool:
+		return dead
 
 
 func _rect(x: float, y := 0.0, w := 60.0, h := 15.0) -> Rect2:

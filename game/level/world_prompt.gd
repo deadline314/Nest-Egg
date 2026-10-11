@@ -163,14 +163,18 @@ func _player_near() -> bool:
 	# out with the normal prompt animation and return after control is released.
 	if _presentation_blocked():
 		return false
-	if reach_check.is_valid():
-		return reach_check.call()
 	var player: Node2D = _player_ref.get_ref() as Node2D if _player_ref != null else null
 	if player == null:
 		player = get_tree().get_first_node_in_group(&"player") as Node2D
-		if player == null:
-			return false
-		_player_ref = weakref(player)
+		if player != null:
+			_player_ref = weakref(player)
+	# 倒下之後死亡畫面接手；不要再對倒地的主角邀請移動、跳躍或互動。
+	if player != null and player.has_method(&"is_dead") and player.call(&"is_dead"):
+		return false
+	if reach_check.is_valid():
+		return reach_check.call()
+	if player == null:
+		return false
 	return player.global_position.distance_to(global_position - offset) <= radius
 
 
