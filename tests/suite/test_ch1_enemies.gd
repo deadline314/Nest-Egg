@@ -183,12 +183,23 @@ func _test_watchdog_leash_yank() -> void:
 	# 被扯回時牠還在往後滑：子彈飛行的這幾格先停住牠，量的是命中位置，不是追不追得上。
 	var origin := aim + Vector2(front * 70.0, 24.0)
 	dog.set_physics_process(false)
+	var deflected: Array = []
+	var on_deflect := func(info: DamageInfo) -> void: deflected.append(info.part)
+	for box: Hurtbox in [dog.hurtbox] + dog.hurtbox.parts:
+		box.hit_blocked.connect(on_deflect)
 	ProjectilePool.spawn(load(PISTOL_SHOT) as ProjectileSpec, origin, (aim - origin).normalized(), Combat.Team.PLAYER)
-	await physics_frames(12)
+	# 等子彈真的打到（頓幀期間遊戲時間變慢，負載高時頓幀會吃掉好幾個物理影格）。
+	for i in 90:
+		if not hits.is_empty() or not deflected.is_empty():
+			break
+		await physics_frames(1)
+	await physics_frames(4)
+	for box: Hurtbox in [dog.hurtbox] + dog.hurtbox.parts:
+		box.hit_blocked.disconnect(on_deflect)
 	dog.set_physics_process(true)
 	dog.health.damaged.disconnect(record)
 	var base := roundi((load(PISTOL_SHOT) as ProjectileSpec).damage)
-	check(hits.size() == 1 and hits[0][0] == &"back_power" and hits[0][2] and hits[0][1] == roundi(base * 2.0), "the exposed back takes a 2x weak hit: %s" % [hits])
+	check(hits.size() == 1 and hits[0][0] == &"back_power" and hits[0][2] and hits[0][1] == roundi(base * 2.0), "the exposed back takes a 2x weak hit: %s (deflected by %s, back %s open %s)" % [hits, deflected, aim, back.enabled])
 	var recovered := await wait_state(dog, &"idle", 150)
 	await physics_frames(2)
 	check(recovered and not back.enabled, "the back closes again once it recovers")
