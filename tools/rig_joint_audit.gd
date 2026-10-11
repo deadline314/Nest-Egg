@@ -4,6 +4,8 @@ extends Node
 ## 配合 check_joint_frames.py 檢查連通與封閉透明孔；不取代全角色逐格外觀／光照檢視。
 
 const CELL := 128
+## --pair-only：只畫相接的兩片（舊的量法，用來找兩片之間本身的縫）。預設連同一根骨頭上的其他可見零件一起畫。
+var _as_worn := true
 const PREVIEW := preload("res://tools/rig_preview.gd")
 const JOINTS := {
 	"waist": [&"chest", "torso", "pelvis"],
@@ -45,6 +47,7 @@ func _run() -> void:
 		elif arg.begins_with("--chars="): chars = arg.trim_prefix("--chars=").split(",", false)
 		elif arg.begins_with("--joints="): joints = arg.trim_prefix("--joints=").split(",", false)
 		elif arg.begins_with("--frames="): frames = int(arg.trim_prefix("--frames="))
+		elif arg == "--pair-only": _as_worn = false
 	if out.is_empty() or frames <= 0:
 		push_error("[rig_joint_audit] requires --out and positive --frames")
 		get_tree().quit(1)
@@ -94,8 +97,14 @@ func _run() -> void:
 							return
 						var material := CanvasItemMaterial.new()
 						material.light_mode = CanvasItemMaterial.LIGHT_MODE_UNSHADED
+						# 同一根骨頭上、遊戲裡本來就顯示的其他零件（袖子、護腕、領子、圍裙肩帶）一起畫：玩家看到的接點是它們疊起來的樣子。
+						# 只畫相接的兩片時，支點落在這些零件上的接點每一格都會被判成「中心沒蓋到」。裝甲脫落後的樣子另外用 rig_preview --damage --bare 看。
+						var pair_bones: Array[Node] = []
 						for part in rig._parts:
-							part.visible = keep.has(str(part.name))
+							if keep.has(str(part.name)) and not pair_bones.has(part.get_parent()):
+								pair_bones.append(part.get_parent())
+						for part in rig._parts:
+							part.visible = keep.has(str(part.name)) or (_as_worn and part.visible and pair_bones.has(part.get_parent()))
 							part.material = material
 							for child in part.get_children():
 								if child is CanvasItem: child.visible = false

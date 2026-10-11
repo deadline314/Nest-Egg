@@ -82,6 +82,12 @@ var _time := 0.0
 var _bright := false
 ## --left：全部角色朝左（面向、瞄準、速度、受擊與倒下方向一起左右對調），檢查朝左時的圖層與接點。
 var _left := false
+## --crouch：所有格都按著蹲（配 --gait 就是蹲走）；--hurt：反覆受擊與硬直；--recoil=1：反覆開槍的後座；--aim=度：瞄準仰角（正值朝上，-90～90）。
+var _force_crouch := false
+var _force_hurt := false
+var _force_recoil := 0.0
+var _force_aim := NAN
+var _force_ticks: Dictionary = {}
 
 
 func _ready() -> void:
@@ -94,6 +100,14 @@ func _ready() -> void:
 			_bright = true
 		elif arg == "--left":
 			_left = true
+		elif arg == "--crouch":
+			_force_crouch = true
+		elif arg == "--hurt":
+			_force_hurt = true
+		elif arg.begins_with("--recoil="):
+			_force_recoil = float(arg.trim_prefix("--recoil="))
+		elif arg.begins_with("--aim="):
+			_force_aim = clampf(float(arg.trim_prefix("--aim=")), -90.0, 90.0)
 		elif arg == "--head":
 			_head_only = true
 		elif arg == "--closeup":
@@ -427,12 +441,27 @@ func _capture() -> void:
 
 ## --left 時回傳左右對調的一份輸入（原本的輸入不動，下一格照常從朝右的值算）。
 func _faced(input: RigInput) -> RigInput:
-	if not _left:
+	if not (_left or _force_crouch or _force_hurt or _force_recoil > 0.0 or not is_nan(_force_aim)):
 		return input
 	var mirrored := RigInput.new()
 	for property in input.get_property_list():
 		if int(property["usage"]) & PROPERTY_USAGE_SCRIPT_VARIABLE:
 			mirrored.set(property["name"], input.get(property["name"]))
+	var ticks := int(_force_ticks.get(input, 0)) + 1  # 每個角色各自計時（各模式推進時間的方式不同，以 animate 的次數為準）
+	_force_ticks[input] = ticks
+	var clock := ticks / 60.0
+	if _force_crouch:
+		mirrored.crouching = true
+	if _force_hurt:
+		mirrored.hurt = fmod(clock, 0.6) < 0.05  # 每 0.6 秒挨一下
+		mirrored.staggered = fmod(clock, 0.6) < 0.25
+	if _force_recoil > 0.0:
+		mirrored.recoil = _force_recoil * maxf(0.0, 1.0 - fmod(clock, 0.3) / 0.12)
+	if not is_nan(_force_aim):
+		mirrored.aim_dir = Vector2.RIGHT.rotated(-deg_to_rad(_force_aim))
+	if not _left:
+		return mirrored
+	input = mirrored
 	mirrored.facing = -input.facing
 	mirrored.aim_dir = Vector2(-input.aim_dir.x, input.aim_dir.y)
 	mirrored.velocity = Vector2(-input.velocity.x, input.velocity.y)
