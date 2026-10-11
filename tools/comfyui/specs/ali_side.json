@@ -88,16 +88,10 @@
         ]
       }
     },
-    "arm_far": {
-      "sam": [
-        "arm",
-        "hand"
-      ]
-    },
     "leg_far": {
       "sam": [],
       "y": [
-        600,
+        824,
         1216
       ],
       "points": {
@@ -187,6 +181,10 @@
           "bone": "hip",
           "z": 0
         }
+      ],
+      "unclaimed": [
+        548,
+        586
       ]
     },
     "torso": {
@@ -249,7 +247,10 @@
           "bone": "leg_front_upper",
           "z": 3
         }
-      ]
+      ],
+      "front_line": {
+        "far": "leg_far"
+      }
     },
     "leg_lower": {
       "group": "body",

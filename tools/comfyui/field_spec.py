@@ -11,7 +11,8 @@ What it decides, so that a plain humanoid needs no hand-written spec:
   groups   near arm and far leg by SAM point prompts placed from the keypoints; a far hand that shows, and the head, by text; the body =
            everything else,
            completed from stage P (the same picture without the near arm); a wide ring around the arm is taken from stage P too, so no
-           sliver of the hand stays on the thigh (it would show as a second hand once the arm moves)
+           sliver of the hand stays on the thigh (it would show as a second hand once the arm moves); the far hand gets a group of its own
+           (arm_far) only with --far-hand, otherwise it is not split off the body
   parts    pelvis / torso / thigh / shin / foot / upper arm / forearm / hand, with round joint caps at the hip and the ankle, hidden
            overlaps under the head and at the shoulder, and the armhole of stage P repainted in the colour of the clothes
 Run it twice: once before the parts step, and again (with --force) after it, so that the elbow and wrist snap to the arm mask.
@@ -93,6 +94,8 @@ def main() -> None:
                                           "are under a pixel wide and break into loose specks)")
     ap.add_argument("--far-foot-only", action="store_true",
                     help="both trouser legs are one dark mass and the far shin cannot be told from the near one: prompt only the far shoe")
+    ap.add_argument("--far-hand", action="store_true",
+                    help="the far hand shows in front of the body in this picture: cut it out of the body so it is not glued to the torso as a second hand")
     ap.add_argument("--force", action="store_true")
     args = ap.parse_args()
     work = ROOT / "art_src/characters" / args.id
@@ -151,24 +154,26 @@ def main() -> None:
     far_leg_points = [lerp(far["knee"], far["ankle"], 0.6), far["ankle"], lerp(far["heel"], far["big_toe"], 0.5)]
     if args.far_foot_only:
         far_leg_points = far_leg_points[2:]  # the ankle keypoint of a hidden far shin lands on the near trouser leg
-    if math.dist(far["knee"], J["knee"]) > 3.0 * knee_w:  # mid-stride source: the far thigh is in the open
+    far_thigh_open = math.dist(far["knee"], J["knee"]) > 3.0 * knee_w  # mid-stride source: the far thigh is in the open
+    if far_thigh_open:
         far_leg_points.insert(0, lerp(far["hip"], far["knee"], 0.75))
     groups = {
         "arm": {"sam": [], "points": {"pos": [lerp(J["shoulder"], J["elbow"], 0.5), lerp(J["elbow"], J["palm"], 0.5), hand_tip],
                                       "neg": [J["neck"], J["knee"]]}},  # not the hip or the far wrist: a hanging hand is often in front of them
         # what is left of "arm" and "hand" once the near arm is taken: the far hand when it shows in front of the body. Left in the body it
         # would be glued to the torso and read as an extra hand.
-        "arm_far": {"sam": ["arm", "hand"]},
-        # the far shin and shoe (the far foot stands half a step ahead); the far thigh only when it is clear of the near one
-        # clipped below the hip joint: the mask must not bite a notch out of the pelvis
-        "leg_far": {"sam": [], "seeded": True, "y": [round(J["ankle"][1] - 0.4 * shin) if args.far_foot_only else round(J["hip"][1] + 0.15 * thigh), rgba.size[1]],
+        **({"arm_far": {"sam": ["arm", "hand"]}} if args.far_hand else {}),
+        # the far shin and shoe (the far foot stands half a step ahead). In a standing source both thighs are one mass, so the far leg is taken
+        # from the knee down; taken from the hip it bites the front of the thigh and the hip opens when the far leg swings back.
+        "leg_far": {"sam": [], "seeded": True, "y": [round(J["ankle"][1] - 0.4 * shin) if args.far_foot_only else round(J["hip"][1] + 0.15 * thigh) if far_thigh_open else round(J["knee"][1]), rgba.size[1]],
                     "points": {"pos": far_leg_points, "neg": [J["knee"], J["ankle"], J["hip"], J["palm"]]}},
         "head": {"sam": ["head"]},
         "body": {"sam": [], "rest": True, "complete": {"stage": "P", "occluders": ["arm"], "near": 260, "trim": 20, "gap_grow": 30, "edge_trim": 1, "check_removed": hand_box, "keep_rim": True, "stage_silhouette": True}},
     }
     if args.arm_text:
         groups["arm"] = {"sam": ["arm"]}
-        groups["arm_far"] = {"sam": ["hand"]}
+        if args.far_hand:
+            groups["arm_far"] = {"sam": ["hand"]}
     tint = args.far_tint
 
     def pair(name: str, z_back: int, z_front: int) -> list:
@@ -184,10 +189,12 @@ def main() -> None:
     hip, waist, knee, ankle, elbow, palm = J["hip"], J["waist"], J["knee"], J["ankle"], J["elbow"], J["palm"]
     parts = {
         "pelvis": {"group": "body", "from": "waist", "to": "hip", "mode": "upright", "pivot": "hip", "y": [waist[1] + 20, hip[1] - 12],
+                   "unclaimed": [hip[1] - 12, hip[1] + 26],  # the front of the hip beyond the round caps stays with the pelvis
                    "caps": [{"joint": "hip", "radius": round(0.75 * hip_w), "feather": 1.5}], "uses": [{"name": "pelvis", "bone": "hip", "z": 0}]},
         "torso": {"group": "body", "from": "waist", "to": "neck", "mode": "upright", "pivot": "waist", "y": [0, waist[1] + 20], "uses": [{"name": "torso", "bone": "chest", "z": 1}]},
         "head": {"group": "head", "from": "head", "to": "head_top", "mode": "upright", "pivot": "head", "uses": [{"name": "head", "bone": "head", "z": 5}]},
         "leg_upper": {"group": "body", "from": "hip", "to": "knee", "mode": "bone", "y": [hip[1] + 20, knee[1]],
+                      **({} if args.far_foot_only or far_thigh_open else {"front_line": {"far": "leg_far"}}),  # the far thigh is not part of the near one
                       "caps": [{"joint": "hip", "radius": round(0.85 * hip_w), "feather": 10}], "uses": uses("leg_upper", -5, 3)},
         "leg_lower": {"group": "body", "from": "knee", "to": "ankle", "mode": "bone", "y": [knee[1], ankle[1] + 14],
                       "caps": [{"joint": "ankle", "radius": round(0.9 * ankle_w), "feather": 1.5}], "uses": uses("leg_lower", -5, 3)},

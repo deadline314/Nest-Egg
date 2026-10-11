@@ -365,10 +365,13 @@ def main() -> None:
         stage_masks[sname] = {p: (np.array(Image.open(have[p]).convert("L").resize((W, H))) > 127) & (arr_[:, :, 3] > 127) for p in need}
 
     # ---- completion of hidden groups --------------------------------------------------------------------------
+    # a cached completed group is kept only while the spec that made it is unchanged (used to be ignored silently); no key file = older picture, kept
+    group_key = hashlib.sha256(json.dumps([spec["groups"], spec.get("near_leg")], sort_keys=True, ensure_ascii=False).encode("utf8")).hexdigest()
     complete: dict[str, np.ndarray] = {}  # group -> full-canvas RGBA
     for name in order:
         g = spec["groups"][name]
         done = gdir / f"{name}.png"
+        key_file = gdir / f"{name}.key"
         vis_rgba = np.dstack([rgb, (V[name] * 255).astype(np.uint8)])
         if "complete" not in g or args.no_complete or (only is not None and name not in only and done.exists()):
             if "complete" in g and not args.no_complete and done.exists() and (only is None or name not in only):
@@ -377,9 +380,11 @@ def main() -> None:
                 complete[name] = vis_rgba
             continue
         if done.exists() and only is None:
-            print(f"keep {done.name} (use --only {name} to redo)")
-            complete[name] = np.array(Image.open(done).convert("RGBA"))
-            continue
+            if not key_file.exists() or key_file.read_text(encoding="utf8") == group_key:
+                print(f"keep {done.name} (use --only {name} to redo)")
+                complete[name] = np.array(Image.open(done).convert("RGBA"))
+                continue
+            print(f"redo {done.name}: the spec's groups changed")
         c = g["complete"]
         occ = np.zeros((H, W), bool)
         for o in c["occluders"]:
@@ -455,6 +460,7 @@ def main() -> None:
                     final = final | lost
             layer = np.dstack([color, (final * 255).astype(np.uint8)])
             Image.fromarray(layer).save(done)
+            key_file.write_text(group_key, encoding="utf8")
             complete[name] = layer
             continue
         ys, xs = np.nonzero(dilate(V[name], 50) | (dilate(occ, 10) & dilate(V[name], 80)))
@@ -494,6 +500,7 @@ def main() -> None:
         color = np.where((V[name])[:, :, None], rgb, full)
         layer = np.dstack([color, (final * 255).astype(np.uint8)])
         Image.fromarray(layer).save(done)
+        key_file.write_text(group_key, encoding="utf8")
         complete[name] = layer
 
     # ---- the near leg as a group of its own (NE-152) ----------------------------------------------------------
@@ -631,6 +638,23 @@ def main() -> None:
                 region &= (s_ >= (lo - a_[1]) / d_[1] if lo > 0 else True) & (s_ < (hi - a_[1]) / d_[1] if hi < H else True)
             else:
                 region &= (yy >= lo) & (yy < hi)
+        if "front_line" in pdef:
+            # {"far": group}: in a standing source the far thigh shows as a strip in front of the near one. Left in the part it swings
+            # with the near leg like a flap of cloth; cut out by its SAM mask it leaves a ragged edge and a step under the pelvis. The
+            # front of the part is a straight line instead: through the point where the far group begins beside the `to` joint, running
+            # up along the bone and `widen` times as far from it at the `from` joint (a thigh is thicker at the top), never beyond the
+            # group's own front edge there. Sources face right, so "front" is +x.
+            fl = pdef["front_line"]
+            y_top, y_bot = int(spec["joints"][pdef["from"]][1]), int(spec["joints"][pdef["to"]][1])
+            top_row = np.nonzero(grp[y_top, :, 3] > 127)[0]
+            far_rows = V[fl["far"]][y_bot:y_bot + 16]
+            starts = [int(np.nonzero(r)[0].min()) for r in far_rows if r.any()]
+            if len(top_row) and starts:
+                x_bot = float(np.median(starts)) + fl.get("margin", 2)
+                x_top = min(float(top_row.max()) + fl.get("margin", 2),
+                            spec["joints"][pdef["from"]][0] + fl.get("widen", 1.15) * (x_bot - spec["joints"][pdef["to"]][0]))
+                region &= xx <= x_top + (x_bot - x_top) * np.clip((yy - y_top) / max(y_bot - y_top, 1), 0.0, 1.5)
+                print(f"front_line {pname}: x {x_top:.0f} at y {y_top} -> x {x_bot:.0f} at y {y_bot}")
         straight[pname] = region
         # caps: a rigid joint (hip, shoulder, wrist, ankle, neck) turns without showing a corner or a gap only when both parts keep a round
         # disc of the group around the joint they turn on; a straight cut alone leaves an angular silhouette as soon as the limb swings.
@@ -651,6 +675,20 @@ def main() -> None:
             main_ = lab_ == (1 + int(np.argmax(st_[1:, cv2.CC_STAT_AREA]))) if n_ > 1 else region
             region = main_ if pdef["blob"] == "main" else region & ~main_
         parts[pname] = region
+    # parts.<name>.unclaimed = [y0, y1]: the pixels of the part's group in these rows that no part of the group took go to this part. Between
+    # a pelvis cut above the hip and a thigh cut below it only the round caps hold pixels: on a wide figure the front of the hip lies outside
+    # both discs, belongs to nobody, and opens as a notch as soon as the far leg swings back.
+    for pname, pdef in spec["parts"].items():
+        if "unclaimed" in pdef and pname in parts:
+            taken = np.zeros((H, W), bool)
+            for other, odef in spec["parts"].items():
+                if other in parts and odef.get("group") == pdef["group"]:
+                    taken |= parts[other]
+            lo, hi = pdef["unclaimed"]
+            orphan = (complete[pdef["group"]][:, :, 3] > 127) & ~taken & (yy >= lo) & (yy < hi)
+            parts[pname] = parts[pname] | orphan
+            straight[pname] = straight[pname] | orphan
+            print(f"unclaimed -> {pname}: +{int(orphan.sum())} px")
     # each part also gets `seam` px of its neighbours inside the same group, so joints can turn without cracks
     for pname, pdef in spec["parts"].items():
         if "damage_of" in pdef:

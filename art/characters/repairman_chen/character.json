@@ -4,17 +4,23 @@
   "rig": "res://art/rigs/repairman_chen.json",
   "texture_scale": 0.05,
   "scale": 1.0,
+  "eye_states": {
+    "part": "head",
+    "half_texture": "head_half",
+    "closed_texture": "head_closed",
+    "timing": {}
+  },
   "description": "外觀（skin）定義：textures 是零件圖片的尺寸與支點；parts 是把圖片掛到骨頭上的方式。由 tools/comfyui/cut_layers.py 依分件圖層切出。",
   "textures": {
     "pelvis": {
       "file": "parts/pelvis.png",
       "size": [
         271,
-        136
+        141
       ],
       "pivot": [
         153.76,
-        111.73
+        113.73
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -22,7 +28,7 @@
       "file": "parts/torso.png",
       "size": [
         251,
-        316
+        319
       ],
       "pivot": [
         127.49,
@@ -46,11 +52,11 @@
       "file": "parts/leg_upper.png",
       "size": [
         166,
-        228
+        233
       ],
       "pivot": [
         85.05,
-        -14.44
+        -12.44
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -58,11 +64,11 @@
       "file": "parts/leg_lower.png",
       "size": [
         150,
-        208
+        213
       ],
       "pivot": [
         79.46,
-        7.42
+        9.42
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -70,11 +76,11 @@
       "file": "parts/foot.png",
       "size": [
         182,
-        115
+        117
       ],
       "pivot": [
         57.09,
-        43.36
+        45.36
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -82,7 +88,7 @@
       "file": "parts/arm_upper.png",
       "size": [
         138,
-        198
+        201
       ],
       "pivot": [
         66.84,
@@ -94,11 +100,11 @@
       "file": "parts/arm_lower.png",
       "size": [
         135,
-        109
+        111
       ],
       "pivot": [
         64.06,
-        7.58
+        9.58
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -124,7 +130,7 @@
         52.76,
         188.07
       ],
-      "note": "NE-221: same-canvas source eye variant; original head retained"
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "head_closed": {
       "file": "parts/head_closed.png",
@@ -136,7 +142,7 @@
         52.76,
         188.07
       ],
-      "note": "NE-221: same-canvas source eye variant; original head retained"
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     }
   },
   "parts": [
@@ -236,11 +242,5 @@
       "bone": "hand_front",
       "z": 10
     }
-  ],
-  "eye_states": {
-    "part": "head",
-    "half_texture": "head_half",
-    "closed_texture": "head_closed",
-    "timing": {}
-  }
+  ]
 }

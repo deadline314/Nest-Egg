@@ -12,7 +12,7 @@ description: 從零做一個新角色或新外觀並放進 Nest Egg 的完整流
 - [visual-verification](../visual-verification/SKILL.md)：實機畫面怎麼拍、怎麼量
 - 逐項案例（成因、怎麼提早發現、修法、不能用的掩蓋做法，附前後圖所在的票）：`pm/Nest-Egg/attachments/NE-255-lessons.md`
 
-環境：本機 `COMFYUI_DIR=D:/ComfyUI`、Python 用 `D:/ComfyUI/.venv/Scripts/python.exe`（PowerShell 先設 `$env:PYTHONUTF8='1'`）、Godot 用 `C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe`。生成一次一張；用 GPU 的 Godot 指令包在 `tools/comfyui/gpu_lock.py -- …` 裡；做完用 `tools/comfyui/start_comfyui.ps1 -Stop` 收掉模型。
+環境：本機 `COMFYUI_DIR=D:/ComfyUI`、Python 用 `D:/ComfyUI/.venv/Scripts/python.exe`（PowerShell 先設 `$env:PYTHONUTF8='1'`）、Godot 用 `C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe`。生成一次一張；用 GPU 的 Godot 指令包在 `tools/comfyui/gpu_lock.py -- …` 裡；做完用 `tools/comfyui/start_comfyui.ps1 -Stop` 收掉模型。下面各關寫的 `python` 都指上面那個 venv 直譯器。
 
 ## 三類問題的總表
 
@@ -36,6 +36,7 @@ description: 從零做一個新角色或新外觀並放進 Nest Egg 的完整流
 1. 寫 `art_src/characters/<id>/01_design/character.txt`：年齡、性別（寫白）、頭身、體型、臉上不對稱的地方、每件衣服與它的磨損。衣服是港區會有的實用衣物；發光的東西最多一小處。會坐下的角色，上衣寫「只到腰帶」，不要有過腰的下襬。
 2. `python tools/comfyui/field_design.py --id <id> --seed <n>`。畫風、站姿與收尾的文字是全體共用的，不要在角色描述裡重寫，也不要加「高細節、傑作」這類詞。
 3. 已有定稿、只想換姿勢時用參考編輯（例：`art_src/characters/rin_field/01_design/generate.py`）。
+4. 換了種子、選定要用的那張，再跑同一個 seed 加 `--adopt`：`python tools/comfyui/field_design.py --id <id> --seed <n> --adopt`。`base_rgba.png` 只在不存在或加 `--adopt` 時才會寫入；沒做這步，下一關仍用舊圖。
 
 通過條件（全部看原圖，並和老 K、護理師並排）：
 
@@ -55,6 +56,9 @@ description: 從零做一個新角色或新外觀並放進 Nest Egg 的完整流
 - 有外套、圍裙、背上的東西這類分層衣物：從產生的規格往下拆（範例 `tools/comfyui/specs/rin_side.json`）。外套分「上身跟胸、下襬跟骨盆、袖子跟手臂」；垂在腿前的裙片跟前側大腿。
 - 手臂的點提示抓得破碎時加 `--arm-text`。
 - 建置停在「points_leg_far … mask value」：兩腿同色又重疊，遠側小腿切不出來，加 `--far-foot-only` 只切遠側的鞋。
+- 要跑兩次：parts 步驟前跑一次；parts 跑完（有 `sam/points_arm.png`，用 `--arm-text` 時是 `sam/arm.png`）後加 `--force` 再跑一次，肘與腕會移到手臂遮罩的中線。`--force` 會整份重寫規格，手改的內容與 `eye_states` 都會不見，之後要重跑第 3 關的 `make_eye_states.py`。
+- 站立來源（兩腿幾乎並排）的遠側腿：遮罩只切膝蓋以下；大腿的前緣用一條直線切（規格裡大腿零件的 `front_line`），線以前是遠側大腿，不歸近側。骨盆與大腿之間沒有零件認領的像素歸骨盆（骨盆零件的 `unclaimed`）。這三項規格工具會自動寫好。遠側的手只有真的露在身體前面時才加 `--far-hand`，預設不切。
+- 零件的細突出（鞋帶尖等，畫面上不到一像素）用 `--trim-spikes 零件,零件` 切掉。
 
 ## 第 3 關：建置到引擎
 
@@ -64,19 +68,25 @@ python tools/comfyui/make_eye_states.py --recipe tools/comfyui/recipes/<id>.json
 python tools/comfyui/build_character.py --recipe tools/comfyui/recipes/<id>.json --from textures --to import
 ```
 
-- 新增任何圖片（例如頭像）後先跑一次匯入，否則法線步驟會被不相干的錯誤擋下。
+- 新增任何圖片（例如頭像）後先跑一次匯入：`python tools/comfyui/build_character.py --recipe tools/comfyui/recipes/<id>.json --only import`，否則法線步驟會被不相干的錯誤擋下。`--list` 印出各步驟的工具、輸入與輸出。
+- `make_eye_states.py` 不在 `build_character.py` 的步驟裡，要自己跑。跑完看 `<work>/eyes/review.png`（一般是 `art_src/characters/<id>/eyes/review.png`：睜眼、半閉、閉眼與遮罩），頭部零件（`07_refined/head.png`）一改就要重跑。
+- 有 `damage`（破損衣物）的角色：`--from parts --to refine` 之後要先跑 `--only damage`，`--from textures` 不會跑它。spec 沒有 `damage` 鍵時這一步什麼也不做。
 - 貼圖密度：NPC 與敵人每世界像素 20 像素，主角保留來源密度。
-- 動作資料 `art/motion/<id>.json` 從相近的角色複製後改數值；每個角色的數值要不一樣（測試會擋）。
+- 動作資料 `art/motion/<id>.json` 從相近的角色複製後改數值。測試（`tests/suite/test_rig_actions.gd` 的 `_test_motion_is_not_shared`）要求：`art/characters` 每個資料夾都有對應的動作檔；任兩個角色在下列 12 個欄位中至少 4 個值不同：`move.stride`、`move.swing`、`move.knee_bend`、`move.hip_bounce`、`move.chest_lean`、`idle.breath_speed`、`idle.hip_bob`、`death.duration`、`death.rotation`、`death.fold`、`look.head`、`hurt.kick`。
 
 ## 第 4 關：看底層圖與零件
 
-- 建置停在「stage … still shows …%」：底層圖沒有真的把手拿掉。換提示詞或種子，`make_parts.py … --redo-stage P`。不要繞過這個檢查。
+- 建置停在「stage … still shows …%」：底層圖沒有真的把手拿掉。換提示詞或種子重做那一張，不要繞過這個檢查。（細節：character-art-pipeline「底層圖檢查」）
 - 看 `04_stages/*.png`：要拿掉的東西真的不見了，沒有多畫回別的肢體。
-- 把 `07_refined/pelvis.png`、`leg_upper.png` 放在洋紅底上看：手的位置沒有被咬掉一塊（有就加大這兩個零件的 `close_fill` 半徑）。
+- 把 `07_refined/pelvis.png`、`leg_upper.png` 放在洋紅底上看：骨盆是圓順的一塊，大腿是一條（前緣是直線、不是兩條大腿黏在一起），手的位置與髖部前緣都沒有被咬掉。有缺口先回頭看規格的 `groups`（多出來的遮罩群組會把身體挖掉），不要先用補洞蓋過去。
 - 把 `07_refined/torso.png` 放在洋紅底上看：袖窿補色是平的一塊布色，沒有抹進別的顏色。
 - 看 `06_parts/ownership.png`：每個肢體各自一色；身體旁邊沒有細線；遠側小腿與鞋有被分出去。
-- `python tools/comfyui/check_reassembly.py --spec … --work … [--allow …]`：零件疊回原位和原圖比。預期中的缺口（遠側腿）逐塊看過才登記進 allow 檔並寫理由。
+- `python tools/comfyui/check_reassembly.py --spec … --work … [--allow …]`：零件疊回原位和原圖比。預期中的缺口（遠側腿）逐塊看過才登記進 allow 檔並寫理由。allow 檔是 JSON：`{"holes": [[x0, y0, x1, y1], …]}`，每個方框是已審過的預期缺口。
 - 建置輸出的 `WARN part texture …`（游離碎片、封閉孔洞、支點離零件太遠）逐條處理。
+- `refine` 的寫法（見 `refine_parts.py` 說明）：`inpaint` 是 `[{"part": 零件, "poly": [[x, y], …], "flat": true}]`，把別的東西畫進這個零件的部分用周圍布色的中位數平色重畫，alpha 不變。
+- `claim` 是 `[{"part": 零件, "poly": [[x, y], …]}]`，把原圖上沒有任何零件認領的像素（下巴與衣領之間的皮膚）交給這個零件。
+- `close_fill` 是清單，每筆 `{"parts": [零件…], "radius": N}`；要讓不同零件用不同半徑，就寫好幾筆。
+- 改了 spec 的 `groups` 或 `near_leg` 後，下一次跑 `parts` 步驟會重做有補全步驟、且 `.key` 檔內容不符的群組。沒有 `.key` 檔的舊角色會保留舊圖，要用 `make_parts.py --spec … --work … --only <群組>` 重做（群組名稱要在 `spec.groups` 裡）。
 
 沒過回到：遮罩或群組的問題回第 2 關；底層圖的問題重畫那一張；立繪本身的問題回第 1 關。
 
@@ -87,15 +97,23 @@ python tools/comfyui/gpu_lock.py -- <godot> --path . res://tools/comfyui/rig_ref
 python tools/comfyui/gpu_lock.py -- <godot> --path . res://tools/rig_preview.tscn -- --out=<檔> --chars=<id> [--npc | --weapon=pistol | --weapon= | --damage --bare | --seq=die_front]
 ```
 
-一定要看的畫面：空手站著不動、坐、蹲、八個動作、NPC 八個姿勢；有衣物脫落的角色看脫落各階段。
-
-- 站著像挺胸、兩隻手並排在同一側：來源姿勢的問題（回第 1 關），或空手垂放角度（動作資料 `arms.hang`，兩臂不能同角度）。
-- 多一隻手：底層圖殘留（回第 4 關），或衣物零件裡烤進了手臂（階段圖分兩步拿）。
-- 坐下時骨盆露出直線下緣、球狀凸塊：`caps`。上層零件的圓盤較大並柔邊，下層較小、硬邊；大腿圓盤不超過髖點到背後輪廓的距離。
+一定要看的畫面：空手站著不動、坐、蹲、八個動作、NPC 八個姿勢；有衣物脫落的角色看脫落各階段。（細節：rig-animation「空手時的手臂」；character-art-pipeline「進引擎後先看坐、蹲、跪」）
+- 站著像挺胸、兩隻手並排在同一側：來源姿勢的問題（回第 1 關），或空手垂放角度（動作資料 `arms.hang`，兩臂不能同角度）。（細節：character-art-pipeline「來源畫成直立站姿」；rig-animation「空手時的手臂」）
+- 多一隻手：底層圖殘留（回第 4 關），或衣物零件裡烤進了手臂。（細節：character-art-pipeline「階段圖一張一張看」，拿掉衣袖與拿掉手臂分兩張生）
+- 坐下時骨盆露出直線下緣、球狀凸塊：用 `caps` 處理。上層零件的圓盤較大並柔邊，下層較小、硬邊。（細節：character-art-pipeline「關節圓蓋 `parts.<名稱>.caps`」；球狀臀腿的驗收見 rig-animation「蹲姿臀腿輪廓（NE-222）」）
 - 肩、腕甩出去：支點沒在圖的轉動中心，量該高度的左右邊界取中心。
 - 無袖底層圖的袖窿露出膚色或暗塊：`refine.inpaint`。
 - 衣物坐下時直直垂進椅子：把它掛到會動的那根骨頭上。
 - 過腰的長下襬（大衣、圍裙）跟著大腿橫出去或像硬板：下襬獨立成零件掛在衣襬骨頭上，大腿改用「衣服只到腰」的底層圖（`near_leg.stage` 加 `stage_color`）。只疊一片下襬而不換大腿，坐下會出現兩層衣服。
+
+`rig_preview` 其他模式（都要加 `--chars=<id>`）：
+- `--gait`：並排八格看一個步伐週期（`--speed` 預設 70，`--run-speed` 預設為兩倍）。
+- `--closeup`：每個角色一張大的待機站姿（不加 `--npc` 時是兩腿前後分開的戰鬥待機）。遠側腿往後、手擺開，髖部與大腿前緣有沒有缺口在這張最明顯，必看；可以一次放四個角色，頭尾放老 K 與護理師當對照。
+- `--seq=start|stop|idle|jump|land|dash|die_front|die_back`：依時間取八格（起步、煞車、待機、起跳到落地、原地落下、衝刺、正面與背面中彈倒下）。
+- `--cloth`：放大看站、跑、上升、下落、蹲、仰射時的衣襬、頭髮與槍套。
+- `--zoom=N`：指定放大倍率（`--gait` 預設 2.2）。
+- 走路的近拍用 `--gait --zoom=N`，同樣看髖部。
+- `--damage`：看 `damage` 步驟產生的破損層，先跑 `--only damage`（見第 3 關）。
 
 ## 第 6 關：逐格接點稽核
 
@@ -114,7 +132,7 @@ python tools/check_joint_frames.py <同一個目錄>
 
 ## 第 7 關：接到遊戲
 
-- NPC：`data/npcs/<…>.tres` 的 `rig_id`；說話者頭像在 `data/story/*.json`。
+- NPC：`data/npcs/<…>.tres` 的 `rig_id`；說話者頭像在 `data/story/*.json`。NPC 的姿勢、說話與揮手疊層、工作循環在 `art/rigs/npc_animations.json`（鍵：`poses`、`overlays`、`loops`；預設的待機在 `life`）。
 - 敵人：`data/enemies/<…>.tres` 的 `rig_skin`（人形）或 `creature_skin`（生物）。只換外觀，不改數值、行為與判定框；外形變了而判定框沒變，寫進對應的戰鬥票。
 - 主角：`art/characters/rin` 與 `art/motion/rin.json`。
 - 不改故事、台詞與關卡配置。

@@ -88,12 +88,6 @@
         ]
       }
     },
-    "arm_far": {
-      "sam": [
-        "arm",
-        "hand"
-      ]
-    },
     "leg_far": {
       "sam": [],
       "y": [
@@ -188,6 +182,10 @@
           "bone": "hip",
           "z": 0
         }
+      ],
+      "unclaimed": [
+        564,
+        602
       ]
     },
     "torso": {
@@ -250,7 +248,10 @@
           "bone": "leg_front_upper",
           "z": 3
         }
-      ]
+      ],
+      "front_line": {
+        "far": "leg_far"
+      }
     },
     "leg_lower": {
       "group": "body",
@@ -521,28 +522,19 @@
       ],
       "max_area": 800
     },
-    "close_fill": [
-      {
-        "parts": [
-          "hand",
-          "foot",
-          "arm_lower",
-          "arm_upper",
-          "torso",
-          "head",
-          "pelvis",
-          "leg_upper"
-        ],
-        "radius": 4
-      },
-      {
-        "parts": [
-          "pelvis",
-          "leg_upper"
-        ],
-        "radius": 34
-      }
-    ],
+    "close_fill": {
+      "parts": [
+        "hand",
+        "foot",
+        "arm_lower",
+        "arm_upper",
+        "torso",
+        "head",
+        "pelvis",
+        "leg_upper"
+      ],
+      "radius": 4
+    },
     "inpaint": [
       {
         "part": "torso",

@@ -88,12 +88,6 @@
         ]
       }
     },
-    "arm_far": {
-      "sam": [
-        "arm",
-        "hand"
-      ]
-    },
     "leg_far": {
       "sam": [],
       "y": [
@@ -179,6 +173,10 @@
           "bone": "hip",
           "z": 0
         }
+      ],
+      "unclaimed": [
+        567,
+        605
       ]
     },
     "torso": {

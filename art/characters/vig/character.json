@@ -51,7 +51,7 @@
     "leg_upper": {
       "file": "parts/leg_upper.png",
       "size": [
-        162,
+        156,
         359
       ],
       "pivot": [
@@ -87,11 +87,11 @@
     "arm_upper": {
       "file": "parts/arm_upper.png",
       "size": [
-        95,
+        99,
         236
       ],
       "pivot": [
-        41.02,
+        42.3,
         50.08
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
@@ -99,11 +99,11 @@
     "arm_lower": {
       "file": "parts/arm_lower.png",
       "size": [
-        85,
+        93,
         197
       ],
       "pivot": [
-        42.17,
+        49.94,
         11.98
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"

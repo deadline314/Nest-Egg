@@ -418,7 +418,15 @@
         "foot"
       ],
       "max_area": 200
-    }
+    },
+    "close_fill": [
+      {
+        "parts": [
+          "leg_upper"
+        ],
+        "radius": 24
+      }
+    ]
   },
   "dialog_portrait": {
     "box": [
