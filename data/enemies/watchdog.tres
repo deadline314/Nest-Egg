@@ -1,24 +1,23 @@
-[gd_resource type="Resource" script_class="EnemyData" load_steps=6 format=3]
+[gd_resource type="Resource" script_class="EnemyData" load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
 [ext_resource type="Script" path="res://game/enemies/watchdog.gd" id="2_behavior"]
-[ext_resource type="Resource" path="res://data/projectiles/boss_burst.tres" id="3_proj"]
+[ext_resource type="Resource" path="res://data/projectiles/watchdog_burst.tres" id="3_proj"]
 [ext_resource type="Script" path="res://data/scripts/projectile_spec.gd" id="4_spec_script"]
-[ext_resource type="Resource" path="res://data/projectiles/boss_fan.tres" id="5_extra0"]
-[ext_resource type="Resource" path="res://data/projectiles/boss_shockwave.tres" id="5_extra1"]
+[ext_resource type="Resource" path="res://data/projectiles/watchdog_bark.tres" id="5_extra1"]
 
 [resource]
 script = ExtResource("1_script")
 id = &"watchdog"
 behavior = ExtResource("2_behavior")
 projectile = ExtResource("3_proj")
-extra_projectiles = Array[ExtResource("4_spec_script")]([ExtResource("5_extra0"), ExtResource("5_extra1")])
+extra_projectiles = Array[ExtResource("4_spec_script")]([ExtResource("5_extra1")])
 display_name = "看門狗"
 attack_category = &"melee"
 hit_material = &"armor"
 body_size = Vector2(34, 78)
 color = Color(0.560, 0.600, 0.680, 1.0)
-max_health = 36
+max_health = 60
 persists_damage = true
 move_speed = 46.0
 contact_damage = 2
@@ -33,6 +32,7 @@ finish_health_ratio = 0.0
 health_drop_chance = 0.0
 creature_skin = "watchdog"
 credit_value = 40
+hurt_parts = Array[Dictionary]([{"id": "back_power", "bone": "chest", "offset": Vector2(-9, -10), "size": Vector2(9, 14), "mult": 2.0}, {"id": "head", "bone": "head", "offset": Vector2(3, -8), "size": Vector2(11, 12), "mult": 1.5}, {"id": "gun_arm", "bone": "hand_front", "offset": Vector2(5, 0), "size": Vector2(18, 8), "mult": 1.0}])
 light_radius = 96.0
 light_color = Color(0.55, 0.92, 1.0, 1)
 light_energy = 0.8
@@ -40,4 +40,3 @@ light_part = &"head"
 light_offset = Vector2(6, -4)
 light_mark = Vector2(2.5, 1.5)
 light_calm_states = PackedStringArray("dormant")
-hurt_parts = Array[Dictionary]([{"id": "head", "bone": "head", "offset": Vector2(3, -8), "size": Vector2(11, 12), "mult": 1.5}])

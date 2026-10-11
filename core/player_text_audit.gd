@@ -44,7 +44,9 @@ static func lint(entries: Array[Dictionary]) -> Array[Dictionary]:
 static func _json(value: Variant, path: String, key: String, entries: Array[Dictionary], mode := "text", bark := false) -> void:
 	if value is Dictionary:
 		mode = str(value.get("mode", mode))
-		bark = bool(value.get("bark", bark))
+		# 只有布林值才是「氣泡對白」標記；同名的資料鍵（例如頭目招式 bark）不能讓盤點崩潰。
+		var bark_flag: Variant = value.get("bark", bark)
+		bark = bark_flag if bark_flag is bool else bark
 		for field: String in value:
 			var item: Variant = value[field]
 			var location := path + "/" + field

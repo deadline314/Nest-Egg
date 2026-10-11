@@ -1,0 +1,40 @@
+{
+  "_doc": "看門狗 CERBERUS 的打法（NE-253）。格式見 design/15-combat-feel/BOSS_FIGHTS.md 第 5 節；部位大小與骨頭在 data/enemies/watchdog.tres 的 hurt_parts。",
+  "wake_range": 260,
+  "leash": {"length": 120, "retreat": 1.0},
+  "defeat": {"gate_channel": "watchdog_gate", "unlock_text": "隔牆升起了"},
+  "moves": {
+    "lunge": {"kind": "lunge", "telegraph": 0.7, "recover": 0.5, "weight": 1.0, "pose_windup": "warden.brace",
+      "params": {"speed": 330, "max_distance": 176, "overshoot": 20, "stagger": 1.4, "yank_push": 160}},
+    "lunge_twice": {"kind": "lunge", "telegraph": 0.55, "recover": 0.2, "weight": 1.0, "repeat": true, "pose_windup": "warden.brace",
+      "params": {"speed": 380, "max_distance": 200, "overshoot": 28, "stagger": 0.9, "stagger_on_end": true}},
+    "burst": {"kind": "burst", "telegraph": 0.6, "recover": 0.4, "weight": 1.0, "pose_windup": "warden.brace",
+      "params": {"count": 3, "interval": 0.14, "lock": 0.25, "projectile": "watchdog_burst"}},
+    "bark": {"kind": "bark", "telegraph": 0.8, "recover": 0.5, "weight": 1.0, "pose_windup": "warden.vent",
+      "params": {"projectile": "watchdog_bark", "break_part": "head", "break_hits": 3, "break_stagger": 1.2}},
+    "missiles": {"kind": "missiles", "telegraph": 1.0, "recover": 0.6, "weight": 1.0, "pose_windup": "warden.windup_overhead",
+      "params": {"count": 3, "spacing": 40, "radius": 22, "damage": 1, "source": "watchdog_missile"}},
+    "pounce": {"kind": "pounce", "telegraph": 0.8, "recover": 0.3, "weight": 1.0, "pose_windup": "warden.windup_overhead", "pose_act": "warden.slam",
+      "params": {"projectile": "watchdog_bark", "stagger": 1.0}}
+  },
+  "phases": [
+    {"until": 0.6, "moves": ["lunge", "burst", "bark"], "speed": 1.0, "armored": true, "leashed": true},
+    {"until": 0.3, "moves": ["lunge", "bark", "missiles"], "speed": 1.1, "armored": true, "leashed": true, "weapon": "",
+      "enter_toast": "槍臂壞了——小心肩上的飛彈"},
+    {"until": 0.0, "moves": ["lunge_twice", "bark", "missiles", "pounce"], "speed": 1.25, "armored": true, "leashed": false, "weapon": "",
+      "enter_toast": "鍊子斷了！牠不再受地盤限制"}
+  ],
+  "habits": {
+    "close_range": 48,
+    "far_range": 300,
+    "close": ["bark"],
+    "mid": ["lunge", "lunge_twice", "pounce"],
+    "far": ["burst", "missiles", "pounce"],
+    "after_yank": ["burst", "missiles", "bark"]
+  },
+  "parts": {
+    "head": {"open": "move:bark", "closed": "armor"},
+    "gun_arm": {"open": "move:burst", "closed": "armor", "gone_from_phase": 2, "close_in_stagger": true},
+    "back_power": {"open": "stagger", "closed": "hidden"}
+  }
+}

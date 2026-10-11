@@ -14,6 +14,11 @@ const ALL: Array[String] = [SWEEPER_PATH, GUNNER_PATH, BRUTE_PATH, WATCHDOG_PATH
 func run() -> void:
 	_test_data()
 	await _test_watchdog_flow()
+	_test_watchdog_pattern_data()
+	await _test_watchdog_habits()
+	await _test_watchdog_leash_yank()
+	await _test_watchdog_phases()
+	await _test_watchdog_missiles_dodgeable()
 	await check_defeatable_on_every_difficulty(ALL)
 
 
@@ -72,3 +77,180 @@ func _test_watchdog_flow() -> void:
 	EventBus.mechanism_toggled.disconnect(on_toggle)
 	EventBus.boss_defeated.disconnect(on_defeated)
 	await end_level(level)
+
+
+# ---------------------------------------------------------------------------
+# 看門狗的打法（NE-253）：資料、攻擊習慣、鍊子與背部電源、階段、死後保留、預兆可躲
+# ---------------------------------------------------------------------------
+
+const DOG_TILE := 52.0
+const PISTOL_SHOT := "res://data/projectiles/pistol_shot.tres"
+
+
+func _test_watchdog_pattern_data() -> void:
+	var pattern := BossPattern.load_for(&"watchdog")
+	check(pattern.errors.is_empty(), "the watchdog pattern loads cleanly: %s" % [pattern.errors])
+	check(pattern.phases.size() >= 3, "the watchdog has three phases")
+	var kinds := {}
+	for id: StringName in pattern.moves:
+		kinds[pattern.moves[id]["kind"]] = true
+	check(kinds.size() >= 4, "the watchdog mixes at least four kinds of attack: %s" % [kinds.keys()])
+	for i in pattern.phases.size():
+		var phase_kinds := {}
+		for id: StringName in pattern.phases[i]["moves"]:
+			phase_kinds[pattern.moves[id]["kind"]] = true
+		check(phase_kinds.size() >= 3, "phase %d offers three different kinds of attack" % [i + 1])
+	check(pattern.leash_length > 0.0 and pattern.gate_channel == &"watchdog_gate", "the watchdog is chained and opens its gate")
+	# 損毀的資料：記錄位置並退回安全預設，不崩潰。
+	var broken := BossPattern.parse({"moves": {"x": {"kind": "teleport"}}, "phases": [{"moves": ["missing"]}], "parts": {"a": {"open": "sometimes"}}}, "test://broken", true)
+	check(broken.errors.size() >= 3 and broken.errors[0].contains("test://broken"), "broken boss data reports where it failed: %s" % [broken.errors])
+	check(broken.moves.has(BossPattern.FALLBACK_MOVE) and not (broken.phases[0]["moves"] as Array).is_empty(), "broken boss data falls back to a safe burst")
+
+
+func _spawn_dog() -> PatternBoss:
+	var dog := spawn(WATCHDOG_PATH, DOG_TILE) as PatternBoss
+	await physics_frames(2)
+	dog.call(&"_wake")
+	return dog
+
+
+## 攻擊習慣：太近就吠、地盤裡撲咬、地盤外開槍（第二階段改叫飛彈）；每種難度的預兆都至少 0.5 秒。
+func _test_watchdog_habits() -> void:
+	await open_level(DOG_TILE - 20.0)
+	var dog := await _spawn_dog()
+	dog.set_physics_process(false)
+	var cases := [[DOG_TILE + 2.0, 0, &"bark"], [DOG_TILE + 7.0, 0, &"lunge"], [DOG_TILE + 18.0, 0, &"burst"], [DOG_TILE + 18.0, 1, &"missiles"]]
+	for entry: Array in cases:
+		dog.call(&"_apply_phase", int(entry[1]), false)
+		place_player(float(entry[0]))
+		await physics_frames(1)
+		dog.set("_last_move", &"")
+		dog.set("_yanked_recently", false)
+		var choice := dog.choose_move()
+		check(choice == entry[2], "player at tile %.0f in phase %d -> the watchdog uses %s (got %s)" % [entry[0], int(entry[1]) + 1, entry[2], choice])
+	for index in GameState.difficulties.size():
+		GameState.difficulty = GameState.difficulties[index]
+		for phase in dog.pattern.phases.size():
+			dog.call(&"_apply_phase", phase, false)
+			for id: StringName in dog.pattern.moves:
+				check(dog.telegraph_seconds(id) >= 0.5, "%s telegraph on %s phase %d is readable (%.2f s)" % [id, GameState.difficulty.id, phase + 1, dog.telegraph_seconds(id)])
+	GameState.difficulty = GameState.difficulties[1]
+	await end_level(level)
+
+
+## 鍊子：玩家站在鍊子盡頭外，撲咬停在盡頭、被扯回並硬直；背部電源只在硬直時打開，打中算 2.5 倍弱點；之後先換招。
+func _test_watchdog_leash_yank() -> void:
+	await open_level(DOG_TILE - 20.0)
+	var dog := await _spawn_dog()
+	await wait_state(dog, &"idle", 120)
+	# 玩家站在黃黑線內側一點：撲咬的終點（玩家再往前一點）越過鍊子盡頭。
+	var reach := dog.anchor().x + dog.pattern.leash_length
+	dog.global_position.x = reach - 110.0
+	place_player((reach - 8.0) / 16.0)
+	level.player.set_physics_process(false)
+	var hurt: Array = []
+	var on_hurt := func(info: DamageInfo) -> void: hurt.append(info.source_id)
+	level.player.health.damaged.connect(on_hurt)
+	var back: Hurtbox = null
+	for part in dog.hurtbox.parts:
+		if part.part_id == &"back_power":
+			back = part
+	check(back != null and not back.enabled, "the back power source is closed while the watchdog stands")
+	dog.set("_move_id", &"lunge")
+	dog.fsm.transition(&"windup")
+	var yanked := await wait_state(dog, &"yanked", 150)
+	check(yanked, "a lunge that hits the end of the chain yanks the watchdog back")
+	check(dog.global_position.x <= reach + 4.0, "the lunge stops at the chain's end (%.0f <= %.0f)" % [dog.global_position.x, reach])
+	check(hurt.is_empty() or not hurt.has(&"watchdog_contact") or level.player.global_position.x <= reach + 8.0, "the lunge never passes the chain's end: %s" % [hurt])
+	await physics_frames(2)
+	check(back.enabled, "the back power source opens while it is yanked")
+	var aim := back.center()
+	var hits: Array = []
+	var record := func(info: DamageInfo) -> void: hits.append([info.part, info.amount, info.weak_hit])
+	dog.health.damaged.connect(record)
+	# 玩家在牠前方：子彈從正面射向發橙光的背部電源（槍臂硬直時垂下，不擋）。
+	var front := float(dog.facing)
+	ProjectilePool.spawn(load(PISTOL_SHOT) as ProjectileSpec, aim + Vector2(front * 40.0, 0), Vector2(-front, 0), Combat.Team.PLAYER)
+	await physics_frames(12)
+	dog.health.damaged.disconnect(record)
+	var base := roundi((load(PISTOL_SHOT) as ProjectileSpec).damage)
+	check(hits.size() == 1 and hits[0][0] == &"back_power" and hits[0][2] and hits[0][1] == roundi(base * 2.0), "the exposed back takes a 2x weak hit: %s" % [hits])
+	var recovered := await wait_state(dog, &"idle", 150)
+	await physics_frames(2)
+	check(recovered and not back.enabled, "the back closes again once it recovers")
+	var gap_before := absf(dog.global_position.x - dog.anchor().x)
+	await physics_frames(30)
+	check(dog.fsm.is_in(&"idle") and absf(dog.global_position.x - dog.anchor().x) < gap_before - 4.0, "after a yank it backs off toward its kennel before attacking again")
+	place_player((reach - 8.0) / 16.0)
+	dog.set("_last_move", &"")
+	var after := dog.choose_move()
+	check(dog.pattern.habits["after_yank"].has(after), "after being yanked it switches to another attack first (%s)" % after)
+	level.player.health.damaged.disconnect(on_hurt)
+	level.player.set_physics_process(true)
+	await end_level(level)
+
+
+## 階段：60% 槍臂壞（不再點射、槍臂判定消失）、30% 鍊斷（不再受鍊子限制，連撲撲完會失衡）。
+## 死後回來（持久世界還原損血）時直接套用到對應階段，不重播演出。
+func _test_watchdog_phases() -> void:
+	await open_level(DOG_TILE - 20.0)
+	var dog := await _spawn_dog()
+	await wait_state(dog, &"idle", 120)
+	var gun: Hurtbox = null
+	for part in dog.hurtbox.parts:
+		if part.part_id == &"gun_arm":
+			gun = part
+	check(gun != null and gun.enabled and dog.is_leashed(), "phase one: gun arm is a target and the chain holds")
+	dog.hurtbox.receive(hit(int(dog.health.max_health * 0.45), true))
+	await physics_frames(2)
+	check(dog.phase == 1 and dog.fsm.is_in(&"phase_shift"), "losing 45%% health breaks the gun arm with a pause (phase %d, %s)" % [dog.phase + 1, dog.fsm.current])
+	check(not gun.enabled and not (dog.current_phase()["moves"] as Array).has(&"burst"), "the broken gun arm stops the burst")
+	check(dog.current_phase()["armored"] and dog.is_leashed(), "phase two keeps the armour and the chain")
+	dog.hurtbox.receive(hit(int(dog.health.max_health * 0.3), true))
+	await physics_frames(2)
+	check(dog.phase == 2 and not dog.is_leashed() and dog.current_phase()["armored"], "below 30% the chain snaps; the armour still deflects body shots")
+	await wait_state(dog, &"idle", 120)
+	# 第三階段：連撲撲完會失衡，背部電源打開。
+	place_player(dog.global_position.x / 16.0 + 6.0)
+	dog.set("_move_id", &"lunge_twice")
+	dog.fsm.transition(&"windup")
+	var staggered := await wait_state(dog, &"yanked", 180)
+	await physics_frames(1)
+	check(staggered and dog.is_part_open(&"back_power"), "the unchained double lunge over-extends and opens the back")
+	dog.queue_free()
+	place_player(DOG_TILE - 30.0)
+	await physics_frames(2)
+	var revived := spawn(WATCHDOG_PATH, DOG_TILE) as PatternBoss
+	await physics_frames(2)
+	revived.restore_lost_health(int(revived.health.max_health * 0.75))
+	await physics_frames(1)
+	check(revived.phase == 2 and revived.fsm.is_in(&"dormant") and not revived.is_leashed(), "coming back after a death keeps the snapped chain without replaying the shift (phase %d, %s)" % [revived.phase + 1, revived.fsm.current])
+	await end_level(level)
+
+
+## 標記轟炸：落點在預兆開始時決定、不追蹤；離開紅圈就不會受傷，留在圈裡會被炸到。
+func _test_watchdog_missiles_dodgeable() -> void:
+	for stay: bool in [false, true]:
+		await open_level(DOG_TILE - 20.0)
+		var dog := await _spawn_dog()
+		await wait_state(dog, &"idle", 120)
+		dog.call(&"_apply_phase", 1, false)
+		place_player(DOG_TILE + 16.0)
+		level.player.set_physics_process(false)
+		var hurt: Array = []
+		var on_hurt := func(info: DamageInfo) -> void: hurt.append(info.source_id)
+		level.player.health.damaged.connect(on_hurt)
+		dog.set("_move_id", &"missiles")
+		dog.fsm.transition(&"windup")
+		await physics_frames(3)
+		if not stay:
+			place_player(DOG_TILE + 24.0)
+		await wait_state(dog, &"recover", 120)
+		await physics_frames(6)
+		level.player.health.damaged.disconnect(on_hurt)
+		if stay:
+			check(hurt.has(&"watchdog_missile"), "staying in the red circle gets hit: %s" % [hurt])
+		else:
+			check(hurt.is_empty(), "leaving the red circles avoids every missile: %s" % [hurt])
+		level.player.set_physics_process(true)
+		await end_level(level)

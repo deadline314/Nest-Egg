@@ -1,24 +1,15 @@
-extends "res://game/enemies/custodian.gd"
-## 迷你頭目「看門狗」（第一章碼頭倉庫前廳，教學頭目）：招式與看守長相同（點射、跳躍震波、後期扇形彈幕），
+extends PatternBoss
+## 迷你頭目「看門狗 CERBERUS」（第一章碼頭倉庫前廳）：鍊子的長度就是牠的地盤，撲咬撲到鍊子盡頭會被扯回、背部電源露出。
+## 招式、階段、習慣與部位開關都在 data/bosses/watchdog.json；部位的骨頭與大小在 EnemyData 的 hurt_parts。
 ## 睡著直到玩家靠近，不鎖場、可以逃回街道。擊敗後升起隔牆（頻道 watchdog_gate），不結束關卡。
-## 受過的傷會保留（EnemyData.persists_damage）：死亡後回來，牠仍然帶傷。
+## 受過的傷會保留（EnemyData.persists_damage），階段由血量推得，所以斷掉的砲塔與鍊子也保留。
 ## 外觀是四足機械犬（零件式生物 art/creatures/watchdog.json，NE-218）：子彈從背上的砲塔射出，砲塔跟著目標轉。
-## 外觀載入失敗時退回看守長的程式繪製與身體側邊的槍口，不會崩潰。
+## 外觀載入失敗時退回程式繪製與身體側邊的槍口，不會崩潰。
 
 const TURRET := "turret"
 ## 砲塔的俯仰範圍（弧度，負的往上）：轉不到的角度就停在邊界，不會穿過自己的背或頭。
 const TURRET_UP := -0.9
 const TURRET_DOWN := 0.35
-
-const WATCHDOG_GATE := &"watchdog_gate"
-
-
-func _gate_channel() -> StringName:
-	return WATCHDOG_GATE
-
-
-func _unlock_text() -> String:
-	return "隔牆升起了"
 
 
 func _muzzle() -> Vector2:

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ProjectileSpec" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/projectile_spec.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+source_id = &"watchdog_bark"
+speed = 210.0
+lifetime = 1.2
+damage = 2
+radius = 6.0
+length = 12.0
+color = Color(1.000, 0.788, 0.290, 1.0)
+
+visual_style = "wave"

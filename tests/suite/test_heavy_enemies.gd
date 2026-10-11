@@ -394,15 +394,34 @@ func _freeze_facing(enemy: Enemy, side: int) -> void:
 	await physics_frames(2)
 
 
-## 一發真實子彈（物件池、掃掠碰撞）從 origin 打向 target，回傳這個敵人收到的每次傷害 [部位, 傷害, 弱點]。
+## 一發真實子彈（物件池、掃掠碰撞）從 origin 打向 target，回傳這個敵人收到的每次命中：
+## 受傷 [部位, 傷害, 弱點]；被裝甲擋下 [&"blocked", 部位, 0, false]。
 func _shot(enemy: Enemy, origin: Vector2, target: Vector2) -> Array:
 	var hits: Array = []
 	var record := func(info: DamageInfo) -> void: hits.append([info.part, info.amount, info.weak_hit])
 	enemy.health.damaged.connect(record)
+	var boxes: Array[Hurtbox] = [enemy.hurtbox]
+	boxes.append_array(enemy.hurtbox.parts)
+	var blocked: Array[Callable] = []
+	for box in boxes:
+		var on_block := func(_info: DamageInfo) -> void: hits.append([&"blocked", box.part_id, 0, false])
+		box.hit_blocked.connect(on_block)
+		blocked.append(on_block)
 	ProjectilePool.spawn(load(PISTOL_SHOT_PATH) as ProjectileSpec, origin, (target - origin).normalized(), Combat.Team.PLAYER)
 	await physics_frames(25)
 	enemy.health.damaged.disconnect(record)
+	for i in boxes.size():
+		boxes[i].hit_blocked.disconnect(blocked[i])
 	return hits
+
+
+## 看門狗抬頭準備吠叫（頭部感測器打開）並停在這個姿勢。
+func _open_watchdog_head(dog: PatternBoss) -> void:
+	dog.set("_move_id", &"bark")
+	dog.fsm.transition(&"windup")
+	dog.set("_telegraph_left", 99.0)
+	dog.call(&"_refresh_parts")
+	await physics_frames(2)
 
 
 ## 所有骨架敵人：畫面上的頭（零件中心）都落在整體或部位受擊框內，兩個面向都一樣；不能有「看得到打不到」的頭。
@@ -438,38 +457,49 @@ func _test_watchdog_head_shot() -> void:
 	var dog := spawn(WATCHDOG_PATH, 45.0)
 	await physics_frames(2)
 	var base_damage := (load(PISTOL_SHOT_PATH) as ProjectileSpec).damage
+	# 平常頭部感測器有裝甲：打到算頭部、被擋下彈開；抬頭吠叫時打開，算頭部弱點命中。兩個面向、左右兩側都一樣。
 	for side: int in [-1, 1]:
 		for from: int in [-1, 1]:
 			await _freeze_facing(dog, side)
 			var head := _head_center(dog)
 			var hits := await _shot(dog, head + Vector2(from * 140.0, 0), head)
+			check(hits.size() == 1 and hits[0][0] == &"blocked" and hits[0][1] == &"head",
+					"a shot at the watchdog's drawn head registers on the armoured head (facing %d, from %d): %s" % [side, from, hits])
+			await _open_watchdog_head(dog as PatternBoss)
+			head = _head_center(dog)
+			hits = await _shot(dog, head + Vector2(from * 140.0, 0), head)
 			check(hits.size() == 1 and hits[0][0] == &"head" and hits[0][2] and hits[0][1] > roundi(base_damage),
-					"a shot at the watchdog's drawn head is a head hit (facing %d, from %d): %s" % [side, from, hits])
+					"while it raises its head to bark, a head shot is a weak hit (facing %d, from %d): %s" % [side, from, hits])
+			dog.fsm.transition(&"idle")
+			dog.call(&"_refresh_parts")
 			dog.health.setup(dog.data.max_health, 0.0)
-	# 各招式與第二階段：頭的部位判定跟著畫面上的頭走。
+	# 各招式的預兆與每個階段：頭的部位判定跟著畫面上的頭走。
 	dog.set_physics_process(true)
-	for phase: int in [1, 2]:
-		dog.set("_phase", phase)
-		for state: StringName in [&"idle", &"burst_windup", &"leap_windup", &"fan_windup", &"phase_shift"]:
-			dog.fsm.transition(state)
+	for phase: int in dog.pattern.phases.size():
+		dog.call(&"_apply_phase", phase, false)
+		for move: StringName in dog.pattern.phases[phase]["moves"]:
+			dog.set("_move_id", move)
+			dog.fsm.transition(&"windup")
 			await physics_frames(12)
 			var drawn := _head_center(dog)
 			var head_box: Hurtbox = null
 			for part in dog.hurtbox.parts:
 				if part.part_id == &"head":
 					head_box = part
-			check(head_box != null and head_box.contains_point(drawn), "the head box follows the drawn head in %s (phase %d)" % [state, phase])
-	dog.set("_phase", 1)
+			check(head_box != null and head_box.contains_point(drawn), "the head box follows the drawn head while winding up %s (phase %d)" % [move, phase + 1])
+	dog.call(&"_apply_phase", 0, false)
 	await _freeze_facing(dog, -1)
 	var body := dog.hurtbox.center() + Vector2(0, 12)
 	var body_hits := await _shot(dog, body + Vector2(-140, 0), body)
-	check(body_hits.size() == 1 and body_hits[0][0] == &"" and not body_hits[0][2], "a body shot stays an ordinary hit: %s" % [body_hits])
-	# 真正的玩家：站在地上斜向上瞄準頭開一槍。
+	check(body_hits.size() == 1 and body_hits[0][0] == &"blocked" and body_hits[0][1] == &"", "the armoured body deflects a body shot: %s" % [body_hits])
+	# 真正的玩家：站在地上斜向上瞄準抬起的頭開一槍。
 	await _freeze_facing(dog, -1)
+	await _open_watchdog_head(dog as PatternBoss)
 	var player := level.player
 	place_player(dog.global_position.x / 16.0 - 9.0)
 	player.set_physics_process(false)
 	await physics_frames(2)
+	await frames(3)  # 槍口取自畫面上的骨架，移動玩家後要等畫面更新
 	var head := _head_center(dog)
 	player.aim_dir = (head - player.muzzle_position()).normalized()
 	player.facing = 1
@@ -479,7 +509,7 @@ func _test_watchdog_head_shot() -> void:
 	player._try_fire()
 	await physics_frames(25)
 	dog.health.damaged.disconnect(record)
-	check(hits.size() == 1 and hits[0][0] == &"head" and hits[0][1], "the real player pistol aimed at the watchdog's head scores a head hit: %s" % [hits])
+	check(hits.size() == 1 and hits[0][0] == &"head" and hits[0][1], "the real player pistol aimed at the raised head scores a head hit: %s" % [hits])
 	player.set_physics_process(true)
 	await end_level(level)
 
@@ -564,14 +594,19 @@ func _test_watchdog_head_in_warehouse() -> void:
 		return
 	var player := level.player
 	for side: int in [-1, 1]:
-		player.global_position = dog.global_position + Vector2(side * 96.0, 0.0)
+		# 站得很近：牠的習慣是抬頭吠叫；預兆中頭部感測器打開，真正的手槍瞄準畫面上的頭開一槍。
+		player.global_position = dog.global_position + Vector2(side * 40.0, 0.0)
 		player.velocity = Vector2.ZERO
-		var settled := await wait_state(dog, &"idle", 240)
-		await physics_frames(1)
-		for frame in 180:
-			if player._fire_cooldown_left <= 0.0 and not player.loadout.is_reloading():
-				break
+		var settled := false
+		for frame in 600:
 			await physics_frames(1)
+			player.global_position.x = dog.global_position.x + side * 40.0
+			if dog.fsm.is_in(&"windup") and (dog as PatternBoss).current_move() == &"bark" and (dog as PatternBoss).is_part_open(&"head"):
+				settled = true
+				break
+		# 預兆中退開一步再瞄頭（太近時子彈的路徑會先穿過有裝甲的軀幹）。
+		player.global_position.x = dog.global_position.x + side * 90.0
+		await frames(3)  # 槍口取自畫面上的骨架，移動玩家後要等畫面更新
 		var head := _head_center(dog)
 		player.aim_dir = (head - player.muzzle_position()).normalized()
 		player.facing = -side
@@ -579,8 +614,8 @@ func _test_watchdog_head_in_warehouse() -> void:
 		var record := func(info: DamageInfo) -> void: hits.append([info.part, info.weak_hit])
 		dog.health.damaged.connect(record)
 		player._try_fire()
-		await physics_frames(20)
+		await physics_frames(12)
 		dog.health.damaged.disconnect(record)
 		check(settled and hits.size() == 1 and hits[0][0] == &"head" and hits[0][1],
-				"in the warehouse, the real pistol aimed at the woken watchdog's head scores a head hit (player side %d): %s" % [side, hits])
+				"in the warehouse, the real pistol aimed at the barking watchdog's head scores a head hit (player side %d): %s" % [side, hits])
 	await end_level(level)
