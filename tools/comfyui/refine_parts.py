@@ -8,6 +8,8 @@ Outputs: <work>/07_refined/<part>.png   same size and pixel coordinates as the i
 spec["refine"] (every key is optional):
   far_side   {"parts": [...], "min_area": N, "y_min": Y}        remove the far-side leg / boot that Qwen drew as a flat teal silhouette behind the near leg
   erase      [{"part": p, "poly": [[x, y], ...]}]    clear a polygon (pixel coordinates of base_rgba.png)
+  claim      [{"part": p, "poly": [[x, y], ...]}]    give the part the pixels of base_rgba.png inside the polygon that no part holds: skin
+                                                      between two masks (the front of the neck between the chin and the collar) shows the background
   inpaint    [{"part": p, "poly": [[x, y], ...]}]    repaint a polygon of the part from the colours around it, alpha unchanged: something
                                                       that belongs to another part was painted onto this one (an earring on the neck under the head)
   underlap   [{"part": p, "under": q, "poly": [[x, y], ...], "inset": 2}]  grow part p into the polygon, only where part q covers it (q's
@@ -149,6 +151,16 @@ def main() -> None:
         cv2.fillPoly(m, [np.array(e["poly"], np.int32)], 1)
         layers[e["part"]][:, :, 3][m > 0] = 0
         print(f"  erase {e['part']}: {int(m.sum())} px")
+
+    for e in cfg.get("claim", []):
+        m = np.zeros((H, W), np.uint8)
+        cv2.fillPoly(m, [np.array(e["poly"], np.int32)], 1)
+        owned = np.zeros((H, W), bool)
+        for other in layers.values():
+            owned |= other[:, :, 3] > 127
+        take = (m > 0) & (base[:, :, 3] > 127) & ~owned
+        layers[e["part"]][take] = base[take]
+        print(f"  claim {e['part']}: +{int(take.sum())} px")
 
     for e in cfg.get("inpaint", []):
         m = np.zeros((H, W), np.uint8)

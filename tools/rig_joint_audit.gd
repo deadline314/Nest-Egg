@@ -21,7 +21,8 @@ const JOINTS := {
 	"wrist_back": [&"hand_back", "arm_back_lower", "hand_back"],
 	"neck": [&"head", "torso", "head"],
 	"coat_shoulder_front": [&"arm_front_upper", "armor_jacket", "jacket_sleeve_front_upper"],
-	"coat_shoulder_back": [&"arm_back_upper", "armor_jacket", "jacket_sleeve_back_upper"],
+	# 遠側袖子掛在軀幹中間、夾克後片的後面（NE-222）：它相鄰的是軀幹與夾克前後片，不是只有夾克前片。
+	"coat_shoulder_back": [&"arm_back_upper", "armor_jacket", "armor_jacket_far", "torso", "jacket_sleeve_back_upper"],
 	"coat_cuff_front": [&"hand_front", "jacket_sleeve_front_upper", "jacket_sleeve_front_lower", "arm_front_upper", "arm_front_lower", "hand_front"],
 	"coat_cuff_back": [&"hand_back", "jacket_sleeve_back_upper", "jacket_sleeve_back_lower", "arm_back_upper", "arm_back_lower", "hand_back"],
 	"coat_elbow_front": [&"arm_front_lower", "jacket_sleeve_front_upper", "jacket_sleeve_front_lower", "arm_front_upper", "arm_front_lower"],
