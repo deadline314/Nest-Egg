@@ -658,6 +658,30 @@
           ]
         ]
       }
+    ],
+    "erase": [
+      {
+        "part": "pelvis",
+        "note": "pelvis-beyond-thigh",
+        "poly": [
+          [
+            481,
+            577
+          ],
+          [
+            832,
+            577
+          ],
+          [
+            832,
+            644
+          ],
+          [
+            474,
+            644
+          ]
+        ]
+      }
     ]
   },
   "stages": [
@@ -800,5 +824,10 @@
       ]
     ],
     "root_overlap": 45
+  },
+  "seam_checks": {
+    "allow": {
+      "ragged:arm_upper": "肩甲的輪廓"
+    }
   }
 }

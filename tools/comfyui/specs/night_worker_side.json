@@ -426,7 +426,59 @@
         ],
         "radius": 24
       }
-    ]
+    ],
+    "erase": [
+      {
+        "part": "pelvis",
+        "note": "pelvis-beyond-thigh",
+        "poly": [
+          [
+            472,
+            633
+          ],
+          [
+            832,
+            633
+          ],
+          [
+            832,
+            664
+          ],
+          [
+            467,
+            664
+          ]
+        ]
+      },
+      {
+        "part": "pelvis",
+        "note": "pelvis-beyond-thigh",
+        "poly": [
+          [
+            0,
+            633
+          ],
+          [
+            283,
+            633
+          ],
+          [
+            283,
+            664
+          ],
+          [
+            0,
+            664
+          ]
+        ]
+      }
+    ],
+    "trim_spikes": {
+      "parts": [
+        "leg_upper"
+      ],
+      "radius": 5
+    }
   },
   "dialog_portrait": {
     "box": [

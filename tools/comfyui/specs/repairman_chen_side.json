@@ -419,7 +419,59 @@
         ],
         "radius": 24
       }
-    ]
+    ],
+    "erase": [
+      {
+        "part": "pelvis",
+        "note": "pelvis-beyond-thigh",
+        "poly": [
+          [
+            490,
+            607
+          ],
+          [
+            832,
+            607
+          ],
+          [
+            832,
+            638
+          ],
+          [
+            485,
+            638
+          ]
+        ]
+      },
+      {
+        "part": "pelvis",
+        "note": "pelvis-beyond-thigh",
+        "poly": [
+          [
+            0,
+            607
+          ],
+          [
+            296,
+            607
+          ],
+          [
+            295,
+            638
+          ],
+          [
+            0,
+            638
+          ]
+        ]
+      }
+    ],
+    "trim_spikes": {
+      "parts": [
+        "leg_upper"
+      ],
+      "radius": 5
+    }
   },
   "dialog_portrait": {
     "box": [
@@ -550,5 +602,10 @@
         97
       ]
     ]
+  },
+  "seam_checks": {
+    "allow": {
+      "ragged:arm_lower": "捲起的袖口與手套裡的手腕，末端藏在手套下"
+    }
   }
 }

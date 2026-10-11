@@ -78,6 +78,7 @@ python tools/comfyui/build_character.py --recipe tools/comfyui/recipes/<id>.json
 
 - 建置停在「stage … still shows …%」：底層圖沒有真的把手拿掉。換提示詞或種子重做那一張，不要繞過這個檢查。（細節：character-art-pipeline「底層圖檢查」）
 - 看 `04_stages/*.png`：要拿掉的東西真的不見了，沒有多畫回別的肢體。
+- 精修後建置會自動跑 `check_seams.py`，輸出 `WARN seam …`：骨盆比大腿寬出去、肢體輪廓有缺口或細鬚、兩節肢體寬度對不上。每一條都放大看，修到沒有；是畫本身的形狀才登記進規格的 `seam_checks.allow` 並寫理由。也可以單獨跑：`python tools/comfyui/check_seams.py --recipe … ` 或 `--all`。
 - 把 `07_refined/pelvis.png`、`leg_upper.png` 放在洋紅底上看：骨盆是圓順的一塊，大腿是一條（前緣是直線、不是兩條大腿黏在一起），手的位置與髖部前緣都沒有被咬掉。有缺口先回頭看規格的 `groups`（多出來的遮罩群組會把身體挖掉），不要先用補洞蓋過去。
 - 把 `07_refined/torso.png` 放在洋紅底上看：袖窿補色是平的一塊布色，沒有抹進別的顏色。
 - 看 `06_parts/ownership.png`：每個肢體各自一色；身體旁邊沒有細線；遠側小腿與鞋有被分出去。
@@ -144,6 +145,8 @@ python tools/check_joint_frames.py <同一個目錄>
 2. 截圖存 `pm/<專案>/images/`，票上加「問題—改動—驗收」的 Commit 段落，只勾真的通過的條件；接點沒歸零、實機沒看過的都如實寫。
 3. 每修好一類問題，把成因、提早發現的方法、修法與不能用的掩蓋做法補進 `pm/Nest-Egg/attachments/NE-255-lessons.md`。
 4. 一張票一個 commit，rebase 到最新 main、重跑受影響測試後推送。
+
+交付前自己先放大看：兩腿分開的近拍與走路週期的髖、膝、肩、肘各放大一次。沒有放大看過的，票上不寫「沒有發現問題」。
 
 每個角色的固定驗收條件：站姿不挺胸；不會看起來像多一隻手；畫風與既有角色一致、符合世界觀；拼接後沒有破圖、沒切好的地方與關節稜角。
 

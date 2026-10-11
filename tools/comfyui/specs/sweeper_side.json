@@ -185,7 +185,12 @@
       "unclaimed": [
         552,
         590
-      ]
+      ],
+      "front_line": {
+        "far": "leg_far",
+        "from": "hip",
+        "to": "knee"
+      }
     },
     "torso": {
       "group": "body",
@@ -523,19 +528,27 @@
       ],
       "max_area": 800
     },
-    "close_fill": {
-      "parts": [
-        "hand",
-        "foot",
-        "arm_lower",
-        "arm_upper",
-        "torso",
-        "head",
-        "pelvis",
-        "leg_upper"
-      ],
-      "radius": 4
-    },
+    "close_fill": [
+      {
+        "parts": [
+          "hand",
+          "foot",
+          "arm_lower",
+          "arm_upper",
+          "torso",
+          "head",
+          "pelvis",
+          "leg_upper"
+        ],
+        "radius": 4
+      },
+      {
+        "parts": [
+          "arm_upper"
+        ],
+        "radius": 26
+      }
+    ],
     "inpaint": [
       {
         "part": "torso",

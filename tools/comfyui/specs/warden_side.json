@@ -911,5 +911,11 @@
       ]
     ],
     "root_overlap": 45
+  },
+  "seam_checks": {
+    "allow": {
+      "overhang:front": "白色髖甲片是骨盆的一部分",
+      "ragged:arm_upper": "肩甲的輪廓"
+    }
   }
 }

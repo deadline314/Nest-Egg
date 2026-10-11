@@ -682,5 +682,41 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.5,
+    "outputs": [
+      "art_src\\characters\\warden\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 4.5,
+    "outputs": [
+      "art\\characters\\warden\\character.json",
+      "art\\rigs\\warden.json",
+      "art\\characters\\warden\\parts",
+      "art\\portraits\\warden.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 7.2,
+    "outputs": [
+      "art\\characters\\warden\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.8,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

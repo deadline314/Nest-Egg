@@ -542,7 +542,53 @@
         "leg_upper"
       ],
       "radius": 5
-    }
+    },
+    "erase": [
+      {
+        "part": "pelvis",
+        "note": "pelvis-beyond-thigh",
+        "poly": [
+          [
+            520,
+            537
+          ],
+          [
+            832,
+            537
+          ],
+          [
+            832,
+            568
+          ],
+          [
+            511,
+            568
+          ]
+        ]
+      },
+      {
+        "part": "pelvis",
+        "note": "pelvis-beyond-thigh",
+        "poly": [
+          [
+            0,
+            537
+          ],
+          [
+            427,
+            537
+          ],
+          [
+            417,
+            568
+          ],
+          [
+            0,
+            568
+          ]
+        ]
+      }
+    ]
   },
   "stages": [
     {
@@ -610,5 +656,10 @@
       "armor_forearm",
       "armor_shoulder"
     ]
+  },
+  "seam_checks": {
+    "allow": {
+      "step:knee": "機械腿的大腿護甲比小腿寬"
+    }
   }
 }

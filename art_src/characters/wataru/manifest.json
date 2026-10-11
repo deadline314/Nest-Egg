@@ -83,5 +83,41 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "refine",
+    "seconds": 1.8,
+    "outputs": [
+      "art_src\\characters\\wataru\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.3,
+    "outputs": [
+      "art\\characters\\wataru\\character.json",
+      "art\\rigs\\wataru.json",
+      "art\\characters\\wataru\\parts",
+      "art\\portraits\\wataru.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 2.8,
+    "outputs": [
+      "art\\characters\\wataru\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.7,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

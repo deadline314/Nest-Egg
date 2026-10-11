@@ -244,5 +244,41 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.1,
+    "outputs": [
+      "art_src\\characters\\janus\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.6,
+    "outputs": [
+      "art\\characters\\janus\\character.json",
+      "art\\rigs\\janus.json",
+      "art\\characters\\janus\\parts",
+      "art\\portraits\\janus.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.1,
+    "outputs": [
+      "art\\characters\\janus\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.7,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

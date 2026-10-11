@@ -202,5 +202,41 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.1,
+    "outputs": [
+      "art_src\\characters\\xiaowei\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.4,
+    "outputs": [
+      "art\\characters\\xiaowei\\character.json",
+      "art\\rigs\\xiaowei.json",
+      "art\\characters\\xiaowei\\parts",
+      "art\\portraits\\xiaowei.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.1,
+    "outputs": [
+      "art\\characters\\xiaowei\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.7,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

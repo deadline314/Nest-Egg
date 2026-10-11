@@ -574,7 +574,67 @@
           ]
         ]
       }
-    ]
+    ],
+    "erase": [
+      {
+        "part": "pelvis",
+        "note": "pelvis-beyond-thigh",
+        "poly": [
+          [
+            459,
+            605
+          ],
+          [
+            832,
+            605
+          ],
+          [
+            832,
+            636
+          ],
+          [
+            457,
+            636
+          ]
+        ]
+      },
+      {
+        "part": "pelvis",
+        "note": "pelvis-beyond-thigh",
+        "poly": [
+          [
+            0,
+            605
+          ],
+          [
+            298,
+            605
+          ],
+          [
+            299,
+            636
+          ],
+          [
+            0,
+            636
+          ]
+        ]
+      }
+    ],
+    "close_fill": [
+      {
+        "parts": [
+          "leg_upper"
+        ],
+        "radius": 20
+      }
+    ],
+    "trim_spikes": {
+      "parts": [
+        "leg_upper"
+      ],
+      "radius": 5
+    }
   },
   "stages": [
     {

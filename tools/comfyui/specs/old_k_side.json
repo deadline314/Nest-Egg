@@ -486,6 +486,50 @@
             890
           ]
         ]
+      },
+      {
+        "part": "pelvis",
+        "note": "pelvis-beyond-thigh",
+        "poly": [
+          [
+            489,
+            601
+          ],
+          [
+            832,
+            601
+          ],
+          [
+            832,
+            632
+          ],
+          [
+            489,
+            632
+          ]
+        ]
+      },
+      {
+        "part": "pelvis",
+        "note": "pelvis-beyond-thigh",
+        "poly": [
+          [
+            0,
+            601
+          ],
+          [
+            316,
+            601
+          ],
+          [
+            317,
+            632
+          ],
+          [
+            0,
+            632
+          ]
+        ]
       }
     ],
     "trim_spikes": {
@@ -494,7 +538,15 @@
         "leg_lower"
       ],
       "radius": 4
-    }
+    },
+    "close_fill": [
+      {
+        "parts": [
+          "leg_upper"
+        ],
+        "radius": 20
+      }
+    ]
   },
   "dialog_portrait": {
     "box": [
@@ -654,5 +706,10 @@
       "min": -0.1,
       "max": 0.18
     }
-  ]
+  ],
+  "seam_checks": {
+    "allow": {
+      "ragged:leg_lower": "褲管上緣的布摺"
+    }
+  }
 }

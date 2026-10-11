@@ -576,14 +576,67 @@
           "leg_upper"
         ],
         "radius": 20
+      },
+      {
+        "parts": [
+          "leg_lower"
+        ],
+        "radius": 14
       }
     ],
     "trim_spikes": {
       "parts": [
+        "leg_lower",
         "leg_upper"
       ],
       "radius": 5
-    }
+    },
+    "erase": [
+      {
+        "part": "pelvis",
+        "note": "pelvis-beyond-thigh",
+        "poly": [
+          [
+            509,
+            551
+          ],
+          [
+            832,
+            551
+          ],
+          [
+            832,
+            582
+          ],
+          [
+            498,
+            582
+          ]
+        ]
+      },
+      {
+        "part": "pelvis",
+        "note": "pelvis-beyond-thigh",
+        "poly": [
+          [
+            0,
+            551
+          ],
+          [
+            362,
+            551
+          ],
+          [
+            361,
+            582
+          ],
+          [
+            0,
+            582
+          ]
+        ]
+      }
+    ]
   },
   "stages": [
     {

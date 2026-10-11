@@ -269,5 +269,41 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.1,
+    "outputs": [
+      "art_src\\characters\\lin\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.6,
+    "outputs": [
+      "art\\characters\\lin\\character.json",
+      "art\\rigs\\lin.json",
+      "art\\characters\\lin\\parts",
+      "art\\portraits\\lin.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.2,
+    "outputs": [
+      "art\\characters\\lin\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.8,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

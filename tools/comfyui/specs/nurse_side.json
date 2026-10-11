@@ -421,7 +421,45 @@
         "foot"
       ],
       "max_area": 200
-    }
+    },
+    "close_fill": [
+      {
+        "parts": [
+          "leg_upper"
+        ],
+        "radius": 20
+      }
+    ],
+    "trim_spikes": {
+      "parts": [
+        "leg_upper"
+      ],
+      "radius": 5
+    },
+    "erase": [
+      {
+        "part": "pelvis",
+        "note": "pelvis-beyond-thigh",
+        "poly": [
+          [
+            469,
+            597
+          ],
+          [
+            832,
+            597
+          ],
+          [
+            832,
+            629
+          ],
+          [
+            466,
+            629
+          ]
+        ]
+      }
+    ]
   },
   "stages": [
     {
@@ -557,5 +595,10 @@
         125
       ]
     ]
+  },
+  "seam_checks": {
+    "allow": {
+      "overhang:back": "掛在腰後的平板屬於骨盆"
+    }
   }
 }

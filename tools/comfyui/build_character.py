@@ -13,6 +13,7 @@ Full description with pictures: design/03-art-pipeline/CHARACTER_PIPELINE.md. `w
   pose      SAM 3D Body + fit_joints   work/base_rgba.png                             work/keypoints.json, work/02_pose/{overlay,joints}.png; fills the EMPTY joints, scale numbers and cut heights of the spec
   parts     SAM 3.1 + Qwen (peeling)   work/base_rgba.png, spec.groups / stages      work/sam/, work/04_stages/{A,B}.png, work/05_groups/*, work/06_parts/<part>.png
   refine    refine_parts.py            work/06_parts/*.png, spec.refine               work/07_refined/*.png   (far leg, stray lines, halo and specks removed)
+            (then check_seams.py lists a pelvis wider than the thigh, torn limb outlines and width steps at joints as WARN lines)
   damage    make_damage.py             work/04_stages/<spec.damage.stage>.png, 07_refined  work/07_refined/<part>_dmg.png   (the torn clothes underneath, same outline as the intact part)
   textures  cut_layers.py              work/07_refined/*.png, spec.joints / bones     art/characters/<id>/parts/*.png (+_glow), character.json, art/rigs/<rig>.json
             (then check_parts.py lists holes, loose fragments and empty glow layers of the new textures as WARN lines)
@@ -150,6 +151,9 @@ class Build:
         self.need(self.work / "06_parts", "refine")
         out = run([sys.executable, str(HERE / "refine_parts.py"), "--spec", str(self.spec), "--work", str(self.work)], "refine")
         log("  " + (out.strip().splitlines() or [""])[-1])
+        from check_seams import check  # lumps, torn outlines and width steps where parts meet: seen here, not in a screenshot later
+        for line in check(self.recipe_path):
+            log(f"  WARN seam: {line}")
         return [self.work / "07_refined"]
 
     def step_damage(self) -> list[Path]:

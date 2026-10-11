@@ -177,7 +177,11 @@
       "unclaimed": [
         546,
         584
-      ]
+      ],
+      "front_line": {
+        "from": "hip",
+        "to": "knee"
+      }
     },
     "torso": {
       "group": "body",
@@ -239,7 +243,8 @@
           "bone": "leg_front_upper",
           "z": 3
         }
-      ]
+      ],
+      "front_line": {}
     },
     "leg_lower": {
       "group": "body",

@@ -553,7 +553,53 @@
         "leg_upper"
       ],
       "radius": 5
-    }
+    },
+    "erase": [
+      {
+        "part": "pelvis",
+        "note": "pelvis-beyond-thigh",
+        "poly": [
+          [
+            535,
+            651
+          ],
+          [
+            832,
+            651
+          ],
+          [
+            832,
+            682
+          ],
+          [
+            522,
+            682
+          ]
+        ]
+      },
+      {
+        "part": "pelvis",
+        "note": "pelvis-beyond-thigh",
+        "poly": [
+          [
+            0,
+            651
+          ],
+          [
+            254,
+            651
+          ],
+          [
+            263,
+            682
+          ],
+          [
+            0,
+            682
+          ]
+        ]
+      }
+    ]
   },
   "stages": [
     {

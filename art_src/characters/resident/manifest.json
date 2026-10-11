@@ -22,5 +22,41 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "refine",
+    "seconds": 1.8,
+    "outputs": [
+      "art_src\\characters\\resident\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.6,
+    "outputs": [
+      "art\\characters\\resident\\character.json",
+      "art\\rigs\\resident.json",
+      "art\\characters\\resident\\parts",
+      "art\\portraits\\resident.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.2,
+    "outputs": [
+      "art\\characters\\resident\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.9,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

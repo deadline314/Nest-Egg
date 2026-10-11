@@ -41,5 +41,40 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.2,
+    "outputs": [
+      "art_src\\characters\\trooper_elite\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.6,
+    "outputs": [
+      "art\\characters\\trooper_elite\\character.json",
+      "art\\rigs\\trooper_elite.json",
+      "art\\characters\\trooper_elite\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.3,
+    "outputs": [
+      "art\\characters\\trooper_elite\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.8,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

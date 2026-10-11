@@ -969,15 +969,61 @@
             545
           ]
         ]
+      },
+      {
+        "part": "pelvis",
+        "note": "pelvis-beyond-thigh",
+        "poly": [
+          [
+            493,
+            587
+          ],
+          [
+            832,
+            587
+          ],
+          [
+            832,
+            618
+          ],
+          [
+            485,
+            618
+          ]
+        ]
+      },
+      {
+        "part": "pelvis",
+        "note": "pelvis-beyond-thigh",
+        "poly": [
+          [
+            0,
+            587
+          ],
+          [
+            353,
+            587
+          ],
+          [
+            355,
+            618
+          ],
+          [
+            0,
+            618
+          ]
+        ]
       }
     ],
-    "close_fill": {
-      "parts": [
-        "leg_upper",
-        "pelvis"
-      ],
-      "radius": 24
-    },
+    "close_fill": [
+      {
+        "parts": [
+          "leg_upper",
+          "pelvis"
+        ],
+        "radius": 24
+      }
+    ],
     "fill_holes": {
       "parts": [
         "pelvis",
@@ -986,6 +1032,12 @@
         "foot"
       ],
       "max_area": 200
+    },
+    "trim_spikes": {
+      "parts": [
+        "leg_upper"
+      ],
+      "radius": 5
     }
   },
   "stages": [

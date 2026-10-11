@@ -620,6 +620,7 @@ def main() -> None:
     seam = spec.get("seam", 10)
     parts: dict[str, np.ndarray] = {}
     straight: dict[str, np.ndarray] = {}  # the part before its round joint caps were added
+    front_cut: dict[str, np.ndarray] = {}  # group -> what a front_line cut away (the far thigh): no part of the group may take it back
     for pname, pdef in spec["parts"].items():
         if "damage_of" in pdef:
             continue  # torn-clothes layers are made by make_damage.py
@@ -639,21 +640,28 @@ def main() -> None:
             else:
                 region &= (yy >= lo) & (yy < hi)
         if "front_line" in pdef:
-            # {"far": group}: in a standing source the far thigh shows as a strip in front of the near one. Left in the part it swings
-            # with the near leg like a flap of cloth; cut out by its SAM mask it leaves a ragged edge and a step under the pelvis. The
-            # front of the part is a straight line instead: through the point where the far group begins beside the `to` joint, running
-            # up along the bone and `widen` times as far from it at the `from` joint (a thigh is thicker at the top), never beyond the
-            # group's own front edge there. Sources face right, so "front" is +x.
+            # {"far": group, "from": joint, "to": joint} (without "far": mirrored about the knee joint): in a standing source the far thigh shows as a strip in front of the near one.
+            # Left in the part it swings with the near leg like a flap of cloth; cut out by its SAM mask it leaves a ragged edge and a
+            # step under the pelvis. The front of the part is a straight line instead: through the point where the far group begins
+            # beside the `to` joint, running up along the bone and `widen` times as far from it at the `from` joint (a thigh is thicker
+            # at the top), never beyond the group's own front edge there. Sources face right, so "front" is +x. The pelvis takes the
+            # same line below the hip (its round cap would otherwise keep the far thigh's strip and stick out under the hem).
             fl = pdef["front_line"]
-            y_top, y_bot = int(spec["joints"][pdef["from"]][1]), int(spec["joints"][pdef["to"]][1])
+            j_top, j_bot = spec["joints"][fl.get("from", pdef["from"])], spec["joints"][fl.get("to", pdef["to"])]
+            y_top, y_bot = int(j_top[1]), int(j_bot[1])
             top_row = np.nonzero(grp[y_top, :, 3] > 127)[0]
-            far_rows = V[fl["far"]][y_bot:y_bot + 16]
-            starts = [int(np.nonzero(r)[0].min()) for r in far_rows if r.any()]
+            if "far" in fl:
+                far_rows = V[fl["far"]][y_bot:y_bot + 16]
+                starts = [int(np.nonzero(r)[0].min()) for r in far_rows if r.any()]
+            else:  # no mask can tell the two legs apart (same colour, standing together): the near leg is as wide in front of its
+                # knee joint as it is behind it, and its back edge is the silhouette's
+                starts = [2.0 * j_bot[0] - float(np.nonzero(r)[0].min()) for r in (grp[y_bot - 8:y_bot + 8, :, 3] > 127) if r.any()]
             if len(top_row) and starts:
                 x_bot = float(np.median(starts)) + fl.get("margin", 2)
-                x_top = min(float(top_row.max()) + fl.get("margin", 2),
-                            spec["joints"][pdef["from"]][0] + fl.get("widen", 1.15) * (x_bot - spec["joints"][pdef["to"]][0]))
-                region &= xx <= x_top + (x_bot - x_top) * np.clip((yy - y_top) / max(y_bot - y_top, 1), 0.0, 1.5)
+                x_top = min(float(top_row.max()) + fl.get("margin", 2), j_top[0] + fl.get("widen", 1.15) * (x_bot - j_bot[0]))
+                beyond = (yy >= y_top) & (xx > x_top + (x_bot - x_top) * np.clip((yy - y_top) / max(y_bot - y_top, 1), 0.0, 1.5))
+                region &= ~beyond
+                front_cut[pdef["group"]] = front_cut.get(pdef["group"], np.zeros((H, W), bool)) | beyond
                 print(f"front_line {pname}: x {x_top:.0f} at y {y_top} -> x {x_bot:.0f} at y {y_bot}")
         straight[pname] = region
         # caps: a rigid joint (hip, shoulder, wrist, ankle, neck) turns without showing a corner or a gap only when both parts keep a round
@@ -666,6 +674,8 @@ def main() -> None:
                     wanted |= M[prompt]
                 disc &= dilate(wanted, 2)
             region = region | disc
+        if pdef["group"] in front_cut and "front_line" in pdef:
+            region &= ~front_cut[pdef["group"]]
         if "within" in pdef:  # keep the pixels of this group that fall inside another group's visible mask (e.g. the hand inside the arm group)
             region &= dilate(V[pdef["within"]], pdef.get("within_grow", 3))
         if "not_within" in pdef:
@@ -686,6 +696,7 @@ def main() -> None:
                     taken |= parts[other]
             lo, hi = pdef["unclaimed"]
             orphan = (complete[pdef["group"]][:, :, 3] > 127) & ~taken & (yy >= lo) & (yy < hi)
+            orphan &= ~front_cut.get(pdef["group"], np.zeros((H, W), bool))
             parts[pname] = parts[pname] | orphan
             straight[pname] = straight[pname] | orphan
             print(f"unclaimed -> {pname}: +{int(orphan.sum())} px")

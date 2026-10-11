@@ -550,7 +550,53 @@
         "leg_upper"
       ],
       "radius": 5
-    }
+    },
+    "erase": [
+      {
+        "part": "pelvis",
+        "note": "pelvis-beyond-thigh",
+        "poly": [
+          [
+            430,
+            601
+          ],
+          [
+            832,
+            601
+          ],
+          [
+            832,
+            632
+          ],
+          [
+            431,
+            632
+          ]
+        ]
+      },
+      {
+        "part": "pelvis",
+        "note": "pelvis-beyond-thigh",
+        "poly": [
+          [
+            0,
+            601
+          ],
+          [
+            320,
+            601
+          ],
+          [
+            321,
+            632
+          ],
+          [
+            0,
+            632
+          ]
+        ]
+      }
+    ]
   },
   "stages": [
     {
@@ -609,5 +655,10 @@
       "armor_forearm",
       "armor_shoulder"
     ]
+  },
+  "seam_checks": {
+    "allow": {
+      "ragged:arm_lower": "前臂外側有彈匣袋"
+    }
   }
 }

@@ -238,5 +238,41 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.1,
+    "outputs": [
+      "art_src\\characters\\banyan\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.5,
+    "outputs": [
+      "art\\characters\\banyan\\character.json",
+      "art\\rigs\\banyan.json",
+      "art\\characters\\banyan\\parts",
+      "art\\portraits\\banyan.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.3,
+    "outputs": [
+      "art\\characters\\banyan\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.6,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

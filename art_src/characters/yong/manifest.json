@@ -202,5 +202,41 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.1,
+    "outputs": [
+      "art_src\\characters\\yong\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.7,
+    "outputs": [
+      "art\\characters\\yong\\character.json",
+      "art\\rigs\\yong.json",
+      "art\\characters\\yong\\parts",
+      "art\\portraits\\yong.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.7,
+    "outputs": [
+      "art\\characters\\yong\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.7,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

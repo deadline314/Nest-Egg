@@ -185,7 +185,12 @@
       "unclaimed": [
         586,
         624
-      ]
+      ],
+      "front_line": {
+        "far": "leg_far",
+        "from": "hip",
+        "to": "knee"
+      }
     },
     "torso": {
       "group": "body",
@@ -888,5 +893,10 @@
         185
       ]
     ]
+  },
+  "seam_checks": {
+    "allow": {
+      "ragged:leg_lower": "褲管收口與靴筒本來就有寬窄"
+    }
   }
 }

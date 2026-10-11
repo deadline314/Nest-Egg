@@ -352,5 +352,40 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.2,
+    "outputs": [
+      "art_src\\characters\\collector_brute\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.3,
+    "outputs": [
+      "art\\characters\\collector_brute\\character.json",
+      "art\\rigs\\collector_brute.json",
+      "art\\characters\\collector_brute\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 4.0,
+    "outputs": [
+      "art\\characters\\collector_brute\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.7,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

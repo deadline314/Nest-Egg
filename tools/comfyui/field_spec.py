@@ -189,12 +189,13 @@ def main() -> None:
     hip, waist, knee, ankle, elbow, palm = J["hip"], J["waist"], J["knee"], J["ankle"], J["elbow"], J["palm"]
     parts = {
         "pelvis": {"group": "body", "from": "waist", "to": "hip", "mode": "upright", "pivot": "hip", "y": [waist[1] + 20, hip[1] - 12],
-                   "unclaimed": [hip[1] - 12, hip[1] + 26],  # the front of the hip beyond the round caps stays with the pelvis
+                   "unclaimed": [hip[1] - 12, hip[1] + 26],
+                   **({} if far_thigh_open else {"front_line": {"from": "hip", "to": "knee", **({} if args.far_foot_only else {"far": "leg_far"})}}),  # the front of the hip beyond the round caps stays with the pelvis
                    "caps": [{"joint": "hip", "radius": round(0.75 * hip_w), "feather": 1.5}], "uses": [{"name": "pelvis", "bone": "hip", "z": 0}]},
         "torso": {"group": "body", "from": "waist", "to": "neck", "mode": "upright", "pivot": "waist", "y": [0, waist[1] + 20], "uses": [{"name": "torso", "bone": "chest", "z": 1}]},
         "head": {"group": "head", "from": "head", "to": "head_top", "mode": "upright", "pivot": "head", "uses": [{"name": "head", "bone": "head", "z": 5}]},
         "leg_upper": {"group": "body", "from": "hip", "to": "knee", "mode": "bone", "y": [hip[1] + 20, knee[1]],
-                      **({} if args.far_foot_only or far_thigh_open else {"front_line": {"far": "leg_far"}}),  # the far thigh is not part of the near one
+                      **({} if far_thigh_open else {"front_line": {} if args.far_foot_only else {"far": "leg_far"}}),  # the far thigh is not part of the near one
                       "caps": [{"joint": "hip", "radius": round(0.85 * hip_w), "feather": 10}], "uses": uses("leg_upper", -5, 3)},
         "leg_lower": {"group": "body", "from": "knee", "to": "ankle", "mode": "bone", "y": [knee[1], ankle[1] + 14],
                       "caps": [{"joint": "ankle", "radius": round(0.9 * ankle_w), "feather": 1.5}], "uses": uses("leg_lower", -5, 3)},
