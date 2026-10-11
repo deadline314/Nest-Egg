@@ -110,7 +110,12 @@ python tools/comfyui/gpu_lock.py -- <godot> --path . res://tools/rig_preview.tsc
 - 小腿前面多一片布、膝蓋旁凸一塊：遠側腿的褲管黏在近側小腿上沒切開，在規格的小腿零件加 `"front_ramp": 0.08`（小腿沿大腿的前緣線切）。
 - 站著像挺胸、兩隻手並排在同一側：來源姿勢的問題（回第 1 關），或空手垂放角度（動作資料 `arms.hang`，兩臂不能同角度）。（細節：character-art-pipeline「來源畫成直立站姿」；rig-animation「空手時的手臂」）
 - 多一隻手：底層圖殘留（回第 4 關），或衣物零件裡烤進了手臂。（細節：character-art-pipeline「階段圖一張一張看」，拿掉衣袖與拿掉手臂分兩張生）
-- 坐下時骨盆露出直線下緣、球狀凸塊：用 `caps` 處理。上層零件的圓盤較大並柔邊，下層較小、硬邊。（細節：character-art-pipeline「關節圓蓋 `parts.<名稱>.caps`」；球狀臀腿的驗收見 rig-animation「蹲姿臀腿輪廓（NE-222）」）
+- 坐、蹲時臀部是一顆圓球，或臀上有一條折線：那是站姿的大腿零件被轉了 90 度（圓球是大腿的髖部圓蓋，折線是布料的側縫與陰影跟著轉）。圓蓋調大調小都沒有用，要另外畫這個姿勢的臀與大腿：
+  1. 用採用中的來源圖當參考，生一張這個姿勢的側面圖（例：`art_src/characters/rin_sit/01_design/generate.py`）。提示詞寫清楚「臀與大腿是一整塊、腿上沒有槍套與綁帶、雙手抱胸不遮髖部」，槍套等零件之後照舊疊上去。
+  2. 寫一支對位腳本（例：`art_src/characters/rin_sit/register.py`）：切出臀與大腿，轉回大腿的站姿方向，縮放到髖到膝的距離和原規格一樣，存成 `<work>/poses/<姿勢>/<零件>.png`（全畫布）。顏色用每個色版乘一個倍率對到原零件的平均色；用加減或拉開對比都會把暗部變成顆粒、把黑描邊洗淡。有破損層的零件要一起做 `<零件>_dmg.png`，否則整組會被拒收。
+  3. 規格寫 `"pose_parts": {"sit": {"parts": ["leg_upper", "leg_upper_dmg"]}, "crouch": {"same_as": "sit"}}`，重跑 `--from textures --to import`。
+  4. NPC 與過場演員換到那個姿勢、過渡過半時會自動換上；沒有那一組的角色不受影響。看 `rig_preview --npc` 與 `npc_motion_strip --script=sit_cycle --zoom=3.4`（加 `--facing=-1` 看朝左）。
+- 坐下時骨盆露出直線下緣：用 `caps` 處理。上層零件的圓盤較大並柔邊，下層較小、硬邊。（細節：character-art-pipeline「關節圓蓋 `parts.<名稱>.caps`」；球狀臀腿的驗收見 rig-animation「蹲姿臀腿輪廓（NE-222）」）
 - 肩、腕甩出去：支點沒在圖的轉動中心，量該高度的左右邊界取中心。
 - 無袖底層圖的袖窿露出膚色或暗塊：`refine.inpaint`。
 - 衣物坐下時直直垂進椅子：把它掛到會動的那根骨頭上。

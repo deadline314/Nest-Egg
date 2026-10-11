@@ -1489,6 +1489,15 @@
       ]
     ]
   },
+  "pose_parts": {
+    "sit": {
+      "parts": ["leg_upper", "leg_upper_dmg"],
+      "source": "art_src/characters/rin_sit/register.py：坐姿來源的臀與大腿，對位到大腿的站姿方向"
+    },
+    "crouch": {
+      "same_as": "sit"
+    }
+  },
   "seam_checks": {
     "allow": {
       "detached:arm_left_upper": "遠側手臂另外生成，支點由 extras/register.py 登記，不在這組關節座標上",

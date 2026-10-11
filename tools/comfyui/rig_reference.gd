@@ -94,6 +94,18 @@ func _render_pass(pass_name: String, with_armor: bool) -> void:
 			hidden = true
 		if rig._under.has(sprite) and with_armor:
 			hidden = true
+		# 姿勢專屬零件（坐姿的臀腿）：只畫這個姿勢選用的那一件，被它換掉的原零件不畫。
+		var pose_name := str(sprite.name)
+		if pose_name.begins_with("Pose_"):
+			var base_name := pose_name.get_slice("__", 1)
+			if pose_name.get_slice("__", 0) != "Pose_%s" % rig.active_pose_parts():
+				hidden = true
+			elif base_name.begins_with("armor_") and not with_armor:
+				hidden = true
+			elif base_name.ends_with("_dmg") and with_armor:
+				hidden = true
+		elif rig._active_part_for_base(sprite) != sprite:
+			hidden = true
 		sprite.visible = not hidden
 		if hidden:
 			continue

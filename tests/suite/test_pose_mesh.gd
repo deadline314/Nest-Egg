@@ -246,9 +246,16 @@ func _fixture(invalid_case := "") -> Dictionary:
 
 
 func _new_rig(skin: Dictionary) -> CharacterRig:
+	# 正式的凜有自己的姿勢零件；這裡驗的是注入的那一組，所以先用拿掉它的外觀建骨架。
+	var key := RigLibrary.CHARACTER_PATH % "rin"
+	var production: Dictionary = RigLibrary.character("rin")
+	var plain := production.duplicate(true)
+	plain.erase("pose_parts")
+	RigLibrary._json_cache[key] = plain
 	var rig := CharacterRig.new()
 	runner.add_child(rig)
 	check(rig.setup("rin"), "production Rin character sets up for pose-mesh validation")
+	RigLibrary._json_cache[key] = production
 	rig._build_pose_parts(skin)
 	return rig
 

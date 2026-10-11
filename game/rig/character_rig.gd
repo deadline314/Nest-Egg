@@ -541,6 +541,11 @@ func active_pose_parts() -> StringName:
 	return _active_pose_set
 
 
+## 這個外觀有沒有某個姿勢的專屬零件（坐姿的臀腿等）
+func has_pose_parts(pose_key: StringName) -> bool:
+	return _pose_sets.has(pose_key)
+
+
 func _apply_pose_bind_pose(bind_pose: Dictionary) -> bool:
 	var current: Dictionary[StringName, Transform2D] = {}
 	for bone_name in _order:

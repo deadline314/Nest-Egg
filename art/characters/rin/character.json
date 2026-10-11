@@ -353,6 +353,30 @@
         189.0
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "leg_upper_sit": {
+      "file": "parts/leg_upper_sit.png",
+      "size": [
+        194,
+        438
+      ],
+      "pivot": [
+        91.72,
+        59.77
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "leg_upper_dmg_sit": {
+      "file": "parts/leg_upper_dmg_sit.png",
+      "size": [
+        194,
+        438
+      ],
+      "pivot": [
+        91.72,
+        59.77
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     }
   },
   "parts": [
@@ -579,5 +603,55 @@
         0.22769
       ]
     }
-  ]
+  ],
+  "pose_parts": {
+    "sit": {
+      "parts": [
+        {
+          "slot": "leg_back_upper",
+          "texture": "leg_upper_sit",
+          "bone": "leg_back_upper"
+        },
+        {
+          "slot": "armor_thigh",
+          "texture": "leg_upper_sit",
+          "bone": "leg_front_upper"
+        },
+        {
+          "slot": "leg_back_upper_dmg",
+          "texture": "leg_upper_dmg_sit",
+          "bone": "leg_back_upper"
+        },
+        {
+          "slot": "thigh_dmg",
+          "texture": "leg_upper_dmg_sit",
+          "bone": "leg_front_upper"
+        }
+      ]
+    },
+    "crouch": {
+      "parts": [
+        {
+          "slot": "leg_back_upper",
+          "texture": "leg_upper_sit",
+          "bone": "leg_back_upper"
+        },
+        {
+          "slot": "armor_thigh",
+          "texture": "leg_upper_sit",
+          "bone": "leg_front_upper"
+        },
+        {
+          "slot": "leg_back_upper_dmg",
+          "texture": "leg_upper_dmg_sit",
+          "bone": "leg_back_upper"
+        },
+        {
+          "slot": "thigh_dmg",
+          "texture": "leg_upper_dmg_sit",
+          "bone": "leg_front_upper"
+        }
+      ]
+    }
+  }
 }

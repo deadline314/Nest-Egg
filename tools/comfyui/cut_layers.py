@@ -292,6 +292,38 @@ def main() -> None:
         eye_runtime = {"part": part_name, "half_texture": state_names["half"],
                        "closed_texture": state_names["closed"], "timing": timing}
 
+    # ---- pose-specific pieces: spec.pose_parts.<pose>.parts lists part names; <work>/poses/<pose>/<part>.png is that part drawn for the
+    # pose (a seated hip and thigh), full canvas and registered on the same joints in bind orientation. The rig shows them instead of the
+    # standing piece while set_pose_parts(<pose>) is selected (design/12-cast-redraw/POSE_PART_ATTACHMENTS.md). ---------------------------
+    pose_sets: dict[str, dict] = {}
+    for pose, config in spec.get("pose_parts", {}).items():
+        entries = []
+        for name in config.get("parts", []):
+            path = work / "poses" / pose / f"{name}.png"
+            if name not in spec["parts"] or not path.exists():
+                raise ValueError(f"spec.pose_parts.{pose}: {name} must be a part of this spec with a picture at {path}")
+            with Image.open(path) as image:
+                src = image.convert("RGBA")
+            if src.size != Image.open(work / "base_rgba.png").size:
+                raise ValueError(f"{path}: a pose piece is a full-canvas layer of base_rgba.png, got {src.size}")
+            transform = part_transform(src, {key: value for key, value in spec["parts"][name].items() if key != "y"}, J, k)
+            if transform is None:
+                raise ValueError(f"{path}: the pose piece is empty")
+            _, cw, ch, piv = transform
+            texture = f"{name}_{pose}"
+            if texture in textures:
+                raise ValueError(f"spec.pose_parts.{pose}: texture name {texture} is already taken")
+            Image.fromarray(render_part(src, transform, k)).save(out_parts / f"{texture}.png")
+            textures[texture] = {"file": f"parts/{texture}.png", "size": [cw, ch], "pivot": [round(float(piv[0]), 2), round(float(piv[1]), 2)], "note": NOTE}
+            entries += [{"slot": use["name"], "texture": texture, "bone": use["bone"]} for use in spec["parts"][name]["uses"]]
+            print(f"  {texture}: {cw}x{ch} pivot=({piv[0]:.1f},{piv[1]:.1f})")
+        pose_sets[pose] = {"parts": entries}
+    for pose, config in spec.get("pose_parts", {}).items():  # "same_as": another pose folds the joint the same way and shows the same pieces
+        if "same_as" in config:
+            if config["same_as"] not in pose_sets or config.get("parts"):
+                raise ValueError(f"spec.pose_parts.{pose}.same_as must name a pose with its own parts, and replaces 'parts'")
+            pose_sets[pose] = pose_sets[config["same_as"]]
+
     # ---- carried-over textures (e.g. a riot shield drawn earlier): <dir>/<name>.png (+_glow.png) and <name>.json {size, pivot, factor, use} --------
     extra_uses: list[dict] = []
     for item in spec.get("carry_over", []):
@@ -390,6 +422,8 @@ def main() -> None:
         grasp = inverse @ np.array([*np.array(spec["parts"][name]["grasp"]) * k, 1.0])
         offset = (grasp - np.array(textures[name]["pivot"])) / px_wp
         entry.update(grip_texture=name, grip_offset=[round(float(v), 5) for v in offset])
+    if pose_sets:
+        char["pose_parts"] = pose_sets
     for name, (data, definition) in native_grips.items():
         (out_parts / f"{name}.png").write_bytes(data)
         textures[name] = definition

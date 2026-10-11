@@ -47,3 +47,25 @@ For adjoining pieces, use corresponding source coordinates, vertices and weights
 Visible native pose meshes contribute to `visual_bounds()` and AnimAudit's existing `mesh_fold` metric through the same CPU reconstruction of their current bone weights. Hidden alternatives and glow companions are excluded. Bounds apply the character root transform once; the fold metric compares triangle orientation against the authored source geometry, retaining the existing limit. The regression includes a deliberately reflected mesh with no legacy limb meshes, so missing native geometry cannot silently pass.
 
 This fold metric does not measure native-mesh narrowing or compressed triangle area. Keep the existing legacy `limb_pinch` checks and separately inspect native source coverage, alpha seams, compression and whole-body anatomy; a zero fold fraction alone cannot approve a pose.
+
+## Authoring a pose set from a character spec (NE-222, 2026-10-12)
+
+Rigid pose pieces no longer have to be written into `character.json` by hand. A character spec may list them and `cut_layers.py` cuts
+and registers them with every other texture:
+
+```json
+"pose_parts": {
+  "sit": {"parts": ["leg_upper", "leg_upper_dmg"]},
+  "crouch": {"same_as": "sit"}
+}
+```
+
+Each listed name is an existing spec part. Its pose picture is `<work>/poses/<pose>/<part>.png`: a full-canvas layer of `base_rgba.png`,
+registered on the same joints in bind orientation, so the part's own definition (mode, pivot, bones) cuts it. The texture is named
+`<part>_<pose>`; one entry per use of the part is written (`slot` = the use's name, same bone). A part with a torn layer needs its
+`_dmg` counterpart in the same list or the rig rejects the set. `same_as` shows another pose's pieces. The first production set is
+Rin's seated hip and thigh (`art_src/characters/rin_sit/`).
+
+`NpcAnimator` selects the set named like the current NPC posture once a posture transition is half way, and clears it when the
+character leaves NPC poses; a skin without that set keeps its base parts (`CharacterRig.has_pose_parts`). Player states (the rifle
+kneel) do not select pose sets yet. `tools/comfyui/rig_reference.gd` draws only the piece the rig selected.

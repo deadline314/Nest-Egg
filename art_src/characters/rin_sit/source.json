@@ -1,0 +1,22 @@
+{
+  "description": "凜的坐姿來源（NE-222）：只取臀與大腿，做成坐、蹲兩個姿勢的專屬零件；其餘部位沿用 rin_field。",
+  "generated": [
+    {
+      "file": "01_design/design_s22501.png",
+      "sha256": "311e938eaaefe959841496eb0f24648dfa52f81ddc6e54f0a921152de5a58999",
+      "tool": "art_src/characters/rin_sit/01_design/generate.py",
+      "model": "Qwen Image 2.1（參考編輯，原生 RGBA）",
+      "prompt": "01_design/prompt.txt",
+      "seed": 22501,
+      "resolution": 1280,
+      "size": [1056, 1536],
+      "reference": {"path": "art_src/characters/rin_field/base_rgba.png", "sha256": "49ee8e60b3082c075f30891f54d20260c8234a339568cb795587be75ba8b963f"},
+      "status": "採用：臀與大腿"
+    }
+  ],
+  "registered": {
+    "tool": "art_src/characters/rin_sit/register.py",
+    "outputs": ["art_src/characters/rin_field/poses/sit/leg_upper.png", "art_src/characters/rin_field/poses/sit/leg_upper_dmg.png"],
+    "review": "review.png（左：站姿的大腿零件；右：對位後的坐姿臀腿，同一張畫布座標）"
+  }
+}

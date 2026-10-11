@@ -176,9 +176,10 @@ func _test_cloth_binding() -> void:
 func _test_pose_part_attachments() -> void:
 	var old_lit_enabled := LitTextures.is_enabled()
 	LitTextures.set_enabled(true)
-	var plain := CharacterRig.new()
-	runner.add_child(plain)
-	check(plain.setup("rin"), "the production Rin rig builds without pose_parts")
+	var plain_skin: Dictionary = RigLibrary.character("rin").duplicate(true)
+	plain_skin.erase("pose_parts")  # 正式的凜有坐姿的專屬零件；這一段驗的是「沒有設定姿勢零件」的外觀
+	var plain := _setup_pose_fixture(plain_skin)
+	check(not plain._parts.is_empty(), "the production Rin rig builds without pose_parts")
 	check(plain._pose_slots.is_empty() and plain._parts.size() == (RigLibrary.character("rin")["parts"] as Array).size(), "a skin without pose_parts keeps exactly its original part nodes")
 	var plain_parts_before := _pose_part_snapshot(plain)
 	check(plain.set_pose_parts(&"") and plain.active_pose_parts() == &"", "an empty selector keeps the original pose for an unconfigured skin")

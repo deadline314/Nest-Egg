@@ -45,6 +45,8 @@ def check_character(char_id: str, normals: bool = False) -> list[str]:
     if isinstance(eye_states, dict):
         used.update(eye_states[key] for key in ("open_texture", "half_texture", "closed_texture")
                     if isinstance(eye_states.get(key), str))
+    for pose in definition.get("pose_parts", {}).values():  # pieces drawn for one pose, shown instead of the standing ones
+        used.update(entry.get("texture") for entry in pose.get("parts", []) if isinstance(entry, dict))
     for name, tex in definition.get("textures", {}).items():
         if name not in used and not name.endswith("_dmg"):
             problems.append(f"{name}: no part uses this texture")

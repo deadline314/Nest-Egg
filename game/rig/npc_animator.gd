@@ -52,6 +52,8 @@ var _life: NpcLife
 var _breath_phase := 0.0
 ## 姿勢切換（NE-250）：目前的姿勢、切換的進度與資料、切換起點（上一格混合後的基本姿勢）與目前混合的結果。
 var _pose_now := &""
+var _pose_before := &""  # 過渡的前半段還顯示這個姿勢的零件
+var _parts_pose := &""  # 目前顯示的是哪個姿勢的專屬零件
 var _trans_t := -1.0
 var _trans_def: Dictionary = {}
 var _from_base: Dictionary = {}
@@ -75,6 +77,7 @@ var _cycle_amp := 1.0
 func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> Dictionary:
 	_use_npc = _is_npc_state(input)
 	if not _use_npc:
+		_show_pose_parts(&"")
 		return super._body_pose(delta, input, v, aim_angle)
 	var data := RigLibrary.load_json(DATA_PATH)
 	var pose: Dictionary = {}
@@ -93,6 +96,7 @@ func _body_pose(delta: float, input: RigInput, v: Vector2, aim_angle: float) -> 
 				gestures if typeof(gestures) == TYPE_DICTIONARY else {})
 	# 基本姿勢：切換時有預備動作（例如起身前上身先前傾）與緩入緩出，不是瞬間換或等速滑過去。
 	_step_posture(data, mine, input.npc_pose, delta)
+	_show_pose_parts(_pose_now if posture_progress() >= 0.5 else _pose_before)
 	for key: StringName in _base_now.keys():
 		pose[key] = float(pose.get(key, 0.0)) + float(_base_now[key])
 	# 這個姿勢的遠側手臂只是垂著（上臂、前臂都接近垂直）：改用這副骨架量出來的藏手角度，手才不會從髖前緣探出來（NE-222）。
@@ -225,6 +229,14 @@ static func _smooth_max(a: float, b: float, width: float) -> float:
 ## 切換資料（npc_animations.json 的 transitions，鍵是「舊>新」，找不到用 default）：time 秒數、delay 主要動作延後開始的比例
 ## （先做預備再動）、peak 預備動作最大的時間點（0~1）、lead 預備動作的骨頭增量（例如起身前上身前傾）。
 ## 角色自己的 npc.life.posture：speed（>1 換得快）、lead（預備動作的幅度倍率）。中途再換姿勢時從目前混合的樣子接著換，不跳格。
+## 有專屬零件的姿勢（坐下時的臀與大腿是另外畫的一塊）在過渡過半時換上；這個外觀沒有那一組就用平常的零件。
+func _show_pose_parts(posture: StringName) -> void:
+	if posture == _parts_pose:
+		return
+	_parts_pose = posture
+	_rig.set_pose_parts(posture if _rig.has_pose_parts(posture) else &"")
+
+
 func _step_posture(data: Dictionary, mine: Dictionary, posture: StringName, delta: float) -> void:
 	var target_def := _entry(data, "poses", str(posture), "stand")
 	var target := _base_of(target_def, mine, posture)
@@ -239,6 +251,7 @@ func _step_posture(data: Dictionary, mine: Dictionary, posture: StringName, delt
 		_trans_def = _transition_of(data, _pose_now, posture)
 		_from_base = _base_now.duplicate()
 		_feet_from = _feet_to if _feet_weight > 0.0 else {}
+		_pose_before = _pose_now
 		_pose_now = posture
 		_trans_t = 0.0
 	if _trans_t < 0.0:
