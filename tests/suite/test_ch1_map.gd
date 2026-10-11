@@ -504,6 +504,23 @@ func _test_staging() -> void:
 	check(CutsceneChecker.staging_problems("test_bad_staging", moved).size() == 1, "walking down behind the dialogue box is reported")
 	var zoomed := {"steps": [{"do": "scene", "id": "x", "pos": [320, 180], "zoom": 1.0}, {"do": "actor", "id": "a", "pos": [100, 240]}, {"do": "camera", "pos": [100, 240], "zoom": 2.5}, {"do": "remove", "id": "a"}]}
 	check(CutsceneChecker.staging_problems("test_ok_staging", zoomed).is_empty(), "a camera that puts the feet at the middle of the screen is fine")
+	# 頭頂不能進到上方黑邊（ST-10）：演員太高或鏡頭太近都要被抓到；坐著比較矮；頭像剪影（沒有骨架）不檢查。
+	var tall_actor := {"do": "actor", "id": "r", "kind": "rin", "pos": [320, 250], "scale": 4.0}
+	var head_cut := {"steps": [{"do": "scene", "id": "x", "pos": [320, 180], "zoom": 1.0}, tall_actor, {"do": "say", "speaker": "rin", "text": "測試。"}]}
+	var head_problems := CutsceneChecker.staging_problems("test_head_cut", head_cut)
+	check(head_problems.size() == 1 and head_problems[0].contains("頭頂"), "an actor whose head reaches the top letterbox bar is reported once: %s" % [head_problems])
+	var pulled_back := {"steps": [{"do": "scene", "id": "x", "pos": [320, 180], "zoom": 0.8}, tall_actor, {"do": "say", "speaker": "rin", "text": "測試。"}]}
+	check(CutsceneChecker.staging_problems("test_head_ok", pulled_back).is_empty(), "pulling the camera back brings the head into frame")
+	var seated := tall_actor.duplicate()
+	seated["pose"] = "sit"
+	check(CutsceneChecker.staging_problems("test_head_sit", {"steps": [{"do": "scene", "id": "x", "pos": [320, 180], "zoom": 1.0}, seated, {"do": "say", "speaker": "rin", "text": "測試。"}]}).is_empty(),
+			"a seated actor is shorter, so the same shot is fine")
+	var silhouette := {"do": "actor", "id": "p", "portrait": "res://art/portraits/old_k.png", "pos": [320, 250], "scale": 4.0}
+	check(CutsceneChecker.staging_problems("test_head_portrait", {"steps": [{"do": "scene", "id": "x", "pos": [320, 180], "zoom": 1.0}, silhouette, {"do": "say", "speaker": "old_k", "text": "測試。"}]}).is_empty(),
+			"portrait silhouettes without a rig are not measured")
+	# 鏡頭和姿勢連著換的時候，等到台詞才檢查：先把鏡頭拉遠再開口就不算違規。
+	var regrouped := {"steps": [{"do": "scene", "id": "x", "pos": [320, 180], "zoom": 1.0}, tall_actor, {"do": "camera", "pos": [320, 180], "zoom": 0.8}, {"do": "say", "speaker": "rin", "text": "測試。"}]}
+	check(CutsceneChecker.staging_problems("test_head_regroup", regrouped).is_empty(), "framing is judged when the shot settles, not between consecutive setup steps")
 	var checked := 0
 	for id in Story.scene_ids():
 		var scene: Dictionary = Story._scenes[id]

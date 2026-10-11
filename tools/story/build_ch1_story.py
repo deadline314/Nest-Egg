@@ -34,9 +34,9 @@ CHAPTER = {
 
 # 新的講者（凜、老 K 沿用舊檔裡的定義）。頭像先借用現有的圖，之後換成正式立繪。
 SPEAKERS = {
-    "egret": {"name": "鷺", "color": "#ffb066", "portrait": "res://art/portraits/resident.png"},
-    "lamp": {"name": "燈", "color": "#8fe39a", "portrait": "res://art/portraits/wataru.png"},
-    "ali": {"name": "阿梨", "color": "#ff8fc0", "portrait": "res://art/portraits/nurse.png"},
+    "egret": {"name": "鷺", "color": "#ffb066", "portrait": "res://art/portraits/egret.png"},
+    "lamp": {"name": "燈", "color": "#8fe39a", "portrait": "res://art/portraits/lamp.png"},
+    "ali": {"name": "阿梨", "color": "#ff8fc0", "portrait": "res://art/portraits/ali.png"},
     "voice": {"name": "錄音", "color": "#9ad7ff", "portrait": "res://art/portraits/system.png", "formal": True},
 }
 
@@ -100,8 +100,11 @@ def stall_layers(scale):
 
     def sprite(name, x, w, h, lift=0.0):
         tex_w = Image.open(disk % name).size[0]
-        return {"kind": "sprite", "path": d % name, "pos": [round(x, 1), round(floor - (h + lift) * scale, 1)],
-                "scale": round(scale * w / tex_w, 4), "filter": "linear", "glow": True, "source_width": tex_w}
+        layer = {"kind": "sprite", "path": d % name, "pos": [round(x, 1), round(floor - (h + lift) * scale, 1)],
+                 "scale": round(scale * w / tex_w, 4), "filter": "linear", "glow": True, "source_width": tex_w}
+        if lift > 0.0:
+            layer["support"] = "hang"  # 掛在別的東西上，底邊不在地面線（場景檢查依這個欄位略過落地檢查）
+        return layer
     # 燈籠（連繩）掛在攤車頂的前緣，下緣高過頭頂（lift 是世界像素，也要乘上縮放）。
     return [sprite('ali_noodle_cart', 395, 58.1, 66.0), sprite('noodle_bowls_table', 335, 30.4, 25.5),
             sprite('hanging_lantern', 405, 16.9, 33.0, 30.0)]
@@ -154,7 +157,10 @@ def wait(t=0.5):
     return {"do": "wait", "time": t}
 
 
-def cam(x, y, zoom=1.0, t=1.2, wait_for=False):
+def cam(x, y, zoom=1.0, t=1.2, wait_for=False, feet=None):
+    """feet：從這一步起最低的腳底 y 改成這個值（例如演員從檢查台下來、站回地板）。"""
+    if feet is not None:
+        _camera_floor[0] = feet
     step = {"do": "camera", "pos": [x, clamp_camera_y(y, zoom)], "zoom": zoom, "time": t}
     if wait_for:
         step["wait"] = True
@@ -235,8 +241,10 @@ def clamp_camera_y(y, zoom):
     return max(y, round(floor - (FEET_MAX_Y - 180.0) / zoom, 1))
 
 
-def stage(stage_id, x=320, y=180, zoom=1.0, fade_in=1.2):
-    _camera_floor[0] = FLOOR.get(stage_id)
+def stage(stage_id, x=320, y=180, zoom=1.0, fade_in=1.2, feet=None):
+    """feet：這場戲裡最低的腳底 y。演員不站在地板上（坐在檢查台邊、腳懸空）時要給，
+    鏡頭才不會為了讓沒人踩的地板露出來而往下壓、把頭切進上方黑邊。沒給就用舞台的地面線。"""
+    _camera_floor[0] = FLOOR.get(stage_id) if feet is None else feet
     return {"do": "scene", "id": stage_id, "pos": [x, clamp_camera_y(y, zoom)], "zoom": zoom, "fade": fade_in}
 
 
@@ -446,7 +454,7 @@ def build():
     # 過場 2／3：診間醒來（第一次死亡後、重生前播出，≤45 秒）：講清楚怎麼被運來、為什麼在這裡、之後怎麼辦。凜坐在檢查台的邊緣，腿垂下來
     st = 'ch1_revival_room'
     animated('ch1_c09_wake', [
-        stage(st, 316, 205, 1.4, 1.0),
+        stage(st, 316, 205, 1.4, 1.0, feet=sit_y(st, 'rin', 196)),
         actor('rin', 'rin', 316, sit_y(st, 'rin', 196), 1, scale=actor_scale(st, 'rin'), pose='sit', speaker='rin',
               pose_reason='復原後坐在檢查台邊緣醒來。', pose_support='診間檢查台座面：舞台 x=316、y=196；腳底由 sit_y 量測。'),
         fx('flash', 0.6),
@@ -468,6 +476,8 @@ def build():
         say('rin', "磨多少？"),
         say('lamp', "沒人量得準。"),
         wait(0.8),
+        # 她從檢查台下來站到地板上：鏡頭跟著往下，靴子才不會被對話框蓋住。
+        cam(316, 205, 1.4, 0.8, feet=FLOOR[st]),
         pose('rin', 'idle'),
         say('rin', "我先回去了。"),
         wait(0.5),
@@ -518,7 +528,8 @@ def build():
     st = 'ch1_pawnshop_kitchen'
     y = FLOOR[st]
     animated('ch1_c14_home', [
-        stage(st, 320, 240, 1.0, 1.4),
+        # 廚房的家具是照實際比例畫的，演員很高（凜約 221、老 K 約 236 像素）：鏡頭拉遠到 0.86 兩個人的頭才都在畫面裡。
+        stage(st, 320, 200, 0.86, 1.4),
         actor('rin', 'rin', 575, y, -1, scale=actor_scale(st, 'rin')),
         actor('k', 'old_k', 120, y, -1, scale=actor_scale(st, 'old_k'), speaker='old_k'),
         move('rin', 330, y, 2.6, True, 'walk'),
@@ -535,7 +546,7 @@ def build():
         wait(1.4),
         face('k', -1),
         move('k', 190, y, 2.8, True, 'walk'),
-        cam(250, 190, 1.05, 1.6),
+        cam(292, 190, 0.9, 1.6),  # 往爐子推近一點；再近老 K 的頭會被切，再往左會拍到立繪外面
         wait(3.0),
         say('old_k', "…你什麼時候回來的？"),
         say('rin', "我剛剛才回來。"),

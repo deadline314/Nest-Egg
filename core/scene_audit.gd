@@ -88,6 +88,10 @@ static func audit_links(datas: Dictionary, layouts: Dictionary) -> Array[Diction
 
 ## 站著或走動的演員腳底離舞台地板線（stage 的 floor）最多差幾像素；超過就是飄在半空或陷進地裡。
 const STAGE_FLOOR_TOLERANCE := 14.0
+## 舞台擺設畫出來的大小與「擺設世界尺寸 × 演員縮放」容許的差距（比例）。
+const STAGE_PROP_SCALE_TOLERANCE := 0.2
+const STAGE_PROP_ART_DIR := "res://art/environment/scene_props/"
+const STAGE_PROP_DATA_DIR := "res://data/environment/scene_props/"
 ## 同一個舞台上同一種角色的縮放最多差幾成（演員步驟的 scale）。
 const STAGE_SCALE_SPREAD := 0.1
 ## 腳底不貼地板線的姿勢（坐、蹲、倒、跪由姿勢自己決定高度）。
@@ -131,6 +135,50 @@ static func audit_stages(scenes: Dictionary, stage_def: Callable) -> Array[Dicti
 		var high := float(values.max())
 		if low > 0.0 and (high - low) / low > STAGE_SCALE_SPREAD:
 			_add(issues, WARN, "stage_scale", key, "同一個舞台上同一種角色縮放不一（%.2f–%.2f），看起來一個大一個小" % [low, high])
+	# 舞台上補的擺設：用這個舞台上主角（第一個登記縮放的角色）的縮放當尺。
+	var checked_stages: Dictionary = {}
+	for key: String in scales:
+		var stage := key.get_slice("|", 0)
+		if checked_stages.has(stage):
+			continue
+		checked_stages[stage] = true
+		issues.append_array(stage_prop_issues(stage, stage_def.call(stage), float((scales[key] as Array)[0])))
+	return issues
+
+
+## 舞台上補的場景擺設（art/environment/scene_props 的圖）：
+##   stage_prop_scale——畫出來的大小要等於「擺設資料的世界尺寸 × 演員縮放」，差超過 STAGE_PROP_SCALE_TOLERANCE 就是縮放寫錯
+##   （麵攤的燈籠曾經因為寫死倍率而大 2.5 倍）；
+##   stage_prop_floating——底邊離舞台地面線超過 STAGE_FLOOR_TOLERANCE，又沒有標明支撐（support：掛著、放在別的東西上）。
+## 讀不到圖或找不到擺設資料的圖層略過（缺圖由舞台自己的檢查回報）。
+static func stage_prop_issues(stage_id: String, def: Dictionary, actor_scale: float) -> Array[Dictionary]:
+	var issues: Array[Dictionary] = []
+	var floor_y := float(def.get("floor", -1.0))
+	if actor_scale <= 0.0:
+		return issues
+	for layer: Variant in def.get("layers", []):
+		if typeof(layer) != TYPE_DICTIONARY or str(layer.get("kind", "")) != "sprite":
+			continue
+		var path := str(layer.get("path", ""))
+		if not path.contains(STAGE_PROP_ART_DIR) or not ResourceLoader.exists(path):
+			continue
+		var data_path := path.replace(STAGE_PROP_ART_DIR, STAGE_PROP_DATA_DIR).get_basename() + ".tres"
+		var prop := load(data_path) as PropData if ResourceLoader.exists(data_path) else null
+		var texture := load(path) as Texture2D
+		if prop == null or texture == null or prop.size.y <= 0.0:
+			continue
+		var name := "%s／%s" % [stage_id, path.get_file().get_basename()]
+		var drawn_height := float(texture.get_height()) * StageLayers.sprite_scale(layer, texture)
+		var expected := prop.size.y * actor_scale
+		if absf(drawn_height - expected) / expected > STAGE_PROP_SCALE_TOLERANCE:
+			_add(issues, WARN, "stage_prop_scale", name, "畫出來高 %.0f 像素，照演員縮放 %.2f 應該是 %.0f（差 %.0f%%）；縮放要用「演員縮放 × 世界寬 ÷ 貼圖寬」"
+					% [drawn_height, actor_scale, expected, (drawn_height / expected - 1.0) * 100.0])
+		var pos: Variant = layer.get("pos")
+		if floor_y >= 0.0 and pos is Array and (pos as Array).size() >= 2 and str(layer.get("support", "")).is_empty() and not layer.has("support_rect"):
+			var bottom := float((pos as Array)[1]) + drawn_height
+			if absf(bottom - floor_y) > STAGE_FLOOR_TOLERANCE:
+				_add(issues, WARN, "stage_prop_floating", name, "底邊 y=%.0f，舞台地板在 %.0f（差 %.0f 像素），又沒有標明支撐；掛著或放在別的東西上要寫 support"
+						% [bottom, floor_y, bottom - floor_y])
 	return issues
 
 

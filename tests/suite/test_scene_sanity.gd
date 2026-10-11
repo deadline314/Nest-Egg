@@ -378,6 +378,22 @@ func _test_real_stages() -> void:
 		for layer: Dictionary in definition.get("layers", []):
 			check(ScenerySupport.stage_anchor_issue(layer, definition).is_empty(), "authored stage prop contacts its actual support: %s %s" % [id, layer.get("path", layer.get("kind", ""))])
 	var issues := SceneAudit.audit_stages(Story.audit_data()["scenes"], StageLibrary.definition)
+	# 舞台上補的擺設（ST-10）：大小要等於擺設的世界尺寸 × 演員縮放，底邊落在地面線上或標明支撐。
+	var stall := StageLibrary.definition(&"ch1_dawn_noodle_stall")
+	check(SceneAudit.stage_prop_issues("ch1_dawn_noodle_stall", stall, 1.7).is_empty(),
+			"the noodle stall's props match the actors' scale and stand on the floor: %s" % [SceneAudit.stage_prop_issues("ch1_dawn_noodle_stall", stall, 1.7)])
+	var oversized := stall.duplicate(true)
+	for layer: Dictionary in oversized["layers"]:
+		if str(layer.get("path", "")).contains("hanging_lantern"):
+			layer["scale"] = float(layer["scale"]) * 2.5
+	var oversized_issues := SceneAudit.stage_prop_issues("ch1_dawn_noodle_stall", oversized, 1.7)
+	check(oversized_issues.size() == 1 and oversized_issues[0]["code"] == "stage_prop_scale", "a lantern drawn 2.5 times too large is reported: %s" % [oversized_issues])
+	var lifted := stall.duplicate(true)
+	for layer: Dictionary in lifted["layers"]:
+		if str(layer.get("path", "")).contains("noodle_bowls_table"):
+			(layer["pos"] as Array)[1] = float(layer["pos"][1]) - 40.0
+	var lifted_issues := SceneAudit.stage_prop_issues("ch1_dawn_noodle_stall", lifted, 1.7)
+	check(lifted_issues.size() == 1 and lifted_issues[0]["code"] == "stage_prop_floating", "a table hovering above the stage floor is reported: %s" % [lifted_issues])
 	for issue in issues:
 		check(false, "stage sanity: %s" % SceneAudit.describe(issue))
 	check(issues.is_empty(), "every animated scene keeps actors on the stage floor and the same size")

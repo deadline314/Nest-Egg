@@ -40,6 +40,15 @@ const STEP_FIELDS: Dictionary = {
 const STAGE_SIZE := Vector2(640, 360)
 ## 對話框蓋住畫面下緣約 25%（框頂約在 266／360 處）：演員的腳底在畫面上的位置不能低於這條線，腳會被框蓋住。
 const FEET_MAX_SCREEN_Y := 266.0
+## 過場整段是 21:9 畫幅：上下各有一條黑邊，高度是 (360 − 640 ÷ 21 × 9) ÷ 2。演員的頭頂不能進到上方黑邊裡。
+const LETTERBOX_BAR := (360.0 - 640.0 * 9.0 / 21.0) * 0.5
+## 頭頂離上方黑邊至少留這麼多像素才不算被切到（髮梢與馬尾會比骨架量到的身高再高一點）。
+const HEAD_MARGIN := 2.0
+## 各姿勢從腳底到頭頂的高度，占站立身高的比例（人體比例：坐高 0.50H、膝高 0.31H；見 skill scene-staging）。
+## 坐在高處腳垂下來約 0.8H；蹲、跪約 0.7H；倒地只剩身體的厚度。沒列的姿勢當成站立。
+## 畫面會停下來讓觀眾看的步驟：構圖檢查在這些步驟（與場景結束時）進行。
+const SETTLED_STEPS: PackedStringArray = ["say", "wait", "narrate", "choice", "title"]
+const POSE_HEIGHT := {"sit": 0.8, "crouch": 0.7, "squat": 0.7, "kneel": 0.7, "lean": 0.95, "dead": 0.3}
 ## 這些步驟需要先有舞台。
 const NEEDS_STAGE: PackedStringArray = ["camera", "actor", "pose", "move", "face", "remove"]
 
@@ -169,6 +178,11 @@ static func staging_problems(scene_id: String, scene: Dictionary) -> PackedStrin
 	var zoom := 1.0
 	var feet: Dictionary[String, Vector2] = {}
 	var reported: Dictionary[String, bool] = {}
+	# 每個演員站立時的身高（舞台像素，已乘縮放）與目前的姿勢；沒有骨架的演員（頭像剪影）不檢查頭頂。
+	var heights: Dictionary[String, float] = {}
+	var poses: Dictionary[String, String] = {}
+	var head_reported: Dictionary[String, bool] = {}
+	var stage_floor := NAN
 	var index := 0
 	for step: Variant in steps:
 		index += 1
@@ -177,24 +191,50 @@ static func staging_problems(scene_id: String, scene: Dictionary) -> PackedStrin
 		var kind := str((step as Dictionary).get("do", ""))
 		match kind:
 			"scene", "camera":
+				if kind == "scene":
+					# 舞台不存在的錯誤由 _check_stage 回報；這裡只在讀得到時取地面線，不重複記錄。
+					var stage_id := StringName(str(step.get("id", "")))
+					stage_floor = float(StageLibrary.definition(stage_id).get("floor", NAN)) if StageLibrary.exists(stage_id) else NAN
 				if (step as Dictionary).has("pos"):
 					cam = StageLayers.vec2_of(step["pos"])
 				if (step as Dictionary).has("zoom"):
 					zoom = float(step["zoom"])
 			"actor":
-				feet[str(step.get("id", ""))] = StageLayers.vec2_of(step.get("pos"))
+				var actor_id := str(step.get("id", ""))
+				feet[actor_id] = StageLayers.vec2_of(step.get("pos"))
+				# 只有真的有骨架外觀的演員量得到身高；頭像剪影與不存在的外觀當成 0（不檢查頭頂）。
+				var rig_kind := str(step.get("kind", ""))
+				var has_rig := not rig_kind.is_empty() and FileAccess.file_exists(RigLibrary.CHARACTER_PATH % rig_kind)
+				heights[actor_id] = RigLibrary.standing_height(rig_kind) * float(step.get("scale", 2.0)) if has_rig else 0.0
+				poses[actor_id] = str(step.get("pose", "idle"))
 			"move":
 				if feet.has(str(step.get("id", ""))):
 					feet[str(step["id"])] = StageLayers.vec2_of(step.get("to"))
+					poses[str(step["id"])] = str(step.get("then", step.get("pose", poses.get(str(step["id"]), "idle"))))
+			"pose":
+				var posed := str(step.get("id", ""))
+				if feet.has(posed):
+					# 從坐姿站起來時，演員會落回舞台的地面線（見 CutsceneActor.set_pose）。
+					if poses.get(posed, "idle") == "sit" and str(step.get("pose", "idle")) != "sit" and not is_nan(stage_floor):
+						feet[posed].y = stage_floor
+					poses[posed] = str(step.get("pose", "idle"))
 			"remove":
 				feet.erase(str(step.get("id", "")))
-			_:
-				continue
+		# 鏡頭、站位與姿勢常常連著幾步一起換（先移鏡頭再站起來）：等到觀眾真的會停下來看的那一步
+		# （台詞、等待、旁白、選項、標題）或場景結束才檢查，不在換到一半時誤報。
+		if not SETTLED_STEPS.has(kind) and index < (steps as Array).size():
+			continue
 		for id: String in feet:
 			var screen_y := STAGE_SIZE.y * 0.5 + (feet[id].y - cam.y) * zoom
 			if screen_y > FEET_MAX_SCREEN_Y and not reported.has(id):
 				reported[id] = true
 				problems.append("%s 第 %d 步：演員「%s」的腳底在畫面 y=%.0f，會被對話框蓋住（上限 %.0f）；把鏡頭中心往下移或降低縮放" % [scene_id, index, id, screen_y, FEET_MAX_SCREEN_Y])
+			var tall := float(heights.get(id, 0.0)) * float(POSE_HEIGHT.get(poses.get(id, "idle"), 1.0))
+			var on_screen_x := absf(feet[id].x - cam.x) * zoom <= STAGE_SIZE.x * 0.5
+			var head_y := STAGE_SIZE.y * 0.5 + (feet[id].y - tall - cam.y) * zoom
+			if tall > 0.0 and on_screen_x and head_y < LETTERBOX_BAR + HEAD_MARGIN and not head_reported.has(id):
+				head_reported[id] = true
+				problems.append("%s 第 %d 步：演員「%s」的頭頂在畫面 y=%.0f，被上方黑邊切掉（黑邊到 %.0f）；把鏡頭拉遠或把鏡頭中心往上移" % [scene_id, index, id, head_y, LETTERBOX_BAR])
 	return problems
 
 
