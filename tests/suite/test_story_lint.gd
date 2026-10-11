@@ -26,6 +26,35 @@ func run() -> void:
 	_test_all_scripts_pass()
 	_test_items_pass()
 	_test_story_validation_integration()
+	_test_locale()
+
+
+## ST-2：三語欄位。選了日文就換成日文；缺日文退回英文，再缺退回中文，並記下位置；宣告三語的章節會列出缺譯。
+func _test_locale() -> void:
+	var data := {"chapter": {"id": "t", "title": "測試章", "title_ja": "テスト章", "title_en": "Test Chapter", "languages": ["zh", "ja", "en"]},
+		"scenes": {"a": {"mode": "dialogue", "when": {"flag": "中文旗標"}, "lines": [
+			{"speaker": "rin", "text": "我先去核對收據。", "ja": "先に領収書を確かめる。", "en": "I'll check the receipt first."},
+			{"speaker": "rin", "text": "只有英文的一句。", "en": "Only English here."},
+			{"speaker": "rin", "text": "沒有譯文的一句。"}]},
+			"b": {"mode": "animated", "steps": [{"do": "choice", "text": "要怎麼做？", "ja": "どうする？", "en": "What now?", "options": [
+				{"id": "x", "text": "先問她。", "ja": "まず聞く。", "en": "Ask her first.", "explanation": "不影響主線。", "explanation_en": "No effect on the main story."}]}]}}}
+	check(StoryLocale.audit(data).size() == 4, "the audit lists every missing Japanese or English field: %s" % [StoryLocale.audit(data)])
+	var ja: Dictionary = data.duplicate(true)
+	var missing := StoryLocale.localize(ja, "ja")
+	var lines: Array = ja["scenes"]["a"]["lines"]
+	check(lines[0]["text"] == "先に領収書を確かめる。" and ja["chapter"]["title"] == "テスト章", "Japanese replaces the Chinese text")
+	check(lines[1]["text"] == "Only English here." and lines[2]["text"] == "沒有譯文的一句。", "a missing Japanese line falls back to English, then to Chinese")
+	var option: Dictionary = ja["scenes"]["b"]["steps"][0]["options"][0]
+	check(option["text"] == "まず聞く。" and option["explanation"] == "No effect on the main story.", "options and their explanations are localized too")
+	check(missing.size() == 3 and missing[0].contains("/scenes/a/lines/1/text"), "each fallback is reported with its location: %s" % [missing])
+	check(ja["scenes"]["a"]["when"]["flag"] == "中文旗標", "conditions and flags are never translated")
+	check(StoryLocale.localize(data.duplicate(true), "zh").is_empty() and StoryLocale.localize(data.duplicate(true), "xx").is_empty(), "Chinese and unknown languages leave the text alone")
+	# 真劇本：切到英文再切回來，章節標題跟著換，進度不受影響。
+	var title_zh := str(Story.chapter_info(&"ch1_kasa").get("title", ""))
+	check(not Story.set_language("xx") and Story.language == "zh", "an unsupported language is refused")
+	check(Story.set_language("en") and str(Story.chapter_info(&"ch1_kasa").get("title", "")) != title_zh, "switching to English reloads the chapter in English")
+	check(str(Story._speakers.get("rin", {}).get("name", "")) == "Rin" and str(Story._speakers.get("lamp", {}).get("name", "")) == "Wick", "speaker nameplates switch language too")
+	check(Story.set_language("zh") and str(Story.chapter_info(&"ch1_kasa").get("title", "")) == title_zh and str(Story._speakers["rin"]["name"]) == "凜", "switching back restores the Chinese text")
 
 
 # ---------------------------------------------------------------------------

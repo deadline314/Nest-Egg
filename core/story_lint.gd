@@ -214,10 +214,22 @@ static func _count_dashes(text: String) -> int:
 	return _dash.search_all(text).size()
 
 
+## ST-2 的譯文欄位（ja／en）只檢查氣泡長度，上限換算成相同的閱讀量（日文 1.5 倍、英文 3 倍字元）；
+## 中文的短片段規則不套用在日文與英文（「凛だ。」在日文是完整的一句）。
+const TRANSLATION_BUBBLE_FACTOR := {"ja": 1.5, "en": 3.0}
+
+
 ## 完整句子規則供故事、提示、文件與 UI 共用；不把操作用語當成提示的錯誤。
 ## 名稱／數值標籤由呼叫端明確分類，不能用 formal 或講者 id 免除對白檢查。
-static func readability(text: String, where: String, mode := "text", bark := false) -> Array[Dictionary]:
+## language：zh 用完整的中文規則；ja／en 見 TRANSLATION_BUBBLE_FACTOR。
+static func readability(text: String, where: String, mode := "text", bark := false, language := "zh") -> Array[Dictionary]:
 	var issues: Array[Dictionary] = []
+	if TRANSLATION_BUBBLE_FACTOR.has(language):
+		if mode == "bubbles":
+			var limit := int((16 if bark else 30) * float(TRANSLATION_BUBBLE_FACTOR[language]))
+			if text.length() > limit:
+				issues.append(_issue(Level.WARNING, "氣泡長度", where, "氣泡譯文 %d 字元，超過 %d：「%s」" % [text.length(), limit, text]))
+		return issues
 	var clauses := _clauses(text)
 	if clauses.is_empty():
 		return issues

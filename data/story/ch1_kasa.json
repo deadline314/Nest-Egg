@@ -5,47 +5,90 @@
   "subtitle": "沉港市・下層港區",
   "end_title": "第一章　傘　完",
   "teaser": "下一步：明早核對交盤回執，再去市集查那張缺的附件。",
-  "release_note": "進度已保存。這一版收錄到第一章結束，第二章尚未收錄。"
+  "release_note": "進度已保存。這一版收錄到第一章結束，第二章尚未收錄。",
+  "languages": [
+   "zh",
+   "ja",
+   "en"
+  ],
+  "title_ja": "第一章　傘",
+  "title_en": "Chapter 1: Kasa",
+  "subtitle_ja": "沈港市・下層の港湾区",
+  "subtitle_en": "Sinkport · Lower Docks",
+  "end_title_ja": "第一章　傘　完",
+  "end_title_en": "Chapter 1: Kasa, Complete",
+  "teaser_ja": "次の目標：明朝、引き渡しの受領証を照合する。その後、マーケットで欠けている添付を調べる。",
+  "teaser_en": "Next: tomorrow morning, check the handover receipt, then look into the missing attachment at the market.",
+  "release_note_ja": "進行状況を保存しました。このバージョンは第一章の終わりまでを収録しており、第二章はまだ含まれていません。",
+  "release_note_en": "Progress saved. This build covers through the end of Chapter 1. Chapter 2 is not included yet."
  },
  "speakers": {
   "egret": {
    "name": "鷺",
    "color": "#ffb066",
-   "portrait": "res://art/portraits/egret.png"
+   "portrait": "res://art/portraits/egret.png",
+   "name_ja": "鷺",
+   "name_en": "Egret"
   },
   "lamp": {
    "name": "燈",
    "color": "#8fe39a",
-   "portrait": "res://art/portraits/lamp.png"
+   "portrait": "res://art/portraits/lamp.png",
+   "name_ja": "灯",
+   "name_en": "Wick"
   },
   "ali": {
    "name": "阿梨",
    "color": "#ff8fc0",
-   "portrait": "res://art/portraits/ali.png"
+   "portrait": "res://art/portraits/ali.png",
+   "name_ja": "梨",
+   "name_en": "Pear"
   },
   "voice": {
    "name": "錄音",
    "color": "#9ad7ff",
    "portrait": "res://art/portraits/system.png",
-   "formal": true
+   "formal": true,
+   "name_ja": "録音",
+   "name_en": "Recording"
   },
   "terminal": {
    "name": "交接櫃",
    "color": "#9ad7ff",
    "portrait": "res://art/portraits/system.png",
-   "formal": true
+   "formal": true,
+   "name_ja": "受け渡しロッカー",
+   "name_en": "Handoff Locker"
   },
   "label": {
    "name": "標籤",
    "color": "#ded5b0",
    "portrait": "res://art/portraits/system.png",
-   "formal": true
+   "formal": true,
+   "name_ja": "ラベル",
+   "name_en": "Label"
   },
   "note": {
    "name": "紙本",
    "color": "#ded5b0",
    "portrait": "res://art/portraits/system.png",
-   "formal": true
+   "formal": true,
+   "name_ja": "紙の記録",
+   "name_en": "Paper Note"
+  },
+  "rin": {
+   "name": "凜",
+   "color": "#ff3fa4",
+   "portrait": "res://art/portraits/rin.png",
+   "name_ja": "凛",
+   "name_en": "Rin"
+  },
+  "old_k": {
+   "name": "老K",
+   "color": "#ffd23f",
+   "portrait": "res://art/portraits/old_k.png",
+   "name_ja": "老K",
+   "name_en": "Old K"
   }
  },
  "death_sequences": [
@@ -57,18 +100,24 @@
      "kind": "line",
      "speaker": "voice",
      "text": "再來一次，沒關係。",
-     "time": 2.2
+     "time": 2.2,
+     "ja": "もう一度でいい。大丈夫。",
+     "en": "Try again, it's fine."
     },
     {
      "kind": "line",
      "speaker": "lamp",
      "text": "歡迎回來，你又回到亭子了。",
-     "time": 1.8
+     "time": 1.8,
+     "ja": "おかえり、また電話ボックスに戻ったよ。",
+     "en": "Welcome back. You're back at the phone booth."
     },
     {
      "kind": "status",
      "text": "復原完成，復原費已從身上的信用點扣除。",
-     "time": 1.6
+     "time": 1.6,
+     "ja": "復元完了。復元費用はクレジットから差し引かれました。",
+     "en": "Restoration complete. The restoration fee has been deducted from your credits."
     },
     {
      "kind": "card",
@@ -84,12 +133,16 @@
      "kind": "line",
      "speaker": "lamp",
      "text": "歡迎回來，路線還接著。",
-     "time": 1.2
+     "time": 1.2,
+     "ja": "おかえり、ルートはそのまま続いてる。",
+     "en": "Welcome back. The route picks up where you left off."
     },
     {
      "kind": "status",
      "text": "復原完成，復原費已結算。",
-     "time": 1.0
+     "time": 1.0,
+     "ja": "復元完了。復元費用は精算済みです。",
+     "en": "Restoration complete. The restoration fee has been settled."
     },
     {
      "kind": "card",
@@ -105,7 +158,9 @@
      "kind": "line",
      "speaker": "lamp",
      "text": "你知道流程的，我們再走一次。",
-     "time": 0.9
+     "time": 0.9,
+     "ja": "流れは分かってるよね。もう一回いこう。",
+     "en": "You know the drill. Let's go again."
     },
     {
      "kind": "card",
@@ -351,7 +406,9 @@
        24,
        19
       ]
-     }
+     },
+     "title_ja": "作業台で今日試す器材を確認する",
+     "title_en": "Check today's test gear on the workbench"
     },
     {
      "title": "取下搬貨台上的試貨工具",
@@ -362,7 +419,9 @@
        30,
        17
       ]
-     }
+     },
+     "title_ja": "搬入台の試用道具を取る",
+     "title_en": "Take the test gear off the loading platform"
     },
     {
      "title": "試訓練槍的落點",
@@ -373,7 +432,9 @@
        58,
        19
       ]
-     }
+     },
+     "title_ja": "訓練銃の着弾点を試す",
+     "title_en": "Test the training rifle's point of impact"
     },
     {
      "title": "試橡膠靶的近戰手感",
@@ -384,7 +445,9 @@
        77,
        19
       ]
-     }
+     },
+     "title_ja": "ゴムの的で近接の手応えを試す",
+     "title_en": "Test melee feel on the rubber target"
     },
     {
      "title": "試訓練器的正面防禦",
@@ -395,7 +458,9 @@
        86,
        19
       ]
-     }
+     },
+     "title_ja": "訓練器で正面からの防御を試す",
+     "title_en": "Test front-on defense on the trainer"
     },
     {
      "title": "試地上的衝刺訓練線",
@@ -406,7 +471,9 @@
        101,
        19
       ]
-     }
+     },
+     "title_ja": "地面のダッシュ訓練ラインを試す",
+     "title_en": "Test the dash training line on the ground"
     },
     {
      "title": "回櫃台，聽老 K 說明復原服務",
@@ -417,7 +484,9 @@
        36,
        19
       ]
-     }
+     },
+     "title_ja": "カウンターに戻り、老Kから復元サービスの説明を聞く",
+     "title_en": "Return to the counter and hear Old K explain the restoration service"
     },
     {
      "title": "跟老 K 收尾，從旁邊的門回店裡",
@@ -428,9 +497,17 @@
        40,
        19
       ]
-     }
+     },
+     "title_ja": "老Kと話をまとめ、脇のドアから店内へ戻る",
+     "title_en": "Wrap up with Old K, then go back inside through the side door"
     }
-   ]
+   ],
+   "title_ja": "器材を試して、店に戻って夕飯",
+   "title_en": "Finish testing the gear, go back for dinner",
+   "background_ja": "今日、老Kが的と訓練器具をまとめて引き取った。試すのを手伝ってほしいそうだ。試し終えたら夕飯は台所で保温してある。鷺が仕事の話があると言っていた。",
+   "background_en": "Old K took in a batch of targets and training gear today and wants you to test them. Once you're done, dinner is keeping warm in the kitchen. Egret says there's a job.",
+   "reward_ja": "移動、射撃、近接、ガード、ダッシュに慣れる。報酬は出ないし、装備も変わらない。",
+   "reward_en": "Get used to moving, shooting, melee, blocking, and dashing. No pay, and your gear stays the same."
   },
   {
    "id": "ch1_meet_egret",
@@ -449,7 +526,9 @@
        89,
        19
       ]
-     }
+     },
+     "title_ja": "台所に戻り、今回は代金なしの老Kの夕飯を食べる",
+     "title_en": "Go back to the kitchen and eat the dinner Old K is treating you to this time"
     },
     {
      "title": "上屋頂聽鷺的完整簡報",
@@ -460,12 +539,20 @@
        53,
        17
       ]
-     }
+     },
+     "title_ja": "屋上へ行き、鷺の説明を最後まで聞く",
+     "title_en": "Go up to the roof and hear Egret's full briefing"
     }
    ],
    "visible_flags": [
     "ch1_prologue_exit"
-   ]
+   ],
+   "title_ja": "食べ終えたら屋上へ上がり、鷺を探す",
+   "title_en": "After eating, go up to the roof and find Egret",
+   "background_ja": "鷺が埠頭の仕事を持ってきた。老Kが夕飯を取っておいてくれた。食べてから屋上で説明を聞こう。",
+   "background_en": "Egret has a job at the docks. Old K saved your dinner. Eat first, then go up to the roof for the briefing.",
+   "reward_ja": "説明を聞けばすぐ出発できる。報酬は検収後に確認する。",
+   "reward_en": "Once you've heard the briefing, you can head out. Pay is checked after acceptance."
   },
   {
    "id": "ch1_take_disk",
@@ -484,7 +571,9 @@
        182,
        19
       ]
-     }
+     },
+     "title_ja": "埠頭へ続く道の障害物を排除する",
+     "title_en": "Clear the roadblocks on the way to the docks"
     },
     {
      "title": "擊倒看門狗，打開倉庫隔牆",
@@ -495,7 +584,9 @@
        81,
        16
       ]
-     }
+     },
+     "title_ja": "番犬を倒し、倉庫の仕切りを開ける",
+     "title_en": "Take down the Watchdog and open the warehouse partition"
     },
     {
      "title": "實際開水閘，確認浮橋路保持",
@@ -506,7 +597,9 @@
        117,
        16
       ]
-     }
+     },
+     "title_ja": "水門を実際に開けて、浮橋の通路が保たれるか確かめる。",
+     "title_en": "Open the floodgate and confirm the floating bridge path holds."
     },
     {
      "title": "打開保險箱，取出資料盤",
@@ -517,7 +610,9 @@
        40,
        16
       ]
-     }
+     },
+     "title_ja": "金庫を開けて資料ディスクを取り出す",
+     "title_en": "Open the safe and take out the data disc"
     }
    ],
    "visible_flags": [
@@ -527,7 +622,17 @@
     "ch1_heard_brief"
    ],
    "blocked_reason": "還沒聽完差事。",
-   "suggestion": "上屋頂找鷺，聽完回程安排。"
+   "suggestion": "上屋頂找鷺，聽完回程安排。",
+   "title_ja": "埠頭の倉庫で資料ディスクを回収する",
+   "title_en": "Retrieve the data disc from the dock warehouse",
+   "background_ja": "鷺が金庫の中のディスクを一枚ほしがっている。マーケットは今夜封鎖されるので、灯が埠頭ルートを案内する。",
+   "background_en": "Egret wants a disc from the safe. The market is closed off tonight, so Wick will guide you through the docks.",
+   "reward_ja": "入手したら、復元館の外にある引き渡しロッカーで検収を受ける。",
+   "reward_en": "Once you have it, take it to the handover locker outside the restoration hall for acceptance.",
+   "blocked_reason_ja": "まだ仕事の説明を聞き終えていない。",
+   "blocked_reason_en": "You haven't heard the full job yet.",
+   "suggestion_ja": "屋上で鷺を探し、帰りの段取りを聞こう。",
+   "suggestion_en": "Go up to the roof, find Egret, and hear the return plan."
   },
   {
    "id": "ch1_handoff_disk",
@@ -546,7 +651,9 @@
        17,
        19
       ]
-     }
+     },
+     "title_ja": "上層ルートで戻り、館の外のロッカーで引き渡しを確認する",
+     "title_en": "Take the upper route back and confirm the handover at the locker outside the hall"
     },
     {
      "title": "從交接櫃取出驗收回執",
@@ -557,7 +664,9 @@
        17,
        19
       ]
-     }
+     },
+     "title_ja": "引き渡しロッカーから検収の受領証を取り出す",
+     "title_en": "Take the acceptance receipt out of the handover locker"
     },
     {
      "title": "保留市場M17待查摘要",
@@ -568,7 +677,9 @@
        17,
        19
       ]
-     }
+     },
+     "title_ja": "マーケットM17の確認待ちの要約を保管する",
+     "title_en": "Keep the Market M17 summary for later checking"
     }
    ],
    "visible_flags": [
@@ -578,7 +689,17 @@
     "ledger_disk_obtained"
    ],
    "blocked_reason": "還沒有取到實體資料盤。",
-   "suggestion": "回保險箱取盤；已交盤可在櫃子補印回執。"
+   "suggestion": "回保險箱取盤；已交盤可在櫃子補印回執。",
+   "title_ja": "資料ディスクを館外の引き渡しロッカーに預ける",
+   "title_en": "Hand the data disc over at the outside handover locker",
+   "background_ja": "鷺が上層の出口を手配して、復元館へつなげた。ロッカーがディスクを受け取ったら控えを保管しておき、明朝それで支払いを確認する。",
+   "background_en": "Egret has arranged an upper exit to the restoration hall. Once the locker takes the disc, keep the receipt and check the payment with it tomorrow morning.",
+   "reward_ja": "受領証と確認待ちの要約は保管しておく。報酬800は翌朝に別途精算。",
+   "reward_en": "Keep the receipt and the pending summary. The 800 reward is settled separately the next morning.",
+   "blocked_reason_ja": "まだ実物の資料ディスクを受け取っていない。",
+   "blocked_reason_en": "You haven't retrieved the physical data disc yet.",
+   "suggestion_ja": "金庫に戻ってディスクを取る。すでに引き渡し済みなら、ロッカーで受領証を再発行できる。",
+   "suggestion_en": "Go back to the safe and get the disc. If it's already handed over, you can reprint the receipt at the locker."
   },
   {
    "id": "ch1_close_evening",
@@ -597,7 +718,9 @@
        29,
        19
       ]
-     }
+     },
+     "title_ja": "復元館に入り、カウンターの梨と話す",
+     "title_en": "Enter the restoration hall and talk to Pear at the bar"
     },
     {
      "title": "聽阿梨說下班後的邀請",
@@ -608,7 +731,9 @@
        29,
        19
       ]
-     }
+     },
+     "title_ja": "梨の仕事終わりの誘いを聞く",
+     "title_en": "Hear Pear's invitation after her shift"
     },
     {
      "title": "到麵攤決定去留，說清楚今晚帳",
@@ -619,7 +744,9 @@
        20,
        19
       ]
-     }
+     },
+     "title_ja": "麺屋台へ行き、残るか決め、今夜の勘定をはっきりさせる",
+     "title_en": "Go to the noodle stall, decide whether to stay, and settle tonight's bill"
     }
    ],
    "visible_flags": [
@@ -629,7 +756,17 @@
     "ch1_handoff_done"
    ],
    "blocked_reason": "今晚的去留還沒說好。",
-   "suggestion": "到麵攤說話；沒有錢也能保留欠條。"
+   "suggestion": "到麵攤說話；沒有錢也能保留欠條。",
+   "title_ja": "今夜残るか帰るか、梨と話を決める",
+   "title_en": "Decide with Pear whether to stay tonight",
+   "background_ja": "ディスクは検収済み。梨が仕事のあとに麺を誘ってくれている。残ってもいいし、勘定を済ませてから先に帰ってもいい。",
+   "background_en": "The disc has been accepted. Pear invites you to noodles after her shift. You can stay, or settle up and leave first.",
+   "reward_ja": "どちらを選んでも家には帰れる。住所は実際に教えてもらってから記録される。",
+   "reward_en": "Either choice gets you home. The address is only recorded once she actually tells you.",
+   "blocked_reason_ja": "今夜残るかどうか、まだ決めていない。",
+   "blocked_reason_en": "You haven't decided whether to stay tonight.",
+   "suggestion_ja": "麺屋台で話そう。金がなくても借用証は残せる。",
+   "suggestion_en": "Talk at the noodle stall. Even without money, you can keep an IOU."
   },
   {
    "id": "ch1_go_home",
@@ -648,7 +785,9 @@
        75,
        19
       ]
-     }
+     },
+     "title_ja": "麺屋台から質屋に戻り、老Kと話す",
+     "title_en": "Go back from the noodle stall to the pawnshop and talk to Old K"
     },
     {
      "title": "把回執收好，結束今晚",
@@ -659,7 +798,9 @@
        75,
        19
       ]
-     }
+     },
+     "title_ja": "受領証をしまい、今夜を終える",
+     "title_en": "Put the receipt away and end the night"
     }
    ],
    "visible_flags": [
@@ -669,7 +810,17 @@
     "ch1_supper_done"
    ],
    "blocked_reason": "今晚的事還沒說清楚。",
-   "suggestion": "和阿梨說好去留；不需要先取得地址。"
+   "suggestion": "和阿梨說好去留；不需要先取得地址。",
+   "title_ja": "質屋に戻り、受領証をしまっておく",
+   "title_en": "Return to the pawnshop and put the receipt away safely",
+   "background_ja": "今夜のことは決まった。報酬は明朝確認する。まずは家へ。老Kがお湯を沸かして待っている。",
+   "background_en": "Tonight is settled, and tomorrow morning you'll check the pay. Head home first. Old K is waiting with the water on.",
+   "reward_ja": "第一章完了。次は明朝、受領証を照合する。",
+   "reward_en": "Chapter 1 complete. Next, check the receipt tomorrow morning.",
+   "blocked_reason_ja": "今夜の件はまだはっきりしていない。",
+   "blocked_reason_en": "Tonight's matters aren't settled yet.",
+   "suggestion_ja": "梨と残るかどうか決めよう。先に住所を聞く必要はない。",
+   "suggestion_en": "Settle whether you're staying with Pear. You don't need to get her address first."
   },
   {
    "id": "sq8_ch1_labels",
@@ -688,7 +839,9 @@
        32,
        19
       ]
-     }
+     },
+     "title_ja": "懐中時計の札を読む",
+     "title_en": "Read the pocket watch's tag"
     },
     {
      "title": "讀吉他的標籤",
@@ -699,7 +852,9 @@
        35,
        19
       ]
-     }
+     },
+     "title_ja": "ギターの札を読む",
+     "title_en": "Read the guitar's tag"
     },
     {
      "title": "讀雨衣的標籤",
@@ -710,7 +865,9 @@
        36,
        19
       ]
-     }
+     },
+     "title_ja": "レインコートの札を読む",
+     "title_en": "Read the raincoat's tag"
     },
     {
      "title": "讀船錢罐的標籤",
@@ -721,12 +878,20 @@
        45,
        19
       ]
-     }
+     },
+     "title_ja": "渡し賃の壺の札を読む",
+     "title_en": "Read the fare jar's tag"
     }
    ],
    "visible_flags": [
     "ch1_labels_started"
-   ]
+   ],
+   "title_ja": "老Kが残した四つの札を読む",
+   "title_en": "Read the four tags Old K left behind",
+   "background_ja": "棚には売れずに残った古物がある。老Kは、それぞれが誰を待っているのかまだ覚えている。",
+   "background_en": "Unsold old goods sit on the shelves. Old K still remembers who each one is waiting for.",
+   "reward_ja": "四つの札を記録する。品物は質屋に残る。",
+   "reward_en": "Log the four tags. The items stay at the pawnshop."
   },
   {
    "id": "sq2_ch1_sunday",
@@ -745,7 +910,9 @@
        53,
        17
       ]
-     }
+     },
+     "title_ja": "屋上で鷺に今夜と日曜のことを聞く",
+     "title_en": "On the roof, ask Egret about tonight and Sunday"
     }
    ],
    "visible_flags": [
@@ -755,7 +922,17 @@
     "ch1_heard_brief"
    ],
    "blocked_reason": "還沒有聽差事。",
-   "suggestion": "先聽簡報，之後可選擇追問。"
+   "suggestion": "先聽簡報，之後可選擇追問。",
+   "title_ja": "鷺に、なぜ日曜を空けているのか聞く",
+   "title_en": "Ask Egret why she keeps Sundays open",
+   "background_ja": "今夜は同行しないし、日曜も仕事は入れていない。聞いてもいいし、彼女自身の用事は彼女のままにしておいてもいい。",
+   "background_en": "She isn't coming tonight, and she has no jobs lined up on Sunday. You can ask, or leave her own business to her.",
+   "reward_ja": "日曜は仕事を受けないと記録する。誰と会うのかは事前には分からないままにする。",
+   "reward_en": "Log that she takes no jobs on Sundays, without learning ahead of time who she's meeting.",
+   "blocked_reason_ja": "まだ仕事の話を聞いていない。",
+   "blocked_reason_en": "You haven't heard the job yet.",
+   "suggestion_ja": "まず説明を聞こう。あとから追加で質問することもできる。",
+   "suggestion_en": "Hear the briefing first. You can ask follow-up questions later."
   },
   {
    "id": "sq5_ch1_voice",
@@ -774,7 +951,9 @@
        25,
        19
       ]
-     }
+     },
+     "title_ja": "実際の電話ボックスの録音を聞いてから灯に聞く",
+     "title_en": "After listening to the actual phone booth recording, ask Wick"
     },
     {
      "title": "再問錄音是否是他，或先保留",
@@ -785,7 +964,9 @@
        25,
        19
       ]
-     }
+     },
+     "title_ja": "録音が彼のものかどうか改めて聞くか、保留にする",
+     "title_en": "Then ask again whether the recording is his, or hold the question"
     }
    ],
    "visible_flags": [
@@ -795,7 +976,17 @@
     "ch1_recording_heard"
    ],
    "blocked_reason": "還沒有實際聽過亭子錄音。",
-   "suggestion": "在安全電話亭聽錄音，不需要再死一次。"
+   "suggestion": "在安全電話亭聽錄音，不需要再死一次。",
+   "title_ja": "灯に、なぜ電話ボックスの録音に似ているのか聞く",
+   "title_en": "Ask Wick why he sounds like the phone booth recording",
+   "background_ja": "電話ボックスの古い声は、イヤホンから聞こえる灯の声に似ている。ただし似ているからといって、録音した人物が分かるわけではない。",
+   "background_en": "The old voice in the phone booth sounds like Wick's in your earpiece. But sounding similar doesn't mean knowing who made the recording.",
+   "reward_ja": "声の手がかりを記録する。答えはまだ確認されていない。",
+   "reward_en": "Log the voice clue. The answer is not confirmed yet.",
+   "blocked_reason_ja": "電話ボックスの録音をまだ実際に聞いていない。",
+   "blocked_reason_en": "You haven't actually listened to the phone booth recording yet.",
+   "suggestion_ja": "安全な電話ボックスで録音を聞こう。もう一度死ぬ必要はない。",
+   "suggestion_en": "Listen to the recording at a safe phone booth. You don't need to die again."
   },
   {
    "id": "sq1_ch1_supper",
@@ -814,7 +1005,9 @@
        20,
        19
       ]
-     }
+     },
+     "title_ja": "梨の誘いをはっきり受けて麺を食べる",
+     "title_en": "Clearly accept Pear's invitation and eat noodles"
     },
     {
      "title": "聽她說完夜話，把實地址記下",
@@ -825,12 +1018,20 @@
        20,
        19
       ]
-     }
+     },
+     "title_ja": "彼女の夜の話を最後まで聞き、本当の住所を書き留める",
+     "title_en": "Listen to her night talk, then write down the real address"
     }
    ],
    "visible_flags": [
     "ch1_lounge_evening_done"
-   ]
+   ],
+   "title_ja": "麺を食べていき、梨が自分のことを話すのを聞く",
+   "title_en": "Stay for noodles and hear Pear talk about herself",
+   "background_ja": "梨が仕事のあとに麺に誘ってくれた。承諾する前に、彼女の借金を肩代わりする必要も、明日の彼女の決断を代わりにする必要もない。",
+   "background_en": "Pear invites you to noodles after her shift. Before you accept, you don't have to cover her debts or make her decisions for tomorrow.",
+   "reward_ja": "実際に教えてもらったら、住まいと合言葉を手帳に書き留める。",
+   "reward_en": "Once she tells you, write her place and the passphrase in your notebook."
   }
  ],
  "scenes": {
@@ -839,23 +1040,33 @@
    "lines": [
     {
      "speaker": "old_k",
-     "text": "這個月接了幾次差事？"
+     "text": "這個月接了幾次差事？",
+     "ja": "今月、仕事は何件受けた？",
+     "en": "How many jobs have you taken this month?"
     },
     {
      "speaker": "rin",
-     "text": "已經接了九次。"
+     "text": "已經接了九次。",
+     "ja": "もう九件だ。",
+     "en": "Nine so far."
     },
     {
      "speaker": "old_k",
-     "text": "你接得太多了喔。"
+     "text": "你接得太多了喔。",
+     "ja": "受けすぎだよ。",
+     "en": "You're taking on too many."
     },
     {
      "speaker": "rin",
-     "text": "別人接得比我多，我還行。"
+     "text": "別人接得比我多，我還行。",
+     "ja": "ほかはもっと受けてる。おれはまだ平気だ。",
+     "en": "Others take more than I do. I'm fine."
     },
     {
      "speaker": "old_k",
-     "text": "飯要涼了喔，先吃飯吧。"
+     "text": "飯要涼了喔，先吃飯吧。",
+     "ja": "飯が冷めるよ。先に食べな。",
+     "en": "Your food's going cold. Eat first."
     }
    ]
   },
@@ -864,15 +1075,21 @@
    "lines": [
     {
      "speaker": "old_k",
-     "text": "記得回來吃飯。"
+     "text": "記得回來吃飯。",
+     "ja": "戻って飯を食うのを忘れるなよ。",
+     "en": "Don't forget to come back and eat."
     },
     {
      "speaker": "rin",
-     "text": "我會記得回來。"
+     "text": "我會記得回來。",
+     "ja": "戻るのは覚えとく。",
+     "en": "I'll remember to come back."
     },
     {
      "speaker": "old_k",
-     "text": "外面的水又漲了，路上小心喔。"
+     "text": "外面的水又漲了，路上小心喔。",
+     "ja": "外はまた水が増えてるよ。道中気をつけてな。",
+     "en": "The water's rising again outside. Be careful on the way."
     }
    ]
   },
@@ -881,15 +1098,21 @@
    "lines": [
     {
      "speaker": "old_k",
-     "text": "…又死了？"
+     "text": "…又死了？",
+     "ja": "……また死んだのか？",
+     "en": "...Dead again?"
     },
     {
      "speaker": "rin",
-     "text": "剛才又倒了一次。"
+     "text": "剛才又倒了一次。",
+     "ja": "さっきまた倒れた。",
+     "en": "Just went down again."
     },
     {
      "speaker": "old_k",
-     "text": "水燒好了。吃完再去。"
+     "text": "水燒好了。吃完再去。",
+     "ja": "お湯が沸いたよ。食べてから行きな。",
+     "en": "The water's hot. Eat first, then head out."
     }
    ]
   },
@@ -898,15 +1121,21 @@
    "lines": [
     {
      "speaker": "old_k",
-     "text": "這個月第幾次了？"
+     "text": "這個月第幾次了？",
+     "ja": "今月、もう何回目だ？",
+     "en": "How many times is it this month now?"
     },
     {
      "speaker": "rin",
-     "text": "別再替我數了。"
+     "text": "別再替我數了。",
+     "ja": "もう数えるな。",
+     "en": "Stop counting for me."
     },
     {
      "speaker": "old_k",
-     "text": "你不肯數，我就替你記著喔。"
+     "text": "你不肯數，我就替你記著喔。",
+     "ja": "数えないなら、わしが覚えとくよ。",
+     "en": "Fine, if you won't count, I'll keep track for you."
     }
    ]
   },
@@ -915,15 +1144,21 @@
    "lines": [
     {
      "speaker": "egret",
-     "text": "小鬼，你遲到三分鐘了。"
+     "text": "小鬼，你遲到三分鐘了。",
+     "ja": "お嬢、三分遅刻だよ。",
+     "en": "Kid, you're three minutes late."
     },
     {
      "speaker": "rin",
-     "text": "老 K 在吃飯。"
+     "text": "老 K 在吃飯。",
+     "ja": "老Kが飯を食ってる。",
+     "en": "Old K is eating."
     },
     {
      "speaker": "egret",
-     "text": "那老頭永遠在吃飯。"
+     "text": "那老頭永遠在吃飯。",
+     "ja": "あの爺さん、いつも飯食ってるな。",
+     "en": "That old man is always eating."
     }
    ]
   },
@@ -932,31 +1167,45 @@
    "lines": [
     {
      "speaker": "egret",
-     "text": "晴岸是日照區的住宅，你想在那裡買房？"
+     "text": "晴岸是日照區的住宅，你想在那裡買房？",
+     "ja": "晴岸は日当たりのいい住宅街だぞ。あそこに家でも買う気か？",
+     "en": "The Far Shore is a sunny residential district. You thinking of buying a place out there?"
     },
     {
      "speaker": "rin",
-     "text": "離買得起還早。"
+     "text": "離買得起還早。",
+     "ja": "買えるまでは、まだまだだ。",
+     "en": "Nowhere near affording it."
     },
     {
      "speaker": "egret",
-     "text": "你想給誰住？"
+     "text": "你想給誰住？",
+     "ja": "誰に住まわせるつもりだ？",
+     "en": "Who's it for?"
     },
     {
      "speaker": "rin",
-     "text": "給家裡那個人住。"
+     "text": "給家裡那個人住。",
+     "ja": "家にいるやつのためだ。",
+     "en": "For the one at home."
     },
     {
      "speaker": "egret",
-     "text": "你想讓老頭子住在那裡喔？"
+     "text": "你想讓老頭子住在那裡喔？",
+     "ja": "あの爺さんを、あそこに住まわせたいって？",
+     "en": "You want the old man living out there, huh?"
     },
     {
      "speaker": "rin",
-     "text": "別跟老 K 說。"
+     "text": "別跟老 K 說。",
+     "ja": "老Kには言うな。",
+     "en": "Don't tell Old K."
     },
     {
      "speaker": "egret",
-     "text": "我會把嘴巴縫起來，你記得帶他去喔。"
+     "text": "我會把嘴巴縫起來，你記得帶他去喔。",
+     "ja": "口は縫っとくよ。ちゃんと連れてってやれよ。",
+     "en": "My lips are sealed. Just make sure you take him there."
     }
    ]
   },
@@ -965,11 +1214,15 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "老 K 每次都問：帶傘了嗎。"
+     "text": "老 K 每次都問：帶傘了嗎。",
+     "ja": "老Kは毎回聞いてくる。「傘は持ったか」って。",
+     "en": "Old K asks every time: did you bring an umbrella?"
     },
     {
      "speaker": "rin",
-     "text": "下面本來就是水。"
+     "text": "下面本來就是水。",
+     "ja": "下はもう水だろ。",
+     "en": "Down here it's already water."
     }
    ]
   },
@@ -978,11 +1231,15 @@
    "lines": [
     {
      "speaker": "lamp",
-     "text": "我是幫你看路的燈，聽得到嗎？收帳人封了市集，改走碼頭那邊。"
+     "text": "我是幫你看路的燈，聽得到嗎？收帳人封了市集，改走碼頭那邊。",
+     "ja": "道案内の灯だよ。聞こえてる？取り立て屋がマーケットを封鎖したから、埠頭のほうに回ろう。",
+     "en": "It's your guiding light. Can you hear me? The collectors shut down the market, so we're going around by the docks."
     },
     {
      "speaker": "rin",
-     "text": "聽得到。"
+     "text": "聽得到。",
+     "ja": "聞こえてる。",
+     "en": "I hear you."
     }
    ],
    "freeze": true
@@ -992,7 +1249,9 @@
    "lines": [
     {
      "speaker": "lamp",
-     "text": "往旁邊滑過去，剛滑出去的瞬間子彈打不到你。"
+     "text": "往旁邊滑過去，剛滑出去的瞬間子彈打不到你。",
+     "ja": "横へスライドして。滑り出た瞬間は弾が当たらないよ。",
+     "en": "Slide sideways. The moment you're out of the slide, bullets can't hit you."
     }
    ],
    "freeze": true
@@ -1002,11 +1261,15 @@
    "lines": [
     {
      "speaker": "lamp",
-     "text": "貼身的時候用刀，省子彈。"
+     "text": "貼身的時候用刀，省子彈。",
+     "ja": "近づかれたら刃物を使おう。弾の節約になるよ。",
+     "en": "When they get close, use the blade. It saves ammo."
     },
     {
      "speaker": "lamp",
-     "text": "雖然你的子彈用不完。習慣一下，早晚會換槍。"
+     "text": "雖然你的子彈用不完。習慣一下，早晚會換槍。",
+     "ja": "まあ、お前の弾は使い切れないけどね。慣れておこう、そのうち銃も替えることになるから。",
+     "en": "Not that you'll ever run out of ammo. Get used to it, though. You'll switch guns sooner or later."
     }
    ],
    "freeze": true
@@ -1016,7 +1279,9 @@
    "lines": [
     {
      "speaker": "lamp",
-     "text": "前面穿黃衣服的是收帳人，他們替人追債，下手比保全重。"
+     "text": "前面穿黃衣服的是收帳人，他們替人追債，下手比保全重。",
+     "ja": "前の黄色い服の連中は取り立て屋だ。人の借金を追いかける。警備員より手荒いから気をつけて。",
+     "en": "The ones in yellow up ahead are collectors. They chase down other people's debts, and they play rougher than security. Watch out."
     }
    ],
    "freeze": true
@@ -1026,7 +1291,9 @@
    "lines": [
     {
      "speaker": "lamp",
-     "text": "倉庫就在碼頭盡頭，我會在耳機裡陪你。"
+     "text": "倉庫就在碼頭盡頭，我會在耳機裡陪你。",
+     "ja": "倉庫は埠頭の突き当たりだよ。イヤホン越しに、ずっと一緒にいるから。",
+     "en": "The warehouse is at the end of the pier. I'll be with you in your earpiece."
     }
    ]
   },
@@ -1036,7 +1303,9 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "廣場有人巡邏，小心。"
+     "text": "廣場有人巡邏，小心。",
+     "ja": "広場に見回りがいる。気をつけろ。",
+     "en": "There are patrols in the plaza. Watch yourself."
     }
    ]
   },
@@ -1046,7 +1315,9 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "收帳人在前面搜查。"
+     "text": "收帳人在前面搜查。",
+     "ja": "取り立て屋が前で捜索してる。",
+     "en": "Collectors are searching up ahead."
     }
    ]
   },
@@ -1056,7 +1327,9 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "有人守著。"
+     "text": "有人守著。",
+     "ja": "誰かが見張ってる。",
+     "en": "Someone's guarding it."
     }
    ]
   },
@@ -1066,7 +1339,9 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "上面有人。"
+     "text": "上面有人。",
+     "ja": "上に誰かいる。",
+     "en": "Someone's up top."
     }
    ]
   },
@@ -1075,11 +1350,15 @@
    "lines": [
     {
      "speaker": "lamp",
-     "text": "看門狗睡在倉庫大廳最裡面。"
+     "text": "看門狗睡在倉庫大廳最裡面。",
+     "ja": "番犬は倉庫ホールの一番奥で寝てるよ。",
+     "en": "The Watchdog is sleeping at the very back of the warehouse hall."
     },
     {
      "speaker": "rin",
-     "text": "那隻機甲有多大？"
+     "text": "那隻機甲有多大？",
+     "ja": "あの機甲、どれくらいデカい？",
+     "en": "How big is that mech?"
     }
    ],
    "freeze": true
@@ -1089,11 +1368,15 @@
    "lines": [
     {
      "speaker": "lamp",
-     "text": "看門狗只有一頭。別的紀錄裡，牠有三個頭。"
+     "text": "看門狗只有一頭。別的紀錄裡，牠有三個頭。",
+     "ja": "番犬の頭は一つだけ。ほかの記録では、頭が三つあるんだ。",
+     "en": "The Watchdog has only one head. In other records, it has three."
     },
     {
      "speaker": "rin",
-     "text": "你看的什麼紀錄？"
+     "text": "你看的什麼紀錄？",
+     "ja": "どんな記録を見たんだ？",
+     "en": "What records have you been reading?"
     }
    ],
    "freeze": true
@@ -1103,11 +1386,15 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "踩住坑底踏板，水會淹過我的頭。"
+     "text": "踩住坑底踏板，水會淹過我的頭。",
+     "ja": "底のペダルを踏んでいると、水が頭まで上がってくる。",
+     "en": "Stand on the pedal at the bottom and the water will rise over my head."
     },
     {
      "speaker": "lamp",
-     "text": "踩下踏板後水會漲滿，你得死一次才能開門。"
+     "text": "踩下踏板後水會漲滿，你得死一次才能開門。",
+     "ja": "ペダルを踏むと水が満ちる。ドアを開けるには一度死ぬ必要があるよ。",
+     "en": "Press the pedal and the water fills the pit. You'll have to die once before the door opens."
     }
    ],
    "freeze": true
@@ -1117,11 +1404,15 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "閘門會一直開著？"
+     "text": "閘門會一直開著？",
+     "ja": "水門はずっと開いたままになる？",
+     "en": "Will the gate stay open?"
     },
     {
      "speaker": "lamp",
-     "text": "死後閘門和水位都會保留，復原後就能走浮橋過去。"
+     "text": "死後閘門和水位都會保留，復原後就能走浮橋過去。",
+     "ja": "死んでも水門と水位はそのまま残る。復元したら浮き橋で渡れるよ。",
+     "en": "After death, the gate and water level are kept. Once restored, you can take the floating bridge across."
     }
    ],
    "freeze": true
@@ -1131,11 +1422,15 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "這很方便。"
+     "text": "這很方便。",
+     "ja": "それは便利だな。",
+     "en": "That's convenient."
     },
     {
      "speaker": "lamp",
-     "text": "確實很方便，只要你還能醒來。"
+     "text": "確實很方便，只要你還能醒來。",
+     "ja": "たしかに便利だよ。起きられるうちはね。",
+     "en": "Very convenient, as long as you're still able to wake up."
     }
    ],
    "freeze": true
@@ -1145,7 +1440,9 @@
    "lines": [
     {
      "speaker": "lamp",
-     "text": "歡迎回來。復原費已結算。"
+     "text": "歡迎回來。復原費已結算。",
+     "ja": "おかえり。復元費は精算済みだよ。",
+     "en": "Welcome back. The restoration fee has been settled."
     }
    ]
   },
@@ -1154,7 +1451,9 @@
    "lines": [
     {
      "speaker": "lamp",
-     "text": "再來一次，沒關係。"
+     "text": "再來一次，沒關係。",
+     "ja": "もう一度でいい。大丈夫。",
+     "en": "Try again, it's fine."
     }
    ]
   },
@@ -1163,7 +1462,9 @@
    "lines": [
     {
      "speaker": "lamp",
-     "text": "…歡迎回來。"
+     "text": "…歡迎回來。",
+     "ja": "……おかえり。",
+     "en": "...Welcome back."
     }
    ]
   },
@@ -1172,19 +1473,27 @@
    "lines": [
     {
      "speaker": "old_k",
-     "text": "今天的飯煮好了喔。這頓我煮給你，不用交四十。"
+     "text": "今天的飯煮好了喔。這頓我煮給你，不用交四十。",
+     "ja": "今日の飯ができてるよ。これはあんたのために作ったから、四十は払わなくていいんだよ。",
+     "en": "Dinner's ready. I cooked this one for you, so you don't pay the forty, you hear?"
     },
     {
      "speaker": "rin",
-     "text": "那我先記著。"
+     "text": "那我先記著。",
+     "ja": "覚えとく。",
+     "en": "I'll remember that."
     },
     {
      "speaker": "old_k",
-     "text": "不是叫你記一筆，叫你趁熱吃。明天的事明天再說。"
+     "text": "不是叫你記一筆，叫你趁熱吃。明天的事明天再說。",
+     "ja": "書けとは言ってない、熱いうちに食べなって言ったの。明日のことは明日でいいよ。",
+     "en": "I said eat it while it's hot, not write it down. Tomorrow can wait, you hear?"
     },
     {
      "speaker": "rin",
-     "text": "好，我先趁熱吃。"
+     "text": "好，我先趁熱吃。",
+     "ja": "わかった。熱いうちに食べる。",
+     "en": "Fine. I'll eat while it's hot."
     }
    ],
    "then": "ch1_b_dinner_food"
@@ -1194,11 +1503,15 @@
    "lines": [
     {
      "speaker": "old_k",
-     "text": "我把紅蘿蔔切很細了啊。"
+     "text": "我把紅蘿蔔切很細了啊。",
+     "ja": "にんじんはちゃんと細かく切ったよ。",
+     "en": "I cut the carrots really fine, you know."
     },
     {
      "speaker": "rin",
-     "text": "還是看得到。"
+     "text": "還是看得到。",
+     "ja": "それでも見えるぞ。",
+     "en": "I can still spot them."
     }
    ],
    "results": [
@@ -1218,31 +1531,45 @@
    "lines": [
     {
      "speaker": "egret",
-     "text": "倉庫保險箱裡有一片資料盤，今晚把它取出來。驗收是八百，不是看一眼就算。"
+     "text": "倉庫保險箱裡有一片資料盤，今晚把它取出來。驗收是八百，不是看一眼就算。",
+     "ja": "倉庫の金庫に資料ディスクが一枚ある。今夜取り出してくれ。検収は800だ。一目見ただけじゃ勘定に入らないからな。",
+     "en": "There's a data disk in the warehouse safe. Take it out tonight. Acceptance pays 800, and a glance doesn't count."
     },
     {
      "speaker": "rin",
-     "text": "一成照舊，先別算進我能花的錢。"
+     "text": "一成照舊，先別算進我能花的錢。",
+     "ja": "いつもの一割はそのままだ。使える金として数えるなよ。",
+     "en": "The usual ten percent stays. Don't count it as money I can spend yet."
     },
     {
      "speaker": "egret",
-     "text": "看門狗是倉庫的保全機甲，牠的脾氣可不好。天穹委託的盤，你先照編號取。"
+     "text": "看門狗是倉庫的保全機甲，牠的脾氣可不好。天穹委託的盤，你先照編號取。",
+     "ja": "番犬は倉庫の警備機甲だ。機嫌がすこぶる悪いぞ。天穹から頼まれた盤だから、まず番号どおりに取りな。",
+     "en": "The Watchdog is the warehouse's security mech, and its temper is no joke. The disk is Skydome's commission, so grab it by its number."
     },
     {
      "speaker": "egret",
-     "text": "拿到盤後走倉庫上層出口。那條路到復原館外的交接櫃，不用帶著盤再穿一次路障。"
+     "text": "拿到盤後走倉庫上層出口。那條路到復原館外的交接櫃，不用帶著盤再穿一次路障。",
+     "ja": "ディスクを手に入れたら、倉庫の上層出口から出な。そのルートなら復元館の外にある引き渡しボックスまで行ける。ディスクを持ったまま、また封鎖線を抜ける必要はない。",
+     "en": "Once you have the disk, take the warehouse's upper exit. That route leads to the handoff cabinet outside the restoration house, so you won't have to carry the disk back through the barricades."
     },
     {
      "speaker": "rin",
-     "text": "復原館就是電話亭旁邊那間夜間店？"
+     "text": "復原館就是電話亭旁邊那間夜間店？",
+     "ja": "復元館って、電話ボックスの横にある夜間営業の店のことか？",
+     "en": "Is the restoration house the night shop next to the phone booth?"
     },
     {
      "speaker": "egret",
-     "text": "對，交接櫃在店外，不是交給店裡的人。櫃子收盤後吐回執，明早我跟你對錢。"
+     "text": "對，交接櫃在店外，不是交給店裡的人。櫃子收盤後吐回執，明早我跟你對錢。",
+     "ja": "そうだ。引き渡しボックスは店の外にある。店の人間に渡すんじゃない。ボックスがディスクを受け取ったら、受領書を吐き出す。金の精算は明日の朝にしよう。",
+     "en": "Right. The handoff cabinet is outside the shop, not handed to anyone inside. Once it takes the disk, it spits out a receipt. We'll square the money tomorrow morning."
     },
     {
      "speaker": "rin",
-     "text": "盤放進櫃子裡，回執由我自己收著，我記住了。"
+     "text": "盤放進櫃子裡，回執由我自己收著，我記住了。",
+     "ja": "ディスクはボックスに入れる。受領書は自分で持っておく。覚えた。",
+     "en": "I'll put the disk in the cabinet and keep the receipt myself. Got it."
     }
    ],
    "when": {
@@ -1264,7 +1591,9 @@
     {
      "do": "say",
      "speaker": "egret",
-     "text": "上層出口接交接櫃，回執別留在櫃裡，明早還要對。"
+     "text": "上層出口接交接櫃，回執別留在櫃裡，明早還要對。",
+     "ja": "上層出口から引き渡しボックスへ。受領書はボックスに置いてくるな。明朝まだ照合が要る。",
+     "en": "Take the upper exit to the handoff cabinet. Don't leave the receipt in the cabinet, since we still have to check it tomorrow morning."
     }
    ],
    "when": {
@@ -1278,7 +1607,9 @@
    "lines": [
     {
      "speaker": "lamp",
-     "text": "保險箱可以開了，盤還在裡面，別只顧著找上層出口。"
+     "text": "保險箱可以開了，盤還在裡面，別只顧著找上層出口。",
+     "ja": "金庫はもう開いてるよ。ディスクはまだ中にある。上層出口ばかり探さないで。",
+     "en": "The safe's open now. The disk is still inside, so don't just rush for the upper exit."
     }
    ],
    "when": {
@@ -1302,11 +1633,15 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "收帳人的徽章還貼在上面。"
+     "text": "收帳人的徽章還貼在上面。",
+     "ja": "取り立て屋のバッジがまだ貼りついてる。",
+     "en": "The collector's badge is still stuck to it."
     },
     {
      "speaker": "lamp",
-     "text": "那是記帳用的資料盤，天穹要核哪一筆，得等交接櫃驗收。"
+     "text": "那是記帳用的資料盤，天穹要核哪一筆，得等交接櫃驗收。",
+     "ja": "それは帳簿用の資料ディスクだよ。天穹がどの記録を照合するかは、引き渡しボックスの検収を待つしかない。",
+     "en": "That's a data disk for bookkeeping. Which entries Skydome checks depends on the handoff cabinet's acceptance."
     }
    ],
    "when": {
@@ -1328,11 +1663,15 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "我先把盤送到櫃子，錢明早再對。"
+     "text": "我先把盤送到櫃子，錢明早再對。",
+     "ja": "まずディスクをボックスに届ける。金は明朝に精算だ。",
+     "en": "I'll get the disk to the cabinet first. We'll square the money tomorrow morning."
     },
     {
      "speaker": "lamp",
-     "text": "上層通道亮了。走到出口前還有守衛，別把盤當通行證。"
+     "text": "上層通道亮了。走到出口前還有守衛，別把盤當通行證。",
+     "ja": "上層通路が明るくなったよ。出口の手前にまだ守衛がいる。ディスクを通行証代わりにするなよ。",
+     "en": "The upper passage is lit now. There are still guards before the exit, so don't use the disk as a pass."
     }
    ],
    "when": {
@@ -1353,7 +1692,9 @@
    "lines": [
     {
      "speaker": "lamp",
-     "text": "資料盤還在保險箱，取出後再走上層通道。"
+     "text": "資料盤還在保險箱，取出後再走上層通道。",
+     "ja": "資料ディスクはまだ金庫の中。取り出してから上層通路を使ってね。",
+     "en": "The data disk is still in the safe. Take it out before using the upper passage."
     }
    ],
    "when": {
@@ -1369,11 +1710,15 @@
    "lines": [
     {
      "speaker": "lamp",
-     "text": "藍燈櫃是交盤用的，店門在旁邊。"
+     "text": "藍燈櫃是交盤用的，店門在旁邊。",
+     "ja": "青いランプのボックスはディスクの引き渡し用。店の入口はその横だよ。",
+     "en": "The blue-lit cabinet is for handing over disks. The shop door is right beside it."
     },
     {
      "speaker": "rin",
-     "text": "我先把盤交了，再找地方擦乾。"
+     "text": "我先把盤交了，再找地方擦乾。",
+     "ja": "先にディスクを渡して、それから体を乾かす場所を探す。",
+     "en": "I'll hand over the disk first, then find somewhere to dry off."
     }
    ],
    "when": {
@@ -1387,7 +1732,9 @@
     {
      "do": "say",
      "speaker": "terminal",
-     "text": "請確認交付資料盤，接收完成後原盤由委託方保管。"
+     "text": "請確認交付資料盤，接收完成後原盤由委託方保管。",
+     "ja": "資料ディスクの引き渡しを確認してください。受領完了後、原盤は依頼主にて保管されます。",
+     "en": "Please confirm handover of the data disk. Once receipt is complete, the original disk will be kept by the client."
     },
     {
      "do": "choice",
@@ -1398,14 +1745,24 @@
        "id": "deliver",
        "text": "交付這片資料盤",
        "explanation": "報酬800次晨核對；原盤交委託方保管。",
-       "target": "ch1_t_handoff_accept"
+       "target": "ch1_t_handoff_accept",
+       "ja": "このデータディスクを引き渡す。",
+       "en": "Hand over this data disk.",
+       "explanation_ja": "報酬800は翌朝に照合。原盤は依頼主が保管する。",
+       "explanation_en": "Reward 800, verified the next morning. The original disk stays with the client."
       },
       {
        "id": "return",
        "text": "先退出",
-       "explanation": "盤仍由你持有，不取得回執。"
+       "explanation": "盤仍由你持有，不取得回執。",
+       "ja": "ひとまず引き上げる。",
+       "en": "Leave for now.",
+       "explanation_ja": "ディスクは手元に残り、受領書は得られない。",
+       "explanation_en": "You keep the disk and receive no receipt."
       }
-     ]
+     ],
+     "ja": "資料ディスクの引き渡しを確認してください。受領完了後、原盤は依頼主にて保管されます。",
+     "en": "Please confirm handover of the data disk. Once receipt is complete, the original disk will be kept by the client."
     }
    ],
    "when": {
@@ -1433,7 +1790,9 @@
     {
      "do": "say",
      "speaker": "terminal",
-     "text": "資料盤已接收，徽章與委託編號一致。驗收回執已建立。"
+     "text": "資料盤已接收，徽章與委託編號一致。驗收回執已建立。",
+     "ja": "資料ディスクを受領しました。バッジと委託番号が一致しています。検収受領書を作成しました。",
+     "en": "Data disk received. Badge and commission number match. Acceptance receipt issued."
     }
    ],
    "when": {
@@ -1468,7 +1827,9 @@
     {
      "do": "say",
      "speaker": "terminal",
-     "text": "原盤已接收，請取驗收回執。"
+     "text": "原盤已接收，請取驗收回執。",
+     "ja": "原盤を受領しました。検収受領書をお取りください。",
+     "en": "Original disk received. Please collect your acceptance receipt."
     },
     {
      "do": "choice",
@@ -1479,14 +1840,24 @@
        "id": "take",
        "text": "取出驗收回執",
        "explanation": "取回執與電子副本，現在不領錢。",
-       "target": "ch1_t_handoff_receipt"
+       "target": "ch1_t_handoff_receipt",
+       "ja": "検収受領書を取り出す。",
+       "en": "Take out the acceptance receipt.",
+       "explanation_ja": "受領書と電子控えを受け取る。報酬は今は受け取らない。",
+       "explanation_en": "Take the receipt and digital copy. No payment is collected now."
       },
       {
        "id": "return",
        "text": "先退出",
-       "explanation": "原盤仍由櫃子保管，可以回來取紙。"
+       "explanation": "原盤仍由櫃子保管，可以回來取紙。",
+       "ja": "ひとまず引き上げる。",
+       "en": "Leave for now.",
+       "explanation_ja": "原盤はボックスに残る。紙はあとで取りに戻れる。",
+       "explanation_en": "The original disk stays in the cabinet. You can come back for the paper."
       }
-     ]
+     ],
+     "ja": "原盤を受領しました。検収受領書をお取りください。",
+     "en": "Original disk received. Please collect your acceptance receipt."
     }
    ],
    "when": {
@@ -1511,12 +1882,16 @@
     {
      "do": "say",
      "speaker": "lamp",
-     "text": "回執出來了，鷺姐明早替你對錢。我把電子副本也留著，雨別讓紙黏成一塊。"
+     "text": "回執出來了，鷺姐明早替你對錢。我把電子副本也留著，雨別讓紙黏成一塊。",
+     "ja": "受領書が出たよ。鷺さんが明朝に精算してくれる。電子控えもこっちで保管しておくね。雨で紙がくっつかないように気をつけて。",
+     "en": "The receipt's out. Egret will settle the money with you tomorrow morning. I'm keeping the digital copy too, so don't let the rain stick the paper together."
     },
     {
      "do": "say",
      "speaker": "rin",
-     "text": "盤交了，錢我明天再核。"
+     "text": "盤交了，錢我明天再核。",
+     "ja": "ディスクは渡した。金は明日確認する。",
+     "en": "The disk's handed over. I'll check the money tomorrow."
     }
    ],
    "when": {
@@ -1552,7 +1927,9 @@
     {
      "do": "say",
      "speaker": "lamp",
-     "text": "紙已拿到，還有缺附件那頁可以留。"
+     "text": "紙已拿到，還有缺附件那頁可以留。",
+     "ja": "紙は受け取ったね。添付が欠けているページは、そのまま残しておいていいよ。",
+     "en": "You've got the paper. The page missing its attachment can stay as it is."
     },
     {
      "do": "choice",
@@ -1563,14 +1940,24 @@
        "id": "save",
        "text": "保留可閱覽摘要",
        "explanation": "保留批號M17與待查欄位，不代表已付或待付的判決。",
-       "target": "ch1_t_handoff_summary"
+       "target": "ch1_t_handoff_summary",
+       "ja": "閲覧用の要約を保存する。",
+       "en": "Keep the readable summary.",
+       "explanation_ja": "バッチ番号M17と未確認欄を残す。支払い済みか未払いかを決めるものではない。",
+       "explanation_en": "Keeps batch M17 and the unverified field. Does not settle whether the amount is paid or owed."
       },
       {
        "id": "return",
        "text": "先退出",
-       "explanation": "回執保留，可以回來存摘要。"
+       "explanation": "回執保留，可以回來存摘要。",
+       "ja": "ひとまず引き上げる。",
+       "en": "Leave for now.",
+       "explanation_ja": "受領書は保管される。摘要はあとで保存しに戻れる。",
+       "explanation_en": "The receipt stays. You can come back to save the summary."
       }
-     ]
+     ],
+     "ja": "紙は受け取ったね。添付が欠けているページは、そのまま残しておいていいよ。",
+     "en": "You've got the paper. The page missing its attachment can stay as it is."
     }
    ],
    "when": {
@@ -1593,31 +1980,45 @@
    "lines": [
     {
      "speaker": "egret",
-     "text": "盤裡有一筆市場修繕代收沒付款附件。明早上屋頂再談，今晚先把取盤這筆做好。"
+     "text": "盤裡有一筆市場修繕代收沒付款附件。明早上屋頂再談，今晚先把取盤這筆做好。",
+     "ja": "ディスクに市場修繕の代理徴収が一件あるが、支払いの添付がない。明日の朝に屋上で話そう。今夜はまず取り出しをきちんと終わらせな。",
+     "en": "The disk has a market-repair collection with no payment attachment. We'll talk about it on the roof tomorrow morning. Tonight, just finish the pickup."
     },
     {
      "speaker": "rin",
-     "text": "沒附件是沒付，還是收了沒記？"
+     "text": "沒附件是沒付，還是收了沒記？",
+     "ja": "添付がないってことは未払いか、それとも受け取ったのに記録してないのか？",
+     "en": "No attachment, so it's unpaid, or was it collected and never recorded?"
     },
     {
      "speaker": "egret",
-     "text": "現在只能說缺一張紙，不能替那個人認欠款。"
+     "text": "現在只能說缺一張紙，不能替那個人認欠款。",
+     "ja": "今わかるのは紙が一枚欠けてることだけだ。あの人の代わりに借りを認めるわけにはいかない。",
+     "en": "All we can say now is that a paper is missing. We can't admit on that person's behalf that they owe anything."
     },
     {
      "speaker": "lamp",
-     "text": "這份摘要準你查批號，不是要你再去拿同一片盤。"
+     "text": "這份摘要準你查批號，不是要你再去拿同一片盤。",
+     "ja": "この要約はバッチ番号を調べるためのものだよ。同じディスクをまた取りに行けって意味じゃない。",
+     "en": "This summary lets you look up the batch number. It doesn't mean you have to go back and get the same disk again."
     },
     {
      "speaker": "rin",
-     "text": "我留批號和缺的那欄，明早先領錢，再去找收據。"
+     "text": "我留批號和缺的那欄，明早先領錢，再去找收據。",
+     "ja": "バッチ番号と欠けている欄は控えておく。明朝まず報酬を受け取り、それから領収書を探しに行く。",
+     "en": "I'll keep the batch number and the missing field. Tomorrow I'll collect the money first, then go find the receipt."
     },
     {
      "speaker": "egret",
-     "text": "旁邊有熱湯，你把紙收好，別把回執泡進去。"
+     "text": "旁邊有熱湯，你把紙收好，別把回執泡進去。",
+     "ja": "横に熱いスープがあるぞ。紙はしまっとけ。受領書をスープに浸けるなよ。",
+     "en": "There's hot soup right beside you. Put the paper away, and don't let the receipt soak in the soup."
     },
     {
      "speaker": "rin",
-     "text": "我把帳夾裡面，湯放外面。"
+     "text": "我把帳夾裡面，湯放外面。",
+     "ja": "帳簿は中に、スープは外に置く。",
+     "en": "The ledger goes inside, the soup stays outside."
     }
    ],
    "when": {
@@ -1662,12 +2063,16 @@
     {
      "do": "say",
      "speaker": "terminal",
-     "text": "驗收紀錄已保存，次晨到當舖核對報酬。"
+     "text": "驗收紀錄已保存，次晨到當舖核對報酬。",
+     "ja": "検収記録を保存しました。翌朝、質屋で報酬を照合してください。",
+     "en": "Acceptance record saved. Verify the reward at the pawnshop the next morning."
     },
     {
      "do": "say",
      "speaker": "egret",
-     "text": "今晚交的盤不會再算第二片，剩下的是明天的紙。"
+     "text": "今晚交的盤不會再算第二片，剩下的是明天的紙。",
+     "ja": "今夜渡したディスクは二枚目としては数えない。残りは明日の紙だ。",
+     "en": "The disk you handed over tonight won't count as a second one. What's left is tomorrow's paper."
     }
    ],
    "when": {
@@ -1680,7 +2085,9 @@
    "lines": [
     {
      "speaker": "ali",
-     "text": "想擦乾就進來，桌邊有乾布。"
+     "text": "想擦乾就進來，桌邊有乾布。",
+     "ja": "体を拭きたいなら入って。テーブルのそばに乾いた布があるよ。",
+     "en": "If you want to dry off, come on in. There's a dry cloth by the table."
     }
    ],
    "when": {
@@ -1693,19 +2100,27 @@
    "lines": [
     {
      "speaker": "ali",
-     "text": "剛從電話亭回來嗎？你可以先把外套上的水擦掉。"
+     "text": "剛從電話亭回來嗎？你可以先把外套上的水擦掉。",
+     "ja": "電話ボックスから戻ってきたところ？まず上着の水を拭いてね。",
+     "en": "Just back from the phone booth? You can wipe the water off your coat first."
     },
     {
      "speaker": "rin",
-     "text": "我後來在亭子醒過，最早那次是被送到診間。"
+     "text": "我後來在亭子醒過，最早那次是被送到診間。",
+     "ja": "あとで電話ボックスで目を覚ました。最初のときは診療所に運ばれた。",
+     "en": "I woke up in the phone booth later. The first time, I was taken to the clinic."
     },
     {
      "speaker": "ali",
-     "text": "你想說最早那次，還是先吃一口熱的？"
+     "text": "你想說最早那次，還是先吃一口熱的？",
+     "ja": "最初のときの話をしたい？それとも先に温かいものを一口食べる？",
+     "en": "Do you want to talk about that first time, or eat something warm first?"
     },
     {
      "speaker": "rin",
-     "text": "先吃，盤已經交到外面的櫃了。"
+     "text": "先吃，盤已經交到外面的櫃了。",
+     "ja": "先に食べる。ディスクはもう外のボックスに渡した。",
+     "en": "Eat first. The disk's already been handed to the cabinet outside."
     }
    ],
    "when": {
@@ -1747,19 +2162,27 @@
    "lines": [
     {
      "speaker": "ali",
-     "text": "你手上是初次建檔的紙帶，診間送你出來了？"
+     "text": "你手上是初次建檔的紙帶，診間送你出來了？",
+     "ja": "手にあるのは初回登録の紙テープ？診療所から送り出されたの？",
+     "en": "Is that first-registration paper tape in your hand? Did the clinic send you out?"
     },
     {
      "speaker": "rin",
-     "text": "灰衣人把我送過去，我醒來後走回倉庫，沒有在亭子醒過。"
+     "text": "灰衣人把我送過去，我醒來後走回倉庫，沒有在亭子醒過。",
+     "ja": "灰色の服の男が私を運んだ。目が覚めてから倉庫まで歩いて戻った。電話ボックスでは目覚めてない。",
+     "en": "A gray-coated man took me there. I woke up and walked back to the warehouse. I didn't wake up in the phone booth."
     },
     {
      "speaker": "ali",
-     "text": "那你這一路又走了一遍。先把紙帶收好，湯不用跟著趕。"
+     "text": "那你這一路又走了一遍。先把紙帶收好，湯不用跟著趕。",
+     "ja": "じゃあ、あなたはまた同じ道を歩いたのね。紙テープは先にしまって。スープは急いで飲まなくていいからね。",
+     "en": "So you walked the whole way again. Put the paper tape away first, and the soup doesn't need rushing."
     },
     {
      "speaker": "rin",
-     "text": "回執在本子裡，手上這張我也收。"
+     "text": "回執在本子裡，手上這張我也收。",
+     "ja": "受領書は手帳に入ってる。手に持ってるこの一枚も、こっちでしまっとく。",
+     "en": "The receipt's in my notebook. I'll keep this one in my hand as well."
     }
    ],
    "when": {
@@ -1807,19 +2230,27 @@
    "lines": [
     {
      "speaker": "ali",
-     "text": "外面下了一整夜，你是來等復原的人，還是自己路過？"
+     "text": "外面下了一整夜，你是來等復原的人，還是自己路過？",
+     "ja": "外は一晩中雨だったね。復元を待ってる人？それとも通りがかっただけ？",
+     "en": "It's been raining all night. Are you here waiting for restoration, or just passing through?"
     },
     {
      "speaker": "rin",
-     "text": "我是來交盤的，今天還沒用到復原。"
+     "text": "我是來交盤的，今天還沒用到復原。",
+     "ja": "ディスクを渡しに来ただけだ。今日はまだ復元を使ってない。",
+     "en": "I came to hand in a disk. I haven't used restoration today."
     },
     {
      "speaker": "ali",
-     "text": "這裡也收沒復原過的客人。你想吃餐，還是只坐一下？"
+     "text": "這裡也收沒復原過的客人。你想吃餐，還是只坐一下？",
+     "ja": "復元していないお客さんも受け入れてるよ。食事にする？それとも少し座っていく？",
+     "en": "We welcome guests who haven't been restored, too. Would you like a meal, or just sit a while?"
     },
     {
      "speaker": "rin",
-     "text": "我先看價目，坐著算完這筆。"
+     "text": "我先看價目，坐著算完這筆。",
+     "ja": "まず値段を確認する。座って、この分の勘定を済ませる。",
+     "en": "I'll look at the prices first. I'll sit and sort out this bill."
     }
    ],
    "when": {
@@ -1863,12 +2294,16 @@
     {
      "do": "say",
      "speaker": "ali",
-     "text": "外面下了一整夜，你想先歇一下嗎？"
+     "text": "外面下了一整夜，你想先歇一下嗎？",
+     "ja": "外は一晩中雨だったから、少し休んでいく？",
+     "en": "It's been raining all night. Would you like to rest a bit first?"
     },
     {
      "do": "say",
      "speaker": "rin",
-     "text": "我先歇一下，盤已經交了。"
+     "text": "我先歇一下，盤已經交了。",
+     "ja": "少し休む。ディスクはもう渡した。",
+     "en": "I'll rest a bit. The disk's already been handed in."
     }
    ],
    "when": {
@@ -1906,7 +2341,9 @@
     {
      "do": "say",
      "speaker": "ali",
-     "text": "復原餐是一碗補身的熱湯，連肉和麵包是一百二十，酒八十。兩樣一起兩百，離店前再結。"
+     "text": "復原餐是一碗補身的熱湯，連肉和麵包是一百二十，酒八十。兩樣一起兩百，離店前再結。",
+     "ja": "復元メシは、体を温める熱いスープ一杯。肉とパン込みで120、酒は80。両方で200になるから、店を出る前にお会計してね。",
+     "en": "The restoration meal is a bowl of hot, nourishing soup. With meat and bread it's 120, and the wine is 80. Both together come to 200, to be settled before you leave."
     },
     {
      "do": "choice",
@@ -1917,20 +2354,34 @@
        "id": "order",
        "text": "湯和酒我都要，合計200",
        "explanation": "現在不扣款，離店前可付清、保留欠條或接受今晚招待。",
-       "target": "ch1_t_ali_order"
+       "target": "ch1_t_ali_order",
+       "ja": "スープと酒、両方もらう。合計200。",
+       "en": "I'll take the soup and the wine. 200 total.",
+       "explanation_ja": "今は引き落とされない。店を出る前に支払うか、借用書を残すか、今夜のおごりを受けるか選べる。",
+       "explanation_en": "Not charged now. Before you leave, you can pay in full, leave an IOU, or accept tonight's treat."
       },
       {
        "id": "sit",
        "text": "先只坐一下",
        "explanation": "沒有餐酒訂單，不會欠200。",
-       "target": "ch1_t_ali_sit"
+       "target": "ch1_t_ali_sit",
+       "ja": "少し座るだけ。",
+       "en": "Just sit for a while.",
+       "explanation_ja": "食事も酒も注文していなければ、200の借りにはならない。",
+       "explanation_en": "With no meal or wine ordered, you won't owe 200."
       },
       {
        "id": "return",
        "text": "先返回",
-       "explanation": "不點餐、不扣款，可以再問。"
+       "explanation": "不點餐、不扣款，可以再問。",
+       "ja": "いったん戻る。",
+       "en": "Go back for now.",
+       "explanation_ja": "注文も支払いもなし。またあとで聞ける。",
+       "explanation_en": "No order, no charge. You can ask again."
       }
-     ]
+     ],
+     "ja": "復元メシは、体を温める熱いスープ一杯。肉とパン込みで120、酒は80。両方で200になるから、店を出る前にお会計してね。",
+     "en": "The restoration meal is a bowl of hot, nourishing soup. With meat and bread it's 120, and the wine is 80. Both together come to 200, to be settled before you leave."
     }
    ],
    "when": {
@@ -1959,15 +2410,21 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "湯和酒我都要，兩百先記這一晚。"
+     "text": "湯和酒我都要，兩百先記這一晚。",
+     "ja": "スープも酒もほしい。200は今夜の分につけておいて。",
+     "en": "I'll take the soup and the wine. Put the 200 on tonight's tab."
     },
     {
      "speaker": "ali",
-     "text": "好，等你離店前再一起結帳。今晚的麵不另外收錢。"
+     "text": "好，等你離店前再一起結帳。今晚的麵不另外收錢。",
+     "ja": "わかった。店を出るときにまとめてお会計しましょうね。今夜の麺は別料金にはしないから。",
+     "en": "Okay, we'll settle up together before you leave. The noodles tonight aren't charged extra."
     },
     {
      "speaker": "rin",
-     "text": "這邊留給碗，紙不要碰到湯。"
+     "text": "這邊留給碗，紙不要碰到湯。",
+     "ja": "ここは器のスペースにしといて。紙をスープに近づけるな。",
+     "en": "Save this spot for the bowl. Keep the paper away from the soup."
     }
    ],
    "when": {
@@ -2018,12 +2475,16 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "我先只坐一下，不點餐。"
+     "text": "我先只坐一下，不點餐。",
+     "ja": "少し座るだけ。注文はしない。",
+     "en": "I'll just sit for a while. No order."
     },
     {
      "do": "say",
      "speaker": "ali",
-     "text": "那就坐著休息吧，桌邊有乾布，不用先留飯錢。"
+     "text": "那就坐著休息吧，桌邊有乾布，不用先留飯錢。",
+     "ja": "じゃあ座って休んでいってね。テーブルのそばに乾いた布があるし、食事代を先に置いておく必要はないよ。",
+     "en": "Then sit and rest. There's a dry cloth by the table, and you don't need to leave money for a meal up front."
     }
    ],
    "when": {
@@ -2064,19 +2525,29 @@
    "lines": [
     {
      "speaker": "ali",
-     "text": "您怎麼稱呼？"
+     "text": "您怎麼稱呼？",
+     "ja": "お名前を伺ってもいいですか？",
+     "en": "May I ask your name?"
     },
     {
      "speaker": "rin",
-     "text": "我叫凜。"
+     "text": "我叫凜。",
+     "ja": "凛だ。",
+     "en": "I'm Rin."
     },
     {
      "speaker": "ali",
-     "text": "我叫阿梨，是梨子的梨。老人說別分梨吃，會把人分開。"
+     "text": "我叫阿梨，是梨子的梨。老人說別分梨吃，會把人分開。",
+     "ja": "梨って書いて「なし」。年寄りは、梨は分けて食べるなって言うの。分けると人も離れちゃうからって。",
+     "en": "I'm Pear, like the fruit. Old folks say never split a pear, or you'll split up a pair.",
+     "transcreate": true
     },
     {
      "speaker": "rin",
-     "text": "我把名字記著，梨我自己吃。"
+     "text": "我把名字記著，梨我自己吃。",
+     "ja": "名前は覚えとく。梨は分けずに、自分で食べる。",
+     "en": "I'll remember the name. The pear I'll eat whole, by myself.",
+     "transcreate": true
     }
    ],
    "when": {
@@ -2110,23 +2581,33 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "這湯怎麼是甜的？"
+     "text": "這湯怎麼是甜的？",
+     "ja": "このスープ、なんで甘いんだ？",
+     "en": "Why is this soup sweet?"
     },
     {
      "speaker": "ali",
-     "text": "梨放進去煮久一點，冷了也沒那麼澀。這是我以前學的做法。"
+     "text": "梨放進去煮久一點，冷了也沒那麼澀。這是我以前學的做法。",
+     "ja": "梨を長めに煮てるの。冷めても渋くならないのよ。昔に覚えた作り方なの。",
+     "en": "I simmer the pear a little longer, so it doesn't turn astringent once it cools. I learned this way a long time ago."
     },
     {
      "speaker": "rin",
-     "text": "妳把湯留到這麼晚，也是工作？"
+     "text": "妳把湯留到這麼晚，也是工作？",
+     "ja": "こんな遅くまでスープを残してるのも仕事か？",
+     "en": "Keeping the soup this late, is that part of your job too?"
     },
     {
      "speaker": "ali",
-     "text": "我也有下班的時候。今晚已經到了，不會把你坐多久都記成工錢。"
+     "text": "我也有下班的時候。今晚已經到了，不會把你坐多久都記成工錢。",
+     "ja": "私も仕事を上がる時間はあるの。今夜はもう上がり。どれだけ座っていても、それで料金は取らないから。",
+     "en": "I do knock off eventually. Tonight's done, and I won't charge you for however long you sit."
     },
     {
      "speaker": "rin",
-     "text": "餐酒的兩百我記著，坐著的不用另開一張。"
+     "text": "餐酒的兩百我記著，坐著的不用另開一張。",
+     "ja": "食事と酒の200は覚えとく。座ってる分は別に伝票を切らなくていい。",
+     "en": "I'll note the 200 for the meal and wine. Sitting doesn't need its own tab."
     }
    ],
    "when": {
@@ -2171,23 +2652,33 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "妳收鍋時還放梨？"
+     "text": "妳收鍋時還放梨？",
+     "ja": "鍋を片づけるときにも梨を入れるのか？",
+     "en": "Do you still add pear when you clean up the pot?"
     },
     {
      "speaker": "ali",
-     "text": "梨放進去煮久一點，冷了也沒那麼澀。這是我以前學的做法。"
+     "text": "梨放進去煮久一點，冷了也沒那麼澀。這是我以前學的做法。",
+     "ja": "梨を長めに煮てるの。冷めても渋くならないのよ。昔に覚えた作り方なの。",
+     "en": "I simmer the pear a little longer, so it doesn't turn astringent once it cools. I learned this way a long time ago."
     },
     {
      "speaker": "rin",
-     "text": "妳把湯留到這麼晚，也是工作？"
+     "text": "妳把湯留到這麼晚，也是工作？",
+     "ja": "こんな遅くまでスープを残してるのも仕事か？",
+     "en": "Keeping the soup this late, is that part of your job too?"
     },
     {
      "speaker": "ali",
-     "text": "我也有下班的時候。今晚已經到了，不會把你坐多久都記成工錢。"
+     "text": "我也有下班的時候。今晚已經到了，不會把你坐多久都記成工錢。",
+     "ja": "私も仕事を上がる時間はあるの。今夜はもう上がり。どれだけ座っていても、それで料金は取らないから。",
+     "en": "I do knock off eventually. Tonight's done, and I won't charge you for however long you sit."
     },
     {
      "speaker": "rin",
-     "text": "我只坐了一會兒，沒有餐酒這筆。"
+     "text": "我只坐了一會兒，沒有餐酒這筆。",
+     "ja": "少ししか座ってない。食事と酒の代金はないだろ。",
+     "en": "I only sat for a while. There's no meal or wine charge."
     }
    ],
    "when": {
@@ -2234,12 +2725,16 @@
     {
      "do": "say",
      "speaker": "ali",
-     "text": "外頭剩一碗麵，我下班後才吃。你想留下就一起，不想等也能先走。"
+     "text": "外頭剩一碗麵，我下班後才吃。你想留下就一起，不想等也能先走。",
+     "ja": "外に麺が一杯残ってるの。仕事が終わったら食べるつもり。残るなら一緒にどう？待ちたくなければ、先に帰ってもいいよ。",
+     "en": "There's a bowl of noodles left outside. I'll eat after I get off. If you want to stay, we can eat together. If you don't want to wait, you can go first."
     },
     {
      "do": "say",
      "speaker": "rin",
-     "text": "我到門口再決定，先把紙收好。"
+     "text": "我到門口再決定，先把紙收好。",
+     "ja": "戸口に着いてから決める。先に紙をしまっておく。",
+     "en": "I'll decide at the door. First, I'll put the paper away."
     }
    ],
    "when": {
@@ -2277,15 +2772,21 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "妳不問我今天怎麼死的？"
+     "text": "妳不問我今天怎麼死的？",
+     "ja": "今日どうやって死んだか、聞かないの？",
+     "en": "Aren't you going to ask how I died today?"
     },
     {
      "speaker": "ali",
-     "text": "你想講的話我就聽著。你想先把湯喝完，我也不會替你補一個故事。"
+     "text": "你想講的話我就聽著。你想先把湯喝完，我也不會替你補一個故事。",
+     "ja": "話したいなら聞くよ。先にスープを飲みたいなら、それでもいい。あなたの代わりに話を作ったりはしないからね。",
+     "en": "If you want to talk, I'll listen. If you'd rather finish your soup first, that's fine too. I won't make up a story for you."
     },
     {
      "speaker": "rin",
-     "text": "先讓我喝完，明早還有帳。"
+     "text": "先讓我喝完，明早還有帳。",
+     "ja": "先に飲ませて。明朝にもまだ帳簿があるから。",
+     "en": "Let me finish first. I still have accounts in the morning."
     }
    ],
    "when": {
@@ -2313,12 +2814,16 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "妳不問我為什麼跑這麼晚？"
+     "text": "妳不問我為什麼跑這麼晚？",
+     "ja": "なんでこんな遅くに動いてるのか、聞かないの？",
+     "en": "Aren't you going to ask why I'm out so late?"
     },
     {
      "do": "say",
      "speaker": "ali",
-     "text": "你想講才講，坐一下不需要先交代差事。"
+     "text": "你想講才講，坐一下不需要先交代差事。",
+     "ja": "話したいときに話せばいい。座るのに、まず用事を説明する必要はないよ。",
+     "en": "Only if you want to. Sitting down doesn't require explaining your errand first."
     }
    ],
    "when": {
@@ -2334,7 +2839,9 @@
     {
      "do": "say",
      "speaker": "ali",
-     "text": "湯鍋我收了，麵在外頭，走不走你自己決定。"
+     "text": "湯鍋我收了，麵在外頭，走不走你自己決定。",
+     "ja": "スープの鍋は片づけたよ。麺は外にある。帰るかどうかは、あなたが決めて。",
+     "en": "I've put the soup pot away. The noodles are outside. Whether you leave is up to you."
     }
    ],
    "when": {
@@ -2357,7 +2864,9 @@
    "lines": [
     {
      "speaker": "ali",
-     "text": "這碗麵還熱，你要留下嗎？"
+     "text": "這碗麵還熱，你要留下嗎？",
+     "ja": "この麺、まだ温かいよ。残っていく？",
+     "en": "These noodles are still warm. Will you stay?"
     }
    ],
    "when": {
@@ -2386,17 +2895,23 @@
     {
      "do": "say",
      "speaker": "ali",
-     "text": "你想先回家，還是留下吃一碗？麵是我請的，不加在餐酒那張。"
+     "text": "你想先回家，還是留下吃一碗？麵是我請的，不加在餐酒那張。",
+     "ja": "先に家に帰る？それとも残って一杯食べていく？麺は私のおごりだから、食事と酒の伝票には加えないよ。",
+     "en": "Head home first, or stay for a bowl? The noodles are on me, so they're not added to the meal and wine tab."
     },
     {
      "do": "say",
      "speaker": "rin",
-     "text": "我想先把今晚這張說清楚，明天那張另算。"
+     "text": "我想先把今晚這張說清楚，明天那張另算。",
+     "ja": "まず今夜の分をはっきりさせたい。明日の分は別に計算する。",
+     "en": "I want to settle tonight's tab first. Tomorrow's can be calculated separately."
     },
     {
      "do": "say",
      "speaker": "ali",
-     "text": "今晚餐酒兩百，沒有另收陪坐或宵夜錢。你留下，這份我用今天的招待額度結。"
+     "text": "今晚餐酒兩百，沒有另收陪坐或宵夜錢。你留下，這份我用今天的招待額度結。",
+     "ja": "今夜の食事と酒は200。付き添いの料金も夜食代も取らないよ。残るなら、この分は今日のおもてなし枠で処理するね。",
+     "en": "Tonight's meal and wine is 200. There's no charge for sitting with you or for late-night food. If you stay, I'll settle this part with tonight's hospitality allowance."
     },
     {
      "do": "wait",
@@ -2405,7 +2920,9 @@
     {
      "do": "say",
      "speaker": "ali",
-     "text": "你先走，可以付清，也可以把欠條留著。"
+     "text": "你先走，可以付清，也可以把欠條留著。",
+     "ja": "先に帰るなら、支払いを済ませてもいいし、借用書を残しておいてもいいよ。",
+     "en": "If you're heading out first, you can pay in full or leave an IOU."
     },
     {
      "do": "choice",
@@ -2419,7 +2936,11 @@
        "set_flags": {
         "ch1_supper_choice": "leave"
        },
-       "target": "ch1_t_supper_leave_options"
+       "target": "ch1_t_supper_leave_options",
+       "ja": "食事と酒の代金を払って、先に帰る。",
+       "en": "Settle the meal and wine, then head home.",
+       "explanation_ja": "200クレジットの支払いを確定する。不足があれば借用書を残せる。",
+       "explanation_en": "Confirm payment of 200. If it falls short, you can keep an IOU."
       },
       {
        "id": "stay",
@@ -2428,14 +2949,24 @@
        "set_flags": {
         "ch1_supper_choice": "stay"
        },
-       "target": "ch1_t_supper_host_prompt"
+       "target": "ch1_t_supper_host_prompt",
+       "ja": "「残って麺を一杯食べる。」",
+       "en": "Stay and eat a bowl of noodles.",
+       "explanation_ja": "今夜の夕食と酒は梨のおごりを受ける。麺は無料。",
+       "explanation_en": "Accept Pear's treat for tonight's meal and drinks. The noodles are free."
       },
       {
        "id": "return",
        "text": "先返回，讓我想一下。",
-       "explanation": "暫不作決定，可以再和阿梨說話。"
+       "explanation": "暫不作決定，可以再和阿梨說話。",
+       "ja": "「先に戻る。少し考えさせて。」",
+       "en": "Head back first. Let me think it over.",
+       "explanation_ja": "今は決めず、梨とはもう一度話せる。",
+       "explanation_en": "Don't decide yet. You can talk to Pear again."
       }
-     ]
+     ],
+     "ja": "先に帰るなら、支払いを済ませてもいいし、借用書を残しておいてもいいよ。",
+     "en": "If you're heading out first, you can pay in full or leave an IOU."
     }
    ],
    "when": {
@@ -2472,17 +3003,23 @@
     {
      "do": "say",
      "speaker": "ali",
-     "text": "你想先回家，還是留下吃一碗？麵是我請的，不加在餐酒那張。"
+     "text": "你想先回家，還是留下吃一碗？麵是我請的，不加在餐酒那張。",
+     "ja": "先に家に帰る？それとも残って一杯食べていく？麺は私のおごりだから、食事と酒の伝票には加えないよ。",
+     "en": "Head home first, or stay for a bowl? The noodles are on me, so they're not added to the meal and wine tab."
     },
     {
      "do": "say",
      "speaker": "rin",
-     "text": "我想先把今晚這張說清楚，明天那張另算。"
+     "text": "我想先把今晚這張說清楚，明天那張另算。",
+     "ja": "まず今夜の分をはっきりさせたい。明日の分は別に計算する。",
+     "en": "I want to settle tonight's tab first. Tomorrow's can be calculated separately."
     },
     {
      "do": "say",
      "speaker": "ali",
-     "text": "你今晚只坐了一會兒，沒有餐酒帳。想回家就回，麵還是我請的。"
+     "text": "你今晚只坐了一會兒，沒有餐酒帳。想回家就回，麵還是我請的。",
+     "ja": "今夜は少し座っただけだから、夕食と酒の勘定はないよ。帰りたければ帰って。麺はやっぱり私のおごり。",
+     "en": "You only sat for a while tonight, so there's no meal tab. Go home if you want. The noodles are still on me."
     },
     {
      "do": "choice",
@@ -2496,7 +3033,11 @@
        "set_flags": {
         "ch1_supper_choice": "leave"
        },
-       "target": "ch1_t_supper_leave_none"
+       "target": "ch1_t_supper_leave_none",
+       "ja": "「先に帰る。また今度。」",
+       "en": "Go home first. Let's talk another time.",
+       "explanation_ja": "夕食と酒の勘定はないので、請求はされない。",
+       "explanation_en": "There is no meal tab, so nothing will be charged."
       },
       {
        "id": "stay",
@@ -2505,14 +3046,24 @@
        "set_flags": {
         "ch1_supper_choice": "stay"
        },
-       "target": "ch1_t_supper_host_none_prompt"
+       "target": "ch1_t_supper_host_none_prompt",
+       "ja": "「残って麺を一杯食べる。」",
+       "en": "Stay and eat a bowl of noodles.",
+       "explanation_ja": "麺は梨のおごりで、夕食と酒の勘定はない。",
+       "explanation_en": "The noodles are Pear's treat, and there is no meal tab."
       },
       {
        "id": "return",
        "text": "先返回，讓我想一下。",
-       "explanation": "暫不作決定，可以再和阿梨說話。"
+       "explanation": "暫不作決定，可以再和阿梨說話。",
+       "ja": "「先に戻る。少し考えさせて。」",
+       "en": "Head back first. Let me think it over.",
+       "explanation_ja": "今は決めず、梨とはもう一度話せる。",
+       "explanation_en": "Don't decide yet. You can talk to Pear again."
       }
-     ]
+     ],
+     "ja": "今夜は少し座っただけだから、夕食と酒の勘定はないよ。帰りたければ帰って。麺はやっぱり私のおごり。",
+     "en": "You only sat for a while tonight, so there's no meal tab. Go home if you want. The noodles are still on me."
     }
    ],
    "when": {
@@ -2549,12 +3100,16 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "餐點一百二十加上酒八十，今晚一共兩百。麵我就不吃了，我想先回家。"
+     "text": "餐點一百二十加上酒八十，今晚一共兩百。麵我就不吃了，我想先回家。",
+     "ja": "「料理が百二十、酒が八十で、今夜は合計二百だ。麺はいい。先に帰りたい。」",
+     "en": "Food was 120 and drinks 80, so 200 tonight. Skip the noodles. I want to go home first."
     },
     {
      "do": "say",
      "speaker": "ali",
-     "text": "你不用替那碗麵留錢，我留給自己。"
+     "text": "你不用替那碗麵留錢，我留給自己。",
+     "ja": "「麺の代金は置いていかなくていい。こっちで持っておくから。」",
+     "en": "You don't need to leave money for that bowl. I'll keep it on my end."
     },
     {
      "do": "choice",
@@ -2565,13 +3120,21 @@
        "id": "pay",
        "text": "確認支付200信用點",
        "explanation": "結清今晚餐酒並回家；不足額不扣款。",
-       "target": "ch1_t_supper_pay"
+       "target": "ch1_t_supper_pay",
+       "ja": "「200クレジットの支払いを確定する。」",
+       "en": "Confirm paying 200 credits.",
+       "explanation_ja": "今夜の夕食と酒を精算して帰宅する。不足分は請求しない。",
+       "explanation_en": "Settle tonight's meal and drinks and go home. Any shortfall is not charged."
       },
       {
        "id": "defer",
        "text": "保留200欠條，先回家",
        "explanation": "現在不扣款、不加息；之後主動付清。",
-       "target": "ch1_t_supper_tab_confirm"
+       "target": "ch1_t_supper_tab_confirm",
+       "ja": "「200の借用書を残して、先に帰る。」",
+       "en": "Keep the 200 IOU and go home first.",
+       "explanation_ja": "今は引き落とさず、利息もつけない。後で自分から支払う。",
+       "explanation_en": "Nothing is charged now and no interest is added. You pay it off on your own later."
       },
       {
        "id": "rechoose",
@@ -2581,9 +3144,15 @@
         "flag": "ch1_supper_can_rechoose",
         "equals": true
        },
-       "target": "ch1_t_supper_return"
+       "target": "ch1_t_supper_return",
+       "ja": "「帰って考える。」",
+       "en": "Go home and think it over.",
+       "explanation_ja": "まだ支払いも借用書も招待の受諾もしていない。選び直せる。",
+       "explanation_en": "You haven't paid, signed an IOU, or accepted the treat yet, so you can choose again."
       }
-     ]
+     ],
+     "ja": "「麺の代金は置いていかなくていい。こっちで持っておくから。」",
+     "en": "You don't need to leave money for that bowl. I'll keep it on my end."
     }
    ],
    "when": {
@@ -2612,7 +3181,9 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "餐酒兩百，我先結這張，明天的回執另算。"
+     "text": "餐酒兩百，我先結這張，明天的回執另算。",
+     "ja": "夕食と酒で二百だ。まずこれを精算して、明日の受領証は別に計算する。",
+     "en": "Two hundred for the meal and drinks. I'll settle this tab first. Tomorrow's receipt is counted separately."
     }
    ],
    "when": {
@@ -2654,19 +3225,27 @@
    "lines": [
     {
      "speaker": "ali",
-     "text": "錢我收到了。回去別把濕紙放在爐邊烘，上面的字會掉。"
+     "text": "錢我收到了。回去別把濕紙放在爐邊烘，上面的字會掉。",
+     "ja": "金は受け取ったよ。帰ったら濡れた紙をコンロのそばで乾かさないでね。字が消えちゃうから。",
+     "en": "Got the money. When you get home, don't dry that wet paper by the stove. The writing will come off."
     },
     {
      "speaker": "rin",
-     "text": "明天我要拿紙對錢，今晚先讓它乾。"
+     "text": "明天我要拿紙對錢，今晚先讓它乾。",
+     "ja": "明日は紙を照らし合わせて金を確認するから、今夜は乾かしておく。",
+     "en": "I need the paper to check the money tomorrow, so I'll let it dry tonight."
     },
     {
      "speaker": "ali",
-     "text": "我下次還在這裡，你想喝湯再來。"
+     "text": "我下次還在這裡，你想喝湯再來。",
+     "ja": "次もここにいるから、スープが飲みたくなったらまた来て。",
+     "en": "I'll be here next time too. Come back if you want soup."
     },
     {
      "speaker": "rin",
-     "text": "我記住這間店，不把下次也先答應了。"
+     "text": "我記住這間店，不把下次也先答應了。",
+     "ja": "この店は覚えておく。次の約束は、まだしない。",
+     "en": "I'll remember this place. I won't promise next time yet."
     }
    ],
    "when": {
@@ -2689,12 +3268,16 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "我現在不夠兩百，不拿明天的錢當今天已經付了。"
+     "text": "我現在不夠兩百，不拿明天的錢當今天已經付了。",
+     "ja": "今は二百に足りない。明日の金を今日払ったことにはしない。",
+     "en": "I'm short of 200 right now. I won't count tomorrow's money as already paid today."
     },
     {
      "do": "say",
      "speaker": "ali",
-     "text": "那就先把帳留著，我不加利息。你也可以坐下來，今晚算我請客。"
+     "text": "那就先把帳留著，我不加利息。你也可以坐下來，今晚算我請客。",
+     "ja": "じゃあ帳面は残しておいて。利息はつけないから。座っていいよ。今夜は私のおごりにしておく。",
+     "en": "Then leave the tab open. I won't add interest. You can sit down too. Tonight's on me."
     },
     {
      "do": "choice",
@@ -2705,20 +3288,34 @@
        "id": "defer",
        "text": "保留200欠條，先回家。",
        "explanation": "現在不扣款、不加息。",
-       "target": "ch1_t_supper_tab_confirm"
+       "target": "ch1_t_supper_tab_confirm",
+       "ja": "「200の借用書を残して、先に帰る。」",
+       "en": "Keep the 200 IOU and go home.",
+       "explanation_ja": "今は引き落とさず、利息もつけない。",
+       "explanation_en": "Nothing is charged now and no interest is added."
       },
       {
        "id": "stay",
        "text": "回去選留下吃麵。",
        "explanation": "回去重新決定，尚未接受招待。",
-       "target": "ch1_t_supper_return"
+       "target": "ch1_t_supper_return",
+       "ja": "「戻ってから、残って麺を食べるほうを選ぶ。」",
+       "en": "Go back and choose to stay and eat the noodles.",
+       "explanation_ja": "戻ってから決め直す。まだ招待は受けていない。",
+       "explanation_en": "Decide again after going back. The treat has not been accepted yet."
       },
       {
        "id": "return",
        "text": "先返回。",
-       "explanation": "維持未結帳，可再選。"
+       "explanation": "維持未結帳，可再選。",
+       "ja": "「先に戻る。」",
+       "en": "Head back first.",
+       "explanation_ja": "会計は未精算のまま。また選べる。",
+       "explanation_en": "The tab stays unsettled. You can choose again."
       }
-     ]
+     ],
+     "ja": "じゃあ帳面は残しておいて。利息はつけないから。座っていいよ。今夜は私のおごりにしておく。",
+     "en": "Then leave the tab open. I won't add interest. You can sit down too. Tonight's on me."
     }
    ],
    "when": {
@@ -2747,7 +3344,9 @@
     {
      "do": "say",
      "speaker": "ali",
-     "text": "餐酒兩百，現在不扣款、不加息，之後你可以主動付清。"
+     "text": "餐酒兩百，現在不扣款、不加息，之後你可以主動付清。",
+     "ja": "夕食と酒で二百。今は引き落とさず、利息もつけない。あとで自分から払ってくれればいい。",
+     "en": "The meal and drinks come to 200. Nothing is charged now and no interest is added. You can pay it off on your own later."
     },
     {
      "do": "choice",
@@ -2758,14 +3357,24 @@
        "id": "confirm",
        "text": "確認保留200欠條",
        "explanation": "欠條與委託回執分開，不從720報酬自動扣。",
-       "target": "ch1_t_supper_tab"
+       "target": "ch1_t_supper_tab",
+       "ja": "「200の借用書を残すことを確定する。」",
+       "en": "Confirm keeping the 200 IOU.",
+       "explanation_ja": "借用書と依頼の受領証は別。720の報酬からは自動で差し引かない。",
+       "explanation_en": "The IOU and the job receipt are kept separate. Nothing is automatically deducted from the 720 payment."
       },
       {
        "id": "return",
        "text": "先返回",
-       "explanation": "不建立欠條、不扣款。"
+       "explanation": "不建立欠條、不扣款。",
+       "ja": "いったん戻る。",
+       "en": "Go back for now.",
+       "explanation_ja": "借用書は作らず、引き落としもしない。",
+       "explanation_en": "No IOU is created and nothing is charged."
       }
-     ]
+     ],
+     "ja": "夕食と酒で二百。今は引き落とさず、利息もつけない。あとで自分から払ってくれればいい。",
+     "en": "The meal and drinks come to 200. Nothing is charged now and no interest is added. You can pay it off on your own later."
     }
    ],
    "when": {
@@ -2794,12 +3403,16 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "這張我自己記，不放進委託回執。"
+     "text": "這張我自己記，不放進委託回執。",
+     "ja": "この分は自分で記録する。依頼の受領証には入れない。",
+     "en": "I'll keep track of this one myself. It won't go on the job receipt."
     },
     {
      "do": "say",
      "speaker": "ali",
-     "text": "你自己寫清楚就好，沒有復原服務替你簽這張。"
+     "text": "你自己寫清楚就好，沒有復原服務替你簽這張。",
+     "ja": "自分でちゃんと書いておけばいいよ。復元サービスがこの紙にサインしてくれるわけじゃないから。",
+     "en": "Just write it down clearly yourself. The restoration service won't sign this one for you."
     }
    ],
    "when": {
@@ -2844,12 +3457,16 @@
     {
      "do": "say",
      "speaker": "ali",
-     "text": "欠條我留著，今晚不會再加，你先回家。"
+     "text": "欠條我留著，今晚不會再加，你先回家。",
+     "ja": "借用書はこっちで預かっておく。今夜はもう加算しないから、先に帰ってね。",
+     "en": "I'll keep the IOU. Nothing more will be added tonight, so go on home."
     },
     {
      "do": "say",
      "speaker": "rin",
-     "text": "我記住這間店，不把下次也先答應了。"
+     "text": "我記住這間店，不把下次也先答應了。",
+     "ja": "この店は覚えておく。次の約束は、まだしない。",
+     "en": "I'll remember this place. I won't promise next time yet."
     }
    ],
    "when": {
@@ -2870,19 +3487,27 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "我今晚只是坐一會兒，沒有點餐。我先回家，下次再來吃。"
+     "text": "我今晚只是坐一會兒，沒有點餐。我先回家，下次再來吃。",
+     "ja": "今夜は少し座っただけで、注文はしてない。先に帰って、次に食べに来る。",
+     "en": "I only sat here for a while tonight and didn't order anything. I'm heading home, and I'll come back to eat next time."
     },
     {
      "speaker": "ali",
-     "text": "那就沒有餐酒這張。門口地滑，走外側那塊乾板。"
+     "text": "那就沒有餐酒這張。門口地滑，走外側那塊乾板。",
+     "ja": "じゃあ夕食と酒の勘定はなしね。入口が滑るから、外側の乾いた板の上を歩いて。",
+     "en": "Then there's no meal-and-drinks tab. The doorway is slippery, so walk on the dry board on the outside."
     },
     {
      "speaker": "ali",
-     "text": "我下次還在這裡，你想喝湯再來。"
+     "text": "我下次還在這裡，你想喝湯再來。",
+     "ja": "次もここにいるから、スープが飲みたくなったらまた来て。",
+     "en": "I'll be here next time too. Come back if you want soup."
     },
     {
      "speaker": "rin",
-     "text": "我記住這間店，不把下次也先答應了。"
+     "text": "我記住這間店，不把下次也先答應了。",
+     "ja": "この店は覚えておく。次の約束は、まだしない。",
+     "en": "I'll remember this place. I won't promise next time yet."
     }
    ],
    "when": {
@@ -2918,12 +3543,16 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "我還沒答應留下，先回去想一下。"
+     "text": "我還沒答應留下，先回去想一下。",
+     "ja": "まだ残るとは言っていない。先に帰って考える。",
+     "en": "I haven't agreed to stay yet. I'll go back and think it over first."
     },
     {
      "do": "say",
      "speaker": "ali",
-     "text": "那就先想，不用替我把話說完。"
+     "text": "那就先想，不用替我把話說完。",
+     "ja": "じゃあ先に考えて。私のために言い切らなくていいから。",
+     "en": "Then think it over first. You don't need to finish that for my sake."
     }
    ],
    "when": {
@@ -2945,7 +3574,9 @@
     {
      "do": "say",
      "speaker": "ali",
-     "text": "今晚的兩百已經結了，麵是我的，你回家吧。"
+     "text": "今晚的兩百已經結了，麵是我的，你回家吧。",
+     "ja": "今夜の二百はもう精算したよ。麺は私のおごり。もう帰っていいよ。",
+     "en": "Tonight's 200 is already settled, and the noodles are on me. You can go home now."
     }
    ],
    "when": {
@@ -2972,7 +3603,9 @@
     {
      "do": "say",
      "speaker": "ali",
-     "text": "欠條我留著，今晚不會再加，你先回家。"
+     "text": "欠條我留著，今晚不會再加，你先回家。",
+     "ja": "借用書はこっちで預かっておく。今夜はもう加算しないから、先に帰ってね。",
+     "en": "I'll keep the IOU. Nothing more will be added tonight, so go on home."
     }
    ],
    "when": {
@@ -2999,7 +3632,9 @@
     {
      "do": "say",
      "speaker": "ali",
-     "text": "你沒有點餐，不用為那張空椅留錢。"
+     "text": "你沒有點餐，不用為那張空椅留錢。",
+     "ja": "注文はしてないんだから、空いた席のためにお金を取っておかなくていいよ。",
+     "en": "You didn't order anything, so you don't need to set money aside for that empty seat."
     }
    ],
    "when": {
@@ -3026,12 +3661,16 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "我留下。麵是妳請，今晚那份也算妳請？"
+     "text": "我留下。麵是妳請，今晚那份也算妳請？",
+     "ja": "残る。麺は梨のおごりだよね。今夜の分も梨のおごりってことでいい？",
+     "en": "I'll stay. The noodles are your treat, so is tonight's share your treat too?"
     },
     {
      "do": "say",
      "speaker": "ali",
-     "text": "是我自己決定的一份，今晚還沒用。你不用把明天的報酬押給我。"
+     "text": "是我自己決定的一份，今晚還沒用。你不用把明天的報酬押給我。",
+     "ja": "私が自分で決めた分で、今夜はまだ使ってないよ。明日の報酬を私に預けなくていい。",
+     "en": "That's my own decision, and I haven't used it tonight. You don't have to put tomorrow's pay up as collateral to me."
     },
     {
      "do": "choice",
@@ -3042,7 +3681,11 @@
        "id": "accept",
        "text": "接受今晚的招待",
        "explanation": "餐酒由阿梨招待，不返現金；麵免費。",
-       "target": "ch1_t_supper_stay_host"
+       "target": "ch1_t_supper_stay_host",
+       "ja": "「今夜の招待を受ける。」",
+       "en": "Accept tonight's treat.",
+       "explanation_ja": "夕食と酒は梨のおごりで、現金の返却はない。麺は無料。",
+       "explanation_en": "The meal and drinks are Pear's treat, with no cash refund. The noodles are free."
       },
       {
        "id": "return",
@@ -3052,9 +3695,15 @@
         "flag": "ch1_supper_can_rechoose",
         "equals": true
        },
-       "target": "ch1_t_supper_return"
+       "target": "ch1_t_supper_return",
+       "ja": "「帰って考える。」",
+       "en": "Go home and think it over.",
+       "explanation_ja": "まだ招待は受けていない。戻ってから決め直せる。",
+       "explanation_en": "The treat isn't accepted yet. You can go back and decide again."
       }
-     ]
+     ],
+     "ja": "私が自分で決めた分で、今夜はまだ使ってないよ。明日の報酬を私に預けなくていい。",
+     "en": "That's my own decision, and I haven't used it tonight. You don't have to put tomorrow's pay up as collateral to me."
     }
    ],
    "when": {
@@ -3093,12 +3742,16 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "那我欠妳一碗麵，下次換我請。"
+     "text": "那我欠妳一碗麵，下次換我請。",
+     "ja": "じゃあ、麺一杯借りだ。次はこっちが出す。",
+     "en": "Then I owe you a bowl of noodles. Next time, I'll treat you."
     },
     {
      "do": "say",
      "speaker": "ali",
-     "text": "那就欠著，你願意下次再坐，我就留一張椅子。"
+     "text": "那就欠著，你願意下次再坐，我就留一張椅子。",
+     "ja": "じゃあ借りのままにしておくね。次も座りに来てくれるなら、椅子を一脚取っておくよ。",
+     "en": "Then it stays a debt. If you come back to sit next time, I'll keep a chair for you."
     }
    ],
    "when": {
@@ -3149,12 +3802,16 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "我留下，麵就這一碗？"
+     "text": "我留下，麵就這一碗？",
+     "ja": "残る。麺はこの一杯だけか？",
+     "en": "I'll stay. Is it just this one bowl of noodles?"
     },
     {
      "do": "say",
      "speaker": "ali",
-     "text": "還有湯，你想添再跟我說。"
+     "text": "還有湯，你想添再跟我說。",
+     "ja": "スープもあるよ。おかわりしたくなったら言ってね。",
+     "en": "There's soup too. Tell me if you want a refill."
     },
     {
      "do": "choice",
@@ -3165,7 +3822,11 @@
        "id": "accept",
        "text": "接受這碗麵",
        "explanation": "只接受麵，不生成餐酒帳。",
-       "target": "ch1_t_supper_stay_host_none"
+       "target": "ch1_t_supper_stay_host_none",
+       "ja": "「この一杯の麺を受ける。」",
+       "en": "Accept this bowl of noodles.",
+       "explanation_ja": "麺だけ受け取り、夕食と酒の勘定は作らない。",
+       "explanation_en": "Accept only the noodles; no meal-and-drinks tab is created."
       },
       {
        "id": "return",
@@ -3175,9 +3836,15 @@
         "flag": "ch1_supper_can_rechoose",
         "equals": true
        },
-       "target": "ch1_t_supper_return"
+       "target": "ch1_t_supper_return",
+       "ja": "「帰って考える。」",
+       "en": "Go home and think it over.",
+       "explanation_ja": "まだ招待は受けていない。戻ってから決め直せる。",
+       "explanation_en": "The treat isn't accepted yet. You can go back and decide again."
       }
-     ]
+     ],
+     "ja": "スープもあるよ。おかわりしたくなったら言ってね。",
+     "en": "There's soup too. Tell me if you want a refill."
     }
    ],
    "when": {
@@ -3216,12 +3883,16 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "那我欠妳一碗麵，下次換我請。"
+     "text": "那我欠妳一碗麵，下次換我請。",
+     "ja": "じゃあ、麺一杯借りだ。次はこっちが出す。",
+     "en": "Then I owe you a bowl of noodles. Next time, I'll treat you."
     },
     {
      "do": "say",
      "speaker": "ali",
-     "text": "那就欠著，你願意下次再坐，我就留一張椅子。"
+     "text": "那就欠著，你願意下次再坐，我就留一張椅子。",
+     "ja": "じゃあ借りのままにしておくね。次も座りに来てくれるなら、椅子を一脚取っておくよ。",
+     "en": "Then it stays a debt. If you come back to sit next time, I'll keep a chair for you."
     }
    ],
    "when": {
@@ -3266,15 +3937,21 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "麵裡也放梨，你不怕人只記得甜？"
+     "text": "麵裡也放梨，你不怕人只記得甜？",
+     "ja": "麺にも梨を入れてるのか。甘いとしか覚えてもらえなくなるけど、いいのか？",
+     "en": "You put pear in the noodles too? Aren't you worried people will only remember it as sweet?"
     },
     {
      "speaker": "ali",
-     "text": "有人記得甜就再來，有人嫌甜就告訴我。我想開自己的攤，得先有人願意說不好吃。"
+     "text": "有人記得甜就再來，有人嫌甜就告訴我。我想開自己的攤，得先有人願意說不好吃。",
+     "ja": "甘いと覚えてくれたら、また来てね。甘すぎるなら教えてくれればいい。自分の屋台を開きたいから、まずは不味いって言ってくれる人がいないとね。",
+     "en": "If people remember it as sweet, they can come back. If it's too sweet, they can tell me. I want to open my own stall, so first I need someone to say when it's bad."
     },
     {
      "speaker": "rin",
-     "text": "這碗我吃完了，還沒找到不好吃的地方。"
+     "text": "這碗我吃完了，還沒找到不好吃的地方。",
+     "ja": "この一杯は食べ終わった。まだ不味いところは見つからない。",
+     "en": "I've finished this bowl. I haven't found anything wrong with it yet."
     }
    ],
    "when": {
@@ -3320,17 +3997,23 @@
     {
      "do": "say",
      "speaker": "ali",
-     "text": "我最近被收帳人盯上，去問租攤的事，也被叫回去對帳。"
+     "text": "我最近被收帳人盯上，去問租攤的事，也被叫回去對帳。",
+     "ja": "最近、取り立て屋に目をつけられてるの。屋台を借りる件を聞きに行ったら、帳簿の照合にも呼び戻された。",
+     "en": "Lately the collectors have had their eye on me. I went to ask about renting the stall, and they called me back in to reconcile the accounts."
     },
     {
      "do": "say",
      "speaker": "rin",
-     "text": "他們要妳還多少？我明天也去市集查一張缺的收據。"
+     "text": "他們要妳還多少？我明天也去市集查一張缺的收據。",
+     "ja": "いくら返せと言われてるの？ こっちも明日、市場で足りない領収書を探してみる。",
+     "en": "How much do they want you to pay back? I'll look for a missing receipt at the market tomorrow too."
     },
     {
      "do": "say",
      "speaker": "ali",
-     "text": "本金我認，已經付過的又被寫進去。那張我得自己看，不能聽誰說就再付。"
+     "text": "本金我認，已經付過的又被寫進去。那張我得自己看，不能聽誰說就再付。",
+     "ja": "元本は認めるよ。でも、もう払ったものまで書き込まれてる。あの一枚は自分で確かめないと。誰かに言われるまま、また払うわけにはいかないの。",
+     "en": "I accept the principal. But things I already paid got written in too. I have to check that one myself. I can't just pay again because someone tells me to."
     },
     {
      "do": "wait",
@@ -3339,17 +4022,23 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "妳想我幫妳付，還是先看妳那張？"
+     "text": "妳想我幫妳付，還是先看妳那張？",
+     "ja": "払ってほしいのか。それとも先にその一枚を見るか？",
+     "en": "Do you want me to pay it, or should we look at that paper first?"
     },
     {
      "do": "say",
      "speaker": "ali",
-     "text": "今晚先不用替我做。你明天有委託，先把你的紙對完；我的事，我想清楚會自己說。"
+     "text": "今晚先不用替我做。你明天有委託，先把你的紙對完；我的事，我想清楚會自己說。",
+     "ja": "今夜は私のために何かしなくていいよ。明日は依頼があるでしょ。まず自分の書類を最後まで照らし合わせて。私のことは、考えがまとまったら自分で話すから。",
+     "en": "You don't have to do anything for me tonight. You have a job tomorrow, so check your own papers through to the end first. When I've sorted out my situation, I'll tell you myself."
     },
     {
      "do": "say",
      "speaker": "rin",
-     "text": "妳收了攤，平常去哪裡？"
+     "text": "妳收了攤，平常去哪裡？",
+     "ja": "屋台を畳んだあと、いつもどこにいる？",
+     "en": "After you close the stall, where do you usually go?"
     },
     {
      "do": "wait",
@@ -3358,17 +4047,23 @@
     {
      "do": "say",
      "speaker": "ali",
-     "text": "我住市集後樓三樓，從代收處旁的外梯上去。敲兩下再一下，我就知道是你。"
+     "text": "我住市集後樓三樓，從代收處旁的外梯上去。敲兩下再一下，我就知道是你。",
+     "ja": "市場の奥の建物の三階に住んでる。受け取り所の横の外階段から上がって。コンコン、少し置いてコンと叩けば、あんただってわかるから。",
+     "en": "I live on the third floor of the building behind the market. Take the outside stairs beside the pickup desk. Knock twice, pause, then knock once, and I'll know it's you."
     },
     {
      "do": "say",
      "speaker": "rin",
-     "text": "我把三樓和外梯記下，沒有答應今晚就去。"
+     "text": "我把三樓和外梯記下，沒有答應今晚就去。",
+     "ja": "三階と外階段は覚えておく。今夜行くとは約束してない。",
+     "en": "I've noted the third floor and the outside stairs. I haven't promised to go tonight."
     },
     {
      "do": "say",
      "speaker": "ali",
-     "text": "我只是告訴你，不替你排明天。"
+     "text": "我只是告訴你，不替你排明天。",
+     "ja": "教えただけだよ。明日の予定まで組んであげるつもりはない。",
+     "en": "I'm only telling you. I'm not planning tomorrow for you."
     },
     {
      "do": "wait",
@@ -3377,12 +4072,16 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "回執放委託那頁，妳的名字放後面，不寫價錢。"
+     "text": "回執放委託那頁，妳的名字放後面，不寫價錢。",
+     "ja": "受領証は依頼のページに入れる。名前は後ろに書いて、値段は書かない。",
+     "en": "Put the receipt on the job page, with your name at the back and no price written."
     },
     {
      "do": "say",
      "speaker": "ali",
-     "text": "這一頁留一點空，下次想說的事還裝得下。"
+     "text": "這一頁留一點空，下次想說的事還裝得下。",
+     "ja": "そのページは少し空けておいて。次に言いたいことも入るようにね。",
+     "en": "Leave that page a little empty, so there's room for whatever I want to say next time."
     }
    ],
    "overlay": true,
@@ -3433,7 +4132,9 @@
     {
      "do": "say",
      "speaker": "ali",
-     "text": "麵吃完就先回家，明天的帳留給明天。"
+     "text": "麵吃完就先回家，明天的帳留給明天。",
+     "ja": "麺を食べ終わったら先に帰ってね。明日の勘定は明日に任せよう。",
+     "en": "Once you've finished the noodles, head home. Leave tomorrow's accounts for tomorrow."
     }
    ],
    "when": {
@@ -3456,7 +4157,9 @@
     {
      "do": "say",
      "speaker": "ali",
-     "text": "我住市集後樓三樓，外梯上去，兩下再一下；路你記著，今晚先回家。"
+     "text": "我住市集後樓三樓，外梯上去，兩下再一下；路你記著，今晚先回家。",
+     "ja": "市場の奥の建物の三階に住んでる。外階段から、コンコン、少し置いてコン。道はちゃんと覚えておいて、今夜はまず帰ってね。",
+     "en": "I live on the third floor of the building behind the market. Take the outside stairs, knock twice, pause, then knock once. Remember the way, but go home tonight first."
     }
    ],
    "when": {
@@ -3517,7 +4220,9 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "幹，嘴裡全是金屬味。"
+     "text": "幹，嘴裡全是金屬味。",
+     "ja": "くそ、口の中が金属くさい。",
+     "en": "Damn, my mouth tastes like metal."
     },
     {
      "do": "wait",
@@ -3534,12 +4239,16 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "誰把我送到這裡？我沒在這間診間登記。"
+     "text": "誰把我送到這裡？我沒在這間診間登記。",
+     "ja": "誰が俺をここに運んだ？ この診療所には登録してないぞ。",
+     "en": "Who brought me here? I'm not registered at this clinic."
     },
     {
      "do": "say",
      "speaker": "lamp",
-     "text": "灰衣人用貨車把你送來，裝備也放在臺邊。你是第一次復原，要先建檔。"
+     "text": "灰衣人用貨車把你送來，裝備也放在臺邊。你是第一次復原，要先建檔。",
+     "ja": "灰色の服の人が貨物車で運んできて、装備はそこの台に置いてあるよ。復元は初めてだから、先に登録をしないと。",
+     "en": "A man in gray brought you in by van, and your gear is on the counter over there. This is your first restoration, so you need to register first."
     },
     {
      "do": "camera",
@@ -3553,7 +4262,9 @@
     {
      "do": "say",
      "speaker": "lamp",
-     "text": "備份能存你走過的地方，初次建檔是另一件事。這次完成後，下次才在登記的亭子醒來。"
+     "text": "備份能存你走過的地方，初次建檔是另一件事。這次完成後，下次才在登記的亭子醒來。",
+     "ja": "バックアップは通ってきた場所を保存できるけど、初回の登録はまた別の話。今回の登録が終われば、次は登録した電話ボックスで目覚めるよ。",
+     "en": "Backups can save the places you've been, but first-time registration is a separate matter. Once this is done, you'll wake up at your registered phone booth next time."
     },
     {
      "do": "say",
@@ -3566,7 +4277,9 @@
     {
      "do": "say",
      "speaker": "lamp",
-     "text": "港區少年的聲音，長得都差不多吧。"
+     "text": "港區少年的聲音，長得都差不多吧。",
+     "ja": "港の少年の声なんて、どれも似たようなものでしょ。",
+     "en": "Harbor kids' voices all sound alike, I guess."
     },
     {
      "do": "camera",
@@ -3580,7 +4293,9 @@
     {
      "do": "say",
      "speaker": "lamp",
-     "text": "初次建檔免信用點費，之後復原照登記費扣，記憶也會磨損。"
+     "text": "初次建檔免信用點費，之後復原照登記費扣，記憶也會磨損。",
+     "ja": "初回の登録は無料。その後の復元は登録料がかかって、記憶もすり減るよ。",
+     "en": "First-time registration costs no credits. After that, restorations are charged the registration fee, and your memories wear down too."
     },
     {
      "do": "fx",
@@ -3590,17 +4305,23 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "我以為保單連這個也算好了。"
+     "text": "我以為保單連這個也算好了。",
+     "ja": "保険に入ってれば、こういうのも込みだと思ってたんだが。",
+     "en": "I thought the insurance covered this kind of thing too."
     },
     {
      "do": "say",
      "speaker": "lamp",
-     "text": "我只知道你這次登記能過，保單那頁得你自己留著。"
+     "text": "我只知道你這次登記能過，保單那頁得你自己留著。",
+     "ja": "今回の登録が通ることだけはわかるよ。保険のページは自分で持っておいてね。",
+     "en": "All I know is that this registration will go through. Keep the policy page yourself."
     },
     {
      "do": "say",
      "speaker": "rin",
-     "text": "我先把裝備帶走，回去接著走。"
+     "text": "我先把裝備帶走，回去接著走。",
+     "ja": "装備はもらっていく。戻って、続きを進める。",
+     "en": "I'll take the gear now and head back to keep going."
     },
     {
      "do": "wait",
@@ -3659,12 +4380,16 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "我在街角備份過，還不能直接回亭子？"
+     "text": "我在街角備份過，還不能直接回亭子？",
+     "ja": "街角でバックアップは取ったのに、まだ電話ボックスには直接戻れないのか？",
+     "en": "I backed up at a street corner already. Still can't go straight back to the phone booth?"
     },
     {
      "do": "say",
      "speaker": "lamp",
-     "text": "初次建檔是另一件事，這次完成後才回登記的亭子。"
+     "text": "初次建檔是另一件事，這次完成後才回登記的亭子。",
+     "ja": "初回の登録は別問題。今回の登録が終わってから、登録した電話ボックスに戻れるよ。",
+     "en": "First-time registration is a separate matter. Only after this is complete can you return to your registered phone booth."
     }
    ],
    "when": {
@@ -3714,12 +4439,16 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "我還沒登記亭子，下次要走回這裡？"
+     "text": "我還沒登記亭子，下次要走回這裡？",
+     "ja": "まだ電話ボックスの登録もしてない。次もここまで歩いて来ないといけないのか？",
+     "en": "I haven't registered a phone booth yet. Do I have to walk back here next time?"
     },
     {
      "do": "say",
      "speaker": "lamp",
-     "text": "完成建檔後登記電話亭，下次在登記的亭子醒來。"
+     "text": "完成建檔後登記電話亭，下次在登記的亭子醒來。",
+     "ja": "登録が終わったら電話ボックスを登録すれば、次は登録したボックスで目覚めるよ。",
+     "en": "Once registration is complete, register a phone booth, and next time you'll wake up at the registered booth."
     }
    ],
    "when": {
@@ -3791,17 +4520,23 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "老 K，壺裡已經沒水了，我先把爐火關掉。"
+     "text": "老 K，壺裡已經沒水了，我先把爐火關掉。",
+     "ja": "老K、ポットの水がもうないぞ。先にコンロの火を消しとく。",
+     "en": "Old K, there's no water left in the kettle. I'm turning off the stove first."
     },
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "你已經回來了啊，我本來想留一壺。"
+     "text": "你已經回來了啊，我本來想留一壺。",
+     "ja": "おや、もう帰ってきたのかい。一ポットぶん残しておくつもりだったのにねえ。",
+     "en": "Oh, you're already back? I was going to keep a pot for you."
     },
     {
      "do": "say",
      "speaker": "rin",
-     "text": "我回來了，資料盤已經交出去，錢明早再核對。"
+     "text": "我回來了，資料盤已經交出去，錢明早再核對。",
+     "ja": "戻った。データディスクは渡してある。金は明朝に照合する。",
+     "en": "I'm back. The data disc has been handed over, and I'll check the money tomorrow morning."
     },
     {
      "do": "wait",
@@ -3810,12 +4545,16 @@
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "八百那張有回執就收好，別拿來墊鍋喔。"
+     "text": "八百那張有回執就收好，別拿來墊鍋喔。",
+     "ja": "八百のやつは、受領証があるなら大事にしまっておくんだよ。鍋敷きにするんじゃないよ。",
+     "en": "Keep that eight-hundred slip safe if it has a receipt, and don't use it as a pot mat, you hear?"
     },
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "這壺燒乾了，不能算水好了。我去裝，今晚不用等它再滾。"
+     "text": "這壺燒乾了，不能算水好了。我去裝，今晚不用等它再滾。",
+     "ja": "このポットは空焚きしたから、お湯が沸いたことにはならないね。汲んでくるよ。今夜はもう沸くのを待たなくていいからね。",
+     "en": "This pot boiled dry, so it doesn't count as water being ready. I'll fill it. No need to wait for it to boil again tonight."
     },
     {
      "do": "sfx",
@@ -3860,17 +4599,23 @@
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "你什麼時候回來的？"
+     "text": "你什麼時候回來的？",
+     "ja": "いつ戻ってきたんだい？",
+     "en": "When did you get back?"
     },
     {
      "do": "say",
      "speaker": "rin",
-     "text": "剛才，我站在這裡叫你關火。"
+     "text": "剛才，我站在這裡叫你關火。",
+     "ja": "さっき。ここで火を消せって声をかけてたんだ。",
+     "en": "Just now. I was standing here calling for you to turn off the fire."
     },
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "我有聽見喔。明天先好好吃飯，再來對帳。"
+     "text": "我有聽見喔。明天先好好吃飯，再來對帳。",
+     "ja": "聞こえてたよ。明日はまずちゃんと飯を食べなさい。それから帳面を見よう。",
+     "en": "I heard you. Eat a proper meal tomorrow first, then we'll go over the accounts."
     },
     {
      "do": "wait",
@@ -3879,7 +4624,9 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "飯留著，錢我明早再算。"
+     "text": "飯留著，錢我明早再算。",
+     "ja": "飯は取っておいてくれ。金は明朝に計算する。",
+     "en": "Keep the food for me. I'll count the money tomorrow morning."
     },
     {
      "do": "fade",
@@ -3927,7 +4674,9 @@
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "回執放乾的那格，飯在鍋裡，明早再算喔。"
+     "text": "回執放乾的那格，飯在鍋裡，明早再算喔。",
+     "ja": "受領証を乾かしてある棚のところ。飯は鍋の中だよ。明日の朝に計算しよう。",
+     "en": "The shelf where the receipts are drying. The food's in the pot. We'll count it tomorrow morning."
     }
    ],
    "when": {
@@ -3942,7 +4691,9 @@
     {
      "do": "say",
      "speaker": "egret",
-     "text": "我今晚有自己的事，回執明早對。"
+     "text": "我今晚有自己的事，回執明早對。",
+     "ja": "今夜は私の用事があってね。受領証は明朝に照らし合わせよう。",
+     "en": "Tonight I have my own business. Let's check the receipts tomorrow morning."
     },
     {
      "do": "choice",
@@ -3956,14 +4707,24 @@
        "set_flags": {
         "ch1_sunday_accepted": true
        },
-       "target": "ch1_t_egret_sunday"
+       "target": "ch1_t_egret_sunday",
+       "ja": "「今夜と日曜のことを聞く。」",
+       "en": "Ask about tonight and Sunday.",
+       "explanation_ja": "彼女が話したいことだけを聞く。ディスク受け取りの仕事には影響しない。",
+       "explanation_en": "Only ask what she's willing to share. It doesn't affect the disc pickup job."
       },
       {
        "id": "return",
        "text": "先去做差事",
-       "explanation": "週日不接案不會鎖住主線。"
+       "explanation": "週日不接案不會鎖住主線。",
+       "ja": "「先に仕事をする。」",
+       "en": "Do the job first.",
+       "explanation_ja": "日曜に仕事を受けなくても、メインストーリーはロックされない。",
+       "explanation_en": "Skipping Sunday jobs won't lock the main story."
       }
-     ]
+     ],
+     "ja": "今夜は私の用事があってね。受領証は明朝に照らし合わせよう。",
+     "en": "Tonight I have my own business. Let's check the receipts tomorrow morning."
     }
    ],
    "when": {
@@ -3986,31 +4747,45 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "妳今晚不跟去，是又接了別張差事？"
+     "text": "妳今晚不跟去，是又接了別張差事？",
+     "ja": "今夜はついて来ないのか。別の仕事でも受けたのか？",
+     "en": "You're not coming along tonight. Did you take another job?"
     },
     {
      "speaker": "egret",
-     "text": "今晚去看一個人，差事明天才算。週日我也不排活。"
+     "text": "今晚去看一個人，差事明天才算。週日我也不排活。",
+     "ja": "今夜は人に会いに行くんだ。仕事は明日からだね。日曜も仕事は入れてないよ。",
+     "en": "Tonight I'm going to see someone, and the job counts from tomorrow. I'm not booking any work on Sunday either."
     },
     {
      "speaker": "rin",
-     "text": "每個週日都不排，這張表是誰替妳留的？"
+     "text": "每個週日都不排，這張表是誰替妳留的？",
+     "ja": "毎週日曜は空けてるのか。そのスケジュール、誰が押さえてくれてるんだ？",
+     "en": "You keep every Sunday free. Who's holding that schedule for you?"
     },
     {
      "speaker": "egret",
-     "text": "我自己留的。有人肯讓我坐一會兒，不能每次坐到一半就接電話。"
+     "text": "我自己留的。有人肯讓我坐一會兒，不能每次坐到一半就接電話。",
+     "ja": "自分で取ってあるんだよ。座らせてくれる人がいるんでね、座ってる途中で毎回電話に出るわけにはいかないのさ。",
+     "en": "I reserved it myself. Someone lets me sit down for a while, and I can't pick up the phone halfway through every time."
     },
     {
      "speaker": "rin",
-     "text": "那我明天找妳，不把週日也排進去。"
+     "text": "那我明天找妳，不把週日也排進去。",
+     "ja": "じゃあ明日また来る。日曜の予定には入れない。",
+     "en": "Then I'll come find you tomorrow and won't book Sunday either."
     },
     {
      "speaker": "egret",
-     "text": "這句你記著，下次有價高的別又說很快就做完。"
+     "text": "這句你記著，下次有價高的別又說很快就做完。",
+     "ja": "そのことは覚えとけよ。次に割のいい仕事が来ても、またすぐ終わるとか言うなよ。",
+     "en": "Remember that. Next time a high-paying job comes up, don't tell me again it'll be done quickly."
     },
     {
      "speaker": "egret",
-     "text": "茶喝掉，不然等你算完，又說熱的不是這杯。"
+     "text": "茶喝掉，不然等你算完，又說熱的不是這杯。",
+     "ja": "お茶を飲みな。計算が終わるころには冷めて、これは熱くないなんて言い出すんだろ。",
+     "en": "Drink your tea. By the time you finish counting, it'll be cold and you'll be saying this isn't the hot one."
     }
    ],
    "when": {
@@ -4046,7 +4821,9 @@
     {
      "do": "say",
      "speaker": "egret",
-     "text": "週日我留給那個人，今天先把你的差事做完。"
+     "text": "週日我留給那個人，今天先把你的差事做完。",
+     "ja": "日曜は、あの人のために空けておく。今日はまずあんたの仕事を終わらせな。",
+     "en": "I'm keeping Sunday for that person. Today, finish your job first."
     }
    ],
    "when": {
@@ -4059,15 +4836,21 @@
    "lines": [
     {
      "speaker": "label",
-     "text": "送貨員押來的懷錶。他說遲到二十分鐘會被罵，三年沒有贖回。"
+     "text": "送貨員押來的懷錶。他說遲到二十分鐘會被罵，三年沒有贖回。",
+     "ja": "配達員が質に入れていった懐中時計。遅れて二十分経つと叱られると本人は言っていて、三年間、請け出されていない。",
+     "en": "Pocket watch pawned by a courier. He says he'll get scolded if he's twenty minutes late. Not redeemed in three years."
     },
     {
      "speaker": "rin",
-     "text": "錶都不走了，你還留二十分鐘？"
+     "text": "錶都不走了，你還留二十分鐘？",
+     "ja": "時計はもう動かないのに、まだ二十分も待つのか？",
+     "en": "The watch doesn't run anymore, and you're still holding it for twenty minutes?"
     },
     {
      "speaker": "old_k",
-     "text": "他說明天來，我就留到明天喔。櫃子裡多一格，又不會趕人走。"
+     "text": "他說明天來，我就留到明天喔。櫃子裡多一格，又不會趕人走。",
+     "ja": "明日来るって言うから、明日まで取っとくよ。棚にひと段空きがあるし、追い出すわけじゃないんだから。",
+     "en": "He said he'd come tomorrow, so I'll keep it until tomorrow. There's an empty slot in the cabinet, and I'm not pushing anyone out."
     }
    ],
    "when": {
@@ -4091,12 +4874,16 @@
     {
      "do": "say",
      "speaker": "label",
-     "text": "送貨員押來的懷錶。他說遲到二十分鐘會被罵，三年沒有贖回。"
+     "text": "送貨員押來的懷錶。他說遲到二十分鐘會被罵，三年沒有贖回。",
+     "ja": "配達員が質に入れていった懐中時計。遅れて二十分経つと叱られると本人は言っていて、三年間、請け出されていない。",
+     "en": "Pocket watch pawned by a courier. He says he'll get scolded if he's twenty minutes late. Not redeemed in three years."
     },
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "這件我留著，主人來了才好找。"
+     "text": "這件我留著，主人來了才好找。",
+     "ja": "これは取っておく。持ち主が来たときに、すぐ見つけられるようにね。",
+     "en": "I'll keep this one, so it's easy to find when the owner comes."
     }
    ],
    "when": {
@@ -4109,15 +4896,21 @@
    "lines": [
     {
      "speaker": "label",
-     "text": "押來時已經沒有弦。主人說，彈的人不在了。"
+     "text": "押來時已經沒有弦。主人說，彈的人不在了。",
+     "ja": "質入れされたときには、もう弦がなかった。持ち主いわく、弾いていた人がもういない。",
+     "en": "It was pawned without strings. The owner says the person who played it is gone."
     },
     {
      "speaker": "rin",
-     "text": "沒有弦，也算一件樂器？"
+     "text": "沒有弦，也算一件樂器？",
+     "ja": "弦がなくても、楽器って言えるのか？",
+     "en": "Without strings, does it still count as an instrument?"
     },
     {
      "speaker": "old_k",
-     "text": "以前彈的人很大聲啦。我聽過，就不用再寫價錢告訴自己。"
+     "text": "以前彈的人很大聲啦。我聽過，就不用再寫價錢告訴自己。",
+     "ja": "昔弾いてた人は、それは大きな音を出してたよ。聞いたことがあるからね、値段を書いて自分に言い聞かせなくてもいいんだ。",
+     "en": "The one who used to play it was loud, you know. I've heard it, so I don't need to write a price down to remind myself."
     }
    ],
    "when": {
@@ -4141,12 +4934,16 @@
     {
      "do": "say",
      "speaker": "label",
-     "text": "押來時已經沒有弦。主人說，彈的人不在了。"
+     "text": "押來時已經沒有弦。主人說，彈的人不在了。",
+     "ja": "質入れされたときには、もう弦がなかった。持ち主いわく、弾いていた人がもういない。",
+     "en": "It was pawned without strings. The owner says the person who played it is gone."
     },
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "這件我留著，主人來了才好找。"
+     "text": "這件我留著，主人來了才好找。",
+     "ja": "これは取っておく。持ち主が来たときに、すぐ見つけられるようにね。",
+     "en": "I'll keep this one, so it's easy to find when the owner comes."
     }
    ],
    "when": {
@@ -4159,15 +4956,21 @@
    "lines": [
     {
      "speaker": "label",
-     "text": "碼頭舊雨衣。主人說，這件曾替另一個人擋過水。"
+     "text": "碼頭舊雨衣。主人說，這件曾替另一個人擋過水。",
+     "ja": "埠頭の古いレインコート。持ち主によると、かつては別の人のために雨を防いでいたという。",
+     "en": "Old dock raincoat. The owner says it once kept another person dry."
     },
     {
      "speaker": "rin",
-     "text": "這個袖口破了，水還是會進去。"
+     "text": "這個袖口破了，水還是會進去。",
+     "ja": "袖口が破れてる。水が入ってくるな。",
+     "en": "The cuff's torn. Water still gets in."
     },
     {
      "speaker": "old_k",
-     "text": "那就先替它折好，別讓人穿上才發現。我沒說穿著就不會死喔。"
+     "text": "那就先替它折好，別讓人穿上才發現。我沒說穿著就不會死喔。",
+     "ja": "じゃあ先にたたんでおくよ。着てから気づかれたら困るからな。着たら死なないとは言ってないぞ。",
+     "en": "Then fold it away for now, so nobody finds out only after putting it on. I never said wearing it won't get you killed, mind you."
     }
    ],
    "when": {
@@ -4191,12 +4994,16 @@
     {
      "do": "say",
      "speaker": "label",
-     "text": "碼頭舊雨衣。主人說，這件曾替另一個人擋過水。"
+     "text": "碼頭舊雨衣。主人說，這件曾替另一個人擋過水。",
+     "ja": "埠頭の古いレインコート。持ち主によると、かつては別の人のために雨を防いでいたという。",
+     "en": "Old dock raincoat. The owner says it once kept another person dry."
     },
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "這件我留著，主人來了才好找。"
+     "text": "這件我留著，主人來了才好找。",
+     "ja": "これは取っておく。持ち主が来たときに、すぐ見つけられるようにね。",
+     "en": "I'll keep this one, so it's easy to find when the owner comes."
     }
    ],
    "when": {
@@ -4209,15 +5016,21 @@
    "lines": [
     {
      "speaker": "label",
-     "text": "船錢，留給回不來的人渡河用的。"
+     "text": "船錢，留給回不來的人渡河用的。",
+     "ja": "渡し賃。戻ってこられなかった人が川を渡るために残しておくもの。",
+     "en": "The Fare. Kept for those who never came back, to pay their way across the river."
     },
     {
      "speaker": "rin",
-     "text": "這罐也算在可賣的貨裡？"
+     "text": "這罐也算在可賣的貨裡？",
+     "ja": "この瓶も売り物に入るのか？",
+     "en": "Does this jar count as merchandise for sale?"
     },
     {
      "speaker": "old_k",
-     "text": "這個不賣。有人回不來，還是要留一筆給他走完路。"
+     "text": "這個不賣。有人回不來，還是要留一筆給他走完路。",
+     "ja": "これは売らないよ。帰ってこられなかった者のために、渡る分は残しておくんだ。",
+     "en": "Not for sale. Someone may never come back, and we still keep a sum to see them across."
     }
    ],
    "when": {
@@ -4241,12 +5054,16 @@
     {
      "do": "say",
      "speaker": "label",
-     "text": "船錢，留給回不來的人渡河用的。"
+     "text": "船錢，留給回不來的人渡河用的。",
+     "ja": "渡し賃。戻ってこられなかった人が川を渡るために残しておくもの。",
+     "en": "The Fare. Kept for those who never came back, to pay their way across the river."
     },
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "這件我留著，主人來了才好找。"
+     "text": "這件我留著，主人來了才好找。",
+     "ja": "これは取っておく。持ち主が来たときに、すぐ見つけられるようにね。",
+     "en": "I'll keep this one, so it's easy to find when the owner comes."
     }
    ],
    "when": {
@@ -4261,7 +5078,9 @@
     {
      "do": "say",
      "speaker": "lamp",
-     "text": "耳機我還接著，你想問什麼？"
+     "text": "耳機我還接著，你想問什麼？",
+     "ja": "イヤホンはまだつながってるよ。何か聞きたいことある？",
+     "en": "I'm still on the headset. What do you want to ask?"
     },
     {
      "do": "choice",
@@ -4275,14 +5094,24 @@
        "set_flags": {
         "ch1_voice_accepted": true
        },
-       "target": "ch1_t_lamp_voice_first"
+       "target": "ch1_t_lamp_voice_first",
+       "ja": "なぜ録音みたいに聞こえるのか、灯に聞く。",
+       "en": "Ask Wick why it sounds like a recording.",
+       "explanation_ja": "似ているという記録だけ残す。録音した者の名前は書き込まない。",
+       "explanation_en": "Records the resemblance only. Does not fill in the recorder's name."
       },
       {
        "id": "return",
        "text": "先把路走完",
-       "explanation": "不影響當前主線，下次可再問。"
+       "explanation": "不影響當前主線，下次可再問。",
+       "ja": "まずは道を最後まで行く。",
+       "en": "Finish the route first.",
+       "explanation_ja": "メインの流れには影響しない。次にまた聞ける。",
+       "explanation_en": "Does not affect the main path. You can ask again next time."
       }
-     ]
+     ],
+     "ja": "イヤホンはまだつながってるよ。何か聞きたいことある？",
+     "en": "I'm still on the headset. What do you want to ask?"
     }
    ],
    "when": {
@@ -4305,19 +5134,27 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "剛才錄音裡那個聲音跟你很像，你也替他們錄過？"
+     "text": "剛才錄音裡那個聲音跟你很像，你也替他們錄過？",
+     "ja": "さっきの録音の声、お前によく似てた。お前も誰かの代わりに録ったことがあるのか？",
+     "en": "That voice in the recording just now sounded just like you. Did you record for them too?"
     },
     {
      "speaker": "lamp",
-     "text": "我只在耳機裡陪你走，亭子播的是舊錄音。港區的喇叭本來都一樣難聽。"
+     "text": "我只在耳機裡陪你走，亭子播的是舊錄音。港區的喇叭本來都一樣難聽。",
+     "ja": "わたしはイヤホンの中であんたに付き合ってるだけ。電話ボックスが流してるのは古い録音だよ。港の拡声器は、もともとみんなこんなふうに聞こえるんだ。",
+     "en": "I'm only with you through the headset. The phone booth plays old recordings. The speakers in the port district all sounded this bad to begin with."
     },
     {
      "speaker": "rin",
-     "text": "你把我的耳機也罵進去了。"
+     "text": "你把我的耳機也罵進去了。",
+     "ja": "イヤホンまでけなしたな。",
+     "en": "You put my headset in the insult too."
     },
     {
      "speaker": "lamp",
-     "text": "那顆喇叭真該換，我沒有改口。"
+     "text": "那顆喇叭真該換，我沒有改口。",
+     "ja": "あのスピーカーは本当に替えるべきだよ。前言撤回はしないからね。",
+     "en": "That speaker really needs replacing. I'm not taking it back."
     }
    ],
    "when": {
@@ -4354,7 +5191,9 @@
     {
      "do": "say",
      "speaker": "lamp",
-     "text": "路線還接著，你要繼續問錄音？"
+     "text": "路線還接著，你要繼續問錄音？",
+     "ja": "ルートはまだつながってるよ。録音のことを続けて聞く？",
+     "en": "The route's still connected. Want to keep asking about the recording?"
     },
     {
      "do": "choice",
@@ -4365,15 +5204,25 @@
        "id": "ask",
        "text": "再問錄音是不是他",
        "explanation": "他願不願意說，由他自己決定。",
-       "target": "ch1_t_lamp_voice_second"
+       "target": "ch1_t_lamp_voice_second",
+       "ja": "録音の声は本人なのかと、もう一度聞く。",
+       "en": "Ask again whether the voice on the recording is him.",
+       "explanation_ja": "話すかどうかは本人が決めることだ。",
+       "explanation_en": "Whether he chooses to speak is up to him."
       },
       {
        "id": "later",
        "text": "先不問",
        "explanation": "保留第一次問過的線索，不算第二次答完。",
-       "target": "ch1_t_lamp_voice_later"
+       "target": "ch1_t_lamp_voice_later",
+       "ja": "今は聞かない。",
+       "en": "Don't ask for now.",
+       "explanation_ja": "最初に聞いた手がかりは残しておく。二度目の質問は完了扱いにならない。",
+       "explanation_en": "Keeps the lead from the first question open. It does not count as having answered the second."
       }
-     ]
+     ],
+     "ja": "ルートはまだつながってるよ。録音のことを続けて聞く？",
+     "en": "The route's still connected. Want to keep asking about the recording?"
     }
    ],
    "when": {
@@ -4396,19 +5245,27 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "我不是問喇叭。我想知道，說歡迎回來的人是不是你。"
+     "text": "我不是問喇叭。我想知道，說歡迎回來的人是不是你。",
+     "ja": "スピーカーのことを聞いてるんじゃない。「おかえり」と言ったのがお前かどうか知りたい。",
+     "en": "I'm not asking about the speaker. I want to know whether the one who said 'welcome back' was you."
     },
     {
      "speaker": "lamp",
-     "text": "以前的聲音不一定跟現在一樣，我現在不想說這段。你可以先把路走完。"
+     "text": "以前的聲音不一定跟現在一樣，我現在不想說這段。你可以先把路走完。",
+     "ja": "昔の声が今も同じとは限らないよ。今はこの話をしたくないんだ。先に道を最後まで行っておいで。",
+     "en": "A voice from before isn't always the same as now, and I don't want to talk about this part right now. You can finish the route first."
     },
     {
      "speaker": "rin",
-     "text": "那我記相似，不替你寫答案。"
+     "text": "那我記相似，不替你寫答案。",
+     "ja": "じゃあ似ているとだけ記録する。答えは書いてやらない。",
+     "en": "Then I'll record it as a resemblance and won't write the answer for you."
     },
     {
      "speaker": "lamp",
-     "text": "這樣記就好，回執也別忘了。"
+     "text": "這樣記就好，回執也別忘了。",
+     "ja": "それで記録しておいて。受領証も忘れないでね。",
+     "en": "That's fine to record. Don't forget the receipt either."
     }
    ],
    "when": {
@@ -4440,12 +5297,16 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "路線先接著，我回頭再問聲音。"
+     "text": "路線先接著，我回頭再問聲音。",
+     "ja": "ルートは先に進む。声のことはまた後で聞く。",
+     "en": "I'll keep to the route and ask about the voice later."
     },
     {
      "do": "say",
      "speaker": "lamp",
-     "text": "耳機我不掛，你走到下一盞燈再看。"
+     "text": "耳機我不掛，你走到下一盞燈再看。",
+     "ja": "イヤホンはつないだままにしとくよ。次の灯りまで行ったら、また見てみて。",
+     "en": "I'll keep the headset on. Check again when you reach the next lamp."
     }
    ],
    "when": {
@@ -4460,7 +5321,9 @@
     {
      "do": "say",
      "speaker": "lamp",
-     "text": "那段舊聲音我還沒想講，你記相似就好。"
+     "text": "那段舊聲音我還沒想講，你記相似就好。",
+     "ja": "あの昔の声のことは、まだ話す気になれないんだ。似ているとだけ記録しておいて。",
+     "en": "I'm not ready to talk about that old voice yet. Just record it as a resemblance."
     }
    ],
    "when": {
@@ -4500,7 +5363,9 @@
     {
      "do": "say",
      "speaker": "lamp",
-     "text": "裝備在臺邊，茶杯放在托盤上。你想先看看，還是離開？"
+     "text": "裝備在臺邊，茶杯放在托盤上。你想先看看，還是離開？",
+     "ja": "装備は台のそばに、茶碗は盆の上にあるよ。先に見ていく？それとも出る？",
+     "en": "Your gear is by the table, and the tea cup is on the tray. Want to look first, or leave?"
     },
     {
      "do": "choice",
@@ -4511,21 +5376,35 @@
        "id": "look",
        "text": "看杯邊的布角",
        "explanation": "查看真托盤，不在復原回放中取物。",
-       "target": "ch1_t_clinic_cloth_look"
+       "target": "ch1_t_clinic_cloth_look",
+       "ja": "茶碗のふちにある布の端を見る。",
+       "en": "Look at the cloth corner by the cup.",
+       "explanation_ja": "本物の盆を調べる。復元の再現中は物を取らない。",
+       "explanation_en": "Examine the real tray. Nothing is taken during the restoration replay."
       },
       {
        "id": "backup",
        "text": "問下次會在哪裡醒來。",
        "explanation": "復原點的規則，不影響建檔。",
-       "target": "ch1_dispatch_clinic_backup"
+       "target": "ch1_dispatch_clinic_backup",
+       "ja": "次はどこで目覚めるのか聞く。",
+       "en": "Ask where you'll wake up next time.",
+       "explanation_ja": "復元地点のルール。登録には影響しない。",
+       "explanation_en": "Restoration point rules. Does not affect registration."
       },
       {
        "id": "leave",
        "text": "先離開診間",
        "explanation": "不取布也能繼續主線。",
-       "target": "ch1_t_clinic_cloth_leave"
+       "target": "ch1_t_clinic_cloth_leave",
+       "ja": "先に診察室を出る。",
+       "en": "Leave the clinic room first.",
+       "explanation_ja": "布を取らなくてもメインの流れは続けられる。",
+       "explanation_en": "You can continue the main path without taking the cloth."
       }
-     ]
+     ],
+     "ja": "装備は台のそばに、茶碗は盆の上にあるよ。先に見ていく？それとも出る？",
+     "en": "Your gear is by the table, and the tea cup is on the tray. Want to look first, or leave?"
     }
    ],
    "when": {
@@ -4579,12 +5458,16 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "這杯還熱，杯邊怎麼壓了一塊布？"
+     "text": "這杯還熱，杯邊怎麼壓了一塊布？",
+     "ja": "この茶碗はまだ温かい。ふちの下に布が挟まってるのはなんで？",
+     "en": "This cup is still warm. Why is there a cloth pinned under its rim?"
     },
     {
      "do": "say",
      "speaker": "lamp",
-     "text": "送你來的人留下的，診間的人只說他放完就走。"
+     "text": "送你來的人留下的，診間的人只說他放完就走。",
+     "ja": "君を連れてきた人が置いていったんだよ。診療所の人が言うには、置いてすぐ帰ったって。",
+     "en": "Left by whoever brought you here. The clinic staff only said he set it down and left right away."
     }
    ],
    "when": {
@@ -4646,7 +5529,9 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "布角沒有名字，我要收起，還是留在這裡？"
+     "text": "布角沒有名字，我要收起，還是留在這裡？",
+     "ja": "布の端に名前はない。持っていくか、ここに置いていくか。",
+     "en": "The cloth corner has no name on it. Should I take it, or leave it here?"
     },
     {
      "do": "choice",
@@ -4657,15 +5542,25 @@
        "id": "take",
        "text": "收起布角",
        "explanation": "實際挪杯收布；茶不拿走。",
-       "target": "ch1_t_clinic_cloth_take"
+       "target": "ch1_t_clinic_cloth_take",
+       "ja": "布の端をしまう。",
+       "en": "Put the cloth corner away.",
+       "explanation_ja": "茶碗をずらして布を収める。お茶は持っていかない。",
+       "explanation_en": "Moves the cup and takes the cloth. The tea is not taken."
       },
       {
        "id": "leave",
        "text": "留在托盤",
        "explanation": "不取得物品，也不完成取布節點。",
-       "target": "ch1_t_clinic_cloth_leave"
+       "target": "ch1_t_clinic_cloth_leave",
+       "ja": "盆の上に残す。",
+       "en": "Leave it on the tray.",
+       "explanation_ja": "アイテムは得ず、布を取る工程も完了しない。",
+       "explanation_en": "Obtains no item and does not complete the cloth-taking step."
       }
-     ]
+     ],
+     "ja": "布の端に名前はない。持っていくか、ここに置いていくか。",
+     "en": "The cloth corner has no name on it. Should I take it, or leave it here?"
     }
    ],
    "when": {
@@ -4727,12 +5622,16 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "布上沒有名字，我先把它收著，茶就留在這裡。"
+     "text": "布上沒有名字，我先把它收著，茶就留在這裡。",
+     "ja": "布に名前はない。とりあえずしまっておく。お茶はここに置いていく。",
+     "en": "There's no name on the cloth, so I'll put it away for now. The tea stays here."
     },
     {
      "do": "say",
      "speaker": "lamp",
-     "text": "先讓它乾，不要跟濕紙夾一起。"
+     "text": "先讓它乾，不要跟濕紙夾一起。",
+     "ja": "先に乾かして。濡れた紙と一緒に挟まないでね。",
+     "en": "Let it dry first, and don't keep it pressed together with wet paper."
     },
     {
      "do": "fade",
@@ -4810,12 +5709,16 @@
     {
      "do": "say",
      "speaker": "rin",
-     "text": "我先不拿，杯子留這裡。"
+     "text": "我先不拿，杯子留這裡。",
+     "ja": "今は取らない。茶碗はここに置いていく。",
+     "en": "I won't take it for now. The cup stays here."
     },
     {
      "do": "say",
      "speaker": "lamp",
-     "text": "你要走就先穿好裝備，門口會有人指電話亭。"
+     "text": "你要走就先穿好裝備，門口會有人指電話亭。",
+     "ja": "出るなら先に装備をつけてね。入り口にいる人が電話ボックスの場所を教えてくれるよ。",
+     "en": "If you're leaving, put your gear on first. Someone at the door will point you to the phone booth."
     },
     {
      "do": "fade",
@@ -4837,11 +5740,15 @@
    "lines": [
     {
      "speaker": "voice",
-     "text": "歡迎使用天穹備份服務，備份已經完成。"
+     "text": "歡迎使用天穹備份服務，備份已經完成。",
+     "ja": "ようこそ、天穹バックアップサービスへ。バックアップが完了しました。",
+     "en": "Welcome to Skydome Backup Service. Your backup is complete."
     },
     {
      "speaker": "voice",
-     "text": "再來一次，沒關係。"
+     "text": "再來一次，沒關係。",
+     "ja": "もう一度でいい。大丈夫。",
+     "en": "Try again, it's fine."
     }
    ],
    "freeze": true
@@ -4872,7 +5779,9 @@
      "text": "序章　雨裡的燈",
      "sub": "巢蛋當舖",
      "time": 1.8,
-     "color": "#35e0ff"
+     "color": "#35e0ff",
+     "ja": "序章　雨の中の灯",
+     "en": "Prologue: The Lamp in the Rain"
     },
     {
      "do": "scene",
@@ -4919,17 +5828,23 @@
     {
      "do": "say",
      "speaker": "voice",
-     "text": "沉港市復原服務提醒您，出門前請確認自己的登記與接應地點。"
+     "text": "沉港市復原服務提醒您，出門前請確認自己的登記與接應地點。",
+     "ja": "沈港市復元サービスからのお知らせです。外出前に、登録内容とお迎えの場所をご確認ください。",
+     "en": "Sinkport Restoration Service reminds you to confirm your registration and pickup point before going out."
     },
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "把門帶上喔，雨都跑進來了。"
+     "text": "把門帶上喔，雨都跑進來了。",
+     "ja": "ドア閉めとくれよ。雨が入ってきてるじゃないか。",
+     "en": "Shut the door, you hear? The rain's getting in."
     },
     {
      "do": "say",
      "speaker": "rin",
-     "text": "外面那個門扣又鬆了，我等一下看。"
+     "text": "外面那個門扣又鬆了，我等一下看。",
+     "ja": "外のあの留め金、またゆるんでる。あとで見る。",
+     "en": "That latch outside is loose again. I'll look at it later."
     },
     {
      "do": "wait",
@@ -4938,17 +5853,23 @@
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "先把鞋擦乾。巢蛋當舖收貨，不收你一路踩進來的水。"
+     "text": "先把鞋擦乾。巢蛋當舖收貨，不收你一路踩進來的水。",
+     "ja": "まず靴を拭きな。巢蛋当舗は品物を預かる店だ。ここまで踏み込んできた水は預からんぞ。",
+     "en": "Dry your shoes first. The Nest Egg pawnshop takes in goods, not the water you've tracked in all the way."
     },
     {
      "do": "say",
      "speaker": "rin",
-     "text": "你今天收了什麼要我試？"
+     "text": "你今天收了什麼要我試？",
+     "ja": "今日は何を入れた。試せってことか？",
+     "en": "What did you take in today that you want me to test?"
     },
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "靶跟訓練器都在後面，工作桌上有貨單。今天剛收的，別急著拿出去用。"
+     "text": "靶跟訓練器都在後面，工作桌上有貨單。今天剛收的，別急著拿出去用。",
+     "ja": "的と訓練機は裏にある。作業台に納品書がある。今日入ったばかりだから、急いで持ち出して使うんじゃないよ。",
+     "en": "The targets and training rig are out back, and the delivery sheet is on the work table. We took them in today, so don't rush to take them out and use them."
     },
     {
      "do": "fade",
@@ -4962,31 +5883,45 @@
    "lines": [
     {
      "speaker": "old_k",
-     "text": "目錄又翻到那一頁啦？紙都要被你磨破了。"
+     "text": "目錄又翻到那一頁啦？紙都要被你磨破了。",
+     "ja": "またカタログのあのページかい？紙がすり切れちまうよ。",
+     "en": "Back to that catalog page again? You'll wear the paper through."
     },
     {
      "speaker": "rin",
-     "text": "晴岸那間四十八萬，窗戶下午照得到太陽。"
+     "text": "晴岸那間四十八萬，窗戶下午照得到太陽。",
+     "ja": "晴岸のあの物件は48万クレジット。窓には午後に日が当たる。",
+     "en": "That place in The Far Shore is 480,000 credits, and its windows get afternoon sun."
     },
     {
      "speaker": "old_k",
-     "text": "晴岸是上層的日照區，光是電梯就要換兩趟。你搬箱子別一直看它。"
+     "text": "晴岸是上層的日照區，光是電梯就要換兩趟。你搬箱子別一直看它。",
+     "ja": "晴岸は上層の日当たりのいい地区だ。エレベーターだけで乗り換えが二回もいる。箱を運ぶ間、ずっと見上げてるんじゃないよ。",
+     "en": "The Far Shore is the upper sunlit district. Getting there takes two elevator changes. Don't keep staring up at it while you carry boxes."
     },
     {
      "speaker": "rin",
-     "text": "我沒要搬上去。我想把你搬上去。"
+     "text": "我沒要搬上去。我想把你搬上去。",
+     "ja": "自分が上に引っ越すとは言ってない。あんたを上に移したいんだ。",
+     "en": "I'm not moving up there. I want to move you up there."
     },
     {
      "speaker": "old_k",
-     "text": "我在這裡住得好好的，飯也煮得熟。"
+     "text": "我在這裡住得好好的，飯也煮得熟。",
+     "ja": "わしはここで十分暮らしてる。飯だってちゃんと炊けるんだ。",
+     "en": "I'm doing fine living here, and I cook my rice just fine."
     },
     {
      "speaker": "rin",
-     "text": "你睡的那間，晴天也看不出來。"
+     "text": "你睡的那間，晴天也看不出來。",
+     "ja": "あんたが寝てる部屋は、晴れてても晴れてるって分からないな。",
+     "en": "The room you sleep in, you can't even tell it's sunny out."
     },
     {
      "speaker": "old_k",
-     "text": "那就先把今天過完。你跳上搬貨台拿工具，我替你留飯。"
+     "text": "那就先把今天過完。你跳上搬貨台拿工具，我替你留飯。",
+     "ja": "じゃあまず今日を終わらせな。荷台に飛び乗って道具を取ってきな。飯は取っておくから。",
+     "en": "Then get through today first. Hop up onto the loading platform and grab your tools. I'll keep some food for you."
     }
    ]
   },
@@ -4995,15 +5930,21 @@
    "lines": [
     {
      "speaker": "note",
-     "text": "晴岸住宅目錄：日照區邊緣住宅，標價四十八萬信用點。看房須預約，目錄不代表已經購屋。"
+     "text": "晴岸住宅目錄：日照區邊緣住宅，標價四十八萬信用點。看房須預約，目錄不代表已經購屋。",
+     "ja": "晴岸住宅カタログ：日当たり地区の縁にある住宅。希望価格は48万クレジット。内覧は予約制。カタログに載っていても、購入済みを意味するものではありません。",
+     "en": "The Far Shore Housing Catalog: edge-of-sunlit-district residence, listed at 480,000 credits. Viewings require an appointment. Appearing in the catalog does not mean the home has been bought."
     },
     {
      "speaker": "note",
-     "text": "凜的手記：以前存下的兩萬七千四百先記在這裡。還沒拿到的差事錢不算，房子的數字也不會自己變小。"
+     "text": "凜的手記：以前存下的兩萬七千四百先記在這裡。還沒拿到的差事錢不算，房子的數字也不會自己變小。",
+     "ja": "凛のメモ：これまでに貯めた27,400をここに書いておく。まだ受け取っていない仕事の報酬は数えない。家の値段も勝手には小さくならない。",
+     "en": "Rin's notes: The 27,400 saved up so far is recorded here. Pay from jobs not yet received doesn't count, and the house price won't shrink on its own."
     },
     {
      "speaker": "rin",
-     "text": "我把這頁折起來，等錢夠了再翻開。"
+     "text": "我把這頁折起來，等錢夠了再翻開。",
+     "ja": "このページは折っておく。金が貯まったら開き直す。",
+     "en": "I'll fold this page down and open it again once I have enough money."
     }
    ]
   },
@@ -5012,7 +5953,9 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "工具拿到了，先去後面試靶。"
+     "text": "工具拿到了，先去後面試靶。",
+     "ja": "道具は手に入れた。まず裏で的を試す。",
+     "en": "Got the tools. Going to test the targets out back first."
     }
    ]
   },
@@ -5021,19 +5964,27 @@
    "lines": [
     {
      "speaker": "old_k",
-     "text": "靶跟訓練器都是今天剛收的，你用自己的槍幫我試準不準。"
+     "text": "靶跟訓練器都是今天剛收的，你用自己的槍幫我試準不準。",
+     "ja": "的も訓練機も今日入ったばかりだ。自分の銃で試して、狙いが正確か教えてくれ。",
+     "en": "The targets and rig came in today. Test them with your gun and tell me if they're true."
     },
     {
      "speaker": "rin",
-     "text": "彈匣看過了。你站我後面的白線外，別靠近背板。"
+     "text": "彈匣看過了。你站我後面的白線外，別靠近背板。",
+     "ja": "弾倉は確認済み。後ろの白線の外にいて、背板に近づくな。",
+     "en": "Magazine's checked. Stay behind my white line and keep off the backboard."
     },
     {
      "speaker": "old_k",
-     "text": "我就看它有沒有亂跳。先試低處那個靶，再看上面那個。"
+     "text": "我就看它有沒有亂跳。先試低處那個靶，再看上面那個。",
+     "ja": "わしは暴れないかどうかを見るだけだ。まず低いほうの的を試して、それから上のを見な。",
+     "en": "I want to see if it pulls. Try the low target first, then the one up top."
     },
     {
      "speaker": "rin",
-     "text": "這個靶的鉸鏈比外殼新，可能換過裡面的零件。"
+     "text": "這個靶的鉸鏈比外殼新，可能換過裡面的零件。",
+     "ja": "この的のヒンジは外側より新しい。中の部品を替えたのかもしれない。",
+     "en": "This target's hinge is newer than its casing. It may have had internal parts replaced."
     }
    ]
   },
@@ -5042,15 +5993,21 @@
    "lines": [
     {
      "speaker": "old_k",
-     "text": "落點沒歪，靶也收得住。你再走兩步試，別替它藏毛病。"
+     "text": "落點沒歪，靶也收得住。你再走兩步試，別替它藏毛病。",
+     "ja": "着弾は真っすぐ、的も持ってる。二歩下がってもう一回。欠点を隠しちゃだめだよ。",
+     "en": "Shots land true and it holds. Step back two paces, try again, and don't hide its faults."
     },
     {
      "speaker": "rin",
-     "text": "我收回剛才那句，它的框有點鬆。"
+     "text": "我收回剛才那句，它的框有點鬆。",
+     "ja": "さっきの言葉は取り消す。枠が少しゆるい。",
+     "en": "I take back what I said. Its frame's a bit loose."
     },
     {
      "speaker": "old_k",
-     "text": "上面那個靶想試就跳上平台，不試也行，訓練器在更後面。"
+     "text": "上面那個靶想試就跳上平台，不試也行，訓練器在更後面。",
+     "ja": "上の的を試したいなら台に飛び乗りな。試さなくてもいい。訓練機はもっと奥だ。",
+     "en": "To test the top one, jump onto the platform. You don't have to; the rig is further back."
     }
    ]
   },
@@ -5059,7 +6016,9 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "上面的靶也沒歪，跳著打一樣準。"
+     "text": "上面的靶也沒歪，跳著打一樣準。",
+     "ja": "上の的も歪んでない。跳びながら撃っても同じくらい正確だ。",
+     "en": "The target up top isn't off either. Shooting while jumping is just as accurate."
     }
    ]
   },
@@ -5068,19 +6027,27 @@
    "lines": [
     {
      "speaker": "old_k",
-     "text": "近戰也試一下。窄巷裡，槍不一定轉得過去。"
+     "text": "近戰也試一下。窄巷裡，槍不一定轉得過去。",
+     "ja": "近接も試しとけ。狭い路地じゃ、銃がいつも振り回せるとは限らんからな。",
+     "en": "Try the melee too. In a narrow alley, a gun won't always swing around in time."
     },
     {
      "speaker": "rin",
-     "text": "這個橡膠靶的裂口會刮手，先貼起來再賣。"
+     "text": "這個橡膠靶的裂口會刮手，先貼起來再賣。",
+     "ja": "このゴム的の割れ目は手を擦りむく。売る前に貼っとけ。",
+     "en": "This rubber target's split will scrape your hand. Tape it up before you sell it."
     },
     {
      "speaker": "old_k",
-     "text": "貼的在桌邊。訓練器只會往前打，出手前會亮燈，你站穩再靠近它。"
+     "text": "貼的在桌邊。訓練器只會往前打，出手前會亮燈，你站穩再靠近它。",
+     "ja": "テープは机の端だ。訓練機は前にしか打たないし、打つ前に光る。足を構えて近づきな。",
+     "en": "Tape's on the desk. The rig strikes forward and lights up first. Set your feet."
     },
     {
      "speaker": "rin",
-     "text": "我看見燈了。你把它調慢一點，別讓機器把我的手臂折掉。"
+     "text": "我看見燈了。你把它調慢一點，別讓機器把我的手臂折掉。",
+     "ja": "光ったのは見えた。少し遅くしてくれ。機械に腕を折られたくない。",
+     "en": "I see the light. Slow it down a bit, and don't let the machine break my arm."
     }
    ]
   },
@@ -5089,7 +6056,9 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "打到軟靶也沒有滑手，握得住。"
+     "text": "打到軟靶也沒有滑手，握得住。",
+     "ja": "柔らかい的に当てても手は滑らなかった。ちゃんと握れる。",
+     "en": "Hitting the soft target didn't slip my grip. I can hold on."
     }
    ]
   },
@@ -5098,15 +6067,21 @@
    "lines": [
     {
      "speaker": "old_k",
-     "text": "先站穩，機器停了。別跟一根桿子賭氣喔。"
+     "text": "先站穩，機器停了。別跟一根桿子賭氣喔。",
+     "ja": "まず体勢を立て直しな。機械は止まったよ。棒っきれ相手にむきになるんじゃないよ。",
+     "en": "Steady yourself first, the machine's stopped. Don't go picking a fight with a pole, you hear?"
     },
     {
      "speaker": "rin",
-     "text": "腳沒站穩，墊子邊緣捲起來了。你把它攤平，我再試。"
+     "text": "腳沒站穩，墊子邊緣捲起來了。你把它攤平，我再試。",
+     "ja": "足が踏ん張れなくて、マットの端がめくれた。平らにしてくれ。もう一度試す。",
+     "en": "My feet didn't hold, and the mat's edge curled up. Flatten it out, and I'll try again."
     },
     {
      "speaker": "old_k",
-     "text": "拉好了。要再試就靠近它，燈亮的時候面向它舉盾。"
+     "text": "拉好了。要再試就靠近它，燈亮的時候面向它舉盾。",
+     "ja": "直したよ。もう一度やるなら近づきな。光ったら正面を向いて盾を構えるんだ。",
+     "en": "It's smoothed out. If you want to try again, get close, and when it lights up, face it and raise your shield."
     }
    ]
   },
@@ -5115,7 +6090,9 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "擋住了。這台出手前會亮燈，看得出來。"
+     "text": "擋住了。這台出手前會亮燈，看得出來。",
+     "ja": "防げた。こいつは手を出す前に光るから、読める。",
+     "en": "Blocked it. This one lights up before it strikes, so you can tell."
     }
    ]
   },
@@ -5124,15 +6101,21 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "槍還能用，靶的框要鎖緊，這台的桿子太長了。"
+     "text": "槍還能用，靶的框要鎖緊，這台的桿子太長了。",
+     "ja": "銃はまだ使える。的の枠はしっかり締めないといけない。この棒は長すぎる。",
+     "en": "The gun still works. The target's frame needs locking down, and this one's pole is too long."
     },
     {
      "speaker": "old_k",
-     "text": "我記在貨單上了。回櫃台來，那張復原服務單我順便跟你說。"
+     "text": "我記在貨單上了。回櫃台來，那張復原服務單我順便跟你說。",
+     "ja": "納品書に書いておいたよ。カウンターに戻っておいで。復元サービスの紙のことも、ついでに説明しておくから。",
+     "en": "I've written it on the delivery sheet. Come back to the counter, and I'll explain that restoration service form while I'm at it."
     },
     {
      "speaker": "rin",
-     "text": "好，我把器材排回原位就過去。"
+     "text": "好，我把器材排回原位就過去。",
+     "ja": "わかった。器材を元の場所に戻したら行く。",
+     "en": "All right. I'll put the equipment back in place and come over."
     }
    ]
   },
@@ -5148,35 +6131,51 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "這上面寫的記憶代價，為什麼不寫在價錢旁邊？"
+     "text": "這上面寫的記憶代價，為什麼不寫在價錢旁邊？",
+     "ja": "ここに書いてある記憶の代償は、なんで値段の横に書かないんだ？",
+     "en": "If the memory cost is written here, why isn't it next to the price?"
     },
     {
      "speaker": "old_k",
-     "text": "價錢能補，忘掉的事不一定補得回來喔。"
+     "text": "價錢能補，忘掉的事不一定補得回來喔。",
+     "ja": "金は取り戻せるが、忘れたことは必ずしも戻ってこないよ。",
+     "en": "Money can be made up. What you've forgotten doesn't always come back, you know."
     },
     {
      "speaker": "rin",
-     "text": "我每次都算進你的那一成了，不是嗎？"
+     "text": "我每次都算進你的那一成了，不是嗎？",
+     "ja": "毎回その一割はあんたの分として数えてる。違うか？",
+     "en": "I always count that as your ten percent, don't I?"
     },
     {
      "speaker": "old_k",
-     "text": "你這邊有保單，先別拿別人的契約套在自己身上。"
+     "text": "你這邊有保單，先別拿別人的契約套在自己身上。",
+     "ja": "お前さんには自分の保険があるだろ。人の契約を勝手に自分に当てはめるんじゃないよ。",
+     "en": "You've got your own policy here, so don't go strapping someone else's contract onto yourself."
     },
     {
      "speaker": "rin",
-     "text": "你每次都這樣講。我至少要知道，出事了該回哪裡。"
+     "text": "你每次都這樣講。我至少要知道，出事了該回哪裡。",
+     "ja": "あんたはいつもそう言う。せめて、何かあったらどこに戻ればいいかは知っておきたい。",
+     "en": "You always say that. At the very least, I want to know where to go back to if something goes wrong."
     },
     {
      "speaker": "old_k",
-     "text": "到電話亭要真的確認備份，光走過不算。現場要補什麼資料，就問服務的人。"
+     "text": "到電話亭要真的確認備份，光走過不算。現場要補什麼資料，就問服務的人。",
+     "ja": "電話ボックスでは、バックアップを本当に確認しな。ただ通り過ぎるだけじゃだめだ。現場で何か書類が必要なら、サービスの人に聞きな。",
+     "en": "At the phone booth, actually confirm the backup. Walking past doesn't count. If you need to fill in anything on site, ask the service staff."
     },
     {
      "speaker": "rin",
-     "text": "那剛才機器停下來，跟這個沒關係。"
+     "text": "那剛才機器停下來，跟這個沒關係。",
+     "ja": "じゃあ、さっき機械が止まったのは、これとは関係ないな。",
+     "en": "So the machine stopping just now had nothing to do with this."
     },
     {
      "speaker": "old_k",
-     "text": "當然沒關係。你是在地墊上站不穩，又不是去拿命試貨。"
+     "text": "當然沒關係。你是在地墊上站不穩，又不是去拿命試貨。",
+     "ja": "当たり前だろ。マットの上で足が決まらなかっただけだ。命がけで品物を試したわけじゃない。",
+     "en": "Of course it had nothing to do with it. You just couldn't keep your footing on the mat. It's not like you were risking your life testing goods."
     }
    ]
   },
@@ -5192,35 +6191,51 @@
    "lines": [
     {
      "speaker": "rin",
-     "text": "這上面寫的記憶代價，為什麼不寫在價錢旁邊？"
+     "text": "這上面寫的記憶代價，為什麼不寫在價錢旁邊？",
+     "ja": "ここに書いてある記憶の代償は、なんで値段の横に書かないんだ？",
+     "en": "If the memory cost is written here, why isn't it next to the price?"
     },
     {
      "speaker": "old_k",
-     "text": "價錢能補，忘掉的事不一定補得回來喔。"
+     "text": "價錢能補，忘掉的事不一定補得回來喔。",
+     "ja": "金は取り戻せるが、忘れたことは必ずしも戻ってこないよ。",
+     "en": "Money can be made up. What you've forgotten doesn't always come back, you know."
     },
     {
      "speaker": "rin",
-     "text": "我每次都算進你的那一成了，不是嗎？"
+     "text": "我每次都算進你的那一成了，不是嗎？",
+     "ja": "毎回その一割はあんたの分として数えてる。違うか？",
+     "en": "I always count that as your ten percent, don't I?"
     },
     {
      "speaker": "old_k",
-     "text": "你這邊有保單，先別拿別人的契約套在自己身上。"
+     "text": "你這邊有保單，先別拿別人的契約套在自己身上。",
+     "ja": "お前さんには自分の保険があるだろ。人の契約を勝手に自分に当てはめるんじゃないよ。",
+     "en": "You've got your own policy here, so don't go strapping someone else's contract onto yourself."
     },
     {
      "speaker": "rin",
-     "text": "你每次都這樣講。我至少要知道，出事了該回哪裡。"
+     "text": "你每次都這樣講。我至少要知道，出事了該回哪裡。",
+     "ja": "あんたはいつもそう言う。せめて、何かあったらどこに戻ればいいかは知っておきたい。",
+     "en": "You always say that. At the very least, I want to know where to go back to if something goes wrong."
     },
     {
      "speaker": "old_k",
-     "text": "到電話亭要真的確認備份，光走過不算。現場要補什麼資料，就問服務的人。"
+     "text": "到電話亭要真的確認備份，光走過不算。現場要補什麼資料，就問服務的人。",
+     "ja": "電話ボックスでは、バックアップを本当に確認しな。ただ通り過ぎるだけじゃだめだ。現場で何か書類が必要なら、サービスの人に聞きな。",
+     "en": "At the phone booth, actually confirm the backup. Walking past doesn't count. If you need to fill in anything on site, ask the service staff."
     },
     {
      "speaker": "rin",
-     "text": "剛才試貨只是練習，不是復原。"
+     "text": "剛才試貨只是練習，不是復原。",
+     "ja": "さっき品を試したのは練習だ。復元じゃない。",
+     "en": "Testing the gear just now was only practice, not a restoration."
     },
     {
      "speaker": "old_k",
-     "text": "本來就是喔。你拿器材試手感，不是拿命試貨。"
+     "text": "本來就是喔。你拿器材試手感，不是拿命試貨。",
+     "ja": "そりゃそうさ。器材の手応えを確かめてただけで、命がけで品物を試してたわけじゃないよ。",
+     "en": "Of course it was. You were only getting a feel for the equipment, not risking your life testing goods."
     }
    ]
   },
@@ -5229,19 +6244,27 @@
    "lines": [
     {
      "speaker": "note",
-     "text": "沉港市公共復原服務說明：復原需要有效登記、備份與接應地點，不保證每次都能執行。"
+     "text": "沉港市公共復原服務說明：復原需要有效登記、備份與接應地點，不保證每次都能執行。",
+     "ja": "沈港市公共復元サービス説明：復元には有効な登録、バックアップ、お迎えの場所が必要です。毎回の実行は保証されません。",
+     "en": "Sinkport Public Restoration Service Notice: Restoration requires valid registration, a backup, and a pickup point. Execution is not guaranteed every time."
     },
     {
      "speaker": "note",
-     "text": "首次建檔與一般復原不同，請依服務人員指示辦理。"
+     "text": "首次建檔與一般復原不同，請依服務人員指示辦理。",
+     "ja": "初回の登録は通常の復元とは異なります。サービス担当者の指示に従って手続きしてください。",
+     "en": "First-time registration differs from standard restoration. Please follow the instructions of the service staff."
     },
     {
      "speaker": "note",
-     "text": "復原會產生費用，也可能消耗契約承擔者的記憶。"
+     "text": "復原會產生費用，也可能消耗契約承擔者的記憶。",
+     "ja": "復元には費用がかかり、契約承担者の記憶を消耗することもあります。",
+     "en": "Restoration incurs fees and may also consume the memories of the contract bearer."
     },
     {
      "speaker": "note",
-     "text": "電話亭的確認紀錄用來查找最近的備份與接應位置；地圖上的標記不代表已經辦妥登記。"
+     "text": "電話亭的確認紀錄用來查找最近的備份與接應位置；地圖上的標記不代表已經辦妥登記。",
+     "ja": "電話ボックスの確認記録は、最寄りのバックアップとお迎えの場所を探すために使われます。地図上のマークは、登録が完了したことを意味しません。",
+     "en": "Phone booth confirmation records are used to locate the nearest backups and pickup points. A marker on the map does not mean registration has been completed."
     }
    ]
   },
@@ -5262,27 +6285,39 @@
    "lines": [
     {
      "speaker": "egret",
-     "text": "我是鷺，人在你家屋頂，待會兒有份差事給你看。"
+     "text": "我是鷺，人在你家屋頂，待會兒有份差事給你看。",
+     "ja": "鷺だ。今、お嬢の家の屋根にいる。あとで仕事を一つ見せてやるよ。",
+     "en": "It's Egret. I'm on your roof, kid, and I've got a job to show you later."
     },
     {
      "speaker": "rin",
-     "text": "你又不走正門，老 K 還以為雨把屋頂敲壞了。"
+     "text": "你又不走正門，老 K 還以為雨把屋頂敲壞了。",
+     "ja": "また正面から来ないのか。老Kは、雨で屋根が壊れたのかと思ってたぞ。",
+     "en": "You never come through the front door. Old K thought the rain had knocked the roof in."
     },
     {
      "speaker": "egret",
-     "text": "我怕他又留我修門扣。你吃完飯再上來，這次不催你。"
+     "text": "我怕他又留我修門扣。你吃完飯再上來，這次不催你。",
+     "ja": "また門の留め金を直させられそうで怖いんだよ。お嬢、飯を食ってから上がっておいで。今回は急かさないから。",
+     "en": "I'm afraid he'll make me fix the latch again. Come up after you've eaten, kid. I won't rush you this time."
     },
     {
      "speaker": "old_k",
-     "text": "聽到了喔，先吃飯。試貨的事我來收尾。"
+     "text": "聽到了喔，先吃飯。試貨的事我來收尾。",
+     "ja": "聞こえてたぞ。先に飯だ。試したものの後始末はわしがやる。",
+     "en": "Heard you, you hear? Eat first. I'll wrap up the testing."
     },
     {
      "speaker": "rin",
-     "text": "門扣我扣緊了，燈也關了。靶的毛病寫在貨單旁邊。"
+     "text": "門扣我扣緊了，燈也關了。靶的毛病寫在貨單旁邊。",
+     "ja": "門の留め金はかけた。明かりも消した。的の不具合は納品書の横に書いておいた。",
+     "en": "I latched the door and turned off the lights. I wrote the target's faults next to the delivery sheet."
     },
     {
      "speaker": "old_k",
-     "text": "我都看到了。你先去洗手，飯還熱著，從旁邊那扇門回店裡吃。"
+     "text": "我都看到了。你先去洗手，飯還熱著，從旁邊那扇門回店裡吃。",
+     "ja": "全部見てたよ。まず手を洗ってきな。飯はまだ温かいから、横のドアから店に戻って食べな。",
+     "en": "I saw it all. Go wash your hands first. The food's still warm, so come back into the shop through the side door and eat."
     }
    ]
   },
@@ -5293,7 +6328,9 @@
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "器材都在後面，一樣一樣試，試完再回來跟我說。"
+     "text": "器材都在後面，一樣一樣試，試完再回來跟我說。",
+     "ja": "器材は全部裏にある。一つずつ試して、終わったら戻ってきて報告しな。",
+     "en": "The equipment's all out back. Test it one piece at a time, and come back and tell me when you're done."
     }
    ]
   },
@@ -5304,7 +6341,9 @@
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "我在這裡看著，你一樣一樣試，試完回櫃台找我。"
+     "text": "我在這裡看著，你一樣一樣試，試完回櫃台找我。",
+     "ja": "わしはここで見てるから、一つずつ試しな。終わったらカウンターに来な。",
+     "en": "I'll keep an eye on things here. Test them one by one, and when you're done, find me at the counter."
     }
    ]
   },
@@ -5315,7 +6354,9 @@
     {
      "do": "say",
      "speaker": "old_k",
-     "text": "飯在廚房保溫，從旁邊那扇門回店裡，吃完再上屋頂。"
+     "text": "飯在廚房保溫，從旁邊那扇門回店裡，吃完再上屋頂。",
+     "ja": "飯は台所で保温してある。横のドアから店に戻って、食べてから屋根に上がりな。",
+     "en": "The food's keeping warm in the kitchen. Come back into the shop through the side door, and once you've eaten, go up to the roof."
     }
    ]
   },
@@ -5444,7 +6485,9 @@
     {
      "do": "say",
      "speaker": "egret",
-     "text": "週日我留給那個人，今天先把你的差事做完。"
+     "text": "週日我留給那個人，今天先把你的差事做完。",
+     "ja": "日曜は、あの人のために空けておく。今日はまずあんたの仕事を終わらせな。",
+     "en": "I'm keeping Sunday for that person. Today, finish your job first."
     },
     {
      "do": "choice",
@@ -5459,14 +6502,24 @@
        "when": {
         "flag": "ch1_heard_brief",
         "equals": true
-       }
+       },
+       "ja": "帰り道と受け渡しロッカーをもう一度確認する。",
+       "en": "Double-check the way back and the handover locker.",
+       "explanation_ja": "任意の話題。メインの流れには影響しない。",
+       "explanation_en": "Optional topic. Does not affect the main path."
       },
       {
        "id": "leave",
        "text": "先聊到這裡，我還有事要做。",
-       "explanation": "結束對話，之後可以再來。"
+       "explanation": "結束對話，之後可以再來。",
+       "ja": "今日はここまでにする。やることがあるんだ。",
+       "en": "That's enough for now. I have things to do.",
+       "explanation_ja": "会話を終える。後でまた来られる。",
+       "explanation_en": "Ends the conversation. You can come back later."
       }
-     ]
+     ],
+     "ja": "鷺に他に何を聞きたい？",
+     "en": "What else do you want to ask Egret?"
     }
    ],
    "when": {
@@ -5503,7 +6556,11 @@
           "equals": "open200"
          }
         ]
-       }
+       },
+       "ja": "今日の復元について話す。",
+       "en": "Talk about today's restoration.",
+       "explanation_ja": "任意の話題。メインの流れには影響しない。",
+       "explanation_en": "Optional topic. Does not affect the main path."
       },
       {
        "id": "ali_late_topic",
@@ -5513,20 +6570,34 @@
        "when": {
         "flag": "ch1_met_ali",
         "equals": true
-       }
+       },
+       "ja": "なんでこんな遅くまで外にいるのか聞く。",
+       "en": "Ask why she's still out this late.",
+       "explanation_ja": "任意の話題。メインの流れには影響しない。",
+       "explanation_en": "Optional topic. Does not affect the main path."
       },
       {
        "id": "evening",
        "text": "問她店裡今晚的事。",
        "explanation": "聊完阿梨會準備下班。",
-       "target": "ch1_dispatch_ali_evening"
+       "target": "ch1_dispatch_ali_evening",
+       "ja": "今夜の店のことを聞く。",
+       "en": "Ask about what's going on at the shop tonight.",
+       "explanation_ja": "梨との会話が終わると、梨は仕事を上がる準備をする。",
+       "explanation_en": "After talking with Pear, she gets ready to end her shift."
       },
       {
        "id": "leave",
        "text": "先聊到這裡，我還有事要做。",
-       "explanation": "結束對話，之後可以再來。"
+       "explanation": "結束對話，之後可以再來。",
+       "ja": "今日はここまでにする。やることがあるんだ。",
+       "en": "That's enough for now. I have things to do.",
+       "explanation_ja": "会話を終える。後でまた来られる。",
+       "explanation_en": "Ends the conversation. You can come back later."
       }
-     ]
+     ],
+     "ja": "梨と何を話す？",
+     "en": "What do you want to talk about with Pear?"
     }
    ],
    "when": {

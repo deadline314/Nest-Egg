@@ -37,8 +37,17 @@ static func lint(entries: Array[Dictionary]) -> Array[Dictionary]:
 	for entry in entries:
 		if entry["kind"] == "label":
 			continue
-		issues.append_array(StoryLint.readability(entry["text"], entry["id"], entry.get("mode", "text"), entry.get("bark", false)))
+		issues.append_array(StoryLint.readability(entry["text"], entry["id"], entry.get("mode", "text"), entry.get("bark", false), _language_of(str(entry["id"]))))
 	return issues
+
+
+## 譯文欄位（ST-2）：路徑最後一段是 ja／en 或 <欄位>_ja／<欄位>_en。
+static func _language_of(id: String) -> String:
+	var last := id.get_slice("/", id.get_slice_count("/") - 1)
+	for language in ["ja", "en"]:
+		if last == language or last.ends_with("_" + language):
+			return language
+	return "zh"
 
 
 static func _json(value: Variant, path: String, key: String, entries: Array[Dictionary], mode := "text", bark := false) -> void:

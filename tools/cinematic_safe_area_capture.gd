@@ -29,6 +29,24 @@ func _frames(n: int) -> void:
 		await get_tree().process_frame
 
 
+## 中文台詞 → 目前劇本語言的同一句（直接讀劇本檔的 ja／en 欄位）。
+func _translations() -> Dictionary:
+	var result := {}
+	if Story.language == StoryLocale.SOURCE_LANGUAGE:
+		return result
+	var data: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/story/ch1_kasa.json"))
+	var stack: Array = [data]
+	while not stack.is_empty():
+		var node: Variant = stack.pop_back()
+		if node is Dictionary:
+			if node.get("text") is String and node.has(Story.language):
+				result[node["text"]] = node[Story.language]
+			stack.append_array((node as Dictionary).values())
+		elif node is Array:
+			stack.append_array(node)
+	return result
+
+
 func _run() -> void:
 	Story.auto_skip = false
 	GameState.start_new_run(GameState.difficulties[1])
@@ -39,8 +57,10 @@ func _run() -> void:
 	get_tree().root.add_child(level)
 	await _frames(60)
 	Story.reset_active_presentation(&"route")
+	var translated := _translations()
 	for id: StringName in SHOTS:
-		var wanted: Array = SHOTS[id]
+		# 選了日文或英文（--story-language）時，要找的台詞換成同一句的譯文（ST-2）。
+		var wanted: Array = SHOTS[id].map(func(zh: String) -> String: return translated.get(zh, zh))
 		var taken := 0
 		if not Story.play(id, false):
 			print("FAIL could not start %s" % id)
@@ -60,7 +80,7 @@ func _run() -> void:
 			var complete := player._dialogue.is_complete()
 			if taken < wanted.size() and text == wanted[taken] and complete:
 				await _frames(50)  # 鏡頭移動完
-				var name := "ST-22-%s-%d" % [String(id).trim_prefix("ch1_"), taken + 1]
+				var name := "ST-22-%s-%d%s" % [String(id).trim_prefix("ch1_"), taken + 1, "" if Story.language == "zh" else "-" + Story.language]
 				if DisplayServer.get_name() == "headless":
 					print("reached %s" % name)
 				else:

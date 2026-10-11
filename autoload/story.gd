@@ -46,6 +46,9 @@ const MAX_BARK_CHARS := 16
 
 ## 測試用：過場立即結束（仍會發出開始／結束訊號）。
 var auto_skip := false
+## 劇本語言（ST-2）：zh（原文）、ja、en。缺譯退回英文再退回中文，見 StoryLocale。
+## 預設讀專案設定 nest_egg/story/language 或命令列 --story-language=<代碼>；遊戲中用 set_language 切換。
+var language := StoryLocale.SOURCE_LANGUAGE
 
 ## 章節 id -> 章節資訊（標題、副標、結尾卡、預告）。
 var _chapters: Dictionary[StringName, Dictionary] = {}
@@ -153,6 +156,7 @@ func _ready() -> void:
 	EventBus.checkpoint_reached.connect(func(_position: Vector2) -> void:
 		for scene in outcomes.scenes_for_event(&"checkpoint"):
 			play(scene))
+	language = _initial_language()
 	load_all()
 	if FileAccess.file_exists(GameState.STORY_SAVE_PATH):
 		GameState.load_story_progress()
@@ -160,6 +164,29 @@ func _ready() -> void:
 		push_error("[Story] %s" % problem)
 	for issue in lint_warnings():
 		push_warning("[Story] %s" % StoryLint.format(issue))
+
+
+func _initial_language() -> String:
+	var wanted := str(ProjectSettings.get_setting("nest_egg/story/language", StoryLocale.SOURCE_LANGUAGE))
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--story-language="):
+			wanted = arg.trim_prefix("--story-language=")
+	if not StoryLocale.is_supported(wanted):
+		push_warning("[Story] 不支援的劇本語言「%s」，改用中文" % wanted)
+		return StoryLocale.SOURCE_LANGUAGE
+	return wanted
+
+
+## 切換劇本語言並重新載入台詞（進度、旗標與看過的場景不變）。不支援的語言回傳 false、維持原語言。
+func set_language(code: String) -> bool:
+	if not StoryLocale.is_supported(code):
+		push_warning("[Story] 不支援的劇本語言「%s」" % code)
+		return false
+	if code == language:
+		return true
+	language = code
+	load_all()
+	return true
 
 
 ## 載入 CHAPTER_PATHS 的所有章節（先清空）。單一章節壞掉只記錄錯誤，不影響其他章節。
@@ -186,6 +213,7 @@ func load_chapter(path: String) -> bool:
 		push_error("[Story] 無法讀取劇本：%s" % path)
 		return false
 	var data: Dictionary = json.data
+	data = _localized(data, path)
 	if data.has("flag_defaults"):
 		GameState.register_flag_defaults(data["flag_defaults"], path)
 	var info: Dictionary = data.get("chapter", {})
@@ -219,6 +247,22 @@ func load_chapter(path: String) -> bool:
 	if data.get("restoration_flag") is String:
 		_restoration_flags[chapter_id] = StringName(data["restoration_flag"])
 	return true
+
+
+## 宣告三語的章節（chapter.languages）先檢查缺譯；選了中文以外的語言時，換成譯文（缺譯退回英文再退回中文）並記錄位置。
+func _localized(data: Dictionary, path: String) -> Dictionary:
+	var info: Variant = data.get("chapter", {})
+	if info is Dictionary and Array((info as Dictionary).get("languages", [])).size() > 1:
+		var missing := StoryLocale.audit(data)
+		if not missing.is_empty():
+			push_warning("[Story] %s" % StoryLocale.report(path, missing, "缺譯"))
+	if language == StoryLocale.SOURCE_LANGUAGE:
+		return data
+	var copy := data.duplicate(true)
+	var fallback := StoryLocale.localize(copy, language)
+	if not fallback.is_empty() and info is Dictionary and Array((info as Dictionary).get("languages", [])).has(language):
+		push_warning("[Story] %s" % StoryLocale.report(path, fallback, "沒有%s譯文" % language))
+	return copy
 
 
 ## 一般死亡後要從已登記的電話亭醒來（不是初次建檔的診間）時，寫下章節的「在亭子復原過」旗標。

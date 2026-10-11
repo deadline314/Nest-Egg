@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools/story"))
 
 import build_ch1_story as legacy  # noqa: E402
+import story_i18n  # noqa: E402
 from ch1_closure import build_source, validate_source  # noqa: E402
 import prologue_source  # noqa: E402
 
@@ -437,6 +438,9 @@ def compile_document():
     speakers = copy.deepcopy(legacy.SPEAKERS)
     speakers.update(copy.deepcopy(source.speakers))
     speakers.update(copy.deepcopy(prologue_source.SPEAKERS))
+    # 凜與老 K 的名牌原本只寫在舊稿（chapter_01.json）；正式第一章自己帶，三語名牌才有地方放（ST-2）。
+    speakers.setdefault("rin", {"name": "凜", "color": "#ff3fa4", "portrait": "res://art/portraits/rin.png"})
+    speakers.setdefault("old_k", {"name": "老K", "color": "#ffd23f", "portrait": "res://art/portraits/old_k.png"})
     derived = copy.deepcopy(source.derived_flags)
     derived.update(copy.deepcopy(EXTRA_DERIVED))
     derived.update(prologue_derived)
@@ -460,6 +464,11 @@ def main():
     except CompileError as error:
         print(str(error), file=sys.stderr)
         return 2
+    # ST-2：每一句補上日文與英文（對照表在 tools/story/i18n/ch1_kasa.json）；缺譯列出具體位置，遊戲端退回英文再退回中文。
+    data["chapter"]["languages"] = ["zh", *story_i18n.LANGUAGES]
+    missing = story_i18n.apply(data, story_i18n.load_table(story_i18n.table_path("ch1_kasa")))
+    if missing:
+        print(f"缺譯 {len(missing)} 處（補在 tools/story/i18n/ch1_kasa.json）：" + "；".join(missing[:5]), file=sys.stderr)
     os.makedirs(legacy.STAGE_DIR, exist_ok=True)
     for stage_id, (scene, top, bottom, rain, glow, extra) in legacy.STAGES.items():
         legacy.write_stage(stage_id, scene, top, bottom, rain, glow, extra)
