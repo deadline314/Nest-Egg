@@ -160,6 +160,12 @@
   },
   "watchdog": {
    "extends": "machine"
+  },
+  "pump_inspector": {
+   "extends": "machine"
+  },
+  "insulation_inspector": {
+   "extends": "machine"
   }
  }
 }

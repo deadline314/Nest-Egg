@@ -147,11 +147,29 @@ STORY = {
     'gate_hall': dict(done={'ch3_janus_down': 'ch3_janus_disabled'}),
 }
 
-# 戰鬥區（交給戰鬥 Session 配置）：區域 -> [(名稱, x0, x1, 用途)]。這裡只寫進設計資料，不放敵人。
+# 本章的敵人（NE-272、NE-271）：字元 -> 敵人資料 id。章節名單與跨章規則見 data/combat/chapter_rosters.json（NE-97）。
+ENEMY_CHARS = {'Ж': 'pump_inspector', 'Ш': 'insulation_inspector'}
+ENEMY_DISPLAY = {'Ж': '抽水巡檢器', 'Ш': '絕緣巡檢器'}
+# 掛在吊軌下（不站地面）的敵人字元：可通行檢查不要求腳下有地。
+HANGING = ('Ш',)
+
+# 戰鬥區（交給戰鬥 Session 配置）：區域 -> [(名稱, x0, x1, 用途)]。這裡只寫進設計資料，敵人由 ENCOUNTERS 放。
 COMBAT_ZONES = {
     'pump': [('下槽抽水巡檢器', 18, 36, '短戰，可沿乾燥上橋繞過'), ('下槽絕緣巡檢器', 42, 60, '短戰，可沿乾燥上橋繞過')],
     'mezzanine': [('維修帶雙巡檢器', 40, 56, '可從照護步道繞過，門診不混戰')],
     'gate_hall': [('守門人／JANUS', 18, 62, '頭目戰：只打外部盾架、掃描臂與通訊器，人物是保護區')],
+}
+
+# 戰鬥區裡的敵人（NE-272）：區域 -> {戰鬥區名稱: [(欄, 字元) 或 (欄, 字元, 列)]}。每場同屏最多三個、近戰與遠距最多各一；
+# 每種第一次出現時左側五格內沒有別種敵人。數量是第三章的正式配置，整批調整改這裡再重跑產生器。
+ENCOUNTERS = {
+    'pump': {
+        '下槽抽水巡檢器': [(28, 'Ж')],                    # 第一次見到地面亮線：只有一台
+        '下槽絕緣巡檢器': [(44, 'Ж'), (52, 'Ш', 15)],    # 吊軌掛在上橋底下（第 15 列），近戰＋遠距
+    },
+    'mezzanine': {
+        '維修帶雙巡檢器': [(46, 'Ш', 16), (52, 'Ж')],    # 吊軌在照護步道底下；走步道就能繞過
+    },
 }
 
 
@@ -397,10 +415,14 @@ def configure():
     """把第一章的工具切到第三章：人物、出入口、主題與劇情接點都換成本章的，字元不和第一章的資源衝突。"""
     clash = sorted(c for c in NPC_CHARS if c in kit.RES or c in PORTALS or c in kit.TRAINING)
     clash += sorted(c for c in PORTALS if c in kit.RES)
+    clash += sorted(c for c in ENEMY_CHARS if c in kit.RES or c in NPC_CHARS or c in PORTALS)
     if clash:
         raise SystemExit(f'第三章的字元和既有資源衝突：{clash}')
     for char, ident in NPC_CHARS.items():
         kit.RES[char] = f'res://data/npcs/{ident}.tres'
+    for char, ident in ENEMY_CHARS.items():
+        kit.RES[char] = f'res://data/enemies/{ident}.tres'
+        kit.ENEMY_NAMES[char] = ENEMY_DISPLAY[char]
     kit.PORTALS = PORTALS
     kit.NPCS = {ident: {**{'rig': '', 'loop': '', 'facing': 1}, **spec} for ident, spec in NPCS.items()}
     kit.THEMES = THEMES
@@ -410,19 +432,27 @@ def configure():
 def main():
     configure()
     areas = [build() for build in AREAS]
+    for a in areas:
+        zones = {name: (x0, x1, use) for name, x0, x1, use in COMBAT_ZONES.get(a.id, [])}
+        for name, members in ENCOUNTERS.get(a.id, {}).items():
+            x0, x1, _use = zones[name]
+            a.encounter(name, x0, x1, members)
     problems = []
     for a in areas:
-        problems += a.check()
+        problems += a.check(flying=('d',) + HANGING)
         start = next(((x, y) for y in range(H) for x in range(a.w) if a.grid.at(x, y) == 'P'), None)
         goals = [(a.grid.at(x, y), (x, y)) for y in range(H) for x in range(a.w)
-                 if a.grid.at(x, y) in set(kit.RES) | set(PORTALS) | {'C'}]
+                 if a.grid.at(x, y) in (set(kit.RES) - set(HANGING)) | set(PORTALS) | {'C'}]  # 吊軌上的敵人不用走得到
         problems += kit.reachable(a, start, goals)
     if problems:
         print('\n'.join(problems))
         sys.exit(1)
     kit.write_npc_files()
     for a in areas:
-        a.encounters = [{'name': name, 'lock': False, 'x0': x0, 'x1': x1, 'members': [], 'reinforcements': [], 'use': use}
+        placed = {e['name']: e for e in a.encounters}
+        a.encounters = [{'name': name, 'lock': False, 'x0': x0, 'x1': x1, 'use': use,
+                         'members': list(placed.get(name, {}).get('members', [])),
+                         'reinforcements': list(placed.get(name, {}).get('reinforcements', []))}
                         for name, x0, x1, use in COMBAT_ZONES.get(a.id, [])]
     kit.write_design(areas)
     for a in areas:

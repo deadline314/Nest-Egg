@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ProjectileSpec" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/projectile_spec.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+source_id = &"insulation_pulse"
+speed = 520.0
+lifetime = 0.8
+damage = 1
+knockback = 90.0
+radius = 2.6
+length = 18.0
+color = Color(0.45, 0.95, 1.0, 1.0)
+
+visual_style = "rail"
+trail_distance = 26.0

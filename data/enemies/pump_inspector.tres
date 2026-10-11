@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/pump_inspector.gd" id="2_behavior"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"pump_inspector"
+behavior = ExtResource("2_behavior")
+display_name = "抽水巡檢器"
+creature_skin = "bomber"
+creature_scale = 1.6
+creature_states = {
+"patrol": "chase",
+"windup": "fuse",
+"ram": "chase",
+"recover": "idle"
+}
+attack_category = &"melee"
+hit_material = &"metal"
+body_size = Vector2(26, 20)
+color = Color(0.48, 0.62, 0.66, 1.0)
+max_health = 7
+move_speed = 38.0
+contact_damage = 1
+contact_source_id = &"pump_inspector_contact"
+detect_range = 220.0
+attack_range = 120.0
+attack_cooldown = 1.6
+telegraph_time = 0.7
+ability_speed = 300.0
+ability_time = 0.8
+ability_radius = 104.0
+ability_damage = 2
+knockback_scale = 0.3
+poise = 5.0
+armor_states = PackedStringArray("ram")
+hit_style = "stumble"
+hit_amount = 1.2
+finish_health_ratio = 0.3
+stagger_duration = 1.2
+health_drop_chance = 0.12
+credit_value = 12

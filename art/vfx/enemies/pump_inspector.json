@@ -1,0 +1,52 @@
+{
+ "description": "pump_inspector 的專屬特效（EnemyVfx 讀取）。排水機：受擊濺出水花般的青灰碎片，壞掉時冒蒸氣；每個敵人自己一份。",
+ "hit": {
+  "color": "#9fd6e0",
+  "amount": 5,
+  "speed": 160,
+  "light": 0.6
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#7fc4d4",
+    "amount": 22,
+    "speed": 230,
+    "life": 0.5
+   },
+   {
+    "color": "#8a98a6",
+    "amount": 12,
+    "speed": 190,
+    "life": 0.45,
+    "kind": "shard"
+   }
+  ],
+  "light": {
+   "color": "#7fc4d4",
+   "radius": 72,
+   "energy": 1.2,
+   "time": 0.3
+  },
+  "shake": 2.5,
+  "hitstop": 0.05,
+  "extras": [
+   "steam",
+   "smoke"
+  ]
+ },
+ "states": {
+  "ram": {
+   "at": "feet",
+   "dust": 6,
+   "bursts": [
+    {
+     "color": "#9fd6e0",
+     "amount": 4,
+     "speed": 90,
+     "life": 0.25
+    }
+   ]
+  }
+ }
+}

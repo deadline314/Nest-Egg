@@ -72,8 +72,21 @@
    "reserved": []
   },
   "chapter_03": {
-   "levels": [],
-   "enemies": [],
+   "levels": [
+    "ch3_pawnshop",
+    "ch3_plaza",
+    "ch3_pump",
+    "ch3_mezzanine",
+    "ch3_clinic",
+    "ch3_gate_hall",
+    "ch3_glass_edge",
+    "ch3_showroom",
+    "ch3_office_hall"
+   ],
+   "enemies": [
+    "pump_inspector",
+    "insulation_inspector"
+   ],
    "demo_levels": [],
    "demo_enemies": [],
    "reserved": [

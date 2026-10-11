@@ -1,0 +1,50 @@
+{
+ "description": "insulation_inspector 的專屬特效（EnemyVfx 讀取）。吊軌脈衝機：受擊與壞掉時噴出青色電火花與絕緣子碎片；每個敵人自己一份。",
+ "hit": {
+  "color": "#73f2ff",
+  "amount": 5,
+  "speed": 160,
+  "light": 0.6
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#73f2ff",
+    "amount": 22,
+    "speed": 230,
+    "life": 0.5
+   },
+   {
+    "color": "#c9d3dc",
+    "amount": 12,
+    "speed": 190,
+    "life": 0.45,
+    "kind": "shard"
+   }
+  ],
+  "light": {
+   "color": "#73f2ff",
+   "radius": 72,
+   "energy": 1.2,
+   "time": 0.3
+  },
+  "shake": 2.5,
+  "hitstop": 0.05,
+  "extras": [
+   "smoke"
+  ]
+ },
+ "states": {
+  "charge": {
+   "at": "muzzle",
+   "bursts": [
+    {
+     "color": "#73f2ff",
+     "amount": 4,
+     "speed": 60,
+     "life": 0.25
+    }
+   ]
+  }
+ }
+}

@@ -1,14 +1,16 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=11 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
-[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
-[ext_resource type="Resource" path="res://data/npcs/ch3_notice_terminal.tres" id="3_ch3_notice_terminal"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="4_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/transfer.tres" id="5_transfer"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch3_mezzanine.tres" id="6_ch3_mezzanine"]
+[ext_resource type="Resource" path="res://data/enemies/pump_inspector.tres" id="2_pump_inspector"]
+[ext_resource type="Resource" path="res://data/enemies/insulation_inspector.tres" id="3_insulation_inspector"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="4_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_notice_terminal.tres" id="5_ch3_notice_terminal"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="6_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/transfer.tres" id="7_transfer"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch3_mezzanine.tres" id="8_ch3_mezzanine"]
 
 [sub_resource type="Resource" id="Resource_0"]
-script = ExtResource("2_portal_data")
+script = ExtResource("4_portal_data")
 id = &"mezz_lift"
 target_level = "res://data/levels/ch3_plaza.tres"
 target_portal = &"plaza_lift"
@@ -18,7 +20,7 @@ height = 56
 style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]
-script = ExtResource("2_portal_data")
+script = ExtResource("4_portal_data")
 id = &"mezz_clinic"
 target_level = "res://data/levels/ch3_clinic.tres"
 target_portal = &"clinic_mezz"
@@ -26,7 +28,7 @@ prompt = "{interact} 進夾層診所"
 style = "door"
 
 [sub_resource type="Resource" id="Resource_2"]
-script = ExtResource("2_portal_data")
+script = ExtResource("4_portal_data")
 id = &"mezz_care"
 target_level = "res://data/levels/ch3_gate_hall.tres"
 target_portal = &"gate_care"
@@ -36,10 +38,10 @@ prompt = "{interact} 走護理通道外段到門禁大廳"
 style = "door"
 
 [sub_resource type="Resource" id="Resource_3"]
-script = ExtResource("4_lighting_zone")
+script = ExtResource("6_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("5_transfer")
+profile = ExtResource("7_transfer")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -48,18 +50,20 @@ display_name = "夾層通道"
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
+"Ж": ExtResource("2_pump_inspector"),
+"Ш": ExtResource("3_insulation_inspector"),
 "Ⅲ": SubResource("Resource_0"),
 "Ⅳ": SubResource("Resource_1"),
 "Ⅶ": SubResource("Resource_2"),
-"ⓝ": ExtResource("3_ch3_notice_terminal")
+"ⓝ": ExtResource("5_ch3_notice_terminal")
 })
 hints = PackedStringArray("公開報表的查核往右走。安養病房的來訪要洽護理櫃檯，廠房暫停通行。")
 chapter = &"ch3_clearwater"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("6_ch3_mezzanine")
+environment = ExtResource("8_ch3_mezzanine")
 layout_path = "res://data/levels/ch3_mezzanine_map.json"
-lighting_zones = Array[ExtResource("4_lighting_zone")]([SubResource("Resource_3")])
+lighting_zones = Array[ExtResource("6_lighting_zone")]([SubResource("Resource_3")])
 intro_scene = &"ch3_c03_arrive"
 story_triggers = PackedStringArray()
 death_credit_cap = 250

@@ -56,6 +56,7 @@ const SCENARIOS := {
 	"screen_fx": "res://tools/scenarios/screen_fx_scenario.gd",
 	"damage_numbers": "res://tools/scenarios/damage_numbers_scenario.gd",
 	"model_vehicle": "res://tools/scenarios/model_vehicle_scenario.gd",
+	"ch3_combat": "res://tools/scenarios/ch3_combat_scenario.gd",
 }
 
 
