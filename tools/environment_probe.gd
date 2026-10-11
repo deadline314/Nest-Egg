@@ -1,6 +1,9 @@
 extends Node
 ## Same script, renderer and machine for BG-17 comparisons. Capture only after timing.
 ## --level=level_01 --quality=low --frames=180 --out=<directory>
+## --spots=30,115,200: columns to stand on (defaults: three per legacy level).
+## --no-characters: no enemies, player hidden and not processing. Isolates the cost of the environment itself.
+## --hide=LevelBackground,PropNode: DIAGNOSTIC ONLY. Hides and stops every node of those script classes to see what each part costs.
 
 func _ready() -> void:
 	_run.call_deferred()
@@ -11,12 +14,19 @@ func _run() -> void:
 	var frames := 180
 	var out := ""
 	var diagnostic_native_lighting := false
+	var no_characters := false
+	var hide_classes := PackedStringArray()
+	var spot_columns: Array = []
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--level="): level_id = arg.trim_prefix("--level=")
 		if arg.begins_with("--quality="): quality = arg.trim_prefix("--quality=")
 		if arg.begins_with("--frames="): frames = maxi(30, int(arg.trim_prefix("--frames=")))
 		if arg.begins_with("--out="): out = arg.trim_prefix("--out=")
 		if arg == "--diagnostic-native-character-lighting": diagnostic_native_lighting = true
+		if arg == "--no-characters": no_characters = true
+		if arg.begins_with("--spots="):
+			for part: String in arg.trim_prefix("--spots=").split(",", false): spot_columns.append(int(part))
+		if arg.begins_with("--hide="): hide_classes = arg.trim_prefix("--hide=").split(",", false)
 	if diagnostic_native_lighting:
 		out = ""
 		print("DIAGNOSTIC: temporary native character lighting; no production settings changed; NOT acceptance data")
@@ -35,15 +45,31 @@ func _run() -> void:
 	level.hud.visible = false
 	level.player.health.setup(999, 0.0)
 	for enemy in get_tree().get_nodes_in_group(&"enemies"): enemy.queue_free()
+	if not hide_classes.is_empty():
+		var hidden := 0
+		for node: Node in level.find_children("*", "", true, false):
+			var script := node.get_script() as Script
+			var name := String(script.get_global_name()) if script != null else node.get_class()
+			if name in hide_classes:
+				node.process_mode = Node.PROCESS_MODE_DISABLED
+				if node is CanvasItem:
+					(node as CanvasItem).visible = false
+				elif node is CanvasLayer:
+					(node as CanvasLayer).visible = false
+				hidden += 1
+		out = ""
+		print("DIAGNOSTIC hide=%s nodes=%d; NOT acceptance data" % [",".join(hide_classes), hidden])
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	Engine.max_fps = 0
 	var spots: Array = [30, 115, 200] if level_id == "level_01" else [30, 175, 350]
+	if not spot_columns.is_empty(): spots = spot_columns
 	for tile: int in spots:
 		var y: float = level._layout.floor_below(tile, 4) - 2.0
+		level.player.process_mode = Node.PROCESS_MODE_INHERIT
 		level.player.global_position = Vector2(tile * 16.0 + 8.0, y)
 		level.player.velocity = Vector2.ZERO
 		for enemy in get_tree().get_nodes_in_group(&"enemies"): enemy.queue_free()
-		for n in 5:
+		for n in (0 if no_characters else 5):
 			var foe: Enemy = level._create_enemy(load("res://data/enemies/grunt.tres"))
 			foe.data = foe.data.duplicate()
 			foe.data.detect_range = 0.0
@@ -53,6 +79,10 @@ func _run() -> void:
 			level._entities.add_child(foe)
 		var camera := get_viewport().get_camera_2d()
 		if camera != null: camera.snap_to_target()
+		if no_characters:
+			for i in 4: await get_tree().process_frame
+			level.player.visible = false
+			level.player.process_mode = Node.PROCESS_MODE_DISABLED
 		for i in 120: await get_tree().process_frame
 		if diagnostic_native_lighting:
 			var overridden := 0
@@ -75,10 +105,15 @@ func _run() -> void:
 		var total := 0.0
 		for t in times: total += t
 		times.sort()
-		print("PROBE level=%s tile=%d quality=%s frames=%d mean_ms=%.3f median_ms=%.3f p95_ms=%.3f draws=%.1f renderer_texture_bytes=%d" % [level_id, tile, quality, frames, total / frames, times[frames / 2], times[int(frames * 0.95)], draws, RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TEXTURE_MEM_USED)])
+		print("PROBE%s level=%s tile=%d quality=%s frames=%d mean_ms=%.3f median_ms=%.3f p95_ms=%.3f draws=%.1f renderer_texture_bytes=%d" % ["_NO_CHARACTERS" if no_characters else "", level_id, tile, quality, frames, total / frames, times[frames / 2], times[int(frames * 0.95)], draws, RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TEXTURE_MEM_USED)])
 		if not out.is_empty():
 			DirAccess.make_dir_recursive_absolute(out)
-			get_viewport().get_texture().get_image().save_png(out.path_join("%s_%d_%s.png" % [level_id, tile, quality]))
+			# HDR 2D readback is linear; PNG viewers expect sRGB.
+			var shot := get_viewport().get_texture().get_image()
+			if get_viewport().use_hdr_2d:
+				shot.convert(Image.FORMAT_RGBA8)
+				shot.linear_to_srgb()
+			shot.save_png(out.path_join("%s_%d_%s.png" % [level_id, tile, quality]))
 	var bytes := 0
 	var count := 0
 	var textures := RigLibrary._texture_cache.duplicate()
@@ -96,4 +131,10 @@ func _run() -> void:
 		print("TEXTURE %s %dx%d format=%d mipmaps=%s bytes=%d" % [path, image.get_width(), image.get_height(), image.get_format(), image.has_mipmaps(), size])
 	print("ENVIRONMENT imported_payload_bytes=%d textures=%d (cached level textures; not PNG size or dedicated GPU allocation)" % [bytes, count])
 	Settings.set_light_quality(previous)
+	textures.clear()
+	level.queue_free()
+	for i in 4: await get_tree().process_frame
+	# Older checkouts used for comparison do not have the audio release helper.
+	if ResourceLoader.exists("res://core/audio/audio_release.gd"):
+		await load("res://core/audio/audio_release.gd").settle(get_tree())
 	get_tree().quit()

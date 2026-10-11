@@ -263,7 +263,15 @@ func _test_environment() -> void:
 	var drift := rain._drift
 	rain._process(0.5)
 	check(rain._drift > drift, "rain drift accumulates with the wind")
+	# 整片雨是一份固定大小的網格：每滴雨一個四邊形、最近的一層再加一個亮頭，畫的時候不再配置。
+	var drops := 0
+	for layer: Dictionary in RainLayer.LAYERS:
+		drops += int(layer["count"])
+	var quads := drops + int(RainLayer.LAYERS[RainLayer.LAYERS.size() - 1]["count"])
+	check(rain._points.size() == quads * 4 and rain._colors.size() == quads * 4 and rain._indices.size() == quads * 6,
+			"the rain is one fixed mesh (%d quads)" % quads)
 	await frames(3)
+	check(rain._points.size() == quads * 4, "drawing the rain does not grow its mesh")
 	rain.queue_free()
 	var vent := SteamVent.new()
 	level.add_child(vent)

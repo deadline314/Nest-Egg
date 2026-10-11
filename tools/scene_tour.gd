@@ -115,7 +115,7 @@ func _measure(level: Level, world: Rect2) -> Dictionary:
 		var probe := ContrastProbe.capture(get_viewport())
 		luma_values.append(probe.mean_luma(world))
 		if level.player.visible:
-			player_values.append(probe.character_contrast(level.player.global_position))
+			player_values.append(probe.character_contrast(level.player.global_position, true))
 			edge_values.append(probe.edge_contrast(level.player.global_position))
 		for node: Node in get_tree().get_nodes_in_group(&"enemies"):
 			var enemy := node as Node2D

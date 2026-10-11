@@ -18,6 +18,8 @@ const RIPPLE_TIME := 0.12
 const RIPPLE_RADIUS := 5.0
 const RIPPLE_ALPHA := 0.22
 const SPLASHES_PER_SECOND := 40.0
+## 近景雨滴亮頭的半邊長（像素）。
+const HEAD_SIZE := 0.8
 
 ## 每一欄地表的高度（像素）。由關卡設定；INF 代表沒有地面。
 var surface_heights := PackedFloat32Array()
@@ -27,10 +29,42 @@ var _time := 0.0
 ## 風的累積飄移量（風速隨時間變化，所以位置要累加而不是用時間乘風速）。
 var _drift := 0.0
 var _splash_budget := 0.0
+var _seeds: Array[PackedVector2Array] = []
+var _points := PackedVector2Array()
+var _colors := PackedColorArray()
+var _indices := PackedInt32Array()
 
 
 func _ready() -> void:
 	LightKit.mark_emissive(self)
+	_build_mesh()
+
+
+## 每滴雨的起點（由雜湊決定，固定不變）與整片雨的頂點、顏色、索引；每影格只改頂點位置，不配置記憶體。
+func _build_mesh() -> void:
+	_seeds.clear()
+	_points.clear()
+	_colors.clear()
+	_indices.clear()
+	for layer_index in LAYERS.size():
+		var layer: Dictionary = LAYERS[layer_index]
+		var color := Color(Palette.RAIN, layer["alpha"])
+		var seeds := PackedVector2Array()
+		for i in int(layer["count"]):
+			seeds.append(Vector2(_hash01(i * 7 + layer_index * 1013) * TILE_W, _hash01(i * 13 + layer_index * 7919 + 5) * TILE_H))
+			_add_quad(color)
+			if layer_index == LAYERS.size() - 1:
+				_add_quad(Color(Palette.RAIN.lightened(0.5), minf(1.0, float(layer["alpha"]) * 1.2)))
+		_seeds.append(seeds)
+
+
+func _add_quad(color: Color) -> void:
+	var base := _points.size()
+	for corner in 4:
+		_points.append(Vector2.ZERO)
+		_colors.append(color)
+	for offset: int in [0, 1, 2, 0, 2, 3]:
+		_indices.append(base + offset)
 
 
 ## 目前的風（含陣風）：兩個不同週期的正弦疊起來，沒有明顯的規律。
@@ -55,27 +89,42 @@ func _process(delta: float) -> void:
 func _draw() -> void:
 	var view := _visible_rect()
 	var direction := Vector2(_wind(), 1.0).normalized()
+	var side := Vector2(direction.y, -direction.x)
+	var vertex := 0
 	for layer_index in LAYERS.size():
 		var layer: Dictionary = LAYERS[layer_index]
 		var speed: float = layer["speed"]
-		var length: float = layer["length"]
-		var color := Color(Palette.RAIN, layer["alpha"])
-		var width: float = layer["width"]
-		for i in int(layer["count"]):
-			var seed_x := _hash01(i * 7 + layer_index * 1013)
-			var seed_y := _hash01(i * 13 + layer_index * 7919 + 5)
-			var raw := Vector2(seed_x * TILE_W + _drift * speed, seed_y * TILE_H + _time * speed)
-			var p := Vector2(
-				view.position.x + fposmod(raw.x - view.position.x, TILE_W),
-				view.position.y + fposmod(raw.y - view.position.y, TILE_H))
+		var tail := direction * float(layer["length"])
+		var half := side * float(layer["width"]) * 0.5
+		var nearest := layer_index == LAYERS.size() - 1
+		var seeds := _seeds[layer_index]
+		var shift := Vector2(_drift * speed - view.position.x, _time * speed - view.position.y)
+		for i in seeds.size():
+			var p := Vector2(view.position.x + fposmod(seeds[i].x + shift.x, TILE_W), view.position.y + fposmod(seeds[i].y + shift.y, TILE_H))
 			var surface := _surface_at(p.x)
 			if p.y > surface:
-				if layer_index == LAYERS.size() - 1 and surface != INF:
+				# 已經落地的雨滴不畫（四個頂點收在同一點），最近的一層改畫漣漪。
+				for corner in (8 if nearest else 4):
+					_points[vertex + corner] = p
+				vertex += 8 if nearest else 4
+				if nearest and surface != INF:
 					_draw_ripple(p.x, surface, (p.y - surface) / speed)
 				continue
-			draw_line(p - direction * length, p, color, width)
-			if layer_index == LAYERS.size() - 1:
-				draw_circle(p, 0.9, Color(Palette.RAIN.lightened(0.5), minf(1.0, layer["alpha"] * 1.2)))  # 近景雨滴的亮頭
+			_points[vertex] = p - tail - half
+			_points[vertex + 1] = p - tail + half
+			_points[vertex + 2] = p + half
+			_points[vertex + 3] = p - half
+			vertex += 4
+			if nearest:  # 近景雨滴的亮頭
+				var head := direction * HEAD_SIZE
+				var head_side := side * HEAD_SIZE
+				_points[vertex] = p - head - head_side
+				_points[vertex + 1] = p - head + head_side
+				_points[vertex + 2] = p + head + head_side
+				_points[vertex + 3] = p + head - head_side
+				vertex += 4
+	# 所有雨絲與亮頭合成一次繪製（每個頂點帶自己的顏色）。
+	RenderingServer.canvas_item_add_triangle_array(get_canvas_item(), _indices, _points, _colors)
 
 
 ## 落地漣漪：雨滴落地後 age 秒內，在落點畫一道向外擴散、漸淡的扁橢圓（沒有狀態，位置與時間全由雨滴本身推算）。

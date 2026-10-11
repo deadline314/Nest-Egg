@@ -98,7 +98,7 @@ func _measure(lighting_id: String, scene_id: String) -> void:
 	var empty_contrast := 0.0  # 沒有角色的地方量出來的對比：背景自己的起伏，角色對比要明顯高於它才有意義
 	for sample in SAMPLES:
 		var probe := ContrastProbe.capture(get_viewport())
-		player_contrast += probe.character_contrast(player.global_position) / float(SAMPLES)
+		player_contrast += probe.character_contrast(player.global_position, true) / float(SAMPLES)
 		if is_instance_valid(foe):
 			enemy_contrast += probe.character_contrast(foe.global_position) / float(SAMPLES)
 		empty_contrast += probe.character_contrast(player.global_position + Vector2(EMPTY_OFFSET, 0.0)) / float(SAMPLES)

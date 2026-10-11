@@ -112,7 +112,17 @@ func _test_vfx2_pieces() -> void:
 	field.emit_ex(Vector2.ZERO, Vector2(50, -20), 0.5, VfxAtlas.Cell.STREAK, 4.0, 1.0, Color.WHITE, Color(1, 1, 1, 0), 100.0, 1.0, 0.0, 0.0, 0.04)
 	field.emit(Vector2.ZERO, Vector2(10, 10), Color.RED, 0.3, 2.0)
 	check(field.alive_count() == 2, "a particle field accepts the new and the legacy emit")
+	check(field._span == 2, "only the live stretch of the buffer is scanned")
 	await frames(2)
+	# 短命的粒子結束後，要掃的範圍跟著收回來；環形緩衝繞一圈也不會漏掉還活著的。
+	field.emit_ex(Vector2.ZERO, Vector2.ZERO, 0.01, VfxAtlas.Cell.GLOW, 4.0, 4.0, Color.WHITE, Color.WHITE)
+	field._process(0.6)
+	check(field.alive_count() == 0 and field._span == 0, "the scanned stretch shrinks to nothing once every particle has ended")
+	for i in ParticleField.CAPACITY + 5:
+		field.emit_ex(Vector2.ZERO, Vector2.ZERO, 5.0 if i >= ParticleField.CAPACITY else 0.05, VfxAtlas.Cell.GLOW, 4.0, 4.0, Color.WHITE, Color.WHITE)
+	check(field._span == ParticleField.CAPACITY, "a full buffer is scanned once around")
+	field._process(0.1)
+	check(field.alive_count() == 5 and field._span == 5, "after wrapping, the scan keeps exactly the particles still alive (%d alive, span %d)" % [field.alive_count(), field._span])
 	field.queue_free()
 	var arcs := ArcField.new()
 	runner.get_tree().root.add_child(arcs)

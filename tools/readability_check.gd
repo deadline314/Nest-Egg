@@ -7,7 +7,7 @@ extends Node
 ## 要量測的關卡與取樣點 [名稱, 欄]。第一章設施入口後段是停電走廊，另外量測；
 ## 室內的關卡（有天花板）取樣高度用「從第 4 列往下的第一個地面」，第一章維持原本的規則。
 const LEVELS: Array[Dictionary] = [
-	{"path": "res://data/levels/level_01.tres", "spots": [["屋頂巷弄", 30], ["霓虹市集", 115], ["貨運站", 200], ["設施入口", 252], ["停電走廊", 275], ["頭目機庫", 330]]},
+	{"path": "res://data/levels/level_01.tres", "spots": [["屋頂巷弄", 30], ["霓虹市集", 115], ["貨運站", 200], ["設施入口", 249], ["停電走廊", 275], ["頭目機庫", 330]]},
 	{"path": "res://data/levels/level_02.tres", "spots": [["升降井入口", 30], ["升降井", 100, 14, 108], ["夾層區", 175], ["中庭", 232], ["回收燈幕", 304], ["電力室", 350, 20, 356], ["看守長場地", 400], ["轉運站", 425], ["病房區", 455], ["回收員場地", 492]]},
 ]
 ## 門檻與量測範圍見 ContrastProbe（與光影預設場景量測共用）。敵人站在玩家前方 ENEMY_DISTANCE 像素、不動。
@@ -21,6 +21,12 @@ var _capture_prefix := "ST-6"
 var _results: Array[Dictionary] = []
 ## --spots=夾層區,中庭：只量測指定名稱的取樣點（開發時加快迭代）。
 var _only_spots: PackedStringArray = []
+## --detail：每個取樣點多印一行對比的組成（身體亮部、身體暗部、周圍、亮側與暗側對比），調光影時用。
+var _detail := false
+
+
+func _parts_text(parts: Dictionary) -> String:
+	return "亮部 %.3f 暗部 %.3f 周圍 %.3f → 亮側 %.2f 暗側 %.2f" % [parts["inner"], parts["body"], parts["outer"], parts["bright"], parts["dark"]]
 
 
 ## Subclasses provide campaign targets while sharing the exact probe and thresholds.
@@ -45,6 +51,8 @@ func _run() -> void:
 			Settings.set_light_quality({"low": LightQuality.Tier.LOW, "medium": LightQuality.Tier.MEDIUM, "high": LightQuality.Tier.HIGH}.get(arg.trim_prefix("--quality="), LightQuality.Tier.HIGH))
 		if arg.begins_with("--level="):
 			only = arg.trim_prefix("--level=")
+		if arg == "--detail":
+			_detail = true
 		if arg.begins_with("--spots="):
 			_only_spots = arg.trim_prefix("--spots=").split(",", false)
 		if arg.begins_with("--out="):
@@ -153,11 +161,15 @@ func _check_level(path: String, spots: Array, enemy_path := "res://data/enemies/
 		var enemy_contrast := 0.0
 		for sample in SAMPLES:
 			var probe := ContrastProbe.capture(get_viewport())
-			player_contrast += probe.character_contrast(player.global_position) / float(SAMPLES)
+			player_contrast += probe.character_contrast(player.global_position, true) / float(SAMPLES)
 			edge_contrast += probe.edge_contrast(player.global_position) / float(SAMPLES)
 			if is_instance_valid(foe):
 				enemy_contrast += probe.character_contrast(foe.global_position) / float(SAMPLES)
 			await get_tree().create_timer(SAMPLE_INTERVAL).timeout
+		if _detail:
+			var last := ContrastProbe.capture(get_viewport())
+			print("  ", spot[0], " 主角 ", _parts_text(last.character_parts(player.global_position, true)),
+					("  敵人 " + _parts_text(last.character_parts(foe.global_position))) if is_instance_valid(foe) else "")
 		var expected_feet := Vector2(tile * layout.tile_size + 8.0, y + 2.0)
 		var standing := player.global_position.distance_to(expected_feet) <= 4.0
 		if not enemy_path.is_empty():

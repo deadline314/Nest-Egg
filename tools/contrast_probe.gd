@@ -10,8 +10,11 @@ extends RefCounted
 const MIN_PLAYER_CONTRAST := 0.6
 const MIN_EDGE_CONTRAST := 1.0
 const MIN_ENEMY_CONTRAST := 0.45
-## 角色身體範圍（相對腳底）與周圍一圈的寬度（世界像素）。
+## 角色身體範圍（相對腳底）與周圍一圈的寬度（世界像素）。量測框的高度要蓋到頭頂：主角換成骨架之後站立高 58 像素，
+## 用原本 44 像素高的框只量得到軀幹與腿，白色的頭髮與臉在框外，亮側對比永遠是 0（BG-17 發現）。
+## 敵人維持原本的框：敵人的門檻是「不得更差」的防線，框一改就不能和先前的紀錄對照。
 const PLAYER_BOX := Rect2(-9, -44, 18, 40)
+const PLAYER_HEIGHT := 58.0
 const RING := 20.0
 ## 量「身體比周圍暗」用的百分位：背景平均亮度達 SILHOUETTE_MIN_OUTER 時用暗部百分位，否則用中位數。
 const DARK_PERCENTILE := 0.25
@@ -32,22 +35,38 @@ static func capture(viewport: Viewport) -> ContrastProbe:
 	return probe
 
 
-## 腳底在 feet（世界座標）的角色的輪廓對比。
-func character_contrast(feet: Vector2) -> float:
-	return contrast(Rect2(feet + PLAYER_BOX.position, PLAYER_BOX.size), RING)
+## 腳底在 feet（世界座標）的角色的輪廓對比。full_height＝量到頭頂（主角用）。
+func character_contrast(feet: Vector2, full_height := false) -> float:
+	return contrast(_body_box(feet, full_height), RING)
+
+
+func _body_box(feet: Vector2, full_height: bool) -> Rect2:
+	if not full_height:
+		return Rect2(feet + PLAYER_BOX.position, PLAYER_BOX.size)
+	return Rect2(feet + Vector2(PLAYER_BOX.position.x, -PLAYER_HEIGHT), Vector2(PLAYER_BOX.size.x, PLAYER_HEIGHT + PLAYER_BOX.end.y))
 
 
 ## 方框內與外圈（向外擴 ring 像素）平均亮度的對比：亮部比周圍亮多少，或身體比周圍暗多少（剪影），取較大者。
 func contrast(box: Rect2, ring: float) -> float:
+	var parts := contrast_parts(box, ring)
+	return maxf(parts["bright"], parts["dark"])
+
+
+## 對比的組成（調光影時看是哪一邊不夠）：inner＝身體亮部、body＝身體暗部或中位數、outer＝周圍一圈的平均，
+## bright＝亮部比周圍亮多少、dark＝身體比周圍暗多少。
+func contrast_parts(box: Rect2, ring: float) -> Dictionary:
 	var inner := _percentile_luma(box, 0.9)
 	var outer_box := box.grow(ring)
 	var outer_total := _luma_sum(outer_box) - _luma_sum(box)
 	var outer_count := _pixel_count(outer_box) - _pixel_count(box)
 	var outer := outer_total / maxf(1.0, outer_count)
-	var bright := (inner - outer) / (outer + 0.02)
 	var body := _percentile_luma(box, DARK_PERCENTILE if outer >= SILHOUETTE_MIN_OUTER else MEDIAN_PERCENTILE)
-	var dark := (outer - body) / (outer + 0.02)
-	return maxf(bright, dark)
+	return {"inner": inner, "body": body, "outer": outer, "bright": (inner - outer) / (outer + 0.02), "dark": (outer - body) / (outer + 0.02)}
+
+
+## 腳底在 feet 的角色的對比組成。
+func character_parts(feet: Vector2, full_height := false) -> Dictionary:
+	return contrast_parts(_body_box(feet, full_height), RING)
 
 
 ## 地面頂面亮邊：腳下 1~3 像素 vs 再往下 6~12 像素的對比。

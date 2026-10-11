@@ -1,0 +1,27 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.356 - Forward+ - Using Device #0: Intel - Intel(R) Arc(TM) B580 Graphics
+
+== level_01.tres
+區段        玩家對比      邊緣對比      敵人對比    
+屋頂巷弄      1.49      3.93      0.79      OK
+霓虹市集      0.81      9.26      0.54      OK
+貨運站       2.87      5.25      0.66      OK
+設施入口      1.07      16.84     0.83      OK
+停電走廊      1.44      10.57     0.76      OK
+頭目機庫      6.05      5.63      0.64      OK
+== level_02.tres
+區段        玩家對比      邊緣對比      敵人對比    
+升降井入口     0.90      5.85      0.82      OK
+升降井       2.65      17.51     0.51      OK
+夾層區       1.07      7.05      0.90      OK
+中庭        0.76      5.28      0.67      OK
+回收燈幕      2.88      10.99     0.51      OK
+電力室       1.04      16.58     0.66      OK
+看守長場地     5.96      6.00      0.52      OK
+轉運站       0.91      16.93     0.93      OK
+病房區       0.87      11.46     1.35      OK
+回收員場地     0.80      4.27      0.57      OK
+WARNING: 12 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 3 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

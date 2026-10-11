@@ -34,6 +34,8 @@ var _cell := PackedByteArray()
 var _seed := PackedFloat32Array()
 var _cursor := 0
 var _alive := 0
+## 從 _cursor 往回數，可能還活著的格數：模擬與繪製只掃這一段，不掃整個緩衝。
+var _span := 0
 var _atlas: Texture2D
 
 
@@ -75,6 +77,7 @@ func emit_ex(position: Vector2, velocity: Vector2, life: float, cell: int, size0
 		return
 	var i := _cursor
 	_cursor = (_cursor + 1) % CAPACITY
+	_span = mini(CAPACITY, _span + 1)
 	if _life[i] <= 0.0:
 		_alive += 1
 	_pos[i] = position
@@ -125,7 +128,11 @@ func _process(delta: float) -> void:
 	if _alive <= 0:
 		return
 	var alive := 0
-	for i in CAPACITY:
+	var first := _cursor - _span
+	for step in _span:
+		var i := first + step
+		if i < 0:
+			i += CAPACITY
 		if _life[i] <= 0.0:
 			continue
 		_life[i] -= delta
@@ -139,6 +146,9 @@ func _process(delta: float) -> void:
 		_pos[i] += v * delta
 		_rot[i] += _spin[i] * delta
 	_alive = alive
+	# 最舊的那一端已經結束的格子收掉，下一格就不用再掃。
+	while _span > 0 and _life[posmod(_cursor - _span, CAPACITY)] <= 0.0:
+		_span -= 1
 	queue_redraw()
 
 
@@ -146,7 +156,11 @@ func _draw() -> void:
 	if _alive <= 0:
 		return
 	var time := Time.get_ticks_msec() * 0.001
-	for i in CAPACITY:
+	var first := _cursor - _span
+	for step in _span:  # 由舊到新，新的粒子畫在上面
+		var i := first + step
+		if i < 0:
+			i += CAPACITY
 		if _life[i] <= 0.0:
 			continue
 		var age := 1.0 - _life[i] / _max_life[i]  # 0 新生 → 1 將死
