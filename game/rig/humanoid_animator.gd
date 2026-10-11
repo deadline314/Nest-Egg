@@ -69,6 +69,8 @@ const DEFAULT_MOTION := {
 const HAND_FOLLOWS_FOREARM := 1.4
 ## 後手握近戰武器的桿子時，最遠伸到手臂長度的幾成（再遠就不握，免得手肘打直或搆不到）。
 const SECOND_HAND_REACH := 0.96
+## 後手握點離肩膀至少是手臂全長的這個比例（再近手臂就縮在肩膀上）。
+const SECOND_HAND_MIN := 0.25
 const ARM_CHAINS: Array = [[&"arm_front_upper", &"arm_front_lower", &"hand_front"], [&"arm_back_upper", &"arm_back_lower", &"hand_back"]]
 const ACTIONS_PATH := "res://art/rigs/action_poses.json"
 const SPRING_MIN := -0.8
@@ -263,6 +265,7 @@ func update(delta: float, input: RigInput) -> void:
 	_update_run_overlay()
 	target[&"_hip_x"] = float(target.get(&"_hip_x", 0.0)) - _recoil * float((_motion["recoil"] as Dictionary)["hip"])  # 開火的後座把身體往後頂
 	_apply_action(delta, input, target)
+	_apply_melee_body(input, target)
 	var blend := 1.0 - exp(-POSE_SHARPNESS * delta)
 	for bone_name: StringName in target.keys():
 		if bone_name == &"_hip_y" or bone_name == &"_hip_x":
@@ -294,6 +297,7 @@ func update(delta: float, input: RigInput) -> void:
 	_drape_hems()
 	if not input.dead:
 		_solve_arms(input, aim_angle)
+		_solve_melee_path(input)
 		_forward_kinematics()  # 手臂 IK 之後重算一次，位置快取才是最終的姿勢
 	else:
 		_rig.weapon_root().visible = false
@@ -1024,6 +1028,60 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 		weapon_root.rotation = lerp_angle(weapon_root.rotation, action_weapon_angle, w)
 
 
+## 近戰招式的身體動作（NE-277）：踏步、壓低、轉身疊加在姿勢上，不是只有手臂在動。
+func _apply_melee_body(input: RigInput, target: Dictionary) -> void:
+	if input.melee_body == Vector3.ZERO or input.dead:
+		return
+	target[&"_hip_x"] = float(target.get(&"_hip_x", 0.0)) + input.melee_body.x
+	target[&"_hip_y"] = float(target.get(&"_hip_y", 0.0)) + input.melee_body.y
+	if _rig.has_bone(&"chest"):
+		target[&"chest"] = float(target.get(&"chest", _angles.get(&"chest", 0.0))) + input.melee_body.z
+
+
+## 近戰招式的武器路徑（NE-277）：前手的掌心去追「肩膀＋路徑方向×距離」那一點，手的角度跟著武器；
+## 權重沒滿（進出招式）時和原本的姿勢混合，不會跳位。
+func _solve_melee_path(input: RigInput) -> void:
+	if input.melee_path_w <= 0.001 or not (_rig.has_bone(&"arm_front_upper") and _rig.has_bone(&"arm_front_lower") and _rig.has_bone(&"hand_front")):
+		return
+	# 肩膀的位置與上一節的角度在 _solve_arms 之前就算好了（手臂 IK 不會動到軀幹），不用再整副重算；之後 update 會整副重算一次。
+	var chain: Array = ARM_CHAINS[0]
+	var before: Array[float] = []
+	for bone_name: StringName in chain:
+		before.append(_rig.bone(bone_name).rotation)
+	var weapon := input.melee_path_weapon
+	var grip: Vector2 = (_global_pos[&"arm_front_upper"] as Vector2) + Vector2.from_angle(input.melee_path_angle) * input.melee_path_reach
+	_reach_arm(&"arm_front_upper", &"arm_front_lower", &"hand_front", grip - _rig.hand_grip_offset(&"hand_front").rotated(weapon), weapon)
+	var w := smoothstep(0.0, 1.0, input.melee_path_w)
+	for i in chain.size():
+		var bone := _rig.bone(chain[i])
+		# IK 算出來的是兩個方向角相減，可能超出 ±π（同一個姿勢、轉了一圈）；包回來，插值與關節檢查才不會繞遠路。
+		bone.rotation = wrapf(lerp_angle(before[i], bone.rotation, w), -PI, PI)
+
+
+## 雙手的近戰招式：武器這一格的位置定了之後，後手去握桿上的那一點（骨架座標）。搆不到回傳 false、手不動。
+func place_second_hand(target: Vector2, hand_angle: float) -> bool:
+	if not (_rig.has_bone(&"arm_back_upper") and _rig.has_bone(&"arm_back_lower") and _rig.has_bone(&"hand_back")) or not _global_pos.has(&"arm_back_upper"):
+		return false
+	var reach := _rig.rest(&"arm_back_lower").length() + _rig.rest(&"hand_back").length()
+	var distance: float = (target - (_global_pos[&"arm_back_upper"] as Vector2)).length()
+	if distance > reach * SECOND_HAND_REACH or distance < reach * SECOND_HAND_MIN:
+		return false
+	_reach_arm(&"arm_back_upper", &"arm_back_lower", &"hand_back", target - _rig.hand_grip_offset(&"hand_back").rotated(hand_angle), hand_angle)
+	for bone_name: StringName in ARM_CHAINS[1]:
+		_rig.bone(bone_name).rotation = wrapf(_rig.bone(bone_name).rotation, -PI, PI)
+	_forward_chain(ARM_CHAINS[1])
+	return true
+
+
+## 只重算一條骨鏈（由根往末端）的位置快取：父骨頭的快取要是新的。比整副重算便宜很多（只有三根骨頭）。
+func _forward_chain(chain: Array) -> void:
+	for bone_name: StringName in chain:
+		var parent := _rig.parent_of(bone_name)
+		var parent_angle: float = _global_angle.get(parent, 0.0)
+		_global_angle[bone_name] = parent_angle + _rig.bone(bone_name).rotation
+		_global_pos[bone_name] = (_global_pos.get(parent, Vector2.ZERO) as Vector2) + _rig.bone(bone_name).position.rotated(parent_angle)
+
+
 ## 後手要不要去握近戰武器的桿子：有要求、手上不是槍、而且那一點在手臂搆得到的範圍裡（留一點彎度，手肘不打直）。
 func _second_hand_reaches(input: RigInput, weapon: Dictionary) -> bool:
 	if not input.melee_second or not weapon.is_empty() or input.dead or input.shield_forward:
@@ -1032,7 +1090,7 @@ func _second_hand_reaches(input: RigInput, weapon: Dictionary) -> bool:
 		return false
 	var reach := _rig.rest(&"arm_back_lower").length() + _rig.rest(&"hand_back").length()
 	var distance: float = (input.melee_second_target - (_global_pos[&"arm_back_upper"] as Vector2)).length()
-	return distance <= reach * SECOND_HAND_REACH and distance >= reach * 0.25
+	return distance <= reach * SECOND_HAND_REACH and distance >= reach * SECOND_HAND_MIN
 
 
 ## 空著垂下的遠側手臂要藏在身體後面：側面看一個站著的人，遠側的手被髖擋住。垂放角度依這副骨架量出來——
@@ -1122,7 +1180,7 @@ func _apply_action(delta: float, input: RigInput, target: Dictionary) -> void:
 		_action_skip_ik = bool(def.get("skip_ik", false))
 		_action_weapon_angle = float(def["weapon_angle"]) if def.has("weapon_angle") else NAN
 		_action_w = move_toward(_action_w, 1.0, float(def.get("blend", 12.0)) * delta)
-		_action_pose = _sample_action(def, clampf(input.action_t, 0.0, 1.0))
+		_action_pose = _sample_action(def, clampf(input.action_t, 0.0, 1.0), input.action)
 	if _action_w <= 0.0:
 		return
 	for key: Variant in _action_pose.keys():
@@ -1135,8 +1193,38 @@ func _apply_action(delta: float, input: RigInput, target: Dictionary) -> void:
 
 
 ## 動作在進度 t 的各骨頭角度（含 _hip_x／_hip_y）：每根骨頭只看有寫到它的 key，之間用 smoothstep 內插，前後超出就停在端點。
-func _sample_action(def: Dictionary, t: float) -> Dictionary:
-	var tracks: Dictionary = {}  # bone -> Array of [t, value]
+## 每個動作的 key 整理成「每根骨頭一條軌跡」只做一次（快取在 _action_tracks，動作資料換了新的字典就重整），
+## 每格只做內插；角色在出招時不再每格重新配置字典與陣列。
+var _action_tracks: Dictionary = {}  # 動作名稱 → [bones: Array[StringName], times: Array[PackedFloat64Array], values: Array[PackedFloat64Array]]
+
+
+func _sample_action(def: Dictionary, t: float, name: StringName = &"") -> Dictionary:
+	var tracks: Array = _tracks_of(def, name)
+	var bones: Array = tracks[0]
+	var out: Dictionary = {}
+	for i in bones.size():
+		var times: PackedFloat64Array = tracks[1][i]
+		var values: PackedFloat64Array = tracks[2][i]
+		var last := times.size() - 1
+		var value: float = values[last]
+		if t <= times[0]:
+			value = values[0]
+		else:
+			for k in last:
+				if t <= times[k + 1]:
+					var span := maxf(0.0001, times[k + 1] - times[k])
+					value = lerpf(values[k], values[k + 1], smoothstep(0.0, 1.0, (t - times[k]) / span))
+					break
+		out[bones[i]] = value
+	return out
+
+
+func _tracks_of(def: Dictionary, name: StringName) -> Array:
+	var cached: Variant = _action_tracks.get(name)
+	if cached is Array and is_same((cached as Array)[3], def):
+		return cached
+	var points: Dictionary = {}  # bone -> [[t, value], ...]（照 key 的順序）
+	var order: Array = []
 	for key_entry: Variant in def.get("keys", []):
 		if typeof(key_entry) != TYPE_DICTIONARY:
 			continue
@@ -1148,29 +1236,29 @@ func _sample_action(def: Dictionary, t: float) -> Dictionary:
 		if k.has("hip_y"):
 			values["_hip_y"] = k["hip_y"]
 		for bone: Variant in values.keys():
-			if not tracks.has(bone):
-				tracks[bone] = []
-			(tracks[bone] as Array).append([kt, float(values[bone])])
-	var out: Dictionary = {}
-	for bone: Variant in tracks.keys():
-		var points: Array = tracks[bone]
+			if not points.has(bone):
+				points[bone] = []
+				order.append(bone)
+			(points[bone] as Array).append([kt, float(values[bone])])
+	var bones: Array = []
+	var times: Array = []
+	var samples: Array = []
+	for bone: Variant in order:
 		var bone_name := StringName(str(bone))
 		if bone_name != &"_hip_x" and bone_name != &"_hip_y" and not _rig.has_bone(bone_name):
 			RigLibrary.report_once("action_bone:" + str(bone), "[HumanoidAnimator] %s 的動作用到不存在的骨頭：%s" % [ACTIONS_PATH, bone])
 			continue
-		var value: float = (points[points.size() - 1] as Array)[1]
-		if t <= float((points[0] as Array)[0]):
-			value = (points[0] as Array)[1]
-		else:
-			for i in range(points.size() - 1):
-				var a: Array = points[i]
-				var b: Array = points[i + 1]
-				if t <= float(b[0]):
-					var span := maxf(0.0001, float(b[0]) - float(a[0]))
-					value = lerpf(float(a[1]), float(b[1]), smoothstep(0.0, 1.0, (t - float(a[0])) / span))
-					break
-		out[bone_name] = value
-	return out
+		var track_t := PackedFloat64Array()
+		var track_v := PackedFloat64Array()
+		for point: Array in points[bone]:
+			track_t.append(float(point[0]))
+			track_v.append(float(point[1]))
+		bones.append(bone_name)
+		times.append(track_t)
+		samples.append(track_v)
+	var result := [bones, times, samples, def]
+	_action_tracks[name] = result
+	return result
 
 
 func _set_rotation(bone_name: StringName, value: float) -> void:

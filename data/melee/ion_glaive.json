@@ -45,7 +45,65 @@
     "swing": "melee_glaive_swing_first",
     "hit": "melee_glaive_hit"
    },
-   "impact_fx": "pierce"
+   "impact_fx": "pierce",
+   "follow": 0.12,
+   "hits": [
+    {
+     "at": 0.0,
+     "length": 0.1
+    }
+   ],
+   "body": {
+    "step": 9,
+    "drop": 3,
+    "twist": 0.3
+   },
+   "path": [
+    {
+     "t": 0,
+     "angle": 1.1,
+     "reach": 7,
+     "tilt": -1.8
+    },
+    {
+     "t": 0.4,
+     "angle": 1.0,
+     "reach": 6.5,
+     "tilt": -1.0
+    },
+    {
+     "t": 0.55,
+     "angle": 0.3,
+     "reach": 12,
+     "tilt": -0.1
+    },
+    {
+     "t": 0.7,
+     "angle": 0.25,
+     "reach": 12,
+     "tilt": -0.05
+    },
+    {
+     "t": 0.85,
+     "angle": 0.5,
+     "reach": 9.5,
+     "tilt": -0.3
+    },
+    {
+     "t": 1,
+     "angle": 1.1,
+     "reach": 7,
+     "tilt": -1.8
+    }
+   ],
+   "grip": {
+    "hands": 2
+   },
+   "feedback": {
+    "reaction": "light",
+    "low": "melee_low_light",
+    "high": "melee_glaive_hit"
+   }
   },
   "sweep": {
    "windup": 0.2,
@@ -85,7 +143,65 @@
     "swing": "melee_glaive_swing_heavy",
     "hit": "melee_glaive_hit_heavy"
    },
-   "impact_fx": "slash"
+   "impact_fx": "slash",
+   "follow": 0.144,
+   "hits": [
+    {
+     "at": 0.0,
+     "length": 0.12
+    }
+   ],
+   "body": {
+    "step": 4,
+    "drop": 4,
+    "twist": -0.3
+   },
+   "path": [
+    {
+     "t": 0,
+     "angle": 1.1,
+     "reach": 7,
+     "tilt": -1.8
+    },
+    {
+     "t": 0.4,
+     "angle": -1.6,
+     "reach": 8,
+     "tilt": -0.9
+    },
+    {
+     "t": 0.55,
+     "angle": -0.3,
+     "reach": 9,
+     "tilt": -0.2
+    },
+    {
+     "t": 0.7,
+     "angle": 0.9,
+     "reach": 8,
+     "tilt": 0.3
+    },
+    {
+     "t": 0.85,
+     "angle": 1.2,
+     "reach": 7.5,
+     "tilt": 0.3
+    },
+    {
+     "t": 1,
+     "angle": 1.1,
+     "reach": 7,
+     "tilt": -1.8
+    }
+   ],
+   "grip": {
+    "hands": 2
+   },
+   "feedback": {
+    "reaction": "light",
+    "low": "melee_low_light",
+    "high": "melee_glaive_hit_heavy"
+   }
   },
   "cross_sweep": {
    "windup": 0.22,
@@ -126,11 +242,173 @@
     "hit": "melee_glaive_hit_heavy"
    },
    "impact_fx": "slash",
-   "guard_cost": 20
+   "guard_cost": 20,
+   "follow": 0.168,
+   "hits": [
+    {
+     "at": 0.0,
+     "length": 0.12
+    }
+   ],
+   "body": {
+    "step": 6,
+    "drop": 2,
+    "twist": 0.35
+   },
+   "path": [
+    {
+     "t": 0,
+     "angle": 1.1,
+     "reach": 7,
+     "tilt": -1.8
+    },
+    {
+     "t": 0.4,
+     "angle": 1.8,
+     "reach": 8.5,
+     "tilt": 0.7
+    },
+    {
+     "t": 0.55,
+     "angle": 0.4,
+     "reach": 9
+    },
+    {
+     "t": 0.7,
+     "angle": -0.9,
+     "reach": 8,
+     "tilt": -0.1
+    },
+    {
+     "t": 0.85,
+     "angle": -1.2,
+     "reach": 7.5
+    },
+    {
+     "t": 1,
+     "angle": 1.1,
+     "reach": 7,
+     "tilt": -1.8
+    }
+   ],
+   "grip": {
+    "hands": 2
+   },
+   "feedback": {
+    "reaction": "light",
+    "low": "melee_low_light",
+    "high": "melee_glaive_hit_heavy"
+   }
+  },
+  "guard_stance": {
+   "windup": 0.14,
+   "active": 0.3,
+   "recovery": 0.3,
+   "cancel_after": 0.3,
+   "damage": 1,
+   "range": 60,
+   "advance": 0,
+   "move_scale": 0.35,
+   "stagger": 2,
+   "impact": 5.0,
+   "knockback": [
+    160,
+    -40
+   ],
+   "event": "player_melee_hit",
+   "shape": "box",
+   "height": 14,
+   "arc_degrees": 120,
+   "min_range": 12,
+   "aim_follow": true,
+   "sweep": true,
+   "hitstop": 0.0,
+   "pose": "ion_glaive_thrust",
+   "trail": {
+    "radius": 56,
+    "arc": 20,
+    "life": 0.1,
+    "width": 2.4,
+    "brightness": 1.6,
+    "afterimage": false,
+    "color": "#8fb0ff",
+    "style": "thrust"
+   },
+   "sounds": {
+    "swing": "melee_glaive_swing_first",
+    "hit": "melee_glaive_hit"
+   },
+   "impact_fx": "pierce",
+   "follow": 0.12,
+   "hits": [
+    {
+     "at": 0.0,
+     "length": 0.3
+    }
+   ],
+   "body": {
+    "step": 5,
+    "drop": 4,
+    "twist": 0.2
+   },
+   "path": [
+    {
+     "t": 0,
+     "angle": 1.1,
+     "reach": 7,
+     "tilt": -1.8
+    },
+    {
+     "t": 0.4,
+     "angle": 0.9,
+     "reach": 5,
+     "tilt": -1.0
+    },
+    {
+     "t": 0.55,
+     "angle": 0.35,
+     "reach": 10.5,
+     "tilt": -0.35
+    },
+    {
+     "t": 0.7,
+     "angle": 0.35,
+     "reach": 10.5,
+     "tilt": -0.35
+    },
+    {
+     "t": 0.85,
+     "angle": 0.6,
+     "reach": 9,
+     "tilt": -0.6
+    },
+    {
+     "t": 1,
+     "angle": 1.1,
+     "reach": 7,
+     "tilt": -1.8
+    }
+   ],
+   "grip": {
+    "hands": 2
+   },
+   "feedback": {
+    "reaction": "light",
+    "low": "melee_low_light",
+    "high": "melee_glaive_hit"
+   }
   }
  },
  "extension": {
   "upgrade": "technique_glaive",
   "attack": "cross_sweep"
+ },
+ "hold": {
+  "attack": "guard_stance",
+  "mode": "sustain",
+  "max": 2.0,
+  "interval": 0.25,
+  "hold_at": 0.55,
+  "hint": "按住把戟頭頂在前面電擊"
  }
 }

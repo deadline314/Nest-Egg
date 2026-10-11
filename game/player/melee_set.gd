@@ -5,7 +5,8 @@ extends RefCounted
 ## 資料缺漏或損毀時記錄「檔案、招式、欄位」並退回內建的安全預設（單一輕斬），不崩潰。
 
 const FIELDS: PackedStringArray = ["windup", "active", "recovery", "cancel_after", "damage", "range", "advance", "move_scale", "stagger", "impact", "knockback", "event", "trail", "sounds",
-		"shape", "height", "arc_degrees", "min_range", "aim_follow", "sweep", "hitstop", "pose", "impact_fx", "guard_cost"]
+		"shape", "height", "arc_degrees", "min_range", "aim_follow", "sweep", "hitstop", "pose", "impact_fx", "guard_cost",
+		"follow", "hits", "body", "path", "grip", "feedback"]  # 最後一行是 NE-277 的完整招式欄位，說明見 MeleeMove
 ## Broad authoring bounds, preserving every existing attack's balance values.
 const COMBO_WINDOW_MAX := 2.0
 const NUMERIC_LIMITS := {
@@ -161,7 +162,7 @@ static func definition_problems(raw: Variant, source: String) -> PackedStringArr
 	if not raw is Dictionary or not raw.get("attacks") is Dictionary:
 		return PackedStringArray([source + "/attacks must be an object"])
 	for key: Variant in raw:
-		if not key is String or (key not in ["combo", "combo_window", "attacks", "extension", "idle_sound"] and not key.begins_with("_")):
+		if not key is String or (key not in ["combo", "combo_window", "attacks", "extension", "idle_sound", "hold"] and not key.begins_with("_")):
 			errors.append("%s/%s unknown field" % [source, key])
 	var attacks: Dictionary = raw.attacks
 	var combo: Variant = raw.get("combo")
@@ -178,6 +179,8 @@ static func definition_problems(raw: Variant, source: String) -> PackedStringArr
 			errors.append("%s/attacks invalid id: %s" % [source, id])
 			continue
 		errors.append_array(_attack_problems(attacks[id], "%s/attacks/%s" % [source, id]))
+	if raw.has("hold"):
+		errors.append_array(_hold_problems(raw.hold, raw, source + "/hold"))
 	if raw.has("extension"):
 		var extension: Variant = raw.extension
 		if not extension is Dictionary:
@@ -195,6 +198,60 @@ static func definition_problems(raw: Variant, source: String) -> PackedStringArr
 			else:
 				errors.append_array(_tail_role_problems(attacks[id], "%s/attacks/%s" % [source, id]))
 	return errors
+
+
+## 按住招式（NE-277）：attack 指到招式表裡、不在連段也不是付費尾招的一招；mode 是 charge（蓄力，前搖到了還按著就繼續蓄，
+## 最多 max 秒，蓄滿用 full_damage）、sustain（持續，出招到了還按著就維持最多 max 秒，每 interval 秒判定一次；
+## loop＝出招段來回播、否則停在 hold_at 的動作進度）或 repeat（重複，按著就一直出這一招）；hint 是一句說明。
+const HOLD_MODES: PackedStringArray = ["charge", "sustain", "repeat"]
+const HOLD_MAX_SECONDS := 3.0
+
+
+static func _hold_problems(raw: Variant, data: Dictionary, source: String) -> PackedStringArray:
+	var errors := PackedStringArray()
+	if not raw is Dictionary:
+		return PackedStringArray([source + " must be an object"])
+	for key: Variant in raw:
+		if key not in ["attack", "mode", "max", "interval", "full_damage", "loop", "hold_at", "hint"]:
+			errors.append("%s/%s unknown field" % [source, key])
+	var id: Variant = raw.get("attack")
+	var attacks: Variant = data.get("attacks")
+	var combo: Variant = data.get("combo")
+	var extension: Variant = data.get("extension")
+	if not id is String or not attacks is Dictionary or not (attacks as Dictionary).get(id) is Dictionary:
+		errors.append(source + "/attack must name a move in attacks")
+	elif (combo is Array and (combo as Array).has(id)) or (extension is Dictionary and (extension as Dictionary).get("attack") == id):
+		errors.append(source + "/attack must be its own move, not a combo step or the paid tail")
+	var mode: Variant = raw.get("mode")
+	if not mode is String or not HOLD_MODES.has(mode):
+		errors.append(source + "/mode must be charge, sustain or repeat")
+	elif mode != "repeat" and (not _number(raw.get("max")) or float(raw.max) <= 0.0 or float(raw.max) > HOLD_MAX_SECONDS):
+		errors.append(source + "/max must be in (0,%s] seconds" % HOLD_MAX_SECONDS)
+	if mode == "sustain" and (not _number(raw.get("interval")) or float(raw.interval) < 0.05 or float(raw.interval) > 1.0):
+		errors.append(source + "/interval must be within 0.05–1 seconds")
+	if mode == "charge" and (not _number(raw.get("full_damage")) or float(raw.full_damage) <= 0.0 or float(raw.full_damage) != floorf(float(raw.full_damage)) or float(raw.full_damage) > 10000.0):
+		errors.append(source + "/full_damage must be a positive integer")
+	if raw.has("loop") and not raw.loop is bool:
+		errors.append(source + "/loop must be boolean")
+	if raw.has("hold_at") and (not _number(raw.hold_at) or float(raw.hold_at) < 0.4 or float(raw.hold_at) > 0.7):
+		errors.append(source + "/hold_at must be within the active part 0.4–0.7")
+	if not raw.get("hint") is String or str(raw.get("hint")).strip_edges().is_empty() or str(raw.hint).length() > 24:
+		errors.append(source + "/hint must be one short sentence (1–24 characters)")
+	return errors
+
+
+## 這把武器的按住招式設定（見 _hold_problems）；沒有或資料有誤回傳空字典。
+func hold() -> Dictionary:
+	_ensure_loaded()
+	var spec: Variant = _data.get("hold")
+	if not spec is Dictionary or not _hold_problems(spec, _data, path).is_empty():
+		return {}
+	return spec
+
+
+## 按住招式的說明（沒有回傳空字串）。
+func hold_hint() -> String:
+	return str(hold().get("hint", ""))
 
 
 ## The same role constraints apply to initial validation and every live swing.
@@ -277,6 +334,7 @@ static func _attack_problems(raw: Variant, source: String) -> PackedStringArray:
 		for key: Variant in d.sounds:
 			if key not in ["swing", "hit"] or not d.sounds[key] is String or not Sfx.has_named(StringName(d.sounds[key])):
 				errors.append("%s/sounds/%s unknown sound" % [source, key])
+	errors.append_array(MeleeMove.problems(raw, source))
 	if not raw.get("trail") is Dictionary:
 		errors.append(source + "/trail must be an object")
 	else:
@@ -307,6 +365,12 @@ func validate() -> PackedStringArray:
 	_ensure_loaded()
 	var errors := _load_errors.duplicate()
 	errors.append_array(definition_problems(_data, path))
+	# 出貨的招式要是完整格式（NE-277）：每一招都帶齊四段、判定、身體、武器路徑、握法與回饋。
+	var attacks: Variant = _data.get("attacks", {})
+	if attacks is Dictionary:
+		for id: Variant in attacks:
+			if attacks[id] is Dictionary:
+				errors.append_array(MeleeMove.completeness_problems(attacks[id], "%s/attacks/%s" % [path, id], path.begins_with(MeleeData.PROFILE_DIR)))
 	if not idle_sound().is_empty() and not Sfx.has_sound(idle_sound()):
 		errors.append("%s 的 idle_sound 引用不存在的聲音「%s」" % [path, idle_sound()])
 	return errors

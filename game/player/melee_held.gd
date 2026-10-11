@@ -41,6 +41,13 @@ const WHIP_ACTIVE_TO := 0.7
 ## 武器本體的明暗：最暗的環境剩幾成亮度、環境光每 1.0 增加多少。
 const SHADE_FLOOR := 0.42
 const SHADE_GAIN := 1.5
+## 雙手招式時後手離前手至少多遠（世界像素，一個拳頭）。
+const SECOND_MIN := 5.0
+## 後手握在桿尾那一段時，離桿的末端至少留多少（世界像素）。
+const SECOND_TAIL_MARGIN := 2.0
+const SECOND_STEP := 0.5
+## 搆不到的點的懲罰（比任何搆得到的點都差）。
+const OUT_OF_REACH := 1000.0
 
 var _visual: PlayerVisual
 var _weapon: WeaponData
@@ -89,6 +96,11 @@ func update(delta: float) -> void:
 	# 一律換到「朝右」的空間裡算角度，朝左時左右對調。
 	var arm_angle := Vector2(along.x * facing, along.y).angle()
 	var in_move := not player.melee_pose().is_empty()
+	# 有武器路徑的招式（NE-277）：武器朝路徑的方向，手去握它；沒有路徑的招式照舊以前臂為準。
+	var path := player.melee.path_now() if in_move else PackedFloat32Array()
+	if not path.is_empty():
+		arm_angle = path[0] + path[2]
+		_swing_blend = 1.0  # 有路徑的招式從第一格就朝路徑（起點就是拿法）；角度仍由彈簧去追，保留拖曳與跟隨
 	_swing_blend = move_toward(_swing_blend, 1.0 if in_move else 0.0, delta * BLEND_SPEED)
 	var carry := float(_spec["carry"]) + float(_spec["couple"]) * angle_difference(PI * 0.5, arm_angle)
 	var target := lerp_angle(carry, arm_angle + float(_spec["swing"]), smoothstep(0.0, 1.0, _swing_blend))
@@ -156,6 +168,35 @@ func has_second_grip() -> bool:
 
 func second_grip() -> Vector2:
 	return _origin + _direction * float(_spec["second"])
+
+
+## 雙手招式時後手在桿上的握點：桿上離 shoulder（後肩）在 [near, far]（手臂搆得到）之內、距離最接近 ideal（手肘自然彎著）的一點；
+## 範圍內都沒有點時取離範圍最近的一點（交給手臂 IK 判斷握不握得到）。
+## 可以握的地方是前手往刃尖方向「一個拳頭」到外觀資料的 second，以及前手往桿尾方向那一段（長柄的戰戟：刺擊時後手握在桿尾）；
+## 握把離桿尾不到兩個拳頭的武器（錘）只有前面那一段。每半個像素試一次（最多幾十次，只在雙手招式時算）。
+func second_grip_near(shoulder: Vector2, ideal := 0.0, near := 0.0, far := INF) -> Vector2:
+	var second := float(_spec["second"])
+	var best := minf(SECOND_MIN, second)
+	var best_error := INF
+	var tail_end := _butt - SECOND_TAIL_MARGIN
+	var s := -tail_end if tail_end >= SECOND_MIN else best
+	while s <= second + 0.001:
+		if absf(s) >= SECOND_MIN - 0.001 or s == minf(SECOND_MIN, second):
+			var distance := shoulder.distance_to(_origin + _direction * s)
+			var outside := maxf(near - distance, distance - far)
+			var error := absf(distance - ideal) if outside <= 0.0 else OUT_OF_REACH + outside
+			if error < best_error:
+				best_error = error
+				best = s
+		s += SECOND_STEP
+	return _origin + _direction * best
+
+
+## 武器最遠的一點（世界座標）：刃尖或錘頭；鞭子是鞭梢。量「畫面上的武器打得到多遠」用。
+func tip_point() -> Vector2:
+	if _whip != null and _whip.is_laid():
+		return _whip.tip()
+	return _origin + _direction * _tip
 
 
 ## 握把的位置與刃尖的方向（世界座標）：origin 是掌心，x 軸指向刃尖。

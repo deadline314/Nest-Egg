@@ -13,6 +13,8 @@ const RANGES := {
 	"damage": [1.0, 10.0, 1.0], "range": [10.0, 60.0, 1.0], "advance": [0.0, 240.0, 5.0], "move_scale": [0.0, 1.0, 0.05],
 	"stagger": [0.0, 4.0, 1.0], "impact": [1.0, 14.0, 0.5], "life": [0.08, 0.12, 0.005], "width": [1.0, 8.0, 0.25],
 	"brightness": [0.5, 2.2, 0.05], "radius": [8.0, 40.0, 1.0], "arc": [40.0, 260.0, 5.0],
+	# 完整招式（NE-277，MeleeMove）：跟隨段秒數、身體的踏步／壓低／轉身、單手或雙手
+	"follow": [0.0, 0.6, 0.005], "step": [-16.0, 24.0, 0.5], "drop": [-4.0, 14.0, 0.5], "twist": [-0.8, 0.8, 0.02], "hands": [1.0, 2.0, 1.0],
 }
 const SOURCE_DIRS: PackedStringArray = ["res://game", "res://ui", "res://autoload", "res://core"]
 const EXTRA_SOURCES: PackedStringArray = ["res://data/feel/melee.json"]

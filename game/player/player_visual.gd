@@ -26,6 +26,12 @@ const HANDSET_VISUAL := "handset"
 const HANDSET_IN := 0.26
 const HANDSET_OUT := 0.9
 const MELEE_ACTION_PREFIX := "rin.melee_"
+## 招式結束後武器路徑的權重每秒減少多少（約 0.05 秒放回平常的姿勢）。
+const MELEE_PATH_BLEND := 20.0
+## 雙手招式時後手握在離後肩「手臂全長的這個比例」的桿上（手肘自然彎著）。
+const SECOND_HAND_BEND := 0.72
+## 後手的握點離後肩至少「手臂全長的這個比例」：再近手肘就折到底，關節的網格會變得太窄。
+const SECOND_HAND_NEAREST := 0.5
 ## 拿東西時收起了武器外觀，放下後要放回。
 var _carry_hid_weapon := false
 ## 近戰武器平時的發光亮度、出招瞬間的亮度（有上限，HDR 泛光下不過曝）。
@@ -260,6 +266,36 @@ func _update_melee_pose() -> void:
 	_input.action_t = player.melee_pose_progress()
 
 
+## 雙手招式時後手要握的桿上那一點（世界座標）；搆得到的範圍和骨架的判斷一致（HumanoidAnimator.place_second_hand）。
+func second_grip(shoulder: Vector2) -> Vector2:
+	var reach := second_hand_reach()
+	var grip := _melee_held.second_grip_near(shoulder, reach * SECOND_HAND_BEND, reach * SECOND_HAND_NEAREST, reach * 0.9)
+	var distance := shoulder.distance_to(grip)
+	if distance < reach * HumanoidAnimator.SECOND_HAND_MIN or distance > reach * HumanoidAnimator.SECOND_HAND_REACH:
+		# 舒服的範圍裡沒有點（桿子正好穿過肩膀附近）：退一步，在手臂真的搆得到的範圍裡挑，手肘彎多一點也不要放開。
+		grip = _melee_held.second_grip_near(shoulder, reach * SECOND_HAND_BEND, reach * (HumanoidAnimator.SECOND_HAND_MIN + 0.02), reach * (HumanoidAnimator.SECOND_HAND_REACH - 0.02))
+	return grip
+
+
+## 後手（遠側手臂）從肩膀到掌心的全長（世界像素）。
+func second_hand_reach() -> float:
+	if rig == null or not rig.has_bone(&"arm_back_lower") or not rig.has_bone(&"hand_back"):
+		return 0.0
+	return (rig.rest(&"arm_back_lower").length() + rig.rest(&"hand_back").length()) * absf(rig.global_transform.get_scale().x)
+
+
+## 近戰招式的武器路徑與身體動作（NE-277）：路徑的權重在進出招式時漸變（約 0.05 秒），收招後放回原本的拿法。
+func _update_melee_path(delta: float) -> void:
+	var path := player.melee.path_now() if player.holds_melee_weapon() and _phone_t < 0.0 and _input.action != &"" else PackedFloat32Array()
+	# 進招式第一格就完全照路徑（路徑的起點就是平常的拿法，不會跳；快的招式前搖只有幾格，慢慢混會看不到預兆），收招後才慢慢放回。
+	_input.melee_path_w = 1.0 if not path.is_empty() else move_toward(_input.melee_path_w, 0.0, delta * MELEE_PATH_BLEND)
+	if not path.is_empty():
+		_input.melee_path_angle = path[0]
+		_input.melee_path_reach = path[1]
+		_input.melee_path_weapon = path[0] + path[2]
+	_input.melee_body = player.melee.body_now() if player.holds_melee_weapon() and _input.action != &"" else Vector3.ZERO
+
+
 ## 撿起、舉著、丟出（NE-254）：雙手空出來（收起武器外觀），播放 rin.carry_* 動作；結束後放回武器。回傳是否正在拿東西。
 func _update_carry_pose() -> bool:
 	var pose := player.carry.pose() if player.carry != null else &""
@@ -298,6 +334,7 @@ func _physics_process(delta: float) -> void:
 	_input.dead = player.state == Player.State.DEAD
 	_update_phone(delta)
 	_update_melee_pose()
+	_update_melee_path(delta)
 	_input.melee_grip = shows_melee_weapon()
 	# 雙手武器：另一隻手握的點用上一格武器的位置（武器要等骨架動完才知道在哪）。
 	_input.melee_second = _input.melee_grip and _melee_held.has_second_grip()
@@ -306,6 +343,11 @@ func _physics_process(delta: float) -> void:
 		_input.melee_second_angle = _melee_held.angle()
 	rig.animate(delta, _input)
 	_melee_held.update(delta)
+	if _input.melee_path_w > 0.0 and _input.melee_second and player.melee.two_handed_now():
+		# 雙手招式：武器這一格的位置定了，後手才去握桿（每一格兩隻手都在武器上，不晚一格）。
+		# 長柄武器的後手可以沿著桿子滑：握在桿上離後肩最近、搆得到的那一點（手臂短，伸直刺擊時固定的握點會搆不到）。
+		var shoulder := rig.bone(&"arm_back_upper").global_position if rig.has_bone(&"arm_back_upper") else _melee_held.second_grip()
+		rig.place_second_hand(second_grip(shoulder), _melee_held.angle())
 	_input.recoil = 0.0
 	_input.hurt = false
 	_input.jumped = false

@@ -531,6 +531,49 @@
      ]
     }
    ]
+  },
+  "melee_low_light": {
+   "_說明": "近戰命中的低頻層（NE-277）：輕的招式，疊在高頻的命中聲底下，給打到肉的悶響。",
+   "priority": 4,
+   "layers": [
+    {
+     "sounds": [
+      "hit_tail"
+     ],
+     "pitch": [
+      0.82,
+      0.92
+     ],
+     "volume_db": -7
+    }
+   ]
+  },
+  "melee_low_heavy": {
+   "_說明": "近戰命中的低頻層（NE-277）：重的招式，比輕的低、長（落地的悶響加撞擊的尾音）。",
+   "priority": 6,
+   "layers": [
+    {
+     "sounds": [
+      "land_dirt"
+     ],
+     "pitch": [
+      0.72,
+      0.8
+     ],
+     "volume_db": -5
+    },
+    {
+     "sounds": [
+      "hit_tail"
+     ],
+     "pitch": [
+      0.66,
+      0.74
+     ],
+     "volume_db": -6,
+     "delay": 0.02
+    }
+   ]
   }
  }
 }

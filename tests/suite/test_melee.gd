@@ -15,6 +15,9 @@ func run() -> void:
 	await _test_dash_lock()
 	await _test_trails()
 	_test_bad_data()
+	_test_module_format()
+	await _test_data_only_weapon()
+	await _test_weapon_holds()
 
 
 func _test_data() -> void:
@@ -236,3 +239,148 @@ func _capture_combo(player: Player) -> void:
 	print("MELEE_COMBO_RENDER ", JSON.stringify({"renderer":RenderingServer.get_current_rendering_method(),
 		"adapter":RenderingServer.get_video_adapter_name(),"width":image.get_width(),"height":image.get_height(),
 		"phase":player._melee_phase,"index":player._melee_index,"pose_t":player.melee_pose_progress(),"zoom":camera.zoom.x}))
+
+
+# ---------------------------------------------------------------------------
+# 近戰模組（NE-277）：完整招式格式、資料檢查、多段判定、按住招式，以及「只加資料就能新增一把武器」。
+# ---------------------------------------------------------------------------
+
+const TEST_WEAPON_PROFILE := "test_spear"
+const TEST_WEAPON_DATA := "res://tests/fixtures/melee/test_spear.json"
+const HOLD_WEAPONS := {"melee_blade": 30.0, "melee_dagger": 16.0, "melee_glaive": 46.0, "melee_maul": 26.0, "melee_whip": 64.0}
+
+
+func _test_module_format() -> void:
+	var move := {"windup": 0.1, "active": 0.1, "recovery": 0.3, "damage": 2, "range": 30, "stagger": 2, "pose": "slash",
+			"follow": 0.1, "hits": [{"at": 0.0, "length": 0.1}], "body": {"step": 2}, "grip": {"hands": 1}, "feedback": {"reaction": "light"}}
+	var missing := MeleeMove.completeness_problems(move, "test/attacks/x")
+	check(missing.size() == 1 and missing[0].contains("test/attacks/x/path"), "the data check names the missing field with its location: %s" % ", ".join(missing))
+	check(MeleeMove.completeness_problems(move, "test/attacks/x", false).is_empty(), "an unarmed move (gun in hand) needs no weapon path")
+	var bad := move.duplicate(true)
+	bad["hits"] = [{"at": 0.0, "length": 0.08}, {"at": 0.05, "length": 0.05}]
+	bad["feedback"] = {"reaction": "heavy"}
+	bad["path"] = [{"t": 0.0, "angle": 0.0, "reach": 20.0}]
+	var problems := MeleeMove.problems(bad, "test/attacks/bad")
+	check(problems.size() >= 3, "overlapping or late hit windows, a reaction that contradicts stagger and a short or unreachable path are refused: %s" % ", ".join(problems))
+	# 搬到新格式之前的每一招都是「出招開始時一段、持續整個出招」：搬完的時間、距離、傷害不變。
+	var sets: Array[MeleeSet] = [MeleeData.default_set()]
+	for id: String in HOLD_WEAPONS:
+		sets.append(MeleeData.set_of(load("res://data/weapons/melee/%s.tres" % id) as WeaponData))
+	for set in sets:
+		var ids: Array = set.combo()
+		if not set.extension_attack().is_empty():
+			ids.append(set.extension_attack())
+		for id: Variant in ids:
+			var def := set.attack(str(id), str(id) == set.extension_attack())
+			var hits := MeleeMove.hits(def)
+			check(hits.size() == 1 and is_zero_approx(float(hits[0]["at"])) and is_equal_approx(float(hits[0]["length"]), float(def["active"])) and MeleeMove.hit_damage(def, 0) == int(def["damage"]),
+					"%s/%s keeps one hit over the whole active part with its old damage" % [set.path, id])
+			check(MeleeMove.reaction(def) == ("heavy" if int(def["stagger"]) >= 3 else "light"), "%s/%s declares the enemy reaction that matches its stagger" % [set.path, id])
+		check(set.path == MeleeData.PATH or not set.hold_hint().is_empty(), "%s has a hold move with a one-line hint" % set.path)
+
+
+## 只有資料的測試武器（tests/fixtures/melee/test_spear.json）：沒有任何專屬程式也能連段、多段判定與按住蓄力。
+func _test_data_only_weapon() -> void:
+	var set := MeleeSet.new(TEST_WEAPON_DATA)
+	check(set.validate().is_empty(), "the data-only test weapon passes the full move check: %s" % ", ".join(set.validate()))
+	MeleeData._profiles[TEST_WEAPON_PROFILE] = set
+	var weapon := (load("res://data/weapons/melee/melee_glaive.tres") as WeaponData).duplicate() as WeaponData
+	weapon.id = &"test_spear"
+	weapon.melee_profile = TEST_WEAPON_PROFILE
+	await open_level(10.0)
+	var player := level.player
+	player.loadout.equip(weapon)
+	player.facing = 1
+	player.aim_dir = Vector2.RIGHT
+	player._melee_cooldown_left = 0.0
+	var enemy := await _target_at(24.0)
+	enemy.health.setup(999, 0.0)
+	var before := enemy.health.current
+	check(player._try_melee() and str(player._melee_attack.get("pose", "")) == "ion_glaive_thrust", "the test weapon swings its own first move")
+	await _frames_until(player, Player.MeleePhase.RECOVERY)
+	player._try_melee()
+	var hits_seen := 0
+	var last := enemy.health.current
+	for frame in 90:
+		await physics_frames(1)
+		if enemy.health.current < last:
+			hits_seen += 1
+			last = enemy.health.current
+		if player._melee_phase == Player.MeleePhase.NONE:
+			break
+	check(before - enemy.health.current == 2 + 3 and hits_seen == 3, "jab then a three-window stab: every window hits the same target again (lost %d over %d hits)" % [before - enemy.health.current, hits_seen])
+	await physics_frames(40)
+	Input.action_press(&"melee")
+	var charging_frames := 0
+	var lost_before := -1
+	for frame in 150:
+		await physics_frames(1)
+		if player.melee.hold_mode == "charge" and player._melee_phase == Player.MeleePhase.WINDUP:
+			if lost_before < 0:
+				lost_before = enemy.health.current
+			charging_frames += 1
+		if player.melee.charged:
+			break
+	await _frames_until(player, Player.MeleePhase.RECOVERY)
+	Input.action_release(&"melee")
+	check(charging_frames >= int((0.1 + 0.3) * 60.0) - 2, "holding keeps the charge wind-up past its normal length (%d frames)" % charging_frames)
+	check(lost_before - enemy.health.current == 9, "a full charge strikes with the hold move's full damage")
+	await physics_frames(60)
+	await end_level(level)
+	MeleeData._profiles.erase(TEST_WEAPON_PROFILE)
+
+
+## 五把近戰武器的按住招式：第一招打完還按著就接上；蓄力停在前搖、持續的招式一直判定、重複的招式多段命中。
+func _test_weapon_holds() -> void:
+	for id: String in HOLD_WEAPONS:
+		await open_level(10.0)
+		var player := level.player
+		var weapon := load("res://data/weapons/melee/%s.tres" % id) as WeaponData
+		player.loadout.equip(weapon)
+		player.facing = 1
+		player.aim_dir = Vector2.RIGHT
+		AimInput.using_gamepad = true
+		AimInput._last_stick_dir = Vector2.RIGHT
+		player._melee_cooldown_left = 0.0
+		var enemy := await _target_at(HOLD_WEAPONS[id])
+		enemy.health.setup(999, 0.0)
+		var set := MeleeData.set_of(weapon)
+		var spec := set.hold()
+		var hold_def := set.attack(str(spec.get("attack", "")))
+		Input.action_press(&"melee")
+		var started := false
+		var windup_frames := 0
+		var active_frames := 0
+		var hits_during_hold := 0
+		var last := enemy.health.current
+		for frame in 220:
+			await physics_frames(1)
+			enemy.global_position.x = player.global_position.x + float(HOLD_WEAPONS[id])
+			if player.melee.hold_mode != "":
+				started = true
+				if player._melee_phase == Player.MeleePhase.WINDUP:
+					windup_frames += 1
+				elif player._melee_phase == Player.MeleePhase.ACTIVE:
+					active_frames += 1
+				if enemy.health.current < last:
+					hits_during_hold += 1
+			last = enemy.health.current
+			if started and player._melee_phase == Player.MeleePhase.RECOVERY and str(spec["mode"]) != "repeat":
+				break
+		Input.action_release(&"melee")
+		check(started and player._melee_index <= 0, "%s: keeping the key held after the first move starts its hold move without advancing the combo" % id)
+		match str(spec.get("mode", "")):
+			"charge":
+				check(windup_frames >= int((float(hold_def["windup"]) + float(spec["max"])) * 60.0) - 3, "%s: the charge holds the raised pose while the key is held (%d frames)" % [id, windup_frames])
+			"sustain":
+				check(active_frames > int(float(hold_def["active"]) * 60.0) + 20 and hits_during_hold >= 2, "%s: the sustained move stays out and keeps hitting (%d frames, %d hits)" % [id, active_frames, hits_during_hold])
+			"repeat":
+				check(hits_during_hold >= MeleeMove.hits(hold_def).size(), "%s: the repeated move lands every stab window (%d hits)" % [id, hits_during_hold])
+		for frame in 120:
+			if player._melee_phase == Player.MeleePhase.NONE:
+				break
+			await physics_frames(1)
+		check(player._melee_phase == Player.MeleePhase.NONE and player.melee.hold_mode == "", "%s: releasing ends the hold move cleanly" % id)
+		Input.action_release(&"aim_right")
+		await end_level(level)
+

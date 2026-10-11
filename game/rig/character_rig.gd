@@ -279,6 +279,18 @@ func animate(delta: float, input: RigInput) -> void:
 			_skeleton.modulate = Color.WHITE
 
 
+## 雙手的近戰招式（NE-277）：武器定位之後讓後手去握桿上的一點（世界座標）與桿子的角度（朝右空間）。
+## 握到了回傳 true 並重算肢體網格；搆不到時手照原本的姿勢。
+func place_second_hand(world_target: Vector2, hand_angle: float) -> bool:
+	if not _valid or animator == null:
+		return false
+	var placed: bool = animator.place_second_hand(to_local(world_target), hand_angle)
+	second_hand_on_weapon = placed
+	if placed:
+		refresh_limbs()
+	return placed
+
+
 ## 依骨頭現在的姿勢重算肢體網格（動畫器改過骨頭之後呼叫；animate() 已經會做）。
 func refresh_limbs() -> void:
 	for mesh in _meshes:
@@ -1468,7 +1480,7 @@ func _update_hand_grips(input: RigInput) -> void:
 			closed = closed or (input.melee_grip and not input.dead)
 		if entry["bone"] == &"hand_back":
 			closed = closed and input.two_handed and not input.shield_forward and input.action == &""
-			closed = closed or (second_hand_on_weapon and input.melee_second and not input.dead and input.action == &"")
+			closed = closed or (second_hand_on_weapon and input.melee_second and not input.dead and (input.action == &"" or input.melee_path_w > 0.0))
 		if closed == entry["closed"]:
 			continue
 		var sprite: Sprite2D = entry["sprite"]

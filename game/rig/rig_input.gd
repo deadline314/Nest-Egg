@@ -23,6 +23,15 @@ var melee_grip := false
 var melee_second := false
 var melee_second_target := Vector2.ZERO
 var melee_second_angle := 0.0
+## 近戰招式（NE-277）：武器路徑。path_w 是權重（0＝不用；進出招式時漸變），angle 是武器朝哪（朝右空間的弧度），
+## reach 是握把離肩膀幾像素；前手的掌心追著這一點，手去握武器，不是武器跟著手臂。
+var melee_path_w := 0.0
+var melee_path_angle := 0.0
+var melee_path_reach := 0.0
+## 武器的方向（＝握把方向＋傾角）；手的角度跟著它。
+var melee_path_weapon := 0.0
+## 近戰招式的身體動作：x 骨盆往前、y 骨盆往下（像素）、z 胸口轉角（弧度）；疊加在姿勢上。
+var melee_body := Vector3.ZERO
 ## 後手向前舉盾（鎮暴員）。
 var shield_forward := false
 ## 本影格受到攻擊（觸發一次退縮動作）。

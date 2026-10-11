@@ -1,0 +1,295 @@
+{
+ "_說明": "測試用的近戰武器（NE-277）：只有資料，沒有任何專屬程式；用來證明新增一把近戰武器不必改近戰模組。兩段連段（第二段是三連刺）＋按住蓄力。",
+ "combo": [
+  "jab",
+  "triple"
+ ],
+ "combo_window": 0.5,
+ "attacks": {
+  "jab": {
+   "move_scale": 0.3,
+   "impact": 6.0,
+   "knockback": [
+    150,
+    -40
+   ],
+   "event": "player_melee_hit",
+   "shape": "box",
+   "height": 0,
+   "arc_degrees": 120,
+   "min_range": 0,
+   "aim_follow": false,
+   "sweep": true,
+   "hitstop": 0.0,
+   "trail": {
+    "radius": 30,
+    "arc": 40,
+    "life": 0.1,
+    "width": 2.0,
+    "brightness": 1.4,
+    "afterimage": false,
+    "color": "#8fb0ff",
+    "style": "thrust"
+   },
+   "sounds": {
+    "swing": "melee_glaive_swing_first",
+    "hit": "melee_glaive_hit"
+   },
+   "impact_fx": "pierce",
+   "grip": {
+    "hands": 1
+   },
+   "path": [
+    {
+     "t": 0,
+     "angle": 1.0,
+     "reach": 10,
+     "tilt": -1.0
+    },
+    {
+     "t": 0.4,
+     "angle": 0.6,
+     "reach": 6,
+     "tilt": -0.6
+    },
+    {
+     "t": 0.55,
+     "angle": 0.0,
+     "reach": 13
+    },
+    {
+     "t": 0.7,
+     "angle": 0.0,
+     "reach": 13
+    },
+    {
+     "t": 1,
+     "angle": 1.0,
+     "reach": 10,
+     "tilt": -1.0
+    }
+   ],
+   "body": {
+    "step": 4,
+    "drop": 2,
+    "twist": 0.2
+   },
+   "feedback": {
+    "reaction": "light",
+    "low": "melee_low_light",
+    "high": "melee_glaive_hit"
+   },
+   "windup": 0.05,
+   "active": 0.06,
+   "recovery": 0.2,
+   "cancel_after": 0.05,
+   "damage": 2,
+   "range": 40,
+   "advance": 20,
+   "stagger": 2,
+   "pose": "ion_glaive_thrust",
+   "follow": 0.08,
+   "hits": [
+    {
+     "at": 0.0,
+     "length": 0.06
+    }
+   ]
+  },
+  "triple": {
+   "move_scale": 0.3,
+   "impact": 6.0,
+   "knockback": [
+    150,
+    -40
+   ],
+   "event": "player_melee_hit",
+   "shape": "box",
+   "height": 0,
+   "arc_degrees": 120,
+   "min_range": 0,
+   "aim_follow": false,
+   "sweep": true,
+   "hitstop": 0.0,
+   "trail": {
+    "radius": 30,
+    "arc": 40,
+    "life": 0.1,
+    "width": 2.0,
+    "brightness": 1.4,
+    "afterimage": false,
+    "color": "#8fb0ff",
+    "style": "thrust"
+   },
+   "sounds": {
+    "swing": "melee_glaive_swing_first",
+    "hit": "melee_glaive_hit"
+   },
+   "impact_fx": "pierce",
+   "grip": {
+    "hands": 1
+   },
+   "path": [
+    {
+     "t": 0,
+     "angle": 1.0,
+     "reach": 10,
+     "tilt": -1.0
+    },
+    {
+     "t": 0.4,
+     "angle": 0.6,
+     "reach": 6,
+     "tilt": -0.6
+    },
+    {
+     "t": 0.55,
+     "angle": 0.0,
+     "reach": 13
+    },
+    {
+     "t": 0.7,
+     "angle": 0.0,
+     "reach": 13
+    },
+    {
+     "t": 1,
+     "angle": 1.0,
+     "reach": 10,
+     "tilt": -1.0
+    }
+   ],
+   "body": {
+    "step": 4,
+    "drop": 2,
+    "twist": 0.2
+   },
+   "feedback": {
+    "reaction": "light",
+    "low": "melee_low_light",
+    "high": "melee_glaive_hit"
+   },
+   "windup": 0.05,
+   "active": 0.24,
+   "recovery": 0.2,
+   "cancel_after": 0.2,
+   "damage": 1,
+   "range": 40,
+   "advance": 20,
+   "stagger": 2,
+   "pose": "ion_glaive_thrust",
+   "follow": 0.08,
+   "hits": [
+    {
+     "at": 0.0,
+     "length": 0.04
+    },
+    {
+     "at": 0.1,
+     "length": 0.04
+    },
+    {
+     "at": 0.2,
+     "length": 0.04
+    }
+   ]
+  },
+  "lunge": {
+   "move_scale": 0.3,
+   "impact": 6.0,
+   "knockback": [
+    150,
+    -40
+   ],
+   "event": "player_melee_heavy",
+   "shape": "box",
+   "height": 0,
+   "arc_degrees": 120,
+   "min_range": 0,
+   "aim_follow": false,
+   "sweep": true,
+   "hitstop": 0.0,
+   "trail": {
+    "radius": 30,
+    "arc": 40,
+    "life": 0.1,
+    "width": 2.0,
+    "brightness": 1.4,
+    "afterimage": false,
+    "color": "#8fb0ff",
+    "style": "thrust"
+   },
+   "sounds": {
+    "swing": "melee_glaive_swing_first",
+    "hit": "melee_glaive_hit"
+   },
+   "impact_fx": "pierce",
+   "grip": {
+    "hands": 1
+   },
+   "path": [
+    {
+     "t": 0,
+     "angle": 1.0,
+     "reach": 10,
+     "tilt": -1.0
+    },
+    {
+     "t": 0.4,
+     "angle": 0.6,
+     "reach": 6,
+     "tilt": -0.6
+    },
+    {
+     "t": 0.55,
+     "angle": 0.0,
+     "reach": 13
+    },
+    {
+     "t": 0.7,
+     "angle": 0.0,
+     "reach": 13
+    },
+    {
+     "t": 1,
+     "angle": 1.0,
+     "reach": 10,
+     "tilt": -1.0
+    }
+   ],
+   "body": {
+    "step": 4,
+    "drop": 2,
+    "twist": 0.2
+   },
+   "feedback": {
+    "reaction": "heavy",
+    "low": "melee_low_heavy",
+    "high": "melee_glaive_hit_heavy"
+   },
+   "windup": 0.1,
+   "active": 0.08,
+   "recovery": 0.3,
+   "cancel_after": 0.3,
+   "damage": 3,
+   "range": 44,
+   "advance": 60,
+   "stagger": 3,
+   "pose": "ion_glaive_thrust",
+   "follow": 0.1,
+   "hits": [
+    {
+     "at": 0.0,
+     "length": 0.08
+    }
+   ]
+  }
+ },
+ "hold": {
+  "attack": "lunge",
+  "mode": "charge",
+  "max": 0.3,
+  "full_damage": 9,
+  "hint": "按住蓄力，放開突刺"
+ }
+}

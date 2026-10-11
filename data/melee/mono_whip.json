@@ -44,7 +44,64 @@
     "swing": "melee_whip_swing_first",
     "hit": "melee_whip_hit"
    },
-   "impact_fx": "slash"
+   "impact_fx": "slash",
+   "follow": 0.128,
+   "hits": [
+    {
+     "at": 0.0,
+     "length": 0.14
+    }
+   ],
+   "body": {
+    "step": 3,
+    "drop": 1,
+    "twist": 0.25
+   },
+   "path": [
+    {
+     "t": 0,
+     "angle": 0.9,
+     "reach": 11,
+     "tilt": 0.35
+    },
+    {
+     "t": 0.4,
+     "angle": -2.0,
+     "reach": 12,
+     "tilt": -0.4
+    },
+    {
+     "t": 0.55,
+     "angle": -0.2,
+     "reach": 13.5,
+     "tilt": 0.1
+    },
+    {
+     "t": 0.7,
+     "angle": 0.3,
+     "reach": 13.5,
+     "tilt": -0.1
+    },
+    {
+     "t": 0.85,
+     "angle": 0.6,
+     "reach": 12
+    },
+    {
+     "t": 1,
+     "angle": 0.9,
+     "reach": 11,
+     "tilt": 0.35
+    }
+   ],
+   "grip": {
+    "hands": 1
+   },
+   "feedback": {
+    "reaction": "light",
+    "low": "melee_low_light",
+    "high": "melee_whip_hit"
+   }
   },
   "return_lash": {
    "windup": 0.2,
@@ -85,11 +142,174 @@
     "hit": "melee_whip_hit_heavy"
    },
    "impact_fx": "slash",
-   "guard_cost": 16
+   "guard_cost": 16,
+   "follow": 0.2,
+   "hits": [
+    {
+     "at": 0.0,
+     "length": 0.14
+    }
+   ],
+   "body": {
+    "step": 2,
+    "drop": 0,
+    "twist": -0.2
+   },
+   "path": [
+    {
+     "t": 0,
+     "angle": 0.9,
+     "reach": 11,
+     "tilt": 0.35
+    },
+    {
+     "t": 0.4,
+     "angle": 1.8,
+     "reach": 11,
+     "tilt": 0.4
+    },
+    {
+     "t": 0.55,
+     "angle": 0.3,
+     "reach": 13.5,
+     "tilt": -0.1
+    },
+    {
+     "t": 0.7,
+     "angle": -0.6,
+     "reach": 13,
+     "tilt": -0.2
+    },
+    {
+     "t": 0.85,
+     "angle": -0.9,
+     "reach": 12,
+     "tilt": -0.1
+    },
+    {
+     "t": 1,
+     "angle": 0.9,
+     "reach": 11,
+     "tilt": 0.35
+    }
+   ],
+   "grip": {
+    "hands": 1
+   },
+   "feedback": {
+    "reaction": "light",
+    "low": "melee_low_light",
+    "high": "melee_whip_hit_heavy"
+   }
+  },
+  "orbit": {
+   "windup": 0.17,
+   "active": 0.3,
+   "recovery": 0.35,
+   "cancel_after": 0.35,
+   "damage": 1,
+   "range": 90,
+   "advance": 0,
+   "move_scale": 0.5,
+   "stagger": 2,
+   "impact": 4.0,
+   "knockback": [
+    120,
+    -60
+   ],
+   "event": "player_melee_hit",
+   "shape": "arc",
+   "height": 0,
+   "arc_degrees": 60,
+   "min_range": 24,
+   "aim_follow": true,
+   "sweep": true,
+   "hitstop": 0.0,
+   "pose": "mono_whip_lash",
+   "trail": {
+    "radius": 84,
+    "arc": 50,
+    "life": 0.12,
+    "width": 2.0,
+    "brightness": 1.6,
+    "afterimage": false,
+    "color": "#d27bff",
+    "style": "lash"
+   },
+   "sounds": {
+    "swing": "melee_whip_swing_first",
+    "hit": "melee_whip_hit"
+   },
+   "impact_fx": "slash",
+   "follow": 0.14,
+   "hits": [
+    {
+     "at": 0.0,
+     "length": 0.3
+    }
+   ],
+   "body": {
+    "step": 2,
+    "drop": 1,
+    "twist": 0.2
+   },
+   "path": [
+    {
+     "t": 0,
+     "angle": 0.9,
+     "reach": 11,
+     "tilt": 0.35
+    },
+    {
+     "t": 0.4,
+     "angle": -1.8,
+     "reach": 12,
+     "tilt": -0.4
+    },
+    {
+     "t": 0.55,
+     "angle": -0.4,
+     "reach": 13.5,
+     "tilt": 0.1
+    },
+    {
+     "t": 0.7,
+     "angle": 0.2,
+     "reach": 13.5,
+     "tilt": -0.1
+    },
+    {
+     "t": 0.85,
+     "angle": 0.6,
+     "reach": 12
+    },
+    {
+     "t": 1,
+     "angle": 0.9,
+     "reach": 11,
+     "tilt": 0.35
+    }
+   ],
+   "grip": {
+    "hands": 1
+   },
+   "feedback": {
+    "reaction": "light",
+    "low": "melee_low_light",
+    "high": "melee_whip_hit"
+   }
   }
  },
  "extension": {
   "upgrade": "technique_whip",
   "attack": "return_lash"
+ },
+ "hold": {
+  "attack": "orbit",
+  "mode": "sustain",
+  "max": 1.6,
+  "interval": 0.2,
+  "loop": true,
+  "hint": "按住讓鞭子留在外面甩"
  }
 }

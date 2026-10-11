@@ -38,7 +38,7 @@ const AIM_BLOOM_MAX_DEGREES := 4.0
 ## 同一接觸攻擊重複格擋時的最短計費間隔。
 const CONTACT_BLOCK_INTERVAL := 0.35
 ## 近戰武器跟著準星揮擊時，離水平方向最多偏幾度（弧度）。
-const MELEE_AIM_LIMIT := 1.2
+const MELEE_AIM_LIMIT := MeleeModule.AIM_LIMIT
 
 ## 彈匣低於這個比例時開火音高降低；空槍連按的最短間隔。
 const LOW_AMMO_RATIO := 0.25
@@ -98,33 +98,68 @@ var _dash_left := 0.0
 var _dash_cooldown_left := 0.0
 var _air_dash_used := false
 var _fire_cooldown_left := 0.0
-var _melee_cooldown_left := 0.0
 enum MeleePhase { NONE, WINDUP, ACTIVE, RECOVERY }
-var _melee_phase := MeleePhase.NONE
-var _melee_time := 0.0
-var _melee_attack: Dictionary = {}
-var _melee_chain: Array = []
-var _melee_paid_tail := "" # Role captured with the chain, not recomputed from live edits.
-var _melee_commands: MeleeCommandInput
-## 這一段連段用的招式組：沒拿近戰武器是預設近戰，拿著近戰武器是那把武器的組；中途換武器就從第一招重新開始。
-var _melee_set: MeleeSet = MeleeData.default_set()
-## 這一揮的命中回饋（頓幀、命中聲）是否已經播過；持續判定的招式只在第一個命中時播一次。
-var _melee_feedback_done := false
-var _melee_weapon_id: StringName = &""
-var _melee_facing := 1
-var _melee_swing_direction := Vector2.RIGHT
+## 近戰模組（NE-277）。下面的 _melee_* 是舊名稱的轉接（測試與工具沿用），資料都在模組裡。
+var melee := MeleeModule.new(self)
+var _melee_cooldown_left: float:
+	get: return melee.cooldown_left
+	set(value): melee.cooldown_left = value
+var _melee_phase: MeleePhase:
+	get: return melee.phase as MeleePhase
+	set(value): melee.phase = value as MeleeModule.Phase
+var _melee_time: float:
+	get: return melee.time
+	set(value): melee.time = value
+var _melee_attack: Dictionary:
+	get: return melee.attack
+	set(value): melee.attack = value
+var _melee_chain: Array:
+	get: return melee.chain
+	set(value): melee.chain = value
+var _melee_paid_tail: String:
+	get: return melee.paid_tail
+	set(value): melee.paid_tail = value
+var _melee_set: MeleeSet:
+	get: return melee.set_in_use
+	set(value): melee.set_in_use = value
+var _melee_feedback_done: bool:
+	get: return melee.feedback_done
+	set(value): melee.feedback_done = value
+var _melee_weapon_id: StringName:
+	get: return melee.weapon_id
+	set(value): melee.weapon_id = value
+var _melee_facing: int:
+	get: return melee.swing_facing
+	set(value): melee.swing_facing = value
+var _melee_swing_direction: Vector2:
+	get: return melee.swing_direction
+	set(value): melee.swing_direction = value
+var _melee_index: int:
+	get: return melee.index
+	set(value): melee.index = value
+var _melee_landed: bool:
+	get: return melee.landed
+	set(value): melee.landed = value
+var _melee_hit_ids: Dictionary:
+	get: return melee.hit_ids
+	set(value): melee.hit_ids = value
+var _melee_buffer_left: float:
+	get: return melee.buffer_left
+	set(value): melee.buffer_left = value
+var _melee_combo_left: float:
+	get: return melee.combo_left
+	set(value): melee.combo_left = value
+var _melee_visual_left: float:
+	get: return melee.visual_left
+	set(value): melee.visual_left = value
+var _melee_commands: MeleeCommandInput:
+	get: return melee.commands
 ## 被鎖鏈拉扯：拉向哪個節點（弱參照）、速度、剩餘秒數；衝刺、受擊硬直、撞牆或對方消失都會解除。
 var _pull_source: WeakRef
 var _pull_speed := 0.0
 var _pull_left := 0.0
 var _step_travel := 0.0
 var _terrain: Terrain
-var _melee_index := -1
-var _melee_landed := false
-var _melee_hit_ids: Dictionary = {}
-var _melee_buffer_left := 0.0
-var _melee_combo_left := 0.0
-var _melee_visual_left := 0.0
 var _finisher_left := 0.0
 var _drop_through_left := 0.0
 var _safe_ground_time := 0.0
@@ -166,9 +201,7 @@ func _ready() -> void:
 	if tuning == null:
 		push_warning("[Player] 未指定 PlayerTuning，使用預設值。")
 		tuning = PlayerTuning.new()
-	_melee_commands = MeleeCommandInput.new()
-	_melee_commands.player = self
-	add_child(_melee_commands)
+	add_child(melee)
 	carry = PlayerCarry.new()
 	carry.player = self
 	add_child(carry)
@@ -400,10 +433,8 @@ func _tick_timers(delta: float) -> void:
 	_jump_buffer_left = maxf(0.0, _jump_buffer_left - delta)
 	_dash_cooldown_left = maxf(0.0, _dash_cooldown_left - delta)
 	_fire_cooldown_left = maxf(0.0, _fire_cooldown_left - delta)
-	_melee_cooldown_left = maxf(0.0, _melee_cooldown_left - delta)
 	_tick_melee(delta)
 	_tick_pull(delta)
-	_melee_visual_left = maxf(0.0, _melee_visual_left - delta)
 	_remount_cooldown_left = maxf(0.0, _remount_cooldown_left - delta)
 	aim_bloom = move_toward(aim_bloom, 0.0, AIM_BLOOM_RECOVERY * delta)
 	_dry_fire_left = maxf(0.0, _dry_fire_left - delta)
@@ -474,23 +505,14 @@ func _process_normal(delta: float) -> void:
 		return
 	if carry.handle_input():
 		return
-	for action: StringName in [&"melee", &"shoot"]:
-		if action == &"shoot" and not holds_melee_weapon():
-			continue
-		_melee_commands.poll(action)
-	if _melee_commands.remaining() > 0.0:
-		if _melee_phase == MeleePhase.NONE:
-			_try_melee()
-			return
-		else:
-			_melee_buffer_left = _melee_commands.remaining()
+	if melee.poll_input():
+		return
 	if Input.is_action_just_pressed(&"dash"):
 		_try_dash(input_x)
 	# 丟東西的那一下射擊鍵要先放開，才會再算開槍或近戰（NE-254）。
 	var shoot_held := Input.is_action_pressed(&"shoot") and not carry.holds_back_shoot()
 	if holds_melee_weapon() and not is_blocking:
-		if _melee_phase == MeleePhase.NONE and (shoot_held or Input.is_action_pressed(&"melee")):
-			_try_melee(false)
+		melee.handle_held()
 	elif shoot_held and not is_blocking:
 		if not is_melee_locked():
 			_try_fire()
@@ -600,8 +622,8 @@ func _update_aim(_delta: float) -> void:
 	var origin := aim_origin()
 	aim_dir = AimInput.direction_from(self, origin, aim_dir)
 	aim_point = AimInput.target_point(self, origin, aim_dir)
-	if _melee_phase != MeleePhase.NONE:
-		facing = _melee_facing
+	if melee.is_active():
+		facing = melee.swing_facing
 	elif absf(aim_dir.x) > 0.05 and state != State.DASH and state != State.MOUNTED and state != State.PHONE:
 		facing = 1 if aim_dir.x > 0.0 else -1
 
@@ -645,7 +667,7 @@ func _is_low_ammo(weapon: WeaponData) -> bool:
 func _try_fire() -> void:
 	if state not in [State.NORMAL, State.DASH] or is_blocking or is_melee_locked() or GameplayLock.is_locked() or get_tree().paused:
 		return
-	if _fire_cooldown_left > 0.0 or _melee_cooldown_left > 0.0:
+	if _fire_cooldown_left > 0.0 or melee.cooldown_left > 0.0:
 		return
 	var weapon := loadout.active_weapon()
 	if weapon == null or weapon.is_melee():
@@ -662,8 +684,8 @@ func _try_fire() -> void:
 		if dry:
 			_dry_fire()
 		return
-	if _melee_phase != MeleePhase.NONE:
-		_end_melee(false)
+	if melee.is_active():
+		melee.end(false)
 	_fire_cooldown_left = weapon.fire_interval / rate
 	InputFeel.resolve(&"shoot")
 	WeaponSystem.fire(weapon, muzzle, aim_dir, Combat.Team.PLAYER, 1.0, aim_bloom * AIM_BLOOM_MAX_DEGREES)
@@ -689,8 +711,8 @@ func _try_dash(input_x: float) -> void:
 		return
 	InputFeel.resolve(&"dash")
 	end_pull()  # 衝刺能掙脫鎖鏈
-	if _melee_phase != MeleePhase.NONE:
-		_end_melee(false)
+	if melee.is_active():
+		melee.end(false)
 	loadout.cancel_reload()
 	# 衝刺方向以移動輸入為準（可往後閃），沒有輸入時朝面向。
 	_dash_dir = (1 if input_x > 0.0 else -1) if absf(input_x) > 0.2 else facing
@@ -781,301 +803,62 @@ func holds_melee_weapon() -> bool:
 	return weapon != null and weapon.is_melee()
 
 
-## 近戰鍵：附近有破防敵人時發動終結技，否則進入連段斬擊（前搖、出招、收招；預設連段輕、輕、重，近戰武器用自己的連段）。
-## 出招中再按會緩衝，收招可取消的時間點到了就接下一段。回傳是否吃掉這次按鍵。
+## 近戰攻擊的播放、判定與回饋都在近戰模組（MeleeModule，NE-277）；下面是主角這一側的入口與相容的轉接。
 func _try_melee(continue_combo := true) -> bool:
-	if state != State.NORMAL or is_blocking or GameplayLock.is_locked() or get_tree().paused:
-		return false
-	if _melee_phase != MeleePhase.NONE:
-		_melee_commands.queue_command()
-		_melee_buffer_left = _melee_commands.remaining()
-		return true
-	if _melee_cooldown_left > 0.0:
-		return false
-	var armed := holds_melee_weapon()
-	if not armed:
-		loadout.cancel_reload()  # 近戰武器的「換彈」是充電，揮擊不取消它
-	var target := _find_finisher_target() if not armed else null
-	if target != null:
-		_melee_commands.consume()
-		_start_finisher(target)
-		return true
-	return _start_melee_attack(continue_combo and _melee_combo_left > 0.0)
+	return melee.try_attack(continue_combo)
 
 
-## 開始一段揮擊；近戰武器每揮消耗電量，電量不足（充電中）揮不出去並回傳 false。
 func _start_melee_attack(continue_combo: bool) -> bool:
-	var weapon := loadout.active_weapon()
-	var set := MeleeData.set_of(weapon)
-	if set != _melee_set:
-		continue_combo = false
-	var combo := _melee_chain if continue_combo and not _melee_chain.is_empty() else set.combo(weapon != null and Progression.has_upgrade(weapon, set.extension_upgrade()))
-	# 尾招不能環回首招；整條招式於首招選定。
-	if continue_combo and _melee_index >= combo.size() - 1:
-		return false
-	var next_index := _melee_index + 1 if continue_combo and _melee_index >= 0 else 0
-	var tail_id := _melee_paid_tail if continue_combo else set.extension_attack()
-	var attack := set.attack(str(combo[next_index]), not tail_id.is_empty() and str(combo[next_index]) == tail_id)
-	if attack.is_empty():
-		_end_melee(false)
-		return false
-	var cost := float(attack["guard_cost"])
-	if not is_finite(cost) or cost < 0.0 or cost > guard or (cost > 0.0 and _guard_lockout_left > 0.0):
-		_end_melee(false)
-		return false
-	if weapon != null and weapon.is_melee() and not _spend_melee_charge(weapon):
-		_end_melee(false)
-		return false
-	if loadout.active_weapon() != weapon:
-		_end_melee(false)
-		return false
-	if cost > 0.0:
-		guard -= cost
-		_guard_regen_delay_left = float(attack["windup"]) + float(attack["active"]) + float(attack["recovery"]) + tuning.guard_regen_delay
-		_emit_guard()
-	InputFeel.resolve(&"melee")
-	_melee_set = set
-	_melee_chain = combo
-	_melee_paid_tail = tail_id if combo.has(tail_id) else ""
-	_melee_index = next_index
-	_melee_attack = attack
-	_melee_commands.consume()
-	_melee_weapon_id = weapon.id if weapon != null else &""
-	_melee_facing = facing
-	_melee_swing_direction = _aim_melee_direction(_melee_attack)
-	_melee_phase = MeleePhase.WINDUP
-	_melee_time = 0.0
-	_melee_landed = false
-	_melee_feedback_done = false
-	_melee_hit_ids.clear()
-	_melee_buffer_left = 0.0
-	_melee_combo_left = 0.0
-	_melee_visual_left = float(_melee_attack["windup"]) + float(_melee_attack["active"]) + 0.04
-	return true
+	return melee.start_attack(continue_combo)
 
 
-## 近戰武器的電量（沿用彈匣）：沒有電量限制的武器直接通過；電量不足時喀一聲、不揮擊。
-func _spend_melee_charge(weapon: WeaponData) -> bool:
-	if not weapon.has_magazine() or loadout.consume_ammo():
-		return true
-	_dry_fire()
-	return false
-
-
-## 每個物理影格推進近戰三段。
 func _tick_melee(delta: float) -> void:
-	_melee_buffer_left = _melee_commands.remaining()
-	if _melee_phase == MeleePhase.NONE:
-		_melee_combo_left = maxf(0.0, _melee_combo_left - delta)
-		if _melee_combo_left <= 0.0:
-			_melee_index = -1
-		return
-	if state == State.DEAD or state == State.FINISHER or state == State.STAGGERED or state == State.MOUNTED or state == State.PHONE:
-		_end_melee(false)
-		return
-	_melee_time += delta
-	match _melee_phase:
-		MeleePhase.WINDUP:
-			if _melee_time >= float(_melee_attack["windup"]):
-				_melee_phase = MeleePhase.ACTIVE
-				_melee_time = 0.0
-				_melee_strike()
-		MeleePhase.ACTIVE:
-			if bool(_melee_attack["sweep"]):
-				_melee_hit_pass()
-			if _melee_time >= float(_melee_attack["active"]):
-				_melee_phase = MeleePhase.RECOVERY
-				_melee_time = 0.0
-		MeleePhase.RECOVERY:
-			if _melee_buffer_left > 0.0 and is_melee_cancellable() and _melee_index < _melee_chain.size() - 1:
-				if not _start_melee_attack(true):
-					_end_melee()
-			elif _melee_time >= float(_melee_attack["recovery"]):
-				_end_melee()
+	melee.tick(delta)
 
 
-## 命中後收招只要等 cancel_after 秒就能取消（接下一招、衝刺、射擊）；揮空要吃滿收招。
 func is_melee_cancellable() -> bool:
-	if _melee_phase == MeleePhase.NONE:
-		return true
-	return _melee_phase == MeleePhase.RECOVERY and _melee_landed and _melee_time >= float(_melee_attack["cancel_after"])
+	return melee.is_cancellable()
 
 
 func is_melee_locked() -> bool:
-	return not is_melee_cancellable()
+	return melee.is_locked()
 
 
-## 近戰期間的移動倍率（前搖與收招比較慢，出招時往前衝）。
 func melee_move_scale() -> float:
-	return 1.0 if _melee_phase == MeleePhase.NONE else float(_melee_attack["move_scale"])
+	return melee.move_scale()
 
 
 func _end_melee(keep_combo := true) -> void:
-	var was_active := _melee_phase != MeleePhase.NONE
-	_melee_phase = MeleePhase.NONE
-	_melee_visual_left = 0.0
-	if was_active:
-		_melee_combo_left = _melee_set.combo_window() if _melee_landed or _melee_buffer_left > 0.0 else _melee_set.combo_window() * 0.5
-		_melee_cooldown_left = 0.0
-	if not keep_combo or _melee_index >= _melee_chain.size() - 1:
-		_melee_index = -1
-		_melee_chain.clear()
-		_melee_paid_tail = ""
-		if _melee_commands != null:
-			_melee_commands.clear()
-		_melee_combo_left = 0.0
-		_melee_buffer_left = 0.0
-		_melee_hit_ids.clear()
-		_melee_attack = {}
-		_melee_time = 0.0
-		_melee_landed = false
-		_melee_feedback_done = false
+	melee.end(keep_combo)
 
 
-## 中斷不保留連段；換武器亦不能免費消除尚未承擔的動作時間。
 func _interrupt_melee(preserve_risk := false) -> void:
-	var remaining := 0.0
-	if preserve_risk and _melee_phase != MeleePhase.NONE:
-		remaining = float(_melee_attack["recovery"])
-		if _melee_phase == MeleePhase.WINDUP:
-			remaining += maxf(0.0, float(_melee_attack["windup"]) - _melee_time) + float(_melee_attack["active"])
-		elif _melee_phase == MeleePhase.ACTIVE:
-			remaining += maxf(0.0, float(_melee_attack["active"]) - _melee_time)
-		else:
-			remaining = maxf(0.0, remaining - _melee_time)
-	var cooldown := _melee_cooldown_left
-	_end_melee(false)
-	_melee_cooldown_left = maxf(cooldown, remaining)
+	melee.interrupt(preserve_risk)
 
 
-## 出招的瞬間：往前衝、判定一次；同一揮對同一目標只命中一次。有 sweep 的招式在出招區間內每個影格再判定。
-func _melee_strike() -> void:
-	var attack := _melee_attack
-	velocity.x += float(_melee_facing) * float(attack["advance"])
-	if _visual != null:
-		_visual.notify_melee_swing(attack.get("trail", {}), facing, _melee_direction(attack))
-	MeleeFx.swing(global_position + Vector2(0.0, -BODY_SIZE.y * 0.55), global_position, _melee_direction(attack), float(attack["range"]), _melee_color(attack),
-			StringName(str(attack["impact_fx"])), str((attack["trail"] as Dictionary).get("style", "arc")) == "lash")
-	_melee_hit_pass()
-	if not _melee_landed:
-		var heavy := int(attack["stagger"]) >= 3
-		Sfx.play_named(StringName(str(_melee_sounds(attack)["swing"])), -10.0 if not heavy else -6.0)
-
-
-## 這一招的特效顏色（軌跡的 color，沒寫用青色）。
-func _melee_color(attack: Dictionary) -> Color:
-	var trail: Variant = attack.get("trail")
-	return Color.from_string(str((trail as Dictionary).get("color", "")), Palette.CYAN) if typeof(trail) == TYPE_DICTIONARY else Palette.CYAN
-
-
-## 揮擊的方向：預設朝面向水平揮；aim_follow 的招式（長柄的刺擊、鞭）跟著準星，但限制在水平上下約 70 度內。
 func _melee_direction(attack: Dictionary) -> Vector2:
-	if _melee_phase != MeleePhase.NONE:
-		return _melee_swing_direction
-	return _aim_melee_direction(attack)
+	return melee.direction(attack)
 
 
-func _aim_melee_direction(attack: Dictionary) -> Vector2:
-	if not bool(attack["aim_follow"]):
-		return Vector2(facing, 0.0)
-	var angle := clampf(Vector2(aim_dir.x * facing, aim_dir.y).angle(), -MELEE_AIM_LIMIT, MELEE_AIM_LIMIT)
-	return Vector2(cos(angle) * facing, sin(angle))
-
-
-## 這一瞬間判定範圍內、還沒被這一揮打過的目標；命中時給傷害、衝擊與回饋。
 func _melee_hit_pass() -> void:
-	var attack := _melee_attack
-	var knock: Array = attack["knockback"]
-	var heavy := int(attack["stagger"]) >= 3
-	var landed_now := false
-	# 武器打到的點：揮擊方向上、攻擊距離約四分之三處；每個目標的回饋放在自己受擊範圍內最靠近這一點的位置（NE-268）。
-	var strike := global_position + Vector2(0.0, -BODY_SIZE.y * 0.55) + _melee_direction(attack) * float(attack["range"]) * 0.75
-	for target_hurtbox in _melee_targets(attack):
-		var id := target_hurtbox.health.get_instance_id() if target_hurtbox.health != null else target_hurtbox.get_instance_id()
-		if _melee_hit_ids.has(id):
-			continue
-		var info := DamageInfo.create(int(attack["damage"]), Combat.Team.PLAYER, &"melee", Vector2(_melee_facing * float(knock[0]), float(knock[1])))
-		info.stagger = int(attack["stagger"])
-		info.impact = float(attack["impact"])
-		info.attacker = weakref(self)
-		info.freeze_attacker = not _melee_feedback_done and _melee_hit_ids.is_empty()
-		info.origin = global_position
-		var contact := target_hurtbox.closest_point(strike)
-		info.contact_point = contact
-		var result := target_hurtbox.receive(info)
-		if result != Hurtbox.Result.IGNORED:
-			_melee_hit_ids[id] = true
-		if result == Hurtbox.Result.DAMAGED:
-			_melee_landed = true
-			landed_now = true
-			EventBus.hit_confirmed.emit(contact, target_hurtbox.health.is_dead)
-			EventBus.hit_marker.emit(&"kill" if target_hurtbox.health.is_dead else (&"weak" if info.weak_hit else &"hit"))
-			if info.weak_hit or int(attack["stagger"]) >= 3:
-				EventBus.damage_number.emit(contact, info.amount, &"weak" if info.weak_hit else &"crit", target_hurtbox.health.get_instance_id())
-			MeleeFx.hit(contact, _melee_direction(attack), _melee_color(attack), StringName(str(attack["impact_fx"])), heavy)
-			HitFeedback.play(target_hurtbox.material_id(), contact, Vector2(-facing, -0.2), Palette.CYAN, {"weak": info.weak_hit})
-	if landed_now and not _melee_feedback_done:
-		_melee_feedback_done = true
-		InputBindings.vibrate(0.25, 0.45 if heavy else 0.2, 0.1)
-		# 延後到物理步驟之後：頓幀會停用自己，不能在自己的物理處理中途做。被打到的敵人在 Enemy 裡依受擊層級自己凍結。
-		var ctx := {"targets": [self], "dir": aim_dir, "origin": global_position}
-		if float(attack["hitstop"]) > 0.0:
-			ctx["freeze"] = float(attack["hitstop"])
-		Feel.play.call_deferred(StringName(str(attack["event"])), ctx)
-		Sfx.play_named(StringName(str(_melee_sounds(attack)["hit"])), -3.0 if not heavy else 0.0)
+	melee.hit_pass()
 
 
-## 這一招判定範圍裡的受擊框：box 是面前的矩形（可朝準星旋轉），arc 是以身體為圓心的扇形；min_range 內是死角打不到。
 func _melee_targets(attack: Dictionary) -> Array[Hurtbox]:
-	var reach := float(attack["range"])
-	var dir := _melee_direction(attack)
-	var origin := global_position + Vector2(0.0, -BODY_SIZE.y * 0.55)
-	var candidates: Array[Hurtbox]
-	var half := PI
-	if str(attack["shape"]) == "arc":
-		candidates = _query_hurtboxes(origin, Vector2.ZERO, 0.0, reach)
-		half = deg_to_rad(float(attack["arc_degrees"])) * 0.5
-	else:
-		var height := float(attack["height"]) if float(attack["height"]) > 0.0 else BODY_SIZE.y
-		candidates = _query_hurtboxes(origin + dir * reach * 0.5, Vector2(reach, height), dir.angle() if bool(attack["aim_follow"]) else 0.0)
-	var min_range := float(attack["min_range"])
-	if min_range <= 0.0 and half >= PI - 0.01:
-		return candidates
-	var result: Array[Hurtbox] = []
-	for target in candidates:
-		for box: Hurtbox in [target, target.root()]:
-			var offset := box.center() - origin
-			if offset.length() >= min_range and absf(dir.angle_to(offset)) <= half:
-				result.append(box)  # 部位不在揮擊角度內時退回整體，不會因為選了部位而整個揮空
-				break
-	return result
+	return melee.targets(attack)
 
 
-## 目前這一招的動作進度 0~1（前搖 0~0.4、出招 0.4~0.7、收招 0.7~1），不在近戰中回傳 -1；角色揮砍動作依它播放。
-func melee_pose_progress() -> float:
-	var attack := _melee_attack
-	match _melee_phase:
-		MeleePhase.WINDUP:
-			return clampf(_melee_time / maxf(0.001, float(attack["windup"])), 0.0, 1.0) * 0.4
-		MeleePhase.ACTIVE:
-			return 0.4 + clampf(_melee_time / maxf(0.001, float(attack["active"])), 0.0, 1.0) * 0.3
-		MeleePhase.RECOVERY:
-			return 0.7 + clampf(_melee_time / maxf(0.001, float(attack["recovery"])), 0.0, 1.0) * 0.3
-	return -1.0
-
-
-## 目前這一招的動作名稱（資料的 pose：slash 斜斬、overhead 劈砍、thrust 刺擊、sweep 橫掃）。
-func melee_pose() -> String:
-	return str(_melee_attack.get("pose", "slash")) if _melee_phase != MeleePhase.NONE else ""
-
-
-## 這一招的出手聲與命中聲（資料缺漏時用內建預設）。
 func _melee_sounds(attack: Dictionary) -> Dictionary:
-	var sounds: Variant = attack.get("sounds")
-	var result := {"swing": "melee_swing", "hit": "melee_hit"}
-	if typeof(sounds) == TYPE_DICTIONARY:
-		result.merge(sounds as Dictionary, true)
-	return result
+	return MeleeModule.sounds_of(attack)
+
+
+func melee_pose_progress() -> float:
+	return melee.pose_progress()
+
+
+func melee_pose() -> String:
+	return melee.pose()
+
 
 
 func _find_finisher_target() -> Enemy:
@@ -1506,4 +1289,4 @@ func is_guard_broken() -> bool:
 
 ## 給視覺元件讀取（避免公開內部計時器）。
 func is_melee_swinging() -> bool:
-	return _melee_visual_left > 0.0
+	return melee.is_swinging()

@@ -45,7 +45,65 @@
     "swing": "melee_maul_swing_first",
     "hit": "melee_maul_hit"
    },
-   "impact_fx": "crush"
+   "impact_fx": "crush",
+   "follow": 0.2,
+   "hits": [
+    {
+     "at": 0.0,
+     "length": 0.12
+    }
+   ],
+   "body": {
+    "step": 6,
+    "drop": 6,
+    "twist": 0.4
+   },
+   "path": [
+    {
+     "t": 0,
+     "angle": 1.2,
+     "reach": 7,
+     "tilt": -1.7
+    },
+    {
+     "t": 0.4,
+     "angle": -1.6,
+     "reach": 5,
+     "tilt": 0.5
+    },
+    {
+     "t": 0.55,
+     "angle": -0.6,
+     "reach": 7,
+     "tilt": 0.4
+    },
+    {
+     "t": 0.7,
+     "angle": 0.6,
+     "reach": 7.5,
+     "tilt": 0.6
+    },
+    {
+     "t": 0.85,
+     "angle": 0.7,
+     "reach": 7,
+     "tilt": 0.6
+    },
+    {
+     "t": 1,
+     "angle": 1.2,
+     "reach": 7,
+     "tilt": -1.7
+    }
+   ],
+   "grip": {
+    "hands": 2
+   },
+   "feedback": {
+    "reaction": "heavy",
+    "low": "melee_low_heavy",
+    "high": "melee_maul_hit"
+   }
   },
   "slam": {
    "windup": 0.4,
@@ -85,7 +143,65 @@
     "swing": "melee_maul_swing_heavy",
     "hit": "melee_maul_hit_heavy"
    },
-   "impact_fx": "crush"
+   "impact_fx": "crush",
+   "follow": 0.248,
+   "hits": [
+    {
+     "at": 0.0,
+     "length": 0.14
+    }
+   ],
+   "body": {
+    "step": 4,
+    "drop": 3,
+    "twist": -0.3
+   },
+   "path": [
+    {
+     "t": 0,
+     "angle": 1.2,
+     "reach": 7,
+     "tilt": -1.7
+    },
+    {
+     "t": 0.4,
+     "angle": 1.5,
+     "reach": 7,
+     "tilt": 1.1
+    },
+    {
+     "t": 0.55,
+     "angle": 0.6,
+     "reach": 8,
+     "tilt": -0.4
+    },
+    {
+     "t": 0.7,
+     "angle": -0.5,
+     "reach": 7.5,
+     "tilt": -0.7
+    },
+    {
+     "t": 0.85,
+     "angle": -0.8,
+     "reach": 7,
+     "tilt": -0.6
+    },
+    {
+     "t": 1,
+     "angle": 1.2,
+     "reach": 7,
+     "tilt": -1.7
+    }
+   ],
+   "grip": {
+    "hands": 2
+   },
+   "feedback": {
+    "reaction": "heavy",
+    "low": "melee_low_heavy",
+    "high": "melee_maul_hit_heavy"
+   }
   },
   "crush": {
    "windup": 0.52,
@@ -126,11 +242,174 @@
     "hit": "melee_maul_hit_heavy"
    },
    "impact_fx": "crush",
-   "guard_cost": 30
+   "guard_cost": 30,
+   "follow": 0.273,
+   "hits": [
+    {
+     "at": 0.0,
+     "length": 0.15
+    }
+   ],
+   "body": {
+    "step": 0,
+    "drop": 9,
+    "twist": 0.5
+   },
+   "path": [
+    {
+     "t": 0,
+     "angle": 1.2,
+     "reach": 7,
+     "tilt": -1.7
+    },
+    {
+     "t": 0.4,
+     "angle": -1.8,
+     "reach": 4.5,
+     "tilt": 0.7
+    },
+    {
+     "t": 0.55,
+     "angle": -0.8,
+     "reach": 6.5,
+     "tilt": 0.5
+    },
+    {
+     "t": 0.7,
+     "angle": 0.8,
+     "reach": 7.5,
+     "tilt": 0.6
+    },
+    {
+     "t": 0.85,
+     "angle": 0.9,
+     "reach": 7,
+     "tilt": 0.55
+    },
+    {
+     "t": 1,
+     "angle": 1.2,
+     "reach": 7,
+     "tilt": -1.7
+    }
+   ],
+   "grip": {
+    "hands": 2
+   },
+   "feedback": {
+    "reaction": "heavy",
+    "low": "melee_low_heavy",
+    "high": "melee_maul_hit_heavy"
+   }
+  },
+  "quake": {
+   "windup": 0.45,
+   "active": 0.16,
+   "recovery": 0.7,
+   "cancel_after": 0.7,
+   "damage": 7,
+   "range": 48,
+   "advance": 0,
+   "move_scale": 0.1,
+   "stagger": 3,
+   "impact": 15.0,
+   "knockback": [
+    520,
+    -260
+   ],
+   "event": "player_melee_heavy",
+   "shape": "arc",
+   "height": 0,
+   "arc_degrees": 180,
+   "min_range": 0,
+   "aim_follow": false,
+   "sweep": true,
+   "hitstop": 0.09,
+   "pose": "hydraulic_maul_crush",
+   "trail": {
+    "radius": 40,
+    "arc": 180,
+    "life": 0.12,
+    "width": 2.4,
+    "brightness": 1.2,
+    "afterimage": false,
+    "color": "#ffd24a",
+    "style": "arc"
+   },
+   "sounds": {
+    "swing": "melee_maul_swing_heavy",
+    "hit": "melee_maul_hit_heavy"
+   },
+   "impact_fx": "crush",
+   "follow": 0.25,
+   "hits": [
+    {
+     "at": 0.0,
+     "length": 0.16
+    }
+   ],
+   "body": {
+    "step": 2,
+    "drop": 10,
+    "twist": 0.55
+   },
+   "path": [
+    {
+     "t": 0,
+     "angle": 1.2,
+     "reach": 7,
+     "tilt": -1.7
+    },
+    {
+     "t": 0.4,
+     "angle": -1.9,
+     "reach": 4.5,
+     "tilt": 0.7
+    },
+    {
+     "t": 0.55,
+     "angle": -0.7,
+     "reach": 6.5,
+     "tilt": 0.5
+    },
+    {
+     "t": 0.7,
+     "angle": 0.9,
+     "reach": 7.5,
+     "tilt": 0.6
+    },
+    {
+     "t": 0.85,
+     "angle": 1.0,
+     "reach": 7,
+     "tilt": 0.55
+    },
+    {
+     "t": 1,
+     "angle": 1.2,
+     "reach": 7,
+     "tilt": -1.7
+    }
+   ],
+   "grip": {
+    "hands": 2
+   },
+   "feedback": {
+    "reaction": "heavy",
+    "low": "melee_low_heavy",
+    "high": "melee_maul_hit_heavy"
+   }
   }
  },
  "extension": {
   "upgrade": "technique_maul",
   "attack": "crush"
+ },
+ "hold": {
+  "attack": "quake",
+  "mode": "charge",
+  "max": 0.8,
+  "full_damage": 12,
+  "hint": "按住蓄力，放開砸地震開"
  }
 }

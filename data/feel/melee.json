@@ -34,6 +34,26 @@
    "sounds": {
     "swing": "melee_swing",
     "hit": "melee_hit"
+   },
+   "follow": 0.064,
+   "hits": [
+    {
+     "at": 0.0,
+     "length": 0.06
+    }
+   ],
+   "body": {
+    "step": 3,
+    "drop": 1,
+    "twist": 0.15
+   },
+   "grip": {
+    "hands": 1
+   },
+   "feedback": {
+    "reaction": "light",
+    "low": "melee_low_light",
+    "high": "melee_hit"
    }
   },
   "light_2": {
@@ -63,6 +83,26 @@
    "sounds": {
     "swing": "melee_swing",
     "hit": "melee_hit"
+   },
+   "follow": 0.064,
+   "hits": [
+    {
+     "at": 0.0,
+     "length": 0.06
+    }
+   ],
+   "body": {
+    "step": 3,
+    "drop": 0,
+    "twist": -0.1
+   },
+   "grip": {
+    "hands": 1
+   },
+   "feedback": {
+    "reaction": "light",
+    "low": "melee_low_light",
+    "high": "melee_hit"
    }
   },
   "heavy": {
@@ -92,6 +132,26 @@
    "sounds": {
     "swing": "melee_swing_heavy",
     "hit": "melee_hit_heavy"
+   },
+   "follow": 0.105,
+   "hits": [
+    {
+     "at": 0.0,
+     "length": 0.08
+    }
+   ],
+   "body": {
+    "step": 6,
+    "drop": 3,
+    "twist": 0.3
+   },
+   "grip": {
+    "hands": 1
+   },
+   "feedback": {
+    "reaction": "heavy",
+    "low": "melee_low_heavy",
+    "high": "melee_hit_heavy"
    }
   }
  }
