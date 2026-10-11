@@ -4,13 +4,14 @@ extends Node
 ## - 每道鎖門、閘門都有遊戲內說明。
 ## 只讀故事與關卡資料，不寫。逐狀態的主線模擬由 tools/quest_mainline_trace.tscn 負責（序章、跳過、留下、離開）。
 ## 用法：godot --headless --path . res://tools/quest_map_audit.tscn -- [--chapter=ch1_kasa] [--start=res://data/levels/x.tres] [--out=<絕對路徑>]
-##   --start 可給多個（逗號分隔）；不給時取本章沒有其他區域通往的區域當入口。
+##   --start 可給多個（逗號分隔）；不給時取上一章 next_level 進入本章的區域，沒有就取本章沒有其他區域通往的區域。
 ## 有問題時以非零狀態結束。
 
 const DEFAULT_CHAPTER := "ch1_kasa"
 ## 衍生旗標的固定點迴圈上限：每輪至少多拿到一個旗標才繼續，正常兩三輪就收斂。
 const MAX_ROUNDS := 16
 const TRACE_TOOL := "res://tools/quest_mainline_trace.tscn"
+const LEVEL_DIR := "res://data/levels"
 
 
 func _ready() -> void:
@@ -54,6 +55,8 @@ func audit(chapter: String, starts: Array) -> Dictionary:
 		datas[path] = maps.areas[path]["data"]
 		layouts[path] = maps.areas[path]["layout"]
 	if starts.is_empty():
+		starts = chapter_handoff_levels(datas.keys())
+	if starts.is_empty():
 		starts = entry_levels(datas, layouts)
 	var story: Dictionary = get_tree().root.get_node("Story").audit_data()
 	var table := ContinuityAudit.flag_table(story["scenes"], story["death"], ContinuityAudit.read_text_files())
@@ -84,6 +87,31 @@ func audit(chapter: String, starts: Array) -> Dictionary:
 		"locks_using_existing_game_text": locks,
 		"issues": issues,
 	}
+
+
+## 章節入口（優先）：別章關卡的 next_level 指向本章的區域，也就是玩家從上一章真正進來的地方。
+## 只讀關卡資料；讀不到的檔案記錄位置後略過。
+static func chapter_handoff_levels(chapter_paths: Array) -> Array:
+	var inside: Dictionary = {}
+	for path: String in chapter_paths:
+		inside[path] = true
+	var roots: Array = []
+	var dir := DirAccess.open(LEVEL_DIR)
+	if dir == null:
+		push_error("[QuestMapAudit] 無法開啟 %s（%s），改用本章結構判斷入口。" % [LEVEL_DIR, error_string(DirAccess.get_open_error())])
+		return roots
+	for file in dir.get_files():
+		var path := LEVEL_DIR.path_join(file.trim_suffix(".remap"))
+		if not path.ends_with(".tres") or inside.has(path):
+			continue
+		var data := ResourceLoader.load(path) as LevelData
+		if data == null:
+			push_warning("[QuestMapAudit] %s 不是可讀的 LevelData，略過。" % path)
+			continue
+		if inside.has(data.next_level) and not roots.has(data.next_level):
+			roots.append(data.next_level)
+	roots.sort()
+	return roots
 
 
 ## 章節入口：本章裡沒有其他區域（出入口或 next_level）通往的區域；全都有人通往時退回全部區域。

@@ -20,7 +20,7 @@ description: 新增或驗證任務、地圖標記、探索狀態、釘選及 HUD
 1. 從劇本、故事生產者與真實關卡核對完成條件、目的地、獎勵和前置。缺少語義先交故事 Session 補充原始產生器。
 2. 在原始產生器加入或更新任務欄位，重產資料；不把測試樣本當故事內容。
 3. 跑任務資料檢查與故事的順序模擬：`tools/quest_mainline_trace.tscn -- --route=prologue|skip|stay|leave`（stay、leave 會跑第一章流程探針，要加 `--out=<資料夾>`，沒加會以代碼 2 結束）。每一個可玩狀態都至少有一個可進行主線目標；包含新遊戲、第一章結尾、序章正常結束與跳過。任何一刻沒有主線或目標是空的，工具會列出那一刻的旗標並以失敗結束。
-4. 對照完成旗標的生產者、位置有效性、公開時機及前置可達性：`tools/quest_map_audit.tscn -- --chapter=<章節 id>`，入口預設取本章沒有其他區域通往的區域，必要時用 `--start=` 指定。存在旗標名稱不代表玩家實際到得了。
+4. 對照完成旗標的生產者、位置有效性、公開時機及前置可達性：`tools/quest_map_audit.tscn -- --chapter=<章節 id>`，入口預設取上一章 `next_level` 進入本章的區域（第一章沒有上一章，取本章沒有其他區域通往的區域），必要時用 `--start=` 指定；報告的 `start_levels` 若列出整章所有區域，代表入口判斷失效、可達性等於沒檢查。存在旗標名稱不代表玩家實際到得了。
 5. 跑 `tools/run_tests_changed.sh <交付前基準SHA>`；NE-223 還要求完整測試。提交或 rebase 後使用保留的基準，不能誤跑空集合。
 6. 使用 `tools/quest_map_probe.tscn` 在 Forward+、亮暗區域、1280×720 與 1920×1080 檢視所有分頁及 HUD。HDR 2D 截圖沿用 `tools/viewport_capture.gd` 將線性色彩轉為 PNG 的 sRGB；不要直接儲存線性 readback。`--fixtures` 的樣本畫面不能當正式任務驗收；`--flags=a,b` 先寫入故事旗標，拍章節中段的任務狀態。渲染和匯入使用 `tools/comfyui/gpu_lock.py` 的共享鎖。
 
@@ -30,11 +30,12 @@ description: 新增或驗證任務、地圖標記、探索狀態、釘選及 HUD
 
 探索以可見格子保存；實心地形與未破壞的秘密牆遮擋視線。圖形依探索版本快取，不在每影格重建。傳送尚未由遊戲提供時只標示已啟用復原點，不做不能實際執行的傳送按鈕。
 
-主流程把 `QuestMapState.for_run().snapshot()` 放進正式存檔的 `navigation`；還原故事／區域狀態之後才呼叫 `restore(raw, catalog, index)`。不要另建獨立的導覽存檔而與故事存檔不同步。損毀測試要核對警告中具體欄位、有效資料保留和安全預設；快照往返不能代替真正退出遊戲再讀檔。
+主流程把 `QuestMapState.for_run().snapshot()` 放進正式存檔的 `navigation`；還原故事／區域狀態之後才呼叫 `restore(raw, catalog, index)`。不要另建獨立的導覽存檔而與故事存檔不同步。損毀測試要核對警告中具體欄位、有效資料保留和安全預設；快照往返不能代替真正退出遊戲再讀檔。跨程序驗收用 `tools/quest_resume_probe.tscn -- --mode=write|continue|corrupt --save-dir=<絕對路徑>`：三個模式各自是獨立程序，依序跑（write 釘選、探索、死亡重來、換章後退出；continue 真正重開讀檔；corrupt 改壞導覽欄位後讀檔）。
 
 ## 視覺版面
 
 - 依據與範本在 `design/18-quest-map-ux/VISUAL_RESEARCH.md`（使用者 2026-10-11 選定：終端機雙欄＋模糊遊戲畫面當底＋斜切目前步驟橫幅）。改版前先看那份與實際截圖，不回到一排同重量大按鈕的做法。
+- 世界地圖依出入口方向排格子：梯子是上下層、靠左右的出口是左右，中段的門看對面那一側；單向出口的區域（序章）擺在它通往的區域旁。欄寬放不下名稱時先折兩行，再不行才蛇形折列；連線只在相鄰且中間沒有區域時直連，其他沿區域之間的空隙走，自動檢查擋「線穿過別的區域框」。
 - 共用元件：`FlatStyle`（分頁、分段、清單列、按鍵提示）、`SceneBackdrop`（模糊底）、`SlantBanner`（目前步驟、HUD 目標列）、`ScrollCue`（下方還有內容）。字級用 `UiKit.caption()`／`heading()`，像素字體會自動退回內文字級。
 - HDR 2D 在線性色彩混色：半透明疊色、格線看起來比數字亮，調不透明度要看實際 Forward+ 截圖。
 

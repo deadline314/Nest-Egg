@@ -152,13 +152,18 @@ func _test_ui(catalog: QuestCatalog, maps: QuestMapIndex) -> void:
 	var clipped := false
 	var nodes := screen._canvas._markers
 	for i in nodes.size():
-		var text_width := nodes[i].get_theme_font(&"font").get_string_size(nodes[i].text, HORIZONTAL_ALIGNMENT_LEFT, -1, nodes[i].get_theme_font_size(&"font_size")).x
-		if text_width > nodes[i].size.x:
-			clipped = true
+		var font := nodes[i].get_theme_font(&"font")
+		var font_size := nodes[i].get_theme_font_size(&"font_size")
+		if nodes[i].autowrap_mode == TextServer.AUTOWRAP_OFF:
+			clipped = clipped or font.get_string_size(nodes[i].text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x > nodes[i].size.x
+		else:
+			# 折成兩行的名稱：行數疊起來的高度不能超過按鈕。
+			clipped = clipped or font.get_multiline_string_size(nodes[i].text, HORIZONTAL_ALIGNMENT_CENTER, nodes[i].size.x - 4, font_size, -1, TextServer.BREAK_GRAPHEME_BOUND | TextServer.BREAK_MANDATORY).y > nodes[i].size.y
 		for j in range(i + 1, nodes.size()):
 			if nodes[i].get_global_rect().grow(-1).intersects(nodes[j].get_global_rect()):
 				overlap = true
 	check(not overlap and not clipped, "world map nodes neither overlap nor cut area names")
+	check(_world_lines_cross_nodes(screen._canvas) == 0, "world map connections never run through another area's box")
 	await _joy(JOY_BUTTON_B)
 	await frames(2)
 	check(screen._page == "quests", "controller return goes back one level")
@@ -355,3 +360,21 @@ func _test_journal_input(screen: QuestMapScreen, controller: bool) -> void:
 	await frames(3)
 	focused = screen.get_viewport().gui_get_focus_owner() as Button
 	check(screen._page == "quests" and focused != null and focused.text.contains("的地圖"), "%s returns one layer and restores action focus" % method)
+
+
+## 世界地圖的每一段連線取樣，碰到的區域框只能是這條線的兩端。
+static func _world_lines_cross_nodes(canvas: QuestMapCanvas) -> int:
+	var crossings := 0
+	for line: PackedVector2Array in canvas._lines:
+		for marker: Control in canvas._markers:
+			var rect := Rect2(marker.position, marker.size).grow(-2)
+			if rect.has_point(line[0]) or rect.has_point(line[line.size() - 1]):
+				continue
+			var hit := false
+			for i in line.size() - 1:
+				for t in 21:
+					if rect.has_point(line[i].lerp(line[i + 1], t / 20.0)):
+						hit = true
+			if hit:
+				crossings += 1
+	return crossings

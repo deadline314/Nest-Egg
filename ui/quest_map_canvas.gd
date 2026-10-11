@@ -20,6 +20,9 @@ const MIN_CELL := 4.5
 const MAX_CELL := 6.0
 const OVERVIEW_H := 14.0
 const WORLD_NODE := Vector2(104, 20)
+## 共用同一條空隙的連線錯開的條數與間距（欄間空隙最窄約 8 像素）。
+const WORLD_LANES := 3
+const WORLD_LANE_GAP := 2.0
 
 var maps: QuestMapIndex
 var state: QuestMapState
@@ -30,6 +33,8 @@ var goal: Dictionary = {}
 var flags: Dictionary = {}
 var world: Dictionary = {}
 var world_mode := false
+## 世界地圖的區域名稱是否折成兩行（欄寬放不下一行時）。
+var _wrap_names := false
 var zoom := 1.0
 var builds := 0
 ## 目前區域已探索的可通行格子比例（0～1），隨貼圖一起快取。
@@ -204,25 +209,39 @@ func _world_map() -> void:
 	if grid.is_empty():
 		return
 	var avail := size - Vector2(PAD, PAD) * 2
-	# 一欄至少要放得下最長的區域名稱；橫向放不下時把整張圖折成幾列（蛇形，相鄰區域仍靠在一起）。
+	# 一欄要放得下最長的區域名稱。放不下一行時先把名稱折成兩行（保留出入口的相對方向）；
+	# 兩行仍放不下才把整張圖折成幾列（蛇形），因為折列會讓相鄰區域分開、連線變長。
 	var name_width := 0.0
 	for level_path: String in grid:
 		var data: LevelData = maps.areas[level_path]["data"]
 		name_width = maxf(name_width, UiKit.font().get_string_size("▲ %s ◆" % data.display_name, HORIZONTAL_ALIGNMENT_LEFT, -1, UiKit.caption_size()).x)
-	var column_width := minf(name_width + 14.0, WORLD_NODE.x) + 8.0
-	grid = _fold_grid(grid, maxi(1, floori(avail.x / column_width)))
+	var single_column := minf(name_width + 14.0, WORLD_NODE.x) + 8.0
+	# 兩行：每行約一半，再留一個字的餘量（中文不一定剛好對半斷開）。
+	var double_column := ceilf(name_width * 0.5) + UiKit.caption_size() + 14.0 + 8.0
+	var columns := _grid_span(grid).x
+	var line_height := UiKit.font().get_height(UiKit.caption_size())
+	_wrap_names = false
+	var node_height := WORLD_NODE.y
+	if avail.x / columns < single_column:
+		if avail.x / columns >= double_column:
+			_wrap_names = true
+			node_height = WORLD_NODE.y + line_height
+		else:
+			grid = _fold_grid(grid, maxi(1, floori(avail.x / single_column)))
 	var lo := Vector2i(1 << 20, 1 << 20)
 	var hi := Vector2i(-(1 << 20), -(1 << 20))
 	for cell: Vector2i in grid.values():
 		lo = Vector2i(mini(lo.x, cell.x), mini(lo.y, cell.y))
 		hi = Vector2i(maxi(hi.x, cell.x), maxi(hi.y, cell.y))
 	var span := Vector2(hi - lo) + Vector2.ONE
-	var step := Vector2(avail.x / span.x, minf(avail.y / span.y, WORLD_NODE.y * 2.4))
+	var step := Vector2(avail.x / span.x, minf(avail.y / span.y, node_height * 2.4))
 	var top := PAD + (avail.y - step.y * span.y) * 0.5
-	var node := Vector2(minf(WORLD_NODE.x, step.x - 8), WORLD_NODE.y)
+	var node := Vector2(minf(WORLD_NODE.x, step.x - 8), node_height)
 	var centers: Dictionary = {}
+	var occupied: Dictionary = {}
 	for level_path: String in grid:
 		centers[level_path] = Vector2(PAD, top) + (Vector2(grid[level_path] - lo) + Vector2(0.5, 0.5)) * step
+		occupied[grid[level_path]] = true
 	var drawn: Dictionary = {}
 	for level_path: String in centers:
 		for edge in maps.edges(level_path):
@@ -232,10 +251,7 @@ func _world_map() -> void:
 			if not centers.has(target) or drawn.has(str(pair)):
 				continue
 			drawn[str(pair)] = true
-			var a: Vector2 = centers[level_path]
-			var b: Vector2 = centers[target]
-			# 直角連線：先水平再垂直，避免斜線交叉。
-			_lines.append(PackedVector2Array([a, Vector2(b.x, a.y), b]))
+			_lines.append(_world_route(grid[level_path], grid[target], centers[level_path], centers[target], step, occupied, drawn.size()))
 			var known := state.explored.has(level_path) and state.explored.has(target)
 			_line_colors.append(Color(Palette.CYAN_DIM, 0.85) if known else Color(Palette.UI_LINE_OFF, 0.9))
 	for level_path: String in centers:
@@ -251,8 +267,34 @@ func _world_map() -> void:
 		var tooltip := "前往%s的區域地圖。%s%s" % [data.display_name, "你已經探索過這裡。" if known else "這裡尚未探索。", "已啟用復原點；目前沒有傳送功能。" if activated_here else ""]
 		var accent := Palette.MAGENTA if target else Palette.CYAN if current or known else Palette.UI_MUTED
 		var button := _button(label, tooltip, centers[level_path], node, accent)
+		if _wrap_names:
+			button.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
 		_world_node_style(button, current, target, known)
 		button.pressed.connect(area_selected.emit.bind(level_path))
+
+
+## 世界地圖的連線：同一列或同一欄、中間沒有其他區域時直接連；否則沿區域之間的空隙走直角
+## （先到起點旁的列間空隙，再到終點旁的欄間空隙），線不會穿過別的區域框。lane 讓共用空隙的線錯開幾個像素。
+static func _world_route(from: Vector2i, to: Vector2i, a: Vector2, b: Vector2, step: Vector2, occupied: Dictionary, lane: int) -> PackedVector2Array:
+	if from.y == to.y and not _occupied_between(from, to, Vector2i(signi(to.x - from.x), 0), occupied):
+		return PackedVector2Array([a, b])
+	if from.x == to.x and not _occupied_between(from, to, Vector2i(0, signi(to.y - from.y)), occupied):
+		return PackedVector2Array([a, b])
+	var offset := float(posmod(lane, WORLD_LANES) - WORLD_LANES / 2) * WORLD_LANE_GAP
+	var dir_y := signf(b.y - a.y) if not is_equal_approx(a.y, b.y) else -1.0
+	var gap_y := a.y + dir_y * step.y * 0.5 + offset
+	var dir_x := signf(b.x - a.x) if not is_equal_approx(a.x, b.x) else 1.0
+	var gap_x := b.x - dir_x * step.x * 0.5 + offset
+	return PackedVector2Array([a, Vector2(a.x, gap_y), Vector2(gap_x, gap_y), Vector2(gap_x, b.y), b])
+
+
+static func _occupied_between(from: Vector2i, to: Vector2i, direction: Vector2i, occupied: Dictionary) -> bool:
+	var cell := from + direction
+	while cell != to:
+		if occupied.has(cell):
+			return true
+		cell += direction
+	return false
 
 
 ## 依出入口在區域裡的位置推算相對方向：靠左、靠右的出口往左右放，中段的出口依高低往上下放。
@@ -266,11 +308,27 @@ func _world_grid() -> Dictionary:
 	var taken: Dictionary = {}
 	var start: String = player_path if maps.areas.has(player_path) else paths[0]
 	var queue: Array[String] = []
-	for root: String in [start] + paths:
+	var pending: Array = [start] + paths
+	while not pending.is_empty():
+		var root: String = _next_world_root(pending, grid)
+		pending.erase(root)
 		if grid.has(root):
 			continue
+		# 只有單向出口、別區走不到的區域（例如序章）：擺在它出口通往的區域旁邊、反方向。
 		var origin := Vector2i(0, 0)
-		if not taken.is_empty():
+		var anchored := false
+		for edge in maps.edges(root):
+			var target: String = edge["resource"].target_level
+			if grid.has(target):
+				var direction := -_edge_direction(root, edge)
+				origin = grid[target] + direction
+				for candidate in _world_candidates(grid[target], direction):
+					if not taken.has(candidate):
+						origin = candidate
+						break
+				anchored = true
+				break
+		if not anchored and not taken.is_empty():
 			var right := 0
 			for cell: Vector2i in taken:
 				right = maxi(right, cell.x)
@@ -286,14 +344,49 @@ func _world_grid() -> Dictionary:
 					continue
 				var direction := _edge_direction(current, edge)
 				var cell: Vector2i = grid[current] + direction
-				var tries := 0
-				while taken.has(cell) and tries < 8:
-					tries += 1
-					cell = grid[current] + direction * (tries + 1) if tries < 4 else grid[current] + direction + Vector2i(direction.y, direction.x) * (tries - 3)
+				for candidate in _world_candidates(grid[current], direction):
+					if not taken.has(candidate):
+						cell = candidate
+						break
 				grid[target] = cell
 				taken[cell] = target
 				queue.append(target)
 	return grid
+
+
+## 下一個要排的起點：先選出口通往已排區域的（才能擺在它旁邊），沒有就照原順序。
+func _next_world_root(pending: Array, grid: Dictionary) -> String:
+	if not grid.is_empty():
+		for path: String in pending:
+			if grid.has(path):
+				continue
+			for edge in maps.edges(path):
+				if grid.has(edge["resource"].target_level):
+					return path
+	return pending[0]
+
+
+## 目標格被占用時依序嘗試的位置：先在同方向旁邊錯開一格（保持相鄰、連線短），再沿同方向往外推。
+static func _world_candidates(origin: Vector2i, direction: Vector2i) -> Array[Vector2i]:
+	var side := Vector2i(direction.y, direction.x).abs()
+	var first := origin + direction
+	var result: Array[Vector2i] = [first]
+	for k in [1, -1, 2, -2]:
+		result.append(first + side * k)
+	for k in [2, 3, 4]:
+		result.append(origin + direction * k)
+	for k in [1, -1]:
+		result.append(origin + direction * 2 + side * k)
+	return result
+
+
+static func _grid_span(grid: Dictionary) -> Vector2:
+	var lo := Vector2i(1 << 20, 1 << 20)
+	var hi := Vector2i(-(1 << 20), -(1 << 20))
+	for cell: Vector2i in grid.values():
+		lo = Vector2i(mini(lo.x, cell.x), mini(lo.y, cell.y))
+		hi = Vector2i(maxi(hi.x, cell.x), maxi(hi.y, cell.y))
+	return Vector2(hi - lo) + Vector2.ONE
 
 
 ## 欄數超過 columns 時，依欄分段往下折：第二段從右往左排，第三段再從左往右（蛇形），段與段之間空一列。
@@ -317,16 +410,44 @@ static func _fold_grid(grid: Dictionary, columns: int) -> Dictionary:
 	return folded
 
 
+## 出入口通往的方向：梯子往上；靠左、靠右的出口往左右。中段的門先看對面那一側的出口（對面靠左，這裡就往右），
+## 都看不出來時才依高低往上下放。
 func _edge_direction(level_path: String, edge: Dictionary) -> Vector2i:
+	var target: String = edge["resource"].target_level
+	# 對面爬梯子上來的地方，從這裡看就是往下。
+	for back in _back_edges(target, level_path):
+		if str(back["resource"].get(&"style")) == "ladder":
+			return Vector2i.DOWN
+	var own := _clear_direction(level_path, edge)
+	if own != Vector2i.ZERO:
+		return own
+	for back in _back_edges(target, level_path):
+		var reverse := _clear_direction(target, back)
+		if reverse != Vector2i.ZERO:
+			return -reverse
 	var layout: LevelLayout = maps.areas[level_path]["layout"]
-	var tile: float = maxf(1.0, float(layout.tile_size))
-	var position: Vector2 = edge["position"] / tile
+	var position: Vector2 = edge["position"] / maxf(1.0, float(layout.tile_size))
+	return Vector2i.UP if position.y / maxf(1.0, float(layout.height)) < 0.5 else Vector2i.DOWN
+
+
+func _back_edges(from: String, to: String) -> Array:
+	if not maps.areas.has(from):
+		return []
+	return maps.edges(from).filter(func(back: Dictionary) -> bool: return back["resource"].target_level == to)
+
+
+## 單看這一側就能確定的方向（梯子、靠邊的出口）；看不出來回傳 ZERO。
+func _clear_direction(level_path: String, edge: Dictionary) -> Vector2i:
+	if str(edge["resource"].get(&"style")) == "ladder":
+		return Vector2i.UP
+	var layout: LevelLayout = maps.areas[level_path]["layout"]
+	var position: Vector2 = edge["position"] / maxf(1.0, float(layout.tile_size))
 	var x := position.x / maxf(1.0, float(layout.width))
 	if x < 0.3:
 		return Vector2i.LEFT
 	if x > 0.7:
 		return Vector2i.RIGHT
-	return Vector2i.UP if position.y / maxf(1.0, float(layout.height)) < 0.5 else Vector2i.DOWN
+	return Vector2i.ZERO
 
 
 func _world_node_style(button: Button, current: bool, target: bool, known: bool) -> void:
