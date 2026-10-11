@@ -326,6 +326,8 @@ def main() -> None:
             big = components(L[:, :, 3] > 0, cfg["speckle"])
             L[:, :, 3][~big] = 0
         fh = cfg.get("fill_holes")
+        if fh and n in fh.get("large", {}):  # {"large": {part: N}}: a bigger limit for one part (the gap a removed arm left beside the collar)
+            fh = {"parts": [n], "max_area": fh["large"][n]}
         if fh and n in fh["parts"]:  # last, after the outline smoothing, which can itself open a hair-thin crack into a hole
             solid = L[:, :, 3] > 127
             holes, count = ndimage.label(ndimage.binary_fill_holes(solid) & ~solid)

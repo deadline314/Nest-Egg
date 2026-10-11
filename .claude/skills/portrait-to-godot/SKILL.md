@@ -112,6 +112,7 @@ python tools/comfyui/gpu_lock.py -- <godot> --path . res://tools/rig_preview.tsc
 - `--closeup`：每個角色一張大的待機站姿（不加 `--npc` 時是兩腿前後分開的戰鬥待機）。遠側腿往後、手擺開，髖部與大腿前緣有沒有缺口在這張最明顯，必看；可以一次放四個角色，頭尾放老 K 與護理師當對照。
 - `--seq=start|stop|idle|jump|land|dash|die_front|die_back`：依時間取八格（起步、煞車、待機、起跳到落地、原地落下、衝刺、正面與背面中彈倒下）。
 - `--cloth`：放大看站、跑、上升、下落、蹲、仰射時的衣襬、頭髮與槍套。
+- `--left`：全部角色朝左（面向、瞄準、速度、倒下方向一起對調）。每個角色朝左也要看一輪。
 - `--zoom=N`：指定放大倍率（`--gait` 預設 2.2）。
 - 走路的近拍用 `--gait --zoom=N`，同樣看髖部。
 - `--damage`：看 `damage` 步驟產生的破損層，先跑 `--only damage`（見第 3 關）。 有會脫落裝甲的角色必看 `--damage --bare` 的最後一格：頭、手還接在身體上，沒有浮起來。

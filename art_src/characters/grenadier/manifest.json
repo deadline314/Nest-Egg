@@ -106,5 +106,40 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "refine",
+    "seconds": 3.1,
+    "outputs": [
+      "art_src\\characters\\grenadier\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.3,
+    "outputs": [
+      "art\\characters\\grenadier\\character.json",
+      "art\\rigs\\grenadier.json",
+      "art\\characters\\grenadier\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.5,
+    "outputs": [
+      "art\\characters\\grenadier\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 7.0,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

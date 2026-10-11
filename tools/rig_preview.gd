@@ -80,6 +80,8 @@ var _poses: Array[String] = []
 var _time := 0.0
 ## --bright：檢視用的亮場景（淺灰背景、柔和白光），暗場景下看不清零件時用；遊戲裡的實際光影不變。
 var _bright := false
+## --left：全部角色朝左（面向、瞄準、速度、受擊與倒下方向一起左右對調），檢查朝左時的圖層與接點。
+var _left := false
 
 
 func _ready() -> void:
@@ -90,6 +92,8 @@ func _ready() -> void:
 			_zoom = float(arg.trim_prefix("--zoom="))
 		elif arg == "--bright":
 			_bright = true
+		elif arg == "--left":
+			_left = true
 		elif arg == "--head":
 			_head_only = true
 		elif arg == "--closeup":
@@ -279,7 +283,7 @@ func _process(delta: float) -> void:
 				input.staggered = true
 			"dead":
 				input.dead = true
-		_rigs[i].animate(delta, input)
+		_rigs[i].animate(delta, _faced(input))
 		if str(_poses[i]).begins_with("joint:"):
 			_pose_joints(_rigs[i], int(str(_poses[i]).trim_prefix("joint:")))
 
@@ -313,7 +317,7 @@ func _preroll_gait() -> void:
 		var stride := float(_rigs[i].animator._motion["move"]["stride"])
 		var cycle_frames := stride / _gait_speed / dt
 		for k in 90 + int(cycle_frames * float(i) / 8.0):
-			_rigs[i].animate(dt, input)
+			_rigs[i].animate(dt, _faced(input))
 
 
 ## 序列在時間 t（秒，負值＝取樣前的預備）的狀態：把速度、是否在地上、衝刺中填進 input；prev_t 到 t 之間發生的一次性事件（起跳、落地、衝刺開始）也一併設定。
@@ -375,7 +379,7 @@ func _preroll_seq() -> void:
 			var previous := t
 			t += dt
 			_seq_apply(input, minf(t, stop_at), previous)
-			_rigs[i].animate(dt, input)
+			_rigs[i].animate(dt, _faced(input))
 			input.jumped = false
 			input.landed = 0.0
 			input.dash_started = false
@@ -395,12 +399,12 @@ func _preroll_death() -> void:
 		input.aim_dir = Vector2.RIGHT
 		input.two_handed = true
 		for k in 30:
-			_rigs[i].animate(dt, input)
+			_rigs[i].animate(dt, _faced(input))
 		input.dead = true
 		input.death_dir = 1.0 if variant % 2 == 0 else -1.0
 		input.death_force = 0.0 if variant < 2 else 1.0
 		for k in 100:
-			_rigs[i].animate(dt, input)
+			_rigs[i].animate(dt, _faced(input))
 
 
 func _capture() -> void:
@@ -419,3 +423,19 @@ func _capture() -> void:
 	image.save_png(_out)
 	print("saved ", _out)
 	get_tree().quit()
+
+
+## --left 時回傳左右對調的一份輸入（原本的輸入不動，下一格照常從朝右的值算）。
+func _faced(input: RigInput) -> RigInput:
+	if not _left:
+		return input
+	var mirrored := RigInput.new()
+	for property in input.get_property_list():
+		if int(property["usage"]) & PROPERTY_USAGE_SCRIPT_VARIABLE:
+			mirrored.set(property["name"], input.get(property["name"]))
+	mirrored.facing = -input.facing
+	mirrored.aim_dir = Vector2(-input.aim_dir.x, input.aim_dir.y)
+	mirrored.velocity = Vector2(-input.velocity.x, input.velocity.y)
+	mirrored.hurt_dir = -input.hurt_dir
+	mirrored.death_dir = -input.death_dir
+	return mirrored

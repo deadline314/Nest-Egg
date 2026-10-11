@@ -188,6 +188,11 @@ def _text_mask_cache_entry(key: str, mask_path: Path) -> dict:
     return {"key": key, "mask_sha256": hashlib.sha256(mask_path.read_bytes()).hexdigest()}
 
 
+PINNED_MASKS = False  # spec["pinned_masks"]: a character cut and reviewed with an earlier SAM setup keeps the masks it has on disk (text and
+# near-leg point masks); only masks that do not exist yet (a new stage picture) are made. Without it every mask is redone as soon as the SAM
+# settings change, and a character that was fine comes out cut differently, or its reviewed leg points no longer hit a mask.
+
+
 def ensure_text_masks(image: Path, prompts: list[str], out_dir: Path, stage: str,
                       threshold: float = TEXT_MASK_THRESHOLD, refine: int = TEXT_MASK_REFINE) -> dict[str, Path]:
     """Reuse only masks whose exact image, stage, prompt, model and SAM settings still match."""
@@ -196,6 +201,8 @@ def ensure_text_masks(image: Path, prompts: list[str], out_dir: Path, stage: str
     slugs = [slug(prompt) for prompt in prompts]
     if len(slugs) != len(set(slugs)):
         raise ValueError(f"SAM prompts collide after slugging for {stage}: {prompts}")
+    if PINNED_MASKS and all((out_dir / f"{slug(prompt)}.png").is_file() for prompt in prompts):
+        return {prompt: out_dir / f"{slug(prompt)}.png" for prompt in prompts}  # spec.pinned_masks: the reviewed masks on disk are the masks
     cache_path = out_dir / TEXT_MASK_CACHE_NAME
     cache = _read_text_mask_cache(cache_path)
     keys = {prompt: text_mask_key(image, stage, prompt, threshold, refine) for prompt in prompts}
@@ -267,6 +274,8 @@ def main() -> None:
     ap.add_argument("--redo-stage", help="comma list of stage pictures to generate again")
     args = ap.parse_args()
     spec = json.loads(Path(args.spec).read_text(encoding="utf8"))
+    global PINNED_MASKS
+    PINNED_MASKS = bool(spec.get("pinned_masks"))
     only = {name.strip() for name in args.only.split(",")} if args.only is not None else None
     if only is not None and (not only or "" in only or not only <= spec["groups"].keys()):
         ap.error("--only requires nonempty group names from spec.groups")
@@ -513,7 +522,7 @@ def main() -> None:
         mask_png = leg_sam_dir / "near_leg.png"
         key_json = leg_sam_dir / "near_leg.json"
         key = near_leg_key(nl_cfg, leg_image)
-        if not mask_png.exists() or not key_json.exists() or key_json.read_text(encoding="utf8") != key:
+        if not mask_png.exists() or not (PINNED_MASKS or (key_json.exists() and key_json.read_text(encoding="utf8") == key)):
             print("SAM 3.1 near_leg:", nl_cfg["pos"], nl_cfg.get("neg", []))
             segment_points(str(leg_image), str(leg_sam_dir), {"near_leg": {"pos": [tuple(q) for q in nl_cfg["pos"]], "neg": [tuple(q) for q in nl_cfg.get("neg", [])]}},
                            threshold=nl_cfg.get("threshold", 0.3), refine=POINT_MASK_REFINE)
@@ -522,7 +531,7 @@ def main() -> None:
         far = np.zeros((H, W), bool)
         if nl_cfg.get("neg"):  # the far leg's own mask: the same SAM call with the point lists swapped; nothing of it may end up in the near leg
             far_png, far_json = leg_sam_dir / "near_leg_far.png", leg_sam_dir / "near_leg_far.json"
-            if not far_png.exists() or not far_json.exists() or far_json.read_text(encoding="utf8") != key:
+            if not far_png.exists() or not (PINNED_MASKS or (far_json.exists() and far_json.read_text(encoding="utf8") == key)):
                 segment_points(str(leg_image), str(leg_sam_dir), {"near_leg_far": {"pos": [tuple(q) for q in nl_cfg["neg"]], "neg": [tuple(q) for q in nl_cfg["pos"]]}},
                                threshold=nl_cfg.get("threshold", 0.3), refine=POINT_MASK_REFINE)
                 far_json.write_text(key, encoding="utf8")

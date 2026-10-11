@@ -121,7 +121,7 @@
         "leg"
       ],
       "complete": {
-        "stage": "P",
+        "stage": "Q",
         "occluders": [
           "arm",
           "hand",
@@ -131,11 +131,14 @@
           "armor_chest"
         ],
         "near": 120,
-        "fill_behind": [
-          "arm",
-          "hand",
-          "armor_forearm",
-          "armor_shoulder"
+        "stage_silhouette": true,
+        "gap_grow": 30,
+        "edge_trim": 1,
+        "check_removed": [
+          291,
+          631,
+          471,
+          781
         ]
       }
     }
@@ -538,7 +541,10 @@
         "leg_lower",
         "foot"
       ],
-      "max_area": 200
+      "max_area": 200,
+      "large": {
+        "torso": 3000
+      }
     },
     "close_fill": [
       {
@@ -616,6 +622,12 @@
       "from": null,
       "seed": 51,
       "prompt": "Remove all the armor plates completely (the shoulder armor, the forearm guards, the knee pads and the chest plate) and paint the undersuit that was beneath them, in exactly the same art style and colors. Keep everything else exactly unchanged."
+    },
+    {
+      "name": "Q",
+      "from": "P",
+      "seed": 71,
+      "prompt": "Remove the character's near-side arm entirely, from the shoulder to the fingertips, including its sleeve, its glove and anything it wears, so that a neat round armhole seam is left at the shoulder. The hand and all its fingers are removed too: nothing of the hand remains in front of the hip or the thigh. No arm, no hand and no skin are drawn there. Paint the side of the torso clothing, the belt, the hip and the thigh that were hidden behind the arm, in exactly the same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
     }
   ],
   "near_leg": {
@@ -667,5 +679,6 @@
       "armor_forearm",
       "armor_shoulder"
     ]
-  }
+  },
+  "pinned_masks": true
 }

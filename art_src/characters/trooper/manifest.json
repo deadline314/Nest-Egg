@@ -216,5 +216,40 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "refine",
+    "seconds": 3.2,
+    "outputs": [
+      "art_src\\characters\\trooper\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.2,
+    "outputs": [
+      "art\\characters\\trooper\\character.json",
+      "art\\rigs\\trooper.json",
+      "art\\characters\\trooper\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 27.3,
+    "outputs": [
+      "art\\characters\\trooper\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 7.8,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]
