@@ -48,6 +48,16 @@ static func remove_obstacle(owner: Node) -> void:
 	_frame = -1
 
 
+## 有沒有正在顯示的提示框（照目前錯開後的位置）和這個世界座標矩形重疊。HUD 元件用它判斷要不要讓位。
+static func covers(rect: Rect2) -> bool:
+	if not rect.has_area():
+		return false
+	for prompt in _prompts:
+		if is_instance_valid(prompt) and prompt.is_showing() and Rect2(prompt.base_rect().position + prompt._nudge, prompt.base_rect().size).intersects(rect):
+			return true
+	return false
+
+
 ## 每影格由正在顯示的提示呼叫；同一影格只算一次。
 static func update() -> void:
 	var frame := Engine.get_process_frames()

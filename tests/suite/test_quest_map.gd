@@ -263,6 +263,7 @@ func _check_filter_groups(screen: QuestMapScreen) -> void:
 
 func _test_runtime() -> void:
 	var level := await start_level(load(PAWN) as LevelData)
+	await _check_prompt_avoids_objective(level)
 	var state := QuestMapState.for_run()
 	state.reveal(PAWN, [Vector2i(50, 19)])
 	GameState.register_death()
@@ -272,6 +273,46 @@ func _test_runtime() -> void:
 	await end_level(level)
 	GameState.start_new_run(GameState.difficulties[1])
 	check(not is_same(state, QuestMapState.for_run()) and QuestMapState.for_run().explored.is_empty(), "new run clears previous exploration")
+
+
+## 世界提示（訓練站、告示）壓到 HUD 目標列時，目標列淡出讓位、提示框留在原處；提示收起後目標列回來（序章實際畫面曾疊字）。
+func _check_prompt_avoids_objective(level: Level) -> void:
+	var guidance: QuestGuidance = level.hud.quest_guidance
+	var row := Rect2()
+	for i in 60:
+		await frames(1)
+		row = guidance.row_world_rect()
+		if row.has_area():
+			break
+	check(row.has_area(), "the objective row is on screen in a new game")
+	if not row.has_area():
+		return
+	var prompt := WorldPrompt.new()
+	prompt.text = "{jump} 跳上搬貨台，工具就放在上面。"
+	prompt.reach_check = func() -> bool: return true
+	var holder := Node2D.new()
+	level.add_child(holder)
+	holder.add_child(prompt)
+	await frames(2)
+	# 提示框原本的位置正好壓在目標列中央。
+	holder.global_position += row.get_center() - prompt.base_rect().get_center()
+	var faded := false
+	for i in 120:
+		await frames(1)
+		if prompt.is_showing() and guidance._row.modulate.a < 0.05:
+			faded = true
+			break
+	var placed := Rect2(prompt.base_rect().position + prompt._nudge, prompt.base_rect().size)
+	check(faded and guidance.yielding, "a world prompt over the objective row makes the row fade out")
+	check(placed.intersects(row), "the prompt itself stays in place instead of being pushed off screen")
+	holder.queue_free()
+	var back := false
+	for i in 120:
+		await frames(1)
+		if not guidance.yielding and guidance._row.modulate.a > 0.35:
+			back = true
+			break
+	check(back, "the objective row comes back once the prompt is gone")
 
 
 func _key(code: Key) -> void:

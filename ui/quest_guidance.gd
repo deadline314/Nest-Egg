@@ -10,8 +10,12 @@ const PULSE_SCALE := 1.12
 ## 武器欄右緣（640×360 設計座標）；方向箭頭在這個範圍內時不壓到武器欄。
 const WEAPON_BAR_RIGHT := 160.0
 const PULSE_TIME := 0.35
+## 目標列讓位給世界提示時淡出／淡入的時間（秒）。
+const YIELD_FADE := 0.15
 
 ## 目標列與任務頁的「目前步驟」同一種斜切橫幅；換目標時本身短暫放大，不再另外彈一條中央提示。
+## 目前因為世界提示壓到而淡出讓位（測試與工具讀它）。
+var yielding := false
 var _row: SlantBanner
 var _label: Label
 var _pulse: Tween
@@ -76,8 +80,18 @@ func _process(delta: float) -> void:
 		_sample()
 		_refresh_target()
 	_row.visible = _enabled("quest_objective") and not _target.is_empty() and not Story.is_cinematic_active()
-	_row.modulate.a = 1.0 if _idle < 5 or not Settings.get_hud_auto_hide() else 0.4
+	# 世界提示（訓練站、告示）是當下要做的動作，優先讀得到：提示框壓到目標列時，目標列先淡出讓位，提示框不動。
+	yielding = _row.visible and PromptLayout.covers(row_world_rect())
+	var target_alpha := 0.0 if yielding else (1.0 if _idle < 5 or not Settings.get_hud_auto_hide() else 0.4)
+	_row.modulate.a = move_toward(_row.modulate.a, target_alpha, delta / YIELD_FADE) if not Settings.get_reduce_ui_motion() else target_alpha
 	_update_arrow()
+
+
+## 目標列目前在世界座標的範圍（和世界提示比對用）；沒顯示時回傳空矩形。
+func row_world_rect() -> Rect2:
+	if _row == null or not _row.is_visible_in_tree() or level == null:
+		return Rect2()
+	return get_viewport().get_canvas_transform().affine_inverse() * _row.get_global_rect().grow(2.0)
 
 
 func _sample() -> void:
@@ -107,7 +121,7 @@ func _refresh_target() -> void:
 
 ## 換目標時目標列放大再回到原尺寸並亮一下；減少介面動態時只亮不縮放。
 func _pulse_row() -> void:
-	if _row == null or not _row.is_inside_tree():
+	if _row == null or not _row.is_inside_tree() or yielding:
 		return
 	if _pulse != null:
 		_pulse.kill()
