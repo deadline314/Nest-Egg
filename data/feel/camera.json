@@ -1,0 +1,49 @@
+{
+  "_說明": "關卡鏡頭的構圖（NE-256，CameraTuning 讀取）。zoom＝倍率（設計畫布 640×360，可見範圍 640／zoom × 360／zoom 世界像素）；look_ahead＝往面向偏移的世界像素、look_ahead_speed＝轉向時追上的速度、pan_max_speed＝鏡頭跟隨目標的水平速度上限（主角移動＋偏移變化，世界像素／秒；主角邊跑邊轉身時偏移讓出跑速那部分）；aim_look＝往準星方向偏移（垂直取一半）；vertical_offset＝鏡頭中心相對腳底的高度（負值＝往上）；deadzone_up／deadzone_down＝空中上下多少像素內鏡頭不跟；fall_look_*＝下落速度超過 from 後每份速度往下多看 gain 像素、最多 max；smoothing_speed＝跟隨的平滑速度；rear_watch_range＝背後這段距離內有交戰中的敵人時縮小前瞻，讓牠和 rear_margin 的邊距留在畫面裡（0＝關閉）；above_watch_range／above_max_lift／above_margin＝畫面範圍內有敵人站在比主角高 above_watch_range 以內的地方時，鏡頭最多上抬 above_max_lift，讓牠的頭頂加邊距留在畫面裡；shake_reference_zoom＝震動與後座幅度是在這個倍率下調的，倍率改了以後畫面上的晃動幅度不變。面向的前方可見距離＝320／zoom＋look_ahead＋aim_look，要維持 300 以上。超出合理範圍的值會記錄錯誤並改用預設值。 level 是關卡預設；level_wide 是 NE-256 拉近前的 1.5 倍構圖（量測對照用，也可整組切回）。",
+  "profiles": {
+    "level": {
+      "zoom": 1.92,
+      "look_ahead": 106.0,
+      "look_ahead_speed": 2.2,
+      "pan_max_speed": 300.0,
+      "aim_look": 30.0,
+      "aim_look_speed": 5.0,
+      "vertical_offset": -40.0,
+      "deadzone_up": 26.0,
+      "deadzone_down": 16.0,
+      "fall_look_from": 200.0,
+      "fall_look_gain": 0.1,
+      "fall_look_max": 44.0,
+      "fall_look_speed": 4.0,
+      "smoothing_speed": 7.0,
+      "rear_watch_range": 150.0,
+      "rear_margin": 28.0,
+      "shake_reference_zoom": 1.5,
+      "above_watch_range": 140.0,
+      "above_max_lift": 32.0,
+      "above_margin": 20.0
+    },
+    "level_wide": {
+      "zoom": 1.5,
+      "look_ahead": 56.0,
+      "look_ahead_speed": 2.5,
+      "pan_max_speed": 4000.0,
+      "aim_look": 30.0,
+      "aim_look_speed": 5.0,
+      "vertical_offset": -32.0,
+      "deadzone_up": 60.0,
+      "deadzone_down": 20.0,
+      "fall_look_from": 200.0,
+      "fall_look_gain": 0.1,
+      "fall_look_max": 36.0,
+      "fall_look_speed": 4.0,
+      "smoothing_speed": 7.0,
+      "rear_watch_range": 0.0,
+      "rear_margin": 28.0,
+      "shake_reference_zoom": 1.5,
+      "above_watch_range": 140.0,
+      "above_max_lift": 0.0,
+      "above_margin": 8.0
+    }
+  }
+}

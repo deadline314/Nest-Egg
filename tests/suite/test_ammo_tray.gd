@@ -168,11 +168,16 @@ func _test_screen_edge() -> void:
 	var feet: Vector2 = to_screen * (player.global_position + WeaponBar.PLAYER_BOX.position)
 	var overlap := Rect2(feet, WeaponBar.PLAYER_BOX.size * to_screen.get_scale()).intersects(bar.get_global_rect())
 	check(bar.is_making_way() == overlap, "武器欄只在和主角重疊時讓位（重疊=%s）" % overlap)
+	# NE-256 拉近後，面向右時主角固定站在畫面左側（前方留 300 像素）；轉身面向左，主角才移到畫面右側、真的離開左下角。
 	player.global_position.x = 300.0
-	await frames(40)
+	Input.action_release(&"aim_right")
+	Input.action_press(&"aim_left")
+	await frames(120)
 	check(not bar.is_making_way(), "主角離開左下角後武器欄恢復完整亮度")
+	Input.action_release(&"aim_left")
+	Input.action_press(&"aim_right")
 	player.global_position.x = 20.0
-	await frames(40)
+	await frames(120)
 	# 轉身：彈帶從頭頂回到背後（右邊有空間），每一格的移動都很小。
 	Input.action_release(&"aim_right")
 	Input.action_press(&"aim_left")

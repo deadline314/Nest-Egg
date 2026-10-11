@@ -15,6 +15,8 @@ func run() -> void:
 	await _test_global_hitstop()
 	await _test_slowmo()
 	await _test_camera()
+	_test_camera_tuning()
+	await _test_camera_rear_threat()
 	await _test_sound_events()
 	_test_hit_materials()
 	await _test_weapon_feel()
@@ -190,6 +192,72 @@ func _test_slowmo() -> void:
 		n.free()
 	Fx.reset_time()
 	Fx._slowmo_ready_msec = 0
+
+
+## NE-256：鏡頭構圖在資料檔、壞資料退回預設值、拉近後主角佔畫面三分之一且前方仍看得到 300 世界像素。
+func _test_camera_tuning() -> void:
+	CameraTuning.reload_data()
+	check(CameraTuning.validate().is_empty(), "camera data has no errors: %s" % ", ".join(CameraTuning.validate()))
+	var level := CameraTuning.profile()
+	var data: Dictionary = (JSON.parse_string(FileAccess.get_file_as_string(CameraTuning.PATH)) as Dictionary)["profiles"]["level"]
+	check(is_equal_approx(level.zoom, float(data["zoom"])) and is_equal_approx(level.look_ahead, float(data["look_ahead"])), "the level camera reads its framing from the data file")
+	# 主角站立約 60 世界像素（tools/framing_probe 實測）；畫布高 360。
+	var ratio := 60.0 * level.zoom / 360.0
+	check(ratio >= 0.31 and ratio <= 0.35, "the protagonist fills 31%%～35%% of the screen height (%.1f%%)" % (ratio * 100.0))
+	check(level.front_reach(640.0) >= 300.0, "the facing side still shows 300 world px (%.0f)" % level.front_reach(640.0))
+	var errors: Array[String] = []
+	var broken := CameraTuning.parse({"zoom": -3.0, "look_ahead": "far", "lok_ahead": 1.0}, "壞鏡頭資料", errors)
+	check(errors.size() == 3, "bad camera values are reported one by one (%d)" % errors.size())
+	check(errors.size() == 3 and "zoom" in errors[0] and "look_ahead" in errors[1] and "lok_ahead" in errors[2], "each report names the field")
+	check(is_equal_approx(broken.zoom, float(CameraTuning.FIELDS["zoom"][0])) and is_equal_approx(broken.look_ahead, float(CameraTuning.FIELDS["look_ahead"][0])), "bad values fall back to the defaults")
+	check(CameraTuning.profile(&"level") == level, "profiles are cached")
+	for key: String in CameraTuning.FIELDS:
+		var spec: Array = CameraTuning.FIELDS[key]
+		check(float(spec[1]) <= float(spec[0]) and float(spec[0]) <= float(spec[2]), "default %s is inside its own range" % key)
+
+
+## NE-256：背後有交戰中的敵人時前瞻縮小，敵人留在畫面裡；沒有威脅時恢復；轉向時鏡頭橫移有速度上限。
+func _test_camera_rear_threat() -> void:
+	var camera := LevelCamera.new()
+	runner.get_tree().root.add_child(camera)
+	check(is_equal_approx(camera.zoom.x, camera.tuning.zoom), "the camera applies the data zoom")
+	var dummy := Node2D.new()
+	dummy.global_position = Vector2(1000.0, 0.0)
+	runner.get_tree().root.add_child(dummy)
+	camera.target = dummy
+	camera.snap_to_target()
+	check(is_equal_approx(camera._look, camera.tuning.look_ahead), "no threat: full look-ahead")
+	var data := load("res://data/enemies/grunt.tres") as EnemyData
+	var enemy := data.behavior.new() as Enemy
+	enemy.configure(data)
+	enemy.position = Vector2(1000.0 - 90.0, 0.0)
+	runner.get_tree().root.add_child(enemy)
+	enemy.raise_alert(dummy.global_position, 5.0)
+	camera.snap_to_target()
+	var half := camera.get_viewport_rect().size.x * 0.5 / camera.tuning.zoom
+	var behind := half - camera._look - maxf(0.0, camera._aim_look.x)
+	check(camera._look < camera.tuning.look_ahead and behind >= 90.0 + camera.tuning.rear_margin - 0.5, "an engaged enemy behind stays on screen (sees %.0f px behind)" % behind)
+	enemy.position = Vector2(1000.0 + 90.0, 0.0)
+	camera.snap_to_target()
+	check(is_equal_approx(camera._look, camera.tuning.look_ahead), "an enemy in front does not shrink the look-ahead")
+	# 高處的敵人：站在主角前方上層平台（高 110），鏡頭上抬讓牠的頭留在畫面裡，上抬量有上限。
+	var ground_y := camera._desired_position().y
+	enemy.position = Vector2(1000.0 + 90.0, -110.0)
+	camera.snap_to_target()
+	check(camera._lift > 0.0 and camera._lift <= camera.tuning.above_max_lift, "an enemy on a ledge above lifts the camera within the cap (%.1f)" % camera._lift)
+	check(camera._desired_position().y < ground_y, "the lift moves the framing up")
+	enemy.position = Vector2(1000.0 + 90.0, -600.0)
+	camera.snap_to_target()
+	check(is_zero_approx(camera._lift), "an enemy far above (another floor) does not lift the camera")
+	enemy.free()
+	# 轉向：每個物理影格的橫移不超過速度上限。
+	camera._look = -camera.tuning.look_ahead
+	camera._rear_room = 0.0
+	var before := camera._look
+	camera._physics_process(1.0 / 60.0)
+	check(absf(camera._look - before) + absf(camera._aim_look.x) <= camera.tuning.pan_max_speed / 60.0 + 0.01, "turning pans at a capped speed (%.1f px)" % absf(camera._look - before))
+	camera.free()
+	dummy.free()
 
 
 func _test_camera() -> void:

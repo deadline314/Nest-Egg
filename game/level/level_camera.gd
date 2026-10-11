@@ -6,20 +6,8 @@ extends Camera2D
 ##   - trauma 震動：強度平方衰減 + 噪聲，比純隨機震動自然
 ##   - 射擊後座：方向性位移，快速回彈
 
-## 基礎縮放倍率（畫面 640×360，視野 = 640／ZOOM × 360／ZOOM 世界像素）：主角是畫面主角，所以拉近到角色約佔畫面高度兩成多；
-## 縮放越大視野越小，前瞻、瞄準偏移、垂直偏移與死區都要跟著這個值調（見下面各項），改縮放只改這一個常數。
-## 1.5 時視野 427×240，前方（前瞻＋瞄準偏移）看得到約 300 像素，涵蓋大多數敵人的攻擊距離（240～300）。
-const ZOOM := 1.5
-const LOOK_AHEAD := 56.0
-const LOOK_AHEAD_SPEED := 2.5
-const VERTICAL_OFFSET := -32.0
-const DEADZONE_UP := 60.0
-const DEADZONE_DOWN := 20.0
-## 下落時鏡頭往下看：下落速度超過 FALL_LOOK_FROM 後，每增加一份速度往下多看 FALL_LOOK_GAIN 像素（上限 FALL_LOOK_MAX），讓玩家看得到要落下去的地方。
-const FALL_LOOK_FROM := 200.0
-const FALL_LOOK_GAIN := 0.1
-const FALL_LOOK_MAX := 36.0
-const FALL_LOOK_SPEED := 4.0
+## 構圖數值（倍率、前瞻、瞄準偏移、垂直偏移、死區、下落預視）在 data/feel/camera.json（CameraTuning），改數字不用改程式。
+## 倍率越大視野越小，前瞻與瞄準偏移要一起調，讓面向的前方仍看得到 300 世界像素以上（敵人多半在 240～300 開始攻擊）。
 const MAX_SHAKE_PX := 12.0
 const SHAKE_ROTATION_PER_PX := 0.0014
 const MAX_SHAKES := 8
@@ -27,12 +15,17 @@ const MAX_SHAKES := 8
 const SHAKE_FALLOFF_START := 240.0
 const SHAKE_FALLOFF_RANGE := 640.0
 const DIRECTIONAL_FREQUENCY := 16.0
-## 瞄準前瞻：鏡頭往準星方向偏移的像素，垂直只取一半。
-const AIM_LOOK := 30.0
-const AIM_LOOK_SPEED := 5.0
 const KICK_RECOVERY := 16.0
 const MAX_KICK := 8.0
+## 前瞻翻轉至少保有的橫移速度（世界像素／秒）：主角跑得再快，鏡頭也會慢慢轉到前方。
+const MIN_OFFSET_SPEED := 40.0
+## 背後威脅與高處的敵人每隔幾秒重新找一次（不每影格走訪敵人）。
+const REAR_SCAN_INTERVAL := 0.15
+## 背後的敵人和主角高度差超過這個值就不算（在別層樓）。
+const REAR_SCAN_HEIGHT := 160.0
 
+## 目前用的構圖數值；換一組（例如依情境）直接指定即可，下一個物理影格生效。
+var tuning: CameraTuning = CameraTuning.profile()
 var _shake_reader := Callable()
 var _zoom_reader := Callable()
 var target: Node2D
@@ -46,15 +39,21 @@ var _kick := Vector2.ZERO
 var _look := 0.0
 var _fall_look := 0.0
 var _anchor_y := 0.0
+## 背後交戰中的敵人要留在畫面裡所需的距離（世界像素，0＝背後沒有威脅）。
+var _rear_room := 0.0
+## 畫面裡有敵人站在較高處時鏡頭要上抬的量（世界像素）：目標與目前值。
+var _lift_goal := 0.0
+var _lift := 0.0
+var _rear_scan_left := 0.0
 var _noise := FastNoiseLite.new()
 var _noise_time := 0.0
 
 
 func _ready() -> void:
-	zoom = Vector2.ONE * ZOOM
+	zoom = Vector2.ONE * tuning.zoom
 	process_callback = Camera2D.CAMERA2D_PROCESS_PHYSICS
 	position_smoothing_enabled = true
-	position_smoothing_speed = 7.0
+	position_smoothing_speed = tuning.smoothing_speed
 	limit_smoothed = true
 	ignore_rotation = false
 	_noise.frequency = 0.15
@@ -91,7 +90,10 @@ func snap_to_target() -> void:
 	if not is_instance_valid(target):
 		return
 	_anchor_y = target.global_position.y
-	_look = _facing() * LOOK_AHEAD
+	_scan_threats()
+	_lift = _lift_goal
+	_rear_scan_left = REAR_SCAN_INTERVAL
+	_look = _facing() * _look_goal()
 	_fall_look = 0.0
 	global_position = _desired_position()
 	reset_smoothing()
@@ -99,27 +101,94 @@ func snap_to_target() -> void:
 
 func _physics_process(delta: float) -> void:
 	if is_instance_valid(target):
-		_look = lerpf(_look, _facing() * LOOK_AHEAD, minf(1.0, LOOK_AHEAD_SPEED * delta))
+		_rear_scan_left -= delta
+		if _rear_scan_left <= 0.0:
+			_rear_scan_left = REAR_SCAN_INTERVAL
+			_scan_threats()
+		_lift = lerpf(_lift, _lift_goal, minf(1.0, tuning.fall_look_speed * delta))
 		var y := target.global_position.y
 		if _is_grounded():
 			_anchor_y = y
-		elif y > _anchor_y + DEADZONE_DOWN:
-			_anchor_y = y - DEADZONE_DOWN
-		elif y < _anchor_y - DEADZONE_UP:
-			_anchor_y = y + DEADZONE_UP
+		elif y > _anchor_y + tuning.deadzone_down:
+			_anchor_y = y - tuning.deadzone_down
+		elif y < _anchor_y - tuning.deadzone_up:
+			_anchor_y = y + tuning.deadzone_up
+		# 轉向時前瞻與瞄準偏移翻到另一邊；鏡頭跟隨目標的總橫移速度（主角移動＋偏移變化）有上限，
+		# 主角邊跑邊轉身時偏移讓出跑速那部分，站著轉身仍然很快，拉近後不會一下子甩過去。
+		var old_look := _look
+		var old_aim_x := _aim_look.x
+		var next_look := lerpf(_look, _facing() * _look_goal(), minf(1.0, tuning.look_ahead_speed * delta))
 		_update_aim_look(delta)
+		var change := (next_look - old_look) + (_aim_look.x - old_aim_x)
+		var budget := maxf(MIN_OFFSET_SPEED, tuning.pan_max_speed - absf(_target_velocity_x())) * delta
+		if absf(change) > budget:
+			var k := budget / absf(change)
+			next_look = old_look + (next_look - old_look) * k
+			_aim_look.x = old_aim_x + (_aim_look.x - old_aim_x) * k
+		_look = next_look
 		_update_fall_look(delta)
 		global_position = _desired_position()
 	_kick = _kick.lerp(Vector2.ZERO, minf(1.0, KICK_RECOVERY * delta))
 	_noise_time += delta * 60.0
 	var shake_offset := _shake_offset(delta)
-	offset = _kick + shake_offset
+	# 震動與後座以 shake_reference_zoom 調過；換算成目前倍率，畫面上的晃動幅度不因拉近而變大。
+	var screen_scale := tuning.shake_reference_zoom / tuning.zoom
+	offset = (_kick + shake_offset) * screen_scale
 	rotation = SHAKE_ROTATION_PER_PX * shake_offset.length() * _noise.get_noise_2d(_noise_time, 100.0) * 2.0
-	zoom = Vector2.ONE * ZOOM * (1.0 + _pulse_amount(delta))
+	position_smoothing_speed = tuning.smoothing_speed
+	zoom = Vector2.ONE * tuning.zoom * (1.0 + _pulse_amount(delta))
 
 
 func _desired_position() -> Vector2:
-	return Vector2(target.global_position.x + _look, _anchor_y + VERTICAL_OFFSET + _fall_look) + _aim_look
+	return Vector2(target.global_position.x + _look, _anchor_y + tuning.vertical_offset + _fall_look - _lift) + _aim_look
+
+
+## 關卡鏡頭的基礎倍率（工具與探針用，和遊戲中的鏡頭一致）。
+static func base_zoom() -> float:
+	return CameraTuning.profile().zoom
+
+
+## 前瞻的目標距離：平常是 look_ahead；背後有交戰中的敵人時縮小，讓牠和一點邊距留在畫面裡。
+func _look_goal() -> float:
+	if _rear_room <= 0.0:
+		return tuning.look_ahead
+	var half_width := get_viewport_rect().size.x * 0.5 / tuning.zoom
+	var aim_forward := maxf(0.0, _aim_look.x * _facing())
+	return clampf(half_width - _rear_room - aim_forward, 0.0, tuning.look_ahead)
+
+
+## 一次走訪敵人，更新兩種構圖需求：
+##   _rear_room——背後 rear_watch_range 內、同一層、正在交戰的敵人要留在畫面裡所需看到的距離；
+##   _lift_goal——畫面左右範圍內、站在較高處（above_watch_range 以內）的敵人，頭頂要留在畫面裡所需的上抬量（上限 above_max_lift）。
+func _scan_threats() -> void:
+	_rear_room = 0.0
+	_lift_goal = 0.0
+	if not is_instance_valid(target) or not is_inside_tree():
+		return
+	var facing := _facing()
+	var origin := target.global_position
+	var view := get_viewport_rect().size * 0.5 / tuning.zoom
+	# 鏡頭停穩時腳底上方看得到的高度。
+	var above_visible := view.y - tuning.vertical_offset
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		var enemy := node as Enemy
+		if enemy == null or enemy.is_dying():
+			continue
+		var delta := enemy.global_position - origin
+		if tuning.rear_watch_range > 0.0 and enemy.is_engaged():
+			var behind := -delta.x * facing
+			if behind > 0.0 and behind <= tuning.rear_watch_range and absf(delta.y) <= REAR_SCAN_HEIGHT:
+				_rear_room = maxf(_rear_room, behind + tuning.rear_margin)
+		var rise := -delta.y
+		if tuning.above_max_lift > 0.0 and rise > 0.0 and rise <= tuning.above_watch_range and absf(delta.x) <= view.x + tuning.look_ahead:
+			var height := enemy.data.body_size.y if enemy.data != null else 0.0
+			_lift_goal = maxf(_lift_goal, rise + height + tuning.above_margin - above_visible)
+	_lift_goal = clampf(_lift_goal, 0.0, tuning.above_max_lift)
+
+
+func _target_velocity_x() -> float:
+	var body := target as CharacterBody2D
+	return body.velocity.x if body != null else 0.0
 
 
 func _facing() -> float:
@@ -190,16 +259,16 @@ func _update_aim_look(delta: float) -> void:
 	var player := target as Player
 	var goal := Vector2.ZERO
 	if player != null and not player.is_dead() and not player.is_on_phone():
-		goal = Vector2(player.aim_dir.x, player.aim_dir.y * 0.5) * AIM_LOOK
-		_aim_look = _aim_look.lerp(goal, minf(1.0, AIM_LOOK_SPEED * delta))
+		goal = Vector2(player.aim_dir.x, player.aim_dir.y * 0.5) * tuning.aim_look
+		_aim_look = _aim_look.lerp(goal, minf(1.0, tuning.aim_look_speed * delta))
 
 
 ## 下落時鏡頭往下看（視野拉近後腳下的空間變少）；落地或上升時平滑回到原位。
 func _update_fall_look(delta: float) -> void:
 	var body := target as CharacterBody2D
 	var fall_speed := body.velocity.y if body != null and not _is_grounded() else 0.0
-	var goal := clampf((fall_speed - FALL_LOOK_FROM) * FALL_LOOK_GAIN, 0.0, FALL_LOOK_MAX)
-	_fall_look = lerpf(_fall_look, goal, minf(1.0, FALL_LOOK_SPEED * delta))
+	var goal := clampf((fall_speed - tuning.fall_look_from) * tuning.fall_look_gain, 0.0, tuning.fall_look_max)
+	_fall_look = lerpf(_fall_look, goal, minf(1.0, tuning.fall_look_speed * delta))
 
 
 func _on_camera_kick(kick_offset: Vector2) -> void:

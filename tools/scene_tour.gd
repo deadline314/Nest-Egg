@@ -232,7 +232,7 @@ func _tour(level_id: String) -> bool:
 	camera.set_physics_process(false)
 	camera.offset = Vector2.ZERO
 	camera.rotation = 0.0
-	camera.zoom = Vector2.ONE * LevelCamera.ZOOM
+	camera.zoom = Vector2.ONE * LevelCamera.base_zoom()
 	var size := level._layout.pixel_size()
 	var view := get_viewport().get_visible_rect().size / camera.zoom
 	var step := view * (1.0 - OVERLAP)

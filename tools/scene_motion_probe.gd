@@ -157,7 +157,7 @@ func _run() -> void:
 	var camera := get_viewport().get_camera_2d() as LevelCamera
 	camera.set_physics_process(false)
 	camera.offset = Vector2.ZERO
-	camera.zoom = Vector2.ONE * LevelCamera.ZOOM * 2.0
+	camera.zoom = Vector2.ONE * LevelCamera.base_zoom() * 2.0
 	camera.global_position = prop.global_position + prop.data.size * 0.5
 	camera.reset_smoothing()
 	camera.force_update_scroll()

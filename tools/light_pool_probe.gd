@@ -119,7 +119,7 @@ func _measure_level(level_id: String, data: LevelData) -> Dictionary:
 	camera.set_physics_process(false)
 	camera.offset = Vector2.ZERO
 	# 鏡頭拉遠：光池外面那一段（1.1～1.6 倍半徑）要拍得到。
-	camera.zoom = Vector2.ONE * LevelCamera.ZOOM * VIEW_ZOOM
+	camera.zoom = Vector2.ONE * LevelCamera.base_zoom() * VIEW_ZOOM
 	var records: Array[Dictionary] = []
 	var ratios: Array[float] = []
 	for index in range(0, lamps.size(), step):

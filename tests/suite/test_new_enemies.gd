@@ -121,6 +121,11 @@ func _test_stalker_cloak() -> void:
 	# 燈要在鏡頭視野（加燈半徑）內才會被燈光預算保留：視野隨鏡頭縮放變小，所以玩家站得離幽影近一點（仍在它的偵測距離 300 之外，不會引來它行動）。
 	var stalker := _spawn(STALKER_PATH, 40.0) as Stalker
 	_place_player(18.0)
+	# 主角面向幽影（瞄準向右）：拉近後（NE-256）背後只看得到約 30 像素，面向反方向時燈會在視野與半徑之外、被預算關掉。
+	var was_gamepad := AimInput.using_gamepad
+	AimInput.using_gamepad = true
+	Input.action_press(&"aim_right")
+	await physics_frames(2)
 	level.camera.snap_to_target()  # 瞬間移動玩家後鏡頭要立刻跟上，視野才在燈附近
 	await physics_frames(40)
 	check(stalker.is_cloaked(), "stalker is cloaked in the dark (no lights nearby)")
@@ -144,6 +149,8 @@ func _test_stalker_cloak() -> void:
 	await physics_frames(30)
 	check(not stalker.is_cloaked(), "a hit reveals the stalker")
 	check(stalker._reveal_left > 0.0, "the reveal lasts for a while")
+	Input.action_release(&"aim_right")
+	AimInput.using_gamepad = was_gamepad
 	await end_level(level)
 
 	# 貼近玩家也會現形；開火前有預兆。
