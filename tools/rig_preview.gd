@@ -489,6 +489,5 @@ func _faced(input: RigInput) -> RigInput:
 	mirrored.facing = -input.facing
 	mirrored.aim_dir = Vector2(-input.aim_dir.x, input.aim_dir.y)
 	mirrored.velocity = Vector2(-input.velocity.x, input.velocity.y)
-	mirrored.hurt_dir = -input.hurt_dir
-	mirrored.death_dir = -input.death_dir
+	# hurt_dir、death_dir 是「從正面／背面中彈」（相對於面向），朝左時不變
 	return mirrored
