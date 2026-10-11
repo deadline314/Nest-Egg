@@ -85,7 +85,8 @@ func run() -> void:
 	check(RunSnapshot.prepare(bad).has("error"), "missing owned-item container cannot silently erase mainline items")
 	bad = valid.duplicate(true)
 	bad["level"] = "user://foreign.tres"
-	check(RunSnapshot.prepare(bad).has("error"), "level paths restricted to project level resources")
+	var foreign := RunSnapshot.prepare(bad)
+	check(foreign.has("data") and foreign["data"]["level"] == FIRST and not foreign["data"].get("notices", []).is_empty(), "level paths restricted to project level resources; foreign path falls back to start with notice")
 	bad = valid.duplicate(true)
 	bad["runtime"]["loadout"] = {"weapons": ["res://autoload/story.gd"], "mag": ["bad"], "consumables": {"med_injector": []}}
 	var repaired: Dictionary = RunSnapshot.prepare(bad)["data"]
@@ -208,4 +209,5 @@ func run() -> void:
 	preload("res://tests/helpers/story_install_checks.gd").run(self)
 	preload("res://tests/helpers/story_durable_write_checks.gd").run(self)
 	preload("res://tests/helpers/run_restore_checks.gd").run(self)
+	preload("res://tests/helpers/campaign_edition_checks.gd").run(self)
 	GameState.start_new_run(GameState.difficulties[1])

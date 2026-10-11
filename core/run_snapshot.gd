@@ -15,7 +15,7 @@ static func capture(level_path: String, runtime: Dictionary, cinematic := "", co
 		state[key] = GameState.get(key).duplicate(true)
 	state["checkpoint_position"] = [GameState.checkpoint_position.x, GameState.checkpoint_position.y]
 	state["pending_portal"] = String(GameState.pending_portal)
-	return {"version": RunSaveCodec.VERSION, "release": "demo-0.1", "saved_at": Time.get_datetime_string_from_system(true), "level": level_path,
+	return {"version": RunSaveCodec.VERSION, "release": CampaignEdition.current().id, "saved_at": Time.get_datetime_string_from_system(true), "level": level_path,
 		"difficulty": GameState.difficulty.resource_path, "state": state, "progression": Progression.snapshot(),
 		"story": GameState.story_progress_snapshot(), "navigation": QuestMapState.for_run().snapshot(),
 		"runtime": runtime, "cinematic": cinematic, "cinematic_context": Story.presentation_context(context), "chapter_complete": completed}
@@ -30,11 +30,23 @@ static func prepare(raw: Dictionary) -> Dictionary:
 	var release: Variant = raw.get("release")
 	if not release is String or release.is_empty() or release.length() > 64 or not release.is_valid_filename() or release != release.strip_edges():
 		return {"error": "run/release缺漏或格式損毀"}
-	if raw.get("version") != RunSaveCodec.VERSION or raw.get("release") != "demo-0.1":
+	var edition := CampaignEdition.current()
+	var origin := edition.describe(release)
+	if raw.get("version") != RunSaveCodec.VERSION or origin == null:
 		return {"error": "run/version或release不支援；原檔保留", "unknown_version": true}
 	var level := RunSaveCodec.resource(raw.get("level"), "level", "res://data/levels/") as LevelData
+	var notices := PackedStringArray()
 	if level == null:
-		return {"error": "run/level找不到有效專案關卡，原檔保留"}
+		# 區域資源遺失時保留整輪進度，退回復原點所在區域或本版本的起點。
+		level = _fallback_level(raw)
+		if level == null:
+			return {"error": "run/level找不到有效專案關卡，也沒有可用的復原點；原檔保留"}
+		notices.append("存檔所在區域已不存在，改從%s繼續。" % ("復原點" if level.resource_path != edition.first_level else "本版本起點"))
+		push_warning("[RunSave] run/level %s 無效，退回 %s" % [str(raw.get("level")).left(RunSaveCodec.MAX_DIAGNOSTIC_PATH), level.resource_path])
+	if not edition.includes_level(level):
+		# 較新累積版本寫的存檔：不降級、不覆寫，說明該用哪個版本。
+		return {"error": "存檔停在%s，本版本只到%s；請用「%s」繼續，原檔保留。" % [edition.chapter_title(level.chapter), edition.chapter_title(edition.through), origin.title()],
+			"unknown_version": true, "newer_edition": true}
 	for key in ["state", "progression", "story", "navigation", "runtime"]:
 		if not raw.get(key) is Dictionary:
 			return {"error": "run/%s缺漏或型別不符，不能套用半份存檔" % key}
@@ -51,6 +63,9 @@ static func prepare(raw: Dictionary) -> Dictionary:
 		if typeof(scene) not in [TYPE_STRING, TYPE_STRING_NAME]:
 			return {"error": "run/story/seen包含非文字場景"}
 	var result := raw.duplicate(true)
+	result["level"] = level.resource_path
+	if not notices.is_empty():
+		_reset_location(result)
 	result["story"]["items"] = items["data"]
 	var state: Dictionary = result["state"]
 	for key: String in DICTIONARIES:
@@ -147,7 +162,10 @@ static func prepare(raw: Dictionary) -> Dictionary:
 	result["cinematic"] = result.get("cinematic", "")
 	var context: Variant = result.get("cinematic_context", {})
 	result["cinematic_context"] = Story.presentation_context(context) if context is Dictionary and result["cinematic"] != "" else {}
-	result["chapter_complete"] = result.get("chapter_complete") == true
+	result["chapter_complete"] = result.get("chapter_complete") == true and notices.is_empty()
+	# 玩家看得到的修復說明；不寫回存檔，下一次保存即是修復後的狀態。
+	if not notices.is_empty():
+		result["notices"] = Array(notices)
 	return {"data": result}
 
 
@@ -212,6 +230,34 @@ static func publish_restored() -> void:
 	Progression.publish_restored()
 	QuestMapState.for_run().changed.emit()
 	EventBus.lives_changed.emit(GameState.lives_left)
+
+
+## 退回的區域與存檔的現場無關：清掉現場位置、掉落、敵人與演出，保留整輪成長、故事與各區域紀錄。
+static func _reset_location(result: Dictionary) -> void:
+	if result.get("runtime") is Dictionary:
+		var runtime: Dictionary = result["runtime"]
+		for key in ["loose", "enemies", "encounters", "encounter_members_version"]:
+			runtime.erase(key)
+		runtime["area"] = {}
+		runtime["world"] = {}
+		runtime["position"] = [-1, -1]
+		runtime["velocity"] = [0, 0]
+		for key in ["ending", "arena", "boss_pending"]:
+			runtime[key] = false
+	result["cinematic"] = ""
+	result["cinematic_context"] = {}
+
+
+## 區域資源遺失時的退路：本版本收錄的復原點區域，否則本版本起點。
+static func _fallback_level(raw: Dictionary) -> LevelData:
+	var edition := CampaignEdition.current()
+	var state: Variant = raw.get("state")
+	var checkpoint: Variant = state.get("checkpoint_level_path", "") if state is Dictionary else ""
+	for path: Variant in [checkpoint, edition.first_level]:
+		var level := RunSaveCodec.resource(path, "level", "res://data/levels/") as LevelData
+		if edition.includes_level(level):
+			return level
+	return null
 
 
 static func _progression(raw: Dictionary) -> Dictionary:

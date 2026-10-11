@@ -144,13 +144,17 @@ func _build_main_page() -> void:
 	_hint.position.y = list.position.y + list.size.y + 8
 	if not save_notice.is_empty():
 		var notice := UiKit.label(save_notice, UiKit.FS_BODY, Palette.UI_MUTED)
+		# 先開自動換行再定尺寸；反過來的話 Label 會先撐到整行文字寬，長說明超出畫面。
+		notice.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		notice.position = Vector2(310, 250)
 		notice.size = Vector2(300, 64)
-		notice.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		_main_page.add_child(notice)
 
 	_add_legend(_main_page)
-	var version := UiKit.label(VERSION_TEXT, UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
+	# 發行版標出收錄範圍，玩家一眼知道這份程式玩到哪一章；存檔也依此分開保存。
+	var edition := CampaignEdition.current()
+	var version_text := VERSION_TEXT if edition.development else "%s　%s" % [VERSION_TEXT, edition.title()]
+	var version := UiKit.label(version_text, UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
 	_main_page.add_child(version)
 	version.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
 	version.grow_horizontal = Control.GROW_DIRECTION_BEGIN

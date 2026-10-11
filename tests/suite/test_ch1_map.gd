@@ -427,7 +427,8 @@ func _test_items() -> void:
 func _test_entry_point() -> void:
 	# 新遊戲從當舖開始（Main 的入口與第一個區域一致）。
 	var main_script := load("res://game/main.gd") as GDScript
-	check(main_script.source_code.contains(path_of("pawnshop")), "a new game starts at the pawnshop")
+	# 起點由 data/release/campaign.json 決定（各累積版本共用），Main 的新遊戲讀它。
+	check(CampaignEdition.current().first_level == path_of("pawnshop") and main_script.source_code.contains("CampaignEdition.current().first_level"), "a new game starts at the pawnshop")
 
 
 # ---------------------------------------------------------------------------

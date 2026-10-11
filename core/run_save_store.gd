@@ -2,7 +2,9 @@ class_name RunSaveStore
 extends RefCounted
 ## 主流程擁有的整輪存檔槽；測試顯式指定隔離路徑，沒有額外 autoload。
 
+## 開發版的槽；實際預設槽依目前累積版本（CampaignEdition.slot_path），各版本各自一個目錄。
 const DEFAULT_PATH := "user://runs/demo-0.1/slot-1.json"
+const MAX_EDITION_DIRS := 32
 var path: String
 var issues := PackedStringArray()
 var unknown_version := false
@@ -10,8 +12,62 @@ var validator: Callable
 var overwrite_authorized := false
 
 
-func _init(p_path := DEFAULT_PATH) -> void:
-	path = p_path
+func _init(p_path := "") -> void:
+	path = p_path if not p_path.is_empty() else CampaignEdition.current().slot_path()
+
+
+## 本槽沒有存檔時，找同一個存檔根目錄下其他累積版本的槽。只讀：
+## 舊版本（收錄範圍較小）的有效存檔回傳 data／edition／path，之後由呼叫端寫進本槽；
+## 較新版本的存檔只回報 newer，不讀進本版本。正在恢復新輪交易的槽不碰，以免改到別的版本的檔案。
+func find_other_editions(edition: CampaignEdition) -> Dictionary:
+	var result: Dictionary = {}
+	var own := path.get_base_dir()
+	var root := own.get_base_dir()
+	var dir := DirAccess.open(root)
+	if dir == null:
+		return result
+	var best_rank := -1
+	var best_time := ""
+	var names := dir.get_directories()
+	for i in mini(names.size(), MAX_EDITION_DIRS):
+		var name := names[i]
+		if root.path_join(name) == own:
+			continue
+		var other := edition.describe(name)
+		if other == null:
+			continue
+		var candidate := RunSaveStore.new(root.path_join(name).path_join(path.get_file()))
+		candidate.validator = validator
+		if not candidate.exists():
+			continue
+		if not edition.can_continue_from(other):
+			if not result.has("newer") or other.rank() > (result["newer"] as CampaignEdition).rank():
+				result["newer"] = other
+			continue
+		if FileAccess.file_exists(candidate.path + ".newrun"):
+			push_warning("[RunSave] %s：新輪交易未完成，請先用「%s」開啟一次；不從本版本修改。" % [candidate.path, other.title()])
+			continue
+		var data := candidate.read()
+		if data.is_empty():
+			for issue in candidate.issues:
+				push_warning("[RunSave] 其他版本存檔無法接續：%s" % issue)
+			continue
+		var saved_at: String = data.get("saved_at", "") if data.get("saved_at", "") is String else ""
+		if other.rank() > best_rank or (other.rank() == best_rank and saved_at > best_time):
+			best_rank = other.rank()
+			best_time = saved_at
+			result["data"] = data
+			result["edition"] = other
+			result["path"] = candidate.path
+	return result
+
+
+## 最近一個問題的原因（去掉檔案路徑），給主選單一句話說明；完整路徑留在 log。
+func player_issue() -> String:
+	if issues.is_empty():
+		return ""
+	var parts := issues[-1].split("：", true, 1)
+	return (parts[1] if parts.size() == 2 else parts[0]).left(40)
 
 
 func exists() -> bool:

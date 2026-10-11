@@ -2,8 +2,9 @@ extends Node
 ## 遊戲進入點與畫面路由：主選單 → 關卡 → 過關畫面。
 ## 同一時間只存在一個畫面；切換時舊畫面完整釋放，避免記憶體累積。
 
-## 新遊戲的第一個區域（第一章「傘」從當舖開始）；舊的雨夜關卡在 data/levels/level_01.tres 保留給既有測試與開發用。
-const FIRST_LEVEL := "res://data/levels/ch1_pawnshop.tres"
+## 新遊戲的第一個區域的預設值；實際起點以 data/release/campaign.json 為準（CampaignEdition.first_level）。
+## 舊的雨夜關卡在 data/levels/level_01.tres 保留給既有測試與開發用，只有開發版可進入。
+const FIRST_LEVEL := CampaignEdition.DEFAULT_FIRST_LEVEL
 const RETRY_CAPTION := "NEST 回溯紀錄 #%d"
 const RETRY_HOLD := 0.22
 
@@ -14,6 +15,8 @@ var _run_store := RunSaveStore.new()
 var _active_run := false
 var _save_queued := false
 var _continue_data: Dictionary = {}
+## 本版本還沒有存檔時，可接續的較舊累積版本存檔路徑（只讀，之後寫進本版本自己的槽）。
+var _import_path := ""
 var _resume_runtime: Dictionary = {}
 var _cinematic := ""
 var _cinematic_entry: Dictionary = {}
@@ -84,27 +87,57 @@ func _show_main_menu() -> void:
 	_save_run()
 	_active_run = false
 	Story.reset_active_presentation(&"menu")
-	_continue_data = _run_store.read()
+	var lineage := _read_continue()
+	_continue_data = lineage.get("data", {})
 	# 在主選單的時候，背景先把新遊戲第一個區域與開場過場的貼圖載進來。
-	AssetPrefetch.warm_level(FIRST_LEVEL)
-	var first := load(FIRST_LEVEL) as LevelData if ResourceLoader.exists(FIRST_LEVEL) else null
+	var first_path := CampaignEdition.current().first_level
+	AssetPrefetch.warm_level(first_path)
+	var first := load(first_path) as LevelData if ResourceLoader.exists(first_path) else null
 	if first != null:
 		AssetPrefetch.request(AssetPrefetch.scene_texture_paths(first.intro_scene))
 	var menu := MainMenu.new()
 	menu.continue_available = not _continue_data.is_empty()
 	menu.overwrite_required = _run_store.exists()
-	if _run_store.unknown_version:
-		menu.save_notice = "存檔版本較新，請更新遊戲或明確覆寫。"
-	elif not _run_store.issues.is_empty():
-		menu.save_notice = "已從備份恢復進度，可以繼續遊戲。" if not _continue_data.is_empty() else "存檔讀取失敗，原檔已保留；可開始新遊戲。"
-	elif _continue_data.is_empty() and FileAccess.file_exists(GameState.STORY_SAVE_PATH):
-		menu.save_notice = "舊版只保存故事，無法繼續整輪；可開始新遊戲，原故事檔會保留。"
+	menu.save_notice = _save_notice(lineage)
 	for issue in _run_store.issues:
 		push_warning("[RunSave] %s" % issue)
 	menu.continue_requested.connect(_on_continue_requested, CONNECT_DEFERRED)
 	menu.start_requested.connect(_on_start_requested, CONNECT_DEFERRED)
 	menu.quit_requested.connect(_quit, CONNECT_DEFERRED)
 	_switch_to(menu, Transition.Kind.SCAN)
+
+
+## 本版本自己的存檔優先；沒有時才找較舊累積版本的存檔接續（原檔保留）。
+func _read_continue() -> Dictionary:
+	_import_path = ""
+	var data := _run_store.read()
+	if not data.is_empty() or _run_store.exists():
+		return {"data": data}
+	var other := _run_store.find_other_editions(CampaignEdition.current())
+	if other.has("data"):
+		_import_path = other["path"]
+	return other
+
+
+## 主選單上的一句存檔說明：先講可以做什麼，再講原因；沒有異狀時不顯示。
+func _save_notice(lineage: Dictionary) -> String:
+	var notices: Array = _continue_data.get("notices", [])
+	if _run_store.unknown_version:
+		var detail := _run_store.player_issue()
+		return detail if detail.contains("版本") else "存檔版本較新，請更新遊戲或明確覆寫。"
+	if not _import_path.is_empty():
+		return "可接續「%s」的進度，原存檔不會被修改。" % (lineage["edition"] as CampaignEdition).title()
+	if lineage.has("newer"):
+		return "找到「%s」的存檔，請用該版本繼續；那份存檔不受影響。" % (lineage["newer"] as CampaignEdition).title()
+	if not _run_store.issues.is_empty():
+		if _continue_data.is_empty():
+			return "存檔讀取失敗（%s），原檔已保留；可開始新遊戲。" % _run_store.player_issue()
+		return "已從備份恢復進度，可以繼續遊戲。"
+	if not notices.is_empty():
+		return notices[0]
+	if _continue_data.is_empty() and FileAccess.file_exists(GameState.STORY_SAVE_PATH):
+		return "舊版只保存故事，無法繼續整輪；可開始新遊戲，原故事檔會保留。"
+	return ""
 
 
 func _on_start_requested(difficulty: DifficultyData) -> void:
@@ -116,7 +149,7 @@ func _on_start_requested(difficulty: DifficultyData) -> void:
 	_clear_cinematic()
 	_resume_runtime = {}
 	_chapter_complete = false
-	_level_path = FIRST_LEVEL
+	_level_path = CampaignEdition.current().first_level
 	_active_run = true
 	_bind_navigation()
 	# 選單已明確確認覆寫；新輪先落起點，載入失敗不復活舊輪。
@@ -128,10 +161,12 @@ func _on_start_requested(difficulty: DifficultyData) -> void:
 func _on_continue_requested() -> void:
 	if _route_pending():
 		return
-	var data := _run_store.read()
+	var data: Dictionary = _read_continue().get("data", {})
 	if data.is_empty():
 		_show_main_menu()
 		return
+	if not _import_path.is_empty():
+		push_warning("[RunSave] 從其他累積版本接續：%s；原檔不修改，之後保存到 %s" % [_import_path, _run_store.path])
 	_active_run = false
 	_restore_publish_pending = true
 	RunSnapshot.apply(data, false)
@@ -146,10 +181,47 @@ func _on_continue_requested() -> void:
 	_cinematic_entry = data.duplicate(true) if _cinematic != "" else {}
 	_active_run = true
 	_bind_navigation()
-	if _chapter_complete:
-		_show_victory((load(_level_path) as LevelData).chapter)
+	var notices: Array = data.get("notices", [])
+	if not notices.is_empty():
+		EventBus.toast_requested.emit(str(notices[0]))
+	var terminal := load(_level_path) as LevelData
+	var next := _next_level(terminal) if _chapter_complete else null
+	if next != null:
+		# 較舊累積版本在章末保存；本版本收錄下一章時從下一章入口接續，不重看結算。
+		GameState.carry_over(_resume_runtime.get("loadout", {}))
+		_enter_next_level(next, _resume_runtime)
+	elif _chapter_complete:
+		_show_victory(terminal.chapter)
 	else:
 		_load_level(Transition.Kind.SCAN)
+
+
+## 下一個區域：存在、型別正確且屬於本版本收錄的章節才接續；否則視為本版本的章末。
+func _next_level(data: LevelData) -> LevelData:
+	if data == null or data.next_level.is_empty():
+		return null
+	var next := RunSaveCodec.resource(data.next_level, "level", "res://data/levels/") as LevelData
+	if next == null:
+		push_error("[Main] 找不到下一關：%s，直接進入結算。" % data.next_level)
+		return null
+	if not CampaignEdition.current().includes_level(next):
+		print("[Main] %s 收錄到此；下一章 %s 不在本版本。" % [CampaignEdition.current().title(), next.chapter])
+		return null
+	return next
+
+
+## 章節之間的接續：帶著裝備與成長進下一區，從入口開始、補滿血量。
+func _enter_next_level(next: LevelData, runtime: Dictionary) -> void:
+	_chapter_complete = false
+	_level_path = next.resource_path
+	GameState.enter_level()
+	runtime["ending"] = false
+	runtime["position"] = [-1, -1]
+	runtime["health"] = GameState.difficulty.player_max_health
+	if not _save_destination(runtime):
+		return
+	_resume_runtime = runtime if _restore_publish_pending else {}
+	_load_level(Transition.Kind.ELEVATOR)
 
 
 func _load_level(kind := Transition.Kind.IRIS, caption := "", hold := 0.0) -> void:
@@ -210,6 +282,11 @@ func _on_area_requested(level_path: String) -> void:
 	var portal := GameState.pending_portal
 	Story.reset_active_presentation(&"route")
 	GameState.pending_portal = portal
+	var target := RunSaveCodec.resource(level_path, "level", "res://data/levels/") as LevelData
+	if target != null and not CampaignEdition.current().includes_level(target):
+		GameState.pending_portal = &""
+		EventBus.toast_requested.emit("這條路通往本版本未收錄的%s。" % CampaignEdition.current().chapter_title(target.chapter))
+		return
 	_save_run()
 	_level_path = level_path
 	# 保存目標入口而不是舊區位置；切換中關閉也能進新區。
@@ -234,21 +311,12 @@ func _on_level_completed(data: LevelData, source_ref: WeakRef = null) -> void:
 		push_warning("[Main] 拒絕無效或過時關卡完成：received=%s current=%s（畫面=%s）" % [received, current, _screen.get_class() if is_instance_valid(_screen) else "<null>"])
 		return
 	_save_run()
-	if RunSaveCodec.resource(data.next_level, "level", "res://data/levels/") != null:
-		_level_path = data.next_level
-		GameState.enter_level()
-		var runtime := (_screen as Level).run_snapshot()
-		runtime["ending"] = false
-		runtime["position"] = [-1, -1]
-		runtime["health"] = GameState.difficulty.player_max_health
-		if not _save_destination(runtime):
-			return
-		_load_level(Transition.Kind.ELEVATOR)
+	var next := _next_level(data)
+	if next != null:
+		_enter_next_level(next, (_screen as Level).run_snapshot())
 	else:
 		_chapter_complete = true
 		_save_run()
-		if not data.next_level.is_empty():
-			push_error("[Main] 找不到下一關：%s，直接進入結算。" % data.next_level)
 		_show_victory(data.chapter)
 
 

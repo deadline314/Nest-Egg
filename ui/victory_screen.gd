@@ -7,6 +7,7 @@ signal menu_requested
 
 const REVEAL_INTERVAL := 0.22
 const VALUE_X := 210.0
+const EDITION_END_TEXT := "本版本收錄到這裡，進度已保存。"
 
 ## 剛通關的章節（Main 指定），用來取章節名與下一章預告。
 var chapter: StringName = &"chapter_01"
@@ -45,6 +46,9 @@ func _ready() -> void:
 		panel.body.add_child(row)
 		_rows.append(row)
 	var teaser := str(info.get("teaser", ""))
+	# 累積版本的最後一章：同一行說清楚內容到此、進度已保存，不讓玩家以為下一章壞掉，也不加高面板。
+	if CampaignEdition.current().is_last_chapter(chapter):
+		teaser = ("%s　" % teaser if teaser != "" else "") + EDITION_END_TEXT
 	if teaser != "":
 		panel.body.add_child(UiDivider.new())
 		var teaser_label := UiKit.label(teaser, UiKit.FS_BODY, Palette.NEON_YELLOW)

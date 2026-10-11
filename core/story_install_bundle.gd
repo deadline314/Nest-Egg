@@ -24,7 +24,7 @@ static func prepare_components(data: Variant) -> Dictionary:
 		return {"error": errors[0]}
 	if not data is Dictionary or not RunSaveCodec.valid_version(data.get("version")):
 		return {"error": "install/run/version invalid"}
-	if data["version"] != RunSaveCodec.VERSION or data.get("release") != "demo-0.1":
+	if data["version"] != RunSaveCodec.VERSION or CampaignEdition.current().describe(data.get("release")) == null:
 		return {"error": "install/run/version or release unsupported", "unknown_version": true}
 	for key: String in ["state", "progression", "story"]:
 		if not data.get(key) is Dictionary:
