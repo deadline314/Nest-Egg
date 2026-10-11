@@ -40,6 +40,7 @@
 
 | 技能 | 何時使用 | 規範 |
 |---|---|---|
+| `portrait-to-godot` | 從零做一個新角色、敵人或生物的外觀並放進遊戲的完整流程；遇到破圖、關節稜角、多一隻手、挺胸、畫風不一致時先讀 | [.agents/skills/portrait-to-godot/SKILL.md](.agents/skills/portrait-to-godot/SKILL.md) |
 | `pm-ticket` | 開票、改票、補票、交付紀錄；修改 `pm/` 下的 Markdown 前必讀 | [.agents/skills/pm-ticket/SKILL.md](.agents/skills/pm-ticket/SKILL.md) |
 | `audio-pipeline` | 新增、替換或尋找音效、環境音與配樂素材 | [.agents/skills/audio-pipeline/SKILL.md](.agents/skills/audio-pipeline/SKILL.md) |
 | `free-asset-pipeline` | 新增、替換或尋找場景、背景、道具、天空與光影素材 | [.agents/skills/free-asset-pipeline/SKILL.md](.agents/skills/free-asset-pipeline/SKILL.md) |
