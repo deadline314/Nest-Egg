@@ -1,0 +1,59 @@
+{
+  "_doc": "守門人 JANUS 的打法（NE-271）。格式見 design/15-combat-feel/BOSS_FIGHTS.md 第 5 節；custom_kinds 由 game/enemies/janus_boss.gd 實作；gatekeeper 段是守門人自己的機制（遺忘迴圈、盾裂、通訊器、存檔旗標）。部位大小與位置在 data/enemies/janus.tres 的 hurt_parts。",
+  "custom_kinds": ["shield_bash", "scan_sweep", "call_backup"],
+  "bar_name": "門禁裝置穩定度",
+  "wake_range": 260,
+  "poses": {"intro": "shield_rusher.brace", "phase_shift": "heavy_gunner.vent", "yanked": "shield_rusher.stagger_back"},
+  "defeat": {"gate_channel": "ch3_janus_down", "unlock_text": "門禁工作架斷電了，閘門退開"},
+  "moves": {
+    "shield_bash": {"kind": "shield_bash", "telegraph": 1.0, "recover": 0.5, "weight": 1.3, "repeat": true, "pose_windup": "shield_rusher.brace", "pose_act": "shield_rusher.skid",
+      "params": {"distance": 84, "speed": 330, "damage": 2, "stagger": 1.4, "front_range": 150}},
+    "scan_low": {"kind": "scan_sweep", "telegraph": 0.8, "recover": 0.5, "weight": 1.0, "pose_windup": "heavy_gunner.brace", "pose_act": "heavy_gunner.brace",
+      "params": {"height": 8, "reach": 170, "sweep_time": 0.35, "damage": 1, "break_part": "arm_lock", "break_hits": 1, "break_stagger": 1.5}},
+    "scan_high": {"kind": "scan_sweep", "telegraph": 0.8, "recover": 0.5, "weight": 1.0, "pose_windup": "heavy_gunner.brace", "pose_act": "heavy_gunner.brace",
+      "params": {"height": 37, "reach": 170, "sweep_time": 0.35, "damage": 1, "break_part": "arm_lock", "break_hits": 1, "break_stagger": 1.5}},
+    "scan_wide_low": {"kind": "scan_sweep", "telegraph": 0.95, "recover": 0.6, "weight": 1.0, "pose_windup": "heavy_gunner.brace", "pose_act": "heavy_gunner.brace",
+      "params": {"height": 8, "reach": 250, "sweep_time": 0.5, "damage": 1, "break_part": "arm_lock", "break_hits": 1, "break_stagger": 1.5}},
+    "scan_wide_high": {"kind": "scan_sweep", "telegraph": 0.95, "recover": 0.6, "weight": 1.0, "pose_windup": "heavy_gunner.brace", "pose_act": "heavy_gunner.brace",
+      "params": {"height": 37, "reach": 250, "sweep_time": 0.5, "damage": 1, "break_part": "arm_lock", "break_hits": 1, "break_stagger": 1.5}},
+    "call_backup": {"kind": "call_backup", "telegraph": 0.8, "recover": 0.6, "weight": 0.7, "pose_windup": "rin.phone_call", "pose_act": "rin.phone_call",
+      "params": {"enemy": "res://data/enemies/pump_inspector.tres", "max_backup": 2, "max_alive": 3, "spawn_offsets": [-280, 280]}}
+  },
+  "phases": [
+    {"until": 0.5, "moves": ["shield_bash", "scan_low", "scan_high", "call_backup"], "speed": 1.0, "armored": true},
+    {"until": 0.0, "moves": ["shield_bash", "scan_wide_low", "scan_wide_high", "call_backup"], "speed": 1.0, "armored": true,
+      "enter_toast": "掃描臂放大了——掃得更遠，蓄力也慢一拍"}
+  ],
+  "habits": {
+    "close_range": 56,
+    "far_range": 210,
+    "close": ["shield_bash", "scan_high", "scan_wide_high"],
+    "mid": ["shield_bash", "scan_low", "scan_high", "scan_wide_low", "scan_wide_high", "call_backup"],
+    "far": ["scan_low", "scan_wide_low", "call_backup"],
+    "after_yank": []
+  },
+  "parts": {
+    "shield_lock": {"open": "stagger", "closed": "hidden"},
+    "arm_lock": {"open": "move:scan_low,move:scan_high,move:scan_wide_low,move:scan_wide_high", "closed": "armor"},
+    "comm": {"open": "always", "closed": "armor"},
+    "shield": {"open": "always", "closed": "armor"}
+  },
+  "gatekeeper": {
+    "wake_flag": "ch3_janus_intro_seen",
+    "disabled_flag": "ch3_janus_disabled",
+    "misses_flag": "ch3_janus_shield_misses",
+    "comm_flag": "ch3_janus_comm_broken",
+    "stability_flag": "ch3_janus_device_stability",
+    "lost_flag": "ch3_janus_lost_once",
+    "bark_sorry": "ch3_c11_bark_sorry",
+    "bark_repeat": "ch3_c11_bark_repeat",
+    "defeat_hint": "ch3_c11_defeat_hint",
+    "turn_delay": 0.8,
+    "replay_chance": 0.3,
+    "replay_max": 2,
+    "seed": 271,
+    "crack_misses": 3,
+    "comm_hits": 6,
+    "pin_offset": [-12, -22]
+  }
+}

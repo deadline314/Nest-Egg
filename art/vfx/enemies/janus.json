@@ -1,0 +1,41 @@
+{
+ "description": "janus 的專屬特效（EnemyVfx 讀取）。守門人的外接工作架：受擊噴橙色金屬火花（人物本身是保護區，擋下的子彈另有灰色火花）；停機不是死亡，沒有死亡爆炸。",
+ "hit": {
+  "color": "#ffb347",
+  "amount": 5,
+  "speed": 150,
+  "light": 0.6
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#73f2ff",
+    "amount": 10,
+    "speed": 120,
+    "life": 0.4
+   }
+  ],
+  "light": {
+   "color": "#73f2ff",
+   "radius": 60,
+   "energy": 1.0,
+   "time": 0.3
+  },
+  "shake": 1.5,
+  "hitstop": 0.04,
+  "extras": []
+ },
+ "states": {
+  "windup": {
+   "at": "center",
+   "bursts": [
+    {
+     "color": "#ff7a45",
+     "amount": 3,
+     "speed": 60,
+     "life": 0.2
+    }
+   ]
+  }
+ }
+}

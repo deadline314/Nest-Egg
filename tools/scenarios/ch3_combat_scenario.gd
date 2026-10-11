@@ -14,8 +14,8 @@ func run() -> void:
 	Story.auto_skip = true
 	if variant in ["inspectors", "all"]:
 		await _inspectors()
-	if variant in ["janus", "all"] and has_method(&"_janus"):
-		await call(&"_janus")
+	if variant in ["janus", "all"]:
+		await _janus()
 	await settle(10)
 
 
@@ -38,6 +38,111 @@ func _inspectors() -> void:
 		_freeze()
 		capture("NE-272-mezzanine-fight")
 	await _close()
+
+
+## 守門人：每招的預兆各拍一張（直接指定招式，預兆與判定都是遊戲裡的實際行為）、重播的問號、
+## 盾裂、停機等拔插銷，以及一段沒有干預的連續戰鬥畫面。
+func _janus() -> void:
+	for shot: Array in [["shield_bash", 0.6, "NE-271-shield-bash"], ["scan_low", 0.5, "NE-271-scan-low"],
+			["scan_high", 0.5, "NE-271-scan-high"], ["call_backup", 0.4, "NE-271-call-backup"]]:
+		var janus := await _open_janus(30.0)
+		if janus == null:
+			return
+		janus.set("_move_id", StringName(shot[0]))
+		janus.set("_last_move", StringName(shot[0]))
+		janus.fsm.transition(&"windup")
+		await _wait_seconds(float(shot[1]))
+		_freeze()
+		capture(str(shot[2]))
+		await _close()
+	# 遺忘迴圈：上一招被打中後重播，頭上問號、通訊器旁顯示「程式重播」，同一招照樣完整蓄力。
+	var replay := await _open_janus(30.0)
+	if replay != null:
+		replay.set("_last_move", &"scan_high")
+		replay.set("_replay_pending", true)
+		replay.set("_move_id", replay.choose_move())
+		replay.fsm.transition(&"windup")
+		await _wait_seconds(0.4)
+		_freeze()
+		capture("NE-271-replay")
+		await _close()
+	# 盾架裂開（撲空三次）、玩家繞到背後：通訊器亮橙色可以打。
+	GameState.set_flag(&"ch3_janus_shield_misses", 3, false)
+	var cracked := await _open_janus(30.0, 20, false)
+	if cracked != null:
+		# 繞到他背後的那一刻（轉身要 0.8 秒）：盾架的裂痕和背上亮起的通訊器同時看得到。
+		player.global_position = cracked.global_position + Vector2(-cracked.facing * 40.0, 0)
+		get_viewport().warp_mouse(Vector2(get_viewport().get_visible_rect().size.x * (0.15 if cracked.facing < 0 else 0.85), get_viewport().get_visible_rect().size.y * 0.5))
+		await _wait_seconds(0.05)
+		snap_camera()
+		await _wait_seconds(0.25)
+		_freeze()
+		capture("NE-271-cracked-behind")
+		await _close()
+	# 穩定度歸零：工作架停住，背後的維修插銷提示。
+	var halted := await _open_janus(30.0)
+	if halted != null:
+		halted.health.take_damage(_lethal())
+		await _wait_seconds(0.5)
+		# 走到他背後的插銷旁：互動提示出現。
+		player.global_position = halted.global_position + Vector2(-halted.facing * 14.0, 0)
+		get_viewport().warp_mouse(Vector2(get_viewport().get_visible_rect().size.x * (0.15 if halted.facing < 0 else 0.85), get_viewport().get_visible_rect().size.y * 0.5))
+		await _wait_seconds(0.05)
+		snap_camera()
+		await _wait_seconds(0.75)
+		_freeze()
+		capture("NE-271-halted-pin")
+		await _close()
+	# 連續戰鬥畫面：不干預，玩家站在大廳裡，每 0.5 秒拍一張。
+	var live := await _open_janus(30.0)
+	if live != null:
+		get_viewport().warp_mouse(Vector2(get_viewport().get_visible_rect().size.x * 0.85, get_viewport().get_visible_rect().size.y * 0.5))
+		await _wait_seconds(0.05)
+		snap_camera()
+		for i in 8:
+			await _wait_seconds(0.5)
+			capture("NE-271-sequence-%02d" % i)
+		await _close()
+
+
+## 開門禁大廳（登場劇情已看過），回傳守門人；flags_reset 為 false 時保留已設定的戰鬥旗標。
+func _open_janus(x_tile: float, row := 20, flags_reset := true, face_left := false) -> JanusBoss:
+	var keep: Dictionary = {}
+	if not flags_reset:
+		for key: String in GameState.world_flags:
+			if key.begins_with("ch3_janus_"):
+				keep[key] = GameState.world_flags[key]
+	await _open("ch3_gate_hall", x_tile, row)
+	for key: String in keep:
+		GameState.set_flag(StringName(key), keep[key], false)
+	GameState.set_flag(&"ch3_janus_intro_seen", true, false)
+	var janus: JanusBoss = null
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		if node is JanusBoss:
+			janus = node
+	if janus == null:
+		push_error("[ch3_combat] 門禁大廳沒有守門人")
+		return null
+	if not flags_reset:
+		janus.call(&"_restore_from_flags")
+	if face_left:
+		# 滑鼠移到畫面左邊：主角轉向守門人，鏡頭的前瞻也跟著往左，兩個人都在畫面裡。
+		get_viewport().warp_mouse(Vector2(get_viewport().get_visible_rect().size.x * 0.15, get_viewport().get_visible_rect().size.y * 0.5))
+	janus.call(&"_wake")
+	await _wait_seconds(1.2)
+	return janus
+
+
+func _wait_seconds(seconds: float) -> void:
+	for i in int(seconds * Engine.physics_ticks_per_second):
+		await get_tree().physics_frame
+
+
+func _lethal() -> DamageInfo:
+	var info := DamageInfo.create(999, Combat.Team.PLAYER, &"capture")
+	info.ignore_invulnerability = true
+	info.bypass_guard = true
+	return info
 
 
 ## 開第三章的某張地圖：略過進場劇情與章節卡，玩家站在 x_tile、第 row 列的地面上（列＝腳下那一格的上緣）。

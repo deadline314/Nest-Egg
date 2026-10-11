@@ -148,8 +148,8 @@ STORY = {
 }
 
 # 本章的敵人（NE-272、NE-271）：字元 -> 敵人資料 id。章節名單與跨章規則見 data/combat/chapter_rosters.json（NE-97）。
-ENEMY_CHARS = {'Ж': 'pump_inspector', 'Ш': 'insulation_inspector'}
-ENEMY_DISPLAY = {'Ж': '抽水巡檢器', 'Ш': '絕緣巡檢器'}
+ENEMY_CHARS = {'Ж': 'pump_inspector', 'Ш': 'insulation_inspector', 'Ю': 'janus'}
+ENEMY_DISPLAY = {'Ж': '抽水巡檢器', 'Ш': '絕緣巡檢器', 'Ю': '守門人'}
 # 掛在吊軌下（不站地面）的敵人字元：可通行檢查不要求腳下有地。
 HANGING = ('Ш',)
 
@@ -169,6 +169,10 @@ ENCOUNTERS = {
     },
     'mezzanine': {
         '維修帶雙巡檢器': [(46, 'Ш', 16), (52, 'Ж')],    # 吊軌在照護步道底下；走步道就能繞過
+    },
+    # 守門人（NE-271）站在櫃檯與柱後短上臺之間；登場劇情（C10）看過、玩家走近才醒，增援由他的通訊器叫來。
+    'gate_hall': {
+        '守門人／JANUS': [(36, 'Ю')],
     },
 }
 
