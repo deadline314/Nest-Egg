@@ -2,6 +2,9 @@
 
 No command supplies fake chapter acceptance or runtime capabilities. `prepare`
 can stage a committed, incomplete campaign for inspection; `export` refuses it.
+`export --candidate` builds the same single files for native acceptance only when
+the staged version is labelled `-candidate`; the manifest keeps every readiness
+blocker and never marks the build as a release.
 `probe` exports a tiny, explicitly labelled tool fixture, never a chapter build.
 """
 from __future__ import annotations
@@ -424,26 +427,18 @@ def readiness(root: Path, sha: str, specs: dict, end: str, stage: Path, tree: di
                 matching.append(data)
         if not matching or not any(q.get("kind") == "main" for data in matching for q in data.get("quests", []) if isinstance(q, dict)):
             issues.append("published production main quests absent")
-        # Actual owner handover is missing. Do not invent JSON keys or a capability override.
-        issues.append("production entry/exit and story-result producer acceptance not handed over")
         records.append({"id": chapter["id"], "acceptance_ticket": chapter["acceptance_ticket"],
                         "entry": chapter["entry"], "terminal": chapter["terminal"], "evidence": evidence, "issues": issues})
         if chapter["id"] == end:
             break
     else:
         raise audit.AuditError(f"unknown cumulative terminal chapter: {end}")
-    observed = {}
-    for name in ("tools/story/build_ch1_story.py",):
-        if name in tree:
-            text = committed_text(root, sha, name)
-            observed[name] = {"sha256": hashlib.sha256(text.encode()).hexdigest(),
-                              "backend_returns_none": bool(re.search(r"def production_backend\(\):(?:\n[ \t]+[^\n]*)*?\n[ \t]+return None", text))}
     edition = edition_contract(root, sha, tree, specs, end)
-    observed["edition_contract"] = edition
     blockers.extend(f"NE-230 edition contract: {issue}" for issue in edition["issues"])
-    blockers.append("production producer/backend handover is missing; no CLI override is supported")
-    return {"ready_for_product_export": False, "chapters": records, "loaded_story_sources": sources,
-            "owner_blockers": blockers, "observed_public_source": observed}
+    # Product export needs every included chapter accepted with committed evidence and a valid edition contract.
+    ready = not blockers and all(not record["issues"] for record in records)
+    return {"ready_for_product_export": ready, "chapters": records, "loaded_story_sources": sources,
+            "owner_blockers": blockers, "observed_public_source": {"edition_contract": edition}}
 
 
 def prepare(root: Path, output: Path, source: str | None, end: str, version: str, policy: dict) -> tuple[Path, dict]:
@@ -621,13 +616,19 @@ def run_logged(command: list[str], log: Path, cwd: Path, timeout: int = 900) -> 
     return {"log": log.name, "exit_code": code, "sha256": audit.digest(log)}
 
 
-def presets(stage: Path, templates: Path) -> None:
+PROBE_PRESETS = (("Linux probe", "Linux", "linux_release.x86_64"),
+                 ("Windows probe", "Windows Desktop", "windows_release_x86_64.exe"))
+# (target, preset name, Godot platform, official template, artifact suffix)
+PRODUCT_TARGETS = (("windows", "Nest Egg Windows", "Windows Desktop", "windows_release_x86_64.exe", "exe"),
+                   ("linux", "Nest Egg Linux", "Linux", "linux_release.x86_64", "x86_64"))
+CANDIDATE_SUFFIX = "-candidate"
+
+
+def presets(stage: Path, templates: Path, entries=PROBE_PRESETS) -> None:
     def quoted(path: Path) -> str:
         return json.dumps(str(path.resolve()).replace("\\", "/"))
     value = []
-    for i, (name, platform, template) in enumerate((
-        ("Linux probe", "Linux", "linux_release.x86_64"),
-        ("Windows probe", "Windows Desktop", "windows_release_x86_64.exe"))):
+    for i, (name, platform, template) in enumerate(entries):
         value.append(f'''[preset.{i}]
 name="{name}"
 platform="{platform}"
@@ -668,15 +669,133 @@ def import_stage(destination: Path, godot: Path, templates: Path) -> dict:
     return receipt
 
 
-def require_product_ready(destination: Path) -> None:
+def require_product_ready(destination: Path) -> dict:
     manifest = verify_stage(destination)
     if manifest["resource_closure"]["issues"] or not manifest["readiness"]["ready_for_product_export"]:
         write_json(destination / "export-blocked.json", {"kind": "product-export-blocked",
                    "source_sha": manifest["source_sha"], "readiness": manifest["readiness"],
                    "resource_closure_issues": manifest["resource_closure"]["issues"], "exported": False})
         raise audit.AuditError("formal chapter export blocked by actual readiness/owner contracts; see export-blocked.json")
-    # No accepted public owner interface currently exists. Do not silently use the probe preset.
-    raise audit.AuditError("product export adapter awaits the published NE-230/chapter contract")
+    return manifest
+
+
+def require_candidate(destination: Path) -> dict:
+    """A candidate is for native acceptance only: complete resources, visibly labelled, blockers kept."""
+    manifest = verify_stage(destination)
+    if manifest["resource_closure"]["issues"]:
+        raise audit.AuditError("resource closure is incomplete; candidate export refused")
+    if not manifest["version"].endswith(CANDIDATE_SUFFIX) or not manifest.get("edition"):
+        raise audit.AuditError(f"candidate builds need a staged edition whose version ends with '{CANDIDATE_SUFFIX}' "
+                               "so the game shows it; re-run prepare with such a version")
+    return manifest
+
+
+def pack_scope_issues(files: list[dict], allowed: set[str]) -> list[str]:
+    """Every PCK entry must be a verified staged input or Godot's export conversion of one."""
+    issues = []
+    for item in files:
+        name = item["path"]
+        if name in allowed or name.startswith(".godot/") or name == "project.binary":
+            continue
+        if name.removesuffix(".remap").removesuffix(".import") in allowed:
+            continue
+        issues.append(name)
+    return issues
+
+
+def campaign_scope(stage: Path, end: str) -> list[dict]:
+    """Chapters this build contains, in campaign order, from the staged contract."""
+    campaign = json.loads(audit.read_text(stage / CAMPAIGN_DATA))
+    chapters, included = [], True
+    for chapter in campaign.get("chapters", []):
+        chapters.append({"id": chapter.get("id"), "title": chapter.get("title", chapter.get("id")), "included": included})
+        if chapter.get("id") == end:
+            included = False
+    if not any(c["id"] == end for c in chapters):
+        raise audit.AuditError(f"{CAMPAIGN_DATA} does not list the cumulative terminal chapter {end}")
+    return chapters
+
+
+def edition_launch(executable: Path, log: Path, scope: list[dict], end: str) -> dict:
+    """Start the exported file alone in a clean folder and read back the scope it reports."""
+    record = run_logged([str(executable), "--headless", "--", "--edition-info"], log, executable.parent, 300)
+    line = next((l for l in log.read_text(encoding="utf-8", errors="replace").splitlines() if l.startswith("EDITION_INFO ")), None)
+    if line is None:
+        raise audit.AuditError(f"exported game did not report its edition; log retained: {log}")
+    report = json.loads(line[len("EDITION_INFO "):])
+    expected = [c["id"] for c in scope if c["included"]]
+    reported = [c["id"] for c in report.get("chapters", []) if c.get("included")]
+    if report.get("through") != end or report.get("development") or reported != expected or not report.get("first_level_included"):
+        raise audit.AuditError(f"exported game reports scope {reported} through {report.get('through')!r}; expected {expected}")
+    if report.get("issues"):
+        raise audit.AuditError(f"exported game reports edition data issues: {report['issues']}")
+    leaked = [c for c in report.get("included_levels", {}) if c not in expected]
+    if leaked:
+        raise audit.AuditError(f"exported game includes areas of chapters outside this build: {leaked}")
+    return {"command": record, "edition": report}
+
+
+def export(destination: Path, godot: Path, templates: Path, candidate: bool) -> dict:
+    """Export Windows and Linux single files from an imported stage; never overwrite an earlier export."""
+    manifest = require_candidate(destination) if candidate else require_product_ready(destination)
+    if not (destination / "import-integrity.json").is_file():
+        raise audit.AuditError("run import-stage before export")
+    if (destination / "artifacts").exists():
+        raise audit.AuditError("this stage already has an export; earlier builds are never overwritten — prepare a new version")
+    engine = engine_templates(godot, templates)
+    end, version = manifest["cumulative_terminal"], manifest["version"]
+    artifacts_dir = new_directory(destination / "artifacts")
+    work = destination / "export-work"
+    records, artifacts = [], {}
+    try:
+        shutil.copytree(destination / "project", work / "project", symlinks=True)
+        no_links(work / "project")
+        stage = work / "project"
+        presets(stage, templates, [(name, platform, template) for _, name, platform, template, _ in PRODUCT_TARGETS])
+        scope = campaign_scope(stage, end)
+        required = {EDITION_DATA: manifest["edition"]["staged_sha256"], CAMPAIGN_DATA: audit.digest(stage / CAMPAIGN_DATA)}
+        allowed = {item["path"] for item in manifest["files"]}
+        for target, preset, _, _, suffix in PRODUCT_TARGETS:
+            path = artifacts_dir / f"NestEgg-{version}-through-{end}.{suffix}"
+            records.append(run_logged([str(godot), "--headless", "--path", str(stage), "--export-release", preset, str(path)],
+                                      destination / f"export-{target}.log", stage, 3600))
+            pack = inspect_pack(path, required=required)
+            stray = pack_scope_issues(pack["files"], allowed)
+            if stray:
+                raise audit.AuditError(f"{target} pack contains entries outside the verified stage: {stray[:10]}")
+            largest = sorted(pack["files"], key=lambda f: f["bytes"], reverse=True)[:15]
+            artifacts[target] = {"file": path.name, "bytes": pack["bytes"], "sha256": pack["sha256"], "pck_bytes": pack["pck_bytes"],
+                                 "entries": len(pack["files"]), "size_limit_ok": pack["bytes"] < (1 << 32),
+                                 "largest_entries": [{"path": f["path"], "bytes": f["bytes"]} for f in largest]}
+        clean = destination / "clean-launch-linux"
+        clean.mkdir()
+        executable = clean / artifacts["linux"]["file"]
+        shutil.copy2(artifacts_dir / executable.name, executable)
+        executable.chmod(0o755)
+        launch = edition_launch(executable, destination / "clean-launch-linux.log", scope, end)
+        receipt = {"schema": 1, "kind": "campaign-candidate" if candidate else "campaign-release",
+                   "is_release": not candidate, "version": version, "cumulative_terminal": end,
+                   "edition_id": f"through-{end}", "save_slot": f"user://runs/through-{end}/slot-1.json",
+                   "source_sha": manifest["source_sha"], "engine": engine, "chapters": scope,
+                   "artifacts": artifacts, "commands": records,
+                   "linux_clean_launch": {"verified": True, "log": launch["command"]["log"], "sha256": launch["command"]["sha256"],
+                                          "reported_endings": launch["edition"].get("endings", []),
+                                          "reported_levels": launch["edition"].get("included_levels", {})},
+                   "native_windows_launch_verified": False,
+                   "native_windows_pending": "Copy only the .exe into an empty folder on Windows, start it, play to the chapter end "
+                                             "and confirm the completion card and the runs/through-<chapter> save folder (NE-232 ticket).",
+                   "readiness_blockers": manifest["readiness"]["owner_blockers"] + [
+                       f"{c['id']}: {issue}" for c in manifest["readiness"]["chapters"] for issue in c["issues"]],
+                   "chapter_acceptance_verified": False}
+        write_json(destination / "export-manifest.json", receipt)
+        (destination / "SHA256SUMS").write_text("".join(f"{a['sha256']}  artifacts/{a['file']}\n" for a in artifacts.values()), encoding="ascii")
+        return receipt
+    except Exception as exc:
+        write_json(destination / "export-failure.json", {"kind": "failed-campaign-export", "error": str(exc),
+                   "successful_commands": records, "is_release": False})
+        raise
+    finally:
+        shutil.rmtree(work, ignore_errors=True)  # The verified stage remains; the working copy is only for Godot.
 
 
 PROBE_SCRIPT = '''extends Node
@@ -775,9 +894,12 @@ def main() -> int:
     for name in ("import-stage", "export", "verify-stage"):
         p = sub.add_parser(name)
         p.add_argument("--stage", type=Path, required=True)
-        if name == "import-stage":
+        if name in ("import-stage", "export"):
             p.add_argument("--godot", type=Path, required=True)
             p.add_argument("--templates", type=Path, required=True)
+        if name == "export":
+            p.add_argument("--candidate", action="store_true",
+                           help="build for native acceptance only; requires a version ending in -candidate")
     fixture = sub.add_parser("probe")
     fixture.add_argument("--out", type=Path, required=True)
     fixture.add_argument("--godot", type=Path, required=True)
@@ -791,7 +913,10 @@ def main() -> int:
                               "closure_issues": report["resource_closure"]["issues"], "readiness": report["readiness"]}, ensure_ascii=False, indent=2))
             return 2 if report["resource_closure"]["issues"] else 0
         if args.command == "export":
-            require_product_ready(args.stage)
+            report = export(args.stage, args.godot, args.templates, args.candidate)
+            print(json.dumps({k: report[k] for k in ("kind", "is_release", "version", "cumulative_terminal", "source_sha",
+                                                       "artifacts", "linux_clean_launch", "native_windows_launch_verified")},
+                             ensure_ascii=False, indent=2))
         elif args.command == "verify-stage":
             report = verify_stage(args.stage)
             print(f"verified {report['source_files']} committed inputs; exported=false")

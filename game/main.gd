@@ -33,6 +33,11 @@ var _publishing_restore := false
 
 
 func _ready() -> void:
+	# 發行檢查：`<執行檔> --headless -- --edition-info` 印出這份程式收錄的章節與章末後結束，不開主選單、不碰存檔。
+	if OS.get_cmdline_user_args().has("--edition-info"):
+		print("EDITION_INFO ", JSON.stringify(CampaignEdition.current().scope_report()))
+		get_tree().quit()
+		return
 	get_tree().auto_accept_quit = false
 	_run_store.validator = RunSnapshot.prepare
 	GameState.run_save_requested.connect(_queue_save)

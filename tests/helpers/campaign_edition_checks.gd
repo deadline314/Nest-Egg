@@ -97,7 +97,22 @@ static func run(s: TestSuite) -> void:
 	s.check(ch2.is_last_chapter(&"ch2_heron") and not ch2.is_last_chapter(&"ch1_kasa"), "completion note follows the edition's real last chapter id")
 	main.free()
 	CampaignEdition.override_current(null)
+	_test_scope(s, dev, ch1, ch2)
 	_clear(ROOT)
+
+
+## 每個累積版本收錄的區域與章末，與 campaign.json 的章節順序一致（NE-232 發行檢查與乾淨目錄啟動用同一份報告）。
+static func _test_scope(s: TestSuite, dev: CampaignEdition, ch1: CampaignEdition, ch2: CampaignEdition) -> void:
+	var one := ch1.scope_report()
+	s.check(one["included_levels"].keys().all(func(c: String) -> bool: return c in ["prologue", "ch1_kasa"]) and int(one["included_levels"].get("ch1_kasa", 0)) > 0, "序章至第一章 only contains prologue and chapter-one areas: %s" % [one["included_levels"]])
+	s.check(int(one["excluded_levels"].get("ch2_heron", 0)) > 0 and one["first_level_included"], "later chapters stay out and the new-game area is inside: %s" % [one["excluded_levels"]])
+	s.check(one["endings"] == ["res://data/levels/ch1_pawnshop_dawn.tres"], "chapter one ends where its next area belongs to chapter two: %s" % [one["endings"]])
+	var two := ch2.scope_report()
+	s.check(two["endings"] == ["res://data/levels/ch2_rooftop.tres"] and int(two["included_levels"].get("ch2_heron", 0)) > 0 and not two["included_levels"].has("ch3_clearwater"), "序章至第二章 ends on the chapter-two rooftop and leaves chapter three out: %s" % [two["endings"]])
+	var three := dev.describe("through-ch3_clearwater").scope_report()
+	s.check(three["endings"].is_empty() and three["excluded_levels"].keys().all(func(c: String) -> bool: return c.begins_with("chapter_")), "the last chapter has no onward area; only legacy demo areas stay out: %s" % [three["excluded_levels"]])
+	var everything := dev.scope_report()
+	s.check(everything["development"] and everything["endings"].is_empty() and everything["excluded_levels"].is_empty(), "the development build includes every area and never stops at a chapter end")
 
 
 static func _issue_store(issue: String) -> RunSaveStore:

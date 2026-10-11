@@ -61,6 +61,20 @@ def pck_bytes(entries=None, version=4, engine=(4, 7, 2)) -> bytes:
     return header + body + index
 
 
+def single_file(path: Path, payload: bytes) -> None:
+    """A minimal embedded single file: x86_64 PE or ELF header, PCK payload, Godot footer."""
+    header = bytearray(128)
+    if path.suffix == ".exe":
+        header[:2] = b"MZ"
+        struct.pack_into("<I", header, 0x3C, 64)
+        header[64:68] = b"PE\x00\x00"
+        struct.pack_into("<H", header, 68, 0x8664)
+    else:
+        header[:4] = b"\x7fELF"
+        struct.pack_into("<H", header, 18, 62)
+    path.write_bytes(header + payload + struct.pack("<Q4s", len(payload), b"GDPC"))
+
+
 class ImmutableStageTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
@@ -456,6 +470,102 @@ class ImmutableStageTests(unittest.TestCase):
         with patch.object(build.subprocess, "run", return_value=result), self.assertRaisesRegex(audit.AuditError, "provenance"):
             build.engine_templates(self.base / "editor", templates)
 
+
+    # --- NE-232 product/candidate export (engine mocked; real files, real PCK inspection) ---
+
+    def candidate_stage(self, version="v1-candidate", contract=True):
+        if contract:
+            self.add_edition_contract()
+        destination, report = self.prepare(version=version)
+        build.write_json(destination / "import-receipt.json", {"kind": "unit-test-fixture"})
+        build.seal_import(destination, report)
+        return destination
+
+    def fake_export_engine(self, extra=(), info=None):
+        launches = []
+
+        def run(command, log, cwd, timeout=900):
+            if "--export-release" in command:
+                entries = [(n, (cwd / n).read_bytes()) for n in (build.EDITION_DATA, build.CAMPAIGN_DATA)] + list(extra)
+                single_file(Path(command[-1]), pck_bytes(entries))
+                log.write_text("exit_code=0\n")
+            else:
+                launches.append(command)
+                self.assertEqual([p.name for p in cwd.iterdir()], [Path(command[0]).name])  # Only the executable.
+                value = info if info is not None else {"through": "one", "development": False, "issues": [],
+                                                         "chapters": [{"id": "one", "included": True}],
+                                                         "first_level_included": True, "included_levels": {"one": 2}, "endings": []}
+                log.write_text(("EDITION_INFO " + json.dumps(value) + "\n" if value else "") + "exit_code=0\n")
+            return {"log": log.name, "exit_code": 0, "sha256": audit.digest(log)}
+        return run, launches
+
+    def export(self, destination, engine, candidate=True):
+        with patch.object(build, "engine_templates", return_value={"test_only": True}), \
+                patch.object(build, "run_logged", side_effect=engine):
+            return build.export(destination, self.base / "godot", self.base / "templates", candidate)
+
+    def test_candidate_needs_a_visible_candidate_version(self):
+        destination = self.candidate_stage(version="v1")
+        engine, _ = self.fake_export_engine()
+        with self.assertRaisesRegex(audit.AuditError, "-candidate"):
+            self.export(destination, engine)
+        self.assertFalse((destination / "artifacts").exists())
+
+    def test_product_export_stays_blocked_for_draft_chapters(self):
+        destination = self.candidate_stage(version="v1")
+        engine, _ = self.fake_export_engine()
+        with self.assertRaisesRegex(audit.AuditError, "formal chapter export blocked"):
+            self.export(destination, engine, candidate=False)
+        self.assertFalse((destination / "artifacts").exists())
+
+    def test_candidate_export_records_everything_and_never_overwrites(self):
+        destination = self.candidate_stage()
+        engine, launches = self.fake_export_engine()
+        receipt = self.export(destination, engine)
+        self.assertEqual((receipt["kind"], receipt["is_release"], receipt["edition_id"]), ("campaign-candidate", False, "through-one"))
+        self.assertFalse(receipt["native_windows_launch_verified"])
+        self.assertTrue(receipt["readiness_blockers"])  # Draft chapter reasons stay visible on the candidate.
+        self.assertEqual(sorted(receipt["artifacts"]), ["linux", "windows"])
+        for target, item in receipt["artifacts"].items():
+            path = destination / "artifacts" / item["file"]
+            self.assertEqual((path.stat().st_size, audit.digest(path)), (item["bytes"], item["sha256"]))
+            self.assertTrue(item["size_limit_ok"] and item["file"].startswith("NestEgg-v1-candidate-through-one."))
+        self.assertTrue(receipt["linux_clean_launch"]["verified"] and len(launches) == 1 and "--edition-info" in launches[0])
+        self.assertEqual(len((destination / "SHA256SUMS").read_text().splitlines()), 2)
+        self.assertFalse((destination / "export-work").exists())
+        build.verify_stage(destination)  # The verified stage itself is untouched by the export.
+        before = (destination / "artifacts" / receipt["artifacts"]["windows"]["file"]).read_bytes()
+        with self.assertRaisesRegex(audit.AuditError, "never overwritten"):
+            self.export(destination, engine)
+        self.assertEqual((destination / "artifacts" / receipt["artifacts"]["windows"]["file"]).read_bytes(), before)
+
+    def test_pack_entry_outside_the_stage_fails_and_keeps_a_failure_record(self):
+        destination = self.candidate_stage()
+        engine, _ = self.fake_export_engine(extra=[("data/unverified.json", b"{}")])
+        with self.assertRaisesRegex(audit.AuditError, "outside the verified stage"):
+            self.export(destination, engine)
+        self.assertEqual(json.loads((destination / "export-failure.json").read_text())["is_release"], False)
+        self.assertFalse((destination / "export-manifest.json").exists())
+
+    def test_clean_launch_must_report_this_build_scope(self):
+        bad = [{"through": "two", "development": False, "issues": [], "chapters": [{"id": "one", "included": True}],
+                "first_level_included": True, "included_levels": {"one": 1}},
+               {"through": "one", "development": False, "issues": [], "chapters": [{"id": "one", "included": True}],
+                "first_level_included": True, "included_levels": {"one": 1, "later": 3}},
+               {}]
+        self.add_edition_contract()
+        for i, info in enumerate(bad):
+            with self.subTest(info=info):
+                destination = self.candidate_stage(version=f"v{i}-candidate", contract=False)
+                engine, _ = self.fake_export_engine(info=info)
+                with self.assertRaises(audit.AuditError):
+                    self.export(destination, engine)
+                self.assertFalse((destination / "export-manifest.json").exists())
+
+    def test_pack_scope_accepts_engine_conversions_only(self):
+        files = [{"path": p} for p in (".godot/imported/a.ctex", "project.binary", "data/entry.tres.remap",
+                                        "icon.png.import", "data/story/one.json", "data/new.json")]
+        self.assertEqual(build.pack_scope_issues(files, {"data/entry.tres", "icon.png", "data/story/one.json"}), ["data/new.json"])
 
 class ProbePlatformTests(unittest.TestCase):
     """Mock the engine process only; use real files and the real PCK inspector."""

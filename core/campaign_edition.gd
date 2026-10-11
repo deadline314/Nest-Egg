@@ -132,6 +132,35 @@ func title() -> String:
 	return last if first == last else "%s至%s" % [first, last]
 
 
+## 這份程式實際收錄的範圍（發行檢查與乾淨目錄啟動用）：哪些章節與區域收錄、哪些區域是章末（下一區不在本版本，停在完成卡）、
+## 有幾個出入口通往未收錄的章節（進入時只提示，不載入）。只讀關卡資料，不解析地圖、不建立節點。
+func scope_report(level_dir := "res://data/levels") -> Dictionary:
+	var chapters: Array[Dictionary] = []
+	for chapter in order:
+		chapters.append({"id": String(chapter), "title": chapter_title(chapter), "included": includes_chapter(chapter)})
+	var included := {}
+	var excluded := {}
+	var endings: Array[String] = []
+	var blocked_exits := 0
+	for resource in ResourceCatalog.load_dir(level_dir, LevelData, "CampaignEdition"):
+		var level := resource as LevelData
+		var bucket := included if includes_level(level) else excluded
+		bucket[String(level.chapter)] = int(bucket.get(String(level.chapter), 0)) + 1
+		if bucket == excluded:
+			continue
+		var next := load(level.next_level) as LevelData if not level.next_level.is_empty() and ResourceLoader.exists(level.next_level) else null
+		if next != null and not includes_level(next):
+			endings.append(level.resource_path)
+		for value: Resource in level.legend.values():
+			var portal := value as PortalData
+			if portal != null and not portal.target_level.is_empty() and ResourceLoader.exists(portal.target_level) and not includes_level(load(portal.target_level) as LevelData):
+				blocked_exits += 1
+	var first := load(first_level) as LevelData if ResourceLoader.exists(first_level) else null
+	return {"id": id, "title": title(), "through": String(through), "development": development, "chapters": chapters,
+			"included_levels": included, "excluded_levels": excluded, "endings": endings, "blocked_exits": blocked_exits,
+			"first_level": first_level, "first_level_included": includes_level(first), "slot": slot_path(), "issues": issues}
+
+
 func chapter_title(chapter: StringName) -> String:
 	return titles.get(chapter, String(chapter))
 
