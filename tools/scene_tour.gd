@@ -8,7 +8,8 @@ extends Node
 ## --player：每一格把主角放在畫面中央下方最近的地面上（帶著他自己的光），看實際遊玩時的光影；沒有地面的格子不放。
 ##   同時量主角、畫面內敵人的輪廓對比與腳下地面亮邊（算法與門檻同 tools/contrast_probe.gd），寫進索引。
 ## --quality=low|medium|high：這次巡覽改用該光影品質（結束時還原）。
-## --no-shadows：拿掉角色腳下的接觸陰影（量陰影成本時當對照）。索引會記錄每關的陰影數與每格平均的處理時間。
+## --no-shadows：拿掉角色腳下的接觸陰影（量陰影成本時當對照）。索引會記錄每關的陰影數與每格實際花的時間
+##   （關掉垂直同步後相鄰兩格的間隔，取中位數；引擎的處理時間監測值不是每格時間，不要用）。
 ## --flat 是盤點用的診斷畫面：環境光與背景調成全亮、關掉後製，只看擺放、支撐與圖層；不能拿來驗收光影。
 ## 輸出 <關卡>/<標籤>-c<欄>-r<列>.png 與 <關卡>/<標籤>-index.json（每格實際拍到的世界範圍）。
 ## 敵人與主角停在原地不動；主角預設隱藏。拼圖用 tools/scene_tour_sheet.py。
@@ -19,6 +20,7 @@ const SETTLE_FRAMES := 24
 const OVERLAP := 0.08
 ## 量對比時取幾次樣（燈會閃爍、脈動，取中位數）。
 const CONTRAST_SAMPLES := 5
+const BENCH_FRAMES := 60
 const QUALITY := {"low": LightQuality.Tier.LOW, "medium": LightQuality.Tier.MEDIUM, "high": LightQuality.Tier.HIGH}
 
 var _out := ""
@@ -136,6 +138,23 @@ func _measure(level: Level, world: Rect2) -> Dictionary:
 	return result
 
 
+## 這一格實際每影格花多久（毫秒）：暫時關掉垂直同步，量 BENCH_FRAMES 格的間隔取中位數。
+func _frame_interval_ms() -> float:
+	var vsync_before := DisplayServer.window_get_vsync_mode()
+	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+	for _frame in 4:
+		await get_tree().process_frame
+	var samples: Array[float] = []
+	var last := Time.get_ticks_usec()
+	for _frame in BENCH_FRAMES:
+		await get_tree().process_frame
+		var now := Time.get_ticks_usec()
+		samples.append(float(now - last) / 1000.0)
+		last = now
+	DisplayServer.window_set_vsync_mode(vsync_before)
+	return _median(samples)
+
+
 func _median(values: Array[float]) -> float:
 	if values.is_empty():
 		return 0.0
@@ -189,8 +208,7 @@ func _tour(level_id: String) -> bool:
 			shadow.process_mode = Node.PROCESS_MODE_ALWAYS
 	# 閃電會讓某幾格突然變亮，修前修後就對不起來：巡覽期間不打雷。
 	level._lighting._lightning_gap = 1.0e9
-	var physics_ms: Array[float] = []
-	var process_ms: Array[float] = []
+	var frame_ms: Array[float] = []
 	if _flat:
 		level._lighting.process_mode = Node.PROCESS_MODE_DISABLED
 		level._lighting._modulate.color = Color.WHITE
@@ -236,8 +254,7 @@ func _tour(level_id: String) -> bool:
 				push_error("[SceneTour] 無法寫入：%s" % folder.path_join(file))
 				level.queue_free()
 				return false
-			physics_ms.append(Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS) * 1000.0)
-			process_ms.append(Performance.get_monitor(Performance.TIME_PROCESS) * 1000.0)
+			frame_ms.append(await _frame_interval_ms())
 			var shot := {"file": file, "column": column, "row": row,
 				"world": [top_left.x, top_left.y, bottom_right.x - top_left.x, bottom_right.y - top_left.y]}
 			if _walk_player:
@@ -246,7 +263,7 @@ func _tour(level_id: String) -> bool:
 	var index := {"level": level_id, "tag": _tag, "level_size": [size.x, size.y], "view": [view.x, view.y],
 		"columns": columns, "rows": rows, "tile": level._layout.tile_size, "shots": shots,
 		"contact_shadows": 0 if _no_shadows else shadows.size(),
-		"physics_ms_median": _median(physics_ms), "process_ms_median": _median(process_ms)}
+		"frame_ms_median": _median(frame_ms)}
 	var writer := FileAccess.open(folder.path_join(_tag + "-index.json"), FileAccess.WRITE)
 	if writer == null:
 		push_error("[SceneTour] 無法寫入索引：%s" % folder)
