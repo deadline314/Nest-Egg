@@ -441,6 +441,9 @@ func _spawn_static_entities() -> void:
 		pickup.position = pos
 		_entities.add_child(pickup)
 		_tracked[key] = pickup
+	# 每個光影區段亮著的燈依序輪到供電狀況訂的狀態（穩定、接觸不良、快壞了）。
+	var lit_lamps_by_zone := {}
+	var buzzing: Array[Lamp] = []
 	for i in _layout.lamps.size():
 		var lamp := Lamp.new()
 		lamp.position = _layout.lamps[i] + Vector2(0, 2)
@@ -459,7 +462,18 @@ func _spawn_static_entities() -> void:
 			lamp.use_fixture(LampFixtures.pick(PackedStringArray(), supports, i, 0), supports)
 		var lamp_row := int(lamp.position.y / _layout.tile_size)
 		lamp.settle(func(x: float) -> float: return _layout.floor_below(int(x / _layout.tile_size), lamp_row))
+		if profile != null and profile.lamp_style != null and not lamp.dead:
+			var lit: int = lit_lamps_by_zone.get(profile.id, 0)
+			lit_lamps_by_zone[profile.id] = lit + 1
+			lamp.use_flicker(LampFlicker.state_for(profile.lamp_style.supply_id(), lit), hash(Vector2i(tile, lamp_row)))
+			if LampFlicker.buzz(lamp.flicker_state) > 0.0:
+				buzzing.append(lamp)
 		_world.add_child(lamp)
+	if not buzzing.is_empty():
+		var buzz := LampBuzz.new()
+		buzz.name = "LampBuzz"
+		buzz.setup(buzzing)
+		_world.add_child(buzz)
 	for hint in _layout.hints:
 		var sign := HintSign.new()
 		sign.text = str(hint["text"])

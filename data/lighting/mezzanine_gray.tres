@@ -12,6 +12,7 @@ flicker_chance = 0.05
 dead_chance = 0.15
 pulse_hz = 0.0
 fixtures = PackedStringArray("tin_shade_bulb", "led_lantern", "tube_batten", "bulkhead_wall")
+supply = &"stable"
 
 [resource]
 script = ExtResource("1_script")

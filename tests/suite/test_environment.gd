@@ -26,6 +26,7 @@ func run() -> void:
 	_test_fixture_art()
 	await _test_local_drip()
 	await _test_lamp_fixtures()
+	await _test_lamp_flicker()
 	_test_import_policy("res://art/environment")
 
 
@@ -703,7 +704,6 @@ func _test_lamp_fixtures() -> void:
 	bare.queue_free()
 	# 停電：燈具的發光部位跟著熄滅、本體變暗；復電後恢復。
 	var powered := Lamp.new()
-	powered.flicker_chance = 0.0
 	powered.ceiling_y = -40.0
 	powered.use_fixture(&"highbay_pendant")
 	runner.get_tree().root.add_child(powered)
@@ -746,3 +746,177 @@ func _test_lamp_fixtures() -> void:
 		check(loose.is_empty(), "%s 的每一盞燈都有燈具與支撐（共 %d 盞；沒有的在 %s）" % [file, lamps, ", ".join(loose)])
 		check(lamps < 2 or kinds.size() >= 2, "%s 的燈至少兩款（%d 盞、%d 款）" % [file, lamps, kinds.size()])
 		await end_level(level)
+
+
+## 閃爍的燈（BG-35）：三種狀態、供電狀況、光敏安全（一秒內亮暗變化不超過 3 次）、「減少閃光」、電流聲。
+func _test_lamp_flicker() -> void:
+	check(LampFlicker.problems().is_empty(), "燈的閃法資料有效：%s" % ", ".join(LampFlicker.problems()))
+	check(LampFlicker.change_limit() <= LampFlicker.MAX_CHANGES_PER_SECOND and LampFlicker.MAX_CHANGES_PER_SECOND == 3, "亮暗變化的上限是每秒 3 次")
+	check(LampFlicker.states().has(&"loose") and LampFlicker.states().has(&"dying"), "有接觸不良與快壞了兩種會閃的狀態")
+	for state: StringName in LampFlicker.states():
+		check(LampFlicker.pattern_count(state) > 0, "狀態 %s 有閃法" % state)
+		for index in LampFlicker.pattern_count(state):
+			check(LampFlicker.worst_window(LampFlicker.pattern(state, index)) <= 3, "狀態 %s 的第 %d 條閃法一秒內亮暗變化不超過 3 次" % [state, index])
+	check(LampFlicker.worst_window(LampFlicker._parse_pattern("amamamamamamamamamam")) > 3, "每秒閃五次的閃法會被檢查擋下")
+	check(LampFlicker._parse_pattern("mmM1").is_empty(), "不是小寫字母的閃法不採用")
+	check(LampFlicker.darkest(&"dying") < 0.2 and LampFlicker.buzz(&"dying") > 0.0 and is_zero_approx(LampFlicker.buzz(&"loose")), "快壞的燈多半是暗的而且有電流聲，接觸不良的沒有")
+	# 供電狀況：電力不足的區域大部分的燈會閃；穩定的區域與不認得的供電狀況都不閃。
+	var counts := {}
+	for ordinal in 10:
+		var state := LampFlicker.state_for(&"low", ordinal)
+		counts[state] = int(counts.get(state, 0)) + 1
+	check(int(counts.get(&"loose", 0)) + int(counts.get(&"dying", 0)) > 5 and counts.has(&"loose") and counts.has(&"dying"),
+			"電力不足的區域大部分的燈接觸不良或快壞了（%s）" % str(counts))
+	check(LampFlicker.state_for(&"stable", 3) == LampFlicker.STABLE and LampFlicker.state_for(&"test_missing_prop_supply", 0) == LampFlicker.STABLE,
+			"穩定的區域與不認得的供電狀況都不閃")
+	var worn := LampStyle.new()
+	worn.flicker_chance = 0.05
+	var steady := LampStyle.new()
+	steady.flicker_chance = 0.01
+	var forced := LampStyle.new()
+	forced.supply = &"low"
+	check(worn.supply_id() == &"worn" and steady.supply_id() == LampFlicker.STABLE and forced.supply_id() == &"low", "供電狀況可以指定，沒指定時依老舊程度決定")
+	forced.supply = &"test_missing_prop_supply"
+	check(not forced.validate().is_empty(), "燈風格用了不存在的供電狀況會被資料檢查抓到")
+
+	# 同一盞燈每次進關卡的閃法相同；不同的燈不一定相同。
+	var first := await _flicker_lamp(&"loose", 4242)
+	var again := await _flicker_lamp(&"loose", 4242)
+	check(first.flicker_state == &"loose" and first._pattern == again._pattern and first._pattern_offset == again._pattern_offset, "同一盞燈每次進關卡的閃法相同")
+	again.queue_free()
+	var reduce_before := Settings.get_reduce_flashes()
+	Settings.set_reduce_flashes(false)
+	await frames(1)
+	var run := _simulate_lamp(first, 20.0)
+	check(run["worst"] <= 3 and run["worst"] >= 1 and run["low"] < 0.6 and run["high"] > 0.95,
+			"接觸不良的燈會暗下來再亮回去，一秒內亮暗變化不超過 3 次（最多 %d 次，%.2f～%.2f）" % [run["worst"], run["low"], run["high"]])
+	check(run["glow_follows"] and run["shaft_follows"], "燈閃的時候，光錐與燈具的發光部位跟著一起變化")
+	var dying := await _flicker_lamp(&"dying", 99)
+	run = _simulate_lamp(dying, 20.0)
+	check(run["worst"] <= 3 and run["dark_share"] > 0.6 and run["high"] > 0.6,
+			"快壞的燈多半是暗的、偶爾亮起來，一秒內亮暗變化不超過 3 次（最多 %d 次，暗的時間占 %.0f%%）" % [run["worst"], run["dark_share"] * 100.0])
+	check(dying.buzz_level() > 0.0 and is_zero_approx(first.buzz_level()), "快壞的燈有電流聲，接觸不良的沒有")
+	check(is_equal_approx(LampBuzz.nearness(0.0), 1.0) and LampBuzz.nearness(LampBuzz.RANGE * 0.5) < 0.3
+			and is_zero_approx(LampBuzz.nearness(LampBuzz.RANGE)) and is_zero_approx(LampBuzz.nearness(LampBuzz.RANGE * 3.0)),
+			"電流聲離燈越遠越小，超過範圍聽不到")
+	# 幾乎全暗的時候不投影（省成本、不佔投影名額），亮回來的那一格就恢復。
+	Lamp.flicker_hold = 0.0
+	_simulate_lamp(dying, 0.5)
+	var dark_shadow := dying._light.shadow_enabled or bool(dying._light.get_meta(LightKit.META_WANTS_SHADOW, false))
+	Lamp.flicker_hold = 1.0
+	_simulate_lamp(dying, 0.5)
+	Lamp.flicker_hold = -1.0
+	check(not dark_shadow and dying._light.shadow_enabled and bool(dying._light.get_meta(LightKit.META_WANTS_SHADOW, false)),
+			"快壞的燈暗著的時候不投影，亮起來時影子跟著回來")
+	# 「減少閃光」：改成緩慢的明暗起伏，沒有突然的變化。
+	Settings.set_reduce_flashes(true)
+	await frames(1)
+	_simulate_lamp(dying, 0.5)  # 切換設定的那一下先走完
+	_simulate_lamp(first, 0.5)
+	run = _simulate_lamp(dying, 20.0)
+	check(run["worst"] <= 1 and run["max_step"] < 0.03 and run["high"] - run["low"] > 0.1,
+			"減少閃光打開時快壞的燈改成緩慢起伏（一秒內最多 %d 次明顯變化、相鄰兩格最多差 %.3f）" % [run["worst"], run["max_step"]])
+	run = _simulate_lamp(first, 20.0)
+	check(run["worst"] <= 1 and run["max_step"] < 0.03, "減少閃光打開時接觸不良的燈也改成緩慢起伏")
+	Settings.set_reduce_flashes(reduce_before)
+	await frames(1)
+	# 量測用的固定亮度：停在最暗的那一刻。
+	Lamp.flicker_hold = 0.0
+	run = _simulate_lamp(dying, 1.0)
+	Lamp.flicker_hold = -1.0
+	check(run["high_end"] < 0.2, "量測時可以把會閃的燈固定在最暗的那一刻")
+	# 停電時沒有電流聲；穩定的燈與會脈動的警示燈不閃。
+	LightKit.lamp_power = 0.0
+	dying._process(0.016)
+	check(is_zero_approx(dying.buzz_level()), "停電時快壞的燈沒有電流聲")
+	LightKit.lamp_power = 1.0
+	var stable := await _flicker_lamp(LampFlicker.STABLE, 7)
+	run = _simulate_lamp(stable, 5.0)
+	check(run["worst"] == 0 and is_equal_approx(run["low"], 1.0), "穩定的燈不受影響")
+	var beacon := Lamp.new()
+	beacon.pulse_hz = 0.5
+	beacon.use_flicker(&"dying", 5)
+	check(beacon.flicker_state == LampFlicker.STABLE, "會脈動的警示燈不再疊上閃爍")
+	beacon.free()
+	for lamp: Lamp in [first, dying, stable]:
+		lamp.queue_free()
+
+	# 第一章：倉庫與倉庫深處電力不足，大部分亮著的燈會閃，而且有電流聲；街道與安全區維持穩定。
+	for file: String in ["ch1_warehouse.tres", "ch1_vault.tres", "ch1_street.tres", "ch1_pawnshop.tres", "ch1_lounge.tres",
+			"ch1_rooftop.tres", "ch1_booth_alley.tres", "ch1_stall.tres", "ch1_pawnshop_dawn.tres"]:
+		var level := await start_level(load("res://data/levels/" + file) as LevelData)
+		var lit := 0
+		var unstable := 0
+		for node: Node in level.find_children("*", "Node2D", true, false):
+			var lamp := node as Lamp
+			if lamp != null and not lamp.dead:
+				lit += 1
+				unstable += int(lamp.flicker_state != LampFlicker.STABLE)
+		var buzz := level.find_child("LampBuzz", true, false) as LampBuzz
+		if file in ["ch1_warehouse.tres", "ch1_vault.tres"]:
+			check(lit >= 2 and unstable * 2 > lit, "%s 電力不足：亮著的 %d 盞燈裡有 %d 盞會閃" % [file, lit, unstable])
+			check(buzz != null and buzz._player != null, "%s 有快壞的燈的電流聲" % file)
+		else:
+			check(unstable == 0 and buzz == null, "%s 的燈維持穩定（%d 盞裡 %d 盞會閃）" % [file, lit, unstable])
+		await end_level(level)
+
+
+## 一盞指定狀態的燈（吊在天花板的工礦吊燈），已加入場景、停掉自動更新，由測試手動推進。
+func _flicker_lamp(state: StringName, seed_value: int) -> Lamp:
+	var lamp := Lamp.new()
+	lamp.ceiling_y = -40.0
+	lamp.floor_y = 120.0
+	lamp.use_fixture(&"highbay_pendant")
+	lamp.use_flicker(state, seed_value)
+	runner.get_tree().root.add_child(lamp)
+	await frames(1)
+	lamp.set_process(false)
+	return lamp
+
+
+## 手動推進一盞燈 seconds 秒（每秒 60 格）。回傳：worst＝任何一秒內亮度明顯變化的最多次數（從上一個轉折點往反方向走了門檻以上才算一次）、
+## low／high＝最暗與最亮的比例、high_end＝最後一格的比例、max_step＝相鄰兩格最大的變化、dark_share＝比例低於 0.3 的時間占比、
+## glow_follows／shaft_follows＝燈具的發光部位與光錐有沒有跟著亮度走。
+func _simulate_lamp(lamp: Lamp, seconds: float) -> Dictionary:
+	var dt := 1.0 / 60.0
+	var threshold := LampFlicker.change_threshold()
+	var value := lamp._light.energy / lamp.light_energy
+	var ref := value
+	var dir := 0
+	var events: Array[float] = []
+	var low := value
+	var high := value
+	var max_step := 0.0
+	var dark := 0
+	var glow_follows := true
+	var shaft_follows := true
+	var total := int(seconds / dt)
+	for frame in total:
+		var previous := value
+		lamp._process(dt)
+		value = lamp._light.energy / lamp.light_energy
+		low = minf(low, value)
+		high = maxf(high, value)
+		max_step = maxf(max_step, absf(value - previous))
+		dark += int(value < 0.3)
+		glow_follows = glow_follows and lamp._glow != null and lamp._glow.visible == (value > 0.01)
+		shaft_follows = shaft_follows and is_equal_approx(lamp._shaft.intensity, clampf(value, 0.0, 1.5))
+		if dir == 0:
+			if absf(value - ref) >= threshold:
+				dir = 1 if value > ref else -1
+				ref = value
+				events.append(float(frame) * dt)
+		elif (value - ref) * float(dir) > 0.0:
+			ref = value
+		elif absf(value - ref) >= threshold:
+			dir = -dir
+			ref = value
+			events.append(float(frame) * dt)
+	var worst := 0
+	var start := 0
+	for last in events.size():
+		while events[last] - events[start] > 1.0:
+			start += 1
+		worst = maxi(worst, last - start + 1)
+	return {"worst": worst, "low": low, "high": high, "high_end": value, "max_step": max_step, "dark_share": float(dark) / float(total),
+		"glow_follows": glow_follows, "shaft_follows": shaft_follows}

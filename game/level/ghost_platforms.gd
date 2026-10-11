@@ -42,7 +42,6 @@ func build(layout: LevelLayout) -> void:
 		lamp.color = Palette.CYAN
 		lamp.radius = LAMP_RADIUS
 		lamp.energy = LAMP_ENERGY
-		lamp.flicker_chance = 0.0
 		lamp.pulse_hz = LAMP_PULSE_HZ
 		lamp.position = rect.position + Vector2(rect.size.x * 0.5, -LAMP_HEIGHT)
 		add_child(lamp)

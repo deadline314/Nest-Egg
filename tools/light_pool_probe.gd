@@ -112,8 +112,8 @@ func _measure_level(level_id: String, data: LevelData) -> Dictionary:
 	lamps.sort_custom(func(a: Lamp, b: Lamp) -> bool: return a.position.x < b.position.x)
 	# 量的是穩定亮著時的光池：先把閃爍停掉（正在閃的那一下也結束）。
 	for lamp in lamps:
-		lamp.flicker_chance = 0.0
-		lamp._flicker_left = 0.0
+		lamp.use_flicker(LampFlicker.STABLE, 0)
+		lamp._flicker = 1.0
 	var step := maxi(1, ceili(float(lamps.size()) / float(_max)))
 	var camera := get_viewport().get_camera_2d() as LevelCamera
 	camera.set_physics_process(false)

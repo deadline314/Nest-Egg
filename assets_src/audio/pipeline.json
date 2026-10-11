@@ -1692,6 +1692,22 @@
     }
    ]
   },
+  "lamp_buzz": {
+   "category": "ambience",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_unleeched-sound-effects-pack",
+     "file": "flourescent-lights.wav",
+     "mode": "loop",
+     "start": 3.5,
+     "end": 6.5,
+     "max_len": 3.0,
+     "loop_blend_ms": 200.0,
+     "target_db": -30.0
+    }
+   ]
+  },
   "phone_dial": {
    "category": "foley",
    "variants": [

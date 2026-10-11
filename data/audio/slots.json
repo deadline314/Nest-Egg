@@ -432,6 +432,60 @@
    ]
   },
   {
+   "id": "P-AMB-009",
+   "domain": "AMB",
+   "kind": "sfx",
+   "target": "lamp_buzz",
+   "name": "環境：日光燈嗡聲",
+   "where": "快壞掉的日光燈的電流聲與嗡嗡聲，循環；靠近場景裡的燈才響",
+   "category": "AMB",
+   "also": [
+    "ELC"
+   ],
+   "dur": [
+    1.5,
+    400.0
+   ],
+   "hint": [
+    "amb_electrical_buzz"
+   ],
+   "current": [
+    "OTH-0342"
+   ],
+   "candidates": [
+    "OTH-0342",
+    "AMB-0001",
+    "AMB-0002",
+    "AMB-0003",
+    "AMB-0121",
+    "AMB-0004",
+    "AMB-0005",
+    "AMB-0006",
+    "AMB-0007",
+    "AMB-0008",
+    "AMB-0009",
+    "AMB-0012",
+    "AMB-0015",
+    "AMB-0016",
+    "AMB-0017",
+    "AMB-0018",
+    "AMB-0019",
+    "AMB-0020",
+    "AMB-0021",
+    "AMB-0022",
+    "AMB-0023",
+    "AMB-0024",
+    "AMB-0025",
+    "AMB-0026",
+    "AMB-0027",
+    "AMB-0028",
+    "AMB-0029",
+    "AMB-0032",
+    "AMB-0033",
+    "AMB-0034"
+   ]
+  },
+  {
    "id": "P-BGM-001",
    "domain": "BGM",
    "kind": "music",

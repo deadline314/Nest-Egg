@@ -140,6 +140,7 @@ SFX = [
     ("amb_ventilation", "AMB", "環境：通風", "設施、豎井、診所的通風聲", "AMB", [], {"hint": ["amb_ventilation"], "dur": [3.0, 400.0]}),
     ("amb_generator", "AMB", "環境：發電機", "電力室、工廠、貨運站的發電機運轉", "AMB", ["MEC"], {"hint": ["amb_machine_room"], "dur": [5.0, 400.0]}),
     ("amb_drip", "AMB", "環境：滴水", "深井、地下室、淹水區的滴水回音", "AMB", [], {"hint": ["amb_drip"], "dur": [5.0, 400.0]}),
+    ("lamp_buzz", "AMB", "環境：日光燈嗡聲", "快壞掉的日光燈的電流聲與嗡嗡聲，循環；靠近場景裡的燈才響", "AMB", ["ELC"], {"kw": ["flourescent", "fluorescent", "lights"], "hint": ["amb_electrical_buzz"], "dur": [1.5, 400.0]}),
 ]
 
 # 背景音樂：(曲目 id, 名稱, 遊戲裡哪裡用到, 提示)。素材類固定 MUS，hint 的 use 是調查報告的用途標籤。

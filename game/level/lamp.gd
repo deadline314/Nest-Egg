@@ -1,12 +1,18 @@
 class_name Lamp
 extends Node2D
-## 場景燈：投射陰影的動態光源，偶爾閃爍營造廢墟氛圍。風格（光池大小、閃爍、壞掉、脈動、可用的燈具款式）
-## 由所在區段的 LampStyle 決定；壞掉的燈不亮也不閃。
+## 場景燈：投射陰影的動態光源。風格（光池大小、壞掉、脈動、可用的燈具款式、供電狀況）由所在區段的 LampStyle 決定；
+## 壞掉的燈不亮也不閃。電力不足的區域裡，燈依供電狀況分成穩定、接觸不良、快壞了（LampFlicker）：閃的時候光池、
+## 它造成的影子、光錐與燈具的發光部位一起變化；每秒亮暗變化不超過 3 次，設定的「減少閃光」打開時改成緩慢起伏。
 ## 燈具是畫出來的圖（LampFixtures），依這盞燈周圍有什麼來決定怎麼裝：吊在天花板、裝在牆上、立桿或站在地上；
 ## 周圍沒有天花板也沒有牆時，可以掛在桿子上的款式改成掛在桿子的橫臂下或鎖在桿子上。
 ## 原點就是發光的位置。燈具與支撐畫在擺設那一層（角色後面），光錐維持在原本的層。
 
-const FLICKER_CHANCE := 0.008
+## 亮度追上閃法的速度（每秒）：一步之內就到位，但不是瞬間跳變。
+const FLICKER_SLEW := 14.0
+## 亮度比例低於這個值時不投影：幾乎全暗的燈（快壞的燈大部分時間）投出來的影子看不見，不付投影的成本、也不佔投影的名額。
+const SHADOW_FROM := 0.2
+## 快壞的燈暗著的時候電流聲比較小，亮起來的瞬間最大聲。
+const BUZZ_IDLE := 0.35
 ## 支撐的顏色（吊桿、立桿、底座）：受場景的光照亮，所以用深色的鋼。
 const SUPPORT_COLOR := Color(0.2, 0.22, 0.27)
 const SUPPORT_EDGE := Color(0.42, 0.46, 0.54)
@@ -31,7 +37,10 @@ var light_color := Palette.CYAN
 var zone_tint := 0.18
 var light_radius := 190.0
 var light_energy := 1.5
-var flicker_chance := FLICKER_CHANCE
+## 閃爍的狀態（LampFlicker：stable 穩定、loose 接觸不良、dying 快壞了）。用 use_flicker() 指定。
+var flicker_state: StringName = LampFlicker.STABLE
+## 量測用：>= 0 時所有會閃的燈固定在「最暗的那一刻」（0）到「正常亮度」（1）之間的這個位置，不再照閃法走。
+static var flicker_hold := -1.0
 ## 亮度脈動頻率（Hz，0 = 不脈動）。
 var pulse_hz := 0.0
 var dead := false
@@ -62,7 +71,14 @@ var _glow: Sprite2D
 ## 供電門檻：供電低於它時這盞燈熄滅（讓停電時各盞燈依序熄滅）。
 var _power_threshold := randf_range(0.1, 0.95)
 var _gate := 1.0
-var _flicker_left := 0.0
+var _pattern := PackedFloat32Array()
+var _pattern_offset := 0
+var _calm_phase := 0.0
+var _buzz := 0.0
+## 進關卡後經過的時間：閃法從它算，所以同一盞燈每次進關卡的閃法相同。
+var _clock := 0.0
+var _flicker := 1.0
+var _casts_shadow := true
 var _time := 0.0
 var _shown_level := -1.0
 
@@ -77,7 +93,6 @@ func apply_style(style: LampStyle, seed_value: int, supports := {}, ordinal := 0
 	color = style.color_for(rng)
 	radius = style.radius
 	energy = style.energy
-	flicker_chance = style.flicker_chance
 	zone_tint = style.fixture_tint
 	pulse_hz = style.pulse_hz
 	dead = rng.randf() < style.dead_chance
@@ -142,6 +157,30 @@ func _hangs_from_arm() -> bool:
 func _stand_on_floor() -> void:
 	if mount() == &"ground" and support_floor_y != INF:
 		position.y = support_floor_y - (_prop.size.y - _prop.light_offset.y)
+
+
+## 指定閃爍的狀態。seed_value 決定用哪一條閃法、從哪一步開始，所以同一盞燈每次進關卡都一樣。
+## 會脈動的警示燈不再疊上閃爍；沒有可用的閃法時維持穩定。
+func use_flicker(state: StringName, seed_value: int) -> void:
+	flicker_state = LampFlicker.STABLE
+	_pattern = PackedFloat32Array()
+	_buzz = 0.0
+	if state == LampFlicker.STABLE or pulse_hz > 0.0 or LampFlicker.pattern_count(state) == 0:
+		return
+	var rng := RandomNumberGenerator.new()
+	rng.seed = seed_value
+	_pattern = LampFlicker.pattern(state, rng.randi_range(0, LampFlicker.pattern_count(state) - 1))
+	_pattern_offset = rng.randi_range(0, _pattern.size() - 1)
+	_calm_phase = rng.randf()
+	_buzz = LampFlicker.buzz(state)
+	flicker_state = state
+
+
+## 這盞燈現在的電流聲（0～1）：只有快壞的燈有；熄滅、停電時沒有，亮起來的瞬間最大聲。
+func buzz_level() -> float:
+	if _buzz <= 0.0 or dead or _light == null or not _light.enabled:
+		return 0.0
+	return _buzz * clampf(BUZZ_IDLE + (1.0 - BUZZ_IDLE) * _flicker, 0.0, 1.0)
 
 
 ## 實際用的安裝方式（ceiling、wall、pole、ground）；沒有燈具圖時是空的。
@@ -253,17 +292,32 @@ func _process(delta: float) -> void:
 	var level := light_energy * gate
 	if pulse_hz > 0.0:
 		level *= 0.55 + 0.45 * sin(_time * TAU * pulse_hz)
-	if _flicker_left > 0.0:
-		_flicker_left -= delta
-		_light.energy = level * (0.2 if int(_flicker_left * 30.0) % 2 == 0 else 1.0)
-	elif randf() < flicker_chance:
-		_flicker_left = randf_range(0.1, 0.35)
-	else:
-		_light.energy = level
+	_light.energy = level * _flicker_level(delta)
 	var shown := clampf(_light.energy / maxf(light_energy, 0.01), 0.0, 1.5)
+	if (shown >= SHADOW_FROM) != _casts_shadow:
+		# 亮回來的那一格就恢復投影，光池與影子同時出現；名額由光源預算下一次評估時校正。
+		_casts_shadow = not _casts_shadow
+		_light.set_meta(LightKit.META_WANTS_SHADOW, _casts_shadow)
+		_light.shadow_enabled = _casts_shadow and _light.visible
 	if _shaft != null:
 		_shaft.intensity = shown
 	_show_level(shown)
+
+
+## 這一格的閃爍亮度比例。穩定的燈永遠是 1。
+func _flicker_level(delta: float) -> float:
+	if flicker_state == LampFlicker.STABLE:
+		return 1.0
+	_clock += delta
+	var target: float
+	if flicker_hold >= 0.0:
+		target = lerpf(LampFlicker.darkest(flicker_state), 1.0, flicker_hold)
+	elif LampFlicker.reduced():
+		target = LampFlicker.calm_level(flicker_state, _clock, _calm_phase)
+	else:
+		target = LampFlicker.level_at(_pattern, _clock, _pattern_offset)
+	_flicker = move_toward(_flicker, target, delta * FLICKER_SLEW)
+	return _flicker
 
 
 ## 燈具的發光部位與本體跟著實際亮度變化（0＝熄滅）。數值沒變就不動。

@@ -160,6 +160,15 @@ CC0 庫找不到的道具（吊車、龍門吊、控制台、堆高機、閘門�
 - 看結果：`godot --path . res://tools/lamp_gallery.tscn -- --out=<絕對資料夾>` 拍每一款亮與熄滅（含掛桿子的樣子，旁邊的白條是主角身高）；`tools/scene_tour.tscn` 拍實景；`tools/light_pool_probe.tscn` 量光池。
 - 踩過的坑：燈具要畫在擺設那一層（`WorldLayers.PROPS`），預覽工具的牆也要放在背牆層，否則燈具被牆蓋住只看得到光；冷白的燈照在紅磚牆上看起來很暗（紅牆不反射藍綠光），紅牆的區域以暖色款式為主；發光層疊加強度太高會把整個燈具糊成一團白，維持在 1.2 左右。
 
+### 閃爍的燈與供電狀況（BG-35）
+
+- 燈的狀態（穩定、接觸不良 `loose`、快壞了 `dying`）與閃法在 `data/environment/lamp_flicker.json`：閃法是一串字母，一個字母 0.1 秒，`a` 全暗、`m` 正常亮度。改完跑 `python tools/assets/lamp_flicker_patterns.py --show`。**任何一秒內亮度明顯變化不能超過 3 次**（光敏安全），超過的閃法遊戲載入時不採用並記錄；所以「暗、亮、暗」之後要接一秒以上不變。
+- 區域要不要閃由燈風格的 `supply` 決定（`stable`、`worn`、`low`；資料裡的 `cycle` 是亮著的燈依序輪到的狀態）。新的電力不足區域（下水道、機房）只要在該區的光影設定填 `supply = &"low"`。
+- 設定的「減少閃光」打開時改用 `calm`（緩慢起伏，一個來回至少 2 秒）。新增任何會閃的東西都要有這條退路。
+- 快壞的燈的電流聲是音效 `lamp_buzz`（整關共用一個聲道，跟著最近的那盞）。
+- 驗證：`godot --path . res://tools/lamp_flicker_probe.tscn -- --out=<絕對資料夾> --level=<關卡> [--reduce-flashes]` 連拍並統計；`tools/ch1_readability_check.tscn -- --lamps=dim` 在燈最暗時量可讀性。
+- 踩過的坑：量測工具的視窗會吃到鍵盤與滑鼠，使用者同時在玩遊戲時主角會被移動，工具會回報「取樣無效」，重跑即可；讀設定不要每盞燈每影格讀，接設定改變的訊號後重讀一次。
+
 ## 9. 場景包：每個場景的背景與專屬物件（BG-11）
 
 大綱（`design/13-story-v2/OUTLINE.md` 第 5 節）的每個場景有一張背景圖與一包專屬物件，放在共用道具庫之外：

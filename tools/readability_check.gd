@@ -54,6 +54,9 @@ func _run() -> void:
 	var only := ""
 	var original_quality := Settings.get_light_quality()  # 量測會暫時改設定檔裡的光影品質，結束時還原
 	for arg in OS.get_cmdline_user_args():
+		if arg == "--lamps=dim":
+			# 電力不足的區域：在會閃的燈最暗的那一刻量（BG-35），看靠主角自己的光還看不看得到。
+			Lamp.flicker_hold = 0.0
 		if arg.begins_with("--quality="):
 			Settings.set_light_quality({"low": LightQuality.Tier.LOW, "medium": LightQuality.Tier.MEDIUM, "high": LightQuality.Tier.HIGH}.get(arg.trim_prefix("--quality="), LightQuality.Tier.HIGH))
 		if arg.begins_with("--level="):

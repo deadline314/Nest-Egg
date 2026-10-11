@@ -9,9 +9,10 @@ colors = PackedColorArray(1.0,0.66,0.28,1)
 energy = 1.5
 radius = 215.0
 flicker_chance = 0.012
-dead_chance = 0.35
+dead_chance = 0.12
 pulse_hz = 0.0
 fixtures = PackedStringArray("highbay_pendant", "tube_batten", "cage_worklight", "bulkhead_wall", "hazard_strobe")
+supply = &"low"
 
 [resource]
 script = ExtResource("1_script")

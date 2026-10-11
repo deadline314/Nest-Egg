@@ -1,0 +1,63 @@
+{
+ "_說明": "場景燈的閃法（BG-35）。states＝燈的狀態：loose 接觸不良（多半亮著，偶爾暗一下或連閃兩下）、dying 快壞了（多半是暗的，偶爾亮起來）；沒列的 stable 是穩定。patterns＝閃法，一個字母一步、每秒 step_hz 步，a 全暗、m 正常亮度、z 約兩倍（Quake 的寫法）；同一盞燈每次進關卡用同一條、從同一個位置開始。calm＝設定的「減少閃光」打開時改用的緩慢明暗起伏（low～high、一個來回 period 秒）。buzz＝電流聲的音量比例（0＝沒有聲音）。supply＝區域的供電狀況：cycle 是這一區亮著的燈依序輪到的狀態（比例就是清單裡各狀態的數量）；區段燈風格的 supply 欄位填這裡的名字。光敏安全：任何一秒內亮度變化達 change_threshold 以上的次數不能超過 max_changes_per_second（3 是上限），載入時與 python tools/assets/lamp_flicker_patterns.py 都會檢查。",
+ "step_hz": 10,
+ "max_changes_per_second": 3,
+ "change_threshold": 0.2,
+ "states": {
+  "loose": {
+   "patterns": [
+    "mmmmmmmmmmmmmmmmmmmmmmmdmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmcmcccccccccmmmmmmmmmmmmmmm",
+    "mmmmmmmmmmmmhmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmeeemmmmmmmmmmmmmmmmmmgmmmmmmmmmmmmmmm",
+    "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmbbmmmmmmmmmmmfmmmmmmmmmmmmmmmmmmmmdmddddddddddmmmmmmmmmmmmmm"
+   ],
+   "calm": {
+    "low": 0.72,
+    "high": 1.0,
+    "period": 4.5
+   },
+   "buzz": 0.0
+  },
+  "dying": {
+   "patterns": [
+    "bbbbbbbbbbbbbbbbbbbbbbbbbbkbbbbbbbbbbbbbbbbbbbmmmbbbbbbbbbbbbbbbbbbbbbbbbibbbbbbbbbbbbbbbb",
+    "aaaaaaaaaaaaaajjaaaaaaaaaaaaaaaaaaaaaaaaaaaaaakmmmkcccccccccccccccccccchcccccccccccccccccc",
+    "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbnbbbbbbbbbbbbicccccccccccccccccccccccccccccckkbbbbbbbbbbbbbb"
+   ],
+   "calm": {
+    "low": 0.1,
+    "high": 0.42,
+    "period": 6.5
+   },
+   "buzz": 1.0
+  }
+ },
+ "supply": {
+  "stable": {
+   "cycle": [
+    "stable"
+   ]
+  },
+  "worn": {
+   "cycle": [
+    "stable",
+    "stable",
+    "loose",
+    "stable"
+   ]
+  },
+  "low": {
+   "cycle": [
+    "loose",
+    "dying",
+    "stable",
+    "dying",
+    "loose",
+    "dying",
+    "loose",
+    "stable",
+    "dying",
+    "loose"
+   ]
+  }
+ }
+}

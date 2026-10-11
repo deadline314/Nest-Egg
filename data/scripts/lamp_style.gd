@@ -1,14 +1,17 @@
 class_name LampStyle
 extends Resource
-## 場景燈的風格：一個光影區段裡的燈長什麼樣子（顏色、光池大小、會不會閃、有沒有壞掉）。
+## 場景燈的風格：一個光影區段裡的燈長什麼樣子（顏色、光池大小、供電狀況、有沒有壞掉）。
 ## 每盞燈用自己的位置當種子挑顏色與狀態，所以同一關每次進來都一樣。
 
 @export var colors: PackedColorArray = PackedColorArray([Color(0.35, 0.88, 1.0)])
 @export_range(0.0, 4.0, 0.05) var energy: float = 1.5
 ## 光池半徑（像素）。
 @export_range(40.0, 400.0, 5.0) var radius: float = 190.0
-## 每影格開始閃爍的機率（0 = 不閃）。
+## 這一區的燈有多老舊（0～0.2）。沒有指定供電狀況（supply）時，WORN_FROM 以上的區域當成「老舊」：少數的燈接觸不良。
 @export_range(0.0, 0.2, 0.001) var flicker_chance: float = 0.008
+## 供電狀況（LampFlicker 的 supply：stable 穩定、worn 老舊、low 電力不足）。電力不足的區域大部分的燈接觸不良或快壞了。
+## 空的＝依 flicker_chance 決定是穩定還是老舊。
+@export var supply: StringName = &""
 ## 整盞壞掉不亮的比例（0~1）。
 @export_range(0.0, 1.0, 0.05) var dead_chance: float = 0.0
 ## 亮度脈動的頻率（Hz，0 = 不脈動）：警示燈用。
@@ -20,8 +23,21 @@ extends Resource
 @export_range(0.0, 1.0, 0.01) var fixture_tint: float = 0.18
 
 
+## 沒有指定供電狀況時，flicker_chance 多少以上算老舊。
+const WORN_FROM := 0.04
+
+
+## 這一區實際的供電狀況。
+func supply_id() -> StringName:
+	if supply != &"":
+		return supply
+	return &"worn" if flicker_chance >= WORN_FROM else LampFlicker.STABLE
+
+
 func validate() -> PackedStringArray:
 	var problems := PackedStringArray()
+	if supply != &"" and not LampFlicker.has_supply(supply):
+		problems.append("燈的風格用了不存在的供電狀況：%s" % supply)
 	if colors.is_empty():
 		problems.append("燈的風格沒有任何顏色")
 	if energy < 0.0 or radius <= 0.0:

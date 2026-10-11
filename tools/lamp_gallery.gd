@@ -122,7 +122,6 @@ func _add_bay(id: StringName, origin: Vector2, on_pole := false) -> Dictionary:
 	lamp.ceiling_y = origin.y + ceiling_y if mount == &"ceiling" else INF
 	lamp.radius = 120.0
 	lamp.energy = 1.4
-	lamp.flicker_chance = 0.0
 	lamp.zone_tint = 0.0
 	lamp.wall_behind = not on_pole
 	lamp.use_fixture(id, {&"pole": true} if on_pole else {})
