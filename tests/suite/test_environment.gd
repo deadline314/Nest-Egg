@@ -31,6 +31,7 @@ func run() -> void:
 	await _test_enemy_glow()
 	await _test_melee_art()
 	await _test_melee_grip()
+	await _test_soft_whip()
 	_test_import_policy("res://art/environment")
 
 
@@ -1328,6 +1329,105 @@ func _test_melee_grip() -> void:
 	player.loadout.reset(load("res://data/weapons/pistol.tres") as WeaponData)
 	await physics_frames(10)
 	check(not held.visible and not rig.second_hand_on_weapon, "換成槍之後近戰武器收起來，後手不再去握")
+	AimInput.using_gamepad = gamepad_before
+	AimInput._last_stick_dir = stick_before
+	await end_level(level)
+
+
+## 軟鞭（NE-276）：鞭身從頭到尾是同一條在模擬的繩子——整招沒有一格變成直尺、也不會一格跳直；
+## 出招那一刻鞭梢在招式的最遠點附近；彎從握把往鞭梢傳；垂著時不鑽地；收起來再拿出來不會彈；被打斷照樣落下。
+func _test_soft_whip() -> void:
+	var level := await start_level(load("res://data/levels/ch1_warehouse.tres") as LevelData)
+	for node: Node in runner.get_tree().get_nodes_in_group(&"enemies"):
+		node.queue_free()
+	var player := level.player
+	var held := player._visual.melee_held()
+	var gamepad_before := AimInput.using_gamepad
+	var stick_before := AimInput._last_stick_dir
+	AimInput.using_gamepad = true
+	AimInput._last_stick_dir = Vector2.RIGHT
+	var weapon := load("res://data/weapons/melee/melee_whip.tres") as WeaponData
+	player.loadout.reset(weapon)
+	player.facing = 1
+	player.aim_dir = Vector2.RIGHT
+	await physics_frames(90)
+	var whip := held.whip()
+	check(whip != null and whip.is_laid(), "拿著鞭類武器時有一條在模擬的鞭身")
+	if whip == null:
+		await end_level(level)
+		return
+	var floor_y := player.global_position.y
+	var hold := player._visual.melee_hold()
+	check(whip.node(0).distance_to(hold.origin) < 8.0, "鞭身接在握把的出線口上（離掌心 %.1f）" % whip.node(0).distance_to(hold.origin))
+	check(whip.tip().y > hold.origin.y + 6.0 and whip.tip().y <= floor_y + 0.01, "垂著時鞭梢在手的下方、不鑽進地板（鞭梢離地 %.1f）" % (floor_y - whip.tip().y))
+	var still := whip.tip()
+	await physics_frames(20)
+	check(whip.tip().distance_to(still) < 1.5, "站著不動時鞭身靜下來，不一直抖（20 格移動 %.2f）" % whip.tip().distance_to(still))
+	# 甩一下，逐格量。
+	var attack := MeleeData.set_of(weapon).attack("lash")
+	player._melee_cooldown_left = 0.0
+	var straight_max := 0.0
+	var jump_max := 0.0
+	var previous := whip.straightness()
+	var tip_gap := INF
+	var wave_seen := false
+	var below_floor := 0.0
+	var root_gap := 0.0
+	var seen_active := false
+	var bow_min := INF
+	check(player._try_melee(), "甩得出去")
+	for step in 110:
+		await physics_frames(1)
+		var now := whip.straightness()
+		straight_max = maxf(straight_max, now)
+		if player._melee_phase != Player.MeleePhase.NONE:
+			jump_max = maxf(jump_max, now - previous)
+		previous = now
+		hold = player._visual.melee_hold()
+		root_gap = maxf(root_gap, whip.node(0).distance_to(hold.origin))
+		for index in SoftWhip.NODES:
+			below_floor = maxf(below_floor, whip.node(index).y - floor_y)
+		var reach_point := player.global_position + Vector2(0.0, -Player.BODY_SIZE.y * 0.55) + Vector2.RIGHT * float(attack["range"])
+		if player._melee_phase == Player.MeleePhase.ACTIVE:
+			seen_active = true
+			tip_gap = minf(tip_gap, whip.tip().distance_to(reach_point))
+			# 鞭梢到位的這幾格，鞭身離「握把到鞭梢的直線」最遠的那一節有多遠（佔鞭身長度的比例）：是弧，不是直線。
+			var chord := whip.tip() - whip.node(0)
+			var bow := 0.0
+			for index in SoftWhip.NODES:
+				bow = maxf(bow, absf((whip.node(index) - whip.node(0)).cross(chord.normalized())))
+			bow_min = minf(bow_min, bow / maxf(1.0, whip.length()))
+		elif player._melee_phase == Player.MeleePhase.WINDUP:
+			# 甩到一半：靠握把的那幾節已經在握把前面，靠鞭梢的那幾節還在握把後面。
+			var near := whip.node(4).x - whip.node(0).x
+			var far := whip.node(SoftWhip.NODES - 1).x - whip.node(0).x
+			if near > 2.0 and far < -2.0:
+				wave_seen = true
+	check(seen_active and tip_gap <= float(attack["range"]) * 0.15, "出招時鞭梢到了招式的最遠點附近（最近 %.1f，招式距離 %s）" % [tip_gap, attack["range"]])
+	check(straight_max < 0.99, "整招沒有任何一格變成一把尺（最直 %.3f）" % straight_max)
+	check(bow_min >= 0.04, "鞭梢到位的每一格鞭身都是弧形（離直線最遠的一節至少是鞭身長度的 %.3f）" % bow_min)
+	# 甩出去本來就快（前搖只有十個影格），這個數字只是記錄：招式期間每一格最多變直多少。
+	print("SOFT_WHIP straightness max %.3f, largest one-frame straightening during the move %.3f, bow at reach %.3f, tip gap %.1f" % [straight_max, jump_max, bow_min, tip_gap])
+	check(wave_seen, "甩出去時彎從握把往鞭梢傳（握把那端已朝前、鞭梢還在後面）")
+	check(below_floor <= 0.01 and root_gap < 8.0, "整招鞭身不鑽進地板、握把端一直接在手上（低於地面 %.2f、離掌心 %.1f）" % [below_floor, root_gap])
+	check(whip.tip().y > player._visual.melee_hold().origin.y and whip.length() < float(attack["range"]) * 0.6, "收招後鞭身落下、線收回去（長度 %.0f）" % whip.length())
+	# 甩到一半被打斷：鞭身照樣落下，不停在半空。
+	player._melee_cooldown_left = 0.0
+	player._try_melee()
+	await physics_frames(8)
+	player._interrupt_melee()
+	await physics_frames(70)
+	check(whip.tip().y > player._visual.melee_hold().origin.y + 4.0, "甩到一半被打斷，鞭身落下來")
+	# 換武器收起來，再拿出來不會從舊位置彈過來。
+	player.loadout.reset(load("res://data/weapons/pistol.tres") as WeaponData)
+	await physics_frames(6)
+	check(not whip.is_laid(), "換成槍，鞭身收起來")
+	player.global_position.x += 160.0
+	player.loadout.reset(weapon)
+	await physics_frames(3)
+	hold = player._visual.melee_hold()
+	check(whip.is_laid() and whip.tip().distance_to(hold.origin) < float(attack["range"]) * 0.5, "換了位置再拿出來，鞭身在手邊重新垂好（鞭梢離手 %.0f）" % whip.tip().distance_to(hold.origin))
+	player.loadout.reset(load("res://data/weapons/pistol.tres") as WeaponData)
 	AimInput.using_gamepad = gamepad_before
 	AimInput._last_stick_dir = stick_before
 	await end_level(level)

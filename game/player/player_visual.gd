@@ -131,6 +131,9 @@ func on_health_changed(ratio: float, decreased: bool) -> void:
 func notify_melee_swing(trail: Dictionary, swing_facing: int, direction := Vector2.ZERO) -> void:
 	if trail.is_empty():
 		return
+	# 鞭類武器的鞭身自己會甩（NE-276），不再疊一條畫出來的波浪軌跡。
+	if str(trail.get("style", "arc")) == "lash" and _melee_held != null and _melee_held.whip() != null and _melee_held.whip().is_laid():
+		return
 	if _trails.size() >= MeleeData.MAX_TRAILS:
 		_trails.remove_at(0)
 	var base := direction.angle() if direction != Vector2.ZERO else (0.0 if swing_facing > 0 else PI)

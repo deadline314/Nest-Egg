@@ -3,7 +3,7 @@ extends ScenarioBase
 ##
 ## 用法（原生 Forward+）：
 ##   godot --path . res://tools/melee_art_probe.tscn -- --out=<絕對資料夾> [--tag=<標籤>] [--lighting=warehouse_interior]
-##       [--perf] [--quality=low|medium|high]
+##       [--perf] [--weapon=glaive] [--quality=low|medium|high]
 ## 在測試場地（預設套用倉庫的暗光影、槍燈本來就不會亮因為拿的是近戰武器）對五把近戰武器各拍：
 ##   拿在手上的待機一張、連段每一段出招那一刻各一張（真的按出連段，不是手動設定動作進度）。
 ## 另外放一個敵人在刀刃夠得到的地方，量「揮動那一刻」與「沒拿近戰武器」時敵人身上的亮度，確認刃光真的照亮敵人；
@@ -25,12 +25,16 @@ var _tag := "melee"
 var _lighting := "warehouse_interior"
 var _failures := 0
 var _perf_only := false
+var _perf_weapon := "glaive"
 var _quality := ""
 
 const QUALITY := {"low": LightQuality.Tier.LOW, "medium": LightQuality.Tier.MEDIUM, "high": LightQuality.Tier.HIGH}
 const PERF_FRAMES := 45
 const FILM_SHOTS := 8
 const FILM_EVERY := 3
+const WHIP_FILM_SHOTS := 24
+const WHIP_FILM_EVERY := 2
+const WHIP_FILM_ZOOM := 2.2
 const PERF_ROUNDS := 60
 
 
@@ -46,6 +50,8 @@ func _ready() -> void:
 			_quality = argument.trim_prefix("--quality=")
 		elif argument == "--perf":
 			_perf_only = true
+		elif argument.begins_with("--weapon="):
+			_perf_weapon = argument.trim_prefix("--weapon=")
 	if not out_dir.is_absolute_path() or DisplayServer.get_name() == "headless":
 		push_error("[MeleeArtProbe] 需要原生視窗與 --out=<絕對資料夾>")
 		get_tree().quit(2)
@@ -96,7 +102,7 @@ func _run() -> void:
 ## 刃光開與關成對交替量每影格耗時。
 func _perf() -> void:
 	var camera := get_viewport().get_camera_2d()
-	await _arm(load("res://data/weapons/melee/melee_glaive.tres") as WeaponData, camera)
+	await _arm(load("res://data/weapons/melee/melee_%s.tres" % _perf_weapon) as WeaponData, camera)
 	var blade := player.find_child("BladeLight", true, false) as BladeLight
 	if blade == null or blade.energy() <= 0.0:
 		push_error("[MeleeArtProbe] 沒有刃光可量")
@@ -155,11 +161,19 @@ func _film(weapon_id: String, camera: Camera2D) -> Array:
 	var hands: Array = []
 	await clear_enemies()
 	await _arm(weapon, camera)
+	# 鞭子甩得遠、繞過頭頂：鏡頭拉遠一點，拍密一點、久一點（連同收招後落下）。
+	var whip := weapon.melee_shape == "whip"
+	var zoom_before := camera.zoom
+	if whip:
+		camera.zoom = Vector2.ONE * WHIP_FILM_ZOOM
+		camera.global_position = player.global_position + Vector2(60, -50)
+		await settle(4)
 	if not player._try_melee():
+		camera.zoom = zoom_before
 		return hands
 	var rig := player._visual.rig
-	for shot in FILM_SHOTS:
-		for i in FILM_EVERY:
+	for shot in (WHIP_FILM_SHOTS if whip else FILM_SHOTS):
+		for i in (WHIP_FILM_EVERY if whip else FILM_EVERY):
 			await get_tree().physics_frame
 		await get_tree().process_frame
 		# 先記下手的位置、等這一格畫完再存圖：直接存會拿到上一格的畫面，位置對不上。
@@ -170,6 +184,7 @@ func _film(weapon_id: String, camera: Camera2D) -> Array:
 		await RenderingServer.frame_post_draw
 		capture("%s-%s-film-%d" % [_tag, weapon_id, shot + 1])
 	player._interrupt_melee()
+	camera.zoom = zoom_before
 	await settle(20)
 	return hands
 

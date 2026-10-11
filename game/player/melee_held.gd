@@ -8,6 +8,8 @@ extends Node2D
 ## 揮：出招時武器的方向以前臂為準，但不是和前臂綁死——武器的角度用一個有阻尼的彈簧去追目標：
 ##     手臂突然加速時刀尖落在後面（拖曳），手臂停下時多甩過去一點再回來（跟隨）。重的武器彈簧軟、拖得多。
 ## 每把武器的數字在 data/weapon_art/melee.json 的 hold（見 MeleeArt.hold_spec）；沒寫的武器用下面的預設。
+## 鞭類武器（NE-276）：握把照上面的方式握，鞭身是一條一直在模擬的軟繩（SoftWhip），從握把的出線口接出去；
+##     出招時不換畫法，只給鞭梢一個沿著招式路徑走的目標點去拉它。
 ##
 ## 只管看得到的樣子：招式打得到的距離、判定與時間照招式資料，和這裡無關。
 
@@ -19,6 +21,23 @@ const FLOOR_MARGIN := 1.5
 const SPRING_STEP := 0.25
 ## 進出招式時「拿法」與「跟著前臂」之間的過渡速度（每秒）。
 const BLEND_SPEED := 14.0
+## 鞭身平常放出來的長度佔招式距離的比例（其餘收在握把裡）；出招時放到「要打的距離」的幾倍（多出來的是鬆弛，到位時中段仍有弧度）。
+const WHIP_IDLE_SHARE := 0.3
+## 鞭身發光的上限（鞭身會甩過主角的頭頂，太亮會讓頭部的全白比例超標）。
+const WHIP_GLOW_MAX := 1.3
+const WHIP_SLACK := 1.07
+## 出招時鞭梢的目標點繞一圈的角度（朝右空間，弧度；正的是往下）：從垂著、往後、過頭頂、到前方。
+const WHIP_SWEEP_FROM := PI * 0.5
+const WHIP_SWEEP_TO := TAU
+## 鞭梢的拉力（每個小步往目標靠近的比例）：往後帶時輕、甩出去到出招時重。
+const WHIP_PULL_BACK := 0.08
+const WHIP_PULL_THROW := 0.24
+## 目標點在前搖的這個比例就到達最遠點、之後停在那裡等鞭梢追上（鞭梢要花幾格才到，出招那一刻剛好到位）。
+const WHIP_ARRIVE := 0.75
+## 招式進度裡「往後帶」結束、開始甩出去的時間點（前搖佔 0～0.4，出招 0.4～0.7）。
+const WHIP_THROW_AT := 0.16
+const WHIP_ACTIVE_FROM := 0.4
+const WHIP_ACTIVE_TO := 0.7
 ## 武器本體的明暗：最暗的環境剩幾成亮度、環境光每 1.0 增加多少。
 const SHADE_FLOOR := 0.42
 const SHADE_GAIN := 1.5
@@ -40,6 +59,7 @@ var _origin := Vector2.ZERO
 var _direction := Vector2.RIGHT
 var _reach := -1.0
 var _shown := false
+var _whip: SoftWhip
 
 
 func setup(visual: PlayerVisual) -> void:
@@ -53,6 +73,8 @@ func update(delta: float) -> void:
 	visible = _shown
 	if not _shown:
 		_settled = false
+		if _whip != null:
+			_whip.clear()
 		return
 	var player := _visual.player
 	var rig := _visual.rig
@@ -82,7 +104,49 @@ func update(delta: float) -> void:
 	if _swing_blend < 1.0:
 		_keep_above_floor(player.global_position.y - FLOOR_MARGIN)
 	_direction = Vector2(cos(_angle) * facing, sin(_angle))
+	if weapon.melee_shape == "whip":
+		_step_whip(delta, player, facing)
+	elif _whip != null:
+		_whip.clear()
 	queue_redraw()
+
+
+## 這把武器的軟鞭身（不是鞭類或還沒拿出來時是 null 或還沒垂好）。
+func whip() -> SoftWhip:
+	return _whip
+
+
+## 鞭身的一步：握把釘在出線口；出招時鞭梢的目標點從垂著的位置往後、過頭頂、到招式的最遠點，拉力隨進度加重，收招放開。
+func _step_whip(delta: float, player: Player, facing: int) -> void:
+	if _whip == null:
+		_whip = SoftWhip.new()
+	_whip.floor_y = player.global_position.y - 0.5
+	var nozzle := _origin + _direction * _tip
+	var idle_length := maxf(12.0, _weapon.melee_length * WHIP_IDLE_SHARE)
+	var target := nozzle
+	var pull := 0.0
+	var rope := idle_length
+	var progress := player.melee_pose_progress() if not player.melee_pose().is_empty() else -1.0
+	if progress >= 0.0 and progress < WHIP_ACTIVE_TO:
+		var attack: Dictionary = player._melee_attack
+		var aim: Vector2 = player._melee_direction(attack)
+		var chest := player.global_position + Vector2(0.0, -Player.BODY_SIZE.y * 0.55)
+		var reach_point := chest + aim * float(attack["range"])
+		var full := nozzle.distance_to(reach_point)
+		if progress >= WHIP_ACTIVE_FROM:
+			target = reach_point
+			pull = WHIP_PULL_THROW
+		else:
+			# 目標點繞著握把轉一圈：垂著（朝下）→ 身後 → 頭頂 → 前方；半徑一路放長到要打的距離。
+			var u := progress / WHIP_ACTIVE_FROM
+			var aim_angle := Vector2(aim.x * facing, aim.y).angle()
+			var sweep := lerpf(WHIP_SWEEP_FROM, WHIP_SWEEP_TO + aim_angle, smoothstep(0.0, WHIP_ARRIVE, u))
+			var radius := lerpf(idle_length, full, smoothstep(0.0, WHIP_ARRIVE, u))
+			target = nozzle + Vector2(cos(sweep) * facing, sin(sweep)) * radius
+			pull = WHIP_PULL_BACK if u < WHIP_THROW_AT / WHIP_ACTIVE_FROM else lerpf(WHIP_PULL_BACK, WHIP_PULL_THROW,
+					smoothstep(WHIP_THROW_AT / WHIP_ACTIVE_FROM, 1.0, u))
+		rope = maxf(idle_length, nozzle.distance_to(target) * WHIP_SLACK)
+	_whip.step(delta, nozzle, _direction, rope, target, pull)
 
 
 ## 雙手武器另一隻手要握的地方（世界座標）；單手武器或現在沒有在畫時回傳 false。
@@ -167,4 +231,9 @@ func _draw() -> void:
 	# 武器不受場景光影響：本體的明暗跟著環境光走，暗的區域裡只有發光的刃口是亮的。
 	var shade := clampf(SHADE_FLOOR + LightKit.ambient_luma * SHADE_GAIN, SHADE_FLOOR, 1.0)
 	var inverse := global_transform.affine_inverse()
+	if _weapon.melee_shape == "whip" and _whip != null and _whip.is_laid():
+		# 握把是圖；鞭身不再是一條直線，由軟鞭自己畫。
+		MeleeArt.draw(self, inverse * _origin, inverse.basis_xform(_direction).normalized(), _weapon, glow, shade, 0.01)
+		_whip.draw(self, inverse, _weapon.color, minf(glow, WHIP_GLOW_MAX))
+		return
 	MeleeArt.draw(self, inverse * _origin, inverse.basis_xform(_direction).normalized(), _weapon, glow, shade, _reach)
