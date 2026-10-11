@@ -1,0 +1,786 @@
+{
+  "description": "收帳人·槍手（collector_gunner）的分件規格，由 tools/comfyui/field_spec.py 依姿勢關鍵點產生（功能姿勢來源：自然走姿、四肢分開）。欄位說明同 rin_side.json；做法見 .claude/skills/character-art-pipeline 的「功能姿勢來源與關節處理」。產生後的調整直接改這份檔案。",
+  "id": "collector_gunner",
+  "display_name": "收帳人·槍手",
+  "scale": 1.0,
+  "height": 58.0,
+  "seam": 12,
+  "illustration_px_per_wp": 24.98,
+  "tex_px_per_wp": 20,
+  "ground_y": 1503,
+  "joints": {
+    "hip": [
+      486,
+      742
+    ],
+    "neck": [
+      488,
+      284
+    ],
+    "head": [
+      488,
+      278
+    ],
+    "head_top": [
+      496,
+      54
+    ],
+    "waist": [
+      487,
+      581
+    ],
+    "shoulder": [
+      393,
+      327
+    ],
+    "elbow": [
+      324,
+      541
+    ],
+    "palm": [
+      318,
+      763
+    ],
+    "fingertip": [
+      314,
+      900
+    ],
+    "knee": [
+      634,
+      1029
+    ],
+    "ankle": [
+      731,
+      1388
+    ],
+    "toe": [
+      909,
+      1379
+    ]
+  },
+  "groups": {
+    "arm": {
+      "sam": [],
+      "points": {
+        "pos": [
+          [
+            358,
+            434
+          ],
+          [
+            321,
+            652
+          ],
+          [
+            316,
+            830
+          ]
+        ],
+        "neg": [
+          [
+            488,
+            284
+          ],
+          [
+            706,
+            709
+          ],
+          [
+            634,
+            1029
+          ]
+        ]
+      }
+    },
+    "arm_far": {
+      "sam": [],
+      "points": {
+        "pos": [
+          [
+            662,
+            651
+          ],
+          [
+            739,
+            752
+          ]
+        ],
+        "neg": [
+          [
+            486,
+            742
+          ],
+          [
+            488,
+            284
+          ],
+          [
+            318,
+            763
+          ],
+          [
+            634,
+            1029
+          ]
+        ]
+      }
+    },
+    "leg_far": {
+      "sam": [],
+      "points": {
+        "pos": [
+          [
+            433,
+            967
+          ],
+          [
+            326,
+            1186
+          ],
+          [
+            241,
+            1330
+          ],
+          [
+            270,
+            1400
+          ]
+        ],
+        "neg": [
+          [
+            634,
+            1029
+          ],
+          [
+            731,
+            1388
+          ],
+          [
+            486,
+            742
+          ],
+          [
+            318,
+            763
+          ]
+        ]
+      }
+    },
+    "head": {
+      "sam": [
+        "head"
+      ]
+    },
+    "body": {
+      "sam": [],
+      "rest": true,
+      "complete": {
+        "stage": "P",
+        "occluders": [
+          "arm"
+        ],
+        "near": 260,
+        "trim": 4,
+        "edge_trim": 1,
+        "keep_rim": true,
+        "stage_silhouette": true
+      }
+    }
+  },
+  "parts": {
+    "pelvis": {
+      "group": "body",
+      "from": "waist",
+      "to": "hip",
+      "mode": "upright",
+      "pivot": "hip",
+      "y": [
+        601,
+        730
+      ],
+      "caps": [
+        {
+          "joint": "hip",
+          "radius": 34,
+          "feather": 1.5
+        }
+      ],
+      "uses": [
+        {
+          "name": "pelvis",
+          "bone": "hip",
+          "z": 0
+        }
+      ]
+    },
+    "torso": {
+      "group": "body",
+      "from": "waist",
+      "to": "neck",
+      "mode": "upright",
+      "pivot": "waist",
+      "y": [
+        0,
+        601
+      ],
+      "uses": [
+        {
+          "name": "torso",
+          "bone": "chest",
+          "z": 1
+        }
+      ]
+    },
+    "head": {
+      "group": "head",
+      "from": "head",
+      "to": "head_top",
+      "mode": "upright",
+      "pivot": "head",
+      "uses": [
+        {
+          "name": "head",
+          "bone": "head",
+          "z": 5
+        }
+      ]
+    },
+    "leg_upper": {
+      "group": "body",
+      "from": "hip",
+      "to": "knee",
+      "mode": "bone",
+      "y": [
+        762,
+        1029
+      ],
+      "caps": [
+        {
+          "joint": "hip",
+          "radius": 56,
+          "feather": 10
+        }
+      ],
+      "uses": [
+        {
+          "name": "leg_back_upper",
+          "bone": "leg_back_upper",
+          "z": -5,
+          "tint": 0.8
+        },
+        {
+          "name": "leg_front_upper",
+          "bone": "leg_front_upper",
+          "z": 3
+        }
+      ]
+    },
+    "leg_lower": {
+      "group": "body",
+      "from": "knee",
+      "to": "ankle",
+      "mode": "bone",
+      "y": [
+        1029,
+        1402
+      ],
+      "caps": [
+        {
+          "joint": "ankle",
+          "radius": 22,
+          "feather": 1.5
+        }
+      ],
+      "uses": [
+        {
+          "name": "leg_back_lower",
+          "bone": "leg_back_lower",
+          "z": -5,
+          "tint": 0.8
+        },
+        {
+          "name": "leg_front_lower",
+          "bone": "leg_front_lower",
+          "z": 3
+        }
+      ]
+    },
+    "foot": {
+      "group": "body",
+      "from": "ankle",
+      "to": "toe",
+      "mode": "upright",
+      "pivot": "ankle",
+      "y": [
+        1380,
+        3000
+      ],
+      "caps": [
+        {
+          "joint": "ankle",
+          "radius": 33,
+          "feather": 6
+        }
+      ],
+      "uses": [
+        {
+          "name": "foot_back",
+          "bone": "foot_back",
+          "z": -5,
+          "tint": 0.8
+        },
+        {
+          "name": "foot_front",
+          "bone": "foot_front",
+          "z": 3
+        }
+      ]
+    },
+    "arm_upper": {
+      "group": "arm",
+      "from": "shoulder",
+      "to": "elbow",
+      "mode": "bone",
+      "y": [
+        0,
+        541
+      ],
+      "uses": [
+        {
+          "name": "arm_back_upper",
+          "bone": "arm_back_upper",
+          "z": -7,
+          "tint": 0.8
+        },
+        {
+          "name": "arm_front_upper",
+          "bone": "arm_front_upper",
+          "z": 8
+        }
+      ]
+    },
+    "arm_lower": {
+      "group": "arm",
+      "from": "elbow",
+      "to": "palm",
+      "mode": "bone",
+      "y": [
+        541,
+        763
+      ],
+      "uses": [
+        {
+          "name": "arm_back_lower",
+          "bone": "arm_back_lower",
+          "z": -7,
+          "tint": 0.8
+        },
+        {
+          "name": "arm_front_lower",
+          "bone": "arm_front_lower",
+          "z": 8
+        }
+      ]
+    },
+    "hand": {
+      "group": "arm",
+      "from": "palm",
+      "to": "fingertip",
+      "mode": "hand",
+      "pivot": "palm",
+      "y": [
+        763,
+        3000
+      ],
+      "uses": [
+        {
+          "name": "hand_back",
+          "bone": "hand_back",
+          "z": -6,
+          "tint": 0.8
+        },
+        {
+          "name": "hand_front",
+          "bone": "hand_front",
+          "z": 10
+        }
+      ]
+    }
+  },
+  "glow": {},
+  "bones": [
+    {
+      "name": "hip",
+      "parent": "",
+      "from": "ground_hip"
+    },
+    {
+      "name": "chest",
+      "parent": "hip",
+      "at": "waist"
+    },
+    {
+      "name": "neck",
+      "parent": "chest",
+      "at": "neck"
+    },
+    {
+      "name": "head",
+      "parent": "neck",
+      "at": "head"
+    },
+    {
+      "name": "arm_back_upper",
+      "parent": "chest",
+      "at": "shoulder",
+      "dx": -0.6,
+      "tip": "elbow"
+    },
+    {
+      "name": "arm_back_lower",
+      "parent": "arm_back_upper",
+      "tip": "palm"
+    },
+    {
+      "name": "hand_back",
+      "parent": "arm_back_lower",
+      "tip": "fingertip"
+    },
+    {
+      "name": "arm_front_upper",
+      "parent": "chest",
+      "at": "shoulder",
+      "dx": 0.0,
+      "tip": "elbow"
+    },
+    {
+      "name": "arm_front_lower",
+      "parent": "arm_front_upper",
+      "tip": "palm"
+    },
+    {
+      "name": "hand_front",
+      "parent": "arm_front_lower",
+      "tip": "fingertip"
+    },
+    {
+      "name": "leg_back_upper",
+      "parent": "hip",
+      "at": "hip",
+      "dx": -0.7,
+      "tip": "knee"
+    },
+    {
+      "name": "leg_back_lower",
+      "parent": "leg_back_upper",
+      "tip": "ankle"
+    },
+    {
+      "name": "foot_back",
+      "parent": "leg_back_lower"
+    },
+    {
+      "name": "leg_front_upper",
+      "parent": "hip",
+      "at": "hip",
+      "dx": 0.0,
+      "tip": "knee"
+    },
+    {
+      "name": "leg_front_lower",
+      "parent": "leg_front_upper",
+      "tip": "ankle"
+    },
+    {
+      "name": "foot_front",
+      "parent": "leg_front_lower"
+    }
+  ],
+  "weapon_anchor": {
+    "bone": "chest",
+    "from": "waist",
+    "to": "shoulder",
+    "dx": 0.8,
+    "dy": 0.6,
+    "reach": 10.46
+  },
+  "stages": [
+    {
+      "name": "P",
+      "from": null,
+      "seed": 54,
+      "prompt": "Remove the character's near-side arm entirely, from the shoulder to the fingertips, including its sleeve, its glove and anything it wears, so that a neat round armhole seam is left at the shoulder. No arm and no skin are drawn there. Paint the side of the torso clothing, the belt, the hip and the thigh that were hidden behind the arm, in exactly the same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
+    }
+  ],
+  "refine": {
+    "defringe": {
+      "width": 2
+    },
+    "speckle": 30,
+    "smooth_alpha": {
+      "parts": [
+        "pelvis",
+        "torso",
+        "leg_upper",
+        "leg_lower",
+        "foot",
+        "arm_upper",
+        "arm_lower",
+        "hand"
+      ],
+      "sigma": 1.0
+    },
+    "fill_holes": {
+      "parts": [
+        "pelvis",
+        "torso",
+        "leg_upper",
+        "leg_lower",
+        "foot",
+        "arm_upper",
+        "arm_lower",
+        "hand",
+        "head"
+      ],
+      "max_area": 800
+    },
+    "close_fill": {
+      "parts": [
+        "hand",
+        "foot",
+        "arm_lower",
+        "arm_upper"
+      ],
+      "radius": 4
+    },
+    "inpaint": [
+      {
+        "part": "torso",
+        "poly": [
+          [
+            464,
+            386
+          ],
+          [
+            460,
+            417
+          ],
+          [
+            450,
+            444
+          ],
+          [
+            435,
+            466
+          ],
+          [
+            415,
+            480
+          ],
+          [
+            393,
+            485
+          ],
+          [
+            371,
+            480
+          ],
+          [
+            351,
+            466
+          ],
+          [
+            336,
+            444
+          ],
+          [
+            326,
+            417
+          ],
+          [
+            322,
+            386
+          ],
+          [
+            326,
+            355
+          ],
+          [
+            336,
+            328
+          ],
+          [
+            351,
+            306
+          ],
+          [
+            371,
+            292
+          ],
+          [
+            393,
+            287
+          ],
+          [
+            415,
+            292
+          ],
+          [
+            435,
+            306
+          ],
+          [
+            450,
+            328
+          ],
+          [
+            460,
+            355
+          ]
+        ]
+      }
+    ],
+    "underlap": [
+      {
+        "part": "torso",
+        "under": "head",
+        "poly": [
+          [
+            569,
+            238
+          ],
+          [
+            566,
+            254
+          ],
+          [
+            556,
+            269
+          ],
+          [
+            542,
+            278
+          ],
+          [
+            525,
+            282
+          ],
+          [
+            508,
+            278
+          ],
+          [
+            494,
+            269
+          ],
+          [
+            485,
+            254
+          ],
+          [
+            481,
+            238
+          ],
+          [
+            485,
+            221
+          ],
+          [
+            494,
+            207
+          ],
+          [
+            508,
+            197
+          ],
+          [
+            525,
+            194
+          ],
+          [
+            542,
+            197
+          ],
+          [
+            556,
+            207
+          ],
+          [
+            566,
+            221
+          ]
+        ]
+      },
+      {
+        "part": "torso",
+        "under": "arm_upper",
+        "poly": [
+          [
+            419,
+            327
+          ],
+          [
+            417,
+            337
+          ],
+          [
+            411,
+            345
+          ],
+          [
+            403,
+            351
+          ],
+          [
+            393,
+            353
+          ],
+          [
+            383,
+            351
+          ],
+          [
+            375,
+            345
+          ],
+          [
+            369,
+            337
+          ],
+          [
+            367,
+            327
+          ],
+          [
+            369,
+            317
+          ],
+          [
+            375,
+            309
+          ],
+          [
+            383,
+            303
+          ],
+          [
+            393,
+            301
+          ],
+          [
+            403,
+            303
+          ],
+          [
+            411,
+            309
+          ],
+          [
+            417,
+            317
+          ]
+        ]
+      }
+    ]
+  }
+}

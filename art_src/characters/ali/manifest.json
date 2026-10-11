@@ -112,5 +112,29 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "textures",
+    "seconds": 3.5,
+    "outputs": [
+      "art\\characters\\ali\\character.json",
+      "art\\rigs\\ali.json",
+      "art\\characters\\ali\\parts",
+      "art\\portraits\\ali.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.4,
+    "outputs": [
+      "art\\characters\\ali\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.8,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

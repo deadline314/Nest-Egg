@@ -3,7 +3,8 @@ extends RefCounted
 ## 有界預載：額外持有的貼圖使用 LRU 預算，clear 不釋放場景自己的引用。
 ## 4.7.2 原生 RD 由主線 Pump 逐影格載入；其他後端保留真正背景請求。
 
-const MAX_REQUESTS_PER_CALL := 160
+## 一個區域一次送出的上限。第一章街道有四種各自外觀的敵人（NE-218），連同場景貼圖約 200 張；上限太低時剩下的不會被預載，換區才臨時讀檔。
+const MAX_REQUESTS_PER_CALL := 256
 const MAX_INFLIGHT := 4
 const MAIN_SOFT_BUDGET_US := 2000
 const STRATEGY_THREADED_NATIVE := 0

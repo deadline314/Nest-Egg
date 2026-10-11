@@ -13,6 +13,9 @@ Outputs (in --work):
 How a pixel gets its part: SAM masks give the group (hand, arm, holster, jacket, hair, boot, head, body); groups hidden by
 something in front of them are completed by Qwen (the gap only); limb groups are then cut at the joints (spec.cuts).
 
+groups.<name>.points (NE-218): {"pos": [[x, y], ...], "neg": [[x, y], ...]} picks the group with SAM point prompts instead of (or on top of)
+its text prompts; groups.<name>.rest: true gives it every picture pixel no earlier group took. "sam" may then be an empty list.
+
 parts.<name>.caps (NE-222): [{"joint": "hip", "radius": 80, "feather": 10}] adds the group's pixels inside a disc around a joint to the part,
 on top of its straight cut, and fades the disc's rim over `feather` px. Give it to BOTH parts of a rigid joint (pelvis and thigh at the hip,
 torso and sleeve at the shoulder...): the two discs stay on top of each other at every angle, so the silhouette stays round and closed.
@@ -121,6 +124,24 @@ def cap_alpha(alpha: np.ndarray, straight: np.ndarray, caps: list[tuple[np.ndarr
         keep = np.maximum(keep, np.clip((radius - dist) / max(feather, 1e-6), 0.0, 1.0))
     keep[straight] = 1.0
     return (alpha.astype(np.float32) * keep).round().astype(np.uint8)
+
+
+def ensure_point_masks(image: Path, groups: dict, out_dir: Path, threshold: float = 0.3) -> dict:
+    """SAM point-prompt masks of spec groups.<name>.points = {"pos": [[x, y], ...], "neg": [[x, y], ...]} (pixels of base_rgba.png).
+    A limb a text prompt cannot tell from its twin (near arm / far arm, near leg / far leg) is picked by points on it and on what it is not.
+    Cached per group by the picture and the points (out_dir/points_<name>.png + .json); returns {name: Path}."""
+    result = {}
+    for name, points in groups.items():
+        png, key_json = out_dir / f"points_{name}.png", out_dir / f"points_{name}.json"
+        key = near_leg_key({"pos": points["pos"], "neg": points.get("neg", []), "threshold": threshold}, image)
+        if not (png.exists() and key_json.exists() and json.loads(key_json.read_text(encoding="utf8")).get("key") == key):
+            print(f"SAM 3.1 points {name}:", points["pos"], points.get("neg", []))
+            key_json.unlink(missing_ok=True)  # a failed run must not leave a valid key beside an old mask
+            segment_points(str(image), str(out_dir), {f"points_{name}": {"pos": [tuple(q) for q in points["pos"]], "neg": [tuple(q) for q in points.get("neg", [])]}},
+                           threshold=threshold)
+            key_json.write_text(json.dumps({"key": key}), encoding="utf8")
+        result[name] = png
+    return result
 
 
 def near_leg_key(cfg: dict, image: Path) -> str:
@@ -263,6 +284,8 @@ def main() -> None:
     write_grey_composite(rgba, grey)
     base_masks = ensure_text_masks(grey, prompts, sam_dir, "base")
     M = {p: (np.array(Image.open(base_masks[p]).convert("L").resize((W, H))) > 127) & alpha for p in prompts}
+    point_masks = ensure_point_masks(grey, {name: g["points"] for name, g in spec["groups"].items() if "points" in g}, sam_dir)
+    PM = {name: (np.array(Image.open(path).convert("L").resize((W, H))) > 127) & alpha for name, path in point_masks.items()}
 
     # ---- visible group masks (first group in spec order wins) -------------------------------------------------
     order = list(spec["groups"].keys())
@@ -273,6 +296,13 @@ def main() -> None:
         m = np.zeros((H, W), bool)
         for p in g["sam"]:
             m |= M[p]
+        if name in PM:
+            m |= PM[name]
+        if g.get("rest"):
+            # Everything no earlier group took: the body of a figure whose limbs were picked by points. A mask stops a few pixels short of
+            # its limb's ink outline; taken as "rest", those outlines hang off the body as stray thin lines (they go to the nearest group
+            # below instead, i.e. back to their limb).
+            m = alpha & ~dilate(taken, g.get("rest_gap", 6))
         if "outline" in g:
             reviewed = np.zeros((H, W), np.uint8)
             cv2.fillPoly(reviewed, [np.array(g["outline"], np.int32)], 1)

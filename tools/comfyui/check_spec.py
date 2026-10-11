@@ -100,8 +100,8 @@ def check(recipe: dict, spec: dict, need_joints: bool) -> tuple[list[str], list[
             err(f"spec.stages[{i}].from", f"unknown stage '{s['from']}'")
     for gname, g in spec["groups"].items():
         where = f"spec.groups.{gname}"
-        if not g.get("sam"):
-            err(f"{where}.sam", "needs at least one SAM text prompt")
+        if not g.get("sam") and "points" not in g and not g.get("rest") and "outline" not in g:
+            err(f"{where}.sam", "needs at least one SAM text prompt (or points / outline / rest)")
         if "outline" in g:
             polygon(f"{where}.outline", g["outline"])
         c = g.get("complete")

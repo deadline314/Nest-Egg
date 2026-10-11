@@ -2,7 +2,7 @@
   "id": "ali",
   "display_name": "阿梨",
   "rig": "res://art/rigs/ali.json",
-  "texture_scale": 0.0365,
+  "texture_scale": 0.05,
   "scale": 1.0,
   "eye_states": {
     "part": "head",
@@ -15,168 +15,168 @@
     "pelvis": {
       "file": "parts/pelvis.png",
       "size": [
-        233,
-        199
+        172,
+        146
       ],
       "pivot": [
-        109.0,
-        133.0
+        80.85,
+        97.93
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "torso": {
       "file": "parts/torso.png",
       "size": [
-        236,
-        444
+        175,
+        326
       ],
       "pivot": [
-        106.0,
-        412.0
+        78.66,
+        302.01
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "apron_band": {
       "file": "parts/apron_band.png",
       "size": [
-        250,
-        197
+        184,
+        146
       ],
       "pivot": [
-        118.0,
-        169.0
+        86.85,
+        124.93
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "apron": {
       "file": "parts/apron.png",
       "size": [
-        279,
-        374
+        206,
+        275
       ],
       "pivot": [
-        138.31,
-        23.19
+        102.15,
+        17.62
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "towel": {
       "file": "parts/towel.png",
       "size": [
-        81,
-        219
+        61,
+        162
       ],
       "pivot": [
-        86.0,
-        156.0
+        63.85,
+        114.93
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "head": {
       "file": "parts/head.png",
       "size": [
-        244,
-        243
+        180,
+        179
       ],
       "pivot": [
-        123.0,
-        217.0
+        90.61,
+        159.45
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "leg_upper": {
       "file": "parts/leg_upper.png",
       "size": [
-        219,
-        346
+        162,
+        254
       ],
       "pivot": [
-        105.93,
-        -9.09
+        78.56,
+        -5.95
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "leg_lower": {
       "file": "parts/leg_lower.png",
       "size": [
-        191,
-        415
+        142,
+        304
       ],
       "pivot": [
-        89.08,
-        12.25
+        66.27,
+        9.56
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "foot": {
       "file": "parts/foot.png",
       "size": [
-        221,
-        139
+        164,
+        103
       ],
       "pivot": [
-        39.0,
-        45.0
+        29.74,
+        33.52
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "arm_upper": {
       "file": "parts/arm_upper.png",
       "size": [
-        130,
-        282
+        97,
+        208
       ],
       "pivot": [
-        50.0,
-        44.85
+        37.98,
+        33.68
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "arm_lower": {
       "file": "parts/arm_lower.png",
       "size": [
-        66,
-        260
+        51,
+        192
       ],
       "pivot": [
-        32.83,
-        12.09
+        25.47,
+        9.51
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "hand": {
       "file": "parts/hand.png",
       "size": [
-        136,
-        82
+        102,
+        62
       ],
       "pivot": [
-        16.23,
-        44.45
+        12.67,
+        33.2
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "head_half": {
       "file": "parts/head_half.png",
       "size": [
-        244,
-        243
+        180,
+        179
       ],
       "pivot": [
-        123.0,
-        217.0
+        90.61,
+        159.45
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "head_closed": {
       "file": "parts/head_closed.png",
       "size": [
-        244,
-        243
+        180,
+        179
       ],
       "pivot": [
-        123.0,
-        217.0
+        90.61,
+        159.45
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     }
