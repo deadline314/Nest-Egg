@@ -9,6 +9,7 @@ const LEVEL_PATH := "res://data/levels/level_01.tres"
 var _out_dir := "user://screenshots"
 var _scenario := "all"
 ## --brightness=0..1：拍攝時暫時調整亮度設定（看材質細節用；結束後還原）。-1 代表不動。
+## --hurtboxes：畫出敵人的部位受擊框（核對判定與畫面是否對齊）。
 var _brightness := -1.0
 var _legacy_exposure := false
 var _scripted_aim_actor: WeakRef
@@ -50,6 +51,8 @@ func _ready() -> void:
 			_legacy_exposure = true  # 修正前的曝光設定：玩家的光固定 0.75、泛光不限亮度（NE-213 修前畫面）
 		elif arg == "--rigid":
 			CharacterRig.force_rigid_limbs = true  # 角色維持剛體零件（NE-204 修前畫面）
+		elif arg == "--hurtboxes":
+			Enemy.debug_hurtboxes = true  # 開發檢查：畫出敵人的部位受擊框（黃＝弱點、青＝一般部位）
 	DirAccess.make_dir_recursive_absolute(_out_dir)
 	_run.call_deferred()
 

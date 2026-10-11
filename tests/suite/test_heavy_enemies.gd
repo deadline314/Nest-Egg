@@ -373,6 +373,13 @@ static func _visual_rect(node: CanvasItem) -> Rect2:
 
 
 static func _head_center(enemy: Enemy) -> Vector2:
+	if enemy.rig == null:
+		# 零件式外觀：頭零件關節底下的第一張圖。
+		var joint := enemy.creature.joint_of("head") if enemy.creature != null else null
+		for child: Node in (joint.get_children() if joint != null else []):
+			if child is Sprite2D:
+				return _visual_rect(child as CanvasItem).get_center()
+		return Vector2.INF
 	for node: Node in enemy.rig.find_children("head", "CanvasItem", true, false):
 		if not (node is Bone2D):
 			var rect := _visual_rect(node as CanvasItem)
@@ -389,6 +396,7 @@ func _freeze_facing(enemy: Enemy, side: int) -> void:
 	enemy._rig_input.aim_dir = Vector2(side, 0)
 	if enemy.rig != null:
 		enemy.rig.animate(1.0 / 60.0, enemy._rig_input)
+	enemy._drive_creature(1.0 / 60.0)
 	enemy._update_hurt_parts()
 	enemy.set_physics_process(false)
 	await physics_frames(2)
@@ -424,18 +432,18 @@ func _open_watchdog_head(dog: PatternBoss) -> void:
 	await physics_frames(2)
 
 
-## 所有骨架敵人：畫面上的頭（零件中心）都落在整體或部位受擊框內，兩個面向都一樣；不能有「看得到打不到」的頭。
+## 所有骨架與零件式敵人：畫面上的頭（零件中心）都落在整體或部位受擊框內，兩個面向都一樣；不能有「看得到打不到」的頭。
 func _test_visible_heads_are_hittable() -> void:
 	await open_level(10.0)
 	for file in DirAccess.get_files_at("res://data/enemies"):
 		if not file.ends_with(".tres"):
 			continue
 		var data := load("res://data/enemies/" + file) as EnemyData
-		if data == null or data.rig_skin.is_empty():
+		if data == null or (data.rig_skin.is_empty() and data.creature_skin.is_empty()):
 			continue
 		var enemy := spawn("res://data/enemies/" + file, 40.0)
 		await physics_frames(2)
-		if enemy.rig == null or not enemy.rig.has_bone(&"head"):
+		if enemy.anchor_node(&"head") == null:
 			enemy.queue_free()
 			continue
 		for side: int in [-1, 1]:
@@ -457,17 +465,19 @@ func _test_watchdog_head_shot() -> void:
 	var dog := spawn(WATCHDOG_PATH, 45.0)
 	await physics_frames(2)
 	var base_damage := (load(PISTOL_SHOT_PATH) as ProjectileSpec).damage
-	# 平常頭部感測器有裝甲：打到算頭部、被擋下彈開；抬頭吠叫時打開，算頭部弱點命中。兩個面向、左右兩側都一樣。
+	# 平常頭部感測器有裝甲：打到算頭部、被擋下彈開；抬頭吠叫時打開，算頭部弱點命中。兩個面向、前後兩側都一樣。
+	# 從正面水平射；從背後要從高處往下射，越過背上的砲塔（水平從背後射，砲塔先擋住是正確的遮擋）。
 	for side: int in [-1, 1]:
 		for from: int in [-1, 1]:
 			await _freeze_facing(dog, side)
 			var head := _head_center(dog)
-			var hits := await _shot(dog, head + Vector2(from * 140.0, 0), head)
+			var lift := 0.0 if from == side else -70.0
+			var hits := await _shot(dog, head + Vector2(from * 140.0, lift), head)
 			check(hits.size() == 1 and hits[0][0] == &"blocked" and hits[0][1] == &"head",
 					"a shot at the watchdog's drawn head registers on the armoured head (facing %d, from %d): %s" % [side, from, hits])
 			await _open_watchdog_head(dog as PatternBoss)
 			head = _head_center(dog)
-			hits = await _shot(dog, head + Vector2(from * 140.0, 0), head)
+			hits = await _shot(dog, head + Vector2(from * 140.0, lift), head)
 			check(hits.size() == 1 and hits[0][0] == &"head" and hits[0][2] and hits[0][1] > roundi(base_damage),
 					"while it raises its head to bark, a head shot is a weak hit (facing %d, from %d): %s" % [side, from, hits])
 			dog.fsm.transition(&"idle")
@@ -492,11 +502,11 @@ func _test_watchdog_head_shot() -> void:
 	var body := dog.hurtbox.center() + Vector2(0, 12)
 	var body_hits := await _shot(dog, body + Vector2(-140, 0), body)
 	check(body_hits.size() == 1 and body_hits[0][0] == &"blocked" and body_hits[0][1] == &"", "the armoured body deflects a body shot: %s" % [body_hits])
-	# 真正的玩家：站在牠背後的地上，斜向上瞄準抬起的頭開一槍（從正面打，舉著的槍臂會先擋住，那是正確的遮擋）。
+	# 真正的玩家：站在牠前方的地上，斜向上瞄準抬起的頭開一槍（從背後打，背上的砲塔會先擋住，那是正確的遮擋）。
 	await _freeze_facing(dog, -1)
 	await _open_watchdog_head(dog as PatternBoss)
 	var player := level.player
-	place_player(dog.global_position.x / 16.0 + 9.0)
+	place_player(dog.global_position.x / 16.0 - 9.0)
 	player.set_physics_process(false)
 	await physics_frames(2)
 	var head := _head_center(dog)

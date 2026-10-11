@@ -247,8 +247,8 @@ func _build_hurt_parts() -> void:
 			push_error("[Enemy] %s 的 hurt_parts 有無效的部位（id、size、mult）：%s" % [data.id, def])
 			continue
 		var bone := StringName(str(def.get("bone", "")))
-		if bone != &"" and (rig == null or not rig.has_bone(bone)):
-			push_warning("[Enemy] %s 的部位 %s 找不到骨頭 %s，改用固定位置。" % [data.id, id, bone])
+		if bone != &"" and anchor_node(bone) == null:
+			push_warning("[Enemy] %s 的部位 %s 找不到骨頭或零件 %s，改用固定位置。" % [data.id, id, bone])
 			bone = &""
 		var offset := Vector2(def.get("offset", Vector2.ZERO))
 		var part := hurtbox.add_part(id, size, offset, mult)
@@ -261,9 +261,21 @@ func _update_hurt_parts() -> void:
 		var bone: StringName = entry["bone"]
 		if bone == &"":
 			continue
+		var anchor := anchor_node(bone)
+		if anchor == null:
+			continue
 		var offset: Vector2 = entry["offset"]
-		var at := rig.bone(bone).global_position - global_position + Vector2(offset.x * facing, offset.y)
+		var at := anchor.global_position - global_position + Vector2(offset.x * facing, offset.y)
 		hurtbox.move_part(entry["box"], at)
+
+
+## 部位或特效的掛點：骨架外觀找同名骨頭，零件式外觀找同名零件的關節；都沒有回傳 null。
+func anchor_node(name_id: StringName) -> Node2D:
+	if rig != null:
+		return rig.bone(name_id) if rig.has_bone(name_id) else null
+	if creature != null:
+		return creature.joint_of(String(name_id))
+	return null
 
 
 func _build_rig() -> void:
@@ -549,6 +561,8 @@ func _draw_hurtbox_debug() -> void:
 		return
 	for entry in _parts:
 		var box: Hurtbox = entry["box"]
+		if not box.enabled:
+			continue  # 現在不存在的部位（例如打壞脫落的砲塔）不畫，免得看起來還打得到
 		var size: Vector2 = entry["size"]
 		var mult: float = entry["mult"]
 		draw_rect(Rect2(box.shape_offset() - size * 0.5, size), Color(1.0, 0.9, 0.2, 0.9) if mult > 1.0 else Color(0.2, 1.0, 0.9, 0.9), false, 1.0)
