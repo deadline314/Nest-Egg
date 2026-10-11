@@ -595,13 +595,17 @@ func _spawn_props() -> void:
 		if not issue.is_empty():
 			push_warning("[Level] %s 道具 %s 第 %d 欄支撐無效（%s），已略過" % [data.id, prop.id, int(entry["x"]), issue])
 			continue
-		_place_prop(prop, rect.position, bool(placed["flip"]))
+		var node := _place_prop(prop, rect.position, bool(placed["flip"]))
+		# 依劇情旗標換樣子的擺設（NE-240）：地圖的道具項目寫 "react": "<反應 id>"。
+		if entry.has("react"):
+			PropReaction.attach(node, str(entry["react"]), prop.size, bool(placed["flip"]))
 
 
-func _place_prop(prop: PropData, top_left: Vector2, flip: bool) -> void:
+func _place_prop(prop: PropData, top_left: Vector2, flip: bool) -> PropNode:
 	var node := PropNode.new()
 	node.setup(prop, top_left, flip)
 	_world.add_child(node)
+	return node
 
 
 func _prop_dirs() -> PackedStringArray:

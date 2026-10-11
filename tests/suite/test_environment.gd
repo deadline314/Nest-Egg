@@ -25,6 +25,7 @@ func run() -> void:
 	await _test_contact_shadow()
 	_test_fixture_art()
 	await _test_training_art()
+	await _test_prop_reaction()
 	await _test_local_drip()
 	await _test_lamp_fixtures()
 	await _test_lamp_flicker()
@@ -671,6 +672,52 @@ func _test_training_art() -> void:
 			"a kind without art returns null so the station keeps its simple drawing")
 	holder.queue_free()
 	TrainingArt.clear_cache()
+
+
+## 擺設依劇情旗標換樣子（NE-240）：交接櫃的燈依交盤進度換色；玩家在場時回執才一格一格送出來，
+## 進關卡時旗標已成立就直接是結果、不重播；回執被拿走就不見；不存在的反應回傳 null，擺設照常。
+func _test_prop_reaction() -> void:
+	PropReaction.clear_cache()
+	var delivered := &"ch1_disk_delivered"
+	var taken := &"ch1_disk_receipt_taken"
+	var had_delivered := GameState.has_flag(delivered)
+	var had_taken := GameState.has_flag(taken)
+	GameState.set_flag(delivered, false, false)
+	GameState.set_flag(taken, false, false)
+	var holder := Node2D.new()
+	runner.add_child(holder)
+	var size := Vector2(19.5, 57.0)
+	var reaction := PropReaction.attach(holder, "handoff_cabinet", size)
+	check(reaction != null, "the handoff cabinet reaction is defined")
+	if reaction != null:
+		await runner.get_tree().process_frame
+		var waiting := reaction._lamp_color()
+		check(waiting.b > waiting.r and not reaction._paper_shown and reaction.is_processing(),
+				"before the hand-in the cabinet lamp is blue and breathing, with no paper")
+		check(Rect2(Vector2.ZERO, size).has_point(reaction._lamp_at) and Rect2(Vector2.ZERO, size).has_point(reaction._paper_at),
+				"the lamp and the paper slot sit on the cabinet")
+		GameState.set_flag(delivered, true, false)
+		check(reaction._paper_shown and reaction._paper_progress == 0.0 and reaction._lamp_color().r > reaction._lamp_color().b,
+				"handing the disk in while the player is there starts feeding the receipt and turns the lamp amber")
+		for i in 240:
+			if reaction._paper_progress >= 1.0:
+				break
+			await runner.get_tree().process_frame
+		check(reaction._paper_progress >= 1.0 and not reaction.is_processing(), "the receipt finishes feeding and the cabinet stops updating")
+		GameState.set_flag(taken, true, false)
+		check(not reaction._paper_shown and reaction._lamp_color().g > reaction._lamp_color().r, "taking the receipt removes the paper and turns the lamp green")
+		GameState.set_flag(taken, false, false)
+		var reentered := PropReaction.attach(holder, "handoff_cabinet", size)
+		await runner.get_tree().process_frame
+		check(reentered._paper_shown and reentered._paper_progress >= 1.0 and not reentered.is_processing(),
+				"entering the area after the hand-in shows the receipt already out, without replaying the feed")
+		var mirrored := PropReaction.attach(holder, "handoff_cabinet", size, true)
+		check(is_equal_approx(mirrored._lamp_at.x, size.x - reaction._lamp_at.x), "a mirrored prop mirrors the lamp position")
+	check(PropReaction.attach(holder, "test_missing_prop_reaction", size) == null, "an unknown reaction returns null and leaves the prop alone")
+	holder.queue_free()
+	GameState.set_flag(delivered, had_delivered, false)
+	GameState.set_flag(taken, had_taken, false)
+	PropReaction.clear_cache()
 
 
 ## 滴水（BG-25）：出水口在承接面上方才有效；水滴由上往下、越落越快，落到水面後濺開再等下一滴；

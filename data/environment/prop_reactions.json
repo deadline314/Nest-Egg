@@ -1,0 +1,41 @@
+{
+ "_doc": "擺設依劇情旗標換樣子（NE-240），欄位說明見 game/level/environment/prop_reaction.gd。at 是在擺設圖上的比例位置（左上 0,0、右下 1,1）；color 是 #rrggbb；pulse 是燈緩慢起伏一個來回的秒數（0＝恆亮）。",
+ "handoff_cabinet": {
+  "lamp": {
+   "at": [
+    0.5,
+    0.015
+   ],
+   "radius": 1.6,
+   "light_radius": 60,
+   "light_energy": 0.3,
+   "states": [
+    {
+     "color": "#3f9dff",
+     "pulse": 1.8
+    },
+    {
+     "flag": "ch1_disk_delivered",
+     "color": "#ffb23f",
+     "pulse": 0
+    },
+    {
+     "flag": "ch1_disk_receipt_taken",
+     "color": "#52d98c",
+     "pulse": 0
+    }
+   ]
+  },
+  "paper": {
+   "at": [
+    0.9,
+    0.675
+   ],
+   "width": 3.6,
+   "length": 8.0,
+   "feed_seconds": 1.1,
+   "show_flag": "ch1_disk_delivered",
+   "hide_flag": "ch1_disk_receipt_taken"
+  }
+ }
+}

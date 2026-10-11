@@ -28,7 +28,7 @@
     ]
   ],
   "props": [
-    {"id": "clinic__report_cabinet", "x": 18, "ground": true},
+    {"id": "clinic__report_cabinet", "x": 18, "react": "handoff_cabinet", "ground": true},
     {"id": "clinic__waiting_chairs", "x": 25, "ground": true},
     {"id": "clinic__quote_plaque", "x": 26, "y": 14, "support": "wall"},
     {"id": "harbor_street__restore_queue_sign", "x": 39, "ground": true},

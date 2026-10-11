@@ -981,7 +981,8 @@ def build_handoff():
     a.stand(6, '↳')
     a.trigger(10, 'ch1_b_handoff')
     a.stand(18, '⌑')
-    a.prop('clinic__report_cabinet', 18)
+    # 交接櫃跟著交盤的進度換樣子（NE-240）：藍燈等收件 → 收到盤、吐出回執 → 回執被拿走後亮綠燈。
+    a.prop('clinic__report_cabinet', 18, react='handoff_cabinet')
     a.stand(44, '↦')
     a.ceiling(14, 46, 4)
     a.lamp(18, 14)
