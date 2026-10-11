@@ -948,13 +948,25 @@ def build_prologue():
     a.stand(68, 'ⓑ')
     a.put(65, 14, '◉')
     a.prop('pawnshop_front__leak_bucket', 53)
+    # 射擊線的佈置（BG-20）：每件都對得上「老 K 在店後試當進來的槍」——試貨桌在射擊線、舊靶紙掛牆、
+    # 擋彈牆在低靶後面；全部在主角站位之後或牆上，不擋瞄準。
+    a.prop('floor_marking', 45)
+    a.prop('pawnshop_front__range_bench', 47)
+    a.prop('pawnshop_front__range_target_rack', 50, y=14, support='wall')
+    a.prop('pawnshop_front__range_backstop', 60)
     # 訓練器區：橡膠靶、訓練器、衝刺線
     a.stand(72, '④')
     a.stand(79, 'Ⓓ')
     a.stand(90, 'Ⓣ')
     a.stand(103, 'Ⓛ')
+    a.prop('pawnshop_front__range_tally_board', 74, y=14, support='wall')
+    a.prop('pawnshop_front__tire_stack', 82)
+    a.prop('pawnshop_front__trainer_power_cart', 94)
+    a.prop('floor_marking', 101)
     a.prop('pawnshop_front__crate_pile', 112)
-    for x in (24, 36, 56, 88, 106):
+    # 燈跟著要看的東西走：每一站上方一盞（射擊線、靶與擋彈牆、橡膠靶、訓練器、衝刺線）。原本橡膠靶落在兩盞燈
+    # 中間最暗的地方，只剩一塊黑影；一盞燈放在橡膠靶與訓練器中間則兩邊都照不亮。
+    for x in (24, 36, 49, 60, 79, 91, 106):
         a.lamp(x, 11)
     a.zone(0, 'rooftop')
     a.zone(13, 'pawnshop_warm', 6)
@@ -973,6 +985,13 @@ def build_handoff():
     a.stand(44, '↦')
     a.ceiling(14, 46, 4)
     a.lamp(18, 14)
+    # 復原館門口（BG-20）：原本櫃子到門之間 26 格全空，也看不出那扇門是復原館。候診椅、排隊牌與牆牌
+    # 都是復原館自己的東西；門邊補一盞燈，門才不會消失在暗處。
+    a.prop('clinic__waiting_chairs', 25)
+    a.prop('clinic__quote_plaque', 26, y=14, support='wall')
+    a.prop('harbor_street__restore_queue_sign', 39)
+    a.prop('harbor_street__umbrella_stand', 42)
+    a.lamp(36, 14)
     a.zone(0, 'market')
     a.features = {'landmark': '藍燈交接櫃（x=18）：雨棚下唯一亮著的櫃子，旁邊是復原館的門'}
     return a
@@ -1233,7 +1252,7 @@ THEMES = {
     'vault': ('concrete', ['warehouse'], 'hangar_wall', 0.0, 'sky_storm', ['dock_warehouse']),
     'lounge': ('facility_floor', ['facility_wall'], 'facility_panel', 0.0, 'sky_storm', ['revival_lounge']),
     'prologue': ('concrete', ['shopfront', 'brick_block'], 'brick', 0.0, 'sky_storm', ['pawnshop_front', 'pawnshop_kitchen', 'harbor_street']),
-    'handoff': ('asphalt', ['facility_wall', 'shutter_block'], None, 0.22, 'sky_storm', ['clinic', 'revival_lounge']),
+    'handoff': ('asphalt', ['facility_wall', 'shutter_block'], None, 0.22, 'sky_storm', ['clinic', 'revival_lounge', 'harbor_street']),
     'stall': ('asphalt', ['shopfront', 'shutter_block'], None, 0.22, 'sky_dawn', ['dawn_noodle_stall']),
 }
 SCENE_PROPS = 'res://data/environment/scene_props/%s'

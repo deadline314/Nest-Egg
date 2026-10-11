@@ -61,7 +61,12 @@
      "soft": 1.2
     }
    ],
-   "data": {"ripple": true, "drip_from": "Vector2(0.47, 0.28)", "drip_to": "Vector2(0.47, 0.605)", "drip_period": 1.7},
+   "data": {
+    "ripple": true,
+    "drip_from": "Vector2(0.47, 0.28)",
+    "drip_to": "Vector2(0.47, 0.605)",
+    "drip_period": 1.7
+   },
    "normal": {
     "profile": "cylinder"
    },
@@ -4352,7 +4357,11 @@
      "soft": 1.2
     }
    ],
-   "data": {"ripple": false, "flow_region": "Rect2(0.31, 0.225, 0.1, 0.145)", "flow_surface": "Rect2(0.12, 0.375, 0.56, 0.06)"},
+   "data": {
+    "ripple": false,
+    "flow_region": "Rect2(0.31, 0.225, 0.1, 0.145)",
+    "flow_surface": "Rect2(0.12, 0.375, 0.56, 0.06)"
+   },
    "texture_scale": 8,
    "normal": {
     "profile": "cylinder"
@@ -11383,6 +11392,151 @@
    "height_m": 0.7,
    "new": {
     "display_name": "木板上的手電筒",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "pawnshop_front__range_bench",
+   "scene": "pawnshop_front",
+   "seed": 5121,
+   "fit": "meters",
+   "height_m": 1.0,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A battered steel workbench standing at an indoor firing line seen straight from the front: on the top two open cardboard ammunition boxes, a pair of yellow ear defenders, a clipboard with a pencil-scribbled test sheet, a tin can full of brass shell casings, and a row of small cream paper pawn tags on strings hanging from the front edge, welded angle-iron legs with one leg propped on a brick, proportions about five wide to four tall.",
+   "anchor": {
+    "size": [
+     37.5,
+     30.0
+    ]
+   },
+   "new": {
+    "display_name": "射擊線的試貨桌",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "pawnshop_front__range_backstop",
+   "scene": "pawnshop_front",
+   "seed": 5122,
+   "fit": "meters",
+   "height_m": 1.45,
+   "texture_scale": 6,
+   "normal": {
+    "profile": "pillow",
+    "relief": 1.2
+   },
+   "prompt": "A home-made bullet trap seen straight from the front: a wall of stacked tan burlap sandbags four rows high, a thick rusty dented steel plate standing behind it and rising above the top row, strips of shredded black rubber mat hanging in front of the plate, a few sandbags patched with grey tape and leaking a small pile of sand at the base, flattened lead bullets scattered at the bottom, proportions about four wide to three tall.",
+   "anchor": {
+    "size": [
+     58.0,
+     43.5
+    ]
+   },
+   "new": {
+    "display_name": "沙包擋彈牆",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "pawnshop_front__range_target_rack",
+   "scene": "pawnshop_front",
+   "seed": 5123,
+   "fit": "meters",
+   "height_m": 1.1,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "flat"
+   },
+   "prompt": "A wooden rack screwed flat onto a wall seen straight from the front, holding a thick fanned stack of used cream paper silhouette shooting targets riddled with bullet holes and patched with small orange round stickers, a cream paper pawn tag tied to every sheet, a roll of orange stickers hanging on a nail, a staple gun on a hook, proportions about four wide to three tall.",
+   "anchor": {
+    "size": [
+     44.0,
+     33.0
+    ]
+   },
+   "new": {
+    "display_name": "牆上的舊靶紙架",
+    "category": "scene"
+   },
+   "alpha_floor": 0.6
+  },
+  {
+   "id": "pawnshop_front__range_tally_board",
+   "scene": "pawnshop_front",
+   "seed": 5124,
+   "fit": "meters",
+   "height_m": 0.9,
+   "texture_scale": 10,
+   "normal": {
+    "profile": "flat"
+   },
+   "prompt": "A small dark green chalkboard in a chipped wooden frame hanging flat on a wall from two nails and a wire seen straight from the front, covered in neat columns of white chalk tally marks grouped in fives with a few rows circled in red chalk, a stub of chalk dangling on a string, a dusty rag on the bottom ledge, proportions about four wide to three tall.",
+   "anchor": {
+    "size": [
+     36.0,
+     27.0
+    ]
+   },
+   "new": {
+    "display_name": "試貨記分黑板",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "pawnshop_front__tire_stack",
+   "scene": "pawnshop_front",
+   "seed": 5125,
+   "fit": "meters",
+   "height_m": 0.95,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "A stack of three worn black truck tyres seen straight from the side, one tyre patched with grey tape, a folded grey-blue rubber gym mat leaning against the stack on the left, a coiled faded red jump rope and a pair of taped-up sparring gloves resting on top, proportions about one wide to one tall.",
+   "anchor": {
+    "size": [
+     28.5,
+     28.5
+    ]
+   },
+   "new": {
+    "display_name": "舊輪胎與練習墊",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "pawnshop_front__trainer_power_cart",
+   "scene": "pawnshop_front",
+   "seed": 5126,
+   "fit": "meters",
+   "height_m": 0.85,
+   "texture_scale": 8,
+   "glow": [
+    {
+     "hue": [
+      150,
+      200
+     ],
+     "smin": 0.3,
+     "vmin": 0.6,
+     "soft": 1.2
+    }
+   ],
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A small two-wheeled hand cart seen straight from the side carrying a boxy salvaged car battery pack strapped down with a ratchet strap and a grey transformer box with cooling fins, a row of three small glowing teal indicator lights on the transformer, a red mushroom emergency stop button on top, thick black cables coiled on a hook and trailing off the right side, proportions about four wide to three tall.",
+   "anchor": {
+    "size": [
+     34.0,
+     25.5
+    ]
+   },
+   "new": {
+    "display_name": "訓練器的電瓶推車",
     "category": "scene"
    }
   }
