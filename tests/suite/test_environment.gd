@@ -27,6 +27,7 @@ func run() -> void:
 	await _test_local_drip()
 	await _test_lamp_fixtures()
 	await _test_lamp_flicker()
+	await _test_wall_shadows()
 	_test_import_policy("res://art/environment")
 
 
@@ -934,3 +935,114 @@ func _simulate_lamp(lamp: Lamp, seconds: float) -> Dictionary:
 		worst = maxi(worst, last - start + 1)
 	return {"worst": worst, "low": low, "high": high, "high_end": value, "max_step": max_step, "dark_share": float(dark) / float(total),
 		"glow_follows": glow_follows, "shaft_follows": shaft_follows}
+
+
+## 牆上的影子（BG-34）：角色與離牆站著的擺設依光源在背牆上投影；低品質關閉；不累積資源。
+func _test_wall_shadows() -> void:
+	check(LightQuality.SETTINGS[LightQuality.Tier.LOW]["wall_shadow_lights"] == 0, "光影品質低不在牆上投影（只留腳下的接觸陰影）")
+	check(LightQuality.SETTINGS[LightQuality.Tier.MEDIUM]["wall_shadow_lights"] > 0
+			and LightQuality.SETTINGS[LightQuality.Tier.HIGH]["wall_shadow_lights"] >= LightQuality.SETTINGS[LightQuality.Tier.MEDIUM]["wall_shadow_lights"]
+			and LightQuality.SETTINGS[LightQuality.Tier.HIGH]["wall_shadow_lights"] <= WallShadows.MAX_LIGHTS, "中、高品質投影的燈數在上限內")
+	var saved_quality := Settings.get_light_quality()
+	Settings.set_light_quality(LightQuality.Tier.HIGH)
+	var level := await start_level(load("res://data/levels/ch1_warehouse.tres") as LevelData)
+	var shadows := level.find_child("WallShadows", true, false) as WallShadows
+	check(shadows != null and shadows.is_enabled() and shadows.visible, "有背牆的關卡在高品質下有牆上的影子")
+	if shadows == null:
+		Settings.set_light_quality(saved_quality)
+		await end_level(level)
+		return
+	check(shadows.z_index > WorldLayers.BACK_WALL and shadows.z_index < WorldLayers.PROPS and shadows.z_index < WorldLayers.CHARACTER_MIN_Z,
+			"影子畫在背牆之上、擺設與角色之下（不會蓋住角色、子彈與介面）")
+	check(level.player.is_in_group(WallShadows.CASTER_GROUP), "主角會在牆上投影")
+	var enemies := runner.get_tree().get_nodes_in_group(&"enemies")
+	# 有腳下接觸陰影的敵人（站在地上的）都會在牆上投影；飛行與固定在牆上的敵人沒有接觸陰影，也不投影。
+	var grounded := 0
+	var all_cast := true
+	for node: Node in enemies:
+		var has_contact := node.find_child("ContactShadow", false, false) != null
+		grounded += int(has_contact)
+		all_cast = all_cast and node.is_in_group(WallShadows.CASTER_GROUP) == has_contact
+	check(grounded > 0 and all_cast, "站在地上的敵人會在牆上投影（%d 個裡有 %d 個）" % [enemies.size(), grounded])
+	# 輪廓圖只看得到會投影的東西：主角的零件在投影用的顯示層上，接觸陰影、場景燈與背牆不在。
+	await frames(int(WallShadows.RESCAN * 60.0) + 30)
+	var parts := level.player.find_children("*", "Sprite2D", true, false)
+	var flagged := not parts.is_empty()
+	for part: Node in parts:
+		flagged = flagged and ((part as CanvasItem).visibility_layer & WallShadows.CASTER_LAYER) != 0
+	check(flagged and (level.player.visibility_layer & WallShadows.CASTER_LAYER) != 0, "主角的零件（%d 個）會畫進輪廓圖" % parts.size())
+	var contact := level.player.find_child("ContactShadow", true, false) as CanvasItem
+	check(contact != null and (contact.visibility_layer & WallShadows.CASTER_LAYER) == 0, "腳下的接觸陰影不會被當成身體投到牆上")
+	var stray := 0
+	for node: Node in level.find_children("*", "Node2D", true, false):
+		if (node is Lamp or node is BackWall) and ((node as CanvasItem).visibility_layer & WallShadows.CASTER_LAYER) != 0:
+			stray += 1
+	check(stray == 0, "場景燈與背牆不會畫進輪廓圖")
+	check(shadows.active_lights() <= LightQuality.wall_shadow_lights(), "投影的燈不超過品質上限（%d 盞）" % shadows.active_lights())
+	var silhouette := shadows.silhouette()
+	check(silhouette != null and silhouette.get_size().x > 0.0 and silhouette.get_size().x <= runner.get_viewport().size.x * WallShadows.RESOLUTION + 1.0,
+			"輪廓圖是低解析度的")
+	# 燈熄滅（停電）：熄滅的燈不再投影。
+	var lit_before := shadows.active_lights()
+	LightKit.lamp_power = 0.0
+	await frames(int(WallShadows.RESCAN * 60.0) + 30)
+	var dark_lamp_casting := false
+	for light: PointLight2D in shadows._chosen:
+		if light != null and is_instance_valid(light) and light.get_parent() is Lamp and not light.enabled and shadows.active_lights() >= lit_before and lit_before > 0:
+			dark_lamp_casting = true
+	check(shadows.active_lights() <= lit_before and not dark_lamp_casting, "燈熄滅後不再投影（%d → %d 盞）" % [lit_before, shadows.active_lights()])
+	LightKit.lamp_power = 1.0
+	await frames(int(WallShadows.RESCAN * 60.0) + 30)
+	# 任何登記在場景裡的光（敵人身上的燈、擺設的燈）都會讓角色投影：在主角旁邊放一盞很亮的，它會被選進投影的燈。
+	var carried := LightKit.create_point_light(Color(1.0, 0.4, 0.3), 160.0, 3.0)
+	level._world.add_child(carried)
+	carried.global_position = level.player.global_position + Vector2(40.0, -30.0)
+	await frames(int(WallShadows.RESCAN * 60.0) + 30)
+	check(shadows._chosen.has(carried), "敵人或擺設身上的光也會讓角色在牆上投影")
+	carried.enabled = false
+	await frames(int(WallShadows.RESCAN * 60.0) + 30)
+	check(not shadows._chosen.has(carried), "那盞光關掉之後不再投影")
+	carried.queue_free()
+	await frames(int(WallShadows.RESCAN * 60.0) + 30)
+	# 離牆站著的擺設會投影，其他擺設不會。
+	var casting_props := 0
+	var wrong_props := 0
+	for node: Node in level.find_children("*", "Node2D", true, false):
+		var prop := node as PropNode
+		if prop != null and prop.data != null:
+			casting_props += int(prop.is_in_group(WallShadows.CASTER_GROUP))
+			wrong_props += int(prop.is_in_group(WallShadows.CASTER_GROUP) != (prop.data.wall_shadow and prop.data.light_radius <= 0.0))
+	check(casting_props > 0 and wrong_props == 0, "標了會投影的擺設在牆上有影子（%d 件），其他擺設與自己會發光的擺設沒有" % casting_props)
+	# 暫停：不畫影子，輪廓圖也不更新。
+	shadows.suspended = true
+	await frames(WallShadows.REDRAW_EVERY + 1)
+	check(not shadows.visible and not shadows.is_processing() and shadows._viewport.render_target_update_mode == SubViewport.UPDATE_DISABLED,
+			"暫停時不畫影子、輪廓圖不更新")
+	shadows.suspended = false
+	check(shadows.visible and shadows.is_processing(), "恢復後繼續投影")
+	# 光影品質低：整個關掉，輪廓圖放掉。
+	Settings.set_light_quality(LightQuality.Tier.LOW)
+	await frames(3)
+	check(not shadows.is_enabled() and not shadows.visible and shadows.find_child("Silhouettes", false, false) == null, "光影品質低時牆上沒有影子，輪廓圖也放掉")
+	check(contact.is_inside_tree(), "光影品質低時腳下的接觸陰影還在")
+	Settings.set_light_quality(LightQuality.Tier.MEDIUM)
+	await frames(int(WallShadows.RESCAN * 60.0) + 30)
+	check(shadows.is_enabled() and shadows.active_lights() <= LightQuality.wall_shadow_lights(), "光影品質中重新開啟，投影的燈數依中品質的上限")
+	Settings.set_light_quality(saved_quality)
+	await end_level(level)
+	# 沒有背牆：不建立輪廓圖、不處理。
+	var bare := WallShadows.new()
+	bare.setup([] as Array[Rect2])
+	runner.get_tree().root.add_child(bare)
+	await frames(2)
+	check(not bare.is_enabled() and not bare.visible and not bare.is_processing(), "沒有背牆的地方不投影")
+	bare.queue_free()
+	# 反覆進出關卡：節點數不累積。
+	var counts: Array[int] = []
+	for round_index in 4:
+		var again := await start_level(load("res://data/levels/ch1_warehouse.tres") as LevelData)
+		await frames(20)
+		await end_level(again)
+		await frames(4)
+		counts.append(int(Performance.get_monitor(Performance.OBJECT_NODE_COUNT)))
+	check(counts[3] <= counts[1], "反覆進出關卡後節點數不累積（%s）" % str(counts))

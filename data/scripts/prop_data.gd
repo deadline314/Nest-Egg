@@ -58,6 +58,9 @@ const TEXTURE_SCALE := 4
 @export_range(0.0, 8.0) var steam_spread: float = 2.0
 ## 是否遮擋光線（產生影子）。
 @export var casts_shadow: bool = false
+## 是否依光源在背後的牆上投影（WallShadows）。給離牆站著的擺設（推車、桌椅、木箱、機車）；貼在牆上的東西
+## （鐵捲門、招牌、水管、告示）不要開，不然會像浮在牆前面。
+@export var wall_shadow: bool = false
 ## 裝飾分類（預覽與檢查用）。
 @export var category: StringName = &"street"
 

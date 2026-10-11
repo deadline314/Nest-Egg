@@ -55,6 +55,8 @@ static func attach(body: Node2D, footprint_half_width: float) -> ContactShadow:
 	shadow.name = "ContactShadow"
 	shadow.half_width = footprint_half_width
 	body.add_child(shadow)
+	# 站在地上、有接觸陰影的角色，也會依光源在背後的牆上投影（WallShadows）。
+	body.add_to_group(WallShadows.CASTER_GROUP)
 	return shadow
 
 

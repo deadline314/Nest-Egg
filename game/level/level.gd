@@ -150,6 +150,11 @@ func _ready() -> void:
 	var scenery_start := _world.get_child_count()
 	_spawn_decor()
 	_lower_scenery(scenery_start, WorldLayers.DECOR)
+	# 牆上的影子畫在背牆與牆面裝飾之上、擺設與角色之下。
+	var wall_shadows := WallShadows.new()
+	wall_shadows.name = "WallShadows"
+	wall_shadows.setup(_scenery_walls.support_rects)
+	_world.add_child(wall_shadows)
 	scenery_start = _world.get_child_count()
 	_spawn_props()
 	_lower_scenery(scenery_start, WorldLayers.PROPS)

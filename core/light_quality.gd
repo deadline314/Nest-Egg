@@ -14,9 +14,9 @@ const DESCRIPTIONS: Dictionary[int, String] = {
 	Tier.HIGH: "全部光影效果，設計的完整畫面",
 }
 const SETTINGS: Dictionary[int, Dictionary] = {
-	Tier.LOW: {"max_lights": 8, "shadow_lights": 1, "shadow_filter": Light2D.SHADOW_FILTER_NONE, "post_effects": 0.0, "volumetrics": false, "shaft_detail": 0.0, "normal_maps": false},
-	Tier.MEDIUM: {"max_lights": 14, "shadow_lights": 2, "shadow_filter": Light2D.SHADOW_FILTER_PCF5, "post_effects": 0.0, "volumetrics": true, "shaft_detail": 0.5, "normal_maps": true},
-	Tier.HIGH: {"max_lights": 24, "shadow_lights": 4, "shadow_filter": Light2D.SHADOW_FILTER_PCF5, "post_effects": 1.0, "volumetrics": true, "shaft_detail": 1.0, "normal_maps": true},
+	Tier.LOW: {"max_lights": 8, "shadow_lights": 1, "shadow_filter": Light2D.SHADOW_FILTER_NONE, "post_effects": 0.0, "volumetrics": false, "shaft_detail": 0.0, "normal_maps": false, "wall_shadow_lights": 0},
+	Tier.MEDIUM: {"max_lights": 14, "shadow_lights": 2, "shadow_filter": Light2D.SHADOW_FILTER_PCF5, "post_effects": 0.0, "volumetrics": true, "shaft_detail": 0.5, "normal_maps": true, "wall_shadow_lights": 2},
+	Tier.HIGH: {"max_lights": 24, "shadow_lights": 4, "shadow_filter": Light2D.SHADOW_FILTER_PCF5, "post_effects": 1.0, "volumetrics": true, "shaft_detail": 1.0, "normal_maps": true, "wall_shadow_lights": 4},
 }
 
 
@@ -49,6 +49,11 @@ static func volumetrics() -> bool:
 ## 光錐是體積光裡最貴的一項（BG-16 實測：關掉省約 20% 每影格時間）。
 static func shaft_detail() -> float:
 	return SETTINGS[tier()]["shaft_detail"]
+
+
+## 最多幾盞燈讓角色在背牆上投影（WallShadows）；0＝關閉，只留腳下的接觸陰影。
+static func wall_shadow_lights() -> int:
+	return SETTINGS[tier()]["wall_shadow_lights"]
 
 
 static func normal_maps() -> bool:

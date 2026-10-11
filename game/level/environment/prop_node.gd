@@ -60,6 +60,9 @@ func _ready() -> void:
 		_add_platform()
 	if data.casts_shadow:
 		_add_occluder()
+	# 自己會發光的擺設不投影：光就在它身上，會把自己投成一大片影子。
+	if data.wall_shadow and data.light_radius <= 0.0:
+		add_to_group(WallShadows.CASTER_GROUP)
 	if data.steam:
 		if data.steam_spread_valid():
 			_steam_spread = data.steam_spread

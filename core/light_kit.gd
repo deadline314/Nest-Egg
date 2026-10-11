@@ -45,6 +45,8 @@ static var enemy_light_cap := CHARACTER_LIGHT_CAP_MAX * ENEMY_LIGHT_GAIN
 static var player_light_energy := PLAYER_LIGHT_BASE_ENERGY
 ## 場景燈的供電（0~1）：由 LightingController 依光影設定更新，每盞燈依自己的門檻依序熄滅／亮起。
 static var lamp_power := 1.0
+## 目前區段環境光的亮度（0～1；LightingController 更新）。牆上的影子用它決定深淺：環境越亮，被擋住一盞燈的影響越小。
+static var ambient_luma := 0.3
 const WINDOW_LIFE_SHADER := preload("res://game/level/environment/window_life.gdshader")
 
 static var _emissive_material: CanvasItemMaterial

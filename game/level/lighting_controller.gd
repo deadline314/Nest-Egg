@@ -260,6 +260,7 @@ func _apply() -> void:
 	if is_instance_valid(_post):
 		_post.apply(current)
 	var ambient_luma := maxf(0.01, LightKit.luminance(current.ambient_color))
+	LightKit.ambient_luma = ambient_luma
 	LightKit.character_fill = clampf(current.character_floor / ambient_luma, 1.0, MAX_CHARACTER_FILL)
 	LightKit.enemy_fill = maxf(1.0, LightKit.character_fill * current.enemy_fill_scale)
 	LightKit.player_light_energy = LightKit.player_light_for(ambient_luma, LightKit.character_fill)
