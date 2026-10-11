@@ -18,6 +18,7 @@ func run() -> void:
 	_test_module_format()
 	await _test_data_only_weapon()
 	await _test_weapon_holds()
+	await _test_input_parity()
 
 
 func _test_data() -> void:
@@ -384,3 +385,85 @@ func _test_weapon_holds() -> void:
 		Input.action_release(&"aim_right")
 		await end_level(level)
 
+
+## 鍵鼠與手把的近戰規則一致（NE-237）：同一串操作（點一下、出招中提早再按、收招後在接續時間內再按、超過接續時間才按、按住），
+## 用鍵盤 F／滑鼠左鍵送一次、用手把 Y／右扳機送一次，每一招開始的影格、第幾段、是不是按住招式都要一樣。
+## 這是合成的輸入事件（走 Input.parse_input_event，和真的按鍵進同一條路），不代表實體手把已經驗過。
+const PARITY_FRAMES := 200
+
+
+func _test_input_parity() -> void:
+	for id: String in HOLD_WEAPONS:
+		var weapon := load("res://data/weapons/melee/%s.tres" % id) as WeaponData
+		var set := MeleeData.set_of(weapon)
+		var first := set.attack(str(set.combo()[0]))
+		var first_frames := int(ceil((float(first["windup"]) + float(first["active"]) + float(first["recovery"])) * 60.0))
+		var scripts := {
+			"tap": [[0, 3]],
+			"early follow-up": [[0, 3], [mini(6, first_frames - 2), mini(9, first_frames)]],
+			"follow-up in window": [[0, 3], [first_frames + 4, first_frames + 7]],
+			"follow-up too late": [[0, 3], [first_frames + int(set.combo_window() * 60.0) + 24, first_frames + int(set.combo_window() * 60.0) + 27]],
+			"hold": [[0, 150]],
+		}
+		for label: String in scripts:
+			var results := {}
+			for device: String in ["key_melee", "pad_melee", "mouse_shoot", "pad_shoot"]:
+				results[device] = await _timeline(weapon, scripts[label], device)
+			check(results["key_melee"] == results["pad_melee"] and results["mouse_shoot"] == results["pad_shoot"] and results["key_melee"] == results["mouse_shoot"] and not (results["key_melee"] as Array).is_empty(),
+					"%s %s: keyboard F, mouse, pad Y and pad trigger start the same moves on the same frames %s" % [id, label, results])
+
+
+## 照腳本按放（[按下的影格, 放開的影格]），回傳每一招開始的 [影格, 第幾段, 按住模式]。
+func _timeline(weapon: WeaponData, presses: Array, device: String) -> Array:
+	await open_level(10.0)
+	var player := level.player
+	player.loadout.equip(weapon)
+	player._melee_cooldown_left = 0.0
+	AimInput.using_gamepad = true
+	AimInput._last_stick_dir = Vector2.RIGHT
+	await physics_frames(2)
+	var starts: Array = []
+	var previous := Player.MeleePhase.NONE
+	for frame in PARITY_FRAMES:
+		for press: Array in presses:
+			if frame == int(press[0]):
+				_send(device, true)
+			elif frame == int(press[1]):
+				_send(device, false)
+		await physics_frames(1)
+		if player._melee_phase == Player.MeleePhase.WINDUP and previous != Player.MeleePhase.WINDUP:
+			starts.append([frame, player._melee_index, player.melee.hold_mode])
+		previous = player._melee_phase
+	_send(device, false)
+	InputBindings.clear_held_inputs()
+	await end_level(level)
+	return starts
+
+
+func _send(device: String, pressed: bool) -> void:
+	var event: InputEvent
+	match device:
+		"key_melee":
+			var key := InputEventKey.new()
+			key.physical_keycode = KEY_F
+			key.keycode = KEY_F
+			key.pressed = pressed
+			event = key
+		"mouse_shoot":
+			var mouse := InputEventMouseButton.new()
+			mouse.button_index = MOUSE_BUTTON_LEFT
+			mouse.pressed = pressed
+			event = mouse
+		"pad_melee":
+			var button := InputEventJoypadButton.new()
+			button.button_index = JOY_BUTTON_Y
+			button.pressed = pressed
+			event = button
+		"pad_shoot":
+			var axis := InputEventJoypadMotion.new()
+			axis.axis = JOY_AXIS_TRIGGER_RIGHT
+			axis.axis_value = 1.0 if pressed else 0.0
+			event = axis
+	Input.parse_input_event(event)
+	# 立刻送進遊戲：不然事件要等到下一個畫面才處理，機器忙時一個畫面會補跑好幾個物理步，落在哪一步就不固定。
+	Input.flush_buffered_events()
