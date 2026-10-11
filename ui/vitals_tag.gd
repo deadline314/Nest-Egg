@@ -37,6 +37,8 @@ var _auto_hide := true
 var _pos := Vector2.ZERO
 var _has_pos := false
 var _side := -1.0
+## 移到頭頂的權重（0 在背後、1 在頭上）；規則與彈帶相同（HudPlacement），兩者一起移動不會疊在一起。
+var _above := 0.0
 var _time := 0.0
 var _shake_left := 0.0
 var _parry_left := 0.0
@@ -104,7 +106,15 @@ func _follow(player: Player, delta: float) -> void:
 	_side = move_toward(_side, -float(player.facing), delta * 6.0)
 	var head := get_viewport().get_canvas_transform() * (player.global_position + HEAD_OFFSET)
 	var width := _content_width() + PAD * 2.0
-	var target := head + Vector2(_side * (SIDE_GAP + width * 0.5) - width * 0.5, -10.0)
+	var height := PAD + PIP_H + 3.0 + GUARD_H + PAD
+	var view_width := get_viewport_rect().size.x
+	var wanted_above := HudPlacement.above_target(head.x, -float(player.facing), SIDE_GAP, view_width)
+	_above = wanted_above if not _has_pos else move_toward(_above, wanted_above, delta * HudPlacement.BLEND_SPEED)
+	var beside := head + Vector2(_side * (SIDE_GAP + width * 0.5) - width * 0.5, -10.0)
+	# 頭頂模式：彈帶在頭頂正上方一列，生命護盾標籤再往上一列。
+	var over := Vector2(head.x - width * 0.5, head.y - HudPlacement.ABOVE_GAP - AmmoTray.ICON.y - HudPlacement.ROW_GAP - height)
+	var target := beside.lerp(over, smoothstep(0.0, 1.0, _above))
+	target.x += HudPlacement.clamp_shift(target.x, width, view_width)
 	if not _has_pos or _pos.distance_to(target) > SNAP_DISTANCE:
 		_pos = target
 		_has_pos = true
@@ -221,7 +231,8 @@ func _draw_plate(width: float, height: float, alpha: float) -> void:
 	draw_polyline(PackedVector2Array([Vector2(width - 10, height), Vector2(width - 3, height), Vector2(width - 1, height - 5)]), edge, 1.0)
 	# 連到頭部的細線（從靠近角色的那一側拉出）。
 	var near_x := width if _side < 0.0 else 0.0
-	draw_line(Vector2(near_x, height * 0.5), Vector2(near_x - _side * SIDE_GAP * 0.8, height * 0.5 + 6.0), Color(Palette.CYAN_DIM, 0.6 * alpha), 1.0)
+	# 指向頭部的引線只在背後時畫；移到頭頂時淡出。
+	draw_line(Vector2(near_x, height * 0.5), Vector2(near_x - _side * SIDE_GAP * 0.8, height * 0.5 + 6.0), Color(Palette.CYAN_DIM, 0.6 * alpha * (1.0 - _above)), 1.0)
 
 
 func _pip_points(i: int) -> PackedVector2Array:

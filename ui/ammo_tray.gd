@@ -46,6 +46,10 @@ var _slide := 0.0
 var _pos := Vector2.ZERO
 var _has_pos := false
 var _side := -1.0
+## 畫面上實際的方向（-1～1 連續值）：轉身時整排先收攏到主角身旁再往另一側展開，不在一格內跳到另一邊。
+var _draw_side := -1.0
+## 移到頭頂的權重（0 在背後、1 在頭上）；主角靠近畫面邊緣、背後放不下時才往上移（NE-264）。
+var _above := 0.0
 var _time := 0.0
 var _flip_left := 0.0
 var _hint := ""
@@ -185,12 +189,34 @@ func _follow(player: Player, delta: float) -> void:
 	# 放在與準星相反的一側；準星在角色正上方或正下方時維持原本那一側，避免左右跳動。
 	if absf(aim.x - anchor.x) > 8.0:
 		_side = -1.0 if aim.x > anchor.x else 1.0
-	var target := anchor + Vector2(_side * SIDE_GAP, -LIFT)
+	var view_width := get_viewport_rect().size.x
+	var wanted_above := HudPlacement.above_target(anchor.x, _side, SIDE_GAP, view_width)
+	if not _has_pos:
+		_draw_side = _side
+		_above = wanted_above
+	else:
+		_draw_side = move_toward(_draw_side, _side, delta * 2.0 / FLIP_TIME)
+		_above = move_toward(_above, wanted_above, delta * HudPlacement.BLEND_SPEED)
+	var width := _row_width()
+	var beside := anchor + Vector2(_draw_side * SIDE_GAP, -LIFT)
+	var head: Vector2 = to_screen * (player.global_position + HudPlacement.HEAD_OFFSET)
+	var over := Vector2(anchor.x - _draw_side * width * 0.5, head.y - HudPlacement.ABOVE_GAP)
+	var target := beside.lerp(over, smoothstep(0.0, 1.0, _above))
+	# 整排（含收攏中的寬度）留在畫面左右邊緣之內。
+	var span := absf(_draw_side) * width
+	target.x += HudPlacement.clamp_shift(target.x if _draw_side >= 0.0 else target.x - span, span, view_width)
 	if not _has_pos or _pos.distance_to(target) > SNAP_DISTANCE:
 		_pos = target
 		_has_pos = true
 	else:
 		_pos = _pos.lerp(target, 1.0 - exp(-FOLLOW_SHARPNESS * delta))
+
+
+## 整排在畫面上的寬度（子彈圖示或電池格，不含備彈數字）。
+func _row_width() -> float:
+	if is_energy:
+		return AmmoIcons.CELL.x + 3.0 + float(maxi(0, max_ammo)) * CELL_STEP
+	return float(maxi(0, icon_count() - 1)) * STEP.x + ICON.x
 
 
 ## 換彈：依換彈進度把空槽一顆顆填回去，每填一顆響一聲。
@@ -239,9 +265,9 @@ func _tick_ejects(delta: float) -> void:
 ## 第 index 顆圖示左上角的位置：從靠近角色的一側往外排成一排
 ## （彈帶在角色左邊時往左排，在右邊時往右排）；index 0 是下一發。
 func _slot_position(index: int) -> Vector2:
-	var column := float(index)
-	var x := _pos.x - ICON.x - column * STEP.x if _side < 0.0 else _pos.x + column * STEP.x
-	return Vector2(x, _pos.y - ICON.y)
+	# 以圖示中心沿方向排列：方向是連續值，轉身時各顆圖示平滑收攏再展開。
+	var center := _pos.x + _draw_side * (float(index) * STEP.x + ICON.x * 0.5)
+	return Vector2(center - ICON.x * 0.5, _pos.y - ICON.y)
 
 
 func _draw() -> void:
@@ -279,14 +305,14 @@ func _draw_icons(alpha: float, pulse: float, state_low: bool, flip: float) -> vo
 	if _per_icon >= 2.0:
 		_text(_slot_position(count - 1) + Vector2(0, -3), "×%d" % roundi(_per_icon), Palette.UI_MUTED, alpha, 9)
 	if ammo == 0 and not _reloading:
-		_text(_pos + Vector2(-16 if _side < 0.0 else 0.0, 7.0), _hint, LightKit.glow(Palette.NEON_YELLOW, 1.3), alpha * (0.6 + 0.4 * sin(_time * 6.0)), 9)
+		_text(_pos + Vector2(-16 if _draw_side < 0.0 else 0.0, 7.0), _hint, LightKit.glow(Palette.NEON_YELLOW, 1.3), alpha * (0.6 + 0.4 * sin(_time * 6.0)), 9)
 
 
 ## Pure geometry shared by drawing and prompt obstruction; preserves current slide/pop/flip animation.
 func _icon_draw_rect(index: int, shown: int, flip: float) -> Rect2:
 	var origin := _slot_position(index)
 	if index < shown:
-		origin.x += _side * _slide
+		origin.x += _draw_side * _slide
 	var size := ICON
 	if _pop_left > 0.0 and index == _pop_slot:
 		var scale := 1.0 + 0.45 * (_pop_left / 0.14)
@@ -299,23 +325,29 @@ func _icon_draw_rect(index: int, shown: int, flip: float) -> Rect2:
 ## 能量武器：圖示在前、後面是分段的電池格。
 func _draw_battery(alpha: float, pulse: float, state_low: bool, flip: float) -> void:
 	var tex := AmmoIcons.texture(_icon_id, AmmoIcons.State.LOW if state_low else AmmoIcons.State.FULL)
-	var dir := -1.0 if _side < 0.0 else 1.0
-	var origin := Vector2(_pos.x - (AmmoIcons.CELL.x if _side < 0.0 else 0.0), _pos.y - AmmoIcons.CELL.y)
-	var icon_rect := Rect2(origin, AmmoIcons.CELL)
-	var width := icon_rect.size.x * flip
-	icon_rect = Rect2(icon_rect.position.x + (icon_rect.size.x - width) * 0.5, icon_rect.position.y, width, icon_rect.size.y)
-	draw_texture_rect(tex, icon_rect, false, Color(1, 1, 1, alpha * pulse))
+	draw_texture_rect(tex, _battery_icon_rect(flip), false, Color(1, 1, 1, alpha * pulse))
 	var shown := ammo if not _reloading else int(float(max_ammo) * (_refill / float(maxi(1, icon_count()))))
 	var color := Color(LightKit.glow(Palette.DANGER if state_low or ammo == 0 else weapon_color, 1.5), alpha * pulse)
 	for i in max_ammo:
-		var x := origin.x + dir * (AmmoIcons.CELL.x + 3.0 + float(i) * CELL_STEP) - (CELL.x if dir < 0.0 else 0.0)
-		var rect := Rect2(x, origin.y + AmmoIcons.CELL.y - CELL.y, CELL.x, CELL.y)
+		var rect := _battery_cell_rect(i)
 		if i < shown:
 			draw_rect(rect, color)
 		else:
 			draw_rect(rect, Color(0.5, 0.62, 0.75, alpha * 0.3), false, 1.0)
 	if ammo == 0 and not _reloading:
-		_text(_pos + Vector2(-16 if _side < 0.0 else 0.0, 7.0), _hint, LightKit.glow(Palette.NEON_YELLOW, 1.3), alpha * (0.6 + 0.4 * sin(_time * 6.0)), 9)
+		_text(_pos + Vector2(-16 if _draw_side < 0.0 else 0.0, 7.0), _hint, LightKit.glow(Palette.NEON_YELLOW, 1.3), alpha * (0.6 + 0.4 * sin(_time * 6.0)), 9)
+
+
+## 電池圖示與第 i 格電池的位置：和子彈一樣以中心沿連續方向排列，轉身時平滑收攏再展開。
+func _battery_icon_rect(flip: float) -> Rect2:
+	var center := Vector2(_pos.x + _draw_side * AmmoIcons.CELL.x * 0.5, _pos.y - AmmoIcons.CELL.y * 0.5)
+	var width := AmmoIcons.CELL.x * flip
+	return Rect2(center.x - width * 0.5, center.y - AmmoIcons.CELL.y * 0.5, width, AmmoIcons.CELL.y)
+
+
+func _battery_cell_rect(index: int) -> Rect2:
+	var center := _pos.x + _draw_side * (AmmoIcons.CELL.x + 3.0 + float(index) * CELL_STEP + CELL.x * 0.5)
+	return Rect2(center - CELL.x * 0.5, _pos.y - CELL.y, CELL.x, CELL.y)
 
 
 ## Actual visible AmmoTray drawing bounds in world space, including transient pooled shells.
@@ -328,13 +360,9 @@ func prompt_obstacle_rect() -> Rect2:
 	if _flip_left > 0.0:
 		flip = absf(1.0 - 2.0 * (_flip_left / FLIP_TIME))
 	if is_energy:
-		var origin := Vector2(_pos.x - (AmmoIcons.CELL.x if _side < 0.0 else 0.0), _pos.y - AmmoIcons.CELL.y)
-		var width := AmmoIcons.CELL.x * flip
-		bounds = _merge_prompt_rect(bounds, Rect2(Vector2(origin.x + (AmmoIcons.CELL.x - width) * 0.5, origin.y), Vector2(width, AmmoIcons.CELL.y)))
-		var dir := -1.0 if _side < 0.0 else 1.0
+		bounds = _merge_prompt_rect(bounds, _battery_icon_rect(flip))
 		for i in max_ammo:
-			var x := origin.x + dir * (AmmoIcons.CELL.x + 3.0 + float(i) * CELL_STEP) - (CELL.x if dir < 0.0 else 0.0)
-			bounds = _merge_prompt_rect(bounds, Rect2(x, origin.y + AmmoIcons.CELL.y - CELL.y, CELL.x, CELL.y))
+			bounds = _merge_prompt_rect(bounds, _battery_cell_rect(i))
 	else:
 		var count := icon_count()
 		var shown := _icons_for(ammo) if not _reloading else int(_refill)
@@ -343,7 +371,7 @@ func prompt_obstacle_rect() -> Rect2:
 		if _per_icon >= 2.0 and count > 0:
 			bounds = _merge_prompt_rect(bounds, _baseline_rect(_slot_position(count - 1) + Vector2(0, -3), _obstacle_icon_label_width, false))
 	if ammo == 0 and not _reloading:
-		var hint_anchor := _pos + Vector2(-16.0 if _side < 0.0 else 0.0, 7.0)
+		var hint_anchor := _pos + Vector2(-16.0 if _draw_side < 0.0 else 0.0, 7.0)
 		# Both draw paths call _text without right_aligned, so the hint begins at this anchor.
 		bounds = _merge_prompt_rect(bounds, _baseline_rect(hint_anchor, _obstacle_hint_width, false))
 	# _draw_ejects checks only icon identity; pooled shells remain drawable after energy switch.
@@ -353,8 +381,7 @@ func prompt_obstacle_rect() -> Rect2:
 			if _eject_age[i] < EJECT_TIME:
 				var center := _eject_pos[i] + ICON * 0.5
 				bounds = _merge_prompt_rect(bounds, Rect2(center - Vector2.ONE * radius, Vector2.ONE * radius * 2.0))
-	var reserve_anchor := _pos + Vector2(-2.0 if _side < 0.0 else 2.0, 9.0)
-	bounds = _merge_prompt_rect(bounds, _baseline_rect(reserve_anchor, _obstacle_reserve_width, _side < 0.0))
+	bounds = _merge_prompt_rect(bounds, _baseline_rect(_reserve_anchor(), _obstacle_reserve_width, _reserve_right_aligned()))
 	if not bounds.has_area():
 		return Rect2()
 	var canvas := get_viewport().get_canvas_transform()
@@ -403,9 +430,18 @@ func _draw_ejects(alpha: float) -> void:
 ## 備彈：小數字，無限備彈顯示符號。
 func _draw_reserve(alpha: float) -> void:
 	var text := "∞" if reserve < 0 else str(reserve)
-	var dir_left := _side < 0.0
-	var pos := _pos + Vector2(-2.0 if dir_left else 2.0, 9.0)
-	_text(pos, text, Palette.UI_MUTED, alpha, 9, dir_left)
+	_text(_reserve_anchor(), text, Palette.UI_MUTED, alpha, 9, _reserve_right_aligned())
+
+
+## 備彈數字：在背後時寫在彈帶下方靠主角；移到頭頂時改寫在整排靠畫面內側的那一端（外側可能就是畫面邊緣），不壓到頭髮。
+func _reserve_anchor() -> Vector2:
+	var below := _pos + Vector2(-2.0 if _draw_side < 0.0 else 2.0, 9.0)
+	var inner := Vector2(_pos.x - _draw_side * 3.0, _pos.y - 1.0)
+	return below.lerp(inner, smoothstep(0.0, 1.0, _above))
+
+
+func _reserve_right_aligned() -> bool:
+	return (_draw_side < 0.0) != (_above > 0.5)
 
 
 func _text(pos: Vector2, text: String, color: Color, alpha: float, size: int, right_aligned := false) -> void:

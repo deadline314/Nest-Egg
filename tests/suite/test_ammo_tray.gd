@@ -10,6 +10,7 @@ func run() -> void:
 	await _test_side_and_fade()
 	await _test_firing_and_reload()
 	await _test_energy_weapon()
+	await _test_screen_edge()
 
 
 func _test_compression() -> void:
@@ -125,4 +126,85 @@ func _test_energy_weapon() -> void:
 		if tray._eject_age[i] < AmmoTray.EJECT_TIME:
 			ejected += 1
 	check(ejected == 0, "能量武器不彈出彈殼")
+	await end_level(level)
+
+
+## NE-264：主角靠近畫面邊緣、背後放不下時，彈帶與生命護盾標籤一起移到頭頂，完整留在畫面裡；
+## 轉身時整排平滑收攏再展開，不在一格內跳到另一邊。
+func _test_screen_edge() -> void:
+	var level := await start_level(PropsSuite.level_data())
+	var tray := level.hud.ammo_tray
+	var tag := level.hud.vitals_tag
+	var player := level.player
+	player.global_position.x = 20.0
+	player.velocity = Vector2.ZERO
+	AimInput.using_gamepad = true
+	Input.action_press(&"aim_right")
+	await frames(60)
+	var view := tray.get_viewport_rect().size.x
+	var to_screen := tray.get_viewport().get_canvas_transform()
+	var head: Vector2 = to_screen * (player.global_position + HudPlacement.HEAD_OFFSET)
+	check(head.x < HudPlacement.ROOM_NEEDED, "測試站位：主角在畫面左緣附近（頭 x=%.0f）" % head.x)
+	var inside := true
+	for i in tray.icon_count():
+		var rect := tray._icon_draw_rect(i, tray.icon_count(), 1.0)
+		if rect.position.x < 0.0 or rect.end.x > view:
+			inside = false
+	check(inside, "面向右站在左緣：彈帶每一顆都在畫面內")
+	check(tray._above > 0.99 and tray._pos.y < head.y, "背後放不下時彈帶移到頭頂上方")
+	check(tag._above > 0.99 and tag._pos.y + 20.0 < tray._pos.y and tag._pos.x >= 0.0, "生命護盾標籤也移到頭頂，在彈帶上面一列")
+	# 武器欄：和主角重疊時讓位變淡，沒有重疊時維持完整亮度（街道的實際空隙另由截圖確認）。
+	var bar := level.hud.weapon_bar
+	var feet: Vector2 = to_screen * (player.global_position + WeaponBar.PLAYER_BOX.position)
+	var overlap := Rect2(feet, WeaponBar.PLAYER_BOX.size * to_screen.get_scale()).intersects(bar.get_global_rect())
+	check(bar.is_making_way() == overlap, "武器欄只在和主角重疊時讓位（重疊=%s）" % overlap)
+	player.global_position.x = 300.0
+	await frames(40)
+	check(not bar.is_making_way(), "主角離開左下角後武器欄恢復完整亮度")
+	player.global_position.x = 20.0
+	await frames(40)
+	# 轉身：彈帶從頭頂回到背後（右邊有空間），每一格的移動都很小。
+	Input.action_release(&"aim_right")
+	Input.action_press(&"aim_left")
+	# 量離主角最遠的那一顆：舊做法轉身時它會一格內跳到另一邊。
+	var far := tray.icon_count() - 1
+	var largest := 0.0
+	var last := tray._slot_position(far)
+	for i in 40:
+		await frames(1)
+		var now := tray._slot_position(far)
+		largest = maxf(largest, now.distance_to(last))
+		last = now
+	Input.action_release(&"aim_left")
+	check(largest < 24.0, "轉身時彈帶平滑移動（每格最多 %.1f 畫面像素）" % largest)
+	check(tray.side() > 0.0 and tray._above < 0.01, "面向左、背後（右側）有空間時回到背後")
+	# 跳躍與落地：彈帶跟著主角平滑移動，不會一格內跳位置。
+	player.velocity.y = -380.0
+	largest = 0.0
+	last = tray._slot_position(far)
+	for i in 50:
+		await frames(1)
+		var now := tray._slot_position(far)
+		largest = maxf(largest, now.distance_to(last))
+		last = now
+	check(largest < 24.0, "跳躍時彈帶平滑移動（每格最多 %.1f 畫面像素）" % largest)
+	# 跑步穿過切換點：從左緣面向右往畫面中間跑，彈帶從頭頂回到背後，過程平滑。
+	player.global_position.x = 20.0
+	Input.action_press(&"aim_right")
+	await frames(40)
+	Input.action_press(&"move_right")
+	largest = 0.0
+	last = tray._slot_position(far)
+	var was_above := tray._above
+	for i in 240:
+		await frames(1)
+		var now := tray._slot_position(far)
+		largest = maxf(largest, now.distance_to(last))
+		last = now
+		if tray._above < 0.01:
+			break
+	Input.action_release(&"move_right")
+	Input.action_release(&"aim_right")
+	check(was_above > 0.99 and tray._above < 0.01, "跑離畫面邊緣後彈帶從頭頂回到背後")
+	check(largest < 24.0, "跑步經過切換點時彈帶平滑移動（每格最多 %.1f 畫面像素）" % largest)
 	await end_level(level)

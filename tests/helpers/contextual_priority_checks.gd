@@ -207,7 +207,7 @@ static func _actual_hud_obstacles(suite: TestSuite) -> void:
 	tray.presence.alpha = 0.0
 	suite.check(not tray.prompt_obstacle_rect().has_area(), "transparent AmmoTray exposes no obstruction")
 	tray.presence.alpha = alpha
-	var saved := {"pos": tray._pos, "has_pos": tray._has_pos, "side": tray._side, "ammo": tray.ammo,
+	var saved := {"pos": tray._pos, "has_pos": tray._has_pos, "side": tray._side, "draw_side": tray._draw_side, "ammo": tray.ammo,
 		"reloading": tray._reloading, "hint_width": tray._obstacle_hint_width}
 	tray._has_pos = true
 	tray._reloading = false
@@ -216,6 +216,8 @@ static func _actual_hud_obstacles(suite: TestSuite) -> void:
 	var canvas := tray.get_viewport().get_canvas_transform()
 	for side: float in [-1.0, 1.0]:
 		tray._side = side
+		# NE-264：畫面上的方向是平滑過渡的連續值；這裡直接檢查兩側都到位後的幾何。
+		tray._draw_side = side
 		var hint_rect := canvas * tray.prompt_obstacle_rect()
 		var anchor_x := tray._pos.x - 16.0 if side < 0.0 else tray._pos.x
 		suite.check(hint_rect.has_area() and hint_rect.end.x >= anchor_x + tray._obstacle_hint_width,
@@ -223,6 +225,7 @@ static func _actual_hud_obstacles(suite: TestSuite) -> void:
 	tray._pos = saved["pos"]
 	tray._has_pos = saved["has_pos"]
 	tray._side = saved["side"]
+	tray._draw_side = saved["draw_side"]
 	tray.ammo = saved["ammo"]
 	tray._reloading = saved["reloading"]
 	tray._obstacle_hint_width = saved["hint_width"]

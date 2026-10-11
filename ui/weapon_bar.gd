@@ -7,7 +7,14 @@ extends VBoxContainer
 const ROW_SIZE := Vector2(132, 18)
 const LOW_RATIO := 0.25
 
+## 主角和武器欄真的重疊時（例如站在畫面左下角的低處），武器欄讓位變淡，不蓋住腳邊（NE-264）。
+const MAKE_WAY_ALPHA := 0.3
+const MAKE_WAY_SPEED := 5.0
+## 主角在畫面上佔的範圍（相對腳底的世界座標）。
+const PLAYER_BOX := Rect2(-12, -60, 24, 62)
+
 var _rows: Array[_Row] = []
+var _player_ref := PlayerRef.new()
 
 
 func _ready() -> void:
@@ -18,6 +25,23 @@ func _ready() -> void:
 		row.slot = slot
 		add_child(row)
 		_rows.append(row)
+
+
+func _process(delta: float) -> void:
+	var target := 1.0
+	var player := _player_ref.get_player(get_tree())
+	if player != null and is_visible_in_tree():
+		var to_screen := get_viewport().get_canvas_transform()
+		var feet := to_screen * (player.global_position + PLAYER_BOX.position)
+		var box := Rect2(feet, PLAYER_BOX.size * to_screen.get_scale())
+		if box.intersects(get_global_rect()):
+			target = MAKE_WAY_ALPHA
+	modulate.a = move_toward(modulate.a, target, delta * MAKE_WAY_SPEED)
+
+
+## 目前是否在讓位（測試與截圖用）。
+func is_making_way() -> bool:
+	return modulate.a < 0.99
 
 
 ## 依目前的武器配置更新所有列。

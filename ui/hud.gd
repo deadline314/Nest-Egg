@@ -58,7 +58,8 @@ func _ready() -> void:
 	root.add_child(_lives_label)
 
 	weapon_bar = WeaponBar.new()
-	weapon_bar.position = Vector2(12, 262)
+	# 往下貼齊底邊留白（四列到 348）：主角站在地面時腳邊和武器欄之間留出空隙（NE-264）。
+	weapon_bar.position = Vector2(12, 270)
 	root.add_child(weapon_bar)
 
 	vitals_tag = VitalsTag.new()
