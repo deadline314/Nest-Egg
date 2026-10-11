@@ -26,6 +26,11 @@ func tab_has_alert() -> bool:
 	return false
 
 
+## 是否在右側顯示信用點與凜的立繪欄；自己就有角色圖的分頁回傳 false。
+func shows_side_portrait() -> bool:
+	return true
+
+
 ## 重新讀取遊戲資料並更新畫面（開啟背包、切到此分頁、執行動作後呼叫）。
 @abstract func refresh() -> void
 

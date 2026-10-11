@@ -959,6 +959,22 @@ func _press_action(action: StringName) -> void:
 			await get_tree().process_frame
 
 
+## 背包裡和立繪實際畫出範圍相交的文字與按鈕（NE-244）。
+func _side_portrait_overlaps(inventory: InventoryScreen) -> Array[String]:
+	var portrait: SidePortrait = inventory._portrait
+	var drawn := portrait.drawn_rect()
+	var area := Rect2(portrait.get_global_rect().position + drawn.position, drawn.size).grow(-1)
+	var hits: Array[String] = []
+	for node: Control in inventory.find_children("*", "Control", true, false):
+		if node == portrait or not node.is_visible_in_tree() or not (node is Label or node is Button or node is ItemCard):
+			continue
+		if node is Label and (node as Label).text.strip_edges().is_empty():
+			continue
+		if area.intersects(node.get_global_rect()):
+			hits.append(node.name)
+	return hits
+
+
 func _test_inventory() -> void:
 	# 資料：每個圖示、武器圖與立繪分層都存在，按鍵有預設值。
 	for item in ConsumableBag.catalog():
@@ -1063,8 +1079,22 @@ func _test_inventory() -> void:
 	_check(status._values[&"kills"].text.begins_with("7"), "status tab shows kills")
 	_check(status._values[&"health"].text == "%d / %d" % [player.health.current, player.health.max_health], "status tab shows health")
 	_check(status._values[&"difficulty"].text == GameState.difficulty.display_name, "status tab shows difficulty")
+	# NE-244：右側立繪欄。自帶角色圖的狀態頁收起；清單頁顯示立繪與信用點，且立繪不壓到任何文字或按鈕。
+	_check(not inventory._portrait.visible and not inventory._credits.visible, "status tab hides the side portrait column")
+	inventory.select_tab(0)
+	await _frames(3)
+	_check(inventory._portrait.visible and inventory._portrait.has_texture(), "list tabs show the side portrait")
+	_check(inventory._credits.text.contains(str(Progression.credits)), "the side column shows the real credits")
+	_check(_side_portrait_overlaps(inventory).is_empty(), "the side portrait covers no text or button (%s)" % [_side_portrait_overlaps(inventory)])
 	await _press_action(&"inventory")
 	_check(not inventory.is_open() and not get_tree().paused, "bag closes from any tab")
+	await _frames(12)
+	_check(not inventory._portrait.has_texture(), "closing the bag releases the portrait texture")
+	for i in 3:
+		await _press_action(&"inventory")
+		await _press_action(&"inventory")
+	await _frames(12)
+	_check(inventory.find_children("*", "SidePortrait", true, false).size() == 1 and not inventory._portrait.has_texture(), "opening the bag again does not pile up portraits")
 
 	# 倒下時背包關閉並鎖住。
 	await _press_action(&"inventory")

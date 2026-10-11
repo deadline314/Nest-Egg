@@ -12,6 +12,7 @@ static func run(suite: TestSuite) -> void:
 	await _check_victory(suite)
 	await _check_dialogue(suite)
 	await _check_shop(suite)
+	await _check_bag(suite)
 	await _check_codex(suite)
 	InputBindings._set_device(was_gamepad, device)
 	await suite.frames(1)
@@ -168,6 +169,45 @@ static func _check_shop(suite: TestSuite) -> void:
 	await _joy(suite, JOY_BUTTON_B)
 	await suite.frames(6)
 	suite.check(not screen.is_open(), "手把 B 關閉補給商店")
+	await suite.end_level(level)
+
+
+## 背包（NE-244 的新版面）：手把 LB／RB 換頁、方向鍵選物、A 確認、B 返回；底部提示跟著手把與改鍵。
+static func _check_bag(suite: TestSuite) -> void:
+	var level := await suite.start_level(PropsSuite.level_data())
+	Progression.add_credits(500)
+	var bag: InventoryScreen = level._inventory
+	await _joy(suite, JOY_BUTTON_BACK)
+	await suite.frames(4)
+	suite.check(bag.is_open() and bag._current == 0, "手把 Back 打開背包，停在第一頁")
+	suite.check(bag._legend_label.text.contains(InputBindings.joy_label(&"ui_cancel")) and not bag._legend_label.text.contains("Tab"), "用手把時底部提示改成手把按鍵")
+	var upgrades := bag.page_index(UpgradesPage)
+	for i in upgrades:
+		await _joy(suite, JOY_BUTTON_RIGHT_SHOULDER)
+	suite.check(bag._current == upgrades, "手把 RB 換到改裝頁")
+	var page: UpgradesPage = bag._pages[upgrades]
+	await _joy(suite, JOY_BUTTON_DPAD_DOWN)
+	suite.check(page._selected == mini(1, page._entries.size() - 1), "手把方向鍵在清單裡移動選取")
+	var entry: InventoryEntry = page._entries[page._selected]
+	var before := Progression.credits
+	await _joy(suite, JOY_BUTTON_A)
+	suite.check(not entry.action_enabled or Progression.credits < before, "手把 A 執行選中項目的動作（改裝扣款）")
+	suite.check(bag._credits.text.contains(str(Progression.credits)), "右側信用點跟著扣款更新")
+	await _joy(suite, JOY_BUTTON_LEFT_SHOULDER)
+	suite.check(bag._current == upgrades - 1, "手把 LB 換回上一頁")
+	await _joy(suite, JOY_BUTTON_B)
+	await suite.frames(6)
+	suite.check(not bag.is_open() and not suite.runner.get_tree().paused, "手把 B 關閉背包回到遊戲")
+	# 改鍵：鍵盤的背包鍵改成 O，提示立刻跟著改；換回 Tab 後也還原（分頁的 Q／E 是固定按鍵，不能改）。
+	InputBindings._set_device(false, -1)
+	var original := InputBindings.get_code(&"inventory", 0)
+	InputBindings.set_code(&"inventory", 0, KEY_O)
+	bag.open()
+	await suite.frames(3)
+	suite.check(bag._legend_label.text.begins_with("O "), "改鍵後背包提示顯示新的按鍵（%s）" % bag._legend_label.text)
+	bag.close()
+	InputBindings.set_code(&"inventory", 0, original)
+	await suite.frames(3)
 	await suite.end_level(level)
 
 

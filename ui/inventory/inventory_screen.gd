@@ -1,7 +1,8 @@
 class_name InventoryScreen
 extends CanvasLayer
-## 背包畫面：Tab／I 開關，開啟時遊戲暫停。四個分頁（武器與彈藥、消耗品、劇情道具、角色狀態），
+## 背包畫面：Tab／I 開關，開啟時遊戲暫停。分頁（武器與彈藥、改裝、消耗品、義體、劇情道具、角色狀態）
 ## Q／E 或滑鼠切換，方向鍵或滑鼠選擇，Enter／左鍵確認；每個操作都有一句提示顯示在底部。
+## 版面（NE-244）：左側清單與詳情，右側一欄是信用點與凜的立繪（陪伴閱讀，不放操作）；自帶角色圖的分頁不顯示這一欄。
 ## 版面與輸入在這裡，分頁內容各自獨立（見 InventoryPage）；新增分頁只要在 _create_pages() 加一行。
 
 signal opened
@@ -19,6 +20,10 @@ const TABS_LEFT := 96.0
 const TAB_GAP := 4
 const TAB_MAX_WIDTH := 104.0
 const LEGEND_WIDTH := 292.0
+## 右側立繪欄：寬度依立繪比例（約 1:3.2）與可用高度決定；欄與內容之間的間距。
+const PORTRAIT_WIDTH := 104.0
+const PORTRAIT_GAP := 8.0
+const CREDITS_HEIGHT := 16.0
 const LEGEND_TEMPLATE := "{inventory} 關閉　{inventory_prev_tab}/{inventory_next_tab} 分頁　↑↓ 選擇　{ui_accept} 確認"
 
 ## 死亡或過關時由關卡關閉，避免和結算畫面同時出現。
@@ -34,6 +39,8 @@ var _scan: ColorRect
 var _tabs: HBoxContainer
 var _tab_buttons: Array[Button] = []
 var _page_host: Control
+var _portrait: SidePortrait
+var _credits: Label
 var _hint_label: Label
 var _legend_label: Label
 var _message_left := 0.0
@@ -56,6 +63,7 @@ func _ready() -> void:
 	_build_layout()
 	_create_pages()
 	InputBindings.bindings_changed.connect(_refresh_legend)
+	Progression.credits_changed.connect(_on_credits_changed)
 	_set_open_state(false)
 
 
@@ -116,9 +124,11 @@ func open() -> void:
 	_set_open_state(true)
 	for page in _pages:
 		page.visible = false
+	_portrait.acquire()
 	_show_page(_current, false)
 	_refresh_tab_labels()
 	_refresh_legend()
+	_refresh_credits()
 	_play_open_animation()
 	Sfx.play(&"ui_confirm", -8.0, 0.0)
 	opened.emit()
@@ -185,6 +195,19 @@ func _build_layout() -> void:
 	_page_host.size = Vector2(640 - MARGIN.x * 2, 360 - MARGIN.y * 2 - HEADER_HEIGHT - FOOTER_HEIGHT - 14)
 	_page_host.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_frame.add_child(_page_host)
+
+	# 右側一欄：上面是信用點，下面是立繪；立繪停在說明列上方，不壓到底部的操作提示。
+	var column_x := 640 - MARGIN.x - PORTRAIT_WIDTH
+	_credits = UiKit.label("", 11, Palette.NEON_YELLOW, HORIZONTAL_ALIGNMENT_RIGHT)
+	_credits.position = Vector2(column_x, _page_host.position.y)
+	_credits.size = Vector2(PORTRAIT_WIDTH, CREDITS_HEIGHT)
+	_credits.clip_text = true
+	_credits.mouse_filter = Control.MOUSE_FILTER_PASS
+	_credits.tooltip_text = "目前持有的信用點；商店、改裝、義體與典當都用它。"
+	_frame.add_child(_credits)
+	_portrait = SidePortrait.new()
+	_frame.add_child(_portrait)
+	_layout_side_column()
 
 	_hint_label = UiKit.label("", 11, Palette.UI_TEXT)
 	_hint_label.position = Vector2(MARGIN.x, 360 - MARGIN.y - FOOTER_HEIGHT + 2)
@@ -284,6 +307,13 @@ func _show_page(index: int, animate: bool) -> void:
 	var page := _pages[index]
 	for other in _pages:
 		other.visible = other == page
+	# 自帶角色圖的分頁（角色狀態）用整個寬度，右側欄收起，避免同時出現兩個凜。
+	var side := page.shows_side_portrait()
+	_portrait.visible = side
+	_credits.visible = side
+	_page_host.size.x = 640 - MARGIN.x * 2 - (PORTRAIT_WIDTH + PORTRAIT_GAP if side else 0.0)
+	if side:
+		_layout_side_column()
 	page.page_shown(animate)
 	if _page_tween != null and _page_tween.is_valid():
 		_page_tween.kill()
@@ -323,8 +353,29 @@ func _show_message(text: String, is_warning: bool) -> void:
 # 開關動畫
 # ---------------------------------------------------------------------------
 
-## 關閉時停用所有子節點的處理，背包不佔 CPU。
+## 立繪從信用點那一行的下面開始（放大文字時那一行會變高），停在說明列上方。
+func _layout_side_column() -> void:
+	var column_x := 640 - MARGIN.x - PORTRAIT_WIDTH
+	var credits_height := maxf(CREDITS_HEIGHT, _credits.get_combined_minimum_size().y)
+	_credits.size = Vector2(PORTRAIT_WIDTH, credits_height)
+	var top := _page_host.position.y + credits_height + 4.0
+	_portrait.position = Vector2(column_x, top)
+	_portrait.size = Vector2(PORTRAIT_WIDTH, _page_host.position.y + _page_host.size.y - top)
+
+
+func _on_credits_changed(_credits_now: int, _delta: int) -> void:
+	_refresh_credits()
+
+
+func _refresh_credits() -> void:
+	if _is_open:
+		_credits.text = "信用點　¥%d" % Progression.credits
+
+
+## 關閉時停用所有子節點的處理，背包不佔 CPU；立繪貼圖也一併放掉。
 func _set_open_state(open_state: bool) -> void:
+	if not open_state and _portrait != null:
+		_portrait.release()
 	_root.visible = open_state
 	_root.process_mode = Node.PROCESS_MODE_ALWAYS if open_state else Node.PROCESS_MODE_DISABLED
 	set_process(open_state)

@@ -1,6 +1,7 @@
 class_name DetailPanel
 extends MarginContainer
-## 詳情面板：大圖示、名稱、類型、數值、說明與動作按鈕。換項目時圖示彈出、內容淡入。
+## 詳情面板：名稱與類型在最上面一整行，下面是圖示與數值、說明與動作按鈕。換項目時圖示彈出、內容淡入。
+## 寬度約為畫面三分之一（右側留給立繪，NE-244），所以圖示底板較小、數值與說明都會折行。
 ## 只認 InventoryEntry，所有分頁共用。
 ## 版面用容器排列（不用錨點）：錨點全滿的子控制項在父層尚未排版時若最小尺寸較大，會把多出的尺寸記成偏移而撐破面板。
 
@@ -10,7 +11,10 @@ signal action_hovered(hint: String)
 const POP_FROM := 0.9
 const POP_TIME := 0.16
 const FADE_FROM := 0.35
-const BODY_MIN_WIDTH := 280.0
+const BODY_MIN_WIDTH := 180.0
+const PLATE := Vector2(92, 76)
+## 數值欄折行的最小寬度（避免容器先把它擠成一字寬）。
+const STATS_MIN_WIDTH := 72.0
 
 var _plate: IconPlate
 var _title: Label
@@ -34,20 +38,17 @@ func _ready() -> void:
 	add_child(_content)
 	var column := _content
 
-	var top := HBoxContainer.new()
-	top.add_theme_constant_override(&"separation", 12)
-	column.add_child(top)
-	_plate = IconPlate.new()
-	top.add_child(_plate)
-	var info := VBoxContainer.new()
-	info.add_theme_constant_override(&"separation", 3)
-	info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	top.add_child(info)
+	var header := VBoxContainer.new()
+	header.add_theme_constant_override(&"separation", 1)
+	column.add_child(header)
 	_title = UiKit.label("", 16)
-	info.add_child(_title)
+	_title.clip_text = true
+	_title.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	_title.mouse_filter = Control.MOUSE_FILTER_PASS
+	header.add_child(_title)
 	var tag_row := HBoxContainer.new()
 	tag_row.add_theme_constant_override(&"separation", 6)
-	info.add_child(tag_row)
+	header.add_child(tag_row)
 	_tag = UiKit.label("", 10, Palette.UI_MUTED)
 	tag_row.add_child(_tag)
 	_ammo_icon = TextureRect.new()
@@ -56,9 +57,17 @@ func _ready() -> void:
 	_ammo_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	_ammo_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	tag_row.add_child(_ammo_icon)
+
+	var top := HBoxContainer.new()
+	top.add_theme_constant_override(&"separation", 10)
+	column.add_child(top)
+	_plate = IconPlate.new()
+	_plate.plate_size = PLATE
+	top.add_child(_plate)
 	_stats = VBoxContainer.new()
 	_stats.add_theme_constant_override(&"separation", 1)
-	info.add_child(_stats)
+	_stats.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	top.add_child(_stats)
 
 	column.add_child(HSeparator.new())
 	_body = UiKit.label("", 11, Palette.UI_TEXT)
@@ -96,6 +105,7 @@ func show_entry(entry: InventoryEntry, empty_text := "", animate := true) -> voi
 		return
 	_plate.show_icon(entry.detail_icon if entry.detail_icon != null else entry.icon, 1 if entry.detail_icon != null else entry.detail_icon_scale, entry.accent, entry.dimmed, entry.detail_icon != null)
 	_title.text = entry.title
+	_title.tooltip_text = entry.title
 	_title.add_theme_color_override(&"font_color", entry.accent)
 	_tag.text = entry.detail_tag
 	_ammo_icon.texture = entry.ammo_icon
@@ -103,7 +113,10 @@ func show_entry(entry: InventoryEntry, empty_text := "", animate := true) -> voi
 	for child in _stats.get_children():
 		child.queue_free()
 	for line in entry.detail_stats:
-		_stats.add_child(UiKit.label(line, 11, Palette.UI_TEXT))
+		var stat := UiKit.label(line, 11, Palette.UI_TEXT)
+		stat.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		stat.custom_minimum_size = Vector2(STATS_MIN_WIDTH, 0)
+		_stats.add_child(stat)
 	_body.text = entry.detail_body
 	_action.visible = not entry.action_label.is_empty()
 	_action.text = entry.action_label
@@ -121,7 +134,7 @@ func _pop_in() -> void:
 		_plate.scale = Vector2.ONE
 		_content.modulate.a = 1.0
 		return
-	_plate.pivot_offset = IconPlate.PLATE_SIZE * 0.5
+	_plate.pivot_offset = PLATE * 0.5
 	_plate.scale = Vector2.ONE * POP_FROM
 	_content.modulate.a = FADE_FROM
 	_tween = create_tween().set_parallel(true)

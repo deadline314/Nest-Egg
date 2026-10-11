@@ -30,6 +30,11 @@ func tab_tooltip() -> String:
 	return "查看凜的狀態與這一輪的紀錄"
 
 
+## 這一頁自己有即時骨架的立繪，不再顯示右側的靜態立繪。
+func shows_side_portrait() -> bool:
+	return false
+
+
 func _ready() -> void:
 	var row := HBoxContainer.new()
 	row.set_anchors_preset(Control.PRESET_FULL_RECT)
