@@ -1,0 +1,70 @@
+{
+  "stage": "/home/user/builds/2026.10.12-ch1-candidate-through-ch1_kasa-bc6355e97c6c25ba95f825827d9c41a6a65282b4",
+  "source_sha": "bc6355e97c6c25ba95f825827d9c41a6a65282b4",
+  "source_files": 8125,
+  "source_bytes": 207783703,
+  "closure_issues": [],
+  "readiness": {
+    "ready_for_product_export": false,
+    "chapters": [
+      {
+        "id": "prologue",
+        "acceptance_ticket": "ST-16",
+        "entry": "",
+        "terminal": "",
+        "evidence": [],
+        "issues": [
+          "chapter is draft, not accepted production",
+          "production entry missing",
+          "production terminal missing",
+          "acceptance ticket is incomplete",
+          "no committed chapter acceptance evidence",
+          "published production main quests absent"
+        ]
+      },
+      {
+        "id": "ch1_kasa",
+        "acceptance_ticket": "NE-233",
+        "entry": "data/levels/ch1_pawnshop.tres",
+        "terminal": "data/levels/ch1_pawnshop_dawn.tres",
+        "evidence": [],
+        "issues": [
+          "chapter is draft, not accepted production",
+          "acceptance ticket is incomplete",
+          "no committed chapter acceptance evidence"
+        ]
+      }
+    ],
+    "loaded_story_sources": [
+      {
+        "path": "data/story/ch1_kasa.json",
+        "quests": 10,
+        "scenes": 139
+      },
+      {
+        "path": "data/story/ch2_heron.json",
+        "quests": 10,
+        "scenes": 190
+      },
+      {
+        "path": "data/story/ch3_clearwater.json",
+        "quests": 9,
+        "scenes": 170
+      }
+    ],
+    "owner_blockers": [],
+    "observed_public_source": {
+      "edition_contract": {
+        "issues": [],
+        "chapter_order": [
+          "prologue",
+          "ch1_kasa",
+          "ch2_heron",
+          "ch3_clearwater"
+        ],
+        "edition_id": "through-ch1_kasa",
+        "save_slot": "user://runs/through-ch1_kasa/slot-1.json"
+      }
+    }
+  }
+}

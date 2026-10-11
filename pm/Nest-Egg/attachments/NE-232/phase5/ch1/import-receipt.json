@@ -1,0 +1,30 @@
+{
+  "kind": "source-import-diagnostic",
+  "source_sha": "bc6355e97c6c25ba95f825827d9c41a6a65282b4",
+  "engine": {
+    "editor_version": "4.7.2.stable.official.ed1daf0bf",
+    "template_version": "4.7.2.stable",
+    "provenance": {
+      "url": "https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz",
+      "archive_sha256": "f298490b8d44d934be425a5a65a51bf15f422428b229a06a6e11d9ffea248011",
+      "files": {
+        "linux_release.x86_64": {
+          "bytes": 73519416,
+          "sha256": "d9f79ab89b5ae369aeed11c6052d402e8218cd503bf85b4a235f9c30c46a7c63"
+        },
+        "windows_release_x86_64.exe": {
+          "bytes": 109268480,
+          "sha256": "d34d36f3be1a6c49c56525ae86469b92e4f417ddf0b43cf00dd80c385c4b0562"
+        }
+      }
+    }
+  },
+  "generated_uid_sidecars": [],
+  "command": {
+    "log": "import.log",
+    "exit_code": 0,
+    "sha256": "8695f12dc8f9f8c00fe19ece569b266c9c9f666cecd501e5f17e9481e068228d"
+  },
+  "exported": false,
+  "native_windows_launch_verified": false
+}

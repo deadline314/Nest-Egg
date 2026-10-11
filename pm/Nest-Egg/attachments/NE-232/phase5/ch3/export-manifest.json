@@ -1,0 +1,235 @@
+{
+  "schema": 1,
+  "kind": "campaign-candidate",
+  "is_release": false,
+  "version": "2026.10.12-ch3-candidate",
+  "cumulative_terminal": "ch3_clearwater",
+  "edition_id": "through-ch3_clearwater",
+  "save_slot": "user://runs/through-ch3_clearwater/slot-1.json",
+  "source_sha": "bc6355e97c6c25ba95f825827d9c41a6a65282b4",
+  "engine": {
+    "editor_version": "4.7.2.stable.official.ed1daf0bf",
+    "template_version": "4.7.2.stable",
+    "provenance": {
+      "url": "https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz",
+      "archive_sha256": "f298490b8d44d934be425a5a65a51bf15f422428b229a06a6e11d9ffea248011",
+      "files": {
+        "linux_release.x86_64": {
+          "bytes": 73519416,
+          "sha256": "d9f79ab89b5ae369aeed11c6052d402e8218cd503bf85b4a235f9c30c46a7c63"
+        },
+        "windows_release_x86_64.exe": {
+          "bytes": 109268480,
+          "sha256": "d34d36f3be1a6c49c56525ae86469b92e4f417ddf0b43cf00dd80c385c4b0562"
+        }
+      }
+    }
+  },
+  "chapters": [
+    {
+      "id": "prologue",
+      "title": "序章",
+      "included": true
+    },
+    {
+      "id": "ch1_kasa",
+      "title": "第一章",
+      "included": true
+    },
+    {
+      "id": "ch2_heron",
+      "title": "第二章",
+      "included": true
+    },
+    {
+      "id": "ch3_clearwater",
+      "title": "第三章",
+      "included": true
+    }
+  ],
+  "artifacts": {
+    "windows": {
+      "file": "NestEgg-2026.10.12-ch3-candidate-through-ch3_clearwater.exe",
+      "bytes": 286321488,
+      "sha256": "fc2f98eb366ae2a55b3473d418865b12972932c7cce7603cbfeceb6b9de35314",
+      "pck_bytes": 177052996,
+      "entries": 9033,
+      "size_limit_ok": true,
+      "largest_entries": [
+        {
+          "path": ".godot/imported/pawnshop_kitchen_extended.webp-f0fdd76ad7eb4c1a17a1e56b7c810010.ctex",
+          "bytes": 1539202
+        },
+        {
+          "path": ".godot/imported/neon_market.webp-ffe862f30059c88e248936275fb08b72.ctex",
+          "bytes": 1468350
+        },
+        {
+          "path": ".godot/imported/calm_market.ogg-0e4a5fdd0e48ba232008a88abbfb9ff6.oggvorbisstr",
+          "bytes": 1413694
+        },
+        {
+          "path": ".godot/imported/public_garden.webp-8e4396f2955f8ae0eaae5ad5bd41b34b.ctex",
+          "bytes": 1390994
+        },
+        {
+          "path": ".godot/imported/calm_arena.ogg-1c6194dad8385bb0816e8b184f62d87c.oggvorbisstr",
+          "bytes": 1371594
+        },
+        {
+          "path": ".godot/imported/safe_clinic.ogg-417a695cf8e1e819f583b7b270b493ec.oggvorbisstr",
+          "bytes": 1358614
+        },
+        {
+          "path": ".godot/imported/menu_dark.ogg-d59f907d17c881dfe1dae7062e7fc300.oggvorbisstr",
+          "bytes": 1354986
+        },
+        {
+          "path": ".godot/imported/safe_pawnshop.ogg-0eb7b2aed59b2c2b7ccd42a371b94fbd.oggvorbisstr",
+          "bytes": 1350782
+        },
+        {
+          "path": ".godot/imported/calm_hangar.ogg-4fd3b325dbdbbffe7e321704722789a5.oggvorbisstr",
+          "bytes": 1329938
+        },
+        {
+          "path": ".godot/imported/boss_reclaimer.ogg-0d47ee2479fd453ab199f24a6c61d74a.oggvorbisstr",
+          "bytes": 1324234
+        },
+        {
+          "path": ".godot/imported/calm_rooftop.ogg-69028a6272d75da47e692b78e9721bf9.oggvorbisstr",
+          "bytes": 1322526
+        },
+        {
+          "path": ".godot/imported/calm_shaft.ogg-84c0de08a0c519d898237f41253c5b2e.oggvorbisstr",
+          "bytes": 1289182
+        },
+        {
+          "path": ".godot/imported/calm_shaft_deep.ogg-43262e3c3726c147942e5609c3e2cade.oggvorbisstr",
+          "bytes": 1235586
+        },
+        {
+          "path": ".godot/imported/pawnshop_front_extended.webp-af7517cf249f38cb4dcda78799a05315.ctex",
+          "bytes": 1212698
+        },
+        {
+          "path": ".godot/imported/calm_facility.ogg-91d89c9f347557713792943ab0edd141.oggvorbisstr",
+          "bytes": 1119154
+        }
+      ]
+    },
+    "linux": {
+      "file": "NestEgg-2026.10.12-ch3-candidate-through-ch3_clearwater.x86_64",
+      "bytes": 250572416,
+      "sha256": "8c0a578e3a461e0ef84625c460c0238b4a01f9a9b5d5a0dd93ee24d4bbe61952",
+      "pck_bytes": 177052988,
+      "entries": 9033,
+      "size_limit_ok": true,
+      "largest_entries": [
+        {
+          "path": ".godot/imported/pawnshop_kitchen_extended.webp-f0fdd76ad7eb4c1a17a1e56b7c810010.ctex",
+          "bytes": 1539202
+        },
+        {
+          "path": ".godot/imported/neon_market.webp-ffe862f30059c88e248936275fb08b72.ctex",
+          "bytes": 1468350
+        },
+        {
+          "path": ".godot/imported/calm_market.ogg-0e4a5fdd0e48ba232008a88abbfb9ff6.oggvorbisstr",
+          "bytes": 1413694
+        },
+        {
+          "path": ".godot/imported/public_garden.webp-8e4396f2955f8ae0eaae5ad5bd41b34b.ctex",
+          "bytes": 1390994
+        },
+        {
+          "path": ".godot/imported/calm_arena.ogg-1c6194dad8385bb0816e8b184f62d87c.oggvorbisstr",
+          "bytes": 1371594
+        },
+        {
+          "path": ".godot/imported/safe_clinic.ogg-417a695cf8e1e819f583b7b270b493ec.oggvorbisstr",
+          "bytes": 1358614
+        },
+        {
+          "path": ".godot/imported/menu_dark.ogg-d59f907d17c881dfe1dae7062e7fc300.oggvorbisstr",
+          "bytes": 1354986
+        },
+        {
+          "path": ".godot/imported/safe_pawnshop.ogg-0eb7b2aed59b2c2b7ccd42a371b94fbd.oggvorbisstr",
+          "bytes": 1350782
+        },
+        {
+          "path": ".godot/imported/calm_hangar.ogg-4fd3b325dbdbbffe7e321704722789a5.oggvorbisstr",
+          "bytes": 1329938
+        },
+        {
+          "path": ".godot/imported/boss_reclaimer.ogg-0d47ee2479fd453ab199f24a6c61d74a.oggvorbisstr",
+          "bytes": 1324234
+        },
+        {
+          "path": ".godot/imported/calm_rooftop.ogg-69028a6272d75da47e692b78e9721bf9.oggvorbisstr",
+          "bytes": 1322526
+        },
+        {
+          "path": ".godot/imported/calm_shaft.ogg-84c0de08a0c519d898237f41253c5b2e.oggvorbisstr",
+          "bytes": 1289182
+        },
+        {
+          "path": ".godot/imported/calm_shaft_deep.ogg-43262e3c3726c147942e5609c3e2cade.oggvorbisstr",
+          "bytes": 1235586
+        },
+        {
+          "path": ".godot/imported/pawnshop_front_extended.webp-af7517cf249f38cb4dcda78799a05315.ctex",
+          "bytes": 1212698
+        },
+        {
+          "path": ".godot/imported/calm_facility.ogg-91d89c9f347557713792943ab0edd141.oggvorbisstr",
+          "bytes": 1119154
+        }
+      ]
+    }
+  },
+  "commands": [
+    {
+      "log": "export-windows.log",
+      "exit_code": 0,
+      "sha256": "b35e8f84029ef4ab057d770f31052e35a1220314e6bd152717d02e5632e1a27a"
+    },
+    {
+      "log": "export-linux.log",
+      "exit_code": 0,
+      "sha256": "0bdc86ed1df76a65aa0b356c1d36bccb9287a7d518b625208b2bb397f0a8c2f8"
+    }
+  ],
+  "linux_clean_launch": {
+    "verified": true,
+    "log": "clean-launch-linux.log",
+    "sha256": "3d1ebb8c86c0442a0223a311096d0d8e12aab66aede032b0f86f4afccf962cbb",
+    "reported_endings": [],
+    "reported_levels": {
+      "ch1_kasa": 11,
+      "ch2_heron": 10,
+      "ch3_clearwater": 9
+    }
+  },
+  "native_windows_launch_verified": false,
+  "native_windows_pending": "Copy only the .exe into an empty folder on Windows, start it, play to the chapter end and confirm the completion card and the runs/through-<chapter> save folder (NE-232 ticket).",
+  "readiness_blockers": [
+    "prologue: chapter is draft, not accepted production",
+    "prologue: production entry missing",
+    "prologue: production terminal missing",
+    "prologue: acceptance ticket is incomplete",
+    "prologue: no committed chapter acceptance evidence",
+    "prologue: published production main quests absent",
+    "ch1_kasa: chapter is draft, not accepted production",
+    "ch1_kasa: acceptance ticket is incomplete",
+    "ch1_kasa: no committed chapter acceptance evidence",
+    "ch2_heron: chapter is draft, not accepted production",
+    "ch2_heron: acceptance ticket is incomplete",
+    "ch2_heron: no committed chapter acceptance evidence",
+    "ch3_clearwater: chapter is draft, not accepted production",
+    "ch3_clearwater: acceptance ticket is incomplete",
+    "ch3_clearwater: no committed chapter acceptance evidence"
+  ],
+  "chapter_acceptance_verified": false
+}
