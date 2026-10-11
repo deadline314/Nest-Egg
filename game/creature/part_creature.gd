@@ -42,6 +42,7 @@ var _root_params := {"bob_amp": 0.0, "bob_freq": 1.5, "tilt": 0.0}
 var _root_target := {"bob_amp": 0.0, "bob_freq": 1.5, "tilt": 0.0}
 var _bob_phase := 0.0
 var _shown := PackedStringArray()  # 目前狀態只顯示這些零件；空 = 全部顯示
+var _hidden: Dictionary[String, bool] = {}  # 遊戲中被拿掉的零件（例如頭目打壞的砲塔），任何狀態都不顯示
 var _tilt := 0.0
 ## 外部加上的整體變換（受擊的踉蹌、震動、傾斜等）：疊在狀態動畫上。
 var extra_position := Vector2.ZERO
@@ -244,7 +245,7 @@ func animate(delta: float, new_state: StringName, velocity := Vector2.ZERO, face
 		joint.position = (part["rest_pos"] as Vector2) + (part["pos"] as Vector2) + (part["recoil"] as Vector2) * _recoil
 		joint.rotation = float(part["rest_rot"]) + rot
 		joint.scale = part["scale"]
-		joint.visible = _shown.is_empty() or _shown.has(str(part["name"]))
+		joint.visible = (_shown.is_empty() or _shown.has(str(part["name"]))) and not _hidden.has(str(part["name"]))
 	var bob := sin(_bob_phase) * float(_root_params["bob_amp"]) - float(_gait.get("hop", 0.0)) * absf(sin(_gait_phase)) * _speed_ratio
 	_tilt = lerpf(_tilt, clampf(velocity.x * float(face) / 100.0, -1.0, 1.0) * float(_root_params["tilt"]), blend)
 	_root.position = Vector2(0.0, bob) + extra_position
@@ -312,6 +313,18 @@ func part_names() -> PackedStringArray:
 	for part: Dictionary in _parts:
 		names.append(part["name"])
 	return names
+
+
+## 遊戲中拿掉或放回某個零件（連同掛在它下面的零件）；回傳這個零件是否存在。
+func set_part_hidden(part_name: String, hidden: bool) -> bool:
+	if not _by_name.has(part_name):
+		return false
+	if hidden:
+		_hidden[part_name] = true
+	else:
+		_hidden.erase(part_name)
+	(_parts[int(_by_name[part_name])]["joint"] as Node2D).visible = not hidden
+	return true
 
 
 ## 零件的目前關節（測試與稽核用）。

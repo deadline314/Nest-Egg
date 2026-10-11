@@ -475,6 +475,11 @@ func _apply_phase(index: int, perform: bool) -> void:
 		for part_name: String in config["hide_parts"]:
 			for node: Node in rig.find_children(part_name, "CanvasItem", true, false):
 				(node as CanvasItem).visible = false
+	elif creature != null:
+		# 零件式外觀：藏起整個零件關節（含掛在它下面的零件），例如被打壞的砲塔。
+		for part_name: String in config["hide_parts"]:
+			if not creature.set_part_hidden(part_name, true):
+				RigLibrary.report_once("pattern_boss_hide:%s:%s" % [data.id, part_name], "[PatternBoss] %s 的階段要藏的零件「%s」不在零件式外觀裡" % [data.id, part_name])
 	_refresh_parts()
 	if perform:
 		Fx.burst(_center(), Palette.WARNING, 24, 240.0, 0.5)
@@ -589,16 +594,18 @@ func _leash_velocity(desired: float) -> float:
 	return desired if _leash_room(signi(int(signf(desired)))) > 4.0 else 0.0
 
 
-## 鍊子在身上的扣點（世界座標）：脖子骨頭，沒有骨架用頸部高度。
+## 鍊子在身上的扣點（世界座標）：脖子骨頭（零件式外觀用頭的關節），都沒有時用頸部高度。
 func _chain_end() -> Vector2:
-	if rig != null and rig.has_bone(&"neck"):
-		return rig.bone(&"neck").global_position
+	var anchor := anchor_node(&"neck") if rig != null else anchor_node(&"head")
+	if anchor != null:
+		return anchor.global_position
 	return global_position + Vector2(0, -data.body_size.y * 0.8)
 
 
 func _head_point() -> Vector2:
-	if rig != null and rig.has_bone(&"head"):
-		return rig.bone(&"head").global_position
+	var anchor := anchor_node(&"head")
+	if anchor != null:
+		return anchor.global_position
 	return global_position + Vector2(0, -data.body_size.y)
 
 
@@ -642,15 +649,27 @@ func _rig_aim() -> Vector2:
 	return _direction_to_target() if _target() != null else Vector2(facing, 0.1).normalized()
 
 
+## 目前的姿勢名稱：招式資料的 pose_windup／pose_act，其他狀態用資料的 poses；沒有就是空字串。
+## 骨架外觀當成骨架動作名，零件式外觀當成零件動畫的狀態名。
+func _current_pose() -> StringName:
+	var pose: StringName = &""
+	if fsm.is_in(&"windup"):
+		pose = _move().get("pose_windup", &"")
+	elif fsm.is_in(&"act"):
+		pose = _move().get("pose_act", &"")
+	if pose == &"":
+		pose = pattern.state_poses.get(fsm.current, &"")
+	return pose
+
+
+func _creature_state() -> StringName:
+	var pose := _current_pose()
+	return pose if pose != &"" else super._creature_state()
+
+
 ## 骨架動作由招式資料決定（pose_windup／pose_act），睡著時蹲低。
 func _update_rig_action() -> void:
-	var action: StringName = &""
-	if fsm.is_in(&"windup"):
-		action = _move().get("pose_windup", &"")
-	elif fsm.is_in(&"act"):
-		action = _move().get("pose_act", &"")
-	if action == &"":
-		action = pattern.state_poses.get(fsm.current, &"")
+	var action := _current_pose()
 	_rig_input.action = action
 	if action == &"":
 		_rig_input.action_t = 0.0
@@ -755,12 +774,6 @@ func _draw_open_parts() -> void:
 			continue
 		draw_circle(at, 5.0 + pulse * 2.0, Color(LightKit.glow(Palette.WARNING, 2.6), 0.45))
 		draw_arc(at, 8.0 + pulse * 2.0, 0.0, TAU, 20, LightKit.glow(Palette.WARNING, 3.0), 1.5)
-
-
-## 弱點標記由 _draw_open_parts 依「現在是否打開」畫；關著（裝甲）的部位不畫，避免誤導。開發用的受擊框外框照舊。
-func _draw_weak_points() -> void:
-	if debug_hurtboxes and not _dying:
-		super._draw_weak_points()
 
 
 ## 骨架載入失敗時的程式繪製：一塊機甲身體與發光的眼睛。

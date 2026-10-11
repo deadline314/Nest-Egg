@@ -102,15 +102,15 @@ func _test_watchdog_pattern_data() -> void:
 			phase_kinds[pattern.moves[id]["kind"]] = true
 		check(phase_kinds.size() >= 3, "phase %d offers three different kinds of attack" % [i + 1])
 	check(pattern.leash_length > 0.0 and pattern.gate_channel == &"watchdog_gate", "the watchdog is chained and opens its gate")
-	# 動作不共用：引用的每個骨架動作都存在，而且是看門狗自己的（watchdog.*）。
-	var actions: Dictionary = RigLibrary.load_json(HumanoidAnimator.ACTIONS_PATH).get("actions", {})
+	# 動作是看門狗自己的：引用的每個姿勢都是四足零件外觀（art/creatures/watchdog.json）裡的狀態。
+	var states: Dictionary = RigLibrary.load_json(PartCreature.PATH % "watchdog").get("states", {})
 	var poses: Array = pattern.state_poses.values()
 	for id: StringName in pattern.moves:
 		for key in ["pose_windup", "pose_act"]:
 			if pattern.moves[id][key] != &"":
 				poses.append(pattern.moves[id][key])
 	for pose: StringName in poses:
-		check(actions.has(String(pose)) and String(pose).begins_with("watchdog."), "watchdog pose %s exists and is its own" % pose)
+		check(states.has(String(pose)), "watchdog pose %s is one of its own creature states" % pose)
 	# 損毀的資料：記錄位置並退回安全預設，不崩潰。
 	var broken := BossPattern.parse({"moves": {"x": {"kind": "teleport"}}, "phases": [{"moves": ["missing"]}], "parts": {"a": {"open": "sometimes"}}}, "test://broken", true)
 	check(broken.errors.size() >= 3 and broken.errors[0].contains("test://broken"), "broken boss data reports where it failed: %s" % [broken.errors])
@@ -178,10 +178,14 @@ func _test_watchdog_leash_yank() -> void:
 	var hits: Array = []
 	var record := func(info: DamageInfo) -> void: hits.append([info.part, info.amount, info.weak_hit])
 	dog.health.damaged.connect(record)
-	# 玩家在牠前方：子彈從正面射向發橙光的背部電源（槍臂硬直時垂下，不擋）。
+	# 玩家站在牠前方的地上：子彈從低處斜向上、從頭底下穿過，射向發橙光的背部電源（槍臂硬直時垂下，不擋）。
 	var front := float(dog.facing)
-	ProjectilePool.spawn(load(PISTOL_SHOT) as ProjectileSpec, aim + Vector2(front * 40.0, 0), Vector2(-front, 0), Combat.Team.PLAYER)
+	# 被扯回時牠還在往後滑：子彈飛行的這幾格先停住牠，量的是命中位置，不是追不追得上。
+	var origin := aim + Vector2(front * 70.0, 24.0)
+	dog.set_physics_process(false)
+	ProjectilePool.spawn(load(PISTOL_SHOT) as ProjectileSpec, origin, (aim - origin).normalized(), Combat.Team.PLAYER)
 	await physics_frames(12)
+	dog.set_physics_process(true)
 	dog.health.damaged.disconnect(record)
 	var base := roundi((load(PISTOL_SHOT) as ProjectileSpec).damage)
 	check(hits.size() == 1 and hits[0][0] == &"back_power" and hits[0][2] and hits[0][1] == roundi(base * 2.0), "the exposed back takes a 2x weak hit: %s" % [hits])
@@ -215,6 +219,9 @@ func _test_watchdog_phases() -> void:
 	await physics_frames(2)
 	check(dog.phase == 1 and dog.fsm.is_in(&"phase_shift"), "losing 45%% health breaks the gun arm with a pause (phase %d, %s)" % [dog.phase + 1, dog.fsm.current])
 	check(not gun.enabled and not (dog.current_phase()["moves"] as Array).has(&"burst"), "the broken gun arm stops the burst")
+	await physics_frames(2)
+	var turret := dog.creature.joint_of("turret") if dog.creature != null else null
+	check(turret != null and not turret.visible, "the broken turret is gone from its back, not just switched off")
 	check(dog.current_phase()["armored"] and dog.is_leashed(), "phase two keeps the armour and the chain")
 	dog.hurtbox.receive(hit(int(dog.health.max_health * 0.3), true))
 	await physics_frames(2)
@@ -266,8 +273,8 @@ func _test_watchdog_missiles_dodgeable() -> void:
 		await end_level(level)
 
 
-## 近戰（頭目反制）：平常身體裝甲擋下近戰；被扯回背部打開時，繞到牠背後跳起來近戰，打得到背部電源（弱點、兩倍）。
-## 牠是高大的機甲，背部電源在站著的玩家近戰範圍之上，而且在背對玩家的那一側（子彈從正面就打得到）。
+## 近戰（頭目反制）：平常身體裝甲擋下近戰；被扯回背部打開時，繞到牠背後近戰，打得到背部電源（弱點、兩倍）。
+## 牠是四足機械犬，背部電源在後半身的背上：近戰要繞到背後；子彈從正面低處斜射、從頭底下穿過也打得到。
 ## 用手把右搖桿瞄準（無頭環境讀不到滑鼠）。
 func _test_watchdog_melee_windows() -> void:
 	await open_level(DOG_TILE - 20.0)
@@ -304,13 +311,10 @@ func _test_watchdog_melee_windows() -> void:
 		player.velocity = Vector2.ZERO
 		await physics_frames(25)
 		hits.clear()
-		Input.action_press(&"jump")
-		await physics_frames(14)
 		player._try_melee()
 		await physics_frames(30)
-		Input.action_release(&"jump")
 		check(hits.size() == 1 and hits[0][0] == &"back_power" and hits[0][2] and hits[0][1] == maxi(1, roundi(melee_damage * 2.0)),
-				"with the back open, a jumping melee from behind strikes the back power as a weak hit (round %d): %s" % [int(side), hits])
+				"with the back open, a melee from behind strikes the back power as a weak hit (round %d): %s" % [int(side), hits])
 		dog.call(&"_yanked_exit")
 		dog.health.setup(dog.data.max_health, 0.0)
 		Input.action_release(toward)
