@@ -11,6 +11,7 @@ radius = 215.0
 flicker_chance = 0.012
 dead_chance = 0.35
 pulse_hz = 0.0
+fixtures = PackedStringArray("security_flood", "street_head", "tripod_flood", "bulkhead_wall")
 
 [resource]
 script = ExtResource("1_script")

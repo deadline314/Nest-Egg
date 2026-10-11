@@ -11,6 +11,7 @@ radius = 180.0
 flicker_chance = 0.06
 dead_chance = 0.3
 pulse_hz = 0.0
+fixtures = PackedStringArray("cage_worklight", "hazard_strobe", "tube_batten")
 
 [resource]
 script = ExtResource("1_script")

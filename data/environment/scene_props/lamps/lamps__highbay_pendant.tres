@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"lamps__highbay_pendant"
+display_name = "工礦吊燈"
+texture = "res://art/environment/scene_props/lamps/lamps__highbay_pendant.png"
+light_offset = Vector2(10.6, 23.2)
+light_energy = 1.5
+light_radius = 215
+light_color = Color(1.0, 0.86, 0.6, 1)
+has_glow = true
+size = Vector2(21.7, 27)
+category = &"scene"

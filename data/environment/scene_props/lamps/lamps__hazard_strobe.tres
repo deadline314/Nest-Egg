@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"lamps__hazard_strobe"
+display_name = "警示燈箱"
+texture = "res://art/environment/scene_props/lamps/lamps__hazard_strobe.png"
+glow_life = true
+light_energy = 1.0
+light_radius = 150
+light_color = Color(1.0, 0.62, 0.2, 1)
+light_offset = Vector2(5.4, 4.5)
+has_glow = true
+size = Vector2(11.6, 12)
+category = &"scene"

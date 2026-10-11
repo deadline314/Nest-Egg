@@ -13,6 +13,11 @@ extends Resource
 @export_range(0.0, 1.0, 0.05) var dead_chance: float = 0.0
 ## 亮度脈動的頻率（Hz，0 = 不脈動）：警示燈用。
 @export_range(0.0, 4.0, 0.05) var pulse_hz: float = 0.0
+## 這一區可以用的燈具款式（LampFixtures 的 id）。相鄰的燈輪流換款；某一盞周圍裝不上這些款式時改用備用款。
+@export var fixtures: PackedStringArray = PackedStringArray()
+## 燈具的光色裡混進多少這一區的顏色（0＝完全是燈具自己的顏色，1＝完全是這一區的顏色）。
+## 一般的區域只帶一點；靠彩色燈泡營造氣氛的地方（復原館、市集）調高，燈具的發光部位會跟著染色。
+@export_range(0.0, 1.0, 0.01) var fixture_tint: float = 0.18
 
 
 func validate() -> PackedStringArray:
@@ -21,8 +26,13 @@ func validate() -> PackedStringArray:
 		problems.append("燈的風格沒有任何顏色")
 	if energy < 0.0 or radius <= 0.0:
 		problems.append("燈的能量不能是負的、半徑必須大於 0")
+	if fixture_tint < 0.0 or fixture_tint > 1.0:
+		problems.append("燈具染色的比例要在 0 到 1 之間")
 	if flicker_chance < 0.0 or dead_chance < 0.0 or dead_chance > 1.0 or pulse_hz < 0.0:
 		problems.append("燈的閃爍機率、壞掉比例或脈動頻率超出範圍")
+	for fixture: String in fixtures:
+		if LampFixtures.fixture(StringName(fixture)).is_empty():
+			problems.append("燈的風格用了不存在的燈具款式：%s" % fixture)
 	return problems
 
 

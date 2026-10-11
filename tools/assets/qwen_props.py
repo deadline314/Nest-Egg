@@ -124,6 +124,18 @@ def drop_specks(alpha: np.ndarray, min_share: float = 0.01) -> np.ndarray:
     return np.where(keep[labels], alpha, 0.0).astype(alpha.dtype)
 
 
+def glow_centre(glow: np.ndarray | None) -> tuple[float, float]:
+    """Centre of the emissive layer as fractions of the picture (x, y), weighted by how strongly each pixel glows.
+    Without a glow layer the light starts a little below the middle, where a lamp's lens usually is."""
+    if glow is None or float(glow[..., 3].sum()) <= 0.0:
+        return 0.5, 0.6
+    weight = glow[..., 3] ** 2
+    h, w = weight.shape
+    total = float(weight.sum())
+    return (float((weight.sum(axis=0) * (np.arange(w) + 0.5)).sum() / total / w),
+            float((weight.sum(axis=1) * (np.arange(h) + 0.5)).sum() / total / h))
+
+
 def deck_center(alpha: np.ndarray) -> float | None:
     """Vertical centre (fraction of the height) of the first thick, nearly full-width horizontal bar - a landing or awning."""
     h = alpha.shape[0]
@@ -272,6 +284,7 @@ def process(e: dict, cfg: dict, regen: bool, no_gen: bool) -> bool:
     qm.to_image(qm.normal_map(color, **normal)).save(art_dir / f"{pid}_n.png", optimize=True)
 
     has_glow = False
+    g = None
     glow_file = art_dir / f"{pid}_glow.png"
     if e.get("glow"):
         g = qm.glow_mask(np.dstack([qm.grade(small[..., :3], e.get("glow_source_grade", {})), small[..., 3]]), e["glow"])
@@ -284,11 +297,16 @@ def process(e: dict, cfg: dict, regen: bool, no_gen: bool) -> bool:
 
     tres = set_field(tres, "size", f"Vector2({fmt(new_w)}, {fmt(new_h)})")
     tres = set_field(tres, "has_glow", "true" if has_glow else "false") if (has_glow or re.search(r"^has_glow = true", tres, re.M)) else tres
-    if "light_offset" not in anchor:
+    if e.get("light_from_glow"):
+        # Lamp fixtures (BG-36): the light starts at the centre of the glowing part, wherever the model drew it.
+        lx, ly = glow_centre(g)
+        anchor.pop("light_offset", None)
+        tres = set_field(tres, "light_offset", f"Vector2({fmt(lx * new_w)}, {fmt(ly * new_h)})")
+    elif "light_offset" not in anchor:
         m = re.search(r"^light_offset = Vector2\(([-\d.]+), ([-\d.]+)\)", tres, re.M)
         if m:
             anchor["light_offset"] = [float(m.group(1)), float(m.group(2))]
-    if "light_offset" in anchor and old_w > 0 and old_h > 0:
+    if not e.get("light_from_glow") and "light_offset" in anchor and old_w > 0 and old_h > 0:
         lx, ly = anchor["light_offset"]
         tres = set_field(tres, "light_offset", f"Vector2({fmt(lx * new_w / old_w)}, {fmt(ly * new_h / old_h)})")
     for key, value in (e.get("data") or {}).items():

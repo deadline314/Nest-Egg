@@ -1,0 +1,119 @@
+{
+ "_說明": "場景燈具的款式（BG-36）。mount＝安裝方式（ceiling 吊在天花板、wall 裝在牆上、pole 立桿接到地面、ground 站在地上）；shaft＝往下的光錐長度比例（0＝沒有光錐）；radius、energy＝光池大小與亮度相對於所在區段燈風格的比例；pole_at＝立桿接在燈具圖寬度的哪裡（0 左、1 右）；emit＝發光面占燈具圖寬度的比例（長條形的燈從整條往下照，0＝從一點）；aim_x＝光錐往旁邊偏的程度（負的偏左，燈具翻轉時跟著反過來）。圖與大小在 data/environment/scene_props/lamps/lamps__<款式>.tres，由 assets_src/pipeline/lamp_fixtures.json 產生。pole＝周圍沒有天花板也沒有牆時能不能改掛在桿子上（arm 掛在桿子的橫臂下、post 鎖在桿子上，不寫＝不行）。fallback＝某個區段指定的款式都裝不上時，各安裝方式的備用款。每個區段用哪幾款寫在該區光影設定的燈風格（fixtures）。",
+ "fixtures": {
+  "highbay_pendant": {
+   "mount": "ceiling",
+   "shaft": 1.0,
+   "radius": 1.0,
+   "energy": 1.0,
+   "emit": 0.6,
+   "pole": "arm"
+  },
+  "tube_batten": {
+   "mount": "ceiling",
+   "shaft": 0.7,
+   "radius": 1.05,
+   "energy": 0.9,
+   "emit": 0.8
+  },
+  "tin_shade_bulb": {
+   "mount": "ceiling",
+   "shaft": 0.8,
+   "radius": 0.8,
+   "energy": 0.9,
+   "pole": "arm"
+  },
+  "led_panel": {
+   "mount": "ceiling",
+   "shaft": 0.8,
+   "radius": 1.0,
+   "energy": 1.0,
+   "emit": 0.9
+  },
+  "led_lantern": {
+   "mount": "ceiling",
+   "shaft": 0.0,
+   "radius": 0.75,
+   "energy": 0.8,
+   "pole": "arm"
+  },
+  "cage_worklight": {
+   "mount": "ceiling",
+   "shaft": 0.6,
+   "radius": 0.8,
+   "energy": 0.9,
+   "pole": "arm"
+  },
+  "bulkhead_wall": {
+   "mount": "wall",
+   "shaft": 0.5,
+   "radius": 0.8,
+   "energy": 0.85,
+   "pole": "post",
+   "pole_at": 0.5
+  },
+  "gooseneck_sign": {
+   "mount": "wall",
+   "shaft": 0.9,
+   "radius": 0.85,
+   "energy": 0.9,
+   "emit": 0.45,
+   "pole": "post",
+   "pole_at": 0.93
+  },
+  "neon_tube_bracket": {
+   "mount": "wall",
+   "shaft": 0.0,
+   "radius": 0.75,
+   "energy": 0.75,
+   "pole": "post",
+   "pole_at": 0.5
+  },
+  "hazard_strobe": {
+   "mount": "wall",
+   "shaft": 0.0,
+   "radius": 0.65,
+   "energy": 0.7,
+   "pole": "post",
+   "pole_at": 0.5
+  },
+  "security_flood": {
+   "mount": "wall",
+   "shaft": 1.0,
+   "radius": 1.0,
+   "energy": 1.0,
+   "emit": 0.3,
+   "aim_x": -0.4,
+   "pole": "post",
+   "pole_at": 0.9
+  },
+  "street_head": {
+   "mount": "pole",
+   "shaft": 1.0,
+   "radius": 1.0,
+   "energy": 1.0,
+   "pole_at": 0.92,
+   "emit": 0.4
+  },
+  "obstruction_beacon": {
+   "mount": "pole",
+   "shaft": 0.0,
+   "radius": 0.7,
+   "energy": 0.7,
+   "pole_at": 0.5
+  },
+  "tripod_flood": {
+   "mount": "ground",
+   "shaft": 0.8,
+   "radius": 1.0,
+   "energy": 1.0,
+   "emit": 0.45
+  }
+ },
+ "fallback": {
+  "ceiling": "tube_batten",
+  "wall": "bulkhead_wall",
+  "pole": "street_head",
+  "ground": "tripod_flood"
+ }
+}

@@ -11,6 +11,8 @@ radius = 190.0
 flicker_chance = 0.01
 dead_chance = 0.15
 pulse_hz = 0.0
+fixtures = PackedStringArray("led_lantern", "neon_tube_bracket", "gooseneck_sign", "street_head")
+fixture_tint = 0.3
 
 [resource]
 script = ExtResource("1_script")

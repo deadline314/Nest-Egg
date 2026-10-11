@@ -150,6 +150,16 @@ CC0 庫找不到的道具（吊車、龍門吊、控制台、堆高機、閘門�
 
 門、梯子、提示牌、開關箱、可擊碎牆、閘門這類又小又規則、還要能平鋪的東西，不走 Qwen：`python tools/assets/cel_fixtures.py [--sheet <png>]` 用程式畫到 `art/environment/fixtures/`（每世界像素 8 貼圖像素），畫完跑 `texture_import.py` 再匯入。遊戲端用 `FixtureArt.attach(物件, id, 左上角, 世界尺寸, 是否平鋪)` 墊在物件後面；會發光的狀態燈、符號不畫進貼圖，由物件自己用自發光疊上去。新貼圖比原本的亮線暗，互動物要留一條淡亮線（梯子扶手、提示牌螢幕），暗處才找得到。清單與缺口見 `design/20-campaign-experience/FIXTURE_ASSETS.md`。
 
+### 場景燈具（BG-36）
+
+場景燈（關卡地圖上的 `*`）用的是畫出來的燈具，和擺設同一套流程，另外多一份款式資料：
+
+- 圖：`assets_src/pipeline/lamp_fixtures.json`（`python tools/assets/qwen_props.py --pipeline lamp_fixtures [--only lamps__<款式>] [--no-gen]`）。提示詞要寫「燈是亮的、發光部位是畫面最亮的地方」；`height_m` 填真實高度；`light_from_glow: true` 讓光從發光部位的中心出發（工具算出 `light_offset`）；`glow` 依燈色選規則（冷白用 `white`、暖色燈泡 `bulb`、紅燈籠 `red_lantern`、霓虹 `neon_tube`…），暖色規則會把黃色的支架也算進去時改用 `white`。
+- 款式：`data/environment/lamp_fixtures.json` 每款一筆：`mount`（ceiling 吊天花板、wall 裝牆上、pole 立桿、ground 落地）、`pole`（周圍沒有天花板與牆時能不能掛桿子：`arm` 掛在橫臂下、`post` 鎖在桿子上）、`pole_at`、`shaft`、`radius`、`energy`、`emit`（長條發光面的寬度比例）、`aim_x`（光錐偏向）。
+- 每個區域用哪幾款：該區光影設定（`data/lighting/*.tres`）燈風格的 `fixtures`，至少兩款；戶外的區域要有能立桿或掛桿子的款式，不然整區只剩備用的路燈。
+- 看結果：`godot --path . res://tools/lamp_gallery.tscn -- --out=<絕對資料夾>` 拍每一款亮與熄滅（含掛桿子的樣子，旁邊的白條是主角身高）；`tools/scene_tour.tscn` 拍實景；`tools/light_pool_probe.tscn` 量光池。
+- 踩過的坑：燈具要畫在擺設那一層（`WorldLayers.PROPS`），預覽工具的牆也要放在背牆層，否則燈具被牆蓋住只看得到光；冷白的燈照在紅磚牆上看起來很暗（紅牆不反射藍綠光），紅牆的區域以暖色款式為主；發光層疊加強度太高會把整個燈具糊成一團白，維持在 1.2 左右。
+
 ## 9. 場景包：每個場景的背景與專屬物件（BG-11）
 
 大綱（`design/13-story-v2/OUTLINE.md` 第 5 節）的每個場景有一張背景圖與一包專屬物件，放在共用道具庫之外：

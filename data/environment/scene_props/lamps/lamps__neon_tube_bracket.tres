@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"lamps__neon_tube_bracket"
+display_name = "直立霓虹管"
+texture = "res://art/environment/scene_props/lamps/lamps__neon_tube_bracket.png"
+light_energy = 1.1
+light_radius = 160
+light_color = Color(1.0, 0.3, 0.75, 1)
+light_offset = Vector2(3.5, 14.4)
+has_glow = true
+size = Vector2(5.5, 33)
+category = &"scene"

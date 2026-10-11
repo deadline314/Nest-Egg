@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"lamps__security_flood"
+display_name = "感應投光燈"
+texture = "res://art/environment/scene_props/lamps/lamps__security_flood.png"
+light_energy = 1.5
+light_radius = 220
+light_color = Color(0.9, 0.96, 1.0, 1)
+light_offset = Vector2(4.1, 5.7)
+has_glow = true
+size = Vector2(17, 15)
+category = &"scene"

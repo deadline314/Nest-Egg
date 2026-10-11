@@ -19,6 +19,9 @@ const BOSS_SPAWN_DELAY := 0.8
 const ARENA_TRIGGER_MARGIN := 40.0
 const FALL_LIMIT_MARGIN := 48.0
 const BOSS_LIGHTING_ID := &"boss"
+## 燈往上幾格內有實心地形就算吊在天花板；立桿與落地燈具離地最遠多少像素。
+const LAMP_CEILING_REACH := 6
+const LAMP_POLE_MAX := 210.0
 const BOSS_LIGHTING_FADE := 1.5
 ## 重生後多久播出「死亡次數的反應」通訊（等轉場揭開、玩家看清楚畫面）。
 const RESPAWN_REACTION_DELAY := 1.2
@@ -445,11 +448,17 @@ func _spawn_static_entities() -> void:
 		var tile := int(lamp.position.x / _layout.tile_size)
 		lamp.floor_y = _layout.floor_below(tile, int(lamp.position.y / _layout.tile_size))
 		lamp.rain_streaks = data.rain and tile >= 0 and tile < _layout.covered_columns.size() and _layout.covered_columns[tile] == 0
+		lamp.ceiling_y = _lamp_ceiling(tile, int(lamp.position.y / _layout.tile_size))
 		var profile := data.profile_at_tile(tile)
 		if profile != null and profile.lamp_style != null:
-			lamp.apply_style(profile.lamp_style, hash(Vector2i(tile, int(lamp.position.y))))
+			lamp.flipped = i % 2 == 1
+			lamp.apply_style(profile.lamp_style, hash(Vector2i(tile, int(lamp.position.y))), _lamp_supports(lamp, _scenery_walls), i)
 		else:
 			lamp.color = [Palette.CYAN, Palette.MAGENTA, Palette.NEON_YELLOW][i % 3]
+			var supports := _lamp_supports(lamp, _scenery_walls)
+			lamp.use_fixture(LampFixtures.pick(PackedStringArray(), supports, i, 0), supports)
+		var lamp_row := int(lamp.position.y / _layout.tile_size)
+		lamp.settle(func(x: float) -> float: return _layout.floor_below(int(x / _layout.tile_size), lamp_row))
 		_world.add_child(lamp)
 	for hint in _layout.hints:
 		var sign := HintSign.new()
@@ -1335,3 +1344,20 @@ class _GateVisual:
 			y += 12.0
 		var glow := LightKit.glow(Palette.DANGER, 1.5 + 0.5 * sin(_time * 6.0))
 		draw_line(Vector2(size.x - 1, 0), Vector2(size.x - 1, size.y), glow, 2.0)
+
+
+## 燈頭上最近的天花板底面（世界 y）：往上 LAMP_CEILING_REACH 格內有實心地形才算；沒有回傳 INF。
+func _lamp_ceiling(tile: int, row: int) -> float:
+	for step in range(1, LAMP_CEILING_REACH + 1):
+		if _layout.cell(tile, row - step) == LevelBuilder.SOLID:
+			return float((row - step + 1) * _layout.tile_size)
+	return INF
+
+
+## 這盞燈周圍能用的安裝方式：頭上有天花板、背後有牆、腳下不遠處有地面。
+func _lamp_supports(lamp: Lamp, walls: BackWallGeometry) -> Dictionary:
+	var drop := lamp.floor_y - lamp.position.y
+	var on_wall := walls != null and walls.covers(Rect2(lamp.position - Vector2(8.0, 8.0), Vector2(16.0, 16.0)))
+	lamp.wall_behind = on_wall
+	return {&"ceiling": lamp.ceiling_y != INF, &"wall": on_wall,
+		&"pole": lamp.floor_y != INF and drop <= LAMP_POLE_MAX, &"ground": lamp.floor_y != INF and drop <= LAMP_POLE_MAX}

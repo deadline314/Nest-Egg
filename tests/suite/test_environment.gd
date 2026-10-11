@@ -25,6 +25,7 @@ func run() -> void:
 	await _test_contact_shadow()
 	_test_fixture_art()
 	await _test_local_drip()
+	await _test_lamp_fixtures()
 	_test_import_policy("res://art/environment")
 
 
@@ -649,3 +650,99 @@ func _test_local_drip() -> void:
 	runner.add_child(broken)
 	check(broken.get_node_or_null("LocalDrip") == null, "invalid drip data keeps the static image")
 	broken.queue_free()
+
+
+## 場景燈具（BG-36）：款式資料、依周圍環境挑款、每一盞燈都有支撐、缺資料時退回安全預設。
+func _test_lamp_fixtures() -> void:
+	var problems := LampFixtures.problems()
+	check(problems.is_empty(), "燈具款式資料有效：%s" % ", ".join(problems))
+	var ids := LampFixtures.ids()
+	check(ids.size() >= 10, "至少有十款燈具（%d）" % ids.size())
+	var mounts := {}
+	for id: StringName in ids:
+		mounts[LampFixtures.fixture(id)["mount"]] = true
+		var prop := LampFixtures.prop(id)
+		check(prop != null and prop.has_glow and prop.size.y >= 6.0 and prop.size.y <= 64.0,
+				"燈具 %s 有圖、有發光部位，高度在合理範圍" % id)
+	check(mounts.size() == LampFixtures.MOUNTS.size(), "四種安裝方式都有燈具（%d）" % mounts.size())
+	# 挑款：只挑周圍裝得上的；相鄰的燈輪流換款；指定的都裝不上就用備用款；什麼支撐都沒有就不給燈具。
+	var wanted := PackedStringArray(["tube_batten", "highbay_pendant", "bulkhead_wall"])
+	var only_wall := {&"ceiling": false, &"wall": true, &"pole": false, &"ground": false}
+	var only_ceiling := {&"ceiling": true, &"wall": false, &"pole": false, &"ground": false}
+	check(LampFixtures.pick(wanted, only_wall, 0, 0) == &"bulkhead_wall", "只有牆的地方挑壁掛的款式")
+	check(LampFixtures.pick(wanted, only_ceiling, 0, 0) != LampFixtures.pick(wanted, only_ceiling, 1, 0), "相鄰兩盞燈用不同款")
+	check(LampFixtures.pick(wanted, only_ceiling, 3, 5) == LampFixtures.pick(wanted, only_ceiling, 3, 5), "同一盞燈每次挑到同一款")
+	var only_pole := {&"ceiling": false, &"wall": false, &"pole": true, &"ground": false}
+	var ceiling_only_kinds := PackedStringArray(["tube_batten", "led_panel"])
+	check(LampFixtures.fixture(LampFixtures.pick(ceiling_only_kinds, only_pole, 0, 0)).get("mount") == &"pole", "指定的款式都裝不上時改用立桿的備用款")
+	# 可以掛在桿子上的款式：沒有天花板也沒有牆時改掛在桿子上，周圍有原本的支撐時用原本的。
+	var lantern := LampFixtures.fixture(&"led_lantern")
+	check(LampFixtures.mount_for(lantern, only_pole) == &"pole" and LampFixtures.mount_for(lantern, only_ceiling) == &"ceiling",
+			"燈籠沒有天花板時掛在桿子上，有天花板時吊在天花板")
+	check(LampFixtures.mount_for(LampFixtures.fixture(&"tube_batten"), only_pole) == &"", "日光燈不能掛在桿子上")
+	check(LampFixtures.pick(PackedStringArray(["led_lantern", "neon_tube_bracket"]), only_pole, 0, 0)
+			!= LampFixtures.pick(PackedStringArray(["led_lantern", "neon_tube_bracket"]), only_pole, 1, 0), "戶外相鄰兩盞桿子上的燈用不同款")
+	var hung := Lamp.new()
+	hung.floor_y = 200.0
+	hung.use_fixture(&"led_lantern", only_pole)
+	check(hung.mount() == &"pole" and hung.is_supported() and not is_zero_approx(hung.support_offset_x()), "掛在桿子上的燈籠有桿子接到地面，桿子在燈的旁邊")
+	hung.settle(func(_x: float) -> float: return INF)
+	check(not hung.is_supported(), "桿子兩側都沒有地面時回報沒有支撐")
+	hung.free()
+	var on_wall := Lamp.new()
+	on_wall.use_fixture(&"bulkhead_wall")
+	check(not on_wall.is_supported(), "壁掛的燈背後沒有牆時回報沒有支撐")
+	on_wall.free()
+	check(LampFixtures.pick(wanted, {}, 0, 0) == &"", "沒有任何支撐時不給燈具")
+	# 不存在的款式：燈照樣亮，只是沒有燈具圖。
+	var bare := Lamp.new()
+	bare.use_fixture(&"test_missing_prop_lamp")
+	runner.get_tree().root.add_child(bare)
+	await frames(1)
+	check(bare.fixture_id == &"" and bare._light != null and bare._art == null, "不存在的燈具款式退回只有光的安全預設")
+	bare.queue_free()
+	# 停電：燈具的發光部位跟著熄滅、本體變暗；復電後恢復。
+	var powered := Lamp.new()
+	powered.flicker_chance = 0.0
+	powered.ceiling_y = -40.0
+	powered.use_fixture(&"highbay_pendant")
+	runner.get_tree().root.add_child(powered)
+	await frames(2)
+	var lit_glow := powered._glow != null and powered._glow.visible
+	# 光跟著燈具走：顏色以燈具為主（工礦吊燈是暖色，不是區段預設的青色），光池是區段基準乘上燈具的比例。
+	var pendant := LampFixtures.fixture(&"highbay_pendant")
+	check(powered.light_color.r > powered.light_color.b and is_equal_approx(powered.light_radius, powered.radius * float(pendant["radius"]))
+			and is_equal_approx(powered._light.energy, powered.energy * float(pendant["energy"])), "光的顏色、光池與亮度跟著燈具走")
+	LightKit.lamp_power = 0.0
+	await frames(2)
+	check(lit_glow and not powered._glow.visible and powered._art.self_modulate.r < 0.99, "停電時燈具的發光部位熄滅、本體變暗")
+	LightKit.lamp_power = 1.0
+	await frames(2)
+	check(powered._glow.visible, "復電後燈具的發光部位恢復")
+	powered.queue_free()
+	# 每份光影設定的燈風格只用存在的款式。
+	for file in DirAccess.get_files_at("res://data/lighting"):
+		if file.ends_with(".tres"):
+			var profile := load("res://data/lighting/" + file) as LightingProfile
+			if profile != null and profile.lamp_style != null:
+				check(profile.lamp_style.validate().is_empty() and profile.lamp_style.fixtures.size() >= 2,
+						"%s 的燈風格至少兩款燈具而且都存在" % file)
+	# 第一章每一區：每一盞燈都有燈具與支撐；有兩盞以上的區域至少兩款。
+	for file in DirAccess.get_files_at("res://data/levels"):
+		if not file.begins_with("ch1_") or not file.ends_with(".tres"):
+			continue
+		var level := await start_level(load("res://data/levels/" + file) as LevelData)
+		var kinds := {}
+		var lamps := 0
+		var loose := PackedStringArray()
+		for node: Node in level.find_children("*", "Node2D", true, false):
+			var lamp := node as Lamp
+			if lamp == null:
+				continue
+			lamps += 1
+			kinds[lamp.fixture_id] = true
+			if lamp.fixture_id == &"" or not lamp.is_supported():
+				loose.append("(%d, %d)" % [int(lamp.position.x / 16.0), int(lamp.position.y / 16.0)])
+		check(loose.is_empty(), "%s 的每一盞燈都有燈具與支撐（共 %d 盞；沒有的在 %s）" % [file, lamps, ", ".join(loose)])
+		check(lamps < 2 or kinds.size() >= 2, "%s 的燈至少兩款（%d 盞、%d 款）" % [file, lamps, kinds.size()])
+		await end_level(level)

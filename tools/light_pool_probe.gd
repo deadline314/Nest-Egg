@@ -158,7 +158,7 @@ func _measure_lamp(image: Image, lamp: Lamp, walls: BackWallGeometry) -> Diction
 	var world := Vector2.INF
 	for drop: float in BAND_DROPS:
 		var candidate := lamp.global_position + Vector2(0.0, drop)
-		if walls != null and drop < lamp.radius * 0.8 				and walls.covers(Rect2(candidate - Vector2(POOL_HALF_WIDTH, BAND_HEIGHT * 0.5), Vector2(POOL_HALF_WIDTH * 2.0, BAND_HEIGHT))):
+		if walls != null and drop < lamp.light_radius * 0.8 				and walls.covers(Rect2(candidate - Vector2(POOL_HALF_WIDTH, BAND_HEIGHT * 0.5), Vector2(POOL_HALF_WIDTH * 2.0, BAND_HEIGHT))):
 			world = candidate
 			break
 	if world == Vector2.INF:
@@ -168,12 +168,12 @@ func _measure_lamp(image: Image, lamp: Lamp, walls: BackWallGeometry) -> Diction
 	var pool := _band(image, center.x - POOL_HALF_WIDTH * scale, center.x + POOL_HALF_WIDTH * scale, center.y, rows)
 	var far := PackedFloat32Array()
 	for side: float in [-1.0, 1.0]:
-		var from_world := world.x + side * lamp.radius * FAR_FROM
-		var to_world := world.x + side * lamp.radius * FAR_TO
+		var from_world := world.x + side * lamp.light_radius * FAR_FROM
+		var to_world := world.x + side * lamp.light_radius * FAR_TO
 		if not walls.covers(Rect2(minf(from_world, to_world), world.y - BAND_HEIGHT * 0.5, absf(to_world - from_world), BAND_HEIGHT)):
 			continue
-		var from := center.x + side * lamp.radius * FAR_FROM * scale
-		var to := center.x + side * lamp.radius * FAR_TO * scale
+		var from := center.x + side * lamp.light_radius * FAR_FROM * scale
+		var to := center.x + side * lamp.light_radius * FAR_TO * scale
 		far.append_array(_band(image, minf(from, to), maxf(from, to), center.y, rows))
 	var pool_luma := _percentile(pool, 0.5)
 	var far_luma := _percentile(far, 0.5)
