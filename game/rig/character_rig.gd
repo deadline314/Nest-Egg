@@ -60,6 +60,8 @@ var _pose_rest_snapshot: Dictionary[StringName, Transform2D] = {}
 ## 做成可彎曲網格的肢體零件（RigPartMesh；也在 _parts 裡）：每格動畫之後依骨頭姿勢重算關節附近的頂點。
 var _meshes: Array[RigPartMesh] = []
 var _hand_grips: Array[Dictionary] = []
+## 後手這一格有沒有握到近戰武器的桿子（動畫器算完手臂後寫入，下一格換成握拳的手）。
+var second_hand_on_weapon := false
 ## Optional head-only eye state. All textures are resolved once during setup; animation only swaps cached references.
 var _eye_blink: RefCounted
 var _eye_part: Sprite2D
@@ -1411,8 +1413,11 @@ func _update_eye_states(delta: float, input: RigInput) -> void:
 func _update_hand_grips(input: RigInput) -> void:
 	for entry in _hand_grips:
 		var closed := not _weapon_def.is_empty() and not input.dead
+		if entry["bone"] == &"hand_front":
+			closed = closed or (input.melee_grip and not input.dead)
 		if entry["bone"] == &"hand_back":
 			closed = closed and input.two_handed and not input.shield_forward and input.action == &""
+			closed = closed or (second_hand_on_weapon and input.melee_second and not input.dead and input.action == &"")
 		if closed == entry["closed"]:
 			continue
 		var sprite: Sprite2D = entry["sprite"]

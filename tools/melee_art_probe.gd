@@ -12,6 +12,7 @@ extends ScenarioBase
 ## 並把背包卡片圖示與武器欄圖示存成圖（三處要看得出是同一把）。
 ## 輸出 <標籤>-<武器>-idle.png、<標籤>-<武器>-<第幾段>-<招式>.png、<標籤>-<武器>-crouch／air／dash.png、
 ## <標籤>-pickups.png、<標籤>-icons.png 與 <標籤>-index.json。
+## 每把武器第一招另外連拍 8 張（<標籤>-<武器>-film-<n>.png，每 3 個物理影格一張），看握法與武器的拖曳、跟隨。
 ## --perf 只量耗時：拿著離子戰戟（刃光最大）站著，刃光開與關成對交替量每影格耗時，取比值的中位數（垂直同步關閉）。
 
 const WEAPONS: PackedStringArray = ["blade", "dagger", "glaive", "maul", "whip"]
@@ -28,6 +29,8 @@ var _quality := ""
 
 const QUALITY := {"low": LightQuality.Tier.LOW, "medium": LightQuality.Tier.MEDIUM, "high": LightQuality.Tier.HIGH}
 const PERF_FRAMES := 45
+const FILM_SHOTS := 8
+const FILM_EVERY := 3
 const PERF_ROUNDS := 60
 
 
@@ -77,6 +80,7 @@ func _run() -> void:
 	for weapon_id: String in WEAPONS:
 		report["weapons"][weapon_id] = await _one_weapon(weapon_id, camera)
 		await _poses(weapon_id, camera)
+		report["weapons"][weapon_id]["film_hands"] = await _film(weapon_id, camera)
 	Settings.set_reduce_flashes(reduce_before)
 	await _pickups_and_icons(camera)
 	var writer := FileAccess.open(out_dir.path_join(_tag + "-index.json"), FileAccess.WRITE)
@@ -142,6 +146,32 @@ func _frame_ms() -> float:
 		last = now
 	samples.sort()
 	return samples[PERF_FRAMES / 2]
+
+
+## 第一招的連續影格（每 3 個物理影格一張，共 8 張）：看武器相對前臂怎麼落後、怎麼甩過去、怎麼收。
+## 回傳每一張裡兩隻手在畫面上的位置（像素），放大檢查手腕與握把用。
+func _film(weapon_id: String, camera: Camera2D) -> Array:
+	var weapon := load("res://data/weapons/melee/melee_%s.tres" % weapon_id) as WeaponData
+	var hands: Array = []
+	await clear_enemies()
+	await _arm(weapon, camera)
+	if not player._try_melee():
+		return hands
+	var rig := player._visual.rig
+	for shot in FILM_SHOTS:
+		for i in FILM_EVERY:
+			await get_tree().physics_frame
+		await get_tree().process_frame
+		# 先記下手的位置、等這一格畫完再存圖：直接存會拿到上一格的畫面，位置對不上。
+		var to_screen := get_viewport().get_final_transform() * get_viewport().get_canvas_transform()
+		var front := to_screen * rig.bone(&"hand_front").global_position
+		var back := to_screen * rig.bone(&"hand_back").global_position
+		hands.append([front.x, front.y, back.x, back.y])
+		await RenderingServer.frame_post_draw
+		capture("%s-%s-film-%d" % [_tag, weapon_id, shot + 1])
+	player._interrupt_melee()
+	await settle(20)
+	return hands
 
 
 func _arm(weapon: WeaponData, camera: Camera2D) -> void:
@@ -282,6 +312,18 @@ func _poses(weapon_id: String, camera: Camera2D) -> void:
 	await settle(1)
 	capture("%s-%s-dash" % [_tag, weapon_id])
 	await settle(50)
+	# 朝左站著一張：握法、圖層與另一隻手左右對調後要一樣。
+	await _arm(weapon, camera)
+	AimInput._last_stick_dir = Vector2.LEFT
+	player.facing = -1
+	player.aim_dir = Vector2.LEFT
+	camera.global_position = player.global_position + Vector2(-34, -30)
+	await settle(40)
+	capture("%s-%s-left" % [_tag, weapon_id])
+	AimInput._last_stick_dir = Vector2.RIGHT
+	player.facing = 1
+	player.aim_dir = Vector2.RIGHT
+	await settle(10)
 
 
 ## 五把武器的掉落物排成一列，以及背包卡片與武器欄的圖示。

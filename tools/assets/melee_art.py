@@ -131,6 +131,7 @@ def process(cfg: dict, entry: dict, no_gen: bool, regen: bool) -> dict | None:
         "grip": [round(-span_min, 3), round(grip_row / scale, 3)],
         "glow_at": round(glow_centre / scale + span_min, 2),
         "light": entry["light"],
+        "hold": entry.get("hold", {}),
     }
     print(f"ok    {wid:14} {width_px}x{height_px}px  size {size[0]}x{size[1]}  grip {result['grip']}  glow at x={result['glow_at']}  flipped={bool(flip)}")
     lay_out(entry, rgba)

@@ -17,6 +17,15 @@
     "radius": 44,
     "energy": 0.55,
     "swing": 1.9
+   },
+   "hold": {
+    "carry": 0.5,
+    "couple": 0.3,
+    "freq": 11.0,
+    "damp": 0.5,
+    "lag": 0.38,
+    "swing": 0.0,
+    "second": 0.0
    }
   },
   "melee_dagger": {
@@ -35,6 +44,15 @@
     "radius": 34,
     "energy": 0.45,
     "swing": 1.8
+   },
+   "hold": {
+    "carry": -0.25,
+    "couple": 0.4,
+    "freq": 14.0,
+    "damp": 0.55,
+    "lag": 0.28,
+    "swing": 0.0,
+    "second": 0.0
    }
   },
   "melee_glaive": {
@@ -53,6 +71,15 @@
     "radius": 52,
     "energy": 0.6,
     "swing": 1.8
+   },
+   "hold": {
+    "carry": -0.6,
+    "couple": 0.15,
+    "freq": 8.5,
+    "damp": 0.5,
+    "lag": 0.34,
+    "swing": 0.0,
+    "second": 11.5
    }
   },
   "melee_maul": {
@@ -71,6 +98,15 @@
     "radius": 40,
     "energy": 0.5,
     "swing": 2.1
+   },
+   "hold": {
+    "carry": -0.5,
+    "couple": 0.15,
+    "freq": 7.0,
+    "damp": 0.45,
+    "lag": 0.45,
+    "swing": 0.0,
+    "second": 11.5
    }
   },
   "melee_whip": {
@@ -89,6 +125,15 @@
     "radius": 46,
     "energy": 0.5,
     "swing": 1.9
+   },
+   "hold": {
+    "carry": 1.25,
+    "couple": 0.5,
+    "freq": 10.0,
+    "damp": 0.55,
+    "lag": 0.4,
+    "swing": 0.0,
+    "second": 0.0
    }
   }
  }

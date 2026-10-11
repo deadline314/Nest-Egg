@@ -1,5 +1,5 @@
 {
- "_說明": "近戰武器的圖（NE-260）。tex_scale＝每個世界像素幾個貼圖像素。每把武器：id（WeaponData 的 id）、seed、gen（生成尺寸）、prompt、span（武器座標：握把在 0、刃尖朝 +x；圖的寬度剛好蓋住這一段，所以握把位置與長度不變）、grip_zone（握把在武器座標的範圍，用來找握把的中心線）、glow（發光部位的規則，同 qwen_matte.glow_mask）、glow_tint（把發光層染成這個顏色、保留明暗；模型把刃口畫成銀色時用）、grade（調色）、profile（招式組的名稱：背包已經有專屬圖示檔時一起重畫）、coil（掉落物與背包圖示上盤起來的鞭線的顏色）、light（刃光：radius 拿在手上的光池半徑、energy 亮度、swing 揮動時放大幾倍）。執行 python tools/assets/melee_art.py 生成並寫出 art/weapons/melee 與 data/weapon_art/melee.json。",
+ "_說明": "近戰武器的圖（NE-260）。tex_scale＝每個世界像素幾個貼圖像素。每把武器：id（WeaponData 的 id）、seed、gen（生成尺寸）、prompt、span（武器座標：握把在 0、刃尖朝 +x；圖的寬度剛好蓋住這一段，所以握把位置與長度不變）、grip_zone（握把在武器座標的範圍，用來找握把的中心線）、glow（發光部位的規則，同 qwen_matte.glow_mask）、glow_tint（把發光層染成這個顏色、保留明暗；模型把刃口畫成銀色時用）、grade（調色）、profile（招式組的名稱：背包已經有專屬圖示檔時一起重畫）、coil（掉落物與背包圖示上盤起來的鞭線的顏色）、hold（拿在手上的方式：carry 不出招時朝哪裡，朝右時的弧度、0 水平朝前、正的往下；couple 跟著手臂晃多少；freq、damp 是武器追上手臂的彈簧，頻率 Hz 與阻尼比，重的武器頻率低；lag 最多落後幾弧度；swing 出招時相對前臂偏幾弧度；second 另一隻手握在離握把多遠的地方，世界像素，0 是單手）、light（刃光：radius 拿在手上的光池半徑、energy 亮度、swing 揮動時放大幾倍）。執行 python tools/assets/melee_art.py 生成並寫出 art/weapons/melee 與 data/weapon_art/melee.json。",
  "style": "Anime cel-shaded game weapon sprite in the style of Studio Trigger's Cyberpunk Edgerunners: flat colour areas, bold clean dark outlines, hard-edged two-tone cel shading with a bright cool-white rim light on the upper edge, readable silhouette, no gradients, no photorealism.",
  "view": "Strict orthographic side view, the weapon lies perfectly horizontal across the whole picture with the handle at the left end and the tip at the right end, nothing else in the picture, no hands, no character, no ground, no shadow, no text.",
  "tex_scale": 8,
@@ -41,7 +41,16 @@
     "energy": 0.55,
     "swing": 1.9
    },
-   "profile": "thermal_blade"
+   "profile": "thermal_blade",
+   "hold": {
+    "carry": 0.5,
+    "couple": 0.3,
+    "freq": 11.0,
+    "damp": 0.5,
+    "lag": 0.38,
+    "swing": 0.0,
+    "second": 0.0
+   }
   },
   {
    "id": "melee_dagger",
@@ -76,7 +85,16 @@
     0.95,
     1.0
    ],
-   "profile": "mono_dagger"
+   "profile": "mono_dagger",
+   "hold": {
+    "carry": -0.25,
+    "couple": 0.4,
+    "freq": 14.0,
+    "damp": 0.55,
+    "lag": 0.28,
+    "swing": 0.0,
+    "second": 0.0
+   }
   },
   {
    "id": "melee_glaive",
@@ -115,7 +133,16 @@
     "energy": 0.6,
     "swing": 1.8
    },
-   "profile": "ion_glaive"
+   "profile": "ion_glaive",
+   "hold": {
+    "carry": -0.6,
+    "couple": 0.15,
+    "freq": 8.5,
+    "damp": 0.5,
+    "lag": 0.34,
+    "swing": 0.0,
+    "second": 11.5
+   }
   },
   {
    "id": "melee_maul",
@@ -154,7 +181,16 @@
     "energy": 0.5,
     "swing": 2.1
    },
-   "profile": "hydraulic_maul"
+   "profile": "hydraulic_maul",
+   "hold": {
+    "carry": -0.5,
+    "couple": 0.15,
+    "freq": 7.0,
+    "damp": 0.45,
+    "lag": 0.45,
+    "swing": 0.0,
+    "second": 11.5
+   }
   },
   {
    "id": "melee_whip",
@@ -200,6 +236,15 @@
      0.4,
      1.0
     ]
+   },
+   "hold": {
+    "carry": 1.25,
+    "couple": 0.5,
+    "freq": 10.0,
+    "damp": 0.55,
+    "lag": 0.4,
+    "swing": 0.0,
+    "second": 0.0
    }
   }
  ]

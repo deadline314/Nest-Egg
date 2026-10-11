@@ -80,10 +80,17 @@ static func light_spec(weapon: WeaponData) -> Dictionary:
 	return art(weapon).get("light", {})
 
 
+## 這把武器拿在手上的方式（NE-275，資料的 hold）：carry 不出招時朝哪裡（朝右時的弧度，0 水平朝前、正的往下）、
+## couple 跟著手臂晃多少、freq 與 damp 是追上手臂的彈簧（頻率 Hz、阻尼比）、lag 最多落後幾弧度、swing 出招時相對前臂偏幾弧度。
+static func hold_spec(weapon: WeaponData) -> Dictionary:
+	return art(weapon).get("hold", {})
+
+
 ## 畫在 CanvasItem 上：from 是握把位置、direction 是刃尖朝向（單位向量）；glow 是發光亮度（>1 會帶泛光，呼叫端自己限制上限）。
 ## 朝左時把圖上下對調，刃口才不會翻到上面。
+## reach 大於 0 時，鞭子的細線只畫到這個長度（垂下來不穿過地面）。
 ## shade 是本體的明暗（0～1）：這個函式畫的東西不受場景光影響，暗的區域裡由呼叫端把本體壓暗，發光部位不受影響。
-static func draw(item: CanvasItem, from: Vector2, direction: Vector2, weapon: WeaponData, glow := 1.4, shade := 1.0) -> void:
+static func draw(item: CanvasItem, from: Vector2, direction: Vector2, weapon: WeaponData, glow := 1.4, shade := 1.0, reach := -1.0) -> void:
 	var entry := art(weapon)
 	var xf := Transform2D(direction.angle(), from)
 	if not entry.is_empty():
@@ -109,7 +116,14 @@ static func draw(item: CanvasItem, from: Vector2, direction: Vector2, weapon: We
 		var color: Color = seg["c"]
 		if bool(seg["glow"]):
 			color = LightKit.glow(color, glow)
-		item.draw_line(xf * (seg["a"] as Vector2), xf * (seg["b"] as Vector2), color, float(seg["w"]))
+		var a: Vector2 = seg["a"]
+		var b: Vector2 = seg["b"]
+		if reach > 0.0:
+			if a.x >= reach:
+				continue
+			if b.x > reach:
+				b = a.lerp(b, (reach - a.x) / maxf(0.001, b.x - a.x))
+		item.draw_line(xf * a, xf * b, color, float(seg["w"]))
 
 
 ## 背包卡片圖示（64×24）。
@@ -238,6 +252,7 @@ static func _load_art() -> void:
 			"size": size,
 			"grip": _vec2(entry.get("grip")),
 			"light": light,
+			"hold": entry.get("hold", {}) if entry.get("hold") is Dictionary else {},
 		}
 
 

@@ -67,6 +67,8 @@ const DEFAULT_MOTION := {
 ## 空著的手：手的貼圖是五指朝 +X 畫的（握槍時沿瞄準方向），手臂自然垂著時必須轉 90 度才會順著前臂；
 ## 不轉的話手腕會折成直角（看起來像手腕錯位）。稍微小於 90 度，手腕保持一點自然的彎。
 const HAND_FOLLOWS_FOREARM := 1.4
+## 後手握近戰武器的桿子時，最遠伸到手臂長度的幾成（再遠就不握，免得手肘打直或搆不到）。
+const SECOND_HAND_REACH := 0.96
 const ARM_CHAINS: Array = [[&"arm_front_upper", &"arm_front_lower", &"hand_front"], [&"arm_back_upper", &"arm_back_lower", &"hand_back"]]
 const ACTIONS_PATH := "res://art/rigs/action_poses.json"
 const SPRING_MIN := -0.8
@@ -946,18 +948,34 @@ func _solve_arms(input: RigInput, aim_angle: float) -> void:
 	elif input.two_handed and not weapon.is_empty():
 		var offset := (RigLibrary.vec2(weapon.get("foregrip")) - RigLibrary.vec2(weapon.get("grip"))) * _rig.weapon_scale()
 		_reach_arm(&"arm_back_upper", &"arm_back_lower", &"hand_back", grip + (offset - _rig.hand_grip_offset(&"hand_back")).rotated(aim_angle), aim_angle)
+	elif _second_hand_reaches(input, weapon):
+		# 雙手的近戰武器：後手握在桿子上（搆得到才握，不拉長手臂）。
+		_reach_arm(&"arm_back_upper", &"arm_back_lower", &"hand_back",
+				input.melee_second_target - _rig.hand_grip_offset(&"hand_back").rotated(input.melee_second_angle), input.melee_second_angle)
 	else:
 		# 空著的後手自然下垂、隨步伐輕擺。
 		var hang := _arm_hang()
 		_set_rotation(&"arm_back_upper", hang[2] + sin(_phase + PI) * _arm_swing(input))
 		_set_rotation(&"arm_back_lower", hang[3])
 		_set_rotation(&"hand_back", HAND_FOLLOWS_FOREARM)
+	_rig.second_hand_on_weapon = _second_hand_reaches(input, weapon)
 	if not action_arms.is_empty():
 		var w := smoothstep(0.0, 1.0, _action_w)
 		for bone_name: StringName in action_arms.keys():
 			_rig.bone(bone_name).rotation = lerp_angle(_rig.bone(bone_name).rotation, float(action_arms[bone_name]), w)
 		weapon_root.position = weapon_root.position.lerp(action_hand, w)
 		weapon_root.rotation = lerp_angle(weapon_root.rotation, action_weapon_angle, w)
+
+
+## 後手要不要去握近戰武器的桿子：有要求、手上不是槍、而且那一點在手臂搆得到的範圍裡（留一點彎度，手肘不打直）。
+func _second_hand_reaches(input: RigInput, weapon: Dictionary) -> bool:
+	if not input.melee_second or not weapon.is_empty() or input.dead or input.shield_forward:
+		return false
+	if not (_rig.has_bone(&"arm_back_upper") and _rig.has_bone(&"arm_back_lower") and _rig.has_bone(&"hand_back")):
+		return false
+	var reach := _rig.rest(&"arm_back_lower").length() + _rig.rest(&"hand_back").length()
+	var distance: float = (input.melee_second_target - (_global_pos[&"arm_back_upper"] as Vector2)).length()
+	return distance <= reach * SECOND_HAND_REACH and distance >= reach * 0.25
 
 
 ## 空手時四段手臂的垂放角度（動作資料 arms.hang）；資料不是四個數字時用預設值。

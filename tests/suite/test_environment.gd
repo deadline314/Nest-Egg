@@ -30,6 +30,7 @@ func run() -> void:
 	await _test_wall_shadows()
 	await _test_enemy_glow()
 	await _test_melee_art()
+	await _test_melee_grip()
 	_test_import_policy("res://art/environment")
 
 
@@ -1242,3 +1243,91 @@ func _swing_peak(player: Player, blade: BladeLight) -> float:
 		peak = maxf(peak, blade.energy())
 	player._interrupt_melee()
 	return peak
+
+
+## 近戰武器握在手裡（NE-275）：前手握拳、握把在掌心；不出招時有自己的拿法、整把在地面以上；
+## 雙手武器另一隻手握在桿上；揮動時武器不是和前臂綁死（會落後、會多甩一點），收招後回到拿法。
+func _test_melee_grip() -> void:
+	var level := await start_level(load("res://data/levels/ch1_warehouse.tres") as LevelData)
+	for node: Node in runner.get_tree().get_nodes_in_group(&"enemies"):
+		node.queue_free()
+	var player := level.player
+	var visual := player._visual
+	var rig := visual.rig
+	var held := visual.melee_held()
+	check(held != null and held.get_parent() == rig, "近戰武器排在骨架裡（才能畫在握拳的手指後面）")
+	var hand_sprite := rig.find_children("hand_front", "Sprite2D", true, false)[0] as Sprite2D
+	# 瞄準固定朝右（用搖桿的瞄準方向），整段測試不會自己轉身。
+	var gamepad_before := AimInput.using_gamepad
+	var stick_before := AimInput._last_stick_dir
+	AimInput.using_gamepad = true
+	AimInput._last_stick_dir = Vector2.RIGHT
+	var two_handed := {"melee_glaive": true, "melee_maul": true}
+	for id: String in ["melee_blade", "melee_dagger", "melee_glaive", "melee_maul", "melee_whip"]:
+		var weapon := load("res://data/weapons/melee/%s.tres" % id) as WeaponData
+		player._interrupt_melee()
+		player.loadout.reset(weapon)
+		player.facing = 1
+		player.aim_dir = Vector2.RIGHT
+		await physics_frames(40)
+		var hold := visual.melee_hold()
+		var hand := rig.bone(&"hand_front")
+		check(rig.hand_grip_offset(&"hand_front") != Vector2.ZERO, "%s：前手換成握拳的手" % id)
+		check(held.is_visible_in_tree() and held.z_index == hand_sprite.z_index and held.get_index() == 0, "%s：武器和前手同一層、比前手早畫（手指蓋在握把上）" % id)
+		check(hold.origin.distance_to(hand.global_transform * rig.hand_grip_offset(&"hand_front")) < 0.01 and hold.origin.distance_to(hand.global_position) < 6.0,
+				"%s：握把在掌心的握點上" % id)
+		var along := (hand.global_position - rig.bone(&"arm_front_lower").global_position).normalized()
+		check(absf(along.angle_to(hold.x)) > 0.15, "%s：不出招時有自己的拿法，不是筆直沿著前臂（差 %.2f 弧度）" % [id, absf(along.angle_to(hold.x))])
+		var entry := MeleeArt.art(weapon)
+		var size: Vector2 = entry["size"]
+		var grip: Vector2 = entry["grip"]
+		var floor_y := player.global_position.y
+		for crouch: bool in [false, true]:
+			player.is_crouching = crouch
+			await physics_frames(30)
+			hold = visual.melee_hold()
+			var lowest := maxf((hold.origin + hold.x * (size.x - grip.x)).y, (hold.origin - hold.x * grip.x).y) + size.y * 0.5
+			check(lowest <= floor_y + 0.01, "%s：%s時整把武器在地面以上（最低點離地 %.1f）" % [id, "蹲下" if crouch else "站著", floor_y - lowest])
+		player.is_crouching = false
+		await physics_frames(20)
+		check(rig.second_hand_on_weapon == two_handed.has(id), "%s：%s" % [id, "另一隻手握在桿上" if two_handed.has(id) else "單手武器，另一隻手不去握"])
+		if two_handed.has(id):
+			var back_hand := rig.bone(&"hand_back")
+			var shaft := held.second_grip()
+			check((back_hand.global_transform * rig.hand_grip_offset(&"hand_back")).distance_to(shaft) < 2.5, "%s：後手的掌心在桿上（差 %.1f）" % [id,
+					(back_hand.global_transform * rig.hand_grip_offset(&"hand_back")).distance_to(shaft)])
+		# 站著不動時武器是靜止的，不會每一格左右抖。
+		var still_low := INF
+		var still_high := -INF
+		for step in 12:
+			await physics_frames(1)
+			still_low = minf(still_low, held.angle())
+			still_high = maxf(still_high, held.angle())
+		check(still_high - still_low < 0.03, "%s：站著不動時武器不抖（12 格內角度變化 %.3f 弧度）" % [id, still_high - still_low])
+		# 揮一下：過程中武器和前臂的夾角會變（落後或多甩），握把始終在掌心；收招後回到原本的拿法。
+		var rest := held.angle()
+		player._melee_cooldown_left = 0.0
+		var spread_low := INF
+		var spread_high := -INF
+		var off_palm := 0.0
+		if player._try_melee():
+			for step in 240:
+				await physics_frames(1)
+				if player._melee_phase == Player.MeleePhase.NONE:
+					break
+				hold = visual.melee_hold()
+				along = (hand.global_position - rig.bone(&"arm_front_lower").global_position).normalized()
+				var gap := along.angle_to(hold.x) * float(player.facing)
+				spread_low = minf(spread_low, gap)
+				spread_high = maxf(spread_high, gap)
+				off_palm = maxf(off_palm, hold.origin.distance_to(hand.global_transform * rig.hand_grip_offset(&"hand_front")))
+		check(spread_high - spread_low > 0.08, "%s：揮動時武器不是和前臂綁死（夾角變化 %.2f 弧度）" % [id, spread_high - spread_low])
+		check(off_palm < 0.01, "%s：揮動的每一格握把都在掌心" % id)
+		await physics_frames(50)
+		check(absf(angle_difference(rest, held.angle())) < 0.12, "%s：收招後回到原本的拿法（差 %.2f 弧度）" % [id, angle_difference(rest, held.angle())])
+	player.loadout.reset(load("res://data/weapons/pistol.tres") as WeaponData)
+	await physics_frames(10)
+	check(not held.visible and not rig.second_hand_on_weapon, "換成槍之後近戰武器收起來，後手不再去握")
+	AimInput.using_gamepad = gamepad_before
+	AimInput._last_stick_dir = stick_before
+	await end_level(level)

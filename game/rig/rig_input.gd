@@ -17,6 +17,12 @@ var dead := false
 var recoil := 0.0
 ## 是否雙手持槍（後手扶護木）；false 時後手自然擺動或持盾。
 var two_handed := true
+## 前手握著近戰武器的握把（武器由別的節點畫）：前手換成握拳的手，握點生效。
+var melee_grip := false
+## 雙手的近戰武器：後手也去握桿子上的這一點（骨架座標）與桿子的角度；搆不到時後手照常垂著。
+var melee_second := false
+var melee_second_target := Vector2.ZERO
+var melee_second_angle := 0.0
 ## 後手向前舉盾（鎮暴員）。
 var shield_forward := false
 ## 本影格受到攻擊（觸發一次退縮動作）。
