@@ -19,7 +19,8 @@ spec["refine"] (every key is optional):
                                                       forearm under the hand need this hidden overlap or the joint opens when it turns
   repaint    [{"parts": [...], "group": g, "y": [lo, hi]}] throw away what Qwen painted into the hidden gap of group g inside the y range and
                                                       refill it with a colour ramp from the visible pixels above and below (removes the seams drawn on the thigh)
-  close_fill {"parts": [...], "radius": N}           close holes cut into a part by something in front of it (the holster behind the hand)
+  close_fill {"parts": [...], "radius": N}           close holes cut into a part by something in front of it (the holster behind the hand);
+                                                      a list of such entries gives some parts a wider radius (a watch that bit into the hip)
   fill_holes {"parts": [...], "max_area": N}         paint enclosed transparent holes smaller than N px (default 200) from the colours around them:
                                                       a sliver between two outlines would show the background as a bright dot (check_parts.py lists them)
   magenta_specks {"parts": [...], "max_area": N}     delete tiny magenta fringe flecks on the listed parts
@@ -230,8 +231,8 @@ def main() -> None:
             if region.any():
                 print(f"  repaint {n}: {int(vertical_fill(L, region, r.get('max_run', 160), r.get('blur', 2.0)))} px")
 
-    cf = cfg.get("close_fill")
-    if cf:  # a part cut by something in front of it (the holster behind the hand): close the hole and paint it from the part's own colours
+    cfs = cfg.get("close_fill") or []
+    for cf in (cfs if isinstance(cfs, list) else [cfs]):  # a part cut by something in front of it (the holster behind the hand): close the hole and paint it from the part's own colours
         for n in cf["parts"]:
             L = layers[n]
             solid = (L[:, :, 3] > 127).astype(np.uint8)

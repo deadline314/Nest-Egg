@@ -1,0 +1,16 @@
+{
+  "description": "守門人（janus）的建置配方。來源是功能姿勢的文生圖（art_src/characters/janus/01_design/prompt.txt，seed 24321）；建置從 parts 或之後的步驟開始。",
+  "id": "janus",
+  "name": "守門人",
+  "spec": "tools/comfyui/specs/janus_side.json",
+  "rig": "art/rigs/janus.json",
+  "work": "art_src/characters/janus",
+  "design": {
+    "size": [
+      832,
+      1216
+    ],
+    "pick": 24321,
+    "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat muted colors, bold clean black outlines, hard-edged two-tone shading, at most one small lit accent. Full body, strict side view facing right, the whole figure from the top of the head to the soles inside the frame, tall in the frame: the figure fills nine tenths of the picture height. The character stands upright and still, like a model sheet: weight evenly on both feet, hips and shoulders level, the spine vertical, the chest not pushed out and the lower back not arched, the head level. The near arm hangs straight down beside the thigh with an open empty hand; it is not swept back. The far arm is hidden behind the torso. The feet are a small step apart with the far foot half a step ahead, so the far shin and the far shoe show in front of the near leg. The gatekeeper, a doorman of about sixty whose memory has been used up, a man: about seven heads tall, gaunt and thin-wristed, standing very still and straight like someone who has stood at the same door for decades. A long hollow-cheeked face with a mild empty gaze, thin grey hair combed neatly over, large ears, a clean-shaven chin with a small shaving nick. He wears an old-fashioned faded navy doorman's uniform: a short jacket that ends at the belt line, well above the thighs, with two rows of dull brass buttons, a stand-up collar a size too big for the neck, worn cuffs, and a plain blank white name tag on the chest; matching navy trousers with a faded side stripe; old black leather shoes polished but cracked; thin white cotton gloves gone grey. Empty hands. Uneven rough hand-inked linework with varied line weight, gritty grime and fabric wrinkles where the cloth bends, slightly asymmetrical, lived-in and worn, matte not glossy, not airbrushed, no idealized perfect face. Few large plain shapes, no decorative details beyond the ones described. Even overcast light, no glow, no bloom, no text."
+  }
+}

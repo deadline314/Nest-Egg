@@ -91,6 +91,8 @@ def main() -> None:
                     help="pick the near arm with the text prompt 'arm' instead of points (when the point mask comes out ragged or partial)")
     ap.add_argument("--trim-spikes", help="comma list of parts whose features thinner than 4 px are cut off (a toothpick, a lace end: on screen they "
                                           "are under a pixel wide and break into loose specks)")
+    ap.add_argument("--far-foot-only", action="store_true",
+                    help="both trouser legs are one dark mass and the far shin cannot be told from the near one: prompt only the far shoe")
     ap.add_argument("--force", action="store_true")
     args = ap.parse_args()
     work = ROOT / "art_src/characters" / args.id
@@ -147,6 +149,8 @@ def main() -> None:
     reach = max(40, round(0.45 * math.dist(J["elbow"], J["palm"])))
     hand_box = [min(J["palm"][0], hand_tip[0]) - reach, J["palm"][1], max(J["palm"][0], hand_tip[0]) + reach, max(J["palm"][1], hand_tip[1]) + reach]
     far_leg_points = [lerp(far["knee"], far["ankle"], 0.6), far["ankle"], lerp(far["heel"], far["big_toe"], 0.5)]
+    if args.far_foot_only:
+        far_leg_points = far_leg_points[2:]  # the ankle keypoint of a hidden far shin lands on the near trouser leg
     if math.dist(far["knee"], J["knee"]) > 3.0 * knee_w:  # mid-stride source: the far thigh is in the open
         far_leg_points.insert(0, lerp(far["hip"], far["knee"], 0.75))
     groups = {
@@ -157,7 +161,7 @@ def main() -> None:
         "arm_far": {"sam": ["arm", "hand"]},
         # the far shin and shoe (the far foot stands half a step ahead); the far thigh only when it is clear of the near one
         # clipped below the hip joint: the mask must not bite a notch out of the pelvis
-        "leg_far": {"sam": [], "y": [round(J["hip"][1] + 0.15 * thigh), rgba.size[1]],
+        "leg_far": {"sam": [], "seeded": True, "y": [round(J["ankle"][1] - 0.4 * shin) if args.far_foot_only else round(J["hip"][1] + 0.15 * thigh), rgba.size[1]],
                     "points": {"pos": far_leg_points, "neg": [J["knee"], J["ankle"], J["hip"], J["palm"]]}},
         "head": {"sam": ["head"]},
         "body": {"sam": [], "rest": True, "complete": {"stage": "P", "occluders": ["arm"], "near": 260, "trim": 20, "gap_grow": 30, "edge_trim": 1, "check_removed": hand_box, "keep_rim": True, "stage_silhouette": True}},

@@ -1,0 +1,16 @@
+{
+  "description": "葉（ye）的建置配方。來源是功能姿勢的文生圖（art_src/characters/ye/01_design/prompt.txt，seed 24331）；建置從 parts 或之後的步驟開始。",
+  "id": "ye",
+  "name": "葉",
+  "spec": "tools/comfyui/specs/ye_side.json",
+  "rig": "art/rigs/ye.json",
+  "work": "art_src/characters/ye",
+  "design": {
+    "size": [
+      832,
+      1216
+    ],
+    "pick": 24331,
+    "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat muted colors, bold clean black outlines, hard-edged two-tone shading, at most one small lit accent. Full body, strict side view facing right, the whole figure from the top of the head to the soles inside the frame, tall in the frame: the figure fills nine tenths of the picture height. The character stands upright and still, like a model sheet: weight evenly on both feet, hips and shoulders level, the spine vertical, the chest not pushed out and the lower back not arched, the head level. The near arm hangs straight down beside the thigh with an open empty hand; it is not swept back. The far arm is hidden behind the torso. The feet are a small step apart with the far foot half a step ahead, so the far shin and the far shoe show in front of the near leg. Ye, the head of risk control at a large corporation, a woman of forty-one, clearly a woman: about seven and a half heads tall, lean and straight-backed. A sharp tired face with high cheekbones, thin lips, shadowed eyes, black hair in a severe chin-length asymmetric bob with one grey streak at the temple. She wears a charcoal-grey high-collared short jacket that ends at the belt line, well above the thighs, closed with hidden buttons, one small dull silver collar clip; slim black trousers; flat black leather shoes; a slim grey wristband. The sleeve of the near arm is pushed back from the wrist, and the back of the near hand is covered with a few short lines of small dark blue ink handwriting, slightly smudged. Empty hands. Uneven rough hand-inked linework with varied line weight, gritty grime and fabric wrinkles where the cloth bends, slightly asymmetrical, lived-in and worn, matte not glossy, not airbrushed, no idealized perfect face. Few large plain shapes, no decorative details beyond the ones described. Even overcast light, no glow, no bloom, no text."
+  }
+}

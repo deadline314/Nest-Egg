@@ -54,6 +54,7 @@ description: 從零做一個新角色或新外觀並放進 Nest Egg 的完整流
 - 高度：主角約 63，一般成人 54～60，壯漢 62。
 - 有外套、圍裙、背上的東西這類分層衣物：從產生的規格往下拆（範例 `tools/comfyui/specs/rin_side.json`）。外套分「上身跟胸、下襬跟骨盆、袖子跟手臂」；垂在腿前的裙片跟前側大腿。
 - 手臂的點提示抓得破碎時加 `--arm-text`。
+- 建置停在「points_leg_far … mask value」：兩腿同色又重疊，遠側小腿切不出來，加 `--far-foot-only` 只切遠側的鞋。
 
 ## 第 3 關：建置到引擎
 
@@ -71,6 +72,7 @@ python tools/comfyui/build_character.py --recipe tools/comfyui/recipes/<id>.json
 
 - 建置停在「stage … still shows …%」：底層圖沒有真的把手拿掉。換提示詞或種子，`make_parts.py … --redo-stage P`。不要繞過這個檢查。
 - 看 `04_stages/*.png`：要拿掉的東西真的不見了，沒有多畫回別的肢體。
+- 把 `07_refined/pelvis.png`、`leg_upper.png` 放在洋紅底上看：手的位置沒有被咬掉一塊（有就加大這兩個零件的 `close_fill` 半徑）。
 - 把 `07_refined/torso.png` 放在洋紅底上看：袖窿補色是平的一塊布色，沒有抹進別的顏色。
 - 看 `06_parts/ownership.png`：每個肢體各自一色；身體旁邊沒有細線；遠側小腿與鞋有被分出去。
 - `python tools/comfyui/check_reassembly.py --spec … --work … [--allow …]`：零件疊回原位和原圖比。預期中的缺口（遠側腿）逐塊看過才登記進 allow 檔並寫理由。

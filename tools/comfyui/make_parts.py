@@ -287,6 +287,11 @@ def main() -> None:
     M = {p: (np.array(Image.open(base_masks[p]).convert("L").resize((W, H))) > 127) & alpha for p in prompts}
     point_masks = ensure_point_masks(grey, {name: g["points"] for name, g in spec["groups"].items() if "points" in g}, sam_dir)
     PM = {name: (np.array(Image.open(path).convert("L").resize((W, H))) > 127) & alpha for name, path in point_masks.items()}
+    for name, mask in PM.items():  # groups.<name>.seeded: keep only the pieces a positive point lies on; SAM adds stray islands of the same
+        if spec["groups"][name].get("seeded"):  # colour elsewhere (a far-leg mask with a patch on the hip bites a notch into the pelvis)
+            lab, _ = ndimage.label(mask, np.ones((3, 3)))
+            seeds = {int(lab[int(round(y)), int(round(x))]) for x, y in spec["groups"][name]["points"]["pos"]} - {0}
+            PM[name] = np.isin(lab, list(seeds))
 
     # ---- visible group masks (first group in spec order wins) -------------------------------------------------
     order = list(spec["groups"].keys())
