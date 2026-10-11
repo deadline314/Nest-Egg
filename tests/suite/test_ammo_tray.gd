@@ -145,6 +145,16 @@ func _test_screen_edge() -> void:
 	var to_screen := tray.get_viewport().get_canvas_transform()
 	var head: Vector2 = to_screen * (player.global_position + HudPlacement.HEAD_OFFSET)
 	check(head.x < HudPlacement.ROOM_NEEDED, "測試站位：主角在畫面左緣附近（頭 x=%.0f）" % head.x)
+	# 主角從左緣一步步往內走：每個站位彈帶與標籤都同在背後或同在頭上，不會一個上一個下而疊在一起。
+	var agree := true
+	for x in range(20, 200, 3):
+		player.global_position.x = float(x)
+		await frames(15)
+		if (tray._above > 0.5) != (tag._above > 0.5):
+			agree = false
+	check(agree, "彈帶與生命護盾標籤在每個站位都一起決定放背後或頭上")
+	player.global_position.x = 20.0
+	await frames(40)
 	var inside := true
 	for i in tray.icon_count():
 		var rect := tray._icon_draw_rect(i, tray.icon_count(), 1.0)

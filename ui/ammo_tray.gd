@@ -190,7 +190,8 @@ func _follow(player: Player, delta: float) -> void:
 	if absf(aim.x - anchor.x) > 8.0:
 		_side = -1.0 if aim.x > anchor.x else 1.0
 	var view_width := get_viewport_rect().size.x
-	var wanted_above := HudPlacement.above_target(anchor.x, _side, SIDE_GAP, view_width)
+	# 用面向判斷（與生命護盾標籤相同）；準星方向只決定背後是哪一側的顯示。
+	var wanted_above := HudPlacement.above_target(anchor.x, -float(player.facing), view_width)
 	if not _has_pos:
 		_draw_side = _side
 		_above = wanted_above

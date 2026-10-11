@@ -108,7 +108,7 @@ func _follow(player: Player, delta: float) -> void:
 	var width := _content_width() + PAD * 2.0
 	var height := PAD + PIP_H + 3.0 + GUARD_H + PAD
 	var view_width := get_viewport_rect().size.x
-	var wanted_above := HudPlacement.above_target(head.x, -float(player.facing), SIDE_GAP, view_width)
+	var wanted_above := HudPlacement.above_target(head.x, -float(player.facing), view_width)
 	_above = wanted_above if not _has_pos else move_toward(_above, wanted_above, delta * HudPlacement.BLEND_SPEED)
 	var beside := head + Vector2(_side * (SIDE_GAP + width * 0.5) - width * 0.5, -10.0)
 	# 頭頂模式：彈帶在頭頂正上方一列，生命護盾標籤再往上一列。

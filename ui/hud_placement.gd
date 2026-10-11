@@ -7,8 +7,8 @@ extends RefCounted
 
 ## 離畫面左右邊緣至少留的距離（畫面像素）。
 const EDGE_MARGIN := 4.0
-## 背後至少要有這麼寬（畫面像素）才放得下最寬的元件（十顆子彈加備彈數字）。
-const ROOM_NEEDED := 92.0
+## 背後至少要有這麼寬（畫面像素，從主角中心往外量）才放得下最寬的元件（間距＋十顆子彈＋備彈數字）。
+const ROOM_NEEDED := 108.0
 ## 頭頂上方的間距（畫面像素）與兩列之間的間距。
 const ABOVE_GAP := 5.0
 const ROW_GAP := 3.0
@@ -18,16 +18,17 @@ const HEAD_OFFSET := Vector2(0, -56)
 const BLEND_SPEED := 5.0
 
 
-## 背後（side：-1 左、+1 右）從 anchor_x 往外還有多少畫面像素。
-static func room_behind(anchor_x: float, side: float, gap: float, view_width: float) -> float:
+## 背後（side：-1 左、+1 右）從主角中心 player_x 往外還有多少畫面像素。
+static func room_behind(player_x: float, side: float, view_width: float) -> float:
 	if side < 0.0:
-		return anchor_x - gap - EDGE_MARGIN
-	return view_width - EDGE_MARGIN - anchor_x - gap
+		return player_x - EDGE_MARGIN
+	return view_width - EDGE_MARGIN - player_x
 
 
 ## 目標權重：背後放得下是 0（放背後），放不下是 1（放頭上）。
-static func above_target(anchor_x: float, side: float, gap: float, view_width: float) -> float:
-	return 0.0 if room_behind(anchor_x, side, gap, view_width) >= ROOM_NEEDED else 1.0
+## 彈帶與標籤都只用主角中心的畫面 x 與面向判斷，輸入相同、結果相同，不會一個在背後一個在頭上。
+static func above_target(player_x: float, side: float, view_width: float) -> float:
+	return 0.0 if room_behind(player_x, side, view_width) >= ROOM_NEEDED else 1.0
 
 
 ## 讓 [left, left + width] 留在畫面裡，回傳需要的水平位移。
