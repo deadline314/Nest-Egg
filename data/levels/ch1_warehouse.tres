@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=24 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=28 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Resource" path="res://data/props/ch1_switch_a.tres" id="2_ch1_switch_a"]
@@ -20,6 +20,10 @@
 [ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="18_lighting_zone"]
 [ext_resource type="Resource" path="res://data/lighting/warehouse_interior.tres" id="19_warehouse_interior"]
 [ext_resource type="Resource" path="res://data/environment/themes/ch1_warehouse.tres" id="20_ch1_warehouse"]
+[ext_resource type="Resource" path="res://data/throwables/fuel_barrel.tres" id="t_fuel_barrel"]
+[ext_resource type="Resource" path="res://data/throwables/crate_small.tres" id="t_crate_small"]
+[ext_resource type="Resource" path="res://data/throwables/pipe.tres" id="t_pipe"]
+[ext_resource type="Resource" path="res://data/throwables/concrete_chunk.tres" id="t_concrete_chunk"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("3_portal_data")
@@ -70,7 +74,11 @@ legend = Dictionary[String, Resource]({
 "r": ExtResource("14_ch1_gate_b"),
 "s": ExtResource("15_ch1_gate_c"),
 "v": ExtResource("16_ch1_gate_watchdog"),
-"w": ExtResource("17_watchdog")
+"w": ExtResource("17_watchdog"),
+"T": ExtResource("t_fuel_barrel"),
+"x": ExtResource("t_crate_small"),
+"p": ExtResource("t_pipe"),
+"n": ExtResource("t_concrete_chunk")
 })
 hints = PackedStringArray("留意大廳深處的看門狗，死亡後牠仍會保留部分傷勢。", "打倒看門狗，前方的隔牆才會升起。", "先在電話亭 B2 備份，再往倉庫裡走。", "按 {interact} 操作開關，控制同一頻道的閘門。", "留意牆上的水位刻度，前方水坑會漲水。", "進入前方的倉庫深處，保險箱旁有守衛。")
 chapter = &"ch1_kasa"

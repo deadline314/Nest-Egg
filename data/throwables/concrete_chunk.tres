@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ThrowableData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/throwable_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"concrete_chunk"
+display_name = "水泥塊"
+look = 3
+hint = "{interact} 撿起水泥塊"
+size = Vector2(9, 8)
+color = Color(0.46, 0.47, 0.5, 1.0)
+throw_speed = 380.0
+gravity = 900.0
+lift_time = 0.25
+carry_speed_scale = 0.8
+bounce = 0.15
+damage = 3
+knockback = 260.0
+impact = 7.0

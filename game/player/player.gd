@@ -53,6 +53,8 @@ var hurtbox: Hurtbox
 var loadout := Loadout.new()
 ## 義體能力（電量、冷卻、效果）。
 var cyber: CyberSystem
+## 撿起、舉著、丟出場景物件（NE-254）。
+var carry: PlayerCarry
 var consumables := ConsumableBag.new()
 var state: State = State.NORMAL
 var facing := 1
@@ -166,6 +168,9 @@ func _ready() -> void:
 	_melee_commands = MeleeCommandInput.new()
 	_melee_commands.player = self
 	add_child(_melee_commands)
+	carry = PlayerCarry.new()
+	carry.player = self
+	add_child(carry)
 	add_to_group(&"player")
 	GameplayLock.started.connect(_clear_input_buffers)
 	collision_layer = Layers.PLAYER
@@ -426,7 +431,7 @@ func _process_normal(delta: float) -> void:
 
 	var target_speed := 0.0
 	if not is_crouching:
-		target_speed = input_x * tuning.run_speed * cyber.move_speed_scale() * melee_move_scale()
+		target_speed = input_x * tuning.run_speed * cyber.move_speed_scale() * melee_move_scale() * carry.speed_scale()
 		# 背對準星移動（倒退）時稍慢，維持射擊時的控制感。
 		if signf(input_x) != 0.0 and signf(input_x) != float(facing):
 			target_speed *= tuning.backpedal_multiplier
@@ -464,6 +469,8 @@ func _process_normal(delta: float) -> void:
 	_apply_gravity(delta)
 
 	if Input.is_action_just_pressed(&"interact") and _try_mount():
+		return
+	if carry.handle_input():
 		return
 	for action: StringName in [&"melee", &"shoot"]:
 		if action == &"shoot" and not holds_melee_weapon():
@@ -751,6 +758,11 @@ func play_respawn_fx() -> void:
 ## 手上武器在骨架上的貼圖 id：近戰武器是程式繪製的（PlayerVisual），骨架手上不放貼圖。
 func _visual_id_of(weapon: WeaponData) -> String:
 	return "" if weapon == null or weapon.is_melee() else weapon.visual_id
+
+
+## 目前武器的手持外觀 id（放下撿起的東西後放回武器用）。
+func visual_id_of_active_weapon() -> String:
+	return _visual_id_of(loadout.active_weapon())
 
 
 ## 手上是不是近戰武器（近戰武器用射擊鍵與近戰鍵揮擊，不發射子彈）。
@@ -1083,6 +1095,7 @@ func begin_phone_call(face: int) -> bool:
 	if state != State.NORMAL or is_dead() or not is_on_floor():
 		return false
 	_interrupt_melee(true)
+	carry.drop()
 	state = State.PHONE
 	_phone_left = PHONE_DURATION
 	velocity = Vector2.ZERO
@@ -1188,6 +1201,7 @@ func mount_vehicle(vehicle: Vehicle) -> void:
 	if vehicle == null or state == State.DEAD:
 		return
 	_interrupt_melee(true)
+	carry.drop()
 	state = State.MOUNTED
 	mounted_vehicle = vehicle
 	velocity = Vector2.ZERO
@@ -1357,6 +1371,7 @@ func _emit_guard() -> void:
 
 func _on_damaged(info: DamageInfo) -> void:
 	_interrupt_melee()
+	carry.drop()
 	if state == State.DASH:
 		state = State.NORMAL
 	var side := signf(global_position.x - info.origin.x)
@@ -1372,6 +1387,7 @@ func _on_damaged(info: DamageInfo) -> void:
 
 func _on_died(info: DamageInfo) -> void:
 	_interrupt_melee()
+	carry.drop()
 	state = State.DEAD
 	# 倒地後身體橫躺：陰影放寬成身長的一半。
 	_contact_shadow.half_width = BODY_SIZE.y * 0.5

@@ -650,9 +650,14 @@ func _spawn_cinematic_entries() -> void:
 		_entities.add_child(entrance)
 
 
+## 一個區域最多擺幾個可投擲物（NE-254）。
+const MAX_THROWABLES := 24
+var _throwables_placed := 0
+
+
 static func _is_prop_resource(resource: Resource) -> bool:
 	return resource is BreakableData or resource is MechanismData or resource is CreditPileData \
-			or resource is ShopData or resource is NpcData or resource is PortalData
+			or resource is ShopData or resource is NpcData or resource is PortalData or resource is ThrowableData
 
 
 ## 生成物在本區域裡固定的鍵（資源 id 加格座標）；地圖資料改版後對不上的鍵會被忽略。
@@ -677,6 +682,15 @@ func _create_prop(spawn: Dictionary) -> Node2D:
 		breakable.configure(resource as BreakableData, cell, _layout.tile_size)
 		breakable.broken.connect(_on_breakable_broken)
 		return breakable
+	if resource is ThrowableData:
+		# 每個區域的可投擲物有上限；重進區域時依地圖重新擺放，不會累積。
+		if _throwables_placed >= MAX_THROWABLES:
+			push_error("[Level] %s 的可投擲物超過上限 %d，略過 %s（格 %s）" % [data.id, MAX_THROWABLES, (resource as ThrowableData).id, cell])
+			return null
+		_throwables_placed += 1
+		var item := Throwable.new()
+		item.configure(resource as ThrowableData)
+		return item
 	if resource is NpcData:
 		var npc := NpcActor.new()
 		npc.configure(resource as NpcData, cell)

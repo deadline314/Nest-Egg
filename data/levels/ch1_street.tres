@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=29 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=32 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
@@ -22,6 +22,9 @@
 [ext_resource type="Resource" path="res://data/lighting/market.tres" id="20_market"]
 [ext_resource type="Resource" path="res://data/lighting/freight.tres" id="21_freight"]
 [ext_resource type="Resource" path="res://data/environment/themes/ch1_street.tres" id="22_ch1_street"]
+[ext_resource type="Resource" path="res://data/throwables/fuel_barrel.tres" id="t_fuel_barrel"]
+[ext_resource type="Resource" path="res://data/throwables/crate_small.tres" id="t_crate_small"]
+[ext_resource type="Resource" path="res://data/throwables/pipe.tres" id="t_pipe"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("2_portal_data")
@@ -98,7 +101,10 @@ legend = Dictionary[String, Resource]({
 "α": ExtResource("15_ch1_enc_street_plaza"),
 "β": ExtResource("16_ch1_arena_street_plaza"),
 "γ": ExtResource("17_ch1_enc_street_blockade"),
-"δ": ExtResource("18_ch1_arena_street_blockade")
+"δ": ExtResource("18_ch1_arena_street_blockade"),
+"T": ExtResource("t_fuel_barrel"),
+"x": ExtResource("t_crate_small"),
+"p": ExtResource("t_pipe")
 })
 hints = PackedStringArray("街上有人發傳單、有人聊天，不是每個人都想打你", "街角的巷子裡有電話亭：先去備份，死了才有地方醒來", "清掃兵在前面：靠著箱子，瞄準、射擊、再縮回去", "按住 {block} 舉盾；子彈到的瞬間舉盾＝完美反彈", "敵人頭上出現青色菱形：按 {melee} 終結，回補彈藥", "碼頭倉庫：看門狗睡在大廳深處，走進去再決定要不要叫醒牠")
 chapter = &"ch1_kasa"

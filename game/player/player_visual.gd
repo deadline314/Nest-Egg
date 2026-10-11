@@ -26,6 +26,8 @@ const HANDSET_VISUAL := "handset"
 const HANDSET_IN := 0.26
 const HANDSET_OUT := 0.9
 const MELEE_ACTION_PREFIX := "rin.melee_"
+## 拿東西時收起了武器外觀，放下後要放回。
+var _carry_hid_weapon := false
 ## 近戰武器平時的發光亮度、出招瞬間的亮度（有上限，HDR 泛光下不過曝）。
 const MELEE_GLOW := 1.3
 const MELEE_GLOW_SWING := 2.0
@@ -243,12 +245,30 @@ func _update_phone(delta: float) -> void:
 func _update_melee_pose() -> void:
 	if _phone_t >= 0.0:
 		return
+	if _update_carry_pose():
+		return
 	var pose := player.melee_pose() if player.holds_melee_weapon() else ""
 	if pose.is_empty():
 		_input.action = &""
 		return
 	_input.action = StringName(MELEE_ACTION_PREFIX + pose)
 	_input.action_t = player.melee_pose_progress()
+
+
+## 撿起、舉著、丟出（NE-254）：雙手空出來（收起武器外觀），播放 rin.carry_* 動作；結束後放回武器。回傳是否正在拿東西。
+func _update_carry_pose() -> bool:
+	var pose := player.carry.pose() if player.carry != null else &""
+	if pose == &"":
+		if _carry_hid_weapon:
+			_carry_hid_weapon = false
+			set_weapon_visual(player.visual_id_of_active_weapon())
+		return false
+	if not _carry_hid_weapon:
+		_carry_hid_weapon = true
+		set_weapon_visual("")
+	_input.action = pose
+	_input.action_t = player.carry.pose_progress()
+	return true
 
 
 func notify_hurt() -> void:
