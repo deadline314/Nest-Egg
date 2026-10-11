@@ -1,0 +1,8 @@
+{
+  "schema": 1,
+  "_note": "推進主線必需的故事物品（語義由故事 Session 確認，2026-10-11）。存檔讀取時：取得旗標為真、交出旗標不為真、物品卻不在手上 → 依旗標補回為持有；交出旗標為真卻仍在手上，或物品已轉移卻沒有交出旗標 → 存檔自相矛盾，整份改用備份。delivered_flag 留空表示這件物品不會被交出。物品或旗標尚未載入時略過該條。",
+  "items": [
+    {"item": "ch1_data_disk", "obtained_flag": "ledger_disk_obtained", "delivered_flag": "ch1_disk_delivered"},
+    {"item": "ch2_clinic_index", "obtained_flag": "ch2_original_ledger_taken", "delivered_flag": ""}
+  ]
+}

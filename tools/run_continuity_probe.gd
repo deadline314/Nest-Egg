@@ -4,6 +4,7 @@ extends Node
 ##   growth_write/read    招式購買、任務獎勵（一次交易）關閉重開後不重複、不遺失
 ##   growth_death_write/read  買招式、領獎後在電話亭區真的死亡並當影格關閉：扣款一次、招式保留、獎勵不重領
 ##   repair_write/read    區域資源遺失與導覽損毀：保留成長與故事，退回可玩區域並提示
+##   item_write/read      旗標記得已取得、未交出的必要物品在存檔裡缺件：依旗標補回並提示
 ##   edition_end          序章至第一章：章末停在完成卡，存檔寫在自己的版本目錄
 ##   edition_next         序章至第二章（下一章用明確標示的 fixture）：接續第一章版的存檔，原檔不改
 ##   edition_again        序章至第二章再開一次：直接用自己的槽，不再從舊版匯入
@@ -80,6 +81,8 @@ func _run() -> void:
 		"growth_death_read": await _growth_death_read()
 		"repair_write": await _repair_write()
 		"repair_read": await _repair_read()
+		"item_write": await _item_write()
+		"item_read": await _item_read()
 		"edition_end": await _edition_end()
 		"edition_next": await _edition_next()
 		"edition_again": await _edition_again()
@@ -297,6 +300,38 @@ func _repair_read() -> void:
 	_main.call("_save_run")
 	var saved := (_main.get("_run_store") as RunSaveStore).read()
 	_check(saved.get("level") == CampaignEdition.current().first_level and not saved.has("notices"), "next save is the repaired state")
+
+
+func _item_write() -> void:
+	_main.call("_on_start_requested", GameState.difficulties[1])
+	await _wait_level()
+	Progression.add_credits(321)
+	_main.call("_save_run")
+	_close_program()
+	# 關閉後模擬物品容器損毀：旗標記得取得資料盤、尚未交出，但物品清單沒有它。
+	var path := _slot(CampaignEdition.current().id)
+	var data: Dictionary = RunSaveCodec.decode(FileAccess.get_file_as_string(path))["data"]
+	data["story"]["flags"]["ledger_disk_obtained"] = true
+	data["story"]["flags"].erase("ch1_disk_delivered")
+	for key in ["owned", "held", "transferred", "unseen"]:
+		data["story"]["items"][key] = data["story"]["items"].get(key, []).filter(func(id: Variant) -> bool: return String(id) != "ch1_data_disk")
+	_write_text(path, RunSaveCodec.encode(data))
+	_write_text(_directory.path_join("expected.json"), JSON.stringify(data))
+
+
+func _item_read() -> void:
+	var expected := _expected()
+	var menu := _main.get("_screen") as MainMenu
+	_check(menu != null and menu.continue_available and menu.save_notice.contains("資料盤"), "menu says the required item was restored: %s" % (menu.save_notice if menu != null else "<none>"))
+	await _menu_evidence(menu, "item-menu")
+	_main.call("_on_continue_requested")
+	await _wait_level()
+	_check(StoryItems.holds(&"ch1_data_disk"), "required item is held again after restart")
+	_check(Progression.credits == expected["progression"]["credits"] and (_main.get("_screen") as Level).data.resource_path == expected["level"], "wallet and area are untouched by the item repair")
+	await _frames(5)
+	_main.call("_save_run")
+	var saved := (_main.get("_run_store") as RunSaveStore).read()
+	_check(saved["story"]["items"]["held"].has("ch1_data_disk") and not saved.has("notices"), "next save contains the repaired item")
 
 
 # --- 累積版本 ---------------------------------------------------------------

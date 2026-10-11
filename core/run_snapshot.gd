@@ -63,10 +63,16 @@ static func prepare(raw: Dictionary) -> Dictionary:
 		if typeof(scene) not in [TYPE_STRING, TYPE_STRING_NAME]:
 			return {"error": "run/story/seen包含非文字場景"}
 	var result := raw.duplicate(true)
+	result.erase("notices")  # 修復說明只屬於這一次讀取，不從資料帶入。
 	result["level"] = level.resource_path
-	if not notices.is_empty():
+	var relocated := not notices.is_empty()
+	if relocated:
 		_reset_location(result)
 	result["story"]["items"] = items["data"]
+	var repaired := RequiredItemRepair.apply(result["story"]["items"], result["story"]["flags"])
+	if repaired.has("error"):
+		return repaired
+	notices.append_array(repaired["notices"])
 	var state: Dictionary = result["state"]
 	for key: String in DICTIONARIES:
 		if not state.get(key, {}) is Dictionary:
@@ -162,7 +168,7 @@ static func prepare(raw: Dictionary) -> Dictionary:
 	result["cinematic"] = result.get("cinematic", "")
 	var context: Variant = result.get("cinematic_context", {})
 	result["cinematic_context"] = Story.presentation_context(context) if context is Dictionary and result["cinematic"] != "" else {}
-	result["chapter_complete"] = result.get("chapter_complete") == true and notices.is_empty()
+	result["chapter_complete"] = result.get("chapter_complete") == true and not relocated
 	# 玩家看得到的修復說明；不寫回存檔，下一次保存即是修復後的狀態。
 	if not notices.is_empty():
 		result["notices"] = Array(notices)
