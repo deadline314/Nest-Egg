@@ -24,21 +24,29 @@ static func chapter_income(level_paths: Array) -> Dictionary:
 		if data == null:
 			push_error("[EconomyReport] 讀不到區域：%s" % path)
 			continue
-		var layout := LevelBuilder.parse(data)
-		for spawn in layout.spawns:
-			var res: Resource = spawn["resource"]
-			if res is CreditPileData:
-				result["piles"] += (res as CreditPileData).value
-			elif res is BreakableData:
-				result["crates"] += (res as BreakableData).credit_drop
-			elif res is EnemyData:
-				result["enemies"] += (res as EnemyData).credit_value
-			elif res is MechanismData and (res as MechanismData).kind == MechanismData.Kind.ENCOUNTER:
-				for enemy in (res as MechanismData).reinforcements:
-					if enemy != null:
-						result["reinforcements"] += enemy.credit_value
-		if layout.boss_spawn.has("resource") and layout.boss_spawn["resource"] is EnemyData:
-			result["enemies"] += (layout.boss_spawn["resource"] as EnemyData).credit_value
+		var income := area_income(LevelBuilder.parse(data))
+		for key: String in result:
+			result[key] = int(result[key]) + int(income[key])
+	return result
+
+
+## 一個區域（已解析的地圖）可得的信用點，分地上、箱子、敵人（含頭目）、增援四類。
+static func area_income(layout: LevelLayout) -> Dictionary:
+	var result := {"piles": 0, "crates": 0, "enemies": 0, "reinforcements": 0, "total": 0}
+	for spawn in layout.spawns:
+		var res: Resource = spawn["resource"]
+		if res is CreditPileData:
+			result["piles"] += (res as CreditPileData).value
+		elif res is BreakableData:
+			result["crates"] += (res as BreakableData).credit_drop
+		elif res is EnemyData:
+			result["enemies"] += (res as EnemyData).credit_value
+		elif res is MechanismData and (res as MechanismData).kind == MechanismData.Kind.ENCOUNTER:
+			for enemy in (res as MechanismData).reinforcements:
+				if enemy != null:
+					result["reinforcements"] += enemy.credit_value
+	if layout.boss_spawn.has("resource") and layout.boss_spawn["resource"] is EnemyData:
+		result["enemies"] += (layout.boss_spawn["resource"] as EnemyData).credit_value
 	result["total"] = int(result["piles"]) + int(result["crates"]) + int(result["enemies"]) + int(result["reinforcements"])
 	return result
 

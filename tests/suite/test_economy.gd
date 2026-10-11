@@ -2,7 +2,7 @@ class_name EconomySuite
 extends TestSuite
 ## 第一章的貨幣與升級（NE-216）：典當與贖回（當價、利息、當票上限、失敗不白花錢、存檔還原與壞資料）、
 ## 老 K 的櫃台（買補給、典當、改裝三個分頁）、死亡扣款上限與不負債、老 K 對死亡的反應、
-## 章節收入與必要花費的對帳（必要花費約為可得總額的六到八成）。
+## 章節收入與必要花費的對帳（必要花費約為可得總額的六到八成）、跨章不刷錢帳本（NE-231）。
 
 const PAWN_SHOP := "res://data/shops/ch1_pawn.tres"
 const ARENA_MAP := "res://tests/fixtures/arena_map.json"
@@ -14,6 +14,7 @@ const MAX_RATIO := 0.80
 func run() -> void:
 	preload("res://tests/helpers/story_transaction_checks.gd").run(self)
 	preload("res://tests/helpers/story_result_plan_checks.gd").run(self)
+	preload("res://tests/helpers/campaign_ledger_checks.gd").run(self)
 	_test_pawn_rules()
 	_test_pawn_snapshot()
 	_test_death_cap()
