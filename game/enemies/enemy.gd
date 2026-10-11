@@ -491,7 +491,7 @@ func _draw() -> void:
 		var alert_color := LightKit.glow(Palette.WARNING, 1.4)
 		var tip := Vector2(0, top - 1)
 		draw_colored_polygon(PackedVector2Array([tip + Vector2(-3, -5), tip + Vector2(3, -5), tip]), alert_color)
-	_draw_weak_points()
+	_draw_hurtbox_debug()
 	if _is_finishable and not _dying:
 		# 可終結標記：閃爍的青色菱形。
 		var pulse := 0.6 + 0.4 * sin(_anim_time * 14.0)
@@ -540,29 +540,16 @@ func _tick_damage_fx(delta: float) -> void:
 		Fx.sparks(at, Palette.WARNING, 2, 90.0, 0.25)
 
 
-## 弱點標記：弱點（傷害倍率大於 1 的部位）四角的小括弧，淡淡地呼吸，像義體的瞄準標記；開發檢查時（debug_hurtboxes）所有部位都畫出判定形狀。
-func _draw_weak_points() -> void:
-	if _dying:
+## 開發檢查時（debug_hurtboxes）畫出每個部位的受擊框：弱點黃色、其他青色。平常不畫任何標記：
+## 頭部是弱點不需要另外標示，特殊的弱點（外露的核心…）由它自己的外觀表示。
+func _draw_hurtbox_debug() -> void:
+	if _dying or not debug_hurtboxes:
 		return
 	for entry in _parts:
 		var box: Hurtbox = entry["box"]
 		var size: Vector2 = entry["size"]
 		var mult: float = entry["mult"]
-		var at := box.shape_offset()
-		if debug_hurtboxes:
-			draw_rect(Rect2(at - size * 0.5, size), Color(1.0, 0.9, 0.2, 0.9) if mult > 1.0 else Color(0.2, 1.0, 0.9, 0.9), false, 1.0)
-			continue
-		if mult <= 1.0 or not hurtbox.enabled:
-			continue
-		var pulse := 0.5 + 0.2 * sin(_anim_time * 5.0)
-		var color := LightKit.glow(Palette.WARNING, 1.3)
-		color.a = pulse
-		var half := size * 0.5 + Vector2(1.5, 1.5)
-		var arm := minf(3.0, half.x * 0.6)
-		for corner in [Vector2(-1, -1), Vector2(1, -1), Vector2(1, 1), Vector2(-1, 1)]:
-			var c: Vector2 = at + corner * half
-			draw_line(c, c - Vector2(corner.x * arm, 0.0), color, 1.0)
-			draw_line(c, c - Vector2(0.0, corner.y * arm), color, 1.0)
+		draw_rect(Rect2(box.shape_offset() - size * 0.5, size), Color(1.0, 0.9, 0.2, 0.9) if mult > 1.0 else Color(0.2, 1.0, 0.9, 0.9), false, 1.0)
 
 
 ## 護盾外觀：身體外圍的青色六角形，層數越多越亮。
