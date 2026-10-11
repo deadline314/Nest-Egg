@@ -22,6 +22,12 @@ const FS_BODY := 11
 const FS_TITLE := 22
 const FS_DISPLAY := 33
 const BASE_FONT_SIZE := FS_BODY
+## 版面角色字級：只有明確呼叫 caption()／heading() 的控制項會用到，snap_size() 的三個設計字級不變。
+## 說明小字（地點、計數、按鍵提示）用 9、段落標題用 14；像素字體只有 11 才銳利，兩者都改用內文字級。
+const FS_CAPTION := 9
+const FS_HEADING := 14
+const ROLE_META := &"ui_text_role"
+const ROLE_SIZES := {&"caption": FS_CAPTION, &"heading": FS_HEADING}
 const TEXT_GROUP := &"ui_scalable_text"
 const TEXT_SIZE_META := &"ui_base_font_size"
 
@@ -51,6 +57,8 @@ static func font_style() -> String:
 static func apply_font_style() -> void:
 	font()
 	_font.base_font = _load_font(font_style())
+	# 說明小字依字體樣式換字級（像素字體改用內文字級才銳利）。
+	apply_text_scale()
 
 
 ## 先用專案字體；載入失敗時記錄並退回系統字型。系統字型同時掛為專案字體的備援，缺字不顯示方塊。
@@ -104,6 +112,17 @@ static func scaled_size(base: int) -> int:
 	return maxi(1, roundi(float(base) * Settings.get_ui_text_scale()))
 
 
+## 版面角色目前的實際字級（依字體樣式與文字大小設定）；未知角色用內文字級。
+static func role_size(role: StringName) -> int:
+	if FONT_STYLES.get(font_style(), {}).get("pixel", false):
+		return scaled_size(FS_BODY)
+	return scaled_size(int(ROLE_SIZES.get(role, FS_BODY)))
+
+
+static func caption_size() -> int:
+	return role_size(&"caption")
+
+
 ## 僅在設定改變時更新；群組不持有節點，關閉頁面不留下參照。
 static func apply_text_scale() -> void:
 	if _theme != null:
@@ -113,7 +132,9 @@ static func apply_text_scale() -> void:
 	if tree == null:
 		return
 	for node in tree.get_nodes_in_group(TEXT_GROUP):
-		if node is Label and node.has_meta(TEXT_SIZE_META):
+		if node is Control and node.has_meta(ROLE_META):
+			(node as Control).add_theme_font_size_override(&"font_size", role_size(node.get_meta(ROLE_META)))
+		elif node is Label and node.has_meta(TEXT_SIZE_META):
 			(node as Label).add_theme_font_size_override(&"font_size", scaled_size(int(node.get_meta(TEXT_SIZE_META))))
 		elif node is CanvasItem:
 			(node as CanvasItem).queue_redraw()
@@ -137,6 +158,35 @@ static func label(text: String, size := BASE_FONT_SIZE, color := Palette.UI_TEXT
 	l.add_theme_color_override(&"font_color", color)
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return l
+
+
+## 說明小字標籤：地點、計數、分類標題與按鍵提示這類次要資訊，讓內文與標題拉開層級。
+static func caption(text: String, color := Palette.UI_MUTED, align := HORIZONTAL_ALIGNMENT_LEFT) -> Label:
+	return _role_label(text, &"caption", color, align)
+
+
+## 段落標題標籤：一頁只給主角（例如選中任務的名稱、目前區域）。
+static func heading(text: String, color := Palette.WHITE, align := HORIZONTAL_ALIGNMENT_LEFT) -> Label:
+	return _role_label(text, &"heading", color, align)
+
+
+static func _role_label(text: String, role: StringName, color: Color, align: HorizontalAlignment) -> Label:
+	var l := Label.new()
+	l.text = text
+	l.horizontal_alignment = align
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	l.add_theme_color_override(&"font_color", color)
+	set_text_role(l, role)
+	return l
+
+
+## 讓既有控制項（例如小按鈕）使用版面角色字級，並跟著文字大小與字體樣式更新。
+static func set_text_role(control: Control, role: StringName) -> void:
+	control.set_meta(ROLE_META, role)
+	control.add_theme_font_size_override(&"font_size", role_size(role))
+	control.tree_entered.connect(func() -> void:
+		control.add_to_group(TEXT_GROUP)
+		control.add_theme_font_size_override(&"font_size", role_size(role)))
 
 
 ## 建立按鈕；tooltip 請寫一句重點。選取與確認的音效、動畫由 UiButton 負責。

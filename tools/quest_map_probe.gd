@@ -79,7 +79,8 @@ func _run() -> void:
 		level._pause_menu.close()
 		get_tree().paused = true
 	if is_instance_valid(_watermark):
-		_watermark.position = Vector2(340, 32)
+		# 導覽頁的頁首與細節都在上方，樣本標示改放右下角提示列上方。
+		_watermark.position = Vector2(470, 322)
 	var layer := CanvasLayer.new()
 	layer.layer = UiLayers.PAUSE
 	add_child(layer)

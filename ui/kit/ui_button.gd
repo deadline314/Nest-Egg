@@ -7,6 +7,8 @@ const MARKER_SLIDE := 5.0
 const MARKER_TIME := 0.12
 const FLASH_TIME := 0.16
 
+## 小按鈕與分頁的左右留白不夠放三角，關掉後焦點改由外框表示（見 FlatStyle）。
+var show_marker := true
 var _marker: float = 0.0
 var _flash: float = 0.0
 var _marker_tween: Tween
@@ -72,7 +74,7 @@ func _tween_property(prop: StringName, from: float, to: float, time: float, is_f
 func _draw() -> void:
 	if disabled:
 		return
-	if _marker > 0.01:
+	if show_marker and _marker > 0.01:
 		var x := 4.0 + _marker * MARKER_SLIDE
 		var cy := size.y * 0.5
 		var color := Color(Palette.CYAN, _marker)

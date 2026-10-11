@@ -169,7 +169,60 @@ func _test_ui(catalog: QuestCatalog, maps: QuestMapIndex) -> void:
 	await _test_journal_input(screen, true)
 	screen.queue_free()
 	await frames(2)
+	await _test_long_details(maps)
 	GameState.world_flags = old_flags
+
+
+## 背景很長時：獎勵固定在操作上方、捲動區有「下方還有內容」提示，右搖桿捲動內文且焦點不動。
+func _test_long_details(maps: QuestMapIndex) -> void:
+	var json := JSON.new()
+	json.parse(FileAccess.get_file_as_string(FIXTURE))
+	var source: Dictionary = json.data
+	var main: Dictionary = source["quests"][0]
+	main["background"] = "這段背景故意寫得很長，用來確認細節區塊會捲動。".repeat(12)
+	var catalog := QuestCatalog.new()
+	catalog.read_source(source, FIXTURE)
+	var screen := QuestMapScreen.new()
+	screen.catalog = catalog
+	screen.maps = maps
+	screen.state = QuestMapState.new()
+	screen.chapter = "ch1_kasa"
+	screen.player_path = PAWN
+	runner.get_tree().root.add_child(screen)
+	screen.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	screen.size = Vector2(640, 360)
+	await frames(4)
+	check(screen._selected == str(main["id"]), "long-detail screen selects the long task")
+	check(screen._reward != null and screen._details.is_ancestor_of(screen._reward), "reward follows the objectives inside the details")
+	check(screen._actions.get_global_rect().end.y <= 348, "fixed actions fit inside the 640x360 design")
+	var cue := ScrollCue.of(screen._detail_scroll)
+	var cue_ok := cue != null and cue.more_below
+	check(cue_ok, "long details show a 'more below' cue")
+	check(screen._scroll_note.is_visible_in_tree(), "long details explain how to scroll beside the actions")
+	screen._focus_details()
+	await frames(2)
+	var focus_before := screen.get_viewport().gui_get_focus_owner()
+	var motion := InputEventJoypadMotion.new()
+	motion.axis = JOY_AXIS_RIGHT_Y
+	motion.axis_value = 1.0
+	runner.get_viewport().push_input(motion)
+	await frames(2)
+	motion = motion.duplicate()
+	motion.axis_value = 0.0
+	runner.get_viewport().push_input(motion)
+	await frames(2)
+	check(screen._detail_scroll.scroll_vertical > 0, "right stick scrolls long details")
+	check(screen.get_viewport().gui_get_focus_owner() == focus_before, "scrolling details keeps focus on the action")
+	check(cue_ok and cue.more_above, "scrolled details show the 'more above' cue")
+	var page := InputEventKey.new()
+	page.keycode = KEY_PAGEUP
+	page.physical_keycode = KEY_PAGEUP
+	page.pressed = true
+	runner.get_viewport().push_input(page)
+	await frames(2)
+	check(screen._detail_scroll.scroll_vertical == 0, "PageUp scrolls details back to the top")
+	screen.queue_free()
+	await frames(2)
 
 
 func _test_runtime() -> void:

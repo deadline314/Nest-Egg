@@ -32,6 +32,12 @@ description: 新增或驗證任務、地圖標記、探索狀態、釘選及 HUD
 
 主流程把 `QuestMapState.for_run().snapshot()` 放進正式存檔的 `navigation`；還原故事／區域狀態之後才呼叫 `restore(raw, catalog, index)`。不要另建獨立的導覽存檔而與故事存檔不同步。損毀測試要核對警告中具體欄位、有效資料保留和安全預設；快照往返不能代替真正退出遊戲再讀檔。
 
+## 視覺版面
+
+- 依據與範本在 `design/18-quest-map-ux/VISUAL_RESEARCH.md`（使用者 2026-10-11 選定：終端機雙欄＋模糊遊戲畫面當底＋斜切目前步驟橫幅）。改版前先看那份與實際截圖，不回到一排同重量大按鈕的做法。
+- 共用元件：`FlatStyle`（分頁、分段、清單列、按鍵提示）、`SceneBackdrop`（模糊底）、`SlantBanner`（目前步驟、HUD 目標列）、`ScrollCue`（下方還有內容）。字級用 `UiKit.caption()`／`heading()`，像素字體會自動退回內文字級。
+- HDR 2D 在線性色彩混色：半透明疊色、格線看起來比數字亮，調不透明度要看實際 Forward+ 截圖。
+
 ## 可讀性與操作
 
 - 任務標題用動詞開頭，寫完整的一件事；背景、阻塞原因、建議和 tooltip 寫完整句子，不用兩三字片段裝酷。

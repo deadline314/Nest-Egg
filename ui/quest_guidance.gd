@@ -6,8 +6,15 @@ var catalog := QuestCatalog.new()
 var maps := QuestMapIndex.new()
 var state: QuestMapState
 var level: Level
-var _row: PanelContainer
+const PULSE_SCALE := 1.12
+## 武器欄右緣（640×360 設計座標）；方向箭頭在這個範圍內時不壓到武器欄。
+const WEAPON_BAR_RIGHT := 160.0
+const PULSE_TIME := 0.35
+
+## 目標列與任務頁的「目前步驟」同一種斜切橫幅；換目標時本身短暫放大，不再另外彈一條中央提示。
+var _row: SlantBanner
 var _label: Label
+var _pulse: Tween
 var _arrow: Label
 var _time := 0.0
 var _idle := 0.0
@@ -29,17 +36,18 @@ func _ready() -> void:
 	state = QuestMapState.for_run()
 	catalog.load_story_sources()
 	maps = QuestMapIndex.for_chapter(level.data.chapter)
-	_row = PanelContainer.new()
+	_row = SlantBanner.new("", Palette.CYAN)
+	_row.fill_strength = 0.14
 	_row.position = Vector2(145, 52)
-	_row.size = Vector2(350, 24)
+	_row.custom_minimum_size = Vector2(350, 0)
 	_row.mouse_filter = Control.MOUSE_FILTER_PASS
 	_row.tooltip_text = "開啟任務目錄可以釘選目標，地圖會標出目的地。"
-	_row.add_theme_stylebox_override(&"panel", UiTheme.tab_box(true))
 	add_child(_row)
-	_label = UiKit.label("", UiKit.FS_BODY, Palette.UI_TEXT)
-	_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_label = _row.label
+	_label.autowrap_mode = TextServer.AUTOWRAP_OFF
 	_label.clip_text = true
-	_row.add_child(_label)
+	_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	_row.resized.connect(func() -> void: _row.pivot_offset = Vector2(0, _row.size.y * 0.5))
 	_arrow = UiKit.label("", UiKit.FS_BODY, Palette.MAGENTA)
 	_arrow.mouse_filter = Control.MOUSE_FILTER_PASS
 	_arrow.tooltip_text = "依箭頭前往追蹤中的目標；跨區時先走向出口。"
@@ -91,9 +99,24 @@ func _refresh_target() -> void:
 		_goal_key = key
 		_idle = 0
 		if not step.is_empty():
-			EventBus.toast_requested.emit("接下來%s" % step["title"])
+			_pulse_row.call_deferred()
 	if _label != null:
-		_label.text = str(step.get("title", ""))
+		_label.text = "◎ " + str(step["title"]) if not step.is_empty() else ""
+		_row.accent = Palette.MAGENTA if not state.pinned_id.is_empty() else Palette.CYAN
+
+
+## 換目標時目標列放大再回到原尺寸並亮一下；減少介面動態時只亮不縮放。
+func _pulse_row() -> void:
+	if _row == null or not _row.is_inside_tree():
+		return
+	if _pulse != null:
+		_pulse.kill()
+	_row.modulate = Color(1.3, 1.3, 1.3, 1.0)
+	_pulse = create_tween().set_parallel(true)
+	_pulse.tween_property(_row, "modulate", Color.WHITE, PULSE_TIME)
+	if not Settings.get_reduce_ui_motion():
+		_row.scale = Vector2.ONE * PULSE_SCALE
+		_pulse.tween_property(_row, "scale", Vector2.ONE, PULSE_TIME).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 
 func _update_arrow() -> void:
@@ -128,7 +151,9 @@ func _update_arrow() -> void:
 	var edge := center + direction * scale
 	var symbols := ["→", "↘", "↓", "↙", "←", "↖", "↑", "↗"]
 	_arrow.text = symbols[posmod(roundi(direction.angle() / (PI / 4)), 8)] + caption
-	_arrow.position = Vector2(clampf(edge.x - _arrow.get_minimum_size().x * 0.5, 12, 628 - _arrow.get_minimum_size().x), clampf(edge.y, 88, 322))
+	# 左下角是武器欄與彈藥，箭頭靠左時不往下壓到它們。
+	var bottom := 240.0 if edge.x < WEAPON_BAR_RIGHT else 322.0
+	_arrow.position = Vector2(clampf(edge.x - _arrow.get_minimum_size().x * 0.5, 12, 628 - _arrow.get_minimum_size().x), clampf(edge.y, 88, bottom))
 	_arrow.visible = true
 
 
