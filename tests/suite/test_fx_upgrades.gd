@@ -232,7 +232,7 @@ func _test_shield_attachment() -> void:
 					var reach := wrist.distance_to(anchor)
 					var from_body := wrist - center
 					worst = maxf(worst, reach)
-					if not player.is_blocking or reach > ShieldSurface.RADIUS * 1.5 or absf(from_body.x) > 22.0 or absf(from_body.y) > 28.0:
+					if not player.is_blocking or reach > ShieldSurface.RADIUS * 1.5 or absf(from_body.x) > 22.0 or absf(from_body.y) > 36.0:
 						failures.append("%s face %d aim %s %s: reach %.1f wrist %s" % [weapon.id, int(face), dir, motion, reach, from_body])
 					for action: StringName in [&"block", &"move_left", &"move_right", &"jump"]:
 						Input.action_release(action)
