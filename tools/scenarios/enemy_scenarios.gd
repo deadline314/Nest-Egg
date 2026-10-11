@@ -29,6 +29,7 @@ const SCENARIOS := {
 	"watchdog_moves": "res://tools/scenarios/watchdog_moves_scenario.gd",
 	"watchdog_head_aim": "res://tools/scenarios/watchdog_head_aim_scenario.gd",
 	"throwables": "res://tools/scenarios/throwables_scenario.gd",
+	"throwables_ch1": "res://tools/scenarios/throwables_ch1_scenario.gd",
 	"prop_reaction": "res://tools/scenarios/prop_reaction_scenario.gd",
 	"shield_attach": "res://tools/scenarios/shield_attach_scenario.gd",
 	"shield_film": "res://tools/scenarios/shield_film_scenario.gd",

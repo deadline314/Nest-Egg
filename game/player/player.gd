@@ -486,10 +486,12 @@ func _process_normal(delta: float) -> void:
 			_melee_buffer_left = _melee_commands.remaining()
 	if Input.is_action_just_pressed(&"dash"):
 		_try_dash(input_x)
+	# 丟東西的那一下射擊鍵要先放開，才會再算開槍或近戰（NE-254）。
+	var shoot_held := Input.is_action_pressed(&"shoot") and not carry.holds_back_shoot()
 	if holds_melee_weapon() and not is_blocking:
-		if _melee_phase == MeleePhase.NONE and (Input.is_action_pressed(&"shoot") or Input.is_action_pressed(&"melee")):
+		if _melee_phase == MeleePhase.NONE and (shoot_held or Input.is_action_pressed(&"melee")):
 			_try_melee(false)
-	elif Input.is_action_pressed(&"shoot") and not is_blocking:
+	elif shoot_held and not is_blocking:
 		if not is_melee_locked():
 			_try_fire()
 

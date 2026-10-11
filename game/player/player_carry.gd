@@ -23,6 +23,8 @@ var phase: Phase = Phase.NONE
 var held: Throwable
 var _phase_t := 0.0
 var _hinted := false
+## 丟出去的那一下射擊鍵還按著：放開之前不算開槍（否則每丟一次就多開一槍或多揮一刀）。
+var _throw_press_held := false
 var _preview: PackedVector2Array = []
 var _preview_land := Vector2.INF
 var _ray := PhysicsRayQueryParameters2D.new()
@@ -39,6 +41,11 @@ func is_holding() -> bool:
 	return phase != Phase.NONE and phase != Phase.THROWING and is_instance_valid(held)
 
 
+## 丟東西用掉的那一下射擊鍵還沒放開：玩家這時不開槍、不用射擊鍵近戰；其他動作照常。
+func holds_back_shoot() -> bool:
+	return _throw_press_held
+
+
 ## 拿著東西時的移動速度倍率。
 func speed_scale() -> float:
 	return held.data.carry_speed_scale if is_holding() else 1.0
@@ -46,6 +53,8 @@ func speed_scale() -> float:
 
 ## 玩家每個物理影格在一般狀態呼叫：回傳 true 代表這一格的攻擊輸入已被拿東西用掉（不要再開槍或近戰）。
 func handle_input() -> bool:
+	if _throw_press_held and not Input.is_action_pressed(&"shoot"):
+		_throw_press_held = false
 	if phase != Phase.NONE and not is_instance_valid(held) and phase != Phase.THROWING:
 		_reset()
 	if phase == Phase.NONE or phase == Phase.THROWING:
@@ -62,6 +71,7 @@ func handle_input() -> bool:
 			return false
 	if phase == Phase.HOLDING and Input.is_action_just_pressed(&"shoot"):
 		throw_toward(player.aim_dir)
+		_throw_press_held = true
 		return true
 	if Input.is_action_just_pressed(&"interact"):
 		put_down()

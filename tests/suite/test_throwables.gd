@@ -18,6 +18,7 @@ func run() -> void:
 	await _test_thrown_barrel_explodes_on_contact()
 	await _test_terrain()
 	await _test_no_input_conflicts()
+	await _test_gamepad_events()
 	await _test_chapter_one_placement()
 
 
@@ -287,6 +288,131 @@ func hit_player() -> DamageInfo:
 	info.ignore_invulnerability = true
 	info.bypass_guard = true
 	return info
+
+
+func _joy_button(button: JoyButton, pressed: bool) -> void:
+	var event := InputEventJoypadButton.new()
+	event.device = 999  # 合成的裝置編號；這不是實體手把的驗收。
+	event.button_index = button
+	event.pressed = pressed
+	Input.parse_input_event(event)
+
+
+func _joy_axis(axis: JoyAxis, value: float) -> void:
+	var event := InputEventJoypadMotion.new()
+	event.device = 999
+	event.axis = axis
+	event.axis_value = value
+	Input.parse_input_event(event)
+
+
+func _joy_tap(button: JoyButton) -> void:
+	_joy_button(button, true)
+	await physics_frames(2)
+	_joy_button(button, false)
+	await physics_frames(2)
+
+
+## 扳機按住幾格再放開：真人按一下會跨好幾個影格，丟出後還按著的那幾格不能變成開槍。
+func _joy_trigger(axis: JoyAxis) -> void:
+	_joy_axis(axis, 1.0)
+	await physics_frames(8)
+	_joy_axis(axis, 0.0)
+	await physics_frames(2)
+
+
+func _place_at_feet() -> Throwable:
+	return _place(CRATE, (level.player.global_position.x + 4.0) / 16.0)
+
+
+func _joy_pick_up(item: Throwable) -> bool:
+	await _joy_tap(InputBindings.get_joy_button(&"interact") as JoyButton)
+	for i in 40:
+		if level.player.carry.phase == PlayerCarry.Phase.HOLDING:
+			break
+		await physics_frames(1)
+	return level.player.carry.is_holding() and level.player.carry.held == item
+
+
+## 手把這條路（NE-254）：送真正的手把按鍵與搖桿事件，經過按鍵綁定才變成動作——X 撿起、右搖桿瞄準、RT 丟出、
+## X 放下；拿著時按近戰（Y）與格擋（LT）會先放下再照常出招、舉盾；提示換成手把的按鍵名。
+## 這是合成事件，只證明綁定與流程；實體手把的手感仍要人拿著手把確認。
+func _test_gamepad_events() -> void:
+	var previous_gamepad := InputBindings.using_gamepad
+	var previous_device := InputBindings.active_device
+	var previous_aim := AimInput.using_gamepad
+	await open_level(10.0)
+	var player := level.player
+	var pipe := _place(PIPE, 11.0)
+	var grunt := spawn(GRUNT_PATH, 22.0)
+	grunt.set_physics_process(false)
+	await physics_frames(3)
+	var toasts: Array[String] = []
+	var on_toast := func(text: String) -> void: toasts.append(text)
+	EventBus.toast_requested.connect(on_toast)
+	check(await _joy_pick_up(pipe), "the gamepad interact button picks the pipe up")
+	check(InputBindings.using_gamepad, "a real gamepad button switches prompts to the gamepad")
+	var shoot_label := InputBindings.primary_label(&"shoot")
+	var interact_label := InputBindings.primary_label(&"interact")
+	check(shoot_label.contains("RT") and toasts.size() == 1 and toasts[0].contains(shoot_label) and toasts[0].contains(interact_label)
+			and not toasts[0].contains("{"), "the one-line carry hint names the gamepad buttons (%s)" % [toasts])
+	check(InputBindings.format(pipe.data.hint).contains(interact_label), "the pick-up prompt names the gamepad interact button")
+	_joy_axis(JOY_AXIS_RIGHT_X, 1.0)
+	_joy_axis(JOY_AXIS_RIGHT_Y, -0.12)
+	await physics_frames(4)
+	check(player.aim_dir.x > 0.9 and player.carry._preview.size() > 3, "the right stick aims the throw arc")
+	var ammo := player.loadout.mag_in(player.loadout.active_slot)
+	var before := grunt.health.current
+	await _joy_trigger(JOY_AXIS_TRIGGER_RIGHT)
+	check(pipe.state == Throwable.State.FLYING and player.loadout.mag_in(player.loadout.active_slot) == ammo,
+			"the right trigger throws instead of firing (state %d, ammo %d -> %d)" % [pipe.state, ammo, player.loadout.mag_in(player.loadout.active_slot)])
+	for i in 90:
+		if grunt.health.current < before:
+			break
+		await physics_frames(1)
+	check(grunt.health.current < before, "the pipe thrown with the gamepad hurts the enemy (%d -> %d)" % [before, grunt.health.current])
+	await _joy_trigger(JOY_AXIS_TRIGGER_RIGHT)
+	check(player.loadout.mag_in(player.loadout.active_slot) == ammo - 1, "after letting go, the next trigger pull fires the gun again")
+	_joy_axis(JOY_AXIS_RIGHT_X, 0.0)
+	_joy_axis(JOY_AXIS_RIGHT_Y, 0.0)
+	# 拿著時近戰：先放下，這一下近戰照常揮出去。
+	var crate := _place_at_feet()
+	await physics_frames(20)
+	check(await _joy_pick_up(crate), "a second object can be picked up with the gamepad")
+	await _joy_tap(InputBindings.get_joy_button(&"melee") as JoyButton)
+	check(not player.carry.is_holding() and crate.state == Throwable.State.REST, "melee on the gamepad puts the crate down")
+	var swung := false
+	for i in 30:
+		swung = swung or player.is_melee_swinging()
+		await physics_frames(1)
+	check(swung, "and the melee swing still happens")
+	for i in 90:
+		if not player.is_melee_swinging() and not player.is_melee_locked():
+			break
+		await physics_frames(1)
+	# 拿著時格擋：先放下，盾照常舉起來。（剛才放下的木箱可能被那一下近戰打碎，換一個新的。）
+	crate = _place_at_feet()
+	await physics_frames(20)
+	check(await _joy_pick_up(crate), "the crate can be picked up again")
+	_joy_axis(JOY_AXIS_TRIGGER_LEFT, 1.0)
+	await physics_frames(6)
+	check(not player.carry.is_holding() and crate.state == Throwable.State.REST, "guard on the gamepad puts the crate down")
+	check(player.is_blocking, "and the guard is raised while the trigger is held")
+	_joy_axis(JOY_AXIS_TRIGGER_LEFT, 0.0)
+	await physics_frames(6)
+	# X 放下。
+	if not is_instance_valid(crate) or crate.state != Throwable.State.REST:
+		crate = _place_at_feet()
+	else:
+		crate.global_position = Vector2(level.player.global_position.x + 4.0, FLOOR_Y)
+	await physics_frames(20)
+	check(await _joy_pick_up(crate), "and once more")
+	await _joy_tap(InputBindings.get_joy_button(&"interact") as JoyButton)
+	check(not player.carry.is_holding() and crate.state == Throwable.State.REST, "the gamepad interact button puts it down")
+	EventBus.toast_requested.disconnect(on_toast)
+	InputBindings._set_device(previous_gamepad, previous_device)
+	AimInput.using_gamepad = previous_aim
+	await end_level(level)
 
 
 ## 第一章：至少兩個區域擺了可投擲物與油桶；離出入口夠遠（互動鍵不會撿錯）；數量在上限內；重進區域不累積。
