@@ -1,6 +1,6 @@
 class_name ShieldSurface
-extends RefCounted
-## Directional field presentation. Gameplay owns the angle, timing and damage.
+extends GuardPresenter
+## Directional field presentation (the GuardPresenter used until NE-269's arm shield). Gameplay owns the angle, timing and damage.
 ## Geometry is rebuilt only when the block angle changes; no particles or nodes.
 
 const RADIUS := 28.0
@@ -12,10 +12,6 @@ const INK := Color(0.035, 0.075, 0.105, 0.95)
 const ARC_MIN := 0.0
 const ARC_MAX := 360.0
 
-var extension := 0.0
-var break_left := 0.0
-var direction := Vector2.RIGHT
-var impact_direction := Vector2.RIGHT
 var _active := false
 var _broken := false
 var _arc_degrees := -1.0
@@ -56,10 +52,6 @@ static func contact(center: Vector2, incoming: Vector2, aim: Vector2) -> Vector2
 	if not along.is_finite() or along.length_squared() <= 0.0001:
 		along = Vector2.RIGHT
 	return center + along * RADIUS
-
-
-func notify_impact(incoming: Vector2) -> void:
-	impact_direction = incoming.normalized() if incoming.is_finite() and incoming.length_squared() > 0.0001 else direction
 
 
 ## 投射線：盾由前臂義體投射——從手腕到盾面內緣中點畫一條細線與小節點，隨展開淡入；破盾時不畫。

@@ -22,6 +22,7 @@ func run() -> void:
 	await _test_shield_outcomes()
 	await _test_shield_rules_unchanged()
 	await _test_shield_landing_frames()
+	await _test_block_input_parity()
 	await _test_dash_and_materialize()
 	await DashSilhouetteChecks.run(self)
 	await _test_environment()
@@ -725,3 +726,52 @@ func _projectile_target(container: Node2D, at: Vector2, owner_team: Combat.Team)
 	target.setup(owner_team, health, Vector2(4, 40))
 	container.add_child(target)
 	return target
+
+
+## 右鍵與手把同一防禦語義（NE-239）：同一串操作（按住、放開後馬上再舉＝完美窗口縮短、隔久一點再舉＝窗口恢復），
+## 用滑鼠右鍵送一次、用手把左扳機送一次，每一格的「舉著盾」「在完美窗口內」與完美窗口長度都要一樣。
+## 合成的輸入事件走和真的按鍵同一條路（Input.parse_input_event），不代表實體手把已經驗過。
+func _test_block_input_parity() -> void:
+	var presses := [[0, 20], [26, 50], [130, 150]]
+	var results := {}
+	for device: String in ["mouse", "pad"]:
+		await open_level(10.0)
+		var player := level.player
+		player.guard = player.tuning.guard_max
+		await physics_frames(2)
+		var timeline: Array = []
+		for frame in 170:
+			for press: Array in presses:
+				if frame == int(press[0]):
+					_send_block(device, true)
+				elif frame == int(press[1]):
+					_send_block(device, false)
+			await physics_frames(1)
+			timeline.append([player.is_blocking, player.is_parry_window(), snappedf(player.parry_window_length(), 0.001)])
+		_send_block(device, false)
+		InputBindings.clear_held_inputs()
+		results[device] = timeline
+		await end_level(level)
+	var mouse: Array = results["mouse"]
+	var raised := mouse.filter(func(row: Array) -> bool: return row[0]).size()
+	var short_window := false
+	for row: Array in mouse:
+		short_window = short_window or (row[0] and float(row[2]) < float(mouse[5][2]) - 0.001)
+	check(mouse == results["pad"] and raised > 50 and short_window,
+			"right mouse button and the pad's left trigger raise, time the perfect window and shorten it on a quick re-raise identically (raised %d frames)" % raised)
+
+
+func _send_block(device: String, pressed: bool) -> void:
+	if device == "mouse":
+		var mouse := InputEventMouseButton.new()
+		mouse.button_index = MOUSE_BUTTON_RIGHT
+		mouse.pressed = pressed
+		Input.parse_input_event(mouse)
+	else:
+		var axis := InputEventJoypadMotion.new()
+		axis.axis = JOY_AXIS_TRIGGER_LEFT
+		axis.axis_value = 1.0 if pressed else 0.0
+		Input.parse_input_event(axis)
+	# 立刻送進遊戲：不然事件要等到下一個畫面才處理，機器忙時落在哪一個物理步不固定。
+	Input.flush_buffered_events()
+

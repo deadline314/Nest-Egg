@@ -63,7 +63,8 @@ var _ghost_pool: DashSilhouettePool
 var _materialize_left := 0.0
 var _phone_t := -1.0  # 撥號動作已經過的秒數；負值＝不在撥號
 var _phone_weapon := ""
-var _shield := ShieldSurface.new()
+## 格擋的呈現（介面見 GuardPresenter）：現在是方向光盾，NE-269 的臂盾做好後換掉這一行。
+var _shield: GuardPresenter = ShieldSurface.new()
 
 
 func _ready() -> void:

@@ -5,6 +5,8 @@ extends Node2D
 const Capture := preload("res://tools/viewport_capture.gd")
 var _out := ""
 var _failed := false
+## --reduced：「減少閃光」打開、畫面震動倍率 0（「減少動態」）時再拍一次亮暗兩張，檔名加 -reduced（只寫在隔離的設定檔裡）。
+var _reduced := false
 
 class LegacyField extends Node2D:
 	var actor: Player
@@ -27,6 +29,8 @@ func _ready() -> void:
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--out="):
 			_out = arg.trim_prefix("--out=")
+		elif arg == "--reduced":
+			_reduced = true
 	if _out.is_empty() or not _out.is_absolute_path():
 		_failed = true
 		push_error("[NE239] Missing absolute --out path.")
@@ -45,6 +49,9 @@ func _run() -> void:
 	add_child(sample_environment)
 	for frame in 4:
 		await get_tree().process_frame
+	if _reduced:
+		Settings.set_reduce_flashes(true)
+		Settings.set_feel_scale("shake", 0.0)
 	for bright in [false, true]:
 		var board := Node2D.new()
 		add_child(board)
@@ -100,7 +107,7 @@ func _run() -> void:
 				actor._visual.queue_redraw()
 		await RenderingServer.frame_post_draw
 		await RenderingServer.frame_post_draw
-		var path := _out.path_join("NE-239-shield-%s.png" % ("bright" if bright else "dark"))
+		var path := _out.path_join("NE-239-shield-%s%s.png" % ["bright" if bright else "dark", "-reduced" if _reduced else ""])
 		var result := Capture.image(get_viewport()).save_png(path)
 		if result != OK:
 			_failed = true
@@ -112,6 +119,9 @@ func _run() -> void:
 		await get_tree().process_frame
 	sample_environment.queue_free()
 	await get_tree().process_frame
+	if _reduced:
+		get_tree().quit(1 if _failed else 0)
+		return
 	await _combat_capture()
 	get_tree().quit(1 if _failed else 0)
 
