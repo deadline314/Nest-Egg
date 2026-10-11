@@ -4,6 +4,7 @@
   "lash"
  ],
  "combo_window": 0.4,
+ "idle_sound": "melee_whip_idle",
  "attacks": {
   "lash": {
    "windup": 0.17,
@@ -40,8 +41,8 @@
     "style": "lash"
    },
    "sounds": {
-    "swing": "melee_swing",
-    "hit": "melee_hit"
+    "swing": "melee_whip_swing_first",
+    "hit": "melee_whip_hit"
    },
    "impact_fx": "slash"
   },
@@ -80,8 +81,8 @@
     "style": "lash"
    },
    "sounds": {
-    "swing": "melee_swing",
-    "hit": "melee_hit"
+    "swing": "melee_whip_swing_heavy",
+    "hit": "melee_whip_hit_heavy"
    },
    "impact_fx": "slash",
    "guard_cost": 16

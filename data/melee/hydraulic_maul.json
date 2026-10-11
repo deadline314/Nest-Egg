@@ -5,6 +5,7 @@
   "slam"
  ],
  "combo_window": 0.6,
+ "idle_sound": "melee_maul_idle",
  "attacks": {
   "smash": {
    "windup": 0.34,
@@ -41,8 +42,8 @@
     "style": "arc"
    },
    "sounds": {
-    "swing": "melee_swing_heavy",
-    "hit": "melee_hit_heavy"
+    "swing": "melee_maul_swing_first",
+    "hit": "melee_maul_hit"
    },
    "impact_fx": "crush"
   },
@@ -81,8 +82,8 @@
     "style": "arc"
    },
    "sounds": {
-    "swing": "melee_swing_heavy",
-    "hit": "melee_hit_heavy"
+    "swing": "melee_maul_swing_heavy",
+    "hit": "melee_maul_hit_heavy"
    },
    "impact_fx": "crush"
   },
@@ -121,8 +122,8 @@
     "style": "arc"
    },
    "sounds": {
-    "swing": "melee_swing_heavy",
-    "hit": "melee_hit_heavy"
+    "swing": "melee_maul_swing_heavy",
+    "hit": "melee_maul_hit_heavy"
    },
    "impact_fx": "crush",
    "guard_cost": 30

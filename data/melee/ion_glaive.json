@@ -5,6 +5,7 @@
   "sweep"
  ],
  "combo_window": 0.5,
+ "idle_sound": "melee_glaive_idle",
  "attacks": {
   "thrust": {
    "windup": 0.15,
@@ -41,8 +42,8 @@
     "style": "thrust"
    },
    "sounds": {
-    "swing": "melee_swing",
-    "hit": "melee_hit"
+    "swing": "melee_glaive_swing_first",
+    "hit": "melee_glaive_hit"
    },
    "impact_fx": "pierce"
   },
@@ -81,8 +82,8 @@
     "style": "arc"
    },
    "sounds": {
-    "swing": "melee_swing",
-    "hit": "melee_hit"
+    "swing": "melee_glaive_swing_heavy",
+    "hit": "melee_glaive_hit_heavy"
    },
    "impact_fx": "slash"
   },
@@ -121,8 +122,8 @@
     "style": "arc"
    },
    "sounds": {
-    "swing": "melee_swing",
-    "hit": "melee_hit"
+    "swing": "melee_glaive_swing_heavy",
+    "hit": "melee_glaive_hit_heavy"
    },
    "impact_fx": "slash",
    "guard_cost": 20

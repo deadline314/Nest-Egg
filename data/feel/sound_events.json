@@ -486,6 +486,51 @@
      "delay": 0.02
     }
    ]
+  },
+  "melee_glaive_swing_first": {
+   "priority": 3,
+   "layers": [
+    {
+     "sounds": [
+      "melee_glaive_swing_a",
+      "melee_glaive_swing_b"
+     ],
+     "pitch": [
+      0.98,
+      1.02
+     ]
+    }
+   ]
+  },
+  "melee_maul_swing_first": {
+   "priority": 3,
+   "layers": [
+    {
+     "sounds": [
+      "melee_maul_swing_a",
+      "melee_maul_swing_b"
+     ],
+     "pitch": [
+      0.98,
+      1.02
+     ]
+    }
+   ]
+  },
+  "melee_whip_swing_first": {
+   "priority": 3,
+   "layers": [
+    {
+     "sounds": [
+      "melee_whip_swing_a",
+      "melee_whip_swing_b"
+     ],
+     "pitch": [
+      0.98,
+      1.02
+     ]
+    }
+   ]
   }
  }
 }

@@ -89,6 +89,12 @@ func extension_attack() -> String:
 	return str(extension.get("attack", "")) if extension is Dictionary else ""
 
 
+## 這把武器拿在手上時的待機聲（音效庫的 id；沒有就回傳空字串）。
+func idle_sound() -> StringName:
+	_ensure_loaded()
+	return StringName(str(_data.get("idle_sound", "")))
+
+
 func combo_window() -> float:
 	_ensure_loaded()
 	var value: Variant = _data.get("combo_window", 0.5)
@@ -155,7 +161,7 @@ static func definition_problems(raw: Variant, source: String) -> PackedStringArr
 	if not raw is Dictionary or not raw.get("attacks") is Dictionary:
 		return PackedStringArray([source + "/attacks must be an object"])
 	for key: Variant in raw:
-		if not key is String or (key not in ["combo", "combo_window", "attacks", "extension"] and not key.begins_with("_")):
+		if not key is String or (key not in ["combo", "combo_window", "attacks", "extension", "idle_sound"] and not key.begins_with("_")):
 			errors.append("%s/%s unknown field" % [source, key])
 	var attacks: Dictionary = raw.attacks
 	var combo: Variant = raw.get("combo")
@@ -301,4 +307,6 @@ func validate() -> PackedStringArray:
 	_ensure_loaded()
 	var errors := _load_errors.duplicate()
 	errors.append_array(definition_problems(_data, path))
+	if not idle_sound().is_empty() and not Sfx.has_sound(idle_sound()):
+		errors.append("%s 的 idle_sound 引用不存在的聲音「%s」" % [path, idle_sound()])
 	return errors

@@ -6,6 +6,7 @@
   "cut_3"
  ],
  "combo_window": 0.5,
+ "idle_sound": "melee_blade_idle",
  "attacks": {
   "cut_1": {
    "windup": 0.07,
@@ -42,8 +43,8 @@
     "style": "arc"
    },
    "sounds": {
-    "swing": "melee_swing",
-    "hit": "melee_hit"
+    "swing": "melee_blade_swing_a",
+    "hit": "melee_blade_hit"
    },
    "impact_fx": "slash"
   },
@@ -82,8 +83,8 @@
     "style": "arc"
    },
    "sounds": {
-    "swing": "melee_swing",
-    "hit": "melee_hit"
+    "swing": "melee_blade_swing_b",
+    "hit": "melee_blade_hit"
    },
    "impact_fx": "slash"
   },
@@ -122,8 +123,8 @@
     "style": "arc"
    },
    "sounds": {
-    "swing": "melee_swing_heavy",
-    "hit": "melee_hit_heavy"
+    "swing": "melee_blade_swing_heavy",
+    "hit": "melee_blade_hit_heavy"
    },
    "impact_fx": "slash"
   },
@@ -162,8 +163,8 @@
     "style": "thrust"
    },
    "sounds": {
-    "swing": "melee_swing_heavy",
-    "hit": "melee_hit_heavy"
+    "swing": "melee_blade_swing_heavy",
+    "hit": "melee_blade_hit_heavy"
    },
    "impact_fx": "pierce",
    "guard_cost": 18

@@ -1,0 +1,265 @@
+{
+	"master_db": -1.93820023536682,
+	"segments": [
+		{
+			"end": 0.996289,
+			"part": "silence",
+			"sounds": [],
+			"start": 0.000004,
+			"weapon": "ref"
+		},
+		{
+			"end": 2.521486,
+			"part": "pistol",
+			"sounds": [
+				"shot_pistol",
+				"shot_pistol",
+				"shot_pistol"
+			],
+			"start": 0.996289,
+			"weapon": "ref"
+		},
+		{
+			"end": 3.93147,
+			"part": "pistol_hit",
+			"sounds": [
+				"shot_pistol",
+				"hurt_humanoid",
+				"hit_a",
+				"mat_armor",
+				"hit_weak",
+				"hit_tail",
+				"shot_pistol",
+				"hurt_humanoid",
+				"hit_b",
+				"mat_armor",
+				"hit_weak",
+				"hit_tail"
+			],
+			"start": 2.521486,
+			"weapon": "ref"
+		},
+		{
+			"end": 5.669668,
+			"part": "walk",
+			"sounds": [
+				"step_concrete",
+				"step_concrete",
+				"step_concrete",
+				"step_concrete"
+			],
+			"start": 3.93147,
+			"weapon": "ref"
+		},
+		{
+			"end": 7.272522,
+			"part": "idle",
+			"sounds": [],
+			"start": 5.669668,
+			"weapon": "blade"
+		},
+		{
+			"end": 10.022396,
+			"part": "combo_miss",
+			"sounds": [
+				"melee_blade_swing_a",
+				"melee_blade_swing_b",
+				"melee_blade_swing_heavy",
+				"melee_blade_swing_heavy"
+			],
+			"start": 7.272522,
+			"weapon": "blade"
+		},
+		{
+			"end": 12.796972,
+			"part": "combo_hit",
+			"sounds": [
+				"hurt_humanoid",
+				"mat_armor",
+				"melee_blade_hit",
+				"mat_armor",
+				"melee_blade_hit",
+				"hurt_humanoid",
+				"mat_armor",
+				"melee_blade_hit_heavy",
+				"hurt_humanoid",
+				"mat_armor",
+				"melee_blade_hit_heavy"
+			],
+			"start": 10.022396,
+			"weapon": "blade"
+		},
+		{
+			"end": 13.621908,
+			"part": "holster",
+			"sounds": [],
+			"start": 12.796972,
+			"weapon": "blade"
+		},
+		{
+			"end": 15.222902,
+			"part": "idle",
+			"sounds": [],
+			"start": 13.621908,
+			"weapon": "dagger"
+		},
+		{
+			"end": 16.969059,
+			"part": "combo_miss",
+			"sounds": [
+				"melee_dagger_swing_a",
+				"melee_dagger_swing_b",
+				"melee_dagger_swing_heavy",
+				"melee_dagger_swing_heavy"
+			],
+			"start": 15.222902,
+			"weapon": "dagger"
+		},
+		{
+			"end": 18.701426,
+			"part": "combo_hit",
+			"sounds": [
+				"hurt_humanoid",
+				"mat_armor",
+				"melee_dagger_hit",
+				"mat_armor",
+				"melee_dagger_hit",
+				"hurt_humanoid",
+				"mat_armor",
+				"melee_dagger_hit_heavy",
+				"mat_armor",
+				"melee_dagger_hit_heavy"
+			],
+			"start": 16.969059,
+			"weapon": "dagger"
+		},
+		{
+			"end": 19.523399,
+			"part": "holster",
+			"sounds": [],
+			"start": 18.701426,
+			"weapon": "dagger"
+		},
+		{
+			"end": 21.123688,
+			"part": "idle",
+			"sounds": [],
+			"start": 19.523399,
+			"weapon": "glaive"
+		},
+		{
+			"end": 23.967812,
+			"part": "combo_miss",
+			"sounds": [
+				"melee_glaive_swing_a",
+				"melee_glaive_swing_heavy",
+				"melee_glaive_swing_heavy"
+			],
+			"start": 21.123688,
+			"weapon": "glaive"
+		},
+		{
+			"end": 26.784234,
+			"part": "combo_hit",
+			"sounds": [
+				"hurt_humanoid",
+				"mat_armor",
+				"melee_glaive_hit",
+				"hurt_humanoid",
+				"mat_armor",
+				"melee_glaive_hit_heavy",
+				"hurt_humanoid",
+				"mat_armor",
+				"melee_glaive_hit_heavy"
+			],
+			"start": 23.967812,
+			"weapon": "glaive"
+		},
+		{
+			"end": 27.606874,
+			"part": "holster",
+			"sounds": [],
+			"start": 26.784234,
+			"weapon": "glaive"
+		},
+		{
+			"end": 29.203574,
+			"part": "idle",
+			"sounds": [],
+			"start": 27.606874,
+			"weapon": "maul"
+		},
+		{
+			"end": 33.576937,
+			"part": "combo_miss",
+			"sounds": [
+				"melee_maul_swing_a",
+				"melee_maul_swing_heavy",
+				"melee_maul_swing_heavy"
+			],
+			"start": 29.203574,
+			"weapon": "maul"
+		},
+		{
+			"end": 37.899222,
+			"part": "combo_hit",
+			"sounds": [
+				"hurt_humanoid",
+				"mat_armor",
+				"melee_maul_hit",
+				"hurt_humanoid",
+				"mat_armor",
+				"melee_maul_hit_heavy",
+				"melee_maul_swing_heavy"
+			],
+			"start": 33.576937,
+			"weapon": "maul"
+		},
+		{
+			"end": 38.717946,
+			"part": "holster",
+			"sounds": [],
+			"start": 37.899222,
+			"weapon": "maul"
+		},
+		{
+			"end": 40.324095,
+			"part": "idle",
+			"sounds": [],
+			"start": 38.717946,
+			"weapon": "whip"
+		},
+		{
+			"end": 42.587187,
+			"part": "combo_miss",
+			"sounds": [
+				"melee_whip_swing_b",
+				"melee_whip_swing_heavy"
+			],
+			"start": 40.324095,
+			"weapon": "whip"
+		},
+		{
+			"end": 44.729448,
+			"part": "combo_hit",
+			"sounds": [
+				"hurt_humanoid",
+				"mat_armor",
+				"melee_whip_hit",
+				"hurt_humanoid",
+				"mat_armor",
+				"melee_whip_hit_heavy"
+			],
+			"start": 42.587187,
+			"weapon": "whip"
+		},
+		{
+			"end": 46.000338,
+			"part": "holster",
+			"sounds": [],
+			"start": 44.729448,
+			"weapon": "whip"
+		}
+	],
+	"sfx_bus_db": 0.0
+}

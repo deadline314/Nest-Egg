@@ -170,18 +170,20 @@ func act_equip(params: Dictionary) -> void:
 	await _wait(TAIL_TIME + 0.4)
 
 
-## 近戰。attacks（連續出幾招，1 輕斬、3 含重斬，預設 1）、target（前方是否放靶，預設 true；false 就是揮空）。
+## 近戰。attacks（連續出幾招，1 輕斬、3 含重斬，預設 1）、target（前方是否放靶，預設 true；false 就是揮空）、
+## weapon（預設 pistol＝徒手連段；近戰武器寫 melee/melee_blade 這種路徑）、distance（靶離玩家幾格，預設 1.7；有近身死角的
+## 鞭子要放遠）、gap（每一下之間等幾秒，預設 0.34；出招慢的錘要等久一點才接得上下一段）。
 func act_melee(params: Dictionary) -> void:
 	arena.use_weapon(_text(params, "weapon", "pistol"))
 	if bool(params.get("target", true)):
-		arena.spawn_target(&"flesh", 1.7)
+		arena.spawn_target(&"flesh", float(params.get("distance", 1.7)))
 	if not await _wait(0.3):
 		return
 	arena.aim_right()
 	var attacks := clampi(int(params.get("attacks", 1)), 1, MeleeData.combo().size())
 	for i in attacks:
 		await arena.tap(&"melee")
-		if not await _wait(0.34 if i < attacks - 1 else 0.7):
+		if not await _wait(float(params.get("gap", 0.34)) if i < attacks - 1 else 0.7):
 			return
 	await _wait(TAIL_TIME)
 

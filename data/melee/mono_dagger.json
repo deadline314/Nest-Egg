@@ -6,6 +6,7 @@
   "flurry"
  ],
  "combo_window": 0.4,
+ "idle_sound": "melee_dagger_idle",
  "attacks": {
   "stab_1": {
    "windup": 0.03,
@@ -42,8 +43,8 @@
     "style": "thrust"
    },
    "sounds": {
-    "swing": "melee_swing",
-    "hit": "melee_hit"
+    "swing": "melee_dagger_swing_a",
+    "hit": "melee_dagger_hit"
    },
    "impact_fx": "pierce"
   },
@@ -82,8 +83,8 @@
     "style": "thrust"
    },
    "sounds": {
-    "swing": "melee_swing",
-    "hit": "melee_hit"
+    "swing": "melee_dagger_swing_b",
+    "hit": "melee_dagger_hit"
    },
    "impact_fx": "pierce"
   },
@@ -122,8 +123,8 @@
     "style": "arc"
    },
    "sounds": {
-    "swing": "melee_swing",
-    "hit": "melee_hit"
+    "swing": "melee_dagger_swing_heavy",
+    "hit": "melee_dagger_hit_heavy"
    },
    "impact_fx": "slash"
   },
@@ -162,8 +163,8 @@
     "style": "arc"
    },
    "sounds": {
-    "swing": "melee_swing",
-    "hit": "melee_hit"
+    "swing": "melee_dagger_swing_heavy",
+    "hit": "melee_dagger_hit_heavy"
    },
    "impact_fx": "slash",
    "guard_cost": 8

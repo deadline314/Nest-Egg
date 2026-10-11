@@ -44,6 +44,8 @@ var _trails: Array[Dictionary] = []
 var _melee_held: MeleeHeld
 ## 近戰武器的刃光（真的光源）。
 var _blade_light: BladeLight
+## 近戰武器拿在手上的待機聲。
+var _melee_hum: MeleeHum
 var _fire_color := Palette.CYAN
 var _finisher_flash := 0.0
 var _parry_flash := 0.0
@@ -78,6 +80,9 @@ func _ready() -> void:
 	_blade_light = BladeLight.new()
 	_blade_light.name = "BladeLight"
 	add_child(_blade_light)
+	_melee_hum = MeleeHum.new()
+	_melee_hum.name = "MeleeHum"
+	add_child(_melee_hum)
 	# Attach a world-space sibling after the parent finishes spawning children.
 	_attach_ghost_pool.call_deferred()
 
@@ -313,6 +318,7 @@ func _process(delta: float) -> void:
 		return
 	_time += delta
 	_blade_light.follow(self, delta)
+	_melee_hum.follow(self, delta)
 	_fire_flash = maxf(0.0, _fire_flash - delta)
 	for i in range(_trails.size() - 1, -1, -1):
 		_trails[i]["age"] = float(_trails[i]["age"]) + delta

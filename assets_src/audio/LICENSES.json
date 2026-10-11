@@ -846,11 +846,15 @@
   "license": "CC0-1.0",
   "page": "https://opengameart.org/content/20-sword-sound-effects-attacks-and-clashes",
   "files_used": [
+   "sword - StarNinjas/sword.4.ogg",
+   "sword - StarNinjas/sword.5.ogg",
    "sword_clash.8.ogg",
    "sword_clash.9.ogg"
   ],
   "outputs": [
    "res://audio/sfx/block_01.ogg",
+   "res://audio/sfx/melee_blade_hit_01.ogg",
+   "res://audio/sfx/melee_blade_hit_heavy_01.ogg",
    "res://audio/sfx/parry_01.ogg"
   ]
  },
@@ -995,6 +999,19 @@
    "res://audio/sfx/shot_spread_02.ogg"
   ]
  },
+ "oga_air-woosh-move": {
+  "title": "Air Woosh Move",
+  "author": "Almitory",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/air-woosh-move",
+  "files_used": [
+   "air_move.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/melee_dagger_swing_a_01.ogg",
+   "res://audio/sfx/melee_dagger_swing_b_01.ogg"
+  ]
+ },
  "oga_amb-rain-loop-1": {
   "title": "AMB Rain Loop 1",
   "author": "?",
@@ -1005,6 +1022,18 @@
   ],
   "outputs": [
    "res://audio/sfx/amb_rain_01.ogg"
+  ]
+ },
+ "oga_blacksmiths-hammer": {
+  "title": "Blacksmith's Hammer",
+  "author": "VishwaJai",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/blacksmiths-hammer",
+  "files_used": [
+   "blacksmithhammer.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/melee_maul_hit_heavy_01.ogg"
   ]
  },
  "oga_button-sfx-pack-iii-assortment-ot-hi-tech": {
@@ -1040,6 +1069,8 @@
    "fan_interval.wav"
   ],
   "outputs": [
+   "res://audio/sfx/melee_maul_idle_01.ogg",
+   "res://audio/sfx/melee_whip_idle_01.ogg",
    "res://audio/sfx/spin_01.ogg"
   ]
  },
@@ -1077,13 +1108,22 @@
   "license": "CC0-1.0",
   "page": "https://opengameart.org/content/electricity-game-sound-pack",
   "files_used": [
+   "charge.wav",
    "death_1.wav",
+   "hit.wav",
    "powerdown.wav",
    "powerup.wav",
+   "recharge.wav",
    "shieldhit.wav"
   ],
   "outputs": [
    "res://audio/sfx/emp_01.ogg",
+   "res://audio/sfx/melee_glaive_hit_01.ogg",
+   "res://audio/sfx/melee_glaive_hit_heavy_01.ogg",
+   "res://audio/sfx/melee_glaive_idle_01.ogg",
+   "res://audio/sfx/melee_glaive_swing_a_01.ogg",
+   "res://audio/sfx/melee_glaive_swing_b_01.ogg",
+   "res://audio/sfx/melee_glaive_swing_heavy_01.ogg",
    "res://audio/sfx/power_down_01.ogg",
    "res://audio/sfx/power_up_01.ogg",
    "res://audio/sfx/zap_01.ogg"
@@ -1191,6 +1231,22 @@
    "res://audio/sfx/switch_01.ogg"
   ]
  },
+ "oga_metal-impact-sounds": {
+  "title": "Metal Impact Sounds",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/metal-impact-sounds",
+  "files_used": [
+   "clink1_0.wav",
+   "clink2.wav",
+   "thud2.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/melee_dagger_hit_01.ogg",
+   "res://audio/sfx/melee_dagger_hit_heavy_01.ogg",
+   "res://audio/sfx/melee_maul_hit_01.ogg"
+  ]
+ },
  "oga_metal-interactions": {
   "title": "Metal Interactions",
   "author": "?",
@@ -1200,6 +1256,9 @@
    "metal_interactions/metal_swing1.wav"
   ],
   "outputs": [
+   "res://audio/sfx/melee_maul_swing_a_01.ogg",
+   "res://audio/sfx/melee_maul_swing_b_01.ogg",
+   "res://audio/sfx/melee_maul_swing_heavy_01.ogg",
    "res://audio/sfx/melee_swing_heavy_01.ogg"
   ]
  },
@@ -1237,6 +1296,18 @@
   ],
   "outputs": [
    "res://audio/sfx/amb_city_night_01.ogg"
+  ]
+ },
+ "oga_seamless-energy-emission-loop": {
+  "title": "Seamless Energy Emission Loop",
+  "author": "zeroisnotnull",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/seamless-energy-emission-loop",
+  "files_used": [
+   "movingshield_sound.ogg"
+  ],
+  "outputs": [
+   "res://audio/sfx/melee_blade_idle_01.ogg"
   ]
  },
  "oga_sound-effects-pack": {
@@ -1292,9 +1363,26 @@
    "steam hisses - Marker #3.wav"
   ],
   "outputs": [
+   "res://audio/sfx/melee_blade_hit_01.ogg",
+   "res://audio/sfx/melee_blade_hit_heavy_01.ogg",
+   "res://audio/sfx/melee_maul_swing_a_01.ogg",
+   "res://audio/sfx/melee_maul_swing_b_01.ogg",
+   "res://audio/sfx/melee_maul_swing_heavy_01.ogg",
    "res://audio/sfx/vent_01.ogg",
    "res://audio/sfx/vent_02.ogg",
    "res://audio/sfx/vent_03.ogg"
+  ]
+ },
+ "oga_steam-whistle": {
+  "title": "Steam whistle",
+  "author": "bart",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/steam-whistle",
+  "files_used": [
+   "steamwhistle_0.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/melee_dagger_idle_01.ogg"
   ]
  },
  "oga_swish-bamboo-stick-weapon-swhoshes": {
@@ -1303,10 +1391,22 @@
   "license": "CC0-1.0",
   "page": "https://opengameart.org/content/swish-bamboo-stick-weapon-swhoshes",
   "files_used": [
-   "swosh-16.flac"
+   "swosh-03.flac",
+   "swosh-16.flac",
+   "swosh-21.flac",
+   "swosh-28.flac",
+   "swosh-30.flac",
+   "swosh-35.flac"
   ],
   "outputs": [
-   "res://audio/sfx/dash_01.ogg"
+   "res://audio/sfx/dash_01.ogg",
+   "res://audio/sfx/melee_blade_swing_a_01.ogg",
+   "res://audio/sfx/melee_blade_swing_b_01.ogg",
+   "res://audio/sfx/melee_blade_swing_heavy_01.ogg",
+   "res://audio/sfx/melee_dagger_swing_heavy_01.ogg",
+   "res://audio/sfx/melee_whip_swing_a_01.ogg",
+   "res://audio/sfx/melee_whip_swing_b_01.ogg",
+   "res://audio/sfx/melee_whip_swing_heavy_01.ogg"
   ]
  },
  "oga_synthesized-explosion": {
@@ -1331,6 +1431,20 @@
   ],
   "outputs": [
    "res://audio/music/boss_warden.ogg"
+  ]
+ },
+ "oga_thwack-sounds": {
+  "title": "Thwack Sounds",
+  "author": "?",
+  "license": "CC0-1.0",
+  "page": "https://opengameart.org/content/thwack-sounds",
+  "files_used": [
+   "PCM/thwack-01.wav",
+   "PCM/thwack-04.wav"
+  ],
+  "outputs": [
+   "res://audio/sfx/melee_whip_hit_01.ogg",
+   "res://audio/sfx/melee_whip_hit_heavy_01.ogg"
   ]
  },
  "oga_tiny-naval-battle-sounds-set": {

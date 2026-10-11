@@ -565,6 +565,540 @@
     }
    ]
   },
+  "melee_blade_swing_a": {
+   "category": "foley",
+   "volume_db": -2.0,
+   "variants": [
+    {
+     "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
+     "file": "swosh-30.flac",
+     "mode": "whole",
+     "max_len": 0.9,
+     "lowpass": 5000,
+     "target_db": -22.0
+    }
+   ]
+  },
+  "melee_blade_swing_b": {
+   "category": "foley",
+   "volume_db": -2.0,
+   "variants": [
+    {
+     "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
+     "file": "swosh-30.flac",
+     "mode": "whole",
+     "max_len": 0.9,
+     "lowpass": 5000,
+     "rate": 1.08,
+     "target_db": -22.0
+    }
+   ]
+  },
+  "melee_blade_swing_heavy": {
+   "category": "foley",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
+     "file": "swosh-35.flac",
+     "mode": "whole",
+     "max_len": 1.4,
+     "lowpass": 3500,
+     "rate": 0.9,
+     "target_db": -20.0
+    }
+   ]
+  },
+  "melee_blade_hit": {
+   "category": "impact",
+   "volume_db": -4.0,
+   "max_len": 0.7,
+   "variants": [
+    {
+     "layers": [
+      {
+       "pack": "oga_20-sword-sound-effects-attacks-and-clashes",
+       "file": "sword - StarNinjas/sword.4.ogg",
+       "mode": "shot",
+       "max_len": 0.6,
+       "target_db": -16.0,
+       "rate": 0.9,
+       "lowpass": 3500
+      },
+      {
+       "pack": "oga_steam-release-sounds",
+       "file": "steam hisses - Marker #1.wav",
+       "mode": "whole",
+       "start": 0.0,
+       "end": 0.6,
+       "max_len": 0.6,
+       "lowpass": 7000,
+       "target_db": -24.0,
+       "delay_ms": 25.0
+      }
+     ],
+     "max_len": 0.7,
+     "target_db": -16.0
+    }
+   ]
+  },
+  "melee_blade_hit_heavy": {
+   "category": "impact",
+   "volume_db": -6.0,
+   "variants": [
+    {
+     "layers": [
+      {
+       "pack": "oga_20-sword-sound-effects-attacks-and-clashes",
+       "file": "sword - StarNinjas/sword.5.ogg",
+       "mode": "shot",
+       "max_len": 0.9,
+       "rate": 0.8,
+       "lowpass": 4000,
+       "target_db": -15.0
+      },
+      {
+       "pack": "oga_steam-release-sounds",
+       "file": "steam hisses - Marker #2.wav",
+       "mode": "whole",
+       "start": 0.0,
+       "end": 0.9,
+       "max_len": 0.9,
+       "target_db": -22.0,
+       "delay_ms": 30.0,
+       "lowpass": 3000
+      }
+     ],
+     "max_len": 0.9,
+     "target_db": -16.0
+    }
+   ]
+  },
+  "melee_blade_idle": {
+   "category": "ambience",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_seamless-energy-emission-loop",
+     "file": "movingshield_sound.ogg",
+     "mode": "loop",
+     "start": 0.0,
+     "end": 3.0,
+     "max_len": 3.0,
+     "loop_blend_ms": 200.0,
+     "target_db": -32.0,
+     "lowpass": 600
+    }
+   ]
+  },
+  "melee_dagger_swing_a": {
+   "category": "foley",
+   "volume_db": -2.0,
+   "variants": [
+    {
+     "pack": "oga_air-woosh-move",
+     "file": "air_move.wav",
+     "mode": "whole",
+     "start": 0.15,
+     "end": 0.6,
+     "max_len": 0.5,
+     "highpass": 800,
+     "target_db": -22.0
+    }
+   ]
+  },
+  "melee_dagger_swing_b": {
+   "category": "foley",
+   "volume_db": -2.0,
+   "variants": [
+    {
+     "pack": "oga_air-woosh-move",
+     "file": "air_move.wav",
+     "mode": "whole",
+     "start": 0.15,
+     "end": 0.6,
+     "max_len": 0.5,
+     "highpass": 800,
+     "rate": 1.08,
+     "target_db": -22.0
+    }
+   ]
+  },
+  "melee_dagger_swing_heavy": {
+   "category": "foley",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
+     "file": "swosh-03.flac",
+     "mode": "whole",
+     "max_len": 0.8,
+     "rate": 0.92,
+     "lowpass": 4000,
+     "target_db": -21.0
+    }
+   ]
+  },
+  "melee_dagger_hit": {
+   "category": "impact",
+   "volume_db": -4.0,
+   "variants": [
+    {
+     "pack": "oga_metal-impact-sounds",
+     "file": "clink2.wav",
+     "mode": "whole",
+     "max_len": 0.35,
+     "fade_out_ms": 15.0,
+     "target_db": -16.0
+    }
+   ]
+  },
+  "melee_dagger_hit_heavy": {
+   "category": "impact",
+   "volume_db": -6.0,
+   "variants": [
+    {
+     "pack": "oga_metal-impact-sounds",
+     "file": "clink1_0.wav",
+     "mode": "whole",
+     "max_len": 0.5,
+     "rate": 0.9,
+     "lowpass": 4500,
+     "target_db": -15.0
+    }
+   ]
+  },
+  "melee_dagger_idle": {
+   "category": "ambience",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_steam-whistle",
+     "file": "steamwhistle_0.wav",
+     "mode": "loop",
+     "start": 0.05,
+     "end": 2.0,
+     "max_len": 3.0,
+     "loop_blend_ms": 200.0,
+     "target_db": -32.0,
+     "highpass": 1500
+    }
+   ]
+  },
+  "melee_glaive_swing_a": {
+   "category": "foley",
+   "volume_db": -1.0,
+   "variants": [
+    {
+     "pack": "oga_electricity-game-sound-pack",
+     "file": "powerup.wav",
+     "mode": "whole",
+     "start": 0.09,
+     "end": 1.0,
+     "max_len": 1.0,
+     "target_db": -22.0
+    }
+   ]
+  },
+  "melee_glaive_swing_b": {
+   "category": "foley",
+   "volume_db": -1.0,
+   "variants": [
+    {
+     "pack": "oga_electricity-game-sound-pack",
+     "file": "powerup.wav",
+     "mode": "whole",
+     "start": 0.09,
+     "end": 1.0,
+     "max_len": 1.0,
+     "rate": 1.08,
+     "target_db": -22.0
+    }
+   ]
+  },
+  "melee_glaive_swing_heavy": {
+   "category": "foley",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_electricity-game-sound-pack",
+     "file": "charge.wav",
+     "mode": "whole",
+     "start": 0.0,
+     "end": 1.05,
+     "max_len": 1.05,
+     "rate": 0.75,
+     "target_db": -20.0,
+     "lowpass": 2200
+    }
+   ]
+  },
+  "melee_glaive_hit": {
+   "category": "impact",
+   "volume_db": -4.0,
+   "variants": [
+    {
+     "pack": "oga_electricity-game-sound-pack",
+     "file": "hit.wav",
+     "mode": "shot",
+     "max_len": 0.6,
+     "target_db": -16.0
+    }
+   ]
+  },
+  "melee_glaive_hit_heavy": {
+   "category": "impact",
+   "volume_db": -6.0,
+   "variants": [
+    {
+     "pack": "oga_electricity-game-sound-pack",
+     "file": "shieldhit.wav",
+     "mode": "shot",
+     "max_len": 0.8,
+     "target_db": -16.0
+    }
+   ]
+  },
+  "melee_glaive_idle": {
+   "category": "ambience",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_electricity-game-sound-pack",
+     "file": "recharge.wav",
+     "mode": "loop",
+     "start": 1.0,
+     "end": 4.0,
+     "max_len": 3.0,
+     "loop_blend_ms": 200.0,
+     "target_db": -32.0
+    }
+   ]
+  },
+  "melee_maul_swing_a": {
+   "category": "foley",
+   "volume_db": -2.0,
+   "variants": [
+    {
+     "layers": [
+      {
+       "pack": "oga_metal-interactions",
+       "file": "metal_interactions/metal_swing1.wav",
+       "max_len": 0.9,
+       "target_db": -22.0
+      },
+      {
+       "pack": "oga_steam-release-sounds",
+       "file": "steam hisses - Marker #1.wav",
+       "start": 0.0,
+       "end": 0.5,
+       "max_len": 0.5,
+       "lowpass": 4000,
+       "target_db": -28.0,
+       "delay_ms": 80.0
+      }
+     ],
+     "mode": "whole",
+     "max_len": 0.9,
+     "target_db": -22.0
+    }
+   ]
+  },
+  "melee_maul_swing_b": {
+   "category": "foley",
+   "volume_db": -2.0,
+   "variants": [
+    {
+     "layers": [
+      {
+       "pack": "oga_metal-interactions",
+       "file": "metal_interactions/metal_swing1.wav",
+       "max_len": 0.9,
+       "target_db": -22.0,
+       "rate": 1.08
+      },
+      {
+       "pack": "oga_steam-release-sounds",
+       "file": "steam hisses - Marker #1.wav",
+       "start": 0.0,
+       "end": 0.5,
+       "max_len": 0.5,
+       "lowpass": 4000,
+       "target_db": -28.0,
+       "delay_ms": 80.0,
+       "rate": 1.08
+      }
+     ],
+     "mode": "whole",
+     "max_len": 0.9,
+     "target_db": -22.0
+    }
+   ]
+  },
+  "melee_maul_swing_heavy": {
+   "category": "foley",
+   "volume_db": -2.0,
+   "variants": [
+    {
+     "layers": [
+      {
+       "pack": "oga_metal-interactions",
+       "file": "metal_interactions/metal_swing1.wav",
+       "max_len": 1.1,
+       "rate": 0.7,
+       "lowpass": 1500,
+       "target_db": -20.0
+      },
+      {
+       "pack": "oga_steam-release-sounds",
+       "file": "steam hisses - Marker #2.wav",
+       "start": 0.0,
+       "end": 0.9,
+       "max_len": 0.9,
+       "lowpass": 1500,
+       "target_db": -28.0,
+       "delay_ms": 150.0,
+       "rate": 0.7
+      }
+     ],
+     "mode": "whole",
+     "max_len": 1.4,
+     "target_db": -20.0
+    }
+   ]
+  },
+  "melee_maul_hit": {
+   "category": "impact",
+   "volume_db": -4.0,
+   "variants": [
+    {
+     "pack": "oga_metal-impact-sounds",
+     "file": "thud2.wav",
+     "mode": "shot",
+     "max_len": 0.5,
+     "target_db": -16.0
+    }
+   ]
+  },
+  "melee_maul_hit_heavy": {
+   "category": "impact",
+   "volume_db": -6.0,
+   "variants": [
+    {
+     "pack": "oga_blacksmiths-hammer",
+     "file": "blacksmithhammer.wav",
+     "mode": "shot",
+     "max_len": 0.8,
+     "target_db": -15.0,
+     "rate": 0.9
+    }
+   ]
+  },
+  "melee_maul_idle": {
+   "category": "ambience",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_defect-motor-loop",
+     "file": "fan_interval.wav",
+     "mode": "loop",
+     "start": 0.0,
+     "end": 3.0,
+     "max_len": 3.0,
+     "loop_blend_ms": 200.0,
+     "target_db": -32.0,
+     "lowpass": 800
+    }
+   ]
+  },
+  "melee_whip_swing_a": {
+   "category": "foley",
+   "volume_db": -1.0,
+   "variants": [
+    {
+     "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
+     "file": "swosh-21.flac",
+     "mode": "whole",
+     "max_len": 0.4,
+     "highpass": 600,
+     "target_db": -22.0
+    }
+   ]
+  },
+  "melee_whip_swing_b": {
+   "category": "foley",
+   "volume_db": -1.0,
+   "variants": [
+    {
+     "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
+     "file": "swosh-21.flac",
+     "mode": "whole",
+     "max_len": 0.4,
+     "highpass": 600,
+     "rate": 1.08,
+     "target_db": -22.0
+    }
+   ]
+  },
+  "melee_whip_swing_heavy": {
+   "category": "foley",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
+     "file": "swosh-28.flac",
+     "mode": "whole",
+     "max_len": 1.2,
+     "rate": 0.95,
+     "target_db": -21.0
+    }
+   ]
+  },
+  "melee_whip_hit": {
+   "category": "impact",
+   "volume_db": -4.0,
+   "variants": [
+    {
+     "pack": "oga_thwack-sounds",
+     "file": "PCM/thwack-01.wav",
+     "mode": "shot",
+     "max_len": 0.3,
+     "fade_out_ms": 15.0,
+     "target_db": -16.0,
+     "highpass": 1500
+    }
+   ]
+  },
+  "melee_whip_hit_heavy": {
+   "category": "impact",
+   "volume_db": -6.0,
+   "variants": [
+    {
+     "pack": "oga_thwack-sounds",
+     "file": "PCM/thwack-04.wav",
+     "mode": "shot",
+     "max_len": 0.6,
+     "target_db": -15.0
+    }
+   ]
+  },
+  "melee_whip_idle": {
+   "category": "ambience",
+   "volume_db": 0.0,
+   "variants": [
+    {
+     "pack": "oga_defect-motor-loop",
+     "file": "fan_interval.wav",
+     "mode": "loop",
+     "start": 0.0,
+     "end": 3.0,
+     "max_len": 3.0,
+     "loop_blend_ms": 200.0,
+     "target_db": -32.0,
+     "highpass": 1800
+    }
+   ]
+  },
   "finisher": {
    "category": "impact",
    "volume_db": 0.0,

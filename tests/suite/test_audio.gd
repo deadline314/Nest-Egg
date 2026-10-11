@@ -27,6 +27,7 @@ func run() -> void:
 	_test_world_sounds()
 	_test_footstep_data()
 	await _test_footsteps_in_play()
+	await _test_melee_weapon_sounds()
 	await _test_zone_signal_and_terrain_surface()
 	_test_crossfade_player()
 	await _test_ambience()
@@ -780,3 +781,82 @@ func _test_source_counts() -> void:
 	var counts: Dictionary = Sfx.source_counts()
 	check(int(counts["file"]) + int(counts["synth"]) + int(counts.get("missing", 0)) == Sfx.sound_ids().size(), "source counts add up to the number of sounds")
 	check(int(counts["synth"]) > 0 or int(counts["file"]) > 0, "at least one sound source exists")
+
+
+## 近戰武器的聲音（NE-261）：五把各有自己的揮動、命中與待機聲；重的比輕的長；連段一段一個聲音、最後一段最重；
+## 揮空不播命中聲、命中不播揮空聲；待機聲拿在手上才響，收起武器就停。
+func _test_melee_weapon_sounds() -> void:
+	var shorts := {"melee_blade": "blade", "melee_dagger": "dagger", "melee_glaive": "glaive", "melee_maul": "maul", "melee_whip": "whip"}
+	var idles := {}
+	for id: String in shorts:
+		var weapon := load("res://data/weapons/melee/%s.tres" % id) as WeaponData
+		var moves := MeleeData.set_of(weapon)
+		var prefix := "melee_%s_" % shorts[id]
+		check(moves.validate().is_empty(), "%s 的招式資料沒有錯誤：%s" % [id, ", ".join(moves.validate())])
+		var own := true
+		for move: String in (moves._data["attacks"] as Dictionary).keys():
+			var sounds: Dictionary = moves.attack(move)["sounds"]
+			for key: String in ["swing", "hit"]:
+				own = own and str(sounds[key]).begins_with(prefix) and Sfx.has_named(StringName(str(sounds[key])))
+		check(own, "%s 的每一招都用自己的揮動聲與命中聲" % id)
+		var idle := moves.idle_sound()
+		check(String(idle).begins_with(prefix) and not Sfx.bank().variants(idle).is_empty() and not idles.has(idle), "%s 有自己的待機聲" % id)
+		idles[idle] = true
+		check(Sfx.sound_length(StringName(prefix + "swing_heavy")) > Sfx.sound_length(StringName(prefix + "swing_a"))
+				and Sfx.sound_length(StringName(prefix + "hit_heavy")) > Sfx.sound_length(StringName(prefix + "hit")), "%s 重的揮動聲與命中聲比輕的長" % id)
+		var combo := moves.combo()
+		if combo.size() >= 2:
+			var first: Dictionary = moves.attack(str(combo[0]))["sounds"]
+			var last: Dictionary = moves.attack(str(combo[combo.size() - 1]))["sounds"]
+			check(str(last["swing"]) == prefix + "swing_heavy" and str(last["hit"]) == prefix + "hit_heavy" and str(first["swing"]) != str(last["swing"]),
+					"%s 連段最後一段用最重的聲音" % id)
+	# 沒有寫待機聲的招式組（預設的徒手連段）沒有待機聲，也不算錯。
+	check(MeleeData.default_set().idle_sound().is_empty(), "沒有近戰武器時沒有待機聲")
+
+	await open_level(10.0)
+	var player := level.player
+	var heard: Array[String] = []
+	var listen := func(sound: StringName) -> void: heard.append(String(sound))
+	Sfx.sound_played.connect(listen)
+	player.loadout.reset(load("res://data/weapons/melee/melee_blade.tres") as WeaponData)
+	player.aim_dir = Vector2.RIGHT
+	player.facing = 1
+	await physics_frames(45)
+	var hum := player.find_child("MeleeHum", true, false) as MeleeHum
+	check(hum != null and hum.sounding() == &"melee_blade_idle" and hum.gain() > 0.9, "拿著熱能長刀時響它的待機聲")
+	heard.clear()
+	for step in 3:
+		player._melee_cooldown_left = 0.0
+		player._try_melee()
+		await _melee_done(player)
+	var swings := heard.filter(func(sound: String) -> bool: return sound.begins_with("melee_blade_"))
+	check(swings == ["melee_blade_swing_a", "melee_blade_swing_b", "melee_blade_swing_heavy"], "揮空的三段各播自己的揮動聲、不播命中聲（%s）" % ", ".join(swings))
+	await physics_frames(50)
+	var enemy := spawn(GRUNT_PATH, 10.0)
+	enemy.position = Vector2(player.global_position.x + 24.0, FLOOR_Y)
+	enemy.data = enemy.data.duplicate()
+	enemy.data.detect_range = 0.0
+	enemy.data.attack_range = 0.0
+	enemy.data.move_speed = 0.0
+	enemy.health.setup(999, 0.0)
+	player.aim_dir = Vector2.RIGHT
+	player.facing = 1
+	heard.clear()
+	player._melee_cooldown_left = 0.0
+	player._try_melee()
+	await _melee_done(player)
+	swings = heard.filter(func(sound: String) -> bool: return sound.begins_with("melee_blade_"))
+	check(swings == ["melee_blade_hit"], "命中時播命中聲、不播揮空聲（%s）" % ", ".join(swings))
+	player._interrupt_melee()
+	player.loadout.reset(load("res://data/weapons/pistol.tres") as WeaponData)
+	await physics_frames(40)
+	check(hum != null and hum.sounding() == &"", "換成槍之後待機聲停止")
+	Sfx.sound_played.disconnect(listen)
+	await end_level(level)
+
+
+func _melee_done(player: Player) -> void:
+	var ticks := 240
+	while player._melee_phase != Player.MeleePhase.NONE and ticks > 0:
+		await physics_frames(1)
+		ticks -= 1

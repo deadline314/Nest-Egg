@@ -102,7 +102,7 @@
 | AMB-0092 | 1.7 | oga_dark-ambiences／dark_ambiences/ambience-3.wav |  [peak-clip heuristic flag] |  |
 | AMB-0093 | 1.4 | oga_dark-ambiences／dark_ambiences/ambience-4.wav |  |  |
 | AMB-0094 | 3.4 | oga_dark-ambiences／dark_ambiences/ambience-5.wav |  |  |
-| AMB-0095 | 3.0 | oga_defect-motor-loop／fan_interval.wav |  | P-CHR-015 |
+| AMB-0095 | 3.0 | oga_defect-motor-loop／fan_interval.wav |  | P-CHR-015、P-AMB-013、P-AMB-014 |
 | AMB-0096 | 20.1 | oga_dripping-water-loop／atmosbasement.mp3_.flac |  | P-AMB-008 |
 | AMB-0097 | 0.5 | oga_electricity-game-sound-pack／crackleelectricityloop.wav | electric loop |  |
 | AMB-0098 | 1.0 | oga_electricity-game-sound-pack／shieldloop.wav | electric loop |  |
@@ -130,8 +130,8 @@
 | AMB-0120 | 41.3 | oga_sirens-and-alarm-noise／siren_0.mp3 |  |  |
 | AMB-0121 | 30.0 | oga_static／ScatterNoise1.mp3 |  |  |
 | AMB-0122 | 22.1 | oga_steam-boiler-sound-loop／generator_loop.wav |  | P-AMB-007 |
-| AMB-0123 | 1.9 | oga_steam-release-sounds／steam hisses - Marker #1.wav | gas/flame hiss texture | P-CHR-016 |
-| AMB-0124 | 1.9 | oga_steam-release-sounds／steam hisses - Marker #2.wav | gas/flame hiss texture | P-CHR-016 |
+| AMB-0123 | 1.9 | oga_steam-release-sounds／steam hisses - Marker #1.wav | gas/flame hiss texture | P-WPN-045、P-WPN-057、P-WPN-058、P-CHR-016 |
+| AMB-0124 | 1.9 | oga_steam-release-sounds／steam hisses - Marker #2.wav | gas/flame hiss texture | P-WPN-046、P-WPN-059、P-CHR-016 |
 | AMB-0125 | 1.9 | oga_steam-release-sounds／steam hisses - Marker #3.wav |  | P-CHR-016 |
 | AMB-0126 | 1.9 | oga_steam-release-sounds／steam hisses - Marker #4.wav |  |  |
 | AMB-0127 | 1.9 | oga_steam-release-sounds／steam hisses - Marker #5.wav |  |  |
@@ -161,7 +161,7 @@
 | AMB-0151 | 10.5 | ia_red-library-nature-rain／R22-26-Interior with Rain on Roof.mp3 |  |  |
 | AMB-0205 | 1.6 | oga_50-free-scifi-soundfx-192khz-64-bit-24576kbps-wav／50-Free-SciFi-SFX-blacklodgegames.com/blg_background_water_pipes_01.wav |  |  |
 | AMB-0206 | 1.3 | oga_7-ghast-sounds／ghast - StarNinjas/ghast_fireball.1.ogg |  |  |
-| AMB-0207 | 1.4 | oga_air-woosh-move／air_move.wav |  |  |
+| AMB-0207 | 1.4 | oga_air-woosh-move／air_move.wav |  | P-WPN-047、P-WPN-048 |
 | AMB-0208 | 7.5 | oga_airvent-loop／airvent-large-loop.wav |  |  |
 | AMB-0209 | 29.9 | oga_amb-outside-1／amb_outdoor1_loop.wav |  |  |
 | AMB-0210 | 733.0 | oga_amb-rain-loop-2／amb_rain2.ogg |  |  |
@@ -212,7 +212,7 @@
 | AMB-0255 | 5.0 | oga_sci-fi-sounds／Audio/thrusterFire_002.ogg |  |  |
 | AMB-0256 | 5.0 | oga_sci-fi-sounds／Audio/thrusterFire_003.ogg |  |  |
 | AMB-0257 | 5.0 | oga_sci-fi-sounds／Audio/thrusterFire_004.ogg |  |  |
-| AMB-0258 | 5.2 | oga_seamless-energy-emission-loop／movingshield_sound.ogg |  |  |
+| AMB-0258 | 5.2 | oga_seamless-energy-emission-loop／movingshield_sound.ogg |  | P-AMB-010 |
 | AMB-0259 | 4.2 | oga_short-wind-sound／short wind sound.wav |  |  |
 | AMB-0260 | 71.0 | oga_sound-effects-pack／Ambience/earthquake.wav |  |  |
 | AMB-0261 | 4.0 | oga_sound-effects-pack／Ambience/loopable-ticking-clock.wav |  |  |
@@ -220,7 +220,7 @@
 | AMB-0263 | 5.1 | oga_sound-effects-pack／Technology/record_player_loop.wav |  |  |
 | AMB-0264 | 48.6 | oga_space-winds／space-wind_0.mp3 |  |  |
 | AMB-0265 | 2.3 | oga_steam-whistle／steam_whistle.wav |  |  |
-| AMB-0266 | 2.1 | oga_steam-whistle／steamwhistle_0.wav |  |  |
+| AMB-0266 | 2.1 | oga_steam-whistle／steamwhistle_0.wav |  | P-AMB-011 |
 | AMB-0267 | 7.1 | oga_steamboat-engine-sound／steamboat_engine.wav |  |  |
 | AMB-0268 | 10.0 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/BattleShipMovementAmbient.wav |  |  |
 | AMB-0269 | 10.0 | oga_tiny-naval-battle-sounds-set／qubodup-NavalBattleSoundSet-cc0/ogg/BattleShipMovementAmbient.ogg |  |  |
@@ -539,15 +539,15 @@
 | ELC-0263 | 11.5 | oga_doomsday-laser-cannon-sound-effect／doomsday_laser_cannon_midium_.wav |  |  |
 | ELC-0264 | 3.5 | oga_doomsday-laser-cannon-sound-effect／doomsday_laser_cannon_short.wav |  |  |
 | ELC-0265 | 1.1 | oga_electric-buzz／buzz_0.ogg |  |  |
-| ELC-0266 | 4.1 | oga_electricity-game-sound-pack／charge.wav | charge-up, pair with a heavy shot for railgun |  |
+| ELC-0266 | 4.1 | oga_electricity-game-sound-pack／charge.wav | charge-up, pair with a heavy shot for railgun | P-WPN-054 |
 | ELC-0267 | 8.1 | oga_electricity-game-sound-pack／chargestart.wav | charge-up, pair with a heavy shot for railgun |  |
 | ELC-0268 | 0.3 | oga_electricity-game-sound-pack／groundhit.wav | energy shield/ground hit |  |
-| ELC-0269 | 2.2 | oga_electricity-game-sound-pack／hit.wav | energy shield/ground hit |  |
+| ELC-0269 | 2.2 | oga_electricity-game-sound-pack／hit.wav | energy shield/ground hit | P-WPN-055 |
 | ELC-0270 | 2.1 | oga_electricity-game-sound-pack／killconfirmed.wav |  |  |
 | ELC-0271 | 2.0 | oga_electricity-game-sound-pack／powerdown.wav |  | P-ENV-003 |
-| ELC-0272 | 2.1 | oga_electricity-game-sound-pack／powerup.wav |  | P-ENV-004 |
-| ELC-0273 | 6.6 | oga_electricity-game-sound-pack／recharge.wav |  |  |
-| ELC-0274 | 1.6 | oga_electricity-game-sound-pack／shieldhit.wav | energy shield | P-ENV-005 |
+| ELC-0272 | 2.1 | oga_electricity-game-sound-pack／powerup.wav |  | P-WPN-052、P-WPN-053、P-ENV-004 |
+| ELC-0273 | 6.6 | oga_electricity-game-sound-pack／recharge.wav |  | P-AMB-012 |
+| ELC-0274 | 1.6 | oga_electricity-game-sound-pack／shieldhit.wav | energy shield | P-WPN-056、P-ENV-005 |
 | ELC-0275 | 0.8 | oga_electricity-game-sound-pack／teleport_1.wav |  |  |
 | ELC-0276 | 6.4 | oga_electricity-game-sound-pack／turbo.wav |  |  |
 | ELC-0277 | 0.2 | oga_electricity-sound-effects-0／continuousspark.wav | spark |  |
@@ -1995,10 +1995,10 @@
 | IMP-0540 | 5.4 | oga_metal-clang-sounds／clang - Marker #9.wav |  |  |
 | IMP-0541 | 0.7 | oga_metal-impact-sounds／bing1.wav |  |  |
 | IMP-0542 | 2.1 | oga_metal-impact-sounds／bong1.wav |  |  |
-| IMP-0543 | 0.3 | oga_metal-impact-sounds／clink1_0.wav |  |  |
-| IMP-0544 | 0.3 | oga_metal-impact-sounds／clink2.wav |  |  |
+| IMP-0543 | 0.3 | oga_metal-impact-sounds／clink1_0.wav |  | P-WPN-051 |
+| IMP-0544 | 0.3 | oga_metal-impact-sounds／clink2.wav |  | P-WPN-050 |
 | IMP-0545 | 0.3 | oga_metal-impact-sounds／clink3.wav |  |  |
-| IMP-0546 | 0.6 | oga_metal-impact-sounds／thud2.wav |  |  |
+| IMP-0546 | 0.6 | oga_metal-impact-sounds／thud2.wav |  | P-WPN-060 |
 | IMP-0547 | 0.4 | oga_metal-impact-sounds／thud3.wav |  |  |
 | IMP-0548 | 0.5 | oga_punch／qubodupPunch/qubodupPunch01.ogg |  |  |
 | IMP-0549 | 0.5 | oga_punch／qubodupPunch/qubodupPunch02.ogg |  |  |
@@ -2436,7 +2436,7 @@
 | ITM-0114 | 0.5 | oga_12-coin-sound-effects／coin.9.ogg |  |  |
 | ITM-0115 | 0.1 | oga_big-and-small-item-fall-sounds2／bigger_item_fall.mp3 |  |  |
 | ITM-0116 | 0.3 | oga_big-and-small-item-fall-sounds2／small_item_fall.mp3 |  |  |
-| ITM-0117 | 0.5 | oga_blacksmiths-hammer／blacksmithhammer.wav |  |  |
+| ITM-0117 | 0.5 | oga_blacksmiths-hammer／blacksmithhammer.wav |  | P-WPN-061 |
 | ITM-0118 | 1.4 | oga_coin-drop／coin_drop.wav |  |  |
 | ITM-0119 | 20.8 | oga_coin-sounds／coinsounds011015.wav |  |  |
 | ITM-0120 | 0.8 | oga_coin-sounds-1／CoinSounds/Coin0.mp3 |  |  |
@@ -3243,8 +3243,8 @@
 | MLE-0008 | 1.1 | oga_20-sword-sound-effects-attacks-and-clashes／sword - StarNinjas/sword.10.ogg | sword swing |  |
 | MLE-0009 | 1.1 | oga_20-sword-sound-effects-attacks-and-clashes／sword - StarNinjas/sword.2.ogg |  |  |
 | MLE-0010 | 0.6 | oga_20-sword-sound-effects-attacks-and-clashes／sword - StarNinjas/sword.3.ogg |  |  |
-| MLE-0011 | 0.6 | oga_20-sword-sound-effects-attacks-and-clashes／sword - StarNinjas/sword.4.ogg |  |  |
-| MLE-0012 | 1.1 | oga_20-sword-sound-effects-attacks-and-clashes／sword - StarNinjas/sword.5.ogg |  |  |
+| MLE-0011 | 0.6 | oga_20-sword-sound-effects-attacks-and-clashes／sword - StarNinjas/sword.4.ogg |  | P-WPN-045 |
+| MLE-0012 | 1.1 | oga_20-sword-sound-effects-attacks-and-clashes／sword - StarNinjas/sword.5.ogg |  | P-WPN-046 |
 | MLE-0013 | 0.5 | oga_20-sword-sound-effects-attacks-and-clashes／sword - StarNinjas/sword.6.ogg |  |  |
 | MLE-0014 | 0.8 | oga_20-sword-sound-effects-attacks-and-clashes／sword - StarNinjas/sword.7.ogg | sword swing |  |
 | MLE-0015 | 1.0 | oga_20-sword-sound-effects-attacks-and-clashes／sword - StarNinjas/sword.8.ogg |  |  |
@@ -3284,10 +3284,10 @@
 | MLE-0049 | 0.7 | oga_machete-vs-spatula／machete_vs_spatula_7.wav |  |  |
 | MLE-0050 | 0.7 | oga_machete-vs-spatula／machete_vs_spatula_8.wav |  |  |
 | MLE-0051 | 0.7 | oga_machete-vs-spatula／machete_vs_spatula_9.wav |  |  |
-| MLE-0052 | 0.9 | oga_metal-interactions／metal_interactions/metal_swing1.wav |  | P-WPN-038 |
+| MLE-0052 | 0.9 | oga_metal-interactions／metal_interactions/metal_swing1.wav |  | P-WPN-038、P-WPN-057、P-WPN-058、P-WPN-059 |
 | MLE-0053 | 0.3 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-01.flac |  [peak-clip heuristic flag] |  |
 | MLE-0054 | 0.2 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-02.flac |  |  |
-| MLE-0055 | 0.6 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-03.flac | longer whoosh [peak-clip heuristic flag] |  |
+| MLE-0055 | 0.6 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-03.flac | longer whoosh [peak-clip heuristic flag] | P-WPN-049 |
 | MLE-0056 | 0.3 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-04.flac |  |  |
 | MLE-0057 | 0.4 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-05.flac |  |  |
 | MLE-0058 | 0.3 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-06.flac |  |  |
@@ -3305,21 +3305,21 @@
 | MLE-0070 | 0.3 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-18.flac |  |  |
 | MLE-0071 | 0.4 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-19.flac |  |  |
 | MLE-0072 | 0.5 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-20.flac |  |  |
-| MLE-0073 | 0.3 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-21.flac |  |  |
+| MLE-0073 | 0.3 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-21.flac |  | P-WPN-062、P-WPN-063 |
 | MLE-0074 | 0.3 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-22.flac |  |  |
 | MLE-0075 | 4.5 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-23.flac | longer whoosh [peak-clip heuristic flag] |  |
 | MLE-0076 | 0.7 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-24.flac |  |  |
 | MLE-0077 | 0.3 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-25.flac |  |  |
 | MLE-0078 | 0.4 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-26.flac |  |  |
 | MLE-0079 | 0.2 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-27.flac |  |  |
-| MLE-0080 | 1.5 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-28.flac | longer whoosh |  |
+| MLE-0080 | 1.5 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-28.flac | longer whoosh | P-WPN-064 |
 | MLE-0081 | 0.7 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-29.flac |  |  |
-| MLE-0082 | 0.8 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-30.flac |  |  |
+| MLE-0082 | 0.8 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-30.flac |  | P-WPN-042、P-WPN-043 |
 | MLE-0083 | 1.4 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-31.flac | longer whoosh |  |
 | MLE-0084 | 1.4 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-32.flac |  |  |
 | MLE-0085 | 0.7 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-33.flac |  |  |
 | MLE-0086 | 0.9 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-34.flac |  |  |
-| MLE-0087 | 1.2 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-35.flac |  |  |
+| MLE-0087 | 1.2 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-35.flac |  | P-WPN-044 |
 | MLE-0088 | 0.4 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-36.flac |  |  |
 | MLE-0089 | 0.6 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-37.flac |  |  |
 | MLE-0090 | 0.9 | oga_swish-bamboo-stick-weapon-swhoshes／swosh-38.flac |  |  |
@@ -3341,10 +3341,10 @@
 | MLE-0106 | 0.2 | oga_swishes-sound-pack／swishes/swish-7.wav |  [peak-clip heuristic flag] |  |
 | MLE-0107 | 0.1 | oga_swishes-sound-pack／swishes/swish-8.wav |  [peak-clip heuristic flag] |  |
 | MLE-0108 | 0.2 | oga_swishes-sound-pack／swishes/swish-9.wav |  [peak-clip heuristic flag] |  |
-| MLE-0109 | 0.3 | oga_thwack-sounds／PCM/thwack-01.wav |  |  |
+| MLE-0109 | 0.3 | oga_thwack-sounds／PCM/thwack-01.wav |  | P-WPN-065 |
 | MLE-0110 | 0.2 | oga_thwack-sounds／PCM/thwack-02.wav |  |  |
 | MLE-0111 | 0.2 | oga_thwack-sounds／PCM/thwack-03.wav |  |  |
-| MLE-0112 | 0.6 | oga_thwack-sounds／PCM/thwack-04.wav |  |  |
+| MLE-0112 | 0.6 | oga_thwack-sounds／PCM/thwack-04.wav |  | P-WPN-066 |
 | MLE-0113 | 0.3 | oga_thwack-sounds／PCM/thwack-05.wav |  |  |
 | MLE-0114 | 0.4 | oga_thwack-sounds／PCM/thwack-06.wav |  |  |
 | MLE-0115 | 0.4 | oga_thwack-sounds／PCM/thwack-07.wav |  |  |

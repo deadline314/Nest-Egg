@@ -221,6 +221,8 @@ func _test_whiff_and_reduced_feedback() -> void:
 			var before := enemy.health.current
 			var pushed := 0.0
 			player._try_melee()
+			# 這一下接在剛才那一下後面，是連段的下一段：每一段有自己的命中聲（NE-261），要聽的是這一段的。
+			hit_sound = StringName(str((player._melee_attack.get("sounds", {}) as Dictionary).get("hit", hit_sound)))
 			for i in 200:
 				pushed = maxf(pushed, absf(enemy.velocity.x))
 				if player._melee_phase == Player.MeleePhase.NONE:

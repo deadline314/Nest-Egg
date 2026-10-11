@@ -1104,6 +1104,236 @@
    "pack": "oga_unleeched-sound-effects-pack",
    "volume_db": 0.0,
    "loop": true
+  },
+  "melee_blade_swing_a": {
+   "files": [
+    "res://audio/sfx/melee_blade_swing_a_01.ogg"
+   ],
+   "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
+   "volume_db": -2.0
+  },
+  "melee_blade_swing_b": {
+   "files": [
+    "res://audio/sfx/melee_blade_swing_b_01.ogg"
+   ],
+   "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
+   "volume_db": -2.0
+  },
+  "melee_blade_swing_heavy": {
+   "files": [
+    "res://audio/sfx/melee_blade_swing_heavy_01.ogg"
+   ],
+   "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
+   "volume_db": 0.0
+  },
+  "melee_blade_hit": {
+   "files": [
+    "res://audio/sfx/melee_blade_hit_01.ogg"
+   ],
+   "pack": [
+    "oga_20-sword-sound-effects-attacks-and-clashes",
+    "oga_steam-release-sounds"
+   ],
+   "volume_db": -4.0
+  },
+  "melee_blade_hit_heavy": {
+   "files": [
+    "res://audio/sfx/melee_blade_hit_heavy_01.ogg"
+   ],
+   "pack": [
+    "oga_20-sword-sound-effects-attacks-and-clashes",
+    "oga_steam-release-sounds"
+   ],
+   "volume_db": -6.0
+  },
+  "melee_blade_idle": {
+   "files": [
+    "res://audio/sfx/melee_blade_idle_01.ogg"
+   ],
+   "pack": "oga_seamless-energy-emission-loop",
+   "volume_db": 0.0,
+   "loop": true
+  },
+  "melee_dagger_swing_a": {
+   "files": [
+    "res://audio/sfx/melee_dagger_swing_a_01.ogg"
+   ],
+   "pack": "oga_air-woosh-move",
+   "volume_db": -2.0
+  },
+  "melee_dagger_swing_b": {
+   "files": [
+    "res://audio/sfx/melee_dagger_swing_b_01.ogg"
+   ],
+   "pack": "oga_air-woosh-move",
+   "volume_db": -2.0
+  },
+  "melee_dagger_swing_heavy": {
+   "files": [
+    "res://audio/sfx/melee_dagger_swing_heavy_01.ogg"
+   ],
+   "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
+   "volume_db": 0.0
+  },
+  "melee_dagger_hit": {
+   "files": [
+    "res://audio/sfx/melee_dagger_hit_01.ogg"
+   ],
+   "pack": "oga_metal-impact-sounds",
+   "volume_db": -4.0
+  },
+  "melee_dagger_hit_heavy": {
+   "files": [
+    "res://audio/sfx/melee_dagger_hit_heavy_01.ogg"
+   ],
+   "pack": "oga_metal-impact-sounds",
+   "volume_db": -6.0
+  },
+  "melee_dagger_idle": {
+   "files": [
+    "res://audio/sfx/melee_dagger_idle_01.ogg"
+   ],
+   "pack": "oga_steam-whistle",
+   "volume_db": 0.0,
+   "loop": true
+  },
+  "melee_glaive_swing_a": {
+   "files": [
+    "res://audio/sfx/melee_glaive_swing_a_01.ogg"
+   ],
+   "pack": "oga_electricity-game-sound-pack",
+   "volume_db": -1.0
+  },
+  "melee_glaive_swing_b": {
+   "files": [
+    "res://audio/sfx/melee_glaive_swing_b_01.ogg"
+   ],
+   "pack": "oga_electricity-game-sound-pack",
+   "volume_db": -1.0
+  },
+  "melee_glaive_swing_heavy": {
+   "files": [
+    "res://audio/sfx/melee_glaive_swing_heavy_01.ogg"
+   ],
+   "pack": "oga_electricity-game-sound-pack",
+   "volume_db": 0.0
+  },
+  "melee_glaive_hit": {
+   "files": [
+    "res://audio/sfx/melee_glaive_hit_01.ogg"
+   ],
+   "pack": "oga_electricity-game-sound-pack",
+   "volume_db": -4.0
+  },
+  "melee_glaive_hit_heavy": {
+   "files": [
+    "res://audio/sfx/melee_glaive_hit_heavy_01.ogg"
+   ],
+   "pack": "oga_electricity-game-sound-pack",
+   "volume_db": -6.0
+  },
+  "melee_glaive_idle": {
+   "files": [
+    "res://audio/sfx/melee_glaive_idle_01.ogg"
+   ],
+   "pack": "oga_electricity-game-sound-pack",
+   "volume_db": 0.0,
+   "loop": true
+  },
+  "melee_maul_swing_a": {
+   "files": [
+    "res://audio/sfx/melee_maul_swing_a_01.ogg"
+   ],
+   "pack": [
+    "oga_metal-interactions",
+    "oga_steam-release-sounds"
+   ],
+   "volume_db": -2.0
+  },
+  "melee_maul_swing_b": {
+   "files": [
+    "res://audio/sfx/melee_maul_swing_b_01.ogg"
+   ],
+   "pack": [
+    "oga_metal-interactions",
+    "oga_steam-release-sounds"
+   ],
+   "volume_db": -2.0
+  },
+  "melee_maul_swing_heavy": {
+   "files": [
+    "res://audio/sfx/melee_maul_swing_heavy_01.ogg"
+   ],
+   "pack": [
+    "oga_metal-interactions",
+    "oga_steam-release-sounds"
+   ],
+   "volume_db": -2.0
+  },
+  "melee_maul_hit": {
+   "files": [
+    "res://audio/sfx/melee_maul_hit_01.ogg"
+   ],
+   "pack": "oga_metal-impact-sounds",
+   "volume_db": -4.0
+  },
+  "melee_maul_hit_heavy": {
+   "files": [
+    "res://audio/sfx/melee_maul_hit_heavy_01.ogg"
+   ],
+   "pack": "oga_blacksmiths-hammer",
+   "volume_db": -6.0
+  },
+  "melee_maul_idle": {
+   "files": [
+    "res://audio/sfx/melee_maul_idle_01.ogg"
+   ],
+   "pack": "oga_defect-motor-loop",
+   "volume_db": 0.0,
+   "loop": true
+  },
+  "melee_whip_swing_a": {
+   "files": [
+    "res://audio/sfx/melee_whip_swing_a_01.ogg"
+   ],
+   "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
+   "volume_db": -1.0
+  },
+  "melee_whip_swing_b": {
+   "files": [
+    "res://audio/sfx/melee_whip_swing_b_01.ogg"
+   ],
+   "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
+   "volume_db": -1.0
+  },
+  "melee_whip_swing_heavy": {
+   "files": [
+    "res://audio/sfx/melee_whip_swing_heavy_01.ogg"
+   ],
+   "pack": "oga_swish-bamboo-stick-weapon-swhoshes",
+   "volume_db": 0.0
+  },
+  "melee_whip_hit": {
+   "files": [
+    "res://audio/sfx/melee_whip_hit_01.ogg"
+   ],
+   "pack": "oga_thwack-sounds",
+   "volume_db": -4.0
+  },
+  "melee_whip_hit_heavy": {
+   "files": [
+    "res://audio/sfx/melee_whip_hit_heavy_01.ogg"
+   ],
+   "pack": "oga_thwack-sounds",
+   "volume_db": -6.0
+  },
+  "melee_whip_idle": {
+   "files": [
+    "res://audio/sfx/melee_whip_idle_01.ogg"
+   ],
+   "pack": "oga_defect-motor-loop",
+   "volume_db": 0.0,
+   "loop": true
   }
  }
 }
