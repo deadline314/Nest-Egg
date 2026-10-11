@@ -482,7 +482,7 @@ def build_pawnshop():
     a.block(79, 79, 10, 16)       # 店面與廚房之間
     # 店面
     a.stand(40, 'P')
-    a.hint(46, '按 {inventory} 開背包：武器改裝、道具與文件都在這裡')
+    a.hint(46, '按 {inventory} 打開背包，武器改裝、道具與文件都在裡面。')
     a.prop('pawnshop_front__tag_shelf', 33)
     # 老 K 留著的四件舊物：架上的懷錶與雨衣、牆上的吉他、門邊的船錢罐，各自一張標籤（可選支線）。
     a.stand(34, 'ⓦ')
@@ -543,7 +543,7 @@ def build_rooftop():
     a.block(56, 58, 16, 17)
     a.stand(3, 'T')
     a.stand(5, 'P')
-    a.hint(24, '屋頂中間有一條縫：助跑跳過去，跳躍 {jump}')
+    a.hint(24, '屋頂中間有一條縫，助跑後按 {jump} 跳過去。')
     a.stand(20, 'c')
     a.stand(62, 'c')
     a.trigger(34, 'ch1_b_roof')
@@ -580,13 +580,13 @@ def build_street():
     a.stand(6, 'h')
     # 市集口（安全區）
     a.trigger(9, 'ch1_b_street_in')
-    a.hint(10, '街上有人發傳單、有人聊天，不是每個人都想打你')
+    a.hint(10, '街上有人發傳單、有人聊天，不是每個人都想打你。')
     a.stand(22, 'f')
     a.stand(34, 'j')
-    a.hint(38, '街角的巷子裡有電話亭：先去備份，死了才有地方醒來')
+    a.hint(38, '街角的巷子裡有電話亭，先去備份，死了才有地方醒來。')
     # 掩護教學（x=49～70）
     a.trigger(50, 'ch1_g06_lamp')
-    a.hint(52, '清掃兵在前面：靠著箱子，瞄準、射擊、再縮回去')
+    a.hint(52, '前面有清掃兵，靠著箱子瞄準射擊，打完再縮回去。')
     a.block(58, 59, 18, 19)
     a.encounter('接觸', 62, 70, [(66, 'g')])
     # 高台（x=72～86）：抬頭瞄準
@@ -607,7 +607,7 @@ def build_street():
     a.stand(121, 'i')
     # 近戰與高路（x=122～147）
     a.trigger(120, 'ch1_g06_tip_blade')
-    a.hint(123, '敵人頭上出現青色菱形：按 {melee} 終結，回補彈藥')
+    a.hint(123, '敵人頭上出現青色菱形時，按 {melee} 終結他並補回彈藥。')
     a.block(127, 128, 18, 19)
     a.encounter('近戰', 124, 140, [(133, 'b'), (138, 'g')])
     a.platform(122, 125, 16)
@@ -636,7 +636,7 @@ def build_street():
     a.stand(203, 'c')
     a.stand(204, 'N')
     a.trigger(183, 'ch1_g06_clear')
-    a.hint(201, '碼頭倉庫：看門狗睡在大廳深處，走進去再決定要不要叫醒牠')
+    a.hint(201, '前面是碼頭倉庫，看門狗睡在大廳深處，走進去再決定要不要叫醒牠。')
     a.encounter('出口伏擊', 183, 187, [(184, 'd', 14), (186, 'd', 11)])
     a.stand(188, 'e')
     # 場地投擲物（NE-254）：街心的油桶在兩層平台之間，引敵人靠近再射爆；路障前備好鐵管、箱子與另一個油桶。
@@ -674,7 +674,7 @@ def build_booth_alley():
     a.stand(6, 'P')
     a.stand(26, 'C')
     a.stand(29, 'ⓥ')
-    a.hint(22, '電話亭：按 {interact} 備份。死了會從最近的電話亭醒來')
+    a.hint(22, '按 {interact} 在電話亭備份，死了會從最近的電話亭醒來。')
     a.stand(18, 'c')
     a.stand(44, 'c')
     a.stand(36, 'p')
@@ -781,7 +781,7 @@ def build_warehouse_full():
     a.encounter('保險箱守衛', 142, 166, [(157, 'z'), (148, 'k')], reinforcements=['b'], lock=True, slug='vault', gate_h=13,
                 start_text='有人看守保險箱，小心。', clear_text='保險箱安全了', start_scene='ch1_k_vault')
     a.stand(160, 'y')
-    a.hint(156, '保險箱裡有一片資料盤：拿了就能從上層通道離開')
+    a.hint(156, '保險箱裡有一片資料盤，拿到後就能從上層通道離開。')
     a.stand(146, 'c')
     a.stand(167, 'i')
     a.trigger(168, 'ch1_g10_disk')

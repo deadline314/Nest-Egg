@@ -13,6 +13,8 @@ func _ready() -> void:
 	LightKit.mark_emissive(self)
 	_art = FixtureArt.attach(self, &"hint_sign", Vector2(-8.0, -24.0), Vector2(16.0, 24.0))
 	var prompt := WorldPrompt.new()
+	# 教學看板教的是「按哪個鍵」：佔位符畫成按鍵帽，鍵鼠與手把各自顯示目前的綁定。
+	prompt.keycaps = true
 	prompt.text = text
 	prompt.radius = 64.0
 	prompt.offset = Vector2(0, -30)

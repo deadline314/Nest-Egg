@@ -37,7 +37,7 @@ legend = Dictionary[String, Resource]({
 "p": ExtResource("4_doc_rain_news"),
 "ⓥ": ExtResource("5_ch1_lamp_voice")
 })
-hints = PackedStringArray("電話亭：按 {interact} 備份。死了會從最近的電話亭醒來")
+hints = PackedStringArray("按 {interact} 在電話亭備份，死了會從最近的電話亭醒來。")
 chapter = &"ch1_kasa"
 persistent_world = true
 show_chapter_card = false

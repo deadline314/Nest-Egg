@@ -2,7 +2,8 @@ class_name WorldPrompt
 extends Node2D
 ## 世界提示（遊戲內的 Hover 說明）：玩家靠近時在物件上方淡入一行重點說明，離開時淡出。
 ## 可掛在任何物件下重複使用（道具、載具、檢查點、教學看板）。
-## 文字可用 {動作} 佔位符（例如 "{interact} 搭乘"），會自動顯示玩家目前設定的按鍵。
+## 文字可用 {動作} 佔位符（例如 "{interact} 搭乘"），會自動顯示玩家目前設定的按鍵；切換鍵鼠與手把時跟著換。
+## keycaps = true 時，佔位符畫成按鍵帽（教學用：一眼看出要按哪個鍵），其餘提示維持純文字。
 
 const FADE_SPEED := 6.0
 ## 被推開時移動的速度（像素／秒）：提示是滑到新位置，不是跳過去。
@@ -12,6 +13,12 @@ const FONT_SIZE := 9
 const LEADER_DOT := 1.5
 ## 指向線的終點在文字框原位下緣再往下幾像素（人物頭頂與文字之間）。
 const LEADER_STEM := 5.0
+## 按鍵帽的內距與和文字的間隔；顏色與 HUD 的情境提示按鍵帽一致。
+const CAP_PADDING := Vector2(3, 1)
+const CAP_GAP := 3.0
+const CAP_FILL := Color("20333f")
+const CAP_EDGE := Color("6c8997")
+const TOKEN_PATTERN := "\\{([a-z_0-9]+)\\}"
 
 @export var text: String = "":
 	set(value):
@@ -19,6 +26,10 @@ const LEADER_STEM := 5.0
 		_refresh_text()
 @export var radius: float = 48.0
 @export var offset: Vector2 = Vector2(0, -34)
+@export var keycaps := false:
+	set(value):
+		keycaps = value
+		_refresh_text()
 
 var enabled := true
 ## 提示出現的條件。物件有自己的「按互動鍵有效」判斷時指定它（看到提示就一定按得動）；
@@ -36,6 +47,9 @@ var _nudge := Vector2.ZERO
 var _nudge_target := Vector2.ZERO
 var _leader: Node2D
 var _leader_spans: Array[Vector2] = []
+## keycaps 模式的排版（文字或綁定改變時重算）：每段 {text, x, cap}，x 是相對文字框左緣的起點。
+var _segments: Array[Dictionary] = []
+static var _token_regex: RegEx
 
 
 func _ready() -> void:
@@ -61,12 +75,46 @@ func _exit_tree() -> void:
 
 func _refresh_text() -> void:
 	_display_text = InputBindings.format(text) if is_inside_tree() else text
+	_segments.clear()
 	if _font != null:
 		var size := _font.get_string_size(_display_text, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE)
+		if keycaps and is_inside_tree():
+			size.x = _layout_keycaps()
 		size.y = maxf(size.y, _font.get_ascent(FONT_SIZE) + _font.get_descent(FONT_SIZE))
 		_box = Rect2(Vector2(-size.x * 0.5, -size.y) - PADDING, size + PADDING * 2.0)
 		_text_baseline = _box.position + PADDING + Vector2(0, _font.get_ascent(FONT_SIZE))
 	queue_redraw()
+
+
+## 把文字切成「按鍵帽」與「一般文字」兩種段落，回傳總寬度。佔位符的動作不存在時照 format 的結果當文字。
+func _layout_keycaps() -> float:
+	if _token_regex == null:
+		_token_regex = RegEx.create_from_string(TOKEN_PATTERN)
+	var x := 0.0
+	var cursor := 0
+	for found in _token_regex.search_all(text):
+		x = _add_segment(text.substr(cursor, found.get_start() - cursor), false, x)
+		var action := StringName(found.get_string(1))
+		var label := InputBindings.primary_label(action) if InputMap.has_action(action) else found.get_string()
+		x = _add_segment(label, true, x)
+		cursor = found.get_end()
+	x = _add_segment(text.substr(cursor), false, x)
+	return x
+
+
+func _add_segment(part: String, cap: bool, x: float) -> float:
+	if not cap:
+		part = part.strip_edges()
+		if part.is_empty():
+			return x
+	# 句讀緊貼前一個按鍵帽，不留空隙（「按 [Space]。」而不是「按 [Space] 。」）。
+	var tight := _segments.is_empty() or (not cap and "，。；：！？、）".contains(part.left(1)))
+	var start := x + (0.0 if tight else CAP_GAP)
+	var width := _font.get_string_size(part, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE).x
+	if cap:
+		width += CAP_PADDING.x * 2.0
+	_segments.append({"text": part, "x": start, "cap": cap, "w": width})
+	return start + width
 
 
 ## 目前是否在顯示（含淡入淡出中）；PromptLayout 只處理正在顯示的提示。
@@ -132,8 +180,20 @@ func _draw() -> void:
 	var rect := Rect2(_box.position + _nudge, _box.size)
 	draw_rect(rect, Color(Palette.UI_PANEL, 0.85 * _alpha))
 	draw_rect(rect, Color(Palette.CYAN_DIM, _alpha), false, 1.0)
-	draw_string(_font, _text_baseline + _nudge, _display_text, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE,
-			Color(Palette.UI_TEXT, _alpha))
+	if _segments.is_empty():
+		draw_string(_font, _text_baseline + _nudge, _display_text, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE,
+				Color(Palette.UI_TEXT, _alpha))
+		return
+	var line_top := _box.position.y + PADDING.y + _nudge.y
+	var line_height := _box.size.y - PADDING.y * 2.0
+	for segment in _segments:
+		var origin := _text_baseline + _nudge + Vector2(segment["x"], 0.0)
+		if segment["cap"]:
+			var cap := Rect2(Vector2(origin.x, line_top - CAP_PADDING.y), Vector2(segment["w"], line_height + CAP_PADDING.y * 2.0))
+			draw_rect(cap, Color(CAP_FILL, _alpha))
+			draw_rect(cap, Color(CAP_EDGE, _alpha), false, 1.0)
+			origin.x += CAP_PADDING.x
+		draw_string(_font, origin, segment["text"], HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE, Color(Palette.UI_TEXT, _alpha))
 
 
 ## 被推開的提示：從文字框下緣拉一條細線到自己原本位置下方的小圓點（物件上方），一眼看出它屬於誰。

@@ -10,6 +10,8 @@ func run() -> void:
 	await _test_nodes()
 	await _test_npc_obstacle()
 	await _test_modal_suppression()
+	await _test_keycaps()
+	await _test_screen_edge()
 
 
 func _test_modal_suppression() -> void:
@@ -61,6 +63,52 @@ func _test_solver() -> void:
 	var again := PromptLayout.solve(stacked, []).duplicate()
 	var first := PromptLayout.solve(stacked, []).duplicate()
 	check(again == first, "同樣的輸入每次排出同樣的結果")
+
+
+## ST-16／BG-22：教學提示把 {動作} 畫成按鍵帽，鍵鼠與手把各自顯示目前的綁定；一般提示維持純文字。
+func _test_keycaps() -> void:
+	var stage := Node2D.new()
+	runner.add_child(stage)
+	var was_gamepad := InputBindings.using_gamepad
+	var device := InputBindings.active_device
+	InputBindings._set_device(false)
+	var plain := _spawn_prompt(stage, 0.0, "{interact} 交談")
+	var taught := _spawn_prompt(stage, 200.0, "換彈按 {reload}；落下要按住 {move_down} 再按 {jump}。")
+	taught.keycaps = true
+	await frames(1)
+	check(plain._segments.is_empty(), "ordinary prompts stay plain text")
+	var caps := taught._segments.filter(func(segment: Dictionary) -> bool: return segment["cap"])
+	check(caps.size() == 3 and caps[0]["text"] == InputBindings.primary_label(&"reload"), "each action in a teaching prompt becomes its own keycap (%s)" % [caps])
+	var texts := taught._segments.filter(func(segment: Dictionary) -> bool: return not segment["cap"]).map(func(segment: Dictionary) -> String: return segment["text"])
+	check(texts == ["換彈按", "；落下要按住", "再按", "。"], "the words around the keycaps keep their order: %s" % [texts])
+	var widths_fit := true
+	for segment in taught._segments:
+		widths_fit = widths_fit and segment["x"] + segment["w"] <= taught._box.size.x - WorldPrompt.PADDING.x * 2.0 + 0.5
+	check(widths_fit, "the keycaps and words fit inside the prompt box")
+	var keyboard_label: String = caps[0]["text"] if not caps.is_empty() else ""
+	InputBindings._set_device(true, 0)
+	await frames(1)
+	var pad_caps := taught._segments.filter(func(segment: Dictionary) -> bool: return segment["cap"])
+	check(not pad_caps.is_empty() and pad_caps[0]["text"] == InputBindings.joy_label(&"reload") and pad_caps[0]["text"] != keyboard_label,
+			"picking up a gamepad switches the keycaps to gamepad buttons")
+	InputBindings._set_device(was_gamepad, device)
+	stage.queue_free()
+	await frames(2)
+
+
+## BG-22：鏡頭停在地圖邊上時，靠邊看板的文字往畫面內推，不被畫面切掉；指回看板的細線照常畫。
+func _test_screen_edge() -> void:
+	var stage := Node2D.new()
+	runner.add_child(stage)
+	var viewport := runner.get_viewport()
+	var view := viewport.get_canvas_transform().affine_inverse() * Rect2(Vector2.ZERO, viewport.get_visible_rect().size)
+	var edge := _spawn_prompt(stage, view.position.x + 2.0, "按 {interact} 在電話亭備份，死了會從最近的電話亭醒來。")
+	await frames(30)
+	var shown := Rect2(edge.base_rect().position + edge._nudge, edge.base_rect().size)
+	check(edge.base_rect().position.x < view.position.x and shown.position.x >= view.position.x + PromptLayout.SCREEN_MARGIN - 0.5,
+			"a prompt at the screen edge slides fully on screen (box %s, view %s)" % [shown, view])
+	stage.queue_free()
+	await frames(2)
 
 
 func _spawn_prompt(parent: Node2D, x: float, text: String) -> WorldPrompt:

@@ -10,6 +10,8 @@ const GAP := 2.0
 const OBSTACLE_MARGIN := 2.0
 ## 最多往上疊幾格（保底，避免異常資料讓提示飛出畫面）。
 const MAX_STACK := 6
+## 提示框離畫面左右邊緣至少留這麼多（世界像素）：地圖邊上的看板文字不能被畫面切掉。
+const SCREEN_MARGIN := 4.0
 
 static var _prompts: Array[WorldPrompt] = []
 static var _obstacles: Dictionary[Node, Callable] = {}
@@ -21,6 +23,7 @@ static var _obstacle_rects: Array[Rect2] = []
 static var _placed: Array[Rect2] = []
 static var _nudges := PackedVector2Array()
 static var _shifts := PackedFloat32Array()
+static var _edge_shifts := PackedFloat32Array()
 
 
 static func register(prompt: WorldPrompt) -> void:
@@ -61,9 +64,31 @@ static func update() -> void:
 	for prompt in _active:
 		_rects.append(prompt.base_rect())
 	_collect_obstacles()
+	# 先把靠在畫面邊外的提示推回畫面內，再錯開：錯開的結果才不會又被推回去疊在一起。
+	_keep_on_screen(_active[0].get_viewport())
 	solve(_rects, _obstacle_rects)
 	for i in _active.size():
-		_active[i].set_nudge_target(_nudges[i])
+		_active[i].set_nudge_target(_nudges[i] + Vector2(_edge_shifts[i], 0.0))
+
+
+## 超出畫面左右邊的提示往內推（鏡頭停在地圖邊上時，靠邊的看板文字才不會被切掉）；結果記在 _edge_shifts，並直接平移 _rects。
+static func _keep_on_screen(viewport: Viewport) -> void:
+	_edge_shifts.resize(_rects.size())
+	_edge_shifts.fill(0.0)
+	if viewport == null:
+		return
+	var view := viewport.get_canvas_transform().affine_inverse() * Rect2(Vector2.ZERO, viewport.get_visible_rect().size)
+	var left := view.position.x + SCREEN_MARGIN
+	var right := view.end.x - SCREEN_MARGIN
+	for i in _rects.size():
+		var rect := _rects[i]
+		if rect.size.x > right - left:
+			continue
+		if rect.position.x < left:
+			_edge_shifts[i] = left - rect.position.x
+		elif rect.end.x > right:
+			_edge_shifts[i] = right - rect.end.x
+		_rects[i].position.x += _edge_shifts[i]
 
 
 ## 由左到右排好（x 相同時以實例編號決定，順序固定不會閃動）。

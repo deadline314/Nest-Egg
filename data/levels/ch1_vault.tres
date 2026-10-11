@@ -68,7 +68,7 @@ legend = Dictionary[String, Resource]({
 "η": ExtResource("14_ch1_enc_warehouse_walkway"),
 "θ": ExtResource("15_ch1_arena_warehouse_walkway")
 })
-hints = PackedStringArray("保險箱裡有一片資料盤：拿了就能從上層通道離開")
+hints = PackedStringArray("保險箱裡有一片資料盤，拿到後就能從上層通道離開。")
 chapter = &"ch1_kasa"
 persistent_world = true
 show_chapter_card = false
