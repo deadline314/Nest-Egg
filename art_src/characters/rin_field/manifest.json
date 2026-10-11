@@ -727,5 +727,28 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "textures",
+    "seconds": 7.7,
+    "outputs": [
+      "art\\characters\\rin\\character.json",
+      "art\\rigs\\humanoid_tall.json",
+      "art\\characters\\rin\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 5.1,
+    "outputs": [
+      "art\\characters\\rin\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.8,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]
