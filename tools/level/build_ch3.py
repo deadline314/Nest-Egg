@@ -121,7 +121,7 @@ PORTALS = {
     # 天穹辦公接待廊
     'Ⅺ': dict(id='hall_show', to=AREA('showroom'), target='show_hall', mode=0, prompt='{interact} 回樣品房', style='door'),
     'Ⅻ': dict(id='hall_edge', to=AREA('glass_edge'), target='edge_hall', mode=0, prompt='{interact} 沿候梯迴廊回玻璃邊緣', style='door'),
-    'D': dict(id='hall_office', to='', target='', mode=0, prompt='{interact} 辦公內門', style='door',
+    'ⅷ': dict(id='hall_office', to='', target='', mode=0, prompt='{interact} 辦公內門', style='door',
               locked='辦公內門需要職員證，迴廊只到等候臺。'),
 }
 
@@ -376,7 +376,7 @@ def build_office_hall():
     a.prop('accounting_lobby__directory_sign', 18)
     a.stand(28, 'Ⓦ')
     a.prop('accounting_lobby__lobby_sofa', 26)
-    a.stand(36, 'D')
+    a.stand(36, 'ⅷ')
     a.prop('accounting_lobby__light_column', 44)
     a.prop('accounting_lobby__lobby_tree', 50)
     a.stand(60, 'Ⅻ')

@@ -10,25 +10,25 @@
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("2_portal_data")
-id = &"hall_office"
-locked_text = "辦公內門需要職員證，迴廊只到等候臺。"
-prompt = "{interact} 辦公內門"
-style = "door"
-
-[sub_resource type="Resource" id="Resource_1"]
-script = ExtResource("2_portal_data")
 id = &"hall_show"
 target_level = "res://data/levels/ch3_showroom.tres"
 target_portal = &"show_hall"
 prompt = "{interact} 回樣品房"
 style = "door"
 
-[sub_resource type="Resource" id="Resource_2"]
+[sub_resource type="Resource" id="Resource_1"]
 script = ExtResource("2_portal_data")
 id = &"hall_edge"
 target_level = "res://data/levels/ch3_glass_edge.tres"
 target_portal = &"edge_hall"
 prompt = "{interact} 沿候梯迴廊回玻璃邊緣"
+style = "door"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("2_portal_data")
+id = &"hall_office"
+locked_text = "辦公內門需要職員證，迴廊只到等候臺。"
+prompt = "{interact} 辦公內門"
 style = "door"
 
 [sub_resource type="Resource" id="Resource_3"]
@@ -44,9 +44,9 @@ display_name = "天穹辦公接待廊"
 tile_size = 16
 height = 24
 legend = Dictionary[String, Resource]({
-"D": SubResource("Resource_0"),
-"Ⅺ": SubResource("Resource_1"),
-"Ⅻ": SubResource("Resource_2"),
+"Ⅺ": SubResource("Resource_0"),
+"Ⅻ": SubResource("Resource_1"),
+"ⅷ": SubResource("Resource_2"),
 "Ⓦ": ExtResource("3_ch3_waiting_bench"),
 "ⓧ": ExtResource("4_ch3_petition_box")
 })
