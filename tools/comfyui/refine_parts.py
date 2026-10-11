@@ -10,6 +10,9 @@ spec["refine"] (every key is optional):
   erase      [{"part": p, "poly": [[x, y], ...]}]    clear a polygon (pixel coordinates of base_rgba.png)
   claim      [{"part": p, "poly": [[x, y], ...]}]    give the part the pixels of base_rgba.png inside the polygon that no part holds: skin
                                                       between two masks (the front of the neck between the chin and the collar) shows the background
+             {..., "stage": "P", "ignore": [q, ...]}  the same from a stage picture, and under the listed parts: an underlayer whose top
+                                                      (collar, shoulders) the group completion did not bring over, so the head floats above
+                                                      the torso once the armour in front of it is shot off
   inpaint    [{"part": p, "poly": [[x, y], ...], "flat": true}]  repaint a polygon of the part from the colours around it (flat: one
                                                       flat colour, the median of the cloth around it), alpha unchanged: something
                                                       that belongs to another part was painted onto this one (an earring on the neck under the head)
@@ -158,10 +161,15 @@ def main() -> None:
         m = np.zeros((H, W), np.uint8)
         cv2.fillPoly(m, [np.array(e["poly"], np.int32)], 1)
         owned = np.zeros((H, W), bool)
-        for other in layers.values():
-            owned |= other[:, :, 3] > 127
-        take = (m > 0) & (base[:, :, 3] > 127) & ~owned
-        layers[e["part"]][take] = base[take]
+        for other_name, other in layers.items():
+            if other_name not in e.get("ignore", []):
+                owned |= other[:, :, 3] > 127
+        source = base
+        if "stage" in e:  # 2 px in from the stage picture's edge: Qwen's edit leaves a pale rim there
+            source = np.array(Image.open(work / "04_stages" / f"{e['stage']}.png").convert("RGBA").resize((W, H)))
+            source[:, :, 3] = cv2.erode((source[:, :, 3] >= 250).astype(np.uint8), ell(2)) * 255
+        take = (m > 0) & (source[:, :, 3] > 127) & ~owned
+        layers[e["part"]][take] = source[take]
         print(f"  claim {e['part']}: +{int(take.sum())} px")
 
     for e in cfg.get("inpaint", []):

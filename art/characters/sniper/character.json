@@ -10,23 +10,23 @@
       "file": "parts/pelvis.png",
       "size": [
         160,
-        132
+        137
       ],
       "pivot": [
         83.23,
-        106.61
+        108.61
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "torso": {
       "file": "parts/torso.png",
       "size": [
-        160,
-        225
+        161,
+        287
       ],
       "pivot": [
-        85.35,
-        199.36
+        86.35,
+        258.36
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -47,11 +47,11 @@
       "file": "parts/leg_upper.png",
       "size": [
         119,
-        252
+        257
       ],
       "pivot": [
         52.76,
-        -10.47
+        -8.47
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -59,11 +59,11 @@
       "file": "parts/leg_lower.png",
       "size": [
         107,
-        287
+        289
       ],
       "pivot": [
         62.19,
-        7.98
+        9.98
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -83,7 +83,7 @@
       "file": "parts/arm_upper.png",
       "size": [
         98,
-        204
+        207
       ],
       "pivot": [
         31.82,
@@ -95,11 +95,11 @@
       "file": "parts/arm_lower.png",
       "size": [
         67,
-        183
+        185
       ],
       "pivot": [
         33.04,
-        7.6
+        9.6
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },

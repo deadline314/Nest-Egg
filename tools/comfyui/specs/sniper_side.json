@@ -536,7 +536,42 @@
         "foot"
       ],
       "max_area": 200
-    }
+    },
+    "claim": [
+      {
+        "part": "torso",
+        "stage": "P",
+        "ignore": [
+          "armor_chest"
+        ],
+        "poly": [
+          [
+            264,
+            119
+          ],
+          [
+            524,
+            119
+          ],
+          [
+            524,
+            264
+          ],
+          [
+            264,
+            264
+          ]
+        ]
+      }
+    ],
+    "close_fill": [
+      {
+        "parts": [
+          "torso"
+        ],
+        "radius": 7
+      }
+    ]
   },
   "stages": [
     {

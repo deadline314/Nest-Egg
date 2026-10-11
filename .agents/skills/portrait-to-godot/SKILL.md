@@ -113,7 +113,7 @@ python tools/comfyui/gpu_lock.py -- <godot> --path . res://tools/rig_preview.tsc
 - `--cloth`：放大看站、跑、上升、下落、蹲、仰射時的衣襬、頭髮與槍套。
 - `--zoom=N`：指定放大倍率（`--gait` 預設 2.2）。
 - 走路的近拍用 `--gait --zoom=N`，同樣看髖部。
-- `--damage`：看 `damage` 步驟產生的破損層，先跑 `--only damage`（見第 3 關）。
+- `--damage`：看 `damage` 步驟產生的破損層，先跑 `--only damage`（見第 3 關）。 有會脫落裝甲的角色必看 `--damage --bare` 的最後一格：頭、手還接在身體上，沒有浮起來。
 
 ## 第 6 關：逐格接點稽核
 
