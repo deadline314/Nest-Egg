@@ -17,7 +17,7 @@
     "scan_wide_high": {"kind": "scan_sweep", "telegraph": 0.95, "recover": 0.6, "weight": 1.0, "pose_windup": "heavy_gunner.brace", "pose_act": "heavy_gunner.brace",
       "params": {"height": 37, "reach": 250, "sweep_time": 0.5, "damage": 1, "break_part": "arm_lock", "break_hits": 1, "break_stagger": 1.5}},
     "call_backup": {"kind": "call_backup", "telegraph": 0.8, "recover": 0.6, "weight": 0.7, "pose_windup": "rin.phone_call", "pose_act": "rin.phone_call",
-      "params": {"enemy": "res://data/enemies/pump_inspector.tres", "max_backup": 2, "max_alive": 3, "spawn_offsets": [-280, 280]}}
+      "params": {"enemy": "res://data/enemies/pump_inspector.tres", "max_backup": 2, "max_alive": 3, "spawn_offsets": [-200, 220]}}
   },
   "phases": [
     {"until": 0.5, "moves": ["shield_bash", "scan_low", "scan_high", "call_backup"], "speed": 1.0, "armored": true},

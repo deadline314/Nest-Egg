@@ -14,6 +14,8 @@ const PROBE_DROP := 10.0
 const SAME_FLOOR := 40.0
 const RAM_TIMEOUT := 1.2
 const SOURCE_RAM := &"pump_inspector_ram"
+## 巡邏只在出生點左右這麼遠（像素）：留在戰鬥區裡，不晃進電話亭、門禁前室這些安全區。
+const PATROL_RANGE := 80.0
 
 var _cooldown := 0.4
 var _ram_end_x := 0.0
@@ -37,6 +39,9 @@ func _on_stunned() -> void:
 
 func _patrol_tick(delta: float) -> void:
 	_cooldown = maxf(0.0, _cooldown - delta)
+	var offset := global_position.x - _home.x
+	if absf(offset) >= PATROL_RANGE and signf(offset) == float(facing) and _alert_left <= 0.0:
+		facing = -facing
 	_patrol(data.move_speed)
 	var target := _target()
 	if _cooldown > 0.0 or target == null or not _token_free():

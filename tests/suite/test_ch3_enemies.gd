@@ -18,6 +18,7 @@ func run() -> void:
 	_test_data()
 	await _test_pump_telegraph_and_path()
 	await _test_pump_ignores_player_above()
+	await _test_pump_patrol_stays_home()
 	await _test_pump_ram_unlocks_card()
 	await _test_insulation_crouch_and_stand()
 	await _test_insulation_safe_above_rail()
@@ -73,6 +74,19 @@ func _test_pump_telegraph_and_path() -> void:
 		furthest = maxf(furthest, pump.global_position.x)
 		await physics_frames(1)
 	check(furthest <= end_x + 2.0, "the ram never goes past the lit path (%.1f vs %.1f)" % [furthest, end_x])
+	await end_level(level)
+
+
+## 沒看到玩家時只在出生點附近巡邏，不會晃出戰鬥區。
+func _test_pump_patrol_stays_home() -> void:
+	await open_level(3.0)
+	place_player(3.0, 12 * 16.0)
+	var pump := spawn(PUMP_PATH, 42.0) as PumpInspector
+	var furthest := 0.0
+	for i in 360:
+		await physics_frames(1)
+		furthest = maxf(furthest, absf(pump.global_position.x - 42.0 * 16.0))
+	check(furthest <= PumpInspector.PATROL_RANGE + 8.0, "the pump inspector patrols near its post (%.0f px)" % furthest)
 	await end_level(level)
 
 
