@@ -106,7 +106,7 @@ legend = Dictionary[String, Resource]({
 "γ": ExtResource("20_ch1_enc_street_blockade"),
 "δ": ExtResource("21_ch1_arena_street_blockade")
 })
-hints = PackedStringArray("街上有人發傳單、有人聊天，不是每個人都想打你", "街角的巷子裡有電話亭：先去備份，死了才有地方醒來", "清掃兵在前面：靠著箱子，瞄準、射擊、再縮回去", "按住 {block} 舉盾；子彈到的瞬間舉盾＝完美反彈", "敵人頭上出現青色菱形：按 {melee} 終結，回補彈藥", "碼頭倉庫：看門狗睡在大廳深處，走進去再決定要不要叫醒牠")
+hints = PackedStringArray("街上有人發傳單、有人聊天，不是每個人都想打你", "街角的巷子裡有電話亭：先去備份，死了才有地方醒來", "清掃兵在前面：靠著箱子，瞄準、射擊、再縮回去", "子彈到的瞬間才舉盾 {block}，就能把子彈反彈回去。", "敵人頭上出現青色菱形：按 {melee} 終結，回補彈藥", "碼頭倉庫：看門狗睡在大廳深處，走進去再決定要不要叫醒牠")
 chapter = &"ch1_kasa"
 persistent_world = true
 show_chapter_card = false

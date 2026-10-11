@@ -34,7 +34,7 @@ legend = Dictionary[String, Resource]({
 "Q": ExtResource("2_ch1_ali_stall"),
 "Z": SubResource("Resource_0")
 })
-hints = PackedStringArray("阿梨的麵攤：按 {interact} 說話，說完才能回家")
+hints = PackedStringArray()
 chapter = &"ch1_kasa"
 persistent_world = true
 show_chapter_card = false

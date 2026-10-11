@@ -35,7 +35,7 @@ legend = Dictionary[String, Resource]({
 "T": SubResource("Resource_0"),
 "c": ExtResource("4_credits_small")
 })
-hints = PackedStringArray("屋頂中間有一條縫：助跑跳過去，跳躍 {jump}", "鷺在等你：走過去按 {interact} 聽差事")
+hints = PackedStringArray("屋頂中間有一條縫：助跑跳過去，跳躍 {jump}")
 chapter = &"ch1_kasa"
 persistent_world = true
 show_chapter_card = false

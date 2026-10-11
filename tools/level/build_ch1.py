@@ -482,7 +482,6 @@ def build_pawnshop():
     a.block(79, 79, 10, 16)       # 店面與廚房之間
     # 店面
     a.stand(40, 'P')
-    a.hint(38, '移動 {move_left}/{move_right}，跳躍 {jump}（按久跳更高）')
     a.hint(46, '按 {inventory} 開背包：武器改裝、道具與文件都在這裡')
     a.prop('pawnshop_front__tag_shelf', 33)
     # 老 K 留著的四件舊物：架上的懷錶與雨衣、牆上的吉他、門邊的船錢罐，各自一張標籤（可選支線）。
@@ -508,18 +507,17 @@ def build_pawnshop():
     for x in (36, 46, 56, 66, 74):
         a.lamp(x, 11)
     # 後空地（教學）x=1～30
-    a.hint(28, '滑鼠瞄準，{shoot} 射擊；{reload} 換彈。打左邊的木箱練習')
+    # BG-22：移動、跳、射擊、近戰、格擋、衝刺都在序章練過；後空地只留序章沒教的換彈與落下平台。
+    a.hint(28, '換彈按 {reload}；從單向平台落下要按住 {move_down} 再按 {jump}。')
     a.stand(5, 'x')
     a.stand(9, 'x')
-    a.hint(20, '{dash} 衝刺：短暫無敵，可以穿過危險')
     a.platform(12, 17, 16)
     a.put(14, 15, 'u')
-    a.hint(11, '{move_down}＋{jump} 從單向平台落下；{melee} 近戰')
     a.stand(24, 'c')
     # 廚房 x=80～110：晚飯在入口，樓梯在最右
     a.trigger(82, 'ch1_b_dinner')
     a.stand(86, 'n')
-    a.hint(88, '老 K 在桌邊：按 {interact} 和他說話')
+    # 找老 K、上屋頂找鷺由任務列與人物的互動提示帶路，不另立告示牌（BG-22）。
     a.prop('pawnshop_kitchen__dish_cabinet', 81)
     a.prop('pawnshop_kitchen__water_urn', 83)
     a.prop('pawnshop_kitchen__dining_table', 90)
@@ -529,7 +527,6 @@ def build_pawnshop():
     a.prop('pawnshop_kitchen__kettle_stove', 98)
     a.prop('pawnshop_kitchen__old_fridge', 102)
     a.prop('pawnshop_kitchen__tear_off_calendar', 100, y=14)
-    a.hint(104, '樓梯通往屋頂：鷺在上面等你')
     a.stand(108, 'S')
     for x in (88, 98, 106):
         a.lamp(x, 11)
@@ -551,7 +548,6 @@ def build_rooftop():
     a.stand(62, 'c')
     a.trigger(34, 'ch1_b_roof')
     a.stand(54, 'E')
-    a.hint(50, '鷺在等你：走過去按 {interact} 聽差事')
     a.prop('rooftop__stairwell_hut', 1)
     a.prop('rooftop__rusty_water_tank', 44)
     a.prop('rooftop__antenna_forest', 64)
@@ -599,7 +595,7 @@ def build_street():
     a.encounter('高台', 76, 86, [(78, 'g', 15), (84, 'g')])
     # 格擋（x=84～90）
     a.trigger(82, 'ch1_g06_tip_slide')
-    a.hint(86, '按住 {block} 舉盾；子彈到的瞬間舉盾＝完美反彈')
+    a.hint(86, '子彈到的瞬間才舉盾 {block}，就能把子彈反彈回去。')
     a.block(88, 88, 18, 19)
     a.encounter('格擋', 89, 90, [(90, 'k')])
     # 鎖場「街心」（x=92～118）：兩層平台與一架無人機，增援一名槍手
@@ -898,7 +894,6 @@ def build_lounge():
     a.stand(52, 'G')
     a.trigger(12, 'ch1_b_lounge')
     a.stand(30, 'Y')
-    a.hint(26, '阿梨在吧台：走過去按 {interact} 說話，說完才出得去')
     a.prop('revival_lounge__booth_sofa', 6)
     a.prop('revival_lounge__round_table_stools', 14)
     a.prop('revival_lounge__jukebox', 21)
@@ -977,7 +972,6 @@ def build_stall():
     a.stand(44, 'Z')
     a.trigger(12, 'ch1_b_stall')
     a.stand(21, 'Q')
-    a.hint(17, '阿梨的麵攤：按 {interact} 說話，說完才能回家')
     a.prop('dawn_noodle_stall__ali_noodle_cart', 18)
     a.prop('dawn_noodle_stall__noodle_bowls_table', 26)
     a.prop('dawn_noodle_stall__stool_stack', 32)

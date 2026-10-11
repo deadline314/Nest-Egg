@@ -81,7 +81,7 @@ legend = Dictionary[String, Resource]({
 "ⓡ": ExtResource("11_ch1_label_raincoat"),
 "ⓦ": ExtResource("12_ch1_label_watch")
 })
-hints = PackedStringArray("移動 {move_left}/{move_right}，跳躍 {jump}（按久跳更高）", "按 {inventory} 開背包：武器改裝、道具與文件都在這裡", "滑鼠瞄準，{shoot} 射擊；{reload} 換彈。打左邊的木箱練習", "{dash} 衝刺：短暫無敵，可以穿過危險", "{move_down}＋{jump} 從單向平台落下；{melee} 近戰", "老 K 在桌邊：按 {interact} 和他說話", "樓梯通往屋頂：鷺在上面等你")
+hints = PackedStringArray("按 {inventory} 開背包：武器改裝、道具與文件都在這裡", "換彈按 {reload}；從單向平台落下要按住 {move_down} 再按 {jump}。")
 chapter = &"ch1_kasa"
 persistent_world = true
 show_chapter_card = true
