@@ -30,6 +30,19 @@ extends Resource
 @export_enum("blade", "heavy", "polearm", "whip") var melee_shape: String = "blade"
 @export var melee_length: float = 18.0
 
+@export_group("Light")
+## 槍燈：掛在槍上的常亮照明，從槍口朝瞄準方向照出去。light_range 是照射距離（像素，0＝這把武器沒有槍燈）。
+@export_range(0.0, 480.0, 5.0) var light_range: float = 0.0
+## 光錐的張角（度）：越小越集中。
+@export_range(4.0, 120.0, 1.0) var light_cone_degrees: float = 40.0
+@export_range(0.0, 3.0, 0.05) var light_energy: float = 1.0
+@export var light_color: Color = Color(1.0, 0.95, 0.85)
+## 開火時光錐抖動的程度（0＝不抖，1＝最明顯）；設定的「減少閃光」會把它降下來。
+@export_range(0.0, 1.0, 0.05) var light_jitter: float = 0.0
+## 另外畫一條常亮的細瞄準光（光束類武器用）。
+@export var light_sight: bool = false
+## 開火後光先變暗，等到可以再開火時恢復全亮（射速慢的武器用，看光就知道下一發好了沒）。
+@export var light_dims_until_ready: bool = false
 @export_group("Feel")
 @export var fire_sound: StringName = &"shot_rifle"
 @export var screen_shake: float = 0.0
@@ -67,6 +80,11 @@ func has_infinite_reserve() -> bool:
 
 func is_melee() -> bool:
 	return not melee_profile.is_empty()
+
+
+## 這把武器有沒有槍燈（近戰武器沒有）。
+func has_light() -> bool:
+	return light_range > 0.0 and not is_melee()
 
 
 func is_valid() -> bool:

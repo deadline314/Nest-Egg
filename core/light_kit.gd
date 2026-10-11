@@ -44,6 +44,7 @@ static var lamp_power := 1.0
 const WINDOW_LIFE_SHADER := preload("res://game/level/environment/window_life.gdshader")
 
 static var _emissive_material: CanvasItemMaterial
+static var _cone_textures: Dictionary[int, ImageTexture] = {}
 static var _window_life_material: ShaderMaterial
 static var _additive_material: CanvasItemMaterial
 static var _environment: Environment
@@ -66,9 +67,49 @@ static func soft_texture() -> GradientTexture2D:
 	return _soft_texture
 
 
+## 光錐貼圖：頂點在貼圖中心、朝 +X 照出去的光錐（槍燈用）。cone_degrees 是整個光錐的張角。
+## 頂點附近刻意是暗的（拿燈的人自己不會被照到過曝），往外先變亮再隨距離變暗；兩側邊緣柔和。
+## 同一個張角共用同一張貼圖（以 2 度為一級）。
+static func cone_texture(cone_degrees: float) -> ImageTexture:
+	var step := clampi(roundi(cone_degrees / 2.0), 2, 90)
+	if _cone_textures.has(step):
+		return _cone_textures[step]
+	var half := deg_to_rad(float(step))
+	var size := CONE_TEXTURE_SIZE
+	var image := Image.create(size, size, false, Image.FORMAT_RGBA8)
+	var center := (size - 1) * 0.5
+	for y in size:
+		for x in size:
+			var offset := Vector2(x - center, y - center)
+			var distance := offset.length() / center
+			var across := absf(offset.angle())
+			var side := 1.0 - smoothstep(half * CONE_SOFT_EDGE, half, across)
+			var along := smoothstep(CONE_APEX_DARK, CONE_APEX_FULL, distance) * pow(clampf(1.0 - distance, 0.0, 1.0), 1.3)
+			image.set_pixel(x, y, Color(1, 1, 1, side * along))
+	var texture := ImageTexture.create_from_image(image)
+	_cone_textures[step] = texture
+	return texture
+
+
+## 朝某個方向照的光（槍燈）：登記在 AIMED_LIGHTS，light_level_at 會依方向與張角判斷照不照得到。
+static func mark_aimed(light: PointLight2D, reach: float, cone_degrees: float) -> void:
+	light.add_to_group(AIMED_LIGHTS)
+	light.set_meta(META_REACH, reach)
+	light.set_meta(META_HALF_ANGLE, deg_to_rad(cone_degrees * 0.5))
+
+
 ## 場景光源群組：LightBudget 只管理這個群組裡的光源（鏡頭外停用、同時啟用與陰影數量有上限）。
 const SCENE_LIGHTS := &"scene_lights"
 ## 光源「想要陰影」的標記（預算決定實際給不給）。
+## 朝某個方向照的光（槍燈）的群組與它記在光源上的資料。
+const AIMED_LIGHTS := &"aimed_lights"
+const META_REACH := &"aimed_reach"
+const META_HALF_ANGLE := &"aimed_half_angle"
+## 光錐貼圖的邊長，以及光錐的形狀：兩側從張角的幾成開始變暗、頂點附近多遠以內是暗的、多遠達到全亮（都是相對於照射距離）。
+const CONE_TEXTURE_SIZE := 192
+const CONE_SOFT_EDGE := 0.5
+const CONE_APEX_DARK := 0.03
+const CONE_APEX_FULL := 0.16
 const META_WANTS_SHADOW := &"wants_shadow"
 
 ## 建立點光源。radius 為像素半徑；shadows 表示這盞燈想要陰影（較耗效能，實際由 LightBudget 依預算決定）。
@@ -93,7 +134,7 @@ static func create_point_light(color: Color, radius: float, energy: float, shado
 
 
 ## 場景光源在某個世界座標的照亮程度（0 = 沒被任何燈照到；光學迷彩敵人用它判斷要不要現形）。
-## 只計算受預算管理的場景燈（路燈、霓虹…），不含環境光；關掉的燈與停電的燈不算。
+## 計算受預算管理的場景燈（路燈、霓虹…）與朝這個方向照的槍燈，不含環境光；關掉的燈與停電的燈不算。
 static func light_level_at(tree: SceneTree, position: Vector2) -> float:
 	var level := 0.0
 	for node in tree.get_nodes_in_group(SCENE_LIGHTS):
@@ -104,6 +145,17 @@ static func light_level_at(tree: SceneTree, position: Vector2) -> float:
 		var distance := light.global_position.distance_to(position)
 		if distance < radius:
 			level += light.energy * (1.0 - distance / radius)
+	for node in tree.get_nodes_in_group(AIMED_LIGHTS):
+		var light := node as PointLight2D
+		if light == null or not light.enabled or light.energy <= 0.0 or not light.is_visible_in_tree():
+			continue
+		var reach := float(light.get_meta(META_REACH, 0.0))
+		var offset := position - light.global_position
+		var distance := offset.length()
+		if distance >= reach or distance < 1.0:
+			continue
+		if absf(angle_difference(light.global_rotation, offset.angle())) <= float(light.get_meta(META_HALF_ANGLE, 0.0)):
+			level += light.energy * (1.0 - distance / reach)
 	return level
 
 

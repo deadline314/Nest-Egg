@@ -21,6 +21,7 @@ func run() -> void:
 	await _test_rig_uses_the_light_material()
 	await _test_player_light_follows_the_scene()
 	await _test_enemy_fill_is_separate()
+	await _test_weapon_light()
 
 
 func _test_budget_model() -> void:
@@ -163,3 +164,127 @@ func _test_enemy_fill_is_separate() -> void:
 	check(not plain.validate().is_empty(), "an enemy fill scale below the allowed range is reported")
 	await end_level(level)
 	check(is_equal_approx(LightKit.enemy_fill, 1.0), "leaving the level restores the default enemy fill")
+
+
+## 槍燈（NE-258）：每把槍有自己的光、跟著瞄準走、近戰與死亡時沒有、照得到的地方算進場景的光。
+func _test_weapon_light() -> void:
+	var guns := ["pistol", "rifle", "smg", "spread", "launcher", "laser", "railgun"]
+	var seen := {}
+	for id: String in guns:
+		var weapon := load("res://data/weapons/%s.tres" % id) as WeaponData
+		check(weapon != null and weapon.has_light() and weapon.light_range >= 120.0 and weapon.light_range <= 360.0
+				and weapon.light_cone_degrees >= 6.0 and weapon.light_cone_degrees <= 90.0 and weapon.light_energy > 0.0,
+				"%s has a gun light with sane reach and cone" % id)
+		seen["%d/%d" % [int(weapon.light_range), int(weapon.light_cone_degrees)]] = true
+	check(seen.size() == guns.size(), "every gun's light has its own reach and cone (%d distinct)" % seen.size())
+	check(not (load("res://data/weapons/mech_cannon.tres") as WeaponData).has_light(), "the vehicle cannon has no gun light")
+	var blade := load("res://data/weapons/melee/melee_blade.tres") as WeaponData
+	check(not blade.has_light(), "melee weapons have no gun light")
+	# 光錐貼圖：頂點是暗的、正前方亮、兩側與背後沒有光；同一個張角共用同一張。
+	var cone := LightKit.cone_texture(40.0)
+	var image := cone.get_image()
+	var mid := LightKit.CONE_TEXTURE_SIZE / 2
+	check(image.get_pixel(mid, mid).a < 0.05, "the cone is dark at its tip so the holder is not lit")
+	check(image.get_pixel(mid + int(mid * 0.4), mid).a > 0.3, "the cone is bright straight ahead")
+	check(is_zero_approx(image.get_pixel(mid, mid - int(mid * 0.5)).a) and is_zero_approx(image.get_pixel(mid - int(mid * 0.5), mid).a),
+			"nothing is lit to the side of or behind the cone")
+	check(LightKit.cone_texture(40.4) == cone and LightKit.cone_texture(60.0) != cone, "cones of the same angle share one texture")
+	var level := await start_level(NewEnemiesSuite.arena_data())
+	var player := level.player
+	var light := player._weapon_light
+	AimInput.using_gamepad = true
+	AimInput._last_stick_dir = Vector2.RIGHT
+	player.loadout.equip(load("res://data/weapons/rifle.tres") as WeaponData)
+	await physics_frames(40)
+	check(light.is_lit() and light._light.enabled, "holding a gun turns its light on")
+	check(absf(angle_difference(light.global_rotation, player.aim_dir.angle())) < 0.05, "the light points where the player aims")
+	check(is_equal_approx(light.reach(), 300.0), "the light uses the held gun's reach")
+	var glow_radius := player._light.texture_scale * LightKit.TEXTURE_SIZE * 0.5
+	check(glow_radius < Player.SELF_GLOW_RADIUS_UNARMED - 20.0, "the glow around the player shrinks while the gun light is on (%.0f)" % glow_radius)
+	var ahead := LightKit.light_level_at(runner.get_tree(), light.global_position + player.aim_dir * 120.0)
+	var behind := LightKit.light_level_at(runner.get_tree(), light.global_position - player.aim_dir * 120.0)
+	var beyond := LightKit.light_level_at(runner.get_tree(), light.global_position + player.aim_dir * 400.0)
+	check(ahead > behind + 0.2 and is_equal_approx(beyond, behind), "the gun light counts as scene light only inside its cone and reach (%.2f ahead, %.2f behind)" % [ahead, behind])
+	AimInput._last_stick_dir = Vector2.UP
+	await physics_frames(30)
+	check(absf(angle_difference(light.global_rotation, -PI * 0.5)) < 0.2, "the light follows the aim upward")
+	# 開火後變暗、可以再開火時恢復的武器。
+	AimInput._last_stick_dir = Vector2.RIGHT
+	var railgun := load("res://data/weapons/railgun.tres") as WeaponData
+	player.loadout.equip(railgun)
+	await physics_frames(40)
+	var full := light._light.energy
+	player._fire_cooldown_left = railgun.fire_interval
+	light.fired()
+	await physics_frames(2)
+	check(light._light.energy < full * 0.6, "a slow gun's light dims right after firing (%.2f of %.2f)" % [light._light.energy, full])
+	player._fire_cooldown_left = 0.0
+	await physics_frames(4)
+	check(is_equal_approx(light._light.energy, full), "and is back to full when the gun is ready again")
+	# 近戰武器：沒有槍燈，身邊的微光變大。
+	player.loadout.equip(blade)
+	await physics_frames(60)
+	check(not light.is_lit() and not light._light.enabled, "a melee weapon has no gun light")
+	check(player._light.texture_scale * LightKit.TEXTURE_SIZE * 0.5 > Player.SELF_GLOW_RADIUS + 20.0, "the glow around the player grows back without a gun light")
+	# 講電話、搭載具、死亡：熄掉。
+	player.loadout.equip(load("res://data/weapons/rifle.tres") as WeaponData)
+	await physics_frames(40)
+	player.set_physics_process(false)
+	light.set_active(false)
+	for step in 20:
+		light.aim(player.muzzle_position(), Vector2.RIGHT, 1.0, 0.05)
+	check(not light.is_lit() and not light._light.enabled, "the gun light fades out when it is switched off (phone, vehicle)")
+	light.set_active(true)
+	for step in 20:
+		light.aim(player.muzzle_position(), Vector2.RIGHT, 1.0, 0.05)
+	check(light.is_lit(), "and comes back afterwards")
+	player.set_physics_process(true)
+	# 潛行者：被槍燈照到就現形，光移開又隱形。
+	player.loadout.equip(load("res://data/weapons/rifle.tres") as WeaponData)
+	AimInput._last_stick_dir = Vector2.UP
+	var stalker := level._create_enemy(load("res://data/enemies/stalker.tres") as EnemyData) as Stalker
+	stalker.data = stalker.data.duplicate()
+	stalker.data.detect_range = 0.0
+	stalker.data.move_speed = 0.0
+	stalker.data.ability_radius = 0.0
+	stalker.position = player.global_position + Vector2(200.0, 0.0)
+	level._entities.add_child(stalker)
+	await physics_frames(50)
+	check(stalker.is_cloaked(), "a stalker stays cloaked while the gun light points elsewhere")
+	AimInput._last_stick_dir = (stalker._center() - player.muzzle_position()).normalized()
+	await physics_frames(50)
+	check(not stalker.is_cloaked(), "a stalker caught in the gun light reveals itself")
+	AimInput._last_stick_dir = Vector2.UP
+	await physics_frames(60)
+	check(stalker.is_cloaked(), "and cloaks again when the light moves away")
+	stalker.queue_free()
+	AimInput._last_stick_dir = Vector2.RIGHT
+	await physics_frames(4)
+	# 「減少閃光」：連射時光錐的抖動與槍口火光都變弱。
+	var smg := load("res://data/weapons/smg.tres") as WeaponData
+	player.loadout.equip(smg)
+	await physics_frames(40)
+	player.set_physics_process(false)
+	var reduce_before := Settings.get_reduce_flashes()
+	var sway: Array[float] = []
+	var flash: Array[float] = []
+	for reduced: bool in [false, true]:
+		Settings.set_reduce_flashes(reduced)
+		light.fired()
+		var widest := 0.0
+		for step in 12:
+			light.aim(player.muzzle_position(), Vector2.RIGHT, 1.0, 0.01)
+			widest = maxf(widest, absf(angle_difference(light.global_rotation, 0.0)))
+		sway.append(widest)
+		for pooled: PointLight2D in Fx._lights:
+			pooled.enabled = false
+		WeaponSystem.muzzle_feedback(smg, player.global_position + Vector2(300, -200), Vector2.RIGHT)
+		flash.append(_lit_flash_energy())
+	Settings.set_reduce_flashes(reduce_before)
+	player.set_physics_process(true)
+	check(sway[0] > 0.01 and sway[1] < sway[0] * 0.75, "reduce-flashes calms the gun light's shake (%.3f → %.3f rad)" % [sway[0], sway[1]])
+	check(flash[0] > 0.0 and flash[1] < flash[0] * 0.75, "reduce-flashes dims the muzzle flash light (%.2f → %.2f)" % [flash[0], flash[1]])
+	light.extinguish()
+	check(not light.is_lit() and not light._light.enabled, "dying puts the light out at once")
+	AimInput.using_gamepad = false
+	await end_level(level)

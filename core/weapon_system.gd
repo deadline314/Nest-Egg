@@ -24,7 +24,7 @@ static func muzzle_feedback(weapon: WeaponData, muzzle: Vector2, direction: Vect
 	if float(now - int(_last_muzzle_fx.get(weapon.id, -100000))) < weapon.muzzle_fx_interval * 1000.0:
 		return false
 	_last_muzzle_fx[weapon.id] = now
-	Fx.flash_light(muzzle, weapon.color, weapon.muzzle_light_radius, weapon.muzzle_light_energy, 0.08)
+	Fx.flash_light(muzzle, weapon.color, weapon.muzzle_light_radius, weapon.muzzle_light_energy * Settings.flash_scale(), 0.08)
 	Fx.flare(muzzle, weapon.color, weapon.muzzle_flare_size, 0.05)
 	if weapon.muzzle_spark_count > 0:
 		Fx.sparks(muzzle, weapon.color, weapon.muzzle_spark_count, 280.0, 0.14, direction, 0.7, 240.0)

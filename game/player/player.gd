@@ -72,7 +72,16 @@ var fall_limit_y := INF
 var _visual: PlayerVisual
 ## 自己那盞光調整到目標能量的速度（每秒）。
 const LIGHT_EASE := 1.5
+## 主角身邊的微光半徑：拿著有槍燈的武器時只留一小圈；沒有槍燈（近戰、空手）時大一點，暗處才看得到腳邊。
+const SELF_GLOW_RADIUS := 84.0
+const SELF_GLOW_RADIUS_UNARMED := 150.0
+const SELF_GLOW_RESIZE := 240.0
+## 槍燈的起點在肩膀到槍口之間的哪裡（1＝槍口）：往回收一點，槍口貼著牆時光才不會整個被牆擋掉。
+const WEAPON_LIGHT_ORIGIN := 0.7
 var _light: PointLight2D
+var _weapon_light: WeaponLight
+## 槍燈目前照的是哪一把武器（換槍時重新設定）。
+var _lit_weapon: WeaponData
 var _contact_shadow: ContactShadow
 var _was_on_floor := true
 var _fall_speed_before_move := 0.0
@@ -191,9 +200,13 @@ func _ready() -> void:
 	_last_health = health.current
 
 	# 角色自帶柔光（含陰影），在暗處維持可讀性。
-	_light = LightKit.create_point_light(Palette.CYAN, 150.0, 0.75, true, false)
+	_light = LightKit.create_point_light(Palette.CYAN, SELF_GLOW_RADIUS_UNARMED, 0.75, false, false)
 	_light.position = Vector2(0, -30)
 	add_child(_light)
+	# 槍燈：從槍口朝瞄準方向照的光錐（每把槍不同，見 WeaponData 的 Light 群組）。
+	_weapon_light = WeaponLight.new()
+	_weapon_light.top_level = true
+	add_child(_weapon_light)
 
 	loadout.changed.connect(_on_loadout_changed)
 	loadout.reload_started.connect(func() -> void:
@@ -329,6 +342,7 @@ func _physics_process(delta: float) -> void:
 	_light.energy = move_toward(_light.energy, LightKit.player_light_energy, LIGHT_EASE * delta)
 	_tick_timers(delta)
 	_update_aim(delta)
+	_update_weapon_light(delta)
 	match state:
 		State.MOUNTED:
 			_process_mounted()
@@ -554,6 +568,21 @@ func _apply_corner_correction(delta: float) -> void:
 
 
 ## 滑鼠／右搖桿 360° 瞄準；角色永遠面向準星。
+## 槍燈跟著瞄準方向走；死亡、搭載具、講電話時熄掉。身邊的微光在有槍燈時縮小。
+func _update_weapon_light(delta: float) -> void:
+	var weapon := loadout.active_weapon()
+	if weapon != _lit_weapon:
+		_lit_weapon = weapon
+		_weapon_light.configure(weapon)
+	_weapon_light.set_active(state != State.DEAD and state != State.MOUNTED and state != State.PHONE)
+	var interval := weapon.fire_interval / cyber.fire_rate_scale() if weapon != null else 1.0
+	_weapon_light.aim(aim_origin().lerp(muzzle_position(), WEAPON_LIGHT_ORIGIN), aim_dir, 1.0 - _fire_cooldown_left / maxf(0.01, interval), delta)
+	var radius := SELF_GLOW_RADIUS if _weapon_light.is_lit() else SELF_GLOW_RADIUS_UNARMED
+	var current := _light.texture_scale * LightKit.TEXTURE_SIZE * 0.5
+	if not is_equal_approx(current, radius):
+		_light.texture_scale = move_toward(current, radius, SELF_GLOW_RESIZE * delta) * 2.0 / LightKit.TEXTURE_SIZE
+
+
 func _update_aim(_delta: float) -> void:
 	if state == State.DEAD:
 		return
@@ -624,6 +653,7 @@ func _try_fire() -> void:
 	aim_bloom = minf(1.0, aim_bloom + weapon.bloom_per_shot)
 	# 射擊手感：槍口閃光 + 光源 + 鏡頭反向後座 + 彈殼 + 音效。
 	WeaponSystem.muzzle_feedback(weapon, muzzle, aim_dir)
+	_weapon_light.fired()
 	if weapon.ejects_casing:
 		Fx.casing(aim_origin(), facing)
 	# 射速加快（超頻等）時射擊音效跟著加快、音高不變（NE-182）；射速升級只要改 fire_rate_scale，不必另外處理音效。
@@ -1355,6 +1385,7 @@ func _on_died(info: DamageInfo) -> void:
 	Fx.flash_light(global_position + Vector2(0, -24), Palette.CYAN, 160.0, 3.0, 0.6)
 	CharacterSounds.play(PLAYER_SOUND_ID, &"death", -4.0)
 	_light.enabled = false
+	_weapon_light.extinguish()
 	var cause: StringName = info.source_id if info != null and info.source_id != &"" else &"unknown"
 	EventBus.player_died.emit(cause)
 
@@ -1372,6 +1403,10 @@ func _on_loadout_changed() -> void:
 		_interrupt_melee(true)
 		_melee_weapon_id = weapon_id
 	_visual.set_weapon_visual(_visual_id_of(weapon))
+	var owned: Array = []
+	for slot in loadout.slot_count():
+		owned.append(loadout.weapon_in(slot))
+	WeaponLight.warm(owned)
 	_refresh_prompt_obstacle_bounds()
 	EventBus.player_loadout_changed.emit(loadout)
 
