@@ -80,6 +80,8 @@ func _test_custody_validation() -> void:
 	var legacy := {"owned": [&"ch1_data_disk", OPEN_ITEM], "unseen": [OPEN_ITEM]}
 	check(StoryItems.restore(legacy) and StoryItems.holds(&"ch1_data_disk") and not StoryItems.was_transferred(&"ch1_data_disk"), "custody: complete legacy maps history to held")
 	StoryItems.transfer(&"ch1_data_disk")
+	# 正式劇本裡交出資料盤的場景同時寫下交出旗標（data/save/required_items.json）；夾具照真實結果寫，存檔才不自相矛盾。
+	GameState.set_flag(&"ch1_disk_delivered")
 	var good := StoryItems.snapshot()
 	var valid_run := RunSnapshot.capture("res://data/levels/ch1_pawnshop.tres", {"health": 4, "position": [100, 160], "world": {}, "loadout": {}})
 	var malformed: Array = [null, {}, {"owned": [], "unseen": null}]
@@ -136,6 +138,8 @@ func _test_custody_validation() -> void:
 		check(RunSnapshot.prepare(run).has("error") and run == before_run and StoryItems.snapshot() == good, "custody: malformed %d rejects whole-run without partial state or source repair" % i)
 	var legacy_run := valid_run.duplicate(true)
 	legacy_run["story"]["items"] = legacy
+	# 舊格式的資料盤還在手上，交出旗標也照當時的真實狀態（尚未交出）。
+	legacy_run["story"]["flags"]["ch1_disk_delivered"] = false
 	var migrated := RunSnapshot.prepare(legacy_run)
 	check(migrated.has("data") and migrated["data"]["story"]["items"]["held"].size() == 2 and not legacy_run["story"]["items"].has("held"), "custody: run prepare normalizes legacy in detached result only")
 	var path := "user://st3_custody_suite.json"

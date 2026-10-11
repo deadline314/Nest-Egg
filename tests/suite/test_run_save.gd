@@ -86,7 +86,7 @@ func run() -> void:
 	bad = valid.duplicate(true)
 	bad["level"] = "user://foreign.tres"
 	var foreign := RunSnapshot.prepare(bad)
-	check(foreign.has("data") and foreign["data"]["level"] == FIRST and not foreign["data"].get("notices", []).is_empty(), "level paths restricted to project level resources; foreign path falls back to start with notice")
+	check(foreign.has("data") and foreign["data"]["level"] == CampaignEdition.current().first_level and not foreign["data"].get("notices", []).is_empty(), "level paths restricted to project level resources; foreign path falls back to start with notice")
 	bad = valid.duplicate(true)
 	bad["runtime"]["loadout"] = {"weapons": ["res://autoload/story.gd"], "mag": ["bad"], "consumables": {"med_injector": []}}
 	var repaired: Dictionary = RunSnapshot.prepare(bad)["data"]
