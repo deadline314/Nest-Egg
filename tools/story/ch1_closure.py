@@ -580,11 +580,12 @@ def _clinic_and_home(source):
         {**say("lamp", "歡迎回來。你死了十一分鐘。"), "ja": "おかえり。十一分、死んでたよ。", "en": "Welcome back. You were dead for eleven minutes.", "transcreate": True},
         say("rin", "誰把我送到這裡？我沒在這間診間登記。"),
         say("lamp", "灰衣人用貨車把你送來，裝備也放在臺邊。你是第一次復原，要先建檔。"),
-        {"do": "camera", "pos": [316, 214], "zoom": 1.55, "time": 1.0},
+        # 推近到凜的臉：她坐在檢查台上，鏡頭中心夠高才不會把頭與馬尾推進 21:9 黑邊（ST-22）。
+        {"do": "camera", "pos": [316, 198], "zoom": 1.55, "time": 1.0},
         say("lamp", "備份能存你走過的地方，初次建檔是另一件事。這次完成後，下次才在登記的亭子醒來。"),
         {**say("rin", "你的聲音跟電話亭很像。"), "ja": "電話ボックスの声、お前に似てるな。", "en": "You sound like the phone booth.", "transcreate": True},
         say("lamp", "港區少年的聲音，長得都差不多吧。"),
-        {"do": "camera", "pos": [316, 221], "zoom": 1.4, "time": 1.0},
+        {"do": "camera", "pos": [316, 205], "zoom": 1.4, "time": 1.0},
         say("lamp", "初次建檔免信用點費，之後復原照登記費扣，記憶也會磨損。"),
         {"do": "fx", "kind": "noise", "time": 0.4},
         say("rin", "我以為保單連這個也算好了。"),
@@ -603,9 +604,11 @@ def _clinic_and_home(source):
         ("lamp", "完成建檔後登記電話亭，下次在登記的亭子醒來。")), binding="first_clinic",
         when=all_of(flag("ch1_first_clinic_active"), negate(flag("ch1_booth_registered"))))
     home_steps = [
-        {"do": "scene", "id": "ch1_pawnshop_kitchen", "pos": [320, 250], "zoom": 1.0, "fade": 1.0},
-        {"do": "actor", "id": "rin", "kind": "rin", "pos": [575, 304], "facing": -1, "scale": 3.8, "pose": "idle"},
-        {"do": "actor", "id": "k", "kind": "old_k", "speaker": "old_k", "pos": [120, 304], "facing": -1, "scale": 4.2, "pose": "idle"},
+        # 21:9 遮幅（ST-22）：上黑邊約在 y=43、對話框頂約在 y=233。腳底放在框頂之上、頭頂留在黑邊之下，
+        # 演員縮放 3.0～3.1（門高約 1.2 倍身高，符合 scene-staging 的比例）。
+        {"do": "scene", "id": "ch1_pawnshop_kitchen", "pos": [320, 256], "zoom": 1.0, "fade": 1.0},
+        {"do": "actor", "id": "rin", "kind": "rin", "pos": [575, 304], "facing": -1, "scale": 3.0, "pose": "idle"},
+        {"do": "actor", "id": "k", "kind": "old_k", "speaker": "old_k", "pos": [120, 304], "facing": -1, "scale": 3.1, "pose": "idle"},
         {"do": "move", "id": "rin", "to": [330, 304], "time": 2.0, "wait": True, "then": "idle"},
     ]
     home_steps.extend(beats(

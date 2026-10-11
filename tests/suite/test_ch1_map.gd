@@ -518,7 +518,7 @@ func _test_staging() -> void:
 	check(CutsceneChecker.staging_problems("test_bad_staging", bad).size() == 1, "an actor standing under the dialogue box is reported once")
 	var moved := {"steps": [{"do": "scene", "id": "x", "pos": [320, 180], "zoom": 1.0}, {"do": "actor", "id": "a", "pos": [100, 240]}, {"do": "move", "id": "a", "to": [200, 330]}]}
 	check(CutsceneChecker.staging_problems("test_bad_staging", moved).size() == 1, "walking down behind the dialogue box is reported")
-	var zoomed := {"steps": [{"do": "scene", "id": "x", "pos": [320, 180], "zoom": 1.0}, {"do": "actor", "id": "a", "pos": [100, 240]}, {"do": "camera", "pos": [100, 240], "zoom": 2.5}, {"do": "remove", "id": "a"}]}
+	var zoomed := {"steps": [{"do": "scene", "id": "x", "pos": [320, 180], "zoom": 1.0}, {"do": "actor", "id": "a", "pos": [100, 220]}, {"do": "camera", "pos": [100, 220], "zoom": 2.5}, {"do": "remove", "id": "a"}]}
 	check(CutsceneChecker.staging_problems("test_ok_staging", zoomed).is_empty(), "a camera that puts the feet at the middle of the screen is fine")
 	# 頭頂不能進到上方黑邊（ST-10）：演員太高或鏡頭太近都要被抓到；坐著比較矮；頭像剪影（沒有骨架）不檢查。
 	# 腳底放在畫面 225：黑邊開著時對話框頂在約 233，腳不會被蓋住，只測頭頂。
@@ -546,7 +546,7 @@ func _test_staging() -> void:
 		if not bool(scene.get("overlay", false)) and not _continuations().has(id):
 			checked += 1
 		var problems := CutsceneChecker.staging_problems(str(id), scene)
-		check(problems.is_empty(), "%s keeps the actors' feet above the dialogue box: %s" % [id, problems])
+		check(problems.is_empty(), "%s keeps the actors' feet above the dialogue box and their heads below the 21:9 bar: %s" % [id, problems])
 	check(checked == MAX_CUTSCENES, "the chapter's animated scenes were checked (%d)" % checked)
 
 

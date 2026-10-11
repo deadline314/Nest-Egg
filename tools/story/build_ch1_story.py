@@ -466,6 +466,7 @@ def build():
     # 過場 2／3：診間醒來（第一次死亡後、重生前播出，≤45 秒）：講清楚怎麼被運來、為什麼在這裡、之後怎麼辦。凜坐在檢查台的邊緣，腿垂下來
     st = 'ch1_revival_room'
     animated('ch1_c09_wake', [
+        # 凜坐在檢查台上，腳不著地：以她的腳底限制鏡頭，頭與馬尾留在 21:9 遮幅內（ST-22）。
         stage(st, 316, 205, 1.4, 1.0, feet=sit_y(st, 'rin', 196)),
         actor('rin', 'rin', 316, sit_y(st, 'rin', 196), 1, scale=actor_scale(st, 'rin'), pose='sit', speaker='rin',
               pose_reason='復原後坐在檢查台邊緣醒來。', pose_support='診間檢查台座面：舞台 x=316、y=196；腳底由 sit_y 量測。'),

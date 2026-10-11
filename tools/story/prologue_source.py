@@ -38,9 +38,10 @@ def _p01():
         {"do": "scene", "id": "rainy_harbor", "pos": [320, 330], "fade": 1.0},
         legacy.narrate(["沉港市的下層港區，雨沒有停過，水位每晚都在漲。"], 2.4),
         legacy.title("序章　雨裡的燈", "巢蛋當舖", 1.8),
-        legacy.stage(st, 320, 250, 1.0, 1.0),
-        legacy.actor("rin", "rin", 385, y, -1, scale=legacy.actor_scale(st, "rin"), pose="idle"),
-        legacy.actor("k", "old_k", 175, y, 1, scale=legacy.actor_scale(st, "old_k"), speaker="old_k", loop="wipe_hands"),
+        # 21:9 遮幅（ST-22）：腳底在對話框頂（y≈232）之上、頭頂在上黑邊（y≈43）之下，站著的演員縮放約 3。
+        legacy.stage(st, 320, y - 48, 1.0, 1.0),
+        legacy.actor("rin", "rin", 385, y, -1, scale=2.9, pose="idle"),
+        legacy.actor("k", "old_k", 175, y, 1, scale=3.1, speaker="old_k", loop="wipe_hands"),
         legacy.sfx("pickup", -16),
         say("voice", "沉港市復原服務提醒您，出門前請確認自己的登記與接應地點。"),
         say("old_k", "把門帶上喔，雨都跑進來了。"),
