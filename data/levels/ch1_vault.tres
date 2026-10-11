@@ -16,7 +16,7 @@
 [ext_resource type="Resource" path="res://data/props/ch1_enc_warehouse_walkway.tres" id="14_ch1_enc_warehouse_walkway"]
 [ext_resource type="Resource" path="res://data/props/ch1_arena_warehouse_walkway.tres" id="15_ch1_arena_warehouse_walkway"]
 [ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="16_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/freight.tres" id="17_freight"]
+[ext_resource type="Resource" path="res://data/lighting/warehouse_interior.tres" id="17_warehouse_interior"]
 [ext_resource type="Resource" path="res://data/environment/themes/ch1_vault.tres" id="18_ch1_vault"]
 
 [sub_resource type="Resource" id="Resource_0"]
@@ -40,7 +40,7 @@ style = "road"
 script = ExtResource("16_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("17_freight")
+profile = ExtResource("17_warehouse_interior")
 
 [resource]
 script = ExtResource("1_level_data")

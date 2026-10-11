@@ -1,0 +1,39 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.356 - Forward+ - Using Device #0: Intel - Intel(R) Arc(TM) B580 Graphics
+
+== ch1_pawnshop.tres
+區段        玩家對比      邊緣對比      敵人對比    
+後空地       0.69      5.90      N/A       OK
+店面        0.91      5.08      N/A       OK
+廚房        1.28      4.85      N/A       OK
+== ch1_rooftop.tres
+區段        玩家對比      邊緣對比      敵人對比    
+屋頂水塔      1.15      17.73     N/A       OK
+== ch1_street.tres
+區段        玩家對比      邊緣對比      敵人對比    
+市集        1.77      6.40      0.51      OK
+碼頭入口      0.75      5.76      0.57      OK
+== ch1_booth_alley.tres
+區段        玩家對比      邊緣對比      敵人對比    
+電話亭       1.66      8.14      N/A       OK
+== ch1_warehouse.tres
+區段        玩家對比      邊緣對比      敵人對比    
+看門狗前廳     0.80      12.05     0.56      OK
+閘門廳       0.70      14.86     0.48      OK
+== ch1_vault.tres
+區段        玩家對比      邊緣對比      敵人對比    
+倉庫深處      0.66      15.11     0.55      OK
+上層走道      0.92      9.49      0.50      OK
+== ch1_lounge.tres
+區段        玩家對比      邊緣對比      敵人對比    
+復原館       0.70      11.27     N/A       OK
+== ch1_stall.tres
+區段        玩家對比      邊緣對比      敵人對比    
+宵夜麵攤      1.04      9.65      N/A       OK
+== ch1_pawnshop_dawn.tres
+區段        玩家對比      邊緣對比      敵人對比    
+天亮店面      0.63      3.38      N/A       OK
+WARNING: 12 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 3 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

@@ -267,6 +267,7 @@ func _update_hurt_parts() -> void:
 func _build_rig() -> void:
 	rig = CharacterRig.new()
 	rig.name = "Rig"
+	rig.use_enemy_fill = true
 	add_child(rig)
 	if not rig.setup(data.rig_skin):
 		push_error("[Enemy] %s 的骨架外觀載入失敗：%s，改用程式繪製。" % [data.id, data.rig_skin])

@@ -33,6 +33,8 @@ static var _soft_texture: GradientTexture2D
 ## 角色（骨架零件）的補光倍率，由 LightingController 依環境光與區段的 character_floor 更新。
 ## 環境光很暗時把角色零件的亮度往上補，確保玩家與敵人永遠有最低可讀亮度。
 static var character_fill := 1.0
+## 敵人的補光倍率：角色補光乘上區段的 enemy_fill_scale，不低於 1（不會比環境光更暗）。
+static var enemy_fill := 1.0
 ## 單盞光對角色的亮度上限目前值，由 LightingController 依環境光與補光更新。
 static var character_light_cap := CHARACTER_LIGHT_CAP_MAX
 ## 玩家身上那盞光目前的能量（亮場景自動調暗，由 LightingController 依光影設定更新，Player 每影格套用）。

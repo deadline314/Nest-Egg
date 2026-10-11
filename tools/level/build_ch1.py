@@ -729,7 +729,7 @@ def build_warehouse_full():
     a.stand(238, 'q', row=16)
     for x in (12, 40, 66, 90, 118, 146, 172, 200, 226):
         a.lamp(x, 5)
-    a.zone(0, 'freight')
+    a.zone(0, 'warehouse_interior')
     return a
 
 
@@ -785,8 +785,8 @@ def build_warehouse_pair():
     cut = 142
     front = slice_area(full, 'warehouse', '碼頭倉庫', 0, cut, 0, 24)
     back = slice_area(full, 'vault', '倉庫深處', cut, 244, 22, 0)
-    front.zone(0, 'freight')
-    back.zone(0, 'freight')
+    front.zone(0, 'warehouse_interior')
+    back.zone(0, 'warehouse_interior')
     front.stand(front.w - 4, 'U')
     front.hint(front.w - 9, '進入前方的倉庫深處，保險箱旁有守衛。')
     back.stand(3, 'M')
@@ -854,11 +854,11 @@ NPC_DIR = os.path.join(ROOT, 'data', 'npcs')
 NPCS = {
     'ch1_old_k': dict(name='老 K', speaker='old_k', rig='old_k', loop='wipe_hands', facing=-1, prompt='{interact} 和老 K 說話',
                       talks=[('ch1_t_oldk_1', 0), ('ch1_t_oldk_2', 1), ('ch1_t_oldk_d1', 1, 1), ('ch1_t_oldk_d4', 1, 4)]),
-    'ch1_egret': dict(name='鷺', speaker='egret', rig='night_worker', pose='lean', loop='yawn', facing=-1, prompt='{interact} 聽鷺說差事',
+    'ch1_egret': dict(name='鷺', speaker='egret', rig='egret', pose='lean', loop='yawn', facing=-1, prompt='{interact} 聽鷺說差事',
                       talks=[('ch1_t_egret_1', 0), ('ch1_t_egret_2', 1)]),
-    'ch1_ali_lounge': dict(name='阿梨', speaker='ali', rig='nurse', loop='wipe_hands', facing=-1, prompt='{interact} 和阿梨說話',
+    'ch1_ali_lounge': dict(name='阿梨', speaker='ali', rig='ali', loop='wipe_hands', facing=-1, prompt='{interact} 和阿梨說話',
                            talks=[('ch1_t_ali_1', 0), ('ch1_t_ali_2', 1)]),
-    'ch1_ali_stall': dict(name='阿梨', speaker='ali', rig='nurse', loop='stir', facing=-1, prompt='{interact} 和阿梨說話',
+    'ch1_ali_stall': dict(name='阿梨', speaker='ali', rig='ali', loop='stir', facing=-1, prompt='{interact} 和阿梨說話',
                           talks=[('ch1_t_ali_3', 0), ('ch1_t_ali_4', 1)]),
 }
 

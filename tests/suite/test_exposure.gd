@@ -20,6 +20,7 @@ func run() -> void:
 	_test_character_light_cap()
 	await _test_rig_uses_the_light_material()
 	await _test_player_light_follows_the_scene()
+	await _test_enemy_fill_is_separate()
 
 
 func _test_budget_model() -> void:
@@ -134,3 +135,31 @@ func _test_player_light_follows_the_scene() -> void:
 	check(absf(player._light.energy - target) < 0.02, "the player light follows the scene's target (%.2f vs %.2f)" % [player._light.energy, target])
 	await end_level(level)
 	check(is_equal_approx(LightKit.player_light_energy, LightKit.PLAYER_LIGHT_BASE_ENERGY), "leaving the level restores the default player light")
+
+
+## 牆面是中間調的室內：敵人的補光可以比主角低（成為剪影），但不會比環境光更暗；離開關卡後還原。
+func _test_enemy_fill_is_separate() -> void:
+	var data := NewEnemiesSuite.arena_data()
+	var zone := LightingZone.new()
+	zone.start_tile = 0
+	zone.profile = load("res://data/lighting/warehouse_interior.tres")
+	data.lighting_zones = [zone]
+	var level := await start_level(data)
+	var enemy := level._create_enemy(load("res://data/enemies/grunt.tres") as EnemyData)
+	enemy.position = level.player.global_position + Vector2(160, 0)
+	level._entities.add_child(enemy)
+	await physics_frames(150)
+	var profile := zone.profile as LightingProfile
+	check(profile.enemy_fill_scale < 1.0 and profile.validate().is_empty(), "the warehouse interior asks for dimmer enemies and is valid data")
+	check(LightKit.character_fill > 1.0 and LightKit.enemy_fill < LightKit.character_fill and LightKit.enemy_fill >= 1.0,
+			"enemies get less fill than the player but never less than the scene (%.2f vs %.2f)" % [LightKit.enemy_fill, LightKit.character_fill])
+	check(enemy.rig != null and is_equal_approx(enemy.rig._fill, LightKit.enemy_fill), "an enemy's body uses the enemy fill")
+	check(is_equal_approx(level.player._visual.rig._fill, LightKit.character_fill), "the player's body keeps the character fill")
+	var plain := LightingProfile.new()
+	plain.ambient_color = Color(0.1, 0.1, 0.1)
+	plain.character_floor = 0.4
+	check(is_equal_approx(plain.enemy_fill_scale, 1.0), "by default enemies are lit like the player")
+	plain.enemy_fill_scale = 0.2
+	check(not plain.validate().is_empty(), "an enemy fill scale below the allowed range is reported")
+	await end_level(level)
+	check(is_equal_approx(LightKit.enemy_fill, 1.0), "leaving the level restores the default enemy fill")

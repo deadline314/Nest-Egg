@@ -18,7 +18,7 @@
 [ext_resource type="Resource" path="res://data/props/ch1_gate_watchdog.tres" id="16_ch1_gate_watchdog"]
 [ext_resource type="Resource" path="res://data/enemies/watchdog.tres" id="17_watchdog"]
 [ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="18_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/freight.tres" id="19_freight"]
+[ext_resource type="Resource" path="res://data/lighting/warehouse_interior.tres" id="19_warehouse_interior"]
 [ext_resource type="Resource" path="res://data/environment/themes/ch1_warehouse.tres" id="20_ch1_warehouse"]
 
 [sub_resource type="Resource" id="Resource_0"]
@@ -45,7 +45,7 @@ style = "road"
 script = ExtResource("18_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("19_freight")
+profile = ExtResource("19_warehouse_interior")
 
 [resource]
 script = ExtResource("1_level_data")

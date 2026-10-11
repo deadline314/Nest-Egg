@@ -6,7 +6,7 @@ extends Resource
 ## 所有可插值的欄位。新增欄位時加在這裡，插值與驗證會自動涵蓋。
 const BLENDED: Array[StringName] = [
 	&"ambient_color", &"background_tint", &"fog_color", &"fog_density", &"glow_threshold", &"glow_intensity",
-	&"saturation", &"contrast", &"shadow_tint", &"highlight_tint", &"vignette", &"grain", &"aberration", &"character_floor", &"lamp_power", &"lightning_rate", &"rim_color", &"rim_energy",
+	&"saturation", &"contrast", &"shadow_tint", &"highlight_tint", &"vignette", &"grain", &"aberration", &"character_floor", &"enemy_fill_scale", &"lamp_power", &"lightning_rate", &"rim_color", &"rim_energy",
 ]
 
 ## 角色最低可讀亮度（0~1）：環境光再暗，角色補光後至少要有這個亮度。
@@ -41,6 +41,9 @@ const MAX_SPECIAL_GRAIN := 0.05
 ## 角色（主角與敵人）的最低可讀亮度：環境光比這個暗時，角色零件會被補亮到這個程度（0 = 不補）。
 ## 重度壓抑的畫面靠它維持公平：環境可以很暗，但角色永遠看得到。
 @export_range(0.0, 1.0, 0.01) var character_floor: float = 0.0
+## 敵人的補光占角色補光的比例（1 = 和主角一樣）。牆面是中間調的室內把它調低：敵人比牆暗、成為清楚的剪影，
+## 主角維持原本的亮度。背景很暗的場景不要調低，敵人會沉進背景裡。
+@export_range(0.5, 1.0, 0.01) var enemy_fill_scale: float = 1.0
 @export_group("Rim")
 ## 輪廓光（對有法線貼圖的角色與地形，只在邊緣打亮）：顏色與強度（0 = 沒有）。
 @export var rim_color: Color = Color(1, 1, 1, 1)
@@ -98,6 +101,8 @@ func validate() -> PackedStringArray:
 		problems.append("%s 的燈供電必須在 0~1 之間" % id)
 	if character_floor < 0.0 or character_floor > 1.0:
 		problems.append("%s 的角色最低亮度必須在 0~1 之間" % id)
+	if enemy_fill_scale < 0.5 or enemy_fill_scale > 1.0:
+		problems.append("%s 的敵人補光比例必須在 0.5~1 之間" % id)
 	if character_luma() < MIN_READABLE_CHARACTER_LUMA:
 		problems.append("%s 的角色亮度過低（%.2f < %.2f）：請調高環境光或 character_floor" % [id, character_luma(), MIN_READABLE_CHARACTER_LUMA])
 	if neon_energy < 0.0:

@@ -27,6 +27,8 @@ static var force_rigid_limbs := false
 var skin_id := ""
 ## Stage actors have their own full-bright canvas, outside the level's CanvasModulate.
 var use_level_lighting := true
+## 用敵人的補光倍率（LightKit.enemy_fill）而不是主角的；敵人的骨架設成 true。
+var use_enemy_fill := false
 var animator: HumanoidAnimator  # 或它的子類別（NpcAnimator）
 var facing := 1:
 	set(value):
@@ -213,7 +215,7 @@ func animate(delta: float, input: RigInput) -> void:
 	if not _valid:
 		return
 	facing = input.facing
-	_apply_fill(LightKit.character_fill if use_level_lighting else 1.0)
+	_apply_fill((LightKit.enemy_fill if use_enemy_fill else LightKit.character_fill) if use_level_lighting else 1.0)
 	_apply_light_cap(LightKit.character_light_cap if use_level_lighting else LightKit.character_light_cap_for(1.0, 1.0))
 	_update_hand_grips(input)
 	animator.update(delta, input)
