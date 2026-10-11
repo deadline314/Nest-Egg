@@ -5,11 +5,16 @@ extends RefCounted
 
 const DIR := "res://data/bosses/%s.json"
 ## 程式提供的招式種類；新頭目先用資料組合這些，真的需要新動作才加種類（PatternBoss._act_* 對應）。
+## 頭目專屬的動作由子類別實作，資料用 custom_kinds 宣告（見 custom_kinds）。
 const KINDS: Array[StringName] = [&"lunge", &"burst", &"bark", &"missiles", &"pounce"]
 const BANDS: Array[String] = ["close", "mid", "far", "after_yank"]
 const MIN_TELEGRAPH := 0.5
 const FALLBACK_MOVE := &"burst"
 
+## 資料宣告、由 PatternBoss 子類別實作的招式種類（例如守門人的盾擊）；子類別沒實作時 PatternBoss 會記錄錯誤並略過那招。
+var custom_kinds: Array[StringName] = []
+## 頭目血條上的名稱；空白時用 EnemyData.display_name（例如守門人的血條是「門禁裝置穩定度」，不是人的生命）。
+var bar_name := ""
 ## 招式 id → {kind, telegraph, recover, weight, repeat, pose_windup, pose_act, params}
 var moves: Dictionary = {}
 ## 依血量排列：{until, moves, speed, armored, leashed, weapon, hide_parts, enter_toast}
@@ -81,6 +86,16 @@ func _load(path: String) -> void:
 
 
 func _apply(source: Dictionary, where: String) -> void:
+	var custom: Variant = source.get("custom_kinds", [])
+	if custom is Array:
+		for kind: Variant in custom:
+			if str(kind).is_empty() or KINDS.has(StringName(str(kind))):
+				_error(where, "custom_kinds 的「%s」是空白或和內建種類同名，略過" % kind)
+				continue
+			custom_kinds.append(StringName(str(kind)))
+	else:
+		_error(where, "custom_kinds 不是陣列，略過")
+	bar_name = str(source.get("bar_name", ""))
 	_read_moves(source.get("moves", {}), where)
 	_read_phases(source.get("phases", []), where)
 	_read_habits(source.get("habits", {}), where)
@@ -126,8 +141,8 @@ func _read_moves(source: Variant, where: String) -> void:
 				_error(where, "moves.%s 不是物件，略過" % id)
 				continue
 			var kind := StringName(str((entry as Dictionary).get("kind", "")))
-			if not KINDS.has(kind):
-				_error(where, "moves.%s.kind「%s」不是已知的招式種類 %s，略過" % [id, kind, KINDS])
+			if not KINDS.has(kind) and not custom_kinds.has(kind):
+				_error(where, "moves.%s.kind「%s」不是已知的招式種類 %s，也沒有在 custom_kinds 宣告，略過" % [id, kind, KINDS])
 				continue
 			var params: Variant = (entry as Dictionary).get("params", {})
 			moves[StringName(str(id))] = {

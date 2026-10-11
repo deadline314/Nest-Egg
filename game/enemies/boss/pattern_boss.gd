@@ -77,6 +77,9 @@ func _setup_states() -> void:
 	fsm.add(&"recover", _recover_tick)
 	fsm.add(&"yanked", _yanked_tick, _yanked_enter, _yanked_exit)
 	fsm.add(&"phase_shift", _phase_shift_tick, _phase_shift_enter)
+	for kind in pattern.custom_kinds:
+		if not _implements_kind(kind):
+			push_error("[PatternBoss] %s 的資料宣告了招式種類「%s」，但 %s 沒有實作；用到它的招式不會被選" % [data.id, kind, get_script().resource_path])
 	_apply_phase(pattern.phase_for(_health_ratio()), false)
 	if pattern.wake_range > 0.0:
 		fsm.start(&"dormant")
@@ -122,7 +125,7 @@ func _wake() -> void:
 	if _awake:
 		return
 	_awake = true
-	EventBus.boss_started.emit(data.display_name, health.max_health)
+	EventBus.boss_started.emit(pattern.bar_name if not pattern.bar_name.is_empty() else data.display_name, health.max_health)
 	EventBus.boss_health_changed.emit(health.current, health.max_health)
 	Feel.play(&"boss_intro")
 	if fsm.current == &"":
@@ -211,6 +214,9 @@ func _move_usable(id: StringName) -> bool:
 	match StringName(pattern.moves[id]["kind"]):
 		&"lunge":  # 同一層地面、而且朝玩家的方向還有鍊子長度可以撲
 			return absf(target.global_position.y - global_position.y) < 48.0 and _leash_room(signi(int(target.global_position.x - global_position.x))) > 24.0
+	var kind := StringName(pattern.moves[id]["kind"])
+	if pattern.custom_kinds.has(kind):
+		return _implements_kind(kind) and _custom_move_usable(id, kind)
 	return true
 
 
@@ -262,6 +268,8 @@ func _windup_enter() -> void:
 			_plan_missiles()
 		&"pounce":
 			_plan_pounce()
+		var kind:
+			_custom_windup_enter(kind)
 
 
 func _windup_tick(_delta: float) -> void:
@@ -270,6 +278,10 @@ func _windup_tick(_delta: float) -> void:
 	if kind == &"bark" or (kind == &"burst" and not is_aim_locked()):
 		_face_target()
 		_aim_dir = _direction_to_target()
+	elif pattern.custom_kinds.has(kind):
+		_custom_windup_tick(kind, _delta)
+		if not fsm.is_in(&"windup"):
+			return  # 子類別在預兆中改了狀態（例如被打斷）
 	if not is_telegraphing():
 		fsm.transition(&"act")
 
@@ -290,6 +302,8 @@ func _act_enter() -> void:
 			var air_time := 2.0 * POUNCE_VELOCITY / _gravity
 			velocity = Vector2(clampf((_pounce_x - global_position.x) / air_time, -POUNCE_MAX_SPEED, POUNCE_MAX_SPEED), -POUNCE_VELOCITY)
 			Fx.dust(global_position, 8, 80.0)
+		var kind:
+			_custom_act_enter(kind)
 
 
 func _act_tick(delta: float) -> void:
@@ -301,8 +315,10 @@ func _act_tick(delta: float) -> void:
 		&"pounce":
 			if fsm.time_in_state >= POUNCE_MIN_AIR and is_on_floor():
 				_pounce_land()
-		_:
+		&"bark", &"missiles":
 			fsm.transition(&"recover")
+		var kind:
+			_custom_act_tick(kind, delta)
 
 
 func _recover_tick(delta: float) -> void:
@@ -709,6 +725,7 @@ func _draw_overlay() -> void:
 			var at := to_local(mark)
 			draw_arc(at, radius, 0.0, TAU, 28, Color(LightKit.glow(Palette.DANGER, 1.6), 0.5 + 0.4 * t), 1.5)
 			draw_arc(at, radius * (1.0 - t), 0.0, TAU, 20, Color(LightKit.glow(Palette.DANGER, 2.2), 0.7), 1.0)
+	_draw_custom()
 	_draw_open_parts()
 
 
@@ -785,6 +802,45 @@ func _draw_body(color: Color) -> void:
 	draw_line(Vector2(w * 0.3, -h * 0.3), Vector2(w * 0.35, 0), color.darkened(0.45), 5.0)
 	var eye := LightKit.glow(Palette.DANGER, 3.5 if is_telegraphing() else 1.8)
 	draw_line(Vector2(facing * w * 0.05, -h * 0.85), Vector2(facing * w * 0.35, -h * 0.85), eye, 2.5)
+
+
+# ---------------------------------------------------------------------------
+# 子類別的自訂招式種類（資料的 custom_kinds）：只覆寫需要的掛鉤
+# ---------------------------------------------------------------------------
+
+## 這個子類別有沒有實作某個自訂招式種類；沒有實作的種類不會被選（_setup_states 會記錄錯誤）。
+func _implements_kind(_kind: StringName) -> bool:
+	return false
+
+
+## 自訂種類的使用條件（例如要玩家在正面）；預設可用。
+func _custom_move_usable(_id: StringName, _kind: StringName) -> bool:
+	return true
+
+
+## 自訂種類的預兆開始（預兆時間已開始計時）。
+func _custom_windup_enter(_kind: StringName) -> void:
+	pass
+
+
+## 自訂種類的預兆每影格；可以 transition 到別的狀態（例如被打斷）。
+func _custom_windup_tick(_kind: StringName, _delta: float) -> void:
+	pass
+
+
+## 自訂種類的出招開始。
+func _custom_act_enter(_kind: StringName) -> void:
+	pass
+
+
+## 自訂種類的出招每影格；預設立即收招，子類別結束時自己 transition 到 recover（或別的狀態）。
+func _custom_act_tick(_kind: StringName, _delta: float) -> void:
+	fsm.transition(&"recover")
+
+
+## 子類別的疊加圖層（預兆線、外接零件）；畫在打開部位的光圈底下。
+func _draw_custom() -> void:
+	pass
 
 
 # ---------------------------------------------------------------------------

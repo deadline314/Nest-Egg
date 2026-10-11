@@ -115,6 +115,10 @@ func _test_watchdog_pattern_data() -> void:
 	var broken := BossPattern.parse({"moves": {"x": {"kind": "teleport"}}, "phases": [{"moves": ["missing"]}], "parts": {"a": {"open": "sometimes"}}}, "test://broken", true)
 	check(broken.errors.size() >= 3 and broken.errors[0].contains("test://broken"), "broken boss data reports where it failed: %s" % [broken.errors])
 	check(broken.moves.has(BossPattern.FALLBACK_MOVE) and not (broken.phases[0]["moves"] as Array).is_empty(), "broken boss data falls back to a safe burst")
+	# 子類別實作的招式種類要在資料宣告；和內建種類同名的宣告會被拒絕。
+	var custom := BossPattern.parse({"custom_kinds": ["bash", "burst"], "bar_name": "裝置", "moves": {"a": {"kind": "bash"}, "b": {"kind": "sweep"}}}, "test://custom", true)
+	check(custom.moves.has(&"a") and not custom.moves.has(&"b"), "a declared custom kind is accepted, an undeclared one is skipped")
+	check(custom.custom_kinds.size() == 1 and custom.custom_kinds[0] == &"bash" and custom.bar_name == "裝置", "custom kinds cannot shadow built-ins; the bar name is read: %s" % [custom.errors])
 
 
 func _spawn_dog() -> PatternBoss:
