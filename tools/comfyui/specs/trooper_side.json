@@ -616,7 +616,14 @@
         "leg_upper"
       ],
       "radius": 5
-    }
+    },
+    "extend": [
+      {
+        "part": "arm_upper",
+        "joint": "shoulder",
+        "to": "elbow"
+      }
+    ]
   },
   "stages": [
     {

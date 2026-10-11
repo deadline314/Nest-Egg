@@ -588,6 +588,15 @@
           ]
         ]
       }
+    ],
+    "cap_from": [
+      {
+        "part": "pelvis",
+        "from": "leg_upper",
+        "joint": "hip",
+        "to": "knee",
+        "radius": 42
+      }
     ]
   },
   "stages": [
@@ -659,7 +668,8 @@
   },
   "seam_checks": {
     "allow": {
-      "step:knee": "機械腿的大腿護甲比小腿寬"
+      "step:knee": "機械腿的大腿護甲比小腿寬",
+      "overhang:back": "髖點的圓蓋，平常藏在大腿後面"
     }
   }
 }

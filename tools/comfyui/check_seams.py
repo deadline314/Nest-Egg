@@ -13,6 +13,8 @@ The joint audit (tools/rig_joint_audit) counts holes between two parts. It canno
   ragged    the outline of a limb jumps in and out by several pixels: a mask stopped at a hand, a holster or a shadow and bit a
             notch out of the limb, or left a fringe ("torn")
   step      two parts of one limb do not have the same width where they meet (thigh / shin at the knee, upper arm / forearm)
+  detached  a limb part begins far from the joint it turns on (a far forearm of which only the cuff was drawn): when the limb is
+            raised, the hand floats in the air
 A finding that is the drawing itself (hip armour that really is wider than the thigh) is listed in the spec with its reason:
     "seam_checks": {"allow": {"overhang": "tasset plates ride the pelvis"}}
 """
@@ -26,6 +28,7 @@ from PIL import Image
 from scipy import ndimage
 
 ROOT = Path(__file__).resolve().parents[2]
+DETACHED_PX = 14.0
 OVERHANG_PX, OVERHANG_BACK_PX, RAGGED_PX, STEP_SHARE = 7.0, 24.0, 7.0, 0.22  # the buttock is behind the thigh's line by nature
 LIMBS = [("leg_upper", "leg_lower", "knee"), ("arm_upper", "arm_lower", "elbow")]
 
@@ -105,7 +108,31 @@ def check(recipe_path: Path) -> list[str]:
             value = step(upper, lower, int(joints[joint][1]))
             if value > STEP_SHARE:
                 found.append(f"step: {upper_name} and {lower_name} differ in width by {value:.0%} at the {joint}")
+    if pelvis is not None and thigh is not None and "hip_gap" not in allow:
+        rows, first, last = edges(thigh)
+        top = int(rows[0])
+        lo, hi = int(np.median(first[:10])), int(np.median(last[:10]))
+        band = pelvis[int(joints["hip"][1]):top, lo:hi + 1]
+        if band.shape[0] > 6 and band.shape[1] > 0:
+            covered = float(band.any(1).mean()) if band.size else 1.0
+            share = float(band.mean())
+            if share < 0.7:
+                found.append(f"hip_gap: between the hip joint and the top of the thigh ({band.shape[0]} px) the pelvis covers only {share:.0%} of the thigh's width (a gap opens there when the leg turns)")
+    for name, pdef in spec["parts"].items():  # detached: a limb part whose pixels begin far from the joint it turns on
+        joint = pdef.get("pivot") or pdef.get("from")
+        core = name.startswith(("arm_", "leg_", "jacket_sleeve", "sleeve")) and name != "leg_upper" and not name.endswith("_dmg")  # plates and holsters sit away from joints by design; the thigh has its own check
+        mask = layer(name) if core and pdef.get("mode") == "bone" and joint in joints and f"detached:{name}" not in allow else None
+        if mask is not None and mask.any():
+            gap = detached(mask, joints[joint])
+            if gap > DETACHED_PX:
+                found.append(f"detached: {name} begins {gap:.0f} px away from its joint {joint} (nothing is drawn between them when the limb is raised)")
     return found
+
+
+def detached(mask: np.ndarray, joint: list[float]) -> float:
+    """Distance from a joint to the nearest pixel of the part that turns on it."""
+    ys, xs = np.nonzero(mask)
+    return float(np.sqrt((xs - joint[0]) ** 2 + (ys - joint[1]) ** 2).min())
 
 
 def self_test() -> None:
@@ -123,6 +150,7 @@ def self_test() -> None:
     shin = canvas.copy()
     shin[500:590, 100:150] = True        # 50 wide under an 80-wide thigh
     assert step(thigh, shin, 500) > 0.3
+    assert detached(shin, [125, 500]) < 1 and detached(shin, [125, 420]) > 70
     print("check_seams self-test: ok")
 
 

@@ -1357,7 +1357,14 @@
         "torso"
       ],
       "radius": 3
-    }
+    },
+    "extend": [
+      {
+        "part": "jacket_sleeve_lower_far",
+        "joint": "elbow_far",
+        "to": "palm_far"
+      }
+    ]
   },
   "springs": [
     {
@@ -1466,5 +1473,11 @@
         138
       ]
     ]
+  },
+  "seam_checks": {
+    "allow": {
+      "detached:arm_left_upper": "遠側手臂另外生成，支點由 extras/register.py 登記，不在這組關節座標上",
+      "detached:arm_left_lower": "同上"
+    }
   }
 }

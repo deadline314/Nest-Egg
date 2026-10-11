@@ -82,5 +82,81 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "refine",
+    "seconds": 3.0,
+    "outputs": [
+      "art_src\\characters\\mei\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.8,
+    "outputs": [
+      "art_src\\characters\\mei\\07_refined"
+    ]
+  },
+  {
+    "step": "textures",
+    "seconds": 3.2,
+    "outputs": [
+      "art\\characters\\mei\\character.json",
+      "art\\rigs\\mei.json",
+      "art\\characters\\mei\\parts",
+      "art\\portraits\\mei.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.7,
+    "outputs": [
+      "art\\characters\\mei\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.8,
+    "outputs": [
+      ".godot"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 3.0,
+    "outputs": [
+      "art_src\\characters\\mei\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.8,
+    "outputs": [
+      "art_src\\characters\\mei\\07_refined"
+    ]
+  },
+  {
+    "step": "textures",
+    "seconds": 3.2,
+    "outputs": [
+      "art\\characters\\mei\\character.json",
+      "art\\rigs\\mei.json",
+      "art\\characters\\mei\\parts",
+      "art\\portraits\\mei.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.7,
+    "outputs": [
+      "art\\characters\\mei\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.6,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

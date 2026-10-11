@@ -471,7 +471,16 @@
         "leg_upper"
       ],
       "radius": 5
-    }
+    },
+    "cap_from": [
+      {
+        "part": "pelvis",
+        "from": "leg_upper",
+        "joint": "hip",
+        "to": "knee",
+        "radius": 12
+      }
+    ]
   },
   "dialog_portrait": {
     "box": [

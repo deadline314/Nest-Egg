@@ -78,7 +78,7 @@ python tools/comfyui/build_character.py --recipe tools/comfyui/recipes/<id>.json
 
 - 建置停在「stage … still shows …%」：底層圖沒有真的把手拿掉。換提示詞或種子重做那一張，不要繞過這個檢查。（細節：character-art-pipeline「底層圖檢查」）
 - 看 `04_stages/*.png`：要拿掉的東西真的不見了，沒有多畫回別的肢體。
-- 精修後建置會自動跑 `check_seams.py`，輸出 `WARN seam …`：骨盆比大腿寬出去、肢體輪廓有缺口或細鬚、兩節肢體寬度對不上。每一條都放大看，修到沒有；是畫本身的形狀才登記進規格的 `seam_checks.allow` 並寫理由。也可以單獨跑：`python tools/comfyui/check_seams.py --recipe … ` 或 `--all`。
+- 精修後建置會自動跑 `check_seams.py`，輸出 `WARN seam …`：骨盆比大腿寬出去、肢體輪廓有缺口或細鬚、兩節肢體寬度對不上、肢體零件沒有接到自己的關節（`refine.extend`）、髖點到大腿頂端之間骨盆蓋不滿（`refine.cap_from`）。每一條都放大看，修到沒有；是畫本身的形狀才登記進規格的 `seam_checks.allow` 並寫理由。也可以單獨跑：`python tools/comfyui/check_seams.py --recipe … ` 或 `--all`。
 - 把 `07_refined/pelvis.png`、`leg_upper.png` 放在洋紅底上看：骨盆是圓順的一塊，大腿是一條（前緣是直線、不是兩條大腿黏在一起），手的位置與髖部前緣都沒有被咬掉。有缺口先回頭看規格的 `groups`（多出來的遮罩群組會把身體挖掉），不要先用補洞蓋過去。
 - 把 `07_refined/torso.png` 放在洋紅底上看：袖窿補色是平的一塊布色，沒有抹進別的顏色。
 - 看 `06_parts/ownership.png`：每個肢體各自一色；身體旁邊沒有細線；遠側小腿與鞋有被分出去。

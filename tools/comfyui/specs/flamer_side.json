@@ -599,6 +599,15 @@
           ]
         ]
       }
+    ],
+    "cap_from": [
+      {
+        "part": "pelvis",
+        "from": "leg_upper",
+        "joint": "hip",
+        "to": "knee",
+        "radius": 111
+      }
     ]
   },
   "stages": [

@@ -20,6 +20,11 @@ spec["refine"] (every key is optional):
                                                       outline pulled in by `inset` px), with the colour of p's nearest pixel. Two parts of
                                                       different groups only touch: the neck under the head, the shin inside the boot and the
                                                       forearm under the hand need this hidden overlap or the joint opens when it turns
+  extend     [{"part": p, "joint": j, "to": k, "radius": r}]  continue a limb part from where it begins up to the joint j it turns on (k = the
+                                                      joint at its other end), with its own pixels mirrored and a round end: a far forearm
+                                                      of which only the cuff was drawn floats in the air when the arm is raised
+  cap_from   [{"part": p, "from": q, "joint": j, "to": k, "radius": r}]  give part p (behind) a disc around joint j filled with limb q's
+                                                      colours, continued up to the joint: what shows when q swings away from a flat-cut p
   repaint    [{"parts": [...], "group": g, "y": [lo, hi]}] throw away what Qwen painted into the hidden gap of group g inside the y range and
                                                       refill it with a colour ramp from the visible pixels above and below (removes the seams drawn on the thigh)
   close_fill {"parts": [...], "radius": N}           close holes cut into a part by something in front of it (the holster behind the hand);
@@ -258,6 +263,56 @@ def main() -> None:
             spikes = (solid > 0) & ~(cv2.morphologyEx(solid, cv2.MORPH_OPEN, ell(ts.get("radius", 2))) > 0)
             L[:, :, 3][spikes] = 0
             print(f"  trim_spikes {n}: -{int(spikes.sum())} px")
+
+    def toward_joint(L: np.ndarray, joint: list[float], other: list[float], radius: float | None) -> tuple[np.ndarray, np.ndarray, float]:
+        """The part continued from where it begins up to the joint it turns on: a straight band as wide as the part, ending in a round
+        cap around the joint. Colours are the part's own pixels mirrored about its first row; where the mirror finds none, the flat
+        colour of the part's first rows (cel shading). Returns (colours, mask of the new pixels, distance joint -> part)."""
+        solid = L[:, :, 3] > 127
+        j, k = np.array(joint, float), np.array(other, float)
+        d = (k - j) / np.linalg.norm(k - j)
+        n = np.array([-d[1], d[0]])
+        yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
+        s = (xx - j[0]) * d[0] + (yy - j[1]) * d[1]
+        across = (xx - j[0]) * n[0] + (yy - j[1]) * n[1]
+        start = float(np.percentile(s[solid], 1))
+        if start <= 2:
+            return L, np.zeros((H, W), bool), start
+        band = solid & (s >= start + 8) & (s < start + 48)  # past the taper of the part's first rows
+        lo, hi = np.percentile(across[band], [4, 96])
+        centre, r = float(lo + hi) / 2, radius or float(hi - lo) / 2
+        mirrored = 2 * start - s
+        sample = cv2.remap(L, (j[0] + d[0] * mirrored + n[0] * across).astype(np.float32), (j[1] + d[1] * mirrored + n[1] * across).astype(np.float32),
+                           cv2.INTER_NEAREST, borderMode=cv2.BORDER_CONSTANT, borderValue=0)
+        flat = np.median(L[:, :, :3][band], axis=0).astype(np.uint8)
+        sample[:, :, :3] = np.where((sample[:, :, 3] > 127)[:, :, None], sample[:, :, :3], flat)
+        sample[:, :, 3] = 255
+        middle = centre * np.clip(s / start, 0.0, 1.0)  # the band runs from the part's own middle to the joint
+        new = (s < start + 2) & ~solid & (((s >= 0) & (np.abs(across - middle) <= r)) | ((s < 0) & (s * s + across * across <= r * r)))
+        k_ = max(3, int(r / 2))  # the part's tapered first rows leave a waist between it and the band: close it
+        closed = cv2.morphologyEx((solid | new).astype(np.uint8), cv2.MORPH_CLOSE, ell(k_)) > 0
+        new |= closed & ~solid & (s < start + 3 * k_)
+        return sample, new, start
+
+    for e in cfg.get("extend", []):  # a limb part that begins far from its joint (only the cuff of a far forearm was drawn)
+        L = layers[e["part"]]
+        sample, new, _ = toward_joint(L, spec["joints"][e["joint"]], spec["joints"][e["to"]], e.get("radius"))
+        L[new] = sample[new]
+        print(f"  extend {e['part']} to {e['joint']}: +{int(new.sum())} px")
+
+    for e in cfg.get("cap_from", []):
+        # the part behind (a pelvis cut flat under the hip) gets a round disc of the limb that turns on it, in the limb's own colours:
+        # hidden behind the limb at rest, it is what shows instead of the backdrop when the limb swings away
+        L, limb = layers[e["part"]], layers[e["from"]].copy()
+        sample, new, start = toward_joint(limb, spec["joints"][e["joint"]], spec["joints"][e["to"]], None)
+        limb[new] = sample[new]
+        jx, jy = spec["joints"][e["joint"]]
+        yy, xx = np.mgrid[0:H, 0:W]
+        reach = max(e.get("radius", 0), start + 20)  # at least past where the limb itself begins, or the disc and the limb do not meet
+        disc = (xx - jx) ** 2 + (yy - jy) ** 2 <= reach ** 2
+        take = disc & (limb[:, :, 3] > 127) & (L[:, :, 3] <= 127)
+        L[take] = limb[take]
+        print(f"  cap_from {e['part']} <- {e['from']} at {e['joint']}: +{int(take.sum())} px")
 
     sm = cfg.get("smooth_alpha")
     for n, L in layers.items():
