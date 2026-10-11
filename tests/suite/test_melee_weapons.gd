@@ -11,6 +11,8 @@ func run() -> void:
 	_test_data()
 	_test_maul_drawing()
 	_test_balance()
+	_test_step_counts()
+	_test_attack_poses()
 	_test_loadout()
 	await _test_reach_and_dead_zone()
 	await _test_single_hit_and_windows()
@@ -29,6 +31,8 @@ func run() -> void:
 	await _test_paid_cancels_and_facing()
 	await _test_weapon_guard_transition()
 	await _test_tail_contacts()
+	await _test_whiff_and_reduced_feedback()
+	await _test_multi_target_hitstop()
 	AimInput.using_gamepad = false
 
 
@@ -133,6 +137,124 @@ func _arm(weapon_id: String) -> Player:
 	_aim(player, Vector2.RIGHT)
 	player._melee_cooldown_left = 0.0
 	return player
+
+
+## 輕型的接續較多、重型較少（NE-236）：連段段數含付費尾招；起手最快的武器段數最多，單擊最重的段數比它少。
+func _test_step_counts() -> void:
+	var steps: Dictionary = {}
+	var windup: Dictionary = {}
+	var impact: Dictionary = {}
+	for id in WEAPONS:
+		var set := MeleeData.set_of(_weapon(id))
+		steps[id] = set.combo(true).size()
+		windup[id] = float(set.attack(str(set.combo()[0]))["windup"])
+		var heaviest := 0.0
+		for attack_id: Variant in set.combo(true):
+			heaviest = maxf(heaviest, float(set.attack(str(attack_id), str(attack_id) == set.extension_attack()).get("impact", 0.0)))
+		impact[id] = heaviest
+	var fastest: String = WEAPONS[0]
+	var hardest: String = WEAPONS[0]
+	for id in WEAPONS:
+		fastest = id if float(windup[id]) < float(windup[fastest]) else fastest
+		hardest = id if float(impact[id]) > float(impact[hardest]) else hardest
+	for id in WEAPONS:
+		check(int(steps[fastest]) >= int(steps[id]), "the fastest weapon (%s) has at least as many follow-ups as %s (%d vs %d)" % [fastest, id, steps[fastest], steps[id]])
+	check(int(steps[hardest]) < int(steps[fastest]), "the hardest-hitting weapon (%s) has fewer steps than the fastest (%d vs %d)" % [hardest, steps[hardest], steps[fastest]])
+
+
+## 每一招（含付費尾招）都有自己的角色動作，關鍵格對齊招式三段：前搖結束（0.4）、出招結束（0.7）、收招結束（1.0），
+## 而且出招前後的姿勢不同（真的有揮出去），不是同一個姿勢停著（NE-237）。
+func _test_attack_poses() -> void:
+	var actions: Dictionary = RigLibrary.load_json(HumanoidAnimator.ACTIONS_PATH).get("actions", {})
+	for id in WEAPONS:
+		var set := MeleeData.set_of(_weapon(id))
+		for attack_id: Variant in set.combo(true):
+			var attack := set.attack(str(attack_id), str(attack_id) == set.extension_attack())
+			var action_id := PlayerVisual.MELEE_ACTION_PREFIX + str(attack.get("pose", ""))
+			var action: Dictionary = actions.get(action_id, {})
+			var keys: Dictionary = {}
+			for key: Variant in action.get("keys", []):
+				keys[roundi(float((key as Dictionary).get("t", -1.0)) * 100.0)] = (key as Dictionary).get("bones", {})
+			var phases := keys.has(40) and keys.has(70) and keys.has(100)
+			check(phases and str(keys.get(40)) != str(keys.get(70)),
+					"%s/%s has its own %s with windup, strike and recovery keys" % [id, attack_id, action_id])
+
+
+## 揮空不冒充命中、減特效仍讀得出命中（NE-236／NE-237）：每把近戰武器對空揮一次——沒有命中聲、命中標記、頓幀；
+## 再把震動關掉、打開「減少閃光」，打到人一樣有命中聲、命中標記與扣血。
+func _test_whiff_and_reduced_feedback() -> void:
+	var shake_before := Settings.get_feel_scale("shake")
+	var flashes_before := Settings.get_reduce_flashes()
+	var heard: Array[StringName] = []
+	var markers: Array[StringName] = []
+	var listen := func(id: StringName) -> void: heard.append(id)
+	var mark := func(kind: StringName) -> void: markers.append(kind)
+	Sfx.sound_played.connect(listen)
+	EventBus.hit_marker.connect(mark)
+	for id in WEAPONS:
+		for reduced: bool in [false, true]:
+			Settings.set_feel_scale("shake", 0.0 if reduced else shake_before)
+			Settings.set_reduce_flashes(reduced)
+			await open_level(10.0)
+			var player := _arm(id)
+			var set := MeleeData.set_of(_weapon(id))
+			var hit_sound := StringName(str((set.attack(str(set.combo()[0])).get("sounds", {}) as Dictionary).get("hit", "melee_hit")))
+			await physics_frames(3)
+			# 對空揮：前方沒有人。
+			heard.clear()
+			markers.clear()
+			var stops := int(Feel.counters.get("hitstops", 0)) + int(Feel.counters.get("freezes", 0))
+			player._try_melee()
+			for i in 200:
+				if player._melee_phase == Player.MeleePhase.NONE:
+					break
+				await physics_frames(1)
+			var stops_after := int(Feel.counters.get("hitstops", 0)) + int(Feel.counters.get("freezes", 0))
+			check(not heard.has(hit_sound) and markers.is_empty() and stops_after == stops,
+					"%s whiff fakes no hit (reduced %s): sounds %s markers %s stops %d" % [id, reduced, heard, markers, stops_after - stops])
+			# 打到人：命中聲、命中標記、扣血、擊退都在。
+			var enemy := _dummy(maxf(24.0, set.max_range() * 0.6))
+			await physics_frames(3)
+			player._melee_cooldown_left = 0.0
+			heard.clear()
+			markers.clear()
+			var before := enemy.health.current
+			var pushed := 0.0
+			player._try_melee()
+			for i in 200:
+				pushed = maxf(pushed, absf(enemy.velocity.x))
+				if player._melee_phase == Player.MeleePhase.NONE:
+					break
+				await physics_frames(1)
+			# 輕擊只閃白不推人（NE-102），所以看命中聲、命中標記與扣血；推開的距離只記錄。
+			check(heard.has(hit_sound) and not markers.is_empty() and enemy.health.current < before,
+					"%s hit still reads with reduced effects %s: sounds %s markers %s damage %d push %.0f" % [id, reduced, heard, markers, before - enemy.health.current, pushed])
+			await end_level(level)
+	Sfx.sound_played.disconnect(listen)
+	EventBus.hit_marker.disconnect(mark)
+	Settings.set_feel_scale("shake", shake_before)
+	Settings.set_reduce_flashes(flashes_before)
+
+
+## 一揮打到好幾個目標，全畫面頓幀最多一次（NE-237）：不會因為目標多就疊出很長的停頓。
+func _test_multi_target_hitstop() -> void:
+	await open_level(10.0)
+	var player := _arm("melee_maul")
+	var set := MeleeData.set_of(_weapon("melee_maul"))
+	var reach := set.max_range()
+	for offset: float in [reach * 0.4, reach * 0.55, reach * 0.7]:
+		_dummy(offset)
+	await physics_frames(3)
+	var hitstops := int(Feel.counters.get("hitstops", 0))
+	player._try_melee()
+	for i in 200:
+		if player._melee_phase == Player.MeleePhase.NONE:
+			break
+		await physics_frames(1)
+	await physics_frames(2)
+	var added := int(Feel.counters.get("hitstops", 0)) - hitstops
+	check(added <= 1, "one swing through three targets stops the whole screen at most once (%d)" % added)
+	await end_level(level)
 
 
 func _dummy(offset_px: float) -> Enemy:
