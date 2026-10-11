@@ -21,6 +21,8 @@ var sequence_complete := true
 var _sequence_label: Label
 var _sequence_card: Control
 var _sequence_buttons: Control
+## 按鈕說明的固定列（NE-229）；死亡序列播完、按鈕出現時一起出現。
+var _hint_slot: Control
 var _sequence_left := 0.0
 
 
@@ -68,8 +70,13 @@ func _ready() -> void:
 	buttons.add_child(menu)
 	column.add_child(buttons)
 	retry.grab_focus.call_deferred()
-	# 鍵盤與手把移動焦點時，在底部顯示同一句說明。
-	FocusHintBar.attach(root)
+	# 鍵盤與手把移動焦點時，在按鈕下方的固定一列顯示同一句說明：列高先保留，
+	# 說明出現或收起時版面不跳動；文字放大、卡片變高時也不會蓋到按鈕。
+	var hint_slot := CenterContainer.new()
+	hint_slot.custom_minimum_size.y = UiKit.scaled_size(UiKit.FS_BODY) + 8
+	column.add_child(hint_slot)
+	FocusHintBar.attach(root, FocusHintBar.Placement.INLINE, hint_slot)
+	_hint_slot = hint_slot
 
 	_play_noise_in(root)
 	if sequence.get("steps") is Array and not sequence.steps.is_empty():
@@ -81,6 +88,7 @@ func _ready() -> void:
 		_sequence_buttons = buttons
 		file.hide()
 		buttons.hide()
+		hint_slot.hide()
 		sequence_complete = false
 		_advance_sequence()
 	else:
@@ -178,6 +186,8 @@ func _finish_sequence() -> void:
 	_sequence_label.hide()
 	_sequence_card.show()
 	_sequence_buttons.show()
+	if is_instance_valid(_hint_slot):
+		_hint_slot.show()
 	(_sequence_buttons.get_child(0) as Button).grab_focus()
 
 

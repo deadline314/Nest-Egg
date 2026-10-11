@@ -8,6 +8,8 @@ static func run(suite: TestSuite) -> void:
 	await _check_death(suite)
 	await _check_victory(suite)
 	await _check_dialogue(suite)
+	await _check_shop(suite)
+	await _check_codex(suite)
 
 
 static func _check_pause(suite: TestSuite) -> void:
@@ -33,6 +35,15 @@ static func _check_pause(suite: TestSuite) -> void:
 	suite.check(in_settings != null and pause._settings.is_ancestor_of(in_settings) and bar.text().is_empty(), "從暫停頁開設定時不重複顯示說明（設定頁有自己的說明列）")
 	pause._settings.close()
 	await suite.frames(3)
+	pause._quest_button.grab_focus()
+	await suite.frames(1)
+	pause._open_navigation("quests")
+	await suite.frames(4)
+	var in_journal := suite.runner.get_viewport().gui_get_focus_owner()
+	suite.check(is_instance_valid(pause._navigation) and in_journal != null and pause._navigation.is_ancestor_of(in_journal) and bar.text().is_empty(), "從暫停頁開任務頁時不重複顯示說明（任務頁有自己的說明列）")
+	await _joy(suite, JOY_BUTTON_B)
+	await suite.frames(2)
+	suite.check(not is_instance_valid(pause._navigation) and pause._quest_button.has_focus(), "手把 B 從任務頁回到暫停頁並恢復「任務」的焦點")
 	pause.close()
 	await suite.frames(2)
 	suite.check(not bar.is_visible_in_tree(), "關閉暫停頁後說明跟著收起")
@@ -48,12 +59,39 @@ static func _check_death(suite: TestSuite) -> void:
 	var focused := suite.runner.get_viewport().gui_get_focus_owner()
 	suite.check(focused is Button and screen.is_ancestor_of(focused), "死亡畫面打開時焦點在按鈕上")
 	suite.check(bar != null and not bar.text().is_empty(), "死亡畫面聚焦按鈕時底部顯示說明")
+	_check_hint_clear_of_buttons(suite, screen, bar, "100%")
 	var retried := [false]
 	screen.retry_requested.connect(func() -> void: retried[0] = true)
 	await _joy(suite, JOY_BUTTON_A)
 	suite.check(retried[0], "手把 A 從死亡畫面重來")
 	screen.queue_free()
 	await suite.frames(2)
+	# 文字放大時卡片變高，說明仍在按鈕下方自己的一列，不蓋到「回主選單」。
+	var old_scale := Settings.get_ui_text_scale()
+	Settings.set_ui_text_scale(1.2)
+	var large := DeathScreen.new()
+	# 用真實的敗北圖鑑卡（有說明與攻略兩段），卡片高度和玩家看到的一樣。
+	var card := DefeatCodex.unlock(&"grunt_shot")
+	card["is_new"] = true
+	large.setup(card, true)
+	suite.runner.add_child(large)
+	await suite.frames(6)
+	_check_hint_clear_of_buttons(suite, large, large.find_child("FocusHintBar", true, false) as FocusHintBar, "120%")
+	large.queue_free()
+	Settings.set_ui_text_scale(old_scale)
+	await suite.frames(2)
+
+
+static func _check_hint_clear_of_buttons(suite: TestSuite, screen: Node, bar: FocusHintBar, label: String) -> void:
+	if bar == null or not bar.is_visible_in_tree():
+		suite.check(false, "死亡畫面（%s）有顯示按鈕說明" % label)
+		return
+	var hint := bar.get_global_rect()
+	var clear := true
+	for button: Button in screen.find_children("*", "Button", true, false):
+		if button.is_visible_in_tree() and button.get_global_rect().grow(-1).intersects(hint):
+			clear = false
+	suite.check(clear, "死亡畫面（%s）的按鈕說明不蓋到任何按鈕" % label)
 
 
 static func _check_victory(suite: TestSuite) -> void:
@@ -101,6 +139,51 @@ static func _check_dialogue(suite: TestSuite) -> void:
 	Story._scenes.erase("ne229_pad_dialogue")
 	Story.auto_skip = auto_skip
 	await suite.end_level(level)
+
+
+## 補給商店：手把 A 購買（扣款、背包數量增加），B 關閉。
+static func _check_shop(suite: TestSuite) -> void:
+	var level := await suite.start_level(PropsSuite.level_data())
+	Progression.add_credits(500)
+	var station := ShopStation.new()
+	station.configure(load("res://data/shops/supply.tres"), Vector2i(14, 19))
+	station.position = level.player.global_position + Vector2(24, 0)
+	level._entities.add_child(station)
+	await suite.frames(3)
+	station._open()
+	await suite.frames(6)
+	var screen := station._screen
+	suite.check(is_instance_valid(screen) and screen.is_open(), "補給商店打開")
+	var shop: ShopData = load("res://data/shops/supply.tres")
+	var item: ConsumableData = shop.stock[0]
+	var before_credits := Progression.credits
+	var before_count := level.player.consumables.count(item.id)
+	await _joy(suite, JOY_BUTTON_A)
+	suite.check(Progression.credits == before_credits - item.price and level.player.consumables.count(item.id) == before_count + 1, "手把 A 在補給商店買下選中的商品")
+	await _joy(suite, JOY_BUTTON_B)
+	await suite.frames(6)
+	suite.check(not screen.is_open(), "手把 B 關閉補給商店")
+	await suite.end_level(level)
+
+
+## 圖鑑：手把方向鍵移動焦點，B 關閉。
+static func _check_codex(suite: TestSuite) -> void:
+	var codex := CodexScreen.new()
+	var closed := [false]
+	codex.closed.connect(func() -> void: closed[0] = true)
+	suite.runner.add_child(codex)
+	await suite.frames(4)
+	var first := suite.runner.get_viewport().gui_get_focus_owner()
+	suite.check(first != null and codex.is_ancestor_of(first), "圖鑑打開時焦點在圖鑑裡")
+	await _joy(suite, JOY_BUTTON_DPAD_DOWN)
+	var moved := suite.runner.get_viewport().gui_get_focus_owner()
+	suite.check(moved != null and codex.is_ancestor_of(moved), "手把方向鍵在圖鑑裡移動焦點")
+	await _joy(suite, JOY_BUTTON_B)
+	await suite.frames(2)
+	suite.check(closed[0], "手把 B 關閉圖鑑")
+	if is_instance_valid(codex):
+		codex.queue_free()
+	await suite.frames(2)
 
 
 static func _joy(suite: TestSuite, button: JoyButton) -> void:
