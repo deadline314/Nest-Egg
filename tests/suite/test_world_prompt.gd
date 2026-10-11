@@ -103,8 +103,13 @@ func _test_screen_edge() -> void:
 	var viewport := runner.get_viewport()
 	var view := viewport.get_canvas_transform().affine_inverse() * Rect2(Vector2.ZERO, viewport.get_visible_rect().size)
 	var edge := _spawn_prompt(stage, view.position.x + 2.0, "按 {interact} 在電話亭備份，死了會從最近的電話亭醒來。")
-	await frames(30)
-	var shown := Rect2(edge.base_rect().position + edge._nudge, edge.base_rect().size)
+	# 推移是逐影格緩動：機器忙時影格時間長短不一，等到滑進畫面（最多約三秒）再判斷，而不是固定等幾格。
+	var shown := Rect2()
+	for i in 180:
+		await frames(1)
+		shown = Rect2(edge.base_rect().position + edge._nudge, edge.base_rect().size)
+		if shown.position.x >= view.position.x + PromptLayout.SCREEN_MARGIN - 0.5:
+			break
 	check(edge.base_rect().position.x < view.position.x and shown.position.x >= view.position.x + PromptLayout.SCREEN_MARGIN - 0.5,
 			"a prompt at the screen edge slides fully on screen (box %s, view %s)" % [shown, view])
 	stage.queue_free()
