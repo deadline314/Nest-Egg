@@ -528,6 +528,20 @@
         "foot"
       ],
       "max_area": 400
+    },
+    "close_fill": [
+      {
+        "parts": [
+          "leg_upper"
+        ],
+        "radius": 20
+      }
+    ],
+    "trim_spikes": {
+      "parts": [
+        "leg_upper"
+      ],
+      "radius": 5
     }
   },
   "stages": [

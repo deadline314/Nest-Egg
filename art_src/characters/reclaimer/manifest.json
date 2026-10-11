@@ -42,5 +42,36 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.2,
+    "outputs": [
+      "art_src\\characters\\reclaimer\\07_refined"
+    ]
+  },
+  {
+    "step": "textures",
+    "seconds": 3.1,
+    "outputs": [
+      "art\\characters\\reclaimer\\character.json",
+      "art\\rigs\\reclaimer.json",
+      "art\\characters\\reclaimer\\parts",
+      "art\\portraits\\reclaimer.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.4,
+    "outputs": [
+      "art\\characters\\reclaimer\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 7.3,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

@@ -41,5 +41,35 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.3,
+    "outputs": [
+      "art_src\\characters\\flamer\\07_refined"
+    ]
+  },
+  {
+    "step": "textures",
+    "seconds": 2.7,
+    "outputs": [
+      "art\\characters\\flamer\\character.json",
+      "art\\rigs\\flamer.json",
+      "art\\characters\\flamer\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.8,
+    "outputs": [
+      "art\\characters\\flamer\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 7.1,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]
