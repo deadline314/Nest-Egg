@@ -51,6 +51,7 @@ func run() -> void:
 	await _test_prologue()
 	await _test_prologue_skip()
 	await _test_state_across_areas()
+	await _test_checkpoints_stand()
 
 
 func _load_all() -> void:
@@ -1284,3 +1285,26 @@ func _test_prologue_skip() -> void:
 	var first := catalog.list_for("ch1_kasa", "main", false, GameState.world_flags)
 	check(not first.is_empty() and first[0]["id"] == "ch1_meet_egret", "skipping still hands over the first chapter objective")
 	await end_level(level)
+
+
+## NE-178：每個區域的每座電話亭（檢查點）都站得穩：放上去不會掉下去、不會卡在牆裡。
+func _test_checkpoints_stand() -> void:
+	var total := 0
+	for id in _datas:
+		var layout := _layouts[id]
+		if layout.checkpoints.is_empty():
+			continue
+		GameState.start_new_run(GameState.difficulties[1])
+		var level := await spawn_level(_datas[id])
+		level.player.health.setup(9999, 0.0)
+		for enemy in level.get_tree().get_nodes_in_group(&"enemies"):
+			enemy.queue_free()
+		for checkpoint in layout.checkpoints:
+			total += 1
+			level.player.global_position = checkpoint + Vector2(0, -2)
+			level.player.velocity = Vector2.ZERO
+			await physics_frames(20)
+			check(level.player.is_on_floor() and absf(level.player.global_position.y - checkpoint.y) < 4.0 and absf(level.player.global_position.x - checkpoint.x) < 4.0,
+				"%s: the player stands still at the checkpoint %s (%s)" % [id, checkpoint, level.player.global_position])
+		await end_level(level)
+	check(total >= 2, "chapter 1 has phone booths to stand at (%d)" % total)
