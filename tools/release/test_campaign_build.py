@@ -492,7 +492,7 @@ class ImmutableStageTests(unittest.TestCase):
             else:
                 launches.append(command)
                 self.assertEqual([p.name for p in cwd.iterdir()], [Path(command[0]).name])  # Only the executable.
-                value = info if info is not None else {"through": "one", "development": False, "issues": [],
+                value = info if info is not None else {"through": "one", "development": False, "issues": [], "version": "v1-candidate",
                                                          "chapters": [{"id": "one", "included": True}],
                                                          "first_level_included": True, "included_levels": {"one": 2}, "endings": []}
                 log.write_text(("EDITION_INFO " + json.dumps(value) + "\n" if value else "") + "exit_code=0\n")
@@ -551,6 +551,8 @@ class ImmutableStageTests(unittest.TestCase):
         bad = [{"through": "two", "development": False, "issues": [], "chapters": [{"id": "one", "included": True}],
                 "first_level_included": True, "included_levels": {"one": 1}},
                {"through": "one", "development": False, "issues": [], "chapters": [{"id": "one", "included": True}],
+                "first_level_included": True, "included_levels": {"one": 1}, "version": "other"},
+               {"through": "one", "development": False, "issues": [], "chapters": [{"id": "one", "included": True}],
                 "first_level_included": True, "included_levels": {"one": 1, "later": 3}},
                {}]
         self.add_edition_contract()
@@ -564,8 +566,9 @@ class ImmutableStageTests(unittest.TestCase):
 
     def test_pack_scope_accepts_engine_conversions_only(self):
         files = [{"path": p} for p in (".godot/imported/a.ctex", "project.binary", "data/entry.tres.remap",
-                                        "icon.png.import", "data/story/one.json", "data/new.json")]
-        self.assertEqual(build.pack_scope_issues(files, {"data/entry.tres", "icon.png", "data/story/one.json"}), ["data/new.json"])
+                                        "icon.png.import", "data/story/one.json", "autoload/story.gdc", "data/new.json", "data/new.gdc")]
+        self.assertEqual(build.pack_scope_issues(files, {"data/entry.tres", "icon.png", "data/story/one.json", "autoload/story.gd"}),
+                         ["data/new.json", "data/new.gdc"])
 
 class ProbePlatformTests(unittest.TestCase):
     """Mock the engine process only; use real files and the real PCK inspector."""

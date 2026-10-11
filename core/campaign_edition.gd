@@ -23,6 +23,8 @@ var titles: Dictionary = {}
 var development_id := FALLBACK_DEVELOPMENT_ID
 ## 新遊戲的第一個區域；所有累積版本相同。
 var first_level := DEFAULT_FIRST_LEVEL
+## 發行工具寫入的版本號（例如 2026.10.12-ch1-candidate）；開發版與沒寫的情況為空字串。只用來顯示與記錄，不影響存檔相容。
+var version := ""
 var issues := PackedStringArray()
 
 static var _current: CampaignEdition
@@ -76,6 +78,11 @@ static func load_from(campaign_path: String, edition_path: String, report := tru
 			edition.issues.append("%s/through：%s 不在正式章節順序內，改用開發版。" % [edition_path, through_value])
 	elif not through_value is String:
 		edition.issues.append("%s/through：必須是文字，改用開發版。" % edition_path)
+	var version_value: Variant = config.get("version", "")
+	if version_value is String and (version_value.is_empty() or _valid_id(version_value)):
+		edition.version = version_value
+	else:
+		edition.issues.append("%s/version：格式不符，不顯示版本號。" % edition_path)
 	for issue in edition.issues if report else PackedStringArray():
 		push_error("[CampaignEdition] %s" % issue)
 	return edition
@@ -156,7 +163,7 @@ func scope_report(level_dir := "res://data/levels") -> Dictionary:
 			if portal != null and not portal.target_level.is_empty() and ResourceLoader.exists(portal.target_level) and not includes_level(load(portal.target_level) as LevelData):
 				blocked_exits += 1
 	var first := load(first_level) as LevelData if ResourceLoader.exists(first_level) else null
-	return {"id": id, "title": title(), "through": String(through), "development": development, "chapters": chapters,
+	return {"id": id, "title": title(), "version": version, "through": String(through), "development": development, "chapters": chapters,
 			"included_levels": included, "excluded_levels": excluded, "endings": endings, "blocked_exits": blocked_exits,
 			"first_level": first_level, "first_level_included": includes_level(first), "slot": slot_path(), "issues": issues}
 

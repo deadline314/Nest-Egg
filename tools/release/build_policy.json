@@ -9,10 +9,12 @@
   ],
   "dynamic_paths": [
     {"source": "core/economy_report.gd", "path": "data/levels/ch1_%s.tres", "root": "data/levels"},
+    {"source": "core/lamp_fixtures.gd", "path": "data/environment/scene_props/lamps/lamps__%s.tres", "root": "data/environment/scene_props/lamps"},
     {"source": "game/creature/chain_creature.gd", "path": "art/creatures/%s.json", "root": "art/creatures"},
     {"source": "game/creature/part_creature.gd", "path": "art/creatures/%s.json", "root": "art/creatures"},
     {"source": "game/creature/part_creature.gd", "path": "art/creatures/%s/", "root": "art/creatures"},
     {"source": "game/creature/worm_creature.gd", "path": "art/creatures/%s.json", "root": "art/creatures"},
+    {"source": "game/enemies/boss/boss_pattern.gd", "path": "data/bosses/%s.json", "root": "data/bosses"},
     {"source": "game/enemies/enemy_vfx.gd", "path": "art/vfx/enemies/%s.json", "root": "art/vfx/enemies"},
     {"source": "game/level/terrain.gd", "path": "data/environment/materials/%s.tres", "root": "data/environment/materials"},
     {"source": "game/rig/humanoid_animator.gd", "path": "art/motion/%s.json", "root": "art/motion"},
@@ -24,8 +26,8 @@
     {"source": "core/prop_library.gd", "root": "data/environment/props"},
     {"source": "autoload/story_items.gd", "root": "data/story_items"},
     {"source": "game/player/consumable_bag.gd", "root": "data/consumables"},
-    {"source": "autoload/progression.gd", "root": "data/weapons"},
-    {"source": "autoload/progression.gd", "root": "data/upgrades"},
+    {"source": "core/weapon_catalog.gd", "root": "data/weapons"},
+    {"source": "core/weapon_catalog.gd", "root": "data/upgrades"},
     {"source": "autoload/progression.gd", "root": "data/abilities"},
     {"source": "autoload/progression.gd", "root": "data/story_transactions"}
   ]

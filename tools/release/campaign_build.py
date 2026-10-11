@@ -691,7 +691,7 @@ def require_candidate(destination: Path) -> dict:
 
 
 def pack_scope_issues(files: list[dict], allowed: set[str]) -> list[str]:
-    """Every PCK entry must be a verified staged input or Godot's export conversion of one."""
+    """Every PCK entry must be a verified staged input or Godot's export conversion of one (.remap, .import, .gdc)."""
     issues = []
     for item in files:
         name = item["path"]
@@ -699,6 +699,8 @@ def pack_scope_issues(files: list[dict], allowed: set[str]) -> list[str]:
             continue
         if name.removesuffix(".remap").removesuffix(".import") in allowed:
             continue
+        if name.endswith(".gdc") and name.removesuffix(".gdc") + ".gd" in allowed:
+            continue  # script_export_mode=2 ships scripts as binary tokens.
         issues.append(name)
     return issues
 
@@ -716,7 +718,7 @@ def campaign_scope(stage: Path, end: str) -> list[dict]:
     return chapters
 
 
-def edition_launch(executable: Path, log: Path, scope: list[dict], end: str) -> dict:
+def edition_launch(executable: Path, log: Path, scope: list[dict], end: str, version: str) -> dict:
     """Start the exported file alone in a clean folder and read back the scope it reports."""
     record = run_logged([str(executable), "--headless", "--", "--edition-info"], log, executable.parent, 300)
     line = next((l for l in log.read_text(encoding="utf-8", errors="replace").splitlines() if l.startswith("EDITION_INFO ")), None)
@@ -727,6 +729,8 @@ def edition_launch(executable: Path, log: Path, scope: list[dict], end: str) -> 
     reported = [c["id"] for c in report.get("chapters", []) if c.get("included")]
     if report.get("through") != end or report.get("development") or reported != expected or not report.get("first_level_included"):
         raise audit.AuditError(f"exported game reports scope {reported} through {report.get('through')!r}; expected {expected}")
+    if report.get("version") != version:
+        raise audit.AuditError(f"exported game shows version {report.get('version')!r}; expected {version!r}")
     if report.get("issues"):
         raise audit.AuditError(f"exported game reports edition data issues: {report['issues']}")
     leaked = [c for c in report.get("included_levels", {}) if c not in expected]
@@ -772,7 +776,7 @@ def export(destination: Path, godot: Path, templates: Path, candidate: bool) -> 
         executable = clean / artifacts["linux"]["file"]
         shutil.copy2(artifacts_dir / executable.name, executable)
         executable.chmod(0o755)
-        launch = edition_launch(executable, destination / "clean-launch-linux.log", scope, end)
+        launch = edition_launch(executable, destination / "clean-launch-linux.log", scope, end, version)
         receipt = {"schema": 1, "kind": "campaign-candidate" if candidate else "campaign-release",
                    "is_release": not candidate, "version": version, "cumulative_terminal": end,
                    "edition_id": f"through-{end}", "save_slot": f"user://runs/through-{end}/slot-1.json",

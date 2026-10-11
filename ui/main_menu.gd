@@ -153,7 +153,7 @@ func _build_main_page() -> void:
 	_add_legend(_main_page)
 	# 發行版標出收錄範圍，玩家一眼知道這份程式玩到哪一章；存檔也依此分開保存。
 	var edition := CampaignEdition.current()
-	var version_text := VERSION_TEXT if edition.development else "%s　%s" % [VERSION_TEXT, edition.title()]
+	var version_text := VERSION_TEXT if edition.development else "%s　%s" % [edition.version if not edition.version.is_empty() else VERSION_TEXT, edition.title()]
 	var version := UiKit.label(version_text, UiKit.FS_BODY, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
 	_main_page.add_child(version)
 	version.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
