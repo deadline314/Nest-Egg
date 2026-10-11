@@ -3,6 +3,7 @@ extends TestSuite
 ## 第一章節奏估計（ST-11）：估計算法本身（假地圖：分群、無遭遇的連續段、時間加總）與真資料的節奏門檻
 ## （PACING_REFERENCE §5.2：首次通關 30–45 分鐘、警訊 <25 / >55；每分鐘遭遇 0.5–0.8；戰鬥區連續無遭遇 ≤ 60 秒；每區 ≤ 8 分鐘）。
 ## 估計用的是常數假設（core/pacing_estimate.gd），有遊測資料之後校正常數，不是量測值。
+## 各章逐區稽核（NE-233～235）：區域都走得到、鎖都解得開、至少一個迴圈、復原點不隔太遠。
 
 const IDS: Array[String] = ["pawnshop", "rooftop", "street", "booth_alley", "warehouse", "vault", "handoff", "lounge", "stall"]
 const COMBAT_AREAS: Array[String] = ["street", "warehouse", "vault"]
@@ -15,6 +16,7 @@ const MAX_AREA_MINUTES := 8.0
 func run() -> void:
 	_test_algorithm()
 	_test_real_chapter()
+	preload("res://tests/helpers/chapter_audit_checks.gd").run(self)
 
 
 func _enemy(health: int) -> EnemyData:
