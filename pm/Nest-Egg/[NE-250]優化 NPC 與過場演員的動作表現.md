@@ -50,7 +50,7 @@ NE-206 讓 NPC 有了重心轉移、轉頭與說話手勢，但使用者看過�
 **驗收**：用新的連續畫面工具拍同鏡頭的修前修後（遊戲倍率 2.2 倍、過場倍率 3.4 倍、面向左右），並量同一段表演的數字（老 K／Mei）：說話的重複度 0.97／0.96 → 0.34／0.24；起身最大跳格 0.13／0.14 → 0.01／0.03；坐下再起身全程最大跳格 0.41 → 0.03 以下；兩人同時說話時手臂動作的相關係數約 -0.05（不同步）。九位角色坐下再起身都通過「沒有跳格、骨盆升起前上身已前傾」的自動檢查。
 待本機原生驗收：Forward+ 原生畫面的逐格接縫檢查，以及「像不像人」由使用者看過確認。已知未解：老 K 舉手時大衣肩部會露出灰色的肩關節零件（修前就有），需要角色組補舉手用的肩袖零件或肩部網格權重，交給 NE-221／NE-222，本票不改零件圖。
 
-分支：[feature/staging](https://github.com/deadline314/Nest-Egg/tree/feature/staging)
+分支：[feature/staging](https://github.com/deadline314/Nest-Egg/tree/feature/staging)，已併進 main：[8e32c17b](https://github.com/deadline314/Nest-Egg/commit/8e32c17becf5a7165b5b9e45bb5108c288716aba)
 
 ### 測試結果
 
@@ -93,7 +93,7 @@ NE-206 讓 NPC 有了重心轉移、轉頭與說話手勢，但使用者看過�
 - 夜班工人袖口與手套之間的白色區塊放大確認是手腕的皮膚，不是露縫。
 - 「像不像人」仍待使用者看過確認，沒有勾。
 
-分支：[feature/staging](https://github.com/deadline314/Nest-Egg/tree/feature/staging)
+分支：[feature/staging](https://github.com/deadline314/Nest-Egg/tree/feature/staging)，已併進 main：[98b5f484](https://github.com/deadline314/Nest-Egg/commit/98b5f484bf2f34ea575821e51c84ab95c8f1490c)
 
 ### 測試結果
 
