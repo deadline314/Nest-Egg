@@ -11,7 +11,9 @@ const STRATEGY_THREADED_NATIVE := 0
 const STRATEGY_THREADED_HEADLESS := 1
 const STRATEGY_MAIN_THREAD_RD_472 := 2
 const MAX_QUEUED := 512
-const MAX_CACHED := 64
+## 預載最多留幾張：要裝得下一個區域所有鄰居的環境貼圖（第一章街道的鄰居約 190 張），否則回到隔壁時還是得當場重載（BG-32）。
+## 真正的上限是下面的位元組數。
+const MAX_CACHED := 512
 const MAX_CACHE_BYTES := 128 * 1024 * 1024
 const STAGE_DIR := "res://data/cutscene/stages"
 
@@ -81,7 +83,7 @@ static func warm_neighbors(data: LevelData) -> int:
 	if data == null:
 		return 0
 	_select_scope("neighbors:%s:%s" % [data.resource_path, data.id], false)
-	var count := 0
+	var wanted := PackedStringArray()
 	var targets: Dictionary[String, bool] = {}
 	for resource in data.legend.values():
 		if resource is PortalData and not (resource as PortalData).target_level.is_empty():
@@ -89,15 +91,37 @@ static func warm_neighbors(data: LevelData) -> int:
 	for path in targets:
 		var neighbor := _resolve_level(path)
 		if neighbor != null:
-			count += request(level_texture_paths(neighbor))
-	count += request(scene_texture_paths(data.intro_scene))
+			wanted.append_array(level_texture_paths(neighbor))
+	wanted.append_array(scene_texture_paths(data.intro_scene))
 	for scene in data.story_triggers:
-		count += request(scene_texture_paths(StringName(scene)))
+		wanted.append_array(scene_texture_paths(StringName(scene)))
 	for scene in data.channel_scenes.values():
-		count += request(scene_texture_paths(scene))
+		wanted.append_array(scene_texture_paths(scene))
 	for scene in Story.respawn_scene_ids(data.chapter, 1):
-		count += request(scene_texture_paths(scene))
-	return count
+		wanted.append_array(scene_texture_paths(scene))
+	# 只留這個區域的鄰居與過場用得到的：前幾個區域留下來的預載不再佔著記憶體（BG-32）。
+	_retain_only(wanted)
+	return request(wanted)
+
+
+## 把預載裡不在 paths 的貼圖放掉（場景自己還在用的不受影響）。
+static func _retain_only(paths: PackedStringArray) -> void:
+	var keep: Dictionary[String, bool] = {}
+	for path in paths:
+		keep[path] = true
+	var retire := inflight_limit() == 1 and _active_paths.count("") < MAX_INFLIGHT
+	for path: String in _cache.keys():
+		if keep.has(path):
+			continue
+		if retire:
+			# 背景載入進行中時不並行釋放：先留著，等這批載入領完再放（同 _reset_scope）。
+			_retiring.append(_cache[path])
+			_retiring_bytes += _cache_sizes[path]
+		_cache_bytes -= _cache_sizes[path]
+		_cache.erase(path)
+		_cache_sizes.erase(path)
+		_requested.erase(path)
+		_evicted_total += 1
 
 
 ## 回傳新接受的排隊數；重複路徑不增加引擎的 user token 次數。

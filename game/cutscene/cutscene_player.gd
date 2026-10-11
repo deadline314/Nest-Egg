@@ -165,6 +165,8 @@ func _finish() -> void:
 
 
 func _exit_tree() -> void:
+	# 過場結束：舞台的整張背景圖沒有人在用了，放掉（BG-32）。
+	TextureRelease.request()
 	_running = false
 	skipping = true
 	Transition.abort_owned(self)

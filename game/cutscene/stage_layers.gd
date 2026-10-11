@@ -98,7 +98,12 @@ static func rect_of(value: Variant, fallback := Rect2()) -> Rect2:
 
 ## Import resolution changes must preserve stage geometry, including furniture.
 static func sprite_scale(def: Dictionary, texture: Texture2D) -> float:
-	var ratio := float(def.get("source_width", texture.get_width())) / float(maxi(1, texture.get_width()))
+	return sprite_scale_for_width(def, float(texture.get_width()))
+
+
+## 同上，但只知道貼圖寬度（資料檢查用，不必把貼圖留在記憶體裡）。
+static func sprite_scale_for_width(def: Dictionary, width: float) -> float:
+	var ratio := float(def.get("source_width", width)) / maxf(1.0, width)
 	return float(def.get("scale", 1.0)) * ratio
 
 

@@ -255,7 +255,7 @@ static func _check_step(where: String, kind: String, step: Dictionary, defined: 
 			var portrait := str(step.get("portrait", ""))
 			if skin == "" and portrait == "":
 				problems.append("%s 的角色「%s」沒有指定骨架外觀（kind）或頭像（portrait）" % [where, id])
-			elif skin != "" and RigLibrary.character(skin).is_empty() and RigLibrary.optional_texture(portrait) == null:
+			elif skin != "" and RigLibrary.character(skin).is_empty() and (portrait.is_empty() or not ResourceLoader.exists(portrait)):
 				problems.append("%s 的角色外觀「%s」不存在，也沒有可用的頭像" % [where, skin])
 			if step.has("pose") and not CutsceneActor.POSES.has(str(step["pose"])):
 				problems.append("%s 的動作「%s」不存在" % [where, step["pose"]])

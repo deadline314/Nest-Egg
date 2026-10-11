@@ -32,6 +32,7 @@ func run() -> void:
 	await _test_melee_art()
 	await _test_melee_grip()
 	await _test_soft_whip()
+	await _test_texture_release()
 	_test_import_policy("res://art/environment")
 
 
@@ -1431,3 +1432,75 @@ func _test_soft_whip() -> void:
 	AimInput.using_gamepad = gamepad_before
 	AimInput._last_stick_dir = stick_before
 	await end_level(level)
+
+
+## 釋放用不到的環境貼圖（BG-32）：資料檢查不把過場舞台圖留在記憶體；沒有人在用的環境貼圖會被放掉、有人在用的不會；
+## 預載只留現在這個區域的鄰居用得到的。
+func _test_texture_release() -> void:
+	var stage_image := "res://art/environment/stages/white_room.webp"
+	var prop_image := "res://art/environment/props/ac_unit_big.png"
+	check(ResourceLoader.exists(stage_image) and ResourceLoader.exists(prop_image), "測試用的兩張環境貼圖存在")
+	TextureRelease.release_now()
+	# 只問大小：不留在快取裡。
+	var size := RigLibrary.texture_size(stage_image)
+	check(size.x > 0.0 and not RigLibrary.cached_texture_paths().has(stage_image), "只問大小不會把貼圖留在快取（%s）" % size)
+	check(RigLibrary.texture_size("res://art/environment/stages/no_such_stage.webp") == Vector2.ZERO, "不存在的貼圖大小是零，不報錯")
+	# 劇本與過場的資料檢查跑完，快取裡沒有任何過場的整張舞台或場景圖。
+	var problems := Story.validate()
+	var pinned := PackedStringArray()
+	for path in RigLibrary.cached_texture_paths():
+		if path.contains("/environment/stages/") or path.contains("/environment/scenes/"):
+			pinned.append(path)
+	check(pinned.is_empty(), "資料檢查之後快取裡沒有過場舞台圖（留下 %d 張；檢查本身回報 %d 個問題）" % [pinned.size(), problems.size()])
+	# 有人在用的不放、沒人用的放掉；放掉之後再要用會重新載入。
+	var holder := Sprite2D.new()
+	holder.texture = RigLibrary.texture(stage_image)
+	TextureRelease.release_now()
+	check(RigLibrary.cached_texture_paths().has(stage_image), "還有節點在用的貼圖不會被放掉")
+	holder.texture = null
+	check(TextureRelease.release_now() >= 1 and not RigLibrary.cached_texture_paths().has(stage_image), "沒有人在用了就放掉")
+	var reloads := RigLibrary.reloads_after_release
+	holder.texture = RigLibrary.texture(stage_image)
+	check(holder.texture != null and RigLibrary.reloads_after_release == reloads + 1, "放掉之後再要用會重新載入，而且有計數")
+	holder.texture = null
+	# 受光貼圖（有法線的擺設）也一樣。
+	var lit := LitTextures.load_texture(prop_image)
+	holder.texture = lit
+	lit = null
+	TextureRelease.release_now()
+	check(LitTextures._cache.has(prop_image), "還在用的受光貼圖不會被放掉")
+	holder.texture = null
+	TextureRelease.release_now()
+	check(not LitTextures._cache.has(prop_image) and not LitTextures._normals.has(prop_image) and not RigLibrary.cached_texture_paths().has(prop_image),
+			"沒有人在用的受光貼圖連同法線一起放掉")
+	holder.free()
+	# 真的關卡：釋放之後，背牆畫過的立面貼圖都還在（背牆是用繪製指令畫的，自己沒留著就會被放掉、整面牆變白）。
+	var level := await start_level(load("res://data/levels/ch1_street.tres") as LevelData)
+	await frames(4)
+	TextureRelease.release_now()
+	var walls := level.find_children("*", "BackWall", true, false)
+	var missing := 0
+	var drawn := 0
+	for wall: BackWall in walls:
+		for path: String in wall._held:
+			if wall._held[path] == null:
+				continue
+			drawn += 1
+			if wall._held[path].get_width() <= 0:
+				missing += 1
+	check(not walls.is_empty() and drawn > 20 and missing == 0, "釋放之後背牆的 %d 張貼圖都還在（不見 %d 張）" % [drawn, missing])
+	await end_level(level)
+	# 角色零件不在範圍裡：只放環境貼圖。
+	var part := "res://art/characters/rin/parts/head.png"
+	RigLibrary.texture(part)
+	TextureRelease.release_now()
+	check(RigLibrary.cached_texture_paths().has(part), "角色零件不會被放掉（只放環境貼圖）")
+	# 預載只留現在這個區域用得到的。
+	AssetPrefetch.clear()
+	AssetPrefetch._remember(stage_image, load(stage_image) as Texture2D)
+	AssetPrefetch._remember(prop_image, load(prop_image) as Texture2D)
+	AssetPrefetch._retain_only(PackedStringArray([prop_image]))
+	check(AssetPrefetch._cache.has(prop_image) and not AssetPrefetch._cache.has(stage_image) and AssetPrefetch._cache_bytes == AssetPrefetch._cache_sizes[prop_image],
+			"換區域後，預載裡不屬於新區域的貼圖放掉，用量跟著扣掉")
+	AssetPrefetch.clear()
+	await frames(1)

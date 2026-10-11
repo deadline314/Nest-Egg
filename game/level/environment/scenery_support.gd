@@ -109,10 +109,10 @@ static func decor_rect(entry: Dictionary, data: LevelData) -> Rect2:
 static func stage_anchor_issue(layer: Dictionary, definition: Dictionary) -> String:
 	if not layer.has("support_rect") and not layer.has("support_id"):
 		return ""
-	var texture := RigLibrary.optional_texture(str(layer.get("path", "")))
-	if texture == null:
+	var native := RigLibrary.texture_size(str(layer.get("path", "")))
+	if native == Vector2.ZERO:
 		return "stage_prop_missing"
-	var size := texture.get_size() * StageLayers.sprite_scale(layer, texture)
+	var size := native * StageLayers.sprite_scale_for_width(layer, native.x)
 	var position := StageLayers.vec2_of(layer.get("pos"))
 	if bool(layer.get("centered", false)):
 		position -= size * 0.5

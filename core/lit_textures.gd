@@ -37,6 +37,27 @@ static func load_texture(path: String, fallback_size := Vector2i(16, 16)) -> Tex
 
 
 ## 開關所有已載入貼圖的法線貼圖（光影品質改變時呼叫）。
+## 放掉「除了這裡以外沒有人在用」的受光貼圖（路徑以 prefixes 之一開頭的才看）；要在 RigLibrary.release_unused 之前呼叫。
+static func release_unused(prefixes: PackedStringArray) -> int:
+	var dropped := 0
+	for path: String in _cache.keys():
+		var wanted := false
+		for prefix in prefixes:
+			if path.begins_with(prefix):
+				wanted = true
+				break
+		if not wanted:
+			continue
+		# 有法線的：_cache 與 _canvas_textures 各一份引用。沒有法線的：_cache 與 RigLibrary 的快取各一份。再加這個區域變數一份。
+		var held: Texture2D = _cache[path]
+		if held.get_reference_count() <= 3:
+			_cache.erase(path)
+			_canvas_textures.erase(path)
+			_normals.erase(path)
+			dropped += 1
+	return dropped
+
+
 static func set_enabled(enabled: bool) -> void:
 	_enabled = enabled
 	for path in _canvas_textures:

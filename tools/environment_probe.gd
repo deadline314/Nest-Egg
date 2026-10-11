@@ -116,6 +116,8 @@ func _run() -> void:
 			shot.save_png(out.path_join("%s_%d_%s.png" % [level_id, tile, quality]))
 	var bytes := 0
 	var count := 0
+	# 舊的版本沒有釋放機制；有的話先等它做完（換區域之後幾個影格才釋放）。
+	for i in 12: await get_tree().process_frame
 	var textures := RigLibrary._texture_cache.duplicate()
 	for path: String in LitTextures._normals:
 		var normal: Texture2D = LitTextures._normals[path]
@@ -130,6 +132,21 @@ func _run() -> void:
 		count += 1
 		print("TEXTURE %s %dx%d format=%d mipmaps=%s bytes=%d" % [path, image.get_width(), image.get_height(), image.get_format(), image.has_mipmaps(), size])
 	print("ENVIRONMENT imported_payload_bytes=%d textures=%d (cached level textures; not PNG size or dedicated GPU allocation)" % [bytes, count])
+	# 預載（有上限的 LRU）手上另外拿著的環境貼圖：不在上面的清單裡的另外列出來，兩邊加起來才是全部。
+	var prefetch_bytes := 0
+	var prefetch_count := 0
+	for path: String in AssetPrefetch._cache:
+		if not path.begins_with("res://art/environment/") or textures.has(path): continue
+		var extra := (AssetPrefetch._cache[path] as Texture2D).get_image()
+		if extra == null: continue
+		prefetch_bytes += extra.get_data_size()
+		prefetch_count += 1
+		print("PREFETCH %s bytes=%d" % [path, extra.get_data_size()])
+	print("ENVIRONMENT_PREFETCH imported_payload_bytes=%d textures=%d (held only by the bounded prefetch cache)" % [prefetch_bytes, prefetch_count])
+	# 釋放之後又被載入的次數：大於 0 代表有東西每次都靠快取、自己不留著貼圖（會反覆重載）。舊版本沒有這個計數。
+	var library: Script = RigLibrary
+	if "reloads_after_release" in library:
+		print("ENVIRONMENT_RELEASE released_total=%d reloads_after_release=%d" % [load("res://core/texture_release.gd").released_total, library.get("reloads_after_release")])
 	Settings.set_light_quality(previous)
 	textures.clear()
 	level.queue_free()

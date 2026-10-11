@@ -64,7 +64,7 @@ static func validate(id: StringName) -> PackedStringArray:
 		for key in StageLayers.KINDS[kind]:
 			if not (layer as Dictionary).has(key):
 				problems.append("過場場景 %s 第 %d 層（%s）缺少「%s」" % [id, index, kind, key])
-		if kind == "sprite" and RigLibrary.optional_texture(str(layer.get("path", ""))) == null:
+		if kind == "sprite" and RigLibrary.texture_size(str(layer.get("path", ""))) == Vector2.ZERO:
 			problems.append("過場場景 %s 第 %d 層圖片不存在：%s" % [id, index, layer.get("path", "")])
 		if kind == "grain" and str(layer.get("reason", "")).strip_edges().is_empty():
 			problems.append("過場場景 %s 第 %d 層是顆粒卻沒寫 reason：一般舞台不加顆粒，回憶或非現實的舞台要寫明理由" % [id, index])
@@ -87,10 +87,10 @@ const LIFE_MAX_COVER := 0.9
 static func life_covers_stage(layer: Dictionary) -> bool:
 	if not bool(layer.get("life", false)):
 		return false
-	var tex := RigLibrary.optional_texture(str(layer.get("path", "")))
-	if tex == null:
+	var native := RigLibrary.texture_size(str(layer.get("path", "")))
+	if native == Vector2.ZERO:
 		return false
-	var size := tex.get_size() * StageLayers.sprite_scale(layer, tex)
+	var size := native * StageLayers.sprite_scale_for_width(layer, native.x)
 	return size.x * size.y >= STAGE_SIZE.x * STAGE_SIZE.y * LIFE_MAX_COVER
 
 

@@ -8,6 +8,11 @@ const WEAPONS_PATH := "res://art/weapons/weapons.json"
 
 static var _json_cache: Dictionary[String, Dictionary] = {}
 static var _texture_cache: Dictionary[String, Texture2D] = {}
+## 只查過大小的貼圖（資料檢查用）：只記數字，不留貼圖。
+static var _size_cache: Dictionary[String, Vector2] = {}
+## 釋放過的路徑後來又被載入的次數（量測用：太多代表有人每次都靠快取、自己不留著貼圖）。
+static var reloads_after_release := 0
+static var _released: Dictionary[String, bool] = {}
 static var _reported: Dictionary[String, bool] = {}
 
 
@@ -81,6 +86,7 @@ static func texture(path: String, fallback_size := Vector2i(16, 16)) -> Texture2
 		_report(path, "[RigLibrary] 找不到零件圖片，改用替代圖：%s" % path)
 		tex = _placeholder(fallback_size)
 	_texture_cache[path] = tex
+	_note_load(path)
 	return tex
 
 
@@ -93,7 +99,54 @@ static func optional_texture(path: String) -> Texture2D:
 	var tex: Texture2D = load(path) as Texture2D if ResourceLoader.exists(path) else null
 	if tex != null:
 		_texture_cache[path] = tex
+		_note_load(path)
 	return tex
+
+
+## 只想知道貼圖在不在、多大（資料檢查用）：不把貼圖留在快取裡。不存在回傳 Vector2.ZERO。
+## 啟動時的資料檢查會問每一張過場舞台圖的大小；用 optional_texture 問的話，那些圖就永遠留在記憶體裡（BG-32）。
+static func texture_size(path: String) -> Vector2:
+	if path.is_empty():
+		return Vector2.ZERO
+	if _texture_cache.has(path):
+		return _texture_cache[path].get_size()
+	if _size_cache.has(path):
+		return _size_cache[path]
+	var tex: Texture2D = load(path) as Texture2D if ResourceLoader.exists(path) else null
+	var size := tex.get_size() if tex != null else Vector2.ZERO
+	_size_cache[path] = size
+	return size
+
+
+## 放掉快取裡「除了快取以外沒有人在用」的貼圖（路徑以 prefixes 之一開頭的才看）。回傳放掉幾張。
+## 場景上的節點、預載（AssetPrefetch）手上還拿著的不會被放掉；之後再要用就重新載入。
+static func release_unused(prefixes: PackedStringArray) -> int:
+	var dropped := 0
+	for path: String in _texture_cache.keys():
+		var wanted := false
+		for prefix in prefixes:
+			if path.begins_with(prefix):
+				wanted = true
+				break
+		if not wanted:
+			continue
+		# 快取一份、這個區域變數一份：只有這兩份就是沒有別人在用。
+		var held: Texture2D = _texture_cache[path]
+		if held.get_reference_count() <= 2:
+			_texture_cache.erase(path)
+			_released[path] = true
+			dropped += 1
+	return dropped
+
+
+static func cached_texture_paths() -> PackedStringArray:
+	return PackedStringArray(_texture_cache.keys())
+
+
+static func _note_load(path: String) -> void:
+	if _released.has(path):
+		_released.erase(path)
+		reloads_after_release += 1
 
 
 static func vec2(value: Variant, fallback := Vector2.ZERO) -> Vector2:
@@ -106,6 +159,8 @@ static func vec2(value: Variant, fallback := Vector2.ZERO) -> Vector2:
 static func clear_cache() -> void:
 	_json_cache.clear()
 	_texture_cache.clear()
+	_size_cache.clear()
+	_released.clear()
 	_reported.clear()
 
 

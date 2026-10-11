@@ -247,6 +247,14 @@ CC0 庫找不到的道具（吊車、龍門吊、控制台、堆高機、閘門�
 
 環境渲染路徑目前均為 linear／nearest（沒有 mipmap sampler）；匯入政策因此不配置未使用的 mipmaps。肖像 UI 的 mipmap 取樣不在環境政策內。未來新增環境 mipmap sampler 時須同步政策與同機畫面／記憶體驗收。細長圖縮圖取整若使來源長寬比偏差超過 1%，保留原尺寸。
 
+### 貼圖只留用得到的（BG-32）
+
+- 貼圖快取（`RigLibrary`、`LitTextures`）在換區域與過場結束後會放掉「除了快取以外沒有人在用」的環境貼圖（`TextureRelease`）。**用繪製指令（`draw_texture_rect` 之類）畫貼圖的節點，一定要自己把貼圖存在成員變數裡**：繪製指令只記貼圖的編號、不算有人在用，沒留著就會被放掉，畫出來變成白色方塊（背牆曾經整面變白、加上泛光是一整條白光）。`Sprite2D`、`TextureRect` 的 `texture` 屬性本身就是留著，不用另外存。
+- 資料檢查只想知道貼圖在不在、多大時用 `RigLibrary.texture_size(path)`，不要用 `optional_texture`（會把貼圖留在快取裡；啟動時的檢查曾經因此把所有過場舞台圖都留在記憶體）。
+- 預載（`AssetPrefetch`）只留現在這個區域的鄰居與它會播的過場用得到的圖；張數上限要裝得下一個區域所有的鄰居，否則走回隔壁時還是得當場重載。
+- 量測：`godot --path . res://tools/texture_route_probe.tscn -- [--dwell=300]` 照出入口的順序走一圈，印出每一站的環境貼圖用量、過場舞台圖有沒有殘留、進入時最長的一格、畫面上純白的比例（超過 5% 報錯）。同一支腳本複製到舊版本的 checkout 就能量修前。計時要修前修後交替跑，每次差異可以到 20 毫秒。
+- 引用計數怎麼算：`dict[path].get_reference_count()` 會多算一份暫時的引用；先存進區域變數再量，「快取一份＋區域變數一份＝2」才是沒有別人在用。
+
 ## 可重現的新 CC0 素材示例（NE-67）
 
 本示例沿用既有 3D→2D→PropData 路線，新增荒地草叢；不替換已定稿的大批素材、不動地圖或舞台家具。Kenney 官方 Starter-Kit-FPS 的 3D 模型及貼圖明確採 CC0，軟體的 MIT 不拿來當美術授權。`manifest.json` 的 `kenney_mod_grass_small` 固定完整 commit 與兩份檔案 SHA-256，fetcher 驗證快取及授權陳述，不能用浮動 main 或授權不明的來源。

@@ -31,6 +31,9 @@ var _theme: EnvironmentTheme
 ## 每一欄的立面模組（由下往上）：{ "rect": Rect2, "path": String }。只在有立面主題時使用。
 var _col_modules: Array[Array] = []
 var geometry := BackWallGeometry.new()
+## 畫過的貼圖要自己留著：繪製指令只記貼圖的編號、不算「有人在用」，沒留著的話釋放用不到的貼圖時（BG-32）
+## 會被放掉，整面牆變成白色方塊。值可以是 null（沒有發光層）。
+var _held: Dictionary[String, Texture2D] = {}
 
 
 func setup(layout: LevelLayout, p_seed := 1, theme: EnvironmentTheme = null) -> void:
@@ -55,6 +58,18 @@ func setup(layout: LevelLayout, p_seed := 1, theme: EnvironmentTheme = null) -> 
 		glow.walls = self
 		add_child(glow)
 		glow.build_chunks(Rect2(Vector2.ZERO, size))
+
+
+func _lit(path: String, fallback_size: Vector2i) -> Texture2D:
+	if not _held.has(path):
+		_held[path] = LitTextures.load_texture(path, fallback_size)
+	return _held[path]
+
+
+func _optional(path: String) -> Texture2D:
+	if not _held.has(path):
+		_held[path] = RigLibrary.optional_texture(path)
+	return _held[path]
 
 
 func _zone_of_col(col: int) -> EnvZone:
@@ -82,7 +97,7 @@ func _draw_interior(canvas: CanvasItem, col: int, rect: Rect2) -> void:
 	var zone := _zone_of_col(col)
 	var texture: Texture2D = null
 	if zone != null and not zone.interior.is_empty():
-		texture = LitTextures.load_texture(zone.interior, Vector2i(256, 256))
+		texture = _lit(zone.interior, Vector2i(256, 256))
 	for row in _rows:
 		if _holes[row * _columns + col] == 1:
 			continue
@@ -107,7 +122,7 @@ func _draw_facade(canvas: CanvasItem, col: int, rect: Rect2) -> void:
 		for module: Dictionary in _col_modules[col]:
 			var area: Rect2 = module["rect"]
 			if area.intersects(rect):
-				var texture := LitTextures.load_texture(str(module["path"]), Vector2i(area.size) * 4)
+				var texture := _lit(str(module["path"]), Vector2i(area.size) * 4)
 				canvas.draw_texture_rect(texture, area, false)
 		return
 	var panel := float(_tile * PANEL_TILES)
@@ -161,6 +176,6 @@ class _FacadeGlow:
 				var area: Rect2 = module["rect"]
 				if not area.intersects(rect):
 					continue
-				var glow := RigLibrary.optional_texture(FacadeData.glow_path(str(module["path"])))
+				var glow := walls._optional(FacadeData.glow_path(str(module["path"])))
 				if glow != null:
 					canvas.draw_texture_rect(glow, area, false, LightKit.glow(Color.WHITE, 1.25))
