@@ -1091,8 +1091,13 @@ func _test_enemy_glow() -> void:
 	check(head != null and glow.global_position.distance_to(head.global_position) < 16.0, "光的位置跟著頭")
 	var side_before := glow.global_position.x - head.global_position.x if head != null else 0.0
 	heavy.facing = -heavy.facing
-	await frames(3)
-	var side_after := glow.global_position.x - head.global_position.x if head != null else 0.0
+	# 骨架在畫面更新時才翻面：機器忙的時候幾個物理影格可能擠在同一個畫面影格，等到它翻過去為止。
+	var side_after := side_before
+	for i in 60:
+		await frames(1)
+		side_after = glow.global_position.x - head.global_position.x if head != null else 0.0
+		if signf(side_after) != signf(side_before):
+			break
 	check(head != null and signf(side_before) != signf(side_after) and not is_zero_approx(side_before), "轉身後光跟著換到另一邊")
 	# 三種狀態：平常是自己的顏色；發現主角變亮；準備攻擊轉成紅色預兆、更亮。
 	heavy._alert_left = 0.0
