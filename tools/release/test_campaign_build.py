@@ -258,6 +258,45 @@ class ImmutableStageTests(unittest.TestCase):
         self.assertIn("published production main quests absent", issues)
         self.assertFalse(report["readiness"]["ready_for_product_export"])
 
+    def add_edition_contract(self, order=("one",)):
+        self.put("core/campaign_edition.gd", "class_name CampaignEdition\n")
+        self.put("data/release/campaign.json", json.dumps({"schema": 1, "chapters": [{"id": i} for i in order]}))
+        self.put("data/release/edition.json", json.dumps({"schema": 1, "through": ""}))
+        self.specs["runtime_roots"] = ["autoload", "data", "core"]
+        self.put("tools/release/campaign_specs.json", json.dumps(self.specs))
+        self.commit()
+        self.sha = self.git("rev-parse", "HEAD").strip()
+
+    def test_missing_edition_contract_is_named_as_owner_blocker(self):
+        _, report = self.prepare()
+        blockers = report["readiness"]["owner_blockers"]
+        self.assertTrue(any("not committed: data/release/campaign.json" in b for b in blockers))
+        self.assertIsNone(report["edition"])
+
+    def test_stage_carries_selected_edition_without_touching_repository(self):
+        self.add_edition_contract()
+        committed = (self.root / "data/release/edition.json").read_bytes()
+        destination, report = self.prepare(version="v-test")
+        staged = json.loads((destination / "project/data/release/edition.json").read_text())
+        self.assertEqual((staged["through"], staged["source_sha"], staged["version"]), ("one", self.sha, "v-test"))
+        self.assertEqual((self.root / "data/release/edition.json").read_bytes(), committed)
+        self.assertEqual(report["edition"]["id"], "through-one")
+        self.assertNotEqual(report["edition"]["committed_sha256"], report["edition"]["staged_sha256"])
+        self.assertFalse(any("edition contract" in b for b in report["readiness"]["owner_blockers"]))
+        build.verify_stage(destination)  # The staged override is the recorded input; verification still passes.
+        (destination / "project/data/release/edition.json").write_text('{"schema": 1, "through": ""}')
+        with self.assertRaisesRegex(audit.AuditError, "staged input changed: data/release/edition.json"):
+            build.verify_stage(destination)
+
+    def test_edition_order_mismatch_and_wrong_terminal_chapter_block(self):
+        self.add_edition_contract(order=("other",))
+        self.put("data/end.tres", '[gd_resource type="Resource" format=3]\n[resource]\nchapter = &"two"\n')
+        self.commit()
+        self.sha = self.git("rev-parse", "HEAD").strip()
+        _, report = self.prepare()
+        self.assertTrue(any("chapter order ['other'] differs" in b for b in report["readiness"]["owner_blockers"]))
+        self.assertIn("terminal level chapter is 'two', expected 'one'", report["readiness"]["chapters"][0]["issues"])
+
     def test_unknown_dynamic_reference_blocks_and_known_directory_keeps_later_files(self):
         self.put("data/loader.gd", 'const PATH = "res://data/story/%s.json"\n')
         self.put("data/loader.gd.uid", "uid://dtestloader\n")

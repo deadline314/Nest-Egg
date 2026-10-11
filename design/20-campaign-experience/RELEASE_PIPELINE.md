@@ -78,3 +78,11 @@ python3 -m unittest discover -s tools/release -v
 原Commit-2總數49是 `test_campaign_build.py` 37項＋`test_campaign_release.py` 12項，沒有 `test_chapter_release.py`。正式總命令為 `python -m unittest discover -s tools/release -p "test_*.py" -v`；Windows可用 `python`，Linux可用 `python3`。新增回歸後依實際run／skip分別記錄，不把skip算通過。Windows本機舊log由主session保存在 `C:/tmp/ch1-runtime-checks/release-unit-local.log`，雲端不宣稱讀取或重現該WinError。
 
 Commit-3共59項，雲端Linux為57通過、2項Windows真junction明確skip；Windows平台選擇與資料隔離的CPU回歸不代稱Windows原生執行。最新真探針和完整失敗／成功紀錄見[Commit-3證據](../../pm/Nest-Egg/attachments/NE-232/phase3/README.md)。
+
+## 版本身分接上遊戲（Commit-4，2026-10-11）
+
+NE-230 已公開版本契約：遊戲從 `data/release/campaign.json`（章節順序、名稱、新遊戲起點）與 `data/release/edition.json`（`through`）決定自己是哪個累積版本、存檔目錄與章末。`prepare --through <章>` 只在隔離 staging 改寫 `edition.json`（加上版本與來源提交），倉庫檔案不動；manifest 的 `edition` 欄記錄版本識別、原始與 staging 的校驗碼，`verify-stage` 以 staging 值核對，之後被改動就拒絕。
+
+readiness 改為實際核對契約，不再寫死「NE-230 尚未交付」：三個契約檔都在提交內、`campaign.json` 的章節順序與 `campaign_specs.json` 一致；每章末區關卡的 `chapter` 欄位要等於該章 id，否則章末會接錯，列為該章問題。剩下的阻擋是故事產出端交接與各章驗收（NE-233～235），工具如實保留。
+
+`export` 仍維持 fail-closed：正式產品 adapter 要等章節驗收證據與 4.7.2 官方模板在同一次建置中可用時才接，不以工具探針代替。

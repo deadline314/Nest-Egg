@@ -20,6 +20,10 @@ static func run(s: TestSuite) -> void:
 	s.check(ch2.can_continue_from(ch1) and not ch1.can_continue_from(ch2) and ch1.can_continue_from(ch1) and dev.can_continue_from(ch2), "older editions continue forward, never backward")
 	for bad: Variant in ["through-chapter_9", "../runs", "", null, 3, "through-" + "x".repeat(80)]:
 		s.check(dev.describe(bad) == null, "unknown release id is not an edition: %s" % str(bad).left(20))
+	# 發行工具在隔離來源寫入的版本設定（含版本號與來源提交等額外欄位）。
+	_write_text(ROOT.path_join("release_edition.json"), '{"schema": 1, "through": "ch1_kasa", "version": "v1", "source_sha": "0123", "_note": "generated"}')
+	var built := CampaignEdition.load_from(CampaignEdition.CAMPAIGN_PATH, ROOT.path_join("release_edition.json"), false)
+	s.check(built.issues.is_empty() and built.id == "through-ch1_kasa" and built.is_last_chapter(&"ch1_kasa") and built.first_level == FIRST, "release tool's generated edition file loads as that edition")
 	_write_text(ROOT.path_join("bad_edition.json"), '{"through": "chapter_9"}')
 	var fallback := CampaignEdition.load_from(CampaignEdition.CAMPAIGN_PATH, ROOT.path_join("bad_edition.json"), false)
 	s.check(fallback.development and fallback.issues.size() == 1 and fallback.issues[0].contains("bad_edition.json/through"), "unknown through falls back to development and names the field")
