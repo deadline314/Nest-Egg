@@ -12,7 +12,7 @@ description: 從零做一個新角色或新外觀並放進 Nest Egg 的完整流
 - [visual-verification](../visual-verification/SKILL.md)：實機畫面怎麼拍、怎麼量
 - 逐項案例（成因、怎麼提早發現、修法、不能用的掩蓋做法，附前後圖所在的票）：`pm/Nest-Egg/attachments/NE-255-lessons.md`
 
-環境：本機 `COMFYUI_DIR=D:/ComfyUI`、Python 用 `D:/ComfyUI/.venv/Scripts/python.exe`（PowerShell 先設 `$env:PYTHONUTF8='1'`）、Godot 用 `C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe`。生成一次一張；用 GPU 的 Godot 指令包在 `tools/comfyui/gpu_lock.py -- …` 裡；做完用 `tools/comfyui/start_comfyui.ps1 -Stop` 收掉模型。下面各關寫的 `python` 都指上面那個 venv 直譯器。
+環境：本機 `COMFYUI_DIR=D:/ComfyUI`、Python 用 `D:/ComfyUI/.venv/Scripts/python.exe`（PowerShell 先設 `$env:PYTHONUTF8='1'`）、Godot 用 `C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe`。`start_comfyui.ps1` 沒有說明參數（加 `-Help` 也會啟動），建置輸出的「no websocket heartbeat (ModuleNotFoundError)」是正常的。生成一次一張；用 GPU 的 Godot 指令包在 `tools/comfyui/gpu_lock.py -- …` 裡；做完用 `tools/comfyui/start_comfyui.ps1 -Stop` 收掉模型。下面各關寫的 `python` 都指上面那個 venv 直譯器。
 
 ## 三類問題的總表
 
@@ -44,7 +44,7 @@ description: 從零做一個新角色或新外觀並放進 Nest Egg 的完整流
 - 兩手兩腳、手指數正確，沒有多餘肢體與莫名的線條
 - 畫風一致：低彩度、粗黑描邊、兩階硬邊陰影、有磨損與皺褶，沒有噴槍漸層與塑膠光澤
 - 性別、年齡、服裝符合設定與世界觀
-- 印 alpha 直方圖，並放在黑、灰、白底看背景與邊緣
+- 印 alpha 直方圖，並放在黑、灰、白底看背景與邊緣。背景上 alpha 1～3 的薄霧是正常的（`alpha_floor` 會清掉）；要看的是主體有沒有到 250
 
 沒過：改 `character.txt` 或換種子重畫。不要帶著「之後再修」往下走。
 
@@ -56,8 +56,8 @@ description: 從零做一個新角色或新外觀並放進 Nest Egg 的完整流
 - 有外套、圍裙、背上的東西這類分層衣物：從產生的規格往下拆（範例 `tools/comfyui/specs/rin_side.json`）。外套分「上身跟胸、下襬跟骨盆、袖子跟手臂」；垂在腿前的裙片跟前側大腿。
 - 手臂的點提示抓得破碎時加 `--arm-text`。
 - 建置停在「points_leg_far … mask value」：兩腿同色又重疊，遠側小腿切不出來，加 `--far-foot-only` 只切遠側的鞋。
-- 要跑兩次：parts 步驟前跑一次；parts 跑完（有 `sam/points_arm.png`，用 `--arm-text` 時是 `sam/arm.png`）後加 `--force` 再跑一次，肘與腕會移到手臂遮罩的中線。`--force` 會整份重寫規格，手改的內容與 `eye_states` 都會不見，之後要重跑第 3 關的 `make_eye_states.py`。
-- 站立來源（兩腿幾乎並排）的遠側腿：遮罩只切膝蓋以下；大腿的前緣用一條直線切（規格裡大腿零件的 `front_line`），線以前是遠側大腿，不歸近側。骨盆與大腿之間沒有零件認領的像素歸骨盆（骨盆零件的 `unclaimed`）。這三項規格工具會自動寫好。遠側的手只有真的露在身體前面時才加 `--far-hand`，預設不切。
+- 要跑兩次：parts 步驟前跑一次；parts 跑完（有 `sam/points_arm.png`，用 `--arm-text` 時是 `sam/arm.png`）後加 `--force` 再跑一次，肘與腕會移到手臂遮罩的中線。`--force` 會整份重寫規格，手改的內容與 `eye_states` 都會不見，之後要重跑第 3 關的 `make_eye_states.py`。`--force` 之後從 parts 起重跑到 refine（`--from parts --to refine`），新的關節才會進到零件。
+- 站立來源（兩腿幾乎並排）的遠側腿：遮罩只切膝蓋以下；大腿的前緣用一條直線切（規格裡大腿零件的 `front_line`），線以前是遠側的髖與大腿，不歸任何零件（遠側腿是近側腿的複本，畫在自己的髖點上）。骨盆也寫 `front_line`：前緣從腰帶下的全寬以 S 形收進髖點高度的那條線，不留方塊。骨盆與大腿之間沒有零件認領的像素歸骨盆（骨盆零件的 `unclaimed`）。這幾項規格工具會自動寫好。遠側的手只有真的露在身體前面時才加 `--far-hand`，預設不切。
 - 零件的細突出（鞋帶尖等，畫面上不到一像素）用 `--trim-spikes 零件,零件` 切掉。
 
 ## 第 3 關：建置到引擎
@@ -72,14 +72,16 @@ python tools/comfyui/build_character.py --recipe tools/comfyui/recipes/<id>.json
 - `make_eye_states.py` 不在 `build_character.py` 的步驟裡，要自己跑。跑完看 `<work>/eyes/review.png`（一般是 `art_src/characters/<id>/eyes/review.png`：睜眼、半閉、閉眼與遮罩），頭部零件（`07_refined/head.png`）一改就要重跑。
 - 有 `damage`（破損衣物）的角色：`--from parts --to refine` 之後要先跑 `--only damage`，`--from textures` 不會跑它。spec 沒有 `damage` 鍵時這一步什麼也不做。
 - 貼圖密度：NPC 與敵人每世界像素 20 像素，主角保留來源密度。
-- 動作資料 `art/motion/<id>.json` 從相近的角色複製後改數值。測試（`tests/suite/test_rig_actions.gd` 的 `_test_motion_is_not_shared`）要求：`art/characters` 每個資料夾都有對應的動作檔；任兩個角色在下列 12 個欄位中至少 4 個值不同：`move.stride`、`move.swing`、`move.knee_bend`、`move.hip_bounce`、`move.chest_lean`、`idle.breath_speed`、`idle.hip_bob`、`death.duration`、`death.rotation`、`death.fold`、`look.head`、`hurt.kick`。
+- 動作資料 `art/motion/<id>.json` 從相近的角色複製後改數值（NPC 抄體型相近的 NPC，例如 `repairman_chen`；敵人抄同類敵人）。測試（`tests/suite/test_rig_actions.gd` 的 `_test_motion_is_not_shared`）要求：`art/characters` 每個資料夾都有對應的動作檔；任兩個角色在下列 12 個欄位中至少 4 個值不同：`move.stride`、`move.swing`、`move.knee_bend`、`move.hip_bounce`、`move.chest_lean`、`idle.breath_speed`、`idle.hip_bob`、`death.duration`、`death.rotation`、`death.fold`、`look.head`、`hurt.kick`。
 
 ## 第 4 關：看底層圖與零件
 
 - 建置停在「stage … still shows …%」：底層圖沒有真的把手拿掉。換提示詞或種子重做那一張，不要繞過這個檢查。（細節：character-art-pipeline「底層圖檢查」）
 - 看 `04_stages/*.png`：要拿掉的東西真的不見了，沒有多畫回別的肢體。
-- 精修後建置會自動跑 `check_seams.py`，輸出 `WARN seam …`：骨盆比大腿寬出去、肢體輪廓有缺口或細鬚、兩節肢體寬度對不上、肢體零件沒有接到自己的關節（`refine.extend`）、髖點到大腿頂端之間骨盆蓋不滿（`refine.cap_from`）。每一條都放大看，修到沒有；是畫本身的形狀才登記進規格的 `seam_checks.allow` 並寫理由。也可以單獨跑：`python tools/comfyui/check_seams.py --recipe … ` 或 `--all`。
-- 把 `07_refined/pelvis.png`、`leg_upper.png` 放在洋紅底上看：骨盆是圓順的一塊，大腿是一條（前緣是直線、不是兩條大腿黏在一起），手的位置與髖部前緣都沒有被咬掉。有缺口先回頭看規格的 `groups`（多出來的遮罩群組會把身體挖掉），不要先用補洞蓋過去。
+- 精修後建置會自動跑 `check_seams.py`，輸出 `WARN seam …`：髖點以下骨盆比大腿寬（`overhang`）、髖點正上方骨盆還凸在大腿前面一塊（`block`）、膝蓋處大腿與小腿的前緣對不上（`front`）、肢體輪廓有缺口或細鬚（`ragged`）、兩節肢體寬度對不上（`step`）、肢體零件沒有接到自己的關節（`detached`，用 `refine.extend`）、髖點到大腿頂端之間骨盆蓋不滿（`hip_gap`，用 `refine.cap_from`）。每一條都放大看，修到沒有；是畫本身的形狀才登記進規格並寫理由：`"seam_checks": {"allow": {"<鍵>": "理由"}}`，鍵是 `overhang`、`overhang:front`、`overhang:back`、`block`、`front:knee`、`ragged:<零件>`、`step:<關節>`、`detached:<零件>`、`hip_gap`。也可以單獨跑：`python tools/comfyui/check_seams.py --recipe … ` 或 `--all`。
+- 沒有警告不等於沒問題：`check_seams` 只量它認得的幾種形狀。第 5 關的兩腿分開近拍還是要放大看。
+- 舊流程的角色（近側腿是另一個群組、骨盆沒有 `front_line`）用 `refine.taper_front`：`[{"part": "pelvis", "to": "leg_upper"}]`，效果相同。大腿零件比髖部細很多的角色（大腿護甲是另外的零件）不能用，骨盆會被削成一片楔形。
+- 把 `07_refined/pelvis.png`、`leg_upper.png` 放在洋紅底上看：骨盆是圓順的一塊、前緣斜斜收進大腿前緣（不是一個方塊），大腿是一條（前緣是直線、不是兩條大腿黏在一起；頂端是工具加的圓蓋，正常），大腿與小腿的前緣在膝蓋連成一條線（正常的樣子：`pm/Nest-Egg/images/NE-218-hip-parts-normal.png`），手的位置與髖部前緣都沒有被咬掉。有缺口先回頭看規格的 `groups`（多出來的遮罩群組會把身體挖掉），不要先用補洞蓋過去。
 - 把 `07_refined/torso.png` 放在洋紅底上看：袖窿補色是平的一塊布色，沒有抹進別的顏色。
 - 看 `06_parts/ownership.png`：每個肢體各自一色；身體旁邊沒有細線；遠側小腿與鞋有被分出去。
 - `python tools/comfyui/check_reassembly.py --spec … --work … [--allow …]`：零件疊回原位和原圖比。預期中的缺口（遠側腿）逐塊看過才登記進 allow 檔並寫理由。allow 檔是 JSON：`{"holes": [[x0, y0, x1, y1], …]}`，每個方框是已審過的預期缺口。
@@ -99,6 +101,9 @@ python tools/comfyui/gpu_lock.py -- <godot> --path . res://tools/rig_preview.tsc
 ```
 
 一定要看的畫面：空手站著不動、坐、蹲、八個動作、NPC 八個姿勢；有衣物脫落的角色看脫落各階段。（細節：rig-animation「空手時的手臂」；character-art-pipeline「進引擎後先看坐、蹲、跪」）
+- 單一角色用 `--closeup --zoom=5`；要看髖與膝的細節用 `--zoom=7` 到 `10`（上半身出畫面沒關係）。`--npc` 的八格依序是站、坐、倚、蹲、說話、聽、揮手、工作循環，`--zoom=3.2` 剛好排得下。
+- 看不出凸出來的那一塊是哪個零件：加 `--paint`，每個零件塗成一個平色，圖例印在輸出。
+- 遠側的手貼著髖前緣露出來、看不到前臂：遠側手臂被身體擋住，正常。手和身體輪廓之間有空隙，或和近側的手並排在同一側，才是問題。
 - 站著像挺胸、兩隻手並排在同一側：來源姿勢的問題（回第 1 關），或空手垂放角度（動作資料 `arms.hang`，兩臂不能同角度）。（細節：character-art-pipeline「來源畫成直立站姿」；rig-animation「空手時的手臂」）
 - 多一隻手：底層圖殘留（回第 4 關），或衣物零件裡烤進了手臂。（細節：character-art-pipeline「階段圖一張一張看」，拿掉衣袖與拿掉手臂分兩張生）
 - 坐下時骨盆露出直線下緣、球狀凸塊：用 `caps` 處理。上層零件的圓盤較大並柔邊，下層較小、硬邊。（細節：character-art-pipeline「關節圓蓋 `parts.<名稱>.caps`」；球狀臀腿的驗收見 rig-animation「蹲姿臀腿輪廓（NE-222）」）
@@ -131,6 +136,8 @@ python tools/check_joint_frames.py <同一個目錄>
 - 中心沒蓋到：支點落在零件外面，或落在第三個零件（肩帶、背帶）上；移到兩個零件本身蓋得到的地方
 - 原圖有、沒有零件認領的像素（下巴與衣領之間的皮膚）：`refine.claim`
 - 衣領、袖口的開口是衣物本來的形狀：寫明是哪一類，不改門檻
+- 頸後的封閉小洞怎麼判：站姿就有，或洞邊有一條被切斷的皮膚 → 真缺口，在頸根加 `refine.underlap` 小圓。只有抬頭（`aim_up`）時後頸、髮尾與衣領才圍出來，兩邊零件各自完整 → 姿勢圍出的空隙，照實記數、不改門檻
+- 稽核預設連同一根骨頭上的其他零件一起畫（穿著的樣子）；`--pair-only` 只畫那一對。兩種都失敗的才是真缺口：`python tools/joint_audit_both.py <pair-only 目錄> <預設目錄>`
 
 ## 第 7 關：接到遊戲
 
@@ -138,6 +145,7 @@ python tools/check_joint_frames.py <同一個目錄>
 - 敵人：`data/enemies/<…>.tres` 的 `rig_skin`（人形）或 `creature_skin`（生物）。只換外觀，不改數值、行為與判定框；外形變了而判定框沒變，寫進對應的戰鬥票。
 - 主角：`art/characters/rin` 與 `art/motion/rin.json`。
 - 不改故事、台詞與關卡配置。
+- 只做外觀、還不接遊戲時，`rig_preview --npc` 不需要 `.tres`；這一關可以整關留到接遊戲的票。
 - `tools/screenshot.tscn --scenario=place:<關卡>:<欄>:<標籤>:enemies` 拍正式關卡裡的樣子；過場用 `--scenario=cutscenes`。
 
 ## 第 8 關：測試與交付
@@ -146,6 +154,7 @@ python tools/check_joint_frames.py <同一個目錄>
 2. 截圖存 `pm/<專案>/images/`，票上加「問題—改動—驗收」的 Commit 段落，只勾真的通過的條件；接點沒歸零、實機沒看過的都如實寫。
 3. 每修好一類問題，把成因、提早發現的方法、修法與不能用的掩蓋做法補進 `pm/Nest-Egg/attachments/NE-255-lessons.md`。
 4. 一張票一個 commit，rebase 到最新 main、重跑受影響測試後推送。
+5. 建置一次只跑一個角色（兩個同時跑，匯入會互撞）。提交前確認 `art/` 底下沒有 `valid=false` 的 `.import`：`grep -rl "valid=false" art/` 要是空的。
 
 交付前自己先放大看：兩腿分開的近拍與走路週期的髖、膝、肩、肘各放大一次。沒有放大看過的，票上不寫「沒有發現問題」。
 

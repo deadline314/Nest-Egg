@@ -13,6 +13,10 @@ The joint audit (tools/rig_joint_audit) counts holes between two parts. It canno
   ragged    the outline of a limb jumps in and out by several pixels: a mask stopped at a hand, a holster or a shadow and bit a
             notch out of the limb, or left a fringe ("torn")
   step      two parts of one limb do not have the same width where they meet (thigh / shin at the knee, upper arm / forearm)
+  block     just above the hip joint the pelvis still reaches well in front of the thigh: the front of the far hip was left on it as
+            a block, which stands out as a lump whenever the far leg is not exactly under it
+  front     at the knee the front edges of thigh and shin do not meet (a seam grown back over a cut, a shin cut along another line):
+            a flap or a ledge when the knee bends
   detached  a limb part begins far from the joint it turns on (a far forearm of which only the cuff was drawn): when the limb is
             raised, the hand floats in the air
 A finding that is the drawing itself (hip armour that really is wider than the thigh) is listed in the spec with its reason:
@@ -29,6 +33,7 @@ from scipy import ndimage
 
 ROOT = Path(__file__).resolve().parents[2]
 DETACHED_PX = 14.0
+BLOCK_PX, FRONT_PX = 12.0, 9.0  # the shin may leave the line by 6 px over these 12 rows (make_parts ramp)
 OVERHANG_PX, OVERHANG_BACK_PX, RAGGED_PX, STEP_SHARE = 7.0, 24.0, 7.0, 0.22  # the buttock is behind the thigh's line by nature
 LIMBS = [("leg_upper", "leg_lower", "knee"), ("arm_upper", "arm_lower", "elbow")]
 
@@ -55,6 +60,23 @@ def overhang(pelvis: np.ndarray, thigh: np.ndarray, hip_y: int, knee_y: int) -> 
     over_back = np.polyval(back, p_rows[below]) - p_first[below]
     # a few rows may stick out (the outline's corner): what counts is what most of the strip does
     return float(np.percentile(over_front, 60)), float(np.percentile(over_back, 60))
+
+
+def block(pelvis: np.ndarray, thigh: np.ndarray, hip_y: int, knee_y: int) -> float:
+    """How far the pelvis is in front of the thigh's front line in the rows just above the hip joint (px)."""
+    rows, _, last = edges(thigh)
+    mid = (rows >= hip_y + 0.3 * (knee_y - hip_y)) & (rows <= hip_y + 0.75 * (knee_y - hip_y))
+    p_rows, _, p_last = edges(pelvis)
+    above = (p_rows >= hip_y - 14) & (p_rows <= hip_y - 4)
+    if mid.sum() < 20 or above.sum() < 6:
+        return 0.0
+    return float(np.median(p_last[above]) - np.polyval(np.polyfit(rows[mid], last[mid], 1), hip_y))
+
+
+def front_step(upper: np.ndarray, lower: np.ndarray, joint_y: int) -> float:
+    """How far apart the front edges of the two parts are, 12 px either side of the joint (px)."""
+    a, b = np.nonzero(upper[joint_y - 12])[0], np.nonzero(lower[joint_y + 12])[0]
+    return float(abs(int(a.max()) - int(b.max()))) if len(a) and len(b) else 0.0
 
 
 def ragged(mask: np.ndarray) -> float:
@@ -97,6 +119,15 @@ def check(recipe_path: Path) -> list[str]:
         for side, value, limit in (("front", front, OVERHANG_PX), ("back", back, OVERHANG_BACK_PX)):
             if value > limit and f"overhang:{side}" not in allow:
                 found.append(f"overhang: below the hip the pelvis is {value:.0f} px wider than the thigh at the {side}")
+    if pelvis is not None and thigh is not None and "block" not in allow:
+        value = block(pelvis, thigh, int(joints["hip"][1]), int(joints["knee"][1]))
+        if value > BLOCK_PX:
+            found.append(f"block: just above the hip the pelvis is {value:.0f} px in front of the thigh (the far hip left on it: a lump when the far leg moves)")
+    shin = layer("leg_lower")
+    if thigh is not None and shin is not None and "front:knee" not in allow:
+        value = front_step(thigh, shin, int(joints["knee"][1]))
+        if value > FRONT_PX:
+            found.append(f"front: at the knee the front edges of thigh and shin are {value:.0f} px apart (a flap or a ledge when the knee bends)")
     for upper_name, lower_name, joint in LIMBS:
         upper, lower = layer(upper_name), layer(lower_name)
         for name, mask in ((upper_name, upper), (lower_name, lower)):
@@ -150,6 +181,12 @@ def self_test() -> None:
     shin = canvas.copy()
     shin[500:590, 100:150] = True        # 50 wide under an 80-wide thigh
     assert step(thigh, shin, 500) > 0.3
+    pelvis[100:200, 100:220] = True      # the block above the hip is still there
+    thigh[300:320, 170:180] = True
+    assert block(pelvis, thigh, 200, 500) > 30
+    pelvis[150:200, 185:] = False
+    assert block(pelvis, thigh, 200, 500) < 6
+    assert front_step(thigh, shin, 500) > 25 and front_step(shin, shin, 520) == 0
     assert detached(shin, [125, 500]) < 1 and detached(shin, [125, 420]) > 70
     print("check_seams self-test: ok")
 

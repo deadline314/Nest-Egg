@@ -16,7 +16,8 @@ something in front of them are completed by Qwen (the gap only); limb groups are
 groups.<name>.points (NE-218): {"pos": [[x, y], ...], "neg": [[x, y], ...]} picks the group with SAM point prompts instead of (or on top of)
 its text prompts; groups.<name>.rest: true gives it every picture pixel no earlier group took. "sam" may then be an empty list.
 
-parts.<name>.caps (NE-222): [{"joint": "hip", "radius": 80, "feather": 10}] adds the group's pixels inside a disc around a joint to the part,
+parts.<name>.caps (NE-222): [{"joint": "hip", "radius": 80, "feather": 10}] (optional "center": [x, y] when the round end is not centred
+on the joint: a knee's pivot sits behind the middle of the leg, the disc that rounds the leg's end is as wide as the leg and in its middle) adds the group's pixels inside a disc around a joint to the part,
 on top of its straight cut, and fades the disc's rim over `feather` px. Give it to BOTH parts of a rigid joint (pelvis and thigh at the hip,
 torso and sleeve at the shoulder...): the two discs stay on top of each other at every angle, so the silhouette stays round and closed.
 radius = about half the limb's width at the joint, in pixels of base_rgba.png. "sam": ["black stockings leg"] keeps only the cap pixels of
@@ -629,6 +630,8 @@ def main() -> None:
     seam = spec.get("seam", 10)
     parts: dict[str, np.ndarray] = {}
     straight: dict[str, np.ndarray] = {}  # the part before its round joint caps were added
+    ramp: dict[tuple[str, str], np.ndarray] = {}
+    own_cut: dict[str, np.ndarray] = {}  # part -> what its own front_line cut away (the seam it grows afterwards must not take it back)
     front_cut: dict[str, np.ndarray] = {}  # group -> what a front_line cut away (the far thigh): no part of the group may take it back
     for pname, pdef in spec["parts"].items():
         if "damage_of" in pdef:
@@ -668,23 +671,37 @@ def main() -> None:
             if len(top_row) and starts:
                 x_bot = float(np.median(starts)) + fl.get("margin", 2)
                 x_top = min(float(top_row.max()) + fl.get("margin", 2), j_top[0] + fl.get("widen", 1.15) * (x_bot - j_bot[0]))
-                beyond = (yy >= y_top) & (xx > x_top + (x_bot - x_top) * np.clip((yy - y_top) / max(y_bot - y_top, 1), 0.0, 1.5))
+                # What is in front of the line is the far hip and thigh; no part keeps it (the far leg is the near leg's copy, drawn at
+                # its own hip). A limb also loses what is in front of the line above the joint (the "ear" of its round cap, which would
+                # swing out of the trouser front). The pelvis runs from its full width under the belt in an S-curve into the line at the
+                # hip: left as a block, the front of the far hip stays behind as a lump whenever the far leg is not exactly under it.
+                strip = max(float(top_row.max()) - x_top, 0.0)
+                below = (yy >= y_top) & (xx > x_top + (x_bot - x_top) * np.clip((yy - y_top) / max(y_bot - y_top, 1), 0.0, 1.5))
+                if pdef.get("mode") == "bone":
+                    beyond = below | (xx > x_top)
+                else:
+                    y0 = int(pdef["y"][0]) if "y" in pdef else y_top
+                    t = np.clip((yy - y0) / max(y_top - y0, 1), 0.0, 1.0)
+                    beyond = below | ((yy >= y0) & (xx > x_top + strip * (1.0 - t * t * (3.0 - 2.0 * t))))
                 region &= ~beyond
-                front_cut[pdef["group"]] = front_cut.get(pdef["group"], np.zeros((H, W), bool)) | beyond
-                print(f"front_line {pname}: x {x_top:.0f} at y {y_top} -> x {x_bot:.0f} at y {y_bot}")
+                own_cut[pname] = beyond
+                if pdef.get("mode") == "bone":  # the part that hangs from this one (the shin) leaves the line gradually, 1 px in 2 rows: no ledge in front of the knee
+                    ramp[(pdef["group"], fl.get("to", pdef["to"]))] = (yy >= y_bot - seam) & (xx > x_top + (x_bot - x_top) * (yy - y_top) / max(y_bot - y_top, 1) + np.maximum(yy - y_bot, 0) * 0.5)
+                front_cut[pdef["group"]] = front_cut.get(pdef["group"], np.zeros((H, W), bool)) | below
+                print(f"front_line {pname}: x {x_top:.0f} at y {y_top} -> x {x_bot:.0f} at y {y_bot}, strip {strip:.0f} px")
         straight[pname] = region
         # caps: a rigid joint (hip, shoulder, wrist, ankle, neck) turns without showing a corner or a gap only when both parts keep a round
         # disc of the group around the joint they turn on; a straight cut alone leaves an angular silhouette as soon as the limb swings.
         for cap in pdef.get("caps", []):
-            disc = (grp[:, :, 3] > 127) & (cap_distance((H, W), spec["joints"][cap["joint"]]) <= cap["radius"])
+            disc = (grp[:, :, 3] > 127) & (cap_distance((H, W), cap.get("center", spec["joints"][cap["joint"]])) <= cap["radius"])
             if "sam" in cap:  # only this material: a thigh's cap must not carry a sliver of the bodysuit around with it
                 wanted = np.zeros((H, W), bool)
                 for prompt in cap["sam"]:
                     wanted |= M[prompt]
                 disc &= dilate(wanted, 2)
+            if pdef["group"] in front_cut:  # the far thigh in front of the line belongs to no part of this group, also not through a disc
+                disc &= ~own_cut.get(pname, front_cut[pdef["group"]])
             region = region | disc
-        if pdef["group"] in front_cut and "front_line" in pdef:
-            region &= ~front_cut[pdef["group"]]
         if "within" in pdef:  # keep the pixels of this group that fall inside another group's visible mask (e.g. the hand inside the arm group)
             region &= dilate(V[pdef["within"]], pdef.get("within_grow", 3))
         if "not_within" in pdef:
@@ -705,7 +722,14 @@ def main() -> None:
                     taken |= parts[other]
             lo, hi = pdef["unclaimed"]
             orphan = (complete[pdef["group"]][:, :, 3] > 127) & ~taken & (yy >= lo) & (yy < hi)
-            orphan &= ~front_cut.get(pdef["group"], np.zeros((H, W), bool))
+            orphan &= ~own_cut.get(pname, front_cut.get(pdef["group"], np.zeros((H, W), bool)))
+            if pdef.get("pivot") in spec["joints"] and orphan.any():
+                # ... and only inside a disc around the part's pivot that reaches the group's edge at the pivot's row: the band's far
+                # corner (front of the hip, 26 px below the joint) would otherwise stay behind as a square block when the leg swings away
+                jx, jy = spec["joints"][pdef["pivot"]]
+                row = np.nonzero((complete[pdef["group"]][int(jy), :, 3] > 127) & ~front_cut.get(pdef["group"], np.zeros((H, W), bool))[int(jy)])[0]
+                if len(row):
+                    orphan &= cap_distance((H, W), [jx, jy]) <= max(abs(row.max() - jx), abs(jx - row.min())) + 1
             parts[pname] = parts[pname] | orphan
             straight[pname] = straight[pname] | orphan
             print(f"unclaimed -> {pname}: +{int(orphan.sum())} px")
@@ -724,6 +748,12 @@ def main() -> None:
             parts[pname] = np.array(Image.open(target).convert("RGBA"))[:, :, 3] > 127
             continue
         grown = dilate(region, 2 if "blob" in pdef else pdef.get("seam", seam)) & (grp[:, :, 3] > 127)
+        if pname in own_cut:  # the seam grows towards neighbours, not back over the front line (it left the thigh 10 px wider than the shin at the knee)
+            grown &= ~own_cut[pname]
+        elif pdef["group"] in front_cut:  # ... and a neighbour (the shin) does not grow into what the line cut away: a thorn in front of the knee
+            grown &= ~front_cut[pdef["group"]] | region
+            if (pdef["group"], pdef.get("from")) in ramp:
+                grown &= ~ramp[(pdef["group"], pdef["from"])]
         if "minus_group" in pdef:
             grown &= ~(complete[pdef["minus_group"]][:, :, 3] > 127)
         grown = largest_blobs(grown)
@@ -732,7 +762,7 @@ def main() -> None:
         if pdef.get("caps"):
             part_seam = pdef.get("seam", seam)
             layer[:, :, 3] = cap_alpha(layer[:, :, 3], dilate(straight[pname], part_seam) & grown,
-                                       [(cap_distance((H, W), spec["joints"][cap["joint"]]), cap["radius"] + part_seam, cap.get("feather", 0))
+                                       [(cap_distance((H, W), cap.get("center", spec["joints"][cap["joint"]])), cap["radius"] + part_seam, cap.get("feather", 0))
                                         for cap in pdef["caps"]])
         Image.fromarray(layer).save(pdir / f"{pname}.png")
         parts[pname] = grown

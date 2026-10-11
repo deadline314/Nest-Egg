@@ -915,7 +915,9 @@
   "seam_checks": {
     "allow": {
       "overhang:front": "白色髖甲片是骨盆的一部分",
-      "ragged:arm_upper": "肩甲的輪廓"
+      "ragged:arm_upper": "肩甲的輪廓",
+      "block": "the armour skirt rides the pelvis",
+      "front:knee": "the knee plate is a separate part that covers the knee front"
     }
   }
 }

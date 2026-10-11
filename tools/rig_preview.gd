@@ -88,6 +88,8 @@ var _force_hurt := false
 var _force_recoil := 0.0
 var _force_aim := NAN
 var _force_ticks: Dictionary = {}
+## --paint：每個零件塗成一個平色（圖例印在輸出），用來看「凸出來的那一塊是哪個零件」。
+var _paint := false
 
 
 func _ready() -> void:
@@ -98,6 +100,8 @@ func _ready() -> void:
 			_zoom = float(arg.trim_prefix("--zoom="))
 		elif arg == "--bright":
 			_bright = true
+		elif arg == "--paint":
+			_paint = true
 		elif arg == "--left":
 			_left = true
 		elif arg == "--crouch":
@@ -230,10 +234,30 @@ func _spawn(skin: String, weapon: String, pos: Vector2, pose: String, zoom: floa
 		return
 	rig.set_weapon(_weapon_override if _weapon_set else weapon)
 	rig.set_armor_ratio(armor_ratio, false)
+	if _paint:
+		_paint_parts(rig, _rigs.is_empty())
 	var input := RigInput.new()
 	_rigs.append(rig)
 	_inputs.append(input)
 	_poses.append(pose)
+
+
+func _paint_parts(rig: CharacterRig, legend: bool) -> void:
+	var shader := Shader.new()
+	shader.code = "shader_type canvas_item; uniform vec4 flat_color : source_color; void fragment() { COLOR = vec4(flat_color.rgb, step(0.5, texture(TEXTURE, UV).a)); }"
+	var parts: Array[CanvasItem] = []
+	for bone_name in rig.bone_order():
+		for child in rig.bone(bone_name).get_children():
+			if child is CanvasItem and not child is Bone2D and child.visible:
+				parts.append(child)
+	for i in parts.size():
+		var material := ShaderMaterial.new()
+		material.shader = shader
+		var color := Color.from_hsv(fmod(i * 0.381966, 1.0), 0.85 if i % 2 == 0 else 0.5, 1.0 if i % 3 != 0 else 0.6)
+		material.set_shader_parameter("flat_color", color)
+		parts[i].material = material
+		if legend:
+			print("paint %s on %s z%d = #%s" % [parts[i].name, parts[i].get_parent().name, parts[i].z_index, color.to_html(false)])
 
 
 func _process(delta: float) -> void:
