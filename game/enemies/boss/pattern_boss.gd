@@ -63,6 +63,7 @@ func _setup_states() -> void:
 	pattern = BossPattern.load_for(data.id)
 	_anchor = global_position
 	collision_mask = Layers.WORLD  # 頭目不站單向平台，維持戰場節奏
+	hurtbox.parts_take_melee = true  # 裝甲頭目：近戰碰到打開的弱點（背部電源）就打弱點
 	for part in hurtbox.parts:
 		_parts_by_id[part.part_id] = part
 		part.hit_blocked.connect(_on_blocked)
@@ -648,10 +649,8 @@ func _update_rig_action() -> void:
 		action = _move().get("pose_windup", &"")
 	elif fsm.is_in(&"act"):
 		action = _move().get("pose_act", &"")
-	elif fsm.is_in(&"phase_shift"):
-		action = &"warden.vent" if rig != null and data.rig_skin == "warden" else &""
 	if action == &"":
-		action = StringName(str(data.rig_actions.get(String(fsm.current), "")))
+		action = pattern.state_poses.get(fsm.current, &"")
 	_rig_input.action = action
 	if action == &"":
 		_rig_input.action_t = 0.0

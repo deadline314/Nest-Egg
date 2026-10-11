@@ -2600,6 +2600,130 @@
           "hip_y": 1.0
         }
       ]
+    },
+    "watchdog.brace": {
+      "duration": 0.4,
+      "skip_ik": false,
+      "blend": 12,
+      "keys": [
+        {
+          "t": 0.0,
+          "bones": {
+            "chest": 0.0
+          }
+        },
+        {
+          "t": 1.0,
+          "bones": {
+            "chest": 0.28,
+            "head": 0.1,
+            "leg_front_upper": -0.5,
+            "leg_front_lower": 0.7,
+            "leg_back_upper": 0.55,
+            "leg_back_lower": 0.5
+          },
+          "hip_y": 3.0
+        }
+      ]
+    },
+    "watchdog.windup_overhead": {
+      "weapon_angle": 1.1,
+      "duration": 0.6,
+      "skip_ik": true,
+      "blend": 14,
+      "keys": [
+        {
+          "t": 0.0,
+          "bones": {
+            "arm_front_upper": -0.6,
+            "arm_front_lower": -0.5,
+            "arm_back_upper": -0.5,
+            "arm_back_lower": -0.5,
+            "chest": 0.0
+          }
+        },
+        {
+          "t": 1.0,
+          "bones": {
+            "arm_front_upper": -2.9,
+            "arm_front_lower": -0.2,
+            "arm_back_upper": -2.8,
+            "arm_back_lower": -0.3,
+            "chest": -0.18,
+            "head": -0.12,
+            "leg_front_upper": -0.35,
+            "leg_back_upper": 0.3
+          },
+          "hip_y": 1.5
+        }
+      ]
+    },
+    "watchdog.slam": {
+      "weapon_angle": 1.1,
+      "duration": 0.35,
+      "skip_ik": true,
+      "blend": 30,
+      "keys": [
+        {
+          "t": 0.0,
+          "bones": {
+            "arm_front_upper": -2.9,
+            "arm_front_lower": -0.2,
+            "arm_back_upper": -2.8,
+            "arm_back_lower": -0.3,
+            "chest": -0.18
+          }
+        },
+        {
+          "t": 0.5,
+          "bones": {
+            "arm_front_upper": -0.5,
+            "arm_front_lower": -0.15,
+            "arm_back_upper": -0.4,
+            "arm_back_lower": -0.2,
+            "chest": 0.4,
+            "head": 0.2,
+            "leg_front_upper": -0.5,
+            "leg_back_upper": 0.4
+          },
+          "hip_y": 4.0
+        },
+        {
+          "t": 1.0,
+          "bones": {
+            "arm_front_upper": -0.45,
+            "arm_front_lower": -0.15,
+            "arm_back_upper": -0.35,
+            "arm_back_lower": -0.2,
+            "chest": 0.35,
+            "head": 0.18
+          },
+          "hip_y": 3.0
+        }
+      ]
+    },
+    "watchdog.vent": {
+      "duration": 0.5,
+      "skip_ik": false,
+      "blend": 10,
+      "keys": [
+        {
+          "t": 0.0,
+          "bones": {
+            "chest": 0.0
+          }
+        },
+        {
+          "t": 1.0,
+          "bones": {
+            "chest": -0.2,
+            "head": -0.3,
+            "leg_front_upper": -0.15,
+            "leg_back_upper": 0.2
+          },
+          "hip_y": 1.0
+        }
+      ]
     }
   }
 }

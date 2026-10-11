@@ -26,6 +26,8 @@ var leash_retreat := 0.0
 var parts_open: Dictionary = {}
 ## 部位 id → 關著時的樣子：armor（還在畫面上，子彈打到會被擋下彈開）或 hidden（不在畫面上，打不到）。
 var parts_closed: Dictionary = {}
+## 狀態（yanked、phase_shift、intro…）→ 骨架動作 id；招式自己的預兆／出招動作寫在 moves。
+var state_poses: Dictionary = {}
 ## 睡著直到玩家進入這個距離（0＝一出場就醒）。
 var wake_range := 0.0
 ## 擊敗後解開的機關頻道與提示；頻道空白代表結束關卡（boss_defeated）。
@@ -105,6 +107,10 @@ func _apply(source: Dictionary, where: String) -> void:
 			parts_closed[StringName(str(id))] = closed
 			parts_close_in_stagger[StringName(str(id))] = entry is Dictionary and bool((entry as Dictionary).get("close_in_stagger", false))
 			parts_gone_from[StringName(str(id))] = maxi(0, int((entry as Dictionary).get("gone_from_phase", 0))) if entry is Dictionary else 0
+	var poses: Variant = source.get("poses", {})
+	if poses is Dictionary:
+		for state: Variant in poses:
+			state_poses[StringName(str(state))] = StringName(str(poses[state]))
 	wake_range = maxf(0.0, float(source.get("wake_range", 0.0)))
 	var defeat: Variant = source.get("defeat", {})
 	if defeat is Dictionary:

@@ -26,6 +26,8 @@ var part_id: StringName = &""
 var hit_material: StringName = &""
 var main: Hurtbox
 var parts: Array[Hurtbox] = []
+## 近戰是否分部位：一般敵人近戰打整體（不吃頭部倍率）；有裝甲與弱點窗口的頭目設為 true，近戰碰到打開的部位就打那個部位。
+var parts_take_melee := false
 ## 停用時不會被任何攻擊判定到（透過 deferred 切換，物理回呼中呼叫也安全）。
 var enabled: bool = true:
 	set(value):

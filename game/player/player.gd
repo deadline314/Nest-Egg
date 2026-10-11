@@ -1036,9 +1036,11 @@ func _melee_targets(attack: Dictionary) -> Array[Hurtbox]:
 		return candidates
 	var result: Array[Hurtbox] = []
 	for target in candidates:
-		var offset := target.center() - origin
-		if offset.length() >= min_range and absf(dir.angle_to(offset)) <= half:
-			result.append(target)
+		for box: Hurtbox in [target, target.root()]:
+			var offset := box.center() - origin
+			if offset.length() >= min_range and absf(dir.angle_to(offset)) <= half:
+				result.append(box)  # 部位不在揮擊角度內時退回整體，不會因為選了部位而整個揮空
+				break
 	return result
 
 
@@ -1161,11 +1163,20 @@ func _query_hurtboxes(center: Vector2, size: Vector2, rotation := 0.0, radius :=
 	params.collision_mask = Layers.ENEMY_HURTBOX
 	params.collide_with_areas = true
 	params.collide_with_bodies = false
+	var by_root: Dictionary[Hurtbox, Hurtbox] = {}
 	for hit in get_world_2d().direct_space_state.intersect_shape(params, 16):
 		var found := hit.get("collider") as Hurtbox
-		found = found.root() if found != null else null  # 近戰打整體，不分部位
-		if found != null and not result.has(found):
-			result.append(found)
+		if found == null:
+			continue
+		var owner_box := found.root()
+		# 近戰打整體，不分部位；只有標了 parts_take_melee 的目標（裝甲頭目）碰到打開的部位時打部位，取 parts 排序在前的。
+		var chosen: Hurtbox = by_root.get(owner_box, owner_box)
+		if owner_box.parts_take_melee and found != owner_box and found.enabled and not found.guard.is_valid() \
+				and (chosen == owner_box or owner_box.parts.find(found) < owner_box.parts.find(chosen)):
+			chosen = found
+		by_root[owner_box] = chosen
+	for owner_box in by_root:
+		result.append(by_root[owner_box])
 	return result
 
 

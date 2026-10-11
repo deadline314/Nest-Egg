@@ -19,6 +19,7 @@ func run() -> void:
 	await _test_watchdog_leash_yank()
 	await _test_watchdog_phases()
 	await _test_watchdog_missiles_dodgeable()
+	await _test_watchdog_melee_windows()
 	await check_defeatable_on_every_difficulty(ALL)
 
 
@@ -101,6 +102,15 @@ func _test_watchdog_pattern_data() -> void:
 			phase_kinds[pattern.moves[id]["kind"]] = true
 		check(phase_kinds.size() >= 3, "phase %d offers three different kinds of attack" % [i + 1])
 	check(pattern.leash_length > 0.0 and pattern.gate_channel == &"watchdog_gate", "the watchdog is chained and opens its gate")
+	# 動作不共用：引用的每個骨架動作都存在，而且是看門狗自己的（watchdog.*）。
+	var actions: Dictionary = RigLibrary.load_json(HumanoidAnimator.ACTIONS_PATH).get("actions", {})
+	var poses: Array = pattern.state_poses.values()
+	for id: StringName in pattern.moves:
+		for key in ["pose_windup", "pose_act"]:
+			if pattern.moves[id][key] != &"":
+				poses.append(pattern.moves[id][key])
+	for pose: StringName in poses:
+		check(actions.has(String(pose)) and String(pose).begins_with("watchdog."), "watchdog pose %s exists and is its own" % pose)
 	# 損毀的資料：記錄位置並退回安全預設，不崩潰。
 	var broken := BossPattern.parse({"moves": {"x": {"kind": "teleport"}}, "phases": [{"moves": ["missing"]}], "parts": {"a": {"open": "sometimes"}}}, "test://broken", true)
 	check(broken.errors.size() >= 3 and broken.errors[0].contains("test://broken"), "broken boss data reports where it failed: %s" % [broken.errors])
@@ -254,3 +264,58 @@ func _test_watchdog_missiles_dodgeable() -> void:
 			check(hurt.is_empty(), "leaving the red circles avoids every missile: %s" % [hurt])
 		level.player.set_physics_process(true)
 		await end_level(level)
+
+
+## 近戰（頭目反制）：平常身體裝甲擋下近戰；被扯回背部打開時，繞到牠背後跳起來近戰，打得到背部電源（弱點、兩倍）。
+## 牠是高大的機甲，背部電源在站著的玩家近戰範圍之上，而且在背對玩家的那一側（子彈從正面就打得到）。
+## 用手把右搖桿瞄準（無頭環境讀不到滑鼠）。
+func _test_watchdog_melee_windows() -> void:
+	await open_level(DOG_TILE - 20.0)
+	var dog := await _spawn_dog()
+	await wait_state(dog, &"idle", 120)
+	dog.set_physics_process(false)
+	var player := level.player
+	AimInput.set_virtual_gamepad(player, true)
+	var hits: Array = []
+	var blocked: Array = []
+	var record := func(info: DamageInfo) -> void: hits.append([info.part, info.amount, info.weak_hit])
+	var on_block := func(_info: DamageInfo) -> void: blocked.append(true)
+	dog.health.damaged.connect(record)
+	dog.hurtbox.hit_blocked.connect(on_block)
+	var melee_damage := int(MeleeData.default_set().attack(str(MeleeData.default_set().combo()[0]))["damage"])
+	for side: float in [-1.0, 1.0]:
+		var toward := &"aim_right" if side < 0.0 else &"aim_left"
+		Input.action_press(toward)
+		hits.clear()
+		blocked.clear()
+		player.global_position = dog.global_position + Vector2(side * 24.0, 0.0)
+		player.velocity = Vector2.ZERO
+		await physics_frames(25)
+		player._try_melee()
+		await physics_frames(30)
+		check(hits.is_empty() and not blocked.is_empty(), "melee on the armoured watchdog is blocked, not damage (side %d): %s" % [int(side), hits])
+		dog.call(&"_yanked_enter")
+		# 繞到背後（牠面向的另一側）。
+		var behind := -float(dog.facing)
+		Input.action_release(toward)
+		toward = &"aim_left" if behind > 0.0 else &"aim_right"
+		Input.action_press(toward)
+		player.global_position = dog.global_position + Vector2(behind * 24.0, 0.0)
+		player.velocity = Vector2.ZERO
+		await physics_frames(25)
+		hits.clear()
+		Input.action_press(&"jump")
+		await physics_frames(14)
+		player._try_melee()
+		await physics_frames(30)
+		Input.action_release(&"jump")
+		check(hits.size() == 1 and hits[0][0] == &"back_power" and hits[0][2] and hits[0][1] == maxi(1, roundi(melee_damage * 2.0)),
+				"with the back open, a jumping melee from behind strikes the back power as a weak hit (round %d): %s" % [int(side), hits])
+		dog.call(&"_yanked_exit")
+		dog.health.setup(dog.data.max_health, 0.0)
+		Input.action_release(toward)
+		await physics_frames(40)
+	AimInput.set_virtual_gamepad(player, false)
+	dog.health.damaged.disconnect(record)
+	dog.hurtbox.hit_blocked.disconnect(on_block)
+	await end_level(level)
