@@ -119,4 +119,4 @@
 
 ![第一章任務目錄](images/ST-2-ch1-quest-catalog.jpg)
 
-分支：`feature/ecstatic-einstein-gyjqmu`。劇本的使用者確認仍在 ST-1；確認後改作者稿再重產，任務與標記會一起更新。
+分支：`feature/ecstatic-einstein-gyjqmu`，提交 [c326b2dc](https://github.com/deadline314/Nest-Egg/commit/c326b2dc5b403ebef062d689ea02d62919fcc824)。劇本的使用者確認仍在 ST-1；確認後改作者稿再重產，任務與標記會一起更新。
