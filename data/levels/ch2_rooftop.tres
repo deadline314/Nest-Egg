@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_egret.tres" id="3_ch2_egret"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="4_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/rooftop.tres" id="5_rooftop"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch2_rooftop.tres" id="6_ch2_rooftop"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"roof_stairs"
+target_level = "res://data/levels/ch2_pawnshop.tres"
+target_portal = &"pawn_stairs"
+prompt = "{interact} 下樓"
+width = 24
+height = 44
+style = "hidden"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("4_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("5_rooftop")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch2_rooftop"
+display_name = "屋頂茶座"
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"T": SubResource("Resource_0"),
+"ⓔ": ExtResource("3_ch2_egret")
+})
+hints = PackedStringArray()
+chapter = &"ch2_heron"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("6_ch2_rooftop")
+layout_path = "res://data/levels/ch2_rooftop_map.json"
+lighting_zones = Array[ExtResource("4_lighting_zone")]([SubResource("Resource_1")])
+story_triggers = PackedStringArray()
+complete_on_flag = &"ch2_heron_closed"
+death_credit_cap = 250

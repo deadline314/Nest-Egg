@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch2_ali_page"
+display_name = "阿梨私人帳頁副本"
+description = "帳櫃裡阿梨那一頁的副本。本金兩百她認，錯加的六十她不認。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 205
+chapter = &"ch2_heron"
+body = "阿梨的開攤借款本金600，已還本金400，本金剩200。本期利息60已付清。帳上又錯加一次本期利息60，錯記待付260。今日市場代墊的40另列，尚未併入私人帳。"
+trigger = 3
+icon = "doc_notice"

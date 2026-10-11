@@ -1,0 +1,83 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=17 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Resource" path="res://data/props/credits_small.tres" id="2_credits_small"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="3_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_drying_desk.tres" id="4_ch2_drying_desk"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_sc1_lever.tres" id="5_ch2_sc1_lever"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_collection_book.tres" id="6_ch2_collection_book"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_guard.tres" id="7_ch2_guard"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="8_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/market.tres" id="9_market"]
+[ext_resource type="Resource" path="res://data/lighting/hangar.tres" id="10_hangar"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch2_loading.tres" id="11_ch2_loading"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("3_portal_data")
+id = &"loading_market"
+target_level = "res://data/levels/ch2_market.tres"
+target_portal = &"market_cargo"
+prompt = "{interact} 回公眾攤道"
+width = 28
+height = 44
+style = "road"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("3_portal_data")
+id = &"loading_sc1"
+target_level = "res://data/levels/ch2_market.tres"
+target_portal = &"market_sc1"
+requires_flag = &"ch2_sc1_open"
+locked_text = "橋梯還收著，旁邊的拉桿可以放下來。"
+prompt = "{interact} 走橋梯回代收處"
+style = "door"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("3_portal_data")
+id = &"loading_ledger"
+target_level = "res://data/levels/ch2_ledger_front.tres"
+target_portal = &"front_loading"
+requires_flag = &"ch2_market_reconciled"
+locked_text = "貨門要核對過的卸貨批號，先在作業桌把三張紙對完。"
+prompt = "{interact} 進北棟貨門"
+width = 28
+height = 56
+style = "door"
+
+[sub_resource type="Resource" id="Resource_3"]
+script = ExtResource("8_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("9_market")
+
+[sub_resource type="Resource" id="Resource_4"]
+script = ExtResource("8_lighting_zone")
+start_tile = 104
+blend_tiles = 6
+profile = ExtResource("10_hangar")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch2_loading"
+display_name = "雨棚背面與裝卸間"
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"c": ExtResource("2_credits_small"),
+"Ⅹ": SubResource("Resource_0"),
+"Ⅺ": SubResource("Resource_1"),
+"Ⅻ": SubResource("Resource_2"),
+"ⓓ": ExtResource("4_ch2_drying_desk"),
+"ⓙ": ExtResource("5_ch2_sc1_lever"),
+"ⓛ": ExtResource("6_ch2_collection_book"),
+"ⓧ": ExtResource("7_ch2_guard")
+})
+hints = PackedStringArray()
+chapter = &"ch2_heron"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("11_ch2_loading")
+layout_path = "res://data/levels/ch2_loading_map.json"
+lighting_zones = Array[ExtResource("8_lighting_zone")]([SubResource("Resource_3"), SubResource("Resource_4")])
+story_triggers = PackedStringArray("ch2_s09_wire")
+death_credit_cap = 250

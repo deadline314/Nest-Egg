@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch2_evidence_receipt"
+display_name = "代收收據副本"
+description = "代收處印的收據副本：已付120，本期應付100。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 202
+chapter = &"ch2_heron"
+body = "市場修繕代收／批號M17／本金200／本期利息20／已付120／本期應付100。蓋章日期清楚。若當天代墊，另有一行「今日代墊40，待查核抵扣」。"
+trigger = 3
+icon = "doc_stub"

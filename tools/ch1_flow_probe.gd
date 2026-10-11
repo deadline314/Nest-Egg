@@ -5,6 +5,8 @@ extends Node
 ## 不代表真人整章通關。
 
 const LEVEL := "res://data/levels/ch1_%s.tres"
+## 區域檔名的格式（第二章的探針沿用這份工具時改成 ch2）。
+var level_pattern := LEVEL
 const STEP_LIMIT := 2400
 
 var _out_dir := ""
@@ -42,6 +44,8 @@ func _settle(frames: int) -> void:
 
 
 func _capture(name: String) -> void:
+	if DisplayServer.get_name() == "headless":
+		return
 	var image := preload("res://tools/viewport_capture.gd").image(get_viewport())
 	var path := _out_dir.path_join(name + ".png")
 	print("saved %s (%s)" % [path, error_string(image.save_png(path))])
@@ -53,7 +57,7 @@ func _enter(area: String, near := Vector2.INF) -> void:
 		_level.queue_free()
 		await _settle(3)
 	_level = Level.new()
-	_level.configure(load(LEVEL % area) as LevelData)
+	_level.configure(load(level_pattern % area) as LevelData)
 	add_child(_level)
 	await _settle(30)
 	# 進場過場（例如開場）照常播放；探針讀完即略過，等同玩家看完。

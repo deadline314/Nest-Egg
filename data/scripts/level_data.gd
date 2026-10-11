@@ -67,6 +67,8 @@ extends Resource
 @export var after_intro_portal: StringName = &""
 ## 進場過場播完後直接結束本章（章末的區域用）。
 @export var complete_after_intro := false
+## 這個旗標成立時結束本章（章末是人物對話時用：對話的結果寫入旗標後，播章末卡並結算）。空白＝不使用。
+@export var complete_on_flag: StringName = &""
 ## 死亡時扣掉的信用點比例（只在 persistent_world 生效）。
 @export_range(0.0, 1.0) var death_credit_penalty := 0.05
 ## 單次死亡最多扣幾點信用點（0 = 不設上限）：死亡不會把存了很久的錢一次吃光。

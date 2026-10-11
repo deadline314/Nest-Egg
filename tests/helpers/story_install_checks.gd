@@ -19,8 +19,10 @@ static func _capture() -> Dictionary:
 
 static func _resources() -> Dictionary:
 	var result: Dictionary = {}
+	# 固定用第一章的七筆交易當夾具（之後章節新增的交易不影響這組檢查）。
 	for resource: StoryTransactionData in ResourceCatalog.load_dir("res://data/story_transactions", StoryTransactionData, "StoryInstallChecks"):
-		result[String(resource.id)] = resource
+		if String(resource.id).begins_with("ch1."):
+			result[String(resource.id)] = resource
 	return result
 
 

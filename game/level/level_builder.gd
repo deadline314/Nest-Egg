@@ -118,18 +118,22 @@ static func _assign_story_triggers(data: LevelData, layout: LevelLayout) -> void
 static func _compute_surfaces(layout: LevelLayout) -> void:
 	layout.surface_heights.resize(layout.width)
 	layout.covered_columns.resize(layout.width)
+	# 街道地面（ground_y）只看實心地形：單向平台是街道上方的雨棚或走道，寬的雨棚不能把前景欄杆拉上來蓋住真正的地面。
 	var heights: Array[float] = []
 	for x in layout.width:
 		var surface := INF
+		var street := INF
 		for y in layout.height:
 			var c := layout.cell(x, y)
-			if c == SOLID or c == PLATFORM:
+			if surface == INF and (c == SOLID or c == PLATFORM):
 				surface = float(y * layout.tile_size)
+			if c == SOLID:
+				street = float(y * layout.tile_size)
 				break
 		layout.surface_heights[x] = surface
 		layout.covered_columns[x] = 1 if layout.cell(x, 0) == SOLID else 0
-		if surface != INF and surface > 0.0:
-			heights.append(surface)
+		if street != INF and street > 0.0:
+			heights.append(street)
 	heights.sort()
 	layout.ground_y = heights[heights.size() / 2] if not heights.is_empty() else layout.pixel_size().y
 

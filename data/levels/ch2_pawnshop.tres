@@ -1,0 +1,79 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/shops/ch1_pawn.tres" id="3_ch1_pawn"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_radio.tres" id="4_ch2_radio"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_old_k.tres" id="5_ch2_old_k"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="6_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/rooftop.tres" id="7_rooftop"]
+[ext_resource type="Resource" path="res://data/lighting/pawnshop_warm.tres" id="8_pawnshop_warm"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch2_pawnshop.tres" id="9_ch2_pawnshop"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"pawn_front"
+target_level = "res://data/levels/ch2_harbor_street.tres"
+target_portal = &"street_home"
+requires_flag = &"ch2_brief_done"
+locked_text = "先上屋頂，鷺在茶座等你拿查核證。"
+prompt = "{interact} 出門"
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"pawn_basement"
+locked_text = "地下室的門鎖著，老 K 說裡面在漏水。"
+prompt = "{interact} 地下室"
+width = 32
+height = 48
+style = "hidden"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("2_portal_data")
+id = &"pawn_stairs"
+target_level = "res://data/levels/ch2_rooftop.tres"
+target_portal = &"roof_stairs"
+requires_flag = &"ch2_morning_settled"
+locked_text = "先和老 K 把昨晚的報酬對完。"
+prompt = "{interact} 上屋頂"
+width = 20
+height = 152
+style = "ladder"
+
+[sub_resource type="Resource" id="Resource_3"]
+script = ExtResource("6_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("7_rooftop")
+
+[sub_resource type="Resource" id="Resource_4"]
+script = ExtResource("6_lighting_zone")
+start_tile = 30
+blend_tiles = 6
+profile = ExtResource("8_pawnshop_warm")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch2_pawnshop"
+display_name = "當舖（早上）"
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"F": SubResource("Resource_0"),
+"K": SubResource("Resource_1"),
+"S": SubResource("Resource_2"),
+"V": ExtResource("3_ch1_pawn"),
+"Ⓡ": ExtResource("4_ch2_radio"),
+"ⓞ": ExtResource("5_ch2_old_k")
+})
+hints = PackedStringArray()
+chapter = &"ch2_heron"
+persistent_world = true
+show_chapter_card = true
+environment = ExtResource("9_ch2_pawnshop")
+layout_path = "res://data/levels/ch2_pawnshop_map.json"
+lighting_zones = Array[ExtResource("6_lighting_zone")]([SubResource("Resource_3"), SubResource("Resource_4")])
+intro_scene = &"ch2_s01_morning"
+story_triggers = PackedStringArray()
+death_credit_cap = 250

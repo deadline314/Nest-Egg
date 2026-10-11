@@ -80,7 +80,9 @@ RES = {
 
 # 出入口：字元 -> (id, 目標區域, 目標出入口, 模式, 提示, 鎖住提示, 外觀, 寬, 高)
 # 模式 0＝互動、1＝走進就切換。目標區域留空＝鎖死的門。
-AREA = lambda name: f'res://data/levels/ch1_{name}.tres'  # noqa: E731
+# 輸出檔名的章節前綴：第二章的產生器（build_ch2.py）沿用這份工具時改成 'ch2'。
+PREFIX = 'ch1'
+AREA = lambda name: f'res://data/levels/{PREFIX}_{name}.tres'  # noqa: E731
 PORTALS = {
     # 當舖
     'F': dict(id='pawn_front', to=AREA('street'), target='street_home', mode=0, prompt='{interact} 出門', style='door',
@@ -252,8 +254,8 @@ class Area:
             self.put(x1, row, gate_char)
             assert slug.isascii() and slug, f'{self.id}/{name}: 鎖場需要英文代號 slug（資料檔名用）'
             key = f'{self.id}_{slug}'
-            DYN_RES[zone_char] = f'res://data/props/ch1_enc_{key}.tres'
-            DYN_RES[gate_char] = f'res://data/props/ch1_arena_{key}.tres'
+            DYN_RES[zone_char] = f'res://data/props/{PREFIX}_enc_{key}.tres'
+            DYN_RES[gate_char] = f'res://data/props/{PREFIX}_arena_{key}.tres'
             record.update(zone_char=zone_char, gate_char=gate_char, key=key, gate_h=gate_h, start_text=start_text, clear_text=clear_text,
                           start_scene=start_scene, max_lock=max_lock)
         self.encounters.append(record)
@@ -474,24 +476,14 @@ def write_data_files():
 # 區域設計
 # ---------------------------------------------------------------------------
 
-def build_pawnshop():
-    """當舖由左到右：後空地（教學）→ 店面 → 廚房（晚飯、樓梯）。玩家從店面開始，教學之後一路往右走到屋頂。"""
-    a = Area('pawnshop', '當舖', 112, 20, indoor=True)
+def pawnshop_shell(a):
+    """當舖的牆、門洞、擺設與燈（第一章晚上與第二章早上共用同一個空間）。人物、出入口與提示由各章自己放。"""
     a.ceiling(31, 110, 10)
     a.block(31, 31, 10, 16)       # 後空地與店面之間（高 3 格的門洞）
     a.block(79, 79, 10, 16)       # 店面與廚房之間
-    # 店面
-    a.stand(40, 'P')
-    a.hint(46, '按 {inventory} 打開背包，武器改裝、道具與文件都在裡面。')
     a.prop('pawnshop_front__tag_shelf', 33)
-    # 老 K 留著的四件舊物：架上的懷錶與雨衣、牆上的吉他、門邊的船錢罐，各自一張標籤（可選支線）。
-    a.stand(34, 'ⓦ')
-    a.stand(37, 'ⓡ')
-    a.stand(48, 'ⓖ')
-    a.stand(45, 'ⓕ')
     a.prop('pawnshop_front__fare_jar', 45)
     a.prop('basement_door__locked_iron_door', 42)
-    a.stand(43, 'K')
     a.prop('pawnshop_front__wall_instruments', 49, y=14)
     a.prop('pawnshop_front__counter_register', 52)
     a.prop('pawnshop_front__locked_ledger_box', 53, dy=-36)
@@ -500,24 +492,9 @@ def build_pawnshop():
     a.prop('pawnshop_front__leak_bucket', 69)
     a.prop('pawnshop_front__crate_pile', 72)
     a.prop('harbor_street__umbrella_stand', 76)
-    a.stand(56, 'V')
-    a.stand(71, 't')
-    a.stand(67, 'c')
-    a.stand(74, 'F')
     for x in (36, 46, 56, 66, 74):
         a.lamp(x, 11)
-    # 後空地（教學）x=1～30
-    # BG-22：移動、跳、射擊、近戰、格擋、衝刺都在序章練過；後空地只留序章沒教的換彈與落下平台。
-    a.hint(28, '換彈按 {reload}；從單向平台落下要按住 {move_down} 再按 {jump}。')
-    a.stand(5, 'x')
-    a.stand(9, 'x')
     a.platform(12, 17, 16)
-    a.put(14, 15, 'u')
-    a.stand(24, 'c')
-    # 廚房 x=80～110：晚飯在入口，樓梯在最右
-    a.trigger(82, 'ch1_b_dinner')
-    a.stand(86, 'n')
-    # 找老 K、上屋頂找鷺由任務列與人物的互動提示帶路，不另立告示牌（BG-22）。
     a.prop('pawnshop_kitchen__dish_cabinet', 81)
     a.prop('pawnshop_kitchen__water_urn', 83)
     a.prop('pawnshop_kitchen__dining_table', 90)
@@ -527,27 +504,50 @@ def build_pawnshop():
     a.prop('pawnshop_kitchen__kettle_stove', 98)
     a.prop('pawnshop_kitchen__old_fridge', 102)
     a.prop('pawnshop_kitchen__tear_off_calendar', 100, y=14)
-    a.stand(108, 'S')
     for x in (88, 98, 106):
         a.lamp(x, 11)
     a.zone(0, 'rooftop')
     a.zone(30, 'pawnshop_warm', 6)
+
+
+def build_pawnshop():
+    """當舖由左到右：後空地（教學）→ 店面 → 廚房（晚飯、樓梯）。玩家從店面開始，教學之後一路往右走到屋頂。"""
+    a = Area('pawnshop', '當舖', 112, 20, indoor=True)
+    pawnshop_shell(a)
+    # 店面
+    a.stand(40, 'P')
+    a.hint(46, '按 {inventory} 打開背包，武器改裝、道具與文件都在裡面。')
+    # 老 K 留著的四件舊物：架上的懷錶與雨衣、牆上的吉他、門邊的船錢罐，各自一張標籤（可選支線）。
+    a.stand(34, 'ⓦ')
+    a.stand(37, 'ⓡ')
+    a.stand(48, 'ⓖ')
+    a.stand(45, 'ⓕ')
+    a.stand(43, 'K')
+    a.stand(56, 'V')
+    a.stand(71, 't')
+    a.stand(67, 'c')
+    a.stand(74, 'F')
+    # 後空地（教學）x=1～30
+    # BG-22：移動、跳、射擊、近戰、格擋、衝刺都在序章練過；後空地只留序章沒教的換彈與落下平台。
+    a.hint(28, '換彈按 {reload}；從單向平台落下要按住 {move_down} 再按 {jump}。')
+    a.stand(5, 'x')
+    a.stand(9, 'x')
+    a.put(14, 15, 'u')
+    a.stand(24, 'c')
+    # 廚房 x=80～110：晚飯在入口，樓梯在最右
+    a.trigger(82, 'ch1_b_dinner')
+    a.stand(86, 'n')
+    # 找老 K、上屋頂找鷺由任務列與人物的互動提示帶路，不另立告示牌（BG-22）。
+    a.stand(108, 'S')
     a.features = {'landmark': '當舖招牌與櫃台收銀機（x=52～64）：進門就看得到', 'reward': '兩處信用點（x=24 練習靶旁、x=67 後空地）'}
     return a
 
 
-def build_rooftop():
-    a = Area('rooftop', '屋頂', 72, 18)
+def rooftop_shell(a):
+    """屋頂的縫、冷氣機、擺設與燈（第一章與第二章共用）。"""
     a.clear(29, 31, 18, 21)        # 縫：寬 3 格、深 4 格，掉下去爬得上來
     a.block(14, 16, 16, 17)         # 冷氣機
     a.block(56, 58, 16, 17)
-    a.stand(3, 'T')
-    a.stand(5, 'P')
-    a.hint(24, '屋頂中間有一條縫，助跑後按 {jump} 跳過去。')
-    a.stand(20, 'c')
-    a.stand(62, 'c')
-    a.trigger(34, 'ch1_b_roof')
-    a.stand(54, 'E')
     a.prop('rooftop__stairwell_hut', 1)
     a.prop('rooftop__rusty_water_tank', 44)
     a.prop('rooftop__antenna_forest', 64)
@@ -560,6 +560,18 @@ def build_rooftop():
     a.lamp(40, 12)
     a.lamp(66, 12)
     a.zone(0, 'rooftop')
+
+
+def build_rooftop():
+    a = Area('rooftop', '屋頂', 72, 18)
+    rooftop_shell(a)
+    a.stand(3, 'T')
+    a.stand(5, 'P')
+    a.hint(24, '屋頂中間有一條縫，助跑後按 {jump} 跳過去。')
+    a.stand(20, 'c')
+    a.stand(62, 'c')
+    a.trigger(34, 'ch1_b_roof')
+    a.stand(54, 'E')
     a.features = {'landmark': '生鏽的水塔（x=44）：整個屋頂都看得到', 'reward': '兩處信用點（x=20 鷺的位置旁、x=62 天線叢前）'}
     return a
 
@@ -1104,7 +1116,7 @@ def write_encounter_files(areas):
             channel = f'arena_{e["key"]}'
             w = TresWriter('MechanismData', 'res://data/scripts/mechanism_data.gd')
             width = e['x1'] - e['x0'] + 1
-            lines = [f'script = ExtResource("{w.script_id}")', f'id = &"ch1_enc_{e["key"]}"', 'kind = 5',
+            lines = [f'script = ExtResource("{w.script_id}")', f'id = &"{PREFIX}_enc_{e["key"]}"', 'kind = 5',
                      f'display_name = {json.dumps("遭遇：" + e["name"], ensure_ascii=False)}', f'channel = &"{channel}"',
                      f'size_tiles = Vector2i({width}, {e["gate_h"]})', f'max_lock_seconds = {float(e["max_lock"])}']
             if e['reinforcements']:
@@ -1117,13 +1129,13 @@ def write_encounter_files(areas):
                 lines.append(f'clear_text = {json.dumps(e["clear_text"], ensure_ascii=False)}')
             if e['start_scene']:
                 lines.append(f'start_scene = &"{e["start_scene"]}"')
-            with open(os.path.join(ENCOUNTER_DIR, f'ch1_enc_{e["key"]}.tres'), 'w', encoding='utf-8') as f:
+            with open(os.path.join(ENCOUNTER_DIR, f'{PREFIX}_enc_{e["key"]}.tres'), 'w', encoding='utf-8') as f:
                 f.write(w.render(lines))
             g = TresWriter('MechanismData', 'res://data/scripts/mechanism_data.gd')
-            glines = [f'script = ExtResource("{g.script_id}")', f'id = &"ch1_arena_{e["key"]}"', 'kind = 1',
+            glines = [f'script = ExtResource("{g.script_id}")', f'id = &"{PREFIX}_arena_{e["key"]}"', 'kind = 1',
                       f'display_name = "競技場閘門"', 'hint = ""', 'color = Color(1, 0.35, 0.3, 1)', f'channel = &"{channel}"',
                       f'size_tiles = Vector2i(1, {e["gate_h"]})', 'arena_gate = true']
-            with open(os.path.join(ENCOUNTER_DIR, f'ch1_arena_{e["key"]}.tres'), 'w', encoding='utf-8') as f:
+            with open(os.path.join(ENCOUNTER_DIR, f'{PREFIX}_arena_{e["key"]}.tres'), 'w', encoding='utf-8') as f:
                 f.write(g.render(glines))
 
 
@@ -1146,7 +1158,7 @@ def write_design(areas):
             'encounters': [{'name': e['name'], 'lock': False, 'wave_zone': e['lock'], 'x0': e['x0'], 'x1': e['x1'], 'members': [ENEMY_NAMES[c] for c in e['members']],
                             'reinforcements': [ENEMY_NAMES[c] for c in e['reinforcements']]} for e in a.encounters],
         }
-    with open(os.path.join(LEVEL_DIR, 'ch1_design.json'), 'w', encoding='utf-8') as f:
+    with open(os.path.join(LEVEL_DIR, f'{PREFIX}_design.json'), 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=1)
         f.write('\n')
 
@@ -1255,10 +1267,10 @@ def write_theme(area, theme_key):
            'backdrop = Array[ExtResource("%s")]([%s])' % (layer_script, ', '.join(f'SubResource("{x}")' for x in layers)),
            f'sky = SubResource("{sky_sub}")',
            f'extra_prop_dirs = PackedStringArray({dirs})']
-    path = os.path.join(THEME_DIR, f'ch1_{area.id}.tres')
+    path = os.path.join(THEME_DIR, f'{PREFIX}_{area.id}.tres')
     with open(path, 'w', encoding='utf-8') as f:
         f.write(w.render(res))
-    return f'res://data/environment/themes/ch1_{area.id}.tres'
+    return f'res://data/environment/themes/{PREFIX}_{area.id}.tres'
 
 
 # 每個區域的劇情接點：進場過場、機關頻道播放的場景（劇本在 tools/story/build_ch1_story.py 產生）
@@ -1316,7 +1328,7 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
         prof = w.ext(f'res://data/lighting/{profile}.tres')
         zone_ids.append(w.sub([f'script = ExtResource("{zone_script}")', f'start_tile = {start}', f'blend_tiles = {blend}', f'profile = ExtResource("{prof}")']))
     theme = w.ext(theme_path)
-    res = [f'script = ExtResource("{w.script_id}")', f'id = &"ch1_{level_id}"', f'display_name = "{opts.pop("display_name", area.name)}"',
+    res = [f'script = ExtResource("{w.script_id}")', f'id = &"{PREFIX}_{level_id}"', f'display_name = "{opts.pop("display_name", area.name)}"',
            'tile_size = 16', f'height = {H}',
            'legend = Dictionary[String, Resource]({\n' + ',\n'.join(legend) + '\n})' if legend else 'legend = Dictionary[String, Resource]({})',
            'hints = PackedStringArray(' + ', '.join(json.dumps(h, ensure_ascii=False) for h in area.hints) + ')',
@@ -1324,7 +1336,7 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
            f'persistent_world = {"true" if persist else "false"}',
            f'show_chapter_card = {"true" if opts.pop("show_card", False) else "false"}',
            f'environment = ExtResource("{theme}")',
-           f'layout_path = "res://data/levels/ch1_{map_name}_map.json"',
+           f'layout_path = "res://data/levels/{PREFIX}_{map_name}_map.json"',
            'lighting_zones = Array[ExtResource("%s")]([%s])' % (zone_script, ', '.join(f'SubResource("{z}")' for z in zone_ids))]
     story = STORY.get(level_id, {})
     if story.get('intro'):
@@ -1340,7 +1352,7 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
     opts.setdefault('death_credit_cap', 250)
     for key, value in opts.items():
         res.append(f'{key} = {value}')
-    path = os.path.join(LEVEL_DIR, f'ch1_{level_id}.tres')
+    path = os.path.join(LEVEL_DIR, f'{PREFIX}_{level_id}.tres')
     with open(path, 'w', encoding='utf-8') as f:
         f.write(w.render(res))
     print('wrote', path)
@@ -1372,7 +1384,7 @@ def main():
         extra = {"props": prepare_props(a.props, a.id)}
         if a.regions:
             extra["regions"] = a.regions
-        a.grid.write(a.id, (LEVEL_DIR, f'ch1_{a.id}_map.json'), extra)
+        a.grid.write(a.id, (LEVEL_DIR, f'{PREFIX}_{a.id}_map.json'), extra)
     by_id = {a.id: a for a in areas}
     write_level(by_id['prologue'], display_name='巢蛋當舖（試貨）', skip_portal='&"prologue_exit"',
                 skip_flags='PackedStringArray("ch1_prologue_skipped", "ch1_prologue_exit")', skip_label='"略過序章"',
@@ -1391,7 +1403,9 @@ def main():
     dawn.id = 'pawnshop'
     dawn.zones = [(0, 12, 'mezzanine_gray')]
     write_level(dawn, level_id='pawnshop_dawn', map_name='pawnshop', theme=False, theme_path='res://data/environment/themes/ch1_pawnshop.tres',
-                display_name='當舖（天亮）', complete_after_intro='true')
+                display_name='當舖（天亮）', complete_after_intro='true',
+                # 第一章章末卡之後接第二章的早上（ST-19）；只收錄到第一章的版本由發行設定在這裡結算（NE-232）。
+                next_level='"res://data/levels/ch2_pawnshop.tres"')
 
 
 if __name__ == '__main__':

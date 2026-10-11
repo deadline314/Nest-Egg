@@ -1,0 +1,7434 @@
+{
+ "chapter": {
+  "id": "ch2_heron",
+  "title": "第二章　鷺",
+  "subtitle": "沉港市・霓虹市集",
+  "end_title": "第二章　鷺　完",
+  "teaser": "下一章：晴岸。明天從廣場貨梯去夾層診所，核對月報十七的原表。",
+  "release_note": "進度已保存。這一版收錄到第二章結束，第三章尚未收錄。",
+  "languages": [
+   "zh",
+   "ja",
+   "en"
+  ],
+  "title_ja": "第二章　鷺",
+  "title_en": "Chapter 2: Egret",
+  "subtitle_ja": "沈港市・ネオンマーケット",
+  "subtitle_en": "Sinkport · Neon Market",
+  "end_title_ja": "第二章　鷺　完",
+  "end_title_en": "Chapter 2: Egret, Complete",
+  "teaser_ja": "次章：晴岸。明日は広場の貨物リフトで中層の診療所へ行き、月報17の原本を照合する。",
+  "teaser_en": "Next chapter: The Far Shore. Tomorrow, take the plaza freight lift to the mezzanine clinic and check the original of Monthly Report 17.",
+  "release_note_ja": "進行状況を保存しました。このバージョンは第二章の終わりまでを収録しており、第三章はまだ含まれていません。",
+  "release_note_en": "Progress saved. This build covers through the end of Chapter 2. Chapter 3 is not included yet."
+ },
+ "speakers": {
+  "rin": {
+   "name": "凜",
+   "color": "#ff3fa4",
+   "portrait": "res://art/portraits/rin.png",
+   "name_ja": "凛",
+   "name_en": "Rin"
+  },
+  "old_k": {
+   "name": "老K",
+   "color": "#ffd23f",
+   "portrait": "res://art/portraits/old_k.png",
+   "name_ja": "老K",
+   "name_en": "Old K"
+  },
+  "egret": {
+   "name": "鷺",
+   "color": "#b8c4d6",
+   "portrait": "res://art/portraits/egret.png",
+   "name_ja": "鷺",
+   "name_en": "Egret"
+  },
+  "lamp": {
+   "name": "燈",
+   "color": "#8fe39a",
+   "portrait": "res://art/portraits/lamp.png",
+   "name_ja": "灯",
+   "name_en": "Wick"
+  },
+  "ali": {
+   "name": "阿梨",
+   "color": "#f2b8c6",
+   "portrait": "res://art/portraits/ali.png",
+   "name_ja": "梨",
+   "name_en": "Pear"
+  },
+  "vig": {
+   "name": "利息",
+   "color": "#e0a050",
+   "portrait": "res://art/portraits/vig.png",
+   "name_ja": "利息",
+   "name_en": "Vig"
+  },
+  "yong": {
+   "name": "阿勇",
+   "color": "#d46a4a",
+   "portrait": "res://art/portraits/yong.png",
+   "name_ja": "勇",
+   "name_en": "Rash"
+  },
+  "xiaowei": {
+   "name": "小薇",
+   "color": "#f4e07a",
+   "portrait": "res://art/portraits/xiaowei.png",
+   "name_ja": "小薇",
+   "name_en": "Vee"
+  },
+  "banyan": {
+   "name": "榕伯",
+   "color": "#9fc28a",
+   "portrait": "res://art/portraits/banyan.png",
+   "name_ja": "榕じい",
+   "name_en": "Old Banyan"
+  },
+  "ye": {
+   "name": "葉",
+   "color": "#c8d8f0",
+   "portrait": "res://art/portraits/ye.png",
+   "formal": true,
+   "name_ja": "葉",
+   "name_en": "Folio"
+  },
+  "patroller": {
+   "name": "巡帳員",
+   "color": "#c0a080",
+   "portrait": "res://art/portraits/resident.png",
+   "name_ja": "帳場の見回り",
+   "name_en": "Ledger Patroller"
+  },
+  "window_clerk": {
+   "name": "視窗員",
+   "color": "#a0b0c0",
+   "portrait": "res://art/portraits/resident.png",
+   "formal": true,
+   "name_ja": "窓口係",
+   "name_en": "Window Clerk"
+  },
+  "hawker": {
+   "name": "小販",
+   "color": "#c8b090",
+   "portrait": "res://art/portraits/resident.png",
+   "name_ja": "物売り",
+   "name_en": "Hawker"
+  },
+  "medic": {
+   "name": "救護員",
+   "color": "#a8d0c8",
+   "portrait": "res://art/portraits/nurse.png",
+   "name_ja": "救護員",
+   "name_en": "Medic"
+  },
+  "broadcast": {
+   "name": "陌生廣播",
+   "color": "#c8c0e8",
+   "portrait": "res://art/portraits/system.png",
+   "formal": true,
+   "name_ja": "謎の放送",
+   "name_en": "Unknown Broadcast"
+  },
+  "weather": {
+   "name": "氣象臺",
+   "color": "#9ad7ff",
+   "portrait": "res://art/portraits/system.png",
+   "formal": true,
+   "name_ja": "気象台",
+   "name_en": "Weather Station"
+  },
+  "shen": {
+   "name": "沈望",
+   "color": "#e8e0d0",
+   "portrait": "res://art/portraits/system.png",
+   "formal": true,
+   "name_ja": "沈望",
+   "name_en": "Shen Wang"
+  },
+  "terminal": {
+   "name": "委託終端",
+   "color": "#9ad7ff",
+   "portrait": "res://art/portraits/system.png",
+   "formal": true,
+   "name_ja": "委託端末",
+   "name_en": "Commission Terminal"
+  },
+  "label": {
+   "name": "說明",
+   "color": "#ded5b0",
+   "portrait": "res://art/portraits/system.png",
+   "formal": true,
+   "name_ja": "説明",
+   "name_en": "Instructions"
+  },
+  "voice": {
+   "name": "錄音",
+   "color": "#c8c0e8",
+   "portrait": "res://art/portraits/system.png",
+   "formal": true,
+   "name_ja": "録音",
+   "name_en": "Recording"
+  },
+  "zheng": {
+   "name": "鄭先生",
+   "color": "#b0b8c8",
+   "portrait": "res://art/portraits/resident.png",
+   "name_ja": "鄭さん",
+   "name_en": "Mr. Zheng"
+  },
+  "chen": {
+   "name": "陳女士",
+   "color": "#c8b8b0",
+   "portrait": "res://art/portraits/resident.png",
+   "name_ja": "陳さん",
+   "name_en": "Ms. Chen"
+  },
+  "hong": {
+   "name": "洪先生",
+   "color": "#b0c8b8",
+   "portrait": "res://art/portraits/resident.png",
+   "name_ja": "洪さん",
+   "name_en": "Mr. Hong"
+  }
+ },
+ "flag_defaults": {
+  "yong_link_choice": "unset",
+  "ali_ledger_action": "unset",
+  "ali_advance_40": 0,
+  "xiaowei_read_count": 0,
+  "xiaowei_yellow_umbrella_recognized": true,
+  "yong_alive": true,
+  "egret_restoration_count": 213,
+  "yong_link_revoked": false,
+  "yong_link_restoration_agreed": false,
+  "ch2_yong_subdued": false,
+  "ch2_morning_settled": false,
+  "ch2_radio_repaired": false,
+  "sq4_broadcast_heard": false,
+  "sq4_clip_saved": false,
+  "ch2_brief_done": false,
+  "sq2_sunday_heard": false,
+  "ch2_heron_closed": false,
+  "harbor_walk_ready": false,
+  "ch2_gate_checked": false,
+  "ch2_evidence_receipt": false,
+  "ch2_ali_need_asked": false,
+  "ch2_market_contact_done": false,
+  "ch2_evidence_contract": false,
+  "ch2_banyan_heard": false,
+  "ch2_rumor_heard": false,
+  "ch2_evidence_collection": false,
+  "knows_ali_address": false,
+  "ch2_ali_home_visit": false,
+  "sq1_soup_practice_done": false,
+  "ch2_guard_seen": false,
+  "ch2_sc1_open": false,
+  "ch2_market_reconciled": false,
+  "ch2_yong_intro_seen": false,
+  "yong_revival_done": false,
+  "yong_link_isolated": false,
+  "ch2_original_ledger_taken": false,
+  "ch2_egret_transport_done": false,
+  "ch2_egret_returned": false,
+  "ch2_audit_submitted": false,
+  "sq1_ledger_delivered": false,
+  "ch2_guest_book_entered": false,
+  "guest_ticket_answered": false,
+  "guest_band_answered": false,
+  "guest_letter_answered": false,
+  "guest_book_completed": false
+ },
+ "transactions": {
+  "ch1.commission.settled": {
+   "resource": "res://data/story_transactions/ch1_commission_settled.tres"
+  },
+  "ch2.market_advance": {
+   "resource": "res://data/story_transactions/ch2_market_advance.tres"
+  },
+  "ch2.yong_subdued": {
+   "resource": "res://data/story_transactions/ch2_yong_subdued.tres"
+  },
+  "ch2.audit_settled": {
+   "resource": "res://data/story_transactions/ch2_audit_settled.tres"
+  },
+  "ch2.sq1_need": {
+   "resource": "res://data/story_transactions/ch2_sq1_need.tres"
+  },
+  "ch2.sq1_soup": {
+   "resource": "res://data/story_transactions/ch2_sq1_soup.tres"
+  },
+  "ch2.sq1_ledger": {
+   "resource": "res://data/story_transactions/ch2_sq1_ledger.tres"
+  },
+  "ch2.guest_zheng": {
+   "resource": "res://data/story_transactions/ch2_guest_zheng.tres"
+  },
+  "ch2.guest_chen": {
+   "resource": "res://data/story_transactions/ch2_guest_chen.tres"
+  },
+  "ch2.guest_hong": {
+   "resource": "res://data/story_transactions/ch2_guest_hong.tres"
+  },
+  "ch2.guest_book": {
+   "resource": "res://data/story_transactions/ch2_guest_book.tres"
+  },
+  "ch2.sq2_sunday": {
+   "resource": "res://data/story_transactions/ch2_sq2_sunday.tres"
+  },
+  "ch2.sq4_radio": {
+   "resource": "res://data/story_transactions/ch2_sq4_radio.tres"
+  }
+ },
+ "derived_flags": {},
+ "quests": [
+  {
+   "id": "ch2_settle",
+   "kind": "main",
+   "title": "核對昨晚的委託報酬",
+   "background": "盤已驗收，報酬尚待核對。",
+   "reward": "淨額七百二十信用點。",
+   "complete_flag": "ch2_brief_done",
+   "steps": [
+    {
+     "title": "在櫃台和老 K 核對報酬。",
+     "complete_flag": "ch2_morning_settled",
+     "location": {
+      "level": "res://data/levels/ch2_pawnshop.tres",
+      "cell": [
+       50,
+       19
+      ]
+     },
+     "title_ja": "窓口で老Kと報酬を照合する。",
+     "title_en": "Check the payout with Old K at the counter."
+    },
+    {
+     "title": "上屋頂向鷺拿查核證。",
+     "complete_flag": "ch2_brief_done",
+     "location": {
+      "level": "res://data/levels/ch2_rooftop.tres",
+      "cell": [
+       40,
+       17
+      ]
+     },
+     "title_ja": "屋上で鷺から査察証を受け取る。",
+     "title_en": "Get the inspection pass from Egret on the roof."
+    }
+   ],
+   "title_ja": "昨夜の依頼の報酬を照合する",
+   "title_en": "Verify last night's commission payout",
+   "background_ja": "データディスクは検収済み。報酬はまだ照合されていない。",
+   "background_en": "The disc has been accepted. The payout still needs to be checked.",
+   "reward_ja": "手取り720クレジット。",
+   "reward_en": "Net 720 credits."
+  },
+  {
+   "id": "ch2_reconcile",
+   "kind": "main",
+   "title": "查清市集重複的利息",
+   "background": "代收帳沒有付款附件，需要原始證據。",
+   "reward": "找到原帳的位置。",
+   "complete_flag": "ch2_market_reconciled",
+   "steps": [
+    {
+     "title": "出示查核證，進市集的公眾攤道。",
+     "complete_flag": "ch2_gate_checked",
+     "location": {
+      "level": "res://data/levels/ch2_market_gate.tres",
+      "cell": [
+       18,
+       19
+      ]
+     },
+     "title_ja": "査察証を見せて、マーケットの公共の露店通路に入る。",
+     "title_en": "Show the inspection pass to enter the market's public stall lane."
+    },
+    {
+     "title": "到代收處問清楚這筆代收款。",
+     "complete_flag": "ch2_market_contact_done",
+     "location": {
+      "level": "res://data/levels/ch2_market.tres",
+      "cell": [
+       30,
+       19
+      ]
+     },
+     "title_ja": "代行徴収の窓口で、この徴収金について問いただす。",
+     "title_en": "Ask the collection desk about this charge."
+    },
+    {
+     "title": "到租攤視窗取合約副本。",
+     "complete_flag": "ch2_evidence_contract",
+     "location": {
+      "level": "res://data/levels/ch2_market.tres",
+      "cell": [
+       53,
+       19
+      ]
+     },
+     "title_ja": "賃貸屋台の窓口で契約書の控えを受け取る。",
+     "title_en": "Get a copy of the contract from the stall rental window."
+    },
+    {
+     "title": "到雨棚背面的裝卸間翻代收簿。",
+     "complete_flag": "ch2_evidence_collection",
+     "location": {
+      "level": "res://data/levels/ch2_loading.tres",
+      "cell": [
+       112,
+       19
+      ]
+     },
+     "title_ja": "雨よけの裏の積み下ろし室で、取り立て台帳を調べる。",
+     "title_en": "Go to the loading room behind the awning and check the collection ledger."
+    },
+    {
+     "title": "在乾燥作業桌比對三張紙。",
+     "complete_flag": "ch2_market_reconciled",
+     "location": {
+      "level": "res://data/levels/ch2_loading.tres",
+      "cell": [
+       128,
+       19
+      ]
+     },
+     "title_ja": "乾燥作業台で書類3枚を照らし合わせる。",
+     "title_en": "Compare the three papers at the drying workbench."
+    }
+   ],
+   "visible_flags": [
+    "ch2_brief_done"
+   ],
+   "title_ja": "マーケットで二重に計上された利息を調べる。",
+   "title_en": "Track down the duplicate interest at the market.",
+   "background_ja": "取り立て代行の帳簿に支払い添付がない。原本の証拠が要る。",
+   "background_en": "The collection ledger has no payment attachment. Original evidence is needed.",
+   "reward_ja": "原本の帳簿の所在を突き止める。",
+   "reward_en": "Find where the original ledger is kept."
+  },
+  {
+   "id": "ch2_ledger",
+   "kind": "main",
+   "title": "到北棟二樓核對原帳",
+   "background": "收據指向阿勇管的帳房。",
+   "reward": "制伏阿勇的報酬一百二十信用點。",
+   "complete_flag": "ch2_egret_returned",
+   "steps": [
+    {
+     "title": "進帳房，看阿勇怎麼對這筆帳。",
+     "complete_flag": "ch2_yong_intro_seen",
+     "location": {
+      "level": "res://data/levels/ch2_ledger_front.tres",
+      "cell": [
+       46,
+       19
+      ]
+     },
+     "title_ja": "帳房に入り、勇がこの帳簿をどう処理しているか確かめる。",
+     "title_en": "Enter the ledger room and see how Rash handles this account."
+    },
+    {
+     "title": "制伏阿勇，打開帳櫃。",
+     "complete_flag": "ch2_original_ledger_taken",
+     "location": {
+      "level": "res://data/levels/ch2_ledger_office.tres",
+      "cell": [
+       54,
+       19
+      ]
+     },
+     "title_ja": "勇を制圧し、帳簿の戸棚を開ける。",
+     "title_en": "Subdue Rash and open the ledger cabinet."
+    },
+    {
+     "title": "到市集電話亭等鷺。",
+     "complete_flag": "ch2_egret_returned",
+     "location": {
+      "level": "res://data/levels/ch2_market_gate.tres",
+      "cell": [
+       96,
+       19
+      ]
+     },
+     "title_ja": "マーケットの電話ボックスで鷺を待つ。",
+     "title_en": "Wait for Egret at the market phone booth."
+    }
+   ],
+   "visible_flags": [
+    "ch2_market_reconciled"
+   ],
+   "title_ja": "北棟2階で原本の帳簿を照合する。",
+   "title_en": "Check the original ledger on the second floor of the north block.",
+   "background_ja": "領収書は勇が管理する帳場を指している。",
+   "background_en": "The receipt points to the ledger room Rash runs.",
+   "reward_ja": "勇を制圧した報酬は120クレジット。",
+   "reward_en": "Reward for subduing Rash: 120 credits."
+  },
+  {
+   "id": "ch2_audit",
+   "kind": "main",
+   "title": "交回查帳結果",
+   "background": "公開原帳已證明多收，診所索引仍需另查。",
+   "reward": "查核報酬二百五十信用點。",
+   "complete_flag": "ch2_heron_closed",
+   "steps": [
+    {
+     "title": "在復原館外的委託終端上傳證據。",
+     "complete_flag": "ch2_audit_submitted",
+     "location": {
+      "level": "res://data/levels/ch2_lounge_front.tres",
+      "cell": [
+       16,
+       19
+      ]
+     },
+     "title_ja": "復元館の外にある委託端末で証拠をアップロードする。",
+     "title_en": "Upload the evidence at the commission terminal outside the restoration hall."
+    },
+    {
+     "title": "回當舖屋頂和鷺碰面。",
+     "complete_flag": "ch2_heron_closed",
+     "location": {
+      "level": "res://data/levels/ch2_rooftop.tres",
+      "cell": [
+       40,
+       17
+      ]
+     },
+     "title_ja": "質屋の屋上に戻って鷺と会う。",
+     "title_en": "Return to the pawnshop roof and meet Egret."
+    }
+   ],
+   "visible_flags": [
+    "ch2_egret_returned"
+   ],
+   "title_ja": "監査結果を提出する。",
+   "title_en": "Hand in the audit results.",
+   "background_ja": "公開された原本の帳簿で過剰請求は証明できた。だが、診療所の索引はまだ別に調べる必要がある。",
+   "background_en": "The public original ledger proves the overcharge, but the clinic index still needs a separate check.",
+   "reward_ja": "査察報酬は250クレジット。",
+   "reward_en": "Inspection reward: 250 credits."
+  },
+  {
+   "id": "sq1_ali_need",
+   "kind": "side",
+   "title": "問出阿梨的需要",
+   "background": "阿梨在代收處被催帳，付錢之前可以先問她。",
+   "reward": "二十信用點。",
+   "complete_flag": "ch2_ali_need_asked",
+   "steps": [
+    {
+     "title": "問阿梨現在需要什麼。",
+     "complete_flag": "ch2_ali_need_asked",
+     "location": {
+      "level": "res://data/levels/ch2_market.tres",
+      "cell": [
+       25,
+       19
+      ]
+     },
+     "title_ja": "梨に今、何が必要か聞く。",
+     "title_en": "Ask Pear what she needs right now."
+    }
+   ],
+   "visible_flags": [
+    "ch2_market_contact_done"
+   ],
+   "title_ja": "梨が必要としているものを聞き出す。",
+   "title_en": "Find out what Pear needs.",
+   "background_ja": "梨は取り立て窓口で催促を受けている。支払う前に、まず本人に話を聞こう。",
+   "background_en": "Pear is being pressed for payment at the collection desk. Ask her before you pay.",
+   "reward_ja": "20クレジット。",
+   "reward_en": "20 credits."
+  },
+  {
+   "id": "sq1_ali_soup",
+   "kind": "side",
+   "title": "到阿梨家試湯",
+   "background": "阿梨邀你去後樓三樓的小廚房。",
+   "reward": "四十信用點與一碗熱湯。",
+   "complete_flag": "ch2_ali_home_visit",
+   "steps": [
+    {
+     "title": "走後樓外梯，敲阿梨的門。",
+     "complete_flag": "ch2_ali_home_visit",
+     "location": {
+      "level": "res://data/levels/ch2_ali_home.tres",
+      "cell": [
+       32,
+       19
+      ]
+     },
+     "title_ja": "後棟の外階段を上り、梨の部屋のドアをノックする。",
+     "title_en": "Take the back building's outside stairs and knock on Pear's door."
+    }
+   ],
+   "visible_flags": [
+    "ch2_market_contact_done"
+   ],
+   "title_ja": "梨の家でスープの味見をする。",
+   "title_en": "Taste-test the soup at Pear's place.",
+   "background_ja": "梨が後棟3階の小さな台所に来ないかと誘ってくれた。",
+   "background_en": "Pear invites you to the small kitchen on the third floor of the back building.",
+   "reward_ja": "40クレジットと温かいスープ一杯。",
+   "reward_en": "40 credits and a bowl of hot soup."
+  },
+  {
+   "id": "sq1_ali_ledger",
+   "kind": "side",
+   "title": "把錯帳交她決定",
+   "background": "帳櫃裡有阿梨那一頁，錯加的六十要由她自己決定怎麼處理。",
+   "reward": "四十信用點。",
+   "complete_flag": "sq1_ledger_delivered",
+   "steps": [
+    {
+     "title": "把阿梨的帳頁交給她。",
+     "complete_flag": "sq1_ledger_delivered",
+     "location": {
+      "level": "res://data/levels/ch2_lounge_front.tres",
+      "cell": [
+       33,
+       19
+      ]
+     },
+     "title_ja": "梨のページを彼女に渡す。",
+     "title_en": "Hand Pear her ledger page."
+    }
+   ],
+   "visible_flags": [
+    "ch2_audit_submitted"
+   ],
+   "title_ja": "誤記された帳簿の件は、彼女に決めてもらう。",
+   "title_en": "Leave the wrong entry for her to decide.",
+   "background_ja": "帳簿の戸棚に梨のページがある。誤って加算された60は、彼女自身が処理方法を決める。",
+   "background_en": "Pear's page is in the ledger cabinet. She decides how to handle the 60 that was added by mistake.",
+   "reward_ja": "40クレジット。",
+   "reward_en": "40 credits."
+  },
+  {
+   "id": "sq1_guest_book",
+   "kind": "side",
+   "title": "看阿梨的客人簿",
+   "background": "阿梨今晚有三位客人，你可以看她怎麼工作。",
+   "reward": "每位客人二十信用點，收本再四十。",
+   "complete_flag": "guest_book_completed",
+   "steps": [
+    {
+     "title": "在復原館外看阿梨的客人簿。",
+     "complete_flag": "guest_book_completed",
+     "location": {
+      "level": "res://data/levels/ch2_lounge_front.tres",
+      "cell": [
+       44,
+       19
+      ]
+     },
+     "title_ja": "復元館の外で梨の客の記録を見る。",
+     "title_en": "Look over Pear's guest log outside the restoration hall."
+    }
+   ],
+   "visible_flags": [
+    "ch2_audit_submitted"
+   ],
+   "title_ja": "梨の客の記録を見る。",
+   "title_en": "Look over Pear's guest log.",
+   "background_ja": "今夜、梨には客が3人いる。彼女の仕事ぶりを見ていてもいい。",
+   "background_en": "Pear has three guests tonight. You can watch how she works.",
+   "reward_ja": "客1人につき20クレジット。元本を回収すると、さらに40。",
+   "reward_en": "20 credits per guest, plus 40 once the principal is recovered."
+  },
+  {
+   "id": "sq2_egret_sunday",
+   "kind": "side",
+   "title": "問鷺週日的安排",
+   "background": "鷺的週日從不接案。",
+   "reward": "二十信用點。",
+   "complete_flag": "sq2_sunday_heard",
+   "steps": [
+    {
+     "title": "在屋頂問鷺週日的安排。",
+     "complete_flag": "sq2_sunday_heard",
+     "location": {
+      "level": "res://data/levels/ch2_rooftop.tres",
+      "cell": [
+       40,
+       17
+      ]
+     },
+     "title_ja": "屋上で鷺に日曜の予定を聞く。",
+     "title_en": "Ask Egret about her Sunday plans on the roof."
+    }
+   ],
+   "visible_flags": [
+    "ch2_brief_done"
+   ],
+   "title_ja": "鷺に日曜の予定を聞く。",
+   "title_en": "Ask Egret about her Sunday plans.",
+   "background_ja": "鷺は日曜に仕事を受けない。",
+   "background_en": "Egret never takes jobs on Sundays.",
+   "reward_ja": "20クレジット。",
+   "reward_en": "20 credits."
+  },
+  {
+   "id": "sq4_radio",
+   "kind": "side",
+   "title": "修好並聽清廣播",
+   "background": "工作檯上的收音機接線鬆了。",
+   "reward": "二十信用點。",
+   "complete_flag": "sq4_broadcast_heard",
+   "steps": [
+    {
+     "title": "修好工作檯的收音機。",
+     "complete_flag": "sq4_broadcast_heard",
+     "location": {
+      "level": "res://data/levels/ch2_pawnshop.tres",
+      "cell": [
+       61,
+       19
+      ]
+     },
+     "title_ja": "作業台のラジオを直す。",
+     "title_en": "Fix the radio on the workbench."
+    }
+   ],
+   "title_ja": "ラジオを直して、放送をはっきり聞く。",
+   "title_en": "Fix the radio and hear the broadcast clearly.",
+   "background_ja": "作業台のラジオは配線が緩んでいる。",
+   "background_en": "The radio on the workbench has loose wiring.",
+   "reward_ja": "20クレジット。",
+   "reward_en": "20 credits."
+  }
+ ],
+ "scenes": {
+  "ch2_s01_morning": {
+   "mode": "bubbles",
+   "lines": [
+    {
+     "speaker": "old_k",
+     "text": "起來啦？頭髮先擦乾，再來櫃台把昨晚的帳對一下喔。",
+     "ja": "起きたね？まず髪を乾かしな。それからカウンターで昨夜の帳簿を確認しとくれよ。",
+     "en": "Up already? Dry your hair first, then check last night's accounts at the counter."
+    }
+   ]
+  },
+  "ch2_t_s01_settle": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "頭髮先擦乾，昨晚那個鍋我換過了喔。",
+     "ja": "まず髪を拭きな。昨夜の鍋は取り替えておいたよ。",
+     "en": "Towel your hair dry first. I replaced that pot from last night."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "鍋不用算進我的帳，我只叫你加水。",
+     "ja": "鍋は私の帳簿に入れないで。水を足せと言っただけだ。",
+     "en": "Don't put the pot on my tab. I only told you to add water."
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "交接櫃驗收過了，八百信用點，沒有少。",
+     "ja": "引き渡しロッカーは検収済みだ。800クレジット、一枚も欠けていない。",
+     "en": "The handover locker has been checked. 800 credits, not a single one missing."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "照原來的一成，我收八十，你拿七百二十。",
+     "ja": "いつもどおり1割だよ。わしが80もらって、お前さんは720だ。",
+     "en": "Ten percent, as before. I take 80, you get 720."
+    },
+    {
+     "do": "choice",
+     "text": "照原來的一成，我收八十，你拿七百二十。",
+     "default": "later",
+     "options": [
+      {
+       "id": "settle",
+       "text": "核對三欄後確認結算。",
+       "explanation": "報酬八百、抽成八十、淨額七百二十，只結算一次。",
+       "target": "ch2_t_s01_settled",
+       "ja": "3つの欄を照合して、精算を確定する。",
+       "en": "Check all three columns and confirm the settlement.",
+       "explanation_ja": "報酬800、手数料80、手取り720。精算は一度だけ行う。",
+       "explanation_en": "Payout 800, commission 80, net 720. Settled only once."
+      },
+      {
+       "id": "later",
+       "text": "等一下再對帳。",
+       "explanation": "先不結算，之後再找老 K。",
+       "ja": "あとで帳簿を照合する。",
+       "en": "Check the books later.",
+       "explanation_ja": "今は精算せず、後で老Kを訪ねる。",
+       "explanation_en": "Don't settle yet. Come back to Old K later."
+      }
+     ],
+     "ja": "いつもどおり1割だよ。わしが80もらって、お前さんは720だ。",
+     "en": "Ten percent, as before. I take 80, you get 720."
+    }
+   ],
+   "when": {
+    "not": {
+     "receipt": "ch1.commission.settled",
+     "status": "recorded"
+    }
+   }
+  },
+  "ch2_t_s01_settled": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "一成照舊，這筆保費我記著。",
+     "ja": "1割は同じか。この保険料、覚えとく。",
+     "en": "Same ten percent. I'll remember this protection fee."
+    },
+    {
+     "speaker": "old_k",
+     "text": "你先把今天的帳算好，別連早餐也省了。",
+     "ja": "まず今日の帳簿を片付けな。朝飯まで抜くんじゃないよ。",
+     "en": "Sort out today's books first. And don't skip breakfast either."
+    },
+    {
+     "speaker": "rin",
+     "text": "你那本帳不能借我看？",
+     "ja": "その帳簿、見せてもらえないか。",
+     "en": "Can I look at your ledger?"
+    },
+    {
+     "speaker": "old_k",
+     "text": "每個人的東西都記在裡面，不能整本借走啦。",
+     "ja": "みんなのことが書いてあるんだよ。丸ごと持ち出すのは無理だ。",
+     "en": "Everybody's business is in there. I can't lend you the whole book."
+    },
+    {
+     "speaker": "egret",
+     "text": "資料盤有一筆市場修繕代收，找不到付款附件。委託要我們核對，不是再偷一片盤。",
+     "ja": "データ盤に市場の修繕の代行徴収が1件あるが、支払いの添付が見つからない。依頼されたのは照合であって、もう1枚盤を盗むことじゃない。",
+     "en": "The data disc has a market repair collection with no payment attachment. The job is to check it, not to steal another disc."
+    },
+    {
+     "speaker": "rin",
+     "text": "我拿回執去找收據，盤已經不在我這裡。",
+     "ja": "受領証を持って領収書を探してくる。盤はもう私の手元にない。",
+     "en": "I'll take the receipt and find the payment record. The disc isn't with me anymore."
+    },
+    {
+     "speaker": "old_k",
+     "text": "上面指定查這筆，別替他們多接別人的帳。",
+     "ja": "上はこの1件だけ調べろと指定している。よそ様の帳簿まで勝手に引き受けるんじゃないよ。",
+     "en": "Upstairs only asked you to check this one. Don't go taking on other people's accounts for them."
+    },
+    {
+     "speaker": "rin",
+     "text": "我核完才回來，飯留著。",
+     "ja": "照合が終わったら戻る。飯は取っておいて。",
+     "en": "I'll come back once I've checked. Save me some food."
+    }
+   ],
+   "when": {
+    "not": {
+     "receipt": "ch1.commission.settled",
+     "status": "recorded"
+    }
+   },
+   "results": [
+    {
+     "kind": "transaction",
+     "id": "ch1.commission.settled"
+    },
+    {
+     "kind": "flag",
+     "id": "ch2_morning_settled",
+     "value": true
+    }
+   ],
+   "then": "ch2_t_s01_reaction"
+  },
+  "ch2_t_s01_reaction": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "昨晚吃過麵，今天也要吃喔。",
+     "ja": "昨夜は麺で済ませたんだから、今日はちゃんと食べるんだよ。",
+     "en": "You had noodles last night, so eat properly today too."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "兩頓我分得清楚。",
+     "ja": "2食分は別々に数えてるよ。",
+     "en": "I'm keeping the two meals separate."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "knows_ali_address",
+      "equals": true
+     }
+    ]
+   }
+  },
+  "ch2_t_s01_reaction_left": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "把欠條和回執分開放，別把人家的晚飯當委託。",
+     "ja": "借用書と受領証は分けて置きな。人の晩飯を依頼と混ぜるんじゃないよ。",
+     "en": "Keep the IOUs and receipts apart. Don't mix someone's dinner in with a job."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我只是不想混在一起。",
+     "ja": "混ぜたくないだけだ。",
+     "en": "I just don't want them mixed up."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "knows_ali_address",
+     "equals": true
+    }
+   }
+  },
+  "ch2_t_s01_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "錢已經對過了，茶在樓上，別讓她等喔。",
+     "ja": "金は照合済みだよ。お茶は2階にある。待たせるんじゃないよ。",
+     "en": "The money's checked. The tea's upstairs. Don't keep her waiting."
+    }
+   ],
+   "when": {
+    "receipt": "ch1.commission.settled",
+    "status": "recorded"
+   }
+  },
+  "ch2_t_s02_intro": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "這臺還有電，喇叭為什麼沒聲音？",
+     "ja": "まだ電気は来てる。なのに、スピーカーから音が出ないのはなぜ？",
+     "en": "It still has power. Why isn't the speaker making any sound?"
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "上次摔到接線鬆了，零件盒有同一款接頭。你要修就拿，別拿槍託敲喔。",
+     "ja": "前に落としたとき、配線が緩んだんだ。部品箱に同じ型のコネクタがあるから、直すなら持っていきな。銃床で叩くんじゃないよ。",
+     "en": "It came loose when it fell last time. The parts box has the same connector, so take one if you're fixing it. And don't whack it with your rifle butt."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch2_radio_repaired",
+     "equals": true
+    }
+   },
+   "then": "ch2_dispatch_back_s02_power"
+  },
+  "ch2_t_s02_power": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "三條線都鬆了。現在要接電源線，它該接到標著電源的孔。",
+     "ja": "3本の線がすべて緩んでいる。いま接続するのは電源線だ。「電源」と書かれた穴に差し込む。",
+     "en": "All three wires are loose. Now connect the power wire. It goes into the hole marked Power."
+    },
+    {
+     "do": "choice",
+     "text": "三條線都鬆了。現在要接電源線，它該接到標著電源的孔。",
+     "default": "leave",
+     "options": [
+      {
+       "id": "power",
+       "text": "接到標著電源的孔。",
+       "explanation": "把電源線接到標著電源的孔。",
+       "target": "ch2_t_s02_antenna",
+       "ja": "「電源」と書かれた穴に差す。",
+       "en": "Plug it into the hole marked \"Power.\"",
+       "explanation_ja": "電源線を「電源」の穴に接続する。",
+       "explanation_en": "Connect the power wire to the Power hole."
+      },
+      {
+       "id": "antenna",
+       "text": "接到標著天線的孔。",
+       "explanation": "把電源線接到標著天線的孔。",
+       "target": "ch2_t_s02_power_wrong",
+       "ja": "「アンテナ」と書かれた穴に差す。",
+       "en": "Plug it into the hole marked \"Antenna.\"",
+       "explanation_ja": "電源線を「アンテナ」の穴に接続する。",
+       "explanation_en": "Connect the power wire to the Antenna hole."
+      },
+      {
+       "id": "speaker",
+       "text": "接到標著音源的孔。",
+       "explanation": "把電源線接到標著音源的孔。",
+       "target": "ch2_t_s02_power_wrong",
+       "ja": "「音源」と書かれた穴に差す。",
+       "en": "Plug it into the hole marked \"Source.\"",
+       "explanation_ja": "電源線を「音源」の穴に接続する。",
+       "explanation_en": "Connect the power wire to the Source hole."
+      },
+      {
+       "id": "leave",
+       "text": "先把收音機放著。",
+       "explanation": "不修也能出門，之後可以再來。",
+       "ja": "ラジオは後回しにする。",
+       "en": "Leave the radio for now.",
+       "explanation_ja": "直さなくても外には出られる。また後で来ればいい。",
+       "explanation_en": "You can head out without fixing it and come back later."
+      }
+     ],
+     "ja": "3本の線がすべて緩んでいる。いま接続するのは電源線だ。「電源」と書かれた穴に差し込む。",
+     "en": "All three wires are loose. Now connect the power wire. It goes into the hole marked Power."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch2_radio_repaired",
+     "equals": true
+    }
+   }
+  },
+  "ch2_t_s02_power_wrong": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "喇叭只發出一陣雜訊。電源線要接到標著電源的孔，再試一次。",
+     "ja": "スピーカーからノイズが流れるだけだ。電源線は「電源」と書かれた穴に差して、もう一度試そう。",
+     "en": "The speaker only gives off static. The power wire goes into the hole marked Power. Try again."
+    }
+   ],
+   "overlay": true,
+   "then": "ch2_dispatch_back_s02_power"
+  },
+  "ch2_t_s02_antenna": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "三條線都鬆了。現在要接天線，它該接到標著天線的孔。",
+     "ja": "3本の線がすべて緩んでいる。いま接続するのはアンテナ線だ。「アンテナ」と書かれた穴に差し込む。",
+     "en": "All three wires are loose. Now connect the antenna wire. It goes into the hole marked Antenna."
+    },
+    {
+     "do": "choice",
+     "text": "三條線都鬆了。現在要接天線，它該接到標著天線的孔。",
+     "default": "leave",
+     "options": [
+      {
+       "id": "power",
+       "text": "接到標著電源的孔。",
+       "explanation": "把天線接到標著電源的孔。",
+       "target": "ch2_t_s02_antenna_wrong",
+       "ja": "「電源」と書かれた穴に差す。",
+       "en": "Plug it into the hole marked \"Power.\"",
+       "explanation_ja": "アンテナ線を「電源」の穴に接続する。",
+       "explanation_en": "Connect the antenna wire to the Power hole."
+      },
+      {
+       "id": "antenna",
+       "text": "接到標著天線的孔。",
+       "explanation": "把天線接到標著天線的孔。",
+       "target": "ch2_t_s02_speaker",
+       "ja": "「アンテナ」と書かれた穴に差す。",
+       "en": "Plug it into the hole marked \"Antenna.\"",
+       "explanation_ja": "アンテナ線を「アンテナ」の穴に接続する。",
+       "explanation_en": "Connect the antenna wire to the Antenna hole."
+      },
+      {
+       "id": "speaker",
+       "text": "接到標著音源的孔。",
+       "explanation": "把天線接到標著音源的孔。",
+       "target": "ch2_t_s02_antenna_wrong",
+       "ja": "「音源」と書かれた穴に差す。",
+       "en": "Plug it into the hole marked \"Source.\"",
+       "explanation_ja": "アンテナ線を「音源」の穴に接続する。",
+       "explanation_en": "Connect the antenna wire to the Source hole."
+      },
+      {
+       "id": "leave",
+       "text": "先把收音機放著。",
+       "explanation": "不修也能出門，之後可以再來。",
+       "ja": "ラジオは後回しにする。",
+       "en": "Leave the radio for now.",
+       "explanation_ja": "直さなくても外には出られる。また後で来ればいい。",
+       "explanation_en": "You can head out without fixing it and come back later."
+      }
+     ],
+     "ja": "3本の線がすべて緩んでいる。いま接続するのはアンテナ線だ。「アンテナ」と書かれた穴に差し込む。",
+     "en": "All three wires are loose. Now connect the antenna wire. It goes into the hole marked Antenna."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch2_radio_repaired",
+     "equals": true
+    }
+   }
+  },
+  "ch2_t_s02_antenna_wrong": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "喇叭只發出一陣雜訊。天線要接到標著天線的孔，再試一次。",
+     "ja": "スピーカーからノイズが流れるだけだ。アンテナ線は「アンテナ」と書かれた穴に差して、もう一度試そう。",
+     "en": "The speaker only gives off static. The antenna wire goes into the hole marked Antenna. Try again."
+    }
+   ],
+   "overlay": true,
+   "then": "ch2_dispatch_back_s02_antenna"
+  },
+  "ch2_t_s02_speaker": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "三條線都鬆了。現在要接喇叭線，它該接到標著音源的孔。",
+     "ja": "3本の線がすべて緩んでいる。いま接続するのはスピーカー線だ。「音源」と書かれた穴に差し込む。",
+     "en": "All three wires are loose. Now connect the speaker wire. It goes into the hole marked Source."
+    },
+    {
+     "do": "choice",
+     "text": "三條線都鬆了。現在要接喇叭線，它該接到標著音源的孔。",
+     "default": "leave",
+     "options": [
+      {
+       "id": "power",
+       "text": "接到標著電源的孔。",
+       "explanation": "把喇叭線接到標著電源的孔。",
+       "target": "ch2_t_s02_speaker_wrong",
+       "ja": "「電源」と書かれた穴に差す。",
+       "en": "Plug it into the hole marked \"Power.\"",
+       "explanation_ja": "スピーカー線を「電源」の穴に接続する。",
+       "explanation_en": "Connect the speaker wire to the Power hole."
+      },
+      {
+       "id": "antenna",
+       "text": "接到標著天線的孔。",
+       "explanation": "把喇叭線接到標著天線的孔。",
+       "target": "ch2_t_s02_speaker_wrong",
+       "ja": "「アンテナ」と書かれた穴に差す。",
+       "en": "Plug it into the hole marked \"Antenna.\"",
+       "explanation_ja": "スピーカー線を「アンテナ」の穴に接続する。",
+       "explanation_en": "Connect the speaker wire to the Antenna hole."
+      },
+      {
+       "id": "speaker",
+       "text": "接到標著音源的孔。",
+       "explanation": "把喇叭線接到標著音源的孔。",
+       "target": "ch2_t_s02_tune",
+       "ja": "「音源」と書かれた穴に差す。",
+       "en": "Plug it into the hole marked \"Source.\"",
+       "explanation_ja": "スピーカー線を「音源」の穴に接続する。",
+       "explanation_en": "Connect the speaker wire to the Source hole."
+      },
+      {
+       "id": "leave",
+       "text": "先把收音機放著。",
+       "explanation": "不修也能出門，之後可以再來。",
+       "ja": "ラジオは後回しにする。",
+       "en": "Leave the radio for now.",
+       "explanation_ja": "直さなくても外には出られる。また後で来ればいい。",
+       "explanation_en": "You can head out without fixing it and come back later."
+      }
+     ],
+     "ja": "3本の線がすべて緩んでいる。いま接続するのはスピーカー線だ。「音源」と書かれた穴に差し込む。",
+     "en": "All three wires are loose. Now connect the speaker wire. It goes into the hole marked Source."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch2_radio_repaired",
+     "equals": true
+    }
+   }
+  },
+  "ch2_t_s02_speaker_wrong": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "喇叭只發出一陣雜訊。喇叭線要接到標著音源的孔，再試一次。",
+     "ja": "スピーカーからノイズが流れるだけだ。スピーカー線は「音源」と書かれた穴に差して、もう一度試そう。",
+     "en": "The speaker only gives off static. The speaker wire goes into the hole marked Source. Try again."
+    }
+   ],
+   "overlay": true,
+   "then": "ch2_dispatch_back_s02_speaker"
+  },
+  "ch2_t_s02_tune": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "先讓指標進兩條刻線中間，再轉到聲音最清楚的地方。",
+     "ja": "まず針を2本の目盛りの間に入れて、それから一番音のきれいなところに合わせて。",
+     "en": "First get the needle between the two tick marks, then turn it to where the sound is clearest."
+    },
+    {
+     "do": "choice",
+     "text": "先讓指標進兩條刻線中間，再轉到聲音最清楚的地方。",
+     "default": "middle",
+     "options": [
+      {
+       "id": "middle",
+       "text": "把指標轉進兩條刻線中間。",
+       "explanation": "停在聲音最清楚的地方。",
+       "target": "ch2_t_s02_broadcast",
+       "ja": "針を2本の目盛りの間に合わせる。",
+       "en": "Turn the needle between the two tick marks.",
+       "explanation_ja": "音が一番はっきりする位置で止める。",
+       "explanation_en": "Stop where the sound is clearest."
+      },
+      {
+       "id": "edge",
+       "text": "把指標轉到刻線外面。",
+       "explanation": "刻線外只有雜訊。",
+       "target": "ch2_t_s02_tune_wrong",
+       "ja": "針を目盛りの外側に回す。",
+       "en": "Turn the needle outside the tick marks.",
+       "explanation_ja": "目盛りの外はノイズだけだ。",
+       "explanation_en": "Outside the tick marks there's only static."
+      }
+     ],
+     "ja": "まず針を2本の目盛りの間に入れて、それから一番音のきれいなところに合わせて。",
+     "en": "First get the needle between the two tick marks, then turn it to where the sound is clearest."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch2_radio_repaired",
+     "equals": true
+    }
+   }
+  },
+  "ch2_t_s02_tune_wrong": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "刻線外只有低頻的雜訊。把指標轉回兩條刻線中間，再試一次。",
+     "ja": "目盛りの外は低い周波数のノイズだけだ。針を2本の目盛りの間に戻して、もう一度試そう。",
+     "en": "Outside the tick marks there's only low-frequency static. Turn the needle back between the two tick marks and try again."
+    }
+   ],
+   "overlay": true,
+   "then": "ch2_dispatch_back_s02_tune"
+  },
+  "ch2_t_s02_broadcast": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "weather",
+     "text": "港區午後降雨持續，市場低窪通道請改走上層雨棚。",
+     "ja": "港湾区は午後も雨が続いています。マーケットの低地の通路は避け、上層の雨よけ通路をご利用ください。",
+     "en": "Rain continues across the harbor district this afternoon. Avoid the low market passages and use the upper awning walkways instead."
+    },
+    {
+     "do": "say",
+     "speaker": "broadcast",
+     "text": "今晚先念三個還在等回覆的名字。陳海生、周美蘭、林兆安，你們的家人來過。",
+     "ja": "今夜はまず、まだ返事を待っている3つの名前を読み上げます。陳海生、周美蘭、林兆安。あなたがたのご家族が訪ねてきました。",
+     "en": "Tonight I'll read three names still waiting for a reply: Chen Haisheng, Zhou Meilan, Lin Zhaoan. Your families came by."
+    },
+    {
+     "do": "say",
+     "speaker": "broadcast",
+     "text": "如果名字念錯了，請告訴我，我會重新念。",
+     "ja": "名前を読み間違えていたら教えてください。読み直します。",
+     "en": "If I got a name wrong, tell me and I'll read it again."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "broadcast",
+     "text": "名字不該只剩一個編號。",
+     "ja": "名前が番号だけで終わっていいはずがない。",
+     "en": "A name should not be reduced to just a number."
+    },
+    {
+     "do": "say",
+     "speaker": "broadcast",
+     "text": "我還留著一頂帽子。如果有人認得帽沿的補線，請到港區電臺留言。",
+     "ja": "帽子が一つ残っている。つばの縫い目に見覚えがある人は、港区放送局に伝言してほしい。",
+     "en": "I still have one hat. If anyone recognizes the stitching on the brim, please leave a message at Harbor District Radio."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "她連帽子也放進尋人名單。",
+     "ja": "帽子まで尋ね人リストに入れるなんて。",
+     "en": "She even put the hat on the missing list."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "old_k",
+     "text": "名字不記得，東西還在，也是個開頭啦。",
+     "ja": "名前は覚えてなくても、持ち物が残ってるなら、それも始まりだよ。",
+     "en": "You may not remember your name, but if your things are still around, that's a start."
+    },
+    {
+     "do": "choice",
+     "text": "名字不記得，東西還在，也是個開頭啦。",
+     "default": "leave",
+     "options": [
+      {
+       "id": "save",
+       "text": "儲存這段廣播。",
+       "explanation": "收音機修好、廣播聽完，片段記進筆記。",
+       "target": "ch2_t_s02_saved",
+       "ja": "この放送を保存する。",
+       "en": "Save this broadcast.",
+       "explanation_ja": "ラジオを直し、放送を最後まで聴いて、断片をノートに記録する。",
+       "explanation_en": "Fix the radio, hear the broadcast out, and log the fragment in your notes."
+      },
+      {
+       "id": "off",
+       "text": "先關掉收音機。",
+       "explanation": "收音機修好、廣播聽完，之後可以回來重聽。",
+       "target": "ch2_t_s02_off",
+       "ja": "先にラジオを切る。",
+       "en": "Turn off the radio first.",
+       "explanation_ja": "ラジオを直し、放送を最後まで聴く。後で戻ってもう一度聴ける。",
+       "explanation_en": "The radio is fixed and the broadcast is heard in full. You can come back and listen again later."
+      },
+      {
+       "id": "leave",
+       "text": "先離開工作檯。",
+       "explanation": "這次不算修好，之後可以再來。",
+       "ja": "先に作業台から離れる。",
+       "en": "Step away from the workbench first.",
+       "explanation_ja": "今回はまだ直っていない。後でまた来られる。",
+       "explanation_en": "The radio isn't fixed this time. You can come back later."
+      }
+     ],
+     "ja": "名前は覚えてなくても、持ち物が残ってるなら、それも始まりだよ。",
+     "en": "You may not remember your name, but if your things are still around, that's a start."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch2_radio_repaired",
+     "equals": true
+    }
+   }
+  },
+  "ch2_t_s02_saved": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "陌生廣播、帽沿補線、港區電臺，我先記下來。",
+     "ja": "見知らぬ放送、つばの縫い目、港区放送局。とりあえずメモしておく。",
+     "en": "The unknown broadcast, the brim stitching, Harbor District Radio. I'll note them down for now."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch2_radio_repaired",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch2_radio_repaired",
+     "value": true
+    },
+    {
+     "kind": "flag",
+     "id": "sq4_broadcast_heard",
+     "value": true
+    },
+    {
+     "kind": "transaction",
+     "id": "ch2.sq4_radio"
+    },
+    {
+     "kind": "flag",
+     "id": "sq4_clip_saved",
+     "value": true
+    },
+    {
+     "kind": "item_acquire",
+     "id": "ch2_radio_clip"
+    }
+   ]
+  },
+  "ch2_t_s02_off": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "先關掉，名字我記得了，之後再回來聽一次。",
+     "ja": "とりあえず切る。名前は覚えたから、後でもう一度聴きに来る。",
+     "en": "Switching it off for now. I've got the name, and I'll come back to listen once more."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch2_radio_repaired",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch2_radio_repaired",
+     "value": true
+    },
+    {
+     "kind": "flag",
+     "id": "sq4_broadcast_heard",
+     "value": true
+    },
+    {
+     "kind": "transaction",
+     "id": "ch2.sq4_radio"
+    }
+   ]
+  },
+  "ch2_t_s02_relisten": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "broadcast",
+     "text": "今晚先念三個還在等回覆的名字。陳海生、周美蘭、林兆安，你們的家人來過。",
+     "ja": "今夜はまず、まだ返事を待っている3つの名前を読み上げます。陳海生、周美蘭、林兆安。あなたがたのご家族が訪ねてきました。",
+     "en": "Tonight I'll read three names still waiting for a reply: Chen Haisheng, Zhou Meilan, Lin Zhaoan. Your families came by."
+    },
+    {
+     "do": "say",
+     "speaker": "broadcast",
+     "text": "我還留著一頂帽子。如果有人認得帽沿的補線，請到港區電臺留言。",
+     "ja": "帽子が一つ残っている。つばの縫い目に見覚えがある人は、港区放送局に伝言してほしい。",
+     "en": "I still have one hat. If anyone recognizes the stitching on the brim, please leave a message at Harbor District Radio."
+    },
+    {
+     "do": "choice",
+     "text": "我還留著一頂帽子。如果有人認得帽沿的補線，請到港區電臺留言。",
+     "default": "off",
+     "options": [
+      {
+       "id": "save",
+       "text": "這次把廣播存下來。",
+       "explanation": "片段記進筆記，不另外給獎勵。",
+       "target": "ch2_t_s02_save_late",
+       "ja": "今回は放送を保存する。",
+       "en": "Save the broadcast this time.",
+       "explanation_ja": "断片をノートに記録する。追加の報酬はない。",
+       "explanation_en": "The fragment goes into your notes. No extra reward."
+      },
+      {
+       "id": "off",
+       "text": "聽完就好。",
+       "explanation": "收音機留在工作檯，之後還能再聽。",
+       "ja": "最後まで聴くだけにする。",
+       "en": "Just listen to the end.",
+       "explanation_ja": "ラジオは作業台に残り、後でまた聴ける。",
+       "explanation_en": "The radio stays on the workbench, and you can listen again later."
+      }
+     ],
+     "ja": "帽子が一つ残っている。つばの縫い目に見覚えがある人は、港区放送局に伝言してほしい。",
+     "en": "I still have one hat. If anyone recognizes the stitching on the brim, please leave a message at Harbor District Radio."
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch2_radio_repaired",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "sq4_clip_saved",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch2_t_s02_save_late": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "陌生廣播、帽沿補線、港區電臺，這次我記下來了。",
+     "ja": "見知らぬ放送、つばの縫い目、港区放送局。今度はちゃんとメモした。",
+     "en": "The unknown broadcast, the brim stitching, Harbor District Radio. This time I've noted them down."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "sq4_clip_saved",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "sq4_clip_saved",
+     "value": true
+    },
+    {
+     "kind": "item_acquire",
+     "id": "ch2_radio_clip"
+    }
+   ]
+  },
+  "ch2_t_s02_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "收音機修好了，片段已經存在筆記裡。",
+     "ja": "ラジオが直り、断片はノートに保存されている。",
+     "en": "The radio is repaired, and the fragment is saved in your notes."
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch2_radio_repaired",
+      "equals": true
+     },
+     {
+      "flag": "sq4_clip_saved",
+      "equals": true
+     }
+    ]
+   }
+  },
+  "ch2_t_s03_tea": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "小鬼，坐到裡面來，那塊板凳今天還沒有泡水。",
+     "ja": "お嬢、こっちに来て座りな。あの腰掛けは今日はまだ水に浸かってないよ。",
+     "en": "Kid, come sit inside. That stool hasn't gotten soaked today."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "你每次都說今天，這木頭已經腫了。",
+     "ja": "いつも『今日は大丈夫』って言うじゃない。その木、もうふやけてるよ。",
+     "en": "You always say 'today.' That wood is already swollen."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "傘骨斷了，你那邊在漏。",
+     "ja": "傘の骨が折れてて、そっち側から漏れてるよ。",
+     "en": "The umbrella rib is broken, and it's leaking on your side."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "我這件外套本來就濕，兩邊一起濕才不會歪。",
+     "ja": "このコートはもともと濡れてる。両側いっしょに濡れていれば、傾かないだろ。",
+     "en": "My coat was already soaked. If both sides are wet, it won't tilt."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我記著這杯茶，傘不用算。",
+     "ja": "このお茶は覚えとく。傘の分は数えなくていい。",
+     "en": "I'll remember the tea. Don't count the umbrella."
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "你還要替雨開一個帳啊？先喝，茶不會等你算完。",
+     "ja": "雨にまで帳簿をつける気かい？先に飲みな。お茶は、あんたの計算が終わるまで待ってくれないよ。",
+     "en": "Going to open a tab for the rain too? Drink first. The tea won't wait for your sums."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch2_brief_done",
+     "equals": true
+    }
+   },
+   "then": "ch2_t_s03_brief"
+  },
+  "ch2_t_s03_brief": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "市場查核證只讓你進公眾攤道，後面的帳房還是阿勇管。阿勇是這一帶收帳人的頭。",
+     "ja": "市場の査察証で入れるのは公共の屋台通路までだ。奥の帳場はまだ勇が仕切ってる。勇はこの辺の取り立て屋の頭だよ。",
+     "en": "The market inspection pass only gets you into the public stall lane. The back ledger room is still run by Rash, who heads the collectors around here."
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "昨晚盤裡那筆代收款有批號，收據卻不在。去代收處找當天的租攤合約和收款存根。",
+     "ja": "昨夜の照合で、あの代収金には番号があるのに領収書がなかった。代収所で、その日の屋台賃貸契約と集金の控えを探してきて。",
+     "en": "In last night's count, that collected payment has a batch number, but the receipt is missing. Go to the collection desk and find that day's stall lease and the collection stub."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我先看原本，再聽他們怎麼算。",
+     "ja": "まず原本を見る。それから、やつらがどう計算したか聴く。",
+     "en": "I'll look at the originals first, then hear how they did the math."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "天穹要找誰多收了錢，我只要他們別拿攤商的錢墊掉。你看見不對的地方就寫，不用替誰挑好看的。",
+     "ja": "天穹は誰が余計に取ったかを探してる。あたしが欲しいのは、屋台の金で穴埋めさせないことだけ。おかしいところは書きな。誰かに都合のいいものを選ぶ必要はない。",
+     "en": "Skydome wants to know who overcharged. What I want is for nobody to plug the gap with the stallholders' money. Write down whatever looks wrong, and don't pick out only the flattering bits."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "查完這筆就能結案？",
+     "ja": "この件を調べ終えたら、もう片づくの？",
+     "en": "Once this one's checked, is the case closed?"
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "附件對得上才算，光把收帳的人打趴不會長出收據。",
+     "ja": "添付書類が合ってはじめて片づく。取り立て屋をぶちのめしたって、領収書は生えてこないよ。",
+     "en": "Only when the attachments match is it done. Knocking out the collectors won't grow you a receipt."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch2_brief_done",
+     "equals": true
+    }
+   },
+   "then": "ch2_t_s03_rain"
+  },
+  "ch2_t_s03_rain": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "你看雨別只看腳下。屋頂先響、雨棚再響，你就知道市場哪條路積水了。",
+     "ja": "雨を見るなら足元だけじゃなく、音も聴きな。屋根が先に鳴って雨よけが後から鳴ったら、市場のどの道が水に浸かってるかわかるよ。",
+     "en": "Don't just watch your feet when you look at the rain. If the roof rings first and the awning after, you'll know which market path is flooding."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "所以你喝茶也在看路。",
+     "ja": "だからお茶を飲みながらも道を見てるんだ。",
+     "en": "So you're watching the roads even while you drink tea."
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "至少我這杯不用你付保費。",
+     "ja": "少なくとも、このお茶の分にはあんたに保険料を払わせないからね。",
+     "en": "At least you don't have to pay an insurance premium for this cup."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch2_brief_done",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch2_brief_done",
+     "value": true
+    },
+    {
+     "kind": "item_acquire",
+     "id": "ch2_check_card"
+    }
+   ]
+  },
+  "ch2_t_egret_hub": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "茶還熱，要問什麼就趁現在。",
+     "ja": "お茶はまだ温かいよ。聞きたいことがあるなら、今のうちにどうぞ。",
+     "en": "The tea's still warm, so ask whatever you want now."
+    },
+    {
+     "do": "choice",
+     "text": "茶還熱，要問什麼就趁現在。",
+     "default": "leave",
+     "options": [
+      {
+       "id": "sunday",
+       "text": "問鷺週日的安排。",
+       "explanation": "可選的追問，不影響主線。",
+       "when": {
+        "not": {
+         "flag": "sq2_sunday_heard",
+         "equals": true
+        }
+       },
+       "target": "ch2_dispatch_sunday",
+       "ja": "鷺に日曜の予定を聞く。",
+       "en": "Ask Egret about her plans for Sunday.",
+       "explanation_ja": "任意の追加質問です。本筋には影響しません。",
+       "explanation_en": "An optional follow-up question. It does not affect the main story."
+      },
+      {
+       "id": "heavy",
+       "text": "問重擊怎麼接。",
+       "explanation": "鷺會說一句練法，不影響主線。",
+       "target": "ch2_t_s03_heavy",
+       "ja": "重い一撃のつなぎ方を聞く。",
+       "en": "Ask how to chain a heavy strike.",
+       "explanation_ja": "鷺が練習法を一言教えてくれます。本筋には影響しません。",
+       "explanation_en": "Egret gives a one-line training tip. It does not affect the main story."
+      },
+      {
+       "id": "brief",
+       "text": "再確認一次查帳的重點。",
+       "explanation": "重聽代收處要找的東西。",
+       "target": "ch2_t_s03_brief_again",
+       "ja": "監査の要点をもう一度確認する。",
+       "en": "Go over the key points of the audit once more.",
+       "explanation_ja": "代収所で探すべきものをもう一度聴く。",
+       "explanation_en": "Hear again what to look for at the collection desk."
+      },
+      {
+       "id": "leave",
+       "text": "先這樣，我去市集。",
+       "explanation": "結束對話，之後可以再來。",
+       "ja": "とりあえずここまで。市場へ行く。",
+       "en": "That's all for now. I'm heading to the market.",
+       "explanation_ja": "会話を終える。後でまた来られる。",
+       "explanation_en": "Ends the conversation. You can come back later."
+      }
+     ],
+     "ja": "お茶はまだ温かいよ。聞きたいことがあるなら、今のうちにどうぞ。",
+     "en": "The tea's still warm, so ask whatever you want now."
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch2_brief_done",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch2_audit_submitted",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch2_t_s03_heavy": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "把重擊接在收招後，你要的是空檔，不是揮得久。",
+     "ja": "重い一撃は技を収めた直後につなげな。欲しいのは隙であって、長く振り回すことじゃない。",
+     "en": "Chain the heavy strike right after your recovery. You want the opening, not a longer swing."
+    }
+   ],
+   "overlay": true,
+   "then": "ch2_dispatch_back_egret_hub"
+  },
+  "ch2_t_s03_brief_again": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "代收處有收據，租攤視窗有合約，後面裝卸間有代收簿。三張對得上，才找得到原帳。",
+     "ja": "代収所には領収書がある。賃貸の窓口には契約書がある。奥の積み下ろし室には代収簿がある。三つが合えば、元の帳簿が見つかる。",
+     "en": "The collection desk has the receipt, the lease window has the contract, and the back loading room has the collection ledger. Only when all three match can you find the original ledger."
+    }
+   ],
+   "overlay": true,
+   "then": "ch2_dispatch_back_egret_hub"
+  },
+  "ch2_t_s04_asked": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "你昨晚說要看一個人，週日也去？",
+     "ja": "昨夜、人に会うって言ってたよね。日曜も行くの？",
+     "en": "You said last night you were going to see someone. Are you going on Sunday too?"
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "週日不是空的，我留給別人了。",
+     "ja": "日曜は空いてない。別の人のために取ってあるんだ。",
+     "en": "Sunday isn't free. I've saved it for someone else."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "有人找你收帳？",
+     "ja": "誰かに取り立てられてるの？",
+     "en": "Someone's after you for a debt?"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "有個人以前連我發脾氣都會替我端水。我去坐一下，讓她嫌我吵。",
+     "ja": "昔は、あたしが癇癪を起こしても水を運んでくれた人がいてね。顔を見せに行って、うるさがられてくるよ。",
+     "en": "There was someone who used to bring me water even when I threw a tantrum. I'm going to go sit with her and let her get sick of me."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "那我不排週日，免得你又趕時間。",
+     "ja": "じゃあ日曜は入れないでおく。あんたがまた時間に追われないように。",
+     "en": "Then I won't book Sunday, so you don't end up rushing again."
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "這句我記下了，哪天有活別又只看價錢。",
+     "ja": "その言葉は覚えとくよ。仕事が来ても、また値段だけ見るんじゃないよ。",
+     "en": "I'll remember that. And when the next job comes along, don't just look at the price."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我先把今天做完，週日你自己留著。",
+     "ja": "今日の分を先に片づける。日曜はあんたが自分で空けておけばいい。",
+     "en": "I'll finish today's work first. You keep Sunday for yourself."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "asked_egret_sunday",
+    "equals": true
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "sq2_sunday_heard",
+     "value": true
+    },
+    {
+     "kind": "transaction",
+     "id": "ch2.sq2_sunday"
+    }
+   ],
+   "then": "ch2_dispatch_back_egret_hub"
+  },
+  "ch2_t_s04_new": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "你行事曆每個週日都是空的，你不接案？",
+     "ja": "あんたのスケジュール、毎週日曜が空いてるよね。仕事は受けないの？",
+     "en": "Your calendar is empty every Sunday. You don't take jobs?"
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "週日不是空的，我留給別人了。",
+     "ja": "日曜は空いてない。別の人のために取ってあるんだ。",
+     "en": "Sunday isn't free. I've saved it for someone else."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "有人找你收帳？",
+     "ja": "誰かに取り立てられてるの？",
+     "en": "Someone's after you for a debt?"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "有個人以前連我發脾氣都會替我端水。我去坐一下，讓她嫌我吵。",
+     "ja": "昔は、あたしが癇癪を起こしても水を運んでくれた人がいてね。顔を見せに行って、うるさがられてくるよ。",
+     "en": "There was someone who used to bring me water even when I threw a tantrum. I'm going to go sit with her and let her get sick of me."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "那我不排週日，免得你又趕時間。",
+     "ja": "じゃあ日曜は入れないでおく。あんたがまた時間に追われないように。",
+     "en": "Then I won't book Sunday, so you don't end up rushing again."
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "這句我記下了，哪天有活別又只看價錢。",
+     "ja": "その言葉は覚えとくよ。仕事が来ても、また値段だけ見るんじゃないよ。",
+     "en": "I'll remember that. And when the next job comes along, don't just look at the price."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我先把今天做完，週日你自己留著。",
+     "ja": "今日の分を先に片づける。日曜はあんたが自分で空けておけばいい。",
+     "en": "I'll finish today's work first. You keep Sunday for yourself."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "asked_egret_sunday",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "sq2_sunday_heard",
+     "value": true
+    },
+    {
+     "kind": "transaction",
+     "id": "ch2.sq2_sunday"
+    }
+   ],
+   "then": "ch2_dispatch_back_egret_hub"
+  },
+  "ch2_t_s22_tea": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "這杯先喝，別等我死了才幫我收。",
+     "ja": "このお茶は先に飲みな。あたしが死んでから片づけるんじゃ遅いよ。",
+     "en": "Drink this tea first. Don't wait until I'm dead to clean up after me."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "今天你把人家帳房撞壞了，茶錢恐怕不夠賠。",
+     "ja": "今日は帳場をめちゃくちゃにしたね。お茶代じゃ弁償にも足りないかもよ。",
+     "en": "You wrecked their ledger room today. The tea money probably won't cover the damage."
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "帳對出來了，他的椅子倒下去也值。",
+     "ja": "帳簿は合った。あいつの椅子がひっくり返ったのも、それだけの価値はあったさ。",
+     "en": "The books balance now, and his chair going over was worth it."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "代收那筆對完了，可是診所月報還在上面。明天我從廣場貨梯過去，看原來的。",
+     "ja": "代収の分は合ったけど、診療所の月報がまだ上に残ってる。明日は広場の貨物エレベーターで行って、原本を見てくる。",
+     "en": "That collection balances now, but the clinic monthly report is still on top. Tomorrow I'll take the plaza freight elevator over and look at the originals."
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "去查表可以，不用每張都有簽名就信它。晴岸也在那邊，就是你那本目錄的日照區住宅。想看就看，不先替老頭子買。",
+     "ja": "表を調べるのはいいよ。全部に署名があるかどうかで信じなくていい。晴岸もあっちにある。あんたのカタログにある日照区の住宅さ。見たきゃ見な。老Kのために先に買うことはない。",
+     "en": "Checking the tables is fine. You don't have to trust them just because every sheet is signed. The Far Shore is over there too, the sun-lit residential block in your catalog. Look if you like, but don't buy it for Old K first."
+    },
+    {
+     "do": "choice",
+     "text": "去查表可以，不用每張都有簽名就信它。晴岸也在那邊，就是你那本目錄的日照區住宅。想看就看，不先替老頭子買。",
+     "default": "wait",
+     "options": [
+      {
+       "id": "go",
+       "text": "明天去夾層診所核對原表。",
+       "explanation": "確認明天的去向，接著聊完今晚的茶。",
+       "target": "ch2_t_s22_decided",
+       "ja": "明日、中層の診療所で原表を照合する。",
+       "en": "Tomorrow, check the originals at the mezzanine clinic.",
+       "explanation_ja": "明日の行き先を確認して、今夜のお茶の話を終える。",
+       "explanation_en": "Confirm tomorrow's destination, then finish tonight's tea conversation."
+      },
+      {
+       "id": "wait",
+       "text": "先把茶喝完再說。",
+       "explanation": "回到屋頂，之後再來確認。",
+       "ja": "まずお茶を飲み終えてから話す。",
+       "en": "Finish the tea first, then talk.",
+       "explanation_ja": "屋根に戻り、後で確認しに来る。",
+       "explanation_en": "Go back to the rooftop and confirm later."
+      }
+     ],
+     "ja": "表を調べるのはいいよ。全部に署名があるかどうかで信じなくていい。晴岸もあっちにある。あんたのカタログにある日照区の住宅さ。見たきゃ見な。老Kのために先に買うことはない。",
+     "en": "Checking the tables is fine. You don't have to trust them just because every sheet is signed. The Far Shore is over there too, the sun-lit residential block in your catalog. Look if you like, but don't buy it for Old K first."
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch2_audit_submitted",
+        "equals": true
+       },
+       {
+        "flag": "ch2_egret_returned",
+        "equals": true
+       }
+      ]
+     },
+     {
+      "not": {
+       "flag": "ch2_heron_closed",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch2_t_s22_decided": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我先看表，房子還差得遠。",
+     "ja": "まずは表を確認する。家まではまだ遠いけど。",
+     "en": "I'll look at the table first. The house is still a long way off."
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "明天別算我，週日我不接案。",
+     "ja": "明日は数えなくていい。日曜は仕事を受けないからね。",
+     "en": "Don't count me in tomorrow. I'm not taking jobs on Sunday."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch2_audit_submitted",
+        "equals": true
+       },
+       {
+        "flag": "ch2_egret_returned",
+        "equals": true
+       }
+      ]
+     },
+     {
+      "not": {
+       "flag": "ch2_heron_closed",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "then": "ch2_dispatch_s22_sunday"
+  },
+  "ch2_t_s22_sunday_known": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "那個人還在等你嫌吵，我沒排你的活。",
+     "ja": "その人、あんたがうるさがられに来るのを、まだ待ってるんだろ。あんたの仕事は入れてないよ。",
+     "en": "That person is still waiting for you to come and annoy her. I haven't booked any work for you."
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "妳終於沒替我把空白填滿，今天算妳贏一次。",
+     "ja": "やっと私の空白を埋めずにいてくれたね。今日はお嬢の勝ちにしておくよ。",
+     "en": "You finally didn't fill my blank day for me. Today, kid, you win."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "sq2_sunday_heard",
+    "equals": true
+   },
+   "then": "ch2_t_s22_greycoat"
+  },
+  "ch2_t_s22_sunday_unknown": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "你不是每次都說最後一次，怎麼還留週日？",
+     "ja": "いつも『これで最後』って言ってるのに、なんで日曜を残してるの？",
+     "en": "You always say it's the last time. Why keep Sunday open?"
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "有個人要見，工作不能佔那天。",
+     "ja": "会う人がいるんだ。仕事でその日を潰すわけにはいかない。",
+     "en": "There's someone I have to see. Work can't take up that day."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "sq2_sunday_heard",
+     "equals": true
+    }
+   },
+   "then": "ch2_t_s22_greycoat"
+  },
+  "ch2_t_s22_greycoat": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "對面那個人一直看這邊，他今天是不是先我們進市場？",
+     "ja": "向かいのあの男、ずっとこっちを見てる。今日は先に市場へ入ったのかな？",
+     "en": "That man across the way keeps looking over here. Did he get into the market ahead of us today?"
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "看見了不代表知道，我們明天再看。",
+     "ja": "見たからって分かったことにはならない。明日また確かめよう。",
+     "en": "Seeing him doesn't mean we know anything. We'll look again tomorrow."
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "港區的通路都接上了，市場後門能回當舖街口。上層那條還沒通，明天得從廣場走。",
+     "ja": "港区の通路はつながったよ。市場の裏口から質屋の角まで戻れる。上の道はまだ通ってないから、明日は広場を通ることになるね。",
+     "en": "The Harbor District routes are connected now, and the market's back gate leads back to the pawnshop corner. The upper route is still closed, so tomorrow we'll have to go through the plaza."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我先回去，老 K 留了飯。",
+     "ja": "先に帰る。老Kが飯を取っておいてくれてるから。",
+     "en": "I'm heading back first. Old K saved me some food."
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "喝完再走，這次我真不追妳。",
+     "ja": "飲み終えてから行きな。今回は本当に引き止めないからさ。",
+     "en": "Finish your tea before you go. This time I really won't try to hold you back."
+    }
+   ],
+   "overlay": true,
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch2_heron_closed",
+     "value": true
+    },
+    {
+     "kind": "flag",
+     "id": "harbor_walk_ready",
+     "value": true
+    }
+   ]
+  },
+  "ch2_t_s22_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "明天別算我，週日我不接案。",
+     "ja": "明日は数えなくていい。日曜は仕事を受けないからね。",
+     "en": "Don't count me in tomorrow. I'm not taking jobs on Sunday."
+    }
+   ],
+   "when": {
+    "flag": "ch2_heron_closed",
+    "equals": true
+   }
+  },
+  "ch2_t_s05_gate": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "patroller",
+     "text": "查核的人走雨棚下，貨道沒有放行。",
+     "ja": "査察の者は雨よけの下を通れ。貨物通路は通行を許可していない。",
+     "en": "Inspectors use the awning path. The cargo lane is not cleared for passage."
+    },
+    {
+     "speaker": "rin",
+     "text": "我去代收處，你把入口留著。",
+     "ja": "代収所に行ってくる。入口は押さえておいて。",
+     "en": "I'm going to the collection desk. Keep the entrance covered for me."
+    },
+    {
+     "speaker": "lamp",
+     "text": "昨天封路，今天只開了攤道。別跟著貨車鑽進柵門。",
+     "ja": "昨日は道が封鎖されてて、今日は屋台の通路しか開いてない。荷車について柵の門をくぐっちゃだめだよ。",
+     "en": "The road was closed yesterday, and only the stall lane is open today. Don't follow the delivery trucks through the barrier gate."
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch2_brief_done",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch2_gate_checked",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch2_gate_checked",
+     "value": true
+    }
+   ]
+  },
+  "ch2_t_s05_no_card": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "patroller",
+     "text": "沒有查核證就只能在外面等。鷺在當舖屋頂，拿了證再來。",
+     "ja": "査察証がなければ外で待つしかない。鷺は質屋の屋根にいる。証を取ってから来い。",
+     "en": "Without an inspection pass, you wait outside. Egret is on the pawnshop roof. Get the pass and come back."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch2_brief_done",
+     "equals": true
+    }
+   }
+  },
+  "ch2_t_s05_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "patroller",
+     "text": "攤道往裡走，貨道還是不放行。",
+     "ja": "屋台の通路を奥へ進め。貨物通路は依然として通行を許可していない。",
+     "en": "Walk along the stall lane inward. The cargo lane is still not cleared for passage."
+    }
+   ],
+   "when": {
+    "flag": "ch2_gate_checked",
+    "equals": true
+   }
+  },
+  "ch2_b_booth_b3": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "lamp",
+     "text": "這座電話亭可以登記復原位置，港區交通線還沒接通。",
+     "ja": "この電話ボックスで復元地点を登録できるよ。港区の交通路線はまだつながってないけど。",
+     "en": "This phone booth can register a restoration point, though the Harbor District transit line isn't connected yet."
+    }
+   ],
+   "freeze": true
+  },
+  "ch2_t_s06_open": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "vig",
+     "text": "今天四十信用點代收款，加上前帳的利息，我才能替您收租攤申請。",
+     "ja": "本日の四十クレジットの代収金に、前回分の利息を加えてお支払いいただければ、屋台の賃貸申請を受け付けられます。",
+     "en": "Once today's forty-credit collection and the interest from the previous account are paid, I can process your stall lease application."
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "申請上沒有這一項，你先把已收的兩筆列出來。",
+     "ja": "申請書にはその項目がありません。先に、もう受け取った二件を書き出してもらえますか？",
+     "en": "That item isn't on the application. Could you list the two payments you've already collected first?"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "昨晚收的那筆也算利息？",
+     "ja": "昨夜集めた分も利息に入ってるの？",
+     "en": "Does last night's collection count as interest too?"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "vig",
+     "text": "我是阿勇的副手，大家叫我利息。帳在他那裡，我這裡只負責收。",
+     "ja": "私は勇の副官です。みんなは私を利息と呼びます。帳簿は彼のところにあって、私はここで集めるだけです。",
+     "en": "I'm Rash's deputy, and people call me Vig. The ledger is with him. I only do the collecting here."
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我來找攤位，不是來續借。你把我的申請壓著，我就得一直回來。",
+     "ja": "屋台を探しに来たんです。借金の延長に来たわけじゃありません。申請を止めておかれたら、何度でも戻ってくることになります。",
+     "en": "I came to find a stall, not to extend a loan. If you keep my application on hold, I'll keep coming back."
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "你先問我，好嗎？",
+     "ja": "まず私に聞いてくれる？いい？",
+     "en": "Ask me first, okay?"
+    },
+    {
+     "do": "choice",
+     "text": "你先問我，好嗎？",
+     "default": "pay",
+     "options": [
+      {
+       "id": "pay",
+       "text": "先付四十取得收據。",
+       "explanation": "代墊四十信用點，只解除今天的催收，不結清阿梨的債。",
+       "target": "ch2_t_s06_pay_confirm",
+       "ja": "まず四十を払って領収書を受け取る。",
+       "en": "Pay forty first to get the receipt.",
+       "explanation_ja": "四十クレジットを立て替える。今日の取り立てだけを解除し、梨の借金は清算しない。",
+       "explanation_en": "Advance forty credits. This only lifts today's collection and does not settle Pear's debt."
+      },
+      {
+       "id": "ask",
+       "text": "先問阿梨需要什麼。",
+       "explanation": "把手從口袋拿開，先聽她說。",
+       "target": "ch2_t_s06_ask",
+       "ja": "まず梨に何が必要か聞く。",
+       "en": "Ask Pear what she needs first.",
+       "explanation_ja": "ポケットから手を出して、まず彼女の話を聞く。",
+       "explanation_en": "Take your hand out of your pocket and hear her out first."
+      }
+     ],
+     "ja": "まず私に聞いてくれる？いい？",
+     "en": "Ask me first, okay?"
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch2_market_contact_done",
+     "equals": true
+    }
+   }
+  },
+  "ch2_t_s06_pay_confirm": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "代墊四十信用點，只解除今天的催收；不結清阿梨的債。",
+     "ja": "四十クレジットを立て替える。今日の取り立てのみ解除し、梨の借金は清算しない。",
+     "en": "Advance forty credits. Only today's collection is lifted; Pear's debt is not settled."
+    },
+    {
+     "do": "choice",
+     "text": "代墊四十信用點，只解除今天的催收；不結清阿梨的債。",
+     "default": "back",
+     "options": [
+      {
+       "id": "confirm",
+       "text": "確認代墊四十。",
+       "explanation": "扣四十信用點，取得蓋章收據。",
+       "target": "ch2_t_s06_paid",
+       "ja": "四十の立て替えを確定する。",
+       "en": "Confirm the forty-credit advance.",
+       "explanation_ja": "四十クレジットが差し引かれ、押印入りの領収書を受け取る。",
+       "explanation_en": "Forty credits are deducted, and you receive a stamped receipt."
+      },
+      {
+       "id": "back",
+       "text": "先不付錢，回到剛才的選擇。",
+       "explanation": "回到剛才的選擇，什麼都不扣。",
+       "target": "ch2_t_s06_open_again",
+       "ja": "今は支払わず、さっきの選択に戻る。",
+       "en": "Don't pay yet, and return to the previous choice.",
+       "explanation_ja": "さっきの選択に戻る。何も差し引かれない。",
+       "explanation_en": "Return to the previous choice. Nothing is deducted."
+      }
+     ],
+     "ja": "四十クレジットを立て替える。今日の取り立てのみ解除し、梨の借金は清算しない。",
+     "en": "Advance forty credits. Only today's collection is lifted; Pear's debt is not settled."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch2_market_contact_done",
+     "equals": true
+    }
+   }
+  },
+  "ch2_t_s06_open_again": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "你先問我，好嗎？",
+     "ja": "まず私に聞いてくれる？いい？",
+     "en": "Ask me first, okay?"
+    },
+    {
+     "do": "choice",
+     "text": "你先問我，好嗎？",
+     "default": "pay",
+     "options": [
+      {
+       "id": "pay",
+       "text": "先付四十取得收據。",
+       "explanation": "代墊四十信用點，只解除今天的催收，不結清阿梨的債。",
+       "target": "ch2_t_s06_pay_confirm",
+       "ja": "まず四十を払って領収書を受け取る。",
+       "en": "Pay forty first to get the receipt.",
+       "explanation_ja": "四十クレジットを立て替える。今日の取り立てだけを解除し、梨の借金は清算しない。",
+       "explanation_en": "Advance forty credits. This only lifts today's collection and does not settle Pear's debt."
+      },
+      {
+       "id": "ask",
+       "text": "先問阿梨需要什麼。",
+       "explanation": "把手從口袋拿開，先聽她說。",
+       "target": "ch2_t_s06_ask",
+       "ja": "まず梨に何が必要か聞く。",
+       "en": "Ask Pear what she needs first.",
+       "explanation_ja": "ポケットから手を出して、まず彼女の話を聞く。",
+       "explanation_en": "Take your hand out of your pocket and hear her out first."
+      }
+     ],
+     "ja": "まず私に聞いてくれる？いい？",
+     "en": "Ask me first, okay?"
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch2_market_contact_done",
+     "equals": true
+    }
+   }
+  },
+  "ch2_t_s06_short": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "信用點不夠，先問阿梨並核對收據。",
+     "ja": "クレジットが足りません。まず梨に確認し、領収書を照合してください。",
+     "en": "Not enough credits. First, ask Pear and check the receipt."
+    }
+   ],
+   "overlay": true,
+   "then": "ch2_dispatch_back_s06_open_again"
+  },
+  "ch2_t_s06_paid": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "這四十我先墊，你開收據。",
+     "ja": "この四十はあたしが立て替える。領収書を切って。",
+     "en": "I'll cover these forty. Issue the receipt."
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我會把這筆記給你，但攤位的事還沒解決。",
+     "ja": "この分は記録しておくね。でも、屋台の件はまだ解決してないの。",
+     "en": "I'll note this down for you, but the stall matter isn't resolved yet."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch2_market_contact_done",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "transaction",
+     "id": "ch2.market_advance"
+    },
+    {
+     "kind": "flag",
+     "id": "ali_advance_40",
+     "value": 40
+    },
+    {
+     "kind": "item_acquire",
+     "id": "ch2_evidence_receipt"
+    },
+    {
+     "kind": "flag",
+     "id": "ch2_evidence_receipt",
+     "value": true
+    }
+   ],
+   "on_failure": {
+    "insufficient_credits": "ch2_t_s06_short"
+   },
+   "then": "ch2_t_s06_invite"
+  },
+  "ch2_t_s06_ask": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "你現在需要什麼？",
+     "ja": "今、何が必要？",
+     "en": "What do you need right now?"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "一塊能煮麵的攤位，還有一張租攤許可。我缺的是這兩樣，不是你口袋裡的錢。",
+     "ja": "麺を茹でられる屋台の場所が一つと、屋台の賃貸許可がほしいんです。足りないのはこの二つで、ポケットの中のお金じゃありません。",
+     "en": "A stall spot where I can cook noodles, and a stall lease permit. I'm missing these two things, not the money in your pocket."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "把已付的收據給我，我先查他為什麼收兩次。",
+     "ja": "支払い済みの領収書を見せて。なんであいつが二回取ったのか、まず調べる。",
+     "en": "Show me the receipt for what's already been paid. I'll find out first why he collected twice."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "vig",
+     "text": "查帳可以，今天還欠四十。",
+     "ja": "監査はかまいません。ただ、本日分の四十がまだ未払いです。",
+     "en": "The audit is fine, but forty for today is still outstanding."
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "這筆有爭議，委託查完前不能往上加。你不簽，我把拒絕查核也寫進去。",
+     "ja": "この件は争いがあるので、委託調査が終わるまでは上乗せできない。署名しないなら、査察の拒否もそのまま記録に書くよ。",
+     "en": "This amount is disputed, so nothing can be added until the commissioned audit is finished. If you don't sign, I'll write the refusal to inspect into the record too."
+    },
+    {
+     "do": "say",
+     "speaker": "vig",
+     "text": "您拿存根看，原本不能帶走。",
+     "ja": "控えはご覧ください。原本はお持ち帰りいただけません。",
+     "en": "You may look at the stub, but the original can't be taken away."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch2_market_contact_done",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch2_ali_need_asked",
+     "value": true
+    },
+    {
+     "kind": "transaction",
+     "id": "ch2.sq1_need"
+    },
+    {
+     "kind": "item_acquire",
+     "id": "ch2_evidence_receipt"
+    },
+    {
+     "kind": "flag",
+     "id": "ch2_evidence_receipt",
+     "value": true
+    }
+   ],
+   "then": "ch2_t_s06_invite"
+  },
+  "ch2_t_s06_invite": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "復原館夜班下班了，我在市場找位置，後樓三樓的小廚房還有湯。",
+     "ja": "復元館の夜勤は終わったの。市場で場所を探してるところ。裏棟三階の小さな台所に、まだスープが残ってるよ。",
+     "en": "The night shift at the Restoration Hall is over, and I'm looking for a spot in the market. There's still soup left in the small kitchen on the third floor of the back building."
+    }
+   ],
+   "overlay": true,
+   "then": "ch2_dispatch_s06_supper"
+  },
+  "ch2_t_s06_invite_left": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "昨晚你先走，我沒來得及給你留一碗。",
+     "ja": "昨夜はあなたが先に帰ったから、一杯取っておけなかったの。",
+     "en": "You left first last night, so I didn't get to save you a bowl."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "knows_ali_address",
+     "equals": true
+    }
+   },
+   "then": "ch2_t_s06_close"
+  },
+  "ch2_t_s06_invite_stayed": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "昨晚那碗不是租攤試吃，這次才算。",
+     "ja": "昨夜の一杯は屋台の試食だったけど、今回はちゃんと数えてね。",
+     "en": "Last night's bowl was just a stall tasting. This time it counts."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "knows_ali_address",
+    "equals": true
+   },
+   "then": "ch2_t_s06_close"
+  },
+  "ch2_t_s06_close": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我先對附件，有空再去吃。",
+     "ja": "まず添付書類を照合する。手が空いたら食べに行く。",
+     "en": "I'll check the attachments first, and I'll go eat when I have time."
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "後樓外梯能找到我，想進來就敲門，不用替我跟別人借鑰匙。",
+     "ja": "裏棟の外階段で私を見つけられるよ。入りたければドアを叩いて。私のために誰かに鍵を借りなくていいからね。",
+     "en": "You can find me on the outside stairs of the back building. If you want to come in, just knock. You don't need to borrow a key from anyone for me."
+    }
+   ],
+   "overlay": true,
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch2_market_contact_done",
+     "value": true
+    }
+   ]
+  },
+  "ch2_t_s06_ali_paid_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "你墊的四十我記著，你想先聽攤位的事嗎？",
+     "ja": "あなたが立て替えた四十は覚えてるよ。屋台の話を先に聞きたい？",
+     "en": "I remember the forty you advanced. Would you like to hear about the stall first?"
+    },
+    {
+     "do": "choice",
+     "text": "你墊的四十我記著，你想先聽攤位的事嗎？",
+     "default": "later",
+     "options": [
+      {
+       "id": "ask",
+       "text": "先聽攤位的事。",
+       "explanation": "完整問一次她需要什麼。",
+       "target": "ch2_t_s06_ask_late",
+       "ja": "まず屋台の件を聞く。",
+       "en": "Hear about the stall first.",
+       "explanation_ja": "梨が何を必要としているか、改めて最初から聞く。",
+       "explanation_en": "Ask again, in full, what she needs."
+      },
+      {
+       "id": "later",
+       "text": "我先把委託查完。",
+       "explanation": "她會留著申請，等你回來再談。",
+       "target": "ch2_t_s06_later",
+       "ja": "まず委託された調査を終わらせる。",
+       "en": "Finish the commissioned audit first.",
+       "explanation_ja": "梨は申請を残しておき、あなたが戻ってから話し合う。",
+       "explanation_en": "Pear keeps the application open and talks with you when you return."
+      }
+     ],
+     "ja": "あなたが立て替えた四十は覚えてるよ。屋台の話を先に聞きたい？",
+     "en": "I remember the forty you advanced. Would you like to hear about the stall first?"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch2_market_contact_done",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch2_ali_need_asked",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch2_t_s06_ask_late": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "你現在需要什麼？",
+     "ja": "今、何が必要？",
+     "en": "What do you need right now?"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "一塊能煮麵的攤位，還有一張租攤許可。我缺的是這兩樣，不是你口袋裡的錢。",
+     "ja": "麺を茹でられる屋台の場所が一つと、屋台の賃貸許可がほしいんです。足りないのはこの二つで、ポケットの中のお金じゃありません。",
+     "en": "A stall spot where I can cook noodles, and a stall lease permit. I'm missing these two things, not the money in your pocket."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我先查他為什麼收兩次，攤位的事妳自己簽。",
+     "ja": "まず、あいつがなぜ二回取ったのかを調べる。屋台の件はあんたが自分で署名して。",
+     "en": "I'll find out first why he collected twice. Sign off on the stall matter yourself."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch2_ali_need_asked",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch2_ali_need_asked",
+     "value": true
+    },
+    {
+     "kind": "transaction",
+     "id": "ch2.sq1_need"
+    }
+   ]
+  },
+  "ch2_t_s06_later": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我留著申請，等你回來再談。",
+     "ja": "申請は預かっておくね。あなたが戻ってから話そう。",
+     "en": "I'll keep the application. We can talk when you're back."
+    }
+   ],
+   "overlay": true
+  },
+  "ch2_t_s06_ali_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "後樓外梯能找到我，敲門就好。",
+     "ja": "裏棟の外階段で私を見つけられるよ。ノックすればいいから。",
+     "en": "You can find me on the outside stairs of the back building. Just knock."
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch2_market_contact_done",
+      "equals": true
+     },
+     {
+      "flag": "ch2_ali_need_asked",
+      "equals": true
+     }
+    ]
+   }
+  },
+  "ch2_t_s06_vig_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "vig",
+     "text": "附件帶去帳房，別拿我的存根當免付證。",
+     "ja": "添付書類は帳場へお持ちください。私の控えを支払い免除の証明として使わないでください。",
+     "en": "Take the attachments to the ledger office. Don't use my stub as proof of exemption from payment."
+    }
+   ],
+   "when": {
+    "flag": "ch2_market_contact_done",
+    "equals": true
+   }
+  },
+  "ch2_t_s08_contract": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "window_clerk",
+     "text": "攤位押金本金二百，本期利息二十。申請沒有核准前，不收續租款。",
+     "ja": "屋台の保証金は元金二百クレジット、今期の利息は二十クレジットです。申請が承認されるまで、継続賃料は徴収しません。",
+     "en": "The stall deposit is 200 credits in principal, with 20 credits of interest this period. Until the application is approved, no renewal fee will be collected."
+    },
+    {
+     "speaker": "rin",
+     "text": "這行要留副本，代收處給我的金額不一樣。",
+     "ja": "ここは控えを残してほしい。代収所で聞いた金額と違うんだ。",
+     "en": "I need a copy kept for this line. The amount doesn't match what the collection desk gave me."
+    },
+    {
+     "speaker": "window_clerk",
+     "text": "副本給您，章蓋的是暫未核准。",
+     "ja": "控えはお渡しします。押印は『未承認』となっています。",
+     "en": "Here is the copy. The stamp reads 'not yet approved.'"
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch2_evidence_contract",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "item_acquire",
+     "id": "ch2_evidence_contract"
+    },
+    {
+     "kind": "flag",
+     "id": "ch2_evidence_contract",
+     "value": true
+    }
+   ]
+  },
+  "ch2_t_s08_contract_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "window_clerk",
+     "text": "合約副本給過了，申請核准前我們不收續租款。",
+     "ja": "契約の控えはお渡し済みです。申請が承認されるまで、継続賃料は徴収いたしません。",
+     "en": "The contract copy has already been issued. Until the application is approved, we will not collect renewal fees."
+    }
+   ],
+   "when": {
+    "flag": "ch2_evidence_contract",
+    "equals": true
+   }
+  },
+  "ch2_t_s08_banyan": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "banyan",
+     "text": "我賣涼茶賣到這把年紀，鷺年輕時把我攤子打翻，賠了三倍，還先付十年的茶錢。",
+     "ja": "わしはこの年まで涼茶を売ってきた。鷺が若い頃にわしの屋台をひっくり返して、弁償に三倍払い、さらに十年分のお茶代まで先払いしたんじゃ。",
+     "en": "I've sold cooling tea all my life. When Egret was young, she knocked over my stall, paid three times the damages, and even prepaid ten years of tea money."
+    },
+    {
+     "speaker": "rin",
+     "text": "她現在連茶都拿來借人情。",
+     "ja": "今じゃ、お茶まで人情の貸し借りに使ってるね。",
+     "en": "Now she even uses tea to call in favors."
+    },
+    {
+     "speaker": "banyan",
+     "text": "她以前最難相處，現在最好說話。以前她總說下回再賠，後來不敢拖了。",
+     "ja": "昔は一番手を焼いた子なのに、今は一番話が通じる。昔は『次に払う』が口癖だったが、もう先延ばしにはしなくなった。",
+     "en": "She used to be the hardest to deal with, and now she's the easiest to talk to. She always said she'd pay next time, but she stopped putting it off."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch2_banyan_heard",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch2_banyan_heard",
+     "value": true
+    }
+   ]
+  },
+  "ch2_t_s08_banyan_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "banyan",
+     "text": "喝茶賒帳我也記著，別裝沒聽見。",
+     "ja": "茶の掛けも覚えてるよ。聞こえないふりはするんじゃない。",
+     "en": "I've written down the tea on credit too, so don't pretend you didn't hear."
+    }
+   ],
+   "when": {
+    "flag": "ch2_banyan_heard",
+    "equals": true
+   }
+  },
+  "ch2_t_s08_screen": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "shen",
+     "text": "我們先確認一件事：每一份申請，都代表有人還想回家。天穹會繼續讓第二次成為可能。",
+     "ja": "まず一つ確かめておきます。申請はひとつ残らず、まだ家に帰りたいと願う人のものです。天穹は、二度目の機会を与え続けます。",
+     "en": "First, let's confirm one thing: every application means someone still wants to go home. Skydome will keep making a second chance possible."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "天穹週年演說，創辦人沈望。旁邊的氣象欄寫著：今晚降雨偏多，復原申請量預計增加。",
+     "ja": "天穹周年演説。創業者・沈望。横の気象欄には「今夜は雨が多く、復元申請の増加が見込まれます」とある。",
+     "en": "Skydome anniversary speech, by founder Shen Wang. The weather panel beside it reads: heavy rain tonight; restoration applications expected to rise."
+    }
+   ]
+  },
+  "ch2_t_s08_rumor": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "hawker",
+     "text": "人家說付帳人遲早來收，你最好別只看今天的價。",
+     "ja": "ツケを抱えた奴は、遅かれ早かれ取り立てが来るって話だ。今日の値段だけで決めるなよ。",
+     "en": "They say anyone who runs up a tab gets collected from sooner or later. Don't judge by today's price alone."
+    },
+    {
+     "speaker": "rin",
+     "text": "你見過他收什麼？",
+     "ja": "あいつが何か取り立てるのを見たことあるのか？",
+     "en": "Have you ever seen him collect anything?"
+    },
+    {
+     "speaker": "hawker",
+     "text": "我也是聽的，沒見過。",
+     "ja": "俺も聞いただけだ。見たことはない。",
+     "en": "I only heard it too. I've never seen it."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch2_rumor_heard",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch2_rumor_heard",
+     "value": true
+    }
+   ]
+  },
+  "ch2_t_s08_rumor_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "hawker",
+     "text": "我只是聽說的，你自己看帳比較準。",
+     "ja": "聞いた話だけだ。帳簿は自分で見たほうが確かだぞ。",
+     "en": "I only heard it. You'd be better off checking the books yourself."
+    }
+   ],
+   "when": {
+    "flag": "ch2_rumor_heard",
+    "equals": true
+   }
+  },
+  "ch2_t_s08_collection": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "批號M17，收款120，其中本金100、利息20，轉送北棟二樓。待收欄寫著120。",
+     "ja": "ロット番号M17。回収額120、うち元本100、利息20。北棟2階へ転送。未収欄には120と記載されている。",
+     "en": "Batch M17. Collection amount 120: principal 100, interest 20. Forwarded to North Building, 2nd floor. The receivable column reads 120."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "本金已還一百，這期利息也付過了，他又塞了二十進去。",
+     "ja": "元本は百返した。今期の利息も払ってある。それなのにあいつは、さらに二十を押し込んできた。",
+     "en": "The principal is down by a hundred, and this period's interest was paid too. He slipped another twenty in."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch2_evidence_collection",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "item_acquire",
+     "id": "ch2_evidence_collection"
+    },
+    {
+     "kind": "flag",
+     "id": "ch2_evidence_collection",
+     "value": true
+    }
+   ]
+  },
+  "ch2_t_s08_collection_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "代收簿的副本已經在筆記裡，原本留在裝卸間。",
+     "ja": "代収簿の写しはすでにメモにある。原本は積込場に残っていた。",
+     "en": "A copy of the collection ledger is already in your notes. The original was left in the loading bay."
+    }
+   ],
+   "when": {
+    "flag": "ch2_evidence_collection",
+    "equals": true
+   }
+  },
+  "ch2_t_s07_door": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "你找到了，門口那把補過的傘就是我的。先把鞋底的水擦一下，好嗎？",
+     "ja": "見つけたね。ドアのそばの、継ぎを当てた傘がうちのだよ。まず靴底の水をふいて、いい？",
+     "en": "You found it. The patched umbrella by the door is mine. Wipe the water off your soles first, okay?"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch2_ali_home_visit",
+     "equals": true
+    }
+   },
+   "then": "ch2_dispatch_s07_address"
+  },
+  "ch2_t_s07_address_new": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "你說後樓，我差點走進貨梯。",
+     "ja": "後ろの建物だと言うから、危うく貨物エレベーターに入るところだった。",
+     "en": "You said the back building, and I nearly walked into the freight elevator."
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我是市場後樓三樓，走外梯，敲兩下再敲一下，我就知道是你。",
+     "ja": "市場の裏棟の三階だよ。外階段から来て、二回叩いて、もう一回叩いて。そうしたらあなただってわかるから。",
+     "en": "I'm on the third floor of the market's back building. Take the outside stairs, knock twice, then once more. Then I'll know it's you."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "knows_ali_address",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "knows_ali_address",
+     "value": true
+    }
+   ],
+   "then": "ch2_dispatch_back_s07_bowls"
+  },
+  "ch2_t_s07_address_known": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "還記得兩下再一下，你沒把暗號算成一筆帳吧？",
+     "ja": "二回と一回、覚えてるよね？まさか合図にまで代金を付けてないよね？",
+     "en": "You remember two knocks, then one? You didn't put a charge on the signal, did you?"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我記在人名那頁，沒有標價。",
+     "ja": "名前のページに書いた。値段は書いてない。",
+     "en": "I wrote it on the names page. No price on it."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "knows_ali_address",
+    "equals": true
+   },
+   "then": "ch2_dispatch_back_s07_bowls"
+  },
+  "ch2_t_s07_bowls": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "你想喝湯的話，先替我洗這三隻，好嗎？我剛試的都用完了。",
+     "ja": "スープを飲みたいなら、まずこの器を三つ洗ってくれる？さっき試したので、全部使っちゃったの。いい？",
+     "en": "If you want soup, wash these three bowls first, okay? I've used up everything I tested."
+    },
+    {
+     "do": "choice",
+     "text": "你想喝湯的話，先替我洗這三隻，好嗎？我剛試的都用完了。",
+     "default": "wash",
+     "options": [
+      {
+       "id": "wash",
+       "text": "洗碗試湯。",
+       "explanation": "替她洗三隻碗，再試湯。",
+       "target": "ch2_t_s07_wash",
+       "ja": "器を洗って、スープを試す。",
+       "en": "Wash the bowls and taste the soup.",
+       "explanation_ja": "器を三つ洗い、スープを試す。",
+       "explanation_en": "Wash the three bowls, then taste the soup."
+      },
+      {
+       "id": "address",
+       "text": "只記地址，先走。",
+       "explanation": "地址記下了，下次再來。",
+       "target": "ch2_t_s07_leave",
+       "ja": "住所だけメモして、帰る。",
+       "en": "Note down the address and leave.",
+       "explanation_ja": "住所はメモした。また今度来よう。",
+       "explanation_en": "The address is noted. You'll come back another time."
+      }
+     ],
+     "ja": "スープを飲みたいなら、まずこの器を三つ洗ってくれる？さっき試したので、全部使っちゃったの。いい？",
+     "en": "If you want soup, wash these three bowls first, okay? I've used up everything I tested."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch2_ali_home_visit",
+     "equals": true
+    }
+   }
+  },
+  "ch2_t_s07_leave": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "下次再來，門口會留一盞燈。",
+     "ja": "また今度来て。ドアのところに灯りを残しておくから。",
+     "en": "Come back another time. I'll leave a lamp on at the door."
+    }
+   ],
+   "overlay": true,
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch2_ali_home_visit",
+     "value": true
+    }
+   ]
+  },
+  "ch2_t_s07_wash": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "沖過的碗要放到乾燥架上。左邊的架子是乾的。",
+     "ja": "洗った器は乾燥棚に置く。左の棚は乾いている。",
+     "en": "Rinsed bowls go on the drying rack. The left rack is dry."
+    },
+    {
+     "do": "choice",
+     "text": "沖過的碗要放到乾燥架上。左邊的架子是乾的。",
+     "default": "stop",
+     "options": [
+      {
+       "id": "left",
+       "text": "放到左邊的乾燥架。",
+       "explanation": "左邊是乾的。",
+       "target": "ch2_t_s07_soup",
+       "ja": "左の乾燥棚に置く。",
+       "en": "Put it on the drying rack on the left.",
+       "explanation_ja": "左側は乾いている。",
+       "explanation_en": "The left rack is dry."
+      },
+      {
+       "id": "right",
+       "text": "放到右邊的架子。",
+       "explanation": "右邊還在滴水。",
+       "target": "ch2_t_s07_wash_wrong",
+       "ja": "右の棚に置く。",
+       "en": "Put it on the rack on the right.",
+       "explanation_ja": "右側はまだ水が垂れている。",
+       "explanation_en": "The right rack is still dripping."
+      },
+      {
+       "id": "stop",
+       "text": "先不洗了，下次再來。",
+       "explanation": "地址記下了，試湯留到下次。",
+       "ja": "今は洗わず、また後で来る。",
+       "en": "Skip the washing for now and come back later.",
+       "explanation_ja": "住所はメモした。スープの試食は次回に持ち越し。",
+       "explanation_en": "The address is noted. The soup tasting waits until next time."
+      }
+     ],
+     "ja": "洗った器は乾燥棚に置く。左の棚は乾いている。",
+     "en": "Rinsed bowls go on the drying rack. The left rack is dry."
+    }
+   ]
+  },
+  "ch2_t_s07_wash_wrong": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "那邊還滴水，換到左邊就好。",
+     "ja": "そっちはまだ水が垂れてるよ。左に置けばいい。",
+     "en": "It's still dripping over there. Just put it on the left."
+    }
+   ],
+   "overlay": true,
+   "then": "ch2_dispatch_back_s07_wash"
+  },
+  "ch2_t_s07_soup": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "這鍋放的梨比昨晚多。",
+     "ja": "この鍋、昨日の夜より梨が多いな。",
+     "en": "This pot has more pears in it than last night."
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我在試能煮一整晚的湯，梨嬸以前就是這樣教我的。她在梨攤邊撿到我，所以我叫阿梨。",
+     "ja": "一晩中煮込めるスープを試してるの。梨のおばさんが、そう教えてくれたの。梨の屋台の横で拾われたから、私は梨って呼ばれてる。",
+     "en": "I'm testing a soup that can simmer all night. Auntie Pear-Stall taught me that. She found me by the pear stall, so my name is Pear."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "攤子準備叫什麼？",
+     "ja": "屋台は何て名前にするんだ？",
+     "en": "What's the stall going to be called?"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "名字還沒想好，我先想每天要給人吃什麼。",
+     "ja": "名前はまだ決めてないの。まずは毎日、人に何を食べさせるかを考えてる。",
+     "en": "I haven't picked a name yet. First I'm working out what to feed people every day."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我可以把攤租先付了。",
+     "ja": "屋台代、先に払っておこうか。",
+     "en": "I could pay the stall rent up front."
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "你先替我把錯的帳找出來。要不要租，我會自己簽，不用你替我答應。",
+     "ja": "まず、間違ってる帳簿を探してくれない？ 借りるかどうかは、私が自分でサインする。あなたが代わりに返事しなくていいからね。",
+     "en": "First, find the wrong entries for me. Whether I rent it or not, I'll sign for it myself. You don't have to agree on my behalf."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "那你簽，我記要用的東西。",
+     "ja": "じゃあ君がサインして。必要なものは私がメモしておく。",
+     "en": "Then you sign. I'll note what you need."
+    }
+   ],
+   "overlay": true,
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch2_ali_home_visit",
+     "value": true
+    },
+    {
+     "kind": "flag",
+     "id": "sq1_soup_practice_done",
+     "value": true
+    },
+    {
+     "kind": "transaction",
+     "id": "ch2.sq1_soup"
+    }
+   ]
+  },
+  "ch2_t_s07_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "碗放左邊就好，今天我先試湯，不收新的攤租。",
+     "ja": "器は左に置いてね。今日はスープを試すだけ。新しい屋台代は取らないよ。",
+     "en": "Put the bowls on the left. Today I'm only testing the soup, and I won't take any new stall rent."
+    }
+   ],
+   "when": {
+    "flag": "ch2_ali_home_visit",
+    "equals": true
+   }
+  },
+  "ch2_s09_wire": {
+   "mode": "bubbles",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "這條電線被人剪斷了。",
+     "ja": "この電線は誰かに切られてる。",
+     "en": "This wire's been cut by someone."
+    },
+    {
+     "speaker": "lamp",
+     "text": "電已經斷了，可以從橋上過去。",
+     "ja": "電気はもう切れてるから、橋の上を通って行けるよ。",
+     "en": "The power's already off, so you can cross the bridge."
+    }
+   ]
+  },
+  "ch2_t_s09_guard": {
+   "mode": "dialogue",
+   "lines": [
+    {
+     "speaker": "rin",
+     "text": "守衛還有呼吸，誰先來過？",
+     "ja": "警備員はまだ息がある。先に来たのは誰だ？",
+     "en": "The guard's still breathing. Who got here first?"
+    },
+    {
+     "speaker": "lamp",
+     "text": "我只看見門沒鎖，查不到人。",
+     "ja": "見えるのは、ドアに鍵がかかってなかったことだけ。誰が来たかまでは追えないよ。",
+     "en": "All I see is that the door wasn't locked. I can't trace anyone."
+    },
+    {
+     "speaker": "lamp",
+     "text": "先看門內，別替影子取名字。",
+     "ja": "まずドアの中を確かめて。影に勝手に名前をつけないでね。",
+     "en": "Check inside the door first. Don't go giving the shadows names."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch2_guard_seen",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch2_guard_seen",
+     "value": true
+    }
+   ]
+  },
+  "ch2_t_s09_guard_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "守衛倚著牆睡著，胸口一起一伏，沒有受傷。",
+     "ja": "守衛は壁にもたれて眠っている。胸が上下しており、怪我はない。",
+     "en": "The guard is dozing against the wall, chest rising and falling. Not injured."
+    }
+   ],
+   "when": {
+    "flag": "ch2_guard_seen",
+    "equals": true
+   }
+  },
+  "ch2_t_s09_lever": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "從這邊放下橋梯，回代收處就不用繞了。",
+     "ja": "こっち側から橋を下ろせば、代収処まで回り道しなくて済む。",
+     "en": "Lower the bridge from this side, and we won't have to go around to the collection desk."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch2_sc1_open",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch2_sc1_open",
+     "value": true
+    }
+   ]
+  },
+  "ch2_t_s09_lever_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "橋梯已經放下，通到代收處。",
+     "ja": "橋梯は下ろされ、代収処へ通じている。",
+     "en": "The bridge is lowered and leads to the collection desk."
+    }
+   ],
+   "when": {
+    "flag": "ch2_sc1_open",
+    "equals": true
+   }
+  },
+  "ch2_t_s10_missing_receipt": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "先找代收處要已付收據，不能只用對方的帳證明對方。",
+     "ja": "まず代収処で支払い済みの領収書をもらう。相手の帳簿だけで、相手の正しさは証明できない。",
+     "en": "First get a paid receipt from the collection desk. You can't prove their account using only their own books."
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "not": {
+       "flag": "ch2_market_reconciled",
+       "equals": true
+      }
+     },
+     {
+      "not": {
+       "flag": "ch2_evidence_receipt",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch2_t_s10_missing_collection": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "還缺代收簿，去雨棚後面的裝卸間核對待收欄。",
+     "ja": "代収簿がまだ足りない。雨よけの後ろの積込場へ行き、未収欄を確かめる。",
+     "en": "The collection ledger is still missing. Go to the loading bay behind the rain shelter and check the receivable column."
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "not": {
+       "flag": "ch2_market_reconciled",
+       "equals": true
+      }
+     },
+     {
+      "flag": "ch2_evidence_receipt",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch2_evidence_collection",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch2_t_s10_missing_contract": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "還缺租攤合約，去租攤視窗確認這期利息。",
+     "ja": "屋台の賃貸契約書がまだ足りない。屋台の貸出窓口で、今期の利息を確認する。",
+     "en": "The stall lease contract is still missing. Check this period's interest at the stall rental window."
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "not": {
+       "flag": "ch2_market_reconciled",
+       "equals": true
+      }
+     },
+     {
+      "flag": "ch2_evidence_receipt",
+      "equals": true
+     },
+     {
+      "flag": "ch2_evidence_collection",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch2_evidence_contract",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch2_t_s10_principal": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "拿本金的欄對本金，別拿還款總額整筆減掉。裡面有已付利息。",
+     "ja": "元本は元本の欄と照らし合わせろ。返済総額をまるごと引くな。中に既払いの利息が入っている。",
+     "en": "Match the principal against the principal column. Don't subtract the whole repayment total. It includes paid interest."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "三張紙攤在桌上。先找出本金還剩多少。",
+     "ja": "紙が三枚、机の上に広げてある。まず元本があといくら残っているかを探せ。",
+     "en": "Three slips lie on the table. First, find out how much principal is still left."
+    },
+    {
+     "do": "choice",
+     "text": "三張紙攤在桌上。先找出本金還剩多少。",
+     "default": "principal",
+     "options": [
+      {
+       "id": "principal",
+       "text": "選收據的本金欄：本金還剩一百。",
+       "explanation": "收據寫本金兩百、已付的一百二裡有一百是本金。",
+       "target": "ch2_t_s10_interest",
+       "ja": "領収書の元本欄を選ぶ：元本は残り100。",
+       "en": "Select the principal column on the receipt: 100 of principal remains.",
+       "explanation_ja": "領収書には元本200とあり、支払い済みの120のうち100が元本だった。",
+       "explanation_en": "The receipt lists principal of 200, and 100 of the 120 paid was principal."
+      },
+      {
+       "id": "total",
+       "text": "把已付的一百二整筆當本金減掉。",
+       "explanation": "已付的一百二裡還有利息。",
+       "target": "ch2_t_s10_principal_wrong",
+       "ja": "支払い済みの120を、まるごと元本として差し引く。",
+       "en": "Subtract the full 120 paid as principal.",
+       "explanation_ja": "支払い済みの120には、まだ利息が含まれている。",
+       "explanation_en": "The 120 paid still includes interest."
+      }
+     ],
+     "ja": "紙が三枚、机の上に広げてある。まず元本があといくら残っているかを探せ。",
+     "en": "Three slips lie on the table. First, find out how much principal is still left."
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch2_evidence_contract",
+        "equals": true
+       },
+       {
+        "flag": "ch2_evidence_receipt",
+        "equals": true
+       },
+       {
+        "flag": "ch2_evidence_collection",
+        "equals": true
+       }
+      ]
+     },
+     {
+      "not": {
+       "flag": "ch2_market_reconciled",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch2_t_s10_principal_wrong": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "收據的一百二包含一百本金與二十利息，請分別比較。",
+     "ja": "領収書の120には元本100と利息20が含まれている。それぞれ分けて比べよ。",
+     "en": "The receipt's 120 includes 100 of principal and 20 of interest. Compare them separately."
+    }
+   ],
+   "overlay": true,
+   "then": "ch2_dispatch_back_s10_principal"
+  },
+  "ch2_t_s10_interest": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "本金還剩一百，二十的利息已經付過。",
+     "ja": "元本は残り100。利息の20はもう払い済みだ。",
+     "en": "100 of principal remains, and the 20 in interest has already been paid."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "再找出哪一欄把已付的利息又算了一次。",
+     "ja": "次に、払い済みの利息をもう一度計上している欄を見つけよ。",
+     "en": "Next, find which column counts the interest already paid a second time."
+    },
+    {
+     "do": "choice",
+     "text": "再找出哪一欄把已付的利息又算了一次。",
+     "default": "collection",
+     "options": [
+      {
+       "id": "collection",
+       "text": "選代收簿的待收欄：一百二十。",
+       "explanation": "合約與收據都說利息付過了。",
+       "target": "ch2_t_s10_batch",
+       "ja": "代収簿の未収欄を選ぶ：120。",
+       "en": "Select the receivable column in the collection ledger: 120.",
+       "explanation_ja": "契約書と領収書の両方に、利息は支払い済みと書かれている。",
+       "explanation_en": "The contract and the receipt both say the interest has been paid."
+      },
+      {
+       "id": "contract",
+       "text": "選合約的利息欄：二十。",
+       "explanation": "合約上的二十是本期該付的利息，不是重複的那筆。",
+       "target": "ch2_t_s10_interest_wrong",
+       "ja": "契約書の利息欄を選ぶ：20。",
+       "en": "Select the interest column on the contract: 20.",
+       "explanation_ja": "契約書の20は今期に支払うべき利息で、二重に計上されたものではない。",
+       "explanation_en": "The 20 on the contract is this period's interest due, not the duplicate charge."
+      }
+     ],
+     "ja": "次に、払い済みの利息をもう一度計上している欄を見つけよ。",
+     "en": "Next, find which column counts the interest already paid a second time."
+    }
+   ]
+  },
+  "ch2_t_s10_interest_wrong": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "合約的二十是本期利息，收據寫著已經付過。請找把它又算一次的那一欄。",
+     "ja": "契約書の20は今期の利息で、領収書には支払い済みとある。もう一度請求している欄を探せ。",
+     "en": "The contract's 20 is this period's interest, and the receipt says it has already been paid. Find the column that charges it again."
+    }
+   ],
+   "overlay": true,
+   "then": "ch2_dispatch_back_s10_interest"
+  },
+  "ch2_t_s10_batch": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "代收簿還寫一百二十，他把已付的二十再收一次。",
+     "ja": "代収簿はまだ120と書いている。すでに払った20を、もう一度取り立てているんだ。",
+     "en": "The collection ledger still says 120. He's collecting the 20 already paid a second time."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "最後確認這筆帳送到哪裡。",
+     "ja": "最後に、この帳簿がどこへ送られるかを確かめる。",
+     "en": "Finally, confirm where this account is sent."
+    },
+    {
+     "do": "choice",
+     "text": "最後確認這筆帳送到哪裡。",
+     "default": "window",
+     "options": [
+      {
+       "id": "north",
+       "text": "選代收簿的批號：轉送北棟二樓。",
+       "explanation": "三張都有同一批號。",
+       "target": "ch2_t_s10_done",
+       "ja": "代収簿のロット番号を選ぶ：北棟2階へ転送。",
+       "en": "Select the batch number on the collection ledger: forwarded to North Building, 2nd floor.",
+       "explanation_ja": "三枚とも同じロット番号が付いている。",
+       "explanation_en": "All three carry the same batch number."
+      },
+      {
+       "id": "window",
+       "text": "選租攤視窗的地址。",
+       "explanation": "租攤視窗只開合約，帳不是送到那裡。",
+       "target": "ch2_t_s10_batch_wrong",
+       "ja": "屋台の貸出窓口の住所を選ぶ。",
+       "en": "Select the address of the stall rental window.",
+       "explanation_ja": "屋台の貸出窓口は契約書しか扱わない。帳簿はそこへ送られない。",
+       "explanation_en": "The stall rental window only handles contracts. The account isn't sent there."
+      }
+     ],
+     "ja": "最後に、この帳簿がどこへ送られるかを確かめる。",
+     "en": "Finally, confirm where this account is sent."
+    }
+   ]
+  },
+  "ch2_t_s10_batch_wrong": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "租攤視窗只開合約。代收簿的批號旁寫著帳送去的地方。",
+     "ja": "屋台の貸出窓口は契約書しか扱わない。代収簿のロット番号の横に、帳簿の送り先が書いてある。",
+     "en": "The stall rental window only handles contracts. The collection ledger's batch number shows where the account is sent."
+    }
+   ],
+   "overlay": true,
+   "then": "ch2_dispatch_back_s10_batch"
+  },
+  "ch2_t_s10_done": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "三張都有同一批號，北棟二樓就是送帳的地方。",
+     "ja": "三枚とも同じロット番号だから、帳簿の送り先は北棟2階だね。",
+     "en": "All three carry the same batch number, so the account goes to North Building, 2nd floor."
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "把這三張留著，我們去找原本。你只查出了這一期，別替所有欠帳的人說已經清了。",
+     "ja": "この三枚は持っておけ。原本を探しに行く。お前が確かめたのは今期だけだ。借金のある全員が返し終えたとは、言うなよ。",
+     "en": "Keep these three. We'll go find the originals. You've only checked this one period, so don't claim everyone who owes has cleared their debt."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我拿證據去，不拿你的猜測去。",
+     "ja": "証拠を持っていく。お前の推測じゃなくてな。",
+     "en": "I'll bring evidence, not your guesses."
+    }
+   ],
+   "overlay": true,
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch2_market_reconciled",
+     "value": true
+    }
+   ]
+  },
+  "ch2_t_s10_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "重複的二十已經對出來了，北棟二樓的貨門會放行。",
+     "ja": "重複していた20が照合できた。北棟2階の貨物扉が通してくれる。",
+     "en": "The duplicate 20 has been matched. The cargo door on North Building's 2nd floor will let you through."
+    }
+   ],
+   "when": {
+    "flag": "ch2_market_reconciled",
+    "equals": true
+   }
+  },
+  "ch2_t_s11_diagram": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "安全撤銷會永久解除這段復原連結，同時斷開動力；不會傷害座位上的人。",
+     "ja": "安全撤回は、この復元リンクを永久に解除し、動力も断つ。座席の人を傷つけることはない。",
+     "en": "Safe Revoke permanently severs this restoration link and cuts power. It will not harm the person in the seat."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "維修暫停閂在側箱內。側箱現在被主機的帶電護板封住，手伸不進去。",
+     "ja": "保守停止ラッチは側面ボックスの中に固定されている。側面ボックスは主機の通電ガードパネルで封じられ、手が入らない。",
+     "en": "The maintenance pause latch is locked inside the side box. The side box is sealed by the live guard panel from the mainframe, so no hand can reach in."
+    }
+   ]
+  },
+  "ch2_t_s11_intro": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "yong",
+     "text": "你們拿幾張副本，就要我把人借出去的錢當沒借？",
+     "ja": "写しを何枚か持ってきただけで、俺が貸した金をなかったことにしろってのか？",
+     "en": "You bring a few copies, and you want me to treat the money I lent out as if I never lent it?"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我沒有刪本金，這二十已經付了。",
+     "ja": "元本は消していない。この20はもう払ってある。",
+     "en": "I didn't erase the principal. This twenty has already been paid."
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "把原帳拿出來，先核批號。你不認那個章，也不能叫人再付一次。",
+     "ja": "原本を出せ。まずロット番号を確かめる。あの印を認めないのは勝手だが、払った人間にもう一度払わせることはできない。",
+     "en": "Bring out the original ledger and check the batch number first. You may not accept that stamp, but you can't make someone pay twice."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "yong",
+     "text": "上面一天一張收費表，我只能照今天的收。你要說我錯，把今天那張也拿來。",
+     "ja": "上からは一日ごとに料金表が出る。俺は今日の分どおりにしか取れない。俺が間違ってると言うなら、今日の表も持ってこい。",
+     "en": "Upstairs issues a new fee sheet every day. I can only collect at today's rate. If you say I'm wrong, bring today's sheet too."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "那就讓我們看。",
+     "ja": "じゃあ見せてもらう。",
+     "en": "Then let's see."
+    },
+    {
+     "do": "say",
+     "speaker": "yong",
+     "text": "這裡沒有給你們的鑰匙，拿帳先過我。",
+     "ja": "ここにお前たちの鍵はない。帳簿は先に俺を通せ。",
+     "en": "There's no key here for you two. Take the books through me first."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch2_yong_intro_seen",
+     "equals": true
+    }
+   },
+   "then": "ch2_t_s11_xiaowei"
+  },
+  "ch2_t_s11_xiaowei": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "xiaowei",
+     "text": "爸爸，傘要放在哪裡？",
+     "ja": "パパ、傘はどこに置けばいい？",
+     "en": "Dad, where should the umbrella go?"
+    },
+    {
+     "do": "say",
+     "speaker": "yong",
+     "text": "小薇，傘放在腳邊就好，不要離開椅子。",
+     "ja": "小薇、傘は足元に置いておけ。椅子から離れるなよ。",
+     "en": "Vee, keep the umbrella by your feet. Don't leave your chair."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "你把你女兒帶到帳房幹什麼？",
+     "ja": "帳場に娘を連れてきて、何のつもりだ？",
+     "en": "What are you doing bringing your daughter into the ledger room?"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "yong",
+     "text": "小薇是我的錨人，連著終端我才能回來。她要我回來。",
+     "ja": "小薇は俺の錨人だ。あの子を通して端末に繋がっている間だけ、俺は戻れる。小薇が俺に戻ってきてほしいと言ってる。",
+     "en": "Vee is my anchor. I can only come back while I'm linked to the terminal through her. She wants me to come back."
+    },
+    {
+     "do": "say",
+     "speaker": "xiaowei",
+     "text": "我不想爸爸再不見了。",
+     "ja": "パパがまたいなくなるのは嫌だ。",
+     "en": "I don't want Dad to disappear again."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch2_yong_intro_seen",
+     "equals": true
+    }
+   },
+   "then": "ch2_t_s11_boxes"
+  },
+  "ch2_t_s11_boxes": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "他的裝甲和復原共用電源，主箱撤銷能一起切掉。斷電後才能卸下棍子和儲能匣。",
+     "ja": "あいつの装甲と復元は電源を共有している。主ボックスの撤回で両方まとめて切れる。電源が切れてから、鉄棍と蓄電カセットを外せる。",
+     "en": "His armor and restoration share a power supply, so revoking the main box cuts both. Only after the power is off can you remove the iron club and the power cell."
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "主機在她那層下面，別朝她那邊開槍。",
+     "ja": "主機は彼女のいる層の下にある。彼女の方向に撃つな。",
+     "en": "The mainframe is under her layer, so don't fire toward her."
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "主箱會永久解除這段連結，側箱只能暫停，但現在被護板擋住。",
+     "ja": "主ボックスはこのリンクを永久に解除する。側面ボックスは一時停止しかできないが、今はパネルに塞がれている。",
+     "en": "The main box will permanently sever this link. The side box can only be paused, but the panel is blocking it right now."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch2_yong_intro_seen",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch2_yong_intro_seen",
+     "value": true
+    }
+   ]
+  },
+  "ch2_t_s11_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "主箱永久解除父女連結，小薇不是攻擊目標。準備好就進帳房。",
+     "ja": "主ボックスは父娘のリンクを永久に解除する。小薇は攻撃対象じゃない。準備ができたら帳場へ入ろう。",
+     "en": "The main box permanently severs the father-daughter link. Vee is not a target. When you're ready, head into the ledger room."
+    }
+   ],
+   "when": {
+    "flag": "ch2_yong_intro_seen",
+    "equals": true
+   }
+  },
+  "ch2_t_xiaowei_line": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "xiaowei",
+     "text": "爸爸說不要離開椅子，我就坐在這裡。",
+     "ja": "パパが椅子から離れるなって言ったから、ここに座ってる。",
+     "en": "Dad said not to leave the chair, so I'm sitting right here."
+    }
+   ]
+  },
+  "ch2_t_s12_choice": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "永久解除會切掉動力與讀取。阿勇將失去靠小薇復原的資格，小薇不再承擔這段連結的損耗。",
+     "ja": "永久解除は動力と読み取りを切る。勇は小薇を通じて復元する資格を失い、小薇はこのリンクの消耗を負わなくなる。",
+     "en": "Permanent severing cuts power and reading. Rash loses eligibility to restore through Vee, and Vee no longer bears the wear of this link."
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "斷電後打壞棍柄的鎖扣，再卸下儲能匣，就能制伏他。你還是要避開他的反擊。",
+     "ja": "電源を切ったら、鉄棍の柄のロックを壊し、蓄電カセットを外せば制圧できる。それでも反撃はよけないとね。",
+     "en": "Once the power is off, break the lock on the club's grip, then remove the power cell, and you can subdue him. You still need to dodge his counterattacks."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "保留資格就繼續迎戰。儲能匣仍帶電，攻擊它可能使阿勇過載死亡；復原會讓小薇失去記憶。",
+     "ja": "資格を保つなら戦闘を続ける。蓄電カセットはまだ通電しており、攻撃すると過負荷で勇が死ぬおそれがある。復元すると小薇は記憶を失う。",
+     "en": "Keeping eligibility means continuing the fight. The power cell is still live, and attacking it may overload and kill Rash. Restoring will make Vee lose her memories."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "側箱的暫停閂現在被護板擋住，無法使用。繼續打有風險，不能保證兩人都不付出代價。",
+     "ja": "側面ボックスの停止ラッチはパネルに塞がれ、使えない。戦闘を続けるのは危険があり、二人とも代価を払わずに済む保証はない。",
+     "en": "The side box's pause latch is blocked by the panel and can't be used. Continuing is risky, and nothing guarantees that both of them avoid paying a price."
+    },
+    {
+     "do": "choice",
+     "text": "側箱的暫停閂現在被護板擋住，無法使用。繼續打有風險，不能保證兩人都不付出代價。",
+     "default": "cut",
+     "options": [
+      {
+       "id": "cut",
+       "text": "永久解除父女連結，再制伏。",
+       "explanation": "接著要親手操作主隔離箱。",
+       "set_flags": {
+        "yong_link_choice": "cut"
+       },
+       "ja": "父娘のリンクを永久に解除し、制圧する。",
+       "en": "Permanently sever the father-daughter link, then subdue him.",
+       "explanation_ja": "次は、主隔離ボックスを手で操作することになる。",
+       "explanation_en": "Next, you'll have to operate the main isolation box by hand."
+      },
+      {
+       "id": "keep",
+       "text": "保留連結資格，繼續迎戰。",
+       "explanation": "繼續打，風險如上。",
+       "set_flags": {
+        "yong_link_choice": "keep"
+       },
+       "ja": "リンクの資格を残し、戦いを続ける。",
+       "en": "Keep the link eligibility and continue the fight.",
+       "explanation_ja": "戦いを続ける。上のリスクはそのまま残る。",
+       "explanation_en": "Keep fighting. The risks above still apply."
+      },
+      {
+       "id": "back",
+       "text": "先返回說明。",
+       "explanation": "再看一次四段說明。",
+       "target": "ch2_t_s12_choice",
+       "ja": "まず説明に戻る。",
+       "en": "Return to the explanation first.",
+       "explanation_ja": "四段の説明をもう一度読む。",
+       "explanation_en": "Read the four-part explanation once more."
+      }
+     ],
+     "ja": "側面ボックスの停止ラッチはパネルに塞がれ、使えない。戦闘を続けるのは危険があり、二人とも代価を払わずに済む保証はない。",
+     "en": "The side box's pause latch is blocked by the panel and can't be used. Continuing is risky, and nothing guarantees that both of them avoid paying a price."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch2_yong_subdued",
+     "equals": true
+    }
+   }
+  },
+  "ch2_s12_bark_mark": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "lamp",
+     "text": "踩亮墊能清掉標記。",
+     "ja": "発光パッドを踏めば、印を消せる。",
+     "en": "Step on the light pad to clear the mark."
+    }
+   ]
+  },
+  "ch2_s12_bark_egret": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "egret",
+     "text": "他還會再補一棍。",
+     "ja": "あいつ、もう一発鉄棍を叩き込んでくるぞ。",
+     "en": "He'll swing the club again."
+    }
+   ]
+  },
+  "ch2_t_s12_keep_revival": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "xiaowei",
+     "text": "爸爸，你說回來就吃飯。",
+     "ja": "パパ、ご飯を食べに戻るって言ったでしょ。",
+     "en": "Dad, you said you'd come back for dinner."
+    },
+    {
+     "do": "say",
+     "speaker": "yong",
+     "text": "我回來了，妳看著我。",
+     "ja": "戻ったぞ。ちゃんと俺を見てろ。",
+     "en": "I'm back. Keep your eyes on me."
+    },
+    {
+     "do": "say",
+     "speaker": "xiaowei",
+     "text": "這把傘是誰的？",
+     "ja": "この傘、誰の？",
+     "en": "Whose umbrella is this?"
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "yong_revival_done",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "yong_revival_done",
+     "value": true
+    },
+    {
+     "kind": "flag",
+     "id": "xiaowei_read_count",
+     "value": 1
+    },
+    {
+     "kind": "flag",
+     "id": "xiaowei_yellow_umbrella_recognized",
+     "value": false
+    }
+   ]
+  },
+  "ch2_t_s12_keep_pause": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "他的匣蓋閉不上，現在斷了電，可以卸下來。",
+     "ja": "あいつの蓄電カセットは蓋が閉まらない。電源が切れた今なら外せる。",
+     "en": "His power cell's lid won't close. The power's off now, so you can take it out."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "yong_link_isolated",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "yong_link_isolated",
+     "value": true
+    }
+   ]
+  },
+  "ch2_s12_defeat_hint": {
+   "mode": "radio",
+   "lines": [
+    {
+     "speaker": "lamp",
+     "text": "隔離箱能阻止小薇的讀取，亮墊能清除利息標記。看見鐵棍蓄力再閃避。",
+     "ja": "隔離ボックスで小薇の読み取りを防げる。発光パッドで利息の印を消せる。鉄棍が溜めに入ったら、かわして。",
+     "en": "The isolation box can block Vee's reading, and the light pad can clear the interest mark. Dodge when you see the iron club winding up."
+    }
+   ],
+   "freeze": true
+  },
+  "ch2_t_s13_locked": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "帳櫃鎖著，鑰匙掛在阿勇身上。",
+     "ja": "帳櫃は施錠されている。鍵は勇が持っている。",
+     "en": "The ledger cabinet is locked. The key is on Rash."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch2_yong_subdued",
+     "equals": true
+    }
+   }
+  },
+  "ch2_t_s13_cut": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "yong",
+     "text": "你永久拆了我和她的連結，還要我認你算的帳？",
+     "ja": "俺と娘のつながりを永久に断っておいて、お前の計算を認めろってのか？",
+     "en": "You cut my link with her for good, and now you want me to accept your numbers?"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "你活著就能對，別拿她再付。",
+     "ja": "生きていれば清算はできる。もう彼女に払わせるな。",
+     "en": "As long as you're alive, you can settle it. Don't make her pay again."
+    },
+    {
+     "do": "say",
+     "speaker": "xiaowei",
+     "text": "爸爸，我們回家嗎？",
+     "ja": "パパ、うちに帰るの？",
+     "en": "Dad, are we going home?"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "yong",
+     "text": "傘拿著，門外等我的人會送妳。",
+     "ja": "傘を持っていけ。外で待ってる人が連れて行ってくれる。",
+     "en": "Take the umbrella. The people waiting for you outside will take you."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch2_yong_subdued",
+      "equals": true
+     },
+     {
+      "flag": "yong_link_choice",
+      "equals": "cut"
+     },
+     {
+      "not": {
+       "flag": "ch2_original_ledger_taken",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "transaction",
+     "id": "ch2.yong_subdued"
+    }
+   ],
+   "then": "ch2_t_s13_cabinet"
+  },
+  "ch2_t_s13_keep": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "yong",
+     "text": "她連自己的傘都不記得，你們滿意了？",
+     "ja": "あの子は自分の傘さえ覚えてないぞ。これで満足か？",
+     "en": "She doesn't even remember her own umbrella. Are you satisfied now?"
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "是你把她接進來的，原帳也不能靠她付。",
+     "ja": "あの子を引きずり込んだのはお前だ。元の借りも、あの子に払わせることはできない。",
+     "en": "You're the one who brought her in, and the original debt can't be paid by her either."
+    },
+    {
+     "do": "say",
+     "speaker": "medic",
+     "text": "連結暫停了，恢復得先讓你們知道代價，再由你們決定。今天不會再讀她。",
+     "ja": "リンクは一時停止しました。復元するには、先に代償をお伝えし、その上でご判断いただく必要があります。今日はこれ以上、彼女を読み取りません。",
+     "en": "The link is paused. Restoration requires that I tell you the cost first, so you can decide. Nothing will read her again today."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "xiaowei",
+     "text": "爸爸，這把傘先讓你拿。我想自己走出去。",
+     "ja": "パパ、その傘は先にパパが持って。わたし、自分で歩いて出たい。",
+     "en": "Dad, you hold this umbrella for now. I want to walk out on my own."
+    },
+    {
+     "do": "say",
+     "speaker": "yong",
+     "text": "好，我走在妳後面。",
+     "ja": "わかった。お前の後ろを歩く。",
+     "en": "All right. I'll walk behind you."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch2_yong_subdued",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "yong_link_choice",
+       "equals": "cut"
+      }
+     },
+     {
+      "not": {
+       "flag": "ch2_original_ledger_taken",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "transaction",
+     "id": "ch2.yong_subdued"
+    }
+   ],
+   "then": "ch2_t_s13_cabinet"
+  },
+  "ch2_t_s13_cabinet": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "原帳寫著：待收100；代收簿附加20；收費基準另見夾層診所月報17。",
+     "ja": "原帳の記載：未収100。代収簿の追加分20。収費基準は中層の診療所の月報17を参照。",
+     "en": "Original ledger: receivable 100. Collection ledger adds 20. For the fee basis, see Monthly Report 17 from the mezzanine clinic."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "原本寫一百，代收那二十沒有根據。",
+     "ja": "原本には100とある。代収の20には根拠がない。",
+     "en": "The original says 100, and the 20 from collections has no basis."
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "月報十七在夾層診所，這裡只有索引，沒有原始報表。",
+     "ja": "月報17は中層の診療所にある。ここにあるのは索引だけで、原本の報告書はない。",
+     "en": "Monthly Report 17 is at the mezzanine clinic. Here there is only the index, no original reports."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "yong",
+     "text": "上面每天改，我拿得到的也是抄本。你想問原來怎麼算，就上去問。",
+     "ja": "上は毎日書き換えてる。手元にあるのも写しだけだ。元の計算方法を知りたいなら、上に直接聞きな。",
+     "en": "Upstairs changes it every day, and all I get are copies. If you want to know how it was calculated, go ask them up there."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch2_yong_subdued",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch2_original_ledger_taken",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch2_original_ledger_taken",
+     "value": true
+    },
+    {
+     "kind": "item_acquire",
+     "id": "ch2_original_ledger"
+    },
+    {
+     "kind": "item_acquire",
+     "id": "ch2_ali_page"
+    },
+    {
+     "kind": "item_acquire",
+     "id": "ch2_clinic_index"
+    }
+   ],
+   "then": "ch2_t_s13_fall"
+  },
+  "ch2_t_s13_fall": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "鷺姐，你先別起來，讓我看看傷在哪裡。",
+     "ja": "鷺さん、まだ起きないで。どこをやられたか見せて。",
+     "en": "Egret, don't get up yet. Let me see where you're hurt."
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "這下茶又要重泡了。",
+     "ja": "これはまた、お茶を淹れ直しだね。",
+     "en": "Looks like the tea needs brewing over again."
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "她的復原點在市集亭子，先把門口清出來，有人來接。",
+     "ja": "復元地点は市場の東屋だ。まず入口を空けておいて。迎えが来る。",
+     "en": "Her restoration point is the market pavilion. Clear the entrance first. Someone will come to pick her up."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "她的傘也帶上，兩根骨都斷了。",
+     "ja": "傘も持っていって。骨が二本とも折れてる。",
+     "en": "Take her umbrella too. Both of its ribs are broken."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "flag": "ch2_original_ledger_taken",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch2_egret_transport_done",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch2_egret_transport_done",
+     "value": true
+    }
+   ]
+  },
+  "ch2_t_s13_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "帳櫃空了，原帳的副本在筆記裡。到市集電話亭等鷺。",
+     "ja": "帳簿棚は空になった。原本の写しはメモ帳にある。市場の電話ボックスへ行き、鷺を待つこと。",
+     "en": "The ledger cabinet is empty. The copy of the original ledger is in your notes. Go to the market phone booth and wait for Egret."
+    }
+   ],
+   "when": {
+    "flag": "ch2_original_ledger_taken",
+    "equals": true
+   }
+  },
+  "ch2_t_s14_return": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "voice",
+     "text": "歡迎回來。",
+     "ja": "おかえりなさい。",
+     "en": "Welcome back."
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "鷺姐，這次是第二百一十四次了。",
+     "ja": "鷺さん、これで二百十四回目ですよ。",
+     "en": "Egret, that makes 214 times now."
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "你們連我遲到幾次都不算，這個倒記得清楚。",
+     "ja": "私が何回遅刻したかは数えないのに、こっちは覚えてるんだね。",
+     "en": "You don't count how many times I've been late, but you remember this one."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "banyan",
+     "text": "喝茶賒帳我也記著，別裝沒聽見。",
+     "ja": "茶の掛けも覚えてるよ。聞こえないふりはするんじゃない。",
+     "en": "I've written down the tea on credit too, so don't pretend you didn't hear."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "兩根傘骨還沒長回來，復原只管你自己？",
+     "ja": "傘の骨は二本ともまだ戻ってないのに、復元はあんた本人だけなの？",
+     "en": "The two ribs haven't grown back, so restoration only covers you?"
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "傘要是也收費，我早就用手接雨了。",
+     "ja": "傘まで有料なら、とっくに手で雨を受けてるわ。",
+     "en": "If the umbrella cost money too, I'd have been catching rain in my hands by now."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch2_egret_returned",
+     "equals": true
+    }
+   },
+   "then": "ch2_t_s14_quiet"
+  },
+  "ch2_t_s14_quiet": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "你不會怕醒不過來？",
+     "ja": "起きられなくなるのが怖くないの？",
+     "en": "Aren't you afraid you won't wake up?"
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "我先把今天過完，不然明天的茶誰喝？",
+     "ja": "まずは今日を終わらせるわ。でないと、明日のお茶を誰が飲むのよ。",
+     "en": "I'll get through today first. Otherwise, who'd drink tomorrow's tea?"
+    },
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "門口清了，帳目可以上傳了。查完再回屋頂，別漏掉委託結算。",
+     "ja": "入口は空いた。帳簿はアップロードできるよ。確認が終わったら屋上に戻って、委託の精算を漏らさないでね。",
+     "en": "The entrance is clear, so the ledgers can be uploaded. Once you've checked everything, head back to the rooftop, and don't miss the commission settlement."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch2_egret_returned",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch2_egret_returned",
+     "value": true
+    },
+    {
+     "kind": "flag",
+     "id": "egret_restoration_count",
+     "value": 214
+    }
+   ]
+  },
+  "ch2_t_s14_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "我人回來了，傘沒修，這次紀錄別多算。",
+     "ja": "戻ったわよ。傘はまだ直してないから、今回の記録は水増ししないでね。",
+     "en": "I'm back. The umbrella's still not fixed, so don't inflate this record."
+    }
+   ],
+   "when": {
+    "flag": "ch2_egret_returned",
+    "equals": true
+   }
+  },
+  "ch2_t_s15_not_ready": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "terminal",
+     "text": "上傳需要三份證據與原帳。原帳在北棟二樓的帳櫃。",
+     "ja": "アップロードには証拠三点と原本の帳簿が必要です。原本は北棟二階の帳簿棚にあります。",
+     "en": "Uploading requires three pieces of evidence and the original ledger. The original ledger is in the ledger cabinet on the second floor of the north building."
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "not": {
+       "flag": "ch2_audit_submitted",
+       "equals": true
+      }
+     },
+     {
+      "not": {
+       "flag": "ch2_original_ledger_taken",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch2_t_s15_wait_egret": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "lamp",
+     "text": "先到市集電話亭等鷺，她醒了我們再一起上傳。",
+     "ja": "まず市場の電話ボックスで鷺を待って。彼女が起きたら、一緒にアップロードしよう。",
+     "en": "Wait for Egret at the market phone booth first. Once she's awake, we'll upload together."
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "not": {
+       "flag": "ch2_audit_submitted",
+       "equals": true
+      }
+     },
+     {
+      "flag": "ch2_original_ledger_taken",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch2_egret_returned",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch2_t_s15_upload": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ye",
+     "text": "我是天穹的葉，負責這次帳務抽查。你提出的同批號副本已核對，這一期附加的二十不成立。",
+     "ja": "天穹の葉です。今回の帳簿抽査を担当しています。あなたが出した同じ番号の写しを照合しました。今期に追加された20は成立しません。",
+     "en": "I'm Folio of Skydome, in charge of this ledger spot-check. I've verified the duplicate copy with the same batch number you submitted. The extra 20 added this period is invalid."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "另一張診所月報決定他收多少，我要看原來的。",
+     "ja": "もう一枚の診療所の月報で、あいつが取り立てる額が決まるんだろう。元のほうを見せて。",
+     "en": "The other clinic report decides how much he collects. I want to see the original."
+    },
+    {
+     "do": "say",
+     "speaker": "ye",
+     "text": "索引可以給你。夾層診所儲存原始月報，現場申請閱覽，這裡不能替它答。",
+     "ja": "索引はお渡しできます。原本の月報は中層の診療所で保管していて、閲覧は現地で申請してください。ここでは代わりに答えられません。",
+     "en": "You can have the index. The mezzanine clinic keeps the original monthly reports, and viewing them requires an on-site request. I can't answer for it here."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "egret",
+     "text": "我們對的是市場代收，阿梨自己的舊債由她簽。這筆先結，別混成一本。",
+     "ja": "私たちが照合しているのは市場の代理徴収分よ。梨自身の古い借金は、梨本人が署名する。この分を先に締めて、一冊にまとめないで。",
+     "en": "What we're reconciling is the market collection. Pear signs her own old debt herself. Close this one first and don't mix it into one ledger."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "私人那頁我留副本，不幫她銷掉。",
+     "ja": "個人の頁は写しを取っておく。消してやったりはしない。",
+     "en": "I'm keeping a copy of the personal page. I won't cancel it for her."
+    },
+    {
+     "do": "say",
+     "speaker": "terminal",
+     "text": "市場查核報酬二百五十信用點，第一次結算。夾層是港區與日照區之間的工作層，診所從廣場貨梯過去。",
+     "ja": "市場査察の報酬は250クレジット、初回精算です。中層は港区と日照区の間の作業層で、診療所へは広場の貨物エレベーターで行けます。",
+     "en": "Market inspection reward: 250 credits, first settlement. The mezzanine is the working layer between the harbor district and the Sunlit District. The clinic is reached by the plaza freight elevator."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch2_egret_returned",
+        "equals": true
+       },
+       {
+        "flag": "ch2_original_ledger_taken",
+        "equals": true
+       },
+       {
+        "flag": "ch2_market_reconciled",
+        "equals": true
+       }
+      ]
+     },
+     {
+      "not": {
+       "flag": "ch2_audit_submitted",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch2_audit_submitted",
+     "value": true
+    },
+    {
+     "kind": "transaction",
+     "id": "ch2.audit_settled"
+    }
+   ]
+  },
+  "ch2_t_s15_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "terminal",
+     "text": "查核已結案。索引保存在你的筆記裡。",
+     "ja": "査察は終了しました。索引はあなたのメモに保存されています。",
+     "en": "The inspection is closed. The index is saved in your notes."
+    }
+   ],
+   "when": {
+    "flag": "ch2_audit_submitted",
+    "equals": true
+   }
+  },
+  "ch2_t_s16_page": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "妳這一頁也把付過的利息加了一次，六十，不是市場那筆二十。",
+     "ja": "この頁にも、払い済みの利息がもう一度足されてる。六十だ。市場の二十の分とは別。",
+     "en": "Your page also added the interest already paid once more, sixty, not the twenty from the market."
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "本金兩百我認，這六十我不認。",
+     "ja": "元本の二百は認めます。この六十は認めません。",
+     "en": "I accept the two hundred principal. I don't accept these sixty."
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "你沒替我刪掉，這樣我能自己去說。你想陪我申請更正，還是先把紙留給我？",
+     "ja": "消さないでくれて助かった。自分で話をつけに行けるから。訂正の申請に付き添ってくれる？それとも、先にその紙をわたしに置いていく？",
+     "en": "You didn't erase it for me, so I can go and talk about it myself. Do you want to come with me to request a correction, or leave the paper with me for now?"
+    },
+    {
+     "do": "choice",
+     "text": "你沒替我刪掉，這樣我能自己去說。你想陪我申請更正，還是先把紙留給我？",
+     "default": "later",
+     "options": [
+      {
+       "id": "correct",
+       "text": "陪她申請更正，簽名她自己寫。",
+       "explanation": "附加的六十暫停催收，本金兩百保留。",
+       "target": "ch2_t_s16_correct",
+       "ja": "訂正の申請に付き添う。署名は本人に書いてもらう。",
+       "en": "Go with her to request the correction. She signs her own name.",
+       "explanation_ja": "追加の六十は取り立てを一時停止。元本の二百はそのまま。",
+       "explanation_en": "The added sixty is paused from collection. The two hundred principal stays."
+      },
+      {
+       "id": "hold",
+       "text": "把證據交給她，何時交由她決定。",
+       "explanation": "她先把紙留著，自己挑日子。",
+       "target": "ch2_t_s16_hold",
+       "ja": "証拠を彼女に渡す。提出の時期は彼女が決める。",
+       "en": "Give her the evidence. She decides when to submit it.",
+       "explanation_ja": "彼女は紙を手元に残し、日取りは自分で選ぶ。",
+       "explanation_en": "She keeps the paper for now and picks her own day."
+      },
+      {
+       "id": "later",
+       "text": "先不談這頁。",
+       "explanation": "紙還在你手上，之後可以再交給她。",
+       "ja": "この頁の話は今はしない。",
+       "en": "Don't discuss this page for now.",
+       "explanation_ja": "紙は手元に残り、後で彼女に渡せる。",
+       "explanation_en": "The paper stays with you, and you can hand it to her later."
+      }
+     ],
+     "ja": "消さないでくれて助かった。自分で話をつけに行けるから。訂正の申請に付き添ってくれる？それとも、先にその紙をわたしに置いていく？",
+     "en": "You didn't erase it for me, so I can go and talk about it myself. Do you want to come with me to request a correction, or leave the paper with me for now?"
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch2_audit_submitted",
+      "equals": true
+     },
+     {
+      "item": "ch2_ali_page"
+     },
+     {
+      "not": {
+       "flag": "sq1_ledger_delivered",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch2_t_s16_correct": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我陪妳，簽名妳自己寫。",
+     "ja": "付き添うよ。署名はあなたが自分で書いて。",
+     "en": "I'll go with you. You write your own signature."
+    },
+    {
+     "do": "say",
+     "speaker": "terminal",
+     "text": "附加60已暫停，待核對；本金200保留。",
+     "ja": "追加分の60は取り立てを一時停止し、照合待ち。元本の200はそのまま。",
+     "en": "The added 60 is paused from collection pending verification. The 200 principal stays as is."
+    }
+   ],
+   "overlay": true,
+   "results": [
+    {
+     "kind": "flag",
+     "id": "sq1_ledger_delivered",
+     "value": true
+    },
+    {
+     "kind": "flag",
+     "id": "ali_ledger_action",
+     "value": "correct"
+    },
+    {
+     "kind": "item_transfer",
+     "id": "ch2_ali_page"
+    },
+    {
+     "kind": "transaction",
+     "id": "ch2.sq1_ledger"
+    }
+   ],
+   "then": "ch2_dispatch_s16_close"
+  },
+  "ch2_t_s16_hold": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "我把證據給妳，何時交由妳決定。",
+     "ja": "証拠は渡す。いつ提出するかは、あなたが決めて。",
+     "en": "I'll give you the evidence. You decide when to submit it."
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我今天先留著，租攤那邊還等我補資料。",
+     "ja": "今日はひとまず預かっておくね。屋台の賃貸の方が、まだ書類を待っているの。",
+     "en": "I'll keep it for today. The stall rental office is still waiting for my papers."
+    }
+   ],
+   "overlay": true,
+   "results": [
+    {
+     "kind": "flag",
+     "id": "sq1_ledger_delivered",
+     "value": true
+    },
+    {
+     "kind": "flag",
+     "id": "ali_ledger_action",
+     "value": "hold"
+    },
+    {
+     "kind": "item_transfer",
+     "id": "ch2_ali_page"
+    },
+    {
+     "kind": "transaction",
+     "id": "ch2.sq1_ledger"
+    }
+   ],
+   "then": "ch2_dispatch_s16_close"
+  },
+  "ch2_t_s16_advance": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "妳墊的四十不能拿來抵我沒同意的舊帳，我先把收據夾在旁邊。",
+     "ja": "あなたが立て替えた四十は、私が同意していない古い借金の相殺には使えない。だから、領収書は横に挟んでおくね。",
+     "en": "The forty you advanced can't be used to offset old debts I never agreed to. So I'll keep the receipt tucked aside."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "妳決定怎麼用，我不再替你塞進去。",
+     "ja": "使い道はあなたが決めて。もう勝手に帳簿へ入れたりはしない。",
+     "en": "You decide how to use it. I won't slip it into your books for you again."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "flag": "ali_advance_40",
+    "equals": 40
+   }
+  },
+  "ch2_t_s16_need": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "你現在想問攤位的事嗎？",
+     "ja": "屋台のことを、今聞きたい？",
+     "en": "Do you want to ask about the stall now?"
+    },
+    {
+     "do": "choice",
+     "text": "你現在想問攤位的事嗎？",
+     "default": "no",
+     "options": [
+      {
+       "id": "ask",
+       "text": "問攤位的事。",
+       "explanation": "完整問一次她需要什麼。",
+       "target": "ch2_t_s06_ask_late",
+       "ja": "屋台のことを聞く。",
+       "en": "Ask about the stall.",
+       "explanation_ja": "梨が何を必要としているか、改めて最初から聞く。",
+       "explanation_en": "Ask again, in full, what she needs."
+      },
+      {
+       "id": "no",
+       "text": "今天先不問。",
+       "explanation": "不影響主線。",
+       "ja": "今日は聞かない。",
+       "en": "Don't ask today.",
+       "explanation_ja": "メインストーリーには影響しない。",
+       "explanation_en": "Doesn't affect the main story."
+      }
+     ],
+     "ja": "屋台のことを、今聞きたい？",
+     "en": "Do you want to ask about the stall now?"
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "ch2_ali_need_asked",
+     "equals": true
+    }
+   }
+  },
+  "ch2_t_s16_revisit_correct": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我收到暫停催收的回執，攤位許可還要我補，這不是你欠的。",
+     "ja": "取り立て停止の受領証は届いたよ。屋台の許可の書類はまだ私が補わないといけないけど、これはあなたが借りた分じゃない。",
+     "en": "I got the receipt for the paused collection. I still have to fill in the stall permit papers, but this isn't a debt you owe."
+    }
+   ],
+   "when": {
+    "flag": "ali_ledger_action",
+    "equals": "correct"
+   }
+  },
+  "ch2_t_s16_revisit_hold": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "那頁還在我這裡，我會挑自己能去的那天。",
+     "ja": "あの頁はまだ私が持ってる。行ける日は、自分で選ぶね。",
+     "en": "I still have that page. I'll pick a day I can go myself."
+    }
+   ],
+   "when": {
+    "flag": "ali_ledger_action",
+    "equals": "hold"
+   }
+  },
+  "ch2_t_s16_idle": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我在等夜班的客人，你先去忙，湯我會留。",
+     "ja": "夜番のお客さんを待っているの。先に行っていいよ。スープは取っておくね。",
+     "en": "I'm waiting for the night-shift customers. Go on ahead, I'll save you some soup."
+    }
+   ]
+  },
+  "ch2_t_s17_offer": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我有三位客人，晚一點才收店。你先回去，湯我會留。",
+     "ja": "今夜は三人のお客さんがいて、店じまいは遅くなるの。先に帰っていいよ。スープは取っておくね。",
+     "en": "I have three guests tonight, so I won't close up until later. Head back first. I'll save you some soup."
+    },
+    {
+     "do": "say",
+     "speaker": "rin",
+     "text": "別替我把夜班也記成欠，我下次再來。",
+     "ja": "夜の分まで私のツケにしないでよ。また来るから。",
+     "en": "Don't put tonight on my tab too. I'll come back another time."
+    },
+    {
+     "do": "choice",
+     "text": "別替我把夜班也記成欠，我下次再來。",
+     "default": "leave",
+     "options": [
+      {
+       "id": "watch",
+       "text": "看她今天的工作（進入阿梨的視角）。",
+       "explanation": "接下來是阿梨的夜班；可以隨時回到凜這邊。",
+       "target": "ch2_dispatch_s17_enter",
+       "ja": "梨の今日の仕事を見る（梨の視点に切り替える）。",
+       "en": "Watch Pear's work for today (switch to Pear's point of view).",
+       "explanation_ja": "この後は梨の夜番。いつでも凛のところに戻れる。",
+       "explanation_en": "Next is Pear's night shift. You can return to Rin at any time."
+      },
+      {
+       "id": "leave",
+       "text": "先回屋頂。",
+       "explanation": "客人簿之後還能再看。",
+       "ja": "先に屋上へ戻る。",
+       "en": "Head back to the rooftop first.",
+       "explanation_ja": "客の帳簿は後からでも見られる。",
+       "explanation_en": "The guest book can still be checked later."
+      }
+     ],
+     "ja": "夜の分まで私のツケにしないでよ。また来るから。",
+     "en": "Don't put tonight on my tab too. I'll come back another time."
+    }
+   ],
+   "when": {
+    "all": [
+     {
+      "flag": "ch2_audit_submitted",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "guest_book_completed",
+       "equals": true
+      }
+     }
+    ]
+   }
+  },
+  "ch2_t_s17_book": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我可以聽您說，也可以照您留下的細節陪您說話。今晚有三位預約，我一位一位來。",
+     "ja": "お話を聞くこともできますし、残してくださった細かな話に合わせてお相手することもできます。今夜は三名のご予約があるので、一人ずつ伺いますね。",
+     "en": "I can listen to you, or keep you company with the details you left behind. There are three bookings tonight, and I'll see each guest one at a time."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "not": {
+     "flag": "ch2_guest_book_entered",
+     "equals": true
+    }
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "ch2_guest_book_entered",
+     "value": true
+    }
+   ],
+   "then": "ch2_dispatch_back_s17_open"
+  },
+  "ch2_t_s17_open": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "阿梨翻開客人簿，看下一位預約的客人。",
+     "ja": "梨は客の帳簿を開き、次の予約の客を確認する。",
+     "en": "Pear opens the guest book and checks the next booked guest."
+    },
+    {
+     "do": "choice",
+     "text": "阿梨翻開客人簿，看下一位預約的客人。",
+     "default": "back",
+     "options": [
+      {
+       "id": "zheng",
+       "text": "第一位客人：鄭先生。",
+       "explanation": "他想有人問他今天吃了什麼。",
+       "when": {
+        "not": {
+         "flag": "guest_ticket_answered",
+         "equals": true
+        }
+       },
+       "target": "ch2_t_s18_ticket",
+       "ja": "一人目のお客、鄭さんの相手をする。",
+       "en": "Serve the first guest, Mr. Zheng.",
+       "explanation_ja": "鄭さんは、今日何を食べたかを誰かに聞いてほしいと思っている。",
+       "explanation_en": "He wants someone to ask what he ate today."
+      },
+      {
+       "id": "chen",
+       "text": "第二位客人：陳女士。",
+       "explanation": "她想有人坐在那張椅子上。",
+       "when": {
+        "not": {
+         "flag": "guest_band_answered",
+         "equals": true
+        }
+       },
+       "target": "ch2_t_s19_band",
+       "ja": "二人目のお客、陳さんの相手をする。",
+       "en": "Serve the second guest, Ms. Chen.",
+       "explanation_ja": "陳さんは、誰かにあの椅子へ座ってほしいと思っている。",
+       "explanation_en": "She wants someone to sit in that chair."
+      },
+      {
+       "id": "hong",
+       "text": "第三位客人：洪先生。",
+       "explanation": "他想先把話講完。",
+       "when": {
+        "not": {
+         "flag": "guest_letter_answered",
+         "equals": true
+        }
+       },
+       "target": "ch2_t_s20_letter",
+       "ja": "三人目のお客、洪さんの相手をする。",
+       "en": "Serve the third guest, Mr. Hong.",
+       "explanation_ja": "洪さんは、まず自分の話を言い終えたいと思っている。",
+       "explanation_en": "He wants to finish what he has to say first."
+      },
+      {
+       "id": "back",
+       "text": "先回到凜那邊。",
+       "explanation": "剩下的客人之後還能再陪。",
+       "ja": "凛のところへ戻る。",
+       "en": "Return to Rin.",
+       "explanation_ja": "残りのお客さんは、後からでも相手ができる。",
+       "explanation_en": "The remaining guests can be seen later."
+      }
+     ],
+     "ja": "梨は客の帳簿を開き、次の予約の客を確認する。",
+     "en": "Pear opens the guest book and checks the next booked guest."
+    }
+   ],
+   "when": {
+    "not": {
+     "flag": "guest_book_completed",
+     "equals": true
+    }
+   }
+  },
+  "ch2_t_s18_ticket": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "zheng",
+     "text": "我想有人問我今天吃了什麼，她以前會問。我女兒二十六歲那年沒有回來。",
+     "ja": "今日何を食べたか、誰かに聞いてほしいんだ。娘はよく聞いてくれた。娘が二十六のとき、帰ってこなかった。",
+     "en": "I want someone to ask what I ate today. She used to ask. My daughter didn't come home the year she turned twenty-six."
+    },
+    {
+     "do": "choice",
+     "text": "我想有人問我今天吃了什麼，她以前會問。我女兒二十六歲那年沒有回來。",
+     "default": "ask",
+     "options": [
+      {
+       "id": "ask",
+       "text": "問他：「您想讓我怎麼稱呼您？」",
+       "explanation": "先問稱呼。",
+       "target": "ch2_t_s18_name",
+       "ja": "どう呼べばいいか尋ねる。『どうお呼びすればよろしいですか？』",
+       "en": "Ask him, “How would you like me to address you?”",
+       "explanation_ja": "まず呼び方を聞く。",
+       "explanation_en": "Ask how he'd like to be addressed first."
+      },
+      {
+       "id": "dad",
+       "text": "直接叫他爸爸。",
+       "explanation": "不先問就照角色說。",
+       "target": "ch2_t_s18_dad",
+       "ja": "いきなり「お父さん」と呼ぶ。",
+       "en": "Call him “Dad” right away.",
+       "explanation_ja": "聞かずに、役どおりに話す。",
+       "explanation_en": "Speak in character without asking first."
+      }
+     ],
+     "ja": "今日何を食べたか、誰かに聞いてほしいんだ。娘はよく聞いてくれた。娘が二十六のとき、帰ってこなかった。",
+     "en": "I want someone to ask what I ate today. She used to ask. My daughter didn't come home the year she turned twenty-six."
+    }
+   ]
+  },
+  "ch2_t_s18_dad": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "zheng",
+     "text": "我剛才想先叫鄭先生，我還沒準備好。",
+     "ja": "さっきは、まず鄭さんと呼んでほしかったんだ。まだ心の準備ができていない。",
+     "en": "I wanted you to call me Mr. Zheng first. I'm not ready yet."
+    }
+   ],
+   "overlay": true,
+   "then": "ch2_dispatch_back_s18_ticket"
+  },
+  "ch2_t_s18_name": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "您想讓我怎麼稱呼您？",
+     "ja": "どうお呼びすればよろしいですか？",
+     "en": "How would you like me to address you?"
+    },
+    {
+     "do": "say",
+     "speaker": "zheng",
+     "text": "叫鄭先生就好，今晚不用叫爸爸，那樣我會一直等她。",
+     "ja": "鄭さんでいい。今夜はお父さんと呼ばないで。そう呼ばれると、あの子をずっと待ってしまうから。",
+     "en": "Mr. Zheng is fine. Don't call me Dad tonight. If you did, I'd keep waiting for her."
+    },
+    {
+     "do": "say",
+     "speaker": "zheng",
+     "text": "我今天吃了魚，沒吃完。她總把魚刺挑到左邊的小盤，怕我嫌麻煩。",
+     "ja": "今日は魚を食べたけど、食べきれなかった。あの子はいつも魚の骨を左の小皿に取ってくれた。私が面倒がらないようにって。",
+     "en": "I ate fish today, but I didn't finish it. She always put the bones on the small plate on the left so I wouldn't have to fuss with them."
+    },
+    {
+     "do": "choice",
+     "text": "我今天吃了魚，沒吃完。她總把魚刺挑到左邊的小盤，怕我嫌麻煩。",
+     "default": "meat",
+     "options": [
+      {
+       "id": "fish",
+       "text": "照他說的稱呼、沒吃完的魚與左邊的小盤回應他。",
+       "explanation": "用他剛說過的三件事。",
+       "target": "ch2_t_s18_done",
+       "ja": "彼の言った呼び方、残した魚、左の小皿に合わせて応える。",
+       "en": "Respond using the name he gave, the unfinished fish, and the small plate on the left.",
+       "explanation_ja": "さっき彼が話した三つのことを使う。",
+       "explanation_en": "Use the three things he just mentioned."
+      },
+      {
+       "id": "meat",
+       "text": "問鄭先生今天的肉好不好吃。",
+       "explanation": "和他說的不一樣。",
+       "target": "ch2_t_s18_wrong",
+       "ja": "鄭さんに、今日の肉は美味しかったかと尋ねる。",
+       "en": "Ask Mr. Zheng whether today's meat was good.",
+       "explanation_ja": "彼の話とは合わない。",
+       "explanation_en": "It doesn't match what he said."
+      }
+     ],
+     "ja": "今日は魚を食べたけど、食べきれなかった。あの子はいつも魚の骨を左の小皿に取ってくれた。私が面倒がらないようにって。",
+     "en": "I ate fish today, but I didn't finish it. She always put the bones on the small plate on the left so I wouldn't have to fuss with them."
+    }
+   ]
+  },
+  "ch2_t_s18_wrong": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "zheng",
+     "text": "我今天吃的是魚，我可以再說一次。",
+     "ja": "今日食べたのは魚だよ。もう一度言ってもいい。",
+     "en": "Today I ate fish. I can say it again if you like."
+    }
+   ],
+   "overlay": true,
+   "then": "ch2_dispatch_back_s18_name"
+  },
+  "ch2_t_s18_done": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "鄭先生，您今天的魚沒有吃完，要不要把刺先放在左邊的小盤？",
+     "ja": "鄭さん、今日の魚は食べきれなかったんですね。骨は先に左の小皿に置いておきましょうか？",
+     "en": "Mr. Zheng, you didn't finish today's fish. Shall I set the bones on the small plate on the left first?"
+    },
+    {
+     "do": "say",
+     "speaker": "zheng",
+     "text": "我想說沒吃完，她大概會笑我。妳不用學她笑，聽我說完就好。",
+     "ja": "食べきれなかったと言ったら、あの子はきっと笑っただろうな。笑い方まで真似しなくていい。最後まで聞いてくれればそれでいい。",
+     "en": "If I said I hadn't finished, she'd probably have laughed. You don't have to laugh like her. Just listen until I'm done."
+    }
+   ],
+   "overlay": true,
+   "results": [
+    {
+     "kind": "flag",
+     "id": "guest_ticket_answered",
+     "value": true
+    },
+    {
+     "kind": "transaction",
+     "id": "ch2.guest_zheng"
+    }
+   ],
+   "then": "ch2_dispatch_s17_next"
+  },
+  "ch2_t_s19_band": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "chen",
+     "text": "我妻子今天在另一個港口，回不來。我想有人坐這張椅子，不用裝作她真的在這裡。",
+     "ja": "妻は今日、別の港にいて戻れないの。誰かにこの椅子に座ってほしいの。妻が本当にここにいるふりはしなくていいから。",
+     "en": "My wife is at another port today and can't come back. I want someone to sit in this chair, without pretending she's really here."
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我坐這邊，您要我先聊什麼？",
+     "ja": "ここに座りますね。何からお話ししましょうか？",
+     "en": "I'll sit here. What would you like to talk about first?"
+    },
+    {
+     "do": "choice",
+     "text": "我坐這邊，您要我先聊什麼？",
+     "default": "today",
+     "options": [
+      {
+       "id": "today",
+       "text": "問她：「您今晚想談今天，還是只想安靜一點？」",
+       "explanation": "讓她決定要不要說。",
+       "target": "ch2_t_s19_quiet",
+       "ja": "彼女に尋ねる。『今夜は今日のことを話されたいですか、それとも静かにしていたいですか？』",
+       "en": "Ask her, “Tonight, would you like to talk about today, or just sit quietly?”",
+       "explanation_ja": "話すかどうかは彼女に決めてもらう。",
+       "explanation_en": "Let her decide whether to talk."
+      },
+      {
+       "id": "death",
+       "text": "問她怎麼死的。",
+       "explanation": "直接問復原的事。",
+       "target": "ch2_t_s19_wrong_death",
+       "ja": "彼女にどうやって亡くなったのかを聞く。",
+       "en": "Ask her how she died.",
+       "explanation_ja": "復元のことを直接聞く。",
+       "explanation_en": "Ask about restoration directly."
+      }
+     ],
+     "ja": "ここに座りますね。何からお話ししましょうか？",
+     "en": "I'll sit here. What would you like to talk about first?"
+    }
+   ]
+  },
+  "ch2_t_s19_wrong_death": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "chen",
+     "text": "這件事我今晚不想說，請換個話題。",
+     "ja": "そのことは今夜は話したくありません。話題を変えてください。",
+     "en": "I don't want to talk about that tonight. Please change the subject."
+    }
+   ],
+   "overlay": true,
+   "then": "ch2_dispatch_back_s19_band"
+  },
+  "ch2_t_s19_quiet": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "chen",
+     "text": "別問我怎麼死的。我記得每一秒，只想吃一口熱的。",
+     "ja": "どうやって死んだかは聞かないで。あの瞬間のことは一秒ずつ覚えてる。今はただ、温かいものを一口食べたいの。",
+     "en": "Don't ask how I died. I remember every second of it. I just want one bite of something hot."
+    },
+    {
+     "do": "say",
+     "speaker": "chen",
+     "text": "她替我收外套時，都會把帽子翻出來，不讓水流進領子。今晚能替我翻嗎？",
+     "ja": "あの子は私の上着を預かるとき、いつもフードを裏返して、水が襟に入らないようにしてくれたの。今夜も同じようにしてくれる？",
+     "en": "When she took my coat, she always flipped the hood out so the water wouldn't run into the collar. Could you do the same for me tonight?"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "您有不能吃的東西嗎？",
+     "ja": "食べられないものはありますか？",
+     "en": "Is there anything you can't eat?"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "chen",
+     "text": "不要蔥，梨湯就好。",
+     "ja": "ネギは抜いて、梨のスープだけでいいわ。",
+     "en": "No scallions, just the pear soup."
+    },
+    {
+     "do": "choice",
+     "text": "不要蔥，梨湯就好。",
+     "default": "scallion",
+     "options": [
+      {
+       "id": "soup",
+       "text": "替她翻好雨帽，端一碗沒有蔥的梨湯。",
+       "explanation": "照她說的四件事：不問死法、熱湯、雨帽、不要蔥。",
+       "target": "ch2_t_s19_done",
+       "ja": "彼女のフードを裏返し、ネギ抜きの梨スープを出す。",
+       "en": "Turn out her hood and serve a bowl of pear soup without scallions.",
+       "explanation_ja": "彼女が頼んだ四つのこと：死因は聞かない、熱いスープ、雨帽、ネギ抜き。",
+       "explanation_en": "The four things she asked for: don't ask how she died, hot soup, the rain hood, no scallions."
+      },
+      {
+       "id": "scallion",
+       "text": "端一碗加了蔥的湯。",
+       "explanation": "忘了她不吃蔥。",
+       "target": "ch2_t_s19_wrong_soup",
+       "ja": "ネギ入りのスープを出す。",
+       "en": "Serve a bowl of soup with scallions.",
+       "explanation_ja": "彼女がネギを食べないことを忘れてしまう。",
+       "explanation_en": "Forget that she doesn't eat scallions."
+      }
+     ],
+     "ja": "ネギは抜いて、梨のスープだけでいいわ。",
+     "en": "No scallions, just the pear soup."
+    }
+   ]
+  },
+  "ch2_t_s19_wrong_soup": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "chen",
+     "text": "我不能吃蔥，您能換一碗嗎？",
+     "ja": "ネギが食べられないの。別の一杯に替えてもらえる？",
+     "en": "I can't eat scallions. Could you bring a different bowl?"
+    }
+   ],
+   "overlay": true,
+   "then": "ch2_dispatch_back_s19_quiet"
+  },
+  "ch2_t_s19_done": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "這碗梨湯沒有蔥。您的雨帽已經翻出來，外套掛著晾就好。",
+     "ja": "こちらの梨スープにはネギは入っていません。フードは裏返してありますし、上着は掛けて乾かしておけば大丈夫です。",
+     "en": "This pear soup has no scallions. Your hood is already turned out, and your coat can just hang to dry."
+    },
+    {
+     "do": "say",
+     "speaker": "chen",
+     "text": "我還能聞到湯，今天先不談別的。",
+     "ja": "まだスープの匂いがするわ。今日はほかの話はしないでおく。",
+     "en": "I can still smell the soup. I won't talk about anything else today."
+    }
+   ],
+   "overlay": true,
+   "results": [
+    {
+     "kind": "flag",
+     "id": "guest_band_answered",
+     "value": true
+    },
+    {
+     "kind": "transaction",
+     "id": "ch2.guest_chen"
+    }
+   ],
+   "then": "ch2_dispatch_s17_next"
+  },
+  "ch2_t_s20_letter": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "hong",
+     "text": "我以前每次都替他回話，後來他不跟我出海了。你能先當作還願意聽的人嗎？",
+     "ja": "以前は、いつも私が彼の代わりに返事をしていたんだ。そのうち彼は私と一緒に海へ出なくなった。まだ聞いてくれる人だと、ひとまず思ってもらえませんか？",
+     "en": "I always answered for him before, and later he stopped going out to sea with me. Can you, for now, treat me as someone still willing to listen?"
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我可以聽，但我不能替他答應您。",
+     "ja": "聞くことはできます。でも、彼の代わりに承諾はできません。",
+     "en": "I can listen, but I can't agree on his behalf."
+    },
+    {
+     "do": "choice",
+     "text": "我可以聽，但我不能替他答應您。",
+     "default": "listen",
+     "options": [
+      {
+       "id": "listen",
+       "text": "問他：「您希望我回答，還是先讓您說完？」",
+       "explanation": "讓他先說。",
+       "target": "ch2_t_s20_story",
+       "ja": "尋ねる。『答えてほしいですか、それとも先に最後まで話されますか？』",
+       "en": "Ask him, “Do you want me to answer, or would you like to finish first?”",
+       "explanation_ja": "まず彼に話させる。",
+       "explanation_en": "Let him speak first."
+      },
+      {
+       "id": "forgive",
+       "text": "說：「我替他原諒您。」",
+       "explanation": "替不在場的人回答。",
+       "target": "ch2_t_s20_wrong",
+       "ja": "『私が彼に代わって許します。』と言う。",
+       "en": "Say, “I forgive you on his behalf.”",
+       "explanation_ja": "その場にいない人の代わりに答える。",
+       "explanation_en": "Answer on behalf of someone who isn't there."
+      }
+     ],
+     "ja": "聞くことはできます。でも、彼の代わりに承諾はできません。",
+     "en": "I can listen, but I can't agree on his behalf."
+    }
+   ]
+  },
+  "ch2_t_s20_wrong": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我不能替他原諒您，我可以再聽您說一遍。",
+     "ja": "彼の代わりに許すことはできません。もう一度お話を聞かせてください。",
+     "en": "I can't forgive you on his behalf, but I can listen to you say it again."
+    },
+    {
+     "do": "say",
+     "speaker": "hong",
+     "text": "對，他沒有說過沒關係。",
+     "ja": "そうだ。彼は一度も「大丈夫」とは言わなかった。",
+     "en": "That's right. He never once said it was okay."
+    }
+   ],
+   "overlay": true,
+   "then": "ch2_dispatch_back_s20_letter"
+  },
+  "ch2_t_s20_story": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "hong",
+     "text": "先讓我說完。不要說沒關係，他沒有這麼說過。",
+     "ja": "まず最後まで言わせてくれ。『大丈夫』なんて言わないでくれ。彼はそんなふうには言わなかったんだ。",
+     "en": "Let me finish first. Don't say it's okay. He never said that."
+    },
+    {
+     "do": "say",
+     "speaker": "hong",
+     "text": "我那天替他簽了下一趟的名，覺得船位難得，留給他就是幫他。沒問他為什麼不想去。",
+     "ja": "あの日、私が彼の代わりに次の便へ名前を書いたんだ。船の席は取りにくいから、残しておいてやるのが助けになると思った。なぜ行きたくないのかは、聞かなかった。",
+     "en": "That day I signed him up for the next trip. Berths were hard to get, so I thought saving one for him was helping. I never asked why he didn't want to go."
+    },
+    {
+     "do": "say",
+     "speaker": "hong",
+     "text": "我現在想把名字圈掉，信還是得寄。",
+     "ja": "今は彼の名前を線で消したい。でも、手紙は出さないといけない。",
+     "en": "Now I want to cross his name off, but the letter still has to go out."
+    },
+    {
+     "do": "choice",
+     "text": "我現在想把名字圈掉，信還是得寄。",
+     "default": "fine",
+     "options": [
+      {
+       "id": "heard",
+       "text": "回答：「我聽見了，您可以把沒問過他的事寫進信裡。」",
+       "explanation": "不替朋友回答，把筆交給他。",
+       "target": "ch2_t_s20_done",
+       "ja": "答える。『聞きました。彼に聞かなかったことを、手紙に書いてください。』",
+       "en": "Answer, “I heard you. You can write the things you never asked him into the letter.”",
+       "explanation_ja": "友人の代わりには答えず、ペンを彼に渡す。",
+       "explanation_en": "Don't answer on the friend's behalf. Hand him the pen."
+      },
+      {
+       "id": "fine",
+       "text": "告訴他沒關係，朋友一定會懂。",
+       "explanation": "他剛說過不要這句。",
+       "target": "ch2_t_s20_wrong_fine",
+       "ja": "『大丈夫、友人はきっと分かってくれます』と伝える。",
+       "en": "Tell him it's okay, his friend will surely understand.",
+       "explanation_ja": "彼は今まさに、その言葉は要らないと言ったところだ。",
+       "explanation_en": "He just said he doesn't want to hear that."
+      }
+     ],
+     "ja": "今は彼の名前を線で消したい。でも、手紙は出さないといけない。",
+     "en": "Now I want to cross his name off, but the letter still has to go out."
+    }
+   ]
+  },
+  "ch2_t_s20_wrong_fine": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "hong",
+     "text": "他沒有說過沒關係，請不要替他說。",
+     "ja": "彼は大丈夫だなんて言っていない。彼の代わりに言わないでください。",
+     "en": "He never said it was okay. Please don't say it for him."
+    }
+   ],
+   "overlay": true,
+   "then": "ch2_dispatch_back_s20_story"
+  },
+  "ch2_t_s20_done": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我聽見了，您可以把沒問過他的事寫進信裡。",
+     "ja": "聞きました。彼に聞かなかったことを、手紙に書いてください。",
+     "en": "I heard you. You can write the things you never asked him into the letter."
+    },
+    {
+     "do": "say",
+     "speaker": "hong",
+     "text": "我自己寄，不能叫妳替我。",
+     "ja": "自分で出す。あなたに代わりを頼むわけにはいかない。",
+     "en": "I'll send it myself. I can't have you do it for me."
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "信封給您，寄到哪裡也請您自己決定。",
+     "ja": "封筒をどうぞ。どこへ送るかも、ご自身で決めてください。",
+     "en": "Here's the envelope. Please decide for yourself where to send it."
+    }
+   ],
+   "overlay": true,
+   "results": [
+    {
+     "kind": "flag",
+     "id": "guest_letter_answered",
+     "value": true
+    },
+    {
+     "kind": "transaction",
+     "id": "ch2.guest_hong"
+    }
+   ],
+   "then": "ch2_dispatch_s17_next"
+  },
+  "ch2_t_s21_close": {
+   "mode": "animated",
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "鄭先生不想聽爸爸，陳女士不要蔥，洪先生不想別人替他說沒關係。今天三頁都寫清楚了。",
+     "ja": "鄭さんは「お父さん」と呼ばれたくない。陳さんはネギ抜き。洪さんは、ほかの人に「大丈夫」と代わりに言われたくない。今日の三ページは、どれもはっきり書けた。",
+     "en": "Mr. Zheng doesn't want to be called “Dad.” Ms. Chen wants no scallions. Mr. Hong doesn't want anyone saying “it's okay” on his behalf. All three pages for today are written clearly."
+    },
+    {
+     "do": "say",
+     "speaker": "label",
+     "text": "阿梨把一顆梨放進鍋裡。",
+     "ja": "梨は、梨を一つ鍋に入れる。",
+     "en": "Pear puts a pear into the pot."
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "梨嬸教我，湯裡放一顆梨，煮到最後也不容易澀。她在梨攤邊把我抱回去，我能留下的做法就這幾樣。",
+     "ja": "梨のおばさんが教えてくれたの。スープに梨を一つ入れると、最後まで煮ても渋くなりにくいって。梨の屋台のそばで私を引き取ってくれたのも彼女。私が残せるやり方は、この数えるほどしかないの。",
+     "en": "Auntie Pear-Stall taught me to put a pear in the soup so it won't turn astringent, even when simmered to the end. She took me in by her pear stall. These few methods are all I can leave behind."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "我沒有錨人，真倒下就沒有下一次。有人能把今天說完，我就先讓他說完。",
+     "ja": "私には錨人がいない。本当に倒れたら、次はない。今日の話を最後まで語れる人がいるなら、その人に先に語ってもらう。",
+     "en": "I don't have an anchor. If I truly collapse, there's no next time. If someone can finish telling today's story, I'll let them go first."
+    }
+   ],
+   "overlay": true,
+   "when": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "guest_ticket_answered",
+        "equals": true
+       },
+       {
+        "flag": "guest_band_answered",
+        "equals": true
+       },
+       {
+        "flag": "guest_letter_answered",
+        "equals": true
+       }
+      ]
+     },
+     {
+      "not": {
+       "flag": "guest_book_completed",
+       "equals": true
+      }
+     }
+    ]
+   },
+   "results": [
+    {
+     "kind": "flag",
+     "id": "guest_book_completed",
+     "value": true
+    },
+    {
+     "kind": "transaction",
+     "id": "ch2.guest_book"
+    }
+   ]
+  },
+  "ch2_t_s17_revisit": {
+   "mode": "animated",
+   "overlay": true,
+   "steps": [
+    {
+     "do": "say",
+     "speaker": "ali",
+     "text": "客人簿收好了，今晚的三頁都寫清楚了。",
+     "ja": "客の帳簿は片付けたわ。今夜の三ページも、すべて書き終えた。",
+     "en": "The guest book is put away. All three of tonight's pages are written up."
+    }
+   ],
+   "when": {
+    "flag": "guest_book_completed",
+    "equals": true
+   }
+  },
+  "ch2_dispatch_old_k": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "receipt": "ch1.commission.settled",
+       "status": "recorded"
+      }
+     },
+     "target": "ch2_t_s01_settle"
+    },
+    {
+     "when": {
+      "receipt": "ch1.commission.settled",
+      "status": "recorded"
+     },
+     "target": "ch2_t_s01_revisit"
+    }
+   ]
+  },
+  "ch2_dispatch_s01_reaction": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "knows_ali_address",
+        "equals": true
+       }
+      ]
+     },
+     "target": "ch2_t_s01_reaction"
+    },
+    {
+     "when": {
+      "not": {
+       "flag": "knows_ali_address",
+       "equals": true
+      }
+     },
+     "target": "ch2_t_s01_reaction_left"
+    }
+   ]
+  },
+  "ch2_dispatch_radio": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch2_radio_repaired",
+       "equals": true
+      }
+     },
+     "target": "ch2_t_s02_intro"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch2_radio_repaired",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "sq4_clip_saved",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s02_relisten"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch2_radio_repaired",
+        "equals": true
+       },
+       {
+        "flag": "sq4_clip_saved",
+        "equals": true
+       }
+      ]
+     },
+     "target": "ch2_t_s02_revisit"
+    }
+   ]
+  },
+  "ch2_dispatch_egret": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch2_brief_done",
+       "equals": true
+      }
+     },
+     "target": "ch2_t_s03_tea"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch2_audit_submitted",
+          "equals": true
+         },
+         {
+          "flag": "ch2_egret_returned",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch2_heron_closed",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s22_tea"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch2_brief_done",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch2_audit_submitted",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_egret_hub"
+    },
+    {
+     "when": {
+      "flag": "ch2_heron_closed",
+      "equals": true
+     },
+     "target": "ch2_t_s22_revisit"
+    }
+   ]
+  },
+  "ch2_dispatch_sunday": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "asked_egret_sunday",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "sq2_sunday_heard",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s04_asked"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "asked_egret_sunday",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "sq2_sunday_heard",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s04_new"
+    }
+   ]
+  },
+  "ch2_dispatch_s22_sunday": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "sq2_sunday_heard",
+      "equals": true
+     },
+     "target": "ch2_t_s22_sunday_known"
+    },
+    {
+     "when": {
+      "not": {
+       "flag": "sq2_sunday_heard",
+       "equals": true
+      }
+     },
+     "target": "ch2_t_s22_sunday_unknown"
+    }
+   ]
+  },
+  "ch2_dispatch_patroller": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch2_brief_done",
+       "equals": true
+      }
+     },
+     "target": "ch2_t_s05_no_card"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch2_brief_done",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch2_gate_checked",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch2_gate_checked",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s05_gate"
+    },
+    {
+     "when": {
+      "flag": "ch2_gate_checked",
+      "equals": true
+     },
+     "target": "ch2_t_s05_revisit"
+    }
+   ]
+  },
+  "ch2_dispatch_vig": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch2_market_contact_done",
+       "equals": true
+      }
+     },
+     "target": "ch2_t_s06_open"
+    },
+    {
+     "when": {
+      "flag": "ch2_market_contact_done",
+      "equals": true
+     },
+     "target": "ch2_t_s06_vig_revisit"
+    }
+   ]
+  },
+  "ch2_dispatch_ali_market": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch2_market_contact_done",
+       "equals": true
+      }
+     },
+     "target": "ch2_t_s06_open"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch2_market_contact_done",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch2_ali_need_asked",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s06_ali_paid_revisit"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch2_market_contact_done",
+        "equals": true
+       },
+       {
+        "flag": "ch2_ali_need_asked",
+        "equals": true
+       }
+      ]
+     },
+     "target": "ch2_t_s06_ali_revisit"
+    }
+   ]
+  },
+  "ch2_dispatch_s06_supper": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "knows_ali_address",
+      "equals": true
+     },
+     "target": "ch2_t_s06_invite_stayed"
+    },
+    {
+     "when": {
+      "not": {
+       "flag": "knows_ali_address",
+       "equals": true
+      }
+     },
+     "target": "ch2_t_s06_invite_left"
+    }
+   ]
+  },
+  "ch2_dispatch_rent_window": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch2_evidence_contract",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch2_evidence_contract",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s08_contract"
+    },
+    {
+     "when": {
+      "flag": "ch2_evidence_contract",
+      "equals": true
+     },
+     "target": "ch2_t_s08_contract_revisit"
+    }
+   ]
+  },
+  "ch2_dispatch_banyan": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch2_banyan_heard",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch2_banyan_heard",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s08_banyan"
+    },
+    {
+     "when": {
+      "flag": "ch2_banyan_heard",
+      "equals": true
+     },
+     "target": "ch2_t_s08_banyan_revisit"
+    }
+   ]
+  },
+  "ch2_dispatch_notice": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {},
+     "target": "ch2_t_s08_screen"
+    }
+   ]
+  },
+  "ch2_dispatch_hawker": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch2_rumor_heard",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch2_rumor_heard",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s08_rumor"
+    },
+    {
+     "when": {
+      "flag": "ch2_rumor_heard",
+      "equals": true
+     },
+     "target": "ch2_t_s08_rumor_revisit"
+    }
+   ]
+  },
+  "ch2_dispatch_ali_home": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch2_ali_home_visit",
+       "equals": true
+      }
+     },
+     "target": "ch2_t_s07_door"
+    },
+    {
+     "when": {
+      "flag": "ch2_ali_home_visit",
+      "equals": true
+     },
+     "target": "ch2_t_s07_revisit"
+    }
+   ]
+  },
+  "ch2_dispatch_s07_address": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "knows_ali_address",
+      "equals": true
+     },
+     "target": "ch2_t_s07_address_known"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "knows_ali_address",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "knows_ali_address",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s07_address_new"
+    }
+   ]
+  },
+  "ch2_dispatch_collection_book": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch2_evidence_collection",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch2_evidence_collection",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s08_collection"
+    },
+    {
+     "when": {
+      "flag": "ch2_evidence_collection",
+      "equals": true
+     },
+     "target": "ch2_t_s08_collection_revisit"
+    }
+   ]
+  },
+  "ch2_dispatch_guard": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch2_guard_seen",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch2_guard_seen",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s09_guard"
+    },
+    {
+     "when": {
+      "flag": "ch2_guard_seen",
+      "equals": true
+     },
+     "target": "ch2_t_s09_guard_revisit"
+    }
+   ]
+  },
+  "ch2_dispatch_sc1": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch2_sc1_open",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch2_sc1_open",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s09_lever"
+    },
+    {
+     "when": {
+      "flag": "ch2_sc1_open",
+      "equals": true
+     },
+     "target": "ch2_t_s09_lever_revisit"
+    }
+   ]
+  },
+  "ch2_dispatch_reconcile": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch2_market_reconciled",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch2_evidence_receipt",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s10_missing_receipt"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch2_market_reconciled",
+         "equals": true
+        }
+       },
+       {
+        "flag": "ch2_evidence_receipt",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch2_evidence_collection",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s10_missing_collection"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch2_market_reconciled",
+         "equals": true
+        }
+       },
+       {
+        "flag": "ch2_evidence_receipt",
+        "equals": true
+       },
+       {
+        "flag": "ch2_evidence_collection",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch2_evidence_contract",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s10_missing_contract"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch2_evidence_contract",
+          "equals": true
+         },
+         {
+          "flag": "ch2_evidence_receipt",
+          "equals": true
+         },
+         {
+          "flag": "ch2_evidence_collection",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch2_market_reconciled",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s10_principal"
+    },
+    {
+     "when": {
+      "flag": "ch2_market_reconciled",
+      "equals": true
+     },
+     "target": "ch2_t_s10_revisit"
+    }
+   ]
+  },
+  "ch2_dispatch_diagram": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {},
+     "target": "ch2_t_s11_diagram"
+    }
+   ]
+  },
+  "ch2_dispatch_ledger_door": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch2_yong_intro_seen",
+       "equals": true
+      }
+     },
+     "target": "ch2_t_s11_intro"
+    },
+    {
+     "when": {
+      "flag": "ch2_yong_intro_seen",
+      "equals": true
+     },
+     "target": "ch2_t_s11_revisit"
+    }
+   ]
+  },
+  "ch2_dispatch_xiaowei": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {},
+     "target": "ch2_t_xiaowei_line"
+    }
+   ]
+  },
+  "ch2_dispatch_cabinet": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch2_yong_subdued",
+       "equals": true
+      }
+     },
+     "target": "ch2_t_s13_locked"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch2_yong_subdued",
+        "equals": true
+       },
+       {
+        "flag": "yong_link_choice",
+        "equals": "cut"
+       },
+       {
+        "not": {
+         "flag": "ch2_original_ledger_taken",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s13_cut"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch2_yong_subdued",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "yong_link_choice",
+         "equals": "cut"
+        }
+       },
+       {
+        "not": {
+         "flag": "ch2_original_ledger_taken",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s13_keep"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch2_original_ledger_taken",
+          "equals": true
+         },
+         {
+          "not": {
+           "flag": "ch2_egret_transport_done",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch2_egret_transport_done",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s13_fall"
+    },
+    {
+     "when": {
+      "flag": "ch2_original_ledger_taken",
+      "equals": true
+     },
+     "target": "ch2_t_s13_revisit"
+    }
+   ]
+  },
+  "ch2_dispatch_egret_booth": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch2_egret_returned",
+       "equals": true
+      }
+     },
+     "target": "ch2_t_s14_return"
+    },
+    {
+     "when": {
+      "flag": "ch2_egret_returned",
+      "equals": true
+     },
+     "target": "ch2_t_s14_revisit"
+    }
+   ]
+  },
+  "ch2_dispatch_terminal": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch2_audit_submitted",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch2_original_ledger_taken",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s15_not_ready"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch2_audit_submitted",
+         "equals": true
+        }
+       },
+       {
+        "flag": "ch2_original_ledger_taken",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch2_egret_returned",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s15_wait_egret"
+    },
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "all": [
+           {
+            "flag": "ch2_egret_returned",
+            "equals": true
+           },
+           {
+            "flag": "ch2_original_ledger_taken",
+            "equals": true
+           },
+           {
+            "flag": "ch2_market_reconciled",
+            "equals": true
+           }
+          ]
+         },
+         {
+          "not": {
+           "flag": "ch2_audit_submitted",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch2_audit_submitted",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s15_upload"
+    },
+    {
+     "when": {
+      "flag": "ch2_audit_submitted",
+      "equals": true
+     },
+     "target": "ch2_t_s15_revisit"
+    }
+   ]
+  },
+  "ch2_dispatch_ali_lounge": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch2_audit_submitted",
+        "equals": true
+       },
+       {
+        "item": "ch2_ali_page"
+       },
+       {
+        "not": {
+         "flag": "sq1_ledger_delivered",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s16_page"
+    },
+    {
+     "when": {
+      "flag": "ali_ledger_action",
+      "equals": "correct"
+     },
+     "target": "ch2_t_s16_revisit_correct"
+    },
+    {
+     "when": {
+      "flag": "ali_ledger_action",
+      "equals": "hold"
+     },
+     "target": "ch2_t_s16_revisit_hold"
+    },
+    {
+     "when": {},
+     "target": "ch2_t_s16_idle"
+    }
+   ]
+  },
+  "ch2_dispatch_s16_close": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "flag": "ali_advance_40",
+      "equals": 40
+     },
+     "target": "ch2_t_s16_advance"
+    },
+    {
+     "when": {
+      "not": {
+       "flag": "ch2_ali_need_asked",
+       "equals": true
+      }
+     },
+     "target": "ch2_t_s16_need"
+    }
+   ]
+  },
+  "ch2_dispatch_guest_entry": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch2_audit_submitted",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "guest_book_completed",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s17_offer"
+    },
+    {
+     "when": {
+      "flag": "guest_book_completed",
+      "equals": true
+     },
+     "target": "ch2_t_s17_revisit"
+    }
+   ]
+  },
+  "ch2_dispatch_s17_next": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "all": [
+           {
+            "flag": "guest_ticket_answered",
+            "equals": true
+           },
+           {
+            "flag": "guest_band_answered",
+            "equals": true
+           },
+           {
+            "flag": "guest_letter_answered",
+            "equals": true
+           }
+          ]
+         },
+         {
+          "not": {
+           "flag": "guest_book_completed",
+           "equals": true
+          }
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "guest_book_completed",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s21_close"
+    },
+    {
+     "when": {
+      "not": {
+       "flag": "guest_book_completed",
+       "equals": true
+      }
+     },
+     "target": "ch2_t_s17_open"
+    }
+   ]
+  },
+  "ch2_dispatch_s17_enter": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "not": {
+         "flag": "ch2_guest_book_entered",
+         "equals": true
+        }
+       },
+       {
+        "not": {
+         "flag": "ch2_guest_book_entered",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s17_book"
+    },
+    {
+     "when": {
+      "not": {
+       "flag": "guest_book_completed",
+       "equals": true
+      }
+     },
+     "target": "ch2_t_s17_open"
+    }
+   ]
+  },
+  "ch2_dispatch_back_s02_power": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch2_radio_repaired",
+       "equals": true
+      }
+     },
+     "target": "ch2_t_s02_power"
+    }
+   ]
+  },
+  "ch2_dispatch_back_s02_antenna": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch2_radio_repaired",
+       "equals": true
+      }
+     },
+     "target": "ch2_t_s02_antenna"
+    }
+   ]
+  },
+  "ch2_dispatch_back_s02_speaker": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch2_radio_repaired",
+       "equals": true
+      }
+     },
+     "target": "ch2_t_s02_speaker"
+    }
+   ]
+  },
+  "ch2_dispatch_back_s02_tune": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch2_radio_repaired",
+       "equals": true
+      }
+     },
+     "target": "ch2_t_s02_tune"
+    }
+   ]
+  },
+  "ch2_dispatch_back_egret_hub": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "flag": "ch2_brief_done",
+        "equals": true
+       },
+       {
+        "not": {
+         "flag": "ch2_audit_submitted",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_egret_hub"
+    }
+   ]
+  },
+  "ch2_dispatch_back_s06_open_again": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch2_market_contact_done",
+       "equals": true
+      }
+     },
+     "target": "ch2_t_s06_open_again"
+    }
+   ]
+  },
+  "ch2_dispatch_back_s07_bowls": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "ch2_ali_home_visit",
+       "equals": true
+      }
+     },
+     "target": "ch2_t_s07_bowls"
+    }
+   ]
+  },
+  "ch2_dispatch_back_s07_wash": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {},
+     "target": "ch2_t_s07_wash"
+    }
+   ]
+  },
+  "ch2_dispatch_back_s10_principal": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "all": [
+       {
+        "all": [
+         {
+          "flag": "ch2_evidence_contract",
+          "equals": true
+         },
+         {
+          "flag": "ch2_evidence_receipt",
+          "equals": true
+         },
+         {
+          "flag": "ch2_evidence_collection",
+          "equals": true
+         }
+        ]
+       },
+       {
+        "not": {
+         "flag": "ch2_market_reconciled",
+         "equals": true
+        }
+       }
+      ]
+     },
+     "target": "ch2_t_s10_principal"
+    }
+   ]
+  },
+  "ch2_dispatch_back_s10_interest": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {},
+     "target": "ch2_t_s10_interest"
+    }
+   ]
+  },
+  "ch2_dispatch_back_s10_batch": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {},
+     "target": "ch2_t_s10_batch"
+    }
+   ]
+  },
+  "ch2_dispatch_back_s17_open": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {
+      "not": {
+       "flag": "guest_book_completed",
+       "equals": true
+      }
+     },
+     "target": "ch2_t_s17_open"
+    }
+   ]
+  },
+  "ch2_dispatch_back_s18_ticket": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {},
+     "target": "ch2_t_s18_ticket"
+    }
+   ]
+  },
+  "ch2_dispatch_back_s18_name": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {},
+     "target": "ch2_t_s18_name"
+    }
+   ]
+  },
+  "ch2_dispatch_back_s19_band": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {},
+     "target": "ch2_t_s19_band"
+    }
+   ]
+  },
+  "ch2_dispatch_back_s19_quiet": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {},
+     "target": "ch2_t_s19_quiet"
+    }
+   ]
+  },
+  "ch2_dispatch_back_s20_letter": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {},
+     "target": "ch2_t_s20_letter"
+    }
+   ]
+  },
+  "ch2_dispatch_back_s20_story": {
+   "mode": "dispatch",
+   "routes": [
+    {
+     "when": {},
+     "target": "ch2_t_s20_story"
+    }
+   ]
+  }
+ },
+ "death_sequences": [
+  {
+   "min_deaths": 1,
+   "skippable": false,
+   "steps": [
+    {
+     "kind": "line",
+     "speaker": "voice",
+     "text": "再來一次，沒關係。",
+     "time": 2.2,
+     "ja": "もう一度でいい。大丈夫。",
+     "en": "Try again, it's fine."
+    },
+    {
+     "kind": "line",
+     "speaker": "lamp",
+     "text": "歡迎回來，你又回到亭子了。",
+     "time": 1.8,
+     "ja": "おかえり、また電話ボックスに戻ったよ。",
+     "en": "Welcome back. You're back at the phone booth."
+    },
+    {
+     "kind": "status",
+     "text": "復原完成，復原費已從身上的信用點扣除。",
+     "time": 1.6,
+     "ja": "復元完了。復元費用はクレジットから差し引かれました。",
+     "en": "Restoration complete. The restoration fee has been deducted from your credits."
+    },
+    {
+     "kind": "card",
+     "time": 2.4
+    }
+   ]
+  },
+  {
+   "min_deaths": 3,
+   "skippable": false,
+   "steps": [
+    {
+     "kind": "line",
+     "speaker": "lamp",
+     "text": "歡迎回來，路線還接著。",
+     "time": 1.2,
+     "ja": "おかえり、ルートはそのまま続いてる。",
+     "en": "Welcome back. The route picks up where you left off."
+    },
+    {
+     "kind": "status",
+     "text": "復原完成，復原費已結算。",
+     "time": 1.0,
+     "ja": "復元完了。復元費用は精算済みです。",
+     "en": "Restoration complete. The restoration fee has been settled."
+    },
+    {
+     "kind": "card",
+     "time": 1.2
+    }
+   ]
+  },
+  {
+   "min_deaths": 5,
+   "skippable": true,
+   "steps": [
+    {
+     "kind": "line",
+     "speaker": "lamp",
+     "text": "你知道流程的，我們再走一次。",
+     "time": 0.9,
+     "ja": "流れは分かってるよね。もう一回いこう。",
+     "en": "You know the drill. Let's go again."
+    },
+    {
+     "kind": "card",
+     "time": 0.8
+    }
+   ]
+  }
+ ]
+}

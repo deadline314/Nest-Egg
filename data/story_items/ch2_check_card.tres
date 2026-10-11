@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch2_check_card"
+display_name = "市場查核證"
+description = "鷺給的查核證，只放行市集的公眾攤道。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 200
+chapter = &"ch2_heron"
+body = "持證人可進入市集公眾攤道查核市場修繕代收批號M17。後方帳房與貨道不在放行範圍。本證不是付款憑證，也不能用來免付任何費用。"
+trigger = 3
+icon = "doc_stub"

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch2_original_ledger"
+display_name = "公開原帳副本"
+description = "帳櫃裡的公開原帳：待收100，代收簿多加的20沒有根據。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 204
+chapter = &"ch2_heron"
+body = "批號M17：待收100。代收簿附加20。收費基準另見夾層診所月報17。"
+trigger = 3
+icon = "doc_log"

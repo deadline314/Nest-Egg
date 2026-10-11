@@ -10,7 +10,7 @@ const MAX_FACTS := 1024
 const MAX_TEXT_LENGTH := 256
 const MAX_NUMBER := 999999999
 const MEAL_IDS := ["ch1.revival_meal.order", "ch1.revival_meal.paid", "ch1.revival_meal.tab", "ch1.revival_meal.gift", "ch1.revival_meal.later_pay"]
-## 此階段受支援的正式資源 ID；金額與指紋只來自 current descriptor。
+## 第一章必備的正式資源 ID（之後章節的交易另由 transaction_definitions 提供）；金額與指紋只來自 current descriptor。
 const TRANSACTION_IDS := ["ch1.daily_dinner", "ch1.commission.settled", "ch1.revival_meal.order", "ch1.revival_meal.paid", "ch1.revival_meal.tab", "ch1.revival_meal.gift", "ch1.revival_meal.later_pay"]
 ## 與作者 ACCOUNT_RECEIPTS 一致，mask 位元順序由 MEAL_IDS 定義。
 const ACCOUNT_MASKS := {0: "none", 1: "open200", 3: "paid200", 5: "owed200", 9: "gifted200", 21: "paid200"}
@@ -41,6 +41,14 @@ static func _scalar(raw: Variant) -> bool:
 	if raw is String:
 		return raw.length() <= MAX_TEXT_LENGTH
 	return typeof(raw) in [TYPE_INT, TYPE_FLOAT] and is_finite(float(raw)) and absf(float(raw)) <= MAX_NUMBER
+
+
+## raw 至少含有 expected 的每個鍵（可以多）。
+static func _covers(raw: Dictionary, expected: Array) -> bool:
+	for key: String in expected:
+		if not raw.has(key):
+			return false
+	return true
 
 
 static func _keys(raw: Dictionary, expected: Array) -> bool:
@@ -184,10 +192,13 @@ static func _integer(raw: Variant, maximum: int) -> bool:
 static func _verified_ledger(facts: Dictionary, context: Dictionary) -> Dictionary:
 	if not context.has("ledger_locked") or not context["ledger_locked"] is bool or context["ledger_locked"]:
 		return _invalid("context.ledger_locked", "帳本鎖定或信任狀態不明")
+	# 第一章的七筆是必備的現行定義；之後章節的交易（ch2.* 等）可以一起提供，用同一套描述與指紋規則驗證。
 	var definitions: Variant = context.get("transaction_definitions")
-	if not definitions is Dictionary or not _keys(definitions, TRANSACTION_IDS):
-		return _invalid("context.transaction_definitions", "七個現行資源定義必須全部提供")
-	for id: String in TRANSACTION_IDS:
+	if not definitions is Dictionary or definitions.size() > MAX_FACTS or not _covers(definitions, TRANSACTION_IDS):
+		return _invalid("context.transaction_definitions", "第一章七個現行資源定義必須全部提供")
+	for id: Variant in definitions:
+		if not _id(id):
+			return _invalid("context.transaction_definitions", "現行資源編號無效")
 		var definition: Variant = definitions[id]
 		if not definition is Dictionary or not _keys(definition, ["id", "credits_delta", "required", "excluded", "fingerprint"]):
 			return _invalid("definitions." + id, "現行定義描述無效")
@@ -201,7 +212,7 @@ static func _verified_ledger(facts: Dictionary, context: Dictionary) -> Dictiona
 		for pair in [[required, "required"], [excluded, "excluded"]]:
 			var previous := ""
 			for dependency: Variant in pair[0]:
-				if not _id(dependency) or not TRANSACTION_IDS.has(dependency) or dependency == id or used.has(dependency) or String(dependency) < previous:
+				if not _id(dependency) or not definitions.has(dependency) or dependency == id or used.has(dependency) or String(dependency) < previous:
 					return _invalid("definitions." + id + "." + pair[1], "條件編號未知、重複、自我引用、互斥或未排序")
 				used[dependency] = true
 				previous = dependency
@@ -215,7 +226,7 @@ static func _verified_ledger(facts: Dictionary, context: Dictionary) -> Dictiona
 	if not receipts is Dictionary or receipts.size() > MAX_FACTS:
 		return _invalid("facts.ledger.receipts", "收據清單無效")
 	for id: Variant in receipts:
-		if not id is String or not TRANSACTION_IDS.has(id):
+		if not id is String or not definitions.has(id):
 			return _invalid("facts.ledger.receipts", "收據沒有受支援的現行資源")
 		var receipt: Variant = receipts[id]
 		if not receipt is Dictionary or not _keys(receipt, ["definition_fingerprint", "credits_delta"]):

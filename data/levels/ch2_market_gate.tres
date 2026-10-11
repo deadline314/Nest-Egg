@@ -1,0 +1,85 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Resource" path="res://data/props/credits_small.tres" id="2_credits_small"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="3_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_egret_booth.tres" id="4_ch2_egret_booth"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_patroller.tres" id="5_ch2_patroller"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="6_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/market.tres" id="7_market"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch2_market_gate.tres" id="8_ch2_market_gate"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("3_portal_data")
+id = &"gate_street"
+target_level = "res://data/levels/ch2_harbor_street.tres"
+target_portal = &"street_market"
+prompt = "{interact} 回港區街道"
+width = 28
+height = 44
+style = "road"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("3_portal_data")
+id = &"gate_market"
+target_level = "res://data/levels/ch2_market.tres"
+target_portal = &"market_gate"
+requires_flag = &"ch2_brief_done"
+locked_text = "公眾攤道要查核證，鷺在當舖屋頂等你。"
+prompt = "{interact} 進公眾攤道"
+width = 28
+height = 44
+style = "road"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("3_portal_data")
+id = &"gate_lounge"
+target_level = "res://data/levels/ch2_lounge_front.tres"
+target_portal = &"lounge_gate"
+prompt = "{interact} 往復原館"
+width = 28
+height = 44
+style = "road"
+
+[sub_resource type="Resource" id="Resource_3"]
+script = ExtResource("3_portal_data")
+id = &"gate_family"
+target_level = "res://data/levels/ch2_ledger_office.tres"
+target_portal = &"office_family"
+requires_flag = &"ch2_egret_transport_done"
+locked_text = "家屬出口從帳房那一側鎖著。"
+prompt = "{interact} 走家屬出口回帳房"
+width = 28
+height = 56
+style = "door"
+
+[sub_resource type="Resource" id="Resource_4"]
+script = ExtResource("6_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("7_market")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch2_market_gate"
+display_name = "市集入口"
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"c": ExtResource("2_credits_small"),
+"Ⅰ": SubResource("Resource_0"),
+"Ⅱ": SubResource("Resource_1"),
+"Ⅲ": SubResource("Resource_2"),
+"Ⅳ": SubResource("Resource_3"),
+"Ⓔ": ExtResource("4_ch2_egret_booth"),
+"Ⓖ": ExtResource("5_ch2_patroller")
+})
+hints = PackedStringArray()
+chapter = &"ch2_heron"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("8_ch2_market_gate")
+layout_path = "res://data/levels/ch2_market_gate_map.json"
+lighting_zones = Array[ExtResource("6_lighting_zone")]([SubResource("Resource_4")])
+story_triggers = PackedStringArray("ch2_b_booth_b3")
+death_credit_cap = 250

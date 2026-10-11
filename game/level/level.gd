@@ -108,6 +108,10 @@ func _ready() -> void:
 			process_mode = Node.PROCESS_MODE_DISABLED
 			menu_requested.emit.call_deferred()
 			return
+	if data.complete_on_flag != &"":
+		GameState.flag_changed.connect(_on_completion_flag)
+		if GameState.has_flag(data.complete_on_flag):
+			_on_completion_flag.call_deferred(data.complete_on_flag, true)
 	_persistent = data.persistent_world
 	if _resume.get("dead", false):
 		died = true
@@ -1010,6 +1014,15 @@ func _on_boss_defeated() -> void:
 	await get_tree().create_timer(VICTORY_DELAY, false).timeout
 	if not is_inside_tree():
 		return
+	await _run_ending()
+
+
+## complete_on_flag 成立（例如章末對話播完）：和「進場後結束」一樣播章末卡並通關；死亡、已結束時不動作。
+func _on_completion_flag(flag: StringName, value: Variant) -> void:
+	if flag != data.complete_on_flag or not bool(value) or _finished or died or not is_inside_tree():
+		return
+	_finished = true
+	_close_menus()
 	await _run_ending()
 
 

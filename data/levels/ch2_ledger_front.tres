@@ -1,0 +1,59 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_isolation_diagram.tres" id="3_ch2_isolation_diagram"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_ledger_door.tres" id="4_ch2_ledger_door"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="5_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/warehouse_interior.tres" id="6_warehouse_interior"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch2_ledger_front.tres" id="7_ch2_ledger_front"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"front_loading"
+target_level = "res://data/levels/ch2_loading.tres"
+target_portal = &"loading_ledger"
+prompt = "{interact} 回裝卸間"
+width = 28
+height = 56
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"front_office"
+target_level = "res://data/levels/ch2_ledger_office.tres"
+target_portal = &"office_front"
+requires_flag = &"ch2_yong_intro_seen"
+locked_text = "先敲門，看阿勇要怎麼對這筆帳。"
+prompt = "{interact} 進二樓帳房"
+width = 28
+height = 56
+style = "door"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("5_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("6_warehouse_interior")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch2_ledger_front"
+display_name = "北棟二樓前室"
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"ⅰ": SubResource("Resource_0"),
+"ⅱ": SubResource("Resource_1"),
+"ⓘ": ExtResource("3_ch2_isolation_diagram"),
+"ⓨ": ExtResource("4_ch2_ledger_door")
+})
+hints = PackedStringArray()
+chapter = &"ch2_heron"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("7_ch2_ledger_front")
+layout_path = "res://data/levels/ch2_ledger_front_map.json"
+lighting_zones = Array[ExtResource("5_lighting_zone")]([SubResource("Resource_2")])
+story_triggers = PackedStringArray()
+death_credit_cap = 250

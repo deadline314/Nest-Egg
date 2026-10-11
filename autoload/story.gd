@@ -19,6 +19,8 @@ const CHAPTER_PATHS: Array[String] = [
 	"res://data/story/chapter_02.json",
 	# 新故事（傘）：第一章的章節資訊；台詞與過場由 ST-9 接上。
 	"res://data/story/ch1_kasa.json",
+	# 第二章「鷺」（ST-19）：劇本由 tools/story/build_ch2_story.py 產生。
+	"res://data/story/ch2_heron.json",
 	# 動畫過場（只有 scenes，用 for_chapter 指明屬於哪一章）。
 	"res://data/story/cutscenes_ch1.json",
 	"res://data/story/cutscenes_ch2.json",
@@ -468,6 +470,13 @@ func _validate_chain(scene_id: String, scene: Variant) -> PackedStringArray:
 			problems.append("場景 %s 的接續形成迴圈（%s）" % [scene_id, next])
 			break
 		var next_mode := str((_scenes[next] as Dictionary).get("mode", "radio"))
+		# 接到分派：依當下進度挑下一段（例如依昨晚的選擇換一句反應）；每條路線都要接得上，接續從那裡由各段自己檢查。
+		if next_mode == String(MODE_DISPATCH) and family == "presentation":
+			for route: Variant in (_scenes[next] as Dictionary).get("routes", []):
+				var target := str((route as Dictionary).get("target", "")) if route is Dictionary else ""
+				if not _scenes.has(target) or _chain_family(str((_scenes[target] as Dictionary).get("mode", "radio"))) != family:
+					problems.append("場景 %s 接到分派「%s」，但路線「%s」不是過場、動畫過場或對話" % [scene_id, next, target])
+			break
 		if _chain_family(next_mode) != family:
 			problems.append("場景 %s 的接續場景「%s」是 %s，%s" % [scene_id, next, next_mode, "只能接過場、動畫過場或對話" if family == "presentation" else "只能接通訊或氣泡"])
 		seen[next] = true
@@ -996,11 +1005,17 @@ func _queue_dynamic_scene(next: StringName, request: int) -> bool:
 
 
 ## 場景設定了 then 時，結束後立刻接著播（排在佇列最前面）；玩家按 Esc 略過時整串都略過，已看過的場景不重播。
+## then 是分派時改依當下進度挑段落。
 func _queue_chained_scene(id: StringName, request: int) -> bool:
 	var next := StringName(str((_scenes.get(String(id), {}) as Dictionary).get("then", "")))
-	if next == &"" or not has_scene(next) or _seen.has(next) or not scene_available(next):
+	if next == &"" or not has_scene(next):
 		return false
 	if is_instance_valid(_player) and _player.user_skipped:
+		return false
+	# 接到分派時依當下進度挑段落（和選項接續一樣，可以回到看過的中樞，例如客人名單）。
+	if str((_scenes[String(next)] as Dictionary).get("mode", "")) == String(MODE_DISPATCH):
+		return _queue_dynamic_scene(next, request)
+	if _seen.has(next) or not scene_available(next):
 		return false
 	_seen[next] = true
 	_cinematic_queue.push_front({"id": next, "context": _presentation_context.duplicate(true), "request": request})

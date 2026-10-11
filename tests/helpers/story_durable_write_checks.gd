@@ -101,8 +101,10 @@ static func _live() -> PackedByteArray:
 static func fixture() -> Dictionary:
 	var data := RunSnapshot.capture(FIRST, {"position": [100, 160], "health": 4, "world": {}, "loadout": {}})
 	var definitions: Dictionary = {}
+	# 固定用第一章的七筆交易當夾具（之後章節新增的交易不影響這組檢查）。
 	for resource: StoryTransactionData in ResourceCatalog.load_dir("res://data/story_transactions", StoryTransactionData, "DurableChecks"):
-		definitions[String(resource.id)] = resource
+		if String(resource.id).begins_with("ch1."):
+			definitions[String(resource.id)] = resource
 	if definitions.size() != 7 or StoryItems.find(&"ch1_data_disk") == null or StoryItems.find(&"ch1_grey_cloth") == null:
 		return {"error": "canonical fixture resources missing"}
 	var ledger := StoryTransactionLedger.new()

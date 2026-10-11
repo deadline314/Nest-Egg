@@ -84,4 +84,5 @@ lighting_zones = Array[ExtResource("13_lighting_zone")]([SubResource("Resource_3
 intro_scene = &"ch1_c14_home"
 story_triggers = PackedStringArray("ch1_b_dinner")
 complete_after_intro = true
+next_level = "res://data/levels/ch2_pawnshop.tres"
 death_credit_cap = 250

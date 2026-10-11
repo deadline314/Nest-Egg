@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch2_radio_clip"
+display_name = "陌生廣播的片段"
+description = "收音機錄下的一段尋人廣播：念了三個名字，還提到一頂帽子。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 207
+chapter = &"ch2_heron"
+body = "陌生廣播：今晚先念三個還在等回覆的名字。陳海生、周美蘭、林兆安，你們的家人來過。名字念錯了請告訴我。我還留著一頂帽子，如果有人認得帽沿的補線，請到港區電臺留言。"
+trigger = 3
+icon = "recording"

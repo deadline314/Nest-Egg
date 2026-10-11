@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_guest_entry.tres" id="3_ch2_guest_entry"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_ali_lounge.tres" id="4_ch2_ali_lounge"]
+[ext_resource type="Resource" path="res://data/npcs/ch2_terminal.tres" id="5_ch2_terminal"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="6_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/market.tres" id="7_market"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch2_lounge_front.tres" id="8_ch2_lounge_front"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"lounge_gate"
+target_level = "res://data/levels/ch2_market_gate.tres"
+target_portal = &"gate_lounge"
+prompt = "{interact} 回市集入口"
+width = 28
+height = 44
+style = "road"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("6_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("7_market")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch2_lounge_front"
+display_name = "復原館外"
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"ⅴ": SubResource("Resource_0"),
+"ⓠ": ExtResource("3_ch2_guest_entry"),
+"ⓢ": ExtResource("4_ch2_ali_lounge"),
+"ⓣ": ExtResource("5_ch2_terminal")
+})
+hints = PackedStringArray()
+chapter = &"ch2_heron"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("8_ch2_lounge_front")
+layout_path = "res://data/levels/ch2_lounge_front_map.json"
+lighting_zones = Array[ExtResource("6_lighting_zone")]([SubResource("Resource_1")])
+story_triggers = PackedStringArray()
+death_credit_cap = 250

@@ -1,0 +1,219 @@
+{
+ "areas": {
+  "pawnshop": {
+   "combat": false,
+   "group": "pawnshop",
+   "features": {
+    "landmark": "櫃台與工作檯（x=50～61）：早上的結算與收音機都在這裡"
+   },
+   "encounters": []
+  },
+  "rooftop": {
+   "combat": false,
+   "group": "rooftop",
+   "features": {
+    "landmark": "破傘下的茶座（x=38）：雨量屏在遠處亮著"
+   },
+   "encounters": []
+  },
+  "harbor_street": {
+   "combat": false,
+   "group": "harbor_street",
+   "features": {
+    "landmark": "B1 電話亭（x=30）"
+   },
+   "encounters": []
+  },
+  "market_gate": {
+   "combat": true,
+   "group": "market_gate",
+   "features": {
+    "loop": "上層公眾攤道（x=24～83，第 14 列）：可以完全繞過地面兩個戰鬥區",
+    "landmark": "市場的水位尺（x=112）",
+    "reward": "公眾攤道中段的信用點（x=50）",
+    "secret": "無",
+    "vertical": "地面與攤道兩層"
+   },
+   "encounters": [
+    {
+     "name": "入口押運手",
+     "lock": false,
+     "wave_zone": false,
+     "x0": 30,
+     "x1": 48,
+     "members": [],
+     "reinforcements": []
+    },
+    {
+     "name": "入口票據投手",
+     "lock": false,
+     "wave_zone": false,
+     "x0": 56,
+     "x1": 74,
+     "members": [],
+     "reinforcements": []
+    }
+   ]
+  },
+  "market": {
+   "combat": false,
+   "group": "market",
+   "features": {
+    "landmark": "公告屏（x=90）：沈望的週年演說",
+    "shortcut": "橋梯捷徑（x=124）：從裝卸間放下後直通"
+   },
+   "encounters": []
+  },
+  "ali_home": {
+   "combat": false,
+   "group": "ali_home",
+   "features": {
+    "landmark": "門口那把補過的油紙傘（x=9）"
+   },
+   "encounters": []
+  },
+  "loading": {
+   "combat": true,
+   "group": "loading",
+   "features": {
+    "loop": "下層貨道與雨棚上層（x=10～99）成環",
+    "shortcut": "橋梯捷徑 SC1（x=92 拉桿、x=100 梯口）回代收處",
+    "secret": "乾燥盒的信用點（x=134）",
+    "landmark": "剪斷電線的橋（x=46～52）",
+    "vertical": "地面與雨棚兩層"
+   },
+   "encounters": [
+    {
+     "name": "下層貨道一",
+     "lock": false,
+     "wave_zone": false,
+     "x0": 24,
+     "x1": 44,
+     "members": [],
+     "reinforcements": []
+    },
+    {
+     "name": "下層貨道二",
+     "lock": false,
+     "wave_zone": false,
+     "x0": 60,
+     "x1": 80,
+     "members": [],
+     "reinforcements": []
+    }
+   ]
+  },
+  "ledger_front": {
+   "combat": false,
+   "group": "ledger_front",
+   "features": {
+    "landmark": "隔離箱示意圖（x=28）：主箱永久解除、側箱只能暫停"
+   },
+   "encounters": []
+  },
+  "ledger_office": {
+   "combat": true,
+   "group": "ledger_office",
+   "features": {
+    "arena": "阿勇戰區（x=8～58），兩層平台繞鐵棍",
+    "landmark": "帳櫃（x=54）",
+    "vertical": "地面與中段平台兩層",
+    "loop": "家屬出口（x=68）搬送後通到市集電話亭",
+    "reward": "帳櫃裡的原帳與索引"
+   },
+   "encounters": [
+    {
+     "name": "阿勇與兩名小弟",
+     "lock": false,
+     "wave_zone": false,
+     "x0": 8,
+     "x1": 58,
+     "members": [],
+     "reinforcements": []
+    }
+   ]
+  },
+  "lounge_front": {
+   "combat": false,
+   "group": "lounge_front",
+   "features": {
+    "landmark": "委託終端（x=16）"
+   },
+   "encounters": []
+  }
+ },
+ "curve": {
+  "掩護射擊": {
+   "intro": [
+    "street",
+    "接觸"
+   ],
+   "practice": [
+    "street",
+    "高台"
+   ],
+   "combine": [
+    "street",
+    "街心"
+   ],
+   "test": [
+    "street",
+    "路障"
+   ]
+  },
+  "格擋與衝刺": {
+   "intro": [
+    "street",
+    "格擋"
+   ],
+   "practice": [
+    "street",
+    "街心"
+   ],
+   "combine": [
+    "street",
+    "路障"
+   ],
+   "test": [
+    "vault",
+    "保險箱守衛"
+   ]
+  },
+  "近戰終結": {
+   "intro": [
+    "street",
+    "近戰"
+   ],
+   "practice": [
+    "warehouse",
+    "開關守衛"
+   ],
+   "combine": [
+    "warehouse",
+    "坑前"
+   ],
+   "test": [
+    "vault",
+    "保險箱守衛"
+   ]
+  },
+  "空中與高處": {
+   "intro": [
+    "street",
+    "空襲"
+   ],
+   "practice": [
+    "warehouse",
+    "高處無人機"
+   ],
+   "combine": [
+    "vault",
+    "階梯"
+   ],
+   "test": [
+    "vault",
+    "上層走道"
+   ]
+  }
+ }
+}
