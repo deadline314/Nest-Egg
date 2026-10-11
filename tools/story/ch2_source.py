@@ -6,7 +6,6 @@
 """
 from __future__ import annotations
 
-import dataclasses
 import sys
 from pathlib import Path
 
@@ -16,6 +15,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from ch1_closure import (Option, ProductionSource, Quest, QuestStep, all_of, any_of, beats, flag, grant, item,  # noqa: E402
                          negate, receipt, say, set_flag, transaction, transfer)
 from build_ch1_story import actor as stage_actor, stage as stage_scene  # noqa: E402
+from chapter_compiler import route_back_to_choices  # noqa: E402
 
 # 舞台演出：屋頂的茶沿用第一章的屋頂舞台（地面線 262、凜縮放 2.2；鷺的骨架只比凜高 3%，同舞台用同一個縮放）。
 # 兩人站在茶座兩側、面向對方（0.40W 與 0.60W）；接續的段落沿用同一個舞台與站位，只用很短的淡入。
@@ -38,7 +38,7 @@ CHAPTER = {
     "id": "ch2_heron", "title": "第二章　鷺", "subtitle": "沉港市・霓虹市集",
     "end_title": "第二章　鷺　完",
     "teaser": "下一章：晴岸。明天從廣場貨梯去夾層診所，核對月報十七的原表。",
-    "release_note": "進度已保存。這一版收錄到第二章結束，第三章尚未收錄。",
+    "release_note": "進度已保存。",
 }
 
 SPEAKERS = {
@@ -862,15 +862,5 @@ def build_source() -> ProductionSource:
     _return_and_audit(source)
     _guest_book(source)
     _quests(source)
-    _route_back_to_choices(source)
+    route_back_to_choices(source, DISPATCH, "ch2")
     return source
-
-
-def _route_back_to_choices(source: ProductionSource):
-    """「選錯了再選一次」：提示段落接回剛才的選擇。接續不重播看過的段落，所以改經一個只有一條路線的分派回去。"""
-    for ident, segment in list(source.segments.items()):
-        target = segment.next_scene
-        if target and target in source.segments and source.segments[target].options and not target.startswith("ch2_dispatch_"):
-            binding = f"back_{target.removeprefix('ch2_t_')}"
-            DISPATCH.setdefault(binding, [target])
-            source.segments[ident] = dataclasses.replace(segment, next_scene=f"ch2_dispatch_{binding}")

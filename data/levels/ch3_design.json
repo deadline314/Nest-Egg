@@ -1,0 +1,208 @@
+{
+ "areas": {
+  "pawnshop": {
+   "combat": false,
+   "group": "pawnshop",
+   "features": {
+    "landmark": "櫃台與廚房的飯桌（x=50、x=93）：出門前與回家後的兩頓飯"
+   },
+   "encounters": []
+  },
+  "plaza": {
+   "combat": false,
+   "group": "plaza",
+   "features": {
+    "landmark": "貨梯纜輪與導軌（x=48）",
+    "reward": "高架維修盒（x=75，第 13 列）",
+    "shortcut": "外梯 SC5（x=60）接通後直達泵室上橋"
+   },
+   "encounters": []
+  },
+  "pump": {
+   "combat": true,
+   "group": "pump",
+   "features": {
+    "loop": "乾燥上橋（第 13 列）與下槽成環",
+    "secret": "下槽背面的工具櫃（x=74）",
+    "landmark": "排水輪（x=30，上橋上）",
+    "vertical": "上橋與下槽兩層",
+    "shortcut": "外梯 SC5（x=76）回廣場"
+   },
+   "encounters": [
+    {
+     "name": "下槽抽水巡檢器",
+     "lock": false,
+     "wave_zone": false,
+     "x0": 18,
+     "x1": 36,
+     "members": [],
+     "reinforcements": []
+    },
+    {
+     "name": "下槽絕緣巡檢器",
+     "lock": false,
+     "wave_zone": false,
+     "x0": 42,
+     "x1": 60,
+     "members": [],
+     "reinforcements": []
+    }
+   ]
+  },
+  "mezzanine": {
+   "combat": true,
+   "group": "mezzanine",
+   "features": {
+    "loop": "照護步道（第 14 列）與維修帶成環",
+    "landmark": "B5 電話亭（x=22）與朝內的診所招牌",
+    "secret": "公共通知終端的父女狀態（x=32，可選）",
+    "vertical": "維修帶與照護步道兩層",
+    "shortcut": "護理通道外段 SC6（x=66）回門禁大廳"
+   },
+   "encounters": [
+    {
+     "name": "維修帶雙巡檢器",
+     "lock": false,
+     "wave_zone": false,
+     "x0": 40,
+     "x1": 56,
+     "members": [],
+     "reinforcements": []
+    }
+   ]
+  },
+  "clinic": {
+   "combat": false,
+   "group": "clinic",
+   "features": {
+    "loop": "公開櫃檯與核閱工作廊之間的內側回門（x=47）",
+    "landmark": "芷姐的公開櫃檯（x=24）",
+    "secret": "寄存櫃第三個抽屜的錄音（x=76，可選）"
+   },
+   "encounters": []
+  },
+  "gate_hall": {
+   "combat": true,
+   "group": "gate_hall",
+   "features": {
+    "loop": "柱後的短上臺（x=43～50）繞到盾架背面",
+    "landmark": "守門人的櫃檯（x=30）",
+    "secret": "B6 安全前室的電話亭（x=10）",
+    "vertical": "大廳與短上臺",
+    "shortcut": "護理通道外段 SC6（x=58）回夾層"
+   },
+   "encounters": [
+    {
+     "name": "守門人／JANUS",
+     "lock": false,
+     "wave_zone": false,
+     "x0": 18,
+     "x1": 62,
+     "members": [],
+     "reinforcements": []
+    }
+   ]
+  },
+  "glass_edge": {
+   "combat": false,
+   "group": "glass_edge",
+   "features": {
+    "landmark": "地上的光斑（x=20）與觀景框（x=30）",
+    "secret": "觀景框的塔頂花園遠景（可選）"
+   },
+   "encounters": []
+  },
+  "showroom": {
+   "combat": false,
+   "group": "showroom",
+   "features": {
+    "loop": "三間樣品房圍著接待桌（x=16～62）",
+    "landmark": "接待桌（x=18）",
+    "secret": "三扇窗的完整比較（可選）"
+   },
+   "encounters": []
+  },
+  "office_hall": {
+   "combat": false,
+   "group": "office_hall",
+   "features": {
+    "landmark": "辦公內門與等候臺（x=28～36）"
+   },
+   "encounters": []
+  }
+ },
+ "curve": {
+  "掩護射擊": {
+   "intro": [
+    "street",
+    "接觸"
+   ],
+   "practice": [
+    "street",
+    "高台"
+   ],
+   "combine": [
+    "street",
+    "街心"
+   ],
+   "test": [
+    "street",
+    "路障"
+   ]
+  },
+  "格擋與衝刺": {
+   "intro": [
+    "street",
+    "格擋"
+   ],
+   "practice": [
+    "street",
+    "街心"
+   ],
+   "combine": [
+    "street",
+    "路障"
+   ],
+   "test": [
+    "vault",
+    "保險箱守衛"
+   ]
+  },
+  "近戰終結": {
+   "intro": [
+    "street",
+    "近戰"
+   ],
+   "practice": [
+    "warehouse",
+    "開關守衛"
+   ],
+   "combine": [
+    "warehouse",
+    "坑前"
+   ],
+   "test": [
+    "vault",
+    "保險箱守衛"
+   ]
+  },
+  "空中與高處": {
+   "intro": [
+    "street",
+    "空襲"
+   ],
+   "practice": [
+    "warehouse",
+    "高處無人機"
+   ],
+   "combine": [
+    "vault",
+    "階梯"
+   ],
+   "test": [
+    "vault",
+    "上層走道"
+   ]
+  }
+ }
+}

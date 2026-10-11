@@ -1,0 +1,83 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/props/credits_small.tres" id="3_credits_small"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_control_box.tres" id="4_ch3_control_box"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_water_gauge.tres" id="5_ch3_water_gauge"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_outer_ladder.tres" id="6_ch3_outer_ladder"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="7_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/market.tres" id="8_market"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch3_plaza.tres" id="9_ch3_plaza"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"plaza_lift"
+target_level = "res://data/levels/ch3_mezzanine.tres"
+target_portal = &"mezz_lift"
+requires_flag = &"ch3_freight_ready"
+locked_text = "貨梯的安全聯鎖還沒解除。先到泵室把水排掉，再回控制箱叫車廂。"
+prompt = "{interact} 搭貨梯上夾層"
+width = 32
+height = 56
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"plaza_street"
+target_level = "res://data/levels/ch3_pawnshop.tres"
+target_portal = &"pawn_front"
+prompt = "{interact} 回當舖"
+style = "door"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("2_portal_data")
+id = &"plaza_pump"
+target_level = "res://data/levels/ch3_pump.tres"
+target_portal = &"pump_plaza"
+prompt = "{interact} 走下路到泵室"
+width = 28
+height = 44
+style = "road"
+
+[sub_resource type="Resource" id="Resource_3"]
+script = ExtResource("2_portal_data")
+id = &"plaza_ladder"
+target_level = "res://data/levels/ch3_pump.tres"
+target_portal = &"pump_ladder"
+requires_flag = &"ch3_outer_ladder_down"
+locked_text = "外梯還收著，貨梯接通以後才能從這一側放下來。"
+prompt = "{interact} 走外梯到泵室上橋"
+style = "door"
+
+[sub_resource type="Resource" id="Resource_4"]
+script = ExtResource("7_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("8_market")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch3_plaza"
+display_name = "廣場貨梯"
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"L": SubResource("Resource_0"),
+"c": ExtResource("3_credits_small"),
+"h": SubResource("Resource_1"),
+"Ⅰ": SubResource("Resource_2"),
+"Ⅴ": SubResource("Resource_3"),
+"Ⓗ": ExtResource("4_ch3_control_box"),
+"Ⓘ": ExtResource("5_ch3_water_gauge"),
+"ⓢ": ExtResource("6_ch3_outer_ladder")
+})
+hints = PackedStringArray()
+chapter = &"ch3_clearwater"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("9_ch3_plaza")
+layout_path = "res://data/levels/ch3_plaza_map.json"
+lighting_zones = Array[ExtResource("7_lighting_zone")]([SubResource("Resource_4")])
+story_triggers = PackedStringArray()
+death_credit_cap = 250

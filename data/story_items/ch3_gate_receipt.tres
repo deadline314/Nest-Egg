@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch3_gate_receipt"
+display_name = "門禁停機回執"
+description = "診所委託停下門禁工作架的回執。守門人平安，坐回櫃檯休息。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 306
+chapter = &"ch3_clearwater"
+body = "門禁工作架停機處理完成。外部盾架、掃描臂與通訊器已斷電，維修插銷已拔除。人員平安，已由護理人員安置。處理報酬已結算。"
+trigger = 3
+icon = "doc_stub"

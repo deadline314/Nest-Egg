@@ -1,0 +1,63 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_register_cabinet.tres" id="3_ch3_register_cabinet"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_deposit_drawer.tres" id="4_ch3_deposit_drawer"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_reading_desk.tres" id="5_ch3_reading_desk"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_public_report.tres" id="6_ch3_public_report"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_nursing_board.tres" id="7_ch3_nursing_board"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_zhi.tres" id="8_ch3_zhi"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="9_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/clinic_ward.tres" id="10_clinic_ward"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch3_clinic.tres" id="11_ch3_clinic"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"clinic_mezz"
+target_level = "res://data/levels/ch3_mezzanine.tres"
+target_portal = &"mezz_clinic"
+prompt = "{interact} 回夾層通道"
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"clinic_gate"
+target_level = "res://data/levels/ch3_gate_hall.tres"
+target_portal = &"gate_clinic"
+requires_flag = &"ch3_report_reconciled"
+locked_text = "門禁大廳要夾層證。先在閱覽桌把三份公開資料核對完。"
+prompt = "{interact} 往門禁大廳"
+style = "door"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("9_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("10_clinic_ward")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch3_clinic"
+display_name = "夾層診所"
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"m": SubResource("Resource_0"),
+"ⅰ": SubResource("Resource_1"),
+"Ⓞ": ExtResource("3_ch3_register_cabinet"),
+"ⓓ": ExtResource("4_ch3_deposit_drawer"),
+"ⓔ": ExtResource("5_ch3_reading_desk"),
+"ⓟ": ExtResource("6_ch3_public_report"),
+"ⓣ": ExtResource("7_ch3_nursing_board"),
+"ⓩ": ExtResource("8_ch3_zhi")
+})
+hints = PackedStringArray()
+chapter = &"ch3_clearwater"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("11_ch3_clinic")
+layout_path = "res://data/levels/ch3_clinic_map.json"
+lighting_zones = Array[ExtResource("9_lighting_zone")]([SubResource("Resource_2")])
+story_triggers = PackedStringArray()
+death_credit_cap = 250

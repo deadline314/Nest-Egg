@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch3_trade_note"
+display_name = "凜的談話記錄"
+description = "凜在候梯迴廊記下的談話：老 K 交過她的備份，換了條件，沒問她。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 310
+chapter = &"ch3_clearwater"
+body = "老 K 對葉說：備份是他交的，條件是停掉危險的派案；他沒讓我看。葉說資料在天穹保管，交付人是他。價碼、原因與協議全文都沒聽到。"
+trigger = 3
+icon = "doc_log"

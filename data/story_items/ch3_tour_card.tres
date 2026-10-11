@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch3_tour_card"
+display_name = "晴岸看房卡"
+description = "林小姐給的看房卡。三間都是四十八萬，差在朝向、光照與安靜。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 307
+chapter = &"ch3_clearwater"
+body = "晴岸的三間樣品房總價都是480,000。A晨窗朝東，上午八到十點最亮。B靜窗朝北，少有直射的陽光，路聲也低。C晚窗朝西，下午兩到四點最亮。提案欄只記提案，不是預留名額。"
+trigger = 3
+icon = "doc_flyer"

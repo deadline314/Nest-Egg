@@ -1,0 +1,68 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_old_k_kitchen.tres" id="3_ch3_old_k_kitchen"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_shop_radio.tres" id="4_ch3_shop_radio"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_unsigned_record.tres" id="5_ch3_unsigned_record"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_old_k.tres" id="6_ch3_old_k"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="7_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/rooftop.tres" id="8_rooftop"]
+[ext_resource type="Resource" path="res://data/lighting/pawnshop_warm.tres" id="9_pawnshop_warm"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch3_pawnshop.tres" id="10_ch3_pawnshop"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"pawn_front"
+target_level = "res://data/levels/ch3_plaza.tres"
+target_portal = &"plaza_street"
+requires_flag = &"ch3_departure_done"
+locked_text = "先和老 K 吃完早飯，確認今天要出門。"
+prompt = "{interact} 出門去廣場貨梯"
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"pawn_basement"
+locked_text = "地下室的門鎖著，老 K 說裡面在漏水。"
+prompt = "{interact} 地下室"
+width = 32
+height = 48
+style = "hidden"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("7_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("8_rooftop")
+
+[sub_resource type="Resource" id="Resource_3"]
+script = ExtResource("7_lighting_zone")
+start_tile = 30
+blend_tiles = 6
+profile = ExtResource("9_pawnshop_warm")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch3_pawnshop"
+display_name = "當舖（週日）"
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"F": SubResource("Resource_0"),
+"K": SubResource("Resource_1"),
+"Ⓜ": ExtResource("3_ch3_old_k_kitchen"),
+"Ⓡ": ExtResource("4_ch3_shop_radio"),
+"ⓜ": ExtResource("5_ch3_unsigned_record"),
+"ⓞ": ExtResource("6_ch3_old_k")
+})
+hints = PackedStringArray()
+chapter = &"ch3_clearwater"
+persistent_world = true
+show_chapter_card = true
+environment = ExtResource("10_ch3_pawnshop")
+layout_path = "res://data/levels/ch3_pawnshop_map.json"
+lighting_zones = Array[ExtResource("7_lighting_zone")]([SubResource("Resource_2"), SubResource("Resource_3")])
+story_triggers = PackedStringArray()
+complete_on_flag = &"ch3_shore_closed"
+death_credit_cap = 250

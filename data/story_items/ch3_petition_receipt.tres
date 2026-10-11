@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch3_petition_receipt"
+display_name = "異議回執"
+description = "三處核閱一致，公開3%與追蹤11%不一致，已要求原發布端回覆。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 304
+chapter = &"ch3_clearwater"
+body = "公開查核Q17的異議回執。三處核閱的結果一致：公開報表寫3%，同批追蹤是11%。診所已要求原發布端回覆。本回執不等於報表已經更正。"
+trigger = 3
+icon = "doc_stub"

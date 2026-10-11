@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch3_roster_n17"
+display_name = "護理輪班表N17副本"
+description = "白班與晚班各十一個編號，兩班合計二十二次，人數是十一名。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 302
+chapter = &"ch3_clearwater"
+body = "月報17同批錨人在三十日的白班與晚班追蹤。兩班記的是同樣的十一個編號，也就是公開頁的三名加上轉存的八名。交班檢視共有22次，人數是11名。"
+trigger = 3
+icon = "doc_log"

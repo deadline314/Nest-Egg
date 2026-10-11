@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch3_report_p17"
+display_name = "公開報表P17副本"
+description = "公開報表寫著同批一百人、耗損比例3%，頁尾排除了八個編號。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 301
+chapter = &"ch3_clearwater"
+body = "月報17的觀察對象是同批錨人100名，編號從R17-001到R17-100。公開結論寫達持續護理標準的有3名，公開耗損比例是3%。頁尾另外註記八個編號列為轉存、不計入護理人數，轉存去向寫著帳房。八個編號：R17-012、018、024、037、053、067、082、096。"
+trigger = 3
+icon = "doc_notice"

@@ -1,0 +1,69 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_scanner_gate.tres" id="3_ch3_scanner_gate"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_gatekeeper.tres" id="4_ch3_gatekeeper"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="5_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/facility.tres" id="6_facility"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch3_gate_hall.tres" id="7_ch3_gate_hall"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"gate_care"
+target_level = "res://data/levels/ch3_mezzanine.tres"
+target_portal = &"mezz_care"
+requires_flag = &"ch3_care_passage_open"
+locked_text = "護理通道的外門還鎖著，門禁工作架停下來才會打開。"
+prompt = "{interact} 走護理通道外段回夾層"
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"gate_clinic"
+target_level = "res://data/levels/ch3_clinic.tres"
+target_portal = &"clinic_gate"
+prompt = "{interact} 回診所櫃檯"
+style = "door"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("2_portal_data")
+id = &"gate_lift"
+target_level = "res://data/levels/ch3_glass_edge.tres"
+target_portal = &"edge_lift"
+requires_flag = &"ch3_janus_aftercare_done"
+locked_text = "門禁工作架還擋著邊緣電梯，先讓守門人停下來。"
+prompt = "{interact} 搭邊緣電梯上去"
+width = 32
+height = 56
+style = "door"
+
+[sub_resource type="Resource" id="Resource_3"]
+script = ExtResource("5_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("6_facility")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch3_gate_hall"
+display_name = "門禁大廳"
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"Ⅷ": SubResource("Resource_0"),
+"ⅱ": SubResource("Resource_1"),
+"ⅲ": SubResource("Resource_2"),
+"Ⓖ": ExtResource("3_ch3_scanner_gate"),
+"ⓙ": ExtResource("4_ch3_gatekeeper")
+})
+hints = PackedStringArray()
+chapter = &"ch3_clearwater"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("7_ch3_gate_hall")
+layout_path = "res://data/levels/ch3_gate_hall_map.json"
+lighting_zones = Array[ExtResource("5_lighting_zone")]([SubResource("Resource_3")])
+channel_done_flags = Dictionary[StringName, StringName]({&"ch3_janus_down": &"ch3_janus_disabled"})
+story_triggers = PackedStringArray()
+death_credit_cap = 250

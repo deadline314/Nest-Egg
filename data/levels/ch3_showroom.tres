@@ -1,0 +1,60 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=13 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_window_morning.tres" id="3_ch3_window_morning"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_window_quiet.tres" id="4_ch3_window_quiet"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_window_late.tres" id="5_ch3_window_late"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_lin.tres" id="6_ch3_lin"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="7_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/sunny_day.tres" id="8_sunny_day"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch3_showroom.tres" id="9_ch3_showroom"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"show_edge"
+target_level = "res://data/levels/ch3_glass_edge.tres"
+target_portal = &"edge_show"
+prompt = "{interact} 回玻璃邊緣"
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"show_hall"
+target_level = "res://data/levels/ch3_office_hall.tres"
+target_portal = &"hall_show"
+requires_flag = &"ch3_clearwater_tour_done"
+locked_text = "先在接待桌確認看房，林小姐會告訴您取件格在哪裡。"
+prompt = "{interact} 往候梯迴廊取回執"
+style = "door"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("7_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("8_sunny_day")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch3_showroom"
+display_name = "晴岸樣品房"
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"Ⅹ": SubResource("Resource_0"),
+"ⅶ": SubResource("Resource_1"),
+"Ⓐ": ExtResource("3_ch3_window_morning"),
+"Ⓑ": ExtResource("4_ch3_window_quiet"),
+"Ⓤ": ExtResource("5_ch3_window_late"),
+"ⓛ": ExtResource("6_ch3_lin")
+})
+hints = PackedStringArray()
+chapter = &"ch3_clearwater"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("9_ch3_showroom")
+layout_path = "res://data/levels/ch3_showroom_map.json"
+lighting_zones = Array[ExtResource("7_lighting_zone")]([SubResource("Resource_2")])
+story_triggers = PackedStringArray()
+rain = false
+death_credit_cap = 250

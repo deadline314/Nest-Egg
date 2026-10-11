@@ -522,6 +522,19 @@ func _test_story_integration() -> void:
 	Story.play(&"test_anim_scene", false)
 	await frames(3)
 	check(player_done[0], "開啟略過設定後動畫場景立刻結束")
+	# 有選擇的場景照常播出：略過設定不能替玩家選預設，否則需要決定的劇情永遠推不動。
+	Story._scenes["test_choice_scene"] = {"mode": "animated", "overlay": true, "steps": [
+		{"do": "say", "speaker": "rin", "text": "要現在出門嗎？"},
+		{"do": "choice", "text": "要現在出門嗎？", "default": "later", "options": [
+			{"id": "go", "text": "現在出門。", "explanation": "測試用的選項。"},
+			{"id": "later", "text": "等一下再說。", "explanation": "測試用的選項。"}]}]}
+	check(Story.offers_choice(Story._scenes["test_choice_scene"]), "a scene with a choice step is recognised as offering a choice")
+	Story.play(&"test_choice_scene", false)
+	await frames(3)
+	check(Story.is_cinematic_active() and Story._current_cinematic == &"test_choice_scene", "開啟略過設定時，有選擇的場景照常播出讓玩家選")
+	Story.skip_cinematic()
+	await frames(3)
+	Story._scenes.erase("test_choice_scene")
 	Settings.set_skip_cutscenes(false)
 	Story.scene_started.disconnect(on_started)
 	Story._scenes.erase("test_anim_scene")

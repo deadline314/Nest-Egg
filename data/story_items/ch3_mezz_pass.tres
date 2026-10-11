@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch3_mezz_pass"
+display_name = "夾層證：公開查核"
+description = "芷姐親手發的證，只開診所側通道與邊緣電梯。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 305
+chapter = &"ch3_clearwater"
+body = "夾層證（公開查核）。放行範圍：診所側通道、護理通道外段、邊緣電梯與晴岸展示接待層。不開病房內門、廠房、塔與住宅內區。"
+trigger = 3
+icon = "maintenance_pass"

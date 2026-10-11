@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch3_intake_receipt"
+display_name = "接待收件回執"
+description = "風控接待收下月報17查核件的回執。只確認收件，不是答覆。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 309
+chapter = &"ch3_clearwater"
+body = "風控接待收件：月報17查核件。收件人：風控接待。本回執只確認收件，回覆走原發布端。"
+trigger = 3
+icon = "doc_stub"

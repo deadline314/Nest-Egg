@@ -1,0 +1,59 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Resource" path="res://data/props/credits_small.tres" id="2_credits_small"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="3_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_drain_wheel.tres" id="4_ch3_drain_wheel"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_branch_panel.tres" id="5_ch3_branch_panel"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="6_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/power_room.tres" id="7_power_room"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch3_pump.tres" id="8_ch3_pump"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("3_portal_data")
+id = &"pump_plaza"
+target_level = "res://data/levels/ch3_plaza.tres"
+target_portal = &"plaza_pump"
+prompt = "{interact} 回廣場"
+width = 28
+height = 44
+style = "road"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("3_portal_data")
+id = &"pump_ladder"
+target_level = "res://data/levels/ch3_plaza.tres"
+target_portal = &"plaza_ladder"
+requires_flag = &"ch3_outer_ladder_down"
+locked_text = "外梯收在廣場那一側，貨梯接通後從控制箱旁放下來。"
+prompt = "{interact} 走外梯回廣場貨梯"
+style = "door"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("6_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("7_power_room")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch3_pump"
+display_name = "集水槽與泵室"
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"c": ExtResource("2_credits_small"),
+"Ⅱ": SubResource("Resource_0"),
+"Ⅵ": SubResource("Resource_1"),
+"Ⓙ": ExtResource("4_ch3_drain_wheel"),
+"Ⓚ": ExtResource("5_ch3_branch_panel")
+})
+hints = PackedStringArray()
+chapter = &"ch3_clearwater"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("8_ch3_pump")
+layout_path = "res://data/levels/ch3_pump_map.json"
+lighting_zones = Array[ExtResource("6_lighting_zone")]([SubResource("Resource_2")])
+story_triggers = PackedStringArray()
+death_credit_cap = 250

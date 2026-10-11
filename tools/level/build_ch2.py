@@ -456,7 +456,8 @@ def main():
     kit.write_level(by_id['pawnshop'], show_card=True)
     for ident in ('rooftop', 'harbor_street', 'market_gate', 'market', 'ali_home', 'loading', 'ledger_front', 'ledger_office',
                   'lounge_front'):
-        extra = {'complete_on_flag': '&"ch2_heron_closed"'} if ident == 'rooftop' else {}
+        # 屋頂的章末接第三章的週日早上（當舖）。
+        extra = {'complete_on_flag': '&"ch2_heron_closed"', 'next_level': '"res://data/levels/ch3_pawnshop.tres"'} if ident == 'rooftop' else {}
         kit.write_level(by_id[ident], **extra)
 
 

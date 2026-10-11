@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch3_review_slip"
+display_name = "核閱號Q17"
+description = "芷姐給的只讀核閱號。可以看三份公開資料，不是通行證。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 300
+chapter = &"ch3_clearwater"
+body = "夾層診所公開查核：核閱號Q17。可閱覽月報17的公開報表、護理輪班表與追蹤名冊。資料都用編號，不含姓名。本號不開病房內門。"
+trigger = 3
+icon = "doc_stub"

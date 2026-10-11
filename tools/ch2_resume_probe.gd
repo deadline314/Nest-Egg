@@ -86,7 +86,7 @@ func _run() -> void:
 		await _write()
 	else:
 		await _continue()
-	print("CH2_RESUME_PROBE mode=%s failures=%d" % [_mode, _failures])
+	print("RESUME_PROBE %s mode=%s failures=%d" % [level_pattern.get_file().trim_suffix("_%s.tres"), _mode, _failures])
 	_main.call("_quit", 1 if _failures > 0 else 0)
 
 
@@ -99,6 +99,12 @@ func _write() -> void:
 			started = _main.get("_active_run")
 		await _settle(30)
 	_check(_main_level() != null, "a new game from Main enters the first area")
+	# 開場演出還在播時寫入的東西會在換區時跟著演出一起撤回：先像玩家一樣看完開場，再帶入前章的結果。
+	for i in STEP_LIMIT:
+		if not Story.is_cinematic_active():
+			break
+		Story.skip_cinematic()
+		await _settle(4)
 	# 第一章收尾的真實結果（宵夜留下、初次建檔已做過），再從當舖的早上開始。
 	for done in [&"ch1_complete", &"ch1_handoff_done", &"ch1_supper_done", &"ledger_disk_obtained", &"knows_ali_address", &"ch1_first_death_done"]:
 		GameState.set_flag(done)

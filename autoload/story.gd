@@ -21,6 +21,8 @@ const CHAPTER_PATHS: Array[String] = [
 	"res://data/story/ch1_kasa.json",
 	# 第二章「鷺」（ST-19）：劇本由 tools/story/build_ch2_story.py 產生。
 	"res://data/story/ch2_heron.json",
+	# 第三章「晴岸」（ST-21）：劇本由 tools/story/build_ch3_story.py 產生。
+	"res://data/story/ch3_clearwater.json",
 	# 動畫過場（只有 scenes，用 for_chapter 指明屬於哪一章）。
 	"res://data/story/cutscenes_ch1.json",
 	"res://data/story/cutscenes_ch2.json",
@@ -941,7 +943,8 @@ func _start_cinematic(id: StringName, context: Dictionary = {}, request := 0) ->
 			outcomes.context_facts[str(key)] = true
 		_context_request = request
 	scene_started.emit(id, MODE_ANIMATED if animated else MODE_CINEMATIC)
-	if auto_skip or Settings.get_skip_cutscenes():
+	# 「略過過場動畫」只略過看的部分：要玩家做決定的場景照常播，不然預設選項會讓出門、交付這類決定永遠選不到。
+	if auto_skip or (Settings.get_skip_cutscenes() and not offers_choice(scene)):
 		apply_default_choices(scene)
 		_finish_auto_skip.call_deferred(id, _presentation_generation)
 		return
@@ -1090,6 +1093,24 @@ func apply_choice(option: Dictionary) -> void:
 
 
 ## Skip uses explicit defaults, so gates cannot depend on an unanswered question.
+## 場景裡有沒有要玩家做的選擇（含分支裡的選擇）。
+func offers_choice(scene: Dictionary) -> bool:
+	return _steps_offer_choice(scene.get("steps", []))
+
+
+func _steps_offer_choice(raw: Variant) -> bool:
+	if not raw is Array:
+		return false
+	for step: Variant in raw:
+		if not step is Dictionary:
+			continue
+		if step.get("do") == "choice":
+			return true
+		if step.get("do") == "branch" and (_steps_offer_choice(step.get("steps", [])) or _steps_offer_choice(step.get("else_steps", []))):
+			return true
+	return false
+
+
 func apply_default_choices(scene: Dictionary) -> void:
 	_resolve_skipped_steps(scene.get("steps", []))
 

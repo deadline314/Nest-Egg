@@ -24,7 +24,10 @@ sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools/story"))
 
+import dataclasses  # noqa: E402
+
 import story_i18n  # noqa: E402
+from ch1_closure import render_document_resource  # noqa: E402
 from ch1_runtime_backend import CompileError, _bubble_ok, _results, _say_lines, _walk  # noqa: E402
 
 DIALOGUE_MIN_LINES = 3
@@ -238,3 +241,39 @@ def write_chapter(spec: ChapterSpec, out_path: Path) -> list[str]:
     if missing:
         print(f"缺譯 {len(missing)} 處（補在 tools/story/i18n/{spec.chapter['id']}.json）：" + "；".join(missing[:5]), file=sys.stderr)
     return missing
+
+
+# ---------------------------------------------------------------------------
+# 各章共用的作者工具：答錯再選一次、劇情文件與交易資源的輸出
+# ---------------------------------------------------------------------------
+
+def route_back_to_choices(source, dispatch: dict, prefix: str):
+    """「選錯了再選一次」：提示段落接回剛才的選擇。接續不重播看過的段落，所以改經一個只有一條路線的分派回去。"""
+    talk_prefix = f"{prefix}_t_"
+    for ident, segment in list(source.segments.items()):
+        target = segment.next_scene
+        if target and target in source.segments and source.segments[target].options and not target.startswith(f"{prefix}_dispatch_"):
+            binding = f"back_{target.removeprefix(talk_prefix)}"
+            dispatch.setdefault(binding, [target])
+            source.segments[ident] = dataclasses.replace(segment, next_scene=f"{prefix}_dispatch_{binding}")
+
+
+def write_documents(source, chapter_id: str, item_dir: Path, order_base: int):
+    """劇情文件 → data/story_items/<id>.tres（排序值從 order_base 起，章節欄位寫本章）。"""
+    for order, (ident, document) in enumerate(source.documents.items()):
+        text = render_document_resource(ident, document, order_base + order).replace('chapter = &"ch1_kasa"', f'chapter = &"{chapter_id}"')
+        (item_dir / f"{ident}.tres").write_text(text, encoding="utf-8")
+
+
+def write_transactions(transactions: dict, transaction_dir: Path, owned_prefix: str):
+    """本章的交易資源 → data/story_transactions/<檔名>.tres。只寫本章前綴的交易；前章的交易由前章維護，這裡只引用。"""
+    for canonical, (filename, amount) in transactions.items():
+        if not canonical.startswith(owned_prefix):
+            continue
+        text = "\n".join([
+            '[gd_resource type="Resource" script_class="StoryTransactionData" load_steps=2 format=3]', "",
+            '[ext_resource type="Script" path="res://data/scripts/story_transaction_data.gd" id="1_script"]', "",
+            "[resource]", 'script = ExtResource("1_script")', f'id = &"{canonical}"', "definition_version = 1",
+            f"credits_delta = {amount}", ""])
+        (transaction_dir / f"{filename}.tres").write_text(text, encoding="utf-8")
+

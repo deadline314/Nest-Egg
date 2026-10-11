@@ -14,31 +14,12 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools/story"))
 
 import ch2_source  # noqa: E402
-from ch1_closure import render_document_resource  # noqa: E402
 from ch1_runtime_backend import DEATH_SEQUENCES  # noqa: E402
-from chapter_compiler import ChapterSpec, CompileError, write_chapter  # noqa: E402
+from chapter_compiler import ChapterSpec, CompileError, write_chapter, write_documents, write_transactions  # noqa: E402
 
 OUT = ROOT / "data/story/ch2_heron.json"
 ITEM_DIR = ROOT / "data/story_items"
 TRANSACTION_DIR = ROOT / "data/story_transactions"
-
-
-def _write_documents(source):
-    for order, (ident, document) in enumerate(source.documents.items()):
-        text = render_document_resource(ident, document, 200 + order).replace('chapter = &"ch1_kasa"', 'chapter = &"ch2_heron"')
-        (ITEM_DIR / f"{ident}.tres").write_text(text, encoding="utf-8")
-
-
-def _write_transactions():
-    for canonical, (filename, amount) in ch2_source.TRANSACTIONS.items():
-        if canonical.startswith("ch1."):
-            continue  # 第一章的委託結算資源由第一章維護，這裡只引用
-        text = "\n".join([
-            '[gd_resource type="Resource" script_class="StoryTransactionData" load_steps=2 format=3]', "",
-            '[ext_resource type="Script" path="res://data/scripts/story_transaction_data.gd" id="1_script"]', "",
-            "[resource]", 'script = ExtResource("1_script")', f'id = &"{canonical}"', "definition_version = 1",
-            f"credits_delta = {amount}", ""])
-        (TRANSACTION_DIR / f"{filename}.tres").write_text(text, encoding="utf-8")
 
 
 def spec() -> ChapterSpec:
@@ -55,8 +36,8 @@ def spec() -> ChapterSpec:
 def main():
     try:
         chapter = spec()
-        _write_documents(chapter.source)
-        _write_transactions()
+        write_documents(chapter.source, "ch2_heron", ITEM_DIR, 200)
+        write_transactions(ch2_source.TRANSACTIONS, TRANSACTION_DIR, "ch2.")
         write_chapter(chapter, OUT)
     except CompileError as error:
         print(str(error), file=sys.stderr)

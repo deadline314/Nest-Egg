@@ -42,4 +42,5 @@ layout_path = "res://data/levels/ch2_rooftop_map.json"
 lighting_zones = Array[ExtResource("4_lighting_zone")]([SubResource("Resource_1")])
 story_triggers = PackedStringArray()
 complete_on_flag = &"ch2_heron_closed"
+next_level = "res://data/levels/ch3_pawnshop.tres"
 death_credit_cap = 250

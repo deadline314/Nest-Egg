@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch3_ahan_tape"
+display_name = "阿翰的錄音"
+description = "寄存櫃借出的家屬尋人錄音。要找到收件人，不能賣也不能當。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 308
+chapter = &"ch3_clearwater"
+body = "這卷錄音的錄音者是阿翰，片頭他先說出自己的名字，請收件人聽他把名字說完。借出單由芷姐保管，找到收件人後要拿回寄存櫃歸還。"
+trigger = 3
+icon = "recording"

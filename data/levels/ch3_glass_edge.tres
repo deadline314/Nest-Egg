@@ -1,0 +1,74 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=13 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_light_spot.tres" id="3_ch3_light_spot"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_telescope.tres" id="4_ch3_telescope"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="5_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/sunlit_edge.tres" id="6_sunlit_edge"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch3_glass_edge.tres" id="7_ch3_glass_edge"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_portal_data")
+id = &"edge_lift"
+target_level = "res://data/levels/ch3_gate_hall.tres"
+target_portal = &"gate_lift"
+prompt = "{interact} 搭邊緣電梯下去"
+width = 32
+height = 56
+style = "door"
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("2_portal_data")
+id = &"edge_homes"
+locked_text = "住宅內區需要正式參觀證，今天只開展示接待。"
+prompt = "{interact} 住宅內區"
+style = "door"
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("2_portal_data")
+id = &"edge_show"
+target_level = "res://data/levels/ch3_showroom.tres"
+target_portal = &"show_edge"
+prompt = "{interact} 進晴岸展示接待"
+style = "door"
+
+[sub_resource type="Resource" id="Resource_3"]
+script = ExtResource("2_portal_data")
+id = &"edge_hall"
+target_level = "res://data/levels/ch3_office_hall.tres"
+target_portal = &"hall_edge"
+prompt = "{interact} 走候梯迴廊"
+style = "door"
+
+[sub_resource type="Resource" id="Resource_4"]
+script = ExtResource("5_lighting_zone")
+start_tile = 0
+blend_tiles = 12
+profile = ExtResource("6_sunlit_edge")
+
+[resource]
+script = ExtResource("1_level_data")
+id = &"ch3_glass_edge"
+display_name = "玻璃邊緣"
+tile_size = 16
+height = 24
+legend = Dictionary[String, Resource]({
+"Ⅸ": SubResource("Resource_0"),
+"ⅳ": SubResource("Resource_1"),
+"ⅴ": SubResource("Resource_2"),
+"ⅵ": SubResource("Resource_3"),
+"Ⓟ": ExtResource("3_ch3_light_spot"),
+"Ⓠ": ExtResource("4_ch3_telescope")
+})
+hints = PackedStringArray()
+chapter = &"ch3_clearwater"
+persistent_world = true
+show_chapter_card = false
+environment = ExtResource("7_ch3_glass_edge")
+layout_path = "res://data/levels/ch3_glass_edge_map.json"
+lighting_zones = Array[ExtResource("5_lighting_zone")]([SubResource("Resource_4")])
+intro_scene = &"ch3_c13_arrive"
+story_triggers = PackedStringArray()
+rain = false
+death_credit_cap = 250

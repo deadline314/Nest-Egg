@@ -42,7 +42,7 @@ func _test_scene_data() -> void:
 		check(CutsceneChecker.validate(String(id), scene, Story._speakers).is_empty(), "動畫過場通過檢查：%s" % id)
 		check(_says(scene).size() <= MAX_SAYS, "動畫過場台詞不超過 %d 句：%s" % [MAX_SAYS, id])
 	check(bool(_scene(&"cut_c8_arm_noise").get("overlay", false)) and bool(_scene(&"cut_c9_alarm").get("overlay", false)), "右臂雜訊與燈幕警報是疊加演出")
-	check(Story.chapter_ids().size() == 4, "只提供場景的檔案不會多出章節（舊的兩章加上第一章「傘」與第二章「鷺」；%s）" % [Story.chapter_ids()])
+	check(Story.chapter_ids().size() == 5, "只提供場景的檔案不會多出章節（舊的兩章加上第一章「傘」、第二章「鷺」與第三章「晴岸」；%s）" % [Story.chapter_ids()])
 	check(not Story.chapter_info(&"chapter_01").is_empty() and not Story.chapter_info(&"chapter_02").is_empty(), "章節資訊沒有被場景檔覆蓋")
 
 

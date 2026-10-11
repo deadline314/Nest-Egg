@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"ch3_register_t17"
+display_name = "追蹤名冊T17副本"
+description = "轉介的八個編號仍在同批、月底仍需持續護理。"
+color = Color(0.78, 0.86, 0.92, 1.0)
+category = 0
+order = 303
+chapter = &"ch3_clearwater"
+body = "母群：1日建檔的同批錨人100名，換院不移出本月母群。本站持續護理3名；轉介仍追蹤8名，月底仍達持續護理標準。轉介完成只代表換了院區，不是治癒。"
+trigger = 3
+icon = "doc_log"

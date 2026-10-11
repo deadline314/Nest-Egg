@@ -8,94 +8,21 @@ const AREAS: PackedStringArray = ["pawnshop", "rooftop", "harbor_street", "marke
 		"ledger_front", "ledger_office", "lounge_front"]
 const LEVEL := "res://data/levels/ch2_%s.tres"
 
-var _datas: Dictionary[String, LevelData] = {}
+const Checks := preload("res://tests/helpers/chapter_story_checks.gd")
+
+var _datas: Dictionary = {}
 
 
 func run() -> void:
-	for id in AREAS:
-		var data := load(LEVEL % id) as LevelData
-		check(data != null and data.chapter == &"ch2_heron", "ch2_%s loads and belongs to chapter 2" % id)
-		if data != null:
-			_datas[id] = data
-	_test_portals()
-	_test_entries()
-	_test_quest_markers()
+	_datas = Checks.load_areas(self, "ch2", &"ch2_heron", AREAS)
+	Checks.check_portals(self, "chapter 2", _datas)
+	Checks.check_entries(self, "chapter 2", _datas, 20)
+	Checks.check_quest_markers(self, "chapter 2", "ch2", "res://data/story/ch2_heron.json", _datas, 18)
 	_test_story_gates()
 	_test_ledger_install()
 	_test_street_line()
-	_test_staging()
+	Checks.check_staging(self, "chapter 2", "ch2", 8)
 	await _test_chapter_link()
-
-
-## 每個有目標的出入口：目標區域存在，而且那一頭有同名的回程出入口指回來。
-func _test_portals() -> void:
-	var broken := PackedStringArray()
-	for id in _datas:
-		for key: String in _datas[id].legend:
-			var portal := _datas[id].legend[key] as PortalData
-			if portal == null or portal.target_level.is_empty():
-				continue
-			var target := load(portal.target_level) as LevelData if ResourceLoader.exists(portal.target_level) else null
-			var back := _portal(target, portal.target_portal) if target != null else null
-			if back == null or back.target_level != _datas[id].resource_path or back.target_portal != portal.id:
-				broken.append("%s/%s→%s/%s" % [id, portal.id, portal.target_level.get_file(), portal.target_portal])
-	check(broken.is_empty(), "every chapter 2 portal has a matching way back: %s" % [broken])
-
-
-func _portal(data: LevelData, id: StringName) -> PortalData:
-	for key: String in data.legend:
-		var portal := data.legend[key] as PortalData
-		if portal != null and portal.id == id:
-			return portal
-	return null
-
-
-## 每個人物與物件的入口都是劇本裡的分派場景，而且每條路線都接到存在的段落。
-func _test_entries() -> void:
-	var problems := PackedStringArray()
-	var count := 0
-	for id in _datas:
-		for key: String in _datas[id].legend:
-			var npc := _datas[id].legend[key] as NpcData
-			if npc == null:
-				continue
-			count += 1
-			for talk in npc.talks:
-				if not Story.has_scene(talk.scene) or Story.scene_mode(talk.scene) == &"":
-					problems.append("%s:%s" % [npc.id, talk.scene])
-				for route: Variant in (Story._scenes.get(String(talk.scene), {}) as Dictionary).get("routes", []):
-					if not Story.has_scene(StringName(str((route as Dictionary).get("target", "")))):
-						problems.append("%s→%s" % [talk.scene, route])
-	check(count >= 20 and problems.is_empty(), "all %d chapter 2 people and objects lead into the script: %s" % [count, problems])
-
-
-## 任務步驟的地圖位置就是那個人物或物件站的格子（地圖與任務頁讀的是同一份資料）。
-func _test_quest_markers() -> void:
-	var catalog := QuestCatalog.new()
-	catalog.load_story_sources()
-	check(catalog.issues.is_empty(), "the chapter 2 quests load without issues: %s" % [catalog.issues])
-	var misplaced := PackedStringArray()
-	var steps := 0
-	for quest: Dictionary in _raw_quests():
-		for step: Dictionary in quest.get("steps", []):
-			steps += 1
-			var location: Dictionary = step.get("location", {})
-			var level := str(location.get("level", ""))
-			var area := level.get_file().get_basename().trim_prefix("ch2_")
-			var cell: Array = location.get("cell", [])
-			if not _datas.has(area) or cell.size() != 2:
-				misplaced.append("%s：%s" % [quest.get("id"), level])
-				continue
-			var layout := LevelBuilder.parse(_datas[area])
-			var glyph := layout.cell(int(cell[0]), int(cell[1]))
-			if not _datas[area].legend.has(glyph) or not _datas[area].legend[glyph] is NpcData:
-				misplaced.append("%s 的「%s」在 %s (%d,%d) 是 %s" % [quest.get("id"), step.get("title"), area, cell[0], cell[1], glyph])
-	check(steps >= 18 and misplaced.is_empty(), "every chapter 2 quest step points at its person or object (%d steps): %s" % [steps, misplaced])
-
-
-func _raw_quests() -> Array:
-	var data: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/story/ch2_heron.json"))
-	return (data as Dictionary).get("quests", []) if data is Dictionary else []
 
 
 ## 劇情依進度挑段落：鷺（簡報→話題→章末）、對帳桌（缺什麼說什麼→對帳→回訪）、早上的反應依昨晚的宵夜。
@@ -153,26 +80,13 @@ func _test_street_line() -> void:
 	check(is_equal_approx(layout.surface_heights[40], 13.0 * layout.tile_size), "the canopy is still the top surface of its columns")
 
 
-## 屋頂的茶是正式過場：演員腳底在對話框之上、頭不進黑邊、場景資料通過檢查（同第一章的規則）。
-func _test_staging() -> void:
-	var checked := 0
-	var problems := PackedStringArray()
-	for id in Story.scene_ids():
-		var scene: Dictionary = Story._scenes[id]
-		if not str(id).begins_with("ch2_") or str(scene.get("mode", "")) != "animated" or bool(scene.get("overlay", false)):
-			continue
-		checked += 1
-		problems.append_array(CutsceneChecker.validate(String(id), scene, Story._speakers))
-		problems.append_array(CutsceneChecker.staging_problems(String(id), scene))
-	check(checked >= 8 and problems.is_empty(), "the %d staged chapter 2 scenes pass the cutscene and framing checks: %s" % [checked, problems])
-
-
 ## 第一章的天亮章末接第二章的早上；屋頂的章末對話寫下旗標就結束本章。
 func _test_chapter_link() -> void:
 	var dawn := load("res://data/levels/ch1_pawnshop_dawn.tres") as LevelData
 	check(dawn != null and dawn.next_level == LEVEL % "pawnshop", "chapter 1 ends into the chapter 2 morning")
 	var rooftop: LevelData = _datas.get("rooftop")
 	check(rooftop != null and rooftop.complete_on_flag == &"ch2_heron_closed", "the rooftop ends chapter 2 on its flag")
+	check(rooftop != null and rooftop.next_level == "res://data/levels/ch3_pawnshop.tres", "the end of chapter 2 leads into the chapter 3 morning")
 	if rooftop == null:
 		return
 	GameState.start_new_run(GameState.difficulties[1])
