@@ -492,17 +492,15 @@ func _test_watchdog_head_shot() -> void:
 	var body := dog.hurtbox.center() + Vector2(0, 12)
 	var body_hits := await _shot(dog, body + Vector2(-140, 0), body)
 	check(body_hits.size() == 1 and body_hits[0][0] == &"blocked" and body_hits[0][1] == &"", "the armoured body deflects a body shot: %s" % [body_hits])
-	# 真正的玩家：站在地上斜向上瞄準抬起的頭開一槍。
+	# 真正的玩家：站在牠背後的地上，斜向上瞄準抬起的頭開一槍（從正面打，舉著的槍臂會先擋住，那是正確的遮擋）。
 	await _freeze_facing(dog, -1)
 	await _open_watchdog_head(dog as PatternBoss)
 	var player := level.player
-	place_player(dog.global_position.x / 16.0 - 9.0)
+	place_player(dog.global_position.x / 16.0 + 9.0)
 	player.set_physics_process(false)
 	await physics_frames(2)
-	await frames(3)  # 槍口取自畫面上的骨架，移動玩家後要等畫面更新
 	var head := _head_center(dog)
-	player.aim_dir = (head - player.muzzle_position()).normalized()
-	player.facing = 1
+	await _settle_player_aim(player, head)
 	var hits: Array = []
 	var record := func(info: DamageInfo) -> void: hits.append([info.part, info.weak_hit])
 	dog.health.damaged.connect(record)
@@ -512,6 +510,22 @@ func _test_watchdog_head_shot() -> void:
 	check(hits.size() == 1 and hits[0][0] == &"head" and hits[0][1], "the real player pistol aimed at the raised head scores a head hit: %s" % [hits])
 	player.set_physics_process(true)
 	await end_level(level)
+
+
+## 先換成沒有隨機散佈的同一把手槍（這裡量的是命中判定，不是準度運氣）、轉身並瞄向 target，
+## 等畫面上的骨架更新（槍口取自骨架）與換武器的動作結束，再用更新後的槍口重新瞄準一次。
+func _settle_player_aim(player: Player, target: Vector2) -> void:
+	var steady := (load("res://data/weapons/pistol.tres") as WeaponData).duplicate()
+	steady.random_spread_degrees = 0.0
+	player.loadout.reset(steady)
+	player.aim_bloom = 0.0
+	player.facing = 1 if target.x >= player.global_position.x else -1
+	player.aim_dir = (target - player.aim_origin()).normalized()
+	for i in 60:
+		await frames(1)
+		if player._fire_cooldown_left <= 0.0 and player._melee_cooldown_left <= 0.0 and not player.loadout.is_reloading() and i >= 3:
+			break
+	player.aim_dir = (target - player.muzzle_position()).normalized()
 
 
 ## 監管者的外露核心藏在身體框裡：子彈先碰到身體框，但彈道會穿過核心，就算核心命中（雙倍、弱點、只扣一次）。
@@ -606,10 +620,7 @@ func _test_watchdog_head_in_warehouse() -> void:
 				break
 		# 預兆中退開一步再瞄頭（太近時子彈的路徑會先穿過有裝甲的軀幹）。
 		player.global_position.x = dog.global_position.x + side * 90.0
-		await frames(3)  # 槍口取自畫面上的骨架，移動玩家後要等畫面更新
-		var head := _head_center(dog)
-		player.aim_dir = (head - player.muzzle_position()).normalized()
-		player.facing = -side
+		await _settle_player_aim(player, _head_center(dog))
 		var hits: Array = []
 		var record := func(info: DamageInfo) -> void: hits.append([info.part, info.weak_hit])
 		dog.health.damaged.connect(record)
