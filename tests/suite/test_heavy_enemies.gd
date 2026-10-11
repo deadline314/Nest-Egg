@@ -25,6 +25,7 @@ func run() -> void:
 	await _test_watchdog_head_shot()
 	await _test_core_hit_along_path()
 	await _test_hit_feedback_at_contact()
+	await _test_platform_strike_contact()
 	await _test_path_resolution_contract()
 	await _test_watchdog_head_in_warehouse()
 	await _test_codex_unlocks()
@@ -663,6 +664,41 @@ func _test_hit_feedback_at_contact() -> void:
 
 
 ## 一個不動、不還手的保全（量命中位置用）。
+## 從平台上往下打（NE-268）：站在比敵人高四格的平台上，用跟著準星的長柄往右下刺；回饋在敵人的受擊範圍裡、靠上半身
+## （最靠近武器揮到的那一點），不在腳底。左右兩個面向都一樣。
+func _test_platform_strike_contact() -> void:
+	await open_level(10.0)
+	var flashes: Array[Vector2] = []
+	var on_confirm := func(at: Vector2, _killed: bool) -> void: flashes.append(at)
+	EventBus.hit_confirmed.connect(on_confirm)
+	var player := level.player
+	player.loadout.equip(load("res://data/weapons/melee/melee_glaive.tres") as WeaponData)
+	for side: int in [1, -1]:
+		var grunt := await _still_grunt(53.0 + side * 2.3)
+		place_player(53.0, 16 * 16.0)
+		player._melee_cooldown_left = 0.0
+		player._melee_combo_left = 0.0  # 兩個面向都從第一招（平刺）開始，不接上一個面向的連段
+		AimInput.set_virtual_gamepad(player, true)
+		var horizontal := &"aim_right" if side > 0 else &"aim_left"
+		Input.action_press(horizontal)
+		Input.action_press(&"aim_down")
+		await physics_frames(10)
+		flashes.clear()
+		var standing := player.global_position.y
+		player._try_melee()
+		await physics_frames(30)
+		var feet := grunt.global_position
+		check(standing < feet.y - 32.0 and flashes.size() == 1 and grunt.hurtbox.contains_point(flashes[0], 1.0) and flashes[0].y < feet.y - grunt.data.body_size.y * 0.4,
+				"a downward strike from a platform flashes on the upper body below, not at the feet (side %d, player feet %.0f, enemy feet %s): %s" % [side, standing, feet, flashes])
+		Input.action_release(horizontal)
+		Input.action_release(&"aim_down")
+		AimInput.set_virtual_gamepad(player, false)
+		grunt.queue_free()
+		await physics_frames(20)
+	EventBus.hit_confirmed.disconnect(on_confirm)
+	await end_level(level)
+
+
 func _still_grunt(x_tile: float) -> Enemy:
 	var grunt := spawn("res://data/enemies/grunt.tres", x_tile)
 	grunt.data = grunt.data.duplicate()
