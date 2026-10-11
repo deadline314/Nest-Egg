@@ -206,4 +206,4 @@
 
 播出紀錄：[付清回家](attachments/ST-9-scene-order/leave.txt)、[留下吃麵](attachments/ST-9-scene-order/stay.txt)。
 
-分支：`feature/ecstatic-einstein-gyjqmu`。還沒完成的三項：交盤與付款的道具動作（另有 NE-278 收起武器）、依使用者審查後的劇本調整演出（ST-1）、結果只在成功保存後生效。
+分支：`feature/ecstatic-einstein-gyjqmu`，提交 [aab72a24](https://github.com/deadline314/Nest-Egg/commit/aab72a2494fbfbc48ece6c40e348b5d5b03c3725)。還沒完成的三項：交盤與付款的道具動作（另有 NE-278 收起武器）、依使用者審查後的劇本調整演出（ST-1）、結果只在成功保存後生效。
