@@ -16,6 +16,7 @@ func run() -> void:
 	await _test_enemy_data()
 	_test_motion_is_not_shared()
 	await _test_far_hand_and_hems()
+	await _test_springs_settle()
 
 
 func _rig(skin: String, input: RigInput, settle := 40) -> CharacterRig:
@@ -270,3 +271,37 @@ func _test_far_hand_and_hems() -> void:
 	check(sitting.bone(&"coat_1").rotation < -0.5, "ali's apron lies on her lap when she sits (%.2f)" % sitting.bone(&"coat_1").rotation)
 	check(not sitting._sway_targets.is_empty(), "ali's hair sway region is bound to her head part")
 	holder.queue_free()
+
+
+## 次級擺動（NE-257）：翻面與瞬移不甩動、撞到上下限不帶著速度、靜止 2 秒內停下來、更新率 30 與 60 幅度相近。
+func _test_springs_settle() -> void:
+	var peaks: Array[float] = []
+	for fps: float in [60.0, 30.0]:
+		var input := RigInput.new()
+		input.velocity = Vector2(220.0, 0.0)
+		var rig := await _rig("rin", input, int(fps))
+		var animator: HumanoidAnimator = rig.animator
+		var peak := 0.0
+		for i in int(fps):
+			rig.animate(1.0 / fps, input)
+			peak = maxf(peak, absf(float(animator._spring_angle[&"hair_2"])))
+		peaks.append(peak)
+		check(float(animator._spring_angle[&"hair_1"]) <= 0.95 + 0.001 and float(animator._spring_angle[&"hair_2"]) <= 0.7 + 0.001, "rin's ponytail stays inside its limits while running")
+		input.velocity = Vector2.ZERO
+		for i in int(fps * 2.0):
+			rig.animate(1.0 / fps, input)
+		check(absf(float(animator._spring_velocity[&"hair_2"])) < 0.25, "rin's ponytail is at rest 2 s after she stops (%.3f rad/s at %d fps)" % [float(animator._spring_velocity[&"hair_2"]), int(fps)])
+		input.velocity = Vector2(220.0, 0.0)
+		for i in int(fps):
+			rig.animate(1.0 / fps, input)
+		input.facing = -1
+		input.velocity = Vector2(-220.0, 0.0)
+		rig.animate(1.0 / fps, input)
+		check(absf(float(animator._spring_velocity[&"hair_1"])) < 2.0, "turning round does not whip the ponytail (%.2f rad/s)" % float(animator._spring_velocity[&"hair_1"]))
+		for i in int(fps):
+			rig.animate(1.0 / fps, input)
+		rig.get_parent().position += Vector2(900.0, 0.0)
+		rig.animate(1.0 / fps, input)
+		check(is_zero_approx(float(animator._spring_velocity[&"hair_1"])) or absf(float(animator._spring_velocity[&"hair_1"])) < 2.0, "a teleport resets the ponytail")
+		rig.get_parent().queue_free()
+	check(absf(peaks[0] - peaks[1]) < 0.12, "the ponytail swings about as far at 30 as at 60 updates a second (%.2f vs %.2f)" % [peaks[0], peaks[1]])

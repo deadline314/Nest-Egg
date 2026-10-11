@@ -39,6 +39,7 @@ makes it a group of its own ("group": "near_leg" in the parts):
                                for the body): they are painted over with the cloth beside them, like the "fill" groups
      "cover_limbs": true,       false = leave the notch where a hand or forearm hangs in front of the thigh (when the cloth behind it is unknown,
                                a colour ramp across it looks like a slab; a notch looks like a bite and the hand covers it)
+     "thigh_over_far": true,    with thigh_x: also where the far leg's mask claims the pixels (it took half of the near thigh)
      "thigh_x": [300, 478],     take every picture pixel between hip and knee inside this x range as thigh (hands and plates in front get painted over by "fill") (both thighs overlap in one big mass)
      "close_thigh": 30,         wide closing between hip and knee: fills the bite a hand or a pocket took out of the thigh's front
      "exclude": ["armor_chest"],  groups that are removed from the leg again (plates that ride another bone and would leave a slab behind)
@@ -593,7 +594,8 @@ def main() -> None:
             x0_, x1_ = nl_cfg["thigh_x"]
             knee_y = int(spec["joints"]["knee"][1])
             rows_ = (yy_leg >= int(spec["joints"]["hip"][1])) & (yy_leg <= knee_y)
-            region |= leg_alpha & rows_ & (np.arange(W)[None, :] >= x0_) & (np.arange(W)[None, :] <= x1_) & ~far
+            # "thigh_over_far": the far leg's mask took half of this thigh (two legs of one colour, one behind the other): the x range decides
+            region |= leg_alpha & rows_ & (np.arange(W)[None, :] >= x0_) & (np.arange(W)[None, :] <= x1_) & (~far | bool(nl_cfg.get("thigh_over_far")))
         if nl_cfg.get("close_thigh"):  # a wide closing between hip and knee fills the bite a hand or a pocket took out of the thigh's front
             k2 = nl_cfg["close_thigh"]
             wide = cv2.morphologyEx(region.astype(np.uint8), cv2.MORPH_CLOSE, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * k2 + 1,) * 2)) > 0

@@ -10,7 +10,7 @@
   "ground_y": 1190,
   "joints": {
     "hip": [
-      400.6,
+      380,
       598.4
     ],
     "waist": [
@@ -699,6 +699,27 @@
           ]
         ]
       }
+    ],
+    "extend": [
+      {
+        "part": "leg_upper",
+        "joint": "hip",
+        "to": "knee",
+        "drop_rim": 14,
+        "like": [
+          "pelvis",
+          "torso"
+        ]
+      }
+    ],
+    "cap_from": [
+      {
+        "part": "pelvis",
+        "from": "leg_upper",
+        "joint": "hip",
+        "to": "knee",
+        "radius": 66
+      }
     ]
   },
   "stages": [
@@ -836,5 +857,10 @@
         120
       ]
     ]
+  },
+  "seam_checks": {
+    "allow": {
+      "block": "the hoodie's hem is wider than the legs"
+    }
   }
 }

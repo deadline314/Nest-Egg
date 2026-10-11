@@ -10,7 +10,7 @@
   "ground_y": 1209,
   "joints": {
     "hip": [
-      407.4,
+      404,
       570.1
     ],
     "waist": [
@@ -628,6 +628,17 @@
         "part": "arm_upper",
         "joint": "shoulder",
         "to": "elbow"
+      },
+      {
+        "part": "leg_upper",
+        "joint": "hip",
+        "to": "knee",
+        "drop_rim": 14,
+        "like": [
+          "pelvis",
+          "torso",
+          "armor_chest"
+        ]
       }
     ],
     "underlap": [
@@ -843,6 +854,15 @@
             172
           ]
         ]
+      }
+    ],
+    "cap_from": [
+      {
+        "part": "pelvis",
+        "from": "leg_upper",
+        "joint": "hip",
+        "to": "knee",
+        "radius": 77
       }
     ]
   },

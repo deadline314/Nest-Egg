@@ -233,9 +233,17 @@ func update(delta: float, input: RigInput) -> void:
 		_death_force = input.death_force
 
 	var local_velocity := Vector2(input.velocity.x * input.facing, input.velocity.y)
+	# 翻面、瞬移（重生、過場換位）時，頭髮與衣襬不能被當成「瞬間移動了很遠」而甩一大下：彈簧直接放回靜止位置。
+	var here := _rig.global_position
+	var jumped := _last_position.is_finite() and here.distance_to(_last_position) > TELEPORT_DISTANCE
+	_last_position = here
 	if input.facing != _last_facing:
 		_inertia.reset(local_velocity.x)  # 翻轉面向時速度的正負號會變，不能當成加速度
+		if _last_facing != 0:
+			reset_springs()
 		_last_facing = input.facing
+	elif jumped:
+		reset_springs()
 	_lean = _inertia.update(delta, local_velocity.x, _motion["inertia"]) if not input.dead else 0.0
 	var local_aim := Vector2(input.aim_dir.x * input.facing, input.aim_dir.y)
 	var aim_angle := clampf(local_aim.angle(), -MAX_AIM_ANGLE, MAX_AIM_ANGLE)
@@ -719,6 +727,21 @@ func _drape_hems() -> void:
 		var tip := _rig.bone(StringName(str(spring.get("drape_tip", ""))))
 		if tip != null:
 			tip.rotation -= follow * float(spring.get("drape_tip_gain", 0.9))
+
+
+## 一格內移動超過這個距離（世界像素）就當成瞬移，不是跑過去的（衝刺每格約 6）。
+const TELEPORT_DISTANCE := 48.0
+var _last_position := Vector2.INF
+
+
+## 所有次級擺動（頭髮、衣襬、區域擺動）回到靜止位置、速度歸零。重生、進出過場、換場景後呼叫；翻面與瞬移時動畫器自己會呼叫。
+func reset_springs() -> void:
+	for spring in _springs:
+		var key := _spring_key(spring)
+		_spring_angle[key] = clampf(float(spring.get("rest", 0.0)), float(spring.get("min", SPRING_MIN)), float(spring.get("max", SPRING_MAX)))
+		_spring_velocity[key] = 0.0
+		if spring.has("warp"):
+			_rig.set_sway(key, 0.0)
 
 
 ## 彈簧的名字：有骨頭的用骨頭名，區域擺動（warp）用自己的 id。

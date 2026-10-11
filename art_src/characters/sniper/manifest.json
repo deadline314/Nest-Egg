@@ -316,5 +316,40 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "refine",
+    "seconds": 3.2,
+    "outputs": [
+      "art_src\\characters\\sniper\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.2,
+    "outputs": [
+      "art\\characters\\sniper\\character.json",
+      "art\\rigs\\sniper.json",
+      "art\\characters\\sniper\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.2,
+    "outputs": [
+      "art\\characters\\sniper\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 7.1,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

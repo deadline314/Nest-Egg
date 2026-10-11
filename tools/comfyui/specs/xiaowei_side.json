@@ -56,6 +56,14 @@
     "toe": [
       479,
       1109
+    ],
+    "coat_root": [
+      406,
+      497
+    ],
+    "coat_mid": [
+      406,
+      573
     ]
   },
   "groups": {
@@ -134,24 +142,33 @@
         "head"
       ]
     },
-    "body": {
-      "sam": [],
-      "rest": true,
+    "coat": {
+      "sam": [
+        "yellow raincoat"
+      ],
       "complete": {
         "stage": "P",
         "occluders": [
           "arm"
         ],
+        "near": 120,
+        "trim": 4,
+        "mask_close": 5
+      }
+    },
+    "body": {
+      "sam": [],
+      "rest": true,
+      "complete": {
+        "stage": "U",
+        "occluders": [
+          "arm",
+          "coat"
+        ],
         "near": 260,
         "trim": 20,
         "gap_grow": 30,
         "edge_trim": 1,
-        "check_removed": [
-          299,
-          613,
-          432,
-          721
-        ],
         "keep_rim": true,
         "stage_silhouette": true
       }
@@ -383,6 +400,27 @@
           "z": 10
         }
       ]
+    },
+    "coat_hem": {
+      "group": "coat",
+      "from": "coat_root",
+      "to": "coat_mid",
+      "mode": "bone",
+      "pivot": "coat_root",
+      "y": [
+        489,
+        4000
+      ],
+      "uses": [
+        {
+          "name": "coat_hem",
+          "bone": "coat_1",
+          "z": 4,
+          "root_attach": true,
+          "bend_partner": "coat_2"
+        }
+      ],
+      "blob": "main"
     }
   },
   "glow": {},
@@ -472,6 +510,16 @@
     {
       "name": "foot_front",
       "parent": "leg_front_lower"
+    },
+    {
+      "name": "coat_1",
+      "parent": "hip",
+      "at": "coat_root"
+    },
+    {
+      "name": "coat_2",
+      "parent": "coat_1",
+      "at": "coat_mid"
     }
   ],
   "weapon_anchor": {
@@ -488,6 +536,12 @@
       "from": null,
       "seed": 54,
       "prompt": "Remove the character's near-side arm entirely, from the shoulder to the fingertips, including its sleeve, its glove and anything it wears, so that a neat round armhole seam is left at the shoulder. The hand and all its fingers are removed too: nothing of the hand remains in front of the hip or the thigh. No arm, no hand and no skin are drawn there. Paint the side of the torso clothing, the belt, the hip and the thigh that were hidden behind the arm, in exactly the same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
+    },
+    {
+      "name": "U",
+      "from": "P",
+      "seed": 71,
+      "prompt": "Shorten the girl's long yellow raincoat into a short jacket that ends at her waist: remove the whole lower part of the raincoat that hangs from the waist down over her hips and thighs completely, nothing of the raincoat is left below the waist. In its place paint what was hidden behind it: the hem of her grey top at the waist and her dark blue jeans on the hips and both thighs down to the knees, with a few wrinkles, in exactly the same art style and colors as the jeans below. There is no hole and nothing see-through. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the upper body, the lower legs and the boots."
     }
   ],
   "refine": {
@@ -913,24 +967,28 @@
       "damping": 12,
       "min": -0.14,
       "max": 0.2
-    },
+    }
+  ],
+  "springs": [
     {
-      "id": "hem_back",
-      "part": "pelvis",
-      "from": [
-        325,
-        490
-      ],
-      "to": [
-        312,
-        632
-      ],
-      "width": 60,
+      "bone": "coat_1",
+      "rest": 0.0,
       "gain": 0.3,
       "stiffness": 110,
-      "damping": 13,
+      "damping": 14,
+      "min": -0.12,
+      "max": 0.22,
+      "drape": "leg_front_upper",
+      "drape_gain": 0.8
+    },
+    {
+      "bone": "coat_2",
+      "rest": 0.0,
+      "gain": 0.22,
+      "stiffness": 100,
+      "damping": 12,
       "min": -0.1,
-      "max": 0.22
+      "max": 0.18
     }
   ]
 }

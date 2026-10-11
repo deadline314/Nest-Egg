@@ -15,11 +15,11 @@
     "pelvis": {
       "file": "parts/pelvis.png",
       "size": [
-        188,
+        170,
         158
       ],
       "pivot": [
-        101.76,
+        94.76,
         88.36
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
@@ -27,11 +27,11 @@
     "torso": {
       "file": "parts/torso.png",
       "size": [
-        183,
+        178,
         270
       ],
       "pivot": [
-        93.92,
+        92.92,
         243.06
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
@@ -51,11 +51,11 @@
     "leg_upper": {
       "file": "parts/leg_upper.png",
       "size": [
-        173,
+        136,
         277
       ],
       "pivot": [
-        101.64,
+        71.5,
         68.86
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
@@ -87,23 +87,23 @@
     "arm_upper": {
       "file": "parts/arm_upper.png",
       "size": [
-        82,
-        148
+        71,
+        146
       ],
       "pivot": [
-        43.22,
-        10.37
+        35.22,
+        8.36
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "arm_lower": {
       "file": "parts/arm_lower.png",
       "size": [
-        83,
-        142
+        76,
+        141
       ],
       "pivot": [
-        44.53,
+        40.66,
         10.56
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
@@ -112,11 +112,23 @@
       "file": "parts/hand.png",
       "size": [
         84,
-        51
+        49
       ],
       "pivot": [
         13.67,
         28.52
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "coat_hem": {
+      "file": "parts/coat_hem.png",
+      "size": [
+        154,
+        135
+      ],
+      "pivot": [
+        92.92,
+        8.54
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -217,6 +229,14 @@
       "texture": "foot",
       "bone": "foot_front",
       "z": 3
+    },
+    {
+      "name": "coat_hem",
+      "texture": "coat_hem",
+      "bone": "coat_1",
+      "z": 4,
+      "root_attach": true,
+      "bend_partner": "coat_2"
     },
     {
       "name": "head",

@@ -10,7 +10,7 @@
   "ground_y": 1206,
   "joints": {
     "hip": [
-      405.1,
+      375,
       601.2
     ],
     "waist": [
@@ -556,52 +556,7 @@
       ],
       "radius": 5
     },
-    "erase": [
-      {
-        "part": "pelvis",
-        "note": "pelvis-beyond-thigh",
-        "poly": [
-          [
-            430,
-            601
-          ],
-          [
-            832,
-            601
-          ],
-          [
-            832,
-            632
-          ],
-          [
-            431,
-            632
-          ]
-        ]
-      },
-      {
-        "part": "pelvis",
-        "note": "pelvis-beyond-thigh",
-        "poly": [
-          [
-            0,
-            601
-          ],
-          [
-            320,
-            601
-          ],
-          [
-            321,
-            632
-          ],
-          [
-            0,
-            632
-          ]
-        ]
-      }
-    ],
+    "erase": [],
     "underlap": [
       {
         "part": "torso",
@@ -816,6 +771,28 @@
           ]
         ]
       }
+    ],
+    "extend": [
+      {
+        "part": "leg_upper",
+        "joint": "hip",
+        "to": "knee",
+        "drop_rim": 14,
+        "like": [
+          "pelvis",
+          "torso",
+          "armor_chest"
+        ]
+      }
+    ],
+    "cap_from": [
+      {
+        "part": "pelvis",
+        "from": "leg_upper",
+        "joint": "hip",
+        "to": "knee",
+        "radius": 70
+      }
     ]
   },
   "stages": [
@@ -880,11 +857,17 @@
       "arm",
       "armor_forearm",
       "armor_shoulder"
-    ]
+    ],
+    "thigh_x": [
+      305,
+      445
+    ],
+    "thigh_over_far": true
   },
   "seam_checks": {
     "allow": {
-      "ragged:arm_lower": "前臂外側有彈匣袋"
+      "ragged:arm_lower": "前臂外側有彈匣袋",
+      "block": "the jacket's skirt hangs over the hip (flat hem, as drawn)"
     },
     "notes": {
       "check_removed_share": "橄欖綠袖子疊在橄欖綠上衣上，顏色比對分不出來；底層圖 Q 已人工看過，手臂與手確實拿掉了"

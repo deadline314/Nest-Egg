@@ -935,5 +935,10 @@
       "min": -0.1,
       "max": 0.22
     }
-  ]
+  ],
+  "seam_checks": {
+    "allow": {
+      "block": "the cardigan's hem hangs over the hip"
+    }
+  }
 }

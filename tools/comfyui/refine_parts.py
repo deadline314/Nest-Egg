@@ -296,8 +296,26 @@ def main() -> None:
 
     for e in cfg.get("extend", []):  # a limb part that begins far from its joint (only the cuff of a far forearm was drawn)
         L = layers[e["part"]]
+        if e.get("drop_rim"):  # the part's first rows carry the rim of what covered them (a shirt hem's pale edge, lit like a streak once
+            # the limb turns): drop that many px along the bone first, the continuation then starts from clean cloth
+            j_, k_pt = np.array(spec["joints"][e["joint"]], float), np.array(spec["joints"][e["to"]], float)
+            d_ = (k_pt - j_) / np.linalg.norm(k_pt - j_)
+            gy, gx = np.mgrid[0:H, 0:W].astype(np.float32)
+            along = (gx - j_[0]) * d_[0] + (gy - j_[1]) * d_[1]
+            solid_ = L[:, :, 3] > 127
+            L[:, :, 3][solid_ & (along < float(np.percentile(along[solid_], 1)) + e["drop_rim"])] = 0
         sample, new, _ = toward_joint(L, spec["joints"][e["joint"]], spec["joints"][e["to"]], e.get("radius"))
         L[new] = sample[new]
+        for other in e.get("like", []):  # where that part is drawn in front of the limb's joint (a hem that hangs over the hip), the
+            # continuation shows the same pixels: at rest nothing changes, and the limb is drawn in front of that part
+            seen = new & (layers[other][:, :, 3] > 127)
+            L[seen] = layers[other][seen]
+            # each part is drawn with its own brightness (uses[].tint; the front use counts, the far copy is hidden behind it):
+            # divide it out, or the copied pixels show as a lighter or darker disc
+            def front_tint(name: str) -> float:
+                return float(max(spec["parts"][name]["uses"], key=lambda u: u.get("z", 0)).get("tint", 1.0))
+            ratio = front_tint(other) / front_tint(e["part"])
+            L[:, :, :3][seen] = np.clip(L[:, :, :3][seen].astype(np.float32) * ratio, 0, 255).astype(np.uint8)
         print(f"  extend {e['part']} to {e['joint']}: +{int(new.sum())} px")
 
     for e in cfg.get("cap_from", []):

@@ -129,9 +129,45 @@
         0.0,
         9.16
       ]
+    },
+    {
+      "name": "coat_1",
+      "parent": "hip",
+      "pos": [
+        -0.49,
+        -4.14
+      ]
+    },
+    {
+      "name": "coat_2",
+      "parent": "coat_1",
+      "pos": [
+        0.0,
+        3.12
+      ]
     }
   ],
   "springs": [
+    {
+      "bone": "coat_1",
+      "rest": 0.0,
+      "gain": 0.3,
+      "stiffness": 110,
+      "damping": 14,
+      "min": -0.12,
+      "max": 0.22,
+      "drape": "leg_front_upper",
+      "drape_gain": 0.8
+    },
+    {
+      "bone": "coat_2",
+      "rest": 0.0,
+      "gain": 0.22,
+      "stiffness": 100,
+      "damping": 12,
+      "min": -0.1,
+      "max": 0.18
+    },
     {
       "id": "hair",
       "warp": {
@@ -151,26 +187,6 @@
       "damping": 12,
       "min": -0.14,
       "max": 0.2
-    },
-    {
-      "id": "hem_back",
-      "warp": {
-        "part": "pelvis",
-        "from": [
-          25.5,
-          -0.2
-        ],
-        "to": [
-          14.8,
-          116.2
-        ],
-        "width": 49.2
-      },
-      "gain": 0.3,
-      "stiffness": 110,
-      "damping": 13,
-      "min": -0.1,
-      "max": 0.22
     }
   ],
   "weapon_anchor": {

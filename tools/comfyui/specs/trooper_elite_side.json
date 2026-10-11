@@ -10,7 +10,7 @@
   "ground_y": 1185,
   "joints": {
     "hip": [
-      407.0,
+      388,
       588.7
     ],
     "waist": [
@@ -771,7 +771,30 @@
           ]
         ]
       }
-    ]
+    ],
+    "extend": [
+      {
+        "part": "leg_upper",
+        "joint": "hip",
+        "to": "knee",
+        "drop_rim": 14,
+        "like": [
+          "pelvis",
+          "torso",
+          "armor_chest"
+        ]
+      }
+    ],
+    "cap_from": [
+      {
+        "part": "pelvis",
+        "from": "leg_upper",
+        "joint": "hip",
+        "to": "knee",
+        "radius": 62
+      }
+    ],
+    "erase": []
   },
   "stages": [
     {
@@ -835,11 +858,17 @@
       "arm",
       "armor_forearm",
       "armor_shoulder"
-    ]
+    ],
+    "thigh_x": [
+      300,
+      450
+    ],
+    "thigh_over_far": true
   },
   "seam_checks": {
     "allow": {
-      "overhang:front": "大腿零件是護甲底下的細腿，外面有大腿護甲蓋住；骨盆前緣是腰帶與腰包"
+      "overhang:front": "大腿零件是護甲底下的細腿，外面有大腿護甲蓋住；骨盆前緣是腰帶與腰包",
+      "block": "the armoured jacket's hem hangs over the hip (as drawn)"
     }
   },
   "pinned_masks": true

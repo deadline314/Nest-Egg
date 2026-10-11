@@ -10,7 +10,7 @@
   "ground_y": 1215,
   "joints": {
     "hip": [
-      394.6,
+      386,
       607.2
     ],
     "waist": [
@@ -478,7 +478,7 @@
         "from": "leg_upper",
         "joint": "hip",
         "to": "knee",
-        "radius": 48
+        "radius": 86
       }
     ],
     "underlap": [
@@ -695,6 +695,18 @@
           ]
         ]
       }
+    ],
+    "extend": [
+      {
+        "part": "leg_upper",
+        "joint": "hip",
+        "to": "knee",
+        "drop_rim": 14,
+        "like": [
+          "pelvis",
+          "torso"
+        ]
+      }
     ]
   },
   "dialog_portrait": {
@@ -829,7 +841,8 @@
   },
   "seam_checks": {
     "allow": {
-      "ragged:arm_lower": "捲起的袖口與手套裡的手腕，末端藏在手套下"
+      "ragged:arm_lower": "捲起的袖口與手套裡的手腕，末端藏在手套下",
+      "block": "the tool belt rides the hip"
     }
   }
 }

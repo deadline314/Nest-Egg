@@ -10,7 +10,7 @@
   "ground_y": 1182,
   "joints": {
     "hip": [
-      403.5,
+      392,
       637.9
     ],
     "waist": [
@@ -507,7 +507,7 @@
         "from": "leg_upper",
         "joint": "hip",
         "to": "knee",
-        "radius": 52
+        "radius": 62
       }
     ],
     "extend": [
@@ -515,6 +515,16 @@
         "part": "arm_upper",
         "joint": "shoulder",
         "to": "elbow"
+      },
+      {
+        "part": "leg_upper",
+        "joint": "hip",
+        "to": "knee",
+        "drop_rim": 14,
+        "like": [
+          "pelvis",
+          "torso"
+        ]
       }
     ],
     "underlap": [
@@ -891,5 +901,10 @@
         179
       ]
     ]
+  },
+  "seam_checks": {
+    "allow": {
+      "block": "the jacket's hem hangs over the hip"
+    }
   }
 }

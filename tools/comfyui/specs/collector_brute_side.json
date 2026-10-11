@@ -830,5 +830,11 @@
       "min": -0.5,
       "max": 0.5
     }
-  ]
+  ],
+  "seam_checks": {
+    "allow": {
+      "block": "the belly and the vest hang over the belt",
+      "overhang:front": "the belly and the vest hang over the belt"
+    }
+  }
 }

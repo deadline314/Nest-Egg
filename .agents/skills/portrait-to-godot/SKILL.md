@@ -80,6 +80,9 @@ python tools/comfyui/build_character.py --recipe tools/comfyui/recipes/<id>.json
 - 看 `04_stages/*.png`：要拿掉的東西真的不見了，沒有多畫回別的肢體。
 - 精修後建置會自動跑 `check_seams.py`，輸出 `WARN seam …`：髖點以下骨盆比大腿寬（`overhang`）、髖點正上方骨盆凸在大腿前面一塊（`block`；外套、圍裙蓋住髖部的角色會報，放大確認不是凸塊）、膝蓋處大腿與小腿的前緣對不上（`front`）、肢體輪廓有缺口或細鬚（`ragged`）、兩節肢體寬度對不上（`step`）、肢體零件沒有接到自己的關節（`detached`，用 `refine.extend`）、髖點到大腿頂端之間骨盆蓋不滿（`hip_gap`，用 `refine.cap_from`）。每一條都放大看，修到沒有；是畫本身的形狀才登記進規格並寫理由：`"seam_checks": {"allow": {"<鍵>": "理由"}}`，鍵是 `overhang`、`overhang:front`、`overhang:back`、`block`、`front:knee`、`ragged:<零件>`、`step:<關節>`、`detached:<零件>`、`hip_gap`。也可以單獨跑：`python tools/comfyui/check_seams.py --recipe … ` 或 `--all`。
 - 沒有警告不等於沒問題：`check_seams` 只量它認得的幾種形狀。第 5 關的兩腿分開近拍還是要放大看。
+- 舊流程的角色（近側腿是另一個群組、骨盆與大腿各切一刀）：`python tools/comfyui/center_hip.py <id>` 之後 `--from refine --to import`。它把髖關節移到大腿頂端的正中間、把大腿往上補成圓蓋、給骨盆一個同半徑的圓；有下襬蓋住髖部的地方，圓蓋顯示同樣的像素。不重切零件（重切會重跑遮罩）。
+- 大腿零件只有半條寬（兩條腿同色、前後重疊，遠側腿的遮罩把近側大腿吃掉一半）：`near_leg` 加 `"thigh_x": [x0, x1], "thigh_over_far": true`，再 `--from parts`。
+- 圍裙、下襬零件上的綁帶、另一側的門襟這類「不跟著下襬動」的小東西：留在下襬零件上，坐下時會跟著轉到腿上變成一條亮線或一根凸出的條。從下襬零件移除（`refine.erase` 或零件加 `"blob": "main"`）。
 - 把 `07_refined/pelvis.png`、`leg_upper.png` 放在洋紅底上看：骨盆是圓順的一塊（下緣是繞髖關節的圓），大腿是一條、頂端和髖一樣寬（前緣是直線、不是兩條大腿黏在一起；頂端是工具加的圓蓋，正常），大腿與小腿的前緣在膝蓋連成一條線（正常的樣子：`pm/Nest-Egg/images/NE-218-hip-parts-normal.png`），手的位置與髖部前緣都沒有被咬掉。有缺口先回頭看規格的 `groups`（多出來的遮罩群組會把身體挖掉），不要先用補洞蓋過去。
 - 把 `07_refined/torso.png` 放在洋紅底上看：袖窿補色是平的一塊布色，沒有抹進別的顏色。
 - 看 `06_parts/ownership.png`：每個肢體各自一色；身體旁邊沒有細線；遠側小腿與鞋有被分出去。

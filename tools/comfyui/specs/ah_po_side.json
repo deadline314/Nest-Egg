@@ -10,7 +10,7 @@
   "ground_y": 1195,
   "joints": {
     "hip": [
-      395.6,
+      374,
       605.0
     ],
     "waist": [
@@ -619,6 +619,54 @@
             636
           ]
         ]
+      },
+      {
+        "part": "apron",
+        "note": "hem-sliver",
+        "poly": [
+          [
+            584,
+            872
+          ],
+          [
+            602,
+            872
+          ],
+          [
+            602,
+            902
+          ],
+          [
+            584,
+            902
+          ]
+        ]
+      },
+      {
+        "part": "apron",
+        "note": "tie strings: they hang from the waist; on the apron they swing onto the lap with it when she sits (and their pale inside lights up as a streak)",
+        "poly": [
+          [
+            255,
+            500
+          ],
+          [
+            296,
+            500
+          ],
+          [
+            300,
+            560
+          ],
+          [
+            300,
+            720
+          ],
+          [
+            255,
+            720
+          ]
+        ]
       }
     ],
     "close_fill": [
@@ -641,7 +689,7 @@
         "from": "leg_upper",
         "joint": "hip",
         "to": "knee",
-        "radius": 25
+        "radius": 78
       }
     ],
     "underlap": [
@@ -858,6 +906,19 @@
           ]
         ]
       }
+    ],
+    "extend": [
+      {
+        "part": "leg_upper",
+        "joint": "hip",
+        "to": "knee",
+        "drop_rim": 14,
+        "like": [
+          "pelvis",
+          "torso",
+          "apron_bib"
+        ]
+      }
     ]
   },
   "stages": [
@@ -1036,5 +1097,10 @@
       "min": -0.1,
       "max": 0.18
     }
-  ]
+  ],
+  "seam_checks": {
+    "allow": {
+      "block": "the long top's hem and the apron hang over the hip"
+    }
+  }
 }

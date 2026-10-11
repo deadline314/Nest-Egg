@@ -247,7 +247,7 @@ func _spawn(skin: String, weapon: String, pos: Vector2, pose: String, zoom: floa
 
 func _paint_parts(rig: CharacterRig, legend: bool) -> void:
 	var shader := Shader.new()
-	shader.code = "shader_type canvas_item; uniform vec4 flat_color : source_color; void fragment() { COLOR = vec4(flat_color.rgb, step(0.5, texture(TEXTURE, UV).a)); }"
+	shader.code = "shader_type canvas_item; render_mode unshaded; uniform vec4 flat_color : source_color; void fragment() { COLOR = vec4(flat_color.rgb * 0.8, step(0.5, texture(TEXTURE, UV).a)); }"
 	var parts: Array[CanvasItem] = []
 	for bone_name in rig.bone_order():
 		for child in rig.bone(bone_name).get_children():

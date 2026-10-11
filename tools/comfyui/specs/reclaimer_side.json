@@ -10,7 +10,7 @@
   "ground_y": 1191,
   "joints": {
     "hip": [
-      430.4,
+      441,
       537.1
     ],
     "waist": [
@@ -595,7 +595,7 @@
         "from": "leg_upper",
         "joint": "hip",
         "to": "knee",
-        "radius": 42
+        "radius": 46
       }
     ],
     "underlap": [
@@ -810,6 +810,19 @@
             412,
             146
           ]
+        ]
+      }
+    ],
+    "extend": [
+      {
+        "part": "leg_upper",
+        "joint": "hip",
+        "to": "knee",
+        "drop_rim": 14,
+        "like": [
+          "pelvis",
+          "torso",
+          "armor_chest"
         ]
       }
     ]

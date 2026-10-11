@@ -14,7 +14,7 @@
       "name": "chest",
       "parent": "hip",
       "pos": [
-        -0.03,
+        -0.43,
         -6.43
       ]
     },
@@ -95,7 +95,7 @@
       "parent": "leg_back_upper",
       "pos": [
         0.0,
-        12.57
+        12.59
       ]
     },
     {
@@ -119,7 +119,7 @@
       "parent": "leg_front_upper",
       "pos": [
         0.0,
-        12.57
+        12.59
       ]
     },
     {
@@ -134,7 +134,7 @@
       "name": "coat_1",
       "parent": "hip",
       "pos": [
-        -0.02,
+        -0.42,
         0.4
       ]
     },
@@ -155,7 +155,10 @@
       "stiffness": 110,
       "damping": 14,
       "min": -0.12,
-      "max": 0.22
+      "max": 0.22,
+      "drape": "leg_front_upper",
+      "drape_gain": 0.8,
+      "drape_tip": "coat_2"
     },
     {
       "bone": "coat_2",

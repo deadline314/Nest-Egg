@@ -10,7 +10,7 @@
   "ground_y": 1215,
   "joints": {
     "hip": [
-      395.4,
+      404,
       601.4
     ],
     "waist": [
@@ -761,6 +761,24 @@
           ]
         ]
       }
+    ],
+    "extend": [
+      {
+        "part": "leg_upper",
+        "joint": "hip",
+        "to": "knee",
+        "drop_rim": 14,
+        "like": []
+      }
+    ],
+    "cap_from": [
+      {
+        "part": "pelvis",
+        "from": "leg_upper",
+        "joint": "hip",
+        "to": "knee",
+        "radius": 90
+      }
     ]
   },
   "dialog_portrait": {
@@ -910,7 +928,10 @@
       "stiffness": 110,
       "damping": 14,
       "min": -0.12,
-      "max": 0.22
+      "max": 0.22,
+      "drape": "leg_front_upper",
+      "drape_gain": 0.8,
+      "drape_tip": "coat_2"
     },
     {
       "bone": "coat_2",
@@ -924,7 +945,8 @@
   ],
   "seam_checks": {
     "allow": {
-      "ragged:leg_lower": "褲管上緣的布摺"
+      "ragged:leg_lower": "褲管上緣的布摺",
+      "block": "the long coat hangs over the hip"
     }
   }
 }
