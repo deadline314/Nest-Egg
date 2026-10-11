@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=14 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=16 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Resource" path="res://data/props/credits_small.tres" id="2_credits_small"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="3_portal_data"]
 [ext_resource type="Resource" path="res://data/npcs/ch2_egret_booth.tres" id="4_ch2_egret_booth"]
 [ext_resource type="Resource" path="res://data/npcs/ch2_patroller.tres" id="5_ch2_patroller"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="6_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/market.tres" id="7_market"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch2_market_gate.tres" id="8_ch2_market_gate"]
+[ext_resource type="Resource" path="res://data/enemies/ch2_bill_thrower.tres" id="6_ch2_bill_thrower"]
+[ext_resource type="Resource" path="res://data/enemies/ch2_escort.tres" id="7_ch2_escort"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="8_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/market.tres" id="9_market"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch2_market_gate.tres" id="10_ch2_market_gate"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("3_portal_data")
@@ -54,10 +56,10 @@ height = 56
 style = "door"
 
 [sub_resource type="Resource" id="Resource_4"]
-script = ExtResource("6_lighting_zone")
+script = ExtResource("8_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("7_market")
+profile = ExtResource("9_market")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -72,14 +74,16 @@ legend = Dictionary[String, Resource]({
 "Ⅲ": SubResource("Resource_2"),
 "Ⅳ": SubResource("Resource_3"),
 "Ⓔ": ExtResource("4_ch2_egret_booth"),
-"Ⓖ": ExtResource("5_ch2_patroller")
+"Ⓖ": ExtResource("5_ch2_patroller"),
+"♜": ExtResource("6_ch2_bill_thrower"),
+"♞": ExtResource("7_ch2_escort")
 })
 hints = PackedStringArray()
 chapter = &"ch2_heron"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("8_ch2_market_gate")
+environment = ExtResource("10_ch2_market_gate")
 layout_path = "res://data/levels/ch2_market_gate_map.json"
-lighting_zones = Array[ExtResource("6_lighting_zone")]([SubResource("Resource_4")])
+lighting_zones = Array[ExtResource("8_lighting_zone")]([SubResource("Resource_4")])
 story_triggers = PackedStringArray("ch2_b_booth_b3")
 death_credit_cap = 250

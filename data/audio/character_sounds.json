@@ -169,6 +169,12 @@
   },
   "janus": {
    "extends": "machine"
+  },
+  "ch2_escort": {
+   "extends": "humanoid"
+  },
+  "ch2_bill_thrower": {
+   "extends": "humanoid"
   }
  }
 }

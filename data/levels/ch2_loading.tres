@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=17 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=19 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Resource" path="res://data/props/credits_small.tres" id="2_credits_small"]
@@ -7,10 +7,12 @@
 [ext_resource type="Resource" path="res://data/npcs/ch2_sc1_lever.tres" id="5_ch2_sc1_lever"]
 [ext_resource type="Resource" path="res://data/npcs/ch2_collection_book.tres" id="6_ch2_collection_book"]
 [ext_resource type="Resource" path="res://data/npcs/ch2_guard.tres" id="7_ch2_guard"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="8_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/market.tres" id="9_market"]
-[ext_resource type="Resource" path="res://data/lighting/hangar.tres" id="10_hangar"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch2_loading.tres" id="11_ch2_loading"]
+[ext_resource type="Resource" path="res://data/enemies/ch2_bill_thrower.tres" id="8_ch2_bill_thrower"]
+[ext_resource type="Resource" path="res://data/enemies/ch2_escort.tres" id="9_ch2_escort"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="10_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/market.tres" id="11_market"]
+[ext_resource type="Resource" path="res://data/lighting/hangar.tres" id="12_hangar"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch2_loading.tres" id="13_ch2_loading"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("3_portal_data")
@@ -45,16 +47,16 @@ height = 56
 style = "door"
 
 [sub_resource type="Resource" id="Resource_3"]
-script = ExtResource("8_lighting_zone")
+script = ExtResource("10_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("9_market")
+profile = ExtResource("11_market")
 
 [sub_resource type="Resource" id="Resource_4"]
-script = ExtResource("8_lighting_zone")
+script = ExtResource("10_lighting_zone")
 start_tile = 104
 blend_tiles = 6
-profile = ExtResource("10_hangar")
+profile = ExtResource("12_hangar")
 
 [resource]
 script = ExtResource("1_level_data")
@@ -70,14 +72,16 @@ legend = Dictionary[String, Resource]({
 "ⓓ": ExtResource("4_ch2_drying_desk"),
 "ⓙ": ExtResource("5_ch2_sc1_lever"),
 "ⓛ": ExtResource("6_ch2_collection_book"),
-"ⓧ": ExtResource("7_ch2_guard")
+"ⓧ": ExtResource("7_ch2_guard"),
+"♜": ExtResource("8_ch2_bill_thrower"),
+"♞": ExtResource("9_ch2_escort")
 })
 hints = PackedStringArray()
 chapter = &"ch2_heron"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("11_ch2_loading")
+environment = ExtResource("13_ch2_loading")
 layout_path = "res://data/levels/ch2_loading_map.json"
-lighting_zones = Array[ExtResource("8_lighting_zone")]([SubResource("Resource_3"), SubResource("Resource_4")])
+lighting_zones = Array[ExtResource("10_lighting_zone")]([SubResource("Resource_3"), SubResource("Resource_4")])
 story_triggers = PackedStringArray("ch2_s09_wire")
 death_credit_cap = 250

@@ -1,0 +1,67 @@
+{
+ "description": "ch2_bill_thrower 的專屬特效（EnemyVfx 讀取；欄位說明見 game/enemies/enemy_vfx.gd）。每個敵人自己一份，死亡演出彼此不同。",
+ "step": {
+  "every": 26,
+  "dust": 1,
+  "spread": 16,
+  "shake": 0.0
+ },
+ "hit": {
+  "color": "#e8dcc0",
+  "amount": 10,
+  "speed": 200,
+  "light": 1.0
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#e8dcc0",
+    "amount": 20,
+    "speed": 175,
+    "life": 0.42
+   },
+   {
+    "color": "#c83a2a",
+    "amount": 10,
+    "speed": 100,
+    "life": 0.5
+   }
+  ],
+  "light": {
+   "color": "#e8dcc0",
+   "radius": 59,
+   "energy": 0.84,
+   "time": 0.26
+  },
+  "shake": 2.2,
+  "hitstop": 0.04,
+  "extras": [
+   "dust"
+  ],
+  "dissolve": {
+   "time": 0.85,
+   "color": "#f2c040",
+   "rise": 1.0,
+   "edge": 0.09,
+   "delay": 0.25
+  },
+  "shock": {
+   "radius": 36,
+   "strength": 0.028,
+   "color": "#f2c040",
+   "time": 0.45
+  },
+  "accent": "#f2c040"
+ },
+ "states": {
+  "aim": {
+   "at": "muzzle",
+   "light": {
+    "color": "#ff7a1a",
+    "radius": 35,
+    "energy": 0.72,
+    "time": 0.14
+   }
+  }
+ }
+}

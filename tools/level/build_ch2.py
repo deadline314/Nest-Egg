@@ -3,7 +3,7 @@
 
 沿用第一章產生器的工具（區域格子、出入口、人物與主題的輸出、可通行檢查），只換章節前綴與本章的內容。
 落地計畫見 design/13-story-v2/CH02_IMPLEMENTATION.md，劇本見 design/13-story-v2/SCRIPT_CH02.md。
-敵人由戰鬥 Session 配置（NE-265、NE-266）：這裡只標出戰鬥區與繞道，不放敵人。
+敵人由戰鬥 Session 配置（NE-265、NE-266）：戰鬥區與成員都在 COMBAT_ZONES 一張表，整批調整只改這裡。
 用法：python3 tools/level/build_ch2.py
 """
 import os
@@ -141,11 +141,20 @@ STORY = {
     'ledger_office': dict(done={'ch2_yong_down': 'ch2_yong_subdued'}),
 }
 
-# 戰鬥區（交給戰鬥 Session 配置，NE-266）：區域 -> [(名稱, x0, x1, 用途)]。這裡只寫進設計資料，不放敵人。
+# 本章的敵人（NE-266）：字元 -> (資料檔, 設計資料裡的名稱)。押運手與票據投手是本章才有的收帳人身份。
+ENEMIES = {
+    '♞': ('res://data/enemies/ch2_escort.tres', '押運手'),
+    '♜': ('res://data/enemies/ch2_bill_thrower.tres', '票據投手'),
+}
+
+# 戰鬥區與成員（戰鬥 Session 配置，NE-266）：區域 -> [(名稱, x0, x1, 用途, [(欄, 字元)])]。
+# 每場同屏最多三名普通敵人；地面的敵人看不到上層的繞道（高度差超過他們的視線），照劇本可以繞過。
 COMBAT_ZONES = {
-    'market_gate': [('入口押運手', 30, 48, '短戰，可從上層公眾攤道繞過'), ('入口票據投手', 56, 74, '短戰，可從上層公眾攤道繞過')],
-    'loading': [('下層貨道一', 24, 44, '可從雨棚上層繞過'), ('下層貨道二', 60, 80, '可從電線橋繞過')],
-    'ledger_office': [('阿勇與兩名小弟', 8, 58, '頭目戰（NE-265）；小薇的隔間不是戰區')],
+    'market_gate': [('入口押運手', 30, 48, '短戰，可從上層公眾攤道繞過', [(36, '♞'), (44, '♞')]),
+                    ('入口票據投手', 56, 74, '短戰，可從上層公眾攤道繞過', [(60, '♞'), (70, '♜')])],
+    'loading': [('下層貨道一', 24, 44, '可從雨棚上層繞過', [(30, '♜'), (40, '♞')]),
+                ('下層貨道二', 60, 80, '可從電線橋繞過', [(64, '♞'), (72, '♞'), (78, '♜')])],
+    'ledger_office': [('阿勇與兩名小弟', 8, 58, '頭目戰（NE-265）；小薇的隔間不是戰區', [])],
 }
 
 
@@ -419,10 +428,14 @@ def configure():
     """把第一章的工具切到第二章：人物、出入口、主題與劇情接點都換成本章的，字元不和第一章的資源衝突。"""
     clash = sorted(c for c in NPC_CHARS if c in kit.RES or c in PORTALS or c in kit.TRAINING)
     clash += sorted(c for c in PORTALS if c in kit.RES)
+    clash += sorted(c for c in ENEMIES if c in kit.RES or c in NPC_CHARS or c in PORTALS)
     if clash:
         raise SystemExit(f'第二章的字元和既有資源衝突：{clash}')
     for char, ident in NPC_CHARS.items():
         kit.RES[char] = f'res://data/npcs/{ident}.tres'
+    for char, (path, name) in ENEMIES.items():
+        kit.RES[char] = path
+        kit.ENEMY_NAMES[char] = name
     kit.PORTALS = PORTALS
     kit.NPCS = {ident: {**{'rig': '', 'loop': '', 'facing': 1}, **spec} for ident, spec in NPCS.items()}
     kit.THEMES = THEMES
@@ -432,6 +445,9 @@ def configure():
 def main():
     configure()
     areas = [build() for build in AREAS]
+    for a in areas:
+        for name, x0, x1, _use, members in COMBAT_ZONES.get(a.id, []):
+            a.encounter(name, x0, x1, members)
     problems = []
     for a in areas:
         problems += a.check()
@@ -443,9 +459,6 @@ def main():
         print('\n'.join(problems))
         sys.exit(1)
     kit.write_npc_files()
-    for a in areas:
-        a.encounters = [{'name': name, 'lock': False, 'x0': x0, 'x1': x1, 'members': [], 'reinforcements': [], 'use': use}
-                        for name, x0, x1, use in COMBAT_ZONES.get(a.id, [])]
     kit.write_design(areas)
     for a in areas:
         extra = {"props": prepare_props(a.props, PLACEMENT_IDS.get(a.id, f'ch2_{a.id}'))}
