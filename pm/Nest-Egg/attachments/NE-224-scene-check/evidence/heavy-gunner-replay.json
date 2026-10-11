@@ -1,0 +1,1012 @@
+{
+	"capture_images": true,
+	"case": "NE-80 heavy_gunner organic combat preflight",
+	"character_texture_sha256": {
+		"res://art/characters/heavy_gunner/parts/arm_lower.png": "88a893bab6ffa739a9d6a6ad67482d1b6248f3551e72a22d71c6ad790f54854a",
+		"res://art/characters/heavy_gunner/parts/arm_lower_n.png": "5cc5f029aee9e9d9be253d965f39a90bfd65d19cd04375a987a7b7175301878a",
+		"res://art/characters/heavy_gunner/parts/arm_upper.png": "89e5cb24e602578ac1c7a5125d8291315ddaecfcc75525e7b3f24e10fbd39767",
+		"res://art/characters/heavy_gunner/parts/arm_upper_n.png": "f15495cdb2f290207de2084b6f91c20808c66026950c876ebee6ebb7d33ca28b",
+		"res://art/characters/heavy_gunner/parts/armor_chest.png": "451cdd3e48be269fe4b13c40dfbf88fad4d7f6a0f55abb8b4b5219f00583789b",
+		"res://art/characters/heavy_gunner/parts/armor_chest_n.png": "58938ab788154c2c3e7ff7bfc6e0fce31868ecb41f3b5dd75236c989d6f33df0",
+		"res://art/characters/heavy_gunner/parts/armor_forearm.png": "03ca741486a3843e261817611f5e77beca4009e17ed471ee20c7aa8fc2cc0a2d",
+		"res://art/characters/heavy_gunner/parts/armor_forearm_n.png": "c36f474b79c2b4b957273c70712b23893831c85d9cc60cfb643389ee3d98a3dc",
+		"res://art/characters/heavy_gunner/parts/armor_knee.png": "cd6b5e10bc472143c4d5eb97606d2c862cc894cd2012a50663ab6dfc5eec3576",
+		"res://art/characters/heavy_gunner/parts/armor_knee_n.png": "188765802310a926c05c50a776737f0bc89c71b3c88b2cf5bf4bb25d0839c406",
+		"res://art/characters/heavy_gunner/parts/armor_shoulder.png": "a807b986f25543e1d0a184cfe22355d29f84e9f41b1232efdd437c547c8744b4",
+		"res://art/characters/heavy_gunner/parts/armor_shoulder_n.png": "6dfebf9b96fe86d5347917039cd6cd38f4713ae89d984f20dc520b6efd1b0121",
+		"res://art/characters/heavy_gunner/parts/foot.png": "2e1bae7ce457b8c3c7904d5dab92dc972d9fdbeb00f152212dda4441a67caefb",
+		"res://art/characters/heavy_gunner/parts/foot_n.png": "f1e4c22e557d2c020786e38c1bb9f172ff96d57b54b52319709ab8357358897a",
+		"res://art/characters/heavy_gunner/parts/hand.png": "2f5fc1e44e93e9918824ca0781b29984c1ed041fed9cb009d89c6b1aa5c68189",
+		"res://art/characters/heavy_gunner/parts/hand_n.png": "087fc1643e0f0d8ae57d64b86949d6978ea5fe365c7c7af2ff277d13ecc7f756",
+		"res://art/characters/heavy_gunner/parts/head.png": "98d5734f54e35fc1ae41e1c742ef9036491733444b327a7c3b2b785696465aa5",
+		"res://art/characters/heavy_gunner/parts/head_glow.png": "11d90ce24ffdf5a0dd49e2c2d9575854d77087c869523ce48b5383981f56aed1",
+		"res://art/characters/heavy_gunner/parts/head_n.png": "597b9430ab304f8afa3ab31020d6fe1f2f9610bf1c405eb70de6e7ea912b3f1c",
+		"res://art/characters/heavy_gunner/parts/leg_lower.png": "e4a774e4d9717763f2a7770b5b3b32fb734bee1d0f8c19fb65e0f35192d65089",
+		"res://art/characters/heavy_gunner/parts/leg_lower_n.png": "5ae38aee51340444b9b3120c7a09eb70ef4d79051d2b2f92eed753ea88ad7def",
+		"res://art/characters/heavy_gunner/parts/leg_upper.png": "272dbe32c793b5fc2a7b57583b6313dd4348230a00ebb551d9bafb2bb0347ffb",
+		"res://art/characters/heavy_gunner/parts/leg_upper_n.png": "1c100cf01a4eaa28f7e04a81ddee83cc6a8d83e2dcbe56d32517c745b6d41446",
+		"res://art/characters/heavy_gunner/parts/pelvis.png": "e6bb94ab2f54685ebb0620246be1c46be6013b58d493a8601a8052cf23c2d334",
+		"res://art/characters/heavy_gunner/parts/pelvis_n.png": "e7d6754e64a5a883ab3faa243ace0d749d774a6d8e3a47f463b8f7d8b870a9e1",
+		"res://art/characters/heavy_gunner/parts/torso.png": "59d998a066a101529f1072a7bc5fd74201ccf92e5f78106a58aba11461cd132c",
+		"res://art/characters/heavy_gunner/parts/torso_glow.png": "053573bbf6b77ed3a32087af47e98b716060fc50eacd6531cd312932907cb1f2",
+		"res://art/characters/heavy_gunner/parts/torso_n.png": "4d850f89e2411cb93af45c2b8b628e3652989f9a3a853d2bd463e1adc6585de7"
+	},
+	"checks": 13,
+	"elapsed_msec": 6568,
+	"enemy_data": "res://data/enemies/heavy_gunner.tres",
+	"events": [
+		{
+			"data": {
+				"capture_images": true,
+				"case": "NE80",
+				"enemy_data": "res://data/enemies/heavy_gunner.tres",
+				"head": "a8baf24a88d025c1180faa60c01f41d51186b8cc",
+				"level_fixture": "res://tests/fixtures/cover_map.json"
+			},
+			"event": "start",
+			"t_msec": 1
+		},
+		{
+			"data": {
+				"enemy_health": 14,
+				"enemy_position": [
+					384.0,
+					320.0
+				],
+				"facing": -1,
+				"fsm": "patrol",
+				"player_health": 999,
+				"player_position": [
+					288.0,
+					320.0
+				],
+				"rig_skin": "heavy_gunner"
+			},
+			"event": "NE80_spawned",
+			"t_msec": 1649
+		},
+		{
+			"data": {
+				"enemy_position": [
+					384.0,
+					320.0
+				],
+				"fsm_time": 0.0,
+				"state": "spin_up"
+			},
+			"event": "fsm_state",
+			"t_msec": 2271
+		},
+		{
+			"data": {
+				"armor_open": false,
+				"enemy_facing": -1,
+				"fsm": "spin_up",
+				"fsm_time": 0.0
+			},
+			"event": "NE80_spin_up",
+			"t_msec": 2271
+		},
+		{
+			"data": {
+				"name": "NE80_heavy_spin_up_armor_closed",
+				"path": "D:/NestEggVerification/ne224-replay-80/images/NE80_heavy_spin_up_armor_closed.png",
+				"simulation_after": {
+					"enemy_fsm": "spin_up",
+					"enemy_fsm_time": 0.0,
+					"enemy_position": [
+						384.0,
+						320.0
+					],
+					"player_health": 999,
+					"player_position": [
+						288.0,
+						320.0
+					]
+				},
+				"simulation_before": {
+					"enemy_fsm": "spin_up",
+					"enemy_fsm_time": 0.0,
+					"enemy_position": [
+						384.0,
+						320.0
+					],
+					"player_health": 999,
+					"player_position": [
+						288.0,
+						320.0
+					]
+				},
+				"simulation_frozen": true,
+				"size": [
+					1280,
+					720
+				]
+			},
+			"event": "native_capture",
+			"t_msec": 2343
+		},
+		{
+			"data": {
+				"origin": [
+					371.076995849609,
+					288.604705810547
+				],
+				"part": "",
+				"source_id": "player_pistol"
+			},
+			"event": "enemy_hurtbox_blocked",
+			"t_msec": 2453
+		},
+		{
+			"data": {
+				"kind": "blocked"
+			},
+			"event": "hit_marker",
+			"t_msec": 2454
+		},
+		{
+			"data": {
+				"ammo_before": 12,
+				"damage": 0,
+				"enemy_position_at_fire": [
+					384.0,
+					320.0
+				],
+				"fired": true,
+				"health_after": 14,
+				"health_before": 14,
+				"label": "NE80_closed_armor",
+				"marker": "blocked",
+				"markers": [
+					"blocked"
+				],
+				"muzzle_world": [
+					273.4248046875,
+					261.861511230469
+				],
+				"reload_started": false,
+				"target_world": [
+					384.0,
+					292.0
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 2473
+		},
+		{
+			"data": {
+				"armor_open": false,
+				"enemy_health_after": 14,
+				"enemy_health_before": 14,
+				"markers": [
+					"blocked"
+				],
+				"shot": {
+					"ammo_before": 12,
+					"damage": 0,
+					"enemy_position_at_fire": [
+						384.0,
+						320.0
+					],
+					"fired": true,
+					"health_after": 14,
+					"health_before": 14,
+					"label": "NE80_closed_armor",
+					"marker": "blocked",
+					"markers": [
+						"blocked"
+					],
+					"muzzle_world": [
+						273.4248046875,
+						261.861511230469
+					],
+					"reload_started": false,
+					"target_world": [
+						384.0,
+						292.0
+					]
+				}
+			},
+			"event": "NE80_closed_armor_result",
+			"t_msec": 2473
+		},
+		{
+			"data": {
+				"enemy_position": [
+					384.0,
+					320.0
+				],
+				"fsm_time": 0.0,
+				"state": "fire"
+			},
+			"event": "fsm_state",
+			"t_msec": 3376
+		},
+		{
+			"data": {
+				"fsm": "fire",
+				"fsm_time": 0.0,
+				"player_health_before": 999,
+				"shots_fired": 0
+			},
+			"event": "NE80_fire",
+			"t_msec": 3376
+		},
+		{
+			"data": {
+				"active_projectiles": 1,
+				"aim": [
+					-0.942739129066467,
+					0.333530992269516
+				],
+				"enemy_position": [
+					384.0,
+					320.0
+				],
+				"fsm": "fire",
+				"fsm_time": 0.0166666666666667,
+				"muzzle_world": [
+					354.892852783203,
+					272.563720703125
+				],
+				"player_health": 999,
+				"player_position": [
+					288.0,
+					320.0
+				],
+				"shot_number": 1
+			},
+			"event": "enemy_projectile_fired",
+			"t_msec": 3397
+		},
+		{
+			"data": {
+				"amount": 1,
+				"enemy_fsm": "fire",
+				"origin": [
+					294.934478759766,
+					291.288726806641
+				],
+				"player_health": 998,
+				"source_id": "heavy_gunner_shot"
+			},
+			"event": "player_hurtbox_damage",
+			"t_msec": 3649
+		},
+		{
+			"data": {
+				"active_projectiles": 1,
+				"aim": [
+					-0.963389277458191,
+					0.268106520175934
+				],
+				"enemy_position": [
+					384.0,
+					320.0
+				],
+				"fsm": "fire",
+				"fsm_time": 0.366666666666667,
+				"muzzle_world": [
+					356.723693847656,
+					270.507202148438
+				],
+				"player_health": 998,
+				"player_position": [
+					279.492340087891,
+					308.2841796875
+				],
+				"shot_number": 2
+			},
+			"event": "enemy_projectile_fired",
+			"t_msec": 3814
+		},
+		{
+			"data": {
+				"active_projectiles": 2,
+				"aim": [
+					-0.95783656835556,
+					0.287313669919968
+				],
+				"enemy_position": [
+					384.0,
+					320.0
+				],
+				"fsm": "fire",
+				"fsm_time": 0.683333333333334,
+				"muzzle_world": [
+					357.006164550781,
+					271.155334472656
+				],
+				"player_health": 998,
+				"player_position": [
+					275.742340087891,
+					319.992828369141
+				],
+				"shot_number": 3
+			},
+			"event": "enemy_projectile_fired",
+			"t_msec": 4126
+		},
+		{
+			"data": {
+				"amount": 1,
+				"enemy_fsm": "fire",
+				"origin": [
+					282.686431884766,
+					293.673431396484
+				],
+				"player_health": 997,
+				"source_id": "heavy_gunner_shot"
+			},
+			"event": "player_hurtbox_damage",
+			"t_msec": 4128
+		},
+		{
+			"data": {
+				"active_projectiles": 2,
+				"aim": [
+					-0.986314594745636,
+					0.164874225854874
+				],
+				"enemy_position": [
+					384.0,
+					320.0
+				],
+				"fsm": "fire",
+				"fsm_time": 0.950000000000001,
+				"muzzle_world": [
+					356.537963867188,
+					267.291809082031
+				],
+				"player_health": 997,
+				"player_position": [
+					263.488037109375,
+					306.281616210938
+				],
+				"shot_number": 4
+			},
+			"event": "enemy_projectile_fired",
+			"t_msec": 4460
+		},
+		{
+			"data": {
+				"amount": 1,
+				"enemy_fsm": "fire",
+				"origin": [
+					270.428039550781,
+					300.250946044922
+				],
+				"player_health": 996,
+				"source_id": "heavy_gunner_shot"
+			},
+			"event": "player_hurtbox_damage",
+			"t_msec": 4579
+		},
+		{
+			"data": {
+				"active_projectiles": 2,
+				"aim": [
+					-0.984455287456512,
+					0.175635486841202
+				],
+				"enemy_position": [
+					384.0,
+					320.0
+				],
+				"fsm": "fire",
+				"fsm_time": 1.2,
+				"muzzle_world": [
+					356.503448486328,
+					267.577423095703
+				],
+				"player_health": 996,
+				"player_position": [
+					252.957092285156,
+					305.558532714844
+				],
+				"shot_number": 5
+			},
+			"event": "enemy_projectile_fired",
+			"t_msec": 4780
+		},
+		{
+			"data": {
+				"amount": 1,
+				"enemy_fsm": "fire",
+				"origin": [
+					258.164978027344,
+					280.316711425781
+				],
+				"player_health": 995,
+				"source_id": "heavy_gunner_shot"
+			},
+			"event": "player_hurtbox_damage",
+			"t_msec": 4947
+		},
+		{
+			"data": {
+				"active_projectiles": 2,
+				"aim": [
+					-0.98694783449173,
+					0.161040425300598
+				],
+				"enemy_position": [
+					384.0,
+					320.0
+				],
+				"fsm": "fire",
+				"fsm_time": 1.41666666666667,
+				"muzzle_world": [
+					356.553375244141,
+					267.099578857422
+				],
+				"player_health": 995,
+				"player_position": [
+					246.484878540039,
+					306.697418212891
+				],
+				"shot_number": 6
+			},
+			"event": "enemy_projectile_fired",
+			"t_msec": 5058
+		},
+		{
+			"data": {
+				"active_projectiles": 3,
+				"aim": [
+					-0.99716192483902,
+					0.0752865225076675
+				],
+				"enemy_position": [
+					384.0,
+					320.0
+				],
+				"fsm": "fire",
+				"fsm_time": 1.61666666666667,
+				"muzzle_world": [
+					356.577026367188,
+					264.399475097656
+				],
+				"player_health": 995,
+				"player_position": [
+					234.262664794922,
+					297.280731201172
+				],
+				"shot_number": 7
+			},
+			"event": "enemy_projectile_fired",
+			"t_msec": 5259
+		},
+		{
+			"data": {
+				"amount": 1,
+				"enemy_fsm": "fire",
+				"origin": [
+					241.200958251953,
+					284.689086914063
+				],
+				"player_health": 994,
+				"source_id": "heavy_gunner_shot"
+			},
+			"event": "player_hurtbox_damage",
+			"t_msec": 5331
+		},
+		{
+			"data": {
+				"active_projectiles": 3,
+				"aim": [
+					-0.997680366039276,
+					0.0680722370743752
+				],
+				"enemy_position": [
+					384.0,
+					320.0
+				],
+				"fsm": "fire",
+				"fsm_time": 1.78333333333333,
+				"muzzle_world": [
+					356.773773193359,
+					264.163421630859
+				],
+				"player_health": 994,
+				"player_position": [
+					223.846008300781,
+					295.475219726563
+				],
+				"shot_number": 8
+			},
+			"event": "enemy_projectile_fired",
+			"t_msec": 5495
+		},
+		{
+			"data": {
+				"active_projectiles": 4,
+				"aim": [
+					-0.999287903308868,
+					0.0377323776483536
+				],
+				"enemy_position": [
+					384.0,
+					320.0
+				],
+				"fsm": "fire",
+				"fsm_time": 1.93333333333333,
+				"muzzle_world": [
+					357.072601318359,
+					263.235321044922
+				],
+				"player_health": 994,
+				"player_position": [
+					217.290451049805,
+					292.225189208984
+				],
+				"shot_number": 9
+			},
+			"event": "enemy_projectile_fired",
+			"t_msec": 5641
+		},
+		{
+			"data": {
+				"amount": 1,
+				"enemy_fsm": "fire",
+				"origin": [
+					224.232452392578,
+					290.467926025391
+				],
+				"player_health": 993,
+				"source_id": "heavy_gunner_shot"
+			},
+			"event": "player_hurtbox_damage",
+			"t_msec": 5698
+		},
+		{
+			"data": {
+				"active_projectiles": 4,
+				"aim": [
+					-0.999595940113068,
+					0.0284253526479006
+				],
+				"enemy_position": [
+					384.0,
+					320.0
+				],
+				"fsm": "fire",
+				"fsm_time": 2.06666666666666,
+				"muzzle_world": [
+					357.340301513672,
+					262.954040527344
+				],
+				"player_health": 993,
+				"player_position": [
+					208.568237304688,
+					289.502990722656
+				],
+				"shot_number": 10
+			},
+			"event": "enemy_projectile_fired",
+			"t_msec": 5843
+		},
+		{
+			"data": {
+				"active_projectiles": 5,
+				"aim": [
+					-0.99985808134079,
+					-0.0168473776429892
+				],
+				"enemy_position": [
+					384.0,
+					320.0
+				],
+				"fsm": "fire",
+				"fsm_time": 2.18333333333333,
+				"muzzle_world": [
+					357.782867431641,
+					261.582641601563
+				],
+				"player_health": 993,
+				"player_position": [
+					200.790451049805,
+					282.891876220703
+				],
+				"shot_number": 11
+			},
+			"event": "enemy_projectile_fired",
+			"t_msec": 5961
+		},
+		{
+			"data": {
+				"amount": 1,
+				"enemy_fsm": "fire",
+				"origin": [
+					207.255142211914,
+					279.315063476563
+				],
+				"player_health": 992,
+				"source_id": "heavy_gunner_shot"
+			},
+			"event": "player_hurtbox_damage",
+			"t_msec": 6032
+		},
+		{
+			"data": {
+				"active_projectiles": 5,
+				"aim": [
+					-0.999855637550354,
+					-0.0169896930456162
+				],
+				"enemy_position": [
+					384.0,
+					320.0
+				],
+				"fsm": "fire",
+				"fsm_time": 2.3,
+				"muzzle_world": [
+					357.893524169922,
+					261.580902099609
+				],
+				"player_health": 992,
+				"player_position": [
+					195.568237304688,
+					281.836303710938
+				],
+				"shot_number": 12
+			},
+			"event": "enemy_projectile_fired",
+			"t_msec": 6163
+		},
+		{
+			"data": {
+				"active_projectiles": 6,
+				"aim": [
+					-0.997554361820221,
+					-0.0698950663208961
+				],
+				"enemy_position": [
+					384.0,
+					320.0
+				],
+				"fsm": "fire",
+				"fsm_time": 2.4,
+				"muzzle_world": [
+					358.410186767578,
+					259.979949951172
+				],
+				"player_health": 992,
+				"player_position": [
+					185.984909057617,
+					272.002960205078
+				],
+				"shot_number": 13
+			},
+			"event": "enemy_projectile_fired",
+			"t_msec": 6260
+		},
+		{
+			"data": {
+				"active_projectiles": 6,
+				"fsm_time": 0.0,
+				"player_damage_events": 7,
+				"player_health": 992,
+				"shots_fired": 13
+			},
+			"event": "natural_vent_reached",
+			"t_msec": 6274
+		},
+		{
+			"data": {
+				"active_projectiles": 6,
+				"armor_open": true,
+				"damage_scale": 1.5,
+				"enemy_health": 14,
+				"fsm": "vent",
+				"fsm_time": 0.0,
+				"player_health_after": 992,
+				"player_health_before": 999,
+				"shots_fired": 13
+			},
+			"event": "NE80_vent",
+			"t_msec": 6274
+		},
+		{
+			"data": {
+				"name": "NE80_heavy_vent_after_natural_fire",
+				"path": "D:/NestEggVerification/ne224-replay-80/images/NE80_heavy_vent_after_natural_fire.png",
+				"simulation_after": {
+					"enemy_fsm": "vent",
+					"enemy_fsm_time": 0.0,
+					"enemy_position": [
+						384.0,
+						320.0
+					],
+					"player_health": 992,
+					"player_position": [
+						185.068237304688,
+						271.336303710938
+					]
+				},
+				"simulation_before": {
+					"enemy_fsm": "vent",
+					"enemy_fsm_time": 0.0,
+					"enemy_position": [
+						384.0,
+						320.0
+					],
+					"player_health": 992,
+					"player_position": [
+						185.068237304688,
+						271.336303710938
+					]
+				},
+				"simulation_frozen": true,
+				"size": [
+					1280,
+					720
+				]
+			},
+			"event": "native_capture",
+			"t_msec": 6349
+		},
+		{
+			"data": {
+				"amount": 2,
+				"origin": [
+					371.069976806641,
+					288.030975341797
+				],
+				"part": "",
+				"source_id": "player_pistol",
+				"weak_hit": false
+			},
+			"event": "enemy_hurtbox_received",
+			"t_msec": 6435
+		},
+		{
+			"data": {
+				"kind": "hit"
+			},
+			"event": "hit_marker",
+			"t_msec": 6435
+		},
+		{
+			"data": {
+				"ammo_before": 11,
+				"damage": 2,
+				"enemy_position_at_fire": [
+					384.0,
+					320.0
+				],
+				"fired": true,
+				"health_after": 12,
+				"health_before": 14,
+				"label": "NE80_vent_damage",
+				"marker": "hit",
+				"markers": [
+					"hit"
+				],
+				"muzzle_world": [
+					294.471954345703,
+					259.864440917969
+				],
+				"reload_started": false,
+				"target_world": [
+					384.0,
+					292.0
+				]
+			},
+			"event": "player_shot",
+			"t_msec": 6454
+		},
+		{
+			"data": {
+				"armor_open": true,
+				"damage_scale": 1.5,
+				"health_after": 12,
+				"health_before": 14,
+				"markers": [
+					"hit"
+				],
+				"shot": {
+					"ammo_before": 11,
+					"damage": 2,
+					"enemy_position_at_fire": [
+						384.0,
+						320.0
+					],
+					"fired": true,
+					"health_after": 12,
+					"health_before": 14,
+					"label": "NE80_vent_damage",
+					"marker": "hit",
+					"markers": [
+						"hit"
+					],
+					"muzzle_world": [
+						294.471954345703,
+						259.864440917969
+					],
+					"reload_started": false,
+					"target_world": [
+						384.0,
+						292.0
+					]
+				}
+			},
+			"event": "NE80_vent_hit",
+			"t_msec": 6454
+		},
+		{
+			"data": {
+				"name": "NE80_heavy_vent_player_hit",
+				"path": "D:/NestEggVerification/ne224-replay-80/images/NE80_heavy_vent_player_hit.png",
+				"simulation_after": {
+					"enemy_fsm": "vent",
+					"enemy_fsm_time": 0.15,
+					"enemy_position": [
+						384.0,
+						320.0
+					],
+					"player_health": 992,
+					"player_position": [
+						304.0,
+						320.0
+					]
+				},
+				"simulation_before": {
+					"enemy_fsm": "vent",
+					"enemy_fsm_time": 0.15,
+					"enemy_position": [
+						384.0,
+						320.0
+					],
+					"player_health": 992,
+					"player_position": [
+						304.0,
+						320.0
+					]
+				},
+				"simulation_frozen": true,
+				"size": [
+					1280,
+					720
+				]
+			},
+			"event": "native_capture",
+			"t_msec": 6524
+		}
+	],
+	"failures": [],
+	"godot": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"head": "a8baf24a88d025c1180faa60c01f41d51186b8cc",
+	"hurtbox_blocked": [
+		{
+			"origin": [
+				371.076995849609,
+				288.604705810547
+			],
+			"part": "",
+			"source_id": "player_pistol"
+		}
+	],
+	"hurtbox_received": [
+		{
+			"amount": 2,
+			"origin": [
+				371.069976806641,
+				288.030975341797
+			],
+			"part": "",
+			"source_id": "player_pistol",
+			"weak_hit": false
+		}
+	],
+	"level_fixture": "res://tests/fixtures/cover_map.json",
+	"missing_character_textures": [],
+	"player_damage_events": [
+		{
+			"amount": 1,
+			"enemy_fsm": "fire",
+			"origin": [
+				294.934478759766,
+				291.288726806641
+			],
+			"player_health": 998,
+			"source_id": "heavy_gunner_shot"
+		},
+		{
+			"amount": 1,
+			"enemy_fsm": "fire",
+			"origin": [
+				282.686431884766,
+				293.673431396484
+			],
+			"player_health": 997,
+			"source_id": "heavy_gunner_shot"
+		},
+		{
+			"amount": 1,
+			"enemy_fsm": "fire",
+			"origin": [
+				270.428039550781,
+				300.250946044922
+			],
+			"player_health": 996,
+			"source_id": "heavy_gunner_shot"
+		},
+		{
+			"amount": 1,
+			"enemy_fsm": "fire",
+			"origin": [
+				258.164978027344,
+				280.316711425781
+			],
+			"player_health": 995,
+			"source_id": "heavy_gunner_shot"
+		},
+		{
+			"amount": 1,
+			"enemy_fsm": "fire",
+			"origin": [
+				241.200958251953,
+				284.689086914063
+			],
+			"player_health": 994,
+			"source_id": "heavy_gunner_shot"
+		},
+		{
+			"amount": 1,
+			"enemy_fsm": "fire",
+			"origin": [
+				224.232452392578,
+				290.467926025391
+			],
+			"player_health": 993,
+			"source_id": "heavy_gunner_shot"
+		},
+		{
+			"amount": 1,
+			"enemy_fsm": "fire",
+			"origin": [
+				207.255142211914,
+				279.315063476563
+			],
+			"player_health": 992,
+			"source_id": "heavy_gunner_shot"
+		}
+	],
+	"source_sha256": {
+		"character": "2b89ef6663357f7ec6f9e4b1d0916ef7cb82c33ef4f515c946ac8ddade8b0218",
+		"enemy_base": "a0fff3575eb90a7cfdbfe68883c6e0580d9b3f72a1232cd192390aafe5702b54",
+		"enemy_behavior": "aee5919b9ffe0442ca2ad0c9adf7b5fa0beb4cd6a3ee361183f47e0ecc965354",
+		"enemy_data": "88479c5c1cb3332e7a4b36c9e28be0412894e8e3a769a0a7df72b570ce227bae",
+		"fixture_scene": "48bba0bfaa72acbe090ca9e59909ffea18f126ccd4c0dc36ab3ba3632cb45213",
+		"fixture_script": "8c767ce481aa693f38f92e818d6ecc1936c75528897a4edac8bb60304d80978a",
+		"health_component": "5cd2923185d78f20bf331c4f3f18fd87a55f178e76d1238cf9df361cd512fb82",
+		"heavy_projectile": "39f116f5a69a015daf1b6f5a62471cfd07bcea108188cb50ab2715c574b4afe9",
+		"hurtbox": "8da545725886ae29c64eda534de3f4a7483ba0ce667aef84545796debf9edc7d",
+		"level": "d314031caf1a8c6f31b565cb20a52080e0a2f009d35af8e70a4c4bd0af8b7bbf",
+		"level_data": "b5a2a7d7dbc5d000cbcc95a4453e1db18786702d8fdda7153b7bb2820b0574b4",
+		"physics_fixture": "60e7a4061566e31a6302fb4365ae14e02838fa5570554ab9fe3699dfae0328e4",
+		"player": "d1dd9f9a0100b4efb1abc000d64f6ad89b1e064bcbd6610badfc86a050bfa21d",
+		"player_pistol": "69ca264cd4ab2146777f12993e2f7cfcd5b91cc3e5cc9fe6b0473aa8d17dad8a",
+		"player_pistol_projectile": "424eb245b7ffdf2216c96c484b93897b018cf3292cc672c6b06bac837a1021c7",
+		"projectile": "183c6ad9f4bcfbfd71a1475f1409e7a3402dc8f85f466a2ed8d4dcf480ebe534",
+		"projectile_pool": "2ff6726d61598d9bc55031e4133dd37821ec392aadff7ffcca43b8b542c7ba4d",
+		"rig": "ff84f8b41920d067a718c65a7ce7d3b54c3285299f45d8e3fd52631387523b53",
+		"weapon_glow": "d0e91baa8f60547be1070e7d8844591e8aeccf45bf2e96014a2a5867f88782d4",
+		"weapon_normal": "6d1abe86f00758122b524219c47b32697ad2c66f3e27da04fb66bbba4fae192a",
+		"weapon_system": "8fd5494bc3aefee8c3ced8d931b2129f2a174bc26b504bbb6b1d72b6da2abdd7",
+		"weapon_visual": "d35bd97b59a5ee90cf30434e30257713c255589b16b2ed28a4697988923f7e8c",
+		"weapon_visual_config": "4e284708a2df9dd154c1a15cd8526c48f527bb6b248c26e6a61ea55d9b0d3cde"
+	}
+}

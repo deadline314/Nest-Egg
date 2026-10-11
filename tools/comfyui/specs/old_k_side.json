@@ -639,20 +639,20 @@
     {
       "bone": "coat_1",
       "rest": 0.0,
-      "gain": 0.1,
+      "gain": 0.3,
       "stiffness": 110,
       "damping": 14,
-      "min": -0.08,
-      "max": 0.12
+      "min": -0.12,
+      "max": 0.22
     },
     {
       "bone": "coat_2",
       "rest": 0.0,
-      "gain": 0.07,
+      "gain": 0.22,
       "stiffness": 100,
       "damping": 12,
-      "min": -0.07,
-      "max": 0.1
+      "min": -0.1,
+      "max": 0.18
     }
   ]
 }

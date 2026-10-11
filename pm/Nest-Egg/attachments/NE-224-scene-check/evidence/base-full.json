@@ -1,0 +1,115 @@
+{
+	"adapter": "NVIDIA GeForce RTX 4070 SUPER",
+	"frame_ms": {
+		"average": 5.47920818007001,
+		"max": 59.8950004577637,
+		"p95": 5.91400003433228,
+		"p99": 6.30299997329712
+	},
+	"frames": 5452,
+	"hdr_2d": true,
+	"lighting": "res://data/lighting/neutral.tres",
+	"renderer": "forward_plus",
+	"rows": [
+		{
+			"blinks": 7,
+			"closed_frames": 84,
+			"eye": "open",
+			"has_hem": true,
+			"hem_max": 0.0389986983296718,
+			"hem_min": -0.0070700746718846,
+			"home_x": 112.0,
+			"loaded": true,
+			"skin": "rin"
+		},
+		{
+			"blinks": 11,
+			"closed_frames": 122,
+			"eye": "open",
+			"has_hem": false,
+			"hem_max": 0.0,
+			"hem_min": 0.0,
+			"home_x": 147.199996948242,
+			"loaded": true,
+			"skin": "old_k"
+		},
+		{
+			"blinks": 10,
+			"closed_frames": 130,
+			"eye": "open",
+			"has_hem": false,
+			"hem_max": 0.0,
+			"hem_min": 0.0,
+			"home_x": 182.399993896484,
+			"loaded": true,
+			"skin": "nurse"
+		},
+		{
+			"blinks": 11,
+			"closed_frames": 134,
+			"eye": "open",
+			"has_hem": false,
+			"hem_max": 0.0,
+			"hem_min": 0.0,
+			"home_x": 217.600006103516,
+			"loaded": true,
+			"skin": "night_worker"
+		},
+		{
+			"blinks": 12,
+			"closed_frames": 144,
+			"eye": "open",
+			"has_hem": false,
+			"hem_max": 0.0,
+			"hem_min": 0.0,
+			"home_x": 252.800003051758,
+			"loaded": true,
+			"skin": "repairman_chen"
+		},
+		{
+			"blinks": 12,
+			"closed_frames": 154,
+			"eye": "open",
+			"has_hem": false,
+			"hem_max": 0.0,
+			"hem_min": 0.0,
+			"home_x": 288.0,
+			"loaded": true,
+			"skin": "resident"
+		},
+		{
+			"blinks": 10,
+			"closed_frames": 123,
+			"eye": "open",
+			"has_hem": false,
+			"hem_max": 0.0,
+			"hem_min": 0.0,
+			"home_x": 323.200012207031,
+			"loaded": true,
+			"skin": "ah_po"
+		},
+		{
+			"blinks": 10,
+			"closed_frames": 119,
+			"eye": "open",
+			"has_hem": false,
+			"hem_max": 0.0,
+			"hem_min": 0.0,
+			"home_x": 358.399993896484,
+			"loaded": true,
+			"skin": "wataru"
+		},
+		{
+			"blinks": 12,
+			"closed_frames": 149,
+			"eye": "open",
+			"has_hem": false,
+			"hem_max": 0.0,
+			"hem_min": 0.0,
+			"home_x": 393.600006103516,
+			"loaded": true,
+			"skin": "mei"
+		}
+	],
+	"seconds": 30.003192000002
+}

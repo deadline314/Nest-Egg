@@ -210,5 +210,29 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "textures",
+    "seconds": 2.7,
+    "outputs": [
+      "art\\characters\\old_k\\character.json",
+      "art\\rigs\\old_k.json",
+      "art\\characters\\old_k\\parts",
+      "art\\portraits\\old_k.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.4,
+    "outputs": [
+      "art\\characters\\old_k\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.7,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

@@ -1,0 +1,115 @@
+{
+	"adapter": "NVIDIA GeForce RTX 4070 SUPER",
+	"frame_ms": {
+		"average": 5.1101604494949,
+		"max": 61.689998626709,
+		"p95": 5.57600021362305,
+		"p99": 5.97700023651123
+	},
+	"frames": 5846,
+	"hdr_2d": true,
+	"lighting": "res://data/lighting/neutral.tres",
+	"renderer": "forward_plus",
+	"rows": [
+		{
+			"blinks": 7,
+			"closed_frames": 93,
+			"eye": "open",
+			"has_hem": true,
+			"hem_max": 0.0390123410333642,
+			"hem_min": -0.00707164883961096,
+			"home_x": 112.0,
+			"loaded": true,
+			"skin": "rin"
+		},
+		{
+			"blinks": 7,
+			"closed_frames": 77,
+			"eye": "open",
+			"has_hem": true,
+			"hem_max": 0.0834523815906133,
+			"hem_min": -0.015055562296417,
+			"home_x": 147.199996948242,
+			"loaded": true,
+			"skin": "old_k"
+		},
+		{
+			"blinks": 10,
+			"closed_frames": 135,
+			"eye": "open",
+			"has_hem": false,
+			"hem_max": 0.0,
+			"hem_min": 0.0,
+			"home_x": 182.399993896484,
+			"loaded": true,
+			"skin": "nurse"
+		},
+		{
+			"blinks": 11,
+			"closed_frames": 145,
+			"eye": "open",
+			"has_hem": false,
+			"hem_max": 0.0,
+			"hem_min": 0.0,
+			"home_x": 217.600006103516,
+			"loaded": true,
+			"skin": "night_worker"
+		},
+		{
+			"blinks": 12,
+			"closed_frames": 153,
+			"eye": "open",
+			"has_hem": false,
+			"hem_max": 0.0,
+			"hem_min": 0.0,
+			"home_x": 252.800003051758,
+			"loaded": true,
+			"skin": "repairman_chen"
+		},
+		{
+			"blinks": 12,
+			"closed_frames": 161,
+			"eye": "open",
+			"has_hem": false,
+			"hem_max": 0.0,
+			"hem_min": 0.0,
+			"home_x": 288.0,
+			"loaded": true,
+			"skin": "resident"
+		},
+		{
+			"blinks": 7,
+			"closed_frames": 92,
+			"eye": "open",
+			"has_hem": true,
+			"hem_max": 0.0834523815906133,
+			"hem_min": -0.015055562296417,
+			"home_x": 323.200012207031,
+			"loaded": true,
+			"skin": "ah_po"
+		},
+		{
+			"blinks": 10,
+			"closed_frames": 127,
+			"eye": "open",
+			"has_hem": false,
+			"hem_max": 0.0,
+			"hem_min": 0.0,
+			"home_x": 358.399993896484,
+			"loaded": true,
+			"skin": "wataru"
+		},
+		{
+			"blinks": 12,
+			"closed_frames": 156,
+			"eye": "open",
+			"has_hem": false,
+			"hem_max": 0.0,
+			"hem_min": 0.0,
+			"home_x": 393.600006103516,
+			"loaded": true,
+			"skin": "mei"
+		}
+	],
+	"seconds": 30.0009109999991
+}
