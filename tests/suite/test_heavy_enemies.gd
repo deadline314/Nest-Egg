@@ -592,13 +592,9 @@ func _test_hit_feedback_at_contact() -> void:
 	var on_confirm := func(at: Vector2, _killed: bool) -> void: flashes.append(at)
 	EventBus.hit_confirmed.connect(on_confirm)
 	var player := level.player
+	var standing_y := INF
 	for side: int in [-1, 1]:
-		var grunt := spawn("res://data/enemies/grunt.tres", 60.0)
-		grunt.data = grunt.data.duplicate()
-		grunt.data.detect_range = 0.0
-		grunt.data.attack_range = 0.0
-		await physics_frames(2)
-		grunt.set_physics_process(false)
+		var grunt := await _still_grunt(60.0)
 		place_player(60.0 - side * 1.6)
 		AimInput.set_virtual_gamepad(player, true)
 		Input.action_press(&"aim_right" if side > 0 else &"aim_left")
@@ -610,10 +606,43 @@ func _test_hit_feedback_at_contact() -> void:
 		var box := grunt.hurtbox
 		check(flashes.size() == 1 and box.contains_point(flashes[0], 1.0) and flashes[0].y < feet.y - grunt.data.body_size.y * 0.4,
 				"a melee hit flashes on the body at swing height, not at the feet (side %d, feet %s): %s" % [side, feet, flashes])
+		standing_y = flashes[0].y if flashes.size() == 1 else standing_y
 		Input.action_release(&"aim_right" if side > 0 else &"aim_left")
 		AimInput.set_virtual_gamepad(player, false)
 		grunt.queue_free()
 		await physics_frames(2)
+	# 跳起來砍：揮擊點跟著角色升高，回饋落在受擊範圍裡更高的位置（不會掉回腳底）。
+	var tall := await _still_grunt(60.0)
+	place_player(58.4)
+	AimInput.set_virtual_gamepad(player, true)
+	Input.action_press(&"aim_right")
+	await physics_frames(8)
+	Input.action_press(&"jump")
+	await physics_frames(1)
+	flashes.clear()
+	player._try_melee()
+	await physics_frames(20)
+	Input.action_release(&"jump")
+	check(flashes.size() == 1 and tall.hurtbox.contains_point(flashes[0], 1.0) and flashes[0].y < standing_y - 4.0,
+			"a jumping slash flashes higher on the body than a standing one (%.1f vs %.1f): %s" % [flashes[0].y if flashes.size() == 1 else INF, standing_y, flashes])
+	tall.queue_free()
+	await physics_frames(30)
+	# 一刀砍到兩個：各自的回饋在自己的受擊範圍裡。
+	var near := await _still_grunt(60.0)
+	var far := await _still_grunt(60.6)
+	place_player(59.0)
+	await physics_frames(8)
+	flashes.clear()
+	player._try_melee()
+	await physics_frames(30)
+	var own := flashes.size() == 2 and ((near.hurtbox.contains_point(flashes[0], 1.0) and far.hurtbox.contains_point(flashes[1], 1.0))
+			or (near.hurtbox.contains_point(flashes[1], 1.0) and far.hurtbox.contains_point(flashes[0], 1.0)))
+	check(own, "one slash through two targets flashes inside each target's own hurt box: %s" % [flashes])
+	Input.action_release(&"aim_right")
+	AimInput.set_virtual_gamepad(player, false)
+	near.queue_free()
+	far.queue_free()
+	await physics_frames(2)
 	var warden := spawn(WARDEN_PATH, 45.0)
 	await physics_frames(2)
 	var core_part: Hurtbox = null
@@ -631,6 +660,17 @@ func _test_hit_feedback_at_contact() -> void:
 		warden.health.setup(warden.data.max_health, 0.0)
 	EventBus.hit_confirmed.disconnect(on_confirm)
 	await end_level(level)
+
+
+## 一個不動、不還手的保全（量命中位置用）。
+func _still_grunt(x_tile: float) -> Enemy:
+	var grunt := spawn("res://data/enemies/grunt.tres", x_tile)
+	grunt.data = grunt.data.duplicate()
+	grunt.data.detect_range = 0.0
+	grunt.data.attack_range = 0.0
+	await physics_frames(2)
+	grunt.set_physics_process(false)
+	return grunt
 
 
 ## 合約：接觸點已在部位裡就用它；路徑被擋住時維持整體；沒有方向時等同 resolve_at。
