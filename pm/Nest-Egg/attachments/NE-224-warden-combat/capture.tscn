@@ -1,0 +1,4 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://pm/Nest-Egg/attachments/NE-224-warden-combat/capture.gd" id="1"]
+[node name="WardenCombat" type="Node"]
+script = ExtResource("1")
