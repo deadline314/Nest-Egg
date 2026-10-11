@@ -16,6 +16,7 @@ func run() -> void:
 	await _test_fallbacks()
 	await _test_combat_states_use_the_humanoid_animator()
 	await _test_springs_add_to_authored_pose()
+	_test_garment_hems_swing()
 	_test_npc_data_validation()
 
 
@@ -297,6 +298,29 @@ func _spring_offset_after(fps: int) -> float:
 		result = (rig.animator as NpcAnimator)._spring_angle[&"coat_1"]
 	holder.queue_free()
 	return result
+
+
+func _test_garment_hems_swing() -> void:
+	# NE-221：老 K 的大衣下襬與阿婆的圍裙掛在彈簧骨上，走動時要真的擺動，站定後回到原位。
+	for skin: String in ["old_k", "ah_po"]:
+		var rig := CharacterRig.new()
+		runner.get_tree().root.add_child(rig)
+		check(rig.setup(skin, "npc") and rig.has_bone(&"coat_1") and rig.has_bone(&"coat_2"), "%s has hem bones coat_1 and coat_2" % skin)
+		if rig.is_valid() and rig.has_bone(&"coat_1"):
+			var input := RigInput.new()
+			input.two_handed = false
+			var rest_angle := rig.bone(&"coat_1").rotation
+			input.velocity = Vector2(150.0, 0.0)
+			var swing := 0.0
+			for i in 60:
+				rig.animate(1.0 / 60.0, input)
+				swing = maxf(swing, absf(rig.bone(&"coat_1").rotation - rest_angle))
+			check(swing > 0.02, "%s hem swings while walking (%.3f rad)" % [skin, swing])
+			input.velocity = Vector2.ZERO
+			for i in 180:
+				rig.animate(1.0 / 60.0, input)
+			check(absf(rig.bone(&"coat_1").rotation - rest_angle) < 0.03, "%s hem settles when standing still (%.3f rad)" % [skin, absf(rig.bone(&"coat_1").rotation - rest_angle)])
+		rig.queue_free()
 
 
 func _test_npc_data_validation() -> void:

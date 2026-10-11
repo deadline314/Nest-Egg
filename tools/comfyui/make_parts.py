@@ -27,6 +27,7 @@ spec["near_leg"] (NE-152): in a side view both legs and both shoes are in the pi
 copy dimmed), so a leg part must hold exactly one leg. near_leg picks the near (front, unobstructed) leg with SAM point prompts and
 makes it a group of its own ("group": "near_leg" in the parts):
     {"stage": "U", "stage_until": "knee", "lower_outline": [[x, y], ...]} optionally segment a peeled underlayer above the joint,
+    {"stage_color": true}      with a stage: above stage_until the leg also takes the stage picture's colours (the body group still wears the coat),
                                preserving the original lower limb below it; lower_outline is a reviewed polygon on base_rgba.png,
                                bounded by the completed body/boot alpha; colors stay original below stage_until, otherwise reuse the original point mask.
     {"pos": [[x, y], ...],     points on the near thigh, shin and shoe (pixels of base_rgba.png)
@@ -590,6 +591,11 @@ def main() -> None:
         # only what those do not cover, or what spec.near_leg.fill lists, is painted again
         known = (have_body | have_boot) & ~occ_leg & region
         color = np.where(have_body[:, :, None], body_c[:, :, :3], np.where(have_boot[:, :, None], boot_c[:, :, :3] if boot_c is not None else rgb, rgb))
+        if leg_stage and nl_cfg.get("stage_color"):  # the body group still wears what the leg stage took off (a long coat over the thighs): above the cut the leg takes the stage's own colours
+            cut_ = int(spec["joints"][nl_cfg["stage_until"]][1]) if nl_cfg.get("stage_until") else H
+            own = region & (stage_rgba[leg_stage][:, :, 3] > 127) & (yy_leg < cut_)
+            color = np.where(own[:, :, None], stage_rgba[leg_stage][:, :, :3], color)
+            known |= own
         unknown = region & ~known
         if unknown.any():
             color = row_fill(color, unknown, known)

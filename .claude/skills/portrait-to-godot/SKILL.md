@@ -92,6 +92,7 @@ python tools/comfyui/gpu_lock.py -- <godot> --path . res://tools/rig_preview.tsc
 - 肩、腕甩出去：支點沒在圖的轉動中心，量該高度的左右邊界取中心。
 - 無袖底層圖的袖窿露出膚色或暗塊：`refine.inpaint`。
 - 衣物坐下時直直垂進椅子：把它掛到會動的那根骨頭上。
+- 過腰的長下襬（大衣、圍裙）跟著大腿橫出去或像硬板：下襬獨立成零件掛在衣襬骨頭上，大腿改用「衣服只到腰」的底層圖（`near_leg.stage` 加 `stage_color`）。只疊一片下襬而不換大腿，坐下會出現兩層衣服。
 
 ## 第 6 關：逐格接點稽核
 

@@ -4,17 +4,23 @@
   "rig": "res://art/rigs/ah_po.json",
   "texture_scale": 0.05,
   "scale": 1.0,
+  "eye_states": {
+    "part": "head",
+    "half_texture": "head_half",
+    "closed_texture": "head_closed",
+    "timing": {}
+  },
   "description": "外觀（skin）定義：textures 是零件圖片的尺寸與支點；parts 是把圖片掛到骨頭上的方式。由 tools/comfyui/cut_layers.py 依分件圖層切出。",
   "textures": {
     "pelvis": {
       "file": "parts/pelvis.png",
       "size": [
         190,
-        124
+        129
       ],
       "pivot": [
         94.74,
-        101.1
+        103.1
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -22,7 +28,7 @@
       "file": "parts/torso.png",
       "size": [
         183,
-        264
+        267
       ],
       "pivot": [
         102.44,
@@ -46,11 +52,11 @@
       "file": "parts/leg_upper.png",
       "size": [
         156,
-        225
+        230
       ],
       "pivot": [
         89.75,
-        -10.39
+        -8.39
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -58,11 +64,11 @@
       "file": "parts/leg_lower.png",
       "size": [
         123,
-        226
+        231
       ],
       "pivot": [
         69.22,
-        7.25
+        9.25
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -70,11 +76,11 @@
       "file": "parts/foot.png",
       "size": [
         138,
-        80
+        82
       ],
       "pivot": [
         43.15,
-        0.08
+        2.08
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -82,7 +88,7 @@
       "file": "parts/arm_upper.png",
       "size": [
         103,
-        193
+        196
       ],
       "pivot": [
         51.11,
@@ -94,11 +100,11 @@
       "file": "parts/arm_lower.png",
       "size": [
         108,
-        160
+        162
       ],
       "pivot": [
         54.83,
-        6.96
+        8.96
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -118,7 +124,7 @@
       "file": "parts/apron_bib.png",
       "size": [
         183,
-        275
+        278
       ],
       "pivot": [
         93.44,
@@ -131,11 +137,11 @@
       "file": "parts/apron.png",
       "size": [
         244,
-        374
+        376
       ],
       "pivot": [
-        116.74,
-        101.1
+        130.87,
+        12.66
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
@@ -149,7 +155,7 @@
         92.34,
         173.31
       ],
-      "note": "NE-221: same-canvas source eye variant; original head retained"
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     },
     "head_closed": {
       "file": "parts/head_closed.png",
@@ -161,7 +167,7 @@
         92.34,
         173.31
       ],
-      "note": "NE-221: same-canvas source eye variant; original head retained"
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     }
   },
   "parts": [
@@ -248,9 +254,11 @@
     {
       "name": "apron",
       "texture": "apron",
-      "bone": "hip",
+      "bone": "coat_1",
       "z": 4,
-      "tint": 1.13
+      "tint": 1.13,
+      "root_attach": true,
+      "bend_partner": "coat_2"
     },
     {
       "name": "head",
@@ -276,11 +284,5 @@
       "bone": "hand_front",
       "z": 10
     }
-  ],
-  "eye_states": {
-    "part": "head",
-    "half_texture": "head_half",
-    "closed_texture": "head_closed",
-    "timing": {}
-  }
+  ]
 }

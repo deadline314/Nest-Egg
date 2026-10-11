@@ -56,6 +56,18 @@
     "toe": [
       493.0,
       1184.3
+    ],
+    "coat_root": [
+      395,
+      610
+    ],
+    "coat_mid": [
+      395,
+      760
+    ],
+    "coat_tip": [
+      395,
+      905
     ]
   },
   "groups": {
@@ -167,7 +179,7 @@
         {
           "name": "leg_front_upper",
           "bone": "leg_front_upper",
-          "z": 3,
+          "z": -1,
           "tint": 1.8
         }
       ],
@@ -292,6 +304,27 @@
         }
       ],
       "pivot": "palm"
+    },
+    "coat_tail": {
+      "group": "body",
+      "from": "coat_root",
+      "to": "coat_mid",
+      "mode": "bone",
+      "pivot": "coat_root",
+      "y": [
+        600,
+        905
+      ],
+      "uses": [
+        {
+          "name": "coat_tail",
+          "bone": "coat_1",
+          "z": 4,
+          "root_attach": true,
+          "bend_partner": "coat_2",
+          "tint": 1.8
+        }
+      ]
     }
   },
   "glow": {
@@ -383,6 +416,16 @@
     {
       "name": "foot_front",
       "parent": "leg_front_lower"
+    },
+    {
+      "name": "coat_1",
+      "parent": "hip",
+      "at": "coat_root"
+    },
+    {
+      "name": "coat_2",
+      "parent": "coat_1",
+      "at": "coat_mid"
     }
   ],
   "weapon_anchor": {
@@ -408,7 +451,8 @@
         "foot",
         "arm_upper",
         "arm_lower",
-        "hand"
+        "hand",
+        "coat_tail"
       ],
       "sigma": 1.0
     },
@@ -443,7 +487,14 @@
           ]
         ]
       }
-    ]
+    ],
+    "trim_spikes": {
+      "parts": [
+        "leg_upper",
+        "leg_lower"
+      ],
+      "radius": 4
+    }
   },
   "dialog_portrait": {
     "box": [
@@ -460,6 +511,12 @@
       "from": null,
       "seed": 54,
       "prompt": "Change the man's coat into a sleeveless one: delete his near-side arm entirely, including the whole short sleeve, the metal prosthetic arm and the hand, so the coat has a round armhole and the dark undershirt's shoulder shows there. No skin and no arm are drawn. Paint the coat body, the buttons, the golden trim, the dark shirt and the trousers that were hidden behind the arm. The same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes."
+    },
+    {
+      "name": "U",
+      "from": "P",
+      "seed": 63,
+      "prompt": "Shorten the man's long brown coat into a short jacket that ends at his belt: remove both coat tails that hang from the waist down to the knees completely, nothing of the coat is left below the belt. In their place paint what was hidden behind them: his baggy olive-green work trousers on both thighs from the belt down to the knees, with a few wrinkles, in exactly the same art style and colors as the trousers below the knees. There is no hole and nothing see-through. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the upper body, the lower legs and the boots."
     }
   ],
   "glow_threshold": {
@@ -468,6 +525,14 @@
   },
   "near_leg": {
     "pos": [
+      [
+        385,
+        700
+      ],
+      [
+        385,
+        800
+      ],
       [
         350,
         950
@@ -487,10 +552,6 @@
     ],
     "neg": [
       [
-        475,
-        1000
-      ],
-      [
         500,
         1160
       ],
@@ -500,13 +561,13 @@
       ]
     ],
     "threshold": 0.3,
-    "close": 9,
+    "close": 22,
     "fill": [
       "hand"
     ],
-    "extra": [
-      "brown coat"
-    ]
+    "stage": "U",
+    "stage_until": "ankle",
+    "stage_color": true
   },
   "eye_states": {
     "part": "head",
@@ -573,5 +634,25 @@
         99
       ]
     ]
-  }
+  },
+  "springs": [
+    {
+      "bone": "coat_1",
+      "rest": 0.0,
+      "gain": 0.1,
+      "stiffness": 110,
+      "damping": 14,
+      "min": -0.08,
+      "max": 0.12
+    },
+    {
+      "bone": "coat_2",
+      "rest": 0.0,
+      "gain": 0.07,
+      "stiffness": 100,
+      "damping": 12,
+      "min": -0.07,
+      "max": 0.1
+    }
+  ]
 }

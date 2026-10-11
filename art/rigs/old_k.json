@@ -129,6 +129,42 @@
         0.0,
         12.11
       ]
+    },
+    {
+      "name": "coat_1",
+      "parent": "hip",
+      "pos": [
+        -0.02,
+        0.4
+      ]
+    },
+    {
+      "name": "coat_2",
+      "parent": "coat_1",
+      "pos": [
+        0.0,
+        6.93
+      ]
+    }
+  ],
+  "springs": [
+    {
+      "bone": "coat_1",
+      "rest": 0.0,
+      "gain": 0.1,
+      "stiffness": 110,
+      "damping": 14,
+      "min": -0.08,
+      "max": 0.12
+    },
+    {
+      "bone": "coat_2",
+      "rest": 0.0,
+      "gain": 0.07,
+      "stiffness": 100,
+      "damping": 12,
+      "min": -0.07,
+      "max": 0.1
     }
   ],
   "weapon_anchor": {
