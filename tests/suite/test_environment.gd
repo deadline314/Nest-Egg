@@ -735,6 +735,8 @@ func _test_lamp_fixtures() -> void:
 		var kinds := {}
 		var lamps := 0
 		var loose := PackedStringArray()
+		var tallest := 0.0
+		var soft := true
 		for node: Node in level.find_children("*", "Node2D", true, false):
 			var lamp := node as Lamp
 			if lamp == null:
@@ -743,8 +745,15 @@ func _test_lamp_fixtures() -> void:
 			kinds[lamp.fixture_id] = true
 			if lamp.fixture_id == &"" or not lamp.is_supported():
 				loose.append("(%d, %d)" % [int(lamp.position.x / 16.0), int(lamp.position.y / 16.0)])
+			# 桿子不能太高：約 4 公尺（主角身高的兩倍多），不是三倍高的電線桿。
+			if lamp.mount() == &"pole" or lamp.mount() == &"ground":
+				tallest = maxf(tallest, lamp.support_floor_y - lamp.position.y)
+			var lamp_shaft := lamp._shaft
+			soft = soft and (lamp_shaft == null or not lamp_shaft.crisp)
 		check(loose.is_empty(), "%s 的每一盞燈都有燈具與支撐（共 %d 盞；沒有的在 %s）" % [file, lamps, ", ".join(loose)])
 		check(lamps < 2 or kinds.size() >= 2, "%s 的燈至少兩款（%d 盞、%d 款）" % [file, lamps, kinds.size()])
+		check(tallest <= Level.LAMP_POLE_MAX, "%s 的燈桿不超過 %d 像素（最高 %d）" % [file, int(Level.LAMP_POLE_MAX), int(tallest)])
+		check(soft, "%s 場景燈的光錐是柔邊" % file)
 		await end_level(level)
 
 
@@ -796,6 +805,9 @@ func _test_lamp_flicker() -> void:
 	check(run["worst"] <= 3 and run["dark_share"] > 0.6 and run["high"] > 0.6,
 			"快壞的燈多半是暗的、偶爾亮起來，一秒內亮暗變化不超過 3 次（最多 %d 次，暗的時間占 %.0f%%）" % [run["worst"], run["dark_share"] * 100.0])
 	check(dying.buzz_level() > 0.0 and is_zero_approx(first.buzz_level()), "快壞的燈有電流聲，接觸不良的沒有")
+	# 火花：只有快壞的燈有，從暗的突然亮起來那一下才掉；沒有火花在飛的時候不處理。
+	check(dying._sparks != null and first._sparks == null and dying._spark_count > 0 and not dying._sparks.is_processing() == not dying._sparks.is_active(),
+			"快壞的燈亮起來時掉火花（20 秒內 %d 次），接觸不良的燈沒有" % dying._spark_count)
 	check(is_equal_approx(LampBuzz.nearness(0.0), 1.0) and LampBuzz.nearness(LampBuzz.RANGE * 0.5) < 0.3
 			and is_zero_approx(LampBuzz.nearness(LampBuzz.RANGE)) and is_zero_approx(LampBuzz.nearness(LampBuzz.RANGE * 3.0)),
 			"電流聲離燈越遠越小，超過範圍聽不到")
@@ -811,6 +823,7 @@ func _test_lamp_flicker() -> void:
 	# 「減少閃光」：改成緩慢的明暗起伏，沒有突然的變化。
 	Settings.set_reduce_flashes(true)
 	await frames(1)
+	var sparks_before := dying._spark_count
 	_simulate_lamp(dying, 0.5)  # 切換設定的那一下先走完
 	_simulate_lamp(first, 0.5)
 	run = _simulate_lamp(dying, 20.0)
@@ -818,6 +831,7 @@ func _test_lamp_flicker() -> void:
 			"減少閃光打開時快壞的燈改成緩慢起伏（一秒內最多 %d 次明顯變化、相鄰兩格最多差 %.3f）" % [run["worst"], run["max_step"]])
 	run = _simulate_lamp(first, 20.0)
 	check(run["worst"] <= 1 and run["max_step"] < 0.03, "減少閃光打開時接觸不良的燈也改成緩慢起伏")
+	check(dying._spark_count == sparks_before, "減少閃光打開時不掉火花")
 	Settings.set_reduce_flashes(reduce_before)
 	await frames(1)
 	# 量測用的固定亮度：停在最暗的那一刻。

@@ -19,7 +19,7 @@ const MIN_CALM_PERIOD := 2.0
 static var _step_hz := 10.0
 static var _threshold := 0.2
 static var _limit := MAX_CHANGES_PER_SECOND
-## 狀態 → {patterns: Array[PackedFloat32Array], calm_low, calm_high, calm_period, buzz}
+## 狀態 → {patterns: Array[PackedFloat32Array], calm_low, calm_high, calm_period, buzz, sparks}
 static var _states: Dictionary = {}
 ## 供電狀況 → Array[StringName]（輪到的狀態）
 static var _supply: Dictionary = {}
@@ -115,6 +115,12 @@ static func darkest(state: StringName) -> float:
 static func buzz(state: StringName) -> float:
 	_load()
 	return float(_states.get(state, {}).get("buzz", 0.0))
+
+
+## 這個狀態的燈突然亮起來時會不會掉火花。
+static func sparks(state: StringName) -> bool:
+	_load()
+	return bool(_states.get(state, {}).get("sparks", false))
 
 
 ## 設定的「減少閃光」有沒有打開。只在設定改變後重讀一次，不是每盞燈每影格都去讀設定檔。
@@ -214,6 +220,7 @@ static func _parse_state(name: String, entry: Dictionary) -> Dictionary:
 		"calm_high": clampf(float(calm.get("high", 1.0)), 0.0, PEAK),
 		"calm_period": period,
 		"buzz": clampf(float(entry.get("buzz", 0.0)), 0.0, 1.0),
+		"sparks": bool(entry.get("sparks", false)),
 	}
 
 

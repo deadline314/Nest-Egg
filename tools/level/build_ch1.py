@@ -590,8 +590,9 @@ def build_street():
     # The first combat tutorial's existing lamp is supported by the pole at 54.
     # Its old row-8 position sat above the pole and barely lit the player's body.
     a.lamp(54, 12)
-    for x in (10, 30, 78, 104, 126, 150, 176, 200):
-        a.lamp(x, 8)
+    # 街燈的高度約 4 公尺（主角身高的兩倍多）：第 8 列的桿子有主角的三倍高，使用者覺得太高（BG-36）。
+    for x in (11, 31, 78, 104, 126, 150, 176, 201):
+        a.lamp(x, 12)
     a.zone(0, 'market')
     a.zone(181, 'freight', 14)
     return a
@@ -616,7 +617,7 @@ def build_booth_alley():
     a.prop('anchor_phone_booth__poster_wall', 28, y=19)
     a.prop('anchor_phone_booth__flicker_lamp_post', 31)
     a.prop('anchor_phone_booth__gutter_downpipe', 20)
-    a.lamp(26, 8)
+    a.lamp(26, 11)
     a.zone(0, 'alley_calm')  # 安全的小巷：和街道同一片夜色，但光較平、沒有閃電
     a.features = {'landmark': '備份亭與復原箭頭（x=48～51）：巷子盡頭發光的電話亭', 'reward': '兩處信用點（x=18、x=44）'}
     return a
@@ -842,7 +843,7 @@ def build_stall():
     a.prop('dawn_noodle_stall__dawn_string_lights', 14, y=10)
     a.prop('dawn_noodle_stall__cat_box_bed', 36)
     a.prop('dawn_noodle_stall__shop_shutter_dawn', 6)
-    a.lamp(20, 9)
+    a.lamp(20, 12)
     a.zone(0, 'alley_calm')  # 露天的麵攤：和街道同一片夜色（一般級），亮的是攤車自己的燈
     return a
 

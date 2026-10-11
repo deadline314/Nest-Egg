@@ -11,6 +11,8 @@ extends Node2D
 const FLICKER_SLEW := 14.0
 ## 亮度比例低於這個值時不投影：幾乎全暗的燈（快壞的燈大部分時間）投出來的影子看不見，不付投影的成本、也不佔投影的名額。
 const SHADOW_FROM := 0.2
+## 亮度比例一口氣往上跳這麼多才算「打火」，會掉火花。
+const SPARK_JUMP := 0.45
 ## 快壞的燈暗著的時候電流聲比較小，亮起來的瞬間最大聲。
 const BUZZ_IDLE := 0.35
 ## 支撐的顏色（吊桿、立桿、底座）：受場景的光照亮，所以用深色的鋼。
@@ -48,8 +50,6 @@ var dead := false
 var floor_y := INF
 ## 頭上最近的天花板底面的世界 y 座標；INF 代表頭上沒有天花板。
 var ceiling_y := INF
-## 光錐裡要不要有雨絲：只有下雨的關卡、頭上沒有屋頂的燈才有。
-var rain_streaks := false
 ## 燈具款式（LampFixtures 的 id）；空的代表沒有燈具圖，只有光。
 var fixture_id: StringName = &""
 ## 背後有沒有牆：壁掛的燈具要有牆才算有支撐。
@@ -79,6 +79,9 @@ var _buzz := 0.0
 var _clock := 0.0
 var _flicker := 1.0
 var _casts_shadow := true
+## 快壞的燈亮起來那一下掉的火花；其他的燈沒有。
+var _sparks: LampSparks
+var _spark_count := 0
 var _time := 0.0
 var _shown_level := -1.0
 
@@ -215,6 +218,7 @@ func _ready() -> void:
 	_shaft = LightShaft.new()
 	_shaft.color = light_color
 	_shaft.cone = shaft_scale > 0.0
+	_shaft.crisp = false
 	_shaft.length = minf(light_radius * 0.7, 150.0) * (shaft_scale if _shaft.cone else 0.6)
 	_shaft.half_width = _shaft.length * 0.32
 	if _prop != null:
@@ -224,10 +228,12 @@ func _ready() -> void:
 		var aim := float(_fixture.get("aim_x", 0.0))
 		_shaft.direction = Vector2(-aim if flipped else aim, 1.0).normalized()
 	_shaft.floor_y = floor_y
-	_shaft.rain_streaks = rain_streaks
 	_shaft.source = _light
 	_shaft.position = Vector2(0, 3)
 	add_child(_shaft)
+	if LampFlicker.sparks(flicker_state):
+		_sparks = LampSparks.new()
+		add_child(_sparks)
 	_show_level(1.0)
 
 
@@ -316,6 +322,10 @@ func _flicker_level(delta: float) -> float:
 		target = LampFlicker.calm_level(flicker_state, _clock, _calm_phase)
 	else:
 		target = LampFlicker.level_at(_pattern, _clock, _pattern_offset)
+		# 從暗的突然亮起來：接點打火，掉幾顆火花（「減少閃光」與量測固定亮度時沒有）。
+		if _sparks != null and target - _flicker >= SPARK_JUMP and not _sparks.is_active():
+			_spark_count += 1
+			_sparks.burst(_pattern_offset * 31 + _spark_count)
 	_flicker = move_toward(_flicker, target, delta * FLICKER_SLEW)
 	return _flicker
 

@@ -19,9 +19,9 @@ const BOSS_SPAWN_DELAY := 0.8
 const ARENA_TRIGGER_MARGIN := 40.0
 const FALL_LIMIT_MARGIN := 48.0
 const BOSS_LIGHTING_ID := &"boss"
-## 燈往上幾格內有實心地形就算吊在天花板；立桿與落地燈具離地最遠多少像素。
+## 燈往上幾格內有實心地形就算吊在天花板；立桿與落地燈具離地最遠多少像素（約 4.5 公尺：再高的桿子比例不對，要把燈放低）。
 const LAMP_CEILING_REACH := 6
-const LAMP_POLE_MAX := 210.0
+const LAMP_POLE_MAX := 150.0
 const BOSS_LIGHTING_FADE := 1.5
 ## 重生後多久播出「死亡次數的反應」通訊（等轉場揭開、玩家看清楚畫面）。
 const RESPAWN_REACTION_DELAY := 1.2
@@ -450,7 +450,6 @@ func _spawn_static_entities() -> void:
 		# 風格由所在區段決定；沒有區段時維持霓虹三原色交錯。
 		var tile := int(lamp.position.x / _layout.tile_size)
 		lamp.floor_y = _layout.floor_below(tile, int(lamp.position.y / _layout.tile_size))
-		lamp.rain_streaks = data.rain and tile >= 0 and tile < _layout.covered_columns.size() and _layout.covered_columns[tile] == 0
 		lamp.ceiling_y = _lamp_ceiling(tile, int(lamp.position.y / _layout.tile_size))
 		var profile := data.profile_at_tile(tile)
 		if profile != null and profile.lamp_style != null:

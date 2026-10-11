@@ -45,7 +45,7 @@ static func volumetrics() -> bool:
 	return SETTINGS[tier()]["volumetrics"]
 
 
-## 光錐（LightShaft）的細緻度：1 = 全部（每影格重畫、全部塵埃與雨絲），0.5 = 每秒重畫 30 次、塵埃與雨絲減半，0 = 不畫。
+## 光錐（LightShaft）的細緻度：1 = 有變化的那一格就重畫，0.5 = 每秒最多重畫 30 次，0 = 不畫。
 ## 光錐是體積光裡最貴的一項（BG-16 實測：關掉省約 20% 每影格時間）。
 static func shaft_detail() -> float:
 	return SETTINGS[tier()]["shaft_detail"]
