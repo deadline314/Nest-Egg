@@ -29,6 +29,7 @@ const SCENARIOS := {
 	"watchdog_moves": "res://tools/scenarios/watchdog_moves_scenario.gd",
 	"throwables": "res://tools/scenarios/throwables_scenario.gd",
 	"shield_attach": "res://tools/scenarios/shield_attach_scenario.gd",
+	"gun_balance": "res://tools/scenarios/gun_balance_scenario.gd",
 	"creature_combat": "res://tools/scenarios/creature_combat_scenario.gd",
 	"exotic_enemies": "res://tools/scenarios/exotic_enemies_scenario.gd",
 	"chapter2_expansion": "res://tools/scenarios/chapter2_expansion_scenario.gd",
