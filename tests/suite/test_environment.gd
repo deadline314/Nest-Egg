@@ -29,6 +29,7 @@ func run() -> void:
 	await _test_lamp_flicker()
 	await _test_wall_shadows()
 	await _test_enemy_glow()
+	await _test_melee_art()
 	_test_import_policy("res://art/environment")
 
 
@@ -1157,3 +1158,82 @@ func _glow_enemy(level: Level, id: String, feet: Vector2) -> Enemy:
 	level._entities.add_child(enemy)
 	enemy.health.setup(999, 0.0)
 	return enemy
+
+
+## 近戰武器的圖與刃光（NE-260）：五把都有圖；握把位置與長度不變；手上、背包、掉落物同一套；刃光是真的光。
+func _test_melee_art() -> void:
+	MeleeArt.clear_cache()
+	var blade_weapon: WeaponData = null
+	for id: String in ["melee_blade", "melee_dagger", "melee_glaive", "melee_maul", "melee_whip"]:
+		var weapon := load("res://data/weapons/melee/%s.tres" % id) as WeaponData
+		if id == "melee_blade":
+			blade_weapon = weapon
+		var entry := MeleeArt.art(weapon)
+		check(not entry.is_empty() and entry.get("texture") != null and entry.get("glow") != null, "%s 有圖與發光層" % id)
+		if entry.is_empty():
+			continue
+		var size: Vector2 = entry["size"]
+		var grip: Vector2 = entry["grip"]
+		check(grip.x > 0.0 and grip.x < size.x * 0.7 and grip.y > 0.0 and grip.y < size.y, "%s 的握把在圖裡面（手握的位置對得上）" % id)
+		# 握把在原點、刃尖朝 +x：圖的右端要落在原本線條的長度附近（鞭子的圖只有握把，細線仍然用線段畫到原本的長度）。
+		if weapon.melee_shape != "whip":
+			var tip := size.x - grip.x
+			check(absf(tip - weapon.melee_length) <= weapon.melee_length * 0.15 + 2.0, "%s 的長度和原本一樣（圖 %.1f、原本 %.1f）" % [id, tip, weapon.melee_length])
+		var spec := MeleeArt.light_spec(weapon)
+		check(float(spec.get("radius", 0.0)) > 0.0 and float(spec.get("energy", 0.0)) > 0.0 and float(spec.get("swing", 0.0)) >= 1.0
+				and float(spec.get("at", -1.0)) >= 0.0 and float(spec.get("at", -1.0)) <= maxf(weapon.melee_length, size.x), "%s 有刃光的設定，光在刀身上" % id)
+		check(MeleeArt.item_icon(weapon).get_size() == Vector2(MeleeArt.ITEM_SIZE) and MeleeArt.ammo_icon(weapon).get_size() == Vector2(MeleeArt.AMMO_SIZE),
+				"%s 的背包卡片與武器欄圖示大小不變" % id)
+		check(not ItemIcons.world(id).is_empty(), "%s 掉在場景裡有圖" % id)
+	# 沒有圖的武器退回線條，不會壞。
+	var odd := blade_weapon.duplicate() as WeaponData
+	odd.id = &"test_missing_prop_melee"
+	check(MeleeArt.art(odd).is_empty() and MeleeArt.light_spec(odd).is_empty() and not MeleeArt.segments(odd).is_empty()
+			and MeleeArt.item_icon(odd).get_size() == Vector2(MeleeArt.ITEM_SIZE), "沒有圖的近戰武器退回線條，沒有刃光")
+
+	# 刃光：拿在手上有一小圈；揮動時變亮；減少閃光時變亮得比較少；換成槍就熄滅。
+	var reduce_before := Settings.get_reduce_flashes()
+	Settings.set_reduce_flashes(false)
+	var level := await start_level(load("res://data/levels/ch1_warehouse.tres") as LevelData)
+	for node: Node in runner.get_tree().get_nodes_in_group(&"enemies"):
+		node.queue_free()
+	var player := level.player
+	player.loadout.reset(blade_weapon)
+	await frames(40)
+	var blade := player.find_child("BladeLight", true, false) as BladeLight
+	check(blade != null, "主角身上有刃光元件")
+	if blade != null:
+		var idle := blade.energy()
+		check(idle > 0.05 and blade.light().is_in_group(LightKit.SCENE_LIGHTS) and blade.light().color.is_equal_approx(blade_weapon.color),
+				"拿著熱能長刀時有刃光，顏色是武器的顏色，而且是登記在場景裡的光（%.2f）" % idle)
+		var hold := player._visual.melee_hold()
+		check(blade.global_position.distance_to(hold.origin) <= blade_weapon.melee_length + 2.0 and blade.global_position.distance_to(hold.origin) > 2.0,
+				"刃光在刀身上，不在手上也不在身體上")
+		var swing := await _swing_peak(player, blade)
+		check(swing > idle * 1.25, "揮動時刃光變亮（%.2f → %.2f）" % [idle, swing])
+		Settings.set_reduce_flashes(true)
+		await frames(40)
+		var calm_swing := await _swing_peak(player, blade)
+		check(calm_swing < swing * 0.95 and calm_swing >= idle * 0.95, "減少閃光打開時揮動沒有那麼亮（%.2f，原本 %.2f）" % [calm_swing, swing])
+		Settings.set_reduce_flashes(false)
+		player._interrupt_melee()
+		player.loadout.reset(load("res://data/weapons/pistol.tres") as WeaponData)
+		await frames(60)
+		check(blade.energy() <= 0.01, "換成槍之後刃光熄滅")
+	Settings.set_reduce_flashes(reduce_before)
+	await end_level(level)
+
+
+## 揮一刀，回傳過程中刃光最亮的亮度。
+func _swing_peak(player: Player, blade: BladeLight) -> float:
+	player._interrupt_melee()
+	player._melee_cooldown_left = 0.0
+	await frames(30)
+	var peak := 0.0
+	if not player._try_melee():
+		return peak
+	for step in 40:
+		await frames(1)
+		peak = maxf(peak, blade.energy())
+	player._interrupt_melee()
+	return peak

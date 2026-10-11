@@ -131,7 +131,8 @@ def main() -> None:
     parser.add_argument("--no-gen", action="store_true")
     args = parser.parse_args()
     cfg = json.loads(CFG.read_text(encoding="utf-8"))
-    entries = [entry for entry in cfg["items"] if not args.only or entry["id"] in args.only]
+    # Entries marked "derived" are drawn by another tool from the in-game art (the melee weapons, NE-260): never regenerate them here.
+    entries = [entry for entry in cfg["items"] if (not args.only or entry["id"] in args.only) and not entry.get("derived")]
     if args.only and set(args.only) - {entry["id"] for entry in entries}:
         raise ValueError("Unknown world item id")
     try:

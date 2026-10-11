@@ -29,6 +29,9 @@ const MELEE_ACTION_PREFIX := "rin.melee_"
 ## 近戰武器平時的發光亮度、出招瞬間的亮度（有上限，HDR 泛光下不過曝）。
 const MELEE_GLOW := 1.3
 const MELEE_GLOW_SWING := 2.0
+## 近戰武器本體的明暗：最暗的環境剩幾成亮度、環境光每 1.0 增加多少。
+const MELEE_SHADE_FLOOR := 0.42
+const MELEE_SHADE_GAIN := 1.5
 
 var player: Player
 var rig: CharacterRig
@@ -38,6 +41,8 @@ var _time := 0.0
 var _fire_flash := 0.0
 ## 進行中的揮砍軌跡：{age, trail（資料）, facing}；最多同時兩條，亮度有上限，不走粒子預算。
 var _trails: Array[Dictionary] = []
+## 近戰武器的刃光（真的光源）。
+var _blade_light: BladeLight
 var _fire_color := Palette.CYAN
 var _finisher_flash := 0.0
 var _parry_flash := 0.0
@@ -61,6 +66,9 @@ func _ready() -> void:
 		push_error("[PlayerVisual] 主角骨架載入失敗，請確認 art/characters/%s。" % SKIN_ID)
 	# 骨架畫在本節點的疊加特效之下。
 	rig.show_behind_parent = true
+	_blade_light = BladeLight.new()
+	_blade_light.name = "BladeLight"
+	add_child(_blade_light)
 	# Attach a world-space sibling after the parent finishes spawning children.
 	_attach_ghost_pool.call_deferred()
 
@@ -267,6 +275,7 @@ func _process(delta: float) -> void:
 	if player == null:
 		return
 	_time += delta
+	_blade_light.follow(self, delta)
 	_fire_flash = maxf(0.0, _fire_flash - delta)
 	for i in range(_trails.size() - 1, -1, -1):
 		_trails[i]["age"] = float(_trails[i]["age"]) + delta
@@ -380,15 +389,26 @@ func _draw_shield() -> void:
 
 ## 手上的近戰武器：接在骨架前手上、沿前臂方向延伸，跟著揮砍動作轉；出招時更亮。撥號與乘載時不畫。
 func _draw_melee_weapon() -> void:
-	if not player.holds_melee_weapon() or rig == null or not rig.is_valid() or _phone_t >= 0.0:
+	if not shows_melee_weapon():
 		return
-	var hand := rig.bone(&"hand_front")
-	var forearm := rig.bone(&"arm_front_lower")
-	if hand == null or forearm == null:
-		return
-	var along := (hand.global_position - forearm.global_position).normalized()
+	var hold := melee_hold()
 	var glow := MELEE_GLOW_SWING if player.is_melee_swinging() else MELEE_GLOW
-	MeleeArt.draw(self, to_local(hand.global_position), along, player.loadout.active_weapon(), glow)
+	# 武器畫在不受場景光影響的這一層：本體的明暗跟著環境光走，暗的區域裡只有發光的刃口是亮的。
+	var shade := clampf(MELEE_SHADE_FLOOR + LightKit.ambient_luma * MELEE_SHADE_GAIN, MELEE_SHADE_FLOOR, 1.0)
+	MeleeArt.draw(self, to_local(hold.origin), hold.x, player.loadout.active_weapon(), glow, shade)
+
+
+## 手上現在有沒有畫出近戰武器（撥號、乘載、骨架不可用時不畫）。
+func shows_melee_weapon() -> bool:
+	return player != null and player.holds_melee_weapon() and rig != null and rig.is_valid() and _phone_t < 0.0 \
+			and rig.bone(&"hand_front") != null and rig.bone(&"arm_front_lower") != null
+
+
+## 近戰武器握在哪裡、朝哪裡（世界座標）：origin 是握把的位置，x 軸沿前臂指向刃尖。先用 shows_melee_weapon() 確認有在畫。
+func melee_hold() -> Transform2D:
+	var hand := rig.bone(&"hand_front").global_position
+	var along := (hand - rig.bone(&"arm_front_lower").global_position).normalized()
+	return Transform2D(along, along.orthogonal(), hand)
 
 
 ## 重生淡入：腳下收攏的光環，加上一道由上往下收細的光柱。

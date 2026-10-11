@@ -177,6 +177,14 @@ CC0 庫找不到的道具（吊車、龍門吊、控制台、堆高機、閘門�
 - 影子在槍燈與矮的燈下最明顯，高處的吊燈主要落在腳邊。要看效果：`godot --path . res://tools/wall_shadow_probe.tscn -- --out=<絕對資料夾> --level=<關卡> --mode=lamp,gun,perf,reenter`（每張都有影子開與關；`perf` 量 12 個敵人的耗時）。
 - 新的光源只要用 `LightKit.create_point_light`（預設會登記）就會讓角色投影，不用另外接。
 
+### 近戰武器的圖與刃光（NE-260）
+
+- 清單 `assets_src/pipeline/melee_weapons.json`（提示詞、種子、`span` 武器座標的範圍、`grip_zone` 握把範圍、`glow` 發光規則、`glow_tint`、`light` 刃光）。`python tools/assets/melee_art.py [--only <id>] [--no-gen]` 生成並寫出 `art/weapons/melee/<id>.png`、`_glow.png` 與 `data/weapon_art/melee.json`，同時重畫掉落物（`art/items/world/<id>.png`）與已有專屬檔的背包圖示。**掉落物與圖示不要再用 `tools/art/build_world_items.py` 生成**（清單裡標了 `derived`，那支工具會略過），否則手上和地上會是兩把不同的武器。
+- `span` 決定圖在遊戲裡多長：握把在 0、刃尖朝 +x，圖的寬度剛好蓋住這一段。要換圖就換提示詞與種子，不要改 `span`（招式的距離是照它調的）。
+- 模型會把「發光的刃口」畫成銀色：用 `glow_tint` 把發光層染成武器的顏色。提示詞要寫「handle at the left end, tip at the right end」，工具仍會檢查並自動左右翻轉。
+- 新增一把近戰武器：清單加一項、跑工具、匯入；沒有圖的武器會退回程式畫的線條，不會壞，也沒有刃光。
+- 驗收：`godot --path . res://tools/melee_art_probe.tscn -- --out=<絕對資料夾> [--tag=名稱]`，每把拍待機、每一段招式、蹲、空中、衝刺、掉落物與圖示，並量刃光亮度、暗處敵人被照亮多少、主角頭部全白比例（門檻 2%）、減少閃光有沒有生效。
+
 ## 9. 場景包：每個場景的背景與專屬物件（BG-11）
 
 大綱（`design/13-story-v2/OUTLINE.md` 第 5 節）的每個場景有一張背景圖與一包專屬物件，放在共用道具庫之外：

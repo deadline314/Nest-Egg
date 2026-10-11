@@ -1,0 +1,206 @@
+{
+ "_說明": "近戰武器的圖（NE-260）。tex_scale＝每個世界像素幾個貼圖像素。每把武器：id（WeaponData 的 id）、seed、gen（生成尺寸）、prompt、span（武器座標：握把在 0、刃尖朝 +x；圖的寬度剛好蓋住這一段，所以握把位置與長度不變）、grip_zone（握把在武器座標的範圍，用來找握把的中心線）、glow（發光部位的規則，同 qwen_matte.glow_mask）、glow_tint（把發光層染成這個顏色、保留明暗；模型把刃口畫成銀色時用）、grade（調色）、profile（招式組的名稱：背包已經有專屬圖示檔時一起重畫）、coil（掉落物與背包圖示上盤起來的鞭線的顏色）、light（刃光：radius 拿在手上的光池半徑、energy 亮度、swing 揮動時放大幾倍）。執行 python tools/assets/melee_art.py 生成並寫出 art/weapons/melee 與 data/weapon_art/melee.json。",
+ "style": "Anime cel-shaded game weapon sprite in the style of Studio Trigger's Cyberpunk Edgerunners: flat colour areas, bold clean dark outlines, hard-edged two-tone cel shading with a bright cool-white rim light on the upper edge, readable silhouette, no gradients, no photorealism.",
+ "view": "Strict orthographic side view, the weapon lies perfectly horizontal across the whole picture with the handle at the left end and the tip at the right end, nothing else in the picture, no hands, no character, no ground, no shadow, no text.",
+ "tex_scale": 8,
+ "weapons": [
+  {
+   "id": "melee_blade",
+   "seed": 26011,
+   "gen": [
+    1408,
+    480
+   ],
+   "prompt": "A cyberpunk thermal katana: a long slightly curved single-edged blade whose cutting edge along the bottom is a continuous strip glowing very bright red-hot orange, the dark gunmetal spine on top carries a row of small heat-sink fins, a compact rectangular guard, a short handle wrapped in black cord with a small power cell pommel.",
+   "span": [
+    -5.0,
+    24.0
+   ],
+   "grip_zone": [
+    -5.0,
+    1.0
+   ],
+   "glow": [
+    {
+     "hue": [
+      5,
+      50
+     ],
+     "smin": 0.45,
+     "vmin": 0.75,
+     "soft": 1.2
+    },
+    {
+     "smin": 0.0,
+     "vmin": 0.95,
+     "soft": 1.2
+    }
+   ],
+   "light": {
+    "radius": 44,
+    "energy": 0.55,
+    "swing": 1.9
+   },
+   "profile": "thermal_blade"
+  },
+  {
+   "id": "melee_dagger",
+   "seed": 26022,
+   "gen": [
+    1280,
+    512
+   ],
+   "prompt": "A cyberpunk monomolecular combat dagger: a short thin straight blade of matte black carbon with one extremely thin cutting edge line glowing very bright cyan-white along the bottom, a skeletal machined handle with finger grooves and a small ring pommel.",
+   "span": [
+    -5.0,
+    15.0
+   ],
+   "grip_zone": [
+    -5.0,
+    1.0
+   ],
+   "glow": [
+    {
+     "smin": 0.0,
+     "vmin": 0.72,
+     "soft": 1.0
+    }
+   ],
+   "light": {
+    "radius": 34,
+    "energy": 0.45,
+    "swing": 1.8
+   },
+   "glow_tint": [
+    0.72,
+    0.95,
+    1.0
+   ],
+   "profile": "mono_dagger"
+  },
+  {
+   "id": "melee_glaive",
+   "seed": 26033,
+   "gen": [
+    1536,
+    448
+   ],
+   "prompt": "A cyberpunk ion glaive polearm: a very long straight dark carbon shaft with two bands of grip tape, ending at the right in a glaive head made of two parallel steel conductor blades with a crackling electric-blue plasma arc glowing very bright between them, a small counterweight cap at the left end.",
+   "span": [
+    -15.0,
+    50.0
+   ],
+   "grip_zone": [
+    -12.0,
+    12.0
+   ],
+   "glow": [
+    {
+     "hue": [
+      195,
+      250
+     ],
+     "smin": 0.35,
+     "vmin": 0.75,
+     "soft": 1.2
+    },
+    {
+     "smin": 0.0,
+     "vmin": 0.95,
+     "soft": 1.2
+    }
+   ],
+   "light": {
+    "radius": 52,
+    "energy": 0.6,
+    "swing": 1.8
+   },
+   "profile": "ion_glaive"
+  },
+  {
+   "id": "melee_maul",
+   "seed": 26044,
+   "gen": [
+    1280,
+    608
+   ],
+   "prompt": "A cyberpunk hydraulic sledgehammer: a thick steel shaft with a rubber grip at the left, a massive blocky rectangular hammer head at the right with two exposed hydraulic pistons, yellow-and-black hazard stripes on the head and a flat striking face with a narrow status strip glowing very bright amber.",
+   "span": [
+    -5.0,
+    28.0
+   ],
+   "grip_zone": [
+    -5.0,
+    3.0
+   ],
+   "glow": [
+    {
+     "hue": [
+      25,
+      60
+     ],
+     "smin": 0.5,
+     "vmin": 0.85,
+     "soft": 1.2
+    },
+    {
+     "smin": 0.0,
+     "vmin": 0.96,
+     "soft": 1.2
+    }
+   ],
+   "light": {
+    "radius": 40,
+    "energy": 0.5,
+    "swing": 2.1
+   },
+   "profile": "hydraulic_maul"
+  },
+  {
+   "id": "melee_whip",
+   "seed": 26055,
+   "gen": [
+    1152,
+    512
+   ],
+   "prompt": "The handle of a cyberpunk monomolecular whip: a short thick ergonomic grip with a knurled dark polymer surface, a magenta power band, and at the right end an emitter nozzle glowing very bright magenta-pink from which the filament would come out.",
+   "span": [
+    -6.0,
+    4.0
+   ],
+   "grip_zone": [
+    -6.0,
+    1.0
+   ],
+   "glow": [
+    {
+     "hue": [
+      280,
+      340
+     ],
+     "smin": 0.4,
+     "vmin": 0.75,
+     "soft": 1.0
+    },
+    {
+     "smin": 0.0,
+     "vmin": 0.95,
+     "soft": 1.0
+    }
+   ],
+   "light": {
+    "radius": 46,
+    "energy": 0.5,
+    "swing": 1.9
+   },
+   "profile": "mono_whip",
+   "coil": {
+    "color": [
+     0.85,
+     0.4,
+     1.0
+    ]
+   }
+  }
+ ]
+}

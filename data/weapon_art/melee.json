@@ -1,0 +1,95 @@
+{
+ "_說明": "近戰武器的圖（NE-260），由 python tools/assets/melee_art.py 產生，不要手改。每把武器：texture／glow＝圖與發光層；size＝畫在遊戲裡的大小（世界像素）；grip＝握把（手握的位置）在圖上的位置（世界像素，從左上角算），遊戲把這一點對到手上、圖的 +x 朝刃尖；glow_at＝發光部位在武器座標的 x（刃光的位置）；light＝刃光（radius 拿在手上的光池半徑、energy 亮度、swing 揮動時放大幾倍）。沒有列在這裡的武器用程式畫的線條。",
+ "weapons": {
+  "melee_blade": {
+   "texture": "res://art/weapons/melee/melee_blade.png",
+   "glow": "res://art/weapons/melee/melee_blade_glow.png",
+   "size": [
+    29.0,
+    3.0
+   ],
+   "grip": [
+    5.0,
+    1.545
+   ],
+   "glow_at": 13.98,
+   "light": {
+    "radius": 44,
+    "energy": 0.55,
+    "swing": 1.9
+   }
+  },
+  "melee_dagger": {
+   "texture": "res://art/weapons/melee/melee_dagger.png",
+   "glow": "res://art/weapons/melee/melee_dagger_glow.png",
+   "size": [
+    20.0,
+    1.75
+   ],
+   "grip": [
+    5.0,
+    0.864
+   ],
+   "glow_at": 8.22,
+   "light": {
+    "radius": 34,
+    "energy": 0.45,
+    "swing": 1.8
+   }
+  },
+  "melee_glaive": {
+   "texture": "res://art/weapons/melee/melee_glaive.png",
+   "glow": "res://art/weapons/melee/melee_glaive_glow.png",
+   "size": [
+    65.0,
+    3.75
+   ],
+   "grip": [
+    15.0,
+    1.857
+   ],
+   "glow_at": 39.89,
+   "light": {
+    "radius": 52,
+    "energy": 0.6,
+    "swing": 1.8
+   }
+  },
+  "melee_maul": {
+   "texture": "res://art/weapons/melee/melee_maul.png",
+   "glow": "res://art/weapons/melee/melee_maul_glow.png",
+   "size": [
+    33.0,
+    10.625
+   ],
+   "grip": [
+    5.0,
+    5.255
+   ],
+   "glow_at": 23.55,
+   "light": {
+    "radius": 40,
+    "energy": 0.5,
+    "swing": 2.1
+   }
+  },
+  "melee_whip": {
+   "texture": "res://art/weapons/melee/melee_whip.png",
+   "glow": "res://art/weapons/melee/melee_whip_glow.png",
+   "size": [
+    10.0,
+    1.25
+   ],
+   "grip": [
+    6.0,
+    0.618
+   ],
+   "glow_at": 2.18,
+   "light": {
+    "radius": 46,
+    "energy": 0.5,
+    "swing": 1.9
+   }
+  }
+ }
+}
