@@ -71,7 +71,36 @@
    "demo_enemies": [],
    "reserved": []
   },
+  "ch2_heron": {
+   "levels": [
+    "ch2_pawnshop",
+    "ch2_rooftop",
+    "ch2_harbor_street",
+    "ch2_lounge_front",
+    "ch2_ali_home",
+    "ch2_market_gate",
+    "ch2_market",
+    "ch2_loading",
+    "ch2_ledger_front",
+    "ch2_ledger_office"
+   ],
+   "enemies": [],
+   "demo_levels": [],
+   "demo_enemies": [],
+   "reserved": []
+  },
   "chapter_03": {
+   "levels": [],
+   "enemies": [],
+   "demo_levels": [],
+   "demo_enemies": [],
+   "reserved": [
+    "cloud_jelly",
+    "cloud_serpent",
+    "swarm_bee"
+   ]
+  },
+  "ch3_clearwater": {
    "levels": [
     "ch3_pawnshop",
     "ch3_plaza",
@@ -90,11 +119,7 @@
    ],
    "demo_levels": [],
    "demo_enemies": [],
-   "reserved": [
-    "cloud_jelly",
-    "cloud_serpent",
-    "swarm_bee"
-   ]
+   "reserved": []
   }
  }
 }
