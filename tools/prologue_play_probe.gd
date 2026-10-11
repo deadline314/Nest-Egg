@@ -2,6 +2,9 @@ extends Node
 ## 序章真輸入探針（ST-16）：從真正的 Main 新遊戲入口開始，用移動、跳躍、射擊、近戰、格擋、衝刺與互動鍵玩完序章，
 ## 走出店門進當舖，沿途截圖並檢查每一項練習是否靠真的動作完成。瞄準用手把右搖桿的輸入（AimInput 的手把路徑）。
 ## 用法：godot --path . res://tools/prologue_play_probe.tscn -- --out=<絕對路徑資料夾>
+##   [--save-dir=<絕對路徑>]：存檔寫到這個資料夾（不碰玩家的存檔），供 prologue_resume_probe 在另一個程序繼續。
+##   [--stop-after=<旗標>]：練到這個旗標就像玩家一樣從 Main 正常退出（會存檔）。
+##   [--gamepad]：先送一個真的手把按鍵事件，提示改顯示手把按鍵（截圖檔名加 -pad）。
 
 const LIMIT := 1800
 
@@ -9,12 +12,25 @@ var _out := ""
 var _main: Node
 var _failures := 0
 var _played: Array[StringName] = []
+var _save_dir := ""
+var _stop_after := &""
+var _gamepad := false
 
 
 func _ready() -> void:
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--out="):
 			_out = arg.trim_prefix("--out=")
+		elif arg.begins_with("--save-dir="):
+			_save_dir = arg.trim_prefix("--save-dir=")
+		elif arg.begins_with("--stop-after="):
+			_stop_after = StringName(arg.trim_prefix("--stop-after="))
+		elif arg == "--gamepad":
+			_gamepad = true
+	if not _save_dir.is_empty() and (not _save_dir.is_absolute_path() or DirAccess.make_dir_recursive_absolute(_save_dir) != OK):
+		push_error("[ProloguePlayProbe] --save-dir 要是可寫入的絕對路徑：%s" % _save_dir)
+		get_tree().quit(2)
+		return
 	if not _out.is_empty():
 		DirAccess.make_dir_recursive_absolute(_out)
 	_run.call_deferred()
@@ -32,8 +48,11 @@ func _frames(n: int) -> void:
 
 
 func _shot(name: String) -> void:
+	print("SHOT %s gamepad=%s" % [name, InputBindings.using_gamepad])
 	if _out.is_empty() or DisplayServer.get_name() == "headless":
 		return
+	if _gamepad:
+		name += "-pad"
 	await _frames(4)
 	var image := preload("res://tools/viewport_capture.gd").image(get_viewport())
 	print("saved %s (%s)" % [name, error_string(image.save_png(_out.path_join(name + ".png")))])
@@ -116,6 +135,29 @@ func _npc(id: StringName) -> NpcActor:
 	return null
 
 
+## 送一個真的手把按鍵事件（像玩家拿起手把按了一下），讓提示改顯示手把的按鍵。
+func _touch_gamepad() -> void:
+	var press := InputEventJoypadButton.new()
+	press.device = 0
+	press.button_index = JOY_BUTTON_GUIDE
+	press.pressed = true
+	Input.parse_input_event(press)
+	var release := press.duplicate() as InputEventJoypadButton
+	release.pressed = false
+	Input.parse_input_event(release)
+	await _frames(2)
+
+
+## 練到 --stop-after 指定的旗標時，從 Main 正常退出（Main 退出前會存檔）。回傳 true 代表探針已結束。
+func _stop_if(flag: StringName) -> bool:
+	if _stop_after != flag or not GameState.has_flag(flag):
+		return false
+	print("PROLOGUE_STOPPED_AT %s level=%s deaths=%d" % [flag, _level().data.resource_path if _level() != null else "", GameState.deaths])
+	print("PROLOGUE_PLAY_PROBE failures=%d" % _failures)
+	_main.call("_quit", 1 if _failures > 0 else 0)
+	return true
+
+
 func _wait_flag(flag: StringName, frames := 600) -> bool:
 	for i in frames:
 		if GameState.has_flag(flag):
@@ -127,6 +169,8 @@ func _wait_flag(flag: StringName, frames := 600) -> bool:
 func _run() -> void:
 	Story.scene_started.connect(func(id: StringName, _mode: StringName) -> void: _played.append(id))
 	_main = (load("res://scenes/main.tscn") as PackedScene).instantiate()
+	if not _save_dir.is_empty():
+		_main.set("_run_store", RunSaveStore.new(_save_dir.path_join("slot.json")))
 	add_child(_main)
 	await _frames(30)
 	# 軟體算圖時選單轉場很慢：轉場還沒結束時 Main 會忽略開始，所以每秒重按一次，最多等兩分鐘。
@@ -153,6 +197,9 @@ func _run() -> void:
 			break
 		await _frames(1)
 	await _frames(30)
+	# 演出會吃掉確認鍵，所以等操作交回玩家才拿起手把按一下（像玩家一樣），之後的提示都改顯示手把按鍵。
+	if _gamepad:
+		await _touch_gamepad()
 	menu.open()
 	_check(menu._root.visible, "the pause menu opens once the opening hands over control")
 	menu._skip_button.button_down.emit()
@@ -167,6 +214,8 @@ func _run() -> void:
 	var bench := _station(&"ch1_training_workbench")
 	await _walk_to(bench.global_position.x)
 	_check(await _wait_flag(&"ch1_prologue_bench_done", 60), "walking to the workbench completes the movement practice")
+	if _stop_if(&"ch1_prologue_bench_done"):
+		return
 	await _finish_story("ST-16-p02-talk")
 	var platform := _station(&"ch1_training_platform")
 	# 像玩家一樣：沒跳上去就退回助跑再跳（最多四次）。
@@ -193,6 +242,8 @@ func _run() -> void:
 		var p := _player()
 		print("jump attempt %d missed: player %s state %s, platform %s, locked %s, story %s" % [attempt, p.global_position, p.state, platform.global_position, GameplayLock.is_locked(), Story.is_cinematic_active()])
 	_check(await _wait_flag(&"ch1_prologue_jump_done", 60), "a real jump onto the cargo platform completes the jump practice")
+	if _stop_if(&"ch1_prologue_jump_done"):
+		return
 	await _finish_story()
 	# P03：射擊線，用手把瞄準右方開槍打低靶。
 	var range_mark := _station(&"ch1_training_range")
@@ -210,6 +261,8 @@ func _run() -> void:
 			break
 		await _frames(20)
 	_check(await _wait_flag(&"ch1_prologue_shot_done", 120), "a real shot hits the low target")
+	if _stop_if(&"ch1_prologue_shot_done"):
+		return
 	await _finish_story()
 	# P04：橡膠靶近戰、訓練器格擋（先被打停一次，再舉盾擋下）、衝刺穿線。
 	var area := _station(&"ch1_training_area")
@@ -224,6 +277,8 @@ func _run() -> void:
 			break
 		await _frames(20)
 	_check(await _wait_flag(&"ch1_prologue_melee_done", 120), "a real melee hit on the rubber dummy")
+	if _stop_if(&"ch1_prologue_melee_done"):
+		return
 	await _finish_story()
 	var trainer := _station(&"ch1_training_trainer")
 	await _walk_to(trainer.global_position.x - 34.0)
@@ -239,6 +294,8 @@ func _run() -> void:
 	_aim(Vector2.RIGHT)
 	Input.action_press(&"block")
 	_check(await _wait_flag(&"ch1_prologue_guard_done", 600), "holding block toward the trainer blocks its strike")
+	if _stop_if(&"ch1_prologue_guard_done"):
+		return
 	Input.action_release(&"block")
 	await _finish_story()
 	var dash := _station(&"ch1_training_dash")
@@ -249,6 +306,8 @@ func _run() -> void:
 	await _frames(20)
 	Input.action_release(&"move_right")
 	_check(await _wait_flag(&"ch1_prologue_dash_done", 120), "a real dash across the training line")
+	if _stop_if(&"ch1_prologue_dash_done"):
+		return
 	await _finish_story()
 	# P05→P06：回櫃台和老 K 說話兩次，從旁邊的門回店裡。
 	var old_k := _npc(&"ch1_old_k_counter")
@@ -261,6 +320,8 @@ func _run() -> void:
 	await _press(&"interact")
 	await _finish_story("ST-16-p06-call")
 	_check(GameState.has_flag(&"ch1_prologue_exit"), "the wrap-up call hands over the exit")
+	if _stop_if(&"ch1_prologue_exit"):
+		return
 	var exit: Portal = _level()._portals.get(&"prologue_exit")
 	await _walk_to(exit.global_position.x)
 	await _press(&"interact")
@@ -275,4 +336,7 @@ func _run() -> void:
 	_check(missing.is_empty(), "the pacing path matches the scenes a real run plays (missing %s)" % [missing])
 	print("PROLOGUE_PATH_PLAYED %s" % [_played])
 	print("PROLOGUE_PLAY_PROBE failures=%d" % _failures)
-	get_tree().quit(1 if _failures > 0 else 0)
+	if not _save_dir.is_empty():
+		_main.call("_quit", 1 if _failures > 0 else 0)
+	else:
+		get_tree().quit(1 if _failures > 0 else 0)

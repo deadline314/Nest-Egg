@@ -463,6 +463,8 @@ func _test_conversation() -> void:
 	await frames(2)
 	check(runner.get_tree().paused and Story.is_cinematic_active(), "a conversation pauses the game and opens the dialogue box")
 	check(npc.talk_count == 0 and Progression.credits == credits_before, "nothing is given before the conversation ends")
+	var gap := npc.global_position.x - level.player.global_position.x
+	check(gap >= NpcActor.TALK_SPACING - 0.5 and gap <= NpcActor.TALK_SPACING + 0.5, "standing on top of the npc steps the player back to talking distance (%.1f px)" % gap)
 	for i in 6:
 		Story._layer.advance()
 		await frames(1)

@@ -48,6 +48,8 @@ func _ready() -> void:
 		_hurtbox.setup(Combat.Team.ENEMY, _health, data.reach, Vector2(0, -data.reach.y * 0.5))
 		_hurtbox.hit_received.connect(_on_hit)
 	_prompt = WorldPrompt.new()
+	# 練習站要教「按哪個鍵」：佔位符畫成按鍵帽，鍵鼠與手把各自顯示目前的綁定。
+	_prompt.keycaps = true
 	_prompt.text = data.prompt
 	_prompt.radius = maxf(96.0, data.reach.x * 2.0)
 	_prompt.offset = Vector2(0, -data.height - 14.0)

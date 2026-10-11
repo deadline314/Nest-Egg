@@ -24,6 +24,10 @@ const BUBBLE_SIZE := Vector2(16, 10)
 const FIGURE_HALF_WIDTH := 12.0
 const BUBBLE_BOB := 1.5
 const TALK_COOLDOWN := 0.5
+## 人物對話時兩人之間至少要隔這麼遠（像素），否則兩個角色疊在一起看不出誰是誰；站太近時主角會退開一步。
+const TALK_SPACING := 26.0
+## 退開時要確認腳下還有地面：從新位置往下找地面的距離。
+const TALK_FLOOR_PROBE := 6.0
 const SILHOUETTE_SCALE := 0.6
 
 var data: NpcData
@@ -261,6 +265,8 @@ func _present_talk(index: int, scene: StringName, once: bool) -> bool:
 	if player == null or player.is_dead() or player.state == Player.State.MOUNTED:
 		return false
 	Story.framing.interaction_started(self)
+	if data.kind == NpcData.Kind.PERSON:
+		_space_player(player)
 	_talking = true
 	_prompt.hide()  # gameplay暫停後WorldPrompt不會再淡出，先同步隱藏避免重複互動提示。
 	if _actor != null:
@@ -279,6 +285,23 @@ func _present_talk(index: int, scene: StringName, once: bool) -> bool:
 	if is_instance_valid(player):
 		_give_reward(index, player)
 	return true
+
+
+## 主角站得太近（兩個角色疊在一起）時往自己那一側退到 TALK_SPACING；背後是牆或沒有地面就留在原地。
+func _space_player(player: Player) -> void:
+	var dx := player.global_position.x - global_position.x
+	if absf(dx) >= TALK_SPACING or not player.is_on_floor():
+		return
+	var side := 1.0 if dx >= 0.0 else -1.0
+	var shift := Vector2(side * TALK_SPACING - dx, 0.0)
+	if player.test_move(player.global_transform, shift):
+		return
+	var landing := player.global_transform.translated(shift)
+	if not player.test_move(landing, Vector2(0.0, TALK_FLOOR_PROBE)):
+		return
+	player.global_position += shift
+	player.velocity.x = 0.0
+	_face_player()
 
 
 ## 續玩必須經真正人物的結算路徑；來源與目前可用場景不符時不猜測或發獎勵。
