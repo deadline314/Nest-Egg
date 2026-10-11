@@ -2,6 +2,7 @@ extends Node
 ## NE-230 第二階段的兩程序驗收：每組 *_write 由真的主流程寫入後關閉程序，*_read 是另一個引擎程序冷啟動續玩。
 ##   prologue_write/read  序章不重播、探索／存檔點啟用、已開箱子與撿到的錢一致
 ##   growth_write/read    招式購買、任務獎勵（一次交易）關閉重開後不重複、不遺失
+##   growth_death_write/read  買招式、領獎後在電話亭區真的死亡並當影格關閉：扣款一次、招式保留、獎勵不重領
 ##   repair_write/read    區域資源遺失與導覽損毀：保留成長與故事，退回可玩區域並提示
 ##   edition_end          序章至第一章：章末停在完成卡，存檔寫在自己的版本目錄
 ##   edition_next         序章至第二章（下一章用明確標示的 fixture）：接續第一章版的存檔，原檔不改
@@ -17,6 +18,7 @@ const DAWN := "res://data/levels/ch1_pawnshop_dawn.tres"
 const FIXTURE_NEXT := "res://data/levels/level_02.tres"
 const TECHNIQUE := &"technique_blade"
 const REWARD := "res://data/story_transactions/ch1_commission_settled.tres"
+const PAWN_ITEM := &"shield_cell"
 
 var _failures := PackedStringArray()
 var _checks := 0
@@ -75,6 +77,8 @@ func _run() -> void:
 		"prologue_read": await _prologue_read()
 		"growth_write": await _growth_write()
 		"growth_read": await _growth_read()
+		"growth_death_write": await _growth_death_write()
+		"growth_death_read": await _growth_death_read()
 		"repair_write": await _repair_write()
 		"repair_read": await _repair_read()
 		"edition_end": await _edition_end()
@@ -160,6 +164,14 @@ func _growth_write() -> void:
 	var reward := load(REWARD) as StoryTransactionData
 	var granted := Progression.apply_story_transaction(reward)
 	_check(granted.get("applied", false) and Progression.credits == before - technique.cost + reward.credits_delta, "quest reward credited once")
+	# 真的當舖頁面：從背包拿走一件換錢與當票。
+	var player := (_main.get("_screen") as Level).player
+	var item := ConsumableBag.find(PAWN_ITEM)
+	player.consumables.add(item)
+	var held := player.consumables.count(PAWN_ITEM)
+	var page := _pawn_page(player)
+	_check(page._do_pawn(item) and player.consumables.count(PAWN_ITEM) == held - 1 and Progression.pawned_count(PAWN_ITEM) == 1, "pawn page takes the item and issues one ticket")
+	page.free()
 	await _frames(3)
 	_close_and_record()
 
@@ -179,6 +191,62 @@ func _growth_read() -> void:
 	_main.call("_save_run")
 	RunSnapshot.apply(store.read())
 	_check(Progression.credits == expected["progression"]["credits"] and Progression.owned_upgrades(blade).size() == 1, "repeated reload keeps the same wallet and unlock")
+	# 當票跨程序：贖回一次拿回東西並扣款；再贖一次被拒絕，重讀也不會多出東西或錢。
+	var player := (_main.get("_screen") as Level).player
+	var item := ConsumableBag.find(PAWN_ITEM)
+	var held := player.consumables.count(PAWN_ITEM)
+	var wallet := Progression.credits
+	var page := _pawn_page(player)
+	_check(Progression.pawned_count(PAWN_ITEM) == 1, "pawn ticket survives restart exactly once")
+	_check(page._do_redeem(item) and player.consumables.count(PAWN_ITEM) == held + 1 and Progression.credits == wallet - Progression.redeem_cost(item), "redeem returns the item and charges once")
+	_check(not page._do_redeem(item) and player.consumables.count(PAWN_ITEM) == held + 1, "second redeem has no ticket and adds nothing")
+	page.free()
+	await _frames(3)
+	_main.call("_save_run")
+	var after := store.read()
+	RunSnapshot.apply(after)
+	_check(Progression.credits == wallet - Progression.redeem_cost(item) and Progression.pawned_count(PAWN_ITEM) == 0 and int(after["runtime"]["loadout"]["consumables"].get(String(PAWN_ITEM), 0)) == held + 1, "reload after redeem keeps one item, no ticket, single charge")
+
+
+func _growth_death_write() -> void:
+	_main.call("_on_start_requested", GameState.difficulties[1])
+	await _wait_level()
+	_main.call("_on_area_requested", "res://data/levels/ch1_booth_alley.tres")
+	await _wait_level()
+	var level := _main.get("_screen") as Level
+	_check(level != null and level.data.resource_path.ends_with("ch1_booth_alley.tres"), "real phone-booth area loaded")
+	if level == null:
+		return
+	var blade := load("res://data/weapons/melee/melee_blade.tres") as WeaponData
+	Progression.add_credits(1000)
+	_check(Progression.buy_upgrade(blade, Progression.find_upgrade(TECHNIQUE)), "technique bought before dying")
+	_check(Progression.apply_story_transaction(load(REWARD) as StoryTransactionData).get("applied", false), "reward granted before dying")
+	var before_deaths := GameState.deaths
+	level.player.health.kill(DamageInfo.create(99, Combat.Team.ENEMY, &"probe"))
+	var saved := (_main.get("_run_store") as RunSaveStore).read()
+	_check(saved["state"]["deaths"] == before_deaths + 1 and saved["runtime"]["dead"], "death settles on disk in the same frame")
+	_close_and_record()
+
+
+func _growth_death_read() -> void:
+	var expected := _expected()
+	_main.call("_on_continue_requested")
+	await _wait_level()
+	await _frames(30)
+	var blade := load("res://data/weapons/melee/melee_blade.tres") as WeaponData
+	_check(GameState.deaths == expected["state"]["deaths"], "death is not counted again after restart")
+	_check(Progression.credits == expected["progression"]["credits"], "death charge is not applied twice and purchase not refunded")
+	_check(Progression.has_upgrade(blade, TECHNIQUE) and Progression.owned_upgrades(blade).size() == 1, "permanent technique survives death and restart")
+	var again := Progression.apply_story_transaction(load(REWARD) as StoryTransactionData)
+	_check(not again.get("applied", true) and Progression.credits == expected["progression"]["credits"], "reward cannot be claimed again after death and restart")
+	var level := _main.get("_screen") as Level
+	_check(level != null and not level.died, "player is back at the checkpoint, alive")
+
+
+func _pawn_page(player: Player) -> PawnPage:
+	var page := PawnPage.new()
+	page.bind(InventoryContext.new(player))
+	return page
 
 
 # --- 損毀與缺值 -------------------------------------------------------------
