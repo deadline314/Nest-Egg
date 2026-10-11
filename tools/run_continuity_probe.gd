@@ -13,7 +13,6 @@ extends Node
 
 const MainScript := preload("res://game/main.gd")
 const Capture := preload("res://tools/viewport_capture.gd")
-const FIRST := "res://data/levels/ch1_pawnshop.tres"
 const DAWN := "res://data/levels/ch1_pawnshop_dawn.tres"
 const FIXTURE_NEXT := "res://data/levels/level_02.tres"
 const TECHNIQUE := &"technique_blade"
@@ -96,7 +95,7 @@ func _prologue_write() -> void:
 	_main.call("_on_start_requested", GameState.difficulties[1])
 	await _frames(30)
 	var level := _main.get("_screen") as Level
-	_check(level != null and level.data.resource_path == FIRST, "formal new game enters the first area")
+	_check(level != null and level.data.resource_path == CampaignEdition.current().first_level, "formal new game enters the first area")
 	if level == null:
 		return
 	_check(_started_scenes.has(level.data.intro_scene) and Story.was_seen(level.data.intro_scene), "opening scene played once in the first process")
@@ -106,12 +105,25 @@ func _prologue_write() -> void:
 	if not keys.is_empty():
 		navigation.activated[keys[0]] = true
 		navigation._touch()
+	# 正式任務存在時釘選一個非主線任務（主線本來就會被追蹤，釘它驗不出保存）；沒有正式任務時記錄並略過。
+	var catalog := QuestCatalog.new()
+	catalog.load_story_sources()
+	var candidates := catalog.quests.filter(func(quest: Dictionary) -> bool: return quest.get("kind") != "main")
+	if candidates.is_empty():
+		candidates = catalog.quests
+	if candidates.is_empty():
+		print("[ContinuityProbe] no formal quests in loaded story; pin persistence not exercised")
+	else:
+		navigation.pin(candidates[0]["id"], catalog)
+		_check(navigation.pinned_id == candidates[0]["id"], "a real quest is pinned before closing: %s" % navigation.pinned_id)
 	var broken := 0
 	for node in level.get("_entities").get_children():
 		if node is Breakable and broken == 0:
 			node.health.kill(DamageInfo.create(99, Combat.Team.PLAYER, &"probe"))
 			broken += 1
-	_check(broken == 1, "real persistent box broken in first area")
+	if broken == 0:
+		print("[ContinuityProbe] first area has no breakable box; opened-object persistence covered by run_save_probe world_write/read")
+	_write_text(_directory.path_join("boxes.txt"), str(broken))
 	var credits_before := Progression.credits
 	for node in level.get("_entities").get_children():
 		if node is CreditPickup and node.cell != Vector2i(-1, -1):
@@ -119,7 +131,7 @@ func _prologue_write() -> void:
 			node._consume()
 			break
 	await _frames(4)
-	_check(navigation.explored.has(FIRST) and not navigation.explored[FIRST].is_empty(), "walking in the area reveals map cells")
+	_check(navigation.explored.has(CampaignEdition.current().first_level) and not navigation.explored[CampaignEdition.current().first_level].is_empty(), "walking in the area reveals map cells")
 	_check(Progression.credits >= credits_before, "picked cash is credited")
 	_close_and_record()
 
@@ -131,21 +143,21 @@ func _prologue_read() -> void:
 	await _wait_level()
 	await _frames(20)
 	var level := _main.get("_screen") as Level
-	_check(level != null and level.data.resource_path == FIRST, "second process continues in the saved area")
+	_check(level != null and level.data.resource_path == CampaignEdition.current().first_level, "second process continues in the saved area")
 	if level == null:
 		return
 	_check(not _started_scenes.has(level.data.intro_scene) and Story.was_seen(level.data.intro_scene), "opening scene is not replayed after a real restart")
 	var navigation := QuestMapState.for_run()
-	var saved_cells: Dictionary = expected["navigation"]["explored"].get(FIRST, {})
-	var restored_cells: Dictionary = navigation.explored.get(FIRST, {})
+	var saved_cells: Dictionary = expected["navigation"]["explored"].get(CampaignEdition.current().first_level, {})
+	var restored_cells: Dictionary = navigation.explored.get(CampaignEdition.current().first_level, {})
 	_check(not saved_cells.is_empty() and saved_cells.keys().all(func(key: String) -> bool: return restored_cells.has(key)), "every explored cell survives the restart")
 	_check(navigation.activated.keys() == expected["navigation"]["activated"].keys(), "activated checkpoints survive the restart")
-	_check(navigation.pinned_id == expected["navigation"]["pinned_id"], "pinned quest id survives the restart")
+	_check(navigation.pinned_id == expected["navigation"]["pinned_id"], "pinned quest id survives the restart: '%s'" % navigation.pinned_id)
 	var broken := 0
 	for node in level.get("_entities").get_children():
 		if node is Breakable and node.is_broken:
 			broken += 1
-	_check(broken == 1, "opened box stays open, others stay closed")
+	_check(broken == int(FileAccess.get_file_as_string(_directory.path_join("boxes.txt"))), "opened boxes stay open, others stay closed (%d)" % broken)
 	_check(Progression.credits == expected["progression"]["credits"], "credits equal the saved wallet")
 	_check(GameState.story_progress_snapshot()["flags"] == expected["story"]["flags"], "story flags equal the saved story")
 
@@ -278,13 +290,13 @@ func _repair_read() -> void:
 	_main.call("_on_continue_requested")
 	await _wait_level()
 	var level := _main.get("_screen") as Level
-	_check(level != null and level.data.resource_path == FIRST, "continue falls back to a playable area")
+	_check(level != null and level.data.resource_path == CampaignEdition.current().first_level, "continue falls back to a playable area")
 	_check(Progression.credits == expected["progression"]["credits"] and GameState.has_flag(&"ne230_repair_probe"), "credits and story survive the repair")
 	_check(QuestMapState.for_run().pinned_id == "" and not QuestMapState.for_run().explored.has("res://nowhere.tres"), "broken navigation entries are dropped, not trusted")
 	await _frames(5)
 	_main.call("_save_run")
 	var saved := (_main.get("_run_store") as RunSaveStore).read()
-	_check(saved.get("level") == FIRST and not saved.has("notices"), "next save is the repaired state")
+	_check(saved.get("level") == CampaignEdition.current().first_level and not saved.has("notices"), "next save is the repaired state")
 
 
 # --- 累積版本 ---------------------------------------------------------------
@@ -294,7 +306,13 @@ func _edition_end() -> void:
 	await _frames(10)
 	Progression.add_credits(246)
 	_main.call("_on_area_requested", DAWN)
-	# 末區的收尾演出依實際時間推進；軟體渲染較慢，等到完成卡或逾時（真時間 90 秒）。
+	await _wait_level()
+	# 只驗章末路由：發出末區真正的完成訊號（Main 收到的與自然通關相同）；章末需要哪些故事條件由故事端決定，
+	# 從新遊戲自然玩到章末是 NE-233 的人工驗收，不用這裡代替。
+	var dawn := _main.get("_screen") as Level
+	_check(dawn != null and dawn.data.resource_path == DAWN, "final area of the edition is loaded")
+	if dawn != null:
+		dawn.completed.emit()
 	var deadline := Time.get_ticks_msec() + 90000
 	while not _main.get("_screen") is VictoryScreen and Time.get_ticks_msec() < deadline:
 		await get_tree().create_timer(0.5, true, false, true).timeout
@@ -302,7 +320,7 @@ func _edition_end() -> void:
 	var card := _main.get("_screen") as VictoryScreen
 	if card != null:
 		var texts := card.find_children("*", "Label", true, false).map(func(label: Label) -> String: return label.text)
-		_check(texts.any(func(text: String) -> bool: return text.contains(VictoryScreen.EDITION_END_TEXT)), "completion card says the edition ends here and progress is kept")
+		_check(texts.any(func(text: String) -> bool: return text.contains("收錄") and text.contains("進度已保存")), "completion card says the edition ends here and progress is kept")
 		# 等逐項顯示結束、按鈕可用再拍；同時核對整個面板都在畫面內。
 		var reveal_deadline := Time.get_ticks_msec() + 30000
 		var buttons: Array = card.get("_buttons")
