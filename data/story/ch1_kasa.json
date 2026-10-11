@@ -5610,7 +5610,11 @@
    "context_facts": [
     "first_clinic"
    ],
-   "then": "ch1_t_clinic_tray_prompt"
+   "then": "ch1_t_clinic_tray_prompt",
+   "title": "第一章　初次建檔",
+   "gallery_order": 1,
+   "title_ja": "第一章　初回登録",
+   "title_en": "Chapter 1: First Registration"
   },
   "ch1_t_clinic_backup_registered": {
    "mode": "animated",
@@ -5929,7 +5933,11 @@
      "id": "ch1_complete",
      "value": true
     }
-   ]
+   ],
+   "title": "第一章　回家",
+   "gallery_order": 2,
+   "title_ja": "第一章　帰宅",
+   "title_en": "Chapter 1: Coming Home"
   },
   "ch1_t_home_revisit": {
    "mode": "animated",
@@ -7233,7 +7241,11 @@
      "to": 1.0,
      "time": 0.8
     }
-   ]
+   ],
+   "title": "序章　雨裡的燈",
+   "gallery_order": 0,
+   "title_ja": "序章　雨の中の灯",
+   "title_en": "Prologue: The Lamp in the Rain"
   },
   "ch1_p02_talk": {
    "mode": "dialogue",

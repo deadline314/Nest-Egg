@@ -440,6 +440,12 @@ STAGED_TALKS = {
                    "support": "麵攤長凳座面：舞台 x=290～320、y=276.4（舞台 furniture 的 stool）；腳底由 sit_y 量測。"},
     },
 }
+# 圖鑑裡可以重看的過場（ST-16）與它們的名稱；看過才會出現，重看不改進度（Story.replay）。
+REPLAY_TITLES = {
+    "ch1_p01_door": "序章　雨裡的燈",
+    "ch1_c09_wake": "第一章　初次建檔",
+    "ch1_c14_home": "第一章　回家",
+}
 # 從地圖走進舞台的第一段用完整淡入；同一場戲接著播的段落只用很短的淡入，站位不變，看起來是同一個鏡頭。
 STAGE_FADE_ENTRY = 1.0
 STAGE_FADE_CONTINUE = 0.25
@@ -537,6 +543,11 @@ def compile_document():
     _attach_topics(source, scenes)
     scenes.update(_dispatchers(source, scenes))
     _stage_talks(scenes)
+    for order, (ident, title) in enumerate(REPLAY_TITLES.items()):
+        if ident not in scenes:
+            raise CompileError(f"圖鑑回看：場景不存在 {ident}")
+        scenes[ident]["title"] = title
+        scenes[ident]["gallery_order"] = order
     _mark_important_radio(scenes)
     speakers = copy.deepcopy(legacy.SPEAKERS)
     speakers.update(copy.deepcopy(source.speakers))

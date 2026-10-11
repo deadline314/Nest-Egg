@@ -45,6 +45,7 @@ func run() -> void:
 	_test_quest_markers()
 	await _test_prefetch()
 	_test_staging()
+	await _test_replay()
 	await _test_story_flags()
 	await _test_scenes_play_through()
 	await _test_every_area_builds()
@@ -586,6 +587,44 @@ func _test_staging() -> void:
 		check(problems.is_empty(), "%s keeps the actors' feet above the dialogue box and their heads below the 21:9 bar: %s" % [id, problems])
 	check(checked == MAX_CUTSCENES, "the chapter's animated scenes were checked (%d)" % checked)
 	check(talks >= 30, "the rooftop, lounge and noodle stall talks are staged and checked (%d)" % talks)
+
+
+## 圖鑑回看（ST-16）：看過的舞台過場可以重看；重看不寫旗標、不發結果、不接下一段、不改觀看紀錄。有選擇的場景不能重看。
+func _test_replay() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	Story.reset_progress()
+	check(Story.replayable_scenes().is_empty() and not Story.replay(&"ch1_p01_door"), "nothing can be replayed before it has been seen")
+	for id: StringName in [&"ch1_p01_door", &"ch1_c09_wake", &"ch1_c14_home"]:
+		Story._completed[id] = true
+	var listed := Story.replayable_scenes().map(func(entry: Dictionary) -> StringName: return entry["id"])
+	check(listed == [&"ch1_p01_door", &"ch1_c09_wake", &"ch1_c14_home"], "the three seen cutscenes are listed for the gallery in story order (%s)" % [listed])
+	check(Story.replayable_scenes().all(func(entry: Dictionary) -> bool: return not str(entry["title"]).is_empty() and entry["chapter"] == &"ch1_kasa"), "every gallery entry has a title and its chapter")
+	Story._completed[&"ch1_t_clinic_tray_prompt"] = true
+	check(not Story.can_replay(&"ch1_t_clinic_tray_prompt") and not Story.can_replay(&"ch1_t_ali_1"), "scenes with choices or map overlays cannot be replayed")
+	var flags := GameState.world_flags.duplicate(true)
+	var seen := Story.progress_snapshot().duplicate()
+	var events := []
+	var started := func(id: StringName, _mode: StringName) -> void: events.append("start:%s" % id)
+	var finished := func(id: StringName) -> void: events.append("finish:%s" % id)
+	var replayed := func(id: StringName) -> void: events.append("replayed:%s" % id)
+	Story.scene_started.connect(started)
+	Story.scene_finished.connect(finished)
+	Story.replay_finished.connect(replayed)
+	check(Story.replay(&"ch1_c09_wake") and Story.is_replaying() and not Story.is_cinematic_active(), "a seen cutscene replays outside the story presentation")
+	check(not Story.replay(&"ch1_c14_home"), "only one replay runs at a time")
+	await physics_frames(20)
+	Story.stop_replay()
+	for i in 240:
+		if not Story.is_replaying():
+			break
+		await physics_frames(1)
+	Story.scene_started.disconnect(started)
+	Story.scene_finished.disconnect(finished)
+	Story.replay_finished.disconnect(replayed)
+	check(not Story.is_replaying() and events == ["replayed:ch1_c09_wake"], "stopping ends the replay without story start or finish events (%s)" % [events])
+	check(GameState.world_flags == flags and Story.progress_snapshot() == seen and not Story.is_cinematic_active(), "replaying changes no flag, no seen record and does not chain to the tray choice")
+	check(not GameplayLock.is_locked(), "the replay releases the gameplay lock")
+	Story.reset_progress()
 
 
 ## 被其他場景以 then、選項接續或分派路線帶進來的場景 id（同一場演出的後續段落）。

@@ -13,6 +13,8 @@ signal scene_finished(scene_id: StringName)
 ## 完成或取消的等待接點；取消不觸發 scene_finished，因而不寫完成旗標或發放獎勵。
 signal request_settled(request: int, completed: bool)
 signal presentation_cancelled(scene_id: StringName, context: Dictionary, reason: StringName, request: int)
+## 回看（replay）播完或被中斷。回看不發 scene_started／scene_finished，故事進度不會因為重看而改變。
+signal replay_finished(scene_id: StringName)
 
 ## 正式章節：序章與第一章「傘」、第二章「鷺」、第三章「晴岸」。台詞由 tools/story 的產生器輸出，不手改。
 const CHAPTER_PATHS: Array[String] = [
@@ -98,6 +100,8 @@ var _context_request := 0
 var framing: CinematicFraming
 var _layer: DialogueLayer
 var _player: CutscenePlayer
+## 正在回看的播放器（ST-16 圖鑑重看）；和正式演出分開，不經過結果、接續與觀看紀錄。
+var _replay: CutscenePlayer
 
 class PreparedInstall extends RefCounted:
 	var seen: Dictionary[StringName, bool] = {}
@@ -397,6 +401,8 @@ func validate() -> PackedStringArray:
 		problems.append_array(_validate_targets(scene_id, scene))
 		if mode == String(MODE_DISPATCH):
 			continue
+		if scene.has("title") and (mode != String(MODE_ANIMATED) or bool(scene.get("overlay", false)) or offers_choice(scene)):
+			problems.append("場景 %s 有圖鑑名稱（title），但不是沒有選擇的舞台過場，不能回看" % scene_id)
 		if scene.has("transfer_items") and mode not in [String(MODE_CINEMATIC), String(MODE_ANIMATED), String(MODE_DIALOGUE)]:
 			problems.append("場景 %s（%s）不能交出原件：只有可取消回撤的過場與對話可以交付" % [scene_id, mode])
 		if mode == String(MODE_ANIMATED):
@@ -703,6 +709,60 @@ func reset_progress() -> void:
 
 func is_cinematic_active() -> bool:
 	return _current_cinematic != &""
+
+
+## 回看（ST-16）：圖鑑重看已經看過的舞台過場。只播畫面與台詞，不寫旗標、不發結果、不接下一段、不記觀看、不存檔。
+## 有選擇的場景不能回看（選擇會改進度），疊在地圖上的對話也不算過場。
+func can_replay(id: StringName) -> bool:
+	var scene: Dictionary = _scenes.get(String(id), {})
+	if scene.is_empty() or str(scene.get("mode", "")) != String(MODE_ANIMATED) or bool(scene.get("overlay", false)) or offers_choice(scene):
+		return false
+	if not _completed.has(id):
+		return false
+	var steps: Variant = scene.get("steps", [])
+	return steps is Array and (steps as Array).any(func(step: Variant) -> bool: return step is Dictionary and str((step as Dictionary).get("do", "")) == "scene")
+
+
+## 圖鑑可以列出的回看項目：劇本給了 title（圖鑑上的名稱）、而且本輪看過的過場。
+## 依章節的載入順序，同一章再依劇本的 gallery_order（故事先後）。每項 {id, chapter, title}。
+func replayable_scenes() -> Array[Dictionary]:
+	var out: Array[Dictionary] = []
+	var chapters := chapter_ids()
+	for id: String in _scenes:
+		var scene: Dictionary = _scenes[id]
+		var title := str(scene.get("title", ""))
+		if not title.is_empty() and can_replay(StringName(id)):
+			var chapter: StringName = _scene_chapter.get(id, &"")
+			var order: Variant = scene.get("gallery_order", 0)
+			out.append({"id": StringName(id), "chapter": chapter, "title": title,
+					"_sort": chapters.find(chapter) * 1000 + (int(order) if order is int or order is float else 0)})
+	out.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return int(a["_sort"]) < int(b["_sort"]))
+	for entry in out:
+		entry.erase("_sort")
+	return out
+
+
+func is_replaying() -> bool:
+	return is_instance_valid(_replay)
+
+
+## 開始回看；不能回看、正式演出進行中或已經在回看時回傳 false。播完或被中斷時發 replay_finished。
+func replay(id: StringName) -> bool:
+	if not can_replay(id) or is_cinematic_active() or is_replaying():
+		return false
+	_replay = CutscenePlayer.new()
+	add_child(_replay)
+	_replay.finished.connect(func(_finished: StringName) -> void:
+		_replay = null
+		replay_finished.emit(id))
+	_replay.play(id, _scenes[String(id)])
+	return true
+
+
+## 結束回看（離開圖鑑、回主選單）。播放器走正常的收尾，釋放操作鎖與畫幅。
+func stop_replay() -> void:
+	if is_replaying():
+		_replay.skip()
 
 
 ## 可保存的入隊來源，不包含畫幅位置、Node、token 或 Tween。
