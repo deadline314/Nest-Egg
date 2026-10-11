@@ -230,13 +230,19 @@ func _build_list_column() -> Control:
 	var left := VBoxContainer.new()
 	left.custom_minimum_size.x = LIST_WIDTH
 	left.add_theme_constant_override(&"separation", 6)
+	# 狀態（進行中／已完成）與種類（全部／主線／支線）各是一組；放不下時整組換行，不把一顆按鈕單獨擠到下一行。
 	var filters := HFlowContainer.new()
-	filters.add_theme_constant_override(&"h_separation", 2)
+	filters.add_theme_constant_override(&"h_separation", 8)
 	filters.add_theme_constant_override(&"v_separation", 2)
 	left.add_child(filters)
 	var counts := _counts()
+	var group: HBoxContainer = null
 	for entry: Array in FILTERS:
 		var key: String = entry[1]
+		if group == null or key == "all":
+			group = HBoxContainer.new()
+			group.add_theme_constant_override(&"separation", 2)
+			filters.add_child(group)
 		var on := (_completed if key == "completed" else not _completed if key == "active" else _kind == key)
 		var text: String = entry[0]
 		if key in ["active", "completed"]:
@@ -246,12 +252,7 @@ func _build_list_column() -> Control:
 		button.button_pressed = on
 		FlatStyle.chip(button, on)
 		button.set_meta(&"nav_key", "filter:" + key)
-		if key == "all":
-			# 狀態（進行中／已完成）與種類（全部／主線／支線）兩組之間留一點距離。
-			var gap := Control.new()
-			gap.custom_minimum_size.x = 6
-			filters.add_child(gap)
-		filters.add_child(button)
+		group.add_child(button)
 		_buttons.append(button)
 	var list_scroll := ScrollContainer.new()
 	list_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED

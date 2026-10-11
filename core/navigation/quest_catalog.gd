@@ -132,15 +132,22 @@ static func current_step(quest: Dictionary, flags: Dictionary) -> Dictionary:
 
 
 ## 交付檢查：定義與生產者由 Session 3 提供；沒有資料時回報缺口，不把模擬當成功。
-func validate_flags(known: Array, reachable: Array) -> PackedStringArray:
+## chapter 不為空時只檢查該章的任務；同一任務重複用到的旗標只報一次。
+func validate_flags(known: Array, reachable: Array, chapter := "") -> PackedStringArray:
 	var problems := PackedStringArray()
 	for quest in quests:
+		if not chapter.is_empty() and quest["chapter"] != chapter:
+			continue
 		var names: Array = [quest["complete_flag"]]
 		names.append_array(quest.get("requires_flags", []))
 		names.append_array(quest.get("visible_flags", []))
 		for step: Dictionary in quest["steps"]:
 			names.append(step["complete_flag"])
+		var seen: Dictionary = {}
 		for name in names:
+			if seen.has(name):
+				continue
+			seen[name] = true
 			if not known.has(name) or not reachable.has(name):
 				problems.append("%s: 旗標 %s 未定義或不可達。" % [quest["source"], name])
 	return problems

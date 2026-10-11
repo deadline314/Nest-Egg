@@ -1,5 +1,5 @@
 extends Node
-## 真實關卡的 Forward+ 截圖。--fixtures 僅供 UI 驗證，所有樣本畫面加上標示。
+## 真實關卡的 Forward+ 截圖。--fixtures 僅供 UI 驗證，所有樣本畫面加上標示；--flags=a,b 先寫入故事旗標，看正式任務在章節中段的樣子。
 
 var _out := ""
 var _fixtures := false
@@ -8,6 +8,8 @@ var _width := 1280
 var _height := 720
 var _level_id := "pawnshop"
 var _text_scale := 1.0
+## 正式任務的取景用：開始前寫入這些故事旗標（只寫本輪記憶體，不存檔），看章節中段的任務狀態。
+var _flags := PackedStringArray()
 var _watermark: Label
 var _layout_issues := PackedStringArray()
 
@@ -28,6 +30,8 @@ func _ready() -> void:
 			_text_scale = float(arg.trim_prefix("--text-scale="))
 		elif arg.begins_with("--level="):
 			_level_id = arg.trim_prefix("--level=")
+		elif arg.begins_with("--flags="):
+			_flags = arg.trim_prefix("--flags=").split(",", false)
 	get_window().size = Vector2i(_width, _height)
 	DisplayMode.ensure_scaling(get_window())
 	_run.call_deferred()
@@ -39,6 +43,10 @@ func _run() -> void:
 	Settings.set_ui_text_scale(_text_scale)
 	Story.auto_skip = true
 	GameState.start_new_run(GameState.difficulties[0])
+	for flag in _flags:
+		GameState.set_flag(StringName(flag.strip_edges()), true, false)
+	if not _flags.is_empty() and Story.get(&"outcomes") != null:
+		Story.outcomes.refresh_derived()
 	add_child(LightKit.create_environment())
 	var level := Level.new()
 	level.configure(load("res://data/levels/ch1_%s.tres" % _level_id) as LevelData)
@@ -71,7 +79,8 @@ func _run() -> void:
 		if is_finite(y):
 			guidance.state.reveal(level.data.resource_path, guidance.maps.visible_cells(level.data.resource_path, Vector2((x + 0.5) * 16, y - 8), WorldState.capture(get_tree())))
 	guidance._update_arrow()
-	guidance._row.visible = _fixtures
+	# 有任務（樣本或正式）時拍目標列；沒有任務時維持遊戲本身的隱藏。
+	guidance._row.visible = not guidance._target.is_empty()
 	await _capture("hud")
 	if not _fixtures:
 		level._pause_menu.open()

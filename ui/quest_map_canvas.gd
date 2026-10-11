@@ -203,18 +203,26 @@ func _world_map() -> void:
 	var grid := _world_grid()
 	if grid.is_empty():
 		return
+	var avail := size - Vector2(PAD, PAD) * 2
+	# 一欄至少要放得下最長的區域名稱；橫向放不下時把整張圖折成幾列（蛇形，相鄰區域仍靠在一起）。
+	var name_width := 0.0
+	for level_path: String in grid:
+		var data: LevelData = maps.areas[level_path]["data"]
+		name_width = maxf(name_width, UiKit.font().get_string_size("▲ %s ◆" % data.display_name, HORIZONTAL_ALIGNMENT_LEFT, -1, UiKit.caption_size()).x)
+	var column_width := minf(name_width + 14.0, WORLD_NODE.x) + 8.0
+	grid = _fold_grid(grid, maxi(1, floori(avail.x / column_width)))
 	var lo := Vector2i(1 << 20, 1 << 20)
 	var hi := Vector2i(-(1 << 20), -(1 << 20))
 	for cell: Vector2i in grid.values():
 		lo = Vector2i(mini(lo.x, cell.x), mini(lo.y, cell.y))
 		hi = Vector2i(maxi(hi.x, cell.x), maxi(hi.y, cell.y))
 	var span := Vector2(hi - lo) + Vector2.ONE
-	var avail := size - Vector2(PAD, PAD) * 2
-	var step := Vector2(avail.x / span.x, avail.y / span.y)
+	var step := Vector2(avail.x / span.x, minf(avail.y / span.y, WORLD_NODE.y * 2.4))
+	var top := PAD + (avail.y - step.y * span.y) * 0.5
 	var node := Vector2(minf(WORLD_NODE.x, step.x - 8), WORLD_NODE.y)
 	var centers: Dictionary = {}
 	for level_path: String in grid:
-		centers[level_path] = Vector2(PAD, PAD) + (Vector2(grid[level_path] - lo) + Vector2(0.5, 0.5)) * step
+		centers[level_path] = Vector2(PAD, top) + (Vector2(grid[level_path] - lo) + Vector2(0.5, 0.5)) * step
 	var drawn: Dictionary = {}
 	for level_path: String in centers:
 		for edge in maps.edges(level_path):
@@ -286,6 +294,27 @@ func _world_grid() -> Dictionary:
 				taken[cell] = target
 				queue.append(target)
 	return grid
+
+
+## 欄數超過 columns 時，依欄分段往下折：第二段從右往左排，第三段再從左往右（蛇形），段與段之間空一列。
+static func _fold_grid(grid: Dictionary, columns: int) -> Dictionary:
+	var lo := Vector2i(1 << 20, 1 << 20)
+	var hi := Vector2i(-(1 << 20), -(1 << 20))
+	for cell: Vector2i in grid.values():
+		lo = Vector2i(mini(lo.x, cell.x), mini(lo.y, cell.y))
+		hi = Vector2i(maxi(hi.x, cell.x), maxi(hi.y, cell.y))
+	if hi.x - lo.x + 1 <= columns:
+		return grid
+	var band_height := hi.y - lo.y + 2
+	var folded: Dictionary = {}
+	for key: String in grid:
+		var cell: Vector2i = grid[key] - lo
+		var band := cell.x / columns
+		var column := cell.x % columns
+		if band % 2 == 1:
+			column = columns - 1 - column
+		folded[key] = Vector2i(column, cell.y + band * band_height)
+	return folded
 
 
 func _edge_direction(level_path: String, edge: Dictionary) -> Vector2i:

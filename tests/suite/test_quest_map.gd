@@ -146,7 +146,19 @@ func _test_ui(catalog: QuestCatalog, maps: QuestMapIndex) -> void:
 	check(screen._page == "quests" and screen._selected == "nav_test_side", "keyboard return goes back to selected task")
 	screen.show_page("world")
 	await frames(3)
-	check(screen._canvas._markers.size() == 11, "world shows all eleven real areas")
+	check(screen._canvas._markers.size() == maps.areas.size(), "world shows every real area")
+	await frames(2)
+	var overlap := false
+	var clipped := false
+	var nodes := screen._canvas._markers
+	for i in nodes.size():
+		var text_width := nodes[i].get_theme_font(&"font").get_string_size(nodes[i].text, HORIZONTAL_ALIGNMENT_LEFT, -1, nodes[i].get_theme_font_size(&"font_size")).x
+		if text_width > nodes[i].size.x:
+			clipped = true
+		for j in range(i + 1, nodes.size()):
+			if nodes[i].get_global_rect().grow(-1).intersects(nodes[j].get_global_rect()):
+				overlap = true
+	check(not overlap and not clipped, "world map nodes neither overlap nor cut area names")
 	await _joy(JOY_BUTTON_B)
 	await frames(2)
 	check(screen._page == "quests", "controller return goes back one level")
@@ -195,6 +207,7 @@ func _test_long_details(maps: QuestMapIndex) -> void:
 	check(screen._selected == str(main["id"]), "long-detail screen selects the long task")
 	check(screen._reward != null and screen._details.is_ancestor_of(screen._reward), "reward follows the objectives inside the details")
 	check(screen._actions.get_global_rect().end.y <= 348, "fixed actions fit inside the 640x360 design")
+	await _check_filter_groups(screen)
 	var cue := ScrollCue.of(screen._detail_scroll)
 	var cue_ok := cue != null and cue.more_below
 	check(cue_ok, "long details show a 'more below' cue")
@@ -223,6 +236,24 @@ func _test_long_details(maps: QuestMapIndex) -> void:
 	check(screen._detail_scroll.scroll_vertical == 0, "PageUp scrolls details back to the top")
 	screen.queue_free()
 	await frames(2)
+
+
+## 文字放大時，篩選的兩組按鈕（狀態、種類）各自整組換行，不把最後一顆單獨擠到下一行。
+func _check_filter_groups(screen: QuestMapScreen) -> void:
+	var previous := Settings.get_ui_text_scale()
+	Settings.set_ui_text_scale(1.2)
+	screen._build()
+	await frames(3)
+	var rows: Dictionary = {}
+	for button in screen._buttons:
+		var key := str(button.get_meta(&"nav_key", ""))
+		if key.begins_with("filter:"):
+			rows[key] = button.get_global_rect().position.y
+	var same_row: bool = rows.size() == 5 and rows["filter:active"] == rows["filter:completed"] and rows["filter:all"] == rows["filter:main"] and rows["filter:main"] == rows["filter:side"]
+	check(same_row, "at 120%% text each filter group stays on one row (%s)" % rows)
+	Settings.set_ui_text_scale(previous)
+	screen._build()
+	await frames(3)
 
 
 func _test_runtime() -> void:
