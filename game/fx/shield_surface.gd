@@ -62,6 +62,18 @@ func notify_impact(incoming: Vector2) -> void:
 	impact_direction = incoming.normalized() if incoming.is_finite() and incoming.length_squared() > 0.0001 else direction
 
 
+## 投射線：盾由前臂義體投射——從手腕到盾面內緣中點畫一條細線與小節點，隨展開淡入；破盾時不畫。
+## 只是呈現，不改防禦角度、距離或窗口。回傳盾面內緣中點（測試用來量手腕到盾面的距離）。
+func paint_emitter(canvas: CanvasItem, wrist: Vector2, center: Vector2, guard_ratio: float) -> Vector2:
+	var anchor := center + direction * (RADIUS - 5.0) * lerpf(0.88, 1.0, extension)
+	if extension <= 0.0 or break_left > 0.0 or not wrist.is_finite():
+		return anchor
+	var tint := Palette.CYAN.lerp(Palette.DANGER, 1.0 - clampf(guard_ratio, 0.0, 1.0))
+	canvas.draw_line(wrist, anchor, Color(LightKit.glow(tint, 1.3), 0.55 * extension), 1.0)
+	canvas.draw_circle(wrist, 1.3, Color(LightKit.glow(tint, 1.8), 0.85 * extension))
+	return anchor
+
+
 func paint(canvas: CanvasItem, center: Vector2, guard_ratio: float, parry_window: bool,
 		window_left: float, block_flash: float, parry_flash: float, flash_scale: float, motion_scale: float) -> void:
 	if _rim.is_empty() or (extension <= 0.0 and break_left <= 0.0 and parry_flash <= 0.0):

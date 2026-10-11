@@ -414,11 +414,21 @@ func _draw() -> void:
 		draw_arc(Vector2(0, -body_center_height()), 26.0 * (1.5 - t), 0.0, TAU, 28, Color(LightKit.glow(Palette.WHITE, 2.0), t), 2.0)
 
 
+## 盾的投射點：前手手腕（本地座標）；沒有骨架時用胸口前方。
+func shield_wrist_local() -> Vector2:
+	if rig != null and rig.is_valid():
+		var hand := rig.bone(&"hand_front")
+		if hand != null:
+			return to_local(hand.global_position)
+	return to_local(player.global_position + Vector2(player.facing * 6.0, -Player.BODY_SIZE.y * 0.6))
+
+
 ## 義體方向護盾：與實際方向判定共用身體中心；動畫不改防禦窗口。
 func _draw_shield() -> void:
 	var center := to_local(player.global_position + Vector2(0, -Player.BODY_SIZE.y * 0.5))
 	var ratio := clampf(player.guard / maxf(player.tuning.guard_max, 0.001), 0.0, 1.0)
 	var left := clampf(1.0 - player._block_time / maxf(player.parry_window_length(), 0.001), 0.0, 1.0)
+	_shield.paint_emitter(self, shield_wrist_local(), center, ratio)
 	_shield.paint(self, center, ratio, player.is_parry_window(), left, _block_flash, _parry_flash,
 		Settings.flash_scale(), Settings.get_feel_scale("shake"))
 

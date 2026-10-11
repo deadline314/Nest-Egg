@@ -18,6 +18,7 @@ func run() -> void:
 	await _test_projectile_sweeps()
 	await _test_player_fx()
 	await _test_shield_presentation()
+	await _test_shield_attachment()
 	await _test_dash_and_materialize()
 	await DashSilhouetteChecks.run(self)
 	await _test_environment()
@@ -192,6 +193,62 @@ func _test_shield_presentation() -> void:
 	check(player._guard(info) == Hurtbox.Guard.REFLECT, "inside the visible cone the original perfect window reflects once")
 	check(player._visual._shield.impact_direction.is_equal_approx(Vector2.RIGHT.rotated(deg_to_rad(59.0))), "off-centre reflection marks its own shield segment")
 	await end_level(level)
+
+
+## 盾由前臂義體投射（NE-239）：每把武器、上下瞄準、站／跑／跳、兩個面向，手腕都貼在身體旁（不漂浮），
+## 投射線從手腕連到盾面內緣、長度不超過盾半徑的 1.5 倍。盾的圓心是實際防禦判定的身體中心，不為了貼手而移動。
+## 用真正的按鍵舉盾與移動、手把右搖桿瞄準。
+func _test_shield_attachment() -> void:
+	await open_level(20.0)
+	var player := level.player
+	var visual: PlayerVisual = player._visual
+	AimInput.set_virtual_gamepad(player, true)
+	var aims: Array[Vector2] = [Vector2.RIGHT, Vector2(1, -1).normalized(), Vector2(1, 0.8).normalized(), Vector2(0.15, -1).normalized()]
+	var worst := 0.0
+	var failures: Array[String] = []
+	for file in DirAccess.get_files_at("res://data/weapons"):
+		if not file.ends_with(".tres"):
+			continue
+		var weapon := load("res://data/weapons/" + file) as WeaponData
+		if weapon == null:
+			continue
+		player.loadout.reset(weapon)
+		for face: float in [1.0, -1.0]:
+			for aim in aims:
+				var dir := Vector2(aim.x * face, aim.y)
+				for motion: String in ["stand", "run", "air"]:
+					place_player(20.0)
+					Input.action_press(&"block")
+					_press_stick(dir)
+					if motion == "run":
+						Input.action_press(&"move_right" if face > 0.0 else &"move_left")
+					if motion == "air":
+						Input.action_press(&"jump")
+					await physics_frames(12)
+					await frames(2)
+					var center := visual.to_local(player.global_position + Vector2(0, -Player.BODY_SIZE.y * 0.5))
+					var wrist := visual.shield_wrist_local()
+					var anchor := center + visual._shield.direction * (ShieldSurface.RADIUS - 5.0) * lerpf(0.88, 1.0, visual._shield.extension)
+					var reach := wrist.distance_to(anchor)
+					var from_body := wrist - center
+					worst = maxf(worst, reach)
+					if not player.is_blocking or reach > ShieldSurface.RADIUS * 1.5 or absf(from_body.x) > 22.0 or absf(from_body.y) > 28.0:
+						failures.append("%s face %d aim %s %s: reach %.1f wrist %s" % [weapon.id, int(face), dir, motion, reach, from_body])
+					for action: StringName in [&"block", &"move_left", &"move_right", &"jump"]:
+						Input.action_release(action)
+					await physics_frames(20)
+	_press_stick(Vector2.ZERO)
+	AimInput.set_virtual_gamepad(player, false)
+	check(failures.is_empty(), "the shield stays attached to the front wrist for every weapon, aim, motion and facing (worst reach %.1f): %s" % [worst, failures.slice(0, 4)])
+	await end_level(level)
+
+
+func _press_stick(direction: Vector2) -> void:
+	for pair: Array in [[&"aim_right", maxf(0.0, direction.x)], [&"aim_left", maxf(0.0, -direction.x)], [&"aim_down", maxf(0.0, direction.y)], [&"aim_up", maxf(0.0, -direction.y)]]:
+		if float(pair[1]) > 0.01:
+			Input.action_press(pair[0], float(pair[1]))
+		else:
+			Input.action_release(pair[0])
 
 
 func _test_player_fx() -> void:
