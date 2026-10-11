@@ -185,5 +185,41 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.1,
+    "outputs": [
+      "art_src\\characters\\egret\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.8,
+    "outputs": [
+      "art\\characters\\egret\\character.json",
+      "art\\rigs\\egret.json",
+      "art\\characters\\egret\\parts",
+      "art\\portraits\\egret.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.5,
+    "outputs": [
+      "art\\characters\\egret\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.7,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]

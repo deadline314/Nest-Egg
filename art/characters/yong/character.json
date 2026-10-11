@@ -1,0 +1,246 @@
+{
+  "id": "yong",
+  "display_name": "阿勇",
+  "rig": "res://art/rigs/yong.json",
+  "texture_scale": 0.0535,
+  "scale": 1.0,
+  "eye_states": {
+    "part": "head",
+    "half_texture": "head_half",
+    "closed_texture": "head_closed",
+    "timing": {}
+  },
+  "description": "外觀（skin）定義：textures 是零件圖片的尺寸與支點；parts 是把圖片掛到骨頭上的方式。由 tools/comfyui/cut_layers.py 依分件圖層切出。",
+  "textures": {
+    "pelvis": {
+      "file": "parts/pelvis.png",
+      "size": [
+        302,
+        222
+      ],
+      "pivot": [
+        147.0,
+        130.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "torso": {
+      "file": "parts/torso.png",
+      "size": [
+        327,
+        376
+      ],
+      "pivot": [
+        167.0,
+        344.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "head": {
+      "file": "parts/head.png",
+      "size": [
+        138,
+        146
+      ],
+      "pivot": [
+        35.0,
+        174.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "leg_upper": {
+      "file": "parts/leg_upper.png",
+      "size": [
+        227,
+        360
+      ],
+      "pivot": [
+        108.56,
+        99.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "leg_lower": {
+      "file": "parts/leg_lower.png",
+      "size": [
+        218,
+        327
+      ],
+      "pivot": [
+        82.31,
+        12.03
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "foot": {
+      "file": "parts/foot.png",
+      "size": [
+        191,
+        155
+      ],
+      "pivot": [
+        53.0,
+        71.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "arm_upper": {
+      "file": "parts/arm_upper.png",
+      "size": [
+        146,
+        248
+      ],
+      "pivot": [
+        70.97,
+        62.19
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "arm_lower": {
+      "file": "parts/arm_lower.png",
+      "size": [
+        130,
+        191
+      ],
+      "pivot": [
+        58.96,
+        12.18
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "hand": {
+      "file": "parts/hand.png",
+      "size": [
+        137,
+        81
+      ],
+      "pivot": [
+        18.54,
+        42.3
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "head_half": {
+      "file": "parts/head_half.png",
+      "size": [
+        138,
+        146
+      ],
+      "pivot": [
+        35.0,
+        174.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "head_closed": {
+      "file": "parts/head_closed.png",
+      "size": [
+        138,
+        146
+      ],
+      "pivot": [
+        35.0,
+        174.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    }
+  },
+  "parts": [
+    {
+      "name": "arm_back_upper",
+      "texture": "arm_upper",
+      "bone": "arm_back_upper",
+      "z": -7,
+      "tint": 0.8
+    },
+    {
+      "name": "arm_back_lower",
+      "texture": "arm_lower",
+      "bone": "arm_back_lower",
+      "z": -7,
+      "tint": 0.8
+    },
+    {
+      "name": "hand_back",
+      "texture": "hand",
+      "bone": "hand_back",
+      "z": -6,
+      "tint": 0.8
+    },
+    {
+      "name": "leg_back_upper",
+      "texture": "leg_upper",
+      "bone": "leg_back_upper",
+      "z": -5,
+      "tint": 0.8
+    },
+    {
+      "name": "leg_back_lower",
+      "texture": "leg_lower",
+      "bone": "leg_back_lower",
+      "z": -5,
+      "tint": 0.8
+    },
+    {
+      "name": "foot_back",
+      "texture": "foot",
+      "bone": "foot_back",
+      "z": -5,
+      "tint": 0.8
+    },
+    {
+      "name": "pelvis",
+      "texture": "pelvis",
+      "bone": "hip",
+      "z": 0
+    },
+    {
+      "name": "torso",
+      "texture": "torso",
+      "bone": "chest",
+      "z": 1
+    },
+    {
+      "name": "leg_front_upper",
+      "texture": "leg_upper",
+      "bone": "leg_front_upper",
+      "z": 3
+    },
+    {
+      "name": "leg_front_lower",
+      "texture": "leg_lower",
+      "bone": "leg_front_lower",
+      "z": 3
+    },
+    {
+      "name": "foot_front",
+      "texture": "foot",
+      "bone": "foot_front",
+      "z": 3
+    },
+    {
+      "name": "head",
+      "texture": "head",
+      "bone": "head",
+      "z": 5
+    },
+    {
+      "name": "arm_front_upper",
+      "texture": "arm_upper",
+      "bone": "arm_front_upper",
+      "z": 8
+    },
+    {
+      "name": "arm_front_lower",
+      "texture": "arm_lower",
+      "bone": "arm_front_lower",
+      "z": 8
+    },
+    {
+      "name": "hand_front",
+      "texture": "hand",
+      "bone": "hand_front",
+      "z": 10
+    }
+  ]
+}

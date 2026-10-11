@@ -1,0 +1,16 @@
+{
+  "description": "榕伯（banyan）的建置配方。來源是功能姿勢的文生圖（art_src/characters/banyan/01_design/prompt.txt，seed 24231）；建置從 parts 或之後的步驟開始。",
+  "id": "banyan",
+  "name": "榕伯",
+  "spec": "tools/comfyui/specs/banyan_side.json",
+  "rig": "art/rigs/banyan.json",
+  "work": "art_src/characters/banyan",
+  "design": {
+    "size": [
+      832,
+      1216
+    ],
+    "pick": 24231,
+    "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat muted colors, bold clean black outlines, hard-edged two-tone shading, at most one small lit accent. Full body, strict side view facing right, the whole figure from the top of the head to the soles inside the frame, tall in the frame: the figure fills nine tenths of the picture height. The character stands upright and still, like a model sheet: weight evenly on both feet, hips and shoulders level, the spine vertical, the chest not pushed out and the lower back not arched, the head level. The near arm hangs straight down beside the thigh with an open empty hand; it is not swept back. The far arm is hidden behind the torso. The feet are a small step apart with the far foot half a step ahead, so the far shin and the far shoe show in front of the near leg. Old Banyan, a herbal tea seller of seventy-two who has kept the same market stall all his life, an old man: about six and a half heads tall, thin and wiry with knobbly elbows and big hands, standing upright with only a slight forward set of the neck. A long kind face with deep wrinkles, drooping eyelids, large ears, a wispy white chin beard, a nearly bald head with a fringe of white hair, brown sun-spotted skin. He wears a faded short-sleeved shirt printed with a small pale leaf pattern, open over a white ribbed undershirt; loose dark grey cotton trousers rolled above the ankles; brown plastic sandals; a thin checked towel around the neck; a small cloth money pouch tied at the belt. Empty hands. Uneven rough hand-inked linework with varied line weight, gritty grime and fabric wrinkles where the cloth bends, slightly asymmetrical, lived-in and worn, matte not glossy, not airbrushed, no idealized perfect face. Few large plain shapes, no decorative details beyond the ones described. Even overcast light, no glow, no bloom, no text."
+  }
+}

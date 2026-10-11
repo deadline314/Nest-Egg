@@ -1,0 +1,16 @@
+{
+  "description": "利息（vig）的建置配方。來源是功能姿勢的文生圖（art_src/characters/vig/01_design/prompt.txt，seed 24221）；建置從 parts 或之後的步驟開始。",
+  "id": "vig",
+  "name": "利息",
+  "spec": "tools/comfyui/specs/vig_side.json",
+  "rig": "art/rigs/vig.json",
+  "work": "art_src/characters/vig",
+  "design": {
+    "size": [
+      832,
+      1216
+    ],
+    "pick": 24221,
+    "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat muted colors, bold clean black outlines, hard-edged two-tone shading, at most one small lit accent. Full body, strict side view facing right, the whole figure from the top of the head to the soles inside the frame, tall in the frame: the figure fills nine tenths of the picture height. The character stands upright and still, like a model sheet: weight evenly on both feet, hips and shoulders level, the spine vertical, the chest not pushed out and the lower back not arched, the head level. The near arm hangs straight down beside the thigh with an open empty hand; it is not swept back. The far arm is hidden behind the torso. The feet are a small step apart with the far foot half a step ahead, so the far shin and the far shoe show in front of the near leg. Vig, the deputy of a harbour debt-collecting crew, a man of about thirty-five who works the receipt counter: about seven heads tall, lean and narrow-shouldered with a slight desk-worker's slouch kept straight. A long face with a thin fixed polite smile, tired eyes with dark rings, a crooked front tooth, black hair combed flat and parted with oil, a thin moustache. He wears a cheap grey waistcoat with one mismatched button over an off-white shirt gone yellow at the collar, the sleeves rolled to the elbows and held with black sleeve garters, a narrow loosened dark red tie, a black paper-cuff protector on the forearm, dark pressed trousers shiny at the knees, scuffed black leather shoes; ink-stained fingers; a small brass stamp hanging from the belt on a short chain. Empty hands. Uneven rough hand-inked linework with varied line weight, gritty grime and fabric wrinkles where the cloth bends, slightly asymmetrical, lived-in and worn, matte not glossy, not airbrushed, no idealized perfect face. Few large plain shapes, no decorative details beyond the ones described. Even overcast light, no glow, no bloom, no text."
+  }
+}

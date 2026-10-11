@@ -210,8 +210,10 @@ def main() -> None:
                    "fill_holes": {"parts": body_parts + ["head"], "max_area": 800}, "close_fill": {"parts": ["hand", "foot", "arm_lower", "arm_upper", "torso", "head", "pelvis", "leg_upper"], "radius": 4},
                    # stage P leaves a dark or skin-coloured armhole on the torso; it shows as a hole in the clothes once the arm swings away
                    "inpaint": [{"part": "torso", "poly": [[round(J["shoulder"][0] + 0.3 * upper_arm * math.cos(i * math.pi / 10)),
-                                                           round(J["shoulder"][1] + 0.25 * upper_arm + 0.42 * upper_arm * math.sin(i * math.pi / 10))] for i in range(20)]}],
+                                                           round(J["shoulder"][1] + 0.25 * upper_arm + 0.42 * upper_arm * math.sin(i * math.pi / 10))] for i in range(20)], "flat": True}],
                    "underlap": [{"part": "torso", "under": "head", "poly": disc(J["neck"][0] + 0.3 * (nose[0] - J["neck"][0]), J["neck"][1] - 0.45 * (J["neck"][1] - nose[1]), 44)},
+                                # the nape: when the head tips back (aiming up) the back of the neck opens above the collar
+                                {"part": "torso", "under": "head", "poly": disc(J["neck"][0] - 0.36 * (nose[0] - J["neck"][0]), J["neck"][1] - 0.45 * (J["neck"][1] - nose[1]) + 6, 40)},
                                 {"part": "torso", "under": "arm_upper", "poly": disc(J["shoulder"][0], J["shoulder"][1], 26)}]},
     }
     if args.trim_spikes:

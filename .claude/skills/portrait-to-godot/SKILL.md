@@ -33,7 +33,7 @@ description: 從零做一個新角色或新外觀並放進 Nest Egg 的完整流
 
 ## 第 1 關：畫立繪
 
-1. 寫 `art_src/characters/<id>/01_design/character.txt`：年齡、性別（寫白）、頭身、體型、臉上不對稱的地方、每件衣服與它的磨損。衣服是港區會有的實用衣物；發光的東西最多一小處。
+1. 寫 `art_src/characters/<id>/01_design/character.txt`：年齡、性別（寫白）、頭身、體型、臉上不對稱的地方、每件衣服與它的磨損。衣服是港區會有的實用衣物；發光的東西最多一小處。會坐下的角色，上衣寫「只到腰帶」，不要有過腰的下襬。
 2. `python tools/comfyui/field_design.py --id <id> --seed <n>`。畫風、站姿與收尾的文字是全體共用的，不要在角色描述裡重寫，也不要加「高細節、傑作」這類詞。
 3. 已有定稿、只想換姿勢時用參考編輯（例：`art_src/characters/rin_field/01_design/generate.py`）。
 
@@ -71,6 +71,7 @@ python tools/comfyui/build_character.py --recipe tools/comfyui/recipes/<id>.json
 
 - 建置停在「stage … still shows …%」：底層圖沒有真的把手拿掉。換提示詞或種子，`make_parts.py … --redo-stage P`。不要繞過這個檢查。
 - 看 `04_stages/*.png`：要拿掉的東西真的不見了，沒有多畫回別的肢體。
+- 把 `07_refined/torso.png` 放在洋紅底上看：袖窿補色是平的一塊布色，沒有抹進別的顏色。
 - 看 `06_parts/ownership.png`：每個肢體各自一色；身體旁邊沒有細線；遠側小腿與鞋有被分出去。
 - `python tools/comfyui/check_reassembly.py --spec … --work … [--allow …]`：零件疊回原位和原圖比。預期中的缺口（遠側腿）逐塊看過才登記進 allow 檔並寫理由。
 - 建置輸出的 `WARN part texture …`（游離碎片、封閉孔洞、支點離零件太遠）逐條處理。

@@ -1,0 +1,16 @@
+{
+  "description": "阿勇（yong）的建置配方。來源是功能姿勢的文生圖（art_src/characters/yong/01_design/prompt.txt，seed 24201）；建置從 parts 或之後的步驟開始。",
+  "id": "yong",
+  "name": "阿勇",
+  "spec": "tools/comfyui/specs/yong_side.json",
+  "rig": "art/rigs/yong.json",
+  "work": "art_src/characters/yong",
+  "design": {
+    "size": [
+      832,
+      1216
+    ],
+    "pick": 24201,
+    "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat muted colors, bold clean black outlines, hard-edged two-tone shading, at most one small lit accent. Full body, strict side view facing right, the whole figure from the top of the head to the soles inside the frame, tall in the frame: the figure fills nine tenths of the picture height. The character stands upright and still, like a model sheet: weight evenly on both feet, hips and shoulders level, the spine vertical, the chest not pushed out and the lower back not arched, the head level. The near arm hangs straight down beside the thigh with an open empty hand; it is not swept back. The far arm is hidden behind the torso. The feet are a small step apart with the far foot half a step ahead, so the far shin and the far shoe show in front of the near leg. Yong, the head of a harbour debt-collecting crew, a man of forty-five who used to load freight on the docks: about seven heads tall, heavy and thick through the neck, shoulders and forearms, a solid belly, standing planted. A square tired face with a broken nose, deep creases beside the mouth, heavy brows, grey-flecked stubble, short cropped black hair going grey at the temples, one ear slightly cauliflowered. He wears a faded rust-brown canvas dock jacket with the sleeves pushed up to the elbows, a dark grey undershirt, and over them a worn second-hand industrial lifting frame: dull steel struts along the back of the arm and down the spine, a scuffed hinge at the elbow, and a boxy battery case strapped on the chest behind a dented steel plate with one small amber indicator. Dark oil-stained work trousers with a wide leather belt, heavy steel-toed dock boots, strapped knee pads, bare thick hands with taped knuckles. Empty hands. Uneven rough hand-inked linework with varied line weight, gritty grime and fabric wrinkles where the cloth bends, slightly asymmetrical, lived-in and worn, matte not glossy, not airbrushed, no idealized perfect face. Few large plain shapes, no decorative details beyond the ones described. Even overcast light, no glow, no bloom, no text."
+  }
+}

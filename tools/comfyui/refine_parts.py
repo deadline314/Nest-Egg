@@ -10,7 +10,8 @@ spec["refine"] (every key is optional):
   erase      [{"part": p, "poly": [[x, y], ...]}]    clear a polygon (pixel coordinates of base_rgba.png)
   claim      [{"part": p, "poly": [[x, y], ...]}]    give the part the pixels of base_rgba.png inside the polygon that no part holds: skin
                                                       between two masks (the front of the neck between the chin and the collar) shows the background
-  inpaint    [{"part": p, "poly": [[x, y], ...]}]    repaint a polygon of the part from the colours around it, alpha unchanged: something
+  inpaint    [{"part": p, "poly": [[x, y], ...], "flat": true}]  repaint a polygon of the part from the colours around it (flat: one
+                                                      flat colour, the median of the cloth around it), alpha unchanged: something
                                                       that belongs to another part was painted onto this one (an earring on the neck under the head)
   underlap   [{"part": p, "under": q, "poly": [[x, y], ...], "inset": 2}]  grow part p into the polygon, only where part q covers it (q's
                                                       outline pulled in by `inset` px), with the colour of p's nearest pixel. Two parts of
@@ -167,7 +168,20 @@ def main() -> None:
         cv2.fillPoly(m, [np.array(e["poly"], np.int32)], 1)
         L = layers[e["part"]]
         m &= (L[:, :, 3] > 0).astype(np.uint8)
-        L[:, :, :3] = cv2.inpaint(L[:, :, :3], m * 255, 5, cv2.INPAINT_TELEA)
+        # transparent pixels are not a colour source: next to the outline they would smear the backdrop's colour into the part
+        ys, xs = np.nonzero(m)
+        if len(ys):
+            y0, y1, x0, x1 = max(0, ys.min() - 12), ys.max() + 13, max(0, xs.min() - 12), xs.max() + 13
+            box = L[y0:y1, x0:x1]
+            unknown = (m[y0:y1, x0:x1] > 0) | (box[:, :, 3] == 0)
+            painted = cv2.inpaint(np.ascontiguousarray(box[:, :, :3]), unknown.astype(np.uint8) * 255, 5, cv2.INPAINT_TELEA)
+            if e.get("flat"):  # cel-shaded cloth is a flat colour: the median of the cloth around the polygon, without its dark outline
+                ring = (cv2.dilate(m[y0:y1, x0:x1], ell(12)) > 0) & ~unknown
+                near = box[:, :, :3][ring].astype(float)
+                if len(near):
+                    luma = near @ np.array([0.299, 0.587, 0.114])
+                    painted[:] = np.median(near[luma >= np.percentile(luma, 40)], axis=0).astype(np.uint8)
+            box[:, :, :3][m[y0:y1, x0:x1] > 0] = painted[m[y0:y1, x0:x1] > 0]
         print(f"  inpaint {e['part']}: {int(m.sum())} px")
 
     for e in cfg.get("underlap", []):

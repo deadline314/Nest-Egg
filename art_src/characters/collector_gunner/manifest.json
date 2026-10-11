@@ -195,5 +195,40 @@
     "outputs": [
       ".godot"
     ]
+  },
+  {
+    "step": "refine",
+    "seconds": 2.1,
+    "outputs": [
+      "art_src\\characters\\collector_gunner\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.3,
+    "outputs": [
+      "art\\characters\\collector_gunner\\character.json",
+      "art\\rigs\\collector_gunner.json",
+      "art\\characters\\collector_gunner\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 3.2,
+    "outputs": [
+      "art\\characters\\collector_gunner\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 6.7,
+    "outputs": [
+      ".godot"
+    ]
   }
 ]
