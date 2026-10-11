@@ -5,6 +5,8 @@ extends Control
 ## 標點會讓逐字顯示停頓，念起來比較像人在說話。
 
 const BOX_RECT := Rect2(28, 268, 584, 76)
+## 寬銀幕黑邊開著時，對話框底下留給下黑邊的空間：框頂 = 安全範圍下緣 − SAFE_BOTTOM_GAP（過場構圖檢查也用這個值）。
+const SAFE_BOTTOM_GAP := 84.0
 const PORTRAIT_SIZE := 60.0
 const STYLES: PackedStringArray = ["normal", "whisper", "shout", "noise"]
 const SPEED := {"normal": 38.0, "whisper": 22.0, "shout": 52.0, "noise": 30.0}
@@ -225,7 +227,7 @@ func _apply_style_motion() -> void:
 
 
 func layout_safe_rect(rect: Rect2) -> void:
-	_box_rect = Rect2(Vector2(28, rect.end.y - 84), Vector2(maxf(0, rect.size.x - 56), 76))
+	_box_rect = Rect2(Vector2(28, rect.end.y - SAFE_BOTTOM_GAP), Vector2(maxf(0, rect.size.x - 56), 76))
 	_panel.position = _box_rect.position
 	_panel.custom_minimum_size.x = _box_rect.size.x
 	_panel.size = _box_rect.size

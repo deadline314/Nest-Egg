@@ -66,10 +66,16 @@ FLOOR = {
     'ch1_pawnshop_front': 348, 'ch1_pawnshop_kitchen': 304, 'ch1_rooftop': 262,
     'ch1_revival_room': 280, 'ch1_revival_lounge': 262, 'ch1_dawn_noodle_stall': 300,
 }
+# 立繪裡畫好的家具（ST-10）：讓場景檢查知道坐的地方、家具大小與是否落地（規則與比例表見 data/cutscene/stage_proportions.json）。
+# rect＝[x, 頂面 y, 寬, 高]（舞台座標，量自立繪）；plane＝actor 時站著的演員不能和它重疊。
+FURNITURE = {
+    # 診間的復原檢查台：量自立繪（台面 y≈194、台座落在地面 280、x 243～388）。比一般診療台高，凜坐在邊緣腳懸空是劇本要的。
+    'ch1_revival_room': [{"id": "exam_table", "kind": "treatment_bed", "rect": [243, 194, 145, 86]}],
+}
 # 演員縮放：{舞台: {骨架: 縮放}}。同一個舞台上的人高度大致一致。
 SCALE = {
     'ch1_pawnshop_front': {'rin': 3.4, 'old_k': 3.7},
-    'ch1_pawnshop_kitchen': {'rin': 3.8, 'old_k': 4.2},
+    'ch1_pawnshop_kitchen': {'rin': 3.4, 'old_k': 3.7},  # 和店面同一棟，縮放一致（ST-10：原本 3.8／4.2 在黑邊與對話框之間放不下）
     'ch1_rooftop': {'rin': 2.2, 'night_worker': 2.3},
     'ch1_revival_room': {'rin': 2.5},
     'ch1_revival_lounge': {'rin': 2.4, 'nurse': 2.8},
@@ -112,6 +118,7 @@ def stall_layers(scale):
 
 def write_stage(stage_id, scene, top, bottom, rain, glow, extra):
     tone = STAGE_TONE.get(stage_id, {})
+    furniture = [dict(item) for item in FURNITURE.get(stage_id, [])]
     layers = [
         {"kind": "gradient", "top": top, "bottom": bottom, "parallax": 0.0},
         {"kind": "sprite", "path": f"res://art/environment/scenes/{scene}.webp", "pos": [-64, -36.0], "scale": 0.5,
@@ -126,6 +133,7 @@ def write_stage(stage_id, scene, top, bottom, rain, glow, extra):
         layers.extend(stall_layers(scale))
         # 麵攤旁的小板凳：座面在骨盆下方（坐姿的髖高決定它的高度）。
         seat = FLOOR[stage_id] - (HIP_SIT['rin'] - PELVIS) * scale
+        furniture.append({"id": "stool", "kind": "seat", "rect": [290, round(seat, 1), 30, round(FLOOR[stage_id] - seat, 1)], "plane": "actor"})
         layers.append({"kind": "poly", "points": [[290, seat], [320, seat], [320, seat + 3], [290, seat + 3]], "color": "#6a4a30", "parallax": 1.0})
         layers.append({"kind": "poly", "points": [[294, seat + 3], [297, seat + 3], [297, FLOOR[stage_id]], [294, FLOOR[stage_id]]], "color": "#4a3320", "parallax": 1.0})
         layers.append({"kind": "poly", "points": [[313, seat + 3], [316, seat + 3], [316, FLOOR[stage_id]], [313, FLOOR[stage_id]]], "color": "#4a3320", "parallax": 1.0})
@@ -133,6 +141,8 @@ def write_stage(stage_id, scene, top, bottom, rain, glow, extra):
         layers.append({"kind": "rain", "depth": "front", "opacity": 0.35})
     layers.append({"kind": "motes", "count": 24, "color": "#cfe0ff", "opacity": 0.3, "area": [0, 30, 640, 280], "drift": [2, -3], "size": 1.1, "seed": 7})
     data = {"camera": {"pos": [320, 180], "zoom": 1.0}, "floor": FLOOR[stage_id], "layers": layers}
+    if furniture:
+        data["furniture"] = furniture
     with open(os.path.join(STAGE_DIR, f'{stage_id}.json'), 'w') as f:
         json.dump(data, f, ensure_ascii=False, indent=1)
         f.write('\n')
@@ -227,9 +237,10 @@ def fade(to=1.0, t=0.9):
     return {"do": "fade", "to": to, "time": t}
 
 
-# 對話框蓋住畫面下緣約 25%（框頂約在 266／360 處）：演員的腳底在畫面上的位置要在這條線之上，否則腳被框蓋住。
-# 鏡頭的畫面中心 y 因此不能太靠上：腳底畫面 y = 180 + (地面線 − 鏡頭 y) × 縮放 ≤ FEET_MAX_Y。
-FEET_MAX_Y = 262.0
+# 過場開著寬銀幕黑邊，對話框移到下黑邊之上，框頂約在 233／360（CutsceneChecker.FEET_MAX_SCREEN_Y）：
+# 演員的腳底在畫面上的位置要在這條線之上，否則腳被框蓋住（舊值 266 是沒有黑邊時的框頂，ST-10 修正）。
+# 鏡頭的畫面中心 y 因此不能太靠上：腳底畫面 y = 180 + (地面線 − 鏡頭 y) × 縮放 ≤ FEET_MAX_Y（留 3 像素邊距）。
+FEET_MAX_Y = 229.7
 _camera_floor = [None]
 
 
@@ -327,7 +338,8 @@ def build():
         narrate(["港區水位三點二公尺，持續上升"], 1.6),
         fx('lightning', 0.5),
         title("傘", "かさ　Kasa", 1.8),
-        stage(st, 320, 250, 1.0, 1.0),
+        # 黑邊開著時腳底到框頂 233、頭頂到黑邊 45 之間只有約 184 像素（ST-10）：老 K 站著約 207，鏡頭拉遠到 0.88。
+        stage(st, 320, 250, 0.88, 1.0),
         actor('rin', 'rin', 385, y, -1, scale=actor_scale(st, 'rin'), pose='idle'),
         actor('k', 'old_k', 175, y, 1, scale=actor_scale(st, 'old_k'), speaker='old_k', loop='wipe_hands'),
         sfx('pickup', -16),
@@ -477,7 +489,8 @@ def build():
         say('lamp', "沒人量得準。"),
         wait(0.8),
         # 她從檢查台下來站到地板上：鏡頭跟著往下，靴子才不會被對話框蓋住。
-        cam(316, 205, 1.4, 0.8, feet=FLOOR[st]),
+        # 站起來後全身約 145 像素高：1.4 倍時頭會進上方黑邊，拉遠到 1.25（ST-10）。
+        cam(316, 205, 1.25, 0.8, feet=FLOOR[st]),
         pose('rin', 'idle'),
         say('rin', "我先回去了。"),
         wait(0.5),
@@ -528,7 +541,8 @@ def build():
     st = 'ch1_pawnshop_kitchen'
     y = FLOOR[st]
     animated('ch1_c14_home', [
-        # 廚房的家具是照實際比例畫的，演員很高（凜約 221、老 K 約 236 像素）：鏡頭拉遠到 0.86 兩個人的頭才都在畫面裡。
+        # 廚房與店面是同一棟房子，演員縮放和店面一致（凜約 197、老 K 約 207 像素）；鏡頭 0.86，
+        # 黑邊開著時兩個人的頭和腳都在黑邊與對話框之間（ST-10）。再拉遠會拍到立繪外面。
         stage(st, 320, 200, 0.86, 1.4),
         actor('rin', 'rin', 575, y, -1, scale=actor_scale(st, 'rin')),
         actor('k', 'old_k', 120, y, -1, scale=actor_scale(st, 'old_k'), speaker='old_k'),
@@ -546,7 +560,7 @@ def build():
         wait(1.4),
         face('k', -1),
         move('k', 190, y, 2.8, True, 'walk'),
-        cam(292, 190, 0.9, 1.6),  # 往爐子推近一點；再近老 K 的頭會被切，再往左會拍到立繪外面
+        cam(292, 190, 0.88, 1.6),  # 往爐子推近一點；再近老 K 的頭會被切，再往左會拍到立繪外面
         wait(3.0),
         say('old_k', "…你什麼時候回來的？"),
         say('rin', "我剛剛才回來。"),

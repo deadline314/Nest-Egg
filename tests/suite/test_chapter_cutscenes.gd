@@ -51,7 +51,8 @@ func _test_ch1_pose_baseline() -> void:
 		var scene := _scene(StringName(id))
 		check(scene.get("pose_policy", "") == "supported", "%s enforces supported poses" % id)
 		check(CutsceneChecker.validate(id, scene, Story._speakers).is_empty(), "%s has reasons and supports for restricted poses" % id)
-		check(CutsceneChecker.staging_problems(id, scene).is_empty(), "%s keeps actor feet above the dialogue panel" % id)
+		var staging := CutsceneChecker.staging_problems(id, scene)
+		check(staging.is_empty(), "%s keeps actor feet above the dialogue panel: %s" % [id, "；".join(staging)])
 	for step: Dictionary in _scene(&"ch1_c01_open")["steps"]:
 		if step.get("do") == "actor" and step.get("id") == "rin":
 			check(step.get("pose") == "idle", "Rin stands at the pawnshop counter in the opening")

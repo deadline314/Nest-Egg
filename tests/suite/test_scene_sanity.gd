@@ -13,6 +13,7 @@ func run() -> void:
 	_test_reachability()
 	_test_links()
 	_test_stages()
+	_test_stage_fit()
 	_test_real_levels()
 	_test_real_stages()
 
@@ -339,6 +340,48 @@ func _test_stages() -> void:
 # ---------------------------------------------------------------------------
 # 真實資料
 # ---------------------------------------------------------------------------
+
+## ST-10：舞台物件尺寸相對演員的範圍、家具落地、坐要有座位、站著不和同一層的家具重疊。
+func _test_stage_fit() -> void:
+	check(StageFitAudit.validate_table().is_empty(), "the stage proportion table is valid: %s" % ", ".join(StageFitAudit.validate_table()))
+	# 演員縮放 2.0：舞台上的 H = 58 × 2 = 116。桌子 0.43H ≈ 50、櫃檯 1.0H 太高、板凳 0.27H ≈ 31。
+	var def := {"floor": 300, "furniture": [
+		{"id": "table", "kind": "table", "rect": [100, 250, 60, 50]},
+		{"id": "tall_counter", "kind": "counter", "rect": [200, 184, 80, 116]},
+		{"id": "hover_stool", "kind": "seat", "rect": [300, 239, 30, 31]},
+		{"id": "bench", "kind": "seat", "rect": [400, 269, 40, 31], "plane": "actor"},
+		{"id": "giant", "kind": "counter", "rect": [500, 100, 40, 200], "exempt": "刻意誇張的招牌櫃"},
+		{"id": "broken", "kind": "table", "rect": [1, 2]},
+	]}
+	var issues := StageFitAudit.furniture_issues("cafe", def, 2.0)
+	var codes := _codes(issues)
+	check(not str(issues).contains("cafe／table"), "a table at 0.43H standing on the floor is fine")
+	check(codes.has("stage_furniture_size") and str(issues).contains("tall_counter"), "a counter as tall as the actor is reported with its stage and name")
+	check(codes.has("stage_furniture_floating") and str(issues).contains("hover_stool"), "a stool hovering 30 px above the floor is reported")
+	check(not str(issues).contains("giant"), "an exempt prop keeps the floor check but skips the size check")
+	check(codes.has("stage_fit_invalid") and str(issues).contains("broken"), "a furniture entry without a usable rect is reported, not crashed on")
+	# 坐：在板凳上可以；空地上坐著要報；腳比座面高也要報。
+	check(StageFitAudit.contact_issues("s", "cafe", def, "凜", "sit", Vector2(420, 290), 2.0).is_empty(), "sitting over a registered seat is fine")
+	var floor_sit := StageFitAudit.contact_issues("s", "cafe", def, "凜", "sit", Vector2(600, 300), 2.0)
+	check(_codes(floor_sit).has("stage_sit_unsupported") and str(floor_sit).contains("s／cafe"), "sitting on thin air names the scene and stage")
+	check(_codes(StageFitAudit.contact_issues("s", "cafe", def, "凜", "sit", Vector2(420, 260), 2.0)).has("stage_sit_unsupported"), "feet above the seat surface are not sitting on it")
+	# 站：和同一層的板凳重疊要報；背景的桌子不算；蹲不算。
+	check(_codes(StageFitAudit.contact_issues("s", "cafe", def, "凜", "idle", Vector2(420, 300), 2.0)).has("stage_actor_overlap"), "standing inside a bench on the actors' plane is reported")
+	check(StageFitAudit.contact_issues("s", "cafe", def, "凜", "idle", Vector2(130, 300), 2.0).is_empty(), "standing in front of a background table is fine")
+	check(StageFitAudit.contact_issues("s", "cafe", def, "凜", "squat", Vector2(420, 300), 2.0).is_empty(), "squatting poses are not overlap-checked")
+	check(StageFitAudit.contact_issues("s", "old", {}, "凜", "sit", Vector2(0, 0), 2.0).is_empty(), "legacy stages without a floor line are skipped")
+	# 擺設：沒登記種類、超出比例、扣掉吊鍊後的本體。
+	check(_codes(StageFitAudit.prop_issues("cafe", "no_such_stage_prop", 20.0)).has("stage_prop_unclassified"), "an unclassified stage prop is reported")
+	check(StageFitAudit.prop_issues("ch1_dawn_noodle_stall", "dawn_noodle_stall__hanging_lantern", 33.0).is_empty(), "the noodle stall lantern body is inside the lantern range")
+	check(_codes(StageFitAudit.prop_issues("ch1_dawn_noodle_stall", "dawn_noodle_stall__hanging_lantern", 33.0 * 2.5)).has("stage_prop_proportion"), "a lantern 2.5 times larger is out of proportion")
+	# 整條路：過場步驟裡坐在空地上會被 audit_stages 抓到。
+	var scenes := {"sit_air": {"mode": "animated", "steps": [
+		{"do": "scene", "id": "cafe"},
+		{"do": "actor", "id": "rin", "kind": "rin", "pos": [600, 300], "scale": 2.0, "pose": "sit"},
+	]}}
+	var resolve := func(_id: String) -> Dictionary: return def
+	check(_codes(SceneAudit.audit_stages(scenes, resolve)).has("stage_sit_unsupported"), "audit_stages runs the contact check on cutscene steps")
+
 
 func _test_real_levels() -> void:
 	var paths := SceneAudit.level_paths()

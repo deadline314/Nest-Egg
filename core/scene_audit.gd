@@ -109,26 +109,35 @@ static func audit_stages(scenes: Dictionary, stage_def: Callable) -> Array[Dicti
 			continue
 		var floor_y := -1.0
 		var stage_id := ""
+		var def: Dictionary = {}
 		var poses: Dictionary = {}  # 演員 id → 目前姿勢
+		var places: Dictionary = {}  # 演員 id → 腳底位置
+		var actor_scales: Dictionary = {}  # 演員 id → 縮放
 		for step: Dictionary in scene.get("steps", []):
+			var id := str(step.get("id", ""))
 			match str(step.get("do", "")):
 				"scene":
-					stage_id = str(step.get("id", ""))
-					var def: Dictionary = stage_def.call(stage_id)
+					stage_id = id
+					def = stage_def.call(stage_id)
 					floor_y = float(def.get("floor", -1.0))
 					poses.clear()
+					places.clear()
+					actor_scales.clear()
 				"actor":
-					var id := str(step.get("id", ""))
 					poses[id] = str(step.get("pose", "idle"))
 					if step.has("scale") and stage_id != "":
 						var key := "%s|%s" % [stage_id, step.get("kind", id)]
 						(scales.get_or_add(key, []) as Array).append(float(step["scale"]))
+						actor_scales[id] = float(step["scale"])
 					_check_stage_feet(issues, scene_id, stage_id, floor_y, str(poses[id]), step.get("pos", null), "演員 %s" % id)
+					_check_stage_contact(issues, scene_id, stage_id, def, "演員 %s" % id, str(poses[id]), step.get("pos", null), places, id, actor_scales)
 				"pose":
-					poses[str(step.get("id", ""))] = str(step.get("pose", "idle"))
+					poses[id] = str(step.get("pose", "idle"))
+					_check_stage_contact(issues, scene_id, stage_id, def, "演員 %s" % id, str(poses[id]), null, places, id, actor_scales)
 				"move":
-					var id := str(step.get("id", ""))
 					_check_stage_feet(issues, scene_id, stage_id, floor_y, str(poses.get(id, "idle")), step.get("to", null), "演員 %s 走到" % id)
+					poses[id] = str(step.get("then", "idle"))  # 走到之後換成 then 的姿勢（播放器的預設是 idle）
+					_check_stage_contact(issues, scene_id, stage_id, def, "演員 %s 走到" % id, str(poses.get(id, "idle")), step.get("to", null), places, id, actor_scales)
 	for key: String in scales:
 		var values: Array = scales[key]
 		var low := float(values.min())
@@ -142,7 +151,9 @@ static func audit_stages(scenes: Dictionary, stage_def: Callable) -> Array[Dicti
 		if checked_stages.has(stage):
 			continue
 		checked_stages[stage] = true
-		issues.append_array(stage_prop_issues(stage, stage_def.call(stage), float((scales[key] as Array)[0])))
+		var stage_scale := float((scales[key] as Array)[0])
+		issues.append_array(stage_prop_issues(stage, stage_def.call(stage), stage_scale))
+		issues.append_array(StageFitAudit.furniture_issues(stage, stage_def.call(stage), stage_scale))
 	return issues
 
 
@@ -168,6 +179,7 @@ static func stage_prop_issues(stage_id: String, def: Dictionary, actor_scale: fl
 		if prop == null or texture == null or prop.size.y <= 0.0:
 			continue
 		var name := "%s／%s" % [stage_id, path.get_file().get_basename()]
+		issues.append_array(StageFitAudit.prop_issues(stage_id, path.get_file().get_basename(), prop.size.y))
 		var drawn_height := float(texture.get_height()) * StageLayers.sprite_scale(layer, texture)
 		var expected := prop.size.y * actor_scale
 		if absf(drawn_height - expected) / expected > STAGE_PROP_SCALE_TOLERANCE:
@@ -180,6 +192,17 @@ static func stage_prop_issues(stage_id: String, def: Dictionary, actor_scale: fl
 				_add(issues, WARN, "stage_prop_floating", name, "底邊 y=%.0f，舞台地板在 %.0f（差 %.0f 像素），又沒有標明支撐；掛著或放在別的東西上要寫 support"
 						% [bottom, floor_y, bottom - floor_y])
 	return issues
+
+
+## 記下演員的位置（沒給新位置就用上一次的），再檢查坐姿的座位與站位的家具重疊（StageFitAudit）。
+static func _check_stage_contact(issues: Array[Dictionary], scene_id: String, stage_id: String, def: Dictionary, label: String, pose: String,
+		pos: Variant, places: Dictionary, id: String, actor_scales: Dictionary) -> void:
+	if pos is Array and (pos as Array).size() >= 2:
+		places[id] = Vector2(float(pos[0]), float(pos[1]))
+	if not places.has(id) or def.is_empty():
+		return
+	var actor_scale := float(actor_scales.get(id, 1.0))
+	issues.append_array(StageFitAudit.contact_issues(scene_id, stage_id, def, label, pose, places[id], actor_scale))
 
 
 static func _check_stage_feet(issues: Array[Dictionary], scene_id: String, stage_id: String, floor_y: float, pose: String, pos: Variant, label: String) -> void:
