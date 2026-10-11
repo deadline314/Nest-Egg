@@ -116,3 +116,4 @@ label = "頭目戰"
 [resource]
 script = ExtResource("2_environment_theme")
 zones = Array[ExtResource("1_env_zone")]([SubResource("Resource_zone0"), SubResource("Resource_zone1"), SubResource("Resource_zone2"), SubResource("Resource_zone3"), SubResource("Resource_zone4"), SubResource("Resource_zone5"), SubResource("Resource_zone6"), SubResource("Resource_zone7"), SubResource("Resource_zone8"), SubResource("Resource_zone9")])
+facades_follow_platforms = true

@@ -6,6 +6,11 @@ extends ChunkedDrawer
 const PANEL_PATH := "res://art/materials/metal_panel.png"
 ## 面板貼圖的邊長（像素）。實心矩形與區塊邊界都落在這個格線上，平鋪不會有接縫。
 const PANEL_TEXTURE_SIZE := 16
+## 吊索：後面沒有牆的平台用它吊著（顏色、亮邊與粗細）。
+const HANGER_COLOR := Color(0.07, 0.08, 0.12, 0.9)
+const HANGER_EDGE := Color(0.3, 0.34, 0.44, 0.55)
+## 上一層走道的頂面往下多少像素算它的底面。
+const HANGER_UNDER_PLATFORM := 8.0
 ## 平台托架：大小、兩端內縮距離與中間的間隔（像素）。
 const BRACKET_SIZE := Vector2(7.0, 9.0)
 const BRACKET_INSET := 10.0
@@ -15,6 +20,8 @@ const BRACKET_EDGE := Color(0.32, 0.36, 0.46, 0.95)
 
 var _solid_rects: Array[Rect2] = []
 var _platform_rects: Array[Rect2] = []
+## 背牆的實際範圍，由關卡在 build 之前設定：平台後面有牆就畫托架，沒有牆就畫吊索。null 時一律畫托架。
+var wall_geometry: BackWallGeometry
 var _tile := 16
 var _panel: Texture2D
 var _layout: LevelLayout
@@ -201,18 +208,28 @@ func _draw_themed_platforms(canvas: CanvasItem, area: Rect2) -> void:
 		canvas.draw_texture_rect_region(_material_texture(zone.material.top), dest,
 				Rect2(dest.position.x * scale_factor, 0.0, dest.size.x * scale_factor, top_h * scale_factor))
 		canvas.draw_rect(Rect2(rect.position.x, rect.position.y + top_h, rect.size.x, 2.0), Color(0, 0, 0, 0.45))
-		_draw_platform_brackets(canvas, full, area, top_h)
+	# 支撐另外走一輪：吊索會往上穿過別的區塊，不能只看平台本身落在哪一塊。
+	for full in _platform_rects:
+		var zone := _theme.zone_at(int(floor(full.position.x / _tile)))
+		if zone != null and zone.material != null:
+			_draw_platform_supports(canvas, full, area, zone.material.top_height)
 
 
-## 平台下方的三角托架：兩端內縮各一支、中間每隔 BRACKET_SPACING 補一支，讓懸空的平台看得出是架在牆面上。
-func _draw_platform_brackets(canvas: CanvasItem, full: Rect2, area: Rect2, top_h: float) -> void:
+## 平台的支撐：兩端內縮各一處、中間每隔 BRACKET_SPACING 補一處。後面有牆的地方畫三角托架（架在牆面上），
+## 沒有牆的地方畫往上的吊索（吊在上方的結構或畫面外），懸空的平台才看得出是怎麼撐住的。
+func _draw_platform_supports(canvas: CanvasItem, full: Rect2, area: Rect2, top_h: float) -> void:
 	var inset := minf(BRACKET_INSET, full.size.x * 0.25)
 	var span := full.size.x - inset * 2.0
 	var count := maxi(2, int(ceil(span / BRACKET_SPACING)) + 1)
 	var y := full.position.y + top_h
 	for i in count:
 		var x := full.position.x + inset + span * float(i) / float(count - 1)
-		if x + BRACKET_SIZE.x < area.position.x or x - BRACKET_SIZE.x > area.end.x 				or y > area.end.y or y + BRACKET_SIZE.y < area.position.y:
+		if x + BRACKET_SIZE.x < area.position.x or x - BRACKET_SIZE.x > area.end.x:
+			continue
+		if wall_geometry != null and not wall_geometry.covers(Rect2(x - 1.0, y + 1.0, 2.0, BRACKET_SIZE.y - 2.0)):
+			_draw_hanger(canvas, x, full.position.y, area)
+			continue
+		if y > area.end.y or y + BRACKET_SIZE.y < area.position.y:
 			continue
 		# 斜撐朝平台中間；最左與最右各朝內。
 		var lean := 1.0 if i * 2 < count else -1.0
@@ -220,6 +237,32 @@ func _draw_platform_brackets(canvas: CanvasItem, full: Rect2, area: Rect2, top_h
 				Vector2(x, y + BRACKET_SIZE.y)]), BRACKET_FILL)
 		canvas.draw_line(Vector2(x + lean * BRACKET_SIZE.x, y + 0.5), Vector2(x, y + BRACKET_SIZE.y), BRACKET_EDGE, 1.0)
 		canvas.draw_rect(Rect2(x - 1.0, y, 2.0, BRACKET_SIZE.y), BRACKET_EDGE)
+
+
+## 吊索：從平台頂面往上到最近的實心地形或上一層走道的底面（沒有就到地圖頂端），只畫落在這一塊範圍內的那一段。
+func _draw_hanger(canvas: CanvasItem, x: float, platform_top: float, area: Rect2) -> void:
+	if x < area.position.x or x > area.end.x:
+		return
+	var column := clampi(int(x / _tile), 0, _layout.width - 1)
+	var top := 0.0
+	for row in range(int(platform_top / _tile) - 1, -1, -1):
+		var above := _layout.cell(column, row)
+		if above == LevelBuilder.SOLID:
+			top = float((row + 1) * _tile)
+			break
+		if above == LevelBuilder.PLATFORM:
+			# 上面還有一層走道：吊在它的底面，不穿過去。
+			top = float(row * _tile) + HANGER_UNDER_PLATFORM
+			break
+	var from := maxf(top, area.position.y)
+	var to := minf(platform_top, area.end.y)
+	if to <= from:
+		return
+	canvas.draw_rect(Rect2(x - 1.0, from, 2.0, to - from), HANGER_COLOR)
+	canvas.draw_rect(Rect2(x - 1.0, from, 1.0, to - from), HANGER_EDGE)
+	# 吊索與平台相接的扣環。
+	if platform_top <= area.end.y and platform_top - 3.0 >= area.position.y:
+		canvas.draw_rect(Rect2(x - 2.0, platform_top - 3.0, 4.0, 3.0), HANGER_COLOR)
 
 
 func _draw_piece(canvas: CanvasItem, material: TerrainMaterialData, piece: Rect2, full: Rect2) -> void:

@@ -155,6 +155,7 @@ func _ready() -> void:
 	terrain.name = "Terrain"
 	terrain.z_index = WorldLayers.TERRAIN
 	_world.add_child(terrain)
+	terrain.wall_geometry = back_wall.geometry
 	terrain.build(_layout, data.environment, data.load_regions())
 	if not _layout.ghost_rects.is_empty():
 		var ghosts := GhostPlatforms.new()

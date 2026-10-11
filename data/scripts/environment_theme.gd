@@ -12,6 +12,9 @@ extends Resource
 @export var backdrop: Array[BackdropLayer] = []
 ## 照片天空（左右無縫的長條，壓在程式天空漸層上）。空白時只用程式天空。
 @export var sky: BackdropLayer
+## 建築要不要被單向平台墊高。預設不要：建築站在實心地面上，高處的走道另外用托架或吊索支撐。
+## 舊關卡的招牌與掛牆物是照「樓跟著平台長高」擺的，所以它們的主題保留舊規則（true）。
+@export var facades_follow_platforms := false
 
 
 ## 指定欄所在的區段（from_tile 最大且 <= tile 者）。沒有區段時回傳 null。

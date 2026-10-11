@@ -187,6 +187,8 @@ func _tour(level_id: String) -> bool:
 			shadow.free()
 		else:
 			shadow.process_mode = Node.PROCESS_MODE_ALWAYS
+	# 閃電會讓某幾格突然變亮，修前修後就對不起來：巡覽期間不打雷。
+	level._lighting._lightning_gap = 1.0e9
 	var physics_ms: Array[float] = []
 	var process_ms: Array[float] = []
 	if _flat:

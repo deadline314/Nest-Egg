@@ -93,6 +93,27 @@ func _test_scenery_support() -> void:
 	var cap: Rect2 = walls.modules[0].back()["rect"]
 	check(not walls.covers(Rect2(cap.position, Vector2(16, 1))), "transparent sky and antennas above the opaque roof cap do not support a wall sign")
 	check(walls.covers(Rect2(Vector2(cap.position.x, cap.end.y - 1), Vector2(16, 1))), "the actual opaque bottom strip of a roof cap provides support")
+	# BG-28：屋頂的裂縫裡看到的是同一棟樓往下延伸的牆，不是遠景。
+	var cracked := _layout(["........", "........", "........", "........", "........", "........", "........", "........", "........", "........", "###..###", "###..###", "###..###", "########"])
+	cracked.tile_size = 16
+	cracked.covered_columns = PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0])
+	cracked.surface_heights = PackedFloat32Array([160, 160, 160, 208, 208, 160, 160, 160])
+	var crack_walls := BackWallGeometry.new()
+	crack_walls.setup(cracked, 123, load("res://data/environment/themes/ch1_rooftop.tres"))
+	check(is_equal_approx(crack_walls.ground[0], 160.0) and is_equal_approx(crack_walls.deep[0], 208.0), "a roof crack is deeper than the roof it cuts")
+	check(crack_walls.covers(Rect2(50, 166, 12, 40)) and crack_walls.covers(Rect2(66, 166, 12, 40)), "the building wall continues down inside a roof crack")
+	# 單向平台不把整棟樓墊到半空中；舊關卡的主題保留跟著平台長高的規則。
+	var walkway := _layout(["........", "........", "........", "........", "========", "........", "........", "........", "........", "........", "........", "........", "########", "########"])
+	walkway.tile_size = 16
+	walkway.covered_columns = PackedByteArray([0, 0, 0, 0, 0, 0, 0, 0])
+	walkway.surface_heights = PackedFloat32Array([64, 64, 64, 64, 64, 64, 64, 64])
+	var grounded := BackWallGeometry.new()
+	grounded.setup(walkway, 123, load("res://data/environment/themes/ch1_street.tres"))
+	check(is_equal_approx(grounded.ground[0], 192.0) and grounded.covers(Rect2(16, 176, 32, 16)), "buildings stand on solid ground under a high walkway")
+	var lifted := BackWallGeometry.new()
+	lifted.setup(walkway, 123, load("res://data/environment/themes/chapter1.tres"))
+	check(is_equal_approx(lifted.ground[0], 64.0) and is_equal_approx(lifted.deep[0], 192.0) and lifted.covers(Rect2(16, 100, 32, 60)),
+			"legacy themes keep buildings on walkways, now filled down to the real ground")
 	var crate := PropLibrary.find_in(&"crates_stack", PackedStringArray([PropLibrary.DEFAULT_DIR]))
 	var invalid: Array[Dictionary] = [{"id": "crates_stack", "x": 2, "y": 3, "support": "prop", "support_id": "absent", "support_x": 2}]
 	check(ScenerySupport.check_prop(invalid[0], crate, Rect2(32, 16, 32, 32), room, walls, invalid, PackedStringArray([PropLibrary.DEFAULT_DIR])) == "prop_anchor_missing", "a tabletop prop must name an existing physical support")

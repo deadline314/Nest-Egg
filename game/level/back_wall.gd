@@ -114,7 +114,7 @@ func _draw_facade(canvas: CanvasItem, col: int, rect: Rect2) -> void:
 	var left := col * panel
 	var top := _facade_top[col]
 	var ground := _ground[col]
-	var body := Rect2(left, top, panel, ground - top).intersection(rect)
+	var body := Rect2(left, top, panel, geometry.deep[col] - top).intersection(rect)
 	if body.size.x <= 0.0 or body.size.y <= 0.0:
 		return
 	canvas.draw_rect(body, FACADE_COLOR)
