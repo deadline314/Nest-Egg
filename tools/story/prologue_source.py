@@ -144,6 +144,7 @@ def build():
         {"when": {}, "target": "ch1_p_k_wait"},
     ]}
 
+    # 格座標指向完成這一步的那個物件或人物（tests/suite/test_ch1_map.gd 會核對）。
     def step(title, done_flag, x, y=19):
         return {"title": title, "complete_flag": done_flag, "location": {"level": LEVEL, "cell": [x, y]}}
     quest = {"id": "ch1_prologue", "kind": "main", "title": "試完器材，回店吃飯",
@@ -152,11 +153,11 @@ def build():
              "complete_flag": "ch1_prologue_exit",
              "steps": [step("看看工作桌上今天要試的器材", "ch1_prologue_bench_done", 24),
                        step("取下搬貨台上的試貨工具", "ch1_prologue_jump_done", 30, 17),
-                       step("試訓練槍的落點", "ch1_prologue_shot_done", 58),
-                       step("試橡膠靶的近戰手感", "ch1_prologue_melee_done", 77),
-                       step("試訓練器的正面防禦", "ch1_prologue_guard_done", 86),
-                       step("試地上的衝刺訓練線", "ch1_prologue_dash_done", 101),
-                       step("回櫃台，聽老 K 說明復原服務", "ch1_prologue_service_heard", 36),
+                       step("試訓練槍的落點", "ch1_prologue_shot_done", 60),
+                       step("試橡膠靶的近戰手感", "ch1_prologue_melee_done", 79),
+                       step("試訓練器的正面防禦", "ch1_prologue_guard_done", 90),
+                       step("試地上的衝刺訓練線", "ch1_prologue_dash_done", 103),
+                       step("回櫃台，聽老 K 說明復原服務", "ch1_prologue_service_heard", 38),
                        step("跟老 K 收尾，從旁邊的門回店裡", "ch1_prologue_exit", 40)]}
     defaults = {name: False for name in (
         "ch1_prologue_bench_done", "ch1_prologue_jump_done", "ch1_prologue_range_reached", "ch1_prologue_shot_done", "ch1_prologue_high_shot_done",

@@ -5,7 +5,7 @@ extends Node
 ##   對話（dialogue）：場景人物，玩家主動觸發，暫停遊戲逐句推進（見 NpcActor）。
 ## 場景可以帶 variants，依累計死亡次數改用不同的台詞（見 StoryReactions）；劇本品質檢查見 StoryLint。
 ## 台詞全部在資料檔，修改不需改程式；死亡重來時已看過的場景不會重播。
-## 多章節：CHAPTER_PATHS 列出的劇本會合併成同一份講者與場景表（場景 id 全域唯一，慣例以 c2_ 等前綴區分章節），
+## 多章節：chapter_paths() 列出的劇本會合併成同一份講者與場景表（場景 id 全域唯一，慣例以 c2_ 等前綴區分章節），
 ## 關卡以 LevelData.chapter 指定自己屬於哪一章（章節標題、結尾卡、預告取自該章）。
 
 signal scene_started(scene_id: StringName, mode: StringName)
@@ -14,20 +14,24 @@ signal scene_finished(scene_id: StringName)
 signal request_settled(request: int, completed: bool)
 signal presentation_cancelled(scene_id: StringName, context: Dictionary, reason: StringName, request: int)
 
+## 正式章節：序章與第一章「傘」、第二章「鷺」、第三章「晴岸」。台詞由 tools/story 的產生器輸出，不手改。
 const CHAPTER_PATHS: Array[String] = [
-	"res://data/story/chapter_01.json",
-	"res://data/story/chapter_02.json",
-	# 新故事（傘）：第一章的章節資訊；台詞與過場由 ST-9 接上。
+	# 序章與第一章「傘」（ST-2、ST-9、ST-16）：劇本由 tools/story/build_ch1_story.py 產生。
 	"res://data/story/ch1_kasa.json",
 	# 第二章「鷺」（ST-19）：劇本由 tools/story/build_ch2_story.py 產生。
 	"res://data/story/ch2_heron.json",
 	# 第三章「晴岸」（ST-21）：劇本由 tools/story/build_ch3_story.py 產生。
 	"res://data/story/ch3_clearwater.json",
-	# 動畫過場（只有 scenes，用 for_chapter 指明屬於哪一章）。
+]
+## 作廢的舊故事（舊第一、二章與它們的動畫過場）：只給開發版的舊示範關卡（level_01、level_02）與歷史格式測試。
+## 發行版不載入；正式章節不能引用這裡的場景或講者（ST-2）。先讀舊稿，正式章節的同名講者才會覆蓋它。
+const LEGACY_CHAPTER_PATHS: Array[String] = [
+	"res://data/story/chapter_01.json",
+	"res://data/story/chapter_02.json",
 	"res://data/story/cutscenes_ch1.json",
 	"res://data/story/cutscenes_ch2.json",
 ]
-const DEFAULT_CHAPTER := &"chapter_01"
+const DEFAULT_CHAPTER := &"ch1_kasa"
 const MODE_CINEMATIC := &"cinematic"
 const MODE_RADIO := &"radio"
 ## 動畫過場（資料檔以 steps 描述，見 CutscenePlayer）：與過場一樣暫停遊戲並排隊。
@@ -193,7 +197,16 @@ func set_language(code: String) -> bool:
 	return true
 
 
-## 載入 CHAPTER_PATHS 的所有章節（先清空）。單一章節壞掉只記錄錯誤，不影響其他章節。
+## 這份程式要載入的劇本：發行版只有正式章節；開發版先讀舊稿，讓舊示範關卡與歷史測試照常運作。
+func chapter_paths() -> Array[String]:
+	var paths: Array[String] = []
+	if CampaignEdition.current().development:
+		paths.append_array(LEGACY_CHAPTER_PATHS)
+	paths.append_array(CHAPTER_PATHS)
+	return paths
+
+
+## 載入 chapter_paths() 的所有章節（先清空）。單一章節壞掉只記錄錯誤，不影響其他章節。
 func load_all() -> void:
 	_chapters.clear()
 	_speakers.clear()
@@ -206,7 +219,7 @@ func load_all() -> void:
 	_restoration_flags.clear()
 	outcomes.clear()
 	GameState.flag_defaults.clear()
-	for path in CHAPTER_PATHS:
+	for path in chapter_paths():
 		load_chapter(path)
 
 

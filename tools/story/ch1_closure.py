@@ -215,21 +215,21 @@ def location(level, x, y):
 def _bindings(source):
     # These are honest authoring candidates, never proof of runtime reachability.
     entries = {
-        "dinner": ("map_scene", "ST-9/ST-16/ST-22", "P06 safe exit -> ch1_pawnshop kitchen dinner", location("pawnshop", 89, 19), "real prologue safe exit and split bubble continuation"),
-        "brief": ("npc", "ST-9/ST-22", "ch1_rooftop Egret talks", location("rooftop", 53, 17), "bind complete briefing"),
-        "street_clear": ("mechanism", "level owner", "street arena_blockade/last required encounter", location("street", 203, 19), "map exact persistent clear producer"),
-        "watchdog": ("mechanism", "level owner", "warehouse watchdog_gate", location("warehouse", 81, 16), "channel event to flag"),
-        "flood": ("mechanism", "level owner", "warehouse flood_c", location("warehouse", 117, 16), "persistent mechanism state to flag"),
+        "dinner": ("map_scene", "ST-9/ST-16/ST-22", "P06 safe exit -> ch1_pawnshop kitchen dinner", location("pawnshop", 82, 19), "real prologue safe exit and split bubble continuation"),
+        "brief": ("npc", "ST-9/ST-22", "ch1_rooftop Egret talks", location("rooftop", 54, 17), "bind complete briefing"),
+        "street_clear": ("mechanism", "level owner", "street arena_blockade/last required encounter", location("street", 182, 19), "map exact persistent clear producer"),
+        "watchdog": ("mechanism", "level owner", "warehouse watchdog_gate", location("warehouse", 58, 16), "channel event to flag"),
+        "flood": ("mechanism", "level owner", "warehouse flood_c", location("warehouse", 123, 22), "persistent mechanism state to flag"),
         "disk_pickup": ("pickup", "ST-9/level owner", "vault legend y -> ch1_data_disk.tres", location("vault", 40, 16), "acquire history+world producer"),
-        "cabinet": ("object", "NE-178/ST-9", "lounge new exterior handoff cabinet", location("lounge", 8, 19), "exterior/staging/object absent"),
-        "ali_lounge": ("npc", "ST-9/ST-22", "lounge Y -> ali talks", location("lounge", 29, 19), "conditions and explicit menu"),
-        "ali_stall": ("npc", "ST-9/ST-22", "stall Q -> ali talks", location("stall", 20, 19), "explicit route and account result"),
-        "home": ("map_scene", "ST-9/ST-22", "pawnshop_dawn entry ch1_c14_home", location("pawnshop_dawn", 75, 19), "home gate reads supper_done"),
+        "cabinet": ("object", "NE-178/ST-9", "lounge new exterior handoff cabinet", location("handoff", 18, 19), "exterior/staging/object absent"),
+        "ali_lounge": ("npc", "ST-9/ST-22", "lounge Y -> ali talks", location("lounge", 30, 19), "conditions and explicit menu"),
+        "ali_stall": ("npc", "ST-9/ST-22", "stall Q -> ali talks", location("stall", 21, 19), "explicit route and account result"),
+        "home": ("map_scene", "ST-9/ST-22", "pawnshop_dawn entry ch1_c14_home", location("pawnshop_dawn", 74, 19), "home gate reads supper_done"),
         "first_clinic": ("stage_interaction", "ST-9/ST-22", "ch1_c09_wake first real death stage", None, "no playable clinic level; stage menu backend"),
-        "voice": ("object", "ST-9/level owner", "booth_alley C recording interaction", location("booth_alley", 25, 19), "actual recording heard event and safe interaction"),
+        "voice": ("object", "ST-9/level owner", "booth_alley C recording interaction", location("booth_alley", 29, 19), "actual recording heard event and safe interaction"),
         "next_morning": ("chapter_handoff", "ST-19", "chapter2 S01 job settlement", None, "chapter2 real location/terminal objective type"),
     }
-    for label, cell in zip(("watch", "guitar", "raincoat", "fare"), ((32, 19), (35, 19), (36, 19), (45, 19))):
+    for label, cell in zip(("watch", "guitar", "raincoat", "fare"), ((34, 19), (48, 19), (37, 19), (45, 19))):
         entries[f"label_{label}"] = ("object", "ST-9/level owner", f"pawnshop unique {label} object", location("pawnshop", *cell), "true object absent")
     for ident, values in entries.items():
         source.bindings[ident] = Binding(*values)

@@ -41,6 +41,7 @@ func run() -> void:
 	_test_items()
 	_test_entry_point()
 	_test_story_hooks()
+	_test_quest_markers()
 	await _test_prefetch()
 	_test_staging()
 	await _test_story_flags()
@@ -474,6 +475,29 @@ func _test_story_hooks() -> void:
 
 ## 劇情編排（ST-12）：過場全章 3 次且各自在預算內、沒有鎖操作的舊式過場文字、氣泡觸發點不擠在一起、
 ## 人物的對話都找得到場景、劇情旗標有人讀。
+## 每個任務步驟的地圖標記都落在完成那一步的人物、物件、機關、出入口或劇情觸發點上（ST-2）：
+## 標記差幾格，玩家照地圖走到的地方就沒有東西可以互動。
+func _test_quest_markers() -> void:
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/story/ch1_kasa.json"))
+	var quests: Array = (parsed as Dictionary).get("quests", []) if parsed is Dictionary else []
+	var misplaced := PackedStringArray()
+	var steps := 0
+	for quest: Dictionary in quests:
+		for step: Dictionary in quest.get("steps", []):
+			steps += 1
+			var location: Dictionary = step.get("location", {})
+			var area := str(location.get("level", "")).get_file().get_basename().trim_prefix("ch1_")
+			var cell: Array = location.get("cell", [])
+			if not _datas.has(area) or cell.size() != 2:
+				misplaced.append("%s：%s" % [quest.get("id"), location.get("level", "")])
+				continue
+			var data := _datas[area]
+			var glyph := LevelBuilder.parse(data).cell(int(cell[0]), int(cell[1]))
+			if glyph != "&" and not (data.legend.has(glyph) and data.legend[glyph] is Resource):
+				misplaced.append("%s 的「%s」在 %s (%d,%d) 是 %s" % [quest.get("id"), step.get("title"), area, cell[0], cell[1], glyph])
+	check(steps >= 30 and misplaced.is_empty(), "every chapter 1 quest step points at what completes it (%d steps): %s" % [steps, misplaced])
+
+
 func _test_narrative() -> void:
 	var animated: Array[String] = []
 	var cinematic: Array[String] = []

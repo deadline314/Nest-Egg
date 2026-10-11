@@ -122,6 +122,7 @@ func run() -> void:
 	_test_foreshadowing()
 	_test_required_details()
 	_test_old_sentences_are_gone()
+	_test_release_story_sources()
 
 
 # ---------------------------------------------------------------------------
@@ -478,3 +479,44 @@ func _test_condition_limits(facts: Dictionary) -> void:
 	_condition_check(CONDITION_TREE.evaluate({}, many_facts), true, true, "exact fact count limit is valid")
 	many_facts["flags"]["one_more"] = false
 	_condition_check(CONDITION_TREE.evaluate({}, many_facts), false, false, "fact count limit plus one is invalid")
+
+
+## 舊故事只留給開發版的舊示範與上面的歷史測試（ST-2）：發行版只載入正式章節，正式章節與正式關卡不引用舊稿的場景或講者。
+func _test_release_story_sources() -> void:
+	var legacy_ids: Dictionary[String, bool] = {}
+	for path in Story.LEGACY_CHAPTER_PATHS:
+		var json := load(path) as JSON
+		if json != null and json.data is Dictionary:
+			for id: String in (json.data as Dictionary).get("scenes", {}):
+				legacy_ids[id] = true
+	check(legacy_ids.size() > 40, "legacy scripts are still readable for the history tests")
+	check(Story.chapter_paths().has(Story.LEGACY_CHAPTER_PATHS[0]), "the development edition still loads the legacy scripts for the old demo levels")
+	var dev := CampaignEdition.current()
+	CampaignEdition.override_current(dev.describe("through-ch3_clearwater"))
+	Story.load_all()
+	var paths := Story.chapter_paths()
+	check(Story.LEGACY_CHAPTER_PATHS.all(func(path: String) -> bool: return not paths.has(path)), "release editions do not load the legacy scripts")
+	check(not Story.chapter_ids().has(&"chapter_01") and not Story.chapter_ids().has(&"chapter_02"), "release editions have no legacy chapters")
+	check(legacy_ids.keys().all(func(id: String) -> bool: return not Story.has_scene(StringName(id))), "no legacy scene is playable in a release edition")
+	var problems := Story.validate()
+	check(problems.is_empty(), "formal chapters stand on their own without the legacy scripts: %s" % "; ".join(problems.slice(0, 3)))
+	check(not Story.chapter_info(Story.DEFAULT_CHAPTER).is_empty(), "the default chapter is a formal chapter")
+	CampaignEdition.override_current(null)
+	Story.load_all()
+	check(Story.has_scene(&"radio_start"), "the development edition gets the legacy scripts back")
+	# 正式關卡與它們直接引用的資源（人物、道具、機關）不寫舊稿的場景 id。
+	var files: Dictionary[String, bool] = {}
+	for file in DirAccess.get_files_at("res://data/levels"):
+		if file.ends_with(".tres") and (file.begins_with("ch1_") or file.begins_with("ch2_") or file.begins_with("ch3_")):
+			files["res://data/levels/" + file] = true
+	var linked := RegEx.create_from_string('path="(res://[^"]+\\.tres)"')
+	for level: String in files.keys():
+		for found in linked.search_all(FileAccess.get_file_as_string(level)):
+			files[found.get_string(1)] = true
+	var leaks := PackedStringArray()
+	for path: String in files:
+		var text := FileAccess.get_file_as_string(path)
+		for id: String in legacy_ids:
+			if text.contains('"%s"' % id):
+				leaks.append("%s → %s" % [path, id])
+	check(files.size() > 30 and leaks.is_empty(), "formal levels and their resources reference no legacy scene: %s" % ", ".join(leaks.slice(0, 5)))
