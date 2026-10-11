@@ -14,6 +14,14 @@ var _route := "stay"
 var _level: Level
 var _shots: Dictionary = {}
 var _failures := 0
+## 本次播出的場景（依開始的先後），結束時對照劇本主線事件的順序（SCRIPT_CH01 第 2.2 節）。
+var _played: Array[String] = []
+## 主線事件的代表場景：同一格裡任一個先播出就算到達這個事件。
+const SCRIPT_ORDER: Array = [
+	["ch1_b_dinner"], ["ch1_t_egret_1"], ["ch1_t_booth_recording"], ["ch1_c09_wake"], ["ch1_t_handoff_confirm"],
+	["ch1_t_ali_meet_booth", "ch1_t_ali_meet_clinic", "ch1_t_ali_meet_no_death", "ch1_t_ali_meet_unknown"],
+	["ch1_t_supper_choice_ordered", "ch1_t_supper_choice_none"], ["ch1_c14_home"],
+]
 
 
 func _ready() -> void:
@@ -164,6 +172,7 @@ func _run() -> void:
 	GameState.start_new_run(GameState.difficulties[1])
 	Story.reset_progress()
 	Story.auto_skip = false
+	Story.scene_started.connect(func(id: StringName, _mode: StringName) -> void: _played.append(String(id)))
 	# 當舖：免費晚飯（真 0 元收據）→ 讀懷錶標籤 → 屋頂聽鷺的差事。
 	await _enter("pawnshop", Vector2(86 * 16, 19 * 16))
 	Story.play(&"ch1_b_dinner")
@@ -264,8 +273,27 @@ func _run() -> void:
 	add_child(victory)
 	await _settle(150)
 	_capture("ST-9-victory")
+	_check_script_order()
 	print("CH1_FLOW_PROBE route=%s failures=%d" % [_route, _failures])
 	get_tree().quit(1 if _failures > 0 else 0)
+
+
+## 主線事件依劇本的先後播出，播出紀錄寫進輸出資料夾（scene_order.txt），可以和劇本逐場對照。
+func _check_script_order() -> void:
+	var file := FileAccess.open(_out_dir.path_join("scene_order.txt"), FileAccess.WRITE)
+	if file != null:
+		file.store_string("\n".join(_played) + "\n")
+	var last := -1
+	var order := PackedStringArray()
+	for event: Array in SCRIPT_ORDER:
+		var first := -1
+		for id: String in event:
+			var at := _played.find(id)
+			if at >= 0 and (first < 0 or at < first):
+				first = at
+		order.append("%s@%d" % [event[0], first])
+		_check(first > last, "script event %s plays after the previous one (%s)" % [event[0], ", ".join(order)])
+		last = maxi(first, last)
 
 
 func _find_death_screen() -> DeathScreen:
