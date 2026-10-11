@@ -1,0 +1,41 @@
+--- /dev/fd/63	2026-10-11 21:56:19.497618425 +0000
++++ .godot/ne248-replay/enforcer_preflight.gd	2026-10-11 21:55:19.805618523 +0000
+@@ -37,7 +37,7 @@
+ 	Enemy.activation_culling_enabled = false
+ 	Story.auto_skip = true
+ 	EventBus.hit_marker.connect(_on_hit_marker)
+-	_record("start", {"head": "212768fa4a98e9db5bb1b3f4c067ef6027c7547d"})
++	_record("start", {"head": "b54c8614cb8edb42f1c74b14752079ba172c334a"})
+ 	await _open_level(&"ne79_organic_combat_probe")
+ 	if _level == null or _level.player == null:
+ 		_failures.append("Level failed to create its actual Player")
+@@ -340,7 +340,10 @@
+ 	await _capture("NE81_warden_core_windup")
+ 	# Place only the test Player inside a short, unobstructed range before the
+ 	# natural telegraph expires. The boss keeps its own target tracking/FSM.
+-	player.global_position = _enemy.global_position + Vector2(float(_enemy.facing) * 6.0 * 16.0, 0.0)
++	# Original record geometry: Player on the open (right) side of the Warden,
++	# ~96 px away, same floor. Using the Warden's facing here put the Player
++	# past the left map edge when the Warden had drifted there.
++	player.global_position = _enemy.global_position + Vector2(6.0 * 16.0, 0.0)
+ 	player.velocity = Vector2.ZERO
+ 	var core_projectiles_before := ProjectilePool.active_count()
+ 	var player_hp_before_core_volley := player.health.current
+@@ -387,7 +390,7 @@
+ 		"Warden's natural core volley hits the actual Player Hurtbox")
+ 	await _capture("NE81_warden_core_volley_player_hit")
+ 	if core_fire and core_part != null and _enemy.fsm.current == &"core_recover" and is_equal_approx(core_part.damage_scale, 2.0):
+-		player.global_position = _enemy.global_position + Vector2(float(_enemy.facing) * 4.0 * 16.0, 0.0)
++		player.global_position = _enemy.global_position + Vector2(4.0 * 16.0, 0.0)
+ 		player.velocity = Vector2.ZERO
+ 		await _physics_frames(1)
+ 		var health_before_core_hit := _enemy.health.current
+@@ -587,7 +590,7 @@
+ 
+ func _finish() -> void:
+ 	var output := {
+-		"head": "212768fa4a98e9db5bb1b3f4c067ef6027c7547d",
++		"head": "b54c8614cb8edb42f1c74b14752079ba172c334a",
+ 		"case": "NE-79 enforcer / shield_rusher",
+ 		"case_filter": _case_filter,
+ 		"level_fixture": LEVEL_MAP,
