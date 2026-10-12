@@ -295,22 +295,23 @@ def build_clinic():
     a.stand(3, 'm')
     a.stand(6, 'P')
     a.stand(12, 'Ⓞ')
-    a.prop('clinic__report_cabinet', 14)
+    a.prop('clinic__report_cabinet', 12)
     a.prop('clinic__waiting_chairs', 18)
     a.stand(24, 'ⓩ')
     a.prop('clinic__reception_window', 26)
     a.prop('clinic__queue_number_display', 22, y=12, support='wall')
     a.stand(34, 'ⓟ')
+    a.prop('clinic__reading_desk', 36, dx=2)   # 閱覽桌：桌上攤著公開報表（BG-45），兩個互動點都在桌邊
     a.stand(38, 'ⓔ')
     a.prop('clinic__fern_pot', 42)
     # 核閱工作廊：內側回門（x=48）之後
     a.block(47, 47, 10, 16)
     a.prop('nursing_ward__nurse_cart', 54)
     a.stand(60, 'ⓣ')
-    a.prop('control_room__whiteboard_notes', 62, y=14, support='wall')
+    a.prop('control_room__whiteboard_notes', 59, y=14, support='wall')
     a.prop('nursing_ward__rain_window_wide', 70, y=13, support='wall')
     a.stand(76, 'ⓓ')
-    a.prop('nursing_ward__bedside_locker', 78)
+    a.prop('nursing_ward__bedside_locker', 76)
     a.prop('clinic__water_dispenser', 84)
     a.stand(92, 'ⅰ')
     for x in (10, 22, 36, 56, 72, 88):
@@ -364,7 +365,9 @@ def build_glass_edge():
     a.stand(12, 'C')
     a.prop('anchor_phone_booth__phone_booth', 12)
     a.stand(20, 'Ⓟ')
+    a.prop('sun_patch', 18, dx=12)                          # 地上的光斑：一道真的會照亮人的日光（BG-45）
     a.stand(30, 'Ⓠ')
+    a.prop('sunlit_district__viewing_frame', 29, dx=12)     # 觀景框（BG-45）
     a.prop('sunlit_district__flower_planters', 36)
     a.stand(44, 'ⅳ')
     a.prop('sunlit_district__white_bench', 50)
@@ -392,11 +395,11 @@ def build_showroom():
     a.prop('clearwater__window_chair', 35)
     a.prop('clearwater__sun_chart_notes', 30, y=13, support='wall')
     a.stand(46, 'Ⓑ')
-    a.prop('clearwater__white_curtains', 48, y=12, support='wall')
+    a.prop('clearwater__white_curtains', 45, y=12, support='wall')
     a.prop('clearwater__rain_sound_machine', 50)
     a.stand(60, 'Ⓤ')
-    a.prop('clearwater__sill_with_coin', 62)
-    a.prop('clearwater__plain_wall_clock', 58, y=12, support='wall')
+    a.prop('clearwater__sill_with_coin', 60)
+    a.prop('clearwater__plain_wall_clock', 57, y=12, support='wall')
     a.stand(76, 'ⅶ')
     for x in (12, 34, 47, 61, 72):
         a.lamp(x, 9)
@@ -412,7 +415,7 @@ def build_office_hall():
     a.stand(3, 'Ⅺ')
     a.stand(6, 'P')
     a.stand(14, 'ⓧ')
-    a.prop('accounting_lobby__directory_sign', 18)
+    a.prop('tianqiong_corridor__petition_box', 13)   # 公文取件格（BG-45）
     a.stand(28, 'Ⓦ')
     # 擺設改用天穹接待廊這一包（BG-40）：過場舞台用的就是這個地方的背景，可走的關卡要是同一個樣子。
     # 等候臺是走廊長凳；辦公內門旁是霧面玻璃隔間；牆上是巨幅畫像與燈條。

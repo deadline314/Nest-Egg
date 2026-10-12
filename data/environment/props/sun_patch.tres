@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"sun_patch"
+display_name = "地上的光斑"
+category = &"scene"
+texture = "res://art/environment/props/sun_patch.png"
+size = Vector2(56, 88)
+has_glow = true
+light_color = Color(1, 0.93, 0.74, 1)
+light_radius = 70.0
+light_energy = 0.9
+light_offset = Vector2(28, 58)

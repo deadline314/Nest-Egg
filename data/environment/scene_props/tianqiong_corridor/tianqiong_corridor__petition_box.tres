@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"tianqiong_corridor__petition_box"
+display_name = "公文取件格"
+texture = "res://art/environment/scene_props/tianqiong_corridor/tianqiong_corridor__petition_box.png"
+has_glow = true
+size = Vector2(48, 45)
+category = &"scene"

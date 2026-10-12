@@ -54,15 +54,16 @@
     ]
   ],
   "props": [
-    {"id": "clinic__report_cabinet", "x": 14, "ground": true},
+    {"id": "clinic__report_cabinet", "x": 12, "ground": true},
     {"id": "clinic__waiting_chairs", "x": 18, "ground": true},
     {"id": "clinic__reception_window", "x": 26, "ground": true},
     {"id": "clinic__queue_number_display", "x": 22, "y": 12, "support": "wall"},
+    {"id": "clinic__reading_desk", "x": 36, "dx": 2, "ground": true},
     {"id": "clinic__fern_pot", "x": 42, "ground": true},
     {"id": "nursing_ward__nurse_cart", "x": 54, "ground": true},
-    {"id": "control_room__whiteboard_notes", "x": 62, "y": 14, "support": "wall"},
+    {"id": "control_room__whiteboard_notes", "x": 59, "y": 14, "support": "wall"},
     {"id": "nursing_ward__rain_window_wide", "x": 70, "y": 13, "support": "wall"},
-    {"id": "nursing_ward__bedside_locker", "x": 78, "ground": true},
+    {"id": "nursing_ward__bedside_locker", "x": 76, "ground": true},
     {"id": "clinic__water_dispenser", "x": 84, "ground": true}
   ]
 }

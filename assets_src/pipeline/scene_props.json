@@ -12338,6 +12338,84 @@
     "category": "scene"
    },
    "glow": "screen"
+  },
+  {
+   "id": "clinic__reading_desk",
+   "scene": "clinic",
+   "seed": 7701,
+   "fit": "meters",
+   "height_m": 1.0,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A public reading desk seen straight from the side, a pale laminate table with a slanted reading stand holding a thick stapled report open in the middle, a second report and a stack of forms beside it, a desk lamp with a green shade glowing softly, a chained ballpoint pen, one plain chair pushed in, proportions about eight wide to five tall.",
+   "anchor": {
+    "size": [
+     48.0,
+     30.0
+    ]
+   },
+   "new": {
+    "display_name": "閱覽桌與公開報表",
+    "category": "scene"
+   },
+   "glow": "warm"
+  },
+  {
+   "id": "sunlit_district__viewing_frame",
+   "scene": "sunlit_district",
+   "seed": 7702,
+   "fit": "meters",
+   "height_m": 1.7,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A public viewing frame on a white steel post seen straight from the front: an empty rectangular brass picture frame mounted at eye height that you look through at the view, a small engraved plate under it with blank lines, a low step for children, a coin-operated binocular head folded down on the side, proportions about three wide to five tall.",
+   "anchor": {
+    "size": [
+     30.0,
+     51.0
+    ]
+   },
+   "new": {
+    "display_name": "觀景框",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "tianqiong_corridor__petition_box",
+   "scene": "tianqiong_corridor",
+   "seed": 7703,
+   "fit": "meters",
+   "height_m": 1.5,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "flat"
+   },
+   "prompt": "A wall of numbered document pigeonhole lockers seen straight from the front, pale grey steel, three columns by four rows of small glass-fronted compartments, one compartment door open with a sealed envelope and a receipt slip sticking out, a small status light on each door with one glowing teal, a slim reader strip along the bottom, proportions about four wide to five tall.",
+   "anchor": {
+    "size": [
+     36.0,
+     45.0
+    ]
+   },
+   "new": {
+    "display_name": "公文取件格",
+    "category": "scene"
+   },
+   "glow": [
+    {
+     "hue": [
+      150,
+      200
+     ],
+     "smin": 0.3,
+     "vmin": 0.6,
+     "soft": 1.2
+    }
+   ]
   }
  ]
 }

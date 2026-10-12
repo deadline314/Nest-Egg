@@ -2,7 +2,8 @@
 
 Usage: python tools/assets/procedural_props.py
 
-Writes art/environment/props/{puddle,floor_marking}{,_n,_glow}.png and patches the prop data (has_glow, ripple).
+Writes art/environment/props/{puddle,floor_marking,sun_patch}{,_n,_glow}.png and patches the prop data (has_glow, ripple);
+sun_patch (the patch of daylight on the floor, BG-45) also writes its own prop data.
 Seeds are fixed, so a rerun gives identical pictures. The puddle's glow layer carries the neon reflections and a faint alpha
 over the whole water surface; puddle_ripple.gdshader draws the raindrop rings inside that alpha at runtime.
 """
@@ -95,6 +96,55 @@ def floor_marking() -> None:
     patch("floor_marking", {"has_glow": "false"})
 
 
+SUN_PATCH_SIZE = (56, 88)  # world px: a shaft about as wide as a doorway, taller than the hero
+SUN_PATCH_TRES = """[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"sun_patch"
+display_name = "地上的光斑"
+category = &"scene"
+texture = "res://art/environment/props/sun_patch.png"
+size = Vector2(%d, %d)
+has_glow = true
+light_color = Color(1, 0.93, 0.74, 1)
+light_radius = 70.0
+light_energy = 0.9
+light_offset = Vector2(%d, %d)
+"""
+
+
+def sun_patch() -> None:
+    """A patch of daylight falling on the floor (BG-45): a soft shaft that widens downwards and a brighter ellipse where it
+    lands. It is all glow (the colour picture is transparent) and every edge fades out, so there is no outline; the prop's
+    light does the actual lighting of whoever stands in it."""
+    w, h = SUN_PATCH_SIZE[0] * SCALE, SUN_PATCH_SIZE[1] * SCALE
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    v = yy / (h - 1)
+    centre = w * 0.5 + (v - 1.0) * w * 0.08          # the shaft leans a little, like light through a high window
+    half = w * (0.16 + 0.24 * v)                      # narrow at the top, wide at the floor
+    across = np.exp(-(((xx - centre) / half) ** 2) * 1.6)
+    along = np.clip(v / 0.25, 0, 1) ** 1.5 * (0.35 + 0.65 * v)   # fades in from nothing at the top
+    shaft = across * along * 0.3
+    floor_y = h - h * 0.045
+    pool = np.exp(-(((xx - w * 0.5) / (w * 0.42)) ** 2 + ((yy - floor_y) / (h * 0.035)) ** 2) * 1.2) * 0.38   # dim: bloom plus the prop's own light already brighten the floor here
+    glow = np.clip(shaft + pool, 0, 1)
+    warm = np.array([1.0, 0.94, 0.78], np.float32)
+    qm.to_image(np.dstack([np.broadcast_to(warm, (h, w, 3)) * glow[..., None], glow])).save(OUT / "sun_patch_glow.png", optimize=True)
+    qm.to_image(np.dstack([np.broadcast_to(warm, (h, w, 3)), glow * 0.02])).save(OUT / "sun_patch.png", optimize=True)
+    flat = np.zeros((h, w, 4), np.float32)
+    flat[..., 0] = 0.5
+    flat[..., 1] = 0.5
+    flat[..., 2] = 1.0
+    flat[..., 3] = 1.0
+    qm.to_image(flat).save(OUT / "sun_patch_n.png", optimize=True)
+    path = DATA / "sun_patch.tres"
+    path.write_text(SUN_PATCH_TRES % (SUN_PATCH_SIZE[0], SUN_PATCH_SIZE[1], SUN_PATCH_SIZE[0] // 2, SUN_PATCH_SIZE[1] - 30), encoding="utf-8", newline=chr(10))
+    print("ok    sun_patch")
+
+
 def patch(pid: str, fields: dict) -> None:
     path = DATA / f"{pid}.tres"
     tres = path.read_text(encoding="utf-8")
@@ -110,5 +160,6 @@ if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
     puddle()
     floor_marking()
+    sun_patch()
     from texture_import import apply_policy
     apply_policy()
