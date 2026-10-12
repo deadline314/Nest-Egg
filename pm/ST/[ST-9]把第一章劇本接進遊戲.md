@@ -207,3 +207,26 @@
 播出紀錄：[付清回家](attachments/ST-9-scene-order/leave.txt)、[留下吃麵](attachments/ST-9-scene-order/stay.txt)。
 
 分支：`feature/ecstatic-einstein-gyjqmu`，提交 [aab72a24](https://github.com/deadline314/Nest-Egg/commit/aab72a2494fbfbc48ece6c40e348b5d5b03c3725)。還沒完成的三項：交盤與付款的道具動作（另有 NE-278 收起武器）、依使用者審查後的劇本調整演出（ST-1）、結果只在成功保存後生效。
+
+
+# Commit-8
+
+## 內文
+
+麵攤的去留決定之後，帳只在對話文字裡結清：說「我先結這張」或「欠條先留著」時，畫面上兩個人站著不動，阿梨答應留人請麵時也沒有任何動作。
+現在付清時凜說完話走到攤前把錢交給阿梨、留欠條時把紙交過去，阿梨答應留人時把麵端到桌上，都伴隨一聲交付音效，做完回到原位，接著的段落站位一致。交盤與回家的道具動作還沒有（交接櫃是地圖上的互動，另有 NE-278 先處理互動時收起武器），本條維持未勾。
+
+### 測試結果
+
+| 項目 | 結果 |
+|---|---|
+| 受影響範圍（原選擇器） | Chapter1Map 1,981 項、0 新失敗、0 已知失敗 |
+| 第一章流程探針（留下吃麵、付清回家） | 兩條都 0 失敗 |
+
+### 截圖
+
+雲端軟體 Vulkan（Forward+），過場逐段截圖工具拍下付清的那一段：凜在攤前交錢後走回原位。
+
+![付清時凜走到攤前](images/ST-9-stage-stall-pay.jpg)
+
+分支：`feature/ecstatic-einstein-gyjqmu`。

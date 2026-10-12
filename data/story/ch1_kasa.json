@@ -3926,6 +3926,40 @@
      "text": "餐酒兩百，我先結這張，明天的回執另算。",
      "ja": "夕食と酒で二百だ。まずこれを精算して、明日の受領証は別に計算する。",
      "en": "Two hundred for the meal and drinks. I'll settle this tab first. Tomorrow's receipt is counted separately."
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      392,
+      300
+     ],
+     "time": 0.9,
+     "wait": true
+    },
+    {
+     "do": "sfx",
+     "id": "pickup",
+     "volume": -8
+    },
+    {
+     "do": "wait",
+     "time": 0.4
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      270,
+      300
+     ],
+     "time": 0.9,
+     "wait": true
+    },
+    {
+     "do": "face",
+     "id": "rin",
+     "dir": 1
     }
    ],
    "when": {
@@ -4313,6 +4347,40 @@
      "text": "你自己寫清楚就好，沒有復原服務替你簽這張。",
      "ja": "自分でちゃんと書いておけばいいよ。復元サービスがこの紙にサインしてくれるわけじゃないから。",
      "en": "Just write it down clearly yourself. The restoration service won't sign this one for you."
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      392,
+      300
+     ],
+     "time": 0.9,
+     "wait": true
+    },
+    {
+     "do": "sfx",
+     "id": "pickup",
+     "volume": -8
+    },
+    {
+     "do": "wait",
+     "time": 0.4
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      270,
+      300
+     ],
+     "time": 0.9,
+     "wait": true
+    },
+    {
+     "do": "face",
+     "id": "rin",
+     "dir": 1
     }
    ],
    "when": {
@@ -4856,6 +4924,40 @@
      "text": "那就欠著，你願意下次再坐，我就留一張椅子。",
      "ja": "じゃあ借りのままにしておくね。次も座りに来てくれるなら、椅子を一脚取っておくよ。",
      "en": "Then it stays a debt. If you come back to sit next time, I'll keep a chair for you."
+    },
+    {
+     "do": "move",
+     "id": "ali",
+     "to": [
+      366,
+      300
+     ],
+     "time": 0.9,
+     "wait": true
+    },
+    {
+     "do": "sfx",
+     "id": "pickup",
+     "volume": -8
+    },
+    {
+     "do": "wait",
+     "time": 0.3
+    },
+    {
+     "do": "move",
+     "id": "ali",
+     "to": [
+      425,
+      300
+     ],
+     "time": 0.9,
+     "wait": true
+    },
+    {
+     "do": "face",
+     "id": "ali",
+     "dir": -1
     }
    ],
    "when": {
@@ -5069,6 +5171,40 @@
      "text": "那就欠著，你願意下次再坐，我就留一張椅子。",
      "ja": "じゃあ借りのままにしておくね。次も座りに来てくれるなら、椅子を一脚取っておくよ。",
      "en": "Then it stays a debt. If you come back to sit next time, I'll keep a chair for you."
+    },
+    {
+     "do": "move",
+     "id": "ali",
+     "to": [
+      366,
+      300
+     ],
+     "time": 0.9,
+     "wait": true
+    },
+    {
+     "do": "sfx",
+     "id": "pickup",
+     "volume": -8
+    },
+    {
+     "do": "wait",
+     "time": 0.3
+    },
+    {
+     "do": "move",
+     "id": "ali",
+     "to": [
+      425,
+      300
+     ],
+     "time": 0.9,
+     "wait": true
+    },
+    {
+     "do": "face",
+     "id": "ali",
+     "dir": -1
     }
    ],
    "when": {

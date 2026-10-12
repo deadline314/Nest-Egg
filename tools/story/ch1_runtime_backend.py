@@ -434,6 +434,13 @@ STAGED_TALKS = {
                    "ch1_t_supper_tab", "ch1_t_supper_tab_goodbye", "ch1_t_supper_leave_none", "ch1_t_supper_return",
                    "ch1_t_supper_host_prompt", "ch1_t_supper_stay_host", "ch1_t_supper_host_none_prompt",
                    "ch1_t_supper_stay_host_none", "ch1_t_supper_stay_meal", "ch1_t_supper_stay_address"),
+        # 結果要看得見（ST-9）：付清時凜走到攤前把錢交給阿梨、留欠條時把紙交過去、阿梨答應留人時把麵端到桌上，說完話再做、做完回到原位。
+        "actions": {
+            "ch1_t_supper_pay": (("move", "rin", 392, 0.9), ("sfx", "pickup"), ("wait", 0.4), ("move", "rin", 270, 0.9), ("face", "rin", 1)),
+            "ch1_t_supper_tab": (("move", "rin", 392, 0.9), ("sfx", "pickup"), ("wait", 0.4), ("move", "rin", 270, 0.9), ("face", "rin", 1)),
+            "ch1_t_supper_stay_host": (("move", "ali", 366, 0.9), ("sfx", "pickup"), ("wait", 0.3), ("move", "ali", 425, 0.9), ("face", "ali", -1)),
+            "ch1_t_supper_stay_host_none": (("move", "ali", 366, 0.9), ("sfx", "pickup"), ("wait", 0.3), ("move", "ali", 425, 0.9), ("face", "ali", -1)),
+        },
         # 留下吃麵之後凜坐上長凳（座面 y=276.4，x 290～320），之後的段落維持坐著。
         "seated": {"from": ("ch1_t_supper_stay_meal", "ch1_t_supper_stay_address"), "x": 305, "seat_y": 276.4,
                    "reason": "留下來吃阿梨請的麵，坐在攤前的長凳上。",
@@ -465,6 +472,24 @@ def _scene_links(scene):
         if step.get("target"):
             out.add(step["target"])
     return out
+
+
+def _stage_actions(actions, floor):
+    """STAGED_TALKS 的 actions：(move, 演員, x, 秒)、(face, 演員, 方向)、(sfx, 音效)、(wait, 秒)。走路都在地面線上。"""
+    steps = []
+    for action in actions:
+        kind = action[0]
+        if kind == "move":
+            steps.append(legacy.move(action[1], action[2], floor, action[3]))
+        elif kind == "face":
+            steps.append(legacy.face(action[1], action[2]))
+        elif kind == "sfx":
+            steps.append(legacy.sfx(action[1]))
+        elif kind == "wait":
+            steps.append(legacy.wait(action[1]))
+        else:
+            raise CompileError(f"舞台動作 {action}：不支援的種類 {kind}")
+    return steps
 
 
 def _stage_talks(scenes):
@@ -506,7 +531,10 @@ def _stage_talks(scenes):
                                              pose_reason=seated["reason"], pose_support=seated["support"]))
                 else:
                     cast.append(legacy.actor(actor_id, kind, ax, floor, facing, scale=scale, speaker=actor_id))
-            steps = [legacy.stage(stage_id, x, y, zoom, fade_in)] + cast + legacy.spaced(body)
+            # 動作接在台詞之後、選擇之前：先把話說完再遞東西，做完回到原位，接續的段落站位一致。
+            actions = _stage_actions(spec.get("actions", {}).get(ident, ()), floor)
+            choice_at = next((i for i, step in enumerate(body) if step.get("do") == "choice"), len(body))
+            steps = [legacy.stage(stage_id, x, y, zoom, fade_in)] + cast + legacy.spaced(body[:choice_at]) + actions + body[choice_at:]
             ends = not scene.get("then") and not any(s.get("do") == "choice" for s in body)
             if ends:
                 steps.append(legacy.fade(1.0, STAGE_FADE_OUT))
