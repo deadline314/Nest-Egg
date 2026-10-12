@@ -34,6 +34,7 @@ xvfb-run -a -s "-screen 0 1280x720x24" godot_x11 --path . --rendering-driver vul
 | `tools/rig_preview.tscn` | 角色姿勢、動作、接縫（`--chars --closeup --zoom --joints --level --rigid --gait --action`） |
 | `tools/rig_perf_probe.tscn` | 骨架動畫每格成本 |
 | `tools/light_pool_probe.tscn` | 光池：每一盞亮著的場景燈，燈下的牆面比光池外亮幾倍（只量背後有牆的地方）。調環境光或改燈之後重跑 |
+| `tools/frame_time_probe.tscn [--level=…] [--seconds=20] [--off=prefetch,lights,…] [--vsync] [--idle]`（原生；加 `--fullscreen` 用螢幕解析度） | 玩起來卡不卡：機器人在正式關卡實際跑、跳、開槍，記錄每一格的間隔（中位數、第 95／99 百分位、超過 16.7／33.3 毫秒的格數、最長幾格發生在哪）、進關卡花的時間、預載載了幾張與單張最久；`--off` 關掉某一類再量可以找出是誰的成本。量的時候機器上不要有別的工作（別的工作階段跑測試或截圖會讓數字差到一倍以上），兩個版本要交替各量幾輪 |
 | `tools/wall_shadow_probe.tscn` | 牆上的影子：主角站在場景燈左、正下方、右各一張，槍燈照一排敵人一張，每張都有影子開與關；`perf` 量 12 個敵人時開與關的每影格耗時（成對交替 60 組），`reenter` 看反覆進出關卡資源有沒有累積 |
 | `tools/lamp_flicker_probe.tscn` | 閃爍的燈：每盞燈一秒內亮度明顯變化幾次（上限 3）、兩種會閃的狀態各連拍 3 秒；`--reduce-flashes` 看「減少閃光」 |
 | `tools/lamp_gallery.tscn` | 場景燈具一覽：每一款亮與熄滅、原本的裝法與掛在桿子上的樣子 |

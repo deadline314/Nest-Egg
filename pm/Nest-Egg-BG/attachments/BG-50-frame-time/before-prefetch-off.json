@@ -1,0 +1,211 @@
+{
+  "idle": false,
+  "levels": [
+    {
+      "canvas_items": 838,
+      "census": {
+        "canvas_items": 1608,
+        "enemies": 16,
+        "light_pixels": 9.45,
+        "lights": 30,
+        "lights_enabled": 7,
+        "lights_shadow": 3,
+        "occluders": 20,
+        "particles": 0,
+        "physics_processing": 83,
+        "processing": 94,
+        "sprites": 201,
+        "top_classes": {
+          "Bone2D": 232,
+          "CollisionShape2D": 213,
+          "HBoxContainer": 24,
+          "HealthComponent": 23,
+          "Hurtbox": 35,
+          "Label": 50,
+          "Node2D": 125,
+          "PointLight2D": 30,
+          "Projectile": 96,
+          "RayCast2D": 66,
+          "RigPartMesh": 164,
+          "Sprite2D": 196,
+          "VBoxContainer": 25,
+          "WorldPrompt": 21
+        }
+      },
+      "draw_calls": 369,
+      "frames": 3092,
+      "hitches": 0,
+      "level": "ch1_street",
+      "load_ms": 4448.7,
+      "max_ms": 25.3,
+      "median_ms": 3.92,
+      "nodes": 1718,
+      "p95_ms": 7.3,
+      "p99_ms": 10.69,
+      "pace_changes_percent": 23.6,
+      "pacing_percent": {
+        "12_to_17": 0.2,
+        "6_to_9": 15.1,
+        "9_to_12": 1.6,
+        "over_17": 0.0,
+        "under_6": 83.1
+      },
+      "prefetch": {
+        "loads": 0,
+        "max_load_ms": 2.4,
+        "over_budget": 0,
+        "queued_at_end": 0,
+        "queued_at_start": 255
+      },
+      "slow_frames": 1,
+      "slow_percent": 0.03,
+      "warmup_max_ms": 11.1,
+      "worst": [
+        {
+          "at_second": 3.23,
+          "ms": 25.3,
+          "player_x": 875.0
+        },
+        {
+          "at_second": 8.72,
+          "ms": 14.1,
+          "player_x": 1565.0
+        },
+        {
+          "at_second": 8.8,
+          "ms": 13.3,
+          "player_x": 1577.0
+        },
+        {
+          "at_second": 8.71,
+          "ms": 12.5,
+          "player_x": 1562.0
+        },
+        {
+          "at_second": 11.89,
+          "ms": 12.3,
+          "player_x": 2050.0
+        },
+        {
+          "at_second": 4.21,
+          "ms": 12.2,
+          "player_x": 1040.0
+        },
+        {
+          "at_second": 6.65,
+          "ms": 12.0,
+          "player_x": 1370.0
+        },
+        {
+          "at_second": 6.51,
+          "ms": 11.9,
+          "player_x": 1344.0
+        }
+      ]
+    },
+    {
+      "canvas_items": 867,
+      "census": {
+        "canvas_items": 1454,
+        "enemies": 13,
+        "light_pixels": 9.42,
+        "lights": 24,
+        "lights_enabled": 6,
+        "lights_shadow": 2,
+        "occluders": 20,
+        "particles": 0,
+        "physics_processing": 75,
+        "processing": 92,
+        "sprites": 179,
+        "top_classes": {
+          "Bone2D": 184,
+          "CollisionShape2D": 198,
+          "HBoxContainer": 24,
+          "Hurtbox": 32,
+          "Label": 50,
+          "LightOccluder2D": 20,
+          "Node2D": 130,
+          "PointLight2D": 24,
+          "Projectile": 96,
+          "RayCast2D": 56,
+          "RigPartMesh": 130,
+          "Sprite2D": 174,
+          "VBoxContainer": 25,
+          "WorldPrompt": 27
+        }
+      },
+      "draw_calls": 357,
+      "frames": 1725,
+      "hitches": 0,
+      "level": "ch1_warehouse",
+      "load_ms": 1169.3,
+      "max_ms": 18.6,
+      "median_ms": 7.66,
+      "nodes": 1504,
+      "p95_ms": 12.95,
+      "p99_ms": 14.36,
+      "pace_changes_percent": 59.5,
+      "pacing_percent": {
+        "12_to_17": 10.8,
+        "6_to_9": 38.8,
+        "9_to_12": 25.6,
+        "over_17": 0.1,
+        "under_6": 24.7
+      },
+      "prefetch": {
+        "loads": 0,
+        "max_load_ms": 3.1,
+        "over_budget": 0,
+        "queued_at_end": 0,
+        "queued_at_start": 225
+      },
+      "slow_frames": 1,
+      "slow_percent": 0.06,
+      "warmup_max_ms": 19.4,
+      "worst": [
+        {
+          "at_second": 4.62,
+          "ms": 18.6,
+          "player_x": 730.0
+        },
+        {
+          "at_second": 2.57,
+          "ms": 15.9,
+          "player_x": 414.0
+        },
+        {
+          "at_second": 3.15,
+          "ms": 15.8,
+          "player_x": 502.0
+        },
+        {
+          "at_second": 2.41,
+          "ms": 15.4,
+          "player_x": 389.0
+        },
+        {
+          "at_second": 8.58,
+          "ms": 15.3,
+          "player_x": 1162.0
+        },
+        {
+          "at_second": 2.38,
+          "ms": 15.2,
+          "player_x": 384.0
+        },
+        {
+          "at_second": 7.26,
+          "ms": 15.0,
+          "player_x": 1150.0
+        },
+        {
+          "at_second": 2.25,
+          "ms": 14.9,
+          "player_x": 364.0
+        }
+      ]
+    }
+  ],
+  "seconds": 14.0,
+  "tag": "pf_off"
+}

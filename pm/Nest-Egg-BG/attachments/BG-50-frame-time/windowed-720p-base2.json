@@ -1,0 +1,471 @@
+{
+  "idle": false,
+  "levels": [
+    {
+      "canvas_items": 669,
+      "draw_calls": 274,
+      "frames": 2966,
+      "hitches": 0,
+      "level": "ch1_prologue",
+      "load_ms": 2622.7,
+      "max_ms": 12.5,
+      "median_ms": 4.8,
+      "nodes": 1048,
+      "p95_ms": 6.88,
+      "p99_ms": 8.82,
+      "slow_frames": 0,
+      "slow_percent": 0.0,
+      "warmup_max_ms": 26.0,
+      "worst": [
+        {
+          "at_second": 3.13,
+          "ms": 12.5,
+          "player_x": 666.0
+        },
+        {
+          "at_second": 2.92,
+          "ms": 11.3,
+          "player_x": 666.0
+        },
+        {
+          "at_second": 3.04,
+          "ms": 11.2,
+          "player_x": 666.0
+        },
+        {
+          "at_second": 2.95,
+          "ms": 11.0,
+          "player_x": 666.0
+        },
+        {
+          "at_second": 1.41,
+          "ms": 10.7,
+          "player_x": 458.0
+        },
+        {
+          "at_second": 2.97,
+          "ms": 10.5,
+          "player_x": 666.0
+        },
+        {
+          "at_second": 3.07,
+          "ms": 10.5,
+          "player_x": 666.0
+        },
+        {
+          "at_second": 1.56,
+          "ms": 10.4,
+          "player_x": 476.0
+        }
+      ]
+    },
+    {
+      "canvas_items": 707,
+      "draw_calls": 307,
+      "frames": 4079,
+      "hitches": 0,
+      "level": "ch1_pawnshop",
+      "load_ms": 900.6,
+      "max_ms": 12.6,
+      "median_ms": 3.4,
+      "nodes": 1019,
+      "p95_ms": 5.24,
+      "p99_ms": 6.93,
+      "slow_frames": 0,
+      "slow_percent": 0.0,
+      "warmup_max_ms": 12.8,
+      "worst": [
+        {
+          "at_second": 0.26,
+          "ms": 12.6,
+          "player_x": 982.0
+        },
+        {
+          "at_second": 0.9,
+          "ms": 11.3,
+          "player_x": 1080.0
+        },
+        {
+          "at_second": 0.34,
+          "ms": 10.3,
+          "player_x": 997.0
+        },
+        {
+          "at_second": 0.15,
+          "ms": 9.9,
+          "player_x": 967.0
+        },
+        {
+          "at_second": 0.2,
+          "ms": 9.3,
+          "player_x": 975.0
+        },
+        {
+          "at_second": 0.92,
+          "ms": 9.3,
+          "player_x": 1082.0
+        },
+        {
+          "at_second": 0.07,
+          "ms": 9.1,
+          "player_x": 955.0
+        },
+        {
+          "at_second": 0.28,
+          "ms": 8.9,
+          "player_x": 987.0
+        }
+      ]
+    },
+    {
+      "canvas_items": 1037,
+      "draw_calls": 458,
+      "frames": 3673,
+      "hitches": 0,
+      "level": "ch1_street",
+      "load_ms": 989.8,
+      "max_ms": 30.0,
+      "median_ms": 3.57,
+      "nodes": 1727,
+      "p95_ms": 6.46,
+      "p99_ms": 7.99,
+      "slow_frames": 2,
+      "slow_percent": 0.05,
+      "warmup_max_ms": 8.9,
+      "worst": [
+        {
+          "at_second": 8.99,
+          "ms": 30.0,
+          "player_x": 1602.0
+        },
+        {
+          "at_second": 3.26,
+          "ms": 22.8,
+          "player_x": 884.0
+        },
+        {
+          "at_second": 8.77,
+          "ms": 13.8,
+          "player_x": 1570.0
+        },
+        {
+          "at_second": 8.72,
+          "ms": 13.1,
+          "player_x": 1562.0
+        },
+        {
+          "at_second": 8.73,
+          "ms": 12.3,
+          "player_x": 1565.0
+        },
+        {
+          "at_second": 8.85,
+          "ms": 12.1,
+          "player_x": 1585.0
+        },
+        {
+          "at_second": 8.81,
+          "ms": 11.9,
+          "player_x": 1577.0
+        },
+        {
+          "at_second": 2.86,
+          "ms": 11.7,
+          "player_x": 794.0
+        }
+      ]
+    },
+    {
+      "canvas_items": 915,
+      "draw_calls": 418,
+      "frames": 3216,
+      "hitches": 0,
+      "level": "ch1_warehouse",
+      "load_ms": 965.9,
+      "max_ms": 12.5,
+      "median_ms": 4.09,
+      "nodes": 1611,
+      "p95_ms": 7.11,
+      "p99_ms": 9.0,
+      "slow_frames": 0,
+      "slow_percent": 0.0,
+      "warmup_max_ms": 12.3,
+      "worst": [
+        {
+          "at_second": 4.63,
+          "ms": 12.5,
+          "player_x": 730.0
+        },
+        {
+          "at_second": 12.55,
+          "ms": 11.8,
+          "player_x": 751.0
+        },
+        {
+          "at_second": 2.38,
+          "ms": 11.8,
+          "player_x": 384.0
+        },
+        {
+          "at_second": 13.58,
+          "ms": 11.4,
+          "player_x": 556.0
+        },
+        {
+          "at_second": 13.69,
+          "ms": 11.1,
+          "player_x": 539.0
+        },
+        {
+          "at_second": 13.63,
+          "ms": 10.9,
+          "player_x": 549.0
+        },
+        {
+          "at_second": 13.51,
+          "ms": 10.8,
+          "player_x": 566.0
+        },
+        {
+          "at_second": 13.53,
+          "ms": 10.6,
+          "player_x": 564.0
+        }
+      ]
+    },
+    {
+      "canvas_items": 677,
+      "draw_calls": 333,
+      "frames": 2974,
+      "hitches": 0,
+      "level": "ch2_market",
+      "load_ms": 1320.1,
+      "max_ms": 11.0,
+      "median_ms": 4.81,
+      "nodes": 1082,
+      "p95_ms": 6.63,
+      "p99_ms": 7.67,
+      "slow_frames": 0,
+      "slow_percent": 0.0,
+      "warmup_max_ms": 14.7,
+      "worst": [
+        {
+          "at_second": 1.76,
+          "ms": 11.0,
+          "player_x": 645.0
+        },
+        {
+          "at_second": 11.71,
+          "ms": 11.0,
+          "player_x": 2155.0
+        },
+        {
+          "at_second": 1.71,
+          "ms": 10.8,
+          "player_x": 637.0
+        },
+        {
+          "at_second": 11.64,
+          "ms": 10.0,
+          "player_x": 2165.0
+        },
+        {
+          "at_second": 1.7,
+          "ms": 9.8,
+          "player_x": 635.0
+        },
+        {
+          "at_second": 1.74,
+          "ms": 9.6,
+          "player_x": 642.0
+        },
+        {
+          "at_second": 1.72,
+          "ms": 9.4,
+          "player_x": 640.0
+        },
+        {
+          "at_second": 1.73,
+          "ms": 9.2,
+          "player_x": 640.0
+        }
+      ]
+    },
+    {
+      "canvas_items": 762,
+      "draw_calls": 332,
+      "frames": 5209,
+      "hitches": 0,
+      "level": "ch2_loading",
+      "load_ms": 839.4,
+      "max_ms": 9.0,
+      "median_ms": 2.65,
+      "nodes": 896,
+      "p95_ms": 4.13,
+      "p99_ms": 5.0,
+      "slow_frames": 0,
+      "slow_percent": 0.0,
+      "warmup_max_ms": 10.2,
+      "worst": [
+        {
+          "at_second": 7.96,
+          "ms": 9.0,
+          "player_x": 1655.0
+        },
+        {
+          "at_second": 8.1,
+          "ms": 8.1,
+          "player_x": 1658.0
+        },
+        {
+          "at_second": 8.09,
+          "ms": 7.8,
+          "player_x": 1658.0
+        },
+        {
+          "at_second": 7.98,
+          "ms": 7.6,
+          "player_x": 1658.0
+        },
+        {
+          "at_second": 8.04,
+          "ms": 7.6,
+          "player_x": 1658.0
+        },
+        {
+          "at_second": 7.99,
+          "ms": 7.6,
+          "player_x": 1658.0
+        },
+        {
+          "at_second": 8.06,
+          "ms": 7.1,
+          "player_x": 1658.0
+        },
+        {
+          "at_second": 8.01,
+          "ms": 6.9,
+          "player_x": 1658.0
+        }
+      ]
+    },
+    {
+      "canvas_items": 660,
+      "draw_calls": 339,
+      "frames": 5151,
+      "hitches": 0,
+      "level": "ch3_plaza",
+      "load_ms": 1001.5,
+      "max_ms": 7.4,
+      "median_ms": 2.69,
+      "nodes": 852,
+      "p95_ms": 4.28,
+      "p99_ms": 5.14,
+      "slow_frames": 0,
+      "slow_percent": 0.0,
+      "warmup_max_ms": 7.8,
+      "worst": [
+        {
+          "at_second": 10.9,
+          "ms": 7.4,
+          "player_x": 853.0
+        },
+        {
+          "at_second": 5.2,
+          "ms": 7.1,
+          "player_x": 1217.0
+        },
+        {
+          "at_second": 9.44,
+          "ms": 6.8,
+          "player_x": 1110.0
+        },
+        {
+          "at_second": 8.76,
+          "ms": 6.8,
+          "player_x": 1212.0
+        },
+        {
+          "at_second": 10.93,
+          "ms": 6.5,
+          "player_x": 848.0
+        },
+        {
+          "at_second": 9.09,
+          "ms": 6.3,
+          "player_x": 1162.0
+        },
+        {
+          "at_second": 12.97,
+          "ms": 6.3,
+          "player_x": 501.0
+        },
+        {
+          "at_second": 8.33,
+          "ms": 6.3,
+          "player_x": 1277.0
+        }
+      ]
+    },
+    {
+      "canvas_items": 655,
+      "draw_calls": 297,
+      "frames": 5157,
+      "hitches": 0,
+      "level": "ch3_pump",
+      "load_ms": 654.9,
+      "max_ms": 10.9,
+      "median_ms": 2.66,
+      "nodes": 835,
+      "p95_ms": 4.4,
+      "p99_ms": 5.86,
+      "slow_frames": 0,
+      "slow_percent": 0.0,
+      "warmup_max_ms": 8.4,
+      "worst": [
+        {
+          "at_second": 0.24,
+          "ms": 10.9,
+          "player_x": 436.0
+        },
+        {
+          "at_second": 14.98,
+          "ms": 9.0,
+          "player_x": 324.0
+        },
+        {
+          "at_second": 0.74,
+          "ms": 8.3,
+          "player_x": 511.0
+        },
+        {
+          "at_second": 14.52,
+          "ms": 8.2,
+          "player_x": 254.0
+        },
+        {
+          "at_second": 14.58,
+          "ms": 7.9,
+          "player_x": 261.0
+        },
+        {
+          "at_second": 15.0,
+          "ms": 7.6,
+          "player_x": 326.0
+        },
+        {
+          "at_second": 14.56,
+          "ms": 7.6,
+          "player_x": 259.0
+        },
+        {
+          "at_second": 14.94,
+          "ms": 7.6,
+          "player_x": 319.0
+        }
+      ]
+    }
+  ],
+  "seconds": 15.0,
+  "tag": "base2"
+}

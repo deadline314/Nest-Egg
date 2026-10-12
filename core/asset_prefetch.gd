@@ -2,6 +2,7 @@ class_name AssetPrefetch
 extends RefCounted
 ## 有界預載：額外持有的貼圖使用 LRU 預算，clear 不釋放場景自己的引用。
 ## 4.7.2 原生 RD 由主線 Pump 逐影格載入；其他後端保留真正背景請求。
+## 主線載入前先由背景執行緒把檔案讀進系統快取（見「檔案暖身」），主線那一格只剩解碼與上傳，不等磁碟。
 
 ## 一個區域一次送出的上限。第一章街道有四種各自外觀的敵人（NE-218），連同場景貼圖約 200 張；上限太低時剩下的不會被預載，換區才臨時讀檔。
 const MAX_REQUESTS_PER_CALL := 256
@@ -16,6 +17,15 @@ const MAX_QUEUED := 512
 const MAX_CACHED := 512
 const MAX_CACHE_BYTES := 128 * 1024 * 1024
 const STAGE_DIR := "res://data/cutscene/stages"
+## 檔案暖身（主線策略、有畫面時才用）：背景執行緒先把貼圖的匯入檔讀進作業系統的檔案快取，主線再載入時不用等磁碟。
+## 實測（第一章街道、檔案沒被快取、機器忙）：主線直接載單張最久 65 毫秒、14 秒內 10 次超過 33 毫秒的停頓；檔案已在快取時單張最久 4 毫秒。
+## 一個背景工作最多讀幾個檔；等一張暖身最多多久（毫秒），逾時就照舊由主線直接載，佇列不會卡住。
+const WARM_BATCH := 24
+const WARM_TIMEOUT_MSEC := 3000
+const WARM_CHUNK_BYTES := 262144
+## 上一格比平常長這麼多倍時，這一格先不載（不把載入疊在已經慢的那一格上）。
+const BUSY_FRAME_RATIO := 1.6
+const FRAME_SMOOTHING := 0.1
 
 ## 相容既有診斷工具，僅記有界的 queue／active／cache，不保留全歷史。
 static var _requested: Dictionary[String, bool] = {}
@@ -45,13 +55,28 @@ static var _main_last_load_us := 0
 static var _main_last_work_us := 0
 static var _main_over_budget_total := 0
 static var _main_loading := false
+static var _warm_mutex := Mutex.new()
+## 背景執行緒寫、主線讀：已經讀進檔案快取的路徑。
+static var _warm_ready: Dictionary[String, bool] = {}
+## 只有主線用：已經交給背景執行緒的路徑與交出去的時間（毫秒）。
+static var _warm_sent: Dictionary[String, int] = {}
+static var _warm_task := -1
+static var _warm_files_total := 0
+static var _warm_waits_total := 0
+static var _warm_timeouts_total := 0
+static var _busy_skips_total := 0
+static var _frame_average := 0.0
+static var _frame_last := 0.0
+## 測試用：-1＝依環境決定（有畫面才暖身）、0＝關、1＝開。
+static var _warm_override := -1
 
 
 class Pump extends Node:
 	func _ready() -> void:
 		process_mode = Node.PROCESS_MODE_ALWAYS
 		AssetPrefetch._refresh_pump()
-	func _process(_delta: float) -> void:
+	func _process(delta: float) -> void:
+		AssetPrefetch._note_frame(delta)
 		AssetPrefetch._poll()
 	func _exit_tree() -> void:
 		AssetPrefetch._shutdown()
@@ -171,6 +196,10 @@ static func _reset_scope(key: String, release_cache: bool) -> void:
 	_generation += 1
 	_scope = key
 	_queued.clear()
+	_warm_sent.clear()
+	_warm_mutex.lock()
+	_warm_ready.clear()
+	_warm_mutex.unlock()
 	if release_cache:
 		# Dummy 的 RID owner 沒有執行緒保護；清除引用也不可與自己的
 		# 背景配置並行。只短暫保留原有 ≤64 份引用，完成領取後釋放。
@@ -206,6 +235,8 @@ static func stats() -> Dictionary:
 		"main_max_load_us": _main_max_load_us, "main_max_work_us": _main_max_work_us,
 		"main_last_load_us": _main_last_load_us, "main_last_work_us": _main_last_work_us,
 		"main_over_budget_total": _main_over_budget_total,
+		"warm_files_total": _warm_files_total, "warm_waits_total": _warm_waits_total,
+		"warm_timeouts_total": _warm_timeouts_total, "busy_skips_total": _busy_skips_total,
 		"main_assets_per_frame_limit": 1 if uses_main_thread() else 0,
 		"main_soft_budget_us": MAIN_SOFT_BUDGET_US if uses_main_thread() else 0}
 
@@ -342,6 +373,16 @@ static func _poll_main_thread() -> void:
 	var work_start := Time.get_ticks_usec()
 	var deadline := work_start + MAIN_SOFT_BUDGET_US
 	var path := _first_path(_queued)
+	if _warming():
+		# 上一格已經比平常慢很多，這一格不再加一張。
+		if _frame_average > 0.0 and _frame_last > _frame_average * BUSY_FRAME_RATIO:
+			_busy_skips_total += 1
+			return
+		_warm_schedule()
+		path = _first_warm_path()
+		if path.is_empty():
+			_warm_waits_total += 1
+			return
 	var epoch := _generation
 	var scope := _scope
 	var load_start := Time.get_ticks_usec()
@@ -351,6 +392,7 @@ static func _poll_main_thread() -> void:
 	_main_last_frame = frame
 	_main_loading = true
 	_queued.erase(path)
+	_warm_sent.erase(path)
 	_sent_total += 1
 	_main_load_total += 1
 	var resource := ResourceLoader.load(path, "Texture2D", ResourceLoader.CACHE_MODE_REUSE)
@@ -372,6 +414,94 @@ static func _poll_main_thread() -> void:
 	_main_max_work_us = maxi(_main_max_work_us, work_us)
 	if work_us > MAIN_SOFT_BUDGET_US:
 		_main_over_budget_total += 1
+
+
+## 主線策略而且有畫面時才暖身：無頭執行沒有停頓的問題，維持原本「排到就載」的行為。
+static func _warming() -> bool:
+	if _warm_override >= 0:
+		return _warm_override == 1
+	return uses_main_thread() and DisplayServer.get_name() != "headless"
+
+
+static func _note_frame(delta: float) -> void:
+	_frame_last = delta
+	_frame_average = delta if _frame_average <= 0.0 else lerpf(_frame_average, delta, FRAME_SMOOTHING)
+
+
+## 背景工作閒著時，把還沒交出去的前幾張交給它讀；一次只有一個背景工作。
+static func _warm_schedule() -> void:
+	if _warm_task >= 0:
+		if not WorkerThreadPool.is_task_completed(_warm_task):
+			return
+		_warm_join()
+	var batch := PackedStringArray()
+	var now := Time.get_ticks_msec()
+	for path: String in _queued:
+		if _warm_sent.has(path):
+			continue
+		_warm_sent[path] = now
+		batch.append(path)
+		if batch.size() >= WARM_BATCH:
+			break
+	if not batch.is_empty():
+		_warm_task = WorkerThreadPool.add_task(_warm_files.bind(batch), false, "AssetPrefetch 暖檔")
+
+
+static func _warm_join() -> void:
+	if _warm_task >= 0:
+		WorkerThreadPool.wait_for_task_completion(_warm_task)
+		_warm_task = -1
+
+
+## 佇列裡第一張已經暖好（或等太久）的；都還沒好回傳空字串。只看最前面一批，不整個佇列掃。
+static func _first_warm_path() -> String:
+	var now := Time.get_ticks_msec()
+	var looked := 0
+	var found := ""
+	_warm_mutex.lock()
+	for path: String in _queued:
+		if _warm_ready.has(path):
+			_warm_ready.erase(path)
+			found = path
+			break
+		if _warm_sent.has(path) and now - _warm_sent[path] > WARM_TIMEOUT_MSEC:
+			_warm_timeouts_total += 1
+			found = path
+			break
+		looked += 1
+		if looked >= WARM_BATCH:
+			break
+	_warm_mutex.unlock()
+	return found
+
+
+## 背景執行緒：把每張貼圖實際的匯入檔整個讀過一遍（只為了讓系統把它放進檔案快取，內容丟掉），再標記成暖好。
+## 讀不到也標記：主線載入時自己會報錯，佇列不能卡在這裡。
+static func _warm_files(paths: PackedStringArray) -> void:
+	for path in paths:
+		var file := FileAccess.open(_imported_path(path), FileAccess.READ)
+		if file != null:
+			var left := file.get_length()
+			while left > 0:
+				var got := file.get_buffer(mini(left, WARM_CHUNK_BYTES)).size()
+				if got <= 0:
+					break
+				left -= got
+			file.close()
+		_warm_mutex.lock()
+		_warm_ready[path] = true
+		_warm_files_total += 1
+		_warm_mutex.unlock()
+
+
+## 貼圖實際被載入的匯入檔（.import 裡 path 開頭那一行，例如 path="res://.godot/imported/….ctex"）；找不到就用原路徑。
+static func _imported_path(path: String) -> String:
+	for line in FileAccess.get_file_as_string(path + ".import").split(String.chr(10), false):
+		if line.begins_with("path") and line.contains("="):
+			var value := line.get_slice("=", 1).strip_edges()
+			if value.length() >= 2 and value.begins_with(String.chr(34)):
+				return value.substr(1, value.length() - 2)
+	return path
 
 
 static func _remember(path: String, texture: Texture2D) -> void:
@@ -398,6 +528,8 @@ static func _remember(path: String, texture: Texture2D) -> void:
 ## 只在整棵 SceneTree 退出時等自己最多四個請求；遊戲中的 clear 不等待。
 static func _shutdown() -> void:
 	_queued.clear()
+	_warm_join()
+	_warm_sent.clear()
 	for slot in MAX_INFLIGHT:
 		var path := _active_paths[slot]
 		if path.is_empty():

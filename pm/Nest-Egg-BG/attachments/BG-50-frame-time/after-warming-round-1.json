@@ -1,0 +1,325 @@
+{
+  "idle": false,
+  "levels": [
+    {
+      "canvas_items": 838,
+      "census": {
+        "canvas_items": 1608,
+        "enemies": 16,
+        "light_pixels": 9.45,
+        "lights": 30,
+        "lights_enabled": 7,
+        "lights_shadow": 3,
+        "occluders": 20,
+        "particles": 0,
+        "physics_processing": 83,
+        "processing": 94,
+        "sprites": 201,
+        "top_classes": {
+          "Bone2D": 232,
+          "CollisionShape2D": 213,
+          "HBoxContainer": 24,
+          "HealthComponent": 23,
+          "Hurtbox": 35,
+          "Label": 50,
+          "Node2D": 125,
+          "PointLight2D": 30,
+          "Projectile": 96,
+          "RayCast2D": 66,
+          "RigPartMesh": 164,
+          "Sprite2D": 196,
+          "VBoxContainer": 25,
+          "WorldPrompt": 21
+        }
+      },
+      "draw_calls": 368,
+      "frames": 3095,
+      "hitches": 0,
+      "level": "ch1_street",
+      "load_ms": 3196.9,
+      "max_ms": 20.8,
+      "median_ms": 3.92,
+      "nodes": 1771,
+      "p95_ms": 7.09,
+      "p99_ms": 8.98,
+      "pace_changes_percent": 21.6,
+      "pacing_percent": {
+        "12_to_17": 0.0,
+        "6_to_9": 15.8,
+        "9_to_12": 0.9,
+        "over_17": 0.0,
+        "under_6": 83.3
+      },
+      "prefetch": {
+        "busy_skips": 2,
+        "loads": 256,
+        "max_load_ms": 3.3,
+        "over_budget": 24,
+        "queued_at_end": 0,
+        "queued_at_start": 256,
+        "waited_frames": 0,
+        "warm_timeouts": 0,
+        "warmed_files": 232
+      },
+      "slow_frames": 1,
+      "slow_percent": 0.03,
+      "warmup_max_ms": 10.9,
+      "worst": [
+        {
+          "at_second": 3.34,
+          "ms": 20.8,
+          "player_x": 908.0
+        },
+        {
+          "at_second": 13.39,
+          "ms": 12.8,
+          "player_x": 2312.0
+        },
+        {
+          "at_second": 2.76,
+          "ms": 11.2,
+          "player_x": 784.0
+        },
+        {
+          "at_second": 13.78,
+          "ms": 10.9,
+          "player_x": 2372.0
+        },
+        {
+          "at_second": 3.15,
+          "ms": 10.9,
+          "player_x": 845.0
+        },
+        {
+          "at_second": 4.98,
+          "ms": 10.8,
+          "player_x": 1146.0
+        },
+        {
+          "at_second": 13.11,
+          "ms": 10.8,
+          "player_x": 2272.0
+        },
+        {
+          "at_second": 13.14,
+          "ms": 10.8,
+          "player_x": 2274.0
+        }
+      ]
+    },
+    {
+      "canvas_items": 934,
+      "census": {
+        "canvas_items": 1454,
+        "enemies": 13,
+        "light_pixels": 9.42,
+        "lights": 24,
+        "lights_enabled": 6,
+        "lights_shadow": 2,
+        "occluders": 20,
+        "particles": 0,
+        "physics_processing": 75,
+        "processing": 92,
+        "sprites": 179,
+        "top_classes": {
+          "Bone2D": 184,
+          "CollisionShape2D": 198,
+          "HBoxContainer": 24,
+          "Hurtbox": 32,
+          "Label": 50,
+          "LightOccluder2D": 20,
+          "Node2D": 130,
+          "PointLight2D": 24,
+          "Projectile": 96,
+          "RayCast2D": 56,
+          "RigPartMesh": 130,
+          "Sprite2D": 174,
+          "VBoxContainer": 25,
+          "WorldPrompt": 27
+        }
+      },
+      "draw_calls": 423,
+      "frames": 2823,
+      "hitches": 0,
+      "level": "ch1_warehouse",
+      "load_ms": 1187.5,
+      "max_ms": 29.0,
+      "median_ms": 4.39,
+      "nodes": 1508,
+      "p95_ms": 7.52,
+      "p99_ms": 9.18,
+      "pace_changes_percent": 23.4,
+      "pacing_percent": {
+        "12_to_17": 0.0,
+        "6_to_9": 21.7,
+        "9_to_12": 1.1,
+        "over_17": 0.0,
+        "under_6": 77.1
+      },
+      "prefetch": {
+        "busy_skips": 0,
+        "loads": 85,
+        "max_load_ms": 7.8,
+        "over_budget": 12,
+        "queued_at_end": 0,
+        "queued_at_start": 85,
+        "waited_frames": 0,
+        "warm_timeouts": 0,
+        "warmed_files": 61
+      },
+      "slow_frames": 1,
+      "slow_percent": 0.04,
+      "warmup_max_ms": 13.5,
+      "worst": [
+        {
+          "at_second": 1.27,
+          "ms": 29.0,
+          "player_x": 346.0
+        },
+        {
+          "at_second": 4.61,
+          "ms": 13.9,
+          "player_x": 730.0
+        },
+        {
+          "at_second": 6.2,
+          "ms": 11.8,
+          "player_x": 953.0
+        },
+        {
+          "at_second": 12.47,
+          "ms": 11.7,
+          "player_x": 761.0
+        },
+        {
+          "at_second": 11.98,
+          "ms": 11.4,
+          "player_x": 806.0
+        },
+        {
+          "at_second": 1.55,
+          "ms": 11.1,
+          "player_x": 346.0
+        },
+        {
+          "at_second": 12.44,
+          "ms": 11.1,
+          "player_x": 766.0
+        },
+        {
+          "at_second": 12.0,
+          "ms": 10.7,
+          "player_x": 806.0
+        }
+      ]
+    },
+    {
+      "canvas_items": 741,
+      "census": {
+        "canvas_items": 950,
+        "enemies": 0,
+        "light_pixels": 9.45,
+        "lights": 34,
+        "lights_enabled": 6,
+        "lights_shadow": 3,
+        "occluders": 3,
+        "particles": 0,
+        "physics_processing": 21,
+        "processing": 67,
+        "sprites": 106,
+        "top_classes": {
+          "Bone2D": 106,
+          "CollisionShape2D": 111,
+          "Control": 20,
+          "HBoxContainer": 24,
+          "Label": 50,
+          "Node2D": 71,
+          "PointLight2D": 34,
+          "Projectile": 96,
+          "RayCast2D": 26,
+          "RigPartMesh": 81,
+          "Sprite2D": 101,
+          "UiButton": 11,
+          "VBoxContainer": 25,
+          "WorldPrompt": 10
+        }
+      },
+      "draw_calls": 381,
+      "frames": 2596,
+      "hitches": 0,
+      "level": "ch2_market",
+      "load_ms": 2654.2,
+      "max_ms": 13.4,
+      "median_ms": 5.15,
+      "nodes": 1086,
+      "p95_ms": 7.17,
+      "p99_ms": 8.58,
+      "pace_changes_percent": 3.6,
+      "pacing_percent": {
+        "12_to_17": 0.1,
+        "6_to_9": 24.7,
+        "9_to_12": 0.7,
+        "over_17": 0.0,
+        "under_6": 74.5
+      },
+      "prefetch": {
+        "busy_skips": 1,
+        "loads": 45,
+        "max_load_ms": 7.8,
+        "over_budget": 10,
+        "queued_at_end": 0,
+        "queued_at_start": 45,
+        "waited_frames": 8,
+        "warm_timeouts": 0,
+        "warmed_files": 43
+      },
+      "slow_frames": 0,
+      "slow_percent": 0.0,
+      "warmup_max_ms": 13.0,
+      "worst": [
+        {
+          "at_second": 8.42,
+          "ms": 13.4,
+          "player_x": 1725.0
+        },
+        {
+          "at_second": 0.06,
+          "ms": 12.1,
+          "player_x": 392.0
+        },
+        {
+          "at_second": 0.04,
+          "ms": 12.0,
+          "player_x": 390.0
+        },
+        {
+          "at_second": 0.02,
+          "ms": 11.3,
+          "player_x": 387.0
+        },
+        {
+          "at_second": 7.41,
+          "ms": 10.9,
+          "player_x": 1573.0
+        },
+        {
+          "at_second": 7.34,
+          "ms": 10.8,
+          "player_x": 1563.0
+        },
+        {
+          "at_second": 8.59,
+          "ms": 10.5,
+          "player_x": 1750.0
+        },
+        {
+          "at_second": 0.07,
+          "ms": 10.5,
+          "player_x": 395.0
+        }
+      ]
+    }
+  ],
+  "seconds": 14.0,
+  "tag": "warm_1"
+}

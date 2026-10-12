@@ -762,6 +762,7 @@ func _test_prefetch() -> void:
 	check(AssetPrefetch.stats()["queued"] == 0 and AssetPrefetch.stats()["inflight"] == 0 and AssetPrefetch.stats()["cached"] == 0, "clear drains only the active burst without decoding the discarded queue")
 
 	await _test_main_thread_prefetch()
+	await _test_prefetch_file_warming()
 
 
 ## After draining genuine threaded tokens, exercise main policy with real textures.
@@ -901,6 +902,62 @@ class PrefetchSizedTexture extends Texture2D:
 		return extent
 	func _get_height() -> int:
 		return extent
+
+
+## 檔案暖身：主線策略在有畫面時，貼圖先由背景執行緒讀進檔案快取，主線才載入（不在遊戲那一格等磁碟）；
+## 背景沒回應時逾時照舊由主線載，佇列不會卡住；換範圍會把暖身紀錄一起清掉。這裡用真的貼圖與真的背景工作。
+func _test_prefetch_file_warming() -> void:
+	var old_strategy: int = AssetPrefetch.stats().strategy
+	AssetPrefetch.clear()
+	AssetPrefetch._strategy = AssetPrefetch.STRATEGY_MAIN_THREAD_RD_472
+	AssetPrefetch._warm_override = 1
+	await runner.get_tree().process_frame
+	var paths := PackedStringArray(["res://art/weapons/pistol.png", "res://art/weapons/rifle.png"])
+	check(AssetPrefetch._imported_path(paths[0]).begins_with("res://.godot/imported/") and FileAccess.file_exists(AssetPrefetch._imported_path(paths[0])),
+			"the warmer reads the imported file the engine really loads")
+	check(AssetPrefetch._imported_path("res://art/test_missing_prop_warm.png") == "res://art/test_missing_prop_warm.png",
+			"a texture without an import record falls back to its own path")
+	var before := AssetPrefetch.stats()
+	AssetPrefetch.request(paths)
+	var loaded_ahead := false
+	var most_in_a_frame := 0
+	var last_total: int = before.main_load_total
+	var deadline := Time.get_ticks_msec() + 10000
+	while AssetPrefetch.stats().queued > 0 and Time.get_ticks_msec() < deadline:
+		await runner.get_tree().process_frame
+		var now := AssetPrefetch.stats()
+		if now.main_load_total - before.main_load_total > now.warm_files_total - before.warm_files_total:
+			loaded_ahead = true
+		most_in_a_frame = maxi(most_in_a_frame, now.main_load_total - last_total)
+		last_total = now.main_load_total
+	var done := AssetPrefetch.stats()
+	check(done.queued == 0 and done.cached == 2 and done.main_load_total == before.main_load_total + 2, "warmed textures get loaded and cached")
+	check(not loaded_ahead and done.warm_files_total == before.warm_files_total + 2 and done.warm_timeouts_total == before.warm_timeouts_total,
+			"the main thread loads a texture only after the background read of its file finished")
+	check(most_in_a_frame <= 1, "warming keeps the one-texture-per-frame cap")
+	# 背景沒回應（這裡假裝很久以前就交出去了）：逾時後主線照舊直接載。
+	AssetPrefetch.clear()
+	AssetPrefetch.request(PackedStringArray([paths[0]]))
+	AssetPrefetch._warm_sent[paths[0]] = Time.get_ticks_msec() - AssetPrefetch.WARM_TIMEOUT_MSEC - 1
+	deadline = Time.get_ticks_msec() + 5000
+	while AssetPrefetch.stats().queued > 0 and Time.get_ticks_msec() < deadline:
+		await runner.get_tree().process_frame
+	check(AssetPrefetch.stats().cached == 1 and AssetPrefetch.stats().warm_timeouts_total == done.warm_timeouts_total + 1,
+			"a file the warmer never reported is loaded by the main thread after the timeout")
+	# 換範圍：還沒載的那些連同暖身紀錄一起丟掉，不會載到取消的貼圖。
+	AssetPrefetch.clear()
+	var canceled_before: int = AssetPrefetch.stats().main_load_total
+	AssetPrefetch.request(paths)
+	AssetPrefetch.clear()
+	for i in 6:
+		await runner.get_tree().process_frame
+	check(AssetPrefetch._warm_sent.is_empty() and AssetPrefetch.stats().cached == 0 and AssetPrefetch.stats().main_load_total == canceled_before,
+			"clearing the scope drops the warming records and loads nothing that was canceled")
+	AssetPrefetch._warm_join()
+	AssetPrefetch._warm_override = -1
+	AssetPrefetch._strategy = old_strategy
+	AssetPrefetch.clear()
+	AssetPrefetch._refresh_pump()
 
 
 func _prefetch_drain() -> void:
