@@ -104,10 +104,14 @@ func _run() -> void:
 							if keep.has(str(part.name)) and not pair_bones.has(part.get_parent()):
 								pair_bones.append(part.get_parent())
 						for part in rig._parts:
-							part.visible = keep.has(str(part.name)) or (_as_worn and part.visible and pair_bones.has(part.get_parent()))
 							part.material = material
 							for child in part.get_children():
 								if child is CanvasItem: child.visible = false
+							# 姿勢專屬零件（跪姿的前大腿）跟著它取代的那個位置顯示或隱藏，由骨架決定；直接改 visible 的話，
+							# 骨架換上專屬零件時會把它畫進每一個接點的格子裡，變成假的游離碎片。
+							if str(part.name).begins_with("Pose_"):
+								continue
+							rig._set_base_part_visible(part, keep.has(str(part.name)) or (_as_worn and rig._base_part_is_visible(part) and pair_bones.has(part.get_parent())))
 						var input := RigInput.new()
 						input.facing = 1 if side == 0 else -1
 						input.aim_dir = Vector2(input.facing, -1.0 if pose == "aim_up" else 0.0).normalized()
