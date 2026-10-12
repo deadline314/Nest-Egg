@@ -32,7 +32,9 @@ target_portal = &"market_sc1"
 requires_flag = &"ch2_sc1_open"
 locked_text = "橋梯還收著，旁邊的拉桿可以放下來。"
 prompt = "{interact} 走橋梯回代收處"
-style = "door"
+width = 32
+height = 56
+style = "hidden"
 
 [sub_resource type="Resource" id="Resource_2"]
 script = ExtResource("3_portal_data")

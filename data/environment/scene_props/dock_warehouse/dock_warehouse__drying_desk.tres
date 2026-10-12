@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"dock_warehouse__drying_desk"
+display_name = "乾燥作業桌"
+texture = "res://art/environment/scene_props/dock_warehouse/dock_warehouse__drying_desk.png"
+light_energy = 0.6
+light_radius = 50
+light_color = Color(1, 0.8, 0.5, 1)
+light_offset = Vector2(22.1, 13)
+has_glow = true
+size = Vector2(45.9, 45)
+category = &"scene"

@@ -104,7 +104,7 @@ PORTALS = {
     'Ⅸ': dict(id='home_stairs', to=AREA('market'), target='market_stairs', mode=0, prompt='{interact} 下後樓外梯', style='door', w=24, h=56),
     # 雨棚背面與裝卸間
     'Ⅹ': dict(id='loading_market', to=AREA('market'), target='market_cargo', mode=0, prompt='{interact} 回公眾攤道', style='road', w=28, h=44),
-    'Ⅺ': dict(id='loading_sc1', to=AREA('market'), target='market_sc1', mode=0, prompt='{interact} 走橋梯回代收處', style='door',
+    'Ⅺ': dict(id='loading_sc1', to=AREA('market'), target='market_sc1', mode=0, prompt='{interact} 走橋梯回代收處', style='hidden', w=32, h=56,
               requires='ch2_sc1_open', locked='橋梯還收著，旁邊的拉桿可以放下來。'),
     'Ⅻ': dict(id='loading_ledger', to=AREA('ledger_front'), target='front_loading', mode=0, prompt='{interact} 進北棟貨門', style='door', w=28, h=56,
               requires='ch2_market_reconciled', locked='貨門要核對過的卸貨批號，先在作業桌把三張紙對完。'),
@@ -128,7 +128,7 @@ THEMES = {
     'market_gate': ('asphalt', ['shopfront', 'shutter_block'], None, 0.22, 'sky_storm', ['neon_market', 'anchor_phone_booth', 'harbor_street']),
     'market': ('asphalt', ['shopfront', 'apartment'], None, 0.22, 'sky_storm', ['neon_market', 'harbor_street', 'accounting_lobby']),
     'ali_home': ('concrete', ['apartment'], 'brick', 0.0, 'sky_storm', ['pawnshop_kitchen', 'dawn_noodle_stall', 'harbor_street']),
-    'loading': ('concrete', ['warehouse', 'shutter_block'], None, 0.22, 'sky_storm', ['dock_warehouse', 'neon_market', 'harbor_street', 'pawnshop_kitchen']),
+    'loading': ('concrete', ['warehouse', 'shutter_block'], None, 0.22, 'sky_storm', ['dock_warehouse', 'neon_market', 'harbor_street']),
     'ledger_front': ('concrete', ['warehouse'], 'hangar_wall', 0.0, 'sky_storm', ['yong_hideout', 'accounting_lobby', 'anchor_phone_booth']),
     'ledger_office': ('concrete', ['warehouse'], 'hangar_wall', 0.0, 'sky_storm', ['yong_hideout']),
     'lounge_front': ('asphalt', ['facility_wall', 'shutter_block'], None, 0.22, 'sky_storm', ['clinic', 'revival_lounge', 'guest_book_room']),
@@ -268,7 +268,7 @@ def build_market():
     a.stand(25, 'ⓐ')
     a.prop('neon_market__permit_board', 38)
     # 租攤視窗
-    a.prop('accounting_lobby__ticket_machine', 50)
+    a.prop('neon_market__rent_window', 52, dx=5)   # 租攤視窗本身（BG-41）：半拉下的鐵捲窗、收據插、號碼牌
     a.stand(53, 'Ⓦ')
     a.prop('accounting_lobby__contract_stand', 56)
     # 榕伯的涼茶攤
@@ -330,14 +330,18 @@ def build_loading():
     a.stand(84, 'ⓧ')
     # 橋梯拉桿（SC1）與捷徑口
     a.stand(92, 'ⓙ', row=12)
+    # 拉桿箱立在雨棚上層、互動點旁；橋梯摺起來立在出入口，捷徑開通後換成放下的樣子（BG-41）。
+    a.prop('dock_warehouse__bridge_lever', 93, y=12)
+    a.prop('dock_warehouse__bridge_ladder_up', 100, react='bridge_ladder')
     a.stand(100, 'Ⅺ')
     # 裝卸間
     a.ceiling(104, 148, 10)
     a.block(104, 104, 10, 16)
     a.stand(112, 'ⓛ')
+    a.prop('dock_warehouse__collection_book_stand', 112, dx=1)   # 代收簿攤開在簽收檯上（BG-41）
     a.prop('dock_warehouse__open_container', 120)
     a.stand(128, 'ⓓ')
-    a.prop('pawnshop_kitchen__dining_table', 128)
+    a.prop('dock_warehouse__drying_desk', 127, dx=1)             # 乾燥作業桌：線上晾著紙、上面一盞烘燈（BG-41）
     a.stand(134, 'c')
     a.stand(146, 'Ⅻ')
     # 雨棚上層的燈照棚頂，下層貨道另掛棚下燈（棚頂第 13 列擋住上方的光）。

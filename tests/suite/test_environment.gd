@@ -714,7 +714,78 @@ func _test_prop_reaction() -> void:
 		var mirrored := PropReaction.attach(holder, "handoff_cabinet", size, true)
 		check(is_equal_approx(mirrored._lamp_at.x, size.x - reaction._lamp_at.x), "a mirrored prop mirrors the lamp position")
 	check(PropReaction.attach(holder, "test_missing_prop_reaction", size) == null, "an unknown reaction returns null and leaves the prop alone")
+	# 換樣子：旗標成立時原本那一件藏起來、換上另一件，底邊對齊；旗標取消換回來。資料用現成的兩件擺設臨時湊一筆。
+	var swap_flag := &"test_prop_reaction_swap"
+	GameState.set_flag(swap_flag, false, false)
+	PropReaction._table = {"test_swap": {"swap": {"flag": String(swap_flag), "prop": "clinic__water_dispenser", "pack": "res://data/environment/scene_props/clinic"}},
+			"test_swap_bad": {"swap": {"flag": String(swap_flag), "prop": "test_missing_prop_swap", "pack": "res://data/environment/scene_props/clinic"}}}
+	PropReaction._table_loaded = true
+	var base_data := PropLibrary.find(&"clinic__report_cabinet", "res://data/environment/scene_props/clinic")
+	var alt_data := PropLibrary.find(&"clinic__water_dispenser", "res://data/environment/scene_props/clinic")
+	var base := PropNode.new()
+	base.setup(base_data, Vector2.ZERO)
+	holder.add_child(base)
+	var swap := PropReaction.attach(base, "test_swap", base_data.size)
+	await runner.get_tree().process_frame
+	var base_sprite := base.get_child(0) as Sprite2D
+	check(swap != null and not swap.is_swapped() and base_sprite.visible and not swap._swap_node.visible, "before the flag the original prop is shown")
+	GameState.set_flag(swap_flag, true, false)
+	check(swap.is_swapped() and not base_sprite.visible and swap._swap_node.visible, "the flag swaps the prop for the other one")
+	check(is_equal_approx(swap._swap_node.position.y + alt_data.size.y, base_data.size.y), "the swapped prop stands on the same bottom edge")
+	GameState.set_flag(swap_flag, false, false)
+	check(not swap.is_swapped() and base_sprite.visible and not swap._swap_node.visible, "clearing the flag swaps it back")
+	# 本來就隱藏的子節點（例如被光影品質關掉的那一層）換過去再換回來都維持隱藏。
+	var kept_hidden := Node2D.new()
+	kept_hidden.visible = false
+	base.add_child(kept_hidden)
+	GameState.set_flag(swap_flag, true, false)
+	GameState.set_flag(swap_flag, false, false)
+	check(not kept_hidden.visible and base_sprite.visible, "swapping back restores only what the swap hid")
+	var broken := PropReaction.attach(base, "test_swap_bad", base_data.size)
+	check(broken != null and broken._swap_node == null, "a swap that names a missing prop is skipped and the original stays")
+	# 掛在同一個高度往下延伸（收起的外梯換成放下的）、再位移幾個像素（打開的門板往左多出一塊）；鏡像時位移反過來。
+	PropReaction._table = {"test_swap_top": {"swap": {"flag": String(swap_flag), "prop": "clinic__water_dispenser",
+			"pack": "res://data/environment/scene_props/clinic", "align": "top", "offset": [-3.0, 2.0]}},
+			"test_dial": {"dial": {"flag": String(swap_flag), "at": [0.5, 0.5], "turn_seconds": 0.2}}, "test_missing_prop_dial": {"dial": {"at": [0.5, 0.5]}}}
+	var hung := PropReaction.attach(base, "test_swap_top", base_data.size)
+	var hung_mirrored := PropReaction.attach(base, "test_swap_top", base_data.size, true)
+	await runner.get_tree().process_frame
+	check(hung._swap_node.position.is_equal_approx(Vector2(-3.0, 2.0)), "a top-aligned swap hangs from the same top edge, moved by its offset")
+	check(is_equal_approx(hung_mirrored._swap_node.position.x, base_data.size.x - alt_data.size.x + 3.0), "a mirrored swap mirrors the offset")
+	# 開度指針：進關卡時旗標已成立就直接在轉完的位置；玩家在場時才成立就慢慢轉過去，轉完不再每格更新。
+	var dial := PropReaction.attach(base, "test_dial", base_data.size)
+	await runner.get_tree().process_frame
+	check(is_zero_approx(dial.dial_progress()) and not dial.is_processing(), "the dial rests at its start while the flag is off")
+	GameState.set_flag(swap_flag, true, false)
+	check(dial.is_processing() and dial.dial_progress() < 1.0, "setting the flag while the player is there starts the dial turning")
+	dial._process(0.1)
+	check(dial.dial_progress() > 0.2 and dial.dial_progress() < 1.0, "the dial turns gradually")
+	dial._process(0.5)
+	check(is_equal_approx(dial.dial_progress(), 1.0) and not dial.is_processing(), "the dial stops at the end and stops updating")
+	var dial_loaded := PropReaction.attach(base, "test_dial", base_data.size)
+	await runner.get_tree().process_frame
+	check(is_equal_approx(dial_loaded.dial_progress(), 1.0), "entering with the flag already set shows the dial already turned")
+	var dial_bad := PropReaction.attach(base, "test_missing_prop_dial", base_data.size)
+	check(dial_bad != null and dial_bad._dial.is_empty(), "a dial without a flag is skipped")
+	GameState.set_flag(swap_flag, false, false)
 	holder.queue_free()
+	# 關卡地圖寫到的每個反應都在資料裡，換樣子的另一件擺設也找得到（少一筆就指出是哪一關哪一件）。
+	PropReaction.clear_cache()
+	var missing: PackedStringArray = []
+	for file in DirAccess.get_files_at("res://data/levels"):
+		if not file.ends_with("_map.json"):
+			continue
+		var map: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/levels/" + file))
+		if not map is Dictionary or not map.get("props") is Array:
+			continue
+		for entry: Variant in map["props"]:
+			if not entry is Dictionary or not entry.has("react"):
+				continue
+			var spec := PropReaction._spec(str(entry["react"]))
+			var swap_spec: Variant = spec.get("swap")
+			if spec.is_empty() or (swap_spec is Dictionary and PropLibrary.find(StringName(str(swap_spec.get("prop", ""))), str(swap_spec.get("pack", ""))) == null):
+				missing.append("%s:%s→%s" % [file, entry.get("id", ""), entry["react"]])
+	check(missing.is_empty(), "every prop reaction named by a level map exists and its swap prop is found %s" % [missing])
 	GameState.set_flag(delivered, had_delivered, false)
 	GameState.set_flag(taken, had_taken, false)
 	PropReaction.clear_cache()

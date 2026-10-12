@@ -11539,6 +11539,153 @@
     "display_name": "訓練器的電瓶推車",
     "category": "scene"
    }
+  },
+  {
+   "id": "neon_market__rent_window",
+   "scene": "neon_market",
+   "seed": 7301,
+   "fit": "meters",
+   "height_m": 2.1,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A stall-rental service hatch set in a market wall seen straight from the front: a steel-framed window with a half-lowered roller shutter, a brass speaking grille, a worn wooden counter ledge with a rubber stamp, an ink pad and a spike of paper receipts, a ticket number roll dispenser on the right, a small glowing amber lamp above the frame, proportions about two wide to three tall.",
+   "anchor": {
+    "size": [
+     42.0,
+     63.0
+    ]
+   },
+   "new": {
+    "display_name": "租攤視窗",
+    "category": "scene"
+   },
+   "glow": "warm",
+   "data": {
+    "light_color": "Color(1, 0.86, 0.62, 1)",
+    "light_radius": 60,
+    "light_energy": 0.6
+   },
+   "light_from_glow": true
+  },
+  {
+   "id": "dock_warehouse__collection_book_stand",
+   "scene": "dock_warehouse",
+   "seed": 7302,
+   "fit": "meters",
+   "height_m": 1.15,
+   "texture_scale": 12,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A narrow steel sign-in lectern seen straight from the side with a thick open ledger book lying on its sloped top, a pen on a chain, a clip lamp bent over the page giving a small warm glow, paper slips tucked under a bulldog clip, proportions about one wide to two tall.",
+   "anchor": {
+    "size": [
+     18.0,
+     34.5
+    ]
+   },
+   "new": {
+    "display_name": "代收簿與簽收檯",
+    "category": "scene"
+   },
+   "glow": "warm"
+  },
+  {
+   "id": "dock_warehouse__drying_desk",
+   "scene": "dock_warehouse",
+   "seed": 7303,
+   "fit": "meters",
+   "height_m": 1.5,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A wide steel work desk for drying wet paperwork seen straight from the front: sheets of paper pegged on two strings stretched above the desk between two poles, a wire-caged heat lamp glowing orange at the top, three damp slips laid flat under glass weights on the desk, a desk fan, a magnifier, proportions about six wide to five tall.",
+   "anchor": {
+    "size": [
+     54.0,
+     45.0
+    ]
+   },
+   "new": {
+    "display_name": "乾燥作業桌",
+    "category": "scene"
+   },
+   "glow": "warm",
+   "data": {
+    "light_color": "Color(1, 0.8, 0.5, 1)",
+    "light_radius": 50,
+    "light_energy": 0.6
+   },
+   "light_from_glow": true
+  },
+  {
+   "id": "dock_warehouse__bridge_lever",
+   "scene": "dock_warehouse",
+   "seed": 7304,
+   "fit": "meters",
+   "height_m": 1.2,
+   "texture_scale": 12,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A wall-mounted winch control box seen straight from the front, a grey steel cabinet with a long red-handled lever in the up position, a chain running up out of the top, a round pressure gauge, yellow and black hazard tape around the edges, proportions about one wide to two tall.",
+   "anchor": {
+    "size": [
+     18.0,
+     36.0
+    ]
+   },
+   "new": {
+    "display_name": "橋梯的拉桿箱",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "dock_warehouse__bridge_ladder_up",
+   "scene": "dock_warehouse",
+   "seed": 7305,
+   "fit": "meters",
+   "height_m": 1.6,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A folding steel gangway ladder stowed in the raised position seen straight from the side, folded in half and held up against a bracket by two taut chains, yellow painted side rails, grated steps, a red warning tag hanging from the lowest rung, proportions about five wide to eight tall.",
+   "anchor": {
+    "size": [
+     30.0,
+     48.0
+    ]
+   },
+   "new": {
+    "display_name": "收起的橋梯",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "dock_warehouse__bridge_ladder_down",
+   "scene": "dock_warehouse",
+   "seed": 7306,
+   "fit": "meters",
+   "height_m": 2.6,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A steel gangway ladder lowered and resting on the ground seen straight from the side, a steep stair with yellow painted side rails and grated steps running from the lower left up to a small landing at the upper right, slack chains hanging from the top bracket, proportions about five wide to nine tall.",
+   "anchor": {
+    "size": [
+     42.0,
+     78.0
+    ]
+   },
+   "new": {
+    "display_name": "放下的橋梯",
+    "category": "scene"
+   }
   }
  ]
 }

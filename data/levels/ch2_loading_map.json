@@ -83,7 +83,10 @@
     {"id": "harbor_street__pole_wire_knot", "x": 52, "ground": true},
     {"id": "dock_warehouse__wrapped_pallets", "x": 36, "ground": true},
     {"id": "dock_warehouse__float_drum_crate", "x": 68, "ground": true},
+    {"id": "dock_warehouse__bridge_lever", "x": 93, "y": 12},
+    {"id": "dock_warehouse__bridge_ladder_up", "x": 100, "react": "bridge_ladder", "ground": true},
+    {"id": "dock_warehouse__collection_book_stand", "x": 112, "dx": 1, "ground": true},
     {"id": "dock_warehouse__open_container", "x": 120, "ground": true},
-    {"id": "pawnshop_kitchen__dining_table", "x": 128, "ground": true}
+    {"id": "dock_warehouse__drying_desk", "x": 127, "dx": 1, "ground": true}
   ]
 }

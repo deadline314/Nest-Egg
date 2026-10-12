@@ -2,10 +2,15 @@ class_name PropReaction
 extends Node2D
 ## 擺設依劇情旗標改變樣子（NE-240）：狀態燈換色、吐出一張紙。掛在 PropNode 底下，
 ## 由關卡地圖的道具項目用 "react": "<id>" 指定，內容寫在 data/environment/prop_reactions.json：
-##   lamp：{at（在擺設圖上的比例位置）、radius、light_radius、states[{flag, color, pulse}]}，
+##   lamp：{at（在擺設圖上的比例位置）、radius、light_radius、light_energy、light_at、states[{flag, color, pulse}]}，
 ##         states 由前往後看，旗標成立的最後一個勝出；第一個不寫 flag，是預設狀態。
 ##   paper：{at、width、length、feed_seconds、show_flag、hide_flag}，show_flag 成立後紙從出紙口慢慢送出來，
 ##         hide_flag 成立（被拿走）就不見。
+##   swap：{flag、prop、pack、align、offset}，flag 成立時整件擺設換成另一件（收起的梯子換成放下的、關著的配電盤換成打開的）。
+##         prop 是另一件擺設的 id、pack 是它所在的資料夾；align＝"bottom"（預設，兩件都站在同一條底邊）或 "top"（掛在同一個高度往下延伸）。
+##         兩件預設靠左對齊；offset＝[x, y] 再位移幾個世界像素（打開的門板往左多出一塊時，把箱體對回原位）。
+##   dial：{at、length、from_deg、to_deg、flag、turn_seconds、color}，一根開度指針；flag 成立時從 from_deg 慢慢轉到 to_deg
+##         （0 度朝右、90 度朝下），看得出閥門轉過了，不只靠燈的顏色。
 ## 進關卡時旗標已經成立＝直接是結果的樣子，不重播送紙與聲音；玩家在場時旗標才成立，才播一次。
 ## 這裡只管畫面與聲音，不寫旗標、不發物品。資料缺漏時記錄是哪一筆並略過那一項，擺設照常顯示。
 
@@ -21,6 +26,7 @@ static var _table_loaded := false
 var _size := Vector2.ZERO
 var _lamp: Dictionary = {}
 var _lamp_at := Vector2.ZERO
+var _lamp_flip := false
 var _lamp_state: Dictionary = {}
 var _light: PointLight2D
 var _paper: Dictionary = {}
@@ -29,6 +35,17 @@ var _paper_shown := false
 var _paper_progress := 0.0
 var _tick_left := 0.0
 var _time := 0.0
+var _dial: Dictionary = {}
+var _dial_at := Vector2.ZERO
+var _dial_flip := false
+var _dial_on := false
+var _dial_progress := 0.0
+var _swap: Dictionary = {}
+var _swap_data: PropData
+var _swap_node: PropNode
+var _swap_flip := false
+var _swapped := false
+var _swap_hidden: Array[CanvasItem] = []
 
 
 ## 依 id 建立反應並掛在 prop 底下；id 不存在回傳 null 並記錄。flip＝擺設左右鏡像時位置跟著鏡像。
@@ -50,6 +67,7 @@ func _setup(spec: Dictionary, flip: bool, reaction_id: String) -> void:
 	if spec.get("lamp") is Dictionary:
 		_lamp = spec["lamp"]
 		_lamp_at = _place(_lamp.get("at"), flip)
+		_lamp_flip = flip
 		if not _lamp.get("states") is Array or (_lamp["states"] as Array).is_empty():
 			push_error("[PropReaction] %s 的 lamp 沒有 states，略過狀態燈" % reaction_id)
 			_lamp = {}
@@ -59,13 +77,40 @@ func _setup(spec: Dictionary, flip: bool, reaction_id: String) -> void:
 		if str(_paper.get("show_flag", "")).is_empty():
 			push_error("[PropReaction] %s 的 paper 沒有 show_flag，略過出紙" % reaction_id)
 			_paper = {}
+	if spec.get("dial") is Dictionary:
+		_dial = spec["dial"]
+		_dial_at = _place(_dial.get("at"), flip)
+		_dial_flip = flip
+		if str(_dial.get("flag", "")).is_empty():
+			push_error("[PropReaction] %s 的 dial 沒有 flag，略過指針" % reaction_id)
+			_dial = {}
+	if spec.get("swap") is Dictionary:
+		_swap = spec["swap"]
+		_swap_flip = flip
+		var pack := str(_swap.get("pack", PropLibrary.DEFAULT_DIR))
+		_swap_data = PropLibrary.find(StringName(str(_swap.get("prop", ""))), pack) if not str(_swap.get("flag", "")).is_empty() else null
+		if _swap_data == null:
+			push_error("[PropReaction] %s 的 swap 要有 flag，而且 prop（%s）要在 %s 裡；略過換樣子" % [reaction_id, _swap.get("prop", ""), pack])
+			_swap = {}
 
 
 func _ready() -> void:
 	if not _lamp.is_empty() and float(_lamp.get("light_radius", 0.0)) > 0.0:
 		_light = LightKit.create_point_light(Color.WHITE, float(_lamp["light_radius"]), float(_lamp.get("light_energy", 0.6)))
-		_light.position = _lamp_at
+		# 光預設從燈的位置出發；light_at 可以改成擺設的中間，讓狀態燈的顏色照在整件擺設上。
+		_light.position = _place(_lamp["light_at"], _lamp_flip) if _lamp.has("light_at") else _lamp_at
 		add_child(_light)
+	if not _swap.is_empty():
+		_swap_node = PropNode.new()
+		var top := 0.0 if str(_swap.get("align", "bottom")) == "top" else _size.y - _swap_data.size.y
+		var offset := _offset(_swap.get("offset"))
+		# 鏡像時另一件也從右邊對齊，位移跟著反過來。
+		var left := (_size.x - _swap_data.size.x - offset.x) if _swap_flip else offset.x
+		_swap_node.setup(_swap_data, Vector2(left, top + offset.y), _swap_flip)
+		_swap_node.visible = false
+		# 換上的那一件畫在狀態燈與指針後面，燈號換了樣子之後還看得到。
+		_swap_node.show_behind_parent = true
+		add_child(_swap_node)
 	GameState.flag_changed.connect(_on_flag_changed)
 	_refresh(false)
 
@@ -94,12 +139,47 @@ func _refresh(live: bool) -> void:
 			_paper_progress = 0.0 if live else 1.0
 			_tick_left = 0.0
 		_paper_shown = shown
+	if not _dial.is_empty():
+		_dial_on = GameState.has_flag(StringName(str(_dial["flag"])))
+		if not live:
+			_dial_progress = 1.0 if _dial_on else 0.0
+	if _swap_node != null:
+		var on := GameState.has_flag(StringName(str(_swap["flag"])))
+		if on != _swapped:
+			_swapped = on
+			if on:
+				# 原本那一件的圖、發光與光源整組藏起來，換上另一件；只記下自己藏掉的，換回來時不動本來就隱藏的。
+				_swap_hidden.clear()
+				for sibling in get_parent().get_children():
+					if sibling != self and sibling is CanvasItem and (sibling as CanvasItem).visible:
+						(sibling as CanvasItem).visible = false
+						_swap_hidden.append(sibling)
+			else:
+				for item in _swap_hidden:
+					if is_instance_valid(item):
+						item.visible = true
+				_swap_hidden.clear()
+			_swap_node.visible = on
 	set_process(_needs_process())
 	queue_redraw()
 
 
+## 目前是不是換成另一件了（測試與工具用）。
+func is_swapped() -> bool:
+	return _swapped
+
+
 func _needs_process() -> bool:
-	return float(_lamp_state.get("pulse", 0.0)) > 0.0 or (_paper_shown and _paper_progress < 1.0)
+	return float(_lamp_state.get("pulse", 0.0)) > 0.0 or (_paper_shown and _paper_progress < 1.0) or _dial_turning()
+
+
+func _dial_turning() -> bool:
+	return not _dial.is_empty() and not is_equal_approx(_dial_progress, 1.0 if _dial_on else 0.0)
+
+
+## 指針轉到哪了（0＝還沒轉、1＝轉到底；測試與工具用）。
+func dial_progress() -> float:
+	return _dial_progress
 
 
 func _process(delta: float) -> void:
@@ -113,6 +193,11 @@ func _process(delta: float) -> void:
 		if _paper_progress >= 1.0:
 			Sfx.play(&"beep", -14.0)
 			set_process(_needs_process())
+	if _dial_turning():
+		_dial_progress = move_toward(_dial_progress, 1.0 if _dial_on else 0.0, delta / maxf(0.1, float(_dial.get("turn_seconds", 1.2))))
+		if not _dial_turning():
+			Sfx.play(&"switch", -14.0)
+			set_process(_needs_process())
 	queue_redraw()
 
 
@@ -123,6 +208,8 @@ func _lamp_color() -> Color:
 func _draw() -> void:
 	if _paper_shown:
 		_draw_paper()
+	if not _dial.is_empty():
+		_draw_dial()
 	if not _lamp_state.is_empty():
 		var color := _lamp_color()
 		var radius := float(_lamp.get("radius", 1.4))
@@ -133,6 +220,19 @@ func _draw() -> void:
 		draw_circle(_lamp_at, radius, LightKit.glow(color, 1.3 + 0.5 * level))
 		if _light != null:
 			_light.energy = float(_lamp.get("light_energy", 0.6)) * (0.7 + 0.3 * level)
+
+
+## 開度指針：深色底線加一條亮線，樞紐一個小圓點；轉動用緩入緩出。
+func _draw_dial() -> void:
+	var degrees := lerpf(float(_dial.get("from_deg", 0.0)), float(_dial.get("to_deg", 90.0)), smoothstep(0.0, 1.0, _dial_progress))
+	if _dial_flip:
+		degrees = 180.0 - degrees
+	var tip := _dial_at + Vector2.from_angle(deg_to_rad(degrees)) * float(_dial.get("length", 5.0))
+	var color := Color.from_string(str(_dial.get("color", "#f2e8c8")), Color.WHITE)
+	draw_line(_dial_at, tip, Color(0.05, 0.06, 0.09), 1.8)
+	draw_line(_dial_at, tip, color, 0.9)
+	draw_circle(_dial_at, 1.1, Color(0.05, 0.06, 0.09))
+	draw_circle(_dial_at, 0.6, color)
 
 
 ## 一張從出紙口往下送出來的回執：米色紙、幾行印字、鋸齒狀的撕口。紙不是發光體，用暗一點的顏色畫。
@@ -164,6 +264,13 @@ func _place(value: Variant, flip: bool) -> Vector2:
 	if flip:
 		at.x = 1.0 - at.x
 	return at * _size
+
+
+## 世界像素的位移；不是兩個數字就當成不位移。
+static func _offset(value: Variant) -> Vector2:
+	if value is Array and value.size() == 2 and (value[0] is float or value[0] is int) and (value[1] is float or value[1] is int):
+		return Vector2(float(value[0]), float(value[1]))
+	return Vector2.ZERO
 
 
 static func _spec(reaction_id: String) -> Dictionary:

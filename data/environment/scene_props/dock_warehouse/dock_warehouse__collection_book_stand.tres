@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"dock_warehouse__collection_book_stand"
+display_name = "代收簿與簽收檯"
+texture = "res://art/environment/scene_props/dock_warehouse/dock_warehouse__collection_book_stand.png"
+has_glow = true
+size = Vector2(14, 34.5)
+category = &"scene"

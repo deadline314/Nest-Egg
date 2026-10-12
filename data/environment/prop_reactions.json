@@ -37,5 +37,36 @@
    "show_flag": "ch1_disk_delivered",
    "hide_flag": "ch1_disk_receipt_taken"
   }
+ },
+ "bridge_ladder": {
+  "swap": {
+   "flag": "ch2_sc1_open",
+   "prop": "dock_warehouse__bridge_ladder_down",
+   "pack": "res://data/environment/scene_props/dock_warehouse"
+  },
+  "lamp": {
+   "at": [
+    0.5,
+    0.06
+   ],
+   "radius": 1.4,
+   "light_radius": 60,
+   "light_energy": 0.9,
+   "light_at": [
+    0.5,
+    0.5
+   ],
+   "states": [
+    {
+     "color": "#ff6a4a",
+     "pulse": 0
+    },
+    {
+     "flag": "ch2_sc1_open",
+     "color": "#52d98c",
+     "pulse": 0
+    }
+   ]
+  }
  }
 }

@@ -34,6 +34,7 @@ const SCENARIOS := {
 	"throwables": "res://tools/scenarios/throwables_scenario.gd",
 	"throwables_ch1": "res://tools/scenarios/throwables_ch1_scenario.gd",
 	"prop_reaction": "res://tools/scenarios/prop_reaction_scenario.gd",
+	"mechanism_states": "res://tools/scenarios/mechanism_states_scenario.gd",
 	"camera_ledge": "res://tools/scenarios/camera_ledge_scenario.gd",
 	"shield_attach": "res://tools/scenarios/shield_attach_scenario.gd",
 	"shield_film": "res://tools/scenarios/shield_film_scenario.gd",
