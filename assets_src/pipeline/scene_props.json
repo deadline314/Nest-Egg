@@ -11541,6 +11541,191 @@
    }
   },
   {
+   "id": "ali_kitchen__sink_drying_rack",
+   "scene": "ali_kitchen",
+   "seed": 7101,
+   "fit": "meters",
+   "height_m": 1.35,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A small old kitchen sink unit seen straight from the front: a chipped white enamel sink set in a pale green wooden cabinet, a bent brass tap, a wire dish drying rack on the right side of the counter holding a neat row of mismatched noodle bowls and chopsticks, a folded checkered dish towel hanging from the cabinet door, a bar of soap on a saucer, proportions about one wide to one tall.",
+   "anchor": {
+    "size": [
+     40.0,
+     40.5
+    ]
+   },
+   "new": {
+    "display_name": "洗碗池與晾碗架",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "ali_kitchen__soup_stove",
+   "scene": "ali_kitchen",
+   "seed": 7102,
+   "fit": "meters",
+   "height_m": 1.2,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "A single-burner gas stove on a small tiled counter seen straight from the front, a large dented aluminium soup pot on the burner with a wooden ladle resting on its rim and a thin wisp of steam, a small blue flame under the pot, a red gas cylinder below the counter, a jar of dried chillies and a salt pot beside the stove, proportions about five wide to six tall.",
+   "anchor": {
+    "size": [
+     30.0,
+     36.0
+    ]
+   },
+   "new": {
+    "display_name": "湯鍋與單口爐",
+    "category": "scene"
+   },
+   "glow": "warm",
+   "data": {
+    "steam": true,
+    "steam_offset": "Vector2(0.5, 0.08)",
+    "light_color": "Color(1, 0.72, 0.4, 1)",
+    "light_radius": 46,
+    "light_energy": 0.55
+   },
+   "light_from_glow": true
+  },
+  {
+   "id": "ali_kitchen__small_table",
+   "scene": "ali_kitchen",
+   "seed": 7103,
+   "fit": "meters",
+   "height_m": 0.8,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A small square wooden kitchen table seen straight from the side with one wooden stool tucked on each side, a faded floral oilcloth on the table, two bowls, a pair of chopsticks, a small glass jar with one wild flower, proportions about two wide to one tall.",
+   "anchor": {
+    "size": [
+     45.0,
+     24.0
+    ]
+   },
+   "new": {
+    "display_name": "一張小桌與兩張凳",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "ali_kitchen__patched_umbrella",
+   "scene": "ali_kitchen",
+   "seed": 7104,
+   "fit": "meters",
+   "height_m": 1.05,
+   "texture_scale": 12,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "A closed oiled-paper umbrella standing in a tall ceramic jar by a doorway seen straight from the side, faded red paper with three neat square patches of different paper glued on, a bamboo handle with a frayed tassel, a small puddle ring under the jar, proportions about one wide to two tall.",
+   "anchor": {
+    "size": [
+     16.0,
+     31.5
+    ]
+   },
+   "new": {
+    "display_name": "門口補過的油紙傘",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "ali_kitchen__spice_shelf",
+   "scene": "ali_kitchen",
+   "seed": 7105,
+   "fit": "meters",
+   "height_m": 0.7,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "flat"
+   },
+   "prompt": "A narrow wooden wall shelf seen straight from the front holding a row of mismatched glass spice jars, a soy sauce bottle, a tin tea caddy, with three ladles and a strainer hanging from hooks under the shelf, proportions about five wide to three tall.",
+   "anchor": {
+    "size": [
+     36.0,
+     21.0
+    ]
+   },
+   "new": {
+    "display_name": "牆上的調味料架",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "ali_kitchen__small_fridge",
+   "scene": "ali_kitchen",
+   "seed": 7106,
+   "fit": "meters",
+   "height_m": 1.3,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A small old rounded refrigerator seen straight from the front, cream enamel with a rust spot, a few paper notes and a child-like magnet on the door, a steaming rice cooker and a stack of lunch boxes on top of it, proportions about four wide to seven tall.",
+   "anchor": {
+    "size": [
+     22.0,
+     39.0
+    ]
+   },
+   "new": {
+    "display_name": "小冰箱與電鍋",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "ali_kitchen__window_apron",
+   "scene": "ali_kitchen",
+   "seed": 7107,
+   "fit": "meters",
+   "height_m": 1.2,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "flat"
+   },
+   "prompt": "A small square wooden-framed window seen straight from the front, rain streaks on the glass and dark blue night outside, a thin cotton curtain pulled to one side, a short clothes line across the top with a damp apron and two dish cloths pegged on it, a tiny potted spring onion on the sill, proportions about one wide to one tall.",
+   "anchor": {
+    "size": [
+     36.0,
+     36.0
+    ]
+   },
+   "new": {
+    "display_name": "窗與晾著的圍裙",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "ali_kitchen__recipe_notes",
+   "scene": "ali_kitchen",
+   "seed": 7108,
+   "fit": "meters",
+   "height_m": 0.6,
+   "texture_scale": 14,
+   "normal": {
+    "profile": "flat"
+   },
+   "prompt": "A small cork board hung flat on a wall seen straight from the front, pinned with handwritten recipe cards covered in neat blank scribbled lines, a faded photo of a noodle stall, a bus ticket and a pressed leaf, proportions about four wide to three tall.",
+   "anchor": {
+    "size": [
+     24.0,
+     18.0
+    ]
+   },
+   "new": {
+    "display_name": "牆上的手寫食譜與照片",
+    "category": "scene"
+   }
+  },
+  {
    "id": "neon_market__rent_window",
    "scene": "neon_market",
    "seed": 7301,

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"ali_kitchen__window_apron"
+display_name = "窗與晾著的圍裙"
+texture = "res://art/environment/scene_props/ali_kitchen/ali_kitchen__window_apron.png"
+size = Vector2(31, 36)
+category = &"scene"

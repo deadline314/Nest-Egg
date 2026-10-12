@@ -900,6 +900,26 @@
     "saturation": 0.95
    },
    "prompt": "A clean bright school corridor seen straight from the front: pale blue lockers in a row on the left, a notice board with colourful paper drawings on the right, large windows with white sunlit glare, a polished pale linoleum floor with reflections of the windows, a small ceiling-hung sign, a tidy row of children's umbrellas on pegs, soft daylight, gentle and ordinary but uneasy, pale blue white and soft yellow palette, nobody there."
+  },
+  {
+   "id": "ali_kitchen",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 7190,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/ali_kitchen.webp",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 1.0
+   },
+   "prompt": "Interior of a tiny third-floor kitchen where one woman lives alone, at night, seen from the front: pale yellow painted walls with a strip of small white tiles, a chipped enamel sink with a dish rack on the left, a single gas burner with a big soup pot in the middle, a small square table with two stools on the right, a square window with rain on the glass and dark blue night outside, one bare bulb under a plain metal shade giving warm light, a patched paper umbrella in a jar by the door, worn linoleum floor, tidy, modest and warm, warm yellow and soft green palette with cold blue at the window."
   }
  ]
 }

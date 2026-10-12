@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"ali_kitchen__soup_stove"
+display_name = "湯鍋與單口爐"
+texture = "res://art/environment/scene_props/ali_kitchen/ali_kitchen__soup_stove.png"
+light_energy = 0.55
+light_radius = 46
+light_color = Color(1, 0.72, 0.4, 1)
+light_offset = Vector2(7.9, 5.4)
+steam_offset = Vector2(0.5, 0.08)
+steam = true
+has_glow = true
+size = Vector2(22.6, 36)
+category = &"scene"

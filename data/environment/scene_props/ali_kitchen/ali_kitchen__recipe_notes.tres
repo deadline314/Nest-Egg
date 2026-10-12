@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"ali_kitchen__recipe_notes"
+display_name = "牆上的手寫食譜與照片"
+texture = "res://art/environment/scene_props/ali_kitchen/ali_kitchen__recipe_notes.png"
+size = Vector2(20.6, 18)
+category = &"scene"

@@ -28,11 +28,13 @@
     ]
   ],
   "props": [
-    {"id": "harbor_street__umbrella_stand", "x": 9, "ground": true},
-    {"id": "dawn_noodle_stall__noodle_bowls_table", "x": 20, "ground": true},
-    {"id": "dawn_noodle_stall__broth_stove", "x": 30, "ground": true},
-    {"id": "pawnshop_kitchen__dish_cabinet", "x": 38, "ground": true},
-    {"id": "dawn_noodle_stall__blank_sign_board", "x": 43, "ground": true},
-    {"id": "dawn_noodle_stall__hanging_lantern", "x": 25, "support": "ceiling", "ceiling_row": 10, "ground": true}
+    {"id": "ali_kitchen__patched_umbrella", "x": 9, "ground": true},
+    {"id": "ali_kitchen__sink_drying_rack", "x": 12, "ground": true},
+    {"id": "ali_kitchen__spice_shelf", "x": 13, "y": 15, "support": "wall"},
+    {"id": "ali_kitchen__small_table", "x": 19, "ground": true},
+    {"id": "ali_kitchen__window_apron", "x": 23, "y": 17, "support": "wall"},
+    {"id": "ali_kitchen__soup_stove", "x": 30, "ground": true},
+    {"id": "ali_kitchen__small_fridge", "x": 36, "ground": true},
+    {"id": "ali_kitchen__recipe_notes", "x": 40, "y": 16, "support": "wall"}
   ]
 }

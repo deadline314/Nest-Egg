@@ -127,7 +127,7 @@ THEMES = {
     'harbor_street': ('asphalt', ['shopfront', 'apartment', 'shutter_block'], None, 0.22, 'sky_storm', ['harbor_street', 'anchor_phone_booth']),
     'market_gate': ('asphalt', ['shopfront', 'shutter_block'], None, 0.22, 'sky_storm', ['neon_market', 'anchor_phone_booth', 'harbor_street']),
     'market': ('asphalt', ['shopfront', 'apartment'], None, 0.22, 'sky_storm', ['neon_market', 'harbor_street', 'accounting_lobby']),
-    'ali_home': ('concrete', ['apartment'], 'brick', 0.0, 'sky_storm', ['pawnshop_kitchen', 'dawn_noodle_stall', 'harbor_street']),
+    'ali_home': ('concrete', ['apartment'], 'brick', 0.0, 'sky_storm', ['ali_kitchen']),
     'loading': ('concrete', ['warehouse', 'shutter_block'], None, 0.22, 'sky_storm', ['dock_warehouse', 'neon_market', 'harbor_street']),
     'ledger_front': ('concrete', ['warehouse'], 'hangar_wall', 0.0, 'sky_storm', ['yong_hideout', 'accounting_lobby', 'anchor_phone_booth']),
     'ledger_office': ('concrete', ['warehouse'], 'hangar_wall', 0.0, 'sky_storm', ['yong_hideout']),
@@ -298,13 +298,17 @@ def build_ali_home():
     a.ceiling(1, 46, 10)
     a.stand(3, 'Ⅸ')
     a.stand(6, 'P')
-    a.prop('harbor_street__umbrella_stand', 9)
-    a.prop('dawn_noodle_stall__noodle_bowls_table', 20)
-    a.prop('dawn_noodle_stall__broth_stove', 30)
+    # 這間廚房自己的東西（BG-38）：門口補過的油紙傘、洗碗池與晾碗架（凜在這裡洗碗）、一張小桌、
+    # 湯鍋（阿梨站在爐子旁）、小冰箱；牆上是調味料架、晾著圍裙的窗與手寫食譜。
+    a.prop('ali_kitchen__patched_umbrella', 9)
+    a.prop('ali_kitchen__sink_drying_rack', 12)
+    a.prop('ali_kitchen__spice_shelf', 13, y=15, support='wall')
+    a.prop('ali_kitchen__small_table', 19)
+    a.prop('ali_kitchen__window_apron', 23, y=17, support='wall')
+    a.prop('ali_kitchen__soup_stove', 30)
     a.stand(32, 'Ⓐ')
-    a.prop('pawnshop_kitchen__dish_cabinet', 38)
-    a.prop('dawn_noodle_stall__blank_sign_board', 43)
-    a.prop('dawn_noodle_stall__hanging_lantern', 25, support='ceiling', ceiling_row=10)
+    a.prop('ali_kitchen__small_fridge', 36)
+    a.prop('ali_kitchen__recipe_notes', 40, y=16, support='wall')
     for x in (12, 26, 40):
         a.lamp(x, 11)
     a.zone(0, 'residential')
