@@ -606,9 +606,10 @@ def _clinic_and_home(source):
     home_steps = [
         # 21:9 遮幅（ST-22）：上黑邊約在 y=43、對話框頂約在 y=233。腳底放在框頂之上、頭頂留在黑邊之下，
         # 演員縮放 3.0～3.1（門高約 1.2 倍身高，符合 scene-staging 的比例）。
-        {"do": "scene", "id": "ch1_pawnshop_kitchen", "pos": [320, 256], "zoom": 1.0, "fade": 1.0},
-        {"do": "actor", "id": "rin", "kind": "rin", "pos": [575, 304], "facing": -1, "scale": 3.0, "pose": "idle"},
-        {"do": "actor", "id": "k", "kind": "old_k", "speaker": "old_k", "pos": [120, 304], "facing": -1, "scale": 3.1, "pose": "idle"},
+        # 縮放照廚房立繪的桌椅（ST-10：凜 3.9、老 K 4.0），鏡頭拉遠到 0.8，人在畫面上的大小和原本一樣。
+        {"do": "scene", "id": "ch1_pawnshop_kitchen", "pos": [320, 240], "zoom": 0.8, "fade": 1.0},
+        {"do": "actor", "id": "rin", "kind": "rin", "pos": [575, 304], "facing": -1, "scale": 3.9, "pose": "idle"},
+        {"do": "actor", "id": "k", "kind": "old_k", "speaker": "old_k", "pos": [120, 304], "facing": -1, "scale": 4.0, "pose": "idle"},
         {"do": "move", "id": "rin", "to": [330, 304], "time": 2.0, "wait": True, "then": "idle"},
     ]
     home_steps.extend(beats(

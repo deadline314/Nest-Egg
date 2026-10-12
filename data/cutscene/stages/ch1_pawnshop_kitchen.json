@@ -16,14 +16,14 @@
   },
   {
    "kind": "sprite",
-   "path": "res://art/environment/scenes/pawnshop_kitchen.webp",
+   "path": "res://art/environment/scenes/pawnshop_kitchen_extended.webp",
    "pos": [
-    -64,
-    -36.0
+    -320,
+    -180.0
    ],
    "scale": 0.5,
    "filter": "linear",
-   "source_width": 1536
+   "source_width": 2560
   },
   {
    "kind": "glow",
@@ -56,6 +56,38 @@
    ],
    "size": 1.1,
    "seed": 7
+  }
+ ],
+ "furniture": [
+  {
+   "id": "dining_table",
+   "kind": "table",
+   "rect": [
+    205,
+    194,
+    153,
+    109
+   ]
+  },
+  {
+   "id": "dining_chair",
+   "kind": "seat",
+   "rect": [
+    163,
+    240,
+    60,
+    63
+   ]
+  },
+  {
+   "id": "kitchen_door",
+   "kind": "door",
+   "rect": [
+    553,
+    19,
+    80,
+    290
+   ]
   }
  ]
 }

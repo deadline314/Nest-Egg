@@ -133,15 +133,16 @@ DISPATCH = {
 
 # 舞台演出：早飯沿用第一章的當舖店面舞台、晚飯沿用廚房舞台，演員站位與縮放照第一章審過的同一場景（ch1_p01_door、ch1_c14_home）。
 # 接續的段落沿用同一個舞台與站位，只用很短的淡入，選擇也留在同一個畫面上。
+# 縮放與鏡頭跟著第一章同舞台的數字（ST-10，2026-10-12）：演員照立繪裡的櫃台、桌椅量出的縮放，鏡頭拉遠讓人在畫面上一樣大。
 STAGES = {
-    "front": ("ch1_pawnshop_front", 320, 300, (("k", "old_k", 175, 348, 1, 3.1), ("rin", "rin", 385, 348, -1, 2.9))),
-    "kitchen": ("ch1_pawnshop_kitchen", 320, 256, (("k", "old_k", 230, 304, 1, 3.1), ("rin", "rin", 400, 304, -1, 3.0))),
+    "front": ("ch1_pawnshop_front", 320, 290, 0.88, (("k", "old_k", 175, 348, 1, 3.6), ("rin", "rin", 385, 348, -1, 3.4))),
+    "kitchen": ("ch1_pawnshop_kitchen", 320, 240, 0.8, (("k", "old_k", 230, 304, 1, 4.0), ("rin", "rin", 400, 304, -1, 3.9))),
 }
 
 
 def _staged(where: str, lines: tuple, opening: bool = False) -> list[dict]:
-    stage_id, x, y, cast = STAGES[where]
-    steps = [stage_scene(stage_id, x=x, y=y, zoom=1.0, fade_in=1.0 if opening else 0.25)]
+    stage_id, x, y, zoom, cast = STAGES[where]
+    steps = [stage_scene(stage_id, x=x, y=y, zoom=zoom, fade_in=1.0 if opening else 0.25)]
     for ident, kind, ax, ay, facing, scale in cast:
         steps.append(stage_actor(ident, kind, ax, ay, facing=facing, scale=scale, speaker=kind, weapon=""))
     return steps + beats(*lines)

@@ -419,7 +419,8 @@ STAGED_TALKS = {
         "scenes": ("ch1_t_egret_1", "ch1_t_egret_sunday_prompt", "ch1_t_egret_sunday"),
     },
     "lounge": {
-        "stage": "ch1_revival_lounge", "camera": (260, 217, 1.1),
+        # 鏡頭 1.3（ST-10）：演員縮放從 2.4 改成照吧台量的 2.0，鏡頭推近讓人在畫面上一樣大。
+        "stage": "ch1_revival_lounge", "camera": (252, 226, 1.3),
         "cast": (("ali", "ali", 300, -1), ("rin", "rin", 205, 1)),
         "scenes": ("ch1_t_ali_meet_booth", "ch1_t_ali_meet_clinic", "ch1_t_ali_meet_no_death", "ch1_t_ali_meet_unknown",
                    "ch1_t_ali_1", "ch1_t_ali_order", "ch1_t_ali_sit", "ch1_t_ali_name", "ch1_hub_ali_lounge",

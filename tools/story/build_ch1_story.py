@@ -71,14 +71,33 @@ FLOOR = {
 FURNITURE = {
     # 診間的復原檢查台：量自立繪（台面 y≈194、台座落在地面 280、x 243～388）。比一般診療台高，凜坐在邊緣腳懸空是劇本要的。
     'ch1_revival_room': [{"id": "exam_table", "kind": "treatment_bed", "rect": [243, 194, 145, 86]}],
+    # 以下三個舞台量自立繪（ST-10，2026-10-12；把立繪縮成舞台座標後疊格線量）。演員的縮放要讓這些家具落在比例表內：
+    # 店面的櫃台在演員後面那一層（底邊 y≈336，比地面線 348 遠一點）。
+    'ch1_pawnshop_front': [{"id": "shop_counter", "kind": "counter", "rect": [36, 207, 444, 129]}],
+    # 廚房：餐桌（桌面 y≈194、桌腳落在 303）、椅子的座面（y≈240）、右邊的門（門楣 y≈19）。
+    'ch1_pawnshop_kitchen': [{"id": "dining_table", "kind": "table", "rect": [205, 194, 153, 109]},
+                             {"id": "dining_chair", "kind": "seat", "rect": [163, 240, 60, 63]},
+                             {"id": "kitchen_door", "kind": "door", "rect": [553, 19, 80, 290]}],
+    # 復原館：吧台（檯面 y≈178、底邊 y≈250）與吧台凳（座面 y≈204）。兩者都在演員後面那一層。
+    'ch1_revival_lounge': [{"id": "bar_counter", "kind": "counter", "rect": [56, 178, 372, 72]},
+                           {"id": "bar_stool", "kind": "bar_stool", "rect": [81, 204, 30, 47]}],
+}
+# 立繪換成外圈延展版的舞台（ST-10）：{舞台: (圖檔, 左上角, 原圖寬)}。延展版保留原畫每個像素與家具位置，只在四周多畫，
+# 左上角往外移同樣的量，原本的舞台座標不變；鏡頭因此可以拉得比原圖還遠而不會拍到圖外。
+STAGE_ART = {
+    'ch1_pawnshop_kitchen': ('pawnshop_kitchen_extended', [-320, -180.0], 2560),
 }
 # 演員縮放：{舞台: {骨架: 縮放}}。同一個舞台上的人高度大致一致。
 SCALE = {
-    'ch1_pawnshop_front': {'rin': 3.4, 'old_k': 3.7},
-    'ch1_pawnshop_kitchen': {'rin': 3.4, 'old_k': 3.7},  # 和店面同一棟，縮放一致（ST-10：原本 3.8／4.2 在黑邊與對話框之間放不下）
+    # 店面：櫃台約 0.65 個身高。老 K 用 3.6：3.7 在 21:9 黑邊與對話框之間（畫面 43～232）差 2 像素放不下。
+    'ch1_pawnshop_front': {'rin': 3.4, 'old_k': 3.6},
+    # 廚房的桌椅與門是照 3.9～4.3 畫的（桌面 109 像素）。用 3.9／4.0 搭配延展版立繪把鏡頭拉遠到 0.8，
+    # 人在畫面上的大小不變，桌子回到約 0.48 個身高（原本用 3.0 是把人縮小，桌面高到腰以上）。
+    'ch1_pawnshop_kitchen': {'rin': 3.9, 'old_k': 4.0},
     'ch1_rooftop': {'rin': 2.2, 'night_worker': 2.3},
     'ch1_revival_room': {'rin': 2.5},
-    'ch1_revival_lounge': {'rin': 2.4, 'nurse': 2.8},
+    # 復原館的吧台只有 72 像素高：2.4 時吧台只到大腿（0.51 個身高）、吧台凳到膝蓋；2.0 時吧台約 0.62 個身高。
+    'ch1_revival_lounge': {'rin': 2.0, 'nurse': 2.3},
     'ch1_dawn_noodle_stall': {'rin': 1.7, 'nurse': 1.9},
 }
 # 各骨架坐姿時髖部離腳底的高度（縮放 1 時）與骨盆半高。數字用 `godot --headless --path . res://tools/rig_pose_report.tscn` 量（NPC 動畫器的坐姿用 IK 把腳平放在地上，髖高由資料的比例決定）；換了坐姿資料要重量。
@@ -119,10 +138,11 @@ def stall_layers(scale):
 def write_stage(stage_id, scene, top, bottom, rain, glow, extra):
     tone = STAGE_TONE.get(stage_id, {})
     furniture = [dict(item) for item in FURNITURE.get(stage_id, [])]
+    art, art_pos, art_width = STAGE_ART.get(stage_id, (scene, [-64, -36.0], 1536))
     layers = [
         {"kind": "gradient", "top": top, "bottom": bottom, "parallax": 0.0},
-        {"kind": "sprite", "path": f"res://art/environment/scenes/{scene}.webp", "pos": [-64, -36.0], "scale": 0.5,
-         "filter": "linear", "source_width": 1536},  # 原設計寬度；保留縮圖快取下的舞台比例。不能開 life。
+        {"kind": "sprite", "path": f"res://art/environment/scenes/{art}.webp", "pos": art_pos, "scale": 0.5,
+         "filter": "linear", "source_width": art_width},  # 原設計寬度；保留縮圖快取下的舞台比例。不能開 life。
         {"kind": "glow", "pos": [glow[0], glow[1]], "radius": glow[2], "color": glow[3], "intensity": 0.7, "additive": True,
          "alpha": tone.get('glow_alpha', 0.35), "pulse": 0.06, "pulse_depth": 0.2},
     ]
