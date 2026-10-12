@@ -1,11 +1,11 @@
 extends ScenarioBase
 ## 近戰模組的逐格量測（NE-277），無頭也能跑：
 ##   godot --headless --path . res://tools/melee_module_probe.tscn [-- --weapon=maul] [--out=<絕對資料夾>]
-## 五把近戰武器的每一招（含升級尾招）各從頭播到尾，每個物理影格量：
+## 五把近戰武器的每一招（含升級尾招與按住招式）各從頭播到尾，每個物理影格量：
 ##   palm  前手掌心離「武器路徑要的握點」多遠（世界像素；手臂搆不到時才會大於 0）
 ##   second 雙手招式時，後手的握點離桿上那一點多遠（世界像素）；搆不到、沒握上的影格數
 ##   body  骨盆離站姿的最大前後、上下位移（世界像素），看身體有沒有參與
-##   visual_reach  出招段武器最遠的一點（刃尖、錘頭、鞭梢）離胸口多遠，和招式的 range（實際打得到的距離）對照
+##   visual_reach  出招段武器最遠的一點（刃尖、錘頭、鞭梢）沿揮擊方向離胸口多遠（只算往前的部分），和招式的 range（實際打得到的距離）對照
 ## 另外印出骨架縮放與手臂長度（寫武器路徑的 reach 要用的骨架單位）。
 ## 結果：每一招一行 MELEE_MODULE_PROBE {...}，最後一行 MELEE_MODULE_PROBE_DONE failures=N；--out 時另存 melee-module-probe.json。
 ## --verbose 另外印出雙手招式每一個沒握上的影格（招式進度、後肩到桿上握點的距離）。
@@ -48,6 +48,8 @@ func _run() -> void:
 		var moves: Array = set.combo()
 		if not set.extension_attack().is_empty():
 			moves.append(set.extension_attack())
+		if not set.hold().is_empty():
+			moves.append(str(set.hold()["attack"]))
 		for id: Variant in moves:
 			var row := await _measure(weapon, set, str(id))
 			report.append(row)
@@ -114,7 +116,7 @@ func _measure(weapon: WeaponData, set: MeleeSet, id: String) -> Dictionary:
 				row["second_max"] = maxf(float(row["second_max"]), grip.distance_to(on_shaft))
 		if player.melee.phase == MeleeModule.Phase.ACTIVE:
 			var chest := player.global_position + Vector2(0.0, -Player.BODY_SIZE.y * 0.55)
-			row["visual_reach"] = maxf(float(row["visual_reach"]), chest.distance_to(held.tip_point()))
+			row["visual_reach"] = maxf(float(row["visual_reach"]), (held.tip_point() - chest).dot(player.melee.swing_direction))
 		if rig.has_bone(&"hip"):
 			var hip := rig.bone(&"hip").global_position - player.global_position - rest_hip
 			row["body_dx"] = maxf(float(row["body_dx"]), absf(hip.x))

@@ -19,6 +19,7 @@ func run() -> void:
 	await _test_data_only_weapon()
 	await _test_weapon_holds()
 	await _test_input_parity()
+	await _test_visual_reach()
 
 
 func _test_data() -> void:
@@ -467,3 +468,49 @@ func _send(device: String, pressed: bool) -> void:
 	Input.parse_input_event(event)
 	# 立刻送進遊戲：不然事件要等到下一個畫面才處理，機器忙時一個畫面會補跑好幾個物理步，落在哪一步就不固定。
 	Input.flush_buffered_events()
+
+
+## 畫面上打得到多遠和實際打得到多遠一致（NE-236）：每一招出招段武器最遠的一點（刃尖、錘頭、鞭梢）沿揮擊方向離胸口的距離，
+## 不短於判定距離的 85%（看起來沒打到卻打到），也不超過判定距離的 1.3 倍或多 10 像素（看起來打到卻沒打到；短刀以後者為準）。
+const REACH_SHORT := 0.85
+const REACH_LONG := 1.3
+const REACH_SLACK := 10.0
+
+
+func _test_visual_reach() -> void:
+	await open_level(10.0)
+	var player := level.player
+	for id: String in HOLD_WEAPONS:
+		var weapon := load("res://data/weapons/melee/%s.tres" % id) as WeaponData
+		var set := MeleeData.set_of(weapon)
+		var moves: Array = set.combo()
+		moves.append(set.extension_attack())
+		moves.append(str(set.hold()["attack"]))
+		for move: Variant in moves:
+			player._interrupt_melee()
+			player.loadout.reset(weapon)  # 每一招都從滿電開始（錘與鞭每揮耗電）
+			player._melee_cooldown_left = 0.0
+			player._melee_combo_left = 0.0
+			place_player(10.0)
+			player.facing = 1
+			player.aim_dir = Vector2.RIGHT
+			AimInput.using_gamepad = true
+			AimInput._last_stick_dir = Vector2.RIGHT
+			await physics_frames(20)
+			player.melee.start_attack(false)
+			var def := set.attack(str(move), str(move) == set.extension_attack())
+			player.melee.attack = def
+			player.melee.swing_direction = player.melee.aim_direction(def)
+			var reach := 0.0
+			for frame in 240:
+				await physics_frames(1)
+				if player.melee.phase == MeleeModule.Phase.NONE:
+					break
+				if player.melee.phase == MeleeModule.Phase.ACTIVE:
+					var chest := player.global_position + Vector2(0.0, -Player.BODY_SIZE.y * 0.55)
+					reach = maxf(reach, (player._visual.melee_held().tip_point() - chest).dot(player.melee.swing_direction))
+			var hit_range := float(def["range"])
+			check(reach >= hit_range * REACH_SHORT and reach <= maxf(hit_range * REACH_LONG, hit_range + REACH_SLACK),
+					"%s/%s: the weapon on screen reaches %.1f px for a %.0f px hit range" % [id, move, reach, hit_range])
+	await end_level(level)
+
