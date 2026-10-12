@@ -12057,6 +12057,96 @@
     "display_name": "放下的橋梯",
     "category": "scene"
    }
+  },
+  {
+   "id": "yong_hideout__isolation_box",
+   "scene": "yong_hideout",
+   "seed": 7401,
+   "fit": "meters",
+   "height_m": 2.0,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A sealed isolation container the size of a tall wardrobe seen straight from the front: thick dull grey steel walls, a small round reinforced glass porthole fogged from the inside, a heavy wheel-lock door with four latches, a coolant hose and a signal cable plugged into the side, a single small pure red status light, a stencilled hazard diamond, proportions about seven wide to ten tall.",
+   "anchor": {
+    "size": [
+     42.0,
+     60.0
+    ]
+   },
+   "new": {
+    "display_name": "隔離箱",
+    "category": "scene"
+   },
+   "glow": "beacon"
+  },
+  {
+   "id": "yong_hideout__isolation_diagram",
+   "scene": "yong_hideout",
+   "seed": 7412,
+   "fit": "meters",
+   "height_m": 1.0,
+   "texture_scale": 12,
+   "normal": {
+    "profile": "flat"
+   },
+   "prompt": "A large technical drawing taped flat on a wall seen straight from the front: an off-white paper sheet with a dark blue ink line drawing, drawn in outline only with no colour fill, of one tall narrow upright steel cabinet about twice as tall as it is wide: a single door with one round porthole window in its upper half, two heavy latches on the left edge and two on the right edge, a small diamond placard below the porthole, a hose and a cable plugged into its right side; thin arrows and numbered callouts with blank scribbled lines beside it, a coffee ring stain, corners held by yellowed tape, proportions of the sheet about four wide to three tall.",
+   "anchor": {
+    "size": [
+     40.0,
+     30.0
+    ]
+   },
+   "new": {
+    "display_name": "隔離箱示意圖",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "yong_hideout__ledger_cabinet",
+   "scene": "yong_hideout",
+   "seed": 7403,
+   "fit": "meters",
+   "height_m": 1.8,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A tall dark wooden ledger cabinet seen straight from the front, glass doors with brass handles, shelves packed with thick cloth-bound account books with paper labels on the spines, one door ajar, a row of small drawers along the bottom with brass card holders, a key hanging in the lock, proportions about two wide to three tall.",
+   "anchor": {
+    "size": [
+     36.0,
+     54.0
+    ]
+   },
+   "new": {
+    "display_name": "帳櫃",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "revival_lounge__commission_terminal",
+   "scene": "revival_lounge",
+   "seed": 7404,
+   "fit": "meters",
+   "height_m": 1.6,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A public commission terminal kiosk seen straight from the front, a weathered teal steel pedestal with a hooded screen glowing soft cyan, a row of chunky worn keys, a data port with a small green light, a paper slip printer slot, stickers and scratches on the body, a small rain hood on top, proportions about one wide to two tall.",
+   "anchor": {
+    "size": [
+     22.0,
+     48.0
+    ]
+   },
+   "new": {
+    "display_name": "公用委託終端",
+    "category": "scene"
+   },
+   "glow": "console"
   }
  ]
 }

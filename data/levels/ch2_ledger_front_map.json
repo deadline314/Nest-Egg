@@ -55,7 +55,8 @@
   ],
   "props": [
     {"id": "anchor_phone_booth__phone_booth", "x": 16, "ground": true},
-    {"id": "yong_hideout__debt_blackboard", "x": 28, "y": 13, "support": "wall"},
+    {"id": "yong_hideout__isolation_diagram", "x": 27, "y": 17, "dx": 12, "support": "wall"},
+    {"id": "yong_hideout__isolation_box", "x": 31, "ground": true},
     {"id": "yong_hideout__money_sacks", "x": 38, "ground": true}
   ]
 }

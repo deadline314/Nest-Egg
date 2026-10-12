@@ -371,8 +371,10 @@ def build_ledger_front():
     a.stand(6, 'P')
     a.stand(16, 'C')
     a.prop('anchor_phone_booth__phone_booth', 16)
-    a.prop('yong_hideout__debt_blackboard', 28, y=13, support='wall')
+    # 示意圖貼在牆上，旁邊就是它畫的那個隔離箱（BG-42）。
+    a.prop('yong_hideout__isolation_diagram', 27, y=17, dx=12, support='wall')
     a.stand(28, 'ⓘ')
+    a.prop('yong_hideout__isolation_box', 31)
     a.prop('yong_hideout__money_sacks', 38)
     a.stand(46, 'ⓨ')
     a.stand(52, 'ⅱ')
@@ -403,7 +405,7 @@ def build_ledger_office():
     a.prop('yong_hideout__ledger_wall', 34, y=13, support='wall')
     a.prop('yong_hideout__teller_cage', 46)
     a.stand(54, 'ⓜ')
-    a.prop('yong_hideout__vault_safe', 54)
+    a.prop('yong_hideout__ledger_cabinet', 53, dx=10)   # 帳櫃（BG-42）：玻璃門後一排排帳冊
     a.prop('yong_hideout__pendant_bulbs', 30, support='ceiling', ceiling_row=6)
     a.stand(68, 'ⅳ')
     for x in (14, 34, 50):
@@ -421,7 +423,7 @@ def build_lounge_front():
     a.stand(5, 'P')
     a.ceiling(10, 54, 4)
     a.stand(16, 'ⓣ')
-    a.prop('clinic__report_cabinet', 16)
+    a.prop('revival_lounge__commission_terminal', 16, dx=-1)   # 公用委託終端（BG-42）
     a.prop('revival_lounge__round_table_stools', 30)
     a.stand(33, 'ⓢ')
     a.stand(44, 'ⓠ')
