@@ -21,6 +21,11 @@ const MAX_KICK := 8.0
 const MIN_OFFSET_SPEED := 40.0
 ## 背後威脅與高處的敵人每隔幾秒重新找一次（不每影格走訪敵人）。
 const REAR_SCAN_INTERVAL := 0.15
+## 邊緣往下看：站著不動的速度門檻、往面向探多遠算「在邊緣」、落差至少多深、落點下方多留的邊距（世界像素）。
+const LEDGE_STILL_SPEED := 8.0
+const LEDGE_REACH := 14.0
+const LEDGE_MIN_DROP := 24.0
+const LEDGE_MARGIN := 12.0
 ## 背後的敵人和主角高度差超過這個值就不算（在別層樓）。
 const REAR_SCAN_HEIGHT := 160.0
 
@@ -44,6 +49,11 @@ var _rear_room := 0.0
 ## 畫面裡有敵人站在較高處時鏡頭要上抬的量（世界像素）：目標與目前值。
 var _lift_goal := 0.0
 var _lift := 0.0
+## 站在落差邊緣時往下看的量（_peek 平滑追 _peek_goal）與已經站定多久。
+var _peek_goal := 0.0
+var _peek := 0.0
+var _still_time := 0.0
+var _ledge_ray := PhysicsRayQueryParameters2D.new()
 var _rear_scan_left := 0.0
 var _noise := FastNoiseLite.new()
 var _noise_time := 0.0
@@ -60,6 +70,7 @@ func _ready() -> void:
 	EventBus.screen_shake.connect(_on_screen_shake)
 	EventBus.camera_kick.connect(_on_camera_kick)
 	EventBus.camera_zoom_pulse.connect(_on_zoom_pulse)
+	_ledge_ray.collision_mask = Layers.SOLID
 	_shake_reader = func() -> float: return snappedf(offset.length(), 0.1)
 	_zoom_reader = func() -> float: return snappedf(zoom.x, 0.001)
 	Feel.register_counter("camera_shake_px", _shake_reader)
@@ -92,6 +103,9 @@ func snap_to_target() -> void:
 	_anchor_y = target.global_position.y
 	_scan_threats()
 	_lift = _lift_goal
+	_peek_goal = 0.0
+	_peek = 0.0
+	_still_time = 0.0
 	_rear_scan_left = REAR_SCAN_INTERVAL
 	_look = _facing() * _look_goal()
 	_fall_look = 0.0
@@ -101,11 +115,19 @@ func snap_to_target() -> void:
 
 func _physics_process(delta: float) -> void:
 	if is_instance_valid(target):
+		# 站定才算時間；一動就收回往下看的量（邊跑邊過平台邊緣時鏡頭不會上下晃）。
+		if _is_grounded() and absf(_target_velocity_x()) < LEDGE_STILL_SPEED:
+			_still_time += delta
+		else:
+			_still_time = 0.0
+			_peek_goal = 0.0
 		_rear_scan_left -= delta
 		if _rear_scan_left <= 0.0:
 			_rear_scan_left = REAR_SCAN_INTERVAL
 			_scan_threats()
+			_scan_ledge()
 		_lift = lerpf(_lift, _lift_goal, minf(1.0, tuning.fall_look_speed * delta))
+		_peek = lerpf(_peek, _peek_goal, minf(1.0, tuning.fall_look_speed * delta))
 		var y := target.global_position.y
 		if _is_grounded():
 			_anchor_y = y
@@ -140,7 +162,31 @@ func _physics_process(delta: float) -> void:
 
 
 func _desired_position() -> Vector2:
-	return Vector2(target.global_position.x + _look, _anchor_y + tuning.vertical_offset + _fall_look - _lift) + _aim_look
+	# 往下看的三個來源（瞄準下方、站在邊緣、下落）加起來有上限；往上瞄不受影響。
+	var down := minf(maxf(_aim_look.y, 0.0) + _peek + _fall_look, tuning.down_look_max)
+	return Vector2(target.global_position.x + _look + _aim_look.x, _anchor_y + tuning.vertical_offset + down + minf(_aim_look.y, 0.0) - _lift)
+
+
+## 腳底下方目前看得到多少（世界像素，鏡頭停穩、沒有往下看時）。
+func below_visible() -> float:
+	return get_viewport_rect().size.y * 0.5 / tuning.zoom + tuning.vertical_offset
+
+
+## 站在落差邊緣、面向落差停住一下：往下看到落點（NE-256）。腳前就是地面、底下沒有地面（掉出地圖的坑）都不看。
+func _scan_ledge() -> void:
+	_peek_goal = 0.0
+	if tuning.ledge_peek_max <= 0.0 or _still_time < tuning.ledge_peek_delay or not is_instance_valid(target) or not is_inside_tree():
+		return
+	var seen_below := below_visible()
+	_ledge_ray.from = target.global_position + Vector2(_facing() * LEDGE_REACH, -4.0)
+	_ledge_ray.to = _ledge_ray.from + Vector2(0.0, seen_below + tuning.ledge_peek_max + LEDGE_MARGIN + 4.0)
+	var hit := get_world_2d().direct_space_state.intersect_ray(_ledge_ray)
+	if hit.is_empty():
+		return
+	var drop: float = (hit["position"] as Vector2).y - target.global_position.y
+	if drop < LEDGE_MIN_DROP:
+		return
+	_peek_goal = clampf(drop + LEDGE_MARGIN - seen_below, 0.0, tuning.ledge_peek_max)
 
 
 ## 關卡鏡頭的基礎倍率（工具與探針用，和遊戲中的鏡頭一致）。
@@ -259,7 +305,9 @@ func _update_aim_look(delta: float) -> void:
 	var player := target as Player
 	var goal := Vector2.ZERO
 	if player != null and not player.is_dead() and not player.is_on_phone():
-		goal = Vector2(player.aim_dir.x, player.aim_dir.y * 0.5) * tuning.aim_look
+		# 往上瞄維持一半的偏移；往下瞄用 aim_look_down，才看得到落差底下。
+		var vertical := player.aim_dir.y * tuning.aim_look_down if player.aim_dir.y > 0.0 else player.aim_dir.y * 0.5 * tuning.aim_look
+		goal = Vector2(player.aim_dir.x * tuning.aim_look, vertical)
 		_aim_look = _aim_look.lerp(goal, minf(1.0, tuning.aim_look_speed * delta))
 
 

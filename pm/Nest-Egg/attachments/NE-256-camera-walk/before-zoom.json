@@ -1,0 +1,610 @@
+{
+  "levels": [
+    {
+      "drops": 4,
+      "drops_blind": 0,
+      "drops_blind_aiming_down": 0,
+      "drops_blind_list": [],
+      "enemies": 0,
+      "enemy_samples": 0,
+      "enemy_unseen_back": 0,
+      "enemy_unseen_facing": 0,
+      "enemy_unseen_list": [],
+      "level": "ch1_prologue",
+      "platforms": 2,
+      "platforms_hidden": 0,
+      "platforms_hidden_list": [],
+      "zoom": 1.5
+    },
+    {
+      "drops": 2,
+      "drops_blind": 0,
+      "drops_blind_aiming_down": 0,
+      "drops_blind_list": [],
+      "enemies": 0,
+      "enemy_samples": 0,
+      "enemy_unseen_back": 0,
+      "enemy_unseen_facing": 0,
+      "enemy_unseen_list": [],
+      "level": "ch1_pawnshop",
+      "platforms": 2,
+      "platforms_hidden": 0,
+      "platforms_hidden_list": [],
+      "zoom": 1.5
+    },
+    {
+      "drops": 6,
+      "drops_blind": 0,
+      "drops_blind_aiming_down": 0,
+      "drops_blind_list": [],
+      "enemies": 0,
+      "enemy_samples": 0,
+      "enemy_unseen_back": 0,
+      "enemy_unseen_facing": 0,
+      "enemy_unseen_list": [],
+      "level": "ch1_rooftop",
+      "platforms": 0,
+      "platforms_hidden": 0,
+      "platforms_hidden_list": [],
+      "zoom": 1.5
+    },
+    {
+      "drops": 32,
+      "drops_blind": 6,
+      "drops_blind_aiming_down": 6,
+      "drops_blind_list": [
+        {
+          "dir": -1,
+          "drop_tiles": 10,
+          "tile": [
+            132,
+            9
+          ],
+          "visible_aiming_down": false
+        },
+        {
+          "dir": 1,
+          "drop_tiles": 10,
+          "tile": [
+            146,
+            9
+          ],
+          "visible_aiming_down": false
+        },
+        {
+          "dir": -1,
+          "drop_tiles": 7,
+          "tile": [
+            106,
+            12
+          ],
+          "visible_aiming_down": false
+        },
+        {
+          "dir": 1,
+          "drop_tiles": 7,
+          "tile": [
+            111,
+            12
+          ],
+          "visible_aiming_down": false
+        },
+        {
+          "dir": -1,
+          "drop_tiles": 7,
+          "tile": [
+            127,
+            12
+          ],
+          "visible_aiming_down": false
+        },
+        {
+          "dir": 1,
+          "drop_tiles": 7,
+          "tile": [
+            130,
+            12
+          ],
+          "visible_aiming_down": false
+        }
+      ],
+      "enemies": 16,
+      "enemy_samples": 32,
+      "enemy_unseen_back": 15,
+      "enemy_unseen_facing": 0,
+      "enemy_unseen_list": [
+        {
+          "distance": 183.0,
+          "enemy": "collector_gunner",
+          "enemy_tile": [
+            178,
+            14
+          ],
+          "engaged": false,
+          "facing_enemy": false,
+          "player_tile": [
+            164,
+            14
+          ]
+        },
+        {
+          "distance": 280.0,
+          "enemy": "sweeper",
+          "enemy_tile": [
+            66,
+            19
+          ],
+          "engaged": false,
+          "facing_enemy": false,
+          "player_tile": [
+            52,
+            19
+          ]
+        },
+        {
+          "distance": 168.0,
+          "enemy": "sweeper",
+          "enemy_tile": [
+            66,
+            19
+          ],
+          "engaged": false,
+          "facing_enemy": false,
+          "player_tile": [
+            80,
+            19
+          ]
+        },
+        {
+          "distance": 166.0,
+          "enemy": "sweeper",
+          "enemy_tile": [
+            79,
+            19
+          ],
+          "engaged": false,
+          "facing_enemy": false,
+          "player_tile": [
+            65,
+            19
+          ]
+        },
+        {
+          "distance": 266.0,
+          "enemy": "sweeper",
+          "enemy_tile": [
+            79,
+            19
+          ],
+          "engaged": false,
+          "facing_enemy": false,
+          "player_tile": [
+            92,
+            19
+          ]
+        },
+        {
+          "distance": 189.0,
+          "enemy": "collector_gunner",
+          "enemy_tile": [
+            105,
+            19
+          ],
+          "engaged": false,
+          "facing_enemy": false,
+          "player_tile": [
+            90,
+            19
+          ]
+        },
+        {
+          "distance": 276.0,
+          "enemy": "collector_gunner",
+          "enemy_tile": [
+            105,
+            19
+          ],
+          "engaged": false,
+          "facing_enemy": false,
+          "player_tile": [
+            119,
+            19
+          ]
+        },
+        {
+          "distance": 167.0,
+          "enemy": "sweeper",
+          "enemy_tile": [
+            96,
+            19
+          ],
+          "engaged": false,
+          "facing_enemy": false,
+          "player_tile": [
+            82,
+            19
+          ]
+        },
+        {
+          "distance": 281.0,
+          "enemy": "sweeper",
+          "enemy_tile": [
+            96,
+            19
+          ],
+          "engaged": false,
+          "facing_enemy": false,
+          "player_tile": [
+            110,
+            19
+          ]
+        },
+        {
+          "distance": 168.0,
+          "enemy": "sweeper",
+          "enemy_tile": [
+            102,
+            19
+          ],
+          "engaged": false,
+          "facing_enemy": false,
+          "player_tile": [
+            116,
+            19
+          ]
+        },
+        {
+          "distance": 230.0,
+          "enemy": "collector_brute",
+          "enemy_tile": [
+            141,
+            19
+          ],
+          "engaged": false,
+          "facing_enemy": false,
+          "player_tile": [
+            130,
+            19
+          ]
+        },
+        {
+          "distance": 143.0,
+          "enemy": "collector_brute",
+          "enemy_tile": [
+            141,
+            19
+          ],
+          "engaged": false,
+          "facing_enemy": false,
+          "player_tile": [
+            152,
+            19
+          ]
+        }
+      ],
+      "level": "ch1_street",
+      "platforms": 13,
+      "platforms_hidden": 0,
+      "platforms_hidden_list": [],
+      "zoom": 1.5
+    },
+    {
+      "drops": 0,
+      "drops_blind": 0,
+      "drops_blind_aiming_down": 0,
+      "drops_blind_list": [],
+      "enemies": 0,
+      "enemy_samples": 0,
+      "enemy_unseen_back": 0,
+      "enemy_unseen_facing": 0,
+      "enemy_unseen_list": [],
+      "level": "ch1_booth_alley",
+      "platforms": 0,
+      "platforms_hidden": 0,
+      "platforms_hidden_list": [],
+      "zoom": 1.5
+    },
+    {
+      "drops": 14,
+      "drops_blind": 4,
+      "drops_blind_aiming_down": 4,
+      "drops_blind_list": [
+        {
+          "dir": -1,
+          "drop_tiles": 6,
+          "tile": [
+            105,
+            10
+          ],
+          "visible_aiming_down": false
+        },
+        {
+          "dir": 1,
+          "drop_tiles": 6,
+          "tile": [
+            110,
+            10
+          ],
+          "visible_aiming_down": false
+        },
+        {
+          "dir": 1,
+          "drop_tiles": 6,
+          "tile": [
+            117,
+            16
+          ],
+          "visible_aiming_down": false
+        },
+        {
+          "dir": -1,
+          "drop_tiles": 6,
+          "tile": [
+            129,
+            16
+          ],
+          "visible_aiming_down": false
+        }
+      ],
+      "enemies": 12,
+      "enemy_samples": 16,
+      "enemy_unseen_back": 5,
+      "enemy_unseen_facing": 0,
+      "enemy_unseen_list": [
+        {
+          "distance": 167.0,
+          "enemy": "sweeper",
+          "enemy_tile": [
+            28,
+            16
+          ],
+          "engaged": false,
+          "facing_enemy": false,
+          "player_tile": [
+            42,
+            16
+          ]
+        },
+        {
+          "distance": 172.0,
+          "enemy": "sweeper",
+          "enemy_tile": [
+            38,
+            16
+          ],
+          "engaged": false,
+          "facing_enemy": false,
+          "player_tile": [
+            52,
+            16
+          ]
+        },
+        {
+          "distance": 219.0,
+          "enemy": "collector_brute",
+          "enemy_tile": [
+            94,
+            16
+          ],
+          "engaged": false,
+          "facing_enemy": false,
+          "player_tile": [
+            105,
+            16
+          ]
+        },
+        {
+          "distance": 176.0,
+          "enemy": "sweeper",
+          "enemy_tile": [
+            152,
+            16
+          ],
+          "engaged": false,
+          "facing_enemy": false,
+          "player_tile": [
+            138,
+            16
+          ]
+        },
+        {
+          "distance": 194.0,
+          "enemy": "sweeper",
+          "enemy_tile": [
+            135,
+            16
+          ],
+          "engaged": false,
+          "facing_enemy": false,
+          "player_tile": [
+            148,
+            16
+          ]
+        }
+      ],
+      "level": "ch1_warehouse",
+      "platforms": 1,
+      "platforms_hidden": 0,
+      "platforms_hidden_list": [],
+      "zoom": 1.5
+    },
+    {
+      "drops": 11,
+      "drops_blind": 3,
+      "drops_blind_aiming_down": 3,
+      "drops_blind_list": [
+        {
+          "dir": -1,
+          "drop_tiles": 8,
+          "tile": [
+            63,
+            8
+          ],
+          "visible_aiming_down": false
+        },
+        {
+          "dir": -1,
+          "drop_tiles": 7,
+          "tile": [
+            58,
+            9
+          ],
+          "visible_aiming_down": false
+        },
+        {
+          "dir": 1,
+          "drop_tiles": 7,
+          "tile": [
+            61,
+            9
+          ],
+          "visible_aiming_down": false
+        }
+      ],
+      "enemies": 7,
+      "enemy_samples": 14,
+      "enemy_unseen_back": 6,
+      "enemy_unseen_facing": 0,
+      "enemy_unseen_list": [
+        {
+          "distance": 212.0,
+          "enemy": "sweeper",
+          "enemy_tile": [
+            70,
+            8
+          ],
+          "engaged": false,
+          "facing_enemy": false,
+          "player_tile": [
+            84,
+            8
+          ]
+        },
+        {
+          "distance": 268.0,
+          "enemy": "sweeper",
+          "enemy_tile": [
+            75,
+            8
+          ],
+          "engaged": false,
+          "facing_enemy": false,
+          "player_tile": [
+            89,
+            8
+          ]
+        },
+        {
+          "distance": 216.0,
+          "enemy": "collector_gunner",
+          "enemy_tile": [
+            90,
+            8
+          ],
+          "engaged": false,
+          "facing_enemy": false,
+          "player_tile": [
+            76,
+            8
+          ]
+        },
+        {
+          "distance": 280.0,
+          "enemy": "collector_gunner",
+          "enemy_tile": [
+            90,
+            8
+          ],
+          "engaged": false,
+          "facing_enemy": false,
+          "player_tile": [
+            105,
+            8
+          ]
+        },
+        {
+          "distance": 186.0,
+          "enemy": "collector_gunner",
+          "enemy_tile": [
+            2,
+            16
+          ],
+          "engaged": false,
+          "facing_enemy": false,
+          "player_tile": [
+            16,
+            16
+          ]
+        },
+        {
+          "distance": 135.0,
+          "enemy": "ch1_inspector",
+          "enemy_tile": [
+            82,
+            16
+          ],
+          "engaged": false,
+          "facing_enemy": false,
+          "player_tile": [
+            71,
+            16
+          ]
+        }
+      ],
+      "level": "ch1_vault",
+      "platforms": 7,
+      "platforms_hidden": 0,
+      "platforms_hidden_list": [],
+      "zoom": 1.5
+    },
+    {
+      "drops": 0,
+      "drops_blind": 0,
+      "drops_blind_aiming_down": 0,
+      "drops_blind_list": [],
+      "enemies": 0,
+      "enemy_samples": 0,
+      "enemy_unseen_back": 0,
+      "enemy_unseen_facing": 0,
+      "enemy_unseen_list": [],
+      "level": "ch1_handoff",
+      "platforms": 0,
+      "platforms_hidden": 0,
+      "platforms_hidden_list": [],
+      "zoom": 1.5
+    },
+    {
+      "drops": 0,
+      "drops_blind": 0,
+      "drops_blind_aiming_down": 0,
+      "drops_blind_list": [],
+      "enemies": 0,
+      "enemy_samples": 0,
+      "enemy_unseen_back": 0,
+      "enemy_unseen_facing": 0,
+      "enemy_unseen_list": [],
+      "level": "ch1_lounge",
+      "platforms": 0,
+      "platforms_hidden": 0,
+      "platforms_hidden_list": [],
+      "zoom": 1.5
+    },
+    {
+      "drops": 0,
+      "drops_blind": 0,
+      "drops_blind_aiming_down": 0,
+      "drops_blind_list": [],
+      "enemies": 0,
+      "enemy_samples": 0,
+      "enemy_unseen_back": 0,
+      "enemy_unseen_facing": 0,
+      "enemy_unseen_list": [],
+      "level": "ch1_stall",
+      "platforms": 0,
+      "platforms_hidden": 0,
+      "platforms_hidden_list": [],
+      "zoom": 1.5
+    }
+  ],
+  "profile": "level_wide"
+}

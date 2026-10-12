@@ -29,6 +29,10 @@ const FIELDS := {
 	"fall_look_speed": [4.0, 0.1, 30.0],
 	"smoothing_speed": [7.0, 0.5, 60.0],
 	"shake_reference_zoom": [1.5, 0.5, 4.0],
+	"aim_look_down": [60.0, 0.0, 120.0],
+	"ledge_peek_max": [66.0, 0.0, 120.0],
+	"ledge_peek_delay": [0.35, 0.0, 3.0],
+	"down_look_max": [66.0, 0.0, 160.0],
 }
 
 static var _profiles: Dictionary = {}
@@ -58,6 +62,14 @@ var above_max_lift: float
 var above_margin: float
 ## 震動與後座的幅度是在這個倍率下調的；倍率改了以後換算，讓畫面上的晃動幅度不變。
 var shake_reference_zoom: float
+## 往下看（NE-256：拉近後腳下只看得到約 3 格，落差的落點在畫面外）：
+## aim_look_down＝準星朝正下方時鏡頭往下多看的世界像素（斜下方依比例）；
+## ledge_peek_max／ledge_peek_delay＝站在落差邊緣、面向落差停住 delay 秒後，鏡頭自動往下看到落點，最多 max（0＝關閉）；
+## down_look_max＝瞄準、邊緣與下落三種往下看加起來的上限，主角的頭才不會被推出畫面上緣。
+var aim_look_down: float
+var ledge_peek_max: float
+var ledge_peek_delay: float
+var down_look_max: float
 
 
 ## 讀出一組鏡頭設定；找不到就用 level 那組，連 level 也沒有就用程式預設值。

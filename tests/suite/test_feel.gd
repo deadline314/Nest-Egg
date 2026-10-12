@@ -17,6 +17,7 @@ func run() -> void:
 	await _test_camera()
 	_test_camera_tuning()
 	await _test_camera_rear_threat()
+	await _test_camera_ledge_peek()
 	await _test_sound_events()
 	_test_hit_materials()
 	await _test_weapon_feel()
@@ -217,6 +218,73 @@ func _test_camera_tuning() -> void:
 
 
 ## NE-256：背後有交戰中的敵人時前瞻縮小，敵人留在畫面裡；沒有威脅時恢復；轉向時鏡頭橫移有速度上限。
+## 站在落差邊緣（NE-256）：停住一下之後鏡頭往下看到落點，上限內；一動就收回；腳前是平地、底下沒有地面都不看；
+## 往下看的總量有上限，主角的頭不會被推出畫面。
+func _test_camera_ledge_peek() -> void:
+	var holder := Node2D.new()
+	runner.get_tree().root.add_child(holder)
+	var ledge := _camera_test_floor(holder, Rect2(800.0, 0.0, 200.0, 16.0))
+	var lower := _camera_test_floor(holder, Rect2(1000.0, 96.0, 200.0, 16.0))
+	var camera := LevelCamera.new()
+	runner.get_tree().root.add_child(camera)
+	var dummy := Node2D.new()
+	runner.get_tree().root.add_child(dummy)
+	camera.target = dummy
+	await runner.get_tree().physics_frame
+	await runner.get_tree().physics_frame
+	# 站在平台中間：腳前就是地面，不往下看。
+	dummy.global_position = Vector2(900.0, 0.0)
+	camera.snap_to_target()
+	for i in 60:
+		camera._physics_process(1.0 / 60.0)
+	check(is_zero_approx(camera._peek_goal), "standing on flat ground does not peek down")
+	# 站在邊緣（離邊 6 像素）、面向 6 格深的落差。
+	dummy.global_position = Vector2(994.0, 0.0)
+	camera.snap_to_target()
+	var level_y := camera._desired_position().y
+	for i in 12:
+		camera._physics_process(1.0 / 60.0)
+	check(is_zero_approx(camera._peek_goal), "the peek waits for the player to stand still first (%.2f s)" % camera._still_time)
+	for i in 90:
+		camera._physics_process(1.0 / 60.0)
+	var landing_seen := camera._desired_position().y + camera.get_viewport_rect().size.y * 0.5 / camera.tuning.zoom
+	check(camera._peek_goal > 0.0 and camera._peek_goal <= camera.tuning.ledge_peek_max and landing_seen >= 96.0,
+			"standing still at a ledge peeks down far enough to show the landing (peek %.1f, sees to y=%.0f)" % [camera._peek_goal, landing_seen])
+	check(camera._desired_position().y - level_y <= camera.tuning.down_look_max + 0.01, "looking down stays within the cap")
+	# 下落也在往下看：加起來仍不超過上限。
+	camera._fall_look = camera.tuning.fall_look_max
+	check(camera._desired_position().y - level_y <= camera.tuning.down_look_max + 0.01, "peek plus fall look is capped together")
+	camera._fall_look = 0.0
+	# 底下沒有地面（掉出地圖的坑）：不看。
+	lower.free()
+	await runner.get_tree().physics_frame
+	await runner.get_tree().physics_frame
+	camera.snap_to_target()
+	for i in 90:
+		camera._physics_process(1.0 / 60.0)
+	check(is_zero_approx(camera._peek_goal), "a bottomless pit does not pull the camera down")
+	check(camera.get_viewport_rect().size.y / camera.tuning.zoom - (camera.below_visible() + camera.tuning.down_look_max) >= 60.0 + 6.0,
+			"at the deepest look-down the protagonist's head (60 px tall) is still on screen")
+	camera.free()
+	dummy.free()
+	ledge.free()
+	holder.free()
+
+
+func _camera_test_floor(parent: Node, rect: Rect2) -> StaticBody2D:
+	var body := StaticBody2D.new()
+	body.collision_layer = Layers.WORLD
+	body.collision_mask = 0
+	var shape := RectangleShape2D.new()
+	shape.size = rect.size
+	var node := CollisionShape2D.new()
+	node.shape = shape
+	node.position = rect.get_center()
+	body.add_child(node)
+	parent.add_child(body)
+	return body
+
+
 func _test_camera_rear_threat() -> void:
 	var camera := LevelCamera.new()
 	runner.get_tree().root.add_child(camera)
