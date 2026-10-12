@@ -3,26 +3,96 @@
   "actor_height": 58.0,
   "tolerance": 0.05,
   "kinds": {
-    "door": [1.2, 1.3],
-    "seat": [0.25, 0.3],
-    "stool": [0.3, 0.4],
-    "bar_stool": [0.43, 0.48],
-    "table": [0.41, 0.45],
-    "counter": [0.6, 0.64],
-    "shelf": [1.0, 1.3],
-    "crate": [0.2, 0.5],
-    "vending": [1.0, 1.15],
-    "street_lamp": [2.0, 3.0],
-    "hanging_lantern": [0.15, 0.35],
-    "hand_lamp": [0.12, 0.25],
-    "bottle": [0.12, 0.18],
-    "cup": [0.04, 0.08],
-    "treatment_bed": [0.45, 0.65]
+    "door": [
+      1.2,
+      1.3
+    ],
+    "seat": [
+      0.25,
+      0.3
+    ],
+    "stool": [
+      0.3,
+      0.4
+    ],
+    "bar_stool": [
+      0.43,
+      0.48
+    ],
+    "table": [
+      0.41,
+      0.45
+    ],
+    "counter": [
+      0.6,
+      0.64
+    ],
+    "shelf": [
+      1.0,
+      1.3
+    ],
+    "crate": [
+      0.2,
+      0.5
+    ],
+    "vending": [
+      1.0,
+      1.15
+    ],
+    "street_lamp": [
+      2.0,
+      3.0
+    ],
+    "hanging_lantern": [
+      0.15,
+      0.35
+    ],
+    "hand_lamp": [
+      0.12,
+      0.25
+    ],
+    "bottle": [
+      0.12,
+      0.18
+    ],
+    "cup": [
+      0.04,
+      0.08
+    ],
+    "treatment_bed": [
+      0.45,
+      0.65
+    ],
+    "low_table": [
+      0.18,
+      0.24
+    ],
+    "floor_cushion": [
+      0.03,
+      0.08
+    ]
   },
-  "seat_kinds": ["seat", "stool", "bar_stool", "treatment_bed"],
+  "seat_kinds": [
+    "seat",
+    "stool",
+    "bar_stool",
+    "treatment_bed",
+    "floor_cushion"
+  ],
   "props": {
-    "dawn_noodle_stall__hanging_lantern": {"kind": "hanging_lantern", "body": [0.13, 0.78]},
-    "dawn_noodle_stall__noodle_bowls_table": {"kind": "table"},
-    "dawn_noodle_stall__ali_noodle_cart": {"kind": "counter", "exempt": "攤車含車頂與招牌，整體沒有通用尺寸；檯面高度在畫面上對過凜的腰"}
+    "dawn_noodle_stall__hanging_lantern": {
+      "kind": "hanging_lantern",
+      "body": [
+        0.13,
+        0.78
+      ]
+    },
+    "dawn_noodle_stall__noodle_bowls_table": {
+      "kind": "table"
+    },
+    "dawn_noodle_stall__ali_noodle_cart": {
+      "kind": "counter",
+      "exempt": "攤車含車頂與招牌，整體沒有通用尺寸；檯面高度在畫面上對過凜的腰"
+    }
   }
 }

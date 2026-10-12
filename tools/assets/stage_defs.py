@@ -89,7 +89,36 @@ def grain(amount, opacity, reason, **extra) -> dict:
     return layer
 
 
+def scene_bg(name: str, **extra) -> dict:
+    """A BG-11 scene background (art/environment/scenes, 1536x864) used as a stage picture, drawn like the room stages."""
+    layer = {"kind": "sprite", "path": f"res://art/environment/scenes/{name}.webp", "pos": [-64, -36.0], "scale": 0.5, "filter": "linear", "source_width": 1536}
+    layer.update(extra)
+    return layer
+
+
+# Extra top-level fields of a stage file: the floor line the actors stand on and the furniture painted into the picture
+# (measured on the picture in stage coordinates; kinds and their allowed sizes are in data/cutscene/stage_proportions.json).
+STAGE_FIELDS = {
+    # 客人簿的房間（BG-46）：榻榻米上一張矮桌、左右各一個坐墊。站著的人腳在 y=278；坐墊的座面 y=262。
+    # 家具是照 3.8～4.0 倍的演員畫的：站著要把鏡頭拉遠到 0.84，坐在墊上用 1.0 就放得下。
+    "ch2_guest_book_room": {
+        "floor": 278,
+        "furniture": [
+            {"id": "low_table", "kind": "low_table", "rect": [250, 236, 120, 40], "plane": "actor"},
+            {"id": "cushion_left", "kind": "floor_cushion", "rect": [185, 262, 83, 16], "plane": "actor"},
+            {"id": "cushion_right", "kind": "floor_cushion", "rect": [352, 262, 93, 16], "plane": "actor"},
+        ],
+    },
+}
+
 STAGE_LAYERS = {
+    "ch2_guest_book_room": [
+        {"kind": "gradient", "top": "#140a10", "bottom": "#2a141c", "parallax": 0.0},
+        scene_bg("guest_book_room"),
+        glow([480, 120], 170, "#ffc890", 0.8, 0.4, pulse=0.07, pulse_depth=0.2),
+        glow([300, 250], 150, "#ff9a6a", 0.5, 0.18),
+        motes(22, "#ffd9b0", 0.35, [120, 40, 420, 230], [1.5, -2.5], 1.1, 46),
+    ],
     "old_k_shop": [
         {"kind": "gradient", "top": "#1a1410", "bottom": "#2c2018", "parallax": 0.0},
         bg("old_k_shop", modulate=[1.25, 1.2, 1.15, 1.0]),
@@ -169,6 +198,7 @@ def main() -> int:
         path = STAGES / f"{name}.json"
         data = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {"camera": {"pos": [320, 180], "zoom": 1.0}}
         data["layers"] = expand(layers, data)
+        data.update(STAGE_FIELDS.get(name, {}))
         path.write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
         print(f"ok    {name}: {len(data['layers'])} layers")
     return 0

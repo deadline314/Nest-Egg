@@ -35,6 +35,8 @@ H = 1.7 m。下表「出處」欄為原始數值來源。
 
 | 物件 | 標準值 | 換算 H | 出處／備註 |
 |---|---|---|---|
+| 矮桌（卓袱台） | 300–400 mm；坐墊上用 300–330 mm | 0.18–0.24H | 【出處】https://www.tkgje.jp/entries/06000/06229_chabudai.html （摘要：通常高 30～40 公分）、https://home.lazada.sg/how-to-choose-the-right-size-japanese-low-table-for-small-singapore-apartments-sg/ （摘要：坐在地墊上建議 30～33 公分）；數字取自搜尋摘要，2026-10-12（BG-46） |
+| 坐墊（座布團） | 約 550 × 590 mm，厚約 50–120 mm | 寬 0.32–0.35H、厚 0.03–0.08H | 【出處】https://tjf.or.jp/deai/contents/teacher/mini_en/html/zabuton.html （摘要：平均 55 × 59 公分）；厚度沒有找到標準，只有單一商品 10 公分（https://www.chairish.com/product/27305468/vintage-japanese-zabuton-floor-cushions-1980s-set-of-5 ），【建議】取 5～12 公分 |
 | 門高 | 2040–2100 mm（美制 6'8" = 2032 mm） | 1.20–1.24H | 【出處】https://www.samsfabrications.co.uk/?p=743 ；美制見 Chico 手冊 https://chico.ca.us/documents/Departments/Community-Development/Building-Division/Forms--Handouts/stairs_handrails_and_guards_handout_4-1-09.pdf |
 | 樓梯淨空高 | 最小 6'8" = 2032 mm | 1.20H | 【出處】同上 Chico |
 | 居室天花板最小 | 7 ft = 2134 mm（IRC） | 1.25H | 【出處】https://www.hunker.com/12591709/what-is-the-minimum-ceiling-height-according-to-the-international-building-code |
