@@ -1,0 +1,111 @@
+{
+ "description": "yong 的專屬特效（EnemyVfx 讀取；欄位說明見 game/enemies/enemy_vfx.gd）。每個敵人自己一份，死亡演出彼此不同。",
+ "step": {
+  "every": 34,
+  "dust": 4,
+  "spread": 40,
+  "shake": 1.4
+ },
+ "hit": {
+  "color": "#c8462a",
+  "amount": 5,
+  "speed": 110,
+  "light": 0.5
+ },
+ "death": {
+  "bursts": [
+   {
+    "color": "#c8462a",
+    "amount": 31,
+    "speed": 230,
+    "life": 0.7
+   },
+   {
+    "color": "#ffd890",
+    "amount": 21,
+    "speed": 160,
+    "life": 0.8
+   },
+   {
+    "color": "#ffd890",
+    "amount": 11,
+    "speed": 300,
+    "life": 0.3
+   }
+  ],
+  "light": {
+   "color": "#c8462a",
+   "radius": 112,
+   "energy": 1.2,
+   "time": 0.6
+  },
+  "shake": 6.0,
+  "hitstop": 0.12,
+  "extras": [
+   "steam",
+   "arc",
+   "smoke",
+   "dust"
+  ],
+  "dissolve": {
+   "time": 1.1,
+   "color": "#ff4a4a",
+   "rise": -1.0,
+   "edge": 0.12,
+   "delay": 0.5
+  },
+  "shock": {
+   "radius": 110,
+   "strength": 0.06,
+   "color": "#ffd0d0",
+   "time": 0.8
+  },
+  "flare": {
+   "color": "#ff6a6a",
+   "size": 54,
+   "life": 0.25
+  },
+  "accent": "#ff4a4a"
+ },
+ "states": {
+  "windup": {
+   "at": "feet",
+   "dust": 4,
+   "spread": 30,
+   "shake": 0.8
+  },
+  "act": {
+   "at": "feet",
+   "dust": 8,
+   "spread": 70,
+   "shake": 2.5,
+   "bursts": [
+    {
+     "color": "#ff2a3d",
+     "amount": 10,
+     "speed": 160,
+     "life": 0.3
+    }
+   ]
+  },
+  "phase_shift": {
+   "at": "center",
+   "steam": true,
+   "shake": 2.0,
+   "bursts": [
+    {
+     "color": "#ffffff",
+     "amount": 16,
+     "speed": 260,
+     "life": 0.4
+    }
+   ],
+   "light": {
+    "color": "#ffffff",
+    "radius": 96,
+    "energy": 1.2,
+    "time": 0.4
+   }
+  }
+ }
+}

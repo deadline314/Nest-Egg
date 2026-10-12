@@ -2698,6 +2698,180 @@
           }
         }
       ]
+    },
+    "yong.windup_overhead": {
+      "weapon_angle": 1.1,
+      "duration": 0.6,
+      "skip_ik": true,
+      "blend": 14,
+      "keys": [
+        {
+          "t": 0.0,
+          "bones": {
+            "arm_front_upper": -0.6,
+            "arm_front_lower": -0.5,
+            "arm_back_upper": -0.5,
+            "arm_back_lower": -0.5,
+            "chest": 0.0
+          }
+        },
+        {
+          "t": 1.0,
+          "bones": {
+            "arm_front_upper": -2.9,
+            "arm_front_lower": -0.2,
+            "arm_back_upper": -2.8,
+            "arm_back_lower": -0.3,
+            "chest": -0.18,
+            "head": -0.12,
+            "leg_front_upper": -0.35,
+            "leg_back_upper": 0.3
+          },
+          "hip_y": 1.5
+        }
+      ]
+    },
+    "yong.slam": {
+      "weapon_angle": 1.1,
+      "duration": 0.35,
+      "skip_ik": true,
+      "blend": 30,
+      "keys": [
+        {
+          "t": 0.0,
+          "bones": {
+            "arm_front_upper": -2.9,
+            "arm_front_lower": -0.2,
+            "arm_back_upper": -2.8,
+            "arm_back_lower": -0.3,
+            "chest": -0.18
+          }
+        },
+        {
+          "t": 0.5,
+          "bones": {
+            "arm_front_upper": -0.5,
+            "arm_front_lower": -0.15,
+            "arm_back_upper": -0.4,
+            "arm_back_lower": -0.2,
+            "chest": 0.4,
+            "head": 0.2,
+            "leg_front_upper": -0.5,
+            "leg_back_upper": 0.4
+          },
+          "hip_y": 4.0
+        },
+        {
+          "t": 1.0,
+          "bones": {
+            "arm_front_upper": -0.45,
+            "arm_front_lower": -0.15,
+            "arm_back_upper": -0.35,
+            "arm_back_lower": -0.2,
+            "chest": 0.35,
+            "head": 0.18
+          },
+          "hip_y": 3.0
+        }
+      ]
+    },
+    "yong.throw_windup": {
+      "duration": 0.35,
+      "skip_ik": true,
+      "blend": 14,
+      "keys": [
+        {
+          "t": 0.0,
+          "bones": {
+            "arm_front_upper": 0.172,
+            "arm_front_lower": -0.23,
+            "chest": 0.0
+          }
+        },
+        {
+          "t": 1.0,
+          "bones": {
+            "arm_front_upper": 2.53,
+            "arm_front_lower": 0.345,
+            "chest": -0.287,
+            "head": -0.115,
+            "arm_back_upper": -0.805,
+            "arm_back_lower": -0.92
+          },
+          "hip_y": 3.45
+        }
+      ]
+    },
+    "yong.throw": {
+      "duration": 0.175,
+      "skip_ik": true,
+      "blend": 30,
+      "keys": [
+        {
+          "t": 0.0,
+          "bones": {
+            "arm_front_upper": 2.53,
+            "arm_front_lower": 0.345,
+            "chest": -0.287
+          }
+        },
+        {
+          "t": 0.6,
+          "bones": {
+            "arm_front_upper": -1.84,
+            "arm_front_lower": -0.23,
+            "chest": 0.402,
+            "head": 0.138
+          },
+          "hip_y": 2.3
+        },
+        {
+          "t": 1.0,
+          "bones": {
+            "arm_front_upper": -1.38,
+            "arm_front_lower": -0.172,
+            "chest": 0.345
+          }
+        }
+      ]
+    },
+    "yong.recover": {
+      "duration": 0.5,
+      "skip_ik": true,
+      "blend": 14,
+      "keys": [
+        {
+          "t": 0.0,
+          "bones": {
+            "arm_front_upper": -1.38,
+            "arm_front_lower": -0.172,
+            "chest": 0.345
+          }
+        },
+        {
+          "t": 0.35,
+          "bones": {
+            "arm_front_upper": -0.35,
+            "arm_front_lower": -0.5,
+            "chest": 0.52,
+            "head": 0.32,
+            "arm_back_upper": 0.4,
+            "arm_back_lower": -0.3
+          },
+          "hip_y": 2.0
+        },
+        {
+          "t": 1.0,
+          "bones": {
+            "arm_front_upper": 0.2,
+            "arm_front_lower": -0.3,
+            "chest": 0.2,
+            "head": 0.12,
+            "arm_back_upper": 0.2,
+            "arm_back_lower": -0.25
+          }
+        }
+      ]
     }
   }
 }

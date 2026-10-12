@@ -28,6 +28,8 @@ const SCENARIOS := {
 	"watchdog_fight": "res://tools/scenarios/watchdog_fight_scenario.gd",
 	"watchdog_moves": "res://tools/scenarios/watchdog_moves_scenario.gd",
 	"watchdog_head_aim": "res://tools/scenarios/watchdog_head_aim_scenario.gd",
+	"yong_moves": "res://tools/scenarios/yong_moves_scenario.gd",
+	"yong_fight": "res://tools/scenarios/yong_fight_scenario.gd",
 	"ch2_market_enemies": "res://tools/scenarios/ch2_market_enemies_scenario.gd",
 	"throwables": "res://tools/scenarios/throwables_scenario.gd",
 	"throwables_ch1": "res://tools/scenarios/throwables_ch1_scenario.gd",

@@ -8,7 +8,9 @@ extends Node2D
 signal completed
 signal interrupted
 
-const RING_RADIUS := 7.0
+const RING_RADIUS := 9.0
+## 進度環離地的高度（在玩家頭上方）。
+const RING_HEIGHT := 66.0
 
 var hold := 1.5
 var reach := Vector2(26, 40)
@@ -114,8 +116,10 @@ func _draw() -> void:
 		var lamp := Color(0.35, 0.35, 0.38) if done else (LightKit.glow(Palette.WHITE, 1.8) if enabled else LightKit.glow(Palette.CYAN, 1.2))
 		draw_circle(Vector2(0, -26), 2.0, lamp)
 	if enabled and _progress > 0.0:
-		var center := Vector2(0, -reach.y - 2.0) if look == "box" else Vector2.ZERO
-		draw_arc(center, RING_RADIUS, -PI * 0.5, -PI * 0.5 + TAU * progress(), 24, LightKit.glow(Palette.WHITE, 2.0), 2.0)
+		# 進度環畫在玩家頭上方（不被身體擋住），底下一圈淡色是總長。
+		var center := Vector2(0, -RING_HEIGHT) if look == "box" else Vector2(0, -RING_HEIGHT + 30.0)
+		draw_arc(center, RING_RADIUS, 0.0, TAU, 24, Color(1, 1, 1, 0.25), 2.0)
+		draw_arc(center, RING_RADIUS, -PI * 0.5, -PI * 0.5 + TAU * progress(), 24, LightKit.glow(Palette.WHITE, 2.0), 2.5)
 	elif enabled and look != "box":
 		var pulse := 0.5 + 0.5 * sin(float(Time.get_ticks_msec()) * 0.012)
 		draw_arc(Vector2.ZERO, RING_RADIUS + pulse * 2.0, 0.0, TAU, 20, LightKit.glow(Palette.WARNING, 2.6), 1.5)

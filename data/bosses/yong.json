@@ -1,0 +1,94 @@
+{
+  "_doc": "阿勇（第二章帳房，NE-265）的打法。核心機制：利息——被他打中的每一下都讓下一下更痛，踩亮著的「結帳」地墊才清得掉。格式見 design/15-combat-feel/BOSS_FIGHTS.md 第 5 節與第 6 節；劇情接點在 hooks（故事端的場景與旗標，見 design/13-story-v2/CH02_IMPLEMENTATION.md）。",
+  "wake_range": 230,
+  "poses": {"yanked": "yong.recover", "phase_shift": "yong.recover", "intro": "yong.throw_windup"},
+  "moves": {
+    "slam": {"kind": "slam", "telegraph": 0.8, "recover": 0.5, "weight": 1.0, "pose_windup": "yong.windup_overhead", "pose_act": "yong.slam",
+      "params": {"reach": 40, "height": 50, "damage": 2, "advance_speed": 150, "active_at": 0.1, "active_time": 0.3, "lock": 0.3,
+        "whiff_recover": 2.4, "blocked_recover": 1.6, "parry_stagger": 1.4, "knockback": 180, "shake": 4, "source": "yong_baton"}},
+    "slam_combo": {"kind": "slam", "telegraph": 0.8, "recover": 0.2, "weight": 1.0, "pose_windup": "yong.windup_overhead", "pose_act": "yong.slam",
+      "params": {"reach": 40, "height": 50, "damage": 2, "advance_speed": 150, "active_at": 0.1, "active_time": 0.3, "lock": 0.3,
+        "whiff_recover": 1.0, "blocked_recover": 1.0, "parry_stagger": 1.4, "knockback": 120, "next": "slam_follow", "source": "yong_baton"}},
+    "slam_follow": {"kind": "slam", "telegraph": 0.55, "recover": 0.5, "weight": 0.01, "repeat": true, "pose_windup": "yong.windup_overhead", "pose_act": "yong.slam",
+      "params": {"reach": 44, "height": 50, "damage": 2, "advance_speed": 200, "active_at": 0.1, "active_time": 0.3, "lock": 0.25,
+        "whiff_recover": 2.6, "blocked_recover": 1.6, "parry_stagger": 1.4, "knockback": 180, "shake": 5, "source": "yong_baton"}},
+    "paper_fan": {"kind": "fan", "telegraph": 0.7, "recover": 0.6, "weight": 1.0, "pose_windup": "yong.throw_windup", "pose_act": "yong.throw",
+      "params": {"count": 5, "spread": 44, "lock": 0.25, "projectile": "yong_paper"}},
+    "rush_pad": {"kind": "rush", "telegraph": 0.5, "recover": 0.9, "weight": 1.0, "pose_windup": "yong.throw_windup", "pose_act": "yong.throw",
+      "params": {"target": "pad", "speed": 300}},
+    "jab": {"kind": "slam", "telegraph": 0.55, "recover": 0.4, "weight": 1.0, "repeat": true, "pose_windup": "yong.throw_windup", "pose_act": "yong.throw",
+      "params": {"reach": 26, "height": 44, "damage": 1, "advance_speed": 220, "active_at": 0.08, "active_time": 0.25, "lock": 0.25,
+        "whiff_recover": 3.5, "blocked_recover": 2.0, "parry_stagger": 1.6, "knockback": 120, "source": "yong_jab"}}
+  },
+  "phases": [
+    {"until": 0.25, "moves": ["slam", "slam_combo", "paper_fan", "rush_pad"], "speed": 1.0,
+      "summon": {"every": 9.0, "max_alive": 2, "total": 2, "spawn_tiles": [66, 4]}},
+    {"until": 0.0, "moves": ["slam", "slam_combo", "paper_fan", "rush_pad"], "speed": 1.0, "event": "choice"}
+  ],
+  "phase_sets": {
+    "revived": [
+      {"until": 0.0, "moves": ["slam", "slam_combo", "paper_fan"], "speed": 0.8, "damage_bonus": 1, "recover_scale": 1.5,
+        "enter_toast": "他站起來了——動作變慢，但每一棍更重"}
+    ],
+    "subdue": [
+      {"until": 0.0, "moves": ["slam", "slam_combo", "paper_fan", "rush_pad"], "speed": 1.0,
+        "enter_toast": "制伏他：先打斷棍柄的鎖扣（橙色）"}
+    ],
+    "subdue_revived": [
+      {"until": 0.0, "moves": ["slam", "slam_combo", "paper_fan"], "speed": 0.8, "damage_bonus": 1, "recover_scale": 1.5,
+        "enter_toast": "制伏他：先打斷棍柄的鎖扣（橙色）"}
+    ],
+    "disarmed": [
+      {"until": 0.0, "moves": ["jab"], "speed": 1.0, "enter_toast": "棍子掉了——等他短拳撲空，上前拔出儲能匣"}
+    ],
+    "disarmed_revived": [
+      {"until": 0.0, "moves": ["jab"], "speed": 0.8, "damage_bonus": 1, "recover_scale": 1.5, "enter_toast": "棍子掉了——等他短拳撲空，上前拔出儲能匣"}
+    ]
+  },
+  "habits": {
+    "close_range": 52,
+    "far_range": 200,
+    "marked_stacks": 3,
+    "pad_stacks": 2,
+    "close": ["slam", "jab"],
+    "mid": ["slam", "paper_fan", "jab"],
+    "far": ["paper_fan", "jab"],
+    "marked": ["slam_combo"],
+    "pad": ["rush_pad"]
+  },
+  "mark": {
+    "label": "利息", "pad_label": "結帳", "max": 5, "per_stack": 0.1, "decay": 6.0, "lit_time": 6.0, "dark_time": 2.0,
+    "first_hint": "利息標記會加重下一次受擊，踩亮著的地墊可清除。", "first_scene": "ch2_s12_bark_mark",
+    "pads": [{"tile": 12}, {"tile": 24, "row": 15}, {"tile": 46}]
+  },
+  "parts": {
+    "head": {"open": "always", "closed": "armor"},
+    "baton_lock": {"open": "tag:subdue", "closed": "hidden"}
+  },
+  "hooks": {
+    "gone_flag": "ch2_yong_subdued",
+    "choice_flag": "yong_link_choice",
+    "isolated_flag": "yong_link_isolated",
+    "revoked_flag": "yong_link_revoked",
+    "revived_flag": "yong_revival_done",
+    "choice_scene": "ch2_t_s12_choice",
+    "revival_scene": "ch2_t_s12_keep_revival",
+    "latch_scene": "ch2_t_s12_keep_pause",
+    "combo_scene": "ch2_s12_bark_egret",
+    "defeat_scene": "ch2_s12_defeat_hint",
+    "done_channel": "ch2_yong_down",
+    "terminal_tile": 65,
+    "box_tile": 61,
+    "box_hold": 1.5,
+    "box_prompt": "{interact} 按住：永久解除父女連結",
+    "box_done_toast": "父女連結已永久解除，小薇未被讀取。",
+    "box_hint": "到主隔離箱（小薇的高臺下面）按住互動鍵",
+    "pull_hold": 0.6,
+    "pull_prompt": "{interact} 按住：拔出儲能匣",
+    "lock_hits": 3,
+    "revive_ratio": 0.6,
+    "latch_ratio": 0.35,
+    "subdue_name": "阿勇｜制伏進度",
+    "pull_window": 1.6
+  }
+}

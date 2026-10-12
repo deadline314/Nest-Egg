@@ -24,6 +24,8 @@ const MISSILE_COLOR := Color(1.0, 0.45, 0.2)
 const CHAIN_LINKS := 18
 ## 蓄力重擊：出招（往前踏、判定）最長的時間。
 const SLAM_MAX_TIME := 0.6
+## 蓄力重擊往前踏時，離玩家多近就停（像素，從身體前緣算）。
+const SLAM_STOP_GAP := 12.0
 ## 衝向地點：最長時間（撞牆或到不了就停）。
 const RUSH_MAX_TIME := 1.6
 
@@ -579,6 +581,11 @@ func _slam_tick() -> void:
 		Feel.shake_strength(_param("shake", 4.0), 0.2)
 		Fx.dust(global_position + Vector2(facing * (data.body_size.x * 0.5 + _param("reach", 40.0) * 0.6), 0), 10, 110.0)
 		Sfx.play(&"explosion_small", -8.0)
+	# 往前踏只到貼近玩家為止：不踩進玩家身上（身體接觸不是這一招的判定，沒有預兆的傷害不算數）。
+	var target := _target()
+	if target != null and signf(target.global_position.x - global_position.x) == float(facing) \
+			and absf(target.global_position.x - global_position.x) <= data.body_size.x * 0.5 + SLAM_STOP_GAP:
+		velocity.x = 0.0
 	if fsm.time_in_state >= clampf(_param("active_time", 0.25), active_at + 0.05, SLAM_MAX_TIME):
 		fsm.transition(&"recover")
 
@@ -1089,7 +1096,8 @@ func _draw_shadow(world: Vector2, t: float) -> void:
 	draw_set_transform(Vector2.ZERO)
 
 
-## 顏色語言：打開的部位（現在打得到的弱點）亮橙色；常開的小部位用細框，硬直或招式中才打開的用脈動光，讓「現在打這裡」一眼看得出來。
+## 顏色語言：打開的部位（現在打得到的弱點）亮橙色脈動光，讓「現在打這裡」一眼看得出來。
+## 一直打開的部位（例如人形頭目的頭）不畫任何標記：頭上常駐的圈像光環，也違反「敵人身上的介面標記要克制」（NE-262）。
 func _draw_open_parts() -> void:
 	var pulse := 0.5 + 0.5 * sin(_anim_time * 18.0)
 	for id: StringName in _parts_by_id:
@@ -1098,7 +1106,6 @@ func _draw_open_parts() -> void:
 		var box := _parts_by_id[id]
 		var at := box.shape_offset()
 		if str(pattern.parts_open.get(id, "always")) == "always":
-			draw_arc(at, 6.0, 0.0, TAU, 16, Color(LightKit.glow(Palette.WARNING, 1.4), 0.55), 1.0)
 			continue
 		draw_circle(at, 5.0 + pulse * 2.0, Color(LightKit.glow(Palette.WARNING, 2.6), 0.45))
 		draw_arc(at, 8.0 + pulse * 2.0, 0.0, TAU, 20, LightKit.glow(Palette.WARNING, 3.0), 1.5)

@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/enemy_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://game/enemies/yong_boss.gd" id="2_behavior"]
+[ext_resource type="Resource" path="res://data/projectiles/yong_paper.tres" id="3_proj"]
+[ext_resource type="Resource" path="res://data/enemies/ch2_escort.tres" id="4_summon"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"yong"
+behavior = ExtResource("2_behavior")
+projectile = ExtResource("3_proj")
+summon = ExtResource("4_summon")
+display_name = "阿勇"
+attack_category = &"melee"
+hit_material = &"armor"
+body_size = Vector2(20, 52)
+color = Color(0.86, 0.36, 0.22, 1.0)
+max_health = 100
+move_speed = 70.0
+contact_damage = 1
+contact_source_id = &"yong_contact"
+detect_range = 320.0
+attack_range = 220.0
+attack_cooldown = 0.9
+telegraph_time = 0.8
+knockback_scale = 0.0
+hurt_parts = Array[Dictionary]([{"id": "head", "bone": "head", "offset": Vector2(0, -4), "size": Vector2(11, 12), "mult": 1.5}, {"id": "baton_lock", "bone": "hand_front", "offset": Vector2(2, 0), "size": Vector2(10, 10), "mult": 1.0}])
+poise = 40.0
+armor_states = PackedStringArray("windup", "act")
+finish_health_ratio = 0.0
+stagger_duration = 1.4
+credit_value = 120
+rig_skin = "yong"
+rig_weapon = ""
+rig_two_handed = false

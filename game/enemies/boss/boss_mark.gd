@@ -11,7 +11,8 @@ signal pad_used(index: int, by_player: bool)
 
 const PAD_WIDTH := 26.0
 const PAD_REACH := 14.0
-const HEAD_OFFSET := 58.0
+## 玩家頭上的層數格高度：在彈帶與護盾標籤（NE-264）上面，不和它們重疊。
+const HEAD_OFFSET := 104.0
 const PIP := 4.0
 const PIP_GAP := 2.0
 
