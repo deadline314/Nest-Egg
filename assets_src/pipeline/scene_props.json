@@ -12147,6 +12147,106 @@
     "category": "scene"
    },
    "glow": "console"
+  },
+  {
+   "id": "harbor_plaza__freight_lift",
+   "scene": "harbor_plaza",
+   "seed": 7501,
+   "fit": "meters",
+   "height_m": 2.7,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "An open-cage freight lift at ground level seen straight from the front: a steel mesh cage car with a folding scissor gate half open, two vertical guide rails rising above it with a pulley beam at the top, a yellow and black striped threshold, a caged work lamp glowing warm white inside the car, a load limit plate, proportions about three wide to four tall.",
+   "anchor": {
+    "size": [
+     60.0,
+     81.0
+    ]
+   },
+   "new": {
+    "display_name": "廣場貨梯",
+    "category": "scene"
+   },
+   "glow": [
+    {
+     "hue": [
+      180,
+      240
+     ],
+     "smin": 0.05,
+     "vmin": 0.85,
+     "soft": 1.5
+    }
+   ]
+  },
+  {
+   "id": "harbor_plaza__lift_control_box",
+   "scene": "harbor_plaza",
+   "seed": 7502,
+   "fit": "meters",
+   "height_m": 1.3,
+   "texture_scale": 12,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A freight lift control pedestal seen straight from the front, a grey steel box on a post with two large round buttons, one glowing green and one dark red, a key switch, a small glowing amber indicator, a conduit pipe running down into the ground, a laminated instruction card, proportions about one wide to two tall.",
+   "anchor": {
+    "size": [
+     18.0,
+     39.0
+    ]
+   },
+   "new": {
+    "display_name": "貨梯控制箱",
+    "category": "scene"
+   },
+   "glow": "console"
+  },
+  {
+   "id": "harbor_plaza__outer_ladder_up",
+   "scene": "harbor_plaza",
+   "seed": 7503,
+   "fit": "meters",
+   "height_m": 1.5,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A sliding steel fire-escape ladder retracted in the raised position seen straight from the front, the lower section pulled up and latched high on its rails, rust streaks, a red pull handle on a short chain hanging below it, proportions about one wide to two tall.",
+   "anchor": {
+    "size": [
+     24.0,
+     45.0
+    ]
+   },
+   "new": {
+    "display_name": "收起的廣場外梯",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "harbor_plaza__outer_ladder_down",
+   "scene": "harbor_plaza",
+   "seed": 7504,
+   "fit": "meters",
+   "height_m": 3.0,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A long sliding steel fire-escape ladder fully extended down to the ground seen straight from the front, two side rails and evenly spaced rungs, rust streaks, the overlap of the two ladder sections visible in the middle, proportions about one wide to four tall.",
+   "anchor": {
+    "size": [
+     24.0,
+     90.0
+    ]
+   },
+   "new": {
+    "display_name": "放下的廣場外梯",
+    "category": "scene"
+   }
   }
  ]
 }

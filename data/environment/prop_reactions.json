@@ -68,5 +68,99 @@
     }
    ]
   }
+ },
+ "plaza_outer_ladder": {
+  "swap": {
+   "flag": "ch3_outer_ladder_down",
+   "prop": "harbor_plaza__outer_ladder_down",
+   "pack": "res://data/environment/scene_props/harbor_plaza",
+   "align": "top"
+  },
+  "lamp": {
+   "at": [
+    0.5,
+    0.02
+   ],
+   "radius": 1.4,
+   "light_radius": 70,
+   "light_energy": 0.9,
+   "light_at": [
+    0.5,
+    1.0
+   ],
+   "states": [
+    {
+     "color": "#ff6a4a",
+     "pulse": 0
+    },
+    {
+     "flag": "ch3_outer_ladder_down",
+     "color": "#52d98c",
+     "pulse": 0
+    }
+   ]
+  }
+ },
+ "lift_control_box": {
+  "lamp": {
+   "at": [
+    0.5,
+    0.09
+   ],
+   "radius": 1.4,
+   "light_radius": 50,
+   "light_energy": 0.9,
+   "light_at": [
+    0.5,
+    0.3
+   ],
+   "states": [
+    {
+     "color": "#ff6a4a",
+     "pulse": 0
+    },
+    {
+     "flag": "ch3_lift_powered",
+     "color": "#ffb23f",
+     "pulse": 1.6
+    },
+    {
+     "flag": "ch3_freight_ready",
+     "color": "#52d98c",
+     "pulse": 0
+    }
+   ]
+  }
+ },
+ "freight_lift": {
+  "lamp": {
+   "at": [
+    0.5,
+    0.04
+   ],
+   "radius": 1.8,
+   "light_radius": 90,
+   "light_energy": 0.9,
+   "light_at": [
+    0.5,
+    0.55
+   ],
+   "states": [
+    {
+     "color": "#ff6a4a",
+     "pulse": 0
+    },
+    {
+     "flag": "ch3_lift_powered",
+     "color": "#ffb23f",
+     "pulse": 1.6
+    },
+    {
+     "flag": "ch3_freight_ready",
+     "color": "#52d98c",
+     "pulse": 0
+    }
+   ]
+  }
  }
 }

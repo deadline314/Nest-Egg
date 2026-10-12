@@ -85,9 +85,9 @@ PORTALS = {
     # 廣場貨梯
     'h': dict(id='plaza_street', to=AREA('pawnshop'), target='pawn_front', mode=0, prompt='{interact} 回當舖', style='door'),
     'Ⅰ': dict(id='plaza_pump', to=AREA('pump'), target='pump_plaza', mode=0, prompt='{interact} 走下路到泵室', style='road', w=28, h=44),
-    'L': dict(id='plaza_lift', to=AREA('mezzanine'), target='mezz_lift', mode=0, prompt='{interact} 搭貨梯上夾層', style='door', w=32, h=56,
+    'L': dict(id='plaza_lift', to=AREA('mezzanine'), target='mezz_lift', mode=0, prompt='{interact} 搭貨梯上夾層', style='hidden', w=32, h=56,
               requires='ch3_freight_ready', locked='貨梯的安全聯鎖還沒解除。先到泵室把水排掉，再回控制箱叫車廂。'),
-    'Ⅴ': dict(id='plaza_ladder', to=AREA('pump'), target='pump_ladder', mode=0, prompt='{interact} 走外梯到泵室上橋', style='door',
+    'Ⅴ': dict(id='plaza_ladder', to=AREA('pump'), target='pump_ladder', mode=0, prompt='{interact} 走外梯到泵室上橋', style='hidden', w=24, h=56,
               requires='ch3_outer_ladder_down', locked='外梯還收著，貨梯接通以後才能從這一側放下來。'),
     # 泵室
     'Ⅱ': dict(id='pump_plaza', to=AREA('plaza'), target='plaza_pump', mode=0, prompt='{interact} 回廣場', style='road', w=28, h=44),
@@ -206,9 +206,14 @@ def build_plaza():
     a.prop('harbor_plaza__notice_board_plaza', 26)
     a.stand(32, 'Ⓘ')
     a.prop('sluice_hall__water_level_gauge_tower', 34)
+    # 貨梯、控制箱與外梯（BG-43）：貨梯車廂就是出入口的樣子，控制箱與車廂的燈跟著通電、可搭乘的進度換色；
+    # 外梯放下之前是收在導軌頂端的樣子。
+    a.prop('harbor_plaza__lift_control_box', 40, dx=4, react='lift_control_box')
     a.stand(40, 'Ⓗ')
+    a.prop('harbor_plaza__freight_lift', 47, dx=3, react='freight_lift')
     a.stand(48, 'L')
     a.stand(56, 'ⓢ')
+    a.prop('harbor_plaza__outer_ladder_up', 60, y=16, dx=3, dy=3, support='wall', react='plaza_outer_ladder')
     a.stand(60, 'Ⅴ')
     # 高架維修盒：從右邊的貨架一路跳上去（看得到，要繞一下才拿得到）。
     a.platform(68, 71, 17)

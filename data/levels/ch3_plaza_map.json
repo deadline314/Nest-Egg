@@ -58,6 +58,9 @@
     {"id": "harbor_plaza__plaza_benches", "x": 20, "ground": true},
     {"id": "harbor_plaza__notice_board_plaza", "x": 26, "ground": true},
     {"id": "sluice_hall__water_level_gauge_tower", "x": 34, "ground": true},
+    {"id": "harbor_plaza__lift_control_box", "x": 40, "dx": 4, "react": "lift_control_box", "ground": true},
+    {"id": "harbor_plaza__freight_lift", "x": 47, "dx": 3, "react": "freight_lift", "ground": true},
+    {"id": "harbor_plaza__outer_ladder_up", "x": 60, "y": 16, "dx": 3, "dy": 3, "support": "wall", "react": "plaza_outer_ladder"},
     {"id": "harbor_plaza__queue_barriers", "x": 82, "ground": true}
   ]
 }

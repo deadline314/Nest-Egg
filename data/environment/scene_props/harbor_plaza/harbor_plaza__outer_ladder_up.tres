@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"harbor_plaza__outer_ladder_up"
+display_name = "收起的廣場外梯"
+texture = "res://art/environment/scene_props/harbor_plaza/harbor_plaza__outer_ladder_up.png"
+size = Vector2(10.3, 45)
+category = &"scene"

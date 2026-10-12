@@ -20,7 +20,7 @@ locked_text = "貨梯的安全聯鎖還沒解除。先到泵室把水排掉，�
 prompt = "{interact} 搭貨梯上夾層"
 width = 32
 height = 56
-style = "door"
+style = "hidden"
 
 [sub_resource type="Resource" id="Resource_1"]
 script = ExtResource("2_portal_data")
@@ -48,7 +48,9 @@ target_portal = &"pump_ladder"
 requires_flag = &"ch3_outer_ladder_down"
 locked_text = "外梯還收著，貨梯接通以後才能從這一側放下來。"
 prompt = "{interact} 走外梯到泵室上橋"
-style = "door"
+width = 24
+height = 56
+style = "hidden"
 
 [sub_resource type="Resource" id="Resource_4"]
 script = ExtResource("7_lighting_zone")
