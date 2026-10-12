@@ -26,6 +26,9 @@ const FLARE_SCALE := 0.7
 const SHOCK_SCALE := 0.55
 ## 爆炸的時間（秒）：白熱核心一瞬、火球撐住再退場、濃煙留到最後；照亮四周的光跟火球一樣久。
 const BLAST_CORE_TIME := 0.1
+## 白熱心（最亮那一瞬）的大小倍率。關卡鏡頭從 1.5 倍拉近到 1.92 倍之後（NE-256），同樣大小的白熱心在畫面上的面積多了六成；
+## 用這個倍率縮回拉近前的畫面比例（1.5／1.92）。火球本體不縮，它表示的是實際的爆炸範圍。
+const BLAST_WHITE_SCALE := 0.78
 const BLAST_FIRE_TIME := 0.46
 ## 爆炸中心離地面不到「半徑 × 這個倍率」就算貼地。
 const BLAST_GROUND_REACH := 0.75
@@ -555,8 +558,8 @@ func _explosion_visual(position: Vector2, radius: float, color: Color) -> bool:
 	fireball(position, r, color, grounded)
 	# 貼地時白熱核心往上抬，光暈才不會溢到地板底下。
 	var core := Vector2(position.x, minf(position.y, floor_y - r * 0.55)) if grounded else position
-	_glow.emit_ex(core, Vector2.ZERO, BLAST_CORE_TIME, VfxAtlas.Cell.GLOW, r * 0.8, r * 1.4, Color(1.2, 0.95, 0.6, 0.4), Color(color.r, color.g * 0.8, color.b * 0.6, 0.0))
-	flare(core, color, r * 1.3, 0.1)
+	_glow.emit_ex(core, Vector2.ZERO, BLAST_CORE_TIME, VfxAtlas.Cell.GLOW, r * 0.8 * BLAST_WHITE_SCALE, r * 1.4 * BLAST_WHITE_SCALE, Color(1.2, 0.95, 0.6, 0.4), Color(color.r, color.g * 0.8, color.b * 0.6, 0.0))
+	flare(core, color, r * 1.3 * BLAST_WHITE_SCALE, 0.1)
 	if grounded:
 		# 地面反光：一道壓扁的暖光貼在地上，跟火球一起退。
 		var reach := r * 3.2
@@ -607,7 +610,7 @@ func fireball(position: Vector2, radius: float, color: Color, grounded := false)
 		_soft.emit_ex(centre + dir * radius * 0.1, dir * radius * randf_range(0.5, 1.0), BLAST_FIRE_TIME * randf_range(0.55, 0.7),
 				VfxAtlas.Cell.BLOB_B if i % 2 == 0 else VfxAtlas.Cell.BLOB_A, radius * 0.5, radius * randf_range(0.72, 0.86),
 				hot, Color(body.r, body.g, body.b, 0.0), -24.0, 5.0, randf() * TAU, randf_range(-1.2, 1.2), 0.0, 0.0, 0.5)
-	_soft.emit_ex(centre, Vector2.ZERO, BLAST_CORE_TIME * 1.6, VfxAtlas.Cell.BLOB_A, radius * 0.36, radius * 0.5,
+	_soft.emit_ex(centre, Vector2.ZERO, BLAST_CORE_TIME * 1.6, VfxAtlas.Cell.BLOB_A, radius * 0.36 * BLAST_WHITE_SCALE, radius * 0.5 * BLAST_WHITE_SCALE,
 			white, Color(hot.r, hot.g, hot.b, 0.0), 0.0, 0.0, randf() * TAU, 0.0, 0.0, 0.0, 0.6)
 
 
