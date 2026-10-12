@@ -122,7 +122,7 @@ PORTALS = {
 
 THEMES = {
     # 區域 -> (地形材質, 立面清單, 室內牆面貼圖, 鏤空機率, 天空, 道具資料夾)
-    'pawnshop': ('concrete', ['shopfront', 'brick_block'], 'brick', 0.0, 'sky_storm', ['pawnshop_front', 'pawnshop_kitchen', 'basement_door', 'harbor_street']),
+    'pawnshop': ('concrete', ['shopfront', 'brick_block'], 'brick', 0.0, 'sky_storm', ['pawnshop_front', 'pawnshop_kitchen', 'basement_door', 'harbor_street', 'radio_workbench']),
     'rooftop': ('rooftop', ['apartment', 'brick_block'], None, 0.22, 'sky_storm', ['rooftop']),
     'harbor_street': ('asphalt', ['shopfront', 'apartment', 'shutter_block'], None, 0.22, 'sky_storm', ['harbor_street', 'anchor_phone_booth']),
     'market_gate': ('asphalt', ['shopfront', 'shutter_block'], None, 0.22, 'sky_storm', ['neon_market', 'anchor_phone_booth', 'harbor_street']),
@@ -131,7 +131,7 @@ THEMES = {
     'loading': ('concrete', ['warehouse', 'shutter_block'], None, 0.22, 'sky_storm', ['dock_warehouse', 'neon_market', 'harbor_street', 'pawnshop_kitchen']),
     'ledger_front': ('concrete', ['warehouse'], 'hangar_wall', 0.0, 'sky_storm', ['yong_hideout', 'accounting_lobby', 'anchor_phone_booth']),
     'ledger_office': ('concrete', ['warehouse'], 'hangar_wall', 0.0, 'sky_storm', ['yong_hideout']),
-    'lounge_front': ('asphalt', ['facility_wall', 'shutter_block'], None, 0.22, 'sky_storm', ['clinic', 'revival_lounge']),
+    'lounge_front': ('asphalt', ['facility_wall', 'shutter_block'], None, 0.22, 'sky_storm', ['clinic', 'revival_lounge', 'guest_book_room']),
 }
 
 # 劇情接點：進場劇情與機關頻道。
@@ -171,6 +171,11 @@ def build_pawnshop():
     a.stand(50, 'ⓞ')
     a.stand(56, 'V')
     a.stand(61, 'Ⓡ')
+    # 凜修的那台收音機（BG-40）：拆開的收音機放在自己的小檯上，緊挨著工作檯，互動點就在它旁邊；
+    # 牆上是修東西用的工具板，前面一張坐著修的木凳。
+    a.prop('radio_workbench__pegboard_tools', 56, y=14, support='wall')
+    a.prop('radio_workbench__worn_stool', 57)
+    a.prop('radio_workbench__radio_open_bench', 59)
     a.stand(74, 'F')
     a.stand(108, 'S')
     a.features = {'landmark': '櫃台與工作檯（x=50～61）：早上的結算與收音機都在這裡'}
@@ -409,6 +414,9 @@ def build_lounge_front():
     a.prop('revival_lounge__round_table_stools', 30)
     a.stand(33, 'ⓢ')
     a.stand(44, 'ⓠ')
+    # 客人簿（BG-40）：攤開的客人簿放在矮桌上，旁邊一盞落地紙燈，互動點就在桌前。
+    a.prop('guest_book_room__guest_book_table', 43)
+    a.prop('guest_book_room__paper_floor_lamp', 47)
     a.prop('revival_lounge__booth_sofa', 48)
     a.lamp(16, 14)
     a.lamp(34, 14)

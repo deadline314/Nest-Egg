@@ -136,7 +136,7 @@ THEMES = {
     # 玻璃邊緣以上是日照區：晴天的天空、玻璃帷幕的牆面，雨只在玻璃外面（關卡 rain=false）。
     'glass_edge': ('facility_floor', ['glass_tower'], None, 0.0, 'sky_blue_clouds', ['sunlit_district', 'clearwater', 'anchor_phone_booth']),
     'showroom': ('facility_floor', ['glass_tower'], 'glass_curtain', 0.0, 'sky_blue_clouds', ['clearwater', 'sunlit_district']),
-    'office_hall': ('facility_floor', ['glass_tower'], 'glass_curtain', 0.0, 'sky_blue_clouds', ['accounting_lobby', 'clearwater']),
+    'office_hall': ('facility_floor', ['glass_tower'], 'glass_curtain', 0.0, 'sky_blue_clouds', ['tianqiong_corridor', 'accounting_lobby', 'clearwater']),
 }
 
 # 劇情接點：進場劇情與機關頻道。
@@ -397,10 +397,16 @@ def build_office_hall():
     a.stand(14, 'ⓧ')
     a.prop('accounting_lobby__directory_sign', 18)
     a.stand(28, 'Ⓦ')
-    a.prop('accounting_lobby__lobby_sofa', 26)
+    # 擺設改用天穹接待廊這一包（BG-40）：過場舞台用的就是這個地方的背景，可走的關卡要是同一個樣子。
+    # 等候臺是走廊長凳；辦公內門旁是霧面玻璃隔間；牆上是巨幅畫像與燈條。
+    a.prop('tianqiong_corridor__portrait_frame', 21, y=12, support='wall')
+    a.prop('tianqiong_corridor__sleek_bench', 26)
     a.stand(36, 'ⅷ')
-    a.prop('accounting_lobby__light_column', 44)
-    a.prop('accounting_lobby__lobby_tree', 50)
+    a.prop('tianqiong_corridor__frosted_partition', 38)
+    a.prop('tianqiong_corridor__wall_light_strip', 44, y=10, support='wall')
+    a.prop('tianqiong_corridor__cloud_sculpture', 46)
+    a.prop('tianqiong_corridor__modern_planter', 51)
+    a.prop('tianqiong_corridor__water_cooler', 56)
     a.stand(60, 'Ⅻ')
     for x in (10, 24, 40, 54):
         a.lamp(x, 9)

@@ -55,8 +55,12 @@
   ],
   "props": [
     {"id": "accounting_lobby__directory_sign", "x": 18, "ground": true},
-    {"id": "accounting_lobby__lobby_sofa", "x": 26, "ground": true},
-    {"id": "accounting_lobby__light_column", "x": 44, "ground": true},
-    {"id": "accounting_lobby__lobby_tree", "x": 50, "ground": true}
+    {"id": "tianqiong_corridor__portrait_frame", "x": 21, "y": 12, "support": "wall"},
+    {"id": "tianqiong_corridor__sleek_bench", "x": 26, "ground": true},
+    {"id": "tianqiong_corridor__frosted_partition", "x": 38, "ground": true},
+    {"id": "tianqiong_corridor__wall_light_strip", "x": 44, "y": 10, "support": "wall"},
+    {"id": "tianqiong_corridor__cloud_sculpture", "x": 46, "ground": true},
+    {"id": "tianqiong_corridor__modern_planter", "x": 51, "ground": true},
+    {"id": "tianqiong_corridor__water_cooler", "x": 56, "ground": true}
   ]
 }
