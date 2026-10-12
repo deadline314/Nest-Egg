@@ -322,7 +322,13 @@ def main() -> None:
         if "same_as" in config:
             if config["same_as"] not in pose_sets or config.get("parts"):
                 raise ValueError(f"spec.pose_parts.{pose}.same_as must name a pose with its own parts, and replaces 'parts'")
-            pose_sets[pose] = pose_sets[config["same_as"]]
+            entries = pose_sets[config["same_as"]]["parts"]
+            if "slots" in config:  # only some of them: a kneel folds the front hip like sitting does, the back thigh stays as drawn
+                missing = set(config["slots"]) - {entry["slot"] for entry in entries}
+                if missing:
+                    raise ValueError(f"spec.pose_parts.{pose}.slots: {sorted(missing)} are not slots of pose {config['same_as']}")
+                entries = [entry for entry in entries if entry["slot"] in config["slots"]]
+            pose_sets[pose] = {"parts": entries}
 
     # ---- carried-over textures (e.g. a riot shield drawn earlier): <dir>/<name>.png (+_glow.png) and <name>.json {size, pivot, factor, use} --------
     extra_uses: list[dict] = []

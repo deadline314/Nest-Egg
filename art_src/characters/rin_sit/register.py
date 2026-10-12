@@ -26,6 +26,7 @@ TARGET = ROOT / "art_src/characters/rin_field/poses/sit"
 HIP, KNEE = (340.0, 792.0), (806.0, 792.0)  # seated picture: centre of the hip, centre of the knee (thigh midline x shin midline)
 KNEE_RADIUS = 80.0                         # the kneecap stays on the thigh piece; the shin below it is the existing part
 ACROSS = 0.80                              # thickness of the seated thigh over rin_field's thigh
+CREASE = (668, 790, 370, 520)              # y0, y1, x0, x1 in the seated picture: the fold between hip and thigh
 
 
 def main() -> None:
@@ -44,6 +45,16 @@ def main() -> None:
     keep = labels == 1 + int(np.argmax(stats[1:, cv2.CC_STAT_AREA]))  # the hip and thigh
     keep = cv2.morphologyEx(keep.astype(np.uint8), cv2.MORPH_CLOSE, disc) > 0
     seated[:, :, 3] = np.where(keep & (seated[:, :, 3] > 127), 255, 0)
+    # Fold lines drawn where the thigh meets the bodysuit: under the jacket hem when she sits, but an odd scribble on the bare hip when
+    # she kneels. Repaint the thin dark strokes inside the piece (not its outline) from the cloth around them.
+    y0, y1, x0, x1 = CREASE
+    patch = np.ascontiguousarray(seated[y0:y1, x0:x1, :3])
+    value = patch.max(2)
+    inside = cv2.erode((seated[y0:y1, x0:x1, 3] > 0).astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (15, 15))) > 0
+    strokes = inside & (value < 0.82 * cv2.medianBlur(value, 31))
+    strokes = cv2.dilate(strokes.astype(np.uint8), np.ones((3, 3), np.uint8))
+    seated[y0:y1, x0:x1, :3] = cv2.inpaint(patch, strokes * 255, 4, cv2.INPAINT_TELEA)
+    print(f"fold strokes repainted: {int(strokes.sum())} px")
     # The seated stockings came out more opaque than rin_field's sheer ones: scale the piece to the standing
     # thigh's mean colour, or the piece would not match the shin it meets at the knee.
     standing_thigh = np.asarray(Image.open(ROOT / "art_src/characters/rin_field/07_refined/leg_upper.png").convert("RGBA")).astype(np.float32)

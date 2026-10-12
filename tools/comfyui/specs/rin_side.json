@@ -1496,6 +1496,10 @@
     },
     "crouch": {
       "same_as": "sit"
+    },
+    "kneel": {
+      "same_as": "sit",
+      "slots": ["armor_thigh", "thigh_dmg"]
     }
   },
   "seam_checks": {

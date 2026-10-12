@@ -155,6 +155,7 @@ var _land_v := 0.0
 var _idle_on := false
 var _idle_pin_w := 0.0
 var _kneel_w := 0.0
+var _kneel_parts := false  # 跪姿的專屬零件（前大腿用坐姿畫的那一塊）有沒有換上
 var _idle_foot_x: Array[float] = [0.0, 0.0]
 ## 放鬆程度 0（舉槍）～1（槍垂下）。
 var _relax := 0.0
@@ -613,6 +614,13 @@ func _kneel(delta: float, input: RigInput) -> void:
 	var kneel: Dictionary = (_motion["crouch"] as Dictionary).get("kneel", {})
 	var want := 1.0 if input.crouching and input.on_floor and not input.dead and not kneel.is_empty() else 0.0
 	_kneel_w = move_toward(_kneel_w, want, KNEEL_BLEND_SPEED * delta)
+	# 有跪姿專屬零件的外觀，跪下過半時換上、起身過半時換回；只收回自己換上的那一組，不動別人選的（過場的坐姿）。
+	if (_kneel_w >= 0.5) != _kneel_parts:
+		_kneel_parts = not _kneel_parts
+		if _kneel_parts and _rig.has_pose_parts(&"kneel"):
+			_rig.set_pose_parts(&"kneel")
+		elif _rig.active_pose_parts() == &"kneel":
+			_rig.set_pose_parts(&"")
 	if _kneel_w <= 0.001 or kneel.is_empty():
 		return
 	var bones: Array[StringName] = [&"leg_back_upper", &"leg_back_lower", &"foot_back", &"leg_front_upper", &"leg_front_lower", &"foot_front"]
