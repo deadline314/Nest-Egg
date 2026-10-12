@@ -12247,6 +12247,97 @@
     "display_name": "放下的廣場外梯",
     "category": "scene"
    }
+  },
+  {
+   "id": "sluice_hall__drain_wheel",
+   "scene": "sluice_hall",
+   "seed": 7601,
+   "fit": "meters",
+   "height_m": 1.4,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A large cast-iron drain valve hand wheel on a pedestal seen straight from the front, a red spoked wheel as wide as a person's shoulders on a threaded stem, a heavy flanged pipe below it with bolts, a brass position indicator, wet rust streaks and a drip, proportions about six wide to seven tall.",
+   "anchor": {
+    "size": [
+     36.0,
+     42.0
+    ]
+   },
+   "new": {
+    "display_name": "排水輪",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "sluice_hall__branch_panel_closed",
+   "scene": "sluice_hall",
+   "seed": 7602,
+   "fit": "meters",
+   "height_m": 1.5,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "flat"
+   },
+   "prompt": "A wall-mounted electrical distribution cabinet with its door closed seen straight from the front, grey steel, a lightning hazard triangle sticker, a twist handle, a small window showing a row of indicator lamps with one glowing amber, thick conduits entering from the top, proportions about three wide to five tall.",
+   "anchor": {
+    "size": [
+     27.0,
+     45.0
+    ]
+   },
+   "new": {
+    "display_name": "泵室配電盤",
+    "category": "scene"
+   },
+   "glow": "console"
+  },
+  {
+   "id": "sluice_hall__branch_panel_open",
+   "scene": "sluice_hall",
+   "seed": 7603,
+   "fit": "meters",
+   "height_m": 1.2,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "flat"
+   },
+   "prompt": "A wall-mounted electrical distribution cabinet with its door swung open to the left seen straight from the front, grey steel, inside two rows of chunky breaker switches, one big red main lever, bundles of coloured wires, a row of indicator lamps glowing green, a wiring diagram taped inside the door, proportions about four wide to five tall.",
+   "anchor": {
+    "size": [
+     36.0,
+     45.0
+    ]
+   },
+   "new": {
+    "display_name": "打開的泵室配電盤",
+    "category": "scene"
+   },
+   "glow": "console"
+  },
+  {
+   "id": "mezzanine__notice_terminal",
+   "scene": "mezzanine",
+   "seed": 7604,
+   "fit": "meters",
+   "height_m": 1.6,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A public notice terminal mounted on a short post seen straight from the front, a wide weatherproof screen in a dented steel frame glowing pale cyan with rows of blank text bars, a scrolling ticker strip under it, a speaker grille, a rain hood, a cluster of old paper flyers taped to the post, proportions about one wide to two tall.",
+   "anchor": {
+    "size": [
+     24.0,
+     48.0
+    ]
+   },
+   "new": {
+    "display_name": "公共通知終端",
+    "category": "scene"
+   },
+   "glow": "screen"
   }
  ]
 }

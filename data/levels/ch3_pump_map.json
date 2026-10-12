@@ -54,8 +54,10 @@
     ]
   ],
   "props": [
+    {"id": "sluice_hall__drain_wheel", "x": 29, "y": 12, "dx": 11, "react": "drain_wheel"},
     {"id": "sluice_hall__release_console", "x": 24, "ground": true},
     {"id": "sluice_hall__hydraulic_piston", "x": 46, "ground": true},
+    {"id": "sluice_hall__branch_panel_closed", "x": 63, "y": 17, "dx": 13, "support": "wall", "react": "pump_branch_panel"},
     {"id": "control_room__cable_bundle_floor", "x": 60, "ground": true},
     {"id": "mezzanine__drip_basin", "x": 70, "ground": true}
   ]

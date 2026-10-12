@@ -240,9 +240,11 @@ def build_pump():
     a.platform(8, 10, 17)
     a.platform(11, 77, 13)
     a.stand(30, 'Ⓙ', row=12)
+    a.prop('sluice_hall__drain_wheel', 29, y=12, dx=11, react='drain_wheel')   # 排水輪在上橋上、互動點旁（BG-44）
     a.prop('sluice_hall__release_console', 24)
     a.prop('sluice_hall__hydraulic_piston', 46)
     a.stand(64, 'Ⓚ')
+    a.prop('sluice_hall__branch_panel_closed', 63, y=17, dx=13, support='wall', react='pump_branch_panel')   # 配電盤掛牆，關支路後換成打開的樣子（BG-44）
     a.prop('control_room__cable_bundle_floor', 60)
     a.stand(74, 'c')
     a.prop('mezzanine__drip_basin', 70)
@@ -266,6 +268,7 @@ def build_mezzanine():
     a.stand(22, 'C')
     a.prop('anchor_phone_booth__phone_booth', 22)
     a.stand(32, 'ⓝ')
+    a.prop('mezzanine__notice_terminal', 32)   # 公共通知終端（BG-44）
     a.hint(36, '公開報表的查核往右走。安養病房的來訪要洽護理櫃檯，廠房暫停通行。')
     # 照護步道：維修帶上方的平臺，可以繞過巡檢器
     a.platform(38, 40, 17)

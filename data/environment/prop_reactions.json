@@ -101,6 +101,78 @@
    ]
   }
  },
+ "pump_branch_panel": {
+  "swap": {
+   "flag": "ch3_wet_branch_isolated",
+   "prop": "sluice_hall__branch_panel_open",
+   "pack": "res://data/environment/scene_props/sluice_hall",
+   "offset": [
+    -15.5,
+    0
+   ]
+  },
+  "lamp": {
+   "at": [
+    0.5,
+    0.24
+   ],
+   "radius": 1.4,
+   "light_radius": 60,
+   "light_energy": 0.9,
+   "light_at": [
+    0.5,
+    0.6
+   ],
+   "states": [
+    {
+     "color": "#ffb23f",
+     "pulse": 1.6
+    },
+    {
+     "flag": "ch3_wet_branch_isolated",
+     "color": "#52d98c",
+     "pulse": 0
+    }
+   ]
+  }
+ },
+ "drain_wheel": {
+  "lamp": {
+   "at": [
+    0.5,
+    0.88
+   ],
+   "radius": 1.4,
+   "light_radius": 50,
+   "light_energy": 0.8,
+   "light_at": [
+    0.5,
+    0.5
+   ],
+   "states": [
+    {
+     "color": "#ff6a4a",
+     "pulse": 0
+    },
+    {
+     "flag": "ch3_pump_low",
+     "color": "#52d98c",
+     "pulse": 0
+    }
+   ]
+  },
+  "dial": {
+   "flag": "ch3_pump_low",
+   "at": [
+    0.5,
+    0.36
+   ],
+   "length": 5.5,
+   "from_deg": 180,
+   "to_deg": 90,
+   "turn_seconds": 1.4
+  }
+ },
  "lift_control_box": {
   "lamp": {
    "at": [
