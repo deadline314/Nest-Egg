@@ -229,4 +229,4 @@
 
 ![付清時凜走到攤前](images/ST-9-stage-stall-pay.jpg)
 
-分支：`feature/ecstatic-einstein-gyjqmu`。
+分支：`feature/ecstatic-einstein-gyjqmu`，提交 [6ef88d2b](https://github.com/deadline314/Nest-Egg/commit/6ef88d2b0e015d042295f555da78f548ebc4e3ba)。
