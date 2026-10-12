@@ -304,6 +304,7 @@ func _check_prompt_avoids_objective(level: Level) -> void:
 			break
 	var placed := Rect2(prompt.base_rect().position + prompt._nudge, prompt.base_rect().size)
 	check(faded and guidance.yielding, "a world prompt over the objective row makes the row fade out")
+	check(guidance._row.mouse_filter == Control.MOUSE_FILTER_IGNORE, "the faded objective row no longer catches the mouse tooltip")
 	check(placed.intersects(row), "the prompt itself stays in place instead of being pushed off screen")
 	holder.queue_free()
 	var back := false

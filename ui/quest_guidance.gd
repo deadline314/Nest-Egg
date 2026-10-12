@@ -66,7 +66,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if level == null or not is_instance_valid(level.player):
 		return
-	var covered := get_tree().paused or DialogueLayer.radio_visible()
+	# 讓位淡出時（yielding，上一影格的結果）也不攔滑鼠，看不見的目標列不會跳出說明框。
+	var covered := get_tree().paused or DialogueLayer.radio_visible() or yielding
 	var filter := Control.MOUSE_FILTER_IGNORE if covered else Control.MOUSE_FILTER_PASS
 	if _row.mouse_filter != filter:
 		_row.mouse_filter = filter
