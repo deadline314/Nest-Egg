@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"gate_hall__guard_booth"
+display_name = "守門人的崗亭"
+texture = "res://art/environment/scene_props/gate_hall/gate_hall__guard_booth.png"
+light_energy = 0.7
+light_radius = 70
+light_color = Color(1, 0.86, 0.62, 1)
+light_offset = Vector2(30, 41.4)
+size = Vector2(59.9, 69)
+category = &"scene"

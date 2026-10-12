@@ -55,7 +55,14 @@
   ],
   "props": [
     {"id": "anchor_phone_booth__phone_booth", "x": 10, "ground": true},
+    {"id": "gate_hall__queue_stanchions", "x": 12, "ground": true},
+    {"id": "gate_hall__scanner_gate", "x": 17, "ground": true},
+    {"id": "gate_hall__pass_kiosk", "x": 21, "ground": true},
+    {"id": "gate_hall__inspection_table", "x": 23, "ground": true},
+    {"id": "gate_hall__notice_board", "x": 23, "y": 16, "dy": 8, "support": "wall"},
     {"id": "clinic__gatekeeper_desk", "x": 30, "ground": true},
-    {"id": "accounting_lobby__dome_camera", "x": 46, "support": "ceiling", "ceiling_row": 8, "ground": true}
+    {"id": "gate_hall__guard_booth", "x": 51, "ground": true},
+    {"id": "gate_hall__waiting_bench", "x": 61, "ground": true},
+    {"id": "gate_hall__camera_mast", "x": 56, "y": 11, "support": "wall"}
   ]
 }

@@ -920,6 +920,26 @@
     "saturation": 1.0
    },
    "prompt": "Interior of a tiny third-floor kitchen where one woman lives alone, at night, seen from the front: pale yellow painted walls with a strip of small white tiles, a chipped enamel sink with a dish rack on the left, a single gas burner with a big soup pot in the middle, a small square table with two stools on the right, a square window with rain on the glass and dark blue night outside, one bare bulb under a plain metal shade giving warm light, a patched paper umbrella in a jar by the door, worn linoleum floor, tidy, modest and warm, warm yellow and soft green palette with cold blue at the window."
+  },
+  {
+   "id": "gate_hall",
+   "kind": "scene",
+   "style": "scene",
+   "seed": 7290,
+   "gen": [
+    1536,
+    864
+   ],
+   "px": [
+    1536,
+    864
+   ],
+   "out": "art/environment/scenes/gate_hall.webp",
+   "grade": {
+    "brightness": 0.95,
+    "saturation": 0.9
+   },
+   "prompt": "Interior of an institutional security checkpoint hall seen from the front: a wide low room with pale grey wall panels and a polished grey floor, a row of waist-high steel turnstiles with frosted glass flaps across the middle, a guard booth with a glass window on the left, a notice board and a wall clock, a security camera under the ceiling, rows of cold white ceiling light panels with one dark, yellow guide lines painted on the floor, orderly, cold and watchful, pale grey and steel blue palette with small teal and red indicator lights."
   }
  ]
 }

@@ -11726,6 +11726,192 @@
    }
   },
   {
+   "id": "gate_hall__scanner_gate",
+   "scene": "gate_hall",
+   "seed": 7201,
+   "fit": "meters",
+   "height_m": 1.35,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A security access turnstile seen straight from the side: two waist-high brushed steel pedestals with a pair of frosted glass swing flaps closed between them, a card reader plate with a small glowing teal ring on top of the near pedestal, a thin red status light strip along the flap edge, yellow floor tape under it, proportions about nine wide to ten tall.",
+   "anchor": {
+    "size": [
+     36.0,
+     40.5
+    ]
+   },
+   "new": {
+    "display_name": "門禁閘",
+    "category": "scene"
+   },
+   "glow": "console"
+  },
+  {
+   "id": "gate_hall__guard_booth",
+   "scene": "gate_hall",
+   "seed": 7202,
+   "fit": "meters",
+   "height_m": 2.3,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A narrow security guard booth seen straight from the front: grey steel lower panels, a wide sliding glass window with a speaking grille, a desk lamp glowing inside, a worn office chair visible through the glass, a wall clock, a visitor log book on the sill, a small roof overhang with a dead fluorescent tube, proportions about seven wide to ten tall.",
+   "anchor": {
+    "size": [
+     48.0,
+     69.0
+    ]
+   },
+   "new": {
+    "display_name": "守門人的崗亭",
+    "category": "scene"
+   },
+   "glow": "warm",
+   "data": {
+    "light_color": "Color(1, 0.86, 0.62, 1)",
+    "light_radius": 70,
+    "light_energy": 0.7
+   },
+   "light_from_glow": true
+  },
+  {
+   "id": "gate_hall__queue_stanchions",
+   "scene": "gate_hall",
+   "seed": 7203,
+   "fit": "meters",
+   "height_m": 1.0,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "cylinder"
+   },
+   "prompt": "Three polished steel queue stanchion posts in a row seen straight from the side, linked by two sagging dark red velvet ropes, one rope unclipped and trailing on the floor, proportions about eight wide to five tall.",
+   "anchor": {
+    "size": [
+     48.0,
+     30.0
+    ]
+   },
+   "new": {
+    "display_name": "排隊的紅龍柱",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "gate_hall__notice_board",
+   "scene": "gate_hall",
+   "seed": 7204,
+   "fit": "meters",
+   "height_m": 1.0,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "flat"
+   },
+   "prompt": "A glass-fronted notice board hung flat on a wall seen straight from the front, an aluminium frame, rows of pinned paper notices with blank scribbled lines, one large sheet with a red stamp, a small padlock on the frame, proportions about four wide to three tall.",
+   "anchor": {
+    "size": [
+     40.0,
+     30.0
+    ]
+   },
+   "new": {
+    "display_name": "門禁公告欄",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "gate_hall__camera_mast",
+   "scene": "gate_hall",
+   "seed": 7205,
+   "fit": "meters",
+   "height_m": 0.8,
+   "texture_scale": 14,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A boxy security camera on a short wall bracket seen straight from the side, grey housing with a rain hood, a dark glass lens pointing down to the right, a single small pure red indicator light, a coiled cable into the wall, proportions about three wide to four tall.",
+   "anchor": {
+    "size": [
+     18.0,
+     24.0
+    ]
+   },
+   "new": {
+    "display_name": "門禁攝影機",
+    "category": "scene"
+   },
+   "glow": "beacon"
+  },
+  {
+   "id": "gate_hall__waiting_bench",
+   "scene": "gate_hall",
+   "seed": 7206,
+   "fit": "meters",
+   "height_m": 0.9,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A long institutional waiting bench seen straight from the side, four moulded pale grey plastic seats on a single steel beam, one seat cracked and taped, a forgotten paper cup and a folded newspaper on the end seat, proportions about twenty wide to nine tall.",
+   "anchor": {
+    "size": [
+     60.0,
+     27.0
+    ]
+   },
+   "new": {
+    "display_name": "等候長椅",
+    "category": "scene"
+   }
+  },
+  {
+   "id": "gate_hall__pass_kiosk",
+   "scene": "gate_hall",
+   "seed": 7207,
+   "fit": "meters",
+   "height_m": 1.5,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A slim self-service visitor pass kiosk seen straight from the front, pale grey steel body, a tilted touch screen glowing soft teal, a card slot with a small green light, a printed pass half sticking out of a lower slot, a scuffed kick plate, proportions about one wide to two tall.",
+   "anchor": {
+    "size": [
+     22.0,
+     45.0
+    ]
+   },
+   "new": {
+    "display_name": "換證機",
+    "category": "scene"
+   },
+   "glow": "console"
+  },
+  {
+   "id": "gate_hall__inspection_table",
+   "scene": "gate_hall",
+   "seed": 7208,
+   "fit": "meters",
+   "height_m": 0.9,
+   "texture_scale": 8,
+   "normal": {
+    "profile": "pillow"
+   },
+   "prompt": "A steel inspection table with roller rails seen straight from the side, three grey plastic trays on it, one tray holding a coat and a small bag, a hand-held scanner wand lying on the table, a waste bin underneath, proportions about two wide to one tall.",
+   "anchor": {
+    "size": [
+     54.0,
+     27.0
+    ]
+   },
+   "new": {
+    "display_name": "檢查桌與置物籃",
+    "category": "scene"
+   }
+  },
+  {
    "id": "neon_market__rent_window",
    "scene": "neon_market",
    "seed": 7301,

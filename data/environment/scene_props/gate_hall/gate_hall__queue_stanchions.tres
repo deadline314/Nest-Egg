@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"gate_hall__queue_stanchions"
+display_name = "排隊的紅龍柱"
+texture = "res://art/environment/scene_props/gate_hall/gate_hall__queue_stanchions.png"
+size = Vector2(74.7, 30)
+category = &"scene"

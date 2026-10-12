@@ -132,7 +132,7 @@ THEMES = {
     'pump': ('concrete', ['warehouse'], 'hangar_wall', 0.0, 'sky_storm', ['sluice_hall', 'control_room', 'mezzanine']),
     'mezzanine': ('steel_plate', ['facility_wall'], 'facility_panel', 0.0, 'sky_storm', ['mezzanine', 'anchor_phone_booth', 'clinic']),
     'clinic': ('facility_floor', ['facility_wall'], 'facility_panel', 0.0, 'sky_storm', ['clinic', 'nursing_ward', 'control_room']),
-    'gate_hall': ('facility_floor', ['facility_wall'], 'facility_panel', 0.0, 'sky_storm', ['clinic', 'accounting_lobby', 'anchor_phone_booth']),
+    'gate_hall': ('facility_floor', ['facility_wall'], 'facility_panel', 0.0, 'sky_storm', ['gate_hall', 'clinic', 'anchor_phone_booth']),
     # 玻璃邊緣以上是日照區：晴天的天空、玻璃帷幕的牆面，雨只在玻璃外面（關卡 rain=false）。
     'glass_edge': ('facility_floor', ['glass_tower'], None, 0.0, 'sky_blue_clouds', ['sunlit_district', 'clearwater', 'anchor_phone_booth']),
     'showroom': ('facility_floor', ['glass_tower'], 'glass_curtain', 0.0, 'sky_blue_clouds', ['clearwater', 'sunlit_district']),
@@ -322,13 +322,22 @@ def build_gate_hall():
     a.stand(6, 'P')
     a.stand(10, 'C')
     a.prop('anchor_phone_booth__phone_booth', 10)
+    # 門禁大廳自己的東西（BG-39）：排隊的紅龍柱引到門禁閘，閘後是檢查桌與換證機；守門人的櫃台後面是崗亭。
+    # 崗亭放在右側平台後面，不擋守門人站的位置。
+    a.prop('gate_hall__queue_stanchions', 12)
+    a.prop('gate_hall__scanner_gate', 17)
     a.stand(18, 'Ⓖ')
+    a.prop('gate_hall__pass_kiosk', 21)
+    a.prop('gate_hall__inspection_table', 23)
+    a.prop('gate_hall__notice_board', 23, y=16, dy=8, support='wall')
     a.prop('clinic__gatekeeper_desk', 30)
     a.stand(32, 'ⓙ')
+    a.prop('gate_hall__guard_booth', 51)
+    a.prop('gate_hall__waiting_bench', 61)
     # 柱後的短上臺：繞盾架的側路
     a.platform(40, 42, 17)
     a.platform(43, 50, 15)
-    a.prop('accounting_lobby__dome_camera', 46, support='ceiling', ceiling_row=8)
+    a.prop('gate_hall__camera_mast', 56, y=11, support='wall')
     a.stand(58, 'Ⅷ')
     a.stand(68, 'ⅲ')
     for x in (12, 26, 40, 54, 64):
