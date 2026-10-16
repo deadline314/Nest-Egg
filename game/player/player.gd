@@ -174,6 +174,7 @@ const PARRY_WINDOW_MAX := 0.22
 var _guard_regen_delay_left := 0.0
 var _guard_lockout_left := 0.0
 var _phone_left := 0.0
+var interaction: PlayerInteraction
 var _stagger_left := 0.0
 var _contact_block_left := 0.0
 var _last_health := 0
@@ -269,6 +270,9 @@ func _ready() -> void:
 	_last_safe_position = global_position
 	_refresh_prompt_obstacle_bounds()
 	PromptLayout.add_obstacle(self, prompt_obstacle_rect)
+	interaction = PlayerInteraction.new()
+	interaction.player = self
+	add_child(interaction)
 	EventBus.player_spawned.emit(self)
 	_on_health_changed(health.current, health.max_health)
 	_emit_guard()
@@ -607,7 +611,7 @@ func _update_weapon_light(delta: float) -> void:
 	if weapon != _lit_weapon:
 		_lit_weapon = weapon
 		_weapon_light.configure(weapon)
-	_weapon_light.set_active(state != State.DEAD and state != State.MOUNTED and state != State.PHONE)
+	_weapon_light.set_active(state != State.DEAD and state != State.MOUNTED and state != State.PHONE and not interaction.active)
 	var interval := weapon.fire_interval / cyber.fire_rate_scale() if weapon != null else 1.0
 	_weapon_light.aim(aim_origin().lerp(muzzle_position(), WEAPON_LIGHT_ORIGIN), aim_dir, 1.0 - _fire_cooldown_left / maxf(0.01, interval), delta)
 	var radius := SELF_GLOW_RADIUS if _weapon_light.is_lit() else SELF_GLOW_RADIUS_UNARMED

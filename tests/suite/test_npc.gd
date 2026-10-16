@@ -30,6 +30,7 @@ func run() -> void:
 	await _test_cinematic_framing()
 	await _test_formal_portal_preview()
 	await _test_waiter_teardown()
+	await preload("res://tests/helpers/interaction_holster_checks.gd").run(self)
 	_test_reaction_selection()
 	await _test_awareness()
 	_remove_test_scenes()

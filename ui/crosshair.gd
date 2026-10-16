@@ -11,7 +11,7 @@ const HIT_TIME := 0.12
 const KILL_TIME := 0.28
 const DRY_TIME := 0.18
 
-var _player_ref := PlayerRef.new()
+var _bound_player: WeakRef
 var _hit_left := 0.0
 var _kill_left := 0.0
 var _weak_left := 0.0
@@ -29,14 +29,55 @@ func _ready() -> void:
 	EventBus.dry_fired.connect(func() -> void: _dry_left = DRY_TIME)
 
 
+func _enter_tree() -> void:
+	EventBus.player_spawned.connect(_bind_player)
+	_bind_player(get_tree().get_first_node_in_group(&"player") as Player)
+
+
+func _exit_tree() -> void:
+	if EventBus.player_spawned.is_connected(_bind_player):
+		EventBus.player_spawned.disconnect(_bind_player)
+	_disconnect_player()
+
+
+func _player() -> Player:
+	return _bound_player.get_ref() as Player if _bound_player != null else null
+
+
+func _disconnect_player() -> void:
+	var player := _player()
+	if player != null and player.interaction != null and player.interaction.changed.is_connected(_refresh_visibility):
+		player.interaction.changed.disconnect(_refresh_visibility)
+	_bound_player = null
+
+
+func _bind_player(player: Player) -> void:
+	if not is_inside_tree():
+		return
+	_disconnect_player()
+	_bound_player = weakref(player) if player != null else null
+	if player != null and player.interaction != null and not player.interaction.changed.is_connected(_refresh_visibility):
+		player.interaction.changed.connect(_refresh_visibility)
+	_refresh_visibility()
+
+
+## 對話開始會同步暫停世界，因此可見性由事件同步更新。
+func _refresh_visibility() -> void:
+	if not is_inside_tree():
+		hide()
+		return
+	var player := _player()
+	visible = player != null and player.is_inside_tree() and not player.is_dead() and (player.interaction == null or not player.interaction.active)
+
+
 func _process(delta: float) -> void:
 	_hit_left = maxf(0.0, _hit_left - delta)
 	_kill_left = maxf(0.0, _kill_left - delta)
 	_weak_left = maxf(0.0, _weak_left - delta)
 	_dry_left = maxf(0.0, _dry_left - delta)
 	_blocked_left = maxf(0.0, _blocked_left - delta)
-	var player := _player_ref.get_player(get_tree())
-	visible = player != null and not player.is_dead()
+	var player := _player()
+	_refresh_visibility()
 	if not visible:
 		return
 	_bloom = player.aim_bloom

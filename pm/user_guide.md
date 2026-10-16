@@ -172,6 +172,8 @@ NPC 與過場演員的動作要有預備、主要動作與收尾，有重心與�
 
 這些是本輪查過的原始設計資料／官方指南，不是所有玩家一致認可的唯一最佳方案。來源與樣本限制詳見 [研究紀錄](../design/20-campaign-experience/RESEARCH.md)及[畫面與閱讀研究](../design/20-campaign-experience/INVENTORY_WORLD_CLARITY.md)。
 
+2026-10-17 補充實際同類遊戲圖片：[圖鑑回顧研究](../design/20-campaign-experience/CODEX_REPLAY.md)與[地圖交談收起武器研究](../design/20-campaign-experience/INTERACTION_HOLSTER.md)。NE-279 保存九款遊戲、NE-278 保存五款橫向動作／探索作品的來源圖與採用理由；票內區分研究圖片和本作修前修後畫面。圖片觀察不視為玩家偏好民調。
+
 | 參考 | 用在 Nest Egg 的原則 |
 |---|---|
 | [Dead Cells 主設計師的關卡文章](https://deepnight.net/tutorial/the-level-design-of-dead-cells-a-hybrid-approach/) | 先做有功能與連線邏輯的區域，再放地形與敵人；多樣而不隨機塞滿。 |

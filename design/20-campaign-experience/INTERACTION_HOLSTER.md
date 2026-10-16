@@ -1,0 +1,22 @@
+# 地圖交談與閱讀的收起武器（NE-278）
+
+2026-10-17。先閱讀 User-guide、NE-121 電話亭與現有動畫規範，再檢視以下五款同類作品的實際畫面。這是設計觀察，沒有把文章評分或單張畫面當成玩家偏好調查。
+
+| 遊戲與畫面 | 觀察與採用方向 |
+| --- | --- |
+| [Katana ZERO：櫃檯交談](https://medium.com/@S_de_Incognito/katana-zero-review-loveind-61bccd0ed80) | 劍留在腰際，主角不對著交談者出招；保留角色與環境，用收起武器轉換語境。 |
+| [Hollow Knight：Elderbug](https://www.4gamer.net/games/435/G043587/20240319008/) | 聆聽時自然站立，文字與角色分開；不需要額外的「已收槍」通知。 |
+| [Ghost Song：地圖交談](https://www.toplevelcanon.com/reviews/u2oc0qidulq6zdfn1e4xwcewflavcn) | 同是有射擊的橫向探索，談話時手臂放低；準星與武器光不應持續引導玩家瞄準。 |
+| [Blasphemous 2：治療者](https://www.altchar.com/guides/blasphemous-2-how-to-upgrade-your-health-in-blasphemous-2-ae2AX2e640HA) | 互動有獨立語境，劍收在背後。採用情境分離原則；一般讀標籤仍站立，不照搬跪姿。 |
+| [Ori and the Will of the Wisps：Tokk](https://www.actugaming.net/diamant-brut-ori-and-the-will-of-the-wisps-316091/) | 地圖與角色保留，對話期間保持穩定姿勢，讓視線回到內容。 |
+
+原始圖片、出處、擷取日期與 SHA-256 放在 `pm/Nest-Egg/attachments/NE-278-references/sources.json`，供票內直接查閱；圖片權利歸原作者，僅作研究資料，不放入遊戲。
+
+## 決定與邊界
+
+- 對人物或物件發起、仍顯示地圖的對話與選擇，收起槍／近戰武器、熄滅武器光、隱藏準星，沿用既有空手自然站姿。
+- 世界暫停時只允許呈現層平順回到站姿，不推進玩家移動、攻擊、換彈或故事結果。切換輸入裝置也不解除收起狀態。
+- 結束與取消依當下真正裝備恢復，死亡與離場不殘留狀態；不把收槍當作切換武器或寫入存檔。
+- 搬運中的物件仍由雙手支撐，保留凍結的舉物姿勢與物件位置，避免把武器收起的規則誤套在箱子上。
+- 通訊、行走泡泡、圖鑑舞台回看與完整舞台過場沿用原有行為；電話亭的話筒動作保留。
+- 不改角色來源、骨長、網格、材質與既有動作資料。修前修後用相同七個地圖互動與軟體 Vulkan Forward+ 擷取，另驗槍、近戰、兩面向與取消／裝備變更。軟體 Vulkan 不代表硬體 GPU 或實體手把驗收。

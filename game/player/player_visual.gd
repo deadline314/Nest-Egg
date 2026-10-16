@@ -63,6 +63,9 @@ var _ghost_pool: DashSilhouettePool
 var _materialize_left := 0.0
 var _phone_t := -1.0  # 撥號動作已經過的秒數；負值＝不在撥號
 var _phone_weapon := ""
+var _interacting := false
+var _interaction_input := RigInput.new()
+var _prior_process_mode: ProcessMode
 ## 格擋的呈現（介面見 GuardPresenter）：現在是方向光盾，NE-269 的臂盾做好後換掉這一行。
 var _shield: GuardPresenter = ShieldSurface.new()
 
@@ -126,7 +129,38 @@ func shoulder_height(crouching: bool, fallback: float) -> float:
 
 func set_weapon_visual(visual_id: String) -> void:
 	if rig != null:
-		rig.set_weapon(visual_id)
+		rig.set_weapon("" if _interacting else visual_id)
+
+
+## 世界暫停後只推進空手呈現，讓跑步／蹲姿平順回到既有站姿；不推進玩家狀態機。
+func set_interacting(value: bool) -> void:
+	if _interacting == value:
+		return
+	_interacting = value
+	if value:
+		_prior_process_mode = process_mode
+		process_mode = Node.PROCESS_MODE_ALWAYS
+		_interaction_input = RigInput.new()
+		_interaction_input.facing = player.facing
+		_interaction_input.aim_dir = Vector2(player.facing, 0)
+		_interaction_input.on_floor = player.is_on_floor()
+		# 手上若是搬運物件，保留當下雙手支撐；不能收槍時把箱子懸在空中。
+		if player.carry != null and player.carry.is_holding():
+			_interaction_input.action = player.carry.pose()
+			_interaction_input.action_t = player.carry.pose_progress()
+		set_weapon_visual("")
+		# 第一格就收起握持物與武器光，不能等暫停中的一般處理。
+		_melee_held.update(0.0)
+		_blade_light.hide()
+		clear_dash_silhouettes()
+		rig.animate(0.0, _interaction_input)
+	else:
+		process_mode = _prior_process_mode
+		_blade_light.show()
+		set_weapon_visual("" if player.is_dead() or _carry_hid_weapon else player.visual_id_of_active_weapon())
+		if not player.is_dead():
+			_physics_process(0.0)
+	queue_redraw()
 
 
 ## 槍口世界座標（骨架無效時退回角色前方）。
@@ -322,6 +356,9 @@ func notify_hurt() -> void:
 func _physics_process(delta: float) -> void:
 	if player == null or rig == null:
 		return
+	if _interacting:
+		rig.animate(delta, _interaction_input)
+		return
 	_input.velocity = player.velocity
 	_input.on_floor = player.is_on_floor()
 	# 換彈時槍口壓低朝前下方。
@@ -358,6 +395,9 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	if player == null:
+		return
+	if _interacting:
+		_melee_hum.follow(self, delta)
 		return
 	_time += delta
 	_blade_light.follow(self, delta)
@@ -447,7 +487,7 @@ func _draw_trail(entry: Dictionary) -> void:
 
 
 func _draw() -> void:
-	if player == null:
+	if player == null or _interacting:
 		return
 	_draw_materialize()
 	if _fire_flash > 0.0:
@@ -484,7 +524,7 @@ func _draw_shield() -> void:
 
 ## 手上現在有沒有畫出近戰武器（撥號、乘載、骨架不可用時不畫）。
 func shows_melee_weapon() -> bool:
-	return player != null and player.holds_melee_weapon() and rig != null and rig.is_valid() and _phone_t < 0.0 \
+	return not _interacting and player != null and player.holds_melee_weapon() and rig != null and rig.is_valid() and _phone_t < 0.0 \
 			and rig.bone(&"hand_front") != null and rig.bone(&"arm_front_lower") != null
 
 

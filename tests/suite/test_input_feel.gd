@@ -155,6 +155,8 @@ func _test_controller_aim() -> void:
 	layer.add_child(hidden)
 	check(AimInput.direction_from(hidden, origin, Vector2.UP) == Vector2.UP, "singular canvas safely retains fallback aim without mouse inversion")
 	check(AimInput.target_point(hidden, origin, Vector2.UP) == origin + Vector2.UP * 72.0, "singular canvas safely retains a fallback crosshair without mouse inversion")
+	# 負控制已驗完；queue_free 延後執行前，不把奇異畫布留給下一個 UI 輸入事件求逆。
+	layer.transform = Transform2D.IDENTITY
 	layer.queue_free()
 	node.queue_free()
 
