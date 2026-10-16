@@ -22,7 +22,7 @@ static func _check_main_menu(suite: TestSuite) -> void:
 	var menu := MainMenu.new()
 	suite.runner.add_child(menu)
 	await suite.frames(4)
-	for label: String in ["設定", "敗北圖鑑"]:
+	for label: String in ["設定", "圖鑑"]:
 		var button := _button_with_text(menu, label)
 		if button == null:
 			suite.check(false, "主選單有「%s」按鈕" % label)
@@ -47,7 +47,7 @@ static func _check_pause_pages(suite: TestSuite) -> void:
 	var pause: PauseMenu = level._pause_menu
 	pause.open()
 	await suite.frames(3)
-	for button: Button in [pause._quest_button, pause._map_button, _button_with_text(pause._root, "設定")]:
+	for button: Button in [pause._quest_button, pause._map_button, _button_with_text(pause._root, "設定"), _button_with_text(pause._root, "圖鑑")]:
 		if button == null:
 			suite.check(false, "暫停頁有設定按鈕")
 			continue

@@ -130,7 +130,7 @@ func _build_main_page() -> void:
 		entries.append(_continue_button)
 	_start_button = _menu_button("開始任務", _open_difficulty, "選擇難度，從第一章開始")
 	entries.append(_start_button)
-	entries.append(_menu_button("敗北圖鑑", _open_codex, "看已解鎖的失敗紀錄與對應的攻略"))
+	entries.append(_menu_button("圖鑑", _open_codex, "查看敗北紀錄，重看本輪看過的故事"))
 	entries.append(_menu_button("設定", _open_settings, "音量、按鍵、顯示"))
 	entries.append(_menu_button("離開", quit_requested.emit, "關閉遊戲"))
 	for b in entries:

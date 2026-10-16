@@ -1,6 +1,6 @@
 class_name CodexScreen
 extends Control
-## 敗北圖鑑：卡片牆。已解鎖顯示標題，未解鎖是剪影；選取（焦點或游標）時右側展開詳情與攻略。
+## 圖鑑：敗北卡片與本輪已看過的故事。回看使用 Story 的唯讀播放接點。
 ## 滑鼠、鍵盤、手把都用焦點導覽。
 
 signal closed
@@ -8,15 +8,27 @@ signal closed
 const COLUMNS := 3
 const CARD_SIZE := Vector2(116, 44)
 const DETAIL_WIDTH := 214.0
+const ReplayPage := preload("res://ui/codex_replay_page.gd")
 
 var _detail_title: Label
 var _detail_number: Label
 var _detail_text: Label
 var _detail_hint: Label
 var _first_card: Button
+var _defeat_body: HBoxContainer
+var _replay_page: ReplayPage
+var _tabs: Array[Button] = []
+var _progress: Label
+var _legend: Label
+var _current_tab := 0
+var _replay_id: StringName = &""
+var _replay_focus: Control
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	# 本頁已有詳情與操作列，父選單的聚焦說明不得越過圖鑑蓋住回看。
+	add_to_group(FocusHintBar.OWN_HINTS_GROUP)
 	UiKit.fill_parent(self)
 	if not get_parent() is Control:
 		UiKit.fit_to_viewport(self)
@@ -37,22 +49,43 @@ func _ready() -> void:
 
 	var header := HBoxContainer.new()
 	layout.add_child(header)
-	header.add_child(UiKit.label("敗北圖鑑", UiKit.FS_TITLE, Palette.CYAN))
+	header.add_child(UiKit.label(ReplayPage.copy("圖鑑", "記録", "Archives"), UiKit.FS_TITLE, Palette.CYAN))
 	var spacer := Control.new()
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	header.add_child(spacer)
 	var progress := UiKit.label("%d / %d" % [DefeatCodex.unlocked_count(), DefeatCodex.total_count()], UiKit.FS_TITLE, Palette.WARNING)
 	header.add_child(progress)
+	_progress = progress
 	layout.add_child(UiDivider.new())
+	var tabs := HBoxContainer.new()
+	layout.add_child(tabs)
+	var group := ButtonGroup.new()
+	for title in [ReplayPage.copy("敗北紀錄", "敗北の記録", "Defeats"), ReplayPage.copy("回顧", "回想", "Memories")]:
+		var button := UiKit.button(title, select_tab.bind(_tabs.size()))
+		button.toggle_mode = true
+		button.button_group = group
+		button.custom_minimum_size.x = 110
+		tabs.add_child(button)
+		_tabs.append(button)
 
 	var body := HBoxContainer.new()
 	body.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	body.add_theme_constant_override(&"separation", 10)
 	layout.add_child(body)
+	_defeat_body = body
 	body.add_child(_build_wall())
 	body.add_child(_build_detail())
+	_replay_page = ReplayPage.new()
+	_replay_page.replay_requested.connect(_start_replay)
+	layout.add_child(_replay_page)
+	_replay_page.hide()
 
-	var back := UiKit.button("返回", _close, "回到上一頁")
+	_legend = UiKit.label("", UiKit.FS_BODY, Palette.UI_TEXT)
+	layout.add_child(_legend)
+	InputBindings.bindings_changed.connect(_refresh_legend)
+	_refresh_legend()
+	Story.replay_finished.connect(_on_replay_finished)
+	var back := UiKit.button(ReplayPage.copy("返回", "戻る", "Back"), _close)
 	back.custom_minimum_size = Vector2(120, 0)
 	layout.add_child(back)
 	var all_cards := DefeatCodex.get_all_cards()
@@ -60,6 +93,61 @@ func _ready() -> void:
 		_show_detail(all_cards[0])
 	var focus_target := _first_card if _first_card != null else back
 	focus_target.grab_focus.call_deferred()
+	_tabs[0].button_pressed = true
+
+
+func select_tab(index: int) -> void:
+	if _replay_id != &"":
+		return
+	_current_tab = posmod(index, _tabs.size())
+	_defeat_body.visible = _current_tab == 0
+	_replay_page.visible = _current_tab == 1
+	_progress.text = "%d / %d" % [DefeatCodex.unlocked_count(), DefeatCodex.total_count()] if _current_tab == 0 else ReplayPage.copy("已收錄 %d 段", "%d 件の記録", "%d memories") % _replay_page.entries.size()
+	_tabs[_current_tab].button_pressed = true
+	if _current_tab == 1 and not _replay_page.buttons.is_empty():
+		_replay_page.focus_selected()
+	elif _current_tab == 0 and _first_card != null:
+		_first_card.grab_focus.call_deferred()
+	else:
+		_tabs[_current_tab].grab_focus.call_deferred()
+
+
+func _refresh_legend() -> void:
+	_legend.text = InputBindings.format(ReplayPage.copy("{inventory_prev_tab}/{inventory_next_tab} 分頁　{ui_accept} 確認　{ui_cancel} 返回", "{inventory_prev_tab}/{inventory_next_tab} タブ　{ui_accept} 決定　{ui_cancel} 戻る", "{inventory_prev_tab}/{inventory_next_tab} Tabs   {ui_accept} Confirm   {ui_cancel} Back"))
+
+
+func _start_replay(id: StringName) -> void:
+	if _replay_id != &"":
+		return
+	# 重要通訊允許開暫停頁，但它仍擁有閱讀鎖與對話層；先讀完，避免兩套演出疊在一起。
+	if GameplayLock.is_locked():
+		_replay_page.show_failure(true)
+		return
+	_replay_focus = get_viewport().gui_get_focus_owner()
+	if not Story.replay(id):
+		_replay_page.show_failure()
+		return
+	_replay_id = id
+	# 暫停頁的層高於過場；藏起覆蓋頁，保留原清單、選取和捲動位置。
+	hide()
+
+
+func _on_replay_finished(id: StringName) -> void:
+	if id != _replay_id:
+		return
+	_replay_id = &""
+	if not is_inside_tree() or is_queued_for_deletion():
+		return
+	show()
+	if is_instance_valid(_replay_focus) and _replay_focus.is_visible_in_tree():
+		_replay_focus.grab_focus.call_deferred()
+	else:
+		_replay_page.focus_selected()
+
+
+func _exit_tree() -> void:
+	if _replay_id != &"":
+		Story.stop_replay()
 
 
 func _build_wall() -> Control:
@@ -128,8 +216,13 @@ func _show_detail(card: Dictionary) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if _replay_id != &"" or not is_visible_in_tree():
+		return
 	if event.is_action_pressed(&"ui_cancel"):
 		_close()
+		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed(&"inventory_prev_tab") or event.is_action_pressed(&"inventory_next_tab"):
+		select_tab(_current_tab + (1 if event.is_action_pressed(&"inventory_next_tab") else -1))
 		get_viewport().set_input_as_handled()
 
 

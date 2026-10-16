@@ -1,0 +1,120 @@
+{
+  "date_taipei": "2026-10-17",
+  "baseline": "6efbc3ec700c1529ce5d0190bd7d138b6b649322",
+  "engine": "Godot 4.7.stable.official.5b4e0cb0f",
+  "renderer": "Forward+ Vulkan 1.4.305 / llvmpipe LLVM 19.1.7",
+  "test_summary": "checks: 6588, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 378 s)",
+  "latest_ui_checks": "279 checks, 0 failures after final localized copy update",
+  "test_command": "GODOT=<official 4.7> SHARDS=3 tools/run_tests_changed.sh 6efbc3ec700c1529ce5d0190bd7d138b6b649322",
+  "cold_processes": [
+    {
+      "mode": "seed",
+      "exit": 0,
+      "hashes": {
+        "slot.json": "96dbad43da6929cbf8731ae842bae2e7c5493f377b5b9f8616273ddb5a2ac987",
+        "slot.json.bak": "96dbad43da6929cbf8731ae842bae2e7c5493f377b5b9f8616273ddb5a2ac987"
+      },
+      "passes": 1,
+      "failures": 0,
+      "errors": []
+    },
+    {
+      "mode": "replay",
+      "exit": 0,
+      "hashes": {
+        "slot.json": "96dbad43da6929cbf8731ae842bae2e7c5493f377b5b9f8616273ddb5a2ac987",
+        "slot.json.bak": "96dbad43da6929cbf8731ae842bae2e7c5493f377b5b9f8616273ddb5a2ac987"
+      },
+      "passes": 6,
+      "failures": 0,
+      "errors": []
+    },
+    {
+      "mode": "verify",
+      "exit": 0,
+      "hashes": {
+        "slot.json": "96dbad43da6929cbf8731ae842bae2e7c5493f377b5b9f8616273ddb5a2ac987",
+        "slot.json.bak": "96dbad43da6929cbf8731ae842bae2e7c5493f377b5b9f8616273ddb5a2ac987"
+      },
+      "passes": 2,
+      "failures": 0,
+      "errors": []
+    }
+  ],
+  "images": [
+    {
+      "file": "NE-279-memories-zh-720.png",
+      "sha256": "2252bb1e0054b89a4e3a2e276828363b738e11d4a5feaab511eaf7bd14ea4572"
+    },
+    {
+      "file": "NE-279-memories-ja-720.png",
+      "sha256": "17ce273beb7d106533528e5bcb56ed93720106f0b1b9f4b8db643dcc10fabfef"
+    },
+    {
+      "file": "NE-279-memories-en-720.png",
+      "sha256": "f15cef89d6f26b399b822860bbf3a0ff8d3f8a34523bc73169787807546253f8"
+    },
+    {
+      "file": "NE-279-memories-zh-1080.png",
+      "sha256": "b961e5ebb0758b13d1bf686c3b6d0ab8ed8306f19417a3eebea3b1737245b604"
+    },
+    {
+      "file": "NE-279-memories-ja-1080.png",
+      "sha256": "6e8b0feee8fb8bc8717790db4780d477b3f662dba5d6587c8a61673b5db1fc57"
+    },
+    {
+      "file": "NE-279-memories-en-1080.png",
+      "sha256": "1a7c511e20d27068973d3a46dffc9810e062b9e525ef98f0c690d98f07e0988e"
+    },
+    {
+      "file": "NE-279-large-prologue-en-720.png",
+      "sha256": "6664630bc95948d5b6ce8bab23e788fc204f9f5dfe17935eb1687c58edc26dc0"
+    },
+    {
+      "file": "NE-279-defeats-720.png",
+      "sha256": "69ac868374c0022bedc077529bcc977845c99bf904a98cbe6cf1f9f08c26fe21"
+    },
+    {
+      "file": "NE-279-large-en-720.png",
+      "sha256": "7bd0d05d3346225c2a0e78fdc211b593955239e53ff116b5fd52b4dfeea10998"
+    },
+    {
+      "file": "NE-279-empty-720.png",
+      "sha256": "2225f057a49ad337b7ea454d40113b61198031562977046a4bebc5e2a4e28ba3"
+    },
+    {
+      "file": "NE-279-before-720.png",
+      "sha256": "732e113af8b19f184013b3090ffb72bd18a89111ac9157c255e5097db606bf28"
+    },
+    {
+      "file": "NE-279-pause-entry-720.png",
+      "sha256": "de9bacd12ba3f81738aa24709ba7c23cc0309be71e89b834f2ea10b01f575479"
+    },
+    {
+      "file": "NE-279-pause-replay-720.png",
+      "sha256": "e8bd5582dbab979d171b76496e02110373f2e0d9e48b9edccb8196c8f00abd05"
+    },
+    {
+      "file": "NE-279-pause-return-720.png",
+      "sha256": "fa311a36e3ef2ff9740021704dddd21ed84bd1fcf5be1b3f1e8d64fe6d7572ea"
+    }
+  ],
+  "baseline_capture": "git show baseline:ui/codex_screen.gd; only class_name declaration removed to load alongside current screen",
+  "limitations": [
+    "Software Vulkan; no hardware GPU performance acceptance",
+    "Controller events are synthetic, not physical-device acceptance",
+    "Seeded seen-scene fixture; not a new-game campaign playthrough",
+    "Replay stage screenshot confirms overlay visibility only, not full character-animation acceptance"
+  ],
+  "sources": {
+    "tests/helpers/codex_replay_checks.gd": "0ecdffa78c9544a20869351032e066db15d80bcf11f155f7a037945763debf7f",
+    "tests/helpers/navigation_consistency_checks.gd": "2627f610e2f899237269364f9f91b4a3ab336946fba9b5dd2c594de1161d7431",
+    "tests/suite/test_ui_screens.gd": "7f2247060b8f8aad79b2601b5f41a6f8f561bd7b85a6472b3650f8327895f59b",
+    "tools/codex_replay_probe.gd": "469afcaf01d062f85b4abae6baa95d6bde2abefd94de57d884763a4b2c85ea7f",
+    "tools/codex_replay_probe.tscn": "54babd1bfb25dbbd1e1b6647e5ec801537b66c07fa1c5c5d577e2b7099f1bd10",
+    "ui/codex_replay_page.gd": "3860b49529012b08f205a41314a5dba4e22cf381641422f57857db1db9b74e48",
+    "ui/codex_screen.gd": "b04c701b6328dce689ce7ff3cc2f231cebfe3f8df56a76ce4147467b11e38d71",
+    "ui/main_menu.gd": "8734cdd1f7058ab335f6370c64e41880715b96a5a2f08e7154671b258b1ac2c8",
+    "ui/pause_menu.gd": "0e7f4ba1c25e9defa75731ef4df12622fbbf88ce66f4cd7a1bd33a6c500db4e8"
+  }
+}

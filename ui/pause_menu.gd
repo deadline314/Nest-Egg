@@ -28,6 +28,7 @@ var _controls_label: Label
 var _status_label: Label
 var _navigation: QuestMapScreen
 var _settings: SettingsScreen
+var _codex: CodexScreen
 var _quest_button: Button
 var _map_button: Button
 var _skip_confirm: Control
@@ -58,6 +59,7 @@ func _ready() -> void:
 	menu.body.add_child(_quest_button)
 	menu.body.add_child(_map_button)
 	menu.body.add_child(UiKit.button("設定", _open_settings, "音量、按鍵、顯示"))
+	menu.body.add_child(UiKit.button("圖鑑", _open_codex, "查看敗北紀錄，重看本輪看過的故事"))
 	if not skip_label.is_empty():
 		_skip_button = UiKit.button(skip_label, _on_skip_pressed, "長按直接%s；短按會再確認一次。" % skip_label)
 		_skip_button.button_down.connect(_on_skip_down)
@@ -94,7 +96,7 @@ func _on_bindings_changed() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	# 設定畫面開啟時由它自己處理輸入（Esc 會先關閉設定）。
-	if is_instance_valid(_navigation) or is_instance_valid(_settings) or not GameplayLock.menu_allowed() or Story.is_cinematic_active():
+	if is_instance_valid(_navigation) or is_instance_valid(_settings) or is_instance_valid(_codex) or not GameplayLock.menu_allowed() or Story.is_cinematic_active():
 		return
 	if allowed and (event.is_action_pressed(&"quests") or event.is_action_pressed(&"map")) and (not get_tree().paused or _root.visible):
 		if not _root.visible:
@@ -139,6 +141,9 @@ func close() -> void:
 		_navigation = null
 	if is_instance_valid(_settings):
 		_settings.close()
+	if is_instance_valid(_codex):
+		_codex.queue_free()
+		_codex = null
 	if _root.visible:
 		Sfx.play(&"ui_cancel", -8.0, 0.0)
 	_root.visible = false
@@ -182,6 +187,12 @@ func _on_settings_closed() -> void:
 	_settings = null
 	if _root.visible:
 		_refresh_info()
+
+
+func _open_codex() -> void:
+	_codex = CodexScreen.new()
+	_codex.tree_exited.connect(func() -> void: _codex = null)
+	UiOverlay.open(_root, _codex)
 
 
 ## 略過前先確認：預設焦點在「繼續練習」，取消就回到原本的選單，完全不改進度。
