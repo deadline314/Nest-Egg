@@ -1,0 +1,85 @@
+{
+  "scope": "original tour rows 1 and 2, not a complete map tour",
+  "records": [
+    {
+      "level": "ch2_pawnshop",
+      "quality": "high",
+      "shots": 12,
+      "supported": 12,
+      "player_min": 0.62981510393588,
+      "edge_min": 10.0837301629609,
+      "enemy_min": null,
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch2_ledger_front",
+      "quality": "high",
+      "shots": 6,
+      "supported": 6,
+      "player_min": 0.756586243913666,
+      "edge_min": 11.4323714916801,
+      "enemy_min": null,
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch2_ledger_office",
+      "quality": "high",
+      "shots": 8,
+      "supported": 6,
+      "player_min": 0.695107626674731,
+      "edge_min": 11.15431108544,
+      "enemy_min": 0.404741674686177,
+      "thresholds_passed": false
+    },
+    {
+      "level": "ch3_office_hall",
+      "quality": "high",
+      "shots": 8,
+      "supported": 8,
+      "player_min": 0.871235056704237,
+      "edge_min": 10.4744581234405,
+      "enemy_min": null,
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch2_pawnshop",
+      "quality": "low",
+      "shots": 12,
+      "supported": 12,
+      "player_min": 0.694712697070666,
+      "edge_min": 9.61300750001648,
+      "enemy_min": null,
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch2_ledger_front",
+      "quality": "low",
+      "shots": 6,
+      "supported": 6,
+      "player_min": 0.793248761645312,
+      "edge_min": 10.5339061180978,
+      "enemy_min": null,
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch2_ledger_office",
+      "quality": "low",
+      "shots": 8,
+      "supported": 6,
+      "player_min": 0.860533915357197,
+      "edge_min": 8.93598398722688,
+      "enemy_min": 0.418276350266169,
+      "thresholds_passed": false
+    },
+    {
+      "level": "ch3_office_hall",
+      "quality": "low",
+      "shots": 8,
+      "supported": 8,
+      "player_min": 0.895393554020418,
+      "edge_min": 9.5879752233198,
+      "enemy_min": null,
+      "thresholds_passed": true
+    }
+  ]
+}
