@@ -150,6 +150,10 @@ CC0 庫找不到的道具（吊車、龍門吊、控制台、堆高機、閘門�
 
 門、梯子、提示牌、開關箱、可擊碎牆、閘門這類又小又規則、還要能平鋪的東西，不走 Qwen：`python tools/assets/cel_fixtures.py [--sheet <png>]` 用程式畫到 `art/environment/fixtures/`（每世界像素 8 貼圖像素），畫完跑 `texture_import.py` 再匯入。遊戲端用 `FixtureArt.attach(物件, id, 左上角, 世界尺寸, 是否平鋪)` 墊在物件後面；會發光的狀態燈、符號不畫進貼圖，由物件自己用自發光疊上去。新貼圖比原本的亮線暗，互動物要留一條淡亮線（梯子扶手、提示牌螢幕），暗處才找得到。清單與缺口見 `design/20-campaign-experience/FIXTURE_ASSETS.md`。
 
+BG-47 補入三態破壞物、升降平台與電源開關：`cel_fixtures.py --only <id> ...` 可只重建指定貼圖。三態命名為 `<id>`、`<id>_damaged`、`<id>_broken`；最後一張是獨立的短暫碎裂外觀，不是把完整物件縮小。受損由真生命值驅動；碎裂不新增碰撞、獎勵或爆炸，檢查點還原不重播。平台貼圖與承載碰撞對齊，導軌留在原地。詳見 `design/20-campaign-experience/FIXTURE_STATES.md`。
+
+新增固定物件貼圖時，同步檢查實際節點掛載與 `ChapterAudit` 的必要貼圖檢查，不能只刪掉占位種類。`tools/fixture_states_probe.tscn` 用真子彈、電源互動與原物理保存三態畫面，明確標示安排好的軟體 Forward+ 實驗；它不替代硬體原生／真人全流程驗收。缺圖退回舊畫法仍須記錄路徑。
+
 ### 場景燈具（BG-36）
 
 場景燈（關卡地圖上的 `*`）用的是畫出來的燈具，和擺設同一套流程，另外多一份款式資料：

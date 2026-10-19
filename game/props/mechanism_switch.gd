@@ -33,8 +33,10 @@ func _ready() -> void:
 		queue_free()
 		return
 	LightKit.mark_emissive(self)
-	_art_on = FixtureArt.attach(self, &"switch_box_on", Vector2(-10.0, -20.0), Vector2(20.0, 20.0))
-	_art_off = FixtureArt.attach(self, &"switch_box_off", Vector2(-10.0, -20.0), Vector2(20.0, 20.0))
+	var rect := _art_rect()
+	_art_on = FixtureArt.attach(self, StringName(String(_art_prefix()) + "_on"), rect.position, rect.size)
+	_art_off = FixtureArt.attach(self, StringName(String(_art_prefix()) + "_off"), rect.position, rect.size)
+	_sync_art()
 	collision_layer = 0
 	collision_mask = Layers.PLAYER
 	monitorable = false
@@ -67,6 +69,7 @@ func _physics_process(delta: float) -> void:
 func toggle() -> void:
 	_cooldown = TOGGLE_COOLDOWN
 	active = not active
+	_sync_art()
 	_apply(active, false)
 	Fx.burst(global_position + Vector2(0, -REACH.y * 0.6), data.color, 8, 90.0, 0.3)
 	Sfx.play(&"switch", -3.0)
@@ -98,17 +101,16 @@ func restore_state(state: Variant) -> void:
 	var wanted: bool = state == true
 	if wanted != active:
 		active = wanted
+		_sync_art()
 		_apply(active, true)
 		queue_redraw()
 
 
 ## 開關外觀：底座、拉桿與狀態燈。箱體與拉桿是貼圖（開、關各一張），這裡只畫箱體正面發亮的指示燈。
 func _draw() -> void:
-	var blink_lamp := 1.4 + 0.5 * sin(_time * 4.0)
+	var blink_lamp := 1.4 if Settings.get_reduce_flashes() else 1.4 + 0.5 * sin(_time * 4.0)
 	if _art_on != null and _art_off != null:
-		_art_on.visible = active
-		_art_off.visible = not active
-		draw_rect(Rect2(-3.6, -7.6, 3.2, 3.2), LightKit.glow(data.color, blink_lamp if active else 0.6))
+		draw_rect(_status_rect(), LightKit.glow(_status_color(), blink_lamp if active else 0.6))
 		return
 	draw_rect(Rect2(-7, -14, 14, 14), Palette.TERRAIN_EDGE)
 	draw_rect(Rect2(-7, -14, 14, 14), Palette.TERRAIN_TOP, false, 1.0)
@@ -117,3 +119,27 @@ func _draw() -> void:
 	draw_circle(lever_tip, 2.0, data.color)
 	var blink := 1.4 + 0.5 * sin(_time * 4.0)
 	draw_circle(Vector2(0, -7), 1.6, LightKit.glow(data.color, blink if active else 0.6))
+
+
+func _art_prefix() -> StringName:
+	return &"switch_box"
+
+
+func _art_rect() -> Rect2:
+	return Rect2(-10, -20, 20, 20)
+
+
+func _status_rect() -> Rect2:
+	return Rect2(-3.6, -7.6, 3.2, 3.2)
+
+
+func _status_color() -> Color:
+	return data.color
+
+
+func _sync_art() -> void:
+	if _art_on != null:
+		_art_on.visible = active and _art_off != null
+	if _art_off != null:
+		_art_off.visible = not active and _art_on != null
+	queue_redraw()

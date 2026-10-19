@@ -16,12 +16,97 @@ const GRUNT_PATH := "res://data/enemies/grunt.tres"
 
 func run() -> void:
 	_test_data()
+	await _test_fixture_states()
 	await _test_breakables()
 	await _test_barrel_explosion()
 	await _test_switch_and_gate()
 	await _test_lift()
 	await _test_power_and_lighting()
 	await _test_checkpoint_restore()
+
+
+## Formal views follow real health/power/motion; presentation cannot change collision or restoration.
+func _test_fixture_states() -> void:
+	for look: int in FixtureArt.BREAKABLE_BODIES:
+		var id := FixtureArt.breakable_body(look)
+		check(FixtureArt.missing_parts(FixtureArt.body_parts(id)).is_empty(), "all destructible states are packaged: %s" % id)
+	for kind: int in FixtureArt.MECHANISM_PARTS:
+		check(FixtureArt.missing_parts(FixtureArt.MECHANISM_PARTS[kind]).is_empty(), "all mechanism parts are packaged: %s" % kind)
+	check(FixtureArt.missing_parts([&"test_missing_prop_fixture"]) == PackedStringArray([FixtureArt.FOLDER + "test_missing_prop_fixture.png"]),
+		"the audit retains an exact missing path instead of declaring every fixture complete")
+	var level := await start_level(level_data())
+	var crate := _find_at(level, Breakable, 10) as Breakable
+	check(crate._body_art != null and (crate._body_art.texture.get_size() * crate._body_art.scale).is_equal_approx(crate.size_px),
+		"crate art matches its original collision size")
+	var shape := crate._shape_node.shape as RectangleShape2D
+	var original_size := shape.size
+	_hit(crate, 1)
+	check(crate._body_art.texture == FixtureArt.texture(&"breakable_crate_damaged") and shape.size == original_size,
+		"real damage switches art without changing collision")
+	_hit(crate, 99)
+	await frames(3)
+	var rubble := crate.get_parent().get_node_or_null("FixtureRubble") as Sprite2D
+	check(rubble != null and rubble.texture == FixtureArt.texture(&"breakable_crate_broken") and crate.is_broken,
+		"real destruction displays bounded rubble while the original object stays broken")
+	var restored := Breakable.new()
+	restored.configure(crate.data, Vector2i(100, 20), 16)
+	crate.get_parent().add_child(restored)
+	var children_before := restored.get_parent().get_child_count()
+	restored.restore_state(true)
+	await frames(2)
+	check(restored.is_broken and not restored.visible and restored.get_parent().get_child_count() == children_before,
+		"checkpoint restoration does not emit debris or replay rewards")
+	var glass_image := FixtureArt.texture(&"breakable_glass").get_image()
+	if glass_image.is_compressed():
+		glass_image.decompress()
+	var alpha := glass_image.get_pixel(glass_image.get_width() / 2, glass_image.get_height() / 2).a
+	check(alpha > 0.0 and alpha < 0.5, "the glass pane remains genuinely translucent")
+	var lift := _find_all(level, Lift)[0] as Lift
+	check(lift._art != null and (lift._art.texture.get_size() * lift._art.scale).is_equal_approx(Vector2(lift._width, Lift.PLATFORM_THICKNESS)),
+		"the lift deck aligns with the standable surface")
+	var rail_origin := lift._rails.global_position
+	lift._enabled = true
+	lift._wait_left = 0.0
+	await frames(12)
+	check(lift.position.y < lift._start_y and lift._rails.global_position == rail_origin
+		and lift._rails._left != null and lift._rails._right != null,
+		"the textured platform moves along stationary textured rails")
+	var power := _find_all(level, PowerSwitch)[0] as PowerSwitch
+	check(power._art_off.visible and not power._art_on.visible and power._art_off.texture == FixtureArt.texture(&"power_switch_off"),
+		"power has its own mounted artwork and a visible initial state")
+	power.toggle()
+	check(power.active and power._art_on.visible and not power._art_off.visible and power._status_color() == Palette.DANGER,
+		"real power cutoff changes lever and lamp immediately")
+	power.restore_state(false)
+	check(not power.active and power._art_off.visible and not power._art_on.visible, "restoring power also restores the visible lever")
+	var body := Throwable.new()
+	body.configure(load("res://data/throwables/fuel_barrel.tres"))
+	level._entities.add_child(body)
+	check(body._body_art != null and body._body_art.texture == FixtureArt.texture(&"breakable_barrel"),
+		"throwable fuel uses the same drum identity without changing its rules")
+	var hit := DamageInfo.create(body.data.max_health, Combat.Team.PLAYER, &"test")
+	hit.ignore_invulnerability = true
+	body.hurtbox.receive(hit)
+	check(body.is_fuse_lit() and body._body_art.texture == FixtureArt.texture(&"breakable_barrel_damaged"),
+		"a real hit starts the original fuse and damaged appearance")
+	var flashes_before := Settings.get_reduce_flashes()
+	Settings.set_reduce_flashes(true)
+	var fuse_before := body._fuse_left
+	check(is_equal_approx(body.fuse_light_energy(), 2.0) and is_equal_approx(body._fuse_left, fuse_before),
+		"reduced flashes gives a steady warning without advancing or disabling the fuse")
+	Settings.set_reduce_flashes(flashes_before)
+	# Missing cached art takes the same safe branch used after a loader refusal.
+	var original := FixtureArt.texture(&"breakable_crate")
+	FixtureArt._cache[&"breakable_crate"] = null
+	var fallback := Breakable.new()
+	fallback.configure(crate.data, Vector2i(101, 20), 16)
+	level._entities.add_child(fallback)
+	check(fallback._body_art == null and fallback.health != null and not fallback.is_broken,
+		"a texture refusal keeps the original functional simple body")
+	FixtureArt._cache[&"breakable_crate"] = original
+	await runner.get_tree().create_timer(0.8).timeout
+	check(not is_instance_valid(rubble), "rubble is released after its short presentation lifetime")
+	await end_level(level)
 
 
 ## 測試用關卡：地圖在 tests/fixtures/props_map.json，字元對照見 _legend()。

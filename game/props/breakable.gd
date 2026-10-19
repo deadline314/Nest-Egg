@@ -29,6 +29,8 @@ var _rim: _Rim
 var _prompt: WorldPrompt
 ## 可擊碎牆的貼圖（依牆的大小平鋪）；讀不到或不是牆時是 null。
 var _wall_art: Sprite2D
+var _body_art: Sprite2D
+var _body_id: StringName
 
 
 func configure(p_data: BreakableData, p_cell: Vector2i, tile_size: int) -> void:
@@ -52,6 +54,10 @@ func _ready() -> void:
 	add_child(_shape_node)
 	if data.look == BreakableData.Look.WALL:
 		_wall_art = FixtureArt.attach(self, &"breakable_wall", Vector2(-size_px.x * 0.5, -size_px.y), size_px, true)
+	else:
+		_body_id = FixtureArt.breakable_body(data.look)
+		if _body_id != &"":
+			_body_art = FixtureArt.attach(self, _body_id, Vector2(-size_px.x * 0.5, -size_px.y), size_px)
 
 	health = HealthComponent.new()
 	add_child(health)
@@ -106,6 +112,7 @@ func world_center() -> Vector2:
 
 func _on_damaged(_info: DamageInfo) -> void:
 	_flash = FLASH_TIME
+	FixtureArt.damage(_body_art, _body_id, health.ratio(), size_px)
 	Fx.impact(world_center(), Vector2.UP, data.color.lightened(0.3), 4)
 	Sfx.play(&"hit", -8.0)
 	queue_redraw()
@@ -129,6 +136,7 @@ func _shatter() -> void:
 	Feel.play(&"breakable_break")
 	Sfx.play(&"glass_break" if big else &"crate_break", -2.0)
 	EventBus.world_noise.emit(global_position, 0.8)  # 東西碎掉的聲響：附近的人會轉頭看（NE-240）
+	FixtureArt.rubble(self, _body_id, size_px)
 	_disable()
 	broken.emit(self)
 	if data.is_explosive():
@@ -182,11 +190,14 @@ func _draw() -> void:
 	var rect := Rect2(Vector2(-size_px.x * 0.5, -size_px.y), size_px)
 	match data.look:
 		BreakableData.Look.CRATE:
-			_draw_crate(rect)
+			if _body_art == null:
+				_draw_crate(rect)
 		BreakableData.Look.BARREL:
-			_draw_barrel(rect)
+			if _body_art == null:
+				_draw_barrel(rect)
 		BreakableData.Look.GLASS:
-			_draw_glass(rect)
+			if _body_art == null:
+				_draw_glass(rect)
 		BreakableData.Look.WALL:
 			if _wall_art == null:
 				_draw_wall(rect)

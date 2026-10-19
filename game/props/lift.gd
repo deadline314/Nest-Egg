@@ -21,6 +21,7 @@ var _powered := true
 var _time := 0.0
 var _rails: _Rails
 var _prompt: WorldPrompt
+var _art: Sprite2D
 
 
 func configure(p_data: MechanismData, p_cell: Vector2i, tile_size: int) -> void:
@@ -49,6 +50,7 @@ func _ready() -> void:
 	shape_node.one_way_collision = true
 	shape_node.position = Vector2(0, PLATFORM_THICKNESS * 0.5)
 	add_child(shape_node)
+	_art = FixtureArt.attach(self, &"lift_deck", Vector2(-_width * 0.5, 0), Vector2(_width, PLATFORM_THICKNESS))
 	if not data.hint.is_empty():
 		_prompt = WorldPrompt.new()
 		_prompt.text = data.hint
@@ -121,8 +123,9 @@ func restore_state(state: Variant) -> void:
 
 func _draw() -> void:
 	var rect := Rect2(-_width * 0.5, 0, _width, PLATFORM_THICKNESS)
-	draw_rect(rect, Palette.PLATFORM)
-	draw_rect(rect, Palette.TERRAIN_TOP, false, 1.0)
+	if _art == null:
+		draw_rect(rect, Palette.PLATFORM)
+		draw_rect(rect, Palette.TERRAIN_TOP, false, 1.0)
 	var running := _enabled and _powered
 	var color := data.color if running else data.color.darkened(0.7)
 	for x in [-_width * 0.5 + 3.0, _width * 0.5 - 3.0]:
@@ -135,12 +138,24 @@ class _Rails:
 
 	var travel := 96.0
 	var width := 32.0
+	var _left: Sprite2D
+	var _right: Sprite2D
+	var _top: Sprite2D
+	var _bottom: Sprite2D
 
 	func _ready() -> void:
 		LightKit.mark_emissive(self)
+		_left = FixtureArt.attach(self, &"lift_rail", Vector2(-width * 0.5, -travel), Vector2(4, travel), true)
+		_right = FixtureArt.attach(self, &"lift_rail", Vector2(width * 0.5 - 4, -travel), Vector2(4, travel), true)
+		_top = FixtureArt.attach(self, &"lift_stop", Vector2(-width * 0.5, -travel - 4), Vector2(width, 4))
+		_bottom = FixtureArt.attach(self, &"lift_stop", Vector2(-width * 0.5, 4), Vector2(width, 4))
 
 	func _draw() -> void:
-		for x in [-width * 0.5 + 2.0, width * 0.5 - 2.0]:
-			draw_line(Vector2(x, 0), Vector2(x, -travel), Color(Palette.TERRAIN_EDGE, 0.9), 1.0)
-		draw_rect(Rect2(-width * 0.5, -travel - 2.0, width, 2.0), Palette.TERRAIN_TOP)
-		draw_rect(Rect2(-width * 0.5, 4.0, width, 2.0), Palette.TERRAIN_EDGE)
+		if _left == null:
+			draw_line(Vector2(-width * 0.5 + 2, 0), Vector2(-width * 0.5 + 2, -travel), Color(Palette.TERRAIN_EDGE, 0.9), 1.0)
+		if _right == null:
+			draw_line(Vector2(width * 0.5 - 2, 0), Vector2(width * 0.5 - 2, -travel), Color(Palette.TERRAIN_EDGE, 0.9), 1.0)
+		if _top == null:
+			draw_rect(Rect2(-width * 0.5, -travel - 2.0, width, 2.0), Palette.TERRAIN_TOP)
+		if _bottom == null:
+			draw_rect(Rect2(-width * 0.5, 4.0, width, 2.0), Palette.TERRAIN_EDGE)

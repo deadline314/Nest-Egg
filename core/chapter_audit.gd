@@ -156,9 +156,13 @@ static func _area(index: QuestMapIndex, path: String) -> Dictionary:
 		elif res is EnemyData:
 			_enemy_placeholder(res as EnemyData, placeholders)
 		elif res is MechanismData and PLACEHOLDER_MECHANISMS.has((res as MechanismData).kind):
-			_count(placeholders, PLACEHOLDER_MECHANISMS[(res as MechanismData).kind])
+			var kind := (res as MechanismData).kind
+			if not FixtureArt.missing_parts(FixtureArt.MECHANISM_PARTS.get(kind, [])).is_empty():
+				_count(placeholders, PLACEHOLDER_MECHANISMS[kind])
 		elif res is BreakableData and PLACEHOLDER_BREAKABLES.has((res as BreakableData).look):
-			_count(placeholders, PLACEHOLDER_BREAKABLES[(res as BreakableData).look])
+			var look := (res as BreakableData).look
+			if not FixtureArt.missing_parts(FixtureArt.body_parts(FixtureArt.breakable_body(look))).is_empty():
+				_count(placeholders, PLACEHOLDER_BREAKABLES[look])
 	if not data.story_triggers.is_empty() or data.intro_scene != &"" or data.outro_scene != &"":
 		purpose.append("劇情")
 	if not layout.boss_spawn.is_empty():

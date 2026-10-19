@@ -33,6 +33,8 @@ var _sweep := PhysicsShapeQueryParameters2D.new()
 var _sweep_shape := RectangleShape2D.new()
 var _prompt: WorldPrompt
 var _flash := 0.0
+var _body_art: Sprite2D
+var _body_id: StringName
 
 
 func configure(p_data: ThrowableData) -> void:
@@ -76,6 +78,9 @@ func _ready() -> void:
 		add_child(_prompt)
 	add_to_group(GROUP)
 	LightKit.mark_emissive(self)
+	_body_id = FixtureArt.throwable_body(data.look)
+	if _body_id != &"":
+		_body_art = FixtureArt.attach(self, _body_id, Vector2(-data.size.x * 0.5, -data.size.y), data.size)
 
 
 func can_pick_up() -> bool:
@@ -253,6 +258,7 @@ func _set_targetable(on: bool) -> void:
 
 func _on_damaged(_info: DamageInfo) -> void:
 	_flash = 0.12
+	FixtureArt.damage(_body_art, _body_id, health.ratio(), data.size)
 	Fx.impact(world_center(), Vector2.UP, data.color.lightened(0.3), 4)
 	queue_redraw()
 
@@ -287,6 +293,7 @@ func _break() -> void:
 	Fx.burst(world_center(), data.color, 10, 160.0, 0.4)
 	Fx.dust(global_position, 4, 50.0)
 	Sfx.play(&"crate_break", -6.0)
+	FixtureArt.rubble(self, _body_id, data.size)
 	_finish()
 
 
@@ -295,6 +302,7 @@ func _explode() -> void:
 	if state == State.GONE:
 		return
 	var center := world_center()
+	FixtureArt.rubble(self, _body_id, data.size)
 	Fx.explosion(center, data.explosion_radius, data.explosion_damage, Combat.Team.PLAYER, data.source_id, Palette.WARNING)
 	Fx.explosion(center, data.explosion_radius, data.explosion_damage, Combat.Team.ENEMY, data.source_id, Palette.WARNING)
 	_finish()
@@ -321,22 +329,23 @@ func _draw() -> void:
 	var rect := Rect2(Vector2(-data.size.x * 0.5, -data.size.y), data.size)
 	match data.look:
 		ThrowableData.Look.CRATE:
-			draw_rect(rect, data.color.darkened(0.35))
-			draw_rect(rect.grow(-2.0), data.color)
-			draw_line(rect.position + Vector2(2, 2), rect.end - Vector2(2, 2), data.color.darkened(0.5), 1.5)
+			if _body_art == null:
+				draw_rect(rect, data.color.darkened(0.35))
+				draw_rect(rect.grow(-2.0), data.color)
+				draw_line(rect.position + Vector2(2, 2), rect.end - Vector2(2, 2), data.color.darkened(0.5), 1.5)
 		ThrowableData.Look.BARREL:
-			var body := data.color
-			draw_rect(rect, body.darkened(0.3))
-			draw_rect(Rect2(rect.position + Vector2(1, 0), Vector2(rect.size.x * 0.35, rect.size.y)), body)
-			for fraction in [0.22, 0.78]:
-				var y: float = rect.position.y + rect.size.y * fraction
-				draw_line(Vector2(rect.position.x, y), Vector2(rect.end.x, y), body.darkened(0.55), 1.5)
-			var c := rect.get_center()
-			var s := minf(rect.size.x, rect.size.y) * 0.24
-			draw_colored_polygon(PackedVector2Array([c + Vector2(0, -s), c + Vector2(s, s * 0.8), c + Vector2(-s, s * 0.8)]), Palette.WARNING.darkened(0.1))
+			if _body_art == null:
+				var body := data.color
+				draw_rect(rect, body.darkened(0.3))
+				draw_rect(Rect2(rect.position + Vector2(1, 0), Vector2(rect.size.x * 0.35, rect.size.y)), body)
+				for fraction in [0.22, 0.78]:
+					var y: float = rect.position.y + rect.size.y * fraction
+					draw_line(Vector2(rect.position.x, y), Vector2(rect.end.x, y), body.darkened(0.55), 1.5)
+				var c := rect.get_center()
+				var s := minf(rect.size.x, rect.size.y) * 0.24
+				draw_colored_polygon(PackedVector2Array([c + Vector2(0, -s), c + Vector2(s, s * 0.8), c + Vector2(-s, s * 0.8)]), Palette.WARNING.darkened(0.1))
 			# 頂端警示燈：平常微亮，點燃引信後快速閃。
-			var lit := _fuse_left >= 0.0 and int(Time.get_ticks_msec() / 80) % 2 == 0
-			draw_rect(Rect2(Vector2(-1.5, rect.position.y - 2.0), Vector2(3, 2)), LightKit.glow(Palette.DANGER, 3.0 if lit else 1.4))
+			draw_rect(Rect2(Vector2(-1.5, rect.position.y - 2.0), Vector2(3, 2)), LightKit.glow(Palette.DANGER, fuse_light_energy()))
 		ThrowableData.Look.PIPE:
 			draw_rect(rect, data.color.darkened(0.25))
 			draw_line(Vector2(rect.position.x, rect.position.y + 1.0), Vector2(rect.end.x, rect.position.y + 1.0), data.color.lightened(0.35), 1.0)
@@ -353,3 +362,12 @@ func _draw() -> void:
 		var at := Vector2(0, -data.size.y * 0.5)
 		draw_arc(at, data.explosion_radius, 0.0, TAU, 40, Color(LightKit.glow(Palette.DANGER, 1.6), 0.35 + 0.5 * t), 1.5)
 		draw_arc(at, data.explosion_radius * (1.0 - t), 0.0, TAU, 32, Color(LightKit.glow(Palette.DANGER, 2.2), 0.6), 1.0)
+
+
+## Two smooth pulses per second; reduced flashes retains a steady warning.
+func fuse_light_energy() -> float:
+	if _fuse_left < 0.0:
+		return 1.4
+	if Settings.get_reduce_flashes():
+		return 2.0
+	return 2.0 + 0.6 * sin((data.fuse - _fuse_left) * TAU * 2.0)

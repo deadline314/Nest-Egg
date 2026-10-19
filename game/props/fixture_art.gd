@@ -6,6 +6,16 @@ class_name FixtureArt
 
 const FOLDER := "res://art/environment/fixtures/"
 const TEXELS_PER_PIXEL := 8.0
+const BREAKABLE_BODIES := {
+	BreakableData.Look.CRATE: &"breakable_crate",
+	BreakableData.Look.BARREL: &"breakable_barrel",
+	BreakableData.Look.GLASS: &"breakable_glass",
+}
+const MECHANISM_PARTS := {
+	MechanismData.Kind.LIFT: [&"lift_deck", &"lift_rail", &"lift_stop"],
+	MechanismData.Kind.POWER_SWITCH: [&"power_switch_on", &"power_switch_off"],
+}
+const RUBBLE_LIFETIME := 0.65
 
 static var _cache: Dictionary = {}
 
@@ -48,6 +58,66 @@ static func resize(sprite: Sprite2D, world_size: Vector2, tiled: bool) -> void:
 	else:
 		var size := sprite.texture.get_size()
 		sprite.scale = Vector2(world_size.x / maxf(1.0, size.x), world_size.y / maxf(1.0, size.y))
+
+
+static func breakable_body(look: BreakableData.Look) -> StringName:
+	return BREAKABLE_BODIES.get(look, &"")
+
+
+static func throwable_body(look: ThrowableData.Look) -> StringName:
+	match look:
+		ThrowableData.Look.CRATE: return &"breakable_crate"
+		ThrowableData.Look.BARREL: return &"breakable_barrel"
+	return &""
+
+
+static func body_parts(id: StringName) -> Array[StringName]:
+	return [id, StringName(String(id) + "_damaged"), StringName(String(id) + "_broken")] if id != &"" else []
+
+
+## Audit metadata never loads a whole texture into the cache just to check a path.
+static func missing_parts(ids: Array) -> PackedStringArray:
+	var missing := PackedStringArray()
+	for id: StringName in ids:
+		var path := FOLDER + String(id) + ".png"
+		if not ResourceLoader.exists(path, "Texture2D"):
+			missing.append(path)
+	return missing
+
+
+static func damage(sprite: Sprite2D, id: StringName, ratio: float, world_size: Vector2) -> void:
+	if sprite == null or id == &"":
+		return
+	var wanted := StringName(String(id) + "_damaged") if ratio < 0.7 else id
+	var loaded := texture(wanted)
+	if loaded != null:
+		sprite.texture = loaded
+		resize(sprite, world_size, false)
+
+
+## Presentation only: sibling debris dies with the level, has no collision or rewards.
+## Never called by checkpoint restoration.
+static func rubble(owner: Node2D, id: StringName, body_size: Vector2) -> Sprite2D:
+	if id == &"" or not owner.is_inside_tree():
+		return null
+	var loaded := texture(StringName(String(id) + "_broken"))
+	if loaded == null:
+		return null
+	var sprite := Sprite2D.new()
+	sprite.name = "FixtureRubble"
+	sprite.texture = loaded
+	sprite.centered = false
+	owner.get_parent().add_child(sprite)
+	sprite.global_position = owner.global_position
+	sprite.z_index = owner.z_index
+	var size := Vector2(body_size.x, minf(body_size.y * 0.35, 12.0))
+	resize(sprite, size, false)
+	sprite.position += Vector2(-size.x * 0.5, -size.y)
+	var tween := sprite.create_tween()
+	tween.tween_interval(RUBBLE_LIFETIME * 0.55)
+	tween.tween_property(sprite, "modulate:a", 0.0, RUBBLE_LIFETIME * 0.45)
+	tween.tween_callback(sprite.queue_free)
+	return sprite
 
 
 ## 測試用：清掉快取，下次重新讀檔。

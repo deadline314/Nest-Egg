@@ -1,0 +1,215 @@
+{
+  "adapter": "llvmpipe (LLVM 19.1.7, 256 bits)",
+  "brightness": 0.5,
+  "checks": 29,
+  "engine": "4.7-stable (official)",
+  "failures": 6,
+  "kind": "arranged props fixture, not campaign playthrough",
+  "quality": 2,
+  "shots": [
+    {
+      "camera": [
+        243.999969482422,
+        280.01611328125
+      ],
+      "file": "crate-intact.png",
+      "level": "",
+      "player_feet": [
+        108.0,
+        319.997741699219
+      ]
+    },
+    {
+      "camera": [
+        243.999984741211,
+        280.002319335938
+      ],
+      "file": "crate-damaged.png",
+      "level": "",
+      "player_feet": [
+        108.0,
+        319.997741699219
+      ]
+    },
+    {
+      "camera": [
+        243.999984741211,
+        280.000030517578
+      ],
+      "file": "crate-broken.png",
+      "level": "",
+      "player_feet": [
+        108.0,
+        319.997741699219
+      ]
+    },
+    {
+      "camera": [
+        564.0,
+        279.997741699219
+      ],
+      "file": "glass-intact.png",
+      "level": "",
+      "player_feet": [
+        428.0,
+        319.997741699219
+      ]
+    },
+    {
+      "camera": [
+        564.0,
+        279.997741699219
+      ],
+      "file": "glass-damaged.png",
+      "level": "",
+      "player_feet": [
+        428.0,
+        319.997741699219
+      ]
+    },
+    {
+      "camera": [
+        564.0,
+        279.997741699219
+      ],
+      "file": "glass-broken.png",
+      "level": "",
+      "player_feet": [
+        428.0,
+        319.997741699219
+      ]
+    },
+    {
+      "camera": [
+        404.0,
+        279.997741699219
+      ],
+      "file": "barrel-intact.png",
+      "level": "",
+      "player_feet": [
+        268.0,
+        319.997741699219
+      ]
+    },
+    {
+      "camera": [
+        404.0,
+        279.997741699219
+      ],
+      "file": "barrel-damaged.png",
+      "level": "",
+      "player_feet": [
+        268.0,
+        319.997741699219
+      ]
+    },
+    {
+      "camera": [
+        404.0,
+        279.997741699219
+      ],
+      "file": "barrel-broken.png",
+      "level": "",
+      "player_feet": [
+        268.0,
+        319.997741699219
+      ]
+    },
+    {
+      "camera": [
+        944.0,
+        267.438293457031
+      ],
+      "file": "lift-riding.png",
+      "level": "",
+      "player_feet": [
+        808.0,
+        307.438293457031
+      ]
+    },
+    {
+      "camera": [
+        1020.0,
+        279.991149902344
+      ],
+      "file": "power-supplied.png",
+      "level": "",
+      "player_feet": [
+        884.0,
+        319.991149902344
+      ]
+    },
+    {
+      "camera": [
+        1020.0,
+        279.991149902344
+      ],
+      "file": "power-cut.png",
+      "level": "",
+      "player_feet": [
+        884.0,
+        319.991149902344
+      ]
+    },
+    {
+      "camera": [
+        312.0,
+        279.994262695312
+      ],
+      "file": "throwable-fuse.png",
+      "level": "",
+      "player_feet": [
+        176.0,
+        319.994262695312
+      ]
+    },
+    {
+      "camera": [
+        312.0,
+        279.994262695312
+      ],
+      "file": "throwable-reduced-flashes.png",
+      "level": "",
+      "player_feet": [
+        176.0,
+        319.994262695312
+      ]
+    },
+    {
+      "camera": [
+        163.993576049805,
+        280.305297851562
+      ],
+      "file": "campaign-pawnshop-intact.png",
+      "level": "res://data/levels/ch1_pawnshop.tres",
+      "player_feet": [
+        28.0,
+        319.997741699219
+      ]
+    },
+    {
+      "camera": [
+        163.998413085938,
+        280.074188232422
+      ],
+      "file": "campaign-pawnshop-damaged.png",
+      "level": "res://data/levels/ch1_pawnshop.tres",
+      "player_feet": [
+        28.0,
+        319.997741699219
+      ]
+    },
+    {
+      "camera": [
+        163.999206542969,
+        280.035858154297
+      ],
+      "file": "campaign-pawnshop-broken.png",
+      "level": "res://data/levels/ch1_pawnshop.tres",
+      "player_feet": [
+        28.0,
+        319.997741699219
+      ]
+    }
+  ]
+}

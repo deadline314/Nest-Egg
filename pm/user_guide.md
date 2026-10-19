@@ -463,3 +463,6 @@ GPU工作用 `tools/comfyui/gpu_lock.py` 與 `comfy_guard.py` 的現有共享鎖
 
 
 2026-10-20 本批交付後盤點：[明確未完成票與逐票未勾項](unfinished-tickets-2026-10-20-after-batch.csv)、[待驗收票](review-tickets-2026-10-20-after-batch.csv)。保留本輪起點兩份快照；四票本次已交付的修正不代表整票所有驗收完成。
+
+
+2026-10-20（BG-47）：小型規則機關沿用 BG-21 可重跑的固定物件管線。完整、受損與碎裂外觀跟真實生命值和物理狀態走，碎裂只作短暫外觀，不重發掉落或爆炸；還原已破壞物不重播。可撿油桶保留原引信，減閃光只改警示顯示，不改爆炸時間。正式外觀、缺圖回退與章節占位稽核要一起驗，見 [狀態設計](../design/20-campaign-experience/FIXTURE_STATES.md)與 [五款圖片參考](../design/08-lighting/READABILITY_REFERENCES.md)。

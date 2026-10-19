@@ -23,3 +23,19 @@ func _apply(is_active: bool, silent: bool) -> void:
 	if not silent:
 		EventBus.toast_requested.emit("電力已切斷：區域熄燈、保全停擺" if is_active else "電力恢復")
 		Sfx.play(&"power_down" if is_active else &"power_up", -2.0)
+
+
+func _art_prefix() -> StringName:
+	return &"power_switch"
+
+
+func _art_rect() -> Rect2:
+	return Rect2(-11, -28, 22, 28)
+
+
+func _status_rect() -> Rect2:
+	return Rect2(-2, -14, 4, 2)
+
+
+func _status_color() -> Color:
+	return Palette.DANGER if active else Palette.CYAN

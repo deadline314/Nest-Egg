@@ -191,6 +191,146 @@ def gate_shutter():
     return s
 
 
+def crate(state="intact"):
+    """Wood slats, steel corners and a shipping seal; rubble has its own silhouette."""
+    wood = (118, 85, 57, 255)
+    light = (161, 122, 80, 255)
+    dark = (65, 47, 36, 255)
+    if state == "broken":
+        s = Sheet(32, 12)
+        for points in [[(1, 9), (3, 7), (16, 9), (18, 11), (16, 12), (2, 12)],
+                       [(8, 8), (12, 4), (14, 5), (12, 8), (24, 9), (25, 12), (21, 11)],
+                       [(18, 9), (27, 5), (30, 6), (28, 8), (30, 11), (28, 12)]]:
+            s.polygon(points, INK)
+            s.polygon([(x, y - 0.6) for x, y in points], wood)
+        s.polygon([(4, 8), (15, 10), (16, 10.5), (5, 8.5)], light)
+        s.polygon([(19, 9), (27, 6), (28, 6.5), (20, 9.5)], light)
+        s.panel(1, 8, 6, 12, STEEL, STEEL_PALE, STEEL_DARK)
+        return s
+    s = Sheet(32, 32)
+    s.panel(0, 0, 32, 32, dark, light, INK)
+    for y in range(2, 30, 6):
+        s.panel(2, y, 30, y + 5.5, wood, light, dark, ink=0.25, bevel=0.35)
+        s.rect(8 + y % 7, y + 2, 16 + y % 7, y + 2.3, dark)
+    for x in (1.0, 27.0):
+        s.panel(x, 1, x + 4, 31, STEEL, STEEL_LIGHT, STEEL_DARK, bevel=0.4)
+        for y in (3, 15, 28):
+            s.rivet(x + 2, y)
+    s.polygon([(6, 25), (25, 5), (27, 7), (8, 27)], dark)
+    s.polygon([(6, 24), (24, 5), (25, 6), (7, 25)], light)
+    s.panel(12, 11, 21, 18, PATCH_LIGHT, (174, 162, 139, 255), PATCH, ink=0.3, bevel=0.2)
+    for x in (14, 16, 17.5, 19):
+        s.rect(x, 13, x + 0.4, 16, dark)
+    if state == "damaged":
+        s.polygon([(8, 4), (12, 11), (9, 18), (15, 25), (12, 30), (18, 25), (12, 17), (15, 10)], INK)
+        s.polygon([(8, 4), (12, 11), (9, 18), (10, 16), (13, 10)], light)
+        s.rect(22, 23, 28, 25, dark)
+    return s
+
+
+def barrel(state="intact"):
+    """Stepped drum, recessed lid, steel bands and an unambiguous fuel pictogram."""
+    red = (132, 56, 47, 255)
+    red_light = (177, 82, 64, 255)
+    red_dark = (70, 32, 33, 255)
+    if state == "broken":
+        s = Sheet(24, 12)
+        s.polygon([(1, 11), (3, 4), (10, 1), (15, 6), (22, 4), (23, 12)], INK)
+        s.polygon([(3, 10), (5, 5), (10, 3), (14, 8), (21, 6), (22, 11)], red)
+        s.polygon([(3, 9), (10, 5), (13, 8), (20, 7), (21, 9), (12, 11)], STEEL_LIGHT)
+        return s
+    s = Sheet(24, 36)
+    s.polygon([(3, 0), (21, 0), (24, 3), (24, 33), (21, 36), (3, 36), (0, 33), (0, 3)], INK)
+    s.rect(1, 3, 23, 33, red_dark)
+    s.rect(2, 4, 18, 33, red)
+    s.rect(3, 4, 7, 33, red_light)
+    s.panel(2, 1, 22, 5, STEEL_DARK, STEEL_LIGHT, INK, bevel=0.4)
+    s.panel(3, 1.5, 8, 4, INK, STEEL, INK, ink=0.3, bevel=0.2)
+    for y in (8, 27, 32):
+        s.panel(1, y, 23, y + 2.5, STEEL, STEEL_LIGHT, STEEL_DARK, ink=0.3, bevel=0.3)
+    s.polygon([(12, 12), (19, 22), (5, 22)], INK)
+    s.polygon([(12, 13.5), (17, 21), (7, 21)], HAZARD)
+    s.polygon([(12, 16), (10, 19), (12, 20.5), (14, 19.5), (13, 17), (12, 18)], INK)
+    if state == "damaged":
+        s.polygon([(18, 6), (14, 10), (18, 14), (15, 19), (22, 17), (19, 12), (22, 9)], red_dark)
+        s.polygon([(18, 6), (14, 10), (18, 14), (16, 10)], red_light)
+        s.rect(3, 29, 8, 30, INK)
+    return s
+
+
+def glass(state="intact"):
+    """A bolted frame and a translucent pane, never an opaque cyan wall."""
+    if state == "broken":
+        s = Sheet(16, 12)
+        for points in [[(0, 11), (4, 2), (7, 12)], [(6, 12), (12, 3), (14, 11)], [(11, 11), (16, 6), (15, 12)]]:
+            s.polygon(points, STEEL_DARK)
+            s.polygon([(x + 0.3, y - 0.3) for x, y in points], (108, 176, 188, 170))
+        return s
+    s = Sheet(16, 48)
+    s.panel(0, 0, 16, 48, STEEL_DARK, STEEL_PALE, INK, ink=0.4, bevel=0.35)
+    s.rect(2, 2, 14, 46, (22, 64, 78, 65))
+    # Replace the opaque panel interior with genuine alpha.
+    s.draw.rectangle([2 * SCALE, 2 * SCALE, 14 * SCALE - 1, 46 * SCALE - 1], fill=(22, 64, 78, 65))
+    for x, y in ((1, 5), (15, 5), (1, 43), (15, 43)):
+        s.rivet(x, y)
+    for y in (10, 27):
+        s.polygon([(3, y + 5), (11, y), (12, y + 1), (4, y + 6)], (138, 193, 204, 120))
+    if state == "damaged":
+        for line in [[(8, 20), (4, 10), (5, 3)], [(8, 20), (13, 16), (14, 7)],
+                     [(8, 20), (6, 29), (10, 38), (8, 46)], [(8, 20), (13, 26), (14, 33)]]:
+            s.draw.line([(x * SCALE, y * SCALE) for x, y in line], fill=(182, 223, 228, 220), width=4)
+    return s
+
+
+def lift_deck():
+    s = Sheet(32, 6)
+    s.panel(0, 0, 32, 6, STEEL, STEEL_PALE, STEEL_DARK, ink=0.3, bevel=0.5)
+    s.hazard(6, 1.5, 26, 3.5, stripe=2)
+    for x in (3, 29):
+        s.rivet(x, 3)
+    s.rect(5, 4.5, 27, 6, INK)
+    return s
+
+
+def lift_rail():
+    s = Sheet(4, 16)
+    s.rect(0, 0, 4, 16, INK)
+    s.rect(0.5, 0, 3.5, 16, STEEL_DARK)
+    s.rect(0.5, 0, 1.4, 16, STEEL_PALE)
+    s.rect(2.3, 0, 3, 16, STEEL)
+    for y in (2, 10):
+        s.rect(1.4, y, 3.5, y + 1.5, STEEL_LIGHT)
+    return s
+
+
+def lift_stop():
+    s = Sheet(32, 4)
+    s.panel(0, 0, 32, 4, STEEL_DARK, STEEL_LIGHT, INK, ink=0.4, bevel=0.4)
+    for x in (3, 29):
+        s.rivet(x, 2)
+    return s
+
+
+def power_switch(on):
+    s = Sheet(22, 28)
+    s.panel(1, 1, 21, 26, STEEL_DARK, STEEL_LIGHT, INK, bevel=0.5)
+    s.panel(3, 3, 19, 24, STEEL, STEEL_LIGHT, STEEL_DARK, bevel=0.4)
+    s.hazard(4, 21, 18, 23, stripe=1.5)
+    for x, y in ((2, 2), (20, 2), (2, 25), (20, 25)):
+        s.rivet(x, y)
+    s.panel(5, 5, 17, 10, SCREEN, STEEL_DARK, INK, bevel=0.2)
+    s.polygon([(11, 5.5), (8, 8), (11, 8), (10, 9.5), (14, 7), (11, 7)], HAZARD)
+    s.panel(7, 12, 15, 17, INK, STEEL_DARK, INK, bevel=0.2)  # state-lamp recess
+    tip = (6, 10) if on else (16, 10)
+    s.polygon([(10, 19), (12, 19), (tip[0] + 1, tip[1]), (tip[0] - 1, tip[1])], INK)
+    s.polygon([(10.6, 19), (11.4, 19), (tip[0] + 0.4, tip[1]), (tip[0] - 0.4, tip[1])], STEEL_PALE)
+    s.panel(tip[0] - 2, tip[1] - 1.5, tip[0] + 2, tip[1] + 1.5, HAZARD, PATCH_LIGHT, PATCH, ink=0.3, bevel=0.3)
+    s.panel(0, 26, 22, 28, STEEL_DARK, STEEL, INK, ink=0.3, bevel=0.3)
+    s.rect(18.5, 15, 20, 28, INK)
+    s.rect(19, 15, 19.5, 28, STEEL_LIGHT)
+    return s
+
+
 FIXTURES = {
     "door_steel": door,
     "ladder_segment": ladder,
@@ -199,15 +339,32 @@ FIXTURES = {
     "switch_box_on": lambda: switch_box(True),
     "breakable_wall": breakable_wall,
     "gate_shutter": gate_shutter,
+    "breakable_crate": crate,
+    "breakable_crate_damaged": lambda: crate("damaged"),
+    "breakable_crate_broken": lambda: crate("broken"),
+    "breakable_barrel": barrel,
+    "breakable_barrel_damaged": lambda: barrel("damaged"),
+    "breakable_barrel_broken": lambda: barrel("broken"),
+    "breakable_glass": glass,
+    "breakable_glass_damaged": lambda: glass("damaged"),
+    "breakable_glass_broken": lambda: glass("broken"),
+    "lift_deck": lift_deck,
+    "lift_rail": lift_rail,
+    "lift_stop": lift_stop,
+    "power_switch_off": lambda: power_switch(False),
+    "power_switch_on": lambda: power_switch(True),
 }
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--sheet", help="另外輸出一張樣本一覽（每件放在深色底上）")
+    parser.add_argument("--only", nargs="+", choices=FIXTURES, help="只重建指定物件")
     args = parser.parse_args()
     sheets = {}
     for name, build in FIXTURES.items():
+        if args.only and name not in args.only:
+            continue
         sheets[name] = build()
         print(sheets[name].save(name), sheets[name].size)
     if args.sheet:
