@@ -99,14 +99,13 @@ def scene_bg(name: str, **extra) -> dict:
 # Extra top-level fields of a stage file: the floor line the actors stand on and the furniture painted into the picture
 # (measured on the picture in stage coordinates; kinds and their allowed sizes are in data/cutscene/stage_proportions.json).
 STAGE_FIELDS = {
-    # 客人簿的房間（BG-46）：榻榻米上一張矮桌、左右各一個坐墊。站著的人腳在 y=278；坐墊的座面 y=262。
-    # 家具是照 3.8～4.0 倍的演員畫的：站著要把鏡頭拉遠到 0.84，坐在墊上用 1.0 就放得下。
+    # BG-46：椅面 y=209、前腳接地 y=265.5。原生背景 1843×853，以 0.5 倍使用；桌／座由圖片逐件量測。
     "ch2_guest_book_room": {
-        "floor": 278,
+        "floor": 265.5,
         "furniture": [
-            {"id": "low_table", "kind": "low_table", "rect": [250, 236, 120, 40], "plane": "actor"},
-            {"id": "cushion_left", "kind": "floor_cushion", "rect": [185, 262, 83, 16], "plane": "actor"},
-            {"id": "cushion_right", "kind": "floor_cushion", "rect": [352, 262, 93, 16], "plane": "actor"},
+            {"id": "tea_table", "kind": "table", "rect": [271.25, 180.0, 106, 85.5], "plane": "actor"},
+            {"id": "chair_left", "kind": "seat", "rect": [204.25, 209, 68, 56.5], "plane": "actor"},
+            {"id": "chair_right", "kind": "seat", "rect": [377.75, 209, 65, 56.5], "plane": "actor"},
         ],
     },
 }
@@ -114,7 +113,7 @@ STAGE_FIELDS = {
 STAGE_LAYERS = {
     "ch2_guest_book_room": [
         {"kind": "gradient", "top": "#140a10", "bottom": "#2a141c", "parallax": 0.0},
-        scene_bg("guest_book_room"),
+        {"kind": "sprite", "path": "res://art/environment/scenes/guest_book_seating.png", "pos": [-140.75, -36], "scale": 0.5, "source_width": 1843, "filter": "linear"},
         glow([480, 120], 170, "#ffc890", 0.8, 0.4, pulse=0.07, pulse_depth=0.2),
         glow([300, 250], 150, "#ff9a6a", 0.5, 0.18),
         motes(22, "#ffd9b0", 0.35, [120, 40, 420, 230], [1.5, -2.5], 1.1, 46),

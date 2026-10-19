@@ -5558,6 +5558,30 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch2_guest_book_room",
+     "pos": [
+      320,
+      206.3
+     ],
+     "zoom": 0.84,
+     "fade": 0.35
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      150,
+      265.5
+     ],
+     "facing": 1,
+     "scale": 3.9,
+     "weapon": "",
+     "speaker": "ali",
+     "pose": "idle"
+    },
+    {
      "do": "say",
      "speaker": "ali",
      "text": "我可以聽您說，也可以照您留下的細節陪您說話。今晚有三位預約，我一位一位來。",
@@ -5565,7 +5589,7 @@
      "en": "I can listen to you, or keep you company with the details you left behind. There are three bookings tonight, and I'll see each guest one at a time."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "not": {
      "flag": "ch2_guest_book_entered",
@@ -5584,6 +5608,30 @@
   "ch2_t_s17_open": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_guest_book_room",
+     "pos": [
+      320,
+      206.3
+     ],
+     "zoom": 0.84,
+     "fade": 0.35
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      150,
+      265.5
+     ],
+     "facing": 1,
+     "scale": 3.9,
+     "weapon": "",
+     "speaker": "ali",
+     "pose": "idle"
+    },
     {
      "do": "say",
      "speaker": "label",
@@ -5658,7 +5706,7 @@
      "en": "Pear opens the guest book and checks the next booked guest."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "not": {
      "flag": "guest_book_completed",
@@ -5670,6 +5718,33 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch2_guest_book_room",
+     "pos": [
+      320,
+      206.3
+     ],
+     "zoom": 0.84,
+     "fade": 0.35
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      232,
+      265.5
+     ],
+     "facing": 1,
+     "scale": 3.9,
+     "weapon": "",
+     "speaker": "ali",
+     "pose": "sit",
+     "pose_reason": "坐下陪成年客人談話。",
+     "pose_support": "左椅座面 x=204.25～272.25、y=209；腳底在地板 y=265.5。",
+     "seat_sag": 0.5
+    },
+    {
      "do": "say",
      "speaker": "zheng",
      "text": "我想有人問我今天吃了什麼，她以前會問。我女兒二十六歲那年沒有回來。",
@@ -5679,7 +5754,7 @@
     {
      "do": "choice",
      "text": "我想有人問我今天吃了什麼，她以前會問。我女兒二十六歲那年沒有回來。",
-     "default": "ask",
+     "default": "back",
      "options": [
       {
        "id": "ask",
@@ -5700,17 +5775,53 @@
        "en": "Call him “Dad” right away.",
        "explanation_ja": "聞かずに、役どおりに話す。",
        "explanation_en": "Speak in character without asking first."
+      },
+      {
+       "id": "back",
+       "text": "先回到凜那邊。",
+       "explanation": "剩下的客人之後還能再陪。",
+       "ja": "凛のところへ戻る。",
+       "en": "Return to Rin.",
+       "explanation_ja": "残りのお客さんは、後からでも相手ができる。",
+       "explanation_en": "The remaining guests can be seen later."
       }
      ],
      "ja": "今日何を食べたか、誰かに聞いてほしいんだ。娘はよく聞いてくれた。娘が二十六のとき、帰ってこなかった。",
      "en": "I want someone to ask what I ate today. She used to ask. My daughter didn't come home the year she turned twenty-six."
     }
    ],
-   "overlay": true
+   "pose_policy": "supported"
   },
   "ch2_t_s18_dad": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_guest_book_room",
+     "pos": [
+      320,
+      206.3
+     ],
+     "zoom": 0.84,
+     "fade": 0.35
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      232,
+      265.5
+     ],
+     "facing": 1,
+     "scale": 3.9,
+     "weapon": "",
+     "speaker": "ali",
+     "pose": "sit",
+     "pose_reason": "坐下陪成年客人談話。",
+     "pose_support": "左椅座面 x=204.25～272.25、y=209；腳底在地板 y=265.5。",
+     "seat_sag": 0.5
+    },
     {
      "do": "say",
      "speaker": "zheng",
@@ -5719,12 +5830,39 @@
      "en": "I wanted you to call me Mr. Zheng first. I'm not ready yet."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "then": "ch2_dispatch_back_s18_ticket"
   },
   "ch2_t_s18_name": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_guest_book_room",
+     "pos": [
+      320,
+      206.3
+     ],
+     "zoom": 0.84,
+     "fade": 0.35
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      232,
+      265.5
+     ],
+     "facing": 1,
+     "scale": 3.9,
+     "weapon": "",
+     "speaker": "ali",
+     "pose": "sit",
+     "pose_reason": "坐下陪成年客人談話。",
+     "pose_support": "左椅座面 x=204.25～272.25、y=209；腳底在地板 y=265.5。",
+     "seat_sag": 0.5
+    },
     {
      "do": "say",
      "speaker": "ali",
@@ -5749,7 +5887,7 @@
     {
      "do": "choice",
      "text": "我今天吃了魚，沒吃完。她總把魚刺挑到左邊的小盤，怕我嫌麻煩。",
-     "default": "meat",
+     "default": "back",
      "options": [
       {
        "id": "fish",
@@ -5770,17 +5908,53 @@
        "en": "Ask Mr. Zheng whether today's meat was good.",
        "explanation_ja": "彼の話とは合わない。",
        "explanation_en": "It doesn't match what he said."
+      },
+      {
+       "id": "back",
+       "text": "先回到凜那邊。",
+       "explanation": "剩下的客人之後還能再陪。",
+       "ja": "凛のところへ戻る。",
+       "en": "Return to Rin.",
+       "explanation_ja": "残りのお客さんは、後からでも相手ができる。",
+       "explanation_en": "The remaining guests can be seen later."
       }
      ],
      "ja": "今日は魚を食べたけど、食べきれなかった。あの子はいつも魚の骨を左の小皿に取ってくれた。私が面倒がらないようにって。",
      "en": "I ate fish today, but I didn't finish it. She always put the bones on the small plate on the left so I wouldn't have to fuss with them."
     }
    ],
-   "overlay": true
+   "pose_policy": "supported"
   },
   "ch2_t_s18_wrong": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_guest_book_room",
+     "pos": [
+      320,
+      206.3
+     ],
+     "zoom": 0.84,
+     "fade": 0.35
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      232,
+      265.5
+     ],
+     "facing": 1,
+     "scale": 3.9,
+     "weapon": "",
+     "speaker": "ali",
+     "pose": "sit",
+     "pose_reason": "坐下陪成年客人談話。",
+     "pose_support": "左椅座面 x=204.25～272.25、y=209；腳底在地板 y=265.5。",
+     "seat_sag": 0.5
+    },
     {
      "do": "say",
      "speaker": "zheng",
@@ -5789,12 +5963,39 @@
      "en": "Today I ate fish. I can say it again if you like."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "then": "ch2_dispatch_back_s18_name"
   },
   "ch2_t_s18_done": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_guest_book_room",
+     "pos": [
+      320,
+      206.3
+     ],
+     "zoom": 0.84,
+     "fade": 0.35
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      232,
+      265.5
+     ],
+     "facing": 1,
+     "scale": 3.9,
+     "weapon": "",
+     "speaker": "ali",
+     "pose": "sit",
+     "pose_reason": "坐下陪成年客人談話。",
+     "pose_support": "左椅座面 x=204.25～272.25、y=209；腳底在地板 y=265.5。",
+     "seat_sag": 0.5
+    },
     {
      "do": "say",
      "speaker": "ali",
@@ -5810,7 +6011,7 @@
      "en": "If I said I hadn't finished, she'd probably have laughed. You don't have to laugh like her. Just listen until I'm done."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "results": [
     {
      "kind": "flag",
@@ -5828,6 +6029,33 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch2_guest_book_room",
+     "pos": [
+      320,
+      206.3
+     ],
+     "zoom": 0.84,
+     "fade": 0.35
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      232,
+      265.5
+     ],
+     "facing": 1,
+     "scale": 3.9,
+     "weapon": "",
+     "speaker": "ali",
+     "pose": "sit",
+     "pose_reason": "坐下陪成年客人談話。",
+     "pose_support": "左椅座面 x=204.25～272.25、y=209；腳底在地板 y=265.5。",
+     "seat_sag": 0.5
+    },
+    {
      "do": "say",
      "speaker": "chen",
      "text": "我妻子今天在另一個港口，回不來。我想有人坐這張椅子，不用裝作她真的在這裡。",
@@ -5844,7 +6072,7 @@
     {
      "do": "choice",
      "text": "我坐這邊，您要我先聊什麼？",
-     "default": "today",
+     "default": "back",
      "options": [
       {
        "id": "today",
@@ -5865,17 +6093,53 @@
        "en": "Ask her how she died.",
        "explanation_ja": "復元のことを直接聞く。",
        "explanation_en": "Ask about restoration directly."
+      },
+      {
+       "id": "back",
+       "text": "先回到凜那邊。",
+       "explanation": "剩下的客人之後還能再陪。",
+       "ja": "凛のところへ戻る。",
+       "en": "Return to Rin.",
+       "explanation_ja": "残りのお客さんは、後からでも相手ができる。",
+       "explanation_en": "The remaining guests can be seen later."
       }
      ],
      "ja": "ここに座りますね。何からお話ししましょうか？",
      "en": "I'll sit here. What would you like to talk about first?"
     }
    ],
-   "overlay": true
+   "pose_policy": "supported"
   },
   "ch2_t_s19_wrong_death": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_guest_book_room",
+     "pos": [
+      320,
+      206.3
+     ],
+     "zoom": 0.84,
+     "fade": 0.35
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      232,
+      265.5
+     ],
+     "facing": 1,
+     "scale": 3.9,
+     "weapon": "",
+     "speaker": "ali",
+     "pose": "sit",
+     "pose_reason": "坐下陪成年客人談話。",
+     "pose_support": "左椅座面 x=204.25～272.25、y=209；腳底在地板 y=265.5。",
+     "seat_sag": 0.5
+    },
     {
      "do": "say",
      "speaker": "chen",
@@ -5884,12 +6148,39 @@
      "en": "I don't want to talk about that tonight. Please change the subject."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "then": "ch2_dispatch_back_s19_band"
   },
   "ch2_t_s19_quiet": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_guest_book_room",
+     "pos": [
+      320,
+      206.3
+     ],
+     "zoom": 0.84,
+     "fade": 0.35
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      232,
+      265.5
+     ],
+     "facing": 1,
+     "scale": 3.9,
+     "weapon": "",
+     "speaker": "ali",
+     "pose": "sit",
+     "pose_reason": "坐下陪成年客人談話。",
+     "pose_support": "左椅座面 x=204.25～272.25、y=209；腳底在地板 y=265.5。",
+     "seat_sag": 0.5
+    },
     {
      "do": "say",
      "speaker": "chen",
@@ -5925,7 +6216,7 @@
     {
      "do": "choice",
      "text": "不要蔥，梨湯就好。",
-     "default": "scallion",
+     "default": "back",
      "options": [
       {
        "id": "soup",
@@ -5946,17 +6237,53 @@
        "en": "Serve a bowl of soup with scallions.",
        "explanation_ja": "彼女がネギを食べないことを忘れてしまう。",
        "explanation_en": "Forget that she doesn't eat scallions."
+      },
+      {
+       "id": "back",
+       "text": "先回到凜那邊。",
+       "explanation": "剩下的客人之後還能再陪。",
+       "ja": "凛のところへ戻る。",
+       "en": "Return to Rin.",
+       "explanation_ja": "残りのお客さんは、後からでも相手ができる。",
+       "explanation_en": "The remaining guests can be seen later."
       }
      ],
      "ja": "ネギは抜いて、梨のスープだけでいいわ。",
      "en": "No scallions, just the pear soup."
     }
    ],
-   "overlay": true
+   "pose_policy": "supported"
   },
   "ch2_t_s19_wrong_soup": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_guest_book_room",
+     "pos": [
+      320,
+      206.3
+     ],
+     "zoom": 0.84,
+     "fade": 0.35
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      232,
+      265.5
+     ],
+     "facing": 1,
+     "scale": 3.9,
+     "weapon": "",
+     "speaker": "ali",
+     "pose": "sit",
+     "pose_reason": "坐下陪成年客人談話。",
+     "pose_support": "左椅座面 x=204.25～272.25、y=209；腳底在地板 y=265.5。",
+     "seat_sag": 0.5
+    },
     {
      "do": "say",
      "speaker": "chen",
@@ -5965,12 +6292,39 @@
      "en": "I can't eat scallions. Could you bring a different bowl?"
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "then": "ch2_dispatch_back_s19_quiet"
   },
   "ch2_t_s19_done": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_guest_book_room",
+     "pos": [
+      320,
+      206.3
+     ],
+     "zoom": 0.84,
+     "fade": 0.35
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      232,
+      265.5
+     ],
+     "facing": 1,
+     "scale": 3.9,
+     "weapon": "",
+     "speaker": "ali",
+     "pose": "sit",
+     "pose_reason": "坐下陪成年客人談話。",
+     "pose_support": "左椅座面 x=204.25～272.25、y=209；腳底在地板 y=265.5。",
+     "seat_sag": 0.5
+    },
     {
      "do": "say",
      "speaker": "ali",
@@ -5986,7 +6340,7 @@
      "en": "I can still smell the soup. I won't talk about anything else today."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "results": [
     {
      "kind": "flag",
@@ -6004,6 +6358,33 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch2_guest_book_room",
+     "pos": [
+      320,
+      206.3
+     ],
+     "zoom": 0.84,
+     "fade": 0.35
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      232,
+      265.5
+     ],
+     "facing": 1,
+     "scale": 3.9,
+     "weapon": "",
+     "speaker": "ali",
+     "pose": "sit",
+     "pose_reason": "坐下陪成年客人談話。",
+     "pose_support": "左椅座面 x=204.25～272.25、y=209；腳底在地板 y=265.5。",
+     "seat_sag": 0.5
+    },
+    {
      "do": "say",
      "speaker": "hong",
      "text": "我以前每次都替他回話，後來他不跟我出海了。你能先當作還願意聽的人嗎？",
@@ -6020,7 +6401,7 @@
     {
      "do": "choice",
      "text": "我可以聽，但我不能替他答應您。",
-     "default": "listen",
+     "default": "back",
      "options": [
       {
        "id": "listen",
@@ -6041,17 +6422,53 @@
        "en": "Say, “I forgive you on his behalf.”",
        "explanation_ja": "その場にいない人の代わりに答える。",
        "explanation_en": "Answer on behalf of someone who isn't there."
+      },
+      {
+       "id": "back",
+       "text": "先回到凜那邊。",
+       "explanation": "剩下的客人之後還能再陪。",
+       "ja": "凛のところへ戻る。",
+       "en": "Return to Rin.",
+       "explanation_ja": "残りのお客さんは、後からでも相手ができる。",
+       "explanation_en": "The remaining guests can be seen later."
       }
      ],
      "ja": "聞くことはできます。でも、彼の代わりに承諾はできません。",
      "en": "I can listen, but I can't agree on his behalf."
     }
    ],
-   "overlay": true
+   "pose_policy": "supported"
   },
   "ch2_t_s20_wrong": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_guest_book_room",
+     "pos": [
+      320,
+      206.3
+     ],
+     "zoom": 0.84,
+     "fade": 0.35
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      232,
+      265.5
+     ],
+     "facing": 1,
+     "scale": 3.9,
+     "weapon": "",
+     "speaker": "ali",
+     "pose": "sit",
+     "pose_reason": "坐下陪成年客人談話。",
+     "pose_support": "左椅座面 x=204.25～272.25、y=209；腳底在地板 y=265.5。",
+     "seat_sag": 0.5
+    },
     {
      "do": "say",
      "speaker": "ali",
@@ -6067,12 +6484,39 @@
      "en": "That's right. He never once said it was okay."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "then": "ch2_dispatch_back_s20_letter"
   },
   "ch2_t_s20_story": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_guest_book_room",
+     "pos": [
+      320,
+      206.3
+     ],
+     "zoom": 0.84,
+     "fade": 0.35
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      232,
+      265.5
+     ],
+     "facing": 1,
+     "scale": 3.9,
+     "weapon": "",
+     "speaker": "ali",
+     "pose": "sit",
+     "pose_reason": "坐下陪成年客人談話。",
+     "pose_support": "左椅座面 x=204.25～272.25、y=209；腳底在地板 y=265.5。",
+     "seat_sag": 0.5
+    },
     {
      "do": "say",
      "speaker": "hong",
@@ -6097,7 +6541,7 @@
     {
      "do": "choice",
      "text": "我現在想把名字圈掉，信還是得寄。",
-     "default": "fine",
+     "default": "back",
      "options": [
       {
        "id": "heard",
@@ -6118,17 +6562,53 @@
        "en": "Tell him it's okay, his friend will surely understand.",
        "explanation_ja": "彼は今まさに、その言葉は要らないと言ったところだ。",
        "explanation_en": "He just said he doesn't want to hear that."
+      },
+      {
+       "id": "back",
+       "text": "先回到凜那邊。",
+       "explanation": "剩下的客人之後還能再陪。",
+       "ja": "凛のところへ戻る。",
+       "en": "Return to Rin.",
+       "explanation_ja": "残りのお客さんは、後からでも相手ができる。",
+       "explanation_en": "The remaining guests can be seen later."
       }
      ],
      "ja": "今は彼の名前を線で消したい。でも、手紙は出さないといけない。",
      "en": "Now I want to cross his name off, but the letter still has to go out."
     }
    ],
-   "overlay": true
+   "pose_policy": "supported"
   },
   "ch2_t_s20_wrong_fine": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_guest_book_room",
+     "pos": [
+      320,
+      206.3
+     ],
+     "zoom": 0.84,
+     "fade": 0.35
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      232,
+      265.5
+     ],
+     "facing": 1,
+     "scale": 3.9,
+     "weapon": "",
+     "speaker": "ali",
+     "pose": "sit",
+     "pose_reason": "坐下陪成年客人談話。",
+     "pose_support": "左椅座面 x=204.25～272.25、y=209；腳底在地板 y=265.5。",
+     "seat_sag": 0.5
+    },
     {
      "do": "say",
      "speaker": "hong",
@@ -6137,12 +6617,39 @@
      "en": "He never said it was okay. Please don't say it for him."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "then": "ch2_dispatch_back_s20_story"
   },
   "ch2_t_s20_done": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_guest_book_room",
+     "pos": [
+      320,
+      206.3
+     ],
+     "zoom": 0.84,
+     "fade": 0.35
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      232,
+      265.5
+     ],
+     "facing": 1,
+     "scale": 3.9,
+     "weapon": "",
+     "speaker": "ali",
+     "pose": "sit",
+     "pose_reason": "坐下陪成年客人談話。",
+     "pose_support": "左椅座面 x=204.25～272.25、y=209；腳底在地板 y=265.5。",
+     "seat_sag": 0.5
+    },
     {
      "do": "say",
      "speaker": "ali",
@@ -6165,7 +6672,7 @@
      "en": "Here's the envelope. Please decide for yourself where to send it."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "results": [
     {
      "kind": "flag",
@@ -6182,6 +6689,30 @@
   "ch2_t_s21_close": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_guest_book_room",
+     "pos": [
+      320,
+      206.3
+     ],
+     "zoom": 0.84,
+     "fade": 0.35
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      150,
+      265.5
+     ],
+     "facing": 1,
+     "scale": 3.9,
+     "weapon": "",
+     "speaker": "ali",
+     "pose": "idle"
+    },
     {
      "do": "say",
      "speaker": "ali",
@@ -6215,7 +6746,7 @@
      "en": "I don't have an anchor. If I truly collapse, there's no next time. If someone can finish telling today's story, I'll let them go first."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "all": [
      {

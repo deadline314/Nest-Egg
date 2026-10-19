@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import sys
+from dataclasses import replace
 from pathlib import Path
 
 sys.dont_write_bytecode = True
@@ -773,6 +774,24 @@ def _guest_book(source: ProductionSource):
     source.add("ch2_t_s17_revisit", "S17", (("ali", "客人簿收好了，今晚的三頁都寫清楚了。"),), when=flag("guest_book_completed"))
 
 
+def _guest_book_frames(source: ProductionSource):
+    """BG-46：整段夜班留在客人簿房間；客人談話用有支撐的坐姿，入口及回訪仍在凜所在的館外。"""
+    for ident, segment in list(source.segments.items()):
+        if segment.section not in {"S17", "S18", "S19", "S20", "S21"} or ident in {"ch2_t_s17_offer", "ch2_t_s17_revisit"}:
+            continue
+        seated = segment.section in {"S18", "S19", "S20"}
+        actor = stage_actor("ali", "ali", 232 if seated else 150, 265.5, facing=1, scale=3.9, speaker="ali",
+                            pose="sit" if seated else "idle",
+                            pose_reason="坐下陪成年客人談話。" if seated else None,
+                            pose_support="左椅座面 x=204.25～272.25、y=209；腳底在地板 y=265.5。" if seated else None)
+        if seated:
+            actor["seat_sag"] = 0.50
+            if segment.options:
+                segment = replace(segment, options=segment.options + (_opt("back", "先回到凜那邊。", None, "剩下的客人之後還能再陪。"),))
+        cast = [stage_scene("ch2_guest_book_room", x=320, y=206.3, zoom=0.84, fade_in=0.35, feet=265.5), actor]
+        source.segments[ident] = replace(segment, mode="animated", steps=tuple(cast) + segment.steps)
+
+
 DISPATCH = {
     "old_k": ["ch2_t_s01_settle", "ch2_t_s01_revisit"],
     "s01_reaction": ["ch2_t_s01_reaction", "ch2_t_s01_reaction_left"],
@@ -861,6 +880,7 @@ def build_source() -> ProductionSource:
     _ledger(source)
     _return_and_audit(source)
     _guest_book(source)
+    _guest_book_frames(source)
     _quests(source)
     route_back_to_choices(source, DISPATCH, "ch2")
     return source

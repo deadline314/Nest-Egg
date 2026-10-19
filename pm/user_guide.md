@@ -475,3 +475,5 @@ GPU工作用 `tools/comfyui/gpu_lock.py` 與 `comfy_guard.py` 的現有共享鎖
 
 
 2026-10-20 光照與機關批次（BG-47／48／49，BG-40／42 補證）：正式外觀、局部霧與敵人明暗分層的修正已分票合入；本機原生條件與光池、相鄰市集原有不足維持原驗收。最新盤點為 [57 張明確未完成與逐票未勾項](unfinished-tickets-2026-10-20-latest.csv)、[54 張待審查](review-tickets-2026-10-20-latest.csv)。保留較早快照；局部交付不代表整票完成。
+
+2026-10-20 客人簿：18段正式室內演出已連接舞台，椅坐、返回與不重複付款有[來源、原生與分票整合證據](Nest-Egg-BG/attachments/BG-46-guest-book-connected/README.md)。角色坐姿底部輪廓改變時，要重新校準座深並看腳底與地板；不能只沿用舊數值或改長腿。BG-46轉審查後盤點為[56張未完成](unfinished-tickets-2026-10-20-latest.csv)、[55張審查中](review-tickets-2026-10-20-latest.csv)，保留歷史快照。

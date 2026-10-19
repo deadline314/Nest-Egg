@@ -21,7 +21,8 @@ func run() -> void:
 	_test_story_gates()
 	_test_ledger_install()
 	_test_street_line()
-	Checks.check_staging(self, "chapter 2", "ch2", 8)
+	_test_guest_book_stage()
+	Checks.check_staging(self, "chapter 2", "ch2", 26)
 	await _test_chapter_link()
 
 
@@ -78,6 +79,53 @@ func _test_street_line() -> void:
 	var layout := LevelBuilder.parse(data)
 	check(is_equal_approx(layout.ground_y, 20.0 * layout.tile_size), "the street line ignores the wide canopy (%.0f)" % layout.ground_y)
 	check(is_equal_approx(layout.surface_heights[40], 13.0 * layout.tile_size), "the canopy is still the top surface of its columns")
+
+
+## 夜班的開本、三客（含錯誤重試）與收本都留在同一個房間；回到凜才結束舞台。
+func _test_guest_book_stage() -> void:
+	var count := 0
+	for id: String in Story.scene_ids():
+		if not id.begins_with("ch2_t_s") or id in ["ch2_t_s17_offer", "ch2_t_s17_revisit"]:
+			continue
+		var section := int(id.substr(7, 2))
+		if section < 17 or section > 21:
+			continue
+		count += 1
+		var scene: Dictionary = Story._scenes[id]
+		check(scene.get("mode") == "animated" and not scene.get("overlay", false), "%s stays in the guest-book room" % id)
+		var steps: Array = scene.get("steps", [])
+		if steps.size() < 2:
+			check(false, "%s has a stage and Ali" % id)
+			continue
+		check(steps[0].get("id") == "ch2_guest_book_room", "%s opens the authored room" % id)
+		var actor: Dictionary = steps[1]
+		var at: Array = actor.get("pos", [])
+		check(actor.get("id") == "ali" and at.size() == 2, "%s has Ali with a position" % id)
+		if at.size() != 2:
+			continue
+		var feet := Vector2(float(at[0]), float(at[1]))
+		var seated := section in [18, 19, 20]
+		check(actor.get("pose") == ("sit" if seated else "idle"), "%s uses the intended supported posture" % id)
+		check(is_equal_approx(feet.y, 265.5), "%s keeps feet on the room floor" % id)
+		if seated:
+			check(is_equal_approx(float(actor.get("seat_sag", -1)), 0.50), "%s calibrates the seat without moving the floor" % id)
+			if (steps[-1] as Dictionary).get("do") == "choice":
+				check((steps[-1] as Dictionary).get("default") == "back", "%s can return to Rin or skip without choosing an answer" % id)
+		var issues := StageFitAudit.contact_issues(id, "ch2_guest_book_room", StageLibrary.definition(&"ch2_guest_book_room"), "ali", str(actor.get("pose")), feet, float(actor.get("scale", 1.0)))
+		check(issues.is_empty(), "%s has supported geometry: %s" % [id, issues])
+	check(count >= 18, "all guest-book segments, including retries, use the room (%d)" % count)
+	var offer: Dictionary = Story._scenes["ch2_t_s17_offer"]
+	check(bool(offer.get("overlay", false)), "the offer stays with Rin outside the room")
+	var open: Dictionary = Story._scenes["ch2_t_s17_open"]
+	check(not open.has("results"), "opening the reservation menu grants no completion or money")
+	var choice: Dictionary = open["steps"][-1]
+	check(choice.get("default") == "back", "skipping the menu returns without choosing an unplayed guest")
+	var negative := StageFitAudit.contact_issues("guest_book_negative", "ch2_guest_book_room", StageLibrary.definition(&"ch2_guest_book_room"), "ali", "idle", Vector2(320, 265.5), 3.9)
+	check(not negative.is_empty(), "standing inside the tea table is rejected")
+	for bad: Variant in [-0.1, 1.0, NAN, INF, "0.43", null]:
+		var broken: Dictionary = Story._scenes["ch2_t_s18_ticket"].duplicate(true)
+		broken["steps"][1]["seat_sag"] = bad
+		check("\n".join(CutsceneChecker.validate("seat_negative", broken, Story._speakers)).contains("seat_sag"), "invalid seat_sag is rejected: %s" % str(bad))
 
 
 ## 第一章的天亮章末接第二章的早上；屋頂的章末對話寫下旗標就結束本章。

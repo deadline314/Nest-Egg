@@ -28,6 +28,17 @@ const HANDOFF_TIME := 0.3
 ## 交接時膝蓋保留一點彎曲，最後的伸直交給 IK→站姿的緩入緩出。
 const DEFAULT_HANDOFF := {"x": [0.1, -0.15], "sag": 0.0, "reach": 0.99}
 
+## 舞台座面可按演員腿長校準坐姿下沉；-1 沿用原資料。只覆寫此動畫器，仍由既有雙骨 IK 固定腳底與骨長。
+var seated_sag := -1.0:
+	set(value):
+		if value != -1.0 and (not is_finite(value) or value < 0.0 or value > 0.9):
+			push_warning("[NpcAnimator] seated_sag must be -1 or a finite fraction in 0..0.9")
+			return
+		seated_sag = value
+		_seated_feet_cache.clear()
+var _seated_feet_cache: Dictionary = {}
+
+
 ## 資料裡所有工作循環的名稱（驗證 NPC 資料用）。
 static func loop_names() -> PackedStringArray:
 	var names := PackedStringArray()
@@ -241,6 +252,12 @@ func _step_posture(data: Dictionary, mine: Dictionary, posture: StringName, delt
 	var target_def := _entry(data, "poses", str(posture), "stand")
 	var target := _base_of(target_def, mine, posture)
 	var target_feet := _feet_of(target_def)
+	if posture == &"sit" and seated_sag >= 0.0:
+		if _seated_feet_cache.is_empty():
+			_seated_feet_cache = target_feet.duplicate(true)
+			_seated_feet_cache["sag"] = seated_sag
+		target_feet = _seated_feet_cache
+
 	if _pose_now == &"":
 		_pose_now = posture
 		_base_now = target

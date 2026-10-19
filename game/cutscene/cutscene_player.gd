@@ -416,6 +416,8 @@ func _do_actor(step: Dictionary) -> void:
 	actor.position = _vec(step.get("pos"), CENTER)
 	actor.face(int(step.get("facing", 1)))
 	actor.set_pose(StringName(str(step.get("pose", "idle"))))
+	if step.has("seat_sag"):
+		actor.configure_seat(step["seat_sag"])
 	actor.set_loop(StringName(str(step.get("loop", ""))), float(step.get("loop_scale", 1.0)))
 	actor.speaker_id = StringName(str(step.get("speaker", id)))
 	actor.ground_y = float(step["ground"]) if step.has("ground") else (_stage.floor_y if _stage != null else NAN)

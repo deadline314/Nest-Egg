@@ -6,6 +6,7 @@ extends "res://tools/ch1_flow_probe.gd"
 
 var _supper := "stay"
 var _pay := false
+var _guest_book_only := false
 
 
 func _ready() -> void:
@@ -14,6 +15,8 @@ func _ready() -> void:
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--supper="):
 			_supper = arg.trim_prefix("--supper=")
+		elif arg == "--guest-book-only":
+			_guest_book_only = true
 		elif arg == "--pay":
 			_pay = true
 	super._ready()
@@ -21,6 +24,7 @@ func _ready() -> void:
 
 func _run() -> void:
 	_shots = {
+		"ch2_t_s17_book": "BG-46-book", "ch2_t_s17_open:choice": "BG-46-reservations", "ch2_t_s21_close": "BG-46-close",
 		"ch2_t_s01_settle:choice": "ST-19-s01-settle", "ch2_t_s02_power:choice": "ST-19-s02-radio",
 		"ch2_t_s03_brief": "ST-19-s03-brief", "ch2_t_s06_open:choice": "ST-19-s06-ask-or-pay",
 		"ch2_t_s07_bowls:choice": "ST-19-s07-bowls", "ch2_t_s10_principal:choice": "ST-19-s10-reconcile",
@@ -28,6 +32,9 @@ func _run() -> void:
 		"ch2_t_s14_return": "ST-19-s14-214", "ch2_t_s15_upload": "ST-19-s15-ye",
 		"ch2_t_s16_page:choice": "ST-19-s16-page", "ch2_t_s18_name:choice": "ST-19-s18-zheng", "ch2_t_s22_tea:choice": "ST-19-s22-tea",
 	}
+	if _guest_book_only:
+		await _run_guest_book_only()
+		return
 	GameState.start_new_run(GameState.difficulties[1])
 	Story.reset_progress()
 	Story.auto_skip = false
@@ -150,4 +157,49 @@ func _run() -> void:
 	var open_side := catalog.list_for("ch2_heron", "side", false, GameState.world_flags)
 	_check(open_side.is_empty(), "every side quest this route touched is complete (%s)" % [open_side.map(func(q: Dictionary) -> String: return str(q.get("id")))])
 	print("CH2_FLOW_PROBE route=%s supper=%s pay=%s failures=%d" % [_route, _supper, _pay, _failures])
+	get_tree().quit(1 if _failures > 0 else 0)
+
+
+## BG-46：安排在已上傳查帳的館外，專驗客人簿退出、重入、重試、一次性獎勵；不代稱真人章節通關。
+func _run_guest_book_only() -> void:
+	_shots.merge({"ch2_t_s18_wrong": "BG-46-zheng-seated", "ch2_t_s19_wrong_death": "BG-46-chen-seated", "ch2_t_s20_wrong": "BG-46-hong-seated"})
+	GameState.start_new_run(GameState.difficulties[1])
+	Story.reset_progress()
+	Story.auto_skip = false
+	GameState.set_flag(&"ch2_audit_submitted")
+	await _enter("lounge_front")
+	var credits := Progression.credits
+	await _talk(&"ch2_guest_entry", ["watch", "back"])
+	_check(Progression.credits == credits and not GameState.has_flag(&"guest_book_completed"), "leaving before a guest pays nothing")
+	# 真正送出略過：未選客人的正確回應前，不能把一串安全預設一路走成發獎。
+	_check(Story.play(&"ch2_t_s18_ticket", false), "the guest's first question starts")
+	await _settle(4)
+	Story.skip_cinematic()
+	for tick in 300:
+		if not Story.is_cinematic_active():
+			break
+		await _settle(1)
+	_check(not Story.is_cinematic_active(), "skip returns from an unfinished guest")
+	_check(Progression.credits == credits and not GameState.has_flag(&"guest_ticket_answered"), "skip does not invent a completed guest or payment")
+	if Story.is_cinematic_active():
+		Story.reset_active_presentation(&"route")
+	await _talk(&"ch2_guest_entry", ["watch", "zheng", "dad", "ask", "meat", "fish", "back"])
+	_check(GameState.has_flag(&"guest_ticket_answered") and not GameState.has_flag(&"guest_band_answered") and not GameState.has_flag(&"guest_letter_answered"), "one guest remains complete after returning to Rin")
+	_check(Progression.credits == credits + 20, "one completed guest pays exactly twenty")
+	await _talk(&"ch2_guest_entry", ["watch", "chen", "death", "today", "scallion", "soup", "back"])
+	_check(GameState.has_flag(&"guest_band_answered") and not GameState.has_flag(&"guest_letter_answered"), "re-entry resumes the remaining appointments")
+	_check(Progression.credits == credits + 40, "the completed first guest is not paid twice")
+	await _talk(&"ch2_guest_entry", ["watch", "hong", "forgive", "listen", "fine", "heard"])
+	_check(GameState.has_flag(&"guest_book_completed") and Progression.credits == credits + 100, "three guests plus closing pay one hundred total")
+	await _talk(&"ch2_guest_entry")
+	_check(Progression.credits == credits + 100, "the finished book revisit never pays again")
+	_check(not get_tree().paused and not Story.is_cinematic_active(), "returning to Rin releases the story pause")
+	var file := FileAccess.open(_out_dir.path_join("guest-book-result.json"), FileAccess.WRITE)
+	if file != null:
+		file.store_string(JSON.stringify({"kind": "arranged real interaction fixture, not a human playthrough", "engine": Engine.get_version_info().string,
+			"credit_delta": Progression.credits - credits, "failures": _failures, "book_complete": GameState.has_flag(&"guest_book_completed"), "paused": get_tree().paused}, "\t") + "\n")
+	print("CH2_GUEST_BOOK_PROBE failures=", _failures)
+	if is_instance_valid(_level):
+		_level.queue_free()
+		await _settle(3)
 	get_tree().quit(1 if _failures > 0 else 0)

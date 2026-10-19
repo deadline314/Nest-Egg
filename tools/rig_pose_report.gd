@@ -7,7 +7,15 @@ extends Node
 
 func _ready() -> void:
 	var skins := PackedStringArray()
+	var seat_sag := -1.0
 	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--seat-sag="):
+			var raw_sag := arg.trim_prefix("--seat-sag=")
+			if not raw_sag.is_valid_float() or not is_finite(float(raw_sag)) or float(raw_sag) < 0.0 or float(raw_sag) > 0.9:
+				printerr("[rig_pose_report] --seat-sag requires a finite fraction in 0..0.9")
+				get_tree().quit(2)
+				return
+			seat_sag = float(raw_sag)
 		if arg.begins_with("--skins="):
 			skins = PackedStringArray(arg.trim_prefix("--skins=").split(","))
 	if skins.is_empty():
@@ -25,6 +33,8 @@ func _ready() -> void:
 			if not rig.setup(skin, "npc"):
 				holder.queue_free()
 				continue
+			if seat_sag >= 0.0 and rig.animator is NpcAnimator:
+				(rig.animator as NpcAnimator).seated_sag = seat_sag
 			var input := RigInput.new()
 			input.two_handed = false
 			input.npc_pose = pose

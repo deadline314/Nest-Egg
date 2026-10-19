@@ -1,0 +1,50 @@
+{
+  "note": "Saved actual tool outputs and exact prompts. Requested dimensions, margin expansion and pixel preservation were not guaranteed: adopted source is a repainted 1843x853 composition, not unchanged central pixels. No Qwen job or seed was exposed. Local ComfyUI unavailable. Runtime image is an exact byte copy of source-3.",
+  "attempts": [
+    {
+      "artifact": "exec-c6b74c36-b4dd-499c-9ece-e8cc0ad4543d",
+      "provider": "image_gen.imagegen",
+      "seed": null,
+      "model_job": null,
+      "prompt": "Edit this existing 1536×864 hand-painted cel-shaded 2D side-view game room for a quiet, nonsexual guest-book conversation. Keep the same camera, art style, palette, rainy oval window, curtain, wardrobe hook, lamp, shelf, floor platform and composition. Replace the two floor cushions and the tiny low table with two ordinary adult-sized wooden side-facing chairs and a small proper-height tea table BETWEEN them. This must be usable for side-view seated game actors: left chair faces RIGHT and right chair faces LEFT, leave their seat surfaces clearly visible. Seats approximately at image y=506, feet of chairs rest on the existing tatami floor at y=628; table top approximately at y=434, table feet at y=628. Left chair seat center near x=530, right chair seat center near x=925. Table is centered near x=750, width about 220 pixels, no huge furniture. Use simple readable upholstered burgundy chair seats and warm dark wood frames, realistic support and contact shadows. Remove the two original floor cushions completely. Leave open standing room at image x=350 on the left. Warm lamp shade must retain orange fabric detail rather than a blown-out white rectangle. No people, no characters, no text, no UI, no logos. Preserve the full 16:9 framing and 1536×864 canvas if possible. This is a production background, so clean silhouette and physically plausible chairs matter more than decorative detail.",
+      "reference": "art/environment/scenes/guest_book_room.webp",
+      "actual_dimensions": [
+        1672,
+        941
+      ],
+      "sha256": "f19b5aae9fb786c8880bfc03cf0432b679279070c5077cfdabeee5b456321c3c",
+      "file": "source-1.png",
+      "adopted": false
+    },
+    {
+      "artifact": "exec-8cb8c3b9-d60c-4817-86f9-3345766417b9",
+      "provider": "image_gen.imagegen",
+      "seed": null,
+      "model_job": null,
+      "prompt": "Make one small functional furniture correction to this game background. Keep the entire same room, 1672×941 canvas, 16:9 composition, table, window, lighting, shelf, curtain, coat stand, and warm cel-shaded illustration. LOWER the horizontal upholstered SEAT SURFACE of BOTH wooden chairs by approximately 22 image pixels (from about y=551 to about y=573). Their chair feet must remain planted at the same floor y≈687, so their legs become slightly shorter. Keep the tops of the chair backs at the same y≈431; extend the vertical chair back down to the new lower seat. This gives a chair seating surface about 114 pixels above the floor and matches the seated actor's actual leg length. Preserve correct side-facing chairs, left chair facing right, right chair facing left. No people, no text, no UI. Do not alter the table height or create extra chairs. Preserve all other composition and painted detail as closely as possible.",
+      "reference": "exec-c6b74c36-b4dd-499c-9ece-e8cc0ad4543d.png",
+      "actual_dimensions": [
+        1672,
+        941
+      ],
+      "sha256": "b222a75cbbb5967551437f98c3aa20e1ddfa1e7a41d93bea7d402580d3d0b046",
+      "file": "source-2.png",
+      "adopted": false
+    },
+    {
+      "artifact": "exec-5e3691c9-a2f7-4aef-973e-1d5cefd61138",
+      "provider": "image_gen.imagegen",
+      "seed": null,
+      "model_job": null,
+      "prompt": "OUTPAINT this exact side-view 2D game background horizontally. Extend the canvas LEFT and RIGHT by about 180 pixels each, giving a wide approximately 2032×941 image (aspect ratio about 2.16:1). Keep the ORIGINAL CENTRAL ROOM, ALL chairs and table at the SAME pixel size and height, with the same visible chair seat height and floor contact. Do not zoom, do not crop vertically, do not move or redraw the furniture. Only add believable continuation of the walls, baseboard, tatami platform, foreground floor and room shadows at the new side margins. The purpose is to let the game camera pull back to show the seated and standing actors while keeping the original furniture scale. Preserve the warm muted burgundy and amber cel-shaded illustration style, oval rainy window, curtain, two chairs facing inward, tea table, lamp, shelf and coat stand. No people, no text, no UI. A wide horizontal image is essential, wider than 16:9. Keep all original image content centered, expand only the side margins.",
+      "reference": "exec-8cb8c3b9-d60c-4817-86f9-3345766417b9.png",
+      "actual_dimensions": [
+        1843,
+        853
+      ],
+      "sha256": "58b4b90f9369af549b66901463635adcf4a7a29b5000f865a35b7522a1a4fec6",
+      "file": "source-3.png",
+      "adopted": true
+    }
+  ]
+}

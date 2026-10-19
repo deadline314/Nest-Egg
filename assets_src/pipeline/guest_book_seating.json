@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "source": "assets_src/generated/bg46_guest_book_seating.png",
+  "output": "art/environment/scenes/guest_book_seating.png",
+  "sha256": "58b4b90f9369af549b66901463635adcf4a7a29b5000f865a35b7522a1a4fec6",
+  "dimensions": [
+    1843,
+    853
+  ],
+  "processing": "byte-exact copy, no resizing or pixel editing",
+  "generation": {
+    "provider": "image_gen.imagegen",
+    "seed": null,
+    "seed_note": "The image tool did not expose a seed or model job identifier. These are saved tool artifact identifiers, not Qwen jobs.",
+    "reference": "art/environment/scenes/guest_book_room.webp",
+    "reference_sha256": "b9dfbeee253c48018f3915800dffd20627e59405f0cb70bede560945d5d04288",
+    "artifacts": [
+      "exec-c6b74c36-b4dd-499c-9ece-e8cc0ad4543d",
+      "exec-8cb8c3b9-d60c-4817-86f9-3345766417b9",
+      "exec-5e3691c9-a2f7-4aef-973e-1d5cefd61138"
+    ],
+    "decision": "Replace floor cushions with real chairs for the approved chair dialogue; retain generated sources and measure the final furniture. The wide candidate is a new painted composition, not a pixel-preserving extension.",
+    "local_qwen_available": false
+  }
+}

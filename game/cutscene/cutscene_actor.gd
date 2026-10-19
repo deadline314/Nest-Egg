@@ -69,6 +69,16 @@ func setup(id: StringName, kind: String, portrait_path: String, unit_scale: floa
 	return true
 
 
+func configure_seat(sag: Variant) -> void:
+	if typeof(sag) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(sag)) or float(sag) < 0.0 or float(sag) > 0.9:
+		push_error("[CutsceneActor] %s 的 seat_sag 必須是 0..0.9 的有限數字，沿用原坐姿" % actor_id)
+		return
+	if rig == null or not rig.animator is NpcAnimator:
+		push_error("[CutsceneActor] %s 沒有可校準坐位的 NPC 骨架，沿用原姿勢" % actor_id)
+		return
+	(rig.animator as NpcAnimator).seated_sag = float(sag)
+
+
 func set_pose(new_pose: StringName) -> void:
 	var was_seated := pose == &"sit"
 	pose = new_pose

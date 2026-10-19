@@ -266,6 +266,11 @@ static func _check_step(where: String, kind: String, step: Dictionary, defined: 
 				problems.append("%s 的角色外觀「%s」不存在，也沒有可用的頭像" % [where, skin])
 			if step.has("pose") and not CutsceneActor.POSES.has(str(step["pose"])):
 				problems.append("%s 的動作「%s」不存在" % [where, step["pose"]])
+
+			if step.has("seat_sag"):
+				var sag: Variant = step["seat_sag"]
+				if typeof(sag) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(sag)) or float(sag) < 0.0 or float(sag) > 0.9:
+					problems.append("%s 的 seat_sag 必須是 0..0.9 的有限數字" % where)
 			if step.has("layer") and (int(step["layer"]) < 0 or int(step["layer"]) >= WorldLayers.MAX_STAGE_ACTORS):
 				problems.append("%s 的圖層組 layer 要在 0 到 %d 之間" % [where, WorldLayers.MAX_STAGE_ACTORS - 1])
 		"pose", "move", "face", "remove":

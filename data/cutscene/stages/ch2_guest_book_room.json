@@ -15,14 +15,14 @@
   },
   {
    "kind": "sprite",
-   "path": "res://art/environment/scenes/guest_book_room.webp",
+   "path": "res://art/environment/scenes/guest_book_seating.png",
    "pos": [
-    -64,
-    -36.0
+    -140.75,
+    -36
    ],
    "scale": 0.5,
-   "filter": "linear",
-   "source_width": 1536
+   "source_width": 1843,
+   "filter": "linear"
   },
   {
    "kind": "glow",
@@ -69,38 +69,38 @@
    "seed": 46
   }
  ],
- "floor": 278,
+ "floor": 265.5,
  "furniture": [
   {
-   "id": "low_table",
-   "kind": "low_table",
+   "id": "tea_table",
+   "kind": "table",
    "rect": [
-    250,
-    236,
-    120,
-    40
+    271.25,
+    180.0,
+    106,
+    85.5
    ],
    "plane": "actor"
   },
   {
-   "id": "cushion_left",
-   "kind": "floor_cushion",
+   "id": "chair_left",
+   "kind": "seat",
    "rect": [
-    185,
-    262,
-    83,
-    16
+    204.25,
+    209,
+    68,
+    56.5
    ],
    "plane": "actor"
   },
   {
-   "id": "cushion_right",
-   "kind": "floor_cushion",
+   "id": "chair_right",
+   "kind": "seat",
    "rect": [
-    352,
-    262,
-    93,
-    16
+    377.75,
+    209,
+    65,
+    56.5
    ],
    "plane": "actor"
   }

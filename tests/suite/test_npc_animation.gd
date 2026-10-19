@@ -23,6 +23,7 @@ func run() -> void:
 	_test_motion_data_bones()
 	await _test_posture_transitions()
 	await _test_loop_cycles_vary()
+	await _test_instance_seat_calibration()
 
 
 ## 建立一個 NPC 動畫器的骨架並跑幾格讓角度穩定。
@@ -464,3 +465,45 @@ func _test_loop_cycles_vary() -> void:
 		return
 	check(gaps.max() - gaps.min() > period * 0.04, "the strikes are not perfectly regular (%.3f–%.3f s)" % [gaps.min(), gaps.max()])
 	check(gaps.min() > period * (1.0 - vary) - 0.05 and gaps.max() < period * (1.0 + vary) + 0.05, "but stay within the data's variation (%.2f s ±%d%%)" % [period, int(vary * 100)])
+
+
+## BG-46：按真座面校準此演員的坐姿；預設、其他演員及共用姿勢資料不受影響。
+func _test_instance_seat_calibration() -> void:
+	var holder := Node2D.new()
+	runner.get_tree().root.add_child(holder)
+	var rigs: Array[CharacterRig] = []
+	for calibrated in [false, true]:
+		var rig := CharacterRig.new()
+		holder.add_child(rig)
+		check(rig.setup("ali", "npc"), "Ali's calibrated seat rig builds")
+		if calibrated:
+			(rig.animator as NpcAnimator).seated_sag = 0.43
+		rigs.append(rig)
+	var input := RigInput.new()
+	input.npc_pose = &"sit"
+	input.two_handed = false
+	for tick in 120:
+		for rig in rigs:
+			rig.animate(1.0 / 60.0, input)
+	var baseline := rigs[0].animator
+	var fitted := rigs[1].animator
+	var baseline_contact := 265.5 + (baseline.bone_pos(&"hip").y + 3.5) * 3.9
+	var fitted_contact := 265.5 + (fitted.bone_pos(&"hip").y + 3.5) * 3.9
+	check(absf(baseline_contact - 209.0) > 2.0, "negative control: the uncalibrated chair pose misses this seat")
+	check(absf(fitted_contact - 209.0) <= 0.5, "the calibrated pelvis contacts the real seat (%.3f)" % fitted_contact)
+	check(absf(fitted.ground_level() - fitted._lowest_foot_y()) * 3.9 <= 0.5, "calibration keeps the feet planted")
+	for bone: StringName in [&"leg_front_lower", &"leg_back_lower", &"foot_front", &"foot_back"]:
+		check(is_equal_approx(rigs[1].bone(bone).position.length(), rigs[1].rest(bone).length()), "seat fitting preserves %s length" % bone)
+	check((rigs[0].animator as NpcAnimator).seated_sag == -1.0, "another actor retains the original pose")
+	check(is_equal_approx(float(RigLibrary.load_json(DATA_PATH)["poses"]["sit"]["feet"]["sag"]), 0.475), "the shared pose data was not mutated")
+	input.npc_pose = &"stand"
+	for tick in 120:
+		for rig in rigs:
+			rig.animate(1.0 / 60.0, input)
+	var stand_error := (fitted.ground_level() - fitted._lowest_foot_y()) * 3.9
+	print("SEAT_STAND_DIAGNOSTIC fitted=", stand_error, " baseline=", (baseline.ground_level() - baseline._lowest_foot_y()) * 3.9,
+		" feet_weight=", (fitted as NpcAnimator)._feet_w, " pose=", (fitted as NpcAnimator)._pose_now, " hip=", fitted.bone_pos(&"hip"))
+	check(absf(fitted.ground_level() - fitted._lowest_foot_y()) <= 0.5, "standing up retains the existing half-world-pixel foot tolerance (%.3f world px)" % (stand_error / 3.9))
+	check(is_equal_approx(fitted.ground_level() - fitted._lowest_foot_y(), baseline.ground_level() - baseline._lowest_foot_y()), "the calibrated actor has exactly the baseline standing ground contact")
+	holder.queue_free()
+	await frames(1)
