@@ -173,12 +173,25 @@ func _test_controller_interruption() -> void:
 	InputBindings._on_joy_connection_changed(999, false)
 	check(InputBindings.is_controller_interrupted() and runner.get_tree().paused and GameplayLock.is_locked(), "disconnecting the active controller protects live gameplay")
 	check(not Input.is_action_pressed(&"shoot") and not Input.is_action_pressed(&"jump"), "disconnect releases held gameplay actions")
+	var prompt := InputBindings._recovery_prompt
+	check(is_instance_valid(prompt) and prompt.is_visible_in_tree(), "disconnect has a persistent visible recovery prompt")
+	await runner.get_tree().process_frame
+	await runner.get_tree().process_frame
+	check(runner.get_viewport().gui_get_focus_owner() == prompt.resume_button and Input.mouse_mode == Input.MOUSE_MODE_VISIBLE, "recovery owns visible focus and exposes the mouse")
+	Input.parse_input_event(_joy_button(JOY_BUTTON_B))
+	Input.parse_input_event(_joy_motion(JOY_AXIS_LEFT_Y, 0.8))
+	await runner.get_tree().process_frame
+	check(InputBindings.is_controller_interrupted() and runner.get_viewport().gui_get_focus_owner() == prompt.resume_button, "cancel and stick motion cannot resume or escape recovery focus")
 	InputBindings._on_joy_connection_changed(999, true)
 	check(InputBindings.is_controller_interrupted(), "reconnecting alone does not resume gameplay")
+	check(prompt._title.text == prompt.copy("手把已重新連線", "再接続しました", "Controller reconnected"), "recovery visibly acknowledges reconnection")
+	InputBindings._on_joy_connection_changed(999, false)
+	check(InputBindings.is_controller_interrupted() and InputBindings._recovery_prompt == prompt and prompt._title.text == prompt.copy("手把已斷線", "接続が切れました", "Controller disconnected"), "repeated disconnect keeps one prompt and one pause")
 	Input.parse_input_event(_joy_button(JOY_BUTTON_A))
 	await runner.get_tree().process_frame
 	await runner.get_tree().process_frame
 	check(not runner.get_tree().paused and not GameplayLock.is_locked() and not Input.is_action_pressed(&"jump"), "deliberate confirmation resumes without leaking a jump")
+	check(InputBindings._recovery_prompt == null and InputBindings._recovery_layer == null and not is_instance_valid(prompt), "confirmation removes recovery UI without leaving an input blocker")
 	var confirm_release := _joy_button(JOY_BUTTON_A)
 	confirm_release.pressed = false
 	Input.parse_input_event(confirm_release)
@@ -189,7 +202,48 @@ func _test_controller_interruption() -> void:
 	Input.action_press(&"shoot")
 	InputBindings._on_focus_exited()
 	check(not Input.is_action_pressed(&"shoot"), "focus loss clears held actions")
+	InputBindings.observe_device(_joy_button(JOY_BUTTON_X))
+	InputBindings._on_joy_connection_changed(999, false)
+	await runner.get_tree().process_frame
+	await runner.get_tree().process_frame
+	var key := InputEventKey.new()
+	key.physical_keycode = KEY_ENTER
+	key.keycode = KEY_ENTER
+	key.pressed = true
+	Input.parse_input_event(key)
+	await runner.get_tree().process_frame
+	check(not InputBindings.is_controller_interrupted() and not runner.get_tree().paused and not InputBindings.using_gamepad, "keyboard confirmation resumes and restores keyboard prompts")
+	check(not Input.is_action_pressed(&"jump") and not Input.is_action_pressed(&"interact"), "keyboard confirmation does not leak gameplay actions")
+	key.pressed = false
+	Input.parse_input_event(key)
+	# 恢復不得放掉別人的暫停；按鈕也必須能用真實滑鼠事件操作。
+	InputBindings.observe_device(_joy_button(JOY_BUTTON_X))
+	InputBindings._on_joy_connection_changed(999, false)
+	await runner.get_tree().process_frame
+	await runner.get_tree().process_frame
+	prompt = InputBindings._recovery_prompt
+	var other_lock := GameplayLock.acquire(player)
+	var point: Vector2 = prompt.resume_button.get_global_rect().get_center()
+	var mouse := InputEventMouseButton.new()
+	mouse.button_index = MOUSE_BUTTON_LEFT
+	mouse.position = prompt.get_viewport().get_final_transform() * point
+	mouse.pressed = true
+	Input.parse_input_event(mouse)
+	await runner.get_tree().process_frame
+	mouse = mouse.duplicate()
+	mouse.pressed = false
+	Input.parse_input_event(mouse)
+	await runner.get_tree().process_frame
+	await runner.get_tree().process_frame
+	check(not InputBindings.is_controller_interrupted() and InputBindings._recovery_prompt == null, "mouse can deliberately activate recovery")
+	check(runner.get_tree().paused and GameplayLock.held_only_by(other_lock), "recovery releases only its own lock")
+	check(not Input.is_action_pressed(&"shoot"), "mouse recovery does not leak a shot")
+	GameplayLock.release(other_lock)
+	InputBindings.observe_device(_joy_button(JOY_BUTTON_X))
+	InputBindings._on_joy_connection_changed(999, false)
 	player.free()
+	await runner.get_tree().process_frame
+	check(not InputBindings.is_controller_interrupted() and not GameplayLock.is_locked() and InputBindings._recovery_layer == null, "removing the interrupted player releases the prompt and its pause")
 
 
 func _test_controller_navigation() -> void:

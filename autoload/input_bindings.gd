@@ -153,7 +153,13 @@ var _placeholder_regex := RegEx.create_from_string("\\{([a-z_0-9]+)\\}")
 var using_gamepad := false
 var active_device := -1
 var _axis_values: Dictionary[int, Dictionary] = {}
+const RecoveryPrompt := preload("res://ui/controller_recovery_prompt.gd")
+
 var _disconnect_token := 0
+var _recovery_layer: CanvasLayer
+var _recovery_prompt: Control
+var _recovery_focus: WeakRef
+var _recovery_device := -1
 var _interrupted_player: WeakRef
 var _aim_deadzone := AIM_DEADZONE_DEFAULT
 var _invert_aim_y := false
@@ -179,9 +185,13 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	observe_device(event)
-	if is_controller_interrupted() and (event.is_action_pressed(&"ui_accept") or event.is_action_pressed(&"pause")):
-		resume_after_disconnect()
-		get_viewport().set_input_as_handled()
+	if is_controller_interrupted():
+		if event.is_action_pressed(&"ui_accept") or event.is_action_pressed(&"pause"):
+			resume_after_disconnect()
+			get_viewport().set_input_as_handled()
+		elif event is InputEventKey or event is InputEventJoypadButton or event is InputEventJoypadMotion:
+			# 返回、搖桿和其他按鍵不能操作背景；滑鼠保留給面板的 GUI。
+			get_viewport().set_input_as_handled()
 		return
 	if event is InputEventJoypadMotion and event.axis in [JOY_AXIS_LEFT_X, JOY_AXIS_LEFT_Y] and _in_ui_context():
 		_update_navigation(event.device)
@@ -679,6 +689,15 @@ func is_controller_interrupted() -> bool:
 
 func _on_joy_connection_changed(device: int, connected: bool) -> void:
 	_axis_values.erase(device)
+	if is_controller_interrupted():
+		if connected:
+			_recovery_device = device
+			_recovery_prompt.set_connected(true)
+		elif device == _recovery_device:
+			clear_held_inputs()
+			_set_device(false)
+			_recovery_prompt.set_connected(false)
+		return
 	if connected or not using_gamepad or active_device != device:
 		return
 	clear_held_inputs()
@@ -686,10 +705,11 @@ func _on_joy_connection_changed(device: int, connected: bool) -> void:
 	var player := get_tree().get_first_node_in_group(&"player")
 	# Existing modal screens already protect gameplay; retain their pause/focus.
 	if player != null and not get_tree().paused and not GameplayLock.is_locked():
-		_disconnect_token = GameplayLock.acquire(self)
+		_disconnect_token = GameplayLock.acquire(self, Input.MOUSE_MODE_VISIBLE)
 		_interrupted_player = weakref(player)
+		_recovery_device = device
+		_show_recovery_prompt()
 		controller_interrupted_changed.emit(true)
-		EventBus.toast_requested.emit("手把已斷線，遊戲暫停。重新接上後按確認，或按 Enter 繼續。")
 	else:
 		EventBus.toast_requested.emit("手把已斷線，可使用鍵盤繼續操作。")
 
@@ -702,8 +722,35 @@ func resume_after_disconnect() -> void:
 	_disconnect_token = 0
 	_interrupted_player = null
 	clear_held_inputs()
+	_hide_recovery_prompt()
 	GameplayLock.release(token)
 	controller_interrupted_changed.emit(false)
+
+
+func _show_recovery_prompt() -> void:
+	var focused := get_viewport().gui_get_focus_owner()
+	_recovery_focus = weakref(focused) if focused != null else null
+	_recovery_layer = CanvasLayer.new()
+	_recovery_layer.layer = 1000
+	_recovery_layer.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(_recovery_layer)
+	_recovery_prompt = RecoveryPrompt.new()
+	_recovery_prompt.resume_requested.connect(resume_after_disconnect)
+	_recovery_layer.add_child(_recovery_prompt)
+
+
+func _hide_recovery_prompt() -> void:
+	if is_instance_valid(_recovery_layer):
+		# 先同步移除，避免恢復那一格仍攔住滑鼠或背景 UI。
+		remove_child(_recovery_layer)
+		_recovery_layer.queue_free()
+	_recovery_layer = null
+	_recovery_prompt = null
+	_recovery_device = -1
+	var focused: Control = _recovery_focus.get_ref() as Control if _recovery_focus != null else null
+	_recovery_focus = null
+	if is_instance_valid(focused) and focused.is_inside_tree() and focused.is_visible_in_tree() and not focused.is_queued_for_deletion():
+		focused.grab_focus()
 
 
 func _on_node_removed(node: Node) -> void:

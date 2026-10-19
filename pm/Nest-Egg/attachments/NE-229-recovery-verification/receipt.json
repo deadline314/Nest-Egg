@@ -1,0 +1,325 @@
+{
+  "ticket": "NE-229",
+  "date": "2026-10-19",
+  "timezone": "Asia/Taipei",
+  "baseline": "339cc5d10e89bd5d36fe1b6d94c3c1a085bd0b93",
+  "godot": "4.7.stable.official.5b4e0cb0f",
+  "renderer": "Vulkan 1.4.305 / Forward+ / llvmpipe LLVM 19.1.7",
+  "physical_controller": false,
+  "hardware_gpu": false,
+  "audio": "Dummy; no listening or vibration acceptance",
+  "affected": {
+    "groups": 63,
+    "selected": [
+      "AmmoIconsSuite",
+      "AmmoTraySuite",
+      "ApplyPanelSuite",
+      "AreasSuite",
+      "AudioSuite",
+      "Chapter1EnemiesSuite",
+      "Chapter1MapSuite",
+      "Chapter2ArtSuite",
+      "Chapter2EnemiesSuite",
+      "Chapter2ExpansionSuite",
+      "Chapter2StorySuite",
+      "Chapter2Suite",
+      "Chapter3EnemiesSuite",
+      "Chapter3StorySuite",
+      "ChapterCutscenesSuite",
+      "ClipEditorSuite",
+      "CollectiblesSuite",
+      "CombatHudSuite",
+      "ContinuitySuite",
+      "CutsceneSuite",
+      "DeathReactionSuite",
+      "DevMenuSuite",
+      "EconomySuite",
+      "EncounterSuite",
+      "EnemyVfxSuite",
+      "EnvironmentSuite",
+      "FeelLabSuite",
+      "FeelSuite",
+      "FeelToolsSuite",
+      "FloodPitSuite",
+      "FxMeleePickupsSuite",
+      "FxUpgradesSuite",
+      "HeavyEnemiesSuite",
+      "HitReactionSuite",
+      "InputFeelSuite",
+      "LayerOrderSuite",
+      "MapBubblesSuite",
+      "MeleeSuite",
+      "MeleeWeaponsSuite",
+      "NpcSuite",
+      "PacingSuite",
+      "PhoneBoothSuite",
+      "ProgressionSuite",
+      "PropsSuite",
+      "ProtagonistMotionSuite",
+      "QuestMapSuite",
+      "ReadabilityTargetsSuite",
+      "RigActionsSuite",
+      "RunSaveSuite",
+      "SceneSanitySuite",
+      "SoundLabSuite",
+      "SoundStageSuite",
+      "StageCoverageCharactersSuite",
+      "StageCoverageWeaponsSuite",
+      "StageCoverageWorldSuite",
+      "StrikeEnemiesSuite",
+      "SupplySuite",
+      "ThrowablesSuite",
+      "TransitionSuite",
+      "UiKitSuite",
+      "UiScreensSuite",
+      "WorldPromptSuite",
+      "main"
+    ],
+    "completed_groups": [
+      "main",
+      "PropsSuite",
+      "RunSaveSuite",
+      "AmmoIconsSuite",
+      "AmmoTraySuite",
+      "ChapterCutscenesSuite",
+      "NpcSuite",
+      "EnemyVfxSuite",
+      "EconomySuite",
+      "PhoneBoothSuite",
+      "StrikeEnemiesSuite",
+      "FxUpgradesSuite",
+      "DevMenuSuite",
+      "HeavyEnemiesSuite",
+      "ReadabilityTargetsSuite",
+      "AreasSuite",
+      "FloodPitSuite",
+      "ThrowablesSuite",
+      "Chapter2StorySuite",
+      "CollectiblesSuite",
+      "SupplySuite",
+      "TransitionSuite",
+      "EnvironmentSuite",
+      "RigActionsSuite",
+      "ContinuitySuite",
+      "PacingSuite",
+      "EncounterSuite",
+      "HitReactionSuite",
+      "InputFeelSuite",
+      "ApplyPanelSuite",
+      "StageCoverageCharactersSuite",
+      "StageCoverageWorldSuite",
+      "WorldPromptSuite",
+      "Chapter1EnemiesSuite",
+      "Chapter1MapSuite",
+      "CutsceneSuite",
+      "DeathReactionSuite",
+      "MapBubblesSuite",
+      "ProtagonistMotionSuite",
+      "Chapter2ExpansionSuite",
+      "MeleeSuite",
+      "FxMeleePickupsSuite",
+      "FeelToolsSuite",
+      "AudioSuite",
+      "SoundLabSuite",
+      "LayerOrderSuite",
+      "SoundStageSuite",
+      "Chapter3StorySuite",
+      "ProgressionSuite",
+      "Chapter2Suite",
+      "UiKitSuite",
+      "UiScreensSuite",
+      "CombatHudSuite",
+      "SceneSanitySuite",
+      "Chapter2ArtSuite",
+      "FeelSuite",
+      "MeleeWeaponsSuite",
+      "FeelLabSuite",
+      "ClipEditorSuite",
+      "StageCoverageWeaponsSuite",
+      "QuestMapSuite",
+      "Chapter2EnemiesSuite",
+      "Chapter3EnemiesSuite"
+    ],
+    "checks": 62743,
+    "initial_new_failures": 1,
+    "coverage_after_recheck": "62 groups passed initially; the complete AmmoTraySuite passed on the final source and the untouched baseline. Original failed run remains recorded. No root cause is claimed.",
+    "known_failures": 0,
+    "wall_seconds": 711,
+    "shards": 4,
+    "command": "GODOT=<official4.7> SHARDS=4 LOG_DIR=<isolated> tools/run_tests_changed.sh 339cc5d10e89bd5d36fe1b6d94c3c1a085bd0b93"
+  },
+  "final_input_recheck": {
+    "checks": 109,
+    "new_failures": 0,
+    "reason": "extra keyboard confirmation coverage and shorter Japanese copy after the broad run started"
+  },
+  "native_cases": [
+    {
+      "log": "final-zh.log",
+      "checks": 15,
+      "failures": 0,
+      "raw_errors": 0
+    },
+    {
+      "log": "verified-zh-1280x720.log",
+      "checks": 28,
+      "failures": 0,
+      "raw_errors": 0
+    },
+    {
+      "log": "verified-en-1280x720.log",
+      "checks": 28,
+      "failures": 0,
+      "raw_errors": 0
+    },
+    {
+      "log": "verified-ja-1280x720.log",
+      "checks": 15,
+      "failures": 0,
+      "raw_errors": 0
+    },
+    {
+      "log": "verified-ja-1920x1080.log",
+      "checks": 28,
+      "failures": 0,
+      "raw_errors": 0
+    },
+    {
+      "log": "cursor.log",
+      "checks": 29,
+      "failures": 0,
+      "raw_errors": 0
+    }
+  ],
+  "native_checks": 143,
+  "scope": "Actual prologue Level entry in an isolated process, synthetic device 999 connection callbacks and button events. Player position and GameState run clock checked while paused; not manual campaign completion. Five locale/scale/resolution combinations plus cursor restoration recheck. New panel only is localized; background HUD localization is not claimed.",
+  "diagnostics": {
+    "affected/shard_3.log": "One original per-frame AmmoTray smoothing assertion failed with 43.5 pixels versus the unchanged 24-pixel limit. Entire suite rechecked on edited source and clean baseline; neither reproduces it. No threshold or code in AmmoTray was changed, and no definitive cause is assigned.",
+    "before.log": "Initial harness let Level inherit observer ALWAYS, so the clock check failed. Fixed explicit PAUSABLE; ALSA setup also failed, subsequent native runs explicitly use Dummy.",
+    "before-clean.log": "Original autoload from baseline restored temporarily only in this session worktree, then final edited source restored in finally. Four functional checks pass; original transient message is absent after four seconds. Existing shutdown resource diagnostic recorded.",
+    "focused/shard_0.log": "Initial mouse test used canvas instead of window coordinates; corrected with viewport final transform.",
+    "focused2/shard_0.log": "Mouse checks pass but actual deferred grab_focus after immediate player removal caused an engine error; fixed guarded deferred focus and reran clean.",
+    "focused-final/shard_0.log": "Additional synthetic Enter event omitted keycode. Added both keycode and physical_keycode to represent a real key event; final 109 checks pass.",
+    "final-ja-1920x1080.log": "Earlier Japanese text fit the viewport but wrapped an awkward suffix. Shortened the status sentence, re-viewed both resolutions; later probe also checks title line count.",
+    "final-zh-1920x1080.log": "Supplemental earlier native run passed 15 functional checks but had shutdown resource diagnostics; not used as a clean native case. Final accepted cases have no raw ERROR lines.",
+    "gates": "No selector, known-failure list, error filter or original assertion was loosened."
+  },
+  "files": [
+    {
+      "file": "autoload/input_bindings.gd",
+      "bytes": 31918,
+      "sha256": "a3da67e4ecdd0d2d9972c7f0c738ae648f10493a9241c571080bf0a16886944e"
+    },
+    {
+      "file": "ui/controller_recovery_prompt.gd",
+      "bytes": 3667,
+      "sha256": "4512e856d69d911ca2eb5db13123db3ba354a13d80b81b41f32ff8d973f5dbc5"
+    },
+    {
+      "file": "tests/suite/test_input_feel.gd",
+      "bytes": 19886,
+      "sha256": "cc8634de23b6de1382e2e3c2dd148e20d39c0345c46a4a636337c2de7aedf03e"
+    },
+    {
+      "file": "tools/controller_recovery_probe.gd",
+      "bytes": 3271,
+      "sha256": "6cd43c9586b8e8032d821efd36c8a3b7a16e7703f9e57064b18c13771c631b30"
+    },
+    {
+      "file": "tools/controller_recovery_probe.tscn",
+      "bytes": 207,
+      "sha256": "48febb9a4c0fa47ed39c09f5da8365f937bfcfdf88bc350957fd8034cbdac09f"
+    },
+    {
+      "file": "pm/Nest-Egg/attachments/NE-229-recovery-verification/ja-title-before.png",
+      "bytes": 245401,
+      "sha256": "7cfd3a5e2878f689d74a577ab031c8279f507778ba1a9a5ca2f0a0699799fb18",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "file": "pm/Nest-Egg/images/NE-229-recovery-ja-1080-120.png",
+      "bytes": 257139,
+      "sha256": "6657db7f8819983f9547e2765109f7cd818b6cd16f8e4a1ed1a42cb8d1a15c86",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "file": "pm/Nest-Egg/images/NE-229-recovery-en-120.png",
+      "bytes": 149244,
+      "sha256": "306ce1348a746a0c85cea50449f6c50395d199f9b43c7ddc3805cd5ea90a5562",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "pm/Nest-Egg/images/NE-229-recovery-after.png",
+      "bytes": 139393,
+      "sha256": "1d2faf2cf1a3424eb05fcf665e772f6eba9585aba6fd5f74267acce1ee442bcb",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "pm/Nest-Egg/images/NE-229-recovery-ja-120.png",
+      "bytes": 157685,
+      "sha256": "ca3bb0650c4874a6acfc519b65c031550eb45837c9490931834b65fe3efc9efd",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "pm/Nest-Egg/images/NE-229-recovery-zh-120.png",
+      "bytes": 152476,
+      "sha256": "9e32b05c49cfa9f976a44ff8d05e2302b1e0cc8486c40fb5a6d8551b9c4d4531",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "pm/Nest-Egg/images/NE-229-recovery-zh-reconnected-120.png",
+      "bytes": 154202,
+      "sha256": "46bafdf9d1366db21674df4bdc27f93bfb8c063698d372e4177c9498c12b8277",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "pm/Nest-Egg/images/NE-229-recovery-en-reconnected-120.png",
+      "bytes": 142078,
+      "sha256": "ec71daf790d1c6fbf1dc988bbb5dbd9a870760b0d3a96fd91f2dd102cdfc7ba1",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "pm/Nest-Egg/images/NE-229-recovery-before.png",
+      "bytes": 282765,
+      "sha256": "e2b214ad558c07c6c37892ddc63ddb351ebb1c57ff2b5e74c8ebef180c7c9ac0",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "pm/Nest-Egg/images/NE-229-recovery-ja-reconnected-1080-120.png",
+      "bytes": 236863,
+      "sha256": "4c8431aa5d556a9ee596d25033630ee3b695cf6ec1ed744ae4c0b53c5e892d40",
+      "size": [
+        1920,
+        1080
+      ]
+    }
+  ],
+  "logs_zip_sha256": "b73c4dfe036445e55f334751447da7482ba185254c20346e6f5889607e7b444d"
+}
