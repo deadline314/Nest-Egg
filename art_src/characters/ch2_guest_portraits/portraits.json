@@ -1,0 +1,56 @@
+[
+  {
+    "id": "guest_zheng",
+    "source": "art_src/characters/guest_zheng/01_design/exec-c49b412e-9a1c-4753-9920-7ecaebfaaa4e.png",
+    "sha256": "34b5d12f551660b7eeb836679c819b9c678f9f4ace5a976640173937f3788fb4",
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "crop": [
+      340,
+      0,
+      660,
+      320
+    ],
+    "output": "art/portraits/guest_zheng.png",
+    "alpha_floor": 40,
+    "sampling": "native 320x320 crop without resizing; UI acceptance remains separate"
+  },
+  {
+    "id": "guest_chen",
+    "source": "art_src/characters/guest_chen/01_design/exec-82616ec9-d87d-4b99-b2a8-ab259563d88a.png",
+    "sha256": "d5db7c3a6a417c8bdd4f3aa53e81e65a2fd8f589029ccc3cf7f7f7bf925e96f2",
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "crop": [
+      340,
+      0,
+      660,
+      320
+    ],
+    "output": "art/portraits/guest_chen.png",
+    "alpha_floor": 40,
+    "sampling": "native 320x320 crop without resizing; UI acceptance remains separate"
+  },
+  {
+    "id": "guest_hong",
+    "source": "art_src/characters/guest_hong/01_design/exec-824e4f3f-6bfe-4d97-b4b2-3669b2b3157d.png",
+    "sha256": "4261d3d92d389639f49cfc864cc46c7a9dec6418b66a3ca6d79b48ee6f3b25d5",
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "crop": [
+      340,
+      0,
+      660,
+      320
+    ],
+    "output": "art/portraits/guest_hong.png",
+    "alpha_floor": 40,
+    "sampling": "native 320x320 crop without resizing; UI acceptance remains separate"
+  }
+]

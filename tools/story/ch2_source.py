@@ -63,9 +63,9 @@ SPEAKERS = {
     "terminal": {"name": "委託終端", "color": "#9ad7ff", "portrait": "res://art/portraits/system.png", "formal": True},
     "label": {"name": "說明", "color": "#ded5b0", "portrait": "res://art/portraits/system.png", "formal": True},
     "voice": {"name": "錄音", "color": "#c8c0e8", "portrait": "res://art/portraits/system.png", "formal": True},
-    "zheng": {"name": "鄭先生", "color": "#b0b8c8", "portrait": "res://art/portraits/resident.png"},
-    "chen": {"name": "陳女士", "color": "#c8b8b0", "portrait": "res://art/portraits/resident.png"},
-    "hong": {"name": "洪先生", "color": "#b0c8b8", "portrait": "res://art/portraits/resident.png"},
+    "zheng": {"name": "鄭先生", "color": "#b0b8c8", "portrait": "res://art/portraits/guest_zheng.png"},
+    "chen": {"name": "陳女士", "color": "#c8b8b0", "portrait": "res://art/portraits/guest_chen.png"},
+    "hong": {"name": "洪先生", "color": "#b0c8b8", "portrait": "res://art/portraits/guest_hong.png"},
 }
 
 # 劇本第 5 節的金額（NE-231 可以調整資源檔的數字；這裡只引用交易）。
