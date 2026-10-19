@@ -353,6 +353,7 @@ var _chains: Dictionary = {}
 var _duck_db := 0.0
 var _duck_until_msec := 0
 var _duck_release := 0.2
+var _duck_release_from_db := 0.0
 var _duck_priority := 0
 var _reported: Dictionary = {}
 ## 因發聲位滿載而被丟棄的次數（診斷用）。
@@ -548,7 +549,7 @@ func _play_voice(id: StringName, volume_db: float, pitch: float, priority: int, 
 	_voice_priority[index] = priority
 	_voice_base_db[index] = volume_db
 	_voice_end_msec[index] = now + int(stream.get_length() * 1000.0 / maxf(0.1, pitch))
-	player.volume_db = volume_db + (_duck_db if now < _duck_until_msec and priority < _duck_priority else 0.0)
+	player.volume_db = volume_db + (_duck_at(now) if priority < _duck_priority else 0.0)
 	player.pitch_scale = pitch
 	player.play()
 	return true
@@ -711,16 +712,25 @@ func _start_duck(db: float, time: float, priority: int, now: int) -> void:
 	_duck_db = minf(_duck_db, db) if now < _duck_until_msec else db
 	_duck_until_msec = now + int(time * 1000.0)
 	_duck_release = maxf(0.05, time * 0.5)
+	_duck_release_from_db = _duck_db
 	_duck_priority = priority
 	for i in _players.size():
 		if _players[i].playing and _voice_priority[i] < priority:
 			_players[i].volume_db = _voice_base_db[i] + _duck_db
 
 
-func _process(delta: float) -> void:
-	if _duck_db == 0.0 or Time.get_ticks_msec() < _duck_until_msec:
+## Hold and release share the same monotonic clock, including pause and hit stop.
+## New voices sample the envelope too, so joining during release cannot jump in at full volume.
+func _duck_at(now: int) -> float:
+	var progress := clampf(float(now - _duck_until_msec) / (_duck_release * 1000.0), 0.0, 1.0)
+	return _duck_release_from_db * (1.0 - progress)
+
+
+func _process(_delta: float) -> void:
+	var now := Time.get_ticks_msec()
+	if _duck_db == 0.0 or now < _duck_until_msec:
 		return
-	_duck_db = move_toward(_duck_db, 0.0, absf(_duck_db) / _duck_release * delta)
+	_duck_db = _duck_at(now)
 	for i in _players.size():
 		if _players[i].playing and _voice_priority[i] < _duck_priority:
 			_players[i].volume_db = _voice_base_db[i] + _duck_db

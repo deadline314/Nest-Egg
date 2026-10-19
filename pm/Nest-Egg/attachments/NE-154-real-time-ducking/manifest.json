@@ -1,0 +1,297 @@
+[
+  {
+    "file": "audio-reference-sources.json",
+    "bytes": 1931,
+    "sha256": "2343dd5c8a522515ae7cec143e26acf2e6f7430c49e338e6169aa7c0e99d4f8d"
+  },
+  {
+    "file": "audio-worktree-source.json",
+    "bytes": 244,
+    "sha256": "da12cc3e1a82b4747ae6bb8fcba94627cd65b3107c8130ff3e1f57ba812140c8"
+  },
+  {
+    "file": "combined-affected-final/shard_0.log",
+    "bytes": 47967,
+    "sha256": "fe9d7a81167b2621be0234e9b5452c1dc4fe90df91b89c51ce147bccd40be86e"
+  },
+  {
+    "file": "combined-affected-final/shard_1.log",
+    "bytes": 243114,
+    "sha256": "27f51e77ff5572256e2dce6456145e455a10fddb7586054dd272637cbd7af32b"
+  },
+  {
+    "file": "combined-affected-final/shard_2.log",
+    "bytes": 199939,
+    "sha256": "4522fd256faef0e7d03986d4376ed78d97d15240638a081bfeb2de2c29a13d42"
+  },
+  {
+    "file": "combined-affected-final/shard_3.log",
+    "bytes": 108540,
+    "sha256": "050e5a1693e9c899e8fb9fb33e5996ebfb97514ba9f817a0b9531152833888db"
+  },
+  {
+    "file": "combined-affected-final.log",
+    "bytes": 3317,
+    "sha256": "d95e372ff70c0a1343f50fe7ef7349c1b496546bf3f537162468636b1e34b162"
+  },
+  {
+    "file": "combined-crash-reproduce-21/shard_0.log",
+    "bytes": 201820,
+    "sha256": "3a6995fa6d4524d0a6108db00b5a2edc0ad185f7405e628674d3e8af8fe3f224"
+  },
+  {
+    "file": "combined-crash-reproduce-21.log",
+    "bytes": 584,
+    "sha256": "3bb666f036505b62b8c3ec5a4909ae67e3b8ab8883935f5857ba97d0a11c1325"
+  },
+  {
+    "file": "duck_release_probe.gd",
+    "bytes": 4399,
+    "sha256": "cc31b04732e2f7659ef7638ef31084f84b1f6620b6a5afa18023441a48f618fc"
+  },
+  {
+    "file": "native-audio-before-display-lock.py",
+    "bytes": 1871,
+    "sha256": "28085283ab8c3ad001361cf14ef2f981fae17609e3385eb5eefc64cfd39c4aa7"
+  },
+  {
+    "file": "native-audio-probe.py",
+    "bytes": 173,
+    "sha256": "0e58379898f7ebb9f03b295f002bec0eefc377837f77d344435c7690da14e33d"
+  },
+  {
+    "file": "native-before-display-lock.py",
+    "bytes": 1860,
+    "sha256": "ead14f667cc5d5f33610baaaec151c26191893f71b19f904112a45dafc52d639"
+  },
+  {
+    "file": "native.py",
+    "bytes": 2027,
+    "sha256": "ff974c30fb975581765b63ea6b9e17111fa5f86f6a600ce83dc4b7a15c060e3d"
+  },
+  {
+    "file": "ne154-affected-final/shard_0.log",
+    "bytes": 112171,
+    "sha256": "5a332f76b8d315f084c5618c2dd85c7b1739396904341a0e578366c27bc453f9"
+  },
+  {
+    "file": "ne154-affected-final/shard_1.log",
+    "bytes": 298028,
+    "sha256": "02ebd11a87b21060070ca98e9a66fcb97ce27c4db66bf98c6a320c3439abf0b5"
+  },
+  {
+    "file": "ne154-affected-final/shard_2.log",
+    "bytes": 323062,
+    "sha256": "9d1ff158f2b00e0c3246760ad4a66c58cfbd2d36597e8e37245f84301fb53d91"
+  },
+  {
+    "file": "ne154-affected-final/shard_3.log",
+    "bytes": 30450,
+    "sha256": "22ff1edb77a982a777ef011053f5128516b41dce49b1ae7db9c5472fddeb84cf"
+  },
+  {
+    "file": "ne154-affected-final.log",
+    "bytes": 2816,
+    "sha256": "a3fc22c160c2e86320f0f7c78f377c460b1dc7e3302385b2418a4a3e3c2a8bcf"
+  },
+  {
+    "file": "ne154-chart-bootstrap.json",
+    "bytes": 261,
+    "sha256": "6ce4a4aade809a1f9be93fecf392ca802e29e72dc394dec6bf28074f4bfdb590"
+  },
+  {
+    "file": "ne154-ci-clock-diagnostic.log",
+    "bytes": 297,
+    "sha256": "be0aaf996de4aacc45606e5651c4255de67f073da7db6d74ec9b422edefd56d4"
+  },
+  {
+    "file": "ne154-ci-runtime-diagnostic.log",
+    "bytes": 299,
+    "sha256": "ba68af7d0e0d67292ed65ca850a672fe2bda5868a006a045de9d4bb4b95da499"
+  },
+  {
+    "file": "ne154-ci-runtime-focused.log",
+    "bytes": 295,
+    "sha256": "86c3dec6c2b4411f0aebbfbd83d56ee0c863702056ef4414f719d10814b2bee8"
+  },
+  {
+    "file": "ne154-clock-green-472/shard_0.log",
+    "bytes": 2498,
+    "sha256": "930ace58f6f04f33b1fedba923acf8a7b609982aa30507caf562f7b3e69a6ae6"
+  },
+  {
+    "file": "ne154-clock-green-472.exit",
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  {
+    "file": "ne154-clock-green-472.log",
+    "bytes": 231,
+    "sha256": "5e8ca802d4021f95bb988d561b76a2618c9b3b2deb345f38125dea48e06a1bd0"
+  },
+  {
+    "file": "ne154-clock-green-ci/shard_0.log",
+    "bytes": 2496,
+    "sha256": "d9780f4cfbaf463b324b52585c20ef55232e1fa2eb1fc80dd589f55a319e6a1d"
+  },
+  {
+    "file": "ne154-clock-green-ci.exit",
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  {
+    "file": "ne154-clock-green-ci.log",
+    "bytes": 230,
+    "sha256": "cd50d64c702da2e2c4bb0620c316c09a9207c136d80378b7bcad4ccc48954079"
+  },
+  {
+    "file": "ne154-clock-queue.log",
+    "bytes": 71,
+    "sha256": "9a132e92fa6667397a0f37b272fb02f40085bed8d855377f87ce1e88d29ceb71"
+  },
+  {
+    "file": "ne154-clock-red-final/shard_0.log",
+    "bytes": 2734,
+    "sha256": "4ec830a2f8c50aeadd3517addbfbe30e9aacfcc689b9b7d9e02287761db8e731"
+  },
+  {
+    "file": "ne154-clock-red-final.exit",
+    "bytes": 1,
+    "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+  },
+  {
+    "file": "ne154-clock-red-final.log",
+    "bytes": 498,
+    "sha256": "8affec785d035e700aa3326852b425fdc1dac5b9b2b46448391d4fb2df533e34"
+  },
+  {
+    "file": "ne154-clock-verification.json",
+    "bytes": 701,
+    "sha256": "fcd03be3d8df0e3a70f580c16b612847916de31be675dac4beb84b4617c63276"
+  },
+  {
+    "file": "ne154-duck-envelope-headless/envelope.json",
+    "bytes": 16761,
+    "sha256": "6e456f859b88b993234a51b6874fe34a9378ad10b1b55cd364309ae282f01159"
+  },
+  {
+    "file": "ne154-duck-envelope-headless.log",
+    "bytes": 103,
+    "sha256": "5b06965ab7dfb355013a8a3e18c088d0f9e992849ee2e96a562635094fdfab59"
+  },
+  {
+    "file": "ne154-duck-envelope-initial-compile-failure.log",
+    "bytes": 407,
+    "sha256": "af56e56865eb008953fa403f5a91ce2fb0546151fc07be29dac46c82285d52f7"
+  },
+  {
+    "file": "ne154-duck-envelope-native/envelope.json",
+    "bytes": 17416,
+    "sha256": "03259a7ccdeabf312ab20c8bad2f8f6f0b3366218d2c592d694d49741ef2f6a4"
+  },
+  {
+    "file": "ne154-duck-envelope-native/envelope.png",
+    "bytes": 91779,
+    "sha256": "b8d70af7b1830f0d28f7e26cdba641b963c3988b6bda20929a62fe1e9337feb3"
+  },
+  {
+    "file": "ne154-duck-envelope-native-v2-xvfb.log",
+    "bytes": 155,
+    "sha256": "09dc9947fdedfab1801a28cde2f4a48aeb1a9b3f7a8d9597cb9856dadcc3f0ff"
+  },
+  {
+    "file": "ne154-duck-envelope-native-v3/envelope.json",
+    "bytes": 15016,
+    "sha256": "8d36b651faafef48f1cadf2ddb21badeaadea84c3aab4d5ffae6ff8836b823bc"
+  },
+  {
+    "file": "ne154-duck-envelope-native-v3/envelope.png",
+    "bytes": 93135,
+    "sha256": "584767b7267e966bf568e8c472a6d8bbc5cf205dc2258fbfc0fe4ed213b1f9cf"
+  },
+  {
+    "file": "ne154-duck-envelope-native-v3-xvfb.log",
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  {
+    "file": "ne154-duck-envelope-native-v3.exit",
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  {
+    "file": "ne154-duck-envelope-native-v3.log",
+    "bytes": 191,
+    "sha256": "c0b1b023b160f666562fc856d9b3a785c4768e5c7103bbf87938905dec8c04e4"
+  },
+  {
+    "file": "ne154-duck-envelope-native-xvfb.log",
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  {
+    "file": "ne154-duck-envelope-native.exit",
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  {
+    "file": "ne154-duck-envelope-native.log",
+    "bytes": 191,
+    "sha256": "c0b1b023b160f666562fc856d9b3a785c4768e5c7103bbf87938905dec8c04e4"
+  },
+  {
+    "file": "ne154-duck-envelope-v2-queue.log",
+    "bytes": 286,
+    "sha256": "9b4b67d263274870c5430d52671c15fbdb521c9b82c3cce5121c3309fd3e0bf3"
+  },
+  {
+    "file": "ne154-duck-envelope-v3-queue.log",
+    "bytes": 229,
+    "sha256": "b8e36b0549d17c9fc55e922b59db7de1dbfa7431065442634fcf3cbcbbb7dbe6"
+  },
+  {
+    "file": "ne154-duck-green/shard_0.log",
+    "bytes": 2230,
+    "sha256": "811c9a56486498c52c4de6f9067d6bdfc3303e003bd3359e9af7f09d138c0284"
+  },
+  {
+    "file": "ne154-duck-green.log",
+    "bytes": 225,
+    "sha256": "f958aafa806edb39768c274f53a05ec0b8384ca2b0518b7d5704f7d6c282f9e8"
+  },
+  {
+    "file": "ne154-duck-red/shard_0.log",
+    "bytes": 2369,
+    "sha256": "bdb88d586d524b9ec9cd64ca56d40922f311ad1ddbb9369091d2a4182217ec40"
+  },
+  {
+    "file": "ne154-duck-red.log",
+    "bytes": 401,
+    "sha256": "f21bdb4e4878794d3f10c4738e816fc998cc44de5ca56ec98da54091cc4221fc"
+  },
+  {
+    "file": "ne154-initial-doc-draft/pm/Nest-Egg/attachments/NE-154-real-time-ducking/manifest.json",
+    "bytes": 6579,
+    "sha256": "96f15e9b303d80ece156374941635c814c14b9c0afa85770b5b4c070fd58f0f4"
+  },
+  {
+    "file": "ne154-initial-doc-draft/pm/Nest-Egg/attachments/NE-154-real-time-ducking/references.json",
+    "bytes": 1931,
+    "sha256": "2343dd5c8a522515ae7cec143e26acf2e6f7430c49e338e6169aa7c0e99d4f8d"
+  },
+  {
+    "file": "ne154-payload-copied-to-guestbook.json",
+    "bytes": 627,
+    "sha256": "7927f7f712ea5a8690efee94469f75efd23c0dfc8f611b47349e378af1db7bfb"
+  },
+  {
+    "file": "ne154-sfx-monotonic-candidate.gd",
+    "bytes": 35462,
+    "sha256": "da6c9076f7b9d03a4fe079b4ccc0c524c4a6c75eea79372bda99d076e0c604d4"
+  },
+  {
+    "file": "verify-duck-clock-fix.py",
+    "bytes": 1591,
+    "sha256": "ae247ac31ef682a5bc76d426c4640b942ca595cec690071c5a1cd89cd6c9e389"
+  }
+]

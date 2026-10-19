@@ -1,0 +1,12 @@
+{
+  "purpose": "Follow-up research while tracing the audio timing failure; these sources support clock separation, not a claim that a particular release curve is an industry standard.",
+  "sources": [
+    {"url": "https://docs.godotengine.org/en/4.1/classes/class_time.html", "observation": "get_ticks_msec is monotonic and suited to elapsed intervals; verified against this project's actual Godot 4.7.2 behavior."},
+    {"url": "https://docs.godotengine.org/en/4.1/classes/class_engine.html?highlight=time_scale", "observation": "Game time scale affects process timing; mixing it with a real-time deadline creates inconsistent envelope behavior."},
+    {"url": "https://docs.unity3d.com/ja/current/ScriptReference/Audio.AudioMixer-updateMode.html", "observation": "Unity exposes an unscaled real-time update mode for an AudioMixer."},
+    {"url": "https://dev.epicgames.com/documentation/unreal-engine/overview-of-quartz-in-unreal-engine", "observation": "Unreal distinguishes audio scheduling from game-thread frame timing; this project still updates parameters on its main thread and does not claim sample-accurate scheduling."},
+    {"url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/audio-mixer-overview?application_version=4.27", "observation": "Audio processing consumes volume and playback parameters independently of game-frame scheduling."}
+  ],
+  "genre_images": "design/08-lighting/READABILITY_REFERENCES.md keeps five previously viewed side-view action/exploration games from different development teams. Their images are visual reference, not evidence of how their audio engines work.",
+  "decision": "Keep existing event depths, hold settings and priority rules. Give hold and release one monotonic clock. Define a finite linear recovery in decibels over the configured release duration; new quiet voices sample that same envelope. This curve is a project decision and must still be auditioned."
+}

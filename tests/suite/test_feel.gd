@@ -19,6 +19,7 @@ func run() -> void:
 	await _test_camera_rear_threat()
 	await _test_camera_ledge_peek()
 	await _test_sound_events()
+	_test_duck_uses_real_time()
 	_test_hit_materials()
 	await _test_weapon_feel()
 	await _test_reload_feel()
@@ -446,7 +447,14 @@ func _test_sound_events() -> void:
 	Sfx._voice_end_msec[0] = Time.get_ticks_msec() + 3000
 	Sfx._start_duck(-8.0, 0.1, 9, Time.get_ticks_msec())
 	check(is_equal_approx(Sfx._players[0].volume_db, -10.0), "ducking lowers quieter voices by the set depth")
-	await runner.get_tree().create_timer(0.3, true, false, true).timeout
+	var duck_observed_start := Time.get_ticks_msec()
+	print("DUCK_RECOVERY_BEFORE ", JSON.stringify({"now": duck_observed_start, "hold_until": Sfx._duck_until_msec}))
+	# Hold/release use monotonic time. The same intended 300 ms must elapse
+	# on that clock; a headless SceneTreeTimer returned after only 111 ms.
+	while Time.get_ticks_msec() < duck_observed_start + 300:
+		await runner.get_tree().process_frame
+	print("DUCK_REAL_ELAPSED_MS ", Time.get_ticks_msec() - duck_observed_start)
+	print("DUCK_RECOVERY_OBSERVATION ", JSON.stringify({"now": Time.get_ticks_msec(), "hold_until": Sfx._duck_until_msec, "duck_db": Sfx._duck_db, "voice_db": Sfx._players[0].volume_db, "base_db": Sfx._voice_base_db[0], "playing": Sfx._players[0].playing, "length": Sfx._streams[&"explosion"].get_length(), "scale": Engine.time_scale, "priority": Sfx._voice_priority[0], "duck_priority": Sfx._duck_priority}))
 	check(Sfx._players[0].volume_db > -4.0 and Sfx._duck_db > -2.0, "ducking recovers smoothly afterwards")
 	Sfx.stop_all()
 	# 缺漏的事件退回預設音效，不崩潰。
@@ -894,3 +902,45 @@ func _test_damage_numbers() -> void:
 	await end_level(level)
 	Settings.use_storage(original)
 	DirAccess.remove_absolute("user://test_feel_numbers.cfg")
+
+
+## Duck hold is measured in wall time; release must also finish when game delta is zero.
+func _test_duck_uses_real_time() -> void:
+	Sfx.stop_all()
+	Sfx._players[0].stream = Sfx._streams[&"explosion"]
+	Sfx._players[0].play()
+	Sfx._voice_priority[0] = 1
+	Sfx._voice_base_db[0] = -2.0
+	Sfx._voice_end_msec[0] = Time.get_ticks_msec() + 3000
+	Sfx._start_duck(-8.0, 0.1, 9, Time.get_ticks_msec())
+	Sfx._process(1.0)
+	check(is_equal_approx(Sfx._duck_db, -8.0), "duck hold uses its real deadline despite a large game delta")
+	# The existing API accepts the event's monotonic timestamp: exercise an
+	# expired event without adding a sleep, changing time scale or weakening the old test.
+	Sfx._start_duck(-8.0, 0.1, 9, Time.get_ticks_msec() - 1000)
+	Sfx._process(0.0)
+	check(is_zero_approx(Sfx._duck_db), "expired duck release finishes even with zero game delta")
+	check(is_equal_approx(Sfx._players[0].volume_db, -2.0), "expired duck restores the lower priority voice to its exact base level")
+	Sfx.stop_all()
+
+	# A fresh quiet voice during recovery inherits the current envelope;
+	# a voice at the duck trigger's priority retains its own level.
+	for i in Sfx._players.size():
+		Sfx._voice_end_msec[i] = 0
+	Sfx._last_play_msec.erase(&"hit")
+	Sfx._last_play_msec.erase(&"explosion")
+	Sfx._start_duck(-8.0, 0.4, 9, Time.get_ticks_msec() - 450)
+	var quiet_played: bool = Sfx._play_voice(&"hit", 0.0, 1.0, 1)
+	var inherited := false
+	for i in Sfx._players.size():
+		if Sfx._players[i].playing and Sfx._voice_sound[i] == &"hit":
+			var change: float = Sfx._players[i].volume_db - Sfx._voice_base_db[i]
+			inherited = change < -4.0 and change > -8.0
+	check(quiet_played and inherited, "a new quiet voice inherits the partially recovered duck envelope")
+	var loud_played: bool = Sfx._play_voice(&"explosion", 0.0, 1.0, 9)
+	var unducked := false
+	for i in Sfx._players.size():
+		if Sfx._players[i].playing and Sfx._voice_sound[i] == &"explosion":
+			unducked = is_equal_approx(Sfx._players[i].volume_db, Sfx._voice_base_db[i])
+	check(loud_played and unducked, "a new high priority voice keeps its own volume during recovery")
+	Sfx.stop_all()
