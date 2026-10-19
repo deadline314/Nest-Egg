@@ -676,7 +676,7 @@ def build_street():
     for x in (11, 31, 78, 104, 126, 150, 176, 201):
         a.lamp(x, 12)
     a.zone(0, 'market')
-    a.zone(181, 'freight', 14)
+    a.zone(181, 'harbor_approach', 14)
     return a
 
 

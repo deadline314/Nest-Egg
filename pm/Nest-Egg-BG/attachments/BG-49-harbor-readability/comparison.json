@@ -1,0 +1,654 @@
+{
+  "high": [
+    {
+      "level": "ch1_prologue",
+      "spot": "\u5de5\u4f5c\u684c",
+      "before": {
+        "player_contrast": 0.857308838815198,
+        "enemy_contrast": null,
+        "edge_contrast": 6.11746735474387
+      },
+      "after": {
+        "player_contrast": 0.857313793306176,
+        "enemy_contrast": null,
+        "edge_contrast": 6.11692514998851
+      },
+      "passed": true,
+      "player_delta": 4.95449097792644e-06,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_prologue",
+      "spot": "\u5c04\u64ca\u7dda",
+      "before": {
+        "player_contrast": 0.86768669731306,
+        "enemy_contrast": null,
+        "edge_contrast": 5.60470661476973
+      },
+      "after": {
+        "player_contrast": 0.86767583471167,
+        "enemy_contrast": null,
+        "edge_contrast": 5.59873285594366
+      },
+      "passed": true,
+      "player_delta": -1.0862601390049242e-05,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_prologue",
+      "spot": "\u8a13\u7df4\u5668",
+      "before": {
+        "player_contrast": 0.76962698962277,
+        "enemy_contrast": null,
+        "edge_contrast": 6.37595959032092
+      },
+      "after": {
+        "player_contrast": 0.769630972680513,
+        "enemy_contrast": null,
+        "edge_contrast": 6.39093960436864
+      },
+      "passed": true,
+      "player_delta": 3.983057742962259e-06,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_pawnshop",
+      "spot": "\u5f8c\u7a7a\u5730",
+      "before": {
+        "player_contrast": 0.715710701024448,
+        "enemy_contrast": null,
+        "edge_contrast": 11.6618252324725
+      },
+      "after": {
+        "player_contrast": 0.722233986535875,
+        "enemy_contrast": null,
+        "edge_contrast": 11.4585731839943
+      },
+      "passed": true,
+      "player_delta": 0.006523285511427002,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_pawnshop",
+      "spot": "\u5e97\u9762",
+      "before": {
+        "player_contrast": 0.917243977146306,
+        "enemy_contrast": null,
+        "edge_contrast": 3.03484566226982
+      },
+      "after": {
+        "player_contrast": 0.917239989798025,
+        "enemy_contrast": null,
+        "edge_contrast": 3.03486999362432
+      },
+      "passed": true,
+      "player_delta": -3.987348280998226e-06,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_pawnshop",
+      "spot": "\u5eda\u623f",
+      "before": {
+        "player_contrast": 0.904344640177069,
+        "enemy_contrast": null,
+        "edge_contrast": 6.89597080816243
+      },
+      "after": {
+        "player_contrast": 0.904246455163802,
+        "enemy_contrast": null,
+        "edge_contrast": 6.90753623519084
+      },
+      "passed": true,
+      "player_delta": -9.818501326697149e-05,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_rooftop",
+      "spot": "\u5c4b\u9802\u6c34\u5854",
+      "before": {
+        "player_contrast": 0.821172948471654,
+        "enemy_contrast": null,
+        "edge_contrast": 16.6299291105311
+      },
+      "after": {
+        "player_contrast": 0.821388073227603,
+        "enemy_contrast": null,
+        "edge_contrast": 17.0906271185922
+      },
+      "passed": true,
+      "player_delta": 0.00021512475594898106,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_street",
+      "spot": "\u5e02\u96c6",
+      "before": {
+        "player_contrast": 1.08655107841969,
+        "enemy_contrast": 0.754173443919129,
+        "edge_contrast": 7.89098653299287
+      },
+      "after": {
+        "player_contrast": 1.38658524764661,
+        "enemy_contrast": 0.753817444165883,
+        "edge_contrast": 7.46706192597013
+      },
+      "passed": true,
+      "player_delta": 0.30003416922692017,
+      "enemy_delta": -0.00035599975324596134,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_street",
+      "spot": "\u78bc\u982d\u5165\u53e3",
+      "before": {
+        "player_contrast": 0.830094389297237,
+        "enemy_contrast": 0.446030930352638,
+        "edge_contrast": 9.29386558838883
+      },
+      "after": {
+        "player_contrast": 0.819627401319475,
+        "enemy_contrast": 0.480841761853699,
+        "edge_contrast": 9.67926348925295
+      },
+      "passed": true,
+      "player_delta": -0.010466987977762021,
+      "enemy_delta": 0.03481083150106096,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_booth_alley",
+      "spot": "\u96fb\u8a71\u4ead",
+      "before": {
+        "player_contrast": 0.737324931145535,
+        "enemy_contrast": null,
+        "edge_contrast": 25.1680119464692
+      },
+      "after": {
+        "player_contrast": 0.737202637273075,
+        "enemy_contrast": null,
+        "edge_contrast": 25.6016407529472
+      },
+      "passed": true,
+      "player_delta": -0.00012229387245998868,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_warehouse",
+      "spot": "\u770b\u9580\u72d7\u524d\u5ef3",
+      "before": {
+        "player_contrast": 0.757893505474508,
+        "enemy_contrast": 0.770707460874154,
+        "edge_contrast": 8.21870432904454
+      },
+      "after": {
+        "player_contrast": 0.782060565919077,
+        "enemy_contrast": 0.756243424939257,
+        "edge_contrast": 8.21091654698394
+      },
+      "passed": true,
+      "player_delta": 0.024167060444569066,
+      "enemy_delta": -0.01446403593489698,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_warehouse",
+      "spot": "\u9598\u9580\u5ef3",
+      "before": {
+        "player_contrast": 0.705043276868987,
+        "enemy_contrast": 0.739001792007356,
+        "edge_contrast": 9.96420229299745
+      },
+      "after": {
+        "player_contrast": 1.08075298042093,
+        "enemy_contrast": 0.748149514691977,
+        "edge_contrast": 9.18899349580256
+      },
+      "passed": true,
+      "player_delta": 0.3757097035519429,
+      "enemy_delta": 0.00914772268462094,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_vault",
+      "spot": "\u5009\u5eab\u6df1\u8655",
+      "before": {
+        "player_contrast": 0.634285004701472,
+        "enemy_contrast": 0.791430598451444,
+        "edge_contrast": 9.83942119781167
+      },
+      "after": {
+        "player_contrast": 0.640442965409371,
+        "enemy_contrast": 0.791762169449317,
+        "edge_contrast": 9.90885376710441
+      },
+      "passed": true,
+      "player_delta": 0.0061579607078989795,
+      "enemy_delta": 0.0003315709978729542,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_vault",
+      "spot": "\u4e0a\u5c64\u8d70\u9053",
+      "before": {
+        "player_contrast": 1.09420119498551,
+        "enemy_contrast": 0.878491603665306,
+        "edge_contrast": 11.3229790785313
+      },
+      "after": {
+        "player_contrast": 1.07164072166904,
+        "enemy_contrast": 0.878560638421079,
+        "edge_contrast": 11.3229790785313
+      },
+      "passed": true,
+      "player_delta": -0.02256047331646993,
+      "enemy_delta": 6.903475577302309e-05,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_handoff",
+      "spot": "\u4ea4\u63a5\u6ac3",
+      "before": {
+        "player_contrast": 3.19999860516211,
+        "enemy_contrast": null,
+        "edge_contrast": 18.1216778964186
+      },
+      "after": {
+        "player_contrast": 3.17964462508989,
+        "enemy_contrast": null,
+        "edge_contrast": 18.3603267509004
+      },
+      "passed": true,
+      "player_delta": -0.02035398007221989,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_lounge",
+      "spot": "\u5fa9\u539f\u9928",
+      "before": {
+        "player_contrast": 0.777293095195888,
+        "enemy_contrast": null,
+        "edge_contrast": 8.42234160430337
+      },
+      "after": {
+        "player_contrast": 0.777290395464255,
+        "enemy_contrast": null,
+        "edge_contrast": 8.42006536950562
+      },
+      "passed": true,
+      "player_delta": -2.699731632915814e-06,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_stall",
+      "spot": "\u5bb5\u591c\u9eb5\u6524",
+      "before": {
+        "player_contrast": 0.676502866801319,
+        "enemy_contrast": null,
+        "edge_contrast": 12.0074305502371
+      },
+      "after": {
+        "player_contrast": 0.676935532740674,
+        "enemy_contrast": null,
+        "edge_contrast": 12.1105125272055
+      },
+      "passed": true,
+      "player_delta": 0.00043266593935498143,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "spot": "\u5929\u4eae\u5e97\u9762",
+      "before": {
+        "player_contrast": 0.858861568968803,
+        "enemy_contrast": null,
+        "edge_contrast": 3.11481597538137
+      },
+      "after": {
+        "player_contrast": 0.857177182457054,
+        "enemy_contrast": null,
+        "edge_contrast": 3.13819608574045
+      },
+      "passed": true,
+      "player_delta": -0.0016843865117489587,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    }
+  ],
+  "low": [
+    {
+      "level": "ch1_prologue",
+      "spot": "\u5de5\u4f5c\u684c",
+      "before": {
+        "player_contrast": 0.878892806231325,
+        "enemy_contrast": null,
+        "edge_contrast": 6.64049834398649
+      },
+      "after": {
+        "player_contrast": 0.878892602588938,
+        "enemy_contrast": null,
+        "edge_contrast": 6.64063794726065
+      },
+      "passed": true,
+      "player_delta": -2.0364238706438442e-07,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_prologue",
+      "spot": "\u5c04\u64ca\u7dda",
+      "before": {
+        "player_contrast": 0.882475976807727,
+        "enemy_contrast": null,
+        "edge_contrast": 5.80291145992833
+      },
+      "after": {
+        "player_contrast": 0.882477041703262,
+        "enemy_contrast": null,
+        "edge_contrast": 5.80291145992833
+      },
+      "passed": true,
+      "player_delta": 1.0648955349745748e-06,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_prologue",
+      "spot": "\u8a13\u7df4\u5668",
+      "before": {
+        "player_contrast": 0.789694937453134,
+        "enemy_contrast": null,
+        "edge_contrast": 6.37259743691552
+      },
+      "after": {
+        "player_contrast": 0.789694850686454,
+        "enemy_contrast": null,
+        "edge_contrast": 6.37260134608651
+      },
+      "passed": true,
+      "player_delta": -8.67666800630218e-08,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_pawnshop",
+      "spot": "\u5f8c\u7a7a\u5730",
+      "before": {
+        "player_contrast": 0.752862187064238,
+        "enemy_contrast": null,
+        "edge_contrast": 11.6034989292764
+      },
+      "after": {
+        "player_contrast": 0.728213032645864,
+        "enemy_contrast": null,
+        "edge_contrast": 10.8836390205554
+      },
+      "passed": true,
+      "player_delta": -0.02464915441837401,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_pawnshop",
+      "spot": "\u5e97\u9762",
+      "before": {
+        "player_contrast": 0.933304350496792,
+        "enemy_contrast": null,
+        "edge_contrast": 3.04200331400693
+      },
+      "after": {
+        "player_contrast": 0.933319573548904,
+        "enemy_contrast": null,
+        "edge_contrast": 3.04212498686605
+      },
+      "passed": true,
+      "player_delta": 1.5223052112101065e-05,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_pawnshop",
+      "spot": "\u5eda\u623f",
+      "before": {
+        "player_contrast": 0.917273351443422,
+        "enemy_contrast": null,
+        "edge_contrast": 4.56547075538642
+      },
+      "after": {
+        "player_contrast": 0.917155653562446,
+        "enemy_contrast": null,
+        "edge_contrast": 4.57523399910791
+      },
+      "passed": true,
+      "player_delta": -0.00011769788097604206,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_rooftop",
+      "spot": "\u5c4b\u9802\u6c34\u5854",
+      "before": {
+        "player_contrast": 0.841780902226324,
+        "enemy_contrast": null,
+        "edge_contrast": 17.0421851625804
+      },
+      "after": {
+        "player_contrast": 0.965124881401968,
+        "enemy_contrast": null,
+        "edge_contrast": 15.5001163447791
+      },
+      "passed": true,
+      "player_delta": 0.12334397917564399,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_street",
+      "spot": "\u5e02\u96c6",
+      "before": {
+        "player_contrast": 0.97275324393852,
+        "enemy_contrast": 0.786205041877943,
+        "edge_contrast": 8.61289957648911
+      },
+      "after": {
+        "player_contrast": 0.94109868759043,
+        "enemy_contrast": 0.786083794971141,
+        "edge_contrast": 8.54432885292649
+      },
+      "passed": true,
+      "player_delta": -0.03165455634809,
+      "enemy_delta": -0.00012124690680204164,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_street",
+      "spot": "\u78bc\u982d\u5165\u53e3",
+      "before": {
+        "player_contrast": 0.788430512917814,
+        "enemy_contrast": 0.442430669567914,
+        "edge_contrast": 9.66980387704849
+      },
+      "after": {
+        "player_contrast": 1.14502611487307,
+        "enemy_contrast": 0.475620080013253,
+        "edge_contrast": 9.16021522626384
+      },
+      "passed": true,
+      "player_delta": 0.3565956019552561,
+      "enemy_delta": 0.03318941044533902,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_booth_alley",
+      "spot": "\u96fb\u8a71\u4ead",
+      "before": {
+        "player_contrast": 0.882014212243343,
+        "enemy_contrast": null,
+        "edge_contrast": 11.0772071322383
+      },
+      "after": {
+        "player_contrast": 0.85480828830927,
+        "enemy_contrast": null,
+        "edge_contrast": 11.3901877871761
+      },
+      "passed": true,
+      "player_delta": -0.02720592393407295,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_warehouse",
+      "spot": "\u770b\u9580\u72d7\u524d\u5ef3",
+      "before": {
+        "player_contrast": 0.786207508927881,
+        "enemy_contrast": 0.82299592468565,
+        "edge_contrast": 8.29331385082626
+      },
+      "after": {
+        "player_contrast": 0.806665371037516,
+        "enemy_contrast": 0.812609329264121,
+        "edge_contrast": 8.24321347394039
+      },
+      "passed": true,
+      "player_delta": 0.02045786210963496,
+      "enemy_delta": -0.010386595421528977,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_warehouse",
+      "spot": "\u9598\u9580\u5ef3",
+      "before": {
+        "player_contrast": 0.68149694847785,
+        "enemy_contrast": 0.774369509776903,
+        "edge_contrast": 9.44758762633464
+      },
+      "after": {
+        "player_contrast": 0.688484524550233,
+        "enemy_contrast": 0.7750199616259,
+        "edge_contrast": 9.44779394012432
+      },
+      "passed": true,
+      "player_delta": 0.006987576072382984,
+      "enemy_delta": 0.0006504518489970357,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_vault",
+      "spot": "\u5009\u5eab\u6df1\u8655",
+      "before": {
+        "player_contrast": 0.653806411683964,
+        "enemy_contrast": 0.827646355689796,
+        "edge_contrast": 10.0551820050894
+      },
+      "after": {
+        "player_contrast": 0.662513232708848,
+        "enemy_contrast": 0.827782385188301,
+        "edge_contrast": 10.086951436589
+      },
+      "passed": true,
+      "player_delta": 0.00870682102488396,
+      "enemy_delta": 0.00013602949850499702,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_vault",
+      "spot": "\u4e0a\u5c64\u8d70\u9053",
+      "before": {
+        "player_contrast": 0.942852401708644,
+        "enemy_contrast": 0.897663936898556,
+        "edge_contrast": 11.3122820065564
+      },
+      "after": {
+        "player_contrast": 0.93548337313667,
+        "enemy_contrast": 0.897708696084152,
+        "edge_contrast": 11.2857406224691
+      },
+      "passed": true,
+      "player_delta": -0.007369028571974079,
+      "enemy_delta": 4.475918559609937e-05,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_handoff",
+      "spot": "\u4ea4\u63a5\u6ac3",
+      "before": {
+        "player_contrast": 4.35339258125715,
+        "enemy_contrast": null,
+        "edge_contrast": 5.80542030038956
+      },
+      "after": {
+        "player_contrast": 4.35246505410328,
+        "enemy_contrast": null,
+        "edge_contrast": 5.80777748658246
+      },
+      "passed": true,
+      "player_delta": -0.0009275271538706775,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_lounge",
+      "spot": "\u5fa9\u539f\u9928",
+      "before": {
+        "player_contrast": 0.831762667048542,
+        "enemy_contrast": null,
+        "edge_contrast": 7.49060750523498
+      },
+      "after": {
+        "player_contrast": 0.831772387818341,
+        "enemy_contrast": null,
+        "edge_contrast": 7.49174423099578
+      },
+      "passed": true,
+      "player_delta": 9.720769798993167e-06,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_stall",
+      "spot": "\u5bb5\u591c\u9eb5\u6524",
+      "before": {
+        "player_contrast": 0.720473972453755,
+        "enemy_contrast": null,
+        "edge_contrast": 11.9205923757761
+      },
+      "after": {
+        "player_contrast": 0.718656008079807,
+        "enemy_contrast": null,
+        "edge_contrast": 12.1047806350967
+      },
+      "passed": true,
+      "player_delta": -0.001817964373947989,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "spot": "\u5929\u4eae\u5e97\u9762",
+      "before": {
+        "player_contrast": 0.897695147550706,
+        "enemy_contrast": null,
+        "edge_contrast": 2.67261943094842
+      },
+      "after": {
+        "player_contrast": 0.897518146285003,
+        "enemy_contrast": null,
+        "edge_contrast": 2.69939798176707
+      },
+      "passed": true,
+      "player_delta": -0.0001770012657029696,
+      "enemy_delta": null,
+      "no_regression_over_005": true
+    }
+  ]
+}

@@ -23,7 +23,7 @@
 [ext_resource type="Resource" path="res://data/props/ch1_arena_street_blockade.tres" id="21_ch1_arena_street_blockade"]
 [ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="22_lighting_zone"]
 [ext_resource type="Resource" path="res://data/lighting/market.tres" id="23_market"]
-[ext_resource type="Resource" path="res://data/lighting/freight.tres" id="24_freight"]
+[ext_resource type="Resource" path="res://data/lighting/harbor_approach.tres" id="24_harbor_approach"]
 [ext_resource type="Resource" path="res://data/environment/themes/ch1_street.tres" id="25_ch1_street"]
 
 [sub_resource type="Resource" id="Resource_0"]
@@ -73,7 +73,7 @@ profile = ExtResource("23_market")
 script = ExtResource("22_lighting_zone")
 start_tile = 181
 blend_tiles = 14
-profile = ExtResource("24_freight")
+profile = ExtResource("24_harbor_approach")
 
 [resource]
 script = ExtResource("1_level_data")

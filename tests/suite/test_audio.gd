@@ -11,6 +11,7 @@ const LICENSES_PATH := "res://assets_src/audio/LICENSES.json"
 
 func run() -> void:
 	_test_shipped_data()
+	_test_readability_audio_mapping()
 	_test_licenses()
 	_test_bank_loading()
 	_test_bank_validation()
@@ -860,3 +861,18 @@ func _melee_done(player: Player) -> void:
 	while player._melee_phase != Player.MeleePhase.NONE and ticks > 0:
 		await physics_frames(1)
 		ticks -= 1
+
+
+## Local lighting variants keep the soundscape of their parent area.
+func _test_readability_audio_mapping() -> void:
+	for entry: Array in [["res://data/levels/ch2_lounge_front.tres", &"market"], ["res://data/levels/ch1_street.tres", &"freight"]]:
+		var level := load(entry[0]) as LevelData
+		var current: StringName = level.lighting_zones.back().profile.id
+		var previous: StringName = entry[1]
+		check(not Ambience.layers_for(current).is_empty() and Ambience.layers_for(current) == Ambience.layers_for(previous),
+			"local lighting preserves every ambience layer and volume: %s" % current)
+		check(Music._scope(&"zones", current) == Music._scope(&"zones", previous),
+			"local lighting preserves explicit zone music routing: %s" % current)
+		for state: StringName in [&"calm", &"safe", &"combat", &"boss"]:
+			check(Music.resolve_cue(level.id, current, state) == Music.resolve_cue(level.id, previous, state),
+				"local lighting preserves %s music selection: %s" % [state, current])

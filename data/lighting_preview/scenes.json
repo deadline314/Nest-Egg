@@ -1,6 +1,7 @@
 {
  "_說明": "光影預設 → 代表性的場景背景（art/environment/scenes/<id>.webp）。tools/scenarios/lighting_scene_scenario.gd 把玩家與敵人放在這些背景前、套用該預設，量測輪廓對比。新增光影預設時在這裡加一行（只新增資料，不改程式）；場景背景還沒畫好的先寫進來，量測會標示「待背景」而不是失敗。",
  "presets": {
+  "harbor_approach": ["harbor_street"],
   "pawnshop_warm": ["pawnshop_front", "pawnshop_kitchen"],
   "mezzanine_gray": ["mezzanine"],
   "sunlit_edge": ["sunlit_district"],
