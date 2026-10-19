@@ -1,0 +1,96 @@
+{
+  "base": "230863d8a4891c883f1a202b8f2fd918d940447f",
+  "prototype_sha256": "d8d91c020bd582c957cd0f8a611fd1b466064159ebd50251d4cd775f79b22332",
+  "v2_correction": "attach Viewport before setting its canvas transform; preserve v2 errors and all data; add source ancestor alpha refusal and exact captured-frame crops",
+  "formula": "rectangle all-white / rendered opaque head pixel count; upper bound, no exact enemy ratio",
+  "scope": "stationary unoccluded sweeper at ch1_street harbor; no gameplay source changed",
+  "independent": {
+    "method": "independent numpy float16 RGB readback and PIL opaque alpha count; no image edits",
+    "hdr_format": 14,
+    "encoding": "little-endian RGB half floats from Linux x86_64 Godot4.7.2",
+    "results": {
+      "bg49-head-bound-blank-v3": {
+        "exit": 1,
+        "observations": [
+          {
+            "sample": 0,
+            "white_in_rectangle": 1,
+            "opaque_head_lower_bound": 0,
+            "enemy_white_upper_bound": null
+          },
+          {
+            "sample": 1,
+            "white_in_rectangle": 1,
+            "opaque_head_lower_bound": 0,
+            "enemy_white_upper_bound": null
+          },
+          {
+            "sample": 2,
+            "white_in_rectangle": 1,
+            "opaque_head_lower_bound": 0,
+            "enemy_white_upper_bound": null
+          }
+        ]
+      },
+      "bg49-head-bound-high-v3": {
+        "exit": 0,
+        "observations": [
+          {
+            "sample": 0,
+            "white_in_rectangle": 0,
+            "opaque_head_lower_bound": 623,
+            "enemy_white_upper_bound": 0.0
+          },
+          {
+            "sample": 1,
+            "white_in_rectangle": 0,
+            "opaque_head_lower_bound": 630,
+            "enemy_white_upper_bound": 0.0
+          },
+          {
+            "sample": 2,
+            "white_in_rectangle": 0,
+            "opaque_head_lower_bound": 629,
+            "enemy_white_upper_bound": 0.0
+          }
+        ]
+      },
+      "bg49-head-bound-low-v3": {
+        "exit": 0,
+        "observations": [
+          {
+            "sample": 0,
+            "white_in_rectangle": 1,
+            "opaque_head_lower_bound": 630,
+            "enemy_white_upper_bound": 0.0015873015873015873
+          },
+          {
+            "sample": 1,
+            "white_in_rectangle": 1,
+            "opaque_head_lower_bound": 633,
+            "enemy_white_upper_bound": 0.001579778830963665
+          },
+          {
+            "sample": 2,
+            "white_in_rectangle": 0,
+            "opaque_head_lower_bound": 633,
+            "enemy_white_upper_bound": 0.0
+          }
+        ]
+      }
+    }
+  },
+  "unchanged_source": {
+    "tools/contrast_probe.gd": "3206464c34e339380f3629274788a3f17fe342d4b8e41526d7d82164f888c5c6",
+    "tools/readability_check.gd": "b677c123ff80b77293a377bff5d009a66d913aedda5cf065d8ace48fc6f1b77d",
+    "tools/harbor_readability_probe.gd": "68e225ffa0c92f93e2bab9a183215e7af8f0bc712305708fdfe81b59a1822c15",
+    "game/rig/character_rig.gd": "c1e866bab290f6c699409d1a61a9be8acb4dffc0c50b56d06736ccf7551ea6c0",
+    "game/rig/rig_part_mesh.gd": "dfd10fad29e68084c5cf87b7caa6a0a2633b11c4170295dc139cb4c7dc203021",
+    "data/lighting/harbor_approach.tres": "e4ff629e9ad49b1a32f3ec04f1625e65e8d25fad8b074eb2839f44d5e2f99574",
+    "tools/select_tests.py": "5617cd39198b93547fa73753074ad5ffb28d2fb9ea0ae8ba5242b2815cce69da",
+    "tools/test_filters.sh": "319fea9acacfdad9f7dab7948ea5a2d76652757623b428829605160a210e678a",
+    "tests/known_failures.txt": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf"
+  },
+  "replay_sha256": "ea0745734c600abf2a2ca533300ae4a44cb29e3598f40a70d3ad932877a8d917",
+  "replay_format_only": "remove exactly one final blank line; native exact bytes retained in raw/bg49-head-bound-native-v3.gd"
+}
