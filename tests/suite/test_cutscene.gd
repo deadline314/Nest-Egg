@@ -38,6 +38,7 @@ func run() -> void:
 	await _test_story_features()
 	await _test_story_custody()
 	await _test_story_runtime()
+	_test_result_payload_validation()
 	_test_checker()
 	_test_stages()
 	await _test_play_all_steps()
@@ -56,6 +57,60 @@ func run() -> void:
 	await _test_resumed_boss_cancel()
 	await _test_saved_arena_initialization()
 	_test_real_data()
+
+
+## A malformed result must not be silently filtered after a real payment.
+func _test_result_payload_validation() -> void:
+	var previous_flags := GameState.world_flags.duplicate(true)
+	var previous_defaults := GameState.flag_defaults.duplicate(true)
+	var previous_items := StoryItems.snapshot()
+	var previous_progress := Progression.snapshot()
+	const ID := "test_bad_cutscene_result_payload"
+	const PAID := {"kind": "transaction", "id": "ch1.revival_meal.paid"}
+	GameState.flag_defaults["test_result_payload_done"] = false
+	GameState.flag_defaults["test_result_payload_count"] = 0
+	var cases: Array[Dictionary] = [
+		{"label": "results object", "scene": {"results": {"unexpected": true}, "set_flags": ["test_result_payload_done"]}},
+		{"label": "results scalar", "scene": {"results": 7, "set_flags": ["test_result_payload_done"]}},
+		{"label": "scalar entry", "scene": {"results": [PAID, 7]}},
+		{"label": "null entry", "scene": {"results": [PAID, null]}},
+		{"label": "array entry", "scene": {"results": [PAID, []]}},
+		{"label": "array flag", "scene": {"results": [PAID, {"kind": "flag", "id": "test_result_payload_done", "value": []}]}},
+		{"label": "null flag", "scene": {"results": [PAID, {"kind": "flag", "id": "test_result_payload_done", "value": null}]}},
+		{"label": "wrong boolean type", "scene": {"results": [PAID, {"kind": "flag", "id": "test_result_payload_done", "value": "yes"}]}},
+		{"label": "wrong integer type", "scene": {"results": [PAID, {"kind": "flag", "id": "test_result_payload_count", "value": true}]}},
+		{"label": "empty result id", "scene": {"results": [PAID, {"kind": "flag", "id": ""}]}},
+		{"label": "numeric result id", "scene": {"results": [PAID, {"kind": "flag", "id": 123}]}},
+		{"label": "set_flags scalar", "scene": {"results": [PAID], "set_flags": "not-a-list"}},
+		{"label": "empty set_flags id", "scene": {"results": [PAID], "set_flags": [""]}},
+		{"label": "numeric set_flags id", "scene": {"results": [PAID], "set_flags": [123]}},
+		{"label": "set_flags integer default", "scene": {"results": [PAID], "set_flags": ["test_result_payload_count"]}},
+	]
+	for entry in cases:
+		Progression.reset_run()
+		Progression.add_credits(400)
+		check(Progression.apply_story_transaction(Story.outcomes.transaction(&"ch1.revival_meal.order")).get("applied", false), "payload fixture establishes a real open bill")
+		GameState.world_flags = previous_flags.duplicate(true)
+		Story._scenes[ID] = entry["scene"]
+		var before := var_to_bytes([GameState.world_flags, StoryItems.snapshot(), Progression.snapshot()])
+		var problems := Story.outcomes.validate_scene(ID, entry["scene"], Story.has_scene)
+		check(not problems.is_empty(), "malformed %s is reported during content validation" % entry["label"])
+		var applied := Story._apply_scene_results(StringName(ID))
+		check(not applied["ok"] and str(applied.get("where", "")).contains(ID), "malformed %s is refused before commit with its scene location" % entry["label"])
+		check(before == var_to_bytes([GameState.world_flags, StoryItems.snapshot(), Progression.snapshot()]), "malformed %s preserves money, receipts, items and flags exactly" % entry["label"])
+	# A valid real payment still writes its receipt and all supported scalar types.
+	Progression.reset_run()
+	Progression.add_credits(400)
+	Progression.apply_story_transaction(Story.outcomes.transaction(&"ch1.revival_meal.order"))
+	GameState.world_flags = previous_flags.duplicate(true)
+	Story._scenes[ID] = {"results": [PAID, {"kind": "flag", "id": "test_result_payload_done"}, {"kind": "flag", "id": "test_result_payload_count", "value": 2.0}]}
+	check(Story.outcomes.validate_scene(ID, Story._scenes[ID], Story.has_scene).is_empty(), "valid boolean and JSON integer-compatible values pass content validation")
+	check(Story._apply_scene_results(StringName(ID))["ok"] and Progression.credits == 200 and GameState.has_flag(&"test_result_payload_done") and GameState.get_flag(&"test_result_payload_count") == 2.0, "valid payment, receipt and typed results still commit")
+	Story._scenes.erase(ID)
+	GameState.flag_defaults = previous_defaults
+	GameState.world_flags = previous_flags
+	StoryItems.restore(previous_items)
+	Progression.restore(previous_progress)
 
 
 func _test_saved_arena_initialization() -> void:

@@ -1,0 +1,98 @@
+[
+  {
+    "message": "ERROR: [Story] test_bad_cutscene_handoff 交出 ch1_data_disk：item_not_held，這段結果（旗標、交付與交易）未生效",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [Story] 場景 test_bad_cutscene_result_payload 的 results 必須是陣列：invalid_results，這段結果（旗標、交付與交易）未生效",
+    "count": 2
+  },
+  {
+    "message": "ERROR: [Story] 場景 test_bad_cutscene_result_payload 的 results[1] 必須是物件：invalid_results，這段結果（旗標、交付與交易）未生效",
+    "count": 3
+  },
+  {
+    "message": "ERROR: [Story] 場景 test_bad_cutscene_result_payload 的 results[1] 的旗標值必須是有限純量：invalid_results，這段結果（旗標、交付與交易）未生效",
+    "count": 2
+  },
+  {
+    "message": "ERROR: [Story] 場景 test_bad_cutscene_result_payload 的 results[1] 的旗標值與宣告型別不符：test_result_payload_done：invalid_results，這段結果（旗標、交付與交易）未生效",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [Story] 場景 test_bad_cutscene_result_payload 的 results[1] 的旗標值與宣告型別不符：test_result_payload_count：invalid_results，這段結果（旗標、交付與交易）未生效",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [Story] 場景 test_bad_cutscene_result_payload 的 results[1] 的 id 必須是非空文字：invalid_results，這段結果（旗標、交付與交易）未生效",
+    "count": 2
+  },
+  {
+    "message": "ERROR: [Story] 場景 test_bad_cutscene_result_payload 的 set_flags 必須是陣列：invalid_results，這段結果（旗標、交付與交易）未生效",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [Story] 場景 test_bad_cutscene_result_payload 的 set_flags[0] 必須是非空旗標名稱：invalid_results，這段結果（旗標、交付與交易）未生效",
+    "count": 2
+  },
+  {
+    "message": "ERROR: [Story] 場景 test_bad_cutscene_result_payload 的 set_flags[0]：test_result_payload_count 不是布林旗標：invalid_results，這段結果（旗標、交付與交易）未生效",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [Stage] test_bad_cutscene 圖層：gradient 圖層缺少欄位「top」",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [Stage] test_bad_cutscene 圖層：未知的圖層種類「nonsense」",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [Cutscene] 場景 test_bad_cutscene 第 1 步（move）：找不到角色「ghost」，已略過",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [Cutscene] 場景 test_bad_cutscene 第 2 步（scene）：場景「no_such_stage」不存在，保留原本的場景",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [RigLibrary] 無法讀取定義檔：res://art/characters/no_such_character/character.json",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [Cutscene] 場景 test_bad_cutscene 第 4 步（actor）：角色「bad」沒有可用的外觀或頭像，已略過",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [Cutscene] 場景 test_bad_cutscene 第 5 步的動作「dance」不存在，已略過",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [Cutscene] 場景 test_bad_cutscene 第 6 步不是物件，已略過",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [Cutscene] 場景 test_bad_cutscene 第 8 步（transition）：轉場「spin」不存在，已略過",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [Level] ch1_stall 沒有電話亭可登記復原點（res://data/levels/ch1_stall_map.json），重生會退回區域起點",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [Level] ch1_booth_alley 的復原點位置無效（(0.0, 0.0)，地圖範圍 [P: (0.0, 0.0), S: (896.0, 384.0)]），改用最近的電話亭或起點",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [Level] ch1_booth_alley 的復原點位置無效（(-500.0, 100.0)，地圖範圍 [P: (0.0, 0.0), S: (896.0, 384.0)]），改用最近的電話亭或起點",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [Level] ch1_booth_alley 的復原點位置無效（(99999.0, 99999.0)，地圖範圍 [P: (0.0, 0.0), S: (896.0, 384.0)]），改用最近的電話亭或起點",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [Level] ch1_stall 的復原點位置無效（(0.0, 0.0)，地圖範圍 [P: (0.0, 0.0), S: (768.0, 384.0)]），改用最近的電話亭或起點",
+    "count": 1
+  }
+]

@@ -230,3 +230,15 @@
 ![付清時凜走到攤前](images/ST-9-stage-stall-pay.jpg)
 
 分支：`feature/ecstatic-einstein-gyjqmu`，提交 [6ef88d2b](https://github.com/deadline314/Nest-Egg/commit/6ef88d2b0e015d042295f555da78f548ebc4e3ba)。
+
+---
+
+# Commit-9
+
+## 內文
+
+段尾結果若混入壞資料，原本可能先扣餐費，再略過壞旗標。現在內容檢查與段尾結算先核對整份資料，錯誤會指出場景與位置，拒絕這份結果，保留錢、收據、物品與旗標。
+
+真正餐費交易的15類壞資料負控制有42個預期失敗；修後第一章地圖、連續性與過場三組2414檢查、0新／已知失敗。正常200付款、收據和合法旗標仍成立。這是壞資料防護，沒有將完整保存接線或道具演出當成已完成，原未勾條件保持。
+
+[研究、來源、全部失敗與修後log、精確SHA與重跑方式](attachments/ST-9-result-validation/README.md)。本次沒有改遊戲畫面；原選擇器、filter及known failures不變。

@@ -115,8 +115,54 @@ static func operations(scene: Dictionary) -> Array[Dictionary]:
 	return result
 
 
+## Validate the unfiltered payload before any payment or item mutation. The same
+## contract is used by content validation; operations() is only a typed view.
+func result_contract_problem(scene_id: StringName, scene: Dictionary) -> String:
+	var where := "場景 %s" % String(scene_id).left(256)
+	var results: Variant = scene.get("results", [])
+	var flags: Variant = scene.get("set_flags", [])
+	var tree := RunSaveCodec.validate_tree({"results": results, "set_flags": flags}, 32768)
+	if not tree.is_empty():
+		return "%s 的結果：%s" % [where, tree[0]]
+	if not results is Array:
+		return "%s 的 results 必須是陣列" % where
+	if not flags is Array:
+		return "%s 的 set_flags 必須是陣列" % where
+	for i in flags.size():
+		var id: Variant = flags[i]
+		if typeof(id) not in [TYPE_STRING, TYPE_STRING_NAME] or String(id).is_empty():
+			return "%s 的 set_flags[%d] 必須是非空旗標名稱" % [where, i]
+		if GameState.flag_defaults.has(String(id)) and not GameState.flag_defaults[String(id)] is bool:
+			return "%s 的 set_flags[%d]：%s 不是布林旗標" % [where, i, id]
+	for i in results.size():
+		var op: Variant = results[i]
+		var at := "%s 的 results[%d]" % [where, i]
+		if not op is Dictionary:
+			return at + " 必須是物件"
+		for key: String in ["kind", "id"]:
+			var raw: Variant = op.get(key)
+			if typeof(raw) not in [TYPE_STRING, TYPE_STRING_NAME] or String(raw).is_empty():
+				return at + " 的 " + key + " 必須是非空文字"
+		if str(op["kind"]) not in ["flag", "item_acquire", "item_transfer", "transaction"]:
+			return at + " 的結果種類未知：" + str(op["kind"])
+		if str(op["kind"]) == "flag":
+			var value: Variant = op.get("value", true)
+			if not GameState._flag_value_valid(value):
+				return at + " 的旗標值必須是有限純量"
+			var id := String(op["id"])
+			if GameState.flag_defaults.has(id):
+				var fallback: Variant = GameState.flag_defaults[id]
+				# Match the existing save owner: JSON 2.0 may represent integer 2.
+				if typeof(value) != typeof(fallback) and not (value is float and fallback is int and value == floor(value)):
+					return at + " 的旗標值與宣告型別不符：" + id
+	return ""
+
+
 ## 預檢整段結果；回傳 {ok, reason, failure_scene, where}。不改任何狀態。
 func preflight(scene_id: StringName, scene: Dictionary, transfers: Array[StringName]) -> Dictionary:
+	var problem := result_contract_problem(scene_id, scene)
+	if not problem.is_empty():
+		return {"ok": false, "reason": "invalid_results", "failure_scene": "", "where": problem}
 	for item in transfers:
 		if not StoryItems.holds(item):
 			return {"ok": false, "reason": "item_not_held", "failure_scene": "", "where": "%s 交出 %s" % [scene_id, item]}
@@ -215,8 +261,9 @@ func validate(has_scene: Callable) -> PackedStringArray:
 ## 場景層級的結果與交易失敗分支格式。
 func validate_scene(scene_id: String, scene: Dictionary, has_scene: Callable) -> PackedStringArray:
 	var problems := PackedStringArray()
-	if scene.has("results") and not scene["results"] is Array:
-		problems.append("場景 %s 的 results 必須是陣列" % scene_id)
+	var problem := result_contract_problem(StringName(scene_id), scene)
+	if not problem.is_empty():
+		problems.append(problem)
 		return problems
 	for op in operations(scene):
 		var kind := str(op.get("kind", ""))

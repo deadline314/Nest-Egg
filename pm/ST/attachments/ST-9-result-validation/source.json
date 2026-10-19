@@ -1,0 +1,16 @@
+{
+  "base": "d4d8647ee80cfa3db05e5eb448acf21ea665c6fa",
+  "product_sha256": "90b69362469da2e5b95794b72eab616be1f83f280ae8d9e97b03cb52c4219da4",
+  "test_sha256": "d2762a64d03f65bd9cf6dcb69901765bc536eb1a01d689e60b4d365b809504c4",
+  "negative_failures": 42,
+  "candidate_restored": true,
+  "protected_files": {
+    "tools/run_tests_changed.sh": "406699fff9b007980a085cd58d109ef62953badac1efda411c2b5652cd3a4d2e",
+    "tools/select_tests.py": "5617cd39198b93547fa73753074ad5ffb28d2fb9ea0ae8ba5242b2815cce69da",
+    "tools/test_filters.sh": "319fea9acacfdad9f7dab7948ea5a2d76652757623b428829605160a210e678a",
+    "tests/known_failures.txt": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf",
+    "core/story_result_plan.gd": "006dbf02a8893b243eebb621d739d4074767a244d73e3d0e55e9503f4d896d8d",
+    "core/story_install_bundle.gd": "4b7edc551d116e01024ae07d9e0e463a51893dcb7e8196a508f04ccb07788faf",
+    "core/run_save_store.gd": "1033befefbd04f934cac74abfdf74335c416b31b29ef4d068a3768d987ebb781"
+  }
+}
