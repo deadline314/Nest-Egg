@@ -1,0 +1,117 @@
+{
+  "base": "1a6196cafc32d2a55ef77177dc4aacf8b2fc4285",
+  "original_native_base": "8655900f8cc85f4aed5cf9bc603ee11d76d4523c",
+  "engine": "4.7.2.stable.official.ed1daf0bf; Forward+ Vulkan llvmpipe; HDR 2D",
+  "tool_sha256": "3c4d94c746d58c0421945d800dc206a508d6b4ceaad2d75944b8042351c3f5ca",
+  "measurement_formula_byte_identical": true,
+  "cases": {
+    "bg49-pool-legacy-focus": {
+      "exit": 1,
+      "invalid": 8,
+      "last": {
+        "far": 0.00734027568250895,
+        "file": "high-ch1_street-lamp07.png",
+        "fixture": "neon_tube_bracket",
+        "focus": {
+          "ambient": "473e5cff",
+          "fog_density": 1.0,
+          "fog_seconds": 17.5797736666667,
+          "hidden_player_x": 72.0,
+          "lamp_x": 2824.0,
+          "lamp_zone": "harbor_approach",
+          "rim_energy": 0.25,
+          "target_x": 72.0,
+          "target_zone": "market"
+        },
+        "light_enabled": true,
+        "light_energy": 1.44000005722046,
+        "pool": 0.0317874439060688,
+        "ratio": 4.33055177775063,
+        "sampling_valid": false,
+        "shadows": true,
+        "tile": [
+          176,
+          12
+        ]
+      }
+    },
+    "bg49-pool-local-high": {
+      "exit": 0,
+      "invalid": 0,
+      "last": {
+        "far": 0.0051333736628294,
+        "file": "high-ch1_street-lamp07.png",
+        "fixture": "neon_tube_bracket",
+        "focus": {
+          "ambient": "473e59ff",
+          "fog_density": 0.957862609329446,
+          "fog_seconds": 16.3639403333333,
+          "hidden_player_x": 72.0,
+          "lamp_x": 2824.0,
+          "lamp_zone": "harbor_approach",
+          "rim_energy": 0.25,
+          "target_x": 2824.0,
+          "target_zone": "harbor_approach"
+        },
+        "light_enabled": true,
+        "light_energy": 1.44000005722046,
+        "pool": 0.0311332512646914,
+        "ratio": 6.06487142950966,
+        "sampling_valid": true,
+        "shadows": true,
+        "tile": [
+          176,
+          12
+        ]
+      }
+    },
+    "bg49-pool-local-low": {
+      "exit": 0,
+      "invalid": 0,
+      "last": {
+        "far": 0.00495418207719922,
+        "file": "low-ch1_street-lamp07.png",
+        "fixture": "neon_tube_bracket",
+        "focus": {
+          "ambient": "473e59ff",
+          "fog_density": 0.957862609329446,
+          "fog_seconds": 14.1339631111111,
+          "hidden_player_x": 72.0,
+          "lamp_x": 2824.0,
+          "lamp_zone": "harbor_approach",
+          "rim_energy": 0.25,
+          "target_x": 2824.0,
+          "target_zone": "harbor_approach"
+        },
+        "light_enabled": true,
+        "light_energy": 1.44000005722046,
+        "pool": 0.0290664341300726,
+        "ratio": 5.8670500351301,
+        "sampling_valid": true,
+        "shadows": true,
+        "tile": [
+          176,
+          12
+        ]
+      }
+    },
+    "bg49-pool-fog-pair-high": {
+      "exit": 0,
+      "before": 3.81965366056228,
+      "after": 4.36842256183798,
+      "relative_increase": 0.14366980622921655,
+      "density_before": 1.02528243440233,
+      "density_after": 0.957862609329446,
+      "repeat_exact": true
+    },
+    "bg49-pool-fog-pair-low": {
+      "exit": 0,
+      "before": 5.28010075566751,
+      "after": 5.88181896281522,
+      "relative_increase": 0.1139596070211053,
+      "density_before": 1.02528243440233,
+      "density_after": 0.957862609329446,
+      "repeat_exact": true
+    }
+  }
+}

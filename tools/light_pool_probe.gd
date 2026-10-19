@@ -26,6 +26,7 @@ var _levels: PackedStringArray = []
 var _tag := "pools"
 var _quality := ""
 var _max := 8
+var _invalid_samples := 0
 
 
 func _ready() -> void:
@@ -66,7 +67,7 @@ func _run() -> void:
 		Story._seen[StringName(id)] = true
 	Story._layer.visible = false
 	var failures := 0
-	var report := {"tag": _tag, "quality": _quality, "levels": {}}
+	var report := {"version": 2, "kind": "stationary scene-light pool fixture, not a playthrough", "tag": _tag, "quality": _quality, "levels": {}}
 	for level_id: String in _levels:
 		var path := "res://data/levels/%s.tres" % level_id
 		var data := load(path) as LevelData if ResourceLoader.exists(path) else null
@@ -77,6 +78,8 @@ func _run() -> void:
 		report["levels"][level_id] = await _measure_level(level_id, data)
 	if QUALITY.has(_quality):
 		Settings.set_light_quality(quality_before)
+	failures += _invalid_samples
+	report["invalid_focus_samples"] = _invalid_samples
 	var writer := FileAccess.open(_out.path_join(_tag + "-index.json"), FileAccess.WRITE)
 	if writer == null:
 		push_error("[LightPoolProbe] 無法寫入索引：%s" % _out)
@@ -100,6 +103,14 @@ func _measure_level(level_id: String, data: LevelData) -> Dictionary:
 			child.queue_free()
 	level.player.visible = false
 	level.player.process_mode = Node.PROCESS_MODE_DISABLED
+	# Retarget only the lighting observer. Moving the real disabled player can still
+	# enter collision-based story/portal triggers during subsequent physics frames.
+	var focus := Node2D.new()
+	focus.name = "LightPoolFocus"
+	level.add_child(focus)
+	focus.global_position = level.player.global_position
+	level._lighting._target = focus
+	var flags := GameState.world_flags.duplicate(true)
 	for node: Node in get_tree().get_nodes_in_group(&"enemies"):
 		(node as Node2D).visible = false
 		node.process_mode = Node.PROCESS_MODE_DISABLED
@@ -124,6 +135,7 @@ func _measure_level(level_id: String, data: LevelData) -> Dictionary:
 	var ratios: Array[float] = []
 	for index in range(0, lamps.size(), step):
 		var lamp := lamps[index]
+		_place_focus(level, lamp)
 		camera.global_position = lamp.global_position + Vector2(0.0, 60.0)
 		camera.reset_smoothing()
 		camera.force_update_scroll()
@@ -132,6 +144,18 @@ func _measure_level(level_id: String, data: LevelData) -> Dictionary:
 		var file := "%s-%s-lamp%02d.png" % [_tag, level_id, index]
 		image.save_png(_out.path_join(file))
 		var record := _measure_lamp(image, lamp, level._scenery_walls)
+		var focus_x := focus.global_position.x
+		var expected_x := lamp.global_position.x
+		var focus_zone := level._lighting.zone_id_at(focus_x)
+		var lamp_zone := level._lighting.zone_id_at(expected_x)
+		var valid := absf(focus_x - expected_x) < 0.01 and focus_zone == lamp_zone
+		record["sampling_valid"] = valid
+		record["focus"] = {"target_x": focus_x, "hidden_player_x": level.player.global_position.x, "lamp_x": expected_x, "target_zone": str(focus_zone), "lamp_zone": str(lamp_zone),
+			"fog_density": level._lighting.current.fog_density, "ambient": level._lighting.current.ambient_color.to_html(),
+			"rim_energy": level._lighting.current.rim_energy, "fog_seconds": level._fog._time}
+		if not valid:
+			_invalid_samples += 1
+			printerr("[LightPoolProbe] invalid focus for lamp %d: target %.2f (%s), lamp %.2f (%s)" % [index, focus_x, focus_zone, expected_x, lamp_zone])
 		record["file"] = file
 		record["fixture"] = str(lamp.get("fixture_id")) if lamp.get("fixture_id") != null else ""
 		record["tile"] = [int(lamp.position.x / 16.0), int(lamp.position.y / 16.0)]
@@ -147,7 +171,14 @@ func _measure_level(level_id: String, data: LevelData) -> Dictionary:
 			" min ", snappedf(ratios[0], 0.01) if not ratios.is_empty() else 0.0)
 	level.queue_free()
 	await _settle(6)
-	return {"lamps": lamps.size(), "median_ratio": median, "min_ratio": ratios[0] if not ratios.is_empty() else 0.0, "records": records}
+	return {"flags_unchanged": GameState.world_flags == flags, "focus_kind": "non-colliding lighting observer; hidden player remains at spawn", "lamps": lamps.size(), "median_ratio": median, "min_ratio": ratios[0] if not ratios.is_empty() else 0.0, "records": records}
+
+
+## LightingController selects ambient/fog by its player target, not by the camera.
+## Move its non-colliding fixture observer with the lamp, preserving the same
+## lamps, shadows, rim light, natural atmosphere and original 24-frame settling.
+func _place_focus(level: Level, lamp: Lamp) -> void:
+	level._lighting._target.global_position.x = lamp.global_position.x
 
 
 ## 沿著燈下方的水平帶取亮度（線性空間）：光池與暗處各一個百分位，回傳兩者與倍數。暗處取不到（出畫面）時倍數是 0。
