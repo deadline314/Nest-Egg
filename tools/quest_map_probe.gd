@@ -72,6 +72,13 @@ func _run() -> void:
 		_watermark = watermark
 		watermark.position = Vector2(184, 32)
 		watermark_layer.add_child(watermark)
+	if not _fixtures and not _flags.is_empty():
+		var state_layer := CanvasLayer.new()
+		state_layer.layer = UiLayers.PAUSE + 1
+		add_child(state_layer)
+		_watermark = UiKit.label("旗標狀態驗證樣本；非實際通關", UiKit.FS_BODY, Palette.NEON_YELLOW)
+		_watermark.position = Vector2(184, 32)
+		state_layer.add_child(_watermark)
 	# 探索樣本只用真實幾何的可見格子，不用手繪地圖。
 	var layout: LevelLayout = guidance.maps.areas[level.data.resource_path]["layout"]
 	for x in range(0, layout.width / 2, 4):
@@ -89,7 +96,7 @@ func _run() -> void:
 		get_tree().paused = true
 	if is_instance_valid(_watermark):
 		# 導覽頁的頁首與細節都在上方，樣本標示改放右下角提示列上方。
-		_watermark.position = Vector2(470, 322)
+		_watermark.position = Vector2(12, 322)
 	var layer := CanvasLayer.new()
 	layer.layer = UiLayers.PAUSE
 	add_child(layer)
@@ -120,7 +127,7 @@ func _run() -> void:
 				screen._title.text += "（驗證樣本）"
 			await _capture(page)
 		_check_layout(screen)
-	var report := {"resolution": [_width, _height], "level": _level_id, "fixture_tasks": _fixtures, "layout_issues": Array(_layout_issues), "story_quest_count": guidance.catalog.quests.size(), "renderer": RenderingServer.get_current_rendering_method()}
+	var report := {"resolution": [_width, _height], "level": _level_id, "fixture_tasks": _fixtures, "state_fixture": not _flags.is_empty(), "layout_issues": Array(_layout_issues), "story_quest_count": guidance.catalog.quests.size(), "renderer": RenderingServer.get_current_rendering_method()}
 	var file := FileAccess.open(_out.path_join("layout-%s-%d-%s.json" % [_level_id, _width, "fixture" if _fixtures else "source"]), FileAccess.WRITE)
 	file.store_string(JSON.stringify(report, "\t"))
 	print("NE-223 PROBE: ", report)

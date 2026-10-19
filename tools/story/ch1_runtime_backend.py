@@ -372,6 +372,8 @@ def _quests(source):
         visible = list(q.visible_flags) + EXTRA_VISIBLE.get(q.id, [])
         if visible:
             quest["visible_flags"] = visible
+        if q.completion_requires_steps:
+            quest["completion_requires_steps"] = True
         if q.requires_flags:
             quest["requires_flags"] = list(q.requires_flags)
             quest["blocked_reason"] = q.blocked_reason

@@ -166,6 +166,8 @@ def _quests(spec: ChapterSpec) -> list:
                  "complete_flag": q.complete_flag, "steps": steps}
         if q.visible_flags:
             quest["visible_flags"] = list(q.visible_flags)
+        if q.completion_requires_steps:
+            quest["completion_requires_steps"] = True
         if q.requires_flags:
             quest["requires_flags"] = list(q.requires_flags)
             quest["blocked_reason"] = q.blocked_reason

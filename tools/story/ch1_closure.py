@@ -157,6 +157,7 @@ class Quest:
     requires_flags: tuple[str, ...] = ()
     blocked_reason: str = ""
     suggestion: str = ""
+    completion_requires_steps: bool = False
 
 
 @dataclass(frozen=True)
@@ -728,7 +729,7 @@ def _quests(source):
         Quest("ch1_take_disk", "main", "到碼頭倉庫取回資料盤", "鷺要保險箱裡的一片盤，市集今晚封路，燈帶你走碼頭。", "取得後到復原館外交接櫃驗收。", "ledger_disk_obtained",
             (step("清開街道前往碼頭的路障", "ch1_street_route_open", "street_clear"), step("擊倒看門狗，打開倉庫隔牆", "watchdog_defeated", "watchdog"),
              step("實際開水閘，確認浮橋路保持", "ch1_flood_gate_open", "flood"), step("打開保險箱，取出資料盤", "ledger_disk_obtained", "disk_pickup")),
-            ("ch1_heard_brief",), ("ch1_heard_brief",), "還沒聽完差事。", "上屋頂找鷺，聽完回程安排。"),
+            ("ch1_heard_brief",), ("ch1_heard_brief",), "還沒聽完差事。", "上屋頂找鷺，聽完回程安排。", completion_requires_steps=True),
         Quest("ch1_handoff_disk", "main", "把資料盤交到館外交接櫃", "鷺安排上層出口接復原館。櫃子收盤後留回執，明早憑它核對錢。", "保留回執與待查摘要；800報酬次晨另算。", "ch1_handoff_done",
             (step("走上層回程，到館外櫃確認交盤", "ch1_disk_delivered", "cabinet"), step("從交接櫃取出驗收回執", "ch1_disk_receipt_taken", "cabinet"),
              step("保留市場M17待查摘要", "ch1_handoff_done", "cabinet")), ("ledger_disk_obtained",), ("ledger_disk_obtained",), "還沒有取到實體資料盤。", "回保險箱取盤；已交盤可在櫃子補印回執。"),

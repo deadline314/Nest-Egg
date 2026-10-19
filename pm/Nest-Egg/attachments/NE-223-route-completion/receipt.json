@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-20 Asia/Taipei",
+  "baseline": "7b032bcc336280834502e560726e7a4397301693",
+  "engine": "4.7.stable.official.5b4e0cb0f",
+  "before": {
+    "checks": 277,
+    "failures": 23,
+    "description": "original catalog + original canonical data; new regression cases unchanged"
+  },
+  "focused": {
+    "checks": 277,
+    "failures": 0
+  },
+  "affected": {
+    "groups": 26,
+    "checks": 7959,
+    "new_failures": 0,
+    "known_failures": 0,
+    "command": "GODOT=<4.7> SHARDS=4 tools/run_tests_changed.sh 7b032bcc"
+  },
+  "native": {
+    "renderer": "Forward+ Vulkan llvmpipe software",
+    "sizes": [
+      "1280x720 100% before/after",
+      "1920x1080 120% after"
+    ],
+    "fixture": "canonical quest data with explicitly arranged legacy disk flag; not earned battle completion",
+    "layout_issues": []
+  },
+  "cold_save": "actual Main writes slot; separate fresh Main continues; missing route flags remain missing",
+  "ci": "full CI runs after each push; see GitHub Actions for committed head",
+  "limits": [
+    "physical gamepad and GPU not present",
+    "mainline trace simulates published flags/events; not whole chapter real combat",
+    "full user acceptance remains unchecked where broader than this defect"
+  ],
+  "archive_sha256": "5081103a67f190a03c59b7d5b7b11041169ac382a861a437c41bfe57c28d7bec",
+  "mainline_traces": {
+    "prologue": {
+      "gaps": 0,
+      "mode": "published flags/events, not actual battle victory"
+    },
+    "skip": {
+      "gaps": 0,
+      "mode": "published flags/events, not actual battle victory"
+    },
+    "stay": {
+      "gaps": 0,
+      "mode": "published flags/events, not actual battle victory"
+    },
+    "leave": {
+      "gaps": 0,
+      "mode": "published flags/events, not actual battle victory"
+    }
+  },
+  "cold_checks": {
+    "write": 8,
+    "continue": 7
+  },
+  "baseline_exit_diagnostic": "prologue/skip trace: PagedAllocator BucketSmallE pages in use at exit, also reproduced on unchanged main 7b032bcc (skip). Original filters classify it unexpected; not hidden or counted as a clean log."
+}

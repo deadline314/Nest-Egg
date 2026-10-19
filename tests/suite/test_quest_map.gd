@@ -10,6 +10,7 @@ const ROOF := "res://data/levels/ch1_rooftop.tres"
 func run() -> void:
 	var catalog := fixture_catalog()
 	_test_catalog(catalog)
+	_test_required_route_steps()
 	var maps := QuestMapIndex.new()
 	maps.load_chapter(&"ch1_kasa")
 	_test_real_maps(maps)
@@ -420,3 +421,33 @@ static func _world_lines_cross_nodes(canvas: QuestMapCanvas) -> int:
 			if hit:
 				crossings += 1
 	return crossings
+
+
+func _test_required_route_steps() -> void:
+	var catalog := QuestCatalog.new()
+	catalog.load_story_sources()
+	var quest := catalog.find("ch1_take_disk")
+	check(quest.get("completion_requires_steps", false) == true, "formal disk quest explicitly requires its route steps")
+	var route := ["ch1_street_route_open", "watchdog_defeated", "ch1_flood_gate_open"]
+	for mask in 8:
+		var flags := {"ch1_prologue_exit": true, "ch1_dinner_done": true, "ch1_heard_brief": true, "ledger_disk_obtained": true}
+		for i in route.size():
+			flags[route[i]] = bool(mask & (1 << i))
+		var expected := "completed" if mask == 7 else "active"
+		check(QuestCatalog.status(quest, flags) == expected, "disk possession cannot hide unfinished route mask=%d" % mask)
+		var restored: Dictionary = JSON.parse_string(JSON.stringify(flags))
+		check(QuestCatalog.status(quest, restored) == expected, "serialized flags retain exact route status mask=%d" % mask)
+		if mask != 7:
+			var step := QuestCatalog.current_step(quest, flags)
+			check(not step.is_empty() and not QuestCatalog.flag_set(flags, step.get("complete_flag", "")), "current step remains an actual unfinished route objective mask=%d" % mask)
+			check(QuestMapState.new().target(catalog, "ch1_kasa", flags).get("id") == "ch1_take_disk", "default tracking retains the unfinished route before handoff mask=%d" % mask)
+	var prologue := catalog.find("ch1_prologue")
+	check(not prologue.is_empty() and QuestCatalog.status(prologue, {"ch1_prologue_exit": true}) == "completed", "skipping the prologue still completes its quest without faking practice")
+	var legacy := quest.duplicate(true)
+	legacy.erase("completion_requires_steps")
+	check(QuestCatalog.status(legacy, {"ledger_disk_obtained": true}) == "completed", "quests without the new opt-in retain their original terminal flag rule")
+	var malformed := quest.duplicate(true)
+	malformed["completion_requires_steps"] = "true"
+	var invalid := QuestCatalog.new()
+	invalid.read_source({"chapter": {"id": "ch1_kasa"}, "quests": [malformed]}, "test_optional_completion")
+	check(invalid.quests.is_empty() and Array(invalid.issues).any(func(issue: String) -> bool: return issue.contains("completion_requires_steps")), "invalid completion policy reports its exact source field")

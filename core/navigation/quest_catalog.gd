@@ -48,6 +48,9 @@ func read_source(source: Dictionary, path: String) -> void:
 				if not quest.get(key) is String or str(quest.get(key, "")).is_empty():
 					issues.append("%s.%s: 缺少阻塞說明。" % [at, key])
 					valid = false
+		if not quest.get("completion_requires_steps", false) is bool:
+			issues.append("%s.completion_requires_steps: 必須是布林值。" % at)
+			valid = false
 		var steps: Variant = quest.get("steps")
 		if not steps is Array or steps.is_empty():
 			issues.append("%s.steps: 必須有至少一個步驟。" % at)
@@ -106,7 +109,7 @@ static func all_flags(names: Array, flags: Dictionary) -> bool:
 
 
 static func status(quest: Dictionary, flags: Dictionary) -> String:
-	if flag_set(flags, str(quest["complete_flag"])):
+	if flag_set(flags, str(quest["complete_flag"])) and (not quest.get("completion_requires_steps", false) or current_step(quest, flags).is_empty()):
 		return "completed"
 	return "active" if all_flags(quest.get("requires_flags", []), flags) else "blocked"
 
