@@ -6,6 +6,8 @@ extends Node
 const CELL := 128
 ## --pair-only：只畫相接的兩片（舊的量法，用來找兩片之間本身的縫）。預設連同一根骨頭上的其他可見零件一起畫。
 var _as_worn := true
+## Explicit NPC stand→sit and sit→stand timelines; the original combat audit stays the default.
+var _npc_transitions := false
 const PREVIEW := preload("res://tools/rig_preview.gd")
 const JOINTS := {
 	"waist": [&"chest", "torso", "pelvis"],
@@ -48,6 +50,7 @@ func _run() -> void:
 		elif arg.begins_with("--joints="): joints = arg.trim_prefix("--joints=").split(",", false)
 		elif arg.begins_with("--frames="): frames = int(arg.trim_prefix("--frames="))
 		elif arg == "--pair-only": _as_worn = false
+		elif arg == "--npc-transitions": _npc_transitions = true
 	if out.is_empty() or frames <= 0:
 		push_error("[rig_joint_audit] requires --out and positive --frames")
 		get_tree().quit(1)
@@ -55,7 +58,7 @@ func _run() -> void:
 	DirAccess.make_dir_recursive_absolute(out)
 	var metadata: Array[Dictionary] = []
 	for zoom: float in [1.0, 3.4]:
-		for pose: String in POSES:
+		for pose: String in (["sit_down", "stand_up"] if _npc_transitions else POSES):
 			var viewport := SubViewport.new()
 			viewport.size = Vector2i(CELL * joints.size() * 2, CELL * chars.size())
 			viewport.transparent_bg = true
@@ -80,7 +83,7 @@ func _run() -> void:
 						clip.add_child(holder)
 						var rig := CharacterRig.new()
 						holder.add_child(rig)
-						if not rig.setup(chars[row]):
+						if not rig.setup(chars[row], "npc" if _npc_transitions else ""):
 							get_tree().quit(1)
 							return
 						rig.set_weapon(str(PREVIEW.SHEET_WEAPONS.get(chars[row], "")))
@@ -123,6 +126,13 @@ func _run() -> void:
 						input.dead = pose == "dead"
 						input.two_handed = chars[row] != "enforcer"
 						input.shield_forward = chars[row] == "enforcer"
+						if _npc_transitions:
+							input.two_handed = false
+							input.npc_pose = &"stand" if pose == "sit_down" else &"sit"
+							for tick in 180:
+								rig.animate(1.0 / 60.0, input)
+							assert((rig.animator as NpcAnimator)._use_npc)
+							input.npc_pose = &"sit" if pose == "sit_down" else &"stand"
 						entries.append({"rig": rig, "input": input, "holder": holder, "clip": clip, "bone": pair[0], "char": chars[row], "joint": joint, "facing": input.facing, "radius": ceili(8.0 * zoom * rig.body_scale()), "rect": [int(clip.position.x), int(clip.position.y), CELL, CELL]})
 			var samples: Array[Dictionary] = []
 			for frame in frames:
@@ -139,7 +149,7 @@ func _run() -> void:
 			var cells: Array[Dictionary] = []
 			for entry in entries:
 				cells.append({"char": entry["char"], "joint": entry["joint"], "facing": entry["facing"], "radius": entry["radius"], "rect": entry["rect"]})
-			metadata.append({"pose": pose, "zoom": zoom, "cells": cells, "samples": samples})
+			metadata.append({"pose": pose, "zoom": zoom, "npc_transitions": _npc_transitions, "fixed_step": 1.0 / 60.0, "prewarm_frames": 180 if _npc_transitions else 0, "cells": cells, "samples": samples})
 			viewport.queue_free()
 			await get_tree().process_frame
 			print("JOINT_FRAMES ", pose, " zoom=", zoom, " frames=", frames)

@@ -195,6 +195,23 @@ def load_native_grips(spec: dict, root: Path) -> dict:
     return result
 
 
+def pose_slot_depths(entries: list[dict], changes: dict, min_z: int, max_z: int, field: str) -> list[dict]:
+    """Apply pose-local draw order without mutating a referenced pose or expanding its actor span."""
+    if not isinstance(changes, dict):
+        raise ValueError(f"{field}: slot_z must be an object")
+    slots = {entry["slot"] for entry in entries}
+    for slot, value in changes.items():
+        if slot not in slots:
+            raise ValueError(f"{field}: slot_z references unknown slot {slot}")
+        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value != int(value) or not min_z <= value <= max_z:
+            raise ValueError(f"{field}: slot_z.{slot} must be an integer within the skin's existing range [{min_z},{max_z}]")
+    result = [dict(entry) for entry in entries]
+    for entry in result:
+        if entry["slot"] in changes:
+            entry["z"] = int(changes[entry["slot"]])
+    return result
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--spec", required=True)
@@ -296,6 +313,8 @@ def main() -> None:
     # pose (a seated hip and thigh), full canvas and registered on the same joints in bind orientation. The rig shows them instead of the
     # standing piece while set_pose_parts(<pose>) is selected (design/12-cast-redraw/POSE_PART_ATTACHMENTS.md). ---------------------------
     pose_sets: dict[str, dict] = {}
+    base_depths = [use.get("z", 0) for part in spec["parts"].values() for use in part["uses"]]
+    min_depth, max_depth = min(base_depths), max(base_depths)
     for pose, config in spec.get("pose_parts", {}).items():
         entries = []
         for name in config.get("parts", []):
@@ -317,6 +336,8 @@ def main() -> None:
             textures[texture] = {"file": f"parts/{texture}.png", "size": [cw, ch], "pivot": [round(float(piv[0]), 2), round(float(piv[1]), 2)], "note": NOTE}
             entries += [{"slot": use["name"], "texture": texture, "bone": use["bone"]} for use in spec["parts"][name]["uses"]]
             print(f"  {texture}: {cw}x{ch} pivot=({piv[0]:.1f},{piv[1]:.1f})")
+        if "same_as" not in config:
+            entries = pose_slot_depths(entries, config.get("slot_z", {}), min_depth, max_depth, f"spec.pose_parts.{pose}")
         pose_sets[pose] = {"parts": entries}
     for pose, config in spec.get("pose_parts", {}).items():  # "same_as": another pose folds the joint the same way and shows the same pieces
         if "same_as" in config:
@@ -328,6 +349,7 @@ def main() -> None:
                 if missing:
                     raise ValueError(f"spec.pose_parts.{pose}.slots: {sorted(missing)} are not slots of pose {config['same_as']}")
                 entries = [entry for entry in entries if entry["slot"] in config["slots"]]
+            entries = pose_slot_depths(entries, config.get("slot_z", {}), min_depth, max_depth, f"spec.pose_parts.{pose}")
             pose_sets[pose] = {"parts": entries}
 
     # ---- carried-over textures (e.g. a riot shield drawn earlier): <dir>/<name>.png (+_glow.png) and <name>.json {size, pivot, factor, use} --------

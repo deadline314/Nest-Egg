@@ -990,5 +990,17 @@
       "min": -0.1,
       "max": 0.18
     }
-  ]
+  ],
+  "pose_parts": {
+    "sit": {
+      "parts": [
+        "pelvis",
+        "leg_upper"
+      ],
+      "source": "art_src/characters/ali_sit/register.py: seated hip and thigh with original bone lengths",
+      "slot_z": {
+        "leg_front_upper": -1
+      }
+    }
+  }
 }

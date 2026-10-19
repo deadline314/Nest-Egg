@@ -155,6 +155,30 @@
         176.32
       ],
       "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "leg_upper_sit": {
+      "file": "parts/leg_upper_sit.png",
+      "size": [
+        136,
+        315
+      ],
+      "pivot": [
+        58.67,
+        51.78
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "pelvis_sit": {
+      "file": "parts/pelvis_sit.png",
+      "size": [
+        166,
+        133
+      ],
+      "pivot": [
+        89.97,
+        109.63
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
     }
   },
   "parts": [
@@ -262,5 +286,27 @@
       "bone": "hand_front",
       "z": 10
     }
-  ]
+  ],
+  "pose_parts": {
+    "sit": {
+      "parts": [
+        {
+          "slot": "pelvis",
+          "texture": "pelvis_sit",
+          "bone": "hip"
+        },
+        {
+          "slot": "leg_back_upper",
+          "texture": "leg_upper_sit",
+          "bone": "leg_back_upper"
+        },
+        {
+          "slot": "leg_front_upper",
+          "texture": "leg_upper_sit",
+          "bone": "leg_front_upper",
+          "z": -1
+        }
+      ]
+    }
+  }
 }

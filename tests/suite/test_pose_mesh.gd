@@ -11,6 +11,7 @@ func run() -> void:
 	_test_bind_switch_and_slots()
 	_test_native_mesh_bounds_and_audit()
 	_test_invalid_sets()
+	_test_pose_draw_order()
 	CharacterRig.force_rigid_limbs = rigid_limbs
 	LitTextures.set_enabled(lit_enabled)
 
@@ -172,7 +173,7 @@ func _rects_match(a: Rect2, b: Rect2) -> bool:
 
 
 func _test_invalid_sets() -> void:
-	for case_name in ["partial_bind", "unknown_bone", "nan_bind", "overflow_bind", "singular_bind", "unknown_weight_bone", "duplicate_weight", "nan_weight", "negative_weight", "bad_weight_sum", "bad_weight_count", "overflow_vertex", "overflow_uv", "bad_uv", "degenerate", "bad_index", "fractional_index", "near_integral_index", "nan_index", "overflow_index", "unused_vertex", "five_influences", "over_budget", "bad_late_slot"]:
+	for case_name in ["partial_bind", "unknown_bone", "nan_bind", "overflow_bind", "singular_bind", "unknown_weight_bone", "duplicate_weight", "nan_weight", "negative_weight", "bad_weight_sum", "bad_weight_count", "overflow_vertex", "overflow_uv", "bad_uv", "degenerate", "bad_index", "fractional_index", "near_integral_index", "nan_index", "overflow_index", "unused_vertex", "five_influences", "over_budget", "bad_late_slot", "fractional_z", "nan_z", "boolean_z", "z_below_actor", "z_above_actor"]:
 		var rig := _new_rig(_fixture(case_name))
 		check(not rig._pose_sets.has(&"mesh_a") and rig._pose_slots.is_empty(), "%s rejects the whole malformed mesh set before adding nodes" % case_name)
 		check(_base(rig, &"armor_pelvis").visible and not _base(rig, &"pelvis_dmg").visible, "%s leaves original armor/damage visibility intact" % case_name)
@@ -236,6 +237,11 @@ func _fixture(invalid_case := "") -> Dictionary:
 		"five_influences": intact_mesh["weights"] = _weights(["hip", "chest", "leg_front_upper", "leg_front_lower", "foot_front"], intact_mesh["vertices"].size())
 		"over_budget": pass
 		"bad_late_slot": damage_mesh["triangles"] = [0, 1, 1, 0, 2, 3]
+		"fractional_z": poses["mesh_a"]["parts"][1]["z"] = 0.25
+		"nan_z": poses["mesh_a"]["parts"][1]["z"] = NAN
+		"boolean_z": poses["mesh_a"]["parts"][1]["z"] = true
+		"z_below_actor": poses["mesh_a"]["parts"][1]["z"] = WorldLayers.CHARACTER_MIN_Z - 1
+		"z_above_actor": poses["mesh_a"]["parts"][1]["z"] = WorldLayers.CHARACTER_MAX_Z + 1
 	if invalid_case == "bad_late_slot":
 		poses["mesh_a"]["parts"][1]["mesh"] = damage_mesh
 	if not invalid_case.is_empty():
@@ -358,3 +364,21 @@ func _transforms(rig: CharacterRig) -> Dictionary:
 	for bone_name in rig.bone_order():
 		result[bone_name] = rig.bone(bone_name).transform
 	return result
+
+
+## Pose-local cloth order must not change the standing skin or adjacent actor group.
+func _test_pose_draw_order() -> void:
+	var skin := _fixture()
+	for entry: Dictionary in skin["pose_parts"]["sprite"]["parts"]:
+		entry["z"] = -1.0  # JSON whole numbers are decoded as floats.
+	var rig := _new_rig(skin)
+	var base := _base(rig, &"armor_pelvis")
+	var base_z := base.z_index
+	var alternate: CanvasItem = rig._pose_slots[&"armor_pelvis"]["alternatives"][&"sprite"]
+	check(alternate.z_index == -1, "pose-specific cloth can sit behind the pelvis without changing its standing slot")
+	check(rig.set_pose_parts(&"sprite") and alternate.visible and not base.visible, "draw-order override still selects exactly one logical-slot attachment")
+	rig.scale.x = -1.0
+	check(alternate.z_index == -1 and base.z_index == base_z, "facing flip preserves pose order and the original slot's order")
+	rig.set_pose_parts(&"")
+	check(base.visible and not alternate.visible and base.z_index == base_z, "clearing the pose restores original draw order and visibility")
+	rig.free()

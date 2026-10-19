@@ -1,0 +1,7 @@
+[
+ {"url":"https://us.esotericsoftware.com/spine-slots","observed":"Attachment order is a slot/draw-order concern; a pose can change overlap without changing a standing source.","adopted":"Pose-local z with bounds and complete-set validation; no claim that reference games use this runtime."},
+ {"url":"https://uk.esotericsoftware.com/spine-json-format","observed":"Draw order is represented separately from the texture attachment and skeletal transforms.","adopted":"Keep source ownership, pose texture, canonical bone and pose-local order separate."},
+ {"url":"https://us.esotericsoftware.com/spine-keys","observed":"Draw-order changes can be keyed for an animation rather than rewriting a base slot.","adopted":"Standing order returns when the seated pose is cleared."},
+ {"url":"https://docs.godotengine.org/en/4.5/classes/class_canvasitem.html","observed":"CanvasItem z_index and relative parent z determine drawing order.","adopted":"Remain within the project's existing actor layer span; validate under actual 4.7.2."},
+ {"url":"../../../../design/08-lighting/READABILITY_REFERENCES.md","observed":"Five retained, actually viewed same-genre game images from five development studios.","adopted":"Compare restrained silhouettes and readable dark clothing, not inference of hidden rigs or universal player preference."}
+]

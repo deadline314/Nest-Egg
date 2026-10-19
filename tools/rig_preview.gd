@@ -27,6 +27,8 @@ const CHARACTERS := [["rin", "rifle"], ["trooper", "smg"], ["grenadier", "launch
 const CLOTH_POSES := ["idle", "run", "jump", "fall", "crouch", "aim_up"]
 ## --seq 的序列：pre＝取樣時間 0 之前先模擬的秒數、times＝八個取樣時間（秒，從 0 起算）。
 const SEQUENCES := {
+	"npc_sit": {"npc_from": "stand", "npc_to": "sit", "pre": 3.0, "times": [0.0, 0.1, 0.2, 0.3, 0.4, 0.55, 0.75, 1.2]},
+	"npc_stand": {"npc_from": "sit", "npc_to": "stand", "pre": 3.0, "times": [0.0, 0.1, 0.2, 0.3, 0.4, 0.55, 0.75, 1.2]},
 	"start": {"pre": 0.6, "times": [0.0, 0.04, 0.08, 0.13, 0.2, 0.3, 0.45, 0.7]},
 	"stop": {"pre": 1.0, "times": [0.0, 0.04, 0.08, 0.12, 0.2, 0.3, 0.45, 0.8]},
 	"idle": {"pre": 0.0, "times": [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5]},
@@ -193,6 +195,8 @@ func _ready() -> void:
 			push_error("[rig_preview] --seq=%s 不存在，可用：%s" % [_seq, ", ".join(SEQUENCES.keys())])
 			get_tree().quit(1)
 			return
+		if SEQUENCES[_seq].has("npc_from"):
+			_npc = true
 		for i in 8:
 			_spawn(_chars[0], str(SHEET_WEAPONS.get(_chars[0], "")), Vector2(44 + i * 76, 330), "seq:%d" % i, _zoom if _zoom != 6.5 else 2.2)
 	elif _joints:
@@ -431,6 +435,18 @@ func _seq_apply(input: RigInput, t: float, prev_t: float) -> void:
 func _preroll_seq() -> void:
 	var dt := 1.0 / 60.0
 	var def: Dictionary = SEQUENCES[_seq]
+	if def.has("npc_from"):
+		for i in _rigs.size():
+			var input := _inputs[i]
+			input.two_handed = false
+			input.on_floor = true
+			input.npc_pose = StringName(def["npc_from"])
+			for tick in 180:
+				_rigs[i].animate(1.0 / 60.0, _faced(input))
+			input.npc_pose = StringName(def["npc_to"])
+			for tick in roundi(float(def["times"][i]) * 60.0):
+				_rigs[i].animate(1.0 / 60.0, _faced(input))
+		return
 	for i in _rigs.size():
 		var input := _inputs[i]
 		input.facing = 1

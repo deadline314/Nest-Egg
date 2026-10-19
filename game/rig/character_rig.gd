@@ -808,6 +808,10 @@ func _build_pose_parts(skin: Dictionary) -> void:
 			if is_mesh and (typeof(alternative["mesh"]) != TYPE_DICTIONARY or alternative.has("offset") or alternative.has("rotation")):
 				failure = "slot '%s' mesh must be a dictionary in skeleton-local coordinates without sprite offset/rotation" % slot_name
 				break
+			var pose_z_value: Variant = alternative.get("z", base_part.z_index)
+			if typeof(pose_z_value) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(pose_z_value)) or float(pose_z_value) != floorf(float(pose_z_value)) or float(pose_z_value) < WorldLayers.CHARACTER_MIN_Z or float(pose_z_value) > WorldLayers.CHARACTER_MAX_Z:
+				failure = "slot '%s' z must be an integer within the existing character layer range [%d,%d]" % [slot_name, WorldLayers.CHARACTER_MIN_Z, WorldLayers.CHARACTER_MAX_Z]
+				break
 			var texture_key := str(alternative.get("texture", ""))
 			if texture_key.is_empty() or typeof(textures.get(texture_key)) != TYPE_DICTIONARY:
 				failure = "slot '%s' references a missing texture definition" % slot_name
@@ -887,7 +891,7 @@ func _build_pose_parts(skin: Dictionary) -> void:
 					failure = "texture '%s' did not retain its CanvasTexture normal channel" % texture_key
 					break
 			var pending_item := {"slot": slot_name, "base": base_part, "texture": lit_texture, "glow": glow_texture,
-				"size": size, "pivot": pivot, "offset": offset, "rotation": rotation, "texture_scale": pose_texture_scale}
+				"size": size, "pivot": pivot, "offset": offset, "rotation": rotation, "texture_scale": pose_texture_scale, "z": int(pose_z_value)}
 			if is_mesh:
 				var mesh_data: Dictionary = {}
 				var mesh_error := _parse_pose_mesh(alternative["mesh"], size, mesh_data)
@@ -923,7 +927,7 @@ func _build_pose_parts(skin: Dictionary) -> void:
 				alternate = sprite
 			alternate.name = "Pose_%s__%s" % [pose_key, slot_name]
 			alternate.material = _light_material
-			alternate.z_index = base_part.z_index
+			alternate.z_index = int(item["z"])
 			alternate.self_modulate = base_part.self_modulate
 			alternate.visible = false
 			if item.has("mesh"):

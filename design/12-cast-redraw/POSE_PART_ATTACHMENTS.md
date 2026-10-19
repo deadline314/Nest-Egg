@@ -69,3 +69,9 @@ Rin's seated hip and thigh (`art_src/characters/rin_sit/`).
 `NpcAnimator` selects the set named like the current NPC posture once a posture transition is half way, and clears it when the
 character leaves NPC poses; a skin without that set keeps its base parts (`CharacterRig.has_pose_parts`). Player states (the rifle
 kneel) do not select pose sets yet. `tools/comfyui/rig_reference.gd` draws only the piece the rig selected.
+
+## Pose-local draw order
+
+An optional numeric integral `z` on an alternative entry defaults to its base slot's order. It is finite and bounded by the existing `WorldLayers.CHARACTER_MIN_Z..CHARACTER_MAX_Z` actor span; it cannot expand the actor group or change another character's layers. The whole set is rejected before construction if any entry is invalid. Clearing the pose restores the unchanged original base slot. Sprite and mesh alternatives use the same validation.
+
+The cutter accepts `pose_parts.<pose>.slot_z` keyed by logical slot, within that skin's existing source range. It clones aliased pose entries before applying overrides, preserving the source pose and inherited defaults. This permits a seated near trouser thigh to pass under its shirt without changing its standing order. It does not fix duplicate source ownership: Ali also needs a sit-specific pelvis without the standing trouser cap. See [Ali source and native evidence](../../pm/Nest-Egg/attachments/NE-218-ali-seated/README.md).

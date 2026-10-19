@@ -1,0 +1,63 @@
+{
+  "source": "art_src/characters/ali_sit/01_design/isolated-trousers.png",
+  "sha256": "3473fbe6a478d3ee5fcc69cd5daca045bcfbddfc2a1caa2f5a402bb78e90f4a0",
+  "source_hip": [
+    300.0,
+    600.0
+  ],
+  "source_knee": [
+    1270.0,
+    535.0
+  ],
+  "across": 0.3,
+  "target_hip": [
+    420.0,
+    560.0
+  ],
+  "target_knee": [
+    383.0,
+    824.0
+  ],
+  "along": 0.27420997845945455,
+  "source_to_canvas": [
+    [
+      -0.05783778215830824,
+      -0.29388690297783077,
+      613.6834764341909
+    ],
+    [
+      0.26816432188740563,
+      -0.059701657987945016,
+      515.3716982265453
+    ]
+  ],
+  "color_gain": [
+    1.0275140245481311,
+    1.1321505513813441,
+    1.0943409114895286
+  ],
+  "forward_knee_overlap_source_pixels": 40,
+  "canvas": [
+    832,
+    1216
+  ],
+  "source_mask": "source-mask.png",
+  "alpha_floor": 40,
+  "sampling": "premultiplied affine INTER_AREA, then existing cut_layers density and warp; not a new HD illustration",
+  "output_sha256": "6bfd6e307b521617b8530b6160350e2f795f2384d2aa94d4bba83ed99141bf9e",
+  "pelvis_ownership": {
+    "source": "art_src/characters/ali/07_refined/pelvis.png",
+    "sha256": "5b08dffc3f6f8d3428efa9803531121f8dab9c96f30f2a48088c2c7c9281d9d1",
+    "method": "source mint-shirt hem plus 3 original outline pixels; original RGB retained, duplicate standing trouser cap assigned to seated thigh",
+    "green_over_red_min": 7,
+    "green_over_blue_min": 3,
+    "search_rows": [
+      500,
+      590
+    ],
+    "hem_min_max": [
+      557.0,
+      578.0
+    ]
+  }
+}
