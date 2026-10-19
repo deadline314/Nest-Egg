@@ -231,3 +231,5 @@ NE-222 的可重跑來源與單手原生反例見 `art_src/characters/rin_walk_s
 - **原位重組檢查**：`python tools/comfyui/check_reassembly.py --spec <spec> --work <work> --allow <work>/reassembly_allow.json --max-hole 8`。把精修後的零件疊回原位和原圖比；預期中的缺口（遠側腿）逐塊看過後登記在 allow 檔並寫理由。
 - **進引擎後先看坐、蹲、跪的放大圖**，再跑 `rig_joint_audit` 與 `check_joint_frames.py`。剩下的每一類失敗都要放大看過、歸類成「真的缺口」或「衣物本來的開口」，不能只看數字。
 - 既有握持手可用 `native_grips` 原樣沿用（位元組不變、各自的密度）；`grasp` 以各自手腕為原點換算，握點偏移才會和原本一致。
+
+來源專用的新資料夾要帶`.gdignore`：保留原圖、遮罩、prompt與重建腳本，但不要為它們提交Godot產生的`.png.import`。正式`art/characters/.../parts`與頭像保留各自的正常匯入。修正時逐檔核對來源與runtime PNG的SHA、確認無`res://art_src/...`遊戲依賴，並實際editor import確認來源紀錄不再生成；來源資料不刪。
