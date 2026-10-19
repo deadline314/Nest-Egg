@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-20 Asia/Taipei",
+  "baseline": "6db1bc86337c253c69c71a33c7bb9cdc3453b41b",
+  "integrated_main_before_delivery": "083626de0a4c3c03e03cd7044c8a399791fbec17",
+  "affected": {
+    "groups": 19,
+    "checks": 6684,
+    "new_failures": 0,
+    "known_failures": 0,
+    "command": "GODOT=<4.7> SHARDS=2 tools/run_tests_changed.sh 6db1bc86"
+  },
+  "native": {
+    "renderer": "Forward+ Vulkan llvmpipe software",
+    "mode_skip": {
+      "checks": 28,
+      "failures": 0
+    },
+    "mode_continue_skip": {
+      "checks": 27,
+      "failures": 0
+    },
+    "primary_and_backup": "exact bytes unchanged throughout replay",
+    "unlock": "earned by actual opening completion/normal cinematic skip, no direct watched-state grants"
+  },
+  "probe_corrections": [
+    "Early physics-tick UI waits could race transition/focus; idle frames and actual control-return conditions now used",
+    "Empty establishing shot replaced by waiting for actual Rin and Old K actor presentation",
+    "Earlier native attempt emitted uninitialized-RID diagnostic; retained, final delivery logs clean under original error filter"
+  ],
+  "limits": [
+    "No physical controller attached",
+    "No human 3-6 minute first-play timing or cinematic ratio acceptance",
+    "No new full-body art or target-GPU performance acceptance"
+  ],
+  "archive_sha256": "b293e05f4234514f8eedd9138f51073280200bc4d870ded5dd44b1ee70b54300"
+}

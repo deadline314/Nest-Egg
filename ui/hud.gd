@@ -7,7 +7,7 @@ extends CanvasLayer
 const TOAST_TIME := 2.2
 const CONTROLS_HINT_TIME := 5.0
 ## {動作} 會換成玩家目前設定的按鍵（見 InputBindings.format）。
-const CONTROLS_TEMPLATE := "移動 {move_left}/{move_right}　跳 {jump}　射擊 {shoot}　格擋 {block}　衝刺 {dash}　終結 {melee}　換彈 {reload}　換武器 {weapon_next}／1～4　搭乘 {interact}　背包 {inventory}　暫停 {pause}"
+const CONTROLS_TEMPLATE := "移動 {move_left}/{move_right}　跳 {jump}　射擊 {shoot}　格擋 {block}　衝刺 {dash}　近戰／終結 {melee}　換彈 {reload}　換武器 {weapon_next}／1～4　搭乘 {interact}　背包 {inventory}　暫停 {pause}"
 ## 按住與連按的規則（NE-229），一行一件事；設定的「按鍵」「手把」分頁顯示，按鍵名稱跟著目前裝置與改鍵。
 ## 對應的判定：放開跳躍會截短跳躍、按住射擊依射速連射、按住格擋持續舉盾、近戰與衝刺有輸入緩衝（data/feel/input.json）。
 const HOLD_RULES: Array[String] = [
