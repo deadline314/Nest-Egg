@@ -18,7 +18,7 @@
 
 ## 驗證（2026-10-20）
 
-[證據索引與全部 raw](../../pm/Nest-Egg-BG/attachments/BG-47-fixture-states/README.md)。51 群 55,603 checks 零失敗；正式當舖與排列實驗場共 17 張、29 項狀態檢查零失敗，修前同工具六項缺圖失敗。三章 30 區程式占位歸零，序章無獨立稽核列。實體 Forward+ 光影、遮擋與支撐的人工驗收仍依原票。
+[證據索引與全部 raw](../../pm/Nest-Egg-BG/attachments/BG-47-fixture-states/README.md)。51 群 55,603 checks 零失敗；正式當舖與排列實驗場共 17 張、29 項狀態檢查零失敗，修前同工具六項缺圖失敗。三章 30 區程式占位歸零；序章地圖 ch1_prologue.tres 歸在第一章的 11 區中，亦已稽核。實體 Forward+ 光影、遮擋與支撐的人工驗收仍依原票。
 
 ![正式當舖完整木箱](../../pm/Nest-Egg-BG/images/BG-47-campaign-pawnshop-intact.png)
 ![正式當舖受損木箱](../../pm/Nest-Egg-BG/images/BG-47-campaign-pawnshop-damaged.png)
