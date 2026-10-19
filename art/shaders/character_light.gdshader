@@ -13,7 +13,8 @@ instance uniform vec4 sway_a = vec4(0.0);
 instance uniform vec2 sway_a_shape = vec2(0.0);
 instance uniform vec4 sway_b = vec4(0.0);
 instance uniform vec2 sway_b_shape = vec2(0.0);
-const float SWAY_PAD = 24.0;
+// Sprite quads need a border; weighted meshes retain their authored topology and UVs.
+instance uniform float sway_padding = 24.0;
 varying vec4 sway_tint;
 
 vec2 sway_source(vec2 p, vec4 seg, vec2 shape) {
@@ -35,12 +36,14 @@ void vertex() {
 	sway_tint = COLOR;
 	if (sway_a_shape.x > 0.0 || sway_b_shape.x > 0.0) {
 		vec2 corner = step(0.5, UV) * 2.0 - 1.0;
-		VERTEX += corner * SWAY_PAD;
-		UV += corner * SWAY_PAD * TEXTURE_PIXEL_SIZE;
+		VERTEX += corner * sway_padding;
+		UV += corner * sway_padding * TEXTURE_PIXEL_SIZE;
 	}
 }
 
 void fragment() {
+	// NORMAL_MAP is a compile-time shader output: initialize every fragment, including regions with no sway.
+	NORMAL_MAP = texture(NORMAL_TEXTURE, UV).rgb;
 	if (sway_a_shape.x > 0.0 || sway_b_shape.x > 0.0) {
 		vec2 uv = sway_source(sway_source(UV / TEXTURE_PIXEL_SIZE, sway_a, sway_a_shape), sway_b, sway_b_shape) * TEXTURE_PIXEL_SIZE;
 		float inside = step(0.0, uv.x) * step(uv.x, 1.0) * step(0.0, uv.y) * step(uv.y, 1.0);

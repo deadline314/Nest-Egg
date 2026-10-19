@@ -1,0 +1,244 @@
+{
+  "ne257-lights-ch1-high": {
+    "count": 18,
+    "passed": 17,
+    "failed": [
+      {
+        "column": 200,
+        "edge_contrast": 9.30971978457844,
+        "enemy": "res://data/enemies/sweeper.tres",
+        "enemy_column": 206,
+        "enemy_contrast": 0.423761977371291,
+        "enemy_feet": [
+          3304.0,
+          319.99609375
+        ],
+        "expected_enemy_feet": [
+          3304.0,
+          320.0
+        ],
+        "feet": [
+          3208.0,
+          319.997741699219
+        ],
+        "level": "ch1_street",
+        "materials": [
+          "res://data/environment/materials/asphalt.tres"
+        ],
+        "passed": false,
+        "path": "res://data/levels/ch1_street.tres",
+        "player_contrast": 0.829692832115414,
+        "props": [
+          {
+            "ground": true,
+            "id": "harbor_street__fish_cart",
+            "x": 14.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__parked_scooter",
+            "x": 42.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__pole_wire_knot",
+            "x": 54.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__restore_queue_sign",
+            "x": 28.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__stacked_neon_signs",
+            "x": 74.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__rebirth_billboard",
+            "x": 102.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__steam_manhole",
+            "x": 118.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__tide_gauge",
+            "x": 144.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__umbrella_vending",
+            "x": 173.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__stacked_neon_signs",
+            "x": 178.0
+          }
+        ],
+        "sampling_valid": true,
+        "screenshot": "ST-6-ch1_street-200.png",
+        "spot": "碼頭入口",
+        "theme": "res://data/environment/themes/ch1_street.tres"
+      }
+    ],
+    "player_min": 0.73805190725629,
+    "edge_min": 3.04581125970364,
+    "enemy_min": 0.423761977371291,
+    "exit": "1",
+    "engine_errors": 0
+  },
+  "ne257-lights-ch1-low": {
+    "count": 18,
+    "passed": 18,
+    "failed": [],
+    "player_min": 0.717735836831107,
+    "edge_min": 2.68212316999139,
+    "enemy_min": 0.480660041046375,
+    "exit": "0",
+    "engine_errors": 0
+  },
+  "ne257-lights-ch2-high": {
+    "count": 20,
+    "passed": 20,
+    "failed": [],
+    "player_min": 0.640243666962953,
+    "edge_min": 2.72816402576614,
+    "enemy_min": 0.648232296191793,
+    "exit": "0",
+    "engine_errors": 0
+  },
+  "ne257-lights-ch2-low": {
+    "count": 20,
+    "passed": 20,
+    "failed": [],
+    "player_min": 0.648488352498673,
+    "edge_min": 2.53192112052701,
+    "enemy_min": 0.707127706222536,
+    "exit": "0",
+    "engine_errors": 0
+  },
+  "ne257-harbor-fog07-high": {
+    "count": 1,
+    "passed": 1,
+    "failed": [],
+    "player_min": 0.811508080356876,
+    "edge_min": 9.96385204145044,
+    "enemy_min": 0.456440617570919,
+    "exit": "0",
+    "engine_errors": 0
+  },
+  "ne257-harbor-fog07-low": {
+    "count": 1,
+    "passed": 1,
+    "failed": [],
+    "player_min": 1.16115313657222,
+    "edge_min": 9.57263563473812,
+    "enemy_min": 0.479298230416805,
+    "exit": "0",
+    "engine_errors": 0
+  },
+  "ne257-harbor-fog05-high": {
+    "count": 1,
+    "passed": 1,
+    "failed": [],
+    "player_min": 0.830222636961326,
+    "edge_min": 9.38688789292062,
+    "enemy_min": 0.479677537976011,
+    "exit": "0",
+    "engine_errors": 0
+  },
+  "ne257-harbor-fog05-low": {
+    "count": 1,
+    "passed": 1,
+    "failed": [],
+    "player_min": 0.834056053425207,
+    "edge_min": 10.2751384446596,
+    "enemy_min": 0.495973726131264,
+    "exit": "0",
+    "engine_errors": 0
+  },
+  "ne257-ledger-high": {
+    "shots": 8,
+    "players": 6,
+    "player_min": 0.885755701153184,
+    "edge_min": 11.8889570216008,
+    "enemy_values": [
+      [
+        2,
+        1,
+        [
+          0.451468004619267
+        ]
+      ],
+      [
+        2,
+        2,
+        [
+          0.500627025097943
+        ]
+      ]
+    ],
+    "cycle_player_min": null,
+    "cycle_edge_min": null,
+    "exit": "0",
+    "engine_errors": 0
+  },
+  "ne257-lounge-cycle-high": {
+    "shots": 9,
+    "players": 6,
+    "player_min": 1.10275117947259,
+    "edge_min": 20.9117356552386,
+    "enemy_values": [],
+    "cycle_player_min": 0.890367010289805,
+    "cycle_edge_min": 12.8864227856735,
+    "exit": "0",
+    "engine_errors": 0
+  },
+  "ne257-ledger-low": {
+    "shots": 8,
+    "players": 6,
+    "player_min": 1.01494117371375,
+    "edge_min": 9.4174681404748,
+    "enemy_values": [
+      [
+        2,
+        1,
+        [
+          0.452035135429063
+        ]
+      ],
+      [
+        2,
+        2,
+        [
+          0.484339661369927
+        ]
+      ]
+    ],
+    "cycle_player_min": null,
+    "cycle_edge_min": null,
+    "exit": "0",
+    "engine_errors": 0
+  },
+  "ne257-lounge-cycle-low": {
+    "shots": 9,
+    "players": 6,
+    "player_min": 1.26190539359171,
+    "edge_min": 22.1790463435481,
+    "enemy_values": [],
+    "cycle_player_min": 1.23168803840003,
+    "cycle_edge_min": 22.1457208711741,
+    "exit": "0",
+    "engine_errors": 0
+  },
+  "combined84": {
+    "summary": "checks: 93673, new failures: 1, known failures (tests/known_failures.txt): 0  (wall time 896 s)",
+    "script_errors": 0,
+    "godot_errors": 194
+  }
+}

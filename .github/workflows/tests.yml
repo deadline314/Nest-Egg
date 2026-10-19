@@ -26,7 +26,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  GODOT_VERSION: "4.7-stable"
+  GODOT_VERSION: "4.7.2-stable"
 
 jobs:
   full:
@@ -54,7 +54,8 @@ jobs:
       - name: Download Godot
         if: steps.gate.outputs.skip != 'true'
         run: |
-          curl -fsSL -o godot.zip "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_linux.x86_64.zip"
+          curl -fsSL -o godot.zip "https://github.com/godotengine/godot-builds/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_linux.x86_64.zip"
+          echo "cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4  godot.zip" | sha256sum -c -
           unzip -q godot.zip
           chmod +x "Godot_v${GODOT_VERSION}_linux.x86_64"
           echo "GODOT=$PWD/Godot_v${GODOT_VERSION}_linux.x86_64" >> "$GITHUB_ENV"

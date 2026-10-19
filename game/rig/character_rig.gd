@@ -208,7 +208,7 @@ func _bind_sway(skin: Dictionary) -> void:
 		var found := false
 		for i in _parts.size():
 			var part := _parts[i]
-			if not part is Sprite2D or str((skin.get("parts", []) as Array)[i].get("texture", "")) != str(warp["part"]):
+			if not (part is Sprite2D or part is RigPartMesh) or str((skin.get("parts", []) as Array)[i].get("texture", "")) != str(warp["part"]):
 				continue
 			var slot := int(used.get(part.get_instance_id(), 0))
 			if slot >= 2:
@@ -218,6 +218,8 @@ func _bind_sway(skin: Dictionary) -> void:
 			var from := RigLibrary.vec2(warp["from"])
 			var to := RigLibrary.vec2(warp["to"])
 			var names: Array = ["sway_a", "sway_a_shape"] if slot == 0 else ["sway_b", "sway_b_shape"]
+			# Mesh UVs already follow weighted vertices; expanding every vertex as a sprite corner tears the mesh.
+			part.set_instance_shader_parameter("sway_padding", 0.0 if part is RigPartMesh else 24.0)
 			part.set_instance_shader_parameter(names[0], Vector4(from.x, from.y, to.x, to.y))
 			part.set_instance_shader_parameter(names[1], Vector2(float(warp["width"]), 0.0))
 			if not _sway_targets.has(StringName(str(spring["id"]))):

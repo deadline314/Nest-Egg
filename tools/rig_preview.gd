@@ -13,6 +13,7 @@ extends Node2D
 ## 每格都是從頭模擬到該時間點，所以不受取樣影響。
 ## --relaxed（搭配 --chars）：模擬還沒發現玩家的放鬆姿勢（槍垂下），舉槍與格擋除外。
 ## --bare（搭配 --damage）：不拿武器、手臂垂向前下方，看得到上半身的衣物。
+## --sway-extremes（搭配 --chars，第一個角色）：靜態診斷並排區域擺動的資料最小值／0／最大值，輸出 shader 綁定紀錄；不是自然動態或遊玩驗收。
 ## --cloth（搭配 --chars）：第一個角色放大排成一列（站、跑、上升、下落、蹲、仰射），檢查衣襬、頭髮、槍套等次級動態。
 ## --npc（搭配 --chars）：第一個角色用 NPC 動畫器排成一列：站、坐、靠牆、蹲、說話、聆聽、揮手、工作循環（--loop=名稱，預設 stir；--loop-pose=stand/sit/lean/squat）。
 ## --rigid：所有角色維持剛體零件（不做關節網格），拿來和預設的樣子比較（NE-204）。
@@ -58,6 +59,7 @@ var _closeup := false
 var _head_only := false
 var _damage := false
 var _cloth := false
+var _sway_extremes := false
 var _bare := false
 var _relaxed := false
 var _weapon_override := ""
@@ -118,6 +120,9 @@ func _ready() -> void:
 			_closeup = true
 		elif arg == "--damage":
 			_damage = true
+		elif arg == "--sway-extremes":
+			_sway_extremes = true
+			_npc = true
 		elif arg == "--cloth":
 			_cloth = true
 		elif arg == "--bare":
@@ -171,6 +176,14 @@ func _ready() -> void:
 			_spawn("rin", "rifle", Vector2(42 + i * 88, 160), POSES[i], 2.4)
 		for i in CHARACTERS.size():
 			_spawn(CHARACTERS[i][0], CHARACTERS[i][1], Vector2(55 + i * 118, 340), "idle" if i != 4 else "aim_up", 1.6)
+	elif _sway_extremes:
+		for i in 3:
+			_spawn(_chars[0], "", Vector2(120 + i * 200, 330), "stand", _zoom if _zoom != 6.5 else 3.4)
+		var label := Label.new()
+		label.position = Vector2(12, 12)
+		label.text = "SOFTWARE FORWARD+ / STATIC SWAY LAB / %s / MIN | ZERO | MAX" % _chars[0]
+		label.add_theme_font_size_override("font_size", 12)
+		add_child(label)
 	elif _death:
 		for row in mini(_chars.size(), 3):
 			for i in 4:
@@ -222,6 +235,10 @@ func _ready() -> void:
 		var light := LightKit.create_point_light(Color("f0f4ff") if _bright else spot[1], 900.0 if _bright else 340.0, 0.75 if _bright else 0.7)
 		light.position = spot[0]
 		add_child(light)
+	if _sway_extremes:
+		for tick in 60:
+			_process(1.0 / 60.0)
+		set_process(false)
 	if not _out.is_empty():
 		_capture.call_deferred()
 
@@ -325,6 +342,12 @@ func _process(delta: float) -> void:
 			"dead":
 				input.dead = true
 		_rigs[i].animate(delta, _faced(input))
+		if _sway_extremes:
+			for spring: Dictionary in _rigs[i].springs():
+				if spring.has("warp"):
+					var angle := float(spring.get("min", 0.0)) if i == 0 else (float(spring.get("max", 0.0)) if i == 2 else 0.0)
+					_rigs[i].set_sway(StringName(str(spring["id"])), angle)
+
 		if str(_poses[i]).begins_with("joint:"):
 			_pose_joints(_rigs[i], int(str(_poses[i]).trim_prefix("joint:")))
 
@@ -458,10 +481,26 @@ func _capture() -> void:
 	if not _seq.is_empty():
 		_preroll_seq()
 		set_process(false)
-	for i in 90:
+	for i in (12 if _sway_extremes else 90):
 		await get_tree().process_frame
+	await RenderingServer.frame_post_draw
 	var image := preload("res://tools/viewport_capture.gd").image(get_viewport())
 	image.save_png(_out)
+	if _sway_extremes:
+		var rows: Array[Dictionary] = []
+		for i in _rigs.size():
+			var rig := _rigs[i]
+			for spring: Dictionary in rig.springs():
+				if not spring.has("warp"):
+					continue
+				var targets: Array = rig._sway_targets.get(StringName(str(spring["id"])), [])
+				rows.append({"skin": rig.skin_id, "column": i, "id": spring["id"], "targets": targets.size(),
+					"shader_shapes": targets.map(func(t: Array) -> Variant: return (t[0] as CanvasItem).get_instance_shader_parameter(t[1]))})
+		var file := FileAccess.open(_out + ".json", FileAccess.WRITE)
+		if file != null:
+			file.store_string(JSON.stringify({"kind": "controlled static sway endpoints, not a motion or gameplay test", "godot": Engine.get_version_info().string,
+				"adapter": RenderingServer.get_video_adapter_name(), "zoom": _zoom, "left": _left, "fixed_simulation_seconds": 1.0, "regions": rows}, "\t") + "\n")
+
 	print("saved ", _out)
 	get_tree().quit()
 

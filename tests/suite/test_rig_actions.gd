@@ -17,6 +17,7 @@ func run() -> void:
 	_test_motion_is_not_shared()
 	await _test_far_hand_and_hems()
 	await _test_springs_settle()
+	await _test_sway_mesh_binding()
 
 
 func _rig(skin: String, input: RigInput, settle := 40) -> CharacterRig:
@@ -305,3 +306,39 @@ func _test_springs_settle() -> void:
 		check(is_zero_approx(float(animator._spring_velocity[&"hair_1"])) or absf(float(animator._spring_velocity[&"hair_1"])) < 2.0, "a teleport resets the ponytail")
 		rig.get_parent().queue_free()
 	check(absf(peaks[0] - peaks[1]) < 0.12, "the ponytail swings about as far at 30 as at 60 updates a second (%.2f vs %.2f)" % [peaks[0], peaks[1]])
+
+
+## NE-257：腰部改為 RigPartMesh 後，原本的鑰匙／衣襬區域仍須接到真正渲染的零件。
+func _test_sway_mesh_binding() -> void:
+	for skin in ["ali", "banyan", "collector_brute", "collector_gunner", "egret", "lin", "vig", "xiaowei", "ye", "zhi"]:
+		var rig := await _rig(skin, RigInput.new(), 1)
+		for spring: Dictionary in rig._springs:
+			if not spring.has("warp"):
+				continue
+			var id := StringName(str(spring["id"]))
+			var targets: Array = rig._sway_targets.get(id, [])
+			check(not targets.is_empty(), "%s/%s binds its authored region to a renderable part" % [skin, id])
+			rig.set_sway(id, 0.07)
+			for target: Array in targets:
+				var part := target[0] as CanvasItem
+				var shape: Vector2 = part.get_instance_shader_parameter(target[1])
+				check(is_equal_approx(shape.x, float(spring["warp"]["width"])) and is_equal_approx(shape.y, 0.07), "%s/%s updates the actual part shader" % [skin, id])
+				if part is RigPartMesh:
+					check(part.get_instance_shader_parameter("sway_padding") == 0.0, "%s/%s leaves mesh vertices and UV geometry unchanged" % [skin, id])
+				else:
+					check(part is Sprite2D, "%s/%s only binds supported render nodes" % [skin, id])
+		var moving := RigInput.new()
+		moving.velocity = Vector2(220, 0)
+		for tick in 30:
+			rig.animate(1.0 / 60.0, moving)
+		for spring: Dictionary in rig.springs():
+			if not spring.has("warp"):
+				continue
+			var id := StringName(str(spring["id"]))
+			var angle := float(rig.animator._spring_angle[id])
+			check(absf(angle) > 0.001, "%s/%s responds to actual movement input" % [skin, id])
+			for target: Array in rig._sway_targets.get(id, []):
+				var rendered: Vector2 = (target[0] as CanvasItem).get_instance_shader_parameter(target[1])
+				check(is_equal_approx(rendered.y, angle), "%s/%s sends the simulated spring angle to the rendered part" % [skin, id])
+		rig.get_parent().queue_free()
+	await frames(1)
