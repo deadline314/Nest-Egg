@@ -1,0 +1,21 @@
+{
+  "kind": "secondary motion lifecycle design sources; compared independently from visual game references",
+  "sources": [
+    {
+      "url": "https://docs.unity.com/en-us/engine/6000.0/script-reference/unityengine/cloth/cleartransformmotion",
+      "adopted": "Distinguish teleport/presentation discontinuities from ordinary movement instead of carrying prior simulation motion into the new state."
+    },
+    {
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/BlueprintAPI/Animation/Dynamics/ResetDynamics",
+      "adopted": "Use explicit owner lifecycle reset for teleport and time skips; this project calls its existing spring reset and does not add either engine solver."
+    },
+    {
+      "url": "https://pafuhana1213.github.io/KawaiiPhysics-Portal/en/docs/faq",
+      "adopted": "Physics-bone systems also document reset at teleport boundaries; no renderer synchronization or solver replacement."
+    },
+    {
+      "path": "design/08-lighting/READABILITY_REFERENCES.md",
+      "adopted": "Five retained and actually viewed same-genre game image sources; only silhouette and restrained clothing motion comparisons, no inferred hidden implementation."
+    }
+  ]
+}

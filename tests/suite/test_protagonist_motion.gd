@@ -27,6 +27,7 @@ func run() -> void:
 	await _test_takeoff_stretch()
 	await _test_landing_absorbs_and_recovers()
 	await _test_spring_impulses()
+	await _test_secondary_motion_lifecycle()
 	_test_node_squash_is_soft()
 	await _test_footfall_events()
 	await _test_legacy_two_hand_grips()
@@ -415,3 +416,88 @@ func _test_legacy_two_hand_grips() -> void:
 	check(not npc.weapon_root().visible, "NPC path continues to suppress weapon display even with a loaded rifle")
 	npc_holder.queue_free()
 	await frames(1)
+
+
+## Exercise the real respawn and Story presentation owners with moving springs,
+## including a stationary respawn that the 48px teleport detector cannot detect.
+func _prime_secondary_motion(rig: CharacterRig) -> HumanoidAnimator:
+	var input := RigInput.new()
+	input.on_floor = true
+	input.facing = 1
+	input.velocity = Vector2(180, 0)
+	input.run_speed = 180.0
+	for tick in 45:
+		rig.animate(DT, input)
+	var animator := rig.animator as HumanoidAnimator
+	check(animator._spring_angle.values().any(func(value: float) -> bool: return absf(value) > 0.03), "real running primes secondary motion before the lifecycle boundary")
+	return animator
+
+
+func _secondary_is_rest(animator: HumanoidAnimator) -> bool:
+	for spring in animator._springs:
+		var key := animator._spring_key(spring)
+		var neutral := clampf(float(spring.get("rest", 0.0)), float(spring.get("min", HumanoidAnimator.SPRING_MIN)), float(spring.get("max", HumanoidAnimator.SPRING_MAX)))
+		if not is_equal_approx(animator._spring_angle[key], neutral) or not is_zero_approx(animator._spring_velocity[key]):
+			return false
+	return true
+
+
+func _test_secondary_motion_lifecycle() -> void:
+	var level := await start_level(EnemySuiteBase.map_data())
+	var player := level.player
+	player.set_physics_process(false)
+	player._visual.set_physics_process(false)
+	player.facing = 1
+	player.aim_dir = Vector2.RIGHT
+	var rig := player._visual.rig
+	var at := player.global_position
+	var animator := _prime_secondary_motion(rig)
+	player.play_respawn_fx()
+	check(player.global_position == at and _secondary_is_rest(animator), "respawn at the same position immediately retires the previous hair and cloth momentum")
+	var previous_skip := Story.auto_skip
+	Story.auto_skip = false
+	var stage := &"test_secondary_motion_stage"
+	Story._scenes[String(stage)] = {"mode": "animated", "steps": [{"do": "scene", "id": "ch2_guest_book_room"}, {"do": "wait", "time": 30.0}]}
+	_prime_secondary_motion(rig)
+	Story.play(stage)
+	await frames(2)
+	check(Story.is_cinematic_active() and _secondary_is_rest(animator), "actual stage entry resets springs before the world resumes")
+	_prime_secondary_motion(rig)
+	Story.reset_active_presentation(&"motion_fixture_cancel")
+	check(_secondary_is_rest(animator), "cancelling the actual stage resets springs while the old world is still stationary")
+	Story.play(stage)
+	await frames(2)
+	_prime_secondary_motion(rig)
+	Story.skip_cinematic()
+	var end_deadline := Time.get_ticks_msec() + 3000
+	while Story.is_cinematic_active() and Time.get_ticks_msec() < end_deadline:
+		await frames(1)
+	check(not Story.is_cinematic_active() and _secondary_is_rest(animator), "normal stage completion retires hidden animation momentum")
+	_prime_secondary_motion(rig)
+	player._visual.set_interacting(true)
+	check(_secondary_is_rest(animator), "map reading entry resets secondary momentum")
+	_prime_secondary_motion(rig)
+	player._visual.set_interacting(false)
+	check(_secondary_is_rest(animator), "map reading return resets secondary momentum")
+	check(Story.can_replay(stage), "normal completion earned replay eligibility through the actual story owner")
+	if Story.can_replay(stage):
+		check(Story.replay(stage), "the completed fixture starts its actual read-only replay")
+		await frames(2)
+		_prime_secondary_motion(rig)
+		Story.stop_replay()
+		end_deadline = Time.get_ticks_msec() + 3000
+		while Story.is_replaying() and Time.get_ticks_msec() < end_deadline:
+			await frames(1)
+		check(not Story.is_replaying() and _secondary_is_rest(animator), "returning from actual replay retires the old secondary momentum")
+	var radio := &"test_secondary_motion_radio"
+	Story._scenes[String(radio)] = {"mode": "radio", "lines": [{"speaker": "rin", "text": "一般通訊不重設角色動態。"}]}
+	_prime_secondary_motion(rig)
+	var angles := animator._spring_angle.duplicate()
+	var velocities := animator._spring_velocity.duplicate()
+	Story.play(radio)
+	check(animator._spring_angle == angles and animator._spring_velocity == velocities, "ordinary radio keeps the ongoing secondary simulation")
+	Story.reset_active_presentation(&"motion_fixture_cleanup")
+	Story._scenes.erase(String(radio))
+	Story._scenes.erase(String(stage))
+	Story.auto_skip = previous_skip
+	await end_level(level)

@@ -64,10 +64,49 @@ var _materialize_left := 0.0
 var _phone_t := -1.0  # 撥號動作已經過的秒數；負值＝不在撥號
 var _phone_weapon := ""
 var _interacting := false
+## Only cinematic presentation boundaries retire secondary motion; passive bubbles/radio do not.
+var _secondary_scene: StringName = &""
 var _interaction_input := RigInput.new()
 var _prior_process_mode: ProcessMode
 ## 格擋的呈現（介面見 GuardPresenter）：現在是方向光盾，NE-269 的臂盾做好後換掉這一行。
 var _shield: GuardPresenter = ShieldSurface.new()
+
+
+func _enter_tree() -> void:
+	Story.scene_started.connect(_secondary_started)
+	Story.scene_finished.connect(_secondary_finished)
+	Story.presentation_cancelled.connect(_secondary_cancelled)
+	Story.presentation_reset.connect(_secondary_presentation_reset)
+	Story.replay_finished.connect(_secondary_replay_finished)
+
+
+func _reset_secondary_motion() -> void:
+	if rig != null and rig.animator is HumanoidAnimator:
+		(rig.animator as HumanoidAnimator).reset_springs()
+
+
+func _secondary_started(id: StringName, mode: StringName) -> void:
+	if mode in [Story.MODE_CINEMATIC, Story.MODE_ANIMATED]:
+		_secondary_scene = id
+		_reset_secondary_motion()
+
+
+func _secondary_finished(id: StringName) -> void:
+	if not _secondary_scene.is_empty() and id == _secondary_scene:
+		_secondary_scene = &""
+		_reset_secondary_motion()
+
+
+func _secondary_cancelled(id: StringName, _context: Dictionary, _reason: StringName, _request: int) -> void:
+	_secondary_finished(id)
+
+
+func _secondary_presentation_reset(_reason: StringName) -> void:
+	_secondary_finished(_secondary_scene)
+
+
+func _secondary_replay_finished(_id: StringName) -> void:
+	_reset_secondary_motion()
 
 
 func _ready() -> void:
@@ -106,6 +145,12 @@ func _attach_ghost_pool() -> void:
 
 
 func _exit_tree() -> void:
+	Story.scene_started.disconnect(_secondary_started)
+	Story.scene_finished.disconnect(_secondary_finished)
+	Story.presentation_cancelled.disconnect(_secondary_cancelled)
+	Story.presentation_reset.disconnect(_secondary_presentation_reset)
+	Story.replay_finished.disconnect(_secondary_replay_finished)
+	_secondary_scene = &""
 	if is_instance_valid(_ghost_pool):
 		_ghost_pool.clear()
 		_ghost_pool.queue_free()
@@ -137,6 +182,7 @@ func set_interacting(value: bool) -> void:
 	if _interacting == value:
 		return
 	_interacting = value
+	_reset_secondary_motion()
 	if value:
 		_prior_process_mode = process_mode
 		process_mode = Node.PROCESS_MODE_ALWAYS
@@ -247,6 +293,7 @@ func clear_dash_silhouettes() -> void:
 
 ## 重生：身體從光裡淡入（配合 PlayerFx.respawn 的光環與餘燼）。
 func begin_materialize() -> void:
+	_reset_secondary_motion()
 	_materialize_left = MATERIALIZE_TIME
 
 

@@ -479,3 +479,5 @@ GPU工作用 `tools/comfyui/gpu_lock.py` 與 `comfy_guard.py` 的現有共享鎖
 2026-10-20 客人簿：18段正式室內演出已連接舞台，椅坐、返回與不重複付款有[來源、原生與分票整合證據](Nest-Egg-BG/attachments/BG-46-guest-book-connected/README.md)。角色坐姿底部輪廓改變時，要重新校準座深並看腳底與地板；不能只沿用舊數值或改長腿。BG-46轉審查後盤點為[56張未完成](unfinished-tickets-2026-10-20-latest.csv)、[55張審查中](review-tickets-2026-10-20-latest.csv)，保留歷史快照。
 
 2026-10-20 客人簿肖像：鄭／陳／洪三位成年客人各有[獨立原尺寸頭像與正式對話圖](Nest-Egg/attachments/NE-267-guest-portraits/README.md)，來源、裁切與alpha檢查可重建。保留的全身生成參照不等於完整分件／骨架已驗收，沒有以頭像交付結掉NE-267。最新仍有56張未完成、55張審查中；其中NE-267已開始，配角的完整動作依原條件續作。
+
+2026-10-20 次級動態：重生與過場／回看生命週期已[接到實際擁有者並保留負控制與原生數值](Nest-Egg/attachments/NE-257-lifecycle-reset/README.md)。同地點重生不能只靠瞬移距離；回看要等真正完成取得資格，普通通訊不順便重設。數據圖用共同比例尺；這項機制交付沒有取代NE-257胸口、袖口與完整自然動態的驗收。

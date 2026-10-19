@@ -1,0 +1,250 @@
+[
+  {
+    "message": "ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/missing_part.png",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [RigLibrary] 無法讀取定義檔：res://art/characters/no_such_character/character.json",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [test_catalog] id「fixture_a」重複：user://test_catalog/a.tres 與 user://test_catalog/c_duplicate.tres，已略過後者",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [test_catalog] 無法讀取或型別不符：user://test_catalog/d_wrong_type.tres",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [test_catalog] 找不到資料夾：user://no_such_catalog_dir",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/items/icons/no_such_icon.png",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [LightingController] 略過沒有光影設定的區段（起點 987654）",
+    "count": 1
+  },
+  {
+    "message": "ERROR: Parameter \"body->get_space()\" is null.",
+    "count": 2
+  },
+  {
+    "message": "ERROR: 音效實驗室：版面比例檔 user://test_audio_lab_layout.cfg 的 [split_ratios] rows 不是 0.1 到 0.9 的數字，改用預設比例",
+    "count": 1
+  },
+  {
+    "message": "ERROR: 音效實驗室：版面比例檔 user://test_audio_lab_layout.cfg 的 [split_ratios] cols 不是 0.1 到 0.9 的數字，改用預設比例",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [StageScenes] 找不到資料檔：res://tests/fixtures/audio/no_such_scenes.json",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/environment/props/test_missing_prop.png",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [Foreground] 找不到前景貼圖，改用程式繪製的剪影：res://art/test_missing_prop_fg.webp",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [FixtureArt] 找不到固定物件貼圖，改用簡單畫法：res://art/environment/fixtures/test_missing_prop_fixture.png",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [PropReaction] res://data/environment/prop_reactions.json 沒有 test_missing_prop_reaction 這個反應，擺設維持原樣",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [PropReaction] test_swap_bad 的 swap 要有 flag，而且 prop（test_missing_prop_swap）要在 res://data/environment/scene_props/clinic 裡；略過換樣子",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [PropReaction] test_missing_prop_dial 的 dial 沒有 flag，略過指針",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [LampFlicker] 沒有「test_missing_prop_supply」這種供電狀況（res://data/environment/lamp_flicker.json），當成穩定",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [EnemyGlow] 敵人「sweeper」找不到光要跟著的零件「test_missing_prop_bone」，改用相對於腳底的位置",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [MeleeSet] res://data/melee/test_no_such_attack.json/attacks must be an object; using safe default attack",
+    "count": 2
+  },
+  {
+    "message": "ERROR: [MeleeSet] res://data/melee/test_no_such_attack.json 沒有招式「x」，改用預設",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [SoundBank] 音效「test_audio_half」的檔案無法載入：res://tests/fixtures/audio/test_audio_missing_a.ogg（res://tests/fixtures/audio/bank_ok.json），改用其他變體或合成音",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [SoundBank] 音效「test_audio_none」的檔案無法載入：res://tests/fixtures/audio/test_audio_missing_b.ogg（res://tests/fixtures/audio/bank_ok.json），改用其他變體或合成音",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [SoundBank] 找不到資料檔：res://tests/fixtures/audio/test_audio_missing_bank.json",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [SoundBank] 音效「test_audio_badext」的檔案無法載入：res://tests/fixtures/audio/bank_ok.json（res://tests/fixtures/audio/bank_bad.json），改用其他變體或合成音",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [SoundBank] 音效「test_audio_gone」的檔案無法載入：res://tests/fixtures/audio/test_audio_missing_c.ogg（res://tests/fixtures/audio/bank_bad.json），改用其他變體或合成音",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [SoundBank] 音效「test_audio_halffast」的 1.5 倍加速檔無法載入：res://tests/fixtures/audio/test_audio_missing_fast.ogg（res://tests/fixtures/audio/bank_speed.json），這一級退回原速",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [SoundBank] 音效「test_audio_not_a_table」的 speed_files 要是 {倍率: [檔案]}（res://tests/fixtures/audio/bank_speed_bad.json）",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [SoundBank] 音效「test_audio_slow」的 speed_files「0.5」要是大於 1 的倍率加檔案陣列（res://tests/fixtures/audio/bank_speed_bad.json），略過",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [SoundBank] 音效「test_audio_gone」的 1.5 倍加速檔無法載入：res://tests/fixtures/audio/test_audio_missing_speed.ogg（res://tests/fixtures/audio/bank_speed_bad.json），這一級退回原速",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [AudioSuite] 找不到資料檔：res://tests/fixtures/audio/test_audio_missing_profiles.json",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [PlacementDoc] user://test_audio_placements.md 沒有位置「P-XXX-999」，無法寫入",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [PlacementDoc] 找不到位置清單文件：user://test_audio_no_such_placements.md（先執行 tools/audio/build_slots.py）",
+    "count": 1
+  },
+  {
+    "message": "ERROR: 8 resources still in use at exit (run with --verbose for details).",
+    "count": 1
+  },
+  {
+    "message": "ERROR: 6 RID allocations of type 'P11GodotArea2D' were leaked at exit.",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [MeleeSet] res://data/feel/melee.json 沒有招式「test_no_such_attack」，改用預設",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [RigLibrary] 無法讀取定義檔：res://art/characters/test_no_such_character/character.json",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [HdPortrait] 找不到角色骨架「test_no_such_character」，立繪不顯示。",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [MeleeSet] res://data/melee/test_no_such_attack.json 沒有招式「whatever」，改用預設",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [WeaponSystem] test_no_such_weapon_preflight_spec_nan/shot: [\"projectile speed must be finite in 0–10000.0\", \"projectile speed must be finite in 0–10000.0\"]; refusing before shot costs/feedback",
+    "count": 2
+  },
+  {
+    "message": "ERROR: [WeaponSystem] test_no_such_weapon_preflight_spec_huge/shot: [\"projectile speed must be finite in 0–10000.0\", \"projectile speed must be finite in 0–10000.0\"]; refusing before shot costs/feedback",
+    "count": 2
+  },
+  {
+    "message": "ERROR: [WeaponSystem] test_no_such_weapon_preflight_spec_damage/shot: [\"projectile damage outside 0–10000\", \"projectile damage outside 0–10000\"]; refusing before shot costs/feedback",
+    "count": 2
+  },
+  {
+    "message": "ERROR: [WeaponSystem] test_no_such_weapon_preflight_spec_style/shot: [\"projectile visual_style unknown style: test_no_such_style\"]; refusing before shot costs/feedback",
+    "count": 2
+  },
+  {
+    "message": "ERROR: [WeaponSystem] test_no_such_weapon_preflight_spec_identity/shot: [\"projectile source_id missing\"]; refusing before shot costs/feedback",
+    "count": 2
+  },
+  {
+    "message": "ERROR: [WeaponSystem] test_no_such_weapon_preflight_missing_spec/shot: [\"projectile missing\"]; refusing before shot costs/feedback",
+    "count": 2
+  },
+  {
+    "message": "ERROR: [WeaponSystem] test_no_such_weapon_preflight_sound/shot: [\"fire_sound unknown sound: test_no_such_sound\"]; refusing before shot costs/feedback",
+    "count": 2
+  },
+  {
+    "message": "ERROR: [WeaponSystem] test_no_such_weapon_preflight_direction/shot: [\"projectile direction components must be finite within +/- 1000000.0\"]; refusing before shot costs/feedback",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [WeaponSystem] test_no_such_weapon_preflight_direction/shot: [\"projectile origin components must be finite within +/- 1000000.0\", \"projectile direction components must be finite within +/- 1000000.0\"]; refusing before shot costs/feedback",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [WeaponSystem] test_no_such_weapon_preflight_bloom/Player/aim_bloom outside finite 0–1; refusing before shot costs/feedback",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [WeaponSystem] test_no_such_weapon_preflight_combined_spread/shot: [\"combined random_spread_degrees exceeds 360\"]; refusing before shot costs/feedback",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [WeaponSystem] test_no_such_weapon_preflight_rate_nan/shot: [\"fire_rate_scale outside finite 0.1–8\"]; refusing before shot costs/feedback",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [WeaponSystem] test_no_such_weapon_preflight_rate_zero/shot: [\"fire_rate_scale outside finite 0.1–8\"]; refusing before shot costs/feedback",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [WeaponSystem] test_no_such_weapon_preflight_rate_huge/shot: [\"fire_rate_scale outside finite 0.1–8\"]; refusing before shot costs/feedback",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [MeleeSet] res://data/melee/mono_dagger.json/test_no_such_attack_live_tail/attacks/return_cut/guard_cost tail must have a positive cost within the supported bound; refusing paid tail, no free fallback",
+    "count": 2
+  },
+  {
+    "message": "ERROR: [MeleeSet] res://data/melee/mono_dagger.json 沒有招式「test_no_such_attack_base_move」，改用預設",
+    "count": 4
+  },
+  {
+    "message": "ERROR: [MeleeSet] res://data/melee/mono_dagger.json/test_no_such_attack_live_tail/attacks/return_cut/cancel_after tail must pay full recovery; refusing paid tail, no free fallback",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [MeleeSet] res://data/melee/mono_dagger.json/test_no_such_attack_live_tail/attacks/return_cut paid tail missing; refusing swing, no free fallback",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [MeleeSet] res://data/melee/hydraulic_maul.json/test_no_such_attack_live_tail/attacks/crush/guard_cost tail must have a positive cost within the supported bound; refusing paid tail, no free fallback",
+    "count": 2
+  },
+  {
+    "message": "ERROR: [MeleeSet] res://data/melee/hydraulic_maul.json 沒有招式「test_no_such_attack_base_move」，改用預設",
+    "count": 4
+  },
+  {
+    "message": "ERROR: [MeleeSet] res://data/melee/hydraulic_maul.json/test_no_such_attack_live_tail/attacks/crush/cancel_after tail must pay full recovery; refusing paid tail, no free fallback",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [MeleeSet] res://data/melee/hydraulic_maul.json/test_no_such_attack_live_tail/attacks/crush paid tail missing; refusing swing, no free fallback",
+    "count": 1
+  },
+  {
+    "message": "ERROR: 5 resources still in use at exit (run with --verbose for details).",
+    "count": 1
+  }
+]
