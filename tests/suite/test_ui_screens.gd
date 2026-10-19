@@ -12,6 +12,7 @@ func frames(count: int) -> void:
 func run() -> void:
 	await _test_game_boots_to_menu()
 	await _test_main_menu()
+	await preload("res://tests/helpers/radio_prompt_checks.gd").run(self)
 	await _test_codex()
 	await preload("res://tests/helpers/codex_replay_checks.gd").run(self)
 	await _test_pause_info()

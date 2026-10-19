@@ -85,7 +85,8 @@ func _joy(button: JoyButton, pressed: bool) -> void:
 func _read_all_pad(layer: DialogueLayer, shown: Array[String]) -> int:
 	var presses := 0
 	while layer.is_radio_frozen() and presses < 60:
-		await _frames(70)
+		if not await _wait_radio_line(layer):
+			break
 		var before := layer._radio_text.text
 		if shown.is_empty() or shown.back() != before:
 			shown.append(before)
@@ -95,6 +96,19 @@ func _read_all_pad(layer: DialogueLayer, shown: Array[String]) -> int:
 		presses += 1
 	await _frames(4)
 	return presses
+
+
+## 等待可讀狀態，不以幀數猜測打字秒數；快 GPU 與慢軟體渲染皆使用同一條件。
+func _wait_radio_line(layer: DialogueLayer) -> bool:
+	var deadline := Time.get_ticks_msec() + 15000
+	while Time.get_ticks_msec() < deadline:
+		if not layer.is_radio_frozen():
+			return false
+		if layer._radio_root.visible and layer._radio_wait <= 0.0 and layer._radio_text.visible_ratio >= 1.0:
+			return true
+		await _frames(1)
+	_check(false, "radio text becomes fully visible within 15 seconds")
+	return false
 
 
 func _key(pressed: bool) -> InputEventKey:

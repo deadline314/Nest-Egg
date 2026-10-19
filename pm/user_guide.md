@@ -457,3 +457,9 @@ GPU工作用 `tools/comfyui/gpu_lock.py` 與 `comfy_guard.py` 的現有共享鎖
 
 
 2026-10-20（ST-16）：首次長按略過後，正式任務、目前綁定的操作說明與圖鑑回顧已走真 Main／冷續玩驗證；近戰鍵改標「近戰／終結」。回顧不改故事、錢包、物品、探索或存檔。人工首次遊玩的 3～6 分鐘與過場比例仍留原驗收，不以腳本時間代替。見 [整合設計與五款圖片參考](../design/13-story-v2/PROLOGUE_SKIP_REPLAY.md)。
+
+
+2026-10-20（NE-246）：重要通訊先耐久保存，再發布完成。拒絕時維持暫停並可重試／取消；回滾失敗讀完整原備份，已提交後來源異動則讀已保存結果，兩種文案不能混用。三章 17 則旗標／閱讀型重要通訊已接線；交易、交物與選項的完整結算另循既有範圍。狀態矩陣、五款遊戲參考與真 Main 冷續玩證據見 [RADIO_DURABLE_COMPLETION](../design/20-campaign-experience/RADIO_DURABLE_COMPLETION.md)。
+
+
+2026-10-20 本批交付後盤點：[明確未完成票與逐票未勾項](unfinished-tickets-2026-10-20-after-batch.csv)、[待驗收票](review-tickets-2026-10-20-after-batch.csv)。保留本輪起點兩份快照；四票本次已交付的修正不代表整票所有驗收完成。

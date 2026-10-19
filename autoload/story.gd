@@ -15,6 +15,8 @@ signal request_settled(request: int, completed: bool)
 signal presentation_cancelled(scene_id: StringName, context: Dictionary, reason: StringName, request: int)
 ## 回看（replay）播完或被中斷。回看不發 scene_started／scene_finished，故事進度不會因為重看而改變。
 signal replay_finished(scene_id: StringName)
+## Emitted after all cinematic and passive requests have been canceled.
+signal presentation_reset(reason: StringName)
 
 ## 正式章節：序章與第一章「傘」、第二章「鷺」、第三章「晴岸」。台詞由 tools/story 的產生器輸出，不手改。
 const CHAPTER_PATHS: Array[String] = [
@@ -85,6 +87,7 @@ var _current_request := 0
 var _finished_request := 0
 var _waiters: Dictionary[int, bool] = {}
 var _request_results: Dictionary[int, bool] = {}
+var passive_completion_gate: Callable
 var _passive_requests: Dictionary[StringName, Array] = {}
 var _resetting_presentation := false
 ## 選項選到的交付在場景播完才生效；取消、死亡或換區時丟棄（場景 id → 物品 id 清單）。
@@ -874,6 +877,7 @@ func reset_active_presentation(reason: StringName = &"leave") -> void:
 	if is_instance_valid(_layer):
 		_layer.cancel_radio()
 	_resetting_presentation = false
+	presentation_reset.emit(reason)
 
 
 ## 播放場景。once = true 時同一輪只播一次。回傳是否有開始（或排入佇列）。
@@ -900,10 +904,13 @@ func _on_passive_finished(id: StringName, expected_request := 0) -> void:
 		return  # 已取消或舊宿主的延遲回呼，不再寫完成旗標。
 	if expected_request != 0 and int(requests[0]) != expected_request:
 		return  # auto-skip 舊請求的延遲回呼不能完成取消後新入隊的同名場景。
+	var guarded: Dictionary = passive_completion_gate.call(id, int(requests[0])) if passive_completion_gate.is_valid() else {}
+	if guarded.get("handled", false) and not guarded.get("ready", false):
+		return
 	var request := int(requests.pop_front())
 	if requests.is_empty():
 		_passive_requests.erase(id)
-	var applied := _apply_scene_results(id)
+	var applied := {"ok": true, "failure_scene": ""} if guarded.get("handled", false) else _apply_scene_results(id)
 	_finished_request = request
 	scene_finished.emit(id)
 	_finished_request = 0

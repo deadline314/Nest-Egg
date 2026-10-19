@@ -78,3 +78,8 @@ root 的首次 Godot import 已 natural EOF／exit0，完整 log 無 SCRIPT／Pa
 交付僅啟用可由後續coordinator呼叫的既有整輪prepared磁碟writer；正式Main仍走原既有存檔方法、故事capability未啟用，world／Level `_area`／通知／request／dirty-save接線仍以原子安裝方案為準。舊total-ammo缺mag的整輪已明拒，遷移能力另需處理；不宣稱新版章節或整輪legacy遷移已完成。純來源／磁碟API沒有新增遊戲畫面，因此圖證不適用，保留完整process輸出、源碼diff、baseline與SHA供重現。
 
 完整驗證證據：pm/ST/attachments/ST-3-durable-write/manifest.json。process_controller.py保存本次Windows實驗原腳本與隔離路徑，重現時先指定當地worktree／Godot／全新output位置；原已綁seed目錄不可重用、不可用正常quit代替forced termination。這是process crash實驗，不宣稱斷電fsync或外部程序並行writer安全。
+
+
+## 2026-10-20：Main 接上重要通訊的限定完成範圍
+
+NE-246 現在將三章 17 則旗標／閱讀紀錄型重要通訊接到既有耐久 writer；拒絕、重試、取消、死亡、提交後來源異動與冷續玩見 [RADIO_DURABLE_COMPLETION](RADIO_DURABLE_COMPLETION.md)。安裝只擁有旗標與完成紀錄，保留世界與導覽身份；其他交易、交物與選項仍屬完整故事 coordinator 的範圍。上方 2026-10-10 的「Main 尚未接入」是當時交付快照，不代表這次已完成通用故事結算器。

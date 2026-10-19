@@ -8,6 +8,7 @@ const FIRST_LEVEL := CampaignEdition.DEFAULT_FIRST_LEVEL
 const RETRY_CAPTION := "NEST 回溯紀錄 #%d"
 const RETRY_HOLD := 0.22
 
+var _radio_completion: Node
 var _screen: Node
 ## 目前這一關的資料路徑（重試會重載同一關；通關後依 LevelData.next_level 接續）。
 var _level_path := FIRST_LEVEL
@@ -39,6 +40,9 @@ func _ready() -> void:
 		get_tree().quit()
 		return
 	get_tree().auto_accept_quit = false
+	_radio_completion = preload("res://game/radio_completion.gd").new()
+	_radio_completion.main = self
+	add_child(_radio_completion)
 	_run_store.validator = RunSnapshot.prepare
 	GameState.run_save_requested.connect(_queue_save)
 	Progression.credits_changed.connect(func(_value: int, _delta: int) -> void: _queue_save())
@@ -354,6 +358,8 @@ func _queue_runtime_save() -> void:
 
 
 func _queue_save() -> void:
+	if is_instance_valid(_radio_completion) and _radio_completion.blocks_save():
+		return
 	if not _active_run or _save_queued or _restore_publish_pending or _publishing_restore:
 		return
 	_save_queued = true
@@ -366,6 +372,8 @@ func _flush_save() -> void:
 
 
 func _save_run() -> void:
+	if is_instance_valid(_radio_completion) and _radio_completion.blocks_save():
+		return
 	if not _active_run or _destination_pending or _restore_publish_pending or _publishing_restore or not is_instance_valid(_screen) or not _screen is Level:
 		return
 	var level := _screen as Level

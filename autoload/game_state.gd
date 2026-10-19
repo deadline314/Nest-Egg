@@ -230,6 +230,13 @@ func _install_prepared(prepared: PreparedInstall) -> void:
 	_carried_loadout = prepared.carried_loadout
 	world_flags = prepared.flags
 
+
+## Flag-only radio completion owns no runtime/world/navigation fields.
+## The coordinator prepares the full typed state first, then installs only its owned flags.
+func _install_prepared_flags(prepared: PreparedInstall) -> void:
+	world_flags = prepared.flags
+
+
 ## 世界時鐘：一輪從晚上 21:00 開始，現實 1 秒是世界 10 秒（第一章結束時剛好是凌晨三點多）。
 const WORLD_CLOCK_START_MINUTES := 21 * 60
 const WORLD_SECONDS_PER_SECOND := 10.0
