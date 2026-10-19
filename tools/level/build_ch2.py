@@ -433,7 +433,7 @@ def build_lounge_front():
     a.prop('revival_lounge__booth_sofa', 48)
     a.lamp(16, 14)
     a.lamp(34, 14)
-    a.zone(0, 'market')
+    a.zone(0, 'lounge_front')
     a.features = {'landmark': '委託終端（x=16）'}
     return a
 

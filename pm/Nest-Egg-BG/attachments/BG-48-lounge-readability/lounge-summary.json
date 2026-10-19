@@ -1,0 +1,778 @@
+{
+  "bg48-after-tour-high-dim": {
+    "source": "bg48-after-tour-high-dim/ch2_lounge_front/bg48-after-tour-high-dim-index.json",
+    "shots": 9,
+    "supported_samples": 6,
+    "player_min": 0.926817784486521,
+    "edge_min": 21.8909025559072,
+    "probe": {
+      "adapter": "llvmpipe (LLVM 19.1.7, 256 bits)",
+      "cycle_sample_interval": 0.2,
+      "cycle_samples": 0,
+      "engine": "4.7-stable (official)",
+      "fog_hidden": false,
+      "kind": "stationary lighting fixture",
+      "lamp_hold": 0.0,
+      "quality": 2,
+      "thresholds": {
+        "edge": 1.0,
+        "player": 0.6
+      },
+      "wall_shadows_hidden": false
+    },
+    "positions": [
+      {
+        "cell": [
+          0.0,
+          1.0
+        ],
+        "player": 1.81829955255756,
+        "edge": 21.967545189025
+      },
+      {
+        "cell": [
+          1.0,
+          1.0
+        ],
+        "player": 0.926817784486521,
+        "edge": 23.6372564376321
+      },
+      {
+        "cell": [
+          2.0,
+          1.0
+        ],
+        "player": 0.938528424168074,
+        "edge": 21.8909025559072
+      },
+      {
+        "cell": [
+          0.0,
+          2.0
+        ],
+        "player": 1.5560646148713,
+        "edge": 24.2637590580184
+      },
+      {
+        "cell": [
+          1.0,
+          2.0
+        ],
+        "player": 1.15596896786833,
+        "edge": 26.9444973172282
+      },
+      {
+        "cell": [
+          2.0,
+          2.0
+        ],
+        "player": 0.953075042857079,
+        "edge": 25.0176100790121
+      }
+    ]
+  },
+  "bg48-before-phase-full": {
+    "source": "bg48-before-phase-full/ch2_lounge_front/full-index.json",
+    "shots": 2,
+    "supported_samples": 2,
+    "player_min": 0.489709739116238,
+    "edge_min": 19.7915644779771,
+    "probe": {},
+    "positions": [
+      {
+        "cell": [
+          1,
+          1
+        ],
+        "player": 0.489709739116238,
+        "edge": 19.7915644779771
+      },
+      {
+        "cell": [
+          1,
+          2
+        ],
+        "player": 0.702049208078492,
+        "edge": 26.9896613146669
+      }
+    ]
+  },
+  "bg48-after-cycle-high": {
+    "source": "bg48-after-cycle-high/ch2_lounge_front/cycle-high-index.json",
+    "shots": 9,
+    "supported_samples": 6,
+    "player_min": 0.801820302097044,
+    "edge_min": 21.8925264771109,
+    "probe": {
+      "adapter": "llvmpipe (LLVM 19.1.7, 256 bits)",
+      "brightness": 0.5,
+      "cycle_sample_interval": 0.2,
+      "cycle_samples": 16,
+      "engine": "4.7-stable (official)",
+      "fog_hidden": false,
+      "kind": "stationary lighting fixture",
+      "lamp_hold": -1.0,
+      "quality": 2,
+      "thresholds": {
+        "edge": 1.0,
+        "player": 0.6
+      },
+      "wall_shadows_hidden": false
+    },
+    "positions": [
+      {
+        "cell": [
+          0.0,
+          1.0
+        ],
+        "player": 2.16707974506347,
+        "edge": 22.301919055403,
+        "cycle_player_min": 1.58034934485974,
+        "cycle_edge_min": 21.3754128221767,
+        "cycle_passed": true
+      },
+      {
+        "cell": [
+          1.0,
+          1.0
+        ],
+        "player": 1.07438589230957,
+        "edge": 23.2761607889171,
+        "cycle_player_min": 1.07426105219826,
+        "cycle_edge_min": 23.2233160852155,
+        "cycle_passed": true
+      },
+      {
+        "cell": [
+          2.0,
+          1.0
+        ],
+        "player": 1.16080515782339,
+        "edge": 21.8925264771109,
+        "cycle_player_min": 0.855945923526047,
+        "cycle_edge_min": 16.9735802159976,
+        "cycle_passed": true
+      },
+      {
+        "cell": [
+          0.0,
+          2.0
+        ],
+        "player": 1.97834749376717,
+        "edge": 25.9273118030884,
+        "cycle_player_min": 1.86254235018872,
+        "cycle_edge_min": 25.9081718689077,
+        "cycle_passed": true
+      },
+      {
+        "cell": [
+          1.0,
+          2.0
+        ],
+        "player": 0.801820302097044,
+        "edge": 27.2096876512173,
+        "cycle_player_min": 0.870283124958846,
+        "cycle_edge_min": 26.9386680766216,
+        "cycle_passed": true
+      },
+      {
+        "cell": [
+          2.0,
+          2.0
+        ],
+        "player": 0.98547540072359,
+        "edge": 23.3831595074282,
+        "cycle_player_min": 0.98426029568994,
+        "cycle_edge_min": 24.5920219266284,
+        "cycle_passed": true
+      }
+    ]
+  },
+  "bg48-before-full-no-fog-v2": {
+    "source": "bg48-before-full-no-fog-v2/ch2_lounge_front/full-no-fog-index.json",
+    "shots": 1,
+    "supported_samples": 1,
+    "player_min": 1.57197476778278,
+    "edge_min": 23.202521626086,
+    "probe": {
+      "adapter": "llvmpipe (LLVM 19.1.7, 256 bits)",
+      "engine": "4.7-stable (official)",
+      "fog_hidden": true,
+      "kind": "stationary lighting fixture",
+      "lamp_hold": 1.0,
+      "quality": 2,
+      "thresholds": {
+        "edge": 1.0,
+        "player": 0.6
+      },
+      "wall_shadows_hidden": false
+    },
+    "positions": [
+      {
+        "cell": [
+          1.0,
+          1.0
+        ],
+        "player": 1.57197476778278,
+        "edge": 23.202521626086
+      }
+    ]
+  },
+  "bg48-before-dim-v2": {
+    "source": "bg48-before-dim-v2/ch2_lounge_front/dim-v2-index.json",
+    "shots": 2,
+    "supported_samples": 2,
+    "player_min": 0.514270692355841,
+    "edge_min": 21.6853143165559,
+    "probe": {
+      "adapter": "llvmpipe (LLVM 19.1.7, 256 bits)",
+      "engine": "4.7-stable (official)",
+      "fog_hidden": false,
+      "kind": "stationary lighting fixture",
+      "lamp_hold": 0.0,
+      "quality": 2,
+      "thresholds": {
+        "edge": 1.0,
+        "player": 0.6
+      },
+      "wall_shadows_hidden": false
+    },
+    "positions": [
+      {
+        "cell": [
+          1.0,
+          1.0
+        ],
+        "player": 0.514270692355841,
+        "edge": 21.6853143165559
+      },
+      {
+        "cell": [
+          1.0,
+          2.0
+        ],
+        "player": 0.60584153820545,
+        "edge": 26.8692214211242
+      }
+    ]
+  },
+  "bg48-after-critical-full": {
+    "source": "bg48-after-critical-full/ch2_lounge_front/bg48-after-critical-full-index.json",
+    "shots": 1,
+    "supported_samples": 1,
+    "player_min": 0.831923721743775,
+    "edge_min": 23.7642312851085,
+    "probe": {
+      "adapter": "llvmpipe (LLVM 19.1.7, 256 bits)",
+      "cycle_sample_interval": 0.2,
+      "cycle_samples": 0,
+      "engine": "4.7-stable (official)",
+      "fog_hidden": false,
+      "kind": "stationary lighting fixture",
+      "lamp_hold": 1.0,
+      "quality": 2,
+      "thresholds": {
+        "edge": 1.0,
+        "player": 0.6
+      },
+      "wall_shadows_hidden": false
+    },
+    "positions": [
+      {
+        "cell": [
+          1.0,
+          1.0
+        ],
+        "player": 0.831923721743775,
+        "edge": 23.7642312851085
+      }
+    ]
+  },
+  "bg48-after-cycle-low": {
+    "source": "bg48-after-cycle-low/ch2_lounge_front/cycle-low-index.json",
+    "shots": 9,
+    "supported_samples": 6,
+    "player_min": 0.991791268597659,
+    "edge_min": 20.7604102912898,
+    "probe": {
+      "adapter": "llvmpipe (LLVM 19.1.7, 256 bits)",
+      "brightness": 0.5,
+      "cycle_sample_interval": 0.2,
+      "cycle_samples": 16,
+      "engine": "4.7-stable (official)",
+      "fog_hidden": false,
+      "kind": "stationary lighting fixture",
+      "lamp_hold": -1.0,
+      "quality": 0,
+      "thresholds": {
+        "edge": 1.0,
+        "player": 0.6
+      },
+      "wall_shadows_hidden": false
+    },
+    "positions": [
+      {
+        "cell": [
+          0.0,
+          1.0
+        ],
+        "player": 2.10028416764555,
+        "edge": 21.392555045624,
+        "cycle_player_min": 1.89696081037572,
+        "cycle_edge_min": 21.387657341001,
+        "cycle_passed": true
+      },
+      {
+        "cell": [
+          1.0,
+          1.0
+        ],
+        "player": 0.991791268597659,
+        "edge": 21.8681766868802,
+        "cycle_player_min": 1.0290996279309,
+        "cycle_edge_min": 21.8800383456146,
+        "cycle_passed": true
+      },
+      {
+        "cell": [
+          2.0,
+          1.0
+        ],
+        "player": 1.08413958033151,
+        "edge": 20.7604102912898,
+        "cycle_player_min": 1.02238239653695,
+        "cycle_edge_min": 19.751127899166,
+        "cycle_passed": true
+      },
+      {
+        "cell": [
+          0.0,
+          2.0
+        ],
+        "player": 1.92701225582537,
+        "edge": 24.7286791755764,
+        "cycle_player_min": 1.79048240316865,
+        "cycle_edge_min": 24.0719030900515,
+        "cycle_passed": true
+      },
+      {
+        "cell": [
+          1.0,
+          2.0
+        ],
+        "player": 1.01587139162878,
+        "edge": 25.7430024585076,
+        "cycle_player_min": 0.930328407967757,
+        "cycle_edge_min": 25.7422174721832,
+        "cycle_passed": true
+      },
+      {
+        "cell": [
+          2.0,
+          2.0
+        ],
+        "player": 1.04858028639526,
+        "edge": 24.0752355167877,
+        "cycle_player_min": 0.947906357054223,
+        "cycle_edge_min": 22.1129519369176,
+        "cycle_passed": true
+      }
+    ]
+  },
+  "bg48-after-tour-low": {
+    "source": "bg48-after-tour-low/ch2_lounge_front/bg48-after-tour-low-index.json",
+    "shots": 9,
+    "supported_samples": 6,
+    "player_min": 1.10256335709117,
+    "edge_min": 21.9746912620206,
+    "probe": {
+      "adapter": "llvmpipe (LLVM 19.1.7, 256 bits)",
+      "cycle_sample_interval": 0.2,
+      "cycle_samples": 0,
+      "engine": "4.7-stable (official)",
+      "fog_hidden": false,
+      "kind": "stationary lighting fixture",
+      "lamp_hold": 0.0,
+      "quality": 0,
+      "thresholds": {
+        "edge": 1.0,
+        "player": 0.6
+      },
+      "wall_shadows_hidden": false
+    },
+    "positions": [
+      {
+        "cell": [
+          0.0,
+          1.0
+        ],
+        "player": 2.06231424352589,
+        "edge": 21.9746912620206
+      },
+      {
+        "cell": [
+          1.0,
+          1.0
+        ],
+        "player": 1.27014564591183,
+        "edge": 23.6559281437963
+      },
+      {
+        "cell": [
+          2.0,
+          1.0
+        ],
+        "player": 1.13136511541316,
+        "edge": 22.0342970809122
+      },
+      {
+        "cell": [
+          0.0,
+          2.0
+        ],
+        "player": 2.23160943276216,
+        "edge": 26.0745589411479
+      },
+      {
+        "cell": [
+          1.0,
+          2.0
+        ],
+        "player": 1.25618155058944,
+        "edge": 27.0350291253965
+      },
+      {
+        "cell": [
+          2.0,
+          2.0
+        ],
+        "player": 1.10256335709117,
+        "edge": 25.275073763599
+      }
+    ]
+  },
+  "bg48-after-intermediate-0.75": {
+    "source": "bg48-after-intermediate-0.75/ch2_lounge_front/phase-0.75-index.json",
+    "shots": 1,
+    "supported_samples": 1,
+    "player_min": 0.847532907068861,
+    "edge_min": 23.8089390740534,
+    "probe": {
+      "adapter": "llvmpipe (LLVM 19.1.7, 256 bits)",
+      "cycle_sample_interval": 0.2,
+      "cycle_samples": 0,
+      "engine": "4.7-stable (official)",
+      "fog_hidden": false,
+      "kind": "stationary lighting fixture",
+      "lamp_hold": 0.75,
+      "quality": 2,
+      "thresholds": {
+        "edge": 1.0,
+        "player": 0.6
+      },
+      "wall_shadows_hidden": false
+    },
+    "positions": [
+      {
+        "cell": [
+          1.0,
+          1.0
+        ],
+        "player": 0.847532907068861,
+        "edge": 23.8089390740534
+      }
+    ]
+  },
+  "bg48-before-tour-high-r3": {
+    "source": "bg48-before-tour-high-r3/ch2_lounge_front/before-high-index.json",
+    "shots": 9,
+    "supported_samples": 6,
+    "player_min": 0.647964371390174,
+    "edge_min": 19.3877395535321,
+    "probe": {},
+    "positions": [
+      {
+        "cell": [
+          0,
+          1
+        ],
+        "player": 1.16377884668032,
+        "edge": 21.9736528841825
+      },
+      {
+        "cell": [
+          1,
+          1
+        ],
+        "player": 0.647964371390174,
+        "edge": 23.5580337645289
+      },
+      {
+        "cell": [
+          2,
+          1
+        ],
+        "player": 0.791945703841808,
+        "edge": 22.1617727945654
+      },
+      {
+        "cell": [
+          0,
+          2
+        ],
+        "player": 1.63208735054721,
+        "edge": 25.9064331340604
+      },
+      {
+        "cell": [
+          1,
+          2
+        ],
+        "player": 0.654572345560623,
+        "edge": 26.8602931827367
+      },
+      {
+        "cell": [
+          2,
+          2
+        ],
+        "player": 0.784183912256726,
+        "edge": 19.3877395535321
+      }
+    ]
+  },
+  "bg48-before-full-v2": {
+    "source": "bg48-before-full-v2/ch2_lounge_front/full-v2-index.json",
+    "shots": 1,
+    "supported_samples": 1,
+    "player_min": 0.49943851230039,
+    "edge_min": 21.2173178383325,
+    "probe": {
+      "adapter": "llvmpipe (LLVM 19.1.7, 256 bits)",
+      "engine": "4.7-stable (official)",
+      "fog_hidden": false,
+      "kind": "stationary lighting fixture",
+      "lamp_hold": 1.0,
+      "quality": 2,
+      "thresholds": {
+        "edge": 1.0,
+        "player": 0.6
+      },
+      "wall_shadows_hidden": false
+    },
+    "positions": [
+      {
+        "cell": [
+          1.0,
+          1.0
+        ],
+        "player": 0.49943851230039,
+        "edge": 21.2173178383325
+      }
+    ]
+  },
+  "bg48-before-no-fog": {
+    "source": "bg48-before-no-fog/ch2_lounge_front/no-fog-index.json",
+    "shots": 1,
+    "supported_samples": 1,
+    "player_min": 1.57601311173237,
+    "edge_min": 23.200183904566,
+    "probe": {},
+    "positions": [
+      {
+        "cell": [
+          1,
+          1
+        ],
+        "player": 1.57601311173237,
+        "edge": 23.200183904566
+      }
+    ]
+  },
+  "bg48-after-intermediate-0.25": {
+    "source": "bg48-after-intermediate-0.25/ch2_lounge_front/phase-0.25-index.json",
+    "shots": 1,
+    "supported_samples": 1,
+    "player_min": 0.791221653945687,
+    "edge_min": 23.7835238424516,
+    "probe": {
+      "adapter": "llvmpipe (LLVM 19.1.7, 256 bits)",
+      "cycle_sample_interval": 0.2,
+      "cycle_samples": 0,
+      "engine": "4.7-stable (official)",
+      "fog_hidden": false,
+      "kind": "stationary lighting fixture",
+      "lamp_hold": 0.25,
+      "quality": 2,
+      "thresholds": {
+        "edge": 1.0,
+        "player": 0.6
+      },
+      "wall_shadows_hidden": false
+    },
+    "positions": [
+      {
+        "cell": [
+          1.0,
+          1.0
+        ],
+        "player": 0.791221653945687,
+        "edge": 23.7835238424516
+      }
+    ]
+  },
+  "bg48-after-intermediate-0.5": {
+    "source": "bg48-after-intermediate-0.5/ch2_lounge_front/phase-0.5-index.json",
+    "shots": 1,
+    "supported_samples": 1,
+    "player_min": 0.846854193880155,
+    "edge_min": 23.8106597772649,
+    "probe": {
+      "adapter": "llvmpipe (LLVM 19.1.7, 256 bits)",
+      "cycle_sample_interval": 0.2,
+      "cycle_samples": 0,
+      "engine": "4.7-stable (official)",
+      "fog_hidden": false,
+      "kind": "stationary lighting fixture",
+      "lamp_hold": 0.5,
+      "quality": 2,
+      "thresholds": {
+        "edge": 1.0,
+        "player": 0.6
+      },
+      "wall_shadows_hidden": false
+    },
+    "positions": [
+      {
+        "cell": [
+          1.0,
+          1.0
+        ],
+        "player": 0.846854193880155,
+        "edge": 23.8106597772649
+      }
+    ]
+  },
+  "bg48-before-no-wall-shadow": {
+    "source": "bg48-before-no-wall-shadow/ch2_lounge_front/no-shadow-index.json",
+    "shots": 1,
+    "supported_samples": 1,
+    "player_min": 0.512039807001788,
+    "edge_min": 21.623228440236,
+    "probe": {},
+    "positions": [
+      {
+        "cell": [
+          1,
+          1
+        ],
+        "player": 0.512039807001788,
+        "edge": 21.623228440236
+      }
+    ]
+  },
+  "bg48-after-tour-high-full": {
+    "source": "bg48-after-tour-high-full/ch2_lounge_front/bg48-after-tour-high-full-index.json",
+    "shots": 9,
+    "supported_samples": 6,
+    "player_min": 0.795957745726745,
+    "edge_min": 21.9934833525331,
+    "probe": {
+      "adapter": "llvmpipe (LLVM 19.1.7, 256 bits)",
+      "cycle_sample_interval": 0.2,
+      "cycle_samples": 0,
+      "engine": "4.7-stable (official)",
+      "fog_hidden": false,
+      "kind": "stationary lighting fixture",
+      "lamp_hold": 1.0,
+      "quality": 2,
+      "thresholds": {
+        "edge": 1.0,
+        "player": 0.6
+      },
+      "wall_shadows_hidden": false
+    },
+    "positions": [
+      {
+        "cell": [
+          0.0,
+          1.0
+        ],
+        "player": 1.60047225257009,
+        "edge": 22.2006247491466
+      },
+      {
+        "cell": [
+          1.0,
+          1.0
+        ],
+        "player": 1.04299791404667,
+        "edge": 23.3409224595327
+      },
+      {
+        "cell": [
+          2.0,
+          1.0
+        ],
+        "player": 0.990001498686238,
+        "edge": 21.9934833525331
+      },
+      {
+        "cell": [
+          0.0,
+          2.0
+        ],
+        "player": 1.95057953693053,
+        "edge": 25.9078956634324
+      },
+      {
+        "cell": [
+          1.0,
+          2.0
+        ],
+        "player": 0.795957745726745,
+        "edge": 26.572749805428
+      },
+      {
+        "cell": [
+          2.0,
+          2.0
+        ],
+        "player": 1.00729794418104,
+        "edge": 25.4457926863761
+      }
+    ]
+  },
+  "bg48-after-critical-dim": {
+    "source": "bg48-after-critical-dim/ch2_lounge_front/bg48-after-critical-dim-index.json",
+    "shots": 1,
+    "supported_samples": 1,
+    "player_min": 0.807530637503941,
+    "edge_min": 23.7931941656751,
+    "probe": {
+      "adapter": "llvmpipe (LLVM 19.1.7, 256 bits)",
+      "cycle_sample_interval": 0.2,
+      "cycle_samples": 0,
+      "engine": "4.7-stable (official)",
+      "fog_hidden": false,
+      "kind": "stationary lighting fixture",
+      "lamp_hold": 0.0,
+      "quality": 2,
+      "thresholds": {
+        "edge": 1.0,
+        "player": 0.6
+      },
+      "wall_shadows_hidden": false
+    },
+    "positions": [
+      {
+        "cell": [
+          1.0,
+          1.0
+        ],
+        "player": 0.807530637503941,
+        "edge": 23.7931941656751
+      }
+    ]
+  }
+}

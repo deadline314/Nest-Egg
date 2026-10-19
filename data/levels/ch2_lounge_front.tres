@@ -6,7 +6,7 @@
 [ext_resource type="Resource" path="res://data/npcs/ch2_ali_lounge.tres" id="4_ch2_ali_lounge"]
 [ext_resource type="Resource" path="res://data/npcs/ch2_terminal.tres" id="5_ch2_terminal"]
 [ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="6_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/market.tres" id="7_market"]
+[ext_resource type="Resource" path="res://data/lighting/lounge_front.tres" id="7_lounge_front"]
 [ext_resource type="Resource" path="res://data/environment/themes/ch2_lounge_front.tres" id="8_ch2_lounge_front"]
 
 [sub_resource type="Resource" id="Resource_0"]
@@ -23,7 +23,7 @@ style = "road"
 script = ExtResource("6_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("7_market")
+profile = ExtResource("7_lounge_front")
 
 [resource]
 script = ExtResource("1_level_data")

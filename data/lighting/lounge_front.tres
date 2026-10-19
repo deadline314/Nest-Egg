@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="LightingProfile" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/lighting_profile.gd" id="1_script"]
+[ext_resource type="Script" path="res://data/scripts/lamp_style.gd" id="2_lamp"]
+
+[sub_resource type="Resource" id="LampStyle_1"]
+script = ExtResource("2_lamp")
+colors = PackedColorArray(1.0,0.2,0.62,1, 0.35,0.88,1.0,1)
+energy = 1.6
+radius = 190.0
+flicker_chance = 0.01
+dead_chance = 0.15
+pulse_hz = 0.0
+fixtures = PackedStringArray("led_lantern", "neon_tube_bracket", "gooseneck_sign", "street_head")
+fixture_tint = 0.3
+
+[resource]
+script = ExtResource("1_script")
+id = &"lounge_front"
+ambient_color = Color(0.28,0.245,0.36,1)
+background_tint = Color(0.95,0.85,1.0,1)
+fog_color = Color(0.56,0.30,0.66,1)
+fog_density = 0.5
+glow_threshold = 1.1
+glow_intensity = 0.85
+saturation = 0.82
+contrast = 1.04
+shadow_tint = Color(0.95,0.9,1.1,1)
+highlight_tint = Color(1.05,1.0,0.97,1)
+vignette = 0.3
+grain = 0.0
+aberration = 0.0022
+lamp_style = SubResource("LampStyle_1")
+neon_energy = 1.0
+character_floor = 0.62
+enemy_fill_scale = 0.6
+lightning_rate = 2.5
+rim_color = Color(1.0,0.35,0.75,1)
+rim_energy = 0.25

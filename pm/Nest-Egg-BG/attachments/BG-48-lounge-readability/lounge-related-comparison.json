@@ -1,0 +1,230 @@
+{
+  "high": [
+    {
+      "level": "ch2_market_gate",
+      "spot": "\u5de1\u5e33\u54e1",
+      "before_passed": true,
+      "after_passed": true,
+      "before": {
+        "player_contrast": 0.78964964931193,
+        "enemy_contrast": 0.748398164792509,
+        "edge_contrast": 9.71558951293109
+      },
+      "after": {
+        "player_contrast": 0.789053402973273,
+        "enemy_contrast": 0.747483051175225,
+        "edge_contrast": 9.60633192815048
+      }
+    },
+    {
+      "level": "ch2_market_gate",
+      "spot": "\u5730\u9762\u6230\u5340",
+      "before_passed": false,
+      "after_passed": false,
+      "before": {
+        "player_contrast": 0.589935097601889,
+        "enemy_contrast": 0.762569519667013,
+        "edge_contrast": 10.5322363312667
+      },
+      "after": {
+        "player_contrast": 0.589547850329363,
+        "enemy_contrast": 0.762639597129872,
+        "edge_contrast": 10.6007408129051
+      }
+    },
+    {
+      "level": "ch2_market_gate",
+      "spot": "\u4e0a\u5c64\u6524\u9053",
+      "before_passed": true,
+      "after_passed": true,
+      "before": {
+        "player_contrast": 2.18799782133094,
+        "enemy_contrast": 0.599004584165849,
+        "edge_contrast": 2.70017607175897
+      },
+      "after": {
+        "player_contrast": 2.19417610670412,
+        "enemy_contrast": 0.585661187050493,
+        "edge_contrast": 2.71574188424928
+      }
+    },
+    {
+      "level": "ch2_market_gate",
+      "spot": "B3 \u96fb\u8a71\u4ead",
+      "before_passed": true,
+      "after_passed": true,
+      "before": {
+        "player_contrast": 1.34819584665747,
+        "enemy_contrast": 0.655238499771095,
+        "edge_contrast": 10.7060409555895
+      },
+      "after": {
+        "player_contrast": 1.29360635809717,
+        "enemy_contrast": 0.65840597461793,
+        "edge_contrast": 10.4612327790997
+      }
+    },
+    {
+      "level": "ch2_market",
+      "spot": "\u4ee3\u6536\u8655",
+      "before_passed": true,
+      "after_passed": true,
+      "before": {
+        "player_contrast": 0.725375560048127,
+        "enemy_contrast": null,
+        "edge_contrast": 10.2932420450604
+      },
+      "after": {
+        "player_contrast": 0.72559845803531,
+        "enemy_contrast": null,
+        "edge_contrast": 10.2657069898512
+      }
+    },
+    {
+      "level": "ch2_market",
+      "spot": "\u79df\u6524\u8996\u7a97",
+      "before_passed": true,
+      "after_passed": true,
+      "before": {
+        "player_contrast": 1.99131713475429,
+        "enemy_contrast": null,
+        "edge_contrast": 11.1462107431532
+      },
+      "after": {
+        "player_contrast": 1.98804027971822,
+        "enemy_contrast": null,
+        "edge_contrast": 11.3783662662203
+      }
+    },
+    {
+      "level": "ch2_market",
+      "spot": "\u516c\u544a\u5c4f",
+      "before_passed": true,
+      "after_passed": true,
+      "before": {
+        "player_contrast": 0.960437489645668,
+        "enemy_contrast": null,
+        "edge_contrast": 11.0874997213394
+      },
+      "after": {
+        "player_contrast": 0.960405646353301,
+        "enemy_contrast": null,
+        "edge_contrast": 11.4683034064923
+      }
+    }
+  ],
+  "low": [
+    {
+      "level": "ch2_market_gate",
+      "spot": "\u5de1\u5e33\u54e1",
+      "before_passed": true,
+      "after_passed": true,
+      "before": {
+        "player_contrast": 0.815141314053849,
+        "enemy_contrast": 0.802616474690867,
+        "edge_contrast": 9.90470296169583
+      },
+      "after": {
+        "player_contrast": 0.81533706369015,
+        "enemy_contrast": 0.802097159944757,
+        "edge_contrast": 10.0648300284139
+      }
+    },
+    {
+      "level": "ch2_market_gate",
+      "spot": "\u5730\u9762\u6230\u5340",
+      "before_passed": true,
+      "after_passed": true,
+      "before": {
+        "player_contrast": 0.628712313274012,
+        "enemy_contrast": 0.808579343765622,
+        "edge_contrast": 10.9315426280367
+      },
+      "after": {
+        "player_contrast": 0.628316706251274,
+        "enemy_contrast": 0.808531283801351,
+        "edge_contrast": 10.937355085915
+      }
+    },
+    {
+      "level": "ch2_market_gate",
+      "spot": "\u4e0a\u5c64\u6524\u9053",
+      "before_passed": true,
+      "after_passed": true,
+      "before": {
+        "player_contrast": 2.03985627388004,
+        "enemy_contrast": 0.582671981351437,
+        "edge_contrast": 2.50064431631559
+      },
+      "after": {
+        "player_contrast": 2.15289362482788,
+        "enemy_contrast": 0.581813203338772,
+        "edge_contrast": 2.49830198784074
+      }
+    },
+    {
+      "level": "ch2_market_gate",
+      "spot": "B3 \u96fb\u8a71\u4ead",
+      "before_passed": true,
+      "after_passed": true,
+      "before": {
+        "player_contrast": 1.2333397961918,
+        "enemy_contrast": 0.716190979435658,
+        "edge_contrast": 9.38943555640577
+      },
+      "after": {
+        "player_contrast": 1.46021884478109,
+        "enemy_contrast": 0.719086582804918,
+        "edge_contrast": 9.06865379238021
+      }
+    },
+    {
+      "level": "ch2_market",
+      "spot": "\u4ee3\u6536\u8655",
+      "before_passed": true,
+      "after_passed": true,
+      "before": {
+        "player_contrast": 0.800116663780721,
+        "enemy_contrast": null,
+        "edge_contrast": 12.0816608949019
+      },
+      "after": {
+        "player_contrast": 0.800165084920015,
+        "enemy_contrast": null,
+        "edge_contrast": 11.8356731081591
+      }
+    },
+    {
+      "level": "ch2_market",
+      "spot": "\u79df\u6524\u8996\u7a97",
+      "before_passed": true,
+      "after_passed": true,
+      "before": {
+        "player_contrast": 2.01563156967531,
+        "enemy_contrast": null,
+        "edge_contrast": 11.8413618888821
+      },
+      "after": {
+        "player_contrast": 2.00015873487271,
+        "enemy_contrast": null,
+        "edge_contrast": 11.8441582451309
+      }
+    },
+    {
+      "level": "ch2_market",
+      "spot": "\u516c\u544a\u5c4f",
+      "before_passed": true,
+      "after_passed": true,
+      "before": {
+        "player_contrast": 0.961185352343528,
+        "enemy_contrast": null,
+        "edge_contrast": 11.6463672977046
+      },
+      "after": {
+        "player_contrast": 0.961114540527702,
+        "enemy_contrast": null,
+        "edge_contrast": 11.5262407870041
+      }
+    }
+  ]
+}
