@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-20 Asia/Taipei",
+  "baseline": "6db1bc86337c253c69c71a33c7bb9cdc3453b41b",
+  "scope": "only standalone combo/growth capture settings and output isolation; no attacks, poses, damage or input changes",
+  "selector": "python tools/select_tests.py --base 6db1bc86: 0 suites (tools/docs only), not a claim of gameplay suite coverage",
+  "native": {
+    "before-combo": {
+      "path": "/workspace/Nest-Egg/work/batch1020/capture-before-combo-profile/godot/app_userdata/Nest Egg/settings.cfg",
+      "before_sha256": "53568c37aca1590c2e3da3c74ba534d3c656700b61618bd77972e7bcc04faca1",
+      "exit_code": 250,
+      "after_sha256": "7939d674b26632ee8bbc145d8f26f63a2955e52ef2155469bb74d8789419992f",
+      "player_bytes_preserved": false,
+      "image_count": 45
+    },
+    "after-combo": {
+      "path": "/workspace/Nest-Egg/work/batch1020/capture-after-combo-profile/godot/app_userdata/Nest Egg/settings.cfg",
+      "before_sha256": "53568c37aca1590c2e3da3c74ba534d3c656700b61618bd77972e7bcc04faca1",
+      "exit_code": 250,
+      "after_sha256": "53568c37aca1590c2e3da3c74ba534d3c656700b61618bd77972e7bcc04faca1",
+      "player_bytes_preserved": true,
+      "image_count": 45,
+      "cold_reader_exit": 0
+    },
+    "after-growth": {
+      "path": "/workspace/Nest-Egg/work/batch1020/capture-after-growth-profile/godot/app_userdata/Nest Egg/settings.cfg",
+      "before_sha256": "53568c37aca1590c2e3da3c74ba534d3c656700b61618bd77972e7bcc04faca1",
+      "exit_code": 250,
+      "after_sha256": "53568c37aca1590c2e3da3c74ba534d3c656700b61618bd77972e7bcc04faca1",
+      "player_bytes_preserved": true,
+      "image_count": 12,
+      "cold_reader_exit": 0
+    }
+  },
+  "compatibility_data_check": {
+    "before-combo": {
+      "path": "/workspace/Nest-Egg/work/batch1020/capture-before-combo-profile/godot/app_userdata/Nest Egg/settings.cfg",
+      "before_sha256": "53568c37aca1590c2e3da3c74ba534d3c656700b61618bd77972e7bcc04faca1"
+    },
+    "after-combo": {
+      "path": "/workspace/Nest-Egg/work/batch1020/capture-gl-after-combo-profile/godot/app_userdata/Nest Egg/settings.cfg",
+      "before_sha256": "53568c37aca1590c2e3da3c74ba534d3c656700b61618bd77972e7bcc04faca1",
+      "exit_code": 0,
+      "after_sha256": "53568c37aca1590c2e3da3c74ba534d3c656700b61618bd77972e7bcc04faca1",
+      "player_bytes_preserved": true,
+      "image_count": 45,
+      "cold_reader_exit": 0
+    },
+    "after-growth": {
+      "path": "/workspace/Nest-Egg/work/batch1020/capture-gl-after-growth-profile/godot/app_userdata/Nest Egg/settings.cfg",
+      "before_sha256": "53568c37aca1590c2e3da3c74ba534d3c656700b61618bd77972e7bcc04faca1",
+      "exit_code": 0,
+      "after_sha256": "53568c37aca1590c2e3da3c74ba534d3c656700b61618bd77972e7bcc04faca1",
+      "player_bytes_preserved": true,
+      "image_count": 12,
+      "cold_reader_exit": 0
+    }
+  },
+  "renderer_limits": [
+    "Forward+ software Vulkan produced all 45/12 captures, but original and changed tools both exited 250 with CanvasShaderRD/Decal Atlas cleanup errors; not counted as clean runs",
+    "Compatibility is used only for filesystem/settings checks, never light/animation acceptance; runs exit 0 but retain PagedAllocator/exit resource diagnostics",
+    "Fresh headless readers exit 0 and read original quality 2, particles .42, shake .33, reduce_flashes false"
+  ],
+  "image_scope": "no game visuals changed; existing weapon art/physical input acceptance unchanged",
+  "archive_sha256": "5ea1d68f43e920618fe315abe405f545526b052e6ea376c777814a1d08ffb1f4"
+}

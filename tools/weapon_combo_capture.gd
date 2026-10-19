@@ -5,6 +5,8 @@ const LEGACY := {"dagger": "thrust", "blade": "slash", "maul": "overhead", "glai
 
 
 func _ready() -> void:
+	# Capture quality must never be written to the player profile, even on early exit.
+	Settings.use_storage("user://weapon-combo-capture.cfg")
 	out_dir = "res://pm/Nest-Egg/images"
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--out="):

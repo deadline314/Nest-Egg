@@ -7,11 +7,15 @@ var only_weapon := ""
 
 
 func _ready() -> void:
+	# Quality, particles, shake and flashes belong only to this capture profile.
+	Settings.use_storage("user://weapon-growth-capture.cfg")
+	out_dir = "res://pm/Nest-Egg/images"
 	hit_capture = OS.get_cmdline_user_args().has("--hit")
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--weapon="):
 			only_weapon = arg.trim_prefix("--weapon=")
-	out_dir = "res://pm/Nest-Egg/images"
+		elif arg.begins_with("--out="):
+			out_dir = arg.trim_prefix("--out=")
 	DirAccess.make_dir_recursive_absolute(out_dir)
 	_run.call_deferred()
 

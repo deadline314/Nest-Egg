@@ -451,3 +451,6 @@ GPU工作用 `tools/comfyui/gpu_lock.py` 與 `comfy_guard.py` 的現有共享鎖
 
 
 2026-10-20（NE-223）：已取得終點物品不代表途中路線都完成。任務必須保留真實缺少的步驟，不能靠讀檔代填通關旗標。取盤路線的完成規則與五款遊戲圖片來源見 [ROUTE_COMPLETION](../design/18-quest-map-ux/ROUTE_COMPLETION.md)。本輪起點盤點為 [57 張明確未完成](unfinished-tickets-2026-10-20.csv)、[54 張待驗收](review-tickets-2026-10-20.csv)；兩份狀態分開保留，不把待驗收一律當完成。
+
+
+2026-10-20（NE-237）：驗收拍攝不得改玩家設定。連段與成長工具已各自隔離設定，成長擷取新增 --out；光影、粒子、震動與減閃光只寫拍攝檔。不能只依賴正常結束時還原。以玩家原檔 bytes／SHA 及另一程序冷讀核對；引擎退出錯誤仍照實保留，不能因設定隔離通過就宣稱畫面、實體手把或全部武器驗收完成。見 [本次證據](Nest-Egg/attachments/NE-237-capture-settings/receipt.json)。
