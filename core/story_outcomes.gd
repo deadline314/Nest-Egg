@@ -1,5 +1,6 @@
 class_name StoryOutcomes
 extends RefCounted
+const MAIN_FLAG_COMPLETION_POLICY := "main_flags_v1"
 ## 劇情段落的「段尾結果」與章節層級的事實表（ST-9）。全部由章節 JSON 描述，新增內容不改程式：
 ##
 ## 場景欄位
@@ -119,6 +120,8 @@ static func operations(scene: Dictionary) -> Array[Dictionary]:
 ## contract is used by content validation; operations() is only a typed view.
 func result_contract_problem(scene_id: StringName, scene: Dictionary) -> String:
 	var where := "場景 %s" % String(scene_id).left(256)
+	if scene.has("completion_policy") and scene["completion_policy"] != MAIN_FLAG_COMPLETION_POLICY:
+		return where + " 的 completion_policy 不受支援"
 	var results: Variant = scene.get("results", [])
 	var flags: Variant = scene.get("set_flags", [])
 	var tree := RunSaveCodec.validate_tree({"results": results, "set_flags": flags}, 32768)
@@ -145,6 +148,8 @@ func result_contract_problem(scene_id: StringName, scene: Dictionary) -> String:
 				return at + " 的 " + key + " 必須是非空文字"
 		if str(op["kind"]) not in ["flag", "item_acquire", "item_transfer", "transaction"]:
 			return at + " 的結果種類未知：" + str(op["kind"])
+		if scene.has("completion_policy") and str(op["kind"]) != "flag":
+			return at + " 超出 main_flags_v1 的旗標範圍"
 		if str(op["kind"]) == "flag":
 			var value: Variant = op.get("value", true)
 			if not GameState._flag_value_valid(value):

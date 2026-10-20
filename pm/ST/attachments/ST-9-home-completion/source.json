@@ -1,0 +1,376 @@
+{
+  "base": "cdd6fc7cf8d9cbdfa8e84e641b09f54fd196087e",
+  "inputs": {
+    "game/main.gd": "0b434ecdaccff00431a7a63bace25fe571bfc3296f11d5b2fe135cda2fa9593c",
+    "game/radio_completion.gd": "9b6c803e98160918af7ed833c02838ce9674860242f35ccf9c151aef5ba3324d",
+    "game/story_flag_completion.gd": "1a2bae65923002d61c6254ead130150c934f4a60a7e4595ebd90a7c292212bce",
+    "game/story_flag_completion.gd.uid": "13ea31341e6f0903ae6333774fe05c8cbf91f1995a5b380600cb769496383ad0",
+    "autoload/story.gd": "4ecf0221fe4ede1c45f87be21a18cd434e89bac22346317412ac9a4602bbd46b",
+    "core/story_outcomes.gd": "b292f030d0075cf7b2237e388532e82448eda19dbc419f8d2d546475ff6392ba",
+    "ui/radio_save_prompt.gd": "2ee6f757c98336d4f2a39ae5df26256e6df4dbdbff7d679c5bbb24c33b2b911a",
+    "tests/helpers/radio_prompt_checks.gd": "fe72327d07a8af89a0bf1c8efdfbbf3c5608577dee589612f37dda9362fa67cf",
+    "tests/helpers/home_completion_checks.gd": "4ac1bff266d34a128cb84ba5b00a58c7ade18218ace87bced0500e34d68efac3",
+    "tests/helpers/home_completion_checks.gd.uid": "fdeeb71dbafa1746f801adf769aee37f49082353282fdaaa7f967119b6509410",
+    "tests/suite/test_run_save.gd": "9286bb6a7dac4f190268d7124fb9a2cf4d1aa31bbf71d9827ad7c9fb7417639c",
+    "tools/story/ch1_runtime_backend.py": "05df2c7f445282530d0ef2f6446177f5a28de4eda879d6a1b7dffde92b3dab94",
+    "data/story/ch1_kasa.json": "7c77563a8f651a77606bf971f5ac8c0031cd9a39d95732e591d27b1106a587e4"
+  },
+  "before": {
+    "game/radio_completion.gd": {
+      "sha256": "63f18fef0e473d2b4e672391a5dc3f8ed8e4c0dad9093c08b2eaac248658fab4",
+      "snapshot": "st9-home-before-game__radio_completion.gd"
+    },
+    "game/main.gd": {
+      "sha256": "2c3af291243809b7b5f9aa644c92de0bc1536b3f40ac6dd4a5927da38c5aac72",
+      "snapshot": "st9-home-before-game__main.gd"
+    },
+    "autoload/story.gd": {
+      "sha256": "9852d77ebe216d828012dee3728d2ff274a6ec704988be3ba59cacee85fdbf73",
+      "snapshot": "st9-home-before-autoload__story.gd"
+    },
+    "ui/radio_save_prompt.gd": {
+      "sha256": "977c7181815fcf821e00c3ca11e3b1fd4af6407fd0a25578cbe085ee516040e6",
+      "snapshot": "st9-home-before-ui__radio_save_prompt.gd"
+    },
+    "tools/story/ch1_runtime_backend.py": {
+      "sha256": "bf6bedafd41dae3a0c380c4336392de8417a9f1a9b1a86599776f04238153e86",
+      "snapshot": "st9-home-before-tools__story__ch1_runtime_backend.py"
+    },
+    "data/story/ch1_kasa.json": {
+      "sha256": "771b22c3061b67485a1d90dd4a45323eae4a1a30cbe21c691e8aec911f067b90",
+      "snapshot": "st9-home-before-data__story__ch1_kasa.json"
+    },
+    "core/story_outcomes.gd": {
+      "sha256": "90b69362469da2e5b95794b72eab616be1f83f280ae8d9e97b03cb52c4219da4",
+      "snapshot": "st9-home-before-core__story_outcomes.gd"
+    }
+  },
+  "affected": "受影響的測試：AmmoIconsSuite,AmmoTraySuite,ApplyPanelSuite,AreasSuite,AudioSuite,Chapter1EnemiesSuite,Chapter1MapSuite,Chapter2ArtSuite,Chapter2EnemiesSuite,Chapter2ExpansionSuite,Chapter2StorySuite,Chapter2Suite,Chapter3EnemiesSuite,Chapter3StorySuite,ChapterCutscenesSuite,ClipEditorSuite,CollectiblesSuite,CombatHudSuite,ContinuitySuite,CutsceneSuite,DeathFlowSuite,DeathReactionSuite,DevMenuSuite,EconomySuite,EncounterSuite,EnemyVfxSuite,EnvironmentSuite,FeelLabSuite,FeelSuite,FloodPitSuite,FxMeleePickupsSuite,FxUpgradesSuite,HeavyEnemiesSuite,HitReactionSuite,InputFeelSuite,LayerOrderSuite,MapBubblesSuite,MeleeSuite,MeleeWeaponsSuite,MusicSuite,NpcSuite,PacingSuite,PhoneBoothSuite,PoseMeshSuite,ProgressionSuite,PropsSuite,ProtagonistMotionSuite,QuestMapSuite,ReadabilityTargetsSuite,RigActionsSuite,RunSaveSuite,SceneSanitySuite,SoundLabSuite,SoundStageSuite,StageCoverageCharactersSuite,StageCoverageWeaponsSuite,StageCoverageWorldSuite,StoryContentSuite,StoryLintSuite,StrikeEnemiesSuite,SupplySuite,ThrowablesSuite,TransitionSuite,UiScreensSuite,WorldPromptSuite,main\nRunning 66 groups in 4 processes (logs: /workspace/Nest-Egg/work/batch1020b/st9-home-affected)\n  process 0 (estimated 634 s): MeleeSuite,UiScreensSuite,Chapter2ExpansionSuite,StoryLintSuite,ThrowablesSuite,PhoneBoothSuite,SupplySuite,MusicSuite,Chapter2StorySuite,LayerOrderSuite,FeelLabSuite,ClipEditorSuite\n  process 1 (estimated 634 s): MeleeWeaponsSuite,HeavyEnemiesSuite,Chapter2EnemiesSuite,Chapter2Suite,NpcSuite,AmmoTraySuite,Chapter1EnemiesSuite,PoseMeshSuite,CombatHudSuite,CutsceneSuite,FeelSuite,QuestMapSuite,InputFeelSuite,TransitionSuite,RigActionsSuite,ProtagonistMotionSuite,Chapter2ArtSuite\n  process 2 (estimated 633 s): StageCoverageWorldSuite,Chapter1MapSuite,ContinuitySuite,Chapter3EnemiesSuite,RunSaveSuite,StageCoverageCharactersSuite,DeathReactionSuite,StoryContentSuite,FxMeleePickupsSuite,AudioSuite,ProgressionSuite,MapBubblesSuite,FloodPitSuite,SceneSanitySuite,PacingSuite,EconomySuite,ReadabilityTargetsSuite,EnemyVfxSuite,DevMenuSuite,ChapterCutscenesSuite,ApplyPanelSuite\n  process 3 (estimated 633 s): FxUpgradesSuite,main,StageCoverageWeaponsSuite,EnvironmentSuite,SoundStageSuite,StrikeEnemiesSuite,HitReactionSuite,EncounterSuite,PropsSuite,AreasSuite,CollectiblesSuite,DeathFlowSuite,Chapter3StorySuite,WorldPromptSuite,SoundLabSuite,AmmoIconsSuite\nchecks: 65262, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 604 s)\n",
+  "native": [
+    {
+      "name": "st9-home-native-v4-before",
+      "captures_all": [
+        {
+          "file": "home-refused.capture.json",
+          "rendered_text": true,
+          "waited_frames": 1
+        },
+        {
+          "file": "home-before-skip.capture.json",
+          "rendered_text": true,
+          "waited_frames": 1
+        }
+      ],
+      "after_refusal_home": true,
+      "after_refusal_seen": true,
+      "captures": {
+        "home-refused": {
+          "rendered_text": true,
+          "waited_frames": 1
+        }
+      },
+      "checks": 11,
+      "engine": "4.7.2-stable (official)",
+      "failures": [
+        "refused home ending retains flags wallet items and completed history",
+        "refused home keeps its actual request and original presentation entry",
+        "automatic home refusal exposes event-specific retry-only recovery",
+        "home recovery holds its own persistent pause"
+      ],
+      "mode": "refuse_write",
+      "primary_unchanged": true,
+      "probe_sha256": "18ae1243d26da75e7e4e149f2fdd2ecfe94d6fb7cc856fed4fd7858729d267fe",
+      "source": "res://data/levels/ch1_pawnshop_dawn.tres",
+      "source_sha256": {
+        "autoload/story.gd": "9852d77ebe216d828012dee3728d2ff274a6ec704988be3ba59cacee85fdbf73",
+        "core/story_outcomes.gd": "90b69362469da2e5b95794b72eab616be1f83f280ae8d9e97b03cb52c4219da4",
+        "data/story/ch1_kasa.json": "771b22c3061b67485a1d90dd4a45323eae4a1a30cbe21c691e8aec911f067b90",
+        "game/main.gd": "2c3af291243809b7b5f9aa644c92de0bc1536b3f40ac6dd4a5927da38c5aac72",
+        "game/radio_completion.gd": "63f18fef0e473d2b4e672391a5dc3f8ed8e4c0dad9093c08b2eaac248658fab4",
+        "ui/radio_save_prompt.gd": "977c7181815fcf821e00c3ca11e3b1fd4af6407fd0a25578cbe085ee516040e6"
+      }
+    },
+    {
+      "name": "st9-home-native-v4-refuse",
+      "captures_all": [
+        {
+          "file": "home-refused.capture.json",
+          "rendered_text": true,
+          "waited_frames": 1
+        },
+        {
+          "file": "home-before-skip.capture.json",
+          "rendered_text": true,
+          "waited_frames": 1
+        }
+      ],
+      "after_refusal_home": false,
+      "after_refusal_seen": false,
+      "captures": {
+        "home-refused": {
+          "rendered_text": true,
+          "waited_frames": 1
+        }
+      },
+      "checks": 12,
+      "engine": "4.7.2-stable (official)",
+      "failures": [],
+      "mode": "refuse_write",
+      "primary_unchanged": true,
+      "probe_sha256": "18ae1243d26da75e7e4e149f2fdd2ecfe94d6fb7cc856fed4fd7858729d267fe",
+      "source": "res://data/levels/ch1_pawnshop_dawn.tres",
+      "source_sha256": {
+        "autoload/story.gd": "4ecf0221fe4ede1c45f87be21a18cd434e89bac22346317412ac9a4602bbd46b",
+        "core/story_outcomes.gd": "b292f030d0075cf7b2237e388532e82448eda19dbc419f8d2d546475ff6392ba",
+        "data/story/ch1_kasa.json": "7c77563a8f651a77606bf971f5ac8c0031cd9a39d95732e591d27b1106a587e4",
+        "game/main.gd": "0b434ecdaccff00431a7a63bace25fe571bfc3296f11d5b2fe135cda2fa9593c",
+        "game/radio_completion.gd": "9b6c803e98160918af7ed833c02838ce9674860242f35ccf9c151aef5ba3324d",
+        "ui/radio_save_prompt.gd": "2ee6f757c98336d4f2a39ae5df26256e6df4dbdbff7d679c5bbb24c33b2b911a"
+      }
+    },
+    {
+      "name": "st9-home-native-v4-refuse-cold",
+      "captures_all": [
+        {
+          "file": "cold-continue.capture.json",
+          "rendered_text": true,
+          "waited_frames": 1
+        }
+      ],
+      "captures": {
+        "cold-continue": {
+          "rendered_text": true,
+          "waited_frames": 1
+        }
+      },
+      "checks": 6,
+      "engine": "4.7.2-stable (official)",
+      "failures": [],
+      "live_home": false,
+      "mode": "refuse_read",
+      "probe_sha256": "18ae1243d26da75e7e4e149f2fdd2ecfe94d6fb7cc856fed4fd7858729d267fe",
+      "saved_complete": false,
+      "saved_home": false,
+      "source_sha256": {
+        "autoload/story.gd": "4ecf0221fe4ede1c45f87be21a18cd434e89bac22346317412ac9a4602bbd46b",
+        "core/story_outcomes.gd": "b292f030d0075cf7b2237e388532e82448eda19dbc419f8d2d546475ff6392ba",
+        "data/story/ch1_kasa.json": "7c77563a8f651a77606bf971f5ac8c0031cd9a39d95732e591d27b1106a587e4",
+        "game/main.gd": "0b434ecdaccff00431a7a63bace25fe571bfc3296f11d5b2fe135cda2fa9593c",
+        "game/radio_completion.gd": "9b6c803e98160918af7ed833c02838ce9674860242f35ccf9c151aef5ba3324d",
+        "ui/radio_save_prompt.gd": "2ee6f757c98336d4f2a39ae5df26256e6df4dbdbff7d679c5bbb24c33b2b911a"
+      }
+    },
+    {
+      "name": "st9-home-native-v4-retry",
+      "captures_all": [
+        {
+          "file": "home-refused.capture.json",
+          "rendered_text": true,
+          "waited_frames": 1
+        },
+        {
+          "file": "home-accepted.capture.json",
+          "rendered_text": true,
+          "waited_frames": 1
+        },
+        {
+          "file": "home-before-skip.capture.json",
+          "rendered_text": true,
+          "waited_frames": 1
+        }
+      ],
+      "after_refusal_home": false,
+      "after_refusal_seen": false,
+      "after_retry_home": true,
+      "captures": {
+        "home-accepted": {
+          "rendered_text": true,
+          "waited_frames": 1
+        },
+        "home-refused": {
+          "rendered_text": true,
+          "waited_frames": 1
+        }
+      },
+      "checks": 18,
+      "engine": "4.7.2-stable (official)",
+      "failures": [],
+      "mode": "retry_write",
+      "primary_unchanged": true,
+      "probe_sha256": "18ae1243d26da75e7e4e149f2fdd2ecfe94d6fb7cc856fed4fd7858729d267fe",
+      "source": "res://data/levels/ch1_pawnshop_dawn.tres",
+      "source_sha256": {
+        "autoload/story.gd": "4ecf0221fe4ede1c45f87be21a18cd434e89bac22346317412ac9a4602bbd46b",
+        "core/story_outcomes.gd": "b292f030d0075cf7b2237e388532e82448eda19dbc419f8d2d546475ff6392ba",
+        "data/story/ch1_kasa.json": "7c77563a8f651a77606bf971f5ac8c0031cd9a39d95732e591d27b1106a587e4",
+        "game/main.gd": "0b434ecdaccff00431a7a63bace25fe571bfc3296f11d5b2fe135cda2fa9593c",
+        "game/radio_completion.gd": "9b6c803e98160918af7ed833c02838ce9674860242f35ccf9c151aef5ba3324d",
+        "ui/radio_save_prompt.gd": "2ee6f757c98336d4f2a39ae5df26256e6df4dbdbff7d679c5bbb24c33b2b911a"
+      }
+    },
+    {
+      "name": "st9-home-native-v4-retry-cold",
+      "captures_all": [
+        {
+          "file": "cold-continue.capture.json",
+          "rendered_text": true,
+          "waited_frames": 1
+        }
+      ],
+      "captures": {
+        "cold-continue": {
+          "rendered_text": true,
+          "waited_frames": 1
+        }
+      },
+      "checks": 5,
+      "engine": "4.7.2-stable (official)",
+      "failures": [],
+      "live_home": true,
+      "mode": "accept_read",
+      "probe_sha256": "18ae1243d26da75e7e4e149f2fdd2ecfe94d6fb7cc856fed4fd7858729d267fe",
+      "saved_complete": true,
+      "saved_home": true,
+      "source_sha256": {
+        "autoload/story.gd": "4ecf0221fe4ede1c45f87be21a18cd434e89bac22346317412ac9a4602bbd46b",
+        "core/story_outcomes.gd": "b292f030d0075cf7b2237e388532e82448eda19dbc419f8d2d546475ff6392ba",
+        "data/story/ch1_kasa.json": "7c77563a8f651a77606bf971f5ac8c0031cd9a39d95732e591d27b1106a587e4",
+        "game/main.gd": "0b434ecdaccff00431a7a63bace25fe571bfc3296f11d5b2fe135cda2fa9593c",
+        "game/radio_completion.gd": "9b6c803e98160918af7ed833c02838ce9674860242f35ccf9c151aef5ba3324d",
+        "ui/radio_save_prompt.gd": "2ee6f757c98336d4f2a39ae5df26256e6df4dbdbff7d679c5bbb24c33b2b911a"
+      }
+    }
+  ],
+  "protected": {
+    "core/run_save_store.gd": "1033befefbd04f934cac74abfdf74335c416b31b29ef4d068a3768d987ebb781",
+    "core/run_snapshot.gd": "3ca6327b03cb7e0be8b899cf0db5ee918d8e0c4faacebc7780c256b119a30e14",
+    "core/run_save_codec.gd": "f767c41a24633a73ca48a865c991146a01c7491325e3f0129952ed457fa9d9af",
+    "core/story_result_plan.gd": "006dbf02a8893b243eebb621d739d4074767a244d73e3d0e55e9503f4d896d8d",
+    "core/story_install_bundle.gd": "4b7edc551d116e01024ae07d9e0e463a51893dcb7e8196a508f04ccb07788faf",
+    "autoload/game_state.gd": "f27963b5951415ba59f81a18eadac8752a111a674c34a57e34836a25e94a28f3",
+    "autoload/progression.gd": "79025630dc6a376d9d6720a532a64d8bc34f9b8e1852abcd31f6821366bfdda9",
+    "autoload/story_items.gd": "36fc1478309ccdcbfbf3cf8f74817e65efd3cdf1f69f3f25bb874c4263da3992",
+    "tests/helpers/radio_completion_checks.gd": "491af577173336f5ca69c8aec9f881f75b19baad1a8c8c59545efe5e20d94454",
+    "tests/helpers/story_durable_write_checks.gd": "deebef25458c76bb2e9bf28094c2b53be94ce9aed2cb0e49f3248ac130b814a1",
+    "tools/run_tests_changed.sh": "406699fff9b007980a085cd58d109ef62953badac1efda411c2b5652cd3a4d2e",
+    "tools/select_tests.py": "5617cd39198b93547fa73753074ad5ffb28d2fb9ea0ae8ba5242b2815cce69da",
+    "tools/test_filters.sh": "319fea9acacfdad9f7dab7948ea5a2d76652757623b428829605160a210e678a",
+    "tests/known_failures.txt": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf"
+  },
+  "probes": {
+    "v1": {
+      "gd": "b9a8ea3aa2313900c1b5cedee640c812af5e5101d50c8c435de1a053c570e7c3",
+      "tscn": "c37ce79674163198a9c17ab7e5d5849bfce7af4bf5c7281db21e2160fde2e023"
+    },
+    "_v2": {
+      "gd": "eddecd48fcaf0fbb5708ef0555d1a6eb0a0533cf1add27a29d37a9337c8c3a4f",
+      "tscn": "bbef22f0339b1a6b83061240135b2edfb0af6173bd27e24813dd7d75821ccfc4"
+    },
+    "_v3": {
+      "gd": "ee51971352c3f542934becb53bdac1cee0096bbc24e925a46ad7b6b52fa35915",
+      "tscn": "f5c8102f96870014503c0b8203f7e7f5f434ceda21ca42f802069669250fe501"
+    },
+    "_v4": {
+      "gd": "18ae1243d26da75e7e4e149f2fdd2ecfe94d6fb7cc856fed4fd7858729d267fe",
+      "tscn": "2a0ea868001e783a916934fd624476a8debb5ba81f98af868212f90451a21d7c"
+    }
+  },
+  "slot_layout": {
+    "st9-home-v4-before-slot": [
+      {
+        "path": "slot.json",
+        "type": "file"
+      },
+      {
+        "path": "slot.json.bak",
+        "type": "file"
+      },
+      {
+        "path": "slot.json.tmp",
+        "type": "directory"
+      }
+    ],
+    "st9-home-v4-retry-slot": [
+      {
+        "path": "slot.json",
+        "type": "file"
+      },
+      {
+        "path": "slot.json.bak",
+        "type": "file"
+      }
+    ],
+    "st9-home-before-slot": [
+      {
+        "path": "slot.json",
+        "type": "file"
+      },
+      {
+        "path": "slot.json.bak",
+        "type": "file"
+      },
+      {
+        "path": "slot.json.tmp",
+        "type": "directory"
+      }
+    ],
+    "st9-home-v2-retry-slot": [
+      {
+        "path": "slot.json",
+        "type": "file"
+      },
+      {
+        "path": "slot.json.bak",
+        "type": "file"
+      }
+    ],
+    "st9-home-v2-refuse-slot": [
+      {
+        "path": "slot.json",
+        "type": "file"
+      },
+      {
+        "path": "slot.json.bak",
+        "type": "file"
+      }
+    ],
+    "st9-home-v4-refuse-slot": [
+      {
+        "path": "slot.json",
+        "type": "file"
+      },
+      {
+        "path": "slot.json.bak",
+        "type": "file"
+      }
+    ],
+    "st9-home-refuse-slot": [
+      {
+        "path": "slot.json",
+        "type": "file"
+      },
+      {
+        "path": "slot.json.bak",
+        "type": "file"
+      },
+      {
+        "path": "slot.json.tmp",
+        "type": "directory"
+      }
+    ],
+    "st9-home-v2-before-slot": [
+      {
+        "path": "slot.json",
+        "type": "file"
+      },
+      {
+        "path": "slot.json.bak",
+        "type": "file"
+      },
+      {
+        "path": "slot.json.tmp",
+        "type": "directory"
+      }
+    ]
+  }
+}

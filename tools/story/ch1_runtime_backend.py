@@ -242,6 +242,10 @@ def _compile_segment(segment, source, inside_presentation, base_scene):
             scene["on_failure"] = dict(failure)
     if segment.next_scene:
         scene["then"] = segment.next_scene
+    # Main owns durable completion of the automatic home boundary. This limited
+    # flag policy does not advertise the future atomic item/money coordinator.
+    if segment.binding == "home" and scene.get("mode") == "animated" and results and all(op["kind"] == "flag" for op in results) and not segment.options and not segment.next_scene:
+        scene["completion_policy"] = "main_flags_v1"
     return scene
 
 

@@ -491,3 +491,5 @@ GPU工作用 `tools/comfyui/gpu_lock.py` 與 `comfy_guard.py` 的現有共享鎖
 2026-10-20（NE-230）：區域入口的真正磁碟寫入成功後才改路由、檢查點與帶入裝備，拒絕時保留原區，明確提供重試／留在原區；自動重生與換章只能重試，不能取消後困在已結束的世界。[真實Main前後圖、解除故障重試與獨立程序續玩](Nest-Egg/attachments/NE-230-destination-save/README.md)分開記錄；安排好的區域驗證不當成整章通關。
 
 2026-10-20（NE-230）：累積版本最後一章也要先保存完整完成候選，再進宣稱已保存的結算；失敗有專用重試，不先改 live 完成欄位。[真 IO、按鈕重試與新程序續玩](Nest-Egg/attachments/NE-230-terminal-save/README.md)不代稱整章通關。
+
+2026-10-20（ST-9）：自動回家與重要通訊共用旗標保存模組；回家在真正保存前保留原請求與演出入口，不提前完成，重試後才繼續。[實際略過、拒絕、重試與新程序證據](ST/attachments/ST-9-home-completion/README.md)分開標示；這項不代表通用道具／款項／世界coordinator完成。前一批NE-230保存修正完整CI已通過95589項（[cdd6fc7c](https://github.com/deadline314/Nest-Egg/commit/cdd6fc7cf8d9cbdfa8e84e641b09f54fd196087e)）。

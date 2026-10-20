@@ -33,5 +33,24 @@ static func run(s: TestSuite) -> void:
 		s.check(prompt.cancel_button.visible and not prompt._message.text.is_empty(), "original-backup recovery remains explicitly unsaved and cancellable: " + lang)
 		prompt.queue_free()
 		await s.frames(2)
+		var event := Prompt.new()
+		event.presentation = "event"
+		event.allow_cancel = false
+		s.runner.add_child(event)
+		await s.frames(3)
+		s.check(event.retry_button.has_focus() and not event.cancel_button.visible and event.retry_button.focus_next == event.retry_button.get_path(), "automatic event recovery keeps focus on its only safe action: " + lang)
+		s.check(event._message.get_visible_line_count() == event._message.get_line_count() and event._message.get_minimum_size().y <= event._message.size.y, "event recovery explanation fits enlarged text without truncation: " + lang)
+		var event_cancels := [0]
+		event.cancel_requested.connect(func() -> void: event_cancels[0] += 1)
+		event._unhandled_input(back)
+		s.check(event_cancels[0] == 0, "Back cannot strand an automatic event after the stage ended: " + lang)
+		event.set_recovery(true)
+		await s.frames(2)
+		s.check(not event.cancel_button.visible and event.retry_button.focus_next == event.retry_button.get_path(), "committed event recovery preserves its reload-only focus: " + lang)
+		event.set_original_recovery()
+		await s.frames(2)
+		s.check(not event.cancel_button.visible and event._message.get_visible_line_count() == event._message.get_line_count(), "uncommitted event backup recovery remains truthful and actionable: " + lang)
+		event.queue_free()
+		await s.frames(2)
 	Story.language = language
 	Settings.set_ui_text_scale(scale)

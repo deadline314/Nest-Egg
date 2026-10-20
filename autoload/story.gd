@@ -88,6 +88,7 @@ var _finished_request := 0
 var _waiters: Dictionary[int, bool] = {}
 var _request_results: Dictionary[int, bool] = {}
 var passive_completion_gate: Callable
+var cinematic_completion_gate: Callable
 var _passive_requests: Dictionary[StringName, Array] = {}
 var _resetting_presentation := false
 ## 選項選到的交付在場景播完才生效；取消、死亡或換區時丟棄（場景 id → 物品 id 清單）。
@@ -1046,15 +1047,18 @@ func _finish_auto_skip(id: StringName, generation: int) -> void:
 		_on_cinematic_finished(id)
 
 
-func _on_cinematic_finished(id: StringName) -> void:
-	if _current_cinematic != id:
+func _on_cinematic_finished(id: StringName, expected_request := 0) -> void:
+	if _current_cinematic != id or (expected_request != 0 and expected_request != _current_request):
+		return
+	var guarded: Dictionary = cinematic_completion_gate.call(id, _current_request) if cinematic_completion_gate.is_valid() else {}
+	if guarded.get("handled", false) and not guarded.get("ready", false):
 		return
 	_current_cinematic = &""
 	var completed_request := _current_request
 	_current_request = 0
 	framing.release(_framing_token)
 	_framing_token = 0
-	var applied := _apply_scene_results(id)
+	var applied := {"ok": true, "failure_scene": ""} if guarded.get("handled", false) else _apply_scene_results(id)
 	var chosen: StringName = _pending_next.get(id, &"")
 	_pending_next.erase(id)
 	var chained := false
