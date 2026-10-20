@@ -12,6 +12,7 @@ func run() -> void:
 	var previous_msec := AimInput._last_stick_msec
 	GameState.story_autosave = false
 	GameState.start_new_run(GameState.difficulties[1])
+	preload("res://tests/helpers/npc_reaction_save_checks.gd").run(self, directory)
 	var valid := RunSnapshot.capture(FIRST, {"position": [100, 160], "health": 4, "world": {}, "loadout": {}})
 	print("[RunSaveSuite] initial preparation: %s" % RunSnapshot.prepare(valid).get("error", "OK"))
 	check(RunSnapshot.prepare(valid).has("data"), "valid whole-run schema prepares before applying")

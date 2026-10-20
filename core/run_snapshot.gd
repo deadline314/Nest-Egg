@@ -5,6 +5,7 @@ extends RefCounted
 const ENCOUNTER_SNAPSHOT = preload("res://game/level/encounter_snapshot.gd")
 const SCALARS := ["lives_left", "deaths", "kills", "finishers", "run_time", "last_death_clock", "respawn_pending", "checkpoint_notice_pending", "has_checkpoint", "checkpoint_level_path", "current_level_path", "carried_health"]
 const DICTIONARIES := ["area_states", "checkpoint_world", "checkpoint_progress", "level_start_progress", "level_start_loadout", "checkpoint_loadout"]
+const MAX_NPC_REACTIONS := 1024
 
 
 static func capture(level_path: String, runtime: Dictionary, cinematic := "", completed := false, context: Dictionary = {}) -> Dictionary:
@@ -322,6 +323,21 @@ static func _world(raw: Dictionary) -> Dictionary:
 			claimed = claimed.filter(func(id: Variant) -> bool: return typeof(id) in [TYPE_INT, TYPE_FLOAT])
 			result[key] = {"talks": int(RunSaveCodec.number(state.get("talks"), 0, 0, 1000000)),
 				"claimed": claimed.map(func(id: Variant) -> int: return int(RunSaveCodec.number(id, 0, 0, 1000000)))}
+			if state.has("reacted"):
+				var reacted: Array = []
+				var invalid := not state["reacted"] is Array
+				if state["reacted"] is Array:
+					invalid = state["reacted"].size() > MAX_NPC_REACTIONS
+					for i in mini(state["reacted"].size(), MAX_NPC_REACTIONS):
+						var index: Variant = state["reacted"][i]
+						if StoryTransactionData.integer_in(index, 0, 1000000):
+							if not reacted.has(int(index)):
+								reacted.append(int(index))
+						else:
+							invalid = true
+				result[key]["reacted"] = reacted
+				if invalid:
+					push_warning("[RunSave] world/%s/reacted invalid reaction indices omitted" % key.left(192))
 		else:
 			result[key] = value == true
 	return result
