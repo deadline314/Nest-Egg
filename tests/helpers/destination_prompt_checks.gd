@@ -11,7 +11,7 @@ static func run(s: TestSuite) -> void:
 	Settings.set_ui_text_scale(1.2)
 	for lang: String in ["zh", "ja", "en"]:
 		Story.language = lang
-		for purpose: String in ["area", "retry", "respawn", "chapter"]:
+		for purpose: String in ["area", "retry", "respawn", "chapter", "ending"]:
 			var prompt := Prompt.new()
 			prompt.purpose = purpose
 			prompt.can_stay = purpose in ["area", "retry"]

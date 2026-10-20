@@ -341,13 +341,16 @@ func _on_level_completed(data: LevelData, source_ref: WeakRef = null) -> void:
 		var current := source.data.resource_path if source != null and source.data != null else _level_path
 		push_warning("[Main] 拒絕無效或過時關卡完成：received=%s current=%s（畫面=%s）" % [received, current, _screen.get_class() if is_instance_valid(_screen) else "<null>"])
 		return
-	_save_run()
 	var next := _next_level(data)
 	if next != null:
+		_save_run()
 		_enter_next_level(next, (_screen as Level).run_snapshot())
 	else:
+		var completed := RunSnapshot.capture(_level_path, source.run_snapshot(), "", true)
+		if not _run_store.write(completed):
+			_show_destination_failure(_on_level_completed.bind(data, weakref(source)), false, "ending")
+			return
 		_chapter_complete = true
-		_save_run()
 		_show_victory(data.chapter)
 
 

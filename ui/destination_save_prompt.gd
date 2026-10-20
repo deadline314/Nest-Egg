@@ -50,6 +50,8 @@ func _focus() -> void:
 
 func _body() -> String:
 	match purpose:
+		"ending":
+			return _copy("本章的完成記錄尚未保存。請重試保存，成功後再進入結算。", "この章の完了記録を保存できませんでした。保存を再試行してください。成功後にリザルトへ進みます。", "This chapter's completion has not been saved. Retry saving to continue to the results.")
 		"respawn":
 			return _copy("復原進度尚未保存。原存檔仍保留，請重試保存後再復原。", "復元後の進行状況を保存できませんでした。元のセーブデータは保持されています。保存を再試行して復元を続けてください。", "Your revival could not be saved. Your original save is intact. Retry saving to continue.")
 		"chapter":
