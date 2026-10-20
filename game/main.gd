@@ -31,6 +31,9 @@ var _quitting := false
 var _destination_pending := false
 var _restore_publish_pending := false
 var _publishing_restore := false
+var _destination_save_prompt: Control
+var _destination_retry: Callable
+var _destination_save_lock := 0
 
 
 func _ready() -> void:
@@ -221,14 +224,22 @@ func _next_level(data: LevelData) -> LevelData:
 
 ## 章節之間的接續：帶著裝備與成長進下一區，從入口開始、補滿血量。
 func _enter_next_level(next: LevelData, runtime: Dictionary) -> void:
-	_chapter_complete = false
-	_level_path = next.resource_path
-	GameState.enter_level()
+	# Prepare the next chapter's checkpoint state without consuming the live
+	# carried loadout or clearing the old checkpoint before a successful write.
+	var carried := GameState._carried_loadout.duplicate(true)
+	var state_changes := {"level_start_loadout": carried, "checkpoint_loadout": carried.duplicate(true),
+		"pending_portal": "", "carried_health": -1, "has_checkpoint": false,
+		"checkpoint_position": [0.0, 0.0], "checkpoint_level_path": "", "checkpoint_world": {},
+		"checkpoint_progress": {}, "level_start_progress": Progression.snapshot()}
+	runtime = runtime.duplicate(true)
 	runtime["ending"] = false
 	runtime["position"] = [-1, -1]
 	runtime["health"] = GameState.difficulty.player_max_health
-	if not _save_destination(runtime):
+	if not _save_destination(runtime, next.resource_path, state_changes):
+		_show_destination_failure(_enter_next_level.bind(next, runtime), false, "chapter")
 		return
+	_chapter_complete = false
+	GameState.enter_level()
 	_resume_runtime = runtime if _restore_publish_pending else {}
 	_load_level(Transition.Kind.ELEVATOR)
 
@@ -260,23 +271,28 @@ func _on_retry_requested(level: Level) -> void:
 	Story.reset_active_presentation(&"retry")
 	# 檢查點在別的區域（區域組）：回到那個區域；舊式關卡的檢查點一定在同一關。
 	var checkpoint_level := GameState.checkpoint_level_path
+	var destination_path := _level_path
 	if GameState.has_checkpoint and not checkpoint_level.is_empty() and RunSaveCodec.resource(checkpoint_level, "level", "res://data/levels/") != null:
-		_level_path = checkpoint_level
+		destination_path = checkpoint_level
 	var runtime := level.run_snapshot()
-	GameState.pending_portal = &""
-	GameState.carried_health = -1
 	runtime["loadout"] = GameState.checkpoint_loadout.duplicate(true)
+	var restore_progression: Variant = null
 	if not level.data.persistent_world:
-		Progression.restore(GameState.checkpoint_progress if GameState.checkpoint_applies(_level_path) else GameState.level_start_progress)
+		restore_progression = GameState.checkpoint_progress if GameState.checkpoint_applies(destination_path) else GameState.level_start_progress
 	runtime["dead"] = false
 	runtime["ending"] = false
 	runtime["health"] = GameState.difficulty.player_max_health
 	runtime["position"] = [-1, -1]
 	runtime["velocity"] = [0, 0]
 	runtime["crouching"] = false
-	_clear_cinematic()
-	if not _save_destination(runtime):
+	if not _save_destination(runtime, destination_path, {"pending_portal": "", "carried_health": -1}, restore_progression):
+		_show_destination_failure(_on_retry_requested.bind(level), not level.died, "respawn" if level.died else "retry")
 		return
+	GameState.pending_portal = &""
+	GameState.carried_health = -1
+	if restore_progression is Dictionary:
+		Progression.restore(restore_progression)
+	_clear_cinematic()
 	if is_instance_valid(level) and level.died:
 		_load_level(Transition.Kind.GLITCH, RETRY_CAPTION % GameState.deaths, RETRY_HOLD)
 	else:
@@ -296,12 +312,18 @@ func _on_area_requested(level_path: String) -> void:
 		GameState.pending_portal = &""
 		EventBus.toast_requested.emit("這條路通往本版本未收錄的%s。" % CampaignEdition.current().chapter_title(target.chapter))
 		return
+	# The source slot describes the current room, not the destination portal.
+	GameState.pending_portal = &""
 	_save_run()
-	_level_path = level_path
+	GameState.pending_portal = portal
 	# 保存目標入口而不是舊區位置；切換中關閉也能進新區。
 	var runtime := (_screen as Level).run_snapshot() if _screen is Level else {}
 	runtime["position"] = [-1, -1]
-	if not _save_destination(runtime):
+	if not _save_destination(runtime, level_path):
+		GameState.pending_portal = &""
+		_show_destination_failure(func() -> void:
+			GameState.pending_portal = portal
+			_on_area_requested(level_path), true, "area")
 		return
 	_load_level(Transition.Kind.FADE)
 
@@ -338,7 +360,7 @@ func _show_victory(chapter: StringName) -> void:
 
 
 func _route_pending() -> bool:
-	return _quitting or _publishing_restore or (is_instance_valid(_pending_screen) and not _pending_screen.is_inside_tree())
+	return _quitting or _publishing_restore or is_instance_valid(_destination_save_prompt) or (is_instance_valid(_pending_screen) and not _pending_screen.is_inside_tree())
 
 
 func _bind_navigation() -> void:
@@ -358,6 +380,8 @@ func _queue_runtime_save() -> void:
 
 
 func _queue_save() -> void:
+	if is_instance_valid(_destination_save_prompt):
+		return
 	if is_instance_valid(_radio_completion) and _radio_completion.blocks_save():
 		return
 	if not _active_run or _save_queued or _restore_publish_pending or _publishing_restore:
@@ -372,6 +396,8 @@ func _flush_save() -> void:
 
 
 func _save_run() -> void:
+	if is_instance_valid(_destination_save_prompt):
+		return
 	if is_instance_valid(_radio_completion) and _radio_completion.blocks_save():
 		return
 	if not _active_run or _destination_pending or _restore_publish_pending or _publishing_restore or not is_instance_valid(_screen) or not _screen is Level:
@@ -395,36 +421,49 @@ func _save_run() -> void:
 		EventBus.toast_requested.emit("存檔未成功，原進度仍保留。")
 
 
-func _save_destination(runtime: Dictionary) -> bool:
-	var destination := RunSaveCodec.resource(_level_path, "level", "res://data/levels/") as LevelData
+func _save_destination(runtime: Dictionary, destination_path := "", state_changes: Dictionary = {}, progression: Variant = null) -> bool:
+	var path := _level_path if destination_path.is_empty() else destination_path
+	var destination := RunSaveCodec.resource(path, "level", "res://data/levels/") as LevelData
 	if destination == null:
-		push_warning("[RunSave] run/level 目的地無效：%s，原存檔保留並返回選單" % _level_path)
+		push_warning("[RunSave] run/level 目的地無效：%s，原存檔保留並返回選單" % path)
 		_show_main_menu()
 		return false
-	_destination_pending = true  # 同一區重試亦不能被舊畫面的 queued/close 保存蓋回。
+	var entry := runtime.duplicate(true)
+	var snapshot := RunSnapshot.capture(path, entry)
+	var state: Dictionary = snapshot["state"]
+	for key: String in state_changes:
+		state[key] = state_changes[key]
+	if progression is Dictionary:
+		snapshot["progression"] = progression.duplicate(true)
 	var area := {"consumed": {}, "damage": {}, "world": {}}
 	if destination.persistent_world:
-		area = GameState.area_state(destination.id).duplicate(true)
-	elif GameState.checkpoint_applies(_level_path):
-		area["world"] = GameState.checkpoint_world.duplicate(true)
-	runtime["world"] = area["world"].duplicate(true)
-	runtime["area"] = area
-	runtime["loose"] = []
-	runtime["enemies"] = []
-	runtime["encounters"] = {}
-	runtime["arena"] = false
-	runtime["boss_pending"] = false
-	runtime["velocity"] = [0, 0]
-	runtime["facing"] = 1
-	runtime["aim_dir"] = [1, 0]
-	runtime["crouching"] = false
-	runtime["guard"] = 100
-	runtime["dead"] = false
-	runtime["death_entry"] = {}
-	runtime["death_cause"] = "unknown"
-	runtime["ending"] = false
-	if not _run_store.write(RunSnapshot.capture(_level_path, runtime)):
-		EventBus.toast_requested.emit("區域進度尚未保存，原存檔仍保留。")
+		area = (state["area_states"].get(String(destination.id), area) as Dictionary).duplicate(true)
+	elif state["has_checkpoint"] and (str(state["checkpoint_level_path"]).is_empty() or state["checkpoint_level_path"] == path):
+		area["world"] = state["checkpoint_world"].duplicate(true)
+	entry["world"] = area["world"].duplicate(true)
+	entry["area"] = area
+	entry["loose"] = []
+	entry["enemies"] = []
+	entry["encounters"] = {}
+	entry["arena"] = false
+	entry["boss_pending"] = false
+	entry["velocity"] = [0, 0]
+	entry["facing"] = 1
+	entry["aim_dir"] = [1, 0]
+	entry["crouching"] = false
+	entry["guard"] = 100
+	entry["dead"] = false
+	entry["death_entry"] = {}
+	entry["death_cause"] = "unknown"
+	entry["ending"] = false
+	if not _run_store.write(snapshot):
+		EventBus.toast_requested.emit("區域進度尚未保存，請稍後再試；原存檔仍保留。")
+		return false
+	# Only an accepted destination can replace routing metadata or its caller's
+	# runtime. Queued saves must now keep the old screen from overwriting it.
+	runtime.assign(entry)
+	_level_path = path
+	_destination_pending = true
 	return true
 
 
@@ -450,6 +489,43 @@ func _clear_cinematic() -> void:
 	_cinematic_entry = {}
 	_cinematic_context = {}
 	_cinematic_request = 0
+
+
+func _show_destination_failure(retry: Callable, can_stay: bool, purpose: String) -> void:
+	if not is_inside_tree() or not _active_run or is_instance_valid(_destination_save_prompt):
+		return
+	_destination_retry = retry
+	_destination_save_lock = GameplayLock.acquire(self, Input.MOUSE_MODE_VISIBLE)
+	var canvas := CanvasLayer.new()
+	canvas.layer = 110
+	add_child(canvas)
+	_destination_save_prompt = preload("res://ui/destination_save_prompt.gd").new()
+	_destination_save_prompt.can_stay = can_stay
+	_destination_save_prompt.purpose = purpose
+	_destination_save_prompt.retry_requested.connect(_retry_destination_save)
+	_destination_save_prompt.cancel_requested.connect(_clear_destination_failure)
+	canvas.add_child(_destination_save_prompt)
+
+
+func _retry_destination_save() -> void:
+	var retry := _destination_retry
+	_clear_destination_failure()
+	if retry.is_valid():
+		retry.call()
+
+
+func _clear_destination_failure() -> void:
+	if is_instance_valid(_destination_save_prompt):
+		_destination_save_prompt.hide()
+		_destination_save_prompt.get_parent().queue_free()
+	_destination_save_prompt = null
+	_destination_retry = Callable()
+	GameplayLock.release(_destination_save_lock)
+	_destination_save_lock = 0
+
+
+func _exit_tree() -> void:
+	_clear_destination_failure()
 
 
 ## 純取消不套完成旗標。死亡通知在Level結算前抵達，只撤回暫定資料，保留live玩家死亡演出。
@@ -488,6 +564,7 @@ func _quit(exit_code := 0) -> void:
 		return
 	_quitting = true
 	_save_run()
+	_clear_destination_failure()
 	_active_run = false
 	Story.reset_active_presentation(&"quit")
 	Transition.abort()

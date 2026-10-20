@@ -1,0 +1,176 @@
+{
+  "base": "6c2a2e920de0cebbc0f3e57e191f6e37a85d708e",
+  "inputs": {
+    "game/main.gd": "5f291b2581ee5c413fa1d5c75de6a54822e482e6df5eb3e1e36e9d65bbbf8ca0",
+    "ui/destination_save_prompt.gd": "9c091ade76bdf39f04f038aa8ef4925c751d6777a68fd27f5c72472139c4d93b",
+    "ui/destination_save_prompt.gd.uid": "b38cbc53ea69d9bc533f28a18fe1354f15ca050f7dd9fd2ab90a847d275223ac",
+    "tests/helpers/destination_prompt_checks.gd": "7c815635ba629b88f384c1ba5a53e6c3094272e906363deadd73594fd6f94e0c",
+    "tests/helpers/destination_prompt_checks.gd.uid": "73e6f3c0b84ca1826e6b3426fd9edf26dc4926a2244e57cd372cf9261a168cfb",
+    "tests/helpers/destination_save_checks.gd": "7288831629708a4abff2f06c8da9cbfb1ebadc4b150b7cc324cc5e774600ec15",
+    "tests/helpers/destination_save_checks.gd.uid": "e462b63a9941e0e6da105d18574e9be30ed402773c6819054bb82e84f8c94357",
+    "tests/suite/test_run_save.gd": "48aad221335a8d906d3f212c773af0fd1a86fedb8b8bd4914e2860c1b115faea",
+    "tests/suite/test_ui_screens.gd": "47883a450f79e269e062e2be049bb7b2ce1498d76646b139f2a8bc7ae7cbefb3"
+  },
+  "before_main_sha256": "4173e14ab63e4c472289da7bf0d77ca9f7d1afd980992b8edce7324bf4f26945",
+  "affected": "受影響的測試：Chapter1MapSuite,Chapter2Suite,DeathReactionSuite,EncounterSuite,InputFeelSuite,RunSaveSuite,UiScreensSuite\nRunning 7 groups in 4 processes (logs: /workspace/Nest-Egg/work/batch1020b/ne230-destination-prompt-final-affected)\n  process 0 (estimated 111 s): Chapter1MapSuite\n  process 1 (estimated 72 s): Chapter2Suite,InputFeelSuite\n  process 2 (estimated 78 s): RunSaveSuite,EncounterSuite\n  process 3 (estimated 74 s): UiScreensSuite,DeathReactionSuite\nchecks: 3399, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 117 s)\n",
+  "native": [
+    {
+      "name": "ne230-destination-prompt-native-before",
+      "after_refusal": "res://data/levels/ch1_rooftop.tres",
+      "attempted": "res://data/levels/ch1_rooftop.tres",
+      "checks": 9,
+      "engine": "4.7.2-stable (official)",
+      "failures": [
+        "refused destination keeps the exact real source Level",
+        "refused destination keeps Main source routing available for retry",
+        "actual refused route exposes a persistent recovery prompt",
+        "actual refusal pauses the source while awaiting a decision"
+      ],
+      "main_sha256": "4173e14ab63e4c472289da7bf0d77ca9f7d1afd980992b8edce7324bf4f26945",
+      "mode": "refuse_write",
+      "primary_unchanged": true,
+      "prompt_sha256": "9c091ade76bdf39f04f038aa8ef4925c751d6777a68fd27f5c72472139c4d93b",
+      "source": "res://data/levels/ch1_pawnshop.tres"
+    },
+    {
+      "name": "ne230-destination-prompt-native-refuse",
+      "after_refusal": "res://data/levels/ch1_pawnshop.tres",
+      "attempted": "res://data/levels/ch1_rooftop.tres",
+      "checks": 10,
+      "engine": "4.7.2-stable (official)",
+      "failures": [],
+      "main_sha256": "5f291b2581ee5c413fa1d5c75de6a54822e482e6df5eb3e1e36e9d65bbbf8ca0",
+      "mode": "refuse_write",
+      "primary_unchanged": true,
+      "prompt_sha256": "9c091ade76bdf39f04f038aa8ef4925c751d6777a68fd27f5c72472139c4d93b",
+      "source": "res://data/levels/ch1_pawnshop.tres"
+    },
+    {
+      "name": "ne230-destination-prompt-native-refuse-cold",
+      "checks": 5,
+      "engine": "4.7.2-stable (official)",
+      "expected": "res://data/levels/ch1_pawnshop.tres",
+      "failures": [],
+      "live": "res://data/levels/ch1_pawnshop.tres",
+      "main_sha256": "5f291b2581ee5c413fa1d5c75de6a54822e482e6df5eb3e1e36e9d65bbbf8ca0",
+      "mode": "refuse_read",
+      "prompt_sha256": "9c091ade76bdf39f04f038aa8ef4925c751d6777a68fd27f5c72472139c4d93b",
+      "saved": "res://data/levels/ch1_pawnshop.tres"
+    },
+    {
+      "name": "ne230-destination-prompt-native-retry",
+      "after_refusal": "res://data/levels/ch1_pawnshop.tres",
+      "after_retry": "res://data/levels/ch1_rooftop.tres",
+      "attempted": "res://data/levels/ch1_rooftop.tres",
+      "checks": 15,
+      "engine": "4.7.2-stable (official)",
+      "failures": [],
+      "main_sha256": "5f291b2581ee5c413fa1d5c75de6a54822e482e6df5eb3e1e36e9d65bbbf8ca0",
+      "mode": "retry_write",
+      "primary_unchanged": true,
+      "prompt_sha256": "9c091ade76bdf39f04f038aa8ef4925c751d6777a68fd27f5c72472139c4d93b",
+      "source": "res://data/levels/ch1_pawnshop.tres"
+    },
+    {
+      "name": "ne230-destination-prompt-native-retry-cold",
+      "checks": 4,
+      "engine": "4.7.2-stable (official)",
+      "expected": "res://data/levels/ch1_rooftop.tres",
+      "failures": [],
+      "live": "res://data/levels/ch1_rooftop.tres",
+      "main_sha256": "5f291b2581ee5c413fa1d5c75de6a54822e482e6df5eb3e1e36e9d65bbbf8ca0",
+      "mode": "accept_read",
+      "prompt_sha256": "9c091ade76bdf39f04f038aa8ef4925c751d6777a68fd27f5c72472139c4d93b",
+      "saved": "res://data/levels/ch1_rooftop.tres"
+    },
+    {
+      "name": "ne230-destination-prompt-native-stay",
+      "after_refusal": "res://data/levels/ch1_pawnshop.tres",
+      "attempted": "res://data/levels/ch1_rooftop.tres",
+      "checks": 12,
+      "engine": "4.7.2-stable (official)",
+      "failures": [],
+      "main_sha256": "5f291b2581ee5c413fa1d5c75de6a54822e482e6df5eb3e1e36e9d65bbbf8ca0",
+      "mode": "stay_write",
+      "primary_unchanged": true,
+      "prompt_sha256": "9c091ade76bdf39f04f038aa8ef4925c751d6777a68fd27f5c72472139c4d93b",
+      "source": "res://data/levels/ch1_pawnshop.tres"
+    },
+    {
+      "name": "ne230-destination-prompt-native-respawn-v2",
+      "after_refusal": "res://data/levels/ch1_pawnshop.tres",
+      "after_retry": "res://data/levels/ch1_rooftop.tres",
+      "attempted": "res://data/levels/ch1_rooftop.tres",
+      "checks": 15,
+      "engine": "4.7.2-stable (official)",
+      "failures": [],
+      "main_sha256": "5f291b2581ee5c413fa1d5c75de6a54822e482e6df5eb3e1e36e9d65bbbf8ca0",
+      "mode": "respawn_write",
+      "primary_unchanged": true,
+      "probe_sha256": "389a04c28d7ba5eb013ff4f06e91e2409dcf630f478fd1d34a5deec99ca41a15",
+      "prompt_sha256": "9c091ade76bdf39f04f038aa8ef4925c751d6777a68fd27f5c72472139c4d93b",
+      "source": "res://data/levels/ch1_pawnshop.tres"
+    },
+    {
+      "name": "ne230-destination-prompt-native-chapter",
+      "after_refusal": "res://data/levels/ch1_pawnshop.tres",
+      "after_retry": "res://data/levels/ch1_rooftop.tres",
+      "attempted": "res://data/levels/ch1_rooftop.tres",
+      "checks": 15,
+      "engine": "4.7.2-stable (official)",
+      "failures": [],
+      "main_sha256": "5f291b2581ee5c413fa1d5c75de6a54822e482e6df5eb3e1e36e9d65bbbf8ca0",
+      "mode": "chapter_write",
+      "primary_unchanged": true,
+      "prompt_sha256": "9c091ade76bdf39f04f038aa8ef4925c751d6777a68fd27f5c72472139c4d93b",
+      "source": "res://data/levels/ch1_pawnshop.tres"
+    }
+  ],
+  "protected": {
+    "core/run_save_store.gd": "1033befefbd04f934cac74abfdf74335c416b31b29ef4d068a3768d987ebb781",
+    "core/run_save_codec.gd": "f767c41a24633a73ca48a865c991146a01c7491325e3f0129952ed457fa9d9af",
+    "core/run_snapshot.gd": "3ca6327b03cb7e0be8b899cf0db5ee918d8e0c4faacebc7780c256b119a30e14",
+    "autoload/game_state.gd": "f27963b5951415ba59f81a18eadac8752a111a674c34a57e34836a25e94a28f3",
+    "autoload/progression.gd": "79025630dc6a376d9d6720a532a64d8bc34f9b8e1852abcd31f6821366bfdda9",
+    "tools/run_tests_changed.sh": "406699fff9b007980a085cd58d109ef62953badac1efda411c2b5652cd3a4d2e",
+    "tools/select_tests.py": "5617cd39198b93547fa73753074ad5ffb28d2fb9ea0ae8ba5242b2815cce69da",
+    "tools/test_filters.sh": "319fea9acacfdad9f7dab7948ea5a2d76652757623b428829605160a210e678a",
+    "tests/known_failures.txt": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf"
+  },
+  "probe_sources": {
+    "first_eight_jobs": "4036cde697ffbe675e34fa3a410eb83d5240ad2860756b4055b3784da42e7520",
+    "corrected_respawn_v2": "389a04c28d7ba5eb013ff4f06e91e2409dcf630f478fd1d34a5deec99ca41a15"
+  },
+  "replay": {
+    "main-after.gd": {
+      "native_sha256": "5f291b2581ee5c413fa1d5c75de6a54822e482e6df5eb3e1e36e9d65bbbf8ca0",
+      "replay_sha256": "5f291b2581ee5c413fa1d5c75de6a54822e482e6df5eb3e1e36e9d65bbbf8ca0",
+      "change": "exact"
+    },
+    "destination_save_prompt.gd": {
+      "native_sha256": "9c091ade76bdf39f04f038aa8ef4925c751d6777a68fd27f5c72472139c4d93b",
+      "replay_sha256": "9c091ade76bdf39f04f038aa8ef4925c751d6777a68fd27f5c72472139c4d93b",
+      "change": "exact"
+    },
+    "destination_prompt_checks.gd": {
+      "native_sha256": "7c815635ba629b88f384c1ba5a53e6c3094272e906363deadd73594fd6f94e0c",
+      "replay_sha256": "7c815635ba629b88f384c1ba5a53e6c3094272e906363deadd73594fd6f94e0c",
+      "change": "exact"
+    },
+    "test_ui_screens.gd": {
+      "native_sha256": "47883a450f79e269e062e2be049bb7b2ce1498d76646b139f2a8bc7ae7cbefb3",
+      "replay_sha256": "47883a450f79e269e062e2be049bb7b2ce1498d76646b139f2a8bc7ae7cbefb3",
+      "change": "exact"
+    },
+    "test_run_save.gd": {
+      "native_sha256": "48aad221335a8d906d3f212c773af0fd1a86fedb8b8bd4914e2860c1b115faea",
+      "replay_sha256": "48aad221335a8d906d3f212c773af0fd1a86fedb8b8bd4914e2860c1b115faea",
+      "change": "exact"
+    },
+    "ne230_destination_probe.gd": {
+      "native_sha256": "389a04c28d7ba5eb013ff4f06e91e2409dcf630f478fd1d34a5deec99ca41a15",
+      "replay_sha256": "389a04c28d7ba5eb013ff4f06e91e2409dcf630f478fd1d34a5deec99ca41a15",
+      "change": "exact"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "message": "ERROR: [RigLibrary] 無法讀取定義檔：res://art/characters/test_no_such_character/character.json",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [HdPortrait] 找不到角色骨架「test_no_such_character」，立繪不顯示。",
+    "count": 1
+  },
+  {
+    "message": "ERROR: [InputFeel] res://data/feel/input.json 沒有 windows.test_no_such_window，改用預設 0.07",
+    "count": 1
+  }
+]
