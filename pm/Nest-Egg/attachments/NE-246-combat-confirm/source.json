@@ -1,0 +1,50 @@
+{
+  "base": "fab8bdf8dcad3fde7ada5b893888264cc3d08690",
+  "runtime_change": "only ui/dialogue_layer.gd, one visibility assignment and its comment",
+  "probe_sha256": "01ed1142ad7c8fe6d7e111cc2e1698471211f66e8641022eabf0126122a7f697",
+  "raw_zip_sha256": "247f9ea7d1a8874f830ac136e4cb6b05ff06ce943ba4cc5777825d992c2b8f4d",
+  "protected_files": {
+    "ui/dialogue_layer.gd": {
+      "sha256": "e018763435f73c5478259f6c5ff94144337167e5b321d3f1e9730355e9bd8eea",
+      "unchanged": false
+    },
+    "tools/radio_freeze_probe.gd": {
+      "sha256": "af631f596f356f096a8a983ac7811b2998107577f552d209146ebf3e86979cef",
+      "unchanged": true
+    },
+    "tools/radio_durable_probe.gd": {
+      "sha256": "e73849265733f58e1f57cd08455770cb0c952592faa77c5c19621476e1579199",
+      "unchanged": true
+    },
+    "game/story_flag_completion.gd": {
+      "sha256": "1a2bae65923002d61c6254ead130150c934f4a60a7e4595ebd90a7c292212bce",
+      "unchanged": true
+    },
+    "tools/select_tests.py": {
+      "sha256": "5617cd39198b93547fa73753074ad5ffb28d2fb9ea0ae8ba5242b2815cce69da",
+      "unchanged": true
+    },
+    "tools/test_filters.sh": {
+      "sha256": "319fea9acacfdad9f7dab7948ea5a2d76652757623b428829605160a210e678a",
+      "unchanged": true
+    },
+    "tests/known_failures.txt": {
+      "sha256": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf",
+      "unchanged": true
+    },
+    "tests/helpers/contextual_ui_checks.gd": {
+      "sha256": "2bf17687bfc7552a4659641ac9becbae7f0598819eaf9f2fef291e2bd377fc1a",
+      "unchanged": true
+    },
+    "tests/suite/test_ui_screens.gd": {
+      "sha256": "47883a450f79e269e062e2be049bb7b2ce1498d76646b139f2a8bc7ae7cbefb3",
+      "unchanged": true
+    },
+    "tests/suite/test_run_save.gd": {
+      "sha256": "9286bb6a7dac4f190268d7124fb9a2cf4d1aa31bbf71d9827ad7c9fb7417639c",
+      "unchanged": true
+    }
+  },
+  "original_reference_images": "../NE-278-references/sources.json",
+  "full_ci": "new commit workflow checked after push; fixed-base 60-group result below is the local affected scope"
+}

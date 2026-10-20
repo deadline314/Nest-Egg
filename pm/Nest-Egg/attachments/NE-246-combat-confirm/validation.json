@@ -1,0 +1,71 @@
+{
+  "initial_changed_run": {
+    "checks": 63040,
+    "failures": 3,
+    "seconds": 536,
+    "scope": "initial run overlapped software native rendering; not adopted as passing, root cause not proven"
+  },
+  "isolated_main_controls": [
+    {
+      "variant": "baseline",
+      "checks": 2292,
+      "failures": 0,
+      "seconds": 113
+    },
+    {
+      "variant": "candidate",
+      "checks": 2292,
+      "failures": 0,
+      "seconds": 113
+    }
+  ],
+  "base": "fab8bdf8dcad3fde7ada5b893888264cc3d08690",
+  "native_runs": [
+    {
+      "name": "radio-combat-sequence-v1",
+      "checks": 17,
+      "expected_failures": 0,
+      "native_engine_errors": 0,
+      "frozen_enemies": 16,
+      "same_active_projectile": true,
+      "initial_real_damage_events": 3,
+      "exact_line_order": true,
+      "visible_prompt_samples": null,
+      "hidden_prompt_samples": null
+    },
+    {
+      "name": "radio-combat-hint-before-v2",
+      "checks": 19,
+      "expected_failures": 2,
+      "native_engine_errors": 0,
+      "frozen_enemies": 16,
+      "same_active_projectile": true,
+      "initial_real_damage_events": 3,
+      "exact_line_order": true,
+      "visible_prompt_samples": 4,
+      "hidden_prompt_samples": 6
+    },
+    {
+      "name": "radio-combat-hint-after-v2",
+      "checks": 19,
+      "expected_failures": 0,
+      "native_engine_errors": 0,
+      "frozen_enemies": 16,
+      "same_active_projectile": true,
+      "initial_real_damage_events": 3,
+      "exact_line_order": true,
+      "visible_prompt_samples": 4,
+      "hidden_prompt_samples": 0
+    }
+  ],
+  "changed_tests": {
+    "groups": 60,
+    "checks": 63040,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 496
+  },
+  "scope": "real Main/Level/store with explicitly arranged player position and HP, public shooting and real key events; cloud software Forward+, no physical-device or full-campaign acceptance",
+  "runtime_change": "one required radio hint stays visible after its text completes; original tests/selectors/filters unchanged",
+  "probe_sha256": "01ed1142ad7c8fe6d7e111cc2e1698471211f66e8641022eabf0126122a7f697"
+}

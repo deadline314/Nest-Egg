@@ -277,8 +277,8 @@ func _process(delta: float) -> void:
 		_radio_text.visible_ratio = minf(1.0, _radio_text.visible_ratio + delta * RADIO_CHARS_PER_SECOND / maxf(1.0, _radio_text.text.length()))
 		return
 	if _radio_lock != 0:
-		# 重要通訊讀完也不自動消失：等確認。
-		_radio_continue.visible = Settings.get_reduce_ui_motion() or int(_time * 3.0) % 2 == 0
+		# Waiting for input: keep the required control visible, including between blink phases.
+		_radio_continue.visible = true
 		return
 	_radio_hold -= delta
 	if _radio_hold <= 0.0:
