@@ -1,0 +1,63 @@
+{
+  "minimal_clean_fields": [
+    "chapter"
+  ],
+  "runs": [
+    {
+      "name": "warden-shutdown-dd-00",
+      "fields": [
+        "display_name",
+        "height",
+        "legend",
+        "chapter",
+        "channel_cleared_flags",
+        "story_triggers"
+      ],
+      "clean": true,
+      "returncode": 0
+    },
+    {
+      "name": "warden-shutdown-dd-01",
+      "fields": [
+        "display_name",
+        "height",
+        "legend"
+      ],
+      "clean": false,
+      "returncode": 250
+    },
+    {
+      "name": "warden-shutdown-dd-02",
+      "fields": [
+        "chapter",
+        "channel_cleared_flags",
+        "story_triggers"
+      ],
+      "clean": true,
+      "returncode": 0
+    },
+    {
+      "name": "warden-shutdown-dd-03",
+      "fields": [
+        "chapter",
+        "channel_cleared_flags"
+      ],
+      "clean": true,
+      "returncode": 0
+    },
+    {
+      "name": "warden-shutdown-dd-04",
+      "fields": [
+        "chapter"
+      ],
+      "clean": true,
+      "returncode": 0
+    },
+    {
+      "name": "warden-shutdown-dd-05",
+      "fields": [],
+      "clean": false,
+      "returncode": 250
+    }
+  ]
+}

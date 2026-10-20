@@ -495,3 +495,5 @@ GPU工作用 `tools/comfyui/gpu_lock.py` 與 `comfy_guard.py` 的現有共享鎖
 2026-10-20（ST-9）：自動回家與重要通訊共用旗標保存模組；回家在真正保存前保留原請求與演出入口，不提前完成，重試後才繼續。[實際略過、拒絕、重試與新程序證據](ST/attachments/ST-9-home-completion/README.md)分開標示；這項不代表通用道具／款項／世界coordinator完成。前一批NE-230保存修正完整CI已通過95589項（[cdd6fc7c](https://github.com/deadline314/Nest-Egg/commit/cdd6fc7cf8d9cbdfa8e84e641b09f54fd196087e)）。
 
 2026-10-20（NE-257）：衣物會動須驗真正的可見部件，不能只驗空轉骨頭；查完整袖片帳本，不從衣身單件推論定稿。凜的近遠下襬已接上、微風停用，[本作前後圖、五款研究圖、原版與修改版接點失敗](Nest-Egg/attachments/NE-257-rin-cloth/README.md)分開保存。固定肩領區0像素差異不代表全身接點通過；兩版仍有相同1039個接點失敗，不勾整票。前一批ST-9回家保存的完整CI已過95628項（[8a273640](https://github.com/deadline314/Nest-Egg/commit/8a273640825a52fb9e5523091b8218cc14f25c83)）。
+
+2026-10-20（NE-248）：自然交戰不能直接指定頭目生命或核心開關；以正式玩家公開輸入打進第二階段，兩面向核對真部位、倍率、marker及全部生命扣帳。[五款研究圖、兩側正式／point-only控制與所有失敗](Nest-Egg/attachments/NE-248-natural-core/README.md)分開保存。正式32/0，控制各15項僅預期2個核心失敗，四輪無引擎ERROR；提高玩家生命但保留正式1秒受傷保護。本票原待本機條件仍未勾，不用雲端軟體重播代替實體操作。空白LevelData的舊章節退出SIGSEGV仍未修，正式章節乾淨不代表舊稿已通過。前批凜衣物的完整CI已過95816項（[dc80765c](https://github.com/deadline314/Nest-Egg/commit/dc80765c9a4b727f8c6e5a4e758d12728d359130)）。

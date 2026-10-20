@@ -1,0 +1,34 @@
+{
+  "base": "dc80765c9a4b727f8c6e5a4e758d12728d359130",
+  "probe_sha256": "79c59dd376ae43db682bf690017a153e4a34854e2c0d06c948b13c1d874fa2e4",
+  "raw_zip_sha256": "7b315231f50ecf1bf6fa8ac5e1d94c2ff68ba1fb23b66c59c070c0bbc099afa4",
+  "runtime_unchanged": {
+    "game/projectiles/projectile.gd": "8018c6058da731a9cfc2165f1e4365ce57264a8c28a7910a66ee3c4857712c50",
+    "core/components/hurtbox.gd": "53f3673f57b7ab2a6f26c20462840463794188401e09b2bacf4e05c0fe00b2e8",
+    "game/enemies/warden_boss.gd": "3410ce2b8680b63b92f8f88b6f65e5cb42d3d9fed32f28bf29b63f5549054aba",
+    "game/enemies/enemy.gd": "70cf8894bb0de35dec40b3a994b68ad47f19a0fac856972593c490aea1c3bfc2",
+    "game/player/player.gd": "59a60724ae021eed8572fa97f4c6fe4ef18e6cf0b398dba58fd0f62cede4a811",
+    "core/aim_input.gd": "09ed0f5a183528de692217bdce1a6af6e5becc7ec6d5977930ae8603f402d7d3",
+    "data/enemies/warden.tres": "83f99f790b969f6526675b49d0ece859173160e2e8955f277e65fbd4b6a0b6ad",
+    "data/weapons/pistol.tres": "4334479e906707033f0df031d8c5c6f7ed87c72a07516664a4f80fb324eaa0f8",
+    "data/projectiles/pistol_shot.tres": "424eb245b7ffdf2216c96c484b93897b018cf3292cc672c6b06bac837a1021c7",
+    "data/player/player_tuning.tres": "495611fa31574ee4059ae1661294ebe05626c0fb07a9f2ab74f675da474d6d98",
+    "core/components/health_component.gd": "ab3b34ec9a9d00309246cae2036ef719a19ebf6a7a8b2114540916859251054a",
+    "tools/scenarios/scenario_base.gd": "ef1199a05afaec1399a01f7d0f5b7d54643ae703a1ffaa525b702c25da3ac66d",
+    "tools/select_tests.py": "5617cd39198b93547fa73753074ad5ffb28d2fb9ea0ae8ba5242b2815cce69da",
+    "tools/test_filters.sh": "319fea9acacfdad9f7dab7948ea5a2d76652757623b428829605160a210e678a",
+    "tests/known_failures.txt": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf",
+    "tests/suite/test_heavy_enemies.gd": "7ae0d8486d6a4218b2779622af2411eb9e3ba7a3976bd8a4d663c7aa51317741",
+    "tests/suite/test_hit_reaction.gd": "e2a9cae5182b0b503469fbf1fae3ece63e62b101612c46cee234b38607d85b3d",
+    "tests/suite/test_combat_hud.gd": "5b741be44ade5091add48b107449fdf0deb74d26335da87fbc38e971f7ea4835"
+  },
+  "full_ci": {
+    "run": 39352098924,
+    "job": 118398402481,
+    "checks": 95816,
+    "new_failures": 0,
+    "seconds": 633,
+    "status": "success",
+    "scope": "exact unchanged runtime base; new delivery is documentation and replay evidence"
+  }
+}

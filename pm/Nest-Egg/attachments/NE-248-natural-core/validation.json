@@ -1,0 +1,78 @@
+{
+  "scope": "independent raw-event accounting and same-probe/same-protected-source check; not art, hardware or human gameplay acceptance",
+  "runs": [
+    {
+      "name": "warden-natural-current-right-v9",
+      "checks": 16,
+      "failures": 0,
+      "core_facing": -1,
+      "natural_phase2_after_hp": 44,
+      "core_hp": [
+        44,
+        42
+      ],
+      "core_part": "core",
+      "weak": true,
+      "marker": "weak",
+      "body_damage": 1,
+      "closed_damage": 1,
+      "all_hp_accounted": 50,
+      "clean_engine_log": true
+    },
+    {
+      "name": "warden-natural-current-left-v9",
+      "checks": 16,
+      "failures": 0,
+      "core_facing": 1,
+      "natural_phase2_after_hp": 44,
+      "core_hp": [
+        44,
+        42
+      ],
+      "core_part": "core",
+      "weak": true,
+      "marker": "weak",
+      "body_damage": 1,
+      "closed_damage": 1,
+      "all_hp_accounted": 50,
+      "clean_engine_log": true
+    },
+    {
+      "name": "warden-natural-point-right-v9",
+      "checks": 15,
+      "failures": 2,
+      "core_facing": -1,
+      "natural_phase2_after_hp": 45,
+      "core_hp": [
+        45,
+        44
+      ],
+      "core_part": "",
+      "weak": false,
+      "marker": "hit",
+      "body_damage": 1,
+      "closed_damage": 1,
+      "all_hp_accounted": 48,
+      "clean_engine_log": true
+    },
+    {
+      "name": "warden-natural-point-left-v9",
+      "checks": 15,
+      "failures": 2,
+      "core_facing": 1,
+      "natural_phase2_after_hp": 44,
+      "core_hp": [
+        44,
+        43
+      ],
+      "core_part": "",
+      "weak": false,
+      "marker": "hit",
+      "body_damage": 1,
+      "closed_damage": 1,
+      "all_hp_accounted": 49,
+      "clean_engine_log": true
+    }
+  ],
+  "only_source_difference_between_controls": "one point-only resolver call in projectile.gd; patch is diagnostic, not an entire historical build"
+}
