@@ -1,0 +1,53 @@
+{
+  "scope": "original headless script performance probe; sequential alternating pairs; no other native or test workload; not GPU draw time",
+  "rows": [
+    {
+      "pair": 0,
+      "mode": "before",
+      "rigid_us_per_10": 2164.4,
+      "mesh_us_per_10": 2848.1,
+      "vertices_per_rig": 423
+    },
+    {
+      "pair": 0,
+      "mode": "after",
+      "rigid_us_per_10": 2103.4,
+      "mesh_us_per_10": 2745.0,
+      "vertices_per_rig": 423
+    },
+    {
+      "pair": 1,
+      "mode": "after",
+      "rigid_us_per_10": 2716.2,
+      "mesh_us_per_10": 2861.1,
+      "vertices_per_rig": 423
+    },
+    {
+      "pair": 1,
+      "mode": "before",
+      "rigid_us_per_10": 2473.9,
+      "mesh_us_per_10": 3790.1,
+      "vertices_per_rig": 423
+    },
+    {
+      "pair": 2,
+      "mode": "before",
+      "rigid_us_per_10": 2358.4,
+      "mesh_us_per_10": 2917.9,
+      "vertices_per_rig": 423
+    },
+    {
+      "pair": 2,
+      "mode": "after",
+      "rigid_us_per_10": 2298.7,
+      "mesh_us_per_10": 3260.3,
+      "vertices_per_rig": 423
+    }
+  ],
+  "median_mesh_us_per_character": {
+    "before": 291.79,
+    "after": 286.11
+  },
+  "added_us_per_character": -5.680000000000007,
+  "final_source_sha256": "6afb84f4719da826b31936419fcd28f43933469d184e14e6f4ad56d8cd40040f"
+}

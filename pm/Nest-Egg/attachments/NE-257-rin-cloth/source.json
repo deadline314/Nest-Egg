@@ -1,0 +1,32 @@
+{
+  "base": "8a273640825a52fb9e5523091b8218cc14f25c83",
+  "product_file": "art/rigs/humanoid_tall.json",
+  "sha256": "6afb84f4719da826b31936419fcd28f43933469d184e14e6f4ad56d8cd40040f",
+  "regression_sha256": "faf61bf3061eb52c5d548092a145c16b0790e1f2cc0f92f1b5f6fc0c36d02aea",
+  "protected": {
+    "game/rig/character_rig.gd": "c1e866bab290f6c699409d1a61a9be8acb4dffc0c50b56d06736ccf7551ea6c0",
+    "game/rig/humanoid_animator.gd": "fc06cea824f8fa294a82b1ec11348402aafd512da5a2ec5ffba046930566ec5c",
+    "game/rig/rig_part_mesh.gd": "dfd10fad29e68084c5cf87b7caa6a0a2633b11c4170295dc139cb4c7dc203021",
+    "art/shaders/character_light.gdshader": "27315344f4f09f1e860cfc0097e75bdcf33da8ec69fb941e822e0a70f8573892",
+    "art/characters/rin/character.json": "f4598098b3d6693669ccdb6fd437382690492ea6ca37c9efec8c6a75da6bdea6",
+    "tools/select_tests.py": "5617cd39198b93547fa73753074ad5ffb28d2fb9ea0ae8ba5242b2815cce69da",
+    "tools/run_tests_changed.sh": "406699fff9b007980a085cd58d109ef62953badac1efda411c2b5652cd3a4d2e",
+    "tools/run_tests_parallel.sh": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba",
+    "tools/test_filters.sh": "319fea9acacfdad9f7dab7948ea5a2d76652757623b428829605160a210e678a",
+    "tests/known_failures.txt": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf",
+    "tools/rig_joint_audit.gd": "6d64de95bfd14b2fbdd755767f0957e61a977d6ed50a40f057ec996210ed5eec",
+    "tools/check_joint_frames.py": "780836441f7847a1b5c33c6c96bd76d714296acbf329c17e35ccb1fa70a04dce",
+    "tools/rig_perf_probe.gd": "ffb3224e7b0731b393586daa66c9b0717e4a64162873d11d7e59a8e367c918d9"
+  },
+  "base_ci": {
+    "run": 39350651660,
+    "job": 118393777845,
+    "status": "success",
+    "checks": 95628,
+    "new_failures": 0,
+    "seconds": 480,
+    "scope": "base commit 8a273640 only; not this cloth change"
+  },
+  "historical_zip_sha256": "b87cf77b9fe9a0ca7816b4bf459828110ff1f2dee54dfcc1ba1590257004d927",
+  "raw_tar_xz_sha256": "e39d24e840a4d9a36bb9a49e54f50f9bfe78e30bd02a0860016b0b5591376c45"
+}

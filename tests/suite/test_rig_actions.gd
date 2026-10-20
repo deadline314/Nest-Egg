@@ -18,6 +18,7 @@ func run() -> void:
 	await _test_far_hand_and_hems()
 	await _test_springs_settle()
 	await _test_sway_mesh_binding()
+	await _test_rin_visible_cloth()
 
 
 func _rig(skin: String, input: RigInput, settle := 40) -> CharacterRig:
@@ -342,3 +343,59 @@ func _test_sway_mesh_binding() -> void:
 				check(is_equal_approx(rendered.y, angle), "%s/%s sends the simulated spring angle to the rendered part" % [skin, id])
 		rig.get_parent().queue_free()
 	await frames(1)
+
+
+## NE-257: simulate actual inputs and inspect the render nodes, not the unused coat bones.
+func _test_rin_visible_cloth() -> void:
+	var peaks: Array[float] = []
+	for fps: int in [30, 60]:
+		var input := RigInput.new()
+		var rig := await _rig("rin", input, 1)
+		var animator: HumanoidAnimator = rig.animator
+		var found := 0
+		for spring: Dictionary in rig.springs():
+			if not spring.has("warp"):
+				continue
+			var part_name := str(spring["warp"]["part"])
+			if part_name not in ["armor_jacket", "armor_jacket_far"]:
+				continue
+			found += 1
+			var targets: Array = rig._sway_targets.get(StringName(str(spring["id"])), [])
+			check(targets.size() == 1, "rin/%s binds exactly one visible jacket part" % part_name)
+			check(absf(float(spring["min"])) <= 0.05 and absf(float(spring["max"])) <= 0.05, "rin/%s keeps short cloth inside a small angle" % part_name)
+		check(found == 2, "rin has actual near and far jacket follow regions")
+		animator.reset_springs()
+		var idle_drift := 0.0
+		for tick in fps * 4:
+			rig.animate(1.0 / fps, input)
+			for spring: Dictionary in animator._springs:
+				var key := animator._spring_key(spring)
+				idle_drift = maxf(idle_drift, absf(float(animator._spring_angle[key]) - float(spring.get("rest", 0.0))))
+		check(idle_drift < 0.00001, "rin stands without perpetual wind drift at %d Hz (%.7f)" % [fps, idle_drift])
+		input.velocity = Vector2(220, 0)
+		var peak := 0.0
+		for tick in fps:
+			rig.animate(1.0 / fps, input)
+			for key: StringName in rig._sway_targets:
+				var angle := float(animator._spring_angle[key])
+				peak = maxf(peak, absf(angle))
+				for target: Array in rig._sway_targets[key]:
+					var rendered: Vector2 = (target[0] as CanvasItem).get_instance_shader_parameter(target[1])
+					check(is_equal_approx(rendered.y, angle), "rin jacket renders the simulated angle at %d Hz" % fps)
+		check(peak > 0.005, "rin movement reaches actual jacket pixels at %d Hz" % fps)
+		peaks.append(peak)
+		input.velocity = Vector2.ZERO
+		input.landed = 0.8
+		rig.animate(1.0 / fps, input)
+		input.landed = 0.0
+		for tick in fps * 2:
+			rig.animate(1.0 / fps, input)
+		var residual := 0.0
+		for spring: Dictionary in animator._springs:
+			var key := animator._spring_key(spring)
+			residual = maxf(residual, absf(float(animator._spring_angle[key]) - float(spring.get("rest", 0.0))))
+			residual = maxf(residual, absf(float(animator._spring_velocity[key])))
+		check(residual < 0.01, "rin all follow settles after landing and stop within 2 s at %d Hz (%.6f)" % [fps, residual])
+		rig.get_parent().queue_free()
+	await frames(1)
+	check(absf(peaks[0] - peaks[1]) < 0.002, "rin cloth peak is similar at 30 and 60 Hz")

@@ -1,0 +1,107 @@
+[
+  {
+    "file": "logs/ne257-cloth-selected.log",
+    "line": 7,
+    "text": "[process 1] NEW FAILURE: old_k hem settles when standing still (0.342 rad)"
+  },
+  {
+    "file": "logs/ne257-cloth-selected.log",
+    "line": 8,
+    "text": "[process 1] NEW FAILURE: ah_po hem settles when standing still (0.342 rad)"
+  },
+  {
+    "file": "logs/ne257-cloth-red-v2.log",
+    "line": 3,
+    "text": "[process 0] NEW FAILURE: rin has actual near and far jacket follow regions"
+  },
+  {
+    "file": "logs/ne257-cloth-red-v2.log",
+    "line": 4,
+    "text": "[process 0] NEW FAILURE: rin stands without perpetual wind drift at 30 Hz (0.0256773)"
+  },
+  {
+    "file": "logs/ne257-cloth-red-v2.log",
+    "line": 5,
+    "text": "[process 0] NEW FAILURE: rin movement reaches actual jacket pixels at 30 Hz"
+  },
+  {
+    "file": "logs/ne257-cloth-red-v2.log",
+    "line": 6,
+    "text": "[process 0] NEW FAILURE: rin all follow settles after landing and stop within 2 s at 30 Hz (0.073053)"
+  },
+  {
+    "file": "logs/ne257-cloth-red-v2.log",
+    "line": 7,
+    "text": "[process 0] NEW FAILURE: rin has actual near and far jacket follow regions"
+  },
+  {
+    "file": "logs/ne257-cloth-red-v2.log",
+    "line": 8,
+    "text": "[process 0] NEW FAILURE: rin stands without perpetual wind drift at 60 Hz (0.0257021)"
+  },
+  {
+    "file": "logs/ne257-cloth-red-v2.log",
+    "line": 9,
+    "text": "[process 0] NEW FAILURE: rin movement reaches actual jacket pixels at 60 Hz"
+  },
+  {
+    "file": "logs/ne257-cloth-red-v2.log",
+    "line": 10,
+    "text": "[process 0] NEW FAILURE: rin all follow settles after landing and stop within 2 s at 60 Hz (0.071530)"
+  },
+  {
+    "file": "logs/rin-cloth-joints-after.log",
+    "line": 4,
+    "text": "ERROR: [rig_joint_audit] rin coat_hem missing pair [\"armor_jacket\", \"jacket_hem\"]"
+  },
+  {
+    "file": "tests/ne257-cloth-red-v2/shard_0.log",
+    "line": 4,
+    "text": "ERROR: [HumanoidAnimator] res://art/rigs/action_poses.json 沒有專屬動作「no_such_action」"
+  },
+  {
+    "file": "tests/ne257-cloth-green/shard_0.log",
+    "line": 4,
+    "text": "ERROR: [HumanoidAnimator] res://art/rigs/action_poses.json 沒有專屬動作「no_such_action」"
+  },
+  {
+    "file": "tests/ne257-cloth-selected/shard_2.log",
+    "line": 4,
+    "text": "ERROR: [HumanoidAnimator] res://art/rigs/action_poses.json 沒有專屬動作「no_such_action」"
+  },
+  {
+    "file": "tests/ne257-cloth-selected/shard_1.log",
+    "line": 4,
+    "text": "ERROR: [NpcAnimator] res://art/rigs/npc_animations.json 沒有 poses「no_such_pose」，改用「stand」。"
+  },
+  {
+    "file": "tests/ne257-cloth-selected/shard_1.log",
+    "line": 19,
+    "text": "ERROR: [NpcAnimator] res://art/rigs/npc_animations.json 沒有 loops「no_such_loop」，改用無。"
+  },
+  {
+    "file": "tests/ne257-cloth-selected/shard_1.log",
+    "line": 34,
+    "text": "SCRIPT ERROR: Invalid access to property or key 'coat_1' on a base object of type 'Dictionary[StringName, float]'."
+  },
+  {
+    "file": "tests/ne257-cloth-selected/shard_1.log",
+    "line": 42,
+    "text": "ERROR: [NpcAnimator] res://art/rigs/npc_animations.json：動畫資料裡的骨頭不存在：coat_1"
+  },
+  {
+    "file": "tests/ne257-cloth-selected-v2/shard_2.log",
+    "line": 4,
+    "text": "ERROR: [HumanoidAnimator] res://art/rigs/action_poses.json 沒有專屬動作「no_such_action」"
+  },
+  {
+    "file": "tests/ne257-cloth-selected-v2/shard_0.log",
+    "line": 4,
+    "text": "ERROR: [NpcAnimator] res://art/rigs/npc_animations.json 沒有 poses「no_such_pose」，改用「stand」。"
+  },
+  {
+    "file": "tests/ne257-cloth-selected-v2/shard_0.log",
+    "line": 19,
+    "text": "ERROR: [NpcAnimator] res://art/rigs/npc_animations.json 沒有 loops「no_such_loop」，改用無。"
+  }
+]

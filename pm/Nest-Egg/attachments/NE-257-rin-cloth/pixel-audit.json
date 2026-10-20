@@ -1,0 +1,66 @@
+{
+  "scope": "actual source-resolution bound jacket Sprite2D nodes; fixed upper rows vs lower deformation; this does not prove body seams or art anatomy",
+  "negative_control": "maximum/minimum real visible bend must change free rows; unchanged upper source rows required exactly",
+  "results": [
+    {
+      "mode": "run",
+      "part": "armor_jacket",
+      "fixed_changed_pixels": 0,
+      "free_changed_pixels": 7061,
+      "fixed_rows": [
+        0,
+        232
+      ]
+    },
+    {
+      "mode": "run",
+      "part": "armor_jacket_far",
+      "fixed_changed_pixels": 0,
+      "free_changed_pixels": 2255,
+      "fixed_rows": [
+        0,
+        92
+      ]
+    },
+    {
+      "mode": "minimum",
+      "part": "armor_jacket",
+      "fixed_changed_pixels": 0,
+      "free_changed_pixels": 7722,
+      "fixed_rows": [
+        0,
+        232
+      ]
+    },
+    {
+      "mode": "minimum",
+      "part": "armor_jacket_far",
+      "fixed_changed_pixels": 0,
+      "free_changed_pixels": 2528,
+      "fixed_rows": [
+        0,
+        92
+      ]
+    },
+    {
+      "mode": "maximum",
+      "part": "armor_jacket",
+      "fixed_changed_pixels": 0,
+      "free_changed_pixels": 7592,
+      "fixed_rows": [
+        0,
+        232
+      ]
+    },
+    {
+      "mode": "maximum",
+      "part": "armor_jacket_far",
+      "fixed_changed_pixels": 0,
+      "free_changed_pixels": 2524,
+      "fixed_rows": [
+        0,
+        92
+      ]
+    }
+  ]
+}

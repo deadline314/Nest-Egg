@@ -1,0 +1,649 @@
+[
+  {
+    "name": "hair_back_2",
+    "texture": "hair_back_2",
+    "bone": "hair_2",
+    "z": -9,
+    "texture_metadata": {
+      "file": "parts/hair_back_2.png",
+      "size": [
+        128,
+        237
+      ],
+      "pivot": [
+        84.93,
+        27.65
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "54c646eea8dcdfc136e4a07f4a21a788f4ef7758e03b224f2990d2c27fe74b6d",
+    "new_follow": false
+  },
+  {
+    "name": "hair_back_1",
+    "texture": "hair_back_1",
+    "bone": "hair_1",
+    "z": -9,
+    "texture_metadata": {
+      "file": "parts/hair_back_1.png",
+      "size": [
+        134,
+        289
+      ],
+      "pivot": [
+        78.12,
+        45.82
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "31fdab3659f2c34633580d4a73f79889fedd44f44058a5a98fecf29a91fa9d40",
+    "new_follow": false
+  },
+  {
+    "name": "arm_back_upper",
+    "texture": "arm_left_upper",
+    "bone": "arm_back_upper",
+    "z": -7,
+    "tint": 1.0,
+    "under": true,
+    "texture_metadata": {
+      "file": "parts/arm_left_upper.png",
+      "size": [
+        74,
+        238
+      ],
+      "pivot": [
+        35.7,
+        35.44
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "fdac78e74cb7e627db2cd86da37e2cd6632a3f4c1577fc4ead9f9876f347a165",
+    "new_follow": false
+  },
+  {
+    "name": "arm_back_lower",
+    "texture": "arm_left_lower",
+    "bone": "arm_back_lower",
+    "z": -7,
+    "tint": 1.0,
+    "under": true,
+    "texture_metadata": {
+      "file": "parts/arm_left_lower.png",
+      "size": [
+        62,
+        259
+      ],
+      "pivot": [
+        32.26,
+        17.87
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "08af514501e76914b72a4526d112b35155377b5dd7dabc831d5d97fa5d428a18",
+    "new_follow": false
+  },
+  {
+    "name": "hand_back",
+    "texture": "hand_left",
+    "bone": "hand_back",
+    "z": -6,
+    "tint": 1.0,
+    "grip_texture": "hand_left_grip",
+    "grip_offset": [
+      1.67496,
+      -0.01335
+    ],
+    "texture_metadata": {
+      "file": "parts/hand_left.png",
+      "size": [
+        143,
+        70
+      ],
+      "pivot": [
+        22.98,
+        40.82
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "b4af63255d47fef96d74ec3e5978fe60192ba0d7f8f7d1e2bd2fcd7d391ffca8",
+    "new_follow": false
+  },
+  {
+    "name": "jacket_sleeve_back_upper",
+    "texture": "jacket_sleeve_upper",
+    "bone": "arm_back_upper",
+    "z": -6,
+    "tint": 1.0,
+    "armor_order": 1,
+    "root_attach": true,
+    "texture_metadata": {
+      "file": "parts/jacket_sleeve_upper.png",
+      "size": [
+        125,
+        233
+      ],
+      "pivot": [
+        57.72,
+        33.62
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "0050eb8f3b81b1067e3ba14c959a4a3739b128a37d87cabebc44ac35a7346ceb",
+    "new_follow": false
+  },
+  {
+    "name": "leg_back_upper_dmg",
+    "texture": "leg_upper_dmg",
+    "bone": "leg_back_upper",
+    "z": -6,
+    "tint": 0.9,
+    "under": true,
+    "texture_metadata": {
+      "file": "parts/leg_upper_dmg.png",
+      "size": [
+        176,
+        435
+      ],
+      "pivot": [
+        75.76,
+        102.27
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "8dc4bea8fcb97c514e21b35487488ab4d32cc11ddc20d6218b96fecc7e1f8d9d",
+    "new_follow": false
+  },
+  {
+    "name": "leg_back_lower_dmg",
+    "texture": "leg_lower_dmg",
+    "bone": "leg_back_lower",
+    "z": -6,
+    "tint": 0.9,
+    "under": true,
+    "texture_metadata": {
+      "file": "parts/leg_lower_dmg.png",
+      "size": [
+        140,
+        357
+      ],
+      "pivot": [
+        75.1,
+        12.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "ae79d6cfd3c27b48fd487129ec7b43e1593111cad9289a39dbcdc0b6da38c713",
+    "new_follow": false
+  },
+  {
+    "name": "jacket_sleeve_back_lower",
+    "texture": "jacket_sleeve_lower_far",
+    "bone": "arm_back_lower",
+    "z": -6,
+    "tint": 1.0,
+    "armor_order": 1,
+    "texture_metadata": {
+      "file": "parts/jacket_sleeve_lower_far.png",
+      "size": [
+        103,
+        253
+      ],
+      "pivot": [
+        51.1,
+        34.01
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "24c89b2dbc31eebeefa354ef1cfb66657f445c6a226e1cf883213c2304e45f0f",
+    "new_follow": false
+  },
+  {
+    "name": "leg_back_upper",
+    "texture": "leg_upper",
+    "bone": "leg_back_upper",
+    "z": -5,
+    "tint": 1.0,
+    "armor_order": 4,
+    "texture_metadata": {
+      "file": "parts/leg_upper.png",
+      "size": [
+        176,
+        435
+      ],
+      "pivot": [
+        75.76,
+        102.27
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "2fd5b39160a8ba5ebac19fe8d9ba92c68b4793650cd8fb3ab627c049690f46db",
+    "new_follow": false
+  },
+  {
+    "name": "leg_back_lower",
+    "texture": "leg_lower",
+    "bone": "leg_back_lower",
+    "z": -5,
+    "tint": 1.0,
+    "armor_order": 5,
+    "texture_metadata": {
+      "file": "parts/leg_lower.png",
+      "size": [
+        140,
+        357
+      ],
+      "pivot": [
+        75.1,
+        12.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "b26688ea0a740a4b49775d983574afa3d80b7c23dfe6181fa9b95dc6837c54c5",
+    "new_follow": false
+  },
+  {
+    "name": "foot_back",
+    "texture": "foot",
+    "bone": "foot_back",
+    "z": -5,
+    "tint": 1.0,
+    "texture_metadata": {
+      "file": "parts/foot.png",
+      "size": [
+        222,
+        258
+      ],
+      "pivot": [
+        57.0,
+        103.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
+      "glow": "parts/foot_glow.png"
+    },
+    "texture_sha256": "8a277ffb89361adab42b50fe353043881bfb3a02ec859effa377183f1c4aeabd",
+    "new_follow": false
+  },
+  {
+    "name": "armor_jacket_far",
+    "texture": "armor_jacket_far",
+    "bone": "chest",
+    "z": -2,
+    "armor_order": 1,
+    "texture_metadata": {
+      "file": "parts/armor_jacket_far.png",
+      "size": [
+        60,
+        168
+      ],
+      "pivot": [
+        -104.0,
+        159.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "f526bf2b06570645bce9be5ecb3899aca2a1a71f30f324e42b6d12e4597e2c00",
+    "new_follow": true
+  },
+  {
+    "name": "pelvis_dmg",
+    "texture": "pelvis_dmg",
+    "bone": "hip",
+    "z": -1,
+    "under": true,
+    "texture_metadata": {
+      "file": "parts/pelvis_dmg.png",
+      "size": [
+        187,
+        186
+      ],
+      "pivot": [
+        79.0,
+        116.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "46bc0c741c292a2565740e7e3705b843f8b5f4d090daa359b4142883516f0a1c",
+    "new_follow": false
+  },
+  {
+    "name": "armor_pelvis",
+    "texture": "pelvis",
+    "bone": "hip",
+    "z": 0,
+    "armor_order": 3,
+    "texture_metadata": {
+      "file": "parts/pelvis.png",
+      "size": [
+        187,
+        186
+      ],
+      "pivot": [
+        79.0,
+        116.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
+      "glow": "parts/pelvis_glow.png"
+    },
+    "texture_sha256": "464d8268246f6b547c1dec957502571e47b9f15682b09bf9bad8ad1a6a76ff74",
+    "new_follow": false
+  },
+  {
+    "name": "torso_dmg",
+    "texture": "torso_dmg",
+    "bone": "chest",
+    "z": 0,
+    "under": true,
+    "texture_metadata": {
+      "file": "parts/torso_dmg.png",
+      "size": [
+        240,
+        422
+      ],
+      "pivot": [
+        94.0,
+        390.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "27147059fd9087a4fc63ea3d8e3c7b147ec85e098b468dc1ec12431e568e6ddd",
+    "new_follow": false
+  },
+  {
+    "name": "armor_torso",
+    "texture": "torso",
+    "bone": "chest",
+    "z": 1,
+    "armor_order": 2,
+    "texture_metadata": {
+      "file": "parts/torso.png",
+      "size": [
+        240,
+        422
+      ],
+      "pivot": [
+        94.0,
+        390.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
+      "glow": "parts/torso_glow.png"
+    },
+    "texture_sha256": "b878babcefddc2f75a9b3e3c39b1b497fef97e756bd8bc6fb3e7a9dd44baf100",
+    "new_follow": false
+  },
+  {
+    "name": "thigh_dmg",
+    "texture": "leg_upper_dmg",
+    "bone": "leg_front_upper",
+    "z": 2,
+    "under": true,
+    "texture_metadata": {
+      "file": "parts/leg_upper_dmg.png",
+      "size": [
+        176,
+        435
+      ],
+      "pivot": [
+        75.76,
+        102.27
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "8dc4bea8fcb97c514e21b35487488ab4d32cc11ddc20d6218b96fecc7e1f8d9d",
+    "new_follow": false
+  },
+  {
+    "name": "calf_dmg",
+    "texture": "leg_lower_dmg",
+    "bone": "leg_front_lower",
+    "z": 2,
+    "under": true,
+    "texture_metadata": {
+      "file": "parts/leg_lower_dmg.png",
+      "size": [
+        140,
+        357
+      ],
+      "pivot": [
+        75.1,
+        12.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "ae79d6cfd3c27b48fd487129ec7b43e1593111cad9289a39dbcdc0b6da38c713",
+    "new_follow": false
+  },
+  {
+    "name": "armor_thigh",
+    "texture": "leg_upper",
+    "bone": "leg_front_upper",
+    "z": 3,
+    "armor_order": 4,
+    "texture_metadata": {
+      "file": "parts/leg_upper.png",
+      "size": [
+        176,
+        435
+      ],
+      "pivot": [
+        75.76,
+        102.27
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "2fd5b39160a8ba5ebac19fe8d9ba92c68b4793650cd8fb3ab627c049690f46db",
+    "new_follow": false
+  },
+  {
+    "name": "armor_calf",
+    "texture": "leg_lower",
+    "bone": "leg_front_lower",
+    "z": 3,
+    "armor_order": 5,
+    "texture_metadata": {
+      "file": "parts/leg_lower.png",
+      "size": [
+        140,
+        357
+      ],
+      "pivot": [
+        75.1,
+        12.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "b26688ea0a740a4b49775d983574afa3d80b7c23dfe6181fa9b95dc6837c54c5",
+    "new_follow": false
+  },
+  {
+    "name": "foot_front",
+    "texture": "foot",
+    "bone": "foot_front",
+    "z": 3,
+    "texture_metadata": {
+      "file": "parts/foot.png",
+      "size": [
+        222,
+        258
+      ],
+      "pivot": [
+        57.0,
+        103.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出",
+      "glow": "parts/foot_glow.png"
+    },
+    "texture_sha256": "8a277ffb89361adab42b50fe353043881bfb3a02ec859effa377183f1c4aeabd",
+    "new_follow": false
+  },
+  {
+    "name": "holster",
+    "texture": "holster",
+    "bone": "leg_front_upper",
+    "z": 4,
+    "texture_metadata": {
+      "file": "parts/holster.png",
+      "size": [
+        155,
+        127
+      ],
+      "pivot": [
+        71.19,
+        -70.36
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "8360137f964564f67520ffbe30526f35acfcbede4a699a60c5911a3dc0caec68",
+    "new_follow": false
+  },
+  {
+    "name": "armor_jacket",
+    "texture": "armor_jacket",
+    "bone": "chest",
+    "z": 4,
+    "armor_order": 1,
+    "texture_metadata": {
+      "file": "parts/armor_jacket.png",
+      "size": [
+        210,
+        363
+      ],
+      "pivot": [
+        107.0,
+        337.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "20929d4f4bce214e96ff0124f53708114bacf6290407e169b602fe4361b8ff28",
+    "new_follow": true
+  },
+  {
+    "name": "head",
+    "texture": "head",
+    "bone": "head",
+    "z": 5,
+    "texture_metadata": {
+      "file": "parts/head.png",
+      "size": [
+        168,
+        199
+      ],
+      "pivot": [
+        71.0,
+        189.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "91fe53aa0f743f29acebdf21bfd4e8ad46de39cbecc448fe6c4a386b43b87f5e",
+    "new_follow": false
+  },
+  {
+    "name": "arm_front_upper",
+    "texture": "arm_upper",
+    "bone": "arm_front_upper",
+    "z": 8,
+    "under": true,
+    "texture_metadata": {
+      "file": "parts/arm_upper.png",
+      "size": [
+        88,
+        233
+      ],
+      "pivot": [
+        34.07,
+        32.86
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "67480cc064b970d153e8167ee00078617bb23aecfbf6c0748cf4034e36237908",
+    "new_follow": false
+  },
+  {
+    "name": "arm_front_lower",
+    "texture": "arm_lower",
+    "bone": "arm_front_lower",
+    "z": 8,
+    "texture_metadata": {
+      "file": "parts/arm_lower.png",
+      "size": [
+        75,
+        255
+      ],
+      "pivot": [
+        35.96,
+        12.03
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "8e1de8bfd9650a8324cfa279361191a435b10bca979d2b1db77b8c3462d4795e",
+    "new_follow": false
+  },
+  {
+    "name": "jacket_sleeve_front_upper",
+    "texture": "jacket_sleeve_upper",
+    "bone": "arm_front_upper",
+    "z": 9,
+    "armor_order": 1,
+    "root_attach": true,
+    "texture_metadata": {
+      "file": "parts/jacket_sleeve_upper.png",
+      "size": [
+        125,
+        233
+      ],
+      "pivot": [
+        57.72,
+        33.62
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "0050eb8f3b81b1067e3ba14c959a4a3739b128a37d87cabebc44ac35a7346ceb",
+    "new_follow": false
+  },
+  {
+    "name": "jacket_sleeve_front_lower",
+    "texture": "jacket_sleeve_lower",
+    "bone": "arm_front_lower",
+    "z": 9,
+    "armor_order": 1,
+    "texture_metadata": {
+      "file": "parts/jacket_sleeve_lower.png",
+      "size": [
+        108,
+        71
+      ],
+      "pivot": [
+        44.38,
+        12.03
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "c994f2824bdcf78333c0a9a34279a8f6265a90a32a8a3c0a6057bcb55fc4d39e",
+    "new_follow": false
+  },
+  {
+    "name": "hand_front",
+    "texture": "hand",
+    "bone": "hand_front",
+    "z": 10,
+    "grip_texture": "hand_grip",
+    "grip_offset": [
+      1.15497,
+      0.22769
+    ],
+    "texture_metadata": {
+      "file": "parts/hand.png",
+      "size": [
+        123,
+        76
+      ],
+      "pivot": [
+        9.77,
+        35.94
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    },
+    "texture_sha256": "3cf3f4b42a07c9e3923c9946b10dd2afa3b5509e26d36b9ce3dcdde29ea91611",
+    "new_follow": false
+  }
+]

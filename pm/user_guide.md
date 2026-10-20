@@ -493,3 +493,5 @@ GPU工作用 `tools/comfyui/gpu_lock.py` 與 `comfy_guard.py` 的現有共享鎖
 2026-10-20（NE-230）：累積版本最後一章也要先保存完整完成候選，再進宣稱已保存的結算；失敗有專用重試，不先改 live 完成欄位。[真 IO、按鈕重試與新程序續玩](Nest-Egg/attachments/NE-230-terminal-save/README.md)不代稱整章通關。
 
 2026-10-20（ST-9）：自動回家與重要通訊共用旗標保存模組；回家在真正保存前保留原請求與演出入口，不提前完成，重試後才繼續。[實際略過、拒絕、重試與新程序證據](ST/attachments/ST-9-home-completion/README.md)分開標示；這項不代表通用道具／款項／世界coordinator完成。前一批NE-230保存修正完整CI已通過95589項（[cdd6fc7c](https://github.com/deadline314/Nest-Egg/commit/cdd6fc7cf8d9cbdfa8e84e641b09f54fd196087e)）。
+
+2026-10-20（NE-257）：衣物會動須驗真正的可見部件，不能只驗空轉骨頭；查完整袖片帳本，不從衣身單件推論定稿。凜的近遠下襬已接上、微風停用，[本作前後圖、五款研究圖、原版與修改版接點失敗](Nest-Egg/attachments/NE-257-rin-cloth/README.md)分開保存。固定肩領區0像素差異不代表全身接點通過；兩版仍有相同1039個接點失敗，不勾整票。前一批ST-9回家保存的完整CI已過95628項（[8a273640](https://github.com/deadline314/Nest-Egg/commit/8a273640825a52fb9e5523091b8218cc14f25c83)）。

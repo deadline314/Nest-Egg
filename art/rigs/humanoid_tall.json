@@ -165,22 +165,50 @@
   ],
   "springs": [
     {
-      "bone": "coat_1",
+      "id": "coat_1",
+      "warp": {
+        "part": "armor_jacket",
+        "from": [
+          105,
+          235
+        ],
+        "to": [
+          105,
+          352
+        ],
+        "width": 110
+      },
       "rest": 0.0,
-      "gain": 0.14,
+      "gain": 0.035,
       "stiffness": 120,
       "damping": 14,
-      "min": -0.12,
-      "max": 0.16
+      "min": -0.045,
+      "max": 0.045,
+      "wind": 0.0,
+      "bone": "coat_1"
     },
     {
-      "bone": "coat_2",
+      "id": "coat_2",
+      "warp": {
+        "part": "armor_jacket_far",
+        "from": [
+          30,
+          95
+        ],
+        "to": [
+          30,
+          163
+        ],
+        "width": 45
+      },
       "rest": 0.0,
-      "gain": 0.08,
+      "gain": 0.025,
       "stiffness": 110,
       "damping": 12,
-      "min": -0.08,
-      "max": 0.12
+      "min": -0.04,
+      "max": 0.04,
+      "wind": 0.0,
+      "bone": "coat_2"
     },
     {
       "bone": "hair_1",
@@ -189,7 +217,8 @@
       "stiffness": 150,
       "damping": 13,
       "min": -0.2,
-      "max": 0.95
+      "max": 0.95,
+      "wind": 0.0
     },
     {
       "bone": "hair_2",
@@ -198,7 +227,8 @@
       "stiffness": 70,
       "damping": 8,
       "min": -0.35,
-      "max": 0.7
+      "max": 0.7,
+      "wind": 0.0
     }
   ],
   "weapon_anchor": {
