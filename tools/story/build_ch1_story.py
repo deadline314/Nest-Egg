@@ -131,7 +131,9 @@ def stall_layers(scale):
             layer["support"] = "hang"  # 掛在別的東西上，底邊不在地面線（場景檢查依這個欄位略過落地檢查）
         return layer
     # 燈籠（連繩）掛在攤車頂的前緣，下緣高過頭頂（lift 是世界像素，也要乘上縮放）。
-    return [sprite('ali_noodle_cart', 395, 58.1, 66.0), sprite('noodle_bowls_table', 335, 30.4, 25.5),
+    table = sprite('noodle_bowls_table', 335, 30.4, 25.5)
+    table.update(id="noodle_table", states={"eaten": {"path": "res://art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty.png"}})
+    return [sprite('ali_noodle_cart', 395, 58.1, 66.0), table,
             sprite('hanging_lantern', 405, 16.9, 33.0, 30.0)]
 
 

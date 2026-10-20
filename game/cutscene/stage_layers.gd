@@ -30,6 +30,10 @@ static var _soft_texture: GradientTexture2D
 
 ## 建立一層。def 缺欄位或種類不明時回傳 null，並記錄 where（例如「場景 shop_night 第 3 層」）。
 static func create(def: Dictionary, where: String) -> Node2D:
+	var state_issue := prop_state_problem(def)
+	if not state_issue.is_empty():
+		push_error("[Stage] %s: %s" % [where, state_issue])
+		return null
 	var kind := str(def.get("kind", ""))
 	if not KINDS.has(kind):
 		push_error("[Stage] %s：未知的圖層種類「%s」" % [where, kind])
@@ -70,7 +74,28 @@ static func create(def: Dictionary, where: String) -> Node2D:
 	node.set_meta(&"kind", kind)
 	node.set_meta(&"parallax", float(def.get("parallax", 1.0)))
 	node.set_meta(&"depth", str(def.get("depth", "back")))
+	if def.has("id"):
+		node.set_meta(&"prop_id", str(def["id"]))
 	return node
+
+
+## Finite material states only. Authors cannot address Nodes or execute handlers.
+static func prop_state_problem(def: Dictionary) -> String:
+	if not def.has("states"):
+		return ""
+	if def.get("kind") != "sprite" or not def.get("id") is String or not String(def["id"]).is_valid_identifier():
+		return "sprite states require a named sprite layer"
+	var states: Variant = def["states"]
+	if not states is Dictionary or states.is_empty() or states.size() > 8:
+		return "sprite states require 1..8 named textures"
+	for key: Variant in states:
+		var entry: Variant = states[key]
+		if not key is String or key == "default" or key.length() > 64 or not key.is_valid_identifier() or not entry is Dictionary or entry.size() != 1 or not entry.get("path") is String:
+			return "sprite state must contain only a named texture path"
+		var path: String = entry["path"]
+		if not path.begins_with("res://art/") or ".." in path or RigLibrary.texture_size(path) == Vector2.ZERO:
+			return "sprite state texture is missing: " + path.left(256)
+	return ""
 
 
 static func color_of(value: Variant, fallback := FALLBACK_COLOR) -> Color:
@@ -248,6 +273,12 @@ class _Glow:
 
 class _Sprite:
 	extends Sprite2D
+	var _state_textures: Dictionary[String, Texture2D] = {}
+	var _state_glows: Dictionary[String, Texture2D] = {}
+	var _state := "default"
+	var _world_width := 0.0
+	var _glow_sprite: Sprite2D
+	var _glow_enabled := true
 
 	## 有同名 `_glow.png` 時疊上自發光層（加亮混合），道具的窗光、霓虹在演出裡也會亮。
 	func _init(def: Dictionary) -> void:
@@ -257,6 +288,17 @@ class _Sprite:
 			push_error("[Stage] 找不到圖片：%s" % path)
 			tex = RigLibrary.texture(path, Vector2i(32, 32))
 		texture = tex
+		_world_width = float(def.get("source_width", tex.get_width())) * float(def.get("scale", 1.0))
+		_state_textures["default"] = tex
+		_glow_enabled = bool(def.get("glow", true))
+		var state_paths: Dictionary = {"default": path}
+		for key: String in def.get("states", {}):
+			var state_path: String = def["states"][key]["path"]
+			_state_textures[key] = RigLibrary.optional_texture(state_path)
+			state_paths[key] = state_path
+		for key: String in state_paths:
+			var state_path: String = state_paths[key]
+			_state_glows[key] = RigLibrary.optional_texture(state_path.get_basename() + "_glow." + state_path.get_extension())
 		position = StageLayers.vec2_of(def["pos"])
 		scale = Vector2.ONE * StageLayers.sprite_scale(def, tex)
 		centered = bool(def.get("centered", false))
@@ -268,15 +310,31 @@ class _Sprite:
 		# "life": true 時本層顯示窗光閃爍與信標明滅（窗光層與本層同一份著色器）。
 		if bool(def.get("life", false)):
 			material = LightKit.window_life_material()
-		var glow_texture := RigLibrary.optional_texture(path.get_basename() + "_glow." + path.get_extension())
-		if glow_texture != null and bool(def.get("glow", true)):
+		var has_glow := false
+		for glow: Texture2D in _state_glows.values():
+			has_glow = has_glow or glow != null
+		if has_glow and _glow_enabled:
 			var glow_sprite := Sprite2D.new()
-			glow_sprite.texture = glow_texture
+			_glow_sprite = glow_sprite
+			glow_sprite.texture = _state_glows["default"]
 			glow_sprite.centered = centered
 			glow_sprite.texture_filter = filter
 			glow_sprite.material = LightKit.window_life_material() if bool(def.get("life", false)) else LightKit.additive_emissive_material()
 			glow_sprite.self_modulate = LightKit.glow(Color.WHITE, float(def.get("glow_intensity", 1.2)))
 			add_child(glow_sprite)
+
+	func set_prop_state(state: String) -> bool:
+		if not _state_textures.has(state) or _state_textures[state] == null:
+			return false
+		texture = _state_textures[state]
+		scale = Vector2.ONE * (_world_width / float(texture.get_width()))
+		if _glow_sprite != null:
+			_glow_sprite.texture = _state_glows.get(state)
+		_state = state
+		return true
+
+	func prop_state() -> String:
+		return _state
 
 
 ## 雨：固定數量的斜線，用同一批座標循環使用，不配置新物件。

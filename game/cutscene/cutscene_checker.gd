@@ -24,6 +24,7 @@ const STEP_FIELDS: Dictionary = {
 	"move": ["id", "to"],
 	"face": ["id", "dir"],
 	"remove": ["id"],
+	"prop": ["id", "state"],
 	"say": ["speaker", "text"],
 	"narrate": ["lines"],
 	"title": ["text"],
@@ -51,7 +52,7 @@ const HEAD_MARGIN := 2.0
 const SETTLED_STEPS: PackedStringArray = ["say", "wait", "narrate", "choice", "title"]
 const POSE_HEIGHT := {"sit": 0.8, "crouch": 0.7, "squat": 0.7, "kneel": 0.7, "lean": 0.95, "dead": 0.3}
 ## 這些步驟需要先有舞台。
-const NEEDS_STAGE: PackedStringArray = ["camera", "actor", "pose", "move", "face", "remove"]
+const NEEDS_STAGE: PackedStringArray = ["camera", "actor", "pose", "move", "face", "remove", "prop"]
 
 
 ## 檢查一份動畫場景。speakers 是講者表（Story 的合併結果）。
@@ -64,6 +65,7 @@ static func validate(scene_id: String, scene: Dictionary, speakers: Dictionary) 
 	var defined: Dictionary[String, bool] = {}
 	# 疊加演出（overlay）直接蓋在遊戲畫面上，不需要舞台。
 	var has_stage := false
+	var current_stage: StringName
 	var says := 0
 	var run := 0
 	var index := 0
@@ -110,7 +112,16 @@ static func validate(scene_id: String, scene: Dictionary, speakers: Dictionary) 
 		problems.append_array(_check_step(where, kind, step, defined))
 		if kind == "scene":
 			has_stage = true
+			current_stage = StringName(str(step.get("id", "")))
 			problems.append_array(_check_stage(where, StringName(str(step.get("id", "")))))
+			var initial: Variant = step.get("prop_states", {})
+			if not initial is Dictionary or initial.size() > 8:
+				problems.append(where + " 的 prop_states 必須是至多8項的物件")
+			else:
+				for id: Variant in initial:
+					problems.append_array(_check_prop(where, current_stage, id, initial[id]))
+		elif kind == "prop" and has_stage:
+			problems.append_array(_check_prop(where, current_stage, step.get("id"), step.get("state")))
 	if says > MAX_SAYS:
 		problems.append("動畫場景 %s 有 %d 句台詞，上限 %d 句" % [scene_id, says, MAX_SAYS])
 	if scene.has("budget"):
@@ -121,6 +132,18 @@ static func validate(scene_id: String, scene: Dictionary, speakers: Dictionary) 
 		elif estimate > budget:
 			problems.append("動畫場景 %s 預估 %.0f 秒，超過預算 %.0f 秒（台詞每句約 %.1f 秒 + %.2f 秒 × 字數）" % [scene_id, estimate, budget, SAY_BASE, SAY_PER_CHAR])
 	return problems
+
+
+static func _check_prop(where: String, stage: StringName, id: Variant, state: Variant) -> PackedStringArray:
+	if not id is String or not state is String:
+		return PackedStringArray([where + " 的舞台物件與狀態必須是文字"])
+	for layer: Variant in StageLibrary.definition(stage).get("layers", []):
+		if layer is Dictionary and layer.get("id", "") == id and layer.get("kind") == "sprite":
+			var states: Variant = layer.get("states", {})
+			if state == "default" or (states is Dictionary and states.has(state)):
+				return PackedStringArray()
+			return PackedStringArray(["%s 的物件狀態不存在: %s" % [where, state]])
+	return PackedStringArray(["%s 的舞台物件不存在: %s" % [where, id]])
 
 
 ## 預估一份動畫場景的播放秒數（不含玩家額外停留）：台詞依字數、等待／淡出／特效／標題依各自的時間，會等待的移動與鏡頭依其時間。

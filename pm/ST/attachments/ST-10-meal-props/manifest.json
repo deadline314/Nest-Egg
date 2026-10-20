@@ -1,0 +1,890 @@
+{
+  "diagnostics/meal-baseline-restored.json": {
+    "bytes": 486,
+    "sha256": "59ce93d39cc8537ee1efac6df87651f96425221949c123d78a7faf676c804f32"
+  },
+  "diagnostics/meal-baseline-v2-restored.json": {
+    "bytes": 484,
+    "sha256": "13c309543f026677a4b0b0ac958f292191d9ecff0d0a54e7c6dda288dc11812d"
+  },
+  "diagnostics/meal-baseline-v2-slot/slot.json": {
+    "bytes": 8835,
+    "sha256": "b0cf355cedc12701b128e23bae82dd35b1b7cbe31335126e78d2c93b6cb05578"
+  },
+  "diagnostics/meal-baseline-v2-slot/slot.json.bak": {
+    "bytes": 8921,
+    "sha256": "fc0e3c7081efa38c80573003a634a9fe7bef7f58cd039a34b35cdc2776363b88"
+  },
+  "diagnostics/meal-baseline-v2-wrapper.log": {
+    "bytes": 999,
+    "sha256": "8fe207513d77d7f84fe4de6131b364c31aa9b95e0aa8cdf0d71b3279e502e2e7"
+  },
+  "diagnostics/meal-baseline-v2.py": {
+    "bytes": 1716,
+    "sha256": "a159829b9c08cff9b8b219df8d01bd2831b55e352dd1fc5e002c44077241a3cd"
+  },
+  "diagnostics/meal-baseline-wrapper.log": {
+    "bytes": 518,
+    "sha256": "f1809db1a1bdde26130050ccb6b35a166c57bf1a3ae997972f95602a8cfa4d76"
+  },
+  "diagnostics/meal-baseline.py": {
+    "bytes": 1704,
+    "sha256": "c1fd0af5be40100bfe25b9e1784ddbd5f1b2289cdb96341ec2778d9950e4a0bb"
+  },
+  "diagnostics/meal-candidate-cancel-slot/slot.json": {
+    "bytes": 8835,
+    "sha256": "ba705f5356bc4d45253b0d3d8f78eeef11d1b1edb7d0d814892ac0662642b0cb"
+  },
+  "diagnostics/meal-candidate-cancel-slot/slot.json.bak": {
+    "bytes": 8921,
+    "sha256": "79385f8c5561ba7999917f7bf5331dbfb5e30c9db48842e2451e8d2d80ddb8df"
+  },
+  "diagnostics/meal-candidate-cold-slot/slot.json": {
+    "bytes": 9003,
+    "sha256": "dacd6119eba3d12bde087bcedfd9ee95118ac392dad99ad1625a25ff2248e0e5"
+  },
+  "diagnostics/meal-candidate-cold-slot/slot.json.bak": {
+    "bytes": 9096,
+    "sha256": "3b2799e1616bd46422c85f9e80f453c92c2caecfcd7d923919773688c6f1b479"
+  },
+  "diagnostics/meal-candidate-normal-slot/slot.json": {
+    "bytes": 8835,
+    "sha256": "015a376c924bac12169551bd9f628ee67500e830f1eca1ab49a72e9fbab3d945"
+  },
+  "diagnostics/meal-candidate-normal-slot/slot.json.bak": {
+    "bytes": 8908,
+    "sha256": "536d126fccbaf3bd988bd1164c1e407ccdbcd31e5a59920242df8d7cd2cd981f"
+  },
+  "diagnostics/meal-candidate-normal-wrapper.log": {
+    "bytes": 1133,
+    "sha256": "31ef211fddad14142189f6cc536fe2d2d2967263fadebfd8ad887afb2e445374"
+  },
+  "diagnostics/meal-candidate-receipt.json": {
+    "bytes": 47,
+    "sha256": "6af0904de46eb5cd6d0d58b996444e65377bf7ec63d8c176ab909aab09a579a4"
+  },
+  "diagnostics/meal-candidate-skip-slot/slot.json": {
+    "bytes": 8828,
+    "sha256": "47778021460ebfdc7c80b01239376cb9e6350fc501aa2bf7bcd72ca7e18257af"
+  },
+  "diagnostics/meal-candidate-skip-slot/slot.json.bak": {
+    "bytes": 8921,
+    "sha256": "2e7d727d88f03481eb63600afd95da97dea980ff9b2ece75e249fc907f5a3a49"
+  },
+  "diagnostics/meal-candidate-source/core/asset_prefetch.gd": {
+    "bytes": 23788,
+    "sha256": "67d195694b3170c520ee6302f78dd44dca6d8a735fdeec15688aa503f1dbbe02"
+  },
+  "diagnostics/meal-candidate-source/data/cutscene/stages/ch1_dawn_noodle_stall.json": {
+    "bytes": 2650,
+    "sha256": "9e93872d3236d844f1574cd6cb2809e96dd1f38b7df748d835bc0e2083bca054"
+  },
+  "diagnostics/meal-candidate-source/data/story/ch1_kasa.json": {
+    "bytes": 256250,
+    "sha256": "12d98203bf74286c06e298f41ee6460f2e73fb15492217ef8bbc7467894dcbb6"
+  },
+  "diagnostics/meal-candidate-source/game/cutscene/cutscene_checker.gd": {
+    "bytes": 17247,
+    "sha256": "b38e1f01a32eaed27fc7594614ed06d5160cf9f7cc6a4551fe31a3e44f2c5899"
+  },
+  "diagnostics/meal-candidate-source/game/cutscene/cutscene_player.gd": {
+    "bytes": 27256,
+    "sha256": "cc9fc3782cdb6bb5d5de9140534d7ee26599d66c7ffee56163b214481efcd37d"
+  },
+  "diagnostics/meal-candidate-source/game/cutscene/stage_layers.gd": {
+    "bytes": 18650,
+    "sha256": "96528b00a78235ea5eb993777958ae3b20117dca19b673f15f38da1b081f3ba6"
+  },
+  "diagnostics/meal-candidate-source/game/cutscene/stage_library.gd": {
+    "bytes": 7693,
+    "sha256": "f88788eeba17c1fad03c420dbd94217ddb8446f25c6bcee17b293cf0fc9841f8"
+  },
+  "diagnostics/meal-candidate-source/tools/assets/check_assets.py": {
+    "bytes": 5324,
+    "sha256": "a74a5d1643edb1748279b8f981ea422a89e376c217bcc7aede626ad0b4f98e80"
+  },
+  "diagnostics/meal-candidate-source/tools/story/build_ch1_story.py": {
+    "bytes": 32499,
+    "sha256": "c477be6e6c7c58c7f9b51920d7eeca3da0bc2ade5d8e116803ba4ff691ea1e55"
+  },
+  "diagnostics/meal-candidate-source/tools/story/ch1_runtime_backend.py": {
+    "bytes": 36595,
+    "sha256": "8bdead92a8e27797a73cb0d47b408c43796762b3604ebd688676511f3e6f2bf3"
+  },
+  "diagnostics/meal-headless-profile/godot/app_userdata/Nest Egg/logs/godot.log": {
+    "bytes": 846,
+    "sha256": "d36136fe15247ef040d1ee79044c3d7a9c1450b8c05f602aac3629734c3ec77e"
+  },
+  "diagnostics/meal-headless-slot/slot.json": {
+    "bytes": 8837,
+    "sha256": "164b2b7fe2abd7f9c89e4b087f5b0c8646a0009377ff2c3b42e0d45a80659ce3"
+  },
+  "diagnostics/meal-headless-slot/slot.json.bak": {
+    "bytes": 8837,
+    "sha256": "6b992229a7774d17067209f95d8082b669c1451e33750525ad6629882d2902a0"
+  },
+  "diagnostics/meal-headless.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "diagnostics/meal-headless.log": {
+    "bytes": 846,
+    "sha256": "d36136fe15247ef040d1ee79044c3d7a9c1450b8c05f602aac3629734c3ec77e"
+  },
+  "diagnostics/meal-headless/result.json": {
+    "bytes": 983,
+    "sha256": "55ccc4673a39c5af6c43a057d96c33db5bba2a738f8ee69f5c128f656580286a"
+  },
+  "diagnostics/meal-integrated-normal-slot/slot.json": {
+    "bytes": 8835,
+    "sha256": "8a3b8a601ccd3dcf5da0d1c269bcd8822771d4f2a2e2387b8db46151ce8dd017"
+  },
+  "diagnostics/meal-integrated-normal-slot/slot.json.bak": {
+    "bytes": 8921,
+    "sha256": "4a83e25d2372c8d5a2008b9110e775c8b20d9314453b5f57cb18a1063b6990a2"
+  },
+  "diagnostics/meal-integrated-receipt.json": {
+    "bytes": 36,
+    "sha256": "081d8a94fb594037c0db7072eefa2ca374480cd894c4cbc9f33b98382c38308e"
+  },
+  "diagnostics/meal-integrated-slot/slot.json": {
+    "bytes": 9078,
+    "sha256": "9bfd05828c68ec218e1b371820f7b48faaa6d8f497cbcbabb79ce72fda0925d0"
+  },
+  "diagnostics/meal-integrated-slot/slot.json.bak": {
+    "bytes": 9171,
+    "sha256": "2f73676b0df3ea753feeedfcf6fd1a277b1e470deea8a7dddce07b0b3969b92e"
+  },
+  "diagnostics/meal-mid-receipt.json": {
+    "bytes": 23,
+    "sha256": "906644e5749ad4ab04612e43dcf631687039194cf1e08a2e95eec0c09a167cb4"
+  },
+  "diagnostics/meal-mid-slot/slot.json": {
+    "bytes": 8884,
+    "sha256": "73dc13e15b6d2932bd785760a2a13085ecb8f3e2bde50e4346dfebf8e1422139"
+  },
+  "diagnostics/meal-mid-slot/slot.json.bak": {
+    "bytes": 8884,
+    "sha256": "73dc13e15b6d2932bd785760a2a13085ecb8f3e2bde50e4346dfebf8e1422139"
+  },
+  "diagnostics/meal-mid-v2-slot/slot.json": {
+    "bytes": 9078,
+    "sha256": "a1d5b2bbfaab120b6bba31ad5a91599377e301973aeacf315c8142dd023b7430"
+  },
+  "diagnostics/meal-mid-v2-slot/slot.json.bak": {
+    "bytes": 9171,
+    "sha256": "f4c1705a393dc61e99cdb08ee7b89e69544f90955f5b329bd7c772c0edf3c474"
+  },
+  "diagnostics/meal-mid-write-wrapper.log": {
+    "bytes": 1058,
+    "sha256": "bfb44c22df2e1bddd09f7af37ed97a16879d4d6647730e5629ac4ee10405ad24"
+  },
+  "diagnostics/meal-preintegration-source.json": {
+    "bytes": 1153,
+    "sha256": "99ef3ec08f84f9dabfd4512745f6f041a6893cb87bc386af5b0a37f55d923f06"
+  },
+  "diagnostics/meal-preintegration-source/core/asset_prefetch.gd": {
+    "bytes": 23788,
+    "sha256": "67d195694b3170c520ee6302f78dd44dca6d8a735fdeec15688aa503f1dbbe02"
+  },
+  "diagnostics/meal-preintegration-source/data/cutscene/stages/ch1_dawn_noodle_stall.json": {
+    "bytes": 2650,
+    "sha256": "9e93872d3236d844f1574cd6cb2809e96dd1f38b7df748d835bc0e2083bca054"
+  },
+  "diagnostics/meal-preintegration-source/data/story/ch1_kasa.json": {
+    "bytes": 256250,
+    "sha256": "12d98203bf74286c06e298f41ee6460f2e73fb15492217ef8bbc7467894dcbb6"
+  },
+  "diagnostics/meal-preintegration-source/game/cutscene/cutscene_checker.gd": {
+    "bytes": 17247,
+    "sha256": "b38e1f01a32eaed27fc7594614ed06d5160cf9f7cc6a4551fe31a3e44f2c5899"
+  },
+  "diagnostics/meal-preintegration-source/game/cutscene/cutscene_player.gd": {
+    "bytes": 27314,
+    "sha256": "d0977f766bcd43b82a17b9cef7421d8e5d3f416b50220a7fb13e747289cf2ff0"
+  },
+  "diagnostics/meal-preintegration-source/game/cutscene/stage_layers.gd": {
+    "bytes": 18650,
+    "sha256": "96528b00a78235ea5eb993777958ae3b20117dca19b673f15f38da1b081f3ba6"
+  },
+  "diagnostics/meal-preintegration-source/game/cutscene/stage_library.gd": {
+    "bytes": 7693,
+    "sha256": "f88788eeba17c1fad03c420dbd94217ddb8446f25c6bcee17b293cf0fc9841f8"
+  },
+  "diagnostics/meal-preintegration-source/tests/suite/test_cutscene.gd": {
+    "bytes": 55054,
+    "sha256": "69ef6934f4ea01e72a09774e57d2afef5c0e0568498fc417492721504f49fe63"
+  },
+  "diagnostics/meal-preintegration-source/tools/assets/check_assets.py": {
+    "bytes": 5324,
+    "sha256": "a74a5d1643edb1748279b8f981ea422a89e376c217bcc7aede626ad0b4f98e80"
+  },
+  "diagnostics/meal-preintegration-source/tools/story/build_ch1_story.py": {
+    "bytes": 32499,
+    "sha256": "c477be6e6c7c58c7f9b51920d7eeca3da0bc2ade5d8e116803ba4ff691ea1e55"
+  },
+  "diagnostics/meal-preintegration-source/tools/story/ch1_runtime_backend.py": {
+    "bytes": 36595,
+    "sha256": "8bdead92a8e27797a73cb0d47b408c43796762b3604ebd688676511f3e6f2bf3"
+  },
+  "diagnostics/meal-prop-candidate-cancel-wrapper.log": {
+    "bytes": 1326,
+    "sha256": "719d28889e1e927ef32c6e6c0faa7af7b9b97f4be246104f24c1b6b098ad23c3"
+  },
+  "diagnostics/meal-prop-candidate-read-wrapper.log": {
+    "bytes": 914,
+    "sha256": "54c85d33c501b7199e3bc83256afd97169343bd6c411f45a0b2050c4f22a00aa"
+  },
+  "diagnostics/meal-prop-candidate-skip-wrapper.log": {
+    "bytes": 1018,
+    "sha256": "9a2d8ec213876390dfc568067372e65276f40a494ddd5792885ed4530da47d8d"
+  },
+  "diagnostics/meal-prop-candidate-write-wrapper.log": {
+    "bytes": 933,
+    "sha256": "0eedfec4345098816376dbcdc23f6d9fbe5615c4af8338bc18fcbd97f38f8f35"
+  },
+  "diagnostics/meal-prop-integrated-normal-wrapper.log": {
+    "bytes": 1134,
+    "sha256": "b89c88ab23e17fbd8993a80304fd6e8809b9ebf7880770b35626b7edf85f9a7a"
+  },
+  "diagnostics/meal-prop-integrated-read-wrapper.log": {
+    "bytes": 915,
+    "sha256": "650606de032b5bafb5c84ad6293158776841d19adae71cc8f2f82a3017402501"
+  },
+  "diagnostics/meal-prop-integrated-write-wrapper.log": {
+    "bytes": 934,
+    "sha256": "4f8bb789103c9337cac670e35253b85a52fc52e0b1a33c0fbc3c08e362a4241d"
+  },
+  "diagnostics/meal-prop-mid-read-v2-wrapper.log": {
+    "bytes": 1301,
+    "sha256": "51b631a814bc201be8330a8cae8077018a976479f225a36873c9fd57a779ac04"
+  },
+  "diagnostics/meal-prop-mid-write-v2-wrapper.log": {
+    "bytes": 726,
+    "sha256": "0327deed66c96e2e1e39f3498b6434a9c6e6f809ea32575a72dcf12634cab374"
+  },
+  "diagnostics/meal-rebase-8140-receipt.json": {
+    "bytes": 171,
+    "sha256": "81d29bfbbbcc62b0fd9c4e4101530dc9817d4e9d5e5304ca2de36ef94c2e3dd7"
+  },
+  "diagnostics/meal-rebase-story-receipt.json": {
+    "bytes": 2698,
+    "sha256": "429e880db9ab04554380859832666bbd5f12c94f8a8d7f9f1e8d2ad33db28bb7"
+  },
+  "diagnostics/stage-asset-check-final.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "diagnostics/stage-asset-check-final.log": {
+    "bytes": 767,
+    "sha256": "69b1287ba5a61182e55891cc7abecede883176df26cc9739c9c71ba3af7b3dec"
+  },
+  "diagnostics/stage-asset-check-v2.log": {
+    "bytes": 767,
+    "sha256": "69b1287ba5a61182e55891cc7abecede883176df26cc9739c9c71ba3af7b3dec"
+  },
+  "diagnostics/stage-asset-check.log": {
+    "bytes": 1324,
+    "sha256": "44004b09a69c7eff9809154ffee7a14c6c28619fc197bbff19d44ef19b0686b2"
+  },
+  "diagnostics/stage-changed.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "diagnostics/stage-changed.log": {
+    "bytes": 2561,
+    "sha256": "11cce8a2521c3aeccb2b3f538486c564636e9180e8c80ba3564c636315ebf15a"
+  },
+  "diagnostics/stage-changed/shard_0.log": {
+    "bytes": 12477,
+    "sha256": "7c19e9343f107b5907e640577e37a18169cf0b3b5201ef7b7923070e3dd28aa9"
+  },
+  "diagnostics/stage-changed/shard_1.log": {
+    "bytes": 69649,
+    "sha256": "9a132d60c396191a1ec3ed8b9d1a93fa72cdb352995f72f1899e79d4827ebb29"
+  },
+  "diagnostics/stage-changed/shard_2.log": {
+    "bytes": 257167,
+    "sha256": "754650600590944ff672e7d62e6f0264cd07260a57bc055c946abf0464fba86f"
+  },
+  "diagnostics/stage-changed/shard_3.log": {
+    "bytes": 15075,
+    "sha256": "ea561081b587baf9f5df00669fc80fde0cbc1898e23bb9563d95ee20d488c5f1"
+  },
+  "diagnostics/stage-changed/shard_4.log": {
+    "bytes": 14730,
+    "sha256": "37aa61e423423ce6db90e54e149e6841f5f760b2bc82be5aa7ff77e686ee1ce9"
+  },
+  "diagnostics/stage-changed/shard_5.log": {
+    "bytes": 176640,
+    "sha256": "94facee2cfef62d09f7da7de6c61e247881113b4fbd13cdd2c84f2ad6f8ef5eb"
+  },
+  "diagnostics/stage-editor.log": {
+    "bytes": 307839,
+    "sha256": "7efbafad0404d1f6e94ed40590535d517eaf5fcf04ab18cd9cfeb4a9da00ff15"
+  },
+  "diagnostics/stage-focused.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "diagnostics/stage-focused.log": {
+    "bytes": 264,
+    "sha256": "01ff820570817eb9906c2acccd61717b7e029c1e31bbe0b573cc3d63d728b124"
+  },
+  "diagnostics/stage-focused/shard_0.log": {
+    "bytes": 247416,
+    "sha256": "bc9473b22a9578f7a2147084c1b8a463f8f7bc8fcc6dc2f5dae5c61586763360"
+  },
+  "diagnostics/stage-rebuild-proof.json": {
+    "bytes": 736,
+    "sha256": "6c4bf51470fbc8b871a8ec5965d84d98c41c3e28d3bf7e6ef7945c89e00ccfaf"
+  },
+  "diagnostics/stage-rebuild.log": {
+    "bytes": 59,
+    "sha256": "8b493b8fc7e1f333fecc5643b22aa5f36a52d9865d43386d08698b3df0941b95"
+  },
+  "diagnostics/stage-story-regenerate.log": {
+    "bytes": 96,
+    "sha256": "27cdf72d22f72e12819d94b929df463ee85bc00b2f117596a43754860868fdd2"
+  },
+  "generation/adopted-tool-artifact.png": {
+    "bytes": 1032016,
+    "sha256": "0d744b24d22b23244baad9d18bd95c6443a89b2199b0fcd38d6932b016c4ae4a"
+  },
+  "native/meal-prop-baseline-v2-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "native/meal-prop-baseline-v2.exit": {
+    "bytes": 1,
+    "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+  },
+  "native/meal-prop-baseline-v2.log": {
+    "bytes": 969,
+    "sha256": "2b7f1077098aa7c2ba147b6c9ece3d837a87ec05151880d8fa375a7e14e5f50c"
+  },
+  "native/meal-prop-baseline-v2/address.png": {
+    "bytes": 530145,
+    "sha256": "487eaff4e4e03f04bfcac00751952d15c7f40b53951408da2d2d7cdb5bb7ca5b"
+  },
+  "native/meal-prop-baseline-v2/meal-full.png": {
+    "bytes": 532981,
+    "sha256": "f6f786e081079081b488666d0b30c073cdc7894c23db60612e957425a1685ac4"
+  },
+  "native/meal-prop-baseline-v2/result.json": {
+    "bytes": 982,
+    "sha256": "3c55781e00a6a82e8aace379aab437dba0a8fae94e8df441fb55caf52c64b6cd"
+  },
+  "native/meal-prop-baseline-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "native/meal-prop-baseline.exit": {
+    "bytes": 3,
+    "sha256": "5e37b37c842d8df7106ee92e2e45beefef71ca60f51f7bb5cb50cb1e81c355a8"
+  },
+  "native/meal-prop-baseline.log": {
+    "bytes": 489,
+    "sha256": "4685f38036574068ee59d1c9005dacba3c1cafafb39363e23559f5fd2e8c8dcc"
+  },
+  "native/meal-prop-candidate-cancel-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "native/meal-prop-candidate-cancel.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "native/meal-prop-candidate-cancel.log": {
+    "bytes": 1291,
+    "sha256": "2acd6082f8f8fc37cfadedcefbabd621fab090accf753875f485777cbd717689"
+  },
+  "native/meal-prop-candidate-cancel/address.png": {
+    "bytes": 531086,
+    "sha256": "ef86d5cdd981e003ad610eb4f15929d3687fecfde4fbf40d08be71509b040866"
+  },
+  "native/meal-prop-candidate-cancel/meal-empty.png": {
+    "bytes": 535163,
+    "sha256": "232d17147d675b2dc98f7f3647417280991db299e2af2eb14e236f61e1cf6aa5"
+  },
+  "native/meal-prop-candidate-cancel/meal-full.png": {
+    "bytes": 532696,
+    "sha256": "e98e70ef28972511f64c01719f24a11b9f3d24897b31837edbfe9ed8b08ffdf5"
+  },
+  "native/meal-prop-candidate-cancel/meal-restarted.png": {
+    "bytes": 533068,
+    "sha256": "bc76be98668bb7074c909259772bb23162d3ffa68f6eec71704dc88295da8527"
+  },
+  "native/meal-prop-candidate-cancel/result.json": {
+    "bytes": 1195,
+    "sha256": "35df5849eaa9f24c14d504ff86e61b1791cea88f29a3943d072053ea554b6326"
+  },
+  "native/meal-prop-candidate-normal-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "native/meal-prop-candidate-normal.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "native/meal-prop-candidate-normal.log": {
+    "bytes": 1098,
+    "sha256": "f13abb83653d4ec8edfc54398f81cef473a15b2952eea29cb67d7fd03d30a3a3"
+  },
+  "native/meal-prop-candidate-normal/address.png": {
+    "bytes": 531037,
+    "sha256": "bd097f3afdafa56acdf7b029460255e59aae8061310d142cb81069dbef9ce6aa"
+  },
+  "native/meal-prop-candidate-normal/meal-empty.png": {
+    "bytes": 534986,
+    "sha256": "bdbdd87d952a98e703ae1f1ae95b4fb7ddf9760b1c18d0975fecbdb55d10cd1f"
+  },
+  "native/meal-prop-candidate-normal/meal-full.png": {
+    "bytes": 533017,
+    "sha256": "600e2ee1bfd3b82b29623fd2b1cc28c4c0edfaa9ac2fe249f7309460173f0954"
+  },
+  "native/meal-prop-candidate-normal/result.json": {
+    "bytes": 983,
+    "sha256": "c97f00ef4ae1e3c183d8d74b1cdb409bc75adcdd984c5b417242445e461c5b7b"
+  },
+  "native/meal-prop-candidate-read-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "native/meal-prop-candidate-read.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "native/meal-prop-candidate-read.log": {
+    "bytes": 881,
+    "sha256": "b1e9508d59902362ea4b97d2f9a51e4592e6af0afbc18b81cdc6b93815bee99f"
+  },
+  "native/meal-prop-candidate-read/address.png": {
+    "bytes": 531366,
+    "sha256": "4dcc41268f228a2db1dab4b80da3a26ee2194354cfb6484460eb0bc7efc8c80f"
+  },
+  "native/meal-prop-candidate-read/result.json": {
+    "bytes": 421,
+    "sha256": "ea9d44c14c5ca3c56726131c28f18c6c0d73dbdd0342d9eae5000530d20fcbcd"
+  },
+  "native/meal-prop-candidate-skip-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "native/meal-prop-candidate-skip.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "native/meal-prop-candidate-skip.log": {
+    "bytes": 985,
+    "sha256": "461bd6bdc5f7077be82a47c2ecda741f869561246f3a254f4f4357f4ac9f3029"
+  },
+  "native/meal-prop-candidate-skip/address.png": {
+    "bytes": 531161,
+    "sha256": "caed735893f90bf0e2b4b89f6ac25c533a79000cb1a526596a4a62359aac20f0"
+  },
+  "native/meal-prop-candidate-skip/meal-full.png": {
+    "bytes": 532919,
+    "sha256": "56d83a473fde2643100b0cc13c84896a9ed1e785836ca58d1c68b66352ba253d"
+  },
+  "native/meal-prop-candidate-skip/result.json": {
+    "bytes": 775,
+    "sha256": "f9f899762f0d85ea4bbfcc32275687097ebc173aa29aff5529c5e9b53657d372"
+  },
+  "native/meal-prop-candidate-write-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "native/meal-prop-candidate-write.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "native/meal-prop-candidate-write.log": {
+    "bytes": 899,
+    "sha256": "71c217573779b8ad307cc703bb2a26d250805db9036f7bd1d89155ea84954bad"
+  },
+  "native/meal-prop-candidate-write/address.png": {
+    "bytes": 530929,
+    "sha256": "9a061590939682a5a7405ba366282d922006c43f57acbd0be206f29295e35c1d"
+  },
+  "native/meal-prop-candidate-write/meal-empty.png": {
+    "bytes": 535125,
+    "sha256": "dcbed048d1468d6d24b4f1673d12fbeaf575cab749723b4b385d0cdb30669c70"
+  },
+  "native/meal-prop-candidate-write/meal-full.png": {
+    "bytes": 532907,
+    "sha256": "98fe2c40e512336426a8614a976f34f253d8996e385c4a14f2c064ae12fa79e7"
+  },
+  "native/meal-prop-candidate-write/result.json": {
+    "bytes": 946,
+    "sha256": "247f3aea8b2ad6d6f996b0ced4c29dd3da25e9e913acc702fcef8614ab6ed887"
+  },
+  "native/meal-prop-integrated-normal-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "native/meal-prop-integrated-normal.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "native/meal-prop-integrated-normal.log": {
+    "bytes": 1098,
+    "sha256": "f13abb83653d4ec8edfc54398f81cef473a15b2952eea29cb67d7fd03d30a3a3"
+  },
+  "native/meal-prop-integrated-normal/address.png": {
+    "bytes": 531270,
+    "sha256": "1bcdbeb4fe6b07a3873f8eb095391d0e6dc7a47af404ebfcaa0669248de84577"
+  },
+  "native/meal-prop-integrated-normal/meal-empty.png": {
+    "bytes": 535159,
+    "sha256": "968ffc7266948e9b8b3a9d522816b049b4038c661690537cfd83515752ff9ed3"
+  },
+  "native/meal-prop-integrated-normal/meal-full.png": {
+    "bytes": 532882,
+    "sha256": "98c4d2d4c431c03056963fcf1d467ebede7d67ab5d4e7370e8a2317ca59789e8"
+  },
+  "native/meal-prop-integrated-normal/result.json": {
+    "bytes": 983,
+    "sha256": "c97f00ef4ae1e3c183d8d74b1cdb409bc75adcdd984c5b417242445e461c5b7b"
+  },
+  "native/meal-prop-integrated-read-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "native/meal-prop-integrated-read.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "native/meal-prop-integrated-read.log": {
+    "bytes": 881,
+    "sha256": "b1e9508d59902362ea4b97d2f9a51e4592e6af0afbc18b81cdc6b93815bee99f"
+  },
+  "native/meal-prop-integrated-read/address.png": {
+    "bytes": 530296,
+    "sha256": "3dd2ac796e32a708f39b0ed8169d338ddc30df58fa07a12b739e2d088f6330f8"
+  },
+  "native/meal-prop-integrated-read/result.json": {
+    "bytes": 421,
+    "sha256": "ea9d44c14c5ca3c56726131c28f18c6c0d73dbdd0342d9eae5000530d20fcbcd"
+  },
+  "native/meal-prop-integrated-write-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "native/meal-prop-integrated-write.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "native/meal-prop-integrated-write.log": {
+    "bytes": 899,
+    "sha256": "71c217573779b8ad307cc703bb2a26d250805db9036f7bd1d89155ea84954bad"
+  },
+  "native/meal-prop-integrated-write/address.png": {
+    "bytes": 531020,
+    "sha256": "1a0d99d7c263c8f71396e976ec8ebe1399077145766a9f79463b252ced935627"
+  },
+  "native/meal-prop-integrated-write/meal-empty.png": {
+    "bytes": 535295,
+    "sha256": "1a9bd5f62444cc57bdd37060800a18ebaf1b7ae9951c2f7408013064a72bcab0"
+  },
+  "native/meal-prop-integrated-write/meal-full.png": {
+    "bytes": 532910,
+    "sha256": "d5b8ab40130d535decf10f00281519c6c39d486a0fe3750d07821a58edbf9cb2"
+  },
+  "native/meal-prop-integrated-write/result.json": {
+    "bytes": 946,
+    "sha256": "247f3aea8b2ad6d6f996b0ced4c29dd3da25e9e913acc702fcef8614ab6ed887"
+  },
+  "native/meal-prop-mid-read-v2-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "native/meal-prop-mid-read-v2.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "native/meal-prop-mid-read-v2.log": {
+    "bytes": 1271,
+    "sha256": "4140abd348188b2e8566c614f76dc44c26c1a63bacfd5677c65110fc82991725"
+  },
+  "native/meal-prop-mid-read-v2/address.png": {
+    "bytes": 531008,
+    "sha256": "1a5495c8cddb3c0fccd279b6818e3ba39dbce27c0d8b78275702a58f193a0d5b"
+  },
+  "native/meal-prop-mid-read-v2/meal-empty.png": {
+    "bytes": 535057,
+    "sha256": "b8672b0e70b906bb576a0d4ad936327b901cf0ce8f7919f764201579562404ad"
+  },
+  "native/meal-prop-mid-read-v2/meal-full.png": {
+    "bytes": 533024,
+    "sha256": "6088a0749103ac13258276503696cd821904559f8ba136a95193ae50e785f9b8"
+  },
+  "native/meal-prop-mid-read-v2/mid-probe-source.json": {
+    "bytes": 158,
+    "sha256": "a7d9d9b0d8a4ee0efcfefa85e894fba09213e16e6af738baf95f44a774c437cc"
+  },
+  "native/meal-prop-mid-read-v2/result.json": {
+    "bytes": 868,
+    "sha256": "0e2b2748c5d5ad40ace50a6e559d41fa36460a3efade79f329425a7ac49616c5"
+  },
+  "native/meal-prop-mid-write-v2-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "native/meal-prop-mid-write-v2.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "native/meal-prop-mid-write-v2.log": {
+    "bytes": 695,
+    "sha256": "79caa810b3070d834c5c9b3a5ea52cd14a746a9e90c8a55a5a100546e7a2ab79"
+  },
+  "native/meal-prop-mid-write-v2/meal-empty.png": {
+    "bytes": 535109,
+    "sha256": "efde95fc04431a1cdb8c6f959528da5e2898b92eb0fac64c6a520b81c0f60359"
+  },
+  "native/meal-prop-mid-write-v2/meal-full.png": {
+    "bytes": 533077,
+    "sha256": "d64b8f9c9490772fb54cf12d8b7a1a4fdae9e38740a2ad3ad8566885eb22d0be"
+  },
+  "native/meal-prop-mid-write-v2/mid-probe-source.json": {
+    "bytes": 158,
+    "sha256": "a7d9d9b0d8a4ee0efcfefa85e894fba09213e16e6af738baf95f44a774c437cc"
+  },
+  "native/meal-prop-mid-write-v2/result.json": {
+    "bytes": 706,
+    "sha256": "d58b3480c8fbc7c201e0766d54287c44fd19c7db85793be34078133289b47951"
+  },
+  "native/meal-prop-mid-write-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "native/meal-prop-mid-write.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "native/meal-prop-mid-write.log": {
+    "bytes": 1030,
+    "sha256": "052f62082a25b92dfe270e666414f195a9c55f25ce20aedca368d3beb3028f25"
+  },
+  "native/meal-prop-mid-write/meal-empty.png": {
+    "bytes": 534641,
+    "sha256": "e92bec87961c505538e25031cfa6a8d7fe63c60d15a2280e13233115688c49e0"
+  },
+  "native/meal-prop-mid-write/meal-full.png": {
+    "bytes": 532803,
+    "sha256": "33ebd1a2d93c473d4347628c1e2ed837cbef3cb8585974c3fb7aa5be39cc14e3"
+  },
+  "native/meal-prop-mid-write/mid-probe-source.json": {
+    "bytes": 158,
+    "sha256": "51af341b0a2bd0f60d2abbead481792b7718f5c352c01fdbdf4e7a8183a20ab9"
+  },
+  "native/meal-prop-mid-write/result.json": {
+    "bytes": 847,
+    "sha256": "d457671bb539df42392a32fde211dd7d28bfe6caef92c3af25462d8c2fcb67d6"
+  },
+  "references/972660-0.jpg": {
+    "bytes": 236780,
+    "sha256": "24464047395103fb1812febdfbc01c7f577c4fcb7b999ec18a4f72be0e52a582"
+  },
+  "references/972660-1.jpg": {
+    "bytes": 501281,
+    "sha256": "f45a32fdaa27586664ebbb68e01a66b6e970e6d3882ecf913d88c648e1449f29"
+  },
+  "references/972660-2.jpg": {
+    "bytes": 237968,
+    "sha256": "80493ba95e88b7d1df5fc5e31c8f799db921157793ec3c0d8cb405346f644eb4"
+  },
+  "references/977880-0.jpg": {
+    "bytes": 680772,
+    "sha256": "821fcc0482614f701d01f4bc67a0fe94a0ed0c3eac487827731ec09953864237"
+  },
+  "references/977880-1.jpg": {
+    "bytes": 483653,
+    "sha256": "78c57bd9f12e3d0264c30d2bd234ef17c4e0c9b7a8f032f5c5aac1fc1129c768"
+  },
+  "references/977880-2.jpg": {
+    "bytes": 435040,
+    "sha256": "7aa499a56552cf50d514d2752188ef062287554e5fdc59449aa356f147138b63"
+  },
+  "references/sources.json": {
+    "bytes": 2243,
+    "sha256": "b5fff12dea416fb37980590187d45d8c7a689074d891188ecf5d66666408a4d9"
+  },
+  "rejected/both-empty.png": {
+    "bytes": 1004987,
+    "sha256": "d661afaba2d04443b7bb5ec6f7a40f7a1aa53b2c5e50e334211c94190985e60b"
+  },
+  "replay/integrate-stage.py": {
+    "bytes": 2897,
+    "sha256": "e5677ce750b21dbe3371642809c4bc062da13d7f3705173b63541093f24be765"
+  },
+  "replay/meal-baseline-v2.py": {
+    "bytes": 1716,
+    "sha256": "a159829b9c08cff9b8b219df8d01bd2831b55e352dd1fc5e002c44077241a3cd"
+  },
+  "replay/meal-baseline.py": {
+    "bytes": 1704,
+    "sha256": "c1fd0af5be40100bfe25b9e1784ddbd5f1b2289cdb96341ec2778d9950e4a0bb"
+  },
+  "replay/meal_prop_mid_probe.gd": {
+    "bytes": 2676,
+    "sha256": "2cd5179dd670a0da587d109401fd6813d9fc4444f311679cd2deb6bb202cce49"
+  },
+  "replay/meal_prop_mid_probe.tscn": {
+    "bytes": 179,
+    "sha256": "b50b33ef4b21b9c86aed22fdebf9be48f511e3bff139924e9d59785ff5909e5a"
+  },
+  "replay/meal_prop_mid_probe_v1.gd": {
+    "bytes": 1408,
+    "sha256": "370b690246ce8b524afa2d1f35b36cbeb713d6b5ee1e93cbb88915b7467c90e4"
+  },
+  "replay/meal_prop_probe.gd": {
+    "bytes": 8249,
+    "sha256": "2a397400566477ccd195f9400e244c7dc778761271e802384dd88d75ce39c744"
+  },
+  "replay/meal_prop_probe.tscn": {
+    "bytes": 172,
+    "sha256": "61b3ddce869c4d3a6ebd985f95f41807bbf94e5f2e5520571073a99bbdbbb4fb"
+  },
+  "replay/st9-ci.log": {
+    "bytes": 447018,
+    "sha256": "49da77f2f956421dd43a866697085b6f6f056542133343582826f21683f7c144"
+  },
+  "replay/test-harness-unchanged.json": {
+    "bytes": 583,
+    "sha256": "21b7afff7aae0a580b4c195e93c0b0cc320bd6a3464e2a9d984a98555f4df644"
+  },
+  "source/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty.png": {
+    "bytes": 1032016,
+    "sha256": "0d744b24d22b23244baad9d18bd95c6443a89b2199b0fcd38d6932b016c4ae4a"
+  },
+  "source/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty.png.import": {
+    "bytes": 1063,
+    "sha256": "d47c3f869e6269240a8320100b5e71b91fdbdc40aa3fa008008f56fb0839fe78"
+  },
+  "source/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty_n.png": {
+    "bytes": 185801,
+    "sha256": "14d4c240702844009d516fa3b6f26fa439c2e3d5f3eab6f7cb6cdf844f212c6d"
+  },
+  "source/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty_n.png.import": {
+    "bytes": 1069,
+    "sha256": "140e3b09f4d780a91d0a10da358be1e7e91114075edabfc4cb396257a87bcd49"
+  },
+  "source/after/assets_src/pipeline/story_prop_states.json": {
+    "bytes": 2077,
+    "sha256": "20ecfc7661a90aa8a89c5c11f843c3f8a877ace071a7b2dd57b8cff1f8d215ed"
+  },
+  "source/after/assets_src/story_props/empty_bowl_prompt.txt": {
+    "bytes": 1050,
+    "sha256": "3a75b2ac20624c93897da98aba4bb8c2777db24932ec0ea8a8a54003573de13b"
+  },
+  "source/after/assets_src/story_props/noodle_table_empty.png": {
+    "bytes": 1032016,
+    "sha256": "0d744b24d22b23244baad9d18bd95c6443a89b2199b0fcd38d6932b016c4ae4a"
+  },
+  "source/after/core/asset_prefetch.gd": {
+    "bytes": 23788,
+    "sha256": "67d195694b3170c520ee6302f78dd44dca6d8a735fdeec15688aa503f1dbbe02"
+  },
+  "source/after/data/cutscene/stages/ch1_dawn_noodle_stall.json": {
+    "bytes": 2650,
+    "sha256": "9e93872d3236d844f1574cd6cb2809e96dd1f38b7df748d835bc0e2083bca054"
+  },
+  "source/after/data/story/ch1_kasa.json": {
+    "bytes": 256501,
+    "sha256": "45fea482df7f2059ff4e5e6b04cf7b5d571013f3803fd263702f51b6e9b09238"
+  },
+  "source/after/game/cutscene/cutscene_checker.gd": {
+    "bytes": 17247,
+    "sha256": "b38e1f01a32eaed27fc7594614ed06d5160cf9f7cc6a4551fe31a3e44f2c5899"
+  },
+  "source/after/game/cutscene/cutscene_player.gd": {
+    "bytes": 27314,
+    "sha256": "d0977f766bcd43b82a17b9cef7421d8e5d3f416b50220a7fb13e747289cf2ff0"
+  },
+  "source/after/game/cutscene/stage_layers.gd": {
+    "bytes": 18650,
+    "sha256": "96528b00a78235ea5eb993777958ae3b20117dca19b673f15f38da1b081f3ba6"
+  },
+  "source/after/game/cutscene/stage_library.gd": {
+    "bytes": 7693,
+    "sha256": "f88788eeba17c1fad03c420dbd94217ddb8446f25c6bcee17b293cf0fc9841f8"
+  },
+  "source/after/tests/helpers/stage_prop_state_checks.gd": {
+    "bytes": 3663,
+    "sha256": "3df608bce574ff18aa2fc7c483b4e99e290aa13c62e93f7c4f61c20839b6ee15"
+  },
+  "source/after/tests/helpers/stage_prop_state_checks.gd.uid": {
+    "bytes": 18,
+    "sha256": "a2edf455cbcb5fe85cac378cfa1dbf3deec51f4a68ea4e0c106f1fcb58b6fcf2"
+  },
+  "source/after/tests/suite/test_cutscene.gd": {
+    "bytes": 55128,
+    "sha256": "5cd42a8af41e4fae033e46732f69c4ed8d35cd79ac16cc014a9d5082e01aeb0e"
+  },
+  "source/after/tools/assets/check_assets.py": {
+    "bytes": 5324,
+    "sha256": "a74a5d1643edb1748279b8f981ea422a89e376c217bcc7aede626ad0b4f98e80"
+  },
+  "source/after/tools/assets/story_prop_states.py": {
+    "bytes": 1430,
+    "sha256": "3df01b81e263f7e7b42b488a3aa34c249b318ed94efe1a847e16d85bf6ad58b7"
+  },
+  "source/after/tools/story/build_ch1_story.py": {
+    "bytes": 32499,
+    "sha256": "c477be6e6c7c58c7f9b51920d7eeca3da0bc2ade5d8e116803ba4ff691ea1e55"
+  },
+  "source/after/tools/story/ch1_runtime_backend.py": {
+    "bytes": 36925,
+    "sha256": "6394878d6453644ba663f3b7184f664755e697d47a5304da19588fc9a080ec95"
+  },
+  "source/before/core/asset_prefetch.gd": {
+    "bytes": 23560,
+    "sha256": "76cda5703988cfda888ce86f73d65bf52e8f0cb79800805a9f59167cb47fc528"
+  },
+  "source/before/data/cutscene/stages/ch1_dawn_noodle_stall.json": {
+    "bytes": 2474,
+    "sha256": "0ce8b1bba87d03f0c2a08d71cf1004f8109aec2046e899596ee151cea87e49bf"
+  },
+  "source/before/data/story/ch1_kasa.json": {
+    "bytes": 256360,
+    "sha256": "f5a48f95c7638611eff1b19574de0618f67686b538d83debf98264dfbccc0ab6"
+  },
+  "source/before/game/cutscene/cutscene_checker.gd": {
+    "bytes": 15976,
+    "sha256": "1c587512d72f36c2f03477bc332bedaf1780df414305c68099cf5341a3160c78"
+  },
+  "source/before/game/cutscene/cutscene_player.gd": {
+    "bytes": 26537,
+    "sha256": "f0cb0e12895fd87e462849c5860fa6da009d5e3ebe9904be4765c93053d2c292"
+  },
+  "source/before/game/cutscene/stage_layers.gd": {
+    "bytes": 16160,
+    "sha256": "1142658a6683fad14ef11a30f527bbeda66abf3565cc348c35d6d33f865e0d36"
+  },
+  "source/before/game/cutscene/stage_library.gd": {
+    "bytes": 6777,
+    "sha256": "5900be3c7ec97c6b69187a62f0708d4fe49acc9a500817c1a20e153560264cf7"
+  },
+  "source/before/tests/suite/test_cutscene.gd": {
+    "bytes": 55059,
+    "sha256": "0164daf6247580f23d926baa450552b9f971cd55dc922ce371f6e66c7b623d9a"
+  },
+  "source/before/tools/assets/check_assets.py": {
+    "bytes": 5100,
+    "sha256": "c8bcf7726d78136feb28a3e8ca8fb8e9ec8e4dad043421cb1f291d85c5ecebd6"
+  },
+  "source/before/tools/story/build_ch1_story.py": {
+    "bytes": 32320,
+    "sha256": "c923d0aea9fdc9c9b9bd810744ad36a8f2b0261abd2b3fb6d9194530e1d5a98b"
+  },
+  "source/before/tools/story/ch1_runtime_backend.py": {
+    "bytes": 36322,
+    "sha256": "10a7421e13cb7f42c56752415de8dc92fccfe4e691e9195283cc4c5574ca2782"
+  },
+  "source/change.patch": {
+    "bytes": 19952,
+    "sha256": "c093dd14a9d201eb93c6a866ea03d5f2ea17fd5e31835b6ff4a517703744b0b7"
+  }
+}

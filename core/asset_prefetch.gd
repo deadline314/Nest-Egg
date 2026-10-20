@@ -607,6 +607,11 @@ static func _add_stage(paths: PackedStringArray, stage_id: StringName) -> void:
 	for layer: Variant in (json.data as Dictionary).get("layers", []):
 		if typeof(layer) == TYPE_DICTIONARY and str(layer.get("kind", "")) == "sprite":
 			_add_with_variants(paths, str(layer.get("path", "")))
+			var states: Variant = layer.get("states", {})
+			if states is Dictionary:
+				for state: Variant in states.values():
+					if state is Dictionary and state.get("path") is String:
+						_add_with_variants(paths, state["path"])
 
 
 static func _add_rig_parts(paths: PackedStringArray, skin: String) -> void:

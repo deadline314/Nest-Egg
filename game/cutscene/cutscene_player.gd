@@ -79,6 +79,7 @@ func _init() -> void:
 		"narrate": _do_narrate, "title": _do_title, "fx": _do_fx, "sfx": _do_sfx, "wait": _do_wait,
 		"fade": _do_fade, "transition": _do_transition, "end": _do_end,
 		"choice": _do_choice, "branch": _do_branch,
+		"prop": _do_prop,
 	}
 
 
@@ -363,6 +364,11 @@ static func _vec(value: Variant, fallback: Vector2) -> Vector2:
 # 步驟
 # ---------------------------------------------------------------------------
 
+func _do_prop(step: Dictionary) -> void:
+	if _stage == null or not _stage.set_prop_state(str(step.get("id", "")), str(step.get("state", ""))):
+		push_error("[Cutscene] %s: prop state unavailable: %s/%s" % [_current_where, step.get("id", ""), step.get("state", "")])
+
+
 func _do_scene(step: Dictionary) -> void:
 	var id := StringName(str(step.get("id", "")))
 	if not StageLibrary.exists(id):
@@ -372,6 +378,13 @@ func _do_scene(step: Dictionary) -> void:
 		_stage.queue_free()
 		_actors.clear()
 	_stage = StageLibrary.build(id)
+	var initial_states: Variant = step.get("prop_states", {})
+	if initial_states is Dictionary and initial_states.size() <= 8:
+		for prop: Variant in initial_states:
+			if not prop is String or not initial_states[prop] is String or not _stage.set_prop_state(prop, initial_states[prop]):
+				push_error("[Cutscene] %s: initial prop state unavailable: %s" % [_current_where, prop])
+	else:
+		push_error("[Cutscene] %s: prop_states must be an object with at most eight entries" % _current_where)
 	_stage_holder.add_child(_stage)
 	cam_pos = _vec(step.get("pos"), _stage.default_camera_pos)
 	cam_zoom = float(step.get("zoom", _stage.default_camera_zoom))

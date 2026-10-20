@@ -36,6 +36,10 @@ def pipeline_sources() -> list[tuple[str, str]]:
             if not isinstance(entries, list):
                 continue
             for e in entries:
+                # Other pipeline files also contain scalar metadata arrays
+                # (canvas dimensions, placement IDs, import glob patterns).
+                if not isinstance(e, dict):
+                    continue
                 for field in ("source", "model"):
                     if field in e:
                         found.append((f"{path.name}:{e.get('id', '?')}", e[field]))

@@ -509,3 +509,9 @@ GPU工作用 `tools/comfyui/gpu_lock.py` 與 `comfy_guard.py` 的現有共享鎖
 NE-240 本輪只補一次性反應既有記憶在整輪保存中遺失的缺口。[證據與界線](Nest-Egg/attachments/NE-240-reaction-save/README.md)。正式角色目前沒有 once=true，不能把明示fixture稱為正式頻率變更，亦不代稱手部動作、調查／修理或實體裝置驗收。票保持進行中。 完整CI已通過95,837項，0新／已知失敗（[8140fcc7](https://github.com/deadline314/Nest-Egg/actions/runs/39503750131)）。
 
 2026-10-21（ST-9）：交盤、取回執、留摘要與晚飯的獨立段落須先保存成功再公開結果，通知回呼中的普通花費及NEW閱讀要重抓現況補存；[本輪負控制、重試與冷續玩](ST/attachments/ST-9-terminal-results/README.md)。原生擷取的文字區域需換算實際UI倍率，探針錯誤保留，不能當成產品失敗或假通過。
+
+2026-10-21（ST-9）：獨立段落保存交付的完整CI已通過95,840項，0新／已知失敗（[fe07d7e0](https://github.com/deadline314/Nest-Egg/actions/runs/39506135146)）。本機曾有一次原生崩潰，基準對照、原條件重跑與未定位的界線仍保留在原附件，CI通過不抹除該次失敗。
+
+2026-10-21（ST-10）：同一舞台物件的前後狀態須由具名資料選定；跨段重新建立與冷續玩不能依賴上一個Node殘留。[吃麵前後、取消／跳過／續玩、Spiritfarer與Eastward參考圖及生成來源](ST/attachments/ST-10-meal-props/README.md)。只有台詞說吃完的左碗清空，不能把另一碗一起改掉；生成變體的外區不是逐像素保留，必須再看桌椅支撐。完整進食、關爐、裝水與手部接觸仍按原票驗收。
+
+本輪重新核對狀態： [56張未完成與逐票未勾條件](unfinished-tickets-2026-10-21-latest.csv)、[55張審查中](review-tickets-2026-10-21-latest.csv)。本批三項修正分票合入，未以局部交付代勾完整動作或實體驗收。

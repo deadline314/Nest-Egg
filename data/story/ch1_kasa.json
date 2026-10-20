@@ -5344,6 +5344,11 @@
      "en": "If people remember it as sweet, they can come back. If it's too sweet, they can tell me. I want to open my own stall, so first I need someone to say when it's bad."
     },
     {
+     "do": "prop",
+     "id": "noodle_table",
+     "state": "eaten"
+    },
+    {
      "do": "say",
      "speaker": "rin",
      "text": "這碗我吃完了，還沒找到不好吃的地方。",
@@ -5364,7 +5369,10 @@
       262
      ],
      "zoom": 1.3,
-     "fade": 0.6
+     "fade": 0.6,
+     "prop_states": {
+      "noodle_table": "eaten"
+     }
     },
     {
      "do": "actor",

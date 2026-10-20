@@ -1,0 +1,101 @@
+{
+  "base": "ddbb6248dc4b469e5286108ae421aa1effb0d5fe",
+  "integration_main": "fe07d7e0c49f9226b47b8ef315fa3ed6e6b38325",
+  "changed_summary": "checks: 65544, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 988 s)",
+  "native": {
+    "meal-prop-baseline-v2": {
+      "checks": 13,
+      "failures": [
+        "actual chosen meal starts with full Rin bowl",
+        "new address stage already reconstructs eaten bowl at its first dialogue",
+        "normal formal meal actually reaches after-eating state"
+      ],
+      "probe_sha256": "2a397400566477ccd195f9400e244c7dc778761271e802384dd88d75ce39c744",
+      "exit": 1,
+      "engine_errors": 0
+    },
+    "meal-prop-candidate-normal": {
+      "checks": 15,
+      "failures": [],
+      "probe_sha256": "2a397400566477ccd195f9400e244c7dc778761271e802384dd88d75ce39c744",
+      "exit": 0,
+      "engine_errors": 0
+    },
+    "meal-prop-candidate-cancel": {
+      "checks": 18,
+      "failures": [],
+      "probe_sha256": "2a397400566477ccd195f9400e244c7dc778761271e802384dd88d75ce39c744",
+      "exit": 0,
+      "engine_errors": 0
+    },
+    "meal-prop-candidate-skip": {
+      "checks": 13,
+      "failures": [],
+      "probe_sha256": "2a397400566477ccd195f9400e244c7dc778761271e802384dd88d75ce39c744",
+      "exit": 0,
+      "engine_errors": 0
+    },
+    "meal-prop-candidate-write": {
+      "checks": 12,
+      "failures": [],
+      "probe_sha256": "2a397400566477ccd195f9400e244c7dc778761271e802384dd88d75ce39c744",
+      "exit": 0,
+      "engine_errors": 0
+    },
+    "meal-prop-candidate-read": {
+      "checks": 6,
+      "failures": [],
+      "probe_sha256": "2a397400566477ccd195f9400e244c7dc778761271e802384dd88d75ce39c744",
+      "exit": 0,
+      "engine_errors": 0
+    },
+    "meal-prop-integrated-normal": {
+      "checks": 15,
+      "failures": [],
+      "probe_sha256": "2a397400566477ccd195f9400e244c7dc778761271e802384dd88d75ce39c744",
+      "exit": 0,
+      "engine_errors": 0
+    },
+    "meal-prop-integrated-write": {
+      "checks": 12,
+      "failures": [],
+      "probe_sha256": "2a397400566477ccd195f9400e244c7dc778761271e802384dd88d75ce39c744",
+      "exit": 0,
+      "engine_errors": 0
+    },
+    "meal-prop-integrated-read": {
+      "checks": 6,
+      "failures": [],
+      "probe_sha256": "2a397400566477ccd195f9400e244c7dc778761271e802384dd88d75ce39c744",
+      "exit": 0,
+      "engine_errors": 0
+    },
+    "meal-prop-mid-write": {
+      "checks": 13,
+      "failures": [
+        "real Ali interaction completes authored meal and address chain",
+        "each actual segment completes once despite stage replacement"
+      ],
+      "probe_sha256": "2a397400566477ccd195f9400e244c7dc778761271e802384dd88d75ce39c744",
+      "exit": 0,
+      "engine_errors": 0
+    },
+    "meal-prop-mid-write-v2": {
+      "checks": 9,
+      "failures": [],
+      "probe_sha256": "2a397400566477ccd195f9400e244c7dc778761271e802384dd88d75ce39c744",
+      "exit": 0,
+      "engine_errors": 0
+    },
+    "meal-prop-mid-read-v2": {
+      "checks": 12,
+      "failures": [],
+      "probe_sha256": "2a397400566477ccd195f9400e244c7dc778761271e802384dd88d75ce39c744",
+      "exit": 0,
+      "engine_errors": 0
+    }
+  },
+  "zip_bytes": 22525038,
+  "zip_sha256": "90b47e6a1c7809eefd1d8717c6647cf21f2c11ec76f210b0ec22e6e993d857f8",
+  "files": 222
+}

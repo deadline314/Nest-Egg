@@ -61,7 +61,13 @@
    "scale": 0.17,
    "filter": "linear",
    "glow": true,
-   "source_width": 304
+   "source_width": 304,
+   "id": "noodle_table",
+   "states": {
+    "eaten": {
+     "path": "res://art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty.png"
+    }
+   }
   },
   {
    "kind": "sprite",

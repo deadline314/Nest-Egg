@@ -547,6 +547,14 @@ def _stage_talks(scenes):
             actions = _stage_actions(spec.get("actions", {}).get(ident, ()), floor)
             choice_at = next((i for i, step in enumerate(body) if step.get("do") == "choice"), len(body))
             steps = [legacy.stage(stage_id, x, y, zoom, fade_in)] + cast + legacy.spaced(body[:choice_at]) + actions + body[choice_at:]
+            if ident == "ch1_t_supper_stay_meal":
+                # The last line explicitly says Rin has finished her bowl.
+                # Apply the visible state before that line, never award results here.
+                last_say = max(i for i, step in enumerate(steps) if step.get("do") == "say")
+                steps.insert(last_say, {"do": "prop", "id": "noodle_table", "state": "eaten"})
+            elif ident == "ch1_t_supper_stay_address":
+                # A new stage instance must reconstruct the already-eaten state.
+                steps[0]["prop_states"] = {"noodle_table": "eaten"}
             ends = not scene.get("then") and not any(s.get("do") == "choice" for s in body)
             if ends:
                 steps.append(legacy.fade(1.0, STAGE_FADE_OUT))

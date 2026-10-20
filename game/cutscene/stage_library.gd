@@ -52,12 +52,21 @@ static func validate(id: StringName) -> PackedStringArray:
 		problems.append("過場場景 %s 沒有任何圖層" % id)
 		return problems
 	var index := 0
+	var prop_ids := {}
 	for layer: Variant in layers:
 		index += 1
 		if typeof(layer) != TYPE_DICTIONARY:
 			problems.append("過場場景 %s 第 %d 層不是物件" % [id, index])
 			continue
 		var kind := str(layer.get("kind", ""))
+		var state_issue := StageLayers.prop_state_problem(layer)
+		if not state_issue.is_empty():
+			problems.append("過場場景 %s 第 %d 層: %s" % [id, index, state_issue])
+		if layer.has("id"):
+			var prop_id := str(layer["id"])
+			if prop_ids.has(prop_id):
+				problems.append("過場場景 %s 有重複物件: %s" % [id, prop_id])
+			prop_ids[prop_id] = true
 		if not StageLayers.KINDS.has(kind):
 			problems.append("過場場景 %s 第 %d 層種類「%s」不存在" % [id, index, kind])
 			continue
@@ -134,6 +143,7 @@ class Stage:
 	var back := Node2D.new()
 	var actors := Node2D.new()
 	var front := Node2D.new()
+	var _props: Dictionary = {}
 
 	func _init() -> void:
 		# 背景各層排在所有演員零件之下、前景各層排在其上；演員零件的 z 從 -9 到 +7（後側的手腳零件比背景預設的 0 還低）。
@@ -145,7 +155,20 @@ class Stage:
 		actors.y_sort_enabled = true
 
 	func add_layer(node: Node2D) -> void:
+		if node.has_meta(&"prop_id"):
+			var id := str(node.get_meta(&"prop_id"))
+			if _props.has(id):
+				push_error("[Stage] %s duplicate prop: %s" % [stage_id, id])
+				node.free()
+				return
+			_props[id] = node
 		(front if str(node.get_meta(&"depth", "back")) == "front" else back).add_child(node)
+
+	func set_prop_state(id: String, state: String) -> bool:
+		return _props.has(id) and _props[id] is StageLayers._Sprite and _props[id].set_prop_state(state)
+
+	func prop_state(id: String) -> String:
+		return _props[id].prop_state() if _props.has(id) and _props[id] is StageLayers._Sprite else ""
 
 	## 依鏡頭位置更新各層視差：parallax 1 = 隨舞台、0 = 固定在畫面。
 	func apply_parallax(camera_pos: Vector2) -> void:
