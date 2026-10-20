@@ -106,6 +106,8 @@ func was_transferred(id: StringName) -> bool:
 
 ## 只有已知且目前持有的原件可交付一次；失敗沒有任何效果。
 func transfer(id: StringName) -> bool:
+	if Story.result_publication_active():
+		return false
 	var item := find(id)
 	if item == null:
 		push_warning("[StoryItems] transfer/%s 未知道具，交付未生效" % id)
@@ -144,6 +146,8 @@ func mark_seen(id: StringName) -> void:
 
 ## 首次取得道具。已取得史即拒絕，交出後也不重新發放。
 func acquire(id: StringName, announce := true) -> bool:
+	if Story.result_publication_active():
+		return false
 	var item := find(id)
 	if item == null:
 		push_warning("[StoryItems] 找不到劇情道具：%s" % id)

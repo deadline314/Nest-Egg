@@ -35,6 +35,7 @@ var _steps_done: Dictionary[StringName, int] = {}
 
 
 func run() -> void:
+	preload("res://tests/helpers/story_batch_preflight_checks.gd").run(self)
 	await _test_story_features()
 	await _test_story_custody()
 	await _test_story_runtime()

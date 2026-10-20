@@ -1,0 +1,92 @@
+{
+  "base": "ddbb6248dc4b469e5286108ae421aa1effb0d5fe",
+  "changed_summary": "checks: 65524, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 501 s)",
+  "native": {
+    "terminal-baseline-native-v3": {
+      "checks": 11,
+      "failures": [
+        "refusal preserves all wallet/item/flag/completion facts: ch1_t_handoff_accept",
+        "refusal keeps original NPC waiter and talk count",
+        "failed write retains an actual retryable presentation"
+      ],
+      "exit": 1,
+      "engine_errors": 0
+    },
+    "terminal-candidate-negative-v3": {
+      "checks": 11,
+      "failures": [],
+      "exit": 0,
+      "engine_errors": 0
+    },
+    "terminal-candidate-native-v3": {
+      "checks": 73,
+      "failures": [],
+      "exit": 0,
+      "engine_errors": 0
+    },
+    "terminal-candidate-cold-v3": {
+      "checks": 5,
+      "failures": [],
+      "exit": 0,
+      "engine_errors": 0
+    },
+    "terminal-recovery-control-v4": {
+      "checks": 14,
+      "failures": [
+        "same existing prompt refreshes to original-backup recovery instead of retrying an unsafe write"
+      ],
+      "exit": 1,
+      "engine_errors": 0
+    },
+    "terminal-recovery-final-v4": {
+      "checks": 14,
+      "failures": [],
+      "exit": 0,
+      "engine_errors": 0
+    },
+    "terminal-ordinary-final-v4": {
+      "checks": 73,
+      "failures": [],
+      "exit": 0,
+      "engine_errors": 0
+    },
+    "terminal-cold-final-v4": {
+      "checks": 5,
+      "failures": [],
+      "exit": 0,
+      "engine_errors": 0
+    },
+    "terminal-integrated-recovery": {
+      "checks": 14,
+      "failures": [],
+      "exit": 0,
+      "engine_errors": 0
+    },
+    "terminal-integrated-ordinary": {
+      "checks": 73,
+      "failures": [],
+      "exit": 0,
+      "engine_errors": 0
+    },
+    "terminal-integrated-cold": {
+      "checks": 5,
+      "failures": [],
+      "exit": 0,
+      "engine_errors": 0
+    }
+  },
+  "zip_sha256": "a9c448b5ab6f9f1d4020f71f0aad8c3204353017a0fc60efb845c1415c08bcd3",
+  "zip_bytes": 6148969,
+  "zip_files": 279,
+  "prior_changed_summary": "checks: 65509, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 803 s)",
+  "integration_main": "8140fcc716be912443f6c95f882b01386e87b8a0",
+  "failed_integrated_run": {
+    "exit": 1,
+    "summary": "checks: 65375, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 484 s)",
+    "reason": "Melee process aborted with native SIGSEGV; no result line; this run is FAILED"
+  },
+  "baseline_melee": {
+    "exit": 0,
+    "summary": "checks: 149, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 501 s)"
+  }
+}

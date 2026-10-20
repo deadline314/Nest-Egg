@@ -8,6 +8,7 @@ const FIRST_LEVEL := CampaignEdition.DEFAULT_FIRST_LEVEL
 const RETRY_CAPTION := "NEST 回溯紀錄 #%d"
 const RETRY_HOLD := 0.22
 
+var _result_completion: Node
 var _story_completion: Node
 ## Existing native probes still use the original radio owner name.
 var _radio_completion: Node:
@@ -50,6 +51,9 @@ func _ready() -> void:
 	_story_completion = preload("res://game/story_flag_completion.gd").new()
 	_story_completion.main = self
 	add_child(_story_completion)
+	_result_completion = preload("res://game/story_result_completion.gd").new()
+	_result_completion.main = self
+	add_child(_result_completion)
 	_run_store.validator = RunSnapshot.prepare
 	GameState.run_save_requested.connect(_queue_save)
 	Progression.credits_changed.connect(func(_value: int, _delta: int) -> void: _queue_save())
@@ -367,7 +371,7 @@ func _show_victory(chapter: StringName) -> void:
 
 
 func _route_pending() -> bool:
-	return _quitting or _publishing_restore or is_instance_valid(_destination_save_prompt) or (is_instance_valid(_pending_screen) and not _pending_screen.is_inside_tree())
+	return Story.result_publication_active() or _quitting or _publishing_restore or is_instance_valid(_destination_save_prompt) or (is_instance_valid(_pending_screen) and not _pending_screen.is_inside_tree())
 
 
 func _bind_navigation() -> void:
@@ -389,7 +393,7 @@ func _queue_runtime_save() -> void:
 func _queue_save() -> void:
 	if is_instance_valid(_destination_save_prompt):
 		return
-	if is_instance_valid(_story_completion) and _story_completion.blocks_save():
+	if (is_instance_valid(_story_completion) and _story_completion.blocks_save()) or (is_instance_valid(_result_completion) and _result_completion.blocks_save()):
 		return
 	if not _active_run or _save_queued or _restore_publish_pending or _publishing_restore:
 		return
@@ -405,7 +409,7 @@ func _flush_save() -> void:
 func _save_run() -> void:
 	if is_instance_valid(_destination_save_prompt):
 		return
-	if is_instance_valid(_story_completion) and _story_completion.blocks_save():
+	if (is_instance_valid(_story_completion) and _story_completion.blocks_save()) or (is_instance_valid(_result_completion) and _result_completion.blocks_save()):
 		return
 	if not _active_run or _destination_pending or _restore_publish_pending or _publishing_restore or not is_instance_valid(_screen) or not _screen is Level:
 		return
@@ -564,7 +568,7 @@ func _notification(what: int) -> void:
 
 
 func _quit(exit_code := 0) -> void:
-	if _publishing_restore:
+	if _publishing_restore or Story.result_publication_active():
 		_quit.call_deferred(exit_code)
 		return
 	if _quitting:

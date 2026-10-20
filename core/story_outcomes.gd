@@ -120,7 +120,7 @@ static func operations(scene: Dictionary) -> Array[Dictionary]:
 ## contract is used by content validation; operations() is only a typed view.
 func result_contract_problem(scene_id: StringName, scene: Dictionary) -> String:
 	var where := "場景 %s" % String(scene_id).left(256)
-	if scene.has("completion_policy") and scene["completion_policy"] != MAIN_FLAG_COMPLETION_POLICY:
+	if scene.has("completion_policy") and scene["completion_policy"] not in [MAIN_FLAG_COMPLETION_POLICY, "main_terminal_results_v1"]:
 		return where + " 的 completion_policy 不受支援"
 	var results: Variant = scene.get("results", [])
 	var flags: Variant = scene.get("set_flags", [])
@@ -148,7 +148,7 @@ func result_contract_problem(scene_id: StringName, scene: Dictionary) -> String:
 				return at + " 的 " + key + " 必須是非空文字"
 		if str(op["kind"]) not in ["flag", "item_acquire", "item_transfer", "transaction"]:
 			return at + " 的結果種類未知：" + str(op["kind"])
-		if scene.has("completion_policy") and str(op["kind"]) != "flag":
+		if scene.get("completion_policy", "") == MAIN_FLAG_COMPLETION_POLICY and str(op["kind"]) != "flag":
 			return at + " 超出 main_flags_v1 的旗標範圍"
 		if str(op["kind"]) == "flag":
 			var value: Variant = op.get("value", true)
@@ -171,6 +171,9 @@ func preflight(scene_id: StringName, scene: Dictionary, transfers: Array[StringN
 	for item in transfers:
 		if not StoryItems.holds(item):
 			return {"ok": false, "reason": "item_not_held", "failure_scene": "", "where": "%s 交出 %s" % [scene_id, item]}
+	var local_ledger := StoryTransactionLedger.new()
+	local_ledger.restore(Progression._story_transactions.snapshot(), true)
+	var wallet := Progression.credits
 	for op in operations(scene):
 		var id := StringName(str(op.get("id", "")))
 		match str(op.get("kind", "")):
@@ -182,8 +185,10 @@ func preflight(scene_id: StringName, scene: Dictionary, transfers: Array[StringN
 					return {"ok": false, "reason": "unknown_item", "failure_scene": "", "where": "%s 取得 %s" % [scene_id, id]}
 			"transaction":
 				var resource := transaction(id)
-				var status := Progression.story_transaction_status(resource) if resource != null else {"status": "invalid_definition"}
-				if str(status.get("status", "")) != "ready":
+				var status := local_ledger.commit(resource, wallet, Progression.MAX_CREDITS)
+				if status["applied"]:
+					wallet = status["credits_after"]
+				else:
 					var reason := str(status.get("status", "invalid_definition"))
 					var failures: Variant = scene.get("on_failure", {})
 					var fallback := str((failures as Dictionary).get(reason, "")) if failures is Dictionary else ""

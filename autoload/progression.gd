@@ -184,7 +184,7 @@ func story_receipt_status(id: StringName) -> Dictionary:
 
 ## 收據與錢包在同步段內全部完成後才通知，避免回呼重入再領。
 func apply_story_transaction(transaction: StoryTransactionData) -> Dictionary:
-	if _story_transaction_busy:
+	if _story_transaction_busy or Story.result_publication_active():
 		return StoryTransactionLedger.result("busy", String(transaction.id).left(64) if transaction != null else "", credits)
 	_story_transaction_busy = true
 	var committed := _story_transactions.commit(transaction, credits, MAX_CREDITS)

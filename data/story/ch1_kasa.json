@@ -1525,7 +1525,8 @@
      "id": "ch1_dinner_done",
      "value": true
     }
-   ]
+   ],
+   "completion_policy": "main_terminal_results_v1"
   },
   "ch1_t_egret_1": {
    "mode": "animated",
@@ -1869,14 +1870,16 @@
    "results": [
     {
      "kind": "item_transfer",
-     "id": "ch1_data_disk"
+     "id": "ch1_data_disk",
+     "destination": "ch1_handoff_cabinet"
     },
     {
      "kind": "flag",
      "id": "ch1_disk_delivered",
      "value": true
     }
-   ]
+   ],
+   "completion_policy": "main_terminal_results_v1"
   },
   "ch1_t_handoff_receipt_prompt": {
    "mode": "animated",
@@ -1976,7 +1979,8 @@
      "id": "ch1_disk_receipt_taken",
      "value": true
     }
-   ]
+   ],
+   "completion_policy": "main_terminal_results_v1"
   },
   "ch1_t_handoff_summary_prompt": {
    "mode": "animated",
@@ -2112,7 +2116,8 @@
      "id": "ch1_handoff_done",
      "value": true
     }
-   ]
+   ],
+   "completion_policy": "main_terminal_results_v1"
   },
   "ch1_t_handoff_revisit": {
    "mode": "animated",

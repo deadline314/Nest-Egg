@@ -66,6 +66,9 @@ var language := StoryLocale.SOURCE_LANGUAGE
 var _chapters: Dictionary[StringName, Dictionary] = {}
 var _speakers: Dictionary = {}
 var _scenes: Dictionary = {}
+var _scene_sources: Dictionary[String, String] = {}
+## Main-owned explicit terminal result boundary, never supplied by story data.
+var result_completion: Node
 ## 場景 id -> 所屬章節 id（劇本品質檢查依章節加總）。
 var _scene_chapter: Dictionary[String, StringName] = {}
 ## 死亡畫面的小字（各章節合併）與各章節的重生通訊（章節 id -> 清單），見 StoryReactions。
@@ -219,6 +222,7 @@ func load_all() -> void:
 	_chapters.clear()
 	_speakers.clear()
 	_scenes.clear()
+	_scene_sources.clear()
 	_scene_chapter.clear()
 	_death_notes.clear()
 	_respawn_scenes.clear()
@@ -256,6 +260,7 @@ func load_chapter(path: String) -> bool:
 				push_error("[Story] 場景 id「%s」重複（%s），已略過後者" % [scene_id, path])
 				continue
 			_scenes[scene_id] = scenes[scene_id]
+			_scene_sources[scene_id] = path
 			_scene_chapter[scene_id] = chapter_id
 	var notes: Variant = data.get("death_notes", [])
 	if typeof(notes) == TYPE_ARRAY:
@@ -318,7 +323,13 @@ func chapter_ids() -> Array[StringName]:
 ## 任一件不在就整段結果不生效並記錄場景與物品，避免「旗標說交了、盤還在身上」的半套狀態。
 ## results（見 StoryOutcomes）與 set_flags／transfer_items 一起預檢、一起生效。回傳 {ok, failure_scene}：
 ## 交易被拒絕時改接 on_failure 指定的場景（例如現金不足），整段結果不生效。
+func result_publication_active() -> bool:
+	return is_instance_valid(result_completion) and result_completion.publishing()
+
+
 func _apply_scene_results(id: StringName) -> Dictionary:
+	if result_publication_active():
+		return {"ok": false, "failure_scene": ""}
 	var pending: Array = _pending_transfers.get(id, [])
 	_pending_transfers.erase(id)
 	var scene: Variant = _scenes.get(String(id), null)
@@ -835,6 +846,9 @@ func uses_cinematic_framing(id: StringName, context: Dictionary = {}) -> bool:
 
 ## 換區、死亡、新局或讀檔時中止演出。不當作看完，不套用跳過預設選項或完成旗標。
 func reset_active_presentation(reason: StringName = &"leave") -> void:
+	if result_publication_active():
+		reset_active_presentation.call_deferred(reason)
+		return
 	if _resetting_presentation:
 		return
 	_resetting_presentation = true
@@ -905,7 +919,9 @@ func _on_passive_finished(id: StringName, expected_request := 0) -> void:
 		return  # 已取消或舊宿主的延遲回呼，不再寫完成旗標。
 	if expected_request != 0 and int(requests[0]) != expected_request:
 		return  # auto-skip 舊請求的延遲回呼不能完成取消後新入隊的同名場景。
-	var guarded: Dictionary = passive_completion_gate.call(id, int(requests[0])) if passive_completion_gate.is_valid() else {}
+	var guarded: Dictionary = result_completion.complete(id, int(requests[0])) if is_instance_valid(result_completion) else {}
+	if not guarded.get("handled", false):
+		guarded = passive_completion_gate.call(id, int(requests[0])) if passive_completion_gate.is_valid() else {}
 	if guarded.get("handled", false) and not guarded.get("ready", false):
 		return
 	var request := int(requests.pop_front())
@@ -913,9 +929,13 @@ func _on_passive_finished(id: StringName, expected_request := 0) -> void:
 		_passive_requests.erase(id)
 	var applied := {"ok": true, "failure_scene": ""} if guarded.get("handled", false) else _apply_scene_results(id)
 	_finished_request = request
+	if guarded.get("terminal_batch", false):
+		result_completion.publish()
 	scene_finished.emit(id)
 	_finished_request = 0
 	_complete_request(request, true)
+	if guarded.get("terminal_batch", false):
+		result_completion.finish()
 	var next := StringName(str(applied["failure_scene"])) if not applied["ok"] else StringName(str((_scenes.get(String(id), {}) as Dictionary).get("then", "")))
 	if next != &"" and has_scene(next):
 		play(next, applied["ok"])
@@ -926,6 +946,8 @@ func play(id: StringName, once := true, context: Dictionary = {}) -> bool:
 
 
 func _enqueue_request(id: StringName, once: bool, context: Dictionary, waiting := false) -> int:
+	if result_publication_active():
+		return 0
 	if id == &"" or not has_scene(id):
 		if id != &"":
 			push_warning("[Story] 找不到劇情場景：%s" % id)
@@ -1050,7 +1072,9 @@ func _finish_auto_skip(id: StringName, generation: int) -> void:
 func _on_cinematic_finished(id: StringName, expected_request := 0) -> void:
 	if _current_cinematic != id or (expected_request != 0 and expected_request != _current_request):
 		return
-	var guarded: Dictionary = cinematic_completion_gate.call(id, _current_request) if cinematic_completion_gate.is_valid() else {}
+	var guarded: Dictionary = result_completion.complete(id, _current_request) if is_instance_valid(result_completion) else {}
+	if not guarded.get("handled", false):
+		guarded = cinematic_completion_gate.call(id, _current_request) if cinematic_completion_gate.is_valid() else {}
 	if guarded.get("handled", false) and not guarded.get("ready", false):
 		return
 	_current_cinematic = &""
@@ -1070,10 +1094,14 @@ func _on_cinematic_finished(id: StringName, expected_request := 0) -> void:
 		chained = _queue_chained_scene(id, completed_request)
 	_presentation_context = {}
 	_finished_request = completed_request
+	if guarded.get("terminal_batch", false):
+		result_completion.publish()
 	scene_finished.emit(id)
 	_finished_request = 0
 	if not chained:
 		_complete_request(completed_request, true)
+	if guarded.get("terminal_batch", false):
+		result_completion.finish()
 	if not _cinematic_queue.is_empty():
 		var queued: Dictionary = _cinematic_queue.pop_front()
 		_start_cinematic(queued.id, queued.context, queued.request)
