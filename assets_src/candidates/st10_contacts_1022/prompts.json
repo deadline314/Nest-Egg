@@ -1,0 +1,14 @@
+[
+  {
+    "output": "kitchen-empty-generated.png",
+    "reference": "art/environment/scenes/pawnshop_kitchen_extended.webp",
+    "transparent_background": false,
+    "prompt": "Edit this existing game background as a production candidate for a 2D side-view narrative game. Preserve its full wide 16:9 canvas composition, worn green tiled kitchen, hanging pans, calendar, hanging lamp, rain window, door, dining table, both chairs, all floor contact lines, exact furniture positions and proportions, muted hand-painted cel shading, warm green light and dark outer building. Modify ONLY the small heating area at the left: REMOVE the metal kettle completely (the kettle will be an independently animated prop). Replace the top of that existing stove with a clearly identifiable compact single-burner gas hotplate mounted on the same existing sturdy cabinet footprint. Show a small practical rotary gas control on the FRONT facing the viewer, an empty unlit burner on top, and a visible short gas supply hose leading down at the left of the cabinet. The cabinet remains at exactly its original position, height and width and sits on the same floor. The burner top remains at the original kettle support height. Do not add new furniture, lettering, people, water urns, kettles or steam anywhere. The table, chairs, cup, window, door and existing floor must keep the same geometry. Output a full background image, preferably the original 2560 by 1440 pixels. This is a dark, coherent in-game art candidate, not a schematic or annotated image."
+  },
+  {
+    "output": "kettle-generated.png",
+    "reference": "art/environment/scene_props/pawnshop_kitchen/pawnshop_kitchen__kettle_stove.png",
+    "transparent_background": true,
+    "prompt": "Create a standalone RGBA game prop based on ONLY the silver kettle in this reference. Output ONE complete small worn stainless-steel kettle, shown in the same side-view cel-shaded style with its short spout pointing LEFT, rounded silver body, fitted lid and one arched black carry handle. Include the complete handle and unobstructed transparent opening under its arch, and a clean flat bottom. Keep the existing kettle's squat proportions, muted practical metal and restrained highlight. Remove all stove, chimney, firewood, furniture and fire; the kettle is the only object. Transparent background, no cast shadow, no steam, no text, no added hands. The entire kettle including spout and top handle must fit comfortably within the image with narrow transparent padding. Prefer 512x512 native output."
+  }
+]

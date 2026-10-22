@@ -1,0 +1,107 @@
+{
+  "date": "2026-10-22 Asia/Taipei",
+  "provider": "cloud image generation tool; raw outputs copied without image changes",
+  "reference_files": [
+    "art/environment/scenes/pawnshop_kitchen_extended.webp",
+    "art/environment/scene_props/pawnshop_kitchen/pawnshop_kitchen__kettle_stove.png"
+  ],
+  "reference_sha256": [
+    "ab357d407f560de9dcd094fc1599201f4990bdd043927cf86a92dc1c5987950a",
+    "b79a169acaa63aeae1baf16442fa0390c0c057418970bb5bb2d4465f124af405"
+  ],
+  "assets": [
+    {
+      "file": "kitchen-empty-generated.png",
+      "status": "candidate-only; not referenced by shipped stages",
+      "requested_size": [
+        2560,
+        1440
+      ],
+      "actual_size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "sha256": "b639cef19b6b3654aeb8adecbab8fa8d5272d65c09253c2df58b022d97fb408e",
+      "bytes": 1467954,
+      "seed": null,
+      "model": null,
+      "job": null
+    },
+    {
+      "file": "kettle-generated.png",
+      "status": "candidate-only; not referenced by shipped stages",
+      "requested_size": [
+        512,
+        512
+      ],
+      "actual_size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "94d461c6b4687ef59771ea65f187d3e094bf8c5adb69e715c18e201bd113100c",
+      "bytes": 946197,
+      "seed": null,
+      "model": null,
+      "job": null,
+      "alpha_ranges": {
+        "0": {
+          "bbox": [
+            61,
+            37,
+            1168,
+            1212
+          ],
+          "pixels": 624908
+        },
+        "8": {
+          "bbox": [
+            64,
+            174,
+            1149,
+            1081
+          ],
+          "pixels": 613009
+        },
+        "25": {
+          "bbox": [
+            64,
+            174,
+            1149,
+            1080
+          ],
+          "pixels": 611713
+        },
+        "127": {
+          "bbox": [
+            64,
+            175,
+            1148,
+            1080
+          ],
+          "pixels": 608211
+        },
+        "200": {
+          "bbox": [
+            65,
+            175,
+            1147,
+            1079
+          ],
+          "pixels": 606031
+        },
+        "254": {
+          "bbox": [
+            65,
+            177,
+            1147,
+            1078
+          ],
+          "pixels": 1514
+        }
+      }
+    }
+  ],
+  "note": "Furniture and outer-region pixels were regenerated. No pixel-preservation claim. No normal/glow/import/game animation acceptance. Thin alpha residue remains in raw kettle source; do not infer contact from alpha>0 bbox."
+}
