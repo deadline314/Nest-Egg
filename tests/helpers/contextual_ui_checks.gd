@@ -161,8 +161,11 @@ static func _radio_identity_after_authored_reading(suite: TestSuite) -> void:
 	# still preview its bars. Leave that entrance before expecting gameplay HUD.
 	level.player.global_position = entry_position
 	level.player.velocity = Vector2.ZERO
+	var resume_before := _header_resume_state(level)
 	await suite.runner.get_tree().create_timer(CinematicFraming.CHECK_INTERVAL + CinematicFraming.EASE_SECONDS + 0.1).timeout
 	level.hud._process(0.0)
+	if Story.is_cinematic_active() or GameplayLock.is_locked() or Story.framing.selected_target() != null or not level.hud._framing_edge_root.visible:
+		print("HEADER_RESTORE_STATE ", JSON.stringify({"before": resume_before, "after": _header_resume_state(level)}))
 	suite.check(not Story.is_cinematic_active() and not GameplayLock.is_locked() and Story.framing.selected_target() == null and level.hud._framing_edge_root.visible, "leaving actual object reading and cinematic preview range restores the gameplay header")
 	var lines: Array[Dictionary] = Story.resolved_lines(&"radio_market_mei")
 	suite.check(not lines.is_empty(), "authored radio_market_mei is loaded without fabricated fallback")
@@ -198,6 +201,30 @@ static func _radio_identity_after_authored_reading(suite: TestSuite) -> void:
 	await suite.end_level(level)
 	Story.auto_skip = previous_skip
 	Settings.set_skip_cutscenes(previous_setting)
+
+
+## Failure-only evidence; no waiting, resets, or substitutions of the original assertion.
+static func _header_resume_state(level: Level) -> Dictionary:
+	var tween := Story.framing._tween
+	return {
+		"ticks_ms": Time.get_ticks_msec(),
+		"physics_frame": Engine.get_physics_frames(),
+		"process_frame": Engine.get_process_frames(),
+		"active": Story.is_cinematic_active(),
+		"locked": GameplayLock.is_locked(),
+		"paused": level.get_tree().paused,
+		"time_scale": Engine.time_scale,
+		"player": str(level.player.global_position),
+		"player_state": level.player.state,
+		"selected": str(Story.framing.selected_target()),
+		"amount": Story.framing.amount,
+		"goal": Story.framing._goal,
+		"scopes": Story.framing.scope_count(),
+		"header": level.hud._framing_edge_root.visible,
+		"controls_framed": level.hud._controls_framed,
+		"tween_running": tween != null and tween.is_running(),
+		"tween_elapsed": tween.get_total_elapsed_time() if tween != null else 0.0,
+	}
 
 
 ## NE-246：重要通訊凍結世界、不自動消失；確認一次前進一句；開關暫停選單不提前解凍；取消一定解凍。

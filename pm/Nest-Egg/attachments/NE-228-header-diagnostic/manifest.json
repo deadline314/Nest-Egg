@@ -1,0 +1,168 @@
+{
+  "base": "7ee228083b6da0d9660f33554c1667d799618d03",
+  "original_assertions_equal": true,
+  "original_wait_equal": true,
+  "harness_unchanged": [
+    "tests/smoke_test.gd",
+    "tools/run_tests.sh",
+    "tools/run_tests_parallel.sh",
+    "tools/run_tests_changed.sh",
+    "tools/select_tests.py",
+    "tools/test_filters.sh",
+    "tests/known_failures.txt"
+  ],
+  "files": [
+    {
+      "path": "ci/job.log",
+      "bytes": 449730,
+      "sha256": "a58ee2c420e50a0ec0c0699aeec3c43478e0d19bfeea13130e0a78957d0a2be6"
+    },
+    {
+      "path": "source/base-contextual_ui_checks.gd",
+      "bytes": 16296,
+      "sha256": "2bf17687bfc7552a4659641ac9becbae7f0598819eaf9f2fef291e2bd377fc1a"
+    },
+    {
+      "path": "source/final-contextual_ui_checks.gd",
+      "bytes": 17570,
+      "sha256": "24a8adae163d7995d9091e71ab4a5ae630dbcfbe362dec55b31952d8fbf9bc13"
+    },
+    {
+      "path": "work/candidate.gd",
+      "bytes": 17570,
+      "sha256": "24a8adae163d7995d9091e71ab4a5ae630dbcfbe362dec55b31952d8fbf9bc13"
+    },
+    {
+      "path": "work/changed-logs/data_0/godot/app_userdata/Nest Egg/codex.cfg",
+      "bytes": 28,
+      "sha256": "e30e8a3fd4aaed476cae87b57fb34adc8fe1a24a1a0aa421250af2285b215fdb"
+    },
+    {
+      "path": "work/changed-logs/data_0/godot/app_userdata/Nest Egg/logs/godot.log",
+      "bytes": 82866,
+      "sha256": "4ae2ba1904e55a153d8fdea62294b4f3446d0e8407bec1873c29c2cdfbe8cdc2"
+    },
+    {
+      "path": "work/changed-logs/data_0/godot/app_userdata/Nest Egg/settings.cfg",
+      "bytes": 842,
+      "sha256": "cb01ec1a8788f78bdb50fde4c4df29f95fa65230d6b9564177cf30d4c9e333a1"
+    },
+    {
+      "path": "work/changed-logs/shard_0.log",
+      "bytes": 84910,
+      "sha256": "0dd68c7d2f679bc990b2c03171736d328f15f8b5eefa2a35ce5d896d4930f3d5"
+    },
+    {
+      "path": "work/changed.log",
+      "bytes": 284,
+      "sha256": "43f42d9ba3f37afb467e9345a997a29a796a3f8b033d17c4b11234b72dd307fa"
+    },
+    {
+      "path": "work/ci-artifact.zip",
+      "bytes": 37554,
+      "sha256": "bdea3eff548a37b34115efdd17379833cad8a7d151432ea48267060dc356a58a"
+    },
+    {
+      "path": "work/ci-artifact/shard_0.log",
+      "bytes": 10914,
+      "sha256": "80fa97511eba36dc166bb6d439602da97559c00f0c177b0a234e160534ee1319"
+    },
+    {
+      "path": "work/ci-artifact/shard_1.log",
+      "bytes": 114334,
+      "sha256": "dc3cf82ca65f662c0d129c62cd6220ef538d80bc19990fd4e9e09ffe2df4dbd7"
+    },
+    {
+      "path": "work/ci-artifact/shard_2.log",
+      "bytes": 180612,
+      "sha256": "44179ab5b0506cd20582b5e89f98445df26fcf8f244a84115ce9ced47b4e5559"
+    },
+    {
+      "path": "work/ci-artifact/shard_3.log",
+      "bytes": 49883,
+      "sha256": "4655d6208e7b750539f1a06f1fe456aac9c6eacf002c2b0bb8f8a73ff107e693"
+    },
+    {
+      "path": "work/ci-artifact/shard_4.log",
+      "bytes": 238176,
+      "sha256": "cfdf89bfea0e20b83b2dcbf6ed08bad8daaa10f2cdbcc83edb21d6405946a199"
+    },
+    {
+      "path": "work/ci-artifact/shard_5.log",
+      "bytes": 19747,
+      "sha256": "90eb58f41b57bc163366fd579f552e69ca289c0a458fe49b62efaf1607bf83d3"
+    },
+    {
+      "path": "work/contextual_ui_checks-original.gd",
+      "bytes": 16296,
+      "sha256": "2bf17687bfc7552a4659641ac9becbae7f0598819eaf9f2fef291e2bd377fc1a"
+    },
+    {
+      "path": "work/diagnostic-30.log",
+      "bytes": 85142,
+      "sha256": "e4e5a0e16aa42b59a0ddd924b6ffd6258ba0ac0c93440b3a7c747b2bdab93da9"
+    },
+    {
+      "path": "work/diagnostic-control-helper.gd",
+      "bytes": 17640,
+      "sha256": "cffdfc6ef105fb39244bafb0cab9db03d38170086f17589161a6f75bdba61df1"
+    },
+    {
+      "path": "work/diagnostic-control.gd",
+      "bytes": 998,
+      "sha256": "30d7c2a168a67bbd337f81a0803094ca4aa7eade897a44dd301bbdb914f95563"
+    },
+    {
+      "path": "work/diagnostic-control.log",
+      "bytes": 2747,
+      "sha256": "04c6885d1ac3fa07405bf1d52c269fe64e7417baad0c1bcdaf4659b10e4de81b"
+    },
+    {
+      "path": "work/diagnostic-control.tscn",
+      "bytes": 182,
+      "sha256": "f09cc36ebd15c5663b72c99cec0f72a00d0893d614670ec55c26b62a6b633732"
+    },
+    {
+      "path": "work/fast-5.log",
+      "bytes": 2267,
+      "sha256": "8fe90dbe20ab5631974b67c3ea034606afea70ae4757c22601117ed970de55ec"
+    },
+    {
+      "path": "work/package.py",
+      "bytes": 2675,
+      "sha256": "1fad868e9a8017cb5e8146a0ed1926058940f6d12951f938c2b0a32569a8245a"
+    },
+    {
+      "path": "work/prefix.log",
+      "bytes": 1449,
+      "sha256": "4512c85fecb035192a5004e7fb61987fd96e343a79a45e46c32eb9749663ae07"
+    },
+    {
+      "path": "work/probe.gd",
+      "bytes": 957,
+      "sha256": "40672e472997e62d8aab8cc355bdf9aca2029ebecbd84841aabe8240150e3c5a"
+    },
+    {
+      "path": "work/probe.tscn",
+      "bytes": 169,
+      "sha256": "c8430dd56c1356079f76043f50ea9a01d6090526809c6b79910f28ce0e681280"
+    },
+    {
+      "path": "work/repeat.gd",
+      "bytes": 993,
+      "sha256": "d3af9a4266cf46c85785a90079433f112e6b0216f5e4e5c172ce302824a6500d"
+    },
+    {
+      "path": "work/repeat.log",
+      "bytes": 36133,
+      "sha256": "636469873006dafdc8c10bf192044b5065e552ec037c2e96b53d9dd233daacf5"
+    },
+    {
+      "path": "work/repeat.tscn",
+      "bytes": 170,
+      "sha256": "863249942ec89881596b8ade9b1262c2cc3c67f05a423b98b757de968f1ad7ce"
+    }
+  ],
+  "archive_sha256": "859be3d9eed1b4923d049680988bbd09dca4e976b7c5352d40b83e2c8c9aa524",
+  "archive_bytes": 172013
+}
