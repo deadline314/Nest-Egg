@@ -1,0 +1,309 @@
+{
+  "base": "8776dad7a563cd42fd883bc329e667dcdff60426",
+  "exit": 0,
+  "groups": 60,
+  "shards": 6,
+  "checks": 63182,
+  "new_failures": 0,
+  "known_failures": 0,
+  "wall_seconds": 498,
+  "original_harness_sha256": {
+    "tools/run_tests_changed.sh": "406699fff9b007980a085cd58d109ef62953badac1efda411c2b5652cd3a4d2e",
+    "tools/run_tests_parallel.sh": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba",
+    "tools/select_tests.py": "5617cd39198b93547fa73753074ad5ffb28d2fb9ea0ae8ba5242b2815cce69da",
+    "tools/test_filters.sh": "319fea9acacfdad9f7dab7948ea5a2d76652757623b428829605160a210e678a",
+    "tests/known_failures.txt": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf"
+  },
+  "native": {
+    "base": "8776dad7",
+    "runs": [
+      {
+        "run": "ne223-1022-phone-before",
+        "exit": "-15",
+        "pass": 32,
+        "fail": 6,
+        "engine_errors": 0,
+        "images": {
+          "voice-return-choice.png": [
+            1280,
+            720
+          ],
+          "overlap-nearer-phone.png": [
+            1280,
+            720
+          ],
+          "recording-unconfirmed.png": [
+            1280,
+            720
+          ],
+          "voice-second-question-pending.png": [
+            1280,
+            720
+          ]
+        },
+        "final_product_source": false,
+        "leak_warnings": [],
+        "writer_text_scale": null,
+        "viewed_all_final_pngs": null
+      },
+      {
+        "run": "ne223-1022-phone-before-v2",
+        "exit": "1",
+        "pass": 44,
+        "fail": 2,
+        "engine_errors": 0,
+        "images": {
+          "voice-return-choice.png": [
+            1280,
+            720
+          ],
+          "overlap-nearer-phone.png": [
+            1280,
+            720
+          ],
+          "voice-completed.png": [
+            1280,
+            720
+          ],
+          "recording-unconfirmed.png": [
+            1280,
+            720
+          ],
+          "voice-second-question-pending.png": [
+            1280,
+            720
+          ]
+        },
+        "final_product_source": false,
+        "leak_warnings": [],
+        "writer_text_scale": null,
+        "viewed_all_final_pngs": null
+      },
+      {
+        "run": "ne223-1022-phone-after-v2",
+        "exit": "0",
+        "pass": 44,
+        "fail": 0,
+        "engine_errors": 0,
+        "images": {
+          "voice-return-choice.png": [
+            1280,
+            720
+          ],
+          "overlap-nearer-phone.png": [
+            1280,
+            720
+          ],
+          "voice-completed.png": [
+            1280,
+            720
+          ],
+          "recording-unconfirmed.png": [
+            1280,
+            720
+          ],
+          "voice-second-question-pending.png": [
+            1280,
+            720
+          ]
+        },
+        "final_product_source": false,
+        "leak_warnings": [],
+        "writer_text_scale": null,
+        "viewed_all_final_pngs": null
+      },
+      {
+        "run": "ne223-1022-phone-after-v3",
+        "exit": "0",
+        "pass": 64,
+        "fail": 0,
+        "engine_errors": 0,
+        "images": {
+          "journal-voice-second-question.png": [
+            1280,
+            720
+          ],
+          "voice-pending-hud.png": [
+            1280,
+            720
+          ],
+          "journal-voice-completed.png": [
+            1280,
+            720
+          ],
+          "voice-return-choice.png": [
+            1280,
+            720
+          ],
+          "overlap-nearer-phone.png": [
+            1280,
+            720
+          ],
+          "voice-completed.png": [
+            1280,
+            720
+          ],
+          "recording-unconfirmed.png": [
+            1280,
+            720
+          ],
+          "voice-second-question-pending.png": [
+            1280,
+            720
+          ]
+        },
+        "final_product_source": false,
+        "leak_warnings": [],
+        "writer_text_scale": 1.2,
+        "viewed_all_final_pngs": null
+      },
+      {
+        "run": "ne223-1022-phone-continue-v3",
+        "exit": "0",
+        "pass": 16,
+        "fail": 0,
+        "engine_errors": 0,
+        "images": {
+          "journal-voice-completed.png": [
+            1280,
+            720
+          ],
+          "continued-voice-completed.png": [
+            1280,
+            720
+          ]
+        },
+        "final_product_source": false,
+        "leak_warnings": [],
+        "writer_text_scale": null,
+        "viewed_all_final_pngs": null
+      },
+      {
+        "run": "ne223-1022-phone-after-v4",
+        "exit": "0",
+        "pass": 67,
+        "fail": 0,
+        "engine_errors": 0,
+        "images": {
+          "journal-voice-second-question.png": [
+            1280,
+            720
+          ],
+          "voice-pending-hud.png": [
+            1280,
+            720
+          ],
+          "journal-voice-completed.png": [
+            1280,
+            720
+          ],
+          "voice-return-choice.png": [
+            1280,
+            720
+          ],
+          "overlap-nearer-phone.png": [
+            1280,
+            720
+          ],
+          "voice-completed.png": [
+            1280,
+            720
+          ],
+          "recording-unconfirmed.png": [
+            1280,
+            720
+          ],
+          "voice-second-question-pending.png": [
+            1280,
+            720
+          ]
+        },
+        "final_product_source": true,
+        "leak_warnings": [],
+        "writer_text_scale": 1.2,
+        "viewed_all_final_pngs": true
+      },
+      {
+        "run": "ne223-1022-phone-continue-v4",
+        "exit": "0",
+        "pass": 18,
+        "fail": 0,
+        "engine_errors": 0,
+        "images": {
+          "journal-voice-completed.png": [
+            1280,
+            720
+          ],
+          "continued-voice-completed.png": [
+            1280,
+            720
+          ]
+        },
+        "final_product_source": true,
+        "leak_warnings": [],
+        "writer_text_scale": null,
+        "viewed_all_final_pngs": true
+      },
+      {
+        "run": "ne223-1022-phone-continue-1080",
+        "exit": "0",
+        "pass": 18,
+        "fail": 0,
+        "engine_errors": 0,
+        "images": {
+          "journal-voice-completed.png": [
+            1920,
+            1080
+          ],
+          "continued-voice-completed.png": [
+            1920,
+            1080
+          ]
+        },
+        "final_product_source": true,
+        "leak_warnings": [],
+        "writer_text_scale": null,
+        "viewed_all_final_pngs": true
+      }
+    ],
+    "renderer": "Godot4.7.2 Forward+ HDR Vulkan llvmpipe; synthetic public inputs and arranged area/standing position",
+    "final_source_sha256": {
+      "game/level/checkpoint.gd": "c437b6d2b0defafc5a8d87a0c41d89f47003284c56f9d12c1b6db04644a6a382",
+      "game/npc/npc_actor.gd": "fb5c4cab5b66da6b2fbcdb4273beca45c8b7baba3d69d690c459c62b3cce829a",
+      "ui/quest_map_screen.gd": "b26624886b0849b125017145af2e1e23f3b75725da24679d76a32fe78907e211"
+    }
+  },
+  "headless_control": {
+    "base": "8776dad7a563cd42fd883bc329e667dcdff60426",
+    "fixed_sha256": {
+      "game/level/checkpoint.gd": "c437b6d2b0defafc5a8d87a0c41d89f47003284c56f9d12c1b6db04644a6a382",
+      "game/npc/npc_actor.gd": "fb5c4cab5b66da6b2fbcdb4273beca45c8b7baba3d69d690c459c62b3cce829a",
+      "ui/quest_map_screen.gd": "b26624886b0849b125017145af2e1e23f3b75725da24679d76a32fe78907e211"
+    },
+    "original_assertions_byte_exact": true,
+    "exit": 1,
+    "summary": [
+      "checks: 393, failures: 7"
+    ],
+    "failures": [
+      "FAIL: the nearer phone owns interact before any action starts",
+      "FAIL: the nearer NPC owns interact inside the same overlap",
+      "FAIL: that same press does not also begin NPC dialogue",
+      "FAIL: direct dialogue entry also refuses during the actual phone state",
+      "FAIL: direct phone entry refuses an existing gameplay lock",
+      "FAIL: completed detail does not claim an old pin is still tracked",
+      "FAIL: completed row does not retain a misleading tracking badge"
+    ],
+    "script_error": false,
+    "restored_sha256": {
+      "game/level/checkpoint.gd": "c437b6d2b0defafc5a8d87a0c41d89f47003284c56f9d12c1b6db04644a6a382",
+      "game/npc/npc_actor.gd": "fb5c4cab5b66da6b2fbcdb4273beca45c8b7baba3d69d690c459c62b3cce829a",
+      "ui/quest_map_screen.gd": "b26624886b0849b125017145af2e1e23f3b75725da24679d76a32fe78907e211"
+    }
+  },
+  "original_quest_tests": {
+    "original_assertions_byte_exact": true,
+    "base": "8776dad7",
+    "original_sha256": "45acc50585ac8c8c8c2125c743cbac319fb6d540f044f3ce441e46a53b2d13ef"
+  }
+}

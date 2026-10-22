@@ -319,10 +319,24 @@ func _test_ui(catalog: QuestCatalog, maps: QuestMapIndex) -> void:
 			check(not button.tooltip_text.is_empty(), "navigation button has readable tooltip: %s" % button.text)
 	await _test_journal_input(screen, false)
 	await _test_journal_input(screen, true)
+	await _test_completed_pin_label(screen)
 	screen.queue_free()
 	await frames(2)
 	await _test_long_details(maps)
 	GameState.world_flags = old_flags
+
+
+func _test_completed_pin_label(screen: QuestMapScreen) -> void:
+	screen.state.pin("nav_test_side", screen.catalog)
+	GameState.world_flags["nav_test_side_finished"] = true
+	screen._filter("completed")
+	screen._select("nav_test_side")
+	await frames(3)
+	check(not "追蹤中" in " ".join(_visible_quest_text(screen._detail_head)), "completed detail does not claim an old pin is still tracked")
+	for row: Button in screen._list.find_children("*", "Button", true, false):
+		if row.get_meta(&"quest_id", "") == "nav_test_side":
+			check(not "追蹤中" in " ".join(_visible_quest_text(row)), "completed row does not retain a misleading tracking badge")
+	check(screen.state.pinned_id == "nav_test_side" and screen.state.target(screen.catalog, "ch1_kasa", GameState.world_flags).get("id") == "nav_test_main", "removing completed tracking labels preserves saved pin and actual main fallback")
 
 
 ## 背景很長時：獎勵固定在操作上方、捲動區有「下方還有內容」提示，右搖桿捲動內文且焦點不動。

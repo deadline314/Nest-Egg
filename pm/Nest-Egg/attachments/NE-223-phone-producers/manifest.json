@@ -1,0 +1,678 @@
+{
+  "base": "8776dad7a563cd42fd883bc329e667dcdff60426",
+  "zip_bytes": 15177871,
+  "zip_sha256": "e028a994782461005fd75897570c17448407611e9fa7f1b1da5aefe61066d800",
+  "all_entries_read_back": true,
+  "entries": [
+    {
+      "path": "base/game/level/checkpoint.gd",
+      "bytes": 13747,
+      "sha256": "0c9cd3f3834c9db8fab060087c1a482146b993c6b12f77593a4e2837a778009e"
+    },
+    {
+      "path": "base/game/npc/npc_actor.gd",
+      "bytes": 16361,
+      "sha256": "ca151416f9fe7f4f5c03d87efafea3acc4570e94ae25d1edaf46ee267c04630f"
+    },
+    {
+      "path": "base/ui/quest_map_screen.gd",
+      "bytes": 26384,
+      "sha256": "7757f501fd4881ab54393e1b24e88eaa88fcf5fc9407e3c7eb9eb8c3d0d5e4df"
+    },
+    {
+      "path": "frozen-dependencies/data/levels/ch1_booth_alley.tres",
+      "bytes": 1984,
+      "sha256": "0809a26ab8e3b163849e42b092bb2b2664464f6d1e876cfadcbe37011ffc9447"
+    },
+    {
+      "path": "frozen-dependencies/data/npcs/ch1_lamp_voice.tres",
+      "bytes": 680,
+      "sha256": "1a3f05f7ee684b1a664d1fcb6959375d02bd553925b946b39a764728437d417c"
+    },
+    {
+      "path": "frozen-dependencies/data/story/ch1_kasa.json",
+      "bytes": 256501,
+      "sha256": "45fea482df7f2059ff4e5e6b04cf7b5d571013f3803fd263702f51b6e9b09238"
+    },
+    {
+      "path": "frozen-dependencies/tools/quest_resume_probe.gd",
+      "bytes": 11849,
+      "sha256": "2b866a0e74aba26f7eabcd5d01f124afcc295ff017d8ad2329e1d9fc5643b120"
+    },
+    {
+      "path": "frozen-dependencies/tools/viewport_capture.gd",
+      "bytes": 387,
+      "sha256": "3a41272cf893fd32f7a4db93d4843f46ebee9dffb8881487f172b123466e05f3"
+    },
+    {
+      "path": "frozen-dependencies/ui/cinematic_framing.gd",
+      "bytes": 7179,
+      "sha256": "2ceaf4c761ec74f24b9b5b0aae2dcdbba1ab926d13663f8bdd28b0ae732be8c7"
+    },
+    {
+      "path": "native/native.py",
+      "bytes": 2027,
+      "sha256": "ff974c30fb975581765b63ea6b9e17111fa5f86f6a600ce83dc4b7a15c060e3d"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v2-xvfb.log",
+      "bytes": 64,
+      "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v2.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v2.log",
+      "bytes": 2324,
+      "sha256": "c06c6433a97f1496d1d495c113333f0972bdf0f5f65a5ff3586aeb86e8313117"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v2/overlap-nearer-phone.png",
+      "bytes": 406881,
+      "sha256": "f8c108a2aebb726672bfd50de0ee025dc6c3004c8b4d477bca25faa628a269a8"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v2/recording-unconfirmed.png",
+      "bytes": 388989,
+      "sha256": "985a3f92af827764257532a835ddf968e226a7aec8d5405acf0f16ed51e5cd3c"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v2/result.json",
+      "bytes": 27803,
+      "sha256": "eb8e0aaab8e032058842d7d19179abbfe145b5a76f358510c6d72f068e5e0fd8"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v2/voice-completed.png",
+      "bytes": 389861,
+      "sha256": "d5e138be187896a5eea7e8249cb3c850bdadf7d3db1b4bfad81ea1578f836762"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v2/voice-return-choice.png",
+      "bytes": 299079,
+      "sha256": "4bd13ac3ac2422c93144fb8cd1fb829eb559598e031a75ea7aa14e6ec8bd9d8f"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v2/voice-second-question-pending.png",
+      "bytes": 306204,
+      "sha256": "509164083d8fda6591b1722bc1986fe43c663b8fcc7b260f72ad0d9ed21bb67a"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v3-xvfb.log",
+      "bytes": 64,
+      "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v3.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v3.log",
+      "bytes": 3359,
+      "sha256": "167e059e594564db39f8754d7678b394e62f49ce1f7c19ab974ec70d33ac95ae"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v3/journal-voice-completed.png",
+      "bytes": 226364,
+      "sha256": "4b751c8f45267656f052bd47cfa98e327a010c690f371c8c07699c4f6416cb4a"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v3/journal-voice-second-question.png",
+      "bytes": 254757,
+      "sha256": "7402736334fce7a8d6770ac8eff86678464d71b732157d6dd01cd8efba1016a6"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v3/overlap-nearer-phone.png",
+      "bytes": 408682,
+      "sha256": "dc342348ed2c872a5b29d50283df62d613dd1a254163effbdf8d11b2e08e505a"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v3/recording-unconfirmed.png",
+      "bytes": 361974,
+      "sha256": "b4ee743f38e815f16e69b07c8a39362fd2ca9dc686bc9855b35d836c06c5d500"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v3/result.json",
+      "bytes": 44222,
+      "sha256": "4c9164a3df34361dcbe641e20ff574186d653259bb4ee91ff7236ecef874f4fe"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v3/voice-completed.png",
+      "bytes": 386652,
+      "sha256": "9ed602d8f7934dc68781b736700be413598cb9c874a15ce0a6fe97319b52bc8d"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v3/voice-pending-hud.png",
+      "bytes": 390771,
+      "sha256": "da3985f18d46a774bccf52f8bd8cfa256a87663654df2b06503618a9a93f4f13"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v3/voice-return-choice.png",
+      "bytes": 297270,
+      "sha256": "f76c98a5bd0883d089d91dc91397adb0b3ebd7070d06eda42d811ed8eece866f"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v3/voice-second-question-pending.png",
+      "bytes": 306950,
+      "sha256": "35e5fff3b9ea072f2bdebef76f95d7c33959a2ac00eca1f1d713b4c287ff5cad"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v4-xvfb.log",
+      "bytes": 64,
+      "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v4.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v4.log",
+      "bytes": 3566,
+      "sha256": "064e69fa72d9d580ce0a93914526872ab107e6a70e52513531b447c91d851c24"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v4/journal-voice-completed.png",
+      "bytes": 221055,
+      "sha256": "f14a651f0f7b81281b16690ba1621ac8f987f8e27048ea24043d32a9f3709cc1"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v4/journal-voice-second-question.png",
+      "bytes": 254626,
+      "sha256": "75af2e7a5889eafca4cbf70bd4c4fc35cf31ff4c1dc55d4a6c30a5950c520d27"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v4/overlap-nearer-phone.png",
+      "bytes": 408330,
+      "sha256": "160ff0bb56a3b6aaba14ae328013eaeb5c5f7561610578e60c64ac7bb15369ad"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v4/recording-unconfirmed.png",
+      "bytes": 365288,
+      "sha256": "483db0873af1dc2ac35a1c91bc7e1a84d3c7bcd28fd3fed70d0f2b900ebe7cae"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v4/result.json",
+      "bytes": 44222,
+      "sha256": "4c9164a3df34361dcbe641e20ff574186d653259bb4ee91ff7236ecef874f4fe"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v4/voice-completed.png",
+      "bytes": 386778,
+      "sha256": "e9db9fea4ba12c347225268ec02a721b555b7e00630998d462c8aafff745aa4a"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v4/voice-pending-hud.png",
+      "bytes": 286238,
+      "sha256": "708015737107c389241fdb6555379e3f141bf3b489fc9f5119782ebbae2cddca"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v4/voice-return-choice.png",
+      "bytes": 296992,
+      "sha256": "b1fd003f5237a30b6d41a42e59261f8640255223b5fc7a6ca1c69fecd5a26e13"
+    },
+    {
+      "path": "native/ne223-1022-phone-after-v4/voice-second-question-pending.png",
+      "bytes": 306797,
+      "sha256": "67d5d306f69c55f1a22b82c730f2e23d95c920349b41c2a8db8c441be11b3a05"
+    },
+    {
+      "path": "native/ne223-1022-phone-before-v2-xvfb.log",
+      "bytes": 64,
+      "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+    },
+    {
+      "path": "native/ne223-1022-phone-before-v2.exit",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "native/ne223-1022-phone-before-v2.log",
+      "bytes": 2402,
+      "sha256": "8a269f781fa8f9db7e1cfef1b0cf33b0b4205bc98ee6bea4c1392dc35ffe809e"
+    },
+    {
+      "path": "native/ne223-1022-phone-before-v2/overlap-nearer-phone.png",
+      "bytes": 377530,
+      "sha256": "96f0f3b009a0c76c4eb31d41b11adf51dd73fbfb5bcfa09fe02093f5a47aa8e1"
+    },
+    {
+      "path": "native/ne223-1022-phone-before-v2/recording-unconfirmed.png",
+      "bytes": 385392,
+      "sha256": "6af9b284a0fa9022747ad41867cf2f2c222baaf369f55e0a46398100d42d1045"
+    },
+    {
+      "path": "native/ne223-1022-phone-before-v2/result.json",
+      "bytes": 27858,
+      "sha256": "ebd5871e8aa2c106d2f4bf5ff15fbe7c8479ecb3a5aaf888fc276e736bd59d8e"
+    },
+    {
+      "path": "native/ne223-1022-phone-before-v2/voice-completed.png",
+      "bytes": 374902,
+      "sha256": "ceedc2ba67ed4e357b8df2a22c9f7ea140a9c8731df55a0f75df0b9a7c8e7b52"
+    },
+    {
+      "path": "native/ne223-1022-phone-before-v2/voice-return-choice.png",
+      "bytes": 297910,
+      "sha256": "5ceb4b5362ec3dfaafa5806f5faba6e5b6105269dd387793d21a3917bb15f053"
+    },
+    {
+      "path": "native/ne223-1022-phone-before-v2/voice-second-question-pending.png",
+      "bytes": 299090,
+      "sha256": "7d568c18f4135eb2f52c2cda78b365404ef674a87934a3ca6d34ce784108aea8"
+    },
+    {
+      "path": "native/ne223-1022-phone-before-xvfb.log",
+      "bytes": 64,
+      "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+    },
+    {
+      "path": "native/ne223-1022-phone-before.exit",
+      "bytes": 3,
+      "sha256": "5e37b37c842d8df7106ee92e2e45beefef71ca60f51f7bb5cb50cb1e81c355a8"
+    },
+    {
+      "path": "native/ne223-1022-phone-before.log",
+      "bytes": 1936,
+      "sha256": "a2dbc40631b3ed128ead0eb5e708667d2ebf35ff202e4f7b8cfdbbcde2665dc0"
+    },
+    {
+      "path": "native/ne223-1022-phone-before/overlap-nearer-phone.png",
+      "bytes": 373380,
+      "sha256": "f39d082159527045a8d817a46b90d6ae6b68433e4e724c36281c11c43f794dab"
+    },
+    {
+      "path": "native/ne223-1022-phone-before/recording-unconfirmed.png",
+      "bytes": 388239,
+      "sha256": "7a304be217cb1f01d5da813bc0ed1276376dafc6b1bb0095d2be193dc864ef7a"
+    },
+    {
+      "path": "native/ne223-1022-phone-before/voice-return-choice.png",
+      "bytes": 375693,
+      "sha256": "9e5f45730e330e0460a2fa960a6b9df19de5d61fa078bc64d39cb2a74b764866"
+    },
+    {
+      "path": "native/ne223-1022-phone-before/voice-second-question-pending.png",
+      "bytes": 298257,
+      "sha256": "b4a7d710410f7728c998725a4da5953b83de77365777efaaf2ee6aa2bca5416a"
+    },
+    {
+      "path": "native/ne223-1022-phone-continue-1080-xvfb.log",
+      "bytes": 64,
+      "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+    },
+    {
+      "path": "native/ne223-1022-phone-continue-1080.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/ne223-1022-phone-continue-1080.log",
+      "bytes": 1193,
+      "sha256": "406bc4e5e6624e6d28bc42289ddcdca2556a3dc5dbb36079b1398f158c7bda70"
+    },
+    {
+      "path": "native/ne223-1022-phone-continue-1080/continued-voice-completed.png",
+      "bytes": 705005,
+      "sha256": "cf429a64098ffd664a119c13f15b45fd3c2837fe621bfa6bcf09d66cacc48cf2"
+    },
+    {
+      "path": "native/ne223-1022-phone-continue-1080/journal-voice-completed.png",
+      "bytes": 321197,
+      "sha256": "70e7669b367b82771f45e0d67fba7f2d0829f7841e972aadc2243576d49cd721"
+    },
+    {
+      "path": "native/ne223-1022-phone-continue-1080/result.json",
+      "bytes": 11247,
+      "sha256": "657b6045b2a26c31caad4d11bd0f4bf524501e4602feaf8db59b6d34d0c34fe8"
+    },
+    {
+      "path": "native/ne223-1022-phone-continue-v3-xvfb.log",
+      "bytes": 64,
+      "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+    },
+    {
+      "path": "native/ne223-1022-phone-continue-v3.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/ne223-1022-phone-continue-v3.log",
+      "bytes": 1068,
+      "sha256": "68bf2346b8fc89bd80cc8864512d6bc4b51ca8afee6e5aae255e111168e9088e"
+    },
+    {
+      "path": "native/ne223-1022-phone-continue-v3/continued-voice-completed.png",
+      "bytes": 386972,
+      "sha256": "c1d064b60c17f44efc1c01fe7191e0ff95f73affe7898273e65efb4283103805"
+    },
+    {
+      "path": "native/ne223-1022-phone-continue-v3/journal-voice-completed.png",
+      "bytes": 203304,
+      "sha256": "47e5a78402c323a2d9c1741fd7d252ee22f98b2e675a5f478dd28f05b985339e"
+    },
+    {
+      "path": "native/ne223-1022-phone-continue-v3/result.json",
+      "bytes": 11247,
+      "sha256": "657b6045b2a26c31caad4d11bd0f4bf524501e4602feaf8db59b6d34d0c34fe8"
+    },
+    {
+      "path": "native/ne223-1022-phone-continue-v4-xvfb.log",
+      "bytes": 64,
+      "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+    },
+    {
+      "path": "native/ne223-1022-phone-continue-v4.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/ne223-1022-phone-continue-v4.log",
+      "bytes": 1193,
+      "sha256": "406bc4e5e6624e6d28bc42289ddcdca2556a3dc5dbb36079b1398f158c7bda70"
+    },
+    {
+      "path": "native/ne223-1022-phone-continue-v4/continued-voice-completed.png",
+      "bytes": 385627,
+      "sha256": "ee74808868188e720efba6301c9ac098c98d7341fba49feb5af1e10b923d9f9a"
+    },
+    {
+      "path": "native/ne223-1022-phone-continue-v4/journal-voice-completed.png",
+      "bytes": 200141,
+      "sha256": "133aba9f4721c9879013409ae6590ecc9ffa5a464043013d5dac2c5207b83a6a"
+    },
+    {
+      "path": "native/ne223-1022-phone-continue-v4/result.json",
+      "bytes": 11247,
+      "sha256": "657b6045b2a26c31caad4d11bd0f4bf524501e4602feaf8db59b6d34d0c34fe8"
+    },
+    {
+      "path": "work/ne223-route/after-v2-save/slot.json",
+      "bytes": 12057,
+      "sha256": "8ab2559137ddd8aca09f38b8bf49d8cce8ff3766c6265bc321999584fd5a54ce"
+    },
+    {
+      "path": "work/ne223-route/after-v2-save/slot.json.bak",
+      "bytes": 12057,
+      "sha256": "1cd24f006f69e78a547956b9cbe73c29a7149a7ff59444e0e7cc2b2effd8ba10"
+    },
+    {
+      "path": "work/ne223-route/after-v3-save/slot.json",
+      "bytes": 12176,
+      "sha256": "8acd5cae41d12ef13939023b5b336f47d09f1c6060417710042ab2fcf42e2d40"
+    },
+    {
+      "path": "work/ne223-route/after-v3-save/slot.json.bak",
+      "bytes": 12169,
+      "sha256": "0876c8465cf9d3f701975ea639698ddb6b9a1e090825eb73878f206866bb8dbd"
+    },
+    {
+      "path": "work/ne223-route/after-v4-save/slot.json",
+      "bytes": 12731,
+      "sha256": "2a891be338367591de8e2711d91234f2dacfaba824bdc0f39d5f27a381310405"
+    },
+    {
+      "path": "work/ne223-route/after-v4-save/slot.json.bak",
+      "bytes": 12731,
+      "sha256": "a841fa41fca12afd1518fab949a22140312b95aa33f99f2c968b87b8bfff2f66"
+    },
+    {
+      "path": "work/ne223-route/archive.py",
+      "bytes": 2235,
+      "sha256": "d624f816b70cbff608f0d1c335d7ad28aad0162ff51bcfc8c7e47a31a39480d7"
+    },
+    {
+      "path": "work/ne223-route/before-save/slot.json",
+      "bytes": 12140,
+      "sha256": "0e9d07adff2256bd2e8bb9eb77e1affdecd6a71d9d99e16ab0d07073f66bd245"
+    },
+    {
+      "path": "work/ne223-route/before-save/slot.json.bak",
+      "bytes": 12147,
+      "sha256": "85c8fbe75335bc85d3fdef54f80655398cee78d4d7061b5c36818c333424b14f"
+    },
+    {
+      "path": "work/ne223-route/before-v2-save/slot.json",
+      "bytes": 12055,
+      "sha256": "0b7f4fc8d221f8f3e984320b3a5fa660bc2c3f1306050bf813683cc679065193"
+    },
+    {
+      "path": "work/ne223-route/before-v2-save/slot.json.bak",
+      "bytes": 12054,
+      "sha256": "e87573f0db5a10e2e16b1902b9d2859e2146663f2427d2f8b53f6f7bd3f12e27"
+    },
+    {
+      "path": "work/ne223-route/changed-shards/shard_0.log",
+      "bytes": 2175,
+      "sha256": "f8874344a5d6b8c6fb51eca3dc075480f497e0f65d57d3174635c4bb33e21f1d"
+    },
+    {
+      "path": "work/ne223-route/changed-shards/shard_1.log",
+      "bytes": 148063,
+      "sha256": "badc3a71bade707a58f5c9e2e375fef258ff971216e2632dda60b33c4e078f93"
+    },
+    {
+      "path": "work/ne223-route/changed-shards/shard_2.log",
+      "bytes": 44313,
+      "sha256": "f244b52c4acca2465401e539c7e6b365a489d86e37e3df24f638b078424fb6f1"
+    },
+    {
+      "path": "work/ne223-route/changed-shards/shard_3.log",
+      "bytes": 45068,
+      "sha256": "09332474d1baf140ba994f44c8c90d74591e002293d0642ecf5379b57efb5626"
+    },
+    {
+      "path": "work/ne223-route/changed-shards/shard_4.log",
+      "bytes": 23529,
+      "sha256": "76e0bacec70004f19c8a122480cc4f0dc450a19b45850fc004298a8f5b38f955"
+    },
+    {
+      "path": "work/ne223-route/changed-shards/shard_5.log",
+      "bytes": 226212,
+      "sha256": "5e087793974c33d553ff4907dbc8f1b28d619a8eec2ad0cda6b8534497edb6f8"
+    },
+    {
+      "path": "work/ne223-route/changed.log",
+      "bytes": 2316,
+      "sha256": "880cafe939601fdac47672933537dbb2403c7d7ba87115c778ab1e2d1dd50950"
+    },
+    {
+      "path": "work/ne223-route/checkpoint-fixed.gd",
+      "bytes": 14311,
+      "sha256": "c437b6d2b0defafc5a8d87a0c41d89f47003284c56f9d12c1b6db04644a6a382"
+    },
+    {
+      "path": "work/ne223-route/control-driver.log",
+      "bytes": 919,
+      "sha256": "047ffc40b3570bac1e27fd511ee7a7ffb324312cf225fd5a0fd5fe4f796e0061"
+    },
+    {
+      "path": "work/ne223-route/control-v2-driver.log",
+      "bytes": 1244,
+      "sha256": "dfea0113ea9c6567eecf4f0e764a89e93294060952f88bc530b48c29c93eef4c"
+    },
+    {
+      "path": "work/ne223-route/control-v2.py",
+      "bytes": 2158,
+      "sha256": "5173227620b7b23cfd255ddb8fecf8f1e24f5231b1cfb415b0f6b88ea5930eff"
+    },
+    {
+      "path": "work/ne223-route/control.py",
+      "bytes": 2107,
+      "sha256": "5db06687828abac5c6de2d54007e73ffe12251c93cae859ae3229ed5b6f27ed0"
+    },
+    {
+      "path": "work/ne223-route/focus.log",
+      "bytes": 1566,
+      "sha256": "03e04efadba02354057788abc4d76f2899072c702f5f17c4c8bcb57fbeec6ef4"
+    },
+    {
+      "path": "work/ne223-route/frozen/game/level/checkpoint.gd",
+      "bytes": 14311,
+      "sha256": "c437b6d2b0defafc5a8d87a0c41d89f47003284c56f9d12c1b6db04644a6a382"
+    },
+    {
+      "path": "work/ne223-route/frozen/game/npc/npc_actor.gd",
+      "bytes": 16400,
+      "sha256": "fb5c4cab5b66da6b2fbcdb4273beca45c8b7baba3d69d690c459c62b3cce829a"
+    },
+    {
+      "path": "work/ne223-route/frozen/tests/suite/test_phone_booth.gd",
+      "bytes": 11587,
+      "sha256": "96f803504a652a0d87cf20e633f87d5c0c2f0bccd4da4269ed7654abbea3c9b3"
+    },
+    {
+      "path": "work/ne223-route/frozen/tests/suite/test_quest_map.gd",
+      "bytes": 30951,
+      "sha256": "6a41a84b21877b6d115d5bbd0731795d886a7c8ef7186b0403843558833f6afc"
+    },
+    {
+      "path": "work/ne223-route/frozen/ui/quest_map_screen.gd",
+      "bytes": 26436,
+      "sha256": "b26624886b0849b125017145af2e1e23f3b75725da24679d76a32fe78907e211"
+    },
+    {
+      "path": "work/ne223-route/headless-control-receipt.json",
+      "bytes": 993,
+      "sha256": "fd57273c98e4cffb4af6e9ba2574763794d3c57ebbe668ab72b82b0c4727641a"
+    },
+    {
+      "path": "work/ne223-route/headless-control-v2-receipt.json",
+      "bytes": 1334,
+      "sha256": "9f5f6d43ff133277bfa3bf97b51006fbc0f1500866cbbc7e9983a6fd4569dc29"
+    },
+    {
+      "path": "work/ne223-route/headless-control-v2.log",
+      "bytes": 8797,
+      "sha256": "71cdd9853476c6714593d4b0dc6a0d51ea19d6b57c8051b53b71a0afbea3af04"
+    },
+    {
+      "path": "work/ne223-route/headless-control.log",
+      "bytes": 461,
+      "sha256": "578e41b5728fba5e6efe0274eb4032cc930495240ae987a2d050e6b1c7036d45"
+    },
+    {
+      "path": "work/ne223-route/inventory-readback.json",
+      "bytes": 73689,
+      "sha256": "fc052fcb0ed7b49980762b6daa8e0034fd1c0732503c968497248f0699c2c064"
+    },
+    {
+      "path": "work/ne223-route/inventory.py",
+      "bytes": 1777,
+      "sha256": "5d8a05eb88df44a38a61a90103ca3140ac10a550cb07ea0b2622f7282ad3e617"
+    },
+    {
+      "path": "work/ne223-route/native-validation.json",
+      "bytes": 5757,
+      "sha256": "7091d91b64107775e8ca51e091a80d34806a7e607db690aca00a6e3ebf11a49c"
+    },
+    {
+      "path": "work/ne223-route/npc-fixed.gd",
+      "bytes": 16400,
+      "sha256": "fb5c4cab5b66da6b2fbcdb4273beca45c8b7baba3d69d690c459c62b3cce829a"
+    },
+    {
+      "path": "work/ne223-route/original-quest-test-receipt.json",
+      "bytes": 156,
+      "sha256": "e73d42cac29b28c2f8c8e53db9781ee0d88ac3c4cd80c67e31f53f9972d20709"
+    },
+    {
+      "path": "work/ne223-route/phone-v1.gd",
+      "bytes": 8047,
+      "sha256": "2d0a5ae4f0145dc61ed6f0feb11805e52ae80ea8bcb8e1b5e2343cd1ea659a71"
+    },
+    {
+      "path": "work/ne223-route/phone-v2.gd",
+      "bytes": 8357,
+      "sha256": "2d60c6ca70ffa211567f699402e1205e6390a3f3ecb467f9d9d1a9e014ecc85d"
+    },
+    {
+      "path": "work/ne223-route/phone-v3.gd",
+      "bytes": 11089,
+      "sha256": "28e956533d9096480e9d52bcc92d8ec82fc4b8587d9da6b926bff5695d2e4908"
+    },
+    {
+      "path": "work/ne223-route/phone-v4.gd",
+      "bytes": 12307,
+      "sha256": "1509900552db36a5846efcdd85e2dfb20a1b3e65688f440cf381189fd2a7e51a"
+    },
+    {
+      "path": "work/ne223-route/phone.gd",
+      "bytes": 12307,
+      "sha256": "1509900552db36a5846efcdd85e2dfb20a1b3e65688f440cf381189fd2a7e51a"
+    },
+    {
+      "path": "work/ne223-route/phone.tscn",
+      "bytes": 176,
+      "sha256": "a036591a115a2227d37834134fede9ee7eecbf839ddec147661ecdcf5192b933"
+    },
+    {
+      "path": "work/ne223-route/phone_1080.gd",
+      "bytes": 178,
+      "sha256": "5233c3ecc0c79438c0f6adeea819145fb11e3d8718aecfa253fe5c969028f547"
+    },
+    {
+      "path": "work/ne223-route/phone_1080.tscn",
+      "bytes": 188,
+      "sha256": "06492ad919c302f89fe597ca419d5f4a72d828cd4a529d05d7737a5215c13a23"
+    },
+    {
+      "path": "work/ne223-route/quest-map-before.gd",
+      "bytes": 26384,
+      "sha256": "7757f501fd4881ab54393e1b24e88eaa88fcf5fc9407e3c7eb9eb8c3d0d5e4df"
+    },
+    {
+      "path": "work/ne223-route/references/blasphemous-map.png",
+      "bytes": 133184,
+      "sha256": "352c6768261dda42c1e868562598e2786dfddfb429ba688d62398746b5a3a4e2"
+    },
+    {
+      "path": "work/ne223-route/references/cyberpunk-2077-journal.png",
+      "bytes": 768477,
+      "sha256": "8bcd065c4b95c066163fa0a7e69eb92660d9c97af934ad1935cb2df6b25277a8"
+    },
+    {
+      "path": "work/ne223-route/references/hades-map.jpg",
+      "bytes": 327586,
+      "sha256": "5323921b46283b394ff013f5517cb2a54c93d1cb29b8f52bbfc51b48265c6fd3"
+    },
+    {
+      "path": "work/ne223-route/references/hollow-knight-map.jpg",
+      "bytes": 1287270,
+      "sha256": "634de02e66394ced47833b3d877cfb3d0d24eb3f423166cddb68b82111a0aa3f"
+    },
+    {
+      "path": "work/ne223-route/references/metroid-log.jpg",
+      "bytes": 228718,
+      "sha256": "f46f3a9288f13ecb0839edd82809fae9cb492e1e3366149e0228af7a8a159d77"
+    },
+    {
+      "path": "work/ne223-route/references/sources.json",
+      "bytes": 3045,
+      "sha256": "190101acfa9100af68afe6dd80849e908102033919e08606a1c378bf5750fa0d"
+    },
+    {
+      "path": "work/ne223-route/test_phone_booth-before.gd",
+      "bytes": 8723,
+      "sha256": "3d3aeb073b79b18858df8988749fea022a7c6e2d1fb42d5b0bec2d10a86ac5a3"
+    },
+    {
+      "path": "work/ne223-route/test_quest_map-before.gd",
+      "bytes": 30024,
+      "sha256": "45acc50585ac8c8c8c2125c743cbac319fb6d540f044f3ce441e46a53b2d13ef"
+    },
+    {
+      "path": "work/ne223-route/v1-stop-receipt.json",
+      "bytes": 299,
+      "sha256": "6fb7f76d75f77ad17322c8f1e497a142e98f158f0509d98ec880bd9d068d9b9b"
+    },
+    {
+      "path": "work/ne223-route/validation.json",
+      "bytes": 8609,
+      "sha256": "f2c686ce4ad4f2cacb2f4217a6099eab4da1ab6e50b5c8ace1fea9c1d54921e6"
+    }
+  ]
+}

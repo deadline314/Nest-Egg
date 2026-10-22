@@ -329,7 +329,7 @@ func _quest_row(quest: Dictionary) -> Button:
 	meta.resized.connect(place_meta)
 	var labels: Array[Label] = [meta]
 	var colors: Array[Color] = [Palette.UI_MUTED]
-	if state.pinned_id == quest["id"]:
+	if state.pinned_id == quest["id"] and status != "completed":
 		var pinned := UiKit.caption("追蹤中", Palette.MAGENTA, HORIZONTAL_ALIGNMENT_RIGHT)
 		button.add_child(pinned)
 		pinned.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT, Control.PRESET_MODE_MINSIZE)
@@ -386,7 +386,7 @@ func _select(id: String, focus_details := false) -> void:
 	if quest.is_empty():
 		return
 	var status := QuestCatalog.status(quest, GameState.world_flags)
-	var pinned := state.pinned_id == id
+	var pinned := state.pinned_id == id and status != "completed"
 	var kind_text := "主線任務" if quest["kind"] == "main" else "支線任務"
 	var status_text: String = {"completed": "已完成", "blocked": "暫時卡住"}.get(status, "進行中")
 	if pinned:

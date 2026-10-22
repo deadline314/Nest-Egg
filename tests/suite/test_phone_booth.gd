@@ -17,6 +17,7 @@ func run() -> void:
 	await _test_call_can_be_interrupted()
 	await _test_respawn_shows_activated()
 	await _test_cannot_dial_in_the_air()
+	await _test_nearest_interaction()
 	await _test_action_audit()
 
 
@@ -182,6 +183,69 @@ func _test_cannot_dial_in_the_air() -> void:
 	check(not level.player.begin_phone_call(1), "a call cannot start in mid-air")
 	check(not booth.start_call(level.player), "the booth refuses while the player is falling")
 	await end_level(level)
+
+
+## The real booth/NPC overlap shares one interact key and cannot start both activities.
+func _test_nearest_interaction() -> void:
+	await open_level(10.0)
+	_clear_enemies()
+	GameState.clear_checkpoint()
+	var auto_skip := Story.auto_skip
+	Story.auto_skip = false
+	var scene := &"test_phone_nearest_source"
+	Story._scenes[String(scene)] = {"mode": "dialogue", "lines": [{"speaker": "rin", "text": "互動來源測試。"}]}
+	var booth := _booth(level, 18.0)
+	var talk := NpcTalk.new()
+	talk.scene = scene
+	var data := NpcData.new()
+	data.id = &"phone_neighbour"
+	data.kind = NpcData.Kind.OBJECT
+	data.rig_id = ""
+	data.talks = [talk]
+	var npc := NpcActor.new()
+	npc.configure(data, Vector2i(21, 19))
+	level._entities.add_child(npc)
+	npc.global_position = booth.global_position + Vector2(48, 0)
+	level.player.global_position = booth.global_position + Vector2(20, 0)
+	await physics_frames(15)
+	check(booth._player_in_range and npc._player_in_range, "both real interaction sensors overlap")
+	check(booth.can_dial() and not Story.framing.is_interaction_target(npc), "the nearer phone owns interact before any action starts")
+	level.player.global_position.x = booth.global_position.x + 25.0
+	await physics_frames(5)
+	check(not booth.can_dial() and Story.framing.is_interaction_target(npc), "the nearer NPC owns interact inside the same overlap")
+	level.player.global_position.x = booth.global_position.x + 20.0
+	await physics_frames(5)
+	Input.action_press(&"interact")
+	await physics_frames(2)
+	Input.action_release(&"interact")
+	check(level.player.is_on_phone() and booth.is_calling(), "a single overlap press begins the nearer booth call")
+	check(not npc._talking and not Story.is_cinematic_active(), "that same press does not also begin NPC dialogue")
+	Story.reset_active_presentation(&"test")
+	await physics_frames(2)
+	if not level.player.is_on_phone():
+		check(booth.start_call(level.player), "phone precondition for the direct-dialogue guard")
+	var done := [false, false]
+	var begin_talk := func() -> void:
+		done[1] = await npc._talk()
+		done[0] = true
+	begin_talk.call()
+	await physics_frames(2)
+	check(done[0] and not done[1] and not Story.is_cinematic_active(), "direct dialogue entry also refuses during the actual phone state")
+	check(not npc._prompt_available(), "NPC hover guidance stays hidden during the call")
+	Story.reset_active_presentation(&"test")
+	Story.auto_skip = true
+	await physics_frames(100)
+	var token := GameplayLock.acquire(booth)
+	check(not booth.start_call(level.player), "direct phone entry refuses an existing gameplay lock")
+	GameplayLock.release(token)
+	await physics_frames(100)
+	Story.reset_active_presentation(&"test")
+	await end_level(level)
+	Story._scenes.erase(String(scene))
+	Story._seen.erase(scene)
+	Story._completed.erase(scene)
+	Story.auto_skip = auto_skip
+	GameState.clear_checkpoint()
 
 
 ## 骨架動作逐格稽核：把撥號動作整段播放，骨頭長度、手肘、驅幹、頭、角度跳動都要在限制內。

@@ -245,11 +245,12 @@ func preview_available() -> bool:
 
 
 func _prompt_available() -> bool:
-	return _present and _player_in_range and not _talking and is_instance_valid(_prompt_player) and not _prompt_player.is_dead() and _prompt_player.state != Player.State.MOUNTED
+	return _present and _player_in_range and not _talking and is_instance_valid(_prompt_player) and not _prompt_player.is_dead() \
+			and _prompt_player.state != Player.State.MOUNTED and not _prompt_player.is_on_phone()
 
 
 func interaction_available() -> bool:
-	return _present and _player_in_range and not _talking and _cooldown <= 0.0 and current_talk_index() >= 0
+	return _prompt_available() and _cooldown <= 0.0 and current_talk_index() >= 0
 
 
 ## 開始對話：說完記下次數並發放獎勵。可用於測試直接呼叫。
@@ -262,7 +263,7 @@ func _talk() -> bool:
 
 func _present_talk(index: int, scene: StringName, once: bool) -> bool:
 	var player := get_tree().get_first_node_in_group(&"player") as Player
-	if player == null or player.is_dead() or player.state == Player.State.MOUNTED:
+	if player == null or player.is_dead() or player.state == Player.State.MOUNTED or player.is_on_phone():
 		return false
 	Story.framing.interaction_started(self)
 	if data.kind == NpcData.Kind.PERSON:

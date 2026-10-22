@@ -68,9 +68,10 @@ func _ready() -> void:
 	_prompt = WorldPrompt.new()
 	_prompt.text = PROMPT_FIRST
 	_prompt.radius = REACH.x * 0.5 + 6.0
-	_prompt.reach_check = func() -> bool: return _player_in_range
+	_prompt.reach_check = can_dial
 	_prompt.offset = Vector2(0, -HEIGHT - 8.0)
 	add_child(_prompt)
+	Story.framing.register_target(self)
 	# 從這個亭子重生時直接顯示為已啟動，並有一段來電鈴聲與招牌閃動。
 	if GameState.checkpoint_applies(GameState.current_level_path) and GameState.checkpoint_position.distance_to(global_position) < 1.0:
 		_set_active(false)
@@ -94,12 +95,23 @@ func _on_body_exited(body: Node2D) -> void:
 
 ## 現在能不能撥號：玩家在範圍內、沒在通話、遊戲沒暫停。
 func can_dial() -> bool:
-	return _player_in_range and _call_t < 0.0 and not get_tree().paused
+	return interaction_available() and Story.framing.is_interaction_target(self)
+
+
+## Participate in the same nearest-source selection as map conversations, without a cinematic preview.
+func preview_available() -> bool:
+	return false
+
+
+func interaction_available() -> bool:
+	var player := _player_ref.get_ref() as Player if _player_ref != null else null
+	return _player_in_range and _call_t < 0.0 and not get_tree().paused and not GameplayLock.is_locked() \
+			and is_instance_valid(player) and player.state == Player.State.NORMAL and not player.is_dead() and player.is_on_floor()
 
 
 ## 開始通話（按互動鍵時呼叫；測試也直接呼叫）。成功回傳 true。
 func start_call(player: Player) -> bool:
-	if player == null or _call_t >= 0.0:
+	if player == null or _call_t >= 0.0 or GameplayLock.is_locked() or get_tree().paused:
 		return false
 	var face := 1 if global_position.x >= player.global_position.x else -1
 	if not player.begin_phone_call(face):
