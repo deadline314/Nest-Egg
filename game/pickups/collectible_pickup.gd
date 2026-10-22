@@ -24,6 +24,10 @@ func _ready() -> void:
 
 
 func _apply(_player: Player) -> bool:
+	if StoryItems.world_pickup_handler.is_valid():
+		# The owner consumes and publishes only after the complete run is durable.
+		StoryItems.world_pickup_handler.call(self, _player)
+		return false
 	if not StoryItems.acquire(item.id):
 		# 已經有了（例如其他途徑取得）：直接消失，不再提示。
 		return true

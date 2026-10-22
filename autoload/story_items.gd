@@ -14,6 +14,8 @@ const CUSTODY_VERSION := 1
 
 var _catalog: Array[StoryItemData] = []
 var _catalog_loaded := false
+## Main owns durable world pickup admission; standalone scenes retain their old path.
+var world_pickup_handler: Callable
 var _owned: Dictionary[StringName, bool] = {}
 var _held: Dictionary[StringName, bool] = {}
 var _transferred: Dictionary[StringName, bool] = {}

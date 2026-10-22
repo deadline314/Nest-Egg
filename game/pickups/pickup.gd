@@ -16,6 +16,7 @@ const GLINT_TIME := 0.16
 var _time := 0.0
 var _retry_left := RETRY_INTERVAL
 var _glint_offset := randf() * GLINT_PERIOD
+var _collection_finished := false
 
 
 func _ready() -> void:
@@ -100,13 +101,21 @@ func _on_body_entered(body: Node2D) -> void:
 	var player := resolve_player(body)
 	if player == null or player.is_dead():
 		return
-	if is_queued_for_deletion():
+	if _collection_finished or is_queued_for_deletion():
 		return
 	if _apply(player):
-		PickupFx.collect(global_position + Vector2(0, -8), _fx_color(), _fx_kind())
-		Sfx.play(&"pickup", -6.0)
-		set_deferred(&"monitoring", false)
-		_consume()
+		complete_collection()
+
+
+## The durable owner can complete a previously refused collection on retry.
+func complete_collection() -> void:
+	if _collection_finished or is_queued_for_deletion():
+		return
+	_collection_finished = true
+	PickupFx.collect(global_position + Vector2(0, -8), _fx_color(), _fx_kind())
+	Sfx.play(&"pickup", -6.0)
+	set_deferred(&"monitoring", false)
+	_consume()
 
 
 ## 撿起後的處理（預設移除）。需要保留節點的道具（例如要存進檢查點）可以覆寫。

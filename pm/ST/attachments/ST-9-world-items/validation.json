@@ -1,0 +1,187 @@
+{
+  "base": "157c5de279d8db117afc34376fcaf27bbb4dbb53",
+  "affected_receipt": {
+    "command": [
+      "tools/run_tests_changed.sh",
+      "157c5de2"
+    ],
+    "exit_code": 0,
+    "seconds": 494.3042167659987
+  },
+  "affected_summary": [
+    "Running 63 groups in 6 processes (logs: /workspace/Nest-Egg/work/batch1022/kitchen/work/st9-world-pickup/changed-shards)",
+    "checks: 65130, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 494 s)"
+  ],
+  "original_tests_harness_filters_known_failures_unchanged": true,
+  "headless_before": {
+    "checks": 12,
+    "failures": 4,
+    "script_errors": 0
+  },
+  "native": [
+    {
+      "case": "before",
+      "completed": true,
+      "failures": 5,
+      "checks": 14,
+      "engine_errors": 0,
+      "leaks": 0,
+      "pngs": 1,
+      "all_pngs_individually_viewed": true
+    },
+    {
+      "case": "accepted",
+      "completed": true,
+      "failures": 0,
+      "checks": 25,
+      "engine_errors": 0,
+      "leaks": 0,
+      "pngs": 2,
+      "all_pngs_individually_viewed": true
+    },
+    {
+      "case": "continue",
+      "completed": true,
+      "failures": 0,
+      "checks": 7,
+      "engine_errors": 0,
+      "leaks": 0,
+      "pngs": 1,
+      "all_pngs_individually_viewed": true
+    },
+    {
+      "case": "committed",
+      "completed": true,
+      "failures": 0,
+      "checks": 25,
+      "engine_errors": 0,
+      "leaks": 0,
+      "pngs": 3,
+      "all_pngs_individually_viewed": true
+    },
+    {
+      "case": "original",
+      "completed": true,
+      "failures": 0,
+      "checks": 24,
+      "engine_errors": 0,
+      "leaks": 0,
+      "pngs": 3,
+      "all_pngs_individually_viewed": true
+    }
+  ],
+  "ui_native": [
+    {
+      "case": "en",
+      "completed": true,
+      "failures": 0,
+      "checks": 24,
+      "engine_errors": 0,
+      "leaks": 0,
+      "pngs": 2,
+      "all_pngs_individually_viewed": true,
+      "settings": [
+        {
+          "language": "en",
+          "text_scale": 1.2,
+          "window_size": [
+            1280,
+            720
+          ]
+        },
+        {
+          "language": "en",
+          "text_scale": 1.2,
+          "window_size": [
+            1280,
+            720
+          ]
+        }
+      ]
+    },
+    {
+      "case": "ja",
+      "completed": true,
+      "failures": 0,
+      "checks": 26,
+      "engine_errors": 0,
+      "leaks": 0,
+      "pngs": 3,
+      "all_pngs_individually_viewed": true,
+      "settings": [
+        {
+          "language": "ja",
+          "text_scale": 1.2,
+          "window_size": [
+            1280,
+            720
+          ]
+        },
+        {
+          "language": "ja",
+          "text_scale": 1.2,
+          "window_size": [
+            1280,
+            720
+          ]
+        },
+        {
+          "language": "ja",
+          "text_scale": 1.2,
+          "window_size": [
+            1280,
+            720
+          ]
+        }
+      ]
+    },
+    {
+      "case": "zh1080",
+      "completed": true,
+      "failures": 0,
+      "checks": 25,
+      "engine_errors": 0,
+      "leaks": 0,
+      "pngs": 3,
+      "all_pngs_individually_viewed": true,
+      "settings": [
+        {
+          "language": "zh",
+          "text_scale": 1.2,
+          "window_size": [
+            1920,
+            1080
+          ]
+        },
+        {
+          "language": "zh",
+          "text_scale": 1.2,
+          "window_size": [
+            1920,
+            1080
+          ]
+        },
+        {
+          "language": "zh",
+          "text_scale": 1.2,
+          "window_size": [
+            1920,
+            1080
+          ]
+        }
+      ]
+    }
+  ],
+  "positive_native_checks": 156,
+  "all_final_native_pngs_individually_viewed": 18,
+  "cold": {
+    "writer_sha256": "e68cd58297dcf82d8b1734277a0a14e6b479a80d5ea9e5002c020096f62788f0",
+    "frozen_sha256": "e68cd58297dcf82d8b1734277a0a14e6b479a80d5ea9e5002c020096f62788f0",
+    "frozen_path": "work/st9-world-pickup/accepted-v2-native-frozen/slot.json",
+    "receipt_correction": "v2 driver originally measured old v1 frozen folder; recorded writer hash before continue matches actual immutable v2 frozen bytes; incorrect receipt retained separately"
+  },
+  "history": "wrong warehouse half and survival-field probe errors rejected; first product12/0 still SCRIPT ERROR rejected; wrong area_states path fixed to actual id; original tests unchanged; v1 native cold assertion during Transition rejected, v2 waits actual owners; v2 cold receipt compared v1 frozen path, corrected from recorded writer SHA and immutable v2 bytes, original bad receipt retained",
+  "research": "Hollow Knight and Ori actual prior screenshots re-viewed for typography and scene separation; no inference about save algorithms",
+  "environment": "Godot4.7.2 Forward+ HDR, llvmpipe software Vulkan, Xvfb720p and1080p; public synthetic actions",
+  "scope": "real Main, actual authored vault disc and source key, declared prerequisite flags/position and survival floor1, actual IO directory refusal, existing writer hooks for rollback failure/postcommit source race, public retry/cancel/reload and independent continue; not human full chapter, physical controller, all chapter pickups or general Story coordinator"
+}
