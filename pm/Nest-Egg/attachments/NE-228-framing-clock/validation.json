@@ -1,0 +1,47 @@
+{
+  "base": "b2d253c8862710841aaaf0c30301ce8144de7be0",
+  "previous_ci": {
+    "run": 39748800959,
+    "checks": 95961,
+    "new_failures": 1,
+    "seconds": 625,
+    "artifact": 12413218239,
+    "artifact_sha256": "82f7195565822283d03392704a45d662659916655fff3b6b4c98dadf004a806a"
+  },
+  "original_changed_groups": 2,
+  "checks": 1494,
+  "new_failures": 0,
+  "known_failures": 0,
+  "seconds": 52,
+  "same_original_helper_jitter": {
+    "before_checks": 260,
+    "before_failures": 3,
+    "after_checks": 260,
+    "after_failures": 0,
+    "headless_cleanup_warnings_retained": true
+  },
+  "native_formal_main_checks": 60,
+  "native_formal_main_failures": 0,
+  "native_formal_main_engine_errors": 0,
+  "native_final_pngs_viewed": 12,
+  "renderer": "Forward+ HDR, Vulkan llvmpipe",
+  "native_legacy_helper": {
+    "v1_assertion_failures": 1,
+    "v1_capture_name_error": true,
+    "v2_assertion_failures": 0,
+    "v3_assertion_failures": 0,
+    "final_source_exit": 250,
+    "original_product_control_assertion_failures": 0,
+    "original_product_control_exit": 250,
+    "engine_errors": "11 CanvasShaderRD shaders not freed; decal atlas two textures not removed",
+    "engine_root_cause": "not established; changing queued teardown did not resolve; not treated as passing native exit"
+  },
+  "source": {
+    "ui/cinematic_framing.gd": "d0b40de6ff9784003808b8f36fcadbb0b6024fdb7b3162e7a142b6fac68a6443",
+    "tests/helpers/contextual_ui_checks.gd": "24a8adae163d7995d9091e71ab4a5ae630dbcfbe362dec55b31952d8fbf9bc13",
+    "work/ne228-framing/main.gd": "e6ed07348d35308e5dc2d84cad1a251ead11bf6f6a1586be2c84577cabb2db21",
+    "work/ne228-framing/phone_base.gd": "1509900552db36a5846efcdd85e2dfb20a1b3e65688f440cf381189fd2a7e51a",
+    "work/ne228-framing/repeat.gd": "4df6c35d06887997e96f0e957da6a11a614948437c1658e79206ed1e54756ee8"
+  },
+  "scope": "actual formal Main Old K via public inputs; arranged routing/position; original .48s budget; not physical controller or human complete chapter"
+}

@@ -211,7 +211,8 @@ func _set_goal(goal: float, immediate := false) -> void:
 	if immediate or Settings.get_reduce_ui_motion():
 		amount = goal
 		return
-	_tween = create_tween().set_ignore_time_scale(true)
+	# 來源在物理影格切換；遮幅也用同一階段推進，避免低幀率時頁首多等idle影格。
+	_tween = create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS).set_ignore_time_scale(true)
 	_tween.tween_property(self, "amount", goal, EASE_SECONDS).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 
