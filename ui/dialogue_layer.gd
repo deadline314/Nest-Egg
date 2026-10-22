@@ -64,6 +64,7 @@ func _ready() -> void:
 	_build_cinematic()
 	_build_radio()
 	_radio_layers[get_instance_id()] = weakref(self)
+	_radio_root.visibility_changed.connect(EventBus.radio_visibility_changed.emit)
 	Story.framing.safe_rect_changed.connect(_layout_cinematic)
 	InputBindings.bindings_changed.connect(_refresh_skip_hint)
 	Settings.display_changed.connect(_display_changed)
@@ -84,6 +85,7 @@ static func radio_visible() -> bool:
 func _exit_tree() -> void:
 	_radio_layers.erase(get_instance_id())
 	_release_radio_lock()
+	EventBus.radio_visibility_changed.emit()
 
 
 # ---------------------------------------------------------------------------

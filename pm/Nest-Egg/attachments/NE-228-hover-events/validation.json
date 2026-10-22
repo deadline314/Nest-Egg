@@ -1,0 +1,163 @@
+{
+  "base": "7a29f7535f60cef70cbb3c6deafb2790fb897975",
+  "additional_checks": 9,
+  "unit": "final76/6 before,76/0 after; earlier75/5 before,75/0 after retained",
+  "affected": {
+    "command": [
+      "tools/run_tests_changed.sh",
+      "7a29f7535f60cef70cbb3c6deafb2790fb897975"
+    ],
+    "exit_code": 0,
+    "seconds": 1398.939984290002,
+    "shards": 2
+  },
+  "affected_summary": [
+    "Running 76 groups in 2 processes (logs: /workspace/Nest-Egg/work/batch1022/kitchen/work/ne228-hover-events/changed-shards)",
+    "checks: 90853, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 1398 s)"
+  ],
+  "native": [
+    {
+      "name": "ne228-1022-hover-events-before-v2",
+      "command": [
+        "python",
+        "/workspace/Nest-Egg/work/batch1020b/native.py",
+        "ne228-1022-hover-events-before-v2",
+        "res://work/ne228-hover-events/native.tscn"
+      ],
+      "exit_code": 1,
+      "expected": 1,
+      "seconds": 15.50083131899737,
+      "engine_errors": 0,
+      "leaks": 0,
+      "checks": 13,
+      "failures": 5,
+      "completed": true
+    },
+    {
+      "name": "ne228-1022-hover-events-after-v2",
+      "command": [
+        "python",
+        "/workspace/Nest-Egg/work/batch1020b/native.py",
+        "ne228-1022-hover-events-after-v2",
+        "res://work/ne228-hover-events/native.tscn"
+      ],
+      "exit_code": 0,
+      "expected": 0,
+      "seconds": 14.988705376003054,
+      "engine_errors": 0,
+      "leaks": 0,
+      "checks": 13,
+      "failures": 0,
+      "completed": true
+    }
+  ],
+  "viewed": {
+    "individually_viewed": true,
+    "files": [
+      {
+        "path": "ne228-1022-hover-events-before-v2/actual-tooltip-window.png",
+        "sha256": "e01569f3c5dff41cd9b5b39c323bb5ea81521b6a890b2c97bbafe30d559ccdb8"
+      },
+      {
+        "path": "ne228-1022-hover-events-before-v2/radio-closed.png",
+        "sha256": "8b0b43a8865c1a67da199e6fc47514a02383c27e9d03bc534c5a611a13cf57b6"
+      },
+      {
+        "path": "ne228-1022-hover-events-before-v2/radio-visible.png",
+        "sha256": "2118a30dcedac4fb6a29dbb927547fbf4d412bcaf3dec06a9984f19d2f8d48e9"
+      },
+      {
+        "path": "ne228-1022-hover-events-before-v2/tooltip-before-radio.png",
+        "sha256": "047f3a0b0f05aeb220bb42c7a6cb34b281ceb3efdc3f5e351fc4f3b6e0157d61"
+      },
+      {
+        "path": "ne228-1022-hover-events-after-v2/actual-tooltip-window.png",
+        "sha256": "e01569f3c5dff41cd9b5b39c323bb5ea81521b6a890b2c97bbafe30d559ccdb8"
+      },
+      {
+        "path": "ne228-1022-hover-events-after-v2/radio-closed.png",
+        "sha256": "ff7f98bcb836384a17630207f19973e530e41a8eaae0617d52e383ec78f3b591"
+      },
+      {
+        "path": "ne228-1022-hover-events-after-v2/radio-visible.png",
+        "sha256": "75f5fa47677b4ddc280ce744276f6353b37a235c137ca21e712261b48851b47b"
+      },
+      {
+        "path": "ne228-1022-hover-events-after-v2/tooltip-before-radio.png",
+        "sha256": "470be382edb5b323b683fff0cde8a05ebad0acef8f8f66cf1bbf4c5088426224"
+      }
+    ],
+    "observations": "八張最終原生圖逐張檢視，含各自真正引擎Tooltip視窗。通訊完整逐字結束後拍攝，舊版在下一次畫面更新也已收起Tooltip；失敗證據是之前同次呼叫的原生狀態快照，不聲稱後畫面拍到Tooltip壓字。"
+  },
+  "harness_unchanged": [
+    "tools/run_tests_changed.sh",
+    "tools/run_tests_parallel.sh",
+    "tools/select_tests.py",
+    "tools/test_filters.sh",
+    "tests/known_failures.txt"
+  ],
+  "observed_gap": "original immediate visible radio root with guard false and same actual tooltip id; native before snapshot proves both. After snapshot guard true and tooltip id0. Close inverse also synchronously fixed.",
+  "prior_failures": "BG50 first50:55025/1 explosion budget; second50:55025/2 original radio hover checks; diagnostic same10 groups8774/0. Raw runs and observer retained; original two failures lacked failure-time state, so same-call gap is demonstrated without inventing unique original cause.",
+  "scope": "actual authored pawnshop Level, production HDR environment, real engine tooltip, explicit radio text fixtures, visible mouse, isolated run and presentation reset. Observer ALWAYS, Level PAUSABLE. Sync snapshot precedes render; screenshots after original typewriter completion may look correct on both versions because old polling already ran. No claim of captured overlap frame, natural human chapter, physical GPU/controller or full joint acceptance.",
+  "first_affected_run": {
+    "command": [
+      "tools/run_tests_changed.sh",
+      "7a29f7535f60cef70cbb3c6deafb2790fb897975"
+    ],
+    "exit_code": 1,
+    "seconds": 555.7063048519994
+  },
+  "first_affected_failure": "Actual selector76 groups,90856 checks,1 unchangedAmmoTray crossing29.6px >24 threshold,555s. Earlier commentary said88 incorrectly and was corrected. Raw head preserved.",
+  "ammo_comparison": [
+    {
+      "label": "baseline",
+      "command": [
+        "tools/run_tests_parallel.sh",
+        "--only=AmmoTraySuite"
+      ],
+      "exit_code": 0,
+      "seconds": 43.86889072800113,
+      "source_sha256": {
+        "autoload/event_bus.gd": "58327611473a8bf37538cbc06e0a2b2a0e9bab2ff451bc3472d422cc62cb1cdf",
+        "ui/dialogue_layer.gd": "e018763435f73c5478259f6c5ff94144337167e5b321d3f1e9730355e9bd8eea",
+        "ui/kit/background_hover_guard.gd": "0fe577b0294076dc251b2733f4f07e783aeb86b92d364d839f6d280785972fa3",
+        "tests/helpers/hud_background_hover_checks.gd": "5837655000625df45b6466b5349801dbfd5139448e01ceb82ec80a957c80b7de"
+      },
+      "summary": [
+        "checks: 33, failures: 0"
+      ]
+    },
+    {
+      "label": "current",
+      "command": [
+        "tools/run_tests_parallel.sh",
+        "--only=AmmoTraySuite"
+      ],
+      "exit_code": 0,
+      "seconds": 43.07559678799589,
+      "source_sha256": {
+        "autoload/event_bus.gd": "b261d910ed1318d8c0f3c0566113db55764dfa26e35c9caafcd68b7cbe1764d7",
+        "ui/dialogue_layer.gd": "67087917c0238a5b096097cb282c699a20a1da781b25b35264a052b7146bf25c",
+        "ui/kit/background_hover_guard.gd": "dc9cd61c59601c5f81aab9982dbb05bedafdb50368b4030ba6d80a67cc24de02",
+        "tests/helpers/hud_background_hover_checks.gd": "3e83591743d9b763c6b494abbc4d706000a1a9c5a4f284bb7e167fa552b6f7ef"
+      },
+      "summary": [
+        "checks: 33, failures: 0"
+      ]
+    }
+  ],
+  "resource_envelope": {
+    "before": {
+      "cpu_max": "400000 100000",
+      "cpu_stat": "usage_usec 41128730319\nuser_usec 40124424882\nsystem_usec 1004305436\nnice_usec 0\nnr_periods 194330\nnr_throttled 50563\nthrottled_usec 2847842479\nnr_bursts 0\nburst_usec 0\n",
+      "time_utc": "2026-10-22T14:51:22Z"
+    },
+    "shards": 2,
+    "reason": "4CPU quota; reserve capacity for engine workers; original predicates/inputs/waits, selector, filters and known-failure list unchanged",
+    "after": {
+      "cpu_max": "400000 100000",
+      "cpu_stat": "usage_usec 42698654055\nuser_usec 41663275809\nsystem_usec 1035378245\nnice_usec 0\nnr_periods 208319\nnr_throttled 50563\nthrottled_usec 2847842479\nnr_bursts 0\nburst_usec 0\n",
+      "time_utc": "2026-10-22T15:14:41Z"
+    }
+  }
+}

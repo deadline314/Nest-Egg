@@ -2,6 +2,9 @@ extends Node
 ## 全域事件匯流排：跨系統溝通（HUD、圖鑑、統計、鏡頭）一律走這裡，
 ## 讓遊戲物件與 UI 互不持有參照，任一方被移除都不會出錯。
 
+## Actual panel visibility/owner lifecycle, independent of Story completion.
+signal radio_visibility_changed
+
 signal player_spawned(player: Node2D)
 signal player_health_changed(current: int, maximum: int)
 signal player_loadout_changed(loadout: Loadout)

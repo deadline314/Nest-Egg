@@ -58,11 +58,14 @@ static func run(suite: TestSuite) -> void:
 	suite.check(await _wait_tooltip(suite, target, true), "通訊前說明正常出現（前置條件）")
 	Story._scenes["ne228_hover_radio"] = {"mode": "radio", "lines": [{"speaker": "mei", "text": "測試通訊。"}]}
 	suite.check(Story.play(&"ne228_hover_radio", false), "可以播放通訊")
+	suite.check(DialogueLayer.radio_visible() and hud.hover_guard.blocked, "通訊顯示的同次呼叫立即收起背景說明")
+	suite.check(_tooltip(target) == null, "通訊入場不等下一格才取消真實說明視窗")
 	await suite.frames(2)
 	suite.check(DialogueLayer.radio_visible() and hud.hover_guard.blocked, "通訊面板出現時守門啟動")
 	suite.check(_tooltip(target) == null, "通訊出現時已顯示的背景說明立即收起")
 	Story._scenes.erase("ne228_hover_radio")
 	layer.cancel_radio()
+	suite.check(not hud.hover_guard.blocked, "通訊關閉的同次呼叫立即恢復背景說明")
 	# 通訊收尾可能延後幾個影格（平行測試負載下觀察到），以上限等待取代固定影格數。
 	for i in 30:
 		await suite.frames(1)
@@ -70,6 +73,29 @@ static func run(suite: TestSuite) -> void:
 			break
 	suite.check(not hud.hover_guard.blocked, "通訊結束後守門解除")
 	_park(vp)
+
+	# Additional real owners use visibility, including delay and leaving the tree.
+	var other := DialogueLayer.new()
+	suite.runner.get_tree().root.add_child(other)
+	var delayed: Array[Dictionary] = [{"name": "測試", "color": Color.CYAN, "portrait": "", "text": "延遲通訊。", "delay": 0.2}]
+	other.enqueue_radio(&"ne228_other_radio", delayed)
+	suite.check(not DialogueLayer.radio_visible() and not hud.hover_guard.blocked, "延遲且尚未顯示的通訊不阻擋背景說明")
+	other.cancel_radio()
+	var line := delayed[0].duplicate()
+	line.erase("delay")
+	var immediate: Array[Dictionary] = [line]
+	other.enqueue_radio(&"ne228_other_radio", immediate)
+	suite.check(DialogueLayer.radio_visible() and hud.hover_guard.blocked, "第二個真通訊來源同次顯示也立即守門")
+	layer.enqueue_radio(&"ne228_parallel_radio", immediate)
+	layer.cancel_radio()
+	suite.check(other._radio_root.visible and hud.hover_guard.blocked, "其中一個來源關閉不解除另一個可見來源的守門")
+	other.cancel_radio()
+	suite.check(not DialogueLayer.radio_visible() and not hud.hover_guard.blocked, "最後一個可見來源關閉立即解除守門")
+	other.enqueue_radio(&"ne228_other_radio", immediate)
+	suite.check(DialogueLayer.radio_visible() and hud.hover_guard.blocked, "離樹案例先見證真的可見來源與守門")
+	other.get_parent().remove_child(other)
+	suite.check(not DialogueLayer.radio_visible() and not hud.hover_guard.blocked, "可見來源離開場景樹立即解除守門")
+	other.queue_free()
 
 	# 4. 操作提示卡：暫停頁打開時收起，關閉後依情境回來，閱讀時間不被暫停吃掉。
 	await suite.frames(2)

@@ -23,6 +23,7 @@ func _ready() -> void:
 		push_error("[BackgroundHoverGuard] %s：沒有指定要守護的 Control，守門停用" % get_path())
 		set_process(false)
 		return
+	EventBus.radio_visibility_changed.connect(_sync)
 	_sync()
 
 
