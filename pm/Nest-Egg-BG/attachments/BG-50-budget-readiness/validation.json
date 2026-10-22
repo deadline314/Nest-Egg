@@ -1,0 +1,409 @@
+{
+  "base": "ad8c1cfe05ede98e548ebd20dca8d8e6c228ee4e",
+  "additional_checks": 5,
+  "standalone_control": "real WorkerThreadPool reads actual imported pistol; explicit20ms mutex holder, original2ms soft budget; before5/2,after5/0",
+  "unit": "same original InputFeel/Cutscene/Chapter1Map group: before2368/2,after2368/0; unit uses declared200ms contention to ensure the original2ms branch admits on shared CI",
+  "affected": {
+    "base": "ad8c1cfe05ede98e548ebd20dca8d8e6c228ee4e",
+    "command": [
+      "tools/run_tests_changed.sh",
+      "ad8c1cfe05ede98e548ebd20dca8d8e6c228ee4e"
+    ],
+    "exit_code": 0,
+    "seconds": 1091.1853676750034,
+    "shards": 2
+  },
+  "affected_summary": [
+    "Running 50 groups in 2 processes (logs: /workspace/Nest-Egg/work/batch1022/quests/work/bg50-prefetch-budget/changed-shards)",
+    "checks: 55034, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 1090 s)"
+  ],
+  "native": {
+    "name": "bg50-1022-prefetch-exit-integrated-final",
+    "command": [
+      "python",
+      "/workspace/Nest-Egg/work/batch1020b/native.py",
+      "bg50-1022-prefetch-exit-integrated-final",
+      "res://work/bg50-prefetch-budget/native.tscn",
+      "--level=ch1_street,ch1_warehouse",
+      "--seconds=5",
+      "--tag=bg50"
+    ],
+    "exit_code": 0,
+    "seconds": 28.510883707000175,
+    "engine_errors": 0,
+    "leaks": 0,
+    "verbose": false,
+    "before_hover_product": false
+  },
+  "viewed": {
+    "individually_viewed": true,
+    "name": "bg50-1022-prefetch-exit-integrated-final",
+    "files": [
+      {
+        "file": "/workspace/Nest-Egg/work/batch1020b/bg50-1022-prefetch-exit-integrated-final/ch1_street-running.png",
+        "sha256": "d38f03d34ddfbc4a4e59bce326bcdbf663db0f340d482b9cdc304935f59fcad2"
+      },
+      {
+        "file": "/workspace/Nest-Egg/work/batch1020b/bg50-1022-prefetch-exit-integrated-final/ch1_street-start.png",
+        "sha256": "91814e464b342054038e6f20220b4c60c42b3d309b2d71b24e6517406b32d8f7"
+      },
+      {
+        "file": "/workspace/Nest-Egg/work/batch1020b/bg50-1022-prefetch-exit-integrated-final/ch1_warehouse-running.png",
+        "sha256": "051445cf22cff7e77d3509cede4c04f3159688937afbfff3a420378bfc29785c"
+      },
+      {
+        "file": "/workspace/Nest-Egg/work/batch1020b/bg50-1022-prefetch-exit-integrated-final/ch1_warehouse-start.png",
+        "sha256": "744f198b929e15fe7834014282f3267be2d592ef0e9093d76cddccc6a2773345"
+      }
+    ],
+    "scope": "4 actual rendered images checked; this proves neither character joint acceptance nor natural chapter route. Original frame-time tool resets run prerequisites and uses invulnerability99999."
+  },
+  "frame_report": {
+    "idle": false,
+    "levels": [
+      {
+        "canvas_items": 828,
+        "census": {
+          "canvas_items": 1635,
+          "enemies": 16,
+          "light_pixels": 9.45,
+          "lights": 30,
+          "lights_enabled": 7,
+          "lights_shadow": 3,
+          "occluders": 20,
+          "particles": 0,
+          "physics_processing": 84,
+          "processing": 94,
+          "sprites": 226,
+          "top_classes": {
+            "Bone2D": 232,
+            "CollisionShape2D": 213,
+            "HBoxContainer": 24,
+            "HealthComponent": 23,
+            "Hurtbox": 35,
+            "Label": 50,
+            "Node2D": 125,
+            "PointLight2D": 30,
+            "Projectile": 96,
+            "RayCast2D": 66,
+            "RigPartMesh": 164,
+            "Sprite2D": 221,
+            "VBoxContainer": 25,
+            "WorldPrompt": 21
+          }
+        },
+        "draw_calls": 355,
+        "frames": 25,
+        "hitches": 24,
+        "level": "ch1_street",
+        "load_ms": 3520.8,
+        "max_ms": 273.1,
+        "median_ms": 209.46,
+        "nodes": 1792,
+        "p95_ms": 262.36,
+        "p99_ms": 273.09,
+        "pace_changes_percent": 92.0,
+        "pacing_percent": {
+          "12_to_17": 4.0,
+          "6_to_9": 0.0,
+          "9_to_12": 0.0,
+          "over_17": 96.0,
+          "under_6": 0.0
+        },
+        "prefetch": {
+          "busy_skips": 0,
+          "loads": 34,
+          "max_load_ms": 3.3,
+          "over_budget": 9,
+          "queued_at_end": 222,
+          "queued_at_start": 256,
+          "waited_frames": 0,
+          "warm_timeouts": 0,
+          "warmed_files": 232
+        },
+        "slow_frames": 24,
+        "slow_percent": 96.0,
+        "warmup_max_ms": 346.4,
+        "worst": [
+          {
+            "at_second": 4.55,
+            "ms": 273.1,
+            "player_x": 706.0
+          },
+          {
+            "at_second": 5.21,
+            "ms": 262.4,
+            "player_x": 805.0
+          },
+          {
+            "at_second": 2.07,
+            "ms": 256.9,
+            "player_x": 466.0
+          },
+          {
+            "at_second": 0.73,
+            "ms": 247.2,
+            "player_x": 346.0
+          },
+          {
+            "at_second": 0.48,
+            "ms": 245.0,
+            "player_x": 326.0
+          },
+          {
+            "at_second": 3.85,
+            "ms": 238.2,
+            "player_x": 646.0
+          },
+          {
+            "at_second": 1.39,
+            "ms": 236.5,
+            "player_x": 406.0
+          },
+          {
+            "at_second": 4.28,
+            "ms": 220.9,
+            "player_x": 686.0
+          }
+        ]
+      },
+      {
+        "canvas_items": 851,
+        "census": {
+          "canvas_items": 1482,
+          "enemies": 13,
+          "light_pixels": 9.4,
+          "lights": 24,
+          "lights_enabled": 6,
+          "lights_shadow": 2,
+          "occluders": 20,
+          "particles": 0,
+          "physics_processing": 76,
+          "processing": 92,
+          "sprites": 205,
+          "top_classes": {
+            "Bone2D": 184,
+            "CollisionShape2D": 198,
+            "Control": 21,
+            "HBoxContainer": 24,
+            "Hurtbox": 32,
+            "Label": 50,
+            "Node2D": 130,
+            "PointLight2D": 24,
+            "Projectile": 96,
+            "RayCast2D": 56,
+            "RigPartMesh": 130,
+            "Sprite2D": 200,
+            "VBoxContainer": 25,
+            "WorldPrompt": 27
+          }
+        },
+        "draw_calls": 320,
+        "frames": 23,
+        "hitches": 22,
+        "level": "ch1_warehouse",
+        "load_ms": 1111.3,
+        "max_ms": 460.0,
+        "median_ms": 211.65,
+        "nodes": 1637,
+        "p95_ms": 364.08,
+        "p99_ms": 460.01,
+        "pace_changes_percent": 78.3,
+        "pacing_percent": {
+          "12_to_17": 0.0,
+          "6_to_9": 0.0,
+          "9_to_12": 0.0,
+          "over_17": 100.0,
+          "under_6": 0.0
+        },
+        "prefetch": {
+          "busy_skips": 0,
+          "loads": 34,
+          "max_load_ms": 6.3,
+          "over_budget": 7,
+          "queued_at_end": 165,
+          "queued_at_start": 199,
+          "waited_frames": 0,
+          "warm_timeouts": 0,
+          "warmed_files": 152
+        },
+        "slow_frames": 23,
+        "slow_percent": 100.0,
+        "warmup_max_ms": 286.4,
+        "worst": [
+          {
+            "at_second": 4.63,
+            "ms": 460.0,
+            "player_x": 424.0
+          },
+          {
+            "at_second": 5.25,
+            "ms": 364.1,
+            "player_x": 464.0
+          },
+          {
+            "at_second": 4.17,
+            "ms": 337.7,
+            "player_x": 404.0
+          },
+          {
+            "at_second": 3.83,
+            "ms": 255.3,
+            "player_x": 384.0
+          },
+          {
+            "at_second": 4.88,
+            "ms": 251.7,
+            "player_x": 444.0
+          },
+          {
+            "at_second": 3.34,
+            "ms": 237.9,
+            "player_x": 348.0
+          },
+          {
+            "at_second": 3.58,
+            "ms": 236.4,
+            "player_x": 364.0
+          },
+          {
+            "at_second": 1.5,
+            "ms": 224.0,
+            "player_x": 256.0
+          }
+        ]
+      }
+    ],
+    "seconds": 5.0,
+    "tag": "bg50"
+  },
+  "original_failure": "HUD integration on7a:7358 checks,1 warm-order failure,225s; no failure-time stats. Original check did not recur in negative focus, only2 new controlled failures. Demonstrated lost readiness gap is not called uniquely established root of original intermittent failure.",
+  "previous_ci": "7a29f753 run39789378374 job119861006251:96007/0 new/0 known,550s. Full raw job retained.",
+  "harness_unchanged": [
+    "tools/run_tests_changed.sh",
+    "tools/run_tests_parallel.sh",
+    "tools/select_tests.py",
+    "tools/test_filters.sh",
+    "tests/known_failures.txt"
+  ],
+  "scope": "Forward+ HDR llvmpipe software Vulkan; original frame_time_probe bot and authored street/warehouse, production environment added. Original explicit invulnerability99999, virtual gamepad, auto skipped story and new run without route prerequisites remain; goal row stays prologue, not natural formal route. Initial v1 native medians179.18/210.78ms are historical; final timings are in frame_report. Neither software run passes hardware hitch criteria or proves cold cache. No physical controller/GPU or human acceptance.",
+  "first_affected_run": {
+    "command": [
+      "tools/run_tests_changed.sh",
+      "7a29f7535f60cef70cbb3c6deafb2790fb897975"
+    ],
+    "exit_code": 1,
+    "seconds": 510.4441804360031
+  },
+  "first_affected_failure": "55025 checks / 1 explosion budget failure (+12.64ms, original6ms). Original warming check passed; other49 groups passed.",
+  "paired_explosion_perf": [
+    {
+      "label": "baseline",
+      "command": [
+        "tools/run_tests_parallel.sh",
+        "--only=FxMeleePickupsSuite"
+      ],
+      "exit_code": 0,
+      "seconds": 29.879486855999858,
+      "source_sha256": {
+        "core/asset_prefetch.gd": "67d195694b3170c520ee6302f78dd44dca6d8a735fdeec15688aa503f1dbbe02",
+        "tests/suite/test_ch1_map.gd": "861c3e4348e21ec38c6409f2e5cd8d409d1d8f8618b553a19c8a41f35efdebfc"
+      },
+      "metrics": [
+        "FX_PERF idle=6.92 ms, 12 explosions=3.02 ms per frame, particles=327, nodes +0",
+        "checks: 44, failures: 0"
+      ]
+    },
+    {
+      "label": "current",
+      "command": [
+        "tools/run_tests_parallel.sh",
+        "--only=FxMeleePickupsSuite"
+      ],
+      "exit_code": 0,
+      "seconds": 29.181882030999986,
+      "source_sha256": {
+        "core/asset_prefetch.gd": "9e6e6ecfe8faf1ef80eaf2655321843ca0b6df1a704cac74380910fc78d341b8",
+        "tests/suite/test_ch1_map.gd": "b65390f797e4d04ecc7a3f40d38296a0b7b37635e874d456390aa279dffe36a3"
+      },
+      "metrics": [
+        "FX_PERF idle=3.62 ms, 12 explosions=5.03 ms per frame, particles=325, nodes +0",
+        "checks: 44, failures: 0"
+      ]
+    }
+  ],
+  "engine_monitor_reference": {
+    "url": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/main/main.cpp",
+    "sha256": "1831257f5c8eb0707d278f04b21b1e4b3ba863f8dca5cab36022d4b19e36b8c1",
+    "bytes": 210345,
+    "retrieved_utc": "2026-10-22T14:10:25.734583+00:00",
+    "finding": "Performance TIME_PROCESS is assigned USEC_TO_SEC(process_max) only under frame > 1000000; process_max then reset. Original40-frame averaging does not represent per-frame mean."
+  },
+  "second_affected_run": {
+    "command": [
+      "tools/run_tests_changed.sh",
+      "7a29f7535f60cef70cbb3c6deafb2790fb897975"
+    ],
+    "exit_code": 1,
+    "seconds": 513.5278118230017
+  },
+  "second_affected_failure": "55025 checks / 2 original hover failures before ad8c1cfe. Separate hover synchrony delivery integrated; original failures lacked same-call snapshot, unique root not asserted.",
+  "integrated_first_native": {
+    "base": "ad8c1cfe05ede98e548ebd20dca8d8e6c228ee4e",
+    "name": "bg50-1022-prefetch-world-ad8c1cfe",
+    "command": [
+      "python",
+      "/workspace/Nest-Egg/work/batch1020b/native.py",
+      "bg50-1022-prefetch-world-ad8c1cfe",
+      "res://work/bg50-prefetch-budget/native.tscn",
+      "--level=ch1_street,ch1_warehouse",
+      "--seconds=5",
+      "--tag=bg50"
+    ],
+    "exit_code": 0,
+    "seconds": 26.5249660949994,
+    "engine_errors": 1,
+    "leaks": 2
+  },
+  "exit_comparison": [
+    {
+      "name": "bg50-1022-prefetch-exit-before-hover",
+      "command": [
+        "python",
+        "/workspace/Nest-Egg/work/batch1020b/native.py",
+        "bg50-1022-prefetch-exit-before-hover",
+        "res://work/bg50-prefetch-budget/native.tscn",
+        "--level=ch1_street,ch1_warehouse",
+        "--seconds=5",
+        "--tag=bg50"
+      ],
+      "exit_code": 0,
+      "seconds": 26.058846395993896,
+      "engine_errors": 0,
+      "leaks": 0,
+      "verbose": true,
+      "before_hover_product": true
+    },
+    {
+      "name": "bg50-1022-prefetch-exit-integrated-final",
+      "command": [
+        "python",
+        "/workspace/Nest-Egg/work/batch1020b/native.py",
+        "bg50-1022-prefetch-exit-integrated-final",
+        "res://work/bg50-prefetch-budget/native.tscn",
+        "--level=ch1_street,ch1_warehouse",
+        "--seconds=5",
+        "--tag=bg50"
+      ],
+      "exit_code": 0,
+      "seconds": 28.510883707000175,
+      "engine_errors": 0,
+      "leaks": 0,
+      "verbose": false,
+      "before_hover_product": false
+    }
+  ],
+  "exit_scope": "First integrated run exit0 but12 ObjectDB instances/3 resources reported; same-source verbose run, before-hover verbose control and original-settings final all0errors/leaks. No cleanup or timing changes; first issue remains unlocated, do not call it fixed.",
+  "interruption": "One ad8 full-selector run interrupted by environment pause; only partial logs, no terminal receipt. Archived interrupted-ad8-integration, including exact zombie process state. Last replay is the only final integrated receipt.",
+  "resource_scope": "4CPU quota;SHARDS2, original predicates/input/waits/harness/filters unchanged. Same original50 selected."
+}

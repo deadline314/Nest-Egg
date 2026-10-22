@@ -763,6 +763,7 @@ func _test_prefetch() -> void:
 
 	await _test_main_thread_prefetch()
 	await _test_prefetch_file_warming()
+	await _test_prefetch_budget_deferral()
 
 
 ## After draining genuine threaded tokens, exercise main policy with real textures.
@@ -932,6 +933,11 @@ func _test_prefetch_file_warming() -> void:
 		last_total = now.main_load_total
 	var done := AssetPrefetch.stats()
 	check(done.queued == 0 and done.cached == 2 and done.main_load_total == before.main_load_total + 2, "warmed textures get loaded and cached")
+	if loaded_ahead or done.warm_files_total != before.warm_files_total + 2 or done.warm_timeouts_total != before.warm_timeouts_total:
+		AssetPrefetch._warm_mutex.lock()
+		var ready := AssetPrefetch._warm_ready.duplicate()
+		AssetPrefetch._warm_mutex.unlock()
+		print("PREFETCH_WARM_FAILURE ", JSON.stringify({"before": before, "done": done, "loaded_ahead": loaded_ahead, "ready": ready, "sent": AssetPrefetch._warm_sent, "queued": AssetPrefetch._queued, "task": AssetPrefetch._warm_task}))
 	check(not loaded_ahead and done.warm_files_total == before.warm_files_total + 2 and done.warm_timeouts_total == before.warm_timeouts_total,
 			"the main thread loads a texture only after the background read of its file finished")
 	check(most_in_a_frame <= 1, "warming keeps the one-texture-per-frame cap")
@@ -957,6 +963,56 @@ func _test_prefetch_file_warming() -> void:
 	AssetPrefetch._warm_override = -1
 	AssetPrefetch._strategy = old_strategy
 	AssetPrefetch.clear()
+	AssetPrefetch._refresh_pump()
+
+
+## A real worker holds the warmer mutex across the unchanged soft budget.
+## The manual pump isolates this branch from the separate busy-frame guard.
+func _test_prefetch_budget_deferral() -> void:
+	var old_strategy: int = AssetPrefetch.stats().strategy
+	var old_average := AssetPrefetch._frame_average
+	var old_last := AssetPrefetch._frame_last
+	AssetPrefetch.clear()
+	AssetPrefetch._strategy = AssetPrefetch.STRATEGY_MAIN_THREAD_RD_472
+	AssetPrefetch._warm_override = 1
+	AssetPrefetch._note_frame(AssetPrefetch._frame_average)
+	var path := "res://art/weapons/pistol.png"
+	AssetPrefetch.request(PackedStringArray([path]))
+	AssetPrefetch._install_pump()
+	AssetPrefetch._pump.set_process(false)
+	AssetPrefetch._warm_schedule()
+	while not WorkerThreadPool.is_task_completed(AssetPrefetch._warm_task):
+		await runner.get_tree().process_frame
+	AssetPrefetch._warm_join()
+	check(AssetPrefetch._warm_ready.has(path), "budget fixture really reads the imported pistol texture in its worker")
+	await runner.get_tree().process_frame
+	var before := AssetPrefetch.stats()
+	var ready := Semaphore.new()
+	var mutex := AssetPrefetch._warm_mutex
+	var task := WorkerThreadPool.add_task(func() -> void:
+		mutex.lock()
+		ready.post()
+		OS.delay_msec(200)  # Explicit contention, never a change to production timing.
+		mutex.unlock())
+	ready.wait()
+	var start := Time.get_ticks_usec()
+	AssetPrefetch._poll_main_thread()
+	var duration := Time.get_ticks_usec() - start
+	WorkerThreadPool.wait_for_task_completion(task)
+	check(duration >= AssetPrefetch.MAIN_SOFT_BUDGET_US and AssetPrefetch.stats().main_load_total == before.main_load_total,
+			"real contention defers a prefetch at its original budget")
+	check(AssetPrefetch._warm_ready.has(path), "budget deferral keeps the completed read available")
+	await runner.get_tree().process_frame
+	AssetPrefetch._poll_main_thread()
+	check(AssetPrefetch.stats().cached == 1 and AssetPrefetch.stats().main_load_total == before.main_load_total + 1,
+			"the next frame loads its warm texture without a three-second fallback")
+	check(AssetPrefetch.stats().warm_timeouts_total == before.warm_timeouts_total,
+			"a deferred completed read never counts as a timeout")
+	AssetPrefetch.clear()
+	AssetPrefetch._warm_override = -1
+	AssetPrefetch._strategy = old_strategy
+	AssetPrefetch._frame_average = old_average
+	AssetPrefetch._frame_last = old_last
 	AssetPrefetch._refresh_pump()
 
 

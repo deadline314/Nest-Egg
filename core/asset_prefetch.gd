@@ -373,7 +373,8 @@ static func _poll_main_thread() -> void:
 	var work_start := Time.get_ticks_usec()
 	var deadline := work_start + MAIN_SOFT_BUDGET_US
 	var path := _first_path(_queued)
-	if _warming():
+	var warming := _warming()
+	if warming:
 		# 上一格已經比平常慢很多，這一格不再加一張。
 		if _frame_average > 0.0 and _frame_last > _frame_average * BUSY_FRAME_RATIO:
 			_busy_skips_total += 1
@@ -392,6 +393,13 @@ static func _poll_main_thread() -> void:
 	_main_last_frame = frame
 	_main_loading = true
 	_queued.erase(path)
+	if warming:
+		# A budget rejection above must leave the completed read available.
+		# Count a timeout only when its fallback really starts loading.
+		_warm_mutex.lock()
+		if not _warm_ready.erase(path):
+			_warm_timeouts_total += 1
+		_warm_mutex.unlock()
 	_warm_sent.erase(path)
 	_sent_total += 1
 	_main_load_total += 1
@@ -461,11 +469,9 @@ static func _first_warm_path() -> String:
 	_warm_mutex.lock()
 	for path: String in _queued:
 		if _warm_ready.has(path):
-			_warm_ready.erase(path)
 			found = path
 			break
 		if _warm_sent.has(path) and now - _warm_sent[path] > WARM_TIMEOUT_MSEC:
-			_warm_timeouts_total += 1
 			found = path
 			break
 		looked += 1
