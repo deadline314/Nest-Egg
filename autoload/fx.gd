@@ -193,6 +193,13 @@ func frozen_count() -> int:
 	return _frozen.size()
 
 
+## Only the local stop owned here, not an independently disabled actor.
+func is_frozen(node: Node) -> bool:
+	if not is_instance_valid(node) or not _frozen.has(node):
+		return false
+	return node.process_mode == Node.PROCESS_MODE_DISABLED and _frozen[node][1] != Node.PROCESS_MODE_DISABLED
+
+
 ## 立刻解除所有頓幀，被凍結的節點恢復（測試與切換場景時用；一般戰鬥讓頓幀自己到期）。
 func thaw_all() -> void:
 	_clear_frozen()

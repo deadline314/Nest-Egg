@@ -4,6 +4,7 @@ extends TestSuite
 ## 輸入延遲量測；衝刺提前按會排隊。
 
 func run() -> void:
+	await _test_vehicle_hitstop_interaction()
 	_test_windows_from_data()
 	_test_aim_assist()
 	_test_latency()
@@ -344,4 +345,85 @@ func _test_dash_buffer() -> void:
 	await physics_frames(12)
 	check(player._dash_buffer_left == 0.0 and (player.state == Player.State.DASH or player._dash_cooldown_left > 0.0), "the queued dash fires when the cooldown ends")
 	await physics_frames(3)
+	await end_level(level)
+
+
+func _vehicle_press() -> void:
+	Input.action_press(&"interact")
+	await frames(2)
+	Input.action_release(&"interact")
+	await frames(1)
+
+
+func _test_vehicle_hitstop_interaction() -> void:
+	var level := await start_level(load("res://data/levels/level_01.tres") as LevelData)
+	for node in level.find_children("*", "", true, false):
+		if node is Enemy:
+			node.set_physics_process(false)
+	var player := level.player
+	var vehicle: Vehicle
+	for node in runner.get_tree().get_nodes_in_group(&"vehicles"):
+		if level.is_ancestor_of(node):
+			vehicle = node
+			break
+	check(vehicle != null, "hitstop input uses a real authored vehicle")
+	if vehicle == null:
+		await end_level(level)
+		return
+	Fx.thaw_all()
+	player.global_position = vehicle.global_position + Vector2(-8, -2)
+	player.velocity = Vector2.ZERO
+	Fx.freeze([player], 0.08)
+	var until: int = Fx._frozen[player][0]
+	await _vehicle_press()
+	check(player.state == Player.State.MOUNTED and vehicle.driver == player, "polling interaction mounts the real vehicle while its player is locally stopped")
+	check(player.process_mode == Node.PROCESS_MODE_DISABLED and Fx._frozen.has(player) and int(Fx._frozen[player][0]) == until, "accepting the command preserves the actor stop and its original deadline")
+	if player.state != Player.State.MOUNTED:
+		player.mount_vehicle(vehicle)  # Setup for the independent exit case; the failed mount above remains failed.
+	Fx.freeze([vehicle], 0.08)
+	await _vehicle_press()
+	check(player.state == Player.State.MOUNTED and vehicle.driver == player, "local stop never bypasses the existing mount input grace")
+	Fx.thaw_all()
+	await frames(24)
+	Fx.freeze([player, vehicle], 0.08)
+	var press := InputEventAction.new()
+	press.action = &"interact"
+	press.pressed = true
+	Input.parse_input_event(press)
+	Input.flush_buffered_events()
+	await frames(2)
+	check(player.state == Player.State.NORMAL and vehicle.driver == null, "public event interaction exits an actually stopped vehicle after grace")
+	if player.state == Player.State.MOUNTED:
+		player.dismount_vehicle(false)  # Independent hold/pause cases still run after a failed exit.
+
+	Fx.thaw_all()
+	await frames(24)
+	player.global_position = vehicle.global_position + Vector2(-8, -2)
+	player.velocity = Vector2.ZERO
+	await frames(3)
+	check(player.state == Player.State.NORMAL and vehicle.driver == null, "holding the same interaction cannot mount again after exit cooldown expires")
+	var release := press.duplicate() as InputEventAction
+	release.pressed = false
+	Input.parse_input_event(release)
+	Input.flush_buffered_events()
+	await frames(2)
+	var lock := GameplayLock.acquire(level)
+	await _vehicle_press()
+	GameplayLock.release(lock)
+	await frames(3)
+	check(player.state == Player.State.NORMAL and vehicle.driver == null, "an interaction during pause and gameplay lock never executes on return")
+	var mode := player.process_mode
+	player.process_mode = Node.PROCESS_MODE_DISABLED
+	Fx.freeze([player], 0.08)
+	await _vehicle_press()
+	check(player.state == Player.State.NORMAL and vehicle.driver == null, "an independently disabled player never gains input through an FX stop")
+	Fx.thaw_all()
+	player.process_mode = mode
+	player.global_position = vehicle.global_position + Vector2(-100, -2)
+	player.velocity = Vector2.ZERO
+	Fx.freeze([player], 0.08)
+	await _vehicle_press()
+	check(player.state == Player.State.NORMAL and vehicle.driver == null, "local stop preserves the authored mount distance")
+	Fx.thaw_all()
+	Input.action_release(&"interact")
 	await end_level(level)

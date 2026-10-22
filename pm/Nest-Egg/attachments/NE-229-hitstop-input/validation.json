@@ -1,0 +1,90 @@
+{
+  "base": "5bcc9f68b4e226e4d5b91d788d20d40b174efce0",
+  "red_ci": {
+    "run": 39781993137,
+    "checks": 96000,
+    "new_failures": 3,
+    "seconds": 634,
+    "artifact_sha256": "827256e782e1f0de023feca1748186edffeff00c0b0af17ee725833baa1ffa9b"
+  },
+  "original_gameplay_repeat": "320 checks / 0; original CI uniquely identifying state absent",
+  "controlled_gameplay": "explicit public 60ms player hitstop near authored vehicle; original inputs/waits/assertions: 48/9 before,48/0 after",
+  "additional_checks": 9,
+  "unit": "final 118/2 before,118/0 after; earlier v1 118/4 includes 2 cascading fixture failures, retained",
+  "affected": {
+    "command": [
+      "tools/run_tests_changed.sh",
+      "5bcc9f68b4e226e4d5b91d788d20d40b174efce0"
+    ],
+    "exit_code": 0,
+    "seconds": 609.0455247729988
+  },
+  "affected_summary": [
+    "Running 88 groups in 6 processes (logs: /workspace/Nest-Egg/work/batch1022/quests/work/ne228-ci-gameplay/changed-shards)",
+    "checks: 96006, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 598 s)"
+  ],
+  "native": [
+    {
+      "name": "ne229-1022-hitstop-before-v2",
+      "label": "before",
+      "command": [
+        "python",
+        "/workspace/Nest-Egg/work/batch1020b/native.py",
+        "ne229-1022-hitstop-before-v2",
+        "res://work/ne228-ci-gameplay/native.tscn"
+      ],
+      "exit_code": 1,
+      "expected": 1,
+      "seconds": 23.529955333000544,
+      "engine_errors": 0,
+      "leaks": 0
+    },
+    {
+      "name": "ne229-1022-hitstop-after-v2",
+      "label": "after",
+      "command": [
+        "python",
+        "/workspace/Nest-Egg/work/batch1020b/native.py",
+        "ne229-1022-hitstop-after-v2",
+        "res://work/ne228-ci-gameplay/native.tscn"
+      ],
+      "exit_code": 0,
+      "expected": 0,
+      "seconds": 22.507083495002007,
+      "engine_errors": 0,
+      "leaks": 0
+    }
+  ],
+  "viewed": {
+    "individually_viewed": true,
+    "files": [
+      "ne229-1022-hitstop-before-v2/pit-damages-and-respawns.png",
+      "ne229-1022-hitstop-before-v2/player-dismounts-vehicle.png",
+      "ne229-1022-hitstop-before-v2/player-mounts-vehicle.png",
+      "ne229-1022-hitstop-after-v2/pit-damages-and-respawns.png",
+      "ne229-1022-hitstop-after-v2/player-dismounts-vehicle.png",
+      "ne229-1022-hitstop-after-v2/player-mounts-vehicle.png"
+    ],
+    "observation": "修前搭乘圖保留玩家且無機甲血條，修後有正式機甲血條；離開後玩家恢復可見。落坑圖是渲染讀回時刻，斷言狀態另保留於GAMEPLAY_DIAG；六圖不證明完整角色關節或實體裝置。"
+  },
+  "harness_unchanged": [
+    "tools/run_tests_changed.sh",
+    "tools/run_tests_parallel.sh",
+    "tools/select_tests.py",
+    "tools/test_filters.sh",
+    "tests/known_failures.txt"
+  ],
+  "original_tests": [
+    {
+      "path": "tests/smoke_test.gd",
+      "original_assertions_inputs_waits_byte_exact": true,
+      "original_sha256": "2116888989453d8e7e5ab333fa0fac2363edcc3162f5b68c770ecec4f970699c"
+    },
+    {
+      "path": "tests/suite/test_input_feel.gd",
+      "original_assertions_inputs_waits_byte_exact": true,
+      "original_sha256": "cc8634de23b6de1382e2e3c2dd148e20d39c0345c46a4a636337c2de7aedf03e"
+    }
+  ],
+  "scope": "Forward+ HDR llvmpipe software Vulkan, authored legacy level_01 retained; explicit 60ms intervention, no HP/driver/result injection. Native readback holds tree only after all original gameplay assertions. Render capture can follow assertion by physics frames; full snapshots retained. No physical controller/GPU or human chapter acceptance. Controlled defect is demonstrated; original red CI unique root remains unproven."
+}

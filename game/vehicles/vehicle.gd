@@ -161,8 +161,15 @@ func _drive(delta: float) -> void:
 	aim_dir = Vector2(cos(angle) * facing, sin(angle))
 	if Input.is_action_pressed(&"shoot"):
 		_try_fire()
-	if _mount_grace <= 0.0 and Input.is_action_just_pressed(&"interact"):
-		driver.dismount_vehicle(false)
+	if Input.is_action_just_pressed(&"interact"):
+		request_dismount()
+
+
+func request_dismount() -> bool:
+	if destroyed or _mount_grace > 0.0 or not is_instance_valid(driver) or driver.mounted_vehicle != self or driver.state != Player.State.MOUNTED:
+		return false
+	driver.dismount_vehicle(false)
+	return true
 
 
 func _try_fire() -> void:

@@ -116,6 +116,8 @@ func _check(condition: bool, message: String) -> void:
 	_checks += 1
 	if not condition:
 		_failures.append(message)
+		if message in ["player mounts vehicle", "player dismounts vehicle", "pit damages and respawns"]:
+			_gameplay_failure_state(message)
 
 
 func _frames(count: int) -> void:
@@ -1932,3 +1934,19 @@ func _test_death_flow() -> void:
 	_check(not get_tree().paused and not is_instance_valid(pause_menu._settings), "closing pause also closes settings")
 	_check(GameState.deaths == 1, "death registered")
 	await _end_level(level)
+
+
+## Failure-only state for the original vehicle/pit checks; no input or time changes.
+func _gameplay_failure_state(message: String) -> void:
+	var state := {"failure": message, "physics_frame": Engine.get_physics_frames(), "process_frame": Engine.get_process_frames(), "time_msec": Time.get_ticks_msec(), "paused": get_tree().paused, "locked": GameplayLock.is_locked(), "time_scale": Engine.time_scale, "interact_pressed": Input.is_action_pressed(&"interact"), "interact_just": Input.is_action_just_pressed(&"interact")}
+	var players: Array = []
+	for node in get_tree().get_nodes_in_group(&"player"):
+		if node is Player:
+			players.append({"id": node.get_instance_id(), "state": node.state, "position": [node.position.x, node.position.y], "velocity": [node.velocity.x, node.velocity.y], "health": node.health.current, "process_mode": node.process_mode, "can_process": node.can_process(), "stagger_left": node._stagger_left, "remount_left": node._remount_cooldown_left, "mounted_id": node.mounted_vehicle.get_instance_id() if is_instance_valid(node.mounted_vehicle) else 0, "fx_stop": Fx._frozen.get(node, [])})
+	var vehicles: Array = []
+	for node in get_tree().get_nodes_in_group(&"vehicles"):
+		if node is Vehicle:
+			vehicles.append({"id": node.get_instance_id(), "position": [node.position.x, node.position.y], "can_mount": node.can_mount(), "destroyed": node.destroyed, "process_mode": node.process_mode, "can_process": node.can_process(), "grace": node._mount_grace, "driver_id": node.driver.get_instance_id() if is_instance_valid(node.driver) else 0, "fx_stop": Fx._frozen.get(node, [])})
+	state["players"] = players
+	state["vehicles"] = vehicles
+	print("GAMEPLAY_FAILURE_STATE ", JSON.stringify(state))

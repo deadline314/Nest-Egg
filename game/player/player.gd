@@ -273,6 +273,9 @@ func _ready() -> void:
 	interaction = PlayerInteraction.new()
 	interaction.player = self
 	add_child(interaction)
+	var vehicle_commands := preload("res://game/player/vehicle_command_input.gd").new()
+	vehicle_commands.player = self
+	add_child(vehicle_commands)
 	EventBus.player_spawned.emit(self)
 	_on_health_changed(health.current, health.max_health)
 	_emit_guard()
