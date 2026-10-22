@@ -25,6 +25,7 @@ var _page := ""
 var _kind := "all"
 var _completed := false
 var _selected := ""
+var _display_language := ""
 var _map_path := ""
 var _history: Array[Dictionary] = []
 var _body: Control
@@ -48,6 +49,7 @@ var _buttons: Array[Button] = []
 
 
 func _ready() -> void:
+	_display_language = Story.language
 	# 本頁底部已有聚焦說明，疊在暫停頁裡時不讓暫停頁的說明列重複顯示。
 	add_to_group(FocusHintBar.OWN_HINTS_GROUP)
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -75,6 +77,21 @@ func _ready() -> void:
 	InputBindings.device_changed.connect(_on_device_changed)
 	InputBindings.bindings_changed.connect(_refresh_prompts)
 	show_page(start_page, false)
+
+
+func _process(_delta: float) -> void:
+	if _display_language == Story.language:
+		return
+	_display_language = Story.language
+	var owner := get_viewport().gui_get_focus_owner()
+	var owned_focus := owner != null and is_ancestor_of(owner)
+	var focus_key := _focus_text() if owned_focus else ""
+	var scroll := _detail_scroll.scroll_vertical if is_instance_valid(_detail_scroll) else 0
+	_build(owned_focus)
+	if owned_focus:
+		_restore_focus.call_deferred(focus_key)
+	if is_instance_valid(_detail_scroll):
+		_detail_scroll.set_deferred(&"scroll_vertical", scroll)
 
 
 func _exit_tree() -> void:
@@ -154,7 +171,7 @@ func go_back() -> void:
 		queue_free()
 
 
-func _build() -> void:
+func _build(focus_first := true) -> void:
 	for child in _body.get_children():
 		_body.remove_child(child)
 		child.queue_free()
@@ -173,7 +190,7 @@ func _build() -> void:
 	else:
 		_build_map()
 	_bind_hints(self)
-	if not _buttons.is_empty():
+	if focus_first and not _buttons.is_empty():
 		_focus_first.call_deferred()
 
 
@@ -296,11 +313,14 @@ func _build_detail_column() -> Control:
 func _quest_row(quest: Dictionary) -> Button:
 	var status := QuestCatalog.status(quest, GameState.world_flags)
 	var symbol := "✓" if status == "completed" else "▣" if status == "blocked" else "◆" if quest["kind"] == "main" else "◇"
-	var button := UiKit.button("%s %s" % [symbol, quest["title"]], _select.bind(quest["id"], true), "查看%s的步驟與地點。" % quest["title"])
+	var localized_title := QuestCatalog.display_text(quest, "title")
+	var button := UiKit.button("%s %s" % [symbol, localized_title], _select.bind(quest["id"], true), "查看%s的步驟與地點。" % localized_title)
 	FlatStyle.row(button, quest["id"] == _selected)
 	button.clip_text = true
+	button.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	button.custom_minimum_size.y = UiKit.scaled_size(UiKit.FS_BODY) + FlatStyle.row_caption_space() + 6
 	button.set_meta(&"quest_id", quest["id"])
+	button.set_meta(&"nav_key", "quest:" + str(quest["id"]))
 	var meta := UiKit.caption(_progress_text(quest))
 	button.add_child(meta)
 	# 小字貼在列的下緣，文字放大時跟著列高往下移，不壓到標題。
@@ -311,12 +331,15 @@ func _quest_row(quest: Dictionary) -> Button:
 	var colors: Array[Color] = [Palette.UI_MUTED]
 	if state.pinned_id == quest["id"]:
 		var pinned := UiKit.caption("追蹤中", Palette.MAGENTA, HORIZONTAL_ALIGNMENT_RIGHT)
+		button.add_child(pinned)
 		pinned.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT, Control.PRESET_MODE_MINSIZE)
+		pinned.grow_horizontal = Control.GROW_DIRECTION_BEGIN
+		pinned.grow_vertical = Control.GROW_DIRECTION_BEGIN
+		pinned.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
 		pinned.offset_left -= 6
 		pinned.offset_right -= 6
-		pinned.offset_top -= 1
-		pinned.offset_bottom -= 1
-		button.add_child(pinned)
+		pinned.offset_top -= 2
+		pinned.offset_bottom -= 2
 		labels.append(pinned)
 		colors.append(Palette.MAGENTA)
 	FlatStyle.follow_row_focus(button, labels, colors)
@@ -369,7 +392,7 @@ func _select(id: String, focus_details := false) -> void:
 	if pinned:
 		status_text += "　·　追蹤中"
 	_detail_head.add_child(UiKit.caption("%s　／　%s" % [kind_text, status_text], Palette.MAGENTA if pinned else Palette.CYAN))
-	var title := UiKit.heading(str(quest["title"]))
+	var title := UiKit.heading(QuestCatalog.display_text(quest, "title"))
 	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_detail_head.add_child(title)
 	var step := QuestCatalog.current_step(quest, GameState.world_flags)
@@ -378,13 +401,13 @@ func _select(id: String, focus_details := false) -> void:
 	var location: Dictionary = step["location"]
 	_detail_head.add_child(UiKit.caption("◎ 目的地：%s" % _area_name(location["level"])))
 	if status == "blocked":
-		_details.add_child(SlantBanner.new(str(quest.get("blocked_reason", "")), Palette.WARNING))
-		_wrapped(_details, str(quest.get("suggestion", "")))
+		_details.add_child(SlantBanner.new(QuestCatalog.display_text(quest, "blocked_reason"), Palette.WARNING))
+		_wrapped(_details, QuestCatalog.display_text(quest, "suggestion"))
 	elif status != "completed":
 		# 現在要做的那一件事用斜切橫幅（範本 B），一眼看到下一步。
-		_details.add_child(SlantBanner.new("▶ " + str(step["title"]), Palette.MAGENTA if pinned else Palette.CYAN))
+		_details.add_child(SlantBanner.new("▶ " + QuestCatalog.display_text(step, "title"), Palette.MAGENTA if pinned else Palette.CYAN))
 	_details.add_child(FlatStyle.section("背景"))
-	_wrapped(_details, str(quest["background"]), Color(Palette.UI_TEXT, 0.85))
+	_wrapped(_details, QuestCatalog.display_text(quest, "background"), Color(Palette.UI_TEXT, 0.85))
 	var steps: Array = quest["steps"]
 	var done := 0
 	for entry: Dictionary in steps:
@@ -396,10 +419,10 @@ func _select(id: String, focus_details := false) -> void:
 		var current := not complete and entry == step
 		var prefix := "✓ " if complete else "▶ " if current else "○ "
 		var color := Color(Palette.UI_MUTED, 0.7) if complete else Palette.CYAN if current else Palette.UI_MUTED
-		_wrapped(_details, prefix + str(entry["title"]), color)
-	if not str(quest["reward"]).is_empty():
+		_wrapped(_details, prefix + QuestCatalog.display_text(entry, "title"), color)
+	if not QuestCatalog.display_text(quest, "reward").is_empty():
 		_details.add_child(FlatStyle.section("獎勵"))
-		_reward = _wrapped(_details, str(quest["reward"]), Palette.NEON_YELLOW)
+		_reward = _wrapped(_details, QuestCatalog.display_text(quest, "reward"), Palette.NEON_YELLOW)
 	_detail_scroll.scroll_vertical = 0
 	if status != "completed":
 		var pin := UiKit.button("取消釘選" if pinned else "釘選這項任務", _pin.bind(id), "讓目標列與方向箭頭追蹤這項任務。")

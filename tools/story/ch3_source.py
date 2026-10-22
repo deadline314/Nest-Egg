@@ -966,7 +966,7 @@ def _quests(source: ProductionSource):
                    "sq3_room_proposal_done", (
                        QuestStep("量過一扇窗後，向林小姐記下房間提案。", "sq3_room_proposal_done", "lin"),),
                    visible_flags=("ch3_clearwater_tour_started",)))
-    q.append(Quest("sq7_ahan_tape", "side", "第三個抽屜的錄音", "寄存櫃裡有一卷家屬尋人錄音，片頭同意公開。", "二十信用點。",
+    q.append(Quest("sq7_ahan_tape", "side", "借閱第三個抽屜的錄音", "寄存櫃裡有一卷家屬尋人錄音，片頭同意公開。", "二十信用點。",
                    "sq7_ahan_recording_held", (
                        QuestStep("在寄存櫃聽片頭，登記借出。", "sq7_ahan_recording_held", "drawer"),),
                    visible_flags=("ch3_clinic_access",)))

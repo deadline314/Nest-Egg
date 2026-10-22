@@ -4,6 +4,7 @@ extends RefCounted
 
 var quests: Array[Dictionary] = []
 var issues := PackedStringArray()
+static var _translation_reports: Dictionary[String, bool] = {}
 
 
 func load_story_sources(paths: Array[String] = Story.CHAPTER_PATHS) -> void:
@@ -74,7 +75,31 @@ func read_source(source: Dictionary, path: String) -> void:
 			quest["chapter"] = str(source.get("chapter", {}).get("id", source.get("for_chapter", "")))
 			quest["kind"] = quest.get("kind", "main")
 			quest["source"] = at
+			for j in quest["steps"].size():
+				quest["steps"][j]["source"] = "%s.steps[%d]" % [at, j]
 			quests.append(quest)
+
+
+## Resolve only display text through the existing story fallback policy. Canonical
+## quest dictionaries stay unchanged, so flags, routing and length validation use
+## their authored values even when the translated title is longer.
+static func display_text(record: Dictionary, field: String) -> String:
+	var source := str(record.get(field, ""))
+	if Story.language == StoryLocale.SOURCE_LANGUAGE:
+		return source
+	var carrier := {"text": source}
+	for language in ["ja", "en"]:
+		var translated: Variant = record.get(StoryLocale.field_key(field, language))
+		if translated is String:
+			carrier[language] = translated
+	var missing := StoryLocale.localize(carrier, Story.language)
+	if not missing.is_empty():
+		var where := str(record.get("source", "quest/unknown")) + "/" + field
+		var key := where + ":" + Story.language + ":" + str(missing)
+		if not _translation_reports.has(key):
+			_translation_reports[key] = true
+			push_warning("[QuestCatalog] " + StoryLocale.report(where, missing, "沒有%s譯文" % Story.language))
+	return str(carrier["text"])
 
 
 static func valid_location(raw: Variant) -> bool:

@@ -18,6 +18,140 @@ func run() -> void:
 	await _test_ui(catalog, maps)
 	await _test_runtime()
 	_test_display_defaults()
+	await _test_story_language()
+
+
+func _visible_quest_text(root: Node) -> PackedStringArray:
+	var result := PackedStringArray()
+	if root is Label or root is Button:
+		result.append(root.text)
+	for child in root.get_children():
+		result.append_array(_visible_quest_text(child))
+	return result
+
+
+## Real source, row/detail factories and live HUD: language never rewrites quest facts.
+func _test_story_language() -> void:
+	var previous_language := Story.language
+	var level := await start_level(load(PAWN) as LevelData)
+	var old_flags := GameState.world_flags.duplicate(true)
+	GameState.set_flag(&"ch3_clinic_access", true, false)
+	var guidance: QuestGuidance = level.hud.quest_guidance
+	guidance.level.data = guidance.level.data.duplicate()
+	guidance.level.data.chapter = &"ch3_clearwater"
+	guidance.state.pin("sq7_ahan_tape", guidance.catalog)
+	var catalog := guidance.catalog
+	var raw_before := JSON.stringify(catalog.quests)
+	var flags_before := JSON.stringify(GameState.world_flags)
+	var quest := catalog.find("sq7_ahan_tape")
+	var maps := QuestMapIndex.for_chapter(&"ch3_clearwater")
+	var blocked: Dictionary = {}
+	for candidate in catalog.quests:
+		if candidate.has("blocked_reason") and candidate.has("suggestion") and QuestCatalog.status(candidate, GameState.world_flags) == "blocked":
+			blocked = candidate
+			break
+	check(not blocked.is_empty(), "real catalog supplies a blocked quest with translated guidance")
+	for language in ["en", "ja", "zh"]:
+		check(Story.set_language(language), "quest language %s is supported" % language)
+		var screen := QuestMapScreen.new()
+		screen.catalog = catalog
+		screen.maps = maps
+		screen.state = guidance.state
+		screen.chapter = "ch3_clearwater"
+		screen.player_path = "res://data/levels/ch3_clinic.tres"
+		runner.get_tree().root.add_child(screen)
+		screen.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+		screen.size = Vector2(640,360)
+		await frames(3)
+		screen._select("sq7_ahan_tape")
+		for button: Button in screen._list.find_children("*", "Button", true, false):
+			for child in button.get_children():
+				if child is Label and child.text == "追蹤中":
+					check(button.get_global_rect().encloses(child.get_global_rect()), "the full pinned badge fits the %s quest row" % language)
+					check(is_equal_approx(child.get_global_rect().end.y, button.get_global_rect().end.y - 2) and child.vertical_alignment == VERTICAL_ALIGNMENT_BOTTOM, "the %s pinned badge uses the caption line below the title" % language)
+		var texts := _visible_quest_text(screen)
+		for field in ["title", "background", "reward"]:
+			var expected := str(quest[field] if language == "zh" else quest[field + "_" + language])
+			check(texts.has(expected), "quest %s uses real %s source in detail view" % [field, language])
+		var expected_title := str(quest["title"] if language == "zh" else quest["title_" + language])
+		var row := screen._quest_row(quest)
+		check(row.text.contains(expected_title) and row.tooltip_text.contains(expected_title), "quest list and tooltip use %s title" % language)
+		row.free()
+		var step: Dictionary = quest["steps"][0]
+		var expected_step := str(step["title"] if language == "zh" else step["title_" + language])
+		check(texts.has("▶ " + expected_step), "current and checklist steps use %s text" % language)
+		guidance._refresh_target()
+		check(guidance._label.text == "◎ " + expected_step, "live objective HUD uses %s text from the same quest" % language)
+		check(guidance._row.tooltip_text.begins_with(expected_step), "the full %s objective remains available when the HUD line is ellipsized" % language)
+		if not blocked.is_empty():
+			screen._select(str(blocked["id"]))
+			var blocked_text := _visible_quest_text(screen)
+			for field in ["blocked_reason", "suggestion"]:
+				var expected := str(blocked[field] if language == "zh" else blocked[field + "_" + language])
+				check(blocked_text.has(expected), "blocked quest %s uses %s text" % [field, language])
+		screen._select("sq7_ahan_tape")
+		for button: Button in screen._list.find_children("*", "Button", true, false):
+			if button.get_meta(&"quest_id", "") == "sq7_ahan_tape":
+				button.grab_focus()
+		var focus_key := screen._focus_text()
+		var history_size := screen._history.size()
+		var next_language := "ja" if language == "en" else "en"
+		Story.set_language(next_language)
+		var refresh_deadline := Time.get_ticks_msec() + 1000
+		while Time.get_ticks_msec() < refresh_deadline:
+			if _visible_quest_text(screen).has(str(quest["title_" + next_language])) and screen._focus_text() == focus_key:
+				break
+			await runner.get_tree().process_frame
+		check(_visible_quest_text(screen).has(str(quest["title_" + next_language])), "an already open journal refreshes from %s to %s" % [language, next_language])
+		check(screen._selected == "sq7_ahan_tape" and screen._focus_text() == focus_key and screen._history.size() == history_size and guidance.state.pinned_id == "sq7_ahan_tape",
+				"live language refresh preserves selection, stable focus, history and pin")
+		await runner.get_tree().create_timer(0.22).timeout
+		check(guidance._label.text == "◎ " + str(step["title_" + next_language]), "normal HUD polling follows a live language switch")
+		check(JSON.stringify(catalog.quests) == raw_before and JSON.stringify(GameState.world_flags) == flags_before,
+				"language %s preserves all original quest fields and progress bytes" % language)
+		var outside := Button.new()
+		outside.text = "external modal focus fixture"
+		runner.add_child(outside)
+		outside.grab_focus()
+		Story.set_language(language)
+		refresh_deadline = Time.get_ticks_msec() + 1000
+		while Time.get_ticks_msec() < refresh_deadline:
+			if _visible_quest_text(screen).has(expected_title):
+				break
+			await runner.get_tree().process_frame
+		await runner.get_tree().process_frame
+		await runner.get_tree().process_frame
+		check(_visible_quest_text(screen).has(expected_title), "journal refreshes %s content behind another focused control" % language)
+		check(outside.has_focus(), "language refresh cannot steal %s focus from another screen" % language)
+		outside.queue_free()
+		screen.queue_free()
+		await frames(2)
+	# Existing UI factories exercise missing-field fallback without calling a new API.
+	Story.set_language("ja")
+	var missing := quest.duplicate(true)
+	missing.erase("title_ja")
+	var preview := QuestMapScreen.new()
+	preview.state = QuestMapState.new()
+	var row := preview._quest_row(missing)
+	check(row.text.contains(quest["title_en"]), "missing Japanese title falls back to existing English")
+	row.free()
+	missing.erase("title_en")
+	row = preview._quest_row(missing)
+	check(row.text.contains(quest["title"]), "missing Japanese and English title retain Chinese")
+	row.free()
+	missing["title_ja"] = []
+	missing["title_en"] = quest["title_en"]
+	row = preview._quest_row(missing)
+	check(row.text.contains(quest["title_en"]), "a malformed Japanese translation uses valid English")
+	row.free()
+	missing["title_en"] = {}
+	row = preview._quest_row(missing)
+	check(row.text.contains(quest["title"]), "malformed translated fields cannot leak array or dictionary text into the title")
+	row.free()
+	preview.free()
+	Story.set_language(previous_language)
+	GameState.world_flags = old_flags
+	await end_level(level)
 
 
 static func fixture_catalog() -> QuestCatalog:

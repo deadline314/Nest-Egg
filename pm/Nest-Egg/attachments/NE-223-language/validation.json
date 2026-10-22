@@ -1,0 +1,32 @@
+{
+  "base": "cf85b566b9409d195c371fc7f092b38a163c823a",
+  "changed_groups": 26,
+  "changed_checks": 8469,
+  "changed_new_failures": 0,
+  "changed_known_failures": 0,
+  "changed_seconds": 210,
+  "negative_checks": 336,
+  "negative_failures": 32,
+  "focus_negative_checks": 336,
+  "focus_negative_failures": 3,
+  "native_final_checks": 55,
+  "native_final_failures": 0,
+  "native_control_checks": 55,
+  "native_control_failures": 19,
+  "native_renderer": "forward_plus",
+  "native_device": "llvmpipe",
+  "native_final_errors": 0,
+  "static_matrix_before_final_focus_guard": true,
+  "static_matrix_cases": 5,
+  "static_matrix_screenshots": 25,
+  "full_ci_required_for_this_commit": "pending push; prior cf85b566 CI 39735305084 passed 95894 checks",
+  "frozen_source": {
+    "core/navigation/quest_catalog.gd": "86782221547acf53231a23843504f7402b475641a50a99f286650f320589e4de",
+    "ui/quest_guidance.gd": "5d459b70e14a83a1791f4dae4a3ecea989abb9b3a74b26e8f8a5c51851afdc7c",
+    "ui/quest_map_screen.gd": "7757f501fd4881ab54393e1b24e88eaa88fcf5fc9407e3c7eb9eb8c3d0d5e4df",
+    "tools/story/ch3_source.py": "063194a22665f1936b479e053ea3ac910584d38ce8a9ef02e38b3b041c38026b",
+    "tools/story/i18n/ch3_clearwater.json": "640f6c0283c1a22bbfe3a0de36226c7e9883c9f1a1e291a94060c998782d093b",
+    "data/story/ch3_clearwater.json": "6d81a62db11f182fa2fbdedc1e40b1a4a88fea1f4e5230d1b28330229aee7763",
+    "tests/suite/test_quest_map.gd": "45acc50585ac8c8c8c2125c743cbac319fb6d540f044f3ce441e46a53b2d13ef"
+  }
+}

@@ -116,7 +116,9 @@ func _refresh_target() -> void:
 		if not step.is_empty():
 			_pulse_row.call_deferred()
 	if _label != null:
-		_label.text = "◎ " + str(step["title"]) if not step.is_empty() else ""
+		var objective := QuestCatalog.display_text(step, "title") if not step.is_empty() else ""
+		_label.text = "◎ " + objective if not objective.is_empty() else ""
+		_row.tooltip_text = objective + "\n\n開啟任務目錄可以釘選目標，地圖會標出目的地。" if not objective.is_empty() else "開啟任務目錄可以釘選目標，地圖會標出目的地。"
 		_row.accent = Palette.MAGENTA if not state.pinned_id.is_empty() else Palette.CYAN
 
 
