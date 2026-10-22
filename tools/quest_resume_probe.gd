@@ -45,6 +45,8 @@ func _run() -> void:
 		get_tree().quit(1)
 		return
 	_main = (load("res://scenes/main.tscn") as PackedScene).instantiate()
+	# The observer runs while paused; its game must retain the normal root policy.
+	_main.process_mode = Node.PROCESS_MODE_PAUSABLE
 	_main.set("_run_store", RunSaveStore.new(_save_dir.path_join("slot.json")))
 	add_child(_main)
 	await _settle(30)

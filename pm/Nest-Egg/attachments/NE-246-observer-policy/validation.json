@@ -1,0 +1,16 @@
+{
+  "base": "59c2642e48678da7461e2c903289d98cd9f0a644",
+  "old_failures": 6.0,
+  "fixed_failures": 0.0,
+  "old_checks": 93,
+  "fixed_checks": 93,
+  "readings": 5,
+  "old_runtime_policy": "INHERIT0, can_process true while tree paused",
+  "fixed_runtime_policy": "PAUSABLE1, can_process false while tree paused",
+  "production_main_scene_and_gameplay_unchanged": true,
+  "native_verified": false,
+  "old_selector_groups": 0,
+  "original_test_harness_unchanged": true,
+  "scope": "headless actual combat route, authored radio triggers, public pause and confirmations, actual bullets and living enemies; declared position/prerequisite/survival arrangements, not native or human/hardware acceptance",
+  "history": "v1 old observer five freeze failures; v2 fixed observer zero; v3 same world freeze held but no live projectile, correctly rejected; v4 public firing across authored threshold makes live-flight case reproducible; old/fixed exact same v4 probe"
+}
