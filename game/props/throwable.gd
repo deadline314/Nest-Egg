@@ -31,6 +31,7 @@ var _spin := 0.0
 var _hit_ids: Dictionary[int, bool] = {}
 var _sweep := PhysicsShapeQueryParameters2D.new()
 var _sweep_shape := RectangleShape2D.new()
+var _terrain_collision := KinematicCollision2D.new()
 var _prompt: WorldPrompt
 var _flash := 0.0
 var _body_art: Sprite2D
@@ -75,6 +76,7 @@ func _ready() -> void:
 		_prompt.text = data.hint
 		_prompt.radius = PROMPT_RADIUS
 		_prompt.offset = Vector2(0, -data.size.y - 10.0)
+		_prompt.reach_check = _pickup_prompt_reachable
 		add_child(_prompt)
 	add_to_group(GROUP)
 	LightKit.mark_emissive(self)
@@ -85,6 +87,19 @@ func _ready() -> void:
 
 func can_pick_up() -> bool:
 	return state == State.REST and _fuse_left < 0.0 and is_on_floor()
+
+
+## Offer exactly the object that the real interact handler would pick.
+func _pickup_prompt_reachable() -> bool:
+	if not can_pick_up():
+		return false
+	var player := get_tree().get_first_node_in_group(&"player") as Player
+	if player == null or player.state != Player.State.NORMAL or player.carry == null or player.carry.phase not in [PlayerCarry.Phase.NONE, PlayerCarry.Phase.THROWING]:
+		return false
+	var offset := global_position - player.global_position
+	if absf(offset.x) > PlayerCarry.PICK_RANGE_X + data.size.x * 0.5 or absf(offset.y) > PlayerCarry.PICK_RANGE_Y:
+		return false
+	return player.carry.nearest_pickable() == self
 
 
 func world_center() -> Vector2:
@@ -160,9 +175,12 @@ func _fly(delta: float) -> void:
 	velocity.y = minf(velocity.y + data.gravity * delta, MAX_FALL_SPEED)
 	rotation += _spin * delta
 	var motion := velocity * delta
-	var target := _sweep_targets(motion)
+	# A hurtbox beyond the first wall is outside this frame's reachable path.
+	# Reuse the body's actual terrain test so one-way platforms keep their rules.
+	var reachable := _terrain_collision.get_travel() if test_move(global_transform, motion, _terrain_collision) else motion
+	var target := _sweep_targets(reachable)
 	if not target.is_empty():
-		global_position += motion * float(target["fraction"])
+		global_position += reachable * float(target["fraction"])
 		_strike(target["hurtbox"])
 		return
 	var collision := move_and_collide(motion)

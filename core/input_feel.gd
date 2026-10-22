@@ -68,7 +68,7 @@ static func validate() -> PackedStringArray:
 ## 把手把的瞄準方向輕輕拉向錐形範圍內最近的敵人。
 ## 只在手把時使用（滑鼠永遠不會被輔助）；玩家正在大幅轉動搖桿（角速度超過 turn_cutoff）時輔助關閉；
 ## 敵人必須在 cone_degrees 的錐形與 max_distance 之內，所以輔助拉不過去的就是玩家沒有瞄向的。
-static func assist(origin: Vector2, stick_dir: Vector2, targets: Array, stick_turn_rate: float, using_gamepad: bool) -> Vector2:
+static func assist(origin: Vector2, stick_dir: Vector2, targets: Array, stick_turn_rate: float, using_gamepad: bool, protected_hit_distance := INF) -> Vector2:
 	if not using_gamepad or stick_dir == Vector2.ZERO:
 		return stick_dir
 	_ensure_loaded()
@@ -81,6 +81,7 @@ static func assist(origin: Vector2, stick_dir: Vector2, targets: Array, stick_tu
 	var reach := float(cfg.get("max_distance", 260.0))
 	var best: Vector2 = Vector2.ZERO
 	var best_angle := cone
+	var best_distance := INF
 	for target: Variant in targets:
 		var node := target as Node2D
 		if node == null or not is_instance_valid(node):
@@ -92,11 +93,21 @@ static func assist(origin: Vector2, stick_dir: Vector2, targets: Array, stick_tu
 		if angle < best_angle:
 			best_angle = angle
 			best = offset.normalized()
+			best_distance = offset.length()
 	if best == Vector2.ZERO:
+		return stick_dir
+	# An explosive already on the player's raw ray has priority over a farther enemy.
+	# This never adds magnetism toward explosives that the player did not aim at.
+	if protected_hit_distance >= 0.0 and protected_hit_distance < best_distance:
 		return stick_dir
 	# 越靠近中心拉得越多：輔助強度乘上「離錐形邊緣多遠」。
 	var pull := float(cfg.get("strength", 0.35)) * (1.0 - best_angle / cone)
 	return stick_dir.slerp(best, clampf(pull, 0.0, 1.0)).normalized()
+
+
+static func assist_max_distance() -> float:
+	_ensure_loaded()
+	return float((_data.get("aim_assist", {}) as Dictionary).get("max_distance", 260.0))
 
 
 # ---------------------------------------------------------------------------

@@ -17,9 +17,140 @@ func run() -> void:
 	await _test_barrel_fuse_and_chain()
 	await _test_thrown_barrel_explodes_on_contact()
 	await _test_terrain()
+	await _test_collision_order()
+	await _test_barrel_aim_priority()
+	await _test_pickup_prompt_target()
 	await _test_no_input_conflicts()
 	await _test_gamepad_events()
 	await _test_chapter_one_placement()
+
+
+func _test_pickup_prompt_target() -> void:
+	await open_level(10.0)
+	var near := _place(CRATE, 10.7)
+	var other := _place(PIPE, 9.0)
+	var unsettled := _place(PIPE, 10.0, FLOOR_Y - 15.0)
+	unsettled.set_physics_process(false)
+	await physics_frames(4)
+	check(near._prompt._player_near(), "the actual nearest pickup offers its interaction")
+	check(not other._prompt._player_near(), "a second nearby pickup does not compete with the actual interaction target")
+	check(not unsettled._prompt._player_near(), "an unsettled object never invites a pickup that the real handler rejects")
+	place_player(9.0)
+	await physics_frames(2)
+	check(other._prompt._player_near() and not near._prompt._player_near(), "moving to the other object transfers the prompt to the actual pickup target")
+	await _press(&"interact")
+	check(level.player.carry.held == other and not near._prompt._player_near() and not other._prompt._player_near(), "the real interact key picks the advertised object and suppresses new pickup invitations while carrying")
+	await end_level(level)
+
+
+## 同一格內的薄牆與受擊框必須依真正碰撞先後處理，不能隔牆命中。
+func _test_collision_order() -> void:
+	await open_level(10.0)
+	level.player.set_physics_process(false)
+	for direction in [-1.0, 1.0]:
+		for hz in [30.0, 60.0]:
+			for enemy_first in [false, true]:
+				var wall := StaticBody2D.new()
+				wall.collision_layer = Layers.WORLD
+				wall.collision_mask = 0
+				wall.position = Vector2(400, 280)
+				var shape := CollisionShape2D.new()
+				var rectangle := RectangleShape2D.new()
+				rectangle.size = Vector2(3, 60)
+				shape.shape = rectangle
+				wall.add_child(shape)
+				level.add_child(wall)
+				var target := Node2D.new()
+				target.position = Vector2(400 + direction * (9.0 if not enemy_first else -21.0), 280)
+				level.add_child(target)
+				var health := HealthComponent.new()
+				target.add_child(health)
+				health.setup(20, 0.0)
+				var box := Hurtbox.new()
+				target.add_child(box)
+				box.setup(Combat.Team.ENEMY, health, Vector2(8, 20))
+				var pipe := _place(PIPE, 0.0, 282.5)
+				pipe.position.x = 400 - direction * (36.0 if enemy_first else 12.5)
+				pipe.set_physics_process(false)
+				await physics_frames(2)
+				pipe.launch(pipe.global_position, Vector2(direction * pipe.data.throw_speed, 0), Combat.Team.PLAYER)
+				pipe._fly(1.0 / hz)
+				check((health.current < 20) == enemy_first,
+						"throw sweep respects first collision: direction %s, %s Hz, enemy_first %s, hp %s" % [direction, hz, enemy_first, health.current])
+				check(direction * (pipe.global_position.x - 400) < 0.0, "throw remains on near side of wall")
+				pipe.queue_free()
+				target.queue_free()
+				wall.queue_free()
+				await physics_frames(2)
+	await end_level(level)
+
+
+## 油桶位於明確瞄準射線上時，不被後面的敵人搶走；不是自動吸向油桶。
+func _test_barrel_aim_priority() -> void:
+	await open_level(10.0)
+	level.player.set_physics_process(false)
+	var previous_gamepad := AimInput.using_gamepad
+	var origin := Vector2(1120, 100)
+	var enemy := Node2D.new()
+	enemy.position = origin + Vector2(200, -10)
+	level.add_child(enemy)
+	enemy.add_to_group(&"enemies")
+	var barrel := _place(BARREL, 0, 119)
+	barrel.position.x = origin.x + 120
+	barrel.set_physics_process(false)
+	InputBindings.clear_held_inputs()
+	_joy_axis(JOY_AXIS_RIGHT_X, 0.0)
+	_joy_axis(JOY_AXIS_RIGHT_Y, 0.0)
+	await physics_frames(3)
+	_joy_axis(JOY_AXIS_RIGHT_X, 1.0)
+	AimInput.using_gamepad = true
+	AimInput.restore_direction(Vector2.RIGHT)
+	Input.flush_buffered_events()
+	for i in 8:
+		if Input.get_vector(&"aim_left", &"aim_right", &"aim_up", &"aim_down").is_equal_approx(Vector2.RIGHT):
+			break
+		await runner.get_tree().process_frame
+	check(Input.get_vector(&"aim_left", &"aim_right", &"aim_up", &"aim_down").is_equal_approx(Vector2.RIGHT), "synthetic right-stick event really enters the configured action map: %s" % Input.get_vector(&"aim_left", &"aim_right", &"aim_up", &"aim_down"))
+	var ordinary := InputFeel.assist(origin, Vector2.RIGHT, [enemy], 0.0, true)
+	check(ordinary.y < -0.001, "control enemy genuinely pulls ordinary gamepad aim upward")
+	var actual := AimInput.direction_from(level.player, origin, Vector2.RIGHT)
+	check(actual.is_equal_approx(Vector2.RIGHT), "a directly aimed barrel before the enemy retains the raw stick direction")
+	var wall := StaticBody2D.new()
+	wall.collision_layer = Layers.WORLD
+	wall.collision_mask = 0
+	wall.position = origin + Vector2(60, 0)
+	var shape := CollisionShape2D.new()
+	var rectangle := RectangleShape2D.new()
+	rectangle.size = Vector2(3, 40)
+	shape.shape = rectangle
+	wall.add_child(shape)
+	level.add_child(wall)
+	await physics_frames(2)
+	check(AimInput.direction_from(level.player, origin, Vector2.RIGHT).is_equal_approx(ordinary), "a wall hides the barrel from aim protection")
+	wall.queue_free()
+	await physics_frames(2)
+	barrel.position.x = origin.x + 240
+	await physics_frames(2)
+	check(AimInput.direction_from(level.player, origin, Vector2.RIGHT).is_equal_approx(ordinary), "a barrel beyond the chosen enemy does not suppress enemy assistance")
+	barrel.position = origin + Vector2(120, 80)
+	await physics_frames(2)
+	check(AimInput.direction_from(level.player, origin, Vector2.RIGHT).is_equal_approx(ordinary), "a barrel outside the original ray does not attract or suppress aim")
+	barrel.position = origin + Vector2(120, 19)
+	barrel.pick_up()
+	await physics_frames(2)
+	check(AimInput.direction_from(level.player, origin, Vector2.RIGHT).is_equal_approx(ordinary), "a held barrel is excluded from aim protection")
+	barrel.put_down(origin + Vector2(120, 19))
+	await physics_frames(2)
+	actual = AimInput.direction_from(level.player, origin, Vector2.RIGHT)
+	for i in 2:
+		shoot_from(origin, actual)
+		await physics_frames(12)
+	check(barrel.is_fuse_lit(), "real player projectiles ignite the directly aimed barrel while an enemy competes for assistance")
+	_joy_axis(JOY_AXIS_RIGHT_X, 0.0)
+	InputBindings.clear_held_inputs()
+	AimInput.using_gamepad = previous_gamepad
+	enemy.queue_free()
+	await end_level(level)
 
 
 func _test_data() -> void:

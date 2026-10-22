@@ -8,6 +8,7 @@ static var using_gamepad := false
 static var _last_stick_dir := Vector2.RIGHT
 static var _last_stick_msec := 0
 const VIRTUAL_GAMEPAD_META := &"aim_input_virtual_gamepad"
+static var _assist_ray := PhysicsRayQueryParameters2D.create(Vector2.ZERO, Vector2.RIGHT, Layers.WORLD | Layers.ENEMY_HURTBOX)
 
 
 ## 主流程恢復朝向；不改變目前輸入裝置或操作提示。
@@ -53,13 +54,36 @@ static func direction_from(node: Node2D, origin: Vector2, fallback: Vector2) -> 
 		_last_stick_msec = now
 		_last_stick_dir = stick.normalized()
 		# 手把才有瞄準輔助；搖桿正在大幅轉動時輔助關閉（玩家輸入優先）。
-		return InputFeel.assist(origin, _last_stick_dir, node.get_tree().get_nodes_in_group(&"enemies"), turn_rate, true)
+		var targets := node.get_tree().get_nodes_in_group(&"enemies")
+		var assisted := InputFeel.assist(origin, _last_stick_dir, targets, turn_rate, true)
+		if assisted.is_equal_approx(_last_stick_dir):
+			return assisted
+		# No physics query when assistance is off, there is no candidate, or a fast
+		# turn already gave the player full control.
+		var protected_distance := _protected_explosive_distance(node, origin, _last_stick_dir)
+		return InputFeel.assist(origin, _last_stick_dir, targets, turn_rate, true, protected_distance) if is_finite(protected_distance) else assisted
 	if uses_gamepad(node):
 		return _last_stick_dir
 	if not _can_read_mouse(node):
 		return fallback
 	var offset := node.get_global_mouse_position() - origin
 	return offset.normalized() if offset.length_squared() > 4.0 else fallback
+
+
+## The first actual hit on the raw ray wins. Walls, enemies and held props cannot
+## make an obscured barrel take priority; the ray uses the projectile terrain mask.
+static func _protected_explosive_distance(node: Node2D, origin: Vector2, direction: Vector2) -> float:
+	_assist_ray.from = origin
+	_assist_ray.to = origin + direction * InputFeel.assist_max_distance()
+	_assist_ray.collide_with_areas = true
+	var hit := node.get_world_2d().direct_space_state.intersect_ray(_assist_ray)
+	var box := hit.get("collider") as Hurtbox
+	if box == null or not box.can_receive():
+		return INF
+	var prop := box.get_parent() as Throwable
+	if prop == null or prop.state != Throwable.State.REST or not prop.data.is_explosive():
+		return INF
+	return origin.distance_to(hit["position"])
 
 
 ## 準星應顯示的世界座標（手把時放在角色前方固定距離）。

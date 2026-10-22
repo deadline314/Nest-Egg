@@ -1,0 +1,176 @@
+{
+  "date": "2026-10-22 Asia/Taipei",
+  "base": "a66794ecc8bb81398d86decd9c24f84348696837",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "affected": {
+    "groups": 66,
+    "checks": 64100,
+    "new_failures": 0,
+    "known_failures": 0,
+    "exit": 0,
+    "wall_seconds": 557,
+    "original_selector": true
+  },
+  "final_control": {
+    "checks": 326,
+    "failures": 6,
+    "exit": 1,
+    "same_final_test_source": true,
+    "exact_candidate_restore": true
+  },
+  "native_aim": {
+    "before": {
+      "actual": [
+        0.96066552400589,
+        0.277708172798157
+      ],
+      "ammo_after": 10,
+      "ammo_before": 12,
+      "barrel": [
+        1672.0,
+        320.0
+      ],
+      "checks": 6,
+      "core/aim_input.gd": "09ed0f5a183528de692217bdce1a6af6e5becc7ec6d5977930ae8603f402d7d3",
+      "core/input_feel.gd": "d6e8719e5449e24ab2441ff0f608f18623f198d546c11aa6ba770ea5e093a038",
+      "device": 999,
+      "failures": 1,
+      "fuse_frozen_for_capture": true,
+      "fuse_lit": true,
+      "game/props/throwable.gd": "cd91f191b820224f7a0553a6042668d125c010c697202461295a135aff201b3f",
+      "ordinary": [
+        0.96066552400589,
+        0.277708172798157
+      ],
+      "origin": [
+        1548.83654785156,
+        273.631988525391
+      ],
+      "physics_gpu": "software Vulkan",
+      "raw": [
+        0.956925630569458,
+        0.290332943201065
+      ],
+      "renderer": "forward_plus",
+      "rival": [
+        1744.0,
+        320.0
+      ]
+    },
+    "after": {
+      "actual": [
+        0.956925690174103,
+        0.290332973003387
+      ],
+      "ammo_after": 10,
+      "ammo_before": 12,
+      "barrel": [
+        1672.0,
+        320.0
+      ],
+      "checks": 6,
+      "core/aim_input.gd": "389cbabc618fa544675fa8804f16cc5086d05aa3d8f8206a9d9a7be3d961bd8a",
+      "core/input_feel.gd": "76bcdc10516064b49c6bd27e55d96cba95a554c6b734f8db99c9360dc7d2d8ba",
+      "device": 999,
+      "failures": 0,
+      "fuse_frozen_for_capture": true,
+      "fuse_lit": true,
+      "game/props/throwable.gd": "96173956717ca3d9b35dbb7dcb579819ae46256061600c4d2c4ab0881dce6340",
+      "ordinary": [
+        0.96066552400589,
+        0.277708172798157
+      ],
+      "origin": [
+        1548.83654785156,
+        273.631988525391
+      ],
+      "physics_gpu": "software Vulkan",
+      "raw": [
+        0.956925630569458,
+        0.290332943201065
+      ],
+      "renderer": "forward_plus",
+      "rival": [
+        1744.0,
+        320.0
+      ]
+    }
+  },
+  "native_wall": {
+    "before": {
+      "checks": 3,
+      "enemy": "grunt",
+      "enemy_health_after": 1,
+      "enemy_health_before": 4,
+      "enemy_position": [
+        412.0,
+        320.0
+      ],
+      "failures": 1,
+      "fixture": true,
+      "flight_time": 0.0333333333333333,
+      "game/props/throwable.gd": "cd91f191b820224f7a0553a6042668d125c010c697202461295a135aff201b3f",
+      "physics_hz": 30,
+      "pipe_position": [
+        394.739593505859,
+        302.994689941406
+      ],
+      "renderer": "forward_plus",
+      "speed": 400.0,
+      "wall_center": [
+        400,
+        260
+      ],
+      "wall_width": 3
+    },
+    "after": {
+      "checks": 3,
+      "enemy": "grunt",
+      "enemy_health_after": 4,
+      "enemy_health_before": 4,
+      "enemy_position": [
+        412.0,
+        320.0
+      ],
+      "failures": 0,
+      "fixture": true,
+      "flight_time": 0.0333333333333333,
+      "game/props/throwable.gd": "96173956717ca3d9b35dbb7dcb579819ae46256061600c4d2c4ab0881dce6340",
+      "physics_hz": 30,
+      "pipe_position": [
+        387.688812255859,
+        302.512908935547
+      ],
+      "renderer": "forward_plus",
+      "speed": 400.0,
+      "wall_center": [
+        400,
+        260
+      ],
+      "wall_width": 3
+    }
+  },
+  "frozen_source": {
+    "core/aim_input.gd": "389cbabc618fa544675fa8804f16cc5086d05aa3d8f8206a9d9a7be3d961bd8a",
+    "core/input_feel.gd": "76bcdc10516064b49c6bd27e55d96cba95a554c6b734f8db99c9360dc7d2d8ba",
+    "game/props/throwable.gd": "96173956717ca3d9b35dbb7dcb579819ae46256061600c4d2c4ab0881dce6340",
+    "tests/suite/test_throwables.gd": "d0caadadd36cbb61d86ad63f28d389b8f67c58d1b2fedf123590520d627d1ba4",
+    "work/ne254-boundaries/native_probe.gd": "e60f851fc78494808059b5924c7def1b103279a0923400e1782d4f707b62068f"
+  },
+  "harness_unchanged": {
+    "tools/run_tests_changed.sh": true,
+    "tools/run_tests_parallel.sh": true,
+    "tools/run_tests.sh": true,
+    "tools/select_tests.py": true,
+    "tools/test_filters.sh": true,
+    "tests/known_failures.txt": true
+  },
+  "archive_sha256": "7ca8ee8a9f89b48a9d5783729a0c14ee7018c4a54d4b009cf4384b661bef4521",
+  "archive_entries": 113,
+  "ci": "See the pushed commit GitHub Actions; no future result is claimed here.",
+  "limits": [
+    "Synthetic controller 999; no physical controller or human chapter playthrough.",
+    "Forward+ llvmpipe software rendering; arranged positions, frozen enemy AI and fuse after ignition.",
+    "Early reused-profile controller failure and non-reproducing wall setup remain in raw evidence."
+  ]
+}
