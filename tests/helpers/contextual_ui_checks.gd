@@ -223,6 +223,7 @@ static func _header_resume_state(level: Level) -> Dictionary:
 		"header": level.hud._framing_edge_root.visible,
 		"controls_framed": level.hud._controls_framed,
 		"tween_running": tween != null and tween.is_running(),
+		"framing_animation_processing": Story.framing.is_processing(),
 		"tween_elapsed": tween.get_total_elapsed_time() if tween != null else 0.0,
 	}
 

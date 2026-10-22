@@ -28,6 +28,7 @@ func run() -> void:
 	await _test_fallbacks()
 	await _test_once_object()
 	await _test_cinematic_framing()
+	await _test_framing_real_time()
 	await _test_formal_portal_preview()
 	await _test_waiter_teardown()
 	await preload("res://tests/helpers/interaction_holster_checks.gd").run(self)
@@ -35,6 +36,29 @@ func run() -> void:
 	await _test_awareness()
 	_remove_test_scenes()
 	Story.auto_skip = true
+
+
+func _test_framing_real_time() -> void:
+	var previous_motion := Settings.get_reduce_ui_motion()
+	var previous_scale := Engine.time_scale
+	var previous_fps := Engine.max_fps
+	Settings.set_reduce_ui_motion(false)
+	Engine.max_fps = 120
+	Engine.time_scale = 0.05
+	var owner := Node.new()
+	runner.add_child(owner)
+	Story.framing.clear_preview()
+	var token := Story.framing.acquire(owner)
+	await runner.get_tree().create_timer(0.4, true, false, true).timeout
+	check(is_equal_approx(Story.framing.amount, 1.0), "framing fully opens in real time at120fps during slow motion")
+	Story.framing.release(token)
+	await runner.get_tree().create_timer(0.4, true, false, true).timeout
+	check(is_zero_approx(Story.framing.amount) and Story.framing.scope_count() == 0, "framing fully closes in real time at120fps during slow motion")
+	Engine.time_scale = previous_scale
+	Engine.max_fps = previous_fps
+	Settings.set_reduce_ui_motion(previous_motion)
+	owner.queue_free()
+	await frames(2)
 
 
 func _test_cinematic_framing() -> void:

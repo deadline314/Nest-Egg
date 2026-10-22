@@ -29,6 +29,7 @@ var _player: Player
 var _check_left := 0.0
 var _goal := 0.0
 var _tween: Tween
+var _tween_clock_usec := 0
 
 
 func _ready() -> void:
@@ -49,6 +50,18 @@ func _ready() -> void:
 	EventBus.player_died.connect(func(_cause: StringName) -> void: reset())
 	_layout()
 	set_physics_process(false)
+	set_process(false)
+
+
+func _process(_delta: float) -> void:
+	if _tween == null or not _tween.is_valid():
+		set_process(false)
+		return
+	var now := Time.get_ticks_usec()
+	var elapsed := float(now - _tween_clock_usec) * 0.000001
+	_tween_clock_usec = now
+	if not _tween.custom_step(elapsed):
+		set_process(false)
 
 
 static func rect_for(view_size: Vector2, ratio := 1.0) -> Rect2:
@@ -208,12 +221,18 @@ func _set_goal(goal: float, immediate := false) -> void:
 	_goal = goal
 	if _tween != null and _tween.is_valid():
 		_tween.kill()
+	set_process(false)
 	if immediate or Settings.get_reduce_ui_motion():
 		amount = goal
 		return
-	# 來源在物理影格切換；遮幅也用同一階段推進，避免低幀率時頁首多等idle影格。
-	_tween = create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS).set_ignore_time_scale(true)
-	_tween.tween_property(self, "amount", goal, EASE_SECONDS).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	# 單調時鐘保留真正的0.28秒；暫停自動推進，避免另一階段再累加一次。
+	_tween = create_tween()
+	_tween.pause()
+	# 短距離返回保留同樣的平均速度，不讓剛展開的一點黑邊占用整段時間。
+	var duration := EASE_SECONDS * amount if is_zero_approx(goal) else EASE_SECONDS
+	_tween.tween_property(self, "amount", goal, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	_tween_clock_usec = Time.get_ticks_usec()
+	set_process(true)
 
 
 func _settings_changed() -> void:

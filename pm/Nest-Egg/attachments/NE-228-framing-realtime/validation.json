@@ -1,0 +1,61 @@
+{
+  "base": "96f602e833037af5bc6d20c912d7c9924f722b74",
+  "previous_ci": {
+    "run": 39753116995,
+    "checks": 95970,
+    "new_failures": 1,
+    "seconds": 489,
+    "artifact": 12414933322
+  },
+  "original_changed_groups": 2,
+  "checks": 1496,
+  "new_failures": 0,
+  "known_failures": 0,
+  "seconds": 51,
+  "original_ci_prefix_checks": 571,
+  "original_ci_prefix_failures": 0,
+  "original_helper_high_fps": {
+    "before": [
+      260,
+      2
+    ],
+    "trace_only_before": [
+      260,
+      4
+    ],
+    "final": [
+      260,
+      0
+    ]
+  },
+  "original_helper_jitter": {
+    "manual_clock_intermediate": [
+      260,
+      3
+    ],
+    "final": [
+      260,
+      0
+    ]
+  },
+  "old_product_negative_slow_motion_failures": 2,
+  "native_checks": 60,
+  "native_failures": 0,
+  "native_processes": 3,
+  "native_engine_errors": 0,
+  "final_pngs_individually_viewed": 12,
+  "source": {
+    "ui/cinematic_framing.gd": "7366c080a7888465d26e4e57da5bdbd8a0940c8a01dc516c544a08d9ff42d7d1",
+    "tests/helpers/contextual_ui_checks.gd": "024933c8bbd9a3b71a4dcceda99d6cffef4aecb4e73e45ce2ddda6d5bcee23c1",
+    "tests/suite/test_npc.gd": "15c860d5d985685d870704a15f6d0cf9b73625154225273fa6f7cf743b026466",
+    "work/ne228-framing/main.gd": "e6ed07348d35308e5dc2d84cad1a251ead11bf6f6a1586be2c84577cabb2db21",
+    "work/ne228-framing/phone_base.gd": "1509900552db36a5846efcdd85e2dfb20a1b3e65688f440cf381189fd2a7e51a"
+  },
+  "limitations": [
+    "headless replay cleanup warnings retained",
+    "legacy isolated scene exit250 remains unresolved",
+    "120fps is a configured cap, not measured constant native frame rate",
+    "arranged Main routing/position, no story flag injection; not full human chapter or physical hardware acceptance",
+    "large world speech bubble remains visible in these arranged shots; not a complete UI composition acceptance"
+  ]
+}
