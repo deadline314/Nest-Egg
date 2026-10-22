@@ -1,0 +1,43 @@
+{
+  "base": "b09d21f2b4d30de1d807ec8be4ea4cda18406af8",
+  "production_changes": false,
+  "native": [
+    {
+      "name": "ne223-1022-combat-writer-v11",
+      "checks": 50,
+      "failures": 0
+    },
+    {
+      "name": "ne223-1022-combat-continue-1080-v11",
+      "checks": 19,
+      "failures": 0
+    }
+  ],
+  "native_total_checks": 69,
+  "native_failures": 0,
+  "native_engine_errors": 0,
+  "native_final_pngs_viewed": 12,
+  "real_hit_events": 56,
+  "real_death_causes": [
+    "flood"
+  ],
+  "headless": {
+    "writer_checks": 41,
+    "reader_checks": 16,
+    "failures": 0,
+    "culling_disabled_only_headless": true
+  },
+  "cold_writer_sha256": "be02bae4ee26387ff4a7503d2367eb134dd23ed9f1fa03802128b4a94e45296a",
+  "scope": "declared disk-owning old-save prerequisites, arranged routing/position and survival floor1, actor-local virtual stick and public actions; authored enemies/reinforcements/pit and original damage; real death and real checkpoint backup; not physical controller or human full-chapter play",
+  "intermediate_failures": "v1 incomplete stopped; v2-v8 probe assumptions corrected; v9 native synthetic mouse did not aim at enemies and was stopped; v10 route-after-death image was still a blocking card; all retained; v11 waits actual unlock/transition",
+  "visual_issues": "distant flood instruction and oversized/overlapping world text are being addressed separately under NE-228; this packet does not claim full UI or character visual acceptance",
+  "source": {
+    "work/ne223-combat/probe.gd": "c61b7280334c2c5f166a11f3b5e4c139ea91b75f6ad06bcc5026ae00b5b521df",
+    "work/ne223-combat/phone_base.gd": "1509900552db36a5846efcdd85e2dfb20a1b3e65688f440cf381189fd2a7e51a",
+    "work/ne223-combat/probe1080.gd": "5df0afb699c992b4849336c106cbc0513c4f042f6a16d5f94a60d78a185a3afc",
+    "ui/cinematic_framing.gd": "7366c080a7888465d26e4e57da5bdbd8a0940c8a01dc516c544a08d9ff42d7d1",
+    "game/props/encounter_zone.gd": "444a78d10adee5e86d0b8beb8016e2e35e0e86f72306d3db7d662011ad1bf068",
+    "game/props/flood_pit.gd": "9d7033301e00ad4a7e86a204c7a66b57d31125b1a31c18751615a9c2e26018ae",
+    "game/enemies/boss/pattern_boss.gd": "38b37ad5aac416a27e3507d4daf5a2266918fd64bbf6486e6f5f4a224971c12e"
+  }
+}

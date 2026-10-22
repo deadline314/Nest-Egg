@@ -74,8 +74,7 @@ NE-222,NE,逐一檢查主角動作與部件並修正,進行中,"畫風與既有�
 更新 skill `rig-animation`（流程、檢查清單、使用者在意的事項），並把本票結論補進 `design/12-cast-redraw/RIG_QUALITY.md`",https://github.com/deadline314/Nest-Egg/blob/main/pm/Nest-Egg/%5BNE-222%5D%E9%80%90%E4%B8%80%E6%AA%A2%E6%9F%A5%E4%B8%BB%E8%A7%92%E5%8B%95%E4%BD%9C%E8%88%87%E9%83%A8%E4%BB%B6%E4%B8%A6%E4%BF%AE%E6%AD%A3.md
 NE-223,NE,設計任務目錄與地圖指引介面,進行中,"暫停選單新增「任務」與「地圖」，並有快捷鍵與 tooltip；手把與鍵盤都能完整操作，返回鍵一律回上一層
 效能與記憶體：地圖圖形由資料產生並快取，不在每影格重畫；暫停畫面開啟不造成可見卡頓
-正式主支線由每章故事來源供應，支線可選、目標與獎勵一致；新增章節與續玩後沿用同一任務真相。
-實際清完街道路障、打倒看門狗與開水閘後，目標立即推進到正確步驟；死亡、退出與繼續後仍一致，取得資料盤不掩蓋中途指引。",https://github.com/deadline314/Nest-Egg/blob/main/pm/Nest-Egg/%5BNE-223%5D%E8%A8%AD%E8%A8%88%E4%BB%BB%E5%8B%99%E7%9B%AE%E9%8C%84%E8%88%87%E5%9C%B0%E5%9C%96%E6%8C%87%E5%BC%95%E4%BB%8B%E9%9D%A2.md
+正式主支線由每章故事來源供應，支線可選、目標與獎勵一致；新增章節與續玩後沿用同一任務真相。",https://github.com/deadline314/Nest-Egg/blob/main/pm/Nest-Egg/%5BNE-223%5D%E8%A8%AD%E8%A8%88%E4%BB%BB%E5%8B%99%E7%9B%AE%E9%8C%84%E8%88%87%E5%9C%B0%E5%9C%96%E6%8C%87%E5%BC%95%E4%BB%8B%E9%9D%A2.md
 NE-224,NE,驗收雲端角色成果的遊戲整合,進行中,"角色所有適用接點、動作與切換在左右面向及遊戲／過場倍率通過；小裂縫、一像素孔洞、錯切、多餘肢體及不合理姿勢均不接受。
 三名敵人的裝甲脫落、底層、握持、掛點、槍口與實際戰鬥結果通過。",https://github.com/deadline314/Nest-Egg/blob/main/pm/Nest-Egg/%5BNE-224%5D%E9%A9%97%E6%94%B6%E9%9B%B2%E7%AB%AF%E8%A7%92%E8%89%B2%E6%88%90%E6%9E%9C%E7%9A%84%E9%81%8A%E6%88%B2%E6%95%B4%E5%90%88.md
 NE-228,NE,重整全遊戲介面體驗,進行中,"主選單、暫停、設定、背包、商店／改裝、任務／地圖、HUD、對話、死亡與結算全部完成迁移。
