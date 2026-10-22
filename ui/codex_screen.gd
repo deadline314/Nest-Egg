@@ -33,9 +33,8 @@ func _ready() -> void:
 	if not get_parent() is Control:
 		UiKit.fit_to_viewport(self)
 	theme = UiKit.theme()
-	var shade := ColorRect.new()
-	shade.color = Color(Palette.BG_FAR, 0.97)
-	shade.set_anchors_preset(Control.PRESET_FULL_RECT)
+	var shade := SceneBackdrop.new()
+	shade.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(shade)
 
 	var layout := VBoxContainer.new()

@@ -41,9 +41,9 @@ func _ready() -> void:
 	layer = UiLayers.PAUSE
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_root = UiKit.full_rect_root(self)
-	var shade := ColorRect.new()
-	shade.color = Color(0.01, 0.02, 0.04, 0.72)
-	shade.set_anchors_preset(Control.PRESET_FULL_RECT)
+	var shade := SceneBackdrop.new()
+	# Keep the pause modal's existing click barrier over the frozen world.
+	shade.mouse_filter = Control.MOUSE_FILTER_STOP
 	_root.add_child(shade)
 
 	var menu := UiPanel.new("暫停")

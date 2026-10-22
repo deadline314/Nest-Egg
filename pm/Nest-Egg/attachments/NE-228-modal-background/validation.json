@@ -1,0 +1,45 @@
+{
+  "base": "54b05d17f3fa527a93c6d0e3f65e8323ab4cad8a",
+  "changed_groups": 18,
+  "checks": 6911,
+  "new_failures": 0,
+  "known_failures": 0,
+  "seconds": 215,
+  "native_final_checks": 89,
+  "native_final_failures": 0,
+  "native_final_engine_errors": 0,
+  "renderer": "forward_plus",
+  "device": "llvmpipe",
+  "pause_cases": 4,
+  "pause_resolutions": [
+    [
+      1280,
+      720
+    ],
+    [
+      1920,
+      1080
+    ]
+  ],
+  "text_scales": [
+    1.0,
+    1.2
+  ],
+  "levels": [
+    "ch1_pawnshop",
+    "ch1_warehouse"
+  ],
+  "main_menu_entry_checked": true,
+  "source": {
+    "ui/pause_menu.gd": "6ea2b8c11d2a8e58e11a38392ecac730c02dfd7f33744d906f45d2ed6cec6597",
+    "ui/codex_screen.gd": "fb91fe9e3a918841421237c5300f48c9e12666360115c1591c4ca3a4891d57cc"
+  },
+  "previous_ne223_full_ci": {
+    "run_id": 39737383458,
+    "checks": 95951,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 620
+  },
+  "current_commit_full_ci": "Captured before push; workflow runs after the commit."
+}
