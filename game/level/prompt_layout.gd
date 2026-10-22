@@ -12,9 +12,11 @@ const OBSTACLE_MARGIN := 2.0
 const MAX_STACK := 6
 ## 提示框離畫面左右邊緣至少留這麼多（世界像素）：地圖邊上的看板文字不能被畫面切掉。
 const SCREEN_MARGIN := 4.0
+const TEXT_LAYOUT = preload("res://game/level/world_text_layout.gd")
 
 static var _prompts: Array[WorldPrompt] = []
 static var _obstacles: Dictionary[Node, Callable] = {}
+static var _reading_surfaces: Dictionary[Node, Callable] = {}
 static var _frame := -1
 # 重複使用的暫存，避免每影格配置。
 static var _active: Array[WorldPrompt] = []
@@ -22,13 +24,19 @@ static var _rects: Array[Rect2] = []
 static var _obstacle_rects: Array[Rect2] = []
 static var _placed: Array[Rect2] = []
 static var _nudges := PackedVector2Array()
+static var _fits := PackedByteArray()
 static var _shifts := PackedFloat32Array()
-static var _edge_shifts := PackedFloat32Array()
+static var _edge_shifts := PackedVector2Array()
+
+
+static func invalidate() -> void:
+	_frame = -1
 
 
 static func register(prompt: WorldPrompt) -> void:
 	if not _prompts.has(prompt):
 		_prompts.append(prompt)
+		invalidate()
 
 
 static func unregister(prompt: WorldPrompt) -> void:
@@ -38,13 +46,17 @@ static func unregister(prompt: WorldPrompt) -> void:
 
 
 ## owner 是障礙物所在的節點；rect_getter 回傳它目前在世界座標的矩形。節點離開場景樹時自動取消。
-static func add_obstacle(owner: Node, rect_getter: Callable) -> void:
+static func add_obstacle(owner: Node, rect_getter: Callable, reading_surface := false) -> void:
 	_obstacles[owner] = rect_getter
+	if reading_surface:
+		_reading_surfaces[owner] = rect_getter
 	owner.tree_exiting.connect(remove_obstacle.bind(owner), CONNECT_ONE_SHOT)
+	invalidate()
 
 
 static func remove_obstacle(owner: Node) -> void:
 	_obstacles.erase(owner)
+	_reading_surfaces.erase(owner)
 	_frame = -1
 
 
@@ -55,6 +67,11 @@ static func covers(rect: Rect2) -> bool:
 	for prompt in _prompts:
 		if is_instance_valid(prompt) and prompt.is_showing() and Rect2(prompt.base_rect().position + prompt._nudge, prompt.base_rect().size).intersects(rect):
 			return true
+	for owner in _reading_surfaces:
+		if is_instance_valid(owner) and not owner.is_queued_for_deletion() and _reading_surfaces[owner].is_valid():
+			var surface: Rect2 = _reading_surfaces[owner].call()
+			if surface.has_area() and surface.intersects(rect):
+				return true
 	return false
 
 
@@ -66,7 +83,7 @@ static func update() -> void:
 	_frame = frame
 	_active.clear()
 	for prompt in _prompts:
-		if is_instance_valid(prompt) and prompt.is_showing():
+		if is_instance_valid(prompt) and prompt.layout_requested():
 			_insert_sorted(prompt)
 	if _active.is_empty():
 		return
@@ -76,29 +93,28 @@ static func update() -> void:
 	_collect_obstacles()
 	# 先把靠在畫面邊外的提示推回畫面內，再錯開：錯開的結果才不會又被推回去疊在一起。
 	_keep_on_screen(_active[0].get_viewport())
-	solve(_rects, _obstacle_rects)
+	var viewport := _active[0].get_viewport()
+	var bounds := TEXT_LAYOUT.world_rect(viewport)
+	solve(_rects, _obstacle_rects, GAP, bounds.grow(-SCREEN_MARGIN))
 	for i in _active.size():
-		_active[i].set_nudge_target(_nudges[i] + Vector2(_edge_shifts[i], 0.0))
+		_active[i].set_nudge_target(_nudges[i] + _edge_shifts[i], _fits[i] != 0)
 
 
-## 超出畫面左右邊的提示往內推（鏡頭停在地圖邊上時，靠邊的看板文字才不會被切掉）；結果記在 _edge_shifts，並直接平移 _rects。
+## Clamp initial rectangles to the view before the bounded obstacle search.
 static func _keep_on_screen(viewport: Viewport) -> void:
 	_edge_shifts.resize(_rects.size())
-	_edge_shifts.fill(0.0)
+	_edge_shifts.fill(Vector2.ZERO)
 	if viewport == null:
 		return
-	var view := viewport.get_canvas_transform().affine_inverse() * Rect2(Vector2.ZERO, viewport.get_visible_rect().size)
-	var left := view.position.x + SCREEN_MARGIN
-	var right := view.end.x - SCREEN_MARGIN
+	var view := TEXT_LAYOUT.world_rect(viewport)
+	view = view.grow(-SCREEN_MARGIN)
 	for i in _rects.size():
 		var rect := _rects[i]
-		if rect.size.x > right - left:
+		if rect.size.x > view.size.x or rect.size.y > view.size.y:
 			continue
-		if rect.position.x < left:
-			_edge_shifts[i] = left - rect.position.x
-		elif rect.end.x > right:
-			_edge_shifts[i] = right - rect.end.x
-		_rects[i].position.x += _edge_shifts[i]
+		var position := Vector2(clampf(rect.position.x, view.position.x, view.end.x - rect.size.x), clampf(rect.position.y, view.position.y, view.end.y - rect.size.y))
+		_edge_shifts[i] = position - rect.position
+		_rects[i].position = position
 
 
 ## 由左到右排好（x 相同時以實例編號決定，順序固定不會閃動）。
@@ -117,25 +133,36 @@ static func _insert_sorted(prompt: WorldPrompt) -> void:
 ## 純運算：rects 是各提示在原位置的矩形（已由左到右排好），obstacles 是不能蓋住的矩形。
 ## 每個提示從「原位」開始，找移動代價最小的空位：往上疊一格的代價與橫向移動同單位，
 ## 所以一般是上下錯開，遇到人物擋在上方時改成往旁邊讓開。結果是每個提示的位移（x 橫向、y 往上為負），放在 _nudges 並回傳。
-static func solve(rects: Array[Rect2], obstacles: Array[Rect2], gap := GAP) -> PackedVector2Array:
+static func solve(rects: Array[Rect2], obstacles: Array[Rect2], gap := GAP, bounds := Rect2()) -> PackedVector2Array:
 	_nudges.resize(rects.size())
+	_fits.resize(rects.size())
+	_fits.fill(0)
 	_placed.clear()
 	for i in rects.size():
 		var rect := rects[i]
-		var best := Vector2(0.0, -MAX_STACK * (rect.size.y + gap))
+		var best := Vector2.ZERO if bounds.has_area() else Vector2(0.0, -MAX_STACK * (rect.size.y + gap))
 		var best_cost := INF
-		for row in MAX_STACK + 1:
-			var lift := row * (rect.size.y + gap)
-			if lift >= best_cost:
+		for step in (MAX_STACK * 2 + 1 if bounds.has_area() else MAX_STACK + 1):
+			var row := int((step + 1) / 2) if bounds.has_area() else step
+			var dy := row * (rect.size.y + gap) * (1.0 if bounds.has_area() and step > 0 and step % 2 == 0 else -1.0)
+			if absf(dy) >= best_cost:
 				break
 			_collect_shifts(rect, obstacles, gap)
+			if bounds.has_area():
+				_shifts.append(bounds.position.x - rect.position.x)
+				_shifts.append(bounds.end.x - rect.end.x)
 			for dx in _shifts:
-				var cost := absf(dx) + lift
-				if cost < best_cost and not _is_blocked(Rect2(rect.position + Vector2(dx, -lift), rect.size), obstacles, gap):
-					best = Vector2(dx, -lift)
+				var cost := absf(dx) + absf(dy)
+				var candidate := Rect2(rect.position + Vector2(dx, dy), rect.size)
+				if bounds.has_area() and not bounds.encloses(candidate):
+					continue
+				if cost < best_cost and not _is_blocked(candidate, obstacles, gap):
+					best = Vector2(dx, dy)
 					best_cost = cost
+					_fits[i] = 1
 		_nudges[i] = best
-		_placed.append(Rect2(rect.position + best, rect.size))
+		if not bounds.has_area() or _fits[i] != 0:
+			_placed.append(Rect2(rect.position + best, rect.size))
 	return _nudges
 
 
@@ -165,12 +192,19 @@ static func _is_blocked(rect: Rect2, obstacles: Array[Rect2], gap: float) -> boo
 
 ## Fresh real-world rectangles; do not reuse an earlier frame's screen-HUD position.
 static func _collect_obstacles() -> void:
-	_obstacle_rects.clear()
+	collect_obstacles_except(null, _obstacle_rects)
+
+
+## Bubble layout excludes its own child owners, avoiding feedback from last frame's boxes.
+static func collect_obstacles_except(excluded_owner: Node, output: Array[Rect2]) -> void:
+	output.clear()
 	for owner in _obstacles:
+		if excluded_owner != null and is_instance_valid(owner) and excluded_owner.is_ancestor_of(owner):
+			continue
 		if is_instance_valid(owner) and not owner.is_queued_for_deletion() and _obstacles[owner].is_valid():
 			var rect: Rect2 = _obstacles[owner].call()
 			if rect.has_area() and rect.position.is_finite() and rect.size.is_finite():
-				_obstacle_rects.append(rect)
+				output.append(rect)
 
 
 ## Caller-owned high-water output holds world endpoint pairs; returned prefix count is valid. Never move the target.

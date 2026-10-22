@@ -2,6 +2,8 @@
 
 更新：2026-10-22（Asia/Taipei）。這份文件保存 Stanley 的要求、設計依據與退回原因；票的實際狀態仍以各票為準。2026-10-17 使用者已授權持續接續未完成票，先讀本指南並研究相近類型作品與實際圖片，不需逐步詢問。下文歷史「停止」僅指當時 Session 的收尾，不限制本輪續作。詳細歷史分支、失敗紀錄與接手步驟見 [本次交接](SESSION_HANDOFF_2026-10-11.md)。
 
+2026-10-22（NE-228）：世界文字要完整換行並同時避開人物、其他文字、HUD與黑邊；先夾回畫面再無界限推開仍會失敗。[正式長氣泡／路牌四組原生24圖與全部中途失敗](Nest-Egg/attachments/NE-228-world-text/README.md)，原baseline契約抓到的問題改產品metadata，保留原斷言後重跑整輪。英文／日文為明示排版fixture，不當全章翻譯。共同工具7bf96cfb完整CI實際為95,973項、0新／已知失敗、638秒（[CI39767506903](https://github.com/deadline314/Nest-Egg/actions/runs/39767506903)）；較早59c2642e的95,976項另有原始紀錄，不混算。
+
 2026-10-22（NE-246）：[真正戰鬥、連續來源與獨立續玩](Nest-Egg/attachments/NE-246-real-combat/README.md)完成127／0與18張原圖；閱讀及暫停時同一世界身份／位置／生命／時計保持，最後原條件已勾、轉審查中。明示位置／舊存檔與存活下限，不代稱真人整章或實體手把。最新盤點為[55張未完成](unfinished-tickets-2026-10-22-latest.csv)、[56張審查中](review-tickets-2026-10-22-latest.csv)，歷史盤點段落保留。
 
 2026-10-22（NE-246）：觀察用節點可在暫停執行，不代表它建立的Main也可繼承ALWAYS。已讓Main保留正式入口PAUSABLE；同一實際來源93／6→93／0，五次世界身份／位置／生命／時鐘快照保持。[全部原檔與驗證界線](Nest-Egg/attachments/NE-246-observer-policy/README.md)。舊Main探針的版面或旗標結果不能外推成凍結通過；一般Level直接放root的探針不受這點影響。所有比對舊程式存work，保留work/.gdignore，避免編輯器將同名舊class註冊為正式來源。

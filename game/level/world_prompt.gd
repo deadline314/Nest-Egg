@@ -5,6 +5,8 @@ extends Node2D
 ## 文字可用 {動作} 佔位符（例如 "{interact} 搭乘"），會自動顯示玩家目前設定的按鍵；切換鍵鼠與手把時跟著換。
 ## keycaps = true 時，佔位符畫成按鍵帽（教學用：一眼看出要按哪個鍵），其餘提示維持純文字。
 
+const TEXT_LAYOUT = preload("res://game/level/world_text_layout.gd")
+
 const FADE_SPEED := 6.0
 ## 被推開時移動的速度（像素／秒）：提示是滑到新位置，不是跳過去。
 const NUDGE_SPEED := 240.0
@@ -42,6 +44,12 @@ var _display_text := ""
 ## 文字框（以提示原點為準）的矩形；文字或字型改變時重算，不在每影格量字。
 var _box := Rect2()
 var _text_baseline := Vector2.ZERO
+var _paragraph: TextParagraph
+var _layout_width := -1.0
+var _font_size := FONT_SIZE
+var _cursor := Vector2.ZERO
+var _line_height := 0.0
+var _layout_allowed := true
 ## 被自動錯開時的位移（目前、目標；x 橫向，y 往上為負）。
 var _nudge := Vector2.ZERO
 var _nudge_target := Vector2.ZERO
@@ -60,6 +68,8 @@ func _ready() -> void:
 	position = offset
 	_refresh_text()
 	InputBindings.bindings_changed.connect(_refresh_text)
+	Settings.display_changed.connect(_refresh_text)
+	_font.changed.connect(_refresh_text)
 	# 指向物件的細線畫在所有提示框的後面，不會被別的提示蓋住框、也不蓋住字。
 	_leader = Node2D.new()
 	_leader.z_index = -1
@@ -76,49 +86,81 @@ func _exit_tree() -> void:
 func _refresh_text() -> void:
 	_display_text = InputBindings.format(text) if is_inside_tree() else text
 	_segments.clear()
+	if not is_inside_tree():
+		_layout_width = -1.0
+		return
 	if _font != null:
-		var size := _font.get_string_size(_display_text, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE)
+		_layout_width = TEXT_LAYOUT.content_width(get_viewport(), PADDING)
+		_font_size = roundi(FONT_SIZE * Settings.get_ui_text_scale())
+		var size: Vector2
 		if keycaps and is_inside_tree():
-			size.x = _layout_keycaps()
-		size.y = maxf(size.y, _font.get_ascent(FONT_SIZE) + _font.get_descent(FONT_SIZE))
+			_paragraph = null
+			size = _layout_keycaps()
+		else:
+			_paragraph = TEXT_LAYOUT.paragraph(_display_text, _font, _font_size, _layout_width)
+			size = _paragraph.get_size()
+		size.y = maxf(size.y, _font.get_ascent(_font_size) + _font.get_descent(_font_size))
 		_box = Rect2(Vector2(-size.x * 0.5, -size.y) - PADDING, size + PADDING * 2.0)
-		_text_baseline = _box.position + PADDING + Vector2(0, _font.get_ascent(FONT_SIZE))
+		_text_baseline = _box.position + PADDING + Vector2(0, _font.get_ascent(_font_size))
+		PromptLayout.invalidate()
 	queue_redraw()
 
 
-## 把文字切成「按鍵帽」與「一般文字」兩種段落，回傳總寬度。佔位符的動作不存在時照 format 的結果當文字。
-func _layout_keycaps() -> float:
+func _layout_keycaps() -> Vector2:
 	if _token_regex == null:
 		_token_regex = RegEx.create_from_string(TOKEN_PATTERN)
-	var x := 0.0
+	_cursor = Vector2.ZERO
+	_line_height = _font.get_ascent(_font_size) + _font.get_descent(_font_size) + CAP_PADDING.y * 2.0
 	var cursor := 0
 	for found in _token_regex.search_all(text):
-		x = _add_segment(text.substr(cursor, found.get_start() - cursor), false, x)
+		_add_segment(text.substr(cursor, found.get_start() - cursor), false)
 		var action := StringName(found.get_string(1))
 		var label := InputBindings.primary_label(action) if InputMap.has_action(action) else found.get_string()
-		x = _add_segment(label, true, x)
+		_add_segment(label, true)
 		cursor = found.get_end()
-	x = _add_segment(text.substr(cursor), false, x)
-	return x
+	_add_segment(text.substr(cursor), false)
+	var width := 0.0
+	for segment in _segments:
+		width = maxf(width, segment["x"] + segment["w"])
+	return Vector2(width, _cursor.y + _line_height)
 
 
-func _add_segment(part: String, cap: bool, x: float) -> float:
+func _add_segment(part: String, cap: bool) -> void:
 	if not cap:
 		part = part.strip_edges()
 		if part.is_empty():
-			return x
-	# 句讀緊貼前一個按鍵帽，不留空隙（「按 [Space]。」而不是「按 [Space] 。」）。
+			return
 	var tight := _segments.is_empty() or (not cap and "，。；：！？、）".contains(part.left(1)))
-	var start := x + (0.0 if tight else CAP_GAP)
-	var width := _font.get_string_size(part, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE).x
+	var gap := 0.0 if tight else CAP_GAP
+	var width := _font.get_string_size(part, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size).x
 	if cap:
 		width += CAP_PADDING.x * 2.0
-	_segments.append({"text": part, "x": start, "cap": cap, "w": width})
-	return start + width
+	if _cursor.x > 0.0 and _cursor.x + gap + width > _layout_width:
+		_cursor = Vector2(0.0, _cursor.y + _line_height)
+		gap = 0.0
+	if not cap and width > _layout_width:
+		var paragraph := TEXT_LAYOUT.paragraph(part, _font, _font_size, _layout_width)
+		for i in paragraph.get_line_count():
+			var span := paragraph.get_line_range(i)
+			var line := part.substr(span.x, span.y - span.x).strip_edges()
+			var line_width := _font.get_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size).x
+			_segments.append({"text": line, "cap": false, "x": 0.0, "y": _cursor.y, "w": line_width})
+			_cursor.x = line_width
+			if i < paragraph.get_line_count() - 1:
+				_cursor = Vector2(0.0, _cursor.y + _line_height)
+		return
+	var start := _cursor.x + gap
+	_segments.append({"text": part, "cap": cap, "x": start, "y": _cursor.y, "w": width})
+	_cursor.x = start + width
 
 
 ## 目前是否在顯示（含淡入淡出中）；PromptLayout 只處理正在顯示的提示。
 func is_showing() -> bool:
+	return _layout_allowed and layout_requested()
+
+
+## Hidden for lack of space is still eligible for the next layout pass.
+func layout_requested() -> bool:
 	return enabled and visible and not _presentation_blocked() and (_alpha > 0.0 or _player_near()) and not _display_text.is_empty()
 
 
@@ -127,11 +169,18 @@ func base_rect() -> Rect2:
 	return Rect2(global_position + _box.position, _box.size)
 
 
-func set_nudge_target(value: Vector2) -> void:
+func set_nudge_target(value: Vector2, allowed := true) -> void:
 	_nudge_target = value
+	_layout_allowed = allowed
+	if not allowed:
+		_alpha = 0.0
+		queue_redraw()
+		_leader.queue_redraw()
 
 
 func _process(delta: float) -> void:
+	if not is_equal_approx(_layout_width, TEXT_LAYOUT.content_width(get_viewport(), PADDING)):
+		_refresh_text()
 	var suspended := _presentation_blocked()
 	visible = not suspended
 	if suspended:
@@ -144,7 +193,7 @@ func _process(delta: float) -> void:
 		PromptLayout.update()
 	else:
 		_nudge_target = Vector2.ZERO
-	var target := 1.0 if near else 0.0
+	var target := 1.0 if near and _layout_allowed else 0.0
 	var previous := _alpha
 	var previous_nudge := _nudge
 	_alpha = move_toward(_alpha, target, FADE_SPEED * delta)
@@ -179,30 +228,27 @@ func _player_near() -> bool:
 
 
 func _draw() -> void:
-	if _alpha <= 0.0 or _display_text.is_empty() or _font == null or _presentation_blocked():
+	if not _layout_allowed or _alpha <= 0.0 or _display_text.is_empty() or _font == null or _presentation_blocked():
 		return
 	var rect := Rect2(_box.position + _nudge, _box.size)
-	draw_rect(rect, Color(Palette.UI_PANEL, 0.85 * _alpha))
+	draw_rect(rect, Color(Palette.UI_PANEL, _alpha))
 	draw_rect(rect, Color(Palette.CYAN_DIM, _alpha), false, 1.0)
-	if _segments.is_empty():
-		draw_string(_font, _text_baseline + _nudge, _display_text, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE,
-				Color(Palette.UI_TEXT, _alpha))
+	if _paragraph != null:
+		_paragraph.draw(get_canvas_item(), rect.position + PADDING, Color(Palette.UI_TEXT, _alpha))
 		return
-	var line_top := _box.position.y + PADDING.y + _nudge.y
-	var line_height := _box.size.y - PADDING.y * 2.0
 	for segment in _segments:
-		var origin := _text_baseline + _nudge + Vector2(segment["x"], 0.0)
+		var origin := _text_baseline + _nudge + Vector2(segment["x"], segment["y"] + CAP_PADDING.y)
 		if segment["cap"]:
-			var cap := Rect2(Vector2(origin.x, line_top - CAP_PADDING.y), Vector2(segment["w"], line_height + CAP_PADDING.y * 2.0))
+			var cap := Rect2(rect.position + PADDING + Vector2(segment["x"], segment["y"]), Vector2(segment["w"], _line_height))
 			draw_rect(cap, Color(CAP_FILL, _alpha))
 			draw_rect(cap, Color(CAP_EDGE, _alpha), false, 1.0)
 			origin.x += CAP_PADDING.x
-		draw_string(_font, origin, segment["text"], HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE, Color(Palette.UI_TEXT, _alpha))
+		draw_string(_font, origin, segment["text"], HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size, Color(Palette.UI_TEXT, _alpha))
 
 
 ## 被推開的提示：從文字框下緣拉一條細線到自己原本位置下方的小圓點（物件上方），一眼看出它屬於誰。
 func _draw_leader() -> void:
-	if _alpha <= 0.0 or _nudge.length() < 1.0 or _presentation_blocked():
+	if not _layout_allowed or _alpha <= 0.0 or _nudge.length() < 1.0 or _presentation_blocked():
 		return
 	var from := Vector2(_nudge.x, _box.end.y + _nudge.y)
 	var to := Vector2(0.0, _box.end.y + LEADER_STEM)

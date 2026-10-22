@@ -5,6 +5,7 @@ extends TestSuite
 
 func run() -> void:
 	_test_solver()
+	_test_bounded_solver()
 	_test_leader_geometry()
 	await _test_leader_world_transform()
 	await _test_nodes()
@@ -13,6 +14,72 @@ func run() -> void:
 	await _test_keycaps()
 	await _test_screen_edge()
 	await _test_dead_player_suppression()
+	await _test_long_text()
+	await _test_framing_bounds()
+
+
+func _test_framing_bounds() -> void:
+	var previous_motion := Settings.get_reduce_ui_motion()
+	Settings.set_reduce_ui_motion(true)
+	var stage := Node2D.new()
+	runner.add_child(stage)
+	var viewport := runner.get_viewport()
+	var full := viewport.get_canvas_transform().affine_inverse() * Rect2(Vector2.ZERO, viewport.get_visible_rect().size)
+	var token := Story.framing.acquire(stage)
+	var prompt := _spawn_prompt(stage, full.get_center().x, "靠近電話亭後，按確認鍵保存目前的進度。")
+	(prompt.get_parent() as Node2D).position.y = full.position.y + 6.0
+	await frames(2)
+	prompt._process(1.0)
+	var safe := viewport.get_canvas_transform().affine_inverse() * Story.framing.safe_rect()
+	var shown := Rect2(prompt.base_rect().position + prompt._nudge, prompt.base_rect().size)
+	check(prompt.is_showing() and safe.encloses(shown), "a top-edge world invitation stays below actual cinematic framing")
+	Story.framing.release(token)
+	Settings.set_reduce_ui_motion(previous_motion)
+	stage.queue_free()
+	await frames(2)
+
+
+func _test_bounded_solver() -> void:
+	var bounds := Rect2(0, 0, 200, 100)
+	var rects: Array[Rect2] = [Rect2(4, 4, 120, 20), Rect2(20, 4, 120, 20)]
+	var obstacles: Array[Rect2] = [Rect2(124, 0, 76, 35)]
+	var nudges := PromptLayout.solve(rects, obstacles, PromptLayout.GAP, bounds).duplicate()
+	var valid := _overlap_free(rects, nudges)
+	for i in rects.size():
+		var shown := Rect2(rects[i].position + nudges[i], rects[i].size)
+		valid = valid and bounds.encloses(shown) and not shown.intersects(obstacles[0].grow(PromptLayout.OBSTACLE_MARGIN))
+	check(valid, "crowded top-edge prompts find free positions inside both screen edges")
+
+
+func _test_long_text() -> void:
+	var scale := Settings.get_ui_text_scale()
+	var stage := Node2D.new()
+	runner.add_child(stage)
+	var camera := Camera2D.new()
+	camera.zoom = Vector2(4, 4)
+	stage.add_child(camera)
+	camera.make_current()
+	await frames(2)
+	var viewport := runner.get_viewport()
+	var view := viewport.get_canvas_transform().affine_inverse() * Rect2(Vector2.ZERO, viewport.get_visible_rect().size)
+	for source: String in ["在電話亭備份，死了會從最近的電話亭醒來，沿原路繼續前進。", "Back up at the telephone booth, then continue through the warehouse without losing your progress.", "電話ボックスでバックアップしてから、倉庫の奥へ進んでください。"]:
+		var prompt := _spawn_prompt(stage, view.get_center().x, source)
+		prompt._process(1.0)
+		check(prompt._display_text == source and prompt.base_rect().size.x <= view.size.x * 0.6 and prompt.base_rect().size.y > 15.0, "long world text wraps without shortening its complete source: " + source)
+		prompt.get_parent().queue_free()
+		await frames(2)
+	var taught := _spawn_prompt(stage, view.get_center().x, "先在電話亭按 {interact} 備份，補滿彈藥後按 {reload} 換彈再出發。")
+	taught.keycaps = true
+	Settings.set_ui_text_scale(1.2)
+	taught._process(1.0)
+	var caps := taught._segments.filter(func(segment: Dictionary) -> bool: return segment["cap"])
+	var fits := caps.size() == 2 and taught.base_rect().size.x <= view.size.x * 0.6
+	for segment in taught._segments:
+		fits = fits and segment["x"] >= 0.0 and segment["x"] + segment["w"] <= taught._box.size.x - WorldPrompt.PADDING.x * 2.0 + 0.5
+	check(fits, "large teaching text keeps both whole keycaps inside its wrapped box")
+	Settings.set_ui_text_scale(scale)
+	stage.queue_free()
+	await frames(2)
 
 
 func _test_modal_suppression() -> void:

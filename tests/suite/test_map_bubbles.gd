@@ -11,9 +11,70 @@ func run() -> void:
 	_test_rules()
 	await _test_in_level()
 	await _test_released_host_does_not_hang()
+	await _test_wrapped_bubble_bounds()
 	Story.auto_skip = previous_auto
 	Story.reset_progress()
 	GameState.start_new_run(GameState.difficulties[1])
+
+
+func _test_wrapped_bubble_bounds() -> void:
+	var original_obstacles := PromptLayout._obstacles.size()
+	var stage := Node2D.new()
+	runner.add_child(stage)
+	var camera := Camera2D.new()
+	camera.zoom = Vector2(2, 2)
+	stage.add_child(camera)
+	camera.make_current()
+	await frames(2)
+	var view := runner.get_viewport().get_canvas_transform().affine_inverse() * Rect2(Vector2.ZERO, runner.get_viewport().get_visible_rect().size)
+	var speaker := Node2D.new()
+	speaker.position = view.get_center() + Vector2(0, 45)
+	stage.add_child(speaker)
+	var host := MapBubbles.new()
+	host.anchor_resolver = func(_id: String) -> Node2D: return speaker
+	stage.add_child(host)
+	var text := "今天的飯煮好了喔。這頓我煮給你，不用交四十。"
+	host.show_lines(&"test_complete_bubble", [{"speaker": "test", "text": text}])
+	host._process(0.0)
+	var prompt := WorldPrompt.new()
+	prompt.text = "按下確認鍵繼續前往倉庫。"
+	prompt.reach_check = func() -> bool: return true
+	prompt.position = speaker.position
+	stage.add_child(prompt)
+	prompt._process(1.0)
+	await frames(1)
+	PromptLayout.update()
+	prompt._process(1.0)
+	var bubble: Dictionary = host._active[0]
+	var rect: Rect2 = bubble.get("rect", Rect2())
+	check(rect.has_area() and view.encloses(rect) and rect.size.x <= view.size.x * 0.6, "complete ambient sentence uses a bounded on-screen bubble")
+	var paragraph: TextParagraph = bubble.get("paragraph")
+	check(paragraph != null and paragraph.get_range().y == text.length() and paragraph.get_line_count() > 1, "wrapped ambient sentence preserves every character")
+	check(rect.has_area() and not rect.intersects(Rect2(prompt.base_rect().position + prompt._nudge, prompt.base_rect().size)), "nearby world invitation avoids the actual ambient bubble: %s" % [{"bubble": rect, "prompt": prompt.base_rect(), "nudge": prompt._nudge, "target": prompt._nudge_target, "obstacles": PromptLayout._obstacle_rects}])
+	check(rect.has_area() and PromptLayout.covers(rect), "ambient reading participates in the existing HUD goal yielding rule")
+	var other := Node2D.new()
+	other.position = speaker.position + Vector2(20, 0)
+	stage.add_child(other)
+	host.anchor_resolver = func(id: String) -> Node2D: return other if id == "other" else speaker
+	host._active[0]["age"] = host._active[0]["hold"]
+	host.show_lines(&"test_other_bubble", [{"speaker": "other", "text": "先趁熱吃，吃完以後我們再慢慢談明天的事情。"}])
+	host._process(0.0)
+	await frames(1)
+	PromptLayout.update()
+	var first: Rect2 = host._active[0].get("rect", Rect2())
+	var second: Rect2 = host._active[1].get("rect", Rect2())
+	check(first.has_area() and second.has_area() and not first.intersects(second), "adjacent speakers keep both simultaneous bubbles separate")
+	camera.zoom = Vector2(4, 4)
+	await frames(2)
+	prompt._process(1.0)
+	check(prompt.enabled and not prompt.is_showing() and prompt._alpha == 0.0, "a view with no free space hides the invitation without disabling its interaction")
+	host.queue_free()
+	await frames(2)
+	prompt._process(1.0)
+	check(prompt.is_showing(), "the invitation returns after the temporary bubble leaves")
+	stage.queue_free()
+	await frames(2)
+	check(PromptLayout._obstacles.size() == original_obstacles, "bubble teardown releases its registered reading bounds")
 
 
 func _rules_scene(lines: Array, bark := false) -> Dictionary:

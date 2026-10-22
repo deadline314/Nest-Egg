@@ -1,0 +1,66 @@
+{
+  "tested_code_base": "7bf96cfb95fcec3cbb609aea0658ab547e59068d",
+  "integration_docs": "456471960eac10ad46b6973cf0d6bfd071ad6245",
+  "affected_receipt": {
+    "command": [
+      "tools/run_tests_changed.sh",
+      "7bf96cfb"
+    ],
+    "exit_code": 0,
+    "seconds": 488.7109541360005
+  },
+  "affected_summary": [
+    "Running 60 groups in 6 processes (logs: /workspace/Nest-Egg/work/batch1022/quests/work/ne228-bubbles/delivery-shards)",
+    "checks: 63204, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 488 s)"
+  ],
+  "native": [
+    {
+      "case": "before",
+      "completed": true,
+      "failures": 7,
+      "checks": 32,
+      "engine_errors": 0,
+      "leaks": 0,
+      "pngs": 6,
+      "individually_viewed": true
+    },
+    {
+      "case": "after",
+      "completed": true,
+      "failures": 0,
+      "checks": 33,
+      "engine_errors": 0,
+      "leaks": 0,
+      "pngs": 6,
+      "individually_viewed": true
+    },
+    {
+      "case": "1080",
+      "completed": true,
+      "failures": 0,
+      "checks": 33,
+      "engine_errors": 0,
+      "leaks": 0,
+      "pngs": 6,
+      "individually_viewed": true
+    },
+    {
+      "case": "smooth",
+      "completed": true,
+      "failures": 0,
+      "checks": 34,
+      "engine_errors": 0,
+      "leaks": 0,
+      "pngs": 6,
+      "individually_viewed": true
+    }
+  ],
+  "original_bubble_only_negative": "32 checks, 6 expected failures; old MapBubbles with final surrounding layout",
+  "original_two_test_suites_byte_exact": true,
+  "additional_checks": 14,
+  "original_contextual_priority_helper_and_harness_unchanged": true,
+  "all_final_native_pngs_individually_viewed": 24,
+  "research": "9 actual Steam images individually viewed; Night in Woods forest and Oxenfree cave show multiline; remaining images composition only; official Godot4.7 TextParagraph XML source after docs site403",
+  "history": "v1 short booth selected; v2 actual long sign and EN/JA fixtures exposed goal overlap and framing blackbar; v3 visually passed but baseline full regression failed once; metadata corrected retaining original assertions,475 passed; v4 final native follows PAUSABLE shared observer; work import class collision and rejected checks preserved",
+  "scope": "native software Vulkan Forward+ with public UI actions; authored ZH conversation/sign, EN/JA explicit rendering fixtures, held player physics for stable sign composition; not full chapters, human hardware or entire NE228 acceptance"
+}

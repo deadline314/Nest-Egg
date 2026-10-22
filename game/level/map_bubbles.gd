@@ -10,6 +10,8 @@ extends Node2D
 ## 一個場景的最後一句收起來之後發出。
 signal scene_finished(scene_id: StringName)
 
+const TEXT_LAYOUT = preload("res://game/level/world_text_layout.gd")
+
 const MAX_VISIBLE := 2
 const HOLD_BASE := 1.2
 const HOLD_PER_CHAR := 0.1
@@ -32,6 +34,10 @@ var _font: Font
 var _queue: Array[Dictionary] = []
 ## 正在顯示（含淡入淡出）的氣泡。
 var _active: Array[Dictionary] = []
+var _layout_frame := -1
+var _layout_entries: Array[Dictionary] = []
+var _layout_rects: Array[Rect2] = []
+var _layout_obstacles: Array[Rect2] = []
 
 
 func _ready() -> void:
@@ -40,6 +46,8 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	z_index = 30
 	_font = UiKit.font()
+	_font.changed.connect(_invalidate_layout)
+	Settings.display_changed.connect(_invalidate_layout)
 	LightKit.mark_emissive(self)
 	set_process(false)
 
@@ -99,6 +107,7 @@ func _pending_scene_ids() -> Array[StringName]:
 
 
 func _process(delta: float) -> void:
+	_layout_frame = -1
 	var suspended := get_tree().paused or GameplayLock.is_locked() or Story.is_cinematic_active() or DialogueLayer.radio_visible()
 	visible = not suspended
 	if suspended:
@@ -134,10 +143,18 @@ func _start_next() -> void:
 		var oldest: Dictionary = live.pop_front()
 		oldest["leaving"] = true
 		oldest["leave_age"] = 0.0
-	_active.append({
+	var bubble := {
 		"id": entry["id"], "last": entry["last"], "text": text, "name": str(line.get("name", "")), "color": line.get("color", Color.WHITE),
 		"target": weakref(target), "pos": target.global_position, "age": 0.0, "hold": hold_time(text), "leaving": false, "leave_age": 0.0,
-	})
+	}
+	# Each bubble owns its obstacle; normal tree teardown removes it.
+	var bounds := Node.new()
+	add_child(bounds)
+	bubble["bounds_owner"] = bounds
+	_active.append(bubble)
+	PromptLayout.add_obstacle(bounds, func() -> Rect2:
+		_layout_boxes()
+		return bubble.get("rect", Rect2()), true)
 
 
 func _retire_finished(delta: float) -> void:
@@ -149,6 +166,7 @@ func _retire_finished(delta: float) -> void:
 		if bool(bubble["leaving"]):
 			bubble["leave_age"] = float(bubble["leave_age"]) + delta
 			if float(bubble["leave_age"]) >= FADE_OUT:
+				(bubble["bounds_owner"] as Node).queue_free()
 				if bool(bubble["last"]):
 					scene_finished.emit(bubble["id"])
 				continue
@@ -160,33 +178,72 @@ func _retire_finished(delta: float) -> void:
 # 繪製
 # ---------------------------------------------------------------------------
 
-func _draw() -> void:
-	if _font == null or DialogueLayer.radio_visible():
+func _invalidate_layout() -> void:
+	_layout_frame = -1
+	PromptLayout.invalidate()
+	for bubble in _active:
+		bubble.erase("paragraph")
+	queue_redraw()
+
+
+func _layout_boxes() -> void:
+	var frame := Engine.get_process_frames()
+	if frame == _layout_frame:
 		return
+	_layout_frame = frame
+	var suspended := get_tree().paused or GameplayLock.is_locked() or Story.is_cinematic_active() or DialogueLayer.radio_visible()
 	var camera_rect := _visible_world_rect()
+	var width := TEXT_LAYOUT.content_width(get_viewport(), PADDING)
+	var font_size := roundi(FONT_SIZE * Settings.get_ui_text_scale())
 	var stack_offset := {}
-	# 同一個講者的氣泡由新到舊往上疊。
+	_layout_entries.clear()
+	_layout_rects.clear()
 	for i in range(_active.size() - 1, -1, -1):
 		var bubble := _active[i]
 		var target: Node2D = (bubble["target"] as WeakRef).get_ref() as Node2D
 		if target != null:
 			bubble["pos"] = target.global_position
+		bubble["rect"] = Rect2()
+		if suspended or not camera_rect.grow(32.0).has_point(bubble["pos"]):
+			continue
+		if not bubble.has("paragraph") or not is_equal_approx(bubble.get("layout_width", -1.0), width) or bubble.get("font_size", -1) != font_size:
+			bubble["paragraph"] = TEXT_LAYOUT.paragraph(str(bubble["text"]), _font, font_size, width)
+			bubble["layout_width"] = width
+			bubble["font_size"] = font_size
 		var key := str((bubble["pos"] as Vector2).round())
 		var lift := float(stack_offset.get(key, 0.0))
-		var size := _font.get_string_size(str(bubble["text"]), HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE) + PADDING * 2.0
-		var alpha := _alpha_of(bubble)
-		var anchor: Vector2 = (bubble["pos"] as Vector2) + Vector2(0.0, -HEAD_HEIGHT - lift)
+		var paragraph: TextParagraph = bubble["paragraph"]
+		var size := paragraph.get_size() + PADDING * 2.0
+		var anchor: Vector2 = bubble["pos"] + Vector2(0.0, -HEAD_HEIGHT - lift)
 		var box := Rect2(anchor + Vector2(-size.x * 0.5, -size.y - TAIL), size)
 		box.position.x = clampf(box.position.x, camera_rect.position.x + 4.0, camera_rect.end.x - size.x - 4.0)
+		box.position.y = clampf(box.position.y, camera_rect.position.y + 4.0, camera_rect.end.y - size.y - 4.0)
+		bubble["rect"] = box
+		_layout_entries.append(bubble)
+		_layout_rects.append(box)
 		stack_offset[key] = lift + size.y + STACK_GAP + TAIL
+	PromptLayout.collect_obstacles_except(self, _layout_obstacles)
+	var nudges := PromptLayout.solve(_layout_rects, _layout_obstacles, STACK_GAP, camera_rect.grow(-4.0))
+	for i in _layout_entries.size():
+		_layout_entries[i]["rect"] = Rect2(_layout_rects[i].position + nudges[i], _layout_rects[i].size) if PromptLayout._fits[i] != 0 else Rect2()
+
+
+func _draw() -> void:
+	if _font == null or DialogueLayer.radio_visible():
+		return
+	_layout_boxes()
+	for bubble in _active:
+		var box: Rect2 = bubble.get("rect", Rect2())
+		if not box.has_area():
+			continue
+		var alpha := _alpha_of(bubble)
 		var color: Color = bubble["color"]
-		draw_rect(box, Color(0.04, 0.06, 0.1, 0.88 * alpha))
+		draw_rect(box, Color(0.04, 0.06, 0.1, alpha))
 		draw_rect(box, Color(color.r, color.g, color.b, alpha), false, 1.0)
-		var tail_x := clampf(anchor.x, box.position.x + 4.0, box.end.x - 4.0)
-		draw_colored_polygon(PackedVector2Array([Vector2(tail_x - 3.0, box.end.y), Vector2(tail_x + 3.0, box.end.y), Vector2(tail_x, box.end.y + TAIL)]),
-				Color(color.r, color.g, color.b, alpha))
-		draw_string(_font, box.position + Vector2(PADDING.x, PADDING.y + _font.get_ascent(FONT_SIZE)), str(bubble["text"]),
-				HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE, Color(0.94, 0.97, 1.0, alpha))
+		var tail_x := clampf((bubble["pos"] as Vector2).x, box.position.x + 4.0, box.end.x - 4.0)
+		draw_colored_polygon(PackedVector2Array([Vector2(tail_x - 3.0, box.end.y), Vector2(tail_x + 3.0, box.end.y), Vector2(tail_x, box.end.y + TAIL)]), Color(color.r, color.g, color.b, alpha))
+		var paragraph: TextParagraph = bubble["paragraph"]
+		paragraph.draw(get_canvas_item(), box.position + PADDING, Color(0.94, 0.97, 1.0, alpha))
 
 
 func _alpha_of(bubble: Dictionary) -> float:
@@ -200,7 +257,4 @@ func _visible_world_rect() -> Rect2:
 	var viewport := get_viewport()
 	if viewport == null:
 		return Rect2(-100000, -100000, 200000, 200000)
-	var inverse := viewport.get_canvas_transform().affine_inverse()
-	var top_left := inverse * Vector2.ZERO
-	var bottom_right := inverse * viewport.get_visible_rect().size
-	return Rect2(top_left, bottom_right - top_left)
+	return TEXT_LAYOUT.world_rect(viewport)
