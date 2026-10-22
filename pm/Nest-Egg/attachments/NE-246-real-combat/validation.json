@@ -1,0 +1,23 @@
+{
+  "source_commit": "7bf96cfb95fcec3cbb609aea0658ab547e59068d",
+  "native_checks": 127,
+  "native_failures": 0,
+  "native_processes": 2,
+  "native_pngs": 18,
+  "all_native_pngs_individually_viewed": true,
+  "world_readings": 5,
+  "actual_back_to_back_sources": [
+    "ch1_g06_lamp",
+    "ch1_g06_tip_slide",
+    "ch1_g06_tip_blade",
+    "ch1_g06_tip_collector"
+  ],
+  "same_identity_position_health_hit_count_and_clock": true,
+  "cold_save_sha256": "6eda5f8a036c0d53eba7700c891124440717bcc3809fce786384f7ae327e163e",
+  "headless_same_probe_old_checks": 93,
+  "headless_same_probe_old_failures": 6,
+  "headless_same_probe_fixed_checks": 93,
+  "headless_same_probe_fixed_failures": 0,
+  "environment": "Godot4.7.2 Forward+ HDR, Vulkan llvmpipe, Xvfb1280x720, synthetic public inputs",
+  "scope": "authored actual combat sources, arranged old-save prerequisites/positions and nonlethal floor1; not human full chapter or physical controller; UI world text baseline predates NE228 pending change"
+}
