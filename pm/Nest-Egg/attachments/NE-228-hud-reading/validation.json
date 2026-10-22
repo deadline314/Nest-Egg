@@ -1,0 +1,260 @@
+{
+  "base": "5bcc9f68b4e226e4d5b91d788d20d40b174efce0",
+  "source_head": "7009af868734055135d1711b8c8580704444246b",
+  "affected": {
+    "command": [
+      "tools/run_tests_changed.sh",
+      "5bcc9f68"
+    ],
+    "exit_code": 0,
+    "seconds": 216.06658215399875
+  },
+  "affected_summary": [
+    "Running 20 groups in 6 processes (logs: /workspace/Nest-Egg/work/batch1022/kitchen/work/ne228-hud-reading/changed-shards)",
+    "checks: 7349, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 216 s)"
+  ],
+  "additional_checks": 8,
+  "unit": "354/4 before;354/0 after",
+  "native": [
+    {
+      "run": {
+        "name": "ne228-1022-hud-reading-before-smooth-v3",
+        "label": "smooth",
+        "command": [
+          "python",
+          "/workspace/Nest-Egg/work/batch1020b/native.py",
+          "ne228-1022-hud-reading-before-smooth-v3",
+          "res://work/ne228-hud-reading/probe.tscn",
+          "--mode=write",
+          "--save-dir=/workspace/Nest-Egg/work/batch1022/kitchen/work/ne228-hud-reading/before-smooth-v3-save",
+          "--smooth"
+        ],
+        "exit_code": 1,
+        "expected": 1,
+        "seconds": 36.52125914700082,
+        "engine_errors": 0,
+        "leaks": 0
+      },
+      "summary": {
+        "caption_clear": false,
+        "caption_witness": 11,
+        "feed_bubble_witness": 17,
+        "hud_clear": false
+      },
+      "individually_viewed_png": [
+        "motion-00.png",
+        "motion-04.png",
+        "motion-16.png",
+        "motion-48.png",
+        "write-refused.png"
+      ]
+    },
+    {
+      "run": {
+        "label": "pixel",
+        "name": "ne228-1022-hud-reading-after-pixel-v3",
+        "command": [
+          "python",
+          "/workspace/Nest-Egg/work/batch1020b/native.py",
+          "ne228-1022-hud-reading-after-pixel-v3",
+          "res://work/ne228-hud-reading/probe.tscn",
+          "--mode=write",
+          "--save-dir=/workspace/Nest-Egg/work/batch1022/kitchen/work/ne228-hud-reading/after-pixel-v3-save"
+        ],
+        "exit_code": 0,
+        "seconds": 38.01826681999955,
+        "expected": 0,
+        "engine_errors": 0,
+        "leaks": 0
+      },
+      "summary": {
+        "caption_clear": true,
+        "caption_witness": 8,
+        "feed_bubble_witness": 17,
+        "hud_clear": true
+      },
+      "individually_viewed_png": [
+        "motion-00.png",
+        "motion-04.png",
+        "motion-16.png",
+        "motion-48.png",
+        "write-refused.png"
+      ]
+    },
+    {
+      "run": {
+        "label": "1080",
+        "name": "ne228-1022-hud-reading-after-1080-v3",
+        "command": [
+          "python",
+          "/workspace/Nest-Egg/work/batch1020b/native.py",
+          "ne228-1022-hud-reading-after-1080-v3",
+          "res://work/ne228-hud-reading/probe.tscn",
+          "--mode=write",
+          "--save-dir=/workspace/Nest-Egg/work/batch1022/kitchen/work/ne228-hud-reading/after-1080-v3-save",
+          "--1080"
+        ],
+        "exit_code": 0,
+        "seconds": 63.68286141899807,
+        "expected": 0,
+        "engine_errors": 0,
+        "leaks": 0
+      },
+      "summary": {
+        "caption_clear": true,
+        "caption_witness": 6,
+        "feed_bubble_witness": 17,
+        "hud_clear": true
+      },
+      "individually_viewed_png": [
+        "motion-00.png",
+        "motion-04.png",
+        "motion-16.png",
+        "motion-48.png",
+        "write-refused.png"
+      ]
+    },
+    {
+      "run": {
+        "label": "smooth",
+        "name": "ne228-1022-hud-reading-after-smooth-v3",
+        "command": [
+          "python",
+          "/workspace/Nest-Egg/work/batch1020b/native.py",
+          "ne228-1022-hud-reading-after-smooth-v3",
+          "res://work/ne228-hud-reading/probe.tscn",
+          "--mode=write",
+          "--save-dir=/workspace/Nest-Egg/work/batch1022/kitchen/work/ne228-hud-reading/after-smooth-v3-save",
+          "--smooth"
+        ],
+        "exit_code": 0,
+        "seconds": 36.506434731996706,
+        "expected": 0,
+        "engine_errors": 0,
+        "leaks": 0
+      },
+      "summary": {
+        "caption_clear": true,
+        "caption_witness": 6,
+        "feed_bubble_witness": 17,
+        "hud_clear": true
+      },
+      "individually_viewed_png": [
+        "motion-00.png",
+        "motion-04.png",
+        "motion-16.png",
+        "motion-48.png",
+        "write-refused.png"
+      ]
+    },
+    {
+      "run": {
+        "label": "reduced",
+        "name": "ne228-1022-hud-reading-after-reduced-v3",
+        "command": [
+          "python",
+          "/workspace/Nest-Egg/work/batch1020b/native.py",
+          "ne228-1022-hud-reading-after-reduced-v3",
+          "res://work/ne228-hud-reading/probe.tscn",
+          "--mode=write",
+          "--save-dir=/workspace/Nest-Egg/work/batch1022/kitchen/work/ne228-hud-reading/after-reduced-v3-save",
+          "--reduced"
+        ],
+        "exit_code": 0,
+        "seconds": 37.52376553299837,
+        "expected": 0,
+        "engine_errors": 0,
+        "leaks": 0
+      },
+      "summary": {
+        "caption_clear": true,
+        "caption_witness": 1,
+        "feed_bubble_witness": 17,
+        "hud_clear": true
+      },
+      "individually_viewed_png": [
+        "motion-00.png",
+        "motion-04.png",
+        "motion-16.png",
+        "motion-48.png",
+        "write-refused.png"
+      ]
+    }
+  ],
+  "history": "v1 caption anti-vacuity minimum16 conflicted with existing hide-on-reading priority: removed only the new arbitrary16 rule; retained original world prompt minimum16. v2 static HUD passed; actual images prompted v3 extension to dynamic AmmoTray/VitalsTag. v3 retained all assertions and passed all four positive cases. Full raw v1/v2 failures retained.",
+  "harness_unchanged": [
+    "tools/run_tests_changed.sh",
+    "tools/run_tests_parallel.sh",
+    "tools/select_tests.py",
+    "tools/test_filters.sh",
+    "tests/known_failures.txt"
+  ],
+  "scope": "Forward+ HDR llvmpipe software Vulkan. Real Main/authored vault disc, actual IO refusal and public retry. Declared six preexisting route flags, positioned actors, survival floor1 and held actor physics for72 text animation frames. EN/JA previous probes are layout fixtures, not full chapter translations. Actor reading bounds are not rendered-alpha silhouettes/joint acceptance. No human, physical controller/GPU or full campaign acceptance.",
+  "integration-receipt.json": {
+    "base": "7009af868734055135d1711b8c8580704444246b",
+    "command": [
+      "tools/run_tests_changed.sh",
+      "7009af868734055135d1711b8c8580704444246b"
+    ],
+    "exit_code": 0,
+    "seconds": 439.0124980649998
+  },
+  "integration-native-receipt.json": {
+    "name": "ne228-1022-hud-reading-integrated-7009af86",
+    "base": "7009af868734055135d1711b8c8580704444246b",
+    "command": [
+      "python",
+      "/workspace/Nest-Egg/work/batch1020b/native.py",
+      "ne228-1022-hud-reading-integrated-7009af86",
+      "res://work/ne228-hud-reading/probe.tscn",
+      "--mode=write",
+      "--save-dir=/workspace/Nest-Egg/work/batch1022/kitchen/work/ne228-hud-reading/integrated-7009af86-save",
+      "--smooth"
+    ],
+    "exit_code": 0,
+    "seconds": 37.07915901100205,
+    "engine_errors": 0,
+    "leaks": 0,
+    "completed": true,
+    "hud_summary": {
+      "caption_clear": true,
+      "caption_witness": 6,
+      "feed_bubble_witness": 17,
+      "hud_clear": true
+    }
+  },
+  "first_integration_failure": {
+    "base": "7a29f7535f60cef70cbb3c6deafb2790fb897975",
+    "command": [
+      "tools/run_tests_changed.sh",
+      "7a29f7535f60cef70cbb3c6deafb2790fb897975"
+    ],
+    "exit_code": 1,
+    "seconds": 225.4351238340023
+  },
+  "first_integration_native": {
+    "name": "ne228-1022-hud-reading-integrated-smooth",
+    "base": "7a29f7535f60cef70cbb3c6deafb2790fb897975",
+    "command": [
+      "python",
+      "/workspace/Nest-Egg/work/batch1020b/native.py",
+      "ne228-1022-hud-reading-integrated-smooth",
+      "res://work/ne228-hud-reading/probe.tscn",
+      "--mode=write",
+      "--save-dir=/workspace/Nest-Egg/work/batch1022/kitchen/work/ne228-hud-reading/integrated-smooth-save",
+      "--smooth"
+    ],
+    "exit_code": 0,
+    "seconds": 37.00426341799903,
+    "engine_errors": 0,
+    "leaks": 0,
+    "completed": true,
+    "hud_summary": {
+      "caption_clear": true,
+      "caption_witness": 6,
+      "feed_bubble_witness": 17,
+      "hud_clear": true
+    }
+  },
+  "first_integration_scope": "7a original20 groups7358/1 warm-order failure,225s; native34/0. Preserved; BG50 isolated read-proof loss under budget deferral, not called unique original intermittent root. HUD source unchanged for new-main integration."
+}

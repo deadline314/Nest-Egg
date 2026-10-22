@@ -148,6 +148,9 @@ func _ready() -> void:
 	_framing_edge_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	for item: Control in [_lives_label, _timer_label, credits_tag, cyber_gauge, boss_bar, weapon_bar]:
 		item.reparent(_framing_edge_root, false)
+	# Fixed status controls keep their complete slots clear for world reading.
+	for item: Control in [_lives_label, _timer_label, credits_tag, cyber_gauge, boss_bar, weapon_bar, _items_label, _controls_card]:
+		PromptLayout.add_obstacle(item, _fixed_reading_rect.bind(item))
 	EventBus.player_loadout_changed.connect(_on_loadout_changed)
 	GameplayLock.started.connect(_controls_card.hide)
 	Story.framing.safe_rect_changed.connect(_on_framing_safe_rect)
@@ -172,6 +175,17 @@ func _ready() -> void:
 	if level != null and (level._entry_portal != &"" or level._from_checkpoint or not level._resume.is_empty()):
 		_hint_expired = true
 		_controls_card.hide()
+
+
+## Reserve the full slot, including a boss bar expanding from its center.
+func _fixed_reading_rect(control: Control) -> Rect2:
+	if not control.is_visible_in_tree() or control.modulate.a <= 0.01 or (control is Label and (control as Label).text.is_empty()):
+		return Rect2()
+	var parent := control.get_parent() as CanvasItem
+	if parent == null:
+		return Rect2()
+	var to_world := get_viewport().get_canvas_transform().affine_inverse() * parent.get_global_transform_with_canvas()
+	return to_world * Rect2(control.position, control.size.max(control.get_minimum_size()))
 
 
 func _refresh_controls() -> void:

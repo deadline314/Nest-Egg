@@ -44,6 +44,25 @@ func _init() -> void:
 	set_process(false)
 
 
+func _ready() -> void:
+	PromptLayout.add_obstacle(self, prompt_obstacle_rect)
+
+
+## A fresh row reserves its whole allotted slot before its first fade-in/layout.
+## Empty, radio-covered and expired feeds release the space immediately.
+func prompt_obstacle_rect() -> Rect2:
+	if not is_visible_in_tree() or DialogueLayer.radio_visible():
+		return Rect2()
+	var occupied := false
+	for row in _rows:
+		if row.visible:
+			occupied = true
+			break
+	if not occupied:
+		return Rect2()
+	return (get_viewport().get_canvas_transform().affine_inverse() * get_global_transform_with_canvas()) * Rect2(Vector2.ZERO, size.max(get_minimum_size()))
+
+
 ## 加一行；顯示中已有同一句就刷新時間並顯示次數。
 func push(text: String) -> void:
 	text = text.strip_edges()
@@ -58,6 +77,7 @@ func push(text: String) -> void:
 			row.serial = _serial
 			move_child(row, get_child_count() - 1)
 			set_process(true)
+			PromptLayout.invalidate()
 			return
 	var row := _free_row()
 	row.base_text = text
@@ -71,6 +91,7 @@ func push(text: String) -> void:
 	row.show()
 	move_child(row, get_child_count() - 1)
 	set_process(true)
+	PromptLayout.invalidate()
 
 
 ## 目前顯示中的文字（由舊到新；測試與除錯用）。

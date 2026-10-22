@@ -19,6 +19,7 @@ var yielding := false
 var _row: SlantBanner
 var _label: Label
 var _pulse: Tween
+var _arrow_obstacles: Array[Rect2] = []
 var _arrow: Label
 var _time := 0.0
 var _idle := 0.0
@@ -180,7 +181,31 @@ func _update_arrow() -> void:
 	_arrow.position = Vector2(clampf(edge.x - _arrow.get_minimum_size().x * 0.5, 12, 628 - _arrow.get_minimum_size().x), clampf(edge.y, 88, bottom))
 	var extent := _arrow.size.max(_arrow.get_minimum_size())
 	var text_rect := (get_viewport().get_canvas_transform().affine_inverse() * _arrow.get_global_transform_with_canvas()) * Rect2(Vector2.ZERO, extent)
-	_arrow.visible = not PromptLayout.covers(text_rect.grow(2.0))
+	# Preserve reading priority at the original destination position.
+	if PromptLayout.covers(text_rect.grow(2.0)):
+		return
+	PromptLayout.collect_obstacles_except(null, _arrow_obstacles)
+	var origin := _arrow.position
+	var stride := ceilf(extent.y) + 4.0
+	var to_world := get_viewport().get_canvas_transform().affine_inverse() * get_global_transform_with_canvas()
+	for i in 13:
+		var row := int((i + 1) / 2)
+		var candidate := origin + Vector2(0.0, row * stride * (-1.0 if i % 2 == 1 else 1.0))
+		if candidate.y < 88.0 or candidate.y > bottom:
+			continue
+		var rect := (to_world * Rect2(candidate, extent)).grow(2.0)
+		if PromptLayout.covers(rect):
+			continue
+		var blocked := false
+		for obstacle in _arrow_obstacles:
+			if rect.intersects(obstacle):
+				blocked = true
+				break
+		if blocked:
+			continue
+		_arrow.position = candidate
+		_arrow.visible = true
+		return
 
 
 func _enabled(key: String) -> bool:

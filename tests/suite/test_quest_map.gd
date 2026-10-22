@@ -412,6 +412,8 @@ func _check_filter_groups(screen: QuestMapScreen) -> void:
 
 func _test_runtime() -> void:
 	var level := await start_level(load(PAWN) as LevelData)
+	await _check_fixed_hud_reading_space(level)
+	await _check_caption_avoids_actor(level)
 	await _check_destination_reading_priority(level)
 	await _check_reading_yield_timing(level)
 	await _check_prompt_avoids_objective(level)
@@ -653,4 +655,59 @@ func _check_destination_reading_priority(level: Level) -> void:
 		guidance._update_arrow()
 		check(guidance._arrow.visible, "the real destination caption returns after world reading releases its space")
 	guidance._target = original
+	guidance._update_arrow()
+
+
+func _check_fixed_hud_reading_space(level: Level) -> void:
+	var hud := level.hud
+	var inverse := runner.get_viewport().get_canvas_transform().affine_inverse()
+	var obstacles: Array[Rect2] = []
+	PromptLayout.collect_obstacles_except(level._bubbles, obstacles)
+	for control: Control in [hud._timer_label, hud.credits_tag]:
+		var rect := (inverse * control.get_global_transform_with_canvas()) * Rect2(Vector2.ZERO, control.size.max(control.get_minimum_size()))
+		check(obstacles.any(func(candidate: Rect2) -> bool: return candidate.encloses(rect)), "actual fixed HUD reserves its full visible reading rectangle: " + str(control.name))
+	var feed := hud.pickup_feed
+	for row in feed._rows:
+		row.hide()
+	feed.push("取得資料盤")
+	PromptLayout.collect_obstacles_except(level._bubbles, obstacles)
+	var occupied := (inverse * feed.get_global_transform_with_canvas()) * Rect2(Vector2.ZERO, feed.size.max(feed.get_minimum_size()))
+	check(obstacles.any(func(candidate: Rect2) -> bool: return candidate.encloses(occupied)), "an actual acquired-feed row reserves its allotted space on the first fade-in frame")
+	feed._process(PickupFeed.HOLD + PickupFeed.FADE)
+	PromptLayout.collect_obstacles_except(level._bubbles, obstacles)
+	check(not obstacles.any(func(candidate: Rect2) -> bool: return candidate.encloses(occupied)), "expired acquired-feed rows release their reading reservation")
+
+
+func _check_caption_avoids_actor(level: Level) -> void:
+	var guidance: QuestGuidance = level.hud.quest_guidance
+	var original_target := guidance._target
+	var original_player := level.player.global_position
+	var selected := false
+	for quest: Dictionary in guidance.catalog.quests:
+		var step := QuestCatalog.current_step(quest, GameState.world_flags)
+		var path := str((step.get("location", {}) as Dictionary).get("level", ""))
+		if path.is_empty() or path == level.data.resource_path or guidance.maps.next_exit(level.data.resource_path, path, GameState.world_flags).is_empty():
+			continue
+		guidance._target = quest
+		guidance._update_arrow()
+		if guidance._arrow.visible:
+			selected = true
+			break
+	check(selected, "the actual catalog provides a cross-area caption for actor clearance")
+	if selected:
+		var inverse := runner.get_viewport().get_canvas_transform().affine_inverse()
+		var original_position := guidance._arrow.position
+		var text := guidance._arrow.text
+		var rect := (inverse * guidance._arrow.get_global_transform_with_canvas()) * Rect2(Vector2.ZERO, guidance._arrow.size.max(guidance._arrow.get_minimum_size()))
+		var body := level.player.prompt_obstacle_rect()
+		level.player.global_position += rect.get_center() - body.get_center()
+		guidance._update_arrow()
+		rect = (inverse * guidance._arrow.get_global_transform_with_canvas()) * Rect2(Vector2.ZERO, guidance._arrow.size.max(guidance._arrow.get_minimum_size()))
+		check(guidance._arrow.visible and not rect.intersects(level.player.prompt_obstacle_rect()), "the real destination caption finds a visible position clear of the actual player")
+		check(guidance._arrow.text == text, "clearance preserves the real destination wording and direction")
+		level.player.global_position = original_player
+		guidance._update_arrow()
+		check(guidance._arrow.visible and guidance._arrow.position.is_equal_approx(original_position), "the caption returns to its original edge position after the player clears it")
+	level.player.global_position = original_player
+	guidance._target = original_target
 	guidance._update_arrow()
