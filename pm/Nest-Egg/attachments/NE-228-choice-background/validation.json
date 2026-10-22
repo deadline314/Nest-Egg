@@ -1,0 +1,110 @@
+{
+  "base": "1a4fae5fce859d7b8e9bcb9817c8e7366afadbf7",
+  "checks": 63098,
+  "new_failures": 0,
+  "known_failures": 0,
+  "seconds": 491,
+  "native_final_checks": 100,
+  "native_final_failures": 0,
+  "native_final_engine_errors": 0,
+  "renderer": "forward_plus",
+  "device": "llvmpipe",
+  "cases": [
+    {
+      "case": "before",
+      "size": [
+        1280,
+        720
+      ],
+      "text_scale": 1.2,
+      "checks": 25,
+      "failures": 0,
+      "roi": [
+        500,
+        248,
+        780,
+        270
+      ],
+      "different_pixels": 2539,
+      "total_pixels": 6160
+    },
+    {
+      "case": "720-120",
+      "size": [
+        1280,
+        720
+      ],
+      "text_scale": 1.2,
+      "checks": 25,
+      "failures": 0,
+      "roi": [
+        500,
+        248,
+        780,
+        270
+      ],
+      "different_pixels": 0,
+      "total_pixels": 6160
+    },
+    {
+      "case": "720-100",
+      "size": [
+        1280,
+        720
+      ],
+      "text_scale": 1.0,
+      "checks": 25,
+      "failures": 0,
+      "roi": [
+        500,
+        248,
+        780,
+        270
+      ],
+      "different_pixels": 0,
+      "total_pixels": 6160
+    },
+    {
+      "case": "1080-120",
+      "size": [
+        1920,
+        1080
+      ],
+      "text_scale": 1.2,
+      "checks": 25,
+      "failures": 0,
+      "roi": [
+        750,
+        372,
+        1170,
+        405
+      ],
+      "different_pixels": 0,
+      "total_pixels": 13860
+    },
+    {
+      "case": "1080-100",
+      "size": [
+        1920,
+        1080
+      ],
+      "text_scale": 1.0,
+      "checks": 25,
+      "failures": 0,
+      "roi": [
+        750,
+        372,
+        1170,
+        405
+      ],
+      "different_pixels": 0,
+      "total_pixels": 13860
+    }
+  ],
+  "source": {
+    "game/cutscene/cutscene_player.gd": "18a7da9544ea05f1f4951b8c2dcfdd86c8528fac5d9222198bfeac4b36b2215d",
+    "work/ne228-choice/probe.gd": "249ff528d93da5d8c7eb081ac5fbadad53ff0afbeae7ddc9114a6a0aefe76043",
+    "work/ne228-choice/phone_base.gd": "1509900552db36a5846efcdd85e2dfb20a1b3e65688f440cf381189fd2a7e51a"
+  },
+  "scope": "real Main and authored phone/NPC, arranged area/player position; public choice input; actual toast, diagnostic tween paused only for paired capture; not physical controller or human full-chapter acceptance"
+}

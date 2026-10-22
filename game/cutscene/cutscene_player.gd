@@ -61,7 +61,8 @@ var _overlay_mode := false
 var _current_where := ""
 var _next_is_say := false
 var _choice: VBoxContainer
-const CHOICE_BACKING := Color(0.02, 0.04, 0.07, 0.86)
+# HDR背景通知不能透進選項與後果說明，底板保持不透明。
+const CHOICE_BACKING := Color(0.02, 0.04, 0.07, 1.0)
 var _choice_options: Array[Dictionary] = []
 ## 目前的選擇步驟（含 default）；沒有選擇時為空。
 var _choice_step: Dictionary = {}
