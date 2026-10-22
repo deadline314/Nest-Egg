@@ -19,9 +19,38 @@ const PIT_TOP_Y := 17.0 * TILE
 
 func run() -> void:
 	_test_data()
+	await _test_prompt_reach()
 	await _test_trigger_and_drown()
 	await _test_raft_holds()
 	await _test_persists_after_death()
+
+
+func _test_prompt_reach() -> void:
+	var level := await start_level(_level_data(&"test_flood_prompt"))
+	var pit := _find_pit(level)
+	var prompt: WorldPrompt
+	for child in pit.get_children():
+		if child is WorldPrompt:
+			prompt = child
+	check(prompt != null, "the authored flood plate has its world prompt")
+	if prompt == null:
+		await end_level(level)
+		return
+	level.player.global_position = pit.global_position + Vector2(-500, 0)
+	check(not prompt._player_near(), "an untriggered flood plate does not advertise from distant combat")
+	level.player.global_position = pit.global_position + Vector2(30, -10)
+	check(prompt._player_near(), "the dry plate explains its action within the authored radius")
+	pit.trigger()
+	check(not prompt.enabled, "triggering retires the plate invitation")
+	await end_level(level)
+	var restored := await start_level(_level_data(&"test_flood_prompt_restored"))
+	pit = _find_pit(restored)
+	pit.restore_state(true)
+	for child in pit.get_children():
+		if child is WorldPrompt:
+			prompt = child
+	check(not prompt.enabled, "a restored flooded plate does not invite the completed action")
+	await end_level(restored)
 
 
 func _level_data(id: StringName) -> LevelData:

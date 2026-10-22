@@ -1,0 +1,28 @@
+{
+  "base": "b09d21f2b4d30de1d807ec8be4ea4cda18406af8",
+  "original_assertions_unchanged": true,
+  "new_checks": 5,
+  "original_harness_unchanged": true,
+  "old_product_negative": [
+    28,
+    3
+  ],
+  "final_original_selector": [
+    28,
+    0
+  ],
+  "seconds": 14,
+  "native_final_before": [
+    15,
+    2
+  ],
+  "native_final_after": [
+    15,
+    0
+  ],
+  "native_final_engine_errors": 0,
+  "native_final_pngs_viewed": 6,
+  "intermediate": "v1 radio masked near and far; v2 checked before deferred radio started and did not reproduce far bug; v3 waits destination sensors then actual radio completion; preserved",
+  "scope": "arranged formal Main warehouse and survival floor1, hold player physics for near/far, resume real gravity for plate; original enemies retained; not human chapter, physical controller or overall UI acceptance",
+  "final_product_sha256": "57b3a53599f94006468a450ae0325994a218d403a84b3489dc9b15e0c03d79b7"
+}

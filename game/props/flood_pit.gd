@@ -29,6 +29,7 @@ var _interior := Rect2()
 var _raft: StaticBody2D
 var _raft_shape: CollisionShape2D
 var _plate_in_range := false
+var _prompt: WorldPrompt
 
 
 func configure(p_data: MechanismData, p_cell: Vector2i, tile_size: int) -> void:
@@ -66,12 +67,11 @@ func _build_plate() -> void:
 	area.body_entered.connect(_on_plate_entered)
 	area.body_exited.connect(_on_plate_exited)
 	add_child(area)
-	var prompt := WorldPrompt.new()
-	prompt.text = PROMPT_TEXT
-	prompt.radius = 44.0
-	prompt.offset = Vector2(0, -PLATE_HEIGHT - 52.0)
-	prompt.reach_check = func() -> bool: return not triggered
-	add_child(prompt)
+	_prompt = WorldPrompt.new()
+	_prompt.text = PROMPT_TEXT
+	_prompt.radius = 44.0
+	_prompt.offset = Vector2(0, -PLATE_HEIGHT - 52.0)
+	add_child(_prompt)
 
 
 func _build_raft() -> void:
@@ -106,6 +106,7 @@ func trigger() -> void:
 	if triggered:
 		return
 	triggered = true
+	_prompt.enabled = false
 	EventBus.mechanism_toggled.emit(data.channel, true)
 	EventBus.toast_requested.emit("水閘開了，水在漲")
 	Sfx.play(&"gate", -2.0)
@@ -190,6 +191,7 @@ func capture_state() -> Variant:
 func restore_state(state: Variant) -> void:
 	if state == true:
 		triggered = true
+		_prompt.enabled = false
 		_water = 1.0
 		_set_raft(true)
 		queue_redraw()
