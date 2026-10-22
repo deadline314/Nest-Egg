@@ -14,6 +14,7 @@ var center_x := -1.0
 var _label: Label
 var _tween: Tween
 var _home_x: float = 0.0
+var _travel := SLIDE
 
 
 func _init() -> void:
@@ -23,6 +24,22 @@ func _init() -> void:
 	add_child(_label)
 	modulate.a = 0.0
 	process_mode = Node.PROCESS_MODE_ALWAYS
+
+
+func _ready() -> void:
+	PromptLayout.add_obstacle(self, prompt_obstacle_rect)
+
+
+## Reserve the complete horizontal animation envelope, including its first fade-in frame.
+func prompt_obstacle_rect() -> Rect2:
+	var moving := _tween != null and _tween.is_valid() and _tween.is_running()
+	if not is_visible_in_tree() or (modulate.a <= 0.01 and not moving):
+		return Rect2()
+	var rect := Rect2(Vector2.ZERO, size)
+	if moving:
+		rect.position.x = _home_x - _travel - position.x
+		rect.size.x += _travel * 2.0
+	return (get_viewport().get_canvas_transform().affine_inverse() * get_global_transform_with_canvas()) * rect
 
 
 func show_text(text: String, kind: Kind = Kind.INFO, hold: float = 2.0) -> void:
@@ -42,14 +59,16 @@ func show_text(text: String, kind: Kind = Kind.INFO, hold: float = 2.0) -> void:
 	if center_x >= 0.0:
 		position.x = roundf(center_x - size.x * 0.5)
 	_home_x = position.x
-	position.x = _home_x - SLIDE
+	_travel = 0.0 if Settings.get_reduce_ui_motion() else SLIDE
+	position.x = _home_x - _travel
 	modulate.a = 0.0
 	_tween = create_tween().set_parallel(true)
 	_tween.tween_property(self, "position:x", _home_x, SLIDE_TIME).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	_tween.tween_property(self, "modulate:a", 1.0, SLIDE_TIME)
 	_tween.chain().tween_interval(hold)
-	_tween.chain().tween_property(self, "position:x", _home_x + SLIDE, SLIDE_TIME).set_ease(Tween.EASE_IN)
+	_tween.chain().tween_property(self, "position:x", _home_x + _travel, SLIDE_TIME).set_ease(Tween.EASE_IN)
 	_tween.parallel().tween_property(self, "modulate:a", 0.0, SLIDE_TIME)
+	PromptLayout.invalidate()
 
 
 func is_showing() -> bool:

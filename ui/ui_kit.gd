@@ -56,6 +56,9 @@ static func font_style() -> String:
 ## 套用設定裡的字型樣式（設定畫面切換時呼叫）。
 static func apply_font_style() -> void:
 	font()
+	# Labels may reshape synchronously while their cached glyphs still use the old RID.
+	# Keep that font alive until the text-size refresh has finished.
+	var _previous_base := _font.base_font
 	_font.base_font = _load_font(font_style())
 	# 說明小字依字體樣式換字級（像素字體改用內文字級才銳利）。
 	apply_text_scale()

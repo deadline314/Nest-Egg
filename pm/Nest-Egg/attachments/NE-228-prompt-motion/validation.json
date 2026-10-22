@@ -1,0 +1,258 @@
+{
+  "base": "d9f6a85ca3e2aff29fb31b6d68a796aedc25da8f",
+  "affected": {
+    "command": [
+      "tools/run_tests_changed.sh",
+      "d9f6a85c"
+    ],
+    "exit_code": 0,
+    "seconds": 506.1678493590007,
+    "prior_run": "changed-v5-crashed.log",
+    "baseline_control_exit": 0,
+    "note": "Unchanged code, selector, harness, assertions and filters. A successful retry alone does not establish crash root cause."
+  },
+  "affected_summary": [
+    "Running 66 groups in 6 processes (logs: /workspace/Nest-Egg/work/batch1022/quests/work/ne228-motion/changed-shards)",
+    "checks: 64722, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 505 s)"
+  ],
+  "native": [
+    {
+      "label": "before",
+      "name": "ne228-1022-prompt-motion-before-v5",
+      "command": [
+        "python",
+        "/workspace/Nest-Egg/work/batch1020b/native.py",
+        "ne228-1022-prompt-motion-before-v5",
+        "res://work/ne228-motion/probe.tscn",
+        "--mode=write",
+        "--save-dir=/workspace/Nest-Egg/work/batch1022/quests/work/ne228-motion/before-v5-save"
+      ],
+      "exit_code": 1,
+      "expected": 1,
+      "checks": 30,
+      "failures": 3.0,
+      "completed": true,
+      "frames": 72,
+      "visible_frames": 72,
+      "player_overlap_frames": 1,
+      "toast_overlap_frames": 0,
+      "engine_errors": 0,
+      "leaks": 0,
+      "png_count": 5,
+      "individually_viewed": true,
+      "summary": {
+        "arrow_clear": false,
+        "covered_goal_frames": 26.0,
+        "goal_clear": false,
+        "name": "motion-summary",
+        "player_clear": false,
+        "toast_clear": true
+      }
+    },
+    {
+      "label": "before1080",
+      "name": "ne228-1022-prompt-motion-before1080-v5",
+      "command": [
+        "python",
+        "/workspace/Nest-Egg/work/batch1020b/native.py",
+        "ne228-1022-prompt-motion-before1080-v5",
+        "res://work/ne228-motion/probe.tscn",
+        "--mode=write",
+        "--save-dir=/workspace/Nest-Egg/work/batch1022/quests/work/ne228-motion/before1080-v5-save",
+        "--1080"
+      ],
+      "exit_code": 1,
+      "expected": 1,
+      "checks": 30,
+      "failures": 4.0,
+      "completed": true,
+      "frames": 72,
+      "visible_frames": 72,
+      "player_overlap_frames": 1,
+      "toast_overlap_frames": 11,
+      "engine_errors": 0,
+      "leaks": 0,
+      "png_count": 5,
+      "individually_viewed": true,
+      "summary": {
+        "arrow_clear": false,
+        "covered_goal_frames": 26.0,
+        "goal_clear": false,
+        "name": "motion-summary",
+        "player_clear": false,
+        "toast_clear": false
+      }
+    },
+    {
+      "label": "after",
+      "name": "ne228-1022-prompt-motion-after-v5",
+      "command": [
+        "python",
+        "/workspace/Nest-Egg/work/batch1020b/native.py",
+        "ne228-1022-prompt-motion-after-v5",
+        "res://work/ne228-motion/probe.tscn",
+        "--mode=write",
+        "--save-dir=/workspace/Nest-Egg/work/batch1022/quests/work/ne228-motion/after-v5-save"
+      ],
+      "exit_code": 0,
+      "expected": 0,
+      "checks": 30,
+      "failures": 0.0,
+      "completed": true,
+      "frames": 72,
+      "visible_frames": 72,
+      "player_overlap_frames": 0,
+      "toast_overlap_frames": 0,
+      "engine_errors": 0,
+      "leaks": 0,
+      "png_count": 5,
+      "individually_viewed": true,
+      "summary": {
+        "arrow_clear": true,
+        "covered_goal_frames": 26.0,
+        "goal_clear": true,
+        "name": "motion-summary",
+        "player_clear": true,
+        "toast_clear": true
+      }
+    },
+    {
+      "label": "1080",
+      "name": "ne228-1022-prompt-motion-1080-v5",
+      "command": [
+        "python",
+        "/workspace/Nest-Egg/work/batch1020b/native.py",
+        "ne228-1022-prompt-motion-1080-v5",
+        "res://work/ne228-motion/probe.tscn",
+        "--mode=write",
+        "--save-dir=/workspace/Nest-Egg/work/batch1022/quests/work/ne228-motion/1080-v5-save",
+        "--1080"
+      ],
+      "exit_code": 0,
+      "expected": 0,
+      "checks": 30,
+      "failures": 0.0,
+      "completed": true,
+      "frames": 72,
+      "visible_frames": 60,
+      "player_overlap_frames": 0,
+      "toast_overlap_frames": 0,
+      "engine_errors": 0,
+      "leaks": 0,
+      "png_count": 5,
+      "individually_viewed": true,
+      "summary": {
+        "arrow_clear": true,
+        "covered_goal_frames": 26.0,
+        "goal_clear": true,
+        "name": "motion-summary",
+        "player_clear": true,
+        "toast_clear": true
+      }
+    },
+    {
+      "label": "smooth",
+      "name": "ne228-1022-prompt-motion-smooth-v5",
+      "command": [
+        "python",
+        "/workspace/Nest-Egg/work/batch1020b/native.py",
+        "ne228-1022-prompt-motion-smooth-v5",
+        "res://work/ne228-motion/probe.tscn",
+        "--mode=write",
+        "--save-dir=/workspace/Nest-Egg/work/batch1022/quests/work/ne228-motion/smooth-v5-save",
+        "--smooth"
+      ],
+      "exit_code": 0,
+      "expected": 0,
+      "checks": 30,
+      "failures": 0.0,
+      "completed": true,
+      "frames": 72,
+      "visible_frames": 72,
+      "player_overlap_frames": 0,
+      "toast_overlap_frames": 0,
+      "engine_errors": 0,
+      "leaks": 0,
+      "png_count": 5,
+      "individually_viewed": true,
+      "summary": {
+        "arrow_clear": true,
+        "covered_goal_frames": 26.0,
+        "goal_clear": true,
+        "name": "motion-summary",
+        "player_clear": true,
+        "toast_clear": true
+      }
+    },
+    {
+      "label": "reduced",
+      "name": "ne228-1022-prompt-motion-reduced-v5",
+      "command": [
+        "python",
+        "/workspace/Nest-Egg/work/batch1020b/native.py",
+        "ne228-1022-prompt-motion-reduced-v5",
+        "res://work/ne228-motion/probe.tscn",
+        "--mode=write",
+        "--save-dir=/workspace/Nest-Egg/work/batch1022/quests/work/ne228-motion/reduced-v5-save",
+        "--reduced"
+      ],
+      "exit_code": 0,
+      "expected": 0,
+      "checks": 30,
+      "failures": 0.0,
+      "completed": true,
+      "frames": 72,
+      "visible_frames": 72,
+      "player_overlap_frames": 0,
+      "toast_overlap_frames": 0,
+      "engine_errors": 0,
+      "leaks": 0,
+      "png_count": 5,
+      "individually_viewed": true,
+      "summary": {
+        "arrow_clear": true,
+        "covered_goal_frames": 26.0,
+        "goal_clear": true,
+        "name": "motion-summary",
+        "player_clear": true,
+        "toast_clear": true
+      }
+    }
+  ],
+  "original_tests_byte_exact": true,
+  "additional_checks": 13,
+  "harness_unchanged": [
+    "tools/run_tests_changed.sh",
+    "tools/run_tests_parallel.sh",
+    "tools/select_tests.py",
+    "tools/test_filters.sh",
+    "tests/known_failures.txt",
+    "tests/helpers/contextual_priority_checks.gd"
+  ],
+  "font_public_native": {
+    "original_errors": 8,
+    "retained_reference_errors": 0,
+    "fixed_errors": 0
+  },
+  "history": "v1/v2 geometry and HUD assertions passed but font errors invalidate clean engine claim; v3 1080 only12 visible frames/24 failed; v4 moved settings after Main but font errors persisted; v5 retains original16 minimum and samples72 frames across real notification exit, before motion controls retain final font lifecycle fix; partial broad run stopped and retained",
+  "scope": "Forward+ HDR software Vulkan llvmpipe, actual Main and actual authored vault sign/disc with declared route prerequisites, positioned actors, survival floor1 and held actor physics for text animation only. Registered player reading rectangles are not full rendered-alpha silhouette/joint audits. No human, physical GPU/controller or full chapter acceptance.",
+  "prior_affected_crash": {
+    "command": [
+      "tools/run_tests_changed.sh",
+      "d9f6a85c"
+    ],
+    "exit_code": 1,
+    "seconds": 504.96373920100086
+  },
+  "baseline_crash_control": {
+    "cwd": "/workspace/Nest-Egg/work/batch1022/kitchen",
+    "base": "d9f6a85ca3e2aff29fb31b6d68a796aedc25da8f",
+    "command": [
+      "tools/run_tests_parallel.sh",
+      "--only=FxUpgradesSuite,ContinuitySuite,SoundStageSuite,StrikeEnemiesSuite,Chapter2ExpansionSuite,FxMeleePickupsSuite,CombatHudSuite,ProgressionSuite,MapBubblesSuite,FeelLabSuite,ProtagonistMotionSuite,ClipEditorSuite"
+    ],
+    "exit_code": 0,
+    "seconds": 415.57670858300116
+  },
+  "crash_scope": "First full run SIGSEGV after root cross-thread notification; unchanged d9 same 12 groups did not reproduce, but had exit resource diagnostics. Full unchanged 66-group retry passed. Root cause remains unlocated; do not erase prior failure."
+}

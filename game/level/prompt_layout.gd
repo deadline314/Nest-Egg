@@ -207,6 +207,45 @@ static func collect_obstacles_except(excluded_owner: Node, output: Array[Rect2])
 				output.append(rect)
 
 
+## Both the reading position and its complete trajectory must remain clear.
+static func can_slide(prompt: WorldPrompt, target: Vector2) -> bool:
+	var start := Rect2(prompt.base_rect().position + prompt._nudge, prompt.base_rect().size)
+	var delta := target - prompt._nudge
+	var bounds := TEXT_LAYOUT.world_rect(prompt.get_viewport()).grow(-SCREEN_MARGIN)
+	if not bounds.encloses(start) or not bounds.encloses(Rect2(start.position + delta, start.size)):
+		return false
+	_collect_obstacles()
+	for obstacle in _obstacle_rects:
+		if _sweeps_through(start, delta, obstacle.grow(OBSTACLE_MARGIN)):
+			return false
+	for other in _prompts:
+		if other != prompt and is_instance_valid(other) and other.visible and other._alpha > 0.0 and other._layout_allowed and not other._presentation_blocked():
+			if _sweeps_through(start, delta, Rect2(other.base_rect().position + other._nudge, other.base_rect().size).grow(GAP)):
+				return false
+	return true
+
+
+## Swept AABB: intersect the origin segment with the obstacle expanded by our size.
+## Open intervals match Rect2.intersects; grazing an edge does not overlap its pixels.
+static func _sweeps_through(rect: Rect2, delta: Vector2, obstacle: Rect2) -> bool:
+	var low := obstacle.position - rect.size
+	var high := obstacle.end
+	var enter := 0.0
+	var leave := 1.0
+	for axis in 2:
+		if is_zero_approx(delta[axis]):
+			if rect.position[axis] <= low[axis] or rect.position[axis] >= high[axis]:
+				return false
+		else:
+			var first := (low[axis] - rect.position[axis]) / delta[axis]
+			var last := (high[axis] - rect.position[axis]) / delta[axis]
+			enter = maxf(enter, minf(first, last))
+			leave = minf(leave, maxf(first, last))
+		if enter >= leave:
+			return false
+	return true
+
+
 ## Caller-owned high-water output holds world endpoint pairs; returned prefix count is valid. Never move the target.
 static func leader_segments(from: Vector2, to: Vector2, output: Array[Vector2], clearance := 0.0) -> int:
 	_collect_obstacles()

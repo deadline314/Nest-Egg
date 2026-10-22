@@ -32,6 +32,8 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	# 暫停時也要跑：讀通訊或暫停時關掉這列的滑鼠提示，免得說明框蓋住通訊（NE-246）。
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	# Observe world text after its process callbacks, before this frame is drawn.
+	process_priority = 100
 	UiKit.fill_parent(self)
 	level = get_parent().get_parent().get_parent() as Level
 	if level == null:
@@ -66,13 +68,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if level == null or not is_instance_valid(level.player):
 		return
-	# 讓位淡出時（yielding，上一影格的結果）也不攔滑鼠，看不見的目標列不會跳出說明框。
-	var covered := get_tree().paused or DialogueLayer.radio_visible() or yielding
-	var filter := Control.MOUSE_FILTER_IGNORE if covered else Control.MOUSE_FILTER_PASS
-	if _row.mouse_filter != filter:
-		_row.mouse_filter = filter
-		_arrow.mouse_filter = filter
 	if get_tree().paused:
+		_set_pointer_covered(true)
 		return
 	_time += delta
 	_idle += delta
@@ -81,11 +78,19 @@ func _process(delta: float) -> void:
 		_sample()
 		_refresh_target()
 	_row.visible = _enabled("quest_objective") and not _target.is_empty() and not Story.is_cinematic_active()
-	# 世界提示（訓練站、告示）是當下要做的動作，優先讀得到：提示框壓到目標列時，目標列先淡出讓位，提示框不動。
+	# A reading surface takes its pixels immediately; fade only when returning.
 	yielding = _row.visible and PromptLayout.covers(row_world_rect())
+	_set_pointer_covered(DialogueLayer.radio_visible() or yielding)
 	var target_alpha := 0.0 if yielding else (1.0 if _idle < 5 or not Settings.get_hud_auto_hide() else 0.4)
-	_row.modulate.a = move_toward(_row.modulate.a, target_alpha, delta / YIELD_FADE) if not Settings.get_reduce_ui_motion() else target_alpha
+	_row.modulate.a = target_alpha if yielding or Settings.get_reduce_ui_motion() else move_toward(_row.modulate.a, target_alpha, delta / YIELD_FADE)
 	_update_arrow()
+
+
+func _set_pointer_covered(covered: bool) -> void:
+	var filter := Control.MOUSE_FILTER_IGNORE if covered else Control.MOUSE_FILTER_PASS
+	if _row.mouse_filter != filter:
+		_row.mouse_filter = filter
+		_arrow.mouse_filter = filter
 
 
 ## 目標列目前在世界座標的範圍（和世界提示比對用）；沒顯示時回傳空矩形。
@@ -128,9 +133,11 @@ func _pulse_row() -> void:
 		return
 	if _pulse != null:
 		_pulse.kill()
-	_row.modulate = Color(1.3, 1.3, 1.3, 1.0)
+	_row.modulate = Color(1.3, 1.3, 1.3, _row.modulate.a)
 	_pulse = create_tween().set_parallel(true)
-	_pulse.tween_property(_row, "modulate", Color.WHITE, PULSE_TIME)
+	# Pulse brightness without taking alpha ownership from reading handoff.
+	for channel: String in ["r", "g", "b"]:
+		_pulse.tween_property(_row, "modulate:" + channel, 1.0, PULSE_TIME)
 	if not Settings.get_reduce_ui_motion():
 		_row.scale = Vector2.ONE * PULSE_SCALE
 		_pulse.tween_property(_row, "scale", Vector2.ONE, PULSE_TIME).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
@@ -171,7 +178,9 @@ func _update_arrow() -> void:
 	# 左下角是武器欄與彈藥，箭頭靠左時不往下壓到它們。
 	var bottom := 240.0 if edge.x < WEAPON_BAR_RIGHT else 322.0
 	_arrow.position = Vector2(clampf(edge.x - _arrow.get_minimum_size().x * 0.5, 12, 628 - _arrow.get_minimum_size().x), clampf(edge.y, 88, bottom))
-	_arrow.visible = true
+	var extent := _arrow.size.max(_arrow.get_minimum_size())
+	var text_rect := (get_viewport().get_canvas_transform().affine_inverse() * _arrow.get_global_transform_with_canvas()) * Rect2(Vector2.ZERO, extent)
+	_arrow.visible = not PromptLayout.covers(text_rect.grow(2.0))
 
 
 func _enabled(key: String) -> bool:

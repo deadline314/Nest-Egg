@@ -8,6 +8,8 @@ func run() -> void:
 	_test_bounded_solver()
 	_test_leader_geometry()
 	await _test_leader_world_transform()
+	await _test_toast_reading_space()
+	await _test_motion_safety()
 	await _test_nodes()
 	await _test_npc_obstacle()
 	await _test_modal_suppression()
@@ -321,3 +323,94 @@ func _test_leader_world_transform() -> void:
 	await frames(2)
 	count = PromptLayout.leader_segments(start, target, spans)
 	check(roundtrip and count == 2 and spans.slice(0, count) == [start, target] and PromptLayout._obstacles.is_empty(), "real transformed leader cuts registered world obstacle; owner removal restores original line and target without stale cuts")
+
+
+func _test_motion_safety() -> void:
+	var previous_motion := Settings.get_reduce_ui_motion()
+	Settings.set_reduce_ui_motion(false)
+	var stage := Node2D.new()
+	runner.add_child(stage)
+	var camera := Camera2D.new()
+	camera.position = Vector2(400, 400)
+	camera.zoom = Vector2(2, 2)
+	stage.add_child(camera)
+	camera.make_current()
+	await frames(2)
+	var view := runner.get_viewport().get_canvas_transform().affine_inverse() * runner.get_viewport().get_visible_rect()
+	var center := view.get_center()
+	var actor := Rect2(center - Vector2(12, 56), Vector2(24, 56))
+	var obstacle := Node.new()
+	stage.add_child(obstacle)
+	PromptLayout.add_obstacle(obstacle, func() -> Rect2: return actor)
+	var holder := Node2D.new()
+	holder.position = center
+	stage.add_child(holder)
+	var prompt := WorldPrompt.new()
+	prompt.text = "靠近查看"
+	prompt.offset = Vector2(0, -20)
+	prompt.reach_check = func() -> bool: return true
+	holder.add_child(prompt)
+	var initial_clear := true
+	for i in 8:
+		prompt._process(1.0 / 60.0)
+		initial_clear = initial_clear and not Rect2(prompt.base_rect().position + prompt._nudge, prompt.base_rect().size).intersects(actor)
+	check(initial_clear, "a newly appearing invitation avoids the actor on every fade-in frame")
+	# Same-frame layout delivery: both endpoints are valid, but the straight path crosses the actor.
+	PromptLayout.update()
+	prompt._nudge = Vector2(-60, 0)
+	prompt.set_nudge_target(Vector2(60, 0))
+	var crossing_clear := true
+	for i in 32:
+		prompt._process(1.0 / 60.0)
+		crossing_clear = crossing_clear and not Rect2(prompt.base_rect().position + prompt._nudge, prompt.base_rect().size).intersects(actor)
+	check(crossing_clear and prompt._nudge == Vector2(60, 0), "safe endpoints never animate the text rectangle through the actor between them")
+	prompt.set_nudge_target(Vector2(80, 0))
+	prompt._process(1.0 / 60.0)
+	check(prompt._nudge.x > 60.0 and prompt._nudge.x < 80.0, "an unobstructed already-visible invitation still slides at its normal speed")
+	Settings.set_reduce_ui_motion(true)
+	PromptLayout.update()
+	prompt.set_nudge_target(Vector2(100, 0))
+	prompt._process(1.0 / 60.0)
+	check(prompt._nudge == Vector2(100, 0), "reduced interface motion places world text directly at its safe target")
+	Settings.set_reduce_ui_motion(previous_motion)
+	stage.queue_free()
+	await frames(2)
+
+
+func _test_toast_reading_space() -> void:
+	var stage := Node2D.new()
+	runner.add_child(stage)
+	var layer := CanvasLayer.new()
+	stage.add_child(layer)
+	var ui := UiKit.full_rect_root(layer)
+	var banner := UiBanner.new()
+	banner.position = Vector2(220, 112)
+	banner.center_x = 320
+	ui.add_child(banner)
+	banner.show_text("有人看守保險箱，小心。", UiBanner.Kind.INFO, 0.4)
+	await frames(2)
+	var inverse := runner.get_viewport().get_canvas_transform().affine_inverse()
+	var toast := inverse * (banner.get_global_transform_with_canvas() * Rect2(Vector2.ZERO, banner.size))
+	var holder := Node2D.new()
+	stage.add_child(holder)
+	var prompt := WorldPrompt.new()
+	prompt.text = "保險箱裡的一片資料盤，拿到後從上層通道離開。"
+	prompt.reach_check = func() -> bool: return false
+	holder.add_child(prompt)
+	holder.global_position += toast.get_center() - prompt.base_rect().get_center()
+	prompt.reach_check = func() -> bool: return true
+	PromptLayout.invalidate()
+	var readable := true
+	for i in 12:
+		await frames(1)
+		toast = inverse * (banner.get_global_transform_with_canvas() * Rect2(Vector2.ZERO, banner.size))
+		if banner.is_showing() and prompt._alpha > 0.01 and prompt._layout_allowed:
+			readable = readable and not Rect2(prompt.base_rect().position + prompt._nudge, prompt.base_rect().size).intersects(toast)
+	check(readable, "a sliding HUD notification and actual world text never share visible pixels")
+	for i in 90:
+		if not banner.is_showing() and prompt._alpha > 0.5:
+			break
+		await frames(1)
+	check(not banner.is_showing() and prompt._alpha > 0.5 and prompt.enabled, "world reading remains eligible and returns after a temporary HUD notification")
+	stage.queue_free()
+	await frames(2)

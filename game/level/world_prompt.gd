@@ -197,7 +197,12 @@ func _process(delta: float) -> void:
 	var previous := _alpha
 	var previous_nudge := _nudge
 	_alpha = move_toward(_alpha, target, FADE_SPEED * delta)
-	_nudge = _nudge.move_toward(_nudge_target, NUDGE_SPEED * delta)
+	if _nudge != _nudge_target:
+		if previous <= 0.0 or Settings.get_reduce_ui_motion() or not PromptLayout.can_slide(self, _nudge_target):
+			# Pick a safe reading position before fading in; never sweep text through actors.
+			_nudge = _nudge_target
+		else:
+			_nudge = _nudge.move_toward(_nudge_target, NUDGE_SPEED * delta)
 	if _alpha != previous or _alpha > 0.0 or _nudge != previous_nudge:
 		queue_redraw()
 		_leader.queue_redraw()

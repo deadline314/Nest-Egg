@@ -412,6 +412,8 @@ func _check_filter_groups(screen: QuestMapScreen) -> void:
 
 func _test_runtime() -> void:
 	var level := await start_level(load(PAWN) as LevelData)
+	await _check_destination_reading_priority(level)
+	await _check_reading_yield_timing(level)
 	await _check_prompt_avoids_objective(level)
 	var state := QuestMapState.for_run()
 	state.reveal(PAWN, [Vector2i(50, 19)])
@@ -599,3 +601,56 @@ func _test_required_route_steps() -> void:
 	var invalid := QuestCatalog.new()
 	invalid.read_source({"chapter": {"id": "ch1_kasa"}, "quests": [malformed]}, "test_optional_completion")
 	check(invalid.quests.is_empty() and Array(invalid.issues).any(func(issue: String) -> bool: return issue.contains("completion_requires_steps")), "invalid completion policy reports its exact source field")
+
+
+func _check_reading_yield_timing(level: Level) -> void:
+	var guidance: QuestGuidance = level.hud.quest_guidance
+	await frames(2)
+	var row := guidance.row_world_rect()
+	check(row.has_area(), "reading handoff fixture has a real objective row")
+	if not row.has_area():
+		return
+	guidance.yielding = false
+	guidance._row.modulate.a = 1.0
+	guidance._pulse_row()
+	var surface := Node.new()
+	level.add_child(surface)
+	PromptLayout.add_obstacle(surface, func() -> Rect2: return row, true)
+	guidance._process(1.0 / 60.0)
+	check(guidance.yielding and guidance._row.modulate.a == 0.0, "a newly overlapping reading surface takes the objective pixels immediately")
+	check(guidance._row.mouse_filter == Control.MOUSE_FILTER_IGNORE, "the first yielding frame also stops objective hover input")
+	await frames(3)
+	check(guidance._row.modulate.a == 0.0, "an already-running objective pulse never restores alpha through a reading surface")
+	surface.queue_free()
+	await frames(2)
+
+
+func _check_destination_reading_priority(level: Level) -> void:
+	var guidance: QuestGuidance = level.hud.quest_guidance
+	var original := guidance._target
+	var selected := false
+	for quest: Dictionary in guidance.catalog.quests:
+		var step := QuestCatalog.current_step(quest, GameState.world_flags)
+		var location: Dictionary = step.get("location", {})
+		var path := str(location.get("level", ""))
+		if path.is_empty() or path == level.data.resource_path or guidance.maps.next_exit(level.data.resource_path, path, GameState.world_flags).is_empty():
+			continue
+		guidance._target = quest
+		guidance._update_arrow()
+		if guidance._arrow.visible:
+			selected = true
+			break
+	check(selected, "a real other-area quest supplies the destination caption for handoff testing")
+	if selected:
+		var screen := guidance._arrow.get_global_transform_with_canvas() * Rect2(Vector2.ZERO, guidance._arrow.size)
+		var rect := guidance.get_viewport().get_canvas_transform().affine_inverse() * screen
+		var surface := Node.new()
+		level.add_child(surface)
+		PromptLayout.add_obstacle(surface, func() -> Rect2: return rect, true)
+		guidance._update_arrow()
+		check(not guidance._arrow.visible, "the destination caption yields when its own pixels are needed for world reading")
+		surface.free()
+		guidance._update_arrow()
+		check(guidance._arrow.visible, "the real destination caption returns after world reading releases its space")
+	guidance._target = original
+	guidance._update_arrow()
