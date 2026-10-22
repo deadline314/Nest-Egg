@@ -296,3 +296,31 @@
 ![英文120%](images/ST-9-world-item-english.png)
 ![日文120%](images/ST-9-world-item-japanese.png)
 ![中文1080p與120%](images/ST-9-world-item-1080.png)
+
+
+# Commit-13
+
+## 內文
+
+四個當舖標籤與屋頂首次差事簡報，原本可能在保存失敗時仍算讀完。現在真正保存成功後才更新任務、已讀與交談次數；拒絕時保留原狀、維持暫停並提供重試。中途退出再續玩會接回原互動物件；提交後原物件消失則讀回已保存結果，次數仍只算一次。對話中途讀檔時立即定位鏡頭，避免暫停畫面落在地圖外。
+
+先讀User-guide與原保存研究，保留真IO負控制、來源不符的冷續玩失敗及同檔修後對照。[設計與參照](../../design/20-campaign-experience/NPC_TERMINAL_COMPLETION.md)、[全部原檔與原生圖](attachments/ST-9-npc-completion/README.md)。
+
+### 測試結果
+
+| 項目 | 結果 |
+|---|---|
+| 原正式程式、真IO拒絕 | 14／5失敗；0引擎ERROR、0腳本錯誤 |
+| 四個真標籤的原保存回歸 | 政策停用586／8，啟用606／0；原斷言／輸入／等待保持 |
+| 同一原檔的中途續玩 | 未接回來源5／1；修後12／0，再驗拒絕／重試 |
+| 冷讀暫停時的實際視野 | 同原檔18／1→18／0；最終重跑加入主角位於viewport內的檢查 |
+| 最終原受影響範圍、基準a651df03 | checks: 63403, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 1187 s) |
+| 十五個原生程序、最新30圖 | 246／0，0引擎ERROR、0退出洩漏診斷；全部逐張檢視 |
+
+### 本作原生圖
+
+![真正標籤完整首句](images/ST-9-npc-label.png)
+![尚未提交時可重試](images/ST-9-npc-retry.png)
+![真正演員與差事簡報](images/ST-9-npc-brief.png)
+![翌日當舖獨立程序續玩](images/ST-9-npc-dawn.png)
+![已提交後來源消失，讀取已保存結果](images/ST-9-npc-committed-recovery.png)

@@ -10,6 +10,13 @@ const SEGMENTS := {
 	"ch1_t_handoff_receipt": "res://data/levels/ch1_handoff.tres",
 	"ch1_t_handoff_summary": "res://data/levels/ch1_handoff.tres",
 }
+const NPC_SEGMENTS := {
+	"ch1_t_label_watch": "res://data/npcs/ch1_label_watch.tres",
+	"ch1_t_label_guitar": "res://data/npcs/ch1_label_guitar.tres",
+	"ch1_t_label_raincoat": "res://data/npcs/ch1_label_raincoat.tres",
+	"ch1_t_label_fare": "res://data/npcs/ch1_label_fare.tres",
+	"ch1_t_egret_1": "res://data/npcs/ch1_egret.tres",
+}
 var main: Node
 var _id: StringName
 var _request := 0
@@ -79,8 +86,15 @@ func _prepare_and_commit(scene: Dictionary) -> Dictionary:
 	var level := main.get("_screen") as Level
 	if level == null or not level.is_initialized() or level.data.resource_path != main.get("_level_path") or not level.data.persistent_world or main.call("_route_pending"):
 		return {"error": "terminal results require the current persistent Main Level"}
-	if SEGMENTS.get(String(_id), "") != level.data.resource_path or Story._scene_sources.get(String(_id)) != "res://data/story/ch1_kasa.json":
+	if Story._scene_sources.get(String(_id)) != "res://data/story/ch1_kasa.json":
 		return {"error": "terminal producer is not bound to this segment and current authored Level"}
+	var npc := {}
+	if NPC_SEGMENTS.has(String(_id)):
+		npc = _npc_source(level)
+		if npc.is_empty():
+			return {"error": "terminal NPC result requires its actual current authored interaction"}
+	elif SEGMENTS.get(String(_id), "") != level.data.resource_path:
+		return {"error": "terminal producer is not bound to this authored Level"}
 	if String(_id).begins_with("ch1_t_handoff_"):
 		var cabinet: NpcActor
 		for node: Node in get_tree().get_nodes_in_group(NpcActor.GROUP):
@@ -110,6 +124,10 @@ func _prepare_and_commit(scene: Dictionary) -> Dictionary:
 	original = RunSnapshot.prepare(encoded_original["data"])
 	if original.has("error"):
 		return original
+	if not npc.is_empty():
+		# Detach the raw capture from the live area, retaining actual owner facts.
+		# Copying the normalized original could silently introduce read-time repairs.
+		candidate = candidate.duplicate(true)
 	var source := Bundle._capture_source()
 	if source.has("error"):
 		return source
@@ -122,6 +140,17 @@ func _prepare_and_commit(scene: Dictionary) -> Dictionary:
 	candidate["story"]["seen"] = next["completed"]
 	candidate["progression"]["credits"] = next["credits"]
 	candidate["progression"]["story_transactions"] = next["ledger"]
+	var expected_state: Dictionary = original["data"]["state"].duplicate(true)
+	var expected_runtime: Dictionary = original["data"]["runtime"].duplicate(true)
+	if not npc.is_empty():
+		var key: String = npc["key"]
+		var area: String = String(level.data.id)
+		var worlds: Array = [candidate["runtime"]["world"], candidate["runtime"]["area"]["world"], candidate["state"]["area_states"][area]["world"], expected_runtime["world"], expected_runtime["area"]["world"], expected_state["area_states"][area]["world"]]
+		for world: Dictionary in worlds:
+			if JSON.parse_string(JSON.stringify(world.get(key))) != JSON.parse_string(JSON.stringify(npc["prepared"]["before"])):
+				return {"error": "terminal NPC requires matching original world state"}
+		for world: Dictionary in worlds:
+			world[key] = npc["prepared"]["after"].duplicate(true)
 	var store: RunSaveStore = main.get("_run_store")
 	if store.overwrite_authorized:
 		# Establish OLD facts only, using the existing new-run authorization.
@@ -136,9 +165,9 @@ func _prepare_and_commit(scene: Dictionary) -> Dictionary:
 	var write: RunSaveStore.PreparedExistingWrite = prepared["data"]
 	var normalized := write.snapshot()
 	# A validator may repair legacy saves. Do not install or bill a repaired batch.
-	for pair: Array in [[normalized["story"], candidate["story"]], [normalized["progression"], candidate["progression"]], [normalized["state"], original["data"]["state"]], [normalized["runtime"], original["data"]["runtime"]], [normalized["navigation"], original["data"]["navigation"]]]:
+	for pair: Array in [[normalized["story"], candidate["story"]], [normalized["progression"], candidate["progression"]], [normalized["state"], expected_state], [normalized["runtime"], expected_runtime], [normalized["navigation"], original["data"]["navigation"]]]:
 		if JSON.parse_string(JSON.stringify(pair[0])) != JSON.parse_string(JSON.stringify(pair[1])):
-			return {"error": "terminal results need a whole-run repair before retry"}
+			return {"error": "terminal results need a whole-run repair before retry", "reload_original": not npc.is_empty()}
 	var game := GameState.prepare_install(normalized["state"], next["flags"], "", false)
 	var money := Progression.prepare_install(normalized["progression"])
 	var items := StoryItems.prepare_install(next["items"])
@@ -150,20 +179,51 @@ func _prepare_and_commit(scene: Dictionary) -> Dictionary:
 	for flag: String in game["data"].flags:
 		if GameState.get_flag(StringName(flag)) != game["data"].flags[flag]:
 			changed.append(flag)
-	if Bundle._capture_source().get("data") != source["data"]:
+	if Bundle._capture_source().get("data") != source["data"] or not _npc_unchanged(level, npc):
 		return {"error": "live source changed before durable terminal write"}
 	var delta: int = next["credits"] - Progression.credits
 	var outcome := store.commit_existing_write(write)
 	if not outcome.committed:
 		return {"error": "; ".join(outcome.issues), "reload_original": outcome.requires_recovery}
-	if outcome.requires_recovery or Bundle._capture_source().get("data") != source["data"]:
+	if outcome.requires_recovery or Bundle._capture_source().get("data") != source["data"] or not _npc_unchanged(level, npc):
 		return {"committed": true, "recovery": true}
 	# No callbacks, loading, validation, saves or world replacement in this section.
 	Progression._install_prepared(money["data"])
 	StoryItems._install_prepared(items["data"])
 	GameState._install_prepared_flags(game["data"])
 	Story._install_prepared(story["data"])
+	if not npc.is_empty():
+		(npc["actor"] as NpcActor).install_story_completion(npc["prepared"])
+		level._area["world"][npc["key"]] = npc["prepared"]["after"].duplicate(true)
 	return {"committed": true, "events": planned["events"], "changed": changed, "delta": delta}
+
+
+func _npc_source(level: Level) -> Dictionary:
+	var allowed: Array = ["res://data/levels/ch1_rooftop.tres"] if _id == &"ch1_t_egret_1" else ["res://data/levels/ch1_pawnshop.tres", "res://data/levels/ch1_pawnshop_dawn.tres"]
+	if level.died or not allowed.has(level.data.resource_path) or level.player == null or level.player.is_dead():
+		return {}
+	var context := Story.current_presentation_context()
+	var index: int = context.get("talk_index", -1)
+	for node: Node in level._entities.get_children():
+		var actor := node as NpcActor
+		if actor == null or actor.is_queued_for_deletion() or not actor.is_inside_tree() or actor.data == null or actor.data.resource_path != NPC_SEGMENTS[String(_id)] or actor.state_key() != context.get("source_id") or not actor.is_present():
+			continue
+		var prepared := actor.prepare_story_completion(index)
+		if prepared.is_empty() or Story.resolve_dispatch(actor.data.talks[index].scene) != _id:
+			continue
+		for spawn: Dictionary in level._layout.spawns:
+			if spawn["resource"] == actor.data and spawn["cell"] == actor.cell:
+				return {"actor": actor, "key": actor.state_key(), "prepared": prepared}
+	return {}
+
+
+func _npc_unchanged(level: Level, expected: Dictionary) -> bool:
+	if expected.is_empty():
+		return true
+	if not is_instance_valid(level) or level.is_queued_for_deletion() or not level.is_inside_tree() or main.get("_screen") != level or not is_instance_valid(expected["actor"]):
+		return false
+	var current := _npc_source(level)
+	return not current.is_empty() and current["actor"] == expected["actor"] and current["key"] == expected["key"] and var_to_bytes(current["prepared"]) == var_to_bytes(expected["prepared"])
 
 
 func _plan(scene: Dictionary, candidate: Dictionary) -> Dictionary:

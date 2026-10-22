@@ -43,6 +43,8 @@ var _bubble_pos := BUBBLE_POS
 var _player_in_range := false
 var _prompt_player: Player
 var _talking := false
+var _presentation_index := -1
+var _durable_completed := false
 var _cooldown := 0.0
 var _time := 0.0
 ## 走近反應與聽到聲響的反應（NE-240）；只有有骨架的人物才有。
@@ -255,6 +257,8 @@ func interaction_available() -> bool:
 
 ## 開始對話：說完記下次數並發放獎勵。可用於測試直接呼叫。
 func _talk() -> bool:
+	if _talking:
+		return false
 	var index := current_talk_index()
 	if index < 0:
 		return false
@@ -262,6 +266,8 @@ func _talk() -> bool:
 
 
 func _present_talk(index: int, scene: StringName, once: bool) -> bool:
+	if _talking:
+		return false
 	var player := get_tree().get_first_node_in_group(&"player") as Player
 	if player == null or player.is_dead() or player.state == Player.State.MOUNTED or player.is_on_phone():
 		return false
@@ -269,11 +275,16 @@ func _present_talk(index: int, scene: StringName, once: bool) -> bool:
 	if data.kind == NpcData.Kind.PERSON:
 		_space_player(player)
 	_talking = true
+	_presentation_index = index
+	_durable_completed = false
 	_prompt.hide()  # gameplay暫停後WorldPrompt不會再淡出，先同步隱藏避免重複互動提示。
 	if _actor != null:
 		_actor.set_talking(true)
 	var completed := await Story.play_and_wait(scene, once,
 		{"framing_source": "person" if data.kind == NpcData.Kind.PERSON else "object", "source_id": state_key(), "talk_index": index})
+	var settled := _durable_completed
+	_durable_completed = false
+	_presentation_index = -1
 	_talking = false
 	if is_instance_valid(_prompt):
 		_prompt.show()
@@ -281,11 +292,31 @@ func _present_talk(index: int, scene: StringName, once: bool) -> bool:
 		_actor.set_talking(false)
 	if not is_inside_tree() or not completed:
 		return false
+	if settled:
+		return true
 	talk_count += 1
 	_cooldown = TALK_COOLDOWN
 	if is_instance_valid(player):
 		_give_reward(index, player)
 	return true
+
+
+## Main may include only a reward-free, currently owned presentation in its
+## durable result. Preparation is pure; the waiter must never settle it twice.
+func prepare_story_completion(index: int) -> Dictionary:
+	if not _talking or _durable_completed or index != _presentation_index or data == null or index < 0 or index >= data.talks.size() or data.talks[index].has_reward():
+		return {}
+	var before: Dictionary = capture_state()
+	var after := before.duplicate(true)
+	after["talks"] = talk_count + 1
+	return {"before": before, "after": after}
+
+
+## Validated by the Main owner immediately before its callback-free install.
+func install_story_completion(prepared: Dictionary) -> void:
+	talk_count = prepared["after"]["talks"]
+	_cooldown = TALK_COOLDOWN
+	_durable_completed = true
 
 
 ## 主角站得太近（兩個角色疊在一起）時往自己那一側退到 TALK_SPACING；背後是牆或沒有地面就留在原地。
@@ -309,7 +340,7 @@ func _space_player(player: Player) -> void:
 func can_resume_presentation(scene: StringName, index := -1) -> bool:
 	if index < 0:
 		index = current_talk_index()
-	return not _talking and index >= 0 and index < data.talks.size() and Story.is_chained_scene(data.talks[index].scene, scene)
+	return not _talking and index >= 0 and index < data.talks.size() and Story.is_chained_scene(Story.resolve_dispatch(data.talks[index].scene), scene)
 
 
 func resume_presentation(scene: StringName, index := -1) -> bool:

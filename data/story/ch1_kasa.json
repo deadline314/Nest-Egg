@@ -1541,6 +1541,7 @@
      "value": true
     }
    ],
+   "completion_policy": "main_terminal_results_v1",
    "steps": [
     {
      "do": "scene",
@@ -6381,7 +6382,8 @@
      "id": "ch1_label_watch_seen",
      "value": true
     }
-   ]
+   ],
+   "completion_policy": "main_terminal_results_v1"
   },
   "ch1_t_label_watch_revisit": {
    "mode": "animated",
@@ -6441,7 +6443,8 @@
      "id": "ch1_label_guitar_seen",
      "value": true
     }
-   ]
+   ],
+   "completion_policy": "main_terminal_results_v1"
   },
   "ch1_t_label_guitar_revisit": {
    "mode": "animated",
@@ -6501,7 +6504,8 @@
      "id": "ch1_label_raincoat_seen",
      "value": true
     }
-   ]
+   ],
+   "completion_policy": "main_terminal_results_v1"
   },
   "ch1_t_label_raincoat_revisit": {
    "mode": "animated",
@@ -6561,7 +6565,8 @@
      "id": "ch1_label_fare_seen",
      "value": true
     }
-   ]
+   ],
+   "completion_policy": "main_terminal_results_v1"
   },
   "ch1_t_label_fare_revisit": {
    "mode": "animated",

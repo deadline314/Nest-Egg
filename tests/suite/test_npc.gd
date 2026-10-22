@@ -488,6 +488,11 @@ func _test_conversation() -> void:
 	await frames(2)
 	check(runner.get_tree().paused and Story.is_cinematic_active(), "a conversation pauses the game and opens the dialogue box")
 	check(npc.talk_count == 0 and Progression.credits == credits_before, "nothing is given before the conversation ends")
+	var active_request := Story.current_presentation_request()
+	check(not await npc._talk(), "the same NPC rejects reentry while its real waiter owns a presentation")
+	check(Story.current_presentation_request() == active_request and npc._talking, "reentry preserves the original request and waiter")
+	check(npc.prepare_story_completion(0).is_empty(), "ordinary NPC credit rewards cannot enter the reward-free durable boundary")
+	check(npc.prepare_story_completion(-1).is_empty(), "a different talk index cannot settle the current NPC presentation")
 	var gap := npc.global_position.x - level.player.global_position.x
 	check(gap >= NpcActor.TALK_SPACING - 0.5 and gap <= NpcActor.TALK_SPACING + 0.5, "standing on top of the npc steps the player back to talking distance (%.1f px)" % gap)
 	for i in 6:

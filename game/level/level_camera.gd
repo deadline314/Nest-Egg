@@ -111,6 +111,9 @@ func snap_to_target() -> void:
 	_fall_look = 0.0
 	global_position = _desired_position()
 	reset_smoothing()
+	# A resumed conversation may pause before the next physics camera callback.
+	# Publish the snapped view now so its background is already the current area.
+	force_update_scroll()
 
 
 func _physics_process(delta: float) -> void:

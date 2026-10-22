@@ -246,7 +246,8 @@ def _compile_segment(segment, source, inside_presentation, base_scene):
     # flag policy does not advertise the future atomic item/money coordinator.
     if segment.binding == "home" and scene.get("mode") == "animated" and results and all(op["kind"] == "flag" for op in results) and not segment.options and not segment.next_scene:
         scene["completion_policy"] = "main_flags_v1"
-    if segment.id in {"ch1_b_dinner_food", "ch1_t_handoff_accept", "ch1_t_handoff_receipt", "ch1_t_handoff_summary"}:
+    if segment.id in {"ch1_b_dinner_food", "ch1_t_handoff_accept", "ch1_t_handoff_receipt", "ch1_t_handoff_summary",
+                      "ch1_t_label_watch", "ch1_t_label_guitar", "ch1_t_label_raincoat", "ch1_t_label_fare", "ch1_t_egret_1"}:
         scene["completion_policy"] = "main_terminal_results_v1"
         for op in scene.get("results", []):
             if op["kind"] == "item_transfer":
