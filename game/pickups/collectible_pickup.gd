@@ -11,7 +11,7 @@ func configure(p_item: StoryItemData) -> void:
 
 
 func hint_text() -> String:
-	return "%s：%s" % [item.display_name, item.description] if item != null else ""
+	return "%s：%s" % [item.title_text(), item.description_text()] if item != null else ""
 
 
 func _ready() -> void:

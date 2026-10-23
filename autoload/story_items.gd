@@ -171,9 +171,9 @@ func acquire(id: StringName, announce := true) -> bool:
 ## 取得道具時的提示文字（人物給的獎勵也沿用）。
 func acquire_message(item: StoryItemData) -> String:
 	if not item.is_collectible():
-		return "取得 %s" % item.display_name
+		return "取得 %s" % item.title_text()
 	var kind := "錄音" if item.category == StoryItemData.Category.RECORDING else "文件"
-	return "取得%s：%s（本章 %d／%d）" % [kind, item.display_name, collected_count(item.chapter), collectible_total(item.chapter)]
+	return "取得%s：%s（本章 %d／%d）" % [kind, item.title_text(), collected_count(item.chapter), collectible_total(item.chapter)]
 
 
 ## 開始新的一輪：清空，並發放開局就持有的道具（不跳提示）。

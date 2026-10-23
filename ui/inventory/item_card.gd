@@ -114,8 +114,15 @@ func _draw() -> void:
 		PixelUi.texture(self, entry.icon, icon_origin.floor(), entry.card_icon_scale, Color(1, 1, 1, dim))
 	var font := UiKit.font()
 	var text_x := rect.position.x + 10.0 + ICON_CELL.x + 6.0
-	draw_string(font, Vector2(text_x, rect.position.y + 19.0), entry.title, HORIZONTAL_ALIGNMENT_LEFT,
-			CARD_SIZE.x - text_x - 8.0, UiKit.scaled_size(12), Color(accent, dim) if selected else Color(Palette.UI_TEXT, dim))
+	# 標題讓出右上角徽章的位置；放不下時用省略號結尾（英文名稱較長，不能壓到 NEW）。
+	var badge_right := CARD_SIZE.x - (26.0 if entry.ammo_icon != null else 8.0)
+	var title_right := CARD_SIZE.x - 8.0
+	if not entry.badge.is_empty():
+		var badge_size := UiKit.scaled_size(9)
+		title_right = badge_right - (font.get_string_size(entry.badge, HORIZONTAL_ALIGNMENT_LEFT, -1, badge_size).x + 8.0) - 4.0
+	var title_size := UiKit.scaled_size(12)
+	draw_string(font, Vector2(text_x, rect.position.y + 19.0), fit_text(font, entry.title, title_right - text_x, title_size), HORIZONTAL_ALIGNMENT_LEFT,
+			-1, title_size, Color(accent, dim) if selected else Color(Palette.UI_TEXT, dim))
 	draw_string(font, Vector2(text_x, rect.position.y + 34.0), entry.subtitle, HORIZONTAL_ALIGNMENT_LEFT,
 			CARD_SIZE.x - text_x - 8.0, UiKit.scaled_size(10), Color(Palette.UI_MUTED, dim))
 	if entry.ammo_icon != null:
@@ -123,7 +130,6 @@ func _draw() -> void:
 		draw_texture_rect(entry.ammo_icon, ammo_rect, false, Color(1, 1, 1, dim))
 	if not entry.badge.is_empty():
 		# 有彈種圖示時徽章讓到圖示左邊，兩者不重疊（放大文字時徽章會變高）。
-		var badge_right := CARD_SIZE.x - (26.0 if entry.ammo_icon != null else 8.0)
 		PixelUi.badge(self, rect.position + Vector2(badge_right, 6.0), entry.badge, entry.badge_color)
 	if _shine >= 0.0:
 		_draw_shine(rect)
@@ -146,3 +152,14 @@ func _draw_shine(rect: Rect2) -> void:
 
 func _icon_size() -> Vector2:
 	return Vector2(entry.icon.get_size()) * float(entry.card_icon_scale) if entry.icon != null else Vector2.ZERO
+
+
+## 文字超過寬度時從尾端截短並加上省略號（只在重畫時算，不每格配置）。
+static func fit_text(font: Font, text: String, width: float, font_size: int) -> String:
+	if width <= 0.0 or font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x <= width:
+		return text
+	var keep := text.length()
+	while keep > 1 and font.get_string_size(text.left(keep) + "…", HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x > width:
+		keep -= 1
+	return text.left(keep).strip_edges() + "…"
+

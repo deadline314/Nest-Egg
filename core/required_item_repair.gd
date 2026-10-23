@@ -32,7 +32,7 @@ static func apply(items: Dictionary, flags: Dictionary, where := "run/story/item
 				items["owned"].append(id)
 			items["held"].append(id)
 			push_warning("[RunSave] %s/held 缺少 %s，依旗標 %s 補回" % [where, id, rule["obtained_flag"]])
-			notices.append("已依故事進度補回「%s」。" % item.display_name)
+			notices.append("已依故事進度補回「%s」。" % item.title_text())
 	return {"notices": notices}
 
 

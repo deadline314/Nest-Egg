@@ -1,0 +1,573 @@
+{
+ "_about": "劇情道具與文件的日文、英文（ST-21）。中文原文在各道具的 .tres；這裡只放譯文，鍵是道具 id，欄位是 display_name、description、body。缺譯時遊戲退回英文、再退回中文，並記錄道具與欄位。",
+ "ch1_data_disk": {
+  "ja": {
+   "display_name": "データディスク",
+   "description": "金庫にあったデータディスク。取り立て屋の徽章が貼ってある。"
+  },
+  "en": {
+   "display_name": "Data Disk",
+   "description": "A data disk from the safe, stamped with the collectors' badge."
+  }
+ },
+ "ch1_delivery_receipt": {
+  "ja": {
+   "display_name": "ディスク引き渡しの受領書",
+   "description": "原盤は依頼主が受け取った。明朝、報酬800と手数料80を確認し、手取りは720の見込み。",
+   "body": "依頼：埠頭の金庫のデータディスク回収。受領済みで、原盤は依頼主が保管。報酬800クレジットは明朝確認、一割は老Kが従来どおり処理。凛の手取りは720の見込みで未入金。閲覧許可は市場修繕代収M17と支払い書類のみで、原盤の所有権ではない。"
+  },
+  "en": {
+   "display_name": "Disk Handoff Receipt",
+   "description": "The client has the original disk. The 800 fee and 80 cut get checked tomorrow morning: about 720 net.",
+   "body": "Job: recover the dock safe's data disk. Received; the client keeps it. Fee 800 credits, checked next morning; Old K takes his usual 10%. Rin nets about 720, not yet paid. Viewing rights: market batch M17 and its payment papers only."
+  }
+ },
+ "ch1_grey_cloth": {
+  "ja": {
+   "display_name": "灰色の布切れ",
+   "description": "湯のみの下に挟まっていた、灰色の布の切れ端。"
+  },
+  "en": {
+   "display_name": "Grey Cloth Scrap",
+   "description": "A corner of grey cloth tucked under a teacup."
+  }
+ },
+ "ch1_lounge_bill": {
+  "ja": {
+   "display_name": "今夜の飲食明細",
+   "description": "注文してはじめて成立する200の飲食代。夜食の麺は無料。精算済みかは今夜の会計記録を見ること。",
+   "body": "回復食120クレジット、酒80クレジット、合計200。退店前に精算する。同席と夜食の麺は無料。この紙は明細で、支払い済みの証明ではない。支払い、おごり、つけのどれかは当夜の会計記録で確認すること。"
+  },
+  "en": {
+   "display_name": "Tonight's Food and Drink Bill",
+   "description": "The 200 bill only counts once she orders; the late noodles are free. Check tonight's checkout record to see if it's paid.",
+   "body": "Recovery meal 120 credits, drinks 80, total 200. Settle before leaving; company and late noodles are free. This lists charges, not payment. Whether it was paid, treated or put on a tab is in that night's checkout record."
+  }
+ },
+ "ch1_lounge_tab": {
+  "ja": {
+   "display_name": "飲食代200のつけ",
+   "description": "凛が自分で残すと決めた飲食代のつけ。未払い200、利息なし、担保なし。",
+   "body": "飲食代200クレジット／未払い。今は引き落とさず、利息も担保（データディスク）もない。あとで自分から精算できる。明朝の報酬720、市場の立て替え40、梨の個人的な借金からは自動で差し引かない。依頼の受領書とは別に保管する。"
+  },
+  "en": {
+   "display_name": "200 Food and Drink Tab",
+   "description": "A tab Rin chose to keep: 200 unpaid, no interest, no collateral.",
+   "body": "Food and drink, 200 credits, unpaid. Nothing is taken now; no interest, and the disk is not collateral. She can settle it later herself. It is never taken from the 720 fee, the 40 market advance or Pear's own debt. Kept apart from the job receipt."
+  }
+ },
+ "ch1_market_summary": {
+  "ja": {
+   "display_name": "市場M17の要調査メモ",
+   "description": "この代収には支払い添付がない。要調査の記録で、そのまま支払い義務の結論にはできない。",
+   "body": "市場修繕の代収M17：元金200クレジット、今期利息20。代収帳の未収は120だが、支払い添付がない。要調査の記録で、支払い義務の結論ではない。市場の代収所で同じ便の領収書、出店契約、代収帳と照合すること。調査の段取りと追加報酬は明朝説明する。"
+  },
+  "en": {
+   "display_name": "Market M17 Query Summary",
+   "description": "This collection is missing its payment papers. It's a record to check, not proof that anything is owed.",
+   "body": "Market batch M17: principal 200, interest 20. The collection book shows 120 owed, but the payment papers are missing. A query, not a debt. Check it at the market collection desk against the receipt, stall contract and book. More tomorrow."
+  }
+ },
+ "ch2_ali_page": {
+  "ja": {
+   "display_name": "梨の個人帳簿の写し",
+   "description": "帳簿棚にあった梨のページの写し。元金の200は認めるが、誤って足された60は認めない。",
+   "body": "梨の開業借入の元金600、返済済み元金400、残り元金200。今期の利息60は支払い済み。帳簿には今期の利息60がもう一度誤って加算され、未払い260と誤記されている。今日の市場の立て替え40は別に記し、個人の帳簿にはまだ入れていない。"
+  },
+  "en": {
+   "display_name": "Copy of Pear's Ledger Page",
+   "description": "A copy of Pear's page from the ledger cabinet. She owns the 200 principal, not the 60 added by mistake.",
+   "body": "Pear's stall loan: principal 600, 400 repaid, 200 left. This period's 60 interest is paid. The ledger added that 60 a second time by mistake and shows 260 owed. Today's 40 market advance is listed separately and not yet in her own account."
+  }
+ },
+ "ch2_check_card": {
+  "ja": {
+   "display_name": "市場査察証",
+   "description": "鷺がくれた査察証。通れるのは市場の公共屋台通りだけ。",
+   "body": "所持者は市場修繕代収M17の調査のため、市場の公共屋台通りに入れる。奥の帳房と荷運び通路は対象外。この証は支払いの証明ではなく、どの費用の免除にも使えない。"
+  },
+  "en": {
+   "display_name": "Market Inspection Pass",
+   "description": "Egret's inspection pass. It only opens the market's public stall lane.",
+   "body": "The holder may enter the public stall lane to check market repair batch M17. The ledger office and cargo lanes behind are not covered. This is not proof of payment and waives no fee."
+  }
+ },
+ "ch2_clinic_index": {
+  "ja": {
+   "display_name": "診療所報告の索引",
+   "description": "港区の代収M17は中層診療所の月報17につながる。ここにあるのは索引だけで、原表はない。",
+   "body": "診療所報告の索引：港区代収M17→中層診療所の月報17。中層は港区と日照区の間の作業層で、診療所へは広場の貨物エレベーターから行く。原本の月報は診療所の現地でしか閲覧申請できない。"
+  },
+  "en": {
+   "display_name": "Clinic Report Index",
+   "description": "Harbour batch M17 points to the mezzanine clinic's Report 17. This is only the index, not the report.",
+   "body": "Index: harbour batch M17 → mezzanine clinic, monthly Report 17. The mezzanine is the work level between the harbour and the sunlit district; reach the clinic by the plaza freight lift. The original report can only be requested on site."
+  }
+ },
+ "ch2_evidence_collection": {
+  "ja": {
+   "display_name": "代収帳の写し",
+   "description": "荷捌き場の代収帳の写し。同じ便番号に、まだ未収120と記してある。",
+   "body": "便番号M17／収納120、うち元金100、利息20／北棟二階へ転送／未収欄120。契約と領収書によれば、正しい未収は100のはず。"
+  },
+  "en": {
+   "display_name": "Copy of the Collection Book",
+   "description": "A copy from the loading room's collection book. The same batch still shows 120 outstanding.",
+   "body": "Batch M17 / collected 120: principal 100, interest 20 / sent to North Block, 2F / outstanding: 120. By the contract and receipt, the correct outstanding is 100."
+  }
+ },
+ "ch2_evidence_contract": {
+  "ja": {
+   "display_name": "出店契約の写し",
+   "description": "出店窓口がくれた契約の写し。保証金の元金200、今期の利息20。",
+   "body": "市場修繕代収M17の契約。屋台保証金の元金は200クレジット、今期の利息は20クレジット。申請が承認されるまで更新料は取らない。押印はまだ承認前のものだ。"
+  },
+  "en": {
+   "display_name": "Copy of the Stall Contract",
+   "description": "The stall window's copy of the contract: deposit principal 200, interest 20 this period.",
+   "body": "Market repair batch M17. Stall deposit principal 200 credits; interest this period 20 credits. No renewal fee until the application is approved. Stamp: not yet approved."
+  }
+ },
+ "ch2_evidence_receipt": {
+  "ja": {
+   "display_name": "代収領収書の写し",
+   "description": "代収所が印刷した領収書の写し。支払い済み120、今期の支払額は100。",
+   "body": "市場修繕代収／便番号M17／元金200／今期利息20／支払い済み120／今期支払額100。押印の日付ははっきりしている。当日立て替えた場合は「本日立て替え40、照合後に相殺」の一行が加わる。"
+  },
+  "en": {
+   "display_name": "Copy of the Collection Receipt",
+   "description": "The collection desk's printed receipt: 120 paid, 100 due this period.",
+   "body": "Market repair collection / batch M17 / principal 200 / interest 20 / paid 120 / due this period 100. The stamp date is clear. If paid on someone's behalf that day, a line reads: 40 advanced today, to be offset after checking."
+  }
+ },
+ "ch2_original_ledger": {
+  "ja": {
+   "display_name": "公開原帳の写し",
+   "description": "帳簿棚の公開原帳。未収は100で、代収帳が足した20には根拠がない。",
+   "body": "便番号M17：未収100。代収帳が20を追加。料金の基準は中層診療所の月報17を参照。"
+  },
+  "en": {
+   "display_name": "Copy of the Public Ledger",
+   "description": "The public ledger from the cabinet: 100 outstanding. The extra 20 in the collection book has no basis.",
+   "body": "Batch M17: outstanding 100. Collection book added 20. For the fee basis, see the mezzanine clinic's Report 17."
+  }
+ },
+ "ch2_radio_clip": {
+  "ja": {
+   "display_name": "謎の放送の断片",
+   "description": "ラジオが録った人探しの放送。三人の名前を読み上げ、帽子のことにも触れている。",
+   "body": "謎の放送：今夜はまず、まだ返事を待っている三人の名前を読みます。陳海生、周美蘭、林兆安、ご家族が来ていました。名前を読み間違えていたら教えてください。帽子をひとつ預かっています。つばの繕い糸に見覚えのある方は、港区ラジオ局へ伝言を。"
+  },
+  "en": {
+   "display_name": "Unknown Broadcast Clip",
+   "description": "A missing-persons broadcast caught on the radio: three names, and a hat.",
+   "body": "Unknown broadcast: three names still waiting for a reply. Chen Haisheng, Zhou Meilan, Lin Zhao'an, your families came by. Tell me if I said one wrong. I'm keeping a hat too; if you know the mending on its brim, leave word at the harbour station."
+  }
+ },
+ "ch3_ahan_tape": {
+  "ja": {
+   "display_name": "阿翰の録音",
+   "description": "預かりロッカーから借りた、家族を探す録音。受取人を見つけること。売るのも質入れもだめ。",
+   "body": "この録音を録ったのは阿翰。冒頭で彼は自分の名前を名乗り、受取人に名前を最後まで聞いてほしいと頼んでいる。貸出票は芷さんが預かっていて、受取人が見つかったら預かりロッカーに返す。"
+  },
+  "en": {
+   "display_name": "Ahan's Recording",
+   "description": "A family's missing-person recording, borrowed from the storage lockers. Find who it's for; don't sell or pawn it.",
+   "body": "Ahan made this recording. He says his own name first and asks the listener to hear it through. Sister Zhi keeps the loan slip; once the recipient is found, it goes back to the storage lockers."
+  }
+ },
+ "ch3_gate_receipt": {
+  "ja": {
+   "display_name": "入室制御停止の受領書",
+   "description": "診療所の依頼で入室制御の作業架を止めた受領書。守衛は無事で、受付に座って休んでいる。",
+   "body": "入室制御作業架の停止処理が完了。外部の盾架、スキャンアーム、通信機は電源を切り、保守ピンを抜いた。人員は無事で、看護スタッフが付き添った。処理報酬は精算済み。"
+  },
+  "en": {
+   "display_name": "Access Rig Shutdown Receipt",
+   "description": "Receipt for shutting down the clinic's access-control rig. The Gatekeeper is safe, resting at the desk.",
+   "body": "Access-control rig shut down. Outer shield frame, scanner arm and comms are powered off; the maintenance pin is out. The person is safe and with the nursing staff. Fee settled."
+  }
+ },
+ "ch3_intake_receipt": {
+  "ja": {
+   "display_name": "受付の収受票",
+   "description": "リスク管理受付が月報17の査察書類を受け取った票。受け取りの確認だけで、回答ではない。",
+   "body": "リスク管理受付：月報17査察書類を収受。受取人：リスク管理受付。この票は受け取りの確認のみで、回答は元の発行元から届く。"
+  },
+  "en": {
+   "display_name": "Intake Receipt",
+   "description": "Risk-control reception took the Report 17 inspection file. It confirms receipt, nothing more.",
+   "body": "Risk-control reception: Report 17 inspection file received. Recipient: risk-control reception. This only confirms receipt; any answer comes from the original publisher."
+  }
+ },
+ "ch3_mezz_pass": {
+  "ja": {
+   "display_name": "中層証：公開査察",
+   "description": "芷さんが手渡しでくれた証。開くのは診療所の脇通路と縁のエレベーターだけ。",
+   "body": "中層証（公開査察）。通行範囲：診療所の脇通路、看護通路の外側、縁のエレベーター、晴岸の展示受付階。病室の内扉、工場、塔、住宅の内側は開かない。"
+  },
+  "en": {
+   "display_name": "Mezzanine Pass: Public Inspection",
+   "description": "Sister Zhi's pass, handed over in person. It opens only the clinic side passage and the edge lift.",
+   "body": "Mezzanine pass (public inspection). Valid for: clinic side passage, outer care corridor, edge lift and the Far Shore show floor. Not valid for ward doors, the plant, the tower or homes."
+  }
+ },
+ "ch3_petition_receipt": {
+  "ja": {
+   "display_name": "異議の受領書",
+   "description": "三か所の照合は一致。公開の3％と追跡の11％が食い違い、元の発行元に回答を求めた。",
+   "body": "公開査察Q17の異議受領書。三か所の照合結果は一致：公開報告は3％、同じ便の追跡は11％。診療所は元の発行元に回答を求めた。この受領書は報告が訂正されたことを意味しない。"
+  },
+  "en": {
+   "display_name": "Objection Receipt",
+   "description": "All three checks agree: public 3% versus tracked 11%. The publisher has been asked to answer.",
+   "body": "Objection receipt, public inspection Q17. All three checks agree: the public report says 3%, the same batch's tracking says 11%. The clinic has asked the publisher to respond. This does not mean the report has been corrected."
+  }
+ },
+ "ch3_register_t17": {
+  "ja": {
+   "display_name": "追跡名簿T17の写し",
+   "description": "転院させた8つの番号は同じ便のままで、月末も継続看護が必要。",
+   "body": "母集団：1日に登録した同じ便の錨人100名。転院しても今月の母集団からは外れない。当所の継続看護は3名。転院先で追跡中の8名も、月末に継続看護の基準に達している。転院の完了は病院が変わったという意味で、治ったという意味ではない。"
+  },
+  "en": {
+   "display_name": "Copy of Tracking Register T17",
+   "description": "The eight transferred numbers are still in the batch and still need ongoing care at month's end.",
+   "body": "Group: 100 anchors in the batch logged on the 1st; transfers stay in this month's group. Ongoing care here: 3. Transferred and still tracked: 8, all meeting the ongoing-care mark at month's end. A finished transfer means a new ward, not a cure."
+  }
+ },
+ "ch3_report_p17": {
+  "ja": {
+   "display_name": "公開報告P17の写し",
+   "description": "公開報告には同じ便100名、損耗率3％とある。ページ下で8つの番号が除外されている。",
+   "body": "月報17の観察対象は同じ便の錨人100名（R17-001～R17-100）。公開結論では継続看護の基準に達したのは3名、損耗率3％。ページ下に、8つの番号は転送扱いで看護人数に含めない、転送先は帳房と注記：R17-012、018、024、037、053、067、082、096。"
+  },
+  "en": {
+   "display_name": "Copy of Public Report P17",
+   "description": "The public report shows 100 people and a 3% loss rate, with eight numbers left out in the footer.",
+   "body": "Report 17 covers 100 anchors, R17-001 to R17-100. It says 3 met the ongoing-care mark, a 3% loss rate. A footnote moves eight numbers out of the count to the ledger office: R17-012/018/024/037/053/067/082/096."
+  }
+ },
+ "ch3_review_slip": {
+  "ja": {
+   "display_name": "閲覧番号Q17",
+   "description": "芷さんがくれた閲覧専用の番号。三つの公開資料が見られるが、通行証ではない。",
+   "body": "中層診療所の公開査察：閲覧番号Q17。月報17の公開報告、看護シフト表、追跡名簿を閲覧できる。資料はすべて番号で、氏名は含まない。この番号で病室の内扉は開かない。"
+  },
+  "en": {
+   "display_name": "Review Number Q17",
+   "description": "A read-only review number from Sister Zhi. It shows three public files; it's not a pass.",
+   "body": "Mezzanine clinic public inspection: review number Q17. View Report 17's public report, care rota and tracking register. Everything uses numbers, no names. This does not open ward doors."
+  }
+ },
+ "ch3_roster_n17": {
+  "ja": {
+   "display_name": "看護シフト表N17の写し",
+   "description": "日勤と夜勤にそれぞれ11の番号。2つの勤務で合計22回、人数は11名。",
+   "body": "月報17の同じ便の錨人を、30日の日勤と夜勤で追跡した記録。両方の勤務に同じ11の番号が並ぶ。公開ページの3名に、転送された8名を足した数だ。引き継ぎの確認は22回、人数は11名。"
+  },
+  "en": {
+   "display_name": "Copy of Care Rota N17",
+   "description": "Eleven numbers on the day shift and eleven on the night shift: 22 checks, 11 people.",
+   "body": "Day and night shift checks on the 30th for Report 17's batch. Both shifts list the same eleven numbers: the public page's 3 plus the 8 transferred. 22 handover checks, 11 people."
+  }
+ },
+ "ch3_tour_card": {
+  "ja": {
+   "display_name": "晴岸の内覧カード",
+   "description": "林さんがくれた内覧カード。三部屋とも48万で、違いは向き、日当たり、静かさ。",
+   "body": "晴岸のモデルルーム三部屋は、いずれも総額480,000。A朝窓は東向きで、朝8時から10時が最も明るい。B静窓は北向きで直射日光が少なく、道の音も低い。C夕窓は西向きで、午後2時から4時が最も明るい。提案欄は提案を記すだけで、枠の予約ではない。"
+  },
+  "en": {
+   "display_name": "Far Shore Viewing Card",
+   "description": "Ms. Lin's viewing card. All three rooms cost 480,000; they differ in facing, light and quiet.",
+   "body": "Far Shore show flats, all 480,000. A, the morning window, faces east: brightest 8 to 10 am. B, the quiet window, faces north: little sun, low street noise. C, the evening window, faces west: brightest 2 to 4 pm. Proposals are wishes, not reservations."
+  }
+ },
+ "ch3_trade_note": {
+  "ja": {
+   "display_name": "凛の会話メモ",
+   "description": "凛がエレベーター待ちの回廊で書き留めた会話。老Kが彼女のバックアップを渡し、条件を交わした。彼女には聞かなかった。",
+   "body": "老Kが葉に言った。バックアップを渡したのは自分で、条件は危険な仕事の割り振りを止めること。私には見せなかった。葉は、資料は天穹が保管していて、渡したのは彼だと言った。値段も理由も、取り決めの全文も聞こえなかった。"
+  },
+  "en": {
+   "display_name": "Rin's Conversation Notes",
+   "description": "What Rin noted in the lift lobby: Old K handed over her backup for a deal, without asking her.",
+   "body": "Old K told Folio he gave them the backup, on condition the dangerous jobs stop; he never showed me. Folio said Skydome keeps the data and that he handed it over. I didn't hear the price, the reason or the full terms."
+  }
+ },
+ "doc_cargo_manifest": {
+  "ja": {
+   "display_name": "貨物の積荷目録",
+   "description": "貨物駅の出荷票。一欄が黒く塗りつぶされている。",
+   "body": "NEST-07は低温コンテナで、受取先は軌道病院第三研究所。開封厳禁、中身は「生体適合データ」。受領者の欄にはKの一文字だけ。"
+  },
+  "en": {
+   "display_name": "Cargo Manifest",
+   "description": "A freight station shipping slip with one column blacked out.",
+   "body": "NEST-07: a cold container for the Orbital Hospital's Third Institute. Never open. Contents: \"biocompatible data\". The signature line reads only: K."
+  }
+ },
+ "doc_collection_notice": {
+  "ja": {
+   "display_name": "取り立て通知",
+   "description": "シャッターに貼られた三度目の通知。",
+   "body": "これは三度目の取り立て通知です。港区14番店舗は63日延滞、未払いは41,000クレジット。今月中に取り立て屋が伺います。抵抗すると手数料が増えます。"
+  },
+  "en": {
+   "display_name": "Collection Notice",
+   "description": "The third notice, taped to a shutter.",
+   "body": "Third collection notice. Harbour shopfront No. 14 is 63 days overdue: 41,000 credits owed. Collectors will call this month. Resistance adds fees."
+  }
+ },
+ "doc_crayon_drawing": {
+  "ja": {
+   "display_name": "航のクレヨン画",
+   "description": "麺屋台の卓の端に貼られ、油煙で黄ばんでいる。",
+   "body": "赤い傘をさした二人、背の高い人と小さい人。窓の向こうの人はいちばん薄い黄色で描かれ、ほとんど見えない。右下に「おねえちゃんとぼく」と曲がった字。"
+  },
+  "en": {
+   "display_name": "Wataru's Crayon Drawing",
+   "description": "Taped to the noodle stall's table, yellowed by cooking smoke.",
+   "body": "Two people under a red umbrella, one tall, one small. Someone behind a window is drawn in the palest yellow, nearly invisible. Bottom right, in wobbly letters: \"Sis and me\"."
+  }
+ },
+ "doc_dike_log": {
+  "ja": {
+   "display_name": "水門整備日誌：堤",
+   "description": "水門管理人の日誌。最後のページが破り取られている。",
+   "body": "3月9日、水位プラス0.4。3月10日、プラス0.6。C水門のペダルは誰も試そうとしない。3月11日、試した。水は思ったより早く上がった。（その先のページは破られている。）"
+  },
+  "en": {
+   "display_name": "Floodgate Log: Dike",
+   "description": "The gatekeeper's log. The last page is torn out.",
+   "body": "9 March: water up 0.4. 10 March: up 0.6. No one dares try Gate C's pedal. 11 March: I tried it. The water rose faster than I thought. (The pages after this are torn out.)"
+  }
+ },
+ "doc_echo_flyer": {
+  "ja": {
+   "display_name": "エコー派のビラ",
+   "description": "港区広場で誰かが配っているビラ。",
+   "body": "エコー派は言う。復元されたものはこだまにすぎず、元の人はもういない。聞こえる言葉はすべて誰かの言い残しだ、と。日曜の夕方、港の広場で無料の講話。裏に鉛筆で「父さんの言うことは違う」。"
+  },
+  "en": {
+   "display_name": "Echo Sect Flyer",
+   "description": "A flyer someone is handing out in the harbour plaza.",
+   "body": "The Echo Sect says a restored person is only an echo; the original is long gone, and every word you hear is someone's leftovers. Free talk, Sunday evening, harbour plaza. On the back, in pencil: \"Dad says it's not like that.\""
+  }
+ },
+ "doc_nest_log": {
+  "ja": {
+   "display_name": "NEST実験日誌",
+   "description": "壁の裏に隠された日誌。どのページにも番号が振ってある。",
+   "body": "七号の義体適合率が最も高く、基準に指定。十号以降はすべて消耗品と記す。担当技師の署名はK。"
+  },
+  "en": {
+   "display_name": "NEST Lab Log",
+   "description": "A log hidden behind a wall, every page numbered.",
+   "body": "Subject Seven has the highest implant compatibility; set as baseline. From Ten on, all are marked expendable. Technician's signature: K."
+  }
+ },
+ "doc_pawn_stub": {
+  "ja": {
+   "display_name": "質札の控え",
+   "description": "質屋の帳場の引き出しにあった古い控え。",
+   "body": "この懐中時計は800クレジットで質入れ、流れの期限なし。客は後で取りに来ると言い、もう六年が過ぎた。老Kは毎月これを磨いている。"
+  },
+  "en": {
+   "display_name": "Pawn Ticket Stub",
+   "description": "An old stub from the pawnshop's counter drawer.",
+   "body": "This pocket watch was pawned for 800 credits, with no deadline. The owner said they'd be back for it. That was six years ago. Old K polishes it every month."
+  }
+ },
+ "doc_power_log": {
+  "ja": {
+   "display_name": "電力室の当直記録",
+   "description": "当直員が残した手書きの記録。",
+   "body": "今夜も中継駅が過負荷。上は地区全体の電気をつなげと言う、試験だそうだ。試験のたびに三階で誰かが泣く。私はイヤホンをつけた。"
+  },
+  "en": {
+   "display_name": "Power Room Duty Log",
+   "description": "A handwritten note from the duty officer.",
+   "body": "The transfer station is overloaded again tonight. Upstairs wants the whole district's power routed to it, \"for a test\". Every test, someone cries on the third floor. I put my headphones on."
+  }
+ },
+ "doc_rain_news": {
+  "ja": {
+   "display_name": "港区日報：降水量が過去最高",
+   "description": "新聞ラックの古新聞。一面は雨のこと。",
+   "body": "今月の降水量は過去最高、気象台は通常の変動だとしている。社説によれば、今年は水位も金利も下がっていない。二面には復元館の周年祭、今夜は初回の復元が半額とある。"
+  },
+  "en": {
+   "display_name": "Harbour Daily: Record Rainfall",
+   "description": "An old paper from the rack. The front page is about rain.",
+   "body": "Record rainfall this month; the weather station calls it normal variation. The editorial notes neither the water level nor interest rates came down this year. Page two: the restoration hall's anniversary, first restorations half price tonight."
+  }
+ },
+ "doc_resident_notice": {
+  "ja": {
+   "display_name": "中層区住民へのお知らせ",
+   "description": "どの家の戸口にも貼られた告知。",
+   "body": "住環境を守るため、夜9時以降の外出はお控えください。当区の住民はグループの医療優待を受けられます。定期的に中継駅で健康診断を受けてください。子どもを優先します。"
+  },
+  "en": {
+   "display_name": "Mezzanine Residents' Notice",
+   "description": "A notice taped to every door.",
+   "body": "To keep the area pleasant, please stay in after 9 pm. Residents receive group medical benefits; visit the transfer station for regular check-ups. Children first."
+  }
+ },
+ "doc_shaft_memo": {
+  "ja": {
+   "display_name": "昇降路の保守メモ",
+   "description": "昇降路の入口にあった保守の通知。日付は十年前。",
+   "body": "昇降路は本日をもって使用停止、整備員は月末までに撤収。理由：下層の港区に貨物輸送はもう必要ない。署名欄は破り取られている。"
+  },
+  "en": {
+   "display_name": "Lift Shaft Maintenance Memo",
+   "description": "A maintenance notice at the shaft mouth, dated ten years ago.",
+   "body": "The lift shaft closes today; maintenance crews leave by month's end. Reason: the lower harbour no longer needs freight. The signature has been torn off."
+  }
+ },
+ "doc_shift_note": {
+  "ja": {
+   "display_name": "夜勤の引き継ぎメモ",
+   "description": "作業員が次の勤務に宛てたメモ。筆圧が強い。",
+   "body": "引き継ぎ前に三周見回り、鉄扉を施錠し、クレーンの電源を切ること。NEST-07のコンテナをまた誰かが受け取りに来た、今月三人目。前の二人は出てこなかった。主任は聞くなと言う。炊飯器にご飯を一杯残した、腹が減った人が食べて。"
+  },
+  "en": {
+   "display_name": "Night Shift Handover Note",
+   "description": "A worker's note to the next shift, pressed hard into the paper.",
+   "body": "Three rounds before handover, lock the iron door, kill the crane power. Someone came for a NEST-07 container again, third this month; the first two never came out. The boss says don't ask. Rice in the cooker for whoever's hungry."
+  }
+ },
+ "doc_sky_flyer": {
+  "ja": {
+   "display_name": "天穹の宣伝ビラ",
+   "description": "下層の港区のあちこちで配られているビラ。",
+   "body": "空をすべての人に。軌道病院の新しい療法、定員わずか、費用は窓口へ。裏にボールペンで「窓口は現金を受け取らない、チップだけ」。"
+  },
+  "en": {
+   "display_name": "Skydome Flyer",
+   "description": "A flyer handed out all over the lower harbour.",
+   "body": "The sky for everyone. A new Orbital Hospital treatment, limited places; ask at the counter for fees. On the back, in ballpoint: \"The counter won't take cash. Chips only.\""
+  }
+ },
+ "doc_transfer_sheet": {
+  "ja": {
+   "display_name": "12番ベッドの引き継ぎ票",
+   "description": "看護師がこっそり渡してきた。署名欄はまだ空いている。",
+   "body": "12番ベッドの被験者は航、21:00に上層へ移送。家族の七号はまだ来ておらず、ベッドは引き続き確保。リストバンドは37度を維持し、1時間ごとに遠隔確認。七号が戻ったら、あまり待たせないで。"
+  },
+  "en": {
+   "display_name": "Bed 12 Transfer Sheet",
+   "description": "The nurse slipped it to you. The signature line is still blank.",
+   "body": "Bed 12: subject Wataru, moved upstairs at 21:00. Family member Seven hasn't come; the bed stays held. Wristband kept at 37°C, checked remotely every hour. If Seven comes back, don't make her wait long."
+  }
+ },
+ "maintenance_pass": {
+  "ja": {
+   "display_name": "整備員の通行証",
+   "description": "老Kが若いころ使っていた通行証。磁気帯がすり減って白い。置いてあった引き出しの横で、おかゆが冷めている。"
+  },
+  "en": {
+   "display_name": "Maintenance Pass",
+   "description": "Old K's pass from his younger days, its magnetic strip worn white. Beside the drawer it sat in, a bowl of porridge has gone cold."
+  }
+ },
+ "nest07_shard": {
+  "ja": {
+   "display_name": "NEST-07データ断片",
+   "description": "航の神経スキャンが記録されている。移行の進み具合は62％。"
+  },
+  "en": {
+   "display_name": "NEST-07 Data Shard",
+   "description": "It holds Wataru's neural scan. Transfer progress: 62%."
+  }
+ },
+ "nest_egg_chip": {
+  "ja": {
+   "display_name": "巢蛋の預金チップ",
+   "description": "四年分の夜勤で貯めた43,000クレジット。裏に老Kが鉛筆で「最後の一回は48,000、合わせてちょうど91,000」。"
+  },
+  "en": {
+   "display_name": "Nest Egg Savings Chip",
+   "description": "43,000 credits from four years of night shifts. On the back, Old K's pencil: \"Last one's 48,000. That makes 91,000.\""
+  }
+ },
+ "nest_roster": {
+  "ja": {
+   "display_name": "NEST名簿の切れ端",
+   "description": "端末から切り出した名簿。七号の署名欄の字は子どもが書いたよう。05の行に丸がつき「実行中」とある。下に、補完してアップロードすれば91,000クレジットとある。"
+  },
+  "en": {
+   "display_name": "NEST Roster Fragment",
+   "description": "A list cut from a terminal. Seven's signature looks like a child's. Line 05 is circled: \"in progress\". Below: 91,000 credits once completed and uploaded."
+  }
+ },
+ "old_k_order": {
+  "ja": {
+   "display_name": "老Kの依頼票",
+   "description": "最後の一件：天穹の貨物駅でデータ断片を一つ受け取る、コードNEST-07。紙の角がふやけている。右下の印は青で、天穹の公文書と同じ。"
+  },
+  "en": {
+   "display_name": "Old K's Job Slip",
+   "description": "The last job: collect one data shard at the Skydome freight station, code NEST-07. The corner is soaked soft. The stamp is the same cyan as Skydome's official papers."
+  }
+ },
+ "rec_old_k_voicemail": {
+  "ja": {
+   "display_name": "老Kの留守電",
+   "description": "出かける前に老Kが残した音声。",
+   "body": "坊主、これを聞く頃、俺はたぶんまた心配してる。物を受け取ったら帰ってこい、無茶はするな。おかゆは作って机に置いてある。航は昨夜ひどく咳き込んでた、帰ったらまず様子を見てやれ。ガスがまた値上がりした、コンロを点けっぱなしにするなよ。"
+  },
+  "en": {
+   "display_name": "Old K's Voicemail",
+   "description": "A message Old K left before you went out.",
+   "body": "Kid, if you're hearing this, I'm probably worrying again. Get the thing and come home; don't push it. Porridge is on the table. Wataru coughed badly last night, so check on him first. Gas went up again, so don't leave the stove on."
+  }
+ },
+ "rec_wataru_1": {
+  "ja": {
+   "display_name": "航の音声メッセージ・一",
+   "description": "航が病室で録った音声。",
+   "body": "ねえちゃん、看護師さんが明日は窓の外を見られるって。空ってほんとうに青いの？またあの大きな部屋の夢を見た、ずっと誰かが泣いてる。そばにいてあげたいんだ、怒らないでね。"
+  },
+  "en": {
+   "display_name": "Wataru's Message, Part One",
+   "description": "A message Wataru recorded on the ward.",
+   "body": "Sis, the nurse says I can look out the window tomorrow. Is the sky really that blue? I had the dream about the big room again, someone kept crying. I want to stay with her. Don't be mad."
+  }
+ },
+ "rec_wataru_2": {
+  "ja": {
+   "display_name": "航の音声メッセージ・二",
+   "description": "航の二つ目の録音。音質がとても悪い。",
+   "body": "（録音の奥に、かすかな泣き声）ねえちゃん、今日ね、新しい部屋に連れていくって。あっちのほうが遠くまで見えるんだって。泣いてる人もあっちにいる。ちょっと怖いけど、いい子にしてる。心配しないで。"
+  },
+  "en": {
+   "display_name": "Wataru's Message, Part Two",
+   "description": "Wataru's second recording. The sound is very poor.",
+   "body": "(Faint crying under the recording.) Sis, today they said they'll take me to a new room. You can see further from there. The crying person is there too. I'm a little scared, but I'll be good. Don't worry."
+  }
+ },
+ "wataru_photo": {
+  "ja": {
+   "display_name": "航の写真",
+   "description": "角が白くすり切れている。航が空を指さし、思いきり笑っている。空は青すぎて、端に細い継ぎ目が一本。裏に「第七区の景観」。"
+  },
+  "en": {
+   "display_name": "Wataru's Photo",
+   "description": "Worn white at the corners. Wataru points at the sky, grinning hard. The sky is too blue, with a thin seam at the edge. On the back: \"District Seven view\"."
+  }
+ },
+ "wataru_wristband": {
+  "ja": {
+   "display_name": "航の医療リストバンド",
+   "description": "番号12が印刷されたプラスチックのバンド。外したばかりのように温かい。内側に小さな接点があるが、電池はない。"
+  },
+  "en": {
+   "display_name": "Wataru's Medical Wristband",
+   "description": "A plastic band printed with the number 12. It's warm, as if just taken off. A tiny contact inside, no battery."
+  }
+ }
+}

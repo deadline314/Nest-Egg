@@ -52,6 +52,19 @@ func is_collectible() -> bool:
 	return category != Category.KEY_ITEM
 
 
+## 依目前的劇本語言取名稱、說明與內文（日文與英文在 data/story_items/i18n.json，缺譯退回英文再退回中文）。
+func title_text() -> String:
+	return StoryItemText.lookup(id, "display_name", display_name, Story.language)
+
+
+func description_text() -> String:
+	return StoryItemText.lookup(id, "description", description, Story.language)
+
+
+func body_text() -> String:
+	return StoryItemText.lookup(id, "body", body, Story.language)
+
+
 func validate() -> PackedStringArray:
 	var problems := PackedStringArray()
 	if id == &"":

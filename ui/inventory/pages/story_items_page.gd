@@ -32,7 +32,7 @@ func _build_entries() -> Array[InventoryEntry]:
 func _entry_for(item: StoryItemData) -> InventoryEntry:
 	var entry := InventoryEntry.new()
 	entry.id = item.id
-	entry.title = item.display_name
+	entry.title = item.title_text()
 	entry.accent = item.color
 	entry.icon = ItemIcons.item(item.icon)
 	entry.detail_icon = ItemIcons.item_hd(item.icon)
@@ -48,10 +48,10 @@ func _entry_for(item: StoryItemData) -> InventoryEntry:
 		var chapter_title := str(Story.chapter_info(item.chapter).get("title", ""))
 		entry.detail_tag = "%s　%s" % [kind, chapter_title] if not chapter_title.is_empty() else kind
 		entry.detail_stats = PackedStringArray(["本章收集　%d／%d" % [StoryItems.collected_count(item.chapter), StoryItems.collectible_total(item.chapter)]])
-		entry.detail_body = item.body
+		entry.detail_body = item.body_text()
 		entry.hint = "%s只能閱讀；散落在關卡裡，隱藏房間裡也有" % kind
 	else:
-		entry.detail_body = item.description
+		entry.detail_body = item.description_text()
 		entry.hint = "劇情道具只能查看，不會被消耗"
 	return entry
 

@@ -279,6 +279,10 @@ func _run() -> void:
 		await _run_block()
 		get_tree().quit()
 		return
+	if _scenario == "item_text_languages":
+		await _run_item_text_languages()
+		get_tree().quit()
+		return
 	if _scenario == "arm_shield":
 		await _run_block("none")
 		await _run_block("all")
@@ -1288,6 +1292,35 @@ func _run_item_icons() -> void:
 		_capture("item_icons_%d" % (page + 1))
 		layer.queue_free()
 		await _settle(2)
+
+
+## 劇情文件的三語（ST-21）：背包劇情道具頁選同一份文件，中文、日文、英文各拍一張。
+func _run_item_text_languages() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := Level.new()
+	level.configure(load("res://data/levels/ch1_pawnshop.tres"))
+	add_child(level)
+	await _settle(30)
+	for id: StringName in [&"ch3_tour_card", &"ch1_market_summary"]:
+		StoryItems.acquire(id, false)
+	var original := Story.language
+	var inventory: InventoryScreen = level._inventory
+	for language in ["zh", "ja", "en"]:
+		Story.language = language
+		inventory.open()
+		await _wait(0.4)
+		var index := inventory.page_index(StoryItemsPage)
+		inventory.select_tab(index)
+		var page := inventory._pages[index] as CardListPage
+		page.refresh()
+		for selection in page._entries.size():
+			if page._entries[selection].id == &"ch1_market_summary":
+				page._select(selection)
+		await _wait(0.4)
+		_capture("item_text_%s" % language)
+		inventory.close()
+		await _wait(0.3)
+	Story.language = original
 
 
 func _run_item_inventory() -> void:

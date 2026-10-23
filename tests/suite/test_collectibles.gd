@@ -20,6 +20,7 @@ func run() -> void:
 	await _test_persistence()
 	await _test_hidden_room()
 	await _test_inventory_page()
+	await _test_item_translations()
 
 
 func _test_item_custody() -> void:
@@ -382,3 +383,53 @@ func _test_inventory_page() -> void:
 	check(page.tab_tooltip().contains("2／17"), "tab tooltip shows overall progress: %s" % page.tab_tooltip())
 	check(not by_id.has(&"doc_nest_log"), "uncollected documents are not listed")
 	page.free()
+
+
+## ST-21：每份劇情道具與文件都有日文與英文；切換語言後背包、撿取提示與取得訊息跟著換，缺譯退回英文再退回中文；
+## 譯文放進背包詳情面板的高度不超過已上架的最長中文內文（面板不捲動）。
+func _test_item_translations() -> void:
+	StoryItemText.reload()
+	var catalog := StoryItems.catalog()
+	var missing := StoryItemText.missing(catalog)
+	check(missing.is_empty(), "every story item has Japanese and English text (%d missing: %s)" % [missing.size(), ", ".join(missing.slice(0, 6))])
+	var original := Story.language
+	var item := StoryItems.find(&"ch3_tour_card")
+	Story.language = "en"
+	check(item.title_text() == "Far Shore Viewing Card" and item.body_text().begins_with("Far Shore show flats"), "English shows the translated name and body")
+	var pickup := CollectiblePickup.new()
+	pickup.configure(item)
+	check(pickup.hint_text().begins_with("Far Shore Viewing Card"), "the pickup prompt uses the translated name")
+	pickup.free()
+	check(StoryItems.acquire_message(item).contains("Far Shore Viewing Card"), "the acquire message uses the translated name")
+	Story.language = "ja"
+	check(item.title_text() == "晴岸の内覧カード", "Japanese shows the Japanese name")
+	Story.language = "zh"
+	check(item.title_text() == item.display_name and item.body_text() == item.body, "Chinese keeps the original text")
+	# 面板高度：同一個寬度下，譯文內容的最小高度不超過已上架中文內文裡最高的那一份。
+	var holder := Control.new()
+	runner.get_tree().root.add_child(holder)
+	var panel := DetailPanel.new()
+	holder.add_child(panel)
+	await frames(1)
+	var height_of := func(entry_item: StoryItemData) -> float:
+		var entry := InventoryEntry.new()
+		entry.title = entry_item.title_text()
+		entry.detail_tag = "文件"
+		entry.detail_stats = PackedStringArray()  # 數值列每次換項目會建新節點、下一格才釋放；這裡只比內文高度
+		entry.detail_body = entry_item.body_text() if entry_item.is_collectible() or not entry_item.body.is_empty() else entry_item.description_text()
+		panel.show_entry(entry, "", false)
+		return panel._content.get_combined_minimum_size().y
+	var tallest_source := 0.0
+	for each in catalog:
+		tallest_source = maxf(tallest_source, height_of.call(each))
+	var too_tall: Array[String] = []
+	for language in ["ja", "en"]:
+		Story.language = language
+		for each in catalog:
+			var height: float = height_of.call(each)
+			if height > tallest_source + 0.5:
+				too_tall.append("%s/%s %.0f" % [each.id, language, height])
+	Story.language = original
+	holder.queue_free()
+	check(tallest_source > 0.0 and too_tall.is_empty(), "translated text fits the same detail panel as the longest shipped Chinese text (%.0f px): %s" % [tallest_source, too_tall])
+
