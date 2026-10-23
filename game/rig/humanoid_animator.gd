@@ -16,6 +16,8 @@ const SPRING_DAMPING := 11.0
 ## 次級動態（衣襬、頭髮）的預設設定；骨架定義（rig json）有 "springs" 時以它為準。
 ## bone：彈簧骨；rest：靜止時的角度；gain：跟隨「移動造成的目標角度」的倍率；
 ## trail／lift／wind：往前跑向後飄、上升下落、微風各自的倍率（預設 1）；stiffness／damping：彈簧硬度與阻尼；min／max：角度上下限。
+## events（選填）：只對列出的一次性事件反應，值是該事件注入的角速度（取代 impulse × gain）；例如胸口只在起跳、落地、急停跟一下，走路與站著不動（NE-257）。
+##   事件：jump 起跳、land 落地、dash 衝刺、hurt 受擊、stop 跑動中急停。
 const DEFAULT_SPRINGS: Array[Dictionary] = [
 	{"bone": "coat_1", "rest": 0.15, "gain": 0.7},
 	{"bone": "coat_2", "rest": 0.0, "gain": 0.5},
@@ -54,7 +56,7 @@ const DEFAULT_MOTION := {
 			"apex": {"chest": 0.0, "legs": [-0.6, 0.9, 0.4, 0.5]}, "apex_speed": 0.0, "takeoff": {"time": 0.0, "chest": 0.0, "legs": [0.0, 0.0, 0.0, 0.0]}},
 	"dash": {"forward": {"chest": 0.38, "legs": [-1.0, 0.6, 0.85, 1.0]}, "back": {"chest": -0.22, "legs": [0.5, 0.9, -0.7, 0.4]}, "hip_drop": 0.0},
 	"land": {"gain": 0.0, "stiffness": 220.0, "damping": 16.0, "drop": 0.0, "chest": 0.0, "legs": [-0.8, 1.3, 0.1, 0.9]},
-	"impulse": {"jump": 0.0, "land": 0.0, "dash": 0.0, "hurt": 0.0},
+	"impulse": {"jump": 0.0, "land": 0.0, "dash": 0.0, "hurt": 0.0, "stop": 0.0},
 	"block": {"chest": 0.1, "legs": [-0.4, 0.5, 0.5, 0.2]},
 	"hurt": {"stagger_chest": -0.35, "kick": 0.3},
 	"look": {"chest": 0.12, "neck": 0.12, "head": 0.3, "head_min": -0.35, "head_max": 0.3},
@@ -187,6 +189,10 @@ func _init(rig: CharacterRig) -> void:
 		var bone_name := _spring_key(entry)
 		if not entry.has("warp") and not rig.has_bone(bone_name):
 			continue  # 這個骨架沒有這根骨頭（例如舊骨架的衣襬）：略過
+		var problem := spring_problem(entry)
+		if not problem.is_empty():
+			RigLibrary.report_once("spring:%s:%s" % [rig.skin_id, bone_name], "[HumanoidAnimator] %s 的擺動 %s 設定不合理（%s），這一項不擺動。" % [rig.skin_id, bone_name, problem])
+			continue
 		_springs.append(entry)
 		_spring_angle[bone_name] = 0.0
 		_spring_velocity[bone_name] = 0.0
@@ -247,6 +253,7 @@ func update(delta: float, input: RigInput) -> void:
 		_last_facing = input.facing
 	elif jumped:
 		reset_springs()
+	_detect_stop(input, local_velocity)
 	_lean = _inertia.update(delta, local_velocity.x, _motion["inertia"]) if not input.dead else 0.0
 	var local_aim := Vector2(input.aim_dir.x * input.facing, input.aim_dir.y)
 	var aim_angle := clampf(local_aim.angle(), -MAX_AIM_ANGLE, MAX_AIM_ANGLE)
@@ -748,6 +755,7 @@ var _last_position := Vector2.INF
 
 ## 所有次級擺動（頭髮、衣襬、區域擺動）回到靜止位置、速度歸零。重生、進出過場、換場景後呼叫；翻面與瞬移時動畫器自己會呼叫。
 func reset_springs() -> void:
+	_stop_peak = 0.0
 	for spring in _springs:
 		var key := _spring_key(spring)
 		_spring_angle[key] = clampf(float(spring.get("rest", 0.0)), float(spring.get("min", SPRING_MIN)), float(spring.get("max", SPRING_MAX)))
@@ -762,13 +770,62 @@ func _spring_key(spring: Dictionary) -> StringName:
 
 
 ## 對所有次級動態彈簧（衣襬、頭髮）注入角速度：資料的 impulse 乘上事件強度與各彈簧自己的 gain，沒設定就不動。
+## 有 events 的彈簧只對列出的事件反應，用自己的數值。
 func _kick_springs(event: String, strength: float) -> void:
-	var amount := float((_motion["impulse"] as Dictionary)[event]) * strength
-	if is_zero_approx(amount):
-		return
+	var shared := float((_motion["impulse"] as Dictionary).get(event, 0.0)) * strength
 	for spring in _springs:
+		var amount := shared * float(spring.get("gain", 0.5))
+		var events: Variant = spring.get("events")
+		if typeof(events) == TYPE_DICTIONARY:
+			amount = float((events as Dictionary).get(event, 0.0)) * strength
+		if is_zero_approx(amount):
+			continue
 		var bone_name := _spring_key(spring)
-		_spring_velocity[bone_name] = float(_spring_velocity[bone_name]) + amount * float(spring.get("gain", 0.5))
+		_spring_velocity[bone_name] = float(_spring_velocity[bone_name]) + amount
+
+
+## 檢查一項擺動設定的數值是否合理；合理回傳空字串，否則回傳原因（指出欄位）。
+static func spring_problem(entry: Dictionary) -> String:
+	for key: String in ["rest", "gain", "stiffness", "damping", "min", "max", "trail", "lift", "wind"]:
+		if entry.has(key) and not (typeof(entry[key]) in [TYPE_INT, TYPE_FLOAT] and is_finite(float(entry[key]))):
+			return "%s 不是數字" % key
+	if float(entry.get("stiffness", SPRING_STIFFNESS)) <= 0.0:
+		return "stiffness 必須大於 0"
+	if float(entry.get("damping", SPRING_DAMPING)) < 0.0:
+		return "damping 不能是負的"
+	if float(entry.get("min", SPRING_MIN)) > float(entry.get("max", SPRING_MAX)):
+		return "min 大於 max"
+	if entry.has("events"):
+		var events: Variant = entry["events"]
+		if typeof(events) != TYPE_DICTIONARY:
+			return "events 要是「事件：數值」"
+		for key: Variant in (events as Dictionary).keys():
+			if not str(key) in SPRING_EVENTS:
+				return "events 的 %s 不是已知事件（%s）" % [key, ", ".join(SPRING_EVENTS)]
+			if not (typeof(events[key]) in [TYPE_INT, TYPE_FLOAT] and is_finite(float(events[key]))):
+				return "events.%s 不是數字" % key
+	return ""
+
+
+## 會注入擺動的一次性事件。
+const SPRING_EVENTS: PackedStringArray = ["jump", "land", "dash", "hurt", "stop"]
+## 急停：在地上跑到滿速的這個比例以上，速度又降到這個比例以下，算一次急停（強度＝原本的速度比例）。
+const STOP_ARM_RATIO := 0.6
+const STOP_DONE_RATIO := 0.12
+var _stop_peak := 0.0
+
+
+## 跑動中急停時對擺動注入一次衝量；只在地上、沒死的時候算，同一次減速只算一次。
+func _detect_stop(input: RigInput, local_velocity: Vector2) -> void:
+	if not input.on_floor or input.dead:
+		_stop_peak = 0.0
+		return
+	var ratio := absf(local_velocity.x) / maxf(1.0, input.run_speed)
+	if ratio >= STOP_ARM_RATIO:
+		_stop_peak = maxf(_stop_peak, ratio)
+	elif ratio <= STOP_DONE_RATIO and _stop_peak > 0.0:
+		_kick_springs("stop", clampf(_stop_peak, 0.0, 1.0))
+		_stop_peak = 0.0
 
 
 ## 跑步時骨盆、胸、頭的週期擺動：骨盆隨步伐前後擺，胸反向補償並有自己的起伏，頭抵消這些擺動而保持穩定。

@@ -182,6 +182,8 @@ func springs() -> Array[Dictionary]:
 
 
 ## 區域擺動的彈簧（springs 裡有 warp 的項目）：零件圖上的一個區域繞根部彎，不需要自己的骨頭。資料不完整就不收。
+## warp.part 是一張貼圖；warp.parts 是好幾張疊在一起、要一起彎的貼圖（例如軀幹的裝甲層與底層，NE-257 胸口）。
+## warp.bounded＝true 時只彎根部到末端這一段，超過末端逐漸回到不動（胸口下方的腰不能跟著轉）。
 func _valid_sway(entry: Dictionary) -> bool:
 	var warp: Variant = entry.get("warp")
 	if str(entry.get("id", "")).is_empty() or typeof(warp) != TYPE_DICTIONARY:
@@ -189,7 +191,20 @@ func _valid_sway(entry: Dictionary) -> bool:
 	var from := RigLibrary.vec2(warp.get("from"), Vector2.INF)
 	var to := RigLibrary.vec2(warp.get("to"), Vector2.INF)
 	var width: Variant = warp.get("width")
-	return not str(warp.get("part", "")).is_empty() and from.is_finite() and to.is_finite() and from.distance_to(to) >= 1.0 		and typeof(width) in [TYPE_INT, TYPE_FLOAT] and float(width) > 0.0
+	return not sway_textures(warp).is_empty() and from.is_finite() and to.is_finite() and from.distance_to(to) >= 1.0 		and typeof(width) in [TYPE_INT, TYPE_FLOAT] and float(width) > 0.0
+
+
+## 擺動區域要套用的貼圖名稱（part 與 parts 合併，去掉空字串）。
+static func sway_textures(warp: Dictionary) -> PackedStringArray:
+	var names := PackedStringArray()
+	if not str(warp.get("part", "")).is_empty():
+		names.append(str(warp["part"]))
+	var many: Variant = warp.get("parts", [])
+	if typeof(many) == TYPE_ARRAY:
+		for item: Variant in many:
+			if typeof(item) == TYPE_STRING and not str(item).is_empty() and not names.has(str(item)):
+				names.append(str(item))
+	return names
 
 
 ## 把彈簧目前的角度交給它的區域（HumanoidAnimator 每格呼叫）。沒有這個 id 就什麼也不做。
@@ -201,14 +216,17 @@ func set_sway(id: StringName, angle: float) -> void:
 ## 零件建好之後，把每個區域擺動接到使用那張貼圖的零件上（一個零件最多兩個區域）。
 func _bind_sway(skin: Dictionary) -> void:
 	var used: Dictionary[int, int] = {}
+	var bounds_of: Dictionary[int, Vector2] = {}
 	for spring in _springs:
 		if not spring.has("warp"):
 			continue
 		var warp: Dictionary = spring["warp"]
+		var textures := sway_textures(warp)
+		var bounded := bool(warp.get("bounded", false))
 		var found := false
 		for i in _parts.size():
 			var part := _parts[i]
-			if not (part is Sprite2D or part is RigPartMesh) or str((skin.get("parts", []) as Array)[i].get("texture", "")) != str(warp["part"]):
+			if not (part is Sprite2D or part is RigPartMesh) or not textures.has(str((skin.get("parts", []) as Array)[i].get("texture", ""))):
 				continue
 			var slot := int(used.get(part.get_instance_id(), 0))
 			if slot >= 2:
@@ -222,12 +240,17 @@ func _bind_sway(skin: Dictionary) -> void:
 			part.set_instance_shader_parameter("sway_padding", 0.0 if part is RigPartMesh else 24.0)
 			part.set_instance_shader_parameter(names[0], Vector4(from.x, from.y, to.x, to.y))
 			part.set_instance_shader_parameter(names[1], Vector2(float(warp["width"]), 0.0))
+			if bounded:
+				var bounds: Vector2 = bounds_of.get(part.get_instance_id(), Vector2.ZERO)
+				bounds[slot] = 1.0
+				bounds_of[part.get_instance_id()] = bounds
+				part.set_instance_shader_parameter("sway_bounds", bounds)
 			if not _sway_targets.has(StringName(str(spring["id"]))):
 				_sway_targets[StringName(str(spring["id"]))] = []
 			(_sway_targets[StringName(str(spring["id"]))] as Array).append([part, names[1], float(warp["width"])])
 			found = true
 		if not found:
-			push_warning("[CharacterRig] %s 的擺動區域 %s 找不到用貼圖 %s 的圖片零件" % [skin_id, spring["id"], warp["part"]])
+			push_warning("[CharacterRig] %s 的擺動區域 %s 找不到用貼圖 %s 的圖片零件" % [skin_id, spring["id"], ", ".join(textures)])
 
 
 func weapon_anchor() -> Array:
@@ -619,7 +642,7 @@ func _build_skeleton(definition: Dictionary) -> void:
 			elif typeof(entry) == TYPE_DICTIONARY and _valid_sway(entry):
 				_springs.append(entry)
 			else:
-				push_warning("[CharacterRig] %s 的 springs 有無效項目（需要存在的 bone，或 id 加 warp：part、from、to、width）：%s" % [skin_id, entry])
+				push_warning("[CharacterRig] %s 的 springs 有無效項目（需要存在的 bone，或 id 加 warp：part／parts、from、to、width）：%s" % [skin_id, entry])
 	var anchor: Variant = definition.get("weapon_anchor", {})
 	if typeof(anchor) == TYPE_DICTIONARY:
 		_anchor_bone = StringName(str(anchor.get("bone", "chest")))

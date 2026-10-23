@@ -1,0 +1,44 @@
+{
+	"adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+	"facing": 1,
+	"kind": "fixed region angle, other sway regions at 0; not a motion test",
+	"region": "chest_follow",
+	"rows": [
+		{
+			"angle": -0.0599999986588955,
+			"changed_bounds": [
+				230,
+				426,
+				15,
+				18
+			],
+			"changed_pixels": 46
+		},
+		{
+			"angle": 0.0,
+			"changed_bounds": [
+				0,
+				0,
+				0,
+				0
+			],
+			"changed_pixels": 0
+		},
+		{
+			"angle": 0.0599999986588955,
+			"changed_bounds": [
+				231,
+				427,
+				14,
+				17
+			],
+			"changed_pixels": 43
+		}
+	],
+	"skin": "rin",
+	"window": [
+		1280,
+		720
+	],
+	"zoom": 1.92
+}

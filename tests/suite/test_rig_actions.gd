@@ -18,6 +18,8 @@ func run() -> void:
 	await _test_far_hand_and_hems()
 	await _test_springs_settle()
 	await _test_sway_mesh_binding()
+	await _test_rin_chest_follow()
+	_test_spring_problems()
 	await _test_rin_visible_cloth()
 
 
@@ -356,7 +358,7 @@ func _test_rin_visible_cloth() -> void:
 		for spring: Dictionary in rig.springs():
 			if not spring.has("warp"):
 				continue
-			var part_name := str(spring["warp"]["part"])
+			var part_name := str((spring["warp"] as Dictionary).get("part", ""))
 			if part_name not in ["armor_jacket", "armor_jacket_far"]:
 				continue
 			found += 1
@@ -399,3 +401,84 @@ func _test_rin_visible_cloth() -> void:
 		rig.get_parent().queue_free()
 	await frames(1)
 	check(absf(peaks[0] - peaks[1]) < 0.002, "rin cloth peak is similar at 30 and 60 Hz")
+
+
+## NE-257 胸口：只在起跳、落地、急停時跟一下就停；走路、跑步、站著不動都不晃；兩層軀幹一起彎；30 與 60 更新率幅度相近。
+func _test_rin_chest_follow() -> void:
+	var probe := await _rig("rin", RigInput.new(), 1)
+	var targets: Array = probe._sway_targets.get(&"chest_follow", [])
+	check(targets.size() == 2, "rin's chest region bends the armour and under layers together (%d parts)" % targets.size())
+	for target: Array in targets:
+		check((target[0] as CanvasItem).get_instance_shader_parameter("sway_bounds") == Vector2(1.0, 0.0), "rin's chest region stops before the waist")
+	probe.get_parent().queue_free()
+	var peaks: Array[float] = []
+	for fps: float in [60.0, 30.0]:
+		var dt := 1.0 / fps
+		var input := RigInput.new()
+		input.run_speed = 150.0
+		var rig := await _rig("rin", input, int(fps))
+		var animator: HumanoidAnimator = rig.animator
+		var chest := func() -> float: return float(animator._spring_angle[&"chest_follow"])
+		var steady := 0.0
+		for i in int(fps * 2.0):
+			rig.animate(dt, input)
+			steady = maxf(steady, absf(chest.call()))
+		input.velocity = Vector2(70.0, 0.0)
+		for i in int(fps * 2.0):
+			rig.animate(dt, input)
+			steady = maxf(steady, absf(chest.call()))
+		input.velocity = Vector2(150.0, 0.0)
+		for i in int(fps * 2.0):
+			rig.animate(dt, input)
+			steady = maxf(steady, absf(chest.call()))
+		check(steady < 0.0005, "rin's chest stays still while standing, walking and running (%.4f rad at %d fps)" % [steady, int(fps)])
+		input.velocity = Vector2.ZERO
+		var stop_peak := 0.0
+		for i in int(fps * 0.5):
+			rig.animate(dt, input)
+			stop_peak = maxf(stop_peak, absf(chest.call()))
+		check(stop_peak > 0.008, "stopping from a run gives rin's chest one small follow (%.4f rad)" % stop_peak)
+		for i in int(fps * 1.0):
+			rig.animate(dt, input)
+		check(absf(chest.call()) < 0.001 and absf(float(animator._spring_velocity[&"chest_follow"])) < 0.02, "rin's chest has settled 1.5 s after the stop")
+		input.landed = 0.75
+		var peak := 0.0
+		var crossings := 0
+		var last_sign := 0
+		for i in int(fps * 1.2):
+			rig.animate(dt, input)
+			input.landed = 0.0
+			var angle: float = chest.call()
+			peak = maxf(peak, absf(angle))
+			var sign_now := signi(int(round(angle * 10000.0)))
+			if sign_now != 0 and last_sign != 0 and sign_now != last_sign:
+				crossings += 1
+			if sign_now != 0:
+				last_sign = sign_now
+		peaks.append(peak)
+		var limit := 0.0
+		for spring: Dictionary in animator._springs:
+			if str(spring.get("id", "")) == "chest_follow":
+				limit = float(spring["max"])
+		check(limit > 0.0 and limit <= 0.06, "rin's chest limit stays small enough not to bend the waist (%.3f rad)" % limit)
+		check(peak > 0.02 and peak <= limit + 0.0001, "a landing moves rin's chest a little and within its limit (%.4f rad)" % peak)
+		check(crossings <= 2, "rin's chest follows once and settles rather than wobbling (%d sign changes)" % crossings)
+		check(absf(chest.call()) < 0.001, "rin's chest is at rest 1.2 s after landing (%.4f rad)" % chest.call())
+		input.landed = 0.75
+		rig.animate(dt, input)
+		input.landed = 0.0
+		input.facing = -1
+		rig.animate(dt, input)
+		check(is_zero_approx(chest.call()) and is_zero_approx(float(animator._spring_velocity[&"chest_follow"])), "turning round puts rin's chest back at rest")
+		rig.get_parent().queue_free()
+	check(peaks[1] > peaks[0] * 0.8 and peaks[1] < peaks[0] * 1.25, "rin's chest follows about as far at 30 as at 60 updates a second (%.4f vs %.4f)" % [peaks[0], peaks[1]])
+
+
+## NE-257：擺動設定不合理時指出欄位並整項不擺動（不讓壞資料甩出奇怪的角度）。
+func _test_spring_problems() -> void:
+	check(HumanoidAnimator.spring_problem({"bone": "hair_1", "stiffness": 120, "damping": 10, "min": -0.2, "max": 0.3}).is_empty(), "a sensible spring passes")
+	check(HumanoidAnimator.spring_problem({"stiffness": 0}).contains("stiffness"), "a zero stiffness is named")
+	check(HumanoidAnimator.spring_problem({"min": 0.4, "max": 0.1}).contains("min"), "an inverted range is named")
+	check(HumanoidAnimator.spring_problem({"gain": "big"}).contains("gain"), "a non-number field is named")
+	check(HumanoidAnimator.spring_problem({"events": {"wave": 1.0}}).contains("wave"), "an unknown event is named")
+	check(HumanoidAnimator.spring_problem({"events": [1, 2]}).contains("events"), "events must be a dictionary")

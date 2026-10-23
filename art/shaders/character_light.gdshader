@@ -15,9 +15,11 @@ instance uniform vec4 sway_b = vec4(0.0);
 instance uniform vec2 sway_b_shape = vec2(0.0);
 // Sprite quads need a border; weighted meshes retain their authored topology and UVs.
 instance uniform float sway_padding = 24.0;
+// 每個區域是否只彎根部到末端這一段（1＝超過末端逐漸回到不動；0＝末端之後整片跟著轉，衣襬、頭髮用）。
+instance uniform vec2 sway_bounds = vec2(0.0);
 varying vec4 sway_tint;
 
-vec2 sway_source(vec2 p, vec4 seg, vec2 shape) {
+vec2 sway_source(vec2 p, vec4 seg, vec2 shape, float bounded) {
 	if (shape.x <= 0.0) {
 		return p;
 	}
@@ -25,7 +27,9 @@ vec2 sway_source(vec2 p, vec4 seg, vec2 shape) {
 	float len = max(length(axis), 1.0);
 	vec2 dir = axis / len;
 	vec2 rel = p - seg.xy;
-	float weight = smoothstep(0.0, 1.0, dot(rel, dir) / len) * (1.0 - smoothstep(shape.x * 0.6, shape.x, abs(dot(rel, vec2(-dir.y, dir.x)))));
+	float along = dot(rel, dir) / len;
+	float weight = smoothstep(0.0, 1.0, along) * (1.0 - smoothstep(shape.x * 0.6, shape.x, abs(dot(rel, vec2(-dir.y, dir.x)))));
+	weight *= 1.0 - bounded * smoothstep(1.0, 1.2, along);
 	float angle = -shape.y * weight;
 	float c = cos(angle);
 	float s = sin(angle);
@@ -45,7 +49,7 @@ void fragment() {
 	// NORMAL_MAP is a compile-time shader output: initialize every fragment, including regions with no sway.
 	NORMAL_MAP = texture(NORMAL_TEXTURE, UV).rgb;
 	if (sway_a_shape.x > 0.0 || sway_b_shape.x > 0.0) {
-		vec2 uv = sway_source(sway_source(UV / TEXTURE_PIXEL_SIZE, sway_a, sway_a_shape), sway_b, sway_b_shape) * TEXTURE_PIXEL_SIZE;
+		vec2 uv = sway_source(sway_source(UV / TEXTURE_PIXEL_SIZE, sway_a, sway_a_shape, sway_bounds.x), sway_b, sway_b_shape, sway_bounds.y) * TEXTURE_PIXEL_SIZE;
 		float inside = step(0.0, uv.x) * step(uv.x, 1.0) * step(0.0, uv.y) * step(uv.y, 1.0);
 		COLOR = texture(TEXTURE, uv) * sway_tint * vec4(1.0, 1.0, 1.0, inside);
 		NORMAL_MAP = texture(NORMAL_TEXTURE, uv).rgb;

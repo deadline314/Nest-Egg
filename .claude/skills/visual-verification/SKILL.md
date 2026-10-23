@@ -33,6 +33,7 @@ xvfb-run -a -s "-screen 0 1280x720x24" godot_x11 --path . --rendering-driver vul
 | `--scenario=exposure_sweep@關卡檔@間隔` | 整張地圖每隔幾欄量一次 |
 | `tools/rig_preview.tscn` | 角色姿勢、動作、接縫（`--chars --closeup --zoom --joints --level --rigid --gait --action`） |
 | `tools/rig_perf_probe.tscn` | 骨架動畫每格成本 |
+| `tools/sway_region_probe.tscn` | 區域擺動（頭髮、衣襬、胸口）：`--angles` 只動一個區域、其他固定在 0，量畫面上改變的像素與範圍；`--curves` 用真實輸入序列輸出每個擺動的峰值與停下時間（30／60 更新率）；`--strip=stop\|jump\|land\|dash` 連續影格，並排「這個區域固定在 0」的對照組與差異圖 |
 | `tools/light_pool_probe.tscn` | 光池：每一盞亮著的場景燈，燈下的牆面比光池外亮幾倍（只量背後有牆的地方）。調環境光或改燈之後重跑 |
 | `tools/frame_time_probe.tscn [--level=…] [--seconds=20] [--off=prefetch,lights,…] [--vsync] [--idle]`（原生；加 `--fullscreen` 用螢幕解析度） | 玩起來卡不卡：機器人在正式關卡實際跑、跳、開槍，記錄每一格的間隔（中位數、第 95／99 百分位、超過 16.7／33.3 毫秒的格數、最長幾格發生在哪）、進關卡花的時間、預載載了幾張與單張最久；`--off` 關掉某一類再量可以找出是誰的成本。量的時候機器上不要有別的工作（別的工作階段跑測試或截圖會讓數字差到一倍以上），兩個版本要交替各量幾輪 |
 | `tools/wall_shadow_probe.tscn` | 牆上的影子：主角站在場景燈左、正下方、右各一張，槍燈照一排敵人一張，每張都有影子開與關；`perf` 量 12 個敵人時開與關的每影格耗時（成對交替 60 組），`reenter` 看反覆進出關卡資源有沒有累積 |
