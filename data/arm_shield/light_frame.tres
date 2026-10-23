@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ArmShieldPartData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/arm_shield_part_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"light_frame"
+display_name = "輕量骨架"
+effect = 4
+amount = 0.25
+cost = 110
+description = "舉著盾也走得快，移動速度從 35% 提高到 60%"
+order = 5

@@ -831,7 +831,7 @@ func _spawn_player() -> void:
 		AimInput.restore_direction(player.aim_dir)
 		player.velocity = RunSaveCodec.vector(_resume.get("velocity"))
 		player.is_crouching = _resume.get("crouching", false)
-		player.guard = clampf(float(_resume.get("guard", player.guard)), 0, player.tuning.guard_max)
+		player.guard = clampf(float(_resume.get("guard", player.guard)), 0, player.guard_max())
 		if not _resume.get("dead", false):
 			player.health.current = clampi(int(_resume.get("health", player.health.current)), 1, player.health.max_health)
 			player.health.health_changed.emit(player.health.current, player.health.max_health)

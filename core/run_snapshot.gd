@@ -284,6 +284,12 @@ static func _progression(raw: Dictionary) -> Dictionary:
 	result["abilities"] = result["abilities"].filter(func(id: Variant) -> bool: return id is String)
 	for key: Variant in result["pawned"]:
 		result["pawned"][key] = int(RunSaveCodec.number(result["pawned"][key], 0, 0, Progression.MAX_PAWNED))
+	# 臂盾零件（NE-269）只有買過才會出現；不是清單就整欄拿掉（視為沒有零件）。
+	if result.has("arm_shield"):
+		if result["arm_shield"] is Array:
+			result["arm_shield"] = result["arm_shield"].filter(func(id: Variant) -> bool: return id is String)
+		else:
+			result.erase("arm_shield")
 	return result
 
 

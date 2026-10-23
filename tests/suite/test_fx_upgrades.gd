@@ -23,6 +23,9 @@ func run() -> void:
 	await _test_shield_rules_unchanged()
 	await _test_shield_landing_frames()
 	await _test_block_input_parity()
+	_test_arm_shield_catalog()
+	await _test_arm_shield_rules()
+	await _test_arm_shield_purchase_and_save()
 	await _test_dash_and_materialize()
 	await DashSilhouetteChecks.run(self)
 	await _test_environment()
@@ -774,4 +777,155 @@ func _send_block(device: String, pressed: bool) -> void:
 		Input.parse_input_event(axis)
 	# 立刻送進遊戲：不然事件要等到下一個畫面才處理，機器忙時落在哪一個物理步不固定。
 	Input.flush_buffered_events()
+
+
+
+
+# ---------------------------------------------------------------------------
+# 臂盾零件（NE-269）
+# ---------------------------------------------------------------------------
+
+## 零件是資料：至少四個、各改一種效果、一句話說明；沒有零件時有效數值等於原本的 tuning；每個零件只改自己那一項。
+func _test_arm_shield_catalog() -> void:
+	var catalog := Progression.arm_shield_catalog()
+	var effects := {}
+	for part in catalog:
+		effects[part.effect] = true
+		check(part.validate().is_empty(), "%s data is valid" % part.id)
+		check(part.description.length() <= 40 and not part.description.contains("\n"), "%s explains itself in one short sentence (%d chars)" % [part.id, part.description.length()])
+	check(catalog.size() >= 4 and effects.size() == catalog.size(), "at least four arm shield parts, each with its own effect (%d parts, %d effects)" % [catalog.size(), effects.size()])
+	var tuning := load("res://data/player/player_tuning.tres") as PlayerTuning
+	var bare := GuardStats.build(tuning, [])
+	check(is_equal_approx(bare.parry_window(), clampf(tuning.parry_window, GuardStats.PARRY_WINDOW_MIN, GuardStats.PARRY_WINDOW_MAX)) and is_equal_approx(bare.block_arc_degrees(), tuning.block_arc_degrees)
+			and is_equal_approx(bare.guard_max(), tuning.guard_max) and is_equal_approx(bare.guard_break_stun(), tuning.guard_break_stun)
+			and is_equal_approx(bare.guard_regen_delay(), tuning.guard_regen_delay) and is_equal_approx(bare.guard_regen_per_second(), tuning.guard_regen_per_second)
+			and is_equal_approx(bare.block_speed_multiplier(), tuning.block_speed_multiplier) and not bare.deflect_on_block, "with no parts every guard number equals the original tuning")
+	var readings := func(stats: GuardStats) -> Array:
+		return [stats.parry_window(), stats.block_arc_degrees(), stats.guard_max(), stats.guard_break_stun(), stats.guard_regen_delay(), stats.guard_regen_per_second(), stats.block_speed_multiplier(), float(stats.deflect_on_block)]
+	var base: Array = readings.call(bare)
+	var axes := {ArmShieldPartData.Effect.PARRY_WINDOW: [0], ArmShieldPartData.Effect.BLOCK_ARC: [1], ArmShieldPartData.Effect.CUSHION: [2, 3],
+		ArmShieldPartData.Effect.HEAT_SINK: [4, 5], ArmShieldPartData.Effect.LIGHT_FRAME: [6], ArmShieldPartData.Effect.DEFLECT: [7]}
+	for part in catalog:
+		var now: Array = readings.call(GuardStats.build(tuning, [part]))
+		var changed: Array = []
+		for i in now.size():
+			if not is_equal_approx(float(now[i]), float(base[i])):
+				changed.append(i)
+		check(changed == axes[part.effect], "%s changes only its own guard numbers %s (changed %s)" % [part.id, axes[part.effect], changed])
+	var everything := GuardStats.build(tuning, catalog)
+	check(everything.parry_window() <= GuardStats.PARRY_WINDOW_WITH_PARTS_MAX and everything.block_arc_degrees() <= GuardStats.BLOCK_ARC_MAX
+			and everything.block_speed_multiplier() <= GuardStats.BLOCK_SPEED_MAX and everything.guard_break_stun() >= GuardStats.BREAK_STUN_MIN, "all parts together stay inside the bounded ranges")
+	check(GuardStats.build(tuning, [catalog[0], catalog[0]]).parts.size() == 1, "the same part never stacks twice")
+	var broken := ArmShieldPartData.new()
+	broken.id = &"test_bad_arm_part"
+	broken.display_name = "壞零件"
+	broken.effect = ArmShieldPartData.Effect.BLOCK_ARC
+	broken.amount = 500.0
+	broken.description = "測試用"
+	check(not broken.validate().is_empty() and broken.validate()[0].contains("amount"), "an out-of-range part names the amount field: %s" % [broken.validate()])
+	broken.amount = 20.0
+	broken.description = ""
+	check(not broken.validate().is_empty(), "a part without its one-sentence explanation is rejected")
+
+
+## 實際格擋：延伸片讓原本擋不到的斜角擋得住，盾面跟著變寬；偏折塗層讓一般格擋也彈回子彈；
+## 反應晶片加長完美窗口；輕量骨架讓舉盾走得快；緩衝襯墊提高上限。沒裝零件時原本的規則不變。
+func _test_arm_shield_rules() -> void:
+	var spec := load("res://data/projectiles/grunt_shot.tres") as ProjectileSpec
+	var outcomes := {}
+	for with_parts: bool in [false, true]:
+		await open_level(20.0)
+		var player := level.player
+		var visual: PlayerVisual = player._visual
+		if with_parts:
+			Progression.add_credits(5000)
+			for part in Progression.arm_shield_catalog():
+				check(Progression.buy_arm_shield_part(part), "buying %s succeeds" % part.id)
+		var window := player.parry_window_length()
+		AimInput.set_virtual_gamepad(player, true)
+		_press_stick(Vector2.RIGHT)
+		await physics_frames(6)
+		Input.action_press(&"block")
+		await physics_frames(int(ceil(window * 60.0)) + 4)
+		# 斜角 68°：120° 扇形的半角是 60°（擋不到），150° 的半角是 75°（擋得到）。
+		var guard_before := player.guard
+		var health_before := player.health.current
+		var chest := player.global_position + Vector2(0, -Player.BODY_SIZE.y * 0.5)
+		var incoming := Vector2.LEFT.rotated(deg_to_rad(-68.0))  # 從前上方往下射向胸口
+		var shot := ProjectilePool.spawn(spec, chest - incoming * 36.0, incoming, Combat.Team.ENEMY)
+		await physics_frames(30)
+		var blocked := player.guard < guard_before - 0.5
+		var hurt := player.health.current < health_before
+		# 正面一發：一般格擋（窗口已過）。有偏折塗層時子彈要被彈回去（換成玩家陣營）。
+		guard_before = player.guard
+		var front := ProjectilePool.spawn(spec, chest + Vector2(30, 0), Vector2.LEFT, Combat.Team.ENEMY)
+		var reflected := false
+		for i in 20:
+			await physics_frames(1)
+			if is_instance_valid(front) and front.visible and front.team == Combat.Team.PLAYER:
+				reflected = true
+		player.velocity = Vector2.ZERO
+		_press_stick(Vector2(1.0, 0.0))
+		Input.action_press(&"move_right")
+		await physics_frames(30)
+		var block_speed := absf(player.velocity.x)
+		Input.action_release(&"move_right")
+		outcomes[with_parts] = {"window": window, "blocked_68": blocked, "hurt_68": hurt, "reflected": reflected, "speed": block_speed,
+			"guard_max": player.guard_max(), "arc_drawn": visual._shield._arc_degrees, "parts": visual._shield.parts.size()}
+		Input.action_release(&"block")
+		_press_stick(Vector2.ZERO)
+		AimInput.set_virtual_gamepad(player, false)
+		await physics_frames(2)
+		await end_level(level)
+	var bare: Dictionary = outcomes[false]
+	var full: Dictionary = outcomes[true]
+	print("NE269_RULES ", JSON.stringify(outcomes))
+	check(not bare["blocked_68"] and bare["hurt_68"], "without parts a shot 68° off the aim gets past the 120° shield")
+	check(full["blocked_68"] and not full["hurt_68"], "with the extension plate the same shot is blocked")
+	check(is_equal_approx(float(bare["arc_drawn"]), 120.0) and is_equal_approx(float(full["arc_drawn"]), 150.0), "the drawn shield widens with the blockable angle (%.0f° → %.0f°)" % [bare["arc_drawn"], full["arc_drawn"]])
+	check(not bare["reflected"] and full["reflected"], "only the deflect coat sends a normally blocked shot back")
+	check(float(full["window"]) > float(bare["window"]) + 0.04, "the reaction chip lengthens the perfect window (%.3f → %.3f s)" % [bare["window"], full["window"]])
+	check(float(full["speed"]) > float(bare["speed"]) * 1.4, "the light frame lets her move faster behind the shield (%.0f → %.0f px/s)" % [bare["speed"], full["speed"]])
+	check(float(full["guard_max"]) > float(bare["guard_max"]) * 1.25, "the cushion pad raises the guard ceiling (%.0f → %.0f)" % [bare["guard_max"], full["guard_max"]])
+	check(int(bare["parts"]) == 0 and int(full["parts"]) == Progression.arm_shield_catalog().size(), "the presentation knows which parts are fitted")
+
+
+## 購買、改裝頁、存檔與還原：錢不夠不扣款；買了寫進存檔、還原後還在；沒買過時存檔沒有新欄位；不存在的零件被拒絕。
+func _test_arm_shield_purchase_and_save() -> void:
+	await open_level(20.0)
+	var player := level.player
+	var part := Progression.find_arm_shield_part(&"extension_plate")
+	check(part != null, "the extension plate exists")
+	check(not Progression.snapshot().has("arm_shield"), "a save without parts has no arm_shield field (same as before)")
+	check(not Progression.arm_shield_block_reason(part).is_empty() and not Progression.buy_arm_shield_part(part) and Progression.credits == 0, "insufficient credits do not buy or spend")
+	var context := InventoryContext.new(player)
+	var page := UpgradesPage.new()
+	page.bind(context)
+	var entries := page._build_entries()
+	var at := page._targets.size() + Progression.arm_shield_catalog().find(part)
+	check(at < entries.size() and entries[at].title.contains(part.display_name) and entries[at].detail_stats.size() >= 2 and entries[at].detail_stats[1].contains("→"),
+			"the workbench lists the part after the weapon upgrades with a before → after preview")
+	check(not entries[at].action_enabled and entries[at].hint == part.description, "an unaffordable part is shown with its one-sentence hint")
+	Progression.add_credits(part.cost)
+	entries = page._build_entries()
+	check(page._activate_entry(at) and Progression.credits == 0 and Progression.has_arm_shield_part(part.id), "buying from the workbench charges the exact price")
+	check(is_equal_approx(player.guard_stats.block_arc_degrees(), player.tuning.block_arc_degrees + part.amount), "the fitted part takes effect immediately")
+	entries = page._build_entries()
+	check(entries[at].badge == "已裝上" and not entries[at].action_enabled, "a fitted part is marked and cannot be bought twice")
+	page.free()
+	var saved := Progression.snapshot()
+	check(saved.get("arm_shield", []) == ["extension_plate"], "the save lists the fitted part")
+	check(not Progression.prepare_install(saved).has("error") or not str(Progression.prepare_install(saved)["error"]).contains("arm_shield"), "the strict install accepts the arm shield list")
+	var foreign := saved.duplicate(true)
+	foreign["arm_shield"] = ["no_such_arm_part"]
+	check(str(Progression.prepare_install(foreign).get("error", "")).contains("arm_shield"), "the strict install rejects an unknown part")
+	Progression.reset_run()
+	check(not Progression.has_arm_shield_part(part.id) and is_equal_approx(player.guard_stats.block_arc_degrees(), player.tuning.block_arc_degrees), "a new run removes the parts")
+	Progression.restore(saved)
+	check(Progression.has_arm_shield_part(part.id) and is_equal_approx(player.guard_stats.block_arc_degrees(), player.tuning.block_arc_degrees + part.amount), "restoring the save brings the part back")
+	var damaged := saved.duplicate(true)
+	damaged["arm_shield"] = "extension_plate"
+	Progression.restore(damaged)
+	check(not Progression.has_arm_shield_part(part.id), "a damaged arm_shield field falls back to no parts")
+	await end_level(level)
 

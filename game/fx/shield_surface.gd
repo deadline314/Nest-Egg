@@ -17,6 +17,15 @@ var _broken := false
 var _arc_degrees := -1.0
 var _rim := PackedVector2Array()
 var _film := PackedVector2Array()
+## 臂盾零件的外觀（NE-269）：緩衝襯墊的內層、散熱鰭片的外緣短線。幾何跟著角度重建，不每格配置。
+var _inner := PackedVector2Array()
+var _fins := PackedVector2Array()
+const PART_REACTION := &"reaction_chip"
+const PART_EXTENSION := &"extension_plate"
+const PART_CUSHION := &"cushion_pad"
+const PART_HEAT_SINK := &"heat_sink"
+const PART_LIGHT_FRAME := &"light_frame"
+const PART_DEFLECT := &"deflect_coat"
 
 
 func update(delta: float, active: bool, broken: bool, aim: Vector2, arc_degrees: float) -> void:
@@ -37,12 +46,16 @@ func update(delta: float, active: bool, broken: bool, aim: Vector2, arc_degrees:
 func _build_geometry() -> void:
 	_rim.resize(SEGMENTS + 1)
 	_film.resize((SEGMENTS + 1) * 2)
+	_inner.resize(SEGMENTS + 1)
+	_fins.resize(SEGMENTS + 1)
 	var half_arc := deg_to_rad(_arc_degrees * 0.5)
 	for i in SEGMENTS + 1:
 		var unit := Vector2.RIGHT.rotated(lerpf(-half_arc, half_arc, float(i) / SEGMENTS))
 		_rim[i] = unit * RADIUS
 		_film[i] = unit * RADIUS
 		_film[(SEGMENTS + 1) * 2 - 1 - i] = unit * (RADIUS - 5.0)
+		_inner[i] = unit * (RADIUS - 7.0)
+		_fins[i] = unit * (RADIUS + 3.0)
 
 
 ## Contact feedback shares the shield's body-centred geometry, without changing
@@ -80,19 +93,41 @@ func paint(canvas: CanvasItem, center: Vector2, guard_ratio: float, parry_window
 	var tint := Palette.CYAN.lerp(Palette.DANGER, 1.0 - remaining)
 	# Narrow transparent film keeps both character and incoming threats visible.
 	if break_left <= 0.0:
+		var light_frame := parts.has(PART_LIGHT_FRAME)
 		if _arc_degrees > 0.01 and _arc_degrees < 359.99:
-			canvas.draw_colored_polygon(_film, Color(tint, 0.1 * alpha))
-		canvas.draw_polyline(_rim, Color(INK, alpha), 3.4, false)
+			canvas.draw_colored_polygon(_film, Color(tint, (0.06 if light_frame else 0.1) * alpha))
+		# 緩衝襯墊：盾背多一層暗色內襯。
+		if parts.has(PART_CUSHION):
+			canvas.draw_polyline(_inner, Color(INK, alpha * 0.9), 2.6, false)
+			canvas.draw_polyline(_inner, Color(tint.darkened(0.35), alpha * 0.8), 1.0, false)
+		# 散熱鰭片：盾緣外側一排短鰭。
+		if parts.has(PART_HEAT_SINK):
+			for i in range(1, SEGMENTS, 2):
+				canvas.draw_line(_rim[i], _fins[i], Color(Palette.WHITE.darkened(0.35), alpha * 0.8), 1.0)
+		# 輕量骨架：盾框變薄。
+		canvas.draw_polyline(_rim, Color(INK, alpha), 1.8 if light_frame else 3.4, false)
 		var powered := maxi(1, ceili(remaining * SEGMENTS))
 		for i in SEGMENTS:
 			var lit := i < powered
 			var edge := LightKit.glow(tint, 1.2 + 0.25 * strength) if lit else tint.darkened(0.55)
-			canvas.draw_line(_rim[i], _rim[i + 1], Color(edge, alpha * (1.0 if lit else 0.45)), 1.4 if lit else 0.8)
+			canvas.draw_line(_rim[i], _rim[i + 1], Color(edge, alpha * (1.0 if lit else 0.45)), (0.9 if light_frame else 1.4) if lit else 0.8)
 		# Both end caps survive low effects and colour blindness.
+		var cap_depth := 0.74 if parts.has(PART_EXTENSION) else 0.86  # 延伸片：兩端多一截加長片
 		for side in 2:
 			var index := side * SEGMENTS
 			var cap := _rim[index]
-			canvas.draw_line(cap * 0.86, cap, Color(Palette.WHITE, alpha * 0.85), 1.5)
+			canvas.draw_line(cap * cap_depth, cap, Color(Palette.WHITE, alpha * 0.85), 1.5)
+		# 偏折塗層：盾面中段一道反光。
+		if parts.has(PART_DEFLECT):
+			var from := int(SEGMENTS / 3.0)
+			for i in range(from, SEGMENTS - from):
+				canvas.draw_line(_rim[i] * 0.9, _rim[i + 1] * 0.9, Color(LightKit.glow(Palette.NEON_PURPLE, 1.2), alpha * 0.85), 1.3)
+		# 反應晶片：盾緣正中一排指示燈，完美格擋窗口內亮起。
+		if parts.has(PART_REACTION):
+			var middle := int(SEGMENTS / 2.0)
+			var lamp := Color(LightKit.glow(Palette.WHITE, 1.5), alpha) if parry_window else Color(tint.darkened(0.5), alpha * 0.8)
+			for i in range(middle - 1, middle + 2):
+				canvas.draw_circle(_rim[i] * 0.9, 0.9, lamp)
 		if parry_window:
 			var timer_radius := 1.0 + (1.0 + 4.0 * clampf(window_left, 0.0, 1.0) * motion) / RADIUS
 			canvas.draw_set_transform(center, direction.angle(), Vector2.ONE * timer_radius)

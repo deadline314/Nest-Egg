@@ -17,8 +17,11 @@ extends RefCounted
 ##       block_flash／parry_flash 一般格擋／完美格擋剛發生後的剩餘秒數（各自要有分得出來的回饋）。
 ##       flash_scale  Settings.flash_scale()（「減少閃光」時變小）；motion_scale 是畫面震動的設定倍率（「減少動態」時是 0）。
 ## 事件：一般格擋與完美格擋時 PlayerVisual 會呼叫 notify_impact(來襲方向，相對身體中心)，用來在盾上被打到的位置做記號。
+## parts：已裝的臂盾零件 id（反應晶片、延伸片、緩衝襯墊、散熱鰭片、輕量骨架、偏折塗層），呈現層依它畫出對應外觀。
 ## 下面四個欄位是呈現的狀態（測試與工具會讀）：extension 展開程度 0～1、break_left 破盾演出剩餘秒數、direction 盾面朝向、impact_direction 最後一次被打的方向。
 
+## 已裝的臂盾零件 id（NE-269，PlayerVisual 每格交給呈現層；同一個陣列，不複製）：每個零件在盾上要看得出差別。
+var parts: Array[StringName] = []
 var extension := 0.0
 var break_left := 0.0
 var direction := Vector2.RIGHT

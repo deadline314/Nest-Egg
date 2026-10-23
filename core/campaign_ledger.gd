@@ -130,7 +130,7 @@ static func no_grind_plan(chapters: Array[Dictionary], growth: Array[Dictionary]
 	return plan
 
 
-## 所有可以花錢的成長：槍械改裝（每把槍各自購買）、近戰招式、義體能力。防禦類目前只有電磁脈衝（NE-269 的臂盾零件落地後加入同一類）。
+## 所有可以花錢的成長：槍械改裝（每把槍各自購買）、近戰招式、義體能力；防禦類是電磁脈衝與臂盾零件（NE-269）。
 static func growth_catalog() -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	for upgrade in Progression.upgrade_catalog():
@@ -141,6 +141,9 @@ static func growth_catalog() -> Array[Dictionary]:
 		var defense := ability.kind == CyberAbilityData.Kind.EMP
 		result.append({"id": String(ability.id), "name": ability.display_name, "price": ability.unlock_cost,
 				"category": GROWTH_DEFENSE if defense else GROWTH_CYBER, "note": ability.description})
+	for part in Progression.arm_shield_catalog():
+		result.append({"id": String(part.id), "name": "臂盾・" + part.display_name, "price": part.cost,
+				"category": GROWTH_DEFENSE, "note": part.description})
 	return result
 
 

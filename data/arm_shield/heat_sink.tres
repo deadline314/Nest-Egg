@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ArmShieldPartData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/arm_shield_part_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"heat_sink"
+display_name = "散熱鰭片"
+effect = 3
+amount = 0.5
+cost = 130
+description = "擋完後防禦量更快開始回復，回復速度快 50%"
+order = 4

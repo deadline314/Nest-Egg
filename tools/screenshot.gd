@@ -279,6 +279,11 @@ func _run() -> void:
 		await _run_block()
 		get_tree().quit()
 		return
+	if _scenario == "arm_shield":
+		await _run_block("none")
+		await _run_block("all")
+		get_tree().quit()
+		return
 	if _scenario == "normals":
 		await _run_normals()
 		get_tree().quit()
@@ -852,8 +857,13 @@ func _prop_at(level: Level, type: Script, column: int) -> Node:
 
 
 ## 格擋：舉盾、完美格擋反彈、護盾能量條。
-func _run_block() -> void:
+## arm_parts：""＝原本的格擋截圖；"none"／"all"＝臂盾零件對照（NE-269），多拍一張舉盾中，檔名加上後綴，跑完移除關卡。
+func _run_block(arm_parts := "") -> void:
 	GameState.start_new_run(GameState.difficulties[1])
+	if arm_parts == "all":
+		Progression.add_credits(5000)
+		for part in Progression.arm_shield_catalog():
+			Progression.buy_arm_shield_part(part)
 	var level := Level.new()
 	level.configure(load(LEVEL_PATH))
 	add_child(level)
@@ -883,13 +893,23 @@ func _run_block() -> void:
 	await _wait(0.2)
 	Input.action_release(&"block")
 	await _settle(2)
+	var suffix := "" if arm_parts.is_empty() else "_" + arm_parts
+	if not arm_parts.is_empty():
+		Input.action_press(&"block")
+		await _wait(0.35)
+		_capture("block_hold" + suffix)
+		Input.action_release(&"block")
+		await _settle(2)
 	Input.action_press(&"block")
 	ProjectilePool.spawn(spec, player.aim_origin() + Vector2(14, -1), Vector2.LEFT, Combat.Team.ENEMY)
 	await _settle(3)
-	_capture("block_parry")
+	_capture("block_parry" + suffix)
 	await _wait(0.12)
-	_capture("block_reflect")
+	_capture("block_reflect" + suffix)
 	Input.action_release(&"block")
+	if not arm_parts.is_empty():
+		level.queue_free()
+		await _settle(3)
 
 
 ## 法線貼圖：凜旁邊放一盞暖色燈，對照高品質（法線貼圖＋輪廓光）與低品質（平面貼圖）。

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ArmShieldPartData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/arm_shield_part_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"cushion_pad"
+display_name = "緩衝襯墊"
+effect = 2
+amount = 0.3
+cost = 160
+description = "防禦量上限多 30%，被打穿後的硬直縮短 30%"
+order = 3

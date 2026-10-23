@@ -48,6 +48,8 @@ const DRY_FIRE_INTERVAL := 0.3
 var reload_track := ReloadCueTrack.new()
 var _dry_fire_left := 0.0
 var tuning: PlayerTuning
+## 格擋的有效數值（基礎 tuning＋已裝的臂盾零件，NE-269）；格擋判定只讀這裡。
+var guard_stats: GuardStats
 var health: HealthComponent
 var hurtbox: Hurtbox
 var loadout := Loadout.new()
@@ -233,7 +235,8 @@ func _ready() -> void:
 	hurtbox.guard = _guard
 	hurtbox.presents_own_guard_feedback = true  # 盾的普通格擋、反彈、破防由玩家自己播回饋
 	_update_hurtbox_shape()
-	guard = tuning.guard_max
+	guard_stats = GuardStats.build(tuning, Progression.owned_arm_shield_parts())
+	guard = guard_stats.guard_max()
 
 	_visual = PlayerVisual.new()
 	_visual.player = self
@@ -262,9 +265,12 @@ func _ready() -> void:
 	add_child(cyber)
 	# 武器改裝後重新計算實際數值；離開場景時解除（武器欄是 RefCounted，不解除會一直被單例持有）。
 	Progression.upgrades_changed.connect(loadout.retune)
+	Progression.upgrades_changed.connect(_refresh_guard_stats)
 	tree_exiting.connect(func() -> void:
 		if Progression.upgrades_changed.is_connected(loadout.retune):
-			Progression.upgrades_changed.disconnect(loadout.retune))
+			Progression.upgrades_changed.disconnect(loadout.retune)
+		if Progression.upgrades_changed.is_connected(_refresh_guard_stats):
+			Progression.upgrades_changed.disconnect(_refresh_guard_stats))
 	consumables.changed.connect(func() -> void: EventBus.player_consumables_changed.emit(consumables))
 	consumables.restore(_loadout_snapshot.get("consumables", {}))
 	_last_safe_position = global_position
@@ -476,7 +482,7 @@ func _process_normal(delta: float) -> void:
 		if signf(input_x) != 0.0 and signf(input_x) != float(facing):
 			target_speed *= tuning.backpedal_multiplier
 		if is_blocking:
-			target_speed *= tuning.block_speed_multiplier
+			target_speed *= guard_stats.block_speed_multiplier()
 	var accel: float
 	if absf(target_speed) > 1.0:
 		accel = tuning.ground_acceleration if on_floor else tuning.air_acceleration
@@ -1099,8 +1105,8 @@ func _tick_guard(delta: float) -> void:
 		is_blocking = false
 	if _guard_regen_delay_left > 0.0:
 		_guard_regen_delay_left -= delta
-	elif not is_blocking and guard < tuning.guard_max:
-		guard = minf(tuning.guard_max, guard + tuning.guard_regen_per_second * delta)
+	elif not is_blocking and guard < guard_stats.guard_max():
+		guard = minf(guard_stats.guard_max(), guard + guard_stats.guard_regen_per_second() * delta)
 		_emit_guard()
 
 
@@ -1108,9 +1114,21 @@ func is_parry_window() -> bool:
 	return is_blocking and _block_time <= parry_window_length()
 
 
-## 目前有效的完美格擋窗口秒數（夾在 0.14～0.22，連按時縮短）。
+## 目前有效的完美格擋窗口秒數（基礎值夾在 0.14～0.22，反應晶片再加長；連按時縮短）。
 func parry_window_length() -> float:
-	return clampf(tuning.parry_window, PARRY_WINDOW_MIN, PARRY_WINDOW_MAX) * _window_scale
+	return guard_stats.parry_window() * _window_scale
+
+
+## 格擋量的上限（含臂盾零件）。
+func guard_max() -> float:
+	return guard_stats.guard_max() if guard_stats != null else (tuning.guard_max if tuning != null else 100.0)
+
+
+## 臂盾零件改變時重算有效數值；上限變小時把目前的格擋量夾回去，變大時不憑空補滿（照常回復）。
+func _refresh_guard_stats() -> void:
+	guard_stats = GuardStats.build(tuning, Progression.owned_arm_shield_parts())
+	guard = minf(guard, guard_stats.guard_max())
+	_emit_guard()
 
 
 ## 受擊框的格擋判定：只擋準星方向扇形內的攻擊；剛舉盾的瞬間為完美格擋。
@@ -1121,7 +1139,7 @@ func _guard(info: DamageInfo) -> Hurtbox.Guard:
 	var incoming := info.origin - (global_position + Vector2(0, -BODY_SIZE.y * 0.5))
 	if info.is_projectile and info.knockback.length_squared() > 0.0001:
 		incoming = -info.knockback
-	if incoming.length_squared() > 1.0 and rad_to_deg(absf(incoming.angle_to(aim_dir))) > tuning.block_arc_degrees * 0.5:
+	if incoming.length_squared() > 1.0 and rad_to_deg(absf(incoming.angle_to(aim_dir))) > guard_stats.block_arc_degrees() * 0.5:
 		return Hurtbox.Guard.NONE
 	# 接觸攻擊每影格都會判定：短時間內重複的接觸只算一次，不會瞬間耗光能量。
 	if not info.is_projectile and _contact_block_left > 0.0:
@@ -1133,6 +1151,9 @@ func _guard(info: DamageInfo) -> Hurtbox.Guard:
 		_on_parry(info, shield_point)
 		return Hurtbox.Guard.REFLECT if info.is_projectile else Hurtbox.Guard.BLOCK
 	_on_block(info, shield_point)
+	# 偏折塗層：一般格擋擋下的子彈也彈回去（這一下把盾打破時不彈）。
+	if info.is_projectile and guard_stats.deflect_on_block and is_blocking:
+		return Hurtbox.Guard.REFLECT
 	return Hurtbox.Guard.BLOCK
 
 
@@ -1159,7 +1180,7 @@ func _on_block(info: DamageInfo, at: Vector2) -> void:
 		_block_hint_shown = true
 		EventBus.toast_requested.emit("剛舉盾的一瞬間被打中＝完美格擋，可反彈子彈")
 	guard -= maxf(1.0, float(info.amount)) * tuning.guard_cost_per_damage
-	_guard_regen_delay_left = tuning.guard_regen_delay
+	_guard_regen_delay_left = guard_stats.guard_regen_delay()
 	velocity.x -= aim_dir.x * 90.0
 	if guard <= 0.0:
 		_guard_break(at)
@@ -1182,7 +1203,7 @@ func _guard_break(at := Vector2.INF) -> void:
 	_guard_lockout_left = tuning.guard_break_lockout
 	_guard_regen_delay_left = tuning.guard_break_lockout
 	state = State.STAGGERED
-	_stagger_left = tuning.guard_break_stun
+	_stagger_left = guard_stats.guard_break_stun()
 	Feel.play(&"player_guard_break")
 	Fx.burst(at if at.is_finite() else aim_origin(), Palette.CYAN, 18, 160.0, 0.4)
 	Sfx.play(&"guard_break", -3.0, 0.03)
@@ -1191,7 +1212,7 @@ func _guard_break(at := Vector2.INF) -> void:
 
 
 func _emit_guard() -> void:
-	EventBus.player_guard_changed.emit(guard, tuning.guard_max, _guard_lockout_left > 0.0)
+	EventBus.player_guard_changed.emit(guard, guard_max(), _guard_lockout_left > 0.0)
 
 
 func _on_damaged(info: DamageInfo) -> void:
@@ -1267,7 +1288,7 @@ func use_consumable(id: StringName) -> bool:
 	var useful := false
 	if item.heal_amount > 0 and health.current < health.max_health:
 		useful = true
-	if item.restores_guard and (guard < tuning.guard_max or _guard_lockout_left > 0.0):
+	if item.restores_guard and (guard < guard_max() or _guard_lockout_left > 0.0):
 		useful = true
 	if not useful:
 		return false
@@ -1275,7 +1296,7 @@ func use_consumable(id: StringName) -> bool:
 	if item.heal_amount > 0:
 		health.heal(item.heal_amount)
 	if item.restores_guard:
-		guard = tuning.guard_max
+		guard = guard_max()
 		_guard_lockout_left = 0.0
 		_guard_regen_delay_left = 0.0
 		_emit_guard()

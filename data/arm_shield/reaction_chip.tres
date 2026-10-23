@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ArmShieldPartData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/arm_shield_part_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"reaction_chip"
+display_name = "反應晶片"
+effect = 0
+amount = 0.05
+cost = 120
+description = "完美格擋的時間窗加長 0.05 秒，盾緣多一條指示燈，窗口內亮起"
+order = 1

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ArmShieldPartData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/arm_shield_part_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"extension_plate"
+display_name = "延伸片"
+effect = 1
+amount = 30.0
+cost = 140
+description = "盾面加寬，擋得住的角度從 120° 加大到 150°"
+order = 2

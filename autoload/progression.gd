@@ -12,6 +12,8 @@ signal story_transaction_committed(id: StringName)
 
 const UPGRADE_DIR := "res://data/upgrades"
 const ABILITY_DIR := "res://data/abilities"
+## 臂盾零件（NE-269）。存檔裡只有買過零件才會出現 arm_shield 欄位，沒買時存檔內容和以前完全一樣。
+const ARM_SHIELD_DIR := "res://data/arm_shield"
 const SNAPSHOT_VERSION := 1
 const MAX_CREDITS := 99999
 ## 典當：當價 = 售價 × PAWN_RATE；贖回 = 當價 × (1 + PAWN_INTEREST)（進位）。同時最多 MAX_PAWNED 張當票，
@@ -34,6 +36,10 @@ var _equipped_ability: StringName = &""
 var _pawned: Dictionary[StringName, int] = {}
 var _story_transactions := StoryTransactionLedger.new()
 var _story_transaction_busy := false
+var _arm_shield_catalog: Array[ArmShieldPartData] = []
+var _arm_shield_catalog_loaded := false
+## 已裝的臂盾零件 id（依購買順序）。
+var _arm_shield_parts: Array[StringName] = []
 
 ## Opaque owner state: only the synchronous install bundle may hand this back.
 class PreparedInstall extends RefCounted:
@@ -42,6 +48,7 @@ class PreparedInstall extends RefCounted:
 	var abilities: Dictionary[StringName, bool] = {}
 	var equipped: StringName = &""
 	var pawned: Dictionary[StringName, int] = {}
+	var arm_shield: Array[StringName] = []
 	var ledger: StoryTransactionLedger
 
 
@@ -58,7 +65,7 @@ func prepare_install(raw: Variant) -> Dictionary:
 		if raw["version"] != SNAPSHOT_VERSION:
 			return {"error": "install/progression/version unsupported", "unknown_version": true}
 	for key: Variant in raw:
-		if not key is String or key not in ["version", "credits", "upgrades", "abilities", "equipped", "pawned", "story_transactions"]:
+		if not key is String or key not in ["version", "credits", "upgrades", "abilities", "equipped", "pawned", "story_transactions", "arm_shield"]:
 			return {"error": "install/progression unknown field: %s" % key}
 	if not StoryTransactionData.integer_in(raw.get("credits"), 0, MAX_CREDITS):
 		return {"error": "install/progression/credits invalid"}
@@ -101,6 +108,13 @@ func prepare_install(raw: Variant) -> Dictionary:
 		if total > MAX_PAWNED:
 			return {"error": "install/progression/pawned exceeds capacity"}
 		prepared.pawned[StringName(id)] = int(count)
+	var arm_raw: Variant = raw.get("arm_shield", [])
+	if not arm_raw is Array:
+		return {"error": "install/progression/arm_shield must be a list"}
+	for id: Variant in arm_raw:
+		if not id is String or find_arm_shield_part(StringName(id)) == null or prepared.arm_shield.has(StringName(id)):
+			return {"error": "install/progression/arm_shield unknown or repeated part: %s" % [id]}
+		prepared.arm_shield.append(StringName(id))
 	var ledger: Variant = raw.get("story_transactions", {"version": StoryTransactionLedger.VERSION, "receipts": {}})
 	var checked := StoryTransactionLedger.validate_snapshot(ledger)
 	if not checked["valid"]:
@@ -127,6 +141,7 @@ func _install_prepared(prepared: PreparedInstall) -> void:
 	_unlocked_abilities = prepared.abilities
 	_equipped_ability = prepared.equipped
 	_pawned = prepared.pawned
+	_arm_shield_parts = prepared.arm_shield
 	_story_transactions = prepared.ledger
 
 
@@ -363,6 +378,64 @@ func tuned(base: WeaponData) -> WeaponData:
 
 
 # ---------------------------------------------------------------------------
+# 臂盾零件（NE-269）
+# ---------------------------------------------------------------------------
+
+## 所有臂盾零件（依 order）。資料不合理的零件記錄錯誤並不列入，商店不會賣、存檔也不會認。
+func arm_shield_catalog() -> Array[ArmShieldPartData]:
+	if not _arm_shield_catalog_loaded:
+		_arm_shield_catalog_loaded = true
+		for res: Resource in ResourceCatalog.load_dir(ARM_SHIELD_DIR, ArmShieldPartData, "ArmShield"):
+			var part := res as ArmShieldPartData
+			if part != null and part.validate().is_empty():
+				_arm_shield_catalog.append(part)
+	return _arm_shield_catalog
+
+
+func find_arm_shield_part(id: StringName) -> ArmShieldPartData:
+	for part in arm_shield_catalog():
+		if part.id == id:
+			return part
+	return null
+
+
+func has_arm_shield_part(id: StringName) -> bool:
+	return _arm_shield_parts.has(id)
+
+
+## 已裝的零件資料（依購買順序）；給 Player 算格擋的有效數值。
+func owned_arm_shield_parts() -> Array[ArmShieldPartData]:
+	var result: Array[ArmShieldPartData] = []
+	for id in _arm_shield_parts:
+		var part := find_arm_shield_part(id)
+		if part != null:
+			result.append(part)
+	return result
+
+
+## 回傳不能買的原因（空字串代表可以買）。
+func arm_shield_block_reason(part: ArmShieldPartData) -> String:
+	if part == null or find_arm_shield_part(part.id) == null:
+		return "沒有這個零件"
+	if has_arm_shield_part(part.id):
+		return "已經裝上了"
+	if not can_afford(part.cost):
+		return "信用點不足（還差 %d）" % (part.cost - credits)
+	return ""
+
+
+## 購買零件：成功時扣款、立刻生效並通知（與武器改裝同一個訊號，介面與玩家會重新計算）。
+func buy_arm_shield_part(part: ArmShieldPartData) -> bool:
+	if not arm_shield_block_reason(part).is_empty():
+		return false
+	if not spend(part.cost):
+		return false
+	_arm_shield_parts.append(part.id)
+	upgrades_changed.emit()
+	return true
+
+
+# ---------------------------------------------------------------------------
 # 義體能力
 # ---------------------------------------------------------------------------
 
@@ -433,6 +506,7 @@ func reset_run() -> void:
 	_unlocked_abilities.clear()
 	_equipped_ability = &""
 	_pawned.clear()
+	_arm_shield_parts.clear()
 	credits_changed.emit(credits, 0)
 	upgrades_changed.emit()
 	abilities_changed.emit()
@@ -449,7 +523,10 @@ func snapshot() -> Dictionary:
 	var pawned: Dictionary = {}
 	for id in _pawned:
 		pawned[String(id)] = _pawned[id]
-	return {"version": SNAPSHOT_VERSION, "credits": credits, "upgrades": upgrades, "abilities": abilities, "equipped": String(_equipped_ability), "pawned": pawned, "story_transactions": _story_transactions.snapshot()}
+	var result := {"version": SNAPSHOT_VERSION, "credits": credits, "upgrades": upgrades, "abilities": abilities, "equipped": String(_equipped_ability), "pawned": pawned, "story_transactions": _story_transactions.snapshot()}
+	if not _arm_shield_parts.is_empty():
+		result["arm_shield"] = _arm_shield_parts.map(func(id: StringName) -> String: return String(id))
+	return result
 
 
 ## 從快照還原；資料損毀、型別不符或引用到已不存在的改裝時略過該部分，保證不崩潰。
@@ -472,6 +549,7 @@ func restore(data: Dictionary, notify := true) -> void:
 				_upgrades[StringName(str(weapon_id))] = valid
 	_restore_abilities(data)
 	_restore_pawned(data)
+	_restore_arm_shield(data)
 	if notify:
 		publish_restored()
 
@@ -482,6 +560,22 @@ func publish_restored() -> void:
 	upgrades_changed.emit()
 	abilities_changed.emit()
 	pawned_changed.emit()
+
+
+## 臂盾零件：舊存檔沒有這個欄位時視為沒有；不是清單、重複或引用到不存在的零件時略過那一項。
+func _restore_arm_shield(data: Dictionary) -> void:
+	_arm_shield_parts.clear()
+	var raw: Variant = data.get("arm_shield", [])
+	if typeof(raw) != TYPE_ARRAY:
+		if data.has("arm_shield"):
+			push_warning("[Progression] 存檔的 arm_shield 不是清單，臂盾零件視為沒有")
+		return
+	for id: Variant in raw:
+		var part_id := StringName(str(id))
+		if find_arm_shield_part(part_id) != null and not _arm_shield_parts.has(part_id):
+			_arm_shield_parts.append(part_id)
+		else:
+			push_warning("[Progression] 存檔裡的臂盾零件「%s」不存在或重複，已略過" % [id])
 
 
 ## 當票：舊存檔沒有這個欄位時視為沒有；數量不是正整數、引用到不存在的消耗品時略過，總數不超過上限。

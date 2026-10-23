@@ -260,7 +260,7 @@ func start_attack(continue_combo: bool) -> bool:
 		return false
 	if cost > 0.0:
 		host.guard -= cost
-		host._guard_regen_delay_left = float(def["windup"]) + float(def["active"]) + float(def["recovery"]) + host.tuning.guard_regen_delay
+		host._guard_regen_delay_left = float(def["windup"]) + float(def["active"]) + float(def["recovery"]) + host.guard_stats.guard_regen_delay()
 		host._emit_guard()
 	InputFeel.resolve(&"melee")
 	set_in_use = next_set

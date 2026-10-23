@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ArmShieldPartData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/arm_shield_part_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"deflect_coat"
+display_name = "偏折塗層"
+effect = 5
+amount = 0.0
+cost = 180
+description = "一般格擋擋下的子彈也會彈回去，不只完美格擋"
+order = 6

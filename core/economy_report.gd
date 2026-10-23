@@ -73,7 +73,14 @@ static func price_list() -> Dictionary:
 			continue
 		supplies += item.price * int(REQUIRED_SUPPLIES[id])
 		list.append("%s ×%d ¥%d" % [item.display_name, int(REQUIRED_SUPPLIES[id]), item.price * int(REQUIRED_SUPPLIES[id])])
-	return {"upgrades": upgrades, "supplies": supplies, "required": upgrades - optional + supplies, "list": list, "optional": optional, "optional_list": optional_list}
+	# 臂盾零件（NE-269）全部選購，另列一欄，不計入必要準備，也不改變武器改裝的合計。
+	var arm_shield := 0
+	var arm_shield_list: Array[String] = []
+	for part in Progression.arm_shield_catalog():
+		arm_shield += part.cost
+		arm_shield_list.append("臂盾・%s ¥%d" % [part.display_name, part.cost])
+	return {"upgrades": upgrades, "supplies": supplies, "required": upgrades - optional + supplies, "list": list, "optional": optional, "optional_list": optional_list,
+		"arm_shield": arm_shield, "arm_shield_list": arm_shield_list}
 
 
 ## 一段人看的對帳文字。

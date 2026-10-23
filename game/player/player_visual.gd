@@ -457,7 +457,8 @@ func _process(delta: float) -> void:
 	_finisher_flash = maxf(0.0, _finisher_flash - delta)
 	_parry_flash = maxf(0.0, _parry_flash - delta)
 	_block_flash = maxf(0.0, _block_flash - delta)
-	_shield.update(delta, player.is_blocking, player.is_guard_broken(), player.aim_dir, player.tuning.block_arc_degrees)
+	_shield.parts = player.guard_stats.parts
+	_shield.update(delta, player.is_blocking, player.is_guard_broken(), player.aim_dir, player.guard_stats.block_arc_degrees())
 	_squash = _squash.lerp(Vector2.ONE, minf(1.0, SQUASH_RECOVERY * delta))
 	scale = _squash
 	# 受傷無敵期間閃爍（衝刺／終結技的無敵不閃爍）。
@@ -562,7 +563,7 @@ func shield_wrist_local() -> Vector2:
 ## 義體方向護盾：與實際方向判定共用身體中心；動畫不改防禦窗口。
 func _draw_shield() -> void:
 	var center := to_local(player.global_position + Vector2(0, -Player.BODY_SIZE.y * 0.5))
-	var ratio := clampf(player.guard / maxf(player.tuning.guard_max, 0.001), 0.0, 1.0)
+	var ratio := clampf(player.guard / maxf(player.guard_max(), 0.001), 0.0, 1.0)
 	var left := clampf(1.0 - player._block_time / maxf(player.parry_window_length(), 0.001), 0.0, 1.0)
 	_shield.paint_emitter(self, shield_wrist_local(), center, ratio)
 	_shield.paint(self, center, ratio, player.is_parry_window(), left, _block_flash, _parry_flash,
