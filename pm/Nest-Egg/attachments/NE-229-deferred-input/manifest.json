@@ -1,0 +1,242 @@
+{
+  "pm/Nest-Egg/attachments/NE-229-deferred-input/validation.json": {
+    "bytes": 3367,
+    "sha256": "3fde4f7d28288ec684d8f1089abc555a9f76c17ef0b97ff6ee0d0ebed30ce361"
+  },
+  "source/before/game/player/vehicle_command_input.gd": {
+    "bytes": 1359,
+    "sha256": "a97fa24c34d4c8f1889251d54872e03689f9febd441e1f839a2af17e74ef0f4e"
+  },
+  "source/before/tests/suite/test_input_feel.gd": {
+    "bytes": 25682,
+    "sha256": "16672196d1edc1ba242d0904515777c656e66f349365975dba81159cc6e40fba"
+  },
+  "source/final/autoload/fx.gd": {
+    "bytes": 30188,
+    "sha256": "42874c62bd217c1b3725089629a27416519f45b4f87f9a16d39759c51f0a9b9b"
+  },
+  "source/final/game/player/player.gd": {
+    "bytes": 49351,
+    "sha256": "eb3963150f2b6e878ebab9b26e79fa659dddc3cfa84ec7f7970cc58564194c2a"
+  },
+  "source/final/game/player/vehicle_command_input.gd": {
+    "bytes": 2060,
+    "sha256": "2ae0fb3494734d3c684c6167e5cb6667a876cced3e87e87fec4357055041fecb"
+  },
+  "source/final/game/vehicles/vehicle.gd": {
+    "bytes": 8682,
+    "sha256": "2baa3689893f92a015db996cfc76e1bfee88fb025f1a0b6d50df10d97dccea71"
+  },
+  "source/final/tests/helpers/vehicle_deferred_input_checks.gd": {
+    "bytes": 3566,
+    "sha256": "1af6ce7c97c9a8d8f8c7e2b166e7fe0a87ddc9e16436949fd95d6762fca06721"
+  },
+  "source/final/tests/helpers/vehicle_deferred_input_checks.gd.uid": {
+    "bytes": 20,
+    "sha256": "1f010f1b2ccfa84f19c71a49dec09cc4dc2e2d381b281897ff93603047218a0d"
+  },
+  "source/final/tests/smoke_test.gd": {
+    "bytes": 104877,
+    "sha256": "e2eeed95b92c4335dfa6c0a74c9f530eeed205f35d0cc7971b317e9cc08fb6a0"
+  },
+  "source/final/tests/suite/test_input_feel.gd": {
+    "bytes": 25763,
+    "sha256": "e1e30388e2427bfa52968232f4303ccb907a6c17a3701a32f8b2c0bd39a2d7d5"
+  },
+  "source/final/work/batch1024/native-large.py": {
+    "bytes": 2028,
+    "sha256": "689815a568098051d1cce471b8fb65b5200aae3ead9f22b213c053f0a4246f2d"
+  },
+  "source/final/work/batch1024/vehicle-deferred-native-base.gd": {
+    "bytes": 2954,
+    "sha256": "829c1993bf8b55b901fc5ff57d617039cd880aeb004421bca035f9680234758f"
+  },
+  "source/final/work/batch1024/vehicle-deferred-native.gd": {
+    "bytes": 1801,
+    "sha256": "7a332810711f39421b5be41dd0792cba959ee693109fd897788f8d441729f61e"
+  },
+  "source/final/work/batch1024/vehicle-deferred-native.tscn": {
+    "bytes": 190,
+    "sha256": "a355adaaae4f9b1ee4b514ba866506448c028ae5650dcc0de4b2013e085248d5"
+  },
+  "source/final/work/batch1024/window_capture.gd": {
+    "bytes": 790,
+    "sha256": "7b67e3ee5817d8f32a8e4724c818a62ee0ce91a56cd0de6bc86b736adda923ce"
+  },
+  "work/batch1020b/ne229-1024-deferred-after-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "work/batch1020b/ne229-1024-deferred-after.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "work/batch1020b/ne229-1024-deferred-after.log": {
+    "bytes": 4442,
+    "sha256": "51a9e7bce2fc9205cb998437c134535c0f7149b6a79fa106954a2f567703e037"
+  },
+  "work/batch1020b/ne229-1024-deferred-after/pit-damages-and-respawns.png": {
+    "bytes": 668204,
+    "sha256": "c3d8f0de129714c0cc4ed4ced9fa4991144256ae0f872aeb35e3120b53313f7d"
+  },
+  "work/batch1020b/ne229-1024-deferred-after/player-dismounts-vehicle.png": {
+    "bytes": 658907,
+    "sha256": "3df774a6b0ba11403f6f7da8951bd43c595304c1a97c38cc90219ecde1cf3bb9"
+  },
+  "work/batch1020b/ne229-1024-deferred-after/player-mounts-vehicle.png": {
+    "bytes": 603074,
+    "sha256": "f341978bc56bffada14184e1056d7c42203156a62fd4550a6c5c8d2711ce0e63"
+  },
+  "work/batch1020b/ne229-1024-deferred-before-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "work/batch1020b/ne229-1024-deferred-before.exit": {
+    "bytes": 1,
+    "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+  },
+  "work/batch1020b/ne229-1024-deferred-before.log": {
+    "bytes": 5152,
+    "sha256": "6c9d933c2382594a21df559e1a92692edb8e6aeb74da4e43f624f40662140081"
+  },
+  "work/batch1020b/ne229-1024-deferred-before/pit-damages-and-respawns.png": {
+    "bytes": 532780,
+    "sha256": "5baef2ef442866a8afb335dc042321e2d91bd63b496a0ae8b44de0b1abea708e"
+  },
+  "work/batch1020b/ne229-1024-deferred-before/player-dismounts-vehicle.png": {
+    "bytes": 530210,
+    "sha256": "0fd7bb78675c4a3a1a46928f3e62c72e961486613d947c6bdf7594dfe38a7ce3"
+  },
+  "work/batch1020b/ne229-1024-deferred-before/player-mounts-vehicle.png": {
+    "bytes": 603143,
+    "sha256": "cb203d5500288892dcd1275a34d629190f2ee6c7e1cde984cc686743c64d282c"
+  },
+  "work/batch1024/ci-f508-final.json": {
+    "bytes": 304,
+    "sha256": "d2e69b2869939866f1ce6ccc6825046be85683ad34bba79e6933ef09532893f8"
+  },
+  "work/batch1024/ci-f508-job120824059359.log": {
+    "bytes": 448467,
+    "sha256": "62de75ab660772089ca2a1bfc6394cc0f48fb6184e58f3c027c3bd7d337c4203"
+  },
+  "work/batch1024/package-vehicle-deferred.py": {
+    "bytes": 10375,
+    "sha256": "2a5fd1bbe0ff0cbcd8add1452e28e187ee9130fb84e9901b2a26451de3001b72"
+  },
+  "work/batch1024/vehicle-deferred-after-final-console.log": {
+    "bytes": 278,
+    "sha256": "ee644140f7759e4d49a09e2ad8203c95494b4459e260cef9e221a4e272e66bf2"
+  },
+  "work/batch1024/vehicle-deferred-after-final/shard_0.log": {
+    "bytes": 3512,
+    "sha256": "2da32a70db8473ace8039cd1dfcb43dcff62e04fbddb375af5a7ed8a7418cfc7"
+  },
+  "work/batch1024/vehicle-deferred-after-viewed.json": {
+    "bytes": 653,
+    "sha256": "f98c73bbe46c6b957860016f0e2239fe7fb042eb035d6bdc330c13d20774c740"
+  },
+  "work/batch1024/vehicle-deferred-before-final-console.log": {
+    "bytes": 618,
+    "sha256": "c5178110504e604a470170c7f08be01793c3cf37f7a67c935088e39b27ec654f"
+  },
+  "work/batch1024/vehicle-deferred-before-final/shard_0.log": {
+    "bytes": 3794,
+    "sha256": "9fc3987d6d9797fc7fedebefd2c3ffc5301d4d56a6e53d265249c30c1e0dfd74"
+  },
+  "work/batch1024/vehicle-deferred-before-v2-console.log": {
+    "bytes": 517,
+    "sha256": "9058d393dbdb692ca11a64145442ccb862e21384e9948058cf62239e045f6439"
+  },
+  "work/batch1024/vehicle-deferred-before-v2/shard_0.log": {
+    "bytes": 3715,
+    "sha256": "9c31d6df5e00d44686cd75c111d0473ac1e269db5773fb994272f97df070bfa4"
+  },
+  "work/batch1024/vehicle-deferred-before-viewed.json": {
+    "bytes": 673,
+    "sha256": "dfd3d18d20b008adcdf064214fc9d36a9d72cfd40b83bda2399a9f6f83e686f2"
+  },
+  "work/batch1024/vehicle-deferred-editor.log": {
+    "bytes": 1552,
+    "sha256": "36996e0643347ead5a127f9c8138350c96a17e8ba257172795ac56760ca43950"
+  },
+  "work/batch1024/vehicle-deferred-final-proposed.gd": {
+    "bytes": 2060,
+    "sha256": "2ae0fb3494734d3c684c6167e5cb6667a876cced3e87e87fec4357055041fecb"
+  },
+  "work/batch1024/vehicle-deferred-final-source.json": {
+    "bytes": 1397,
+    "sha256": "8cb55ac1c8ab5241c6105aab562dba182d37588b655cef6c141b205ae318d81a"
+  },
+  "work/batch1024/vehicle-deferred-fixture-v1.gd": {
+    "bytes": 3433,
+    "sha256": "8901620a95a2f3f245dbd35bfe7acc6b9e6d7564f4afe98aa211742ba0b4a0ce"
+  },
+  "work/batch1024/vehicle-deferred-main-console.log": {
+    "bytes": 228,
+    "sha256": "8e5156f6d8d5b3bedf6a316148206506a384e987f1b6f54fa25199d9a949caed"
+  },
+  "work/batch1024/vehicle-deferred-main/shard_0.log": {
+    "bytes": 6220,
+    "sha256": "ea123fd30413da139ddb2834ab6b8361e0b8adef01b3a863fad9ce501ae58f85"
+  },
+  "work/batch1024/vehicle-deferred-native-after-driver.log": {
+    "bytes": 4034,
+    "sha256": "72d68ae63901260ab6c9a05932c18e5c8d53344eed44398cb6250f64cb7f18bf"
+  },
+  "work/batch1024/vehicle-deferred-native-base.gd": {
+    "bytes": 2954,
+    "sha256": "829c1993bf8b55b901fc5ff57d617039cd880aeb004421bca035f9680234758f"
+  },
+  "work/batch1024/vehicle-deferred-native-before-driver.log": {
+    "bytes": 4035,
+    "sha256": "503030fef8a642e6fbd94b02bebb1eac3b613b7a01d5c2942f9dfd5e1d6ce01b"
+  },
+  "work/batch1024/vehicle-deferred-native.gd": {
+    "bytes": 1801,
+    "sha256": "7a332810711f39421b5be41dd0792cba959ee693109fd897788f8d441729f61e"
+  },
+  "work/batch1024/vehicle-deferred-native.tscn": {
+    "bytes": 190,
+    "sha256": "a355adaaae4f9b1ee4b514ba866506448c028ae5650dcc0de4b2013e085248d5"
+  },
+  "work/batch1024/vehicle-deferred-negative-console.log": {
+    "bytes": 515,
+    "sha256": "ec0bea35c19bcac9fded756854f2c1118361ece42f63f9470c30f6bf8f32df7f"
+  },
+  "work/batch1024/vehicle-deferred-negative-final-console.log": {
+    "bytes": 522,
+    "sha256": "dd47f041af896f7562ff5782e071ac583dc43862c832255d6e27ebf3ab45c6c8"
+  },
+  "work/batch1024/vehicle-deferred-negative-final/shard_0.log": {
+    "bytes": 3715,
+    "sha256": "97c01fb69cc0ca313670720c990930f0891ca8a396ac02989656fdc0c45da606"
+  },
+  "work/batch1024/vehicle-deferred-negative/shard_0.log": {
+    "bytes": 3715,
+    "sha256": "59b017f3925b1c537f8c28abe04140c0285aa3aa941325e3bf7b6c1d0892e01a"
+  },
+  "work/batch1024/vehicle-deferred-original.gd": {
+    "bytes": 1359,
+    "sha256": "a97fa24c34d4c8f1889251d54872e03689f9febd441e1f839a2af17e74ef0f4e"
+  },
+  "work/batch1024/vehicle-deferred-package-console.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "work/batch1024/vehicle-deferred-step-before.log": {
+    "bytes": 245,
+    "sha256": "f65194520bc5cc4b03b53be625b055df493cdc5d7a4a31514ab04444caf64b38"
+  },
+  "work/batch1024/vehicle-deferred-step-probe.gd": {
+    "bytes": 271,
+    "sha256": "8b14c3e4acaf9850a8162cf51dc070fefcffb7ff22646fc4458a16ad1d656d9a"
+  },
+  "work/batch1024/vehicle-deferred-step-probe.tscn": {
+    "bytes": 198,
+    "sha256": "45588dedf89d8e021f2b0ec05c4cb62ea0e631e1af2e1efa2d26d4fa58c89459"
+  },
+  "work/batch1024/vehicle-deferred-step-suite.gd": {
+    "bytes": 25670,
+    "sha256": "192a24317071296041e50140d7230afabacf373bcc84fd6580ebb70a5e32bbd2"
+  }
+}

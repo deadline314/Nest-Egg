@@ -1,0 +1,73 @@
+{
+  "base": "f50882e9ff00620ca745a81231ba59fc5be6f6ae",
+  "prior_ci": {
+    "run_id": 40077537460,
+    "job_id": 120824059359,
+    "head": "f50882e9ff00620ca745a81231ba59fc5be6f6ae",
+    "conclusion": "success",
+    "checks": 96404,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 530,
+    "job_log_sha256": "62de75ab660772089ca2a1bfc6394cc0f48fb6184e58f3c027c3bd7d337c4203"
+  },
+  "headless": {
+    "before": {
+      "checks": 130,
+      "new_failures": 2,
+      "known_failures": 0,
+      "seconds": 19
+    },
+    "after": {
+      "checks": 130,
+      "new_failures": 0,
+      "known_failures": 0,
+      "seconds": 18
+    },
+    "original_main": {
+      "checks": 2292,
+      "new_failures": 0,
+      "known_failures": 0,
+      "seconds": 106
+    }
+  },
+  "native": {
+    "before": {
+      "checks": 20,
+      "failures": 1,
+      "exit": 1,
+      "engine_errors": 0,
+      "leaks": 0
+    },
+    "after": {
+      "checks": 20,
+      "failures": 0,
+      "exit": 0,
+      "engine_errors": 0,
+      "leaks": 0
+    }
+  },
+  "frozen_sources": {
+    "game/player/vehicle_command_input.gd": "2ae0fb3494734d3c684c6167e5cb6667a876cced3e87e87fec4357055041fecb",
+    "tests/suite/test_input_feel.gd": "e1e30388e2427bfa52968232f4303ccb907a6c17a3701a32f8b2c0bd39a2d7d5",
+    "tests/helpers/vehicle_deferred_input_checks.gd": "1af6ce7c97c9a8d8f8c7e2b166e7fe0a87ddc9e16436949fd95d6762fca06721",
+    "tests/helpers/vehicle_deferred_input_checks.gd.uid": "1f010f1b2ccfa84f19c71a49dec09cc4dc2e2d381b281897ff93603047218a0d",
+    "tests/smoke_test.gd": "e2eeed95b92c4335dfa6c0a74c9f530eeed205f35d0cc7971b317e9cc08fb6a0",
+    "autoload/fx.gd": "42874c62bd217c1b3725089629a27416519f45b4f87f9a16d39759c51f0a9b9b",
+    "game/player/player.gd": "eb3963150f2b6e878ebab9b26e79fa659dddc3cfa84ec7f7970cc58564194c2a",
+    "game/vehicles/vehicle.gd": "2baa3689893f92a015db996cfc76e1bfee88fb025f1a0b6d50df10d97dccea71",
+    "work/batch1024/vehicle-deferred-native-base.gd": "829c1993bf8b55b901fc5ff57d617039cd880aeb004421bca035f9680234758f",
+    "work/batch1024/vehicle-deferred-native.gd": "7a332810711f39421b5be41dd0792cba959ee693109fd897788f8d441729f61e",
+    "work/batch1024/vehicle-deferred-native.tscn": "a355adaaae4f9b1ee4b514ba866506448c028ae5650dcc0de4b2013e085248d5",
+    "work/batch1024/window_capture.gd": "7b67e3ee5817d8f32a8e4724c818a62ee0ce91a56cd0de6bc86b736adda923ce",
+    "work/batch1024/native-large.py": "689815a568098051d1cce471b8fb65b5200aae3ead9f22b213c053f0a4246f2d"
+  },
+  "original_tests_inputs_waits_reconstructed_identically": true,
+  "limits": [
+    "Synchronous and deferred step stops are distinct controlled cases. The old CI frozen snapshot does not identify exact earlier callback ordering.",
+    "Pending input stays only within the original Godot input edge; original FX stop/deadline and actor rules remain.",
+    "Early fixture 130/3 includes an independent hold setup contaminated by the already failed exit. v2 establishes the hold case only after recording that failure; final before130/2 and after130/0 retain all assertions.",
+    "Actual original level_01, original gameplay inputs/waits/assertions. Explicit deferred80ms stop; captures are delayed and separately logged from assertions.",
+    "Software Vulkan Forward+, Dummy audio, synthetic input only. No physical controller/GPU, rig, human chapter or full-ticket acceptance."
+  ]
+}

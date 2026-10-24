@@ -3,6 +3,9 @@ extends Node
 ## still accepts one input edge. Normal, paused and locked routes stay unchanged.
 var player: Player
 var _held := false
+# A polled press may precede its Godot just-pressed physics edge by one step.
+var _pending := false
+var _edge_seen := false
 
 
 func _ready() -> void:
@@ -10,6 +13,7 @@ func _ready() -> void:
 	# Observe after combat and actor simulation: an early poll can latch a
 	# press before combat disables its owner in this same physics step.
 	process_physics_priority = 100
+	GameplayLock.started.connect(_clear_pending)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -19,13 +23,32 @@ func _unhandled_input(event: InputEvent) -> void:
 		# Leave the normal event to the actor; capture only a suspended owner.
 		if _dispatch_frozen():
 			_held = true
+			_clear_pending()
 
 
 func _physics_process(_delta: float) -> void:
 	var pressed := Input.is_action_pressed(&"interact")
+	if get_tree().paused or GameplayLock.is_locked():
+		_clear_pending()
+		_held = pressed
+		return
 	if pressed and not _held:
-		_dispatch_frozen()
+		_pending = true
+		_edge_seen = false
+	# A short polling pulse can already be released while its original input
+	# edge is still valid for actor simulation. Never extend that engine edge.
+	if Input.is_action_just_pressed(&"interact"):
+		_edge_seen = true
+	elif _edge_seen or not pressed:
+		_clear_pending()
+	if _pending and _dispatch_frozen():
+		_clear_pending()
 	_held = pressed
+
+
+func _clear_pending() -> void:
+	_pending = false
+	_edge_seen = false
 
 
 func _dispatch_frozen() -> bool:

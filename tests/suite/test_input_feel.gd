@@ -6,6 +6,7 @@ extends TestSuite
 func run() -> void:
 	await _test_vehicle_hitstop_interaction()
 	await _test_vehicle_same_step_stop()
+	await preload("res://tests/helpers/vehicle_deferred_input_checks.gd").run(self)
 	_test_windows_from_data()
 	_test_aim_assist()
 	_test_latency()
