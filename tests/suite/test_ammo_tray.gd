@@ -182,14 +182,20 @@ func _test_screen_edge() -> void:
 	Input.action_release(&"aim_right")
 	Input.action_press(&"aim_left")
 	# 量離主角最遠的那一顆：舊做法轉身時它會一格內跳到另一邊。
+	# Sample one controlled 60Hz UI step per physics sample; rendered frames
+	# may otherwise batch several physics ticks under load.
+	const FOLLOW_TEST_DELTA := 1.0 / 60.0
 	var far := tray.icon_count() - 1
 	var largest := 0.0
 	var last := tray._slot_position(far)
+	tray.set_process(false)
 	for i in 40:
 		await frames(1)
+		tray._process(FOLLOW_TEST_DELTA)
 		var now := tray._slot_position(far)
 		largest = maxf(largest, now.distance_to(last))
 		last = now
+	tray.set_process(true)
 	Input.action_release(&"aim_left")
 	check(largest < 24.0, "轉身時彈帶平滑移動（每格最多 %.1f 畫面像素）" % largest)
 	check(tray.side() > 0.0 and tray._above < 0.01, "面向左、背後（右側）有空間時回到背後")
@@ -197,11 +203,14 @@ func _test_screen_edge() -> void:
 	player.velocity.y = -380.0
 	largest = 0.0
 	last = tray._slot_position(far)
+	tray.set_process(false)
 	for i in 50:
 		await frames(1)
+		tray._process(FOLLOW_TEST_DELTA)
 		var now := tray._slot_position(far)
 		largest = maxf(largest, now.distance_to(last))
 		last = now
+	tray.set_process(true)
 	check(largest < 24.0, "跳躍時彈帶平滑移動（每格最多 %.1f 畫面像素）" % largest)
 	# 跑步穿過切換點：從左緣面向右往畫面中間跑，彈帶從頭頂回到背後，過程平滑。
 	player.global_position.x = 20.0
@@ -211,13 +220,16 @@ func _test_screen_edge() -> void:
 	largest = 0.0
 	last = tray._slot_position(far)
 	var was_above := tray._above
+	tray.set_process(false)
 	for i in 240:
 		await frames(1)
+		tray._process(FOLLOW_TEST_DELTA)
 		var now := tray._slot_position(far)
 		largest = maxf(largest, now.distance_to(last))
 		last = now
 		if tray._above < 0.01:
 			break
+	tray.set_process(true)
 	Input.action_release(&"move_right")
 	Input.action_release(&"aim_right")
 	check(was_above > 0.99 and tray._above < 0.01, "跑離畫面邊緣後彈帶從頭頂回到背後")

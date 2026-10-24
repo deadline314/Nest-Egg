@@ -1,0 +1,35 @@
+{
+  "base": "65bccc552f98a708c767c6a290f20b0c8752afc9",
+  "original_formal_30fps": {
+    "checks": 195,
+    "failures": 1
+  },
+  "final_30fps": {
+    "checks": 195,
+    "failures": 0
+  },
+  "final_60fps": {
+    "checks": 195,
+    "failures": 0
+  },
+  "fault_30fps": {
+    "checks": 195,
+    "failures": 1,
+    "max_pixels": 114.4,
+    "scope": "Deliberate single-line immediate-side assignment, not historical checkout"
+  },
+  "original_affected": {
+    "groups": 1,
+    "checks": 33,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 41
+  },
+  "only_insertions_in_original_test": 12,
+  "all_original_source_lines_preserved": true,
+  "production_ui_unchanged_sha256": "410a1dc4f454b2715c893bb7f325f69149b2038a56446a82c27debcfb174d2b4",
+  "test_before_sha256": "7f91543141704f7283f64d2d0e2164f5b511fd2c7863fd970ea4ec0e91d26b0a",
+  "test_after_sha256": "bd6a0f6d9ed7d45695eee42c1af891931d00f23eed07cdf316d87ea226dc5c88",
+  "scope": "Headless fixed60Hz UI-component test. Production renderer/UI behavior unchanged. Counter diagram is not a native screenshot or a matched-motion improvement graph.",
+  "failed_context": "Unmerged NE229 UI candidate 64112/1 raw retained; untouched main30fps reproduces a related turn26.7 failure, not the exact jump28.8 frame."
+}
