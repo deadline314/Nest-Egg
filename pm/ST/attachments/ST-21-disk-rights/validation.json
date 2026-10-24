@@ -1,0 +1,35 @@
+{
+  "base": "3c99d3efc09bb141787ee01665f18ad6d650cf56",
+  "formal_negative_base": "1fd1bf2e1fa2ee791733a726a56b429e1f91c796",
+  "negative_merged_data_same_bytes": true,
+  "native": [
+    {
+      "tag": "before",
+      "checks": 64,
+      "failures": 0,
+      "engine_errors": 0,
+      "leaks": 0,
+      "inspected_png": "/workspace/Nest-Egg/work/batch1020b/st21-1024-rights-before/ch1_delivery_receipt-full-text.png",
+      "png_sha256": "3a49891320121f0896d54080ca5a70901506ea2700f70681fbdbac673add9cac",
+      "captured_png_count": 8,
+      "all_png_inspected": false
+    },
+    {
+      "tag": "after",
+      "checks": 64,
+      "failures": 0,
+      "engine_errors": 0,
+      "leaks": 0,
+      "inspected_png": "/workspace/Nest-Egg/work/batch1020b/st21-1024-rights-after/ch1_delivery_receipt-full-text.png",
+      "png_sha256": "5eae43ce4e0067fad3f3f1c91048e864a62f00b525e4292f84ff663b23d4abc2",
+      "captured_png_count": 8,
+      "all_png_inspected": false
+    }
+  ],
+  "only_en_receipt_body_changed": true,
+  "existing_helper_checks_preserved": true,
+  "source_current_final": {
+    "data/story_items/i18n.json": "7dd9b35e84ba2f839765563b35885ad63c627e063de2712f6e2e001a6f4d033c",
+    "tests/helpers/market_document_notice_checks.gd": "0f400e44034e3f28cc1da7539e4b36413c908f67210509cd53b2d77509256ee9"
+  }
+}

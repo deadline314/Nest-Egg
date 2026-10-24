@@ -6,4 +6,6 @@ static func run(s: TestSuite) -> void:
 	var body := StoryItems.find(&"ch1_market_summary").body_text().to_lower()
 	s.check(body.contains("not proof of payment"), "M17 English warns that the page cannot establish payment")
 	s.check(body.contains("extra pay") and body.contains("tomorrow morning"), "M17 English preserves the extra reward and next-morning explanation")
+	var receipt := StoryItems.find(&"ch1_delivery_receipt").body_text().to_lower()
+	s.check(receipt.contains("no ownership") or receipt.contains("not ownership"), "the English handoff receipt does not grant ownership of the original disk")
 	Story.language = language
