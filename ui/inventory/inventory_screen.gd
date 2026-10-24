@@ -80,7 +80,10 @@ func _input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 		return
 	var handled := true
-	if event.is_action_pressed(&"inventory") or event.is_action_pressed(&"ui_cancel") or event.is_action_pressed(&"pause"):
+	if event.is_action_pressed(&"ui_cancel"):
+		if not _pages[_current].handle_back():
+			close()
+	elif event.is_action_pressed(&"inventory") or event.is_action_pressed(&"pause"):
 		close()
 	elif event.is_action_pressed(&"inventory_prev_tab"):
 		select_tab(posmod(_current - 1, _pages.size()))

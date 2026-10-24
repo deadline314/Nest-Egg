@@ -3,6 +3,21 @@ extends CardListPage
 ## 劇情道具：只能查看。新取得的道具標記 NEW，看過（移開選取或關閉背包）後取消。
 
 
+const Reader := preload("res://ui/inventory/document_reader.gd")
+
+var _reader: Reader
+var _reader_focus: WeakRef
+
+
+func _ready() -> void:
+	super._ready()
+	# Story-item icons remain in the list; keep this column for readable text.
+	_detail._plate.hide()
+	_reader = Reader.new()
+	add_child(_reader)
+	_reader.dismissed.connect(_close_reader)
+
+
 func tab_title() -> String:
 	return "劇情道具"
 
@@ -53,6 +68,10 @@ func _entry_for(item: StoryItemData) -> InventoryEntry:
 	else:
 		entry.detail_body = item.description_text()
 		entry.hint = "劇情道具只能查看，不會被消耗"
+		if not item.body_text().is_empty():
+			entry.action_label = _copy("閱讀全文", "全文を読む", "Read full text")
+			entry.action_hint = _copy("閱讀完整記錄，不會消耗物品", "全文を読む。アイテムは消費しません", "Read full text; keep this item.")
+			entry.hint = entry.action_hint
 	return entry
 
 
@@ -73,3 +92,54 @@ func _on_selection_changed(previous: int, _current: int) -> void:
 	_entries[previous].badge = ""
 	if previous < _cards.size():
 		_cards[previous].setup(_entries[previous], previous)
+
+
+func _activate_entry(index: int) -> bool:
+	if index < 0 or index >= _entries.size() or _entries[index].action_label.is_empty():
+		return false
+	var item := StoryItems.find(_entries[index].id)
+	if item == null or not StoryItems.owns(item.id) or item.body_text().is_empty():
+		return false
+	var focus := get_viewport().gui_get_focus_owner()
+	_reader_focus = weakref(focus) if focus != null else null
+	_reader.show_document(item.title_text(), item.body_text(), item.color)
+	return false # Reading never refreshes or mutates the item transaction.
+
+
+func navigate(direction: Vector2i) -> void:
+	if _reader.visible:
+		_reader.scroll(direction.y)
+	else:
+		super.navigate(direction)
+
+
+func activate() -> void:
+	if not handle_back():
+		super.activate()
+
+
+func handle_back() -> bool:
+	if _reader == null or not _reader.visible:
+		return false
+	_close_reader()
+	return true
+
+
+func page_hidden() -> void:
+	_close_reader(false)
+	super.page_hidden()
+
+
+func _close_reader(restore_focus := true) -> void:
+	if _reader == null:
+		return
+	_reader.hide()
+	if restore_focus and _reader_focus != null:
+		var previous := _reader_focus.get_ref() as Control
+		if is_instance_valid(previous) and previous.is_visible_in_tree() and previous.focus_mode != Control.FOCUS_NONE:
+			previous.grab_focus()
+	_reader_focus = null
+
+
+static func _copy(zh: String, ja: String, en: String) -> String:
+	return ja if Story.language == "ja" else (en if Story.language == "en" else zh)

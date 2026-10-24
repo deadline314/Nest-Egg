@@ -1,0 +1,1262 @@
+{
+  "design/20-campaign-experience/STORY_ITEM_FULL_TEXT.md": {
+    "bytes": 2575,
+    "sha256": "de5c1eba8d9dfd232b4f0f1368f589d5cad8aac2709a5dfdc155dcef4b8edbf0"
+  },
+  "research/NE-244-ref-hollow-knight.jpg": {
+    "bytes": 73112,
+    "sha256": "627e6b22989c017056c64829aa56fcddcde2b06d429222634b627b4bcc10048b"
+  },
+  "research/ghost-song.webp": {
+    "bytes": 134886,
+    "sha256": "a77611cce56b4823527c365ba6b5518b569ef4f4065666d48ca8d63e08cb8a31"
+  },
+  "source/before/ui/inventory/inventory_page.gd": {
+    "bytes": 1526,
+    "sha256": "27a8950d6a5ec91372475d59ac8940bdd97b2b599f05c8743d337b49fd0f7891"
+  },
+  "source/before/ui/inventory/inventory_screen.gd": {
+    "bytes": 15129,
+    "sha256": "1efbc47ad50fcc7763cb9059a3147c3eeb87ad1feadc60ea0b14cd1a647e8530"
+  },
+  "source/before/ui/inventory/pages/story_items_page.gd": {
+    "bytes": 2439,
+    "sha256": "d08d2b6358c8147096b8036f0965a0258cba60877870308904d36ccac1dc5b01"
+  },
+  "source/final/data/story_items/ch1_market_summary.tres": {
+    "bytes": 863,
+    "sha256": "1ad9ef373ec4a7e6f48a35297099ac975d59401822cc70576ceb5e790d738628"
+  },
+  "source/final/data/story_items/ch3_report_p17.tres": {
+    "bytes": 823,
+    "sha256": "7682fc6893f9b050595df4cf2bdd4e17e7620a8910871024d85f332e0f470b3f"
+  },
+  "source/final/data/story_items/ch3_tour_card.tres": {
+    "bytes": 737,
+    "sha256": "89c4ae3bb85f6fdadff71cf45cb731b69a4313a68d74c4f83c142061d5de5b9a"
+  },
+  "source/final/data/story_items/i18n.json": {
+    "bytes": 37175,
+    "sha256": "6190e00b15b7ae1559037ad34a868f42358135ad41675be86f7edde0bb4aeb4b"
+  },
+  "source/final/game/player/vehicle_command_input.gd": {
+    "bytes": 2060,
+    "sha256": "2ae0fb3494734d3c684c6167e5cb6667a876cced3e87e87fec4357055041fecb"
+  },
+  "source/final/game/story_result_completion.gd": {
+    "bytes": 17021,
+    "sha256": "2275c2873a9ce7de17d89bdb392ea3a6b5d968e54dd4f34ca328c2cbf0964b0c"
+  },
+  "source/final/game/world_item_completion.gd": {
+    "bytes": 8518,
+    "sha256": "9727a95d55bacb557291299e037ed4fe2aa10c5b11cb664f4b9a9cf69333b8a2"
+  },
+  "source/final/tests/helpers/story_item_full_text_checks.gd": {
+    "bytes": 795,
+    "sha256": "ffc73f0fbbd75e5f06623d86494fc7322c3539d73f1a4451539c44c3a9b94754"
+  },
+  "source/final/tests/helpers/story_item_full_text_checks.gd.uid": {
+    "bytes": 20,
+    "sha256": "47b6bac06d8ffecff2b43ddae8bc8d047baf8ba5e6360d8afce9a32039a4652c"
+  },
+  "source/final/tests/suite/test_collectibles.gd": {
+    "bytes": 24831,
+    "sha256": "f54de16ecd354d93459f17ed8d40e419072822c439871e4993d38a4438a3b492"
+  },
+  "source/final/ui/inventory/card_list_page.gd": {
+    "bytes": 4581,
+    "sha256": "ac77321235c61fedaf9df6b77059423d59b2fe177a6a22e1484bccd374b2fb66"
+  },
+  "source/final/ui/inventory/detail_panel.gd": {
+    "bytes": 5500,
+    "sha256": "dce531ba889bf7b2f61ba2fb80dd473d10e48a0c97dd7313c757523eca368ea3"
+  },
+  "source/final/ui/inventory/document_reader.gd": {
+    "bytes": 2442,
+    "sha256": "d35655fbf6fca64b2a89f6f25e2315421df0d3161ab82444bbf5aeecb00a024d"
+  },
+  "source/final/ui/inventory/document_reader.gd.uid": {
+    "bytes": 19,
+    "sha256": "0e89102a182d65684b0d8585924748b65119a5058a4a4ee3270a231d90f4842b"
+  },
+  "source/final/ui/inventory/inventory_page.gd": {
+    "bytes": 1641,
+    "sha256": "609a2f87eba197f5c710d36481d1a328efd726dcc707607a1c4f99d8ad0126a2"
+  },
+  "source/final/ui/inventory/inventory_screen.gd": {
+    "bytes": 15185,
+    "sha256": "eaea5acc6761736afc3597d53979036445446291d910dfdcd2845a15535e085a"
+  },
+  "source/final/ui/inventory/pages/story_items_page.gd": {
+    "bytes": 4541,
+    "sha256": "e466ba2f64e2f74778dae52c6614d3f0d7bce0aef6843939d0eee0465cf81ef1"
+  },
+  "source/final/ui/kit/chamfer_box.gd": {
+    "bytes": 9521,
+    "sha256": "b663a2e667ad0d73d45eb7fbe893f2adfa4111ab0dfa2eb263937e9e6c906c61"
+  },
+  "source/final/ui/kit/ui_theme.gd": {
+    "bytes": 7716,
+    "sha256": "e796f61f85556cc17b0a90ca270e12cb0175bd444c6ec0873d1ac0e498a69ac3"
+  },
+  "source/final/ui/ui_kit.gd": {
+    "bytes": 11176,
+    "sha256": "b75b67b9ac78a78ad16186bca72b2ae5ada7354213ee160de047cd17b4fad20c"
+  },
+  "source/final/work/.gdignore": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "source/final/work/batch1024/inventory-body-entry-probe.gd": {
+    "bytes": 4143,
+    "sha256": "841691701bd108c343d9ed4e96cb3291ebf16fee5ead9594b0856197493fc686"
+  },
+  "source/final/work/batch1024/inventory-full-reader-probe.gd": {
+    "bytes": 12679,
+    "sha256": "9bbc6457989ce8be5f1eea4820bb3a17eaf17727c0986bd6dd0ca7eb7bba597a"
+  },
+  "source/final/work/batch1024/inventory-full-reader-probe.tscn": {
+    "bytes": 205,
+    "sha256": "7067b585cdee4a01ccfe40c798f78a7743b3157d4ba07300e47c7b8f4e764c63"
+  },
+  "source/final/work/batch1024/inventory-reader-mouse-probe.gd": {
+    "bytes": 3018,
+    "sha256": "9606668cf25d0955bac5a756a4f1a8bb3573f14e3994c4f6f968ea6ca149f648"
+  },
+  "source/final/work/batch1024/inventory-reader-mouse-probe.tscn": {
+    "bytes": 201,
+    "sha256": "4fad91f9724ac499ef0119a3dea3ea2b79ce07cc1319f83098c3ac8a5ca57468"
+  },
+  "source/final/work/batch1024/window_capture.gd": {
+    "bytes": 790,
+    "sha256": "7b67e3ee5817d8f32a8e4724c818a62ee0ce91a56cd0de6bc86b736adda923ce"
+  },
+  "validation.json": {
+    "bytes": 13170,
+    "sha256": "050ef67e379d2ae54dc94334c14471463ea69d25c371cc161f22109ad4e92a3a"
+  },
+  "work/batch1020b/ne228-1024-body-before-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "work/batch1020b/ne228-1024-body-before.exit": {
+    "bytes": 1,
+    "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+  },
+  "work/batch1020b/ne228-1024-body-before.log": {
+    "bytes": 991,
+    "sha256": "d235168f0e06a7baa238b7b28d511b61c0cd8d5e10588307f6237a25f8bfc877"
+  },
+  "work/batch1020b/ne228-1024-body-before/ch1_market_summary.png": {
+    "bytes": 271047,
+    "sha256": "d3dbdde77161e002bfecb84297e146321379b8e005b9858b094c99e628c3c39f"
+  },
+  "work/batch1020b/ne228-1024-body-before/ch3_report_p17.png": {
+    "bytes": 272747,
+    "sha256": "c28d1551a176c0461005b9f305a3a135b0bc1a3331949b44a9b8b66fe47cb83b"
+  },
+  "work/batch1020b/ne228-1024-body-before/ch3_tour_card.png": {
+    "bytes": 265701,
+    "sha256": "5c0dba1c2174a5ae9ee2fe27452665ef230576a4422fe6e97c49b2755b6de8ed"
+  },
+  "work/batch1020b/ne228-1024-body-before/inventory-body-entry.json": {
+    "bytes": 2453,
+    "sha256": "070200aedef30a42083ae38eb1f0d5bafae0692142e9dbe5582b99232110c705"
+  },
+  "work/batch1020b/ne228-1024-body-layout-experiment-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "work/batch1020b/ne228-1024-body-layout-experiment.exit": {
+    "bytes": 1,
+    "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+  },
+  "work/batch1020b/ne228-1024-body-layout-experiment.log": {
+    "bytes": 991,
+    "sha256": "d91dc61dec7d1d6748a05eda8a5b5c804d025081f7f44f0bbfa9fbe1cc396930"
+  },
+  "work/batch1020b/ne228-1024-body-layout-experiment/ch1_market_summary.png": {
+    "bytes": 314515,
+    "sha256": "0ec5d48d9ec0aef5c1a30696e2e2225727a687b460337cdae306caec4bb231d2"
+  },
+  "work/batch1020b/ne228-1024-body-layout-experiment/ch3_report_p17.png": {
+    "bytes": 326238,
+    "sha256": "084bdcfbbfff168cc91f5c2c3c22d95b9c50afae8ac0882874c7bc67d814aab1"
+  },
+  "work/batch1020b/ne228-1024-body-layout-experiment/ch3_tour_card.png": {
+    "bytes": 314255,
+    "sha256": "a9b9fc1bce93a8c0629a1a6a2d0c3be318ba37dd2750aadc040f3275d973c8ba"
+  },
+  "work/batch1020b/ne228-1024-body-layout-experiment/inventory-body-entry.json": {
+    "bytes": 3083,
+    "sha256": "0159a867b7433c3b777d5be25e87def230fe84270c9c45dd084f721ab6c34d6e"
+  },
+  "work/batch1020b/ne228-1024-reader-before-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "work/batch1020b/ne228-1024-reader-before.exit": {
+    "bytes": 1,
+    "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+  },
+  "work/batch1020b/ne228-1024-reader-before.log": {
+    "bytes": 1503,
+    "sha256": "0841ef5742010902098f2f9d7dcdc7c4e546963cadc3232641c321e025a14864"
+  },
+  "work/batch1020b/ne228-1024-reader-before/ch1_market_summary-entry.png": {
+    "bytes": 271047,
+    "sha256": "d3dbdde77161e002bfecb84297e146321379b8e005b9858b094c99e628c3c39f"
+  },
+  "work/batch1020b/ne228-1024-reader-before/ch3_report_p17-entry.png": {
+    "bytes": 272694,
+    "sha256": "9f3005d9fefc3b6a683e95371c3ec221648cad0a982160435a643031859f486e"
+  },
+  "work/batch1020b/ne228-1024-reader-before/ch3_tour_card-entry.png": {
+    "bytes": 265726,
+    "sha256": "2c87bbb5f51a51020adeb35acca3d395a19791ef28003b264ff48e28d093b1f3"
+  },
+  "work/batch1020b/ne228-1024-reader-before/reader-result.json": {
+    "bytes": 351,
+    "sha256": "31086cbb4329ac190df9952942e1ffc24792bb36dd0be0df83537e15215db9df"
+  },
+  "work/batch1020b/ne228-1024-reader-en-before-v4-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "work/batch1020b/ne228-1024-reader-en-before-v4.exit": {
+    "bytes": 1,
+    "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+  },
+  "work/batch1020b/ne228-1024-reader-en-before-v4.log": {
+    "bytes": 1959,
+    "sha256": "4274c5a6e3af5393d727e3250f4c197411737d599d801511d5c26edaaa75bdc4"
+  },
+  "work/batch1020b/ne228-1024-reader-en-before-v4/ch1_market_summary-entry.png": {
+    "bytes": 268005,
+    "sha256": "4fe86b2dbe7b57ab2518fce8a56a967dadfc479d021a0026336e6d15ac9d5ff6"
+  },
+  "work/batch1020b/ne228-1024-reader-en-before-v4/ch3_report_p17-entry.png": {
+    "bytes": 266836,
+    "sha256": "4b99f85f5cb749042c011eb91b4ad9dfa7c819a728a97fefd0969d53b526553a"
+  },
+  "work/batch1020b/ne228-1024-reader-en-before-v4/ch3_tour_card-entry.png": {
+    "bytes": 267180,
+    "sha256": "2006f79f3e7f79dcd9684a1b9c2fababb54a3bfd389db0a7bf3153d560ed649d"
+  },
+  "work/batch1020b/ne228-1024-reader-en-before-v4/ordinary-key-return.png": {
+    "bytes": 279053,
+    "sha256": "6e0a6794bf804521a5802c803ce053dad8f7242777d5228bdf1acd0633787b92"
+  },
+  "work/batch1020b/ne228-1024-reader-en-before-v4/reader-result.json": {
+    "bytes": 351,
+    "sha256": "a5189049faef661f67129431b2b0cd162ee10bcadacab75fb1a4a1accf72d6f8"
+  },
+  "work/batch1020b/ne228-1024-reader-en120-v2-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "work/batch1020b/ne228-1024-reader-en120-v2.exit": {
+    "bytes": 1,
+    "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+  },
+  "work/batch1020b/ne228-1024-reader-en120-v2.log": {
+    "bytes": 3984,
+    "sha256": "ab90154fd2d09a70a755c99ca3204c37f8ed52e435710c7207c8c3d6c1cc5aa6"
+  },
+  "work/batch1020b/ne228-1024-reader-en120-v2/artificial-scroll-end.png": {
+    "bytes": 236495,
+    "sha256": "a63f065f3b18f16dd602538f6716272d5a9ccf94695588ebef769858667f5403"
+  },
+  "work/batch1020b/ne228-1024-reader-en120-v2/ch1_market_summary-entry.png": {
+    "bytes": 277433,
+    "sha256": "07ea07375bb130cbc6cd1970ed2a585d49f01d0df3e7685ccbac0df9cc17540d"
+  },
+  "work/batch1020b/ne228-1024-reader-en120-v2/ch1_market_summary-full-text.png": {
+    "bytes": 274941,
+    "sha256": "658452df48651dc630e43e314d90ec2c6f31ce1f9401862e2fce74b5ae5b739e"
+  },
+  "work/batch1020b/ne228-1024-reader-en120-v2/ch3_report_p17-entry.png": {
+    "bytes": 276374,
+    "sha256": "53bb129b3dbb84c2d2464912862551885685b0dc64c449bcf7a304bb5d3b3877"
+  },
+  "work/batch1020b/ne228-1024-reader-en120-v2/ch3_report_p17-full-text.png": {
+    "bytes": 267411,
+    "sha256": "d065f44bca08b532ca1ec5a7b4d314b70ba8ef2ffd394ada5dc0f0fc460d41b7"
+  },
+  "work/batch1020b/ne228-1024-reader-en120-v2/ch3_tour_card-entry.png": {
+    "bytes": 276143,
+    "sha256": "ab5d39c498d08229ef8229343407e31c45d5bdcf9c1dea0eaba132f26e72cc11"
+  },
+  "work/batch1020b/ne228-1024-reader-en120-v2/ch3_tour_card-full-text.png": {
+    "bytes": 278006,
+    "sha256": "b4dc9608f451bf6c4113a4218ed39abb728e5ae12bd3ac34201b442c1da5d6b2"
+  },
+  "work/batch1020b/ne228-1024-reader-en120-v2/reader-result.json": {
+    "bytes": 2005,
+    "sha256": "7a8e62c6acd40ea7bb2ba1591553b8d77cad7364d1a77891b6cd3f072f2b958e"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v1-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v1.exit": {
+    "bytes": 1,
+    "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v1.log": {
+    "bytes": 3984,
+    "sha256": "ae3831b78ab06c34606505bc632a9bbe21ee334a0fed8ae02c5c07b7cf1103b3"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v1/artificial-scroll-end.png": {
+    "bytes": 293088,
+    "sha256": "483f3372469574063c8827a0673d5f0a0b7ee8a8a1c515e9decd3a7bc56aa722"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v1/ch1_market_summary-entry.png": {
+    "bytes": 277449,
+    "sha256": "4aa31620a250e6758de426b7ad93feac6eef4729dd78e02ec2f2aeb398a865b6"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v1/ch1_market_summary-full-text.png": {
+    "bytes": 337037,
+    "sha256": "6b4d469d7f2a600c9b3307f632299e3ee459af60dcc144346174dcafe54eebb1"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v1/ch3_report_p17-entry.png": {
+    "bytes": 279164,
+    "sha256": "fe53558eda1f16e14373ff03e3f2372eb954449229a505190b5db71ea864e51d"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v1/ch3_report_p17-full-text.png": {
+    "bytes": 349618,
+    "sha256": "7bc019aa5003f4f8b297fbbdffc98ba1f41bffd30cefb15e2d1e5c672c4d6a4f"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v1/ch3_tour_card-entry.png": {
+    "bytes": 271970,
+    "sha256": "b610221119d5e153fdb9c5336a3b89e2bfd8bfb0abe99dfc9bd1d5654fb89a5d"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v1/ch3_tour_card-full-text.png": {
+    "bytes": 331264,
+    "sha256": "035cac590dc2a0c69765d36f625c7f75d370fd86c58eee66296df36cb7ea69f0"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v1/reader-result.json": {
+    "bytes": 2199,
+    "sha256": "5cd865b73a6eee9be345d2af7af473d7d9809b2dc69e81e2b78d999dd21a167a"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v2-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v2.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v2.log": {
+    "bytes": 5720,
+    "sha256": "b414df13c10b8b67d6d188a7712d41822fb24fd71c0bcf696e066b3598916842"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v2/actual-background-hidden-crop.png": {
+    "bytes": 238,
+    "sha256": "50c3a1ae5633506b30e0f5327362a26db6ee56478047aacac8baed81adae8e6a"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v2/actual-background-visible-crop.png": {
+    "bytes": 238,
+    "sha256": "50c3a1ae5633506b30e0f5327362a26db6ee56478047aacac8baed81adae8e6a"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v2/artificial-scroll-end.png": {
+    "bytes": 234200,
+    "sha256": "b95a9989c152832eb2cec5bdcba372522130e513a52d851792abbba7e6986790"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v2/ch1_market_summary-entry.png": {
+    "bytes": 277673,
+    "sha256": "1775aa922b6d98da6936a3e200541396dd9f0c9962fe3cf760b17b6138205f80"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v2/ch1_market_summary-full-text.png": {
+    "bytes": 273216,
+    "sha256": "bfe1945c4bae43d8a773453a80afa80e2df6ee8d55b64d1d2b4165c4e94e9a1d"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v2/ch3_report_p17-entry.png": {
+    "bytes": 279245,
+    "sha256": "38b70bcc99a615f8e12dca8e297f8c1e450ff6236f564d3e2accfa73047907ee"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v2/ch3_report_p17-full-text.png": {
+    "bytes": 287038,
+    "sha256": "7b4b97655e870ed391eb326f9c90416d02568e2e48de2e694db2ba3d37910c48"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v2/ch3_tour_card-entry.png": {
+    "bytes": 272130,
+    "sha256": "07f65e328a89032ae3c4880843446e101d838522890e71f133f2ffd37df2cb4d"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v2/ch3_tour_card-full-text.png": {
+    "bytes": 270592,
+    "sha256": "f34407103d199bc1931c9adfbb1d5796ad652f3d996334424864f8b45c2a9f35"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v2/legacy-background-hidden-crop.png": {
+    "bytes": 238,
+    "sha256": "50c3a1ae5633506b30e0f5327362a26db6ee56478047aacac8baed81adae8e6a"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v2/legacy-background-visible-crop.png": {
+    "bytes": 5533,
+    "sha256": "9abc5468e9784344027935a0d5d822715006a28bc2e8a4c61d8fd86ac6445d15"
+  },
+  "work/batch1020b/ne228-1024-reader-ja120-v2/reader-result.json": {
+    "bytes": 2199,
+    "sha256": "7574bed42a7c1bde655c89aaf0bf352c6dd0b36082853a99fb63fa294fd4cebd"
+  },
+  "work/batch1020b/ne228-1024-reader-mouse-v1-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "work/batch1020b/ne228-1024-reader-mouse-v1.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "work/batch1020b/ne228-1024-reader-mouse-v1.log": {
+    "bytes": 4847,
+    "sha256": "9c22886367b56abb6e74f074e73507750f2cb0b80bd04a2905eeccafcf511b0f"
+  },
+  "work/batch1020b/ne228-1024-reader-mouse-v1/artificial-scroll-end.png": {
+    "bytes": 230026,
+    "sha256": "6a564a3ae9e676053cfd0653b458cbb7754654afe40f7167dd3938ed069d3746"
+  },
+  "work/batch1020b/ne228-1024-reader-mouse-v1/ch1_market_summary-entry.png": {
+    "bytes": 267499,
+    "sha256": "993f3a6d688106cb173b7bb118a86f40d9093254c0e0faab97570a3433180f9c"
+  },
+  "work/batch1020b/ne228-1024-reader-mouse-v1/ch1_market_summary-full-text.png": {
+    "bytes": 267766,
+    "sha256": "fcdbd2cab8af45a734bd875ce2e7f137cc64e42e4468b6ab2715b6549ba87485"
+  },
+  "work/batch1020b/ne228-1024-reader-mouse-v1/ch3_report_p17-entry.png": {
+    "bytes": 265746,
+    "sha256": "d672572ee46104894889c5e40930d73b608a35ccc8b5a7d544c6fab4993811f1"
+  },
+  "work/batch1020b/ne228-1024-reader-mouse-v1/ch3_report_p17-full-text.png": {
+    "bytes": 260075,
+    "sha256": "32c99d51b5746a80aba7379dcd3ad089236e9f19e9b309f0902b32cada7cf6ae"
+  },
+  "work/batch1020b/ne228-1024-reader-mouse-v1/ch3_tour_card-entry.png": {
+    "bytes": 264114,
+    "sha256": "b0d3c53e2af6dcf4151fe154e5a23105af56ab326f82d6a4375179b6680c2650"
+  },
+  "work/batch1020b/ne228-1024-reader-mouse-v1/ch3_tour_card-full-text.png": {
+    "bytes": 271645,
+    "sha256": "58474cbdc287d1c38d46399e42ec0469b8c84914786b902cc11ea3e4bbed2e12"
+  },
+  "work/batch1020b/ne228-1024-reader-mouse-v1/mouse-route.json": {
+    "bytes": 338,
+    "sha256": "a223e862921af377708cfeafaf2ad54b0386663dd9997b4f1c187fd86084eb2e"
+  },
+  "work/batch1020b/ne228-1024-reader-mouse-v1/ordinary-key-return.png": {
+    "bytes": 278224,
+    "sha256": "e73edd18063854d5112654834ad732e59eb25ecafabb001cf1ea8bc0a24466f3"
+  },
+  "work/batch1020b/ne228-1024-reader-mouse-v1/reader-result.json": {
+    "bytes": 2092,
+    "sha256": "3242f71d3945ca1691fee33b6ece76364945b007ec90200c2535b64e85a19bcc"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-en720-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-en720.exit": {
+    "bytes": 1,
+    "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-en720.log": {
+    "bytes": 4159,
+    "sha256": "cae72526ed019c26486dfeb4f5d903fd63a2f9c0683350679a763be3ef9ca9db"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-en720/artificial-scroll-end.png": {
+    "bytes": 236495,
+    "sha256": "a63f065f3b18f16dd602538f6716272d5a9ccf94695588ebef769858667f5403"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-en720/ch1_market_summary-entry.png": {
+    "bytes": 274096,
+    "sha256": "a95a756b04edd17570bfad92bfb9d3c779178bc1912dfaab43dbe24dec76c961"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-en720/ch1_market_summary-full-text.png": {
+    "bytes": 273979,
+    "sha256": "a13d6636a2ae3613e94472a54e7c751c2bf0d2f63d9cece1f83b09427d2e5437"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-en720/ch3_report_p17-entry.png": {
+    "bytes": 272287,
+    "sha256": "346e54204f58e962f112645635215c7cd14e6730e5311de292920fa35675ccf0"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-en720/ch3_report_p17-full-text.png": {
+    "bytes": 266529,
+    "sha256": "5b6b36680a753be2841e1f76521b891f62248d336325c266111917796116f700"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-en720/ch3_tour_card-entry.png": {
+    "bytes": 270718,
+    "sha256": "8d869b55bd3cbde8e1e5a0b14905ace803008edc4df313ea3a7779c6806c6274"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-en720/ch3_tour_card-full-text.png": {
+    "bytes": 278006,
+    "sha256": "b4dc9608f451bf6c4113a4218ed39abb728e5ae12bd3ac34201b442c1da5d6b2"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-en720/ordinary-key-return.png": {
+    "bytes": 279170,
+    "sha256": "d5b9e4a2309d3a6ae74fa44a8926722ead7de5584d95d760ecdff3a18770975a"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-en720/reader-result.json": {
+    "bytes": 2092,
+    "sha256": "abafc7ab5aa38c47a4627f58367728489724ceae609cc2ede2249723018b4f9f"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-ja720-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-ja720.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-ja720.log": {
+    "bytes": 5847,
+    "sha256": "e58cc3072e8946fa7c0407784a26a21eac6d90aaf820e82d987c0588d388153f"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-ja720/actual-background-hidden-crop.png": {
+    "bytes": 238,
+    "sha256": "50c3a1ae5633506b30e0f5327362a26db6ee56478047aacac8baed81adae8e6a"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-ja720/actual-background-visible-crop.png": {
+    "bytes": 238,
+    "sha256": "50c3a1ae5633506b30e0f5327362a26db6ee56478047aacac8baed81adae8e6a"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-ja720/artificial-scroll-end.png": {
+    "bytes": 234200,
+    "sha256": "b95a9989c152832eb2cec5bdcba372522130e513a52d851792abbba7e6986790"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-ja720/ch1_market_summary-entry.png": {
+    "bytes": 274517,
+    "sha256": "33a52b5b27a4108dffb694b3beac64c0ed9e66ae033582d72e4624333bea3a18"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-ja720/ch1_market_summary-full-text.png": {
+    "bytes": 273216,
+    "sha256": "bfe1945c4bae43d8a773453a80afa80e2df6ee8d55b64d1d2b4165c4e94e9a1d"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-ja720/ch3_report_p17-entry.png": {
+    "bytes": 275731,
+    "sha256": "fbc5e4916508c82b02c8d29776883d151fe371a1e5cffae6a8df774fed990912"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-ja720/ch3_report_p17-full-text.png": {
+    "bytes": 287038,
+    "sha256": "7b4b97655e870ed391eb326f9c90416d02568e2e48de2e694db2ba3d37910c48"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-ja720/ch3_tour_card-entry.png": {
+    "bytes": 267303,
+    "sha256": "ed057ec539a3f2d94c0a6c57fe6e92af83fb9b3c22412cc53d28869cf2156a83"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-ja720/ch3_tour_card-full-text.png": {
+    "bytes": 270592,
+    "sha256": "f34407103d199bc1931c9adfbb1d5796ad652f3d996334424864f8b45c2a9f35"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-ja720/legacy-background-hidden-crop.png": {
+    "bytes": 238,
+    "sha256": "50c3a1ae5633506b30e0f5327362a26db6ee56478047aacac8baed81adae8e6a"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-ja720/legacy-background-visible-crop.png": {
+    "bytes": 1952,
+    "sha256": "c99dea16f5d6729ebcffa9dacbb0318731f66a26888740e4c090dfaceaa82ce9"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-ja720/ordinary-key-return.png": {
+    "bytes": 275582,
+    "sha256": "9870ddc44fe1852cfdc256b1f628ea29e4673d5fb4f09e945bf785b6a9d8bb1a"
+  },
+  "work/batch1020b/ne228-1024-reader-v3-ja720/reader-result.json": {
+    "bytes": 2289,
+    "sha256": "f3f6ad9fe39be3d92e67268fa4c8daf31161b07bc6e21d3b6f56b9b31d0431ec"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-en720-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-en720.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-en720.log": {
+    "bytes": 4440,
+    "sha256": "1f0e3481f5c7a49472f885baa61eb8cdfd6fd477336238dde4faf56106738dca"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-en720/artificial-scroll-end.png": {
+    "bytes": 230026,
+    "sha256": "6a564a3ae9e676053cfd0653b458cbb7754654afe40f7167dd3938ed069d3746"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-en720/ch1_market_summary-entry.png": {
+    "bytes": 267499,
+    "sha256": "993f3a6d688106cb173b7bb118a86f40d9093254c0e0faab97570a3433180f9c"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-en720/ch1_market_summary-full-text.png": {
+    "bytes": 267766,
+    "sha256": "fcdbd2cab8af45a734bd875ce2e7f137cc64e42e4468b6ab2715b6549ba87485"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-en720/ch3_report_p17-entry.png": {
+    "bytes": 265746,
+    "sha256": "d672572ee46104894889c5e40930d73b608a35ccc8b5a7d544c6fab4993811f1"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-en720/ch3_report_p17-full-text.png": {
+    "bytes": 260075,
+    "sha256": "32c99d51b5746a80aba7379dcd3ad089236e9f19e9b309f0902b32cada7cf6ae"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-en720/ch3_tour_card-entry.png": {
+    "bytes": 264114,
+    "sha256": "b0d3c53e2af6dcf4151fe154e5a23105af56ab326f82d6a4375179b6680c2650"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-en720/ch3_tour_card-full-text.png": {
+    "bytes": 271645,
+    "sha256": "58474cbdc287d1c38d46399e42ec0469b8c84914786b902cc11ea3e4bbed2e12"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-en720/ordinary-key-return.png": {
+    "bytes": 278224,
+    "sha256": "e73edd18063854d5112654834ad732e59eb25ecafabb001cf1ea8bc0a24466f3"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-en720/reader-result.json": {
+    "bytes": 2092,
+    "sha256": "3242f71d3945ca1691fee33b6ece76364945b007ec90200c2535b64e85a19bcc"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-ja720-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-ja720.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-ja720.log": {
+    "bytes": 6128,
+    "sha256": "46251e2c7e8a6f85a039b179a8c56ff0f5e3cee4072a7cae50d188f8b89370cf"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-ja720/actual-background-hidden-crop.png": {
+    "bytes": 238,
+    "sha256": "50c3a1ae5633506b30e0f5327362a26db6ee56478047aacac8baed81adae8e6a"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-ja720/actual-background-visible-crop.png": {
+    "bytes": 238,
+    "sha256": "50c3a1ae5633506b30e0f5327362a26db6ee56478047aacac8baed81adae8e6a"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-ja720/artificial-scroll-end.png": {
+    "bytes": 234200,
+    "sha256": "b95a9989c152832eb2cec5bdcba372522130e513a52d851792abbba7e6986790"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-ja720/ch1_market_summary-entry.png": {
+    "bytes": 275038,
+    "sha256": "57e72d4733fff110a9d8ec64429dbee1583e6e451fca161ad4034e36aa8d3638"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-ja720/ch1_market_summary-full-text.png": {
+    "bytes": 273216,
+    "sha256": "bfe1945c4bae43d8a773453a80afa80e2df6ee8d55b64d1d2b4165c4e94e9a1d"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-ja720/ch3_report_p17-entry.png": {
+    "bytes": 275757,
+    "sha256": "9df45d08864259c0a28532db12228f472ec96cd641b7713a864da378f357009e"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-ja720/ch3_report_p17-full-text.png": {
+    "bytes": 287038,
+    "sha256": "7b4b97655e870ed391eb326f9c90416d02568e2e48de2e694db2ba3d37910c48"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-ja720/ch3_tour_card-entry.png": {
+    "bytes": 267311,
+    "sha256": "52fcc462d65c42992a448f37f0252935be415710a84361f8daf5e49d6c9fe6df"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-ja720/ch3_tour_card-full-text.png": {
+    "bytes": 270592,
+    "sha256": "f34407103d199bc1931c9adfbb1d5796ad652f3d996334424864f8b45c2a9f35"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-ja720/legacy-background-hidden-crop.png": {
+    "bytes": 238,
+    "sha256": "50c3a1ae5633506b30e0f5327362a26db6ee56478047aacac8baed81adae8e6a"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-ja720/legacy-background-visible-crop.png": {
+    "bytes": 1952,
+    "sha256": "c99dea16f5d6729ebcffa9dacbb0318731f66a26888740e4c090dfaceaa82ce9"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-ja720/ordinary-key-return.png": {
+    "bytes": 274117,
+    "sha256": "2a67a8cb020fb6392c640e58d0d09900b3523b045c81cbd3007195ecb2c5649f"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-ja720/reader-result.json": {
+    "bytes": 2289,
+    "sha256": "4f3dd2a6c06605a50bbf530f3c65708921fadc49c89b05c25bd7268dbaa2b71a"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zh1080pixel-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zh1080pixel.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zh1080pixel.log": {
+    "bytes": 4392,
+    "sha256": "38d6bbdb944dfb3c7136f6451b65ab66f8298e6e05fe15c858d4ccdb7567d8b3"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zh1080pixel/artificial-scroll-end.png": {
+    "bytes": 252170,
+    "sha256": "f3fbff4835c3f95666519a95a5c0cbffe42f448c28f9a000e50e656c93b878d5"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zh1080pixel/ch1_market_summary-entry.png": {
+    "bytes": 262259,
+    "sha256": "c893eb0265f5d14f7e190c4bade3ca7520d8675c4aad3c09206be834eb385fa0"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zh1080pixel/ch1_market_summary-full-text.png": {
+    "bytes": 257243,
+    "sha256": "fd48e521ac7bbc6d4245d76f94b6b4f959a534e82b0b0f4474928387a771d4e1"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zh1080pixel/ch3_report_p17-entry.png": {
+    "bytes": 262145,
+    "sha256": "0f2e95b317edee7a8f0d516067a99f192139e83a7e2d641fb5022e13aaa5cc4b"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zh1080pixel/ch3_report_p17-full-text.png": {
+    "bytes": 255844,
+    "sha256": "526feb2e6a6e395ad555e822456305d94d4d96be7c6c0b59f98dd8a4e097c2d4"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zh1080pixel/ch3_tour_card-entry.png": {
+    "bytes": 261697,
+    "sha256": "2baecd9e752fa9012734093a23425b7ae00d29501915a08084692bd0ffed4938"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zh1080pixel/ch3_tour_card-full-text.png": {
+    "bytes": 253625,
+    "sha256": "b86d9a7fcbb23c7513b1dadf49302a3f6833c72c5c0b114fc3dc32b7658c9238"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zh1080pixel/ordinary-key-return.png": {
+    "bytes": 262099,
+    "sha256": "276b7101d705ded14414b2014e405cd4e8f349f712ded852bee6ba0e7d8f3bf5"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zh1080pixel/reader-result.json": {
+    "bytes": 2296,
+    "sha256": "46104f333f243989d3f2318e1d12d1b75d4ef016d1f379ff44725fd6f55da3cc"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zhwide-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zhwide.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zhwide.log": {
+    "bytes": 4392,
+    "sha256": "38d6bbdb944dfb3c7136f6451b65ab66f8298e6e05fe15c858d4ccdb7567d8b3"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zhwide/artificial-scroll-end.png": {
+    "bytes": 417060,
+    "sha256": "0addf1e13b31c6ae9a557444376ed307fec68979bb1ca7ab538415c55639ad13"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zhwide/ch1_market_summary-entry.png": {
+    "bytes": 450674,
+    "sha256": "acc9594eea7a73a01f33ff83f53458790e90b61312a820edff00573d2ab55656"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zhwide/ch1_market_summary-full-text.png": {
+    "bytes": 499168,
+    "sha256": "b1ff9e2f6a4b7619f41dce48c8095ba6886e303562008da6ea4dff823b14483e"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zhwide/ch3_report_p17-entry.png": {
+    "bytes": 453476,
+    "sha256": "d567cca6dd907f5acf58f874421e9848e6f7e9e634c1dcef3d3fdf16787f1c5d"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zhwide/ch3_report_p17-full-text.png": {
+    "bytes": 501969,
+    "sha256": "adaedf8f44e6e87407ab59c649e66abd1126e25190d55f2c2c83a4ff8ac21f11"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zhwide/ch3_tour_card-entry.png": {
+    "bytes": 442936,
+    "sha256": "d462636b1faea77991d8ff5ba2d7b01920cb047098ec49fffcb418e93da087ce"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zhwide/ch3_tour_card-full-text.png": {
+    "bytes": 439406,
+    "sha256": "65644b6e6b4434bc91853fd4d56e3e7229d4001848f1a25fd9bdc1a4b852e895"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zhwide/ordinary-key-return.png": {
+    "bytes": 460225,
+    "sha256": "baae2cad8923471d48dfebf00f30979ed1d388ef8c3d93cec04d767eadf1a35e"
+  },
+  "work/batch1020b/ne228-1024-reader-v4-zhwide/reader-result.json": {
+    "bytes": 2302,
+    "sha256": "80a9c65f9718bfa737a6c3c5bc1186b8b05e64ce15b2e12dd4411c1a2f8429e3"
+  },
+  "work/batch1024/ci-1bbac54e-final.json": {
+    "bytes": 304,
+    "sha256": "0254c57e767d24e43afea328a9db8961e8983b651c6e69f9177de82f6923e083"
+  },
+  "work/batch1024/ci-1bbac54e-job120830778332.log": {
+    "bytes": 448800,
+    "sha256": "1d8ab43e0fff2671a1459363db87a77a200500ba35ee0310071a4d558deb8cef"
+  },
+  "work/batch1024/document-reader-proposed.gd": {
+    "bytes": 2222,
+    "sha256": "736a9723b06db6fede02274adbd256d52dbd385571f3637ad95f1f264a71d5a6"
+  },
+  "work/batch1024/inventory-body-before-viewed.json": {
+    "bytes": 1644,
+    "sha256": "6bcd7876179d104d4143fdc55f854f7aca670d964a13f364bbe94de30f22aa1c"
+  },
+  "work/batch1024/inventory-body-entry-probe-v0.gd": {
+    "bytes": 3659,
+    "sha256": "3c6e61b4a48d3cf0590646ef6325b8ce61f25036ba5d1f8b7b93b7db4c71ff2b"
+  },
+  "work/batch1024/inventory-body-entry-probe.gd": {
+    "bytes": 4071,
+    "sha256": "8391d12873e88fe95ec18d9b2e15f2c5acc89936598ecbcac802450f3afa70a8"
+  },
+  "work/batch1024/inventory-body-entry-probe.tscn": {
+    "bytes": 203,
+    "sha256": "d572c5357f5f84a60b6b277881bbfeef150373ce6f198872ba748299bc64923c"
+  },
+  "work/batch1024/inventory-body-layout-experiment-driver.log": {
+    "bytes": 1033,
+    "sha256": "2b199f2ed898527651eee20a7b76215d9ab4951c8174cdd2e469b1ca50143616"
+  },
+  "work/batch1024/inventory-body-layout-experiment.gd": {
+    "bytes": 4380,
+    "sha256": "7ce10c317fdd78d0e62a9ef04ff07b3b8c4bacafaaa73a18b1284266db44190a"
+  },
+  "work/batch1024/inventory-body-layout-experiment.tscn": {
+    "bytes": 209,
+    "sha256": "cb8b0247cb1e049850e493243550a47afaf9f87c1a761771c5a1180463a58fa2"
+  },
+  "work/batch1024/inventory-body-layout-viewed.json": {
+    "bytes": 682,
+    "sha256": "4b65a0e5779cd248f1b0fc730d38f343e4285a3699c3f5706a762a107435c756"
+  },
+  "work/batch1024/inventory-body-native-before-driver.log": {
+    "bytes": 1022,
+    "sha256": "c9e1adaf1f84fed19776f897181f4181132c3be464c98486a161aa2ab7d84497"
+  },
+  "work/batch1024/inventory-changed-final-console.log": {
+    "bytes": 623,
+    "sha256": "24299753acf27f8ea57c41c691013d6fe47317dae869f792df9e743743b2ca52"
+  },
+  "work/batch1024/inventory-changed-final/shard_0.log": {
+    "bytes": 51667,
+    "sha256": "013fa1cf5dad0398d8e6384e4e173c793ed3bff88ad9644c964f9ae635ceb9d4"
+  },
+  "work/batch1024/inventory-changed-final/shard_1.log": {
+    "bytes": 1856,
+    "sha256": "a1e4d903040d2cfc0d29931038f6fd9e169a277c40beaf6c3c6a2a831e9d8db6"
+  },
+  "work/batch1024/inventory-changed-final/shard_2.log": {
+    "bytes": 6220,
+    "sha256": "d2daf01d2f761a1d58243aac416fff748ce99906448e0be63b7d42459162c706"
+  },
+  "work/batch1024/inventory-changed-final/shard_3.log": {
+    "bytes": 103010,
+    "sha256": "a0e3f9ed153bd704034217295902ce772cb69261fc33626807c944d80437bfd3"
+  },
+  "work/batch1024/inventory-controller-regression-console.log": {
+    "bytes": 245,
+    "sha256": "85f7f12ac55b03e35e3eb749242fb2516e7d0b5de7e05cfe140022bda75038c0"
+  },
+  "work/batch1024/inventory-controller-regression/shard_0.log": {
+    "bytes": 3512,
+    "sha256": "02f8bad776d0914d99074a47bb83438638f3bfafa73f344d05d91bd4e8e63308"
+  },
+  "work/batch1024/inventory-editor-after.log": {
+    "bytes": 1394,
+    "sha256": "6b51efa8d6ced7e61970580ebfadc5e6318d9116ef9e2294869b0dcd6d561767"
+  },
+  "work/batch1024/inventory-editor-before.log": {
+    "bytes": 308008,
+    "sha256": "e1117cc0a60be3d8a19b33fcb9ce62b555cf26b8a19fd38c585bb06756ddc81f"
+  },
+  "work/batch1024/inventory-final-source-v4.json": {
+    "bytes": 2579,
+    "sha256": "a18baa717546298103b12a02763cbb4e6d361ec3a6e4f8462f3abcdc3559d390"
+  },
+  "work/batch1024/inventory-final-source.json": {
+    "bytes": 2579,
+    "sha256": "59cf53a3be4b232e0ba947545fd8a25352f5908b4208e2d05e38e1b6d3c21715"
+  },
+  "work/batch1024/inventory-formal-after-console.log": {
+    "bytes": 239,
+    "sha256": "6c9f13ddd3dee0b6c0a6d0d564ee770bb5e5185aaa864b137eb992a50a5beeda"
+  },
+  "work/batch1024/inventory-formal-after-v2-console.log": {
+    "bytes": 242,
+    "sha256": "2b80c0d31af4f16af899392952e3537b42cc34b7418ef017024c25f0327473e9"
+  },
+  "work/batch1024/inventory-formal-after-v2/shard_0.log": {
+    "bytes": 24837,
+    "sha256": "fb77ffdb56d5905b7a98e9659be9fa9c4ea3024ed9c2899ce08b03f117ca4114"
+  },
+  "work/batch1024/inventory-formal-after/shard_0.log": {
+    "bytes": 24837,
+    "sha256": "e7cd629c9f058ec9126030be5a09ca3d3e08d578673af7ab292e950455745a3f"
+  },
+  "work/batch1024/inventory-formal-before-console.log": {
+    "bytes": 507,
+    "sha256": "921271d8f787a28ed15f46294dd635aa6313954f5f69549008857ac73d2047ea"
+  },
+  "work/batch1024/inventory-formal-before/shard_0.log": {
+    "bytes": 25047,
+    "sha256": "e2122d3e23b688c57d58f2597c58741951ef9c4d0850402ddc91d2a4e8f7f6e7"
+  },
+  "work/batch1024/inventory-merged-base.json": {
+    "bytes": 981,
+    "sha256": "0ef18994e3cc918dad3a8384f4a19f65cab679529dd76aecca3b4bc9ff4ba328"
+  },
+  "work/batch1024/inventory-native-final-console.log": {
+    "bytes": 1929,
+    "sha256": "bf418e7f05b70aa1ec026721af044aa1edebf9470c1adcd13642a349bc0f35d8"
+  },
+  "work/batch1024/inventory-native-final-v4-console.log": {
+    "bytes": 1986,
+    "sha256": "f377c42b9fc6f399ab0e4d4417147febc177cb073e3ee7202fcf844be16310b6"
+  },
+  "work/batch1024/inventory-native-final-v4.json": {
+    "bytes": 2437,
+    "sha256": "de5e516efc3c5da958989255b0f565ae314384942ba083171929b95891824882"
+  },
+  "work/batch1024/inventory-native-final-v4.py": {
+    "bytes": 2926,
+    "sha256": "bc9206d6d23061b42df0ebb9d94c2f95efdacd451829dc0227b79592343ee28c"
+  },
+  "work/batch1024/inventory-native-final.json": {
+    "bytes": 1268,
+    "sha256": "501c69397a67a392d1f41cb48dc43f0a7f07997cd4b5432d1acf102c7c447ef5"
+  },
+  "work/batch1024/inventory-native-final.py": {
+    "bytes": 2920,
+    "sha256": "52d82f7844b3eb2cdc29348e42558150baf5102c5c4f5214877eaded8b201dd0"
+  },
+  "work/batch1024/inventory-native-v4-viewed.json": {
+    "bytes": 5830,
+    "sha256": "0cffee702a32ea492ac03aa7aa4dde9e0159a659a68212ce521223d7e53e8102"
+  },
+  "work/batch1024/inventory-original-ui-source.json": {
+    "bytes": 325,
+    "sha256": "df4c2bbe56d4ed2786a2275c517a3d68919b9a5b6b80f3c325be16174ed10d34"
+  },
+  "work/batch1024/inventory-package-console.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "work/batch1024/inventory-page-proposed.gd": {
+    "bytes": 1641,
+    "sha256": "609a2f87eba197f5c710d36481d1a328efd726dcc707607a1c4f99d8ad0126a2"
+  },
+  "work/batch1024/inventory-preserved-stash.json": {
+    "bytes": 977,
+    "sha256": "f0b05ff23ea56e4f2005a7771d9120c82cf41da56a732afec96b607092c2a1ae"
+  },
+  "work/batch1024/inventory-reader-en120-v2-rejected.json": {
+    "bytes": 1392,
+    "sha256": "64510bf56e4187aa0c98851b25641152491a04317d40a2f266a10fe240488f60"
+  },
+  "work/batch1024/inventory-reader-ja120-v2-viewed.json": {
+    "bytes": 1931,
+    "sha256": "f0ff27f5079f74e31e94bbcbb22d7360f1650d4d45d85707e9002a2d74604930"
+  },
+  "work/batch1024/inventory-reader-mouse-final.json": {
+    "bytes": 1572,
+    "sha256": "63bdc1c01d1ef4f0b9bdf2c4b5b633a096962e6f4f3843c41e8d0942ce5f7a83"
+  },
+  "work/batch1024/inventory-reader-mouse-v1-driver.log": {
+    "bytes": 4035,
+    "sha256": "286767cdc5b202b21ba55ca5d971199c619f92b66ab08598592097a58d0ac571"
+  },
+  "work/batch1024/inventory-reader-native-en-negative-console.log": {
+    "bytes": 723,
+    "sha256": "26a3e18e34131390f1f15898300467e985293a464c7467d8a97e08a384802822"
+  },
+  "work/batch1024/inventory-reader-native-en-negative-driver.log": {
+    "bytes": 1998,
+    "sha256": "37650e1070913db116fccc19818b20121b5377f8b66bd2f7c54e94069136278d"
+  },
+  "work/batch1024/inventory-reader-native-en-negative-original-receipt.json": {
+    "bytes": 722,
+    "sha256": "81bfa0c368c8b44794e639271ed202b72a13e5845bc5a37e7ef7898367eb0852"
+  },
+  "work/batch1024/inventory-reader-native-en-negative.json": {
+    "bytes": 956,
+    "sha256": "75e1a73ca255b167aea1d519b6c9fe0da75a14b0cf289565cf2bbebccaf55956"
+  },
+  "work/batch1024/inventory-reader-native-en-negative.py": {
+    "bytes": 2267,
+    "sha256": "fc75ccb949314fb2ae390f4b4f68252eae8cf9d88cbb83b14cef7e156d81d03d"
+  },
+  "work/batch1024/inventory-reader-native-en120-v2-driver.log": {
+    "bytes": 4019,
+    "sha256": "bc88a94164ebd6db52671d96f57f795930bf07e361f5978e59f4f0e50bb8b3e8"
+  },
+  "work/batch1024/inventory-reader-native-ja120-v1-driver.log": {
+    "bytes": 4019,
+    "sha256": "df95899f3834638188c9e90cec6664c7d1541729190fe3cedba602d13d0259f8"
+  },
+  "work/batch1024/inventory-reader-native-ja120-v2-driver.log": {
+    "bytes": 4035,
+    "sha256": "7b095042d59171cf26c8b5ab31f5ef9fcfad5b765f95b3ddfaa043f784c811ad"
+  },
+  "work/batch1024/inventory-reader-native-negative-console.log": {
+    "bytes": 723,
+    "sha256": "8521f83a6a29ee3784de9d163d23fb2249b9578e3c1016011911c627fa903c11"
+  },
+  "work/batch1024/inventory-reader-native-negative-driver.log": {
+    "bytes": 1536,
+    "sha256": "39c7b58ea4f3362882b26d0326659c36398fe0fa5efc90de239b3ff9d7925da8"
+  },
+  "work/batch1024/inventory-reader-native-negative.json": {
+    "bytes": 722,
+    "sha256": "ab0fd1033d02fdd2bfd4032f018a20941339b9fb1cb3116f5997627f7e747098"
+  },
+  "work/batch1024/inventory-reader-native-negative.py": {
+    "bytes": 2196,
+    "sha256": "fd7ec72cb527f7e0d080e85038ee6c6694ec81181042e43fdc830d94b464ed3e"
+  },
+  "work/batch1024/inventory-reader-negatives-viewed.json": {
+    "bytes": 1413,
+    "sha256": "f2e315d7e9d6bb2ba7d8844c564ffc6af08f194ba83a29d7e6b3451f189ad404"
+  },
+  "work/batch1024/inventory-reader-v1-rejected.json": {
+    "bytes": 2002,
+    "sha256": "3e9967b5c66de2a79f3e5aba0fb388fe98e299b2f45197fca133f43636e235eb"
+  },
+  "work/batch1024/inventory-screen-proposed.gd": {
+    "bytes": 15185,
+    "sha256": "eaea5acc6761736afc3597d53979036445446291d910dfdcd2845a15535e085a"
+  },
+  "work/batch1024/inventory-selector.txt": {
+    "bytes": 142,
+    "sha256": "51a0e352ad28042c789fe8bbc1df2fedce4efbd62008aeae338b1018bcc3ed0c"
+  },
+  "work/batch1024/inventory-v1-source/ui/inventory/document_reader.gd": {
+    "bytes": 2222,
+    "sha256": "736a9723b06db6fede02274adbd256d52dbd385571f3637ad95f1f264a71d5a6"
+  },
+  "work/batch1024/inventory-v1-source/ui/inventory/inventory_page.gd": {
+    "bytes": 1641,
+    "sha256": "609a2f87eba197f5c710d36481d1a328efd726dcc707607a1c4f99d8ad0126a2"
+  },
+  "work/batch1024/inventory-v1-source/ui/inventory/inventory_screen.gd": {
+    "bytes": 15185,
+    "sha256": "eaea5acc6761736afc3597d53979036445446291d910dfdcd2845a15535e085a"
+  },
+  "work/batch1024/inventory-v1-source/ui/inventory/pages/story_items_page.gd": {
+    "bytes": 4470,
+    "sha256": "32646c95caa38a3ae39343119d5b95b66b41cb4dc127486a1f62d0bb40086419"
+  },
+  "work/batch1024/inventory-v1-source/work/batch1024/inventory-full-reader-probe.gd": {
+    "bytes": 8371,
+    "sha256": "d93ea643c0375c70566c18a94b42e1a003dd746717734132b36cce8d4a017bdc"
+  },
+  "work/batch1024/inventory-v2-reconstruction.json": {
+    "bytes": 3004,
+    "sha256": "ced792eb7113a8e11de87635fcbdb2b55e26fc6f28b7644a0b63c14871bb8399"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/data/story_items/ch1_market_summary.tres": {
+    "bytes": 863,
+    "sha256": "1ad9ef373ec4a7e6f48a35297099ac975d59401822cc70576ceb5e790d738628"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/data/story_items/ch3_report_p17.tres": {
+    "bytes": 823,
+    "sha256": "7682fc6893f9b050595df4cf2bdd4e17e7620a8910871024d85f332e0f470b3f"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/data/story_items/ch3_tour_card.tres": {
+    "bytes": 737,
+    "sha256": "89c4ae3bb85f6fdadff71cf45cb731b69a4313a68d74c4f83c142061d5de5b9a"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/data/story_items/i18n.json": {
+    "bytes": 37175,
+    "sha256": "6190e00b15b7ae1559037ad34a868f42358135ad41675be86f7edde0bb4aeb4b"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/game/player/vehicle_command_input.gd": {
+    "bytes": 2060,
+    "sha256": "2ae0fb3494734d3c684c6167e5cb6667a876cced3e87e87fec4357055041fecb"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/game/story_result_completion.gd": {
+    "bytes": 17035,
+    "sha256": "63a878b6146f2e0b422a4d27050d750f30a0a87ad5f81ff99f70d10501e8d674"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/game/world_item_completion.gd": {
+    "bytes": 8468,
+    "sha256": "3be95c4693242c352df8c3dff6de7c1c4ddbb49255a9b7e3bef765c94ec87b6f"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/tests/helpers/story_item_full_text_checks.gd": {
+    "bytes": 795,
+    "sha256": "ffc73f0fbbd75e5f06623d86494fc7322c3539d73f1a4451539c44c3a9b94754"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/tests/helpers/story_item_full_text_checks.gd.uid": {
+    "bytes": 20,
+    "sha256": "47b6bac06d8ffecff2b43ddae8bc8d047baf8ba5e6360d8afce9a32039a4652c"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/tests/suite/test_collectibles.gd": {
+    "bytes": 24831,
+    "sha256": "f54de16ecd354d93459f17ed8d40e419072822c439871e4993d38a4438a3b492"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/ui/inventory/card_list_page.gd": {
+    "bytes": 4581,
+    "sha256": "ac77321235c61fedaf9df6b77059423d59b2fe177a6a22e1484bccd374b2fb66"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/ui/inventory/detail_panel.gd": {
+    "bytes": 5500,
+    "sha256": "dce531ba889bf7b2f61ba2fb80dd473d10e48a0c97dd7313c757523eca368ea3"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/ui/inventory/document_reader.gd": {
+    "bytes": 2442,
+    "sha256": "d35655fbf6fca64b2a89f6f25e2315421df0d3161ab82444bbf5aeecb00a024d"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/ui/inventory/document_reader.gd.uid": {
+    "bytes": 19,
+    "sha256": "0e89102a182d65684b0d8585924748b65119a5058a4a4ee3270a231d90f4842b"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/ui/inventory/inventory_page.gd": {
+    "bytes": 1641,
+    "sha256": "609a2f87eba197f5c710d36481d1a328efd726dcc707607a1c4f99d8ad0126a2"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/ui/inventory/inventory_screen.gd": {
+    "bytes": 15185,
+    "sha256": "eaea5acc6761736afc3597d53979036445446291d910dfdcd2845a15535e085a"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/ui/inventory/pages/story_items_page.gd": {
+    "bytes": 4598,
+    "sha256": "acb904599f57dd403890cfbc7b2ceefc6541476ffe72f46958ccc8bd727886c0"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/ui/kit/chamfer_box.gd": {
+    "bytes": 9521,
+    "sha256": "b663a2e667ad0d73d45eb7fbe893f2adfa4111ab0dfa2eb263937e9e6c906c61"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/ui/kit/ui_theme.gd": {
+    "bytes": 7716,
+    "sha256": "e796f61f85556cc17b0a90ca270e12cb0175bd444c6ec0873d1ac0e498a69ac3"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/ui/ui_kit.gd": {
+    "bytes": 11176,
+    "sha256": "b75b67b9ac78a78ad16186bca72b2ae5ada7354213ee160de047cd17b4fad20c"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/work/batch1024/inventory-body-entry-probe.gd": {
+    "bytes": 4071,
+    "sha256": "8391d12873e88fe95ec18d9b2e15f2c5acc89936598ecbcac802450f3afa70a8"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/work/batch1024/inventory-full-reader-probe.gd": {
+    "bytes": 11173,
+    "sha256": "42817f0610edb7ef241a9f5542a6d1bcbec5e6f633f3362674494ff40d7ae0f9"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/work/batch1024/inventory-full-reader-probe.tscn": {
+    "bytes": 205,
+    "sha256": "7067b585cdee4a01ccfe40c798f78a7743b3157d4ba07300e47c7b8f4e764c63"
+  },
+  "work/batch1024/inventory-v2-source-reconstructed/work/batch1024/window_capture.gd": {
+    "bytes": 790,
+    "sha256": "7b67e3ee5817d8f32a8e4724c818a62ee0ce91a56cd0de6bc86b736adda923ce"
+  },
+  "work/batch1024/inventory-v2-story-items-page.gd": {
+    "bytes": 4598,
+    "sha256": "acb904599f57dd403890cfbc7b2ceefc6541476ffe72f46958ccc8bd727886c0"
+  },
+  "work/batch1024/inventory-v3-source.json": {
+    "bytes": 2579,
+    "sha256": "59cf53a3be4b232e0ba947545fd8a25352f5908b4208e2d05e38e1b6d3c21715"
+  },
+  "work/batch1024/inventory-v3-source/data/story_items/ch1_market_summary.tres": {
+    "bytes": 863,
+    "sha256": "1ad9ef373ec4a7e6f48a35297099ac975d59401822cc70576ceb5e790d738628"
+  },
+  "work/batch1024/inventory-v3-source/data/story_items/ch3_report_p17.tres": {
+    "bytes": 823,
+    "sha256": "7682fc6893f9b050595df4cf2bdd4e17e7620a8910871024d85f332e0f470b3f"
+  },
+  "work/batch1024/inventory-v3-source/data/story_items/ch3_tour_card.tres": {
+    "bytes": 737,
+    "sha256": "89c4ae3bb85f6fdadff71cf45cb731b69a4313a68d74c4f83c142061d5de5b9a"
+  },
+  "work/batch1024/inventory-v3-source/data/story_items/i18n.json": {
+    "bytes": 37175,
+    "sha256": "6190e00b15b7ae1559037ad34a868f42358135ad41675be86f7edde0bb4aeb4b"
+  },
+  "work/batch1024/inventory-v3-source/game/player/vehicle_command_input.gd": {
+    "bytes": 2060,
+    "sha256": "2ae0fb3494734d3c684c6167e5cb6667a876cced3e87e87fec4357055041fecb"
+  },
+  "work/batch1024/inventory-v3-source/game/story_result_completion.gd": {
+    "bytes": 17021,
+    "sha256": "2275c2873a9ce7de17d89bdb392ea3a6b5d968e54dd4f34ca328c2cbf0964b0c"
+  },
+  "work/batch1024/inventory-v3-source/game/world_item_completion.gd": {
+    "bytes": 8518,
+    "sha256": "9727a95d55bacb557291299e037ed4fe2aa10c5b11cb664f4b9a9cf69333b8a2"
+  },
+  "work/batch1024/inventory-v3-source/tests/helpers/story_item_full_text_checks.gd": {
+    "bytes": 795,
+    "sha256": "ffc73f0fbbd75e5f06623d86494fc7322c3539d73f1a4451539c44c3a9b94754"
+  },
+  "work/batch1024/inventory-v3-source/tests/helpers/story_item_full_text_checks.gd.uid": {
+    "bytes": 20,
+    "sha256": "47b6bac06d8ffecff2b43ddae8bc8d047baf8ba5e6360d8afce9a32039a4652c"
+  },
+  "work/batch1024/inventory-v3-source/tests/suite/test_collectibles.gd": {
+    "bytes": 24831,
+    "sha256": "f54de16ecd354d93459f17ed8d40e419072822c439871e4993d38a4438a3b492"
+  },
+  "work/batch1024/inventory-v3-source/ui/inventory/card_list_page.gd": {
+    "bytes": 4581,
+    "sha256": "ac77321235c61fedaf9df6b77059423d59b2fe177a6a22e1484bccd374b2fb66"
+  },
+  "work/batch1024/inventory-v3-source/ui/inventory/detail_panel.gd": {
+    "bytes": 5500,
+    "sha256": "dce531ba889bf7b2f61ba2fb80dd473d10e48a0c97dd7313c757523eca368ea3"
+  },
+  "work/batch1024/inventory-v3-source/ui/inventory/document_reader.gd": {
+    "bytes": 2442,
+    "sha256": "d35655fbf6fca64b2a89f6f25e2315421df0d3161ab82444bbf5aeecb00a024d"
+  },
+  "work/batch1024/inventory-v3-source/ui/inventory/document_reader.gd.uid": {
+    "bytes": 19,
+    "sha256": "0e89102a182d65684b0d8585924748b65119a5058a4a4ee3270a231d90f4842b"
+  },
+  "work/batch1024/inventory-v3-source/ui/inventory/inventory_page.gd": {
+    "bytes": 1641,
+    "sha256": "609a2f87eba197f5c710d36481d1a328efd726dcc707607a1c4f99d8ad0126a2"
+  },
+  "work/batch1024/inventory-v3-source/ui/inventory/inventory_screen.gd": {
+    "bytes": 15185,
+    "sha256": "eaea5acc6761736afc3597d53979036445446291d910dfdcd2845a15535e085a"
+  },
+  "work/batch1024/inventory-v3-source/ui/inventory/pages/story_items_page.gd": {
+    "bytes": 4864,
+    "sha256": "aadb1b540d915480dabed66b9db60c6d4d7a0b2034c7d3f95aa7746129bcf16a"
+  },
+  "work/batch1024/inventory-v3-source/ui/kit/chamfer_box.gd": {
+    "bytes": 9521,
+    "sha256": "b663a2e667ad0d73d45eb7fbe893f2adfa4111ab0dfa2eb263937e9e6c906c61"
+  },
+  "work/batch1024/inventory-v3-source/ui/kit/ui_theme.gd": {
+    "bytes": 7716,
+    "sha256": "e796f61f85556cc17b0a90ca270e12cb0175bd444c6ec0873d1ac0e498a69ac3"
+  },
+  "work/batch1024/inventory-v3-source/ui/ui_kit.gd": {
+    "bytes": 11176,
+    "sha256": "b75b67b9ac78a78ad16186bca72b2ae5ada7354213ee160de047cd17b4fad20c"
+  },
+  "work/batch1024/inventory-v3-source/work/batch1024/inventory-body-entry-probe.gd": {
+    "bytes": 4143,
+    "sha256": "841691701bd108c343d9ed4e96cb3291ebf16fee5ead9594b0856197493fc686"
+  },
+  "work/batch1024/inventory-v3-source/work/batch1024/inventory-full-reader-probe.gd": {
+    "bytes": 11935,
+    "sha256": "cc15b2802224765003bcff5f95218f07f5b8fdd6df572f1ef1bac3e990001819"
+  },
+  "work/batch1024/inventory-v3-source/work/batch1024/inventory-full-reader-probe.tscn": {
+    "bytes": 205,
+    "sha256": "7067b585cdee4a01ccfe40c798f78a7743b3157d4ba07300e47c7b8f4e764c63"
+  },
+  "work/batch1024/inventory-v3-source/work/batch1024/window_capture.gd": {
+    "bytes": 790,
+    "sha256": "7b67e3ee5817d8f32a8e4724c818a62ee0ce91a56cd0de6bc86b736adda923ce"
+  },
+  "work/batch1024/inventory-v4-source-before-controls.json": {
+    "bytes": 2579,
+    "sha256": "5c17502ac107da583e9f21f18fd2aa0d25f88e57823b0102f4dad623e7748234"
+  },
+  "work/batch1024/inventory-worktree-owned.json": {
+    "bytes": 233,
+    "sha256": "5c76122102a69258ff16379d20be0bb4bb46e2da485a70d1739174b9feb27b25"
+  },
+  "work/batch1024/native-large.py": {
+    "bytes": 2028,
+    "sha256": "689815a568098051d1cce471b8fb65b5200aae3ead9f22b213c053f0a4246f2d"
+  },
+  "work/batch1024/package-inventory.py": {
+    "bytes": 18823,
+    "sha256": "a575063919c46211ce0d5c2c882562ce89f195a55c87765416e852d4f966583a"
+  },
+  "work/batch1024/story-items-page-proposed.gd": {
+    "bytes": 4470,
+    "sha256": "32646c95caa38a3ae39343119d5b95b66b41cb4dc127486a1f62d0bb40086419"
+  }
+}

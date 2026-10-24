@@ -58,3 +58,8 @@ func activate() -> void:
 ## 目前選取項目的一句說明（沒有則為空字串）。
 func current_hint() -> String:
 	return ""
+
+
+## A nested page view consumes Back before the whole inventory closes.
+func handle_back() -> bool:
+	return false

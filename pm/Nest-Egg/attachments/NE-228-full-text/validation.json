@@ -1,0 +1,280 @@
+{
+  "base": "1bbac54e4ffcd6825debc9b5f76bb5b585afbafd",
+  "frozen_24_paths": {
+    "ui/inventory/document_reader.gd": "d35655fbf6fca64b2a89f6f25e2315421df0d3161ab82444bbf5aeecb00a024d",
+    "ui/inventory/document_reader.gd.uid": "0e89102a182d65684b0d8585924748b65119a5058a4a4ee3270a231d90f4842b",
+    "ui/inventory/pages/story_items_page.gd": "e466ba2f64e2f74778dae52c6614d3f0d7bce0aef6843939d0eee0465cf81ef1",
+    "ui/inventory/inventory_page.gd": "609a2f87eba197f5c710d36481d1a328efd726dcc707607a1c4f99d8ad0126a2",
+    "ui/inventory/inventory_screen.gd": "eaea5acc6761736afc3597d53979036445446291d910dfdcd2845a15535e085a",
+    "ui/inventory/card_list_page.gd": "ac77321235c61fedaf9df6b77059423d59b2fe177a6a22e1484bccd374b2fb66",
+    "ui/inventory/detail_panel.gd": "dce531ba889bf7b2f61ba2fb80dd473d10e48a0c97dd7313c757523eca368ea3",
+    "ui/kit/chamfer_box.gd": "b663a2e667ad0d73d45eb7fbe893f2adfa4111ab0dfa2eb263937e9e6c906c61",
+    "ui/kit/ui_theme.gd": "e796f61f85556cc17b0a90ca270e12cb0175bd444c6ec0873d1ac0e498a69ac3",
+    "ui/ui_kit.gd": "b75b67b9ac78a78ad16186bca72b2ae5ada7354213ee160de047cd17b4fad20c",
+    "tests/suite/test_collectibles.gd": "f54de16ecd354d93459f17ed8d40e419072822c439871e4993d38a4438a3b492",
+    "tests/helpers/story_item_full_text_checks.gd": "ffc73f0fbbd75e5f06623d86494fc7322c3539d73f1a4451539c44c3a9b94754",
+    "tests/helpers/story_item_full_text_checks.gd.uid": "47b6bac06d8ffecff2b43ddae8bc8d047baf8ba5e6360d8afce9a32039a4652c",
+    "data/story_items/i18n.json": "6190e00b15b7ae1559037ad34a868f42358135ad41675be86f7edde0bb4aeb4b",
+    "data/story_items/ch1_market_summary.tres": "1ad9ef373ec4a7e6f48a35297099ac975d59401822cc70576ceb5e790d738628",
+    "data/story_items/ch3_report_p17.tres": "7682fc6893f9b050595df4cf2bdd4e17e7620a8910871024d85f332e0f470b3f",
+    "data/story_items/ch3_tour_card.tres": "89c4ae3bb85f6fdadff71cf45cb731b69a4313a68d74c4f83c142061d5de5b9a",
+    "game/player/vehicle_command_input.gd": "2ae0fb3494734d3c684c6167e5cb6667a876cced3e87e87fec4357055041fecb",
+    "game/story_result_completion.gd": "2275c2873a9ce7de17d89bdb392ea3a6b5d968e54dd4f34ca328c2cbf0964b0c",
+    "game/world_item_completion.gd": "9727a95d55bacb557291299e037ed4fe2aa10c5b11cb664f4b9a9cf69333b8a2",
+    "work/batch1024/inventory-full-reader-probe.gd": "9bbc6457989ce8be5f1eea4820bb3a17eaf17727c0986bd6dd0ca7eb7bba597a",
+    "work/batch1024/inventory-full-reader-probe.tscn": "7067b585cdee4a01ccfe40c798f78a7743b3157d4ba07300e47c7b8f4e764c63",
+    "work/batch1024/inventory-body-entry-probe.gd": "841691701bd108c343d9ed4e96cb3291ebf16fee5ead9594b0856197493fc686",
+    "work/batch1024/window_capture.gd": "7b67e3ee5817d8f32a8e4724c818a62ee0ce91a56cd0de6bc86b736adda923ce"
+  },
+  "original_collectibles_assertions_input_waits_byte_identical": true,
+  "original_ui_bytes_identical_in_f508_4f_1bba": true,
+  "headless": {
+    "changed": {
+      "checks": 6049,
+      "new_failures": 0,
+      "known_failures": 0,
+      "seconds": 210
+    },
+    "controller": {
+      "checks": 130,
+      "new_failures": 0,
+      "known_failures": 0,
+      "seconds": 19
+    },
+    "formal_before": {
+      "checks": 303,
+      "new_failures": 3,
+      "known_failures": 0,
+      "seconds": 18
+    },
+    "formal_after_v2": {
+      "checks": 303,
+      "new_failures": 0,
+      "known_failures": 0,
+      "seconds": 19
+    }
+  },
+  "headless_diagnostics": {
+    "work/batch1024/inventory-changed-final/shard_3.log": {
+      "error_lines": 72,
+      "script_errors": 0,
+      "leak_diagnostics": 0
+    },
+    "work/batch1024/inventory-changed-final/shard_2.log": {
+      "error_lines": 9,
+      "script_errors": 0,
+      "leak_diagnostics": 0
+    },
+    "work/batch1024/inventory-changed-final/shard_0.log": {
+      "error_lines": 40,
+      "script_errors": 0,
+      "leak_diagnostics": 3
+    },
+    "work/batch1024/inventory-changed-final/shard_1.log": {
+      "error_lines": 0,
+      "script_errors": 0,
+      "leak_diagnostics": 0
+    },
+    "work/batch1024/inventory-controller-regression/shard_0.log": {
+      "error_lines": 1,
+      "script_errors": 0,
+      "leak_diagnostics": 0
+    }
+  },
+  "native": [
+    {
+      "name": "ne228-1024-reader-v4-ja720",
+      "size": "1280x720",
+      "language": "ja",
+      "font": "smooth",
+      "extra": [
+        "--opacity-control"
+      ],
+      "exit": 0,
+      "checks": 71,
+      "failures": 0,
+      "engine_errors": 0,
+      "leaks": 0,
+      "png_count": 12,
+      "seconds": 45.54508440900099,
+      "command": [
+        "python",
+        "/workspace/Nest-Egg/work/batch1024/native-large.py",
+        "ne228-1024-reader-v4-ja720",
+        "res://work/batch1024/inventory-full-reader-probe.tscn",
+        "--size=1280x720",
+        "--text-scale=1.2",
+        "--language=ja",
+        "--font=smooth",
+        "--opacity-control"
+      ]
+    },
+    {
+      "name": "ne228-1024-reader-v4-en720",
+      "size": "1280x720",
+      "language": "en",
+      "font": "smooth",
+      "extra": [
+        "--reduce-motion"
+      ],
+      "exit": 0,
+      "checks": 65,
+      "failures": 0,
+      "engine_errors": 0,
+      "leaks": 0,
+      "png_count": 8,
+      "seconds": 43.067312679999304,
+      "command": [
+        "python",
+        "/workspace/Nest-Egg/work/batch1024/native-large.py",
+        "ne228-1024-reader-v4-en720",
+        "res://work/batch1024/inventory-full-reader-probe.tscn",
+        "--size=1280x720",
+        "--text-scale=1.2",
+        "--language=en",
+        "--font=smooth",
+        "--reduce-motion"
+      ]
+    },
+    {
+      "name": "ne228-1024-reader-v4-zh1080pixel",
+      "size": "1920x1080",
+      "language": "zh",
+      "font": "pixel",
+      "extra": [],
+      "exit": 0,
+      "checks": 64,
+      "failures": 0,
+      "engine_errors": 0,
+      "leaks": 0,
+      "png_count": 8,
+      "seconds": 81.61746656499963,
+      "command": [
+        "python",
+        "/workspace/Nest-Egg/work/batch1024/native-large.py",
+        "ne228-1024-reader-v4-zh1080pixel",
+        "res://work/batch1024/inventory-full-reader-probe.tscn",
+        "--size=1920x1080",
+        "--text-scale=1.2",
+        "--language=zh",
+        "--font=pixel"
+      ]
+    },
+    {
+      "name": "ne228-1024-reader-v4-zhwide",
+      "size": "2560x1080",
+      "language": "zh",
+      "font": "smooth",
+      "extra": [],
+      "exit": 0,
+      "checks": 64,
+      "failures": 0,
+      "engine_errors": 0,
+      "leaks": 0,
+      "png_count": 8,
+      "seconds": 83.08500187100071,
+      "command": [
+        "python",
+        "/workspace/Nest-Egg/work/batch1024/native-large.py",
+        "ne228-1024-reader-v4-zhwide",
+        "res://work/batch1024/inventory-full-reader-probe.tscn",
+        "--size=2560x1080",
+        "--text-scale=1.2",
+        "--language=zh",
+        "--font=smooth"
+      ]
+    }
+  ],
+  "native_mouse": {
+    "checks": 66,
+    "failures": 0,
+    "mouse_clicks": 8,
+    "scope": "Public Viewport.push_input in local viewport coordinates, actual Button GUI hit testing and ScrollContainer wheel events. Synthetic mouse, semantic remaining actions, joypad999; not physical hardware or OS pointer latency.",
+    "wheel_events": 64,
+    "wheel_factor": 4.0,
+    "exit": 0,
+    "engine_errors": 0,
+    "leaks": 0,
+    "viewed_png": {
+      "work/batch1020b/ne228-1024-reader-mouse-v1/artificial-scroll-end.png": "6a564a3ae9e676053cfd0653b458cbb7754654afe40f7167dd3938ed069d3746",
+      "work/batch1020b/ne228-1024-reader-mouse-v1/ch1_market_summary-entry.png": "993f3a6d688106cb173b7bb118a86f40d9093254c0e0faab97570a3433180f9c",
+      "work/batch1020b/ne228-1024-reader-mouse-v1/ch1_market_summary-full-text.png": "fcdbd2cab8af45a734bd875ce2e7f137cc64e42e4468b6ab2715b6549ba87485",
+      "work/batch1020b/ne228-1024-reader-mouse-v1/ch3_report_p17-entry.png": "d672572ee46104894889c5e40930d73b608a35ccc8b5a7d544c6fab4993811f1",
+      "work/batch1020b/ne228-1024-reader-mouse-v1/ch3_report_p17-full-text.png": "32c99d51b5746a80aba7379dcd3ad089236e9f19e9b309f0902b32cada7cf6ae",
+      "work/batch1020b/ne228-1024-reader-mouse-v1/ch3_tour_card-entry.png": "b0d3c53e2af6dcf4151fe154e5a23105af56ab326f82d6a4375179b6680c2650",
+      "work/batch1020b/ne228-1024-reader-mouse-v1/ch3_tour_card-full-text.png": "58474cbdc287d1c38d46399e42ec0469b8c84914786b902cc11ea3e4bbed2e12",
+      "work/batch1020b/ne228-1024-reader-mouse-v1/ordinary-key-return.png": "e73edd18063854d5112654834ad732e59eb25ecafabb001cf1ea8bc0a24466f3"
+    }
+  },
+  "native_negative_ja": {
+    "exit": 1,
+    "checks": 21,
+    "failures": 6,
+    "engine_errors": 0,
+    "leaks": 0,
+    "original_ui_sha256": {
+      "ui/inventory/pages/story_items_page.gd": "d08d2b6358c8147096b8036f0965a0258cba60877870308904d36ccac1dc5b01",
+      "ui/inventory/inventory_page.gd": "27a8950d6a5ec91372475d59ac8940bdd97b2b599f05c8743d337b49fd0f7891",
+      "ui/inventory/inventory_screen.gd": "1efbc47ad50fcc7763cb9059a3147c3eeb87ad1feadc60ea0b14cd1a647e8530"
+    },
+    "seconds": 28.021145508999325,
+    "scope": "Original three production routing files from current4f head, new reader present but unused. Same final public-input probe. Conditional later checks require a real opened reader; absent reader is recorded as failure, not fabricated."
+  },
+  "native_negative_en": {
+    "exit": 1,
+    "checks": 27,
+    "failures": 7,
+    "engine_errors": 0,
+    "leaks": 0,
+    "original_ui_sha256": {
+      "ui/inventory/pages/story_items_page.gd": "d08d2b6358c8147096b8036f0965a0258cba60877870308904d36ccac1dc5b01",
+      "ui/inventory/inventory_page.gd": "27a8950d6a5ec91372475d59ac8940bdd97b2b599f05c8743d337b49fd0f7891",
+      "ui/inventory/inventory_screen.gd": "1efbc47ad50fcc7763cb9059a3147c3eeb87ad1feadc60ea0b14cd1a647e8530"
+    },
+    "seconds": 30.995641712999713,
+    "scope": "Original three production UI routing files from actual1bbac54e head; new reader exists but is unused. Same public-input probe, conditional later checks need an opened reader.",
+    "actual_base": "1bbac54e4ffcd6825debc9b5f76bb5b585afbafd",
+    "metadata_correction": "Copied driver description said current4f head; actual git show HEAD read1bbac54e after recorded rebase. Original receipt is retained, and these three original UI files are byte-identical in both heads."
+  },
+  "prior_ci": {
+    "run_id": 40079797885,
+    "job_id": 120830778332,
+    "head": "1bbac54e4ffcd6825debc9b5f76bb5b585afbafd",
+    "conclusion": "success",
+    "checks": 96422,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 541,
+    "job_log_sha256": "1d8ab43e0fff2671a1459363db87a77a200500ba35ee0310071a4d558deb8cef"
+  },
+  "references": [
+    {
+      "file": "pm/Nest-Egg/images/NE-244-ref-hollow-knight.jpg",
+      "game": "Hollow Knight / Team Cherry",
+      "sha256": "627e6b22989c017056c64829aa56fcddcde2b06d429222634b627b4bcc10048b",
+      "original_archive": "design/20-campaign-experience/INVENTORY_WORLD_CLARITY.md",
+      "reviewed_again": "2026-10-24",
+      "observation": "Distinct item/name/text regions and legible foreground; does not prove a document-scroll input policy.",
+      "limits": "Existing research image viewed again; no fresh web retrieval, player poll, asset license transfer or production-art use claimed."
+    },
+    {
+      "file": "pm/Nest-Egg/attachments/NE-278-references/ghost-song.webp",
+      "game": "Ghost Song / Old Moon",
+      "sha256": "a77611cce56b4823527c365ba6b5518b569ef4f4065666d48ca8d63e08cb8a31",
+      "original_archive": "pm/Nest-Egg/attachments/NE-278-references/sources.json",
+      "reviewed_again": "2026-10-24",
+      "observation": "Separate text from busy art; this is dialogue, not evidence of an inventory reader or save policy.",
+      "limits": "Existing research image viewed again; no fresh web retrieval, player poll, asset license transfer or production-art use claimed."
+    }
+  ],
+  "limits": [
+    "Production InventoryScreen/StoryItemsPage in actual pawnshop LevelPAUSABLE under observerALWAYS. Ownership/selection explicit UI fixture, not natural acquisition/Main save/cold continue/chapter proof.",
+    "Three existing story-data languages plus new reader/action copy, not complete UI localization; existing Chinese tab/type labels remain.",
+    "32 actual window PNG plus4 explicit pixel-region crops in the four-mode acceptance; separate mouse8 window PNG also individually viewed. Wide capture includes genuine KEEP pillarboxes, not synthetic padding.",
+    "Legacy opacity is a runtime single-factor diagnostic; actual product fill is restored, never forced opaque for the positive image.",
+    "Artificial long-text fixture is separate from authored content. Public scrolling reaches its last line; no physical input latency or hardware-controller/GPU claim.",
+    "Earlier inline/full-text assumptions, geometry/opacity rejections and ordinary-photo layout assumption are retained. Original product tests are not weakened.",
+    "V2 intermediate source reconstruction is labeled as reconstruction, not a captured runtime SHA. English negative receipt copied a stale4f description; actual1bba source metadata correction and original receipt both retained.",
+    "Mother-ticket criteria remain unchanged; no rig/portrait art, human chapter, full UI localization or full-ticket acceptance."
+  ]
+}
