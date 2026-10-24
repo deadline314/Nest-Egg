@@ -70,28 +70,44 @@ def class_sheet(pair_dir: Path, pair: dict, worn_dir: Path, worn: dict, out: Pat
         classes = collections.defaultdict(list)
         for k in keys:
             classes[(k[0], k[2], kind_of(src[k]))].append(k)
-        for (char, joint, kind), ks in sorted(classes.items(), key=lambda t: -len(t[1])):
-            ks.sort(key=lambda k: (-k[4], k[1] != 1, k[5]))  # the cutscene zoom, facing right, earliest frame
+        for (char, joint, kind), ks in sorted(classes.items(), key=lambda t: (-len(t[1]), t[0])):
+            ks.sort(key=lambda k: (-k[4], k[1] != 1, k[5], k[3]))  # the cutscene zoom, facing right, earliest frame
             f = src[ks[0]]
             x, y, w, h = f["rect"]
             crop = Image.open(folder / f["file"]).convert("RGBA").crop((x, y, x + w, y + h))
             solid = np.array(crop)[:, :, 3] >= 128
+            radius = f["radius"]
+            if radius <= 0 or radius >= min(w, h) // 2:
+                raise ValueError(f"joint band clipped or invalid: {f}")
+            bx, by = w // 2 - radius, h // 2 - radius
+            band = solid[by:by + 2 * radius, bx:bx + 2 * radius]
+            # Match the original checker's domain; other pockets and pieces in
+            # the 128px cell are context, not evidence for this failed sample.
             if kind in ("loose", "split"):
-                labels, count = ndimage.label(solid, np.ones((3, 3)))
-                bad = solid & (labels != 1 + int(np.argmax(ndimage.sum(solid, labels, range(1, count + 1)))))
+                labels, count = ndimage.label(band, np.ones((3, 3)))
+                sizes = ndimage.sum(band, labels, range(1, count + 1))
+                band_bad = band & (labels != 1 + int(np.argmax(sizes)))
             elif kind == "center":
-                bad = np.zeros_like(solid)
-                bad[h // 2, w // 2] = True
+                band_bad = np.zeros_like(band)
+                band_bad[radius, radius] = True
             else:
-                bad = ndimage.binary_fill_holes(solid, structure=np.ones((3, 3)) if kind == "encl" else None) & ~solid
+                band_bad = ndimage.binary_fill_holes(band, structure=np.ones((3, 3)) if kind == "encl" else None) & ~band
+            bad = np.zeros_like(solid)
+            bad[by:by + 2 * radius, bx:bx + 2 * radius] = band_bad
             ys, xs = np.nonzero(bad)
-            cx, cy = (int(xs.mean()), int(ys.mean())) if len(ys) else (w // 2, h // 2)
+            if not len(ys):
+                raise ValueError(f"reported joint failure has no matching pixels in its checked band: {f}")
+            focus = int(np.argmin((xs - w // 2) ** 2 + (ys - h // 2) ** 2))
+            cx, cy = int(xs[focus]), int(ys[focus])
             x0, y0 = min(max(0, cx - half), w - 2 * half), min(max(0, cy - half), h - 2 * half)
             backdrop = Image.new("RGBA", crop.size, (255, 0, 255, 255))
             backdrop.alpha_composite(crop)
             tile = backdrop.crop((x0, y0, x0 + 2 * half, y0 + 2 * half)).resize((2 * half * scale,) * 2, Image.NEAREST).convert("RGB")
             draw = ImageDraw.Draw(tile)
-            for yy, xx in list(zip(ys, xs))[:40]:
+            visible_bad = [(yy, xx) for yy, xx in zip(ys, xs)
+                           if x0 <= xx < x0 + 2 * half and y0 <= yy < y0 + 2 * half]
+            visible_bad.sort(key=lambda point: ((point[1] - cx) ** 2 + (point[0] - cy) ** 2, point[0], point[1]))
+            for yy, xx in visible_bad[:40]:
                 draw.rectangle([(xx - x0) * scale, (yy - y0) * scale, (xx - x0 + 1) * scale - 1, (yy - y0 + 1) * scale - 1], outline=(0, 255, 0))
             label = f"#{len(tiles) + 1} {tag} {char} {joint} {kind} x{len(ks)} {f['pose']} z{f['zoom']} f{f['frame']}"
             draw.rectangle([0, 0, tile.width, 13], fill=(0, 0, 0))

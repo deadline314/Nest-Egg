@@ -1,0 +1,44 @@
+{
+  "base": "441f622b212405525343827b072f75c131c24cdc",
+  "offline_regression_before": {
+    "tests": 5,
+    "failures": 5
+  },
+  "offline_regression_after": {
+    "tests": 5,
+    "failures": 0
+  },
+  "godot_affected_suites": 0,
+  "frozen_source_files": 68,
+  "changed_frozen_files": [],
+  "original_baseline": {
+    "samples": 30720,
+    "failures": 1688,
+    "checker_exit": 1,
+    "capture_exit": 0,
+    "engine_errors": 0,
+    "leaks": 0
+  },
+  "short_pair": {
+    "samples": 512,
+    "failures": 39
+  },
+  "short_worn": {
+    "samples": 512,
+    "failures": 5
+  },
+  "comparison": "Fixed records, original 128px native cells enlarged nearest-neighbour. Tool display correction only; no art change.",
+  "reviewed_images": [
+    "review/before.png",
+    "review/after.png",
+    "review/fixed-record-comparison.png"
+  ],
+  "limits": [
+    "Four-step paired captures are consecutive 60Hz steps, not whole-cycle phases.",
+    "Full 120-step baseline report retained; its 1920 PNG files remain in local ignored captures and are not duplicated in this packet.",
+    "Full-body context is an unshaded diagnostic with hidden weapon/VFX, not natural gameplay.",
+    "Isolated V1 probe failed with typed-array SCRIPT ERROR; retained, not a pass. V2 fixed the private probe only.",
+    "Translated-layout stagger alpha is 120 vs original119; no bitwise-equality or threshold change claimed.",
+    "No physical GPU, gamepad, whole-animation or asset acceptance claimed."
+  ]
+}
