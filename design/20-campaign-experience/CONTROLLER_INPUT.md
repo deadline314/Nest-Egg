@@ -78,3 +78,13 @@ Forward+ Vulkan／Intel Arc B580 的隔離捕捉於 1280×720／100% 與 1600×9
 基準 `c147c8dbaea385b032e367e7dfe8310d7dd718f4` 加本票凍結程式，Godot 4.7.2；`tools/run_tests_changed.sh` 原 selector 選 ALL、SHARDS=2，79 組共 53,837 checks／0 new failures／0 known failures，588 秒、exit 0。包含 InputFeel／AmmoTray／Melee／SoundLab／SoundStage／StageCoverageWeapons 及實際 Main 路由探針 36 checks／0 failures；未出現非預期腳本錯誤、原 29 聲音 MISS 或 `affine_invert`。兩工具另以載入專案 autoload 的暫存場景驗證編譯與 override 的 press／release／exit 清除，6 checks／0 failures，日誌 `C:/tmp/ne229-tool-scene-parse.log`。直接 `--check-only` 不載入 autoload，不能用於這兩個既有工具。
 
 最終 22 個凍結程式檔的 SHA256 與測前 manifest 完全一致（`C:/tmp/ne229-final-source-manifest.json`）。完整正常主記錄與兩 shard 日誌保存於票的 `attachments/NE-229-final-{console,shard-0,shard-1}.log`，原失敗日誌維持在 `C:/tmp/ne229-final-all`；不把失敗新增到已知失敗清單。實體手把、完整續玩／章末的人工作業維持未驗收，NE-229 仍進行中。
+
+### 2026-10-24：設定分頁與改鍵的事件擁有者
+
+設定頁在分頁、取消及捕捉新按鍵時先消耗事件；共用裝置觀察者收不到它們，提示會留在上一個裝置。擁有者先觀察真正事件，再走原分頁／捕捉流程，沿用原綁定通知刷新文字。
+
+改鍵說明必須描述實際捕捉規則：手把欄的短按綁定／長按取消是實際右方面板按鈕，Esc只會取消。使用鍵盤開啟手把欄時，不能把Esc寫成可短按綁定。一般說明及捕捉狀態各自列清楚B與Esc，手把品牌／位置標籤仍由共用服務提供。鍵鼠欄亦說明滑鼠鍵、Esc／B取消及Backspace清除。
+
+裝置或綁定改變時，捕捉中的「按下…」與說明一起刷新；只更新文字，不重新開始捕捉、不停止或重設0.6秒Timer。只加事件觀察的一行控制仍留下四項說明／標記失敗，因此不採用該不完整版本。
+
+原UI套件僅追加一個helper呼叫，既有斷言／輸入／等待保留。新案例用實際公開鍵鼠／手把事件，安排捕捉目標與焦點，再按確認；短B、長B、Esc及實際K改鍵，最後逐項恢復全部原綁定。官方InputEvent文件與近期NE-244送達時點方法沿用，沒有改正式輸入緩衝或計時設定。本次另重新查看既有Blasphemous設定原圖，比較焦點與確認／返回資訊；不由圖片推論其私有輸入邏輯或玩家偏好。

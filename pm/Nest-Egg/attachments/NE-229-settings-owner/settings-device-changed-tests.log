@@ -1,0 +1,11 @@
+受影響的測試：ApplyPanelSuite,Chapter1MapSuite,Chapter2Suite,ClipEditorSuite,CombatHudSuite,CutsceneSuite,DeathReactionSuite,DevMenuSuite,EncounterSuite,FeelLabSuite,InputFeelSuite,RunSaveSuite,SoundLabSuite,SoundStageSuite,StageCoverageCharactersSuite,StageCoverageWeaponsSuite,StageCoverageWorldSuite,UiScreensSuite,main
+Running 19 groups in 8 processes (logs: /workspace/Nest-Egg/work/batch1024/settings-device-changed-shards)
+  process 0 (estimated 240 s): main
+  process 1 (estimated 67 s): UiScreensSuite,CombatHudSuite
+  process 2 (estimated 75 s): StageCoverageWorldSuite,InputFeelSuite,ClipEditorSuite
+  process 3 (estimated 75 s): StageCoverageWeaponsSuite,FeelLabSuite,Chapter2Suite
+  process 4 (estimated 75 s): StageCoverageCharactersSuite,EncounterSuite,Chapter1MapSuite
+  process 5 (estimated 75 s): SoundStageSuite,DevMenuSuite,ApplyPanelSuite
+  process 6 (estimated 50 s): SoundLabSuite,DeathReactionSuite
+  process 7 (estimated 50 s): RunSaveSuite,CutsceneSuite
+checks: 7175, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 231 s)

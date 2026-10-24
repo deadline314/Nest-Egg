@@ -566,7 +566,7 @@ func _binding_key(action: StringName, slot: int) -> String:
 
 
 func _refresh_bindings() -> void:
-	_controller_note.text = InputBindings.format("{inventory_prev_tab}/{inventory_next_tab}切換分頁；改鍵時短按{ui_cancel}可綁定，長按取消。")
+	_controller_note.text = InputBindings.format("{inventory_prev_tab}/{inventory_next_tab}切換分頁；手把改鍵時%s短按可綁、長按取消。") % InputBindings.joy_label(&"ui_cancel")
 	var rules := Hud.hold_rules()
 	for label in _hold_rule_labels:
 		label.text = rules
@@ -575,6 +575,18 @@ func _refresh_bindings() -> void:
 		for slot in InputBindings.KEY_SLOTS:
 			_binding_buttons[_binding_key(action, slot)].text = InputBindings.code_label(InputBindings.get_code(action, slot))
 		_binding_buttons[_binding_key(action, JOY_SLOT)].text = InputBindings.joy_label(action)
+	_refresh_capture_prompt()
+
+
+func _refresh_capture_prompt() -> void:
+	if not _capturing:
+		return
+	_binding_buttons[_binding_key(_capture_action, _capture_slot)].text = "按下…"
+	var cancel_button := InputBindings.joy_label(&"ui_cancel")
+	if _capture_slot == JOY_SLOT:
+		_set_status("按新手把按鈕；%s短按綁定、長按0.6秒取消；Esc取消。" % cancel_button, Palette.WARNING)
+	else:
+		_set_status("按新按鍵或滑鼠鍵；Esc或%s取消，Backspace清除。" % cancel_button, Palette.WARNING)
 
 
 func _begin_capture(action: StringName, slot: int) -> void:
@@ -582,11 +594,7 @@ func _begin_capture(action: StringName, slot: int) -> void:
 	_capturing = true
 	_capture_action = action
 	_capture_slot = slot
-	_binding_buttons[_binding_key(action, slot)].text = "按下…"
-	if slot == JOY_SLOT:
-		_set_status(InputBindings.format("按新按鈕；{ui_cancel}短按可綁，長按0.6秒取消。"), Palette.WARNING)
-	else:
-		_set_status(InputBindings.format("按新按鍵；{ui_cancel}或Esc取消，Backspace清除。"), Palette.WARNING)
+	_refresh_capture_prompt()
 
 
 func _cancel_capture() -> void:
@@ -600,6 +608,7 @@ func _cancel_capture() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	AimInput.observe(event)
 	if not _capturing:
 		if event.is_action_pressed(&"ui_cancel"):
 			close()

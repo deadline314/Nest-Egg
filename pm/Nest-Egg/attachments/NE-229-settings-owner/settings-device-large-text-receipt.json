@@ -1,0 +1,16 @@
+{
+  "runs": [
+    {
+      "side": "before",
+      "exit": 1,
+      "source_sha256": "81c7d96fedf050130872e753098aadfdfa27cf8ede9043183dc5d246bb023d56"
+    },
+    {
+      "side": "after",
+      "exit": 0,
+      "source_sha256": "dc534d24e4b255a40de3ea3e5712b7bf5272a5133fdc15f30f5ba60d16acf0cc"
+    }
+  ],
+  "candidate_restored": true,
+  "candidate_sha256": "dc534d24e4b255a40de3ea3e5712b7bf5272a5133fdc15f30f5ba60d16acf0cc"
+}

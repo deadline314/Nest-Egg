@@ -1,0 +1,41 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.305 - Forward+ - Using Device #0: Unknown - llvmpipe (LLVM 19.1.7, 256 bits)
+
+SETTINGS_CHECK true settings initially shows real keyboard page bindings
+SETTINGS_CHECK false controller note names the actual short/long B rule even with keyboard input
+SETTINGS_CHECK true consumed RB changes exactly one settings page
+SETTINGS_CHECK false consumed settings RB records the actual controller
+SETTINGS_CHECK false settings hold rules immediately use the controller after RB
+SETTINGS_CHECK true settings page change retains focus in the visible tab
+SETTINGS_CHECK true controller settings page is reachable with visible focus
+SETTINGS_CHECK false controller page note follows consumed shoulder-key events
+saved controller-page OK
+SETTINGS_CHECK true mouse restores keyboard settings hints without closing
+saved keyboard-page OK
+SETTINGS_CHECK true public confirm starts the arranged settings capture: slot -1 controller false
+SETTINGS_CHECK false capture instructions identify both the real controller button and Escape
+saved capture-prompt-11 OK
+SETTINGS_CHECK true short B retains the original controller-binding behavior
+saved short-b-bound OK
+SETTINGS_CHECK false consumed short B refreshes controller identity and hold rules
+SETTINGS_CHECK true public confirm starts the arranged settings capture: slot -1 controller false
+SETTINGS_CHECK false capture instructions identify both the real controller button and Escape
+saved capture-prompt-15 OK
+SETTINGS_CHECK false device change preserves the active capture marker and truthful B instructions
+SETTINGS_CHECK true long B cancels without changing the binding or losing focus
+saved long-b-cancelled OK
+SETTINGS_CHECK false consumed long B still records the controller
+SETTINGS_CHECK true public confirm starts the arranged settings capture: slot 0 controller true
+SETTINGS_CHECK true capture instructions identify both the real controller button and Escape
+saved capture-prompt-20 OK
+SETTINGS_CHECK true Escape cancels keyboard capture without changing its value or focus
+SETTINGS_CHECK false consumed Escape immediately restores keyboard identity
+SETTINGS_CHECK true public confirm starts the arranged settings capture: slot 0 controller true
+SETTINGS_CHECK true capture instructions identify both the real controller button and Escape
+saved capture-prompt-24 OK
+SETTINGS_CHECK true public keyboard capture applies the actual new key
+SETTINGS_CHECK false consumed new keyboard binding immediately appears in the keyboard hold rules
+saved keyboard-bound OK
+SETTINGS_CHECK true all settings device/capture stages complete
+SETTINGS_CHECK true settings checks restore every original keyboard and controller binding
+SETTINGS_DEVICE_RESULT checks=28 failures=11

@@ -27,6 +27,7 @@ func run() -> void:
 	await preload("res://tests/helpers/controller_screen_checks.gd").run(self)
 	await preload("res://tests/helpers/navigation_consistency_checks.gd").run(self)
 	await preload("res://tests/helpers/inventory_device_checks.gd").run(self)
+	await preload("res://tests/helpers/settings_device_checks.gd").run(self)
 	await _test_hd_portrait()
 	await ContextualUiChecks.run(self)
 	await ContextualPriorityChecks.run(self)

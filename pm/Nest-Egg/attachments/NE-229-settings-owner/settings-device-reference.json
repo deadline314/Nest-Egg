@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-24",
+  "game_reference": {
+    "game": "blasphemous-options",
+    "page": "https://interfaceingame.com/screenshots/blasphemous-options/",
+    "image": "https://interfaceingame.com/wp-content/uploads/blasphemous/blasphemous-options.png",
+    "file": "blasphemous-options.jpg",
+    "sha256": "5ba69683f2e31a94bdfd4a269ba4714339cdbda8875675a71a065a5156ad7fa5"
+  },
+  "note": "Existing source image re-viewed before implementation; no new download or claim about its internal input logic.",
+  "official_input_docs": {
+    "url": "https://raw.githubusercontent.com/godotengine/godot-docs/master/tutorials/inputs/inputevent.rst",
+    "status": 200,
+    "bytes": 16244,
+    "sha256": "23dbc7ad0ad1caf278e2b7c0f40561531666c47a8881566f0426396072200255",
+    "game_image": "pm/Nest-Egg/images/NE-244-ref-hollow-knight.jpg",
+    "research": "Existing NE244 seven-game research reused; Hollow Knight image viewed this task. No claim that a static image proves its input implementation.",
+    "input_api": {
+      "url": "https://raw.githubusercontent.com/godotengine/godot-docs/master/classes/class_input.rst",
+      "status": 200,
+      "bytes": 142810,
+      "sha256": "dbffd82aef6ad953c886abbfa4da0a074d022c3168d8fd8b92b65a7397cda283"
+    }
+  },
+  "scope": "Reuses the recently fetched successful official Godot input docs, user guide and controller design."
+}

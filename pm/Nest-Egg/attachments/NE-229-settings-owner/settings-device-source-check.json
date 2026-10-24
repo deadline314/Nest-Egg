@@ -1,0 +1,34 @@
+{
+  "base": "2c9fa7b88413693b949f33f33f5f400f59073d2b",
+  "files": {
+    "ui/settings_screen.gd": {
+      "before": "81c7d96fedf050130872e753098aadfdfa27cf8ede9043183dc5d246bb023d56",
+      "after": "dc534d24e4b255a40de3ea3e5712b7bf5272a5133fdc15f30f5ba60d16acf0cc"
+    },
+    "tests/suite/test_ui_screens.gd": {
+      "before": "fc5a2029eb439b9071ba5760095070893818ca4310c5c5dc8a8ba7e6602967a7",
+      "after": "314212470fdd6cc7bf3517ace66f596d6ff5f03db63b84edef31ea685ba929a6"
+    },
+    "autoload/input_bindings.gd": {
+      "before": "a3da67e4ecdd0d2d9972c7f0c738ae648f10493a9241c571080bf0a16886944e",
+      "after": "a3da67e4ecdd0d2d9972c7f0c738ae648f10493a9241c571080bf0a16886944e"
+    },
+    "core/aim_input.gd": {
+      "before": "389cbabc618fa544675fa8804f16cc5086d05aa3d8f8206a9d9a7be3d961bd8a",
+      "after": "389cbabc618fa544675fa8804f16cc5086d05aa3d8f8206a9d9a7be3d961bd8a"
+    },
+    "tools/select_tests.py": {
+      "before": "5617cd39198b93547fa73753074ad5ffb28d2fb9ea0ae8ba5242b2815cce69da",
+      "after": "5617cd39198b93547fa73753074ad5ffb28d2fb9ea0ae8ba5242b2815cce69da"
+    },
+    "tools/run_tests_parallel.sh": {
+      "before": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba",
+      "after": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba"
+    },
+    "tests/known_failures.txt": {
+      "before": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf",
+      "after": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf"
+    }
+  },
+  "original_ui_suite_preserved_except_one_call": true
+}
