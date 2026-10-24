@@ -1,0 +1,90 @@
+{
+  "base": "ef0783d4",
+  "archive_sha256": "8ced17f961c04e12f68d08aa6059b6e7757e73edfd23c07cfba76cf034016bca",
+  "files": [
+    {
+      "path": "work/negative.log",
+      "sha256": "084e1e198d5c914cc143e2b7752afd841f5ef65ec548a67aa66490ed584d2999"
+    },
+    {
+      "path": "work/negative-ready.log",
+      "sha256": "53c65e31663a180532dc4014351be39c5d3ba21c4cc70c92584e6112945960e5"
+    },
+    {
+      "path": "work/positive.log",
+      "sha256": "c83d8442b7bb831af5c0a7e8ee0dde9ac224c4dc6a07c58c43f8152496f4cc8c"
+    },
+    {
+      "path": "work/affected.log",
+      "sha256": "19b6059adaf7086dde24c35b135d92b343e68b6b8f636a9da47197f4d1de7a35"
+    },
+    {
+      "path": "work/import.log",
+      "sha256": "1f7a174f5936b5a145c3169ea4f3d3cd532bf70b71fda8498bcc6c3cd8a6fc1c"
+    },
+    {
+      "path": "work/repair.gd",
+      "sha256": "ffcb8eade2086e54f3723f89198523c868cad12176cb830e569132cd8970e030"
+    },
+    {
+      "path": "work/repair.tscn",
+      "sha256": "682327fbea0aef1d6ab4df7b3a6ae754001a315270225dae3f8b06a525134828"
+    },
+    {
+      "path": "work/native-driver.log",
+      "sha256": "4dd9c3bb98774911dc37fd1af35f85b99e73699da90e53fb188d7dfbdf59a44b"
+    },
+    {
+      "path": "work/negative-shards/shard_0.log",
+      "sha256": "147936ea93c1bc7a37f0078a4b07ee710f3f858cdc111fef374eced763cff2e6"
+    },
+    {
+      "path": "work/negative-ready-shards/shard_0.log",
+      "sha256": "5539ff8a9476ac41c98bf7d68a776a972af4e129b5bb5dc93d93ad44b63b613b"
+    },
+    {
+      "path": "work/positive-shards/shard_0.log",
+      "sha256": "6a37586d5d0db3ca798459ee77c41af0831663e655e8ec8cb0b79f25449dc70c"
+    },
+    {
+      "path": "work/affected-shards/shard_0.log",
+      "sha256": "2c1391569c418a50255d17676c5a85c0d793587150af66762bbfd35c1c25f18e"
+    },
+    {
+      "path": "work/affected-shards/shard_1.log",
+      "sha256": "2a0f3521abf6f5901d967c3f358834db3bc69288726d1867f910afa4ed33d74a"
+    },
+    {
+      "path": "native/NE-246-canonical-reading.png",
+      "sha256": "92671344052024be5758db6861e1d1c97267dd0a81c02b0416e20c7ed2e48339"
+    },
+    {
+      "path": "native/NE-246-save-refused.png",
+      "sha256": "83fce5b56dffba3caf59c9df43e6f20da690c053ea622185cbd4f1b2a4e7019d"
+    },
+    {
+      "path": "native/engine.log",
+      "sha256": "9155fc98bd9d057cd7af358b451e7d545109f2866c6d3c4a6ec9a554a266d60f"
+    },
+    {
+      "path": "source/final/game/story_flag_completion.gd",
+      "sha256": "c6da68bb9cfcf41f64b093817e8a4ba7c6221e938853da8e153d246fea1549bd"
+    },
+    {
+      "path": "source/before/game/story_flag_completion.gd",
+      "sha256": "1a2bae65923002d61c6254ead130150c934f4a60a7e4595ebd90a7c292212bce"
+    },
+    {
+      "path": "source/final/tests/helpers/radio_completion_checks.gd",
+      "sha256": "65f65124382a8cfc7e7c7163a2e2f4a585d1e34e1ce184f2577358d25687c3c4"
+    },
+    {
+      "path": "source/before/tests/helpers/radio_completion_checks.gd",
+      "sha256": "491af577173336f5ca69c8aec9f881f75b19baad1a8c8c59545efe5e20d94454"
+    },
+    {
+      "path": "references/sources.json",
+      "sha256": "e87f23178a893358f4bcb293b7bf9b0394df341636ac74015aa075e26409c85d"
+    }
+  ]
+}

@@ -324,3 +324,22 @@
 ![真正演員與差事簡報](images/ST-9-npc-brief.png)
 ![翌日當舖獨立程序續玩](images/ST-9-npc-dawn.png)
 ![已提交後來源消失，讀取已保存結果](images/ST-9-npc-committed-recovery.png)
+
+
+# Commit-14
+
+## 內文
+
+通訊遇到需要修復完整進度的狀態時，原本只提供無法成功的重試。現在可載入原進度再聽，保存前不發布通訊完成、旗標或額外物品，取消及世界暫停保持。
+
+### 測試結果
+
+| 項目 | 結果 |
+|---|---|
+| 真磁碟修前／修後 | 613／1失敗→613／0 |
+| 七組受影響回歸 | checks: 3544, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 188 s) |
+| 正式Main原生恢復 | 15／0；0引擎錯誤與退出洩漏，兩張圖逐張檢視 |
+
+[設計、參照、原檔與驗證界線](attachments/ST-9-radio-repair/README.md)。
+
+![尚未提交，載入原進度](images/ST-9-radio-repair.png)

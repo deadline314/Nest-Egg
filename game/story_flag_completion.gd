@@ -147,7 +147,7 @@ func _commit(id: StringName, scene: Dictionary, level: Level) -> Dictionary:
 	# Item and wallet migrations still require the original whole-run restore.
 	for pair: Array in [[normalized["story"]["items"], unchanged["story"]["items"]], [normalized["progression"], unchanged["progression"]], [normalized["state"], prior["data"]["state"]]]:
 		if JSON.parse_string(JSON.stringify(pair[0])) != JSON.parse_string(JSON.stringify(pair[1])):
-			return {"error": "non-flag run owners need a whole-run repair"}
+			return {"error": "non-flag run owners need a whole-run repair", "reload_original": true}
 	# All fallible owner preparation completes BEFORE the durable boundary.
 	var game := GameState.prepare_install(normalized["state"], normalized["story"]["flags"], "", false)
 	var story := Story.prepare_install(normalized["story"]["seen"], false)

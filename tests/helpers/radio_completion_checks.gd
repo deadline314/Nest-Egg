@@ -77,7 +77,9 @@ static func run(s: TestSuite) -> void:
 	GameState.set_flag(&"ledger_disk_obtained", true, false)  # Explicit inconsistent legacy fixture; no disk granted.
 	old = FileAccess.get_file_as_bytes(store.path)
 	var invalid_live := var_to_bytes([GameState._install_source(), Story._install_source(), StoryItems.snapshot(), Progression.snapshot()])
-	s.check(not gate._commit(SCENE, Story._scenes[String(SCENE)], level).get("committed", false), "flag-only radio refuses a candidate requiring an unowned item repair")
+	var repair_refused := gate._commit(SCENE, Story._scenes[String(SCENE)], level)
+	s.check(not repair_refused.get("committed", false), "flag-only radio refuses a candidate requiring an unowned item repair")
+	s.check(repair_refused.get("reload_original", false), "uncommitted radio repair offers original progress instead of an impossible retry")
 	s.check(FileAccess.get_file_as_bytes(store.path) == old and invalid_live == var_to_bytes([GameState._install_source(), Story._install_source(), StoryItems.snapshot(), Progression.snapshot()]), "unowned repair refusal leaves exact disk and all live owners unchanged")
 	GameState.world_flags = original_flags
 	store.mutate = true

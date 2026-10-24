@@ -15,3 +15,7 @@
 實際重看 [五款橫向動作／探索作品的來源圖](../../pm/Nest-Egg/attachments/NE-278-references/sources.json)：Katana ZERO 的明確選項與行動對應；Hollow Knight 保留人物／環境閱讀空間；Ghost Song 的講者與繼續提示；Blasphemous 2 的物件與人物關係；Ori 的關鍵資訊層次。圖片原件保留原來源，不當成本作驗收或偏好民調。
 
 [Godot 官方存讀檔](https://docs.godotengine.org/en/stable/tutorials/io/saving_games.html)支持完整持久狀態的捕捉；本作沿用既有有結果碼的整輪 writer，不據該教學宣稱具斷電 fsync 保證。[Hades 更新紀錄](https://www.supergiantgames.com/blog/hades-updates/)呈現對話資格與進度的修復案例，作為回訪驗證參考，不推論其內部實作。
+
+## 2026-10-24：旗標型通訊的整輪修復
+
+旗標型保存拒絕非旗標owner的整輪修復時，該狀態不是重試同一候選可以排除的暫時IO問題。沿既有原進度恢復路徑交還Main完整讀取；不提前完成通訊、不安裝修復物品，也不把未提交結果說成已保存。真磁碟原回歸追加恢復語義檢查，保留原拒寫與所有owner不變檢查。
