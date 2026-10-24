@@ -1,0 +1,28 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+NE269_RULES {"false":{"arc_drawn":120.0,"blocked_68":false,"guard_max":100.0,"hurt_68":true,"parts":0,"reflected":false,"speed":52.5,"window":0.16},"true":{"arc_drawn":150.0,"blocked_68":true,"guard_max":130.0,"hurt_68":false,"parts":6,"reflected":true,"speed":90.0,"window":0.21}}
+WARNING: [Progression] 存檔的 arm_shield 不是清單，臂盾零件視為沒有
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _restore_arm_shield (res://autoload/progression.gd:571)
+         [1] restore (res://autoload/progression.gd:552)
+         [2] _test_arm_shield_purchase_and_save (res://tests/suite/test_fx_upgrades.gd:928)
+         [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+         [4] start_level (res://tests/suite/test_suite.gd:34)
+         [5] spawn_level (res://tests/suite/test_suite.gd:43)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:125)
+WARNING: [DashSilhouettePool] sample omitted: unsupported part type: @Node2D@9091
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _reject (res://game/player/dash_silhouette_pool.gd:238)
+         [1] capture (res://game/player/dash_silhouette_pool.gd:213)
+         [2] run (res://tests/helpers/dash_silhouette_checks.gd:143)
+         [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+         [4] start_level (res://tests/suite/test_suite.gd:34)
+         [5] spawn_level (res://tests/suite/test_suite.gd:43)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:125)
+SUITE_TIME FxUpgradesSuite 149.0
+checks: 416, failures: 0

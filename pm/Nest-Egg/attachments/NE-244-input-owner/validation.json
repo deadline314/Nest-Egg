@@ -1,0 +1,37 @@
+{
+  "base": "c9e8342cc1dee94493b4d3b437d59e865d97205f",
+  "unit_before": {
+    "checks": 420,
+    "failures": 6,
+    "seconds": 46
+  },
+  "unit_after": {
+    "checks": 420,
+    "failures": 0,
+    "seconds": 46
+  },
+  "native_before": {
+    "checks": 15,
+    "failures": 6,
+    "exit": 1,
+    "errors": 0,
+    "leaks": 0
+  },
+  "native_after": {
+    "checks": 15,
+    "failures": 0,
+    "exit": 0,
+    "errors": 0,
+    "leaks": 0
+  },
+  "original_selector": {
+    "groups": 10,
+    "checks": 6065,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 221
+  },
+  "final_images_reviewed": 10,
+  "physical_controller_acceptance": false,
+  "scope": "Shared final helper on original UI suite and real Main-owned inventory. Actual callbacks, synthetic keyboard/mouse/pad999. Main route and test isolation arranged, not natural chapter/hardware acceptance."
+}

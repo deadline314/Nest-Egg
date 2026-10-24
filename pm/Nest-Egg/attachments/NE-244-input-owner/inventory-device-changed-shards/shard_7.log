@@ -1,0 +1,38 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+ERROR: [DevMenu] 工具清單格式錯誤（要有 tools 陣列）：res://tests/fixtures/dev_menu/bad_format.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_entries (res://autoload/dev_menu.gd:44)
+       [1] _test_tool_list_validation (res://tests/suite/test_dev_menu.gd:37)
+       [2] run (res://tests/suite/test_dev_menu.gd:10)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [DevMenu] res://tests/fixtures/dev_menu/mixed.json 的第 2 個工具缺少 id、name 或 scene，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_entries (res://autoload/dev_menu.gd:50)
+       [1] _test_tool_list_validation (res://tests/suite/test_dev_menu.gd:38)
+       [2] run (res://tests/suite/test_dev_menu.gd:10)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [DevMenu] res://tests/fixtures/dev_menu/mixed.json 的工具 id 重複：ok_tool，已略過
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_entries (res://autoload/dev_menu.gd:53)
+       [1] _test_tool_list_validation (res://tests/suite/test_dev_menu.gd:38)
+       [2] run (res://tests/suite/test_dev_menu.gd:10)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [DevMenu] 找不到 test_dev_menu_missing 的場景：res://tools/test_dev_menu_missing.tscn
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] choose (res://autoload/dev_menu.gd:109)
+       [1] _test_choose (res://tests/suite/test_dev_menu.gd:80)
+       [2] run (res://tests/suite/test_dev_menu.gd:12)
+       [3] _test_open_close (res://tests/suite/test_dev_menu.gd:64)
+       [4] frames (res://tests/suite/test_suite.gd:23)
+       [5] _frames (res://tests/smoke_test.gd:125)
+SUITE_TIME DevMenuSuite 0.1
+checks: 25, failures: 0

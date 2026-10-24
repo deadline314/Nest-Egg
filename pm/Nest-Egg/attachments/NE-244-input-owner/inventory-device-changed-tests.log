@@ -1,0 +1,11 @@
+受影響的測試：AmmoIconsSuite,CollectiblesSuite,DevMenuSuite,EconomySuite,FxUpgradesSuite,MeleeWeaponsSuite,ProgressionSuite,SupplySuite,UiScreensSuite,main
+Running 10 groups in 8 processes (logs: /workspace/Nest-Egg/work/batch1024/inventory-device-changed-shards)
+  process 0 (estimated 240 s): main
+  process 1 (estimated 40 s): UiScreensSuite
+  process 2 (estimated 50 s): SupplySuite,CollectiblesSuite
+  process 3 (estimated 50 s): ProgressionSuite,AmmoIconsSuite
+  process 4 (estimated 25 s): MeleeWeaponsSuite
+  process 5 (estimated 25 s): FxUpgradesSuite
+  process 6 (estimated 25 s): EconomySuite
+  process 7 (estimated 25 s): DevMenuSuite
+checks: 6065, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 221 s)

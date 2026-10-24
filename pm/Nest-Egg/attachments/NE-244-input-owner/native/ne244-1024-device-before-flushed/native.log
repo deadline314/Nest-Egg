@@ -1,0 +1,24 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.305 - Forward+ - Using Device #0: Unknown - llvmpipe (LLVM 19.1.7, 256 bits)
+
+INVENTORY_CHECK true actual Main owns formal street route
+INVENTORY_CHECK true mouse-opened bag shows actual keyboard inventory binding
+INVENTORY_CHECK true consumed controller RB still changes exactly one page
+INVENTORY_CHECK false consumed bag event records the actual controller
+INVENTORY_CHECK false consumed RB immediately replaces keyboard legend with controller bindings
+saved /workspace/Nest-Egg/work/batch1020b/ne244-1024-device-before-flushed/controller-tab.png (OK)
+INVENTORY_CHECK true mouse motion restores keyboard legend without closing or changing page
+saved /workspace/Nest-Egg/work/batch1020b/ne244-1024-device-before-flushed/mouse-return.png (OK)
+INVENTORY_CHECK true unconsumed controller event also refreshes the open bag legend
+saved /workspace/Nest-Egg/work/batch1020b/ne244-1024-device-before-flushed/unconsumed-controller.png (OK)
+INVENTORY_CHECK false consumed keyboard navigation immediately restores keyboard bindings
+INVENTORY_CHECK true controller Back still closes once and resumes play
+INVENTORY_CHECK false first controller inventory press opens with matching device hints
+saved /workspace/Nest-Egg/work/batch1020b/ne244-1024-device-before-flushed/controller-open.png (OK)
+INVENTORY_CHECK true stick navigation fixture contains at least four real upgrade choices
+INVENTORY_CHECK true left stick initially selects exactly one entry
+INVENTORY_CHECK false changing held-stick pressure does not add a navigation press
+INVENTORY_CHECK false holding the stick repeats navigation after the existing shared delay
+saved /workspace/Nest-Egg/work/batch1020b/ne244-1024-device-before-flushed/stick-repeat.png (OK)
+INVENTORY_CHECK true releasing the stick stops further selection changes
+INVENTORY_DEVICE_RESULT checks=15 failures=6

@@ -1,0 +1,9 @@
+Running 1 groups in 1 processes (logs: /workspace/Nest-Egg/work/batch1024/inventory-device-before-flushed-shards)
+  process 0 (estimated 39 s): UiScreensSuite
+[process 0] NEW FAILURE: consumed bag event records the actual controller
+[process 0] NEW FAILURE: consumed RB immediately replaces keyboard legend with controller bindings
+[process 0] NEW FAILURE: consumed keyboard navigation immediately restores keyboard bindings
+[process 0] NEW FAILURE: first controller inventory press opens with matching device hints
+[process 0] NEW FAILURE: changing held-stick pressure does not add a navigation press
+[process 0] NEW FAILURE: holding the stick repeats navigation after the existing shared delay
+checks: 420, new failures: 6, known failures (tests/known_failures.txt): 0  (wall time 46 s)

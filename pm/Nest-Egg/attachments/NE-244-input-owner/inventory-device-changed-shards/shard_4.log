@@ -1,0 +1,470 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+NE237_ECONOMY {"arm_shield":840,"arm_shield_list":["臂盾・反應晶片 ¥120","臂盾・延伸片 ¥140","臂盾・緩衝襯墊 ¥160","臂盾・散熱鰭片 ¥130","臂盾・輕量骨架 ¥110","臂盾・偏折塗層 ¥180"],"list":["改裝・擴充彈匣 ¥120","改裝・穩定槍管 ¥150","改裝・快速換彈 ¥100","醫療針 ×2 ¥120","護盾電池 ×1 ¥80"],"optional":540,"optional_list":["改裝・突進斬 ¥100","改裝・回切 ¥80","改裝・交叉掃 ¥120","改裝・蓄力砸擊 ¥140","改裝・回甩 ¥100"],"required":570,"supplies":200,"upgrades":910}
+NE237_INSTALL_CONTRACT accepted
+ERROR: [MeleeSet] res://data/melee/test_no_such_attack.json/attacks must be an object; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ensure_loaded (res://game/player/melee_set.gd:51)
+       [1] attack (res://game/player/melee_set.gd:117)
+       [2] _test_data (res://tests/suite/test_melee_weapons.gd:80)
+       [3] run (res://tests/suite/test_melee_weapons.gd:11)
+       [4] _run_suites (res://tests/smoke_test.gd:110)
+       [5] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://data/melee/test_no_such_attack.json 沒有招式「whatever」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:125)
+       [1] _test_data (res://tests/suite/test_melee_weapons.gd:80)
+       [2] run (res://tests/suite/test_melee_weapons.gd:11)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+NE236_MAUL_DRAWING {"grip_crosses_authored_palm":true,"head_materials":5,"shaft_reaches_head":true}
+ERROR: [WeaponSystem] test_no_such_weapon_preflight_spec_nan/shot: ["projectile speed must be finite in 0–10000.0", "projectile speed must be finite in 0–10000.0"]; refusing before shot costs/feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] can_fire (res://core/weapon_system.gd:26)
+       [1] _try_fire (res://game/player/player.gd:693)
+       [2] _test_real_shot_preflight (res://tests/suite/test_melee_weapons.gd:1068)
+       [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:125)
+NE237_SHOT_PREFLIGHT {"after":{"cooldown":0.0,"input_marks":{"shoot":33038753},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"before":{"cooldown":0.0,"input_marks":{"shoot":33038753},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"caller":"Player","fault":"spec_nan"}
+ERROR: [WeaponSystem] test_no_such_weapon_preflight_spec_nan/shot: ["projectile speed must be finite in 0–10000.0", "projectile speed must be finite in 0–10000.0"]; refusing before shot costs/feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] can_fire (res://core/weapon_system.gd:26)
+       [1] _try_fire (res://game/vehicles/vehicle.gd:180)
+       [2] _test_real_shot_preflight (res://tests/suite/test_melee_weapons.gd:1081)
+       [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:125)
+NE237_SHOT_PREFLIGHT {"after":{"cooldown":0.0,"input_marks":{"shoot":33038753},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"before":{"cooldown":0.0,"input_marks":{"shoot":33038753},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"caller":"Vehicle","fault":"spec_nan"}
+ERROR: [WeaponSystem] test_no_such_weapon_preflight_spec_huge/shot: ["projectile speed must be finite in 0–10000.0", "projectile speed must be finite in 0–10000.0"]; refusing before shot costs/feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] can_fire (res://core/weapon_system.gd:26)
+       [1] _try_fire (res://game/player/player.gd:693)
+       [2] _test_real_shot_preflight (res://tests/suite/test_melee_weapons.gd:1068)
+       [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:125)
+NE237_SHOT_PREFLIGHT {"after":{"cooldown":0.0,"input_marks":{"shoot":33039669},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"before":{"cooldown":0.0,"input_marks":{"shoot":33039669},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"caller":"Player","fault":"spec_huge"}
+ERROR: [WeaponSystem] test_no_such_weapon_preflight_spec_huge/shot: ["projectile speed must be finite in 0–10000.0", "projectile speed must be finite in 0–10000.0"]; refusing before shot costs/feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] can_fire (res://core/weapon_system.gd:26)
+       [1] _try_fire (res://game/vehicles/vehicle.gd:180)
+       [2] _test_real_shot_preflight (res://tests/suite/test_melee_weapons.gd:1081)
+       [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:125)
+NE237_SHOT_PREFLIGHT {"after":{"cooldown":0.0,"input_marks":{"shoot":33039669},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"before":{"cooldown":0.0,"input_marks":{"shoot":33039669},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"caller":"Vehicle","fault":"spec_huge"}
+ERROR: [WeaponSystem] test_no_such_weapon_preflight_spec_damage/shot: ["projectile damage outside 0–10000", "projectile damage outside 0–10000"]; refusing before shot costs/feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] can_fire (res://core/weapon_system.gd:26)
+       [1] _try_fire (res://game/player/player.gd:693)
+       [2] _test_real_shot_preflight (res://tests/suite/test_melee_weapons.gd:1068)
+       [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:125)
+NE237_SHOT_PREFLIGHT {"after":{"cooldown":0.0,"input_marks":{"shoot":33040120},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"before":{"cooldown":0.0,"input_marks":{"shoot":33040120},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"caller":"Player","fault":"spec_damage"}
+ERROR: [WeaponSystem] test_no_such_weapon_preflight_spec_damage/shot: ["projectile damage outside 0–10000", "projectile damage outside 0–10000"]; refusing before shot costs/feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] can_fire (res://core/weapon_system.gd:26)
+       [1] _try_fire (res://game/vehicles/vehicle.gd:180)
+       [2] _test_real_shot_preflight (res://tests/suite/test_melee_weapons.gd:1081)
+       [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:125)
+NE237_SHOT_PREFLIGHT {"after":{"cooldown":0.0,"input_marks":{"shoot":33040120},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"before":{"cooldown":0.0,"input_marks":{"shoot":33040120},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"caller":"Vehicle","fault":"spec_damage"}
+ERROR: [WeaponSystem] test_no_such_weapon_preflight_spec_style/shot: ["projectile visual_style unknown style: test_no_such_style"]; refusing before shot costs/feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] can_fire (res://core/weapon_system.gd:26)
+       [1] _try_fire (res://game/player/player.gd:693)
+       [2] _test_real_shot_preflight (res://tests/suite/test_melee_weapons.gd:1068)
+       [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:125)
+NE237_SHOT_PREFLIGHT {"after":{"cooldown":0.0,"input_marks":{"shoot":33040497},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"before":{"cooldown":0.0,"input_marks":{"shoot":33040497},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"caller":"Player","fault":"spec_style"}
+ERROR: [WeaponSystem] test_no_such_weapon_preflight_spec_style/shot: ["projectile visual_style unknown style: test_no_such_style"]; refusing before shot costs/feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] can_fire (res://core/weapon_system.gd:26)
+       [1] _try_fire (res://game/vehicles/vehicle.gd:180)
+       [2] _test_real_shot_preflight (res://tests/suite/test_melee_weapons.gd:1081)
+       [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:125)
+NE237_SHOT_PREFLIGHT {"after":{"cooldown":0.0,"input_marks":{"shoot":33040497},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"before":{"cooldown":0.0,"input_marks":{"shoot":33040497},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"caller":"Vehicle","fault":"spec_style"}
+ERROR: [WeaponSystem] test_no_such_weapon_preflight_spec_identity/shot: ["projectile source_id missing"]; refusing before shot costs/feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] can_fire (res://core/weapon_system.gd:26)
+       [1] _try_fire (res://game/player/player.gd:693)
+       [2] _test_real_shot_preflight (res://tests/suite/test_melee_weapons.gd:1068)
+       [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:125)
+NE237_SHOT_PREFLIGHT {"after":{"cooldown":0.0,"input_marks":{"shoot":33040892},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"before":{"cooldown":0.0,"input_marks":{"shoot":33040892},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"caller":"Player","fault":"spec_identity"}
+ERROR: [WeaponSystem] test_no_such_weapon_preflight_spec_identity/shot: ["projectile source_id missing"]; refusing before shot costs/feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] can_fire (res://core/weapon_system.gd:26)
+       [1] _try_fire (res://game/vehicles/vehicle.gd:180)
+       [2] _test_real_shot_preflight (res://tests/suite/test_melee_weapons.gd:1081)
+       [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:125)
+NE237_SHOT_PREFLIGHT {"after":{"cooldown":0.0,"input_marks":{"shoot":33040892},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"before":{"cooldown":0.0,"input_marks":{"shoot":33040892},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"caller":"Vehicle","fault":"spec_identity"}
+ERROR: [WeaponSystem] test_no_such_weapon_preflight_missing_spec/shot: ["projectile missing"]; refusing before shot costs/feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] can_fire (res://core/weapon_system.gd:26)
+       [1] _try_fire (res://game/player/player.gd:693)
+       [2] _test_real_shot_preflight (res://tests/suite/test_melee_weapons.gd:1068)
+       [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:125)
+NE237_SHOT_PREFLIGHT {"after":{"cooldown":0.0,"input_marks":{"shoot":33041328},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"before":{"cooldown":0.0,"input_marks":{"shoot":33041328},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"caller":"Player","fault":"missing_spec"}
+ERROR: [WeaponSystem] test_no_such_weapon_preflight_missing_spec/shot: ["projectile missing"]; refusing before shot costs/feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] can_fire (res://core/weapon_system.gd:26)
+       [1] _try_fire (res://game/vehicles/vehicle.gd:180)
+       [2] _test_real_shot_preflight (res://tests/suite/test_melee_weapons.gd:1081)
+       [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:125)
+NE237_SHOT_PREFLIGHT {"after":{"cooldown":0.0,"input_marks":{"shoot":33041328},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"before":{"cooldown":0.0,"input_marks":{"shoot":33041328},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"caller":"Vehicle","fault":"missing_spec"}
+ERROR: [WeaponSystem] test_no_such_weapon_preflight_sound/shot: ["fire_sound unknown sound: test_no_such_sound"]; refusing before shot costs/feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] can_fire (res://core/weapon_system.gd:26)
+       [1] _try_fire (res://game/player/player.gd:693)
+       [2] _test_real_shot_preflight (res://tests/suite/test_melee_weapons.gd:1068)
+       [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:125)
+NE237_SHOT_PREFLIGHT {"after":{"cooldown":0.0,"input_marks":{"shoot":33041760},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"before":{"cooldown":0.0,"input_marks":{"shoot":33041760},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"caller":"Player","fault":"sound"}
+ERROR: [WeaponSystem] test_no_such_weapon_preflight_sound/shot: ["fire_sound unknown sound: test_no_such_sound"]; refusing before shot costs/feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] can_fire (res://core/weapon_system.gd:26)
+       [1] _try_fire (res://game/vehicles/vehicle.gd:180)
+       [2] _test_real_shot_preflight (res://tests/suite/test_melee_weapons.gd:1081)
+       [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:125)
+NE237_SHOT_PREFLIGHT {"after":{"cooldown":0.0,"input_marks":{"shoot":33041760},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"before":{"cooldown":0.0,"input_marks":{"shoot":33041760},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"caller":"Vehicle","fault":"sound"}
+ERROR: [WeaponSystem] test_no_such_weapon_preflight_direction/shot: ["projectile direction components must be finite within +/- 1000000.0"]; refusing before shot costs/feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] can_fire (res://core/weapon_system.gd:26)
+       [1] _try_fire (res://game/player/player.gd:693)
+       [2] _test_real_shot_preflight (res://tests/suite/test_melee_weapons.gd:1068)
+       [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:125)
+NE237_SHOT_PREFLIGHT {"after":{"cooldown":0.0,"input_marks":{"shoot":33042163},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"before":{"cooldown":0.0,"input_marks":{"shoot":33042163},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"caller":"Player","fault":"direction"}
+ERROR: [WeaponSystem] test_no_such_weapon_preflight_direction/shot: ["projectile origin components must be finite within +/- 1000000.0", "projectile direction components must be finite within +/- 1000000.0"]; refusing before shot costs/feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] can_fire (res://core/weapon_system.gd:26)
+       [1] _try_fire (res://game/vehicles/vehicle.gd:180)
+       [2] _test_real_shot_preflight (res://tests/suite/test_melee_weapons.gd:1081)
+       [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:125)
+NE237_SHOT_PREFLIGHT {"after":{"cooldown":0.0,"input_marks":{"shoot":33042163},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"before":{"cooldown":0.0,"input_marks":{"shoot":33042163},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"caller":"Vehicle","fault":"direction"}
+ERROR: [WeaponSystem] test_no_such_weapon_preflight_bloom/Player/aim_bloom outside finite 0–1; refusing before shot costs/feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _try_fire (res://game/player/player.gd:691)
+       [1] _test_real_shot_preflight (res://tests/suite/test_melee_weapons.gd:1068)
+       [2] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [3] start_level (res://tests/suite/test_suite.gd:34)
+       [4] spawn_level (res://tests/suite/test_suite.gd:43)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:125)
+NE237_SHOT_PREFLIGHT {"after":{"cooldown":0.0,"input_marks":{"shoot":33042516},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"before":{"cooldown":0.0,"input_marks":{"shoot":33042516},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"caller":"Player","fault":"bloom"}
+ERROR: [WeaponSystem] test_no_such_weapon_preflight_combined_spread/shot: ["combined random_spread_degrees exceeds 360"]; refusing before shot costs/feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] can_fire (res://core/weapon_system.gd:26)
+       [1] _try_fire (res://game/player/player.gd:693)
+       [2] _test_real_shot_preflight (res://tests/suite/test_melee_weapons.gd:1068)
+       [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:125)
+NE237_SHOT_PREFLIGHT {"after":{"cooldown":0.0,"input_marks":{"shoot":33042764},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"before":{"cooldown":0.0,"input_marks":{"shoot":33042764},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"caller":"Player","fault":"combined_spread"}
+ERROR: [WeaponSystem] test_no_such_weapon_preflight_rate_nan/shot: ["fire_rate_scale outside finite 0.1–8"]; refusing before shot costs/feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] can_fire (res://core/weapon_system.gd:26)
+       [1] _try_fire (res://game/player/player.gd:693)
+       [2] _test_real_shot_preflight (res://tests/suite/test_melee_weapons.gd:1068)
+       [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:125)
+NE237_SHOT_PREFLIGHT {"after":{"cooldown":0.0,"input_marks":{"shoot":33043071},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"before":{"cooldown":0.0,"input_marks":{"shoot":33043071},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"caller":"Player","fault":"rate_nan"}
+ERROR: [WeaponSystem] test_no_such_weapon_preflight_rate_zero/shot: ["fire_rate_scale outside finite 0.1–8"]; refusing before shot costs/feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] can_fire (res://core/weapon_system.gd:26)
+       [1] _try_fire (res://game/player/player.gd:693)
+       [2] _test_real_shot_preflight (res://tests/suite/test_melee_weapons.gd:1068)
+       [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:125)
+NE237_SHOT_PREFLIGHT {"after":{"cooldown":0.0,"input_marks":{"shoot":33043323},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"before":{"cooldown":0.0,"input_marks":{"shoot":33043323},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"caller":"Player","fault":"rate_zero"}
+ERROR: [WeaponSystem] test_no_such_weapon_preflight_rate_huge/shot: ["fire_rate_scale outside finite 0.1–8"]; refusing before shot costs/feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] can_fire (res://core/weapon_system.gd:26)
+       [1] _try_fire (res://game/player/player.gd:693)
+       [2] _test_real_shot_preflight (res://tests/suite/test_melee_weapons.gd:1068)
+       [3] open_level (res://tests/suite/enemy_suite_base.gd:32)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:125)
+NE237_SHOT_PREFLIGHT {"after":{"cooldown":0.0,"input_marks":{"shoot":33043564},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"before":{"cooldown":0.0,"input_marks":{"shoot":33043564},"input_samples":0,"mag":30,"muzzle_marks":{"pistol":32203},"particles":0,"projectiles":0,"sounds":0,"vehicle_cooldown":0.0,"vehicle_flash":0.0,"velocity":"(0.0, 0.0)","visual_flash":0.0,"visual_recoil":0.0},"caller":"Player","fault":"rate_huge"}
+NE236_NATURAL_LATE_HIT {"attacker_frozen":false,"first_health":997,"first_pause_deadline":72676,"hits":[{"amount":2,"flash":0.08,"flinch":0.0,"frame":2471,"freeze_attacker":false,"phase":2,"stun":0.45,"third_ticks":11,"true_attacker":true,"velocity_x":80.0,"velocity_y":-24.0}],"late_after":997,"late_before":999,"third_after":30,"third_before":9}
+ERROR: [MeleeSet] res://data/melee/mono_dagger.json/test_no_such_attack_live_tail/attacks/return_cut/guard_cost tail must have a positive cost within the supported bound; refusing paid tail, no free fallback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] start_attack (res://game/melee/melee_module.gd:247)
+       [2] try_attack (res://game/melee/melee_module.gd:232)
+       [3] _try_melee (res://game/player/player.gd:821)
+       [4] _test_frozen_paid_tail_refusal (res://tests/suite/test_melee_weapons.gd:1154)
+       [5] _finish_swing (res://tests/suite/test_melee_weapons.gd:597)
+       [6] physics_frames (res://tests/suite/test_suite.gd:28)
+NE237_FROZEN_TAIL {"charge_after":0,"charge_before":0,"fault":"guard_cost","guard_after":100.0,"guard_before":100.0,"phase":0,"tail":"return_cut","weapon":"melee_dagger"}
+ERROR: [MeleeSet] res://data/melee/mono_dagger.json 沒有招式「test_no_such_attack_base_move」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:125)
+       [1] _test_frozen_paid_tail_refusal (res://tests/suite/test_melee_weapons.gd:1165)
+       [2] _finish_swing (res://tests/suite/test_melee_weapons.gd:597)
+       [3] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [MeleeSet] res://data/melee/mono_dagger.json/test_no_such_attack_live_tail/attacks/return_cut/cancel_after tail must pay full recovery; refusing paid tail, no free fallback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] start_attack (res://game/melee/melee_module.gd:247)
+       [2] try_attack (res://game/melee/melee_module.gd:232)
+       [3] _try_melee (res://game/player/player.gd:821)
+       [4] _test_frozen_paid_tail_refusal (res://tests/suite/test_melee_weapons.gd:1154)
+       [5] _finish_swing (res://tests/suite/test_melee_weapons.gd:597)
+       [6] physics_frames (res://tests/suite/test_suite.gd:28)
+NE237_FROZEN_TAIL {"charge_after":0,"charge_before":0,"fault":"cancel_after","guard_after":100.0,"guard_before":100.0,"phase":0,"tail":"return_cut","weapon":"melee_dagger"}
+ERROR: [MeleeSet] res://data/melee/mono_dagger.json 沒有招式「test_no_such_attack_base_move」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:125)
+       [1] _test_frozen_paid_tail_refusal (res://tests/suite/test_melee_weapons.gd:1165)
+       [2] _finish_swing (res://tests/suite/test_melee_weapons.gd:597)
+       [3] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [MeleeSet] res://data/melee/mono_dagger.json/test_no_such_attack_live_tail/attacks/return_cut paid tail missing; refusing swing, no free fallback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:123)
+       [1] start_attack (res://game/melee/melee_module.gd:247)
+       [2] try_attack (res://game/melee/melee_module.gd:232)
+       [3] _try_melee (res://game/player/player.gd:821)
+       [4] _test_frozen_paid_tail_refusal (res://tests/suite/test_melee_weapons.gd:1154)
+       [5] _finish_swing (res://tests/suite/test_melee_weapons.gd:597)
+       [6] physics_frames (res://tests/suite/test_suite.gd:28)
+NE237_FROZEN_TAIL {"charge_after":0,"charge_before":0,"fault":"missing_tail","guard_after":100.0,"guard_before":100.0,"phase":0,"tail":"return_cut","weapon":"melee_dagger"}
+ERROR: [MeleeSet] res://data/melee/mono_dagger.json 沒有招式「test_no_such_attack_base_move」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:125)
+       [1] _test_frozen_paid_tail_refusal (res://tests/suite/test_melee_weapons.gd:1165)
+       [2] _finish_swing (res://tests/suite/test_melee_weapons.gd:597)
+       [3] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [MeleeSet] res://data/melee/mono_dagger.json/test_no_such_attack_live_tail/attacks/return_cut/guard_cost tail must have a positive cost within the supported bound; refusing paid tail, no free fallback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] start_attack (res://game/melee/melee_module.gd:247)
+       [2] try_attack (res://game/melee/melee_module.gd:232)
+       [3] _try_melee (res://game/player/player.gd:821)
+       [4] _test_frozen_paid_tail_refusal (res://tests/suite/test_melee_weapons.gd:1154)
+       [5] _finish_swing (res://tests/suite/test_melee_weapons.gd:597)
+       [6] physics_frames (res://tests/suite/test_suite.gd:28)
+NE237_FROZEN_TAIL {"charge_after":0,"charge_before":0,"fault":"role_relabel","guard_after":100.0,"guard_before":100.0,"phase":0,"tail":"return_cut","weapon":"melee_dagger"}
+ERROR: [MeleeSet] res://data/melee/mono_dagger.json 沒有招式「test_no_such_attack_base_move」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:125)
+       [1] _test_frozen_paid_tail_refusal (res://tests/suite/test_melee_weapons.gd:1165)
+       [2] _finish_swing (res://tests/suite/test_melee_weapons.gd:597)
+       [3] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [MeleeSet] res://data/melee/hydraulic_maul.json/test_no_such_attack_live_tail/attacks/crush/guard_cost tail must have a positive cost within the supported bound; refusing paid tail, no free fallback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] start_attack (res://game/melee/melee_module.gd:247)
+       [2] try_attack (res://game/melee/melee_module.gd:232)
+       [3] _try_melee (res://game/player/player.gd:821)
+       [4] _test_frozen_paid_tail_refusal (res://tests/suite/test_melee_weapons.gd:1154)
+       [5] _finish_swing (res://tests/suite/test_melee_weapons.gd:597)
+       [6] physics_frames (res://tests/suite/test_suite.gd:28)
+NE237_FROZEN_TAIL {"charge_after":1,"charge_before":1,"fault":"guard_cost","guard_after":100.0,"guard_before":100.0,"phase":0,"tail":"crush","weapon":"melee_maul"}
+ERROR: [MeleeSet] res://data/melee/hydraulic_maul.json 沒有招式「test_no_such_attack_base_move」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:125)
+       [1] _test_frozen_paid_tail_refusal (res://tests/suite/test_melee_weapons.gd:1165)
+       [2] _finish_swing (res://tests/suite/test_melee_weapons.gd:597)
+       [3] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [MeleeSet] res://data/melee/hydraulic_maul.json/test_no_such_attack_live_tail/attacks/crush/cancel_after tail must pay full recovery; refusing paid tail, no free fallback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] start_attack (res://game/melee/melee_module.gd:247)
+       [2] try_attack (res://game/melee/melee_module.gd:232)
+       [3] _try_melee (res://game/player/player.gd:821)
+       [4] _test_frozen_paid_tail_refusal (res://tests/suite/test_melee_weapons.gd:1154)
+       [5] _finish_swing (res://tests/suite/test_melee_weapons.gd:597)
+       [6] physics_frames (res://tests/suite/test_suite.gd:28)
+NE237_FROZEN_TAIL {"charge_after":1,"charge_before":1,"fault":"cancel_after","guard_after":100.0,"guard_before":100.0,"phase":0,"tail":"crush","weapon":"melee_maul"}
+ERROR: [MeleeSet] res://data/melee/hydraulic_maul.json 沒有招式「test_no_such_attack_base_move」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:125)
+       [1] _test_frozen_paid_tail_refusal (res://tests/suite/test_melee_weapons.gd:1165)
+       [2] _finish_swing (res://tests/suite/test_melee_weapons.gd:597)
+       [3] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [MeleeSet] res://data/melee/hydraulic_maul.json/test_no_such_attack_live_tail/attacks/crush paid tail missing; refusing swing, no free fallback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:123)
+       [1] start_attack (res://game/melee/melee_module.gd:247)
+       [2] try_attack (res://game/melee/melee_module.gd:232)
+       [3] _try_melee (res://game/player/player.gd:821)
+       [4] _test_frozen_paid_tail_refusal (res://tests/suite/test_melee_weapons.gd:1154)
+       [5] _finish_swing (res://tests/suite/test_melee_weapons.gd:597)
+       [6] physics_frames (res://tests/suite/test_suite.gd:28)
+NE237_FROZEN_TAIL {"charge_after":1,"charge_before":1,"fault":"missing_tail","guard_after":100.0,"guard_before":100.0,"phase":0,"tail":"crush","weapon":"melee_maul"}
+ERROR: [MeleeSet] res://data/melee/hydraulic_maul.json 沒有招式「test_no_such_attack_base_move」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:125)
+       [1] _test_frozen_paid_tail_refusal (res://tests/suite/test_melee_weapons.gd:1165)
+       [2] _finish_swing (res://tests/suite/test_melee_weapons.gd:597)
+       [3] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [MeleeSet] res://data/melee/hydraulic_maul.json/test_no_such_attack_live_tail/attacks/crush/guard_cost tail must have a positive cost within the supported bound; refusing paid tail, no free fallback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] start_attack (res://game/melee/melee_module.gd:247)
+       [2] try_attack (res://game/melee/melee_module.gd:232)
+       [3] _try_melee (res://game/player/player.gd:821)
+       [4] _test_frozen_paid_tail_refusal (res://tests/suite/test_melee_weapons.gd:1154)
+       [5] _finish_swing (res://tests/suite/test_melee_weapons.gd:597)
+       [6] physics_frames (res://tests/suite/test_suite.gd:28)
+NE237_FROZEN_TAIL {"charge_after":1,"charge_before":1,"fault":"role_relabel","guard_after":100.0,"guard_before":100.0,"phase":0,"tail":"crush","weapon":"melee_maul"}
+ERROR: [MeleeSet] res://data/melee/hydraulic_maul.json 沒有招式「test_no_such_attack_base_move」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:125)
+       [1] _test_frozen_paid_tail_refusal (res://tests/suite/test_melee_weapons.gd:1165)
+       [2] _finish_swing (res://tests/suite/test_melee_weapons.gd:597)
+       [3] physics_frames (res://tests/suite/test_suite.gd:28)
+COMMAND_DIAG event=false phase=1 index=0 pending=0.0
+COMMAND_DIAG event=true phase=1 index=0 pending=0.0
+FROZEN_BUFFER_DIAG remaining=0.0 time=110832
+NE236_WEAPON_GUARD {"face":1,"final_index":-1,"guard_after":76.0,"guard_before":100.0,"health_after":999,"health_before":999,"input":"poll","natural_hitstop":true,"outcome":"block","pending":0.0,"player_hits":[],"reflected":false,"return_hits":[],"weapon":"melee_dagger"}
+NE236_WEAPON_GUARD {"face":1,"final_index":-1,"guard_after":100.0,"guard_before":100.0,"health_after":999,"health_before":999,"input":"poll","natural_hitstop":true,"outcome":"parry","pending":0.0,"player_hits":[],"reflected":true,"return_hits":[2],"weapon":"melee_dagger"}
+NE236_WEAPON_GUARD {"face":1,"final_index":-1,"guard_after":100.0,"guard_before":100.0,"health_after":998,"health_before":999,"input":"poll","natural_hitstop":true,"outcome":"rear","pending":0.0,"player_hits":[1],"reflected":false,"return_hits":[],"weapon":"melee_dagger"}
+NE236_WEAPON_GUARD {"face":-1,"final_index":-1,"guard_after":76.0,"guard_before":100.0,"health_after":999,"health_before":999,"input":"event","natural_hitstop":true,"outcome":"block","pending":0.0,"player_hits":[],"reflected":false,"return_hits":[],"weapon":"melee_dagger"}
+NE236_WEAPON_GUARD {"face":-1,"final_index":-1,"guard_after":100.0,"guard_before":100.0,"health_after":999,"health_before":999,"input":"event","natural_hitstop":true,"outcome":"parry","pending":0.0,"player_hits":[],"reflected":true,"return_hits":[2],"weapon":"melee_dagger"}
+NE236_WEAPON_GUARD {"face":-1,"final_index":-1,"guard_after":100.0,"guard_before":100.0,"health_after":998,"health_before":999,"input":"event","natural_hitstop":true,"outcome":"rear","pending":0.0,"player_hits":[1],"reflected":false,"return_hits":[],"weapon":"melee_dagger"}
+NE236_GUARD_WHIFF {"blocking":true,"early_shield":false,"index_on_raise":-1,"recovery_frames":7,"recovery_seconds":0.11,"weapon":"melee_dagger"}
+NE236_GUARD_FRESH_TAP {"index":0,"phase":1,"weapon":"melee_dagger"}
+NE236_WEAPON_GUARD {"face":1,"final_index":-1,"guard_after":76.0,"guard_before":100.0,"health_after":999,"health_before":999,"input":"poll","natural_hitstop":true,"outcome":"block","pending":0.0,"player_hits":[],"reflected":false,"return_hits":[],"weapon":"melee_blade"}
+NE236_WEAPON_GUARD {"face":1,"final_index":-1,"guard_after":100.0,"guard_before":100.0,"health_after":999,"health_before":999,"input":"poll","natural_hitstop":true,"outcome":"parry","pending":0.0,"player_hits":[],"reflected":true,"return_hits":[2],"weapon":"melee_blade"}
+NE236_WEAPON_GUARD {"face":1,"final_index":-1,"guard_after":100.0,"guard_before":100.0,"health_after":998,"health_before":999,"input":"poll","natural_hitstop":true,"outcome":"rear","pending":0.0,"player_hits":[1],"reflected":false,"return_hits":[],"weapon":"melee_blade"}
+NE236_WEAPON_GUARD {"face":-1,"final_index":-1,"guard_after":76.0,"guard_before":100.0,"health_after":999,"health_before":999,"input":"event","natural_hitstop":true,"outcome":"block","pending":0.0,"player_hits":[],"reflected":false,"return_hits":[],"weapon":"melee_blade"}
+NE236_WEAPON_GUARD {"face":-1,"final_index":-1,"guard_after":100.0,"guard_before":100.0,"health_after":999,"health_before":999,"input":"event","natural_hitstop":true,"outcome":"parry","pending":0.0,"player_hits":[],"reflected":true,"return_hits":[2],"weapon":"melee_blade"}
+NE236_WEAPON_GUARD {"face":-1,"final_index":-1,"guard_after":100.0,"guard_before":100.0,"health_after":998,"health_before":999,"input":"event","natural_hitstop":true,"outcome":"rear","pending":0.0,"player_hits":[1],"reflected":false,"return_hits":[],"weapon":"melee_blade"}
+NE236_GUARD_WHIFF {"blocking":true,"early_shield":false,"index_on_raise":-1,"recovery_frames":13,"recovery_seconds":0.2,"weapon":"melee_blade"}
+NE236_GUARD_FRESH_TAP {"index":0,"phase":1,"weapon":"melee_blade"}
+NE236_WEAPON_GUARD {"face":1,"final_index":-1,"guard_after":76.0,"guard_before":100.0,"health_after":999,"health_before":999,"input":"poll","natural_hitstop":true,"outcome":"block","pending":0.0,"player_hits":[],"reflected":false,"return_hits":[],"weapon":"melee_maul"}
+NE236_WEAPON_GUARD {"face":1,"final_index":-1,"guard_after":100.0,"guard_before":100.0,"health_after":999,"health_before":999,"input":"poll","natural_hitstop":true,"outcome":"parry","pending":0.0,"player_hits":[],"reflected":true,"return_hits":[2],"weapon":"melee_maul"}
+NE236_WEAPON_GUARD {"face":1,"final_index":-1,"guard_after":100.0,"guard_before":100.0,"health_after":998,"health_before":999,"input":"poll","natural_hitstop":true,"outcome":"rear","pending":0.0,"player_hits":[1],"reflected":false,"return_hits":[],"weapon":"melee_maul"}
+NE236_WEAPON_GUARD {"face":-1,"final_index":-1,"guard_after":76.0,"guard_before":100.0,"health_after":999,"health_before":999,"input":"event","natural_hitstop":true,"outcome":"block","pending":0.0,"player_hits":[],"reflected":false,"return_hits":[],"weapon":"melee_maul"}
+NE236_WEAPON_GUARD {"face":-1,"final_index":-1,"guard_after":100.0,"guard_before":100.0,"health_after":999,"health_before":999,"input":"event","natural_hitstop":true,"outcome":"parry","pending":0.0,"player_hits":[],"reflected":true,"return_hits":[2],"weapon":"melee_maul"}
+NE236_WEAPON_GUARD {"face":-1,"final_index":-1,"guard_after":100.0,"guard_before":100.0,"health_after":998,"health_before":999,"input":"event","natural_hitstop":true,"outcome":"rear","pending":0.0,"player_hits":[1],"reflected":false,"return_hits":[],"weapon":"melee_maul"}
+NE236_GUARD_WHIFF {"blocking":true,"early_shield":false,"index_on_raise":-1,"recovery_frames":31,"recovery_seconds":0.5,"weapon":"melee_maul"}
+NE236_GUARD_FRESH_TAP {"index":0,"phase":1,"weapon":"melee_maul"}
+NE236_WEAPON_GUARD {"face":1,"final_index":-1,"guard_after":76.0,"guard_before":100.0,"health_after":999,"health_before":999,"input":"poll","natural_hitstop":true,"outcome":"block","pending":0.0,"player_hits":[],"reflected":false,"return_hits":[],"weapon":"melee_glaive"}
+NE236_WEAPON_GUARD {"face":1,"final_index":-1,"guard_after":100.0,"guard_before":100.0,"health_after":999,"health_before":999,"input":"poll","natural_hitstop":true,"outcome":"parry","pending":0.0,"player_hits":[],"reflected":true,"return_hits":[2],"weapon":"melee_glaive"}
+NE236_WEAPON_GUARD {"face":1,"final_index":-1,"guard_after":100.0,"guard_before":100.0,"health_after":998,"health_before":999,"input":"poll","natural_hitstop":true,"outcome":"rear","pending":0.0,"player_hits":[1],"reflected":false,"return_hits":[],"weapon":"melee_glaive"}
+NE236_WEAPON_GUARD {"face":-1,"final_index":-1,"guard_after":76.0,"guard_before":100.0,"health_after":999,"health_before":999,"input":"event","natural_hitstop":true,"outcome":"block","pending":0.0,"player_hits":[],"reflected":false,"return_hits":[],"weapon":"melee_glaive"}
+NE236_WEAPON_GUARD {"face":-1,"final_index":-1,"guard_after":100.0,"guard_before":100.0,"health_after":999,"health_before":999,"input":"event","natural_hitstop":true,"outcome":"parry","pending":0.0,"player_hits":[],"reflected":true,"return_hits":[2],"weapon":"melee_glaive"}
+NE236_WEAPON_GUARD {"face":-1,"final_index":-1,"guard_after":100.0,"guard_before":100.0,"health_after":998,"health_before":999,"input":"event","natural_hitstop":true,"outcome":"rear","pending":0.0,"player_hits":[1],"reflected":false,"return_hits":[],"weapon":"melee_glaive"}
+NE236_GUARD_WHIFF {"blocking":true,"early_shield":false,"index_on_raise":-1,"recovery_frames":18,"recovery_seconds":0.3,"weapon":"melee_glaive"}
+NE236_GUARD_FRESH_TAP {"index":0,"phase":1,"weapon":"melee_glaive"}
+NE236_WEAPON_GUARD {"face":1,"final_index":-1,"guard_after":76.0,"guard_before":100.0,"health_after":999,"health_before":999,"input":"poll","natural_hitstop":true,"outcome":"block","pending":0.0,"player_hits":[],"reflected":false,"return_hits":[],"weapon":"melee_whip"}
+NE236_WEAPON_GUARD {"face":1,"final_index":-1,"guard_after":100.0,"guard_before":100.0,"health_after":999,"health_before":999,"input":"poll","natural_hitstop":true,"outcome":"parry","pending":0.0,"player_hits":[],"reflected":true,"return_hits":[2],"weapon":"melee_whip"}
+NE236_WEAPON_GUARD {"face":1,"final_index":-1,"guard_after":100.0,"guard_before":100.0,"health_after":998,"health_before":999,"input":"poll","natural_hitstop":true,"outcome":"rear","pending":0.0,"player_hits":[1],"reflected":false,"return_hits":[],"weapon":"melee_whip"}
+NE236_WEAPON_GUARD {"face":-1,"final_index":-1,"guard_after":76.0,"guard_before":100.0,"health_after":999,"health_before":999,"input":"event","natural_hitstop":true,"outcome":"block","pending":0.0,"player_hits":[],"reflected":false,"return_hits":[],"weapon":"melee_whip"}
+NE236_WEAPON_GUARD {"face":-1,"final_index":-1,"guard_after":100.0,"guard_before":100.0,"health_after":999,"health_before":999,"input":"event","natural_hitstop":true,"outcome":"parry","pending":0.0,"player_hits":[],"reflected":true,"return_hits":[2],"weapon":"melee_whip"}
+NE236_WEAPON_GUARD {"face":-1,"final_index":-1,"guard_after":100.0,"guard_before":100.0,"health_after":998,"health_before":999,"input":"event","natural_hitstop":true,"outcome":"rear","pending":0.0,"player_hits":[1],"reflected":false,"return_hits":[],"weapon":"melee_whip"}
+NE236_GUARD_WHIFF {"blocking":true,"early_shield":false,"index_on_raise":-1,"recovery_frames":20,"recovery_seconds":0.32,"weapon":"melee_whip"}
+NE236_GUARD_FRESH_TAP {"index":0,"phase":1,"weapon":"melee_whip"}
+SUITE_TIME MeleeWeaponsSuite 208.3
+checks: 1034, failures: 0
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 9 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 5 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

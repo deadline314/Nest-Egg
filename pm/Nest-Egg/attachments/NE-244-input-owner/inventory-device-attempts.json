@@ -1,0 +1,34 @@
+{
+  "v1": {
+    "helper": "inventory-device-helper-v1.gd",
+    "unit_before": "420/6",
+    "unit_after": "420/0",
+    "native_before": "15/6, exit1, no ERROR/leaks",
+    "native_after": "15/1, exit1, no ERROR/leaks",
+    "issue": "Pressure sample waits for render frames; shared repeat timer can legitimately expire during it."
+  },
+  "clock_replay": {
+    "helper": "inventory-device-helper-clock.gd",
+    "native": "15/1, exit1",
+    "elapsed_us": 306457,
+    "timer_before_seconds": 0.085327,
+    "timer_after_seconds": 0.1,
+    "selection_before": 1,
+    "selection_after": 2,
+    "interpretation": "Observed same-version diagnostic replay, not timestamp reconstruction of the earlier run."
+  },
+  "v2": {
+    "helper": "inventory-device-helper-v2.gd",
+    "unit_before": "420/4",
+    "native_before": "15/4, exit1",
+    "rejected": "Synchronous sample without flushing buffered events misses two original navigation defects."
+  },
+  "final": {
+    "helper": "tests/helpers/inventory_device_checks.gd",
+    "method": "Flush the pressure event before same-call selection comparison; repeat timer is neither stopped nor retimed. Hold/release separately exercise the original real timer.",
+    "unit_before": "420/6",
+    "native_before": "15/6, exit1, no ERROR/leaks",
+    "unit_after": "420/0",
+    "native_after": "15/0, exit0, no ERROR/leaks"
+  }
+}

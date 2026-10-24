@@ -72,12 +72,16 @@ func is_open() -> bool:
 
 
 func _input(event: InputEvent) -> void:
+	AimInput.observe(event)
 	if GameplayLock.is_locked():
 		return
 	if not _is_open:
 		if allowed and _opens_with_key() and event.is_action_pressed(&"inventory") and _can_open():
 			open()
 			get_viewport().set_input_as_handled()
+		return
+	# The shared navigator owns stick edges, hold repeat and release.
+	if event is InputEventJoypadMotion and event.axis in [JOY_AXIS_LEFT_X, JOY_AXIS_LEFT_Y]:
 		return
 	var handled := true
 	if event.is_action_pressed(&"ui_cancel"):

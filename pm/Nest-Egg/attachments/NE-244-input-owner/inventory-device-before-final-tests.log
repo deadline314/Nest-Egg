@@ -1,0 +1,7 @@
+Running 1 groups in 1 processes (logs: /workspace/Nest-Egg/work/batch1024/inventory-device-before-final-shards)
+  process 0 (estimated 40 s): UiScreensSuite
+[process 0] NEW FAILURE: consumed bag event records the actual controller
+[process 0] NEW FAILURE: consumed RB immediately replaces keyboard legend with controller bindings
+[process 0] NEW FAILURE: consumed keyboard navigation immediately restores keyboard bindings
+[process 0] NEW FAILURE: first controller inventory press opens with matching device hints
+checks: 420, new failures: 4, known failures (tests/known_failures.txt): 0  (wall time 46 s)

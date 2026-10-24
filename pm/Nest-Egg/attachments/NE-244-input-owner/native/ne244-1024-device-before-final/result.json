@@ -1,0 +1,127 @@
+{
+  "checks": 15,
+  "failures": 4,
+  "rows": [
+    {
+      "description": "actual Main owns formal street route",
+      "device": -1,
+      "gamepad": false,
+      "legend": "",
+      "page": -1,
+      "pass": true
+    },
+    {
+      "description": "mouse-opened bag shows actual keyboard inventory binding",
+      "device": -1,
+      "gamepad": false,
+      "legend": "Tab 關閉　Q/E 分頁　↑↓ 選擇　Enter 確認",
+      "page": 0,
+      "pass": true
+    },
+    {
+      "description": "consumed controller RB still changes exactly one page",
+      "device": -1,
+      "gamepad": false,
+      "legend": "Tab 關閉　Q/E 分頁　↑↓ 選擇　Enter 確認",
+      "page": 1,
+      "pass": true
+    },
+    {
+      "description": "consumed bag event records the actual controller",
+      "device": -1,
+      "gamepad": false,
+      "legend": "Tab 關閉　Q/E 分頁　↑↓ 選擇　Enter 確認",
+      "page": 1,
+      "pass": false
+    },
+    {
+      "description": "consumed RB immediately replaces keyboard legend with controller bindings",
+      "device": -1,
+      "gamepad": false,
+      "legend": "Tab 關閉　Q/E 分頁　↑↓ 選擇　Enter 確認",
+      "page": 1,
+      "pass": false
+    },
+    {
+      "description": "mouse motion restores keyboard legend without closing or changing page",
+      "device": -1,
+      "gamepad": false,
+      "legend": "Tab 關閉　Q/E 分頁　↑↓ 選擇　Enter 確認",
+      "page": 1,
+      "pass": true
+    },
+    {
+      "description": "unconsumed controller event also refreshes the open bag legend",
+      "device": 999,
+      "gamepad": true,
+      "legend": "B（右） 返回　LB/RB 分頁　A（下） 確認",
+      "page": 1,
+      "pass": true
+    },
+    {
+      "description": "consumed keyboard navigation immediately restores keyboard bindings",
+      "device": 999,
+      "gamepad": true,
+      "legend": "B（右） 返回　LB/RB 分頁　A（下） 確認",
+      "page": 1,
+      "pass": false
+    },
+    {
+      "description": "controller Back still closes once and resumes play",
+      "device": 999,
+      "gamepad": true,
+      "legend": "B（右） 返回　LB/RB 分頁　A（下） 確認",
+      "page": 1,
+      "pass": true
+    },
+    {
+      "description": "first controller inventory press opens with matching device hints",
+      "device": -1,
+      "gamepad": false,
+      "legend": "Tab 關閉　Q/E 分頁　↑↓ 選擇　Enter 確認",
+      "page": 1,
+      "pass": false
+    },
+    {
+      "description": "stick navigation fixture contains at least four real upgrade choices",
+      "device": -1,
+      "gamepad": false,
+      "legend": "Tab 關閉　Q/E 分頁　↑↓ 選擇　Enter 確認",
+      "page": 1,
+      "pass": true
+    },
+    {
+      "description": "left stick initially selects exactly one entry",
+      "device": -1,
+      "gamepad": false,
+      "legend": "Tab 關閉　Q/E 分頁　↑↓ 選擇　Enter 確認",
+      "page": 1,
+      "pass": true
+    },
+    {
+      "description": "changing held-stick pressure does not add a navigation press",
+      "device": -1,
+      "gamepad": false,
+      "legend": "Tab 關閉　Q/E 分頁　↑↓ 選擇　Enter 確認",
+      "page": 1,
+      "pass": true
+    },
+    {
+      "description": "holding the stick repeats navigation after the existing shared delay",
+      "device": -1,
+      "gamepad": false,
+      "legend": "Tab 關閉　Q/E 分頁　↑↓ 選擇　Enter 確認",
+      "page": 1,
+      "pass": true
+    },
+    {
+      "description": "releasing the stick stops further selection changes",
+      "device": -1,
+      "gamepad": false,
+      "legend": "Tab 關閉　Q/E 分頁　↑↓ 選擇　Enter 確認",
+      "page": 1,
+      "pass": true
+    }
+  ],
+  "scope": "Same helper on actual Main-owned formal-street inventory. Main route/player position arranged; NPCs/enemies/encounters and story trigger scan isolated, synthetic keyboard/mouse/pad999. No full chapter or hardware acceptance."
+}

@@ -1,0 +1,1189 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+WARNING: [GameState] user://story_progress.json/flags/ch1_supper_choice 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_dinner_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_heard_brief 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_disk_delivered 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_disk_receipt_taken 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_market_summary_known 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_handoff_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_ali_reception_selected 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_met_ali 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_ali_evening_talk_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_lounge_evening_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_supper_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_supper_host_accepted 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_supper_meal_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/knows_ali_address 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/sq1_first_supper_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_first_death_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_home_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_complete 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_sunday_accepted 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/asked_egret_sunday 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_label_watch_seen 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_label_guitar_seen 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_label_raincoat_seen 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_label_fare_seen 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_voice_accepted 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_lamp_voice_asked 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/sq5_lamp_voice_noticed 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_grey_cloth_examined 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/has_grey_cloth 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_service_heard 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_exit 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_street_route_open 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/watchdog_defeated 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_flood_gate_open 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ledger_disk_obtained 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_recording_heard 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_booth_restoration_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_lounge_ordered 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_lounge_tab_settled 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_labels_started 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/sq8_first_labels_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_supper_can_rechoose 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_previous_job_settled 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_bench_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_jump_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_range_reached 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_shot_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_high_shot_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_trainer_reached 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_melee_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_guard_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_dash_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_fall_shown 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_skipped 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/yong_link_choice 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ali_ledger_action 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ali_advance_40 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/xiaowei_read_count 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/xiaowei_yellow_umbrella_recognized 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/yong_alive 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/egret_restoration_count 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/yong_link_revoked 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/yong_link_restoration_agreed 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_yong_subdued 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_morning_settled 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_radio_repaired 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/sq4_broadcast_heard 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/sq4_clip_saved 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_brief_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/sq2_sunday_heard 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_heron_closed 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/harbor_walk_ready 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_gate_checked 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_evidence_receipt 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_ali_need_asked 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_market_contact_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_evidence_contract 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_banyan_heard 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_rumor_heard 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_evidence_collection 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_ali_home_visit 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/sq1_soup_practice_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_guard_seen 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_sc1_open 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_market_reconciled 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_yong_intro_seen 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/yong_revival_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/yong_link_isolated 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_original_ledger_taken 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_egret_transport_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_egret_returned 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_audit_submitted 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/sq1_ledger_delivered 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch2_guest_book_entered 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/guest_ticket_answered 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/guest_band_answered 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/guest_letter_answered 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/guest_book_completed 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/room_choice 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_janus_disabled 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_breakfast_heard 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_departure_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_interlock_seen 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_freight_ready 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_outer_ladder_down 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_pump_low 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_wet_branch_isolated 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_lift_powered 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_mezzanine_reached 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_clinic_access 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_public_report_taken 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_nursing_roster_taken 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_followup_register_taken 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_report_reconciled 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/sq7_ahan_clip_heard 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/sq7_ahan_recording_held 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_janus_intro_seen 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_janus_aftercare_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_care_passage_open 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/m3_available 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/m3_seen 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_sunlight_reached 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_sunlight_pause_seen 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_clearwater_tour_started 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/room_morning_measured 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/room_quiet_measured 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/room_late_measured 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/sq3_room_proposal_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_lin_asked 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_clearwater_tour_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_petition_receipt_taken 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_k_at_office_seen 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ye_handwriting_seen 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/sq7_ye_name_seen 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_trade_half_heard 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_trade_listened 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_trade_overheard 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_l2_route_announced 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_umbrella_asked_twice 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_home_supper_done 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_told_egret_trade 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_egret_call_heard 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_next_sunday_agreed 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+WARNING: [GameState] user://story_progress.json/flags/ch3_shore_closed 缺漏，退回預設值
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] restore_story_progress (res://autoload/game_state.gd:470)
+         [1] run (res://tests/helpers/codex_replay_checks.gd:43)
+         [2] _check_natural_end_and_exit (res://tests/helpers/codex_replay_checks.gd:183)
+         [3] _wait_replay (res://tests/helpers/codex_replay_checks.gd:192)
+         [4] frames (res://tests/suite/test_ui_screens.gd:9)
+ERROR: [RigLibrary] 無法讀取定義檔：res://art/characters/test_no_such_character/character.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:187)
+       [1] load_json (res://game/rig/rig_library.gd:26)
+       [2] character (res://game/rig/rig_library.gd:34)
+       [3] setup (res://game/rig/character_rig.gd:106)
+       [4] _ready (res://ui/inventory/hd_portrait.gd:48)
+       [5] _test_hd_portrait (res://tests/suite/test_ui_screens.gd:346)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+ERROR: [HdPortrait] 找不到角色骨架「test_no_such_character」，立繪不顯示。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://ui/inventory/hd_portrait.gd:49)
+       [1] _test_hd_portrait (res://tests/suite/test_ui_screens.gd:346)
+       [2] frames (res://tests/suite/test_ui_screens.gd:9)
+SUITE_TIME UiScreensSuite 40.4
+checks: 420, failures: 0

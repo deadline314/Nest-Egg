@@ -1,0 +1,545 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+ERROR: [MeleeSet] res://data/melee/test_no_such_attack_catalog.json/attacks must be an object; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ensure_loaded (res://game/player/melee_set.gd:51)
+       [1] validate (res://game/player/melee_set.gd:365)
+       [2] from_resources (res://core/weapon_catalog.gd:44)
+       [3] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:170)
+       [4] run (res://tests/suite/test_progression.gd:19)
+       [5] _run_suites (res://tests/smoke_test.gd:110)
+       [6] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/windup must be a finite number; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/damage exceeds supported magnitude 10000.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/guard_cost unknown field; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/knockback must have two finite numbers; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/shape must be a string; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/sweep must be boolean; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/trail/radius must be finite and positive; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/trail/arc must be finite and positive; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/trail/life must be finite and positive; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/trail/width must be finite and positive; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/trail/brightness must be finite and positive; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/sounds/hit unknown sound; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/test_catalog_unknown_field unknown field; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://tests/fixtures/test_no_such_attack_catalog_corrupt.json/attacks/broken/knockback must have two finite numbers; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ensure_loaded (res://game/player/melee_set.gd:51)
+       [1] validate (res://game/player/melee_set.gd:365)
+       [2] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:209)
+       [3] run (res://tests/suite/test_progression.gd:19)
+       [4] _run_suites (res://tests/smoke_test.gd:110)
+       [5] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://tests/fixtures/test_no_such_attack_catalog_corrupt.json/extension/attack must name a distinct tail; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ensure_loaded (res://game/player/melee_set.gd:51)
+       [1] validate (res://game/player/melee_set.gd:365)
+       [2] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:209)
+       [3] run (res://tests/suite/test_progression.gd:19)
+       [4] _run_suites (res://tests/smoke_test.gd:110)
+       [5] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponCatalog] user://test_catalog_missing_directory missing catalog directory
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_all (res://core/weapon_catalog.gd:23)
+       [1] _test_nested_catalog_resources (res://tests/suite/test_progression.gd:230)
+       [2] run (res://tests/suite/test_progression.gd:20)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponCatalog] user://test_catalog_missing_directory has no valid weapon definitions
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_all (res://core/weapon_catalog.gd:23)
+       [1] _test_nested_catalog_resources (res://tests/suite/test_progression.gd:230)
+       [2] run (res://tests/suite/test_progression.gd:20)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/advance exceeds supported magnitude 10000.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/range exceeds supported magnitude 512.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/height exceeds supported magnitude 512.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/windup exceeds supported magnitude 5.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/active exceeds supported magnitude 5.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/recovery exceeds supported magnitude 5.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/cancel_after exceeds supported magnitude 5.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/move_scale exceeds supported magnitude 1.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/damage exceeds supported magnitude 10000.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/stagger exceeds supported magnitude 1000.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/arc_degrees exceeds supported magnitude 360.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/min_range exceeds supported magnitude 512.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/guard_cost exceeds supported magnitude 100.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/hitstop exceeds supported magnitude 0.25; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/impact exceeds supported magnitude 100.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/knockback exceeds component magnitude 10000.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/trail/radius exceeds supported magnitude 512.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_window/combo_window outside finite (0,2.0]; using 0.5
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] combo_window (res://game/player/melee_set.gd:103)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:294)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_tail/attacks/return_cut/advance exceeds supported magnitude 10000.0; refusing unsafe extension
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] combo (res://game/player/melee_set.gd:75)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:300)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_negative_guard_range/attacks/stab_1/guard_cost cannot be negative; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_actual_schema_negative_guard (res://tests/suite/test_progression.gd:325)
+       [2] run (res://tests/suite/test_progression.gd:22)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["pellets/count outside 1–64"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:338)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["pellets/count outside 1–64"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:338)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["pellets/count outside 1–64"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:338)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] test_catalog_runtime/shot: ["pellets outside 1–64"]; refusing before shot costs/feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] can_fire (res://core/weapon_system.gd:26)
+       [1] fire (res://core/weapon_system.gd:12)
+       [2] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:343)
+       [3] run (res://tests/suite/test_progression.gd:23)
+       [4] _run_suites (res://tests/smoke_test.gd:110)
+       [5] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["speed must be finite in 0–10000.0"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:349)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["speed must be finite in 0–10000.0"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:350)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["knockback must be finite in 0–10000.0"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:349)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["knockback must be finite in 0–10000.0"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:350)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["speed_multiplier must be finite in (0,8.0]"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:352)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["speed_multiplier must be finite in (0,8.0]"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:353)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["speed_multiplier must be finite in (0,8.0]"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:352)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["speed_multiplier must be finite in (0,8.0]"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:353)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["speed_multiplier must be finite in (0,8.0]"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:352)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["speed_multiplier must be finite in (0,8.0]"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:353)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["speed_multiplier must be finite in (0,8.0]"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:352)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["speed_multiplier must be finite in (0,8.0]"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:353)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["origin components must be finite within +/- 1000000.0"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:355)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["direction components must be finite within +/- 1000000.0"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:356)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["origin components must be finite within +/- 1000000.0"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:355)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["direction components must be finite within +/- 1000000.0"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:356)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["origin components must be finite within +/- 1000000.0"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:355)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["direction components must be finite within +/- 1000000.0"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:356)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] test_catalog_runtime/muzzle_feedback: ["camera_kick must be finite in 0–512.0"]; refusing unsafe feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] muzzle_feedback (res://core/weapon_system.gd:64)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:361)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["spread_degrees outside finite 0–360"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:364)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["spread_degrees outside finite 0–360"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:364)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["spread_degrees outside finite 0–360"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:364)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["spread_degrees outside finite 0–360"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:364)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+SUITE_TIME ProgressionSuite 8.4
+ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/ammo/test_missing_ammo.png
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:187)
+       [1] texture (res://game/rig/rig_library.gd:86)
+       [2] texture (res://core/ammo_icons.gd:36)
+       [3] _test_missing_icon (res://tests/suite/test_ammo_icons.gd:48)
+       [4] run (res://tests/suite/test_ammo_icons.gd:10)
+       [5] _run_suites (res://tests/smoke_test.gd:110)
+       [6] run (res://tests/suite/test_progression.gd:30)
+       [7] _test_upgrades_page (res://tests/suite/test_progression.gd:661)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:634)
+       [10] _frames (res://tests/smoke_test.gd:125)
+SUITE_TIME AmmoIconsSuite 1.5
+checks: 1128, failures: 0
