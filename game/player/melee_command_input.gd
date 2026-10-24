@@ -12,16 +12,20 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_echo() or not accepts_input():
+	if event.is_echo() or not is_instance_valid(player):
 		return
 	for action: StringName in [&"melee", &"shoot"]:
-		if action == &"shoot" and not player.holds_melee_weapon():
-			continue
+		# Releases still retire the latch while paused, blocking or locked.
 		if event.is_action_released(action):
 			_held_actions[action] = false
+			continue
+		if action == &"shoot" and not player.holds_melee_weapon():
+			continue
 		if event.is_action_pressed(action):
+			var was_pressed: bool = _held_actions.get(action, false)
 			_held_actions[action] = true
-			queue_command()
+			if not was_pressed:
+				queue_command()
 
 
 func accepts_input() -> bool:

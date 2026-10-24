@@ -19,6 +19,7 @@ func run() -> void:
 	await _test_data_only_weapon()
 	await _test_weapon_holds()
 	await _test_input_parity()
+	await preload("res://tests/helpers/melee_trigger_edge_checks.gd").run(self)
 	await _test_visual_reach()
 
 

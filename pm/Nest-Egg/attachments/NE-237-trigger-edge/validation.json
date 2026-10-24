@@ -1,0 +1,62 @@
+{
+  "base": "1fd1bf2e1fa2ee791733a726a56b429e1f91c796",
+  "changed": {
+    "groups": 28,
+    "checks": 45602,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 616
+  },
+  "native_v2": [
+    {
+      "tag": "before",
+      "exit": 1,
+      "checks": 5,
+      "failures": 1,
+      "errors": 0,
+      "leaks": 0,
+      "command_source_sha256": "76e6ff52dfd621b58426b58012fba740abc8242c82a8ef2ca5e8b629c3fe8ba2"
+    },
+    {
+      "tag": "after",
+      "exit": 0,
+      "checks": 5,
+      "failures": 0,
+      "errors": 0,
+      "leaks": 0,
+      "command_source_sha256": "2bc2a5aa3ab7d36c7742eddae91f86241b41b9ca28f068aba9975f499b33114c"
+    }
+  ],
+  "source_current_final": {
+    "game/player/melee_command_input.gd": "2bc2a5aa3ab7d36c7742eddae91f86241b41b9ca28f068aba9975f499b33114c",
+    "tests/suite/test_melee.gd": "b9694306c4cac9b8704ebce3db8766553733a8ab1b415956a13d6dffc4f89ff7",
+    "tests/helpers/melee_trigger_edge_checks.gd": "116dd34af33119d10cebc7815db75e5e0b4e1930f1f13a947c66b38bb2db15a5",
+    "tests/helpers/melee_trigger_edge_checks.gd.uid": "e7b68bf969242387b4a73b41cf6cb4613bb9d3833958b958728c8e6c33c609aa",
+    "work/batch1024/trigger-probe.gd": "f5efdfee47f6f937955cc42f373b0bb0c623af4dfe6be8f43f6982bea614c106",
+    "work/batch1024/trigger-probe.tscn": "1e85c7c1e569260dff86991901c4a836ebc036b05527d0934e2bb94f2d870035",
+    "work/batch1024/trigger-native.gd": "768b4ac8cdf37040f24e26524b2dcdf5f9e87ec1ad0cabba0aebd838a7110ef9",
+    "work/batch1024/trigger-native.tscn": "e7d388783521aa750607d8c3261d081bf1b1cc3b562cc9dd5ab9dc575ddf39fe",
+    "work/batch1024/window_capture.gd": "7b67e3ee5817d8f32a8e4724c818a62ee0ce91a56cd0de6bc86b736adda923ce"
+  },
+  "legacy_melee_original_bytes_preserved": true,
+  "headless_diagnostics": {
+    "shard_3.log": {
+      "engine_errors": 105,
+      "script_errors": 0
+    },
+    "shard_2.log": {
+      "engine_errors": 11,
+      "script_errors": 0
+    },
+    "shard_0.log": {
+      "engine_errors": 9,
+      "script_errors": 0
+    },
+    "shard_1.log": {
+      "engine_errors": 60,
+      "script_errors": 0
+    }
+  },
+  "native_rebase_scope": "Native source base be4e5db5, only command script restored for negative. Rebase to 1fd1bf2e changed unrelated M17 body/Collectibles and documentation; nine relevant source files retained exact SHA. Do not call negative a whole historical checkout.",
+  "visual_scope": "Both V1 rejected clipped diagnostic images and both V2 accepted images individually viewed. Instrumented public input fixture, actor disabled for command isolation, not real combat or physical controller."
+}
