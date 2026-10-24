@@ -85,6 +85,11 @@ var rig: CharacterRig
 ## 零件式外觀（非人形敵人）；載入失敗時為 null，改用 _draw_body 的程式繪製。
 var creature: PartCreature
 
+# Cached presentation envelope; querying reading clearance never skins meshes.
+var _prompt_bounds := Rect2()
+var _prompt_head_gap := 0.0
+var _prompt_has_head := false
+
 var _rig_input := RigInput.new()
 ## 部位受擊框的資料（box、bone、offset、size、mult），給 _update_hurt_parts 與弱點標記用。
 var _parts: Array[Dictionary] = []
@@ -138,6 +143,8 @@ func _ready() -> void:
 	collision_layer = Layers.ENEMY
 	collision_mask = Layers.SOLID if data.uses_gravity else Layers.WORLD
 	_build_components()
+	_cache_prompt_bounds()
+	PromptLayout.add_obstacle(self, prompt_obstacle_rect)
 	if activation_culling_enabled and _uses_activation_culling():
 		var enabler := VisibleOnScreenEnabler2D.new()
 		var size := data.body_size
@@ -148,6 +155,40 @@ func _ready() -> void:
 	vfx = EnemyVfx.load_for(String(data.id))
 	if fsm.current == &"":
 		push_warning("[Enemy] %s 沒有啟動狀態機。" % data.id)
+
+
+func _cache_prompt_bounds() -> void:
+	_prompt_bounds = Rect2(Vector2(-data.body_size.x * 0.5, -data.body_size.y), data.body_size)
+	if is_zero_approx(global_transform.determinant()):
+		return
+	var visible_bounds := Rect2()
+	if is_instance_valid(rig):
+		visible_bounds = rig.visual_bounds()
+	elif is_instance_valid(creature):
+		for part: Dictionary in creature._parts:
+			var sprite := part["sprite"] as Sprite2D
+			if sprite.texture != null and sprite.is_visible_in_tree():
+				var rect := sprite.global_transform * sprite.get_rect()
+				visible_bounds = visible_bounds.merge(rect) if visible_bounds.has_area() else rect
+	if visible_bounds.has_area():
+		var local := (global_transform.affine_inverse() * visible_bounds).grow(8.0)
+		var half_width := maxf(absf(local.position.x), absf(local.end.x))
+		_prompt_bounds = _prompt_bounds.merge(Rect2(-half_width, local.position.y, half_width * 2.0, local.size.y))
+	if is_instance_valid(rig) and rig.has_bone(&"head"):
+		_prompt_head_gap = _prompt_bounds.position.y - to_local(rig.bone(&"head").global_position).y
+		_prompt_has_head = true
+
+
+## Protect visible threats, including the head above their physical collider.
+func prompt_obstacle_rect() -> Rect2:
+	if not is_visible_in_tree() or _dying:
+		return Rect2()
+	var bounds := _prompt_bounds
+	if _prompt_has_head and is_instance_valid(rig) and rig.has_bone(&"head") and not is_zero_approx(global_transform.determinant()):
+		var top := minf(-data.body_size.y, to_local(rig.bone(&"head").global_position).y + _prompt_head_gap)
+		bounds.size.y = bounds.end.y - top
+		bounds.position.y = top
+	return global_transform * bounds
 
 
 func _build_components() -> void:

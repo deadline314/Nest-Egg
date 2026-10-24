@@ -55,6 +55,10 @@ var _reading_title := ""
 var _dim: ColorRect
 var _safe_rect := Rect2(Vector2.ZERO, Vector2(640, 360))
 var _radio_home := RADIO_HOME
+var _radio_slide_offset := 0.0
+var _radio_slide_distance := RADIO_SLIDE
+var _radio_obstacles: Array[Rect2] = []
+var _radio_rects: Array[Rect2] = []
 var _laying_out := false
 
 
@@ -275,6 +279,7 @@ func _process(delta: float) -> void:
 	if _front_freezes() and _radio_lock == 0:
 		_radio_lock = GameplayLock.acquire(self, -1, true)
 	_radio_root.visible = true
+	_position_radio()
 	if _radio_text.visible_ratio < 1.0:
 		_radio_text.visible_ratio = minf(1.0, _radio_text.visible_ratio + delta * RADIO_CHARS_PER_SECOND / maxf(1.0, _radio_text.text.length()))
 		return
@@ -447,11 +452,68 @@ func _layout_radio() -> void:
 	_radio_root.custom_minimum_size.x = width
 	_radio_root.size.x = width
 	_radio_text.custom_minimum_size.x = maxf(64, width - (_radio_root as RadioCard).side_width())
+	_position_radio()
+
+
+## Share the actual world/HUD reservations, including the complete entrance path.
+## Moving the home must not restart the original slide or fade clocks.
+func _position_radio() -> void:
+	var origin := Vector2(maxf(_safe_rect.position.x + 8, RADIO_HOME.x), maxf(RADIO_HOME.y, _safe_rect.position.y + 8))
+	var extent := _radio_root.size.max(_radio_root.get_combined_minimum_size())
+	if _front_freezes() and not _radio_continue.visible:
+		extent.y += _radio_continue.get_combined_minimum_size().y + 2.0
+	var slide := 0.0 if Settings.get_reduce_ui_motion() else _radio_slide_distance
+	var to_world := get_viewport().get_canvas_transform().affine_inverse() * get_final_transform()
+	var best_cost := INF
+	_radio_home = origin
+	PromptLayout.collect_obstacles_except(null, _radio_obstacles)
+	_radio_rects.resize(1)
+	# Prefer the usual gutter; crowded views may use the shared world-text gutter.
+	# Both remain inside the exact same cinematic safe rectangle.
+	for gutter in 2:
+		if is_finite(best_cost):
+			break
+		var margin := 8.0 if gutter == 0 else PromptLayout.SCREEN_MARGIN
+		var bounds := to_world * _safe_rect.grow(-margin)
+		# If the entire entrance path cannot fit, retain the fade in a clear static slot.
+		for entrance in 2:
+			if entrance == 1:
+				if is_finite(best_cost):
+					break
+				slide = 0.0
+				_radio_slide_distance = 0.0
+				_radio_slide_offset = 0.0
+			# Whole-height rows can skip a valid slot flush with a safe edge.
+			for edge in 3:
+				var anchor := origin
+				if edge == 1:
+					anchor.y = _safe_rect.position.y + margin
+				elif edge == 2:
+					anchor.y = _safe_rect.end.y - extent.y - margin
+				_radio_rects[0] = to_world * Rect2(anchor - Vector2(slide, 0), extent + Vector2(slide, 0))
+				var shifts := PromptLayout.solve(_radio_rects, _radio_obstacles, PromptLayout.GAP, bounds)
+				if PromptLayout._fits[0] == 0:
+					continue
+				var candidate := anchor + to_world.affine_inverse().basis_xform(shifts[0])
+				var distance := (candidate - origin).abs()
+				var cost := distance.x + distance.y
+				if cost < best_cost:
+					best_cost = cost
+					_radio_home = candidate
+				if is_zero_approx(best_cost):
+					break
+	_radio_root.position = _radio_home + Vector2(_radio_slide_offset, 0)
+
+
+func _set_radio_slide_offset(value: float) -> void:
+	_radio_slide_offset = value if _radio_slide_distance > 0.0 else 0.0
+	_radio_root.position = _radio_home + Vector2(_radio_slide_offset, 0)
 
 
 func _display_changed() -> void:
 	if Settings.get_reduce_ui_motion() and _radio_slide != null and _radio_slide.is_valid():
 		_radio_slide.kill()
+		_radio_slide_offset = 0.0
 		_radio_root.position = _radio_home
 		_radio_root.modulate.a = 1.0
 	_layout_cinematic(Story.framing.safe_rect())
@@ -502,15 +564,18 @@ func _reveal_radio(slide: bool) -> void:
 func _slide_radio_in() -> void:
 	if _radio_slide != null and _radio_slide.is_valid():
 		_radio_slide.kill()
+	_radio_slide_distance = RADIO_SLIDE
+	_radio_slide_offset = 0.0
 	_layout_radio()
 	if Settings.get_reduce_ui_motion():
+		_radio_slide_offset = 0.0
 		_radio_root.position = _radio_home
 		_radio_root.modulate.a = 1.0
 		return
-	_radio_root.position = _radio_home + Vector2(-RADIO_SLIDE, 0)
+	_set_radio_slide_offset(-RADIO_SLIDE)
 	_radio_root.modulate.a = 0.0
 	_radio_slide = create_tween().set_parallel(true)
-	_radio_slide.tween_property(_radio_root, "position", _radio_home, 0.2).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	_radio_slide.tween_method(_set_radio_slide_offset, -RADIO_SLIDE, 0.0, 0.2).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	_radio_slide.tween_property(_radio_root, "modulate:a", 1.0, 0.15)
 
 

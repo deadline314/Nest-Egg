@@ -12,6 +12,10 @@ func run() -> void:
 	await preload("res://tests/helpers/hud_background_hover_checks.gd").run(self)
 	await _test_radio_panel()
 	await _test_radio_card()
+	await _test_radio_clearance()
+	await _test_radio_tall_clearance(false)
+	await _test_radio_tall_clearance(true)
+	await _test_radio_crowded_gutter()
 
 
 func _test_boss_bar() -> void:
@@ -195,3 +199,104 @@ func _test_radio_card() -> void:
 	layer.cancel_radio()
 	Story.auto_skip = old_skip
 	await end_level(level)
+
+
+## A declared screen-space obstacle exercises placement, not character art.
+func _test_radio_clearance() -> void:
+	var layer: DialogueLayer = Story._layer
+	var previous_skip := Story.auto_skip
+	Story.auto_skip = false
+	Story.reset_active_presentation(&"test_setup")
+	var obstacle := Node.new()
+	runner.get_tree().root.add_child(obstacle)
+	var screen_rect := Rect2(DialogueLayer.RADIO_HOME + Vector2(90, 25), Vector2(36, 36))
+	var world_rect := layer.get_viewport().get_canvas_transform().affine_inverse() * screen_rect
+	PromptLayout.add_obstacle(obstacle, func() -> Rect2: return world_rect)
+	Story._scenes["test_radio_clearance"] = {"mode": "radio", "freeze": true, "lines": [{"speaker": "mei", "text": "通訊閱讀期間保留完整的角色空間。"}]}
+	check(Story.play(&"test_radio_clearance", false), "radio clearance retains the real presentation input")
+	var clear := true
+	for i in 16:
+		await frames(1)
+		clear = clear and not layer._radio_root.get_global_rect().intersects(screen_rect)
+	check(clear, "radio remains clear of registered actors throughout its entrance")
+	check(layer._safe_rect.encloses(layer._radio_root.get_global_rect()), "radio clearance stays inside the cinematic safe rectangle")
+	check(layer._radio_active and not Story.progress_snapshot().has(&"test_radio_clearance"), "radio positioning does not finish or advance the unread presentation")
+	Story.reset_active_presentation(&"test_teardown")
+	Story._scenes.erase("test_radio_clearance")
+	obstacle.queue_free()
+	await frames(1)
+	Story.auto_skip = previous_skip
+
+
+func _test_radio_tall_clearance(reduced: bool) -> void:
+	var layer: DialogueLayer = Story._layer
+	var previous_skip := Story.auto_skip
+	var previous_scale := Settings.get_ui_text_scale()
+	var previous_motion := Settings.get_reduce_ui_motion()
+	Story.auto_skip = false
+	Story.reset_active_presentation(&"test_setup")
+	Settings.set_ui_text_scale(1.2)
+	Settings.set_reduce_ui_motion(reduced)
+	var obstacle := Node.new()
+	runner.get_tree().root.add_child(obstacle)
+	var screen_rect := Rect2(Vector2(282, 117), Vector2(65, 138))
+	var world_rect := layer.get_viewport().get_canvas_transform().affine_inverse() * screen_rect
+	PromptLayout.add_obstacle(obstacle, func() -> Rect2: return world_rect)
+	var hud_obstacle := Node.new()
+	runner.get_tree().root.add_child(hud_obstacle)
+	var hud_rect := layer.get_viewport().get_canvas_transform().affine_inverse() * Rect2(328, 0, 312, 110)
+	PromptLayout.add_obstacle(hud_obstacle, func() -> Rect2: return hud_rect)
+	Story._scenes["test_radio_tall_clearance"] = {"mode": "radio", "freeze": true, "lines": [{"speaker": "mei", "text": "Welcome to Skydome Backup Service. Your backup is complete."}]}
+	check(Story.play(&"test_radio_tall_clearance", false), "tall radio uses the real reader at enlarged text size")
+	check(not layer._radio_root.get_global_rect().intersects(screen_rect) and (layer._radio_root.modulate.a >= 0.99 if reduced else layer._radio_root.modulate.a < 1.0), "blocked entrance respects motion preference and starts in clear space")
+	await frames(3)
+	check(not layer._radio_root.get_global_rect().intersects(screen_rect), "tall radio finds the available edge slot between actor and screen boundary")
+	check(layer._safe_rect.encloses(layer._radio_root.get_global_rect()), "enlarged radio remains fully inside the safe rectangle")
+	check(layer._radio_active and not Story.progress_snapshot().has(&"test_radio_tall_clearance"), "edge placement preserves unread radio state")
+	Story.reset_active_presentation(&"test_teardown")
+	Story._scenes.erase("test_radio_tall_clearance")
+	obstacle.queue_free()
+	hud_obstacle.queue_free()
+	await frames(1)
+	Settings.set_ui_text_scale(previous_scale)
+	Settings.set_reduce_ui_motion(previous_motion)
+	Story.auto_skip = previous_skip
+
+
+func _test_radio_crowded_gutter() -> void:
+	var layer: DialogueLayer = Story._layer
+	var old_skip := Story.auto_skip
+	var old_scale := Settings.get_ui_text_scale()
+	var old_motion := Settings.get_reduce_ui_motion()
+	Story.auto_skip = false
+	Story.reset_active_presentation(&"test_setup")
+	Settings.set_ui_text_scale(1.2)
+	Settings.set_reduce_ui_motion(true)
+	var reservations: Array[Rect2] = [Rect2(156.75, 109.82, 71, 39), Rect2(142, 156, 72, 23),
+		Rect2(518, 8, 110, 30), Rect2(12, 270, 132, 78), Rect2(16, 111, 61, 143),
+		Rect2(183, 116, 65, 139), Rect2(261, 115, 63, 139), Rect2(625, 114, 63, 139)]
+	var owners: Array[Node] = []
+	for rect in reservations:
+		var owner := Node.new()
+		runner.get_tree().root.add_child(owner)
+		owners.append(owner)
+		var world_rect := layer.get_viewport().get_canvas_transform().affine_inverse() * rect
+		PromptLayout.add_obstacle(owner, func() -> Rect2: return world_rect)
+	Story._scenes["test_radio_crowded_gutter"] = {"mode": "radio", "freeze": true, "lines": [{"speaker": "voice", "text": "歡迎使用天穹備份服務，備份已經完成。"}]}
+	check(Story.play(&"test_radio_crowded_gutter", false), "crowded radio uses the real enlarged reader")
+	var clear := true
+	for i in 16:
+		await frames(1)
+		for rect in reservations:
+			clear = clear and not layer._radio_root.get_global_rect().intersects(rect)
+	check(clear, "crowded radio preserves every actor and HUD reservation")
+	check(layer._safe_rect.encloses(layer._radio_root.get_global_rect()), "compact gutter retains the original safe rectangle")
+	check(layer._radio_active and not Story.progress_snapshot().has(&"test_radio_crowded_gutter"), "compact gutter preserves unread state and confirmation")
+	Story.reset_active_presentation(&"test_teardown")
+	Story._scenes.erase("test_radio_crowded_gutter")
+	for owner in owners:
+		owner.queue_free()
+	await frames(1)
+	Settings.set_ui_text_scale(old_scale)
+	Settings.set_reduce_ui_motion(old_motion)
+	Story.auto_skip = old_skip

@@ -1,0 +1,373 @@
+{
+  "base": "b45aa58ef500ff0c6b79e42212e9fc42e6f8418a",
+  "affected": {
+    "base": "b45aa58ef500ff0c6b79e42212e9fc42e6f8418a",
+    "exit": 0,
+    "shards": 6,
+    "log_dir": "/workspace/Nest-Egg/work/batch1024/radio-affected-v7-6-shards",
+    "command": [
+      "tools/run_tests_changed.sh",
+      "b45aa58ef500ff0c6b79e42212e9fc42e6f8418a"
+    ],
+    "reason": "After real preexisting Japanese panel-contract failure, preserve all original assertions and compact only3JAtexts. Original76groups rerun. Six workers fit16GiB; previous4workers averaged~2CPU of4quota while awaiting physics, Melee440.7s dominated its worker. Native rendering serial.",
+    "seconds": 483.66817764999996
+  },
+  "selected_suite_count": 76,
+  "broad_shutdown_diagnostics": [
+    {
+      "file": "shard_3.log",
+      "resource_exit_errors": 1,
+      "rid_exit_errors": 1,
+      "objectdb_exit_warnings": 1,
+      "script_errors": 0
+    },
+    {
+      "file": "shard_5.log",
+      "resource_exit_errors": 1,
+      "rid_exit_errors": 1,
+      "objectdb_exit_warnings": 1,
+      "script_errors": 0
+    },
+    {
+      "file": "shard_2.log",
+      "resource_exit_errors": 0,
+      "rid_exit_errors": 0,
+      "objectdb_exit_warnings": 0,
+      "script_errors": 0
+    },
+    {
+      "file": "shard_4.log",
+      "resource_exit_errors": 0,
+      "rid_exit_errors": 0,
+      "objectdb_exit_warnings": 0,
+      "script_errors": 0
+    },
+    {
+      "file": "shard_0.log",
+      "resource_exit_errors": 0,
+      "rid_exit_errors": 0,
+      "objectdb_exit_warnings": 0,
+      "script_errors": 0
+    },
+    {
+      "file": "shard_1.log",
+      "resource_exit_errors": 1,
+      "rid_exit_errors": 0,
+      "objectdb_exit_warnings": 1,
+      "script_errors": 0
+    }
+  ],
+  "native_reuse_after_unrelated_item_text_fix": {
+    "previous_radio_source_exact": {
+      "game/enemies/enemy.gd": "3283332f2c2559148948ddeaa6e0b8ed16342c1ecb3e52258813cc74c12682cc",
+      "ui/dialogue_layer.gd": "8e794c26e04d2ff676a02ff673d415cc2cf40d5a6c8e17b99d8ff54a7540ef7e",
+      "ui/quest_guidance.gd": "4a3d4f05d181d9aa0697a1c82817875cec53ab896e666a0696b264dff9f564e5",
+      "tests/suite/test_combat_hud.gd": "5beca0f6f99d4735805f7d8d34f56a6eabd2591fd415a75c8a14d74b7bc260ad",
+      "tests/suite/test_quest_map.gd": "5d7c0fc795ef050f11ae5c1e40af47a6a3c8f059ea070a964c32bd8dac3c2064",
+      "work/batch1024/radio-clearance.gd": "f64e044bcf1878ca1b6b1bd7e0d14be61e4b2cd1623b1a9553f878ea82182dc7",
+      "work/batch1024/window_capture.gd": "7b67e3ee5817d8f32a8e4724c818a62ee0ce91a56cd0de6bc86b736adda923ce",
+      "work/batch1024/native-large.py": "689815a568098051d1cce471b8fb65b5200aae3ead9f22b213c053f0a4246f2d"
+    },
+    "final_extra_source": {
+      "data/story_items/i18n.json": "6190e00b15b7ae1559037ad34a868f42358135ad41675be86f7edde0bb4aeb4b"
+    },
+    "canonical_radio_authored_source": {
+      "data/story/ch1_kasa.json": "6448aca5d196d44f754d7d8f4d383c7ca95bb99b6a4249b093731e511285ce05"
+    },
+    "changed_item_texts": [
+      "ch1_market_summary/ja/body",
+      "ch3_report_p17/ja/body",
+      "ch3_tour_card/ja/body"
+    ],
+    "scope": "Four V6 radio processes82/0 and8viewedPNG reused: all 8 source/probe/capture inputs byte exact; only three unrelated plot-item Japanese body strings changed. Original299panelcontract rerun, entire original76selector rerun. Does not claim full InventoryPage body entry was verified."
+  },
+  "original_item_suite_sha256": "39dfb7070cdcbe1ac19ee36da56720195620c06f89d5b805a06113043c68557f",
+  "item_panel_control": [
+    {
+      "name": "collectibles-baseline",
+      "base": "b45aa58ef500ff0c6b79e42212e9fc42e6f8418a",
+      "exit": 1,
+      "checks_summary": [
+        "checks: 299, failures: 1"
+      ],
+      "failures": [
+        "FAIL: translated text fits the same detail panel as the longest shipped Chinese text (296 px): [\"ch1_market_summary/ja 300\", \"ch3_report_p17/ja 304\", \"ch3_tour_card/ja 300\"]"
+      ],
+      "script_errors": 0,
+      "product_sha256": {
+        "game/enemies/enemy.gd": "70cf8894bb0de35dec40b3a994b68ad47f19a0fac856972593c490aea1c3bfc2",
+        "ui/dialogue_layer.gd": "67087917c0238a5b096097cb282c699a20a1da781b25b35264a052b7146bf25c",
+        "ui/quest_guidance.gd": "b847f4f5949669f03eba244bf66cffc9f8d91bf61afa7cb84c05472167e4cd71",
+        "tests/suite/test_combat_hud.gd": "5b741be44ade5091add48b107449fdf0deb74d26335da87fbc38e971f7ea4835",
+        "tests/suite/test_quest_map.gd": "e25356f7ce4b0bd6c47dbfa485b3fc44f9af46ec8f448fd564d3e68033a381e3"
+      }
+    },
+    {
+      "name": "collectibles-current",
+      "base": "b45aa58ef500ff0c6b79e42212e9fc42e6f8418a",
+      "exit": 1,
+      "checks_summary": [
+        "checks: 299, failures: 1"
+      ],
+      "failures": [
+        "FAIL: translated text fits the same detail panel as the longest shipped Chinese text (296 px): [\"ch1_market_summary/ja 300\", \"ch3_report_p17/ja 304\", \"ch3_tour_card/ja 300\"]"
+      ],
+      "script_errors": 0,
+      "product_sha256": {
+        "game/enemies/enemy.gd": "3283332f2c2559148948ddeaa6e0b8ed16342c1ecb3e52258813cc74c12682cc",
+        "ui/dialogue_layer.gd": "8e794c26e04d2ff676a02ff673d415cc2cf40d5a6c8e17b99d8ff54a7540ef7e",
+        "ui/quest_guidance.gd": "4a3d4f05d181d9aa0697a1c82817875cec53ab896e666a0696b264dff9f564e5",
+        "tests/suite/test_combat_hud.gd": "5beca0f6f99d4735805f7d8d34f56a6eabd2591fd415a75c8a14d74b7bc260ad",
+        "tests/suite/test_quest_map.gd": "5d7c0fc795ef050f11ae5c1e40af47a6a3c8f059ea070a964c32bd8dac3c2064"
+      }
+    }
+  ],
+  "summary": "checks: 92173, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 483 s)",
+  "native": [
+    {
+      "name": "ne228-1024-radio-v6-zh-default",
+      "command": [
+        "python",
+        "work/batch1024/native-large.py",
+        "ne228-1024-radio-v6-zh-default",
+        "res://work/batch1024/radio-clearance.tscn",
+        "--scenario=repair",
+        "--save-dir=/workspace/Nest-Egg/work/batch1024/ne228-1024-radio-v6-zh-default-save"
+      ],
+      "exit": 0,
+      "seconds": 68.56814455800031,
+      "checks": 20,
+      "failures": 0,
+      "engine_errors": 0,
+      "leaks": 0,
+      "images": [
+        {
+          "path": "/workspace/Nest-Egg/work/batch1020b/ne228-1024-radio-v6-zh-default/NE-246-canonical-reading.png",
+          "size": [
+            1280,
+            720
+          ],
+          "sha256": "5a594be5c9f0ef81a5db447340d8cca6358224214f0233e3c70ecb75e5702b3a"
+        },
+        {
+          "path": "/workspace/Nest-Egg/work/batch1020b/ne228-1024-radio-v6-zh-default/NE-246-save-refused.png",
+          "size": [
+            1280,
+            720
+          ],
+          "sha256": "705b51db472efb07947426c8eefc870a1f3267d6ad3fef326585cf1304005b8c"
+        }
+      ]
+    },
+    {
+      "name": "ne228-1024-radio-v6-en-reduced",
+      "command": [
+        "python",
+        "work/batch1024/native-large.py",
+        "ne228-1024-radio-v6-en-reduced",
+        "res://work/batch1024/radio-clearance.tscn",
+        "--scenario=repair",
+        "--save-dir=/workspace/Nest-Egg/work/batch1024/ne228-1024-radio-v6-en-reduced-save",
+        "--language=en",
+        "--text-scale=1.2",
+        "--reduce-motion"
+      ],
+      "exit": 0,
+      "seconds": 70.09641848899992,
+      "checks": 20,
+      "failures": 0,
+      "engine_errors": 0,
+      "leaks": 0,
+      "images": [
+        {
+          "path": "/workspace/Nest-Egg/work/batch1020b/ne228-1024-radio-v6-en-reduced/NE-246-canonical-reading.png",
+          "size": [
+            1280,
+            720
+          ],
+          "sha256": "34b95557416b510b6a7819c4a89ac5ddc1da65c30d7a18e549aac1a9a24e29f1"
+        },
+        {
+          "path": "/workspace/Nest-Egg/work/batch1020b/ne228-1024-radio-v6-en-reduced/NE-246-save-refused.png",
+          "size": [
+            1280,
+            720
+          ],
+          "sha256": "d2e2c3b8e73abcf96b95e871b3ba119aba4cceee6d1bd74cc962f1b712b20567"
+        }
+      ]
+    },
+    {
+      "name": "ne228-1024-radio-v6-ja-1080",
+      "command": [
+        "python",
+        "work/batch1024/native-large.py",
+        "ne228-1024-radio-v6-ja-1080",
+        "res://work/batch1024/radio-clearance.tscn",
+        "--scenario=repair",
+        "--save-dir=/workspace/Nest-Egg/work/batch1024/ne228-1024-radio-v6-ja-1080-save",
+        "--language=ja",
+        "--text-scale=1.2",
+        "--size=1920x1080"
+      ],
+      "exit": 0,
+      "seconds": 98.6351672259998,
+      "checks": 21,
+      "failures": 0,
+      "engine_errors": 0,
+      "leaks": 0,
+      "images": [
+        {
+          "path": "/workspace/Nest-Egg/work/batch1020b/ne228-1024-radio-v6-ja-1080/NE-246-canonical-reading.png",
+          "size": [
+            1920,
+            1080
+          ],
+          "sha256": "c41c6a9b278d3dc41727557c555598e86366fb3e95b769d96de33e0222a6a413"
+        },
+        {
+          "path": "/workspace/Nest-Egg/work/batch1020b/ne228-1024-radio-v6-ja-1080/NE-246-save-refused.png",
+          "size": [
+            1920,
+            1080
+          ],
+          "sha256": "ab90c5ba216a237e645a727c781a9cd63ef02d4cc5c5b6c102c5b1c948bba82f"
+        }
+      ]
+    },
+    {
+      "name": "ne228-1024-radio-v6-zh-wide",
+      "command": [
+        "python",
+        "work/batch1024/native-large.py",
+        "ne228-1024-radio-v6-zh-wide",
+        "res://work/batch1024/radio-clearance.tscn",
+        "--scenario=repair",
+        "--save-dir=/workspace/Nest-Egg/work/batch1024/ne228-1024-radio-v6-zh-wide-save",
+        "--text-scale=1.2",
+        "--size=2560x1080"
+      ],
+      "exit": 0,
+      "seconds": 98.58997936000014,
+      "checks": 21,
+      "failures": 0,
+      "engine_errors": 0,
+      "leaks": 0,
+      "images": [
+        {
+          "path": "/workspace/Nest-Egg/work/batch1020b/ne228-1024-radio-v6-zh-wide/NE-246-canonical-reading.png",
+          "size": [
+            2560,
+            1080
+          ],
+          "sha256": "132fbae8a0d08252724faf7f2d6ac860422e6e034d89708e8009c6a3ccec2f4c"
+        },
+        {
+          "path": "/workspace/Nest-Egg/work/batch1020b/ne228-1024-radio-v6-zh-wide/NE-246-save-refused.png",
+          "size": [
+            2560,
+            1080
+          ],
+          "sha256": "85a8f9570e04c032532ff0292b21c72161d89170172d123fa06a9f92aba721d3"
+        }
+      ]
+    }
+  ],
+  "same_frame_pair": [
+    {
+      "name": "ne228-1024-radio-before-v3",
+      "exit": 1,
+      "source_sha256": "67087917c0238a5b096097cb282c699a20a1da781b25b35264a052b7146bf25c"
+    },
+    {
+      "name": "ne228-1024-radio-after-v3",
+      "exit": 0,
+      "source_sha256": "0b12a2c9bd626d809723f358042a5c2508f0bbe2179bba2901f92089aeed5879"
+    }
+  ],
+  "final_viewed": {
+    "individually_viewed": true,
+    "files": [
+      {
+        "file": "/workspace/Nest-Egg/work/batch1020b/ne228-1024-radio-v6-zh-default/NE-246-canonical-reading.png",
+        "sha256": "5a594be5c9f0ef81a5db447340d8cca6358224214f0233e3c70ecb75e5702b3a"
+      },
+      {
+        "file": "/workspace/Nest-Egg/work/batch1020b/ne228-1024-radio-v6-zh-default/NE-246-save-refused.png",
+        "sha256": "705b51db472efb07947426c8eefc870a1f3267d6ad3fef326585cf1304005b8c"
+      },
+      {
+        "file": "/workspace/Nest-Egg/work/batch1020b/ne228-1024-radio-v6-en-reduced/NE-246-canonical-reading.png",
+        "sha256": "34b95557416b510b6a7819c4a89ac5ddc1da65c30d7a18e549aac1a9a24e29f1"
+      },
+      {
+        "file": "/workspace/Nest-Egg/work/batch1020b/ne228-1024-radio-v6-en-reduced/NE-246-save-refused.png",
+        "sha256": "d2e2c3b8e73abcf96b95e871b3ba119aba4cceee6d1bd74cc962f1b712b20567"
+      },
+      {
+        "file": "/workspace/Nest-Egg/work/batch1020b/ne228-1024-radio-v6-ja-1080/NE-246-canonical-reading.png",
+        "sha256": "c41c6a9b278d3dc41727557c555598e86366fb3e95b769d96de33e0222a6a413"
+      },
+      {
+        "file": "/workspace/Nest-Egg/work/batch1020b/ne228-1024-radio-v6-ja-1080/NE-246-save-refused.png",
+        "sha256": "ab90c5ba216a237e645a727c781a9cd63ef02d4cc5c5b6c102c5b1c948bba82f"
+      },
+      {
+        "file": "/workspace/Nest-Egg/work/batch1020b/ne228-1024-radio-v6-zh-wide/NE-246-canonical-reading.png",
+        "sha256": "132fbae8a0d08252724faf7f2d6ac860422e6e034d89708e8009c6a3ccec2f4c"
+      },
+      {
+        "file": "/workspace/Nest-Egg/work/batch1020b/ne228-1024-radio-v6-zh-wide/NE-246-save-refused.png",
+        "sha256": "85a8f9570e04c032532ff0292b21c72161d89170172d123fa06a9f92aba721d3"
+      }
+    ]
+  },
+  "final_negative": {
+    "name": "ne228-1024-radio-v6-before-final",
+    "base": "b45aa58ef500ff0c6b79e42212e9fc42e6f8418a",
+    "exit": 1,
+    "checks": 20,
+    "failures": 3,
+    "engine_errors": 0,
+    "leaks": 0,
+    "before_sha256": {
+      "ui/dialogue_layer.gd": "67087917c0238a5b096097cb282c699a20a1da781b25b35264a052b7146bf25c",
+      "ui/quest_guidance.gd": "b847f4f5949669f03eba244bf66cffc9f8d91bf61afa7cb84c05472167e4cd71"
+    },
+    "restored_sha256": {
+      "ui/dialogue_layer.gd": "8e794c26e04d2ff676a02ff673d415cc2cf40d5a6c8e17b99d8ff54a7540ef7e",
+      "ui/quest_guidance.gd": "4a3d4f05d181d9aa0697a1c82817875cec53ab896e666a0696b264dff9f564e5"
+    },
+    "command": [
+      "python",
+      "work/batch1024/native-large.py",
+      "ne228-1024-radio-v6-before-final",
+      "res://work/batch1024/radio-clearance.tscn",
+      "--scenario=repair",
+      "--save-dir=/workspace/Nest-Egg/work/batch1024/radio-before-final-save"
+    ]
+  },
+  "final_negative_viewed": {
+    "individually_viewed": true,
+    "files": [
+      {
+        "file": "/workspace/Nest-Egg/work/batch1020b/ne228-1024-radio-v6-before-final/NE-246-canonical-reading.png",
+        "sha256": "f7971965784d7f75d90fcb88649ff0b610568cfedd50347ca207919b6a3d4be2"
+      },
+      {
+        "file": "/workspace/Nest-Egg/work/batch1020b/ne228-1024-radio-v6-before-final/NE-246-save-refused.png",
+        "sha256": "daf7ab8b2efd381b0234174101bd69e7858472a28d646e851edfe81c38a08841"
+      }
+    ]
+  },
+  "new_formal_checks": 23,
+  "original_tests_reconstructed_byte_exact": true,
+  "unchanged_harness": [
+    "tools/run_tests_changed.sh",
+    "tools/run_tests_parallel.sh",
+    "tools/select_tests.py",
+    "tools/test_filters.sh",
+    "tests/known_failures.txt"
+  ],
+  "scope": "RealMain/LevelPAUSABLE,observerALWAYS,Forward+HDRsoftwarellvmpipe,DummyAudio. Publicroute/playerposition arranged,playerhealth9999,prerequisitecutscenesskipped. Malformedliveledgerflagonlybeforelastconfirmation; no targetcompletionflaginjection. Correctedsameframepostdrawgeometry+PNG; original6captureframes retained. Allfailedpreflightsandearliernativefailureskept. Fourfinal actual1280zh100,1280en120reduced,1920ja120,2560zh120 sizes asserted. Notfullcampaign/human/physicalcontroller/hardwareGPU or characterjointacceptance."
+}

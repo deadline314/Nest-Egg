@@ -64,6 +64,8 @@ func _ready() -> void:
 	state.changed.connect(_refresh_target)
 	EventBus.checkpoint_reached.connect(func(position: Vector2) -> void: state.activate(level.data.resource_path, position, level.data.tile_size))
 	_refresh_target()
+	EventBus.radio_visibility_changed.connect(_on_radio_visibility_changed)
+	_on_radio_visibility_changed()
 
 
 func _process(delta: float) -> void:
@@ -72,19 +74,37 @@ func _process(delta: float) -> void:
 	if get_tree().paused:
 		_set_pointer_covered(true)
 		return
+	var radio := DialogueLayer.radio_visible()
 	_time += delta
-	_idle += delta
+	if not radio:
+		_idle += delta
 	if _time >= 0.2:
 		_time = 0
 		_sample()
 		_refresh_target()
-	_row.visible = _enabled("quest_objective") and not _target.is_empty() and not Story.is_cinematic_active()
+	_row.visible = _enabled("quest_objective") and not _target.is_empty() and not Story.is_cinematic_active() and not radio
+	if radio:
+		_arrow.hide()
+		_set_pointer_covered(true)
+		return
 	# A reading surface takes its pixels immediately; fade only when returning.
 	yielding = _row.visible and PromptLayout.covers(row_world_rect())
 	_set_pointer_covered(DialogueLayer.radio_visible() or yielding)
 	var target_alpha := 0.0 if yielding else (1.0 if _idle < 5 or not Settings.get_hud_auto_hide() else 0.4)
 	_row.modulate.a = target_alpha if yielding or Settings.get_reduce_ui_motion() else move_toward(_row.modulate.a, target_alpha, delta / YIELD_FADE)
 	_update_arrow()
+
+
+## Visibility handoff is synchronous: frozen worlds skip ordinary HUD callbacks.
+func _on_radio_visibility_changed() -> void:
+	if _row == null or not is_inside_tree():
+		return
+	var covered := DialogueLayer.radio_visible()
+	_row.visible = not covered and not get_tree().paused and _enabled("quest_objective") and not _target.is_empty() and not Story.is_cinematic_active()
+	if covered:
+		yielding = true
+		_arrow.hide()
+	_set_pointer_covered(covered or get_tree().paused or yielding)
 
 
 func _set_pointer_covered(covered: bool) -> void:

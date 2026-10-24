@@ -19,6 +19,7 @@ func run() -> void:
 	await _test_runtime()
 	_test_display_defaults()
 	await _test_story_language()
+	await _test_radio_objective_handoff()
 
 
 func _visible_quest_text(root: Node) -> PackedStringArray:
@@ -711,3 +712,26 @@ func _check_caption_avoids_actor(level: Level) -> void:
 	level.player.global_position = original_player
 	guidance._target = original_target
 	guidance._update_arrow()
+
+
+func _test_radio_objective_handoff() -> void:
+	var previous_skip := Story.auto_skip
+	Story.auto_skip = false
+	GameState.start_new_run(GameState.difficulties[1])
+	var level := await start_level(load(PAWN) as LevelData)
+	Story.reset_active_presentation(&"test_setup")
+	await frames(3)
+	var guidance: QuestGuidance = level.hud.quest_guidance
+	check(guidance._row.visible and not guidance._label.text.is_empty(), "radio handoff starts with a real visible quest objective")
+	var text := guidance._label.text
+	var idle := guidance._idle
+	Story._scenes["test_objective_radio"] = {"mode": "radio", "freeze": true, "lines": [{"speaker": "mei", "text": "重要通訊。"}]}
+	check(Story.play(&"test_objective_radio", false), "objective handoff uses the actual radio presentation")
+	check(not guidance._row.visible and not guidance._arrow.visible and guidance._row.mouse_filter == Control.MOUSE_FILTER_IGNORE, "radio takes objective pixels immediately before paused callbacks")
+	await frames(3)
+	check(guidance._idle == idle and guidance._label.text == text, "paused radio preserves the quest objective and its remaining idle time")
+	Story.reset_active_presentation(&"test_teardown")
+	check(guidance._row.visible and guidance._idle == idle and guidance._label.text == text, "radio exit restores the original objective without consuming its display time")
+	Story._scenes.erase("test_objective_radio")
+	await end_level(level)
+	Story.auto_skip = previous_skip
