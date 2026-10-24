@@ -21,6 +21,7 @@ func run() -> void:
 	await _test_hidden_room()
 	await _test_inventory_page()
 	await _test_item_translations()
+	await preload("res://tests/helpers/market_document_notice_checks.gd").run(self)
 	await preload("res://tests/helpers/story_item_full_text_checks.gd").run(self)
 
 

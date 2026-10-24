@@ -1,0 +1,34 @@
+{
+  "base": "be4e5db5b692eb79c8a1de7097fb865e6a07b6d2",
+  "native": [
+    {
+      "tag": "before",
+      "checks": 64,
+      "failures": 0,
+      "engine_errors": 0,
+      "leaks": 0,
+      "inspected_image": "/workspace/Nest-Egg/work/batch1020b/st21-1024-market-before/ch1_market_summary-full-text.png",
+      "sha256": "fcdbd2cab8af45a734bd875ce2e7f137cc64e42e4468b6ab2715b6549ba87485",
+      "all_captured_png": 8,
+      "all_png_inspected": false
+    },
+    {
+      "tag": "after",
+      "checks": 64,
+      "failures": 0,
+      "engine_errors": 0,
+      "leaks": 0,
+      "inspected_image": "/workspace/Nest-Egg/work/batch1020b/st21-1024-market-after/ch1_market_summary-full-text.png",
+      "sha256": "91a143a16fe509087fd2caf0d578ed014e8fa330223230d367d3f7ec85c0a990",
+      "all_captured_png": 8,
+      "all_png_inspected": false
+    }
+  ],
+  "legacy_collectibles_unchanged_except_new_call": true,
+  "final_source": {
+    "data/story_items/i18n.json": "6d5b39d89fc33d408ce496e16445156f687b2b76a1d211d927c76a9b92ba8d90",
+    "tests/suite/test_collectibles.gd": "42928295868e877e8bcf097726afb46ba6d630a6d9d61c69e1d26f34ed05f8a0",
+    "tests/helpers/market_document_notice_checks.gd": "9f1fb4d0b7bfa791f5c0f376f8bcf7746dd82206f3a3adaa84336cc192c70b2c"
+  },
+  "scope": "Only English M17 body; UI fixtures, not natural acquisition or human play; only the two M17 full-text PNG were visually inspected in this follow-up."
+}
