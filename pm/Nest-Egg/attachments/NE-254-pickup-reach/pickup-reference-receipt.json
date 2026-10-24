@@ -1,0 +1,28 @@
+[
+  {
+    "name": "ray",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/physics/ray-casting.html",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "name": "katana",
+    "url": "https://store.steampowered.com/api/appdetails?appids=460950&l=english",
+    "status": 200,
+    "sha256": "5dd6736724f27c6551807189619f8553c4d6ebbb5e3a2b9b890794fa9e762d5f",
+    "bytes": 16889
+  },
+  {
+    "name": "official-store-image",
+    "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/460950/ss_c269a57182b021d2aac2bb8d42421d0ef301360d.1920x1080.jpg?t=1761066027",
+    "status": 200,
+    "sha256": "998580b71d1979f2185530344e4ee0e5fb24a8482ff5685b73423c2e2864b519",
+    "bytes": 308216
+  },
+  {
+    "name": "official-godot-doc-source",
+    "url": "https://raw.githubusercontent.com/godotengine/godot-docs/master/tutorials/physics/ray-casting.rst",
+    "status": 200,
+    "sha256": "85fd673b0308dc52f8139a63614b254b8c453af5ca1071ec82f2300c7b030799",
+    "bytes": 10675
+  }
+]

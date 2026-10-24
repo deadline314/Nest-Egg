@@ -20,6 +20,7 @@ func run() -> void:
 	await _test_collision_order()
 	await _test_barrel_aim_priority()
 	await _test_pickup_prompt_target()
+	await _test_pickup_terrain_reach()
 	await _test_no_input_conflicts()
 	await _test_gamepad_events()
 	await _test_chapter_one_placement()
@@ -592,3 +593,51 @@ func _test_chapter_one_placement() -> void:
 	var second := runner.get_tree().get_nodes_in_group(Throwable.GROUP).size()
 	check(first > 0 and first == second, "re-entering the warehouse places the same number of throwables (%d, %d)" % [first, second])
 	await end_level(level)
+
+
+## Nearby objects behind solid terrain are not an interaction target.
+func _test_pickup_terrain_reach() -> void:
+	for direction in [-1.0, 1.0]:
+		await open_level(10.0)
+		var player := level.player
+		player.set_physics_process(false)
+		var hidden := _place(CRATE, 10.0 + direction * 1.25)
+		var accessible := _place(PIPE, 10.0 - direction * 1.5)
+		var wall := StaticBody2D.new()
+		wall.collision_layer = Layers.WORLD
+		wall.collision_mask = 0
+		wall.position = player.global_position + Vector2(direction * 10, -24)
+		var collision := CollisionShape2D.new()
+		var shape := RectangleShape2D.new()
+		shape.size = Vector2(3, 48)
+		collision.shape = shape
+		wall.add_child(collision)
+		level.add_child(wall)
+		await physics_frames(4)
+		check(hidden.can_pick_up() and accessible.can_pick_up(), "reach fixture has two settled pickups")
+		check(player.carry.nearest_pickable() == accessible, "solid wall excludes closer pickup, direction %s" % direction)
+		check(not hidden._prompt._player_near() and accessible._prompt._player_near(), "only reachable pickup advertises interaction, direction %s" % direction)
+		accessible.queue_free()
+		await physics_frames(2)
+		check(player.carry.nearest_pickable() == null and not hidden._prompt._player_near(), "wall alone leaves no valid pickup, direction %s" % direction)
+		player.set_physics_process(true)
+		await _press(&"interact")
+		check(not player.carry.is_holding() and hidden.state == Throwable.State.REST, "real interaction cannot pick through solid wall, direction %s" % direction)
+		if player.carry.is_holding():
+			player.carry.put_down()
+		hidden.global_position = Vector2((10.0 + direction * 1.25) * 16, FLOOR_Y)
+		hidden.velocity = Vector2.ZERO
+		shape.size = Vector2(3, 12)
+		wall.position.y = FLOOR_Y - 6
+		await physics_frames(4)
+		check(player.carry.nearest_pickable() == hidden and hidden._prompt._player_near(), "a low obstacle below the reach line does not suppress the pickup, direction %s" % direction)
+		check(await _pick_up(hidden), "real input can pick over a low obstacle, direction %s" % direction)
+		if player.carry.is_holding():
+			player.carry.put_down()
+		hidden.global_position = Vector2((10.0 + direction * 1.25) * 16, FLOOR_Y)
+		hidden.velocity = Vector2.ZERO
+		wall.queue_free()
+		await physics_frames(4)
+		check(player.carry.nearest_pickable() == hidden and hidden._prompt._player_near(), "removing wall restores pickup and prompt, direction %s" % direction)
+		check(await _pick_up(hidden), "unblocked object remains usable through real input, direction %s" % direction)
+		await end_level(level)

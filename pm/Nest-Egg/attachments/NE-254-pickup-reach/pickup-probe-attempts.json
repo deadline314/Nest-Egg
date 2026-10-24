@@ -1,0 +1,39 @@
+{
+  "v1": {
+    "headless_fixture": "231 checks / 12 failures; four cascading unblocked failures removed by explicit cleanup before independent unblocked controls",
+    "native": "12 checks / 8 failures; event reuse warning and renderer shutdown errors; exit250, invalid for clean native acceptance"
+  },
+  "v2": {
+    "headless_fixture": "231 checks / 8 failures; original runtime",
+    "native": "12 checks / 6 failures; duplicate event instances fix input warning; renderer shutdown still errors, exit250. Not clean native acceptance."
+  },
+  "v3": {
+    "native_before": "12/6; exit250, same renderer errors",
+    "native_after": "12/0; exit250, same renderer errors",
+    "interpretation": "Assertions alone do not establish clean native acceptance."
+  },
+  "existing_tool_control": {
+    "command": "res://tools/screenshot.tscn --scenario=throwables",
+    "exit": 250,
+    "errors": "Same 9 CanvasShaderRD / 2 decal textures; existing direct fixture tool also fails shutdown."
+  },
+  "main_v4": {
+    "checks": 13,
+    "failures": 6,
+    "exit": 1,
+    "invalid_fixture": "Formal street floor was not cover-map FLOOR_Y; radio presentation and NPC interfered with input. Focus error also present. Not a valid reach control."
+  },
+  "main_v5": {
+    "checks": 13,
+    "failures": 6,
+    "exit": 1,
+    "errors": 1,
+    "issue": "Initial menu focus pending; not clean native acceptance."
+  },
+  "main_v6": {
+    "before": "13/6, exit1, no ERROR/leaks",
+    "after": "13/0, exit0, no ERROR/leaks",
+    "note": "Wait for initial menu focus; formal Main route and lifecycle. Six images each individually reviewed."
+  },
+  "early_runtime_source": "V3 temporary 12px reach-origin runtime was not independently frozen. Final standing/crouch body-centre source is preserved in source/; early fixture outcomes are retained as historical results, not claimed byte-identical rebuilds."
+}

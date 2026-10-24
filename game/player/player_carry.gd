@@ -28,12 +28,16 @@ var _throw_press_held := false
 var _preview: PackedVector2Array = []
 var _preview_land := Vector2.INF
 var _ray := PhysicsRayQueryParameters2D.new()
+var _pickup_ray := PhysicsRayQueryParameters2D.new()
+var _pickup_target: Throwable
 
 
 func _ready() -> void:
 	top_level = true
 	z_index = WorldLayers.CHARACTER_MAX_Z + 1  # 預覽線畫在角色前面
 	_ray.collision_mask = Layers.SOLID
+	_pickup_ray.collision_mask = Layers.WORLD
+	_pickup_ray.hit_from_inside = true
 	set_physics_process(false)
 
 
@@ -58,8 +62,9 @@ func handle_input() -> bool:
 	if phase != Phase.NONE and not is_instance_valid(held) and phase != Phase.THROWING:
 		_reset()
 	if phase == Phase.NONE or phase == Phase.THROWING:
+		# Refresh in physics; rendered prompts read the same target without querying a locked space.
+		var target := nearest_pickable()
 		if Input.is_action_just_pressed(&"interact"):
-			var target := nearest_pickable()
 			if target != null:
 				pick(target)
 				return true
@@ -81,8 +86,21 @@ func handle_input() -> bool:
 
 ## 腳邊範圍內最近、可以撿的物件。
 func nearest_pickable() -> Throwable:
+	if Engine.is_in_physics_frame():
+		_pickup_target = _find_nearest_pickable()
+	if not is_instance_valid(_pickup_target) or not _pickup_target.can_pick_up():
+		return null
+	var offset := _pickup_target.global_position - player.global_position
+	if absf(offset.x) > PICK_RANGE_X + _pickup_target.data.size.x * 0.5 or absf(offset.y) > PICK_RANGE_Y:
+		return null
+	return _pickup_target
+
+
+func _find_nearest_pickable() -> Throwable:
 	var best: Throwable = null
 	var best_d := INF
+	var height := Player.CROUCH_HEIGHT if player.is_crouching else Player.BODY_SIZE.y
+	var origin := player.global_position + Vector2(0, -height * 0.5)
 	for node in get_tree().get_nodes_in_group(Throwable.GROUP):
 		var item := node as Throwable
 		if item == null or not item.can_pick_up():
@@ -91,6 +109,10 @@ func nearest_pickable() -> Throwable:
 		if absf(offset.x) > PICK_RANGE_X + item.data.size.x * 0.5 or absf(offset.y) > PICK_RANGE_Y:
 			continue
 		if absf(offset.x) < best_d:
+			_pickup_ray.from = origin
+			_pickup_ray.to = item.world_center()
+			if not get_world_2d().direct_space_state.intersect_ray(_pickup_ray).is_empty():
+				continue
 			best = item
 			best_d = absf(offset.x)
 	return best

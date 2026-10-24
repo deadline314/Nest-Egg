@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME ThrowablesSuite 27.2
+checks: 231, failures: 12
+FAIL: solid wall excludes closer pickup, direction -1.0
+FAIL: only reachable pickup advertises interaction, direction -1.0
+FAIL: wall alone leaves no valid pickup, direction -1.0
+FAIL: real interaction cannot pick through solid wall, direction -1.0
+FAIL: removing wall restores pickup and prompt, direction -1.0
+FAIL: unblocked object remains usable through real input, direction -1.0
+FAIL: solid wall excludes closer pickup, direction 1.0
+FAIL: only reachable pickup advertises interaction, direction 1.0
+FAIL: wall alone leaves no valid pickup, direction 1.0
+FAIL: real interaction cannot pick through solid wall, direction 1.0
+FAIL: removing wall restores pickup and prompt, direction 1.0
+FAIL: unblocked object remains usable through real input, direction 1.0

@@ -1,0 +1,32 @@
+{
+  "base": "66c6ebc731041141a33c2f53aa76a5e19a4aeea9",
+  "original_tests_preserved_exactly": true,
+  "unit_before": {
+    "checks": 235,
+    "failures": 8
+  },
+  "unit_after": {
+    "checks": 235,
+    "failures": 0
+  },
+  "original_selector": {
+    "groups": 10,
+    "checks": 3341,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 96
+  },
+  "native_before": {
+    "checks": 13,
+    "failures": 6,
+    "exit": 1,
+    "errors": 0
+  },
+  "native_after": {
+    "checks": 13,
+    "failures": 0,
+    "exit": 0,
+    "errors": 0
+  },
+  "scope": "Actual Main route to authored ch1_street, arranged position + new wall/crate. Story trigger scan suppressed, NPCs/encounters/enemies removed, health999 and600second invulnerability. Synthetic E/right and padX/left. No full route, combat balance, material alpha or hardware acceptance. All twelve final images individually inspected."
+}

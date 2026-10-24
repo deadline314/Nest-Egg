@@ -1,0 +1,56 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+ERROR: [InputFeel] res://data/feel/input.json 沒有 windows.test_no_such_window，改用預設 0.07
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://core/input_feel.gd:151)
+       [1] window (res://core/input_feel.gd:37)
+       [2] _test_windows_from_data (res://tests/suite/test_input_feel.gd:288)
+       [3] run (res://tests/suite/test_input_feel.gd:10)
+       [4] run (res://tests/helpers/vehicle_deferred_input_checks.gd:88)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:634)
+       [7] _frames (res://tests/smoke_test.gd:125)
+WARNING: [InputBindings] controller/aim_deadzone 不是有效數值，使用預設值。
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _number_option (res://autoload/input_bindings.gd:636)
+         [1] _reload_controller_options (res://autoload/input_bindings.gd:622)
+         [2] reload_from_settings (res://autoload/input_bindings.gd:429)
+         [3] _test_controller_options (res://tests/suite/test_input_feel.gd:124)
+         [4] _test_controller_flow (res://tests/suite/test_input_feel.gd:51)
+         [5] run (res://tests/suite/test_input_feel.gd:13)
+         [6] run (res://tests/helpers/vehicle_deferred_input_checks.gd:88)
+         [7] end_level (res://tests/suite/test_suite.gd:47)
+         [8] _end_level (res://tests/smoke_test.gd:634)
+         [9] _frames (res://tests/smoke_test.gd:125)
+WARNING: [InputBindings] controller/vibration_strength 不是有效數值，使用預設值。
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _number_option (res://autoload/input_bindings.gd:636)
+         [1] _reload_controller_options (res://autoload/input_bindings.gd:623)
+         [2] reload_from_settings (res://autoload/input_bindings.gd:429)
+         [3] _test_controller_options (res://tests/suite/test_input_feel.gd:124)
+         [4] _test_controller_flow (res://tests/suite/test_input_feel.gd:51)
+         [5] run (res://tests/suite/test_input_feel.gd:13)
+         [6] run (res://tests/helpers/vehicle_deferred_input_checks.gd:88)
+         [7] end_level (res://tests/suite/test_suite.gd:47)
+         [8] _end_level (res://tests/smoke_test.gd:634)
+         [9] _frames (res://tests/smoke_test.gd:125)
+WARNING: [InputBindings] controller/invert_aim_y 不是布林值，使用預設值。
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _reload_controller_options (res://autoload/input_bindings.gd:627)
+         [1] reload_from_settings (res://autoload/input_bindings.gd:429)
+         [2] _test_controller_options (res://tests/suite/test_input_feel.gd:124)
+         [3] _test_controller_flow (res://tests/suite/test_input_feel.gd:51)
+         [4] run (res://tests/suite/test_input_feel.gd:13)
+         [5] run (res://tests/helpers/vehicle_deferred_input_checks.gd:88)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:634)
+         [8] _frames (res://tests/smoke_test.gd:125)
+NE229_PHYSICAL_JOYPADS [] | probe uses synthetic device 999
+NE229_SYNTHETIC_FLOW checks=36 failures=0
+SUITE_TIME InputFeelSuite 19.9
+checks: 130, failures: 0

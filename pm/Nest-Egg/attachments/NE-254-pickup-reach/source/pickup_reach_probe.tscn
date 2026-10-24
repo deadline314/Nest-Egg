@@ -1,0 +1,4 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://work/batch1024/pickup_reach_probe.gd" id="1"]
+[node name="PickupReachProbe" type="Node"]
+script = ExtResource("1")

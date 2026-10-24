@@ -1,0 +1,11 @@
+Running 1 groups in 1 processes (logs: /workspace/Nest-Egg/work/batch1024/pickup-before-final-shards)
+  process 0 (estimated 27 s): ThrowablesSuite
+[process 0] NEW FAILURE: solid wall excludes closer pickup, direction -1.0
+[process 0] NEW FAILURE: only reachable pickup advertises interaction, direction -1.0
+[process 0] NEW FAILURE: wall alone leaves no valid pickup, direction -1.0
+[process 0] NEW FAILURE: real interaction cannot pick through solid wall, direction -1.0
+[process 0] NEW FAILURE: solid wall excludes closer pickup, direction 1.0
+[process 0] NEW FAILURE: only reachable pickup advertises interaction, direction 1.0
+[process 0] NEW FAILURE: wall alone leaves no valid pickup, direction 1.0
+[process 0] NEW FAILURE: real interaction cannot pick through solid wall, direction 1.0
+checks: 231, new failures: 8, known failures (tests/known_failures.txt): 0  (wall time 32 s)
