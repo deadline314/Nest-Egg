@@ -1,0 +1,38 @@
+{
+  "unit": {
+    "before": {
+      "checks": 269,
+      "failures": 14,
+      "exit": 1
+    },
+    "after": {
+      "checks": 269,
+      "failures": 0,
+      "exit": 0
+    }
+  },
+  "original_affected_selector": {
+    "groups": 10,
+    "checks": 3417,
+    "new_failures": 0,
+    "known_failures": 0,
+    "wall_seconds": 66,
+    "exit": 0
+  },
+  "native": {
+    "before": {
+      "checks": 9,
+      "failures": 2,
+      "exit": 1
+    },
+    "after": {
+      "checks": 9,
+      "failures": 0,
+      "exit": 0
+    },
+    "each_engine_errors": 0,
+    "each_exit_leaks": 0,
+    "images_individually_reviewed": 12
+  },
+  "scope": "Actual Main formal street route, arranged isolated wall/crate fixture, synthetic keyboard/gamepad. Not physical controller, full chapter, human feel or hardware GPU."
+}

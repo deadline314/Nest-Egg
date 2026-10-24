@@ -21,6 +21,7 @@ func run() -> void:
 	await _test_barrel_aim_priority()
 	await _test_pickup_prompt_target()
 	await _test_pickup_terrain_reach()
+	await _test_drop_terrain()
 	await _test_no_input_conflicts()
 	await _test_gamepad_events()
 	await _test_chapter_one_placement()
@@ -641,3 +642,48 @@ func _test_pickup_terrain_reach() -> void:
 		check(player.carry.nearest_pickable() == hidden and hidden._prompt._player_near(), "removing wall restores pickup and prompt, direction %s" % direction)
 		check(await _pick_up(hidden), "unblocked object remains usable through real input, direction %s" % direction)
 		await end_level(level)
+
+
+## Dropping uses the same body shape and terrain as flight; a nearby wall cannot swallow a held prop.
+func _test_drop_terrain() -> void:
+	for direction: float in [-1.0, 1.0]:
+		for path: String in [CRATE, PIPE]:
+			for damage_drop: bool in [false, true]:
+				await open_level(10.0)
+				var player := level.player
+				var item := _place(path, 10.5)
+				await physics_frames(4)
+				check(await _pick_up(item), "drop fixture uses real pickup")
+				await _aim(Vector2(direction, 0))
+				var wall := StaticBody2D.new()
+				wall.collision_layer = Layers.WORLD
+				wall.collision_mask = 0
+				wall.position = player.global_position + Vector2(direction * 14.0, -48.0)
+				var shape := CollisionShape2D.new()
+				var rectangle := RectangleShape2D.new()
+				rectangle.size = Vector2(3, 96)
+				shape.shape = rectangle
+				wall.add_child(shape)
+				level.add_child(wall)
+				await physics_frames(3)
+				var near_edge := direction * wall.global_position.x - 1.5
+				if damage_drop:
+					player.health.grant_invulnerability(0)
+					player.hurtbox.receive(hit_player())
+				else:
+					await _press(&"interact")
+				check(not player.carry.is_holding() and item.state == Throwable.State.REST, "blocked drop releases normally, %s %s %s" % [direction, path, damage_drop])
+				check(direction * item.global_position.x + item.data.size.x * .5 < near_edge, "drop cannot enter or cross wall, %s %s %s" % [direction, path, damage_drop])
+				await physics_frames(45)
+				check(direction * item.global_position.x + item.data.size.x * .5 < near_edge and item.is_on_floor(), "released prop settles on original side, %s %s %s" % [direction, path, damage_drop])
+				_release_aim()
+				await end_level(level)
+	await open_level(10.0)
+	var item := _place(CRATE, 10.5)
+	await physics_frames(4)
+	check(await _pick_up(item), "open drop fixture uses real pickup")
+	level.player.facing = 1
+	var expected := level.player.global_position + Vector2(14, -2)
+	level.player.carry.put_down()
+	check(item.global_position.is_equal_approx(expected), "unobstructed drop preserves original exact placement")
+	await end_level(level)

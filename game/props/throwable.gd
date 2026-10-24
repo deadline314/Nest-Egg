@@ -125,7 +125,8 @@ func hold_at(point: Vector2) -> void:
 
 ## 放下：輕輕落在 point（玩家腳前），回到靜置。
 func put_down(point: Vector2) -> void:
-	global_position = point
+	# Reuse the full body and terrain rules instead of teleporting into nearby walls.
+	move_and_collide(point - global_position)
 	velocity = Vector2.ZERO
 	_to_rest()
 

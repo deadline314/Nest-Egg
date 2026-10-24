@@ -1,0 +1,11 @@
+Running 1 groups in 1 processes (logs: /workspace/Nest-Egg/work/batch1024/drop-before-v2-shards)
+  process 0 (estimated 22 s): ThrowablesSuite
+[process 0] NEW FAILURE: drop cannot enter or cross wall, -1.0 res://data/throwables/crate_small.tres false
+[process 0] NEW FAILURE: released prop settles on original side, -1.0 res://data/throwables/crate_small.tres false
+[process 0] NEW FAILURE: drop cannot enter or cross wall, -1.0 res://data/throwables/crate_small.tres true
+[process 0] NEW FAILURE: released prop settles on original side, -1.0 res://data/throwables/crate_small.tres true
+[process 0] NEW FAILURE: drop cannot enter or cross wall, -1.0 res://data/throwables/pipe.tres false
+[process 0] NEW FAILURE: released prop settles on original side, -1.0 res://data/throwables/pipe.tres false
+[process 0] NEW FAILURE: drop cannot enter or cross wall, -1.0 res://data/throwables/pipe.tres true
+[process 0] NEW FAILURE: released prop settles on original side, -1.0 res://data/throwables/pipe.tres true
+checks: 269, new failures: 8, known failures (tests/known_failures.txt): 0  (wall time 48 s)

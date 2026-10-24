@@ -1,0 +1,18 @@
+{
+  "godot_api": {
+    "url": "https://github.com/godotengine/godot/blob/4.7.2-stable/doc/classes/PhysicsBody2D.xml",
+    "read": true,
+    "observed": "move_and_collide moves the actual body along motion and stops on collision; default safe margin 0.08. API explicitly discusses use from process as well as physics_process."
+  },
+  "similar_game": {
+    "source": {
+      "name": "official-store-image",
+      "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/460950/ss_c269a57182b021d2aac2bb8d42421d0ef301360d.1920x1080.jpg?t=1761066027",
+      "status": 200,
+      "sha256": "998580b71d1979f2185530344e4ee0e5fb24a8482ff5685b73423c2e2864b519",
+      "bytes": 308216
+    },
+    "sha256": "998580b71d1979f2185530344e4ee0e5fb24a8482ff5685b73423c2e2864b519",
+    "review": "Re-viewed before work; scene/readability reference only, no inference about private collision code or player preference."
+  }
+}
