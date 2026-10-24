@@ -35,6 +35,7 @@ var _steps_done: Dictionary[StringName, int] = {}
 
 
 func run() -> void:
+	await preload("res://tests/helpers/dialogue_trigger_edge_checks.gd").run(self)
 	preload("res://tests/helpers/stage_prop_state_checks.gd").run(self)
 	preload("res://tests/helpers/story_batch_preflight_checks.gd").run(self)
 	await _test_story_features()

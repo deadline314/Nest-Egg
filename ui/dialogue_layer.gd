@@ -20,6 +20,8 @@ const RADIO_SLIDE := 28.0
 ## Weak observers only; neither the query nor this table owns a removed layer.
 static var _radio_layers: Dictionary[int, WeakRef] = {}
 
+var _shoot_press := preload("res://ui/analog_press_edge.gd").new()
+
 var _cinematic_root: Control
 var _portrait: TextureRect
 var _name: Label
@@ -103,6 +105,7 @@ func start_cinematic(id: StringName, lines: Array[Dictionary]) -> void:
 	if lines.is_empty():
 		cinematic_finished.emit(id)
 		return
+	_shoot_press.sync()
 	_cinematic_id = id
 	# 真入隊來源只決定外觀，沒有新增 Story／結果語義。
 	var context := Story.current_presentation_context()
@@ -189,13 +192,15 @@ func _show_line() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	AimInput.observe(event)
+	var shoot_pressed := _shoot_press.is_action_pressed(event, &"shoot")
 	if not is_cinematic_active():
 		_radio_input(event)
 		return
 	if event.is_action_pressed(&"pause") or event.is_action_pressed(&"ui_cancel"):
 		finish_cinematic()
 		get_viewport().set_input_as_handled()
-	elif event.is_action_pressed(&"ui_accept") or event.is_action_pressed(&"shoot") or event.is_action_pressed(&"jump") \
+	elif event.is_action_pressed(&"ui_accept") or shoot_pressed or event.is_action_pressed(&"jump") \
 			or event.is_action_pressed(&"interact") \
 			or (event is InputEventMouseButton and event.is_pressed() and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT):
 		advance()

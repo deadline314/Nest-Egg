@@ -1,0 +1,64 @@
+{
+  "base": "8dca203bacd2173f1bc181e545459776f1404ab3",
+  "ui_negative_control_base": "65bccc552f98a708c767c6a290f20b0c8752afc9",
+  "headless_before": {
+    "checks": 10,
+    "failures": 6,
+    "exit": 1
+  },
+  "headless_after": {
+    "checks": 10,
+    "failures": 0,
+    "exit": 0
+  },
+  "affected_groups": 62,
+  "affected_summary": [
+    64113,
+    0,
+    0,
+    505
+  ],
+  "original_suite_assertions_and_waits_preserved": true,
+  "native": {
+    "before": {
+      "checks": 10,
+      "failures": 6,
+      "exit": 1,
+      "engine_errors": 0,
+      "leaks": 0,
+      "states": {
+        "animated-held": {
+          "active": false,
+          "step": -1,
+          "valid": false
+        },
+        "dialogue-held": {
+          "active": false,
+          "step": 2,
+          "valid": true
+        }
+      }
+    },
+    "after": {
+      "checks": 10,
+      "failures": 0,
+      "exit": 0,
+      "engine_errors": 0,
+      "leaks": 0,
+      "states": {
+        "animated-held": {
+          "active": true,
+          "step": 0,
+          "valid": true
+        },
+        "dialogue-held": {
+          "active": true,
+          "step": 0,
+          "valid": true
+        }
+      }
+    }
+  },
+  "reviewed_final_images": 4,
+  "scope": "Real UI owners, explicit two-line fixtures and synthetic public inputs, software Forward+. Not natural story, physical-controller or whole-ticket acceptance."
+}

@@ -16,6 +16,8 @@ const TITLE_FADE := 0.5
 ## 效果層（色調、閃光、雜訊、淡入淡出、黑邊、字幕、對話）的 z_index 起點，需高於任何角色零件。
 const EFFECT_Z := 200
 
+var _shoot_press := preload("res://ui/analog_press_edge.gd").new()
+
 var scene_id: StringName = &""
 ## 播放速度倍率（測試用；1 = 正常）。
 var speed := 1.0
@@ -93,6 +95,7 @@ func play(id: StringName, scene: Dictionary) -> void:
 	if _running or not is_inside_tree():
 		push_warning("[Cutscene] 播放器已在播放或不在場景樹中：%s" % id)
 		return
+	_shoot_press.sync()
 	scene_id = id
 	var raw: Variant = scene.get("steps", [])
 	_steps = raw.duplicate(true) if typeof(raw) == TYPE_ARRAY else []
@@ -205,6 +208,8 @@ func cancel() -> void:
 # ---------------------------------------------------------------------------
 
 func _input(event: InputEvent) -> void:
+	AimInput.observe(event)
+	var shoot_pressed := _shoot_press.is_action_pressed(event, &"shoot")
 	if not _running:
 		return
 	if choice_active():
@@ -215,7 +220,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"pause") or event.is_action_pressed(&"ui_cancel"):
 		skip()
 		get_viewport().set_input_as_handled()
-	elif event.is_action_pressed(&"ui_accept") or event.is_action_pressed(&"shoot") or event.is_action_pressed(&"jump") \
+	elif event.is_action_pressed(&"ui_accept") or shoot_pressed or event.is_action_pressed(&"jump") \
 			or (event is InputEventMouseButton and event.is_pressed() and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT):
 		if _dialogue.visible and not _dialogue.is_complete():
 			_dialogue.complete()
