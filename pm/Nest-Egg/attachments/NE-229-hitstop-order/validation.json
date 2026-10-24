@@ -1,0 +1,64 @@
+{
+  "base": "f5469ea3adb783405417714bbf8f7f133e32d612",
+  "failed_ci": {
+    "run": 40075701152,
+    "job": 120818443722,
+    "checks": 96395,
+    "new_failures": 3,
+    "seconds": 652
+  },
+  "original_assertions_input_waits_byte_identical": true,
+  "frozen_sources": {
+    "game/player/vehicle_command_input.gd": "a97fa24c34d4c8f1889251d54872e03689f9febd441e1f839a2af17e74ef0f4e",
+    "tests/suite/test_input_feel.gd": "16672196d1edc1ba242d0904515777c656e66f349365975dba81159cc6e40fba",
+    "tests/smoke_test.gd": "e2eeed95b92c4335dfa6c0a74c9f530eeed205f35d0cc7971b317e9cc08fb6a0",
+    "autoload/fx.gd": "42874c62bd217c1b3725089629a27416519f45b4f87f9a16d39759c51f0a9b9b",
+    "game/player/player.gd": "eb3963150f2b6e878ebab9b26e79fa659dddc3cfa84ec7f7970cc58564194c2a",
+    "game/vehicles/vehicle.gd": "2baa3689893f92a015db996cfc76e1bfee88fb025f1a0b6d50df10d97dccea71",
+    "work/batch1024/vehicle-native-base.gd": "e4c1ee783a3f2eaabd5518009844e4d9bb642a1b9f535dfb328ceb45ab8592fa",
+    "work/batch1024/vehicle-native.gd": "7e1528ca352d8b24278fbaa82910889f6b7f883ea75d335e8cf612b50627e55f",
+    "work/batch1024/vehicle-native.tscn": "16664edd68b5da7963f28fdd4023273fc2b2dcb55bf1d6a6c3e616d10ed9a631"
+  },
+  "headless": {
+    "before_isolated": {
+      "checks": 123,
+      "new_failures": 2,
+      "known_failures": 0,
+      "seconds": 17
+    },
+    "after_changed": {
+      "checks": 123,
+      "new_failures": 0,
+      "known_failures": 0,
+      "seconds": 16
+    },
+    "original_main": {
+      "checks": 2292,
+      "new_failures": 0,
+      "known_failures": 0,
+      "seconds": 112
+    }
+  },
+  "native": {
+    "before": {
+      "checks": 20,
+      "failures": 1,
+      "exit": 1,
+      "engine_errors": 0,
+      "leak_diagnostics": 0
+    },
+    "after": {
+      "checks": 20,
+      "failures": 0,
+      "exit": 0,
+      "engine_errors": 0,
+      "leak_diagnostics": 0
+    }
+  },
+  "limits": [
+    "CI snapshots prove frozen actors at the first failure, not exact earlier callback ordering. The explicit same-step control proves this additional ordering defect.",
+    "Nonisolated after-v1 has two controller menu failures; preserved, no proven root cause asserted. Original runner uses isolated profiles and passes.",
+    "Window captures are deferred after original assertions; CAPTURE_STATE is separate from GAMEPLAY_DIAG. No same-frame claim.",
+    "Software Vulkan Forward+, Dummy audio and synthetic input; no physical controller, hardware GPU, rig or full-ticket acceptance."
+  ]
+}

@@ -7,7 +7,9 @@ var _held := false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	process_physics_priority = -100
+	# Observe after combat and actor simulation: an early poll can latch a
+	# press before combat disables its owner in this same physics step.
+	process_physics_priority = 100
 
 
 func _unhandled_input(event: InputEvent) -> void:

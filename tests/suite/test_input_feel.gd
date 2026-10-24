@@ -5,6 +5,7 @@ extends TestSuite
 
 func run() -> void:
 	await _test_vehicle_hitstop_interaction()
+	await _test_vehicle_same_step_stop()
 	_test_windows_from_data()
 	_test_aim_assist()
 	_test_latency()
@@ -424,6 +425,67 @@ func _test_vehicle_hitstop_interaction() -> void:
 	Fx.freeze([player], 0.08)
 	await _vehicle_press()
 	check(player.state == Player.State.NORMAL and vehicle.driver == null, "local stop preserves the authored mount distance")
+	Fx.thaw_all()
+	Input.action_release(&"interact")
+	await end_level(level)
+
+
+## Combat can stop actors after the early input poll but before their simulation.
+class VehicleStepStop extends Node:
+	var actors: Array = []
+	var stopped := false
+
+	func _ready() -> void:
+		process_physics_priority = -50
+
+	func _physics_process(_delta: float) -> void:
+		if not stopped and Input.is_action_pressed(&"interact"):
+			stopped = true
+			Fx.freeze(actors, 0.08)
+
+
+func _test_vehicle_same_step_stop() -> void:
+	var level := await start_level(load("res://data/levels/level_01.tres") as LevelData)
+	for node in level.find_children("*", "", true, false):
+		if node is Enemy:
+			node.set_physics_process(false)
+	var player := level.player
+	var vehicle: Vehicle
+	for node in runner.get_tree().get_nodes_in_group(&"vehicles"):
+		if level.is_ancestor_of(node):
+			vehicle = node
+			break
+	check(vehicle != null, "same-step stop uses the authored vehicle")
+	if vehicle == null:
+		await end_level(level)
+		return
+	Fx.thaw_all()
+	player.global_position = vehicle.global_position + Vector2(-8, -2)
+	player.velocity = Vector2.ZERO
+	await frames(2)
+	var stop := VehicleStepStop.new()
+	stop.actors = [player, vehicle]
+	level.add_child(stop)
+	Input.action_press(&"interact")
+	await frames(1)
+	Input.action_release(&"interact")
+	await frames(2)
+	check(stop.stopped and Fx.is_frozen(player) and Fx.is_frozen(vehicle), "same-step command keeps both actual actors stopped")
+	check(player.state == Player.State.MOUNTED and vehicle.driver == player, "interaction survives a stop between input polling and actor simulation")
+	stop.queue_free()
+	Fx.thaw_all()
+	if player.state != Player.State.MOUNTED:
+		player.mount_vehicle(vehicle)  # The independent exit case retains the failed mount above.
+	await frames(24)
+	stop = VehicleStepStop.new()
+	stop.actors = [player, vehicle]
+	level.add_child(stop)
+	Input.action_press(&"interact")
+	await frames(1)
+	Input.action_release(&"interact")
+	await frames(2)
+	check(stop.stopped and Fx.is_frozen(player) and Fx.is_frozen(vehicle), "same-step exit preserves both actor stops")
+	check(player.state == Player.State.NORMAL and vehicle.driver == null, "exit survives a stop between input polling and vehicle simulation")
 	Fx.thaw_all()
 	Input.action_release(&"interact")
 	await end_level(level)
