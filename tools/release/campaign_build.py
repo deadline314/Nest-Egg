@@ -305,8 +305,9 @@ def closure(stage: Path, files: list[dict], excluded: list[dict], policy: dict) 
             if f'res://{contract["root"]}' not in text or not any(p.startswith(contract["root"] + "/") for p in names):
                 issues.append(f"directory loader contract no longer matches: {contract['source']} -> {contract['root']}")
     # Excluded global classes must not leave unresolved type/constructor references.
-    symbols = {item.get("global_class", Path(item["path"]).stem).replace("_", "").lower()
-               for item in excluded if item["path"].endswith(".gd")}
+    # Only declared, case-sensitive Godot global classes are type symbols.
+    # A pruned compatibility script can legitimately share a member basename.
+    symbols = {item["global_class"] for item in excluded if item.get("global_class")}
     known_uids = set()
     for file in files:
         name = file["path"]
@@ -321,7 +322,7 @@ def closure(stage: Path, files: list[dict], excluded: list[dict], policy: dict) 
             if name.endswith(".gd"):
                 text = audit.without_gd_comments(text)
             for token in re.findall(r"\b[A-Za-z_][A-Za-z0-9_]*\b", text):
-                if token.replace("_", "").lower() in symbols:
+                if token in symbols:
                     issues.append(f"excluded development class referenced: {name}: {token}")
             for uid in re.findall(r'''["'](uid://[a-z0-9]+)["']''', text):
                 if uid not in known_uids:

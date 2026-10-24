@@ -391,6 +391,18 @@ class ImmutableStageTests(unittest.TestCase):
             self.assertEqual(dict(os.environ), before)
         self.assertIn("WINDOWS_SCOPE_PASS", log.read_text())
 
+    def test_pruned_script_basename_is_not_a_global_class(self):
+        self.put("autoload/member.gd", "extends Node\nvar _radio_completion: Node\n")
+        result = build.closure(self.root, [{"path": "autoload/member.gd"}],
+                               [{"path": "game/radio_completion.gd"}], self.policy)
+        self.assertEqual(result["issues"], [])
+
+    def test_excluded_actual_global_class_reference_still_refuses(self):
+        self.put("autoload/member.gd", "extends Node\nvar writer: MissingWriter\n")
+        result = build.closure(self.root, [{"path": "autoload/member.gd"}],
+                               [{"path": "core/missing_writer.gd", "global_class": "MissingWriter"}], self.policy)
+        self.assertIn("excluded development class referenced: autoload/member.gd: MissingWriter", result["issues"])
+
     def test_global_class_dependency_is_kept_and_unused_development_script_is_pruned(self):
         self.put("data/a.gd", 'class_name RuntimeA\nextends Resource\nvar other: RuntimeB\n')
         self.put("data/b.gd", 'class_name RuntimeB\nextends Resource\n')
