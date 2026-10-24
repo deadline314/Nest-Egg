@@ -153,14 +153,13 @@ NE-242,NE,補畫後續章節專屬角色素材,進行中,"站姿不挺胸：站�
 每批與故事／配置 Session 核對角色掛載及動作介面，不改寫台詞、任務與出場配置",https://github.com/deadline314/Nest-Egg/blob/main/pm/Nest-Egg/%5BNE-242%5D%E8%A3%9C%E7%95%AB%E5%BE%8C%E7%BA%8C%E7%AB%A0%E7%AF%80%E5%B0%88%E5%B1%AC%E8%A7%92%E8%89%B2%E7%B4%A0%E6%9D%90.md
 NE-244,NE,重排背包清單與側邊立繪,進行中,鍵鼠與手把均可選物、切頁、確認與返回，改鍵後提示正確。,https://github.com/deadline314/Nest-Egg/blob/main/pm/Nest-Egg/%5BNE-244%5D%E9%87%8D%E6%8E%92%E8%83%8C%E5%8C%85%E6%B8%85%E5%96%AE%E8%88%87%E5%81%B4%E9%82%8A%E7%AB%8B%E7%B9%AA.md
 NE-248,NE,修正外露核心的彈丸命中,進行中,原始失敗案例修後通過，受影響的命中、重裝敵人與武器回歸通過，附實際操作及原生畫面。（原始案例與回歸已過；待本機原生驗收：實際操作把監管者打到第二階段、射外露核心的原生畫面）,https://github.com/deadline314/Nest-Egg/blob/main/pm/Nest-Egg/%5BNE-248%5D%E4%BF%AE%E6%AD%A3%E5%A4%96%E9%9C%B2%E6%A0%B8%E5%BF%83%E7%9A%84%E5%BD%88%E4%B8%B8%E5%91%BD%E4%B8%AD.md
-NE-250,NE,優化 NPC 與過場演員的動作表現,進行中（Forward+ 逐格檢查已做；老 K 舉手露出肩關節零件待角色組修，「像不像人」待使用者確認）,"遊戲倍率與過場倍率、左右面向的連續畫面逐格檢查，沒有破圖、露縫或穿插
+NE-250,NE,優化 NPC 與過場演員的動作表現,進行中（老 K 灰色肩塊已由 NE-222 Commit-56 局部修復；完整連續接點與使用者動作確認仍待驗）,"遊戲倍率與過場倍率、左右面向的連續畫面逐格檢查，沒有破圖、露縫或穿插
 附修前修後同鏡頭的連續畫面，由使用者確認",https://github.com/deadline314/Nest-Egg/blob/main/pm/Nest-Egg/%5BNE-250%5D%E5%84%AA%E5%8C%96%20NPC%20%E8%88%87%E9%81%8E%E5%A0%B4%E6%BC%94%E5%93%A1%E7%9A%84%E5%8B%95%E4%BD%9C%E8%A1%A8%E7%8F%BE.md
 NE-252,NE,修正看門狗頭部射不到,進行中,附實際操作的原生畫面與受影響測試結果（受影響測試與 Forward+ 實際瞄頭畫面已附；待本機原生驗收：實體滑鼠與手把瞄頭開槍的原生畫面）,https://github.com/deadline314/Nest-Egg/blob/main/pm/Nest-Egg/%5BNE-252%5D%E4%BF%AE%E6%AD%A3%E7%9C%8B%E9%96%80%E7%8B%97%E9%A0%AD%E9%83%A8%E5%B0%84%E4%B8%8D%E5%88%B0.md
 NE-253,NE,重做頭目戰讓每個頭目各有機制,進行中,"鍵鼠與手把都能完成頭目戰；普通難度不靠刷錢可通過，各難度有實際紀錄
 附實際頭目戰的原生連續畫面，由使用者確認",https://github.com/deadline314/Nest-Egg/blob/main/pm/Nest-Egg/%5BNE-253%5D%E9%87%8D%E5%81%9A%E9%A0%AD%E7%9B%AE%E6%88%B0%E8%AE%93%E6%AF%8F%E5%80%8B%E9%A0%AD%E7%9B%AE%E5%90%84%E6%9C%89%E6%A9%9F%E5%88%B6.md
 NE-254,NE,加入可撿取投擲物與爆炸油桶,進行中,鍵鼠與手把都能操作，提示一句講清楚；撿取、投擲與既有的射擊、近戰、格擋不互相卡住,https://github.com/deadline314/Nest-Egg/blob/main/pm/Nest-Egg/%5BNE-254%5D%E5%8A%A0%E5%85%A5%E5%8F%AF%E6%92%BF%E5%8F%96%E6%8A%95%E6%93%B2%E7%89%A9%E8%88%87%E7%88%86%E7%82%B8%E6%B2%B9%E6%A1%B6.md
 NE-255,NE,整理立繪到遊戲的角色製作 Skill,進行中,用這份 Skill 從頭做一個新的角色或新姿勢，全程不需要回頭查舊票，成品通過同一套驗收,https://github.com/deadline314/Nest-Egg/blob/main/pm/Nest-Egg/%5BNE-255%5D%E6%95%B4%E7%90%86%E7%AB%8B%E7%B9%AA%E5%88%B0%E9%81%8A%E6%88%B2%E7%9A%84%E8%A7%92%E8%89%B2%E8%A3%BD%E4%BD%9C%20Skill.md
-NE-257,NE,加入衣服頭髮與胸部的次級擺動,進行中,外套：下襬與袖口在起停與落地時有很小的延遲，站著不動時不飄；外套仍然讀成穿在身上的短夾克。,https://github.com/deadline314/Nest-Egg/blob/main/pm/Nest-Egg/%5BNE-257%5D%E5%8A%A0%E5%85%A5%E8%A1%A3%E6%9C%8D%E9%A0%AD%E9%AB%AE%E8%88%87%E8%83%B8%E9%83%A8%E7%9A%84%E6%AC%A1%E7%B4%9A%E6%93%BA%E5%8B%95.md
 NE-265,NE,製作第二章阿勇頭目戰,進行中,鍵鼠與手把都能打完；普通難度不靠刷錢可通過，附實際戰鬥的連續畫面（機器人 12 場與 Forward+ 連續畫面已附；待本機原生驗收：真人用滑鼠與實體手把各打完斷連、保留兩路的原生連續畫面）,https://github.com/deadline314/Nest-Egg/blob/main/pm/Nest-Egg/%5BNE-265%5D%E8%A3%BD%E4%BD%9C%E7%AC%AC%E4%BA%8C%E7%AB%A0%E9%98%BF%E5%8B%87%E9%A0%AD%E7%9B%AE%E6%88%B0.md
 NE-267,NE,補畫第二章新登場的配角,進行中,"每位角色有立繪、頭像與分件，畫風與既有角色一致，沒有破圖、多一隻手或過度挺胸
 客人與救護員都是成年人；客人簿場景不出現成人內容

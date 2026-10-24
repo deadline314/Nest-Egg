@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-24",
+  "sources": [
+    {
+      "url": "https://esotericsoftware.com/spine-physics-constraints",
+      "read": true,
+      "observation": "Physics influence may be zero; inertia, damping and reset are independent controls. No mandatory cuff motion is stated."
+    },
+    {
+      "url": "https://docs.blender.org/manual/en/latest/physics/cloth/settings/shape.html",
+      "read": false,
+      "result": "web fetch 402; not used as evidence"
+    }
+  ],
+  "images_reviewed": [
+    "art/characters/rin/parts/jacket_sleeve_lower.png",
+    "art/characters/rin/parts/jacket_sleeve_lower_far.png",
+    "pm/Nest-Egg/images/NE-257-rin-cloth-fixed.png",
+    "pm/Nest-Egg-BG/attachments/readability-references-2026-10-20/ghost-song-1.jpg",
+    "pm/Nest-Egg-BG/attachments/readability-references-2026-10-20/dead-cells-1.jpg"
+  ],
+  "decision": "Fitted ribbed cuffs remain attached to forearms. Free jacket hems provide the existing small delayed motion. This is project judgment, not a player survey or an industry-wide cuff rule."
+}
