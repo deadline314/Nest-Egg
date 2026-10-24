@@ -1,0 +1,46 @@
+{
+  "ne250-1024-shoulder-original": {
+    "exit": 0,
+    "errors": 0,
+    "leaks": 0
+  },
+  "ne250-1024-shoulder-hook-control": {
+    "exit": 0,
+    "errors": 0,
+    "leaks": 0
+  },
+  "ne250-1024-shoulder-root-trial": {
+    "exit": 0,
+    "errors": 0,
+    "leaks": 0
+  },
+  "control_pixel_equal_original": true,
+  "trial_changed_pixels": 3183,
+  "bone_pose_records_equal": true,
+  "trial_bindings": [
+    {
+      "bone": "arm_back_upper",
+      "mesh_exists": true,
+      "requested": true,
+      "root_partner": "chest",
+      "root_vertices": 12,
+      "root_weight_sum": 8.99999991059303
+    },
+    {
+      "bone": "arm_front_upper",
+      "mesh_exists": true,
+      "requested": true,
+      "root_partner": "chest",
+      "root_vertices": 12,
+      "root_weight_sum": 8.99999991059303
+    }
+  ],
+  "changed_frozen_source_files": [],
+  "decision": "Rejected as an incomplete garment repair: the known gray torso area remains visible. No asset or runtime changes adopted.",
+  "reviewed_images": [
+    "original.png",
+    "control.png",
+    "trial.png",
+    "old-k-root-trial-shoulder-crop.png"
+  ]
+}

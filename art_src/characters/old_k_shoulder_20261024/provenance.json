@@ -1,0 +1,95 @@
+{
+  "base": "bc8c0d4b6a83cde65f44498f77cdda2770a5603b",
+  "generator": "image_gen.imagegen",
+  "seed": null,
+  "seed_note": "Tool did not expose a seed or graph; frozen raw output is the reproducible input.",
+  "original_output": "/workspace/generated_images/exec-0db247dc-8df7-45f2-8676-a71ec4c53a9e.png",
+  "generated_size": [
+    1065,
+    1476
+  ],
+  "reference_size": [
+    241,
+    334
+  ],
+  "registration": "Canvas ratios, then inverse canonical part_transform; preserve source alpha.",
+  "inputs": {
+    "art_src/characters/old_k_shoulder_20261024/raw/torso-generated.png": "dbc58de6418f0bc322f4429c6a65fae9c60624625811a834fdd66cf410247803",
+    "art_src/characters/old_k_shoulder_20261024/reference/torso-source.png": "ae51a5c049e0407fb9bf8677d27530992206d4c5a81d1022535a0d003b31c35a",
+    "art_src/characters/old_k_shoulder_20261024/reference/torso-runtime.png": "34b97f13f484f227055abf7a393fcc47507bf2ae8e47a5efcec8462df9a41735",
+    "art_src/characters/old_k_shoulder_20261024/shoulder-mask.png": "0bfaadb224ef5753daf417b9c2c400e3a9543962197ed5772762fd4718bfa0a1",
+    "art_src/characters/old_k/07_refined/torso.png": "ae51a5c049e0407fb9bf8677d27530992206d4c5a81d1022535a0d003b31c35a",
+    "tools/comfyui/specs/old_k_side.json": "325918c887f45ae63fa1588ab9cf207a8ab8e2431d183ab62da8b8234d2b86f9"
+  },
+  "mask_polygon_runtime": [
+    [
+      64,
+      81
+    ],
+    [
+      46,
+      83
+    ],
+    [
+      30,
+      91
+    ],
+    [
+      20,
+      109
+    ],
+    [
+      13,
+      134
+    ],
+    [
+      12,
+      161
+    ],
+    [
+      16,
+      189
+    ],
+    [
+      27,
+      218
+    ],
+    [
+      44,
+      235
+    ],
+    [
+      64,
+      240
+    ],
+    [
+      84,
+      233
+    ],
+    [
+      102,
+      216
+    ],
+    [
+      116,
+      189
+    ],
+    [
+      124,
+      157
+    ],
+    [
+      120,
+      126
+    ],
+    [
+      110,
+      103
+    ],
+    [
+      92,
+      87
+    ]
+  ],
+  "source_selection": "Opaque torso beneath animated near upper arm. No face, hand, collar, gold trim, silhouette or other part adopted."
+}

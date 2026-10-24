@@ -1,0 +1,28 @@
+[
+  {
+    "name": "spine",
+    "url": "https://en.esotericsoftware.com/spine-photoshop",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "name": "ninja",
+    "url": "https://store.steampowered.com/api/appdetails?appids=860950&l=english",
+    "status": 200,
+    "bytes": 12321,
+    "sha256": "32ee19586ba426e02a86ab351fe88d7e3301f90e9939b82daa1e803bd3aba982"
+  },
+  {
+    "name": "official-spine-scripts",
+    "url": "https://raw.githubusercontent.com/EsotericSoftware/spine-scripts/master/photoshop/README.md",
+    "status": 200,
+    "bytes": 9832,
+    "sha256": "6ca1d81ff8fc56e26e3b04c2bc52441702c16c18b6404046791340aa51dc4d46"
+  },
+  {
+    "name": "official-store-screenshot",
+    "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/860950/ss_9b8226dd2a991a87676e2c98cf2d8d2de08f9359.1920x1080.jpg?t=1792788425",
+    "status": 200,
+    "bytes": 252550,
+    "sha256": "0d794fe07fd0cc6a9abe732b9004fe2159532f63ce00316ea9f470daa3d9b0d5"
+  }
+]

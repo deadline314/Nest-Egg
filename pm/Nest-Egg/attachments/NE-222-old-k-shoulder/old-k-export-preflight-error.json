@@ -1,0 +1,7 @@
+{
+  "stage": "Offline source export dependency preflight",
+  "error": "ModuleNotFoundError: No module named 'cv2'",
+  "record_type": "Copied observed tool transcript; original stderr was not separately saved",
+  "product_assets_unchanged": true,
+  "next": "Install pinned OpenCV in a task-private virtual environment, leaving shared packages unchanged."
+}

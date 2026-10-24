@@ -1,0 +1,26 @@
+{
+  "before": {
+    "samples": 53760,
+    "failed": 5983,
+    "edge_notches": 2889,
+    "capture_exit": 0,
+    "checker_exit": 1,
+    "errors": 0,
+    "leaks": 0,
+    "frames": 1920,
+    "private_raw_directory": "/workspace/Nest-Egg/work/batch1020b/ne222-1024-old-k-before120"
+  },
+  "after": {
+    "samples": 53760,
+    "failed": 5983,
+    "edge_notches": 2889,
+    "capture_exit": 0,
+    "checker_exit": 1,
+    "errors": 0,
+    "leaks": 0,
+    "frames": 1920,
+    "private_raw_directory": "/workspace/Nest-Egg/work/batch1020b/ne222-1024-old-k-after120"
+  },
+  "report_equal": true,
+  "interpretation": "RGB-only repair; unchanged alpha checker results. Existing failures remain unaccepted; the checker term real gap is not a claim all failures are visible material tears."
+}

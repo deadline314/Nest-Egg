@@ -1,0 +1,14 @@
+[
+  {
+    "case": "foreign_override",
+    "rejected": true,
+    "target_unchanged": true,
+    "stderr": "Traceback (most recent call last):\n  File \"/tmp/old-k-source-guards-iz07fkfw/art_src/characters/old_k_shoulder_20261024/rebuild.py\", line 67, in <module>\n    rebuild()\n  File \"/tmp/old-k-source-guards-iz07fkfw/art_src/characters/old_k_shoulder_20261024/rebuild.py\", line 59, in rebuild\n    raise ValueError(f\"Refusing to replace a different source override: {output}\")\nValueError: Refusing to replace a different source override: /tmp/old-k-source-guards-iz07fkfw/art_src/characters/old_k/overrides/refined/torso.png\n"
+  },
+  {
+    "case": "changed_input",
+    "rejected": true,
+    "no_output_written": true,
+    "stderr": "Traceback (most recent call last):\n  File \"/tmp/old-k-source-guards-iz07fkfw/art_src/characters/old_k_shoulder_20261024/rebuild.py\", line 67, in <module>\n    rebuild()\n  File \"/tmp/old-k-source-guards-iz07fkfw/art_src/characters/old_k_shoulder_20261024/rebuild.py\", line 26, in rebuild\n    raise ValueError(f\"Source changed; review registration before rebuilding: {relative}\")\nValueError: Source changed; review registration before rebuilding: art_src/characters/old_k_shoulder_20261024/shoulder-mask.png\n"
+  }
+]

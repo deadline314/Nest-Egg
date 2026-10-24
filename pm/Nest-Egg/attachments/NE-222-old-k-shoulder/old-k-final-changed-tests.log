@@ -1,0 +1,7 @@
+受影響的測試：LayerOrderSuite,NpcAnimationSuite,RigActionsSuite,RigMeshSuite
+Running 4 groups in 4 processes (logs: /tmp/tmp.Tg7gNlyjN2)
+  process 0 (estimated 6 s): NpcAnimationSuite
+  process 1 (estimated 4 s): LayerOrderSuite
+  process 2 (estimated 3 s): RigActionsSuite
+  process 3 (estimated 1 s): RigMeshSuite
+checks: 6783, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 11 s)
