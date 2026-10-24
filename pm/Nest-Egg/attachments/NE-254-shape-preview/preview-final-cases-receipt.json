@@ -1,0 +1,17 @@
+{
+  "runs": [
+    {
+      "side": "before-final",
+      "exit": 1,
+      "source_sha256": "6edac058b6560a016611d3058a1cf77c4c429a844025f09458f1a0fa9b978b2e"
+    },
+    {
+      "side": "after-final",
+      "exit": 0,
+      "source_sha256": "b5eec6813bd1a83a6187b848634d015f5a81f49be7dd45def5461745b6a252c9"
+    }
+  ],
+  "accepted_test_sha256": "c2094fd955bfbd930e3773ecc0541cf19e032c7cf8037739c62aeaf86f7cd5c1",
+  "candidate_restored": true,
+  "candidate_sha256": "b5eec6813bd1a83a6187b848634d015f5a81f49be7dd45def5461745b6a252c9"
+}

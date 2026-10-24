@@ -1,0 +1,32 @@
+{
+  "unit_final": {
+    "checks": 377,
+    "before_failures": 23,
+    "after_failures": 0,
+    "after_wall_seconds": 75
+  },
+  "original_selector_final": {
+    "groups": 10,
+    "checks": 3525,
+    "new_failures": 0,
+    "known_failures": 0,
+    "wall_seconds": 91,
+    "exit": 0
+  },
+  "original_selector_before_barrel_cases": {
+    "groups": 10,
+    "checks": 3489,
+    "new_failures": 0,
+    "known_failures": 0,
+    "wall_seconds": 78
+  },
+  "native": {
+    "checks_each": 11,
+    "before_failures": 2,
+    "after_failures": 0,
+    "engine_errors_each": 0,
+    "exit_leaks_each": 0,
+    "individually_reviewed_pngs": 8
+  },
+  "scope": "First terrain collision only. Actual Main uses arranged isolated fixture and synthetic input; post-collision freeze and marker overlay are diagnostics, not production UI or human/hardware acceptance."
+}

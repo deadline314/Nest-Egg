@@ -1,0 +1,26 @@
+{
+  "before": {
+    "usec_samples": [
+      14.68,
+      10.02,
+      13.82,
+      11.26,
+      10.54,
+      10.44
+    ],
+    "median_usec": 10.899999999999999,
+    "scope": "Two arranged edge cases, 3 rounds of 50 synchronous updates per direction; different early termination lengths, not a general speed-up or worst-case benchmark."
+  },
+  "after": {
+    "usec_samples": [
+      9.06,
+      9.4,
+      8.78,
+      9.54,
+      11.46,
+      9.7
+    ],
+    "median_usec": 9.469999999999999,
+    "scope": "Two arranged edge cases, 3 rounds of 50 synchronous updates per direction; different early termination lengths, not a general speed-up or worst-case benchmark."
+  }
+}

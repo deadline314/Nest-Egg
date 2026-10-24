@@ -21,6 +21,7 @@ func run() -> void:
 	await _test_barrel_aim_priority()
 	await _test_pickup_prompt_target()
 	await _test_pickup_terrain_reach()
+	await _test_preview_matches_first_contact()
 	await _test_drop_terrain()
 	await _test_no_input_conflicts()
 	await _test_gamepad_events()
@@ -687,3 +688,58 @@ func _test_drop_terrain() -> void:
 	level.player.carry.put_down()
 	check(item.global_position.is_equal_approx(expected), "unobstructed drop preserves original exact placement")
 	await end_level(level)
+
+
+class FlightContactTrace extends Throwable:
+	var contact := Vector2.INF
+	func _bounce(collision: KinematicCollision2D) -> void:
+		contact = collision.get_position()
+		velocity = Vector2.ZERO
+
+
+## Predict terrain with the same shape, spin and fixed integration as an actual first collision.
+func _test_preview_matches_first_contact() -> void:
+	var original_hz := Engine.physics_ticks_per_second
+	for hz: int in [30, 60]:
+		for direction: float in [-1.0, 1.0]:
+			for path: String in [CRATE, PIPE, BARREL]:
+				for edge_obstacle: bool in [false, true]:
+					await open_level(10.0)
+					var player := level.player
+					var item := _place(path, 10.5)
+					await physics_frames(4)
+					check(await _pick_up(item), "trajectory fixture uses actual pickup")
+					await _aim(Vector2(direction, 0))
+					var obstacle: StaticBody2D
+					if edge_obstacle:
+						obstacle = StaticBody2D.new()
+						obstacle.collision_layer = Layers.WORLD
+						obstacle.collision_mask = 0
+						obstacle.position = player.carry.hold_point() + Vector2(direction * 60, 14)
+						var shape := CollisionShape2D.new()
+						var rectangle := RectangleShape2D.new()
+						rectangle.size = Vector2(4, 10)
+						shape.shape = rectangle
+						obstacle.add_child(shape)
+						level.add_child(obstacle)
+					await physics_frames(2)
+					Engine.physics_ticks_per_second = hz
+					var position_before := item.global_transform
+					player.carry._update_preview()
+					check(item.global_transform.is_equal_approx(position_before) and item.state == Throwable.State.HELD, "prediction does not move or release the held item")
+					var predicted := player.carry._preview_land
+					var trace := FlightContactTrace.new()
+					trace.configure(load(path))
+					level._entities.add_child(trace)
+					trace.launch(player.carry.hold_point(), player.carry.launch_velocity(Vector2(direction, 0)), Combat.Team.PLAYER)
+					trace.set_physics_process(false)
+					for step in hz * 2:
+						trace._fly(1.0 / hz)
+						if trace.contact != Vector2.INF: break
+					check(trace.contact != Vector2.INF, "actual flight finds first terrain contact")
+					if edge_obstacle:
+						check(absf(trace.contact.x - obstacle.position.x) <= 3 and absf(trace.contact.y - obstacle.position.y) <= 7, "edge fixture actually contacts the arranged obstacle first")
+					check(predicted != Vector2.INF and predicted.distance_to(trace.contact) <= 2, "preview matches real first contact within 2px: %s Hz dir %s %s edge %s predicted %s actual %s" % [hz, direction, path, edge_obstacle, predicted, trace.contact])
+					Engine.physics_ticks_per_second = original_hz
+					_release_aim()
+					await end_level(level)

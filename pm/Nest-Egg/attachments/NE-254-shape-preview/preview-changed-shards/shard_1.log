@@ -1,0 +1,29 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+ERROR: [NpcActor] 格 (34, 19)：人物 test_npc_bad 沒有任何對話
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/npc/npc_actor.gd:69)
+       [1] _spawn_static_entities (res://game/level/level.gd:512)
+       [2] _ready (res://game/level/level.gd:212)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] _test_fallbacks (res://tests/suite/test_npc.gd:688)
+       [6] run (res://tests/suite/test_npc.gd:28)
+       [7] _test_real_npcs (res://tests/suite/test_npc.gd:676)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:634)
+       [10] _frames (res://tests/smoke_test.gd:125)
+WARNING: [Story] 找不到劇情場景：test_no_such_scene
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _enqueue_request (res://autoload/story.gd:953)
+         [1] play_and_wait (res://autoload/story.gd:1004)
+         [2] _present_talk (res://game/npc/npc_actor.gd:283)
+         [3] _talk (res://game/npc/npc_actor.gd:265)
+         [4] _test_fallbacks (res://tests/suite/test_npc.gd:709)
+         [5] frames (res://tests/suite/test_suite.gd:23)
+         [6] _frames (res://tests/smoke_test.gd:125)
+SUITE_TIME NpcSuite 49.2
+checks: 1094, failures: 0

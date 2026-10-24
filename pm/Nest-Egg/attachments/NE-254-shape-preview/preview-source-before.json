@@ -1,0 +1,12 @@
+{
+  "base": "83909e46323867e31739b2ba53a58bd8b545c266",
+  "before": {
+    "game/player/player_carry.gd": "6edac058b6560a016611d3058a1cf77c4c429a844025f09458f1a0fa9b978b2e",
+    "game/props/throwable.gd": "5e22368035de27f25e7da8e3b5bb22a2ffe0c27ac8fcd98120781d798846ce63",
+    "tests/suite/test_throwables.gd": "6313f5def19a92f1911522fe996381492bc3fcbb93d144242dfa27b2dcc17c5a",
+    "tools/select_tests.py": "5617cd39198b93547fa73753074ad5ffb28d2fb9ea0ae8ba5242b2815cce69da",
+    "tools/run_tests_parallel.sh": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba",
+    "tests/known_failures.txt": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf"
+  },
+  "accepted_tests_sha256": "a394c3998a78d0dc71d4333da40bd77ed457cc1c49ffc67e1c0565007411f02a"
+}

@@ -1,0 +1,11 @@
+受影響的測試：AmmoIconsSuite,AmmoTraySuite,CombatHudSuite,CutsceneSuite,FeelSuite,InputFeelSuite,NpcSuite,PropsSuite,ThrowablesSuite,UiScreensSuite
+Running 10 groups in 8 processes (logs: /workspace/Nest-Egg/work/batch1024/preview-final-changed-shards)
+  process 0 (estimated 68 s): ThrowablesSuite
+  process 1 (estimated 50 s): UiScreensSuite
+  process 2 (estimated 49 s): NpcSuite
+  process 3 (estimated 39 s): AmmoTraySuite
+  process 4 (estimated 23 s): PropsSuite
+  process 5 (estimated 22 s): CombatHudSuite
+  process 6 (estimated 19 s): CutsceneSuite,AmmoIconsSuite
+  process 7 (estimated 25 s): InputFeelSuite,FeelSuite
+checks: 3525, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 91 s)

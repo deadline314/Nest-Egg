@@ -27,7 +27,7 @@ var _hinted := false
 var _throw_press_held := false
 var _preview: PackedVector2Array = []
 var _preview_land := Vector2.INF
-var _ray := PhysicsRayQueryParameters2D.new()
+var _preview_collision := KinematicCollision2D.new()
 var _pickup_ray := PhysicsRayQueryParameters2D.new()
 var _pickup_target: Throwable
 
@@ -35,7 +35,6 @@ var _pickup_target: Throwable
 func _ready() -> void:
 	top_level = true
 	z_index = WorldLayers.CHARACTER_MAX_Z + 1  # 預覽線畫在角色前面
-	_ray.collision_mask = Layers.SOLID
 	_pickup_ray.collision_mask = Layers.WORLD
 	_pickup_ray.hit_from_inside = true
 	set_physics_process(false)
@@ -223,29 +222,31 @@ func _physics_process(delta: float) -> void:
 	queue_redraw()
 
 
-## 拋物線預覽：用物件自己的重力模擬，碰到地形（射線）就停，記下落點。
+## Match the actual fixed-step flight and full rotated shape; sample dots independently.
 func _update_preview() -> void:
 	_preview.clear()
 	_preview_land = Vector2.INF
 	var data := held.data
-	var position := hold_point() + Vector2(0, -data.size.y * 0.5)
+	var position := hold_point()
 	var velocity := launch_velocity(player.aim_dir.normalized() if player.aim_dir.length_squared() > 0.0001 else Vector2(player.facing, 0))
-	var space := get_world_2d().direct_space_state
-	var steps := int(PREVIEW_TIME / PREVIEW_STEP)
-	for i in steps:
-		var next := position + velocity * PREVIEW_STEP
-		velocity.y = minf(velocity.y + data.gravity * PREVIEW_STEP, Throwable.MAX_FALL_SPEED)
-		_ray.from = position
-		_ray.to = next
-		var hit := space.intersect_ray(_ray)
-		if not hit.is_empty():
-			_preview_land = hit["position"]
+	var step := 1.0 / Engine.physics_ticks_per_second
+	var angle := 0.0
+	var spin := signf(velocity.x) * (3.0 if data.look == ThrowableData.Look.BARREL else 6.0)
+	var next_dot := PREVIEW_STEP
+	for i in ceili(PREVIEW_TIME / step):
+		velocity.y = minf(velocity.y + data.gravity * step, Throwable.MAX_FALL_SPEED)
+		angle += spin * step
+		var motion := velocity * step
+		if held.test_move(Transform2D(angle, position), motion, _preview_collision):
+			_preview_land = _preview_collision.get_position()
 			_preview.append(_preview_land)
 			return
-		_preview.append(next)
-		position = next
-		if _preview.size() >= PREVIEW_DOTS:
-			return
+		position += motion
+		if (i + 1) * step + 0.000001 >= next_dot:
+			_preview.append(position + Vector2(0, -data.size.y * 0.5))
+			next_dot += PREVIEW_STEP
+			if _preview.size() >= PREVIEW_DOTS:
+				return
 
 
 func _draw() -> void:

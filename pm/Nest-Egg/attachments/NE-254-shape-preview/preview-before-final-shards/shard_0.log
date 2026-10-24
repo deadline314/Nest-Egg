@@ -1,0 +1,28 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME ThrowablesSuite 68.2
+checks: 377, failures: 23
+FAIL: preview matches real first contact within 2px: 30 Hz dir -1.0 res://data/throwables/crate_small.tres edge false predicted (16.0, 293.6443) actual (16.0, 297.9921)
+FAIL: preview matches real first contact within 2px: 30 Hz dir -1.0 res://data/throwables/crate_small.tres edge true predicted (16.0, 293.6443) actual (100.0, 279.0)
+FAIL: preview matches real first contact within 2px: 30 Hz dir -1.0 res://data/throwables/pipe.tres edge false predicted (16.0, 313.42) actual (38.42365, 320.0)
+FAIL: preview matches real first contact within 2px: 30 Hz dir -1.0 res://data/throwables/pipe.tres edge true predicted (16.0, 313.42) actual (100.0, 281.1925)
+FAIL: preview matches real first contact within 2px: 30 Hz dir -1.0 res://data/throwables/fuel_barrel.tres edge false predicted (46.24561, 320.0) actual (66.65485, 320.0)
+FAIL: preview matches real first contact within 2px: 30 Hz dir -1.0 res://data/throwables/fuel_barrel.tres edge true predicted (46.24561, 320.0) actual (100.0, 279.0)
+FAIL: preview matches real first contact within 2px: 30 Hz dir 1.0 res://data/throwables/crate_small.tres edge false predicted (354.3785, 320.0) actual (317.3283, 320.0)
+FAIL: preview matches real first contact within 2px: 30 Hz dir 1.0 res://data/throwables/crate_small.tres edge true predicted (354.3785, 320.0) actual (220.0, 279.0)
+FAIL: preview matches real first contact within 2px: 30 Hz dir 1.0 res://data/throwables/pipe.tres edge false predicted (313.1382, 320.0) actual (281.5764, 320.0)
+FAIL: preview matches real first contact within 2px: 30 Hz dir 1.0 res://data/throwables/pipe.tres edge true predicted (313.1382, 320.0) actual (220.0, 281.1925)
+FAIL: preview matches real first contact within 2px: 30 Hz dir 1.0 res://data/throwables/fuel_barrel.tres edge false predicted (273.7544, 320.0) actual (253.3452, 320.0)
+FAIL: preview matches real first contact within 2px: 30 Hz dir 1.0 res://data/throwables/fuel_barrel.tres edge true predicted (273.7544, 320.0) actual (220.0, 279.0)
+FAIL: preview matches real first contact within 2px: 60 Hz dir -1.0 res://data/throwables/crate_small.tres edge true predicted (16.0, 293.6443) actual (100.0, 279.0)
+FAIL: preview matches real first contact within 2px: 60 Hz dir -1.0 res://data/throwables/pipe.tres edge false predicted (16.0, 313.42) actual (36.39728, 320.0)
+FAIL: preview matches real first contact within 2px: 60 Hz dir -1.0 res://data/throwables/pipe.tres edge true predicted (16.0, 313.42) actual (100.0, 280.2885)
+FAIL: preview matches real first contact within 2px: 60 Hz dir -1.0 res://data/throwables/fuel_barrel.tres edge false predicted (46.24561, 320.0) actual (64.18414, 320.0)
+FAIL: preview matches real first contact within 2px: 60 Hz dir -1.0 res://data/throwables/fuel_barrel.tres edge true predicted (46.24561, 320.0) actual (100.0, 279.0)
+FAIL: preview matches real first contact within 2px: 60 Hz dir 1.0 res://data/throwables/crate_small.tres edge false predicted (354.3785, 320.0) actual (321.1466, 320.0)
+FAIL: preview matches real first contact within 2px: 60 Hz dir 1.0 res://data/throwables/crate_small.tres edge true predicted (354.3785, 320.0) actual (220.0, 279.0)
+FAIL: preview matches real first contact within 2px: 60 Hz dir 1.0 res://data/throwables/pipe.tres edge false predicted (313.1382, 320.0) actual (283.6028, 320.0)
+FAIL: preview matches real first contact within 2px: 60 Hz dir 1.0 res://data/throwables/pipe.tres edge true predicted (313.1382, 320.0) actual (220.0, 280.2885)
+FAIL: preview matches real first contact within 2px: 60 Hz dir 1.0 res://data/throwables/fuel_barrel.tres edge false predicted (273.7544, 320.0) actual (255.8158, 320.0)
+FAIL: preview matches real first contact within 2px: 60 Hz dir 1.0 res://data/throwables/fuel_barrel.tres edge true predicted (273.7544, 320.0) actual (220.0, 279.0)

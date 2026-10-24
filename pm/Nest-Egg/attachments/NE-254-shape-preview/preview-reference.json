@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-24",
+  "godot": {
+    "url": "https://github.com/godotengine/godot/blob/4.7.2-stable/doc/classes/PhysicsBody2D.xml",
+    "read": true,
+    "adopted": "test_move queries the actual body at a virtual transform without moving it; same collision margin and platform behavior as flight."
+  },
+  "epic": {
+    "url": "https://dev.epicgames.com/documentation/unreal-engine/BlueprintAPI/Utilities/Struct/MakePredictProjectilePathParams?lang=en-US",
+    "read": true,
+    "adopted": "Prediction has collision extent and a separate simulation frequency; not only a point ray. No Unreal defaults are copied into this Godot simulation."
+  },
+  "same_genre_image": {
+    "prior_receipt": "../NE-254-pickup-reach/pickup-reference-receipt.json",
+    "file": "../NE-254-pickup-reach/reference-katana-zero.jpg",
+    "scope": "Official scene/readability image previously inspected this session; no inference about private trajectory code or player preference."
+  }
+}
