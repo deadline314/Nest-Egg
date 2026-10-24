@@ -25,3 +25,9 @@
 原生整合十五程序245／0的功能檢查通過，但逐張圖發現中途冷續玩的背景是地圖外的雨天遠景。實際camera.global=(666,279.9977)，screen_center=(77.7,32.6664)，主角viewport點(1246.016,731.6761)在視野外；當時樹已暫停、Scene／request正確、NPC次數0。只force_update_scroll、不解暫停、不改角色／結果，即可把screen_center同步到正確global，主角點(116.48,256.8)回到視野。這是正式snap尚未發布viewport捲動，原生控制18／1→18／0，兩次0ERROR／0退出洩漏；同一frozen writer檔。
 
 修法只在LevelCamera.snap_to_target的reset_smoothing之後立即force_update_scroll；平時追蹤、平滑、震動、縮放與物理更新保持。最終中途續玩新增真玩家世界點位於實際viewport的檢查，再完整複驗全部十五程序與原61組。較早61組在看出畫面問題後主動終止（197.97秒），完整部分log與精確私有PID證明保留，不當成產品回歸失敗或已通過。
+
+## 2026-10-24：非NPC結果的全輪修復拒寫
+
+需要全輪修復的非NPC末段結果也須載入原進度；不能因沒有NPC欄位就只留下不可能成功的重試。共用結果邊界保持不寫、不安裝、不發布，真正恢復仍由Main整輪reader負責。正常完成、NPC交談次數與已提交恢復不變。
+
+正式當舖地圖觸發自然晚飯鏈抵達真正food reader，先保存有效slot才製造無關缺盤旗標；沒有注入晚飯完成。原生17／3→17／0，公開按鈕後原slot重建關卡、清除舊鎖且晚飯未讀。[原檔與範圍](../../pm/ST/attachments/ST-9-repair-owners/README.md)。

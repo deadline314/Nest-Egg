@@ -1,0 +1,474 @@
+{
+  "pm/ST/attachments/ST-9-repair-owners/validation.json": {
+    "bytes": 6639,
+    "sha256": "4c80d48b74fefbcf5ccee79158f16b3af38c7f095e870f4b0833ca09b4107b80"
+  },
+  "source/before/game/story_result_completion.gd": {
+    "bytes": 17035,
+    "sha256": "63a878b6146f2e0b422a4d27050d750f30a0a87ad5f81ff99f70d10501e8d674"
+  },
+  "source/before/game/world_item_completion.gd": {
+    "bytes": 8468,
+    "sha256": "3be95c4693242c352df8c3dff6de7c1c4ddbb49255a9b7e3bef765c94ec87b6f"
+  },
+  "source/before/tests/suite/test_run_save.gd": {
+    "bytes": 15901,
+    "sha256": "74cbea74c367293c276c1386a9bd8bb0ddf0b017890e17dd62b01a1354863e58"
+  },
+  "source/final/game/story_result_completion.gd": {
+    "bytes": 17021,
+    "sha256": "2275c2873a9ce7de17d89bdb392ea3a6b5d968e54dd4f34ca328c2cbf0964b0c"
+  },
+  "source/final/game/world_item_completion.gd": {
+    "bytes": 8518,
+    "sha256": "9727a95d55bacb557291299e037ed4fe2aa10c5b11cb664f4b9a9cf69333b8a2"
+  },
+  "source/final/tests/helpers/terminal_repair_boundary_checks.gd": {
+    "bytes": 2929,
+    "sha256": "8dd76767d633db6f6a37a86209b0b67f1a08cc9a10afce75fed420909cd82424"
+  },
+  "source/final/tests/helpers/terminal_repair_boundary_checks.gd.uid": {
+    "bytes": 20,
+    "sha256": "dfd95928d33881572e2b1887fd8fd193b6ee71530937d94eb1a7f842987772d0"
+  },
+  "source/final/tests/helpers/world_item_repair_boundary_checks.gd": {
+    "bytes": 2602,
+    "sha256": "cc0e7be2c52492d743b912e3782483697be61eb1e80f8bb602e36c83f6c49b98"
+  },
+  "source/final/tests/helpers/world_item_repair_boundary_checks.gd.uid": {
+    "bytes": 20,
+    "sha256": "dce5cbf4b43c122799602ae8405e6f276c5598dd11fc2170bc1aa95ee934aa86"
+  },
+  "source/final/tests/suite/test_run_save.gd": {
+    "bytes": 16091,
+    "sha256": "4ddedb7f1265f9a0ebb3b1142d109e0dc75997f06d11201172db7f17ad764ab2"
+  },
+  "source/final/tools/quest_resume_probe.gd": {
+    "bytes": 11978,
+    "sha256": "e34b0defd4385db8c7b1f62ab214dc0f09581bc9c2ea44a6b352dd4c758fdecf"
+  },
+  "source/final/ui/radio_save_prompt.gd": {
+    "bytes": 6634,
+    "sha256": "a28c1f685db41db8d8cd0bbb4102a301888c060f988f33f5b7521d1994090e8f"
+  },
+  "source/final/work/batch1024/food-repair-probe.gd": {
+    "bytes": 4998,
+    "sha256": "e63dbec5c57d9dcd58ad5390aeb30787fc58ce60351989b1e3f084d9cca74f10"
+  },
+  "source/final/work/batch1024/native-large.py": {
+    "bytes": 2028,
+    "sha256": "689815a568098051d1cce471b8fb65b5200aae3ead9f22b213c053f0a4246f2d"
+  },
+  "source/final/work/batch1024/window_capture.gd": {
+    "bytes": 790,
+    "sha256": "7b67e3ee5817d8f32a8e4724c818a62ee0ce91a56cd0de6bc86b736adda923ce"
+  },
+  "source/final/work/batch1024/world-pickup-historical-base.gd": {
+    "bytes": 12307,
+    "sha256": "1509900552db36a5846efcdd85e2dfb20a1b3e65688f440cf381189fd2a7e51a"
+  },
+  "source/final/work/batch1024/world-repair-probe.gd": {
+    "bytes": 4586,
+    "sha256": "17388e693e2a6059c723e2a817838f769182c529a06fe73f9f11a6fbd4d00343"
+  },
+  "work/batch1020b/st9-1024-owners-food-after-merged-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "work/batch1020b/st9-1024-owners-food-after-merged.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "work/batch1020b/st9-1024-owners-food-after-merged.log": {
+    "bytes": 3326,
+    "sha256": "d6dfb8ed2b71b392d53e43c2c69c6d42475a417a13e636caa69dbe33b66773cb"
+  },
+  "work/batch1020b/st9-1024-owners-food-after-merged/food-original-reloaded.png": {
+    "bytes": 491630,
+    "sha256": "b18d8554b2dcc54d2ac32766f1515ae6e97b25ca51632e54e001bb7057172786"
+  },
+  "work/batch1020b/st9-1024-owners-food-after-merged/food-repair-refused.png": {
+    "bytes": 30365,
+    "sha256": "d77fa523b19dac3a5ea52bc9ef4c0f35c89c0d9819e2c7d2f1cac8bf52592994"
+  },
+  "work/batch1020b/st9-1024-owners-food-after-merged/food-repair-result.json": {
+    "bytes": 473,
+    "sha256": "6eea9d1e40bf1f14f751ee0f88e8cf044fde23b4eacd468b3450dfbbd3dcf57d"
+  },
+  "work/batch1020b/st9-1024-owners-food-after-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "work/batch1020b/st9-1024-owners-food-after.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "work/batch1020b/st9-1024-owners-food-after.log": {
+    "bytes": 3326,
+    "sha256": "d6dfb8ed2b71b392d53e43c2c69c6d42475a417a13e636caa69dbe33b66773cb"
+  },
+  "work/batch1020b/st9-1024-owners-food-after/food-original-reloaded.png": {
+    "bytes": 493038,
+    "sha256": "d9ce111ac3ef8b7088e007d9659df3175d0c9f9900bf557e3ceda6191f1cd3bb"
+  },
+  "work/batch1020b/st9-1024-owners-food-after/food-repair-refused.png": {
+    "bytes": 30365,
+    "sha256": "d77fa523b19dac3a5ea52bc9ef4c0f35c89c0d9819e2c7d2f1cac8bf52592994"
+  },
+  "work/batch1020b/st9-1024-owners-food-after/food-repair-result.json": {
+    "bytes": 473,
+    "sha256": "6eea9d1e40bf1f14f751ee0f88e8cf044fde23b4eacd468b3450dfbbd3dcf57d"
+  },
+  "work/batch1020b/st9-1024-owners-food-before-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "work/batch1020b/st9-1024-owners-food-before.exit": {
+    "bytes": 1,
+    "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+  },
+  "work/batch1020b/st9-1024-owners-food-before.log": {
+    "bytes": 5072,
+    "sha256": "1b21bb4616e3d77c8fc62160a2ac44171cbea94213c45d2d0821687f277f7b48"
+  },
+  "work/batch1020b/st9-1024-owners-food-before/food-original-reloaded.png": {
+    "bytes": 28068,
+    "sha256": "d00d902c9994bf506d5120f3943739b4f85f43d212a77a33f59477046d44ab17"
+  },
+  "work/batch1020b/st9-1024-owners-food-before/food-repair-refused.png": {
+    "bytes": 28068,
+    "sha256": "d00d902c9994bf506d5120f3943739b4f85f43d212a77a33f59477046d44ab17"
+  },
+  "work/batch1020b/st9-1024-owners-food-before/food-repair-result.json": {
+    "bytes": 472,
+    "sha256": "f223cf0c83c675349cc55fbdcfdebf910f9eeacf856ce4ebd4ae86952f25a985"
+  },
+  "work/batch1020b/st9-1024-owners-world-after-merged-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "work/batch1020b/st9-1024-owners-world-after-merged.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "work/batch1020b/st9-1024-owners-world-after-merged.log": {
+    "bytes": 1577,
+    "sha256": "fad7312f0750b39f2dfb9ac67b49da37a5e514a783c78ac74f5bbf65d25de780"
+  },
+  "work/batch1020b/st9-1024-owners-world-after-merged/world-item-original-reloaded.png": {
+    "bytes": 431789,
+    "sha256": "70f7947a71631672683d0fc0781d38dd9da2acc0335845decbfb89a3cc775392"
+  },
+  "work/batch1020b/st9-1024-owners-world-after-merged/world-item-repair-refused.png": {
+    "bytes": 31714,
+    "sha256": "a3cdc561ec52449050784eadc19c64fa1d2f645ebec3a0e21579674184d65e1d"
+  },
+  "work/batch1020b/st9-1024-owners-world-after-merged/world-repair-result.json": {
+    "bytes": 406,
+    "sha256": "753d3af0bc5a749d8244894e5c1dd47bf8d80a0d8b7c34b39c81297977a53501"
+  },
+  "work/batch1020b/st9-1024-owners-world-after-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "work/batch1020b/st9-1024-owners-world-after.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "work/batch1020b/st9-1024-owners-world-after.log": {
+    "bytes": 1577,
+    "sha256": "fad7312f0750b39f2dfb9ac67b49da37a5e514a783c78ac74f5bbf65d25de780"
+  },
+  "work/batch1020b/st9-1024-owners-world-after/world-item-original-reloaded.png": {
+    "bytes": 431421,
+    "sha256": "0642d735f8fe912aebc23d348469d6c3235c7f973b1fa384443d1da9833a6931"
+  },
+  "work/batch1020b/st9-1024-owners-world-after/world-item-repair-refused.png": {
+    "bytes": 31714,
+    "sha256": "a3cdc561ec52449050784eadc19c64fa1d2f645ebec3a0e21579674184d65e1d"
+  },
+  "work/batch1020b/st9-1024-owners-world-after/world-repair-result.json": {
+    "bytes": 406,
+    "sha256": "753d3af0bc5a749d8244894e5c1dd47bf8d80a0d8b7c34b39c81297977a53501"
+  },
+  "work/batch1020b/st9-1024-owners-world-before-xvfb.log": {
+    "bytes": 64,
+    "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+  },
+  "work/batch1020b/st9-1024-owners-world-before.exit": {
+    "bytes": 1,
+    "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+  },
+  "work/batch1020b/st9-1024-owners-world-before.log": {
+    "bytes": 1924,
+    "sha256": "db4c9f8f450112185755cea0122603f52e44f13aaacbca6846605003a6869c55"
+  },
+  "work/batch1020b/st9-1024-owners-world-before/world-item-original-reloaded.png": {
+    "bytes": 31265,
+    "sha256": "36f019ce0a2c92fa78c8c9db238ebf4978c9e5b235da1a4e133edb1cd203f47a"
+  },
+  "work/batch1020b/st9-1024-owners-world-before/world-item-repair-refused.png": {
+    "bytes": 31265,
+    "sha256": "36f019ce0a2c92fa78c8c9db238ebf4978c9e5b235da1a4e133edb1cd203f47a"
+  },
+  "work/batch1020b/st9-1024-owners-world-before/world-repair-result.json": {
+    "bytes": 407,
+    "sha256": "46f69f3c1cba38d81f4717452ddeba4700df63f457df15f9c64708e2203a261f"
+  },
+  "work/batch1024/ci-4f164615-final.json": {
+    "bytes": 304,
+    "sha256": "c3bd087ae479a4601056d92fc7754784f46d187d11eb7aa35323608cc8bcd04d"
+  },
+  "work/batch1024/ci-4f164615-job120827676947.log": {
+    "bytes": 448429,
+    "sha256": "fd6b4c6603f63ace4157621c84d05102554aed002d49fa579c975067f75cae9b"
+  },
+  "work/batch1024/ci-f508-final.json": {
+    "bytes": 304,
+    "sha256": "d2e69b2869939866f1ce6ccc6825046be85683ad34bba79e6933ef09532893f8"
+  },
+  "work/batch1024/ci-f508-job120824059359.log": {
+    "bytes": 448467,
+    "sha256": "62de75ab660772089ca2a1bfc6394cc0f48fb6184e58f3c027c3bd7d337c4203"
+  },
+  "work/batch1024/food-repair-before-driver.log": {
+    "bytes": 1089,
+    "sha256": "5ca68defcf9f4524110cc4bfc194e4cce213b106d04ce34f0544bcc68d15283a"
+  },
+  "work/batch1024/food-repair-before-driver.py": {
+    "bytes": 2182,
+    "sha256": "babcae6bb9ffd082519a4f3a058704add76508adeee59b1b8a08a6c6ecde4962"
+  },
+  "work/batch1024/food-repair-before-headless.log": {
+    "bytes": 331,
+    "sha256": "126e321d2d9ff71d20faf01310049a553887edb8156248137777b4eaec469388"
+  },
+  "work/batch1024/food-repair-before-receipt.json": {
+    "bytes": 1351,
+    "sha256": "2979cccfd7ce1309d4a7c69e053d193dcc8dd8517c2d735e5ded1f8b15a483a4"
+  },
+  "work/batch1024/food-repair-before-v2-headless.log": {
+    "bytes": 4873,
+    "sha256": "271c5a8156173e51df7ab7f09d8f7d65e8e069292883ecb7b56a1483b39b75ef"
+  },
+  "work/batch1024/food-repair-probe-tool-v1.gd": {
+    "bytes": 4172,
+    "sha256": "ce77e9774e43185eb55d956e847f49bdb8cffbf278a95767ffcc1dc59cb61a35"
+  },
+  "work/batch1024/food-repair-probe.gd": {
+    "bytes": 4998,
+    "sha256": "e63dbec5c57d9dcd58ad5390aeb30787fc58ce60351989b1e3f084d9cca74f10"
+  },
+  "work/batch1024/food-repair-probe.tscn": {
+    "bytes": 186,
+    "sha256": "bb687cd1de445e8d39893e70fc074ab0d0d05611b32b2bcc542c8e266ae87c30"
+  },
+  "work/batch1024/food-repair-unit.gd": {
+    "bytes": 2929,
+    "sha256": "8dd76767d633db6f6a37a86209b0b67f1a08cc9a10afce75fed420909cd82424"
+  },
+  "work/batch1024/native-large.py": {
+    "bytes": 2028,
+    "sha256": "689815a568098051d1cce471b8fb65b5200aae3ead9f22b213c053f0a4246f2d"
+  },
+  "work/batch1024/next-repair-proposed.json": {
+    "bytes": 884,
+    "sha256": "4e14ae4e35e760d09da0504fe809c9cf7217f8d7ad0a8708276253f2f18050cf"
+  },
+  "work/batch1024/owners-changed-final-console.log": {
+    "bytes": 549,
+    "sha256": "6679aeaf1e6d633191c6bf90ce86f44b195dd02f37bcbdb61d041bac01aa8649"
+  },
+  "work/batch1024/owners-changed-merged-console.log": {
+    "bytes": 550,
+    "sha256": "cd957c5738242f0d27bf3bc254d8fce924baa8926820538b8e1d46db4721e143"
+  },
+  "work/batch1024/owners-changed-merged/shard_0.log": {
+    "bytes": 2995,
+    "sha256": "149ab0ef0ec1519526a035769f17ab94ef4748b412bb93d158b800f4d99fc7c9"
+  },
+  "work/batch1024/owners-changed-merged/shard_1.log": {
+    "bytes": 3542,
+    "sha256": "7df411cb0bb67895b7435a2f6d11950dac1dc96c9e72d85e987ec8949efb2fd3"
+  },
+  "work/batch1024/owners-changed-merged/shard_2.log": {
+    "bytes": 92947,
+    "sha256": "6a49c992915b3798d14a6b3a39a361e9eb3f9d89ff218709d193c75e87003ebd"
+  },
+  "work/batch1024/owners-changed-merged/shard_3.log": {
+    "bytes": 84945,
+    "sha256": "a5c8d8ba2bea6ff2eb53b6b2b1e0df14261e65926057bac9440a0717078fb83b"
+  },
+  "work/batch1024/owners-editor-import.log": {
+    "bytes": 1712,
+    "sha256": "50dcf55f072ad4d968fcb730518f3679f8de133b1c9f36c69ca1cb47fb15f10a"
+  },
+  "work/batch1024/owners-final-source.json": {
+    "bytes": 1559,
+    "sha256": "f0494a42505c9fec9246baa3b992746737f47cadc82078ae60ddf87420c6b2d7"
+  },
+  "work/batch1024/owners-formal-after.log": {
+    "bytes": 88955,
+    "sha256": "4b4d1e79e5f72b9a026d48896c07af66cae0b9d9e793550bb8d85f72542dc8f9"
+  },
+  "work/batch1024/owners-formal-before.log": {
+    "bytes": 89140,
+    "sha256": "3f2ede1760e399547944327661b4dbee7ab6793f086083fb2fbe4f1ada43c2b3"
+  },
+  "work/batch1024/owners-merged-base.json": {
+    "bytes": 907,
+    "sha256": "8de33eb292bdc3d20c293ae34366d92051e776534a84bfe1e3915277d118484a"
+  },
+  "work/batch1024/owners-native-after-driver.log": {
+    "bytes": 1305,
+    "sha256": "4054d26c8e26e166a82ec2279610253b8f81d6cc192ccd657caa0a555ff91039"
+  },
+  "work/batch1024/owners-native-after-merged-driver.log": {
+    "bytes": 1354,
+    "sha256": "68f32cfb17484864cae74049970febcf8f005cb7cb04d309592c8084f2687772"
+  },
+  "work/batch1024/owners-native-after-merged-viewed.json": {
+    "bytes": 933,
+    "sha256": "379a0f2a34b8c798acd4d3a5b64a794e043718172c1b60b0b0aa3e5a24da468e"
+  },
+  "work/batch1024/owners-native-after-merged.json": {
+    "bytes": 1533,
+    "sha256": "afbd13a316cc0ee8364deb7315780e9745de3e38d19befdd149d59567163b825"
+  },
+  "work/batch1024/owners-native-after-merged.py": {
+    "bytes": 1514,
+    "sha256": "04a51ab6ce26f0e83dceaaf17fe7aec90ca4d913ad3770a07c9813f2290e7f39"
+  },
+  "work/batch1024/owners-native-after-viewed.json": {
+    "bytes": 897,
+    "sha256": "fdf645098033e522fc831213d45da6fa2901a6e2c7ed90823f349d0574deb69d"
+  },
+  "work/batch1024/owners-native-after.json": {
+    "bytes": 1491,
+    "sha256": "6c9212661594ad5ac592d183eb6d71b8276952e52f3f442d50629114f12bba9e"
+  },
+  "work/batch1024/owners-native-after.py": {
+    "bytes": 1493,
+    "sha256": "e00a83780b7133ec06ff28db7428de5286ccbbcd7bcd6edd985917704e7b8b18"
+  },
+  "work/batch1024/owners-native-before-driver.log": {
+    "bytes": 1310,
+    "sha256": "54436a09ea0d6f11346bd33138e3127ea761fafc673b971f1e8133ef5faeb648"
+  },
+  "work/batch1024/owners-native-before-viewed.json": {
+    "bytes": 1055,
+    "sha256": "bb018c58546a4472b12d2f1e3a49b2db62e807ada6ec1c2b1b4967d801061195"
+  },
+  "work/batch1024/owners-native-before.json": {
+    "bytes": 1495,
+    "sha256": "aeba76ae0cbbd4864230eee92d4c20c6a57382b76bc7a7f00209be2b4a606733"
+  },
+  "work/batch1024/owners-native-before.py": {
+    "bytes": 1496,
+    "sha256": "dbc33572c0c2510fda71c70524def652e525da345d06305a32fe702feb157b85"
+  },
+  "work/batch1024/owners-package-console.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "work/batch1024/owners-preserved-deferred-stash.json": {
+    "bytes": 872,
+    "sha256": "0ea8dcc9374defb3e7ca2337b2c7933a96cde9bffbeac9b09c621a9a9e791aff"
+  },
+  "work/batch1024/owners-preserved-stash.json": {
+    "bytes": 872,
+    "sha256": "ad7f38092ac4329cfe193f20c06c0d46c8d5f89846688d0f544e1bc73fc86a2e"
+  },
+  "work/batch1024/owners-run-save-before.gd": {
+    "bytes": 15901,
+    "sha256": "74cbea74c367293c276c1386a9bd8bb0ddf0b017890e17dd62b01a1354863e58"
+  },
+  "work/batch1024/owners-selector-summary.txt": {
+    "bytes": 91,
+    "sha256": "35ecd055fccc612cc686709589ddd8ef764d12bd7c62ed21c0c55a39fc115e8a"
+  },
+  "work/batch1024/owners-selector.txt": {
+    "bytes": 776,
+    "sha256": "5cb489e789a83c8699486033e3c7951d6266c052bcf40dc774cecf716bbabe07"
+  },
+  "work/batch1024/package-owners.py": {
+    "bytes": 12124,
+    "sha256": "a171115deca53d10c42ac5ba774394ff4dc12ffc0c3a0171f17c9e43a069921c"
+  },
+  "work/batch1024/st9-1024-owners-food-after-merged-save/slot.json": {
+    "bytes": 12704,
+    "sha256": "ef8a09e0e62dff70c9219824a64901b550a5bd64220812c7e6a7afb8373b1aa5"
+  },
+  "work/batch1024/st9-1024-owners-food-after-merged-save/slot.json.bak": {
+    "bytes": 12703,
+    "sha256": "916a4686c31acfad6a369cc3f35f01c8dbe313aefbe6e22e59325731ef7785c8"
+  },
+  "work/batch1024/st9-1024-owners-food-after-save/slot.json": {
+    "bytes": 12711,
+    "sha256": "99fc7746c425a2ffd605352970251bdc1767941abe640b5864b1e6caee703ef6"
+  },
+  "work/batch1024/st9-1024-owners-food-after-save/slot.json.bak": {
+    "bytes": 12711,
+    "sha256": "d57367aa30294f0edd58ed21186f337d641f454c6ec59fd3578db09337e2f261"
+  },
+  "work/batch1024/st9-1024-owners-food-before-save/slot.json": {
+    "bytes": 12461,
+    "sha256": "11c882c74b1a48bb5812da617133d0382880acf5099eea2cac55b538cfd63756"
+  },
+  "work/batch1024/st9-1024-owners-food-before-save/slot.json.bak": {
+    "bytes": 12461,
+    "sha256": "11c882c74b1a48bb5812da617133d0382880acf5099eea2cac55b538cfd63756"
+  },
+  "work/batch1024/st9-1024-owners-world-after-merged-save/slot.json": {
+    "bytes": 10580,
+    "sha256": "1a6be42f8a61b265e12a517d0d9d21f5deeb01eb6d8755ff533086d616da86ab"
+  },
+  "work/batch1024/st9-1024-owners-world-after-merged-save/slot.json.bak": {
+    "bytes": 10581,
+    "sha256": "e844b4fb88b18083aa69eff8c4b37feb7318362c9afd9f1e059f4dbdb07be1ac"
+  },
+  "work/batch1024/st9-1024-owners-world-after-save/slot.json": {
+    "bytes": 10580,
+    "sha256": "3e56c4f452824cd09f0c30b02ba1db2fc26933c39228aaa46cb768f0968ec818"
+  },
+  "work/batch1024/st9-1024-owners-world-after-save/slot.json.bak": {
+    "bytes": 10581,
+    "sha256": "0ac489a196f0d7baa53a887c43b061b385eb0f8bcca2ae5b5c09d547fad727d4"
+  },
+  "work/batch1024/st9-1024-owners-world-before-save/slot.json": {
+    "bytes": 10324,
+    "sha256": "5b85de9f714eb91f443a1af9b241e3c85fa019b4707c726006ca61aff88f5698"
+  },
+  "work/batch1024/st9-1024-owners-world-before-save/slot.json.bak": {
+    "bytes": 10324,
+    "sha256": "5b85de9f714eb91f443a1af9b241e3c85fa019b4707c726006ca61aff88f5698"
+  },
+  "work/batch1024/window_capture.gd": {
+    "bytes": 790,
+    "sha256": "7b67e3ee5817d8f32a8e4724c818a62ee0ce91a56cd0de6bc86b736adda923ce"
+  },
+  "work/batch1024/world-pickup-historical-base.gd": {
+    "bytes": 12307,
+    "sha256": "1509900552db36a5846efcdd85e2dfb20a1b3e65688f440cf381189fd2a7e51a"
+  },
+  "work/batch1024/world-repair-before-headless.log": {
+    "bytes": 1713,
+    "sha256": "12f8e393370262b6fcb788aa4251a1e98f333e365874ca665ada2d703d355639"
+  },
+  "work/batch1024/world-repair-before-receipt.json": {
+    "bytes": 700,
+    "sha256": "da7f87e9e951f489852d536b25fd9a6575e01a0e600e81de310c16a079f688ca"
+  },
+  "work/batch1024/world-repair-probe.gd": {
+    "bytes": 4586,
+    "sha256": "17388e693e2a6059c723e2a817838f769182c529a06fe73f9f11a6fbd4d00343"
+  },
+  "work/batch1024/world-repair-probe.tscn": {
+    "bytes": 188,
+    "sha256": "b9b5e402ccd97af32d4da359b9bbfbdc2ba36ac316c7392f469c9b3f3529a717"
+  },
+  "work/batch1024/world-repair-unit.gd": {
+    "bytes": 2602,
+    "sha256": "cc0e7be2c52492d743b912e3782483697be61eb1e80f8bb602e36c83f6c49b98"
+  }
+}

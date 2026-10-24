@@ -1,0 +1,149 @@
+{
+  "base": "4f16461540d3f40838790a655022571fa63cacc3",
+  "formal_negative": {
+    "checks": 625,
+    "failures": 2
+  },
+  "formal_after": {
+    "checks": 625,
+    "failures": 0
+  },
+  "changed": {
+    "checks": 3568,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 115
+  },
+  "native_before": [
+    {
+      "name": "st9-1024-owners-world-before",
+      "case": "world",
+      "exit": 1,
+      "checks": 15,
+      "failures": 3,
+      "engine_errors": 0,
+      "leaks": 0,
+      "completed": true,
+      "seconds": 64.60703738099983,
+      "command": [
+        "python",
+        "work/batch1024/native-large.py",
+        "st9-1024-owners-world-before",
+        "res://work/batch1024/world-repair-probe.tscn",
+        "--mode=write",
+        "--save-dir=/workspace/Nest-Egg/work/batch1024/st9-1024-owners-world-before-save"
+      ],
+      "source_sha256": {
+        "game/world_item_completion.gd": "3be95c4693242c352df8c3dff6de7c1c4ddbb49255a9b7e3bef765c94ec87b6f",
+        "game/story_result_completion.gd": "63a878b6146f2e0b422a4d27050d750f30a0a87ad5f81ff99f70d10501e8d674"
+      }
+    },
+    {
+      "name": "st9-1024-owners-food-before",
+      "case": "food",
+      "exit": 1,
+      "checks": 17,
+      "failures": 3,
+      "engine_errors": 0,
+      "leaks": 0,
+      "completed": true,
+      "seconds": 90.63464772499992,
+      "command": [
+        "python",
+        "work/batch1024/native-large.py",
+        "st9-1024-owners-food-before",
+        "res://work/batch1024/food-repair-probe.tscn",
+        "--mode=write",
+        "--save-dir=/workspace/Nest-Egg/work/batch1024/st9-1024-owners-food-before-save"
+      ],
+      "source_sha256": {
+        "game/world_item_completion.gd": "3be95c4693242c352df8c3dff6de7c1c4ddbb49255a9b7e3bef765c94ec87b6f",
+        "game/story_result_completion.gd": "63a878b6146f2e0b422a4d27050d750f30a0a87ad5f81ff99f70d10501e8d674"
+      }
+    }
+  ],
+  "native_after": [
+    {
+      "name": "st9-1024-owners-world-after-merged",
+      "case": "world",
+      "exit": 0,
+      "checks": 15,
+      "failures": 0,
+      "engine_errors": 0,
+      "leaks": 0,
+      "completed": true,
+      "seconds": 21.501933138000823,
+      "command": [
+        "python",
+        "work/batch1024/native-large.py",
+        "st9-1024-owners-world-after-merged",
+        "res://work/batch1024/world-repair-probe.tscn",
+        "--mode=write",
+        "--save-dir=/workspace/Nest-Egg/work/batch1024/st9-1024-owners-world-after-merged-save"
+      ],
+      "source_sha256": {
+        "game/world_item_completion.gd": "9727a95d55bacb557291299e037ed4fe2aa10c5b11cb664f4b9a9cf69333b8a2",
+        "game/story_result_completion.gd": "2275c2873a9ce7de17d89bdb392ea3a6b5d968e54dd4f34ca328c2cbf0964b0c"
+      }
+    },
+    {
+      "name": "st9-1024-owners-food-after-merged",
+      "case": "food",
+      "exit": 0,
+      "checks": 17,
+      "failures": 0,
+      "engine_errors": 0,
+      "leaks": 0,
+      "completed": true,
+      "seconds": 46.556105585001205,
+      "command": [
+        "python",
+        "work/batch1024/native-large.py",
+        "st9-1024-owners-food-after-merged",
+        "res://work/batch1024/food-repair-probe.tscn",
+        "--mode=write",
+        "--save-dir=/workspace/Nest-Egg/work/batch1024/st9-1024-owners-food-after-merged-save"
+      ],
+      "source_sha256": {
+        "game/world_item_completion.gd": "9727a95d55bacb557291299e037ed4fe2aa10c5b11cb664f4b9a9cf69333b8a2",
+        "game/story_result_completion.gd": "2275c2873a9ce7de17d89bdb392ea3a6b5d968e54dd4f34ca328c2cbf0964b0c"
+      }
+    }
+  ],
+  "original_run_save_assertions_inputs_waits_byte_identical": true,
+  "source_sha256": {
+    "game/world_item_completion.gd": "9727a95d55bacb557291299e037ed4fe2aa10c5b11cb664f4b9a9cf69333b8a2",
+    "game/story_result_completion.gd": "2275c2873a9ce7de17d89bdb392ea3a6b5d968e54dd4f34ca328c2cbf0964b0c",
+    "tests/suite/test_run_save.gd": "4ddedb7f1265f9a0ebb3b1142d109e0dc75997f06d11201172db7f17ad764ab2",
+    "tests/helpers/world_item_repair_boundary_checks.gd": "cc0e7be2c52492d743b912e3782483697be61eb1e80f8bb602e36c83f6c49b98",
+    "tests/helpers/world_item_repair_boundary_checks.gd.uid": "dce5cbf4b43c122799602ae8405e6f276c5598dd11fc2170bc1aa95ee934aa86",
+    "tests/helpers/terminal_repair_boundary_checks.gd": "8dd76767d633db6f6a37a86209b0b67f1a08cc9a10afce75fed420909cd82424",
+    "tests/helpers/terminal_repair_boundary_checks.gd.uid": "dfd95928d33881572e2b1887fd8fd193b6ee71530937d94eb1a7f842987772d0",
+    "work/batch1024/world-repair-probe.gd": "17388e693e2a6059c723e2a817838f769182c529a06fe73f9f11a6fbd4d00343",
+    "work/batch1024/food-repair-probe.gd": "e63dbec5c57d9dcd58ad5390aeb30787fc58ce60351989b1e3f084d9cca74f10",
+    "work/batch1024/world-pickup-historical-base.gd": "1509900552db36a5846efcdd85e2dfb20a1b3e65688f440cf381189fd2a7e51a",
+    "tools/quest_resume_probe.gd": "e34b0defd4385db8c7b1f62ab214dc0f09581bc9c2ea44a6b352dd4c758fdecf",
+    "work/batch1024/window_capture.gd": "7b67e3ee5817d8f32a8e4724c818a62ee0ce91a56cd0de6bc86b736adda923ce",
+    "work/batch1024/native-large.py": "689815a568098051d1cce471b8fb65b5200aae3ead9f22b213c053f0a4246f2d",
+    "ui/radio_save_prompt.gd": "a28c1f685db41db8d8cd0bbb4102a301888c060f988f33f5b7521d1994090e8f"
+  },
+  "prior_ci": {
+    "run_id": 40078751935,
+    "job_id": 120827676947,
+    "head": "4f16461540d3f40838790a655022571fa63cacc3",
+    "conclusion": "success",
+    "checks": 96404,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 640,
+    "job_log_sha256": "fd6b4c6603f63ace4157621c84d05102554aed002d49fa579c975067f75cae9b"
+  },
+  "limits": [
+    "Only original whole-run reload routing added; no generic atomic coordinator enabled. Original unfinished ticket criteria preserved.",
+    "Before native used f5469ea3 owners; first after used f50882e9, merged after uses latest4f164615. Fourteen focused owner/probe sources remain byte-identical; actual merged native flows and seven suites rerun.",
+    "Actual authored pickup sensor and actual authored dinner trigger/reader chain; explicit route/player/nonlethal fixtures and unrelated malformed owner after valid original save. No target acquisition/completion injection.",
+    "Event/pickup refusal backgrounds intentionally opaque in original production UI; do not treat them as evidence of visible actor art.",
+    "Actual Main PAUSABLE under observerALWAYS; public ui_accept and real disk/reader restore. Native Chinese 1280x720 only, software Vulkan Forward+, Dummy audio. No human full-chapter or physical hardware claim.",
+    "Initial food trigger preflight did not reach source, preserved as tool failure rather than a product negative."
+  ]
+}

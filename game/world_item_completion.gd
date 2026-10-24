@@ -111,7 +111,7 @@ func _commit(source: Dictionary) -> Dictionary:
 		return original
 	for pair: Array in [[original["data"]["story"]["items"], StoryItems.snapshot()], [original["data"]["story"]["flags"], GameState.world_flags], [original["data"]["progression"], Progression.snapshot()]]:
 		if JSON.parse_string(JSON.stringify(pair[0])) != JSON.parse_string(JSON.stringify(pair[1])):
-			return {"error": "world pickup requires restoring the complete original run first"}
+			return {"error": "world pickup requires restoring the complete original run first", "reload_original": true}
 	candidate = original["data"].duplicate(true)
 	var proof := Bundle._capture_source()
 	if proof.has("error"):
@@ -138,7 +138,7 @@ func _commit(source: Dictionary) -> Dictionary:
 	var write: RunSaveStore.PreparedExistingWrite = prepared["data"]
 	var normalized := write.snapshot()
 	if JSON.parse_string(JSON.stringify(normalized)) != JSON.parse_string(JSON.stringify(candidate)):
-		return {"error": "world pickup needs a whole-run repair before retry"}
+		return {"error": "world pickup needs a whole-run repair before retry", "reload_original": true}
 	var game := GameState.prepare_install(normalized["state"], normalized["story"]["flags"], "", false)
 	var items := StoryItems.prepare_install(normalized["story"]["items"])
 	for owner: Dictionary in [game, items]:

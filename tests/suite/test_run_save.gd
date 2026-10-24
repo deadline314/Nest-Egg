@@ -219,4 +219,6 @@ func run() -> void:
 	await preload("res://tests/helpers/home_completion_checks.gd").run(self)
 	await preload("res://tests/helpers/npc_terminal_save_checks.gd").run(self, directory)
 	await preload("res://tests/helpers/npc_repair_boundary_checks.gd").run(self, directory)
+	await preload("res://tests/helpers/world_item_repair_boundary_checks.gd").run(self, directory)
+	await preload("res://tests/helpers/terminal_repair_boundary_checks.gd").run(self, directory)
 	GameState.start_new_run(GameState.difficulties[1])

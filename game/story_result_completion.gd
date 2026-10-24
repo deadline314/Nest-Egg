@@ -167,7 +167,7 @@ func _prepare_and_commit(scene: Dictionary) -> Dictionary:
 	# A validator may repair legacy saves. Do not install or bill a repaired batch.
 	for pair: Array in [[normalized["story"], candidate["story"]], [normalized["progression"], candidate["progression"]], [normalized["state"], expected_state], [normalized["runtime"], expected_runtime], [normalized["navigation"], original["data"]["navigation"]]]:
 		if JSON.parse_string(JSON.stringify(pair[0])) != JSON.parse_string(JSON.stringify(pair[1])):
-			return {"error": "terminal results need a whole-run repair before retry", "reload_original": not npc.is_empty()}
+			return {"error": "terminal results need a whole-run repair before retry", "reload_original": true}
 	var game := GameState.prepare_install(normalized["state"], next["flags"], "", false)
 	var money := Progression.prepare_install(normalized["progression"])
 	var items := StoryItems.prepare_install(next["items"])
