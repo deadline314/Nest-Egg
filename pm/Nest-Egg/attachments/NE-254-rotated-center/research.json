@@ -1,0 +1,17 @@
+{
+  "date_local": "2026-10-26",
+  "sources": [
+    {
+      "url": "https://github.com/godotengine/godot/blob/4.7.2-stable/doc/classes/Node2D.xml",
+      "read": true,
+      "finding": "to_global transforms a child-local position into global space; fixed world offsets do not include rotation."
+    },
+    {
+      "url": "https://github.com/godotengine/godot/blob/4.7.2-stable/doc/classes/PhysicsShapeQueryParameters2D.xml",
+      "read": true,
+      "finding": "Shape queries use a Transform2D matrix, including its basis, not just a center."
+    }
+  ],
+  "same_genre_image": "reference-katana-zero.jpg",
+  "image_scope": "Re-viewed official Katana ZERO scene for object/scene readability. No claim about its private physics or player preference."
+}

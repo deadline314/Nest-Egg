@@ -1,0 +1,20 @@
+Running 1 groups in 1 processes (logs: /workspace/Nest-Egg/work/batch1026/center-before-shards)
+  process 0 (estimated 22 s): ThrowablesSuite
+[process 0] NEW FAILURE: rotated center matches real shape: res://data/throwables/crate_small.tres angle 1.5707963267949
+[process 0] NEW FAILURE: rotated center matches real shape: res://data/throwables/crate_small.tres angle 3.14159265358979
+[process 0] NEW FAILURE: rotated center matches real shape: res://data/throwables/crate_small.tres angle 4.71238898038469
+[process 0] NEW FAILURE: rotated center matches real shape: res://data/throwables/pipe.tres angle 1.5707963267949
+[process 0] NEW FAILURE: rotated center matches real shape: res://data/throwables/pipe.tres angle 3.14159265358979
+[process 0] NEW FAILURE: rotated center matches real shape: res://data/throwables/pipe.tres angle 4.71238898038469
+[process 0] NEW FAILURE: rotated center matches real shape: res://data/throwables/fuel_barrel.tres angle 1.5707963267949
+[process 0] NEW FAILURE: rotated center matches real shape: res://data/throwables/fuel_barrel.tres angle 3.14159265358979
+[process 0] NEW FAILURE: rotated center matches real shape: res://data/throwables/fuel_barrel.tres angle 4.71238898038469
+[process 0] NEW FAILURE: rotated flight hits its real body, not old ghost center: dir -1.0 actual false health 7
+[process 0] NEW FAILURE: rotated flight hits its real body, not old ghost center: dir -1.0 actual true health 10
+[process 0] NEW FAILURE: rotated flight hits its real body, not old ghost center: dir 1.0 actual false health 7
+[process 0] NEW FAILURE: rotated flight hits its real body, not old ghost center: dir 1.0 actual true health 10
+[process 0] NEW FAILURE: actual blast origin matches the rotating body center
+[process 0] NEW FAILURE: displayed blast radius uses the real impact center
+[process 0] NEW FAILURE: actual blast origin matches the rotating body center
+[process 0] NEW FAILURE: displayed blast radius uses the real impact center
+checks: 405, new failures: 17, known failures (tests/known_failures.txt): 0  (wall time 80 s)

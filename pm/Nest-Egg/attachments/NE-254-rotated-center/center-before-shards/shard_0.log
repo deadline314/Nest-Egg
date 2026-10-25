@@ -1,0 +1,22 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME ThrowablesSuite 73.4
+checks: 405, failures: 17
+FAIL: rotated center matches real shape: res://data/throwables/crate_small.tres angle 1.5707963267949
+FAIL: rotated center matches real shape: res://data/throwables/crate_small.tres angle 3.14159265358979
+FAIL: rotated center matches real shape: res://data/throwables/crate_small.tres angle 4.71238898038469
+FAIL: rotated center matches real shape: res://data/throwables/pipe.tres angle 1.5707963267949
+FAIL: rotated center matches real shape: res://data/throwables/pipe.tres angle 3.14159265358979
+FAIL: rotated center matches real shape: res://data/throwables/pipe.tres angle 4.71238898038469
+FAIL: rotated center matches real shape: res://data/throwables/fuel_barrel.tres angle 1.5707963267949
+FAIL: rotated center matches real shape: res://data/throwables/fuel_barrel.tres angle 3.14159265358979
+FAIL: rotated center matches real shape: res://data/throwables/fuel_barrel.tres angle 4.71238898038469
+FAIL: rotated flight hits its real body, not old ghost center: dir -1.0 actual false health 7
+FAIL: rotated flight hits its real body, not old ghost center: dir -1.0 actual true health 10
+FAIL: rotated flight hits its real body, not old ghost center: dir 1.0 actual false health 7
+FAIL: rotated flight hits its real body, not old ghost center: dir 1.0 actual true health 10
+FAIL: actual blast origin matches the rotating body center
+FAIL: displayed blast radius uses the real impact center
+FAIL: actual blast origin matches the rotating body center
+FAIL: displayed blast radius uses the real impact center

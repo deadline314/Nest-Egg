@@ -1,0 +1,15 @@
+Running 1 groups in 1 processes (logs: /workspace/Nest-Egg/work/batch1026/center-after-shards)
+  process 0 (estimated 73 s): ThrowablesSuite
+[process 0] NEW FAILURE: it flew forward (x 176)
+[process 0] NEW FAILURE: an upward throw lands on the one-way platform above ((736.0, 320.0))
+[process 0] NEW FAILURE: a downward throw from the high ledge lands on the floor below ((1016.0, 192.0))
+[process 0] NEW FAILURE: throw sweep respects first collision: direction 1.0, 30.0 Hz, enemy_first true, hp 20
+[process 0] NEW FAILURE: throw sweep respects first collision: direction 1.0, 60.0 Hz, enemy_first true, hp 20
+[process 0] NEW FAILURE: the actual nearest pickup offers its interaction
+[process 0] NEW FAILURE: moving to the other object transfers the prompt to the actual pickup target
+[process 0] NEW FAILURE: blast preview fixture uses actual pickup
+[process 0] NEW FAILURE: trajectory fixture uses actual pickup
+[process 0] NEW FAILURE: drop fixture uses real pickup
+[process 0] NEW FAILURE: the gamepad interact button picks the pipe up
+[process 0] NEW FAILURE: the one-line carry hint names the gamepad buttons ([])
+checks: 206, new failures: 12, known failures (tests/known_failures.txt): 0  (wall time 23 s)

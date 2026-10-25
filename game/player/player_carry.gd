@@ -27,6 +27,7 @@ var _hinted := false
 var _throw_press_held := false
 var _preview: PackedVector2Array = []
 var _preview_land := Vector2.INF
+var _preview_blast_center := Vector2.INF
 var _preview_collision := KinematicCollision2D.new()
 var _pickup_ray := PhysicsRayQueryParameters2D.new()
 var _pickup_target: Throwable
@@ -226,6 +227,7 @@ func _physics_process(delta: float) -> void:
 func _update_preview() -> void:
 	_preview.clear()
 	_preview_land = Vector2.INF
+	_preview_blast_center = Vector2.INF
 	var data := held.data
 	var position := hold_point()
 	var velocity := launch_velocity(player.aim_dir.normalized() if player.aim_dir.length_squared() > 0.0001 else Vector2(player.facing, 0))
@@ -239,6 +241,7 @@ func _update_preview() -> void:
 		var motion := velocity * step
 		if held.test_move(Transform2D(angle, position), motion, _preview_collision):
 			_preview_land = _preview_collision.get_position()
+			_preview_blast_center = held.center_at(Transform2D(angle, position + _preview_collision.get_travel()))
 			_preview.append(_preview_land)
 			return
 		position += motion
@@ -259,4 +262,4 @@ func _draw() -> void:
 	if _preview_land != Vector2.INF:
 		draw_arc(_preview_land, 4.0, 0.0, TAU, 12, Color(LightKit.glow(Palette.CYAN, 1.8), 0.8), 1.0)
 		if is_instance_valid(held) and held.data.is_explosive():
-			draw_arc(_preview_land, held.data.explosion_radius, 0.0, TAU, 40, Color(LightKit.glow(Palette.DANGER, 1.4), 0.45), 1.0)
+			draw_arc(_preview_blast_center, held.data.explosion_radius, 0.0, TAU, 40, Color(LightKit.glow(Palette.DANGER, 1.4), 0.45), 1.0)

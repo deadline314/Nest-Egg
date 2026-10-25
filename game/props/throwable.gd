@@ -103,7 +103,12 @@ func _pickup_prompt_reachable() -> bool:
 
 
 func world_center() -> Vector2:
-	return global_position + Vector2(0, -data.size.y * 0.5)
+	return center_at(global_transform)
+
+
+## The collision rectangle is centered above the bottom-origin in local space.
+func center_at(pose: Transform2D) -> Vector2:
+	return pose * Vector2(0, -data.size.y * 0.5)
 
 
 # ---------------------------------------------------------------------------
@@ -194,13 +199,16 @@ func _fly(delta: float) -> void:
 ## 沿這一步的路徑找第一個打得到的受擊框（掃掠，不會穿過）。回傳 {fraction, hurtbox} 或空字典。
 func _sweep_targets(motion: Vector2) -> Dictionary:
 	_sweep.collision_mask = Combat.hurtbox_mask_against(team)
-	_sweep.transform = Transform2D(rotation, world_center())
+	var pose := global_transform
+	pose.origin = center_at(pose)
+	_sweep.transform = pose
 	_sweep.motion = motion
 	var space := get_world_2d().direct_space_state
 	var fractions := space.cast_motion(_sweep)
 	if fractions.size() < 2 or fractions[1] >= 1.0:
 		return {}
-	_sweep.transform = Transform2D(rotation, world_center() + motion * fractions[1])
+	pose.origin += motion * fractions[1]
+	_sweep.transform = pose
 	_sweep.motion = Vector2.ZERO
 	for hit in space.intersect_shape(_sweep, 4):
 		var box := hit["collider"] as Hurtbox

@@ -21,6 +21,7 @@ func run() -> void:
 	await _test_barrel_aim_priority()
 	await _test_pickup_prompt_target()
 	await _test_pickup_terrain_reach()
+	await _test_rotated_centers()
 	await _test_preview_matches_first_contact()
 	await _test_drop_terrain()
 	await _test_no_input_conflicts()
@@ -743,3 +744,83 @@ func _test_preview_matches_first_contact() -> void:
 					Engine.physics_ticks_per_second = original_hz
 					_release_aim()
 					await end_level(level)
+
+
+class CenterContactTrace extends Throwable:
+	var contact_center := Vector2.INF
+	var physical_center := Vector2.INF
+	func _bounce(_collision: KinematicCollision2D) -> void:
+		contact_center = world_center()
+		for child in get_children():
+			if child is CollisionShape2D: physical_center = child.global_position
+		velocity = Vector2.ZERO
+
+
+## Actual collision-shape coordinates are the reference, not a second center formula.
+func _test_rotated_centers() -> void:
+	await open_level(10.0)
+	for path: String in [CRATE, PIPE, BARREL]:
+		var item := _place(path, 25, 200)
+		item.set_physics_process(false)
+		for angle: float in [0.0, PI * .5, PI, PI * 1.5]:
+			item.rotation = angle
+			for child in item.get_children():
+				if child is CollisionShape2D:
+					check(item.world_center().distance_to(child.global_position) < .001, "rotated center matches real shape: %s angle %s" % [path, angle])
+		item.queue_free()
+	await end_level(level)
+	for direction: float in [-1.0, 1.0]:
+		for actual_contact: bool in [false, true]:
+			await open_level(10.0)
+			var target := Node2D.new()
+			target.position = Vector2(400 + direction * 16, 200 + (4 if actual_contact else -4))
+			level.add_child(target)
+			var health := HealthComponent.new()
+			target.add_child(health)
+			health.setup(10, 0)
+			var box := Hurtbox.new()
+			target.add_child(box)
+			box.setup(Combat.Team.ENEMY, health, Vector2(2, 1))
+			var item := _place(PIPE, 25, 200)
+			item.set_physics_process(false)
+			var step := .1
+			item.launch(Vector2(400, 200), Vector2(direction * 200, -item.data.gravity * step), Combat.Team.PLAYER)
+			item.rotation = PI
+			await physics_frames(2)
+			var query := PhysicsShapeQueryParameters2D.new()
+			for child in item.get_children():
+				if child is CollisionShape2D:
+					query.shape = child.shape
+					query.transform = child.global_transform
+			query.motion = Vector2(direction * 20, 0)
+			query.collision_mask = Layers.ENEMY_HURTBOX
+			query.collide_with_areas = true
+			query.collide_with_bodies = false
+			var fractions := level.get_world_2d().direct_space_state.cast_motion(query)
+			check((fractions[1] < 1) == actual_contact, "independent actual shape confirms hit/miss fixture")
+			item.rotation = PI - direction * 6 * step
+			item._fly(step)
+			check(health.current == (7 if actual_contact else 10), "rotated flight hits its real body, not old ghost center: dir %s actual %s health %s" % [direction, actual_contact, health.current])
+			await end_level(level)
+	for direction: float in [-1.0, 1.0]:
+		await open_level(10.0)
+		var barrel := _place(BARREL, 10.5)
+		await physics_frames(4)
+		check(await _pick_up(barrel), "blast preview fixture uses actual pickup")
+		await _aim(Vector2(direction, 0))
+		level.player.carry._update_preview()
+		var predicted: Variant = level.player.carry.get("_preview_blast_center")
+		var trace := CenterContactTrace.new()
+		trace.configure(load(BARREL))
+		level._entities.add_child(trace)
+		trace.launch(level.player.carry.hold_point(), level.player.carry.launch_velocity(Vector2(direction, 0)), Combat.Team.PLAYER)
+		trace.set_physics_process(false)
+		for step in Engine.physics_ticks_per_second * 2:
+			trace._fly(1.0 / Engine.physics_ticks_per_second)
+			if trace.physical_center != Vector2.INF: break
+		check(trace.physical_center != Vector2.INF, "barrel reaches real first terrain collision")
+		check(trace.contact_center.distance_to(trace.physical_center) < .001, "actual blast origin matches the rotating body center")
+		var point: Vector2 = predicted if typeof(predicted) == TYPE_VECTOR2 else Vector2.INF
+		check(point != Vector2.INF and point.distance_to(trace.physical_center) < .001, "displayed blast radius uses the real impact center")
+		_release_aim()
+		await end_level(level)
