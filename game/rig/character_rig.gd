@@ -304,8 +304,21 @@ func animate(delta: float, input: RigInput) -> void:
 			_skeleton.modulate = Color.WHITE
 
 
-## 雙手的近戰招式（NE-277）：武器定位之後讓後手去握桿上的一點（世界座標）與桿子的角度（朝右空間）。
-## 握到了回傳 true 並重算肢體網格；搆不到時手照原本的姿勢。
+## 世界座標的手部接觸（ST-10）：包含鏡像、縮放與父節點旋轉；沒有握持變體時接觸點是手腕。
+func place_hand(which: StringName, world_target: Vector2, world_angle: float, weight := 1.0) -> bool:
+	if not _valid or animator == null or _skeleton == null or not world_target.is_finite() or not is_finite(world_angle):
+		return false
+	var transform := _skeleton.global_transform
+	if not transform.is_finite() or absf(transform.determinant()) < 0.000001:
+		return false
+	var inverse := transform.affine_inverse()
+	var placed := animator.place_hand(which, inverse * world_target, inverse.basis_xform(Vector2.from_angle(world_angle)).angle(), weight)
+	if placed:
+		refresh_limbs()
+	return placed
+
+
+## 雙手近戰武器的後手握點（NE-277）；保留原有朝右空間的角度與行為。
 func place_second_hand(world_target: Vector2, hand_angle: float) -> bool:
 	if not _valid or animator == null:
 		return false

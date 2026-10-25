@@ -1,0 +1,15 @@
+{
+  "base": "00f6e6c4f09df6a4cfce048d8d4b6ce3971061db",
+  "date": "2026-10-26 Asia/Taipei",
+  "runtime": "Godot4.7.2 Forward+ HDR Vulkan llvmpipe software GPU",
+  "viewport": [
+    1280,
+    720
+  ],
+  "native_final_all_eight_images_viewed": true,
+  "native_v2_four_images_viewed": true,
+  "native_baseline": "Same final probe replaces the two reach steps with equal-duration waits. This is a feature-disabled control, not the previous production commit.",
+  "native_v1": "Explicit fade=0 left the initial black overlay. Geometry checks still ran but screenshots cannot be visual acceptance. Logs/images retained; final probe adds an image-visible assertion.",
+  "scope": "Standalone CutscenePlayer uses formal home stage, actor definitions, scale and camera, with arranged positions and diagnostic targets. No full chapter route or physical hardware acceptance. No art/stage/story adoption. Without active gripping texture the target is the wrist, not a palm/handle contact.",
+  "release_edge": "Frozen pre-release-fix implementation moves 28.284271 stage pixels after release; final implementation freezes its current target."
+}

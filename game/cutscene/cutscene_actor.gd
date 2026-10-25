@@ -34,6 +34,8 @@ var _last_position := Vector2.ZERO
 var _position_known := false
 var _listen_flag := false
 var _shadow_pose: StringName = &""
+var _reaches: Array[CutsceneReach] = [CutsceneReach.new(&"front"), CutsceneReach.new(&"back")]
+var reach_speed := 1.0
 
 
 func _init() -> void:
@@ -107,6 +109,15 @@ func release_gesture() -> void:
 		(rig.animator as NpcAnimator).release_gesture()
 
 
+## 指定一隻手的舞台接觸或收回；資料錯誤不改變目前接觸。
+func set_hand_target(step: Dictionary) -> bool:
+	var issue := CutsceneReach.problem(step)
+	if not issue.is_empty() or rig == null:
+		return false
+	_reaches[0 if step["hand"] == "front" else 1].configure(step, position)
+	return true
+
+
 ## 說話中（點頭與手勢）。
 func set_talking(value: bool) -> void:
 	_input.talking = value
@@ -140,6 +151,8 @@ func _process(delta: float) -> void:
 		var velocity := (position - _last_position) / maxf(delta * absf(scale.x) * rig.body_scale(), 0.0001) if _position_known else Vector2.ZERO
 		_apply_pose(velocity)
 		rig.animate(delta, _input)
+		for reach: CutsceneReach in _reaches:
+			reach.apply(self, delta * reach_speed)
 	elif _portrait != null:
 		_portrait.position.y = -32.0 + sin(_t * TAU / BREATH_PERIOD) * 0.8
 	if position != _last_position or pose != _shadow_pose:

@@ -1,0 +1,212 @@
+class_name CutsceneActor
+extends Node2D
+## 過場裡的角色。有骨架外觀（art/characters/<kind>/）就用骨架（與遊戲內同一套動畫）；
+## 沒有骨架的角色用頭像做剪影，輕微呼吸起伏。座標是舞台座標，原點在腳底。
+
+## 舞台陰影：腳印半寬（演員縮放前的像素）、倒地時放寬的倍率、腳底可以比地面線低多少仍算著地。
+const STAGE_SHADOW_HALF_WIDTH := 11.0
+const STAGE_SHADOW_LYING := 2.4
+const STAGE_SHADOW_SINK := 4.0
+const POSES: PackedStringArray = ["idle", "walk", "run", "crouch", "aim_up", "block", "dead", "jump", "sit", "lean", "squat", "wave", "listen"]
+const BREATH_PERIOD := 3.2
+
+var actor_id: StringName = &""
+## 劇本裡講話的人（章節 speakers 的 id）：說這個人的台詞時，這個演員會點頭比手勢。沒有指定就用 actor_id。
+var speaker_id: StringName = &""
+var pose: StringName = &"idle"
+## 舞台上這個演員用的圖層組（見 WorldLayers.stage_actor_z）。
+var layer_slot := 0
+## 地面線（舞台座標的腳底 y；NAN＝沒有登記）：從坐姿站起來時，腳要落回這條線（坐在桌上、箱子上的演員不會站起來浮在半空）。
+var ground_y := NAN
+## 站起來落回地面的速度（舞台像素／秒）與是否正在落下。骨架在做「起身」切換時，落下跟著起身的進度走（NE-250：
+## 上身前傾、腳收回、骨盆升起的同時身體落到地面，而不是先瞬間掉到地上再慢慢站起來）；沒有切換（例如直接走開）時用固定速度。
+const SETTLE_SPEED := 160.0
+var _settling := false
+var _settle_from := 0.0
+var _settle_synced := false
+var _settle_wait := 0
+var facing := 1
+var rig: CharacterRig
+var _input := RigInput.new()
+var _portrait: Sprite2D
+var _t := 0.0
+var _last_position := Vector2.ZERO
+var _position_known := false
+var _listen_flag := false
+var _shadow_pose: StringName = &""
+var _reaches: Array[CutsceneReach] = [CutsceneReach.new(&"front"), CutsceneReach.new(&"back")]
+var reach_speed := 1.0
+
+
+func _init() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	_input.on_floor = true
+
+
+## kind 是骨架外觀 id；找不到時用 portrait（圖片路徑）做剪影，兩者都沒有回傳 false。
+func setup(id: StringName, kind: String, portrait_path: String, unit_scale: float, weapon: String) -> bool:
+	actor_id = id
+	scale = Vector2.ONE * unit_scale
+	if kind != "" and not RigLibrary.character(kind).is_empty():
+		rig = CharacterRig.new()
+		rig.use_level_lighting = false
+		add_child(rig)
+		if rig.setup(kind, "npc"):
+			rig.set_weapon(weapon)
+			_input.two_handed = weapon != ""
+			return true
+		rig.queue_free()
+		rig = null
+	var tex := RigLibrary.optional_texture(portrait_path)
+	if tex == null:
+		return false
+	_portrait = Sprite2D.new()
+	_portrait.texture = tex
+	_portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	_portrait.centered = true
+	var height := 64.0
+	_portrait.scale = Vector2.ONE * (height / maxf(1.0, float(tex.get_height())))
+	_portrait.position = Vector2(0, -height * 0.5)
+	add_child(_portrait)
+	return true
+
+
+func configure_seat(sag: Variant) -> void:
+	if typeof(sag) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(sag)) or float(sag) < 0.0 or float(sag) > 0.9:
+		push_error("[CutsceneActor] %s 的 seat_sag 必須是 0..0.9 的有限數字，沿用原坐姿" % actor_id)
+		return
+	if rig == null or not rig.animator is NpcAnimator:
+		push_error("[CutsceneActor] %s 沒有可校準坐位的 NPC 骨架，沿用原姿勢" % actor_id)
+		return
+	(rig.animator as NpcAnimator).seated_sag = float(sag)
+
+
+func set_pose(new_pose: StringName) -> void:
+	var was_seated := pose == &"sit"
+	pose = new_pose
+	# 從坐姿換成站、走、跑…：位置還在座位的高度，要落回地面線，不能浮空。
+	if was_seated and new_pose != &"sit" and not is_nan(ground_y) and absf(position.y - ground_y) > 0.5:
+		_settling = true
+		_settle_from = position.y
+		_settle_synced = false
+		_settle_wait = 1
+
+
+## 專屬工作循環（art/rigs/npc_animations.json 的 loops，空字串＝沒有）；scale 放大縮小幅度。
+func set_loop(loop_name: StringName, scale := 1.0) -> void:
+	_input.npc_loop = loop_name
+	_input.npc_loop_scale = scale
+
+
+## 做一個手勢或小動作（art/rigs/npc_animations.json 的 gestures，NE-250）；沒有骨架、不是 NPC 動畫器或手勢不存在時回傳 false。
+func play_gesture(gesture_name: StringName) -> bool:
+	return rig != null and rig.animator is NpcAnimator and (rig.animator as NpcAnimator).play_gesture(gesture_name)
+
+
+## 提早結束正在做的指定手勢（從目前位置收回）。
+func release_gesture() -> void:
+	if rig != null and rig.animator is NpcAnimator:
+		(rig.animator as NpcAnimator).release_gesture()
+
+
+## 指定一隻手的舞台接觸或收回；資料錯誤不改變目前接觸。
+func set_hand_target(step: Dictionary) -> bool:
+	var issue := CutsceneReach.problem(step)
+	if not issue.is_empty() or rig == null:
+		return false
+	_reaches[0 if step["hand"] == "front" else 1].configure(step, position)
+	return true
+
+
+## 說話中（點頭與手勢）。
+func set_talking(value: bool) -> void:
+	_input.talking = value
+
+
+## 聆聽中（微微偏頭）。
+func set_listening(value: bool) -> void:
+	_listen_flag = value
+
+
+func face(direction: int) -> void:
+	facing = 1 if direction >= 0 else -1
+	if _portrait != null:
+		_portrait.flip_h = facing < 0
+
+
+func _process(delta: float) -> void:
+	_t += delta
+	if _settling:
+		var progress := (rig.animator as NpcAnimator).posture_progress() if rig != null and rig.animator is NpcAnimator else 1.0
+		if progress < 1.0:
+			_settle_synced = true
+			position.y = lerpf(_settle_from, ground_y, progress)
+		elif _settle_synced or _settle_wait <= 0:
+			position.y = move_toward(position.y, ground_y, SETTLE_SPEED * delta)
+		else:
+			_settle_wait -= 1  # 骨架下一格才開始起身切換：先等一格，免得先掉一點再被拉回
+		_settling = not is_equal_approx(position.y, ground_y)
+	if rig != null:
+		# Stage translation and enlarged actors must use the same space as the leg solver.
+		var velocity := (position - _last_position) / maxf(delta * absf(scale.x) * rig.body_scale(), 0.0001) if _position_known else Vector2.ZERO
+		_apply_pose(velocity)
+		rig.animate(delta, _input)
+		for reach: CutsceneReach in _reaches:
+			reach.apply(self, delta * reach_speed)
+	elif _portrait != null:
+		_portrait.position.y = -32.0 + sin(_t * TAU / BREATH_PERIOD) * 0.8
+	if position != _last_position or pose != _shadow_pose:
+		_shadow_pose = pose
+		queue_redraw()
+	_last_position = position
+	_position_known = true
+
+
+## 舞台上的接觸陰影（只有登記了地面線的舞台才畫）：落在演員正下方的地面線上，離地越高越小越淡；倒地時較寬。
+## 關卡裡的人物不走這裡，由 ContactShadow 依實際地形處理。
+func _draw() -> void:
+	if is_nan(ground_y) or scale.y <= 0.0:
+		return
+	var drop := (ground_y - position.y) / scale.y
+	if drop < -STAGE_SHADOW_SINK or drop > ContactShadow.MAX_DROP:
+		return
+	var height := clampf(drop / ContactShadow.MAX_DROP, 0.0, 1.0)
+	var half := STAGE_SHADOW_HALF_WIDTH * (STAGE_SHADOW_LYING if pose == &"dead" else 1.0) * lerpf(1.0, ContactShadow.HEIGHT_SHRINK, height)
+	var size := Vector2(half * 2.0, half * 2.0 * ContactShadow.FLATTEN)
+	draw_texture_rect(LightKit.soft_texture(), Rect2(Vector2(-half, drop - size.y * 0.5 + 1.0), size), false,
+			Color(0.0, 0.0, 0.0, ContactShadow.BASE_ALPHA * pow(1.0 - height, 1.5)))
+
+
+func _apply_pose(velocity: Vector2) -> void:
+	_input.facing = facing
+	_input.aim_dir = Vector2(float(facing), 0.0)
+	_input.velocity = Vector2.ZERO
+	_input.on_floor = true
+	_input.crouching = false
+	_input.blocking = false
+	_input.dead = false
+	_input.npc_pose = &"stand"
+	_input.waving = false
+	_input.listening = _listen_flag
+	match pose:
+		&"sit", &"lean":
+			_input.npc_pose = pose
+		&"squat":
+			_input.npc_pose = &"crouch"
+		&"wave":
+			_input.waving = true
+		&"listen":
+			_input.listening = true
+		&"walk", &"run":
+			_input.velocity = Vector2(velocity.x, 0.0)
+		&"crouch":
+			_input.crouching = true
+		&"aim_up":
+			_input.aim_dir = Vector2(float(facing), -1.0).normalized()
+		&"block":
+			_input.blocking = true
+		&"dead":
+			_input.dead = true
+		&"jump":
+			_input.on_floor = false
+			_input.velocity = Vector2(60.0 * facing, -120.0)

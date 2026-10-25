@@ -1,0 +1,827 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+ERROR: [MeleeSet] res://data/melee/test_no_such_attack_catalog.json/attacks must be an object; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ensure_loaded (res://game/player/melee_set.gd:51)
+       [1] validate (res://game/player/melee_set.gd:365)
+       [2] from_resources (res://core/weapon_catalog.gd:44)
+       [3] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:170)
+       [4] run (res://tests/suite/test_progression.gd:19)
+       [5] _run_suites (res://tests/smoke_test.gd:110)
+       [6] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/windup must be a finite number; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/damage exceeds supported magnitude 10000.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/guard_cost unknown field; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/knockback must have two finite numbers; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/shape must be a string; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/sweep must be boolean; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/trail/radius must be finite and positive; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/trail/arc must be finite and positive; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/trail/life must be finite and positive; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/trail/width must be finite and positive; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/trail/brightness must be finite and positive; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/sounds/hit unknown sound; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_catalog_corrupt/attacks/stab_1/test_catalog_unknown_field unknown field; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:206)
+       [2] run (res://tests/suite/test_progression.gd:19)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://tests/fixtures/test_no_such_attack_catalog_corrupt.json/attacks/broken/knockback must have two finite numbers; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ensure_loaded (res://game/player/melee_set.gd:51)
+       [1] validate (res://game/player/melee_set.gd:365)
+       [2] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:209)
+       [3] run (res://tests/suite/test_progression.gd:19)
+       [4] _run_suites (res://tests/smoke_test.gd:110)
+       [5] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://tests/fixtures/test_no_such_attack_catalog_corrupt.json/extension/attack must name a distinct tail; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ensure_loaded (res://game/player/melee_set.gd:51)
+       [1] validate (res://game/player/melee_set.gd:365)
+       [2] _test_corrupt_catalog_definitions (res://tests/suite/test_progression.gd:209)
+       [3] run (res://tests/suite/test_progression.gd:19)
+       [4] _run_suites (res://tests/smoke_test.gd:110)
+       [5] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponCatalog] user://test_catalog_missing_directory missing catalog directory
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_all (res://core/weapon_catalog.gd:23)
+       [1] _test_nested_catalog_resources (res://tests/suite/test_progression.gd:230)
+       [2] run (res://tests/suite/test_progression.gd:20)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponCatalog] user://test_catalog_missing_directory has no valid weapon definitions
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] load_all (res://core/weapon_catalog.gd:23)
+       [1] _test_nested_catalog_resources (res://tests/suite/test_progression.gd:230)
+       [2] run (res://tests/suite/test_progression.gd:20)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/advance exceeds supported magnitude 10000.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/range exceeds supported magnitude 512.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/height exceeds supported magnitude 512.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/windup exceeds supported magnitude 5.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/active exceeds supported magnitude 5.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/recovery exceeds supported magnitude 5.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/cancel_after exceeds supported magnitude 5.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/move_scale exceeds supported magnitude 1.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/damage exceeds supported magnitude 10000.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/stagger exceeds supported magnitude 1000.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/arc_degrees exceeds supported magnitude 360.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/min_range exceeds supported magnitude 512.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/guard_cost exceeds supported magnitude 100.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/hitstop exceeds supported magnitude 0.25; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/impact exceeds supported magnitude 100.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/knockback exceeds component magnitude 10000.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_numeric/attacks/stab_1/trail/radius exceeds supported magnitude 512.0; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:288)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_window/combo_window outside finite (0,2.0]; using 0.5
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] combo_window (res://game/player/melee_set.gd:103)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:294)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_extreme_tail/attacks/return_cut/advance exceeds supported magnitude 10000.0; refusing unsafe extension
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] combo (res://game/player/melee_set.gd:75)
+       [1] _test_extreme_numeric_definitions (res://tests/suite/test_progression.gd:300)
+       [2] run (res://tests/suite/test_progression.gd:21)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://test_no_such_attack_negative_guard_range/attacks/stab_1/guard_cost cannot be negative; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:132)
+       [1] _test_actual_schema_negative_guard (res://tests/suite/test_progression.gd:325)
+       [2] run (res://tests/suite/test_progression.gd:22)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["pellets/count outside 1–64"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:338)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["pellets/count outside 1–64"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:338)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["pellets/count outside 1–64"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:338)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] test_catalog_runtime/shot: ["pellets outside 1–64"]; refusing before shot costs/feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] can_fire (res://core/weapon_system.gd:26)
+       [1] fire (res://core/weapon_system.gd:12)
+       [2] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:343)
+       [3] run (res://tests/suite/test_progression.gd:23)
+       [4] _run_suites (res://tests/smoke_test.gd:110)
+       [5] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["speed must be finite in 0–10000.0"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:349)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["speed must be finite in 0–10000.0"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:350)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["knockback must be finite in 0–10000.0"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:349)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["knockback must be finite in 0–10000.0"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:350)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["speed_multiplier must be finite in (0,8.0]"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:352)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["speed_multiplier must be finite in (0,8.0]"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:353)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["speed_multiplier must be finite in (0,8.0]"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:352)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["speed_multiplier must be finite in (0,8.0]"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:353)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["speed_multiplier must be finite in (0,8.0]"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:352)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["speed_multiplier must be finite in (0,8.0]"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:353)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["speed_multiplier must be finite in (0,8.0]"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:352)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["speed_multiplier must be finite in (0,8.0]"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:353)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["origin components must be finite within +/- 1000000.0"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:355)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["direction components must be finite within +/- 1000000.0"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:356)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["origin components must be finite within +/- 1000000.0"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:355)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["direction components must be finite within +/- 1000000.0"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:356)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["origin components must be finite within +/- 1000000.0"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:355)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [ProjectilePool] ProjectileSpec test_catalog_runtime: ["direction components must be finite within +/- 1000000.0"]; refusing activation
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://autoload/projectile_pool.gd:38)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:356)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] test_catalog_runtime/muzzle_feedback: ["camera_kick must be finite in 0–512.0"]; refusing unsafe feedback
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] muzzle_feedback (res://core/weapon_system.gd:64)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:361)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["spread_degrees outside finite 0–360"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:364)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["spread_degrees outside finite 0–360"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:364)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["spread_degrees outside finite 0–360"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:364)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+ERROR: [WeaponSystem] ProjectileSpec test_catalog_runtime: ["spread_degrees outside finite 0–360"]; refusing spread
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] fire_spread (res://core/weapon_system.gd:95)
+       [1] _test_bounded_runtime_fire (res://tests/suite/test_progression.gd:364)
+       [2] run (res://tests/suite/test_progression.gd:23)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+SUITE_TIME ProgressionSuite 9.4
+SUITE_TIME Chapter2Suite 81.7
+WARNING: [PropLibrary] 找不到道具「no_such_prop」（res://data/environment/props）
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] find (res://core/prop_library.gd:14)
+         [1] _test_props (res://tests/suite/test_environment.gd:110)
+         [2] run (res://tests/suite/test_environment.gd:10)
+         [3] _run_suites (res://tests/smoke_test.gd:110)
+         [4] run (res://tests/suite/test_chapter2.gd:21)
+         [5] _test_difficulties (res://tests/suite/test_chapter2.gd:307)
+         [6] end_level (res://tests/suite/test_suite.gd:47)
+         [7] _end_level (res://tests/smoke_test.gd:634)
+         [8] _frames (res://tests/smoke_test.gd:125)
+ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/environment/props/test_missing_prop.png
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:187)
+       [1] texture (res://game/rig/rig_library.gd:86)
+       [2] load_texture (res://core/lit_textures.gd:20)
+       [3] _ready (res://game/level/environment/prop_node.gd:43)
+       [4] _test_missing_texture (res://tests/suite/test_environment.gd:172)
+       [5] run (res://tests/suite/test_environment.gd:14)
+       [6] _run_suites (res://tests/smoke_test.gd:110)
+       [7] run (res://tests/suite/test_chapter2.gd:21)
+       [8] _test_difficulties (res://tests/suite/test_chapter2.gd:307)
+       [9] end_level (res://tests/suite/test_suite.gd:47)
+       [10] _end_level (res://tests/smoke_test.gd:634)
+       [11] _frames (res://tests/smoke_test.gd:125)
+WARNING: [LevelBackground] 找不到天空貼圖，改用程式天空：res://art/environment/backdrop/test_missing_prop_sky.webp
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _add_photo_sky (res://game/level/level_background.gd:46)
+         [1] _ready (res://game/level/level_background.gd:24)
+         [2] _test_sky (res://tests/suite/test_environment.gd:199)
+         [3] run (res://tests/suite/test_environment.gd:15)
+         [4] _run_suites (res://tests/smoke_test.gd:110)
+         [5] run (res://tests/suite/test_chapter2.gd:21)
+         [6] _test_difficulties (res://tests/suite/test_chapter2.gd:307)
+         [7] end_level (res://tests/suite/test_suite.gd:47)
+         [8] _end_level (res://tests/smoke_test.gd:634)
+         [9] _frames (res://tests/smoke_test.gd:125)
+BG25_TEST_RESUME before=0.133424 after=0.150090
+WARNING: [PropNode] anchor_phone_booth__gutter_downpipe 局部水流 UV 無效，保留靜態圖
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _ready (res://game/level/environment/prop_node.gd:79)
+         [1] _test_local_water_flow (res://tests/suite/test_environment.gd:492)
+         [2] _motion_process_frames (res://tests/suite/test_environment.gd:500)
+WARNING: [PropNode] pawnshop_kitchen__kettle_stove 蒸汽散布無效，使用預設 2
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _ready (res://game/level/environment/prop_node.gd:70)
+         [1] _test_kettle_steam_anchor (res://tests/suite/test_environment.gd:522)
+         [2] _motion_process_frames (res://tests/suite/test_environment.gd:500)
+ERROR: [Foreground] 找不到前景貼圖，改用程式繪製的剪影：res://art/test_missing_prop_fg.webp
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _add_strip (res://game/level/environment/foreground_layer.gd:80)
+       [1] _test_foreground (res://tests/suite/test_environment.gd:329)
+       [2] run (res://tests/suite/test_environment.gd:21)
+       [3] _test_kettle_steam_anchor (res://tests/suite/test_environment.gd:525)
+       [4] _motion_process_frames (res://tests/suite/test_environment.gd:500)
+ERROR: [FixtureArt] 找不到固定物件貼圖，改用簡單畫法：res://art/environment/fixtures/test_missing_prop_fixture.png
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://game/props/fixture_art.gd:29)
+       [1] attach (res://game/props/fixture_art.gd:37)
+       [2] _test_fixture_art (res://tests/suite/test_environment.gd:600)
+       [3] run (res://tests/suite/test_environment.gd:26)
+       [4] _test_contact_shadow (res://tests/suite/test_environment.gd:568)
+       [5] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [PropReaction] res://data/environment/prop_reactions.json 沒有 test_missing_prop_reaction 這個反應，擺設維持原樣
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attach (res://game/level/environment/prop_reaction.gd:55)
+       [1] _test_prop_reaction (res://tests/suite/test_environment.gd:716)
+WARNING: [PropLibrary] 找不到道具「test_missing_prop_swap」（res://data/environment/scene_props/clinic）
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] find (res://core/prop_library.gd:14)
+         [1] _setup (res://game/level/environment/prop_reaction.gd:91)
+         [2] attach (res://game/level/environment/prop_reaction.gd:60)
+         [3] _test_prop_reaction (res://tests/suite/test_environment.gd:744)
+ERROR: [PropReaction] test_swap_bad 的 swap 要有 flag，而且 prop（test_missing_prop_swap）要在 res://data/environment/scene_props/clinic 裡；略過換樣子
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _setup (res://game/level/environment/prop_reaction.gd:93)
+       [1] attach (res://game/level/environment/prop_reaction.gd:60)
+       [2] _test_prop_reaction (res://tests/suite/test_environment.gd:744)
+ERROR: [PropReaction] test_missing_prop_dial 的 dial 沒有 flag，略過指針
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _setup (res://game/level/environment/prop_reaction.gd:85)
+       [1] attach (res://game/level/environment/prop_reaction.gd:60)
+       [2] _test_prop_reaction (res://tests/suite/test_environment.gd:768)
+WARNING: [PropNode] pawnshop_front__leak_bucket 滴水資料無效（出水口要在承接面上方、都在貼圖範圍內），保留靜態圖
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _ready (res://game/level/environment/prop_node.gd:87)
+         [1] _test_local_drip (res://tests/suite/test_environment.gd:847)
+         [2] frames (res://tests/suite/test_suite.gd:23)
+         [3] _frames (res://tests/smoke_test.gd:125)
+ERROR: [LampFlicker] 沒有「test_missing_prop_supply」這種供電狀況（res://data/environment/lamp_flicker.json），當成穩定
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://core/lamp_flicker.gd:261)
+       [1] state_for (res://core/lamp_flicker.gd:69)
+       [2] _test_lamp_flicker (res://tests/suite/test_environment.gd:975)
+       [3] run (res://tests/suite/test_environment.gd:31)
+       [4] _test_lamp_fixtures (res://tests/suite/test_environment.gd:929)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:634)
+       [7] _frames (res://tests/smoke_test.gd:125)
+ERROR: [EnemyGlow] 敵人「sweeper」找不到光要跟著的零件「test_missing_prop_bone」，改用相對於腳底的位置
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:187)
+       [1] report_once (res://game/rig/rig_library.gd:180)
+       [2] _place (res://game/enemies/enemy_glow.gd:117)
+       [3] _ready (res://game/enemies/enemy_glow.gd:51)
+       [4] attach (res://game/enemies/enemy_glow.gd:39)
+       [5] _build_components (res://game/enemies/enemy.gd:226)
+       [6] _ready (res://game/enemies/enemy.gd:145)
+       [7] _test_enemy_glow (res://tests/suite/test_environment.gd:1335)
+       [8] frames (res://tests/suite/test_suite.gd:23)
+       [9] _frames (res://tests/smoke_test.gd:125)
+SOFT_WHIP straightness max 0.965, largest one-frame straightening during the move 0.223, bow at reach 0.144, tip gap 4.6
+SUITE_TIME EnvironmentSuite 71.9
+ERROR: [NpcActor] 格 (34, 19)：人物 test_npc_bad 沒有任何對話
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/npc/npc_actor.gd:69)
+       [1] _spawn_static_entities (res://game/level/level.gd:512)
+       [2] _ready (res://game/level/level.gd:212)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] _test_fallbacks (res://tests/suite/test_npc.gd:688)
+       [6] run (res://tests/suite/test_npc.gd:28)
+       [7] _test_real_npcs (res://tests/suite/test_npc.gd:676)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:634)
+       [10] _frames (res://tests/smoke_test.gd:125)
+WARNING: [Story] 找不到劇情場景：test_no_such_scene
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _enqueue_request (res://autoload/story.gd:953)
+         [1] play_and_wait (res://autoload/story.gd:1004)
+         [2] _present_talk (res://game/npc/npc_actor.gd:283)
+         [3] _talk (res://game/npc/npc_actor.gd:265)
+         [4] _test_fallbacks (res://tests/suite/test_npc.gd:709)
+         [5] frames (res://tests/suite/test_suite.gd:23)
+         [6] _frames (res://tests/smoke_test.gd:125)
+SUITE_TIME NpcSuite 42.4
+WARN 旗標「ch1_complete」只有人寫、沒有人讀（場景 ch1_c14_home 的段尾結果）：伏筆還是漏接？
+WARN 旗標「ch1_labels_started」只有人寫、沒有人讀（res://data/story/ch1_kasa.json 的衍生旗標）：伏筆還是漏接？
+WARN 旗標「ch1_lounge_ordered」只有人寫、沒有人讀（res://data/story/ch1_kasa.json 的衍生旗標）：伏筆還是漏接？
+WARN 旗標「ch1_lounge_tab_settled」只有人寫、沒有人讀（res://data/story/ch1_kasa.json 的衍生旗標）：伏筆還是漏接？
+WARN 旗標「ch1_prologue_high_shot_done」只有人寫、沒有人讀（res://data/props/ch1_training_target_high.tres 的訓練站）：伏筆還是漏接？
+WARN 旗標「ch1_street_route_open」只有人寫、沒有人讀（res://data/levels/ch1_street.tres 的機關頻道）：伏筆還是漏接？
+WARN 旗標「ch2_previous_job_settled」只有人寫、沒有人讀（res://data/story/ch1_kasa.json 的衍生旗標）：伏筆還是漏接？
+WARN 旗標「ch3_l2_route_announced」只有人寫、沒有人讀（場景 ch3_t_c21_route 的段尾結果）：伏筆還是漏接？
+WARN 旗標「ch3_mezzanine_reached」只有人寫、沒有人讀（場景 ch3_c03_arrive 的段尾結果）：伏筆還是漏接？
+WARN 旗標「ch3_shore_closed」只有人寫、沒有人讀（場景 ch3_t_c23_agreed 的段尾結果）：伏筆還是漏接？
+WARN 旗標「ch3_sunlight_reached」只有人寫、沒有人讀（場景 ch3_c13_arrive 的段尾結果）：伏筆還是漏接？
+WARN 旗標「ch3_told_egret_trade」只有人寫、沒有人讀（場景 ch3_t_c23_tell 的段尾結果）：伏筆還是漏接？
+WARN 旗標「egret_restoration_count」只有人寫、沒有人讀（場景 ch2_t_s14_quiet 的段尾結果）：伏筆還是漏接？
+WARN 旗標「harbor_walk_ready」只有人寫、沒有人讀（場景 ch2_t_s22_greycoat 的段尾結果）：伏筆還是漏接？
+WARN 旗標「has_grey_cloth」只有人寫、沒有人讀（場景 ch1_t_clinic_cloth_take 的段尾結果）：伏筆還是漏接？
+WARN 旗標「sq1_soup_practice_done」只有人寫、沒有人讀（場景 ch2_t_s07_soup 的段尾結果）：伏筆還是漏接？
+WARN 旗標「sq4_broadcast_heard」只有人寫、沒有人讀（場景 ch2_t_s02_saved 的段尾結果、場景 ch2_t_s02_off 的段尾結果）：伏筆還是漏接？
+WARN 旗標「sq8_first_labels_done」只有人寫、沒有人讀（res://data/story/ch1_kasa.json 的衍生旗標）：伏筆還是漏接？
+WARN 旗標「watchdog_defeated」只有人寫、沒有人讀（res://data/levels/ch1_warehouse.tres 的機關頻道）：伏筆還是漏接？
+WARN 旗標「xiaowei_read_count」只有人寫、沒有人讀（場景 ch2_t_s12_keep_revival 的段尾結果）：伏筆還是漏接？
+WARN 旗標「xiaowei_yellow_umbrella_recognized」只有人寫、沒有人讀（場景 ch2_t_s12_keep_revival 的段尾結果）：伏筆還是漏接？
+WARN 場景「c2_boss_intro」沒有任何地方引用
+WARN 場景「c2_epilogue」沒有任何地方引用
+WARN 場景「c2_memory」沒有任何地方引用
+WARN 場景「c2_prologue」沒有任何地方引用
+WARN 場景「ch1_g10_disk_missing」沒有任何地方引用
+WARN 場景「ch1_g10_disk_unclaimed」沒有任何地方引用
+WARN 場景「ch1_t_booth_recording」沒有任何地方引用
+WARN 場景「ch1_t_egret_2」沒有任何地方引用
+WARN 場景「ch1_t_egret_sunday_revisit」沒有任何地方引用
+WARN 場景「ch1_t_home_revisit」沒有任何地方引用
+WARN 場景「ch2_dispatch_s01_reaction」沒有任何地方引用
+WARN 場景「epilogue」沒有任何地方引用
+WARN 場景「radio_arm」沒有任何地方引用
+ERROR: [Level] ch1_stall 沒有電話亭可登記復原點（res://data/levels/ch1_stall_map.json），重生會退回區域起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _register_nearest_checkpoint (res://game/level/level.gd:1005)
+       [1] _run_death_scene (res://game/level/level.gd:994)
+       [2] _play_flow_scene (res://game/level/level.gd:1234)
+       [3] play_and_wait (res://autoload/story.gd:1012)
+       [4] _complete_request (res://autoload/story.gd:1023)
+       [5] _on_cinematic_finished (res://autoload/story.gd:1102)
+       [6] _finish_auto_skip (res://autoload/story.gd:1069)
+WARNING: [Story] 找不到劇情場景：test_no_such_scene
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _enqueue_request (res://autoload/story.gd:953)
+         [1] play_and_wait (res://autoload/story.gd:1004)
+         [2] _play_flow_scene (res://game/level/level.gd:1233)
+         [3] _run_death_scene (res://game/level/level.gd:990)
+         [4] _test_death_matrix (res://tests/suite/test_continuity.gd:313)
+         [5] spawn_level (res://tests/suite/test_suite.gd:43)
+         [6] frames (res://tests/suite/test_suite.gd:23)
+         [7] _frames (res://tests/smoke_test.gd:125)
+ERROR: [Level] ch1_booth_alley 的復原點位置無效（(0.0, 0.0)，地圖範圍 [P: (0.0, 0.0), S: (896.0, 384.0)]），改用最近的電話亭或起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _checked_checkpoint_position (res://game/level/level.gd:877)
+       [1] _entry_position (res://game/level/level.gd:867)
+       [2] _spawn_player (res://game/level/level.gd:823)
+       [3] _ready (res://game/level/level.gd:214)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] _test_lost_checkpoint_field (res://tests/suite/test_continuity.gd:207)
+       [6] run (res://tests/suite/test_continuity.gd:21)
+       [7] _test_death_matrix (res://tests/suite/test_continuity.gd:316)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:634)
+       [10] _frames (res://tests/smoke_test.gd:125)
+ERROR: [Level] ch1_booth_alley 的復原點位置無效（(-500.0, 100.0)，地圖範圍 [P: (0.0, 0.0), S: (896.0, 384.0)]），改用最近的電話亭或起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _checked_checkpoint_position (res://game/level/level.gd:877)
+       [1] _entry_position (res://game/level/level.gd:867)
+       [2] _spawn_player (res://game/level/level.gd:823)
+       [3] _ready (res://game/level/level.gd:214)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] _test_lost_checkpoint_field (res://tests/suite/test_continuity.gd:207)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:634)
+       [8] _frames (res://tests/smoke_test.gd:125)
+ERROR: [Level] ch1_booth_alley 的復原點位置無效（(99999.0, 99999.0)，地圖範圍 [P: (0.0, 0.0), S: (896.0, 384.0)]），改用最近的電話亭或起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _checked_checkpoint_position (res://game/level/level.gd:877)
+       [1] _entry_position (res://game/level/level.gd:867)
+       [2] _spawn_player (res://game/level/level.gd:823)
+       [3] _ready (res://game/level/level.gd:214)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] _test_lost_checkpoint_field (res://tests/suite/test_continuity.gd:207)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:634)
+       [8] _frames (res://tests/smoke_test.gd:125)
+ERROR: [Level] ch1_stall 的復原點位置無效（(0.0, 0.0)，地圖範圍 [P: (0.0, 0.0), S: (768.0, 384.0)]），改用最近的電話亭或起點
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _checked_checkpoint_position (res://game/level/level.gd:877)
+       [1] _entry_position (res://game/level/level.gd:867)
+       [2] _spawn_player (res://game/level/level.gd:823)
+       [3] _ready (res://game/level/level.gd:214)
+       [4] spawn_level (res://tests/suite/test_suite.gd:41)
+       [5] _test_lost_checkpoint_field (res://tests/suite/test_continuity.gd:217)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:634)
+       [8] _frames (res://tests/smoke_test.gd:125)
+SUITE_TIME ContinuitySuite 72.9
+LEGACY_GRIP trooper_elite/rifle facing 1 speed 46.0 front=0.000 back=0.000
+LEGACY_GRIP trooper_elite/rifle facing 1 speed 92.0 front=0.000 back=0.000
+LEGACY_GRIP trooper_elite/rifle facing -1 speed 46.0 front=0.000 back=0.000
+LEGACY_GRIP trooper_elite/rifle facing -1 speed 92.0 front=0.000 back=0.000
+LEGACY_GRIP flamer/flamethrower facing 1 speed 28.0 front=0.000 back=0.000
+LEGACY_GRIP flamer/flamethrower facing 1 speed 56.0 front=0.000 back=0.000
+LEGACY_GRIP flamer/flamethrower facing -1 speed 28.0 front=0.000 back=0.000
+LEGACY_GRIP flamer/flamethrower facing -1 speed 56.0 front=0.000 back=0.000
+LEGACY_GRIP grenadier/launcher facing 1 speed 55.0 front=0.000 back=0.000
+LEGACY_GRIP grenadier/launcher facing 1 speed 110.0 front=0.000 back=0.000
+LEGACY_GRIP grenadier/launcher facing -1 speed 55.0 front=0.000 back=0.000
+LEGACY_GRIP grenadier/launcher facing -1 speed 110.0 front=0.000 back=0.000
+LEGACY_GRIP sniper/sniper facing 1 speed 22.0 front=0.000 back=0.000
+LEGACY_GRIP sniper/sniper facing 1 speed 44.0 front=0.000 back=0.000
+LEGACY_GRIP sniper/sniper facing -1 speed 22.0 front=0.000 back=0.000
+LEGACY_GRIP sniper/sniper facing -1 speed 44.0 front=0.000 back=0.000
+LEGACY_GRIP stalker/rifle facing 1 speed 46.0 front=0.000 back=0.000
+LEGACY_GRIP stalker/rifle facing 1 speed 92.0 front=0.000 back=0.000
+LEGACY_GRIP stalker/rifle facing -1 speed 46.0 front=0.000 back=0.000
+LEGACY_GRIP stalker/rifle facing -1 speed 92.0 front=0.000 back=0.000
+SUITE_TIME ProtagonistMotionSuite 1.8
+SUITE_TIME PhoneBoothSuite 17.3
+WORM_TURN_METRICS max_visible_uv_step=3.70000123977661 opposing_tail_samples=3
+ERROR: [RigLibrary] 無法讀取定義檔：res://art/creatures/no_such_creature.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:187)
+       [1] load_json (res://game/rig/rig_library.gd:26)
+       [2] setup (res://game/creature/chain_creature.gd:80)
+       [3] _test_bad_data_is_safe (res://tests/suite/test_chain_creature.gd:281)
+       [4] run (res://tests/suite/test_chain_creature.gd:22)
+       [5] _test_severing (res://tests/suite/test_chain_creature.gd:275)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:634)
+       [8] _frames (res://tests/smoke_test.gd:125)
+SUITE_TIME ChainCreatureSuite 25.7
+SUITE_TIME WorldPromptSuite 3.1
+SUITE_TIME FloodPitSuite 6.2
+checks: 12498, failures: 0

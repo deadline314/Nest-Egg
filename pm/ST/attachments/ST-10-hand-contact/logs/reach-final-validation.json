@@ -1,0 +1,18 @@
+{
+  "base": "00f6e6c4f09df6a4cfce048d8d4b6ce3971061db",
+  "groups": 76,
+  "checks": 94561,
+  "new_failures": 0,
+  "known_failures": 0,
+  "wall_seconds": 510,
+  "source_final_sha256": {
+    "game/cutscene/cutscene_checker.gd": "a371c93d2820b4c4e8269243730845a7b7458f6b1bcddd4353335bf300fcb4be",
+    "game/cutscene/cutscene_actor.gd": "77f0c9b775fb3d8310c3eb9269ca5cfc88320ba1996fa9714101a348f633cd27",
+    "game/cutscene/cutscene_reach.gd": "47a0c2390f1a41be6a87dcfde6165f03dcf194ad10e3d718519e8a367fe5e060",
+    "game/cutscene/cutscene_player.gd": "06045962fae07cb5e65f67e4abcd964e603a140b7c4cd0ea2f3c93e6329137b1",
+    "game/rig/character_rig.gd": "e564edcd3f893f4680cb4d574011f62f6fee12b3a817ff4e2e41f6f6018355d3",
+    "game/rig/humanoid_animator.gd": "f12583b24dee1237a0a274bb1f8113449bf2e0b80a33c3a6161fdd2f448f2116",
+    "tests/suite/test_cutscene.gd": "203f69ad6f9a97508c1d76280e7583fc6aaf3f8a214d8fcdfce345cb4b2d83f9",
+    "tests/helpers/cutscene_reach_checks.gd": "de683144928a0c6ea14465e4773cd5650e6ea4bf432bfbc5cc4fcceacbd63de9"
+  }
+}

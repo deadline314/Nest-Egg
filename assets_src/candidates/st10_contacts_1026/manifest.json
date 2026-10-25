@@ -1,0 +1,215 @@
+{
+  "date": "2026-10-26 Asia/Taipei",
+  "provider": "image_gen tool; original outputs copied byte-for-byte",
+  "files": [
+    {
+      "file": "kettle-open-generated.png",
+      "bytes": 981061,
+      "sha256": "1f2aa45c092f0380e9f0d8e78b8e116c312d448a32791070ef754ffa14bbc20f",
+      "actual_size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_threshold_bounds": {
+        "0": [
+          0,
+          0,
+          1230,
+          1234
+        ],
+        "8": [
+          64,
+          174,
+          1228,
+          1082
+        ],
+        "25": [
+          64,
+          175,
+          1228,
+          1081
+        ],
+        "127": [
+          65,
+          175,
+          1227,
+          1081
+        ]
+      },
+      "status": "unadopted candidate",
+      "seed": null,
+      "model": null,
+      "job": null
+    },
+    {
+      "file": "water-urn-blank-generated.png",
+      "bytes": 1178834,
+      "sha256": "025b76e9c815fe7338245e5cc87b6979621c6425c65366dfd7559fe1a5200fd6",
+      "actual_size": [
+        1086,
+        1448
+      ],
+      "mode": "RGBA",
+      "alpha_threshold_bounds": {
+        "0": [
+          0,
+          87,
+          1068,
+          1410
+        ],
+        "8": [
+          87,
+          89,
+          997,
+          1394
+        ],
+        "25": [
+          87,
+          90,
+          997,
+          1392
+        ],
+        "127": [
+          88,
+          90,
+          996,
+          1391
+        ]
+      },
+      "status": "unadopted candidate",
+      "seed": null,
+      "model": null,
+      "job": null
+    },
+    {
+      "file": "water-urn-open-generated.png",
+      "bytes": 1195486,
+      "sha256": "99c605159f954f6b8a8b988e950001ba8c91b1c8613de6501317b3104155693c",
+      "actual_size": [
+        1086,
+        1448
+      ],
+      "mode": "RGBA",
+      "alpha_threshold_bounds": {
+        "0": [
+          9,
+          86,
+          1048,
+          1424
+        ],
+        "8": [
+          108,
+          89,
+          1009,
+          1396
+        ],
+        "25": [
+          108,
+          89,
+          1009,
+          1394
+        ],
+        "127": [
+          109,
+          90,
+          1009,
+          1394
+        ]
+      },
+      "status": "unadopted: whole-body state switch drifts; use independent lever rather than switching entire jar",
+      "seed": null,
+      "model": null,
+      "job": null
+    },
+    {
+      "file": "water-urn-tap-generated.png",
+      "bytes": 1228993,
+      "sha256": "00e5000eec19a18d81e74e121f9de5c4ec5e096ef891b6c23c23eda14ac50e60",
+      "actual_size": [
+        1086,
+        1448
+      ],
+      "mode": "RGBA",
+      "alpha_threshold_bounds": {
+        "0": [
+          0,
+          39,
+          1074,
+          1448
+        ],
+        "8": [
+          86,
+          89,
+          990,
+          1391
+        ],
+        "25": [
+          86,
+          90,
+          990,
+          1391
+        ],
+        "127": [
+          86,
+          90,
+          990,
+          1390
+        ]
+      },
+      "status": "rejected: generated tag contains meaningless writing; retained as source history",
+      "seed": null,
+      "model": null,
+      "job": null
+    }
+  ],
+  "generation_order": [
+    "water-urn-tap-generated.png",
+    "kettle-open-generated.png",
+    "water-urn-blank-generated.png",
+    "water-urn-open-generated.png"
+  ],
+  "requested_canvas": {
+    "water-urn-tap-generated.png": [
+      768,
+      1024
+    ],
+    "kettle-open-generated.png": [
+      1254,
+      1254
+    ],
+    "water-urn-blank-generated.png": [
+      1086,
+      1448
+    ],
+    "water-urn-open-generated.png": [
+      1086,
+      1448
+    ]
+  },
+  "references": {
+    "water-urn-tap-generated.png": "art/environment/scene_props/pawnshop_kitchen/pawnshop_kitchen__water_urn.png",
+    "kettle-open-generated.png": "assets_src/candidates/st10_contacts_1022/kettle-generated.png",
+    "water-urn-blank-generated.png": "water-urn-tap-generated.png",
+    "water-urn-open-generated.png": "water-urn-blank-generated.png"
+  },
+  "notes": [
+    "No adopted art, normal, glow, import or full action acceptance.",
+    "Reference prompts do not guarantee unchanged pixels. Jar states visibly drift; no pixel preservation claim.",
+    "Kettle original and open output both use actual 1254 square canvas. Preserve canvas instead of trimming each state independently, then verify handle/body anchors.",
+    "Raw alpha>0 can include residue; use measured visible parts for contact."
+  ],
+  "transparent_background": true,
+  "reference_sha256": {
+    "water-urn-tap-generated.png": "907224cf90a80e0a2c763c35d18226e52e6b0098e3e0b6168cd28164dbe97151",
+    "kettle-open-generated.png": "94d461c6b4687ef59771ea65f187d3e094bf8c5adb69e715c18e201bd113100c",
+    "water-urn-blank-generated.png": "00e5000eec19a18d81e74e121f9de5c4ec5e096ef891b6c23c23eda14ac50e60",
+    "water-urn-open-generated.png": "025b76e9c815fe7338245e5cc87b6979621c6425c65366dfd7559fe1a5200fd6"
+  },
+  "original_tool_outputs": {
+    "water-urn-tap-generated.png": "/workspace/generated_images/exec-0bc380de-deb9-41bf-90e6-bf17b828261a.png",
+    "kettle-open-generated.png": "/workspace/generated_images/exec-c885ede8-d09b-4e28-a4a8-99dd4b9b12d9.png",
+    "water-urn-blank-generated.png": "/workspace/generated_images/exec-8a1270e1-d769-4341-ab00-80c98c5cbcec.png",
+    "water-urn-open-generated.png": "/workspace/generated_images/exec-66688d44-f2f2-4bba-b587-0bab44bf10bd.png"
+  }
+}

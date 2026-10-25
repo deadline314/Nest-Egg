@@ -1123,7 +1123,36 @@ func _solve_melee_path(input: RigInput) -> void:
 		bone.rotation = wrapf(lerp_angle(before[i], bone.rotation, w), -PI, PI)
 
 
-## 雙手的近戰招式：武器這一格的位置定了之後，後手去握桿上的那一點（骨架座標）。搆不到回傳 false、手不動。
+## 指定一隻手接觸骨架空間的目標；固定骨長，搆不到便保留整條手臂。
+func place_hand(which: StringName, target: Vector2, hand_angle: float, weight := 1.0) -> bool:
+	if (which != &"front" and which != &"back") or not target.is_finite() or not is_finite(hand_angle) or not is_finite(weight):
+		return false
+	var chain: Array = ARM_CHAINS[0 if which == &"front" else 1]
+	for name: StringName in chain:
+		if not _rig.has_bone(name):
+			return false
+	if not _global_pos.has(chain[0]):
+		return false
+	var wrist := target - _rig.hand_grip_offset(chain[2]).rotated(hand_angle)
+	var upper := _rig.rest(chain[1]).length()
+	var lower := _rig.rest(chain[2]).length()
+	var distance := wrist.distance_to(_global_pos[chain[0]])
+	# 拒絕 IK 自動夾住而假裝接觸；保持兩段骨長，也避免完全打直的奇異點。
+	if distance > upper + lower - 0.01 or distance < absf(upper - lower) + 0.01:
+		return false
+	var before_upper := _rig.bone(chain[0]).rotation
+	var before_lower := _rig.bone(chain[1]).rotation
+	var before_hand := _rig.bone(chain[2]).rotation
+	_reach_arm(chain[0], chain[1], chain[2], wrist, hand_angle)
+	var blend := clampf(weight, 0.0, 1.0)
+	_rig.bone(chain[0]).rotation = wrapf(lerp_angle(before_upper, _rig.bone(chain[0]).rotation, blend), -PI, PI)
+	_rig.bone(chain[1]).rotation = wrapf(lerp_angle(before_lower, _rig.bone(chain[1]).rotation, blend), -PI, PI)
+	_rig.bone(chain[2]).rotation = wrapf(lerp_angle(before_hand, _rig.bone(chain[2]).rotation, blend), -PI, PI)
+	_forward_chain(chain)
+	return true
+
+
+## 雙手近戰武器的後手握點；保留原本的可達範圍判斷。
 func place_second_hand(target: Vector2, hand_angle: float) -> bool:
 	if not (_rig.has_bone(&"arm_back_upper") and _rig.has_bone(&"arm_back_lower") and _rig.has_bone(&"hand_back")) or not _global_pos.has(&"arm_back_upper"):
 		return false

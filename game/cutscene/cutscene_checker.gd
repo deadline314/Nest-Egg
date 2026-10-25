@@ -25,6 +25,7 @@ const STEP_FIELDS: Dictionary = {
 	"face": ["id", "dir"],
 	"remove": ["id"],
 	"prop": ["id", "state"],
+	"reach": ["id", "hand"],
 	"say": ["speaker", "text"],
 	"narrate": ["lines"],
 	"title": ["text"],
@@ -52,7 +53,7 @@ const HEAD_MARGIN := 2.0
 const SETTLED_STEPS: PackedStringArray = ["say", "wait", "narrate", "choice", "title"]
 const POSE_HEIGHT := {"sit": 0.8, "crouch": 0.7, "squat": 0.7, "kneel": 0.7, "lean": 0.95, "dead": 0.3}
 ## 這些步驟需要先有舞台。
-const NEEDS_STAGE: PackedStringArray = ["camera", "actor", "pose", "move", "face", "remove", "prop"]
+const NEEDS_STAGE: PackedStringArray = ["camera", "actor", "pose", "move", "face", "remove", "prop", "reach"]
 
 
 ## 檢查一份動畫場景。speakers 是講者表（Story 的合併結果）。
@@ -95,6 +96,8 @@ static func validate(scene_id: String, scene: Dictionary, speakers: Dictionary) 
 		if NEEDS_STAGE.has(kind) and not has_stage:
 			problems.append("%s（%s）之前沒有指定場景" % [where, kind])
 		for time_key in ["time", "delay"]:
+			if kind == "reach":
+				continue  # reach 先檢查型別與有限值，不能把損毀字串轉成 float。
 			if step.has(time_key):
 				var t := float(step[time_key])
 				if t < 0.0 or t > MAX_TIME:
@@ -122,6 +125,10 @@ static func validate(scene_id: String, scene: Dictionary, speakers: Dictionary) 
 					problems.append_array(_check_prop(where, current_stage, id, initial[id]))
 		elif kind == "prop" and has_stage:
 			problems.append_array(_check_prop(where, current_stage, step.get("id"), step.get("state")))
+		elif kind == "reach":
+			var issue := CutsceneReach.problem(step)
+			if not issue.is_empty():
+				problems.append(where + ": " + issue)
 	if says > MAX_SAYS:
 		problems.append("動畫場景 %s 有 %d 句台詞，上限 %d 句" % [scene_id, says, MAX_SAYS])
 	if scene.has("budget"):
@@ -170,6 +177,9 @@ static func estimate_seconds(scene: Dictionary) -> float:
 				total += float(step.get("time", 0.5))
 			"scene":
 				total += float(step.get("fade", 0.0))
+			"reach":
+				if step.get("wait", true) and CutsceneReach.problem(step).is_empty():
+					total += float(step.get("time", CutsceneReach.DEFAULT_TIME))
 			"move", "camera":
 				if bool(step.get("wait", false)):
 					total += float(step.get("time", 1.0))
@@ -296,7 +306,7 @@ static func _check_step(where: String, kind: String, step: Dictionary, defined: 
 					problems.append("%s 的 seat_sag 必須是 0..0.9 的有限數字" % where)
 			if step.has("layer") and (int(step["layer"]) < 0 or int(step["layer"]) >= WorldLayers.MAX_STAGE_ACTORS):
 				problems.append("%s 的圖層組 layer 要在 0 到 %d 之間" % [where, WorldLayers.MAX_STAGE_ACTORS - 1])
-		"pose", "move", "face", "remove":
+		"pose", "move", "face", "remove", "reach":
 			var id := str(step.get("id", ""))
 			if not defined.has(id):
 				problems.append("%s 引用了尚未出現的角色「%s」" % [where, id])

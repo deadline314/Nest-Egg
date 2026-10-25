@@ -83,6 +83,7 @@ func _init() -> void:
 		"fade": _do_fade, "transition": _do_transition, "end": _do_end,
 		"choice": _do_choice, "branch": _do_branch,
 		"prop": _do_prop,
+		"reach": _do_reach,
 	}
 
 
@@ -369,6 +370,22 @@ static func _vec(value: Variant, fallback: Vector2) -> Vector2:
 # ---------------------------------------------------------------------------
 # 步驟
 # ---------------------------------------------------------------------------
+
+func _do_reach(step: Dictionary) -> void:
+	var issue := CutsceneReach.problem(step)
+	if not issue.is_empty():
+		push_error("[Cutscene] %s: %s" % [_current_where, issue])
+		return
+	var actor := _need_actor(step)
+	if actor == null:
+		return
+	if not actor.set_hand_target(step):
+		push_error("[Cutscene] %s: reach requires a rigged actor" % _current_where)
+		return
+	actor.reach_speed = speed
+	if step.get("wait", true):
+		await _wait_time(float(step.get("time", CutsceneReach.DEFAULT_TIME)))
+
 
 func _do_prop(step: Dictionary) -> void:
 	if _stage == null or not _stage.set_prop_state(str(step.get("id", "")), str(step.get("state", ""))):
