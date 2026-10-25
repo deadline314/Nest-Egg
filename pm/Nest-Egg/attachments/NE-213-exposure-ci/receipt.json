@@ -1,0 +1,36 @@
+{
+  "base": "b0c2594bdd8f4b488902691dcb9d15723e47de5f",
+  "engine": "4.7.2-stable ed1daf0bf",
+  "ci": {
+    "run": 40242429528,
+    "job": 121316895949,
+    "checks": 97881,
+    "new_failures": 1,
+    "known_failures": 0,
+    "wall_seconds": 662,
+    "conclusion": "failure",
+    "flash_at_ci_failure": null
+  },
+  "original_local": {
+    "checks": 223,
+    "new_failures": 0,
+    "wall_seconds": 21
+  },
+  "final_changed": {
+    "checks": 226,
+    "new_failures": 0,
+    "known_failures": 0
+  },
+  "negative": {
+    "checks": 10,
+    "expected_failures": 3,
+    "exit": 1
+  },
+  "runtime_changes": false,
+  "visual_acceptance": false,
+  "archive": {
+    "bytes": 68703,
+    "sha256": "ba63da2bbe65a0fabe015cb29ac28105ab31a9ad38ef2e4c309a44c3e58a44ee"
+  },
+  "note": "The CI log lacks the sampled flash state. Forced full flash reproduces the same equal-fill observation; this is not proof of the historical random event."
+}

@@ -144,7 +144,12 @@ func _test_enemy_fill_is_separate() -> void:
 	var data := NewEnemiesSuite.arena_data()
 	var zone := LightingZone.new()
 	zone.start_tile = 0
-	zone.profile = load("res://data/lighting/warehouse_interior.tres")
+	var source := load("res://data/lighting/warehouse_interior.tres") as LightingProfile
+	# This assertion describes the unflashed interior. Random lightning can correctly
+	# reduce both fills to 1 during the sample. Isolate only this fixture's weather;
+	# exercise the transient and recovery explicitly below without changing the source.
+	zone.profile = source.duplicate(true) as LightingProfile
+	zone.profile.lightning_rate = 0.0
 	data.lighting_zones = [zone]
 	var level := await start_level(data)
 	var enemy := level._create_enemy(load("res://data/enemies/grunt.tres") as EnemyData)
@@ -153,10 +158,27 @@ func _test_enemy_fill_is_separate() -> void:
 	await physics_frames(150)
 	var profile := zone.profile as LightingProfile
 	check(profile.enemy_fill_scale < 1.0 and profile.validate().is_empty(), "the warehouse interior asks for dimmer enemies and is valid data")
+	if not (LightKit.character_fill > 1.0 and LightKit.enemy_fill < LightKit.character_fill and LightKit.enemy_fill >= 1.0):
+		print("EXPOSURE_SAMPLE %s" % JSON.stringify({"profile":profile.id, "ambient":LightKit.ambient_luma,
+			"flash":level._lighting.flash_level(), "character_fill":LightKit.character_fill,
+			"enemy_fill":LightKit.enemy_fill, "enemy_fill_scale":profile.enemy_fill_scale}))
 	check(LightKit.character_fill > 1.0 and LightKit.enemy_fill < LightKit.character_fill and LightKit.enemy_fill >= 1.0,
 			"enemies get less fill than the player but never less than the scene (%.2f vs %.2f)" % [LightKit.enemy_fill, LightKit.character_fill])
 	check(enemy.rig != null and is_equal_approx(enemy.rig._fill, LightKit.enemy_fill), "an enemy's body uses the enemy fill")
 	check(is_equal_approx(level.player._visual.rig._fill, LightKit.character_fill), "the player's body keeps the character fill")
+	check(source.lightning_rate > 0.0 and source != profile, "the steady-light fixture keeps the authored storm profile unchanged")
+	var baseline_fill := LightKit.character_fill
+	level._lighting.flash(Color.WHITE, 1.0, 0.18)
+	level._lighting.snap()
+	var flashed_fill := clampf(profile.character_floor / LightKit.ambient_luma, 1.0, MAX_FILL)
+	check(level._lighting.flash_level() > 0.0 and is_equal_approx(LightKit.character_fill, flashed_fill)
+			and is_equal_approx(LightKit.enemy_fill, maxf(1.0, flashed_fill * profile.enemy_fill_scale))
+			and LightKit.character_fill < baseline_fill,
+			"a real flash reduces compensation while preserving the enemy fill floor")
+	await physics_frames(20)
+	check(is_zero_approx(level._lighting.flash_level()) and is_equal_approx(LightKit.character_fill, baseline_fill)
+			and LightKit.enemy_fill < LightKit.character_fill and LightKit.enemy_fill >= 1.0,
+			"after the flash the original dark-interior fill separation returns")
 	var plain := LightingProfile.new()
 	plain.ambient_color = Color(0.1, 0.1, 0.1)
 	plain.character_floor = 0.4

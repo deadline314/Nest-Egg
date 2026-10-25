@@ -1,0 +1,54 @@
+{
+  "logs/ci-b0c2594b-job121316895949.log": {
+    "bytes": 456659,
+    "sha256": "eff0808b33ba8efacdb81cee91a47e4bda152bb0dddc15925acdbffb707f7389"
+  },
+  "logs/final/shard_0.log": {
+    "bytes": 154,
+    "sha256": "a90cd7884fa9347de09247578db4388cbae6dcaf7e6e67f35f5593234beef027"
+  },
+  "logs/meal-ci-exposure-original.log": {
+    "bytes": 197,
+    "sha256": "1cfd2f47905ce02b629eaac05c4b8ed32bfbd27fd6951b5e22ce443455445f67"
+  },
+  "logs/ne213-ci-affected.log": {
+    "bytes": 272,
+    "sha256": "79d06972fdac0c2ab381799334b7c82071bb6b3533645575944300756147a777"
+  },
+  "logs/ne213-ci-final-changed.log": {
+    "bytes": 269,
+    "sha256": "a81e9a5b7014c3110ae21276d1198f9ce870b7c4ec10be59527e30b3f1929304"
+  },
+  "logs/ne213-ci-flash-control.log": {
+    "bytes": 492,
+    "sha256": "643e311a77ebc658622ede3ce38b08086d230c849d0776a0dbdf48a094872b65"
+  },
+  "logs/ne213-ci-negative.log": {
+    "bytes": 506,
+    "sha256": "aaee338766d7ba270bab551b5bafe69506e2daa9f4cca66da8105a423dcf27ea"
+  },
+  "source/after/test_exposure.gd": {
+    "bytes": 20511,
+    "sha256": "0b2808bf434cf4911cb0c8cc800aa23c78b2426169482bfded5cc68677e73d2e"
+  },
+  "source/before/test_exposure.gd": {
+    "bytes": 18799,
+    "sha256": "b0056374771c6010d18a133bdd5e43348118ea3f92a3bcd5b2189bf7593c1268"
+  },
+  "source/probes/negative.gd": {
+    "bytes": 397,
+    "sha256": "c6c8435de56fad938fc3f11a0c553a57ddc96ea004ae51328e1cae67f4fbc924"
+  },
+  "source/probes/negative.tscn": {
+    "bytes": 171,
+    "sha256": "9f5c63eaf8befba3506fdab1e3cfed9a59ee358e327a29b2d87f0556f7012d42"
+  },
+  "source/probes/probe.gd": {
+    "bytes": 1211,
+    "sha256": "117f458410c516d8743f2943f99f09eae0ecdd8f16b3597529cf3302da316d2d"
+  },
+  "source/probes/probe.tscn": {
+    "bytes": 165,
+    "sha256": "e38d7ad833bdc09cd43bf42593067d4ee50e38b31b4671caaf22f026b6adefc3"
+  }
+}
