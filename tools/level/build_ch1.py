@@ -1005,7 +1005,7 @@ def build_stall():
     a.trigger(12, 'ch1_b_stall')
     a.stand(21, 'Q')
     a.prop('dawn_noodle_stall__ali_noodle_cart', 18)
-    a.prop('dawn_noodle_stall__noodle_bowls_table', 26)
+    a.prop('dawn_noodle_stall__noodle_bowls_table', 26, react='noodle_meal')
     a.prop('dawn_noodle_stall__stool_stack', 32)
     a.prop('dawn_noodle_stall__hanging_lantern', 22, y=12)
     a.prop('dawn_noodle_stall__dawn_string_lights', 14, y=10)

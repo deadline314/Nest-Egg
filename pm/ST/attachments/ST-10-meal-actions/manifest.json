@@ -1,0 +1,3132 @@
+{
+  "archive": "raw.zip",
+  "bytes": 57188581,
+  "sha256": "b92a8519870a2ca25173da7d16c4cfe8deee41bbf2ba7875e6231f455a6fb904",
+  "entries": [
+    {
+      "path": "assets/story_staging_art-receipt.json",
+      "bytes": 6773,
+      "sha256": "84fe8918ad208d2f40b56e6b8b6d674881f74d87777afd7eb82f4d5656dc309f"
+    },
+    {
+      "path": "dependencies/assets_src/pipeline/grade_master.json",
+      "bytes": 599,
+      "sha256": "3782ddfa24920aeebe906ae37d3c15c708971fc82572751bfd7a422022b7938c"
+    },
+    {
+      "path": "dependencies/tests/known_failures.txt",
+      "bytes": 381,
+      "sha256": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf"
+    },
+    {
+      "path": "dependencies/tools/assets/depth_normals.py",
+      "bytes": 6221,
+      "sha256": "a116e362a703ea6962d9239d7fde445e2eefc078ba53589ed7a2740662cc2fda"
+    },
+    {
+      "path": "dependencies/tools/assets/grade.py",
+      "bytes": 6607,
+      "sha256": "feca4ae26dc2ca686384455d8e18e3c087e9647e7526b5e431536b23294848ba"
+    },
+    {
+      "path": "dependencies/tools/assets/story_staging_art.py",
+      "bytes": 7693,
+      "sha256": "6d2d823775e8a7b7af2e2be560fb6fdfcb58ec339952f7097d4cff0f3b284b19"
+    },
+    {
+      "path": "dependencies/tools/assets/test_story_staging_art.py",
+      "bytes": 3914,
+      "sha256": "1e104078ac4c8ec4be52038991dc26e2d9079d81e73cd66e2c9ff99c03a90a74"
+    },
+    {
+      "path": "dependencies/tools/assets/texture_import.py",
+      "bytes": 7032,
+      "sha256": "325febf28c6f923973ababd1165375adb6f4a9448475afab4fbd56e15276e0ce"
+    },
+    {
+      "path": "dependencies/tools/run_tests_changed.sh",
+      "bytes": 2311,
+      "sha256": "406699fff9b007980a085cd58d109ef62953badac1efda411c2b5652cd3a4d2e"
+    },
+    {
+      "path": "dependencies/tools/select_tests.py",
+      "bytes": 9338,
+      "sha256": "5617cd39198b93547fa73753074ad5ffb28d2fb9ea0ae8ba5242b2815cce69da"
+    },
+    {
+      "path": "dependencies/tools/test_filters.sh",
+      "bytes": 2048,
+      "sha256": "319fea9acacfdad9f7dab7948ea5a2d76652757623b428829605160a210e678a"
+    },
+    {
+      "path": "design/MEAL_PROP_CONTACTS.md",
+      "bytes": 6261,
+      "sha256": "f56e7f03ec620839540b3758870c7d592bb6e0101ed67c662409f16f777d3f45"
+    },
+    {
+      "path": "design/SCENE_PROPS.md",
+      "bytes": 96908,
+      "sha256": "1da1b0f91c0a9941eab651efb56c3c564874fbb451aabcf76cb4f20f2f78a06b"
+    },
+    {
+      "path": "logs/ci-86845791-job-121301009049.log",
+      "bytes": 454191,
+      "sha256": "c16993b51d51199027f68a4d60e8b7e7dcbee7d1a5fc6ea67345b511986914b7"
+    },
+    {
+      "path": "logs/ci-86845791-receipt.json",
+      "bytes": 443,
+      "sha256": "ef6a5c6b8f99692b42a7faf55b36df87d21c53bcabe4acaa604639bc8e4eb6af"
+    },
+    {
+      "path": "logs/meal-after-regression.log",
+      "bytes": 81,
+      "sha256": "fef76f63f2a8f1bf9d6b9f21bc69e5bc06ea4ef80cad18f83e39bc440fc26fa4"
+    },
+    {
+      "path": "logs/meal-art-build.log",
+      "bytes": 705,
+      "sha256": "1f107b515d9570e10f3b77ad5b267b17382b6a1ffe344ff7d36fd53044e0d869"
+    },
+    {
+      "path": "logs/meal-art-rebuild.json",
+      "bytes": 3852,
+      "sha256": "81a189da03506b7de9d4c3bb5a512ca566cfc018bcacb0b334e9ec92481efc8d"
+    },
+    {
+      "path": "logs/meal-art-unit-wrong-invocation.log",
+      "bytes": 871,
+      "sha256": "7749e489ede2b4954eed132401ebe24e1f9098a82ccdb9eb89824d27a22cad43"
+    },
+    {
+      "path": "logs/meal-art-unit.log",
+      "bytes": 102,
+      "sha256": "5610bb341ae4df72930d9f88afd8d925eec567770a8ccf6387603ee214544c29"
+    },
+    {
+      "path": "logs/meal-build-v2.log",
+      "bytes": 107,
+      "sha256": "4b119956c59ac9c9410fda1fbfe645b06151aaeb08912634709f741f1b15adb0"
+    },
+    {
+      "path": "logs/meal-build-v3.log",
+      "bytes": 107,
+      "sha256": "4b119956c59ac9c9410fda1fbfe645b06151aaeb08912634709f741f1b15adb0"
+    },
+    {
+      "path": "logs/meal-build.log",
+      "bytes": 107,
+      "sha256": "4b119956c59ac9c9410fda1fbfe645b06151aaeb08912634709f741f1b15adb0"
+    },
+    {
+      "path": "logs/meal-clean-art-build.log",
+      "bytes": 1040,
+      "sha256": "ba146d2fe64b9a96878a2024c489d11bb5ed461ee04149299d4bed83edff104c"
+    },
+    {
+      "path": "logs/meal-clean-build.log",
+      "bytes": 107,
+      "sha256": "4b119956c59ac9c9410fda1fbfe645b06151aaeb08912634709f741f1b15adb0"
+    },
+    {
+      "path": "logs/meal-clean-final-sequence.log",
+      "bytes": 3692,
+      "sha256": "af004c55d7e0b151634652425c1eb8957456e18f0d978cdd359903e07d92af96"
+    },
+    {
+      "path": "logs/meal-clean-import.log",
+      "bytes": 3282,
+      "sha256": "d23ab6e9970d6ef75510208fe16a0acc782df3542b75c2dc46010e73f83cf3a5"
+    },
+    {
+      "path": "logs/meal-clean-native-sequence.json",
+      "bytes": 5635,
+      "sha256": "2659645e1c8d15b2f5c390b69d606ddb4b4c1d9e3dcf32d173a66ea5d457db1e"
+    },
+    {
+      "path": "logs/meal-clean-table-eaten-prompt.json",
+      "bytes": 1096,
+      "sha256": "9562110b591f1068df8997173aba120996cfc11c5c9f92b1bd14315167648fd7"
+    },
+    {
+      "path": "logs/meal-clean-table-full-prompt.json",
+      "bytes": 1247,
+      "sha256": "678492e0394f71224297f09c3ba2d8bdcee7fd889a3c109929e2a781a9d8c192"
+    },
+    {
+      "path": "logs/meal-docs-result.json",
+      "bytes": 187,
+      "sha256": "ce5017b8c01d81c847deeeb2e225b71e3b512d4c8b1be04ac0c068aa64e344a7"
+    },
+    {
+      "path": "logs/meal-final-changed.log",
+      "bytes": 3009,
+      "sha256": "cd2fa59c50dc12b42d2554ab3436f51d2f5350f829fa749868161f2213659447"
+    },
+    {
+      "path": "logs/meal-final-import.log",
+      "bytes": 1438,
+      "sha256": "d213a05565151fe8d012d73f549d7a907cd863e596ac46ae0a715984213bf5ea"
+    },
+    {
+      "path": "logs/meal-final-pipeline-proof.json",
+      "bytes": 3242,
+      "sha256": "f3923efe716eda496df2762b4ed5f3d18845d414eff04e7825224b6f5c4e47cf"
+    },
+    {
+      "path": "logs/meal-final-sequence.log",
+      "bytes": 3236,
+      "sha256": "399e333a623ff5301b238f4e7239a008bbea880d1ed04795ecc9f78869366900"
+    },
+    {
+      "path": "logs/meal-final-shards/shard_0.log",
+      "bytes": 2175,
+      "sha256": "1d38e83205ba5683e1376a217cd0d616bfa262d25fe9275b8c7abab25ee63c7f"
+    },
+    {
+      "path": "logs/meal-final-shards/shard_1.log",
+      "bytes": 53391,
+      "sha256": "aa20cd88b5a83e747d4fd5d992eb9089175233e9c3137fe653ef0b9726d04726"
+    },
+    {
+      "path": "logs/meal-final-shards/shard_2.log",
+      "bytes": 233967,
+      "sha256": "4aa99778ef0ccda31b0cf6458c8eda8be0ae1a1db9f6c556c1b4dcf11bc57a86"
+    },
+    {
+      "path": "logs/meal-final-shards/shard_3.log",
+      "bytes": 103355,
+      "sha256": "33cf015affd512f65effe8ab29141c9788c4920f8f792b569d29ecc0d6528f6b"
+    },
+    {
+      "path": "logs/meal-final-shards/shard_4.log",
+      "bytes": 26812,
+      "sha256": "21fd629093c0351d4bc8f8496092800e3eab25bdc0b58e97a1aa5735a152b5e0"
+    },
+    {
+      "path": "logs/meal-final-shards/shard_5.log",
+      "bytes": 242124,
+      "sha256": "4c8059f6795c41b039134633ded57ad7764fa69bb85e738eb86f2bbf8f99d3fc"
+    },
+    {
+      "path": "logs/meal-final-shards/shard_6.log",
+      "bytes": 23155,
+      "sha256": "2fe29074a8ed40b7d182b3f597f84c28ccad25eaba98e80b766018851eb729e8"
+    },
+    {
+      "path": "logs/meal-final-shards/shard_7.log",
+      "bytes": 18973,
+      "sha256": "c8c47e73e0cc47086c88b019f489305a96110da57a3a7383368bf0fbe4bb0ddd"
+    },
+    {
+      "path": "logs/meal-grip-import.log",
+      "bytes": 1745,
+      "sha256": "aae061df0ba8904f141283e02e26683f939ef7167fcc41356e4103a50695daa6"
+    },
+    {
+      "path": "logs/meal-hold-regression.log",
+      "bytes": 59042,
+      "sha256": "240132545d5ad9a473e8b3504086dec50c119bc98320423d23dd8b7f2ca3f10b"
+    },
+    {
+      "path": "logs/meal-import-source-width-negative.log",
+      "bytes": 1256,
+      "sha256": "aac0b8b85c8ac75372b898c783a2e8be0ff82fb6c938c7da1115aa8309e59a14"
+    },
+    {
+      "path": "logs/meal-import-source-width-positive.log",
+      "bytes": 712,
+      "sha256": "36fd15740d910db53c43a28e9ab699f56a886a068392bde25b74b67667bc5ee1"
+    },
+    {
+      "path": "logs/meal-import.log",
+      "bytes": 2521,
+      "sha256": "c4c098fdf87d02449745dc8039bcc0191baa4bb983897c11e8bac7d1e1146eb7"
+    },
+    {
+      "path": "logs/meal-legacy-rebuild.json",
+      "bytes": 138,
+      "sha256": "0aba76a5de0f6c1da3579d52230108612f23a805a03b37053b6bcd26556dc068"
+    },
+    {
+      "path": "logs/meal-main-v1-console.log",
+      "bytes": 1330,
+      "sha256": "7d1dba044380beaa406452f60dc9cde9400a17447f134b8d1cae358f7ce2f6f7"
+    },
+    {
+      "path": "logs/meal-main-v2-console.log",
+      "bytes": 1330,
+      "sha256": "92a15b297b76dbe37f6412ed8d8b314be784df9c7d58133ce7f389b712cb75e6"
+    },
+    {
+      "path": "logs/meal-measure.log",
+      "bytes": 767,
+      "sha256": "476281ed1a8c0e96120a5cb2e927253107e7b92685853a7ddb8e687d6c933de1"
+    },
+    {
+      "path": "logs/meal-mid-regression-fetch.log",
+      "bytes": 93,
+      "sha256": "d7f2c1bff01f7bb48414ed1bf316eac44b4ba06e149edfbd55befb458de9f0d1"
+    },
+    {
+      "path": "logs/meal-native-sequence.json",
+      "bytes": 4932,
+      "sha256": "8048bb8f223c0c203a771fedd05ee00b6c9972a46cef66d033be60f584c7bdc4"
+    },
+    {
+      "path": "logs/meal-next-prompt.json",
+      "bytes": 1962,
+      "sha256": "0bb6c6c1b5530bd004db82dc4b5b1aee2cd9852386a86bcb0025327b1854fd4d"
+    },
+    {
+      "path": "logs/meal-owned.json",
+      "bytes": 282,
+      "sha256": "9f244000afdfd924447490c1c2e0f756a87fd32193923db433f8f99405e4bcaa"
+    },
+    {
+      "path": "logs/meal-part-import.log",
+      "bytes": 1809,
+      "sha256": "4ca52413eb340a23f4525f3f2854cbac5636b8f012d1edfd0d660ebcfb9e7e5e"
+    },
+    {
+      "path": "logs/meal-part-unit-v2.log",
+      "bytes": 71721,
+      "sha256": "e4563e73bcbf386d6b50ae1d02c3f1b3d88be462975ddbd4ea85be15983d7259"
+    },
+    {
+      "path": "logs/meal-part-unit.log",
+      "bytes": 71722,
+      "sha256": "f1efe38b51dcdfc37ce00b17724006fe480417445b482a57f91aa842abb9c60c"
+    },
+    {
+      "path": "logs/meal-preview-v1-console.log",
+      "bytes": 1065,
+      "sha256": "5dc92a8a79b8939cf1ce8e3836b63b5b12f5ee8146333f8e5dcc3e8e950209a2"
+    },
+    {
+      "path": "logs/meal-preview-v1-source.gd",
+      "bytes": 4271,
+      "sha256": "33cf1eadd986f9c94dadd64c2f550c9deb8bf357075515a46456e13642eaecfa"
+    },
+    {
+      "path": "logs/meal-preview-v2-console.log",
+      "bytes": 1065,
+      "sha256": "87a0bb91fa2fea78dce7ce2cd0b6ef3a40f8236f6440c2fc264f57247e26c8df"
+    },
+    {
+      "path": "logs/meal-probe-before-bowl-assert.gd",
+      "bytes": 11784,
+      "sha256": "776ba7d9f7fce7133ce2471afb0e627a6f9c8cdaa891e9c194c8b656a98e1255"
+    },
+    {
+      "path": "logs/meal-probe-before-world-assert.gd",
+      "bytes": 11173,
+      "sha256": "cd96053bb7f5423333689a68614f947ab447386ff408fabc0fd311af09d603c8"
+    },
+    {
+      "path": "logs/meal-rotation-unit.log",
+      "bytes": 67591,
+      "sha256": "7033042694db3662c5ad72fcd3e76a93a76f379c8747e469db71f33d28b90477"
+    },
+    {
+      "path": "logs/meal-source-width-build.log",
+      "bytes": 107,
+      "sha256": "4b119956c59ac9c9410fda1fbfe645b06151aaeb08912634709f741f1b15adb0"
+    },
+    {
+      "path": "logs/meal-source-width-choreo.log",
+      "bytes": 1269,
+      "sha256": "0f244128c64690ebdc43a7dcfdfaf946f69c5565a741090477fc6ae6a9e29f63"
+    },
+    {
+      "path": "logs/meal-source-width-legacy-rebuild.log",
+      "bytes": 59,
+      "sha256": "8b493b8fc7e1f333fecc5643b22aa5f36a52d9865d43386d08698b3df0941b95"
+    },
+    {
+      "path": "logs/meal-table-state-comparison.json",
+      "bytes": 1037,
+      "sha256": "c47c55635826166df50249d0b57235899b7c23e1674e8777cae310a8c66e707d"
+    },
+    {
+      "path": "logs/meal-verified-final-changed.log",
+      "bytes": 3076,
+      "sha256": "fe4548c2bd79200e2d61876cc8dfbd7991679f16d79009a30bddc62271e64c8a"
+    },
+    {
+      "path": "logs/meal-verified-final-import.log",
+      "bytes": 1764,
+      "sha256": "7dc82b59a04792333e7f1c1d39f20a911d6a917d89d7f4f6c55ab0549b26f596"
+    },
+    {
+      "path": "logs/meal-verified-final-sequence.log",
+      "bytes": 4164,
+      "sha256": "f26bc8157392e53e1fadf9ee8b6b1e0798c7e36d4d52bd6fa1d6b90f0305c8f3"
+    },
+    {
+      "path": "logs/meal-verified-final-shards/shard_0.log",
+      "bytes": 2175,
+      "sha256": "c4ea0de612b0afee0517ecc525246d6ad48f82954ce43b9bd5dee7667822c564"
+    },
+    {
+      "path": "logs/meal-verified-final-shards/shard_1.log",
+      "bytes": 299483,
+      "sha256": "4f832819fb0d46970892bd47321a0418cc9f45b7a91d4b6684603a3df69b5317"
+    },
+    {
+      "path": "logs/meal-verified-final-shards/shard_2.log",
+      "bytes": 28874,
+      "sha256": "997e8b598dea5e0362e1f4994dccc5ce38f051b10bee1983ce5535170c5b20d1"
+    },
+    {
+      "path": "logs/meal-verified-final-shards/shard_3.log",
+      "bytes": 43002,
+      "sha256": "2188b8df8ac6f3012ad4815c238ad3de6eae33274854a7fa27566d5e6bb9cd6d"
+    },
+    {
+      "path": "logs/meal-verified-final-shards/shard_4.log",
+      "bytes": 32122,
+      "sha256": "d651adcc8ed9dd4d697f866ac0ef174d75492654c3e9953675a896224a414ab4"
+    },
+    {
+      "path": "logs/meal-verified-final-shards/shard_5.log",
+      "bytes": 51111,
+      "sha256": "34364fb2bce469970cbbdf814365f47c6d4ea201ec60f025c9770bcf365cdc70"
+    },
+    {
+      "path": "logs/meal-verified-final-shards/shard_6.log",
+      "bytes": 20674,
+      "sha256": "cd41056b1e849df29f4a55ac09bbc8821b1787d93d622ff847fa2b86ffa7cfcc"
+    },
+    {
+      "path": "logs/meal-verified-final-shards/shard_7.log",
+      "bytes": 142212,
+      "sha256": "5283ebb862be2fc1ea30598c61f8887787b9ad4e1a085a0e7476e5edbd32a098"
+    },
+    {
+      "path": "logs/meal-verified-native-sequence.json",
+      "bytes": 6347,
+      "sha256": "e3dbbd5bf056253c391e517a6427a5892974230fa1cb168f5df9f4b75274aa84"
+    },
+    {
+      "path": "logs/meal-world-art-build.log",
+      "bytes": 1176,
+      "sha256": "3275736859dddd2483ec85dd9ce11afe8dc5431ebf72172776c33509a4c638e2"
+    },
+    {
+      "path": "logs/meal-world-framing-note.txt",
+      "bytes": 1197,
+      "sha256": "789f9e4c3482e3cde65ca972fa23372be12911f04ebe9cdf6d3182165e66de98"
+    },
+    {
+      "path": "logs/meal-world-import.log",
+      "bytes": 3472,
+      "sha256": "789044ddb54bc6cf2c3f3e468df6a45da9dbc528e81fdf06e31602af700da855"
+    },
+    {
+      "path": "logs/meal-world-unit.log",
+      "bytes": 72333,
+      "sha256": "91eeeb02008a6cc9516afaf8fb43efa625effe5ce24d920e3f5de015b3babd8b"
+    },
+    {
+      "path": "logs/meal-world-v1-console.log",
+      "bytes": 729,
+      "sha256": "bd6b86975f229b79a04035a464249b418e547d8df7d0073eceabf778fc089b22"
+    },
+    {
+      "path": "logs/meal-world-v1-slot.json",
+      "bytes": 10495,
+      "sha256": "e16686f343c5918fa2bb310fa0d6654bb55c532610a6457c514dc2722335e8f0"
+    },
+    {
+      "path": "logs/meal-world-v2-console.log",
+      "bytes": 911,
+      "sha256": "eaf9a9567170f872ebe4d88dd0c505ef651ba28528f163602d4fe5fd9f15e378"
+    },
+    {
+      "path": "logs/meal-world-v3-slot.json",
+      "bytes": 10736,
+      "sha256": "83834750ff2dca46322056d757115937a1cc2ddff52b4e6d3e0dc49ecbfd4e75"
+    },
+    {
+      "path": "logs/meal-world-v4-console.log",
+      "bytes": 994,
+      "sha256": "993f131108f24f9cb6d60145825315b2d509408cecec90196b1edb1af44f12c0"
+    },
+    {
+      "path": "logs/meal-world-v4-slot.json",
+      "bytes": 10706,
+      "sha256": "b8edf993f20a3deee633b2fa6d50b9c1824d9d672376d5004fb9869b95df6df5"
+    },
+    {
+      "path": "logs/meal-world-v5-console.log",
+      "bytes": 994,
+      "sha256": "f58d4d1d647c76743846a2fc763c7ede91ea2ef5bc14326a81d5c17c912e11fc"
+    },
+    {
+      "path": "logs/meal-world-v5-slot.json",
+      "bytes": 10706,
+      "sha256": "a7ba10000b91c61a78f7f3eef8cc107b0fe74fb844a8feb93bc8b30b4ec15117"
+    },
+    {
+      "path": "logs/meal-world-v6-console.log",
+      "bytes": 1138,
+      "sha256": "a5b090cd098e84dc87f07d3c19abc9ea669645d115cd6ab38baedab51f239cd7"
+    },
+    {
+      "path": "logs/meal-world-v6-slot.json",
+      "bytes": 10706,
+      "sha256": "9bd8e0473b682f381c4b6802bc6429869ce7fd236e96b446550d8b271ef3ebd2"
+    },
+    {
+      "path": "meal-before-source-width-fix/data/cutscene/stages/ch1_dawn_noodle_stall.json",
+      "bytes": 3438,
+      "sha256": "81b0e9ab7e197a09aa66127c9fc88024fd2ceb7c361f42504d2b5dc5003c0951"
+    },
+    {
+      "path": "meal-before-source-width-fix/game/cutscene/stage_layers.gd",
+      "bytes": 25802,
+      "sha256": "bdbc47462e0c59f527598787623f0e0d309e713aaf6573cc7f8c2287242105a8"
+    },
+    {
+      "path": "meal-before-source-width-fix/tools/assets/texture_import.py",
+      "bytes": 6732,
+      "sha256": "2baae49f979c1889782adaeecde9854ffc2d624f497813ff80c70f1f3db672fc"
+    },
+    {
+      "path": "meal-before-source-width-fix/tools/story/build_ch1_story.py",
+      "bytes": 32703,
+      "sha256": "5ab5734bf340c452f574ad09ec912d0c28a280f558b0cb582c328f322ba464ea"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.png",
+      "bytes": 1062971,
+      "sha256": "615a662c99118106379c353a6e8e8260ff88bebd7abe3349ffb951ed9fb75573"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.png.import",
+      "bytes": 1063,
+      "sha256": "9091dc1352cc124ee4b6de0f109d3a23a13509858adcfc43539a7e1e4855a6ec"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table_n.png",
+      "bytes": 211872,
+      "sha256": "1c831bde883ec145329691437c41149b98c0f712641f69a04e423082be4dd41d"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table_n.png.import",
+      "bytes": 1068,
+      "sha256": "b19b6b979d3bf24abb69119f24498b9c923aa9371f697120d7e170efa1868bcc"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty.png",
+      "bytes": 963895,
+      "sha256": "e05d508f5711792b2f5ac12d0500a2372cb03cf6d653ffecf1e5354132aba275"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty.png.import",
+      "bytes": 1063,
+      "sha256": "b85353fb0651a5153b20bf548353cdf0c7c1d9e8e1eaadf3707501e7a1730f4e"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty_n.png",
+      "bytes": 148124,
+      "sha256": "40d66d3e35cfda04fd1793176540724db502df3ccce58aeb35a2e96e8f9ccbc8"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty_n.png.import",
+      "bytes": 1069,
+      "sha256": "ba1623ea50549fea6d74fd347430dd58d6ec5f3eaac87424157c7d6e0cbc1873"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_world_empty.png",
+      "bytes": 909935,
+      "sha256": "160e3cc56a749edf8cbf8198b21e674ddbcb898096ded16cca7033f405e04b18"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_world_empty.png.import",
+      "bytes": 1081,
+      "sha256": "011b560adfa0169934776d7e463ac532382b2838577a7a401b48e0e559e5ecd2"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_world_empty_n.png",
+      "bytes": 163253,
+      "sha256": "2c9bc27678345658483b8736331a9a4b4aa336a688172030aeb0ec811d72aa57"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_world_empty_n.png.import",
+      "bytes": 1087,
+      "sha256": "2b3cd9f1136f0ffcbc7a7e947af2d45988c7983d724e24407f494c0e940326a3"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/art/environment/scene_props/dawn_noodle_stall_contacts/utensil_atlas.png",
+      "bytes": 826801,
+      "sha256": "d75e523927f97b58322a1126e6c48715024323c1628d28d0be946538e86a2038"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/art/environment/scene_props/dawn_noodle_stall_contacts/utensil_atlas.png.import",
+      "bytes": 1000,
+      "sha256": "01b46495a5ca908478522d39405425720eb6475071d5f8bdec2d1db6a317fa26"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/art/environment/scene_props/dawn_noodle_stall_contacts/utensil_atlas_n.png",
+      "bytes": 61424,
+      "sha256": "7205c7c3168e9e9cf6a80b9780e87514eebe926f6c286eb564cd26aa05bc0fd3"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/art/environment/scene_props/dawn_noodle_stall_contacts/utensil_atlas_n.png.import",
+      "bytes": 1005,
+      "sha256": "e687a78a022a5fd27698c2de1a1e72aea69a8cf5465bb4b91322a6e903558428"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/assets_src/candidates/st10_meal_1026/README.md",
+      "bytes": 1511,
+      "sha256": "7f0f2b0138d533729b3400027d7f8d1c73ac892486cf07529a9b6f74a956011d"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/assets_src/candidates/st10_meal_1026/chopsticks-noodles-generated.png",
+      "bytes": 935864,
+      "sha256": "885058e06aa8cd7b56727a9d1fd8c8254dd95742c61eb94baf0c948cce4dc18c"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/assets_src/candidates/st10_meal_1026/manifest.json",
+      "bytes": 883,
+      "sha256": "a88068fe70c9a6fa8ae3f726228254aca494d0d935fdf71e5cc438c8aaa77cd8"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/assets_src/candidates/st10_meal_1026/prior-noodle_bowls_table-reference.png",
+      "bytes": 71389,
+      "sha256": "043b89c8b6325b4c6a93960ae3bd9cd35302cd63d240707a80749bafe68688b8"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/assets_src/candidates/st10_meal_1026/prior-noodle_bowls_table_glow-reference.png",
+      "bytes": 15893,
+      "sha256": "6a0c0ab41a8fbf4d68bf7100a7beb588bef6c2d5870c8bae9e292e58db9cf081"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/assets_src/candidates/st10_meal_1026/prior-noodle_table_empty-reference.png",
+      "bytes": 1032016,
+      "sha256": "0d744b24d22b23244baad9d18bd95c6443a89b2199b0fcd38d6932b016c4ae4a"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/assets_src/candidates/st10_meal_1026/prior-qwen-table-recipe.json",
+      "bytes": 988,
+      "sha256": "ae6b7f22fbc10582f2698d705e2a4948159d21dfd07e0027c4f7f6ba4b914050"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/assets_src/candidates/st10_meal_1026/prompt.json",
+      "bytes": 2059,
+      "sha256": "2424d7b74ea8949e6642e463fdaad753bdadf86d14a046d234391580d764ab84"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/assets_src/candidates/st10_meal_1026/table-eaten-manifest.json",
+      "bytes": 597,
+      "sha256": "74b51f6436cbc38c52c98c94101b063fdd7351a0a7d92cef78fa8057997cb825"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/assets_src/candidates/st10_meal_1026/table-eaten-no-left-sticks-generated.png",
+      "bytes": 1079616,
+      "sha256": "ac43bb4cdbc0ded17afe535673a64687a0d7b150021bd9cc369dcf0364b9d3ab"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/assets_src/candidates/st10_meal_1026/table-eaten-prompt.json",
+      "bytes": 1249,
+      "sha256": "b82c5a47a53ddb5f88aca084c0c4431c5fa08f494f72c7eea3e104255ef9fbd2"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/assets_src/candidates/st10_meal_1026/table-full-manifest.json",
+      "bytes": 596,
+      "sha256": "07f1ee44f5fa802cc0f99c9cbff1ee793fd148f9eaa9601616bb8d42028db752"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/assets_src/candidates/st10_meal_1026/table-full-no-left-sticks-generated.png",
+      "bytes": 1163256,
+      "sha256": "b2c657ea35ff490e8e24433e5d278dca0211a934683a19303d0eb251821e01a5"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/assets_src/candidates/st10_meal_1026/table-full-prompt.json",
+      "bytes": 1399,
+      "sha256": "f91ac87f80dd2045dc46812178d82515148d4b89c92fb229e25defcc8997692a"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/assets_src/pipeline/scene_props.json",
+      "bytes": 359288,
+      "sha256": "0b985624ae3439b9f85e33218984528b2a874a679378bde7003988be5e314954"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/assets_src/pipeline/story_prop_states.json",
+      "bytes": 2413,
+      "sha256": "6c0df4ee5839a10d95038058533b819899c3cb0b146a9b13a36e9e9073381ad2"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/assets_src/pipeline/story_staging_art.json",
+      "bytes": 4215,
+      "sha256": "4b2ef8c4ee4c3c9628c871e9eb57f81a0c385ac6152d363e94a3163a9c1c9b0c"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/data/cutscene/stage_proportions.json",
+      "bytes": 2442,
+      "sha256": "4cd964586db88387c06b4a5627ac4e1dee6cea20d4ed94599b4de0178dcd69a7"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/data/cutscene/stages/ch1_dawn_noodle_stall.json",
+      "bytes": 3438,
+      "sha256": "81b0e9ab7e197a09aa66127c9fc88024fd2ceb7c361f42504d2b5dc5003c0951"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/data/environment/prop_reactions.json",
+      "bytes": 3986,
+      "sha256": "060152c6ded15290f7d19a97bc3c7dc173a659615abe2308ed26875adeb6f301"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/data/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.tres",
+      "bytes": 524,
+      "sha256": "3f2e14a09e82a1377c331b59df062464ab826e8f854581bee9be42ee89254975"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/data/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_world_empty.tres",
+      "bytes": 461,
+      "sha256": "4fe486809ae56c7ce5bab3a4cc520c6ff08c1e4751ee8fde2208c829fb9324b5"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/data/levels/ch1_stall_map.json",
+      "bytes": 2010,
+      "sha256": "f234ee8d0eefab3cc02873e098f3a69967910f77eaa65906d504179e1b76ed23"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/data/story/ch1_kasa.json",
+      "bytes": 264714,
+      "sha256": "838426b99f8dcfa22b487d224050297710370c2fcc4b085dcc5b47816fe74165"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/game/cutscene/cutscene_actor.gd",
+      "bytes": 10643,
+      "sha256": "ca9b963c63d4a5c6f3c0b43acb632009b541326d32ac784b785699bb41a8a548"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/game/cutscene/cutscene_checker.gd",
+      "bytes": 23280,
+      "sha256": "27031c5bbb0a7e5ba107cc1baaf35d3e0bc3416596732102fa54142bf2e40cc2"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/game/cutscene/cutscene_player.gd",
+      "bytes": 33010,
+      "sha256": "a2a4fb7955bf62c322812651707b7f07c835731d6f1eeef10815d5fbc2d1b488"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/game/cutscene/cutscene_prop_action.gd",
+      "bytes": 3699,
+      "sha256": "0c499fd4f4f9f8caf283e6d44297467649233ad7604c1e26e1689dcf5d086bd1"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/game/cutscene/cutscene_reach.gd",
+      "bytes": 7278,
+      "sha256": "a44109c15074662404c6b4142820c835a53fa00e190667d89a89306ba1790d85"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/game/cutscene/stage_library.gd",
+      "bytes": 13125,
+      "sha256": "b3b8882c6a6663a9cb9774d82217d9c80bf5e64395a2e20b1f30269b53839c10"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/game/cutscene/stage_prop_binding.gd",
+      "bytes": 1531,
+      "sha256": "c4205eae0a3d21bf2404772177c029a1adb51c98d6233961feafec666d11f05f"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/game/cutscene/stage_prop_hold.gd",
+      "bytes": 5014,
+      "sha256": "534cfacc7c6ae9d2b34e354c5c2278d6e6a52072afc28865e2f59e5477e6229d"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/game/rig/character_rig.gd",
+      "bytes": 78597,
+      "sha256": "df18663fcfa4de6bc3b3340bdcb70fb9cf400454679031955cca61e377d1002f"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/game/rig/rig_input.gd",
+      "bytes": 3188,
+      "sha256": "9b92a1fe65c0ab0f78edabd73ceae53d454a380157d6a94431c96c510f69f88d"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/tests/helpers/meal_choreography_checks.gd",
+      "bytes": 4503,
+      "sha256": "789d95503ed2dcd9486ea9622779936bc5f5fdf47cc8e88378ee36a548b301d8"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/tests/helpers/meal_choreography_checks.gd.uid",
+      "bytes": 20,
+      "sha256": "cfddc5b4981b56c9944d070492e55632a17b0859352fd679e01abfcd8961c5af"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/tests/helpers/meal_world_state_checks.gd",
+      "bytes": 2321,
+      "sha256": "c7f032fe46e6f1253e383cdec09e052c3237ad9b433f088902357893c342fd2b"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/tests/helpers/meal_world_state_checks.gd.uid",
+      "bytes": 20,
+      "sha256": "96405256f4ed7c93b49c6caea05cf125300b6bbb2ef15d4a4edb480053d6ff63"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/tests/helpers/stage_grip_rotation_checks.gd",
+      "bytes": 4921,
+      "sha256": "cdc4c76e7f549a997336ba0817adf2f34ed95f6fada0427e179836e193791d69"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/tests/helpers/stage_grip_rotation_checks.gd.uid",
+      "bytes": 19,
+      "sha256": "3777efc5dce9bf107629f15b3bd011b3a5b19f3eff8ab18a9dda96e60f31a4b6"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/tests/helpers/stage_part_binding_checks.gd",
+      "bytes": 3564,
+      "sha256": "830de1b00b162827005e54a468ad0df42e823844af9bbf055c440db211c75319"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/tests/helpers/stage_part_binding_checks.gd.uid",
+      "bytes": 20,
+      "sha256": "aa9726a56d3d27dfeb25928abde7be57fca2048b035a07e331924979e053538a"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/tests/suite/test_cutscene.gd",
+      "bytes": 55998,
+      "sha256": "46b340785f40eb1facf79b4cd36e841a8fe775d7fa59244122f9d0724485f8cf"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/tools/assets/story_prop_states.py",
+      "bytes": 2227,
+      "sha256": "a77e1f334bce30fc19e187bf41b409848e5aae316add23fb80a38392b386be3b"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/tools/level/build_ch1.py",
+      "bytes": 80416,
+      "sha256": "83092068ce41b26b815cbdf42c36ecf352e89bbb8cc510134ee152d50eef2754"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/tools/story/build_ch1_story.py",
+      "bytes": 32703,
+      "sha256": "5ab5734bf340c452f574ad09ec912d0c28a280f558b0cb582c328f322ba464ea"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/tools/story/ch1_runtime_backend.py",
+      "bytes": 37228,
+      "sha256": "75bb451fb5b08d7a7b0dda9e5a0a01b9a0f71eed6025024fcb45fb04a0ea0f21"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/after/tools/story/meal_staging.py",
+      "bytes": 2808,
+      "sha256": "2de0578266fbe6ef582096c5bb4c08da620d24b35fa720f4bcc4feaa049a53d0"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.png",
+      "bytes": 71389,
+      "sha256": "043b89c8b6325b4c6a93960ae3bd9cd35302cd63d240707a80749bafe68688b8"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.png.import",
+      "bytes": 1063,
+      "sha256": "d12f821b6b8cf1cb971b0c96a6e9537e630d606b23d5b334626602c6d897553d"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table_glow.png",
+      "bytes": 15893,
+      "sha256": "6a0c0ab41a8fbf4d68bf7100a7beb588bef6c2d5870c8bae9e292e58db9cf081"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table_glow.png.import",
+      "bytes": 1078,
+      "sha256": "797e3cc396765972fa2014f74a78aa4fbb340b221dbf0fd48bde980c2457e072"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table_n.png",
+      "bytes": 74413,
+      "sha256": "6769111b78bdf20f0f8c8e39ee4f3c2eb9e641fdfdaf4ac2f4ad1b43ad01a876"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table_n.png.import",
+      "bytes": 1068,
+      "sha256": "52d50b144c007a4db0a972a0c6d0f3f92f15ffb2f0b3f30cd5962923aaf5531e"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty.png",
+      "bytes": 1032016,
+      "sha256": "0d744b24d22b23244baad9d18bd95c6443a89b2199b0fcd38d6932b016c4ae4a"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty.png.import",
+      "bytes": 1063,
+      "sha256": "d47c3f869e6269240a8320100b5e71b91fdbdc40aa3fa008008f56fb0839fe78"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty_n.png",
+      "bytes": 185801,
+      "sha256": "14d4c240702844009d516fa3b6f26fa439c2e3d5f3eab6f7cb6cdf844f212c6d"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty_n.png.import",
+      "bytes": 1069,
+      "sha256": "140e3b09f4d780a91d0a10da358be1e7e91114075edabfc4cb396257a87bcd49"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/assets_src/pipeline/scene_props.json",
+      "bytes": 360045,
+      "sha256": "46f0dd2c7d3b621f87d3dd908dc8d695833e054568fdd4d01060edeaca16b234"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/assets_src/pipeline/story_prop_states.json",
+      "bytes": 2077,
+      "sha256": "20ecfc7661a90aa8a89c5c11f843c3f8a877ace071a7b2dd57b8cff1f8d215ed"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/assets_src/pipeline/story_staging_art.json",
+      "bytes": 1785,
+      "sha256": "6ae5f5cde5206b0c07a56342aa9e6477282c846d3ea45ea1bea7deafca12e52b"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/data/cutscene/stage_proportions.json",
+      "bytes": 2378,
+      "sha256": "c46362aa5bcccf97ede07c03199cd1610842403051faede86ccc329c25379e42"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/data/cutscene/stages/ch1_dawn_noodle_stall.json",
+      "bytes": 2650,
+      "sha256": "9e93872d3236d844f1574cd6cb2809e96dd1f38b7df748d835bc0e2083bca054"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/data/environment/prop_reactions.json",
+      "bytes": 3789,
+      "sha256": "29ba4457da3318683759fd473e94cc009f2deed911d1a533733224b359da9540"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/data/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.tres",
+      "bytes": 500,
+      "sha256": "283de38d3b3e1c4bdcdb0df2c2a8ce680e02afcce16c792e1d3d10e2ded65c4f"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/data/levels/ch1_stall_map.json",
+      "bytes": 1986,
+      "sha256": "a38191d3e1c3d51d1efb858db93fa28d720be97e2dbcf44b73e98540da1a8db0"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/data/story/ch1_kasa.json",
+      "bytes": 262868,
+      "sha256": "e99f08ebc577360ea0adc492ca92ea236f5ef7fddc3537026011e8bf870de16a"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/game/cutscene/cutscene_actor.gd",
+      "bytes": 10333,
+      "sha256": "f85e0dc6155af5120b6591a03747daf7bb6ebb46fb51bdac75e236b6d6dca691"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/game/cutscene/cutscene_checker.gd",
+      "bytes": 21831,
+      "sha256": "e8c90fd7ff009bbdcf34b1cb9141284da001d274b4b3c51a8605b03601558b61"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/game/cutscene/cutscene_player.gd",
+      "bytes": 32337,
+      "sha256": "f23b839a13d0b6b57e79bdfe2632b80327c4e153ed60e2ae15be88bdd1a1bb67"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/game/cutscene/cutscene_prop_action.gd",
+      "bytes": 3550,
+      "sha256": "2b789530f020406791743ae33b202008b8ace9693e8455db79b4de19e890802b"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/game/cutscene/cutscene_reach.gd",
+      "bytes": 6046,
+      "sha256": "d8afc19d34266b5aa0378648df51a0ce886904738c8dfb1c1ed591ea466e9487"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/game/cutscene/stage_library.gd",
+      "bytes": 13082,
+      "sha256": "88bf4271776fc7d0cf1c812987cc833fc68963ea24e5ceeb77eaa979f2feaf9f"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/game/cutscene/stage_prop_binding.gd",
+      "bytes": 1356,
+      "sha256": "c7522899e0a6958b39443d64e273ed88ba90393be050477dcae3e445806690b0"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/game/cutscene/stage_prop_hold.gd",
+      "bytes": 3762,
+      "sha256": "1ba302b0a74fcd605cc094215e681194cd91b8520b67ec9f9fea02441e210a49"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/game/rig/character_rig.gd",
+      "bytes": 77443,
+      "sha256": "8e65a1d9260b3fd0eb132d9c595d87b7ecdffb7f7e1da851da6be96e05602a31"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/game/rig/rig_input.gd",
+      "bytes": 3025,
+      "sha256": "cd76a68d33ede0c1c8c2346752fb8fcacbeecb97274020461ef7e1025c267e4a"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/tests/suite/test_cutscene.gd",
+      "bytes": 55710,
+      "sha256": "ae5507d3f5fa315182426487ca29acf867a422008229d4e0656644e46259716c"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/tools/assets/story_prop_states.py",
+      "bytes": 1430,
+      "sha256": "3df01b81e263f7e7b42b488a3aa34c249b318ed94efe1a847e16d85bf6ad58b7"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/tools/level/build_ch1.py",
+      "bytes": 80395,
+      "sha256": "4944a8c4518d065bad91e75ec6262720397fe64cce6f9feed21940ccf0d9936b"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/tools/story/build_ch1_story.py",
+      "bytes": 32258,
+      "sha256": "32a9b7c7b32b6dff7787afff9c6d25b749c1a82ca321e0ca4366dc42012c61c9"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/before/tools/story/ch1_runtime_backend.py",
+      "bytes": 37051,
+      "sha256": "7471763c2abbd7661bd046c60e6157790ff69dfb06266e5baa14d7649579d989"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/replay/layout.json",
+      "bytes": 3428,
+      "sha256": "6c43184fa19bf5ef13ec8665a686dd085bb2ffc71b8e01b4850c69b0c5fc08a6"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/replay/main.tscn",
+      "bytes": 177,
+      "sha256": "a9cf902478f0b7a79185be82135c88bb70e552b9f159fbc34acc241ea9cd5887"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/replay/meal_prop_mid_probe.gd",
+      "bytes": 2676,
+      "sha256": "2cd5179dd670a0da587d109401fd6813d9fc4444f311679cd2deb6bb202cce49"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/replay/meal_prop_probe.gd",
+      "bytes": 11784,
+      "sha256": "776ba7d9f7fce7133ce2471afb0e627a6f9c8cdaa891e9c194c8b656a98e1255"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/replay/measure.gd",
+      "bytes": 1483,
+      "sha256": "0a1b1975778ca45fdf41f6b427f1d52cd4bb159325db4bae72ca65c450bb4307"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/replay/measure.tscn",
+      "bytes": 172,
+      "sha256": "ec82b3a52bb89de69f3d7316683087fb0a00e7f4deff1f299d02a8507c871f16"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/replay/preview.gd",
+      "bytes": 4398,
+      "sha256": "99f02cdd045dffc4047e729b9029e1df1319106ae7639d86b4a9297bcd16194b"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/replay/preview.tscn",
+      "bytes": 172,
+      "sha256": "ead5538114f56928c29c5d097a3f3a21bb30f68f1865ae0805cacde37dc0dadb"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/replay/world.gd",
+      "bytes": 3264,
+      "sha256": "39598340222cd0588974954f0f01501168ec5176bf5784b30d6c689a27edc583"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/replay/world.tscn",
+      "bytes": 168,
+      "sha256": "09a6cb9b6183e9b2a40fe8b3c330f7e1cf51a78bed7b03a3dbd9ec305f93a828"
+    },
+    {
+      "path": "meal-frozen-before-source-width-fix/source.json",
+      "bytes": 11754,
+      "sha256": "12466b40628f4fb3b023d6d011cc31ad61a87e40c2fefd34227863c1db936842"
+    },
+    {
+      "path": "meal-frozen-final/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.png",
+      "bytes": 1062971,
+      "sha256": "615a662c99118106379c353a6e8e8260ff88bebd7abe3349ffb951ed9fb75573"
+    },
+    {
+      "path": "meal-frozen-final/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.png.import",
+      "bytes": 1063,
+      "sha256": "9091dc1352cc124ee4b6de0f109d3a23a13509858adcfc43539a7e1e4855a6ec"
+    },
+    {
+      "path": "meal-frozen-final/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table_n.png",
+      "bytes": 211872,
+      "sha256": "1c831bde883ec145329691437c41149b98c0f712641f69a04e423082be4dd41d"
+    },
+    {
+      "path": "meal-frozen-final/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table_n.png.import",
+      "bytes": 1068,
+      "sha256": "b19b6b979d3bf24abb69119f24498b9c923aa9371f697120d7e170efa1868bcc"
+    },
+    {
+      "path": "meal-frozen-final/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty.png",
+      "bytes": 963895,
+      "sha256": "e05d508f5711792b2f5ac12d0500a2372cb03cf6d653ffecf1e5354132aba275"
+    },
+    {
+      "path": "meal-frozen-final/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty.png.import",
+      "bytes": 1063,
+      "sha256": "b85353fb0651a5153b20bf548353cdf0c7c1d9e8e1eaadf3707501e7a1730f4e"
+    },
+    {
+      "path": "meal-frozen-final/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty_n.png",
+      "bytes": 148124,
+      "sha256": "40d66d3e35cfda04fd1793176540724db502df3ccce58aeb35a2e96e8f9ccbc8"
+    },
+    {
+      "path": "meal-frozen-final/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty_n.png.import",
+      "bytes": 1069,
+      "sha256": "ba1623ea50549fea6d74fd347430dd58d6ec5f3eaac87424157c7d6e0cbc1873"
+    },
+    {
+      "path": "meal-frozen-final/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_world_empty.png",
+      "bytes": 909935,
+      "sha256": "160e3cc56a749edf8cbf8198b21e674ddbcb898096ded16cca7033f405e04b18"
+    },
+    {
+      "path": "meal-frozen-final/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_world_empty.png.import",
+      "bytes": 1081,
+      "sha256": "011b560adfa0169934776d7e463ac532382b2838577a7a401b48e0e559e5ecd2"
+    },
+    {
+      "path": "meal-frozen-final/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_world_empty_n.png",
+      "bytes": 163253,
+      "sha256": "2c9bc27678345658483b8736331a9a4b4aa336a688172030aeb0ec811d72aa57"
+    },
+    {
+      "path": "meal-frozen-final/after/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_world_empty_n.png.import",
+      "bytes": 1087,
+      "sha256": "2b3cd9f1136f0ffcbc7a7e947af2d45988c7983d724e24407f494c0e940326a3"
+    },
+    {
+      "path": "meal-frozen-final/after/art/environment/scene_props/dawn_noodle_stall_contacts/utensil_atlas.png",
+      "bytes": 826801,
+      "sha256": "d75e523927f97b58322a1126e6c48715024323c1628d28d0be946538e86a2038"
+    },
+    {
+      "path": "meal-frozen-final/after/art/environment/scene_props/dawn_noodle_stall_contacts/utensil_atlas.png.import",
+      "bytes": 1000,
+      "sha256": "01b46495a5ca908478522d39405425720eb6475071d5f8bdec2d1db6a317fa26"
+    },
+    {
+      "path": "meal-frozen-final/after/art/environment/scene_props/dawn_noodle_stall_contacts/utensil_atlas_n.png",
+      "bytes": 61424,
+      "sha256": "7205c7c3168e9e9cf6a80b9780e87514eebe926f6c286eb564cd26aa05bc0fd3"
+    },
+    {
+      "path": "meal-frozen-final/after/art/environment/scene_props/dawn_noodle_stall_contacts/utensil_atlas_n.png.import",
+      "bytes": 1005,
+      "sha256": "e687a78a022a5fd27698c2de1a1e72aea69a8cf5465bb4b91322a6e903558428"
+    },
+    {
+      "path": "meal-frozen-final/after/assets_src/candidates/st10_meal_1026/README.md",
+      "bytes": 1511,
+      "sha256": "7f0f2b0138d533729b3400027d7f8d1c73ac892486cf07529a9b6f74a956011d"
+    },
+    {
+      "path": "meal-frozen-final/after/assets_src/candidates/st10_meal_1026/chopsticks-noodles-generated.png",
+      "bytes": 935864,
+      "sha256": "885058e06aa8cd7b56727a9d1fd8c8254dd95742c61eb94baf0c948cce4dc18c"
+    },
+    {
+      "path": "meal-frozen-final/after/assets_src/candidates/st10_meal_1026/manifest.json",
+      "bytes": 883,
+      "sha256": "a88068fe70c9a6fa8ae3f726228254aca494d0d935fdf71e5cc438c8aaa77cd8"
+    },
+    {
+      "path": "meal-frozen-final/after/assets_src/candidates/st10_meal_1026/prior-noodle_bowls_table-reference.png",
+      "bytes": 71389,
+      "sha256": "043b89c8b6325b4c6a93960ae3bd9cd35302cd63d240707a80749bafe68688b8"
+    },
+    {
+      "path": "meal-frozen-final/after/assets_src/candidates/st10_meal_1026/prior-noodle_bowls_table_glow-reference.png",
+      "bytes": 15893,
+      "sha256": "6a0c0ab41a8fbf4d68bf7100a7beb588bef6c2d5870c8bae9e292e58db9cf081"
+    },
+    {
+      "path": "meal-frozen-final/after/assets_src/candidates/st10_meal_1026/prior-noodle_table_empty-reference.png",
+      "bytes": 1032016,
+      "sha256": "0d744b24d22b23244baad9d18bd95c6443a89b2199b0fcd38d6932b016c4ae4a"
+    },
+    {
+      "path": "meal-frozen-final/after/assets_src/candidates/st10_meal_1026/prior-qwen-table-recipe.json",
+      "bytes": 988,
+      "sha256": "ae6b7f22fbc10582f2698d705e2a4948159d21dfd07e0027c4f7f6ba4b914050"
+    },
+    {
+      "path": "meal-frozen-final/after/assets_src/candidates/st10_meal_1026/prompt.json",
+      "bytes": 2059,
+      "sha256": "2424d7b74ea8949e6642e463fdaad753bdadf86d14a046d234391580d764ab84"
+    },
+    {
+      "path": "meal-frozen-final/after/assets_src/candidates/st10_meal_1026/table-eaten-manifest.json",
+      "bytes": 597,
+      "sha256": "74b51f6436cbc38c52c98c94101b063fdd7351a0a7d92cef78fa8057997cb825"
+    },
+    {
+      "path": "meal-frozen-final/after/assets_src/candidates/st10_meal_1026/table-eaten-no-left-sticks-generated.png",
+      "bytes": 1079616,
+      "sha256": "ac43bb4cdbc0ded17afe535673a64687a0d7b150021bd9cc369dcf0364b9d3ab"
+    },
+    {
+      "path": "meal-frozen-final/after/assets_src/candidates/st10_meal_1026/table-eaten-prompt.json",
+      "bytes": 1249,
+      "sha256": "b82c5a47a53ddb5f88aca084c0c4431c5fa08f494f72c7eea3e104255ef9fbd2"
+    },
+    {
+      "path": "meal-frozen-final/after/assets_src/candidates/st10_meal_1026/table-full-manifest.json",
+      "bytes": 596,
+      "sha256": "07f1ee44f5fa802cc0f99c9cbff1ee793fd148f9eaa9601616bb8d42028db752"
+    },
+    {
+      "path": "meal-frozen-final/after/assets_src/candidates/st10_meal_1026/table-full-no-left-sticks-generated.png",
+      "bytes": 1163256,
+      "sha256": "b2c657ea35ff490e8e24433e5d278dca0211a934683a19303d0eb251821e01a5"
+    },
+    {
+      "path": "meal-frozen-final/after/assets_src/candidates/st10_meal_1026/table-full-prompt.json",
+      "bytes": 1399,
+      "sha256": "f91ac87f80dd2045dc46812178d82515148d4b89c92fb229e25defcc8997692a"
+    },
+    {
+      "path": "meal-frozen-final/after/assets_src/pipeline/scene_props.json",
+      "bytes": 359288,
+      "sha256": "0b985624ae3439b9f85e33218984528b2a874a679378bde7003988be5e314954"
+    },
+    {
+      "path": "meal-frozen-final/after/assets_src/pipeline/story_prop_states.json",
+      "bytes": 2413,
+      "sha256": "6c0df4ee5839a10d95038058533b819899c3cb0b146a9b13a36e9e9073381ad2"
+    },
+    {
+      "path": "meal-frozen-final/after/assets_src/pipeline/story_staging_art.json",
+      "bytes": 4215,
+      "sha256": "4b2ef8c4ee4c3c9628c871e9eb57f81a0c385ac6152d363e94a3163a9c1c9b0c"
+    },
+    {
+      "path": "meal-frozen-final/after/data/cutscene/stage_proportions.json",
+      "bytes": 2442,
+      "sha256": "4cd964586db88387c06b4a5627ac4e1dee6cea20d4ed94599b4de0178dcd69a7"
+    },
+    {
+      "path": "meal-frozen-final/after/data/cutscene/stages/ch1_dawn_noodle_stall.json",
+      "bytes": 3437,
+      "sha256": "dc0f894af533c94d5207ea4b61370dcc9e42879f48029f53afb969826d4385ec"
+    },
+    {
+      "path": "meal-frozen-final/after/data/environment/prop_reactions.json",
+      "bytes": 3986,
+      "sha256": "060152c6ded15290f7d19a97bc3c7dc173a659615abe2308ed26875adeb6f301"
+    },
+    {
+      "path": "meal-frozen-final/after/data/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.tres",
+      "bytes": 524,
+      "sha256": "3f2e14a09e82a1377c331b59df062464ab826e8f854581bee9be42ee89254975"
+    },
+    {
+      "path": "meal-frozen-final/after/data/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_world_empty.tres",
+      "bytes": 461,
+      "sha256": "4fe486809ae56c7ce5bab3a4cc520c6ff08c1e4751ee8fde2208c829fb9324b5"
+    },
+    {
+      "path": "meal-frozen-final/after/data/levels/ch1_stall_map.json",
+      "bytes": 2010,
+      "sha256": "f234ee8d0eefab3cc02873e098f3a69967910f77eaa65906d504179e1b76ed23"
+    },
+    {
+      "path": "meal-frozen-final/after/data/story/ch1_kasa.json",
+      "bytes": 264714,
+      "sha256": "838426b99f8dcfa22b487d224050297710370c2fcc4b085dcc5b47816fe74165"
+    },
+    {
+      "path": "meal-frozen-final/after/game/cutscene/cutscene_actor.gd",
+      "bytes": 10643,
+      "sha256": "ca9b963c63d4a5c6f3c0b43acb632009b541326d32ac784b785699bb41a8a548"
+    },
+    {
+      "path": "meal-frozen-final/after/game/cutscene/cutscene_checker.gd",
+      "bytes": 23280,
+      "sha256": "27031c5bbb0a7e5ba107cc1baaf35d3e0bc3416596732102fa54142bf2e40cc2"
+    },
+    {
+      "path": "meal-frozen-final/after/game/cutscene/cutscene_player.gd",
+      "bytes": 33010,
+      "sha256": "a2a4fb7955bf62c322812651707b7f07c835731d6f1eeef10815d5fbc2d1b488"
+    },
+    {
+      "path": "meal-frozen-final/after/game/cutscene/cutscene_prop_action.gd",
+      "bytes": 3699,
+      "sha256": "0c499fd4f4f9f8caf283e6d44297467649233ad7604c1e26e1689dcf5d086bd1"
+    },
+    {
+      "path": "meal-frozen-final/after/game/cutscene/cutscene_reach.gd",
+      "bytes": 7278,
+      "sha256": "a44109c15074662404c6b4142820c835a53fa00e190667d89a89306ba1790d85"
+    },
+    {
+      "path": "meal-frozen-final/after/game/cutscene/stage_library.gd",
+      "bytes": 13125,
+      "sha256": "b3b8882c6a6663a9cb9774d82217d9c80bf5e64395a2e20b1f30269b53839c10"
+    },
+    {
+      "path": "meal-frozen-final/after/game/cutscene/stage_prop_binding.gd",
+      "bytes": 1531,
+      "sha256": "c4205eae0a3d21bf2404772177c029a1adb51c98d6233961feafec666d11f05f"
+    },
+    {
+      "path": "meal-frozen-final/after/game/cutscene/stage_prop_hold.gd",
+      "bytes": 5014,
+      "sha256": "534cfacc7c6ae9d2b34e354c5c2278d6e6a52072afc28865e2f59e5477e6229d"
+    },
+    {
+      "path": "meal-frozen-final/after/game/rig/character_rig.gd",
+      "bytes": 78597,
+      "sha256": "df18663fcfa4de6bc3b3340bdcb70fb9cf400454679031955cca61e377d1002f"
+    },
+    {
+      "path": "meal-frozen-final/after/game/rig/rig_input.gd",
+      "bytes": 3188,
+      "sha256": "9b92a1fe65c0ab0f78edabd73ceae53d454a380157d6a94431c96c510f69f88d"
+    },
+    {
+      "path": "meal-frozen-final/after/tests/helpers/meal_choreography_checks.gd",
+      "bytes": 4883,
+      "sha256": "18ba52d5cf9b1cddd6ecc043ce61a8157fd6ed3213ad4b1dbff37c843cbe88b2"
+    },
+    {
+      "path": "meal-frozen-final/after/tests/helpers/meal_choreography_checks.gd.uid",
+      "bytes": 20,
+      "sha256": "cfddc5b4981b56c9944d070492e55632a17b0859352fd679e01abfcd8961c5af"
+    },
+    {
+      "path": "meal-frozen-final/after/tests/helpers/meal_world_state_checks.gd",
+      "bytes": 2321,
+      "sha256": "c7f032fe46e6f1253e383cdec09e052c3237ad9b433f088902357893c342fd2b"
+    },
+    {
+      "path": "meal-frozen-final/after/tests/helpers/meal_world_state_checks.gd.uid",
+      "bytes": 20,
+      "sha256": "96405256f4ed7c93b49c6caea05cf125300b6bbb2ef15d4a4edb480053d6ff63"
+    },
+    {
+      "path": "meal-frozen-final/after/tests/helpers/stage_grip_rotation_checks.gd",
+      "bytes": 4921,
+      "sha256": "cdc4c76e7f549a997336ba0817adf2f34ed95f6fada0427e179836e193791d69"
+    },
+    {
+      "path": "meal-frozen-final/after/tests/helpers/stage_grip_rotation_checks.gd.uid",
+      "bytes": 19,
+      "sha256": "3777efc5dce9bf107629f15b3bd011b3a5b19f3eff8ab18a9dda96e60f31a4b6"
+    },
+    {
+      "path": "meal-frozen-final/after/tests/helpers/stage_part_binding_checks.gd",
+      "bytes": 3564,
+      "sha256": "830de1b00b162827005e54a468ad0df42e823844af9bbf055c440db211c75319"
+    },
+    {
+      "path": "meal-frozen-final/after/tests/helpers/stage_part_binding_checks.gd.uid",
+      "bytes": 20,
+      "sha256": "aa9726a56d3d27dfeb25928abde7be57fca2048b035a07e331924979e053538a"
+    },
+    {
+      "path": "meal-frozen-final/after/tests/suite/test_cutscene.gd",
+      "bytes": 55998,
+      "sha256": "46b340785f40eb1facf79b4cd36e841a8fe775d7fa59244122f9d0724485f8cf"
+    },
+    {
+      "path": "meal-frozen-final/after/tools/assets/story_prop_states.py",
+      "bytes": 2227,
+      "sha256": "a77e1f334bce30fc19e187bf41b409848e5aae316add23fb80a38392b386be3b"
+    },
+    {
+      "path": "meal-frozen-final/after/tools/assets/test_texture_import.py",
+      "bytes": 6159,
+      "sha256": "9126bbfa28fef83a4b1c0855e434c2664418842fdfd6699f75dec99f28f4234e"
+    },
+    {
+      "path": "meal-frozen-final/after/tools/assets/texture_import.py",
+      "bytes": 7032,
+      "sha256": "325febf28c6f923973ababd1165375adb6f4a9448475afab4fbd56e15276e0ce"
+    },
+    {
+      "path": "meal-frozen-final/after/tools/level/build_ch1.py",
+      "bytes": 80416,
+      "sha256": "83092068ce41b26b815cbdf42c36ecf352e89bbb8cc510134ee152d50eef2754"
+    },
+    {
+      "path": "meal-frozen-final/after/tools/story/build_ch1_story.py",
+      "bytes": 32703,
+      "sha256": "5ab5734bf340c452f574ad09ec912d0c28a280f558b0cb582c328f322ba464ea"
+    },
+    {
+      "path": "meal-frozen-final/after/tools/story/ch1_runtime_backend.py",
+      "bytes": 37228,
+      "sha256": "75bb451fb5b08d7a7b0dda9e5a0a01b9a0f71eed6025024fcb45fb04a0ea0f21"
+    },
+    {
+      "path": "meal-frozen-final/after/tools/story/meal_staging.py",
+      "bytes": 2808,
+      "sha256": "2de0578266fbe6ef582096c5bb4c08da620d24b35fa720f4bcc4feaa049a53d0"
+    },
+    {
+      "path": "meal-frozen-final/before/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.png",
+      "bytes": 71389,
+      "sha256": "043b89c8b6325b4c6a93960ae3bd9cd35302cd63d240707a80749bafe68688b8"
+    },
+    {
+      "path": "meal-frozen-final/before/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.png.import",
+      "bytes": 1063,
+      "sha256": "d12f821b6b8cf1cb971b0c96a6e9537e630d606b23d5b334626602c6d897553d"
+    },
+    {
+      "path": "meal-frozen-final/before/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table_glow.png",
+      "bytes": 15893,
+      "sha256": "6a0c0ab41a8fbf4d68bf7100a7beb588bef6c2d5870c8bae9e292e58db9cf081"
+    },
+    {
+      "path": "meal-frozen-final/before/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table_glow.png.import",
+      "bytes": 1078,
+      "sha256": "797e3cc396765972fa2014f74a78aa4fbb340b221dbf0fd48bde980c2457e072"
+    },
+    {
+      "path": "meal-frozen-final/before/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table_n.png",
+      "bytes": 74413,
+      "sha256": "6769111b78bdf20f0f8c8e39ee4f3c2eb9e641fdfdaf4ac2f4ad1b43ad01a876"
+    },
+    {
+      "path": "meal-frozen-final/before/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table_n.png.import",
+      "bytes": 1068,
+      "sha256": "52d50b144c007a4db0a972a0c6d0f3f92f15ffb2f0b3f30cd5962923aaf5531e"
+    },
+    {
+      "path": "meal-frozen-final/before/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty.png",
+      "bytes": 1032016,
+      "sha256": "0d744b24d22b23244baad9d18bd95c6443a89b2199b0fcd38d6932b016c4ae4a"
+    },
+    {
+      "path": "meal-frozen-final/before/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty.png.import",
+      "bytes": 1063,
+      "sha256": "d47c3f869e6269240a8320100b5e71b91fdbdc40aa3fa008008f56fb0839fe78"
+    },
+    {
+      "path": "meal-frozen-final/before/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty_n.png",
+      "bytes": 185801,
+      "sha256": "14d4c240702844009d516fa3b6f26fa439c2e3d5f3eab6f7cb6cdf844f212c6d"
+    },
+    {
+      "path": "meal-frozen-final/before/art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty_n.png.import",
+      "bytes": 1069,
+      "sha256": "140e3b09f4d780a91d0a10da358be1e7e91114075edabfc4cb396257a87bcd49"
+    },
+    {
+      "path": "meal-frozen-final/before/assets_src/pipeline/scene_props.json",
+      "bytes": 360045,
+      "sha256": "46f0dd2c7d3b621f87d3dd908dc8d695833e054568fdd4d01060edeaca16b234"
+    },
+    {
+      "path": "meal-frozen-final/before/assets_src/pipeline/story_prop_states.json",
+      "bytes": 2077,
+      "sha256": "20ecfc7661a90aa8a89c5c11f843c3f8a877ace071a7b2dd57b8cff1f8d215ed"
+    },
+    {
+      "path": "meal-frozen-final/before/assets_src/pipeline/story_staging_art.json",
+      "bytes": 1785,
+      "sha256": "6ae5f5cde5206b0c07a56342aa9e6477282c846d3ea45ea1bea7deafca12e52b"
+    },
+    {
+      "path": "meal-frozen-final/before/data/cutscene/stage_proportions.json",
+      "bytes": 2378,
+      "sha256": "c46362aa5bcccf97ede07c03199cd1610842403051faede86ccc329c25379e42"
+    },
+    {
+      "path": "meal-frozen-final/before/data/cutscene/stages/ch1_dawn_noodle_stall.json",
+      "bytes": 2650,
+      "sha256": "9e93872d3236d844f1574cd6cb2809e96dd1f38b7df748d835bc0e2083bca054"
+    },
+    {
+      "path": "meal-frozen-final/before/data/environment/prop_reactions.json",
+      "bytes": 3789,
+      "sha256": "29ba4457da3318683759fd473e94cc009f2deed911d1a533733224b359da9540"
+    },
+    {
+      "path": "meal-frozen-final/before/data/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.tres",
+      "bytes": 500,
+      "sha256": "283de38d3b3e1c4bdcdb0df2c2a8ce680e02afcce16c792e1d3d10e2ded65c4f"
+    },
+    {
+      "path": "meal-frozen-final/before/data/levels/ch1_stall_map.json",
+      "bytes": 1986,
+      "sha256": "a38191d3e1c3d51d1efb858db93fa28d720be97e2dbcf44b73e98540da1a8db0"
+    },
+    {
+      "path": "meal-frozen-final/before/data/story/ch1_kasa.json",
+      "bytes": 262868,
+      "sha256": "e99f08ebc577360ea0adc492ca92ea236f5ef7fddc3537026011e8bf870de16a"
+    },
+    {
+      "path": "meal-frozen-final/before/game/cutscene/cutscene_actor.gd",
+      "bytes": 10333,
+      "sha256": "f85e0dc6155af5120b6591a03747daf7bb6ebb46fb51bdac75e236b6d6dca691"
+    },
+    {
+      "path": "meal-frozen-final/before/game/cutscene/cutscene_checker.gd",
+      "bytes": 21831,
+      "sha256": "e8c90fd7ff009bbdcf34b1cb9141284da001d274b4b3c51a8605b03601558b61"
+    },
+    {
+      "path": "meal-frozen-final/before/game/cutscene/cutscene_player.gd",
+      "bytes": 32337,
+      "sha256": "f23b839a13d0b6b57e79bdfe2632b80327c4e153ed60e2ae15be88bdd1a1bb67"
+    },
+    {
+      "path": "meal-frozen-final/before/game/cutscene/cutscene_prop_action.gd",
+      "bytes": 3550,
+      "sha256": "2b789530f020406791743ae33b202008b8ace9693e8455db79b4de19e890802b"
+    },
+    {
+      "path": "meal-frozen-final/before/game/cutscene/cutscene_reach.gd",
+      "bytes": 6046,
+      "sha256": "d8afc19d34266b5aa0378648df51a0ce886904738c8dfb1c1ed591ea466e9487"
+    },
+    {
+      "path": "meal-frozen-final/before/game/cutscene/stage_library.gd",
+      "bytes": 13082,
+      "sha256": "88bf4271776fc7d0cf1c812987cc833fc68963ea24e5ceeb77eaa979f2feaf9f"
+    },
+    {
+      "path": "meal-frozen-final/before/game/cutscene/stage_prop_binding.gd",
+      "bytes": 1356,
+      "sha256": "c7522899e0a6958b39443d64e273ed88ba90393be050477dcae3e445806690b0"
+    },
+    {
+      "path": "meal-frozen-final/before/game/cutscene/stage_prop_hold.gd",
+      "bytes": 3762,
+      "sha256": "1ba302b0a74fcd605cc094215e681194cd91b8520b67ec9f9fea02441e210a49"
+    },
+    {
+      "path": "meal-frozen-final/before/game/rig/character_rig.gd",
+      "bytes": 77443,
+      "sha256": "8e65a1d9260b3fd0eb132d9c595d87b7ecdffb7f7e1da851da6be96e05602a31"
+    },
+    {
+      "path": "meal-frozen-final/before/game/rig/rig_input.gd",
+      "bytes": 3025,
+      "sha256": "cd76a68d33ede0c1c8c2346752fb8fcacbeecb97274020461ef7e1025c267e4a"
+    },
+    {
+      "path": "meal-frozen-final/before/tests/suite/test_cutscene.gd",
+      "bytes": 55710,
+      "sha256": "ae5507d3f5fa315182426487ca29acf867a422008229d4e0656644e46259716c"
+    },
+    {
+      "path": "meal-frozen-final/before/tools/assets/story_prop_states.py",
+      "bytes": 1430,
+      "sha256": "3df01b81e263f7e7b42b488a3aa34c249b318ed94efe1a847e16d85bf6ad58b7"
+    },
+    {
+      "path": "meal-frozen-final/before/tools/assets/test_texture_import.py",
+      "bytes": 4274,
+      "sha256": "39401c410fbf70a22fd61b57c3a0d4e3ba4310b6f776e4dd32e684ad9ff0b9a1"
+    },
+    {
+      "path": "meal-frozen-final/before/tools/assets/texture_import.py",
+      "bytes": 6732,
+      "sha256": "2baae49f979c1889782adaeecde9854ffc2d624f497813ff80c70f1f3db672fc"
+    },
+    {
+      "path": "meal-frozen-final/before/tools/level/build_ch1.py",
+      "bytes": 80395,
+      "sha256": "4944a8c4518d065bad91e75ec6262720397fe64cce6f9feed21940ccf0d9936b"
+    },
+    {
+      "path": "meal-frozen-final/before/tools/story/build_ch1_story.py",
+      "bytes": 32258,
+      "sha256": "32a9b7c7b32b6dff7787afff9c6d25b749c1a82ca321e0ca4366dc42012c61c9"
+    },
+    {
+      "path": "meal-frozen-final/before/tools/story/ch1_runtime_backend.py",
+      "bytes": 37051,
+      "sha256": "7471763c2abbd7661bd046c60e6157790ff69dfb06266e5baa14d7649579d989"
+    },
+    {
+      "path": "meal-frozen-final/replay/choreo.gd",
+      "bytes": 1091,
+      "sha256": "9190a3e1d437aad1a6a6479a66fe718536911011a8b2c3c8deac650eb8bb67e1"
+    },
+    {
+      "path": "meal-frozen-final/replay/choreo.tscn",
+      "bytes": 170,
+      "sha256": "d19657ae1e1e537bd414fb700bba3bc475176aa8036b6737210877db991b0ca2"
+    },
+    {
+      "path": "meal-frozen-final/replay/layout.json",
+      "bytes": 3428,
+      "sha256": "6c43184fa19bf5ef13ec8665a686dd085bb2ffc71b8e01b4850c69b0c5fc08a6"
+    },
+    {
+      "path": "meal-frozen-final/replay/main.tscn",
+      "bytes": 177,
+      "sha256": "a9cf902478f0b7a79185be82135c88bb70e552b9f159fbc34acc241ea9cd5887"
+    },
+    {
+      "path": "meal-frozen-final/replay/meal_prop_mid_probe.gd",
+      "bytes": 2676,
+      "sha256": "2cd5179dd670a0da587d109401fd6813d9fc4444f311679cd2deb6bb202cce49"
+    },
+    {
+      "path": "meal-frozen-final/replay/meal_prop_probe.gd",
+      "bytes": 12398,
+      "sha256": "39f0a8736d6356530c770638dc4775058b1966a9ea646475707a444efa755092"
+    },
+    {
+      "path": "meal-frozen-final/replay/measure.gd",
+      "bytes": 1483,
+      "sha256": "0a1b1975778ca45fdf41f6b427f1d52cd4bb159325db4bae72ca65c450bb4307"
+    },
+    {
+      "path": "meal-frozen-final/replay/measure.tscn",
+      "bytes": 172,
+      "sha256": "ec82b3a52bb89de69f3d7316683087fb0a00e7f4deff1f299d02a8507c871f16"
+    },
+    {
+      "path": "meal-frozen-final/replay/preview.gd",
+      "bytes": 4398,
+      "sha256": "99f02cdd045dffc4047e729b9029e1df1319106ae7639d86b4a9297bcd16194b"
+    },
+    {
+      "path": "meal-frozen-final/replay/preview.tscn",
+      "bytes": 172,
+      "sha256": "ead5538114f56928c29c5d097a3f3a21bb30f68f1865ae0805cacde37dc0dadb"
+    },
+    {
+      "path": "meal-frozen-final/replay/world.gd",
+      "bytes": 3264,
+      "sha256": "d234fb7b08a4b6261a58ec728e3b22499fc2186f65a5fab35d40c43884aacc28"
+    },
+    {
+      "path": "meal-frozen-final/replay/world.tscn",
+      "bytes": 168,
+      "sha256": "09a6cb9b6183e9b2a40fe8b3c330f7e1cf51a78bed7b03a3dbd9ec305f93a828"
+    },
+    {
+      "path": "meal-frozen-final/source.json",
+      "bytes": 12061,
+      "sha256": "e8dbb5ad5ebf6e48ebb9f72d25a6c73888795586c2abd0699e991da43016bb4a"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/art/environment/scene_props/dawn_noodle_stall_contacts/utensil_atlas.png",
+      "bytes": 826801,
+      "sha256": "d75e523927f97b58322a1126e6c48715024323c1628d28d0be946538e86a2038"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/art/environment/scene_props/dawn_noodle_stall_contacts/utensil_atlas.png.import",
+      "bytes": 1000,
+      "sha256": "01b46495a5ca908478522d39405425720eb6475071d5f8bdec2d1db6a317fa26"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/art/environment/scene_props/dawn_noodle_stall_contacts/utensil_atlas_n.png",
+      "bytes": 61424,
+      "sha256": "7205c7c3168e9e9cf6a80b9780e87514eebe926f6c286eb564cd26aa05bc0fd3"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/art/environment/scene_props/dawn_noodle_stall_contacts/utensil_atlas_n.png.import",
+      "bytes": 1005,
+      "sha256": "e687a78a022a5fd27698c2de1a1e72aea69a8cf5465bb4b91322a6e903558428"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/assets_src/candidates/st10_meal_1026/README.md",
+      "bytes": 643,
+      "sha256": "6a50c02963135d18ef922ac4eb7dcb7f26c7ebc8cfd017d8f1b2d9b69600f7e0"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/assets_src/candidates/st10_meal_1026/chopsticks-noodles-generated.png",
+      "bytes": 935864,
+      "sha256": "885058e06aa8cd7b56727a9d1fd8c8254dd95742c61eb94baf0c948cce4dc18c"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/assets_src/candidates/st10_meal_1026/manifest.json",
+      "bytes": 850,
+      "sha256": "4a9550df63097cb9a1c3bf3166f39beac8abd7345cf632f02952378d03740be6"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/assets_src/candidates/st10_meal_1026/prompt.json",
+      "bytes": 2059,
+      "sha256": "2424d7b74ea8949e6642e463fdaad753bdadf86d14a046d234391580d764ab84"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/assets_src/pipeline/scene_props.json",
+      "bytes": 360242,
+      "sha256": "25d421befd5e9b776f81c4a16adfb6b5290e5b23f2bc06e97ce5efb3f5a0a665"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/assets_src/pipeline/story_staging_art.json",
+      "bytes": 2383,
+      "sha256": "936c0a1e494d4f78bdcc5d77ec1e7d96b2bdfe2f7108b23df71238edcae67ced"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/data/cutscene/stage_proportions.json",
+      "bytes": 2442,
+      "sha256": "4cd964586db88387c06b4a5627ac4e1dee6cea20d4ed94599b4de0178dcd69a7"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/data/cutscene/stages/ch1_dawn_noodle_stall.json",
+      "bytes": 3436,
+      "sha256": "ba059bb430e231e2d02d9afcb5a9507fced1ffa6ee8c3001b5f809d8609ff876"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/data/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.tres",
+      "bytes": 524,
+      "sha256": "fdc55d456a5cc997155a0a32531553a78f6efbf0c6b1fa23b2738a9cf35506c6"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/data/story/ch1_kasa.json",
+      "bytes": 264714,
+      "sha256": "838426b99f8dcfa22b487d224050297710370c2fcc4b085dcc5b47816fe74165"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/game/cutscene/cutscene_actor.gd",
+      "bytes": 10643,
+      "sha256": "ca9b963c63d4a5c6f3c0b43acb632009b541326d32ac784b785699bb41a8a548"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/game/cutscene/cutscene_checker.gd",
+      "bytes": 23280,
+      "sha256": "27031c5bbb0a7e5ba107cc1baaf35d3e0bc3416596732102fa54142bf2e40cc2"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/game/cutscene/cutscene_player.gd",
+      "bytes": 33010,
+      "sha256": "a2a4fb7955bf62c322812651707b7f07c835731d6f1eeef10815d5fbc2d1b488"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/game/cutscene/cutscene_prop_action.gd",
+      "bytes": 3699,
+      "sha256": "0c499fd4f4f9f8caf283e6d44297467649233ad7604c1e26e1689dcf5d086bd1"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/game/cutscene/cutscene_reach.gd",
+      "bytes": 7278,
+      "sha256": "a44109c15074662404c6b4142820c835a53fa00e190667d89a89306ba1790d85"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/game/cutscene/stage_library.gd",
+      "bytes": 13125,
+      "sha256": "b3b8882c6a6663a9cb9774d82217d9c80bf5e64395a2e20b1f30269b53839c10"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/game/cutscene/stage_prop_binding.gd",
+      "bytes": 1531,
+      "sha256": "c4205eae0a3d21bf2404772177c029a1adb51c98d6233961feafec666d11f05f"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/game/cutscene/stage_prop_hold.gd",
+      "bytes": 5014,
+      "sha256": "534cfacc7c6ae9d2b34e354c5c2278d6e6a52072afc28865e2f59e5477e6229d"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/game/rig/character_rig.gd",
+      "bytes": 78597,
+      "sha256": "df18663fcfa4de6bc3b3340bdcb70fb9cf400454679031955cca61e377d1002f"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/game/rig/rig_input.gd",
+      "bytes": 3188,
+      "sha256": "9b92a1fe65c0ab0f78edabd73ceae53d454a380157d6a94431c96c510f69f88d"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/tests/helpers/meal_choreography_checks.gd",
+      "bytes": 4357,
+      "sha256": "6e3e18ca066bde056125e60e09584a6c13ba7d39a9597178ed1550f436622a41"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/tests/helpers/stage_grip_rotation_checks.gd",
+      "bytes": 4921,
+      "sha256": "cdc4c76e7f549a997336ba0817adf2f34ed95f6fada0427e179836e193791d69"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/tests/helpers/stage_grip_rotation_checks.gd.uid",
+      "bytes": 19,
+      "sha256": "3777efc5dce9bf107629f15b3bd011b3a5b19f3eff8ab18a9dda96e60f31a4b6"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/tests/helpers/stage_part_binding_checks.gd",
+      "bytes": 3564,
+      "sha256": "830de1b00b162827005e54a468ad0df42e823844af9bbf055c440db211c75319"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/tests/suite/test_cutscene.gd",
+      "bytes": 55929,
+      "sha256": "2814bb693afc1f70523dda582ae3b3ae30e4a8d0d27d0feb48372b537456e5c2"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/tools/story/build_ch1_story.py",
+      "bytes": 32447,
+      "sha256": "b2939577761cc2343326e990a1e280d473eb71c5a1e77ac890095913cf090c5b"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/tools/story/ch1_runtime_backend.py",
+      "bytes": 37228,
+      "sha256": "75bb451fb5b08d7a7b0dda9e5a0a01b9a0f71eed6025024fcb45fb04a0ea0f21"
+    },
+    {
+      "path": "meal-frozen-source-v2/after/tools/story/meal_staging.py",
+      "bytes": 2808,
+      "sha256": "2de0578266fbe6ef582096c5bb4c08da620d24b35fa720f4bcc4feaa049a53d0"
+    },
+    {
+      "path": "meal-frozen-source-v2/before/assets_src/pipeline/scene_props.json",
+      "bytes": 360045,
+      "sha256": "46f0dd2c7d3b621f87d3dd908dc8d695833e054568fdd4d01060edeaca16b234"
+    },
+    {
+      "path": "meal-frozen-source-v2/before/assets_src/pipeline/story_staging_art.json",
+      "bytes": 1785,
+      "sha256": "6ae5f5cde5206b0c07a56342aa9e6477282c846d3ea45ea1bea7deafca12e52b"
+    },
+    {
+      "path": "meal-frozen-source-v2/before/data/cutscene/stage_proportions.json",
+      "bytes": 2378,
+      "sha256": "c46362aa5bcccf97ede07c03199cd1610842403051faede86ccc329c25379e42"
+    },
+    {
+      "path": "meal-frozen-source-v2/before/data/cutscene/stages/ch1_dawn_noodle_stall.json",
+      "bytes": 2650,
+      "sha256": "9e93872d3236d844f1574cd6cb2809e96dd1f38b7df748d835bc0e2083bca054"
+    },
+    {
+      "path": "meal-frozen-source-v2/before/data/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.tres",
+      "bytes": 500,
+      "sha256": "283de38d3b3e1c4bdcdb0df2c2a8ce680e02afcce16c792e1d3d10e2ded65c4f"
+    },
+    {
+      "path": "meal-frozen-source-v2/before/data/story/ch1_kasa.json",
+      "bytes": 262868,
+      "sha256": "e99f08ebc577360ea0adc492ca92ea236f5ef7fddc3537026011e8bf870de16a"
+    },
+    {
+      "path": "meal-frozen-source-v2/before/game/cutscene/cutscene_actor.gd",
+      "bytes": 10333,
+      "sha256": "f85e0dc6155af5120b6591a03747daf7bb6ebb46fb51bdac75e236b6d6dca691"
+    },
+    {
+      "path": "meal-frozen-source-v2/before/game/cutscene/cutscene_checker.gd",
+      "bytes": 21831,
+      "sha256": "e8c90fd7ff009bbdcf34b1cb9141284da001d274b4b3c51a8605b03601558b61"
+    },
+    {
+      "path": "meal-frozen-source-v2/before/game/cutscene/cutscene_player.gd",
+      "bytes": 32337,
+      "sha256": "f23b839a13d0b6b57e79bdfe2632b80327c4e153ed60e2ae15be88bdd1a1bb67"
+    },
+    {
+      "path": "meal-frozen-source-v2/before/game/cutscene/cutscene_prop_action.gd",
+      "bytes": 3550,
+      "sha256": "2b789530f020406791743ae33b202008b8ace9693e8455db79b4de19e890802b"
+    },
+    {
+      "path": "meal-frozen-source-v2/before/game/cutscene/cutscene_reach.gd",
+      "bytes": 6046,
+      "sha256": "d8afc19d34266b5aa0378648df51a0ce886904738c8dfb1c1ed591ea466e9487"
+    },
+    {
+      "path": "meal-frozen-source-v2/before/game/cutscene/stage_library.gd",
+      "bytes": 13082,
+      "sha256": "88bf4271776fc7d0cf1c812987cc833fc68963ea24e5ceeb77eaa979f2feaf9f"
+    },
+    {
+      "path": "meal-frozen-source-v2/before/game/cutscene/stage_prop_binding.gd",
+      "bytes": 1356,
+      "sha256": "c7522899e0a6958b39443d64e273ed88ba90393be050477dcae3e445806690b0"
+    },
+    {
+      "path": "meal-frozen-source-v2/before/game/cutscene/stage_prop_hold.gd",
+      "bytes": 3762,
+      "sha256": "1ba302b0a74fcd605cc094215e681194cd91b8520b67ec9f9fea02441e210a49"
+    },
+    {
+      "path": "meal-frozen-source-v2/before/game/rig/character_rig.gd",
+      "bytes": 77443,
+      "sha256": "8e65a1d9260b3fd0eb132d9c595d87b7ecdffb7f7e1da851da6be96e05602a31"
+    },
+    {
+      "path": "meal-frozen-source-v2/before/game/rig/rig_input.gd",
+      "bytes": 3025,
+      "sha256": "cd76a68d33ede0c1c8c2346752fb8fcacbeecb97274020461ef7e1025c267e4a"
+    },
+    {
+      "path": "meal-frozen-source-v2/before/tests/suite/test_cutscene.gd",
+      "bytes": 55710,
+      "sha256": "ae5507d3f5fa315182426487ca29acf867a422008229d4e0656644e46259716c"
+    },
+    {
+      "path": "meal-frozen-source-v2/before/tools/story/build_ch1_story.py",
+      "bytes": 32258,
+      "sha256": "32a9b7c7b32b6dff7787afff9c6d25b749c1a82ca321e0ca4366dc42012c61c9"
+    },
+    {
+      "path": "meal-frozen-source-v2/before/tools/story/ch1_runtime_backend.py",
+      "bytes": 37051,
+      "sha256": "7471763c2abbd7661bd046c60e6157790ff69dfb06266e5baa14d7649579d989"
+    },
+    {
+      "path": "meal-frozen-source-v2/source.json",
+      "bytes": 6259,
+      "sha256": "9239b969e86943d74ff827c0a144b45db6ff9af08ea2d2f34f6a7f145f44f15a"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/art/environment/scene_props/dawn_noodle_stall_contacts/utensil_atlas.png",
+      "bytes": 826801,
+      "sha256": "d75e523927f97b58322a1126e6c48715024323c1628d28d0be946538e86a2038"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/art/environment/scene_props/dawn_noodle_stall_contacts/utensil_atlas.png.import",
+      "bytes": 1000,
+      "sha256": "01b46495a5ca908478522d39405425720eb6475071d5f8bdec2d1db6a317fa26"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/art/environment/scene_props/dawn_noodle_stall_contacts/utensil_atlas_n.png",
+      "bytes": 61424,
+      "sha256": "7205c7c3168e9e9cf6a80b9780e87514eebe926f6c286eb564cd26aa05bc0fd3"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/art/environment/scene_props/dawn_noodle_stall_contacts/utensil_atlas_n.png.import",
+      "bytes": 1005,
+      "sha256": "e687a78a022a5fd27698c2de1a1e72aea69a8cf5465bb4b91322a6e903558428"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/assets_src/candidates/st10_meal_1026/README.md",
+      "bytes": 643,
+      "sha256": "6a50c02963135d18ef922ac4eb7dcb7f26c7ebc8cfd017d8f1b2d9b69600f7e0"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/assets_src/candidates/st10_meal_1026/chopsticks-noodles-generated.png",
+      "bytes": 935864,
+      "sha256": "885058e06aa8cd7b56727a9d1fd8c8254dd95742c61eb94baf0c948cce4dc18c"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/assets_src/candidates/st10_meal_1026/manifest.json",
+      "bytes": 850,
+      "sha256": "4a9550df63097cb9a1c3bf3166f39beac8abd7345cf632f02952378d03740be6"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/assets_src/candidates/st10_meal_1026/prompt.json",
+      "bytes": 2059,
+      "sha256": "2424d7b74ea8949e6642e463fdaad753bdadf86d14a046d234391580d764ab84"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/assets_src/pipeline/scene_props.json",
+      "bytes": 360242,
+      "sha256": "25d421befd5e9b776f81c4a16adfb6b5290e5b23f2bc06e97ce5efb3f5a0a665"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/assets_src/pipeline/story_staging_art.json",
+      "bytes": 2383,
+      "sha256": "936c0a1e494d4f78bdcc5d77ec1e7d96b2bdfe2f7108b23df71238edcae67ced"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/data/cutscene/stage_proportions.json",
+      "bytes": 2442,
+      "sha256": "4cd964586db88387c06b4a5627ac4e1dee6cea20d4ed94599b4de0178dcd69a7"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/data/cutscene/stages/ch1_dawn_noodle_stall.json",
+      "bytes": 3436,
+      "sha256": "ba059bb430e231e2d02d9afcb5a9507fced1ffa6ee8c3001b5f809d8609ff876"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/data/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.tres",
+      "bytes": 524,
+      "sha256": "fdc55d456a5cc997155a0a32531553a78f6efbf0c6b1fa23b2738a9cf35506c6"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/data/story/ch1_kasa.json",
+      "bytes": 264714,
+      "sha256": "838426b99f8dcfa22b487d224050297710370c2fcc4b085dcc5b47816fe74165"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/game/cutscene/cutscene_actor.gd",
+      "bytes": 10643,
+      "sha256": "ca9b963c63d4a5c6f3c0b43acb632009b541326d32ac784b785699bb41a8a548"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/game/cutscene/cutscene_checker.gd",
+      "bytes": 23280,
+      "sha256": "27031c5bbb0a7e5ba107cc1baaf35d3e0bc3416596732102fa54142bf2e40cc2"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/game/cutscene/cutscene_player.gd",
+      "bytes": 33010,
+      "sha256": "a2a4fb7955bf62c322812651707b7f07c835731d6f1eeef10815d5fbc2d1b488"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/game/cutscene/cutscene_prop_action.gd",
+      "bytes": 3699,
+      "sha256": "0c499fd4f4f9f8caf283e6d44297467649233ad7604c1e26e1689dcf5d086bd1"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/game/cutscene/cutscene_reach.gd",
+      "bytes": 7278,
+      "sha256": "a44109c15074662404c6b4142820c835a53fa00e190667d89a89306ba1790d85"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/game/cutscene/stage_library.gd",
+      "bytes": 13125,
+      "sha256": "b3b8882c6a6663a9cb9774d82217d9c80bf5e64395a2e20b1f30269b53839c10"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/game/cutscene/stage_prop_binding.gd",
+      "bytes": 1531,
+      "sha256": "c4205eae0a3d21bf2404772177c029a1adb51c98d6233961feafec666d11f05f"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/game/cutscene/stage_prop_hold.gd",
+      "bytes": 5014,
+      "sha256": "534cfacc7c6ae9d2b34e354c5c2278d6e6a52072afc28865e2f59e5477e6229d"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/game/rig/character_rig.gd",
+      "bytes": 78597,
+      "sha256": "df18663fcfa4de6bc3b3340bdcb70fb9cf400454679031955cca61e377d1002f"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/game/rig/rig_input.gd",
+      "bytes": 3188,
+      "sha256": "9b92a1fe65c0ab0f78edabd73ceae53d454a380157d6a94431c96c510f69f88d"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/tests/helpers/meal_choreography_checks.gd",
+      "bytes": 4357,
+      "sha256": "6e3e18ca066bde056125e60e09584a6c13ba7d39a9597178ed1550f436622a41"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/tests/helpers/meal_choreography_checks.gd.uid",
+      "bytes": 20,
+      "sha256": "cfddc5b4981b56c9944d070492e55632a17b0859352fd679e01abfcd8961c5af"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/tests/helpers/stage_grip_rotation_checks.gd",
+      "bytes": 4921,
+      "sha256": "cdc4c76e7f549a997336ba0817adf2f34ed95f6fada0427e179836e193791d69"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/tests/helpers/stage_grip_rotation_checks.gd.uid",
+      "bytes": 19,
+      "sha256": "3777efc5dce9bf107629f15b3bd011b3a5b19f3eff8ab18a9dda96e60f31a4b6"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/tests/helpers/stage_part_binding_checks.gd",
+      "bytes": 3564,
+      "sha256": "830de1b00b162827005e54a468ad0df42e823844af9bbf055c440db211c75319"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/tests/helpers/stage_part_binding_checks.gd.uid",
+      "bytes": 20,
+      "sha256": "aa9726a56d3d27dfeb25928abde7be57fca2048b035a07e331924979e053538a"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/tests/suite/test_cutscene.gd",
+      "bytes": 55929,
+      "sha256": "2814bb693afc1f70523dda582ae3b3ae30e4a8d0d27d0feb48372b537456e5c2"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/tools/story/build_ch1_story.py",
+      "bytes": 32691,
+      "sha256": "4e33981fc020019a9216baa326254aa2bfa766c5a967aef159a692e052f751f6"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/tools/story/ch1_runtime_backend.py",
+      "bytes": 37228,
+      "sha256": "75bb451fb5b08d7a7b0dda9e5a0a01b9a0f71eed6025024fcb45fb04a0ea0f21"
+    },
+    {
+      "path": "meal-frozen-source-v3/after/tools/story/meal_staging.py",
+      "bytes": 2808,
+      "sha256": "2de0578266fbe6ef582096c5bb4c08da620d24b35fa720f4bcc4feaa049a53d0"
+    },
+    {
+      "path": "meal-frozen-source-v3/before/assets_src/pipeline/scene_props.json",
+      "bytes": 360045,
+      "sha256": "46f0dd2c7d3b621f87d3dd908dc8d695833e054568fdd4d01060edeaca16b234"
+    },
+    {
+      "path": "meal-frozen-source-v3/before/assets_src/pipeline/story_staging_art.json",
+      "bytes": 1785,
+      "sha256": "6ae5f5cde5206b0c07a56342aa9e6477282c846d3ea45ea1bea7deafca12e52b"
+    },
+    {
+      "path": "meal-frozen-source-v3/before/data/cutscene/stage_proportions.json",
+      "bytes": 2378,
+      "sha256": "c46362aa5bcccf97ede07c03199cd1610842403051faede86ccc329c25379e42"
+    },
+    {
+      "path": "meal-frozen-source-v3/before/data/cutscene/stages/ch1_dawn_noodle_stall.json",
+      "bytes": 2650,
+      "sha256": "9e93872d3236d844f1574cd6cb2809e96dd1f38b7df748d835bc0e2083bca054"
+    },
+    {
+      "path": "meal-frozen-source-v3/before/data/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.tres",
+      "bytes": 500,
+      "sha256": "283de38d3b3e1c4bdcdb0df2c2a8ce680e02afcce16c792e1d3d10e2ded65c4f"
+    },
+    {
+      "path": "meal-frozen-source-v3/before/data/story/ch1_kasa.json",
+      "bytes": 262868,
+      "sha256": "e99f08ebc577360ea0adc492ca92ea236f5ef7fddc3537026011e8bf870de16a"
+    },
+    {
+      "path": "meal-frozen-source-v3/before/game/cutscene/cutscene_actor.gd",
+      "bytes": 10333,
+      "sha256": "f85e0dc6155af5120b6591a03747daf7bb6ebb46fb51bdac75e236b6d6dca691"
+    },
+    {
+      "path": "meal-frozen-source-v3/before/game/cutscene/cutscene_checker.gd",
+      "bytes": 21831,
+      "sha256": "e8c90fd7ff009bbdcf34b1cb9141284da001d274b4b3c51a8605b03601558b61"
+    },
+    {
+      "path": "meal-frozen-source-v3/before/game/cutscene/cutscene_player.gd",
+      "bytes": 32337,
+      "sha256": "f23b839a13d0b6b57e79bdfe2632b80327c4e153ed60e2ae15be88bdd1a1bb67"
+    },
+    {
+      "path": "meal-frozen-source-v3/before/game/cutscene/cutscene_prop_action.gd",
+      "bytes": 3550,
+      "sha256": "2b789530f020406791743ae33b202008b8ace9693e8455db79b4de19e890802b"
+    },
+    {
+      "path": "meal-frozen-source-v3/before/game/cutscene/cutscene_reach.gd",
+      "bytes": 6046,
+      "sha256": "d8afc19d34266b5aa0378648df51a0ce886904738c8dfb1c1ed591ea466e9487"
+    },
+    {
+      "path": "meal-frozen-source-v3/before/game/cutscene/stage_library.gd",
+      "bytes": 13082,
+      "sha256": "88bf4271776fc7d0cf1c812987cc833fc68963ea24e5ceeb77eaa979f2feaf9f"
+    },
+    {
+      "path": "meal-frozen-source-v3/before/game/cutscene/stage_prop_binding.gd",
+      "bytes": 1356,
+      "sha256": "c7522899e0a6958b39443d64e273ed88ba90393be050477dcae3e445806690b0"
+    },
+    {
+      "path": "meal-frozen-source-v3/before/game/cutscene/stage_prop_hold.gd",
+      "bytes": 3762,
+      "sha256": "1ba302b0a74fcd605cc094215e681194cd91b8520b67ec9f9fea02441e210a49"
+    },
+    {
+      "path": "meal-frozen-source-v3/before/game/rig/character_rig.gd",
+      "bytes": 77443,
+      "sha256": "8e65a1d9260b3fd0eb132d9c595d87b7ecdffb7f7e1da851da6be96e05602a31"
+    },
+    {
+      "path": "meal-frozen-source-v3/before/game/rig/rig_input.gd",
+      "bytes": 3025,
+      "sha256": "cd76a68d33ede0c1c8c2346752fb8fcacbeecb97274020461ef7e1025c267e4a"
+    },
+    {
+      "path": "meal-frozen-source-v3/before/tests/suite/test_cutscene.gd",
+      "bytes": 55710,
+      "sha256": "ae5507d3f5fa315182426487ca29acf867a422008229d4e0656644e46259716c"
+    },
+    {
+      "path": "meal-frozen-source-v3/before/tools/story/build_ch1_story.py",
+      "bytes": 32258,
+      "sha256": "32a9b7c7b32b6dff7787afff9c6d25b749c1a82ca321e0ca4366dc42012c61c9"
+    },
+    {
+      "path": "meal-frozen-source-v3/before/tools/story/ch1_runtime_backend.py",
+      "bytes": 37051,
+      "sha256": "7471763c2abbd7661bd046c60e6157790ff69dfb06266e5baa14d7649579d989"
+    },
+    {
+      "path": "meal-frozen-source-v3/source.json",
+      "bytes": 6646,
+      "sha256": "dd563f295afd68c2c3fd07403035d91db68a0b20f40ef01627611a8ed3c528fc"
+    },
+    {
+      "path": "meal-frozen-source/after/art/environment/scene_props/dawn_noodle_stall_contacts/utensil_atlas.png",
+      "bytes": 826801,
+      "sha256": "d75e523927f97b58322a1126e6c48715024323c1628d28d0be946538e86a2038"
+    },
+    {
+      "path": "meal-frozen-source/after/art/environment/scene_props/dawn_noodle_stall_contacts/utensil_atlas.png.import",
+      "bytes": 1000,
+      "sha256": "01b46495a5ca908478522d39405425720eb6475071d5f8bdec2d1db6a317fa26"
+    },
+    {
+      "path": "meal-frozen-source/after/art/environment/scene_props/dawn_noodle_stall_contacts/utensil_atlas_n.png",
+      "bytes": 61424,
+      "sha256": "7205c7c3168e9e9cf6a80b9780e87514eebe926f6c286eb564cd26aa05bc0fd3"
+    },
+    {
+      "path": "meal-frozen-source/after/art/environment/scene_props/dawn_noodle_stall_contacts/utensil_atlas_n.png.import",
+      "bytes": 1005,
+      "sha256": "e687a78a022a5fd27698c2de1a1e72aea69a8cf5465bb4b91322a6e903558428"
+    },
+    {
+      "path": "meal-frozen-source/after/assets_src/candidates/st10_meal_1026/README.md",
+      "bytes": 643,
+      "sha256": "6a50c02963135d18ef922ac4eb7dcb7f26c7ebc8cfd017d8f1b2d9b69600f7e0"
+    },
+    {
+      "path": "meal-frozen-source/after/assets_src/candidates/st10_meal_1026/chopsticks-noodles-generated.png",
+      "bytes": 935864,
+      "sha256": "885058e06aa8cd7b56727a9d1fd8c8254dd95742c61eb94baf0c948cce4dc18c"
+    },
+    {
+      "path": "meal-frozen-source/after/assets_src/candidates/st10_meal_1026/manifest.json",
+      "bytes": 850,
+      "sha256": "4a9550df63097cb9a1c3bf3166f39beac8abd7345cf632f02952378d03740be6"
+    },
+    {
+      "path": "meal-frozen-source/after/assets_src/candidates/st10_meal_1026/prompt.json",
+      "bytes": 2059,
+      "sha256": "2424d7b74ea8949e6642e463fdaad753bdadf86d14a046d234391580d764ab84"
+    },
+    {
+      "path": "meal-frozen-source/after/assets_src/pipeline/story_staging_art.json",
+      "bytes": 2383,
+      "sha256": "936c0a1e494d4f78bdcc5d77ec1e7d96b2bdfe2f7108b23df71238edcae67ced"
+    },
+    {
+      "path": "meal-frozen-source/after/data/cutscene/stages/ch1_dawn_noodle_stall.json",
+      "bytes": 3452,
+      "sha256": "636d6b9b9b575e6e3f37706ee3062485710c1b451d729e0e220150221327adc0"
+    },
+    {
+      "path": "meal-frozen-source/after/data/story/ch1_kasa.json",
+      "bytes": 264714,
+      "sha256": "838426b99f8dcfa22b487d224050297710370c2fcc4b085dcc5b47816fe74165"
+    },
+    {
+      "path": "meal-frozen-source/after/game/cutscene/cutscene_actor.gd",
+      "bytes": 10643,
+      "sha256": "ca9b963c63d4a5c6f3c0b43acb632009b541326d32ac784b785699bb41a8a548"
+    },
+    {
+      "path": "meal-frozen-source/after/game/cutscene/cutscene_checker.gd",
+      "bytes": 23280,
+      "sha256": "27031c5bbb0a7e5ba107cc1baaf35d3e0bc3416596732102fa54142bf2e40cc2"
+    },
+    {
+      "path": "meal-frozen-source/after/game/cutscene/cutscene_player.gd",
+      "bytes": 33010,
+      "sha256": "a2a4fb7955bf62c322812651707b7f07c835731d6f1eeef10815d5fbc2d1b488"
+    },
+    {
+      "path": "meal-frozen-source/after/game/cutscene/cutscene_prop_action.gd",
+      "bytes": 3699,
+      "sha256": "0c499fd4f4f9f8caf283e6d44297467649233ad7604c1e26e1689dcf5d086bd1"
+    },
+    {
+      "path": "meal-frozen-source/after/game/cutscene/cutscene_reach.gd",
+      "bytes": 7278,
+      "sha256": "a44109c15074662404c6b4142820c835a53fa00e190667d89a89306ba1790d85"
+    },
+    {
+      "path": "meal-frozen-source/after/game/cutscene/stage_library.gd",
+      "bytes": 13125,
+      "sha256": "b3b8882c6a6663a9cb9774d82217d9c80bf5e64395a2e20b1f30269b53839c10"
+    },
+    {
+      "path": "meal-frozen-source/after/game/cutscene/stage_prop_binding.gd",
+      "bytes": 1531,
+      "sha256": "c4205eae0a3d21bf2404772177c029a1adb51c98d6233961feafec666d11f05f"
+    },
+    {
+      "path": "meal-frozen-source/after/game/cutscene/stage_prop_hold.gd",
+      "bytes": 5014,
+      "sha256": "534cfacc7c6ae9d2b34e354c5c2278d6e6a52072afc28865e2f59e5477e6229d"
+    },
+    {
+      "path": "meal-frozen-source/after/game/rig/character_rig.gd",
+      "bytes": 78597,
+      "sha256": "df18663fcfa4de6bc3b3340bdcb70fb9cf400454679031955cca61e377d1002f"
+    },
+    {
+      "path": "meal-frozen-source/after/game/rig/rig_input.gd",
+      "bytes": 3188,
+      "sha256": "9b92a1fe65c0ab0f78edabd73ceae53d454a380157d6a94431c96c510f69f88d"
+    },
+    {
+      "path": "meal-frozen-source/after/tests/helpers/meal_choreography_checks.gd",
+      "bytes": 3657,
+      "sha256": "6aa68e70bcd52f01f187edbd05f1d1ad3264881e271df43ed4e02325c8640e4e"
+    },
+    {
+      "path": "meal-frozen-source/after/tests/helpers/stage_grip_rotation_checks.gd",
+      "bytes": 4921,
+      "sha256": "cdc4c76e7f549a997336ba0817adf2f34ed95f6fada0427e179836e193791d69"
+    },
+    {
+      "path": "meal-frozen-source/after/tests/helpers/stage_grip_rotation_checks.gd.uid",
+      "bytes": 19,
+      "sha256": "3777efc5dce9bf107629f15b3bd011b3a5b19f3eff8ab18a9dda96e60f31a4b6"
+    },
+    {
+      "path": "meal-frozen-source/after/tests/helpers/stage_part_binding_checks.gd",
+      "bytes": 3564,
+      "sha256": "830de1b00b162827005e54a468ad0df42e823844af9bbf055c440db211c75319"
+    },
+    {
+      "path": "meal-frozen-source/after/tests/suite/test_cutscene.gd",
+      "bytes": 55929,
+      "sha256": "2814bb693afc1f70523dda582ae3b3ae30e4a8d0d27d0feb48372b537456e5c2"
+    },
+    {
+      "path": "meal-frozen-source/after/tools/story/build_ch1_story.py",
+      "bytes": 32479,
+      "sha256": "63c819c7f97f6fa44a7acb6079eb4b1d66447701545d86e0fe80527945b956e7"
+    },
+    {
+      "path": "meal-frozen-source/after/tools/story/ch1_runtime_backend.py",
+      "bytes": 37228,
+      "sha256": "75bb451fb5b08d7a7b0dda9e5a0a01b9a0f71eed6025024fcb45fb04a0ea0f21"
+    },
+    {
+      "path": "meal-frozen-source/after/tools/story/meal_staging.py",
+      "bytes": 2808,
+      "sha256": "2de0578266fbe6ef582096c5bb4c08da620d24b35fa720f4bcc4feaa049a53d0"
+    },
+    {
+      "path": "meal-frozen-source/before/assets_src/pipeline/story_staging_art.json",
+      "bytes": 1785,
+      "sha256": "6ae5f5cde5206b0c07a56342aa9e6477282c846d3ea45ea1bea7deafca12e52b"
+    },
+    {
+      "path": "meal-frozen-source/before/data/cutscene/stages/ch1_dawn_noodle_stall.json",
+      "bytes": 2650,
+      "sha256": "9e93872d3236d844f1574cd6cb2809e96dd1f38b7df748d835bc0e2083bca054"
+    },
+    {
+      "path": "meal-frozen-source/before/data/story/ch1_kasa.json",
+      "bytes": 262868,
+      "sha256": "e99f08ebc577360ea0adc492ca92ea236f5ef7fddc3537026011e8bf870de16a"
+    },
+    {
+      "path": "meal-frozen-source/before/game/cutscene/cutscene_actor.gd",
+      "bytes": 10333,
+      "sha256": "f85e0dc6155af5120b6591a03747daf7bb6ebb46fb51bdac75e236b6d6dca691"
+    },
+    {
+      "path": "meal-frozen-source/before/game/cutscene/cutscene_checker.gd",
+      "bytes": 21831,
+      "sha256": "e8c90fd7ff009bbdcf34b1cb9141284da001d274b4b3c51a8605b03601558b61"
+    },
+    {
+      "path": "meal-frozen-source/before/game/cutscene/cutscene_player.gd",
+      "bytes": 32337,
+      "sha256": "f23b839a13d0b6b57e79bdfe2632b80327c4e153ed60e2ae15be88bdd1a1bb67"
+    },
+    {
+      "path": "meal-frozen-source/before/game/cutscene/cutscene_prop_action.gd",
+      "bytes": 3550,
+      "sha256": "2b789530f020406791743ae33b202008b8ace9693e8455db79b4de19e890802b"
+    },
+    {
+      "path": "meal-frozen-source/before/game/cutscene/cutscene_reach.gd",
+      "bytes": 6046,
+      "sha256": "d8afc19d34266b5aa0378648df51a0ce886904738c8dfb1c1ed591ea466e9487"
+    },
+    {
+      "path": "meal-frozen-source/before/game/cutscene/stage_library.gd",
+      "bytes": 13082,
+      "sha256": "88bf4271776fc7d0cf1c812987cc833fc68963ea24e5ceeb77eaa979f2feaf9f"
+    },
+    {
+      "path": "meal-frozen-source/before/game/cutscene/stage_prop_binding.gd",
+      "bytes": 1356,
+      "sha256": "c7522899e0a6958b39443d64e273ed88ba90393be050477dcae3e445806690b0"
+    },
+    {
+      "path": "meal-frozen-source/before/game/cutscene/stage_prop_hold.gd",
+      "bytes": 3762,
+      "sha256": "1ba302b0a74fcd605cc094215e681194cd91b8520b67ec9f9fea02441e210a49"
+    },
+    {
+      "path": "meal-frozen-source/before/game/rig/character_rig.gd",
+      "bytes": 77443,
+      "sha256": "8e65a1d9260b3fd0eb132d9c595d87b7ecdffb7f7e1da851da6be96e05602a31"
+    },
+    {
+      "path": "meal-frozen-source/before/game/rig/rig_input.gd",
+      "bytes": 3025,
+      "sha256": "cd76a68d33ede0c1c8c2346752fb8fcacbeecb97274020461ef7e1025c267e4a"
+    },
+    {
+      "path": "meal-frozen-source/before/tests/suite/test_cutscene.gd",
+      "bytes": 55710,
+      "sha256": "ae5507d3f5fa315182426487ca29acf867a422008229d4e0656644e46259716c"
+    },
+    {
+      "path": "meal-frozen-source/before/tools/story/build_ch1_story.py",
+      "bytes": 32258,
+      "sha256": "32a9b7c7b32b6dff7787afff9c6d25b749c1a82ca321e0ca4366dc42012c61c9"
+    },
+    {
+      "path": "meal-frozen-source/before/tools/story/ch1_runtime_backend.py",
+      "bytes": 37051,
+      "sha256": "7471763c2abbd7661bd046c60e6157790ff69dfb06266e5baa14d7649579d989"
+    },
+    {
+      "path": "meal-frozen-source/replay/layout.json",
+      "bytes": 3428,
+      "sha256": "6c43184fa19bf5ef13ec8665a686dd085bb2ffc71b8e01b4850c69b0c5fc08a6"
+    },
+    {
+      "path": "meal-frozen-source/replay/main.tscn",
+      "bytes": 177,
+      "sha256": "a9cf902478f0b7a79185be82135c88bb70e552b9f159fbc34acc241ea9cd5887"
+    },
+    {
+      "path": "meal-frozen-source/replay/meal_prop_probe.gd",
+      "bytes": 11173,
+      "sha256": "cd96053bb7f5423333689a68614f947ab447386ff408fabc0fd311af09d603c8"
+    },
+    {
+      "path": "meal-frozen-source/replay/measure.gd",
+      "bytes": 1483,
+      "sha256": "0a1b1975778ca45fdf41f6b427f1d52cd4bb159325db4bae72ca65c450bb4307"
+    },
+    {
+      "path": "meal-frozen-source/replay/measure.tscn",
+      "bytes": 172,
+      "sha256": "ec82b3a52bb89de69f3d7316683087fb0a00e7f4deff1f299d02a8507c871f16"
+    },
+    {
+      "path": "meal-frozen-source/replay/preview.gd",
+      "bytes": 4398,
+      "sha256": "99f02cdd045dffc4047e729b9029e1df1319106ae7639d86b4a9297bcd16194b"
+    },
+    {
+      "path": "meal-frozen-source/replay/preview.tscn",
+      "bytes": 172,
+      "sha256": "ead5538114f56928c29c5d097a3f3a21bb30f68f1865ae0805cacde37dc0dadb"
+    },
+    {
+      "path": "meal-frozen-source/source.json",
+      "bytes": 5650,
+      "sha256": "0b76d9cb075003cd8ba96a1eaaca35c8e624dcf37cd9edca12a4ed094c43ec50"
+    },
+    {
+      "path": "native/st10-meal-cancel-v1.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-meal-cancel-v1.log",
+      "bytes": 1574,
+      "sha256": "9da158bd7a69ea2da04293b32311fd52caccd12bd3309694f576d48a3012be65"
+    },
+    {
+      "path": "native/st10-meal-cancel-v1/result.json",
+      "bytes": 1370,
+      "sha256": "b85a4e6f618850159239e8388e8b7b4dee90ee9bfb8866a401941fdf6c978ee1"
+    },
+    {
+      "path": "native/st10-meal-cancel-v2.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-meal-cancel-v2.log",
+      "bytes": 1714,
+      "sha256": "bb2d0231e2c6547d9b7d1881cafa30e83485044c031cd2c34e0f4fac821b91a4"
+    },
+    {
+      "path": "native/st10-meal-cancel-v2/result.json",
+      "bytes": 1370,
+      "sha256": "037b9426641f6cd9d3ba7b828435472de00cdc222336844f7462ca02602407c7"
+    },
+    {
+      "path": "native/st10-meal-cancel-v3.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-meal-cancel-v3.log",
+      "bytes": 1865,
+      "sha256": "6162bc93db67caf8cbf1579cd8dfc1b6d5e1809a523cb8c7aaa3102893bc295f"
+    },
+    {
+      "path": "native/st10-meal-cancel-v3/address.png",
+      "bytes": 537156,
+      "sha256": "d2334e1b2abb83781f879db1b086eb4a47b0a7bcd080ca96beb376a21ec205d8"
+    },
+    {
+      "path": "native/st10-meal-cancel-v3/meal-empty.png",
+      "bytes": 542190,
+      "sha256": "b2bc357ab7d96b2eef69f321fc3e8c04de0d60911321a36357fd840ab2c8782b"
+    },
+    {
+      "path": "native/st10-meal-cancel-v3/meal-full.png",
+      "bytes": 541574,
+      "sha256": "b17632ff689c7dce5f430bd651eb3b54e625261b19c80688df49ba28d6b53d76"
+    },
+    {
+      "path": "native/st10-meal-cancel-v3/meal-restarted.png",
+      "bytes": 540851,
+      "sha256": "a78ffbf2932f9e4c22f288e0cd44b209f30c99ffc3e5e25638ac4b1f53da950e"
+    },
+    {
+      "path": "native/st10-meal-cancel-v3/mechanical-lift.png",
+      "bytes": 582894,
+      "sha256": "c47e134f73a837b1f2fde3031571e361c6bc9195b4077180ac274570e466a7eb"
+    },
+    {
+      "path": "native/st10-meal-cancel-v3/mechanical-mouth.png",
+      "bytes": 580805,
+      "sha256": "8711da58fada370d7c11d03ffbae32772f8162e36dfde0471e25581f5ed764a2"
+    },
+    {
+      "path": "native/st10-meal-cancel-v3/mechanical-pickup.png",
+      "bytes": 581807,
+      "sha256": "3ed69bad93f3729e186eea0ac67f23a079f264497533cbb38c8fb852171afe2e"
+    },
+    {
+      "path": "native/st10-meal-cancel-v3/result.json",
+      "bytes": 1370,
+      "sha256": "f8e351b6ea59e1131faa3943c34248548e80f2408a166e7601dbe3fd8dbeeba7"
+    },
+    {
+      "path": "native/st10-meal-main-v1.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-meal-main-v1.log",
+      "bytes": 1304,
+      "sha256": "45d8a276d8c85ea0df03d99e6ae4a280891e58c5db4237021cb9bc57c2056891"
+    },
+    {
+      "path": "native/st10-meal-main-v1/meal-empty.png",
+      "bytes": 541651,
+      "sha256": "31f96ee29f9f4eb1cca2a41110a3685291d462f1e3574f0cff352d81dac742f3"
+    },
+    {
+      "path": "native/st10-meal-main-v1/meal-full.png",
+      "bytes": 538682,
+      "sha256": "d7512dfe984facfbd2f540c3f63f4f931d09b43f7996a6da49423577e1973181"
+    },
+    {
+      "path": "native/st10-meal-main-v1/mechanical-mouth.png",
+      "bytes": 579320,
+      "sha256": "4487318cdf20ac5e9439794d354a56782b6a55e52f851d6492cb5f45d1d3c37d"
+    },
+    {
+      "path": "native/st10-meal-main-v1/result.json",
+      "bytes": 1155,
+      "sha256": "7ddf2f7d40553ecfc397e683b3a9384a9e541572dd7313b67cb050181c05c3e9"
+    },
+    {
+      "path": "native/st10-meal-main-v2.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-meal-main-v2.log",
+      "bytes": 1304,
+      "sha256": "1623dea59f95e2e6fabfc976ee26fcb467e34b3bc918936ec3a80ae3d2f2a225"
+    },
+    {
+      "path": "native/st10-meal-main-v2/result.json",
+      "bytes": 1153,
+      "sha256": "02b22ab548e2e109f1b804a92567edb7fb492e05bc7be47a1cd8917c89d847e0"
+    },
+    {
+      "path": "native/st10-meal-main-v3.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-meal-main-v3.log",
+      "bytes": 1444,
+      "sha256": "86fcc87c3f8cf92be129285785ab4e6e5eea56eb62c7339b60656edf4df4401d"
+    },
+    {
+      "path": "native/st10-meal-main-v3/address.png",
+      "bytes": 575060,
+      "sha256": "20c1e8515bd95e76fef33ef70c280b34141e88c71159f8522c14bdccef99c91f"
+    },
+    {
+      "path": "native/st10-meal-main-v3/meal-empty.png",
+      "bytes": 580309,
+      "sha256": "eaf180162d0a18d12dd2874f74273bd6eeda3512c3d38a634a36525afd4d8708"
+    },
+    {
+      "path": "native/st10-meal-main-v3/meal-full.png",
+      "bytes": 582211,
+      "sha256": "d98b831696cff0340d991a4d65330a6967b8984600e90a7716f423c007c84135"
+    },
+    {
+      "path": "native/st10-meal-main-v3/mechanical-lift.png",
+      "bytes": 643413,
+      "sha256": "0955c6d7ae9fa414f70e2f8dab5f74612bc8178847020e4d8dc3142c5507e72e"
+    },
+    {
+      "path": "native/st10-meal-main-v3/mechanical-mouth.png",
+      "bytes": 643351,
+      "sha256": "f7bc2ac3f2f978803e0a721eb83ecdd9da6497874232456ddb049007c831590e"
+    },
+    {
+      "path": "native/st10-meal-main-v3/mechanical-pickup.png",
+      "bytes": 643451,
+      "sha256": "8ac98b2214d5d8d75e6bfafa5ed7c184790c390aa7e754a9d491631ff8c48d9f"
+    },
+    {
+      "path": "native/st10-meal-main-v3/result.json",
+      "bytes": 1158,
+      "sha256": "4bc89468ba022ed86a414878f92804d4262241e347deeddba6c1e21351a05199"
+    },
+    {
+      "path": "native/st10-meal-main-v4.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-meal-main-v4.log",
+      "bytes": 1595,
+      "sha256": "61415c1a7eb913b0c5949f49f78276b2ae4273c3e923941063715bfc06b50757"
+    },
+    {
+      "path": "native/st10-meal-main-v4/address.png",
+      "bytes": 537112,
+      "sha256": "42a99154fe096189f994e0c9adbc40aa9898a196f927e139d95323a984958604"
+    },
+    {
+      "path": "native/st10-meal-main-v4/meal-empty.png",
+      "bytes": 542084,
+      "sha256": "ca60c4cd2c27bb55bd3d851f2412976b351cb7eccb1c56eeff71110537d948e8"
+    },
+    {
+      "path": "native/st10-meal-main-v4/meal-full.png",
+      "bytes": 541142,
+      "sha256": "6d2bbfa6e845087086774dcdaa2a95c636a78057e06661202153b4eb1e40e109"
+    },
+    {
+      "path": "native/st10-meal-main-v4/mechanical-lift.png",
+      "bytes": 581806,
+      "sha256": "fca4cdc15081a7cca453884471bf57d977f6baa9756309a3501e3d6f49f3cfcb"
+    },
+    {
+      "path": "native/st10-meal-main-v4/mechanical-mouth.png",
+      "bytes": 582158,
+      "sha256": "bec79e5d3b394c42f41ecc6e0d44229b8a6882e67a47b5379a2a80bdfc8e25c7"
+    },
+    {
+      "path": "native/st10-meal-main-v4/mechanical-pickup.png",
+      "bytes": 581631,
+      "sha256": "b816f72fb9f1600e634dcbfcc1599e12a71a99fa0c82787456e94754d1ac0644"
+    },
+    {
+      "path": "native/st10-meal-main-v4/result.json",
+      "bytes": 1155,
+      "sha256": "494c6003d3e85c232cbe39c301452d98408ad5ee371a3c9a92b4e517a3b36034"
+    },
+    {
+      "path": "native/st10-meal-preview-v1.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-meal-preview-v1.log",
+      "bytes": 1036,
+      "sha256": "e48156d6eb8549580fec716a506f2fd98377abaf096a1e5d0553d60fae5d1597"
+    },
+    {
+      "path": "native/st10-meal-preview-v1/meal-after.png",
+      "bytes": 579953,
+      "sha256": "c7562441034bda2f7a58b3ce672512862edc16562bfc43b92fdb1a3edc496e57"
+    },
+    {
+      "path": "native/st10-meal-preview-v1/meal-layout.png",
+      "bytes": 582325,
+      "sha256": "79ab058de6aaca25f84e67b46044880c4a1391baa28e2e07462b5e34caa468e0"
+    },
+    {
+      "path": "native/st10-meal-preview-v1/meal-lift.png",
+      "bytes": 581148,
+      "sha256": "3035be6842878536a1b2acb25ddd988096c5412f8e5e232ffa780dbded3cbe2a"
+    },
+    {
+      "path": "native/st10-meal-preview-v1/meal-mouth.png",
+      "bytes": 580470,
+      "sha256": "3f73a20aed286010b0fa2e50b23a7e533ba40f0dffa142761404c1e8b74ba336"
+    },
+    {
+      "path": "native/st10-meal-preview-v1/meal-pickup.png",
+      "bytes": 582003,
+      "sha256": "809189b5fb28f5948eb696bc832346b802a8d184aea9178129ff98f346cf3e8d"
+    },
+    {
+      "path": "native/st10-meal-preview-v2.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-meal-preview-v2.log",
+      "bytes": 1036,
+      "sha256": "c2b7443e8ff978d7748485dc9d2bd080d1106c6ade8028a1267daa76c906b65b"
+    },
+    {
+      "path": "native/st10-meal-preview-v2/meal-after.png",
+      "bytes": 580921,
+      "sha256": "4044b82ab21475a66fd56f48d8e9d651ada51a0632920f073049c9327da0d195"
+    },
+    {
+      "path": "native/st10-meal-preview-v2/meal-layout.png",
+      "bytes": 582388,
+      "sha256": "594244d1dfa7c5a5994a18e7ffde22263013c2cdd5453eb1199bd569e56656e5"
+    },
+    {
+      "path": "native/st10-meal-preview-v2/meal-lift.png",
+      "bytes": 581458,
+      "sha256": "9a3c4c69d0cf0f28680322eefc92ee9faf7dcef299654f408febb27262f7713b"
+    },
+    {
+      "path": "native/st10-meal-preview-v2/meal-mouth.png",
+      "bytes": 581791,
+      "sha256": "a1d45a9ef6f6a52164599c2e085f391ff62c1793249c0446530702d41b2b4220"
+    },
+    {
+      "path": "native/st10-meal-preview-v2/meal-pickup.png",
+      "bytes": 582168,
+      "sha256": "8cb6907832e89cd6cf0f4b2ff92a313d9c8cb0a7722589f7a208ee82269881b1"
+    },
+    {
+      "path": "native/st10-meal-read-v1.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-meal-read-v1.log",
+      "bytes": 594,
+      "sha256": "61b7e24a1cd43abe053c5879733b53cf1f7d00949e2c9acdc770c5d4c5ac7f9d"
+    },
+    {
+      "path": "native/st10-meal-read-v1/result.json",
+      "bytes": 541,
+      "sha256": "6204e31c7b17bc539c2450f8707c24e7b0a40f12f469ff0400d4640d6ddfc2d2"
+    },
+    {
+      "path": "native/st10-meal-read-v3.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-meal-read-v3.log",
+      "bytes": 734,
+      "sha256": "e5c21ee951958536541fb1cf0acad4ec82486f2b57043165ddfff3f7454e9f42"
+    },
+    {
+      "path": "native/st10-meal-read-v3/address.png",
+      "bytes": 536975,
+      "sha256": "d35d457dd7db00db5deb7156cb16a9d366ce1333c2a1623fe25e4c6d40670def"
+    },
+    {
+      "path": "native/st10-meal-read-v3/result.json",
+      "bytes": 541,
+      "sha256": "b2745354c7bf9c00a9178bb1e884557d409309315eef98743fdb993e71b4b898"
+    },
+    {
+      "path": "native/st10-meal-skip-v1.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-meal-skip-v1.log",
+      "bytes": 1191,
+      "sha256": "fa96582d5ff271f349c51b58adcbe24ff872dea7ae716813bc6bf731cd12aa40"
+    },
+    {
+      "path": "native/st10-meal-skip-v1/result.json",
+      "bytes": 949,
+      "sha256": "7f9c3a771f127182491716cf4950bf783cbe14c9fc51a5c69ff32d4095688d6a"
+    },
+    {
+      "path": "native/st10-meal-skip-v2.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-meal-skip-v2.log",
+      "bytes": 1331,
+      "sha256": "5fc4384ecd201b0b8b6708d673460fd1ada4f53f8d545f289453f965fc5eb9ac"
+    },
+    {
+      "path": "native/st10-meal-skip-v2/result.json",
+      "bytes": 945,
+      "sha256": "215bc287f750df76b4e64a5bdacd70b2e7a528a43315b7675eda1329a2352480"
+    },
+    {
+      "path": "native/st10-meal-skip-v3.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-meal-skip-v3.log",
+      "bytes": 1482,
+      "sha256": "e48ecacb73fbf40452c0985e653763c1cdd83fd8044eb2fdb1db79aac2131798"
+    },
+    {
+      "path": "native/st10-meal-skip-v3/address.png",
+      "bytes": 536654,
+      "sha256": "7e488dfda1217046850caada7d326fbd6475381407902e558bccdb0c56d67929"
+    },
+    {
+      "path": "native/st10-meal-skip-v3/meal-full.png",
+      "bytes": 541566,
+      "sha256": "9fd4c2b624bd9fc4aedf829b7ef61225c8480ba64bd39d2cb69bbffe44657a90"
+    },
+    {
+      "path": "native/st10-meal-skip-v3/mechanical-lift.png",
+      "bytes": 581498,
+      "sha256": "3c39033c3163b511960c47e5223f1ca7df66fa3a6bba8a3e3f1479d8dd0e7948"
+    },
+    {
+      "path": "native/st10-meal-skip-v3/mechanical-mouth.png",
+      "bytes": 582019,
+      "sha256": "c4ae7e31e7c7f9b40e7444d07e13f562b9910cc559b893e5e520a54b502687b9"
+    },
+    {
+      "path": "native/st10-meal-skip-v3/mechanical-pickup.png",
+      "bytes": 581694,
+      "sha256": "c0b546ae37be2e8d166b0eba1468e10623c13cc40830b81cc486a45437d318e6"
+    },
+    {
+      "path": "native/st10-meal-skip-v3/result.json",
+      "bytes": 943,
+      "sha256": "e40782fbc307d2c655164d8b6aa54ebbf0ba63a3e163018fef60c80ac5da6553"
+    },
+    {
+      "path": "native/st10-meal-world-v1.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-meal-world-v1.log",
+      "bytes": 702,
+      "sha256": "a1e7a03da9d0fe3a80f182bc98cad1e8d6d23381fce5aad9dbf9a436a83ff86c"
+    },
+    {
+      "path": "native/st10-meal-world-v1/actual-map-table.png",
+      "bytes": 408559,
+      "sha256": "4196ef38d318b1747a74cde1351cb170aa150a49e6fd6dea41eca80d099bb7ec"
+    },
+    {
+      "path": "native/st10-meal-world-v3.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-meal-world-v3.log",
+      "bytes": 884,
+      "sha256": "caabc4c411cc9ab85f4ed63ca036ef030453e985952b8f223fc244171de0fe3d"
+    },
+    {
+      "path": "native/st10-meal-world-v3/actual-map-table.png",
+      "bytes": 389620,
+      "sha256": "2ab5c5ff141f5ab58c79859c77412077c28807b4398c4e28bfd8eaa1ab8ba2fe"
+    },
+    {
+      "path": "native/st10-meal-world-v4.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-meal-world-v4.log",
+      "bytes": 967,
+      "sha256": "8d42b02a3ca2db3b5f96c0a07361866f9eac5387a31cf03779a4a4b25e55e7e0"
+    },
+    {
+      "path": "native/st10-meal-world-v4/actual-map-table.png",
+      "bytes": 435868,
+      "sha256": "5ee21b6e04607fdfa6eefcdad92b3ca396679dd769f59472b089258039ddd690"
+    },
+    {
+      "path": "native/st10-meal-world-v5.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-meal-world-v5.log",
+      "bytes": 967,
+      "sha256": "cbc48717d94b3d13c00f63b612ebcf9f05cd56bdf821744968d229fa68457ce5"
+    },
+    {
+      "path": "native/st10-meal-world-v5/actual-map-table.png",
+      "bytes": 474814,
+      "sha256": "d8e577dc19202550da8db12e2434e03db2fae52ca75088a982507fe6ad758c16"
+    },
+    {
+      "path": "native/st10-meal-world-v6.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-meal-world-v6.log",
+      "bytes": 1111,
+      "sha256": "dfc134bcbb53fee0c12b20fdfe195d52ba4847dfde76dd22aad395524ebccdf0"
+    },
+    {
+      "path": "native/st10-meal-world-v6/actual-map-table.png",
+      "bytes": 467686,
+      "sha256": "b92156548d78ab41239da17025fa129537d8f93936996e18ae7b73bf315c8a4c"
+    },
+    {
+      "path": "native/st10-meal-write-v1.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-meal-write-v1.log",
+      "bytes": 1105,
+      "sha256": "39b54d4642bd68901d5308df89aa6df6ea48197c997dea77411eaf107178ce5a"
+    },
+    {
+      "path": "native/st10-meal-write-v1/result.json",
+      "bytes": 1111,
+      "sha256": "1d703a8d0ed8687c5728471e0a81e7924b84de0c6f7ba2923cb41790334b40b4"
+    },
+    {
+      "path": "native/st10-meal-write-v2.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-meal-write-v2.log",
+      "bytes": 1245,
+      "sha256": "866866279926ffa430a4e81a5a4cfe0b273249b9dc4a09ff2d2b7717e3bed0b2"
+    },
+    {
+      "path": "native/st10-meal-write-v2/result.json",
+      "bytes": 1115,
+      "sha256": "e7a11dfa599a567b39c0d12cf665eda65d18a897d5554171a33e04bfd81d418b"
+    },
+    {
+      "path": "native/st10-meal-write-v3.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-meal-write-v3.log",
+      "bytes": 1396,
+      "sha256": "1daf6560018878fbd094c9ab91faae000c64ea647951683f6ef1953f8f0dc844"
+    },
+    {
+      "path": "native/st10-meal-write-v3/address.png",
+      "bytes": 536930,
+      "sha256": "df31517d6d5834224fe2cc70aa52472c5012265b5794b0b374a50f090ce91b1f"
+    },
+    {
+      "path": "native/st10-meal-write-v3/meal-empty.png",
+      "bytes": 542187,
+      "sha256": "6357c3bbbe41a6c824bbbd6b247452d2c1d72bbe5a5558b127545338bca657e8"
+    },
+    {
+      "path": "native/st10-meal-write-v3/meal-full.png",
+      "bytes": 541626,
+      "sha256": "f133e78d492dd24464a2f4c0a57badccdabb208a7c1801d6876b34e2d627d681"
+    },
+    {
+      "path": "native/st10-meal-write-v3/mechanical-lift.png",
+      "bytes": 581589,
+      "sha256": "d11eb496bf7fbc1cd7d415a4601e4e69ba09e832de902d3bd753dd8ccae8bf85"
+    },
+    {
+      "path": "native/st10-meal-write-v3/mechanical-mouth.png",
+      "bytes": 582064,
+      "sha256": "88f86c4e877854b6d0528a2b42bb1d0f7bab3a8dc9a08fea95f9a26aaebb4aff"
+    },
+    {
+      "path": "native/st10-meal-write-v3/mechanical-pickup.png",
+      "bytes": 581678,
+      "sha256": "5a17c6479aea8805f88965faa59bd13b989ea201de926029bfe2005a8ffe045a"
+    },
+    {
+      "path": "native/st10-meal-write-v3/result.json",
+      "bytes": 1116,
+      "sha256": "92ab3082f57c5d50bd672168a45e470189d1ace528ddf5ffbf71b8f425582d11"
+    },
+    {
+      "path": "references/972660-0.jpg",
+      "bytes": 236780,
+      "sha256": "24464047395103fb1812febdfbc01c7f577c4fcb7b999ec18a4f72be0e52a582"
+    },
+    {
+      "path": "references/972660-1.jpg",
+      "bytes": 501281,
+      "sha256": "f45a32fdaa27586664ebbb68e01a66b6e970e6d3882ecf913d88c648e1449f29"
+    },
+    {
+      "path": "references/972660-2.jpg",
+      "bytes": 237968,
+      "sha256": "80493ba95e88b7d1df5fc5e31c8f799db921157793ec3c0d8cb405346f644eb4"
+    },
+    {
+      "path": "references/977880-0.jpg",
+      "bytes": 680772,
+      "sha256": "821fcc0482614f701d01f4bc67a0fe94a0ed0c3eac487827731ec09953864237"
+    },
+    {
+      "path": "references/977880-1.jpg",
+      "bytes": 483653,
+      "sha256": "78c57bd9f12e3d0264c30d2bd234ef17c4e0c9b7a8f032f5c5aac1fc1129c768"
+    },
+    {
+      "path": "references/977880-2.jpg",
+      "bytes": 435040,
+      "sha256": "7aa499a56552cf50d514d2752188ef062287554e5fdc59449aa356f147138b63"
+    },
+    {
+      "path": "references/sources.json",
+      "bytes": 2243,
+      "sha256": "b5fff12dea416fb37980590187d45d8c7a689074d891188ecf5d66666408a4d9"
+    },
+    {
+      "path": "reproduction/after_meal_regression.py",
+      "bytes": 1141,
+      "sha256": "c366689843e132769625b23938c7b1182ed925ff480a2c604f64ed7684b10d2c"
+    },
+    {
+      "path": "reproduction/meal-next-plan.md",
+      "bytes": 7216,
+      "sha256": "779f80def925ee60b36555947042c798a681e8d0c46b38d9534e2b6a28161258"
+    },
+    {
+      "path": "reproduction/meal-next-world-plan.md",
+      "bytes": 2847,
+      "sha256": "b24bd30597d9d34bdd8aa5fd4b473f0e55167727bdc4d530b66517821077ae54"
+    },
+    {
+      "path": "reproduction/native-large.py",
+      "bytes": 2028,
+      "sha256": "689815a568098051d1cce471b8fb65b5200aae3ead9f22b213c053f0a4246f2d"
+    },
+    {
+      "path": "reproduction/package_meal.py",
+      "bytes": 7924,
+      "sha256": "a7f8aa814ff55f2d2d7087ce08c2484123f899edb44b9e1cbb60ebeb2f0f457c"
+    },
+    {
+      "path": "reproduction/run_final_meal.py",
+      "bytes": 2052,
+      "sha256": "049b7e52a2841ab77f71aa7830b69907e2515982b8f207e01626260df1130d89"
+    },
+    {
+      "path": "reproduction/run_final_meal_clean.py",
+      "bytes": 2632,
+      "sha256": "6f4fdbe73ba1bb5fbaa00eff6c73d9dfa4512402cd290d1a10daa0cc2ef49e4a"
+    },
+    {
+      "path": "reproduction/run_final_meal_verified.py",
+      "bytes": 2650,
+      "sha256": "c08ee207d69dbd227f9b03b7688a9655aafd07ecf3d28b8faf2adfc21c234743"
+    },
+    {
+      "path": "reproduction/write_meal_docs.py",
+      "bytes": 10692,
+      "sha256": "48382df496c352bab533be3bdb0073f5095ef87543cd9c0c23738224fce75800"
+    },
+    {
+      "path": "validation.json",
+      "bytes": 8743,
+      "sha256": "7a8c769731dc71b2b2492269ad12edaecba6d26efc5a29194724d37556788a49"
+    },
+    {
+      "path": "work/st10-meal/choreo.gd",
+      "bytes": 1091,
+      "sha256": "9190a3e1d437aad1a6a6479a66fe718536911011a8b2c3c8deac650eb8bb67e1"
+    },
+    {
+      "path": "work/st10-meal/choreo.tscn",
+      "bytes": 170,
+      "sha256": "d19657ae1e1e537bd414fb700bba3bc475176aa8036b6737210877db991b0ca2"
+    },
+    {
+      "path": "work/st10-meal/layout.json",
+      "bytes": 3428,
+      "sha256": "6c43184fa19bf5ef13ec8665a686dd085bb2ffc71b8e01b4850c69b0c5fc08a6"
+    },
+    {
+      "path": "work/st10-meal/main.tscn",
+      "bytes": 177,
+      "sha256": "a9cf902478f0b7a79185be82135c88bb70e552b9f159fbc34acc241ea9cd5887"
+    },
+    {
+      "path": "work/st10-meal/meal_prop_mid_probe.gd",
+      "bytes": 2676,
+      "sha256": "2cd5179dd670a0da587d109401fd6813d9fc4444f311679cd2deb6bb202cce49"
+    },
+    {
+      "path": "work/st10-meal/meal_prop_probe.gd",
+      "bytes": 12398,
+      "sha256": "39f0a8736d6356530c770638dc4775058b1966a9ea646475707a444efa755092"
+    },
+    {
+      "path": "work/st10-meal/measure.gd",
+      "bytes": 1483,
+      "sha256": "0a1b1975778ca45fdf41f6b427f1d52cd4bb159325db4bae72ca65c450bb4307"
+    },
+    {
+      "path": "work/st10-meal/measure.tscn",
+      "bytes": 172,
+      "sha256": "ec82b3a52bb89de69f3d7316683087fb0a00e7f4deff1f299d02a8507c871f16"
+    },
+    {
+      "path": "work/st10-meal/preview.gd",
+      "bytes": 4398,
+      "sha256": "99f02cdd045dffc4047e729b9029e1df1319106ae7639d86b4a9297bcd16194b"
+    },
+    {
+      "path": "work/st10-meal/preview.tscn",
+      "bytes": 172,
+      "sha256": "ead5538114f56928c29c5d097a3f3a21bb30f68f1865ae0805cacde37dc0dadb"
+    },
+    {
+      "path": "work/st10-meal/world.gd",
+      "bytes": 3264,
+      "sha256": "d234fb7b08a4b6261a58ec728e3b22499fc2186f65a5fab35d40c43884aacc28"
+    },
+    {
+      "path": "work/st10-meal/world.tscn",
+      "bytes": 168,
+      "sha256": "09a6cb9b6183e9b2a40fe8b3c330f7e1cf51a78bed7b03a3dbd9ec305f93a828"
+    },
+    {
+      "path": "work/st10-meal/world_framed.gd",
+      "bytes": 3821,
+      "sha256": "df01992eaf8822728fd33d91562f01c26caddce855c61513093770b6d83efaeb"
+    },
+    {
+      "path": "work/st10-meal/world_framed.tscn",
+      "bytes": 181,
+      "sha256": "0214d4eabaeda4fd8dbf408875ac6df50739efb3f6aa12ea8083c5f3dbc1637d"
+    },
+    {
+      "path": "work/st10-meal/world_framed_idle.gd",
+      "bytes": 3879,
+      "sha256": "ec259d911c3a954f16d8abd47f9b4665c6300515debf3640955eb4e5a4bb11fa"
+    },
+    {
+      "path": "work/st10-meal/world_framed_idle.tscn",
+      "bytes": 190,
+      "sha256": "249b1e614a86bb03f2f92c7a27fba8e7b5ce2d38a72f931cda0beb4ed8fa6051"
+    },
+    {
+      "path": "work/st10-meal/world_grounded.gd",
+      "bytes": 4265,
+      "sha256": "fee48fa348002a8a2d2e400d3ffb735b6f83e7b00ebc3a97429dfcfa609875f8"
+    },
+    {
+      "path": "work/st10-meal/world_grounded.tscn",
+      "bytes": 185,
+      "sha256": "c080ab6424dbc4cc4de14978939c15c20bce3bcd7db1e4cc0e3588dd59a5c319"
+    }
+  ]
+}

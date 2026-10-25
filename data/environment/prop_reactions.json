@@ -234,5 +234,12 @@
     }
    ]
   }
+ },
+ "noodle_meal": {
+  "swap": {
+   "flag": "ch1_supper_meal_done",
+   "prop": "dawn_noodle_stall__noodle_table_world_empty",
+   "pack": "res://data/environment/scene_props/dawn_noodle_stall"
+  }
  }
 }

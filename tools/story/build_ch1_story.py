@@ -16,10 +16,11 @@ import os
 import sys
 
 try:
-    from . import kitchen_staging
+    from . import kitchen_staging, meal_staging
     from .ch1_closure import ProductionNotReady, build_source, compile_production, source_report
 except ImportError:
     import kitchen_staging
+    import meal_staging
     from ch1_closure import ProductionNotReady, build_source, compile_production, source_report
 
 ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
@@ -130,10 +131,13 @@ def stall_layers(scale):
             layer["support"] = "hang"  # 掛在別的東西上，底邊不在地面線（場景檢查依這個欄位略過落地檢查）
         return layer
     # 燈籠（連繩）掛在攤車頂的前緣，下緣高過頭頂（lift 是世界像素，也要乘上縮放）。
-    table = sprite('noodle_bowls_table', 335, 30.4, 25.5)
+    table = sprite('noodle_bowls_table', meal_staging.TABLE_X, meal_staging.TABLE_WIDTH, meal_staging.TABLE_HEIGHT)
+    # Bowl contacts stay in the frozen 304px source canvas after import/resize.
+    table.update(glow=False, source_width=meal_staging.TABLE_SOURCE_WIDTH,
+                 scale=round(scale * meal_staging.TABLE_WIDTH / meal_staging.TABLE_SOURCE_WIDTH, 4))
     table.update(id="noodle_table", states={"eaten": {"path": "res://art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty.png"}})
     return [sprite('ali_noodle_cart', 395, 58.1, 66.0), table,
-            sprite('hanging_lantern', 405, 16.9, 33.0, 30.0)]
+            sprite('hanging_lantern', 405, 16.9, 33.0, 30.0)] + meal_staging.layers(floor, scale)
 
 
 def write_stage(stage_id, scene, top, bottom, rain, glow, extra):
@@ -159,11 +163,12 @@ def write_stage(stage_id, scene, top, bottom, rain, glow, extra):
         scale = SCALE[stage_id]['rin']
         layers.extend(stall_layers(scale))
         # 麵攤旁的小板凳：座面在骨盆下方（坐姿的髖高決定它的高度）。
-        seat = FLOOR[stage_id] - (HIP_SIT['rin'] - PELVIS) * scale
-        furniture.append({"id": "stool", "kind": "seat", "rect": [290, round(seat, 1), 30, round(FLOOR[stage_id] - seat, 1)], "plane": "actor"})
-        layers.append({"kind": "poly", "points": [[290, seat], [320, seat], [320, seat + 3], [290, seat + 3]], "color": "#6a4a30", "parallax": 1.0})
-        layers.append({"kind": "poly", "points": [[294, seat + 3], [297, seat + 3], [297, FLOOR[stage_id]], [294, FLOOR[stage_id]]], "color": "#4a3320", "parallax": 1.0})
-        layers.append({"kind": "poly", "points": [[313, seat + 3], [316, seat + 3], [316, FLOOR[stage_id]], [313, FLOOR[stage_id]]], "color": "#4a3320", "parallax": 1.0})
+        seat = meal_staging.SEAT_Y
+        bx = meal_staging.BENCH_X
+        furniture.append({"id": "stool", "kind": "seat", "rect": [bx, round(seat, 1), meal_staging.BENCH_WIDTH, round(FLOOR[stage_id] - seat, 1)], "plane": "actor"})
+        layers.append({"kind": "poly", "points": [[bx, seat], [bx + 30, seat], [bx + 30, seat + 3], [bx, seat + 3]], "color": "#6a4a30", "parallax": 1.0})
+        layers.append({"kind": "poly", "points": [[bx + 4, seat + 3], [bx + 7, seat + 3], [bx + 7, FLOOR[stage_id]], [bx + 4, FLOOR[stage_id]]], "color": "#4a3320", "parallax": 1.0})
+        layers.append({"kind": "poly", "points": [[bx + 23, seat + 3], [bx + 26, seat + 3], [bx + 26, FLOOR[stage_id]], [bx + 23, FLOOR[stage_id]]], "color": "#4a3320", "parallax": 1.0})
     if rain:
         layers.append({"kind": "rain", "depth": "front", "opacity": 0.35})
     layers.append({"kind": "motes", "count": 24, "color": "#cfe0ff", "opacity": 0.3, "area": [0, 30, 640, 280], "drift": [2, -3], "size": 1.1, "seed": 7})

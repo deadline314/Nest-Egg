@@ -1,32 +1,41 @@
 {
-  "version": 1,
-  "generated": {
-    "tool": "image_gen.imagegen",
-    "requested_canvas": [
-      304,
-      255
-    ],
-    "actual_canvas": [
-      1369,
-      1149
-    ],
-    "seed": null,
-    "model": null,
-    "job": null,
-    "source_sha256": "0d744b24d22b23244baad9d18bd95c6443a89b2199b0fcd38d6932b016c4ae4a",
-    "reference": "art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.png",
-    "reference_sha256": "043b89c8b6325b4c6a93960ae3bd9cd35302cd63d240707a80749bafe68688b8",
-    "prompt": "Edit this exact RGBA 2D cel-shaded game prop into its precise AFTER-RIN-EATS state. ONLY THE LEFT BOWL on the table has been eaten: remove all noodles and solid food from the LEFT bowl and remove ALL steam above that LEFT bowl. Its ceramic interior is empty with only a few tiny soup residue marks. THE RIGHT BOWL MUST REMAIN FULL OF NOODLES, WITH ITS ORIGINAL STEAM, EXACTLY AS THE REFERENCE. Preserve every other object: central condiment bottle, the two bowls' ceramic outlines, chopstick positions, brown tabletop and steel frame/legs, blue stool left and red stool right. Keep identical orthographic proportions, stool seat height, table support baseline, local colors, dark outlines and two-tone shading. Do not add new contents, people, ground or background. All existing empty spaces between legs remain truly transparent. Prefer the original exact304x255px canvas and framing. The two bowls must clearly differ: viewer-left EMPTY and no steam, viewer-right FULL and steaming. The companion has not eaten the second bowl, so do not empty it.",
-    "rejected_prior": {
-      "file": "pm/ST/attachments/ST-10-meal-props/raw.zip:rejected/both-empty.png",
-      "reason": "Both bowls empty would claim the companion consumed the second bowl."
-    }
-  },
-  "files": [
-    {
-      "input": "assets_src/story_props/noodle_table_empty.png",
-      "sha256": "0d744b24d22b23244baad9d18bd95c6443a89b2199b0fcd38d6932b016c4ae4a",
-      "output": "art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty.png"
-    }
-  ]
+  "version": 2,
+  "staging_ids": [
+    "meal_table_full",
+    "meal_table_eaten",
+    "meal_table_world_eaten"
+  ],
+  "note": "Delegate to the shared immutable staging-art producer; prior adoption is historical provenance, not the active producer.",
+  "prior_adoption": {
+    "version": 1,
+    "generated": {
+      "tool": "image_gen.imagegen",
+      "requested_canvas": [
+        304,
+        255
+      ],
+      "actual_canvas": [
+        1369,
+        1149
+      ],
+      "seed": null,
+      "model": null,
+      "job": null,
+      "source_sha256": "0d744b24d22b23244baad9d18bd95c6443a89b2199b0fcd38d6932b016c4ae4a",
+      "reference": "art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.png",
+      "reference_sha256": "043b89c8b6325b4c6a93960ae3bd9cd35302cd63d240707a80749bafe68688b8",
+      "prompt": "Edit this exact RGBA 2D cel-shaded game prop into its precise AFTER-RIN-EATS state. ONLY THE LEFT BOWL on the table has been eaten: remove all noodles and solid food from the LEFT bowl and remove ALL steam above that LEFT bowl. Its ceramic interior is empty with only a few tiny soup residue marks. THE RIGHT BOWL MUST REMAIN FULL OF NOODLES, WITH ITS ORIGINAL STEAM, EXACTLY AS THE REFERENCE. Preserve every other object: central condiment bottle, the two bowls' ceramic outlines, chopstick positions, brown tabletop and steel frame/legs, blue stool left and red stool right. Keep identical orthographic proportions, stool seat height, table support baseline, local colors, dark outlines and two-tone shading. Do not add new contents, people, ground or background. All existing empty spaces between legs remain truly transparent. Prefer the original exact304x255px canvas and framing. The two bowls must clearly differ: viewer-left EMPTY and no steam, viewer-right FULL and steaming. The companion has not eaten the second bowl, so do not empty it.",
+      "rejected_prior": {
+        "file": "pm/ST/attachments/ST-10-meal-props/raw.zip:rejected/both-empty.png",
+        "reason": "Both bowls empty would claim the companion consumed the second bowl."
+      }
+    },
+    "files": [
+      {
+        "input": "assets_src/story_props/noodle_table_empty.png",
+        "sha256": "0d744b24d22b23244baad9d18bd95c6443a89b2199b0fcd38d6932b016c4ae4a",
+        "output": "art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty.png"
+      }
+    ]
+  }
 }

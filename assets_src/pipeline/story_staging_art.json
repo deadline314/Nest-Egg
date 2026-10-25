@@ -63,6 +63,90 @@
         "relief": 0.1,
         "detail": 0.0
       }
+    },
+    {
+      "id": "meal_utensils",
+      "input": "assets_src/candidates/st10_meal_1026/chopsticks-noodles-generated.png",
+      "sha256": "885058e06aa8cd7b56727a9d1fd8c8254dd95742c61eb94baf0c948cce4dc18c",
+      "size": [
+        1536,
+        1024
+      ],
+      "output": "art/environment/scene_props/dawn_noodle_stall_contacts/utensil_atlas.png",
+      "kind": "prop",
+      "grade": {},
+      "alpha_floor": 8,
+      "pad_even": true,
+      "emission": "none",
+      "normal": {
+        "profile": "pillow",
+        "round_px": 6.0,
+        "relief": 0.1,
+        "detail": 0.0
+      }
+    },
+    {
+      "id": "meal_table_full",
+      "input": "assets_src/candidates/st10_meal_1026/table-full-no-left-sticks-generated.png",
+      "sha256": "b2c657ea35ff490e8e24433e5d278dca0211a934683a19303d0eb251821e01a5",
+      "size": [
+        1369,
+        1149
+      ],
+      "output": "art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.png",
+      "kind": "prop",
+      "emission": "none",
+      "alpha_floor": 8,
+      "pad_even": true,
+      "grade": {},
+      "normal": {
+        "profile": "flat",
+        "round_px": 6,
+        "relief": 0.1,
+        "detail": 0
+      }
+    },
+    {
+      "id": "meal_table_eaten",
+      "input": "assets_src/candidates/st10_meal_1026/table-eaten-no-left-sticks-generated.png",
+      "sha256": "ac43bb4cdbc0ded17afe535673a64687a0d7b150021bd9cc369dcf0364b9d3ab",
+      "size": [
+        1369,
+        1149
+      ],
+      "output": "art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_empty.png",
+      "kind": "prop",
+      "emission": "none",
+      "alpha_floor": 8,
+      "pad_even": true,
+      "grade": {},
+      "normal": {
+        "profile": "flat",
+        "round_px": 6,
+        "relief": 0.1,
+        "detail": 0
+      }
+    },
+    {
+      "id": "meal_table_world_eaten",
+      "input": "assets_src/story_props/noodle_table_empty.png",
+      "sha256": "0d744b24d22b23244baad9d18bd95c6443a89b2199b0fcd38d6932b016c4ae4a",
+      "size": [
+        1369,
+        1149
+      ],
+      "output": "art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_table_world_empty.png",
+      "kind": "prop",
+      "emission": "none",
+      "alpha_floor": 8,
+      "pad_even": true,
+      "grade": {},
+      "normal": {
+        "profile": "flat",
+        "round_px": 6,
+        "relief": 0.1,
+        "detail": 0
+      }
     }
   ]
 }

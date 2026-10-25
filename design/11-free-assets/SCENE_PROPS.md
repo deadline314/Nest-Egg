@@ -260,7 +260,7 @@
 | id | 中文名 | 一句話 | 尺寸 | 狀態 |
 |---|---|---|---|---|
 | `dawn_noodle_stall__ali_noodle_cart` | 阿梨的小麵攤車 | 推車式小麵攤：鍋裡冒蒸氣、暖黃燈泡、一面小招牌空白著；名字還沒想好。 | 2.2 m | 完成 |
-| `dawn_noodle_stall__noodle_bowls_table` | 矮桌與兩碗麵 | 路邊的矮桌、兩張小板凳、兩碗熱麵；「欠著」的那一碗。 | 0.85 m | 完成 |
+| `dawn_noodle_stall__noodle_bowls_table` | 矮桌與兩碗麵 | 路邊的矮桌、兩張小板凳、兩碗熱麵；「欠著」的那一碗。ST-10量桌面至腳底，蒸氣不算桌高；地圖／舞台共用尺寸。 | 桌體約0.75 m（含蒸氣畫布約1.118 m） | 完成 |
 | `dawn_noodle_stall__hanging_lantern` | 掛著的小燈籠 | 屋簷下的紙燈籠，在晨風裡輕輕擺動。 | 1.1 m | 完成 |
 | `dawn_noodle_stall__stool_stack` | 疊起來的塑膠椅 | 收起來的紅色塑膠椅，一疊疊在牆邊。 | 1.2 m | 完成 |
 | `dawn_noodle_stall__shop_shutter_dawn` | 拉下的小店鐵門 | 還沒開門的小店，鐵捲門上有一張褪色的招牌。 | 2.3 m | 完成 |

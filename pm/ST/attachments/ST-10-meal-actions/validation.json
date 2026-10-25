@@ -1,0 +1,306 @@
+{
+  "date": "2026-10-26 Asia/Taipei",
+  "base": "86845791e1fb35cae0d0aebb096e0d6199e1dc4c",
+  "engine": "4.7.2-stable ed1daf0bf",
+  "renderer": "native Forward+ HDR / Vulkan llvmpipe software",
+  "selector": {
+    "groups": 80,
+    "shards": 8,
+    "checks": 97241,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 507,
+    "filters_and_known_failures_unchanged": true
+  },
+  "native": [
+    {
+      "name": "st10-meal-main-v4",
+      "captures": [
+        {
+          "actor_positions": {
+            "ali": "(425.0, 300.0)",
+            "rin": "(322.0, 300.0)"
+          },
+          "name": "meal-full",
+          "scene": "ch1_t_supper_stay_meal",
+          "state": "default"
+        },
+        {
+          "actor_positions": {
+            "ali": "(425.0, 300.0)",
+            "rin": "(322.0, 300.0)"
+          },
+          "name": "meal-empty",
+          "scene": "ch1_t_supper_stay_meal",
+          "state": "eaten"
+        },
+        {
+          "actor_positions": {
+            "ali": "(425.0, 300.0)",
+            "rin": "(322.0, 300.0)"
+          },
+          "name": "address",
+          "scene": "ch1_t_supper_stay_address",
+          "state": "eaten"
+        }
+      ],
+      "checks": 22,
+      "failures": [],
+      "finished": {
+        "ch1_t_supper_choice_none": 1,
+        "ch1_t_supper_host_none_prompt": 1,
+        "ch1_t_supper_stay_address": 1,
+        "ch1_t_supper_stay_host_none": 1,
+        "ch1_t_supper_stay_meal": 1
+      },
+      "mode": "normal",
+      "probe_sha256": "39f0a8736d6356530c770638dc4775058b1966a9ea646475707a444efa755092",
+      "samples": {
+        "hold_error": 6.82393801980652e-05,
+        "mouth": 4,
+        "mouth_error": 7.62939453125e-05,
+        "palm": 20,
+        "palm_error": 3.41196900990326e-05
+      }
+    },
+    {
+      "name": "st10-meal-cancel-v3",
+      "captures": [
+        {
+          "actor_positions": {
+            "ali": "(425.0, 300.0)",
+            "rin": "(322.0, 300.0)"
+          },
+          "name": "meal-full",
+          "scene": "ch1_t_supper_stay_meal",
+          "state": "default"
+        },
+        {
+          "actor_positions": {
+            "ali": "(425.0, 300.0)",
+            "rin": "(322.0, 300.0)"
+          },
+          "name": "meal-restarted",
+          "scene": "ch1_t_supper_stay_meal",
+          "state": "default"
+        },
+        {
+          "actor_positions": {
+            "ali": "(425.0, 300.0)",
+            "rin": "(322.0, 300.0)"
+          },
+          "name": "meal-empty",
+          "scene": "ch1_t_supper_stay_meal",
+          "state": "eaten"
+        },
+        {
+          "actor_positions": {
+            "ali": "(425.0, 300.0)",
+            "rin": "(322.0, 300.0)"
+          },
+          "name": "address",
+          "scene": "ch1_t_supper_stay_address",
+          "state": "eaten"
+        }
+      ],
+      "checks": 26,
+      "failures": [],
+      "finished": {
+        "ch1_t_supper_choice_none": 1,
+        "ch1_t_supper_host_none_prompt": 1,
+        "ch1_t_supper_stay_address": 1,
+        "ch1_t_supper_stay_host_none": 1,
+        "ch1_t_supper_stay_meal": 1
+      },
+      "mode": "cancel",
+      "probe_sha256": "39f0a8736d6356530c770638dc4775058b1966a9ea646475707a444efa755092",
+      "samples": {
+        "hold_error": 6.82393801980652e-05,
+        "mouth": 4,
+        "mouth_error": 4.31583721365314e-05,
+        "palm": 22,
+        "palm_error": 4.31583721365314e-05
+      }
+    },
+    {
+      "name": "st10-meal-skip-v3",
+      "captures": [
+        {
+          "actor_positions": {
+            "ali": "(425.0, 300.0)",
+            "rin": "(322.0, 300.0)"
+          },
+          "name": "meal-full",
+          "scene": "ch1_t_supper_stay_meal",
+          "state": "default"
+        },
+        {
+          "actor_positions": {
+            "ali": "(425.0, 300.0)",
+            "rin": "(322.0, 300.0)"
+          },
+          "name": "address",
+          "scene": "ch1_t_supper_stay_address",
+          "state": "eaten"
+        }
+      ],
+      "checks": 20,
+      "failures": [],
+      "finished": {
+        "ch1_t_supper_choice_none": 1,
+        "ch1_t_supper_host_none_prompt": 1,
+        "ch1_t_supper_stay_address": 1,
+        "ch1_t_supper_stay_host_none": 1,
+        "ch1_t_supper_stay_meal": 1
+      },
+      "mode": "skip",
+      "probe_sha256": "39f0a8736d6356530c770638dc4775058b1966a9ea646475707a444efa755092",
+      "samples": {
+        "hold_error": 7.62939453125e-05,
+        "mouth": 2,
+        "mouth_error": 3.0517578125e-05,
+        "palm": 11,
+        "palm_error": 4.31583721365314e-05
+      }
+    },
+    {
+      "name": "st10-meal-write-v3",
+      "captures": [
+        {
+          "actor_positions": {
+            "ali": "(425.0, 300.0)",
+            "rin": "(322.0, 300.0)"
+          },
+          "name": "meal-full",
+          "scene": "ch1_t_supper_stay_meal",
+          "state": "default"
+        },
+        {
+          "actor_positions": {
+            "ali": "(425.0, 300.0)",
+            "rin": "(322.0, 300.0)"
+          },
+          "name": "meal-empty",
+          "scene": "ch1_t_supper_stay_meal",
+          "state": "eaten"
+        },
+        {
+          "actor_positions": {
+            "ali": "(425.0, 300.0)",
+            "rin": "(322.0, 300.0)"
+          },
+          "name": "address",
+          "scene": "ch1_t_supper_stay_address",
+          "state": "eaten"
+        }
+      ],
+      "checks": 19,
+      "failures": [],
+      "finished": {
+        "ch1_t_supper_choice_none": 1,
+        "ch1_t_supper_host_none_prompt": 1,
+        "ch1_t_supper_stay_host_none": 1,
+        "ch1_t_supper_stay_meal": 1
+      },
+      "mode": "write",
+      "probe_sha256": "39f0a8736d6356530c770638dc4775058b1966a9ea646475707a444efa755092",
+      "samples": {
+        "hold_error": 6.103515625e-05,
+        "mouth": 4,
+        "mouth_error": 6.82393801980652e-05,
+        "palm": 19,
+        "palm_error": 3.41196900990326e-05
+      }
+    },
+    {
+      "name": "st10-meal-read-v3",
+      "captures": [
+        {
+          "actor_positions": {
+            "ali": "(425.0, 300.0)",
+            "rin": "(322.0, 300.0)"
+          },
+          "name": "address",
+          "scene": "ch1_t_supper_stay_address",
+          "state": "eaten"
+        }
+      ],
+      "checks": 8,
+      "failures": [],
+      "finished": {
+        "ch1_t_supper_stay_address": 1
+      },
+      "mode": "read",
+      "probe_sha256": "39f0a8736d6356530c770638dc4775058b1966a9ea646475707a444efa755092",
+      "samples": {
+        "hold_error": 0.0,
+        "mouth": 0,
+        "mouth_error": 0.0,
+        "palm": 0,
+        "palm_error": 0.0
+      }
+    }
+  ],
+  "world": {
+    "checks": 9,
+    "failures": 0,
+    "cold_accepted_map": true
+  },
+  "first_selector_before_duplicate_art_cleanup": {
+    "groups": 78,
+    "checks": 95617,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 525
+  },
+  "unit": {
+    "grip_and_existing_helpers": {
+      "checks": 802,
+      "failures": 0
+    },
+    "part_fixture_initial": {
+      "checks": 850,
+      "failures": 1,
+      "reason": "Godot uniquified same-parent sibling names; ambiguity fixture corrected"
+    },
+    "part_fixture_corrected": {
+      "checks": 850,
+      "failures": 0
+    },
+    "world_added": {
+      "checks": 857,
+      "failures": 0
+    },
+    "import_width_original_negative": {
+      "tests": 1,
+      "expected_failures": 1
+    },
+    "import_width_fixed": {
+      "tests": 4,
+      "failures": 0
+    },
+    "independent_actual_mechanics": {
+      "checks": 12,
+      "failures": 0
+    }
+  },
+  "visual_rejection": {
+    "phase": "main-v3 and its cancel/skip/write variants",
+    "reason": "importer replaced authored source_width304 with actual1370 without rescaling contacts; table306.469px instead of68.004. Numeric hand metrics passed; native images rejected. Corrected importer and added actual table/bowl guards."
+  },
+  "prior_kitchen_ci": {
+    "run_id": 40237141943,
+    "head_sha": "86845791e1fb35cae0d0aebb096e0d6199e1dc4c",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/deadline314/Nest-Egg/actions/runs/40237141943",
+    "job_id": 121301009049,
+    "actual_job_log": "ci-86845791-job-121301009049.log",
+    "checks": 97687,
+    "new_failures": 0,
+    "known_failures": 0,
+    "wall_seconds": 533,
+    "source": "actual full job log, no inferred totals"
+  },
+  "scope": "Actual Main/NPC with arranged canonical evening prerequisites and explicit stay/accept choices. Synthetic advancement waits for text completion; skip probe calls the existing Story skip API. World probe restores a separate accepted slot and arranges camera position. No human full-chapter playthrough or physical GPU/gamepad acceptance. ST-10 remains in progress for actual map disk insertion."
+}

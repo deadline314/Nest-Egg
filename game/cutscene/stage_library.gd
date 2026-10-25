@@ -269,7 +269,7 @@ class Stage:
 				child.process_mode = Node.PROCESS_MODE_DISABLED
 				push_error("[Stage] %s/%s: %s" % [stage_id, id, issue])
 
-	func hold_prop(id: String, actor: CutsceneActor, hand: StringName, source_point: Vector2) -> String:
+	func hold_prop(id: String, actor: CutsceneActor, hand: StringName, source_point: Vector2, follow_rotation := false) -> String:
 		if _held.size() >= 8 or prop_held(id):
 			return "prop is already held or the eight-prop hold limit was reached"
 		for existing: StagePropHold in _held:
@@ -281,7 +281,7 @@ class Stage:
 		if sprite.anchored():
 			return "anchored child cannot be independently held"
 		var hold := StagePropHold.new()
-		var issue := hold.setup(id, sprite, actor, hand, source_point, self)
+		var issue := hold.setup(id, sprite, actor, hand, source_point, self, follow_rotation)
 		if not issue.is_empty():
 			return issue
 		_held.append(hold)

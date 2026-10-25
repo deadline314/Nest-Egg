@@ -114,11 +114,15 @@ func set_hand_target(step: Dictionary, binding: StagePropBinding = null) -> bool
 	var issue := CutsceneReach.problem(step)
 	if not issue.is_empty() or rig == null:
 		return false
-	if step.get("space", "stage") == "prop" and binding == null and not step.get("release", false):
+	var reach := _reaches[0 if step["hand"] == "front" else 1]
+	var grip := bool(step.get("grip", reach.gripping()))
+	if not step.get("release", false) and grip and (not rig.has_hand_grip(StringName(step["hand"])) or step.has("contact")):
+		return false
+	if step.get("space", "stage") in ["prop", "part"] and binding == null and not step.get("release", false):
 		return false
 	var resolved := step
 	var angle_offset := float(step.get("angle", 0.0))
-	if step.get("space", "stage") == "prop" and not step.get("release", false):
+	if step.get("space", "stage") in ["prop", "part"] and not step.get("release", false):
 		var parent := get_parent() as Node2D
 		var point := binding.stage_point(parent)
 		var direction := binding.stage_angle(parent)
@@ -134,7 +138,6 @@ func set_hand_target(step: Dictionary, binding: StagePropBinding = null) -> bool
 		contact = rig.hand_source_point(StringName(step["hand"]), Vector2(step["contact"][0], step["contact"][1]))
 		if not (contact as Vector2).is_finite():
 			return false
-	var reach := _reaches[0 if step["hand"] == "front" else 1]
 	reach.configure(resolved, position)
 	if not step.get("release", false):
 		reach.set_contact_offset(contact)
@@ -198,6 +201,8 @@ func _process(delta: float) -> void:
 		# Stage translation and enlarged actors must use the same space as the leg solver.
 		var velocity := (position - _last_position) / maxf(delta * absf(scale.x) * rig.body_scale(), 0.0001) if _position_known else Vector2.ZERO
 		_apply_pose(velocity)
+		_input.hand_grip_front = _reaches[0].gripping()
+		_input.hand_grip_back = _reaches[1].gripping()
 		rig.animate(delta, _input)
 		for reach: CutsceneReach in _reaches:
 			reach.apply(self, delta * reach_speed)

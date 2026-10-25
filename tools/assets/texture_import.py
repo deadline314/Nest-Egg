@@ -36,8 +36,9 @@ def apply_policy(check: bool = False) -> int:
             key = texture.group(1)
             minimum_sizes[key] = max(minimum_sizes.get(key, 0), math.ceil(max(map(float, size.groups())) * policy["minimum_prop_pixels_per_world_pixel"]))
     changed = 0
-    # Add rendering metadata only: existing stage positions and authored scales
-    # stay untouched. The renderer compensates for the imported texture width.
+    # Fill missing metadata only. An authored source canvas may intentionally
+    # differ from the current file resolution (contacts, atlases, resized art).
+    # Replacing its width without its scale/anchors changes world geometry.
     def stage_sizes(value):
         count = 0
         if isinstance(value, dict):
@@ -47,9 +48,11 @@ def apply_policy(check: bool = False) -> int:
                 if image_path.exists():
                     with Image.open(image_path) as image:
                         width = image.width
-                    if value.get("source_width") != width:
+                    if "source_width" not in value:
                         value["source_width"] = width
                         count += 1
+                    elif type(value["source_width"]) not in (int, float) or not math.isfinite(value["source_width"]) or value["source_width"] <= 0:
+                        raise ValueError("Invalid authored sprite source_width: " + source)
             for child in value.values():
                 count += stage_sizes(child)
         elif isinstance(value, list):
@@ -78,7 +81,7 @@ def apply_policy(check: bool = False) -> int:
             with Image.open(ROOT / match.group(1)) as image:
                 line = f"source_width = {image.width}"
             if re.search(r"^source_width\s*=.*$", section, re.M):
-                sections[i] = re.sub(r"^source_width\s*=.*$", line, section, flags=re.M)
+                continue  # Existing parallax widths are also authored geometry.
             else:
                 sections[i] = section.rstrip() + "\n" + line + "\n\n"
         text = "".join(sections)

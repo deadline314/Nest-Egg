@@ -401,7 +401,7 @@ func _do_prop_hold(step: Dictionary) -> void:
 	if not _running or skipping:
 		return
 	var actor := _actors.get(StringName(step["actor"])) as CutsceneActor
-	var issue := _stage.hold_prop(step["id"], actor, StringName(step["hand"]), _vec(step["point"], Vector2.INF))
+	var issue := _stage.hold_prop(step["id"], actor, StringName(step["hand"]), _vec(step["point"], Vector2.INF), bool(step.get("follow_rotation", false)))
 	if not issue.is_empty():
 		push_error("[Cutscene] %s: %s" % [_current_where, issue])
 
@@ -454,6 +454,14 @@ func _do_reach(step: Dictionary) -> void:
 	if actor == null:
 		return
 	var binding: StagePropBinding
+	if step.get("space", "stage") == "part" and not step.get("release", false):
+		var target := _actors.get(StringName(step["target_actor"])) as CutsceneActor
+		var part := target.rig.contact_part(StringName(step["part"])) if target != null and target.rig != null else null
+		var point := CharacterRig.part_source_point(part, _vec(step["to"], Vector2.INF))
+		if not point.is_finite():
+			push_error("[Cutscene] %s: reach target actor/part or source point unavailable: %s/%s" % [_current_where, step["target_actor"], step["part"]])
+			return
+		binding = StagePropBinding.new(part, point, _vec(step.get("offset", [0, 0]), Vector2.INF))
 	if step.get("space", "stage") == "prop" and not step.get("release", false):
 		var node := _stage.prop_node(step["prop"]) if _stage != null else null
 		if node == null:

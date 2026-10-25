@@ -4,21 +4,23 @@ extends RefCounted
 
 var _target: WeakRef
 var _point := Vector2.ZERO
+var _offset := Vector2.ZERO
 
 
-func _init(target: Node2D, point: Vector2) -> void:
+func _init(target: Node2D, point: Vector2, stage_offset := Vector2.ZERO) -> void:
 	_target = weakref(target)
 	_point = point
+	_offset = stage_offset
 
 
 func stage_point(parent: Node2D) -> Vector2:
 	var node := _node()
-	if node == null or not _parent_valid(parent):
+	if node == null or not _parent_valid(parent) or not _offset.is_finite() or absf(_offset.x) > 8192.0 or absf(_offset.y) > 8192.0:
 		return Vector2.INF
 	var local: Vector2 = (node as StageLayers._Sprite).source_point(_point) if node is StageLayers._Sprite else _point
 	if not local.is_finite():
 		return Vector2.INF
-	return parent.to_local(node.to_global(local))
+	return parent.to_local(node.to_global(local)) + _offset
 
 
 func stage_angle(parent: Node2D) -> float:

@@ -1,0 +1,29 @@
+{
+  "source": "assets_src/pipeline/scene_props.json",
+  "base": "86845791e1fb35cae0d0aebb096e0d6199e1dc4c",
+  "superseded_by": "assets_src/pipeline/story_staging_art.json:meal_table_full",
+  "entry": {
+    "id": "dawn_noodle_stall__noodle_bowls_table",
+    "scene": "dawn_noodle_stall",
+    "seed": 7279,
+    "fit": "meters",
+    "glow": "warm",
+    "data": {
+      "steam": true,
+      "steam_offset": "Vector2(14, 8)"
+    },
+    "texture_scale": 10,
+    "prompt": "A low roadside folding table with two small plastic stools seen from the front, on the table two white china bowls of steaming ramen-style noodles with a soft egg and green onion, a pair of chopsticks resting across each bowl, a small bottle of chili oil, wisps of white steam rising, proportions about eight wide to five tall.",
+    "anchor": {
+      "size": [
+        40.8,
+        25.5
+      ]
+    },
+    "height_m": 0.85,
+    "new": {
+      "display_name": "矮桌與兩碗麵",
+      "category": "scene"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "tool": "image_gen.imagegen",
+  "prompt": "Edit this exact attached transparent RGBA game prop image. Remove ONLY the two wooden chopsticks resting across the LEFT bowl. Reconstruct the tiny missing portion of the left bowl rim/noodles/steam behind those sticks. Keep the LEFT bowl FULL of noodles, egg and green onion with its existing steam. Keep the RIGHT bowl full and keep its original chopsticks and steam completely unchanged. Keep the chili bottle, table surface, thin folding table legs, blue stool on the left and red stool on the right. Preserve the original composition, orthographic front/three-quarter view, silhouette, outlines, dark muted game art colors and every object's relative position and proportions. Do not add any new utensils or objects. Retain the exact original aspect ratio 304:255, full transparent canvas including steam and feet; do not crop, reframe or enlarge objects within the canvas. Transparent RGBA background; no floor, no shadow backdrop. This is a precise cleanup for a real animated utensil, not a redesign.",
+  "transparent_background": true,
+  "reference": "art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.png",
+  "seed": null,
+  "model": null,
+  "job": null,
+  "reference_sha256": "043b89c8b6325b4c6a93960ae3bd9cd35302cd63d240707a80749bafe68688b8",
+  "reference_copy": "prior-noodle_bowls_table-reference.png"
+}

@@ -277,6 +277,16 @@ func hand_grip_offset(hand: StringName) -> Vector2:
 	return Vector2.ZERO
 
 
+func has_hand_grip(which: StringName) -> bool:
+	if which not in [&"front", &"back"]:
+		return false
+	var hand := &"hand_front" if which == &"front" else &"hand_back"
+	for entry in _hand_grips:
+		if entry["bone"] == hand:
+			return true
+	return false
+
+
 ## 骨架空間（未翻轉、未縮放）→ 世界座標。
 func skeleton_to_global(point: Vector2) -> Vector2:
 	return _skeleton.to_global(point) if _skeleton != null else global_position
@@ -329,6 +339,26 @@ func hand_source_point(which: StringName, point: Vector2) -> Vector2:
 	if point.x < 0.0 or point.y < 0.0 or point.x > size.x or point.y > size.y:
 		return Vector2.INF
 	return selected.transform * (point + selected.offset - (size * 0.5 if selected.centered else Vector2.ZERO))
+
+
+## 只解析已登記、唯一且可見的靜態貼圖部件；不開放任意 NodePath。
+func contact_part(part_name: StringName) -> Sprite2D:
+	var selected: Sprite2D
+	for part: CanvasItem in _parts:
+		if part.name == part_name and part is Sprite2D and part.visible:
+			if selected != null:
+				return null
+			selected = part
+	return selected
+
+
+static func part_source_point(part: Sprite2D, point: Vector2) -> Vector2:
+	if not is_instance_valid(part) or part.texture == null or not point.is_finite() or part.region_enabled or part.hframes != 1 or part.vframes != 1:
+		return Vector2.INF
+	var size := Vector2(part.texture.get_size())
+	if point.x < 0.0 or point.y < 0.0 or point.x > size.x or point.y > size.y:
+		return Vector2.INF
+	return point + part.offset - (size * .5 if part.centered else Vector2.ZERO)
 
 
 func hand_draw_z(which: StringName) -> int:
@@ -1557,10 +1587,11 @@ func _update_hand_grips(input: RigInput) -> void:
 	for entry in _hand_grips:
 		var closed := not _weapon_def.is_empty() and not input.dead
 		if entry["bone"] == &"hand_front":
-			closed = closed or (input.melee_grip and not input.dead)
+			closed = closed or ((input.melee_grip or input.hand_grip_front) and not input.dead)
 		if entry["bone"] == &"hand_back":
 			closed = closed and input.two_handed and not input.shield_forward and input.action == &""
 			closed = closed or (second_hand_on_weapon and input.melee_second and not input.dead and (input.action == &"" or input.melee_path_w > 0.0))
+			closed = closed or (input.hand_grip_back and not input.dead)
 		if closed == entry["closed"]:
 			continue
 		var sprite: Sprite2D = entry["sprite"]

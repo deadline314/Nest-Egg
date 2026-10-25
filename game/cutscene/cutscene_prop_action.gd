@@ -4,7 +4,7 @@ extends RefCounted
 
 const FIELDS := {
 	"prop_move": ["do", "id", "to", "angle", "time", "wait"],
-	"prop_hold": ["do", "id", "actor", "hand", "point"],
+	"prop_hold": ["do", "id", "actor", "hand", "point", "follow_rotation"],
 	"prop_release": ["do", "id"],
 	"prop_visible": ["do", "id", "visible"],
 }
@@ -34,6 +34,8 @@ static func problem(step: Dictionary) -> String:
 			if step.has("wait") and not step["wait"] is bool:
 				return "prop_move wait must be boolean"
 		"prop_hold":
+			if step.has("follow_rotation") and not step["follow_rotation"] is bool:
+				return "prop_hold follow_rotation must be boolean"
 			if not identifier(step.get("actor")) or not step.get("hand") is String or not CutsceneReach.HANDS.has(step["hand"]):
 				return "prop_hold requires a named actor and front or back hand"
 			if not point(step.get("point"), true):

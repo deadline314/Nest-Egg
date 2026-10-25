@@ -5319,7 +5319,7 @@
      "id": "rin",
      "kind": "rin",
      "pos": [
-      305,
+      322.0,
       300.0
      ],
      "facing": 1,
@@ -5328,7 +5328,7 @@
      "speaker": "rin",
      "pose": "sit",
      "pose_reason": "留下來吃阿梨請的麵，坐在攤前的長凳上。",
-     "pose_support": "麵攤長凳座面：舞台 x=290～320、y=276.4（舞台 furniture 的 stool）；腳底由 sit_y 量測。"
+     "pose_support": "麵攤長凳座面：舞台 x=307～337、y=276.4（舞台 furniture 的 stool）；腳底由 sit_y 量測。"
     },
     {
      "do": "say",
@@ -5343,6 +5343,121 @@
      "text": "有人記得甜就再來，有人嫌甜就告訴我。我想開自己的攤，得先有人願意說不好吃。",
      "ja": "甘いと覚えてくれたら、また来てね。甘すぎるなら教えてくれればいい。自分の屋台を開きたいから、まずは不味いって言ってくれる人がいないとね。",
      "en": "If people remember it as sweet, they can come back. If it's too sweet, they can tell me. I want to open my own stall, so first I need someone to say when it's bad."
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "space": "prop",
+     "prop": "meal_chopsticks",
+     "to": [
+      310,
+      481
+     ],
+     "time": 0.35,
+     "grip": true
+    },
+    {
+     "do": "prop_hold",
+     "id": "meal_chopsticks",
+     "actor": "rin",
+     "hand": "front",
+     "point": [
+      310,
+      481
+     ],
+     "follow_rotation": true
+    },
+    {
+     "do": "prop_visible",
+     "id": "meal_noodles",
+     "visible": true
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      339.0145,
+      240.02849999999998
+     ],
+     "time": 0.4
+    },
+    {
+     "do": "prop_move",
+     "id": "meal_noodles",
+     "angle": 2.8,
+     "time": 0.45,
+     "wait": false
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "space": "part",
+     "target_actor": "rin",
+     "part": "head",
+     "to": [
+      152,
+      145
+     ],
+     "offset": [
+      9.330101665393705,
+      3.608992645242932
+     ],
+     "angle": -2.8,
+     "time": 0.45
+    },
+    {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "prop_visible",
+     "id": "meal_noodles",
+     "visible": false
+    },
+    {
+     "do": "prop_move",
+     "id": "meal_noodles",
+     "angle": 0,
+     "time": 0.4,
+     "wait": false
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      339.0145,
+      240.02849999999998
+     ],
+     "time": 0.4
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      339.0145,
+      255.02849999999998
+     ],
+     "time": 0.35
+    },
+    {
+     "do": "prop_release",
+     "id": "meal_chopsticks"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "release": true,
+     "time": 0.3
+    },
+    {
+     "do": "wait",
+     "time": 0.35
     },
     {
      "do": "prop",
@@ -5393,7 +5508,7 @@
      "id": "rin",
      "kind": "rin",
      "pos": [
-      305,
+      322.0,
       300.0
      ],
      "facing": 1,
@@ -5402,7 +5517,7 @@
      "speaker": "rin",
      "pose": "sit",
      "pose_reason": "留下來吃阿梨請的麵，坐在攤前的長凳上。",
-     "pose_support": "麵攤長凳座面：舞台 x=290～320、y=276.4（舞台 furniture 的 stool）；腳底由 sit_y 量測。"
+     "pose_support": "麵攤長凳座面：舞台 x=307～337、y=276.4（舞台 furniture 的 stool）；腳底由 sit_y 量測。"
     },
     {
      "do": "say",

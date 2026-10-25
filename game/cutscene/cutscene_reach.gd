@@ -24,6 +24,7 @@ var _binding: StagePropBinding
 var _binding_angle := 0.0
 var _contact_offset: Variant = null
 var _follow_rotation := false
+var _grip := false
 
 
 func _init(which: StringName) -> void:
@@ -37,14 +38,34 @@ static func problem(step: Dictionary) -> String:
 		return "reach release must be boolean"
 	if step.has("wait") and not step["wait"] is bool:
 		return "reach wait must be boolean"
-	if step.get("space", "stage") not in ["stage", "actor", "prop"]:
-		return "reach space must be stage, actor or prop"
+	if step.has("grip"):
+		if not step["grip"] is bool:
+			return "reach grip must be boolean"
+		if step.get("release", false):
+			return "release retains its grip until the hand returns"
+		if step["grip"] and step.has("contact"):
+			return "closed grip uses its registered palm point, not a resting-hand source pixel"
+	if step.get("space", "stage") not in ["stage", "actor", "prop", "part"]:
+		return "reach space must be stage, actor, prop or part"
 	if step.get("space", "stage") == "prop" and (not step.get("prop") is String or not String(step["prop"]).is_valid_identifier()):
 		return "reach prop space requires a named stage prop"
+	if step.get("space", "stage") == "part":
+		for key: String in ["target_actor", "part"]:
+			if not step.get(key) is String or not String(step[key]).is_valid_identifier():
+				return "reach part space requires a named target_actor and registered part"
+	if step.has("offset"):
+		if step.get("space", "stage") != "part":
+			return "reach offset requires part space"
+		var offset: Variant = step["offset"]
+		if not offset is Array or offset.size() != 2:
+			return "reach offset must be a two-number stage offset"
+		for value: Variant in offset:
+			if typeof(value) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(value)) or absf(float(value)) > MAX_COORDINATE:
+				return "reach offset must contain finite stage coordinates within ±8192"
 	if step.has("follow_rotation") and not step["follow_rotation"] is bool:
 		return "reach follow_rotation must be boolean"
-	if step.get("follow_rotation", false) and step.get("space", "stage") != "prop":
-		return "reach follow_rotation requires prop space"
+	if step.get("follow_rotation", false) and step.get("space", "stage") not in ["prop", "part"]:
+		return "reach follow_rotation requires prop or part space"
 	if step.has("contact"):
 		var point: Variant = step["contact"]
 		if not point is Array or point.size() != 2:
@@ -73,6 +94,7 @@ func configure(step: Dictionary, actor_position := Vector2.ZERO) -> void:
 	_duration = float(step.get("time", DEFAULT_TIME))
 	_wanted = 0.0 if step.get("release", false) else 1.0
 	if _wanted > 0.0:
+		_grip = bool(step.get("grip", _grip if weight > 0.0 else false))
 		var previous_stage_point := target + actor_position if _actor_space else target
 		_actor_space = step.get("space", "stage") == "actor"
 		_to_target = Vector2(step["to"][0], step["to"][1])
@@ -142,6 +164,10 @@ func contact_offset() -> Variant:
 
 func active() -> bool:
 	return weight > 0.0 or _wanted > 0.0
+
+
+func gripping() -> bool:
+	return _grip and active()
 
 
 func settled() -> bool:

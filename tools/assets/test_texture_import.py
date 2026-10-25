@@ -9,6 +9,36 @@ from PIL import Image
 
 
 class ImportPolicyTest(unittest.TestCase):
+    def test_authored_contact_canvas_survives_art_resize(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            art = root / 'art/environment/props'
+            art.mkdir(parents=True)
+            image = art / 'contact.png'
+            Image.new('RGBA', (64, 32)).save(image)
+            stage = root / 'data/cutscene/stages/contact.json'
+            stage.parent.mkdir(parents=True)
+            authored = {'layers': [{'kind': 'sprite', 'path': 'res://art/environment/props/contact.png',
+                                   'source_width': 32, 'scale': .25, 'pos': [10, 30],
+                                   'region': [0, 0, 32, 16], 'pivot': [4, 8]}]}
+            stage.write_text(json.dumps(authored))
+            theme = root / 'data/environment/themes/contact.tres'
+            theme.parent.mkdir(parents=True)
+            theme.write_text('[sub_resource type="Resource" id="contact"]\ntexture = "res://art/environment/backdrop/contact.webp"\ntexture_scale = 2\nsource_width = 32\n')
+            backdrop = root / 'art/environment/backdrop/contact.webp'
+            backdrop.parent.mkdir(parents=True)
+            Image.new('RGBA', (64, 32)).save(backdrop)
+            with patch.multiple(texture_import, ROOT=root, ART=root / 'art/environment'):
+                texture_import.apply_policy()
+                self.assertEqual(json.loads(stage.read_text()), authored)
+                self.assertIn('source_width = 32', theme.read_text())
+                Image.new('RGBA', (128, 64)).save(image)
+                Image.new('RGBA', (128, 64)).save(backdrop)
+                texture_import.apply_policy()
+                self.assertEqual(json.loads(stage.read_text()), authored)
+                self.assertIn('source_width = 32', theme.read_text())
+                self.assertEqual(texture_import.apply_policy(check=True), 0)
+
     def test_minimum_prop_resolution_and_parallax_metadata(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

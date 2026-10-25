@@ -1,0 +1,11 @@
+{
+  "tool": "image_gen.imagegen",
+  "prompt": "Edit this exact attached transparent RGBA game prop image. Change ONLY the LEFT bowl from full to eaten: remove its noodles, egg, green onion and all steam above the LEFT bowl; leave a plain empty white bowl with a few tiny food residue marks. There are no left chopsticks now: keep the left bowl free of all utensils. Keep the RIGHT bowl full of noodles and egg, keep its existing right chopsticks and its right-hand steam completely unchanged. Preserve the exact chili bottle, table, legs, both stools, outline, silhouette, colors, position, size and every pixel outside the LEFT bowl and the LEFT steam. Retain the exact current 1369:1149 aspect ratio and complete canvas including steam and feet; do not crop or reframe. No new utensils, objects, text or shadows. Transparent RGBA background, game prop asset. Make a precise state variant matching the input geometry.",
+  "transparent_background": true,
+  "reference": "/workspace/generated_images/exec-711165db-b8a3-4336-924b-2b8d906a65cb.png",
+  "seed": null,
+  "model": null,
+  "job": null,
+  "reference_sha256": "b2c657ea35ff490e8e24433e5d278dca0211a934683a19303d0eb251821e01a5",
+  "reference_copy": "table-full-no-left-sticks-generated.png"
+}

@@ -68,6 +68,7 @@ static func validate(scene_id: String, scene: Dictionary, speakers: Dictionary) 
 		problems.append("動畫場景 %s 沒有任何步驟" % scene_id)
 		return problems
 	var defined: Dictionary[String, bool] = {}
+	var actor_skins: Dictionary[String, String] = {}
 	# 疊加演出（overlay）直接蓋在遊戲畫面上，不需要舞台。
 	var has_stage := false
 	var current_stage: StringName
@@ -117,7 +118,12 @@ static func validate(scene_id: String, scene: Dictionary, speakers: Dictionary) 
 		if kind == "choice":
 			problems.append_array(StoryRules.validate_choice(where, step))
 		problems.append_array(_check_step(where, kind, step, defined))
+		if kind == "actor":
+			actor_skins[str(step.get("id", ""))] = str(step.get("kind", ""))
+		elif kind == "remove":
+			actor_skins.erase(str(step.get("id", "")))
 		if kind == "scene":
+			actor_skins.clear()
 			has_stage = true
 			current_stage = StringName(str(step.get("id", "")))
 			problems.append_array(_check_stage(where, StringName(str(step.get("id", "")))))
@@ -136,6 +142,8 @@ static func validate(scene_id: String, scene: Dictionary, speakers: Dictionary) 
 				problems.append(where + ": " + issue)
 			elif has_stage and step.get("space", "stage") == "prop" and not step.get("release", false):
 				problems.append_array(_check_reach_prop(where, current_stage, step))
+			elif step.get("space", "stage") == "part" and not step.get("release", false):
+				problems.append_array(_check_reach_part(where, actor_skins, step))
 		elif CutscenePropAction.FIELDS.has(kind):
 			var issue := CutscenePropAction.problem(step)
 			if not issue.is_empty():
@@ -159,6 +167,22 @@ static func validate(scene_id: String, scene: Dictionary, speakers: Dictionary) 
 		elif estimate > budget:
 			problems.append("動畫場景 %s 預估 %.0f 秒，超過預算 %.0f 秒（台詞每句約 %.1f 秒 + %.2f 秒 × 字數）" % [scene_id, estimate, budget, SAY_BASE, SAY_PER_CHAR])
 	return problems
+
+
+static func _check_reach_part(where: String, actors: Dictionary[String, String], step: Dictionary) -> PackedStringArray:
+	if not actors.has(step["target_actor"]) or actors[step["target_actor"]].is_empty():
+		return PackedStringArray([where + ": reach target actor is unavailable or has no rig"])
+	var skin := RigLibrary.character(actors.get(step["target_actor"], ""))
+	for part: Variant in skin.get("parts", []):
+		if not part is Dictionary or part.get("name", part.get("texture", "")) != step["part"]:
+			continue
+		var texture: Dictionary = skin.get("textures", {}).get(part.get("texture", ""), {})
+		var size := RigLibrary.vec2(texture.get("size"), Vector2.ZERO)
+		var point := Vector2(step["to"][0], step["to"][1])
+		if size.x <= 0.0 or size.y <= 0.0 or point.x < 0.0 or point.y < 0.0 or point.x > size.x or point.y > size.y:
+			return PackedStringArray([where + ": reach source point is outside its registered actor part"])
+		return PackedStringArray()
+	return PackedStringArray([where + ": reach target actor/part is not registered or has been removed"])
 
 
 static func _prop_definition(stage: StringName, id: String) -> Dictionary:

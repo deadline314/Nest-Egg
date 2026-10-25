@@ -55,12 +55,12 @@
    "kind": "sprite",
    "path": "res://art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.png",
    "pos": [
-    335,
-    256.6
+    330,
+    243.0
    ],
-   "scale": 0.17,
+   "scale": 0.2237,
    "filter": "linear",
-   "glow": true,
+   "glow": false,
    "source_width": 304,
    "id": "noodle_table",
    "states": {
@@ -83,23 +83,73 @@
    "support": "hang"
   },
   {
+   "kind": "sprite",
+   "id": "meal_chopsticks",
+   "path": "res://art/environment/scene_props/dawn_noodle_stall_contacts/utensil_atlas.png",
+   "pos": [
+    339.0145,
+    255.02849999999998
+   ],
+   "region": [
+    40,
+    444,
+    1088,
+    116
+   ],
+   "pivot": [
+    270,
+    37
+   ],
+   "scale": 0.0125,
+   "source_width": 1536,
+   "filter": "linear"
+  },
+  {
+   "kind": "sprite",
+   "id": "meal_noodles",
+   "path": "res://art/environment/scene_props/dawn_noodle_stall_contacts/utensil_atlas.png",
+   "pos": [
+    0,
+    0
+   ],
+   "region": [
+    1304,
+    334,
+    166,
+    380
+   ],
+   "pivot": [
+    81,
+    16
+   ],
+   "scale": 0.0125,
+   "source_width": 1536,
+   "filter": "linear",
+   "parent_prop": "meal_chopsticks",
+   "anchor": [
+    1110,
+    503
+   ],
+   "visible": false
+  },
+  {
    "kind": "poly",
    "points": [
     [
-     290,
-     276.353
+     307,
+     276.4
     ],
     [
-     320,
-     276.353
+     337,
+     276.4
     ],
     [
-     320,
-     279.353
+     337,
+     279.4
     ],
     [
-     290,
-     279.353
+     307,
+     279.4
     ]
    ],
    "color": "#6a4a30",
@@ -109,19 +159,19 @@
    "kind": "poly",
    "points": [
     [
-     294,
-     279.353
+     311,
+     279.4
     ],
     [
-     297,
-     279.353
+     314,
+     279.4
     ],
     [
-     297,
+     314,
      300
     ],
     [
-     294,
+     311,
      300
     ]
    ],
@@ -132,19 +182,19 @@
    "kind": "poly",
    "points": [
     [
-     313,
-     279.353
+     330,
+     279.4
     ],
     [
-     316,
-     279.353
+     333,
+     279.4
     ],
     [
-     316,
+     333,
      300
     ],
     [
-     313,
+     330,
      300
     ]
    ],
@@ -180,7 +230,7 @@
    "id": "stool",
    "kind": "seat",
    "rect": [
-    290,
+    307,
     276.4,
     30,
     23.6

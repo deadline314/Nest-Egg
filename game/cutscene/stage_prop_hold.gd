@@ -13,9 +13,12 @@ var _basis := Transform2D.IDENTITY
 var _texture_width := 1.0
 var _original_z := 0
 var _original_relative := true
+var _follow_rotation := false
+var _hand_bone: WeakRef
+var _hand_start_angle := 0.0
 
 
-func setup(id: String, sprite: StageLayers._Sprite, actor: CutsceneActor, hand: StringName, point: Vector2, stage: Node2D) -> String:
+func setup(id: String, sprite: StageLayers._Sprite, actor: CutsceneActor, hand: StringName, point: Vector2, stage: Node2D, follow_rotation := false) -> String:
 	if not is_instance_valid(sprite) or not is_instance_valid(actor) or actor.rig == null or not is_instance_valid(stage) or not stage.is_inside_tree():
 		return "hold requires a live stage sprite and rigged actor"
 	if not actor.hand_target_settled(hand):
@@ -36,6 +39,16 @@ func setup(id: String, sprite: StageLayers._Sprite, actor: CutsceneActor, hand: 
 	_basis.origin = Vector2.ZERO
 	if not _basis.is_finite() or absf(_basis.determinant()) < 0.000001:
 		return "hold prop transform is singular"
+	if follow_rotation:
+		var wrist := actor.rig.bone(&"hand_front" if hand == &"front" else &"hand_back")
+		if wrist == null:
+			return "rotating hold requires a live hand bone"
+		var direction := stage.global_transform.affine_inverse().basis_xform(wrist.global_transform.x)
+		if not direction.is_finite() or direction.length_squared() < 0.000001:
+			return "rotating hold hand transform is singular"
+		_hand_bone = weakref(wrist)
+		_hand_start_angle = direction.angle()
+	_follow_rotation = follow_rotation
 	prop_id = id
 	_sprite = weakref(sprite)
 	_actor = weakref(actor)
@@ -65,8 +78,23 @@ func update(stage: Node2D) -> bool:
 		release()
 		return false
 	var ratio := _texture_width / float(sprite.texture.get_width())
-	var transform := Transform2D(_basis.x * ratio, _basis.y * ratio, Vector2.ZERO)
-	transform.origin = stage.to_local(palm) - transform.basis_xform(local)
+	var stage_inverse := stage.global_transform.affine_inverse()
+	var basis_x := _basis.x * ratio
+	var basis_y := _basis.y * ratio
+	if _follow_rotation:
+		var wrist := _hand_bone.get_ref() as Node2D if _hand_bone != null else null
+		if not is_instance_valid(wrist) or wrist.is_queued_for_deletion():
+			release()
+			return false
+		var direction := stage_inverse.basis_xform(wrist.global_transform.x)
+		if not direction.is_finite() or direction.length_squared() < 0.000001:
+			release()
+			return false
+		var delta_angle := wrapf(direction.angle() - _hand_start_angle, -PI, PI)
+		basis_x = basis_x.rotated(delta_angle)
+		basis_y = basis_y.rotated(delta_angle)
+	var transform := Transform2D(basis_x, basis_y, Vector2.ZERO)
+	transform.origin = stage_inverse * palm - transform.basis_xform(local)
 	sprite.global_transform = stage.global_transform * transform
 	return true
 

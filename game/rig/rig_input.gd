@@ -19,6 +19,9 @@ var recoil := 0.0
 var two_handed := true
 ## 前手握著近戰武器的握把（武器由別的節點畫）：前手換成握拳的手，握點生效。
 var melee_grip := false
+## 餐具／道具等明確握持意圖，只切換已登記的握持手件，不啟動武器或攻擊。
+var hand_grip_front := false
+var hand_grip_back := false
 ## 雙手的近戰武器：後手也去握桿子上的這一點（骨架座標）與桿子的角度；搆不到時後手照常垂著。
 var melee_second := false
 var melee_second_target := Vector2.ZERO

@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools/story"))
 
 import build_ch1_story as legacy  # noqa: E402
+import meal_staging  # noqa: E402
 import story_i18n  # noqa: E402
 from ch1_closure import build_source, validate_source  # noqa: E402
 import prologue_source  # noqa: E402
@@ -454,10 +455,10 @@ STAGED_TALKS = {
             "ch1_t_supper_stay_host": (("move", "ali", 366, 0.9), ("sfx", "pickup"), ("wait", 0.3), ("move", "ali", 425, 0.9), ("face", "ali", -1)),
             "ch1_t_supper_stay_host_none": (("move", "ali", 366, 0.9), ("sfx", "pickup"), ("wait", 0.3), ("move", "ali", 425, 0.9), ("face", "ali", -1)),
         },
-        # 留下吃麵之後凜坐上長凳（座面 y=276.4，x 290～320），之後的段落維持坐著。
-        "seated": {"from": ("ch1_t_supper_stay_meal", "ch1_t_supper_stay_address"), "x": 305, "seat_y": 276.4,
+        # Same measured bench and table geometry as the stage builder.
+        "seated": {"from": ("ch1_t_supper_stay_meal", "ch1_t_supper_stay_address"), "x": meal_staging.RIN_X, "seat_y": meal_staging.SEAT_Y,
                    "reason": "留下來吃阿梨請的麵，坐在攤前的長凳上。",
-                   "support": "麵攤長凳座面：舞台 x=290～320、y=276.4（舞台 furniture 的 stool）；腳底由 sit_y 量測。"},
+                   "support": f"麵攤長凳座面：舞台 x={meal_staging.BENCH_X}～{meal_staging.BENCH_X + meal_staging.BENCH_WIDTH}、y={meal_staging.SEAT_Y}（舞台 furniture 的 stool）；腳底由 sit_y 量測。"},
     },
 }
 # 圖鑑裡可以重看的過場（ST-16）與它們的名稱；看過才會出現，重看不改進度（Story.replay）。
@@ -552,7 +553,7 @@ def _stage_talks(scenes):
                 # The last line explicitly says Rin has finished her bowl.
                 # Apply the visible state before that line, never award results here.
                 last_say = max(i for i, step in enumerate(steps) if step.get("do") == "say")
-                steps.insert(last_say, {"do": "prop", "id": "noodle_table", "state": "eaten"})
+                steps[last_say:last_say] = meal_staging.actions(floor, legacy.actor_scale(stage_id, "rin")) + [{"do": "prop", "id": "noodle_table", "state": "eaten"}]
             elif ident == "ch1_t_supper_stay_address":
                 # A new stage instance must reconstruct the already-eaten state.
                 steps[0]["prop_states"] = {"noodle_table": "eaten"}

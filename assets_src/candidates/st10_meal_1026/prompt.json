@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-26 Asia/Taipei",
+  "provider": "image_gen",
+  "prompt": "Create a clean transparent game prop atlas for the same hand-painted, dark outlined 2D anime side-view game as the reference noodle table. ONLY utensils and a small separate tuft of cooked noodles; do not redraw the table, bowls, bottle, people, hands, scenery, text, icons, UI or background. On the LEFT two thirds of a roughly 1200 by 800 transparent canvas, draw ONE usable pair of dark warm bamboo chopsticks, nearly horizontal from LEFT blunt gripping ends to RIGHT tapered tips, parallel with a narrow gap, subtle carved wood grain, charcoal contour and restrained cool highlights. Make the pair about 700 source pixels long with solid readable shafts about 16 pixels thick; the two tips stop at the same x coordinate. No noodles attached to the chopsticks. On the FAR RIGHT of the same canvas, separated by a large fully transparent gap, draw a SMALL isolated tuft of 4 to 6 pale warm-gold cooked noodle strands, dangling vertically from a compact joined top. This tuft is a separate attachable food sprite, about 150 pixels wide by 170 pixels high, not a bowl or a pile of pasta, no sauce splashes. Both atlas elements are straight-on side-view objects suitable for animation by source-pixel anchors. Preserve true transparency around and between objects, no checkerboard painted into pixels, no fake shadow rectangles, no backdrop, no drop shadow, no glows, no lettering. The reference is solely for material/rendering style; do not include any table furniture.",
+  "transparent_background": true,
+  "referenced_image_paths": [
+    "art/environment/scene_props/dawn_noodle_stall/dawn_noodle_stall__noodle_bowls_table.png"
+  ],
+  "original_output": "/workspace/generated_images/exec-e2b3c453-d2b4-4a2f-8707-82e02f6cad4d.png",
+  "requested_canvas": [
+    1200,
+    800
+  ],
+  "seed": null,
+  "model": null,
+  "job": null,
+  "status": "candidate_unadopted_for_next_meal_work",
+  "referenced_image_sha256": "043b89c8b6325b4c6a93960ae3bd9cd35302cd63d240707a80749bafe68688b8"
+}
