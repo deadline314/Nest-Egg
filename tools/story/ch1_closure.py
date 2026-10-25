@@ -604,26 +604,25 @@ def _clinic_and_home(source):
     source.add("ch1_t_clinic_backup_missing", "O04", (("rin", "我還沒登記亭子，下次要走回這裡？"),
         ("lamp", "完成建檔後登記電話亭，下次在登記的亭子醒來。")), binding="first_clinic",
         when=all_of(flag("ch1_first_clinic_active"), negate(flag("ch1_booth_registered"))))
+    try:
+        from . import kitchen_staging as kitchen
+    except ImportError:
+        import kitchen_staging as kitchen
     home_steps = [
-        # 21:9 遮幅（ST-22）：上黑邊約在 y=43、對話框頂約在 y=233。腳底放在框頂之上、頭頂留在黑邊之下，
-        # 演員縮放 3.0～3.1（門高約 1.2 倍身高，符合 scene-staging 的比例）。
-        # 縮放照廚房立繪的桌椅（ST-10：凜 3.9、老 K 4.0），鏡頭拉遠到 0.8，人在畫面上的大小和原本一樣。
-        {"do": "scene", "id": "ch1_pawnshop_kitchen", "pos": [320, 240], "zoom": 0.8, "fade": 1.0},
-        {"do": "actor", "id": "rin", "kind": "rin", "pos": [575, 304], "facing": -1, "scale": 3.9, "pose": "idle"},
-        {"do": "actor", "id": "k", "kind": "old_k", "speaker": "old_k", "pos": [120, 304], "facing": -1, "scale": 4.0, "pose": "idle"},
+        {"do": "scene", "id": "ch1_pawnshop_kitchen", "pos": [320, 240], "zoom": 0.8, "fade": 1.0,
+         "props": {"kettle": {"pos": kitchen.STOVE, "state": "default"},
+                   "stove_dial": {"angle": 0}, "stove_flame": {"visible": True}, "stove_heat": {"visible": True}}},
+        {"do": "actor", "id": "rin", "kind": "rin", "pos": [575, 304], "facing": -1, "scale": 3.9, "pose": "idle", "layer": 1},
+        {"do": "actor", "id": "k", "kind": "old_k", "speaker": "old_k", "pos": [145, 304], "facing": -1, "scale": 4.0, "pose": "idle", "layer": 0},
         {"do": "move", "id": "rin", "to": [330, 304], "time": 2.0, "wait": True, "then": "idle"},
+        say("rin", "老 K，壺裡已經沒水了，我先把爐火關掉。"),
     ]
+    home_steps.extend(kitchen.close_stove())
     home_steps.extend(beats(
-        ("rin", "老 K，壺裡已經沒水了，我先把爐火關掉。"), ("old_k", "你已經回來了啊，我本來想留一壺。"),
+        ("old_k", "你已經回來了啊，我本來想留一壺。"),
         ("rin", "我回來了，資料盤已經交出去，錢明早再核對。"), ("old_k", "八百那張有回執就收好，別拿來墊鍋喔。"),
         ("old_k", "這壺燒乾了，不能算水好了。我去裝，今晚不用等它再滾。")))
-    home_steps.extend([
-        {"do": "sfx", "id": "switch", "volume": -10},
-        {"do": "move", "id": "k", "to": [500, 304], "time": 2.0, "wait": True, "then": "idle"},
-        {"do": "wait", "time": 1.4},
-        {"do": "move", "id": "k", "to": [190, 304], "time": 2.0, "wait": True, "then": "idle"},
-        {"do": "face", "id": "k", "dir": 1}, {"do": "wait", "time": 3.0},
-    ])
+    home_steps.extend(kitchen.fill_kettle())
     home_steps.extend(beats(("old_k", "你什麼時候回來的？"), ("rin", "剛才，我站在這裡叫你關火。"),
         ("old_k", "我有聽見喔。明天先好好吃飯，再來對帳。"), ("rin", "飯留著，錢我明早再算。")))
     # 章末卡只由關卡結尾播一次（章節資訊的 end_title 與 teaser），這裡不再疊一張同樣的完成卡。
@@ -631,7 +630,7 @@ def _clinic_and_home(source):
     source.add("ch1_c14_home", "F09", steps=home_steps, binding="home", mode="animated",
         when=all_of(flag("ch1_supper_done"), flag("ch1_handoff_done"), negate(flag("ch1_home_done"))),
         completion=(set_flag("ch1_home_done"), set_flag("ch1_complete")),
-        staging="凜真關爐、壺移耐熱墊；老K到現有水缸裝水。段尾爐關且壺有水未沸，乾杯不倒熱水。此prop結果待舞臺/world owner。")
+        staging="凜真關爐、壺移耐熱墊；老K到現有水缸裝水。段尾爐關且壺有水未沸，乾杯不倒熱水。由正式舞台道具重建；物件不自行發故事結果。")
     source.add("ch1_t_home_revisit", "F09", (("old_k", "回執放乾的那格，飯在鍋裡，明早再算喔。"),),
         binding="home", when=flag("ch1_home_done"))
 
@@ -777,7 +776,7 @@ def build_source() -> ProductionSource:
     return source
 
 
-NATIVE_STEPS = frozenset({"scene", "letterbox", "camera", "actor", "pose", "move", "face", "remove", "say", "narrate", "title", "fx", "sfx", "wait", "fade", "transition", "end"})
+NATIVE_STEPS = frozenset({"scene", "letterbox", "camera", "actor", "pose", "move", "face", "remove", "say", "narrate", "title", "fx", "sfx", "wait", "fade", "transition", "end", "reach", "prop", "prop_move", "prop_hold", "prop_release", "prop_visible"})
 CAPABILITIES = frozenset({
     "scene_preconditions_v1", "explicit_decisions_v1", "whole_scene_atomic_results_v1",
     "canonical_account_predicates_v1", "manual_item_transfer_v1",

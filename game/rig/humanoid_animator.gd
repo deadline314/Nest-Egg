@@ -1124,8 +1124,10 @@ func _solve_melee_path(input: RigInput) -> void:
 
 
 ## 指定一隻手接觸骨架空間的目標；固定骨長，搆不到便保留整條手臂。
-func place_hand(which: StringName, target: Vector2, hand_angle: float, weight := 1.0) -> bool:
+func place_hand(which: StringName, target: Vector2, hand_angle: float, weight := 1.0, contact_offset: Variant = null) -> bool:
 	if (which != &"front" and which != &"back") or not target.is_finite() or not is_finite(hand_angle) or not is_finite(weight):
+		return false
+	if contact_offset != null and (typeof(contact_offset) != TYPE_VECTOR2 or not (contact_offset as Vector2).is_finite()):
 		return false
 	var chain: Array = ARM_CHAINS[0 if which == &"front" else 1]
 	for name: StringName in chain:
@@ -1133,7 +1135,8 @@ func place_hand(which: StringName, target: Vector2, hand_angle: float, weight :=
 			return false
 	if not _global_pos.has(chain[0]):
 		return false
-	var wrist := target - _rig.hand_grip_offset(chain[2]).rotated(hand_angle)
+	var offset: Vector2 = _rig.hand_grip_offset(chain[2]) if contact_offset == null else contact_offset
+	var wrist := target - offset.rotated(hand_angle)
 	var upper := _rig.rest(chain[1]).length()
 	var lower := _rig.rest(chain[2]).length()
 	var distance := wrist.distance_to(_global_pos[chain[0]])

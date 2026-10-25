@@ -16,14 +16,14 @@
   },
   {
    "kind": "sprite",
-   "path": "res://art/environment/scenes/pawnshop_kitchen_extended.webp",
+   "path": "res://art/environment/scenes/pawnshop_kitchen_contacts.png",
    "pos": [
-    -320,
-    -180.0
+    -313.75,
+    -176
    ],
-   "scale": 0.5,
+   "scale": 0.75,
    "filter": "linear",
-   "source_width": 2560
+   "source_width": 1672
   },
   {
    "kind": "glow",
@@ -38,6 +38,245 @@
    "alpha": 0.35,
    "pulse": 0.06,
    "pulse_depth": 0.2
+  },
+  {
+   "kind": "rect",
+   "id": "kettle_mat",
+   "rect": [
+    223.0,
+    190.75,
+    58,
+    2.7
+   ],
+   "color": "#343a31"
+  },
+  {
+   "kind": "sprite",
+   "id": "water_urn",
+   "path": "res://art/environment/scene_props/pawnshop_kitchen_contacts/urn_atlas.png",
+   "region": [
+    26,
+    18,
+    866,
+    1254
+   ],
+   "pivot": [
+    474,
+    1251
+   ],
+   "pos": [
+    470,
+    304
+   ],
+   "scale": 0.15384615384615385,
+   "source_width": 1180,
+   "filter": "linear"
+  },
+  {
+   "kind": "sprite",
+   "id": "urn_lever",
+   "path": "res://art/environment/scene_props/pawnshop_kitchen_contacts/urn_atlas.png",
+   "region": [
+    1048,
+    250,
+    84,
+    204
+   ],
+   "pivot": [
+    43,
+    162
+   ],
+   "pos": [
+    0,
+    0
+   ],
+   "scale": 0.15384615384615385,
+   "source_width": 1180,
+   "filter": "linear",
+   "parent_prop": "water_urn",
+   "anchor": [
+    130,
+    582
+   ],
+   "angle": -1.5707963267948966
+  },
+  {
+   "kind": "sprite",
+   "id": "kettle",
+   "path": "res://art/environment/scene_props/pawnshop_kitchen_contacts/kettle_atlas.png",
+   "region": [
+    36,
+    54,
+    1004,
+    828
+   ],
+   "pivot": [
+    592,
+    825
+   ],
+   "pos": [
+    252.0,
+    190.75
+   ],
+   "scale": 0.060753341433778855,
+   "source_width": 1700,
+   "filter": "linear",
+   "states": {
+    "filled": {
+     "path": "res://art/environment/scene_props/pawnshop_kitchen_contacts/kettle_atlas.png"
+    }
+   },
+   "initial_state": "filled"
+  },
+  {
+   "kind": "sprite",
+   "id": "kettle_lid",
+   "path": "res://art/environment/scene_props/pawnshop_kitchen_contacts/kettle_atlas.png",
+   "region": [
+    1122,
+    408,
+    560,
+    218
+   ],
+   "pivot": [
+    535,
+    146
+   ],
+   "pos": [
+    0,
+    0
+   ],
+   "scale": 0.05735115431348724,
+   "source_width": 1700,
+   "filter": "linear",
+   "parent_prop": "kettle",
+   "anchor": [
+    900,
+    385
+   ]
+  },
+  {
+   "kind": "dial",
+   "id": "stove_dial",
+   "pos": [
+    95.75,
+    188.5
+   ],
+   "radius": 5,
+   "color": "#222a25",
+   "pointer": "#d4ceb4",
+   "angle": 0.85
+  },
+  {
+   "kind": "rain",
+   "id": "tap_water",
+   "area": [
+    402.0076923076923,
+    216.96153846153845,
+    0.6,
+    5.2
+   ],
+   "speed": [
+    24,
+    36
+   ],
+   "length": [
+    2,
+    3
+   ],
+   "count": 8,
+   "wind": 0,
+   "opacity": 0.8,
+   "visible": false
+  },
+  {
+   "kind": "poly",
+   "id": "kettle_water",
+   "points": [
+    [
+     394.3076923076923,
+     224.46153846153845
+    ],
+    [
+     397.3076923076923,
+     223.16153846153844
+    ],
+    [
+     407.3076923076923,
+     223.16153846153844
+    ],
+    [
+     410.3076923076923,
+     224.46153846153845
+    ],
+    [
+     407.3076923076923,
+     225.66153846153844
+    ],
+    [
+     397.3076923076923,
+     225.66153846153844
+    ]
+   ],
+   "color": "#829995",
+   "visible": false
+  },
+  {
+   "kind": "glow",
+   "id": "stove_heat",
+   "pos": [
+    97.8125,
+    174.625
+   ],
+   "radius": 17,
+   "color": "#e3b16c",
+   "intensity": 0.5,
+   "alpha": 0.25,
+   "visible": false
+  },
+  {
+   "kind": "poly",
+   "id": "stove_flame",
+   "points": [
+    [
+     76.8125,
+     174.625
+    ],
+    [
+     79.8125,
+     169.625
+    ],
+    [
+     82.8125,
+     173.625
+    ],
+    [
+     87.8125,
+     168.625
+    ],
+    [
+     91.8125,
+     173.625
+    ],
+    [
+     97.8125,
+     168.625
+    ],
+    [
+     101.8125,
+     173.625
+    ],
+    [
+     107.8125,
+     169.625
+    ],
+    [
+     111.8125,
+     174.625
+    ]
+   ],
+   "color": "#7ba6bd",
+   "visible": false
   },
   {
    "kind": "motes",
@@ -63,30 +302,30 @@
    "id": "dining_table",
    "kind": "table",
    "rect": [
-    205,
-    194,
-    153,
-    109
+    200.0,
+    190.75,
+    150.75,
+    109.5
    ]
   },
   {
    "id": "dining_chair",
    "kind": "seat",
    "rect": [
-    163,
-    240,
-    60,
-    63
+    165.3125,
+    238.0,
+    56.25,
+    62.25
    ]
   },
   {
    "id": "kitchen_door",
    "kind": "door",
    "rect": [
-    553,
-    19,
-    80,
-    290
+    530.9375,
+    36.8125,
+    75.0,
+    271.875
    ]
   }
  ]

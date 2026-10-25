@@ -305,17 +305,50 @@ func animate(delta: float, input: RigInput) -> void:
 
 
 ## 世界座標的手部接觸（ST-10）：包含鏡像、縮放與父節點旋轉；沒有握持變體時接觸點是手腕。
-func place_hand(which: StringName, world_target: Vector2, world_angle: float, weight := 1.0) -> bool:
+func place_hand(which: StringName, world_target: Vector2, world_angle: float, weight := 1.0, contact_offset: Variant = null) -> bool:
 	if not _valid or animator == null or _skeleton == null or not world_target.is_finite() or not is_finite(world_angle):
 		return false
 	var transform := _skeleton.global_transform
 	if not transform.is_finite() or absf(transform.determinant()) < 0.000001:
 		return false
 	var inverse := transform.affine_inverse()
-	var placed := animator.place_hand(which, inverse * world_target, inverse.basis_xform(Vector2.from_angle(world_angle)).angle(), weight)
+	var placed := animator.place_hand(which, inverse * world_target, inverse.basis_xform(Vector2.from_angle(world_angle)).angle(), weight, contact_offset)
 	if placed:
 		refresh_limbs()
 	return placed
+
+
+## 目前可見手圖的來源像素 → 手骨本地點。只在配置接觸時量，不讀回整張圖片。
+func hand_source_point(which: StringName, point: Vector2) -> Vector2:
+	if not point.is_finite():
+		return Vector2.INF
+	var selected := _visible_hand_sprite(which)
+	if selected == null or selected.texture == null:
+		return Vector2.INF
+	var size := Vector2(selected.texture.get_size())
+	if point.x < 0.0 or point.y < 0.0 or point.x > size.x or point.y > size.y:
+		return Vector2.INF
+	return selected.transform * (point + selected.offset - (size * 0.5 if selected.centered else Vector2.ZERO))
+
+
+func hand_draw_z(which: StringName) -> int:
+	var selected := _visible_hand_sprite(which)
+	return selected.z_index if selected != null else 0
+
+
+func _visible_hand_sprite(which: StringName) -> Sprite2D:
+	if which != &"front" and which != &"back":
+		return null
+	var owner_bone := bone(&"hand_front" if which == &"front" else &"hand_back")
+	if owner_bone == null:
+		return null
+	var selected: Sprite2D
+	for child in owner_bone.get_children():
+		if child is Sprite2D and child.visible and _parts.has(child):
+			if selected != null:
+				return null  # 多個可見手件不能猜哪一張是掌心。
+			selected = child
+	return selected
 
 
 ## 雙手近戰武器的後手握點（NE-277）；保留原有朝右空間的角度與行為。

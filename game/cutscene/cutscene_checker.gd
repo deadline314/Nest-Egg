@@ -26,6 +26,10 @@ const STEP_FIELDS: Dictionary = {
 	"remove": ["id"],
 	"prop": ["id", "state"],
 	"reach": ["id", "hand"],
+	"prop_move": ["id"],
+	"prop_hold": ["id", "actor", "hand", "point"],
+	"prop_release": ["id"],
+	"prop_visible": ["id", "visible"],
 	"say": ["speaker", "text"],
 	"narrate": ["lines"],
 	"title": ["text"],
@@ -53,7 +57,7 @@ const HEAD_MARGIN := 2.0
 const SETTLED_STEPS: PackedStringArray = ["say", "wait", "narrate", "choice", "title"]
 const POSE_HEIGHT := {"sit": 0.8, "crouch": 0.7, "squat": 0.7, "kneel": 0.7, "lean": 0.95, "dead": 0.3}
 ## 這些步驟需要先有舞台。
-const NEEDS_STAGE: PackedStringArray = ["camera", "actor", "pose", "move", "face", "remove", "prop", "reach"]
+const NEEDS_STAGE: PackedStringArray = ["camera", "actor", "pose", "move", "face", "remove", "prop", "reach", "prop_move", "prop_hold", "prop_release", "prop_visible"]
 
 
 ## 檢查一份動畫場景。speakers 是講者表（Story 的合併結果）。
@@ -96,7 +100,7 @@ static func validate(scene_id: String, scene: Dictionary, speakers: Dictionary) 
 		if NEEDS_STAGE.has(kind) and not has_stage:
 			problems.append("%s（%s）之前沒有指定場景" % [where, kind])
 		for time_key in ["time", "delay"]:
-			if kind == "reach":
+			if kind == "reach" or CutscenePropAction.FIELDS.has(kind):
 				continue  # reach 先檢查型別與有限值，不能把損毀字串轉成 float。
 			if step.has(time_key):
 				var t := float(step[time_key])
@@ -123,12 +127,28 @@ static func validate(scene_id: String, scene: Dictionary, speakers: Dictionary) 
 			else:
 				for id: Variant in initial:
 					problems.append_array(_check_prop(where, current_stage, id, initial[id]))
+			problems.append_array(_check_initial_props(where, current_stage, step.get("props", {})))
 		elif kind == "prop" and has_stage:
 			problems.append_array(_check_prop(where, current_stage, step.get("id"), step.get("state")))
 		elif kind == "reach":
 			var issue := CutsceneReach.problem(step)
 			if not issue.is_empty():
 				problems.append(where + ": " + issue)
+			elif has_stage and step.get("space", "stage") == "prop" and not step.get("release", false):
+				problems.append_array(_check_reach_prop(where, current_stage, step))
+		elif CutscenePropAction.FIELDS.has(kind):
+			var issue := CutscenePropAction.problem(step)
+			if not issue.is_empty():
+				problems.append(where + ": " + issue)
+			elif has_stage:
+				problems.append_array(_check_named_prop(where, current_stage, step["id"]))
+				var layer := _prop_definition(current_stage, step["id"])
+				if kind == "prop_hold":
+					problems.append_array(_check_reach_prop(where, current_stage, {"prop": step["id"], "to": step["point"]}))
+					if not layer.is_empty() and (layer.get("kind") != "sprite" or layer.has("parent_prop")):
+						problems.append(where + ": only an independent sprite can be held")
+				elif kind == "prop_move" and step.has("to") and layer.has("parent_prop"):
+					problems.append(where + ": anchored part can rotate but cannot leave its hinge")
 	if says > MAX_SAYS:
 		problems.append("動畫場景 %s 有 %d 句台詞，上限 %d 句" % [scene_id, says, MAX_SAYS])
 	if scene.has("budget"):
@@ -139,6 +159,54 @@ static func validate(scene_id: String, scene: Dictionary, speakers: Dictionary) 
 		elif estimate > budget:
 			problems.append("動畫場景 %s 預估 %.0f 秒，超過預算 %.0f 秒（台詞每句約 %.1f 秒 + %.2f 秒 × 字數）" % [scene_id, estimate, budget, SAY_BASE, SAY_PER_CHAR])
 	return problems
+
+
+static func _prop_definition(stage: StringName, id: String) -> Dictionary:
+	for layer: Variant in StageLibrary.definition(stage).get("layers", []):
+		if layer is Dictionary and layer.get("id", "") == id:
+			return layer
+	return {}
+
+
+static func _check_named_prop(where: String, stage: StringName, id: String) -> PackedStringArray:
+	return PackedStringArray(["%s: prop is not registered: %s" % [where, id]]) if _prop_definition(stage, id).is_empty() else PackedStringArray()
+
+
+static func _check_initial_props(where: String, stage: StringName, props: Variant) -> PackedStringArray:
+	var issue := CutscenePropAction.initial_problem(props)
+	if not issue.is_empty():
+		return PackedStringArray([where + ": " + issue])
+	var problems := PackedStringArray()
+	for id: String in props:
+		problems.append_array(_check_named_prop(where, stage, id))
+		if props[id].has("pos") and _prop_definition(stage, id).has("parent_prop"):
+			problems.append(where + ": initial prop cannot move an anchored child: " + id)
+		if props[id].has("state"):
+			problems.append_array(_check_prop(where, stage, id, props[id]["state"]))
+	return problems
+
+
+static func _check_reach_prop(where: String, stage: StringName, step: Dictionary) -> PackedStringArray:
+	for layer: Variant in StageLibrary.definition(stage).get("layers", []):
+		if not layer is Dictionary or layer.get("id", "") != step["prop"]:
+			continue
+		if layer.get("kind") == "sprite":
+			var issue := StageSpriteGeometry.problem(layer)
+			if not issue.is_empty():
+				return PackedStringArray([where + ": " + issue])
+			var native := RigLibrary.texture_size(str(layer.get("path", "")))
+			if native.x <= 0.0:
+				return PackedStringArray([where + ": reach prop texture is missing"])
+			var raw_width: Variant = layer.get("source_width", native.x)
+			if typeof(raw_width) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(raw_width)) or float(raw_width) <= 0.0:
+				return PackedStringArray([where + ": reach prop source_width must be finite and positive"])
+			var source_width := float(raw_width)
+			var frame := StageLayers.rect_of(layer.get("region"), Rect2(Vector2.ZERO, native * (source_width / native.x)))
+			var point := Vector2(step["to"][0], step["to"][1])
+			if point.x < frame.position.x or point.y < frame.position.y or point.x > frame.end.x or point.y > frame.end.y:
+				return PackedStringArray([where + ": reach point is outside its prop region"])
+		return PackedStringArray()
+	return PackedStringArray(["%s: reach prop not registered: %s" % [where, step["prop"]]])
 
 
 static func _check_prop(where: String, stage: StringName, id: Variant, state: Variant) -> PackedStringArray:
@@ -180,6 +248,9 @@ static func estimate_seconds(scene: Dictionary) -> float:
 			"reach":
 				if step.get("wait", true) and CutsceneReach.problem(step).is_empty():
 					total += float(step.get("time", CutsceneReach.DEFAULT_TIME))
+			"prop_move":
+				if step.get("wait", true) and CutscenePropAction.problem(step).is_empty():
+					total += float(step.get("time", CutscenePropAction.DEFAULT_TIME))
 			"move", "camera":
 				if bool(step.get("wait", false)):
 					total += float(step.get("time", 1.0))
@@ -288,6 +359,9 @@ static func _check_stage(where: String, id: StringName) -> PackedStringArray:
 static func _check_step(where: String, kind: String, step: Dictionary, defined: Dictionary[String, bool]) -> PackedStringArray:
 	var problems := PackedStringArray()
 	match kind:
+		"prop_hold":
+			if not defined.has(str(step.get("actor", ""))):
+				problems.append("%s references an actor that has not been defined: %s" % [where, step.get("actor", "")])
 		"actor":
 			var id := str(step.get("id", ""))
 			defined[id] = true

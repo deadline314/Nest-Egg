@@ -23,6 +23,7 @@ const KINDS: Dictionary = {
 	"text": ["text", "pos"],
 	"stripes": ["rect", "color"],
 	"counter": ["pos", "from", "to"],
+	"dial": ["pos", "radius", "color", "pointer"],
 }
 
 static var _soft_texture: GradientTexture2D
@@ -68,7 +69,13 @@ static func create(def: Dictionary, where: String) -> Node2D:
 			node = _Stripes.new(def)
 		"counter":
 			node = _Counter.new(def)
+		"dial":
+			node = _Dial.new(def)
 	node.modulate.a = float(def.get("alpha", 1.0))
+	if not def.get("visible", true):
+		node.hide()
+		node.set_meta(&"visible_process_mode", node.process_mode)
+		node.process_mode = Node.PROCESS_MODE_DISABLED
 	if bool(def.get("additive", false)):
 		node.material = LightKit.additive_emissive_material()
 	node.set_meta(&"kind", kind)
@@ -76,11 +83,27 @@ static func create(def: Dictionary, where: String) -> Node2D:
 	node.set_meta(&"depth", str(def.get("depth", "back")))
 	if def.has("id"):
 		node.set_meta(&"prop_id", str(def["id"]))
+	if def.has("parent_prop"):
+		node.set_meta(&"parent_prop", str(def["parent_prop"]))
+		node.set_meta(&"anchor", vec2_of(def["anchor"]))
 	return node
 
 
 ## Finite material states only. Authors cannot address Nodes or execute handlers.
 static func prop_state_problem(def: Dictionary) -> String:
+	var effect_issue := _effect_problem(def)
+	if not effect_issue.is_empty():
+		return effect_issue
+	if def.has("visible") and not def["visible"] is bool:
+		return "layer visible must be boolean"
+	var geometry_issue := StageSpriteGeometry.problem(def)
+	if not geometry_issue.is_empty():
+		return geometry_issue
+	if def.has("initial_state"):
+		var state: Variant = def["initial_state"]
+		var states: Variant = def.get("states", {})
+		if def.get("kind") != "sprite" or not state is String or (state != "default" and (not states is Dictionary or not states.has(state))):
+			return "sprite initial_state must name a registered texture state"
 	if not def.has("states"):
 		return ""
 	if def.get("kind") != "sprite" or not def.get("id") is String or not String(def["id"]).is_valid_identifier():
@@ -95,6 +118,44 @@ static func prop_state_problem(def: Dictionary) -> String:
 		var path: String = entry["path"]
 		if not path.begins_with("res://art/") or ".." in path or RigLibrary.texture_size(path) == Vector2.ZERO:
 			return "sprite state texture is missing: " + path.left(256)
+	return ""
+
+
+static func _finite(value: Variant) -> bool:
+	return typeof(value) in [TYPE_INT, TYPE_FLOAT] and is_finite(float(value))
+
+
+static func _effect_problem(def: Dictionary) -> String:
+	if def.get("kind") == "dial":
+		if not _finite(def.get("radius")) or float(def["radius"]) < 1.0 or float(def["radius"]) > 64.0:
+			return "dial radius must be finite and within 1..64"
+		for key: String in ["color", "pointer"]:
+			if not def.get(key) is String or not Color.html_is_valid(def[key]):
+				return "dial %s must be a color" % key
+		if def.has("angle") and (not _finite(def["angle"]) or absf(float(def["angle"])) > TAU * 8.0):
+			return "dial angle must be finite and within eight turns"
+	if def.get("kind") != "rain":
+		return ""
+	if def.has("area"):
+		var area: Variant = def["area"]
+		if not area is Array or area.size() != 4:
+			return "rain area requires four finite coordinates"
+		for value: Variant in area:
+			if not _finite(value) or absf(float(value)) > 8192.0:
+				return "rain area must be finite and bounded"
+		if float(area[2]) <= 0.0 or float(area[3]) <= 0.0:
+			return "rain area must have positive width and height"
+	for key: String in ["speed", "length"]:
+		if not def.has(key):
+			continue
+		var limits: Variant = def[key]
+		if not limits is Array or limits.size() != 2 or not _finite(limits[0]) or not _finite(limits[1]):
+			return "rain %s requires two finite limits" % key
+		var maximum := 2048.0 if key == "speed" else 128.0
+		if float(limits[0]) < 0.0 or float(limits[1]) < float(limits[0]) or float(limits[1]) > maximum:
+			return "rain %s limits are invalid" % key
+	if def.has("wind") and (not _finite(def["wind"]) or absf(float(def["wind"])) > 10.0):
+		return "rain wind must be finite and within ±10"
 	return ""
 
 
@@ -279,6 +340,13 @@ class _Sprite:
 	var _world_width := 0.0
 	var _glow_sprite: Sprite2D
 	var _glow_enabled := true
+	var _source_width := 0.0
+	var _source_region := Rect2()
+	var _source_pivot := Vector2.ZERO
+	var _has_geometry := false
+	var _anchored := false
+	var _anchor_source := Vector2.ZERO
+	var _anchored_children: Array[WeakRef] = []
 
 	## 有同名 `_glow.png` 時疊上自發光層（加亮混合），道具的窗光、霓虹在演出裡也會亮。
 	func _init(def: Dictionary) -> void:
@@ -288,6 +356,11 @@ class _Sprite:
 			push_error("[Stage] 找不到圖片：%s" % path)
 			tex = RigLibrary.texture(path, Vector2i(32, 32))
 		texture = tex
+		_source_width = float(def.get("source_width", tex.get_width()))
+		_source_region = StageLayers.rect_of(def.get("region"), Rect2(Vector2.ZERO, Vector2(tex.get_size()) * (_source_width / float(tex.get_width()))))
+		_source_pivot = StageLayers.vec2_of(def.get("pivot"))
+		_has_geometry = def.has("region") or def.has("pivot")
+		region_enabled = def.has("region")
 		_world_width = float(def.get("source_width", tex.get_width())) * float(def.get("scale", 1.0))
 		_state_textures["default"] = tex
 		_glow_enabled = bool(def.get("glow", true))
@@ -322,22 +395,115 @@ class _Sprite:
 			glow_sprite.material = LightKit.window_life_material() if bool(def.get("life", false)) else LightKit.additive_emissive_material()
 			glow_sprite.self_modulate = LightKit.glow(Color.WHITE, float(def.get("glow_intensity", 1.2)))
 			add_child(glow_sprite)
+		_apply_geometry()
+		if def.get("initial_state", "default") != "default":
+			set_prop_state(def["initial_state"])
 
 	func set_prop_state(state: String) -> bool:
-		if not _state_textures.has(state) or _state_textures[state] == null:
+		if not supports_prop_state(state):
 			return false
 		texture = _state_textures[state]
 		scale = Vector2.ONE * (_world_width / float(texture.get_width()))
 		if _glow_sprite != null:
 			_glow_sprite.texture = _state_glows.get(state)
+		_apply_geometry()
+		_sync_parent_geometry()
+		_sync_anchored_children()
 		_state = state
 		return true
 
 	func prop_state() -> String:
 		return _state
 
+	func supports_prop_state(state: String) -> bool:
+		return _state_textures.has(state) and _state_textures[state] != null
 
-## 雨：固定數量的斜線，用同一批座標循環使用，不配置新物件。
+	func source_point(point: Vector2) -> Vector2:
+		return StageSpriteGeometry.source_point(self, point, _source_width, _source_region)
+
+	func _apply_geometry() -> void:
+		if not _has_geometry:
+			return
+		StageSpriteGeometry.apply(self, _source_width, _source_region, _source_pivot)
+		if _glow_sprite != null:
+			_glow_sprite.region_enabled = region_enabled
+			StageSpriteGeometry.apply(_glow_sprite, _source_width, _source_region, _source_pivot)
+			if _glow_sprite.texture != null:
+				_glow_sprite.scale = Vector2.ONE * (float(texture.get_width()) / float(_glow_sprite.texture.get_width()))
+
+	func nominal_scale() -> float:
+		return _world_width / float(texture.get_width()) if texture != null and texture.get_width() > 0 else 0.0
+
+	func anchored() -> bool:
+		return _anchored
+
+	func anchor_to(parent: StageLayers._Sprite, point: Vector2) -> String:
+		if _anchored or get_parent() == null or not is_instance_valid(parent) or parent == self:
+			return "sprite anchor requires a distinct parent and an unbound stage child"
+		if not parent.source_point(point).is_finite() or parent.nominal_scale() <= 0.0:
+			return "anchor point is outside its parent sprite"
+		parent._compact_anchor_children()
+		if parent._anchored_children.size() >= 8:
+			return "parent sprite exceeds eight anchored children"
+		var ancestor := parent
+		var depth := 0
+		while ancestor != null:
+			if ancestor == self or depth >= 8:
+				return "sprite anchor is cyclic or exceeds eight levels"
+			ancestor = ancestor.get_parent() as StageLayers._Sprite
+			depth += 1
+		_anchor_source = point
+		_anchored = true
+		reparent(parent, false)
+		parent._anchored_children.append(weakref(self))
+		_sync_parent_geometry()
+		return ""
+
+	func _sync_parent_geometry() -> void:
+		if not _anchored:
+			return
+		var parent := get_parent() as StageLayers._Sprite
+		if parent != null and parent.nominal_scale() > 0.0:
+			position = parent.source_point(_anchor_source)
+			scale = Vector2.ONE * (nominal_scale() / parent.nominal_scale())
+
+	func _sync_anchored_children() -> void:
+		_compact_anchor_children()
+		for reference: WeakRef in _anchored_children:
+			var child := reference.get_ref() as StageLayers._Sprite
+			if is_instance_valid(child):
+				child._sync_parent_geometry()
+
+	func _compact_anchor_children() -> void:
+		var index := _anchored_children.size() - 1
+		while index >= 0:
+			var child := _anchored_children[index].get_ref() as StageLayers._Sprite
+			if not is_instance_valid(child) or child.get_parent() != self:
+				_anchored_children.remove_at(index)
+			index -= 1
+
+
+## 旋鈕：指針跟著節點角度轉動，供手部接觸追實際控制方向。
+class _Dial:
+	extends Node2D
+	var _radius := 5.0
+	var _color := Color("34393a")
+	var _pointer := Color("cfccc3")
+
+	func _init(def: Dictionary) -> void:
+		position = StageLayers.vec2_of(def["pos"])
+		rotation = float(def.get("angle", 0.0))
+		_radius = float(def["radius"])
+		_color = StageLayers.color_of(def["color"])
+		_pointer = StageLayers.color_of(def["pointer"])
+
+	func _draw() -> void:
+		draw_circle(Vector2.ZERO, _radius + 1.0, Color("1b211d"))
+		draw_circle(Vector2.ZERO, _radius, _color)
+		draw_line(Vector2(0, 0.5), Vector2(0, -_radius * 0.65), _pointer, 1.2, true)
+
+
+## 雨／局部水流：固定斜線循環使用；隱藏時由舞台停用更新。
 class _Rain:
 	extends Node2D
 	var _drops := PackedVector2Array()
@@ -346,18 +512,23 @@ class _Rain:
 	var _color: Color
 	var _wind: float
 	var _area := Rect2(-80, -40, 800, 440)
+	var _local_flow := false
 
 	func _init(def: Dictionary) -> void:
 		var count := clampi(int(def.get("count", 140)), 0, 600)
 		_color = StageLayers.color_of(def.get("color", "#9db8f2"))
 		_color.a = float(def.get("opacity", 0.38))
 		_wind = float(def.get("wind", -0.18))
+		_local_flow = def.has("area")
+		_area = StageLayers.rect_of(def.get("area"), _area)
+		var speed: Array = def.get("speed", [420.0, 640.0])
+		var length: Array = def.get("length", [6.0, 12.0])
 		var rng := RandomNumberGenerator.new()
 		rng.seed = int(def.get("seed", 5))
 		for i in count:
 			_drops.append(Vector2(rng.randf_range(_area.position.x, _area.end.x), rng.randf_range(_area.position.y, _area.end.y)))
-			_speeds.append(rng.randf_range(420.0, 640.0))
-			_lengths.append(rng.randf_range(6.0, 12.0))
+			_speeds.append(rng.randf_range(float(speed[0]), float(speed[1])))
+			_lengths.append(rng.randf_range(float(length[0]), float(length[1])))
 
 	func _process(delta: float) -> void:
 		for i in _drops.size():
@@ -365,7 +536,7 @@ class _Rain:
 			d.y += _speeds[i] * delta
 			d.x += _speeds[i] * delta * _wind
 			if d.y > _area.end.y:
-				d.y = _area.position.y
+				d.y = fposmod(d.y - _area.position.y, _area.size.y) + _area.position.y if _local_flow else _area.position.y
 				d.x = fposmod(d.x - _area.position.x, _area.size.x) + _area.position.x
 			_drops[i] = d
 		queue_redraw()

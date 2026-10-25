@@ -84,6 +84,8 @@ func _init() -> void:
 		"choice": _do_choice, "branch": _do_branch,
 		"prop": _do_prop,
 		"reach": _do_reach,
+		"prop_move": _do_prop_move, "prop_hold": _do_prop_hold,
+		"prop_release": _do_prop_release, "prop_visible": _do_prop_visible,
 	}
 
 
@@ -371,6 +373,78 @@ static func _vec(value: Variant, fallback: Vector2) -> Vector2:
 # 步驟
 # ---------------------------------------------------------------------------
 
+func _prop_action_node(step: Dictionary) -> Node2D:
+	var issue := CutscenePropAction.problem(step)
+	if not issue.is_empty():
+		push_error("[Cutscene] %s: %s" % [_current_where, issue])
+		return null
+	var node := _stage.prop_node(step["id"]) if _stage != null else null
+	if node == null:
+		push_error("[Cutscene] %s: prop unavailable: %s" % [_current_where, step["id"]])
+	return node
+
+
+func _do_prop_visible(step: Dictionary) -> void:
+	if _prop_action_node(step) != null:
+		_stage.set_prop_visible(step["id"], step["visible"])
+
+
+func _do_prop_release(step: Dictionary) -> void:
+	if _prop_action_node(step) != null and not _stage.release_prop(step["id"]):
+		push_error("[Cutscene] %s: prop is not held: %s" % [_current_where, step["id"]])
+
+
+func _do_prop_hold(step: Dictionary) -> void:
+	if _prop_action_node(step) == null:
+		return
+	await get_tree().process_frame  # 先讓最後一次接觸 IK 完成，才核對真實握點。
+	if not _running or skipping:
+		return
+	var actor := _actors.get(StringName(step["actor"])) as CutsceneActor
+	var issue := _stage.hold_prop(step["id"], actor, StringName(step["hand"]), _vec(step["point"], Vector2.INF))
+	if not issue.is_empty():
+		push_error("[Cutscene] %s: %s" % [_current_where, issue])
+
+
+func _do_prop_move(step: Dictionary) -> void:
+	var node := _prop_action_node(step)
+	if node == null:
+		return
+	if _stage.prop_held(step["id"]):
+		push_error("[Cutscene] %s: held prop transform is driven by its hand" % _current_where)
+		return
+	if step.has("to") and node is StageLayers._Sprite and node.anchored():
+		push_error("[Cutscene] %s: anchored part can rotate but cannot leave its hinge" % _current_where)
+		return
+	var target := node.position
+	if step.has("to"):
+		var parent := node.get_parent() as Node2D
+		if parent == null or not parent.global_transform.is_finite() or absf(parent.global_transform.determinant()) < 0.000001:
+			push_error("[Cutscene] %s: prop parent transform is singular" % _current_where)
+			return
+		target = parent.to_local(_stage.to_global(_vec(step["to"], node.position)))
+	var duration := float(step.get("time", CutscenePropAction.DEFAULT_TIME))
+	if duration == 0.0:
+		if step.has("to"):
+			node.position = target
+		if step.has("angle"):
+			node.rotation = float(step["angle"])
+		return
+	var tween := _new_tween()
+	tween.bind_node(node)
+	tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.set_parallel(true)
+	if step.has("to"):
+		tween.tween_property(node, "position", target, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	if step.has("angle"):
+		tween.tween_property(node, "rotation", float(step["angle"]), duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	if step.get("wait", true):
+		await _wait_tween(tween)
+		if _running and not skipping:
+			await get_tree().process_frame  # 下一步收手前，讓演員看見控制桿的最後姿態。
+
+
 func _do_reach(step: Dictionary) -> void:
 	var issue := CutsceneReach.problem(step)
 	if not issue.is_empty():
@@ -379,8 +453,20 @@ func _do_reach(step: Dictionary) -> void:
 	var actor := _need_actor(step)
 	if actor == null:
 		return
-	if not actor.set_hand_target(step):
-		push_error("[Cutscene] %s: reach requires a rigged actor" % _current_where)
+	var binding: StagePropBinding
+	if step.get("space", "stage") == "prop" and not step.get("release", false):
+		var node := _stage.prop_node(step["prop"]) if _stage != null else null
+		if node == null:
+			push_error("[Cutscene] %s: reach prop unavailable: %s" % [_current_where, step["prop"]])
+			return
+		binding = StagePropBinding.new(node, _vec(step["to"], Vector2.INF))
+		var point := binding.stage_point(actor.get_parent() as Node2D)
+		var direction := binding.stage_angle(actor.get_parent() as Node2D)
+		if not point.is_finite() or not is_finite(direction):
+			push_error("[Cutscene] %s: reach point outside prop geometry: %s" % [_current_where, step["prop"]])
+			return
+	if not actor.set_hand_target(step, binding):
+		push_error("[Cutscene] %s: reach requires a rigged actor and a valid point in its visible hand texture" % _current_where)
 		return
 	actor.reach_speed = speed
 	if step.get("wait", true):
@@ -408,6 +494,9 @@ func _do_scene(step: Dictionary) -> void:
 				push_error("[Cutscene] %s: initial prop state unavailable: %s" % [_current_where, prop])
 	else:
 		push_error("[Cutscene] %s: prop_states must be an object with at most eight entries" % _current_where)
+	var prop_issue := _stage.initial_props(step.get("props", {}))
+	if not prop_issue.is_empty():
+		push_error("[Cutscene] %s: %s" % [_current_where, prop_issue])
 	_stage_holder.add_child(_stage)
 	cam_pos = _vec(step.get("pos"), _stage.default_camera_pos)
 	cam_zoom = float(step.get("zoom", _stage.default_camera_zoom))
@@ -461,6 +550,7 @@ func _do_actor(step: Dictionary) -> void:
 	actor.layer_slot = slot
 	actor.z_index = WorldLayers.stage_actor_z(slot)
 	if _actors.has(id):
+		_stage.release_actor_props(_actors[id])
 		_actors[id].queue_free()
 	_actors[id] = actor
 	_stage.actors.add_child(actor)
@@ -505,6 +595,8 @@ func _do_face(step: Dictionary) -> void:
 func _do_remove(step: Dictionary) -> void:
 	var actor := _need_actor(step)
 	if actor != null:
+		if _stage != null:
+			_stage.release_actor_props(actor)
 		_actors.erase(actor.actor_id)
 		actor.queue_free()
 
@@ -519,6 +611,10 @@ func _do_move(step: Dictionary) -> void:
 		actor.face(1 if target.x > actor.position.x else -1)
 	actor.set_pose(StringName(str(step.get("pose", "walk"))))
 	var tween := _new_tween()
+	if actor.hand_targets_active():
+		# 物理 Tween 在演員的 idle IK 之前更新，避免持物跟隨落後一個繪製影格。
+		tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+		tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.tween_property(actor, "position", target, time)
 	var then_pose := StringName(str(step.get("then", "idle")))
 	tween.tween_callback(func() -> void:

@@ -110,17 +110,65 @@ func release_gesture() -> void:
 
 
 ## 指定一隻手的舞台接觸或收回；資料錯誤不改變目前接觸。
-func set_hand_target(step: Dictionary) -> bool:
+func set_hand_target(step: Dictionary, binding: StagePropBinding = null) -> bool:
 	var issue := CutsceneReach.problem(step)
 	if not issue.is_empty() or rig == null:
 		return false
-	_reaches[0 if step["hand"] == "front" else 1].configure(step, position)
+	if step.get("space", "stage") == "prop" and binding == null and not step.get("release", false):
+		return false
+	var resolved := step
+	var angle_offset := float(step.get("angle", 0.0))
+	if step.get("space", "stage") == "prop" and not step.get("release", false):
+		var parent := get_parent() as Node2D
+		var point := binding.stage_point(parent)
+		var direction := binding.stage_angle(parent)
+		if not point.is_finite() or not is_finite(direction):
+			return false
+		resolved = step.duplicate()
+		resolved["space"] = "stage"
+		resolved["to"] = [point.x, point.y]
+		resolved["angle"] = direction + angle_offset if step.get("follow_rotation", false) else angle_offset
+		resolved.erase("prop")
+	var contact: Variant = null
+	if step.has("contact") and not step.get("release", false):
+		contact = rig.hand_source_point(StringName(step["hand"]), Vector2(step["contact"][0], step["contact"][1]))
+		if not (contact as Vector2).is_finite():
+			return false
+	var reach := _reaches[0 if step["hand"] == "front" else 1]
+	reach.configure(resolved, position)
+	if not step.get("release", false):
+		reach.set_contact_offset(contact)
+		reach.bind_to(binding, angle_offset, bool(step.get("follow_rotation", false)))
 	return true
 
 
 ## 說話中（點頭與手勢）。
 func set_talking(value: bool) -> void:
 	_input.talking = value
+
+
+func hand_targets_active() -> bool:
+	return _reaches[0].active() or _reaches[1].active()
+
+
+func hand_target_settled(hand: StringName) -> bool:
+	return (hand == &"front" or hand == &"back") and _reaches[0 if hand == &"front" else 1].settled()
+
+
+func hand_contact_global(hand: StringName) -> Vector2:
+	if rig == null or (hand != &"front" and hand != &"back"):
+		return Vector2.INF
+	var bone_name := &"hand_front" if hand == &"front" else &"hand_back"
+	var wrist := rig.bone(bone_name)
+	if wrist == null:
+		return Vector2.INF
+	var offset: Variant = _reaches[0 if hand == &"front" else 1].contact_offset()
+	return wrist.to_global(rig.hand_grip_offset(bone_name) if offset == null else offset)
+
+
+func keep_hand_with_body(hand: StringName) -> void:
+	if hand == &"front" or hand == &"back":
+		_reaches[0 if hand == &"front" else 1].keep_with_body(position)
 
 
 ## 聆聽中（微微偏頭）。

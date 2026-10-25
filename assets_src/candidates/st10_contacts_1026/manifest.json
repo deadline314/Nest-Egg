@@ -161,13 +161,95 @@
       "seed": null,
       "model": null,
       "job": null
+    },
+    {
+      "file": "water-urn-lever-atlas-generated.png",
+      "bytes": 1165313,
+      "sha256": "d27305421de80c24ec8b78a204c44741a55f12dec052b33da93b5e575554a196",
+      "actual_size": [
+        1179,
+        1334
+      ],
+      "mode": "RGBA",
+      "alpha_threshold_bounds": {
+        "0": [
+          0,
+          15,
+          1135,
+          1334
+        ],
+        "8": [
+          29,
+          19,
+          1130,
+          1270
+        ],
+        "25": [
+          29,
+          21,
+          1130,
+          1269
+        ],
+        "127": [
+          29,
+          21,
+          1129,
+          1269
+        ]
+      },
+      "status": "adopted: formal kitchen atlas through story_staging_art recipe; native Main mechanics verified, no human/hardware/full-character acceptance",
+      "seed": null,
+      "model": null,
+      "job": null
+    },
+    {
+      "file": "kettle-lid-atlas-generated.png",
+      "bytes": 901212,
+      "sha256": "cbc91bf3ac6a2a103e04cff226428b6bbf38745052812ba151aa4c11ed6ce3e7",
+      "actual_size": [
+        1699,
+        926
+      ],
+      "mode": "RGBA",
+      "alpha_threshold_bounds": {
+        "0": [
+          36,
+          40,
+          1682,
+          900
+        ],
+        "8": [
+          38,
+          56,
+          1680,
+          880
+        ],
+        "25": [
+          38,
+          56,
+          1680,
+          879
+        ],
+        "127": [
+          39,
+          57,
+          1679,
+          879
+        ]
+      },
+      "status": "adopted: formal kitchen atlas through story_staging_art recipe; native Main mechanics verified, no human/hardware/full-character acceptance",
+      "seed": null,
+      "model": null,
+      "job": null
     }
   ],
   "generation_order": [
     "water-urn-tap-generated.png",
     "kettle-open-generated.png",
     "water-urn-blank-generated.png",
-    "water-urn-open-generated.png"
+    "water-urn-open-generated.png",
+    "water-urn-lever-atlas-generated.png",
+    "kettle-lid-atlas-generated.png"
   ],
   "requested_canvas": {
     "water-urn-tap-generated.png": [
@@ -185,16 +267,26 @@
     "water-urn-open-generated.png": [
       1086,
       1448
+    ],
+    "water-urn-lever-atlas-generated.png": [
+      1280,
+      1448
+    ],
+    "kettle-lid-atlas-generated.png": [
+      2304,
+      1254
     ]
   },
   "references": {
     "water-urn-tap-generated.png": "art/environment/scene_props/pawnshop_kitchen/pawnshop_kitchen__water_urn.png",
     "kettle-open-generated.png": "assets_src/candidates/st10_contacts_1022/kettle-generated.png",
     "water-urn-blank-generated.png": "water-urn-tap-generated.png",
-    "water-urn-open-generated.png": "water-urn-blank-generated.png"
+    "water-urn-open-generated.png": "water-urn-blank-generated.png",
+    "water-urn-lever-atlas-generated.png": "water-urn-blank-generated.png",
+    "kettle-lid-atlas-generated.png": "assets_src/candidates/st10_contacts_1022/kettle-generated.png"
   },
   "notes": [
-    "No adopted art, normal, glow, import or full action acceptance.",
+    "At Commit-8 the original four candidates were unadopted. Commit-9 adopts only the later two separated atlases through the recorded staging pipeline; original candidates remain unchanged.",
     "Reference prompts do not guarantee unchanged pixels. Jar states visibly drift; no pixel preservation claim.",
     "Kettle original and open output both use actual 1254 square canvas. Preserve canvas instead of trimming each state independently, then verify handle/body anchors.",
     "Raw alpha>0 can include residue; use measured visible parts for contact."
@@ -204,12 +296,25 @@
     "water-urn-tap-generated.png": "907224cf90a80e0a2c763c35d18226e52e6b0098e3e0b6168cd28164dbe97151",
     "kettle-open-generated.png": "94d461c6b4687ef59771ea65f187d3e094bf8c5adb69e715c18e201bd113100c",
     "water-urn-blank-generated.png": "00e5000eec19a18d81e74e121f9de5c4ec5e096ef891b6c23c23eda14ac50e60",
-    "water-urn-open-generated.png": "025b76e9c815fe7338245e5cc87b6979621c6425c65366dfd7559fe1a5200fd6"
+    "water-urn-open-generated.png": "025b76e9c815fe7338245e5cc87b6979621c6425c65366dfd7559fe1a5200fd6",
+    "water-urn-lever-atlas-generated.png": "025b76e9c815fe7338245e5cc87b6979621c6425c65366dfd7559fe1a5200fd6",
+    "kettle-lid-atlas-generated.png": "94d461c6b4687ef59771ea65f187d3e094bf8c5adb69e715c18e201bd113100c"
   },
   "original_tool_outputs": {
     "water-urn-tap-generated.png": "/workspace/generated_images/exec-0bc380de-deb9-41bf-90e6-bf17b828261a.png",
     "kettle-open-generated.png": "/workspace/generated_images/exec-c885ede8-d09b-4e28-a4a8-99dd4b9b12d9.png",
     "water-urn-blank-generated.png": "/workspace/generated_images/exec-8a1270e1-d769-4341-ab00-80c98c5cbcec.png",
-    "water-urn-open-generated.png": "/workspace/generated_images/exec-66688d44-f2f2-4bba-b587-0bab44bf10bd.png"
+    "water-urn-open-generated.png": "/workspace/generated_images/exec-66688d44-f2f2-4bba-b587-0bab44bf10bd.png",
+    "water-urn-lever-atlas-generated.png": "/workspace/generated_images/exec-7a002566-734a-4db5-88a5-eb1b8da6786d.png",
+    "kettle-lid-atlas-generated.png": "/workspace/generated_images/exec-154cc049-bf0a-4719-b986-6e649eba4aca.png"
+  },
+  "adoption": {
+    "date": "2026-10-26 Asia/Taipei",
+    "recipe": "assets_src/pipeline/story_staging_art.json",
+    "files": [
+      "water-urn-lever-atlas-generated.png",
+      "kettle-lid-atlas-generated.png"
+    ],
+    "scope": "formal kitchen stage and home mechanics; no human/hardware/full-character acceptance"
   }
 }

@@ -2,13 +2,13 @@
 """第一章正式劇本來源入口（ST-9）。
 
 最高製作稿：design/13-story-v2/CH01_CLOSURE_SCRIPT.md。
-完整分支／段尾結果／11個任務語義在 ch1_closure.py；預設CLI及build()
-保持既有36場已發布來源。新作者契約必須經真 runtime backend 轉譯；不能
-把明確購買或取物變成預設代選與 set_flags，不能發出未知 handler。
+完整分支／段尾結果／11個任務語義在 ch1_closure.py，經
+ch1_runtime_backend.py 轉譯為正式資料；不能把明確購買或取物
+變成預設代選與 set_flags，也不能發出未知 handler。
 
 CPU檢查：python tools/story/build_ch1_story.py --check-closure-source
-既有重建：python tools/story/build_ch1_story.py
-新稿輸出：python tools/story/build_ch1_story.py --production（接口未到位時拒絕，無寫檔）
+正式重建：python tools/story/build_ch1_story.py
+build() 另外提供舊稿舞台與保留場景，供正式轉譯器使用。
 """
 import argparse
 import json
@@ -16,8 +16,10 @@ import os
 import sys
 
 try:
+    from . import kitchen_staging
     from .ch1_closure import ProductionNotReady, build_source, compile_production, source_report
 except ImportError:
+    import kitchen_staging
     from ch1_closure import ProductionNotReady, build_source, compile_production, source_report
 
 ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
@@ -74,18 +76,15 @@ FURNITURE = {
     # 以下三個舞台量自立繪（ST-10，2026-10-12；把立繪縮成舞台座標後疊格線量）。演員的縮放要讓這些家具落在比例表內：
     # 店面的櫃台在演員後面那一層（底邊 y≈336，比地面線 348 遠一點）。
     'ch1_pawnshop_front': [{"id": "shop_counter", "kind": "counter", "rect": [36, 207, 444, 129]}],
-    # 廚房：餐桌（桌面 y≈194、桌腳落在 303）、椅子的座面（y≈240）、右邊的門（門楣 y≈19）。
-    'ch1_pawnshop_kitchen': [{"id": "dining_table", "kind": "table", "rect": [205, 194, 153, 109]},
-                             {"id": "dining_chair", "kind": "seat", "rect": [163, 240, 60, 63]},
-                             {"id": "kitchen_door", "kind": "door", "rect": [553, 19, 80, 290]}],
+    # 來源畫布中的實際家具表面；與廚房背景一起轉換。
+    'ch1_pawnshop_kitchen': kitchen_staging.FURNITURE,
     # 復原館：吧台（檯面 y≈178、底邊 y≈250）與吧台凳（座面 y≈204）。兩者都在演員後面那一層。
     'ch1_revival_lounge': [{"id": "bar_counter", "kind": "counter", "rect": [56, 178, 372, 72]},
                            {"id": "bar_stool", "kind": "bar_stool", "rect": [81, 204, 30, 47]}],
 }
-# 立繪換成外圈延展版的舞台（ST-10）：{舞台: (圖檔, 左上角, 原圖寬)}。延展版保留原畫每個像素與家具位置，只在四周多畫，
-# 左上角往外移同樣的量，原本的舞台座標不變；鏡頭因此可以拉得比原圖還遠而不會拍到圖外。
+# 個別舞台的來源畫布與縮放；廚房採用無烘入壺的立繪，互動道具另層組裝。
 STAGE_ART = {
-    'ch1_pawnshop_kitchen': ('pawnshop_kitchen_extended', [-320, -180.0], 2560),
+    'ch1_pawnshop_kitchen': kitchen_staging.BACKGROUND,
 }
 # 演員縮放：{舞台: {骨架: 縮放}}。同一個舞台上的人高度大致一致。
 SCALE = {
@@ -140,16 +139,22 @@ def stall_layers(scale):
 def write_stage(stage_id, scene, top, bottom, rain, glow, extra):
     tone = STAGE_TONE.get(stage_id, {})
     furniture = [dict(item) for item in FURNITURE.get(stage_id, [])]
-    art, art_pos, art_width = STAGE_ART.get(stage_id, (scene, [-64, -36.0], 1536))
+    art = STAGE_ART.get(stage_id, dict(path=scene + '.webp', pos=[-64, -36.0], width=1536, scale=.5))
     layers = [
         {"kind": "gradient", "top": top, "bottom": bottom, "parallax": 0.0},
-        {"kind": "sprite", "path": f"res://art/environment/scenes/{art}.webp", "pos": art_pos, "scale": 0.5,
-         "filter": "linear", "source_width": art_width},  # 原設計寬度；保留縮圖快取下的舞台比例。不能開 life。
+        {"kind": "sprite", "path": f"res://art/environment/scenes/{art['path']}", "pos": art["pos"], "scale": art["scale"],
+         "filter": "linear", "source_width": art["width"]},  # 原設計寬度；保留縮圖快取下的舞台比例。不能開 life。
         {"kind": "glow", "pos": [glow[0], glow[1]], "radius": glow[2], "color": glow[3], "intensity": 0.7, "additive": True,
          "alpha": tone.get('glow_alpha', 0.35), "pulse": 0.06, "pulse_depth": 0.2},
     ]
     if 'modulate' in tone:
         layers[1]["modulate"] = tone['modulate']
+    if stage_id == 'ch1_pawnshop_kitchen':
+        try:
+            from .kitchen_staging import layers as kitchen_layers
+        except ImportError:
+            from kitchen_staging import layers as kitchen_layers
+        layers.extend(kitchen_layers())
     if extra == 'stall':
         scale = SCALE[stage_id]['rin']
         layers.extend(stall_layers(scale))

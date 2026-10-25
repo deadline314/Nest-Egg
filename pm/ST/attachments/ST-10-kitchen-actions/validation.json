@@ -1,0 +1,131 @@
+{
+  "date": "2026-10-26 Asia/Taipei",
+  "base": "d7c50ec3168cbd2cee112c4e314f58ef048e36ea",
+  "selector": {
+    "groups": 76,
+    "shards": 8,
+    "checks": 95292,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 515,
+    "changed": false
+  },
+  "engine": "4.7.2-stable ed1daf0bf",
+  "renderer": "Forward+ HDR / Vulkan llvmpipe software",
+  "main": {
+    "natural_cancel_reentry": [
+      16,
+      0
+    ],
+    "cold_final": [
+      7,
+      0
+    ],
+    "skip": [
+      11,
+      0
+    ],
+    "full_weight_samples": 188,
+    "worst_contact_stage_px": 0.000125827195006423,
+    "worst_hold_stage_px": 8.52992252475815e-05,
+    "final_engine_errors": 0,
+    "final_exit_leaks": 0
+  },
+  "standalone_actions_historical_point8_geometry": {
+    "first": [
+      8,
+      1
+    ],
+    "corrected": [
+      8,
+      0
+    ],
+    "samples": 599,
+    "worst_contact_stage_px": 0.000123020290629938,
+    "worst_hold_stage_px": 8.52992252475815e-05
+  },
+  "headless_mechanics_historical_point8_geometry": {
+    "duration_negative": [
+      8,
+      1
+    ],
+    "formal": [
+      8,
+      0
+    ],
+    "negative_error_stage_px": 128.49274
+  },
+  "pipeline": {
+    "unit_methods": 4,
+    "failures": 0,
+    "rebuild_identical": true,
+    "import_policy_changes_on_rebuild": 0
+  },
+  "first_selector": {
+    "checks": 89774,
+    "new_failures": 3,
+    "seconds": 509,
+    "crash_missing_result_shard": 7
+  },
+  "crash_control": {
+    "base11groups": [
+      5500,
+      0,
+      291
+    ],
+    "changed11groups": [
+      5500,
+      0,
+      289
+    ],
+    "root_cause": "not reproduced, not identified or claimed fixed"
+  },
+  "source_files": {
+    "art/environment/scene_props/pawnshop_kitchen_contacts/kettle_atlas.png.import": "2678e3fa9d812731baefb82e0ad771b213d598e522912a5d1dfeb93b16ecea68",
+    "art/environment/scene_props/pawnshop_kitchen_contacts/kettle_atlas_n.png.import": "9d02843ecbba720b301f729db311c53f8298029190c07695658f02db31d29f4b",
+    "art/environment/scene_props/pawnshop_kitchen_contacts/urn_atlas.png.import": "b28aba075285d022698199bb5fb83cf694e9442c36b60237786edac82647b550",
+    "art/environment/scene_props/pawnshop_kitchen_contacts/urn_atlas_n.png.import": "d1328107b1e1ae953fc294a7bc0d123d2951406d075cc21239b991c30a253a29",
+    "art/environment/scenes/pawnshop_kitchen_contacts.png.import": "86ca897911be79c48ba030954bc34df8b93ec217d59b2310f6db1f4eaa884eb6",
+    "art/environment/scenes/pawnshop_kitchen_contacts_n.png.import": "255cae04f5103cef163f04ae30065a053d9c4541430900c9f54d3a8da5f298f6",
+    "assets_src/candidates/st10_contacts_1026/manifest.json": "aeea3b969af90d80e36f353dd20719168a0518737ea9615119b806cfb30d2295",
+    "assets_src/candidates/st10_contacts_1026/prompt-followups.json": "54e804e58037aede0bad28b50f014746d4cc2ef3b009c1609c383317927f16bb",
+    "assets_src/pipeline/story_staging_art.json": "6ae5f5cde5206b0c07a56342aa9e6477282c846d3ea45ea1bea7deafca12e52b",
+    "data/cutscene/stages/ch1_pawnshop_kitchen.json": "194ce661ab42c096ae1f28e3fbce95ce86742532418ec9e7dba1c1d8982b1ae3",
+    "data/story/ch1_kasa.json": "e99f08ebc577360ea0adc492ca92ea236f5ef7fddc3537026011e8bf870de16a",
+    "game/cutscene/cutscene_actor.gd": "f85e0dc6155af5120b6591a03747daf7bb6ebb46fb51bdac75e236b6d6dca691",
+    "game/cutscene/cutscene_checker.gd": "e8c90fd7ff009bbdcf34b1cb9141284da001d274b4b3c51a8605b03601558b61",
+    "game/cutscene/cutscene_player.gd": "f23b839a13d0b6b57e79bdfe2632b80327c4e153ed60e2ae15be88bdd1a1bb67",
+    "game/cutscene/cutscene_prop_action.gd": "2b789530f020406791743ae33b202008b8ace9693e8455db79b4de19e890802b",
+    "game/cutscene/cutscene_prop_action.gd.uid": "300fad4125852e50c33b71b4a0fce09a56184bd45ecb4fb8b48feb0716f065d2",
+    "game/cutscene/cutscene_reach.gd": "d8afc19d34266b5aa0378648df51a0ce886904738c8dfb1c1ed591ea466e9487",
+    "game/cutscene/stage_layers.gd": "bdbc47462e0c59f527598787623f0e0d309e713aaf6573cc7f8c2287242105a8",
+    "game/cutscene/stage_library.gd": "88bf4271776fc7d0cf1c812987cc833fc68963ea24e5ceeb77eaa979f2feaf9f",
+    "game/cutscene/stage_prop_binding.gd": "c7522899e0a6958b39443d64e273ed88ba90393be050477dcae3e445806690b0",
+    "game/cutscene/stage_prop_binding.gd.uid": "5704e8457b7d73a39cb6af5eafdcaf31e991c7f23a8ba3a284f582c488856ad7",
+    "game/cutscene/stage_prop_hold.gd": "1ba302b0a74fcd605cc094215e681194cd91b8520b67ec9f9fea02441e210a49",
+    "game/cutscene/stage_prop_hold.gd.uid": "68766e27cc94b57cbcae20219936569162d0c25fb441e2f4ee12cdc483d53001",
+    "game/cutscene/stage_sprite_geometry.gd": "808cc3953e01085e2ea25c90f146f02e8f0c388dc81a80e287d4e3b0199adf32",
+    "game/cutscene/stage_sprite_geometry.gd.uid": "6af92f49128b68c062ca682f2c988df5444387fbd4057b10524d2104a6a81900",
+    "game/rig/character_rig.gd": "8e65a1d9260b3fd0eb132d9c595d87b7ecdffb7f7e1da851da6be96e05602a31",
+    "game/rig/humanoid_animator.gd": "41c52ab6284d4f59ca39d6b137b42173ec3fb89b21e353538ce15b81637f87e4",
+    "tests/helpers/cutscene_prop_action_checks.gd": "8ba6c82b72e765a3b03f854041f268077aa794feceed45bbfe9896b33cff3052",
+    "tests/helpers/cutscene_prop_action_checks.gd.uid": "b817a121c1f312b36dc55806970d02b756e018cfa5b438b8ac9038c57b6d9685",
+    "tests/helpers/kitchen_choreography_checks.gd": "20a7d73f786f3a511b2ee47ed3caed65b7c67abce43fcfe5f58d02169ab5ba3c",
+    "tests/helpers/kitchen_choreography_checks.gd.uid": "84c59aac2be97212c64856ad0529049b2bfdff6e29815594f4caa89fa0ad41df",
+    "tests/helpers/stage_prop_binding_checks.gd": "0d799658f3547db9a8451d5aa90ce5b9e540f81b2a61f72506c709324498260e",
+    "tests/helpers/stage_prop_binding_checks.gd.uid": "95a993b62556b16bc7537c4603034fe95849ea058ecf59874cfe1ae8793ae670",
+    "tests/helpers/stage_prop_hold_checks.gd": "7978d746b83c7601a2355c49a422d0f6aac49269d94fd4a4bc78b0b4bc7e57eb",
+    "tests/helpers/stage_prop_hold_checks.gd.uid": "9dc214292c2666fa6a3bf1f5c47e225f8ac4f3323eaf2f040ec32df9f72f8713",
+    "tests/helpers/stage_prop_parent_checks.gd": "4019a64ccb7e926db83fda14aa24a7bce2263d668348343fe1078f7a7656dbba",
+    "tests/helpers/stage_prop_parent_checks.gd.uid": "a3df653664421f1d1d9360461241e764aab218a23bb9612da8b5e85033b93a14",
+    "tests/helpers/stage_sprite_geometry_checks.gd": "b45b05d3755634f23bd403c9a2d344fb5cc27ee62f52a1aa11c62bd4f253e94e",
+    "tests/helpers/stage_sprite_geometry_checks.gd.uid": "c9a6958c8ea8134f0b0f83e542bfe992de790fb08c7eae8d67f715ad6fc89025",
+    "tests/suite/test_cutscene.gd": "ae5507d3f5fa315182426487ca29acf867a422008229d4e0656644e46259716c",
+    "tools/assets/story_staging_art.py": "6d2d823775e8a7b7af2e2be560fb6fdfcb58ec339952f7097d4cff0f3b284b19",
+    "tools/assets/test_story_staging_art.py": "1e104078ac4c8ec4be52038991dc26e2d9079d81e73cd66e2c9ff99c03a90a74",
+    "tools/story/build_ch1_story.py": "32a9b7c7b32b6dff7787afff9c6d25b749c1a82ca321e0ca4366dc42012c61c9",
+    "tools/story/ch1_closure.py": "bd67f0daa18c8e5d69b3da702a2c1eda633d1d49a151243dc469a71a4001acee",
+    "tools/story/kitchen_staging.py": "292e150e88907212578c457cb1cd27cda398932197360e992fa940ed173e1567"
+  },
+  "scope": "Actual Main with arranged canonical prerequisite operations and synthetic dialogue advancement/Escape. Cold stage default is reconstructed separately after real accepted Main continuation. No human chapter playthrough, physical hardware or full-character seam acceptance. ST-10 remains in progress for eating and disk insertion."
+}

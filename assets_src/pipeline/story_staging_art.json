@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "id": "kitchen",
+      "input": "assets_src/candidates/st10_contacts_1022/kitchen-empty-generated.png",
+      "sha256": "b639cef19b6b3654aeb8adecbab8fa8d5272d65c09253c2df58b022d97fb408e",
+      "size": [
+        1672,
+        941
+      ],
+      "output": "art/environment/scenes/pawnshop_kitchen_contacts.png",
+      "kind": "scene",
+      "grade": {},
+      "alpha_floor": 0,
+      "pad_even": true,
+      "emission": "none",
+      "normal": {
+        "profile": "flat",
+        "round_px": 6.0,
+        "relief": 0.1,
+        "detail": 0.0
+      }
+    },
+    {
+      "id": "urn",
+      "input": "assets_src/candidates/st10_contacts_1026/water-urn-lever-atlas-generated.png",
+      "sha256": "d27305421de80c24ec8b78a204c44741a55f12dec052b33da93b5e575554a196",
+      "size": [
+        1179,
+        1334
+      ],
+      "output": "art/environment/scene_props/pawnshop_kitchen_contacts/urn_atlas.png",
+      "kind": "prop",
+      "grade": {},
+      "alpha_floor": 8,
+      "pad_even": true,
+      "emission": "none",
+      "normal": {
+        "profile": "pillow",
+        "round_px": 6.0,
+        "relief": 0.1,
+        "detail": 0.0
+      }
+    },
+    {
+      "id": "kettle",
+      "input": "assets_src/candidates/st10_contacts_1026/kettle-lid-atlas-generated.png",
+      "sha256": "cbc91bf3ac6a2a103e04cff226428b6bbf38745052812ba151aa4c11ed6ce3e7",
+      "size": [
+        1699,
+        926
+      ],
+      "output": "art/environment/scene_props/pawnshop_kitchen_contacts/kettle_atlas.png",
+      "kind": "prop",
+      "grade": {},
+      "alpha_floor": 8,
+      "pad_even": true,
+      "emission": "none",
+      "normal": {
+        "profile": "pillow",
+        "round_px": 6.0,
+        "relief": 0.1,
+        "detail": 0.0
+      }
+    }
+  ]
+}

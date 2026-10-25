@@ -1,0 +1,1473 @@
+{
+  "version": 1,
+  "archive": "raw.zip",
+  "bytes": 24252938,
+  "sha256": "645a82ec8d6d0391a5532cfee32ba7994c08c63a092cbdff343f2e3b3b203bbc",
+  "entries": [
+    {
+      "path": "assets/story_staging_art-receipt.json",
+      "bytes": 2852,
+      "sha256": "cff94258976b41f02476c8755f5968f49b2e9d06f50a58d00a2e09bc6b678a94"
+    },
+    {
+      "path": "baseline/assets_src/candidates/st10_contacts_1026/manifest.json",
+      "bytes": 5428,
+      "sha256": "5acfea985eddbc8288665bbba480907684a57a9bd275805713260d30abfc8804"
+    },
+    {
+      "path": "baseline/assets_src/candidates/st10_contacts_1026/prompt-followups.json",
+      "bytes": 1922,
+      "sha256": "3009fe189c98de4fa5d7b9d20af5f9af81d24ad73b5abcd97730e937f937d6e5"
+    },
+    {
+      "path": "baseline/data/cutscene/stages/ch1_pawnshop_kitchen.json",
+      "bytes": 1137,
+      "sha256": "92e15e92e551f1b5937cf2d5064078f9f1b78361e423d2a5c3d11bd71dea4661"
+    },
+    {
+      "path": "baseline/data/story/ch1_kasa.json",
+      "bytes": 256761,
+      "sha256": "6448aca5d196d44f754d7d8f4d383c7ca95bb99b6a4249b093731e511285ce05"
+    },
+    {
+      "path": "baseline/game/cutscene/cutscene_actor.gd",
+      "bytes": 8324,
+      "sha256": "77f0c9b775fb3d8310c3eb9269ca5cfc88320ba1996fa9714101a348f633cd27"
+    },
+    {
+      "path": "baseline/game/cutscene/cutscene_checker.gd",
+      "bytes": 17693,
+      "sha256": "a371c93d2820b4c4e8269243730845a7b7458f6b1bcddd4353335bf300fcb4be"
+    },
+    {
+      "path": "baseline/game/cutscene/cutscene_player.gd",
+      "bytes": 28069,
+      "sha256": "06045962fae07cb5e65f67e4abcd964e603a140b7c4cd0ea2f3c93e6329137b1"
+    },
+    {
+      "path": "baseline/game/cutscene/cutscene_reach.gd",
+      "bytes": 3767,
+      "sha256": "47a0c2390f1a41be6a87dcfde6165f03dcf194ad10e3d718519e8a367fe5e060"
+    },
+    {
+      "path": "baseline/game/cutscene/stage_layers.gd",
+      "bytes": 18650,
+      "sha256": "96528b00a78235ea5eb993777958ae3b20117dca19b673f15f38da1b081f3ba6"
+    },
+    {
+      "path": "baseline/game/cutscene/stage_library.gd",
+      "bytes": 7693,
+      "sha256": "f88788eeba17c1fad03c420dbd94217ddb8446f25c6bcee17b293cf0fc9841f8"
+    },
+    {
+      "path": "baseline/game/rig/character_rig.gd",
+      "bytes": 76157,
+      "sha256": "e564edcd3f893f4680cb4d574011f62f6fee12b3a817ff4e2e41f6f6018355d3"
+    },
+    {
+      "path": "baseline/game/rig/humanoid_animator.gd",
+      "bytes": 74558,
+      "sha256": "f12583b24dee1237a0a274bb1f8113449bf2e0b80a33c3a6161fdd2f448f2116"
+    },
+    {
+      "path": "baseline/tests/suite/test_cutscene.gd",
+      "bytes": 55275,
+      "sha256": "203f69ad6f9a97508c1d76280e7583fc6aaf3f8a214d8fcdfce345cb4b2d83f9"
+    },
+    {
+      "path": "baseline/tools/story/build_ch1_story.py",
+      "bytes": 32499,
+      "sha256": "c477be6e6c7c58c7f9b51920d7eeca3da0bc2ade5d8e116803ba4ff691ea1e55"
+    },
+    {
+      "path": "baseline/tools/story/ch1_closure.py",
+      "bytes": 75510,
+      "sha256": "664f684aea8db4864ef980a769c22013435f36ca055a69a61bb887887155d24b"
+    },
+    {
+      "path": "history/binding-first-source/stage_prop_binding.gd",
+      "bytes": 1323,
+      "sha256": "9d9184ee6be1f3fe0dc3a12c07ee1526915273b660a349acd60adc509f934dd5"
+    },
+    {
+      "path": "history/crash-control-owned.json",
+      "bytes": 320,
+      "sha256": "4dc19579dcacc55b630c3bcaf1cb1ac21e8e5de7ebd59cf67d16b0e50bb0bfe9"
+    },
+    {
+      "path": "history/fix_kitchen_proportions.py",
+      "bytes": 5020,
+      "sha256": "e0da88b2112f5888c0dd7e8028a1d303f55a7eec89e95c70a6b7540f489807e8"
+    },
+    {
+      "path": "history/kitchen-before-proportion-fix/data/cutscene/stages/ch1_pawnshop_kitchen.json",
+      "bytes": 4285,
+      "sha256": "29f2f3b068c0d1e942ef8a248da93202dd96dd4a6f174d5ca7ddc556e28a5205"
+    },
+    {
+      "path": "history/kitchen-before-proportion-fix/data/story/ch1_kasa.json",
+      "bytes": 262627,
+      "sha256": "8fd3d1f852ebd8f5e8f25c3c925c019ae7748986ee67d8ba5f87413b22a84418"
+    },
+    {
+      "path": "history/kitchen-before-proportion-fix/manifest.json",
+      "bytes": 848,
+      "sha256": "ad664579f5a5d260925e138c459b0de57792c252c53c70bf11ff4477e0dd836d"
+    },
+    {
+      "path": "history/kitchen-before-proportion-fix/tests/helpers/kitchen_choreography_checks.gd",
+      "bytes": 4093,
+      "sha256": "0e8bb3922ad0d77226fce13c3ed77fa95e6044a75312f60fa86e2f7de49df60a"
+    },
+    {
+      "path": "history/kitchen-before-proportion-fix/tools/story/build_ch1_story.py",
+      "bytes": 32530,
+      "sha256": "1c9635c9a901f3729df2c8a814c8985ac31a01fc7ec2108b8a662e8c1d56a384"
+    },
+    {
+      "path": "history/kitchen-before-proportion-fix/tools/story/ch1_closure.py",
+      "bytes": 75255,
+      "sha256": "a06afcf50e6892228360debfc21bffe39d5c71dd41e0356fb49441b09425a40c"
+    },
+    {
+      "path": "history/kitchen-before-proportion-fix/tools/story/kitchen_staging.py",
+      "bytes": 6348,
+      "sha256": "00e4c67b7ae5508d9cf1da96fbeb398fd9d6cebf405129b16902db98f8cef110"
+    },
+    {
+      "path": "history/kitchen-before-proportion-fix/work/st10-kitchen/actions.gd",
+      "bytes": 4614,
+      "sha256": "653928d4e6d44cc248fa13d9110842bf9595bd2c0bffbbdad48a65cf297ebe89"
+    },
+    {
+      "path": "history/kitchen-before-proportion-fix/work/st10-kitchen/main.gd",
+      "bytes": 7907,
+      "sha256": "443c31c8dca63288cf943154ac46e9bb3dfb47c82a39074a868e9aeffcd69bdd"
+    },
+    {
+      "path": "history/kitchen-before-visible-dial/data/cutscene/stages/ch1_pawnshop_kitchen.json",
+      "bytes": 4627,
+      "sha256": "ac970d9d78f12ef0cf90abd0715e56f6fcbcd0f81c0d7a033284dac35d493674"
+    },
+    {
+      "path": "history/kitchen-before-visible-dial/data/story/ch1_kasa.json",
+      "bytes": 262866,
+      "sha256": "eefdbc35cfd4b1fc64b3fec717035fe1218cc091a7b619f2d894fbb87f78b1be"
+    },
+    {
+      "path": "history/kitchen-before-visible-dial/tools/story/ch1_closure.py",
+      "bytes": 75255,
+      "sha256": "a06afcf50e6892228360debfc21bffe39d5c71dd41e0356fb49441b09425a40c"
+    },
+    {
+      "path": "history/kitchen-before-visible-dial/tools/story/kitchen_staging.py",
+      "bytes": 7425,
+      "sha256": "31304873b9c2c3f9e75072cf974b1e73d59cb8a616756b3ea0c3e1d31ba99e0b"
+    },
+    {
+      "path": "history/kitchen-main-v2-wrong-expectation.gd",
+      "bytes": 9223,
+      "sha256": "73f7fb57ecc0e0f3bf9cf640667012c93ea9ff7c332f9a58cb7fa04ea191b7a8"
+    },
+    {
+      "path": "history/kitchen-proportions-first-source/data/cutscene/stages/ch1_pawnshop_kitchen.json",
+      "bytes": 4627,
+      "sha256": "0b5302cfbbc0fc22326b9e5a11c43e206fb916324ee7f5a7f2ff792646134f1c"
+    },
+    {
+      "path": "history/kitchen-proportions-first-source/data/story/ch1_kasa.json",
+      "bytes": 262925,
+      "sha256": "2a271f5d49dfd741bfb6dcba6b7355d9276518b23cff431598532d775204434b"
+    },
+    {
+      "path": "history/kitchen-proportions-first-source/tests/helpers/kitchen_choreography_checks.gd",
+      "bytes": 4293,
+      "sha256": "20a7d73f786f3a511b2ee47ed3caed65b7c67abce43fcfe5f58d02169ab5ba3c"
+    },
+    {
+      "path": "history/kitchen-proportions-first-source/tools/story/kitchen_staging.py",
+      "bytes": 7548,
+      "sha256": "08222ab880d41e07bc6c8a13dc07f3f8bb889e6f729275b44e5ed3b231db6b1c"
+    },
+    {
+      "path": "history/run_final_kitchen.py",
+      "bytes": 2181,
+      "sha256": "0b302c31f20504a347cb7a81bfc77f6d06cceb840dfb6555f99f6488113ee836"
+    },
+    {
+      "path": "history/sprite_2d_4.7.2.cpp",
+      "bytes": 16591,
+      "sha256": "7dd29beeecc07bd33e9bc058daf417b8242d448fc70c43a006514207acd2c85a"
+    },
+    {
+      "path": "logs/actions-v1-console.log",
+      "bytes": 2668,
+      "sha256": "edec2e21477b184fb5f29ff8b568b9ffce9a4566c72379957ae90b038d5dee82"
+    },
+    {
+      "path": "logs/actions-v2-console.log",
+      "bytes": 1661,
+      "sha256": "6a054c2fbb6ecfee8bf31e163a12620043f1ebe416bf7cb75e6e4117ac86ad4c"
+    },
+    {
+      "path": "logs/assembly-v1-console.log",
+      "bytes": 631,
+      "sha256": "0c00afef061e5c99c404cf950ebb3004da66e5e13a4e5bf2f215c9beebfa4a99"
+    },
+    {
+      "path": "logs/assembly-v1-source.gd",
+      "bytes": 1501,
+      "sha256": "2fd0e25f103c48b656d440845edccfc0644c5aee74fa0572acb6502e8fb2555c"
+    },
+    {
+      "path": "logs/assembly-v2-console.log",
+      "bytes": 209,
+      "sha256": "67bbc7a0c925bdda98ec27ade827f150debde1afab15fe81d57eba7ff5eab5b9"
+    },
+    {
+      "path": "logs/assembly-v2-source.gd",
+      "bytes": 1505,
+      "sha256": "d9161c03a36e7e7b650ac7f9e899cbe3016640077deb5582fa8c36727aea2ae3"
+    },
+    {
+      "path": "logs/assembly-v3-console.log",
+      "bytes": 469,
+      "sha256": "a86c03ac29f5787b7e2e476768a1463a2ea9b0eb761c7cbab38c90a8aee17047"
+    },
+    {
+      "path": "logs/choreo-v1-source.gd",
+      "bytes": 866,
+      "sha256": "8efe757c1e9bdf7b62d56f96c6e891f114c1cf070ccd74992bee0ca87bc9f139"
+    },
+    {
+      "path": "logs/ci-d7c50ec3-final.json",
+      "bytes": 304,
+      "sha256": "6758e91a30c3fdde9b909086c4025e6aafc9d49ec2400cdd966f9a119d844702"
+    },
+    {
+      "path": "logs/ci-d7c50ec3-job121272369682.log",
+      "bytes": 450628,
+      "sha256": "f2fc3cb61f582e4eb68259ca1f0c1b4eead48fc2580170fd9d69447ed65997ba"
+    },
+    {
+      "path": "logs/cold-v1-console.log",
+      "bytes": 1307,
+      "sha256": "a74981dd6d4adca078a1b4d6c0cdac66563b48c9e1c72e3a5535e1f53352421b"
+    },
+    {
+      "path": "logs/cold-v1-source.gd",
+      "bytes": 7787,
+      "sha256": "f6bf3c3f8eb9aeb02597ae1734682ec2b3bd83124f2cb8b96a1261999b44a8b0"
+    },
+    {
+      "path": "logs/cold-v2-console.log",
+      "bytes": 1062,
+      "sha256": "19bce2a35bb9308b4bfad2048b615314fe8b03572c8036c9115dd3b56bf2c130"
+    },
+    {
+      "path": "logs/kitchen-actions-import.log",
+      "bytes": 3639,
+      "sha256": "be9f0e8390d7835e635b3e1aeffdf8a5ab51d8b1d7b79d5e9c388ec78d33666a"
+    },
+    {
+      "path": "logs/kitchen-actions-unit.log",
+      "bytes": 58878,
+      "sha256": "199ce05e704d4278531a694d556eeeca75c938098e6179edd82a0fcf2a829b2e"
+    },
+    {
+      "path": "logs/kitchen-art-build.log",
+      "bytes": 545,
+      "sha256": "a31c48c3f549ce7deef3e68c4a6471c1deddd87a255154ed365e3a2964d87dad"
+    },
+    {
+      "path": "logs/kitchen-art-rebuild.log",
+      "bytes": 545,
+      "sha256": "66fd5895b4b7e565099c0921c422072582f5af1ec0b9fe39aa75cfb2379ee711"
+    },
+    {
+      "path": "logs/kitchen-binding-import-v2.log",
+      "bytes": 1468,
+      "sha256": "4a2e8a30b766d18365d992ff19f48a1d495900278f76cd78ba50f9fa59c18a0d"
+    },
+    {
+      "path": "logs/kitchen-binding-import.log",
+      "bytes": 5451,
+      "sha256": "b24c70c1e53f75f2b1c1b8ec66f6d7b27bf587c84a1d8d90ae429fad9964fa9e"
+    },
+    {
+      "path": "logs/kitchen-binding-legacy.log",
+      "bytes": 242,
+      "sha256": "d22d191ce2d18bed80dad6e2fb57aae32b570da20c6047faafd1f3e9f6ee8273"
+    },
+    {
+      "path": "logs/kitchen-binding-unit.log",
+      "bytes": 26961,
+      "sha256": "091b75243b7f599c73d9d8e1cdd352c77d30641c1e0d138a2817e5291390fa13"
+    },
+    {
+      "path": "logs/kitchen-choreo-final-negative.log",
+      "bytes": 870,
+      "sha256": "db049ca72b42a75c9a375ce1cd115ca2f33890ecb1ed2ba874bf50df0d65f1eb"
+    },
+    {
+      "path": "logs/kitchen-choreo-negative.log.gz",
+      "bytes": 1857694,
+      "sha256": "41a6f901b631494f5a89aa0c5ad9891506eaa43ede821b7c7ed6e2c0ab01541c"
+    },
+    {
+      "path": "logs/kitchen-choreo-positive.log.gz",
+      "bytes": 1853237,
+      "sha256": "84364678a4fe5ed906a8bfeb7f93512e7240d65e858e74840ce7bca0ca44cd57"
+    },
+    {
+      "path": "logs/kitchen-choreo-v2-negative.log",
+      "bytes": 1214,
+      "sha256": "7094ace9988b67d44d514183272c9c3263203fb37c8cadab96c1355d70a98223"
+    },
+    {
+      "path": "logs/kitchen-choreo-v2-positive.log",
+      "bytes": 814,
+      "sha256": "6761d328447d2b404a601efb389961aa5ef2afdad2305e09a1e62c8ee28355e5"
+    },
+    {
+      "path": "logs/kitchen-choreo-v3.log",
+      "bytes": 814,
+      "sha256": "3aca98a34717c85563baad45dea5cbccc678dd7b993a9954daf48c6f92083473"
+    },
+    {
+      "path": "logs/kitchen-crash-control-create.log",
+      "bytes": 3091,
+      "sha256": "c4b953ee18962374b659315635cfa082acc46eb8e73ed87b439d5d1d19ae04a7"
+    },
+    {
+      "path": "logs/kitchen-crash-control-import.log",
+      "bytes": 308601,
+      "sha256": "4f94494428fdc6e82af24c36b67ad45f6bbbecd4ed004a3af75d5a7a996809e3"
+    },
+    {
+      "path": "logs/kitchen-crash-control-shards/shard_0.log",
+      "bytes": 131384,
+      "sha256": "8d34f49f0391fcee67c87578c456ad7f9eab66dd84736198853a971d0d49b565"
+    },
+    {
+      "path": "logs/kitchen-crash-control.log",
+      "bytes": 420,
+      "sha256": "8f7b82d2115152541c7ffad9ee3ad22beab5c1aab71830923b61c0b4ad9f8ac1"
+    },
+    {
+      "path": "logs/kitchen-crash-replay-shards/shard_0.log",
+      "bytes": 131379,
+      "sha256": "bacb0e5a441bb6b1ef4b68ed871d8aea35adf8975f37562e3a80b24daaebce8d"
+    },
+    {
+      "path": "logs/kitchen-crash-replay.log",
+      "bytes": 419,
+      "sha256": "4082081f8a8d1bd783b2e6f99b4a8d5472d8bbc8c9e731f3f4f9f454c41d91cf"
+    },
+    {
+      "path": "logs/kitchen-cutscene-v2-shards/shard_0.log",
+      "bytes": 251969,
+      "sha256": "247c6528411b7eca9699402d75028fc5ab2eb41018061c1b1d302d8bb1866835"
+    },
+    {
+      "path": "logs/kitchen-cutscene-v2.log",
+      "bytes": 240,
+      "sha256": "17a44baedc0c3567a23b17cde2af6e864c74f759f3fb5e6dc4aabc26317c639b"
+    },
+    {
+      "path": "logs/kitchen-cutscene.log",
+      "bytes": 228,
+      "sha256": "72f1e5cd847b668bd3949cbc7bf047fde3c71d4a22961bb26ae4b1ca9e60d561"
+    },
+    {
+      "path": "logs/kitchen-effects-import.log",
+      "bytes": 1017,
+      "sha256": "f15ffd4c558b01611d562c8c257508942bdc2dc542124f423ae2a592a46edfa6"
+    },
+    {
+      "path": "logs/kitchen-execution-notes.json",
+      "bytes": 5790,
+      "sha256": "6fba1b1b5bf382adfd9d48473f83e6cc04e50406abed698c92de1859d506e927"
+    },
+    {
+      "path": "logs/kitchen-final-changed.log",
+      "bytes": 2950,
+      "sha256": "099549e55d764ab0c40392ad330b390bcd23f0071f56e0290d8a1f384467fa4f"
+    },
+    {
+      "path": "logs/kitchen-final-import-v2.log",
+      "bytes": 1622,
+      "sha256": "42afbf00ec2021e4e47b33036b57f27a2c52b1e683d019d7fa92c08487b1e019"
+    },
+    {
+      "path": "logs/kitchen-final-import-v3.log",
+      "bytes": 1017,
+      "sha256": "f15ffd4c558b01611d562c8c257508942bdc2dc542124f423ae2a592a46edfa6"
+    },
+    {
+      "path": "logs/kitchen-final-import.log",
+      "bytes": 1438,
+      "sha256": "d213a05565151fe8d012d73f549d7a907cd863e596ac46ae0a715984213bf5ea"
+    },
+    {
+      "path": "logs/kitchen-final-sequence-console.log",
+      "bytes": 386,
+      "sha256": "9d9a34e3d8aa5d33a87c13e36869d6c23b1d1c68d3f7f44e118b54fb254155f7"
+    },
+    {
+      "path": "logs/kitchen-final-sequence.json",
+      "bytes": 793,
+      "sha256": "5bc85b81d36d378607a3ef888377d915cb7517bed8e9bd36a24c3bd89115e299"
+    },
+    {
+      "path": "logs/kitchen-final-shards/shard_0.log",
+      "bytes": 2175,
+      "sha256": "58cc38b323eead5fd55f19df7f2e0b4775671b5afa0555b7b096da1b56930176"
+    },
+    {
+      "path": "logs/kitchen-final-shards/shard_1.log",
+      "bytes": 230417,
+      "sha256": "a04e28d1e32f773abf7055372652d0846273678545d3b53ab1354a2b78316940"
+    },
+    {
+      "path": "logs/kitchen-final-shards/shard_2.log",
+      "bytes": 90039,
+      "sha256": "8813a4196fd3468059b11f503c8e1679e3cf8b73c12741096b2a99f33f91bfd6"
+    },
+    {
+      "path": "logs/kitchen-final-shards/shard_3.log",
+      "bytes": 32814,
+      "sha256": "a541214d0a7f4f7060cf0fbf8a9e9a627b2027e28179ae8b116b7cfaa98ea1e6"
+    },
+    {
+      "path": "logs/kitchen-final-shards/shard_4.log",
+      "bytes": 153855,
+      "sha256": "e513f49e6618e3a07398e4588525ea773c73540f44d0d60fb5aeeb5ad8658fae"
+    },
+    {
+      "path": "logs/kitchen-final-shards/shard_5.log",
+      "bytes": 20148,
+      "sha256": "7c136f596e1489e6f790db6c55941d1c8fcce979dd07cbb66fa6a52bdc6a09cc"
+    },
+    {
+      "path": "logs/kitchen-final-shards/shard_6.log",
+      "bytes": 10796,
+      "sha256": "42c572b7101284313be0bb9a2efaa0d8dc6786f551c13037f298745363ebf2ed"
+    },
+    {
+      "path": "logs/kitchen-final-shards/shard_7.log",
+      "bytes": 73544,
+      "sha256": "fa6259f9b453ae41007273be2001372edf9e5ca13a2615e4c7c9f215aa9b7972"
+    },
+    {
+      "path": "logs/kitchen-first-full-shards/shard_0.log",
+      "bytes": 2175,
+      "sha256": "69db8c170488c87e62a74cff435a0791a41206b7639e142d4b74cb820e9e83eb"
+    },
+    {
+      "path": "logs/kitchen-first-full-shards/shard_1.log",
+      "bytes": 63374,
+      "sha256": "369a3d7ddde2ed418e23770bf93ee325400e7de913fbfd77e770634d27177436"
+    },
+    {
+      "path": "logs/kitchen-first-full-shards/shard_2.log",
+      "bytes": 14289,
+      "sha256": "0a27f496a02fb624573efbbc68cce69616751d05f2e986712dda0aa61c5c997b"
+    },
+    {
+      "path": "logs/kitchen-first-full-shards/shard_3.log",
+      "bytes": 31500,
+      "sha256": "2fb2de5c2dd8330ba3c7fea3dcf56155845fd30ba966e956e3090971d7afbc3a"
+    },
+    {
+      "path": "logs/kitchen-first-full-shards/shard_4.log",
+      "bytes": 309157,
+      "sha256": "9edbf8f0acb5366fbfc16006ea27a5194cd5e1922dadff56b8d67b024c48b006"
+    },
+    {
+      "path": "logs/kitchen-first-full-shards/shard_5.log",
+      "bytes": 19801,
+      "sha256": "9a0d0532340fde6a87a1245157d3ab66f17d67b302292ec2233de473eca7436f"
+    },
+    {
+      "path": "logs/kitchen-first-full-shards/shard_6.log",
+      "bytes": 54190,
+      "sha256": "71f23695c371c5d39a5c718b56cd2d45fab79aea0830f6564077e8001379453b"
+    },
+    {
+      "path": "logs/kitchen-first-full-shards/shard_7.log",
+      "bytes": 133076,
+      "sha256": "45ac0b0d7b3a5f9b0cde3938d43a3af3a430c3e7768ca7fb8b0bf52aed7703b7"
+    },
+    {
+      "path": "logs/kitchen-first-full.log",
+      "bytes": 3658,
+      "sha256": "6426660687764056350c3902e846da8f63e13132cd52f659c91c0c6d772fc285"
+    },
+    {
+      "path": "logs/kitchen-hold-import.log",
+      "bytes": 1732,
+      "sha256": "06fc32b23e8450bfc9b66f9d8863124f6dee643ccbe79cf147802776c30a6508"
+    },
+    {
+      "path": "logs/kitchen-hold-unit-v2.log",
+      "bytes": 49928,
+      "sha256": "5e3730d37e9e5e6a550081d3ebf1b7325e1f19b247d447e1fc409bf84e9ce9fb"
+    },
+    {
+      "path": "logs/kitchen-hold-unit.log",
+      "bytes": 49928,
+      "sha256": "b0247fbbea0304894827fbac86b84286f2c4b9618b2e41bff798bd7f8f8496fd"
+    },
+    {
+      "path": "logs/kitchen-measure.log",
+      "bytes": 4039,
+      "sha256": "8cfe2706b7de557cb8cfd4e952397307e121ff6ebc5a76d621f8ae4a8994d67d"
+    },
+    {
+      "path": "logs/kitchen-mid-fetch.log",
+      "bytes": 93,
+      "sha256": "d7f2c1bff01f7bb48414ed1bf316eac44b4ba06e149edfbd55befb458de9f0d1"
+    },
+    {
+      "path": "logs/kitchen-owned.json",
+      "bytes": 287,
+      "sha256": "0fd5295255c4733ccfff9e6e93e5899407bbcad3105639685778cbbb6267b7a2"
+    },
+    {
+      "path": "logs/kitchen-package-result.json",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/kitchen-parent-import.log",
+      "bytes": 1794,
+      "sha256": "52b8da23ec28c707fe380d03ad522e6acca32e4d98c2ed53db02371756dd40dc"
+    },
+    {
+      "path": "logs/kitchen-parent-unit-diag.log",
+      "bytes": 55354,
+      "sha256": "7e1ab95981aa7016c2887ef5bffe505160a3f244a90daa65fd1862bad2b5b804"
+    },
+    {
+      "path": "logs/kitchen-parent-unit-v2.log",
+      "bytes": 55061,
+      "sha256": "a9d501e68b6ca225fa370c6491c77883feddbe70e30c7ba54d77371c7db93dc4"
+    },
+    {
+      "path": "logs/kitchen-parent-unit.log",
+      "bytes": 55069,
+      "sha256": "c108c948525bd16bc1fcfe032eedb44a1f29ae815257f613fac3d7cda1a210e3"
+    },
+    {
+      "path": "logs/kitchen-pipeline-tests-v2.log",
+      "bytes": 798,
+      "sha256": "f0aaaf71aa22fe9e04708f9aaa809753de23b3100b8c4cf74e215cd0d04e0515"
+    },
+    {
+      "path": "logs/kitchen-pipeline-tests.log",
+      "bytes": 798,
+      "sha256": "31e82dd51b7be924255875d61bd346c22b10ef62e32f79b04073ced1bb8617a1"
+    },
+    {
+      "path": "logs/kitchen-proportions-build-v2.log",
+      "bytes": 107,
+      "sha256": "4b119956c59ac9c9410fda1fbfe645b06151aaeb08912634709f741f1b15adb0"
+    },
+    {
+      "path": "logs/kitchen-proportions-build.log",
+      "bytes": 107,
+      "sha256": "4b119956c59ac9c9410fda1fbfe645b06151aaeb08912634709f741f1b15adb0"
+    },
+    {
+      "path": "logs/kitchen-proportions-import.log",
+      "bytes": 1305,
+      "sha256": "ee675f01dd4aec134c338c0ca7c93d2fc7e0c4532f7319f1ef6ea18111390961"
+    },
+    {
+      "path": "logs/kitchen-proportions-shards/shard_0.log",
+      "bytes": 255840,
+      "sha256": "dff2a64d291efb1b719c7f5430ed0ea294deb16b705394342dca280cb01ad3fd"
+    },
+    {
+      "path": "logs/kitchen-proportions-tests.log",
+      "bytes": 415,
+      "sha256": "31cb737e29afbb090f4ed68891d67930ede790c2cb29f55a92a2d176c8a687c8"
+    },
+    {
+      "path": "logs/kitchen-region-import.log",
+      "bytes": 1453,
+      "sha256": "eef975197c16c860590eb9397d7dd45806b7a86a034e0ae8cacd24e24f45b9fa"
+    },
+    {
+      "path": "logs/kitchen-region-unit.log",
+      "bytes": 2201,
+      "sha256": "29fc7b440c02f1e7619b3bd1265a268dbc29c555fabdc80d2b6ca45185a1935a"
+    },
+    {
+      "path": "logs/kitchen-selected.txt",
+      "bytes": 1244,
+      "sha256": "ca9bbc09c87c8384c555583891614eca5cd32d868a2a41ac7f318a3965798b62"
+    },
+    {
+      "path": "logs/kitchen-source-report.json",
+      "bytes": 11123,
+      "sha256": "da25034e1169fbc9c62d43bbe54f35de7938acbf3ff22690deb5db44409eb2b7"
+    },
+    {
+      "path": "logs/kitchen-story-build-v2.log",
+      "bytes": 1722,
+      "sha256": "04948313c4ce500e14b84fca76719950d49c9f357098e1e3ea7b31c122fbf79d"
+    },
+    {
+      "path": "logs/kitchen-story-build-v3.log",
+      "bytes": 107,
+      "sha256": "4b119956c59ac9c9410fda1fbfe645b06151aaeb08912634709f741f1b15adb0"
+    },
+    {
+      "path": "logs/kitchen-story-build-v4.log",
+      "bytes": 107,
+      "sha256": "4b119956c59ac9c9410fda1fbfe645b06151aaeb08912634709f741f1b15adb0"
+    },
+    {
+      "path": "logs/kitchen-story-build-v5.log",
+      "bytes": 107,
+      "sha256": "4b119956c59ac9c9410fda1fbfe645b06151aaeb08912634709f741f1b15adb0"
+    },
+    {
+      "path": "logs/kitchen-story-build-v6.log",
+      "bytes": 107,
+      "sha256": "4b119956c59ac9c9410fda1fbfe645b06151aaeb08912634709f741f1b15adb0"
+    },
+    {
+      "path": "logs/kitchen-story-build.log",
+      "bytes": 120,
+      "sha256": "da1f2785b83ac1e28e06d449aca566cede91c0092c16ac1b14ba1d0838699f72"
+    },
+    {
+      "path": "logs/kitchen-visible-dial-build.log",
+      "bytes": 107,
+      "sha256": "4b119956c59ac9c9410fda1fbfe645b06151aaeb08912634709f741f1b15adb0"
+    },
+    {
+      "path": "logs/kitchen-worktree-create.log",
+      "bytes": 3173,
+      "sha256": "de08d085240bfe428051dc0db598fbb5f30f53a41ee4bfc4ee1cf89df30b51c5"
+    },
+    {
+      "path": "logs/main-v1-console.log",
+      "bytes": 1935,
+      "sha256": "4d324476a42799760245450c0ef301e69764c376260215a14793697862a2457d"
+    },
+    {
+      "path": "logs/main-v2-console.log",
+      "bytes": 2602,
+      "sha256": "9aa4b8d43f2829294ab5e6799a9c0ebdb8d3e3a02405ef2bc8cca07022bf34e2"
+    },
+    {
+      "path": "logs/parent-before-metric-fix.gd",
+      "bytes": 4613,
+      "sha256": "da1eb99a4b8ace98366cff4f026777a0a60bdebaf9fccca599ec9bf90e753798"
+    },
+    {
+      "path": "logs/reach-after-v2-console.log",
+      "bytes": 1959,
+      "sha256": "eec4a3cd1444ec4a6ad26489fbd9117ecc1162a19972739fc792399f2da6dc29"
+    },
+    {
+      "path": "logs/skip-v1-console.log",
+      "bytes": 1490,
+      "sha256": "057d945bd280cbf2da2c472761f8d3e0dc91b9a03f6dd0263e97c1068938d441"
+    },
+    {
+      "path": "logs/sprite-region-metric-reference.json",
+      "bytes": 719,
+      "sha256": "a77bdd5e284c663e8a3991b5e0f97735dde54ddf08de321289f2dbc5c6ae85ce"
+    },
+    {
+      "path": "logs/st10-kitchen-skip-v2-console.log",
+      "bytes": 1615,
+      "sha256": "0b4410a0618a7b634be343cf7a30ba5f8675b62a11b1d8d58ccc4656bb06f0c1"
+    },
+    {
+      "path": "native/st10-assembly-v1.exit",
+      "bytes": 3,
+      "sha256": "5e37b37c842d8df7106ee92e2e45beefef71ca60f51f7bb5cb50cb1e81c355a8"
+    },
+    {
+      "path": "native/st10-assembly-v1.log",
+      "bytes": 604,
+      "sha256": "dce8dc3dd79f89c9e70bceebeda2abf8b81c9da815b5ed6a5b2a131928f12fc7"
+    },
+    {
+      "path": "native/st10-assembly-v2.exit",
+      "bytes": 3,
+      "sha256": "749fc650cacb0f06547520d53c31505c8156e0a3be07073eddb2ef3ad9e383ba"
+    },
+    {
+      "path": "native/st10-assembly-v2.log",
+      "bytes": 182,
+      "sha256": "8101bc103bd6d638dfe767927f0fbf6da1ad8c5c1165df205dd35508b40b5682"
+    },
+    {
+      "path": "native/st10-assembly-v3.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-assembly-v3.log",
+      "bytes": 444,
+      "sha256": "3c82860d2f380cf3a592296d036e0d90c2c33e9ff6eaf1eccdc22d8306bf1d69"
+    },
+    {
+      "path": "native/st10-assembly-v3/assembly-closed.png",
+      "bytes": 454863,
+      "sha256": "dd92b32c3f6b0b2b160ca4ab5b5d376e7fa08b98bd428f0459a134df5333e884"
+    },
+    {
+      "path": "native/st10-assembly-v3/assembly-fill.png",
+      "bytes": 447502,
+      "sha256": "7b9f584adf7c6395c9bfb7b94bb601168fb8f2dabb3e6a5ebb95e64795d5e24f"
+    },
+    {
+      "path": "native/st10-assembly-v3/assembly-open.png",
+      "bytes": 454923,
+      "sha256": "3e70552494b417856c9268707829d756801857897160198c8839f448eda3a13b"
+    },
+    {
+      "path": "native/st10-kitchen-actions-v1.exit",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "native/st10-kitchen-actions-v1.log",
+      "bytes": 2636,
+      "sha256": "f7b4c072b027c076fc8fb0c490dab50e08b1a62a36a95d8e337cb28158225286"
+    },
+    {
+      "path": "native/st10-kitchen-actions-v1/carry.png",
+      "bytes": 433156,
+      "sha256": "b47e1470b83a00177f19e4e51d9b746de3fa42799a77eaa382a697fdfc6f8260"
+    },
+    {
+      "path": "native/st10-kitchen-actions-v1/filled-mouth.png",
+      "bytes": 433820,
+      "sha256": "254fc127e22b9d79eb785e7062665a54a33bc560e6566750d5196302379ae839"
+    },
+    {
+      "path": "native/st10-kitchen-actions-v1/filling.png",
+      "bytes": 436233,
+      "sha256": "52dbee5070641c7c3994faa73821584a3e79f636dc7bdbc22114e28a83eebee3"
+    },
+    {
+      "path": "native/st10-kitchen-actions-v1/fire-off-contact.png",
+      "bytes": 452911,
+      "sha256": "0f8966577157923bd9cfaee4f27b2bf4b902462dfa5d5f77fbbb52c37d25c054"
+    },
+    {
+      "path": "native/st10-kitchen-actions-v1/home-end.png",
+      "bytes": 455829,
+      "sha256": "d95535b4755db7ccf18a0596a20d6baa9550c4e99ebb9afb54fe08151e1e758b"
+    },
+    {
+      "path": "native/st10-kitchen-actions-v1/lid-closed.png",
+      "bytes": 433318,
+      "sha256": "f0ba11ffbb3d61afa65558bd6864c0264981f9ee1e432d384b56b1e14ab08c10"
+    },
+    {
+      "path": "native/st10-kitchen-actions-v1/lid-open.png",
+      "bytes": 435598,
+      "sha256": "2a207928945b95fd236ae5c9fcce9ccbd26e41592d1c04ce77b63e5761ca890b"
+    },
+    {
+      "path": "native/st10-kitchen-actions-v1/pickup-contact.png",
+      "bytes": 449874,
+      "sha256": "b4d9514e01bec882acfe8275d236f7d378d3fda723c4a1b0dea51db2cc6dc989"
+    },
+    {
+      "path": "native/st10-kitchen-actions-v1/placed-on-mat.png",
+      "bytes": 452201,
+      "sha256": "2a15539b21f44905d69b40dc91d526c85f7b3ad606bc81f18915477ac1c819fc"
+    },
+    {
+      "path": "native/st10-kitchen-actions-v2.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-kitchen-actions-v2.log",
+      "bytes": 1629,
+      "sha256": "a20680a020dd94881c2e184459ed390c32d2f5138e0cbf00b5d3fdb02120d19d"
+    },
+    {
+      "path": "native/st10-kitchen-actions-v2/carry.png",
+      "bytes": 452655,
+      "sha256": "a55a7e9320da7d46cb1c33fff8c78a0d12226f38ee840fd56d26bf67b9bed28f"
+    },
+    {
+      "path": "native/st10-kitchen-actions-v2/filled-mouth.png",
+      "bytes": 451005,
+      "sha256": "c8a74f62110d29dac5ac6b7136f343e0ca11792ba659c22320ba0fc6d08f873f"
+    },
+    {
+      "path": "native/st10-kitchen-actions-v2/filling.png",
+      "bytes": 451880,
+      "sha256": "dee97100ce14b50f74705bc807d3c3bd01ad9cd3e0db30cecfda3b3b55c9a685"
+    },
+    {
+      "path": "native/st10-kitchen-actions-v2/fire-off-contact.png",
+      "bytes": 453262,
+      "sha256": "4410e35e96be2465d83be9c47bac52825af36dd7691dd97a7daf2f49ebcbd641"
+    },
+    {
+      "path": "native/st10-kitchen-actions-v2/home-end.png",
+      "bytes": 459268,
+      "sha256": "2b576b0efaf5b6331f413eb686a2618c13744e7884e1716ea7bc6b3d57ded972"
+    },
+    {
+      "path": "native/st10-kitchen-actions-v2/lid-closed.png",
+      "bytes": 450996,
+      "sha256": "b58452ca9d85279516dbf18f3a830a7100d55256b6d561003631d3a6e4520e17"
+    },
+    {
+      "path": "native/st10-kitchen-actions-v2/lid-open.png",
+      "bytes": 451799,
+      "sha256": "b18b2ffd9232b49c1c2543a7f01fd43bf968630b3761da3caf6c58e12c0eaf81"
+    },
+    {
+      "path": "native/st10-kitchen-actions-v2/pickup-contact.png",
+      "bytes": 452921,
+      "sha256": "c7aa4bdb7b454ccbe3489771df42072702b543f97aaf05e9bcf13d1155a20864"
+    },
+    {
+      "path": "native/st10-kitchen-actions-v2/placed-on-mat.png",
+      "bytes": 457351,
+      "sha256": "675d7cbaaaddd92019456c588a9e1c8e26c4c9554ec37b82e2f6f377a2652bdd"
+    },
+    {
+      "path": "native/st10-kitchen-cold-v1-verbose.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-kitchen-cold-v1-verbose.log",
+      "bytes": 723186,
+      "sha256": "26b99ab2924f513284ca5a5323fe8a3fcc725dd3aaa55a2950ada3a298f49b30"
+    },
+    {
+      "path": "native/st10-kitchen-cold-v1-verbose/cold-accepted.png",
+      "bytes": 77082,
+      "sha256": "d5d633218ffdff3dd7b74473ddc239b439149392db34e81ae878d0cd08f587c2"
+    },
+    {
+      "path": "native/st10-kitchen-cold-v1-verbose/cold-stage-default.png",
+      "bytes": 397440,
+      "sha256": "886091a3feea42b7a8f0e66b179bf6c9038a3e1b07ae9b6a6338ca291d7f1ed9"
+    },
+    {
+      "path": "native/st10-kitchen-cold-v1.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-kitchen-cold-v1.log",
+      "bytes": 1278,
+      "sha256": "417ee65cfad30e95d69cb13912cc3085b54291a96c29e865d0ad9ef0025a1e8e"
+    },
+    {
+      "path": "native/st10-kitchen-cold-v1/cold-accepted.png",
+      "bytes": 77082,
+      "sha256": "d5d633218ffdff3dd7b74473ddc239b439149392db34e81ae878d0cd08f587c2"
+    },
+    {
+      "path": "native/st10-kitchen-cold-v1/cold-stage-default.png",
+      "bytes": 397646,
+      "sha256": "c6afce8b4a38cb88f18886aaa0d4160f21483fe0c7640d4656b10555dd4a6235"
+    },
+    {
+      "path": "native/st10-kitchen-cold-v2.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-kitchen-cold-v2.log",
+      "bytes": 1033,
+      "sha256": "e5a909c1d40957a265f2b3c08a679f079610c50b2e5cae922279d325b34eaf89"
+    },
+    {
+      "path": "native/st10-kitchen-cold-v2/cold-accepted.png",
+      "bytes": 77082,
+      "sha256": "d5d633218ffdff3dd7b74473ddc239b439149392db34e81ae878d0cd08f587c2"
+    },
+    {
+      "path": "native/st10-kitchen-cold-v2/cold-stage-default.png",
+      "bytes": 397643,
+      "sha256": "9ba7394ba7d5533ce3a5d3da72d23af91e65eca72f403f5cfa1d5962ed516797"
+    },
+    {
+      "path": "native/st10-kitchen-cold-v3.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-kitchen-cold-v3.log",
+      "bytes": 1122,
+      "sha256": "dc1d032aa5ed63a16875d4034b53cd4dce1f2d6a784280c88f35c891bfa4f295"
+    },
+    {
+      "path": "native/st10-kitchen-cold-v3/cold-accepted.png",
+      "bytes": 77035,
+      "sha256": "84f1b0bba1161d9ad3da49d3a48ac64c83336276db8361f684ca9807d1574b37"
+    },
+    {
+      "path": "native/st10-kitchen-cold-v3/cold-stage-default.png",
+      "bytes": 402036,
+      "sha256": "9fd95bde57bc04d1477d068c53a751ff2c4daa1af400f2b3a29c12e0b029c479"
+    },
+    {
+      "path": "native/st10-kitchen-main-v1.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-kitchen-main-v1.log",
+      "bytes": 1906,
+      "sha256": "ddc3823b0a038ea1bb6f518896235e29ef24463fa6db74f5e35e4f7494c1841b"
+    },
+    {
+      "path": "native/st10-kitchen-main-v1/main-home-accepted.png",
+      "bytes": 77082,
+      "sha256": "d5d633218ffdff3dd7b74473ddc239b439149392db34e81ae878d0cd08f587c2"
+    },
+    {
+      "path": "native/st10-kitchen-main-v1/main-home-filling.png",
+      "bytes": 451376,
+      "sha256": "969ccbba9384b7976e4bfa4e4034f081c8f82b0f6abc4d12b39845854ad85016"
+    },
+    {
+      "path": "native/st10-kitchen-main-v1/main-home-final.png",
+      "bytes": 420110,
+      "sha256": "354d46ac36f177e949d5f703d07c23b4af1d45b39adf3a3eba6875c3255a41a8"
+    },
+    {
+      "path": "native/st10-kitchen-main-v1/main-home-initial.png",
+      "bytes": 441274,
+      "sha256": "a6fd33336ec7dfcf5b3aec1acb37c3c4c26209195b01b02f6f40a2a18a250aae"
+    },
+    {
+      "path": "native/st10-kitchen-main-v2.exit",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "native/st10-kitchen-main-v2.log",
+      "bytes": 2573,
+      "sha256": "610320f69aa4ec04373d82bc8061c6104d4270b4870b0710ced04a57f3620430"
+    },
+    {
+      "path": "native/st10-kitchen-main-v2/main-home-accepted.png",
+      "bytes": 77035,
+      "sha256": "84f1b0bba1161d9ad3da49d3a48ac64c83336276db8361f684ca9807d1574b37"
+    },
+    {
+      "path": "native/st10-kitchen-main-v2/main-home-filling.png",
+      "bytes": 454421,
+      "sha256": "e579cb5aaa3457f6abc4537af9bd188d058d9c58ab9f50315d0380ec0ff642eb"
+    },
+    {
+      "path": "native/st10-kitchen-main-v2/main-home-final.png",
+      "bytes": 420907,
+      "sha256": "e4e25799b993da10444e2041eb9e18922374c54f6d9d22bea28e68b9245bfcff"
+    },
+    {
+      "path": "native/st10-kitchen-main-v2/main-home-initial.png",
+      "bytes": 441325,
+      "sha256": "715dce9664b85da6aa88617ab5554fecd06b0f3449c5efe3080852810cfcaaef"
+    },
+    {
+      "path": "native/st10-kitchen-main-v2/main-mechanical-filled-mouth.png",
+      "bytes": 454092,
+      "sha256": "9e087283709321ade8070dd9a02c42fc0c19e4111fd4bb1517d5f116c4625908"
+    },
+    {
+      "path": "native/st10-kitchen-main-v2/main-mechanical-fire-off.png",
+      "bytes": 455259,
+      "sha256": "3a7a6663a0dcef3c5f95c6365538fc2e26505e05ce11a11e8757bc431f3a8164"
+    },
+    {
+      "path": "native/st10-kitchen-main-v2/main-mechanical-lid-open.png",
+      "bytes": 454605,
+      "sha256": "80796615e28d81f2af8144324b13780edddd389a1f3adebe12958771f892b014"
+    },
+    {
+      "path": "native/st10-kitchen-main-v2/main-mechanical-pickup.png",
+      "bytes": 453546,
+      "sha256": "b5cb16c355adbb2b2020e96c23ddd3046f7723fd34ff88d2d1f963ca80e619a5"
+    },
+    {
+      "path": "native/st10-kitchen-main-v2/main-mechanical-placed.png",
+      "bytes": 457883,
+      "sha256": "1d88c403f9a838b3728c97f1ca7de00c734c8682e6f86274ebad467f769bc8e5"
+    },
+    {
+      "path": "native/st10-kitchen-main-v3.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-kitchen-main-v3.log",
+      "bytes": 2986,
+      "sha256": "751752d7266957106f04f9f2dfb6575a0707911b29062eebe7c5beccac3054a9"
+    },
+    {
+      "path": "native/st10-kitchen-main-v3/main-home-accepted.png",
+      "bytes": 77035,
+      "sha256": "84f1b0bba1161d9ad3da49d3a48ac64c83336276db8361f684ca9807d1574b37"
+    },
+    {
+      "path": "native/st10-kitchen-main-v3/main-home-filling.png",
+      "bytes": 454000,
+      "sha256": "6f66310f46de8f24f60002d5e10ca9c4720b67ca5f23edc50a4b89ec40200bde"
+    },
+    {
+      "path": "native/st10-kitchen-main-v3/main-home-final.png",
+      "bytes": 422070,
+      "sha256": "cda70027a0ece2b2465c75343522b099df9a4f4ec8e7339160f46fed26b06130"
+    },
+    {
+      "path": "native/st10-kitchen-main-v3/main-home-initial.png",
+      "bytes": 445810,
+      "sha256": "5d7aab135ce3952037f19842565b597277dd8d7808363d8d8162229d9306e973"
+    },
+    {
+      "path": "native/st10-kitchen-main-v3/main-mechanical-carry.png",
+      "bytes": 454596,
+      "sha256": "29048e896109a51a2a70bc5984cbeb8c3952d97240ff54bebf36e5fa6606f8e9"
+    },
+    {
+      "path": "native/st10-kitchen-main-v3/main-mechanical-filled-mouth.png",
+      "bytes": 454018,
+      "sha256": "a1e4661e058ed91374f6cb1790fe441308088e1bf2b130569c6b5b2fe283c5e6"
+    },
+    {
+      "path": "native/st10-kitchen-main-v3/main-mechanical-fire-off.png",
+      "bytes": 454770,
+      "sha256": "33976e79a6f2ca472b65311e3eb2633c1987f04878bce9a650ca362cc532ceb9"
+    },
+    {
+      "path": "native/st10-kitchen-main-v3/main-mechanical-lid-closed.png",
+      "bytes": 452919,
+      "sha256": "eb4e9cede171d195e1ac88624205a7e6c208d6cd75eac6c0eddd1725744e8448"
+    },
+    {
+      "path": "native/st10-kitchen-main-v3/main-mechanical-lid-open.png",
+      "bytes": 454277,
+      "sha256": "8b5942d7d46e6b682420a40cac942c6971a09c728aca0372169a9451bfd3ed6a"
+    },
+    {
+      "path": "native/st10-kitchen-main-v3/main-mechanical-pickup.png",
+      "bytes": 453789,
+      "sha256": "9b93e3bf7b4e940689cfbef74ff4f9bd330090698c6e05ba98017d560a89353a"
+    },
+    {
+      "path": "native/st10-kitchen-main-v3/main-mechanical-placed.png",
+      "bytes": 458177,
+      "sha256": "bd46a26abacc0c5b11279c774bd499fbeff93027b7e8ed71537ad8c05ca88d13"
+    },
+    {
+      "path": "native/st10-kitchen-main-v3/main-mechanical-water-on.png",
+      "bytes": 453967,
+      "sha256": "c7ba62437c9337b03fbaea7b25755262575e948cd37805e016b48e846f335fd7"
+    },
+    {
+      "path": "native/st10-kitchen-skip-v1.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-kitchen-skip-v1.log",
+      "bytes": 1461,
+      "sha256": "c4ddd2f979886aedf903aeac815039b88a846f8c78e94146b263b493795c0067"
+    },
+    {
+      "path": "native/st10-kitchen-skip-v1/main-home-accepted.png",
+      "bytes": 77136,
+      "sha256": "0e4480302e5bec3e9d309ed78dd7f7bd153127e45a7c5136be2bba37a9dfd85d"
+    },
+    {
+      "path": "native/st10-kitchen-skip-v1/main-home-filling.png",
+      "bytes": 451309,
+      "sha256": "d39bdbcb7aba9725f58f2be49479d0bfcaa0fbcd1e1fb6ebe56f278c19f930d8"
+    },
+    {
+      "path": "native/st10-kitchen-skip-v1/main-home-initial.png",
+      "bytes": 441032,
+      "sha256": "ae11d76848fcbb43c75622eebc78a4cd5be85ed65e7360164b48767cad3b47a1"
+    },
+    {
+      "path": "native/st10-kitchen-skip-v2.exit",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "native/st10-kitchen-skip-v2.log",
+      "bytes": 1586,
+      "sha256": "f61d0ec4f906f95b76d366d51002337713b5c59b371bbd8741049dba92ffe3e7"
+    },
+    {
+      "path": "native/st10-kitchen-skip-v2/main-home-accepted.png",
+      "bytes": 77136,
+      "sha256": "0e4480302e5bec3e9d309ed78dd7f7bd153127e45a7c5136be2bba37a9dfd85d"
+    },
+    {
+      "path": "native/st10-kitchen-skip-v2/main-home-filling.png",
+      "bytes": 454617,
+      "sha256": "27ab65f0fe9b44d2dffc0eb0d3112673128aba954e5ce68401626bf1c75ff930"
+    },
+    {
+      "path": "native/st10-kitchen-skip-v2/main-home-initial.png",
+      "bytes": 444624,
+      "sha256": "3eb319e783fa74ae780d7f2fb237aa3bf5c56b305754cb863b0b72231e4f306c"
+    },
+    {
+      "path": "reproduction/native-large.py",
+      "bytes": 2028,
+      "sha256": "689815a568098051d1cce471b8fb65b5200aae3ead9f22b213c053f0a4246f2d"
+    },
+    {
+      "path": "reproduction/native-verbose.py",
+      "bytes": 2040,
+      "sha256": "8977804fb11abede5cc2975f8acfa335a05c80b3d0165ac52d9b40a982f0ca2d"
+    },
+    {
+      "path": "source/art/environment/scene_props/pawnshop_kitchen_contacts/kettle_atlas.png.import",
+      "bytes": 996,
+      "sha256": "2678e3fa9d812731baefb82e0ad771b213d598e522912a5d1dfeb93b16ecea68"
+    },
+    {
+      "path": "source/art/environment/scene_props/pawnshop_kitchen_contacts/kettle_atlas_n.png.import",
+      "bytes": 1002,
+      "sha256": "9d02843ecbba720b301f729db311c53f8298029190c07695658f02db31d29f4b"
+    },
+    {
+      "path": "source/art/environment/scene_props/pawnshop_kitchen_contacts/urn_atlas.png.import",
+      "bytes": 987,
+      "sha256": "b28aba075285d022698199bb5fb83cf694e9442c36b60237786edac82647b550"
+    },
+    {
+      "path": "source/art/environment/scene_props/pawnshop_kitchen_contacts/urn_atlas_n.png.import",
+      "bytes": 993,
+      "sha256": "d1328107b1e1ae953fc294a7bc0d123d2951406d075cc21239b991c30a253a29"
+    },
+    {
+      "path": "source/art/environment/scenes/pawnshop_kitchen_contacts.png.import",
+      "bytes": 1002,
+      "sha256": "86ca897911be79c48ba030954bc34df8b93ec217d59b2310f6db1f4eaa884eb6"
+    },
+    {
+      "path": "source/art/environment/scenes/pawnshop_kitchen_contacts_n.png.import",
+      "bytes": 1008,
+      "sha256": "255cae04f5103cef163f04ae30065a053d9c4541430900c9f54d3a8da5f298f6"
+    },
+    {
+      "path": "source/assets_src/candidates/st10_contacts_1026/manifest.json",
+      "bytes": 8437,
+      "sha256": "aeea3b969af90d80e36f353dd20719168a0518737ea9615119b806cfb30d2295"
+    },
+    {
+      "path": "source/assets_src/candidates/st10_contacts_1026/prompt-followups.json",
+      "bytes": 5381,
+      "sha256": "54e804e58037aede0bad28b50f014746d4cc2ef3b009c1609c383317927f16bb"
+    },
+    {
+      "path": "source/assets_src/pipeline/story_staging_art.json",
+      "bytes": 1785,
+      "sha256": "6ae5f5cde5206b0c07a56342aa9e6477282c846d3ea45ea1bea7deafca12e52b"
+    },
+    {
+      "path": "source/data/cutscene/stages/ch1_pawnshop_kitchen.json",
+      "bytes": 4628,
+      "sha256": "194ce661ab42c096ae1f28e3fbce95ce86742532418ec9e7dba1c1d8982b1ae3"
+    },
+    {
+      "path": "source/data/story/ch1_kasa.json",
+      "bytes": 262868,
+      "sha256": "e99f08ebc577360ea0adc492ca92ea236f5ef7fddc3537026011e8bf870de16a"
+    },
+    {
+      "path": "source/game/cutscene/cutscene_actor.gd",
+      "bytes": 10333,
+      "sha256": "f85e0dc6155af5120b6591a03747daf7bb6ebb46fb51bdac75e236b6d6dca691"
+    },
+    {
+      "path": "source/game/cutscene/cutscene_checker.gd",
+      "bytes": 21831,
+      "sha256": "e8c90fd7ff009bbdcf34b1cb9141284da001d274b4b3c51a8605b03601558b61"
+    },
+    {
+      "path": "source/game/cutscene/cutscene_player.gd",
+      "bytes": 32337,
+      "sha256": "f23b839a13d0b6b57e79bdfe2632b80327c4e153ed60e2ae15be88bdd1a1bb67"
+    },
+    {
+      "path": "source/game/cutscene/cutscene_prop_action.gd",
+      "bytes": 3550,
+      "sha256": "2b789530f020406791743ae33b202008b8ace9693e8455db79b4de19e890802b"
+    },
+    {
+      "path": "source/game/cutscene/cutscene_prop_action.gd.uid",
+      "bytes": 20,
+      "sha256": "300fad4125852e50c33b71b4a0fce09a56184bd45ecb4fb8b48feb0716f065d2"
+    },
+    {
+      "path": "source/game/cutscene/cutscene_reach.gd",
+      "bytes": 6046,
+      "sha256": "d8afc19d34266b5aa0378648df51a0ce886904738c8dfb1c1ed591ea466e9487"
+    },
+    {
+      "path": "source/game/cutscene/stage_layers.gd",
+      "bytes": 25802,
+      "sha256": "bdbc47462e0c59f527598787623f0e0d309e713aaf6573cc7f8c2287242105a8"
+    },
+    {
+      "path": "source/game/cutscene/stage_library.gd",
+      "bytes": 13082,
+      "sha256": "88bf4271776fc7d0cf1c812987cc833fc68963ea24e5ceeb77eaa979f2feaf9f"
+    },
+    {
+      "path": "source/game/cutscene/stage_prop_binding.gd",
+      "bytes": 1356,
+      "sha256": "c7522899e0a6958b39443d64e273ed88ba90393be050477dcae3e445806690b0"
+    },
+    {
+      "path": "source/game/cutscene/stage_prop_binding.gd.uid",
+      "bytes": 19,
+      "sha256": "5704e8457b7d73a39cb6af5eafdcaf31e991c7f23a8ba3a284f582c488856ad7"
+    },
+    {
+      "path": "source/game/cutscene/stage_prop_hold.gd",
+      "bytes": 3762,
+      "sha256": "1ba302b0a74fcd605cc094215e681194cd91b8520b67ec9f9fea02441e210a49"
+    },
+    {
+      "path": "source/game/cutscene/stage_prop_hold.gd.uid",
+      "bytes": 20,
+      "sha256": "68766e27cc94b57cbcae20219936569162d0c25fb441e2f4ee12cdc483d53001"
+    },
+    {
+      "path": "source/game/cutscene/stage_sprite_geometry.gd",
+      "bytes": 4421,
+      "sha256": "808cc3953e01085e2ea25c90f146f02e8f0c388dc81a80e287d4e3b0199adf32"
+    },
+    {
+      "path": "source/game/cutscene/stage_sprite_geometry.gd.uid",
+      "bytes": 20,
+      "sha256": "6af92f49128b68c062ca682f2c988df5444387fbd4057b10524d2104a6a81900"
+    },
+    {
+      "path": "source/game/rig/character_rig.gd",
+      "bytes": 77443,
+      "sha256": "8e65a1d9260b3fd0eb132d9c595d87b7ecdffb7f7e1da851da6be96e05602a31"
+    },
+    {
+      "path": "source/game/rig/humanoid_animator.gd",
+      "bytes": 74801,
+      "sha256": "41c52ab6284d4f59ca39d6b137b42173ec3fb89b21e353538ce15b81637f87e4"
+    },
+    {
+      "path": "source/tests/helpers/cutscene_prop_action_checks.gd",
+      "bytes": 4994,
+      "sha256": "8ba6c82b72e765a3b03f854041f268077aa794feceed45bbfe9896b33cff3052"
+    },
+    {
+      "path": "source/tests/helpers/cutscene_prop_action_checks.gd.uid",
+      "bytes": 20,
+      "sha256": "b817a121c1f312b36dc55806970d02b756e018cfa5b438b8ac9038c57b6d9685"
+    },
+    {
+      "path": "source/tests/helpers/kitchen_choreography_checks.gd",
+      "bytes": 4293,
+      "sha256": "20a7d73f786f3a511b2ee47ed3caed65b7c67abce43fcfe5f58d02169ab5ba3c"
+    },
+    {
+      "path": "source/tests/helpers/kitchen_choreography_checks.gd.uid",
+      "bytes": 20,
+      "sha256": "84c59aac2be97212c64856ad0529049b2bfdff6e29815594f4caa89fa0ad41df"
+    },
+    {
+      "path": "source/tests/helpers/stage_prop_binding_checks.gd",
+      "bytes": 4745,
+      "sha256": "0d799658f3547db9a8451d5aa90ce5b9e540f81b2a61f72506c709324498260e"
+    },
+    {
+      "path": "source/tests/helpers/stage_prop_binding_checks.gd.uid",
+      "bytes": 20,
+      "sha256": "95a993b62556b16bc7537c4603034fe95849ea058ecf59874cfe1ae8793ae670"
+    },
+    {
+      "path": "source/tests/helpers/stage_prop_hold_checks.gd",
+      "bytes": 5493,
+      "sha256": "7978d746b83c7601a2355c49a422d0f6aac49269d94fd4a4bc78b0b4bc7e57eb"
+    },
+    {
+      "path": "source/tests/helpers/stage_prop_hold_checks.gd.uid",
+      "bytes": 20,
+      "sha256": "9dc214292c2666fa6a3bf1f5c47e225f8ac4f3323eaf2f040ec32df9f72f8713"
+    },
+    {
+      "path": "source/tests/helpers/stage_prop_parent_checks.gd",
+      "bytes": 4320,
+      "sha256": "4019a64ccb7e926db83fda14aa24a7bce2263d668348343fe1078f7a7656dbba"
+    },
+    {
+      "path": "source/tests/helpers/stage_prop_parent_checks.gd.uid",
+      "bytes": 20,
+      "sha256": "a3df653664421f1d1d9360461241e764aab218a23bb9612da8b5e85033b93a14"
+    },
+    {
+      "path": "source/tests/helpers/stage_sprite_geometry_checks.gd",
+      "bytes": 3694,
+      "sha256": "b45b05d3755634f23bd403c9a2d344fb5cc27ee62f52a1aa11c62bd4f253e94e"
+    },
+    {
+      "path": "source/tests/helpers/stage_sprite_geometry_checks.gd.uid",
+      "bytes": 19,
+      "sha256": "c9a6958c8ea8134f0b0f83e542bfe992de790fb08c7eae8d67f715ad6fc89025"
+    },
+    {
+      "path": "source/tests/suite/test_cutscene.gd",
+      "bytes": 55710,
+      "sha256": "ae5507d3f5fa315182426487ca29acf867a422008229d4e0656644e46259716c"
+    },
+    {
+      "path": "source/tools/assets/story_staging_art.py",
+      "bytes": 7693,
+      "sha256": "6d2d823775e8a7b7af2e2be560fb6fdfcb58ec339952f7097d4cff0f3b284b19"
+    },
+    {
+      "path": "source/tools/assets/test_story_staging_art.py",
+      "bytes": 3914,
+      "sha256": "1e104078ac4c8ec4be52038991dc26e2d9079d81e73cd66e2c9ff99c03a90a74"
+    },
+    {
+      "path": "source/tools/story/build_ch1_story.py",
+      "bytes": 32258,
+      "sha256": "32a9b7c7b32b6dff7787afff9c6d25b749c1a82ca321e0ca4366dc42012c61c9"
+    },
+    {
+      "path": "source/tools/story/ch1_closure.py",
+      "bytes": 75281,
+      "sha256": "bd67f0daa18c8e5d69b3da702a2c1eda633d1d49a151243dc469a71a4001acee"
+    },
+    {
+      "path": "source/tools/story/kitchen_staging.py",
+      "bytes": 7561,
+      "sha256": "292e150e88907212578c457cb1cd27cda398932197360e992fa940ed173e1567"
+    },
+    {
+      "path": "unchanged-dependencies/assets_src/pipeline/grade_master.json",
+      "bytes": 599,
+      "sha256": "3782ddfa24920aeebe906ae37d3c15c708971fc82572751bfd7a422022b7938c"
+    },
+    {
+      "path": "unchanged-dependencies/tools/assets/depth_normals.py",
+      "bytes": 6221,
+      "sha256": "a116e362a703ea6962d9239d7fde445e2eefc078ba53589ed7a2740662cc2fda"
+    },
+    {
+      "path": "unchanged-dependencies/tools/assets/grade.py",
+      "bytes": 6607,
+      "sha256": "feca4ae26dc2ca686384455d8e18e3c087e9647e7526b5e431536b23294848ba"
+    },
+    {
+      "path": "unchanged-dependencies/tools/assets/texture_import.py",
+      "bytes": 6732,
+      "sha256": "2baae49f979c1889782adaeecde9854ffc2d624f497813ff80c70f1f3db672fc"
+    },
+    {
+      "path": "unchanged-dependencies/tools/run_tests_changed.sh",
+      "bytes": 2311,
+      "sha256": "406699fff9b007980a085cd58d109ef62953badac1efda411c2b5652cd3a4d2e"
+    },
+    {
+      "path": "unchanged-dependencies/tools/select_tests.py",
+      "bytes": 9338,
+      "sha256": "5617cd39198b93547fa73753074ad5ffb28d2fb9ea0ae8ba5242b2815cce69da"
+    },
+    {
+      "path": "unchanged-dependencies/tools/test_filters.sh",
+      "bytes": 2048,
+      "sha256": "319fea9acacfdad9f7dab7948ea5a2d76652757623b428829605160a210e678a"
+    },
+    {
+      "path": "validation.json",
+      "bytes": 7330,
+      "sha256": "45bb23be60057a3747b5820d8adc9f1a0ba55ac0b80ac0c7067402e3b71057e1"
+    },
+    {
+      "path": "work/st10-kitchen/actions.gd",
+      "bytes": 4808,
+      "sha256": "36abe4d1b7b1882337aca776d9f4b7d3ab2b99a5e88788b82f12cc6532d4cb98"
+    },
+    {
+      "path": "work/st10-kitchen/actions.tscn",
+      "bytes": 171,
+      "sha256": "29b57b51bdcb3e3de3bedf18033dd388377600a3c7e1d87fb8b2af83a5b7e267"
+    },
+    {
+      "path": "work/st10-kitchen/assembly.gd",
+      "bytes": 1505,
+      "sha256": "0d286fc2ca340ed9aa566ad1629b43eada84de42ef1146df51fddce4df8651d5"
+    },
+    {
+      "path": "work/st10-kitchen/assembly.json",
+      "bytes": 3794,
+      "sha256": "c0dab372594487121b9fa30316a8a364e890d23acd476f4e568b04cb3d51aa09"
+    },
+    {
+      "path": "work/st10-kitchen/assembly.tscn",
+      "bytes": 173,
+      "sha256": "8ef92b7ec8a5bb0df58b8408ef5e7f48d982182c3da39dd40be40e0d4b91416c"
+    },
+    {
+      "path": "work/st10-kitchen/choreo_check.gd",
+      "bytes": 951,
+      "sha256": "6def3f93097622bd74e1b06ff7772a2b7ebb7058d01389a25dd5242befaa06a2"
+    },
+    {
+      "path": "work/st10-kitchen/choreo_check.tscn",
+      "bytes": 180,
+      "sha256": "673f225e67028c8ac50612830e62751b20111b968e0e9eaa5f2896f510ba1b0e"
+    },
+    {
+      "path": "work/st10-kitchen/main.gd",
+      "bytes": 9933,
+      "sha256": "bb508e980a36a597814dde4861f5089f33690bfe0fdfe652c84d1b1a32fc7dba"
+    },
+    {
+      "path": "work/st10-kitchen/main.tscn",
+      "bytes": 172,
+      "sha256": "393b3e42fbb7f8d614bfb848fd228bd41be46c4651ae32f2a7360e9606ad562d"
+    },
+    {
+      "path": "work/st10-kitchen/measure.gd",
+      "bytes": 1148,
+      "sha256": "21f94deaa868842011bdf44914fea5a8ad704eea05345bd7465adcc4ec033d54"
+    },
+    {
+      "path": "work/st10-kitchen/measure.tscn",
+      "bytes": 171,
+      "sha256": "dc4c683fe114ab707e71ff7d78e167774f6b349456c5586e2ada3f47b4e8af39"
+    },
+    {
+      "path": "work/st10-kitchen/region_check.gd",
+      "bytes": 752,
+      "sha256": "c2a2c320841db4299d029f7c0c2adbf3e52a2a64b4c4d11facfd37550e2b77ad"
+    },
+    {
+      "path": "work/st10-kitchen/region_check.tscn",
+      "bytes": 180,
+      "sha256": "ede24067df9cc282ca9e1d46f51a85c49730b3000890e4732c82b2d81d05f607"
+    }
+  ]
+}

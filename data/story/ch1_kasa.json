@@ -5898,7 +5898,25 @@
       240
      ],
      "zoom": 0.8,
-     "fade": 1.0
+     "fade": 1.0,
+     "props": {
+      "kettle": {
+       "pos": [
+        97.8125,
+        174.625
+       ],
+       "state": "default"
+      },
+      "stove_dial": {
+       "angle": 0
+      },
+      "stove_flame": {
+       "visible": true
+      },
+      "stove_heat": {
+       "visible": true
+      }
+     }
     },
     {
      "do": "actor",
@@ -5910,7 +5928,8 @@
      ],
      "facing": -1,
      "scale": 3.9,
-     "pose": "idle"
+     "pose": "idle",
+     "layer": 1
     },
     {
      "do": "actor",
@@ -5918,12 +5937,13 @@
      "kind": "old_k",
      "speaker": "old_k",
      "pos": [
-      120,
+      145,
       304
      ],
      "facing": -1,
      "scale": 4.0,
-     "pose": "idle"
+     "pose": "idle",
+     "layer": 0
     },
     {
      "do": "move",
@@ -5944,6 +5964,85 @@
      "en": "Old K, there's no water left in the kettle. I'm turning off the stove first."
     },
     {
+     "do": "move",
+     "id": "k",
+     "to": [
+      320,
+      304
+     ],
+     "time": 1.5,
+     "wait": false,
+     "then": "idle"
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      110,
+      304
+     ],
+     "time": 1.5,
+     "wait": true,
+     "then": "idle"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "time": 0.35,
+     "contact": [
+      73,
+      40
+     ],
+     "angle": 1.5707963267948966,
+     "space": "prop",
+     "prop": "stove_dial",
+     "to": [
+      0,
+      0
+     ],
+     "follow_rotation": true
+    },
+    {
+     "do": "prop_move",
+     "id": "stove_dial",
+     "angle": 0.85,
+     "time": 0.3
+    },
+    {
+     "do": "sfx",
+     "id": "switch",
+     "volume": -10
+    },
+    {
+     "do": "prop_visible",
+     "id": "stove_flame",
+     "visible": false
+    },
+    {
+     "do": "prop_visible",
+     "id": "stove_heat",
+     "visible": false
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "release": true,
+     "time": 0.25
+    },
+    {
+     "do": "move",
+     "id": "rin",
+     "to": [
+      290,
+      304
+     ],
+     "time": 1.8,
+     "wait": false,
+     "then": "idle"
+    },
+    {
      "do": "say",
      "speaker": "old_k",
      "text": "你已經回來了啊，我本來想留一壺。",
@@ -5958,15 +6057,15 @@
      "en": "I'm back. The data disc has been handed over, and I'll check the money tomorrow morning."
     },
     {
-     "do": "wait",
-     "time": 0.35
-    },
-    {
      "do": "say",
      "speaker": "old_k",
      "text": "八百那張有回執就收好，別拿來墊鍋喔。",
      "ja": "八百のやつは、受領証があるなら大事にしまっておくんだよ。鍋敷きにするんじゃないよ。",
      "en": "Keep that eight-hundred slip safe if it has a receipt, and don't use it as a pot mat, you hear?"
+    },
+    {
+     "do": "wait",
+     "time": 0.35
     },
     {
      "do": "say",
@@ -5976,24 +6075,322 @@
      "en": "This pot boiled dry, so it doesn't count as water being ready. I'll fill it. No need to wait for it to boil again tonight."
     },
     {
-     "do": "sfx",
-     "id": "switch",
-     "volume": -10
+     "do": "face",
+     "id": "rin",
+     "dir": -1
     },
     {
      "do": "move",
      "id": "k",
      "to": [
-      500,
+      110,
       304
      ],
-     "time": 2.0,
+     "time": 1.4,
      "wait": true,
      "then": "idle"
     },
     {
+     "do": "face",
+     "id": "k",
+     "dir": -1
+    },
+    {
+     "do": "reach",
+     "id": "k",
+     "hand": "front",
+     "time": 0.35,
+     "contact": [
+      64,
+      39
+     ],
+     "angle": 1.5707963267948966,
+     "space": "prop",
+     "prop": "kettle",
+     "to": [
+      350,
+      200
+     ]
+    },
+    {
+     "do": "prop_hold",
+     "id": "kettle",
+     "actor": "k",
+     "hand": "front",
+     "point": [
+      350,
+      200
+     ]
+    },
+    {
+     "do": "reach",
+     "id": "k",
+     "hand": "front",
+     "time": 0.25,
+     "contact": [
+      64,
+      39
+     ],
+     "angle": 1.5707963267948966,
+     "space": "actor",
+     "to": [
+      -20,
+      -195
+     ]
+    },
+    {
+     "do": "reach",
+     "id": "k",
+     "hand": "front",
+     "time": 0.45,
+     "contact": [
+      64,
+      39
+     ],
+     "angle": 1.5707963267948966,
+     "space": "actor",
+     "to": [
+      25,
+      -170
+     ]
+    },
+    {
+     "do": "face",
+     "id": "k",
+     "dir": 1
+    },
+    {
+     "do": "move",
+     "id": "k",
+     "to": [
+      365,
+      304
+     ],
+     "time": 1.8,
+     "wait": true,
+     "then": "idle"
+    },
+    {
+     "do": "face",
+     "id": "rin",
+     "dir": 1
+    },
+    {
+     "do": "pose",
+     "id": "k",
+     "pose": "squat",
+     "pose_reason": "蹲低以壺口對準水缸出水口",
+     "pose_support": "雙腳仍在廚房地面304"
+    },
+    {
+     "do": "reach",
+     "id": "k",
+     "hand": "front",
+     "time": 0.5,
+     "contact": [
+      64,
+      39
+     ],
+     "angle": 1.5707963267948966,
+     "space": "actor",
+     "to": [
+      20.296756706234248,
+      -93.51173006823069
+     ]
+    },
+    {
+     "do": "reach",
+     "id": "k",
+     "hand": "back",
+     "time": 0.35,
+     "contact": [
+      64,
+      39
+     ],
+     "angle": 0,
+     "space": "prop",
+     "prop": "kettle_lid",
+     "to": [
+      1380,
+      430
+     ]
+    },
+    {
+     "do": "prop_move",
+     "id": "kettle_lid",
+     "angle": 1.2,
+     "time": 0.4
+    },
+    {
+     "do": "reach",
+     "id": "k",
+     "hand": "back",
+     "release": true,
+     "time": 0.25
+    },
+    {
+     "do": "reach",
+     "id": "k",
+     "hand": "back",
+     "time": 0.35,
+     "contact": [
+      64,
+      39
+     ],
+     "angle": 0,
+     "space": "prop",
+     "prop": "urn_lever",
+     "to": [
+      1091,
+      340
+     ]
+    },
+    {
+     "do": "prop_move",
+     "id": "urn_lever",
+     "angle": 0,
+     "time": 0.3
+    },
+    {
+     "do": "prop_visible",
+     "id": "tap_water",
+     "visible": true
+    },
+    {
      "do": "wait",
      "time": 1.4
+    },
+    {
+     "do": "prop_visible",
+     "id": "kettle_water",
+     "visible": true
+    },
+    {
+     "do": "prop",
+     "id": "kettle",
+     "state": "filled"
+    },
+    {
+     "do": "prop_visible",
+     "id": "tap_water",
+     "visible": false
+    },
+    {
+     "do": "prop_move",
+     "id": "urn_lever",
+     "angle": -1.5707963267948966,
+     "time": 0.3
+    },
+    {
+     "do": "reach",
+     "id": "k",
+     "hand": "back",
+     "release": true,
+     "time": 0.25
+    },
+    {
+     "do": "reach",
+     "id": "k",
+     "hand": "back",
+     "time": 0.35,
+     "contact": [
+      64,
+      39
+     ],
+     "angle": 0,
+     "space": "prop",
+     "prop": "kettle_lid",
+     "to": [
+      1380,
+      430
+     ]
+    },
+    {
+     "do": "prop_move",
+     "id": "kettle_lid",
+     "angle": 0,
+     "time": 0.4
+    },
+    {
+     "do": "prop_visible",
+     "id": "kettle_water",
+     "visible": false
+    },
+    {
+     "do": "reach",
+     "id": "k",
+     "hand": "back",
+     "release": true,
+     "time": 0.25
+    },
+    {
+     "do": "pose",
+     "id": "k",
+     "pose": "idle"
+    },
+    {
+     "do": "reach",
+     "id": "k",
+     "hand": "front",
+     "time": 1.2,
+     "contact": [
+      64,
+      39
+     ],
+     "angle": 1.5707963267948966,
+     "space": "actor",
+     "to": [
+      25,
+      -170
+     ]
+    },
+    {
+     "do": "face",
+     "id": "k",
+     "dir": -1
+    },
+    {
+     "do": "move",
+     "id": "k",
+     "to": [
+      200,
+      304
+     ],
+     "time": 1.1,
+     "wait": true,
+     "then": "idle"
+    },
+    {
+     "do": "face",
+     "id": "k",
+     "dir": 1
+    },
+    {
+     "do": "reach",
+     "id": "k",
+     "hand": "front",
+     "time": 0.4,
+     "contact": [
+      64,
+      39
+     ],
+     "angle": 1.5707963267948966,
+     "space": "stage",
+     "to": [
+      235.1105710814095,
+      149.49848116646416
+     ]
+    },
+    {
+     "do": "prop_release",
+     "id": "kettle"
+    },
+    {
+     "do": "reach",
+     "id": "k",
+     "hand": "front",
+     "release": true,
+     "time": 0.25
     },
     {
      "do": "move",
@@ -6002,7 +6399,7 @@
       190,
       304
      ],
-     "time": 2.0,
+     "time": 0.5,
      "wait": true,
      "then": "idle"
     },
@@ -6010,6 +6407,11 @@
      "do": "face",
      "id": "k",
      "dir": 1
+    },
+    {
+     "do": "face",
+     "id": "rin",
+     "dir": -1
     },
     {
      "do": "wait",
