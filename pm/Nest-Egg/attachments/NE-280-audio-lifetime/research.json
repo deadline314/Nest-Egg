@@ -1,0 +1,10 @@
+{
+  "upstream": "https://github.com/godotengine/godot/issues/124217",
+  "status_observed": "open",
+  "engine_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+  "finding": "The main-thread cleanup retires bus details after two updates, independent of whether the audio mix thread has completed reading them. CPU oversubscription can expose this lifetime race. The root propagate_notification message is emitted by the crash handler, not evidence that gameplay changed pause from a worker.",
+  "binary_reading": "Linux official crash PC 0x48f7c18 copies a StringName. Its caller 0x3b19889 references servers/audio/audio_server.cpp and _mix_step. Addresses were inspected with objdump; not a debug-symbol backtrace.",
+  "source": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/servers/audio/audio_server.cpp",
+  "candidate": "Synchronize retired bus-detail deletion with the actual audio driver lock. Preserve the mixer, positional updates and test selection.",
+  "limits": "One-process 11-group controls both 8709/0 do not reproduce eight-process scheduling; a standalone 8-process/12-second attempt completed with active audio but did not reproduce the crash, and exit cleanup needs correction."
+}

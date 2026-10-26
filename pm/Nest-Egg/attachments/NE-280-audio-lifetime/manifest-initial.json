@@ -1,0 +1,46 @@
+{
+  "archive": "initial-evidence.zip",
+  "sha256": "29c5b463f44f5d528361b41199da2ad54ad201ba4ccc2fc6a028b99859e6b030",
+  "entries": {
+    "handoff-final-affected-v3.log": {
+      "bytes": 3309,
+      "sha256": "7c948c7d665aac2d86ba2b24217fa52e173aa4a0b377f7e01e14bf1fbe13d2ab"
+    },
+    "handoff-final-affected-v3-shards/shard_4.log": {
+      "bytes": 730,
+      "sha256": "a3032dbec30b42b710dd26ecc25acd7a6fb593f625740baee4c2fca5c7e93215"
+    },
+    "handoff-affected-v3-crash.json": {
+      "bytes": 1121,
+      "sha256": "44a3b87c03faeb1f45fdc5946f4600e53ec05339478d03b99cd8c20e17464638"
+    },
+    "handoff-final-affected-v4.log": {
+      "bytes": 3627,
+      "sha256": "92537a6d0df96fc8ecd89eb5c0ecdd85c50759a91a67a94b628f66cd07862fe0"
+    },
+    "handoff-final-affected-v4-shards/shard_4.log": {
+      "bytes": 46395,
+      "sha256": "508226a206633fdd6b87f3f13b271d03eedf77e05372a94e516309d93479c0bd"
+    },
+    "handoff-v4-symbol-context.txt": {
+      "bytes": 132703,
+      "sha256": "35970179767a449ddcfb4f58d983577bf8cceb8d5495a6c8a60b9d2d7ba196e6"
+    },
+    "godot-4.7.2-audio_server.cpp": {
+      "bytes": 76637,
+      "sha256": "d7641ef5852aa86f75c4d506759de2838a2c3886c29f7eb25fd9e9310d87c102"
+    },
+    "handoff-audio-source.json": {
+      "bytes": 209,
+      "sha256": "f73f395a632275f595e6a2cef361b2b130841ee6d179d558a2bda5a17e3d0cf9"
+    },
+    "godot-source-download.json": {
+      "bytes": 266,
+      "sha256": "4aa93a4ab96274af1e1a3fc6248919562247f984cdda08243ec712fb828a5d13"
+    },
+    "handoff-crash-controls-receipt.json": {
+      "bytes": 903,
+      "sha256": "daab51ac1b714911dcfea895c7d3012b4c3c07dd0e0dcb12b5ef7d47f8193bbc"
+    }
+  }
+}
