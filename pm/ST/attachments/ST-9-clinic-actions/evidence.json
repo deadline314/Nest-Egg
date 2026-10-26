@@ -1,0 +1,27 @@
+{
+  "archive": "evidence.zip",
+  "bytes": 28726887,
+  "sha256": "b0ae945667822788ee7b51b10d3db6b34411d4699742a9db83b1dd677e6295cc",
+  "entries": 739,
+  "all_entry_hashes_read_back": true,
+  "headless": {
+    "processes": 4,
+    "checks": 147,
+    "failures": 0,
+    "seconds": 73.699
+  },
+  "native": {
+    "processes": 4,
+    "checks": 147,
+    "failures": 0,
+    "seconds": 125.015,
+    "reviewed_images": 11
+  },
+  "clinic": {
+    "processes": 29,
+    "checks": 385,
+    "failures": 0,
+    "seconds": 371.976
+  },
+  "ci": "unknown; existing detailed GitHub lookup returned HTTP401, no retry/bypass; local results not remote results"
+}

@@ -41,6 +41,81 @@
    "pulse_depth": 0.2
   },
   {
+   "kind": "sprite",
+   "path": "res://art/environment/scene_props/revival_room_contacts/clinic_atlas.png",
+   "source_width": 1254,
+   "filter": "linear",
+   "glow": false,
+   "modulate": "#b4c6d4",
+   "id": "clinic_tray",
+   "region": [
+    67,
+    232,
+    1121,
+    445
+   ],
+   "pivot": [
+    560.5,
+    431
+   ],
+   "pos": [
+    340.0,
+    194.0
+   ],
+   "scale": 0.07292616226071102,
+   "support": "exam_table"
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scene_props/revival_room_contacts/clinic_atlas.png",
+   "source_width": 1254,
+   "filter": "linear",
+   "glow": false,
+   "modulate": "#b4c6d4",
+   "id": "clinic_cloth",
+   "region": [
+    655,
+    790,
+    534,
+    356
+   ],
+   "pivot": [
+    55,
+    265
+   ],
+   "pos": [
+    326.1764705882353,
+    174.30993618960804
+   ],
+   "scale": 0.029411764705882353,
+   "support": "clinic_tray"
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scene_props/revival_room_contacts/clinic_atlas.png",
+   "source_width": 1254,
+   "filter": "linear",
+   "glow": false,
+   "modulate": "#b4c6d4",
+   "id": "clinic_cup",
+   "region": [
+    131,
+    776,
+    396,
+    328
+   ],
+   "pivot": [
+    198,
+    314.0
+   ],
+   "pos": [
+    334.60689655172416,
+    174.30993618960804
+   ],
+   "scale": 0.027586206896551727,
+   "support": "clinic_tray"
+  },
+  {
    "kind": "motes",
    "count": 24,
    "color": "#cfe0ff",
@@ -69,6 +144,39 @@
     145,
     86
    ]
+  },
+  {
+   "id": "clinic_tray",
+   "kind": "bed_tray",
+   "rect": [
+    300.0,
+    163.4439380127621,
+    80.0,
+    30.701914311759342
+   ],
+   "support": true
+  },
+  {
+   "id": "clinic_cup",
+   "kind": "cup",
+   "rect": [
+    329.47586206896557,
+    165.95131549995287,
+    10.262068965517242,
+    8.386206896551725
+   ],
+   "support": true
+  },
+  {
+   "id": "clinic_cloth",
+   "kind": "cloth_corner",
+   "rect": [
+    324.9117647058824,
+    166.8687597190198,
+    15.0,
+    9.76470588235294
+   ],
+   "support": true
   }
  ]
 }

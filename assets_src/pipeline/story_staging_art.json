@@ -168,6 +168,27 @@
         "relief": 0.1,
         "detail": 0.0
       }
+    },
+    {
+      "id": "clinic_contacts",
+      "input": "assets_src/story_props/clinic-contact-atlas-generated.png",
+      "sha256": "8f2069e9bcc96c6701290844b1e73a44da20fb0ce93128d1a1c248e8bf90c3d3",
+      "size": [
+        1254,
+        1254
+      ],
+      "output": "art/environment/scene_props/revival_room_contacts/clinic_atlas.png",
+      "kind": "prop",
+      "grade": {},
+      "alpha_floor": 0,
+      "pad_even": true,
+      "emission": "none",
+      "normal": {
+        "profile": "pillow",
+        "round_px": 6.0,
+        "relief": 0.1,
+        "detail": 0.0
+      }
     }
   ]
 }

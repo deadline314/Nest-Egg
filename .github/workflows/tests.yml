@@ -162,7 +162,9 @@ jobs:
       - name: Check first-clinic results and original pending cold reads
         if: steps.gate.outputs.skip != 'true'
         timeout-minutes: 30
-        run: python3 tools/run_clinic_completion.py --godot "$GODOT" --output "${{ runner.temp }}/clinic-completion"
+        run: |
+          python3 tools/run_clinic_completion.py --godot "$GODOT" --output "${{ runner.temp }}/clinic-completion"
+          python3 tools/run_clinic_actions.py --godot "$GODOT" --output "${{ runner.temp }}/clinic-actions"
 
       - name: Check original tutorial counter results and cold reads
         if: steps.gate.outputs.skip != 'true'

@@ -569,3 +569,20 @@ ST-10本次把正式返家的關爐與裝水接上真手部接觸、同一壺握
 ![保存失敗保留重試](images/ST-9-prologue-results-refused.png)
 
 [真正輸入、原人物／主檔、全部輸出與Gunpoint／SANABI官方參考](attachments/ST-9-prologue-results/README.md)。
+
+
+# Commit-26（首次診間可見挪杯與收布，進行中）
+
+## 內文
+
+原取布選項只說話及淡出，現在會握杯、水平提起挪開並放回托盤，再握布角移向外套後收起；茶留在診間，原保存成功後才取得一次布角。低盤會被坐姿遮住的預覽已退件，最終兩腳落在原檢查台，杯及布角可見，原骨長與坐姿保持。
+
+### 測試結果
+
+無頭與軟體Forward+各四程序147項全過，包含持杯中途退出、原未讀主檔冷讀與拒寫兩次後同段重試；十一正式原圖逐張檢視。原44組56,234項、0新／0已知失敗、573秒，四分片退出貼圖檢查通過；原診間29程序385項全過。原六政策測試通過，素材可逐bytes重建、原色像素不變。完整輸出、原主檔、所有退件、來源及同類作品官方圖見[交付紀錄](attachments/ST-9-clinic-actions/README.md)。
+
+### 截圖
+
+![杯放回托盤](images/ST-9-clinic-actions-cup-rest.png)
+![布角提起](images/ST-9-clinic-actions-cloth-lift.png)
+![收布後茶留下](images/ST-9-clinic-actions-cloth-stowed.png)

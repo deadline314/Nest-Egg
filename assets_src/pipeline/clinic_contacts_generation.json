@@ -1,0 +1,15 @@
+{
+  "provider": "image_gen",
+  "prompt": "Create an ORIGINAL game prop atlas on a TRUE TRANSPARENT background, square canvas, exactly THREE detached complete objects, generous empty transparent padding between objects. Art direction: high quality illustrated 2D side-view anime/cel-shaded game assets, crisp bold charcoal contours and restrained cool blue-grey shading, a clean modest underground medical examination room, NOT photographic, NOT 3D renders, no text, no letters, no numbers, no UI, no labels, no logo, no background plane, no cast shadows outside objects, no extra objects or sparkles. All objects share the same slightly elevated side-view camera so a little top surface can be seen. UPPER HALF: one EMPTY small stainless-steel bedside breakfast serving tray on two SHORT folding supports/legs, a wide horizontal shallow tray with rounded cut corners and a low rim, flat usable interior; legs connected to the tray and complete flat foot contacts visible, tray roughly 2.5 to 3 times as wide as the entire object is tall, short legs suitable for standing ON an examination bed, no cart, no wheels. Brushed matte silver-blue metal with simple broad reflections, no objects on it. LOWER LEFT: one complete small HANDLELESS ivory porcelain tea cup, wide oval rim with still amber tea visible inside, round modest body and flat base, no saucer, no spoon, no steam; strong readable silhouette and contours even when reduced to 24 pixels tall. LOWER RIGHT: one complete small irregular triangular corner of worn cool grey fabric, soft double fold with a slightly frayed edge, a few broad dark crease shapes, no embroidery or markings, no buttons or attached items; looks like a tangible scrap of soft cloth rather than a polygonal inventory icon. Keep each of these three objects completely separate and fully inside the canvas; no duplicates. Layout target: tray occupies upper central area, cup lower-left, cloth lower-right; ample transparent gutters allow them to be individually addressed as atlas regions. Favor clear simple material volumes that remain legible at small gameplay size.",
+  "transparent_background": true,
+  "source_file": "original image_gen result retained; frozen project input at assets_src/story_props/clinic-contact-atlas-generated.png",
+  "output_hint": "Generated images are saved to /workspace/generated_images as /workspace/generated_images/exec-556e2e5c-aee8-4d40-864b-9a41d12ba915.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+  "art_pixels_edited": false,
+  "notes": "Original generated image retained in place. No imported third-party artwork. Region selection and numeric normal-map derivation are game asset data; original colour pixels remain unchanged.",
+  "input": "assets_src/story_props/clinic-contact-atlas-generated.png",
+  "source_sha256": "8f2069e9bcc96c6701290844b1e73a44da20fb0ce93128d1a1c248e8bf90c3d3",
+  "size": [
+    1254,
+    1254
+  ]
+}

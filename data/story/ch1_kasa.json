@@ -7712,6 +7712,146 @@
      "en": "Let it dry first, and don't keep it pressed together with wet paper."
     },
     {
+     "do": "reach",
+     "id": "rin",
+     "hand": "back",
+     "space": "prop",
+     "prop": "clinic_cup",
+     "to": [
+      162,
+      858
+     ],
+     "angle": 0.5235987755982988,
+     "time": 0.3,
+     "grip": true
+    },
+    {
+     "do": "prop_hold",
+     "id": "clinic_cup",
+     "actor": "rin",
+     "hand": "back",
+     "point": [
+      162,
+      858
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "back",
+     "to": [
+      330.0,
+      164.90993618960803
+     ],
+     "angle": 0.5235987755982988,
+     "time": 0.18
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "back",
+     "to": [
+      343.0,
+      164.90993618960803
+     ],
+     "angle": 0.5235987755982988,
+     "time": 0.32
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "back",
+     "to": [
+      343.0,
+      167.90993618960803
+     ],
+     "angle": 0.5235987755982988,
+     "time": 0.22
+    },
+    {
+     "do": "prop_release",
+     "id": "clinic_cup"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "back",
+     "release": true,
+     "time": 0.25
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "space": "prop",
+     "prop": "clinic_cloth",
+     "to": [
+      704,
+      967
+     ],
+     "angle": 1.5707963267948966,
+     "time": 0.3,
+     "grip": true
+    },
+    {
+     "do": "prop_hold",
+     "id": "clinic_cloth",
+     "actor": "rin",
+     "hand": "front",
+     "point": [
+      704,
+      967
+     ],
+     "follow_rotation": true
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      326.0,
+      167.7217008954904
+     ],
+     "angle": 1.5707963267948966,
+     "time": 0.2
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      315.0,
+      168.0
+     ],
+     "angle": 0,
+     "time": 0.35
+    },
+    {
+     "do": "wait",
+     "time": 0.15
+    },
+    {
+     "do": "prop_visible",
+     "id": "clinic_cloth",
+     "visible": false
+    },
+    {
+     "do": "prop_release",
+     "id": "clinic_cloth"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "release": true,
+     "time": 0.3
+    },
+    {
+     "do": "wait",
+     "time": 0.15
+    },
+    {
      "do": "fade",
      "to": 1.0,
      "time": 0.8

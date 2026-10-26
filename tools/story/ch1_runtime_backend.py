@@ -374,6 +374,9 @@ def _first_clinic(scenes):
         scene.pop("overlay", None)
         scene["steps"] = copy.deepcopy(staging) + scene["steps"]
         scene["pose_policy"] = wake.get("pose_policy", "supported")
+        if ident == "ch1_t_clinic_cloth_take":
+            import clinic_staging
+            scene["steps"].extend(clinic_staging.actions())
         if ident in CLINIC_EXITS or ident == "ch1_t_clinic_cloth_take":
             scene["steps"].append({"do": "fade", "to": 1.0, "time": 0.8})
     scenes["ch1_dispatch_clinic_backup"] = {"mode": "dispatch", "routes": [

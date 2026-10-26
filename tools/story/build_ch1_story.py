@@ -159,6 +159,13 @@ def write_stage(stage_id, scene, top, bottom, rain, glow, extra):
         except ImportError:
             from kitchen_staging import layers as kitchen_layers
         layers.extend(kitchen_layers())
+    if stage_id == 'ch1_revival_room':
+        try:
+            from . import clinic_staging
+        except ImportError:
+            import clinic_staging
+        layers.extend(clinic_staging.layers())
+        furniture.extend(clinic_staging.furniture())
     if extra == 'stall':
         scale = SCALE[stage_id]['rin']
         layers.extend(stall_layers(scale))
