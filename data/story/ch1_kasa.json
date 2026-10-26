@@ -7229,7 +7229,8 @@
      "value": true
     }
    ],
-   "then": "ch1_t_lamp_voice_second_prompt"
+   "then": "ch1_t_lamp_voice_second_prompt",
+   "completion_policy": "main_flags_continuation_v1"
   },
   "ch1_t_lamp_voice_second_prompt": {
    "mode": "animated",
@@ -7335,7 +7336,8 @@
      "id": "sq5_lamp_voice_noticed",
      "value": true
     }
-   ]
+   ],
+   "completion_policy": "main_terminal_results_v1"
   },
   "ch1_t_lamp_voice_later": {
    "mode": "animated",
@@ -7359,7 +7361,8 @@
    "when": {
     "flag": "ch1_lamp_voice_asked",
     "equals": true
-   }
+   },
+   "completion_policy": "main_terminal_results_v1"
   },
   "ch1_t_lamp_voice_revisit": {
    "mode": "animated",

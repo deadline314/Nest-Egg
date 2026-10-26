@@ -70,6 +70,9 @@ var _choice_options: Array[Dictionary] = []
 var _choice_step: Dictionary = {}
 var _chosen := -1
 var _pending_steps: Array = []
+var _skip_defaults_pending := false
+var _skip_defaults_request := 0
+var _skip_defaults_payload: Dictionary = {}
 
 
 
@@ -167,7 +170,9 @@ func _run() -> void:
 		var raw: Variant = _steps[index]
 		index += 1
 		if skipping:
-			Story.apply_default_choices({"steps": _steps.slice(index - 1)})
+			await _resolve_skip_defaults({"scene": {"steps": _steps.slice(index - 1)}})
+			if not _running or not is_inside_tree():
+				return
 			break
 		if typeof(raw) != TYPE_DICTIONARY:
 			push_error("[Cutscene] 場景 %s 第 %d 步不是物件，已略過" % [scene_id, index])
@@ -829,6 +834,42 @@ func choose(index: int) -> bool:
 	return true
 
 
+func skipped_defaults_pending() -> bool:
+	return _running and skipping and _skip_defaults_pending
+
+
+func _resolve_skip_defaults(payload: Dictionary) -> void:
+	_skip_defaults_payload = payload
+	_skip_defaults_request = Story.current_presentation_request()
+	_skip_defaults_pending = true
+	_retry_skipped_choices()
+	# Never retry IO on every frame. Only the original modal can call retry.
+	while _running and _skip_defaults_pending:
+		await get_tree().process_frame
+	_skip_defaults_payload = {}
+	_skip_defaults_request = 0
+
+
+func _retry_skipped_choices() -> void:
+	if not skipped_defaults_pending():
+		return
+	var current := Story._current_cinematic
+	var request := Story.current_presentation_request()
+	# Replays and standalone previews have no Story request. They still need to
+	# finish ordinary skips, including an empty tail after a natural `end` step.
+	var standalone := _skip_defaults_request == 0 and request == 0 and current == &""
+	if not standalone and (current != scene_id or request != _skip_defaults_request):
+		cancel() # Retire only this stale player, never a newer Story presentation.
+		return
+	var accepted: bool
+	if _skip_defaults_payload.has("option"):
+		accepted = Story.apply_choice(_skip_defaults_payload["option"], _retry_skipped_choices)
+	else:
+		accepted = Story.apply_default_choices(_skip_defaults_payload.get("scene", {}), _retry_skipped_choices)
+	if accepted:
+		_skip_defaults_pending = false
+
+
 func _do_choice(step: Dictionary) -> void:
 	_choice_options = StoryRules.options(step, GameState.has_flag, StoryItems.owns)
 	_choice_step = step
@@ -874,7 +915,9 @@ func _do_choice(step: Dictionary) -> void:
 		return
 	var option := _choice_options[_chosen] if _chosen >= 0 else StoryRules.default_option(step, _choice_options)
 	if _chosen < 0:
-		Story.apply_choice(option)
+		await _resolve_skip_defaults({"option": option})
+		if not _running:
+			return
 	if option.get("steps") is Array:
 		_pending_steps = option.steps.duplicate(true)
 	_choice.queue_free()

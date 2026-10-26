@@ -1,0 +1,359 @@
+{
+  "base": "2360ea4c067d4981fc9aa92b5b5a24c281746583",
+  "source_sha256": {
+    ".github/workflows/tests.yml": "2296d158a880ed5c922e9e826b6f9c4cced2cdb6f985b2805e032e3ea0359c40",
+    "autoload/story.gd": "72d3c4ac725bb1318da1ec8b4fa5c5843784755114d48371d69b57d49ebba4b1",
+    "core/story_outcomes.gd": "46d7f4626c04146e128730d37c3e0d1b2f29bb9db494e3abeff5e19aa3a58d7b",
+    "data/story/ch1_kasa.json": "121ef76b1baafd46a46a50fc114879c760a4e38a6f838ed1aab16b94c9559791",
+    "game/cutscene/cutscene_player.gd": "9be52f7647f47c63c320e2cb55cad50ceea46469769dc1f2ff2b9dd12abc80bb",
+    "game/story_result_completion.gd": "a74f07d2b66996800d2636468abca62d0bca733b44972f71c7bc3953e61eae1a",
+    "game/story_result_sources.gd": "b8002402c1b31cdc624d463fffc8feb299f62e46947317a70540586dfc379bde",
+    "tests/helpers/voice_completion_base.gd": "2fa87a2ded4fb0bb715f1b8f1696314408b5abb2bf33643220fa9ae4000d9d7a",
+    "tests/helpers/voice_source_checks.gd": "75a7d07f3043b3d053184b2039cb5c1e028d111b9628303d5975589454c6130e",
+    "tests/probes/voice_completion.gd": "3805f97f681051a46942202402e805f9570bd2eead1e6cd94960f5e7b33c5f86",
+    "tests/probes/voice_completion.tscn": "87199737f4b7b2ca496ace41aaba88948668bf52d782c03de4301e6b7d23ca76",
+    "tests/suite/test_run_save.gd": "a023731441a533108faaac3ae0a4edbf16d875793586e32c23607545d1312ae2",
+    "tools/run_voice_completion.py": "d266a5b5786a1f29239362d97662a213d1672dc6db936ec39260c3023d1ae68d",
+    "tools/story/ch1_runtime_backend.py": "00674e42a5fa564c1ebafb74e3c5bcbaa4d6f56cd9f3bf23f52d76c1925925f0"
+  },
+  "engine_sha256": "dadf922b668b42d4484386749c9f5a2bf8587cd50c36215238f16776132de2ac",
+  "negative": {
+    "cases": 5,
+    "checks": 67,
+    "before_failures": 19,
+    "after_failures": 0,
+    "identical_probe_sha256": "2fa87a2ded4fb0bb715f1b8f1696314408b5abb2bf33643220fa9ae4000d9d7a"
+  },
+  "performance_control": {
+    "current": {
+      "idle_ms": 6.84,
+      "explosions_ms": 4.23,
+      "particles": 327,
+      "node_growth": 0,
+      "exit": 0,
+      "summary": "checks: 3461, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 80 s)",
+      "measured_delta_ms": -2.61
+    },
+    "baseline": {
+      "idle_ms": 2.24,
+      "explosions_ms": 1.84,
+      "particles": 325,
+      "node_growth": 0,
+      "exit": 0,
+      "summary": "checks: 3461, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 79 s)",
+      "measured_delta_ms": -0.4
+    },
+    "bounds": {
+      "cpu_max": "400000 100000",
+      "unchanged_budget_ms": 6,
+      "unchanged_explosions": 12,
+      "failed_eight_worker_idle_ms": 15.68,
+      "failed_eight_worker_explosions_ms": 29.79,
+      "interpretation": "Both unchanged five-suite prefixes are recorded; a later success does not identify the earlier transient timing root cause. Final original selector is rerun with four workers matching the available CPU quota, no tests or thresholds removed."
+    },
+    "identical_suite_sha256": {
+      "tests/suite/test_progression.gd": "d54a4110088c301f20699306de70cb9d7835a1a7ed4c61f33d78f73f34aa9437",
+      "tests/suite/test_cutscene.gd": "d851c76ae1c9fd27bcb594e8bdc7bb29345a3317e10b9674d9b3e3ff8e4e5a15",
+      "tests/suite/test_scene_sanity.gd": "80961364cf51184ff4ce25dcc0a4c94362c5ab8336b710baf5d833cdc7a5fe47",
+      "tests/suite/test_economy.gd": "41a5540caf7e2fab6b4f7ca271fd26902dfde84c3f3982f52fa1fc5b7072f09f",
+      "tests/suite/test_fx_melee_pickups.gd": "cdccaf9f84fca3afbef29bd04941599d341207c26cc7a83c63a0deea1494fc60"
+    },
+    "engine_sha256": "dadf922b668b42d4484386749c9f5a2bf8587cd50c36215238f16776132de2ac"
+  },
+  "affected": {
+    "workers": 4,
+    "groups": 67,
+    "checks": 67699,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 657
+  },
+  "headless": {
+    "stage": "before standalone replay-only skip routing fix; exact source receipt retained",
+    "source_sha256": {
+      "autoload/story.gd": "72d3c4ac725bb1318da1ec8b4fa5c5843784755114d48371d69b57d49ebba4b1",
+      "game/main.gd": "69dad6b1e1e7ec94e74e748ba1e3fbfd66138f41b040f899ccff07ea8e294c9d",
+      "game/story_result_completion.gd": "a74f07d2b66996800d2636468abca62d0bca733b44972f71c7bc3953e61eae1a",
+      "game/story_result_sources.gd": "b8002402c1b31cdc624d463fffc8feb299f62e46947317a70540586dfc379bde",
+      "game/cutscene/cutscene_player.gd": "440fb2d7eb454c7ab06113ebf48bb5a8501d41300aafbc7b06abaa5d25857e0f",
+      "core/story_outcomes.gd": "46d7f4626c04146e128730d37c3e0d1b2f29bb9db494e3abeff5e19aa3a58d7b",
+      "data/story/ch1_kasa.json": "121ef76b1baafd46a46a50fc114879c760a4e38a6f838ed1aab16b94c9559791",
+      "tests/helpers/voice_completion_base.gd": "2fa87a2ded4fb0bb715f1b8f1696314408b5abb2bf33643220fa9ae4000d9d7a",
+      "tests/probes/voice_completion.gd": "3805f97f681051a46942202402e805f9570bd2eead1e6cd94960f5e7b33c5f86",
+      "tests/probes/voice_completion.tscn": "87199737f4b7b2ca496ace41aaba88948668bf52d782c03de4301e6b7d23ca76",
+      "tools/run_save_probe.gd": "ba3693fbf1206216b8123a01ed63e0cdbe82f44139e1c0cb31ac0fcfd54cfc6c",
+      "tools/runtime_probe.py": "38ab1fc6744546985645223feddbed3d3c3b1f61bd6a338328fed29e383b9b34",
+      "tools/run_voice_completion.py": "d266a5b5786a1f29239362d97662a213d1672dc6db936ec39260c3023d1ae68d"
+    },
+    "processes": 17,
+    "checks": 615,
+    "failures": 0,
+    "original_primaries": {
+      "choice_read": "2c4a9a6291863aa9a558e027ba3c7c1527f078762f089fc0331768024b1224ba",
+      "first_read": "f066d7741d75cb070845a5509ec8367bda954db79f75e020f138930ac9fe376f",
+      "second_read": "caa3d4dc1cba10db992ebad8b2258773739507e4b02be7bdd4a69c1ef1800bd5"
+    }
+  },
+  "native": {
+    "processes": 17,
+    "checks": 615,
+    "failures": 0,
+    "cases": [
+      {
+        "tag": "st9-voice-final-write-v3",
+        "mode": "write",
+        "checks": 72,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-voice-final-completed_read-v3",
+        "mode": "completed_read",
+        "checks": 7,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-voice-final-choice_read-v3",
+        "mode": "choice_read",
+        "checks": 11,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-voice-final-first_read-v3",
+        "mode": "first_read",
+        "checks": 11,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-voice-final-second_read-v3",
+        "mode": "second_read",
+        "checks": 10,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-voice-final-repeat-v3",
+        "mode": "repeat",
+        "checks": 86,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-voice-final-skip_active-v3",
+        "mode": "skip_active",
+        "checks": 54,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-voice-final-later_read-v3",
+        "mode": "later_read",
+        "checks": 9,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-voice-final-skip_early-v3",
+        "mode": "skip_early",
+        "checks": 55,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-voice-final-skip_auto-v3",
+        "mode": "skip_auto",
+        "checks": 53,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-voice-final-return-v3",
+        "mode": "return",
+        "checks": 8,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-voice-final-unheard-v3",
+        "mode": "unheard",
+        "checks": 4,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-voice-final-cancel-v3",
+        "mode": "cancel",
+        "checks": 26,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-voice-final-cancel_read-v3",
+        "mode": "cancel_read",
+        "checks": 10,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-voice-final-invalid-v3",
+        "mode": "invalid",
+        "checks": 61,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-voice-final-invalid_skip-v3",
+        "mode": "invalid_skip",
+        "checks": 60,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-voice-final-return_then_ask-v3",
+        "mode": "return_then_ask",
+        "checks": 78,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      }
+    ]
+  },
+  "legacy": {
+    "processes": 8,
+    "checks": 176,
+    "failures": 0,
+    "cases": [
+      {
+        "tag": "st9-voice-legacy-final2-ch1_label_watch-write-v1",
+        "checks": 27,
+        "failures": 0,
+        "completed": true,
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-voice-legacy-final2-ch1_label_guitar-write-v1",
+        "checks": 27,
+        "failures": 0,
+        "completed": true,
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-voice-legacy-final2-ch1_label_raincoat-write-v1",
+        "checks": 27,
+        "failures": 0,
+        "completed": true,
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-voice-legacy-final2-ch1_label_fare-write-v1",
+        "checks": 27,
+        "failures": 0,
+        "completed": true,
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-voice-legacy-final2-ch1_egret-write-v1",
+        "checks": 27,
+        "failures": 0,
+        "completed": true,
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-voice-legacy-final2-ch1_label_watch-dawn-write-v1",
+        "checks": 27,
+        "failures": 0,
+        "completed": true,
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-voice-legacy-final2-ch1_egret-continue-v1",
+        "checks": 7,
+        "failures": 0,
+        "completed": true,
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-voice-legacy-final2-ch1_label_watch-dawn-continue-v1",
+        "checks": 7,
+        "failures": 0,
+        "completed": true,
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      }
+    ]
+  },
+  "shared_regressions": {
+    "handoff": {
+      "processes": 2,
+      "checks": 107,
+      "failures": 0
+    },
+    "sunday": {
+      "processes": 8,
+      "checks": 133,
+      "failures": 0
+    }
+  },
+  "archive": {
+    "file": "evidence.zip",
+    "bytes": 29013879,
+    "entries": 1044,
+    "sha256": "eca1adac617169110d1829dfe1d2aebbd9f3e8c0b5a6b62c725ea52aac582fa3"
+  },
+  "boundaries": [
+    "Arranged preexisting heard recording, actual authored headset NPC and choices; not a human chapter playthrough.",
+    "Software Forward+ HDR2D; physical input, hardware performance and human style gates remain separate.",
+    "Only finite first-chapter flag continuations/choices/result-free reply; general atomic_v1 remains absent."
+  ]
+}

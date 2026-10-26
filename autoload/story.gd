@@ -1082,8 +1082,7 @@ func _start_cinematic(id: StringName, context: Dictionary = {}, request := 0) ->
 	scene_started.emit(id, MODE_ANIMATED if animated else MODE_CINEMATIC)
 	# 「略過過場動畫」只略過看的部分：要玩家做決定的場景照常播，不然預設選項會讓出門、交付這類決定永遠選不到。
 	if auto_skip or (Settings.get_skip_cutscenes() and not offers_choice(scene)):
-		apply_default_choices(scene)
-		_finish_auto_skip.call_deferred(id, _presentation_generation)
+		_retry_auto_skip_choices(id, request, _presentation_generation)
 		return
 	if not animated and uses_cinematic_framing(id, _presentation_context):
 		_framing_token = framing.acquire(self)
@@ -1101,6 +1100,14 @@ func _start_cinematic(id: StringName, context: Dictionary = {}, request := 0) ->
 func _finish_auto_skip(id: StringName, generation: int) -> void:
 	if generation == _presentation_generation:
 		_on_cinematic_finished(id)
+
+
+func _retry_auto_skip_choices(id: StringName, request: int, generation: int) -> void:
+	if generation != _presentation_generation or id != _current_cinematic or request != _current_request:
+		return
+	var retry := _retry_auto_skip_choices.bind(id, request, generation)
+	if apply_default_choices(_scenes.get(String(id), {}), retry):
+		_finish_auto_skip.call_deferred(id, generation)
 
 
 func _on_cinematic_finished(id: StringName, expected_request := 0) -> void:
@@ -1268,22 +1275,24 @@ func _steps_offer_choice(raw: Variant) -> bool:
 	return false
 
 
-func apply_default_choices(scene: Dictionary) -> void:
-	_resolve_skipped_steps(scene.get("steps", []))
+func apply_default_choices(scene: Dictionary, retry: Callable = Callable()) -> bool:
+	return _resolve_skipped_steps(scene.get("steps", []), retry)
 
 
-func _resolve_skipped_steps(raw: Variant) -> void:
+func _resolve_skipped_steps(raw: Variant, retry: Callable = Callable()) -> bool:
 	if not raw is Array:
-		return
+		return true
 	for step: Variant in raw:
 		if not step is Dictionary:
 			continue
 		if step.get("do") == "choice":
 			var option := StoryRules.default_option(step, StoryRules.options(step, GameState.has_flag, StoryItems.owns))
-			apply_choice(option)
-			_resolve_skipped_steps(option.get("steps", []))
+			if not apply_choice(option, retry) or not _resolve_skipped_steps(option.get("steps", []), retry):
+				return false
 		elif step.get("do") == "branch":
-			_resolve_skipped_steps(step.get("steps", []) if StoryRules.eligible(step, GameState.has_flag, StoryItems.owns) else step.get("else_steps", []))
+			if not _resolve_skipped_steps(step.get("steps", []) if StoryRules.eligible(step, GameState.has_flag, StoryItems.owns) else step.get("else_steps", []), retry):
+				return false
+	return true
 
 
 func death_sequence(chapter: StringName, count := -1) -> Dictionary:

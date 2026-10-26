@@ -1,54 +1,15 @@
 extends Node
-## Explicit terminal segments and one authored optional choice continuation.
+## Explicit terminal segments, optional choices and flag-only continuations.
 ## The general atomic_v1 capability remains absent.
-const POLICY := "main_terminal_results_v1"
+const Sources := preload("res://game/story_result_sources.gd")
+const POLICY := Sources.TERMINAL
+const CONTINUATION_POLICY := Sources.CONTINUATION
 const Bundle := preload("res://core/story_install_bundle.gd")
 const Prompt := preload("res://ui/radio_save_prompt.gd")
 const SEGMENTS := {
 	"ch1_b_dinner_food": "res://data/levels/ch1_pawnshop.tres",
 }
-const NPC_SOURCES := {
-	"ch1_t_label_watch": {
-		"npc": "res://data/npcs/ch1_label_watch.tres",
-		"levels": ["res://data/levels/ch1_pawnshop.tres", "res://data/levels/ch1_pawnshop_dawn.tres"],
-	},
-	"ch1_t_label_guitar": {
-		"npc": "res://data/npcs/ch1_label_guitar.tres",
-		"levels": ["res://data/levels/ch1_pawnshop.tres", "res://data/levels/ch1_pawnshop_dawn.tres"],
-	},
-	"ch1_t_label_raincoat": {
-		"npc": "res://data/npcs/ch1_label_raincoat.tres",
-		"levels": ["res://data/levels/ch1_pawnshop.tres", "res://data/levels/ch1_pawnshop_dawn.tres"],
-	},
-	"ch1_t_label_fare": {
-		"npc": "res://data/npcs/ch1_label_fare.tres",
-		"levels": ["res://data/levels/ch1_pawnshop.tres", "res://data/levels/ch1_pawnshop_dawn.tres"],
-	},
-	"ch1_t_egret_1": {
-		"npc": "res://data/npcs/ch1_egret.tres",
-		"levels": ["res://data/levels/ch1_rooftop.tres"],
-	},
-	"ch1_t_egret_sunday_prompt": {
-		"npc": "res://data/npcs/ch1_egret.tres",
-		"levels": ["res://data/levels/ch1_rooftop.tres"],
-	},
-	"ch1_t_egret_sunday": {
-		"npc": "res://data/npcs/ch1_egret.tres",
-		"levels": ["res://data/levels/ch1_rooftop.tres"],
-	},
-	"ch1_t_handoff_accept": {
-		"npc": "res://data/npcs/ch1_handoff_cabinet.tres",
-		"levels": ["res://data/levels/ch1_handoff.tres"],
-	},
-	"ch1_t_handoff_receipt": {
-		"npc": "res://data/npcs/ch1_handoff_cabinet.tres",
-		"levels": ["res://data/levels/ch1_handoff.tres"],
-	},
-	"ch1_t_handoff_summary": {
-		"npc": "res://data/npcs/ch1_handoff_cabinet.tres",
-		"levels": ["res://data/levels/ch1_handoff.tres"],
-	},
-}
+const NPC_SOURCES := Sources.NPC_SOURCES
 var main: Node
 var _id: StringName
 var _request := 0
@@ -62,6 +23,8 @@ var _recovery := false
 var _reload_original := false
 var _choice_retry: Callable
 var _choice_target: StringName
+var _continuation_target: StringName
+var _continuation_context: Dictionary = {}
 
 
 func choice_pending() -> bool:
@@ -71,7 +34,7 @@ func choice_pending() -> bool:
 ## Finite source binding; no new capability can be enabled by arbitrary story data.
 ## The default/return is result-free, so all existing skip paths stay result-free.
 func choose(option: Dictionary, retry: Callable) -> Dictionary:
-	if Story._current_cinematic != &"ch1_t_egret_sunday_prompt":
+	if not Sources.CHOICES.has(String(Story._current_cinematic)):
 		return {"handled": true, "accepted": false} if choice_pending() else {}
 	if not main.get("_active_run") or _publishing:
 		return {"handled": true, "accepted": false}
@@ -79,26 +42,32 @@ func choose(option: Dictionary, retry: Callable) -> Dictionary:
 	var request := Story.current_presentation_request()
 	if _request != 0 and (_request != request or _id != id):
 		return {"handled": true, "accepted": false}
-	var contract := _sunday_choice_contract(option)
+	var contract := Sources.choice(String(id), option, Story._scenes, Story._scene_sources)
 	if contract.is_empty():
-		push_warning("[StoryResultCompletion] Sunday choice differs from its authored finite contract")
+		push_warning("[StoryResultCompletion] %s choice differs from its finite authored contract" % id)
+		# An unavailable authored option must not strand a skipped player waiting
+		# for a save retry that was never created. Restore its actual entry safely.
+		Story.reset_active_presentation(&"leave")
+		EventBus.toast_requested.emit(Prompt.copy("這段對話暫時無法繼續，原進度保留。", "この会話は今は続けられません。元の進行状況は保持されています。", "This conversation is unavailable. Your previous progress is preserved."))
+		return {"handled": true, "accepted": false}
+	if not StoryRules.eligible(contract["option"], GameState.has_flag, StoryItems.owns):
 		return {"handled": true, "accepted": false}
 	if contract.get("return", false):
 		return {"handled": true, "accepted": not choice_pending()}
-	var player := Story._player as CutscenePlayer
-	if not is_instance_valid(player) or not player.choice_active() or not retry.is_valid() or retry.get_object() != player or retry.get_method() != &"choose":
+	var player: CutscenePlayer = Story._player if is_instance_valid(Story._player) else null
+	if not _choice_control_valid(player, retry):
 		return {"handled": true, "accepted": false}
 	_id = id
 	_request = request
-	_choice_target = &"ch1_t_egret_sunday"
+	_choice_target = StringName(contract["target"])
 	_choice_retry = retry
 	if _lock == 0:
 		_lock = GameplayLock.acquire(self, Input.MOUSE_MODE_VISIBLE)
-	var result := _prepare_and_commit(contract, _choice_target)
+	var result := _prepare_and_commit(contract, _choice_target, true)
 	if not result.get("committed", false) or result.get("recovery", false):
 		_recovery = result.get("recovery", false)
 		_reload_original = result.get("reload_original", false)
-		push_warning("[StoryResultCompletion] Sunday choice: %s" % str(result.get("error", "committed choice requires reload")).left(512))
+		push_warning("[StoryResultCompletion] %s choice: %s" % [id, str(result.get("error", "committed choice requires reload")).left(512)])
 		_show_prompt()
 		return {"handled": true, "accepted": false}
 	var context := Story.current_presentation_context()
@@ -112,42 +81,16 @@ func choose(option: Dictionary, retry: Callable) -> Dictionary:
 	return {"handled": true, "accepted": true}
 
 
-func _sunday_choice_contract(option: Dictionary) -> Dictionary:
-	var scene: Dictionary = Story._scenes.get("ch1_t_egret_sunday_prompt", {})
-	var leaf: Dictionary = Story._scenes.get("ch1_t_egret_sunday", {})
-	if not RunSaveCodec.validate_tree([scene, leaf, option], 32768).is_empty():
-		return {}
-	if Story._scene_sources.get("ch1_t_egret_sunday_prompt") != "res://data/story/ch1_kasa.json" or scene.has("then") or not _empty_array(scene, "results") or not _empty_array(scene, "set_flags") or not _empty_array(scene, "transfer_items"):
-		return {}
-	if Story._scene_sources.get("ch1_t_egret_sunday") != "res://data/story/ch1_kasa.json" or leaf.get("completion_policy") != POLICY or not str(leaf.get("then", "")).is_empty() or Story.offers_choice(leaf) or not _empty_array(leaf, "set_flags") or not _empty_array(leaf, "transfer_items") or leaf.get("results") != [{"kind": "flag", "id": "asked_egret_sunday", "value": true}]:
-		return {}
-	var steps: Variant = scene.get("steps")
-	if not steps is Array or steps.is_empty() or steps.size() > 64:
-		return {}
-	for i in steps.size():
-		if not steps[i] is Dictionary or (i < steps.size() - 1 and steps[i].get("do") not in ["scene", "actor", "say"]):
-			return {}
-	var step: Dictionary = steps.back()
-	var options: Variant = step.get("options")
-	if step.get("do") != "choice" or step.get("default") != "return" or not options is Array or options.size() != 2:
-		return {}
-	var expected := {"ask": {"ch1_sunday_accepted": true}, "return": {}}
-	for i in options.size():
-		var raw: Variant = options[i]
-		var key: String = "ask" if i == 0 else "return"
-		if not raw is Dictionary or raw.get("id") != key or raw.get("set_flags", {}) != expected[key] or str(raw.get("target", "")) != ("ch1_t_egret_sunday" if i == 0 else "") or not _empty_array(raw, "steps") or not _empty_array(raw, "transfer_items"):
-			return {}
-	var index := 0 if option.get("id") == "ask" else 1 if option.get("id") == "return" else -1
-	if index < 0 or option.get("set_flags", {}) != expected[option["id"]] or option.get("target", "") != options[index].get("target", "") or not _empty_array(option, "steps") or not _empty_array(option, "transfer_items") or not StoryRules.eligible(options[index], GameState.has_flag, StoryItems.owns):
-		return {}
-	if index == 1:
-		return {"return": true}
-	return {"when": scene.get("when", {}), "results": [{"kind": "flag", "id": "ch1_sunday_accepted", "value": true}]}
-
-
-func _empty_array(data: Dictionary, key: String) -> bool:
-	var value: Variant = data.get(key, [])
-	return value is Array and value.is_empty()
+func _choice_control_valid(player: CutscenePlayer, retry: Callable) -> bool:
+	if not retry.is_valid():
+		return false
+	if retry.get_object() == Story and retry.get_method() == &"_retry_auto_skip_choices":
+		return Story.auto_skip
+	if not is_instance_valid(player) or retry.get_object() != player or not player.is_running():
+		return false
+	if retry.get_method() == &"choose":
+		return player.choice_active() and not player.skipping
+	return retry.get_method() == &"_retry_skipped_choices" and player.skipped_defaults_pending()
 
 
 func _ready() -> void:
@@ -171,8 +114,10 @@ func publishing() -> bool:
 
 
 func complete(id: StringName, request: int) -> Dictionary:
+	if choice_pending() and id == _id and request == _request:
+		return {"handled": true, "ready": false}
 	var scene: Dictionary = Story._scenes.get(String(id), {})
-	if scene.get("completion_policy", "") != POLICY:
+	if scene.get("completion_policy", "") not in [POLICY, CONTINUATION_POLICY]:
 		return {}
 	# Standalone tools retain legacy presentation; a real Main cannot fall through.
 	if not main.get("_active_run"):
@@ -183,7 +128,12 @@ func complete(id: StringName, request: int) -> Dictionary:
 	_request = request
 	if _lock == 0:
 		_lock = GameplayLock.acquire(self, Input.MOUSE_MODE_VISIBLE)
-	var result := _prepare_and_commit(scene)
+	var continuation := Sources.continuation(String(id), Story._scenes, Story._scene_sources) if scene.get("completion_policy") == CONTINUATION_POLICY else &""
+	var result: Dictionary
+	if scene.get("completion_policy") == CONTINUATION_POLICY and continuation == &"":
+		result = {"error": "flag continuation differs from its finite authored contract"}
+	else:
+		result = _prepare_and_commit(scene, continuation)
 	if not result.get("committed", false) or result.get("recovery", false):
 		_recovery = result.get("recovery", false)
 		_reload_original = result.get("reload_original", false)
@@ -193,14 +143,17 @@ func complete(id: StringName, request: int) -> Dictionary:
 	_events = result["events"]
 	_changed.assign(result["changed"])
 	_delta = result["delta"]
+	_continuation_target = continuation
+	_continuation_context = Story.current_presentation_context() if continuation != &"" else {}
 	_publishing = true
-	if Story._current_cinematic == id:
+	if continuation != &"":
+		main.call("_accept_story_choice", continuation, request, _continuation_context)
+	elif Story._current_cinematic == id:
 		main.call("_clear_cinematic")
 	return {"handled": true, "ready": true, "terminal_batch": true}
 
 
-func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"") -> Dictionary:
-	var choice := continuation != &""
+func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choice := false) -> Dictionary:
 	var problem := Story.outcomes.result_contract_problem(_id, scene)
 	if not problem.is_empty():
 		return {"error": problem}
@@ -216,15 +169,15 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"") -> D
 			return {"error": "terminal NPC result requires its actual current authored interaction"}
 	elif SEGMENTS.get(String(_id), "") != level.data.resource_path:
 		return {"error": "terminal producer is not bound to this authored Level"}
-	if not str(scene.get("then", "")).is_empty() or Story.offers_choice(scene) or Story._pending_next.has(_id) or scene.has("transfer_items") or not (Story._pending_transfers.get(_id, []) as Array).is_empty():
-		return {"error": "terminal results cannot own choices, continuations or pending transfers"}
+	if (not choice and str(scene.get("then", "")) != String(continuation)) or Story.offers_choice(scene) or Story._pending_next.has(_id) or scene.has("transfer_items") or not (Story._pending_transfers.get(_id, []) as Array).is_empty():
+		return {"error": "result boundary cannot own this choice, continuation or pending transfer"}
 	var passive: Array = Story._passive_requests.get(_id, [])
 	if not (Story._current_cinematic == _id and Story.current_presentation_request() == _request) and (passive.is_empty() or int(passive[0]) != _request):
 		return {"error": "stale terminal request"}
 	for item: StoryItemData in StoryItems.catalog():
 		if item.trigger == StoryItemData.Trigger.SCENE_FINISHED and item.trigger_scene == _id:
 			return {"error": "terminal result has a duplicate automatic item producer"}
-	var context := Story.current_presentation_context() if choice else {}
+	var context := Story.current_presentation_context() if continuation != &"" else {}
 	var candidate := RunSnapshot.capture(main.get("_level_path"), level.run_snapshot(), String(continuation), main.get("_chapter_complete"), context)
 	var original := RunSnapshot.prepare(candidate)
 	if original.has("error"):
@@ -245,7 +198,7 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"") -> D
 	var source := Bundle._capture_source()
 	if source.has("error"):
 		return source
-	var planned := _plan(scene, candidate, continuation)
+	var planned := _plan(scene, candidate, continuation, choice)
 	if not planned.get("valid", false):
 		return {"error": planned.get("error", "invalid result plan")}
 	var next: Dictionary = planned["next"]
@@ -261,7 +214,7 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"") -> D
 	candidate["progression"]["story_transactions"] = next["ledger"]
 	var expected_state: Dictionary = original["data"]["state"].duplicate(true)
 	var expected_runtime: Dictionary = original["data"]["runtime"].duplicate(true)
-	if not npc.is_empty() and not choice:
+	if not npc.is_empty() and continuation == &"":
 		var key: String = npc["key"]
 		var area: String = String(level.data.id)
 		var worlds: Array = [candidate["runtime"]["world"], candidate["runtime"]["area"]["world"], candidate["state"]["area_states"][area]["world"], expected_runtime["world"], expected_runtime["area"]["world"], expected_state["area_states"][area]["world"]]
@@ -311,7 +264,7 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"") -> D
 	StoryItems._install_prepared(items["data"])
 	GameState._install_prepared_flags(game["data"])
 	Story._install_prepared(story["data"])
-	if not npc.is_empty() and not choice:
+	if not npc.is_empty() and continuation == &"":
 		(npc["actor"] as NpcActor).install_story_completion(npc["prepared"])
 		level._area["world"][npc["key"]] = npc["prepared"]["after"].duplicate(true)
 	return {"committed": true, "events": planned["events"], "changed": changed, "delta": delta}
@@ -346,7 +299,7 @@ func _npc_unchanged(level: Level, expected: Dictionary) -> bool:
 	return not current.is_empty() and current["actor"] == expected["actor"] and current["key"] == expected["key"] and var_to_bytes(current["prepared"]) == var_to_bytes(expected["prepared"])
 
 
-func _plan(scene: Dictionary, candidate: Dictionary, continuation: StringName = &"") -> Dictionary:
+func _plan(scene: Dictionary, candidate: Dictionary, continuation: StringName = &"", choice := false) -> Dictionary:
 	var scenes := {}
 	for key: String in Story._scenes:
 		scenes[key] = {"once": false, "condition": {}, "results": []}
@@ -378,10 +331,27 @@ func _plan(scene: Dictionary, candidate: Dictionary, continuation: StringName = 
 			return {"error": "invalid or duplicate canonical transaction definition"}
 		transactions[String(item.id)] = item.descriptor()
 	var projection := {"flags": candidate["story"]["flags"], "items": candidate["story"]["items"], "credits": candidate["progression"]["credits"], "ledger": candidate["progression"]["story_transactions"], "area_states": candidate["state"]["area_states"], "completed": candidate["story"]["seen"]}
+	var repeatable := choice or String(_id) == "ch1_t_lamp_voice_later"
+	var previous_completion := false
+	if repeatable:
+		if choice:
+			if not Sources.CHOICES.has(String(_id)):
+				return {"valid": false, "error": "only registered finite question choices may repeat"}
+		else:
+			var boundary := Sources.boundary(String(_id), Story._scenes, Story._scene_sources)
+			if boundary.is_empty() or not boundary.get("repeatable", false) or not operations.is_empty():
+				return {"valid": false, "error": "only the authored result-free later reply may repeat"}
+		# Keep the strict planner's once-only reward semantics. Registered choices
+		# only repeat idempotent intent flags/positions; the later reply is empty.
+		# Their original presentation history remains present and unchanged.
+		previous_completion = (projection["completed"] as Array).any(func(value: Variant) -> bool: return String(value) == String(_id))
+		projection["completed"] = (projection["completed"] as Array).filter(func(value: Variant) -> bool: return String(value) != String(_id))
 	var result := StoryResultPlan.plan(operations, projection, {"scene_id": String(_id), "replay": false, "scenes": scenes, "flag_defaults": GameState.flag_defaults, "item_definitions": definitions, "transaction_definitions": transactions, "producers": producers, "ledger_locked": Progression._story_transactions._locked})
 	if not result.get("valid", false):
 		return result
 	var next: Dictionary = result["next"]
+	if repeatable and previous_completion:
+		next["completed"] = candidate["story"]["seen"].duplicate()
 	var facts := func(kind: StringName, key: StringName) -> Variant:
 		match kind:
 			&"flag": return next["flags"].get(String(key), GameState.flag_defaults.get(String(key), false))
@@ -414,6 +384,8 @@ func publish() -> void:
 
 ## All synchronous observers/waiters have returned. Never re-install the proposal.
 func finish() -> void:
+	if _continuation_target != &"":
+		main.call("_accept_story_choice", _continuation_target, _request, _continuation_context)
 	if is_instance_valid(_prompt):
 		EventBus.toast_requested.emit(Prompt.copy("進度已保存，可以繼續。", "進行状況を保存しました。続けられます。", "Progress saved. You can continue."))
 	_publishing = false
@@ -468,6 +440,8 @@ func _clear() -> void:
 	_reload_original = false
 	_choice_retry = Callable()
 	_choice_target = &""
+	_continuation_target = &""
+	_continuation_context.clear()
 	_events.clear()
 	_changed.clear()
 	if is_instance_valid(_prompt):

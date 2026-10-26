@@ -120,7 +120,7 @@ static func operations(scene: Dictionary) -> Array[Dictionary]:
 ## contract is used by content validation; operations() is only a typed view.
 func result_contract_problem(scene_id: StringName, scene: Dictionary) -> String:
 	var where := "場景 %s" % String(scene_id).left(256)
-	if scene.has("completion_policy") and scene["completion_policy"] not in [MAIN_FLAG_COMPLETION_POLICY, "main_terminal_results_v1"]:
+	if scene.has("completion_policy") and scene["completion_policy"] not in [MAIN_FLAG_COMPLETION_POLICY, "main_terminal_results_v1", "main_flags_continuation_v1"]:
 		return where + " 的 completion_policy 不受支援"
 	var results: Variant = scene.get("results", [])
 	var flags: Variant = scene.get("set_flags", [])
@@ -148,8 +148,8 @@ func result_contract_problem(scene_id: StringName, scene: Dictionary) -> String:
 				return at + " 的 " + key + " 必須是非空文字"
 		if str(op["kind"]) not in ["flag", "item_acquire", "item_transfer", "transaction"]:
 			return at + " 的結果種類未知：" + str(op["kind"])
-		if scene.get("completion_policy", "") == MAIN_FLAG_COMPLETION_POLICY and str(op["kind"]) != "flag":
-			return at + " 超出 main_flags_v1 的旗標範圍"
+		if scene.get("completion_policy", "") in [MAIN_FLAG_COMPLETION_POLICY, "main_flags_continuation_v1"] and str(op["kind"]) != "flag":
+			return at + " 超出 %s 的旗標範圍" % scene.get("completion_policy")
 		if str(op["kind"]) == "flag":
 			var value: Variant = op.get("value", true)
 			if not GameState._flag_value_valid(value):

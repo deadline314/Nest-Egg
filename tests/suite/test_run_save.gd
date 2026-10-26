@@ -208,6 +208,7 @@ func run() -> void:
 	AimInput._last_stick_msec = previous_msec
 	check(AimInput.using_gamepad == previous_gamepad and AimInput._last_stick_dir == previous_direction and AimInput._last_stick_msec == previous_msec, "suite restores aim source direction and timestamp without polluting later suites")
 	preload("res://tests/helpers/story_install_checks.gd").run(self)
+	preload("res://tests/helpers/voice_source_checks.gd").run(self)
 	preload("res://tests/helpers/story_durable_write_checks.gd").run(self)
 	preload("res://tests/helpers/run_restore_checks.gd").run(self)
 	preload("res://tests/helpers/campaign_edition_checks.gd").run(self)

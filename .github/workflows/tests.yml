@@ -116,6 +116,12 @@ jobs:
           python3 tools/test_runtime_probe.py
           python3 tools/run_sunday_choice.py --godot "$GODOT" --output "${{ runner.temp }}/sunday-choice"
 
+      - name: Check voice continuation and original pending-primary cold reads
+        if: steps.gate.outputs.skip != 'true'
+        timeout-minutes: 20
+        run: |
+          python3 tools/run_voice_completion.py --godot "$GODOT" --output "${{ runner.temp }}/voice-completion"
+
       - name: Run all tests (parallel)
         timeout-minutes: 45
         if: steps.gate.outputs.skip != 'true'
@@ -138,5 +144,7 @@ jobs:
             ${{ runner.temp }}/handoff-completion/**/*.json
             ${{ runner.temp }}/sunday-choice/**/*.log
             ${{ runner.temp }}/sunday-choice/**/*.json
+            ${{ runner.temp }}/voice-completion/**/*.log
+            ${{ runner.temp }}/voice-completion/**/*.json
             work/godot-audio-safe/dist/receipt.json
           retention-days: 7
