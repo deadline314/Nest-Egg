@@ -146,6 +146,24 @@ func _has_absent_active() -> bool:
 	return false
 
 
+## Admission belongs to the caller; a valid false result withdraws only this
+## original batch. Query once per original request, outside the frame loop.
+func cancel_unavailable(available: Callable) -> void:
+	if not available.is_valid():
+		return
+	var cancelled := {}
+	var checked := {}
+	for entries: Array[Dictionary] in [_queue, _active]:
+		for entry: Dictionary in entries:
+			var batch: int = entry["batch"]
+			if not checked.has(batch):
+				var admitted: Variant = available.call(entry["id"], entry["request"])
+				checked[batch] = not (admitted is bool and not admitted)
+			if not checked[batch]:
+				cancelled[batch] = {"id": entry["id"], "request": entry["request"]}
+	_cancel_batches(cancelled)
+
+
 func _cancel_absent_sources() -> void:
 	_absent_batches.clear()
 	for entry in _queue:
@@ -154,26 +172,38 @@ func _cancel_absent_sources() -> void:
 	for bubble in _active:
 		if _source_is_absent(bubble):
 			_absent_batches[bubble["batch"]] = {"id": bubble["id"], "request": bubble["request"]}
-	if _absent_batches.is_empty():
+	_cancel_batches(_absent_batches)
+
+
+func _release_bounds(bubble: Dictionary) -> void:
+	bubble["rect"] = Rect2()
+	var owner: Node = bubble["bounds_owner"]
+	if is_instance_valid(owner):
+		# Reading geometry must leave synchronously, before deferred Node deletion.
+		PromptLayout.remove_obstacle(owner)
+		owner.queue_free()
+
+
+func _cancel_batches(cancelled: Dictionary) -> void:
+	if cancelled.is_empty():
 		return
-	_queue = _queue.filter(func(entry: Dictionary) -> bool: return not _absent_batches.has(entry["batch"]))
+	_queue = _queue.filter(func(entry: Dictionary) -> bool: return not cancelled.has(entry["batch"]))
 	var kept: Array[Dictionary] = []
 	for bubble in _active:
-		if _absent_batches.has(bubble["batch"]):
-			var owner: Node = bubble["bounds_owner"]
-			if is_instance_valid(owner):
-				owner.queue_free()
+		if cancelled.has(bubble["batch"]):
+			_release_bounds(bubble)
 		else:
 			kept.append(bubble)
 	_active = kept
 	_layout_frame = -1
 	PromptLayout.invalidate()
 	queue_redraw()
-	# Install the remaining queues before callbacks. A resumed waiter may enqueue
-	# another request, including the same scene id; never erase that new work.
-	var cancelled := _absent_batches.values()
-	_absent_batches.clear()
-	for entry: Dictionary in cancelled:
+	set_process(is_busy())
+	# Install the remaining queues and retire scratch data before callbacks.
+	# A resumed waiter may enqueue another same-id request; preserve that work.
+	var notifications := cancelled.values()
+	cancelled.clear()
+	for entry: Dictionary in notifications:
 		scene_cancelled.emit(entry["id"], entry["request"])
 
 
@@ -217,6 +247,7 @@ func _start_next() -> void:
 
 func _retire_finished(delta: float) -> void:
 	var kept: Array[Dictionary] = []
+	var finished: Array[StringName] = []
 	for bubble in _active:
 		if not bool(bubble["leaving"]) and float(bubble["age"]) >= float(bubble["hold"]):
 			bubble["leaving"] = true
@@ -224,13 +255,15 @@ func _retire_finished(delta: float) -> void:
 		if bool(bubble["leaving"]):
 			bubble["leave_age"] = float(bubble["leave_age"]) + delta
 			if float(bubble["leave_age"]) >= FADE_OUT:
-				(bubble["bounds_owner"] as Node).queue_free()
+				_release_bounds(bubble)
 				if bool(bubble["last"]):
-					scene_finished.emit(bubble["id"])
+					finished.append(bubble["id"])
 				continue
 		kept.append(bubble)
 	_active = kept
 
+	for id: StringName in finished:
+		scene_finished.emit(id)
 
 # ---------------------------------------------------------------------------
 # 繪製

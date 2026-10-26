@@ -1,0 +1,18 @@
+{
+  "commit": "77d4e24181706f540b6f8d0b38a816ae785b96a2",
+  "run": 40310426133,
+  "job": 121529942541,
+  "url": "https://github.com/deadline314/Nest-Egg/actions/runs/40310426133",
+  "conclusion": "success",
+  "evidence_kind": "Original gh run watch completed output plus local push/main synchronization receipt. Detailed job download blocked by HTTP 401; not a full job-log receipt.",
+  "full": null,
+  "full_count_unavailable": true,
+  "access_error": "HTTP 401 Bad credentials while downloading detailed run; no alternative credentials attempted.",
+  "watch_sha256": "9620e66217d967089046883d1057a3dec37af857b2356867795fc2e52dd08325",
+  "job_duration": "58m37s",
+  "required_steps": {
+    "Run all tests (parallel)": "success",
+    "Reject DummyTexture exit leaks in complete game logs": "success",
+    "Check actual positional audio mixing": "success"
+  }
+}

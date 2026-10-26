@@ -1,0 +1,65 @@
+{
+  "all_originals_viewed": true,
+  "originals": [
+    {
+      "phase": "initial-before",
+      "tag": "ne228-bubble-state-before-native-v1",
+      "png_sha256": "aaded3a6ea326de5dd8cc4a336bddb1e726927a9bd085e0810d08904d18a14ac",
+      "state_sha256": "db7c32463fe765385f9ab55b64f9a509749a169915cdf3beb2a0fcfb3ca5d1b0",
+      "engine_sha256": "dadf922b668b42d4484386749c9f5a2bf8587cd50c36215238f16776132de2ac",
+      "frame": 59,
+      "checks": 52,
+      "intended_negative_failures": 1,
+      "original_viewed": true,
+      "observed_greeting": true,
+      "original_reading_age": 0.824098
+    },
+    {
+      "phase": "before",
+      "tag": "ne228-bubble-state-before-engine-safe-native-v1",
+      "png_sha256": "76c64c91073e22f26b4a5c6a34616d4890253199b92719f225e25fe1f9f64d58",
+      "state_sha256": "3faf729c7a0feecca3f41be41179f5a42afa6487b1bd448ea76a3d16aac27b8b",
+      "engine_sha256": "319aaea8c619fa1edc5d08a33158ab2bfd069e329a1bcd672db9654af53f35e2",
+      "frame": 59,
+      "checks": 52,
+      "intended_negative_failures": 1,
+      "original_viewed": true,
+      "observed_greeting": true,
+      "original_reading_age": 0.802674
+    },
+    {
+      "phase": "after",
+      "tag": "ne228-bubble-state-after-original-native-v2",
+      "png_sha256": "edaf10d35af74884ac6fc4f59ec9a407064324eec201d6898e9c434d0a286771",
+      "state_sha256": "cf52134e87f3cf5788d4ff76719544e4aa10565d3598a1d1ce60d10d6218964d",
+      "engine_sha256": "319aaea8c619fa1edc5d08a33158ab2bfd069e329a1bcd672db9654af53f35e2",
+      "frame": 59,
+      "checks": 52,
+      "intended_negative_failures": 0,
+      "original_viewed": true,
+      "observed_greeting": false,
+      "original_reading_age": null
+    },
+    {
+      "phase": "published",
+      "tag": "ne228-bubble-state-after-published-native-v2",
+      "png_sha256": "4fba70868a1583db991f22df316b26d616e3d8156bc1869ea48690070b7c42ea",
+      "state_sha256": "cf52134e87f3cf5788d4ff76719544e4aa10565d3598a1d1ce60d10d6218964d",
+      "engine_sha256": "319aaea8c619fa1edc5d08a33158ab2bfd069e329a1bcd672db9654af53f35e2",
+      "frame": 59,
+      "checks": 52,
+      "intended_negative_failures": 0,
+      "original_viewed": true,
+      "observed_greeting": false,
+      "original_reading_age": null
+    }
+  ],
+  "same_safe_engine_pair": true,
+  "image_processing": "None. Original viewport PNG; no diagnostic overlay, crop, clock adjustment or postprocessing. State and PNG captured in one frame without an intervening await or mutation.",
+  "observations": [
+    "Safe-engine before: original invitation remains visibly above same present NPC after actual saved payment; age0.802674 of hold2.4, so it has not naturally expired.",
+    "After original and public probes: saved toast, wallet32, same original NPC and normal talk invitation remain; obsolete ambient invitation is absent.",
+    "Cancellation has not fabricated an ambient completed-reading marker.",
+    "Only state-driven original-request withdrawal is accepted here. Lamp brightness/art style, full UI migration and physical GPU/controller are not certified by these software Forward+ captures."
+  ]
+}

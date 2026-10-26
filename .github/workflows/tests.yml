@@ -154,6 +154,11 @@ jobs:
           python3 tools/run_supper_completion.py --godot "$GODOT" --output "${{ runner.temp }}/supper-completion"
           python3 tools/run_supper_repeat.py --godot "$GODOT" --output "${{ runner.temp }}/supper-repeat"
 
+      - name: Check original greeting state after committed supper
+        if: steps.gate.outputs.skip != 'true'
+        timeout-minutes: 5
+        run: python3 tools/run_bubble_state.py --godot "$GODOT" --output "${{ runner.temp }}/bubble-state"
+
       - name: Run all tests (parallel)
         timeout-minutes: 45
         if: steps.gate.outputs.skip != 'true'
@@ -188,6 +193,8 @@ jobs:
             ${{ runner.temp }}/ali-completion/**/*.json
             ${{ runner.temp }}/bubble-source/**/*.log
             ${{ runner.temp }}/bubble-source/**/*.json
+            ${{ runner.temp }}/bubble-state/**/*.log
+            ${{ runner.temp }}/bubble-state/**/*.json
             ${{ runner.temp }}/reception-completion/**/*.log
             ${{ runner.temp }}/reception-completion/**/*.json
             ${{ runner.temp }}/supper-completion/**/*.log

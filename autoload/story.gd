@@ -93,6 +93,7 @@ var _request_results: Dictionary[int, bool] = {}
 var passive_completion_gate: Callable
 var cinematic_completion_gate: Callable
 var _passive_requests: Dictionary[StringName, Array] = {}
+var _bubble_facts_bound := false
 var _resetting_presentation := false
 ## 選項選到的交付在場景播完才生效；取消、死亡或換區時丟棄（場景 id → 物品 id 清單）。
 var _pending_transfers: Dictionary[StringName, Array] = {}
@@ -173,6 +174,7 @@ func _ready() -> void:
 		GameState.request_story_save())
 	EventBus.player_died.connect(func(_cause: StringName) -> void: reset_active_presentation(&"death"))
 	EventBus.checkpoint_reached.connect(func(_position: Vector2) -> void:
+		_refresh_bubble_admission()
 		for scene in outcomes.scenes_for_event(&"checkpoint"):
 			play(scene))
 	language = _initial_language()
@@ -958,12 +960,42 @@ func set_bubble_host(host: MapBubbles) -> void:
 			_bubble_host.scene_cancelled.disconnect(_on_bubbles_cancelled)
 	_bubble_host = host
 	if host != null:
+		_bind_bubble_facts()
 		host.scene_finished.connect(_on_bubbles_finished)
 		host.scene_cancelled.connect(_on_bubbles_cancelled)
 		host.tree_exiting.connect(func() -> void:
 			if _bubble_host == host:
 				_bubble_host = null
 				reset_active_presentation(), CONNECT_ONE_SHOT)
+
+
+## Story precedes item/progression autoload readiness. Bind once on the first
+## real host, after all owners exist, rather than querying during silent install.
+func _bind_bubble_facts() -> void:
+	if _bubble_facts_bound:
+		return
+	_bubble_facts_bound = true
+	GameState.flag_changed.connect(func(_id: StringName, _value: Variant) -> void: _refresh_bubble_admission())
+	Progression.story_transaction_committed.connect(func(_id: StringName) -> void: _refresh_bubble_admission())
+	StoryItems.acquired.connect(_on_bubble_item_fact)
+	StoryItems.transferred.connect(_on_bubble_item_fact)
+
+
+func _on_bubble_item_fact(_item: StoryItemData) -> void:
+	_refresh_bubble_admission()
+
+
+func _bubble_request_available(id: StringName, request: int) -> bool:
+	# A naturally completed request may still be inside its host's callback.
+	# Standalone hosts and already-retired handles retain their original owner.
+	if request == 0 or not (_passive_requests.get(id, []) as Array).has(request):
+		return true
+	return scene_available(id)
+
+
+func _refresh_bubble_admission() -> void:
+	if is_instance_valid(_bubble_host) and not _bubble_host.is_queued_for_deletion() and _bubble_host.is_busy():
+		_bubble_host.cancel_unavailable(_bubble_request_available)
 
 
 func _on_bubbles_finished(id: StringName) -> void:

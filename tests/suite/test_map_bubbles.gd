@@ -12,6 +12,7 @@ func run() -> void:
 	await _test_in_level()
 	await _test_released_host_does_not_hang()
 	await preload("res://tests/helpers/bubble_source_checks.gd").run(self)
+	await preload("res://tests/helpers/bubble_admission_checks.gd").run(self)
 	await _test_wrapped_bubble_bounds()
 	Story.auto_skip = previous_auto
 	Story.reset_progress()

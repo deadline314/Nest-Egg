@@ -1,0 +1,157 @@
+{
+  "base": "77d4e24181706f540b6f8d0b38a816ae785b96a2",
+  "same_safe_engine_negative_control": {
+    "source_commit": "77d4e24181706f540b6f8d0b38a816ae785b96a2",
+    "engine_sha256": "319aaea8c619fa1edc5d08a33158ab2bfd069e329a1bcd672db9654af53f35e2",
+    "probe_sha256": "4a39277c3adf8a21963da63510409906f6eafbba86200d2f329c9284322e4911",
+    "headless": {
+      "checks": 52,
+      "failures": 1,
+      "negative_control_valid": true
+    },
+    "native": {
+      "tag": "ne228-bubble-state-before-engine-safe-native-v1",
+      "checks": 52,
+      "failures": 1,
+      "negative_control_valid": true,
+      "png_sha256": "76c64c91073e22f26b4a5c6a34616d4890253199b92719f225e25fe1f9f64d58",
+      "state": {
+        "scene_eligible": false,
+        "npc_present": true,
+        "talks": 1,
+        "completed": false,
+        "active": [
+          {
+            "age": 0.802674,
+            "hold": 2.4,
+            "id": "ch1_b_stall",
+            "request": 1,
+            "text": "\u9019\u7897\u9eb5\u9084\u71b1\uff0c\u4f60\u8981\u7559\u4e0b\u55ce\uff1f"
+          }
+        ],
+        "frame": 59
+      }
+    }
+  },
+  "fixed_engine_sha256": "319aaea8c619fa1edc5d08a33158ab2bfd069e329a1bcd672db9654af53f35e2",
+  "unsafe_engine_regression_failure_preserved": "ne228-bubble-state-supper-v1/host_none_read.log; independent BG51 fix and actual CI attached",
+  "source_sha256": {
+    "autoload/story.gd": "d4ef13a13c5e56f1c63a06e4ea9814333f6936a3d731763037598ebe9b206e2b",
+    "game/level/map_bubbles.gd": "033bcb2dea02343232459acebf26090fa1b65a3678e247ef58e837ab8e9586e8",
+    "tests/helpers/bubble_admission_checks.gd": "b4794f13934d861cbc7cfcffafc13c77a104291e22e09676d638c1bedaad2460",
+    "tests/suite/test_map_bubbles.gd": "966c3c625bbc3f7f07b9ba88b7b1e8dd0ba2d3d18824f8fac3b544333bb88861",
+    "tests/probes/bubble_state.gd": "4a39277c3adf8a21963da63510409906f6eafbba86200d2f329c9284322e4911",
+    "tests/probes/bubble_state.tscn": "e2ad459ddb50f9cee2d442ac946ecdc8d989c64f371606a1e017d41915096da3",
+    "tools/run_bubble_state.py": "1b516d4daa7056512c68be186b2b11e1184f5c8ceb7fc46472b267f77a1d4cc9",
+    ".github/workflows/tests.yml": "8ff51648293980ac11e1c326df056a0449b88a1718f91fdb4c8ab55b391489e8"
+  },
+  "negative": {
+    "checks": 52,
+    "before_failures": 1,
+    "after_failures": 0,
+    "identical_probe_sha256": "4a39277c3adf8a21963da63510409906f6eafbba86200d2f329c9284322e4911"
+  },
+  "affected": {
+    "groups": 67,
+    "workers": 4,
+    "checks": 67810,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 651
+  },
+  "native": [
+    {
+      "tag": "ne228-bubble-state-before-native-v1",
+      "checks": 52,
+      "failures": 1,
+      "exit": 1,
+      "same_frame": 59,
+      "png_sha256": "aaded3a6ea326de5dd8cc4a336bddb1e726927a9bd085e0810d08904d18a14ac",
+      "state_sha256": "db7c32463fe765385f9ab55b64f9a509749a169915cdf3beb2a0fcfb3ca5d1b0"
+    },
+    {
+      "tag": "ne228-bubble-state-before-engine-safe-native-v1",
+      "checks": 52,
+      "failures": 1,
+      "exit": 1,
+      "same_frame": 59,
+      "png_sha256": "76c64c91073e22f26b4a5c6a34616d4890253199b92719f225e25fe1f9f64d58",
+      "state_sha256": "3faf729c7a0feecca3f41be41179f5a42afa6487b1bd448ea76a3d16aac27b8b"
+    },
+    {
+      "tag": "ne228-bubble-state-after-original-native-v2",
+      "checks": 52,
+      "failures": 0,
+      "exit": 0,
+      "same_frame": 59,
+      "png_sha256": "edaf10d35af74884ac6fc4f59ec9a407064324eec201d6898e9c434d0a286771",
+      "state_sha256": "cf52134e87f3cf5788d4ff76719544e4aa10565d3598a1d1ce60d10d6218964d"
+    },
+    {
+      "tag": "ne228-bubble-state-after-published-native-v2",
+      "checks": 52,
+      "failures": 0,
+      "exit": 0,
+      "same_frame": 59,
+      "png_sha256": "4fba70868a1583db991f22df316b26d616e3d8156bc1869ea48690070b7c42ea",
+      "state_sha256": "cf52134e87f3cf5788d4ff76719544e4aa10565d3598a1d1ce60d10d6218964d"
+    }
+  ],
+  "regressions": {
+    "published": {
+      "processes": 1,
+      "checks": 52,
+      "failures": 0
+    },
+    "source": {
+      "processes": 1,
+      "checks": 54,
+      "failures": 0
+    },
+    "ali": {
+      "processes": 12,
+      "checks": 306,
+      "failures": 0
+    },
+    "voice": {
+      "processes": 17,
+      "checks": 615,
+      "failures": 0
+    },
+    "sunday": {
+      "processes": 8,
+      "checks": 133,
+      "failures": 0
+    },
+    "handoff": {
+      "processes": 2,
+      "checks": 107,
+      "failures": 0
+    },
+    "reception": {
+      "processes": 10,
+      "checks": 244,
+      "failures": 0
+    },
+    "supper": {
+      "processes": 47,
+      "checks": 1253,
+      "failures": 0
+    },
+    "repeat": {
+      "processes": 1,
+      "checks": 40,
+      "failures": 0
+    }
+  },
+  "archive": {
+    "bytes": 5663227,
+    "entries": 1386,
+    "sha256": "06a10c50e834bcfa0dc375b605b260e850c8adba4a56175530da42245b54d675"
+  },
+  "limits": [
+    "Same-frame original supper payment from exact produced evening primary, not a complete human chapter playthrough.",
+    "Software Forward+ HDR2D with Dummy audio; physical GPU/controller and human visual/style gates remain open.",
+    "State-driven withdrawal only; no font, layout style, HOLD/FADE, wording, choice, price or full-story policy changes."
+  ]
+}
