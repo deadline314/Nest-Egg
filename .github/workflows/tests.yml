@@ -109,6 +109,13 @@ jobs:
         run: |
           python3 tools/run_handoff_completion.py --godot "$GODOT" --output "${{ runner.temp }}/handoff-completion"
 
+      - name: Check optional Sunday choice and cold continuation
+        if: steps.gate.outputs.skip != 'true'
+        timeout-minutes: 15
+        run: |
+          python3 tools/test_runtime_probe.py
+          python3 tools/run_sunday_choice.py --godot "$GODOT" --output "${{ runner.temp }}/sunday-choice"
+
       - name: Run all tests (parallel)
         timeout-minutes: 45
         if: steps.gate.outputs.skip != 'true'
@@ -129,5 +136,7 @@ jobs:
             ${{ runner.temp }}/audio-load/*.json
             ${{ runner.temp }}/handoff-completion/**/*.log
             ${{ runner.temp }}/handoff-completion/**/*.json
+            ${{ runner.temp }}/sunday-choice/**/*.log
+            ${{ runner.temp }}/sunday-choice/**/*.json
             work/godot-audio-safe/dist/receipt.json
           retention-days: 7

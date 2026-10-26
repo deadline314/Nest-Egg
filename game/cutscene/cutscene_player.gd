@@ -152,6 +152,8 @@ func play(id: StringName, scene: Dictionary) -> void:
 
 ## 跳到結尾。
 func skip() -> void:
+	if Story.choice_save_pending():
+		return
 	user_skipped = true
 	skipping = true
 	_advance_requested = true
@@ -820,8 +822,9 @@ func choice_active() -> bool:
 func choose(index: int) -> bool:
 	if not choice_active() or index < 0 or index >= _choice_options.size():
 		return false
+	if not Story.apply_choice(_choice_options[index], choose.bind(index)):
+		return false
 	_chosen = index
-	Story.apply_choice(_choice_options[index])
 	_choice.hide()
 	return true
 

@@ -1220,7 +1220,13 @@ func restore_progress(raw: Variant, where := "story/seen", cancel_presentation :
 			push_warning("[Story] %s/%s 場景不存在，已略過" % [where, id])
 
 
-func apply_choice(option: Dictionary) -> void:
+func apply_choice(option: Dictionary, retry: Callable = Callable()) -> bool:
+	if result_publication_active():
+		return false
+	if is_instance_valid(result_completion):
+		var guarded: Dictionary = result_completion.choose(option, retry)
+		if guarded.get("handled", false):
+			return guarded.get("accepted", false)
 	var flags: Variant = option.get("set_flags", {})
 	for flag: Variant in StoryRules.flag_names(flags):
 		GameState.set_flag(StringName(str(flag)), flags[flag] if flags is Dictionary else true)
@@ -1229,13 +1235,18 @@ func apply_choice(option: Dictionary) -> void:
 		_pending_next[_current_cinematic] = target
 	var transfers := StoryRules.transfer_ids(option)
 	if transfers.is_empty():
-		return
+		return true
 	if _current_cinematic == &"":
 		push_warning("[Story] 選項 %s 要交出原件，但沒有進行中的場景可以承接，已忽略" % option.get("id", ""))
-		return
+		return true
 	var queued: Array = _pending_transfers.get(_current_cinematic, [])
 	queued.append_array(transfers)
 	_pending_transfers[_current_cinematic] = queued
+	return true
+
+
+func choice_save_pending() -> bool:
+	return is_instance_valid(result_completion) and result_completion.choice_pending()
 
 
 ## Skip uses explicit defaults, so gates cannot depend on an unanswered question.

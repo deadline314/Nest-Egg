@@ -29,3 +29,16 @@
 驗證在第一次真正的轉交／取得通知內，直接解碼原主檔及其checksum，尚未經讀取修復、NPC等待者或後續自動保存；保留當下完整主檔。修前同探針103項15失敗，三次live及主檔皆落後一次；修後103／0且皆為1／2／3。真正拒寫／重試、普通通知花費與NEW已讀保持；另程序冷讀、原五個來源及翌日入口另外驗證。CI使用獨立write／read程序保存原始日誌、退出碼、來源雜湊與通知觀察，逾時只清理自己啟動的程序。
 
 參考[Ink保存完整故事state](https://github.com/inkle/ink/blob/master/Documentation/RunningYourInk.md#saving-and-loading)及[Yarn Spinner變數保存／對話位置](https://yarnspinner.dev/docs/godot/gdscript/05-connecting-to-your-game/04-variables-and-storage/)的官方說明：進度與對話位置需一起納入遊戲保存。本作沿用自己的整輪保存與實際NPC來源，不引入另一套故事runtime。既有[同類作品原圖](../../pm/Nest-Egg/attachments/NE-278-references/sources.json)繼續用來檢查人物／閱讀空間；其畫面不作為保存實作的證明。
+
+
+## 2026-10-26：週日自願追問的耐久接續
+
+既有終點邊界延伸一個有限的正式選擇：屋頂原鷺的「問今晚與週日的事」。選擇的接受旗標、接續段落與原 NPC 來源／對話索引先經原整輪寫入器保存，再發布接受通知。此時原 NPC 仍在等待，交談次數與「已問週日」都不增加；只有接續對話真正結束才一併保存已讀、閱讀歷史及 NPC 交談次數。
+
+選項拒寫保留同一個播放器、原選單和原等待者，使用現有事件保存的重試介面。未解決前不能換選項或略過繞出；外部取消釋放自己持有的介面和鎖，不發布接受或完成。已提交後需要恢復時讀真實已保存候選。通知期間沿用既有故事發布鎖阻擋新故事生產者、重入選項與路由；一般扣款及 NEW 已讀合法，通知返回後重新捕捉入口，不能安裝過期提案覆蓋它們。
+
+只有此正式來源、原場景與獎勵為空的真 NPC 互動可進入此接續。來源的預設選項必須仍為無結果的「先去做差事」，目標必須是原週日段落、原明確旗標結果及既有終點政策；資料改成其他支付、交物、內嵌步驟或帶結果預設時拒絕沿用此權限。新通用 atomic_v1 能力仍不存在，不能把其他故事選擇或多段接續自動標成耐久完成。
+
+共用測試程序管理收斂為一份標準函式，保留原交盤三項通知的強制檢查；新增週日六程序包括真拒寫／重試、完成冷讀、通知當下原主檔的途中冷讀、外部取消、主動返回與預設略過。途中存檔只複製原 bytes，不重編封套、不補旗標或對話次數。畫面用軟體 Forward+／HDR 與安排好的既有簡報前提，和真人完整通關、硬體驗收分開。
+
+Ink 的 [Saving and loading](https://github.com/inkle/ink/blob/master/Documentation/RunningYourInk.md#saving-and-loading) 與 [Yarn Spinner Godot 變數儲存](https://yarnspinner.dev/docs/godot/gdscript/05-connecting-to-your-game/04-variables-and-storage/) 說明支撐故事狀態與遊戲保存的整合；不能只存變數卻丟掉接續位置。[本票證據與三款相近作品原圖](../../pm/ST/attachments/ST-9-sunday-choice/README.md)另外記錄可觀察的構圖／對話層級；沒有由商店圖推論其他遊戲的磁碟原子性或玩家偏好統計。

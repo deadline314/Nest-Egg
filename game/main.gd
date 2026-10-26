@@ -506,6 +506,15 @@ func _on_scene_finished(id: StringName) -> void:
 	_queue_save()
 
 
+## An accepted choice is a durable continuation, not a completed NPC reading.
+## Re-capture after synchronous observers so ordinary spending/NEW changes survive.
+func _accept_story_choice(target: StringName, request: int, context: Dictionary) -> void:
+	_cinematic = String(target)
+	_cinematic_request = request
+	_cinematic_context = context.duplicate(true)
+	_cinematic_entry = RunSnapshot.capture(_level_path, (_screen as Level).run_snapshot(), "", false, context)
+
+
 func _clear_cinematic() -> void:
 	_cinematic = ""
 	_cinematic_entry = {}

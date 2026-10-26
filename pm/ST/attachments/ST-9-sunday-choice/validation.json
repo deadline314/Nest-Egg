@@ -1,0 +1,229 @@
+{
+  "base": "598c2324b247c0b9a256f1697b4e37cef41da261",
+  "source_sha256": {
+    "autoload/story.gd": "0339746c6d577ce46b276da3db536b8fd9e4163d212ae0df32603c9e85ccfdad",
+    "game/main.gd": "69dad6b1e1e7ec94e74e748ba1e3fbfd66138f41b040f899ccff07ea8e294c9d",
+    "game/story_result_completion.gd": "138499953acfb6c238d1593819505e5e450409d85a50aeea875530e124bfee6f",
+    "game/cutscene/cutscene_player.gd": "ee3ac20a033da8e01388becc9575779024142672723ec52e7f5329c1051f9934",
+    "data/story/ch1_kasa.json": "458726e27330ded5ad0cafa9fae59435320f090b7f2554a0229654c9ca54317d",
+    "tools/story/ch1_runtime_backend.py": "018d4f8fe5414be43041ee0aade120ba4d67ff850744d4f5d9c8566c1d2d9d60",
+    "tests/probes/sunday_choice.gd": "8de0a06458abdb863278ce8af29331781f5cdb8de5063a6fba5ca37b7be40e8f",
+    "tests/probes/sunday_choice.tscn": "0a17665b8a0765ce61323d9f0317713b6718ecb240cc7635e2777e7338768238",
+    "tools/runtime_probe.py": "38ab1fc6744546985645223feddbed3d3c3b1f61bd6a338328fed29e383b9b34",
+    "tools/run_sunday_choice.py": "614fdba76215a36a18b27440ea5e49dc0b86bc475388e5883f2246ed1d21cd87",
+    "tools/run_handoff_completion.py": "f443bdaae9f3e3c6b47ded7ffba1cd032719658f113f6ef78058392c7d350c69",
+    ".github/workflows/tests.yml": "192fc4d4453fd09ca0c28ea6ff845b19432d67749d7affe5367219523fafa087",
+    "tools/test_runtime_probe.py": "627391ec2fd1ffc66c61a987ee781c60c7410462dd1c8f112166c57ed65d1858",
+    "tests/probes/sunday_choice.gd.uid": "2d785e8b4630a273433bf5aa5dbed3d4b605f2b070953f7288d0a3da2db0a8e3"
+  },
+  "engine_sha256": "dadf922b668b42d4484386749c9f5a2bf8587cd50c36215238f16776132de2ac",
+  "negative_v4": {
+    "source_sha256": "57b1dfcfbbfcefebf89fed694b3ea2eaabf48e4b46f762213662e8287c6dda6b",
+    "before_checks": 17,
+    "before_failures": 6,
+    "after_checks": 12,
+    "after_failures": 0,
+    "different_counts_reason": "before wrongly publishes a flag and enters five observer assertions; corrected refusal emits no notification"
+  },
+  "affected": {
+    "groups": 67,
+    "checks": 67686,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 511
+  },
+  "native": {
+    "processes": 8,
+    "checks": 151,
+    "failures": 0,
+    "cases": [
+      {
+        "tag": "st9-sunday-final-write-v4",
+        "mode": "write",
+        "checks": 49,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-sunday-final-read-v4",
+        "mode": "read",
+        "checks": 7,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-sunday-final-pending_read-v4",
+        "mode": "pending_read",
+        "checks": 11,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-sunday-final-reset-v4",
+        "mode": "reset",
+        "checks": 20,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-sunday-final-return-v4",
+        "mode": "return",
+        "checks": 10,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-sunday-final-skip-v4",
+        "mode": "skip",
+        "checks": 9,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-sunday-final-observer_reset-v4",
+        "mode": "observer_reset",
+        "checks": 34,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-sunday-final-accepted_read-v4",
+        "mode": "accepted_read",
+        "checks": 11,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      }
+    ]
+  },
+  "headless": {
+    "processes": 8,
+    "checks": 133,
+    "failures": 0
+  },
+  "handoff_regression": {
+    "processes": 2,
+    "checks": 107,
+    "failures": 0
+  },
+  "runner_unit": {
+    "tests": 7,
+    "failures": 0
+  },
+  "capture_followup": {
+    "tag": "st9-sunday-final-write-v6",
+    "checks": 49,
+    "failures": 0,
+    "source_scope": {
+      "previous_full_eight_case_probe_sha256": "0cc1f3d7018ca87565a4a5e97c90141066349052fa1682a1b56a969c441ec5b4",
+      "final_probe_sha256": "8de0a06458abdb863278ce8af29331781f5cdb8de5063a6fba5ca37b7be40e8f",
+      "unchanged_outside_capture_functions_sha256": "d43013d325f560fd7956e38fab84a56054d42688e3a455e5ae854cdd0ce41665",
+      "changes": "Only screenshot readiness and a pure text-pixel predicate; require modal text/button regions below the header so initial (0,0) container bounds cannot count diagnostic text. Headless _shot still immediately returns.",
+      "native_followup_tag": "st9-sunday-final-write-v6"
+    },
+    "preview_mime": {
+      "finding": "Original PNG bytes contain the full modal. view_image returned data:application/octet-stream; forwarding the exact same base64 as data:image/png displays the complete original. Preview loss is not an engine or screenshot regression.",
+      "pixel_check": "Read-only PIL RGBA; min(R,G,B)>204 and A>240 in x200..1079,y250..479. No image edits.",
+      "files": [
+        {
+          "file": "st9-sunday-choice-after-v4/choice-refused.png",
+          "sha256": "88a44b6506f834ddfe77426dad362cadc135f2de44d8676a1f65abd219f918dd",
+          "visible_white_in_modal_roi": 9206
+        },
+        {
+          "file": "st9-sunday-choice-write-v1/choice-refused.png",
+          "sha256": "88a44b6506f834ddfe77426dad362cadc135f2de44d8676a1f65abd219f918dd",
+          "visible_white_in_modal_roi": 9206
+        },
+        {
+          "file": "st9-sunday-choice-write-v1/leaf-refused.png",
+          "sha256": "88a44b6506f834ddfe77426dad362cadc135f2de44d8676a1f65abd219f918dd",
+          "visible_white_in_modal_roi": 9206
+        },
+        {
+          "file": "st9-sunday-final-write-v1/choice-refused.png",
+          "sha256": "449094a4e7411df2ddf47c09a40cf445220aab76ed1e00af4f2e8459f8139229",
+          "visible_white_in_modal_roi": 9206
+        },
+        {
+          "file": "st9-sunday-final-write-v1/leaf-refused.png",
+          "sha256": "449094a4e7411df2ddf47c09a40cf445220aab76ed1e00af4f2e8459f8139229",
+          "visible_white_in_modal_roi": 9206
+        },
+        {
+          "file": "st9-sunday-final-write-v4/choice-refused.png",
+          "sha256": "e7506ae8c75be5e01705646a21b6558cb538e62bb30b0bb3ebf8917a52bec2cd",
+          "visible_white_in_modal_roi": 9206
+        },
+        {
+          "file": "st9-sunday-final-write-v4/leaf-refused.png",
+          "sha256": "2969e9002d6e85e44ac73f11b8dc077f3748d8e73e4013241c41eaca39c9849c",
+          "visible_white_in_modal_roi": 9206
+        },
+        {
+          "file": "st9-sunday-final-write-v5/choice-refused.png",
+          "sha256": "e7506ae8c75be5e01705646a21b6558cb538e62bb30b0bb3ebf8917a52bec2cd",
+          "visible_white_in_modal_roi": 9206
+        },
+        {
+          "file": "st9-sunday-final-write-v5/leaf-refused.png",
+          "sha256": "2969e9002d6e85e44ac73f11b8dc077f3748d8e73e4013241c41eaca39c9849c",
+          "visible_white_in_modal_roi": 9206
+        },
+        {
+          "file": "st9-sunday-final-write-v6/choice-refused.png",
+          "sha256": "e7506ae8c75be5e01705646a21b6558cb538e62bb30b0bb3ebf8917a52bec2cd",
+          "visible_white_in_modal_roi": 9206
+        },
+        {
+          "file": "st9-sunday-final-write-v6/leaf-refused.png",
+          "sha256": "2969e9002d6e85e44ac73f11b8dc077f3748d8e73e4013241c41eaca39c9849c",
+          "visible_white_in_modal_roi": 9206
+        }
+      ]
+    }
+  },
+  "archive": {
+    "file": "evidence.zip",
+    "bytes": 19786290,
+    "entries": 656,
+    "sha256": "1119502c1b4314e796056301cd7a1640c41f2f607740c37d48fb71f151cb197d"
+  },
+  "previous_handoff_ci": {
+    "commit": "598c2324b247c0b9a256f1697b4e37cef41da261",
+    "run": 40262008828,
+    "job": 121376198584,
+    "url": "https://github.com/deadline314/Nest-Egg/actions/runs/40262008828",
+    "conclusion": "success",
+    "checks": 97954,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 595,
+    "raw_job_sha256": "7f87780e76fa0962c2701aba5ad3ef33f2b356557c06d6d44be006f7b669f8d3",
+    "durable_handoff": {
+      "write_checks": 97,
+      "read_checks": 10,
+      "failures": 0
+    }
+  },
+  "boundaries": [
+    "Arranged existing brief/dinner and unrelated credits/item; not a human chapter playthrough.",
+    "Software Forward+ HDR2D; physical hardware/input acceptance remains separate.",
+    "Only the finite authored rooftop Sunday choice and terminal reading are migrated; general atomic_v1 is not enabled."
+  ]
+}
