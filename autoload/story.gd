@@ -814,6 +814,17 @@ func finished_presentation_request() -> int:
 
 ## 續玩只接受原 talk 可到達的 then／選項目標；分派仍依還原後的事實選取。
 ## 不讀取結果、不重新套用選項，且限制探索大小，避免循環或損壞資料無限展開。
+## Shared live/cold NPC admission. Only registered durable, result-free
+## goodbyes may outlive their producer's dispatcher phase.
+func is_npc_presentation(data: NpcData, index: int, segment: StringName) -> bool:
+	if data == null or index < 0 or index >= data.talks.size():
+		return false
+	var entry := data.talks[index].scene
+	if is_chained_scene(resolve_dispatch(entry), segment):
+		return true
+	return scene_available(segment) and preload("res://game/story_result_sources.gd").pending_terminal(data.resource_path, entry, String(segment), _scenes, _scene_sources, _completed)
+
+
 func is_chained_scene(origin: StringName, segment: StringName) -> bool:
 	var visited: Dictionary[StringName, bool] = {}
 	var pending: Array[StringName] = [origin]
@@ -829,6 +840,14 @@ func is_chained_scene(origin: StringName, segment: StringName) -> bool:
 			pending.append(resolve_dispatch(origin))
 		else:
 			pending.append(StringName(str(scene.get("then", ""))))
+			# Authored transaction failures are real outgoing presentation edges.
+			var failures: Variant = scene.get("on_failure", {})
+			if failures is Dictionary:
+				for target: Variant in failures.values():
+					if typeof(target) in [TYPE_STRING, TYPE_STRING_NAME]:
+						pending.append(StringName(target))
+					if pending.size() > 256:
+						return false
 			for step: Dictionary in StoryRules.entries(scene.get("steps", [])):
 				if step.get("do") != "choice":
 					continue

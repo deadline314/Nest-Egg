@@ -210,6 +210,7 @@ func run() -> void:
 	preload("res://tests/helpers/story_install_checks.gd").run(self)
 	preload("res://tests/helpers/voice_source_checks.gd").run(self)
 	preload("res://tests/helpers/ali_source_checks.gd").run(self)
+	preload("res://tests/helpers/supper_source_checks.gd").run(self)
 	preload("res://tests/helpers/story_durable_write_checks.gd").run(self)
 	preload("res://tests/helpers/run_restore_checks.gd").run(self)
 	preload("res://tests/helpers/campaign_edition_checks.gd").run(self)

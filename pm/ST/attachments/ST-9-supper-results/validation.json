@@ -1,0 +1,240 @@
+{
+  "base": "3a8b0b1b42260692d0d262b7947f46f5dbee872b",
+  "source_sha256": {
+    "autoload/story.gd": "70fea8e19fa5d02ec1af8ef37782612ffd9a32e5888ef4af6c7ea12b214a9709",
+    "game/npc/npc_actor.gd": "1ea068260c9aac9e5aa58f3e0d6be9c571dff8d164be723a7bf3060720c18e91",
+    "game/story_result_completion.gd": "abfeb9873b3ce26152d4fbfcb6e208dd55644eaf17b1e7b4eea9041c12c6e244",
+    "game/story_result_sources.gd": "4d1f762406e247c1eafca79bf1ef2f9e15041aeec090aa6c8282f2d1518dc5ff",
+    "game/story_result_supper.gd": "3051720196a5c1f0b3b19bf0cf066ea9784e1ed6f74b2befcd5358c19b739be0",
+    "data/story/ch1_kasa.json": "a5b1a86917dc13ecab20ddd968e976fab672eb49a2c865a19a287785be255c32",
+    "tools/story/ch1_runtime_backend.py": "6d27cc3353c475a5be9abc102dc9bc2c9c999cb2f9c986b035aa5ed55462c558",
+    "tests/suite/test_run_save.gd": "efd7a86a8931cf497581ce0f06476bfab3943d10e6592118b2394a76b231a49d",
+    "tests/helpers/supper_source_checks.gd": "feebd35940c626d0767ecaade775a68a4dce024539f1b52e76920521863c7157",
+    "tests/helpers/supper_completion_base.gd": "5a9a94620218bbc44cdb8c9229c891c0836046aa8e8d1e01dcd1d4bfa8508f61",
+    "tests/probes/supper_completion.gd": "471435619f6a7cb2c4bb2a3ceb972069a4e3261e8c0ca27939ffcfb9edbc3a23",
+    "tests/probes/supper_completion.tscn": "8b5123b9ad06380fd1964f83380e81f932e23b52e1d56bfb9ec382f9ef2318db",
+    "tools/run_supper_completion.py": "41e2e1a9d04590d26a0a8bde4f556c8d7e0e194d84aef9970dd33b893a0aef71",
+    "tests/fixtures/supper_evening_ordered.json": "0b953b073195c02252f718ad658698e18a0c26f04718385c75944408680ff3ec",
+    "tests/fixtures/supper_evening_none.json": "dc63458b6a552d73711e9b9e0856a00f3baf776588a4f519e7aba19f83cf0263",
+    "tests/fixtures/supper_evening.provenance.json": "d0e0548046344fd4c81a6f6646766b684208b0dfd68637cb6f2ea97a431f1a0e",
+    ".github/workflows/tests.yml": "ba7621dfcb0e2d26e8099893e59c0d35066e54ccdb80175c01b4039e6c5d186e",
+    "tests/probes/supper_repeat.gd": "057ed189f8e96911365e4847838ffe8297bb42510ad6fbb7ca43e72dda2d5de6",
+    "tests/probes/supper_repeat.tscn": "1a0e9322b5ce0d775c1928a5a4e6593a3645687cfc631c7b583b5f75d694f82f",
+    "tools/run_supper_repeat.py": "7bfc17a5433054095f3454d4001a1633e154cf3b299186c16ce4946af888efe0"
+  },
+  "same_negative": {
+    "probe_sha256": "b12899f48d8add3bf4f3706f95cd3b791a1112294d3a27012f7d3dba0985ac43",
+    "processes": 12,
+    "checks": 194,
+    "before_failures": 40,
+    "after_failures": 0,
+    "every_case_reaches_real_io": true
+  },
+  "headless": {
+    "processes": 47,
+    "checks": 1253,
+    "failures": 0,
+    "pending_original_primaries": {
+      "pay_pending_read": "68f3a55b0596f859303e09d2ccd3d592d3104f5ddf0abb24fa3d48a5d43c0380",
+      "tab_pending_read": "fa8625f61c630621c6ed583b71067ba6c723b37d76f63d38a6eb2dfca93f88c3",
+      "host_pending_read": "55244b0f06f28a50dc37fe84fea293d4fca2aed5d8aef38b975610d987a48084",
+      "host_none_pending_read": "2dd63c5d7ecddcc1839591f6c221e4154ebff6d5e84576173de570cf8975bfc9",
+      "meal_pending_read": "f59584abfcafc4790479ef61e2eb983fa16fe142adfd24a2742b5b847f9c4e81",
+      "choice_leave_pending_read": "90d037c7d0f227ef1b22cf366ce0089e580f877574d2af4821ecde6341c08d13",
+      "choice_stay_pending_read": "caafe6b97ff4a683788d1fe118deaf22ebadd50b2d4b4127ccfb464b0aa3161b",
+      "choice_host_pending_read": "4bfdd22cb36ef807ca46c242d747689cea33c31b74e933501930549f5dbe5b8d",
+      "choice_tab_pending_read": "8f103bed2b11533e86e852988324fa39151d319e790f8fb2dea8f161944284ba",
+      "insufficient_pending_read": "a4c4932b3ab25c71f6a86c3e3d328fe3c574218accd393f324f523e97429c995",
+      "normal_pay_pending_read": "184b2105acac06d86b2beddfa4e6332a6179a58f390c2970158119cd8539f760",
+      "normal_host_pending_read": "6aed3463cb24c2f3e6411518dfd0dd03bbd4e103f206cfba4f14d03937030d20",
+      "normal_meal_pending_read": "36a90edc05b51f03e9c27f4d78bcb28b4bd4c1b1e04cf34874116453810eb4cf"
+    }
+  },
+  "repeat": {
+    "processes": 1,
+    "checks": 40,
+    "failures": 0
+  },
+  "original_affected": {
+    "groups": 67,
+    "workers": 4,
+    "checks": 67793,
+    "new_failures": 0,
+    "known_failures": 0,
+    "wall_seconds": 656
+  },
+  "native": [
+    {
+      "tag": "st9-supper-pay-native-v1",
+      "checks": 48,
+      "failures": 0
+    },
+    {
+      "tag": "st9-supper-pay-cold-native-v1",
+      "checks": 10,
+      "failures": 0
+    },
+    {
+      "tag": "st9-supper-host-native-v1",
+      "checks": 81,
+      "failures": 0
+    },
+    {
+      "tag": "st9-supper-host-cold-native-v1",
+      "checks": 10,
+      "failures": 0
+    },
+    {
+      "tag": "st9-supper-choice_leave-native-v1",
+      "checks": 65,
+      "failures": 0
+    },
+    {
+      "tag": "st9-supper-choice_leave-cold-native-v1",
+      "checks": 12,
+      "failures": 0
+    },
+    {
+      "tag": "st9-supper-insufficient-native-v1",
+      "checks": 58,
+      "failures": 0
+    },
+    {
+      "tag": "st9-supper-insufficient-cold-native-v1",
+      "checks": 12,
+      "failures": 0
+    },
+    {
+      "tag": "st9-supper-cancel_host-native-v1",
+      "checks": 46,
+      "failures": 0
+    },
+    {
+      "tag": "st9-supper-cancel_host-cold-native-v1",
+      "checks": 9,
+      "failures": 0
+    }
+  ],
+  "regressions": [
+    {
+      "name": "voice_completion",
+      "processes": 17,
+      "checks": 615,
+      "failures": 0
+    },
+    {
+      "name": "reception_completion",
+      "processes": 10,
+      "checks": 244,
+      "failures": 0
+    },
+    {
+      "name": "ali_completion",
+      "processes": 12,
+      "checks": 306,
+      "failures": 0
+    },
+    {
+      "name": "sunday_choice",
+      "processes": 8,
+      "checks": 133,
+      "failures": 0
+    },
+    {
+      "name": "handoff_completion",
+      "processes": 2,
+      "checks": 107,
+      "failures": 0
+    },
+    {
+      "name": "bubble_source",
+      "processes": 1,
+      "checks": 54,
+      "failures": 0
+    }
+  ],
+  "seed_archive_provenance": [
+    {
+      "kind": "ordered",
+      "archive": "pm/ST/attachments/ST-9-reception-results/evidence.zip",
+      "source_commit": "3a8b0b1b42260692d0d262b7947f46f5dbee872b",
+      "archive_sha256": "87bb2cdcc2661ff6cad74ca7c056e83f9586d64ab1d03bc91c2af1f0e95e8a55",
+      "entry": "runs/st9-reception-regression-ali_completion-v1/evening_ordered-slot/slot.json",
+      "seed_sha256": "0b953b073195c02252f718ad658698e18a0c26f04718385c75944408680ff3ec"
+    },
+    {
+      "kind": "none",
+      "archive": "pm/ST/attachments/ST-9-reception-results/evidence.zip",
+      "source_commit": "3a8b0b1b42260692d0d262b7947f46f5dbee872b",
+      "archive_sha256": "87bb2cdcc2661ff6cad74ca7c056e83f9586d64ab1d03bc91c2af1f0e95e8a55",
+      "entry": "runs/st9-reception-regression-ali_completion-v1/evening_sit-slot/slot.json",
+      "seed_sha256": "dc63458b6a552d73711e9b9e0856a00f3baf776588a4f519e7aba19f83cf0263"
+    }
+  ],
+  "previous_ci": {
+    "commit": "3a8b0b1b42260692d0d262b7947f46f5dbee872b",
+    "run": 40289685041,
+    "job": 121461551356,
+    "url": "https://github.com/deadline314/Nest-Egg/actions/runs/40289685041",
+    "conclusion": "success",
+    "full": {
+      "checks": 98021,
+      "new_failures": 0,
+      "known_failures": 0,
+      "wall_seconds": 665
+    },
+    "required_steps": {
+      "Set up job": "success",
+      "Run actions/checkout@v4": "success",
+      "Restore the repaired Godot editor": "success",
+      "Build or verify the repaired editor": "success",
+      "Cache the import folder": "success",
+      "Import the project": "success",
+      "Check actual positional audio mixing": "success",
+      "Check durable handoff NPC completion and cold read": "success",
+      "Check optional Sunday choice and cold continuation": "success",
+      "Check voice continuation and original pending-primary cold reads": "success",
+      "Check Ali results and original pending-primary cold reads": "success",
+      "Check original greeting source after authored NPC departure": "success",
+      "Check original reception results and pending-name cold reads": "success",
+      "Run all tests (parallel)": "success",
+      "Post Cache the import folder": "success",
+      "Post Run actions/checkout@v4": "success",
+      "Complete job": "success"
+    },
+    "raw_sha256": "b9e9ce71f478675a09886364aa654303cfc3652b07a3eda7de759a5645282c63",
+    "engine_pins": {
+      "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+      "source_archive_sha256": "e607e9985e1c201bc9cdc1aec8a120f0c3f53b9603f1f828e2b748534a2471ef",
+      "patch_sha256": "aa4703685b2cf0394f6ccb4209bf5771c159e3a97df98a7b92891e4f54356c70",
+      "audio_after_sha256": "f50737107e7169f5b8983836f76b3e66fc8a0fbbb1a5eab9b18d28810b248c06"
+    },
+    "probes": {
+      "Check durable handoff NPC completion and cold read": {
+        "processes": 2,
+        "checks": 107
+      },
+      "Check optional Sunday choice and cold continuation": {
+        "processes": 8,
+        "checks": 133
+      },
+      "Check voice continuation and original pending-primary cold reads": {
+        "processes": 17,
+        "checks": 615
+      },
+      "Check Ali results and original pending-primary cold reads": {
+        "processes": 12,
+        "checks": 306
+      },
+      "Check original greeting source after authored NPC departure": {
+        "processes": 1,
+        "checks": 54
+      },
+      "Check original reception results and pending-name cold reads": {
+        "processes": 10,
+        "checks": 244
+      }
+    }
+  },
+  "limits": "Only explicit authored stall family, existing source admission and validated proposals. General atomic_v1, physical controller/GPU, whole chapter and human visual gates remain unclaimed."
+}

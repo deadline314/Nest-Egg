@@ -340,7 +340,7 @@ func _space_player(player: Player) -> void:
 func can_resume_presentation(scene: StringName, index := -1) -> bool:
 	if index < 0:
 		index = current_talk_index()
-	return not _talking and index >= 0 and index < data.talks.size() and Story.is_chained_scene(Story.resolve_dispatch(data.talks[index].scene), scene)
+	return not _talking and index >= 0 and index < data.talks.size() and Story.is_npc_presentation(data, index, scene)
 
 
 func resume_presentation(scene: StringName, index := -1) -> bool:

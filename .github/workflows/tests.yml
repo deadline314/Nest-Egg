@@ -140,6 +140,13 @@ jobs:
         run: |
           python3 tools/run_reception_completion.py --godot "$GODOT" --output "${{ runner.temp }}/reception-completion"
 
+      - name: Check original supper results and pending-primary cold reads
+        if: steps.gate.outputs.skip != 'true'
+        timeout-minutes: 20
+        run: |
+          python3 tools/run_supper_completion.py --godot "$GODOT" --output "${{ runner.temp }}/supper-completion"
+          python3 tools/run_supper_repeat.py --godot "$GODOT" --output "${{ runner.temp }}/supper-repeat"
+
       - name: Run all tests (parallel)
         timeout-minutes: 45
         if: steps.gate.outputs.skip != 'true'
@@ -170,5 +177,9 @@ jobs:
             ${{ runner.temp }}/bubble-source/**/*.json
             ${{ runner.temp }}/reception-completion/**/*.log
             ${{ runner.temp }}/reception-completion/**/*.json
+            ${{ runner.temp }}/supper-completion/**/*.log
+            ${{ runner.temp }}/supper-completion/**/*.json
+            ${{ runner.temp }}/supper-repeat/**/*.log
+            ${{ runner.temp }}/supper-repeat/**/*.json
             work/godot-audio-safe/dist/receipt.json
           retention-days: 7

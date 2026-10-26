@@ -35,7 +35,7 @@ func choice_pending() -> bool:
 ## Finite source binding; no new capability can be enabled by arbitrary story data.
 ## Authored defaults use this gate too; a material default must await its save.
 func choose(option: Dictionary, retry: Callable) -> Dictionary:
-	if not Sources.CHOICES.has(String(Story._current_cinematic)):
+	if not Sources.owns_choice(String(Story._current_cinematic)):
 		return {"handled": true, "accepted": false} if choice_pending() else {}
 	if not main.get("_active_run") or _publishing:
 		return {"handled": true, "accepted": false}
@@ -131,10 +131,19 @@ func complete(id: StringName, request: int) -> Dictionary:
 		_lock = GameplayLock.acquire(self, Input.MOUSE_MODE_VISIBLE)
 	var continuation := Sources.continuation(String(id), Story._scenes, Story._scene_sources) if scene.get("completion_policy") in CONTINUATION_POLICIES else &""
 	var result: Dictionary
-	if scene.get("completion_policy") in CONTINUATION_POLICIES and continuation == &"":
+	if Sources.owns_boundary(String(id)) and Sources.boundary(String(id), Story._scenes, Story._scene_sources).is_empty():
+		result = {"error": "results differ from the finite authored boundary"}
+	elif scene.get("completion_policy") in CONTINUATION_POLICIES and continuation == &"":
 		result = {"error": "continuation differs from its finite authored contract"}
 	else:
 		result = _prepare_and_commit(scene, continuation)
+	# A semantic refusal can lead to its authored options, but that new position
+	# must be durable too. Never treat an IO failure as insufficient credits.
+	if not result.get("committed", false) and result.get("status") == "insufficient_credits":
+		var fallback := Sources.failure(String(id), "insufficient_credits", Story._scenes, Story._scene_sources)
+		if fallback != &"":
+			continuation = fallback
+			result = _prepare_and_commit({"when": scene.get("when", {}), "results": []}, fallback, true)
 	if not result.get("committed", false) or result.get("recovery", false):
 		_recovery = result.get("recovery", false)
 		_reload_original = result.get("reload_original", false)
@@ -148,6 +157,9 @@ func complete(id: StringName, request: int) -> Dictionary:
 	_continuation_context = Story.current_presentation_context() if continuation != &"" else {}
 	_publishing = true
 	if continuation != &"":
+		# Accepted results own an unread next segment even when the preceding
+		# player was skipped; do not let its legacy then-skip settle the NPC.
+		Story._pending_next[id] = continuation
 		main.call("_accept_story_choice", continuation, request, _continuation_context)
 	elif Story._current_cinematic == id:
 		main.call("_clear_cinematic")
@@ -201,7 +213,7 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choi
 		return source
 	var planned := _plan(scene, candidate, continuation, choice)
 	if not planned.get("valid", false):
-		return {"error": planned.get("error", "invalid result plan")}
+		return {"error": planned.get("error", "invalid result plan"), "status": planned.get("status", "")}
 	var next: Dictionary = planned["next"]
 	if choice:
 		# The pure planner validates the explicit flag operation; selecting an option
@@ -283,7 +295,7 @@ func _npc_source(level: Level) -> Dictionary:
 		if actor == null or actor.is_queued_for_deletion() or not actor.is_inside_tree() or actor.data == null or actor.data.resource_path != source.get("npc", "") or actor.state_key() != context.get("source_id") or not actor.is_present():
 			continue
 		var prepared := actor.prepare_story_completion(index)
-		if prepared.is_empty() or not Story.is_chained_scene(Story.resolve_dispatch(actor.data.talks[index].scene), _id):
+		if prepared.is_empty() or not Story.is_npc_presentation(actor.data, index, _id):
 			continue
 		for spawn: Dictionary in level._layout.spawns:
 			if spawn["resource"] == actor.data and spawn["cell"] == actor.cell:
@@ -332,19 +344,18 @@ func _plan(scene: Dictionary, candidate: Dictionary, continuation: StringName = 
 			return {"error": "invalid or duplicate canonical transaction definition"}
 		transactions[String(item.id)] = item.descriptor()
 	var projection := {"flags": candidate["story"]["flags"], "items": candidate["story"]["items"], "credits": candidate["progression"]["credits"], "ledger": candidate["progression"]["story_transactions"], "area_states": candidate["state"]["area_states"], "completed": candidate["story"]["seen"]}
-	var repeatable := choice or String(_id) == "ch1_t_lamp_voice_later"
+	var repeatable := choice or Sources.repeatable(String(_id), Story._scenes, Story._scene_sources)
 	var previous_completion := false
 	if repeatable:
 		if choice:
-			if not Sources.CHOICES.has(String(_id)):
-				return {"valid": false, "error": "only registered finite question choices may repeat"}
-		else:
-			var boundary := Sources.boundary(String(_id), Story._scenes, Story._scene_sources)
-			if boundary.is_empty() or not boundary.get("repeatable", false) or not operations.is_empty():
-				return {"valid": false, "error": "only the authored result-free later reply may repeat"}
-		# Keep the strict planner's once-only reward semantics. Registered choices
-		# only repeat idempotent intent flags/positions; the later reply is empty.
-		# Their original presentation history remains present and unchanged.
+			var fallback_position := operations.is_empty() and Sources.failure(String(_id), "insufficient_credits", Story._scenes, Story._scene_sources) == continuation
+			if not Sources.owns_choice(String(_id)) and not fallback_position:
+				return {"valid": false, "error": "only registered choices or failure positions may repeat"}
+		elif not Sources.repeatable(String(_id), Story._scenes, Story._scene_sources):
+			return {"valid": false, "error": "only the authored later reply or rechoose reply may repeat"}
+		# Preserve strict once-only rewards. Finite choices/checkpoints cannot
+		# settle a read; only registered result-free or rechoose replies repeat.
+		# Existing presentation history remains present and unchanged.
 		previous_completion = (projection["completed"] as Array).any(func(value: Variant) -> bool: return String(value) == String(_id))
 		projection["completed"] = (projection["completed"] as Array).filter(func(value: Variant) -> bool: return String(value) != String(_id))
 	var result := StoryResultPlan.plan(operations, projection, {"scene_id": String(_id), "replay": false, "scenes": scenes, "flag_defaults": GameState.flag_defaults, "item_definitions": definitions, "transaction_definitions": transactions, "producers": producers, "ledger_locked": Progression._story_transactions._locked})
@@ -353,11 +364,15 @@ func _plan(scene: Dictionary, candidate: Dictionary, continuation: StringName = 
 	var next: Dictionary = result["next"]
 	if repeatable and previous_completion:
 		next["completed"] = candidate["story"]["seen"].duplicate()
+	var next_ledger := StoryConditionTree.verify_ledger({"ledger": next["ledger"]}, {"ledger_locked": Progression._story_transactions._locked, "transaction_definitions": transactions})
+	if not next_ledger.get("valid", false):
+		return {"valid": false, "error": next_ledger.get("error", "invalid proposed ledger")}
 	var facts := func(kind: StringName, key: StringName) -> Variant:
 		match kind:
 			&"flag": return next["flags"].get(String(key), GameState.flag_defaults.get(String(key), false))
 			&"held": return next["items"]["held"].has(key)
 			&"receipt": return next["ledger"]["receipts"].has(String(key))
+			&"account": return next_ledger["account"] if key == &"ch1_lounge" else ""
 		return Story.fact(kind, key)
 	for flag: String in Story.outcomes.derived_flags:
 		next["flags"][flag] = StoryRules.holds(Story.outcomes.derived_flags[flag], facts)

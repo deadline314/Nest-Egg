@@ -257,6 +257,12 @@ def _compile_segment(segment, source, inside_presentation, base_scene):
         scene["completion_policy"] = "main_flags_continuation_v1"
     if segment.id == "ch1_t_ali_order":
         scene["completion_policy"] = "main_source_results_continuation_v1"
+    if segment.id in {'ch1_t_supper_leave_none', 'ch1_t_supper_return', 'ch1_t_supper_paid_goodbye', 'ch1_t_supper_stay_address', 'ch1_t_supper_tab_goodbye'}:
+        scene["completion_policy"] = 'main_terminal_results_v1'
+    if segment.id in {'ch1_t_supper_stay_meal', 'ch1_t_supper_stay_host_none'}:
+        scene["completion_policy"] = 'main_flags_continuation_v1'
+    if segment.id in {'ch1_t_supper_stay_host', 'ch1_t_supper_pay', 'ch1_t_supper_tab'}:
+        scene["completion_policy"] = 'main_source_results_continuation_v1'
     return scene
 
 

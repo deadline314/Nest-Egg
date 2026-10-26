@@ -4026,6 +4026,7 @@
     "insufficient_credits": "ch1_t_supper_insufficient"
    },
    "then": "ch1_t_supper_paid_goodbye",
+   "completion_policy": "main_source_results_continuation_v1",
    "pose_policy": "supported"
   },
   "ch1_t_supper_paid_goodbye": {
@@ -4042,6 +4043,7 @@
      }
     ]
    },
+   "completion_policy": "main_terminal_results_v1",
    "steps": [
     {
      "do": "scene",
@@ -4448,6 +4450,7 @@
     }
    ],
    "then": "ch1_t_supper_tab_goodbye",
+   "completion_policy": "main_source_results_continuation_v1",
    "pose_policy": "supported"
   },
   "ch1_t_supper_tab_goodbye": {
@@ -4521,6 +4524,7 @@
      }
     ]
    },
+   "completion_policy": "main_terminal_results_v1",
    "pose_policy": "supported"
   },
   "ch1_t_supper_leave_none": {
@@ -4550,6 +4554,7 @@
      "value": true
     }
    ],
+   "completion_policy": "main_terminal_results_v1",
    "steps": [
     {
      "do": "scene",
@@ -4697,6 +4702,7 @@
      "value": "unset"
     }
    ],
+   "completion_policy": "main_terminal_results_v1",
    "pose_policy": "supported"
   },
   "ch1_t_supper_leave_revisit_paid200": {
@@ -5031,6 +5037,7 @@
     }
    ],
    "then": "ch1_t_supper_stay_meal",
+   "completion_policy": "main_source_results_continuation_v1",
    "pose_policy": "supported"
   },
   "ch1_t_supper_host_none_prompt": {
@@ -5274,6 +5281,7 @@
     }
    ],
    "then": "ch1_t_supper_stay_meal",
+   "completion_policy": "main_flags_continuation_v1",
    "pose_policy": "supported"
   },
   "ch1_t_supper_stay_meal": {
@@ -5314,6 +5322,7 @@
     }
    ],
    "then": "ch1_t_supper_stay_address",
+   "completion_policy": "main_flags_continuation_v1",
    "steps": [
     {
      "do": "scene",
@@ -5677,6 +5686,7 @@
      "value": true
     }
    ],
+   "completion_policy": "main_terminal_results_v1",
    "pose_policy": "supported"
   },
   "ch1_t_ali_4": {
