@@ -1,0 +1,34 @@
+{
+  "format": "Original unmodified PNG bytes inspected with image/png MIME; software Forward+ HDR2D, not physical hardware validation.",
+  "images": [
+    {
+      "file": "pm/Nest-Egg/images/NE-228-bubble-source-before.png",
+      "native_source": "ne228-bubble-before-v1/accepted/refused.png",
+      "sha256": "2623bef2744f25d68f0c0770c230312aeb36385d96f11be535ec8274882d3c1b",
+      "inspected": true,
+      "observation": "Ali has genuinely left and the saved result is accepted, but the original invitation remains over her former location. Wallet233 and real source flow are preserved."
+    },
+    {
+      "file": "pm/Nest-Egg/images/NE-228-bubble-source-after.png",
+      "native_source": "ne228-bubble-final-original-v1/accepted/refused.png",
+      "sha256": "498679019acde2ab61df4a942e18d3531f667447b2445be1115c687c782fc16f",
+      "inspected": true,
+      "observation": "Same original flow, source absent and wallet233; old invitation is gone. The unrelated worktable radio hint remains, confirming no blanket suppression."
+    },
+    {
+      "file": "pm/Nest-Egg/images/NE-228-bubble-source-before-state.png",
+      "native_source": "ne228-bubble-before-v1/source-state/refused.png",
+      "sha256": "c686d924f44de6eeef93b1cd5c189f27977b54af787c6373aaae4d643b7f2179",
+      "inspected": true,
+      "observation": "This later diagnostic PNG no longer shows the invitation because it was captured after another ten frames. The earlier accepted PNG shows the actual failure; source-state.json records the active entry before this extra image wait. This later image is not a repaired or same-frame result."
+    },
+    {
+      "file": "pm/Nest-Egg/images/NE-228-bubble-source-after-state.png",
+      "native_source": "ne228-bubble-final-original-v1/source-state/refused.png",
+      "sha256": "e86f9cc4b430091c900370d0059aacff1c2891313a395e2eaf639ab1e84f3132",
+      "inspected": true,
+      "observation": "Additional same-flow source-state capture has no invitation, active/queued entries or original passive request, with no fabricated completed greeting."
+    }
+  ],
+  "capture_timing": "The source-state JSON is written before the extra diagnostic screenshot wait. Those JSON and PNG observations are not same-frame. Use the earlier accepted screenshots for the before/after visual comparison; original later expiry is preserved and not represented as a fix."
+}

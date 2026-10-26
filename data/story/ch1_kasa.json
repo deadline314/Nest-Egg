@@ -2163,8 +2163,18 @@
     }
    ],
    "when": {
-    "flag": "ch1_handoff_done",
-    "equals": true
+    "all": [
+     {
+      "flag": "ch1_handoff_done",
+      "equals": true
+     },
+     {
+      "not": {
+       "flag": "ch1_lounge_evening_done",
+       "equals": true
+      }
+     }
+    ]
    }
   },
   "ch1_t_ali_meet_booth": {

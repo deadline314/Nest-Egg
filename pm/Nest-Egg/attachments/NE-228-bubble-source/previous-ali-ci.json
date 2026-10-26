@@ -1,0 +1,41 @@
+{
+  "commit": "bdd6ec1c54710f9b4fce78246bb3fc98d218f54a",
+  "run": 40281752672,
+  "job": 121436368886,
+  "url": "https://github.com/deadline314/Nest-Egg/actions/runs/40281752672",
+  "conclusion": "success",
+  "checks": 97986,
+  "new_failures": 0,
+  "known_failures": 0,
+  "seconds": 637,
+  "raw_job_sha256": "7c995e8ddafe364c08ba3d253c908c05c85b22efe83646dee54cf621d7127157",
+  "verified_steps": [
+    "Build or verify the repaired editor",
+    "Check actual positional audio mixing",
+    "Check durable handoff NPC completion and cold read",
+    "Check optional Sunday choice and cold continuation",
+    "Check voice continuation and original pending-primary cold reads",
+    "Check Ali results and original pending-primary cold reads",
+    "Run all tests (parallel)"
+  ],
+  "handoff": {
+    "processes": 2,
+    "checks": 107,
+    "failures": 0
+  },
+  "sunday": {
+    "processes": 8,
+    "checks": 133,
+    "failures": 0
+  },
+  "voice": {
+    "processes": 17,
+    "checks": 615,
+    "failures": 0
+  },
+  "ali": {
+    "processes": 12,
+    "checks": 306,
+    "failures": 0
+  }
+}

@@ -932,11 +932,15 @@ func reset_active_presentation(reason: StringName = &"leave") -> void:
 ## 播放場景。once = true 時同一輪只播一次。回傳是否有開始（或排入佇列）。
 ## 登記或清除氣泡宿主（Level 進入關卡時登記自己的 MapBubbles；宿主離開場景樹時自動清除）。
 func set_bubble_host(host: MapBubbles) -> void:
-	if is_instance_valid(_bubble_host) and _bubble_host.scene_finished.is_connected(_on_bubbles_finished):
-		_bubble_host.scene_finished.disconnect(_on_bubbles_finished)
+	if is_instance_valid(_bubble_host):
+		if _bubble_host.scene_finished.is_connected(_on_bubbles_finished):
+			_bubble_host.scene_finished.disconnect(_on_bubbles_finished)
+		if _bubble_host.scene_cancelled.is_connected(_on_bubbles_cancelled):
+			_bubble_host.scene_cancelled.disconnect(_on_bubbles_cancelled)
 	_bubble_host = host
 	if host != null:
 		host.scene_finished.connect(_on_bubbles_finished)
+		host.scene_cancelled.connect(_on_bubbles_cancelled)
 		host.tree_exiting.connect(func() -> void:
 			if _bubble_host == host:
 				_bubble_host = null
@@ -945,6 +949,21 @@ func set_bubble_host(host: MapBubbles) -> void:
 
 func _on_bubbles_finished(id: StringName) -> void:
 	_on_passive_finished(id)
+
+
+func _on_bubbles_cancelled(id: StringName, request: int) -> void:
+	if request == 0:
+		return # A standalone host has no Story producer authority.
+	var requests: Array = _passive_requests.get(id, [])
+	var index := requests.find(request)
+	if index < 0:
+		return # Retired host/request cannot cancel a newer same-id presentation.
+	requests.remove_at(index)
+	if requests.is_empty():
+		_passive_requests.erase(id)
+		if not _completed.has(id):
+			_seen.erase(id)
+	_complete_request(request, false)
 
 
 func _on_passive_finished(id: StringName, expected_request := 0) -> void:
@@ -1029,7 +1048,7 @@ func _play_bubbles(id: StringName, request: int) -> bool:
 	if not is_instance_valid(_bubble_host) or not _bubble_host.can_show_all(lines):
 		return false
 	scene_started.emit(id, MODE_BUBBLES)
-	_bubble_host.show_lines(id, lines)
+	_bubble_host.show_lines(id, lines, request)
 	return true
 
 

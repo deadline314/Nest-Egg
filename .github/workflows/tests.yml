@@ -128,6 +128,12 @@ jobs:
         run: |
           python3 tools/run_ali_completion.py --godot "$GODOT" --output "${{ runner.temp }}/ali-completion"
 
+      - name: Check original greeting source after authored NPC departure
+        if: steps.gate.outputs.skip != 'true'
+        timeout-minutes: 5
+        run: |
+          python3 tools/run_bubble_source.py --godot "$GODOT" --output "${{ runner.temp }}/bubble-source"
+
       - name: Run all tests (parallel)
         timeout-minutes: 45
         if: steps.gate.outputs.skip != 'true'
@@ -154,5 +160,7 @@ jobs:
             ${{ runner.temp }}/voice-completion/**/*.json
             ${{ runner.temp }}/ali-completion/**/*.log
             ${{ runner.temp }}/ali-completion/**/*.json
+            ${{ runner.temp }}/bubble-source/**/*.log
+            ${{ runner.temp }}/bubble-source/**/*.json
             work/godot-audio-safe/dist/receipt.json
           retention-days: 7

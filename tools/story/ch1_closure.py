@@ -379,7 +379,7 @@ def _handoff(source):
 
 def _ali_meeting(source):
     source.add("ch1_b_lounge", "F04", (("ali", "想擦乾就進來，桌邊有乾布。"),),
-        binding="ali_lounge", mode="bubbles", when=flag("ch1_handoff_done"))
+        binding="ali_lounge", mode="bubbles", when=all_of(flag("ch1_handoff_done"), negate(flag("ch1_lounge_evening_done"))))
     variants = {
         "booth": (all_of(flag("ch1_first_death_done"), flag("ch1_booth_restoration_done")), (
             ("ali", "剛從電話亭回來嗎？你可以先把外套上的水擦掉。"),

@@ -5,10 +5,12 @@ extends Node2D
 ## 戰鬥中只用 bark（≤ 16 字）。講者不在地圖上時（廣播裡的聲音）改用通訊面板，不會憑空冒出氣泡。
 ##
 ## 由 Level 建立並登記給 Story（Story.set_bubble_host）；劇本的 mode 為 bubbles 的場景交給它播。
-## 氣泡跟著講者移動；講者不見了就留在最後的位置。
+## 氣泡跟著講者移動；來源宣告離場即取消該次對話。沒有在場介面的已釋放錨點仍保留最後位置閱讀。
 
 ## 一個場景的最後一句收起來之後發出。
 signal scene_finished(scene_id: StringName)
+## 精確取消原請求，不把來源離場當作讀完或發布故事結果。
+signal scene_cancelled(scene_id: StringName, request: int)
 
 const TEXT_LAYOUT = preload("res://game/level/world_text_layout.gd")
 
@@ -34,6 +36,8 @@ var _font: Font
 var _queue: Array[Dictionary] = []
 ## 正在顯示（含淡入淡出）的氣泡。
 var _active: Array[Dictionary] = []
+var _batch_serial := 0
+var _absent_batches: Dictionary = {}
 var _layout_frame := -1
 var _layout_entries: Array[Dictionary] = []
 var _layout_rects: Array[Rect2] = []
@@ -53,12 +57,17 @@ func _ready() -> void:
 
 
 ## 排入一個場景的句子（lines 是 Story.resolved_lines 的結果，含 speaker 與 text）。
-func show_lines(scene_id: StringName, lines: Array[Dictionary]) -> void:
+func show_lines(scene_id: StringName, lines: Array[Dictionary], request := 0) -> void:
 	if lines.is_empty():
 		scene_finished.emit(scene_id)
 		return
+	_batch_serial += 1
 	for i in lines.size():
-		_queue.append({"id": scene_id, "line": lines[i], "last": i == lines.size() - 1})
+		var target := _anchor_of(str(lines[i].get("speaker", "")))
+		# Optional pure presence interface; Callable binds weakly to its original
+		# source. Plain anchors and already-freed last positions keep legacy reading.
+		var presence := Callable(target, &"is_present") if target != null and target.has_method(&"is_present") else Callable()
+		_queue.append({"id": scene_id, "line": lines[i], "last": i == lines.size() - 1, "batch": _batch_serial, "request": request, "presence": presence})
 	set_process(true)
 
 
@@ -108,6 +117,7 @@ func _pending_scene_ids() -> Array[StringName]:
 
 func _process(delta: float) -> void:
 	_layout_frame = -1
+	_cancel_absent_sources()
 	var suspended := get_tree().paused or GameplayLock.is_locked() or Story.is_cinematic_active() or DialogueLayer.radio_visible()
 	visible = not suspended
 	if suspended:
@@ -119,6 +129,52 @@ func _process(delta: float) -> void:
 	if not is_busy():
 		set_process(false)
 	queue_redraw()
+
+
+func _source_is_absent(entry: Dictionary) -> bool:
+	var presence: Callable = entry.get("presence", Callable())
+	if not presence.is_valid():
+		return false
+	var present: Variant = presence.call()
+	return present is bool and not present
+
+
+func _has_absent_active() -> bool:
+	for bubble in _active:
+		if _source_is_absent(bubble):
+			return true
+	return false
+
+
+func _cancel_absent_sources() -> void:
+	_absent_batches.clear()
+	for entry in _queue:
+		if _source_is_absent(entry):
+			_absent_batches[entry["batch"]] = {"id": entry["id"], "request": entry["request"]}
+	for bubble in _active:
+		if _source_is_absent(bubble):
+			_absent_batches[bubble["batch"]] = {"id": bubble["id"], "request": bubble["request"]}
+	if _absent_batches.is_empty():
+		return
+	_queue = _queue.filter(func(entry: Dictionary) -> bool: return not _absent_batches.has(entry["batch"]))
+	var kept: Array[Dictionary] = []
+	for bubble in _active:
+		if _absent_batches.has(bubble["batch"]):
+			var owner: Node = bubble["bounds_owner"]
+			if is_instance_valid(owner):
+				owner.queue_free()
+		else:
+			kept.append(bubble)
+	_active = kept
+	_layout_frame = -1
+	PromptLayout.invalidate()
+	queue_redraw()
+	# Install the remaining queues before callbacks. A resumed waiter may enqueue
+	# another request, including the same scene id; never erase that new work.
+	var cancelled := _absent_batches.values()
+	_absent_batches.clear()
+	for entry: Dictionary in cancelled:
+		scene_cancelled.emit(entry["id"], entry["request"])
 
 
 ## 最新的一個氣泡顯示滿時間後，下一句才出來；超過同屏上限就讓最舊的先淡出。
@@ -144,7 +200,7 @@ func _start_next() -> void:
 		oldest["leaving"] = true
 		oldest["leave_age"] = 0.0
 	var bubble := {
-		"id": entry["id"], "last": entry["last"], "text": text, "name": str(line.get("name", "")), "color": line.get("color", Color.WHITE),
+		"id": entry["id"], "last": entry["last"], "batch": entry["batch"], "request": entry["request"], "presence": entry["presence"], "text": text, "name": str(line.get("name", "")), "color": line.get("color", Color.WHITE),
 		"target": weakref(target), "pos": target.global_position, "age": 0.0, "hold": hold_time(text), "leaving": false, "leave_age": 0.0,
 	}
 	# Each bubble owns its obstacle; normal tree teardown removes it.
@@ -153,6 +209,8 @@ func _start_next() -> void:
 	bubble["bounds_owner"] = bounds
 	_active.append(bubble)
 	PromptLayout.add_obstacle(bounds, func() -> Rect2:
+		if _source_is_absent(bubble):
+			return Rect2()
 		_layout_boxes()
 		return bubble.get("rect", Rect2()), true)
 
@@ -188,7 +246,7 @@ func _invalidate_layout() -> void:
 
 func _layout_boxes() -> void:
 	var frame := Engine.get_process_frames()
-	if frame == _layout_frame:
+	if frame == _layout_frame and not _has_absent_active():
 		return
 	_layout_frame = frame
 	var suspended := get_tree().paused or GameplayLock.is_locked() or Story.is_cinematic_active() or DialogueLayer.radio_visible()
@@ -204,7 +262,7 @@ func _layout_boxes() -> void:
 		if target != null:
 			bubble["pos"] = target.global_position
 		bubble["rect"] = Rect2()
-		if suspended or not camera_rect.grow(32.0).has_point(bubble["pos"]):
+		if suspended or _source_is_absent(bubble) or not camera_rect.grow(32.0).has_point(bubble["pos"]):
 			continue
 		if not bubble.has("paragraph") or not is_equal_approx(bubble.get("layout_width", -1.0), width) or bubble.get("font_size", -1) != font_size:
 			bubble["paragraph"] = TEXT_LAYOUT.paragraph(str(bubble["text"]), _font, font_size, width)

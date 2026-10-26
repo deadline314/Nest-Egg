@@ -1,0 +1,137 @@
+{
+  "base": "bdd6ec1c54710f9b4fce78246bb3fc98d218f54a",
+  "source_sha256": {
+    ".github/workflows/tests.yml": "45794a6290a74682c05044329c08a3a2eed0bf07485deaa0553dc38b6f0a909f",
+    "autoload/story.gd": "70268b6113aae8e9d068d10cbbe7d21b83e0fe9ddc1fb78a6aa1a3ebe4b5a325",
+    "data/story/ch1_kasa.json": "5035eb58c5f59396baee864e4750cd7f5289319072428fcf1c8b12741c0a8a71",
+    "game/level/map_bubbles.gd": "2dfdb3f5c70f2a5c9d29d618f4b02519b721b22e5597e7fb19d718bb097b5a79",
+    "tests/suite/test_map_bubbles.gd": "0f4eb919427adfa6b4d9827018de73551cf910bbaf95248b2bd79ca0ad9bdbe0",
+    "tests/helpers/bubble_source_checks.gd": "d34dfa86517f16ea71d8f683a7479385f8150bff19698c1f01581e0cb4aa1bc6",
+    "tests/probes/bubble_source.gd": "522bf99291177d46da9c3fcf407d61d03c7e45ceaaba011fb2f1d3b9ee346884",
+    "tests/probes/bubble_source.tscn": "76b799ad6ae81082259a73ffc8186f76c4cce2233dd7166a7db5f87dbec9e152",
+    "tools/run_bubble_source.py": "507d18694bdb6434288d3922b291688e57541c8521e77fd12ff8766e38a1ab40",
+    "tools/story/ch1_closure.py": "79a4cd6cc7914ca09a989528a6510063740a34cb65403cd4df4b7cce51a9c763"
+  },
+  "engine_sha256": "dadf922b668b42d4484386749c9f5a2bf8587cd50c36215238f16776132de2ac",
+  "negative": {
+    "checks": 52,
+    "before_failures": 1,
+    "after_failures": 0,
+    "identical_probe_sha256": "78a5c087216ed4a96028e5e32effd829bb266e350762bb1151bd4b5dd1e7d250",
+    "before_state": {
+      "active": [
+        {
+          "age": 2.254492,
+          "hold": 2.5,
+          "id": "ch1_b_lounge",
+          "rect": "[P: (423.5, 198.0), S: (129.0, 20.0)]",
+          "text": "\u60f3\u64e6\u4e7e\u5c31\u9032\u4f86\uff0c\u684c\u908a\u6709\u4e7e\u5e03\u3002"
+        }
+      ],
+      "cinematic": "",
+      "completed_greeting": false,
+      "host_visible": true,
+      "passive_requests": [
+        1
+      ],
+      "present": false,
+      "queued": [],
+      "talks": 2
+    }
+  },
+  "affected": {
+    "groups": 67,
+    "workers": 4,
+    "checks": 67725,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 653
+  },
+  "focused": {
+    "groups": 2,
+    "checks": 92,
+    "failures": 0,
+    "seconds": 15
+  },
+  "headless": {
+    "processes": 1,
+    "checks": 54,
+    "failures": 0
+  },
+  "native": {
+    "processes": 2,
+    "checks": 106,
+    "failures": 0,
+    "cases": [
+      {
+        "tag": "ne228-bubble-final-original-v1",
+        "checks": 52,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true,
+        "state": {
+          "active": [],
+          "cinematic": "",
+          "completed_greeting": false,
+          "host_visible": true,
+          "passive_requests": [],
+          "present": false,
+          "queued": [],
+          "talks": 2
+        }
+      },
+      {
+        "tag": "ne228-bubble-final-published-v1",
+        "checks": 54,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true,
+        "state": {
+          "active": [],
+          "cinematic": "",
+          "completed_greeting": false,
+          "host_visible": true,
+          "passive_requests": [],
+          "present": false,
+          "queued": [],
+          "talks": 2
+        }
+      }
+    ]
+  },
+  "shared": {
+    "ali": {
+      "processes": 12,
+      "checks": 306,
+      "failures": 0
+    },
+    "voice": {
+      "processes": 17,
+      "checks": 615,
+      "failures": 0
+    },
+    "sunday": {
+      "processes": 8,
+      "checks": 133,
+      "failures": 0
+    },
+    "handoff": {
+      "processes": 2,
+      "checks": 107,
+      "failures": 0
+    }
+  },
+  "archive": {
+    "file": "evidence.zip",
+    "bytes": 5976705,
+    "entries": 424,
+    "sha256": "0defbe2ed80a4281a08ede0960ba570bc3ffe360dbf0ae89a20e4f43726f88fa"
+  },
+  "limits": [
+    "Exact original produced handoff seed and actual Ali interaction, not a natural human chapter playthrough.",
+    "Software Forward+ HDR2D; physical controller, GPU performance and overall UI/art acceptance remain separate.",
+    "Only original source lifetime and invitation eligibility; reading budgets, fonts, fades and maximum concurrent lines remain unchanged."
+  ]
+}
