@@ -1,0 +1,8 @@
+--- a/servers/rendering/dummy/storage/texture_storage.h
++++ b/servers/rendering/dummy/storage/texture_storage.h
+@@ -42,4 +42,4 @@
+ 	struct DummyTexture {
+ 		Ref<Image> image;
+ 	};
+-	mutable RID_PtrOwner<DummyTexture> texture_owner;
++	mutable RID_PtrOwner<DummyTexture, true> texture_owner;

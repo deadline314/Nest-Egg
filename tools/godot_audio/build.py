@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build and verify the pinned Godot audio lifetime repair (NE-280)."""
+"""Build and verify the pinned Godot lifetime and worker-texture repairs."""
 
 import argparse
 import hashlib
@@ -31,7 +31,19 @@ def recipe():
     patch = (HERE / "audio-bus-lifetime.patch").read_bytes()
     if hashlib.sha256(patch).hexdigest() != spec["patch_sha256"]:
         raise ValueError("audio patch does not match its pinned digest")
-    fingerprint = hashlib.sha256(raw + patch + pathlib.Path(__file__).read_bytes()).hexdigest()
+    auxiliary = b""
+    seen = {spec["audio_source_path"]}
+    for item in spec.get("additional_patches", []):
+        name = pathlib.PurePosixPath(item["file"])
+        source = pathlib.PurePosixPath(item["source_path"])
+        if len(name.parts) != 1 or source.is_absolute() or ".." in source.parts or str(source) in seen:
+            raise ValueError("additional patch paths must be unique local source files")
+        seen.add(str(source))
+        payload = (HERE / item["file"]).read_bytes()
+        if hashlib.sha256(payload).hexdigest() != item["patch_sha256"]:
+            raise ValueError("additional patch does not match its pinned digest: " + item["file"])
+        auxiliary += payload
+    fingerprint = hashlib.sha256(raw + patch + auxiliary + pathlib.Path(__file__).read_bytes()).hexdigest()
     return spec, patch.decode("utf-8"), fingerprint
 
 
@@ -59,24 +71,28 @@ def download(url, destination, expected, limit):
 
 
 def apply_exact_patch(source, patch, spec):
+    apply_pinned_patch(source, patch, spec["audio_before_sha256"], spec["audio_after_sha256"])
+
+
+def apply_pinned_patch(source, patch, before_sha256, after_sha256):
     before = source.read_bytes()
     digest = hashlib.sha256(before).hexdigest()
-    if digest == spec["audio_after_sha256"]:
+    if digest == after_sha256:
         return
-    if digest != spec["audio_before_sha256"]:
-        raise ValueError("audio source differs from the pinned version; refusing a fuzzy patch")
+    if digest != before_sha256:
+        raise ValueError(f"source differs from the pinned version; refusing a fuzzy patch: {source}")
     lines = patch.splitlines(keepends=True)
     headers = [i for i, line in enumerate(lines) if line.startswith("@@ ")]
     if len(headers) != 1:
-        raise ValueError("the versioned audio repair requires exactly one patch hunk")
+        raise ValueError("each versioned repair requires exactly one patch hunk")
     body = lines[headers[0] + 1:]
     old = "".join(line[1:] for line in body if line.startswith((" ", "-"))).encode()
     new = "".join(line[1:] for line in body if line.startswith((" ", "+"))).encode()
     if before.count(old) != 1:
-        raise ValueError("audio patch context is not unique")
+        raise ValueError("patch context is not unique")
     after = before.replace(old, new, 1)
-    if hashlib.sha256(after).hexdigest() != spec["audio_after_sha256"]:
-        raise ValueError("patched audio source has the wrong digest")
+    if hashlib.sha256(after).hexdigest() != after_sha256:
+        raise ValueError("patched source has the wrong digest")
     source.write_bytes(after)
 
 
@@ -92,6 +108,9 @@ def prepare_source(root, archive, spec, patch):
                 raise ValueError("unexpected source archive path")
         if not source.exists():
             package.extractall(root, filter="data")
+        allowed = {spec["audio_source_path"]: (spec["audio_before_sha256"], spec["audio_after_sha256"])}
+        allowed.update({item["source_path"]: (item["before_sha256"], item["after_sha256"])
+                        for item in spec.get("additional_patches", [])})
         verified = 0
         for member in members:
             if not member.isfile():
@@ -103,16 +122,20 @@ def prepare_source(root, archive, spec, patch):
             if target.is_symlink() or not target.is_file():
                 raise ValueError(f"source file missing or replaced by a link: {relative}")
             actual = digest_file(target)
-            if relative.as_posix() == source.name + "/" + spec["audio_source_path"]:
-                if actual not in [spec["audio_before_sha256"], spec["audio_after_sha256"]]:
-                    raise ValueError("audio source differs from both pinned states")
+            source_path = relative.relative_to(source.name).as_posix()
+            if source_path in allowed:
+                if actual not in allowed[source_path]:
+                    raise ValueError("source differs from both pinned states: " + source_path)
             else:
                 with package.extractfile(member) as stream:
                     expected = hashlib.file_digest(stream, "sha256").hexdigest()
                 if actual != expected:
-                    raise ValueError(f"source changed outside the audio patch: {relative}")
+                    raise ValueError(f"source changed outside the pinned patches: {relative}")
             verified += 1
     apply_exact_patch(source / spec["audio_source_path"], patch, spec)
+    for item in spec.get("additional_patches", []):
+        apply_pinned_patch(source / item["source_path"], (HERE / item["file"]).read_text(),
+                           item["before_sha256"], item["after_sha256"])
     return source, verified
 
 
@@ -160,6 +183,8 @@ def verify_cached(root, fingerprint, spec):
         for key in ["source_commit", "source_archive_sha256", "patch_sha256", "audio_after_sha256"]:
             if data.get(key) != spec[key]:
                 return None
+        if data.get("additional_patches", []) != spec.get("additional_patches", []):
+            return None
         version = data.get("engine_version", "")
         if data.get("binary_bytes") != binary.stat().st_size or not version.startswith("4.7.2.stable.") or ".official" in version:
             return None
@@ -171,7 +196,9 @@ def verify_cached(root, fingerprint, spec):
 
 
 def scons_python(root, provided, version):
-    python = pathlib.Path(provided).resolve() if provided else root / "venv/bin/python"
+    # Resolving a venv's interpreter symlink loses its pyvenv.cfg context.
+    # Preserve the explicitly selected environment; never install into it.
+    python = pathlib.Path(provided).absolute() if provided else root / "venv/bin/python"
     if provided and not python.is_file():
         raise ValueError("provided SCons Python does not exist")
     if not python.exists():
@@ -221,6 +248,7 @@ def publish(source, root, spec, fingerprint, command, source_files, compiler):
         receipt = {"schema": 1, "recipe_sha256": fingerprint, "source_commit": spec["source_commit"],
                    "source_archive_sha256": spec["source_archive_sha256"], "source_files_verified": source_files,
                    "patch_sha256": spec["patch_sha256"], "audio_after_sha256": spec["audio_after_sha256"],
+                   "additional_patches": spec.get("additional_patches", []),
                    "accesskit_sha256": spec["accesskit"]["digest"], "command": command,
                    "compiler": compiler, "engine_version": version, "binary_sha256": digest_file(temporary),
                    "compile_commands_sha256": compile_database,

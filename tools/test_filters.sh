@@ -5,8 +5,8 @@ EXPECTED_ERRORS="找不到角色骨架|區域覆蓋的群組|沒有電話亭可�
 
 # （body->get_space() 那一行是某個既有測試觸發的引擎訊息，在 main 上就有。）
 
-# 引擎結束時的資源檢查（「resources still in use at exit」「RID allocations … leaked at exit」）是關閉當下音訊執行緒還沒放掉播放實例造成的，
-# 與遊戲邏輯無關、也不穩定重現，所以不算失敗；真正的腳本錯誤仍然會被抓到。
+# 完整測試保留歷史 fixture 的退出資源相容規則；訊息本身不能定位成因，也不能一律歸咎音訊。
+# 獨立程序仍嚴格拒絕任何退出洩漏；BG-51 另檢查全部遊戲分片的 DummyTexture 診斷。
 # 自己編譯的 Godot 沒有 fontconfig 時，載入介面字型會印這行（系統字型找不到、退回內建字型），與遊戲邏輯無關。
 ENGINE_BUILD_NOTES="compiled without fontconfig"
 

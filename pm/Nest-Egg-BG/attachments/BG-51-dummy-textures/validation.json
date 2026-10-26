@@ -1,0 +1,164 @@
+{
+  "base": "97e07692d2260752e5c7131eb5629f0be54bcdb1",
+  "source_sha256": {
+    "tools/godot_audio/build.py": "fc801d3d68b7820ee2073c451d9906131b998f54dbd295a390b8f78ae000a57b",
+    "tools/godot_audio/test_build.py": "2d772a9cfbe67e4a4c9d8e3ed9cea10f4ea1e1890de71181fb255d021920ad91",
+    "tools/godot_audio/manifest.json": "86d3751fcd42024574a8aba7186ee2831ba7537b7a1ffbad2bcd55993239477c",
+    "tools/godot_audio/dummy-texture-threads.patch": "6997352a73125560d4006045a08d3be97d4b5f4d385ccbd40742845f438a96c8",
+    "tools/godot_audio/audio-bus-lifetime.patch": "aa4703685b2cf0394f6ccb4209bf5771c159e3a97df98a7b92891e4f54356c70",
+    "tools/godot_audio/texture_probe/project.godot": "1a4ab53fbba87e2bea41e0ce0e5231bee921e60813628e6773ff79f28b21313f",
+    "tools/godot_audio/texture_probe/main.gd": "f5e111dbc3e6889bf4bdf34b84c6cc3b889b7c4642f846d6acdea71752b51079",
+    "tools/godot_audio/texture_probe/main.tscn": "51be077839b50bab5b86c861f9aa171a3c2b8848819bd32b8e577b2774f19757",
+    "tools/run_texture_threads.py": "eb31d524bd24a8165cf81c1994de9bcee57369cda17f0a3ccb9f1d0f7033d001",
+    ".github/workflows/tests.yml": "89040df4d83c657ead831dd006ee9621912125b23ac70b6b5d242b0564c520d3",
+    "tools/select_tests.py": "727e0b558eebb07477860c44004e0cc33005fe9f55ac6a6c30e44b38020ab5b4",
+    "tools/test_select_tests.py": "224ab42542a003587fe08657d587f67156589e4653c2736aaa6d6ba0145b0f1f",
+    "tools/check_dummy_texture_exit.py": "7c66bf6be2b66d2dea432cfb553485206c883ea10009432daa11744c69617cd3",
+    "tools/test_dummy_texture_exit.py": "44118f2b1780340946deff3fa2ed2dfb5af9cf3663f94fa3563995e385b35220",
+    "tools/test_filters.sh": "509706b8257b8e46f6e8c01ebeda0ecd976b6607975f66430bd6774461500c80"
+  },
+  "engine": {
+    "schema": 1,
+    "recipe_sha256": "c8acb0c84639e13e1f1c4c5aecf6115b8da7574e8f4048cb8c83345378e12450",
+    "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "source_archive_sha256": "e607e9985e1c201bc9cdc1aec8a120f0c3f53b9603f1f828e2b748534a2471ef",
+    "source_files_verified": 13989,
+    "patch_sha256": "aa4703685b2cf0394f6ccb4209bf5771c159e3a97df98a7b92891e4f54356c70",
+    "audio_after_sha256": "f50737107e7169f5b8983836f76b3e66fc8a0fbbb1a5eab9b18d28810b248c06",
+    "additional_patches": [
+      {
+        "file": "dummy-texture-threads.patch",
+        "source_path": "servers/rendering/dummy/storage/texture_storage.h",
+        "before_sha256": "d48e7f601d7fbe66f446b893e5cd46d815ed0abce9575fd70411afc0d9f61946",
+        "after_sha256": "0cc7c447e017b6e9cf163da898a39f15da4592968889105ee613bcbe209c4be5",
+        "patch_sha256": "6997352a73125560d4006045a08d3be97d4b5f4d385ccbd40742845f438a96c8"
+      }
+    ],
+    "accesskit_sha256": "sha256:41b30b1382d03b225b6f7e8721269a32557a68065804f3797bdffc34a3273498",
+    "command": [
+      "/workspace/Nest-Egg/work/batch1026/godot-build-venv/bin/python",
+      "-m",
+      "SCons",
+      "-j3",
+      "platform=linuxbsd",
+      "target=editor",
+      "arch=x86_64",
+      "production=yes",
+      "debug_symbols=no",
+      "lto=none",
+      "wayland=yes",
+      "accesskit=yes",
+      "x11=yes",
+      "compiledb=yes"
+    ],
+    "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+    "engine_version": "4.7.2.stable.custom_build",
+    "binary_sha256": "319aaea8c619fa1edc5d08a33158ab2bfd069e329a1bcd672db9654af53f35e2",
+    "compile_commands_sha256": "9accb2478c08bc9e7ca53f2b07f3f573dbac5501a26d64decb7a0d4d18e4632c",
+    "binary_bytes": 165125600,
+    "features": {
+      "wayland": true,
+      "x11": true,
+      "accesskit": true,
+      "renderers": [
+        "vulkan",
+        "opengl3"
+      ]
+    }
+  },
+  "final_metadata_only_patch_context_normalization": {
+    "same_cpp_after_sha256": "0cc7c447e017b6e9cf163da898a39f15da4592968889105ee613bcbe209c4be5",
+    "same_binary_sha256": "319aaea8c619fa1edc5d08a33158ab2bfd069e329a1bcd672db9654af53f35e2",
+    "final_published_checks": 32810,
+    "final_published_failures": 0
+  },
+  "independent": {
+    "original_each_allocations": 8192,
+    "original_before_single_errors": 0,
+    "original_before_four_errors": 362,
+    "original_before_four_leaked_rids": 100,
+    "identical_original_probe_sha256": "875aa6e86e4e089aa9d375ac59421e7fc01859de9ed25ed24ae67b787b585525",
+    "published_before": [
+      {
+        "mode": "single",
+        "exit": 0,
+        "passed": true,
+        "diagnostic_count": 0
+      },
+      {
+        "mode": "four",
+        "exit": 1,
+        "passed": false,
+        "diagnostic_count": 50
+      }
+    ],
+    "published_after": {
+      "processes": 2,
+      "allocations": 16384,
+      "checks": 32810,
+      "failures": 0,
+      "same_sources": true
+    }
+  },
+  "full": {
+    "groups": 88,
+    "workers": 4,
+    "checks": 98066,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 757
+  },
+  "build_tests": 12,
+  "selector_tests": 12,
+  "full_log_guard": {
+    "tests": 4,
+    "complete_logs": 4,
+    "dummy_diagnostics": 0,
+    "rejects_original_zero_exit_failure": true
+  },
+  "legacy_exit_diagnostics": "bg51-legacy-exit-diagnostics.json in archive records; no new ignore patterns",
+  "audio_processes": 8,
+  "cold": {
+    "processes": 3,
+    "checks": 21,
+    "failures": 0,
+    "seed_sha256": "68e9c3eca87a684de7a326bad6bb1d89356bb0a13b9bf3a212da0707532ee4d9"
+  },
+  "native": {
+    "all_originals_viewed": true,
+    "file": "/workspace/Nest-Egg/work/batch1020b/bg51-supper-cold-native-v1/cold/frame.png",
+    "sha256": "4aaea4333a44b9061f25c26339a11d57ba143b69a0c7be9f5075447b3d5b6033",
+    "renderer": "software Vulkan Forward+ HDR2D",
+    "checks": 7,
+    "failures": 0,
+    "diagnostic_header": true,
+    "observations": [
+      "Original viewport shows stall street, main HUD, original loaded character and talk invitation.",
+      "Existing diagnostic text is part of the unchanged probe capture. Image has not been cropped or postprocessed.",
+      "No native rendering error or resource-exit diagnostic in this run.",
+      "This verifies this repaired editor can render the original cold process. It does not certify art style, brightness, physical GPU/controller or an entire human chapter route."
+    ]
+  },
+  "regressions": {
+    "supper": {
+      "processes": 47,
+      "checks": 1253,
+      "failures": 0
+    },
+    "sunday": {
+      "processes": 8,
+      "checks": 133,
+      "failures": 0
+    }
+  },
+  "archive": {
+    "bytes": 1553342,
+    "entries": 583,
+    "sha256": "b3a9405bfd8e29a79537745fdb36f7edf1f5215ca93b7925ef748370e28bfa2f"
+  },
+  "limits": [
+    "Independent matching-type worker race isolated; original single RID has no resource identity, so no claim of a uniquely identified prior Sunday object.",
+    "Software Forward+ and real Dummy-driver mixing; no physical GPU/controller/listening sign-off.",
+    "Original failures, parse/setup mistakes and the first no-selection run are retained. No known-failure or diagnostic-filter change."
+  ]
+}

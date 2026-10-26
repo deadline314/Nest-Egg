@@ -30,7 +30,7 @@ SCAN_EXT = {".gd", ".tres", ".tscn", ".json", ".gdshader", ".cfg"}
 # 往外找幾層；核心檔（被這麼多檔案用到）只有「自己被更動」時才展開。
 MAX_DEPTH = 8
 HUB_DEPENDENTS = 30
-RUN_ALL = {"project.godot", "tests/smoke_test.gd", "tools/run_tests.sh", "tools/run_tests_parallel.sh", "tools/test_filters.sh", "tools/select_tests.py"}
+RUN_ALL = {"project.godot", "tests/smoke_test.gd", "tools/run_tests.sh", "tools/run_tests_parallel.sh", "tools/test_filters.sh", "tools/select_tests.py", "tools/godot_audio/build.py", "tools/godot_audio/manifest.json"}
 CLASS_RE = re.compile(r"^class_name\s+(\w+)", re.M)
 PATH_RE = re.compile(r"res://[\w./\-]+")
 AUTOLOAD_RE = re.compile(r'^(\w+)="\*?res://([^"]+)"', re.M)
@@ -190,7 +190,7 @@ def run(args):
     files = tracked_files()
     all_suites = sorted(set(re.findall(r"class_name\s+(\w+Suite)\b", "\n".join(read_text(f) for f in files if f.startswith("tests/suite/")))))
     changed = args.files if args.files is not None else changed_files(args.base)
-    if args.all or any(f in RUN_ALL for f in changed):
+    if args.all or any(f in RUN_ALL or (f.startswith("tools/godot_audio/") and f.endswith(".patch")) for f in changed):
         print("ALL" if not args.explain else "全部（改到整個專案或測試流程本身）")
         return 0
     code_changes = [f for f in changed if not f.startswith(("pm/", "design/", "assets_src/")) and not f.endswith((".md", ".py")) or f == "tools/select_tests.py"]

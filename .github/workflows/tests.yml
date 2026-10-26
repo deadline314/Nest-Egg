@@ -59,7 +59,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: work/godot-audio-safe/dist
-          key: godot-audio-linux-x86_64-ubuntu24-${{ hashFiles('tools/godot_audio/manifest.json', 'tools/godot_audio/audio-bus-lifetime.patch', 'tools/godot_audio/build.py') }}
+          key: godot-audio-linux-x86_64-ubuntu24-${{ hashFiles('tools/godot_audio/manifest.json', 'tools/godot_audio/*.patch', 'tools/godot_audio/build.py') }}
 
       - name: Install engine build dependencies
         if: steps.gate.outputs.skip != 'true' && steps.engine-cache.outputs.cache-hit != 'true'
@@ -72,6 +72,8 @@ jobs:
         timeout-minutes: 90
         run: |
           python3 tools/godot_audio/test_build.py
+          python3 tools/test_select_tests.py
+          python3 tools/test_dummy_texture_exit.py
           python3 tools/godot_audio/build.py --jobs 3 --github-env "$GITHUB_ENV"
           cat work/godot-audio-safe/dist/receipt.json
 
@@ -96,6 +98,11 @@ jobs:
         run: |
           "$GODOT" --headless --editor --quit || true
           "$GODOT" --headless --editor --quit || true
+
+      - name: Check independent single and concurrent texture allocations
+        if: steps.gate.outputs.skip != 'true'
+        timeout-minutes: 5
+        run: python3 tools/run_texture_threads.py --godot "$GODOT" --output "${{ runner.temp }}/texture-workers"
 
       - name: Check actual positional audio mixing
         if: steps.gate.outputs.skip != 'true'
@@ -156,12 +163,18 @@ jobs:
           mkdir -p "$LOG_DIR"
           tools/run_tests_parallel.sh
 
+      - name: Reject DummyTexture exit leaks in complete game logs
+        if: steps.gate.outputs.skip != 'true'
+        run: python3 tools/check_dummy_texture_exit.py "${{ runner.temp }}/test-logs"
+
       - name: Upload the test logs
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: test-logs
           path: |
+            ${{ runner.temp }}/texture-workers/**/*.log
+            ${{ runner.temp }}/texture-workers/**/*.json
             ${{ runner.temp }}/test-logs/*.log
             ${{ runner.temp }}/audio-load/*.log
             ${{ runner.temp }}/audio-load/*.json

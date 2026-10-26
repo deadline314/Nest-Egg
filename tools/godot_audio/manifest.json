@@ -28,5 +28,14 @@
     "digest": "sha256:41b30b1382d03b225b6f7e8721269a32557a68065804f3797bdffc34a3273498",
     "name": "accesskit-c-0.22.3.zip",
     "size": 101767087
-  }
+  },
+  "additional_patches": [
+    {
+      "file": "dummy-texture-threads.patch",
+      "source_path": "servers/rendering/dummy/storage/texture_storage.h",
+      "before_sha256": "d48e7f601d7fbe66f446b893e5cd46d815ed0abce9575fd70411afc0d9f61946",
+      "after_sha256": "0cc7c447e017b6e9cf163da898a39f15da4592968889105ee613bcbe209c4be5",
+      "patch_sha256": "6997352a73125560d4006045a08d3be97d4b5f4d385ccbd40742845f438a96c8"
+    }
+  ]
 }

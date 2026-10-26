@@ -8,4 +8,4 @@
 
 沿用 NE-280 固定下載、全來源回讀與精確 patch／建置收據。增加第二個獨立來源／patch 雜湊，兩個修補各自驗證原始與修後 bytes，快取須同時符合。既有音訊修補不變。舊的單一 RID 診斷沒有資源身分，不能宣稱已證明其唯一成因；本票以獨立對照及原冷讀再次驗證。
 
-依據：Godot 官方文件 Thread-safe APIs 將 RenderingServer 列為可在背景執行緒使用的 server API；固定版本原始碼 `servers/rendering/rendering_server_default.h`、`servers/rendering/dummy/storage/texture_storage.h` 與 `core/templates/rid_owner.h` 提供本次直接依據。不是把測試錯誤隱藏成正常行為。
+參考連結：Godot 官方 Thread-safe APIs 文件頁本次回傳 403，沒有重試、繞過或聲稱已讀。固定版本原始碼 `servers/rendering/rendering_server_default.h`、`servers/rendering/dummy/storage/texture_storage.h` 與 `core/templates/rid_owner.h` 提供本次直接依據。不是把測試錯誤隱藏成正常行為。

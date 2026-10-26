@@ -159,6 +159,20 @@ class RunTestsChangedTest(unittest.TestCase):
         self.assertEqual(result.code, 0, result.err)
         self.assertIn("RUN --only=PropSuite", result.out)
 
+    def test_engine_recipe_and_any_pinned_patch_run_all_suites(self):
+        for path in ["tools/godot_audio/build.py", "tools/godot_audio/manifest.json",
+                     "tools/godot_audio/dummy-texture-threads.patch", "tools/godot_audio/future-repair.patch"]:
+            with self.subTest(path=path):
+                write(self.root, path, "engine repair fixture\n")
+                try:
+                    result = self.run_script(self.base)
+                    self.assertEqual(result.code, 0, result.err)
+                    self.assertIn("RUN ", result.out)
+                    self.assertNotIn("RUN --only=", result.out)
+                    self.assertNotIn("沒有受影響的測試要跑", result.out)
+                finally:
+                    (self.root / path).unlink()
+
     def test_ticket_only_change_reports_nothing_to_run(self):
         write(self.root, CHINESE_TICKET, "# 改過的票\n")
         result = self.run_script(self.base)
