@@ -2,6 +2,7 @@ extends Node
 ## Explicit terminal segments, optional choices and finite source continuations.
 ## The general atomic_v1 capability remains absent.
 const Sources := preload("res://game/story_result_sources.gd")
+const Clinic := preload("res://game/story_result_clinic.gd")
 const POLICY := Sources.TERMINAL
 const CONTINUATION_POLICIES := Sources.CONTINUATION_POLICIES
 const COMPLETION_POLICIES := [POLICY] + CONTINUATION_POLICIES
@@ -20,6 +21,7 @@ var _events: Array = []
 var _changed: Array[String] = []
 var _delta := 0
 var _publishing := false
+var _user_skipped := false
 var _recovery := false
 var _reload_original := false
 var _choice_retry: Callable
@@ -125,15 +127,21 @@ func complete(id: StringName, request: int) -> Dictionary:
 		return {"handled": true, "ready": false}
 	if _publishing or (_request != 0 and (_request != request or _id != id)):
 		return {"handled": true, "ready": false}
+	if _request == 0:
+		var player: CutscenePlayer = Story._player if is_instance_valid(Story._player) else null
+		_user_skipped = player != null and player.scene_id == id and player.user_skipped
 	_id = id
 	_request = request
 	if _lock == 0:
 		_lock = GameplayLock.acquire(self, Input.MOUSE_MODE_VISIBLE)
 	var continuation := Sources.continuation(String(id), Story._scenes, Story._scene_sources) if scene.get("completion_policy") in CONTINUATION_POLICIES else &""
+	var closes_here := _clinic_closes_here()
+	if closes_here:
+		continuation = &""
 	var result: Dictionary
 	if Sources.owns_boundary(String(id)) and Sources.boundary(String(id), Story._scenes, Story._scene_sources).is_empty():
 		result = {"error": "results differ from the finite authored boundary"}
-	elif scene.get("completion_policy") in CONTINUATION_POLICIES and continuation == &"":
+	elif scene.get("completion_policy") in CONTINUATION_POLICIES and continuation == &"" and not closes_here:
 		result = {"error": "continuation differs from its finite authored contract"}
 	else:
 		result = _prepare_and_commit(scene, continuation)
@@ -163,7 +171,11 @@ func complete(id: StringName, request: int) -> Dictionary:
 		main.call("_accept_story_choice", continuation, request, _continuation_context)
 	elif Story._current_cinematic == id:
 		main.call("_clear_cinematic")
-	return {"handled": true, "ready": true, "terminal_batch": true}
+	return {"handled": true, "ready": true, "terminal_batch": true, "next_scene":continuation}
+
+
+func _clinic_closes_here() -> bool:
+	return String(_id) in [Clinic.ROOT,Clinic.LOOK] and (_user_skipped or (_id == StringName(Clinic.ROOT) and StoryItems.owns(&"ch1_grey_cloth")))
 
 
 func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choice := false) -> Dictionary:
@@ -176,13 +188,18 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choi
 	if Story._scene_sources.get(String(_id)) != "res://data/story/ch1_kasa.json":
 		return {"error": "terminal producer is not bound to this segment and current authored Level"}
 	var npc := {}
-	if NPC_SOURCES.has(String(_id)):
+	var death := {}
+	if Clinic.owns(String(_id)):
+		death = level.death_presentation_source(_id,_request)
+		if not Clinic.owns_source(death):
+			return {"error":"first clinic requires its actual current death episode and request"}
+	elif NPC_SOURCES.has(String(_id)):
 		npc = _npc_source(level)
 		if npc.is_empty():
 			return {"error": "terminal NPC result requires its actual current authored interaction"}
 	elif SEGMENTS.get(String(_id), "") != level.data.resource_path:
 		return {"error": "terminal producer is not bound to this authored Level"}
-	if (not choice and str(scene.get("then", "")) != String(continuation)) or Story.offers_choice(scene) or Story._pending_next.has(_id) or scene.has("transfer_items") or not (Story._pending_transfers.get(_id, []) as Array).is_empty():
+	if (not choice and str(scene.get("then", "")) != String(continuation) and not (continuation == &"" and _clinic_closes_here())) or Story.offers_choice(scene) or Story._pending_next.has(_id) or scene.has("transfer_items") or not (Story._pending_transfers.get(_id, []) as Array).is_empty():
 		return {"error": "result boundary cannot own this choice, continuation or pending transfer"}
 	var passive: Array = Story._passive_requests.get(_id, [])
 	if not (Story._current_cinematic == _id and Story.current_presentation_request() == _request) and (passive.is_empty() or int(passive[0]) != _request):
@@ -204,7 +221,7 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choi
 	original = RunSnapshot.prepare(encoded_original["data"])
 	if original.has("error"):
 		return original
-	if not npc.is_empty():
+	if not npc.is_empty() or not death.is_empty():
 		# Detach the raw capture from the live area, retaining actual owner facts.
 		# Copying the normalized original could silently introduce read-time repairs.
 		candidate = candidate.duplicate(true)
@@ -264,13 +281,13 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choi
 	for flag: String in game["data"].flags:
 		if GameState.get_flag(StringName(flag)) != game["data"].flags[flag]:
 			changed.append(flag)
-	if Bundle._capture_source().get("data") != source["data"] or not _npc_unchanged(level, npc):
+	if Bundle._capture_source().get("data") != source["data"] or not _source_unchanged(level,npc,death):
 		return {"error": "live source changed before durable terminal write"}
 	var delta: int = next["credits"] - Progression.credits
 	var outcome := store.commit_existing_write(write)
 	if not outcome.committed:
 		return {"error": "; ".join(outcome.issues), "reload_original": outcome.requires_recovery}
-	if outcome.requires_recovery or Bundle._capture_source().get("data") != source["data"] or not _npc_unchanged(level, npc):
+	if outcome.requires_recovery or Bundle._capture_source().get("data") != source["data"] or not _source_unchanged(level,npc,death):
 		return {"committed": true, "recovery": true}
 	# No callbacks, loading, validation, saves or world replacement in this section.
 	Progression._install_prepared(money["data"])
@@ -281,6 +298,17 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choi
 		(npc["actor"] as NpcActor).install_story_completion(npc["prepared"])
 		level._area["world"][npc["key"]] = npc["prepared"]["after"].duplicate(true)
 	return {"committed": true, "events": planned["events"], "changed": changed, "delta": delta}
+
+
+func _source_unchanged(level: Level, npc: Dictionary, death: Dictionary) -> bool:
+	if not _npc_unchanged(level,npc):
+		return false
+	if death.is_empty():
+		return true
+	if not is_instance_valid(level) or level.is_queued_for_deletion() or not level.is_inside_tree() or main.get("_screen") != level:
+		return false
+	var current := level.death_presentation_source(_id,_request)
+	return Clinic.valid(Story._scenes,Story._scene_sources) and Clinic.owns_source(current) and current == death
 
 
 func _npc_source(level: Level) -> Dictionary:
@@ -334,7 +362,7 @@ func _plan(scene: Dictionary, candidate: Dictionary, continuation: StringName = 
 			entry["capability"] = "item_transfer"
 			entry["destination"] = raw.get("destination", "")
 		producers[kind + ":" + raw["id"]] = [entry]
-	scenes[String(_id)] = {"once": true, "condition": scene.get("when", {}), "results": operations}
+	scenes[String(_id)] = {"once": true, "condition": Story.outcomes.bind_context_condition(scene.get("when", {})), "results": operations}
 	var definitions := {}
 	for item: StoryItemData in StoryItems.catalog():
 		definitions[String(item.id)] = {"trigger": item.trigger}
@@ -376,7 +404,7 @@ func _plan(scene: Dictionary, candidate: Dictionary, continuation: StringName = 
 		return Story.fact(kind, key)
 	for flag: String in Story.outcomes.derived_flags:
 		next["flags"][flag] = StoryRules.holds(Story.outcomes.derived_flags[flag], facts)
-	if continuation != &"" and not StoryRules.holds((Story._scenes[String(continuation)] as Dictionary).get("when", {}), facts):
+	if continuation != &"" and not StoryRules.holds(Story.outcomes.bind_context_condition((Story._scenes[String(continuation)] as Dictionary).get("when", {})), facts):
 		return {"valid": false, "error": "choice continuation does not admit its proposed facts"}
 	return result
 
@@ -452,6 +480,7 @@ func _reset(_reason: StringName) -> void:
 func _clear() -> void:
 	_id = &""
 	_request = 0
+	_user_skipped = false
 	_recovery = false
 	_reload_original = false
 	_choice_retry = Callable()

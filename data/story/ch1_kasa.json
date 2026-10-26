@@ -5907,6 +5907,7 @@
      "value": true
     }
    ],
+   "completion_policy": "main_flags_continuation_v1",
    "context_facts": [
     "first_clinic"
    ],
@@ -7571,6 +7572,7 @@
     }
    ],
    "then": "ch1_t_clinic_cloth_decide",
+   "completion_policy": "main_flags_continuation_v1",
    "pose_policy": "supported"
   },
   "ch1_t_clinic_cloth_decide": {
@@ -7751,6 +7753,7 @@
      "value": true
     }
    ],
+   "completion_policy": "main_terminal_results_v1",
    "pose_policy": "supported"
   },
   "ch1_t_clinic_cloth_leave": {
@@ -7806,6 +7809,7 @@
     "flag": "ch1_first_clinic_active",
     "equals": true
    },
+   "completion_policy": "main_terminal_results_v1",
    "pose_policy": "supported"
   },
   "ch1_t_booth_recording": {

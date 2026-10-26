@@ -1,0 +1,50 @@
+{
+  "all_originals_viewed": true,
+  "originals": [
+    {
+      "path": "st9-clinic-tray-native-v1/pending.png",
+      "sha256": "1fdd7e48132899d7c3c385a89ef83012b8313b02e0b5aab427764eab56bff8d0",
+      "original_viewed": true
+    },
+    {
+      "path": "st9-clinic-write-tray-native-v2/pending.png",
+      "sha256": "4c6d490ca92a394fcba41f3f4b522f4ae927dc80be0512040bb115ca638e82d4",
+      "original_viewed": true
+    },
+    {
+      "path": "st9-clinic-write-decide-native-v2/pending.png",
+      "sha256": "99bcf79cafcd68086108db747065e50f4321f49c2e0dafb04d7d468c92921c88",
+      "original_viewed": true
+    },
+    {
+      "path": "st9-clinic-retry-take-native-v2/refused.png",
+      "sha256": "88a44b6506f834ddfe77426dad362cadc135f2de44d8676a1f65abd219f918dd",
+      "original_viewed": true
+    },
+    {
+      "path": "st9-clinic-retry-take-native-v2/complete.png",
+      "sha256": "ce959c818886cca2db828095d7217cb237f412378fb023fa5086f103ae636d1a",
+      "original_viewed": true
+    },
+    {
+      "path": "st9-clinic-read-tray-native-v2/complete.png",
+      "sha256": "07bb247ee97572b2ed03f52f541b8a94fca1c977cd6fa1de9c9a7257d7166410",
+      "original_viewed": true
+    },
+    {
+      "path": "st9-clinic-skip-look-native-v2/complete.png",
+      "sha256": "d353374ce2d403705e89b3af1de980e10761d45a09f0713934d46468f54f75ca",
+      "original_viewed": true
+    }
+  ],
+  "postprocessing": "None. Original viewport PNG. Native helper completes the original spoken text and advances its actual dialogue to show the real tray/decision menu; no product data or result changes, time manipulation, overlay, crop or reconstruction.",
+  "observations": [
+    "Tray three choices and cloth two choices render with their original labels, focus and explanations.",
+    "Actual take-write refusal shows the original persistent event-saving message and one Retry saving button.",
+    "Retry, cold original tray and manual look-skip return to the actual live booth area; original checkpoint/tutorial prompts remain visible.",
+    "Initial native-v1 image is an incomplete typewriter line, retained as supplementary raw only; final menu screenshots use actual original input.",
+    "Existing booth tutorial and contextual hints occupy a large part of the recovered world image; this packet does not certify a UI redesign or full scene-art quality.",
+    "The authored tooltip promises moving the cup/taking cloth; this persistence change does not implement or certify that prop animation.",
+    "Software Vulkan Forward+/HDR2D, Dummy audio, no physical GPU/controller or human full-chapter acceptance."
+  ]
+}

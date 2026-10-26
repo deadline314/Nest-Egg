@@ -1049,7 +1049,7 @@ func play(id: StringName, once := true, context: Dictionary = {}) -> bool:
 	return _enqueue_request(id, once, context) != 0
 
 
-func _enqueue_request(id: StringName, once: bool, context: Dictionary, waiting := false) -> int:
+func _enqueue_request(id: StringName, once: bool, context: Dictionary, waiting := false, owns_context := false) -> int:
 	if result_publication_active():
 		return 0
 	if id == &"" or not has_scene(id):
@@ -1058,7 +1058,7 @@ func _enqueue_request(id: StringName, once: bool, context: Dictionary, waiting :
 		return 0
 	if str((_scenes[String(id)] as Dictionary).get("mode", "")) == String(MODE_DISPATCH):
 		var target := resolve_dispatch(id)
-		return 0 if target == &"" else _enqueue_request(target, false, context, waiting)
+		return 0 if target == &"" else _enqueue_request(target, false, context, waiting, owns_context)
 	if once and _seen.has(id):
 		return 0
 	if not scene_available(id):
@@ -1068,6 +1068,8 @@ func _enqueue_request(id: StringName, once: bool, context: Dictionary, waiting :
 		return 0
 	_request_serial += 1
 	var request := _request_serial
+	if owns_context:
+		_context_request = request
 	if waiting:
 		_waiters[request] = true
 	_seen[id] = true
@@ -1105,7 +1107,29 @@ func _play_bubbles(id: StringName, request: int) -> bool:
 
 ## 播放並等待該場景結束，包含接在後面的 then 場景（場景不存在，或 once 為 true 且已看過時立即返回）。
 func play_and_wait(id: StringName, once := true, context: Dictionary = {}) -> bool:
-	var request := _enqueue_request(id, once, context, true)
+	return await _wait_for_request(_enqueue_request(id,once,context,true))
+
+
+## A live owner supplies transient context, never world flags or save data.
+## Reject concurrent ownership; bind the lease before any scene-start callback.
+func play_contextual_and_wait(id: StringName, names: Array[StringName], context: Dictionary = {}) -> bool:
+	if names.is_empty() or names.size() > 8 or is_cinematic_active() or is_replaying() or result_publication_active() or not _cinematic_queue.is_empty() or _context_request != 0 or not outcomes.context_facts.is_empty():
+		return false
+	if not has_scene(id) or str((_scenes[String(id)] as Dictionary).get("mode","")) not in [String(MODE_ANIMATED),String(MODE_CINEMATIC),String(MODE_DIALOGUE)]:
+		return false
+	var providers := outcomes.runtime_facts.values()
+	for name: StringName in names:
+		if not providers.has("context:" + String(name)):
+			return false
+	for name: StringName in names:
+		outcomes.context_facts[String(name)] = true
+	var request := _enqueue_request(id,false,context,true,true)
+	if request == 0:
+		outcomes.context_facts.clear()
+	return await _wait_for_request(request)
+
+
+func _wait_for_request(request: int) -> bool:
 	if request == 0:
 		return false
 	while not _request_results.has(request):
@@ -1197,7 +1221,11 @@ func _on_cinematic_finished(id: StringName, expected_request := 0) -> void:
 	var chosen: StringName = _pending_next.get(id, &"")
 	_pending_next.erase(id)
 	var chained := false
-	if not applied["ok"]:
+	if guarded.has("next_scene"):
+		# A durable owner resolved this continuation, including an intentional
+		# empty target. A freed skipped player must not resurrect its authored then.
+		chained = _queue_dynamic_scene(StringName(guarded["next_scene"]),completed_request)
+	elif not applied["ok"]:
 		chained = _queue_dynamic_scene(StringName(str(applied["failure_scene"])), completed_request)
 	elif chosen != &"":
 		chained = _queue_dynamic_scene(chosen, completed_request)

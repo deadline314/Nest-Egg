@@ -2,6 +2,7 @@ extends RefCounted
 ## Finite authored producer contracts, independent of filesystem and live owners.
 const SOURCE := "res://data/story/ch1_kasa.json"
 const Supper := preload("res://game/story_result_supper.gd")
+const Clinic := preload("res://game/story_result_clinic.gd")
 const TERMINAL := "main_terminal_results_v1"
 const CONTINUATION := "main_flags_continuation_v1"
 const RESULT_CONTINUATION := "main_source_results_continuation_v1"
@@ -130,7 +131,7 @@ static func owns_choice(id: String) -> bool:
 	return CHOICES.has(id) or Supper.CHOICES.has(id)
 
 static func owns_boundary(id: String) -> bool:
-	return BOUNDARIES.has(id) or Supper.BOUNDARIES.has(id)
+	return BOUNDARIES.has(id) or Supper.BOUNDARIES.has(id) or Clinic.owns(id)
 
 static func _choice_rule(id: String) -> Dictionary:
 	return CHOICES.get(id, Supper.CHOICES.get(id, {}))
@@ -188,6 +189,8 @@ static func _operations_match(raw: Variant, expected: Array) -> bool:
 
 
 static func boundary(id: String, scenes: Dictionary, sources: Dictionary) -> Dictionary:
+	if Clinic.owns(id):
+		return Clinic.boundary(id,scenes,sources)
 	var rule := _boundary_rule(id)
 	if rule.is_empty():
 		return {}
@@ -317,6 +320,8 @@ static func choice(id: String, option: Dictionary, scenes: Dictionary, sources: 
 
 
 static func continuation(id: String, scenes: Dictionary, sources: Dictionary) -> StringName:
+	if Clinic.owns(id):
+		return Clinic.continuation(id,scenes,sources)
 	var rule := boundary(id, scenes, sources)
 	if rule.is_empty() or rule["policy"] not in CONTINUATION_POLICIES or not _route_valid(id, scenes, sources, {}):
 		return &""

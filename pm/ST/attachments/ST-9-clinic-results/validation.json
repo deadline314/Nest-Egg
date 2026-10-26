@@ -1,0 +1,155 @@
+{
+  "base": "a276c2cb69ef762c4a91c0d344aee43dd445d090",
+  "source_sha256": {
+    "autoload/story.gd": "13769a50305e9a9ad17c91b29c7301f6406a5f4874e139846670177fdfd77be7",
+    "core/story_outcomes.gd": "60e268389b607dd2d5d26ba643f4cdeb196ab299f31abff012361b79a16f7843",
+    "game/level/level.gd": "af1b8d253c10f04336bc26ea5f0869700f87759dfca80397cc2676a3185b9aca",
+    "game/main.gd": "69dad6b1e1e7ec94e74e748ba1e3fbfd66138f41b040f899ccff07ea8e294c9d",
+    "game/story_result_clinic.gd": "8dec25587033f47486e8c24f46fba768c52165e00cd25851eef1910fedfab7d0",
+    "game/story_result_completion.gd": "07a3cba92504a7c49a3804a9e497ce26730efdd8ae72a7244c2bf6ece6542b42",
+    "game/story_result_sources.gd": "ba7e852b71c730abc138be1ae97b14c4ad91ac7a8c44e7e465d3ab1caaad2533",
+    "tools/story/ch1_runtime_backend.py": "4b0dbbcd150b1f26eb6860880e6a9a346d68f64301ea10d3f7d82a11251e060f",
+    "data/story/ch1_kasa.json": "7d1e6be14dba20b5a01464c4f31d30fbc98ec3fbb79c083f2003543903f3a3fd",
+    "tests/helpers/clinic_source_checks.gd": "9f7c78d09358cef10d60c3dcf362bfbe002a960396a9b407c61cfc54aa7c68af",
+    "tests/suite/test_run_save.gd": "11746d93081defec5dc55bfe5156b88a339f7868ab9ff56bba1b04fa7a700532",
+    "tests/probes/clinic_original.gd": "b05f6a4d93af3f655fce8e10b300dec5f5526f4539ceda3a4fbff1182eaa3d26",
+    "tests/probes/clinic_original.tscn": "1cf12fa95552dba844e7346ae87a011b684bad55b28ee982099ea99743612414",
+    "tests/probes/clinic_completion.gd": "62cf0ea051e9a102f8e861e953865aa6347c289b5e8abfc5d1fd0234185299d9",
+    "tests/probes/clinic_completion.tscn": "e95088bdc1d7873b66fd4f874a6728ce84661b42eaa6493d653e34dace123863",
+    "tests/fixtures/clinic_tray_pending.json": "f1c2c703331d3569ed548df2c44e820de5596aca19449b03f6338d11e92421aa",
+    "tests/fixtures/clinic_tray_pending.provenance.json": "dc3137c0651d6c18082638fe1bd0b44d64c3e643b5f8fa1aba35aa5b58eb2d3d",
+    "tools/run_clinic_completion.py": "8cc05594590b3d365a68fe6e69555bff682726797a5760cd7221b92d7b4d25e8",
+    "tools/runtime_probe.py": "38ab1fc6744546985645223feddbed3d3c3b1f61bd6a338328fed29e383b9b34",
+    ".github/workflows/tests.yml": "f0062bef508a3ce487af3e9dbbb4dc9a761bf9aafe97ebc5fe5905c9f0a7997e"
+  },
+  "engine_sha256": "319aaea8c619fa1edc5d08a33158ab2bfd069e329a1bcd672db9654af53f35e2",
+  "compiler": {
+    "scenes": 139,
+    "quests": 10,
+    "missing_translations": 0,
+    "exact_compiler_parity": true,
+    "data_sha256": "7d1e6be14dba20b5a01464c4f31d30fbc98ec3fbb79c083f2003543903f3a3fd"
+  },
+  "material_negative": {
+    "same_immutable_v2_checks": 42,
+    "before_failures": 6,
+    "after_failures": 0
+  },
+  "cold_negative": {
+    "same_v3_checks": 5,
+    "before_failures": 1,
+    "after_failures": 0,
+    "original_v2_early_menu_assertion_failure_retained": true
+  },
+  "clinic": {
+    "processes": 29,
+    "checks": 385,
+    "failures": 0,
+    "seconds": 371.714
+  },
+  "funded_original_pickup": {
+    "checks": 17,
+    "failures": 0,
+    "real_physics_pickup_before_first_death": true
+  },
+  "affected": {
+    "groups": 72,
+    "workers": 4,
+    "checks": 93743,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 720,
+    "dummy_exit_diagnostics": 0
+  },
+  "regressions": {
+    "bubble-state": {
+      "processes": 1,
+      "checks": 52,
+      "failures": 0
+    },
+    "bubble-source": {
+      "processes": 1,
+      "checks": 54,
+      "failures": 0
+    },
+    "ali": {
+      "processes": 12,
+      "checks": 306,
+      "failures": 0
+    },
+    "voice": {
+      "processes": 17,
+      "checks": 615,
+      "failures": 0
+    },
+    "sunday": {
+      "processes": 8,
+      "checks": 133,
+      "failures": 0
+    },
+    "handoff": {
+      "processes": 2,
+      "checks": 107,
+      "failures": 0
+    },
+    "reception": {
+      "processes": 10,
+      "checks": 244,
+      "failures": 0
+    },
+    "supper": {
+      "processes": 47,
+      "checks": 1253,
+      "failures": 0
+    },
+    "repeat": {
+      "processes": 1,
+      "checks": 40,
+      "failures": 0
+    }
+  },
+  "native": [
+    {
+      "tag": "st9-clinic-write-tray-native-v2",
+      "mode": "write_tray",
+      "checks": 10,
+      "passed": true
+    },
+    {
+      "tag": "st9-clinic-write-decide-native-v2",
+      "mode": "write_decide",
+      "checks": 11,
+      "passed": true
+    },
+    {
+      "tag": "st9-clinic-retry-take-native-v2",
+      "mode": "retry_take",
+      "checks": 21,
+      "passed": true
+    },
+    {
+      "tag": "st9-clinic-read-tray-native-v2",
+      "mode": "read_tray",
+      "checks": 14,
+      "passed": true
+    },
+    {
+      "tag": "st9-clinic-skip-look-native-v2",
+      "mode": "skip_look",
+      "checks": 15,
+      "passed": true
+    }
+  ],
+  "archive": {
+    "bytes": 6764299,
+    "entries": 1269,
+    "sha256": "d9df152c0ce18e3ae9764933b1bf844c8a0d215b2d72d560af0eac262dc12a94"
+  },
+  "limits": [
+    "Direct original Main route into booth alley, not a full human chapter playthrough.",
+    "Software Forward+ HDR2D with Dummy audio; physical GPU/controller, full character art and human visual acceptance remain open.",
+    "Cloth/cup prop animation is not implemented or accepted by this persistence change.",
+    "GitHub detailed CI queries returned HTTP 401; no retry/bypass. New commit CI is not certified by local checks.",
+    "Original zero-wallet route supplemented by a distinct actual physics credit-pile collection; existing DeathFlowSuite retains original 1000-credit free/paid controls."
+  ]
+}

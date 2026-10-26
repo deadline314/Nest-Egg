@@ -953,6 +953,8 @@ func _spawn_boss() -> void:
 # ---------------------------------------------------------------------------
 
 func _on_player_died(cause: StringName) -> void:
+	if not is_inside_tree() or is_queued_for_deletion():
+		return
 	if _finished:
 		return
 	_finished = true
@@ -986,12 +988,29 @@ func _on_player_died(cause: StringName) -> void:
 
 ## 死亡後、重生前的特殊過場（見 StoryReactions 的 death_scenes）。播完（含按 Esc 跳過）才登記復原點，然後重生。
 ## once = false：是否再播由資料的旗標決定，過場中途退出就會從頭再播。
-func _run_death_scene(entry: Dictionary) -> void:
-	if not await _play_flow_scene(StringName(str(entry.get("scene", ""))), false):
-		return
-	if not is_inside_tree():
-		return
-	if bool(entry.get("register_checkpoint", false)) and _register_nearest_checkpoint():
+## Live source evidence, not a serialized permission or an NPC completion.
+func death_presentation_source(id: StringName = &"", request := 0) -> Dictionary:
+	if not is_inside_tree() or is_queued_for_deletion() or not died or not _death_can_continue or not is_instance_valid(player) or not is_ancestor_of(player) or not player.is_dead() or GameState.deaths <= 0:
+		return {}
+	if id != &"" and (Story._current_cinematic != id or Story.current_presentation_request() != request):
+		return {}
+	return {"level":self,"player":player,"data":data,"chapter":String(data.chapter),"root":str(_death_entry.get("scene","")),"entry":_death_entry.duplicate(true),"cause":String(_death_cause),"deaths":GameState.deaths,"request":request,"scene":String(id),"context_request":Story._context_request,"context_facts":Story.outcomes.context_facts.duplicate(true)}
+
+
+func _run_death_scene(entry: Dictionary, resumed: StringName = &"") -> bool:
+	var completed: bool
+	if resumed != &"":
+		completed = await Story.play_contextual_and_wait(resumed,[&"first_clinic"])
+	else:
+		completed = await _play_flow_scene(StringName(str(entry.get("scene",""))),false)
+	if not completed or not is_inside_tree() or is_queued_for_deletion():
+		return false
+	_finish_death_scene(entry)
+	return true
+
+
+func _finish_death_scene(entry: Dictionary) -> void:
+	if bool(entry.get("register_checkpoint",false)) and _register_nearest_checkpoint():
 		GameState.checkpoint_notice_pending = true
 	_request_retry()
 
@@ -1217,14 +1236,28 @@ func _resume_death() -> void:
 	_death_can_continue = _resume.get("can_continue", true)
 	_close_menus()
 	if not _death_entry.is_empty():
-		await _run_death_scene(_death_entry)
-	else:
-		var screen := DeathScreen.new()
-		screen.sequence = Story.death_sequence(data.chapter)
-		screen.setup(DefeatCodex.unlock(_death_cause), _death_can_continue)
-		screen.retry_requested.connect(_request_retry)
-		screen.menu_requested.connect(_request_menu)
-		add_child(screen)
+		var clinic := preload("res://game/story_result_clinic.gd")
+		if _death_entry.get("scene") == clinic.ROOT:
+			var plan := clinic.resume(death_presentation_source(),str(_resume.get("cinematic","")),GameState.world_flags,Story.progress_snapshot(),StoryItems.owns(&"ch1_grey_cloth"))
+			if plan.get("valid",false) and clinic.valid(Story._scenes,Story._scene_sources):
+				if plan["scene"].is_empty():
+					_finish_death_scene(_death_entry)
+					return
+				var generation := Story.presentation_generation()
+				if await _run_death_scene(_death_entry,StringName(plan["scene"])):
+					return
+				if generation != Story.presentation_generation() or not is_inside_tree() or is_queued_for_deletion():
+					return # A real started request was cancelled; respect its owner.
+			push_warning("[Level] 首次診間續玩來源或條件不符，保留物品與歷史並提供原復原選擇")
+		else:
+			await _run_death_scene(_death_entry)
+			return
+	var screen := DeathScreen.new()
+	screen.sequence = Story.death_sequence(data.chapter)
+	screen.setup(DefeatCodex.unlock(_death_cause),_death_can_continue)
+	screen.retry_requested.connect(_request_retry)
+	screen.menu_requested.connect(_request_menu)
+	add_child(screen)
 
 
 ## 空白／已完成的舊資料維持原流程；真正入隊後被取消則停止後續結算。

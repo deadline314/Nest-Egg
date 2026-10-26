@@ -64,6 +64,32 @@ func flag_value(name: StringName) -> Variant:
 	return GameState.get_flag(name)
 
 
+## Bind only request-owned context leaves to literals. Persistent flags remain
+## unchanged; the pure result planner retains its strict service projection.
+func bind_context_condition(condition: Variant) -> Variant:
+	if not StoryConditionTree.validate(condition).get("valid",false):
+		return condition # Preserve malformed input for the original planner error.
+	return _bound_context_condition(condition)
+
+
+func _bound_context_condition(condition: Dictionary) -> Dictionary:
+	if condition.has("flag"):
+		var name: String = condition["flag"]
+		var provider: String = runtime_facts.get(name,"")
+		if provider.begins_with("context:"):
+			return {} if StoryRules.same_value(_runtime_fact(name,provider),condition["equals"]) else {"not":{}}
+	var bound := condition.duplicate(true)
+	for op: String in ["all","any"]:
+		if bound.has(op):
+			var children: Array = []
+			for child: Dictionary in condition[op]:
+				children.append(_bound_context_condition(child))
+			bound[op] = children
+	if bound.has("not"):
+		bound["not"] = _bound_context_condition(condition["not"])
+	return bound
+
+
 func _runtime_fact(name: String, provider: String) -> bool:
 	if provider.begins_with("context:"):
 		return bool(context_facts.get(provider.substr(8), false))
