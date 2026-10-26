@@ -1,0 +1,698 @@
+{
+  "schema": 1,
+  "game_runtime_base": "9055c63a1a8071aacbceeed98b6f7f8a2642c8f5",
+  "engine": {
+    "schema": 1,
+    "recipe_sha256": "4f37a9546a962e54b7ef0a7b25525d100617175b197eb5e6bf4b4a750daea754",
+    "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "source_archive_sha256": "e607e9985e1c201bc9cdc1aec8a120f0c3f53b9603f1f828e2b748534a2471ef",
+    "source_files_verified": 13989,
+    "patch_sha256": "aa4703685b2cf0394f6ccb4209bf5771c159e3a97df98a7b92891e4f54356c70",
+    "audio_after_sha256": "f50737107e7169f5b8983836f76b3e66fc8a0fbbb1a5eab9b18d28810b248c06",
+    "accesskit_sha256": "sha256:41b30b1382d03b225b6f7e8721269a32557a68065804f3797bdffc34a3273498",
+    "command": [
+      "/workspace/Nest-Egg/work/batch1026/godot-build-venv/bin/python",
+      "-m",
+      "SCons",
+      "-j3",
+      "platform=linuxbsd",
+      "target=editor",
+      "arch=x86_64",
+      "production=yes",
+      "debug_symbols=no",
+      "lto=none",
+      "wayland=yes",
+      "accesskit=yes",
+      "x11=yes",
+      "compiledb=yes"
+    ],
+    "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+    "engine_version": "4.7.2.stable.custom_build",
+    "binary_sha256": "dadf922b668b42d4484386749c9f5a2bf8587cd50c36215238f16776132de2ac",
+    "compile_commands_sha256": "fa871495b41e0b4fba825ec8fb584dc41e1280aafcfb76c8d4de0fea73f61b83",
+    "binary_bytes": 165125600,
+    "features": {
+      "wayland": true,
+      "x11": true,
+      "accesskit": true,
+      "renderers": [
+        "vulkan",
+        "opengl3"
+      ]
+    }
+  },
+  "full": {
+    "groups": 88,
+    "processes": 8,
+    "checks": 97885,
+    "new_failures": 0,
+    "known_failures": 0,
+    "wall_seconds": 527
+  },
+  "audio_processes": 8,
+  "audio_cases": [
+    {
+      "case": 0,
+      "exit": 0,
+      "timeout": false,
+      "crashed": false,
+      "script_error": false,
+      "leaks": false,
+      "error": false,
+      "result": {
+        "audio_active": true,
+        "audio_behavior": true,
+        "behavior": {
+          "center": [
+            0.0200439374893904,
+            0.0200439374893904,
+            4096.0
+          ],
+          "left": [
+            0.0266909226775169,
+            0.00889698136597872,
+            4096.0
+          ],
+          "passed": true,
+          "quiet": [
+            0.00501340953633189,
+            0.00501340953633189,
+            4096.0
+          ],
+          "quiet_ratio": 0.250120992394113,
+          "right": [
+            0.00889873504638672,
+            0.0266961753368378,
+            4096.0
+          ]
+        },
+        "engine": {
+          "build": "custom_build",
+          "hash": "unknown",
+          "hex": 263938,
+          "major": 4,
+          "minor": 7,
+          "patch": 2,
+          "status": "stable",
+          "string": "4.7.2-stable (custom_build)",
+          "timestamp": 0
+        },
+        "frames": 1740,
+        "peak": 0.139759361743927,
+        "samples_seen": 512000,
+        "seconds": 12.006,
+        "shutdown_mix_frames": 4096,
+        "shutdown_mixed": true
+      }
+    },
+    {
+      "case": 1,
+      "exit": 0,
+      "timeout": false,
+      "crashed": false,
+      "script_error": false,
+      "leaks": false,
+      "error": false,
+      "result": {
+        "audio_active": true,
+        "audio_behavior": true,
+        "behavior": {
+          "center": [
+            0.020043982192874,
+            0.020043982192874,
+            4096.0
+          ],
+          "left": [
+            0.0266909804195166,
+            0.00889700092375278,
+            4096.0
+          ],
+          "passed": true,
+          "quiet": [
+            0.00501342071220279,
+            0.00501342071220279,
+            4096.0
+          ],
+          "quiet_ratio": 0.250120992124268,
+          "right": [
+            0.00889875460416079,
+            0.0266962330788374,
+            4096.0
+          ]
+        },
+        "engine": {
+          "build": "custom_build",
+          "hash": "unknown",
+          "hex": 263938,
+          "major": 4,
+          "minor": 7,
+          "patch": 2,
+          "status": "stable",
+          "string": "4.7.2-stable (custom_build)",
+          "timestamp": 0
+        },
+        "frames": 1740,
+        "peak": 0.139759361743927,
+        "samples_seen": 512000,
+        "seconds": 12.006,
+        "shutdown_mix_frames": 4096,
+        "shutdown_mixed": true
+      }
+    },
+    {
+      "case": 2,
+      "exit": 0,
+      "timeout": false,
+      "crashed": false,
+      "script_error": false,
+      "leaks": false,
+      "error": false,
+      "result": {
+        "audio_active": true,
+        "audio_behavior": true,
+        "behavior": {
+          "center": [
+            0.0200644675642252,
+            0.0200644675642252,
+            4096.0
+          ],
+          "left": [
+            0.0267183315008879,
+            0.00890611857175827,
+            4096.0
+          ],
+          "passed": true,
+          "quiet": [
+            0.00501856720075011,
+            0.00501856720075011,
+            4096.0
+          ],
+          "quiet_ratio": 0.250122121839813,
+          "right": [
+            0.0089078713208437,
+            0.0267235841602087,
+            4096.0
+          ]
+        },
+        "engine": {
+          "build": "custom_build",
+          "hash": "unknown",
+          "hex": 263938,
+          "major": 4,
+          "minor": 7,
+          "patch": 2,
+          "status": "stable",
+          "string": "4.7.2-stable (custom_build)",
+          "timestamp": 0
+        },
+        "frames": 1740,
+        "peak": 0.341708421707153,
+        "samples_seen": 512000,
+        "seconds": 12.005,
+        "shutdown_mix_frames": 4096,
+        "shutdown_mixed": true
+      }
+    },
+    {
+      "case": 3,
+      "exit": 0,
+      "timeout": false,
+      "crashed": false,
+      "script_error": false,
+      "leaks": false,
+      "error": false,
+      "result": {
+        "audio_active": true,
+        "audio_behavior": true,
+        "behavior": {
+          "center": [
+            0.0200439170002937,
+            0.0200439170002937,
+            4096.0
+          ],
+          "left": [
+            0.0266908947378397,
+            0.00889697205275297,
+            4096.0
+          ],
+          "passed": true,
+          "quiet": [
+            0.00501340441405773,
+            0.00501340441405773,
+            4096.0
+          ],
+          "quiet_ratio": 0.250120992517793,
+          "right": [
+            0.00889872573316097,
+            0.0266961473971605,
+            4096.0
+          ]
+        },
+        "engine": {
+          "build": "custom_build",
+          "hash": "unknown",
+          "hex": 263938,
+          "major": 4,
+          "minor": 7,
+          "patch": 2,
+          "status": "stable",
+          "string": "4.7.2-stable (custom_build)",
+          "timestamp": 0
+        },
+        "frames": 1740,
+        "peak": 0.13873003423214,
+        "samples_seen": 512000,
+        "seconds": 12.005,
+        "shutdown_mix_frames": 4096,
+        "shutdown_mixed": true
+      }
+    },
+    {
+      "case": 4,
+      "exit": 0,
+      "timeout": false,
+      "crashed": false,
+      "script_error": false,
+      "leaks": false,
+      "error": false,
+      "result": {
+        "audio_active": true,
+        "audio_behavior": true,
+        "behavior": {
+          "center": [
+            0.0200439263135195,
+            0.0200439263135195,
+            4096.0
+          ],
+          "left": [
+            0.0266909077763557,
+            0.00889697670936584,
+            4096.0
+          ],
+          "passed": true,
+          "quiet": [
+            0.00501340674236417,
+            0.00501340674236417,
+            4096.0
+          ],
+          "quiet_ratio": 0.250120992461575,
+          "right": [
+            0.00889872945845127,
+            0.0266961604356766,
+            4096.0
+          ]
+        },
+        "engine": {
+          "build": "custom_build",
+          "hash": "unknown",
+          "hex": 263938,
+          "major": 4,
+          "minor": 7,
+          "patch": 2,
+          "status": "stable",
+          "string": "4.7.2-stable (custom_build)",
+          "timestamp": 0
+        },
+        "frames": 1739,
+        "peak": 0.139759361743927,
+        "samples_seen": 512000,
+        "seconds": 12.0,
+        "shutdown_mix_frames": 4096,
+        "shutdown_mixed": true
+      }
+    },
+    {
+      "case": 5,
+      "exit": 0,
+      "timeout": false,
+      "crashed": false,
+      "script_error": false,
+      "leaks": false,
+      "error": false,
+      "result": {
+        "audio_active": true,
+        "audio_behavior": true,
+        "behavior": {
+          "center": [
+            0.0200439784675837,
+            0.0200439784675837,
+            4096.0
+          ],
+          "left": [
+            0.0266909766942263,
+            0.00889699999243021,
+            4096.0
+          ],
+          "passed": true,
+          "quiet": [
+            0.00501341978088021,
+            0.00501341978088021,
+            4096.0
+          ],
+          "quiet_ratio": 0.250120992146755,
+          "right": [
+            0.00889875274151564,
+            0.0266962293535471,
+            4096.0
+          ]
+        },
+        "engine": {
+          "build": "custom_build",
+          "hash": "unknown",
+          "hex": 263938,
+          "major": 4,
+          "minor": 7,
+          "patch": 2,
+          "status": "stable",
+          "string": "4.7.2-stable (custom_build)",
+          "timestamp": 0
+        },
+        "frames": 1740,
+        "peak": 0.139759361743927,
+        "samples_seen": 512000,
+        "seconds": 12.006,
+        "shutdown_mix_frames": 4096,
+        "shutdown_mixed": true
+      }
+    },
+    {
+      "case": 6,
+      "exit": 0,
+      "timeout": false,
+      "crashed": false,
+      "script_error": false,
+      "leaks": false,
+      "error": false,
+      "result": {
+        "audio_active": true,
+        "audio_behavior": true,
+        "behavior": {
+          "center": [
+            0.0200439170002937,
+            0.0200439170002937,
+            4096.0
+          ],
+          "left": [
+            0.0266908947378397,
+            0.00889697205275297,
+            4096.0
+          ],
+          "passed": true,
+          "quiet": [
+            0.00501340441405773,
+            0.00501340441405773,
+            4096.0
+          ],
+          "quiet_ratio": 0.250120992517793,
+          "right": [
+            0.00889872573316097,
+            0.0266961473971605,
+            4096.0
+          ]
+        },
+        "engine": {
+          "build": "custom_build",
+          "hash": "unknown",
+          "hex": 263938,
+          "major": 4,
+          "minor": 7,
+          "patch": 2,
+          "status": "stable",
+          "string": "4.7.2-stable (custom_build)",
+          "timestamp": 0
+        },
+        "frames": 1740,
+        "peak": 0.138754457235336,
+        "samples_seen": 512000,
+        "seconds": 12.006,
+        "shutdown_mix_frames": 4096,
+        "shutdown_mixed": true
+      }
+    },
+    {
+      "case": 7,
+      "exit": 0,
+      "timeout": false,
+      "crashed": false,
+      "script_error": false,
+      "leaks": false,
+      "error": false,
+      "result": {
+        "audio_active": true,
+        "audio_behavior": true,
+        "behavior": {
+          "center": [
+            0.0200645420700312,
+            0.0200645420700312,
+            4096.0
+          ],
+          "left": [
+            0.0267184302210808,
+            0.00890615116804838,
+            4096.0
+          ],
+          "passed": true,
+          "quiet": [
+            0.0050185858272016,
+            0.0050185858272016,
+            4096.0
+          ],
+          "quiet_ratio": 0.250122121386337,
+          "right": [
+            0.00890790391713381,
+            0.0267236828804016,
+            4096.0
+          ]
+        },
+        "engine": {
+          "build": "custom_build",
+          "hash": "unknown",
+          "hex": 263938,
+          "major": 4,
+          "minor": 7,
+          "patch": 2,
+          "status": "stable",
+          "string": "4.7.2-stable (custom_build)",
+          "timestamp": 0
+        },
+        "frames": 1740,
+        "peak": 0.343029260635376,
+        "samples_seen": 512000,
+        "seconds": 12.005,
+        "shutdown_mix_frames": 4096,
+        "shutdown_mixed": true
+      }
+    }
+  ],
+  "formal_main": {
+    "checks": 15,
+    "engine": "4.7.2-stable (custom_build)",
+    "failures": [],
+    "mode": "preview",
+    "operations": [
+      {
+        "aim": [
+          0.990171909332275,
+          0.1398556381464
+        ],
+        "contacts": 0,
+        "disk_delivered": false,
+        "disk_held": true,
+        "elapsed": 0.316666666666667,
+        "error": "",
+        "failed": false,
+        "floor": true,
+        "gameplay_facing": 1,
+        "image": "pocket",
+        "intake_error": null,
+        "palm_error": 3.0517578125e-05,
+        "paper_grip_error": null,
+        "paper_instance": 0,
+        "phase": "pocket",
+        "player": [
+          284.0,
+          320.0
+        ],
+        "receipt_taken": false,
+        "rig_facing": 1
+      },
+      {
+        "aim": [
+          0.990171909332275,
+          0.1398556381464
+        ],
+        "contacts": 0,
+        "disk_delivered": false,
+        "disk_held": true,
+        "elapsed": 0.3,
+        "error": "",
+        "failed": false,
+        "floor": true,
+        "gameplay_facing": 1,
+        "image": "present",
+        "intake_error": null,
+        "palm_error": 3.0517578125e-05,
+        "paper_grip_error": null,
+        "paper_instance": 0,
+        "phase": "present",
+        "player": [
+          284.0,
+          320.0
+        ],
+        "receipt_taken": false,
+        "rig_facing": 1
+      },
+      {
+        "aim": [
+          0.990171909332275,
+          0.1398556381464
+        ],
+        "contacts": 0,
+        "disk_delivered": false,
+        "disk_held": true,
+        "elapsed": 0.416666666666667,
+        "error": "",
+        "failed": false,
+        "floor": true,
+        "gameplay_facing": 1,
+        "image": "contact",
+        "intake_error": null,
+        "palm_error": 3.0517578125e-05,
+        "paper_grip_error": null,
+        "paper_instance": 0,
+        "phase": "contact",
+        "player": [
+          284.0,
+          320.0
+        ],
+        "receipt_taken": false,
+        "rig_facing": 1
+      },
+      {
+        "aim": [
+          0.990171909332275,
+          0.1398556381464
+        ],
+        "contacts": 1,
+        "disk_delivered": false,
+        "disk_held": true,
+        "elapsed": 0.483333333333333,
+        "error": "",
+        "failed": false,
+        "floor": true,
+        "gameplay_facing": 1,
+        "image": "insert",
+        "intake_error": 0.0,
+        "palm_error": 0.0,
+        "paper_grip_error": null,
+        "paper_instance": 0,
+        "phase": "insert",
+        "player": [
+          284.0,
+          320.0
+        ],
+        "receipt_taken": false,
+        "rig_facing": 1
+      },
+      {
+        "aim": [
+          0.990171909332275,
+          0.1398556381464
+        ],
+        "disk_delivered": true,
+        "disk_held": false,
+        "floor": true,
+        "gameplay_facing": 1,
+        "image": "completed-ch1_t_handoff_accept",
+        "player": [
+          284.0,
+          320.0
+        ],
+        "receipt_taken": false,
+        "rig_facing": 1
+      },
+      {
+        "aim": [
+          0.993492841720581,
+          0.113894663751125
+        ],
+        "contacts": 0,
+        "disk_delivered": true,
+        "disk_held": false,
+        "elapsed": 0.433333333333333,
+        "error": "",
+        "failed": false,
+        "floor": true,
+        "gameplay_facing": 1,
+        "image": "take",
+        "intake_error": null,
+        "palm_error": 3.0517578125e-05,
+        "paper_grip_error": null,
+        "paper_instance": 0,
+        "phase": "take",
+        "player": [
+          312.0,
+          320.0
+        ],
+        "receipt_taken": false,
+        "rig_facing": -1
+      },
+      {
+        "aim": [
+          0.993492841720581,
+          0.113894663751125
+        ],
+        "contacts": 1,
+        "disk_delivered": true,
+        "disk_held": false,
+        "elapsed": 0.55,
+        "error": "",
+        "failed": false,
+        "floor": true,
+        "gameplay_facing": 1,
+        "image": "stow",
+        "intake_error": null,
+        "palm_error": 0.0,
+        "paper_grip_error": 3.0517578125e-05,
+        "paper_instance": 1035053569486,
+        "phase": "stow",
+        "player": [
+          312.0,
+          320.0
+        ],
+        "receipt_taken": false,
+        "rig_facing": -1
+      },
+      {
+        "aim": [
+          0.993492841720581,
+          0.113894663751125
+        ],
+        "disk_delivered": true,
+        "disk_held": false,
+        "floor": true,
+        "gameplay_facing": 1,
+        "image": "completed-ch1_t_handoff_receipt",
+        "player": [
+          312.0,
+          320.0
+        ],
+        "receipt_taken": true,
+        "rig_facing": 1
+      }
+    ]
+  },
+  "builder_checks": 8,
+  "archive": {
+    "file": "validation-evidence.zip",
+    "entries": 352,
+    "bytes": 2470321,
+    "sha256": "5069ef84f27b3a92000a8e5f6074fd4a00057d0c400dd6be3362823a378a9be2"
+  },
+  "boundaries": [
+    "Official minimal probes did not reproduce the intermittent game crash; two original game crashes remain archived.",
+    "Original full-game selector and error filters unchanged; expected fixture errors retained.",
+    "Local full baseline, actual Main with ST-10 candidate, software Vulkan Forward+ and Dummy audio; not physical-device or unbuilt-platform acceptance.",
+    "Remote CI is a separate pending validation until its actual run finishes."
+  ]
+}

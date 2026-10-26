@@ -1,0 +1,15 @@
+--- a/servers/audio/audio_server.cpp
++++ b/servers/audio/audio_server.cpp
+@@ -1628,9 +1628,12 @@
+ 	update_callback_list.maybe_cleanup();
+ 	listener_changed_callback_list.maybe_cleanup();
+ 	playback_list.maybe_cleanup();
++	// Wait for the driver to finish reading retired bus details before deleting them.
++	AudioDriver::get_singleton()->lock();
+ 	for (AudioStreamPlaybackBusDetails *bus_details : bus_details_graveyard_frame_old) {
+ 		bus_details_graveyard_frame_old.erase(bus_details, [](AudioStreamPlaybackBusDetails *d) { delete d; });
+ 	}
++	AudioDriver::get_singleton()->unlock();
+ 	for (AudioStreamPlaybackBusDetails *bus_details : bus_details_graveyard) {
+ 		bus_details_graveyard_frame_old.insert(bus_details);
+ 		bus_details_graveyard.erase(bus_details);

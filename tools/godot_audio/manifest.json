@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "version": "4.7.2-stable",
+  "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+  "source_url": "https://codeload.github.com/godotengine/godot/tar.gz/ed1daf0bf001b61586d9930840f2f1394092c079",
+  "source_archive_sha256": "e607e9985e1c201bc9cdc1aec8a120f0c3f53b9603f1f828e2b748534a2471ef",
+  "audio_source_path": "servers/audio/audio_server.cpp",
+  "audio_before_sha256": "d7641ef5852aa86f75c4d506759de2838a2c3886c29f7eb25fd9e9310d87c102",
+  "audio_after_sha256": "f50737107e7169f5b8983836f76b3e66fc8a0fbbb1a5eab9b18d28810b248c06",
+  "patch_sha256": "aa4703685b2cf0394f6ccb4209bf5771c159e3a97df98a7b92891e4f54356c70",
+  "upstream_issue": "https://github.com/godotengine/godot/issues/124217",
+  "scons_version": "4.9.1",
+  "build_options": [
+    "platform=linuxbsd",
+    "target=editor",
+    "arch=x86_64",
+    "production=yes",
+    "debug_symbols=no",
+    "lto=none",
+    "wayland=yes",
+    "accesskit=yes",
+    "x11=yes",
+    "compiledb=yes"
+  ],
+  "licence": "Godot MIT; source retains its original license header.",
+  "accesskit": {
+    "browser_download_url": "https://github.com/godotengine/godot-accesskit-c-static/releases/download/0.22.3/accesskit-c-0.22.3.zip",
+    "digest": "sha256:41b30b1382d03b225b6f7e8721269a32557a68065804f3797bdffc34a3273498",
+    "name": "accesskit-c-0.22.3.zip",
+    "size": 101767087
+  }
+}

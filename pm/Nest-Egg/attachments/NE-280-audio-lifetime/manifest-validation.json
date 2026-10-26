@@ -1,0 +1,1410 @@
+{
+  "audio-behavior-preflight-v1/case-0-process.json": {
+    "bytes": 396,
+    "sha256": "06b497e7a64caa5d39a2fb211c00b17dbad0ad196755d10ebacc587cd7182590"
+  },
+  "audio-behavior-preflight-v1/case-0.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-behavior-preflight-v1/case-0.json": {
+    "bytes": 879,
+    "sha256": "6589be6c4fd3bf6ab85cab7cb47c843a9e69932fc3f6db54f32657b5c4e6ac96"
+  },
+  "audio-behavior-preflight-v1/case-0.log": {
+    "bytes": 990,
+    "sha256": "ec347012ca7a57d8767e540c155a5087d7971814fdff0d5ed139e46c3eee2a02"
+  },
+  "audio-behavior-preflight-v1/results.json": {
+    "bytes": 1594,
+    "sha256": "4c0ebd9dc8b4725673a4c796e42796a626666198f7a3a3899bc62ca568a4d4be"
+  },
+  "audio-behavior-preflight-v1/source.json": {
+    "bytes": 254,
+    "sha256": "a733ad01888c77d7fbd916b05488eddedba670a314fb40b97126f634c0b9bbc9"
+  },
+  "audio-behavior-preflight-v1/source/main.gd": {
+    "bytes": 6102,
+    "sha256": "c618d4de58e4d496584d1c544d03b968802471d681f0626766b9a9fbc7cd721d"
+  },
+  "audio-behavior-preflight-v1/source/main.tscn": {
+    "bytes": 158,
+    "sha256": "a35cb8dd8445751046ebaee65bc4d1e2f531cfcb0280fd79d491532fde2cf69d"
+  },
+  "audio-behavior-preflight-v1/source/project.godot": {
+    "bytes": 238,
+    "sha256": "fb3bc3997f06d15e6f48df7f23169677fcef08200ddd4a79df377944f5e58e4f"
+  },
+  "audio-lifetime-official-v1/case-0.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v1/case-0.json": {
+    "bytes": 371,
+    "sha256": "c6984ec057ced2c4d85195da498cb41ad630454b23f2effdd7fecf88c74bc9a7"
+  },
+  "audio-lifetime-official-v1/case-0.log": {
+    "bytes": 774,
+    "sha256": "bcac68570699b9f4978f334dd85ecd658a90b3c23a3ee0c705ce42f24cc5a17a"
+  },
+  "audio-lifetime-official-v1/case-1.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v1/case-1.json": {
+    "bytes": 371,
+    "sha256": "44fd7c3a1e8aa2728be4041d1cb26e7dda198a531fe65be1de4f6f51985c6230"
+  },
+  "audio-lifetime-official-v1/case-1.log": {
+    "bytes": 774,
+    "sha256": "29a21907b4e4cdc137adf10bc4ec0ae7bb5e00649706000ff53b3f455c02dd9e"
+  },
+  "audio-lifetime-official-v1/case-2.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v1/case-2.json": {
+    "bytes": 371,
+    "sha256": "8cd3637ec26b01699de26b81f3826710e673b88d5d0812b20e65ec96e5670b46"
+  },
+  "audio-lifetime-official-v1/case-2.log": {
+    "bytes": 774,
+    "sha256": "747ee5391bf4d81598a4b977f58d16194e000ca9da0079f7268f9fd056eed787"
+  },
+  "audio-lifetime-official-v1/case-3.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v1/case-3.json": {
+    "bytes": 369,
+    "sha256": "b628256c250a986e081e0de4688cf2c69001926652bddc50b72c369955bb6da1"
+  },
+  "audio-lifetime-official-v1/case-3.log": {
+    "bytes": 772,
+    "sha256": "9f5b19cf7b79c0bc2052a419a8afe21f7b03c1f9f1faaca48baa6eeb52432fe5"
+  },
+  "audio-lifetime-official-v1/case-4.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v1/case-4.json": {
+    "bytes": 369,
+    "sha256": "6c5f91e3727242de893918120f18e2f8cfea1f825bc45d1b5f06657d08d635b6"
+  },
+  "audio-lifetime-official-v1/case-4.log": {
+    "bytes": 772,
+    "sha256": "ca0ec86bb892cb166854d28bff4a24dcd7b0f3942c67512a72c5d88d25d81055"
+  },
+  "audio-lifetime-official-v1/case-5.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v1/case-5.json": {
+    "bytes": 369,
+    "sha256": "09e5b3b6ecc3f4b68cb96e18dcfbbbcecc2159945a0f9efbbfc5076d69b7a97c"
+  },
+  "audio-lifetime-official-v1/case-5.log": {
+    "bytes": 772,
+    "sha256": "599e531745ab46847d00b45020e8c959c1ec44fefab1b011fd62d09cd36e0a9f"
+  },
+  "audio-lifetime-official-v1/case-6.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v1/case-6.json": {
+    "bytes": 370,
+    "sha256": "907eef0f01d2d049fa00cc6e3acf21d2e3f371780687ead4acc9a7705e8c2069"
+  },
+  "audio-lifetime-official-v1/case-6.log": {
+    "bytes": 773,
+    "sha256": "3cdcd79c5a265bb83afbc63674e1ed312b7d6342c9882bd7489e8caf60af4ae6"
+  },
+  "audio-lifetime-official-v1/case-7.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v1/case-7.json": {
+    "bytes": 367,
+    "sha256": "f1be282c9b50f3928460ae6caa17d780f38baf18b70f40ca1c59c19150a533af"
+  },
+  "audio-lifetime-official-v1/case-7.log": {
+    "bytes": 770,
+    "sha256": "639ea9a16b90a7a9be24afd4cb44491030d00d9fe015e234179892989d502518"
+  },
+  "audio-lifetime-official-v1/results.json": {
+    "bytes": 307,
+    "sha256": "73bd95d834af921392780ca81e0e282e2239888ea038e4a5bc92da8ec68acd29"
+  },
+  "audio-lifetime-official-v1/source.json": {
+    "bytes": 254,
+    "sha256": "e50f538c14260c3174423611273f3a2e61a5b99129b6004f0bccf01b19e8bfa3"
+  },
+  "audio-lifetime-official-v1/source/main.gd": {
+    "bytes": 2534,
+    "sha256": "ecf66a90953b6b72fd631604432f828095d25366652f0f783ed74dcea3588ef1"
+  },
+  "audio-lifetime-official-v1/source/main.tscn": {
+    "bytes": 158,
+    "sha256": "a35cb8dd8445751046ebaee65bc4d1e2f531cfcb0280fd79d491532fde2cf69d"
+  },
+  "audio-lifetime-official-v1/source/project.godot": {
+    "bytes": 238,
+    "sha256": "fb3bc3997f06d15e6f48df7f23169677fcef08200ddd4a79df377944f5e58e4f"
+  },
+  "audio-lifetime-official-v2/case-0.exit": {
+    "bytes": 4,
+    "sha256": "0e55cbbc9d11449b186092d82905aa6974858df7a0b7d706ae51c4716c9461ef"
+  },
+  "audio-lifetime-official-v2/case-0.log": {
+    "bytes": 374,
+    "sha256": "6a3d62bdbe408c0ade0719d34672bda1d3ba68fc2b4646f706cfabd84a59d9ed"
+  },
+  "audio-lifetime-official-v2/case-1.exit": {
+    "bytes": 4,
+    "sha256": "0e55cbbc9d11449b186092d82905aa6974858df7a0b7d706ae51c4716c9461ef"
+  },
+  "audio-lifetime-official-v2/case-1.log": {
+    "bytes": 374,
+    "sha256": "6a3d62bdbe408c0ade0719d34672bda1d3ba68fc2b4646f706cfabd84a59d9ed"
+  },
+  "audio-lifetime-official-v2/case-2.exit": {
+    "bytes": 4,
+    "sha256": "0e55cbbc9d11449b186092d82905aa6974858df7a0b7d706ae51c4716c9461ef"
+  },
+  "audio-lifetime-official-v2/case-2.log": {
+    "bytes": 374,
+    "sha256": "6a3d62bdbe408c0ade0719d34672bda1d3ba68fc2b4646f706cfabd84a59d9ed"
+  },
+  "audio-lifetime-official-v2/case-3.exit": {
+    "bytes": 4,
+    "sha256": "0e55cbbc9d11449b186092d82905aa6974858df7a0b7d706ae51c4716c9461ef"
+  },
+  "audio-lifetime-official-v2/case-3.log": {
+    "bytes": 374,
+    "sha256": "6a3d62bdbe408c0ade0719d34672bda1d3ba68fc2b4646f706cfabd84a59d9ed"
+  },
+  "audio-lifetime-official-v2/case-4.exit": {
+    "bytes": 4,
+    "sha256": "0e55cbbc9d11449b186092d82905aa6974858df7a0b7d706ae51c4716c9461ef"
+  },
+  "audio-lifetime-official-v2/case-4.log": {
+    "bytes": 374,
+    "sha256": "6a3d62bdbe408c0ade0719d34672bda1d3ba68fc2b4646f706cfabd84a59d9ed"
+  },
+  "audio-lifetime-official-v2/case-5.exit": {
+    "bytes": 4,
+    "sha256": "0e55cbbc9d11449b186092d82905aa6974858df7a0b7d706ae51c4716c9461ef"
+  },
+  "audio-lifetime-official-v2/case-5.log": {
+    "bytes": 374,
+    "sha256": "6a3d62bdbe408c0ade0719d34672bda1d3ba68fc2b4646f706cfabd84a59d9ed"
+  },
+  "audio-lifetime-official-v2/case-6.exit": {
+    "bytes": 4,
+    "sha256": "0e55cbbc9d11449b186092d82905aa6974858df7a0b7d706ae51c4716c9461ef"
+  },
+  "audio-lifetime-official-v2/case-6.log": {
+    "bytes": 374,
+    "sha256": "6a3d62bdbe408c0ade0719d34672bda1d3ba68fc2b4646f706cfabd84a59d9ed"
+  },
+  "audio-lifetime-official-v2/case-7.exit": {
+    "bytes": 4,
+    "sha256": "0e55cbbc9d11449b186092d82905aa6974858df7a0b7d706ae51c4716c9461ef"
+  },
+  "audio-lifetime-official-v2/case-7.log": {
+    "bytes": 374,
+    "sha256": "6a3d62bdbe408c0ade0719d34672bda1d3ba68fc2b4646f706cfabd84a59d9ed"
+  },
+  "audio-lifetime-official-v2/harness-stop.json": {
+    "bytes": 190,
+    "sha256": "427bde7692fe16e09dff62aa7c446c5b71a17d28b026030b427f28e9af231377"
+  },
+  "audio-lifetime-official-v2/results.json": {
+    "bytes": 867,
+    "sha256": "dd5b92163498d23e94974c4b43d66daaecd00f247b44ea476f30b1bc9e7f30f1"
+  },
+  "audio-lifetime-official-v2/source.json": {
+    "bytes": 254,
+    "sha256": "285ef3780479058ea6465431696b928a4b1594450e0b4e8bfe7aa27daad68aed"
+  },
+  "audio-lifetime-official-v2/source/main.gd": {
+    "bytes": 3799,
+    "sha256": "5af8653691354081e5d6940a2bd71c419dbfedf455d8b2700f605d47e8000760"
+  },
+  "audio-lifetime-official-v2/source/main.tscn": {
+    "bytes": 158,
+    "sha256": "a35cb8dd8445751046ebaee65bc4d1e2f531cfcb0280fd79d491532fde2cf69d"
+  },
+  "audio-lifetime-official-v2/source/project.godot": {
+    "bytes": 238,
+    "sha256": "fb3bc3997f06d15e6f48df7f23169677fcef08200ddd4a79df377944f5e58e4f"
+  },
+  "audio-lifetime-official-v3/case-0-process.json": {
+    "bytes": 368,
+    "sha256": "a313f6f22ab1d2b389be7fc4042f18767ff85e5be24217d440fe7649d4726123"
+  },
+  "audio-lifetime-official-v3/case-0.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v3/case-0.json": {
+    "bytes": 426,
+    "sha256": "451173f77f27f77d69fab4fe5f6d97f74006090c3cb151593eeb1bded2442e6f"
+  },
+  "audio-lifetime-official-v3/case-0.log": {
+    "bytes": 689,
+    "sha256": "dcc4f1f8cfe6230532aa7ae12d6bd1ac8d1b052b5595c5be42f6d135bad78e2e"
+  },
+  "audio-lifetime-official-v3/case-1-process.json": {
+    "bytes": 368,
+    "sha256": "a08787d4a67731b4eea5581a9fb52ea04bcc8840baba2d06f897f890c7a3b7f1"
+  },
+  "audio-lifetime-official-v3/case-1.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v3/case-1.json": {
+    "bytes": 426,
+    "sha256": "74e0b6cd56fa0f6b471a4908e7ad639b3eb398bb8412edf886ca62460dd4897c"
+  },
+  "audio-lifetime-official-v3/case-1.log": {
+    "bytes": 689,
+    "sha256": "374734b68bd4d538601c81044053239e52c94fedf5a3a2ad330b7eeb481280e3"
+  },
+  "audio-lifetime-official-v3/case-2-process.json": {
+    "bytes": 368,
+    "sha256": "1dec0ee0df63ddc68c5cefed679fa5b6d88b6535041011d90a6a7e21d4f4e1dd"
+  },
+  "audio-lifetime-official-v3/case-2.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v3/case-2.json": {
+    "bytes": 426,
+    "sha256": "74e0b6cd56fa0f6b471a4908e7ad639b3eb398bb8412edf886ca62460dd4897c"
+  },
+  "audio-lifetime-official-v3/case-2.log": {
+    "bytes": 689,
+    "sha256": "374734b68bd4d538601c81044053239e52c94fedf5a3a2ad330b7eeb481280e3"
+  },
+  "audio-lifetime-official-v3/case-3-process.json": {
+    "bytes": 368,
+    "sha256": "0f8debdcbd4fabd1563188a1c3e77557a9a407a67960b1607d6b12c44900f34a"
+  },
+  "audio-lifetime-official-v3/case-3.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v3/case-3.json": {
+    "bytes": 428,
+    "sha256": "0e03211c67d8013ebd76d02d4ce02503e7b5ef35f2f3e7c43446ddf2f05e5da8"
+  },
+  "audio-lifetime-official-v3/case-3.log": {
+    "bytes": 691,
+    "sha256": "10b71984448b7eff59675bbd9f67a4bc037902608b5eaa6c6be0299bd489d7b4"
+  },
+  "audio-lifetime-official-v3/case-4-process.json": {
+    "bytes": 368,
+    "sha256": "83458caafb0d1c388f907d208214581bf5817c1abe7bceb37a847dfe35fe3b71"
+  },
+  "audio-lifetime-official-v3/case-4.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v3/case-4.json": {
+    "bytes": 428,
+    "sha256": "bc41f3bf056b4fa9b182fda0cb809607c2e9d8aab313356f5243e690271cac45"
+  },
+  "audio-lifetime-official-v3/case-4.log": {
+    "bytes": 691,
+    "sha256": "59e94ff3d5677bb96ae827f7ca6175cae9c985100849292800e45a2a594764e6"
+  },
+  "audio-lifetime-official-v3/case-5-process.json": {
+    "bytes": 368,
+    "sha256": "008630ad47aaeef7dea4fbdc1b17081aab49640f206a10999a1bbfef0d5d387a"
+  },
+  "audio-lifetime-official-v3/case-5.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v3/case-5.json": {
+    "bytes": 426,
+    "sha256": "28aca2f1f4b5b7e38f68aefd10d80f9c94f289629aada3bfcadaf10374f2029b"
+  },
+  "audio-lifetime-official-v3/case-5.log": {
+    "bytes": 689,
+    "sha256": "40318fcc6058e3fd4aad1e78797dff9ef8afa0edd0f1638b4ee7ae6fc75f1231"
+  },
+  "audio-lifetime-official-v3/case-6-process.json": {
+    "bytes": 368,
+    "sha256": "70d030f1583e544dbfa6367622562ee37aea2e1295783cb010d5f6e20cb8ea8c"
+  },
+  "audio-lifetime-official-v3/case-6.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v3/case-6.json": {
+    "bytes": 426,
+    "sha256": "d4a4c66daeac5df2cb2f7b956afc2f5aafb92b8ff469b0af4eb48034e0158e77"
+  },
+  "audio-lifetime-official-v3/case-6.log": {
+    "bytes": 689,
+    "sha256": "698a88bc79ded2733f4599ec6dbee5c4bd3088a0a501fa170338d0518837b901"
+  },
+  "audio-lifetime-official-v3/case-7-process.json": {
+    "bytes": 368,
+    "sha256": "47af005ff5a97d923ee96a2cc817fe757efb1f63adfb1c6f2d7b0f291dbc6a8d"
+  },
+  "audio-lifetime-official-v3/case-7.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v3/case-7.json": {
+    "bytes": 426,
+    "sha256": "2ce41aba002327225b42d37443a82fb10db36d815bbace016b01d777ed6313bf"
+  },
+  "audio-lifetime-official-v3/case-7.log": {
+    "bytes": 689,
+    "sha256": "1852912b4594e76f3e9db24fe09c816914517acff4b308fd352ca790adc48edf"
+  },
+  "audio-lifetime-official-v3/results.json": {
+    "bytes": 6072,
+    "sha256": "83fae248eb4d8ea506f5a9074202d99b2ffe4f6f9cdb456e7a83abb9cdce3420"
+  },
+  "audio-lifetime-official-v3/source.json": {
+    "bytes": 254,
+    "sha256": "cfba3aae5ccee2aa11bdcae38e4e0e7cf685fdf4ce32830925167e21109e835e"
+  },
+  "audio-lifetime-official-v3/source/main.gd": {
+    "bytes": 3803,
+    "sha256": "2e5cd7a56ce192c3cd1663b3ca208d6921ca8fb718861812a681df5e570bc1a9"
+  },
+  "audio-lifetime-official-v3/source/main.tscn": {
+    "bytes": 158,
+    "sha256": "a35cb8dd8445751046ebaee65bc4d1e2f531cfcb0280fd79d491532fde2cf69d"
+  },
+  "audio-lifetime-official-v3/source/project.godot": {
+    "bytes": 238,
+    "sha256": "fb3bc3997f06d15e6f48df7f23169677fcef08200ddd4a79df377944f5e58e4f"
+  },
+  "audio-lifetime-official-v4/case-0-process.json": {
+    "bytes": 396,
+    "sha256": "e9a3cf8d2719c8096d4cda538ad0b74ce575594114b72d3889103dab17dd638e"
+  },
+  "audio-lifetime-official-v4/case-0.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v4/case-0.json": {
+    "bytes": 882,
+    "sha256": "4ded42b4425d4c5389fcf06f2d63dbbef421e4260ffb710c7e2cf4307382e326"
+  },
+  "audio-lifetime-official-v4/case-0.log": {
+    "bytes": 994,
+    "sha256": "b6bb97f56e9347c76729a9b88ad9bd595ea95b4a61919765cb3b9e3ee16ac019"
+  },
+  "audio-lifetime-official-v4/case-1-process.json": {
+    "bytes": 396,
+    "sha256": "074c448965856856c0671f01b9c6cd603bdecdb43ee5a07f93770629cbe21a30"
+  },
+  "audio-lifetime-official-v4/case-1.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v4/case-1.json": {
+    "bytes": 884,
+    "sha256": "f1c86dc2fb5907eb3eceed838c1d31c36aa7b4dee587a14be0945c39a7c2e81d"
+  },
+  "audio-lifetime-official-v4/case-1.log": {
+    "bytes": 996,
+    "sha256": "badd6975535caa6d5b8baa4dce269d79d7a102fead48edd6377c383234579f51"
+  },
+  "audio-lifetime-official-v4/case-2-process.json": {
+    "bytes": 396,
+    "sha256": "39c8c846e2b6e34a631c5d5568b2af7aa537fbd251e152301e40c232056031cf"
+  },
+  "audio-lifetime-official-v4/case-2.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v4/case-2.json": {
+    "bytes": 884,
+    "sha256": "9d8ac490cb8341d068db19e319996bc6a9a7e2e98791d1c11fb5098b31426ff9"
+  },
+  "audio-lifetime-official-v4/case-2.log": {
+    "bytes": 996,
+    "sha256": "28710517edd670597131020a7035fdb2598d9c0bbd915d44c746026c9f8a3cbb"
+  },
+  "audio-lifetime-official-v4/case-3-process.json": {
+    "bytes": 396,
+    "sha256": "6f438b5f299d5e10299284220a3a60270f46dfec37e4d0f349afbb05c4782b71"
+  },
+  "audio-lifetime-official-v4/case-3.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v4/case-3.json": {
+    "bytes": 884,
+    "sha256": "12e026a2d0d00cc81e4cf260956e3b09c3d649d1bd2488dcf8ed8d296d73ebe6"
+  },
+  "audio-lifetime-official-v4/case-3.log": {
+    "bytes": 996,
+    "sha256": "1e0a89ced1df47b7170387d153fd400afebedd9e406d6e814d7b7e60cfce70f1"
+  },
+  "audio-lifetime-official-v4/case-4-process.json": {
+    "bytes": 396,
+    "sha256": "9bb447dd9bcf83e513c8bb4e1a6937a29e066a9c111d7fd242dfb5ea38b188e5"
+  },
+  "audio-lifetime-official-v4/case-4.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v4/case-4.json": {
+    "bytes": 882,
+    "sha256": "2b10e3099e6b1c4bdc10ae9b172fff87a8957d81e6815cbe6a8313c56f53771c"
+  },
+  "audio-lifetime-official-v4/case-4.log": {
+    "bytes": 994,
+    "sha256": "655038b09f02d008a0f39e7804ce741f30970cdc9fe665f5492c713b4263e6a1"
+  },
+  "audio-lifetime-official-v4/case-5-process.json": {
+    "bytes": 396,
+    "sha256": "3b296ba7b65a409b319e86d45d081c95137ac7f30615a0ae0d121f47c4070c45"
+  },
+  "audio-lifetime-official-v4/case-5.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v4/case-5.json": {
+    "bytes": 884,
+    "sha256": "16541187c460bc0e3ebc0fb2c0a2d18a086b42398e59ff6840352ecc3ab12ffb"
+  },
+  "audio-lifetime-official-v4/case-5.log": {
+    "bytes": 996,
+    "sha256": "e13505c43fa1d8f49d1fefcc80b432aad29e8ee55908b6421b816e11720e64e8"
+  },
+  "audio-lifetime-official-v4/case-6-process.json": {
+    "bytes": 396,
+    "sha256": "42b0892df26a73285aa68f61d6c6c6cb5406799c80cbba22d555ce6570f469bf"
+  },
+  "audio-lifetime-official-v4/case-6.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v4/case-6.json": {
+    "bytes": 882,
+    "sha256": "2b10e3099e6b1c4bdc10ae9b172fff87a8957d81e6815cbe6a8313c56f53771c"
+  },
+  "audio-lifetime-official-v4/case-6.log": {
+    "bytes": 994,
+    "sha256": "655038b09f02d008a0f39e7804ce741f30970cdc9fe665f5492c713b4263e6a1"
+  },
+  "audio-lifetime-official-v4/case-7-process.json": {
+    "bytes": 396,
+    "sha256": "fe1183462436396254846cf452476ba4a29107d41dcb3ff0098e0b7ff830b9cc"
+  },
+  "audio-lifetime-official-v4/case-7.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-official-v4/case-7.json": {
+    "bytes": 884,
+    "sha256": "16541187c460bc0e3ebc0fb2c0a2d18a086b42398e59ff6840352ecc3ab12ffb"
+  },
+  "audio-lifetime-official-v4/case-7.log": {
+    "bytes": 996,
+    "sha256": "e13505c43fa1d8f49d1fefcc80b432aad29e8ee55908b6421b816e11720e64e8"
+  },
+  "audio-lifetime-official-v4/results.json": {
+    "bytes": 10926,
+    "sha256": "7fa5d24e75c165d64e90e3e4dbf908cc4a3ec14fbf7833f1bf03721213982faf"
+  },
+  "audio-lifetime-official-v4/source.json": {
+    "bytes": 254,
+    "sha256": "a733ad01888c77d7fbd916b05488eddedba670a314fb40b97126f634c0b9bbc9"
+  },
+  "audio-lifetime-official-v4/source/main.gd": {
+    "bytes": 6102,
+    "sha256": "c618d4de58e4d496584d1c544d03b968802471d681f0626766b9a9fbc7cd721d"
+  },
+  "audio-lifetime-official-v4/source/main.tscn": {
+    "bytes": 158,
+    "sha256": "a35cb8dd8445751046ebaee65bc4d1e2f531cfcb0280fd79d491532fde2cf69d"
+  },
+  "audio-lifetime-official-v4/source/project.godot": {
+    "bytes": 238,
+    "sha256": "fb3bc3997f06d15e6f48df7f23169677fcef08200ddd4a79df377944f5e58e4f"
+  },
+  "audio-lifetime-patched-v1/case-0-process.json": {
+    "bytes": 381,
+    "sha256": "32c0fe8074bb2b0418f4cc2eea42f064c761f6194272fef060c1c98b7e0e7e0f"
+  },
+  "audio-lifetime-patched-v1/case-0.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-patched-v1/case-0.json": {
+    "bytes": 859,
+    "sha256": "f60f36f9e3b19128d041db7589457f06e8e57d80dc441f0d868ef2ac6f095579"
+  },
+  "audio-lifetime-patched-v1/case-0.log": {
+    "bytes": 940,
+    "sha256": "367fb165e9a8aab6c13e8ee6d659a2bbb5c77d5a8e5e4f6a23264f2eb415a592"
+  },
+  "audio-lifetime-patched-v1/case-1-process.json": {
+    "bytes": 381,
+    "sha256": "1b114e3911b21f913fffe53a1820d00323d26b818f1327d6e70f843883c4d02a"
+  },
+  "audio-lifetime-patched-v1/case-1.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-patched-v1/case-1.json": {
+    "bytes": 857,
+    "sha256": "aeb3b6cc128b6a6f2e6ec897412efede7fb99ff383750a214f0574d5b82bb1cf"
+  },
+  "audio-lifetime-patched-v1/case-1.log": {
+    "bytes": 938,
+    "sha256": "a7acceb462653b6c32d296a9e081903b9696ed789065e1dbe1307cf5bd265b0f"
+  },
+  "audio-lifetime-patched-v1/case-2-process.json": {
+    "bytes": 381,
+    "sha256": "acc14caf7fa807017ae3402bbe699d2c7e920643f59713dc56d22260a19b27dd"
+  },
+  "audio-lifetime-patched-v1/case-2.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-patched-v1/case-2.json": {
+    "bytes": 858,
+    "sha256": "d605bf084bd8b0106f325b1aad499c2a4a365cc17a6b8b9a6eb815310d6ab1a1"
+  },
+  "audio-lifetime-patched-v1/case-2.log": {
+    "bytes": 939,
+    "sha256": "9412ec16ba85ca9947312b0dff2b1ed3180da5e3f2f586a95931771de64ca8c8"
+  },
+  "audio-lifetime-patched-v1/case-3-process.json": {
+    "bytes": 381,
+    "sha256": "0b8d32751a4b6aeb7562c5488540151df3c3de5ff5e253620a09e005ff159dde"
+  },
+  "audio-lifetime-patched-v1/case-3.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-patched-v1/case-3.json": {
+    "bytes": 858,
+    "sha256": "b1a555cdbbd03ef68f8261757803c88854d11da4c92c5cb749b88c7a54668b13"
+  },
+  "audio-lifetime-patched-v1/case-3.log": {
+    "bytes": 939,
+    "sha256": "1d990f6e9d91daa462d30098ba0a30b6844d782508b8c38cf7fa093d21841598"
+  },
+  "audio-lifetime-patched-v1/case-4-process.json": {
+    "bytes": 381,
+    "sha256": "04ed019c3e9e2fbe9bffff0e492ad2f7b5a7362a7b2648a9958b43c33c8e0026"
+  },
+  "audio-lifetime-patched-v1/case-4.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-patched-v1/case-4.json": {
+    "bytes": 857,
+    "sha256": "844e04ba192bb5f34691963f1e792c7ee6c85ef29ec98d66c64d60007f30d1e2"
+  },
+  "audio-lifetime-patched-v1/case-4.log": {
+    "bytes": 938,
+    "sha256": "70de808f8484626214640152fac8f032dc8f1ca1c15c0252c2abd2e19f74131c"
+  },
+  "audio-lifetime-patched-v1/case-5-process.json": {
+    "bytes": 381,
+    "sha256": "a4ec435d4434dd361f41c202929e0f0874b9b32aa5a47c7067cc666a980eeed5"
+  },
+  "audio-lifetime-patched-v1/case-5.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-patched-v1/case-5.json": {
+    "bytes": 859,
+    "sha256": "520f77032ae5fb43fa94600e3939ee052226ac917e1e36591c8f4e1bf1ece0c4"
+  },
+  "audio-lifetime-patched-v1/case-5.log": {
+    "bytes": 940,
+    "sha256": "894ffd718813824d26397b5287fbd1e1b013e4c828df94b4a2dd37dab521fd8e"
+  },
+  "audio-lifetime-patched-v1/case-6-process.json": {
+    "bytes": 381,
+    "sha256": "81775de5c5a7dd91224fcde69cd77aaf1265f6d9f5a90a755877bf486aae419b"
+  },
+  "audio-lifetime-patched-v1/case-6.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-patched-v1/case-6.json": {
+    "bytes": 859,
+    "sha256": "e6c3f949ebcb483b0bc8c802ebcf9277b32161764d7d9eb8a5bda8fe4d716bcb"
+  },
+  "audio-lifetime-patched-v1/case-6.log": {
+    "bytes": 940,
+    "sha256": "fd63c055583ba090a05fbbc32b7ce29134915395fb19f6cea97dde22e7fbbf79"
+  },
+  "audio-lifetime-patched-v1/case-7-process.json": {
+    "bytes": 381,
+    "sha256": "73c2e309b4119bbeeead5f32620085db401661fea2dc25db9774c4e3736672da"
+  },
+  "audio-lifetime-patched-v1/case-7.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "audio-lifetime-patched-v1/case-7.json": {
+    "bytes": 857,
+    "sha256": "9067b8496c96996fbd98d51607799e592a021e0de90c95cff4de4f877a094590"
+  },
+  "audio-lifetime-patched-v1/case-7.log": {
+    "bytes": 938,
+    "sha256": "12295e7bc5b99a038c455bbf5bf557f8e63738fb1f3676cbb2b2fd4d8178e97f"
+  },
+  "audio-lifetime-patched-v1/results.json": {
+    "bytes": 10710,
+    "sha256": "445dfe0dc6fce013834cf405fffe764577274931f5d048177032181974ec9f73"
+  },
+  "audio-lifetime-patched-v1/source.json": {
+    "bytes": 254,
+    "sha256": "a733ad01888c77d7fbd916b05488eddedba670a314fb40b97126f634c0b9bbc9"
+  },
+  "audio-lifetime-patched-v1/source/main.gd": {
+    "bytes": 6102,
+    "sha256": "c618d4de58e4d496584d1c544d03b968802471d681f0626766b9a9fbc7cd721d"
+  },
+  "audio-lifetime-patched-v1/source/main.tscn": {
+    "bytes": 158,
+    "sha256": "a35cb8dd8445751046ebaee65bc4d1e2f531cfcb0280fd79d491532fde2cf69d"
+  },
+  "audio-lifetime-patched-v1/source/project.godot": {
+    "bytes": 238,
+    "sha256": "fb3bc3997f06d15e6f48df7f23169677fcef08200ddd4a79df377944f5e58e4f"
+  },
+  "build/COPYRIGHT.txt": {
+    "bytes": 100108,
+    "sha256": "cb1980c88089573bcacd7221d777c689bb8bbd778799f24c27fca0fe5f774d6d"
+  },
+  "build/LICENSE.txt": {
+    "bytes": 1149,
+    "sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80"
+  },
+  "build/compile_commands.json": {
+    "bytes": 5481046,
+    "sha256": "fa871495b41e0b4fba825ec8fb584dc41e1280aafcfb76c8d4de0fea73f61b83"
+  },
+  "formal-main/st10-handoff-main-audiofix-v1.exit": {
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  "formal-main/st10-handoff-main-audiofix-v1.log": {
+    "bytes": 3847,
+    "sha256": "b57abda92fc3de785fd9a8ba9dd916ae46ab8ef49ecb42bad31b565c0e5c4b2d"
+  },
+  "formal-main/st10-handoff-main-audiofix-v1/completed-ch1_t_handoff_accept.png": {
+    "bytes": 250649,
+    "sha256": "6cb81de4be8dad58960df11d5e661946b68971b98b722602f11657321a1b7b0d"
+  },
+  "formal-main/st10-handoff-main-audiofix-v1/completed-ch1_t_handoff_receipt.png": {
+    "bytes": 254476,
+    "sha256": "5946868b413064e95ad6176c311421cea91d639fac19ccefc9728e1ba3dcf54c"
+  },
+  "formal-main/st10-handoff-main-audiofix-v1/contact.png": {
+    "bytes": 233130,
+    "sha256": "39a7cf1da9388589e39d8ace8dd90a83f333f0aa8f75fbf20e916d86e524d4c9"
+  },
+  "formal-main/st10-handoff-main-audiofix-v1/insert.png": {
+    "bytes": 231818,
+    "sha256": "bbe04c41a7b2ddab34dd172a3b4a6464bfd1ddb304d2e76e63a782d75deef257"
+  },
+  "formal-main/st10-handoff-main-audiofix-v1/pocket.png": {
+    "bytes": 232597,
+    "sha256": "8cd1d6bfbac2ed112e98a6b0a725e066d0a84adbc453857d2a11763a992e43ea"
+  },
+  "formal-main/st10-handoff-main-audiofix-v1/present.png": {
+    "bytes": 231268,
+    "sha256": "48d6ba52cc3c5a49e39b535448fabd165402925cfccf4b7a9dfcd5e91f2a0dec"
+  },
+  "formal-main/st10-handoff-main-audiofix-v1/result.json": {
+    "bytes": 4251,
+    "sha256": "85cc95be7a4718324221663efaa7521c416e9b4ef59fbf596aee0d66e1378faf"
+  },
+  "formal-main/st10-handoff-main-audiofix-v1/stow.png": {
+    "bytes": 233070,
+    "sha256": "afd2350efa3074a95a23c73babb892c35b61c3a10fbac737b6cd001bd1a06673"
+  },
+  "formal-main/st10-handoff-main-audiofix-v1/take.png": {
+    "bytes": 233495,
+    "sha256": "5fc1ec2cb57a3311512de680554d0190a616fca89b7153ea40c20011b344cf79"
+  },
+  "handoff-original-eight-v1/command.json": {
+    "bytes": 1939,
+    "sha256": "60e30cf7c876a06f13219535cd3596f90f9991f8081a77863730bdb723a81b90"
+  },
+  "handoff-original-eight-v1/data_0/godot/app_userdata/Nest Egg/logs/godot.log": {
+    "bytes": 2175,
+    "sha256": "38f6c2412971201028946e8bda62c6e5cdb8128868b64b31d36a30f0d4028050"
+  },
+  "handoff-original-eight-v1/data_1/godot/app_userdata/Nest Egg/codex.cfg": {
+    "bytes": 41,
+    "sha256": "7f3aa247d0e54d078d7f6a919b66dc618e191ac4d62fa85c602e8c71aa91ff74"
+  },
+  "handoff-original-eight-v1/data_1/godot/app_userdata/Nest Egg/logs/godot.log": {
+    "bytes": 143851,
+    "sha256": "2f4eb1b1d2bfdd125a2cd621824b809bd97bf87d47c9301e7b639d62705edb22"
+  },
+  "handoff-original-eight-v1/data_1/godot/app_userdata/Nest Egg/runs/demo-0.1/slot-1.json": {
+    "bytes": 9076,
+    "sha256": "31bcbbab4ed08b2d340d818e4309f8e91294247ea5bfa0b7b3d7e4dc20931958"
+  },
+  "handoff-original-eight-v1/data_1/godot/app_userdata/Nest Egg/runs/demo-0.1/slot-1.json.bak": {
+    "bytes": 7852,
+    "sha256": "9a030100685ffe5436fb5aa2ad96805b0ac146b1ce0532c3c8c98d122f7bb3dc"
+  },
+  "handoff-original-eight-v1/data_1/godot/app_userdata/Nest Egg/settings.cfg": {
+    "bytes": 882,
+    "sha256": "9f9ed55efc4ea8a8740c22f95d04e2d17cd7a19c6e61e818060eaec72b655dd2"
+  },
+  "handoff-original-eight-v1/data_2/godot/app_userdata/Nest Egg/codex.cfg": {
+    "bytes": 94,
+    "sha256": "8a34f9878b2ab4db600fe3047947bfd98a400523e7a7c73aeb5fa5fe0f8afd19"
+  },
+  "handoff-original-eight-v1/data_2/godot/app_userdata/Nest Egg/logs/godot.log": {
+    "bytes": 57495,
+    "sha256": "e4025df81c67898cf7ef92ca6f119dec5fb06691b38fd85788f096223e412e67"
+  },
+  "handoff-original-eight-v1/data_2/godot/app_userdata/Nest Egg/settings.cfg": {
+    "bytes": 19,
+    "sha256": "b3f43f45460819fd1389876f32aa8f09936d56aa2d9b3b9c8535227738708502"
+  },
+  "handoff-original-eight-v1/data_3/godot/app_userdata/Nest Egg/codex.cfg": {
+    "bytes": 25,
+    "sha256": "b695875784c09d640792330024e1f9ac3662838a755da58aa14197ac7ad75d5d"
+  },
+  "handoff-original-eight-v1/data_3/godot/app_userdata/Nest Egg/logs/godot.log": {
+    "bytes": 181169,
+    "sha256": "8313af7f785728f8923f3f26d8d5ef6a7a4b2630137aaf5fd5ac402267b5a33c"
+  },
+  "handoff-original-eight-v1/data_3/godot/app_userdata/Nest Egg/settings.cfg": {
+    "bytes": 321,
+    "sha256": "fda08b5657b8f5d97b8394bc01b7a1d2164f0ab8b6c81172fe8cb0beb3b4741b"
+  },
+  "handoff-original-eight-v1/data_4/godot/app_userdata/Nest Egg/codex.cfg": {
+    "bytes": 41,
+    "sha256": "7f3aa247d0e54d078d7f6a919b66dc618e191ac4d62fa85c602e8c71aa91ff74"
+  },
+  "handoff-original-eight-v1/data_4/godot/app_userdata/Nest Egg/logs/godot.log": {
+    "bytes": 77741,
+    "sha256": "d282d7da700eec054eb8bb061b2199392db7d2284d61892d4f0191ff729cd003"
+  },
+  "handoff-original-eight-v1/data_4/godot/app_userdata/Nest Egg/ne245-encounter-resume/authored_edges.json": {
+    "bytes": 10651,
+    "sha256": "1c6eb2daffe7a4967599bf96140204af383123ecf5c2a4bc9ecf949f22ac1636"
+  },
+  "handoff-original-eight-v1/data_4/godot/app_userdata/Nest Egg/ne245-encounter-resume/authored_edges.json.bak": {
+    "bytes": 10651,
+    "sha256": "1c6eb2daffe7a4967599bf96140204af383123ecf5c2a4bc9ecf949f22ac1636"
+  },
+  "handoff-original-eight-v1/data_4/godot/app_userdata/Nest Egg/ne245-encounter-resume/reinforcement.json": {
+    "bytes": 10695,
+    "sha256": "4cd2f00c9eee6e893b40430983e7e39d9d623f13753b4302877610577154e9aa"
+  },
+  "handoff-original-eight-v1/data_4/godot/app_userdata/Nest Egg/ne245-encounter-resume/reinforcement.json.bak": {
+    "bytes": 10695,
+    "sha256": "4cd2f00c9eee6e893b40430983e7e39d9d623f13753b4302877610577154e9aa"
+  },
+  "handoff-original-eight-v1/data_4/godot/app_userdata/Nest Egg/ne245-restore-guard/consumed_false_key.json": {
+    "bytes": 10761,
+    "sha256": "ece4a02742e95361ef4dcf5ec125c42e08b38db38b03acf22e208640fa38c25f"
+  },
+  "handoff-original-eight-v1/data_4/godot/app_userdata/Nest Egg/ne245-restore-guard/consumed_false_key.json.bak": {
+    "bytes": 10761,
+    "sha256": "ece4a02742e95361ef4dcf5ec125c42e08b38db38b03acf22e208640fa38c25f"
+  },
+  "handoff-original-eight-v1/data_4/godot/app_userdata/Nest Egg/ne245-restore-guard/destination.json": {
+    "bytes": 7426,
+    "sha256": "b303ceaf5c3d117f087f7c3c01d0861b0abaaf1fe7931654e884d565469e9f03"
+  },
+  "handoff-original-eight-v1/data_4/godot/app_userdata/Nest Egg/ne245-restore-guard/destination.json.bak": {
+    "bytes": 10761,
+    "sha256": "ece4a02742e95361ef4dcf5ec125c42e08b38db38b03acf22e208640fa38c25f"
+  },
+  "handoff-original-eight-v1/data_4/godot/app_userdata/Nest Egg/ne245-restore-guard/dynamic_factory_failure.json": {
+    "bytes": 10761,
+    "sha256": "ece4a02742e95361ef4dcf5ec125c42e08b38db38b03acf22e208640fa38c25f"
+  },
+  "handoff-original-eight-v1/data_4/godot/app_userdata/Nest Egg/ne245-restore-guard/dynamic_factory_failure.json.bak": {
+    "bytes": 10761,
+    "sha256": "ece4a02742e95361ef4dcf5ec125c42e08b38db38b03acf22e208640fa38c25f"
+  },
+  "handoff-original-eight-v1/data_4/godot/app_userdata/Nest Egg/ne245-restore-guard/missing_live_member.json": {
+    "bytes": 10761,
+    "sha256": "ece4a02742e95361ef4dcf5ec125c42e08b38db38b03acf22e208640fa38c25f"
+  },
+  "handoff-original-eight-v1/data_4/godot/app_userdata/Nest Egg/ne245-restore-guard/missing_live_member.json.bak": {
+    "bytes": 10761,
+    "sha256": "ece4a02742e95361ef4dcf5ec125c42e08b38db38b03acf22e208640fa38c25f"
+  },
+  "handoff-original-eight-v1/data_4/godot/app_userdata/Nest Egg/settings.cfg": {
+    "bytes": 94,
+    "sha256": "dda52624edb33e0ebd0cc99e6249fc619568a812ae4e06d128082d0fa1d53575"
+  },
+  "handoff-original-eight-v1/data_5/godot/app_userdata/Nest Egg/codex.cfg": {
+    "bytes": 39,
+    "sha256": "537dcec52b639c11ac9ea2a08cf5eed155442254e7613864053242f827e9dc96"
+  },
+  "handoff-original-eight-v1/data_5/godot/app_userdata/Nest Egg/logs/godot.log": {
+    "bytes": 96671,
+    "sha256": "7b38164c1aaf654ba5a5b3e40934f0d6285c58c1ea0ae1e90cb6aa7cc109d3d2"
+  },
+  "handoff-original-eight-v1/data_5/godot/app_userdata/Nest Egg/settings.cfg": {
+    "bytes": 34,
+    "sha256": "caf63a2907c8e24e14ecf499723cc446cc0d7990f18e84f5c1e9147aa5030b9c"
+  },
+  "handoff-original-eight-v1/data_5/godot/app_userdata/Nest Egg/test_catalog_nested/upgrades/mag.tres": {
+    "bytes": 319,
+    "sha256": "a05b81d459e42e1fcc6c52edc92913d6e952b28e8b39f3852123df076f5ec850"
+  },
+  "handoff-original-eight-v1/data_5/godot/app_userdata/Nest Egg/test_catalog_nested/weapons/extra/deeper/future.tres": {
+    "bytes": 770,
+    "sha256": "eba72f84aa18e881dd28c041b25d12db0945020a6d60dcfce4e58485b5c8bb69"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/codex.cfg": {
+    "bytes": 41,
+    "sha256": "3c43e431fc6aa021f1acff614a6e0485384cbddacb371703883eaa95ddfd45fa"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/logs/godot.log": {
+    "bytes": 142127,
+    "sha256": "660be68be00428c21aac136e063b53a107a3acca701d2b37cdf1dbfa6cccb0ca"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-destination-refusal/area-refuse.json": {
+    "bytes": 8398,
+    "sha256": "70fe102daafb94d1c8a7ad33dc01fecb4c8c1554c133cd680fff98d04aee74e9"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-destination-refusal/area-refuse.json.bak": {
+    "bytes": 8398,
+    "sha256": "70fe102daafb94d1c8a7ad33dc01fecb4c8c1554c133cd680fff98d04aee74e9"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-destination-refusal/area-success.json": {
+    "bytes": 7469,
+    "sha256": "4011594890e00a1ff3dacee65c1a52a8726033253daaad44ebb2bde28866cbe1"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-destination-refusal/area-success.json.bak": {
+    "bytes": 8398,
+    "sha256": "9585c0ceb41fb313c7e6564d906c913e84d65c197d6718ddf95decf6ee2d8f02"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-destination-refusal/chapter-refuse.json": {
+    "bytes": 8398,
+    "sha256": "15367ea7c0f07a941304b2727f78f7a83a859c194d1391abb3680f8960556925"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-destination-refusal/chapter-refuse.json.bak": {
+    "bytes": 8398,
+    "sha256": "15367ea7c0f07a941304b2727f78f7a83a859c194d1391abb3680f8960556925"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-destination-refusal/chapter-success.json": {
+    "bytes": 7415,
+    "sha256": "97a3ba1d0e4f3de6af64a455f0f227fb6b54dbbb7f1b5b18cb6baaea7403edfa"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-destination-refusal/chapter-success.json.bak": {
+    "bytes": 8412,
+    "sha256": "e17ffcff441748c1e700c6a49b81b633bca0c95ed6e3312fb0e4b3cd643a38a2"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-destination-refusal/retry_nonpersistent-refuse.json": {
+    "bytes": 12958,
+    "sha256": "44389dfbc4e6e2140c519eb1d403a267ba2927ad5ab1c504386a285454bb39b2"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-destination-refusal/retry_nonpersistent-refuse.json.bak": {
+    "bytes": 12958,
+    "sha256": "44389dfbc4e6e2140c519eb1d403a267ba2927ad5ab1c504386a285454bb39b2"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-destination-refusal/retry_nonpersistent-success.json": {
+    "bytes": 7007,
+    "sha256": "19705b520d3e19abd64c2440acd049f4593ce60d284dbaf12fa09c34eda64a01"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-destination-refusal/retry_nonpersistent-success.json.bak": {
+    "bytes": 12944,
+    "sha256": "86d8578ee250deaab8964776d6cbb8311e9e6c763c40b647b41737127fada565"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-destination-refusal/retry_persistent-refuse.json": {
+    "bytes": 8412,
+    "sha256": "d4b93d37f134ffef9cbe3173a0fa2484d94ecaa54b895c8eb513be3bb00cc708"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-destination-refusal/retry_persistent-refuse.json.bak": {
+    "bytes": 8412,
+    "sha256": "d4b93d37f134ffef9cbe3173a0fa2484d94ecaa54b895c8eb513be3bb00cc708"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-destination-refusal/retry_persistent-success.json": {
+    "bytes": 7461,
+    "sha256": "858c22868a6ee4a5e63d3f06c7a81d4c859cb97558cf631dfcd3edf9ca6821b5"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-destination-refusal/retry_persistent-success.json.bak": {
+    "bytes": 8398,
+    "sha256": "07689f6838759ec6665dc9559896caa9604fd74ddc051ca777190767ba5ca52a"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/food-repair-owner.json": {
+    "bytes": 8051,
+    "sha256": "f6af250d82dd7fe39de97f3548f834dab020b657c1706b400498798d4d7d008c"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/food-repair-owner.json.bak": {
+    "bytes": 8051,
+    "sha256": "f6af250d82dd7fe39de97f3548f834dab020b657c1706b400498798d4d7d008c"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/interrupted_0.json": {
+    "bytes": 2,
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/interrupted_0.json.bak": {
+    "bytes": 6063,
+    "sha256": "e6683ee3d86f655cd007190da980ee76f272fb37c089a2416acf87f6f7a54a0c"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/interrupted_0.json.freshbak": {
+    "bytes": 6063,
+    "sha256": "e6683ee3d86f655cd007190da980ee76f272fb37c089a2416acf87f6f7a54a0c"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/interrupted_0.json.previous": {
+    "bytes": 6063,
+    "sha256": "668d0a0e2b73ab519b5f61a5b7345997954fc424eb648f95235c8a45c0bac08d"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/interrupted_0.json.previous.bak": {
+    "bytes": 6063,
+    "sha256": "668d0a0e2b73ab519b5f61a5b7345997954fc424eb648f95235c8a45c0bac08d"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/interrupted_1.json": {
+    "bytes": 2,
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/interrupted_1.json.bak": {
+    "bytes": 6063,
+    "sha256": "e6683ee3d86f655cd007190da980ee76f272fb37c089a2416acf87f6f7a54a0c"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/interrupted_1.json.freshbak": {
+    "bytes": 6063,
+    "sha256": "e6683ee3d86f655cd007190da980ee76f272fb37c089a2416acf87f6f7a54a0c"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/interrupted_1.json.previous": {
+    "bytes": 6063,
+    "sha256": "668d0a0e2b73ab519b5f61a5b7345997954fc424eb648f95235c8a45c0bac08d"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/interrupted_1.json.previous.bak": {
+    "bytes": 6063,
+    "sha256": "668d0a0e2b73ab519b5f61a5b7345997954fc424eb648f95235c8a45c0bac08d"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/interrupted_2.json": {
+    "bytes": 2,
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/interrupted_2.json.bak": {
+    "bytes": 6063,
+    "sha256": "e6683ee3d86f655cd007190da980ee76f272fb37c089a2416acf87f6f7a54a0c"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/interrupted_2.json.freshbak": {
+    "bytes": 6063,
+    "sha256": "e6683ee3d86f655cd007190da980ee76f272fb37c089a2416acf87f6f7a54a0c"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/interrupted_2.json.previous": {
+    "bytes": 6063,
+    "sha256": "668d0a0e2b73ab519b5f61a5b7345997954fc424eb648f95235c8a45c0bac08d"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/interrupted_2.json.previous.bak": {
+    "bytes": 6063,
+    "sha256": "668d0a0e2b73ab519b5f61a5b7345997954fc424eb648f95235c8a45c0bac08d"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/interrupted_3.json": {
+    "bytes": 2,
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/interrupted_3.json.bak": {
+    "bytes": 6063,
+    "sha256": "e6683ee3d86f655cd007190da980ee76f272fb37c089a2416acf87f6f7a54a0c"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/interrupted_3.json.freshbak": {
+    "bytes": 6063,
+    "sha256": "e6683ee3d86f655cd007190da980ee76f272fb37c089a2416acf87f6f7a54a0c"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/interrupted_3.json.previous": {
+    "bytes": 6063,
+    "sha256": "668d0a0e2b73ab519b5f61a5b7345997954fc424eb648f95235c8a45c0bac08d"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/interrupted_3.json.previous.bak": {
+    "bytes": 6063,
+    "sha256": "668d0a0e2b73ab519b5f61a5b7345997954fc424eb648f95235c8a45c0bac08d"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/npc-reactions.json": {
+    "bytes": 6481,
+    "sha256": "8581600d39bac07f3e35a07369bc9c7ec25ef1bc6866eb038981c4476545af82"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/npc-reactions.json.bak": {
+    "bytes": 6481,
+    "sha256": "8581600d39bac07f3e35a07369bc9c7ec25ef1bc6866eb038981c4476545af82"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/npc-repair-boundary.json": {
+    "bytes": 8037,
+    "sha256": "994fca37d5641b432c1f6bf2fcede168a3f63a3cdab594c397610e470ca95e95"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/npc-repair-boundary.json.bak": {
+    "bytes": 8037,
+    "sha256": "994fca37d5641b432c1f6bf2fcede168a3f63a3cdab594c397610e470ca95e95"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/npc-terminal.json": {
+    "bytes": 8121,
+    "sha256": "9117d3d3f2ca4b0af322c21ca55141afc43163a82ac0233c0151957b68056fdc"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/npc-terminal.json.bak": {
+    "bytes": 8395,
+    "sha256": "1aa15b559a033743852a0d4c4794dfa24a8a825979ec3c08bebf61aa5300e383"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/npc-terminal.json.previous": {
+    "bytes": 8102,
+    "sha256": "dd3716cb8eb3572839d120232292bf3345fbca7109b2df9e9b1a154b2f874b07"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/npc-terminal.json.previous.bak": {
+    "bytes": 8376,
+    "sha256": "f3c2bebd59e7801c81d17f67fe10c77ab7891b2deb2562dd308ea5a20b98e0c7"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/rollback.json": {
+    "bytes": 6063,
+    "sha256": "b65018675e5fc75480e9c93a2dd2270dfec9628c63ceb57f76441183eae3307e"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/rollback.json.bak": {
+    "bytes": 6063,
+    "sha256": "b65018675e5fc75480e9c93a2dd2270dfec9628c63ceb57f76441183eae3307e"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/rollback.json.previous": {
+    "bytes": 6063,
+    "sha256": "668d0a0e2b73ab519b5f61a5b7345997954fc424eb648f95235c8a45c0bac08d"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/unit.json": {
+    "bytes": 7,
+    "sha256": "be302461cda285db3ed2d45fb767b23e08ca8808b35a638009937df22b332d73"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/unit.json.bak": {
+    "bytes": 6062,
+    "sha256": "8c82d3a121691babbe4e8c2cf939bc2b01b9e3e597a9161e2dc097f82f3a24bb"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/unit.json.invalid": {
+    "bytes": 7,
+    "sha256": "be302461cda285db3ed2d45fb767b23e08ca8808b35a638009937df22b332d73"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/unit.json.previous": {
+    "bytes": 6064,
+    "sha256": "e0fc84d5b3a1af2267e62db63035b1050dd27f590975420dee6a9ecf7487e254"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/unit.json.previous.bak": {
+    "bytes": 6064,
+    "sha256": "e0fc84d5b3a1af2267e62db63035b1050dd27f590975420dee6a9ecf7487e254"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/unknown_backup.json": {
+    "bytes": 7,
+    "sha256": "be302461cda285db3ed2d45fb767b23e08ca8808b35a638009937df22b332d73"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/unknown_backup.json.bak": {
+    "bytes": 15,
+    "sha256": "8eedf8924c22cfe64f5530ce2daa51f4bd552c93327b3edb9636b32ddf82c1e7"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/unknown_transaction.json": {
+    "bytes": 6063,
+    "sha256": "e6683ee3d86f655cd007190da980ee76f272fb37c089a2416acf87f6f7a54a0c"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/unknown_transaction.json.bak": {
+    "bytes": 6063,
+    "sha256": "e6683ee3d86f655cd007190da980ee76f272fb37c089a2416acf87f6f7a54a0c"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/unknown_transaction.json.newrun.previous": {
+    "bytes": 91,
+    "sha256": "b90f6b19686462a00ab575a552d82f5742e56d7b27e6706c6e01b0792082ad68"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/unknown_transaction.json.previous": {
+    "bytes": 15,
+    "sha256": "8eedf8924c22cfe64f5530ce2daa51f4bd552c93327b3edb9636b32ddf82c1e7"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/unknown_transaction.json.previous.bak": {
+    "bytes": 6063,
+    "sha256": "e6683ee3d86f655cd007190da980ee76f272fb37c089a2416acf87f6f7a54a0c"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/world-repair-owner.json": {
+    "bytes": 8609,
+    "sha256": "378204c900b61215d49b322db4888e7ecd6eada4a77faf1ce003d7add522c701"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-suite/world-repair-owner.json.bak": {
+    "bytes": 8609,
+    "sha256": "378204c900b61215d49b322db4888e7ecd6eada4a77faf1ce003d7add522c701"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-terminal-refusal.json": {
+    "bytes": 8060,
+    "sha256": "af47661036f8a6f6ed21be6de9dc9bc71b183f564ae84845ef8fe8666fe1505f"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne230-terminal-refusal.json.bak": {
+    "bytes": 8061,
+    "sha256": "1391be2d167dc3f915e034fce386d3fc45f9243f34cf1b98db1989bcefbd0c82"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne246-completion/first-save.json": {
+    "bytes": 8346,
+    "sha256": "8ec54834c64071a623210ca8aba064d7c856f6de24d7886b339ab5190baff8ca"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne246-completion/first-save.json.bak": {
+    "bytes": 8052,
+    "sha256": "46384230faf9687c42bc06a6cf7847170bf9ed3e5de1f82ed129234861a1fd40"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne246-completion/rollback.json.bak": {
+    "bytes": 8096,
+    "sha256": "feb7ac7cf66f66805fc7f15954d59902957aaa0c3333be096f637d624a7f43ed"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne246-completion/rollback.json.tmp": {
+    "bytes": 8396,
+    "sha256": "c718562d9cada01347f52292b80ecb674989a2b50e8e48053226a6869d2717f9"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne246-completion/slot.json": {
+    "bytes": 8371,
+    "sha256": "e80f8378d1aafab98293f504d538f260094e3d0589519d4ad408dd9915e305e0"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/ne246-completion/slot.json.bak": {
+    "bytes": 8371,
+    "sha256": "1d19c13b282b2510ac206538d2bdbf6eb193913ca409f078095e591044b60216"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/settings.cfg": {
+    "bytes": 92,
+    "sha256": "065e780d891e799ded0c65a52b0838783ad59394e524b0a5312d5e6ffdc8bf60"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/st9-home-completion.json": {
+    "bytes": 8406,
+    "sha256": "d9dbb07b3868b97426a38de79e2f28b46a737dff650c5cab204cea124beac4c8"
+  },
+  "handoff-original-eight-v1/data_6/godot/app_userdata/Nest Egg/st9-home-completion.json.bak": {
+    "bytes": 8118,
+    "sha256": "c44bde39aca08c7b33b1006fda80718009f70ba3b9f0b512940813ba0293fe62"
+  },
+  "handoff-original-eight-v1/data_7/godot/app_userdata/Nest Egg/codex.cfg": {
+    "bytes": 96,
+    "sha256": "a8bb35036d1b42ba8e0a95fd71218bc49056617aa3db2bf2f355194c43d74daf"
+  },
+  "handoff-original-eight-v1/data_7/godot/app_userdata/Nest Egg/logs/godot.log": {
+    "bytes": 10162,
+    "sha256": "47f530299bd389875b6294824b3ce033fe223b2d86a88b78f3e5ce0b5b793f03"
+  },
+  "handoff-original-eight-v1/data_7/godot/app_userdata/Nest Egg/settings.cfg": {
+    "bytes": 321,
+    "sha256": "b5791855f436d8800e964a6091bb14be6c25b621e544b0643e2c6f2c4d8d3645"
+  },
+  "handoff-original-eight-v1/result.json": {
+    "bytes": 1516,
+    "sha256": "fd80c8fe865dc5a979f08e2b24a3ff1a556cfdc92e45200687d8cf330279da4c"
+  },
+  "handoff-original-eight-v1/shard_0.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "handoff-original-eight-v1/shard_0.log": {
+    "bytes": 2175,
+    "sha256": "38f6c2412971201028946e8bda62c6e5cdb8128868b64b31d36a30f0d4028050"
+  },
+  "handoff-original-eight-v1/shard_1.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "handoff-original-eight-v1/shard_1.log": {
+    "bytes": 146401,
+    "sha256": "b89480d65381aef19ec4fa4465aaea98a3a39918d4638dacf6a38e005c487a71"
+  },
+  "handoff-original-eight-v1/shard_2.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "handoff-original-eight-v1/shard_2.log": {
+    "bytes": 58903,
+    "sha256": "a54cad7c99ab738844ff047a40244f8186d5e2691235643324e0268564abc65a"
+  },
+  "handoff-original-eight-v1/shard_3.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "handoff-original-eight-v1/shard_3.log": {
+    "bytes": 185797,
+    "sha256": "22091e1239ad0176c74ee7a79feb47dee47cb43b5c8f5ca6efc907d2e779adbb"
+  },
+  "handoff-original-eight-v1/shard_4.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "handoff-original-eight-v1/shard_4.log": {
+    "bytes": 79441,
+    "sha256": "b9c34876a7a3fb045d45e298ab645533c745f4d22b65316f056b3a9fafffa465"
+  },
+  "handoff-original-eight-v1/shard_5.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "handoff-original-eight-v1/shard_5.log": {
+    "bytes": 97529,
+    "sha256": "44f09258a506c7895c131c249d08d42386a3fd9b2be24133c169157f8b37697c"
+  },
+  "handoff-original-eight-v1/shard_6.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "handoff-original-eight-v1/shard_6.log": {
+    "bytes": 146053,
+    "sha256": "30fa9556a97f213c2f97849d66d925bbbf38ffccf096a99318d1b9c225961a9d"
+  },
+  "handoff-original-eight-v1/shard_7.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "handoff-original-eight-v1/shard_7.log": {
+    "bytes": 10410,
+    "sha256": "c55001222eb01ee659bada89ab335b93f11ddae873c8af7fe7562c91286914d8"
+  },
+  "logs/godot-audio-safe-build.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "logs/godot-audio-safe-build.log": {
+    "bytes": 192016,
+    "sha256": "12479059f99e46a2e98365d4ee90cbea95a75c02c75fa607414f5805c6adc419"
+  },
+  "logs/godot-build-command.json": {
+    "bytes": 603,
+    "sha256": "075b1473a88186e7dfe79b847a7119af687aa83534b56b2fc0a4260b30110370"
+  },
+  "logs/ne280-audio-comparison.json": {
+    "bytes": 1441,
+    "sha256": "bb9f19ed16ff1a21101f38c71db4b6b15021c61dea62025952b5d913158de44d"
+  },
+  "logs/ne280-audio-load-patched-v1.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "logs/ne280-audio-load-patched-v1.log": {
+    "bytes": 239,
+    "sha256": "822b4de3ae97dc721bbb48dcf89681dae139bd5cdaf78431558d51eb57ee08fd"
+  },
+  "logs/ne280-builder-checks-final.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "logs/ne280-builder-checks-final.log": {
+    "bytes": 106,
+    "sha256": "60bb849356ffbc091f601e17fc6ae0b2eb5e26d734d433da020c6e775efbf97f"
+  },
+  "logs/ne280-engine-cache-verify.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "logs/ne280-engine-cache-verify.log": {
+    "bytes": 64,
+    "sha256": "ecf371e2c4358df58645f662f202b604479f8d5006af0544480376777cb7f46e"
+  },
+  "logs/ne280-engine-receipt.json": {
+    "bytes": 1346,
+    "sha256": "7985a74ccecdc8dd68e3a359f60aa18aa305f834dfb15d78a27daa41120e68bf"
+  },
+  "logs/ne280-full-v1.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "logs/ne280-full-v1.log": {
+    "bytes": 1880,
+    "sha256": "b9f70d2c480845194127f44805ea49be91e135afdddee0fd410caa6385999363"
+  },
+  "logs/ne280-lock-review.json": {
+    "bytes": 2522,
+    "sha256": "6dd4a2ca767d282fa9073bf69dd499fc245df6265f1294e02b49f0db29f3f94d"
+  },
+  "logs/ne280-scope-final.exit": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "logs/ne280-scope-final.log": {
+    "bytes": 88,
+    "sha256": "cd0d830004b900fd80ee02e198866c2d06ba1c7e19a03c5dfed76e7528e41963"
+  },
+  "logs/ne280-sdk-verified.json": {
+    "bytes": 353,
+    "sha256": "99cc881660d797146721e26e30d8fcf093a56dafdb525110fd86c3f385caf289"
+  },
+  "logs/ne280-upstream-followup.json": {
+    "bytes": 583,
+    "sha256": "c1058dcadaac1a634114323c90d5c72dd9bd6e5375d8f9738206d6fe9f706bf1"
+  },
+  "ne280-full-v1-shards/shard_0.log": {
+    "bytes": 2169,
+    "sha256": "9dd2bb24f85da53c9891ef7a4f18485bad94542fd749afbf6564a828a8baae84"
+  },
+  "ne280-full-v1-shards/shard_1.log": {
+    "bytes": 276653,
+    "sha256": "ec491260b7766fbe45b1353a4752bd2eeacd89aa88a7ff401dda5cb16cd85bbe"
+  },
+  "ne280-full-v1-shards/shard_2.log": {
+    "bytes": 4359,
+    "sha256": "4ba778ad47b1281f921c912d896e5ea8326ab94d6fdbc5d963d78a96dbeaba44"
+  },
+  "ne280-full-v1-shards/shard_3.log": {
+    "bytes": 44987,
+    "sha256": "1df3f8bd8b0356ed0ee05342c8efff7842d48128181e4dc1092b9daa8a3ec24c"
+  },
+  "ne280-full-v1-shards/shard_4.log": {
+    "bytes": 84969,
+    "sha256": "7838c990b18c485a01c1be8ed7546f9c65b9d3ae27aef1a21cb1f98ce98ff46f"
+  },
+  "ne280-full-v1-shards/shard_5.log": {
+    "bytes": 43009,
+    "sha256": "db16af69b4944a666c741eeec5e367f7e79e833f6f0b46cc3543bd30e4b0ad61"
+  },
+  "ne280-full-v1-shards/shard_6.log": {
+    "bytes": 138264,
+    "sha256": "aa5a9e32ecc7ce46139970490c428cd47a153cc57ca1d1f16dd9d7fc7457eabf"
+  },
+  "ne280-full-v1-shards/shard_7.log": {
+    "bytes": 48967,
+    "sha256": "227cf53c347edf693cbfd4b9bbc5290a3688c403b42ddc7362428f647e218fbb"
+  },
+  "recipe/.gdignore": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "recipe/.gitattributes": {
+    "bytes": 85,
+    "sha256": "e0fca7c29b857da3f2499c928bf06d6974514df2b89e570a33c0aa989627ea51"
+  },
+  "recipe/README.md": {
+    "bytes": 3989,
+    "sha256": "4a9e4dcfe40435ad6bc8155c35063a85f7ac2cf1837fd560d96aea4c5c98971c"
+  },
+  "recipe/audio-bus-lifetime.patch": {
+    "bytes": 763,
+    "sha256": "aa4703685b2cf0394f6ccb4209bf5771c159e3a97df98a7b92891e4f54356c70"
+  },
+  "recipe/build.py": {
+    "bytes": 14272,
+    "sha256": "13b6c306c1de68d4ff0576f60c6e0448afc0e501cf0334f1300a14f8c414c502"
+  },
+  "recipe/manifest.json": {
+    "bytes": 1353,
+    "sha256": "1b9240df8321d27c28a67bb7876cff0619da13c91e28f73211acd8093fe7b2e6"
+  },
+  "recipe/probes/main.gd": {
+    "bytes": 6102,
+    "sha256": "c618d4de58e4d496584d1c544d03b968802471d681f0626766b9a9fbc7cd721d"
+  },
+  "recipe/probes/main.tscn": {
+    "bytes": 158,
+    "sha256": "a35cb8dd8445751046ebaee65bc4d1e2f531cfcb0280fd79d491532fde2cf69d"
+  },
+  "recipe/probes/project.godot": {
+    "bytes": 238,
+    "sha256": "fb3bc3997f06d15e6f48df7f23169677fcef08200ddd4a79df377944f5e58e4f"
+  },
+  "recipe/run_audio_load.py": {
+    "bytes": 4904,
+    "sha256": "e0f89a13a31291154bfa72e486451ce58ac4171daaed6bb0eb9c5a1569a477c0"
+  },
+  "recipe/test_build.py": {
+    "bytes": 4919,
+    "sha256": "6c44ce2f246c72a12709107604b2f36cf82cc5e3744620e5db96896f46903152"
+  },
+  "runner/run_ne280_after_build_v1.py": {
+    "bytes": 2563,
+    "sha256": "bac80c09cdcaca7c6ae302f6599366735d67cfef65102b7d4583397f0e4f4a51"
+  }
+}

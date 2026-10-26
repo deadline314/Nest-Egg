@@ -23,3 +23,6 @@ __pycache__/
 
 # 音效實驗室的預聽檔（tools/audio/build_candidates.py 產生，可重做）
 /assets_src/audition/
+
+# Reproducible Godot audio repair builds (NE-280).
+/work/godot-audio-safe/

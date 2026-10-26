@@ -30,8 +30,8 @@ env:
 
 jobs:
   full:
-    runs-on: ubuntu-latest
-    timeout-minutes: 45
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
     permissions:
       contents: read
       actions: read
@@ -51,14 +51,36 @@ jobs:
             echo "Nothing changed since the last green run ($last)."
           fi
 
-      - name: Download Godot
+      # NE-280: retain audio, Wayland, accessibility and both renderers.
+      # Save a verified engine before game tests so cancellation does not lose a build.
+      - name: Restore the repaired Godot editor
+        id: engine-cache
         if: steps.gate.outputs.skip != 'true'
+        uses: actions/cache/restore@v4
+        with:
+          path: work/godot-audio-safe/dist
+          key: godot-audio-linux-x86_64-ubuntu24-${{ hashFiles('tools/godot_audio/manifest.json', 'tools/godot_audio/audio-bus-lifetime.patch', 'tools/godot_audio/build.py') }}
+
+      - name: Install engine build dependencies
+        if: steps.gate.outputs.skip != 'true' && steps.engine-cache.outputs.cache-hit != 'true'
         run: |
-          curl -fsSL -o godot.zip "https://github.com/godotengine/godot-builds/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_linux.x86_64.zip"
-          echo "cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4  godot.zip" | sha256sum -c -
-          unzip -q godot.zip
-          chmod +x "Godot_v${GODOT_VERSION}_linux.x86_64"
-          echo "GODOT=$PWD/Godot_v${GODOT_VERSION}_linux.x86_64" >> "$GITHUB_ENV"
+          sudo apt-get update
+          sudo apt-get install -y build-essential python3-venv pkg-config libwayland-bin
+
+      - name: Build or verify the repaired editor
+        if: steps.gate.outputs.skip != 'true'
+        timeout-minutes: 90
+        run: |
+          python3 tools/godot_audio/test_build.py
+          python3 tools/godot_audio/build.py --jobs 3 --github-env "$GITHUB_ENV"
+          cat work/godot-audio-safe/dist/receipt.json
+
+      - name: Cache the verified editor
+        if: steps.gate.outputs.skip != 'true' && steps.engine-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: work/godot-audio-safe/dist
+          key: ${{ steps.engine-cache.outputs.cache-primary-key }}
 
       # 匯入快取（貼圖、音訊）：內容沒變就沿用，省下幾分鐘。
       - name: Cache the import folder
@@ -75,7 +97,14 @@ jobs:
           "$GODOT" --headless --editor --quit || true
           "$GODOT" --headless --editor --quit || true
 
+      - name: Check actual positional audio mixing
+        if: steps.gate.outputs.skip != 'true'
+        timeout-minutes: 3
+        run: |
+          python3 tools/godot_audio/run_audio_load.py --engine "$GODOT" --output "${{ runner.temp }}/audio-load" --cases 8 --seconds 12
+
       - name: Run all tests (parallel)
+        timeout-minutes: 45
         if: steps.gate.outputs.skip != 'true'
         env:
           LOG_DIR: ${{ runner.temp }}/test-logs
@@ -88,5 +117,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-logs
-          path: ${{ runner.temp }}/test-logs/*.log
+          path: |
+            ${{ runner.temp }}/test-logs/*.log
+            ${{ runner.temp }}/audio-load/*.log
+            ${{ runner.temp }}/audio-load/*.json
+            work/godot-audio-safe/dist/receipt.json
           retention-days: 7
