@@ -1,0 +1,28 @@
+{
+  "handoff_insert": {
+    "scene": "ch1_t_handoff_accept",
+    "level": "res://data/levels/ch1_handoff.tres",
+    "source": "res://data/npcs/ch1_handoff_cabinet.tres",
+    "prop": "handoff__commission_cabinet",
+    "reaction": "handoff_cabinet",
+    "kind": "insert",
+    "station": [-4, 57],
+    "facing": 1,
+    "anchor": "disk_slot",
+    "item": "ch1_data_disk",
+    "texture": "res://art/items/world/ch1_data_disk.png",
+    "width": 5.0,
+    "grip": [5, 12],
+    "tip": [20, 12]
+  },
+  "handoff_take_paper": {
+    "scene": "ch1_t_handoff_receipt",
+    "level": "res://data/levels/ch1_handoff.tres",
+    "source": "res://data/npcs/ch1_handoff_cabinet.tres",
+    "prop": "handoff__commission_cabinet",
+    "reaction": "handoff_cabinet",
+    "kind": "take_paper",
+    "station": [24, 57],
+    "facing": -1
+  }
+}

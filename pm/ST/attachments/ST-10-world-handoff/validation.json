@@ -1,0 +1,1198 @@
+{
+  "base": "9055c63a1a8071aacbceeed98b6f7f8a2642c8f5",
+  "source_snapshot": "v14",
+  "engine": {
+    "schema": 1,
+    "recipe_sha256": "4f37a9546a962e54b7ef0a7b25525d100617175b197eb5e6bf4b4a750daea754",
+    "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "source_archive_sha256": "e607e9985e1c201bc9cdc1aec8a120f0c3f53b9603f1f828e2b748534a2471ef",
+    "source_files_verified": 13989,
+    "patch_sha256": "aa4703685b2cf0394f6ccb4209bf5771c159e3a97df98a7b92891e4f54356c70",
+    "audio_after_sha256": "f50737107e7169f5b8983836f76b3e66fc8a0fbbb1a5eab9b18d28810b248c06",
+    "accesskit_sha256": "sha256:41b30b1382d03b225b6f7e8721269a32557a68065804f3797bdffc34a3273498",
+    "command": [
+      "/workspace/Nest-Egg/work/batch1026/godot-build-venv/bin/python",
+      "-m",
+      "SCons",
+      "-j3",
+      "platform=linuxbsd",
+      "target=editor",
+      "arch=x86_64",
+      "production=yes",
+      "debug_symbols=no",
+      "lto=none",
+      "wayland=yes",
+      "accesskit=yes",
+      "x11=yes",
+      "compiledb=yes"
+    ],
+    "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+    "engine_version": "4.7.2.stable.custom_build",
+    "binary_sha256": "dadf922b668b42d4484386749c9f5a2bf8587cd50c36215238f16776132de2ac",
+    "compile_commands_sha256": "fa871495b41e0b4fba825ec8fb584dc41e1280aafcfb76c8d4de0fea73f61b83",
+    "binary_bytes": 165125600,
+    "features": {
+      "wayland": true,
+      "x11": true,
+      "accesskit": true,
+      "renderers": [
+        "vulkan",
+        "opengl3"
+      ]
+    }
+  },
+  "renderer": "software Vulkan llvmpipe / Forward+ / HDR2D",
+  "native": {
+    "processes": 15,
+    "checks": 225,
+    "failures": 0,
+    "cases": [
+      {
+        "name": "st10-handoff-main-audiofix-v1",
+        "source_snapshot": "v14",
+        "checks": 15,
+        "engine": "4.7.2-stable (custom_build)",
+        "failures": [],
+        "mode": "preview",
+        "operations": [
+          {
+            "aim": [
+              0.990171909332275,
+              0.1398556381464
+            ],
+            "contacts": 0,
+            "disk_delivered": false,
+            "disk_held": true,
+            "elapsed": 0.316666666666667,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "pocket",
+            "intake_error": null,
+            "palm_error": 3.0517578125e-05,
+            "paper_grip_error": null,
+            "paper_instance": 0,
+            "phase": "pocket",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          },
+          {
+            "aim": [
+              0.990171909332275,
+              0.1398556381464
+            ],
+            "contacts": 0,
+            "disk_delivered": false,
+            "disk_held": true,
+            "elapsed": 0.3,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "present",
+            "intake_error": null,
+            "palm_error": 3.0517578125e-05,
+            "paper_grip_error": null,
+            "paper_instance": 0,
+            "phase": "present",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          },
+          {
+            "aim": [
+              0.990171909332275,
+              0.1398556381464
+            ],
+            "contacts": 0,
+            "disk_delivered": false,
+            "disk_held": true,
+            "elapsed": 0.416666666666667,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "contact",
+            "intake_error": null,
+            "palm_error": 3.0517578125e-05,
+            "paper_grip_error": null,
+            "paper_instance": 0,
+            "phase": "contact",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          },
+          {
+            "aim": [
+              0.990171909332275,
+              0.1398556381464
+            ],
+            "contacts": 1,
+            "disk_delivered": false,
+            "disk_held": true,
+            "elapsed": 0.483333333333333,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "insert",
+            "intake_error": 0.0,
+            "palm_error": 0.0,
+            "paper_grip_error": null,
+            "paper_instance": 0,
+            "phase": "insert",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          },
+          {
+            "aim": [
+              0.990171909332275,
+              0.1398556381464
+            ],
+            "disk_delivered": true,
+            "disk_held": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "completed-ch1_t_handoff_accept",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          },
+          {
+            "aim": [
+              0.993492841720581,
+              0.113894663751125
+            ],
+            "contacts": 0,
+            "disk_delivered": true,
+            "disk_held": false,
+            "elapsed": 0.433333333333333,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "take",
+            "intake_error": null,
+            "palm_error": 3.0517578125e-05,
+            "paper_grip_error": null,
+            "paper_instance": 0,
+            "phase": "take",
+            "player": [
+              312.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": -1
+          },
+          {
+            "aim": [
+              0.993492841720581,
+              0.113894663751125
+            ],
+            "contacts": 1,
+            "disk_delivered": true,
+            "disk_held": false,
+            "elapsed": 0.55,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "stow",
+            "intake_error": null,
+            "palm_error": 0.0,
+            "paper_grip_error": 3.0517578125e-05,
+            "paper_instance": 1035053569486,
+            "phase": "stow",
+            "player": [
+              312.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": -1
+          },
+          {
+            "aim": [
+              0.993492841720581,
+              0.113894663751125
+            ],
+            "disk_delivered": true,
+            "disk_held": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "completed-ch1_t_handoff_receipt",
+            "player": [
+              312.0,
+              320.0
+            ],
+            "receipt_taken": true,
+            "rig_facing": 1
+          }
+        ]
+      },
+      {
+        "name": "st10-handoff-cancel-insert-audiofix-v1",
+        "source_snapshot": "v14",
+        "checks": 9,
+        "engine": "4.7.2-stable (custom_build)",
+        "failures": [],
+        "mode": "cancel_insert",
+        "operations": [
+          {
+            "aim": [
+              0.990171909332275,
+              0.1398556381464
+            ],
+            "contacts": 1,
+            "disk_delivered": false,
+            "disk_held": true,
+            "elapsed": 0.216666666666667,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "cancel_insert-before",
+            "intake_error": 0.0,
+            "palm_error": 0.0,
+            "paper_grip_error": null,
+            "paper_instance": 0,
+            "phase": "insert",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          },
+          {
+            "aim": [
+              0.978138208389282,
+              0.207955837249756
+            ],
+            "disk_delivered": false,
+            "disk_held": true,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "cancel_insert-after",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          }
+        ]
+      },
+      {
+        "name": "st10-handoff-cancel-receipt-audiofix-v1",
+        "source_snapshot": "v14",
+        "checks": 14,
+        "engine": "4.7.2-stable (custom_build)",
+        "failures": [],
+        "mode": "cancel_receipt",
+        "operations": [
+          {
+            "aim": [
+              0.990171909332275,
+              0.1398556381464
+            ],
+            "contacts": 0,
+            "disk_delivered": false,
+            "disk_held": true,
+            "elapsed": 0.316666666666667,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "pocket",
+            "intake_error": null,
+            "palm_error": 3.0517578125e-05,
+            "paper_grip_error": null,
+            "paper_instance": 0,
+            "phase": "pocket",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          },
+          {
+            "aim": [
+              0.990171909332275,
+              0.1398556381464
+            ],
+            "contacts": 0,
+            "disk_delivered": false,
+            "disk_held": true,
+            "elapsed": 0.3,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "present",
+            "intake_error": null,
+            "palm_error": 3.0517578125e-05,
+            "paper_grip_error": null,
+            "paper_instance": 0,
+            "phase": "present",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          },
+          {
+            "aim": [
+              0.990171909332275,
+              0.1398556381464
+            ],
+            "contacts": 0,
+            "disk_delivered": false,
+            "disk_held": true,
+            "elapsed": 0.416666666666667,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "contact",
+            "intake_error": null,
+            "palm_error": 3.0517578125e-05,
+            "paper_grip_error": null,
+            "paper_instance": 0,
+            "phase": "contact",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          },
+          {
+            "aim": [
+              0.990171909332275,
+              0.1398556381464
+            ],
+            "contacts": 1,
+            "disk_delivered": false,
+            "disk_held": true,
+            "elapsed": 0.483333333333333,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "insert",
+            "intake_error": 0.0,
+            "palm_error": 0.0,
+            "paper_grip_error": null,
+            "paper_instance": 0,
+            "phase": "insert",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          },
+          {
+            "aim": [
+              0.993492841720581,
+              0.113894663751125
+            ],
+            "contacts": 1,
+            "disk_delivered": true,
+            "disk_held": false,
+            "elapsed": 0.183333333333333,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "cancel_receipt-before",
+            "intake_error": null,
+            "palm_error": 4.31583721365314e-05,
+            "paper_grip_error": 3.0517578125e-05,
+            "paper_instance": 1037201053137,
+            "phase": "pull",
+            "player": [
+              312.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": -1
+          },
+          {
+            "aim": [
+              0.974546253681183,
+              0.224186331033707
+            ],
+            "disk_delivered": true,
+            "disk_held": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "cancel_receipt-after",
+            "player": [
+              312.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          }
+        ]
+      },
+      {
+        "name": "st10-handoff-skip-insert-audiofix-v1",
+        "source_snapshot": "v14",
+        "checks": 8,
+        "engine": "4.7.2-stable (custom_build)",
+        "failures": [],
+        "mode": "skip_insert",
+        "operations": [
+          {
+            "aim": [
+              0.990171909332275,
+              0.1398556381464
+            ],
+            "contacts": 1,
+            "disk_delivered": false,
+            "disk_held": true,
+            "elapsed": 0.216666666666667,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "skip_insert-before",
+            "intake_error": 0.0,
+            "palm_error": 0.0,
+            "paper_grip_error": null,
+            "paper_instance": 0,
+            "phase": "insert",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          },
+          {
+            "aim": [
+              0.990171909332275,
+              0.1398556381464
+            ],
+            "disk_delivered": true,
+            "disk_held": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "skip_insert-after",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          }
+        ]
+      },
+      {
+        "name": "st10-handoff-skip-receipt-audiofix-v1",
+        "source_snapshot": "v14",
+        "checks": 12,
+        "engine": "4.7.2-stable (custom_build)",
+        "failures": [],
+        "mode": "skip_receipt",
+        "operations": [
+          {
+            "aim": [
+              0.990171909332275,
+              0.1398556381464
+            ],
+            "contacts": 0,
+            "disk_delivered": false,
+            "disk_held": true,
+            "elapsed": 0.316666666666667,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "pocket",
+            "intake_error": null,
+            "palm_error": 3.0517578125e-05,
+            "paper_grip_error": null,
+            "paper_instance": 0,
+            "phase": "pocket",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          },
+          {
+            "aim": [
+              0.990171909332275,
+              0.1398556381464
+            ],
+            "contacts": 0,
+            "disk_delivered": false,
+            "disk_held": true,
+            "elapsed": 0.3,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "present",
+            "intake_error": null,
+            "palm_error": 3.0517578125e-05,
+            "paper_grip_error": null,
+            "paper_instance": 0,
+            "phase": "present",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          },
+          {
+            "aim": [
+              0.990171909332275,
+              0.1398556381464
+            ],
+            "contacts": 0,
+            "disk_delivered": false,
+            "disk_held": true,
+            "elapsed": 0.416666666666667,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "contact",
+            "intake_error": null,
+            "palm_error": 3.0517578125e-05,
+            "paper_grip_error": null,
+            "paper_instance": 0,
+            "phase": "contact",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          },
+          {
+            "aim": [
+              0.990171909332275,
+              0.1398556381464
+            ],
+            "contacts": 1,
+            "disk_delivered": false,
+            "disk_held": true,
+            "elapsed": 0.483333333333333,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "insert",
+            "intake_error": 0.0,
+            "palm_error": 0.0,
+            "paper_grip_error": null,
+            "paper_instance": 0,
+            "phase": "insert",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          },
+          {
+            "aim": [
+              0.993492841720581,
+              0.113894663751125
+            ],
+            "contacts": 1,
+            "disk_delivered": true,
+            "disk_held": false,
+            "elapsed": 0.183333333333333,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "skip_receipt-before",
+            "intake_error": null,
+            "palm_error": 4.31583721365314e-05,
+            "paper_grip_error": 3.0517578125e-05,
+            "paper_instance": 1037201053135,
+            "phase": "pull",
+            "player": [
+              312.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": -1
+          },
+          {
+            "aim": [
+              0.993492841720581,
+              0.113894663751125
+            ],
+            "disk_delivered": true,
+            "disk_held": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "skip_receipt-after",
+            "player": [
+              312.0,
+              320.0
+            ],
+            "receipt_taken": true,
+            "rig_facing": 1
+          }
+        ]
+      },
+      {
+        "name": "st10-handoff-blocked-audiofix-v1",
+        "source_snapshot": "v14",
+        "checks": 10,
+        "engine": "4.7.2-stable (custom_build)",
+        "failures": [],
+        "mode": "blocked",
+        "operations": [
+          {
+            "aim": [
+              0.994340300559998,
+              0.106242157518864
+            ],
+            "disk_delivered": false,
+            "disk_held": true,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "blocked-after",
+            "player": [
+              260.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          }
+        ]
+      },
+      {
+        "name": "st10-handoff-writer-audiofix-v1",
+        "source_snapshot": "v14",
+        "checks": 79,
+        "engine": "4.7.2-stable (custom_build)",
+        "failures": [],
+        "mode": "write",
+        "operations": [
+          {
+            "items": {
+              "custody_version": 1,
+              "held": [
+                "wataru_photo",
+                "nest_egg_chip"
+              ],
+              "owned": [
+                "wataru_photo",
+                "nest_egg_chip",
+                "ch1_data_disk"
+              ],
+              "transferred": [
+                "ch1_data_disk"
+              ],
+              "unseen": [
+                "wataru_photo",
+                "nest_egg_chip",
+                "ch1_data_disk"
+              ]
+            },
+            "scene": "ch1_t_handoff_accept",
+            "talks": 1,
+            "wallet": 237
+          },
+          {
+            "items": {
+              "custody_version": 1,
+              "held": [
+                "wataru_photo",
+                "nest_egg_chip",
+                "ch1_delivery_receipt"
+              ],
+              "owned": [
+                "wataru_photo",
+                "nest_egg_chip",
+                "ch1_data_disk",
+                "ch1_delivery_receipt"
+              ],
+              "transferred": [
+                "ch1_data_disk"
+              ],
+              "unseen": [
+                "wataru_photo",
+                "nest_egg_chip",
+                "ch1_data_disk"
+              ]
+            },
+            "scene": "ch1_t_handoff_receipt",
+            "talks": 2,
+            "wallet": 236
+          },
+          {
+            "items": {
+              "custody_version": 1,
+              "held": [
+                "wataru_photo",
+                "nest_egg_chip",
+                "ch1_delivery_receipt",
+                "ch1_market_summary"
+              ],
+              "owned": [
+                "wataru_photo",
+                "nest_egg_chip",
+                "ch1_data_disk",
+                "ch1_delivery_receipt",
+                "ch1_market_summary"
+              ],
+              "transferred": [
+                "ch1_data_disk"
+              ],
+              "unseen": [
+                "wataru_photo",
+                "nest_egg_chip",
+                "ch1_data_disk"
+              ]
+            },
+            "scene": "ch1_t_handoff_summary",
+            "talks": 3,
+            "wallet": 235
+          }
+        ]
+      },
+      {
+        "name": "st10-handoff-cold-audiofix-v1",
+        "source_snapshot": "v14",
+        "checks": 5,
+        "engine": "4.7.2-stable (custom_build)",
+        "failures": [],
+        "mode": "read",
+        "operations": []
+      },
+      {
+        "name": "st10-handoff-save-reset-audiofix-v1",
+        "source_snapshot": "v14",
+        "checks": 42,
+        "engine": "4.7.2-stable (custom_build)",
+        "failures": [],
+        "mode": "reset_write",
+        "operations": [
+          {
+            "items": {
+              "custody_version": 1,
+              "held": [
+                "wataru_photo",
+                "nest_egg_chip"
+              ],
+              "owned": [
+                "wataru_photo",
+                "nest_egg_chip",
+                "ch1_data_disk"
+              ],
+              "transferred": [
+                "ch1_data_disk"
+              ],
+              "unseen": [
+                "wataru_photo",
+                "nest_egg_chip",
+                "ch1_data_disk"
+              ]
+            },
+            "scene": "ch1_t_handoff_accept",
+            "talks": 1,
+            "wallet": 237
+          }
+        ]
+      },
+      {
+        "name": "st10-handoff-reset-cold-audiofix-v1",
+        "source_snapshot": "v14",
+        "checks": 5,
+        "engine": "4.7.2-stable (custom_build)",
+        "failures": [],
+        "mode": "reset_read",
+        "operations": []
+      },
+      {
+        "name": "st10-handoff-mid-accept-write-audiofix-v1",
+        "source_snapshot": "v14",
+        "checks": 4,
+        "engine": "4.7.2-stable (custom_build)",
+        "failures": [],
+        "mode": "mid_accept_write",
+        "operations": [
+          {
+            "aim": [
+              0.993672609329224,
+              0.112314857542515
+            ],
+            "contacts": 0,
+            "disk_delivered": false,
+            "disk_held": true,
+            "elapsed": 0.15,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "mid-quit-ch1_t_handoff_accept",
+            "intake_error": null,
+            "palm_error": 0.0,
+            "paper_grip_error": null,
+            "paper_instance": 0,
+            "phase": "contact",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          }
+        ]
+      },
+      {
+        "name": "st10-handoff-mid-accept-read-audiofix-v1",
+        "source_snapshot": "v14",
+        "checks": 5,
+        "engine": "4.7.2-stable (custom_build)",
+        "failures": [],
+        "mode": "mid_accept_read",
+        "operations": [
+          {
+            "aim": [
+              0.976984262466431,
+              0.213311523199081
+            ],
+            "disk_delivered": true,
+            "disk_held": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "mid-resumed-ch1_t_handoff_accept",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          }
+        ]
+      },
+      {
+        "name": "st10-handoff-mid-receipt-write-audiofix-v1",
+        "source_snapshot": "v14",
+        "checks": 7,
+        "engine": "4.7.2-stable (custom_build)",
+        "failures": [],
+        "mode": "mid_receipt_write",
+        "operations": [
+          {
+            "aim": [
+              0.990171909332275,
+              0.1398556381464
+            ],
+            "contacts": 0,
+            "disk_delivered": false,
+            "disk_held": true,
+            "elapsed": 0.316666666666667,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "pocket",
+            "intake_error": null,
+            "palm_error": 3.0517578125e-05,
+            "paper_grip_error": null,
+            "paper_instance": 0,
+            "phase": "pocket",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          },
+          {
+            "aim": [
+              0.990171909332275,
+              0.1398556381464
+            ],
+            "contacts": 0,
+            "disk_delivered": false,
+            "disk_held": true,
+            "elapsed": 0.3,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "present",
+            "intake_error": null,
+            "palm_error": 3.0517578125e-05,
+            "paper_grip_error": null,
+            "paper_instance": 0,
+            "phase": "present",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          },
+          {
+            "aim": [
+              0.990171909332275,
+              0.1398556381464
+            ],
+            "contacts": 0,
+            "disk_delivered": false,
+            "disk_held": true,
+            "elapsed": 0.416666666666667,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "contact",
+            "intake_error": null,
+            "palm_error": 3.0517578125e-05,
+            "paper_grip_error": null,
+            "paper_instance": 0,
+            "phase": "contact",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          },
+          {
+            "aim": [
+              0.990171909332275,
+              0.1398556381464
+            ],
+            "contacts": 1,
+            "disk_delivered": false,
+            "disk_held": true,
+            "elapsed": 0.483333333333333,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "insert",
+            "intake_error": 0.0,
+            "palm_error": 0.0,
+            "paper_grip_error": null,
+            "paper_instance": 0,
+            "phase": "insert",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          },
+          {
+            "aim": [
+              0.995263457298279,
+              0.0972139537334442
+            ],
+            "contacts": 1,
+            "disk_delivered": true,
+            "disk_held": false,
+            "elapsed": 0.183333333333333,
+            "error": "",
+            "failed": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "mid-quit-ch1_t_handoff_receipt",
+            "intake_error": null,
+            "palm_error": 4.31583721365314e-05,
+            "paper_grip_error": 4.31583721365314e-05,
+            "paper_instance": 1038627116498,
+            "phase": "pull",
+            "player": [
+              312.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": -1
+          }
+        ]
+      },
+      {
+        "name": "st10-handoff-mid-receipt-read-audiofix-v1",
+        "source_snapshot": "v14",
+        "checks": 5,
+        "engine": "4.7.2-stable (custom_build)",
+        "failures": [],
+        "mode": "mid_receipt_read",
+        "operations": [
+          {
+            "aim": [
+              0.970448732376099,
+              0.241307631134987
+            ],
+            "disk_delivered": true,
+            "disk_held": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "mid-resumed-ch1_t_handoff_receipt",
+            "player": [
+              312.0,
+              320.0
+            ],
+            "receipt_taken": true,
+            "rig_facing": 1
+          }
+        ]
+      },
+      {
+        "name": "st10-handoff-mid-original-read-audiofix-v1",
+        "source_snapshot": "v14",
+        "checks": 5,
+        "engine": "4.7.2-stable (custom_build)",
+        "failures": [],
+        "mode": "mid_accept_read",
+        "operations": [
+          {
+            "aim": [
+              0.976984262466431,
+              0.213311523199081
+            ],
+            "disk_delivered": true,
+            "disk_held": false,
+            "floor": true,
+            "gameplay_facing": 1,
+            "image": "mid-resumed-ch1_t_handoff_accept",
+            "player": [
+              284.0,
+              320.0
+            ],
+            "receipt_taken": false,
+            "rig_facing": 1
+          }
+        ]
+      }
+    ]
+  },
+  "affected": {
+    "groups": 83,
+    "checks": 97568,
+    "new_failures": 0,
+    "known_failures": 0,
+    "wall_seconds": 517
+  },
+  "unit": {
+    "checks": 86,
+    "failures": 0,
+    "expected_fixture_error_messages_retained": true
+  },
+  "merge_integration": {
+    "source_commit": "1a5e7831e10219e34faddb9c3b21864afcc3360b",
+    "base_main": "303de14a02ef03043b7a5c21fcbbeace42bc44a2",
+    "frozen_source": "v14; all54 hashes unchanged",
+    "unit": {
+      "checks": 86,
+      "failures": 0,
+      "expected_fixture_errors_retained": true
+    },
+    "integration": {
+      "groups": 7,
+      "checks": 11052,
+      "new_failures": 0,
+      "known_failures": 0,
+      "seconds": 194
+    },
+    "native": {
+      "name": "st10-handoff-integrated-phase2-v1",
+      "checks": 15,
+      "failures": 0,
+      "clean": true
+    },
+    "full_affected_before_rebase": {
+      "groups": 83,
+      "checks": 97568,
+      "failures": 0,
+      "seconds": 517
+    }
+  },
+  "reach": {
+    "poses": 360,
+    "legacy_unreachable": 2,
+    "downward_unreachable": 0,
+    "worst_palm_error": 8.63167442730628e-05
+  },
+  "mid_negative": {
+    "checks": 5,
+    "failures": 4,
+    "original_primary_sha256": "19e068594b950ca1bc4e6863bd33cc95deba8d2c08c2a1c33122df6f5d4dadd3"
+  },
+  "generic_resume_negative": {
+    "checks": 6,
+    "failures": 1,
+    "unwanted_physics_steps": 7,
+    "boundary": "queued restore begins"
+  },
+  "generic_resume_fixed": {
+    "checks": 6,
+    "failures": 0,
+    "unwanted_physics_steps": 0
+  },
+  "facing_negative": {
+    "checks": 15,
+    "failures": 1,
+    "unexpected_gameplay_facing_observations": 15
+  },
+  "facing_fixed": {
+    "checks": 15,
+    "failures": 0
+  },
+  "archives": [
+    {
+      "file": "raw.zip",
+      "entries": 247,
+      "bytes": 15496464,
+      "sha256": "5f6a6431ab1f64357031722bbaed6764749725ed1a41ee49016c26123716be79"
+    },
+    {
+      "file": "history.zip",
+      "entries": 510,
+      "bytes": 30928413,
+      "sha256": "2561656b27884e7414f8758fbd8a954876a3b8b8ee605aa761e34ec09b4b9300"
+    },
+    {
+      "file": "history-2.zip",
+      "entries": 223,
+      "bytes": 14317476,
+      "sha256": "8951b27e3939640bcda25742bbc29bb6833ac5982ecfdef639c1aaee8d82e389"
+    }
+  ],
+  "boundaries": [
+    "Arranged canonical disk and direct real authored cabinet call; not a chapter playthrough.",
+    "No hardware GPU, human operator, or physical gamepad claim.",
+    "Existing terminal save UI remains retry-only; supported external presentation reset tested separately.",
+    "ST-9 general story-result delivery remains incomplete."
+  ]
+}

@@ -35,6 +35,8 @@ var _steps_done: Dictionary[StringName, int] = {}
 
 
 func run() -> void:
+	preload("res://tests/helpers/world_prop_action_checks.gd").run(self)
+	preload("res://tests/helpers/world_paper_reach_checks.gd").run(self)
 	preload("res://tests/helpers/stage_grip_rotation_checks.gd").run(self)
 	preload("res://tests/helpers/stage_part_binding_checks.gd").run(self)
 	preload("res://tests/helpers/meal_world_state_checks.gd").run(self)
@@ -71,6 +73,7 @@ func run() -> void:
 	await _test_resumed_boss_cancel()
 	await _test_saved_arena_initialization()
 	_test_real_data()
+	await preload("res://tests/helpers/resume_physics_scope_checks.gd").run(self)
 
 
 ## A malformed result must not be silently filtered after a real payment.

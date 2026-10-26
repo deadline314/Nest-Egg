@@ -30,6 +30,7 @@ const STEP_FIELDS: Dictionary = {
 	"prop_hold": ["id", "actor", "hand", "point"],
 	"prop_release": ["id"],
 	"prop_visible": ["id", "visible"],
+	"world_action": ["id"],
 	"say": ["speaker", "text"],
 	"narrate": ["lines"],
 	"title": ["text"],
@@ -144,6 +145,10 @@ static func validate(scene_id: String, scene: Dictionary, speakers: Dictionary) 
 				problems.append_array(_check_reach_prop(where, current_stage, step))
 			elif step.get("space", "stage") == "part" and not step.get("release", false):
 				problems.append_array(_check_reach_part(where, actor_skins, step))
+		elif kind == "world_action":
+			var issue := WorldPropAction.problem(step.get("id"), scene_id, scene.get("overlay", false))
+			if not issue.is_empty():
+				problems.append(where + ": " + issue)
 		elif CutscenePropAction.FIELDS.has(kind):
 			var issue := CutscenePropAction.problem(step)
 			if not issue.is_empty():
@@ -275,6 +280,11 @@ static func estimate_seconds(scene: Dictionary) -> float:
 			"prop_move":
 				if step.get("wait", true) and CutscenePropAction.problem(step).is_empty():
 					total += float(step.get("time", CutscenePropAction.DEFAULT_TIME))
+			"world_action":
+				# Includes the longest permitted approach and the fixture's feed wait.
+				var spec := WorldPropAction.definition(str(step.get("id", "")))
+				if not spec.is_empty():
+					total += 6.0 if spec.get("kind") == "insert" else 7.0
 			"move", "camera":
 				if bool(step.get("wait", false)):
 					total += float(step.get("time", 1.0))

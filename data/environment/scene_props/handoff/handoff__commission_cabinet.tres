@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PropData" format=3]
+
+[ext_resource type="Script" path="res://data/scripts/prop_data.gd" id="1_prop"]
+
+[resource]
+script = ExtResource("1_prop")
+id = &"handoff__commission_cabinet"
+display_name = "委託交接櫃"
+texture = "res://art/environment/scene_props/handoff/handoff__commission_cabinet.png"
+size = Vector2(19.5, 57)
+category = &"scene"

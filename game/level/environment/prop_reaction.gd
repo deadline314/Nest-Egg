@@ -15,8 +15,6 @@ extends Node2D
 ## 這裡只管畫面與聲音，不寫旗標、不發物品。資料缺漏時記錄是哪一筆並略過那一項，擺設照常顯示。
 
 const TABLE_PATH := "res://data/environment/prop_reactions.json"
-const PAPER_COLOR := Color(0.93, 0.9, 0.8)
-const PAPER_INK := Color(0.36, 0.38, 0.44)
 ## 紙送出來時每秒喀幾下（出紙機構的聲音）；最多同時只響這一個。
 const FEED_TICK_SECONDS := 0.16
 
@@ -33,6 +31,10 @@ var _paper: Dictionary = {}
 var _paper_at := Vector2.ZERO
 var _paper_shown := false
 var _paper_progress := 0.0
+var _paper_visual: PropPaperVisual
+var _paper_carrier: WeakRef
+var _contacts: Dictionary[StringName, Vector2] = {}
+var reaction_id: StringName
 var _tick_left := 0.0
 var _time := 0.0
 var _dial: Dictionary = {}
@@ -63,6 +65,18 @@ static func attach(prop: Node2D, reaction_id: String, prop_size: Vector2, flip :
 
 
 func _setup(spec: Dictionary, flip: bool, reaction_id: String) -> void:
+	self.reaction_id = StringName(reaction_id)
+	var contacts: Variant = spec.get("contacts", {})
+	if contacts is Dictionary and contacts.size() <= 8:
+		for key: Variant in contacts:
+			var point: Variant = contacts[key]
+			if key is String and key.is_valid_identifier() and point is Array and point.size() == 2 \
+					and typeof(point[0]) in [TYPE_INT, TYPE_FLOAT] and typeof(point[1]) in [TYPE_INT, TYPE_FLOAT] \
+					and is_finite(float(point[0])) and is_finite(float(point[1])) \
+					and float(point[0]) >= 0.0 and float(point[0]) <= 1.0 and float(point[1]) >= 0.0 and float(point[1]) <= 1.0:
+				_contacts[StringName(key)] = _place(point, flip)
+			else:
+				push_warning("[PropReaction] %s contact %s is invalid; ignored" % [reaction_id, key])
 	LightKit.mark_emissive(self)
 	if spec.get("lamp") is Dictionary:
 		_lamp = spec["lamp"]
@@ -77,6 +91,14 @@ func _setup(spec: Dictionary, flip: bool, reaction_id: String) -> void:
 		if str(_paper.get("show_flag", "")).is_empty():
 			push_error("[PropReaction] %s 的 paper 沒有 show_flag，略過出紙" % reaction_id)
 			_paper = {}
+		else:
+			for key: String in ["width", "length", "feed_seconds"]:
+				var value: Variant = _paper.get(key, 1.0)
+				var limit := 32.0 if key != "feed_seconds" else 10.0
+				if typeof(value) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(value)) or float(value) <= 0.0 or float(value) > limit:
+					push_warning("[PropReaction] %s paper.%s is invalid; paper disabled" % [reaction_id, key])
+					_paper = {}
+					break
 	if spec.get("dial") is Dictionary:
 		_dial = spec["dial"]
 		_dial_at = _place(_dial.get("at"), flip)
@@ -95,6 +117,14 @@ func _setup(spec: Dictionary, flip: bool, reaction_id: String) -> void:
 
 
 func _ready() -> void:
+	if not _paper.is_empty():
+		_paper_visual = PropPaperVisual.new()
+		_paper_visual.name = "ReceiptPaper"
+		_paper_visual.width = clampf(float(_paper.get("width", 4.0)), 1.0, 16.0)
+		_paper_visual.length = clampf(float(_paper.get("length", 8.0)), 1.0, 32.0)
+		_paper_visual.position = _paper_at
+		LightKit.mark_emissive(_paper_visual)
+		add_child(_paper_visual)
 	if not _lamp.is_empty() and float(_lamp.get("light_radius", 0.0)) > 0.0:
 		_light = LightKit.create_point_light(Color.WHITE, float(_lamp["light_radius"]), float(_lamp.get("light_energy", 0.6)))
 		# 光預設從燈的位置出發；light_at 可以改成擺設的中間，讓狀態燈的顏色照在整件擺設上。
@@ -116,6 +146,8 @@ func _ready() -> void:
 
 
 func _exit_tree() -> void:
+	if is_instance_valid(_paper_visual) and _paper_visual.get_parent() != self:
+		_paper_visual.queue_free()
 	if GameState.flag_changed.is_connected(_on_flag_changed):
 		GameState.flag_changed.disconnect(_on_flag_changed)
 
@@ -161,6 +193,7 @@ func _refresh(live: bool) -> void:
 				_swap_hidden.clear()
 			_swap_node.visible = on
 	set_process(_needs_process())
+	_sync_paper()
 	queue_redraw()
 
 
@@ -198,7 +231,56 @@ func _process(delta: float) -> void:
 		if not _dial_turning():
 			Sfx.play(&"switch", -14.0)
 			set_process(_needs_process())
+	_sync_paper()
 	queue_redraw()
+
+
+## Only this fixture's presentation clock may advance while gameplay is paused.
+func presentation_tick(delta: float) -> void:
+	if is_inside_tree() and get_tree().paused and is_finite(delta) and delta > 0.0:
+		_process(minf(delta, 0.1))
+
+
+func paper_tip_global() -> Vector2:
+	return _paper_visual.to_global(Vector2(0.0, _paper_visual.length * _paper_progress)) if is_instance_valid(_paper_visual) and _paper_shown else Vector2.INF
+
+
+func contact_global(id: StringName) -> Vector2:
+	return to_global(_contacts[id]) if _contacts.has(id) else Vector2.INF
+
+
+func paper_ready() -> bool:
+	return _paper_shown and _paper_progress >= 1.0 and is_instance_valid(_paper_visual) and _paper_carrier == null
+
+
+func claim_paper(carrier: Node2D) -> PropPaperVisual:
+	if not paper_ready() or not is_instance_valid(carrier) or not carrier.is_inside_tree():
+		return null
+	_paper_carrier = weakref(carrier)
+	_paper_visual.reparent(carrier, true)
+	return _paper_visual
+
+
+func return_paper(carrier: Node2D) -> void:
+	if _paper_carrier == null or _paper_carrier.get_ref() != carrier:
+		return
+	_paper_carrier = null
+	if is_instance_valid(_paper_visual):
+		_paper_visual.reparent(self, false)
+		_paper_visual.transform = Transform2D.IDENTITY
+		_paper_visual.position = _paper_at
+	_sync_paper()
+
+
+func _sync_paper() -> void:
+	if not is_instance_valid(_paper_visual):
+		return
+	_paper_visual.progress = _paper_progress
+	if _paper_carrier == null:
+		_paper_visual.visible = _paper_shown
+	elif not _paper_shown:
+		_paper_visual.hide()
+	_paper_visual.queue_redraw()
 
 
 func _lamp_color() -> Color:
@@ -206,8 +288,6 @@ func _lamp_color() -> Color:
 
 
 func _draw() -> void:
-	if _paper_shown:
-		_draw_paper()
 	if not _dial.is_empty():
 		_draw_dial()
 	if not _lamp_state.is_empty():
@@ -233,28 +313,6 @@ func _draw_dial() -> void:
 	draw_line(_dial_at, tip, color, 0.9)
 	draw_circle(_dial_at, 1.1, Color(0.05, 0.06, 0.09))
 	draw_circle(_dial_at, 0.6, color)
-
-
-## 一張從出紙口往下送出來的回執：米色紙、幾行印字、鋸齒狀的撕口。紙不是發光體，用暗一點的顏色畫。
-func _draw_paper() -> void:
-	var width := float(_paper.get("width", 4.0))
-	var length := float(_paper.get("length", 8.0)) * _paper_progress
-	if length < 0.5:
-		return
-	var left := _paper_at.x - width * 0.5
-	var top := _paper_at.y
-	var shade := 0.8
-	draw_rect(Rect2(left, top, width, length), Color(PAPER_COLOR.r * shade, PAPER_COLOR.g * shade, PAPER_COLOR.b * shade))
-	var line := top + 1.5
-	while line < top + length - 1.2:
-		draw_line(Vector2(left + 0.7, line), Vector2(left + width - 0.7, line), Color(PAPER_INK, 0.8), 0.5)
-		line += 1.6
-	# 撕口：底邊三個小齒。
-	var tooth := width / 3.0
-	for i in 3:
-		var x := left + tooth * i
-		draw_colored_polygon(PackedVector2Array([Vector2(x, top + length), Vector2(x + tooth, top + length), Vector2(x + tooth * 0.5, top + length + 0.9)]),
-				Color(PAPER_COLOR.r * shade, PAPER_COLOR.g * shade, PAPER_COLOR.b * shade))
 
 
 func _place(value: Variant, flip: bool) -> Vector2:

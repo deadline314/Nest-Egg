@@ -147,6 +147,27 @@
         "relief": 0.1,
         "detail": 0
       }
+    },
+    {
+      "id": "handoff_cabinet",
+      "input": "assets_src/candidates/st10_handoff_1026/commission-cabinet-generated.png",
+      "sha256": "c85b7f67a7c3928ed14794ec80dbd0215cc388f3e1713d539e43475773eaca0b",
+      "size": [
+        734,
+        2142
+      ],
+      "output": "art/environment/scene_props/handoff/handoff__commission_cabinet.png",
+      "kind": "prop",
+      "grade": {},
+      "alpha_floor": 8,
+      "pad_even": true,
+      "emission": "none",
+      "normal": {
+        "profile": "flat",
+        "round_px": 6.0,
+        "relief": 0.1,
+        "detail": 0.0
+      }
     }
   ]
 }

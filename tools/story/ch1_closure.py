@@ -343,7 +343,8 @@ def _handoff(source):
         binding="cabinet", when=all_of(flag("ledger_disk_obtained"), item("ch1_data_disk"), negate(flag("ch1_disk_delivered"))),
         options=(Option("deliver", "交付這片資料盤", "ch1_t_handoff_accept", "報酬800次晨核對；原盤交委託方保管。"),
                  Option("return", "先退出", None, "盤仍由你持有，不取得回執。")))
-    source.add("ch1_t_handoff_accept", "F03", (("terminal", "資料盤已接收，徽章與委託編號一致。驗收回執已建立。"),),
+    source.add("ch1_t_handoff_accept", "F03", steps=[dict(do="world_action", id="handoff_insert"),
+        say("terminal", "資料盤已接收，徽章與委託編號一致。驗收回執已建立。")], mode="animated",
         binding="cabinet", when=all_of(item("ch1_data_disk"), negate(flag("ch1_disk_delivered"))),
         completion=(transfer("ch1_data_disk", "dock_commission_cabinet"), set_flag("ch1_disk_delivered")),
         staging="明確交付才手放盤入有支撐插口；鎖聲一次。這一完成段尾原子移盤，先前動畫不落盤。")
@@ -351,9 +352,9 @@ def _handoff(source):
         binding="cabinet", when=all_of(flag("ch1_disk_delivered"), negate(flag("ch1_disk_receipt_taken"))),
         options=(Option("take", "取出驗收回執", "ch1_t_handoff_receipt", "取回執與電子副本，現在不領錢。"),
                  Option("return", "先退出", None, "原盤仍由櫃子保管，可以回來取紙。")))
-    source.add("ch1_t_handoff_receipt", "F03", (
+    source.add("ch1_t_handoff_receipt", "F03", steps=[dict(do="world_action", id="handoff_take_paper"), *beats(
         ("lamp", "回執出來了，鷺姐明早替你對錢。我把電子副本也留著，雨別讓紙黏成一塊。"),
-        ("rin", "盤交了，錢我明天再核。")), binding="cabinet",
+        ("rin", "盤交了，錢我明天再核。"))], binding="cabinet", mode="animated",
         when=all_of(flag("ch1_disk_delivered"), negate(flag("ch1_disk_receipt_taken"))),
         completion=(grant("ch1_delivery_receipt"), set_flag("ch1_disk_receipt_taken")),
         staging="紙捲伸出，凜取乾紙夾筆記。文件全文在背包，取紙段尾同存。")
@@ -776,7 +777,7 @@ def build_source() -> ProductionSource:
     return source
 
 
-NATIVE_STEPS = frozenset({"scene", "letterbox", "camera", "actor", "pose", "move", "face", "remove", "say", "narrate", "title", "fx", "sfx", "wait", "fade", "transition", "end", "reach", "prop", "prop_move", "prop_hold", "prop_release", "prop_visible"})
+NATIVE_STEPS = frozenset({"scene", "letterbox", "camera", "actor", "pose", "move", "face", "remove", "say", "narrate", "title", "fx", "sfx", "wait", "fade", "transition", "end", "reach", "prop", "prop_move", "prop_hold", "prop_release", "prop_visible", "world_action"})
 CAPABILITIES = frozenset({
     "scene_preconditions_v1", "explicit_decisions_v1", "whole_scene_atomic_results_v1",
     "canonical_account_predicates_v1", "manual_item_transfer_v1",

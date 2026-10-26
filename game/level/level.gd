@@ -1240,6 +1240,17 @@ func _resume_cinematic() -> void:
 	_resumed_presentation_completed = false
 	_resumed_presentation_settled = false
 	var scene := StringName(_resume["cinematic"])
+	if Story.uses_world_actions(scene):
+		# 只有實體道具段落等新碰撞同步與玩家的真實接地步。
+		# 一般凍結演出維持立即續玩，不讓戰鬥多跑一個物理步。
+		# 不等空中角色落地、不解除其他鎖，前置檢查仍可安全拒絕。
+		var story_generation := Story.presentation_generation()
+		await get_tree().physics_frame
+		await get_tree().process_frame
+		if not is_inside_tree() or is_queued_for_deletion() or generation != _resume_presentation_generation \
+				or story_generation != Story.presentation_generation():
+			_resumed_presentation_settled = true
+			return
 	var context := Story.presentation_context(_resume.get("cinematic_context", {}))
 	var completed := false
 	var resumed_owner := false

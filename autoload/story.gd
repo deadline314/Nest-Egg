@@ -803,20 +803,43 @@ func current_presentation_request() -> int:
 	return _current_request
 
 
+## 非同步初始化期間辨識整體中止；與單次入隊 request 不同，重設後舊等待不可啟動演出。
+func presentation_generation() -> int:
+	return _presentation_generation
+
+
 func finished_presentation_request() -> int:
 	return _finished_request
 
 
-## 續玩NPC後續segment只接受原talk的then鏈，不將任意同來源scene當成獎勵入口。
+## 續玩只接受原 talk 可到達的 then／選項目標；分派仍依還原後的事實選取。
+## 不讀取結果、不重新套用選項，且限制探索大小，避免循環或損壞資料無限展開。
 func is_chained_scene(origin: StringName, segment: StringName) -> bool:
 	var visited: Dictionary[StringName, bool] = {}
-	for i in 64:
-		if origin == segment:
-			return has_scene(origin)
+	var pending: Array[StringName] = [origin]
+	while not pending.is_empty() and visited.size() < 64:
+		origin = pending.pop_back()
 		if not has_scene(origin) or visited.has(origin):
-			return false
+			continue
 		visited[origin] = true
-		origin = StringName(str((_scenes[String(origin)] as Dictionary).get("then", "")))
+		if origin == segment:
+			return true
+		var scene: Dictionary = _scenes[String(origin)]
+		if str(scene.get("mode", "")) == String(MODE_DISPATCH):
+			pending.append(resolve_dispatch(origin))
+		else:
+			pending.append(StringName(str(scene.get("then", ""))))
+			for step: Dictionary in StoryRules.entries(scene.get("steps", [])):
+				if step.get("do") != "choice":
+					continue
+				var options: Variant = step.get("options", [])
+				if not options is Array:
+					continue
+				for option: Variant in options:
+					if option is Dictionary:
+						pending.append(StringName(str(option.get("target", ""))))
+					if pending.size() > 256:
+						return false
 	return false
 
 
@@ -842,6 +865,17 @@ func uses_cinematic_framing(id: StringName, context: Dictionary = {}) -> bool:
 	if mode == MODE_CINEMATIC:
 		return true
 	return mode == MODE_ANIMATED and not bool((_scenes.get(String(id), {}) as Dictionary).get("overlay", false))
+
+
+## 只有真地圖的實體道具演出需要新關卡先建立碰撞／接地快取。
+func uses_world_actions(id: StringName) -> bool:
+	var scene: Dictionary = _scenes.get(String(id), {})
+	if scene.get("mode") != String(MODE_ANIMATED) or not bool(scene.get("overlay", false)):
+		return false
+	for step: Dictionary in StoryRules.entries(scene.get("steps", [])):
+		if step.get("do") == "world_action":
+			return true
+	return false
 
 
 ## 換區、死亡、新局或讀檔時中止演出。不當作看完，不套用跳過預設選項或完成旗標。

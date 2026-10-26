@@ -57,6 +57,9 @@ var _ledge_ray := PhysicsRayQueryParameters2D.new()
 var _rear_scan_left := 0.0
 var _noise := FastNoiseLite.new()
 var _noise_time := 0.0
+var _presentation_owner: WeakRef
+var _presentation_point := Vector2.ZERO
+var _presentation_mode: ProcessMode
 
 
 func _ready() -> void:
@@ -117,6 +120,13 @@ func snap_to_target() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if _presentation_owner != null:
+		var owner: Object = _presentation_owner.get_ref()
+		if is_instance_valid(owner):
+			global_position = global_position.lerp(_presentation_point, 1.0 - exp(-6.0 * maxf(0.0, delta)))
+			force_update_scroll()
+			return
+		_release_presentation_focus()
 	if is_instance_valid(target):
 		# 站定才算時間；一動就收回往下看的量（邊跑邊過平台邊緣時鏡頭不會上下晃）。
 		if _is_grounded() and absf(_target_velocity_x()) < LEDGE_STILL_SPEED:
@@ -162,6 +172,28 @@ func _physics_process(delta: float) -> void:
 	rotation = SHAKE_ROTATION_PER_PX * shake_offset.length() * _noise.get_noise_2d(_noise_time, 100.0) * 2.0
 	position_smoothing_speed = tuning.smoothing_speed
 	zoom = Vector2.ONE * tuning.zoom * (1.0 + _pulse_amount(delta))
+
+
+## A temporary presentation owns only camera framing; gameplay, zoom and tuning
+## stay with their existing owners. Another caller cannot release this scope.
+func acquire_presentation_focus(owner: Object, point: Vector2) -> bool:
+	if not is_instance_valid(owner) or not point.is_finite() or (_presentation_owner != null and is_instance_valid(_presentation_owner.get_ref())):
+		return false
+	_presentation_owner = weakref(owner)
+	_presentation_point = point
+	_presentation_mode = process_mode
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	return true
+
+
+func release_presentation_focus(owner: Object) -> void:
+	if _presentation_owner != null and _presentation_owner.get_ref() == owner:
+		_release_presentation_focus()
+
+
+func _release_presentation_focus() -> void:
+	_presentation_owner = null
+	process_mode = _presentation_mode
 
 
 func _desired_position() -> Vector2:

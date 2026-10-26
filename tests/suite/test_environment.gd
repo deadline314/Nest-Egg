@@ -704,6 +704,22 @@ func _test_prop_reaction() -> void:
 				break
 			await runner.get_tree().process_frame
 		check(reaction._paper_progress >= 1.0 and not reaction.is_processing(), "the receipt finishes feeding and the cabinet stops updating")
+		var carrier := Node2D.new()
+		holder.add_child(carrier)
+		var outsider := Node2D.new()
+		holder.add_child(outsider)
+		var original_tip := reaction.paper_tip_global()
+		var paper := reaction.claim_paper(carrier)
+		check(paper != null and paper == reaction._paper_visual and paper.get_parent() == carrier,
+				"taking the receipt transfers the exact visible strip, without making a second paper")
+		check(reaction.claim_paper(outsider) == null and not reaction.paper_ready(), "another carrier cannot steal an owned receipt")
+		reaction.return_paper(outsider)
+		check(paper.get_parent() == carrier, "non-owner cleanup cannot return someone else's receipt")
+		paper.global_position += Vector2(10, -3)
+		reaction.return_paper(carrier)
+		check(paper.get_parent() == reaction and reaction.paper_tip_global().distance_to(original_tip) < 0.001 and paper.visible,
+				"cancel returns the same strip to its actual outlet and restores its transform")
+		check(GameState.has_flag(delivered) and not GameState.has_flag(taken), "visual receipt ownership never completes the inventory result")
 		GameState.set_flag(taken, true, false)
 		check(not reaction._paper_shown and reaction._lamp_color().g > reaction._lamp_color().r, "taking the receipt removes the paper and turns the lamp green")
 		GameState.set_flag(taken, false, false)

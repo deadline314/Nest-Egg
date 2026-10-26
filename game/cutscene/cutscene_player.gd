@@ -86,11 +86,46 @@ func _init() -> void:
 		"reach": _do_reach,
 		"prop_move": _do_prop_move, "prop_hold": _do_prop_hold,
 		"prop_release": _do_prop_release, "prop_visible": _do_prop_visible,
+		"world_action": _do_world_action,
 	}
 
 
 func is_running() -> bool:
 	return _running
+
+
+func _do_world_action(step: Dictionary) -> void:
+	var player := get_tree().get_first_node_in_group(&"player") as Player
+	var action := WorldPropAction.new()
+	var id: Variant = step.get("id")
+	var valid := _overlay_mode and id is String and player != null and player.interaction != null and player.interaction.active
+	if valid:
+		player._visual.clear_interaction_action()
+		valid = action.start(id, player, String(scene_id))
+	if not valid:
+		action.close()
+		_world_action_failed(action.error, action.failure_hint)
+		return
+	player._visual.interaction_action = action
+	while _running and not skipping and not action.done and is_inside_tree():
+		await get_tree().process_frame
+	if not _running or skipping:
+		action.close()
+	elif action.failed:
+		_world_action_failed(action.error, action.failure_hint)
+
+
+func _world_action_failed(reason: String, hint: StringName) -> void:
+	push_warning("[Cutscene] %s world action cancelled: %s" % [_current_where, reason])
+	Story.reset_active_presentation(&"world_action_unavailable")
+	if _running:
+		cancel()
+	var copy := {"zh":"暫時無法完成互動，請稍後再試。", "ja":"今は操作を完了できません。後でもう一度お試しください。", "en":"This interaction is unavailable. Try again later."}
+	if hint == &"stance":
+		copy = {"zh":"請站穩並放下手上物品，再試一次。", "ja":"足場と手元を確かめて、もう一度操作してください。", "en":"Stand on clear ground with free hands, then try again."}
+	elif hint == &"route":
+		copy = {"zh":"前方受阻，換個站位再試。", "ja":"前方がふさがっています。立つ位置を変えてください。", "en":"The approach is blocked. Try another position."}
+	EventBus.toast_requested.emit(copy.get(Story.language, copy["zh"]))
 
 
 ## 開始播放。scene 是場景資料（含 steps）。

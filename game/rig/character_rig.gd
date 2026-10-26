@@ -287,6 +287,15 @@ func has_hand_grip(which: StringName) -> bool:
 	return false
 
 
+## The selected grip's real world point; invalid hands never become an origin target.
+func hand_contact_global(which: StringName) -> Vector2:
+	if which not in [&"front", &"back"]:
+		return Vector2.INF
+	var id := &"hand_front" if which == &"front" else &"hand_back"
+	var wrist := bone(id)
+	return wrist.to_global(hand_grip_offset(id)) if wrist != null and _visible_hand_sprite(which) != null else Vector2.INF
+
+
 ## 骨架空間（未翻轉、未縮放）→ 世界座標。
 func skeleton_to_global(point: Vector2) -> Vector2:
 	return _skeleton.to_global(point) if _skeleton != null else global_position

@@ -982,7 +982,7 @@ def build_handoff():
     a.trigger(10, 'ch1_b_handoff')
     a.stand(18, '⌑')
     # 交接櫃跟著交盤的進度換樣子（NE-240）：藍燈等收件 → 收到盤、吐出回執 → 回執被拿走後亮綠燈。
-    a.prop('clinic__report_cabinet', 18, react='handoff_cabinet')
+    a.prop('handoff__commission_cabinet', 18, react='handoff_cabinet')
     a.stand(44, '↦')
     a.ceiling(14, 46, 4)
     a.lamp(18, 14)
@@ -1253,7 +1253,7 @@ THEMES = {
     'vault': ('concrete', ['warehouse'], 'hangar_wall', 0.0, 'sky_storm', ['dock_warehouse']),
     'lounge': ('facility_floor', ['facility_wall'], 'facility_panel', 0.0, 'sky_storm', ['revival_lounge']),
     'prologue': ('concrete', ['shopfront', 'brick_block'], 'brick', 0.0, 'sky_storm', ['pawnshop_front', 'pawnshop_kitchen', 'harbor_street']),
-    'handoff': ('asphalt', ['facility_wall', 'shutter_block'], None, 0.22, 'sky_storm', ['clinic', 'revival_lounge', 'harbor_street']),
+    'handoff': ('asphalt', ['facility_wall', 'shutter_block'], None, 0.22, 'sky_storm', ['clinic', 'revival_lounge', 'harbor_street', 'handoff']),
     'stall': ('asphalt', ['shopfront', 'shutter_block'], None, 0.22, 'sky_dawn', ['dawn_noodle_stall']),
 }
 SCENE_PROPS = 'res://data/environment/scene_props/%s'

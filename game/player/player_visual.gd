@@ -68,6 +68,7 @@ var _interacting := false
 var _secondary_scene: StringName = &""
 var _interaction_input := RigInput.new()
 var _prior_process_mode: ProcessMode
+var interaction_action: WorldPropAction
 ## 格擋的呈現（介面見 GuardPresenter）：現在是方向光盾，NE-269 的臂盾做好後換掉這一行。
 var _shield: GuardPresenter = ShieldSurface.new()
 
@@ -145,6 +146,7 @@ func _attach_ghost_pool() -> void:
 
 
 func _exit_tree() -> void:
+	clear_interaction_action()
 	Story.scene_started.disconnect(_secondary_started)
 	Story.scene_finished.disconnect(_secondary_finished)
 	Story.presentation_cancelled.disconnect(_secondary_cancelled)
@@ -201,12 +203,19 @@ func set_interacting(value: bool) -> void:
 		clear_dash_silhouettes()
 		rig.animate(0.0, _interaction_input)
 	else:
+		clear_interaction_action()
 		process_mode = _prior_process_mode
 		_blade_light.show()
 		set_weapon_visual("" if player.is_dead() or _carry_hid_weapon else player.visual_id_of_active_weapon())
 		if not player.is_dead():
 			_physics_process(0.0)
 	queue_redraw()
+
+
+func clear_interaction_action() -> void:
+	if interaction_action != null:
+		interaction_action.close()
+		interaction_action = null
 
 
 ## 槍口世界座標（骨架無效時退回角色前方）。
@@ -404,7 +413,11 @@ func _physics_process(delta: float) -> void:
 	if player == null or rig == null:
 		return
 	if _interacting:
+		if interaction_action != null:
+			interaction_action.before_frame(_interaction_input, delta)
 		rig.animate(delta, _interaction_input)
+		if interaction_action != null:
+			interaction_action.after_frame(rig)
 		return
 	_input.velocity = player.velocity
 	_input.on_floor = player.is_on_floor()

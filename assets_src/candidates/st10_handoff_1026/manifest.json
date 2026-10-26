@@ -1,0 +1,92 @@
+{
+  "status": "adopted",
+  "sources": [
+    {
+      "file": "assets_src/candidates/st10_handoff_1026/prior-generated-reference.png",
+      "artifact": "/workspace/generated_images/exec-6e375dde-cabb-4519-b835-7514211aea36.png",
+      "sha256": "29c119b2ac3ddf1d61ba7e9ad958988e9f5e58ee508b39c10c1f59a7d5f5697e",
+      "size": [
+        734,
+        2143
+      ],
+      "seed": null,
+      "model": null,
+      "job": null
+    },
+    {
+      "file": "assets_src/candidates/st10_handoff_1026/commission-cabinet-generated.png",
+      "artifact": "/workspace/generated_images/exec-b47327e5-0632-492e-8b9e-79cb137a363e.png",
+      "sha256": "c85b7f67a7c3928ed14794ec80dbd0215cc388f3e1713d539e43475773eaca0b",
+      "size": [
+        734,
+        2142
+      ],
+      "seed": null,
+      "model": null,
+      "job": null
+    }
+  ],
+  "edit_prompt": "Edit the attached game prop image into a readable side-view commission delivery cabinet for a hand-animated 2D game. Preserve its full tall narrow silhouette, gray-blue worn metal, dark ink outlines, cel-shaded style, small dark round status lens near the top, lower drawers, bottom door, clipboard, perspective and transparent background. The ONLY design change: move BOTH upper openings downward into the broad blank upper front panel so their opening centers are at 30 percent of the total image height (about 643 px on this 2143 px tall reference). The left disk intake opening center is at 40 percent of image width; the right receipt output opening center is at 80 percent of width. Retain an empty black horizontal disk slot with a thin metal support lip; the right port must have an empty black horizontal opening and a visibly projecting small support shelf directly below it. Remove the old pair of ports from their previous higher positions and restore plain matching metal there. Make both openings clearly distinct from drawer handles. No disk, no paper protruding, no hand, no character, no new text, no baked light or glow, no cast shadow outside the prop. Keep the entire prop uncropped with transparent surrounding pixels. One isolated cabinet only.",
+  "prior_reference_prompt": null,
+  "prior_reference_prompt_note": "Not retained in resumed tool context; reference is preserved byte-for-byte, not claimed reproducible from a full prompt.",
+  "actual_dark_slots": [
+    {
+      "rect": [
+        208,
+        453,
+        240,
+        85
+      ],
+      "centroid": [
+        319.05525965379496,
+        501.71571238348866
+      ],
+      "uv": [
+        0.4346801902640258,
+        0.23422769018837006
+      ]
+    },
+    {
+      "rect": [
+        237,
+        476,
+        184,
+        36
+      ],
+      "centroid": [
+        331.8433990252172,
+        492.96948506039416
+      ],
+      "uv": [
+        0.45210272346759833,
+        0.23014448415517935
+      ]
+    }
+  ],
+  "requested_positions_are_not_actual": true,
+  "measured_source_anchors": {
+    "disk_slot": [
+      330,
+      495
+    ],
+    "paper_outlet": [
+      590,
+      495
+    ],
+    "lamp": [
+      437,
+      99
+    ]
+  },
+  "actual_canvas": [
+    734,
+    2142
+  ],
+  "world_size": [
+    19.5,
+    57
+  ],
+  "requested_port_height_ratio": 0.3,
+  "actual_port_height_ratio": 0.23109243697478993,
+  "visual_basis": "Actual Main software Forward+ v4 images inspected; game integration still awaits final lifecycle and affected tests."
+}

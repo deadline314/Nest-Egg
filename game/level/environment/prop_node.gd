@@ -9,6 +9,7 @@ const SWAY_EMISSIVE_SHADER := preload("res://game/level/environment/sway_emissiv
 const GLOW_SCAN_SHADER := preload("res://game/level/environment/glow_scan.gdshader")
 const RIPPLE_SHADER := preload("res://game/level/environment/puddle_ripple.gdshader")
 const STEAM_INTERVAL := 0.3
+const GROUP := &"world_props"
 const LOCAL_FLOW := preload("res://game/level/environment/local_water_flow.gd")
 
 ## 搖動（幅度、是否懸掛、是否自發光）→ 共用材質（同設定的道具共用同一份，數量再多也只有幾份）。
@@ -39,6 +40,7 @@ func setup(p_data: PropData, top_left: Vector2, p_flip := false) -> void:
 func _ready() -> void:
 	if data == null:
 		return
+	add_to_group(GROUP)
 	var size := data.size
 	var tex := LitTextures.load_texture(data.texture, Vector2i(size) * PropData.TEXTURE_SCALE)
 	var sprite := Sprite2D.new()

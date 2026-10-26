@@ -1845,8 +1845,11 @@
   },
   "ch1_t_handoff_accept": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "world_action",
+     "id": "handoff_insert"
+    },
     {
      "do": "say",
      "speaker": "terminal",
@@ -1855,6 +1858,7 @@
      "en": "Data disk received. Badge and commission number match. Acceptance receipt issued."
     }
    ],
+   "overlay": true,
    "when": {
     "all": [
      {
@@ -1939,8 +1943,11 @@
   },
   "ch1_t_handoff_receipt": {
    "mode": "animated",
-   "overlay": true,
    "steps": [
+    {
+     "do": "world_action",
+     "id": "handoff_take_paper"
+    },
     {
      "do": "say",
      "speaker": "lamp",
@@ -1956,6 +1963,7 @@
      "en": "The disk's handed over. I'll check the money tomorrow."
     }
    ],
+   "overlay": true,
    "when": {
     "all": [
      {
