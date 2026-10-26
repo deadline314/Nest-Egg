@@ -7,6 +7,10 @@ const VOICE_SOURCE := {
 	"npc": "res://data/npcs/ch1_lamp_voice.tres",
 	"levels": ["res://data/levels/ch1_booth_alley.tres"],
 }
+const ALI_SOURCE := {
+	"npc": "res://data/npcs/ch1_ali_lounge.tres",
+	"levels": ["res://data/levels/ch1_lounge.tres"],
+}
 const NPC_SOURCES := {
 	"ch1_t_label_watch": {
 		"npc": "res://data/npcs/ch1_label_watch.tres",
@@ -48,6 +52,10 @@ const NPC_SOURCES := {
 		"npc": "res://data/npcs/ch1_handoff_cabinet.tres",
 		"levels": ["res://data/levels/ch1_handoff.tres"],
 	},
+	"ch1_t_ali_name": ALI_SOURCE,
+	"ch1_t_ali_2_ordered": ALI_SOURCE,
+	"ch1_t_ali_2_sit": ALI_SOURCE,
+	"ch1_t_ali_evening_close": ALI_SOURCE,
 	"ch1_t_lamp_voice_prompt": VOICE_SOURCE,
 	"ch1_t_lamp_voice_first": VOICE_SOURCE,
 	"ch1_t_lamp_voice_second_prompt": VOICE_SOURCE,
@@ -56,6 +64,10 @@ const NPC_SOURCES := {
 }
 
 const BOUNDARIES := {
+	"ch1_t_ali_name": {"policy": TERMINAL, "flag": "ch1_met_ali", "then": ""},
+	"ch1_t_ali_2_ordered": {"policy": CONTINUATION, "flag": "ch1_ali_evening_talk_done", "then": "ch1_t_ali_evening_close"},
+	"ch1_t_ali_2_sit": {"policy": CONTINUATION, "flag": "ch1_ali_evening_talk_done", "then": "ch1_t_ali_evening_close"},
+	"ch1_t_ali_evening_close": {"policy": TERMINAL, "flag": "ch1_lounge_evening_done", "then": ""},
 	"ch1_t_egret_sunday": {"policy": TERMINAL, "flag": "asked_egret_sunday", "then": ""},
 	"ch1_t_lamp_voice_first": {"policy": CONTINUATION, "flag": "ch1_lamp_voice_asked", "then": "ch1_t_lamp_voice_second_prompt"},
 	"ch1_t_lamp_voice_second": {"policy": TERMINAL, "flag": "sq5_lamp_voice_noticed", "then": ""},
@@ -192,6 +204,18 @@ static func choice(id: String, option: Dictionary, scenes: Dictionary, sources: 
 
 static func continuation(id: String, scenes: Dictionary, sources: Dictionary) -> StringName:
 	var rule := boundary(id, scenes, sources)
-	if rule.is_empty() or rule["policy"] != CONTINUATION or choice_step(rule["then"], scenes, sources).is_empty():
+	if rule.is_empty() or rule["policy"] != CONTINUATION:
 		return &""
-	return StringName(rule["then"])
+	var target: String = rule["then"]
+	if NPC_SOURCES.get(id, {}) != NPC_SOURCES.get(target, {}):
+		return &""
+	if CHOICES.has(target):
+		if choice_step(target, scenes, sources).is_empty():
+			return &""
+	else:
+		# A flag-only continuation can finish at an explicitly registered,
+		# choice-free terminal owned by the same original NPC source.
+		var terminal := boundary(target, scenes, sources)
+		if terminal.is_empty() or terminal["policy"] != TERMINAL or not terminal["then"].is_empty():
+			return &""
+	return StringName(target)

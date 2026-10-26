@@ -1,0 +1,47 @@
+{
+  "format": "Original unmodified PNG bytes inspected with correct image/png MIME. Software Forward+ HDR2D, not physical hardware or human art/style acceptance.",
+  "images": [
+    {
+      "file": "pm/ST/images/ST-9-ali-reading.png",
+      "sha256": "fb920de18744760e10497a7e080840f939db2afae569ef529fa6093875deb25f",
+      "inspected": true,
+      "observation": "Actual original name dialogue, speaker portrait and full first line are readable. Both standing actors and their stage floor are visible; no overall character-art acceptance inferred."
+    },
+    {
+      "file": "pm/ST/images/ST-9-ali-evening-reading.png",
+      "sha256": "a8cfab9b15d5177d4f6d399a33073acfca22147fe2c4f356513c13e0da108fb0",
+      "inspected": true,
+      "observation": "Actual original ordered-evening dialogue is readable, with both characters visible in the unchanged lounge stage."
+    },
+    {
+      "file": "pm/ST/images/ST-9-ali-retry.png",
+      "sha256": "66964f910c462eec9e36f61f6d2bbf367aef9a4000359f4eee0a70820e4ef1fc",
+      "inspected": true,
+      "observation": "Actual name-result refusal shows the complete progress-save explanation and focused retry button."
+    },
+    {
+      "file": "pm/ST/images/ST-9-ali-accepted.png",
+      "sha256": "7cd3ea835b0102106c9f06331d43e2f590a5e36da246d29203701779f72cfde5",
+      "inspected": true,
+      "observation": "After the accepted ordered-evening closing, lounge Ali is absent and wallet is 233. The original entry greeting bubble is still visible despite her departure; retained as an unresolved NE-228 source/presence observation."
+    },
+    {
+      "file": "pm/ST/images/ST-9-ali-cold.png",
+      "sha256": "b65255287f2f51777b29d6c2b8716126b1374183ed70147b84ab322e7dba680b",
+      "inspected": true,
+      "observation": "After the exact original pending primary is loaded and its real closing completed, Ali is absent and wallet is 234. This image is after completion, not the initial pending reading."
+    },
+    {
+      "file": "pm/ST/images/ST-9-ali-cancel.png",
+      "sha256": "36c3ca2e7dbdf09d0a74a26e194feb4a58d746f751578c7738840f5ae91cd9e7",
+      "inspected": true,
+      "observation": "After accepted middle cancellation, Ali remains present, the interaction prompt is available and wallet is 234; ending flag is not granted."
+    }
+  ],
+  "followup": {
+    "ticket": "NE-228",
+    "observed_image": "pm/ST/images/ST-9-ali-accepted.png",
+    "behavior": "Original lounge entry greeting remains visible after the source NPC has left. Cold and old sit-branch images do not show the same bubble, so no unique root cause or old-version reproduction is claimed yet.",
+    "next": "Reproduce from the actual original bubble source and fix source/presence ownership separately."
+  }
+}

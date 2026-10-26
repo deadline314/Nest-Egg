@@ -1,0 +1,181 @@
+{
+  "base": "da6026e5e77622877a0dd0336144564952b619a0",
+  "source_sha256": {
+    ".github/workflows/tests.yml": "73b27a2db863e885f82fe707a1adb7966bc17b15b6deda87d88406a120830c50",
+    "data/story/ch1_kasa.json": "b5e88503e83b04f2b435c6a8ca1be36078ef5ba760b5cc9cff02db4bd4125d14",
+    "game/story_result_sources.gd": "d8b5edf2d33aa5ef4728114c49e7552b420293568f10ca4776e71629d5cfade9",
+    "game/story_result_completion.gd": "bc86c4730db70f1f795beff3d8b04dc3f53efd0d233261b5d3926e3eee7989c2",
+    "tests/suite/test_run_save.gd": "916a7b38a9728df3ed6906a26e29db213758ac39c26b80401fa704fc024720fc",
+    "tests/helpers/ali_completion_base.gd": "5bec77cc16208632d75c720eae181603c4c2ff824cee22de25ff6d88e82a44ad",
+    "tests/helpers/ali_source_checks.gd": "b43740f9ac29cbe2b5d24cb2880ee52207eff00968820f140dac09bddfbe5cb0",
+    "tests/probes/ali_completion.gd": "7ed95aba21071e28563fdda1a6f998eea5582a1d02c6669709d88ce53ea80821",
+    "tests/probes/ali_completion.tscn": "4c992a2301973b84cd6f64517e28c9cdc770bf3e2355e9a84a1739c131f4bd98",
+    "tests/fixtures/ali_handoff_seed.json": "ba1dfe7143d61821c87fef850772614ede27954f9e3b933987e86b8c2a54068f",
+    "tests/fixtures/ali_handoff_seed.provenance.json": "e60ec288195824a968eb5ce7e6958834996dd1a60e21c7dcb0ef700cd3991fd4",
+    "tools/run_ali_completion.py": "e84dc2ebe00fa8420c1a24ce63e1a673b62f42383f9aa4dcb6fff6972943baf6",
+    "tools/story/ch1_runtime_backend.py": "337b30126fdc991167170946bf14238b28d4cbec43d490783285cfc3336b1951"
+  },
+  "engine_sha256": "dadf922b668b42d4484386749c9f5a2bf8587cd50c36215238f16776132de2ac",
+  "negative": {
+    "cases": 5,
+    "checks": 82,
+    "before_failures": 20,
+    "after_failures": 0,
+    "identical_probe_sha256": "3771bc5bb6f7fd1bc65f7259ff647a4fa2dcb14a90212e0ebdacfd027d0e93f9"
+  },
+  "seed_provenance": {
+    "source_commit": "da6026e5e77622877a0dd0336144564952b619a0",
+    "source_archive": "pm/ST/attachments/ST-9-voice-continuation/evidence.zip",
+    "archive_sha256": "eca1adac617169110d1829dfe1d2aebbd9f3e8c0b5a6b62c725ea52aac582fa3",
+    "archive_entry": "runs/st9-voice-handoff-regression-v3/slot/slot.json",
+    "seed_sha256": "ba1dfe7143d61821c87fef850772614ede27954f9e3b933987e86b8c2a54068f",
+    "seed_bytes": 11067,
+    "producer": "Original run_handoff_completion.py write and independent read, actual Main and cabinet. Earlier disk/credits were explicitly arranged; this is not a natural chapter playthrough.",
+    "copy": "Exact original primary bytes; no re-encoding, added flags, completed Ali state or NPC counters."
+  },
+  "affected": {
+    "groups": 8,
+    "workers": 4,
+    "checks": 3822,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 129
+  },
+  "policy": {
+    "checks": 647,
+    "failures": 0
+  },
+  "headless": {
+    "processes": 12,
+    "checks": 306,
+    "failures": 0,
+    "original_pending_primaries": {
+      "evening_sit_read": "235216219136ce7a58b7711f85494107eaf925a52d6e02cac554f15a558f242e",
+      "evening_ordered_read": "a0b4e05f7061b0f0c208e9c24392a99302d91a784ce44a9b9f829dd56e97ed09"
+    }
+  },
+  "native": {
+    "processes": 8,
+    "checks": 241,
+    "failures": 0,
+    "cases": [
+      {
+        "mode": "name",
+        "tag": "st9-evening-final-name-v1",
+        "checks": 35,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "mode": "name_read",
+        "tag": "st9-evening-final-name_read-v1",
+        "checks": 8,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "mode": "evening_sit",
+        "tag": "st9-evening-final-evening_sit-v1",
+        "checks": 50,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "mode": "evening_sit_read",
+        "tag": "st9-evening-final-evening_sit_read-v1",
+        "checks": 11,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "mode": "evening_ordered",
+        "tag": "st9-evening-final-evening_ordered-v1",
+        "checks": 50,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "mode": "close_ordered",
+        "tag": "st9-evening-final-close_ordered-v1",
+        "checks": 38,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "mode": "cancel",
+        "tag": "st9-evening-final-cancel-v1",
+        "checks": 39,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "mode": "cancel_read",
+        "tag": "st9-evening-final-cancel_read-v1",
+        "checks": 10,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      }
+    ]
+  },
+  "visual": {
+    "processes": 2,
+    "checks": 85,
+    "failures": 0,
+    "cases": [
+      {
+        "tag": "st9-evening-visual-name-v1",
+        "checks": 35,
+        "failures": 0
+      },
+      {
+        "tag": "st9-evening-visual-ordered-v1",
+        "checks": 50,
+        "failures": 0
+      }
+    ]
+  },
+  "shared": {
+    "voice": {
+      "processes": 17,
+      "checks": 615,
+      "failures": 0
+    },
+    "sunday": {
+      "processes": 8,
+      "checks": 133,
+      "failures": 0
+    },
+    "handoff": {
+      "processes": 2,
+      "checks": 107,
+      "failures": 0
+    }
+  },
+  "archive": {
+    "file": "evidence.zip",
+    "bytes": 12199831,
+    "entries": 565,
+    "sha256": "d8f6a8bb88c41661d3447220fe05910888e7339410a11240c7a0cf7c3ee7cae5"
+  },
+  "limits": [
+    "Original produced handoff seed, arranged earlier disk/credits, actual lounge NPC and original decisions; not a human chapter playthrough.",
+    "Only four authored flag boundaries; existing order/payment/item results and whole-story acceptance remain separate.",
+    "Software Forward+ HDR2D; no physical GPU, controller, human-style or performance acceptance inferred."
+  ]
+}

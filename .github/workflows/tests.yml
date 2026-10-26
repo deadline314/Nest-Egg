@@ -122,6 +122,12 @@ jobs:
         run: |
           python3 tools/run_voice_completion.py --godot "$GODOT" --output "${{ runner.temp }}/voice-completion"
 
+      - name: Check Ali results and original pending-primary cold reads
+        if: steps.gate.outputs.skip != 'true'
+        timeout-minutes: 20
+        run: |
+          python3 tools/run_ali_completion.py --godot "$GODOT" --output "${{ runner.temp }}/ali-completion"
+
       - name: Run all tests (parallel)
         timeout-minutes: 45
         if: steps.gate.outputs.skip != 'true'
@@ -146,5 +152,7 @@ jobs:
             ${{ runner.temp }}/sunday-choice/**/*.json
             ${{ runner.temp }}/voice-completion/**/*.log
             ${{ runner.temp }}/voice-completion/**/*.json
+            ${{ runner.temp }}/ali-completion/**/*.log
+            ${{ runner.temp }}/ali-completion/**/*.json
             work/godot-audio-safe/dist/receipt.json
           retention-days: 7

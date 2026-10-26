@@ -2902,6 +2902,7 @@
      "value": true
     }
    ],
+   "completion_policy": "main_terminal_results_v1",
    "steps": [
     {
      "do": "scene",
@@ -3019,6 +3020,7 @@
     }
    ],
    "then": "ch1_t_ali_evening_close",
+   "completion_policy": "main_flags_continuation_v1",
    "steps": [
     {
      "do": "scene",
@@ -3136,6 +3138,7 @@
     }
    ],
    "then": "ch1_t_ali_evening_close",
+   "completion_policy": "main_flags_continuation_v1",
    "steps": [
     {
      "do": "scene",
@@ -3303,6 +3306,7 @@
      "value": true
     }
    ],
+   "completion_policy": "main_terminal_results_v1",
    "pose_policy": "supported"
   },
   "ch1_t_ali_death_topic": {

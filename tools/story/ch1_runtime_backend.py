@@ -248,12 +248,12 @@ def _compile_segment(segment, source, inside_presentation, base_scene):
     if segment.binding == "home" and scene.get("mode") == "animated" and results and all(op["kind"] == "flag" for op in results) and not segment.options and not segment.next_scene:
         scene["completion_policy"] = "main_flags_v1"
     if segment.id in {"ch1_b_dinner_food", "ch1_t_handoff_accept", "ch1_t_handoff_receipt", "ch1_t_handoff_summary",
-                      "ch1_t_label_watch", "ch1_t_label_guitar", "ch1_t_label_raincoat", "ch1_t_label_fare", "ch1_t_egret_1", "ch1_t_egret_sunday", "ch1_t_lamp_voice_second", "ch1_t_lamp_voice_later"}:
+                      "ch1_t_label_watch", "ch1_t_label_guitar", "ch1_t_label_raincoat", "ch1_t_label_fare", "ch1_t_egret_1", "ch1_t_egret_sunday", "ch1_t_lamp_voice_second", "ch1_t_lamp_voice_later", "ch1_t_ali_name", "ch1_t_ali_evening_close"}:
         scene["completion_policy"] = "main_terminal_results_v1"
         for op in scene.get("results", []):
             if op["kind"] == "item_transfer":
                 op["destination"] = "ch1_handoff_cabinet"
-    if segment.id == "ch1_t_lamp_voice_first":
+    if segment.id in {"ch1_t_lamp_voice_first", "ch1_t_ali_2_ordered", "ch1_t_ali_2_sit"}:
         scene["completion_policy"] = "main_flags_continuation_v1"
     return scene
 

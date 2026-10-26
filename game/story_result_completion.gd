@@ -32,7 +32,7 @@ func choice_pending() -> bool:
 
 
 ## Finite source binding; no new capability can be enabled by arbitrary story data.
-## The default/return is result-free, so all existing skip paths stay result-free.
+## Authored defaults use this gate too; a material default must await its save.
 func choose(option: Dictionary, retry: Callable) -> Dictionary:
 	if not Sources.CHOICES.has(String(Story._current_cinematic)):
 		return {"handled": true, "accepted": false} if choice_pending() else {}
