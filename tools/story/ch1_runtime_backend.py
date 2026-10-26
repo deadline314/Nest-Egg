@@ -589,6 +589,30 @@ def _mark_important_radio(scenes):
             scene["freeze"] = True
 
 
+# An explicit policy opts into an existing Main-owned gate. Its concrete
+# source/operations still require the independent finite runtime contract.
+DURABLE_POLICIES = ("main_flags_v1", "main_terminal_results_v1",
+                    "main_flags_continuation_v1", "main_source_results_continuation_v1")
+
+
+def validate_completion_policies(scenes):
+    for ident, scene in scenes.items():
+        if not isinstance(scene, dict):
+            raise CompileError(f"{ident}: 場景必須是物件")
+        results = scene.get("results", [])
+        transfers = scene.get("transfer_items", [])
+        if not (results or transfers or scene.get("set_flags", [])):
+            continue
+        policy = scene.get("completion_policy")
+        if isinstance(policy, str) and policy in DURABLE_POLICIES:
+            continue
+        # Important flag-only radio already has its original Main save owner;
+        # adding rewards/transfers must not silently use legacy publication.
+        if scene.get("mode") == "radio" and scene.get("freeze") is True and not results and not transfers:
+            continue
+        raise CompileError(f"{ident}: 正式故事結果必須登記保存政策與對應的原遊戲來源")
+
+
 def compile_document():
     source = build_source()
     errors = validate_source(source)
@@ -613,6 +637,7 @@ def compile_document():
         scenes[ident]["title"] = title
         scenes[ident]["gallery_order"] = order
     _mark_important_radio(scenes)
+    validate_completion_policies(scenes)
     speakers = copy.deepcopy(legacy.SPEAKERS)
     speakers.update(copy.deepcopy(source.speakers))
     speakers.update(copy.deepcopy(prologue_source.SPEAKERS))

@@ -554,3 +554,18 @@ ST-10本次把正式返家的關爐與裝水接上真手部接觸、同一壺握
 ![保存失敗保留重試](images/ST-9-clinic-results-refused.png)
 
 [真正來源、原主檔、所有失敗、全部輸出及Forgotton Anne／Gunpoint／SANABI官方參考](attachments/ST-9-clinic-results/README.md)。
+
+
+# Commit-25（序章櫃台結果與原交談次數保存，進行中）
+
+## 內文
+
+真正完成教學回櫃台後，倒地／未倒地兩種復原說明與鷺的收尾電話，在存檔失敗時仍發布已聽、完成與出口。現在先成功保存原結果與同一老K的交談次數，再通知並交回控制；拒寫停在原段重試，連續重試不重播、不重算。取消不假造已讀，原未讀主檔可在新程序接續，完成主檔續玩不重播。台詞、教學操作、免費規則與原目標保持。
+
+同一原真輸入探針三條路58／6→58／0，沒有補教學旗標或死亡。公開27程序337／0、政策負控制六測試全過、作者139場10任務0缺譯；受影響8組3,936／0、135秒，原診所29程序385／0。軟體Forward+五程序60／0、六原圖逐張已看，無ERROR、腳本錯誤或退出洩漏。
+
+![原鷺電話保持未讀](images/ST-9-prologue-results-call.png)
+
+![保存失敗保留重試](images/ST-9-prologue-results-refused.png)
+
+[真正輸入、原人物／主檔、全部輸出與Gunpoint／SANABI官方參考](attachments/ST-9-prologue-results/README.md)。

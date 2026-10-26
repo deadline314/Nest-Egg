@@ -16,8 +16,16 @@ const ALI_SOURCE := {
 	"levels": ["res://data/levels/ch1_lounge.tres"],
 }
 const STALL_SOURCE := Supper.NPC_SOURCE
+const PROLOGUE_SOURCE := {
+	"npc": "res://data/npcs/ch1_old_k_counter.tres",
+	"levels": ["res://data/levels/ch1_prologue.tres"],
+}
 const MAX_ROUTE_NODES := 64
 const NPC_SOURCES := {
+	"ch1_p05_service_fall": PROLOGUE_SOURCE,
+	"ch1_p05_service_clean": PROLOGUE_SOURCE,
+	"ch1_p06_call": PROLOGUE_SOURCE,
+
 	"ch1_t_supper_choice_ordered": STALL_SOURCE,
 	"ch1_t_supper_choice_none": STALL_SOURCE,
 	"ch1_t_supper_leave_options": STALL_SOURCE,
@@ -90,6 +98,13 @@ const NPC_SOURCES := {
 }
 
 const BOUNDARIES := {
+	"ch1_p05_service_fall": {"policy": TERMINAL, "flag": "ch1_prologue_service_heard", "then": ""},
+	"ch1_p05_service_clean": {"policy": TERMINAL, "flag": "ch1_prologue_service_heard", "then": ""},
+	"ch1_p06_call": {"policy": TERMINAL, "then": "", "operations": [
+		{"kind": "flag", "id": "ch1_prologue_done", "value": true},
+		{"kind": "flag", "id": "ch1_prologue_exit", "value": true},
+	]},
+
 	"ch1_t_ali_order": {"policy": RESULT_CONTINUATION, "then": "ch1_t_ali_name", "operations": [
 		{"kind": "transaction", "id": "ch1.revival_meal.order"},
 		{"kind": "item_acquire", "id": "ch1_lounge_bill"},

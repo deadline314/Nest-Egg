@@ -1,0 +1,316 @@
+{
+  "base": "a4c4c93e407f4866ec5811a508d0bde00ee4b78d",
+  "source_sha256": {
+    "game/story_result_sources.gd": "9772a59aa4c4c240d9df8fe2aeb391979173495b1bc7f3d0dd292b2a16f45a9b",
+    "data/story/ch1_kasa.json": "559ce01524b67cacb5b2e78b31a3ffef836625cd5061b2a3f9d02bdfb368b63c",
+    "tools/story/prologue_source.py": "e97f52b13fb78f97f4d8afb3458a692b70a29062580b14acc17db1e7d3a0c27c",
+    "tools/story/ch1_runtime_backend.py": "4f6e91cd8f11c75845ba12c49e12014cb7e24c1215d7ad86e6c1a66373cecda2",
+    "tools/story/test_completion_policies.py": "9d4561586d2da4fc71e3c0ad9abc925cde02e0be518db9dff94f0b9eeedd82a3",
+    "tests/helpers/prologue_source_checks.gd": "1fa0265e7465a05c53fac397beacdbe54486fde5310951bf890f1ad20ab783d0",
+    "tests/suite/test_run_save.gd": "ffde0cb5092cf2458075faeef0dc0c0446b3c3e33167f5a4ffb94dc52ae13b48",
+    "tests/probes/prologue_original.gd": "84d5cd005176843c2eb86be06771f0af48db412d75170f3ee53053bd53c4aa71",
+    "tests/probes/prologue_original.tscn": "da9187e353e9f3b4722f43c4022967a72212c527fdb4178fdfaef1cf6143f01e",
+    "tests/probes/prologue_completion.gd": "fe620311b2d6682719bec8d4e30184e8e61f68ef0ef90cc88eb869826c902028",
+    "tests/probes/prologue_completion.tscn": "3418b9294872aeb69383e213057087ce254e2fff8f41c665292befa44c679dee",
+    "tests/fixtures/prologue_counter/fall.json": "8698492e1134d420845d350a09d9dfd49f426beb17d47e1a05f4c813d979fc51",
+    "tests/fixtures/prologue_counter/clean.json": "6e2d42d813b7cbd639dc65b44fe783ac85e2535d2fe4a22e5871fb70d89db080",
+    "tests/fixtures/prologue_counter/call.json": "799534aa15980c58bd8a50de61df02db4ba38b93134a41b776a68b2e3ce02c78",
+    "tests/fixtures/prologue_counter/provenance.json": "6ba12699e80224ae959d72a506c65ebecbcb5fc50d09cae091b22eb98e11838b",
+    "tools/run_prologue_completion.py": "b308e59d0ce671afb7a2525d0ccf20d7d3eb6eae4b0aa181178b003c873568e7",
+    ".github/workflows/tests.yml": "6b2db3eb30846112300470fab23b1f9a3546f46f416770aeffe4b16f3f655fc1"
+  },
+  "engine_sha256": "319aaea8c619fa1edc5d08a33158ab2bfd069e329a1bcd672db9654af53f35e2",
+  "original_negative": {
+    "processes": 3,
+    "checks": 58,
+    "before_failures": 6,
+    "after_failures": 0,
+    "identical_probe_sha256": "84d5cd005176843c2eb86be06771f0af48db412d75170f3ee53053bd53c4aa71"
+  },
+  "fast_seed_control": {
+    "processes": 3,
+    "checks": 33,
+    "before_failures": 6,
+    "after_failures": 0
+  },
+  "published": {
+    "processes": 27,
+    "checks": 337,
+    "failures": 0,
+    "seconds": 304.327
+  },
+  "affected": {
+    "groups": 8,
+    "workers": 4,
+    "checks": 3936,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 135,
+    "dummy_exit_diagnostics": 0
+  },
+  "previous_clinic_regression": {
+    "processes": 29,
+    "checks": 385,
+    "failures": 0
+  },
+  "compiler": {
+    "scenes": 139,
+    "quests": 10,
+    "missing_translations": 0,
+    "exact_compiler_parity": true,
+    "material_presentations": [
+      {
+        "scene": "ch1_b_dinner_food",
+        "mode": "bubbles",
+        "policy": "main_terminal_results_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_egret_1",
+        "mode": "animated",
+        "policy": "main_terminal_results_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_handoff_accept",
+        "mode": "animated",
+        "policy": "main_terminal_results_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_handoff_receipt",
+        "mode": "animated",
+        "policy": "main_terminal_results_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_handoff_summary",
+        "mode": "dialogue",
+        "policy": "main_terminal_results_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_ali_order",
+        "mode": "animated",
+        "policy": "main_source_results_continuation_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_ali_sit",
+        "mode": "animated",
+        "policy": "main_flags_continuation_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_ali_name",
+        "mode": "animated",
+        "policy": "main_terminal_results_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_ali_2_ordered",
+        "mode": "animated",
+        "policy": "main_flags_continuation_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_ali_2_sit",
+        "mode": "animated",
+        "policy": "main_flags_continuation_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_ali_evening_close",
+        "mode": "animated",
+        "policy": "main_terminal_results_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_supper_pay",
+        "mode": "animated",
+        "policy": "main_source_results_continuation_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_supper_tab",
+        "mode": "animated",
+        "policy": "main_source_results_continuation_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_supper_leave_none",
+        "mode": "animated",
+        "policy": "main_terminal_results_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_supper_return",
+        "mode": "animated",
+        "policy": "main_terminal_results_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_supper_stay_host",
+        "mode": "animated",
+        "policy": "main_source_results_continuation_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_supper_stay_host_none",
+        "mode": "animated",
+        "policy": "main_flags_continuation_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_supper_stay_meal",
+        "mode": "animated",
+        "policy": "main_flags_continuation_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_supper_stay_address",
+        "mode": "animated",
+        "policy": "main_terminal_results_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_c09_wake",
+        "mode": "animated",
+        "policy": "main_flags_continuation_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_c14_home",
+        "mode": "animated",
+        "policy": "main_flags_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_egret_sunday",
+        "mode": "animated",
+        "policy": "main_terminal_results_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_label_watch",
+        "mode": "dialogue",
+        "policy": "main_terminal_results_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_label_guitar",
+        "mode": "dialogue",
+        "policy": "main_terminal_results_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_label_raincoat",
+        "mode": "dialogue",
+        "policy": "main_terminal_results_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_label_fare",
+        "mode": "dialogue",
+        "policy": "main_terminal_results_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_lamp_voice_first",
+        "mode": "dialogue",
+        "policy": "main_flags_continuation_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_lamp_voice_second",
+        "mode": "dialogue",
+        "policy": "main_terminal_results_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_clinic_cloth_look",
+        "mode": "animated",
+        "policy": "main_flags_continuation_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_clinic_cloth_take",
+        "mode": "animated",
+        "policy": "main_terminal_results_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_t_booth_recording",
+        "mode": "radio",
+        "policy": null,
+        "important_flag_radio": true
+      },
+      {
+        "scene": "ch1_p05_service_fall",
+        "mode": "dialogue",
+        "policy": "main_terminal_results_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_p05_service_clean",
+        "mode": "dialogue",
+        "policy": "main_terminal_results_v1",
+        "important_flag_radio": false
+      },
+      {
+        "scene": "ch1_p06_call",
+        "mode": "dialogue",
+        "policy": "main_terminal_results_v1",
+        "important_flag_radio": false
+      }
+    ],
+    "note": "Explicit policy admission audit only; runtime still independently verifies concrete original owners and operations. Important flag-only frozen radio retains its existing Main owner. This is not a full audit of every world-event flag or automatic item producer."
+  },
+  "policy_compiler_tests": {
+    "tests": 6,
+    "failures": 0
+  },
+  "native": [
+    {
+      "tag": "st9-prologue-fall-retry-native-v1",
+      "mode": "fall_retry",
+      "checks": 18,
+      "passed": true
+    },
+    {
+      "tag": "st9-prologue-fall-pending-native-v1",
+      "mode": "fall_pending",
+      "checks": 8,
+      "passed": true
+    },
+    {
+      "tag": "st9-prologue-call-pending-native-v1",
+      "mode": "call_pending",
+      "checks": 8,
+      "passed": true
+    },
+    {
+      "tag": "st9-prologue-call-pending-read-native-v1",
+      "mode": "call_pending_read",
+      "checks": 13,
+      "passed": true
+    },
+    {
+      "tag": "st9-prologue-clean-skip-native-v1",
+      "mode": "clean_skip",
+      "checks": 13,
+      "passed": true
+    }
+  ],
+  "archive": {
+    "bytes": 4718974,
+    "entries": 665,
+    "sha256": "9b6d59fc849799b6480f26e41e475fecbbfbddcae03f94722d296b6f95a00793"
+  },
+  "limits": [
+    "Exact actual-training Main primaries; fast source cases move player into same counter interaction range. Separate full-input controls walk through original actual training.",
+    "Software Forward+ HDR2D with Dummy audio; physical GPU/controller and human tutorial timing/style gates remain open.",
+    "Policy declaration audit does not certify every world-event flag or automatic item producer. Mother ticket is not automatically closed.",
+    "GitHub detailed CI query previously returned HTTP401; no retry or bypass. Local checks do not certify this commit remote CI."
+  ]
+}

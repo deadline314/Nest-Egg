@@ -164,6 +164,13 @@ jobs:
         timeout-minutes: 30
         run: python3 tools/run_clinic_completion.py --godot "$GODOT" --output "${{ runner.temp }}/clinic-completion"
 
+      - name: Check original tutorial counter results and cold reads
+        if: steps.gate.outputs.skip != 'true'
+        timeout-minutes: 30
+        run: |
+          python3 tools/story/test_completion_policies.py
+          python3 tools/run_prologue_completion.py --godot "$GODOT" --output "${{ runner.temp }}/prologue-completion"
+
       - name: Run all tests (parallel)
         timeout-minutes: 45
         if: steps.gate.outputs.skip != 'true'

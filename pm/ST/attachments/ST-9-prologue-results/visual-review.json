@@ -1,0 +1,43 @@
+{
+  "all_originals_viewed": true,
+  "originals": [
+    {
+      "path": "st9-prologue-fall-retry-native-v1/refused.png",
+      "sha256": "88a44b6506f834ddfe77426dad362cadc135f2de44d8676a1f65abd219f918dd",
+      "original_viewed": true
+    },
+    {
+      "path": "st9-prologue-fall-retry-native-v1/complete.png",
+      "sha256": "90d5d618f01de40ac08f2a177f09c4393a7e15359813a8435bfd0270459382f3",
+      "original_viewed": true
+    },
+    {
+      "path": "st9-prologue-fall-pending-native-v1/pending.png",
+      "sha256": "07e4d06fd912bf59aeba662ae88ce53bcde6834f11fbad34a3513005fe178420",
+      "original_viewed": true
+    },
+    {
+      "path": "st9-prologue-call-pending-native-v1/pending.png",
+      "sha256": "d22defd57beae295e57ac8f9bfb21614f71697a0019d6875bd75b3ff3f46083f",
+      "original_viewed": true
+    },
+    {
+      "path": "st9-prologue-call-pending-read-native-v1/complete.png",
+      "sha256": "ff971ccef94055631c10bafab3e2451573b90d32b674a54b1aa6dafba32cd56d",
+      "original_viewed": true
+    },
+    {
+      "path": "st9-prologue-clean-skip-native-v1/complete.png",
+      "sha256": "b409bb6cca3b891e1c579f2b2d623eaef1d72aa208057845315e5ccec0dc30ef",
+      "original_viewed": true
+    }
+  ],
+  "postprocessing": "None. Original viewport PNG with original dialogue input; no diagnostic overlay, crop, replayed frame or time change.",
+  "observations": [
+    "Actual original tutorial counter and Main save-retry modal are visible.",
+    "Original service dialogue and Egret wrap-up retain their portrait, speaker identity and full spoken line.",
+    "Successful retry, cold pending call and manual skip return to the original live tutorial area and original mission cues.",
+    "Original counter actor is near the left camera edge and original world prompts remain large; scene framing/UI quality is not certified by this persistence change.",
+    "Five software Vulkan Forward+/HDR2D processes with Dummy audio,60checks/0failures and noERROR/script/exit-leak diagnostics. Physical GPU/controller and human tutorial pacing are not certified."
+  ]
+}

@@ -113,10 +113,10 @@ def build():
         ("rin", "你每次都這樣講。我至少要知道，出事了該回哪裡。"),
         ("old_k", "到電話亭要真的確認備份，光走過不算。現場要補什麼資料，就問服務的人。"),
     ]
-    s["ch1_p05_service_fall"] = {"mode": "dialogue", "results": done("ch1_prologue_service_heard"), "lines": lines(*service,
+    s["ch1_p05_service_fall"] = {"mode": "dialogue", "completion_policy": "main_terminal_results_v1", "results": done("ch1_prologue_service_heard"), "lines": lines(*service,
         ("rin", "那剛才機器停下來，跟這個沒關係。"),
         ("old_k", "當然沒關係。你是在地墊上站不穩，又不是去拿命試貨。"))}
-    s["ch1_p05_service_clean"] = {"mode": "dialogue", "results": done("ch1_prologue_service_heard"), "lines": lines(*service,
+    s["ch1_p05_service_clean"] = {"mode": "dialogue", "completion_policy": "main_terminal_results_v1", "results": done("ch1_prologue_service_heard"), "lines": lines(*service,
         ("rin", "剛才試貨只是練習，不是復原。"),
         ("old_k", "本來就是喔。你拿器材試手感，不是拿命試貨。"))}
     s["ch1_p05_sheet"] = {"mode": "dialogue", "lines": lines(
@@ -125,7 +125,7 @@ def build():
         ("note", "復原會產生費用，也可能消耗契約承擔者的記憶。"),
         ("note", "電話亭的確認紀錄用來查找最近的備份與接應位置；地圖上的標記不代表已經辦妥登記。"))}
     # P06：收尾與鷺的聯絡，交到第一章的第一個目標。
-    s["ch1_p06_call"] = {"mode": "dialogue", "results": done("ch1_prologue_done", "ch1_prologue_exit"), "lines": lines(
+    s["ch1_p06_call"] = {"mode": "dialogue", "completion_policy": "main_terminal_results_v1", "results": done("ch1_prologue_done", "ch1_prologue_exit"), "lines": lines(
         ("egret", "我是鷺，人在你家屋頂，待會兒有份差事給你看。"),
         ("rin", "你又不走正門，老 K 還以為雨把屋頂敲壞了。"),
         ("egret", "我怕他又留我修門扣。你吃完飯再上來，這次不催你。"),

@@ -1,0 +1,26 @@
+[
+  {
+    "mode": "fall",
+    "file": "fall.json",
+    "sha256": "8698492e1134d420845d350a09d9dfd49f426beb17d47e1a05f4c813d979fc51",
+    "source": "st9-prologue-before-fall-v1/slot/refused-primary.json",
+    "origin": "Exact Main primary produced by original actual training inputs; captured before the actual refused counter result, never edited/re-encoded or flags arranged.",
+    "before_count": 0
+  },
+  {
+    "mode": "clean",
+    "file": "clean.json",
+    "sha256": "6e2d42d813b7cbd639dc65b44fe783ac85e2535d2fe4a22e5871fb70d89db080",
+    "source": "st9-prologue-before-clean-v1/slot/refused-primary.json",
+    "origin": "Exact Main primary produced by original actual training inputs; captured before the actual refused counter result, never edited/re-encoded or flags arranged.",
+    "before_count": 0
+  },
+  {
+    "mode": "call",
+    "file": "call.json",
+    "sha256": "799534aa15980c58bd8a50de61df02db4ba38b93134a41b776a68b2e3ce02c78",
+    "source": "st9-prologue-before-call-v1/slot/refused-primary.json",
+    "origin": "Exact Main primary produced by original actual training inputs; captured before the actual refused counter result, never edited/re-encoded or flags arranged.",
+    "before_count": 1
+  }
+]
