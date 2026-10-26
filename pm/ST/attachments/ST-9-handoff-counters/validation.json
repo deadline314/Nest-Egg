@@ -1,0 +1,243 @@
+{
+  "source": {
+    "base": "1a5e7831e10219e34faddb9c3b21864afcc3360b",
+    "files": {
+      "game/story_result_completion.gd": "fce24053b74c02320793d762de68dae16d8492d8f9bf1357d5e4712444c6e04f",
+      "tests/probes/handoff_completion.gd": "197158398a3db7cd7115113b88a79d6f452d8d239e7da43f684cddf4d5a3bc2d",
+      "tests/probes/handoff_completion.tscn": "ccb93548ec1be1d0214de6c5d1960c925fd527fa3289cbdaace273e33a7f753c",
+      "tools/run_handoff_completion.py": "0c204c9611533c5cd3e3bef0bc5601e4e77902882bf4d43999745e24c3b898b2",
+      ".github/workflows/tests.yml": "58c56ecbdabd390ea707355cf322487b4abaac475786552575ca42bea2e63d64",
+      "design/20-campaign-experience/TERMINAL_STORY_RESULTS.md": "0491646a93b1df9f4e552d2639345a1f7befe0ad95b261faebd389518582c125"
+    }
+  },
+  "engine_sha256": "dadf922b668b42d4484386749c9f5a2bf8587cd50c36215238f16776132de2ac",
+  "before": {
+    "tag": "st9-handoff-counters-before-v1",
+    "base": "1a5e7831e10219e34faddb9c3b21864afcc3360b",
+    "engine_sha256": "dadf922b668b42d4484386749c9f5a2bf8587cd50c36215238f16776132de2ac",
+    "checks": 103,
+    "failures": 15,
+    "engine_exit": 1,
+    "expected_failure_scope": "only live/durable NPC counter at first result notification, before original waiter and fresh autosave",
+    "source_sha256": "2275c2873a9ce7de17d89bdb392ea3a6b5d968e54dd4f34ca328c2cbf0964b0c",
+    "probe_sha256": "197158398a3db7cd7115113b88a79d6f452d8d239e7da43f684cddf4d5a3bc2d",
+    "observations": [
+      {
+        "durable": false,
+        "expected": 1,
+        "live_count": 0,
+        "primary_file": "ch1_t_handoff_accept-publication-primary.json",
+        "scene": "ch1_t_handoff_accept",
+        "talking": true,
+        "world_counts": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "durable": false,
+        "expected": 2,
+        "live_count": 1,
+        "primary_file": "ch1_t_handoff_receipt-publication-primary.json",
+        "scene": "ch1_t_handoff_receipt",
+        "talking": true,
+        "world_counts": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "durable": false,
+        "expected": 3,
+        "live_count": 2,
+        "primary_file": "ch1_t_handoff_summary-publication-primary.json",
+        "scene": "ch1_t_handoff_summary",
+        "talking": true,
+        "world_counts": [
+          2.0,
+          2.0,
+          2.0
+        ]
+      }
+    ]
+  },
+  "after": {
+    "tag": "st9-handoff-counters-after-v1",
+    "checks": 103,
+    "failures": 0,
+    "engine_exit": 0,
+    "same_probe_as_before": true,
+    "observations": [
+      {
+        "durable": true,
+        "expected": 1,
+        "live_count": 1,
+        "primary_file": "ch1_t_handoff_accept-publication-primary.json",
+        "scene": "ch1_t_handoff_accept",
+        "talking": true,
+        "world_counts": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "durable": true,
+        "expected": 2,
+        "live_count": 2,
+        "primary_file": "ch1_t_handoff_receipt-publication-primary.json",
+        "scene": "ch1_t_handoff_receipt",
+        "talking": true,
+        "world_counts": [
+          2.0,
+          2.0,
+          2.0
+        ]
+      },
+      {
+        "durable": true,
+        "expected": 3,
+        "live_count": 3,
+        "primary_file": "ch1_t_handoff_summary-publication-primary.json",
+        "scene": "ch1_t_handoff_summary",
+        "talking": true,
+        "world_counts": [
+          3.0,
+          3.0,
+          3.0
+        ]
+      }
+    ]
+  },
+  "headless": {
+    "processes": 2,
+    "checks": 107,
+    "failures": 0
+  },
+  "affected": {
+    "groups": 7,
+    "checks": 3610,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 138
+  },
+  "legacy": {
+    "processes": 8,
+    "checks": 176,
+    "failures": 0,
+    "cases": [
+      {
+        "tag": "st9-counter-legacy-ch1_label_watch-write-v1",
+        "checks": 27,
+        "failures": 0,
+        "completed": true,
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-counter-legacy-ch1_label_guitar-write-v1",
+        "checks": 27,
+        "failures": 0,
+        "completed": true,
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-counter-legacy-ch1_label_raincoat-write-v1",
+        "checks": 27,
+        "failures": 0,
+        "completed": true,
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-counter-legacy-ch1_label_fare-write-v1",
+        "checks": 27,
+        "failures": 0,
+        "completed": true,
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-counter-legacy-ch1_egret-write-v1",
+        "checks": 27,
+        "failures": 0,
+        "completed": true,
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-counter-legacy-ch1_label_watch-dawn-write-v1",
+        "checks": 27,
+        "failures": 0,
+        "completed": true,
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-counter-legacy-ch1_egret-continue-v1",
+        "checks": 7,
+        "failures": 0,
+        "completed": true,
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-counter-legacy-ch1_label_watch-dawn-continue-v1",
+        "checks": 7,
+        "failures": 0,
+        "completed": true,
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      }
+    ]
+  },
+  "original_pending": {
+    "processes": 2,
+    "checks": 10,
+    "failures": 0,
+    "cases": [
+      {
+        "tag": "st9-counter-old-pending-accept-v1",
+        "primary_source": "handoff-mid-primary-before-v2.json",
+        "primary_sha256": "19e068594b950ca1bc4e6863bd33cc95deba8d2c08c2a1c33122df6f5d4dadd3",
+        "checks": 5,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      },
+      {
+        "tag": "st9-counter-old-pending-receipt-v1",
+        "primary_source": "handoff-mid-receipt-v3-save-slot.json-pending.json",
+        "primary_sha256": "91a296a2fe243a564005bc8440911f2304f7a863c5d6b32881999b4433ef6f9c",
+        "checks": 5,
+        "failures": [],
+        "exit": 0,
+        "engine_exit": 0,
+        "clean": true
+      }
+    ]
+  },
+  "archive": {
+    "file": "evidence.zip",
+    "entries": 269,
+    "bytes": 8443571,
+    "sha256": "8ff72d929490dd51c4c38ec16012243a96498c477fabd2b71bd819c4d280929d"
+  },
+  "boundaries": [
+    "Actual Main with arranged disk and explicit NPC choices; not a human chapter playthrough.",
+    "Software Vulkan Forward+, HDR2D, Dummy mixing; physical devices and hardware GPU are separate.",
+    "Only existing reward-free terminal producers are handled; general story results, continuations and other source kinds retain their original requirements."
+  ]
+}

@@ -6,16 +6,40 @@ const Bundle := preload("res://core/story_install_bundle.gd")
 const Prompt := preload("res://ui/radio_save_prompt.gd")
 const SEGMENTS := {
 	"ch1_b_dinner_food": "res://data/levels/ch1_pawnshop.tres",
-	"ch1_t_handoff_accept": "res://data/levels/ch1_handoff.tres",
-	"ch1_t_handoff_receipt": "res://data/levels/ch1_handoff.tres",
-	"ch1_t_handoff_summary": "res://data/levels/ch1_handoff.tres",
 }
-const NPC_SEGMENTS := {
-	"ch1_t_label_watch": "res://data/npcs/ch1_label_watch.tres",
-	"ch1_t_label_guitar": "res://data/npcs/ch1_label_guitar.tres",
-	"ch1_t_label_raincoat": "res://data/npcs/ch1_label_raincoat.tres",
-	"ch1_t_label_fare": "res://data/npcs/ch1_label_fare.tres",
-	"ch1_t_egret_1": "res://data/npcs/ch1_egret.tres",
+const NPC_SOURCES := {
+	"ch1_t_label_watch": {
+		"npc": "res://data/npcs/ch1_label_watch.tres",
+		"levels": ["res://data/levels/ch1_pawnshop.tres", "res://data/levels/ch1_pawnshop_dawn.tres"],
+	},
+	"ch1_t_label_guitar": {
+		"npc": "res://data/npcs/ch1_label_guitar.tres",
+		"levels": ["res://data/levels/ch1_pawnshop.tres", "res://data/levels/ch1_pawnshop_dawn.tres"],
+	},
+	"ch1_t_label_raincoat": {
+		"npc": "res://data/npcs/ch1_label_raincoat.tres",
+		"levels": ["res://data/levels/ch1_pawnshop.tres", "res://data/levels/ch1_pawnshop_dawn.tres"],
+	},
+	"ch1_t_label_fare": {
+		"npc": "res://data/npcs/ch1_label_fare.tres",
+		"levels": ["res://data/levels/ch1_pawnshop.tres", "res://data/levels/ch1_pawnshop_dawn.tres"],
+	},
+	"ch1_t_egret_1": {
+		"npc": "res://data/npcs/ch1_egret.tres",
+		"levels": ["res://data/levels/ch1_rooftop.tres"],
+	},
+	"ch1_t_handoff_accept": {
+		"npc": "res://data/npcs/ch1_handoff_cabinet.tres",
+		"levels": ["res://data/levels/ch1_handoff.tres"],
+	},
+	"ch1_t_handoff_receipt": {
+		"npc": "res://data/npcs/ch1_handoff_cabinet.tres",
+		"levels": ["res://data/levels/ch1_handoff.tres"],
+	},
+	"ch1_t_handoff_summary": {
+		"npc": "res://data/npcs/ch1_handoff_cabinet.tres",
+		"levels": ["res://data/levels/ch1_handoff.tres"],
+	},
 }
 var main: Node
 var _id: StringName
@@ -89,20 +113,12 @@ func _prepare_and_commit(scene: Dictionary) -> Dictionary:
 	if Story._scene_sources.get(String(_id)) != "res://data/story/ch1_kasa.json":
 		return {"error": "terminal producer is not bound to this segment and current authored Level"}
 	var npc := {}
-	if NPC_SEGMENTS.has(String(_id)):
+	if NPC_SOURCES.has(String(_id)):
 		npc = _npc_source(level)
 		if npc.is_empty():
 			return {"error": "terminal NPC result requires its actual current authored interaction"}
 	elif SEGMENTS.get(String(_id), "") != level.data.resource_path:
 		return {"error": "terminal producer is not bound to this authored Level"}
-	if String(_id).begins_with("ch1_t_handoff_"):
-		var cabinet: NpcActor
-		for node: Node in get_tree().get_nodes_in_group(NpcActor.GROUP):
-			if node is NpcActor and level.is_ancestor_of(node) and node.data != null and node.data.resource_path == "res://data/npcs/ch1_handoff_cabinet.tres":
-				cabinet = node
-				break
-		if cabinet == null or not cabinet._talking or Story.current_presentation_context().get("source_id") != cabinet.state_key():
-			return {"error": "handoff requires the actual current cabinet interaction"}
 	if not str(scene.get("then", "")).is_empty() or Story.offers_choice(scene) or Story._pending_next.has(_id) or scene.has("transfer_items") or not (Story._pending_transfers.get(_id, []) as Array).is_empty():
 		return {"error": "terminal results cannot own choices, continuations or pending transfers"}
 	var passive: Array = Story._passive_requests.get(_id, [])
@@ -199,17 +215,18 @@ func _prepare_and_commit(scene: Dictionary) -> Dictionary:
 
 
 func _npc_source(level: Level) -> Dictionary:
-	var allowed: Array = ["res://data/levels/ch1_rooftop.tres"] if _id == &"ch1_t_egret_1" else ["res://data/levels/ch1_pawnshop.tres", "res://data/levels/ch1_pawnshop_dawn.tres"]
+	var source: Dictionary = NPC_SOURCES.get(String(_id), {})
+	var allowed: Array = source.get("levels", [])
 	if level.died or not allowed.has(level.data.resource_path) or level.player == null or level.player.is_dead():
 		return {}
 	var context := Story.current_presentation_context()
 	var index: int = context.get("talk_index", -1)
 	for node: Node in level._entities.get_children():
 		var actor := node as NpcActor
-		if actor == null or actor.is_queued_for_deletion() or not actor.is_inside_tree() or actor.data == null or actor.data.resource_path != NPC_SEGMENTS[String(_id)] or actor.state_key() != context.get("source_id") or not actor.is_present():
+		if actor == null or actor.is_queued_for_deletion() or not actor.is_inside_tree() or actor.data == null or actor.data.resource_path != source.get("npc", "") or actor.state_key() != context.get("source_id") or not actor.is_present():
 			continue
 		var prepared := actor.prepare_story_completion(index)
-		if prepared.is_empty() or Story.resolve_dispatch(actor.data.talks[index].scene) != _id:
+		if prepared.is_empty() or not Story.is_chained_scene(Story.resolve_dispatch(actor.data.talks[index].scene), _id):
 			continue
 		for spawn: Dictionary in level._layout.spawns:
 			if spawn["resource"] == actor.data and spawn["cell"] == actor.cell:
