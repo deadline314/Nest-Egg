@@ -1,0 +1,60 @@
+{
+  "commit": "f82864137b021eeb43011f899907e1bbe5bea4d2",
+  "run": 40287561042,
+  "job": 121454720580,
+  "url": "https://github.com/deadline314/Nest-Egg/actions/runs/40287561042",
+  "conclusion": "success",
+  "full": {
+    "checks": 97999,
+    "new_failures": 0,
+    "known_failures": 0,
+    "wall_seconds": 567
+  },
+  "required_steps": {
+    "Set up job": "success",
+    "Run actions/checkout@v4": "success",
+    "Restore the repaired Godot editor": "success",
+    "Build or verify the repaired editor": "success",
+    "Cache the import folder": "success",
+    "Import the project": "success",
+    "Check actual positional audio mixing": "success",
+    "Check durable handoff NPC completion and cold read": "success",
+    "Check optional Sunday choice and cold continuation": "success",
+    "Check voice continuation and original pending-primary cold reads": "success",
+    "Check Ali results and original pending-primary cold reads": "success",
+    "Check original greeting source after authored NPC departure": "success",
+    "Run all tests (parallel)": "success",
+    "Post Cache the import folder": "success",
+    "Post Run actions/checkout@v4": "success",
+    "Complete job": "success"
+  },
+  "raw_sha256": "42522a1f20bea68282d7f0cd838efb47f3b281d1250e7d1a47487858c51bebe2",
+  "engine_pins": {
+    "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "source_archive_sha256": "e607e9985e1c201bc9cdc1aec8a120f0c3f53b9603f1f828e2b748534a2471ef",
+    "patch_sha256": "aa4703685b2cf0394f6ccb4209bf5771c159e3a97df98a7b92891e4f54356c70",
+    "audio_after_sha256": "f50737107e7169f5b8983836f76b3e66fc8a0fbbb1a5eab9b18d28810b248c06"
+  },
+  "probes": {
+    "Check durable handoff NPC completion and cold read": {
+      "processes": 2,
+      "checks": 107
+    },
+    "Check optional Sunday choice and cold continuation": {
+      "processes": 8,
+      "checks": 133
+    },
+    "Check voice continuation and original pending-primary cold reads": {
+      "processes": 17,
+      "checks": 615
+    },
+    "Check Ali results and original pending-primary cold reads": {
+      "processes": 12,
+      "checks": 306
+    },
+    "Check original greeting source after authored NPC departure": {
+      "processes": 1,
+      "checks": 54
+    }
+  }
+}

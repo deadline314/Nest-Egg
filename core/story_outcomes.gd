@@ -120,7 +120,7 @@ static func operations(scene: Dictionary) -> Array[Dictionary]:
 ## contract is used by content validation; operations() is only a typed view.
 func result_contract_problem(scene_id: StringName, scene: Dictionary) -> String:
 	var where := "場景 %s" % String(scene_id).left(256)
-	if scene.has("completion_policy") and scene["completion_policy"] not in [MAIN_FLAG_COMPLETION_POLICY, "main_terminal_results_v1", "main_flags_continuation_v1"]:
+	if scene.has("completion_policy") and scene["completion_policy"] not in [MAIN_FLAG_COMPLETION_POLICY, "main_terminal_results_v1", "main_flags_continuation_v1", "main_source_results_continuation_v1"]:
 		return where + " 的 completion_policy 不受支援"
 	var results: Variant = scene.get("results", [])
 	var flags: Variant = scene.get("set_flags", [])

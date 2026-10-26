@@ -1,9 +1,10 @@
 extends Node
-## Explicit terminal segments, optional choices and flag-only continuations.
+## Explicit terminal segments, optional choices and finite source continuations.
 ## The general atomic_v1 capability remains absent.
 const Sources := preload("res://game/story_result_sources.gd")
 const POLICY := Sources.TERMINAL
-const CONTINUATION_POLICY := Sources.CONTINUATION
+const CONTINUATION_POLICIES := Sources.CONTINUATION_POLICIES
+const COMPLETION_POLICIES := [POLICY] + CONTINUATION_POLICIES
 const Bundle := preload("res://core/story_install_bundle.gd")
 const Prompt := preload("res://ui/radio_save_prompt.gd")
 const SEGMENTS := {
@@ -117,7 +118,7 @@ func complete(id: StringName, request: int) -> Dictionary:
 	if choice_pending() and id == _id and request == _request:
 		return {"handled": true, "ready": false}
 	var scene: Dictionary = Story._scenes.get(String(id), {})
-	if scene.get("completion_policy", "") not in [POLICY, CONTINUATION_POLICY]:
+	if scene.get("completion_policy", "") not in COMPLETION_POLICIES:
 		return {}
 	# Standalone tools retain legacy presentation; a real Main cannot fall through.
 	if not main.get("_active_run"):
@@ -128,10 +129,10 @@ func complete(id: StringName, request: int) -> Dictionary:
 	_request = request
 	if _lock == 0:
 		_lock = GameplayLock.acquire(self, Input.MOUSE_MODE_VISIBLE)
-	var continuation := Sources.continuation(String(id), Story._scenes, Story._scene_sources) if scene.get("completion_policy") == CONTINUATION_POLICY else &""
+	var continuation := Sources.continuation(String(id), Story._scenes, Story._scene_sources) if scene.get("completion_policy") in CONTINUATION_POLICIES else &""
 	var result: Dictionary
-	if scene.get("completion_policy") == CONTINUATION_POLICY and continuation == &"":
-		result = {"error": "flag continuation differs from its finite authored contract"}
+	if scene.get("completion_policy") in CONTINUATION_POLICIES and continuation == &"":
+		result = {"error": "continuation differs from its finite authored contract"}
 	else:
 		result = _prepare_and_commit(scene, continuation)
 	if not result.get("committed", false) or result.get("recovery", false):

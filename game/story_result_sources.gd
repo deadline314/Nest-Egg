@@ -3,6 +3,8 @@ extends RefCounted
 const SOURCE := "res://data/story/ch1_kasa.json"
 const TERMINAL := "main_terminal_results_v1"
 const CONTINUATION := "main_flags_continuation_v1"
+const RESULT_CONTINUATION := "main_source_results_continuation_v1"
+const CONTINUATION_POLICIES := [CONTINUATION, RESULT_CONTINUATION]
 const VOICE_SOURCE := {
 	"npc": "res://data/npcs/ch1_lamp_voice.tres",
 	"levels": ["res://data/levels/ch1_booth_alley.tres"],
@@ -52,6 +54,8 @@ const NPC_SOURCES := {
 		"npc": "res://data/npcs/ch1_handoff_cabinet.tres",
 		"levels": ["res://data/levels/ch1_handoff.tres"],
 	},
+	"ch1_t_ali_order": ALI_SOURCE,
+	"ch1_t_ali_sit": ALI_SOURCE,
 	"ch1_t_ali_name": ALI_SOURCE,
 	"ch1_t_ali_2_ordered": ALI_SOURCE,
 	"ch1_t_ali_2_sit": ALI_SOURCE,
@@ -64,6 +68,12 @@ const NPC_SOURCES := {
 }
 
 const BOUNDARIES := {
+	"ch1_t_ali_order": {"policy": RESULT_CONTINUATION, "then": "ch1_t_ali_name", "operations": [
+		{"kind": "transaction", "id": "ch1.revival_meal.order"},
+		{"kind": "item_acquire", "id": "ch1_lounge_bill"},
+		{"kind": "flag", "id": "ch1_ali_reception_selected", "value": true},
+	]},
+	"ch1_t_ali_sit": {"policy": CONTINUATION, "flag": "ch1_ali_reception_selected", "then": "ch1_t_ali_name"},
 	"ch1_t_ali_name": {"policy": TERMINAL, "flag": "ch1_met_ali", "then": ""},
 	"ch1_t_ali_2_ordered": {"policy": CONTINUATION, "flag": "ch1_ali_evening_talk_done", "then": "ch1_t_ali_evening_close"},
 	"ch1_t_ali_2_sit": {"policy": CONTINUATION, "flag": "ch1_ali_evening_talk_done", "then": "ch1_t_ali_evening_close"},
@@ -127,8 +137,13 @@ static func _operations_match(raw: Variant, expected: Array) -> bool:
 		var operation: Variant = raw[i]
 		if not operation is Dictionary or operation.size() != expected[i].size():
 			return false
-		if not _text_equals(operation.get("kind"), "flag") or not _text_equals(operation.get("id"), expected[i]["id"]) or not operation.get("value") is bool or operation["value"] != true:
-			return false
+		for key: String in expected[i]:
+			var value: Variant = expected[i][key]
+			if value is bool:
+				if not operation.get(key) is bool or operation[key] != value:
+					return false
+			elif not value is String or not _text_equals(operation.get(key), value):
+				return false
 	return true
 
 
@@ -137,8 +152,8 @@ static func boundary(id: String, scenes: Dictionary, sources: Dictionary) -> Dic
 		return {}
 	var rule: Dictionary = BOUNDARIES[id]
 	var scene := _loaded(id, scenes, sources)
-	var operations: Array = []
-	if not rule["flag"].is_empty():
+	var operations: Array = rule.get("operations", []).duplicate(true)
+	if not str(rule.get("flag", "")).is_empty():
 		operations.append({"kind": "flag", "id": rule["flag"], "value": true})
 	if not _text_equals(scene.get("completion_policy"), rule["policy"]) or not _text_equals(scene.get("then", ""), rule["then"]) or not _operations_match(scene.get("results", []), operations) or not _empty_array(scene, "set_flags") or not _empty_array(scene, "transfer_items"):
 		return {}
@@ -204,7 +219,7 @@ static func choice(id: String, option: Dictionary, scenes: Dictionary, sources: 
 
 static func continuation(id: String, scenes: Dictionary, sources: Dictionary) -> StringName:
 	var rule := boundary(id, scenes, sources)
-	if rule.is_empty() or rule["policy"] != CONTINUATION:
+	if rule.is_empty() or rule["policy"] not in CONTINUATION_POLICIES:
 		return &""
 	var target: String = rule["then"]
 	if NPC_SOURCES.get(id, {}) != NPC_SOURCES.get(target, {}):
@@ -213,7 +228,7 @@ static func continuation(id: String, scenes: Dictionary, sources: Dictionary) ->
 		if choice_step(target, scenes, sources).is_empty():
 			return &""
 	else:
-		# A flag-only continuation can finish at an explicitly registered,
+		# An explicitly registered continuation can finish at a registered,
 		# choice-free terminal owned by the same original NPC source.
 		var terminal := boundary(target, scenes, sources)
 		if terminal.is_empty() or terminal["policy"] != TERMINAL or not terminal["then"].is_empty():

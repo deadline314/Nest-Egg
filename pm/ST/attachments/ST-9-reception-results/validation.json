@@ -1,0 +1,164 @@
+{
+  "base": "f82864137b021eeb43011f899907e1bbe5bea4d2",
+  "negative_probe_sha256": "f66d04ca81f0fe044543c4276cf865b024805bfcd36d7716aab9e412ca38ede7",
+  "same_negative": {
+    "checks": 28,
+    "before_failures": 8,
+    "after_failures": 0
+  },
+  "headless": {
+    "processes": 10,
+    "checks": 244,
+    "failures": 0
+  },
+  "original_affected": {
+    "groups": 9,
+    "checks": 5442,
+    "new_failures": 0,
+    "known_failures": 0,
+    "wall_seconds": 157,
+    "workers": 4
+  },
+  "policy": {
+    "checks": 667,
+    "failures": 0
+  },
+  "native": [
+    {
+      "tag": "st9-reception-ordered-native-v1",
+      "checks": 54,
+      "failures": 0
+    },
+    {
+      "tag": "st9-reception-ordered-cold-native-v1",
+      "checks": 10,
+      "failures": 0
+    },
+    {
+      "tag": "st9-reception-sit-native-v1",
+      "checks": 40,
+      "failures": 0
+    },
+    {
+      "tag": "st9-reception-sit-cold-native-v1",
+      "checks": 10,
+      "failures": 0
+    }
+  ],
+  "regressions": [
+    {
+      "name": "handoff_completion",
+      "processes": 2,
+      "checks": 107,
+      "failures": 0
+    },
+    {
+      "name": "sunday_choice",
+      "processes": 8,
+      "checks": 133,
+      "failures": 0
+    },
+    {
+      "name": "voice_completion",
+      "processes": 17,
+      "checks": 615,
+      "failures": 0
+    },
+    {
+      "name": "ali_completion",
+      "processes": 12,
+      "checks": 306,
+      "failures": 0
+    },
+    {
+      "name": "bubble_source",
+      "processes": 1,
+      "checks": 54,
+      "failures": 0
+    }
+  ],
+  "source_sha256": {
+    "core/story_outcomes.gd": "cc37bc0469675791330f6f950d8acef70b0dfd24ff38a16a189f0a848d6e7f31",
+    "game/story_result_completion.gd": "6458dd85d59896d09d0ed291a07f13c34b79c8d39a38178009f51fd52bbb2396",
+    "game/story_result_sources.gd": "e982b18337111c36f7ad93a8943d7b3b3afab61e2fbe662e90b3ade577ad62dd",
+    "data/story/ch1_kasa.json": "e1db876d4faa3978f2c4f3dde7f6a9395166c953a12a2649da85426e8e2a490c",
+    "tools/story/ch1_runtime_backend.py": "e4c70c6286009a4af0dd3a282b5cb200abed550074fc9a57201762cdf1d7a9a0",
+    "tests/helpers/ali_source_checks.gd": "20cb047184c1ff49938fd3fd2b857af60e7452e8ff79cf3ff070dd18a2296166",
+    "tests/helpers/reception_completion_base.gd": "a39c773e95171faeecc588aef8ef68c467a359ed45cad67ef9ea2c6fb97f538e",
+    "tests/probes/reception_completion.gd": "0c62ddf8378777f13c7bb9b2e721ff63e174c86638dd6e9d7eaaf45b4cd3947e",
+    "tests/probes/reception_completion.tscn": "297dc15c488d705e3320e19a626e9aab61662e61e4ee2a5a31ee561b96cf04e5",
+    "tools/run_reception_completion.py": "6fa4b3853886868c6142a7ab423f1df1869142b516604158ef1f732e61f0f586",
+    ".github/workflows/tests.yml": "280245214cfe606bb028cd3e3dbe81d0a5501b9e68a59e5537c48f6645f7a1bd"
+  },
+  "seed": {
+    "source_commit": "da6026e5e77622877a0dd0336144564952b619a0",
+    "source_archive": "pm/ST/attachments/ST-9-voice-continuation/evidence.zip",
+    "archive_sha256": "eca1adac617169110d1829dfe1d2aebbd9f3e8c0b5a6b62c725ea52aac582fa3",
+    "archive_entry": "runs/st9-voice-handoff-regression-v3/slot/slot.json",
+    "seed_sha256": "ba1dfe7143d61821c87fef850772614ede27954f9e3b933987e86b8c2a54068f",
+    "seed_bytes": 11067,
+    "producer": "Original run_handoff_completion.py write and independent read, actual Main and cabinet. Earlier disk/credits were explicitly arranged; this is not a natural chapter playthrough.",
+    "copy": "Exact original primary bytes; no re-encoding, added flags, completed Ali state or NPC counters."
+  },
+  "previous_ci": {
+    "commit": "f82864137b021eeb43011f899907e1bbe5bea4d2",
+    "run": 40287561042,
+    "job": 121454720580,
+    "url": "https://github.com/deadline314/Nest-Egg/actions/runs/40287561042",
+    "conclusion": "success",
+    "full": {
+      "checks": 97999,
+      "new_failures": 0,
+      "known_failures": 0,
+      "wall_seconds": 567
+    },
+    "required_steps": {
+      "Set up job": "success",
+      "Run actions/checkout@v4": "success",
+      "Restore the repaired Godot editor": "success",
+      "Build or verify the repaired editor": "success",
+      "Cache the import folder": "success",
+      "Import the project": "success",
+      "Check actual positional audio mixing": "success",
+      "Check durable handoff NPC completion and cold read": "success",
+      "Check optional Sunday choice and cold continuation": "success",
+      "Check voice continuation and original pending-primary cold reads": "success",
+      "Check Ali results and original pending-primary cold reads": "success",
+      "Check original greeting source after authored NPC departure": "success",
+      "Run all tests (parallel)": "success",
+      "Post Cache the import folder": "success",
+      "Post Run actions/checkout@v4": "success",
+      "Complete job": "success"
+    },
+    "raw_sha256": "42522a1f20bea68282d7f0cd838efb47f3b281d1250e7d1a47487858c51bebe2",
+    "engine_pins": {
+      "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+      "source_archive_sha256": "e607e9985e1c201bc9cdc1aec8a120f0c3f53b9603f1f828e2b748534a2471ef",
+      "patch_sha256": "aa4703685b2cf0394f6ccb4209bf5771c159e3a97df98a7b92891e4f54356c70",
+      "audio_after_sha256": "f50737107e7169f5b8983836f76b3e66fc8a0fbbb1a5eab9b18d28810b248c06"
+    },
+    "probes": {
+      "Check durable handoff NPC completion and cold read": {
+        "processes": 2,
+        "checks": 107
+      },
+      "Check optional Sunday choice and cold continuation": {
+        "processes": 8,
+        "checks": 133
+      },
+      "Check voice continuation and original pending-primary cold reads": {
+        "processes": 17,
+        "checks": 615
+      },
+      "Check Ali results and original pending-primary cold reads": {
+        "processes": 12,
+        "checks": 306
+      },
+      "Check original greeting source after authored NPC departure": {
+        "processes": 1,
+        "checks": 54
+      }
+    }
+  },
+  "scope": "Only original order/sit result boundaries and same-person pending name; no general atomic_v1 or full chapter/hardware/human acceptance."
+}

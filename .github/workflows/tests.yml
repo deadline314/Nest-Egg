@@ -134,6 +134,12 @@ jobs:
         run: |
           python3 tools/run_bubble_source.py --godot "$GODOT" --output "${{ runner.temp }}/bubble-source"
 
+      - name: Check original reception results and pending-name cold reads
+        if: steps.gate.outputs.skip != 'true'
+        timeout-minutes: 20
+        run: |
+          python3 tools/run_reception_completion.py --godot "$GODOT" --output "${{ runner.temp }}/reception-completion"
+
       - name: Run all tests (parallel)
         timeout-minutes: 45
         if: steps.gate.outputs.skip != 'true'
@@ -162,5 +168,7 @@ jobs:
             ${{ runner.temp }}/ali-completion/**/*.json
             ${{ runner.temp }}/bubble-source/**/*.log
             ${{ runner.temp }}/bubble-source/**/*.json
+            ${{ runner.temp }}/reception-completion/**/*.log
+            ${{ runner.temp }}/reception-completion/**/*.json
             work/godot-audio-safe/dist/receipt.json
           retention-days: 7

@@ -253,8 +253,10 @@ def _compile_segment(segment, source, inside_presentation, base_scene):
         for op in scene.get("results", []):
             if op["kind"] == "item_transfer":
                 op["destination"] = "ch1_handoff_cabinet"
-    if segment.id in {"ch1_t_lamp_voice_first", "ch1_t_ali_2_ordered", "ch1_t_ali_2_sit"}:
+    if segment.id in {"ch1_t_lamp_voice_first", "ch1_t_ali_2_ordered", "ch1_t_ali_2_sit", "ch1_t_ali_sit"}:
         scene["completion_policy"] = "main_flags_continuation_v1"
+    if segment.id == "ch1_t_ali_order":
+        scene["completion_policy"] = "main_source_results_continuation_v1"
     return scene
 
 

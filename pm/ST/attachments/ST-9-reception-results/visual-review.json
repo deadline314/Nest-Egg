@@ -1,0 +1,62 @@
+{
+  "images": [
+    {
+      "file": "pm/ST/images/ST-9-reception-retry.png",
+      "sha256": "66964f910c462eec9e36f61f6d2bbf367aef9a4000359f4eee0a70820e4ef1fc",
+      "source": "/workspace/Nest-Egg/work/batch1020b/st9-reception-ordered-native-v1/refused.png",
+      "observation": "真正點餐結果拒寫；原不透明保存底板，沒有提前發結果。",
+      "inspection": "Original PNG viewed, correct image/png MIME; no editing."
+    },
+    {
+      "file": "pm/ST/images/ST-9-reception-pending-name.png",
+      "sha256": "74480b4a3facad1562949617629941fada3cfe2cdb6cdf432c3f3bb32ec55fa3",
+      "source": "/workspace/Nest-Egg/work/batch1020b/st9-reception-ordered-native-v1/pending/refused.png",
+      "observation": "點餐整批已保存；原阿梨與完整第一句「您怎麼稱呼？」可讀，名字尚未結算。",
+      "inspection": "Original PNG viewed, correct image/png MIME; no editing."
+    },
+    {
+      "file": "pm/ST/images/ST-9-reception-accepted.png",
+      "sha256": "3df8aea56681a32ed4db93c9f6327e7c08d0d0f9eb93760c1dda94c30d6cc11d",
+      "source": "/workspace/Nest-Egg/work/batch1020b/st9-reception-ordered-native-v1/accepted/refused.png",
+      "observation": "名字已完成、錢包234；阿梨仍在場，原招呼仍合法，不誤當成前批離場來源缺陷。",
+      "inspection": "Original PNG viewed, correct image/png MIME; no editing."
+    },
+    {
+      "file": "pm/ST/images/ST-9-reception-cold.png",
+      "sha256": "059ad1837336bbbe215e0b22b78fe0605613ad6769b3f4d05953484d704d48d0",
+      "source": "/workspace/Nest-Egg/work/batch1020b/st9-reception-sit-cold-native-v1/cold/refused.png",
+      "observation": "未點餐路原途中主檔另程序完成名字，阿梨仍在、錢包234。",
+      "inspection": "Original PNG viewed, correct image/png MIME; no editing."
+    }
+  ],
+  "renderer": "Software llvmpipe Forward+, HDR2D, Dummy audio; not physical hardware or human input acceptance.",
+  "overlay": "Top white diagnostic label belongs only to probe, including IO fault flow description; pending/accepted images no longer show the fault.",
+  "scope": "Readable original retry and pending-name stage verified; no full visual style, map background, character joints or physical controller signoff.",
+  "additional_originals_viewed": [
+    {
+      "file": "st9-reception-ordered-cold-native-v1/cold/refused.png",
+      "sha256": "22a12cbed15f4f3fe831638f668edf7a2d69990275986b0685ad09b73dc3e955",
+      "observation": "原完成地圖／原拒寫或完整名字首句已逐張檢視；未修改圖片。"
+    },
+    {
+      "file": "st9-reception-sit-native-v1/accepted/refused.png",
+      "sha256": "fc81059c490185deb82005c327a713a79d13bd7083f7b1a9de1a88fa0d1d38e3",
+      "observation": "原完成地圖／原拒寫或完整名字首句已逐張檢視；未修改圖片。"
+    },
+    {
+      "file": "st9-reception-sit-native-v1/pending/refused.png",
+      "sha256": "16b9f578c3827be7c653c1ba501a08bc6d9328c666b779c6baf7e7e424e46d74",
+      "observation": "原完成地圖／原拒寫或完整名字首句已逐張檢視；未修改圖片。"
+    },
+    {
+      "file": "st9-reception-sit-native-v1/refused.png",
+      "sha256": "66964f910c462eec9e36f61f6d2bbf367aef9a4000359f4eee0a70820e4ef1fc",
+      "observation": "原完成地圖／原拒寫或完整名字首句已逐張檢視；未修改圖片。"
+    },
+    {
+      "file": "st9-reception-sit-cold-native-v1/cold/refused.png",
+      "sha256": "059ad1837336bbbe215e0b22b78fe0605613ad6769b3f4d05953484d704d48d0",
+      "observation": "原完成地圖／原拒寫或完整名字首句已逐張檢視；未修改圖片。"
+    }
+  ]
+}

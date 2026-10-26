@@ -1,0 +1,29 @@
+{
+  "original": {
+    "path": "runs/st9-reception-regression-sunday_choice-v1/observer_reset.log",
+    "exit": 0,
+    "checks": 31,
+    "failures": [],
+    "diagnostics": [
+      "1 ObjectDB instance leaked at exit",
+      "1 DummyTexture RID leaked at exit"
+    ],
+    "runner_passed": false
+  },
+  "controls": [
+    {
+      "source": "current",
+      "processes": 3,
+      "checks": 93,
+      "diagnostics": []
+    },
+    {
+      "source": "baseline",
+      "processes": 3,
+      "checks": 93,
+      "diagnostics": []
+    }
+  ],
+  "baseline_commit": "f82864137b021eeb43011f899907e1bbe5bea4d2",
+  "conclusion": "No repeat in these six controls; resource identity unavailable in original non-verbose log. Cause unresolved, no claim of fix or preexisting reproduction. No filter/engine/product cleanup changes."
+}

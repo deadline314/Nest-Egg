@@ -2736,6 +2736,7 @@
     }
    ],
    "then": "ch1_t_ali_name",
+   "completion_policy": "main_source_results_continuation_v1",
    "steps": [
     {
      "do": "scene",
@@ -2883,6 +2884,7 @@
     }
    ],
    "then": "ch1_t_ali_name",
+   "completion_policy": "main_flags_continuation_v1",
    "pose_policy": "supported"
   },
   "ch1_t_ali_name": {
