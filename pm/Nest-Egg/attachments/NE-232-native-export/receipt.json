@@ -1,0 +1,21 @@
+{
+  "baseline": "75f529187930b018e722217f1bca073431b682e8",
+  "verification": "CPU tests with real isolated files and pack inspection; engine processes and host identity mocked",
+  "tests": {
+    "release": 87,
+    "passed": 85,
+    "skipped": 2,
+    "reason": "native Windows junction/reparse checks on Linux"
+  },
+  "baseline_windows_regression": {
+    "tests": 1,
+    "failures": 1
+  },
+  "changed_runner": "No game suites selected for release Python tooling; complete release Python tests run separately",
+  "native_windows_execution": false,
+  "chapter_acceptance_verified": false,
+  "source_sha256": {
+    "tools/release/campaign_build.py": "b4974d09f58d44e1578d123ee9524e539b2f91bbd2cfda2c34b3d85c50f73940",
+    "tools/release/test_campaign_build.py": "5061ea5872761b80d07e85d7d4720a3233698edf2bed51f0fd5dfe526d783b9d"
+  }
+}

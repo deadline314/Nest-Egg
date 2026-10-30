@@ -511,9 +511,11 @@ class ImmutableStageTests(unittest.TestCase):
             return {"log": log.name, "exit_code": 0, "sha256": audit.digest(log)}
         return run, launches
 
-    def export(self, destination, engine, candidate=True):
+    def export(self, destination, engine, candidate=True, host="linux"):
+        native = {"target": host, "platform": "win32" if host == "windows" else "linux", "architecture": "x86_64"}
         with patch.object(build, "engine_templates", return_value={"test_only": True}), \
-                patch.object(build, "run_logged", side_effect=engine):
+                patch.object(build, "run_logged", side_effect=engine), \
+                patch.object(build, "native_export_host", return_value=native):
             return build.export(destination, self.base / "godot", self.base / "templates", candidate)
 
     def test_candidate_needs_a_visible_candidate_version(self):
@@ -550,6 +552,48 @@ class ImmutableStageTests(unittest.TestCase):
         with self.assertRaisesRegex(audit.AuditError, "never overwritten"):
             self.export(destination, engine)
         self.assertEqual((destination / "artifacts" / receipt["artifacts"]["windows"]["file"]).read_bytes(), before)
+
+    def test_windows_candidate_launches_only_exe_and_keeps_acceptance_pending(self):
+        destination = self.candidate_stage()
+        engine, launches = self.fake_export_engine()
+        receipt = self.export(destination, engine, host="windows")
+        self.assertEqual(len(launches), 1)
+        self.assertTrue(launches[0][0].endswith(".exe"))
+        self.assertEqual(Path(launches[0][0]).parent.name, "clean-launch-windows")
+        self.assertTrue(receipt["windows_clean_launch"]["verified"])
+        self.assertFalse(receipt["linux_clean_launch"]["verified"])
+        self.assertIn("not run", receipt["linux_clean_launch"]["reason"])
+        self.assertEqual(receipt["native_clean_launch"]["host"]["target"], "windows")
+        self.assertFalse(receipt["native_windows_launch_verified"])
+        self.assertFalse(receipt["chapter_acceptance_verified"])
+        self.assertTrue(receipt["readiness_blockers"])
+        self.assertEqual(json.loads((destination / "export-manifest.json").read_text()), receipt)
+        self.assertEqual(len((destination / "SHA256SUMS").read_text().splitlines()), 2)
+        build.verify_stage(destination)
+
+    def test_windows_launch_failure_retains_artifacts_without_success_manifest(self):
+        destination = self.candidate_stage()
+        engine, launches = self.fake_export_engine(info={})
+        with self.assertRaisesRegex(audit.AuditError, "did not report its edition"):
+            self.export(destination, engine, host="windows")
+        self.assertEqual(len(launches), 1)
+        self.assertTrue(launches[0][0].endswith(".exe"))
+        self.assertTrue((destination / "export-failure.json").is_file())
+        self.assertFalse((destination / "export-manifest.json").exists())
+        self.assertFalse((destination / "SHA256SUMS").exists())
+        self.assertEqual(len(list((destination / "artifacts").iterdir())), 2)
+        self.assertFalse((destination / "export-work").exists())
+
+    def test_native_export_host_rejects_unsupported_platform_and_architecture(self):
+        for host, machine in [("darwin", "arm64"), ("linux", "aarch64"), ("win32", "ARM64")]:
+            with self.subTest(host=host, machine=machine), patch.object(build.sys, "platform", host), \
+                    patch.object(build.platform, "machine", return_value=machine):
+                with self.assertRaisesRegex(audit.AuditError, "unsupported native"):
+                    build.native_export_host()
+        for host, target, machine in [("linux", "linux", "x86_64"), ("win32", "windows", "AMD64")]:
+            with self.subTest(host=host), patch.object(build.sys, "platform", host), \
+                    patch.object(build.platform, "machine", return_value=machine):
+                self.assertEqual(build.native_export_host(), {"target": target, "platform": host, "architecture": machine})
 
     def test_pack_entry_outside_the_stage_fails_and_keeps_a_failure_record(self):
         destination = self.candidate_stage()

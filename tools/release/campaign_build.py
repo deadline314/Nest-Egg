@@ -740,6 +740,15 @@ def edition_launch(executable: Path, log: Path, scope: list[dict], end: str, ver
     return {"command": record, "edition": report}
 
 
+def native_export_host() -> dict:
+    """Only execute the artifact this host can run; cross exports remain inspected."""
+    target = {"linux": "linux", "win32": "windows"}.get(sys.platform)
+    architecture = platform.machine()
+    if target is None or architecture.lower() not in {"x86_64", "amd64"}:
+        raise audit.AuditError(f"unsupported native export host: {sys.platform}/{architecture}; requires Linux/Windows x86_64")
+    return {"target": target, "platform": sys.platform, "architecture": architecture}
+
+
 def export(destination: Path, godot: Path, templates: Path, candidate: bool) -> dict:
     """Export Windows and Linux single files from an imported stage; never overwrite an earlier export."""
     manifest = require_candidate(destination) if candidate else require_product_ready(destination)
@@ -747,6 +756,7 @@ def export(destination: Path, godot: Path, templates: Path, candidate: bool) -> 
         raise audit.AuditError("run import-stage before export")
     if (destination / "artifacts").exists():
         raise audit.AuditError("this stage already has an export; earlier builds are never overwritten — prepare a new version")
+    native = native_export_host()
     engine = engine_templates(godot, templates)
     end, version = manifest["cumulative_terminal"], manifest["version"]
     artifacts_dir = new_directory(destination / "artifacts")
@@ -772,20 +782,28 @@ def export(destination: Path, godot: Path, templates: Path, candidate: bool) -> 
             artifacts[target] = {"file": path.name, "bytes": pack["bytes"], "sha256": pack["sha256"], "pck_bytes": pack["pck_bytes"],
                                  "entries": len(pack["files"]), "size_limit_ok": pack["bytes"] < (1 << 32),
                                  "largest_entries": [{"path": f["path"], "bytes": f["bytes"]} for f in largest]}
-        clean = destination / "clean-launch-linux"
+        target = native["target"]
+        clean = destination / f"clean-launch-{target}"
         clean.mkdir()
-        executable = clean / artifacts["linux"]["file"]
+        executable = clean / artifacts[target]["file"]
         shutil.copy2(artifacts_dir / executable.name, executable)
-        executable.chmod(0o755)
-        launch = edition_launch(executable, destination / "clean-launch-linux.log", scope, end, version)
+        if target == "linux":
+            executable.chmod(0o755)
+        launch = edition_launch(executable, destination / f"clean-launch-{target}.log", scope, end, version)
+        clean_launch = {"verified": True, "host": native, "log": launch["command"]["log"],
+                        "sha256": launch["command"]["sha256"],
+                        "scope": "headless edition information only; not chapter acceptance",
+                        "reported_endings": launch["edition"].get("endings", []),
+                        "reported_levels": launch["edition"].get("included_levels", {})}
+        platform_launches = {f"{platform_target}_clean_launch": clean_launch if platform_target == target else
+                            {"verified": False, "reason": f"not run on {native['platform']}/{native['architecture']}"}
+                            for platform_target, *_ in PRODUCT_TARGETS}
         receipt = {"schema": 1, "kind": "campaign-candidate" if candidate else "campaign-release",
                    "is_release": not candidate, "version": version, "cumulative_terminal": end,
                    "edition_id": f"through-{end}", "save_slot": f"user://runs/through-{end}/slot-1.json",
                    "source_sha": manifest["source_sha"], "engine": engine, "chapters": scope,
                    "artifacts": artifacts, "commands": records,
-                   "linux_clean_launch": {"verified": True, "log": launch["command"]["log"], "sha256": launch["command"]["sha256"],
-                                          "reported_endings": launch["edition"].get("endings", []),
-                                          "reported_levels": launch["edition"].get("included_levels", {})},
+                   "native_clean_launch": clean_launch, **platform_launches,
                    "native_windows_launch_verified": False,
                    "native_windows_pending": "Copy only the .exe into an empty folder on Windows, start it, play to the chapter end "
                                              "and confirm the completion card and the runs/through-<chapter> save folder (NE-232 ticket).",
@@ -920,7 +938,7 @@ def main() -> int:
         if args.command == "export":
             report = export(args.stage, args.godot, args.templates, args.candidate)
             print(json.dumps({k: report[k] for k in ("kind", "is_release", "version", "cumulative_terminal", "source_sha",
-                                                       "artifacts", "linux_clean_launch", "native_windows_launch_verified")},
+                                                       "artifacts", "native_clean_launch", "linux_clean_launch", "windows_clean_launch", "native_windows_launch_verified")},
                              ensure_ascii=False, indent=2))
         elif args.command == "verify-stage":
             report = verify_stage(args.stage)
