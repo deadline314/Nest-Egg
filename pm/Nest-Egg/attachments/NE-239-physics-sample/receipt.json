@@ -1,0 +1,62 @@
+{
+  "baseline": "ddd381406d1fe0e66266745447cd22fd16709783",
+  "before_phase_checks": 40,
+  "before_phase_failures": 5,
+  "after_phase_checks": 40,
+  "after_configuration_checks": 20,
+  "required_checks": 416,
+  "required_failures": 0,
+  "required_seconds": 160,
+  "native_checks": 5,
+  "native_failures": 0,
+  "engine": {
+    "schema": 1,
+    "recipe_sha256": "c8acb0c84639e13e1f1c4c5aecf6115b8da7574e8f4048cb8c83345378e12450",
+    "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "source_archive_sha256": "e607e9985e1c201bc9cdc1aec8a120f0c3f53b9603f1f828e2b748534a2471ef",
+    "source_files_verified": 13989,
+    "patch_sha256": "aa4703685b2cf0394f6ccb4209bf5771c159e3a97df98a7b92891e4f54356c70",
+    "audio_after_sha256": "f50737107e7169f5b8983836f76b3e66fc8a0fbbb1a5eab9b18d28810b248c06",
+    "additional_patches": [
+      {
+        "file": "dummy-texture-threads.patch",
+        "source_path": "servers/rendering/dummy/storage/texture_storage.h",
+        "before_sha256": "d48e7f601d7fbe66f446b893e5cd46d815ed0abce9575fd70411afc0d9f61946",
+        "after_sha256": "0cc7c447e017b6e9cf163da898a39f15da4592968889105ee613bcbe209c4be5",
+        "patch_sha256": "6997352a73125560d4006045a08d3be97d4b5f4d385ccbd40742845f438a96c8"
+      }
+    ],
+    "accesskit_sha256": "sha256:41b30b1382d03b225b6f7e8721269a32557a68065804f3797bdffc34a3273498",
+    "command": [
+      "/workspace/.nest-egg-env/ci-godot/venv/bin/python",
+      "-m",
+      "SCons",
+      "-j3",
+      "platform=linuxbsd",
+      "target=editor",
+      "arch=x86_64",
+      "production=yes",
+      "debug_symbols=no",
+      "lto=none",
+      "wayland=yes",
+      "accesskit=yes",
+      "x11=yes",
+      "compiledb=yes"
+    ],
+    "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+    "engine_version": "4.7.2.stable.custom_build",
+    "binary_sha256": "4c8163cc1006799a5e8a5c54229f7442264492f35a4ffc73d87565658fb5c5de",
+    "compile_commands_sha256": "3e048783dea03b893192545bbe558f71a5bad32e6628d2214958c0aead137a57",
+    "binary_bytes": 165125600,
+    "features": {
+      "wayland": true,
+      "x11": true,
+      "accesskit": true,
+      "renderers": [
+        "vulkan",
+        "opengl3"
+      ]
+    }
+  },
+  "archive_sha256": "c6f8add9d966d02c784da1f3570c3f8249c8b50d239c876ec8a9786eee6b6787"
+}

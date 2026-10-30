@@ -313,30 +313,33 @@ func _test_shield_outcomes() -> void:
 func _test_shield_rules_unchanged() -> void:
 	await open_level(20.0)
 	var player := level.player
-	var visual: PlayerVisual = player._visual
 	var tuning := player.tuning
 	var base := clampf(tuning.parry_window, Player.PARRY_WINDOW_MIN, Player.PARRY_WINDOW_MAX)
+	var sample := preload("res://tests/helpers/shield_physics_sample.gd").new()
+	sample.player = player
+	player.add_child(sample)
+	# Register the observer before pressing; sample its first post-player step,
+	# without waiting for a variable-duration visual update.
+	await physics_frames(2)
 	Input.action_press(&"block")
-	await physics_frames(1)
-	await frames(1)
-	check(player.is_blocking and visual._shield.extension < 1.0 and player.is_parry_window(), "the guard is live on the press frame while the shield is still rising (extension %.2f)" % visual._shield.extension)
-	check(is_equal_approx(player.parry_window_length(), base), "a fresh raise keeps the original perfect window (%.3f)" % player.parry_window_length())
+	var raised: Dictionary = await sample.capture()
+	check(raised.get("blocking", false) and raised.get("extension", 1.0) < 1.0 and raised.get("parry", false), "the guard is live on the press frame while the shield is still rising (extension %.2f)" % raised.get("extension", -1.0))
+	check(is_equal_approx(float(raised.get("window", -1.0)), base), "a fresh raise keeps the original perfect window (%.3f)" % raised.get("window", -1.0))
 	await physics_frames(15)
 	Input.action_release(&"block")
-	await physics_frames(2)
-	await frames(1)
-	check(not player.is_blocking and visual._shield.extension > 0.0, "while the shield fades out it no longer blocks (extension %.2f)" % visual._shield.extension)
+	var lowered: Dictionary = await sample.capture()
+	check(not lowered.get("blocking", true) and lowered.get("extension", 0.0) > 0.0, "while the shield fades out it no longer blocks (extension %.2f)" % lowered.get("extension", -1.0))
 	Input.action_press(&"block")
-	await physics_frames(1)
-	check(is_equal_approx(player.parry_window_length(), base * tuning.parry_window_repeat_scale), "mashing still shortens the perfect window (%.3f)" % player.parry_window_length())
+	var repeated: Dictionary = await sample.capture()
+	check(is_equal_approx(float(repeated.get("window", -1.0)), base * tuning.parry_window_repeat_scale), "mashing still shortens the perfect window (%.3f)" % repeated.get("window", -1.0))
 	Input.action_release(&"block")
 	await physics_frames(int(ceil(tuning.parry_repeat_time * 60.0)) + 6)
 	Input.action_press(&"block")
-	await physics_frames(1)
-	check(is_equal_approx(player.parry_window_length(), base), "after a pause the full perfect window returns")
+	var recovered: Dictionary = await sample.capture()
+	check(is_equal_approx(float(recovered.get("window", -1.0)), base), "after a pause the full perfect window returns")
+	print("SHIELD_PRESS_CLOCK " + JSON.stringify({"raise": raised, "lower": lowered, "repeat": repeated, "recovered": recovered}))
 	Input.action_release(&"block")
 	await end_level(level)
-
 
 ## 落地的每一格盾都接在手腕上（NE-239）：舉盾起跳，一路量到落地後幾格。
 func _test_shield_landing_frames() -> void:
