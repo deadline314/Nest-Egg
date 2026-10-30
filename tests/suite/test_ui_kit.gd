@@ -161,6 +161,15 @@ func _test_widgets() -> void:
 	check(banner.is_showing(), "橫幅滑入後可見")
 	await runner.get_tree().create_timer(0.8).timeout
 	check(not banner.is_showing(), "橫幅停留後自動退場")
+	banner.show_text("保存失敗樣本", UiBanner.Kind.WARNING, 5.0)
+	await frames(2)
+	check(not banner.dismiss_text("舊提示") and banner._label.text == "保存失敗樣本" and banner.is_showing(), "不相符的撤回不改變仍有效橫幅")
+	banner.show_text("另一則仍有效提示", UiBanner.Kind.INFO, 5.0)
+	await frames(2)
+	check(not banner.dismiss_text("保存失敗樣本") and banner._label.text == "另一則仍有效提示" and banner.is_showing(), "撤回舊提示不會清掉後來接手的新提示")
+	check(banner.dismiss_text("另一則仍有效提示") and not banner.is_showing() and banner._label.text.is_empty(), "只撤回指定提示並立即釋放閱讀區")
+	await frames(2)
+	check(not banner.is_showing() and banner.prompt_obstacle_rect().has_area() == false, "撤回後原Tween不會讓橫幅或版面占位復活")
 
 	var hint := UiHint.new()
 	root.add_child(hint)

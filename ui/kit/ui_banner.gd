@@ -71,6 +71,20 @@ func show_text(text: String, kind: Kind = Kind.INFO, hold: float = 2.0) -> void:
 	PromptLayout.invalidate()
 
 
+## Exact ownership guard: a delayed withdrawal cannot hide a newer message.
+func dismiss_text(expected_text: String) -> bool:
+	if expected_text.is_empty() or _label.text != expected_text:
+		return false
+	if _tween != null and _tween.is_valid():
+		_tween.kill()
+	_tween = null
+	_label.text = ""
+	position.x = _home_x
+	modulate.a = 0.0
+	PromptLayout.invalidate()
+	return true
+
+
 func is_showing() -> bool:
 	return modulate.a > 0.01
 

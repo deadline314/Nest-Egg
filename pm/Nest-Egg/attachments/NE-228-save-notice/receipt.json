@@ -1,0 +1,62 @@
+{
+  "baseline": "922a3cb37d0ec646b25d0f905f055373c981a4c3",
+  "public_original": {
+    "checks": 19,
+    "failures": [
+      "successful real save retires its old failure notice immediately"
+    ],
+    "mode": "bench"
+  },
+  "public_after": {
+    "checks": 19,
+    "failures": [],
+    "mode": "bench"
+  },
+  "affected": {
+    "groups": 69,
+    "checks": 66730,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 606
+  },
+  "component_tests": {
+    "checks": 91,
+    "new_failures": 0
+  },
+  "final_matrix": {
+    "processes": 7,
+    "checks": 104,
+    "failures": 0,
+    "source_hashes_match": true
+  },
+  "native_software_render": {
+    "checks": 20,
+    "failures": 0,
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "renderer": "Vulkan Forward+ llvmpipe",
+    "resolution": [
+      1280,
+      720
+    ]
+  },
+  "source_sha256": {
+    "autoload/event_bus.gd": "907bacb0661f619ed8f5a696276dc3d1868446184ff6e509e3cb4532a0ffa47c",
+    "game/main.gd": "d7c4b1f1c97c2423c13a579cdde2e01f3ccbe7a03bf704cfd89a9efb9bc40003",
+    "ui/hud.gd": "e3e90272bd72dfd4da312ea310742f0df215217fbf689df94d41091d829e7a16",
+    "ui/kit/ui_banner.gd": "3bc16cd6168b0b24a444dc157c07735e0c649d6e0a609b751231fa552572c16a",
+    "tests/suite/test_ui_kit.gd": "132b31e818fd054f74257462ac07012ad787be6839359e1e28a477634ca4dd6d",
+    "tests/probes/training_completion.gd": "e96344bd12a786cf0c4a6ac9a9f52bc7c8656170dc86cf2fbaf634fff6175c28",
+    "tools/run_training_completion.py": "ae47b58f38ee60050a64b486de2474f16f1c328d3ba88536e962961f75e3c6ea",
+    "design/20-campaign-experience/HUD_GUIDANCE.md": "9555912b97ae247f2979749a7f330774f60e2e2e5c4b6ce7640f576e079a95af"
+  },
+  "images": {
+    "NE-228-save-notice-before.png": "9e47f4d82fc9c2a56d28d8b6fbe9115cff6f7d80c233020a72035a868df416ea",
+    "NE-228-save-notice-after.png": "9bda14db8a791b965e0b213821e8454e15aaf5f567473ac64a56780e795b1a32"
+  },
+  "evidence_zip_sha256": "6eeefad049324879ccb3c99ce3ab966318285716cdef16e4a9d7dda86cbaf89a",
+  "limitations": [
+    "first exploratory probe used the wrong HUD property; stopped and retained as incomplete, not counted",
+    "software renderer and scripted inputs; not human or physical hardware acceptance",
+    "unframed training weapon presentation remains visible and is independent of this fix"
+  ]
+}

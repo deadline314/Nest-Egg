@@ -130,6 +130,9 @@ func _verify_fault(station: TrainingStation, success: bool) -> void:
 	_check(FileAccess.get_file_as_bytes(store.path) == _before, "refused write retains exact original primary bytes")
 	_check(_prompt() != null and get_tree().paused, "refused actual action holds the world and offers retry")
 	_check(_observations.is_empty(), "refusal cannot notify any observer of success")
+	if _mode == "bench":
+		var banner := _level().hud.toast_banner
+		_check(banner.is_showing() and banner._label.text == "存檔未成功，原進度仍保留。", "real autosave refusal has produced its original failure notice")
 	await _shot("training-refused")
 	if _mode == "cancel":
 		_check(DirAccess.remove_absolute(store.path + ".tmp") == OK, "remove only this test's owned IO obstruction")
@@ -152,6 +155,9 @@ func _verify_fault(station: TrainingStation, success: bool) -> void:
 		_check(_starts.count(scene) == 1, "retry starts its original explanation exactly once")
 		_check(_observations == [true], "one observer sees the durable primary and matching station state")
 		_check(_player().health.current == _player().health.max_health and GameState.deaths == 0 and not GameState.has_flag(&"ch1_first_death_done"), "training failure/guard never spends health, death or first registration")
+		if _mode == "bench":
+			var banner := _level().hud.toast_banner
+			_check(not banner.is_showing() or banner._label.text != "存檔未成功，原進度仍保留。", "successful real save retires its old failure notice immediately")
 		FileAccess.open(_save_dir.path_join("result-primary.json"), FileAccess.WRITE).store_buffer(FileAccess.get_file_as_bytes(store.path))
 		await _shot("training-saved")
 	await _done()

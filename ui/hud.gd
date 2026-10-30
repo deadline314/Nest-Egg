@@ -164,6 +164,7 @@ func _ready() -> void:
 	EventBus.boss_defeated.connect(_on_boss_defeated)
 	EventBus.boss_bar_closed.connect(boss_bar.close)
 	EventBus.toast_requested.connect(show_toast)
+	EventBus.toast_dismiss_requested.connect(toast_banner.dismiss_text)
 	EventBus.lives_changed.connect(_on_lives_changed)
 	InputBindings.bindings_changed.connect(_refresh_controls)
 	EventBus.player_cyber_changed.connect(_on_cyber_changed)

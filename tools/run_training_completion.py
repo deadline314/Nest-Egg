@@ -27,6 +27,9 @@ def main():
         parser.error("timeout must be 60..900 seconds per process")
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=False)
+    # Evidence contains source copies; keep them out of engine/Git discovery.
+    (output / ".gdignore").touch()
+    (output / ".gitignore").write_text("*\n")
     engine = args.godot.resolve()
     names = ["game/main.gd", "game/level/level.gd", "game/training_completion.gd",
              "game/props/training_station.gd", "tests/probes/training_completion.gd",
@@ -34,6 +37,7 @@ def main():
              "tools/run_training_completion.py", "tools/runtime_probe.py",
              "core/run_snapshot.gd", "core/run_save_store.gd", "core/run_save_codec.gd",
              "autoload/game_state.gd", "autoload/story.gd", "data/story/ch1_kasa.json",
+             "autoload/event_bus.gd", "ui/hud.gd", "ui/kit/ui_banner.gd", "tests/suite/test_ui_kit.gd",
              "data/levels/ch1_prologue.tres", "data/levels/ch1_prologue_map.json"]
     names += [str(p.relative_to(PROJECT)) for p in sorted((PROJECT / "data/props").glob("ch1_training_*.tres"))]
     sources = {}

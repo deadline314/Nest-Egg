@@ -7,6 +7,7 @@ extends Node
 const FIRST_LEVEL := CampaignEdition.DEFAULT_FIRST_LEVEL
 const RETRY_CAPTION := "NEST 回溯紀錄 #%d"
 const RETRY_HOLD := 0.22
+const SAVE_FAILURE_TOAST := "存檔未成功，原進度仍保留。"
 
 var _result_completion: Node
 var _world_item_completion: Node
@@ -448,7 +449,9 @@ func _save_run() -> void:
 		snapshot["cinematic_context"] = _cinematic_context.duplicate(true)
 	var saved := _run_store.write(snapshot)
 	if not saved:
-		EventBus.toast_requested.emit("存檔未成功，原進度仍保留。")
+		EventBus.toast_requested.emit(SAVE_FAILURE_TOAST)
+	else:
+		EventBus.toast_dismiss_requested.emit(SAVE_FAILURE_TOAST)
 
 
 func _save_destination(runtime: Dictionary, destination_path := "", state_changes: Dictionary = {}, progression: Variant = null) -> bool:
