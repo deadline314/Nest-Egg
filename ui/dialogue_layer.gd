@@ -249,6 +249,10 @@ func _next_radio() -> void:
 	_layout_radio()
 	_radio_hold = RADIO_HOLD_BASE + str(line["text"]).length() * RADIO_HOLD_PER_CHAR
 	_radio_wait = float(line.get("delay", 0.0))
+	# A visible important reading must own its freeze before the next physics
+	# step, including a cold world-result continuation at a hazard.
+	if _radio_wait <= 0.0 and _front_freezes() and _radio_lock == 0 and _radio_available():
+		_ensure_radio_freeze()
 	var was_hidden := not _radio_root.visible or _radio_root.modulate.a < 0.5
 	_radio_root.visible = not is_cinematic_active() and _radio_wait <= 0.0
 	if _radio_wait <= 0.0:
@@ -278,11 +282,11 @@ func _process(delta: float) -> void:
 	if _radio_wait > 0.0:
 		_radio_wait -= delta
 		if _radio_wait <= 0.0:
+			_ensure_radio_freeze()
 			_radio_root.visible = true
 			_reveal_radio(true)
 		return
-	if _front_freezes() and _radio_lock == 0:
-		_radio_lock = GameplayLock.acquire(self, -1, true)
+	_ensure_radio_freeze()
 	_radio_root.visible = true
 	_position_radio()
 	if _radio_text.visible_ratio < 1.0:
@@ -312,6 +316,11 @@ func _radio_available() -> bool:
 
 func _front_freezes() -> bool:
 	return not _radio_queue.is_empty() and bool(_radio_queue.front().get("freeze", false))
+
+
+func _ensure_radio_freeze() -> void:
+	if _front_freezes() and _radio_lock == 0:
+		_radio_lock = GameplayLock.acquire(self, -1, true)
 
 
 ## 重要通訊正在凍結世界（給測試與 HUD 用的唯讀查詢）。

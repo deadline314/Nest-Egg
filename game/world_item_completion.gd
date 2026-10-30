@@ -71,6 +71,7 @@ func _source(pickup: CollectiblePickup, player: Player) -> Dictionary:
 	return {}
 
 func _attempt() -> void:
+	if main.has_method("_defer_world_operation") and main.call("_defer_world_operation", _attempt): return
 	var source := _source(_pickup, _player)
 	if source.is_empty():
 		_clear()

@@ -30,7 +30,9 @@ static func commit(main: Node, level: Level, results: Dictionary, scene_id: Stri
 	# Preserve an unread dialogue even if the process exits immediately after the
 	# durable result, before its normal scene_started save can run.
 	var scene: Dictionary = Story._scenes.get(String(scene_id), {})
-	if scene.get("mode", "") in ["dialogue", "animated", "cinematic"] and not Story._seen.has(scene_id) and (not scene.has("when") or StoryRules.holds(scene["when"], facts)):
+	var mode := str(scene.get("mode", ""))
+	var resumable: bool = mode in ["dialogue", "animated", "cinematic"] or (mode == "radio" and scene.get("freeze", false) == true)
+	if resumable and not Story._seen.has(scene_id) and (not scene.has("when") or StoryRules.holds(scene["when"], facts)):
 		candidate["cinematic"] = String(scene_id)
 	if prepare_route.is_valid():
 		var route: Dictionary = prepare_route.call(candidate)
@@ -43,8 +45,10 @@ static func commit(main: Node, level: Level, results: Dictionary, scene_id: Stri
 	if prepared.has("error"): return prepared
 	var write: RunSaveStore.PreparedExistingWrite = prepared["data"]
 	var normalized := write.snapshot()
-	if JSON.parse_string(JSON.stringify(normalized)) != JSON.parse_string(JSON.stringify(candidate)):
-		return {"error": "flag result needs a whole-run repair before retry", "reload_original": true}
+	var normalized_json: Variant = JSON.parse_string(JSON.stringify(normalized))
+	var candidate_json: Variant = JSON.parse_string(JSON.stringify(candidate))
+	if normalized_json != candidate_json:
+		return {"error": "flag result needs a whole-run repair before retry at " + _difference(candidate_json, normalized_json), "reload_original": true}
 	var game := GameState.prepare_install(normalized["state"], flags, "", false)
 	if game.has("error"): return game
 	var changed: Array[String] = []
@@ -60,3 +64,16 @@ static func commit(main: Node, level: Level, results: Dictionary, scene_id: Stri
 	GameState._install_prepared_flags(game["data"])
 	return {"committed": true, "changed": changed, "state": game["data"], "snapshot": normalized}
 
+
+## Report only the changed schema path, never a player's saved values.
+static func _difference(before: Variant, after: Variant, path := "run") -> String:
+	if before is Dictionary and after is Dictionary:
+		for key: Variant in before:
+			if not after.has(key): return path + "." + str(key).left(128)
+			if before[key] != after[key]: return _difference(before[key], after[key], path + "." + str(key).left(128))
+		for key: Variant in after:
+			if not before.has(key): return path + "." + str(key).left(128)
+	elif before is Array and after is Array and before.size() == after.size():
+		for index in before.size():
+			if before[index] != after[index]: return _difference(before[index], after[index], path + "[%d]" % index)
+	return path.left(512)

@@ -11,6 +11,7 @@ signal critical_save_requested
 signal area_requested(level_path: String)
 ## Main owns durable skip results; standalone Level previews remain local.
 static var skip_handler: Callable
+static var channel_handler: Callable
 
 const ENCOUNTER_SNAPSHOT = preload("res://game/level/encounter_snapshot.gd")
 const PLAYER_TUNING_PATH := "res://data/player/player_tuning.tres"
@@ -36,6 +37,10 @@ var camera: LevelCamera
 var hud: Hud
 ## 玩家死亡後為 true（Main 據此選擇重來的轉場）。
 var died := false
+## Pending automatic results keep route callbacks from saving half an event.
+var channel_result_pending := false
+var channel_sources: Array[Node] = []
+var _area_route_controls: Array[Dictionary] = []
 
 var _layout: LevelLayout
 var _world: Node2D
@@ -289,7 +294,12 @@ func _ready() -> void:
 	if _resume.get("dead", false):
 		_resume_death.call_deferred()
 	elif _resume.get("cinematic", "") != "":
-		_resume_cinematic.call_deferred()
+		# A resumed important radio must acquire its pause before the first
+		# physics turn; deferring at a flooded plate can otherwise kill the player.
+		if Story.scene_mode(StringName(_resume["cinematic"])) == Story.MODE_RADIO:
+			_resume_cinematic()
+		else:
+			_resume_cinematic.call_deferred()
 	elif _resume.get("ending", false):
 		_resume_ending.call_deferred()
 	else:
@@ -384,6 +394,7 @@ func _show_chapter_card(title: String, subtitle: String, block: bool, hold := 2.
 
 ## 機關頻道啟動時播放對應的場景（LevelData.channel_scenes）。
 func _on_channel_toggled(channel: StringName, active: bool) -> void:
+	if channel_handler.is_valid() and channel_handler.call(self, channel, active): return
 	var flags := data.channel_done_flags if active else data.channel_cleared_flags
 	if flags.has(channel) and not GameState.has_flag(flags[channel]):
 		GameState.set_flag(flags[channel])
@@ -513,6 +524,8 @@ func _spawn_static_entities() -> void:
 		if node != null:
 			node.position = spawn["position"]
 			_entities.add_child(node)
+			if node is Enemy or node is MechanismSwitch or node is FloodPit or node is EncounterZone:
+				channel_sources.append(node)
 			if node is Vehicle:
 				(node as Vehicle).fall_limit_y = _fall_limit()
 			if node is Portal:
@@ -1099,7 +1112,7 @@ func _request_retry() -> void:
 
 ## 玩家走進／按下出入口：存下這個區域的狀態，請 Main 載入目標區域。
 func _on_portal_used(portal: Portal) -> void:
-	if _finished or not is_instance_valid(player) or player.is_dead():
+	if channel_result_pending or _finished or not is_instance_valid(player) or player.is_dead():
 		return
 	var target := portal.data.target_level
 	if not ResourceLoader.exists(target) or not (load(target) is LevelData):
@@ -1107,6 +1120,9 @@ func _on_portal_used(portal: Portal) -> void:
 		EventBus.toast_requested.emit(portal.data.locked_text)
 		return
 	_finished = true
+	_area_route_controls.clear()
+	for control: Node in [_pause_menu, _inventory] + get_tree().get_nodes_in_group(ShopScreen.OVERLAY_GROUP):
+		_area_route_controls.append({"node": weakref(control), "allowed": control.allowed})
 	_close_menus()
 	_save_area_state(0.0)
 	if _persistent:
@@ -1114,6 +1130,16 @@ func _on_portal_used(portal: Portal) -> void:
 	GameState.pending_portal = portal.data.target_portal
 	GameState.carried_health = player.health.current if player.health != null else -1
 	area_requested.emit(target)
+
+
+## A refused destination can stay in its original live area without losing menus.
+func cancel_area_route() -> void:
+	if died or not is_instance_valid(player) or player.is_dead(): return
+	_finished = false
+	for entry: Dictionary in _area_route_controls:
+		var control: Node = entry["node"].get_ref()
+		if is_instance_valid(control): control.allowed = entry["allowed"]
+	_area_route_controls.clear()
 
 
 ## 確認略過：真 Main 先保存結果；獨立預覽保留原本本地行為。

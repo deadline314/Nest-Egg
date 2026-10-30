@@ -13,6 +13,7 @@ var _result_completion: Node
 var _world_item_completion: Node
 var _training_completion: Node
 var _skip_completion: Node
+var _channel_completion: Node
 var _story_completion: Node
 ## Existing native probes still use the original radio owner name.
 var _radio_completion: Node:
@@ -42,6 +43,7 @@ var _restore_publish_pending := false
 var _publishing_restore := false
 var _destination_save_prompt: Control
 var _destination_retry: Callable
+var _destination_purpose := ""
 var _destination_save_lock := 0
 
 
@@ -67,6 +69,9 @@ func _ready() -> void:
 	_skip_completion = preload("res://game/skip_completion.gd").new()
 	_skip_completion.main = self
 	add_child(_skip_completion)
+	_channel_completion = preload("res://game/channel_completion.gd").new()
+	_channel_completion.main = self
+	add_child(_channel_completion)
 	_run_store.validator = RunSnapshot.prepare
 	GameState.run_save_requested.connect(_queue_save)
 	Progression.credits_changed.connect(func(_value: int, _delta: int) -> void: _queue_save())
@@ -211,7 +216,7 @@ func _on_continue_requested() -> void:
 	_cinematic_context = data.get("cinematic_context", {}).duplicate(true)
 	_cinematic_request = 0
 	_cinematic = data["cinematic"]
-	_cinematic_entry = data.duplicate(true) if _cinematic != "" else {}
+	_cinematic_entry = data.duplicate(true) if _cinematic != "" and Story.scene_mode(StringName(_cinematic)) != Story.MODE_RADIO else {}
 	_active_run = true
 	_bind_navigation()
 	var notices: Array = data.get("notices", [])
@@ -287,7 +292,7 @@ func _load_level(kind := Transition.Kind.IRIS, caption := "", hold := 0.0) -> vo
 
 ## 死亡後重來用雜訊溶解並標示回溯編號；暫停選單的「從檢查點重來」用光圈。
 func _on_retry_requested(level: Level) -> void:
-	if _route_pending():
+	if _route_pending() or (is_instance_valid(level) and level.channel_result_pending):
 		return
 	Story.reset_active_presentation(&"retry")
 	# 檢查點在別的區域（區域組）：回到那個區域；舊式關卡的檢查點一定在同一關。
@@ -322,6 +327,7 @@ func _on_retry_requested(level: Level) -> void:
 
 ## 穿過出入口：載入目標區域（玩家出現在 GameState.pending_portal 指定的出入口）。
 func _on_area_requested(level_path: String) -> void:
+	if is_instance_valid(_channel_completion) and _channel_completion.defer_area(level_path): return
 	if _route_pending():
 		return
 	# 撤回未完成演出的暫定效果，再保存新區入口；入口Portal由實際路由保留。
@@ -335,7 +341,7 @@ func _on_area_requested(level_path: String) -> void:
 		return
 	# The source slot describes the current room, not the destination portal.
 	GameState.pending_portal = &""
-	_save_run()
+	_save_run(true)
 	GameState.pending_portal = portal
 	# 保存目標入口而不是舊區位置；切換中關閉也能進新區。
 	var runtime := (_screen as Level).run_snapshot() if _screen is Level else {}
@@ -351,6 +357,7 @@ func _on_area_requested(level_path: String) -> void:
 
 ## 過關：有下一關就接續（帶著成長與裝備），否則進入結算畫面。下一關讀不到時退回結算，不會卡住。
 func _on_level_completed(data: LevelData, source_ref: WeakRef = null) -> void:
+	if _defer_world_operation(_on_level_completed.bind(data, source_ref)): return
 	if _route_pending():
 		return
 	var source := _screen as Level
@@ -385,7 +392,7 @@ func _show_victory(chapter: StringName) -> void:
 
 func _publishing_results() -> bool:
 	if Story.result_publication_active(): return true
-	for owner: Node in [_training_completion, _world_item_completion, _skip_completion]:
+	for owner: Node in [_training_completion, _world_item_completion, _skip_completion, _channel_completion]:
 		if is_instance_valid(owner) and owner.publishing(): return true
 	return false
 
@@ -410,11 +417,29 @@ func _queue_runtime_save() -> void:
 		_queue_save())
 
 
-func _story_save_blocked() -> bool:
-	for owner: Node in [_story_completion, _result_completion, _world_item_completion, _training_completion, _skip_completion]:
-		if is_instance_valid(owner) and owner.blocks_save():
+func _result_owners() -> Array[Node]:
+	return [_story_completion, _result_completion, _world_item_completion, _training_completion, _skip_completion, _channel_completion]
+
+
+func _story_save_blocked(except_owner: Node = null) -> bool:
+	for owner: Node in _result_owners():
+		if owner != except_owner and is_instance_valid(owner) and owner.blocks_save():
 			return true
 	return false
+
+
+func _world_recovery_pending(except_owner: Node) -> bool:
+	for owner: Node in _result_owners():
+		if owner != except_owner and is_instance_valid(owner) and owner.blocks_save() and (owner.get("_recovery") == true or owner.get("_reload_original") == true): return true
+	return false
+
+
+func _defer_world_operation(callback: Callable) -> bool:
+	return is_instance_valid(_channel_completion) and _channel_completion.defer_operation(callback)
+
+
+func _defer_world_story(id: StringName, request: int) -> bool:
+	return is_instance_valid(_channel_completion) and _channel_completion.defer_story(id, request)
 
 
 func _queue_save() -> void:
@@ -433,7 +458,7 @@ func _flush_save() -> void:
 	_save_run()
 
 
-func _save_run() -> void:
+func _save_run(route_source := false) -> void:
 	if is_instance_valid(_destination_save_prompt):
 		return
 	if _story_save_blocked():
@@ -448,6 +473,7 @@ func _save_run() -> void:
 	var runtime := level.run_snapshot()
 	if runtime.is_empty():
 		return
+	if route_source: runtime["ending"] = false
 	var snapshot := RunSnapshot.capture(_level_path, runtime, _cinematic, _chapter_complete, _cinematic_context)
 	if _cinematic != "" and not _cinematic_entry.is_empty():
 		# 尚未結束的選項／物品／款項皆暫定；完整入口快照避免A殘留再選B。
@@ -462,6 +488,7 @@ func _save_run() -> void:
 
 
 func _save_destination(runtime: Dictionary, destination_path := "", state_changes: Dictionary = {}, progression: Variant = null) -> bool:
+	if is_instance_valid(_channel_completion) and _channel_completion.blocks_save(): return false
 	var path := _level_path if destination_path.is_empty() else destination_path
 	var prepared := preload("res://core/run_destination.gd").prepare(RunSnapshot.capture(path, runtime), path, state_changes, progression)
 	if prepared.has("error"):
@@ -480,6 +507,12 @@ func _save_destination(runtime: Dictionary, destination_path := "", state_change
 
 
 func _on_scene_started(id: StringName, mode: StringName) -> void:
+	if _active_run and _screen is Level and mode == Story.MODE_RADIO and _cinematic == String(id):
+		var requests: Array = Story._passive_requests.get(id, [])
+		_cinematic_request = int(requests.back()) if not requests.is_empty() else 0
+		_cinematic_entry = {} # Flag-only radio has no tentative player/world changes.
+		_queue_save()
+		return
 	if not _active_run or not is_instance_valid(_screen) or not _screen is Level or mode not in [Story.MODE_CINEMATIC, Story.MODE_ANIMATED]:
 		return
 	_cinematic_context = Story.current_presentation_context()
@@ -487,6 +520,15 @@ func _on_scene_started(id: StringName, mode: StringName) -> void:
 	_cinematic_entry = RunSnapshot.capture(_level_path, (_screen as Level).run_snapshot(), "", false, _cinematic_context)
 	_cinematic = String(id)
 	_queue_save()
+
+
+## A durable world event may carry an unread important radio across restart.
+func _remember_world_radio(id: StringName, request := 0) -> void:
+	if Story.scene_mode(id) != Story.MODE_RADIO: return
+	_cinematic = String(id)
+	_cinematic_request = request
+	_cinematic_context = {}
+	_cinematic_entry = {}
 
 
 func _on_scene_finished(id: StringName) -> void:
@@ -516,6 +558,7 @@ func _show_destination_failure(retry: Callable, can_stay: bool, purpose: String)
 	if not is_inside_tree() or not _active_run or is_instance_valid(_destination_save_prompt):
 		return
 	_destination_retry = retry
+	_destination_purpose = purpose
 	_destination_save_lock = GameplayLock.acquire(self, Input.MOUSE_MODE_VISIBLE)
 	var canvas := CanvasLayer.new()
 	canvas.layer = 110
@@ -530,17 +573,21 @@ func _show_destination_failure(retry: Callable, can_stay: bool, purpose: String)
 
 func _retry_destination_save() -> void:
 	var retry := _destination_retry
-	_clear_destination_failure()
+	_clear_destination_failure(false)
 	if retry.is_valid():
 		retry.call()
 
 
-func _clear_destination_failure() -> void:
+func _clear_destination_failure(stay := true) -> void:
+	if stay and _destination_purpose == "area" and is_instance_valid(_screen) and _screen is Level and _screen.data.resource_path == _level_path:
+		_screen.cancel_area_route()
+		GameState.pending_portal = &""
 	if is_instance_valid(_destination_save_prompt):
 		_destination_save_prompt.hide()
 		_destination_save_prompt.get_parent().queue_free()
 	_destination_save_prompt = null
 	_destination_retry = Callable()
+	_destination_purpose = ""
 	GameplayLock.release(_destination_save_lock)
 	_destination_save_lock = 0
 

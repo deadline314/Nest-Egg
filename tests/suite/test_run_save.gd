@@ -41,6 +41,15 @@ func run() -> void:
 	var older := valid.duplicate(true)
 	older["runtime"]["facing"] = -1
 	check(RunSaveCodec.vector(RunSnapshot.prepare(older)["data"]["runtime"]["aim_dir"]) == Vector2.LEFT, "missing legacy aim falls back to saved facing")
+	var save_directions: Array[Vector2] = [Vector2(0.9972785115242, 0.0737261027097702), Vector2(3, 7), Vector2(-4, 0), Vector2.ZERO]
+	for index in 64: save_directions.append(Vector2.from_angle(index * TAU / 64.0) * 3.0)
+	for direction: Vector2 in save_directions:
+		var aimed := valid.duplicate(true)
+		aimed["runtime"]["aim_dir"] = [direction.x, direction.y]
+		var once: Dictionary = RunSnapshot.prepare(aimed)["data"]
+		var twice: Dictionary = RunSnapshot.prepare(RunSaveCodec.decode(RunSaveCodec.encode(once))["data"])["data"]
+		check(JSON.parse_string(JSON.stringify(once)) == JSON.parse_string(JSON.stringify(twice)), "whole-run preparation is idempotent for mouse, scaled and zero aim: %s" % direction)
+		check(is_equal_approx(RunSaveCodec.vector(once["runtime"]["aim_dir"]).length_squared(), 1.0), "accepted aim remains a unit direction")
 	AimInput.using_gamepad = false
 	AimInput.restore_direction(Vector2(-4, 0))
 	check(AimInput._last_stick_dir == Vector2.LEFT and not AimInput.using_gamepad, "restore aim normalizes without switching device")

@@ -45,6 +45,7 @@ func complete(id: StringName, request: int) -> Dictionary:
 	var results: Variant = scene.get("results", [])
 	if not cinematic and (not results is Array or not results.is_empty() or not StoryRules.transfer_ids(scene).is_empty() or not (Story._pending_transfers.get(id, []) as Array).is_empty()):
 		return {} # Existing radio admission; marked scenes must never fall through.
+	if main.has_method("_defer_world_story") and main.call("_defer_world_story", id, request): return {"handled": true, "ready": false}
 	var level := main.get("_screen") as Level
 	if level == null or not level.is_initialized() or main.call("_route_pending") or (not cinematic and Story.is_cinematic_active()):
 		if cinematic:
@@ -193,6 +194,7 @@ func _show_prompt(recovery: bool) -> void:
 
 
 func _retry() -> void:
+	if main.has_method("_defer_world_operation") and main.call("_defer_world_operation", _retry): return
 	if _recovery or _reload_original:
 		# Restore only through Main: committed recovery reads the new slot; a failed
 		# rollback reads the original backup without inventing a commit.

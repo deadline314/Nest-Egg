@@ -60,6 +60,7 @@ func choose(option: Dictionary, retry: Callable) -> Dictionary:
 	var player: CutscenePlayer = Story._player if is_instance_valid(Story._player) else null
 	if not _choice_control_valid(player, retry):
 		return {"handled": true, "accepted": false}
+	if main.has_method("_defer_world_operation") and main.call("_defer_world_operation", retry): return {"handled": true, "accepted": false}
 	_id = id
 	_request = request
 	_choice_target = StringName(contract["target"])
@@ -125,6 +126,7 @@ func complete(id: StringName, request: int) -> Dictionary:
 	# Standalone tools retain legacy presentation; a real Main cannot fall through.
 	if not main.get("_active_run"):
 		return {"handled": true, "ready": false}
+	if main.has_method("_defer_world_story") and main.call("_defer_world_story", id, request): return {"handled": true, "ready": false}
 	if _publishing or (_request != 0 and (_request != request or _id != id)):
 		return {"handled": true, "ready": false}
 	if _request == 0:
@@ -457,6 +459,7 @@ func _show_prompt() -> void:
 
 
 func _retry() -> void:
+	if main.has_method("_defer_world_operation") and main.call("_defer_world_operation", _retry): return
 	if _recovery or _reload_original:
 		Story.reset_active_presentation(&"load")
 		_clear()

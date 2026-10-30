@@ -77,6 +77,7 @@ func _source() -> Level:
 	return null
 
 func _attempt() -> void:
+	if main.has_method("_defer_world_operation") and main.call("_defer_world_operation", _attempt): return
 	var level := _source()
 	if level == null:
 		_clear()

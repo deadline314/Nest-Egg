@@ -134,7 +134,14 @@ static func prepare(raw: Dictionary) -> Dictionary:
 	runtime["facing"] = -1 if runtime.get("facing") == -1 else 1
 	var fallback := Vector2.LEFT if runtime["facing"] == -1 else Vector2.RIGHT
 	var aim := RunSaveCodec.vector(runtime.get("aim_dir"), fallback)
-	runtime["aim_dir"] = _vector_array(aim.normalized() if aim.length_squared() > 0.000001 else fallback)
+	var aim_length := aim.length_squared()
+	# Already-unit float vectors must remain canonical across repeated save
+	# preparation; normalizing again can move an ordinary mouse aim by one ULP.
+	if aim_length <= 0.000001:
+		aim = fallback
+	elif absf(aim_length - 1.0) > 0.000001:
+		aim = aim.normalized()
+	runtime["aim_dir"] = _vector_array(aim)
 	runtime["crouching"] = runtime.get("crouching") == true
 	runtime["guard"] = RunSaveCodec.number(runtime.get("guard"), 100, 0, 1000)
 	runtime["position"] = _vector_array(RunSaveCodec.vector(runtime.get("position"), Vector2(-1, -1)))

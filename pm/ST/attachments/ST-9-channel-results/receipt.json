@@ -1,0 +1,134 @@
+{
+  "baseline": "4e0ab1a98c73386c6282934f9d88091619c6d3e7",
+  "affected": {
+    "groups": 88,
+    "checks": 98315,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 650
+  },
+  "baseline_refusal": {
+    "checks": 8,
+    "failures": 1
+  },
+  "regression_discovery": {
+    "groups": 72,
+    "checks": 93793,
+    "new_failures": 1,
+    "seconds": 697,
+    "repair_commit": "434f474bf8421ab39448dad8eebb04708aaf7f2c"
+  },
+  "aim_negative_control": {
+    "after": {
+      "checks": 136,
+      "failures": []
+    },
+    "before": {
+      "checks": 136,
+      "failures": [
+        "not idempotent: (-2.985554, -0.294051)",
+        "not idempotent: (-2.494409, -1.666711)",
+        "not idempotent: (-2.319032, -1.90318)",
+        "not idempotent: (-0.294051, -2.985554)",
+        "not idempotent: (0.294051, -2.985554)",
+        "not idempotent: (0.870854, -2.870821)",
+        "not idempotent: (2.645764, -1.41419)",
+        "not idempotent: (2.870821, -0.870854)",
+        "not idempotent: (2.985554, -0.294052)"
+      ]
+    }
+  },
+  "aim_suite_console": "Running 1 groups in 1 processes (logs: /workspace/Nest-Egg/work/channel-save/aim-suite)\n  process 0 (estimated 82 s): RunSaveSuite\nchecks: 897, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 179 s)\n",
+  "controller": {
+    "checks": 40,
+    "failures": 0
+  },
+  "public": {
+    "processes": 17,
+    "checks": 150,
+    "failures": 0
+  },
+  "training": {
+    "processes": 9,
+    "checks": 118,
+    "failures": 0
+  },
+  "skip": {
+    "processes": 7,
+    "checks": 79,
+    "failures": 0
+  },
+  "native": {
+    "processes": 5,
+    "checks": 50,
+    "failures": 0,
+    "renderer": "Forward+ Vulkan llvmpipe",
+    "resolution": [
+      1280,
+      720
+    ]
+  },
+  "source_sha256": {
+    "data/scripts/level_data.gd": "fa32464f72a8bf9a079efcafdba980fb8b7af3727c1490a372113c6a9cfae74a",
+    "game/main.gd": "dc24ade718024a1130df589c1d298f6558a5914eb90305d7b99ab9309c21711c",
+    "game/level/level.gd": "79e40383df379cbf706fc1af56e7d7906ac03f271515478a407e976e2571354a",
+    "game/channel_completion.gd": "203a9954b89f9bc2216b217acc1dbc18289f926f756fa4e4786c1b6506a3b5d7",
+    "game/story_flag_completion.gd": "da94ec70cf17d9cab0df5bdbb769f20bd0ff2fc76884352a88ba3fb7c05a2d08",
+    "game/story_result_completion.gd": "ff5cb7077d795a5dd5ada152b0d60dc009e996a882296d8b2a94152c24b1e6f6",
+    "game/world_item_completion.gd": "b3c00a91df63f628a9dde856e5d02786e719ea919f3dba4b4f0a128b3225ae99",
+    "game/training_completion.gd": "fa06b27dbcdf3601636c68cded8bc76f34f8a20cbccc30e6fb60d09891c462b4",
+    "game/skip_completion.gd": "c8ae3e6e01ab25c16f09d0fc2b433a785731da226961903efbde109441d4a013",
+    "core/run_flag_commit.gd": "c13d28fa57d9f44ff36dfb33c10a412c02594bba770378e3e41b6341289741a6",
+    "core/run_snapshot.gd": "81903039971dc6c39c5732262b7fc4014ab94746e21c0b72b9c0865d52d9820c",
+    "core/run_save_store.gd": "1033befefbd04f934cac74abfdf74335c416b31b29ef4d068a3768d987ebb781",
+    "core/run_save_codec.gd": "f767c41a24633a73ca48a865c991146a01c7491325e3f0129952ed457fa9d9af",
+    "autoload/game_state.gd": "f27963b5951415ba59f81a18eadac8752a111a674c34a57e34836a25e94a28f3",
+    "autoload/story.gd": "6fdbe81aba2cbd86493a8c90c5acf102805f5d75a1203cda8614b107a43271e3",
+    "autoload/gameplay_lock.gd": "9efdc042fe0efd430df2a87ff30be326db1ab2d0aa4ea39f921907301437e42c",
+    "ui/radio_save_prompt.gd": "3d3436a5b69f2815bcc052a4d91e0ec87335fe4908a930a651668438529bc71e",
+    "ui/dialogue_layer.gd": "85680e1db1f82524b5aa7e1f2930c8074e1ca1fa9aa27a8aa01757a8fa1bb7ff",
+    "game/props/flood_pit.gd": "57b3a53599f94006468a450ae0325994a218d403a84b3489dc9b15e0c03d79b7",
+    "game/props/gate.gd": "24fb56b359c0b6d59602abb7db9f9ad90cb8079cf6c04e4597c6ab8adff99da6",
+    "game/props/channel_switch.gd": "00a62e6f48f35ec41f1a52f8e02f34dbedefe477100f97a03d29473842d8dfdd",
+    "game/props/encounter_zone.gd": "7fd9a31def7a56d6b774b4132cf89e9b4fed1996ffd31f40bd127367401428bb",
+    "game/enemies/boss/pattern_boss.gd": "38b37ad5aac416a27e3507d4daf5a2266918fd64bbf6486e6f5f4a224971c12e",
+    "game/enemies/watchdog.gd": "23ae7d6fe5dd1eda0c9072a22518676b1f921d297d30612b31d738704558e7d6",
+    "data/levels/ch1_warehouse.tres": "5a5312b370502e3b944965a4815240ff561799f869a11be743961886082b7a01",
+    "data/levels/ch1_warehouse_map.json": "fba3b8627fb20ca01fbbb8c6a08a275d20394b81f7340cb27a8a86e357a942c9",
+    "data/levels/ch1_street.tres": "5a925a0586bc7a3acfcb664980b9687c0af48de9b9f0664ebf7b6a84e84ed262",
+    "data/levels/ch1_street_map.json": "4dad6f895db8181469980fd32f9f025f5dd663301fa7fde34ec9a87a602da615",
+    "data/story/ch1_kasa.json": "ff6bb036f11fe5a777153d0ebc253759ac86fa37677c5089c96048ae45f23ef5",
+    "tests/probes/channel_completion.gd": "e2f47a9784881874eac6c7facd4391c4ce21c3eb9eada814fdb99c5e74766787",
+    "tests/probes/channel_completion.tscn": "e3219e7aa21a312575fec849c1097fa4222b00a675e6ee9b2a6a5682090ce630",
+    "tests/probes/training_completion.gd": "f19e5d7c7d5268403bdcb18a9e364eaf7fab81d38779c6f5ff33149b243223a8",
+    "tools/prologue_play_probe.gd": "2a28f10263ca4f39115f0e383fde339fad424c8668495783d188a15704ccefcf",
+    "tools/run_channel_completion.py": "bfaf99a15beb6dd0bcd06f38fd8e8baae336a476339d62de731490961b59ff9d",
+    "tools/runtime_probe.py": "38ab1fc6744546985645223feddbed3d3c3b1f61bd6a338328fed29e383b9b34",
+    "data/props/ch1_flood_pit.tres": "c8769c4cc6590a60de17ec7b67740a2f2f9a95ba57bc6e2cc28264d3bf77a613",
+    "data/props/ch1_gate_c.tres": "da814fc186737ad86d2fc2f9ad1edb986447ed16c9806769a04553a9737af8f4",
+    "data/props/ch1_gate_watchdog.tres": "43145f43ef2548765b13b2f9d2d1df085568e5a1846a9542bb52f74358e8189a",
+    "data/props/ch1_enc_street_blockade.tres": "123ebe8ff43553d9874fc1b5e1d423946e4152dd714f16b6bca94ebb231dc71e",
+    "data/enemies/watchdog.tres": "b756ce82064d0373b5f50e585cb9dcc23527ded8294e8b4cc3c66ef18d7e57c5",
+    "data/bosses/watchdog.json": "c2ffab5498acc8a6a5194b4a3ea0c092921a29946dd7c5e715c5826c7038eadc"
+  },
+  "images": {
+    "ST-9-channel-refused.png": "88a44b6506f834ddfe77426dad362cadc135f2de44d8676a1f65abd219f918dd",
+    "ST-9-channel-accepted.png": "042923c9d65681fcc09e7b0f9a8c52a9c019b2f1a047779c08055ef7b0ee9085",
+    "ST-9-channel-boss-explanation.png": "40ab706df9de13f89dd30a232736faaeaac1a142ce876263657068c50867e829",
+    "ST-9-channel-boss-cold.png": "f307db97e06e5d21d2aa563b4fab5f68507dfe9cca980425e92c745c07d1732c",
+    "ST-9-channel-overlap-cold.png": "26cf272c579a3cdc3058295c8a2e46559d19037733d43f18a3b37f7ea877f857"
+  },
+  "previous_ci": {
+    "conclusion": "success",
+    "headSha": "4e0ab1a98c73386c6282934f9d88091619c6d3e7",
+    "status": "completed",
+    "url": "https://github.com/deadline314/Nest-Egg/actions/runs/41044346438"
+  },
+  "zip_sha256": "02815c432d2ca8b8f0e4eece8ccd39eef382c30b11e516d2f6801315cc8e98b7",
+  "limits": [
+    "explicit positions, health and callback ordering fixtures; not natural full chapter play",
+    "synthetic input and software Vulkan do not substitute human, physical controller or hardware GPU acceptance",
+    "nonlethal second/third chapter owners retain existing behavior until separately migrated",
+    "earlier interrupted affected runs are retained and are not counted as passing final checks"
+  ]
+}

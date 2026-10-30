@@ -65,6 +65,7 @@ func _valid_source() -> bool:
 	return not _level.data.skip_flags.is_empty()
 
 func _attempt() -> void:
+	if main.has_method("_defer_world_operation") and main.call("_defer_world_operation", _attempt): return
 	if not _valid_source():
 		_clear()
 		return

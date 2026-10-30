@@ -73,7 +73,7 @@ func begin() -> void:
 		if enemy != null and not enemy.is_dying() and _zone_world_rect().has_point(enemy.global_position):
 			_members.append(weakref(enemy))
 	if _members.is_empty() and data.reinforcements.is_empty():
-		state = &"cleared"
+		_finish(false)
 		return
 	state = &"active"
 	_lock_time = 0.0
