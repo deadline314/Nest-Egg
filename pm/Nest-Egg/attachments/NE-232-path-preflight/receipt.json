@@ -1,0 +1,21 @@
+{
+  "baseline": "db883a4f",
+  "tests": 90,
+  "passed": 88,
+  "skipped": 2,
+  "skip_reason": "native Windows junction checks require Windows",
+  "host": "Linux; Windows platform mocked, real filesystem and Git source fixture",
+  "coverage": [
+    "reject before output or extraction",
+    "export work copy length",
+    "259/260 UTF-16 boundary",
+    "supplementary Unicode uses two units",
+    "248 directory rejection",
+    "Linux unaffected"
+  ],
+  "native_windows_execution": false,
+  "source_sha256": {
+    "tools/release/campaign_build.py": "f61809bb626173c61fbb68ea895b07cb2207a35887376f7e61d672e23757a042",
+    "tools/release/test_campaign_build.py": "766e5768ef1d6f09de49dc4e7e2549110a215cde9d32bf2c302948e0fe161b46"
+  }
+}

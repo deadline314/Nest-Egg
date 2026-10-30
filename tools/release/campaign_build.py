@@ -442,6 +442,26 @@ def readiness(root: Path, sha: str, specs: dict, end: str, stage: Path, tree: di
             "owner_blockers": blockers, "observed_public_source": {"edition_contract": edition}}
 
 
+def preflight_stage_paths(destination: Path, names: set[str]) -> None:
+    """Keep Windows stages portable without depending on machine registry settings.
+
+    Include the longer export working copy; check UTF-16 units, not Python's
+    Unicode character count. No output is created before this check succeeds.
+    """
+    if sys.platform != "win32":
+        return
+    for prefix in (destination.absolute() / "project", destination.absolute() / "export-work/project"):
+        for name in sorted(names):
+            path = prefix / safe_relative(name)
+            for candidate, limit in ((path, 259), (path.parent, 247)):
+                units = len(str(candidate).encode("utf-16-le", errors="surrogatepass")) // 2
+                if units > limit:
+                    raise audit.AuditError(
+                        f"Windows build path too long: {units} UTF-16 units (portable limit {limit}): {candidate}; "
+                        "choose a shorter --out-root (for example C:/NE) or a shorter --version; "
+                        "no stage was created")
+
+
 def prepare(root: Path, output: Path, source: str | None, end: str, version: str, policy: dict) -> tuple[Path, dict]:
     validate_policy(policy)
     if not TOKEN.fullmatch(version) or not TOKEN.fullmatch(end):
@@ -456,7 +476,9 @@ def prepare(root: Path, output: Path, source: str | None, end: str, version: str
         raise audit.AuditError(f"unknown last chapter: {end}")
     tree = tracked_paths(root, sha)
     names, excluded = selected_paths(tree, specs, policy)
-    destination = new_directory(output / f"{version}-through-{end}-{sha}", root)
+    destination = output / f"{version}-through-{end}-{sha}"
+    preflight_stage_paths(destination, names)
+    destination = new_directory(destination, root)
     stage = destination / "project"
     stage.mkdir()
     try:

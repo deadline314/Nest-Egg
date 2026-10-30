@@ -129,6 +129,35 @@ class ImmutableStageTests(unittest.TestCase):
         self.assertIsInstance(json.loads((destination / "project/data/story/one.json").read_text()), dict)
         self.assertEqual(report["source_sha"], self.sha)
 
+    def test_windows_long_stage_rejected_before_any_output_or_extraction(self):
+        output = self.base / ("long-output-" * 16)
+        with patch.object(build.sys, "platform", "win32"), patch.object(build, "extract_snapshot") as extract:
+            with self.assertRaisesRegex(audit.AuditError, "Windows build path too long.*shorter --out-root"):
+                build.prepare(self.root, output, self.sha, "one", "tool-test", self.policy)
+            extract.assert_not_called()
+        self.assertFalse(output.exists())
+
+    def test_windows_preflight_includes_export_work_and_utf16_units(self):
+        destination = self.base / "stage"
+        prefix = destination.absolute() / "export-work/project"
+        remaining = 259 - len(str(prefix)) - 1
+        name = "a" * remaining
+        with patch.object(build.sys, "platform", "win32"):
+            build.preflight_stage_paths(destination, {name})
+            with self.assertRaisesRegex(audit.AuditError, "260 UTF-16 units"):
+                build.preflight_stage_paths(destination, {name + "b"})
+            with self.assertRaisesRegex(audit.AuditError, "260 UTF-16 units"):
+                build.preflight_stage_paths(destination, {name[:-1] + "😀"})
+            # File is within MAX_PATH, but CreateDirectory needs more headroom.
+            folder = "d" * (248 - len(str(prefix)) - 1)
+            with self.assertRaisesRegex(audit.AuditError, "portable limit 247"):
+                build.preflight_stage_paths(destination, {folder + "/a"})
+        self.assertFalse(destination.exists())
+
+    def test_linux_preflight_does_not_apply_windows_limits(self):
+        with patch.object(build.sys, "platform", "linux"):
+            build.preflight_stage_paths(self.base / ("long-" * 60), {"data/file.json"})
+
     def test_all_later_story_sources_are_preserved(self):
         destination, report = self.prepare()
         self.assertTrue((destination / "project/data/story/later.json").is_file())

@@ -122,3 +122,8 @@ readiness 改為實際核對契約，不再寫死「NE-230 尚未交付」：三
 ## 2026-10-30：候選包依主機啟動
 
 `native_clean_launch` 記錄實際平台、架構、無頭版本回報及日誌雜湊；`linux_clean_launch`／`windows_clean_launch` 各自標示是否真的執行。非本機平台為 `verified=false` 並附原因。Windows 無頭版本回報成功仍不把 `native_windows_launch_verified` 或 `chapter_acceptance_verified` 改成 true，這兩項保留給完整原生驗收。非 Linux／Windows x86_64 主機會在建立 artifacts 前拒絕，不留下不可重試的半成品。啟動失敗保留兩個原始產物與失敗紀錄，不產生成功清單。
+
+
+## 2026-10-30：Windows 建置路徑預檢
+
+Windows 建置使用可攜路徑上限，不依賴系統長路徑設定：檔案最多259個UTF-16單位，目錄最多247個。`prepare` 在建立任何輸出之前，同時檢查來源 stage 與較長的 export 工作副本；超限訊息列出實際路徑、長度，並提示縮短 `--out-root`（例如 `C:/NE`）或 `--version`。這只核對已選定來源路徑，不保證所有引擎生成快取路徑；Linux 不套用 Windows 上限。Windows 的輸出位置請使用短路徑，無須變更登錄設定。
