@@ -101,6 +101,21 @@ func is_initialized() -> bool:
 	return _initialization_complete
 
 
+## Original map surface for startup queries before the physics broadphase syncs.
+## Dynamic objects remain the physics query's responsibility; missing map floor is INF.
+func authored_floor_below(world_point: Vector2, max_distance := 320.0) -> Vector2:
+	if _layout == null or _layout.tile_size <= 0 or not world_point.is_finite() or max_distance < 0.0 or absf(global_transform.determinant()) < 0.000001:
+		return Vector2.INF
+	var local_point := to_local(world_point)
+	var tile := float(_layout.tile_size)
+	var floor_y := _layout.floor_below(floori(local_point.x / tile), ceili(local_point.y / tile))
+	if not is_finite(floor_y): return Vector2.INF
+	var surface := to_global(Vector2(local_point.x, floor_y))
+	if not is_equal_approx(surface.x, world_point.x) or surface.y < world_point.y or surface.y > world_point.y + max_distance:
+		return Vector2.INF
+	return surface
+
+
 func _ready() -> void:
 	_layout = LevelBuilder.parse(data)
 	if not _layout.is_valid():

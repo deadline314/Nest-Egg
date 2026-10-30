@@ -1,0 +1,153 @@
+{
+  "baseline": "ddd381406d1fe0e66266745447cd22fd16709783",
+  "original_primary_sha256": "13985b13a5af95dd97bdd7bdf564b17142aad496b8bee8f22b8d5c3d787e58bb",
+  "official_engine_sha256": "8d106cbe6144c2dc7e881d61d2429c1a8a76e6b22ef48bd5e48dcf934953f71e",
+  "negative": {
+    "checks": 7,
+    "failures": 1,
+    "ground_errors": 3
+  },
+  "headless": {
+    "checks": 7,
+    "failures": 0,
+    "diagnostics": 0
+  },
+  "native": {
+    "renderer": "Forward+ Vulkan llvmpipe",
+    "checks": 7,
+    "failures": 0,
+    "before": [
+      {
+        "expected_y": 320.0,
+        "index": 0,
+        "position": [
+          200.0,
+          320.0
+        ],
+        "row": -1
+      },
+      {
+        "expected_y": 240.0,
+        "index": 1,
+        "position": [
+          392.0,
+          320.0
+        ],
+        "row": 15
+      },
+      {
+        "expected_y": 320.0,
+        "index": 2,
+        "position": [
+          744.0,
+          320.0
+        ],
+        "row": -1
+      }
+    ],
+    "after": [
+      {
+        "expected_y": 320.0,
+        "index": 0,
+        "position": [
+          200.0,
+          320.0
+        ],
+        "row": -1
+      },
+      {
+        "expected_y": 240.0,
+        "index": 1,
+        "position": [
+          392.0,
+          240.0
+        ],
+        "row": 15
+      },
+      {
+        "expected_y": 320.0,
+        "index": 2,
+        "position": [
+          744.0,
+          320.0
+        ],
+        "row": -1
+      }
+    ]
+  },
+  "target_console": "Running 1 groups in 1 processes (logs: /workspace/Nest-Egg/work/boss-pad-floor/target)\n  process 0 (estimated 79 s): Chapter2EnemiesSuite\nchecks: 144, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 95 s)\n",
+  "affected_engine": {
+    "schema": 1,
+    "recipe_sha256": "c8acb0c84639e13e1f1c4c5aecf6115b8da7574e8f4048cb8c83345378e12450",
+    "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "source_archive_sha256": "e607e9985e1c201bc9cdc1aec8a120f0c3f53b9603f1f828e2b748534a2471ef",
+    "source_files_verified": 13989,
+    "patch_sha256": "aa4703685b2cf0394f6ccb4209bf5771c159e3a97df98a7b92891e4f54356c70",
+    "audio_after_sha256": "f50737107e7169f5b8983836f76b3e66fc8a0fbbb1a5eab9b18d28810b248c06",
+    "additional_patches": [
+      {
+        "file": "dummy-texture-threads.patch",
+        "source_path": "servers/rendering/dummy/storage/texture_storage.h",
+        "before_sha256": "d48e7f601d7fbe66f446b893e5cd46d815ed0abce9575fd70411afc0d9f61946",
+        "after_sha256": "0cc7c447e017b6e9cf163da898a39f15da4592968889105ee613bcbe209c4be5",
+        "patch_sha256": "6997352a73125560d4006045a08d3be97d4b5f4d385ccbd40742845f438a96c8"
+      }
+    ],
+    "accesskit_sha256": "sha256:41b30b1382d03b225b6f7e8721269a32557a68065804f3797bdffc34a3273498",
+    "command": [
+      "/workspace/.nest-egg-env/ci-godot/venv/bin/python",
+      "-m",
+      "SCons",
+      "-j3",
+      "platform=linuxbsd",
+      "target=editor",
+      "arch=x86_64",
+      "production=yes",
+      "debug_symbols=no",
+      "lto=none",
+      "wayland=yes",
+      "accesskit=yes",
+      "x11=yes",
+      "compiledb=yes"
+    ],
+    "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+    "engine_version": "4.7.2.stable.custom_build",
+    "binary_sha256": "4c8163cc1006799a5e8a5c54229f7442264492f35a4ffc73d87565658fb5c5de",
+    "compile_commands_sha256": "3e048783dea03b893192545bbe558f71a5bad32e6628d2214958c0aead137a57",
+    "binary_bytes": 165125600,
+    "features": {
+      "wayland": true,
+      "x11": true,
+      "accesskit": true,
+      "renderers": [
+        "vulkan",
+        "opengl3"
+      ]
+    }
+  },
+  "affected": {
+    "groups": 69,
+    "checks": 92422,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 578
+  },
+  "source_sha256": {
+    "game/level/level.gd": "cb26297997c8835ca2a0b63b016cd8e4ce746696cb3df14fe991803c4ce0c42d",
+    "game/level/level_layout.gd": "2829310a4d20e1afe310bb03547aafe8aa10a8f90c1948a8958b2fdd42f5aff9",
+    "game/enemies/boss/boss_mark.gd": "631d92dd4a9371ea126f6187b2e289f752b74f7bc899ec5674c52af2eb87d6c7",
+    "game/enemies/boss/pattern_boss.gd": "38b37ad5aac416a27e3507d4daf5a2266918fd64bbf6486e6f5f4a224971c12e",
+    "game/enemies/yong_boss.gd": "ff7d843b24867e51ca182478fdafef9e8d162d68bcec19dd0bbfd8804740f294",
+    "tests/helpers/boss_pad_floor_checks.gd": "da690bb61f229cc5b07c773295d153317d6e19638046f29452207b33d421cf78",
+    "tests/suite/test_ch2_enemies.gd": "30f8361d700273671d4004ed114913b17d4d413c0926bdb99cad3e41cb581299",
+    "data/bosses/yong.json": "cff65fe6e42e42801819bb94ff38fff21e9431b9b59c8da82a43922d519ae522",
+    "data/levels/ch2_ledger_office.tres": "6d8438b15c825dc277f7e626eb52b9bf56525705a7820ac4c7fe254d288b01e4",
+    "data/levels/ch2_ledger_office_map.json": "b80e27e4099a21d3d572d21d21de7290566ca17a90091928cbe9e319eba2340a"
+  },
+  "zip_sha256": "c6c90d145bbba9cc815e60b9183207873aee5416b9cca117301b21dd4fd33a23",
+  "limits": [
+    "original primary derives from an explicit original boss terminal state/position fixture, not a natural fight",
+    "first sampler incorrectly ignored the authored platform row; retained and not counted as a product failure",
+    "software Vulkan and synthetic control do not replace human, physical controller or hardware GPU acceptance"
+  ]
+}

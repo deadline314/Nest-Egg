@@ -265,6 +265,15 @@ func _ground_at(pad: Dictionary) -> Vector2:
 	_floor_ray.hit_from_inside = false
 	var hit := get_world_2d().direct_space_state.intersect_ray(_floor_ray)
 	if hit.is_empty():
+		# A cold near-boss entry can wake before new collision bodies are synced.
+		# Use only its original map's bounded floor; never invent a missing surface.
+		var ancestor: Node = _boss if is_instance_valid(_boss) else get_parent()
+		while ancestor != null:
+			if ancestor.has_method("authored_floor_below"):
+				var surface: Variant = ancestor.call("authored_floor_below", _floor_ray.from, 320.0)
+				if surface is Vector2 and surface.is_finite(): return surface
+				break
+			ancestor = ancestor.get_parent()
 		push_error("[BossMark] 第 %s 欄的地墊下面找不到地面，改放在頭目的高度" % pad["tile"])
 		return Vector2(x, _boss.global_position.y if is_instance_valid(_boss) else from_y)
 	return hit["position"]

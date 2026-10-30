@@ -16,6 +16,7 @@ const FLAGS: Array[StringName] = [&"yong_link_choice", &"yong_link_isolated", &"
 
 func run() -> void:
 	_test_data()
+	preload("res://tests/helpers/boss_pad_floor_checks.gd").run(self)
 	await _test_slam()
 	await _test_paper_fan()
 	await _test_interest_mark()
