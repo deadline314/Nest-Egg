@@ -1,6 +1,8 @@
 """Reject authored results that could fall back to legacy immediate publication."""
 import copy
 import unittest
+import re
+from pathlib import Path
 import ch1_runtime_backend as backend
 
 
@@ -13,6 +15,32 @@ class CompletionPolicies(unittest.TestCase):
         original = copy.deepcopy(self.scenes)
         backend.validate_completion_policies(self.scenes)
         self.assertEqual(self.scenes, original)
+
+    def test_training_dialogues_declare_map_interaction(self):
+        found = set()
+        root = Path(__file__).resolve().parents[2]
+        for resource in sorted((root / "data/props").glob("ch1_training_*.tres")):
+            for ident in re.findall(r'^\s*(?:done_scene|fail_scene)\s*=\s*&"([^"]+)"', resource.read_text(), re.M):
+                scene = self.scenes[ident]
+                if scene["mode"] == "dialogue":
+                    with self.subTest(resource=resource.name, scene=ident):
+                        self.assertIs(scene.get("map_interaction"), True)
+                    found.add(ident)
+        self.assertTrue({"ch1_p02_talk", "ch1_p04_fall", "ch1_p04_dash"}.issubset(found))
+        self.assertFalse(self.scenes["ch1_p01_door"].get("map_interaction", False))
+
+    def test_map_interaction_requires_a_boolean(self):
+        for value in [1, "true", None, [], {}]:
+            with self.subTest(value=value):
+                with self.assertRaisesRegex(backend.CompileError, "bad_map.*map_interaction"):
+                    backend.validate_completion_policies({"bad_map": {"mode":"dialogue", "map_interaction":value}})
+
+    def test_map_interaction_cannot_claim_a_stage_or_passive_scene(self):
+        for mode in ["animated", "cinematic", "radio", "bubbles", "dispatch"]:
+            with self.subTest(mode=mode):
+                with self.assertRaisesRegex(backend.CompileError, "bad_map.*map_interaction"):
+                    backend.validate_completion_policies({"bad_map": {"mode":mode, "map_interaction":True}})
+                backend.validate_completion_policies({"disabled_map": {"mode":mode, "map_interaction":False}})
 
     def test_each_original_prologue_result_cannot_lose_its_gate(self):
         for ident in ["ch1_p05_service_fall", "ch1_p05_service_clean", "ch1_p06_call"]:

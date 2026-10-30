@@ -38,6 +38,9 @@ def main():
              "core/run_snapshot.gd", "core/run_save_store.gd", "core/run_save_codec.gd",
              "autoload/game_state.gd", "autoload/story.gd", "data/story/ch1_kasa.json",
              "autoload/event_bus.gd", "ui/hud.gd", "ui/kit/ui_banner.gd", "tests/suite/test_ui_kit.gd",
+             "game/player/player_interaction.gd", "tests/helpers/interaction_holster_checks.gd",
+             "tools/story/prologue_source.py", "tools/story/ch1_runtime_backend.py",
+             "tools/story/test_completion_policies.py",
              "data/levels/ch1_prologue.tres", "data/levels/ch1_prologue_map.json"]
     names += [str(p.relative_to(PROJECT)) for p in sorted((PROJECT / "data/props").glob("ch1_training_*.tres"))]
     sources = {}
@@ -72,7 +75,9 @@ def main():
     if any(not case["passed"] for case in receipt["cases"]):
         return 1
     for mode, primary in [("read", "bench-slot/result-primary.json"),
-                          ("cancel_read", "cancel-slot/original-primary.json")]:
+                          ("cancel_read", "cancel-slot/original-primary.json"),
+                          ("fall_read", "fall-slot/result-primary.json"),
+                          ("dash_read", "dash-slot/result-primary.json")]:
         slot = output / (mode + "-slot")
         slot.mkdir()
         original = (output / primary).read_bytes()

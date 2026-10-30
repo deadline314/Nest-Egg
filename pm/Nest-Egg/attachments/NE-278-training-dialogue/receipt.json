@@ -1,0 +1,78 @@
+{
+  "baseline": "8c0982e7d6d0c93fd14b5d2ee11c71d02be0c139",
+  "affected": {
+    "groups": 67,
+    "checks": 67894,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 500,
+    "unique_group_coverage": 67
+  },
+  "public_matrix": {
+    "processes": 9,
+    "checks": 118,
+    "failures": 0,
+    "source_hashes_match": true
+  },
+  "software_render": {
+    "processes": 4,
+    "checks": 39,
+    "failures": 0,
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "renderer": "Vulkan Forward+ llvmpipe",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "source_sha256": {
+    "game/main.gd": "d7c4b1f1c97c2423c13a579cdde2e01f3ccbe7a03bf704cfd89a9efb9bc40003",
+    "game/level/level.gd": "44041a378026784ebaf685b422513167d962f0cfaebd263f7128020490bf7919",
+    "game/training_completion.gd": "5b23aaaf16597a6b274ed3b84ae8be686e932933dc7e86ee9d2300345a8c8472",
+    "game/props/training_station.gd": "14c90ac98842de781a8c2a02b9a1a1d882fb82908ce8705620662af454a1e2dd",
+    "tests/probes/training_completion.gd": "f19e5d7c7d5268403bdcb18a9e364eaf7fab81d38779c6f5ff33149b243223a8",
+    "tests/probes/training_completion.tscn": "d4625c2a5777c06e216fa49bddf14696d2d24e35f2d177a20b3788a95e18bac8",
+    "tools/prologue_play_probe.gd": "2a28f10263ca4f39115f0e383fde339fad424c8668495783d188a15704ccefcf",
+    "tools/run_training_completion.py": "ea7807267c855b62bb7969a5e99bd76a14a9992da61a4a967e92ffc4ec3ed780",
+    "tools/runtime_probe.py": "38ab1fc6744546985645223feddbed3d3c3b1f61bd6a338328fed29e383b9b34",
+    "core/run_snapshot.gd": "41e044ebcedaa7076c5344d8bbeb4fd267f92b187f6cce115b251bd7dc864b94",
+    "core/run_save_store.gd": "1033befefbd04f934cac74abfdf74335c416b31b29ef4d068a3768d987ebb781",
+    "core/run_save_codec.gd": "f767c41a24633a73ca48a865c991146a01c7491325e3f0129952ed457fa9d9af",
+    "autoload/game_state.gd": "f27963b5951415ba59f81a18eadac8752a111a674c34a57e34836a25e94a28f3",
+    "autoload/story.gd": "6fdbe81aba2cbd86493a8c90c5acf102805f5d75a1203cda8614b107a43271e3",
+    "data/story/ch1_kasa.json": "ff6bb036f11fe5a777153d0ebc253759ac86fa37677c5089c96048ae45f23ef5",
+    "autoload/event_bus.gd": "907bacb0661f619ed8f5a696276dc3d1868446184ff6e509e3cb4532a0ffa47c",
+    "ui/hud.gd": "e3e90272bd72dfd4da312ea310742f0df215217fbf689df94d41091d829e7a16",
+    "ui/kit/ui_banner.gd": "3bc16cd6168b0b24a444dc157c07735e0c649d6e0a609b751231fa552572c16a",
+    "tests/suite/test_ui_kit.gd": "132b31e818fd054f74257462ac07012ad787be6839359e1e28a477634ca4dd6d",
+    "game/player/player_interaction.gd": "f334074e7330423f781348fdc46928ffd60e1c36dd8eef95289f0d3dfdfe68ab",
+    "tests/helpers/interaction_holster_checks.gd": "81a67dee6f048737563412b98b2f0e4da5e11a1fd39b502b43fccfb3e63ca4d3",
+    "tools/story/prologue_source.py": "16a714dbe6654717176c1356ae67b1e301400d2b8e29fedfe06a5afb39468967",
+    "tools/story/ch1_runtime_backend.py": "13e8ea447ea49a507cbab85aaaeb6ea2c821968272316eb285279539804e0c6c",
+    "tools/story/test_completion_policies.py": "fb68abf63039433f2863a2c16a834cf6ca424af2166f6b6def7f85caa83fa288",
+    "data/levels/ch1_prologue.tres": "8247c0a4c9cc10680cbd589b69be527083dc621005ce5ea1676c9993b16ea2e2",
+    "data/levels/ch1_prologue_map.json": "2a6acff80eb5f05fe1c3082b8e77b559d09bb835fe6c426cbd41397dd662fd3d",
+    "data/props/ch1_training_area.tres": "643feec870f7c03ea621fa2021afc10b31578f21828c8bb3340502ad7d4d0c8c",
+    "data/props/ch1_training_dash.tres": "224fa251611e31452fbc831132610eceb7086a057875058f862af6de0ffa1fd1",
+    "data/props/ch1_training_dummy.tres": "45ce84b1f08fc53607481cb607a89609dffd8259a92a1f9a2e69d17504923519",
+    "data/props/ch1_training_platform.tres": "498188ed7b4536ea2036148b8574d8dc15b57fc4f9558325748bacca4cc3d4f6",
+    "data/props/ch1_training_range.tres": "05e2473e5f9e8feec689738d3faa2d4db1b14fb59012dc2a2761210bbd19a76d",
+    "data/props/ch1_training_target.tres": "0ba89d4c864e208673fd1b2cb54f2b20554148b0796a2fb46193b4f66c96bfa8",
+    "data/props/ch1_training_target_high.tres": "a8503eb5f1061e3c0d8240fc36b93d7523131a7e7f9b8485803f8904e06272aa",
+    "data/props/ch1_training_trainer.tres": "2450bf9b7f0203e0c67a0aac5a6b14138b8f6ca54bd1d4cc4ac11052846dabb2",
+    "data/props/ch1_training_workbench.tres": "a99c4ba2c37196b35050159605fa8644941bc003c20e9bee70ea23edd4741776"
+  },
+  "images": {
+    "NE-278-training-before.png": "9bda14db8a791b965e0b213821e8454e15aaf5f567473ac64a56780e795b1a32",
+    "NE-278-training-restored.png": "1b0fcb7133680925b9e130ec2e4efb713805629bee18e9130cb4af085f3a2297",
+    "NE-278-training-cold-dash.png": "5e3a13a283e5cb7a9501b248ed0183e8dae06b29962dec9abca6185e371d3b92",
+    "NE-278-training-after.png": "1b0fcb7133680925b9e130ec2e4efb713805629bee18e9130cb4af085f3a2297",
+    "NE-278-training-cold-fall.png": "972da64fa4aefdbded388af5a8c02a12b9b149cea5d5be1b57fa0425c07f524c"
+  },
+  "evidence_zip_sha256": "7c7cac240c5b2b41bf43e79a329715fa3166f2e32b472dc3f4f5c6756d130aa4",
+  "limitations": [
+    "synthetic input and software rendering, not physical controller or human acceptance",
+    "failed-trainer cold read preserves genuine upward recoil, no added world physics step",
+    "original incomplete iterations and original failures are archived separately"
+  ]
+}

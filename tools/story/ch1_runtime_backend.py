@@ -602,6 +602,10 @@ def validate_completion_policies(scenes):
     for ident, scene in scenes.items():
         if not isinstance(scene, dict):
             raise CompileError(f"{ident}: 場景必須是物件")
+        if "map_interaction" in scene:
+            marked = scene["map_interaction"]
+            if type(marked) is not bool or (marked and scene.get("mode") != "dialogue"):
+                raise CompileError(f"{ident}: map_interaction 必須是布林值，且只能宣告地圖 dialogue")
         results = scene.get("results", [])
         transfers = scene.get("transfer_items", [])
         if not (results or transfers or scene.get("set_flags", [])):

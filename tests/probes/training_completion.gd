@@ -29,7 +29,7 @@ func _run() -> void:
 	_main.set("_run_store", store)
 	add_child(_main)
 	await _frames(8)
-	var reading := _mode in ["read", "cancel_read"]
+	var reading := _mode in ["read", "cancel_read", "fall_read", "dash_read"]
 	if reading: _main.call("_on_continue_requested")
 	else: _main.call("_on_start_requested", GameState.difficulties[1])
 	for i in 600:
@@ -38,12 +38,17 @@ func _run() -> void:
 	_check(_level() != null, "real Main initializes its original prologue")
 	if _level() == null: await _done(); return
 	await _frames(90)
-	var station := _station(&"ch1_training_workbench")
-	if _mode == "read":
-		_check(GameState.has_flag(station.data.done_flag) and station.is_done(), "cold original primary restores its genuinely completed movement")
-		_check(Story._current_cinematic == station.data.done_scene, "cold saved result preserves the unread original explanation")
+	var station_id := &"ch1_training_trainer" if _mode == "fall_read" else &"ch1_training_dash" if _mode == "dash_read" else &"ch1_training_workbench"
+	var station := _station(station_id)
+	if _mode in ["read", "fall_read", "dash_read"]:
+		var completed := _mode != "fall_read"
+		var flag := station.data.done_flag if completed else station.data.fail_flag
+		var scene := station.data.done_scene if completed else station.data.fail_scene
+		_check(GameState.has_flag(flag) and station.is_done() == completed, "cold original primary restores its genuine training result")
+		_check(Story._current_cinematic == scene, "cold saved result preserves the unread original explanation")
+		_check(_player().interaction.active and not _player()._visual.rig.weapon_root().visible, "cold original training dialogue restores the authored holster scope")
 		await _finish_story()
-		_check(GameState.has_flag(station.data.done_flag) and not Story.is_cinematic_active(), "cold explanation finishes without repeating the training action")
+		_check(GameState.has_flag(flag) and not Story.is_cinematic_active(), "cold explanation finishes without repeating the training action")
 		await _done()
 		return
 	await _finish_story()
@@ -153,6 +158,8 @@ func _verify_fault(station: TrainingStation, success: bool) -> void:
 		await _frames(4)
 		_check(GameState.has_flag(flag) and station.is_done() == success, "successful retry accepts exactly the genuine original result")
 		_check(_starts.count(scene) == 1, "retry starts its original explanation exactly once")
+		if Story.scene_mode(scene) == Story.MODE_DIALOGUE:
+			_check(_player().interaction.active and not _player()._visual.rig.weapon_root().visible and not _player()._weapon_light.is_lit(), "actual authored training dialogue holsters the equipped gun and light")
 		_check(_observations == [true], "one observer sees the durable primary and matching station state")
 		_check(_player().health.current == _player().health.max_health and GameState.deaths == 0 and not GameState.has_flag(&"ch1_first_death_done"), "training failure/guard never spends health, death or first registration")
 		if _mode == "bench":

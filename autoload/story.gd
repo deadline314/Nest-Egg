@@ -411,6 +411,11 @@ func validate() -> PackedStringArray:
 	for scene_id: String in _scenes.keys():
 		var scene: Dictionary = _scenes[scene_id]
 		var mode := str(scene.get("mode", "radio"))
+		if scene.has("map_interaction"):
+			if typeof(scene["map_interaction"]) != TYPE_BOOL:
+				problems.append("場景 %s 的 map_interaction 必須是布林值" % scene_id)
+			elif scene["map_interaction"] and mode != String(MODE_DIALOGUE):
+				problems.append("場景 %s 的 map_interaction 只支援地圖 dialogue" % scene_id)
 		if scene.has("set_flags") and (typeof(scene["set_flags"]) != TYPE_ARRAY or (scene["set_flags"] as Array).any(func(f: Variant) -> bool: return str(f).is_empty())):
 			problems.append("場景 %s 的 set_flags 必須是非空的旗標名稱清單" % scene_id)
 		problems.append_array(StoryRules.validate_transfers("場景 %s" % scene_id, scene))
@@ -876,6 +881,13 @@ func scene_mode(id: StringName) -> StringName:
 		var target := resolve_dispatch(id)
 		return scene_mode(target) if target != &"" else MODE_DISPATCH
 	return mode
+
+
+## Authored map dialogue can holster without pretending to be an NPC request.
+func uses_map_interaction(id: StringName) -> bool:
+	var scene: Dictionary = _scenes.get(String(id), {})
+	var declared: Variant = scene.get("map_interaction", false)
+	return typeof(declared) == TYPE_BOOL and declared and str(scene.get("mode", "")) == String(MODE_DIALOGUE)
 
 
 ## 對外 scene_started 的 dialogue→cinematic 別名是存檔契約；資格判斷必須讀實際資料模式。

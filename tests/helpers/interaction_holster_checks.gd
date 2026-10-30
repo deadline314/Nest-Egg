@@ -5,6 +5,7 @@ const OVERLAY := &"test_holster_overlay"
 const CHAIN := &"test_holster_chain"
 const STAGE := &"test_holster_stage"
 const CHOICE := &"test_holster_choice"
+const MARKED := &"test_holster_marked_map_dialogue"
 
 
 static func run(s: NpcSuite) -> void:
@@ -68,6 +69,34 @@ static func run(s: NpcSuite) -> void:
 	await s.frames(2)
 	s.check(not player.interaction.active, "dialogue without a map interaction context does not holster")
 	Story.reset_active_presentation(&"probe")
+	Story._scenes[String(MARKED)] = {"mode": "dialogue", "map_interaction": true, "lines": [{"speaker": "old_k", "text": "練習完成，先放下武器。"}]}
+	for facing in [-1, 1]:
+		player.facing = facing
+		player.aim_dir = Vector2(facing, 0)
+		var loadout := player.loadout.snapshot()
+		var position := player.global_position
+		Story.play(MARKED, false)
+		await s.frames(2)
+		s.check(player.interaction.active and not crosshair.visible and not player._visual.rig.weapon_root().visible and not player._weapon_light.is_lit(), "authored map dialogue holsters without inventing an NPC context: %d" % facing)
+		await _switch_devices(s)
+		s.check(player.interaction.active and not crosshair.visible and player.global_position == position and player.loadout.snapshot() == loadout, "authored dialogue keeps holstering and gameplay state across device changes")
+		Story.skip_cinematic()
+		await s.frames(2)
+		s.check(not player.interaction.active and crosshair.visible and player._visual.rig.weapon_root().visible and player.loadout.snapshot() == loadout, "authored dialogue restores the same equipment on completion")
+	Story._scenes[String(MARKED)]["map_interaction"] = "true"
+	Story.play(MARKED, false)
+	await s.frames(2)
+	s.check(not player.interaction.active and player._visual.rig.weapon_root().visible, "malformed string declaration cannot gain holster ownership")
+	s.check(Array(Story.validate()).any(func(problem: String) -> bool: return problem.contains(String(MARKED)) and problem.contains("map_interaction")), "runtime validation identifies the malformed map declaration and its scene")
+	Story.reset_active_presentation(&"probe")
+	Story._scenes[String(MARKED)]["map_interaction"] = true
+	Story._scenes[String(STAGE)]["map_interaction"] = true
+	Story.play(STAGE, false, {"framing_source": "person"})
+	await s.frames(2)
+	s.check(not player.interaction.active and player._visual.rig.weapon_root().visible, "map declaration cannot take over a full cinematic stage")
+	s.check(Array(Story.validate()).any(func(problem: String) -> bool: return problem.contains(String(STAGE)) and problem.contains("map_interaction")), "runtime validation rejects a declaration on a non-dialogue scene")
+	Story.reset_active_presentation(&"probe")
+	Story._scenes[String(STAGE)].erase("map_interaction")
 	Story.play(CHAIN, false, {"framing_source": "object"})
 	await s.frames(2)
 	Story.skip_cinematic()
@@ -139,7 +168,7 @@ static func run(s: NpcSuite) -> void:
 	s.check(Story.scene_started.is_connected(player.interaction._started) and not player.interaction.active and crosshair.visible, "reattached holster component reconnects without affecting the current player")
 	crosshair.queue_free()
 	await s.end_level(level)
-	for id in [OVERLAY, CHAIN, STAGE, CHOICE]:
+	for id in [OVERLAY, CHAIN, STAGE, CHOICE, MARKED]:
 		Story._scenes.erase(String(id))
 	InputBindings.using_gamepad = gamepad
 	InputBindings.active_device = device

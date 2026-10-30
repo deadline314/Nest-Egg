@@ -33,7 +33,8 @@ func _started(id: StringName, _mode: StringName) -> void:
 	var mode := Story.scene_mode(id)
 	var map_overlay := mode == Story.MODE_DIALOGUE or mode == Story.MODE_CINEMATIC \
 		or (mode == Story.MODE_ANIMATED and not Story.uses_cinematic_framing(id))
-	if source not in ["person", "object"] or not map_overlay or player.is_dead() or player.is_on_phone():
+	var owns_map_interaction := source in ["person", "object"] or Story.uses_map_interaction(id)
+	if not owns_map_interaction or not map_overlay or player.is_dead() or player.is_on_phone():
 		return
 	_scene = id
 	active = true

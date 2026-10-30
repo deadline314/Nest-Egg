@@ -62,7 +62,7 @@ def build():
     s = {}
     s["ch1_p01_door"] = _p01()
     # P02：工作桌旁的對話（走到工作桌才算完成移動練習）、自願閱讀的目錄、跳上搬貨台取工具。
-    s["ch1_p02_talk"] = {"mode": "dialogue", "lines": lines(
+    s["ch1_p02_talk"] = {"mode": "dialogue", "map_interaction": True, "lines": lines(
         ("old_k", "目錄又翻到那一頁啦？紙都要被你磨破了。"),
         ("rin", "晴岸那間四十八萬，窗戶下午照得到太陽。"),
         ("old_k", "晴岸是上層的日照區，光是電梯就要換兩趟。你搬箱子別一直看它。"),
@@ -94,13 +94,13 @@ def build():
         ("old_k", "貼的在桌邊。訓練器只會往前打，出手前會亮燈，你站穩再靠近它。"),
         ("rin", "我看見燈了。你把它調慢一點，別讓機器把我的手臂折掉。"))}
     s["ch1_p04_melee"] = {"mode": "bubbles", "lines": lines(("rin", "打到軟靶也沒有滑手，握得住。"))}
-    s["ch1_p04_fall"] = {"mode": "dialogue", "lines": lines(
+    s["ch1_p04_fall"] = {"mode": "dialogue", "map_interaction": True, "lines": lines(
         ("old_k", "先站穩，機器停了。別跟一根桿子賭氣喔。"),
         ("rin", "腳沒站穩，墊子邊緣捲起來了。你把它攤平，我再試。"),
         ("old_k", "拉好了。要再試就靠近它，燈亮的時候面向它舉盾。"))}
     s["ch1_p04_guard"] = {"mode": "bubbles", "lines": lines(("rin", "擋住了。這台出手前會亮燈，看得出來。"))}
     # 試完衝刺，老 K 回櫃台。
-    s["ch1_p04_dash"] = {"mode": "dialogue", "lines": lines(
+    s["ch1_p04_dash"] = {"mode": "dialogue", "map_interaction": True, "lines": lines(
         ("rin", "槍還能用，靶的框要鎖緊，這台的桿子太長了。"),
         ("old_k", "我記在貨單上了。回櫃台來，那張復原服務單我順便跟你說。"),
         ("rin", "好，我把器材排回原位就過去。"))}
