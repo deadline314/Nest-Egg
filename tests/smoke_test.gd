@@ -765,7 +765,13 @@ func _test_block_and_parry() -> void:
 	await _frames(3)
 	_check(parried.team == Combat.Team.PLAYER and parried.velocity.x > 0.0 and player.health.current == 10, "perfect parry reflects bullet toward aim")
 
-	await _frames(15)
+	# Hitstop freezes player timers, while SceneTree.physics_frame still fires.
+	# Wait for the actual ordinary-block boundary, including slow render frames.
+	for i in 120:
+		if not player.is_parry_window() and not Fx.is_frozen(player) and not Fx.is_frozen(ProjectilePool.container()):
+			break
+		await _frames(1)
+	_check(player.is_blocking and not player.is_parry_window() and not Fx.is_frozen(player) and not Fx.is_frozen(ProjectilePool.container()), "ordinary block fixture starts outside the live parry and hitstop windows")
 	var guard_before := player.guard
 	var blocked := _shoot_at_player(player, Vector2(14, 0))
 	await _frames(3)
@@ -791,8 +797,10 @@ func _test_block_and_parry() -> void:
 	Input.action_release(&"shoot")
 
 	player.guard = 1.0
-	_shoot_at_player(player, Vector2(14, 0))
-	await _frames(3)
+	var breaking := _shoot_at_player(player, Vector2(14, 0))
+	for i in 120:
+		if not breaking.active: break
+		await _frames(1)
 	_check(player.state == Player.State.STAGGERED and not player.is_blocking, "guard break staggers player")
 	await _frames(60)
 	_check(not player.is_blocking, "guard locked out after break")

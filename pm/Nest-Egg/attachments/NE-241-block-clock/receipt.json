@@ -1,0 +1,118 @@
+{
+  "baseline": "4e0ab1a98c73386c6282934f9d88091619c6d3e7",
+  "discovery": {
+    "groups": 72,
+    "checks": 93793,
+    "new_failures": 1,
+    "seconds": 697
+  },
+  "pacing": {
+    "cases": [
+      {
+        "fps": 0,
+        "exit": 0,
+        "checks": 11,
+        "failures": 0,
+        "diagnostics": []
+      },
+      {
+        "fps": 5,
+        "exit": 0,
+        "checks": 11,
+        "failures": 0,
+        "diagnostics": []
+      },
+      {
+        "fps": 10,
+        "exit": 0,
+        "checks": 11,
+        "failures": 0,
+        "diagnostics": []
+      },
+      {
+        "fps": 20,
+        "exit": 0,
+        "checks": 11,
+        "failures": 0,
+        "diagnostics": []
+      }
+    ],
+    "source_sha256": "e15cf22a4a7b9585c8d9bc52808108cca43dfbd8669f3b12638114256fe68e90"
+  },
+  "native": [
+    {
+      "label": "before",
+      "exit": 1,
+      "checks": 10,
+      "failures": 1,
+      "command": [
+        "python3",
+        "tools/comfyui/gpu_lock.py",
+        "--",
+        "xvfb-run",
+        "-a",
+        "-s",
+        "-screen 0 1280x720x24",
+        "/workspace/.nest-egg-env/bin/godot",
+        "--path",
+        ".",
+        "--rendering-method",
+        "forward_plus",
+        "--rendering-driver",
+        "vulkan",
+        "--audio-driver",
+        "Dummy",
+        "res://work/block-clock/native-before.tscn",
+        "--",
+        "--only=block",
+        "--fixture-fps=5"
+      ]
+    },
+    {
+      "label": "after",
+      "exit": 0,
+      "checks": 11,
+      "failures": 0,
+      "command": [
+        "python3",
+        "tools/comfyui/gpu_lock.py",
+        "--",
+        "xvfb-run",
+        "-a",
+        "-s",
+        "-screen 0 1280x720x24",
+        "/workspace/.nest-egg-env/bin/godot",
+        "--path",
+        ".",
+        "--rendering-method",
+        "forward_plus",
+        "--rendering-driver",
+        "vulkan",
+        "--audio-driver",
+        "Dummy",
+        "res://work/block-clock/native-after.tscn",
+        "--",
+        "--only=block",
+        "--fixture-fps=5"
+      ]
+    }
+  ],
+  "full_gate": {
+    "groups": 88,
+    "checks": 98315,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 650
+  },
+  "zip_sha256": "c7d799ac36bb631dcfbc1ba92c14bbe4f560ba516a34367ce489aaa7309a27b3",
+  "unchanged_policy_sha256": {
+    "tools/select_tests.py": "727e0b558eebb07477860c44004e0cc33005fe9f55ac6a6c30e44b38020ab5b4",
+    "tools/test_filters.sh": "509706b8257b8e46f6e8c01ebeda0ecd976b6607975f66430bd6774461500c80",
+    "tests/known_failures.txt": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf"
+  },
+  "limits": [
+    "test setup timing only; gameplay windows, damage, guard and hitstop unchanged",
+    "software Vulkan and synthetic input; not human, physical controller or complete weapon acceptance",
+    "full gate also includes the working first-chapter channel changes; those ship separately"
+  ]
+}
