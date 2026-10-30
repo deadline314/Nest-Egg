@@ -35,7 +35,8 @@ else
 	fi
 fi
 
-SELECTED="$("$PYTHON" tools/select_tests.py --base "$BASE")"
+# Python 與 Bash 的共同日誌使用 UTF-8；包含尚未進入 main() 的未捕捉例外。
+SELECTED="$(PYTHONIOENCODING=utf-8 "$PYTHON" tools/select_tests.py --base "$BASE")"
 STATUS=$?
 [ "$STATUS" -eq 0 ] || fail "挑選受影響測試的工具出錯（tools/select_tests.py 結束代碼 $STATUS，原因見上方）。"
 SELECTED="${SELECTED//$'\r'/}"  # Windows 的 Python 以 CRLF 換行

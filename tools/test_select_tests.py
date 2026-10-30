@@ -66,7 +66,7 @@ def run_cli_cp950(root, *argv):
     """以 cp950 為系統編碼執行 root 底下那份 select_tests.py，回傳（結束代碼, stdout, stderr）。"""
     env = {k: v for k, v in os.environ.items() if k not in ("PYTHONUTF8", "PYTHONIOENCODING")}
     result = subprocess.run([sys.executable, "-X", "utf8=0", "-c", CP950_PRELUDE, str(Path(root) / "tools" / "select_tests.py"), *argv], cwd=root, capture_output=True, env=env)
-    return result.returncode, result.stdout.decode("utf-8", "replace").strip(), result.stderr.decode("utf-8", "replace")
+    return result.returncode, result.stdout.decode("utf-8").strip(), result.stderr.decode("utf-8")
 
 
 def copy_tools(root):
@@ -151,7 +151,7 @@ class RunTestsChangedTest(unittest.TestCase):
     def run_script(self, *args):
         env = {k: v for k, v in os.environ.items() if k not in ("PYTHONUTF8", "PYTHONIOENCODING")}
         result = subprocess.run(["bash", "tools/run_tests_changed.sh", *args], cwd=self.root, capture_output=True, env=env)
-        return SimpleNamespace(code=result.returncode, out=result.stdout.decode("utf-8", "replace"), err=result.stderr.decode("utf-8", "replace"))
+        return SimpleNamespace(code=result.returncode, out=result.stdout.decode("utf-8"), err=result.stderr.decode("utf-8"))
 
     def test_code_change_runs_selected_suite(self):
         write(self.root, CHINESE_CODE, "extends Node\nvar power := 2\n")
@@ -193,6 +193,17 @@ class RunTestsChangedTest(unittest.TestCase):
         self.assertNotIn("沒有受影響的測試要跑", result.out)
         self.assertNotIn("RUN", result.out)
         self.assertIn("模擬挑選工具當掉", result.err)
+
+    def test_cp950_crash_reason_reaches_utf8_shell_log(self):
+        # Emulate Windows pipe defaults, while honoring Python's IO contract.
+        # No environment variable is supplied by the caller.
+        write(self.root, "tools/select_tests.py", 'import os, sys\nsys.stderr.reconfigure(encoding=os.environ.get("PYTHONIOENCODING", "cp950"))\nraise RuntimeError("模擬挑選工具當掉")\n')
+        result = self.run_script(self.base)
+        self.assertEqual(result.code, 2)
+        self.assertNotIn("RUN", result.out)
+        self.assertNotIn("沒有受影響的測試要跑", result.out)
+        self.assertIn("模擬挑選工具當掉", result.err)
+        self.assertIn("沒有跑任何測試", result.err)
 
 
 if __name__ == "__main__":

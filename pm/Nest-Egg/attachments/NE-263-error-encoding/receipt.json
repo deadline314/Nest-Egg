@@ -1,0 +1,22 @@
+{
+  "baseline": "d76ef55a",
+  "new_test_before": {
+    "tests": 13,
+    "errors": 1,
+    "reason": "strict UTF-8 decoding rejects the original cp950 traceback bytes"
+  },
+  "after": {
+    "tests": 13,
+    "failures": 0,
+    "errors": 0
+  },
+  "affected_runner": "exit 0, selected no Godot suites; direct Python and Bash boundary tests are the validation for this change",
+  "bash_syntax": "pass",
+  "native_windows": "prior native result in Commit-2; this revision emulates cp950 pipes on Linux and does not claim a new native Windows run",
+  "source_sha256": {
+    "tools/test_select_tests.py": "1bff282022ba261b62bcbb50412225efd41389f31fd3884a6ceb77d09ed90ad7",
+    "tools/run_tests_changed.sh": "71bbbd76f1941fda43a4db6f061538a2ae37bcb77765674908a9957899b8f336",
+    "tools/select_tests.py": "727e0b558eebb07477860c44004e0cc33005fe9f55ac6a6c30e44b38020ab5b4"
+  },
+  "zip_sha256": "668fb827e943f13ccfe704f9f500929ff4b84df6ec93116ffe129182d22ed5b2"
+}
