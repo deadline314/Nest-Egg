@@ -1,0 +1,80 @@
+{
+  "baseline": "e1aa99fdeb159d18fa3f0548744cbc91f617e828",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "baseline_actual_movement": {
+    "checks": 9,
+    "failures": 3
+  },
+  "same_probe_after": {
+    "checks": 13,
+    "failures": 0
+  },
+  "final_affected": {
+    "groups": 67,
+    "checks": 91905,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 1065,
+    "selected_groups": 65,
+    "selected_checks": 91701,
+    "selected_seconds": 1054,
+    "complement_groups": 2,
+    "complement_checks": 204,
+    "complement_seconds": 11
+  },
+  "final_training_matrix": {
+    "processes": 7,
+    "checks": 102,
+    "failures": 0,
+    "source_hashes_match": true
+  },
+  "prior_iteration_original_counter": {
+    "processes": 27,
+    "checks": 337,
+    "failures": 0,
+    "source_snapshot": "original-prologue/source; separate from final-source"
+  },
+  "final_render": {
+    "checks": 17,
+    "failures": 0,
+    "renderer": "Forward+ Vulkan llvmpipe",
+    "resolution": [
+      1280,
+      720
+    ]
+  },
+  "source_sha256": {
+    ".github/workflows/tests.yml": "6c00e96e842d50ec001a65e5109f83120326ece707dabff0e48039feff53aba7",
+    "game/main.gd": "e001dfbf2281362736b0fe296944a2078238c7324b5e86ae87acb7c9245e0609",
+    "game/level/level.gd": "44041a378026784ebaf685b422513167d962f0cfaebd263f7128020490bf7919",
+    "game/props/training_station.gd": "14c90ac98842de781a8c2a02b9a1a1d882fb82908ce8705620662af454a1e2dd",
+    "game/training_completion.gd": "5b23aaaf16597a6b274ed3b84ae8be686e932933dc7e86ee9d2300345a8c8472",
+    "game/training_completion.gd.uid": "7dadae8931ef540c708445bc0b9a791a88c66e07bda22955f83f9796718edc0b",
+    "tests/probes/training_completion.gd": "8838ecf187a6ba900e57ee17b8de25bbdc572dddd72169e57d88e180b4c7f8c9",
+    "tests/probes/training_completion.gd.uid": "0ea2c879480cc4b57816077aa8423e0899e691c0ea0ef8f4105b2b37ff0e14cd",
+    "tests/probes/training_completion.tscn": "d4625c2a5777c06e216fa49bddf14696d2d24e35f2d177a20b3788a95e18bac8",
+    "tools/run_training_completion.py": "7b762071ee79d59592c2824830da658132e7343e3c7b9e04397528d6b5b13f98",
+    "design/20-campaign-experience/CH1_STORY_RUNTIME.md": "a51269b5ef0ee9e658741b36e88c67769c4fc49ec14b25ed05a8a4be7498d731"
+  },
+  "image_sha256": {
+    "ST-9-training-refused.png": "88a44b6506f834ddfe77426dad362cadc135f2de44d8676a1f65abd219f918dd",
+    "ST-9-training-saved.png": "9e47f4d82fc9c2a56d28d8b6fbe9115cff6f7d80c233020a72035a868df416ea"
+  },
+  "evidence_zip": {
+    "bytes": 2458159,
+    "sha256": "3390e055a50f0b9f56c064237eeaf0efa7c16718889cccb5a95c74ec62d2c596"
+  },
+  "previous_main_ci": {
+    "sha": "e1aa99fdeb159d18fa3f0548744cbc91f617e828",
+    "url": "https://github.com/deadline314/Nest-Egg/actions/runs/41025176476",
+    "status": "success",
+    "checks": 98162,
+    "new_failures": 0
+  },
+  "limitations": [
+    "synthetic inputs and software rendering; not physical hardware or human whole chapter",
+    "first two baseline fixtures did not reach the original action and were rejected",
+    "original counter cross-regression precedes the final small publication guard/standalone observer-order review; its own sources are retained",
+    "original stale save-failure toast and unframed training weapon presentation remain visible in raw captures"
+  ]
+}

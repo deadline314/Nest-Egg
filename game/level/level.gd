@@ -73,6 +73,7 @@ var _resumed_presentation_settled := false
 var _resume_presentation_generation := 0
 ## 生成格鍵 -> 節點（敵人與拾取物；離開或死亡時據此判斷誰被消滅或撿走，節點可能已被釋放，所以不用型別字典）。
 var _tracked: Dictionary = {}
+var _training_stations: Array[TrainingStation] = []
 var _portals: Dictionary[StringName, Portal] = {}
 var _resume: Dictionary = {}
 ## True only after the entire live scene and resume state have been installed.
@@ -719,6 +720,7 @@ func _create_prop(spawn: Dictionary) -> Node2D:
 	if resource is TrainingData:
 		var station := TrainingStation.new()
 		station.configure(resource as TrainingData)
+		_training_stations.append(station)
 		return station
 	if resource is ShopData:
 		var shop := resource as ShopData

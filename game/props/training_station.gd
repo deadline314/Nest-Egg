@@ -23,6 +23,9 @@ const LAMP_PULSE_SECONDS := 1.4
 
 signal completed(station: TrainingStation)
 
+## Real runs install a Main-owned durability gate; previews use local flags.
+static var result_handler: Callable
+
 var data: TrainingData
 var _active := false
 var _done := false
@@ -179,11 +182,17 @@ func _strike(player: Player, offset: Vector2) -> void:
 
 func _on_failed() -> void:
 	if data.fail_flag != &"" and not GameState.has_flag(data.fail_flag):
+		if result_handler.is_valid() and result_handler.call(self, false):
+			return
 		GameState.set_flag(data.fail_flag)
-		if data.fail_scene != &"":
-			Story.play(data.fail_scene)
+		publish_failure()
 	elif not data.fail_repeat_text.is_empty():
 		EventBus.toast_requested.emit(data.fail_repeat_text)
+
+
+func publish_failure() -> void:
+	if data.fail_scene != &"":
+		Story.play(data.fail_scene)
 
 
 func _on_hit(info: DamageInfo) -> void:
@@ -202,9 +211,18 @@ func _on_hit(info: DamageInfo) -> void:
 func _complete() -> void:
 	if _done:
 		return
+	if result_handler.is_valid() and result_handler.call(self, true):
+		return
+	# Keep the standalone observer order: done before its flag notification.
 	_done = true
 	_active = false
 	GameState.set_flag(data.done_flag)
+	publish_completion()
+
+
+func publish_completion() -> void:
+	_done = true
+	_active = false
 	Sfx.play(&"ui_confirm", -8.0)
 	_prompt.enabled = false
 	if _hurtbox != null:

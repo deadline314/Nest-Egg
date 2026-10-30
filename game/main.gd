@@ -10,6 +10,7 @@ const RETRY_HOLD := 0.22
 
 var _result_completion: Node
 var _world_item_completion: Node
+var _training_completion: Node
 var _story_completion: Node
 ## Existing native probes still use the original radio owner name.
 var _radio_completion: Node:
@@ -58,6 +59,9 @@ func _ready() -> void:
 	_world_item_completion = preload("res://game/world_item_completion.gd").new()
 	_world_item_completion.main = self
 	add_child(_world_item_completion)
+	_training_completion = preload("res://game/training_completion.gd").new()
+	_training_completion.main = self
+	add_child(_training_completion)
 	_run_store.validator = RunSnapshot.prepare
 	GameState.run_save_requested.connect(_queue_save)
 	Progression.credits_changed.connect(func(_value: int, _delta: int) -> void: _queue_save())
@@ -374,8 +378,12 @@ func _show_victory(chapter: StringName) -> void:
 	_switch_to(screen, Transition.Kind.BLINDS)
 
 
+func _publishing_results() -> bool:
+	return Story.result_publication_active() or (is_instance_valid(_training_completion) and _training_completion.publishing()) or (is_instance_valid(_world_item_completion) and _world_item_completion.publishing())
+
+
 func _route_pending() -> bool:
-	return Story.result_publication_active() or (is_instance_valid(_world_item_completion) and _world_item_completion.publishing()) or _quitting or _publishing_restore or is_instance_valid(_destination_save_prompt) or (is_instance_valid(_pending_screen) and not _pending_screen.is_inside_tree())
+	return _publishing_results() or _quitting or _publishing_restore or is_instance_valid(_destination_save_prompt) or (is_instance_valid(_pending_screen) and not _pending_screen.is_inside_tree())
 
 
 func _bind_navigation() -> void:
@@ -395,7 +403,7 @@ func _queue_runtime_save() -> void:
 
 
 func _story_save_blocked() -> bool:
-	for owner: Node in [_story_completion, _result_completion, _world_item_completion]:
+	for owner: Node in [_story_completion, _result_completion, _world_item_completion, _training_completion]:
 		if is_instance_valid(owner) and owner.blocks_save():
 			return true
 	return false
@@ -588,7 +596,7 @@ func _notification(what: int) -> void:
 
 
 func _quit(exit_code := 0) -> void:
-	if _publishing_restore or Story.result_publication_active():
+	if _publishing_restore or _publishing_results():
 		_quit.call_deferred(exit_code)
 		return
 	if _quitting:
