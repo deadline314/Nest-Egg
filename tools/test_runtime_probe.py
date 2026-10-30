@@ -19,19 +19,39 @@ class RuntimeProbeTests(unittest.TestCase):
         self.addCleanup(self.temporary.cleanup)
         self.directory = pathlib.Path(self.temporary.name)
 
-    def run_fixture(self, body, timeout=5):
+    def run_fixture(self, body, timeout=5, verbose=False):
         engine = self.directory / "fake-engine"
         engine.write_text(f"#!{sys.executable}\nimport json,pathlib,sys,time,subprocess\n"
                           "out=pathlib.Path(next(x[6:] for x in sys.argv if x.startswith('--out=')))\n"
                           "out.mkdir(parents=True)\n" + body + "\n")
         engine.chmod(0o700)
         return run_case("fixture", engine, self.directory, timeout, project=self.directory,
-                        scene="res://fixture.tscn", slot=self.directory / "slot")
+                        scene="res://fixture.tscn", slot=self.directory / "slot",
+                        **({"verbose": True} if verbose else {}))
 
     def test_valid_protocol(self):
-        result = self.run_fixture("(out/'result.json').write_text(json.dumps({'checks':3,'failures':[]}))")
+        result = self.run_fixture("assert '--verbose' not in sys.argv\n"
+                                  "(out/'result.json').write_text(json.dumps({'checks':3,'failures':[]}))")
         self.assertTrue(result["passed"])
         self.assertEqual(result["diagnostic_count"], 0)
+
+    def test_verbose_is_explicit_and_preserves_valid_protocol(self):
+        result = self.run_fixture("assert '--verbose' in sys.argv\n"
+                                  "(out/'result.json').write_text(json.dumps({'checks':3,'failures':[]}))",
+                                  verbose=True)
+        self.assertTrue(result["passed"])
+        command = json.loads((self.directory / "fixture-process.json").read_text())["command"]
+        self.assertIn("--verbose", command)
+
+    def test_leak_details_survive_the_bounded_ci_summary(self):
+        result = self.run_fixture("(out/'result.json').write_text(json.dumps({'checks':3,'failures':[]}))\n"
+                                  "print('WARNING: 4 ObjectDB instances were leaked at exit')\n"
+                                  "print('Leaked instance: GDScriptFunctionState:123')\n"
+                                  "print('Resource still in use: res://game/original.gd')")
+        self.assertFalse(result["passed"])
+        self.assertEqual(result["diagnostic_count"], 3)
+        self.assertIn("Leaked instance: GDScriptFunctionState:123", result["diagnostics"])
+        self.assertIn("Resource still in use: res://game/original.gd", result["diagnostics"])
 
     def test_script_error_after_success_is_failure(self):
         result = self.run_fixture("(out/'result.json').write_text(json.dumps({'checks':3,'failures':[]}))\n"

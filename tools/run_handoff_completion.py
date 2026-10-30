@@ -44,7 +44,7 @@ def main():
     cases = []
     for mode in ["write", "read"]:
         case = run_case(mode, engine, output, args.timeout, project=PROJECT,
-                        scene="res://tests/probes/handoff_completion.tscn", slot=output / "slot")
+                        scene="res://tests/probes/handoff_completion.tscn", slot=output / "slot", verbose=True)
         data = case.get("result", {})
         if mode == "write":
             expected = {"ch1_t_handoff_accept": 1, "ch1_t_handoff_receipt": 2, "ch1_t_handoff_summary": 3}

@@ -73,6 +73,7 @@ jobs:
         run: |
           python3 tools/godot_audio/test_build.py
           python3 tools/test_select_tests.py
+          python3 tools/test_runtime_probe.py
           python3 tools/test_dummy_texture_exit.py
           python3 tools/godot_audio/build.py --jobs 3 --github-env "$GITHUB_ENV"
           cat work/godot-audio-safe/dist/receipt.json

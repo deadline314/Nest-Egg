@@ -1,0 +1,35 @@
+{
+  "baseline": "712e1ff5904fe1dd3e006da8fc9b6e7e18afc79e",
+  "tests": {
+    "checks": 9,
+    "failures": 0
+  },
+  "before_tests": {
+    "checks": 9,
+    "failures": 1,
+    "errors": 1
+  },
+  "handoff": {
+    "processes": 2,
+    "checks": 107,
+    "failures": 0
+  },
+  "synthetic_cli": {
+    "exit": 1,
+    "diagnostic_names_visible": true,
+    "fixture": "synthetic successful receipts plus intentional exit leak"
+  },
+  "affected_selector": "沒有受影響的測試要跑（只改了文件、票或與遊戲無關的檔案）。",
+  "source_sha256": {
+    "tools/test_runtime_probe.py": "a99ae8ba2754056241b541ce35ddbdd98ba8964eedb81cd18efa1bfd1278c36a",
+    "tools/run_handoff_completion.py": "b019b513e8a82884ef3ec74d1108261111002ecf9697248289e81bcccf49555c",
+    "tools/runtime_probe.py": "fef2c934c0673ab6f385fa30b027893ffc6316bc42e3fcd7cb35484edca6c6d1",
+    ".github/workflows/tests.yml": "526dbe7a15fe77fe5cd64e9b28f655f0f057cfd44de0dd08dab507718446af27"
+  },
+  "zip_sha256": "e954604df3e2b4ce947d14e3265224223555cb1497fac898dd82a2d73f3ed9d2",
+  "limits": [
+    "original CI had 97 successful behavior checks and a leaked exit; no claim its cause is identified or repaired",
+    "same-commit CI rerun passed the previously failing handoff step; still in progress at capture",
+    "official local engine differs from the CI repaired editor; pinned local build is being prepared separately"
+  ]
+}

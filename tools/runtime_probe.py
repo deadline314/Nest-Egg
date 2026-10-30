@@ -23,11 +23,12 @@ def stop_owned(process, force=False):
         pass
 
 
-def run_case(mode, engine, output, timeout, *, project, scene, slot):
+def run_case(mode, engine, output, timeout, *, project, scene, slot, verbose=False):
     profile = output / (mode + "-profile")
     environment = os.environ.copy()
     environment.update(XDG_DATA_HOME=str(profile), APPDATA=str(profile), LOCALAPPDATA=str(profile))
-    command = [str(engine), "--headless", "--audio-driver", "Dummy", "--path", str(project),
+    command = [str(engine), "--headless", *(["--verbose"] if verbose else []),
+               "--audio-driver", "Dummy", "--path", str(project),
                scene, "--", "--mode=" + mode,
                "--save-dir=" + str(slot), "--out=" + str(output / mode)]
     timed_out = False
@@ -56,7 +57,8 @@ def run_case(mode, engine, output, timeout, *, project, scene, slot):
                     process.wait(timeout=10)
     (output / (mode + ".exit")).write_text(str(code) + "\n")
     bad_line = re.compile(r"^ERROR:|SCRIPT ERROR|Parse Error|^FAIL(?:\s|:)|handle_crash:|"
-                          r"Program crashed|leaked at exit|resources still in use")
+                          r"Program crashed|leaked at exit|resources still in use|"
+                          r"Leaked instance:|Resource still in use:")
     diagnostics, diagnostic_count = [], 0
     with (output / (mode + ".log")).open(errors="replace") as log:
         for line in log:
