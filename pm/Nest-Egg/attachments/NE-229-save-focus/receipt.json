@@ -1,0 +1,38 @@
+{
+  "baseline": "1f149cea94e6dc28355cdd71ea7040c02b22ded6",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "renderer": "Forward+ Vulkan llvmpipe",
+  "baseline_ui": {
+    "checks": 454,
+    "new_failures": 3
+  },
+  "changed": {
+    "groups": 7,
+    "checks": 3758,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 221
+  },
+  "images": {
+    "resolution": [
+      1280,
+      720
+    ],
+    "text_scale": 1.2,
+    "before_focus": false,
+    "after_focus": true,
+    "sha256": {
+      "NE-229-save-focus-before.png": "148dc9b47e33120d2394bc6d1ef30fe4ba84b73d57a051028407b94794990b4c",
+      "NE-229-save-focus-after.png": "b0ace2d26bbf332c9b7e11b8195a3e89ac2e92718b2254d94eebe1422bc184e6"
+    }
+  },
+  "limitations": [
+    "synthetic controller events, not physical hardware",
+    "isolated formal prompt, not natural whole chapter",
+    "initial --script capture failed autoload compilation; retained; scene-based final capture passed"
+  ],
+  "source_sha256": {
+    "ui/radio_save_prompt.gd": "109e1c139ea781fa4fafa3b1cc865b4105334fb32b627e1201514c7cbf453b62",
+    "tests/helpers/radio_prompt_checks.gd": "2f7415cde77ca47d5f556bdd1c2ecba46eceab640038366cd1673c1620e11933"
+  }
+}

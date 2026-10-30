@@ -4,6 +4,8 @@ const Prompt := preload("res://ui/radio_save_prompt.gd")
 static func run(s: TestSuite) -> void:
 	var language := Story.language
 	var scale := Settings.get_ui_text_scale()
+	var device := InputBindings.active_device
+	var gamepad := InputBindings.using_gamepad
 	Settings.set_ui_text_scale(1.2)
 	for lang: String in ["zh", "ja", "en"]:
 		Story.language = lang
@@ -23,9 +25,41 @@ static func run(s: TestSuite) -> void:
 		back.pressed = true
 		prompt._unhandled_input(back)
 		s.check(cancels[0] == 1, "back requests cancel before commit: " + lang)
+		prompt.cancel_button.grab_focus()
+		s.check(prompt.cancel_button.has_focus(), "cancel is focused before save resolves: " + lang)
 		prompt.set_recovery(true)
 		await s.frames(2)
 		s.check(not prompt.cancel_button.visible and prompt.retry_button.focus_next == prompt.retry_button.get_path(), "committed recovery has one safe focus target and no cancel: " + lang)
+		s.check(prompt.retry_button.has_focus(), "committed recovery moves hidden cancel focus to reload: " + lang)
+		var confirm: InputEvent
+		if lang == "en":
+			var joy := InputEventJoypadButton.new()
+			joy.device = 999
+			joy.button_index = JOY_BUTTON_A
+			joy.pressed = true
+			confirm = joy
+		else:
+			var key := InputEventKey.new()
+			key.physical_keycode = KEY_ENTER
+			key.keycode = KEY_ENTER
+			key.pressed = true
+			confirm = key
+		Input.parse_input_event(confirm)
+		Input.flush_buffered_events()
+		await s.frames(2)
+		var release := confirm.duplicate()
+		release.set("pressed", false)
+		Input.parse_input_event(release)
+		Input.flush_buffered_events()
+		await s.frames(2)
+		s.check(retries[0] == 2, "keyboard/controller confirm reaches the remaining reload action: " + lang)
+		var other := Button.new()
+		s.runner.add_child(other)
+		other.grab_focus()
+		prompt.set_recovery(true)
+		s.check(other.has_focus(), "repeated recovery refresh does not steal an external modal focus: " + lang)
+		other.queue_free()
+		prompt.retry_button.grab_focus()
 		prompt._unhandled_input(back)
 		s.check(cancels[0] == 1, "back never cancels already committed recovery: " + lang)
 		prompt.set_original_recovery()
@@ -54,3 +88,5 @@ static func run(s: TestSuite) -> void:
 		await s.frames(2)
 	Story.language = language
 	Settings.set_ui_text_scale(scale)
+	InputBindings.clear_held_inputs()
+	InputBindings._set_device(gamepad, device)

@@ -55,6 +55,7 @@ func _focus_retry() -> void:
 
 
 func set_recovery(recovery: bool) -> void:
+	var cancel_had_focus := cancel_button.has_focus()
 	if presentation == "pickup" and not recovery:
 		_message.text = copy("這件物品尚未保存，仍留在原處。重試保存，或放回後離開再取。", "このアイテムは未保存で、元の場所に残っています。保存を再試行するか、戻して離れてから取り直してください。", "This item has not been saved and remains where it was. Retry saving, or leave it and return later.")
 	elif presentation == "event" and not recovery:
@@ -72,6 +73,10 @@ func set_recovery(recovery: bool) -> void:
 		for property: StringName in [&"focus_neighbor_top", &"focus_neighbor_bottom", &"focus_neighbor_left", &"focus_neighbor_right", &"focus_next", &"focus_previous"]:
 			retry_button.set(property, cancel_button.get_path())
 			cancel_button.set(property, retry_button.get_path())
+	# Hiding the focused action releases GUI focus; keep the remaining safe
+	# action reachable without requiring a mouse or stealing another modal.
+	if cancel_had_focus and not cancel_button.visible:
+		retry_button.grab_focus()
 
 static func copy(zh: String, ja: String, en: String) -> String:
 	return ja if Story.language == "ja" else (en if Story.language == "en" else zh)
