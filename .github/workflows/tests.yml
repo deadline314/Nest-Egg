@@ -183,6 +183,11 @@ jobs:
         timeout-minutes: 45
         run: python3 tools/run_training_completion.py --godot "$GODOT" --output "${{ runner.temp }}/training-completion"
 
+      - name: Check durable prologue skip routes and original cold reads
+        if: steps.gate.outputs.skip != 'true'
+        timeout-minutes: 15
+        run: python3 tools/run_skip_completion.py --godot "$GODOT" --output "${{ runner.temp }}/skip-completion"
+
       - name: Run all tests (parallel)
         timeout-minutes: 45
         if: steps.gate.outputs.skip != 'true'
@@ -229,5 +234,7 @@ jobs:
             ${{ runner.temp }}/supper-repeat/**/*.json
             ${{ runner.temp }}/training-completion/**/*.log
             ${{ runner.temp }}/training-completion/**/*.json
+            ${{ runner.temp }}/skip-completion/**/*.log
+            ${{ runner.temp }}/skip-completion/**/*.json
             work/godot-audio-safe/dist/receipt.json
           retention-days: 7

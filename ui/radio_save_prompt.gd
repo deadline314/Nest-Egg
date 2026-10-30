@@ -56,7 +56,9 @@ func _focus_retry() -> void:
 
 func set_recovery(recovery: bool) -> void:
 	var cancel_had_focus := cancel_button.has_focus()
-	if presentation == "pickup" and not recovery:
+	if presentation == "skip" and not recovery:
+		_message.text = copy("略過序章尚未保存。重試保存後離開，或繼續練習。", "プロローグのスキップは未保存です。保存を再試行して退出するか、練習を続けてください。", "Skipping the prologue has not been saved. Retry saving to leave, or keep practicing.")
+	elif presentation == "pickup" and not recovery:
 		_message.text = copy("這件物品尚未保存，仍留在原處。重試保存，或放回後離開再取。", "このアイテムは未保存で、元の場所に残っています。保存を再試行するか、戻して離れてから取り直してください。", "This item has not been saved and remains where it was. Retry saving, or leave it and return later.")
 	elif presentation == "event" and not recovery:
 		_message.text = copy("這段事件尚未保存，世界保持暫停。請重試保存後再繼續。", "このイベントは未保存です。世界は一時停止中です。保存を再試行して続けてください。", "This event has not been saved. The world remains paused. Retry saving to continue.")
@@ -66,6 +68,8 @@ func set_recovery(recovery: bool) -> void:
 	cancel_button.visible = not recovery and allow_cancel
 	if presentation == "pickup":
 		cancel_button.text = copy("放回", "戻す", "Leave item")
+	elif presentation == "skip":
+		cancel_button.text = copy("繼續練習", "練習を続ける", "Keep practicing")
 	if not cancel_button.visible:
 		for property: StringName in [&"focus_neighbor_top", &"focus_neighbor_bottom", &"focus_neighbor_left", &"focus_neighbor_right", &"focus_next", &"focus_previous"]:
 			retry_button.set(property, retry_button.get_path())
@@ -93,7 +97,7 @@ func set_original_recovery() -> void:
 	set_recovery(false)
 	if presentation == "pickup":
 		_message.text = copy("這件物品尚未保存，原進度保留在備份。請載入原進度後再取。", "このアイテムは未保存です。元の進行状況はバックアップに残っています。元の進行状況を読み込んでから取り直してください。", "This item was not saved. Your original progress remains in the backup. Reload it before collecting the item again.")
-	elif presentation == "event":
+	elif presentation in ["event", "skip"]:
 		_message.text = copy("這段事件尚未保存，原進度保留在備份。請載入原進度後再試。", "このイベントは未保存です。元の進行状況はバックアップに残っています。元の進行状況を読み込んで再試行してください。", "This event was not saved. Your original progress remains in the backup. Reload it to try again.")
 	else:
 		_message.text = copy("這次通訊尚未保存，原進度保留在備份。請載入原進度後再試；取消不會記為讀完。", "今回の通信は未保存です。元の進行状況はバックアップに残っています。元の進行状況を読み込んでください。取り消しても読了にはなりません。", "This radio was not saved. Your original progress remains in the backup. Reload it to try again, or cancel without marking the radio read.")

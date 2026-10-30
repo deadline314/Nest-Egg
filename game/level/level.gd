@@ -9,6 +9,8 @@ signal completed
 signal critical_save_requested
 ## 玩家穿過出入口：請 Main 載入目標區域（路徑是 LevelData 的 .tres）。
 signal area_requested(level_path: String)
+## Main owns durable skip results; standalone Level previews remain local.
+static var skip_handler: Callable
 
 const ENCOUNTER_SNAPSHOT = preload("res://game/level/encounter_snapshot.gd")
 const PLAYER_TUNING_PATH := "res://data/player/player_tuning.tres"
@@ -1114,11 +1116,14 @@ func _on_portal_used(portal: Portal) -> void:
 	area_requested.emit(target)
 
 
-## 確認略過這個區域（序章）：寫入略過旗標後從指定出口離開；已經練過的紀錄保留，沒練過的不補。
+## 確認略過：真 Main 先保存結果；獨立預覽保留原本本地行為。
 func _skip_area() -> void:
-	var portal: Portal = _portals.get(data.skip_portal)
-	if portal == null or _finished:
+	var candidate: Variant = _portals.get(data.skip_portal)
+	if not is_instance_valid(candidate) or not candidate is Portal or candidate.is_queued_for_deletion() or _finished:
 		push_error("[Level] %s 的略過出口「%s」不存在，略過取消" % [data.id, data.skip_portal])
+		return
+	var portal := candidate as Portal
+	if skip_handler.is_valid() and skip_handler.call(self):
 		return
 	Story.reset_active_presentation(&"route")
 	for flag in data.skip_flags:

@@ -1,0 +1,95 @@
+{
+  "baseline": "1ee9cb3c7ee08cb9dce40b84e990b289372fb080",
+  "affected": {
+    "groups": 67,
+    "checks": 91920,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 518,
+    "unique_groups": 67
+  },
+  "discovery": {
+    "groups": 67,
+    "checks": 91886,
+    "new_failures": 2,
+    "seconds": 551,
+    "repair": "1ee9cb3c NE-229 isolated controller storage"
+  },
+  "controller_integration": {
+    "checks": 40,
+    "failures": 0
+  },
+  "public": {
+    "processes": 7,
+    "checks": 79,
+    "failures": 0,
+    "source_hashes_match": true
+  },
+  "training": {
+    "processes": 9,
+    "checks": 118,
+    "failures": 0,
+    "source_hashes_match": true
+  },
+  "native_software": {
+    "processes": 3,
+    "checks": 61,
+    "failures": 0,
+    "renderer": "Forward+ Vulkan llvmpipe",
+    "resolution": [
+      1280,
+      720
+    ],
+    "engine": "4.7.2.stable.official.ed1daf0bf"
+  },
+  "source_sha256": {
+    "game/main.gd": "b5e583b575d47e4a665cd1a36dab2977dac1477860dfd0bb97a46b7f8b80e379",
+    "game/level/level.gd": "6f0ce7a12c90b2e65f8dadaa1132bed9521d014d5856ff272bacd21a0fbb4eaa",
+    "game/skip_completion.gd": "0dc74e5e6e6389fd457ab030e91123d06a2a2dbc5d83d80186edf080b5b25acb",
+    "core/run_flag_commit.gd": "8834bd0626b8b97ba5ab411afcde377c8bf827e297433a115129eee34b10ad60",
+    "core/run_destination.gd": "eb09f5e3a80b8bad5fe391adaba7c9f84db208a91c717b529e95a64b796f6e4c",
+    "game/training_completion.gd": "e27f45e13725a75fe197af83e79f29aa3de0c88f417f927a40595ba6632f3944",
+    "core/run_snapshot.gd": "41e044ebcedaa7076c5344d8bbeb4fd267f92b187f6cce115b251bd7dc864b94",
+    "core/run_save_store.gd": "1033befefbd04f934cac74abfdf74335c416b31b29ef4d068a3768d987ebb781",
+    "core/run_save_codec.gd": "f767c41a24633a73ca48a865c991146a01c7491325e3f0129952ed457fa9d9af",
+    "autoload/game_state.gd": "f27963b5951415ba59f81a18eadac8752a111a674c34a57e34836a25e94a28f3",
+    "autoload/story.gd": "6fdbe81aba2cbd86493a8c90c5acf102805f5d75a1203cda8614b107a43271e3",
+    "autoload/gameplay_lock.gd": "9efdc042fe0efd430df2a87ff30be326db1ab2d0aa4ea39f921907301437e42c",
+    "ui/radio_save_prompt.gd": "3d3436a5b69f2815bcc052a4d91e0ec87335fe4908a930a651668438529bc71e",
+    "ui/pause_menu.gd": "6ea2b8c11d2a8e58e11a38392ecac730c02dfd7f33744d906f45d2ed6cec6597",
+    "data/levels/ch1_prologue.tres": "8247c0a4c9cc10680cbd589b69be527083dc621005ce5ea1676c9993b16ea2e2",
+    "data/levels/ch1_prologue_map.json": "2a6acff80eb5f05fe1c3082b8e77b559d09bb835fe6c426cbd41397dd662fd3d",
+    "data/levels/ch1_pawnshop.tres": "dc5f9e14a3aefd62f6156de42ead1a98a9432e4fc78a846a17af69689f8a1052",
+    "data/story/ch1_kasa.json": "ff6bb036f11fe5a777153d0ebc253759ac86fa37677c5089c96048ae45f23ef5",
+    "tools/prologue_play_probe.gd": "2a28f10263ca4f39115f0e383fde339fad424c8668495783d188a15704ccefcf",
+    "tests/probes/training_completion.gd": "f19e5d7c7d5268403bdcb18a9e364eaf7fab81d38779c6f5ff33149b243223a8",
+    "tests/probes/skip_completion.gd": "a688551bce729e9edd7f52e654963298c58bed5b8ab62cd36bbaf8e3d1a9d552",
+    "tests/probes/skip_completion.tscn": "67a0e536570c01a7675a52b2855a29f024af6230829d31b6c31f9432c22e6f6c",
+    "tools/run_skip_completion.py": "03935ffc0d2758c62d9d22f46748123b5e3ce9605a618e4819e97dc9456ddf71",
+    "tools/runtime_probe.py": "38ab1fc6744546985645223feddbed3d3c3b1f61bd6a338328fed29e383b9b34"
+  },
+  "images": {
+    "ST-9-skip-cancelled.png": "db940947ec65e0935dd7176a088c55644619bf17e089ced60bba2d67643ca378",
+    "ST-9-skip-saved.png": "f18de005a06b480882583a09eef9dc33d058bb6c21990aaac27e2749be36b626",
+    "ST-9-skip-refused.png": "df93349ee05d0701bfc3f0d106cfb0b76a2444dca5d26b4ff038f2a00e0040cd",
+    "ST-9-skip-cold.png": "a8a369b31baf607fba7524622f70bd4c0e6c3ddee885befd54e6402e6ae3fab1",
+    "ST-9-skip-english.png": "4873e5481a824e4f179205fed6140a481e1a185e3ae3d05f9e64aecf88a39880",
+    "ST-9-skip-japanese.png": "d76e5eb4a63ba4cd6fcd5dba8e7ca89c60e634bc27ee0368560e4e6c466b9968",
+    "ST-9-skip-before.png": "1f7e492c23f2c7635617066829fc994e0623a9ccc39369d790965bff40d018ea"
+  },
+  "previous_ci": {
+    "sha": "8c0982e7d6d0c93fd14b5d2ee11c71d02be0c139",
+    "run": 41034501563,
+    "checks": 98166,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 553,
+    "conclusion": "success"
+  },
+  "zip_sha256": "e380b271d9430b20ce14b119726d07201f7a571463f8a94ff2a6063810d1dd08",
+  "limits": [
+    "not human, physical controller or hardware GPU acceptance",
+    "strict final-dispatch-matrix includes the probe event-dispatch repair; earlier raw failures retained",
+    "world mechanism channel durability remains outside this skip delivery"
+  ]
+}

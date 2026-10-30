@@ -31,7 +31,7 @@ def main():
     (output / ".gdignore").touch()
     (output / ".gitignore").write_text("*\n")
     engine = args.godot.resolve()
-    names = ["game/main.gd", "game/level/level.gd", "game/training_completion.gd",
+    names = ["core/run_flag_commit.gd", "core/run_destination.gd", "game/main.gd", "game/level/level.gd", "game/training_completion.gd",
              "game/props/training_station.gd", "tests/probes/training_completion.gd",
              "tests/probes/training_completion.tscn", "tools/prologue_play_probe.gd",
              "tools/run_training_completion.py", "tools/runtime_probe.py",

@@ -12,6 +12,7 @@ const SAVE_FAILURE_TOAST := "存檔未成功，原進度仍保留。"
 var _result_completion: Node
 var _world_item_completion: Node
 var _training_completion: Node
+var _skip_completion: Node
 var _story_completion: Node
 ## Existing native probes still use the original radio owner name.
 var _radio_completion: Node:
@@ -63,6 +64,9 @@ func _ready() -> void:
 	_training_completion = preload("res://game/training_completion.gd").new()
 	_training_completion.main = self
 	add_child(_training_completion)
+	_skip_completion = preload("res://game/skip_completion.gd").new()
+	_skip_completion.main = self
+	add_child(_skip_completion)
 	_run_store.validator = RunSnapshot.prepare
 	GameState.run_save_requested.connect(_queue_save)
 	Progression.credits_changed.connect(func(_value: int, _delta: int) -> void: _queue_save())
@@ -380,7 +384,10 @@ func _show_victory(chapter: StringName) -> void:
 
 
 func _publishing_results() -> bool:
-	return Story.result_publication_active() or (is_instance_valid(_training_completion) and _training_completion.publishing()) or (is_instance_valid(_world_item_completion) and _world_item_completion.publishing())
+	if Story.result_publication_active(): return true
+	for owner: Node in [_training_completion, _world_item_completion, _skip_completion]:
+		if is_instance_valid(owner) and owner.publishing(): return true
+	return false
 
 
 func _route_pending() -> bool:
@@ -404,7 +411,7 @@ func _queue_runtime_save() -> void:
 
 
 func _story_save_blocked() -> bool:
-	for owner: Node in [_story_completion, _result_completion, _world_item_completion, _training_completion]:
+	for owner: Node in [_story_completion, _result_completion, _world_item_completion, _training_completion, _skip_completion]:
 		if is_instance_valid(owner) and owner.blocks_save():
 			return true
 	return false
@@ -456,45 +463,17 @@ func _save_run() -> void:
 
 func _save_destination(runtime: Dictionary, destination_path := "", state_changes: Dictionary = {}, progression: Variant = null) -> bool:
 	var path := _level_path if destination_path.is_empty() else destination_path
-	var destination := RunSaveCodec.resource(path, "level", "res://data/levels/") as LevelData
-	if destination == null:
+	var prepared := preload("res://core/run_destination.gd").prepare(RunSnapshot.capture(path, runtime), path, state_changes, progression)
+	if prepared.has("error"):
 		push_warning("[RunSave] run/level 目的地無效：%s，原存檔保留並返回選單" % path)
 		_show_main_menu()
 		return false
-	var entry := runtime.duplicate(true)
-	var snapshot := RunSnapshot.capture(path, entry)
-	var state: Dictionary = snapshot["state"]
-	for key: String in state_changes:
-		state[key] = state_changes[key]
-	if progression is Dictionary:
-		snapshot["progression"] = progression.duplicate(true)
-	var area := {"consumed": {}, "damage": {}, "world": {}}
-	if destination.persistent_world:
-		area = (state["area_states"].get(String(destination.id), area) as Dictionary).duplicate(true)
-	elif state["has_checkpoint"] and (str(state["checkpoint_level_path"]).is_empty() or state["checkpoint_level_path"] == path):
-		area["world"] = state["checkpoint_world"].duplicate(true)
-	entry["world"] = area["world"].duplicate(true)
-	entry["area"] = area
-	entry["loose"] = []
-	entry["enemies"] = []
-	entry["encounters"] = {}
-	entry["arena"] = false
-	entry["boss_pending"] = false
-	entry["velocity"] = [0, 0]
-	entry["facing"] = 1
-	entry["aim_dir"] = [1, 0]
-	entry["crouching"] = false
-	entry["guard"] = 100
-	entry["dead"] = false
-	entry["death_entry"] = {}
-	entry["death_cause"] = "unknown"
-	entry["ending"] = false
-	if not _run_store.write(snapshot):
+	if not _run_store.write(prepared["data"]):
 		EventBus.toast_requested.emit("區域進度尚未保存，請稍後再試；原存檔仍保留。")
 		return false
 	# Only an accepted destination can replace routing metadata or its caller's
 	# runtime. Queued saves must now keep the old screen from overwriting it.
-	runtime.assign(entry)
+	runtime.assign(prepared["data"]["runtime"])
 	_level_path = path
 	_destination_pending = true
 	return true
