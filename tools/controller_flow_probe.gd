@@ -16,6 +16,9 @@ func run(host: Node, report: Callable, capture := Callable(),
 	_host = host
 	_report = report
 	_capture = capture
+	var owned_directory := _create_owned_directory()
+	_check(not owned_directory.is_empty(), "controller probe owns an isolated settings and run directory")
+	if owned_directory.is_empty(): return
 	var original_settings := Settings.storage_path()
 	var original_autosave := GameState.story_autosave
 	var original_skip := Story.auto_skip
@@ -24,9 +27,7 @@ func run(host: Node, report: Callable, capture := Callable(),
 	# Main enables autosave before start_new_run. Its synchronous life-count
 	# notification disables it again before any deferred story-save flush.
 	EventBus.lives_changed.connect(_disable_autosave)
-	var probe_settings := "user://controller_flow_probe_settings.cfg"
-	if FileAccess.file_exists(probe_settings):
-		DirAccess.remove_absolute(probe_settings)
+	var probe_settings := owned_directory.path_join("settings.cfg")
 	Settings.use_storage(probe_settings)
 	if configure_profile.is_valid():
 		configure_profile.call()
@@ -38,6 +39,9 @@ func run(host: Node, report: Callable, capture := Callable(),
 		await _walk_settings_only()
 	else:
 		_game = (load("res://scenes/main.tscn") as PackedScene).instantiate()
+		# Assign before Main._ready reads continue/import/overwrite state. Both
+		# the slot and its sibling-edition search stay inside our fresh directory.
+		_game.set("_run_store", RunSaveStore.new(owned_directory.path_join("run/slot.json")))
 		_game.process_mode = Node.PROCESS_MODE_PAUSABLE
 		_host.add_child(_game)
 		await _walk_flow()
@@ -54,9 +58,27 @@ func run(host: Node, report: Callable, capture := Callable(),
 	GameState.story_autosave = original_autosave
 	GameState.difficulty = original_difficulty
 	Story.auto_skip = original_skip
-	if FileAccess.file_exists(probe_settings):
-		DirAccess.remove_absolute(probe_settings)
+	_check(_remove_owned_directory(owned_directory), "controller probe removes only its own temporary settings and saves")
 	print("NE229_SYNTHETIC_FLOW checks=%d failures=%d" % [checks, failures.size()])
+
+
+func _create_owned_directory() -> String:
+	for attempt in 8:
+		var path := "user://controller-flow-%d-%d-%d-%d" % [OS.get_process_id(), get_instance_id(), Time.get_ticks_usec(), attempt]
+		if DirAccess.make_dir_absolute(path) == OK: return path
+	return ""
+
+
+func _remove_owned_directory(path: String) -> bool:
+	var ok := true
+	# Only these two directories were created by this probe. Unexpected nested
+	# content causes cleanup failure instead of recursively following anything.
+	for directory: String in [path.path_join("run"), path]:
+		if not DirAccess.dir_exists_absolute(directory): continue
+		for file: String in DirAccess.get_files_at(directory):
+			if DirAccess.remove_absolute(directory.path_join(file)) != OK: ok = false
+		if DirAccess.remove_absolute(directory) != OK: ok = false
+	return ok
 
 
 func _walk_settings_only() -> void:
@@ -289,11 +311,14 @@ func _button(button: JoyButton) -> void:
 	event.button_index = button
 	event.pressed = true
 	Input.parse_input_event(event)
-	await _frames(3)
+	Input.flush_buffered_events()
 	event = event.duplicate()
 	event.pressed = false
 	Input.parse_input_event(event)
-	await _frames(3)
+	Input.flush_buffered_events()
+	# A tap must stay short even when rendering three frames takes >0.6 s.
+	# Keep the same six settling frames after delivering the complete tap.
+	await _frames(6)
 
 
 func _hold_button(button: JoyButton, seconds: float) -> void:
@@ -302,10 +327,13 @@ func _hold_button(button: JoyButton, seconds: float) -> void:
 	event.button_index = button
 	event.pressed = true
 	Input.parse_input_event(event)
+	# Start the measured hold only after GUI delivery, including slow renderers.
+	Input.flush_buffered_events()
 	await _host.get_tree().create_timer(seconds, true, false, true).timeout
 	event = event.duplicate()
 	event.pressed = false
 	Input.parse_input_event(event)
+	Input.flush_buffered_events()
 	await _frames(3)
 
 

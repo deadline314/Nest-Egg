@@ -1,0 +1,55 @@
+{
+  "baseline": "7b8263336d0e7f7af7b0dcdaf32978a3a84757fc",
+  "original_reproduction": {
+    "checks": 6,
+    "failures": 2
+  },
+  "public": {
+    "mode": "existing",
+    "exit": 0,
+    "timeout": false,
+    "diagnostics": [],
+    "diagnostic_count": 0,
+    "result": {
+      "checks": 40,
+      "failures": []
+    },
+    "passed": true
+  },
+  "affected": {
+    "groups": 1,
+    "checks": 132,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 27
+  },
+  "software_native": {
+    "checks": 41,
+    "failures": 0,
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "renderer": "Forward+ Vulkan llvmpipe",
+    "resolution": [
+      1280,
+      720
+    ]
+  },
+  "source_sha256": {
+    "tools/controller_flow_probe.gd": "67d7216c24ce19c5821073ff394a869b69a3d30cbb71a5361268244cd6b9a74e",
+    "tools/run_controller_storage.py": "c3a199c438d1e7e48a05634470ba348a44a2af77e1bb69eb400a1e3123449431",
+    "tools/runtime_probe.py": "38ab1fc6744546985645223feddbed3d3c3b1f61bd6a338328fed29e383b9b34",
+    "game/main.gd": "d7c4b1f1c97c2423c13a579cdde2e01f3ccbe7a03bf704cfd89a9efb9bc40003",
+    "core/run_save_store.gd": "1033befefbd04f934cac74abfdf74335c416b31b29ef4d068a3768d987ebb781",
+    "tests/probes/controller_storage.gd": "c80e6ed43bbe23e201470a9ad1bbd3405d31b4e2a023b3bdbdf2867858cc5a3f",
+    "tests/probes/controller_storage.tscn": "a3d17e46ab6064c1d7f7fd2dd236a74f6438bc7a99dd44108fd35b090f2f1f34"
+  },
+  "zip_sha256": "73fcc42f6f72fd3698df72d3472b2c52783dbba9dba57b77370a21b949958fee",
+  "images": {
+    "NE-229-storage-before.png": "8a2df6f7aa00d63303a5df9b652b3e8c5cc3d468c0d798a60ca8d7f4aaea9b37",
+    "NE-229-storage-after.png": "2b34de122321d821fd3782b2bed7375ef131a90bc23840526fd14d076eddf3a5"
+  },
+  "limits": [
+    "synthetic input and software renderer, not physical controller/hardware GPU acceptance",
+    "early native timing failures are retained and not counted as passing",
+    "discovery was an uncommitted ST-9 integration; baseline independent fixture reproduced the exact two ordinary-save failures"
+  ]
+}

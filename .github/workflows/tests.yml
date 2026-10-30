@@ -104,6 +104,11 @@ jobs:
         timeout-minutes: 5
         run: python3 tools/run_texture_threads.py --godot "$GODOT" --output "${{ runner.temp }}/texture-workers"
 
+      - name: Check controller probe storage isolation with an existing save
+        if: steps.gate.outputs.skip != 'true'
+        timeout-minutes: 5
+        run: python3 tools/run_controller_storage.py --godot "$GODOT" --output "${{ runner.temp }}/controller-storage"
+
       - name: Check actual positional audio mixing
         if: steps.gate.outputs.skip != 'true'
         timeout-minutes: 3
@@ -200,6 +205,8 @@ jobs:
             ${{ runner.temp }}/texture-workers/**/*.log
             ${{ runner.temp }}/texture-workers/**/*.json
             ${{ runner.temp }}/test-logs/*.log
+            ${{ runner.temp }}/controller-storage/**/*.log
+            ${{ runner.temp }}/controller-storage/**/*.json
             ${{ runner.temp }}/audio-load/*.log
             ${{ runner.temp }}/audio-load/*.json
             ${{ runner.temp }}/handoff-completion/**/*.log
