@@ -1,0 +1,41 @@
+{
+  "base": "fd295016c2059e356e769ba0cec55e6a0348fdac",
+  "before": {
+    "processes": 2,
+    "checks": 26,
+    "failures": 12,
+    "git_clean": true
+  },
+  "same_refusal_after": {
+    "processes": 2,
+    "checks": 26,
+    "failures": 0
+  },
+  "evidence": {
+    "processes": 14,
+    "checks": 236,
+    "failures": 0
+  },
+  "patroller": {
+    "processes": 8,
+    "checks": 83,
+    "failures": 0
+  },
+  "compiler": {
+    "checks": 15,
+    "failures": 0
+  },
+  "native_software": {
+    "processes": 4,
+    "checks": 88,
+    "failures": 0
+  },
+  "required": {
+    "groups": 9,
+    "checks": 4263,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 163
+  },
+  "archive_sha256": "d6201c07a16a9b505ab856bd4a5089706a3ed448da4781256aeb71b18afb9dc0"
+}

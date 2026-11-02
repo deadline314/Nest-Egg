@@ -29,7 +29,11 @@ def spec() -> ChapterSpec:
         quest_locations=ch2_source.QUEST_LOCATIONS,
         important_radio={"ch2_b_booth_b3", "ch2_s12_defeat_hint"},
         flag_defaults=source.flag_defaults,
-        completion_policies={"ch2_t_s05_gate": "main_terminal_results_v1"},
+        completion_policies={
+            "ch2_t_s05_gate": "main_terminal_results_v1",
+            "ch2_t_s08_contract": "main_terminal_results_v1",
+            "ch2_t_s08_collection": "main_terminal_results_v1",
+        },
         death_sequences=DEATH_SEQUENCES,  # 一般死亡的畫面序列和第一章相同（錄音、燈、狀態列、記憶卡，之後縮短）
     )
 

@@ -129,6 +129,12 @@ jobs:
           python3 tools/story/test_chapter_completion_policies.py
           python3 tools/run_patroller_completion.py --godot "$GODOT" --output "${{ runner.temp }}/patroller-completion"
 
+      - name: Check chapter-two evidence items and original cold reads
+        if: steps.gate.outputs.skip != 'true'
+        timeout-minutes: 35
+        run: |
+          python3 tools/run_ch2_evidence_completion.py --godot "$GODOT" --output "${{ runner.temp }}/ch2-evidence-completion"
+
       - name: Check optional Sunday choice and cold continuation
         if: steps.gate.outputs.skip != 'true'
         timeout-minutes: 15
@@ -245,6 +251,8 @@ jobs:
             ${{ runner.temp }}/handoff-completion/**/*.json
             ${{ runner.temp }}/patroller-completion/**/*.json
             ${{ runner.temp }}/patroller-completion/**/*.log
+            ${{ runner.temp }}/ch2-evidence-completion/**/*.json
+            ${{ runner.temp }}/ch2-evidence-completion/**/*.log
             ${{ runner.temp }}/sunday-choice/**/*.log
             ${{ runner.temp }}/sunday-choice/**/*.json
             ${{ runner.temp }}/voice-completion/**/*.log
