@@ -1,4 +1,5 @@
 extends Node
+const Flags := preload("res://game/story_flag_sources.gd")
 const Sources := preload("res://game/story_result_sources.gd")
 const Completion := preload("res://game/story_result_completion.gd")
 func _ready() -> void:
@@ -8,14 +9,18 @@ func _ready() -> void:
 	var declared: Array[String]=[]
 	for id: String in Story._scenes:
 		var scene: Dictionary=Story._scenes[id]
-		if scene.get("completion_policy","") in Completion.COMPLETION_POLICIES:
+		if scene.get("completion_policy","") in Completion.COMPLETION_POLICIES or scene.get("completion_policy") == StoryOutcomes.MAIN_FLAG_COMPLETION_POLICY:
 			declared.append(id)
 			checks+=1
-			if not Sources.owns_boundary(id):failures.append("declared source has no independent finite owner: "+id)
+			if not Sources.owns_boundary(id) and not Flags.owns(id):failures.append("declared source has no independent finite owner: "+id)
 		if Sources.owns_boundary(id):
 			owned.append(id)
 			checks+=1
 			if Sources.boundary(id,Story._scenes,Story._scene_sources).is_empty():failures.append("original authored finite contract differs: "+id)
+		if Flags.owns(id):
+			owned.append(id)
+			checks += 1
+			if not Flags.valid(id, Story._scenes, Story._scene_sources): failures.append("original authored flag intro differs: " + id)
 	var result := {"checks":checks,"failures":failures,"owned":owned,"declared":declared}
 	for argument: String in OS.get_cmdline_user_args():
 		if argument.begins_with("--out="):

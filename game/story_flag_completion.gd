@@ -2,6 +2,7 @@ extends Node
 ## Main-owned durable flags for important radio and explicitly marked terminal scenes.
 ## Durable write precedes the two silent owner assignments and every notification.
 
+const Sources := preload("res://game/story_flag_sources.gd")
 const POLICY := StoryOutcomes.MAIN_FLAG_COMPLETION_POLICY
 const Prompt := preload("res://ui/radio_save_prompt.gd")
 const Bundle := preload("res://core/story_install_bundle.gd")
@@ -38,7 +39,7 @@ func blocks_save() -> bool:
 
 func complete(id: StringName, request: int) -> Dictionary:
 	var scene: Dictionary = Story._scenes.get(String(id), {})
-	var cinematic := scene.has("completion_policy")
+	var cinematic := Sources.owns(String(id)) or scene.has("completion_policy")
 	var radio := str(scene.get("mode", "")) == "radio" and bool(scene.get("freeze", false))
 	if not main.get("_active_run") or not (radio or cinematic):
 		return {} # Standalone presentation tools retain their existing behavior.
@@ -82,13 +83,34 @@ func complete(id: StringName, request: int) -> Dictionary:
 	return {"handled": true, "ready": true}
 
 
+## A terminal intro cannot gain a material choice by losing its policy tag.
+func refuse_choice() -> Dictionary:
+	var id := Story._current_cinematic
+	if not Sources.owns(String(id)):
+		return {}
+	if not main.get("_active_run"):
+		return {"handled": true, "accepted": false}
+	if main.has_method("_defer_world_story") and main.call("_defer_world_story", id, Story.current_presentation_request()):
+		return {"handled": true, "accepted": false}
+	_pending_id = id
+	_pending_request = Story.current_presentation_request()
+	_pending_cinematic = true
+	if _lock == 0:
+		_lock = GameplayLock.acquire(self, Input.MOUSE_MODE_VISIBLE)
+	_reload_original = true
+	_show_prompt(false)
+	return {"handled": true, "accepted": false}
+
+
 func _commit(id: StringName, scene: Dictionary, level: Level) -> Dictionary:
+	if Sources.owns(String(id)) and (not Sources.valid(String(id), Story._scenes, Story._scene_sources) or level.data.resource_path != Sources.LEVEL):
+		return {"error": "terminal intro differs from its finite authored source", "reload_original": true}
 	if scene != Story._scenes.get(String(id), {}):
 		return {"error": "scene contract differs from the loaded registry"}
 	var problem := Story.outcomes.result_contract_problem(id, scene)
 	if not problem.is_empty():
 		return {"error": problem}
-	var cinematic: bool = scene.get("completion_policy", "") == POLICY
+	var cinematic: bool = Sources.owns(String(id)) or scene.get("completion_policy", "") == POLICY
 	if cinematic:
 		if scene.get("mode", "") not in ["animated", "dialogue"] or not str(scene.get("then", "")).is_empty() or Story.offers_choice(scene) or not StoryRules.transfer_ids(scene).is_empty() or not (Story._pending_transfers.get(id, []) as Array).is_empty():
 			return {"error": "main_flags_v1 requires a terminal, choice-free, flag-only scene"}

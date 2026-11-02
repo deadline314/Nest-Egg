@@ -11,7 +11,7 @@ from runtime_probe import run_case, write_json
 PROJECT = Path(__file__).resolve().parents[1]
 PRODUCERS = ("label", "gate", "item")
 MODES = ("missing", "missing_read", "shifted", "shifted_read", "malformed", "malformed_read", "missing_choice", "missing_choice_read", "intact", "intact_read")
-SOURCES = ["game/story_result_ch2.gd", "game/story_result_sources.gd",
+SOURCES = ["game/story_flag_sources.gd", "game/story_flag_completion.gd", "game/story_result_ch2.gd", "game/story_result_sources.gd",
            "game/story_result_completion.gd", "game/level/level.gd",
            "data/story/ch2_heron.json", "data/npcs/ch1_label_watch.tres", "data/npcs/ch2_patroller.tres",
            "data/npcs/ch2_rent_window.tres", "data/story/ch1_kasa.json", "tests/probes/story_marker_completion.gd",

@@ -147,6 +147,12 @@ jobs:
         run: |
           python3 tools/run_story_marker_completion.py --godot "$GODOT" --output "${{ runner.temp }}/story-marker-completion"
 
+      - name: Check original terminal home ownership and cold chapter completion
+        if: steps.gate.outputs.skip != 'true'
+        timeout-minutes: 25
+        run: |
+          python3 tools/run_home_completion.py --godot "$GODOT" --output "${{ runner.temp }}/home-completion"
+
       - name: Check optional Sunday choice and cold continuation
         if: steps.gate.outputs.skip != 'true'
         timeout-minutes: 15
@@ -269,6 +275,8 @@ jobs:
             ${{ runner.temp }}/ch2-reading-completion/**/*.log
             ${{ runner.temp }}/story-marker-completion/**/*.json
             ${{ runner.temp }}/story-marker-completion/**/*.log
+            ${{ runner.temp }}/home-completion/**/*.json
+            ${{ runner.temp }}/home-completion/**/*.log
             ${{ runner.temp }}/sunday-choice/**/*.log
             ${{ runner.temp }}/sunday-choice/**/*.json
             ${{ runner.temp }}/voice-completion/**/*.log

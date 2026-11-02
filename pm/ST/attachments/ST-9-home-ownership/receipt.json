@@ -1,0 +1,41 @@
+{
+  "base": "01f65d9e7f28f95e599fe010c8e063a07f329325",
+  "negative": {
+    "processes": 3,
+    "checks": 24,
+    "failures": 13
+  },
+  "after": {
+    "processes": 3,
+    "checks": 24,
+    "failures": 0
+  },
+  "matrix-final": {
+    "processes": 16,
+    "checks": 226,
+    "failures": 0
+  },
+  "prior-markers": {
+    "processes": 31,
+    "checks": 634,
+    "failures": 0
+  },
+  "native": {
+    "processes": 6,
+    "checks": 85,
+    "failures": 0
+  },
+  "native-reading": {
+    "processes": 2,
+    "checks": 29,
+    "failures": 0
+  },
+  "required": {
+    "groups": 7,
+    "checks": 3896,
+    "seconds": 142,
+    "new_failures": 0,
+    "known_failures": 0
+  },
+  "archive_sha256": "2f86a9b30c411a5074ce99999c9405d01973706845a5502269024cf64d61f772"
+}

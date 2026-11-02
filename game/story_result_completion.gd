@@ -1,6 +1,7 @@
 extends Node
 ## Explicit terminal segments, optional choices and finite source continuations.
 ## The general atomic_v1 capability remains absent.
+const FlagSources := preload("res://game/story_flag_sources.gd")
 const Sources := preload("res://game/story_result_sources.gd")
 const Clinic := preload("res://game/story_result_clinic.gd")
 const POLICY := Sources.TERMINAL
@@ -37,6 +38,8 @@ func choice_pending() -> bool:
 ## Finite source binding; no new capability can be enabled by arbitrary story data.
 ## Authored defaults use this gate too; a material default must await its save.
 func choose(option: Dictionary, retry: Callable) -> Dictionary:
+	if FlagSources.owns(String(Story._current_cinematic)):
+		return main.get("_story_completion").refuse_choice()
 	if not Sources.owns_choice(String(Story._current_cinematic)):
 		if choice_pending(): return {"handled": true, "accepted": false}
 		var scene: Dictionary = Story._scenes.get(String(Story._current_cinematic), {})
@@ -125,6 +128,8 @@ func publishing() -> bool:
 
 
 func complete(id: StringName, request: int) -> Dictionary:
+	if FlagSources.owns(String(id)):
+		return {} # The terminal intro retains its original flag owner even with a wrong tag.
 	if choice_pending() and id == _id and request == _request:
 		return {"handled": true, "ready": false}
 	var scene: Dictionary = Story._scenes.get(String(id), {})
