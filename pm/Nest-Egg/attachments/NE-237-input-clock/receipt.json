@@ -1,0 +1,34 @@
+{
+  "base": "dba49a7b597476f2f0406712580c9bbb5f240b6c",
+  "discovery": {
+    "groups": 68,
+    "checks": 92203,
+    "new_failures": 1,
+    "seconds": 551
+  },
+  "controlled_headless": {
+    "before_failures": 1,
+    "after_failures": 0
+  },
+  "original_5fps_phases": {
+    "checks": 8,
+    "failures": 0
+  },
+  "fixed_clock_5fps_phases": {
+    "checks": 8,
+    "failures": 0
+  },
+  "controlled_native_software": {
+    "steps_per_device": 40,
+    "before_failures": 1,
+    "after_failures": 0
+  },
+  "required": {
+    "groups": 28,
+    "checks": 46961,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 503
+  },
+  "archive_sha256": "e829fbead6e0c047327f3733f6bcfb0aa452e8ee686011dfd79ef8dcb6a52d0d"
+}

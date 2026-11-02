@@ -421,6 +421,15 @@ func _timeline(weapon: WeaponData, presses: Array, device: String) -> Array:
 	var player := level.player
 	player.loadout.equip(weapon)
 	player._melee_cooldown_left = 0.0
+	# The script specifies physics frames, so its command clock must use the
+	# same time domain for every device. CPU scheduling is not an input action.
+	var original_commands := player.melee.commands
+	player.melee.remove_child(original_commands)
+	original_commands.free()
+	var commands := preload("res://tests/helpers/melee_physics_clock.gd").new()
+	commands.player = player
+	player.melee.commands = commands
+	player.melee.add_child(commands)
 	AimInput.using_gamepad = true
 	AimInput._last_stick_dir = Vector2.RIGHT
 	await physics_frames(2)

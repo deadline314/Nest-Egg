@@ -43,11 +43,11 @@ func poll(action: StringName) -> void:
 
 func queue_command() -> void:
 	if accepts_input():
-		_deadline_ms = Time.get_ticks_msec() + int(MeleeData.buffer_time() * 1000.0)
+		_deadline_ms = _now_msec() + int(MeleeData.buffer_time() * 1000.0)
 
 
 func remaining() -> float:
-	return maxf(0.0, (_deadline_ms - Time.get_ticks_msec()) / 1000.0)
+	return maxf(0.0, (_deadline_ms - _now_msec()) / 1000.0)
 
 
 func consume() -> void:
@@ -56,3 +56,9 @@ func consume() -> void:
 
 func clear() -> void:
 	consume()
+
+
+## Real monotonic time keeps commands expiring during local hitstop and pause.
+## A deterministic input fixture may override the clock without changing expiry rules.
+func _now_msec() -> int:
+	return Time.get_ticks_msec()
