@@ -42,6 +42,7 @@ func load_data(fresh := false) -> void:
 
 ## 切到某個區段的環境音（空 id = 離開關卡，全部淡出）。
 func set_zone(zone_id: StringName) -> void:
+	if not AudioRelease.allows_playback(): return
 	_zone = zone_id
 	if not enabled:
 		return

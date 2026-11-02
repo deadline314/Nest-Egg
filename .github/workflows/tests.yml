@@ -202,6 +202,11 @@ jobs:
           python3 tools/run_nonlethal_completion.py --godot "$GODOT" --output "${{ runner.temp }}/nonlethal-completion"
           python3 tools/run_nonlethal_completion.py --boss janus --godot "$GODOT" --output "${{ runner.temp }}/janus-completion"
 
+      - name: Check terminal audio admission and delayed playback
+        if: steps.gate.outputs.skip != 'true'
+        timeout-minutes: 5
+        run: python3 tools/run_audio_shutdown.py --godot "$GODOT" --output "${{ runner.temp }}/audio-shutdown"
+
       - name: Run all tests (parallel)
         timeout-minutes: 45
         if: steps.gate.outputs.skip != 'true'
@@ -256,5 +261,7 @@ jobs:
             ${{ runner.temp }}/nonlethal-completion/**/*.json
             ${{ runner.temp }}/janus-completion/**/*.log
             ${{ runner.temp }}/janus-completion/**/*.json
+            ${{ runner.temp }}/audio-shutdown/**/*.log
+            ${{ runner.temp }}/audio-shutdown/**/*.json
             work/godot-audio-safe/dist/receipt.json
           retention-days: 7

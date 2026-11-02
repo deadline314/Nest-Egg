@@ -631,6 +631,7 @@ func _quit(exit_code := 0) -> void:
 	if _quitting:
 		return
 	_quitting = true
+	AudioRelease.begin_shutdown()
 	_save_run()
 	_clear_destination_failure()
 	_active_run = false

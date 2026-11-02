@@ -31,7 +31,7 @@ func _ready() -> void:
 
 ## 播放 stream。同一個串流已經在播時只調整音量，不重頭播。回傳是否換了曲目。
 func play(stream: AudioStream, volume_db := 0.0, fade_in := 1.5, fade_out := 1.5, loop := true, from_position := 0.0) -> bool:
-	if stream == null:
+	if stream == null or not AudioRelease.allows_playback():
 		return false
 	if _active >= 0 and _stream == stream and _players[_active].playing:
 		set_volume(volume_db, fade_in)

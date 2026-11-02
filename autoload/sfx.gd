@@ -506,7 +506,7 @@ func has_named(id: StringName) -> bool:
 
 ## 播一個發聲位；回傳是否真的播放。滿載時只搶優先級不高於自己的聲音，沒有可搶的就丟棄。
 func _play_voice(id: StringName, volume_db: float, pitch: float, priority: int, speed := 1.0) -> bool:
-	if not enabled:
+	if not enabled or not AudioRelease.allows_playback():
 		return false
 	sound_played.emit(id)
 	var stream: AudioStream = _streams.get(id)

@@ -1,0 +1,363 @@
+{
+  "source_sha256": {
+    "game/main.gd": "3a84f70a6b21ec91d9cba16eae9dea4d5897716729bac01a870a41ac8328b3d2",
+    "autoload/sfx.gd": "fa8ee84c0ecc8c3c885f6573d03151a5183331dec873713af9114f3681789f9d",
+    "autoload/music.gd": "cea54f5cc9fa74667d12d32cffc9471a350fd1dd7fcb457f4afe6ab12fa69d34",
+    "autoload/ambience.gd": "871344243dd5909c2741b3fbd5d59e7cddcbfbd904ee6540f64780430d783c81",
+    "core/audio/audio_release.gd": "e4e1d57a59903c24ec65f2b8eec81ff489b14ff9a9c3133fc31cb06126a09cd5",
+    "core/audio/crossfade_player.gd": "bc7fbc680e8dd25d8a9267782ba86b9da05b966d2ad0f54e6cfe361dc38230af",
+    "data/audio/sound_bank.json": "5a06d4f17a5ceb5a2674888a24fc9d634b986a80ec3199fb82ad4dae677688a7",
+    "data/audio/music.json": "236fa59526903eed322f70a13c103d495add9038224f3c581a90561a837527eb",
+    "data/audio/ambience.json": "16a80f2f42aa04d7b0e5c672898497d13fe13f35c7851004f73be4af3054b373",
+    "audio/sfx/beep_02.ogg": "fd476614631ad644b059064b44aa77f81093d004642f436156a938fe5f81fefc",
+    "tests/probes/audio_shutdown.gd": "dd1bb19d4e9236bf02996a6988934b5a6d6e93d6194b3e0abd70f36dd595fea9",
+    "tests/probes/audio_shutdown.tscn": "ae9d9ca2b5cacfaf2790d609ab2ea660216d2b20d65e94bba2a1d981d09db741",
+    "tools/run_audio_shutdown.py": "40db01dca3a04be16e77b2d9b30159d131b74309c3a0689f76ee4b1f21429983",
+    "tools/runtime_probe.py": "fef2c934c0673ab6f385fa30b027893ffc6316bc42e3fcd7cb35484edca6c6d1"
+  },
+  "engine_sha256": "4c8163cc1006799a5e8a5c54229f7442264492f35a4ffc73d87565658fb5c5de",
+  "cases": [
+    {
+      "mode": "main_0",
+      "exit": 0,
+      "timeout": false,
+      "diagnostics": [],
+      "diagnostic_count": 0,
+      "result": {
+        "checks": 9,
+        "failures": [],
+        "trace": {
+          "late_ambience_layers": 0,
+          "late_effect_accepted": false,
+          "late_music_accepted": false,
+          "quitting": true,
+          "stopped": {
+            "ambience": 0,
+            "music": false,
+            "sfx": 0
+          }
+        }
+      },
+      "passed": true
+    },
+    {
+      "mode": "main_5",
+      "exit": 0,
+      "timeout": false,
+      "diagnostics": [],
+      "diagnostic_count": 0,
+      "result": {
+        "checks": 9,
+        "failures": [],
+        "trace": {
+          "late_ambience_layers": 0,
+          "late_effect_accepted": false,
+          "late_music_accepted": false,
+          "quitting": true,
+          "stopped": {
+            "ambience": 0,
+            "music": false,
+            "sfx": 0
+          }
+        }
+      },
+      "passed": true
+    },
+    {
+      "mode": "main_20",
+      "exit": 0,
+      "timeout": false,
+      "diagnostics": [],
+      "diagnostic_count": 0,
+      "result": {
+        "checks": 9,
+        "failures": [],
+        "trace": {
+          "late_ambience_layers": 0,
+          "late_effect_accepted": false,
+          "late_music_accepted": false,
+          "quitting": true,
+          "stopped": {
+            "ambience": 0,
+            "music": false,
+            "sfx": 0
+          }
+        }
+      },
+      "passed": true
+    },
+    {
+      "mode": "main_60",
+      "exit": 0,
+      "timeout": false,
+      "diagnostics": [],
+      "diagnostic_count": 0,
+      "result": {
+        "checks": 9,
+        "failures": [],
+        "trace": {
+          "late_ambience_layers": 0,
+          "late_effect_accepted": false,
+          "late_music_accepted": false,
+          "quitting": true,
+          "stopped": {
+            "ambience": 0,
+            "music": false,
+            "sfx": 0
+          }
+        }
+      },
+      "passed": true
+    },
+    {
+      "mode": "settle_0",
+      "exit": 0,
+      "timeout": false,
+      "diagnostics": [],
+      "diagnostic_count": 0,
+      "result": {
+        "checks": 9,
+        "failures": [],
+        "trace": {
+          "late_ambience_layers": 0,
+          "late_effect_accepted": false,
+          "late_music_accepted": false,
+          "quitting": false,
+          "stopped": {
+            "ambience": 0,
+            "music": false,
+            "sfx": 0
+          }
+        }
+      },
+      "passed": true
+    },
+    {
+      "mode": "settle_5",
+      "exit": 0,
+      "timeout": false,
+      "diagnostics": [],
+      "diagnostic_count": 0,
+      "result": {
+        "checks": 9,
+        "failures": [],
+        "trace": {
+          "late_ambience_layers": 0,
+          "late_effect_accepted": false,
+          "late_music_accepted": false,
+          "quitting": false,
+          "stopped": {
+            "ambience": 0,
+            "music": false,
+            "sfx": 0
+          }
+        }
+      },
+      "passed": true
+    },
+    {
+      "mode": "settle_20",
+      "exit": 0,
+      "timeout": false,
+      "diagnostics": [],
+      "diagnostic_count": 0,
+      "result": {
+        "checks": 9,
+        "failures": [],
+        "trace": {
+          "late_ambience_layers": 0,
+          "late_effect_accepted": false,
+          "late_music_accepted": false,
+          "quitting": false,
+          "stopped": {
+            "ambience": 0,
+            "music": false,
+            "sfx": 0
+          }
+        }
+      },
+      "passed": true
+    },
+    {
+      "mode": "settle_60",
+      "exit": 0,
+      "timeout": false,
+      "diagnostics": [],
+      "diagnostic_count": 0,
+      "result": {
+        "checks": 9,
+        "failures": [],
+        "trace": {
+          "late_ambience_layers": 0,
+          "late_effect_accepted": false,
+          "late_music_accepted": false,
+          "quitting": false,
+          "stopped": {
+            "ambience": 0,
+            "music": false,
+            "sfx": 0
+          }
+        }
+      },
+      "passed": true
+    }
+  ],
+  "wall_seconds": 11.204,
+  "affected": {
+    "groups": 76,
+    "checks": 94120,
+    "failures": 0,
+    "seconds": 627
+  },
+  "existing_cases": 33,
+  "existing_checks": 384,
+  "native": [
+    {
+      "exit": 0,
+      "command": [
+        "python3",
+        "tools/comfyui/gpu_lock.py",
+        "--",
+        "xvfb-run",
+        "-a",
+        "-s",
+        "-screen 0 1280x720x24",
+        "/workspace/.nest-egg-env/ci-godot/dist/godot",
+        "--verbose",
+        "--path",
+        ".",
+        "--rendering-method",
+        "forward_plus",
+        "--rendering-driver",
+        "vulkan",
+        "--audio-driver",
+        "Dummy",
+        "res://tests/probes/audio_shutdown.tscn",
+        "--",
+        "--mode=main_20",
+        "--save-dir=/workspace/Nest-Egg/work/audio-shutdown/native-main/slot",
+        "--out=/workspace/Nest-Egg/work/audio-shutdown/native-main/result"
+      ],
+      "diagnostics": [],
+      "result": {
+        "checks": 9,
+        "failures": [],
+        "trace": {
+          "late_ambience_layers": 0,
+          "late_effect_accepted": false,
+          "late_music_accepted": false,
+          "quitting": true,
+          "stopped": {
+            "ambience": 0,
+            "music": false,
+            "sfx": 0
+          }
+        }
+      },
+      "renderer": "Forward+ Vulkan llvmpipe",
+      "engine_sha256": "4c8163cc1006799a5e8a5c54229f7442264492f35a4ffc73d87565658fb5c5de"
+    },
+    {
+      "exit": 0,
+      "command": [
+        "python3",
+        "tools/comfyui/gpu_lock.py",
+        "--",
+        "xvfb-run",
+        "-a",
+        "-s",
+        "-screen 0 1280x720x24",
+        "/workspace/.nest-egg-env/ci-godot/dist/godot",
+        "--verbose",
+        "--path",
+        ".",
+        "--rendering-method",
+        "forward_plus",
+        "--rendering-driver",
+        "vulkan",
+        "--audio-driver",
+        "Dummy",
+        "res://tests/probes/audio_shutdown.tscn",
+        "--",
+        "--mode=settle_20",
+        "--save-dir=/workspace/Nest-Egg/work/audio-shutdown/native-settle/slot",
+        "--out=/workspace/Nest-Egg/work/audio-shutdown/native-settle/result"
+      ],
+      "diagnostics": [],
+      "result": {
+        "checks": 9,
+        "failures": [],
+        "trace": {
+          "late_ambience_layers": 0,
+          "late_effect_accepted": false,
+          "late_music_accepted": false,
+          "quitting": false,
+          "stopped": {
+            "ambience": 0,
+            "music": false,
+            "sfx": 0
+          }
+        }
+      },
+      "renderer": "Forward+ Vulkan llvmpipe",
+      "engine_sha256": "4c8163cc1006799a5e8a5c54229f7442264492f35a4ffc73d87565658fb5c5de"
+    }
+  ],
+  "negative": {
+    "mode": "quit",
+    "exit": 0,
+    "timeout": false,
+    "diagnostics": [
+      "FAIL terminal quit refuses a deferred effect after stopping its voices",
+      "FAIL terminal quit refuses deferred music after stopping its owner",
+      "FAIL terminal quit refuses deferred ambience after stopping its owner",
+      "WARNING: 16 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+      "ERROR: 5 resources still in use at exit.",
+      "Leaked instance: OggPacketSequence:9223372556629707258 - Reference count: 3",
+      "Leaked instance: AudioStreamOggVorbis:9223372556646484475 - Reference count: 1",
+      "Leaked instance: OggPacketSequence:9223372565437745728 - Reference count: 3",
+      "Leaked instance: OggPacketSequence:9223372565941062212 - Reference count: 3",
+      "Leaked instance: OggPacketSequencePlayback:9223372679740918549 - Reference count: 1",
+      "Leaked instance: AudioStreamPlaybackOggVorbis:9223372679791250207 - Reference count: 1",
+      "Leaked instance: AudioStreamPlaybackOggVorbis:9223372679724141345 - Reference count: 1",
+      "Leaked instance: AudioStreamOggVorbis:9223372679757695782 - Reference count: 1",
+      "Leaked instance: OggPacketSequencePlayback:9223372679808027448 - Reference count: 1",
+      "Leaked instance: OggPacketSequence:9223372672073730903 - Reference count: 3",
+      "Leaked instance: OggPacketSequencePlayback:9223372679371819867 - Reference count: 1",
+      "Leaked instance: OggPacketSequencePlayback:9223372679673809760 - Reference count: 1",
+      "Leaked instance: AudioStreamOggVorbis:9223372679690586978 - Reference count: 1",
+      "Leaked instance: AudioStreamPlaybackOggVorbis:9223372679657032547 - Reference count: 1",
+      "Leaked instance: AudioStreamOggVorbis:9223372679623478120 - Reference count: 1",
+      "Leaked instance: AudioStreamPlaybackOggVorbis:9223372679355042914 - Reference count: 1",
+      "Resource still in use: res://audio/sfx/beep_02.ogg::OggPacketSequence_asscm (OggPacketSequence)",
+      "Resource still in use: res://audio/sfx/beep_02.ogg (AudioStreamOggVorbis)",
+      "Resource still in use: res://audio/sfx/amb_rain_01.ogg::OggPacketSequence_h2p4k (OggPacketSequence)",
+      "Resource still in use: res://audio/sfx/amb_wind_01.ogg::OggPacketSequence_ns1uf (OggPacketSequence)",
+      "Resource still in use: res://audio/music/menu_dark.ogg::OggPacketSequence_gnupm (OggPacketSequence)"
+    ],
+    "diagnostic_count": 26,
+    "result": {
+      "checks": 9,
+      "failures": [
+        "terminal quit refuses a deferred effect after stopping its voices",
+        "terminal quit refuses deferred music after stopping its owner",
+        "terminal quit refuses deferred ambience after stopping its owner"
+      ],
+      "trace": {
+        "late_ambience_layers": 2,
+        "late_effect_accepted": true,
+        "late_music_accepted": true,
+        "quitting": true,
+        "stopped": {
+          "ambience": 0,
+          "music": false,
+          "sfx": 0
+        }
+      }
+    },
+    "passed": false,
+    "baseline": "53e86de123717c66d498d0a6e543ae6eb576387c",
+    "git_clean": true
+  },
+  "archive_sha256": "f356fffd0b92ffcde240417f1b07b87f7ab2e170fd59df93686aae751388bd3e"
+}

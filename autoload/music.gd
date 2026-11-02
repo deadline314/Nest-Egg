@@ -227,6 +227,7 @@ func _refresh_level_cue(advance := false) -> void:
 
 ## 換到某個 cue。空字串 = 淡出成靜音。回傳是否真的換了。
 func _switch_to(cue_id: StringName, force := false) -> bool:
+	if not AudioRelease.allows_playback(): return false
 	if not enabled:
 		return false
 	if cue_id == &"":

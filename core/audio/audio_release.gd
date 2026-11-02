@@ -7,7 +7,20 @@ const TIMEOUT_MS := 400
 const MIXES := 2
 
 
+static var _shutdown_started := false
+
+
+## Terminal process shutdown only; scene changes keep accepting playback.
+static func begin_shutdown() -> void:
+	_shutdown_started = true
+
+
+static func allows_playback() -> bool:
+	return not _shutdown_started
+
+
 static func settle(tree: SceneTree) -> void:
+	begin_shutdown()
 	Music.stop(0.0)
 	Ambience.stop_all(0.0)
 	Sfx.stop_all()
