@@ -19,6 +19,30 @@ const NPC_SOURCES := {
 		"levels": [
 			"res://data/levels/ch2_loading.tres"
 		]
+	},
+	"ch2_t_s08_banyan": {
+		"npc": "res://data/npcs/ch2_banyan.tres",
+		"levels": [
+			"res://data/levels/ch2_market.tres"
+		]
+	},
+	"ch2_t_s08_rumor": {
+		"npc": "res://data/npcs/ch2_hawker.tres",
+		"levels": [
+			"res://data/levels/ch2_market.tres"
+		]
+	},
+	"ch2_t_s09_guard": {
+		"npc": "res://data/npcs/ch2_guard.tres",
+		"levels": [
+			"res://data/levels/ch2_loading.tres"
+		]
+	},
+	"ch2_t_s09_lever": {
+		"npc": "res://data/npcs/ch2_sc1_lever.tres",
+		"levels": [
+			"res://data/levels/ch2_loading.tres"
+		]
 	}
 }
 const BOUNDARIES := {
@@ -88,6 +112,78 @@ const BOUNDARIES := {
 			{
 				"kind": "flag",
 				"id": "ch2_evidence_collection",
+				"value": true
+			}
+		]
+	},
+	"ch2_t_s08_banyan": {
+		"policy": "main_terminal_results_v1",
+		"then": "",
+		"mode": "dialogue",
+		"when": {
+			"not": {
+				"flag": "ch2_banyan_heard",
+				"equals": true
+			}
+		},
+		"operations": [
+			{
+				"kind": "flag",
+				"id": "ch2_banyan_heard",
+				"value": true
+			}
+		]
+	},
+	"ch2_t_s08_rumor": {
+		"policy": "main_terminal_results_v1",
+		"then": "",
+		"mode": "dialogue",
+		"when": {
+			"not": {
+				"flag": "ch2_rumor_heard",
+				"equals": true
+			}
+		},
+		"operations": [
+			{
+				"kind": "flag",
+				"id": "ch2_rumor_heard",
+				"value": true
+			}
+		]
+	},
+	"ch2_t_s09_guard": {
+		"policy": "main_terminal_results_v1",
+		"then": "",
+		"mode": "dialogue",
+		"when": {
+			"not": {
+				"flag": "ch2_guard_seen",
+				"equals": true
+			}
+		},
+		"operations": [
+			{
+				"kind": "flag",
+				"id": "ch2_guard_seen",
+				"value": true
+			}
+		]
+	},
+	"ch2_t_s09_lever": {
+		"policy": "main_terminal_results_v1",
+		"then": "",
+		"mode": "animated",
+		"when": {
+			"not": {
+				"flag": "ch2_sc1_open",
+				"equals": true
+			}
+		},
+		"operations": [
+			{
+				"kind": "flag",
+				"id": "ch2_sc1_open",
 				"value": true
 			}
 		]

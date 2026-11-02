@@ -1,0 +1,46 @@
+{
+  "base": "2aa735decf043ecb684a642f2658c66d3ce334a4",
+  "before": {
+    "processes": 4,
+    "checks": 48,
+    "failures": 20,
+    "git_clean": true
+  },
+  "same_refusal_after": {
+    "processes": 4,
+    "checks": 48,
+    "failures": 0
+  },
+  "reading": {
+    "processes": 28,
+    "checks": 472,
+    "failures": 0
+  },
+  "prior_producers": {
+    "processes": 22,
+    "checks": 319,
+    "failures": 0
+  },
+  "compiler": {
+    "checks": 15,
+    "failures": 0
+  },
+  "native_software": {
+    "processes": 8,
+    "checks": 151,
+    "failures": 0
+  },
+  "native_prop_cold": {
+    "processes": 1,
+    "checks": 13,
+    "failures": 0
+  },
+  "required": {
+    "groups": 9,
+    "checks": 4263,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 160
+  },
+  "archive_sha256": "7ebf05f5aa46c96b1bf4a519624956953fb1aa41ea498a68a46ebd5817e53dd9"
+}
