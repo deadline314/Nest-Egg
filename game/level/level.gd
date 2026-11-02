@@ -40,6 +40,8 @@ var died := false
 ## Pending automatic results keep route callbacks from saving half an event.
 var channel_result_pending := false
 var channel_sources: Array[Node] = []
+## Only original authored map actors may settle durable NPC results.
+var npc_sources: Array[NpcActor] = []
 var _area_route_controls: Array[Dictionary] = []
 
 var _layout: LevelLayout
@@ -554,6 +556,7 @@ func _spawn_static_entities() -> void:
 		if node != null:
 			node.position = spawn["position"]
 			_entities.add_child(node)
+			if node is NpcActor: npc_sources.append(node)
 			if node is Enemy or node is MechanismSwitch or node is FloodPit or node is EncounterZone:
 				channel_sources.append(node)
 			if node is Vehicle:

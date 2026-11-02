@@ -38,7 +38,14 @@ func choice_pending() -> bool:
 ## Authored defaults use this gate too; a material default must await its save.
 func choose(option: Dictionary, retry: Callable) -> Dictionary:
 	if not Sources.owns_choice(String(Story._current_cinematic)):
-		return {"handled": true, "accepted": false} if choice_pending() else {}
+		if choice_pending(): return {"handled": true, "accepted": false}
+		var scene: Dictionary = Story._scenes.get(String(Story._current_cinematic), {})
+		if scene.get("completion_policy", "") in COMPLETION_POLICIES:
+			push_warning("[StoryResultCompletion] marked segment contains an unregistered choice")
+			Story.reset_active_presentation(&"leave")
+			EventBus.toast_requested.emit(Prompt.copy("這段對話暫時無法繼續，原進度保留。", "この会話は未対応です。元の進行状況は保持されています。", "This conversation is unavailable. Your previous progress is preserved."))
+			return {"handled": true, "accepted": false}
+		return {}
 	if not main.get("_active_run") or _publishing:
 		return {"handled": true, "accepted": false}
 	var id := Story._current_cinematic
@@ -187,7 +194,7 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choi
 	var level := main.get("_screen") as Level
 	if level == null or not level.is_initialized() or level.data.resource_path != main.get("_level_path") or not level.data.persistent_world or main.call("_route_pending"):
 		return {"error": "terminal results require the current persistent Main Level"}
-	if Story._scene_sources.get(String(_id)) != "res://data/story/ch1_kasa.json":
+	if Story._scene_sources.get(String(_id)) != Sources.authored_source(String(_id)):
 		return {"error": "terminal producer is not bound to this segment and current authored Level"}
 	var npc := {}
 	var death := {}
@@ -195,10 +202,10 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choi
 		death = level.death_presentation_source(_id,_request)
 		if not Clinic.owns_source(death):
 			return {"error":"first clinic requires its actual current death episode and request"}
-	elif NPC_SOURCES.has(String(_id)):
+	elif not Sources.npc_source(String(_id)).is_empty():
 		npc = _npc_source(level)
 		if npc.is_empty():
-			return {"error": "terminal NPC result requires its actual current authored interaction"}
+			return {"error": "terminal NPC result requires its actual current authored interaction", "reload_original": true}
 	elif SEGMENTS.get(String(_id), "") != level.data.resource_path:
 		return {"error": "terminal producer is not bound to this authored Level"}
 	if (not choice and str(scene.get("then", "")) != String(continuation) and not (continuation == &"" and _clinic_closes_here())) or Story.offers_choice(scene) or Story._pending_next.has(_id) or scene.has("transfer_items") or not (Story._pending_transfers.get(_id, []) as Array).is_empty():
@@ -314,7 +321,7 @@ func _source_unchanged(level: Level, npc: Dictionary, death: Dictionary) -> bool
 
 
 func _npc_source(level: Level) -> Dictionary:
-	var source: Dictionary = NPC_SOURCES.get(String(_id), {})
+	var source: Dictionary = Sources.npc_source(String(_id))
 	var allowed: Array = source.get("levels", [])
 	if level.died or not allowed.has(level.data.resource_path) or level.player == null or level.player.is_dead():
 		return {}
@@ -322,7 +329,7 @@ func _npc_source(level: Level) -> Dictionary:
 	var index: int = context.get("talk_index", -1)
 	for node: Node in level._entities.get_children():
 		var actor := node as NpcActor
-		if actor == null or actor.is_queued_for_deletion() or not actor.is_inside_tree() or actor.data == null or actor.data.resource_path != source.get("npc", "") or actor.state_key() != context.get("source_id") or not actor.is_present():
+		if actor == null or not level.npc_sources.has(actor) or actor.is_queued_for_deletion() or not actor.is_inside_tree() or actor.data == null or actor.data.resource_path != source.get("npc", "") or actor.state_key() != context.get("source_id") or not actor.is_present():
 			continue
 		var prepared := actor.prepare_story_completion(index)
 		if prepared.is_empty() or not Story.is_npc_presentation(actor.data, index, _id):

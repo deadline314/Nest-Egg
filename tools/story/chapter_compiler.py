@@ -28,7 +28,7 @@ import dataclasses  # noqa: E402
 
 import story_i18n  # noqa: E402
 from ch1_closure import render_document_resource  # noqa: E402
-from ch1_runtime_backend import CompileError, _bubble_ok, _results, _say_lines, _walk  # noqa: E402
+from ch1_runtime_backend import CompileError, DURABLE_POLICIES, validate_completion_policies, _bubble_ok, _results, _say_lines, _walk  # noqa: E402
 
 DIALOGUE_MIN_LINES = 3
 
@@ -46,6 +46,7 @@ class ChapterSpec:
     derived_flags: dict = field(default_factory=dict)
     death_sequences: list = field(default_factory=list)
     unpublished_quests: set[str] = field(default_factory=set)
+    completion_policies: dict[str, str] = field(default_factory=dict)
 
 
 def _choice_step(segment, spec: ChapterSpec) -> dict:
@@ -207,6 +208,18 @@ def compile_chapter(spec: ChapterSpec) -> dict:
         if scenes.get(ident, {}).get("mode") != "radio":
             raise CompileError(f"重要通訊 {ident} 不是通訊場景")
         scenes[ident]["freeze"] = True
+    for ident, policy in spec.completion_policies.items():
+        if ident not in scenes:
+            raise CompileError(f'{ident}: 保存政策的段落不存在')
+        if not isinstance(policy, str) or policy not in DURABLE_POLICIES:
+            raise CompileError(f'{ident}: 未知的保存政策 {policy!r}')
+        scene = scenes[ident]
+        if scene.get('mode') == 'dispatch':
+            raise CompileError(f'{ident}: 分派入口不能宣告段落保存政策')
+        if policy == 'main_terminal_results_v1' and any(step.get('do') in ('choice', 'branch') for step in _walk(scene.get('steps', []))):
+            raise CompileError(f'{ident}: 終端保存政策不能包含選擇或分支')
+        scene['completion_policy'] = policy
+        validate_completion_policies({ident: scene})
     _check_lines(scenes)
     chapter = dict(spec.chapter)
     chapter["languages"] = ["zh", *story_i18n.LANGUAGES]

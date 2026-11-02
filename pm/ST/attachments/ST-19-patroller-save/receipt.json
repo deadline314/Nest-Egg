@@ -1,0 +1,35 @@
+{
+  "integration_base": "cb3cb8c7f7a76e33fc72afdd6e8eac11b5e9bfa1",
+  "baseline": "dba49a7b597476f2f0406712580c9bbb5f240b6c",
+  "before": {
+    "checks": 9,
+    "failures": 4
+  },
+  "patroller": {
+    "processes": 8,
+    "checks": 83,
+    "failures": 0
+  },
+  "first_chapter_selected": {
+    "processes": 8,
+    "checks": 271,
+    "failures": 0
+  },
+  "compiler": {
+    "checks": 15,
+    "failures": 0
+  },
+  "native_software": {
+    "processes": 2,
+    "checks": 25,
+    "failures": 0
+  },
+  "required": {
+    "groups": 68,
+    "checks": 92203,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 526
+  },
+  "archive_sha256": "f1b09e965d2da3a91aa8a29fb38232c11d6a39eebf669950db4ed8dfc078fd60"
+}

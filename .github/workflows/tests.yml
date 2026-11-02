@@ -122,6 +122,13 @@ jobs:
         run: |
           python3 tools/run_handoff_completion.py --godot "$GODOT" --output "${{ runner.temp }}/handoff-completion"
 
+      - name: Check chapter-two patroller results and cold reads
+        if: steps.gate.outputs.skip != 'true'
+        timeout-minutes: 20
+        run: |
+          python3 tools/story/test_chapter_completion_policies.py
+          python3 tools/run_patroller_completion.py --godot "$GODOT" --output "${{ runner.temp }}/patroller-completion"
+
       - name: Check optional Sunday choice and cold continuation
         if: steps.gate.outputs.skip != 'true'
         timeout-minutes: 15
@@ -236,6 +243,8 @@ jobs:
             ${{ runner.temp }}/audio-load/*.json
             ${{ runner.temp }}/handoff-completion/**/*.log
             ${{ runner.temp }}/handoff-completion/**/*.json
+            ${{ runner.temp }}/patroller-completion/**/*.json
+            ${{ runner.temp }}/patroller-completion/**/*.log
             ${{ runner.temp }}/sunday-choice/**/*.log
             ${{ runner.temp }}/sunday-choice/**/*.json
             ${{ runner.temp }}/voice-completion/**/*.log

@@ -3,6 +3,7 @@ extends RefCounted
 const SOURCE := "res://data/story/ch1_kasa.json"
 const Supper := preload("res://game/story_result_supper.gd")
 const Clinic := preload("res://game/story_result_clinic.gd")
+const Chapter2 := preload("res://game/story_result_ch2.gd")
 const TERMINAL := "main_terminal_results_v1"
 const CONTINUATION := "main_flags_continuation_v1"
 const RESULT_CONTINUATION := "main_source_results_continuation_v1"
@@ -146,17 +147,23 @@ static func owns_choice(id: String) -> bool:
 	return CHOICES.has(id) or Supper.CHOICES.has(id)
 
 static func owns_boundary(id: String) -> bool:
-	return BOUNDARIES.has(id) or Supper.BOUNDARIES.has(id) or Clinic.owns(id)
+	return not _boundary_rule(id).is_empty() or Clinic.owns(id)
 
 static func _choice_rule(id: String) -> Dictionary:
 	return CHOICES.get(id, Supper.CHOICES.get(id, {}))
 
 static func _boundary_rule(id: String) -> Dictionary:
-	return BOUNDARIES.get(id, Supper.BOUNDARIES.get(id, {}))
+	return Chapter2.BOUNDARIES.get(id, BOUNDARIES.get(id, Supper.BOUNDARIES.get(id, {})))
+
+static func npc_source(id: String) -> Dictionary:
+	return Chapter2.NPC_SOURCES.get(id, NPC_SOURCES.get(id, {}))
+
+static func authored_source(id: String) -> String:
+	return Chapter2.SOURCE if Chapter2.NPC_SOURCES.has(id) else SOURCE
 
 static func _loaded(id: String, scenes: Dictionary, sources: Dictionary) -> Dictionary:
 	var scene: Variant = scenes.get(id)
-	if not _text_equals(sources.get(id), SOURCE) or not scene is Dictionary or not RunSaveCodec.validate_tree(scene, 32768).is_empty():
+	if not _text_equals(sources.get(id), authored_source(id)) or not scene is Dictionary or not RunSaveCodec.validate_tree(scene, 32768).is_empty():
 		return {}
 	return scene
 
@@ -180,6 +187,20 @@ static func _option_condition(raw: Variant, expected: Dictionary) -> bool:
 		if not _value_equals(raw.get(key), expected[key]):
 			return false
 	return true
+
+static func _condition_matches(raw: Variant, expected: Variant, depth := 0) -> bool:
+	if depth > 16: return false
+	if expected is Dictionary:
+		if not raw is Dictionary or raw.size() != expected.size(): return false
+		for key: String in expected:
+			if not raw.has(key) or not _condition_matches(raw[key], expected[key], depth + 1): return false
+		return true
+	if expected is Array:
+		if not raw is Array or raw.size() != expected.size(): return false
+		for i in expected.size():
+			if not _condition_matches(raw[i], expected[i], depth + 1): return false
+		return true
+	return _value_equals(raw, expected)
 
 static func _flags_match(raw: Variant, expected: Dictionary) -> bool:
 	if not raw is Dictionary or raw.size() != expected.size():
@@ -215,6 +236,8 @@ static func boundary(id: String, scenes: Dictionary, sources: Dictionary) -> Dic
 		operations.append({"kind": "flag", "id": rule["flag"], "value": true})
 	if not _text_equals(scene.get("completion_policy"), rule["policy"]) or not _text_equals(scene.get("then", ""), rule["then"]) or not _operations_match(scene.get("results", []), operations) or not _empty_array(scene, "set_flags") or not _empty_array(scene, "transfer_items"):
 		return {}
+	if rule.has("mode") and not _text_equals(scene.get("mode"), rule["mode"]): return {}
+	if rule.has("when") and not _condition_matches(scene.get("when", {}), rule["when"]): return {}
 	var steps: Variant = scene.get("steps", [])
 	if not steps is Array:
 		return {}
@@ -270,7 +293,7 @@ static func _local_choice_step(id: String, scenes: Dictionary, sources: Dictiona
 static func _route_valid(id: String, scenes: Dictionary, sources: Dictionary, visits: Dictionary) -> bool:
 	if visits.has(id):
 		return visits[id] == 2
-	if visits.size() >= MAX_ROUTE_NODES or not NPC_SOURCES.has(id):
+	if visits.size() >= MAX_ROUTE_NODES or npc_source(id).is_empty():
 		return false
 	visits[id] = 1
 	var targets: Array = []
@@ -289,7 +312,7 @@ static func _route_valid(id: String, scenes: Dictionary, sources: Dictionary, vi
 		for target: String in rule.get("failures", {}).values():
 			targets.append(target)
 	for target: String in targets:
-		if NPC_SOURCES.get(id, {}) != NPC_SOURCES.get(target, {}) or not _route_valid(target, scenes, sources, visits):
+		if npc_source(id) != npc_source(target) or not _route_valid(target, scenes, sources, visits):
 			return false
 	visits[id] = 2
 	return true
