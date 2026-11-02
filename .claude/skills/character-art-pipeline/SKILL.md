@@ -75,6 +75,9 @@ texture_scale = 1 / tex_px_per_wp
 - 編輯 latent 由第一張參考圖決定，`w`／`h` 不決定編輯輸出。`resolution>0` 依約 resolution² 面積保持比例，再取 32 倍數；`resolution=0` 以原參考尺寸取 32 倍數。保存 requested 與 actual 尺寸，分件坐標依 actual 驗證。不可因此重採樣原定稿來配錯誤的 spec。
 - Load→Join→Save 的浮點與 uint8 回存可能讓部分 alpha 相差 1；這不是接縫通過容差，也不代表可修改原圖。要保存未編輯區的來源四通道，直接以原 RGBA／原尺寸硬遮罩合成並驗證輸出，不能用模型「保持不變」的提示詞或節點回存代替 byte-exact 檢查。
 - 目前 Qwen 2.1 編碼器沒有 mask、depth、edge 或 keypoint socket。通用 mask sampling／final composite 必須確認實際 graph 相容並實測；參考圖輪廓與官方 local edit 範例不代表硬幾何約束。沒有安裝相容 control checkpoint 時不得聲稱有 ControlNet 控制。參考 alpha 保留、生成 alpha、分件所有權、動態與人体品質仍逐關驗收。
+
+**保留來源半透明邊緣**：新角色可在 spec 明確設定 `preserve_source_alpha: true`。分群／切口仍是所有權遮罩，但可見像素保留原 RGBA，隱藏補全取實際階段圖／補全圖的 alpha，接點 feather 乘在既有 alpha 上；不把全部可見像素改成 255。缺省或 `false` 維持舊輸出，不自動重建已批准角色。此模式也保留來源中的微弱雜點，啟用前須審查黑／灰／白底、按既有清理規則處理明確雜點，不能把全圖 alpha 閾值化當作品質修復。來源模式的完成群組快取綁定目前來源與階段圖的 RGBA 雜湊，拒絕無鍵或舊二值快取；`--only` 仍明確保留未選群組的既有零件。離線回歸：`python tools/comfyui/test_source_alpha.py`。這不代替人體、所有權、接縫與實際場景驗收。
+
 ## 3. 骨架定位與座標契約
 
 1. 原圖不搬移；SAM 3D Body 需要灰底時另存參考圖，不破壞原生 alpha。

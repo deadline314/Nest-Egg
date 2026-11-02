@@ -129,6 +129,12 @@ def cap_alpha(alpha: np.ndarray, straight: np.ndarray, caps: list[tuple[np.ndarr
     return (alpha.astype(np.float32) * keep).round().astype(np.uint8)
 
 
+def masked_rgba(color: np.ndarray, region: np.ndarray, coverage: np.ndarray | None = None) -> np.ndarray:
+    """Ownership is binary; source coverage need not be. Never change RGB while cutting a layer."""
+    opacity = np.full(region.shape, 255, np.uint8) if coverage is None else coverage
+    return np.dstack([color, np.where(region, opacity, 0).astype(np.uint8)])
+
+
 def ensure_point_masks(image: Path, groups: dict, out_dir: Path, threshold: float = 0.3) -> dict:
     """SAM point-prompt masks of spec groups.<name>.points = {"pos": [[x, y], ...], "neg": [[x, y], ...]} (pixels of base_rgba.png).
     A limb a text prompt cannot tell from its twin (near arm / far arm, near leg / far leg) is picked by points on it and on what it is not.
@@ -276,6 +282,10 @@ def main() -> None:
     ap.add_argument("--redo-stage", help="comma list of stage pictures to generate again")
     args = ap.parse_args()
     spec = json.loads(Path(args.spec).read_text(encoding="utf8"))
+    preserve_alpha = spec.get("preserve_source_alpha", False)
+    if type(preserve_alpha) is not bool:
+        ap.error("spec.preserve_source_alpha must be a boolean")
+    coverage_cutoff = 0 if preserve_alpha else 127
     global PINNED_MASKS
     PINNED_MASKS = bool(spec.get("pinned_masks"))
     only = {name.strip() for name in args.only.split(",")} if args.only is not None else None
@@ -284,7 +294,7 @@ def main() -> None:
     work = Path(args.work)
     rgba = np.array(Image.open(work / "base_rgba.png").convert("RGBA"))
     H, W = rgba.shape[:2]
-    alpha = rgba[:, :, 3] > 127
+    alpha = rgba[:, :, 3] > coverage_cutoff
     rgb = rgba[:, :, :3]
 
     # ---- SAM masks --------------------------------------------------------------------------------------------
@@ -373,17 +383,23 @@ def main() -> None:
         write_grey_composite(arr_, gimg)
         need = sorted({p for gname, g in spec["groups"].items() if g.get("complete", {}).get("stage") == sname for p in g["sam"]})
         have = ensure_text_masks(gimg, need, sdir / f"sam_{sname}", f"stage:{sname}")
-        stage_masks[sname] = {p: (np.array(Image.open(have[p]).convert("L").resize((W, H))) > 127) & (arr_[:, :, 3] > 127) for p in need}
+        stage_masks[sname] = {p: (np.array(Image.open(have[p]).convert("L").resize((W, H))) > 127) & (arr_[:, :, 3] > coverage_cutoff) for p in need}
 
     # ---- completion of hidden groups --------------------------------------------------------------------------
     # a cached completed group is kept only while the spec that made it is unchanged (used to be ignored silently); no key file = older picture, kept
     group_key = hashlib.sha256(json.dumps([spec["groups"], spec.get("near_leg")], sort_keys=True, ensure_ascii=False).encode("utf8")).hexdigest()
+    if preserve_alpha:
+        # Do not accept binary-alpha or stale-source completions for a coverage-preserving build.
+        group_key = hashlib.sha256(json.dumps([
+            "source-alpha-v1", group_key, hashlib.sha256(rgba.tobytes()).hexdigest(),
+            {name: hashlib.sha256(arr.tobytes()).hexdigest() for name, arr in sorted(stage_rgba.items())},
+        ], sort_keys=True).encode("utf8")).hexdigest()
     complete: dict[str, np.ndarray] = {}  # group -> full-canvas RGBA
     for name in order:
         g = spec["groups"][name]
         done = gdir / f"{name}.png"
         key_file = gdir / f"{name}.key"
-        vis_rgba = np.dstack([rgb, (V[name] * 255).astype(np.uint8)])
+        vis_rgba = masked_rgba(rgb, V[name], rgba[:, :, 3] if preserve_alpha else None)
         if "complete" not in g or args.no_complete or (only is not None and name not in only and done.exists()):
             if "complete" in g and not args.no_complete and done.exists() and (only is None or name not in only):
                 complete[name] = np.array(Image.open(done).convert("RGBA"))
@@ -391,7 +407,7 @@ def main() -> None:
                 complete[name] = vis_rgba
             continue
         if done.exists() and only is None:
-            if not key_file.exists() or key_file.read_text(encoding="utf8") == group_key:
+            if (not key_file.exists() and not preserve_alpha) or (key_file.exists() and key_file.read_text(encoding="utf8") == group_key):
                 print(f"keep {done.name} (use --only {name} to redo)")
                 complete[name] = np.array(Image.open(done).convert("RGBA"))
                 continue
@@ -438,10 +454,13 @@ def main() -> None:
             gap = solid & dilate(occ, c.get("gap_grow", 14)) & ~others & ~core & dilate(core, c.get("near", 120))
             final = largest_blobs(cv2.morphologyEx((core | gap).astype(np.uint8), cv2.MORPH_CLOSE, np.ones((7, 7), np.uint8)) > 0)
             color = np.where(core[:, :, None], rgb, stage_rgba[c["stage"]][:, :, :3])
+            coverage = np.where(core, rgba[:, :, 3], stage_rgba[c["stage"]][:, :, 3]) if preserve_alpha else None
             holes = ndimage.binary_fill_holes(final) & ~final  # enclosed gaps (a tool handle the SAM mask skipped): fill them from the stage picture
             if holes.any():
                 st_ = stage_rgba[c["stage"]]
                 color = np.where(holes[:, :, None], np.where((st_[:, :, 3] > 127)[:, :, None], st_[:, :, :3], rgb), color)
+                if preserve_alpha:
+                    coverage = np.where(holes, np.where(st_[:, :, 3] > 127, st_[:, :, 3], rgba[:, :, 3]), coverage)
                 final = final | holes
             if c.get("fill_behind"):
                 # the stage picture still has the limb in front of the body (only armor was removed), so nothing was painted behind it:
@@ -456,6 +475,8 @@ def main() -> None:
                     gap_fill = hid & alpha & final.any(1)[:, None]
                     gap_fill |= ndimage.binary_fill_holes(final | gap_fill) & ~final
                     color = row_fill(color, gap_fill, final)
+                    if preserve_alpha:
+                        coverage = np.where(gap_fill, 255, coverage)
                     final = final | gap_fill
             if c.get("keep_rim"):
                 # trim took a ring of the group's own pixels away and the stage picture gives back only its opaque inside: along the stage's
@@ -468,8 +489,10 @@ def main() -> None:
                     idx = ndimage.distance_transform_edt(~final, return_distances=False, return_indices=True)
                     near_color = color[idx[0], idx[1]]
                     color = np.where(lost[:, :, None], np.where((st_[:, :, 3] > 127)[:, :, None], st_[:, :, :3], near_color), color)
+                    if preserve_alpha:
+                        coverage = np.where(lost, np.where(st_[:, :, 3] > 127, st_[:, :, 3], coverage[idx[0], idx[1]]), coverage)
                     final = final | lost
-            layer = np.dstack([color, (final * 255).astype(np.uint8)])
+            layer = masked_rgba(color, final, coverage)
             Image.fromarray(layer).save(done)
             key_file.write_text(group_key, encoding="utf8")
             complete[name] = layer
@@ -509,7 +532,12 @@ def main() -> None:
         full = np.zeros((H, W, 3), np.uint8)
         full[sl] = comp_c
         color = np.where((V[name])[:, :, None], rgb, full)
-        layer = np.dstack([color, (final * 255).astype(np.uint8)])
+        coverage = None
+        if preserve_alpha:
+            generated_alpha = np.zeros((H, W), np.uint8)
+            generated_alpha[sl] = comp_a
+            coverage = np.where(V[name], rgba[:, :, 3], generated_alpha)
+        layer = masked_rgba(color, final, coverage)
         Image.fromarray(layer).save(done)
         key_file.write_text(group_key, encoding="utf8")
         complete[name] = layer
@@ -520,7 +548,7 @@ def main() -> None:
         leg_stage = nl_cfg.get("stage")
         leg_sam_dir = sdir / f"sam_{leg_stage}" if leg_stage else sam_dir
         leg_image = sdir / f"{leg_stage}_grey.png" if leg_stage else grey
-        leg_alpha = stage_rgba[leg_stage][:, :, 3] > 127 if leg_stage else alpha
+        leg_alpha = stage_rgba[leg_stage][:, :, 3] > coverage_cutoff if leg_stage else alpha
         mask_png = leg_sam_dir / "near_leg.png"
         key_json = leg_sam_dir / "near_leg.json"
         key = near_leg_key(nl_cfg, leg_image)
@@ -544,7 +572,7 @@ def main() -> None:
             if nl_cfg.get("lower_outline"):
                 original = np.zeros((H, W), np.uint8)
                 cv2.fillPoly(original, [np.array(nl_cfg["lower_outline"], np.int32)], 1)
-                lower_alpha = (complete["body"][:, :, 3] > 127) | (complete.get("boot", rgba)[:, :, 3] > 127)
+                lower_alpha = (complete["body"][:, :, 3] > coverage_cutoff) | (complete.get("boot", rgba)[:, :, 3] > coverage_cutoff)
                 original = original.astype(bool) & lower_alpha
                 original_far = lower_alpha & ~original
             else:
@@ -608,22 +636,28 @@ def main() -> None:
             region = dilate(region, nl_cfg["grow"]) & leg_alpha & ~far
         body_c, boot_c = complete["body"], complete.get("boot")
         if nl_cfg.get("root_overlap"):
-            region |= (body_c[:, :, 3] > 127) & (abs(yy_leg - hip_y) <= nl_cfg["root_overlap"])
-        have_body = body_c[:, :, 3] > 127
-        have_boot = (boot_c[:, :, 3] > 127) if boot_c is not None else np.zeros((H, W), bool)
+            region |= (body_c[:, :, 3] > coverage_cutoff) & (abs(yy_leg - hip_y) <= nl_cfg["root_overlap"])
+        have_body = body_c[:, :, 3] > coverage_cutoff
+        have_boot = (boot_c[:, :, 3] > coverage_cutoff) if boot_c is not None else np.zeros((H, W), bool)
         # colours come from the body and boot groups (they hold the picture plus what the peeled stage painted behind an arm or a knee pad);
         # only what those do not cover, or what spec.near_leg.fill lists, is painted again
         known = (have_body | have_boot) & ~occ_leg & region
         color = np.where(have_body[:, :, None], body_c[:, :, :3], np.where(have_boot[:, :, None], boot_c[:, :, :3] if boot_c is not None else rgb, rgb))
         if leg_stage and nl_cfg.get("stage_color"):  # the body group still wears what the leg stage took off (a long coat over the thighs): above the cut the leg takes the stage's own colours
             cut_ = int(spec["joints"][nl_cfg["stage_until"]][1]) if nl_cfg.get("stage_until") else H
-            own = region & (stage_rgba[leg_stage][:, :, 3] > 127) & (yy_leg < cut_)
+            own = region & (stage_rgba[leg_stage][:, :, 3] > coverage_cutoff) & (yy_leg < cut_)
             color = np.where(own[:, :, None], stage_rgba[leg_stage][:, :, :3], color)
             known |= own
         unknown = region & ~known
         if unknown.any():
             color = row_fill(color, unknown, known)
-        complete["near_leg"] = np.dstack([color, (region * 255).astype(np.uint8)])
+        coverage = None
+        if preserve_alpha:
+            coverage = np.where(have_body, body_c[:, :, 3], np.where(have_boot, boot_c[:, :, 3] if boot_c is not None else rgba[:, :, 3], rgba[:, :, 3]))
+            if leg_stage and nl_cfg.get("stage_color"):
+                coverage = np.where(own, stage_rgba[leg_stage][:, :, 3], coverage)
+            coverage = np.where(unknown, 255, coverage)
+        complete["near_leg"] = masked_rgba(color, region, coverage)
         V["near_leg"] = region
         Image.fromarray(complete["near_leg"]).save(gdir / "near_leg.png")
 
@@ -639,9 +673,9 @@ def main() -> None:
         if "damage_of" in pdef:
             continue  # torn-clothes layers are made by make_damage.py
         grp = complete[pdef["group"]]
-        region = grp[:, :, 3] > 127
+        region = grp[:, :, 3] > coverage_cutoff
         if "minus_group" in pdef:
-            region &= ~(complete[pdef["minus_group"]][:, :, 3] > 127)
+            region &= ~(complete[pdef["minus_group"]][:, :, 3] > coverage_cutoff)
         if "y" in pdef:
             lo, hi = pdef["y"]
             if pdef.get("mode") == "bone":
@@ -694,7 +728,7 @@ def main() -> None:
         # caps: a rigid joint (hip, shoulder, wrist, ankle, neck) turns without showing a corner or a gap only when both parts keep a round
         # disc of the group around the joint they turn on; a straight cut alone leaves an angular silhouette as soon as the limb swings.
         for cap in pdef.get("caps", []):
-            disc = (grp[:, :, 3] > 127) & (cap_distance((H, W), cap.get("center", spec["joints"][cap["joint"]])) <= cap["radius"])
+            disc = (grp[:, :, 3] > coverage_cutoff) & (cap_distance((H, W), cap.get("center", spec["joints"][cap["joint"]])) <= cap["radius"])
             if "sam" in cap:  # only this material: a thigh's cap must not carry a sliver of the bodysuit around with it
                 wanted = np.zeros((H, W), bool)
                 for prompt in cap["sam"]:
@@ -737,7 +771,7 @@ def main() -> None:
                 if other in parts and odef.get("group") == pdef["group"]:
                     taken |= parts[other]
             lo, hi = pdef["unclaimed"]
-            orphan = (complete[pdef["group"]][:, :, 3] > 127) & ~taken & (yy >= lo) & (yy < hi)
+            orphan = (complete[pdef["group"]][:, :, 3] > coverage_cutoff) & ~taken & (yy >= lo) & (yy < hi)
             orphan &= ~own_cut.get(pname, front_cut.get(pdef["group"], np.zeros((H, W), bool)))
             if pdef.get("pivot") in spec["joints"] and orphan.any():
                 # ... and only inside a disc around the part's pivot that reaches the group's edge at the pivot's row: the band's far
@@ -761,9 +795,9 @@ def main() -> None:
             dependencies.update(spec["groups"])
         target = pdir / f"{pname}.png"
         if only is not None and dependencies.isdisjoint(only) and target.exists():
-            parts[pname] = np.array(Image.open(target).convert("RGBA"))[:, :, 3] > 127
+            parts[pname] = np.array(Image.open(target).convert("RGBA"))[:, :, 3] > coverage_cutoff
             continue
-        grown = dilate(region, 2 if "blob" in pdef else pdef.get("seam", seam)) & (grp[:, :, 3] > 127)
+        grown = dilate(region, 2 if "blob" in pdef else pdef.get("seam", seam)) & (grp[:, :, 3] > coverage_cutoff)
         if pname in own_cut:  # the seam grows towards neighbours, not back over the front line (it left the thigh 10 px wider than the shin at the knee)
             grown &= ~own_cut[pname]
         elif pdef["group"] in front_cut:  # ... and a neighbour (the shin) does not grow into what the line cut away: a thorn in front of the knee
@@ -780,10 +814,10 @@ def main() -> None:
                 drift = int((region & cut)[rows].sum(1).max()) if len(rows) else 0
                 grown &= ~cut if drift <= 12 or "front_ramp" in pdef else ~cut | region
         if "minus_group" in pdef:
-            grown &= ~(complete[pdef["minus_group"]][:, :, 3] > 127)
+            grown &= ~(complete[pdef["minus_group"]][:, :, 3] > coverage_cutoff)
         grown = largest_blobs(grown)
         layer = grp.copy()
-        layer[:, :, 3] = (grown * 255).astype(np.uint8)
+        layer[:, :, 3] = np.where(grown, grp[:, :, 3] if preserve_alpha else 255, 0).astype(np.uint8)
         if pdef.get("caps"):
             part_seam = pdef.get("seam", seam)
             layer[:, :, 3] = cap_alpha(layer[:, :, 3], dilate(straight[pname], part_seam) & grown,

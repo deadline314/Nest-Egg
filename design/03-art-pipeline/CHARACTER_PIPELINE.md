@@ -74,6 +74,9 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py            
    - 馬尾、頭、手、槍套、靴子不補全，零件就是原圖用 SAM 遮罩摳出的像素。
 3. **切開**：義肢與身體各自在關節處切成零件（spec `parts` 的 `y`），並多留 10px 重疊，關節轉動時才不會露縫。
 
+
+**保留來源半透明邊緣**：新角色可在 spec 明確設定 `preserve_source_alpha: true`。分群／切口仍是所有權遮罩，但可見像素保留原 RGBA，隱藏補全取實際階段圖／補全圖的 alpha，接點 feather 乘在既有 alpha 上；不把全部可見像素改成 255。缺省或 `false` 維持舊輸出，不自動重建已批准角色。此模式也保留來源中的微弱雜點，啟用前須審查黑／灰／白底、按既有清理規則處理明確雜點，不能把全圖 alpha 閾值化當作品質修復。來源模式的完成群組快取綁定目前來源與階段圖的 RGBA 雜湊，拒絕無鍵或舊二值快取；`--only` 仍明確保留未選群組的既有零件。離線回歸：`python tools/comfyui/test_source_alpha.py`。這不代替人體、所有權、接縫與實際場景驗收。
+
 ## 3. 零件在 Godot 的位置與掛載
 
 全部在 `art/characters/rin/`，由 `character.json` 描述；骨架在 `art/rigs/humanoid_tall.json`（`character.json` 的 `rig` 欄指向它）。

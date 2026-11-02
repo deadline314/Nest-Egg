@@ -314,7 +314,7 @@ def main() -> None:
     # standing piece while set_pose_parts(<pose>) is selected (design/12-cast-redraw/POSE_PART_ATTACHMENTS.md). ---------------------------
     pose_sets: dict[str, dict] = {}
     base_depths = [use.get("z", 0) for part in spec["parts"].values() for use in part["uses"]]
-    min_depth, max_depth = min(base_depths), max(base_depths)
+    min_depth, max_depth = min(base_depths, default=0), max(base_depths, default=0)
     for pose, config in spec.get("pose_parts", {}).items():
         entries = []
         for name in config.get("parts", []):
