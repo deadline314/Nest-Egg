@@ -1,6 +1,6 @@
 """Rebuild the registered coat source overrides; then run the existing textures/normals/import steps."""
 import hashlib
-import io
+import sys
 import json
 from pathlib import Path
 
@@ -11,6 +11,9 @@ from PIL import Image
 
 work = Path(__file__).resolve().parent
 root = work.parents[2]
+sys.path.insert(0, str(root / "tools/comfyui"))
+from registered_layers import registered_layer_bytes, write_registered_file
+
 record = json.loads((work / "manifest.json").read_text(encoding="utf8"))
 for path, digest in record["sources"].items():
     assert hashlib.sha256((work / path).read_bytes()).hexdigest() == digest, f"source changed: {path}"
@@ -38,10 +41,7 @@ lower[:385] = 0
 layers = {"armor_jacket": Image.fromarray(body), "jacket_hem": Image.fromarray(hem), "jacket_sleeve_upper": Image.fromarray(upper), "jacket_sleeve_lower": Image.fromarray(lower)}
 for name, image in layers.items():
     assert image.mode == "RGBA" and image.size == (832, 1216), f"invalid registered layer: {name}"
-    # Validate all derived bytes before replacing any source override.
-    buffer = io.BytesIO()
-    image.save(buffer, format="PNG")
-    assert hashlib.sha256(buffer.getvalue()).hexdigest() == record["outputs"][name], f"output changed: {name}"
+payloads = registered_layer_bytes(layers, work, record)
 for name, digest in record.get("retired_outputs", {}).items():
     for folder in ("06_parts", "07_refined", "overrides/refined"):
         target = root / "art_src/characters/rin2" / folder / f"{name}.png"
@@ -50,7 +50,7 @@ for name, image in layers.items():
     for folder in ("06_parts", "07_refined", "overrides/refined"):
         target = root / "art_src/characters/rin2" / folder / f"{name}.png"
         target.parent.mkdir(parents=True, exist_ok=True)
-        image.save(target)
+        write_registered_file(target, payloads[name])
 for name in record.get("retired_outputs", {}):
     for folder in ("06_parts", "07_refined", "overrides/refined"):
         (root / "art_src/characters/rin2" / folder / f"{name}.png").unlink(missing_ok=True)

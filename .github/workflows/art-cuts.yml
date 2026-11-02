@@ -5,10 +5,18 @@ on:
     branches: [main]
     paths:
       - 'tools/comfyui/**'
+      - 'art_src/characters/rin_hands/**'
+      - 'art_src/characters/rin_worn_coat/**'
+      - 'art_src/characters/rin_support_grip_22308/**'
+      - 'art_src/characters/rin2/**'
       - '.github/workflows/art-cuts.yml'
   pull_request:
     paths:
       - 'tools/comfyui/**'
+      - 'art_src/characters/rin_hands/**'
+      - 'art_src/characters/rin_worn_coat/**'
+      - 'art_src/characters/rin_support_grip_22308/**'
+      - 'art_src/characters/rin2/**'
       - '.github/workflows/art-cuts.yml'
   workflow_dispatch:
 
@@ -34,3 +42,5 @@ jobs:
           python tools/comfyui/test_point_mask_cache.py
           python tools/comfyui/test_point_mask_validation.py
           python tools/comfyui/test_cache_options.py
+          python tools/comfyui/test_registered_layers.py
+          python tools/comfyui/test_hand_attachments.py

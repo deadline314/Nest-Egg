@@ -1,5 +1,6 @@
 """Offline hand-attachment contract: referenced variants, finite anchors and reproducible exports."""
 import copy
+import hashlib
 import json
 import tempfile
 from pathlib import Path
@@ -116,6 +117,9 @@ print("joint cutting: all first/last painted rows and source overlap survive exp
 import shutil
 with tempfile.TemporaryDirectory() as directory:
     sandbox = Path(directory)
+    helper = sandbox / "tools/comfyui/registered_layers.py"
+    helper.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy(root / "tools/comfyui/registered_layers.py", helper)
     for name in ("rin_hands", "rin_worn_coat"):
         source = root / "art_src/characters" / name
         target = sandbox / "art_src/characters" / name
@@ -141,8 +145,31 @@ with tempfile.TemporaryDirectory() as directory:
         broken.write_bytes(original)
         subprocess.run([sys.executable, str(target / "rebuild.py")], check=True, capture_output=True)
         snapshots = {part: (outputs / f"{part}.png").read_bytes() for part in record["outputs"]}
+        assert all(hashlib.sha256(data).hexdigest() == record["outputs"][part] for part, data in snapshots.items())
+        timestamps = {part: (outputs / f"{part}.png").stat().st_mtime_ns for part in record["outputs"]}
         subprocess.run([sys.executable, str(target / "rebuild.py")], check=True, capture_output=True)
         assert snapshots == {part: (outputs / f"{part}.png").read_bytes() for part in record["outputs"]}
+        assert timestamps == {part: (outputs / f"{part}.png").stat().st_mtime_ns for part in record["outputs"]}
+        # Same decoded pixels do not authorize changing a frozen input's PNG bytes.
+        frozen = target / next(reversed(record["approved_outputs"].values()))
+        approved_bytes = frozen.read_bytes()
+        with Image.open(frozen) as image:
+            image.save(frozen, compress_level=0)
+        assert frozen.read_bytes() != approved_bytes
+        result = subprocess.run([sys.executable, str(target / "rebuild.py")], capture_output=True)
+        assert result.returncode != 0 and b"source changed" in result.stderr
+        assert snapshots == {part: (outputs / f"{part}.png").read_bytes() for part in record["outputs"]}
+        frozen.write_bytes(approved_bytes)
+        # A single changed hidden RGB byte must also fail the real reconstruction before any publication.
+        script = target / "rebuild.py"
+        original_script = script.read_text()
+        marker = "for name, image in layers.items():"
+        script.write_text(original_script.replace(marker,
+            'layers[next(iter(layers))].putpixel((0, 0), (1, 0, 0, 0))\n' + marker, 1))
+        result = subprocess.run([sys.executable, str(script)], capture_output=True)
+        assert result.returncode != 0 and b"reconstructed output pixels changed" in result.stderr
+        assert snapshots == {part: (outputs / f"{part}.png").read_bytes() for part in record["outputs"]}
+        script.write_text(original_script)
         if name == "rin_hands":
             for part, old, coordinates in [("arm_upper", "original_upper", "missing_upper_pixels"),
                                             ("hand", "original_hand", "missing_connector_pixels")]:
@@ -151,3 +178,4 @@ with tempfile.TemporaryDirectory() as directory:
                 for point in record["mechanical_wrist"][coordinates]:
                     assert restored.getpixel(tuple(point)) == original.getpixel(tuple(point))
 print("registered sources: damaged originals preserve previous output; byte-identical rebuild; all 50 chrome reflection pixels restored from originals")
+print("portable rebuild: 12 original encoded outputs preserved; repeat skips rewrites; reencoded inputs and one-byte derived corruption reject before publication")

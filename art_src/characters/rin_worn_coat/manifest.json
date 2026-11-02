@@ -15,7 +15,11 @@
     "source/07_refined/jacket_sleeve_upper.png": "a58ef423e4f08ac81331f26839c8f9339bc0561ab2cf086a6c7fbf5c3e24f99b",
     "source/_gen/rin_worn_coat_J.job.json": "163be79387df938426d0e89f39e346c8449f52fabbaa7dd95302fb1a07495428",
     "source/_gen/rin_worn_coat_J_0.png": "4a7de6240cea956fb8ca2b9b7c75e6089e2cd6b79dd7c7dbaf657676684a0cdc",
-    "source/_gen/rin_worn_coat_J_0.workflow.json": "b6ecf358eb72ecb828fb88b5f9c398719337880f1dd77cd2b0746e6ac9a9da30"
+    "source/_gen/rin_worn_coat_J_0.workflow.json": "b6ecf358eb72ecb828fb88b5f9c398719337880f1dd77cd2b0746e6ac9a9da30",
+    "source/approved_outputs/armor_jacket.png": "6ba3f842b6f6c53866e5baa29956503f6791413dfb8e084743bf058adb51e0be",
+    "source/approved_outputs/jacket_hem.png": "c6d275f7a49c5e9eeec011d98cef13f39e9fb0d6ffdae8380661208bb682a490",
+    "source/approved_outputs/jacket_sleeve_upper.png": "4f9e13e36fa7960546e26c231ff425e4bdff92cb62a54e6bc67e105070d7d81b",
+    "source/approved_outputs/jacket_sleeve_lower.png": "459a57858e46d65af6e67fe428a9c2fb57c3e873405159e3e28625c912208f5e"
   },
   "outputs": {
     "armor_jacket": "6ba3f842b6f6c53866e5baa29956503f6791413dfb8e084743bf058adb51e0be",
@@ -49,5 +53,11 @@
   },
   "retired_outputs": {
     "jacket_sleeve": "a58ef423e4f08ac81331f26839c8f9339bc0561ab2cf086a6c7fbf5c3e24f99b"
+  },
+  "approved_outputs": {
+    "armor_jacket": "source/approved_outputs/armor_jacket.png",
+    "jacket_hem": "source/approved_outputs/jacket_hem.png",
+    "jacket_sleeve_upper": "source/approved_outputs/jacket_sleeve_upper.png",
+    "jacket_sleeve_lower": "source/approved_outputs/jacket_sleeve_lower.png"
   }
 }

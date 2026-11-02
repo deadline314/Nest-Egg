@@ -1,0 +1,136 @@
+{
+  "base": "2cc1bbbc5d14938fc8449a3688d8d9e5bca2954c",
+  "source_files": {
+    ".agents/skills/character-art-pipeline/SKILL.md": "13e5b476d5d8398776be7d2b91027ab8f1bb2ff270f6f7e6587278e92e780b71",
+    ".claude/skills/character-art-pipeline/SKILL.md": "13e5b476d5d8398776be7d2b91027ab8f1bb2ff270f6f7e6587278e92e780b71",
+    ".github/workflows/art-cuts.yml": "b82c37ee93aaa9a17c055beafb05cd954e584590c2cbd3f578e3f9413a429301",
+    "art_src/characters/rin_hands/README.md": "c6fd2acf73f2a844a80fcaab4b53fe43d5ed421f93f2e7a47ebe34625746c704",
+    "art_src/characters/rin_hands/manifest.json": "ab0ec5dfd3668a9a97c9bce6d2df142e3f27048a99c39a7c276e06c20539ec78",
+    "art_src/characters/rin_hands/rebuild.py": "4fe5497fec49c00218d99ae318be18d31b4b5910c7d8b4fcc211162458eacd22",
+    "art_src/characters/rin_hands/source/approved_outputs/arm_left_lower.png": "eebb9a640f7bf40a4b9d083a07e91f70dc929a05b5f1b90be4dc1064ee28f1ae",
+    "art_src/characters/rin_hands/source/approved_outputs/arm_left_upper.png": "7c34e6e60dd064f5ae693c1c86442f237b3df344c5c63c24a78648cc1c564ff9",
+    "art_src/characters/rin_hands/source/approved_outputs/arm_lower.png": "e6a5a5d046865e332961562ea0f35e54410a627c029c527887e049278a56fdf3",
+    "art_src/characters/rin_hands/source/approved_outputs/arm_upper.png": "a6b63cfd7c81982813f246ca57ce6d560656672d8881bb3607dbed99837786c2",
+    "art_src/characters/rin_hands/source/approved_outputs/hand.png": "e30094a87d38b8b183b69af6b4cee95b64ce1cb92869e3c020ee5524f658c384",
+    "art_src/characters/rin_hands/source/approved_outputs/hand_grip.png": "912fc4ee0bd3c474f1ed28740615f5a10ee2c4905c23a355dd11602e8dcae033",
+    "art_src/characters/rin_hands/source/approved_outputs/hand_left.png": "9d3966c79e4db265ab98b286d3269128bdac3288a32d895a921cf61765fc9ba9",
+    "art_src/characters/rin_hands/source/approved_outputs/hand_left_grip.png": "06c7cf0dc943a00ea349a841c465a0af8a5843d00f5f3455a332e735c9361636",
+    "art_src/characters/rin_support_grip_22308/README.md": "642ba4588642444e6b3093bf403a07b216ab8a77fcfa8d5d40d9035b3b2a7641",
+    "art_src/characters/rin_support_grip_22308/rebuild.py": "c4e0eae867a00c9f699fa00599a11ae4977aad13c16f2083c469e52d10b34e97",
+    "art_src/characters/rin_support_grip_22308/source/approved_outputs/hand_back.png": "d4da7778be1c6df46797795d2aff09799bb928fa645df278afe16825a2ee4f89",
+    "art_src/characters/rin_support_grip_22308/source/approved_outputs/hand_back_n.png": "22e3eeeb6699cdfd7b0141b2418661b85d40e2ebe9ffb78afd33e96d5ef8e6a7",
+    "art_src/characters/rin_worn_coat/README.md": "91834643aa0ca83f1d075b3e226f968139fe11a7085c91cab649c899725f4890",
+    "art_src/characters/rin_worn_coat/manifest.json": "ce6c71aa07c06868c815b665e20aa58dd8caf2eabf39349301245a6e7770bb36",
+    "art_src/characters/rin_worn_coat/rebuild.py": "53b0fa6168ab1ef1d6161a1ca079dfff32e817afb6e7e6044c40242349f14925",
+    "art_src/characters/rin_worn_coat/source/approved_outputs/armor_jacket.png": "6ba3f842b6f6c53866e5baa29956503f6791413dfb8e084743bf058adb51e0be",
+    "art_src/characters/rin_worn_coat/source/approved_outputs/jacket_hem.png": "c6d275f7a49c5e9eeec011d98cef13f39e9fb0d6ffdae8380661208bb682a490",
+    "art_src/characters/rin_worn_coat/source/approved_outputs/jacket_sleeve_lower.png": "459a57858e46d65af6e67fe428a9c2fb57c3e873405159e3e28625c912208f5e",
+    "art_src/characters/rin_worn_coat/source/approved_outputs/jacket_sleeve_upper.png": "4f9e13e36fa7960546e26c231ff425e4bdff92cb62a54e6bc67e105070d7d81b",
+    "design/03-art-pipeline/CHARACTER_PIPELINE.md": "d6ff2175da563d3ad85727724c78473f39d8bc6c0ea8293317aa4d0e62092972",
+    "tools/comfyui/registered_layers.py": "88edd3c5d6a9652c7f9604d9d80ee734868f60574784e6288c760901b645799d",
+    "tools/comfyui/test_hand_attachments.py": "d57351970cdee527b61da731cc97a1be692c5ef1e8eccf159a56a93d6d2b55df",
+    "tools/comfyui/test_registered_layers.py": "0df21061effe7bda093b72d5c7a9423c94bea993a2e7b64f77875b84d511be3c"
+  },
+  "original_output_png_hashes_unchanged": true,
+  "approved_encoded_pngs": 14,
+  "actual_registered_destination_checks": {
+    "actual_registered_outputs": 20,
+    "repeats": 2,
+    "all_original_png_bytes_and_timestamps_unchanged": true,
+    "outputs": {
+      "art_src/characters/rin2/overrides/refined/hand_left.png": {
+        "sha256": "9d3966c79e4db265ab98b286d3269128bdac3288a32d895a921cf61765fc9ba9",
+        "mtime_ns": 1793315717085020303
+      },
+      "art_src/characters/rin2/overrides/refined/arm_left_upper.png": {
+        "sha256": "7c34e6e60dd064f5ae693c1c86442f237b3df344c5c63c24a78648cc1c564ff9",
+        "mtime_ns": 1793315717084514541
+      },
+      "art_src/characters/rin2/overrides/refined/arm_left_lower.png": {
+        "sha256": "eebb9a640f7bf40a4b9d083a07e91f70dc929a05b5f1b90be4dc1064ee28f1ae",
+        "mtime_ns": 1793315717084514541
+      },
+      "art_src/characters/rin2/overrides/refined/hand_left_grip.png": {
+        "sha256": "06c7cf0dc943a00ea349a841c465a0af8a5843d00f5f3455a332e735c9361636",
+        "mtime_ns": 1793315717085020303
+      },
+      "art_src/characters/rin2/overrides/refined/hand_grip.png": {
+        "sha256": "912fc4ee0bd3c474f1ed28740615f5a10ee2c4905c23a355dd11602e8dcae033",
+        "mtime_ns": 1793315717085020303
+      },
+      "art_src/characters/rin2/overrides/refined/arm_lower.png": {
+        "sha256": "e6a5a5d046865e332961562ea0f35e54410a627c029c527887e049278a56fdf3",
+        "mtime_ns": 1793315717084514541
+      },
+      "art_src/characters/rin2/overrides/refined/hand.png": {
+        "sha256": "e30094a87d38b8b183b69af6b4cee95b64ce1cb92869e3c020ee5524f658c384",
+        "mtime_ns": 1793315717084514541
+      },
+      "art_src/characters/rin2/overrides/refined/arm_upper.png": {
+        "sha256": "a6b63cfd7c81982813f246ca57ce6d560656672d8881bb3607dbed99837786c2",
+        "mtime_ns": 1793315717084514541
+      },
+      "art_src/characters/rin2/06_parts/armor_jacket.png": {
+        "sha256": "6ba3f842b6f6c53866e5baa29956503f6791413dfb8e084743bf058adb51e0be",
+        "mtime_ns": 1793315716941020298
+      },
+      "art_src/characters/rin2/06_parts/jacket_hem.png": {
+        "sha256": "c6d275f7a49c5e9eeec011d98cef13f39e9fb0d6ffdae8380661208bb682a490",
+        "mtime_ns": 1793315716957020298
+      },
+      "art_src/characters/rin2/06_parts/jacket_sleeve_upper.png": {
+        "sha256": "4f9e13e36fa7960546e26c231ff425e4bdff92cb62a54e6bc67e105070d7d81b",
+        "mtime_ns": 1793315716965020298
+      },
+      "art_src/characters/rin2/06_parts/jacket_sleeve_lower.png": {
+        "sha256": "459a57858e46d65af6e67fe428a9c2fb57c3e873405159e3e28625c912208f5e",
+        "mtime_ns": 1793315716965020298
+      },
+      "art_src/characters/rin2/07_refined/armor_jacket.png": {
+        "sha256": "6ba3f842b6f6c53866e5baa29956503f6791413dfb8e084743bf058adb51e0be",
+        "mtime_ns": 1793315716997020300
+      },
+      "art_src/characters/rin2/07_refined/jacket_hem.png": {
+        "sha256": "c6d275f7a49c5e9eeec011d98cef13f39e9fb0d6ffdae8380661208bb682a490",
+        "mtime_ns": 1793315717009020300
+      },
+      "art_src/characters/rin2/07_refined/jacket_sleeve_upper.png": {
+        "sha256": "4f9e13e36fa7960546e26c231ff425e4bdff92cb62a54e6bc67e105070d7d81b",
+        "mtime_ns": 1793315717013020300
+      },
+      "art_src/characters/rin2/07_refined/jacket_sleeve_lower.png": {
+        "sha256": "459a57858e46d65af6e67fe428a9c2fb57c3e873405159e3e28625c912208f5e",
+        "mtime_ns": 1793315717013020300
+      },
+      "art_src/characters/rin2/overrides/refined/armor_jacket.png": {
+        "sha256": "6ba3f842b6f6c53866e5baa29956503f6791413dfb8e084743bf058adb51e0be",
+        "mtime_ns": 1793315717084514541
+      },
+      "art_src/characters/rin2/overrides/refined/jacket_hem.png": {
+        "sha256": "c6d275f7a49c5e9eeec011d98cef13f39e9fb0d6ffdae8380661208bb682a490",
+        "mtime_ns": 1793315717085020303
+      },
+      "art_src/characters/rin2/overrides/refined/jacket_sleeve_upper.png": {
+        "sha256": "4f9e13e36fa7960546e26c231ff425e4bdff92cb62a54e6bc67e105070d7d81b",
+        "mtime_ns": 1793315717085020303
+      },
+      "art_src/characters/rin2/overrides/refined/jacket_sleeve_lower.png": {
+        "sha256": "459a57858e46d65af6e67fe428a9c2fb57c3e873405159e3e28625c912208f5e",
+        "mtime_ns": 1793315717085020303
+      }
+    }
+  },
+  "normal_provenance": {
+    "pinned_commit": "0a09e1bdd97c32d947e9224267fffc8f26c63c6e",
+    "pinned_file_sha256": "5c662add546e3ccc0b23f1e0e8a817f8d86608a4e53dc923cf47e8b7cdf64154",
+    "normal_map_ast_sha256": "928d5be97c49f965d487140fe8dfd3e2bca86724eae409e10b152c99df4a18f7",
+    "normal_ast_exact": true,
+    "normal_function_source_sha256": "e31b1bb62da3941e618aca6554445432ff5eb91bcb93edc94eb284395f448444",
+    "normal_function_source_exact": true
+  },
+  "new_contract_tests": 16,
+  "offline_programs": 8,
+  "required": "unchanged selector: no affected Godot suites",
+  "scope": "retained s33 source replay, not active game Rin replacement or whole-character acceptance",
+  "raw_sha256": "bba991f04513a46fa141b5382375a0d7b336ca330b4b49a06a02694649848698"
+}

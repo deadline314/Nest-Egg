@@ -1,6 +1,7 @@
 """Rebuild the source-owned 22308 support-hand crop; no generation or runtime edits."""
 from __future__ import annotations
 import argparse
+import ast
 import hashlib
 import json
 import math
@@ -29,8 +30,12 @@ PINNED = {
     "sam_graph": (HERE / "sam/sam_5098bda3.graph.json", "9f6582bb44387427f0b8fc812d74cb121437aa346d06b06c487c0f3d1e6ed5e0"),
     "sam_points": (HERE / "sam/point-spec.json", "60d2130e169b005671ac0efb314ed88c6f0fd19570e91a514c16cfa6e3ed842d"),
     "source_metadata": (HERE / "source/candidate.json", "dad378ebe854a8d26ff921415fb99b85ebcaed2deb96c0f3c5f6930b8d9e556f"),
-    "cut_layers": (ROOT / "tools/comfyui/cut_layers.py", "5c662add546e3ccc0b23f1e0e8a817f8d86608a4e53dc923cf47e8b7cdf64154"),
+    "approved_diffuse": (HERE / "source/approved_outputs/hand_back.png", "d4da7778be1c6df46797795d2aff09799bb928fa645df278afe16825a2ee4f89"),
+    "approved_normal": (HERE / "source/approved_outputs/hand_back_n.png", "22e3eeeb6699cdfd7b0141b2418661b85d40e2ebe9ffb78afd33e96d5ef8e6a7"),
 }
+NORMAL_MAP_SOURCE_SHA256 = "e31b1bb62da3941e618aca6554445432ff5eb91bcb93edc94eb284395f448444"
+NORMAL_REFERENCE = {"commit": "0a09e1bdd97c32d947e9224267fffc8f26c63c6e",
+                    "file_sha256": "5c662add546e3ccc0b23f1e0e8a817f8d86608a4e53dc923cf47e8b7cdf64154"}
 EXPECTED_OUTPUTS = {
     "hand_back.png": "d4da7778be1c6df46797795d2aff09799bb928fa645df278afe16825a2ee4f89",
     "hand_back_n.png": "22e3eeeb6699cdfd7b0141b2418661b85d40e2ebe9ffb78afd33e96d5ef8e6a7",
@@ -40,6 +45,16 @@ CHECKS = 0
 
 def sha_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
+
+
+def validate_normal_implementation(path: Path) -> None:
+    text = path.read_text(encoding="utf8")
+    nodes = [node for node in ast.parse(text).body
+             if isinstance(node, ast.FunctionDef) and node.name == "make_normal_map"]
+    check(len(nodes) == 1, "expected one normal-map implementation")
+    check(not nodes[0].decorator_list, "normal-map decorators changed")
+    digest = sha_bytes(ast.get_source_segment(text, nodes[0]).encode("utf8"))
+    check(digest == NORMAL_MAP_SOURCE_SHA256, "normal-map implementation changed")
 
 
 def check(ok: bool, message: str) -> None:
@@ -60,6 +75,7 @@ def alpha_is_exact_owner(rgba: np.ndarray, mask: np.ndarray) -> bool:
 
 
 def load_inputs() -> tuple[Image.Image, Image.Image, tuple[int, int, int, int]]:
+    validate_normal_implementation(ROOT / "tools/comfyui/cut_layers.py")
     source_bytes: dict[str, bytes] = {}
     for name, (path, expected) in PINNED.items():
         check(path.is_file(), f"missing pinned input {name}: {path}")
@@ -92,6 +108,8 @@ def load_inputs() -> tuple[Image.Image, Image.Image, tuple[int, int, int, int]]:
 
 
 def build(out_dir: Path) -> dict:
+    global CHECKS
+    CHECKS = 0
     raw, mask_image, bbox = load_inputs()
     check(validate_geometry(bbox, EXPECTED_SCALE, EXPECTED_PIVOT), "registered crop/scale/pivot contract is invalid")
     x0, y0, x1, y1 = bbox
@@ -122,17 +140,16 @@ def build(out_dir: Path) -> dict:
 
     sys.path.insert(0, str(ROOT / "tools/comfyui"))
     from cut_layers import make_normal_map
+    from registered_layers import registered_layer_bytes, write_registered_file
     normal = make_normal_map(rgba)
     check(normal.shape == rgba.shape and np.array_equal(normal[:, :, 3], rgba[:, :, 3]), "normal output size/alpha differs")
     outputs = {"hand_back.png": rgba, "hand_back_n.png": normal}
-    out_dir.mkdir(parents=True, exist_ok=True)
-    hashes: dict[str, str] = {}
-    for name, pixels in outputs.items():
-        image = Image.fromarray(pixels, "RGBA")
-        image.save(out_dir / name)
-        written = (out_dir / name).read_bytes()
-        hashes[name] = sha_bytes(written)
-        check(hashes[name] == EXPECTED_OUTPUTS[name], f"rebuilt output differs from reviewed candidate: {name}")
+    payloads = registered_layer_bytes({name: Image.fromarray(pixels, "RGBA") for name, pixels in outputs.items()},
+        HERE, {"outputs": EXPECTED_OUTPUTS, "approved_outputs": {
+            name: f"source/approved_outputs/{name}" for name in outputs}})
+    hashes = {name: sha_bytes(data) for name, data in payloads.items()}
+    for name, data in payloads.items():
+        write_registered_file(out_dir / name, data)
     manifest = {
         "status": "REGISTERED_NATIVE_SUPPORT_HAND_PARTIAL_DELIVERY",
         "raw_output_alpha": {"min": 252, "max": 255, "transparent_pixels": 0, "extraction": "SAM 3.1 binary owner mask; not native alpha transparency"},
@@ -140,12 +157,13 @@ def build(out_dir: Path) -> dict:
         "registration": {"pivot_wrist_px": list(EXPECTED_PIVOT), "texture_scale": EXPECTED_SCALE, "existing_hand_back_grip_offset_skeleton_units": [1.67408, -0.01506], "bone_or_grip_change": False},
         "outputs_sha256": hashes,
         "inputs_sha256": {name: expected for name, (_, expected) in PINNED.items()},
+        "normal_implementation": {"function_source_sha256": NORMAL_MAP_SOURCE_SHA256, "reference": NORMAL_REFERENCE},
         "checks": CHECKS,
         "negative_controls": {"one_pixel_extra_owner": "caught", "one_pixel_missing_owner": "caught", "wrong_crop": "caught", "wrong_scale": "caught", "wrong_pivot": "caught", "changed_source_hash": "caught"},
         "normal_map": "tools/comfyui/cut_layers.py:make_normal_map; generated from cropped RGB + SAM alpha",
         "visual_status": "Registered support-hand source; native production API and wrist evidence are recorded separately. Thumb is occluded by rifle draw order; this is not whole-character or all-animation acceptance.",
     }
-    (out_dir / "build-manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8", newline="\n")
+    write_registered_file(out_dir / "build-manifest.json", (json.dumps(manifest, indent=2) + "\n").encode("utf-8"))
     print(json.dumps({"status": manifest["status"], "checks": CHECKS, "bbox": list(bbox), "size": list(EXPECTED_SIZE), "hashes": hashes}, indent=2))
     return manifest
 

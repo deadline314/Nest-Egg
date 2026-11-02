@@ -2,7 +2,7 @@
 
 Status: **registered native support-hand partial delivery**. This packet preserves the raw Qwen edit and the SAM extraction used to produce the 226×142 support-hand crop. The Qwen render is RGBA but has no transparent pixels: alpha ranges from 252 to 255. The delivered hand transparency therefore comes from the separately recorded binary SAM 3.1 owner mask, not from the Qwen render's alpha channel.
 
-The Rin recipe registers this source rebuild; the side spec exports the same native pixels into hand_left_grip with its own texture density. Runtime validates that density and restores the original hand when leaving the grip state. This registration changes the rear support hand only, and does not approve the complete character.
+The retained `rin_s33.json` recipe registers this source rebuild; the side spec exports the same native pixels into hand_left_grip with its own texture density. Runtime validates that density and restores the original hand when leaving the grip state. This registration changes the rear support hand only, and does not approve the complete character.
 
 ## Provenance
 
@@ -38,3 +38,9 @@ The public CPU fixture passes 458 checks. CharactersSuite passes 559 checks; the
 The rear support hand is a partial delivery. The weapon occludes its opposed thumb at the current draw order. The front mechanical hand, complete silhouette/material lighting, crouch and all-motion joint acceptance remain separate requirements. Neither source-owner alpha nor a fixture check certifies the whole character. Evidence, archived original textures, native images, failures and replay commands are in ../../../pm/Nest-Egg/attachments/NE-222-native-support-hand/README.md.
 
 Current ranged Player WeaponData IDs and visual IDs are: rifle → rifle, spread → shotgun, smg → smg, railgun → railgun, launcher → launcher, laser → laser, pistol → pistol, mech_cannon → rifle. RigInput.two_handed is a runtime input default rather than a WeaponData field. This fixture coverage does not certify every weapon's grip artwork or handling.
+
+## Portable replay contract
+
+The current game Rin recipe is `rin.json`; this retained source is registered by `rin_s33.json` and does not replace the active game character. Frozen approved diffuse and normal PNGs are retained under `source/approved_outputs`, with the original hashes above. Rebuilds still derive RGB and owner alpha from the original edit and SAM mask, and calculate the normal through the production function. Every derived RGBA byte must equal the frozen output, including hidden RGB; only then are the original approved PNG bytes published atomically. Repeated identical PNGs are not rewritten.
+
+The old whole-file cutter pin referred to commit `0a09e1bdd97c32d947e9224267fffc8f26c63c6e` (SHA `5c662add546e3ccc0b23f1e0e8a817f8d86608a4e53dc923cf47e8b7cdf64154`). The current `make_normal_map` function source is exactly equal to that pinned implementation; its SHA is `e31b1bb62da3941e618aca6554445432ff5eb91bcb93edc94eb284395f448444`. The replay now validates that function contract and exact generated normal pixels rather than failing on unrelated export changes elsewhere in the file. Original source hashes, metadata, geometry and owner negative controls remain enforced. `python tools/comfyui/test_registered_layers.py` tests unchanged processing, an unrelated cutter edit, an actual algorithm change, corrupt frozen input, and a one-byte runtime normal error that must preserve all old outputs.

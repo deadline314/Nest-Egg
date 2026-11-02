@@ -30,7 +30,15 @@
     "_gen/sam_chrome_grip/mechanical_hand.workflow.json": "3becf9ed5d0f2a835614171b1e13262e20c37c2784a07d3a9c2447288231fb35",
     "source/approved/arm_upper.png": "87e41071e9cff5d8c614afd992d45c47618430b611d6ee8281740b7c925c7ff7",
     "source/approved/original_arm_upper.png": "8fb282e74be352d17e47099b295d61b228b3e22a4782302c7875928f98bdb0e8",
-    "source/approved/original_hand.png": "92e806e3859a1eb7766b0bc6a0b484f5d6209111a8a1f945938058d4f3dfea57"
+    "source/approved/original_hand.png": "92e806e3859a1eb7766b0bc6a0b484f5d6209111a8a1f945938058d4f3dfea57",
+    "source/approved_outputs/hand_left.png": "9d3966c79e4db265ab98b286d3269128bdac3288a32d895a921cf61765fc9ba9",
+    "source/approved_outputs/arm_left_upper.png": "7c34e6e60dd064f5ae693c1c86442f237b3df344c5c63c24a78648cc1c564ff9",
+    "source/approved_outputs/arm_left_lower.png": "eebb9a640f7bf40a4b9d083a07e91f70dc929a05b5f1b90be4dc1064ee28f1ae",
+    "source/approved_outputs/hand_left_grip.png": "06c7cf0dc943a00ea349a841c465a0af8a5843d00f5f3455a332e735c9361636",
+    "source/approved_outputs/hand_grip.png": "912fc4ee0bd3c474f1ed28740615f5a10ee2c4905c23a355dd11602e8dcae033",
+    "source/approved_outputs/arm_lower.png": "e6a5a5d046865e332961562ea0f35e54410a627c029c527887e049278a56fdf3",
+    "source/approved_outputs/hand.png": "e30094a87d38b8b183b69af6b4cee95b64ce1cb92869e3c020ee5524f658c384",
+    "source/approved_outputs/arm_upper.png": "a6b63cfd7c81982813f246ca57ce6d560656672d8881bb3607dbed99837786c2"
   },
   "open_layers": {
     "hand_left": "source/07_refined/hand_left.png",
@@ -348,5 +356,15 @@
         346
       ]
     ]
+  },
+  "approved_outputs": {
+    "hand_left": "source/approved_outputs/hand_left.png",
+    "arm_left_upper": "source/approved_outputs/arm_left_upper.png",
+    "arm_left_lower": "source/approved_outputs/arm_left_lower.png",
+    "hand_left_grip": "source/approved_outputs/hand_left_grip.png",
+    "hand_grip": "source/approved_outputs/hand_grip.png",
+    "arm_lower": "source/approved_outputs/arm_lower.png",
+    "hand": "source/approved_outputs/hand.png",
+    "arm_upper": "source/approved_outputs/arm_upper.png"
   }
 }

@@ -12,10 +12,16 @@ Rin 的右手仍是機械義肢，左手改為獨立的人體手與手臂。只�
 
 ```powershell
 & D:/ComfyUI/.venv/Scripts/python.exe art_src/characters/rin_hands/rebuild.py
-& D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py --recipe tools/comfyui/recipes/rin.json --from textures --to import
+& D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py --recipe tools/comfyui/recipes/rin_s33.json --from textures --to import
 & D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/test_hand_attachments.py
 ```
 
 實際 COMFYUI_DIR、Python 與 Godot 路徑依本機配置；上述為本次已查證環境。只重跑 textures/normals/import，不重跑立繪、姿勢提取、全部 SAM 或補全。source override 必須保持 full-canvas RGBA，握持附件不另生成第三個手節點。
 
 空手、單／雙手持物、護盾、電話、近戰、死亡及切換，都需兩面向、完整時間軸與腕／袖口隔離檢查。握點距離回歸、來源檢查、逐格 alpha、全彩解剖與實際關卡／過場各自留證；任何小孔洞仍拒收，文件或單張預覽不能代替通過。
+
+## 跨環境重建
+
+這是保留的 s33 來源配方，遊戲目前的凜使用另一份配方；此重建不切換遊戲角色。`source/approved_outputs` 固定保存已批准輸出的原始 PNG，雜湊沿用原紀錄，並納入來源完整性檢查。重建仍從原始材質導出每個 RGBA 像素，逐位元組與批准圖比對，全部通過後才發布批准圖的原始 PNG 位元組。這避免不同 PNG／zlib 編碼器對相同像素產生不同檔案，不略過來源或像素驗證；透明像素的 RGB 也必須相同。相同輸出不改時間戳，不同輸出先完整寫入同目錄暫存檔再原子替換。
+
+回歸：`python tools/comfyui/test_registered_layers.py`、`python tools/comfyui/test_hand_attachments.py`。輸入改動、單一重建像素改動與發布失敗都必須保留舊輸出。來源重建通過不代替人體、動態接點或新外觀驗收。

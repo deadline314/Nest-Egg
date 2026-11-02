@@ -10,10 +10,16 @@
 
 ```powershell
 python art_src/characters/rin_worn_coat/rebuild.py
-python tools/comfyui/check_spec.py --recipe tools/comfyui/recipes/rin.json --joints
-python tools/comfyui/build_character.py --recipe tools/comfyui/recipes/rin.json --from textures --to import
+python tools/comfyui/check_spec.py --recipe tools/comfyui/recipes/rin_s33.json --joints
+python tools/comfyui/build_character.py --recipe tools/comfyui/recipes/rin_s33.json --from textures --to import
 ```
 
 rebuild先驗證所有來源、批准原圖及四張輸出hash，再寫入rin2的來源覆蓋層；配方source_rebuilds於textures前自動重建。舊單張袖子只在hash符合登記值時移除；其他來源不動。cut_layers使用overrides/refined作為優先來源。不必重跑design／SAM／補全。繼續完整精修時，來源覆蓋層仍優先於一般精修輸出。
 
 Commit-17的3840個衣襬樣本（八狀態、左右面向、1×／3.4×、120格）沒有孔洞或斷開；它是該次版本的歷史證據，完整原生alpha影格在NE-222-worn-coat-hem-audit.zip，可用check_joint_frames.py重驗。肩袖、手腕、肘和人物全彩輪廓須按最新版本分別重驗，不能以舊衣襬結果宣稱全部件通過。原生對照與CPU量測在NE-222的Commit記錄中。
+
+## 跨環境重建
+
+這是保留的 s33 來源配方，遊戲目前的凜使用另一份配方；此重建不切換遊戲角色。`source/approved_outputs` 固定保存已批准輸出的原始 PNG，雜湊沿用原紀錄，並納入來源完整性檢查。重建仍從原始材質導出每個 RGBA 像素，逐位元組與批准圖比對，全部通過後才發布批准圖的原始 PNG 位元組。這避免不同 PNG／zlib 編碼器對相同像素產生不同檔案，不略過來源或像素驗證；透明像素的 RGB 也必須相同。相同輸出不改時間戳，不同輸出先完整寫入同目錄暫存檔再原子替換。
+
+回歸：`python tools/comfyui/test_registered_layers.py`、`python tools/comfyui/test_hand_attachments.py`。輸入改動、單一重建像素改動與發布失敗都必須保留舊輸出。來源重建通過不代替人體、動態接點或新外觀驗收。

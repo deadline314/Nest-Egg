@@ -1,6 +1,6 @@
 """Reproduce the independent Rin left arm and two gripping attachments, then use the normal cutter."""
 import hashlib
-import io
+import sys
 import json
 from pathlib import Path
 
@@ -11,6 +11,9 @@ from PIL import Image
 
 work = Path(__file__).resolve().parent
 root = work.parents[2]
+sys.path.insert(0, str(root / "tools/comfyui"))
+from registered_layers import registered_layer_bytes, write_registered_file
+
 record = json.loads((work / "manifest.json").read_text(encoding="utf8"))
 for path, digest in record["sources"].items():
     assert hashlib.sha256((work / path).read_bytes()).hexdigest() == digest, f"source changed: {path}"
@@ -77,11 +80,9 @@ for name, image in layers.items():
     assert image.mode == "RGBA" and image.size == (832, 1216), f"invalid derived layer: {name}"
     anchor = (372, 248) if name in ("arm_left_upper", "arm_upper") else (374, 560)
     assert image.getpixel(anchor)[3] >= 253, f"unpainted attachment: {name}"
-    data = io.BytesIO()
-    image.save(data, format="PNG")
-    assert hashlib.sha256(data.getvalue()).hexdigest() == record["outputs"][name], f"output changed: {name}"
+payloads = registered_layer_bytes(layers, work, record)
 for name, image in layers.items():
     target = root / "art_src/characters/rin2/overrides/refined" / f"{name}.png"
     target.parent.mkdir(parents=True, exist_ok=True)
-    image.save(target)
+    write_registered_file(target, payloads[name])
 print("hand sources: approved source unchanged; 8 native-density layers reproduced with original chrome highlights and opaque attachments")

@@ -77,6 +77,8 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py            
 
 **保留來源半透明邊緣**：新角色可在 spec 明確設定 `preserve_source_alpha: true`。分群／切口仍是所有權遮罩，但可見像素保留原 RGBA，隱藏補全取實際階段圖／補全圖的 alpha，接點 feather 乘在既有 alpha 上；不把全部可見像素改成 255。缺省或 `false` 維持舊輸出，不自動重建已批准角色。此模式也保留來源中的微弱雜點，啟用前須審查黑／灰／白底、按既有清理規則處理明確雜點，不能把全圖 alpha 閾值化當作品質修復。來源模式的完成群組快取綁定目前來源與階段圖的 RGBA 雜湊，拒絕無鍵或舊二值快取；`--only` 仍明確保留未選群組的既有零件。離線回歸：`python tools/comfyui/test_source_alpha.py`。這不代替人體、所有權、接縫與實際場景驗收。
 
+**固定來源重建與 PNG 編碼**：同一張 RGBA 在不同 PNG／zlib 版本下可能產生不同壓縮位元組。保留來源的 `source/approved_outputs` 必須先由既有批准輸出雜湊確認，再列入來源清單。重建的 RGBA 與批准 PNG 解碼後每個位元組都要相同（包含 alpha=0 的 RGB），通過後才發布批准 PNG 的原始位元組，不重新編碼，也不把既有輸出雜湊改成當前環境的結果。共同檢查／原子發布工具為 `registered_layers.py`；新鮮目錄、重複重建、輸入損毀、單像素差異及寫入失敗由 `test_registered_layers.py` 與 `test_hand_attachments.py` 驗證。來源處理依賴只鎖實際消費的函式並保留原版本依據，仍核對結果像素與原始 PNG；不能因無關匯出功能修改而整份工具失效，也不能未驗證就更新來源鍵。s33 的實際保留配方為 `rin_s33.json`，不混同目前遊戲凜的 `rin.json`。
+
 ## 3. 零件在 Godot 的位置與掛載
 
 全部在 `art/characters/rin/`，由 `character.json` 描述；骨架在 `art/rigs/humanoid_tall.json`（`character.json` 的 `rig` 欄指向它）。
