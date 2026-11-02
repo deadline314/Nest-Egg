@@ -153,6 +153,12 @@ jobs:
         run: |
           python3 tools/run_home_completion.py --godot "$GODOT" --output "${{ runner.temp }}/home-completion"
 
+      - name: Check actual checkpoint recording ownership and cold redial
+        if: steps.gate.outputs.skip != 'true'
+        timeout-minutes: 30
+        run: |
+          python3 tools/run_recording_completion.py --godot "$GODOT" --output "${{ runner.temp }}/recording-completion"
+
       - name: Check optional Sunday choice and cold continuation
         if: steps.gate.outputs.skip != 'true'
         timeout-minutes: 15
@@ -277,6 +283,8 @@ jobs:
             ${{ runner.temp }}/story-marker-completion/**/*.log
             ${{ runner.temp }}/home-completion/**/*.json
             ${{ runner.temp }}/home-completion/**/*.log
+            ${{ runner.temp }}/recording-completion/**/*.json
+            ${{ runner.temp }}/recording-completion/**/*.log
             ${{ runner.temp }}/sunday-choice/**/*.log
             ${{ runner.temp }}/sunday-choice/**/*.json
             ${{ runner.temp }}/voice-completion/**/*.log

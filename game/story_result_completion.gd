@@ -129,7 +129,7 @@ func publishing() -> bool:
 
 func complete(id: StringName, request: int) -> Dictionary:
 	if FlagSources.owns(String(id)):
-		return {} # The terminal intro retains its original flag owner even with a wrong tag.
+		return {} # Finite flag sources retain their original owner even with a wrong tag.
 	if choice_pending() and id == _id and request == _request:
 		return {"handled": true, "ready": false}
 	var scene: Dictionary = Story._scenes.get(String(id), {})

@@ -39,18 +39,19 @@ func blocks_save() -> bool:
 
 func complete(id: StringName, request: int) -> Dictionary:
 	var scene: Dictionary = Story._scenes.get(String(id), {})
-	var cinematic := Sources.owns(String(id)) or scene.has("completion_policy")
+	var protected := Sources.owns(String(id))
+	var cinematic := Sources.terminal(String(id)) or scene.has("completion_policy") or (protected and Story._current_cinematic == id)
 	var radio := str(scene.get("mode", "")) == "radio" and bool(scene.get("freeze", false))
-	if not main.get("_active_run") or not (radio or cinematic):
+	if not main.get("_active_run") or not (radio or cinematic or protected):
 		return {} # Standalone presentation tools retain their existing behavior.
 	var results: Variant = scene.get("results", [])
-	if not cinematic and (not results is Array or not results.is_empty() or not StoryRules.transfer_ids(scene).is_empty() or not (Story._pending_transfers.get(id, []) as Array).is_empty()):
+	if not cinematic and not protected and (not results is Array or not results.is_empty() or not StoryRules.transfer_ids(scene).is_empty() or not (Story._pending_transfers.get(id, []) as Array).is_empty()):
 		return {} # Existing radio admission; marked scenes must never fall through.
 	if main.has_method("_defer_world_story") and main.call("_defer_world_story", id, request): return {"handled": true, "ready": false}
 	var level := main.get("_screen") as Level
 	if level == null or not level.is_initialized() or main.call("_route_pending") or (not cinematic and Story.is_cinematic_active()):
-		if cinematic:
-			push_warning("[StoryFlagCompletion] marked scene has no current Main Level: " + String(id))
+		if cinematic or protected:
+			push_warning("[StoryFlagCompletion] owned scene has no current Main Level: " + String(id))
 			return {"handled": true, "ready": false}
 		return {}
 	_pending_id = id
@@ -83,7 +84,7 @@ func complete(id: StringName, request: int) -> Dictionary:
 	return {"handled": true, "ready": true}
 
 
-## A terminal intro cannot gain a material choice by losing its policy tag.
+## A finite flag source cannot gain a material choice by losing its metadata.
 func refuse_choice() -> Dictionary:
 	var id := Story._current_cinematic
 	if not Sources.owns(String(id)):
@@ -103,14 +104,14 @@ func refuse_choice() -> Dictionary:
 
 
 func _commit(id: StringName, scene: Dictionary, level: Level) -> Dictionary:
-	if Sources.owns(String(id)) and (not Sources.valid(String(id), Story._scenes, Story._scene_sources) or level.data.resource_path != Sources.LEVEL):
-		return {"error": "terminal intro differs from its finite authored source", "reload_original": true}
+	if Sources.owns(String(id)) and (not Sources.valid(String(id), Story._scenes, Story._scene_sources) or (Sources.terminal(String(id)) and level.data.resource_path != Sources.LEVEL)):
+		return {"error": "flag segment differs from its finite authored source", "reload_original": true}
 	if scene != Story._scenes.get(String(id), {}):
 		return {"error": "scene contract differs from the loaded registry"}
 	var problem := Story.outcomes.result_contract_problem(id, scene)
 	if not problem.is_empty():
 		return {"error": problem}
-	var cinematic: bool = Sources.owns(String(id)) or scene.get("completion_policy", "") == POLICY
+	var cinematic: bool = Sources.terminal(String(id)) or scene.get("completion_policy", "") == POLICY
 	if cinematic:
 		if scene.get("mode", "") not in ["animated", "dialogue"] or not str(scene.get("then", "")).is_empty() or Story.offers_choice(scene) or not StoryRules.transfer_ids(scene).is_empty() or not (Story._pending_transfers.get(id, []) as Array).is_empty():
 			return {"error": "main_flags_v1 requires a terminal, choice-free, flag-only scene"}

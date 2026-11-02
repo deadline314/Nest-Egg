@@ -1,7 +1,8 @@
 extends RefCounted
-## Independent authored identity for terminal flag-only intros.
+## Independent authored identities for the home intro and original checkpoint recording.
 const SOURCE := "res://data/story/ch1_kasa.json"
 const HOME := "ch1_c14_home"
+const RECORDING := "ch1_t_booth_recording"
 const LEVEL := "res://data/levels/ch1_pawnshop_dawn.tres"
 const CONTRACT := {
 	"mode": "animated",
@@ -20,8 +21,22 @@ const CONTRACT := {
 	"transfer_items": [],
 }
 
+const RECORDING_CONTRACT := {
+	"mode": "radio",
+	"freeze": true,
+	"when": {},
+	"then": "",
+	"results": [],
+	"set_flags": ["ch1_recording_heard"],
+	"transfer_items": [],
+}
+
 
 static func owns(id: String) -> bool:
+	return id in [HOME, RECORDING]
+
+
+static func terminal(id: String) -> bool:
 	return id == HOME
 
 
@@ -29,8 +44,12 @@ static func valid(id: String, scenes: Dictionary, sources: Dictionary) -> bool:
 	var scene: Variant = scenes.get(id)
 	if not owns(id) or not _matches(sources.get(id), SOURCE) or not scene is Dictionary or not RunSaveCodec.validate_tree(scene, 32768).is_empty():
 		return false
-	for key: String in CONTRACT:
-		if not _matches(scene.get(key, CONTRACT[key] if key in ["then", "set_flags", "transfer_items"] else null), CONTRACT[key]):
+	var contract: Dictionary = CONTRACT if terminal(id) else RECORDING_CONTRACT
+	if not terminal(id) and scene.has("completion_policy"):
+		return false
+	for key: String in contract:
+		var optional: bool = key in ["then", "set_flags", "transfer_items"] or (not terminal(id) and key in ["when", "results"])
+		if not _matches(scene.get(key, contract[key] if optional else null), contract[key]):
 			return false
 	return not Story.offers_choice(scene)
 

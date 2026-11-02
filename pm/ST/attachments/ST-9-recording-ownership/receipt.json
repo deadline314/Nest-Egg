@@ -1,0 +1,46 @@
+{
+  "base": "90bb38da43264e98fab2d857ceea5d8fd097e726",
+  "negative": {
+    "processes": 3,
+    "checks": 27,
+    "failures": 13
+  },
+  "after-corrected": {
+    "processes": 3,
+    "checks": 27,
+    "failures": 0
+  },
+  "matrix-input": {
+    "processes": 16,
+    "checks": 275,
+    "failures": 0
+  },
+  "home": {
+    "processes": 16,
+    "checks": 226,
+    "failures": 0
+  },
+  "original-radio": {
+    "processes": 4,
+    "checks": 38,
+    "failures": 0
+  },
+  "contracts": {
+    "processes": 1,
+    "checks": 90,
+    "failures": 0
+  },
+  "native-final": {
+    "processes": 4,
+    "checks": 67,
+    "failures": 0
+  },
+  "required": {
+    "groups": 7,
+    "checks": 3896,
+    "seconds": 143,
+    "new_failures": 0,
+    "known_failures": 0
+  },
+  "archive_sha256": "7b5e181f09b2cda9d43effe59ee4ef6317783228653a729dd70dc5299ab9d9b9"
+}

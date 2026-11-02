@@ -9,7 +9,7 @@ func _ready() -> void:
 	var declared: Array[String]=[]
 	for id: String in Story._scenes:
 		var scene: Dictionary=Story._scenes[id]
-		if scene.get("completion_policy","") in Completion.COMPLETION_POLICIES or scene.get("completion_policy") == StoryOutcomes.MAIN_FLAG_COMPLETION_POLICY:
+		if scene.get("completion_policy","") in Completion.COMPLETION_POLICIES or scene.get("completion_policy") == StoryOutcomes.MAIN_FLAG_COMPLETION_POLICY or id == Flags.RECORDING:
 			declared.append(id)
 			checks+=1
 			if not Sources.owns_boundary(id) and not Flags.owns(id):failures.append("declared source has no independent finite owner: "+id)
@@ -20,7 +20,7 @@ func _ready() -> void:
 		if Flags.owns(id):
 			owned.append(id)
 			checks += 1
-			if not Flags.valid(id, Story._scenes, Story._scene_sources): failures.append("original authored flag intro differs: " + id)
+			if not Flags.valid(id, Story._scenes, Story._scene_sources): failures.append("original authored flag source differs: " + id)
 	var result := {"checks":checks,"failures":failures,"owned":owned,"declared":declared}
 	for argument: String in OS.get_cmdline_user_args():
 		if argument.begins_with("--out="):
