@@ -177,10 +177,24 @@ func _start_cut(perform: bool) -> void:
 
 
 func _on_box_completed() -> void:
-	GameState.set_flag(StringName(str(_hook("isolated_flag"))), true)
-	GameState.set_flag(StringName(str(_hook("revoked_flag"))), true)
-	EventBus.toast_requested.emit(str(_hook("box_done_toast")))
+	var durable := _has_durable_world_owner()
+	if not durable:
+		# Standalone actor tools retain their original local result path.
+		GameState.set_flag(StringName(str(_hook("isolated_flag"))), true)
+		GameState.set_flag(StringName(str(_hook("revoked_flag"))), true)
 	_enter_subdue("subdue", true)
+	if durable:
+		EventBus.mechanism_toggled.emit(StringName(str(_hook("isolation_channel"))), true)
+	EventBus.toast_requested.emit(str(_hook("box_done_toast")))
+
+
+func _has_durable_world_owner() -> bool:
+	var ancestor := get_parent()
+	while ancestor != null:
+		if ancestor.has_method("has_durable_channel_owner"):
+			return bool(ancestor.call("has_durable_channel_owner"))
+		ancestor = ancestor.get_parent()
+	return false
 
 
 ## 保留路第一階段：打到底他會真正倒下一次（血量停在 1，交給 downed）。
@@ -341,7 +355,11 @@ func _subdued_tick(_delta: float) -> void:
 
 ## The original held power-cell action, never the actor's health or death.
 func completed_channel() -> StringName:
-	return StringName(str(_hook("done_channel"))) if is_subdued() and is_instance_valid(_pull) and _pull.done else &""
+	if is_subdued() and is_instance_valid(_pull) and _pull.done:
+		return StringName(str(_hook("done_channel")))
+	if is_instance_valid(_box) and _box.done:
+		return StringName(str(_hook("isolation_channel")))
+	return &""
 
 
 func is_subdued() -> bool:

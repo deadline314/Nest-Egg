@@ -407,13 +407,28 @@ func _show_chapter_card(title: String, subtitle: String, block: bool, hold := 2.
 	return card
 
 
+## Actor capability without a reverse dependency from enemies to Level.
+func has_durable_channel_owner() -> bool:
+	return data != null and data.durable_channel_results and channel_handler.is_valid()
+
+
 ## 機關頻道啟動時播放對應的場景（LevelData.channel_scenes）。
 func _on_channel_toggled(channel: StringName, active: bool) -> void:
 	if channel_handler.is_valid() and channel_handler.call(self, channel, active): return
 	var flags := data.channel_done_flags if active else data.channel_cleared_flags
-	if flags.has(channel) and not GameState.has_flag(flags[channel]):
-		GameState.set_flag(flags[channel])
-		Story.outcomes.refresh_derived()
+	if flags.has(channel):
+		var extra: PackedStringArray = (data.channel_done_extra_flags if active else data.channel_cleared_extra_flags).get(channel, PackedStringArray())
+		if extra.size() > LevelData.MAX_CHANNEL_RESULT_FLAGS:
+			push_warning("[Level] channel/%s extra flags exceed supported bound" % channel)
+			return
+		var names := PackedStringArray([String(flags[channel])])
+		names.append_array(extra)
+		var changed := false
+		for flag: String in names:
+			if not flag.is_empty() and not GameState.has_flag(StringName(flag)):
+				GameState.set_flag(StringName(flag))
+				changed = true
+		if changed: Story.outcomes.refresh_derived()
 	if active and data.channel_scenes.has(channel):
 		Story.play(data.channel_scenes[channel])
 

@@ -201,6 +201,7 @@ jobs:
           python3 tools/level/check_channel_generation.py
           python3 tools/run_nonlethal_completion.py --godot "$GODOT" --output "${{ runner.temp }}/nonlethal-completion"
           python3 tools/run_nonlethal_completion.py --boss janus --godot "$GODOT" --output "${{ runner.temp }}/janus-completion"
+          python3 tools/run_nonlethal_completion.py --action isolation --godot "$GODOT" --output "${{ runner.temp }}/isolation-completion"
 
       - name: Check terminal audio admission and delayed playback
         if: steps.gate.outputs.skip != 'true'
@@ -261,6 +262,8 @@ jobs:
             ${{ runner.temp }}/nonlethal-completion/**/*.json
             ${{ runner.temp }}/janus-completion/**/*.log
             ${{ runner.temp }}/janus-completion/**/*.json
+            ${{ runner.temp }}/isolation-completion/**/*.log
+            ${{ runner.temp }}/isolation-completion/**/*.json
             ${{ runner.temp }}/audio-shutdown/**/*.log
             ${{ runner.temp }}/audio-shutdown/**/*.json
             work/godot-audio-safe/dist/receipt.json

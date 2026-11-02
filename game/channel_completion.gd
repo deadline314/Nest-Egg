@@ -37,11 +37,22 @@ func blocks_save() -> bool:
 func _mapping(level: Level, active: bool) -> Dictionary:
 	return level.data.channel_done_flags if active else level.data.channel_cleared_flags
 
+func _extra_mapping(level: Level, active: bool) -> Dictionary:
+	return level.data.channel_done_extra_flags if active else level.data.channel_cleared_extra_flags
+
+func _all_results_done(level: Level, channel: StringName, active: bool) -> bool:
+	if not GameState.has_flag(_mapping(level, active)[channel]): return false
+	var extra: PackedStringArray = _extra_mapping(level, active).get(channel, PackedStringArray())
+	if extra.size() > LevelData.MAX_CHANNEL_RESULT_FLAGS: return false
+	for flag: String in extra:
+		if not GameState.has_flag(StringName(flag)): return false
+	return true
+
 func request(level: Level, channel: StringName, active: bool) -> bool:
 	if not main.get("_active_run") or not level.data.durable_channel_results: return false
 	if main.get("_screen") != level or level.data.resource_path != main.get("_level_path"): return true
 	var mapping := _mapping(level, active)
-	if not mapping.has(channel) or GameState.has_flag(mapping[channel]): return false
+	if not mapping.has(channel) or _all_results_done(level, channel, active): return false
 	var flag := String(mapping[channel])
 	for pending: Dictionary in _events:
 		if pending["flag"] == flag: return true
@@ -64,7 +75,8 @@ func request(level: Level, channel: StringName, active: bool) -> bool:
 
 func _signature(level: Level) -> PackedByteArray:
 	return var_to_bytes([level.data.resource_path, level.data.id, level.data.layout_path,
-		level.data.channel_done_flags, level.data.channel_cleared_flags, level.data.channel_scenes, level.data.durable_channel_results])
+		level.data.channel_done_flags, level.data.channel_cleared_flags, level.data.channel_done_extra_flags,
+		level.data.channel_cleared_extra_flags, level.data.channel_scenes, level.data.durable_channel_results])
 
 func _channel(node: Node) -> StringName:
 	if node is MechanismSwitch or node is FloodPit or node is EncounterZone: return node.data.channel
@@ -197,6 +209,18 @@ func _attempt() -> void:
 	var scenes: Array[StringName] = []
 	for proof: Dictionary in _events:
 		flags[proof["flag"]] = true
+		var extra: PackedStringArray = _extra_mapping(_level, proof["active"]).get(proof["channel"], PackedStringArray())
+		if extra.size() > LevelData.MAX_CHANNEL_RESULT_FLAGS:
+			_require_original("world result flags exceed supported bound")
+			return
+		for flag: String in extra:
+			if flag.is_empty():
+				_require_original("world result contains an empty extra flag")
+				return
+			flags[flag] = true
+		if flags.size() > LevelData.MAX_CHANNEL_RESULT_FLAGS:
+			_require_original("world result flag batch exceeds supported bound")
+			return
 		if proof["active"] and _level.data.channel_scenes.has(proof["channel"]):
 			var scene: StringName = _level.data.channel_scenes[proof["channel"]]
 			if not scenes.has(scene): scenes.append(scene)

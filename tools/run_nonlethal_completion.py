@@ -17,7 +17,7 @@ SCENE = "res://tests/probes/nonlethal_completion.tscn"
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--boss", choices=("yong", "janus"), default="yong")
+    parser.add_argument("--action", "--boss", dest="action", choices=("yong", "janus", "isolation"), default="yong")
     parser.add_argument("--godot", type=Path, default=os.environ.get("GODOT"))
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--timeout", type=int, default=600)
@@ -27,7 +27,8 @@ def main():
     if not 60 <= args.timeout <= 900:
         parser.error("timeout must be 60..900 seconds per process")
     engine, output = args.godot.resolve(), args.output.resolve()
-    scene = SCENE if args.boss == "yong" else "res://tests/probes/janus_completion.tscn"
+    scene = {"yong": SCENE, "janus": "res://tests/probes/janus_completion.tscn",
+             "isolation": "res://tests/probes/isolation_completion.tscn"}[args.action]
     output.mkdir(parents=True, exist_ok=False)
     (output / ".gdignore").touch()
     (output / ".gitignore").write_text("*\n")
@@ -47,7 +48,8 @@ def main():
              "tools/level/check_channel_generation.py", "game/enemies/janus_boss.gd",
              "tests/probes/janus_completion.gd", "tests/probes/janus_completion.tscn",
              "data/levels/ch3_gate_hall.tres", "data/levels/ch3_gate_hall_map.json",
-             "data/enemies/janus.tres", "data/bosses/janus.json"]
+             "data/enemies/janus.tres", "data/bosses/janus.json",
+             "tests/probes/isolation_completion.gd", "tests/probes/isolation_completion.tscn"]
     sources = {}
     for name in names:
         target = output / "source" / name
@@ -56,7 +58,7 @@ def main():
         sources[name] = hashlib.sha256(target.read_bytes()).hexdigest()
     with engine.open("rb") as stream:
         engine_sha = hashlib.file_digest(stream, "sha256").hexdigest()
-    receipt = {"boss": args.boss, "source_sha256": sources, "engine_sha256": engine_sha,
+    receipt = {"action": args.action, "boss": "yong" if args.action == "isolation" else args.action, "source_sha256": sources, "engine_sha256": engine_sha,
                "cases": [], "cold_primary_sha256": {}}
     started = time.monotonic()
 
@@ -76,12 +78,14 @@ def main():
             for diagnostic in case["diagnostics"]:
                 print(diagnostic, flush=True)
 
+    modes = [args.action, "cancel", "death", "stale", "forged"]
+    if args.action == "isolation": modes.extend(["contract", "overflow", "empty_flag"])
     with ThreadPoolExecutor(max_workers=3) as executor:
-        for case in executor.map(run, [args.boss, "cancel", "death", "stale", "forged"]):
+        for case in executor.map(run, modes):
             record(case)
     if any(not case["passed"] for case in receipt["cases"]):
         return 1
-    for mode, primary in [("accepted_read", args.boss + "-slot/result-primary.json"),
+    for mode, primary in [("accepted_read", args.action + "-slot/result-primary.json"),
                           ("cancel_read", "cancel-slot/original-primary.json")]:
         slot = output / (mode + "-slot")
         slot.mkdir()

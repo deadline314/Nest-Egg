@@ -10,6 +10,11 @@ import sys
 import tempfile
 
 
+def declaration(text, field):
+    found = re.search(r'^' + field + r'\s*=\s*(.*)$', text, re.MULTILINE)
+    return found[1].strip() if found else ''
+
+
 def chapter(number):
     module = importlib.import_module('build_ch' + str(number))
     kit = module if number == 1 else module.kit
@@ -29,8 +34,15 @@ def chapter(number):
         for area in areas:
             kit.write_level(area, theme=False, theme_path=f'res://data/environment/themes/ch{number}_{area.id}.tres')
             name = f'ch{number}_{area.id}.tres'
-            if enabled((Path(owned)/name).read_text()) != enabled((original/name).read_text()):
+            generated = (Path(owned)/name).read_text()
+            shipped = (original/name).read_text()
+            if enabled(generated) != enabled(shipped):
                 failures.append(name + ': generated durable channel owner differs from the shipped level')
+            for field in ('channel_done_flags', 'channel_cleared_flags',
+                          'channel_done_extra_flags', 'channel_cleared_extra_flags'):
+                # These are deterministic generated identifier declarations.
+                if declaration(generated, field) != declaration(shipped, field):
+                    failures.append(name + ': generated ' + field + ' differs from the shipped level')
     return {'chapter':number,'checks':len(areas),'failures':failures}
 
 

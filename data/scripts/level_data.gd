@@ -14,6 +14,9 @@ extends Resource
 ## 其他字元由 legend 對應到 EnemyData / WeaponData / VehicleData / NpcData（場景人物）等資源。
 ## 實體字元代表「腳底所在的格子」。
 
+const MAX_CHANNEL_RESULT_FLAGS := 64
+
+
 @export var id: StringName = &"level"
 @export var display_name: String = ""
 @export var tile_size: int = 16
@@ -46,8 +49,12 @@ extends Resource
 @export var durable_channel_results := false
 ## 機關頻道「啟動」時寫入的劇情旗標（頻道 → 旗標），例如打倒看門狗、打開水閘；只在尚未成立時寫入。
 @export var channel_done_flags: Dictionary[StringName, StringName] = {}
+## 同一完成動作的其他旗標；和主旗標一起保存、一起發布。
+@export var channel_done_extra_flags: Dictionary[StringName, PackedStringArray] = {}
 ## 機關頻道「解除」時寫入的劇情旗標，例如鎖場遭遇結束、路障打開。
 @export var channel_cleared_flags: Dictionary[StringName, StringName] = {}
+## 同一解除動作的其他旗標；和主旗標一起保存、一起發布。
+@export var channel_cleared_extra_flags: Dictionary[StringName, PackedStringArray] = {}
 ## 可略過的區域（序章）：暫停選單出現略過按鈕，確認後寫入 skip_flags 並從 skip_portal 這個出入口離開。
 @export var skip_portal: StringName = &""
 @export var skip_flags: PackedStringArray = PackedStringArray()

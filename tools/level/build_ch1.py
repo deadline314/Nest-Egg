@@ -1368,6 +1368,10 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
     for key, field in (('done', 'channel_done_flags'), ('cleared', 'channel_cleared_flags')):
         if story.get(key):
             res.append(f'{field} = Dictionary[StringName, StringName](' + '{' + ', '.join(f'&"{k}": &"{v}"' for k, v in story[key].items()) + '})')
+    for key, field in (('done_extra', 'channel_done_extra_flags'), ('cleared_extra', 'channel_cleared_extra_flags')):
+        if story.get(key):
+            entries = ', '.join('&' + json.dumps(channel) + ': PackedStringArray(' + ', '.join(json.dumps(flag) for flag in flags) + ')' for channel, flags in story[key].items())
+            res.append(f'{field} = Dictionary[StringName, PackedStringArray](' + '{' + entries + '})')
     triggers = [scene for _, scene in sorted(area.triggers)]
     # 天亮的當舖與當舖共用地圖：& 標記還在，晚飯場景已經看過，不會重播。
     res.append('story_triggers = PackedStringArray(' + ', '.join(json.dumps(t) for t in triggers) + ')')
