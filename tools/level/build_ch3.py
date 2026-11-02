@@ -144,7 +144,7 @@ STORY = {
     'mezzanine': dict(intro='ch3_c03_arrive'),
     'glass_edge': dict(intro='ch3_c13_arrive'),
     # 守門人戰由戰鬥組製作：門禁裝置停機（拔掉維修插銷）時啟動這個頻道，關卡寫入停機旗標；之後守門人坐回櫃檯（C12）。
-    'gate_hall': dict(done={'ch3_janus_down': 'ch3_janus_disabled'}),
+    'gate_hall': dict(durable=True, done={'ch3_janus_down': 'ch3_janus_disabled'}),
 }
 
 # 本章的敵人（NE-272、NE-271）：字元 -> 敵人資料 id。章節名單與跨章規則見 data/combat/chapter_rosters.json（NE-97）。

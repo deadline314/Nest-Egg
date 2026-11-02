@@ -67,6 +67,11 @@ var _comm_exposed := false
 var _last_stability := -1
 
 
+## Completion belongs to the original stopped frame and its pulled pin.
+func completed_channel() -> StringName:
+	return pattern.gate_channel if pattern != null and halted and pin_pulled else &""
+
+
 func _setup_states() -> void:
 	config = _load_config(data.id)
 	_rng.seed = int(config["seed"])
@@ -160,7 +165,7 @@ func _dormant_tick(delta: float) -> void:
 
 
 func _wake() -> void:
-	if _awake or halted:
+	if _awake or halted or is_queued_for_deletion():
 		return
 	super._wake()
 	if GameState.has_flag(_flag("lost_flag")):

@@ -979,7 +979,9 @@ def build_source() -> ProductionSource:
     source = ProductionSource()
     source.speakers = dict(SPEAKERS)
     # 前章的結果只讀不重置；本章的初值只對新輪。room_choice 是可逆的提案值，unset 代表沒有提案。
-    source.flag_defaults = {"room_choice": "unset", "ch3_janus_disabled": False}
+    source.flag_defaults = {"room_choice": "unset", "ch3_janus_disabled": False,
+                            "ch3_janus_device_stability": 100, "ch3_janus_shield_misses": 0,
+                            "ch3_janus_comm_broken": False, "ch3_janus_lost_once": False}
     _documents_and_transactions(source)
     _morning(source)
     _freight(source)

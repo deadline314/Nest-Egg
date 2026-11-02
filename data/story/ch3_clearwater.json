@@ -107,6 +107,10 @@
  "flag_defaults": {
   "room_choice": "unset",
   "ch3_janus_disabled": false,
+  "ch3_janus_device_stability": 100,
+  "ch3_janus_shield_misses": 0,
+  "ch3_janus_comm_broken": false,
+  "ch3_janus_lost_once": false,
   "ch3_breakfast_heard": false,
   "ch3_departure_done": false,
   "ch3_interlock_seen": false,

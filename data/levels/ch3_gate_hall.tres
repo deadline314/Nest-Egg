@@ -66,6 +66,7 @@ show_chapter_card = false
 environment = ExtResource("8_ch3_gate_hall")
 layout_path = "res://data/levels/ch3_gate_hall_map.json"
 lighting_zones = Array[ExtResource("6_lighting_zone")]([SubResource("Resource_3")])
+durable_channel_results = true
 channel_done_flags = Dictionary[StringName, StringName]({&"ch3_janus_down": &"ch3_janus_disabled"})
 story_triggers = PackedStringArray()
 death_credit_cap = 250

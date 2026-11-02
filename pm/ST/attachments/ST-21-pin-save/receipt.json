@@ -1,0 +1,233 @@
+{
+  "boss": "janus",
+  "source_sha256": {
+    "game/main.gd": "dc24ade718024a1130df589c1d298f6558a5914eb90305d7b99ab9309c21711c",
+    "game/channel_completion.gd": "5fff806093f13f51a2d4b5299acc9ec5cdcd3b04aad901c0f301d4e56a134687",
+    "game/level/level.gd": "cb26297997c8835ca2a0b63b016cd8e4ce746696cb3df14fe991803c4ce0c42d",
+    "game/enemies/enemy.gd": "d8dc659be5dc38f56824d530b7a8b485de94cb4704d33500d1ff8e2b85154397",
+    "game/enemies/boss/pattern_boss.gd": "7103a74e18b0df610338870d6a3bdbc11d00cad7464e38571735478524fec91c",
+    "game/enemies/yong_boss.gd": "b6fe8f44fb4dce8702cf74bbde4fc65646ff3fab820a93c754b26a7dbd9d6612",
+    "game/enemies/boss/boss_hold_point.gd": "65aae27a62e9cb493910a97e9721f465662f0d4c89e16e7d491c41e7e48d8066",
+    "core/run_flag_commit.gd": "c13d28fa57d9f44ff36dfb33c10a412c02594bba770378e3e41b6341289741a6",
+    "core/run_snapshot.gd": "81903039971dc6c39c5732262b7fc4014ab94746e21c0b72b9c0865d52d9820c",
+    "core/run_save_store.gd": "1033befefbd04f934cac74abfdf74335c416b31b29ef4d068a3768d987ebb781",
+    "core/run_save_codec.gd": "f767c41a24633a73ca48a865c991146a01c7491325e3f0129952ed457fa9d9af",
+    "core/story_install_bundle.gd": "4b7edc551d116e01024ae07d9e0e463a51893dcb7e8196a508f04ccb07788faf",
+    "autoload/game_state.gd": "f27963b5951415ba59f81a18eadac8752a111a674c34a57e34836a25e94a28f3",
+    "autoload/story.gd": "6fdbe81aba2cbd86493a8c90c5acf102805f5d75a1203cda8614b107a43271e3",
+    "autoload/gameplay_lock.gd": "9efdc042fe0efd430df2a87ff30be326db1ab2d0aa4ea39f921907301437e42c",
+    "data/scripts/level_data.gd": "fa32464f72a8bf9a079efcafdba980fb8b7af3727c1490a372113c6a9cfae74a",
+    "data/levels/ch2_ledger_office.tres": "00a961b50292dd5663bdb3da1c784bbb9aea4ce8e32119aaea1dcc3a32c01ca3",
+    "data/levels/ch2_ledger_office_map.json": "b80e27e4099a21d3d572d21d21de7290566ca17a90091928cbe9e319eba2340a",
+    "data/enemies/yong.tres": "c89e83d954ce08c75ea58832cbce8f2ef3cf06bd16ae041a7d2c5782e75dd667",
+    "data/bosses/yong.json": "cff65fe6e42e42801819bb94ff38fff21e9431b9b59c8da82a43922d519ae522",
+    "ui/radio_save_prompt.gd": "3d3436a5b69f2815bcc052a4d91e0ec87335fe4908a930a651668438529bc71e",
+    "tests/probes/nonlethal_completion.gd": "e48242d51c2087f00ac231ca486cd999330124ac4a4ac20c9894e0073a7e738e",
+    "tests/probes/nonlethal_completion.tscn": "2f3f0e96c82b66bca8c272550c0d80649d62859d3c4d07048c8c89143c134c4f",
+    "tests/probes/channel_completion.gd": "31a25c47271c159b1c20ba96d2d7c562bf1c731a770bb13535132730f3f400eb",
+    "tests/probes/training_completion.gd": "f19e5d7c7d5268403bdcb18a9e364eaf7fab81d38779c6f5ff33149b243223a8",
+    "tools/prologue_play_probe.gd": "2a28f10263ca4f39115f0e383fde339fad424c8668495783d188a15704ccefcf",
+    "tools/runtime_probe.py": "fef2c934c0673ab6f385fa30b027893ffc6316bc42e3fcd7cb35484edca6c6d1",
+    "tools/run_nonlethal_completion.py": "33d5cfd55afe0d3ebb22770eaac4a8e9048f5a1be04f5ce91f7a30b684facf94",
+    "ui/hud.gd": "e3e90272bd72dfd4da312ea310742f0df215217fbf689df94d41091d829e7a16",
+    "ui/boss_bar.gd": "74a17a7a810bbe464b16ed881a6173c53cfa6b4fd999c2076914e26081632e26",
+    "tools/level/build_ch1.py": "21731c1132496db73f1be3128c30898030c120f61b9f8d895649ea125af7ce3d",
+    "tools/level/build_ch2.py": "ed6d2b95517eba22d57f49c0672cec2827763729ffd6dc8fde9662f79e34943f",
+    "tools/level/build_ch3.py": "6afde366b1723aa579bad195e9b04d0cfddcd8a7f2af9335595530002de7ffd3",
+    "tools/level/check_channel_generation.py": "e249253de7d035fbdfc3dae8399e821dfc76f85b04972f5fdc476c08ecd4515e",
+    "game/enemies/janus_boss.gd": "e11937fb623ece0e0e45944262aadffdfc764f9719b9fcec70941582f69adf37",
+    "tests/probes/janus_completion.gd": "034204c7e8e7ece6b84dc912e1ec218ef3565413cd94c6cd47fc924a7aff552c",
+    "tests/probes/janus_completion.tscn": "794ba2d2b6941384eb3cc8ae2ab6c49bcb098af61269a54790df5b2fa24166c5",
+    "data/levels/ch3_gate_hall.tres": "2dbae02c0d9f5765b5359c9731fe6846314966fa1b7000ca29825cba20a632e3",
+    "data/levels/ch3_gate_hall_map.json": "d8d89c4223571a07d79921c737e69b9378b41cd56f2f56597dd81108ed6b0e26",
+    "data/enemies/janus.tres": "c5e6ce4f110ee22e253b4c28611f125e04d23b80a221a38dae536941fca29b14",
+    "data/bosses/janus.json": "8ef85a486520a4ee9ca3d3f89fc36657468932e8abe66cabaaabda9f407a752b"
+  },
+  "engine_sha256": "4c8163cc1006799a5e8a5c54229f7442264492f35a4ffc73d87565658fb5c5de",
+  "cases": [
+    {
+      "mode": "janus",
+      "exit": 0,
+      "timeout": false,
+      "diagnostics": [],
+      "diagnostic_count": 0,
+      "result": {
+        "checks": 12,
+        "failures": [],
+        "mode": "janus"
+      },
+      "passed": true
+    },
+    {
+      "mode": "cancel",
+      "exit": 0,
+      "timeout": false,
+      "diagnostics": [],
+      "diagnostic_count": 0,
+      "result": {
+        "checks": 8,
+        "failures": [],
+        "mode": "cancel"
+      },
+      "passed": true
+    },
+    {
+      "mode": "death",
+      "exit": 0,
+      "timeout": false,
+      "diagnostics": [],
+      "diagnostic_count": 0,
+      "result": {
+        "checks": 11,
+        "failures": [],
+        "mode": "death"
+      },
+      "passed": true
+    },
+    {
+      "mode": "stale",
+      "exit": 0,
+      "timeout": false,
+      "diagnostics": [],
+      "diagnostic_count": 0,
+      "result": {
+        "checks": 10,
+        "failures": [],
+        "mode": "stale"
+      },
+      "passed": true
+    },
+    {
+      "mode": "forged",
+      "exit": 0,
+      "timeout": false,
+      "diagnostics": [],
+      "diagnostic_count": 0,
+      "result": {
+        "checks": 13,
+        "failures": [],
+        "mode": "forged"
+      },
+      "passed": true
+    },
+    {
+      "mode": "accepted_read",
+      "exit": 0,
+      "timeout": false,
+      "diagnostics": [],
+      "diagnostic_count": 0,
+      "result": {
+        "checks": 5,
+        "failures": [],
+        "mode": "accepted_read"
+      },
+      "passed": true
+    },
+    {
+      "mode": "cancel_read",
+      "exit": 0,
+      "timeout": false,
+      "diagnostics": [],
+      "diagnostic_count": 0,
+      "result": {
+        "checks": 4,
+        "failures": [],
+        "mode": "cancel_read"
+      },
+      "passed": true
+    }
+  ],
+  "cold_primary_sha256": {
+    "accepted_read": "13b8b723ce20dae583727d0dccdbf60af234317d7daa7525a6d4532071587834",
+    "cancel_read": "a45cc665700a51206f1499c8ce1f2174d62fa31285ef6ec85594b7514032ba54"
+  },
+  "wall_seconds": 69.831,
+  "affected": {
+    "groups": 57,
+    "checks": 67021,
+    "failures": 0,
+    "seconds": 515
+  },
+  "yong_checks": 64,
+  "native": [
+    {
+      "exit": 0,
+      "command": [
+        "python3",
+        "tools/comfyui/gpu_lock.py",
+        "--",
+        "xvfb-run",
+        "-a",
+        "-s",
+        "-screen 0 1280x720x24",
+        "/workspace/.nest-egg-env/ci-godot/dist/godot",
+        "--verbose",
+        "--path",
+        ".",
+        "--rendering-method",
+        "forward_plus",
+        "--rendering-driver",
+        "vulkan",
+        "--audio-driver",
+        "Dummy",
+        "res://tests/probes/janus_completion.tscn",
+        "--",
+        "--mode=janus",
+        "--save-dir=/workspace/Nest-Egg/work/janus-save/native-final/slot",
+        "--out=/workspace/Nest-Egg/work/janus-save/native-final/result"
+      ],
+      "diagnostics": [],
+      "result": {
+        "checks": 12,
+        "failures": [],
+        "mode": "janus"
+      },
+      "renderer": "Forward+ Vulkan llvmpipe",
+      "engine_sha256": "4c8163cc1006799a5e8a5c54229f7442264492f35a4ffc73d87565658fb5c5de"
+    },
+    {
+      "exit": 0,
+      "command": [
+        "python3",
+        "tools/comfyui/gpu_lock.py",
+        "--",
+        "xvfb-run",
+        "-a",
+        "-s",
+        "-screen 0 1280x720x24",
+        "/workspace/.nest-egg-env/ci-godot/dist/godot",
+        "--verbose",
+        "--path",
+        ".",
+        "--rendering-method",
+        "forward_plus",
+        "--rendering-driver",
+        "vulkan",
+        "--audio-driver",
+        "Dummy",
+        "res://tests/probes/janus_completion.tscn",
+        "--",
+        "--mode=accepted_read",
+        "--save-dir=/workspace/Nest-Egg/work/janus-save/native-cold/slot",
+        "--out=/workspace/Nest-Egg/work/janus-save/native-cold/result"
+      ],
+      "diagnostics": [],
+      "result": {
+        "checks": 5,
+        "failures": [],
+        "mode": "accepted_read"
+      },
+      "renderer": "Forward+ Vulkan llvmpipe",
+      "engine_sha256": "4c8163cc1006799a5e8a5c54229f7442264492f35a4ffc73d87565658fb5c5de"
+    }
+  ],
+  "supplemental_source_sha256": {
+    "tools/story/ch3_source.py": "5c31a91259ffec4938e7a5293ce2600a2699576029c155cffe2e06593dbca429",
+    "tools/story/build_ch3_story.py": "258df6936682293da08c15163333983d00963256f18f3ae4f312fa154dc1aedb",
+    "tools/story/chapter_compiler.py": "ce808d451b130f5c3267b213d9f36641b77f6d27a2e0242857f31b9fdfb24078",
+    "data/story/ch3_clearwater.json": "fc40c903548dd68dd0c7b00c038bb9b56095af48adab84993e7314ee358e90d0",
+    ".github/workflows/tests.yml": "8d86a8abdb3029a15584244be89e939ecb984b448bd3f7e16dd21eb71310aef8",
+    "design/13-story-v2/CH03_IMPLEMENTATION.md": "caf4bfe0749a0e08e28717bec4678cb97a69dc0969074b6312aacda11551c917"
+  },
+  "archive_sha256": "143ecf6c69daaf29c0e063885eaec251398fec55c6f770dec52d7c10889fa090"
+}
