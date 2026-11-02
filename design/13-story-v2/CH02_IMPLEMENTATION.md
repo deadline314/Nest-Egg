@@ -77,3 +77,13 @@ H 代號對應劇本第 2 節。寬度以「每區 2～6 個螢幕、主路不�
 - 章節銜接：第一章天亮的當舖播完章末卡後接 `ch2_pawnshop`；屋頂的章末對話寫入 `ch2_heron_closed` 時播第二章章末卡並結算（`LevelData.complete_on_flag`）。
 - 阿勇戰的接點（NE-265）：血量到門檻時播 `ch2_t_s12_choice`（寫 `yong_link_choice`）；保留路的復原與暫停閂各是 `ch2_t_s12_keep_revival`、`ch2_t_s12_keep_pause`；斷連成功由隔離箱寫 `yong_link_isolated`、`yong_link_revoked`；制伏完成時啟動機關頻道 `ch2_yong_down`，帳房關卡的 `channel_done_flags` 會寫 `ch2_yong_subdued`（頭目戰不用自己寫旗標），之後帳櫃播 S13（含 120 報酬，只發一次）。戰鬥提示 `ch2_s12_bark_mark`、`ch2_s12_bark_egret`，敗北提示 `ch2_s12_defeat_hint`。
 - 驗證：`tools/ch2_flow_probe.tscn`（`--route=cut|keep --supper=stay|leave --pay`）從第一章結束推到第二章章末；`Chapter2StorySuite` 檢查出入口、入口、任務標記、劇情關卡與章節銜接。
+
+## 2026-10-30：原電池動作的持久結果
+
+帳房明確啟用 `durable_channel_results`。阿勇以 `completed_channel()` 提供自己的非致命完成條件：已制伏且原 `BossHoldPoint` 電池的 `done` 為真；不以生命歸零或假死亡授權故事結果。共用 `ChannelCompletion` 仍核對原關卡、生成資料、追蹤鍵、節點身分與完成狀態，整份世界與旗標寫入後才通知。一般敵人及原死亡頭目保留自己的原死亡通道；不把第三章尚未遷移的插銷契約一起啟用。
+
+拒絕時原場景凍結並提供重試；退出不接受結果，死亡或原來源被替換只允許讀回原整輪。真正電池互動由自動探針按住原互動鍵完成；末段位置、拆械與血量明示為測試樣本，不能代表完整自然戰鬥、張力或手把驗收。
+
+關卡產生來源以每區 STORY 的 `durable=True` 明確宣告，同時保留第一章已遷移街道與倉庫；`check_channel_generation.py` 在獨立程序中用實際區域建構器產出暫存 LevelData，再比對已提交關卡的這項設定。只輸出到自有暫存目錄，不重寫正式地圖、人物與環境。這可避免下次產生關卡時把持久結果退回舊處理方式。未宣告區域維持原預設。
+
+原生冷續玩另外揭露：已完成頭目 `queue_free()` 到這步結束才真正移除，仍可能先執行 dormant/wake 並重開血條。`PatternBoss._wake()` 現在拒絕等待刪除的節點，讓完成的原人物真正退場而不留下頭目血條；冷讀增加一項真 HUD 斷言，修前可重現。這不影響尚未完成、原本應醒來的頭目。

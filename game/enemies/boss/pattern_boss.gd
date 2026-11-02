@@ -175,7 +175,8 @@ func _dormant_tick(_delta: float) -> void:
 
 
 func _wake() -> void:
-	if _awake:
+	# A completed actor may remain alive until this physics turn ends.
+	if _awake or is_queued_for_deletion():
 		return
 	_awake = true
 	EventBus.boss_started.emit(pattern.bar_name if not pattern.bar_name.is_empty() else data.display_name, health.max_health)
@@ -930,6 +931,11 @@ func _play_death() -> void:
 func _death_blast() -> void:
 	var offset := Vector2(randf_range(-1.0, 1.0) * data.body_size.x * 0.6, -randf() * data.body_size.y)
 	Fx.explosion(global_position + offset, 22.0, 0, Combat.Team.PLAYER, &"", Palette.WARNING)
+
+
+## Death-channel bosses publish only their real dying state.
+func completed_channel() -> StringName:
+	return pattern.gate_channel if pattern != null and is_dying() else &""
 
 
 ## 擊敗：有頻道就解開機關、收起血條（關卡繼續）；沒有頻道就是關卡頭目，通知關卡結束。

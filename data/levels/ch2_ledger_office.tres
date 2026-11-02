@@ -57,6 +57,7 @@ show_chapter_card = false
 environment = ExtResource("8_ch2_ledger_office")
 layout_path = "res://data/levels/ch2_ledger_office_map.json"
 lighting_zones = Array[ExtResource("6_lighting_zone")]([SubResource("Resource_2")])
+durable_channel_results = true
 channel_done_flags = Dictionary[StringName, StringName]({&"ch2_yong_down": &"ch2_yong_subdued"})
 story_triggers = PackedStringArray()
 death_credit_cap = 250

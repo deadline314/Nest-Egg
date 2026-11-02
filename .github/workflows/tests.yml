@@ -194,6 +194,13 @@ jobs:
         timeout-minutes: 30
         run: python3 tools/run_channel_completion.py --godot "$GODOT" --output "${{ runner.temp }}/channel-completion"
 
+      - name: Check original nonlethal actions and exact cold reads
+        if: steps.gate.outputs.skip != 'true'
+        timeout-minutes: 20
+        run: |
+          python3 tools/level/check_channel_generation.py
+          python3 tools/run_nonlethal_completion.py --godot "$GODOT" --output "${{ runner.temp }}/nonlethal-completion"
+
       - name: Run all tests (parallel)
         timeout-minutes: 45
         if: steps.gate.outputs.skip != 'true'
@@ -244,5 +251,7 @@ jobs:
             ${{ runner.temp }}/skip-completion/**/*.json
             ${{ runner.temp }}/channel-completion/**/*.log
             ${{ runner.temp }}/channel-completion/**/*.json
+            ${{ runner.temp }}/nonlethal-completion/**/*.log
+            ${{ runner.temp }}/nonlethal-completion/**/*.json
             work/godot-audio-safe/dist/receipt.json
           retention-days: 7

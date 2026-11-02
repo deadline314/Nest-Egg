@@ -84,11 +84,11 @@ func _run() -> void:
 	await _wait_control()
 	_check(_level() != null and _level().is_initialized(), "explicit original area fixture is live under real Main")
 	if _mode == "flood":
-		for path: String in ["res://data/levels/ch2_ledger_office.tres", "res://data/levels/ch3_gate_hall.tres"]:
-			var other := Level.new()
-			other.configure(load(path))
-			_check(not _main.get("_channel_completion").request(other, &"fixture", true), "unmigrated nonlethal boss contract retains its existing channel owner: " + path)
-			other.free()
+		var other := Level.new()
+		other.configure(LevelData.new())
+		_check(not other.data.durable_channel_results, "new levels retain their existing result owner until their original source contract is enabled")
+		_check(not _main.get("_channel_completion").request(other, &"fixture", true), "an unconfigured source contract cannot replace its existing result owner")
+		other.free()
 	_entry = _player().global_position
 	_actor = _boss() if _kind == "boss" else _encounter() if _kind == "encounter" else _pit()
 	_check(_actor != null and not GameState.has_flag(_flag), "original registered source starts without its result")

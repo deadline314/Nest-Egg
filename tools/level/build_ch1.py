@@ -1297,8 +1297,8 @@ def write_theme(area, theme_key):
 # done／cleared：真實機關頻道啟動或解除時寫入的劇情旗標（任務目標與後續對話都讀它，不由場景代替世界事件）。
 STORY = {
     'prologue': dict(intro='ch1_p01_door'),
-    'street': dict(cleared={'arena_street_blockade': 'ch1_street_route_open'}),
-    'warehouse': dict(channels={'watchdog_gate': 'ch1_c11_watchdog'},
+    'street': dict(durable=True, cleared={'arena_street_blockade': 'ch1_street_route_open'}),
+    'warehouse': dict(durable=True, channels={'watchdog_gate': 'ch1_c11_watchdog'},
                       done={'watchdog_gate': 'watchdog_defeated', 'flood_c': 'ch1_flood_gate_open'}),
     'pawnshop_dawn': dict(intro='ch1_c14_home'),
 }
@@ -1359,6 +1359,8 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
            f'layout_path = "res://data/levels/{PREFIX}_{map_name}_map.json"',
            'lighting_zones = Array[ExtResource("%s")]([%s])' % (zone_script, ', '.join(f'SubResource("{z}")' for z in zone_ids))]
     story = STORY.get(level_id, {})
+    if story.get('durable', False):
+        res.append('durable_channel_results = true')
     if story.get('intro'):
         res.append(f'intro_scene = &"{story["intro"]}"')
     if story.get('channels'):

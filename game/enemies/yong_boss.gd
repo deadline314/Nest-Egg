@@ -339,6 +339,11 @@ func _subdued_tick(_delta: float) -> void:
 	velocity.x = 0.0
 
 
+## The original held power-cell action, never the actor's health or death.
+func completed_channel() -> StringName:
+	return StringName(str(_hook("done_channel"))) if is_subdued() and is_instance_valid(_pull) and _pull.done else &""
+
+
 func is_subdued() -> bool:
 	return stage == "done"
 

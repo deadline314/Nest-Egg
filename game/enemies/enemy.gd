@@ -625,6 +625,14 @@ func _draw_shield() -> void:
 # 受擊、破防、死亡
 # ---------------------------------------------------------------------------
 
+## A completed original world action may supply a channel without a death.
+## Ordinary enemies have no result; legacy death-channel enemies retain theirs.
+func completed_channel() -> StringName:
+	if is_dying() and has_method("_gate_channel"):
+		return StringName(call("_gate_channel"))
+	return &""
+
+
 func is_dying() -> bool:
 	return _dying
 

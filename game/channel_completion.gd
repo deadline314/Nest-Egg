@@ -68,8 +68,7 @@ func _signature(level: Level) -> PackedByteArray:
 
 func _channel(node: Node) -> StringName:
 	if node is MechanismSwitch or node is FloodPit or node is EncounterZone: return node.data.channel
-	if node is PatternBoss: return node.pattern.gate_channel
-	if node is Enemy and node.has_method("_gate_channel"): return StringName(node.call("_gate_channel"))
+	if node is Enemy: return node.completed_channel()
 	return &""
 
 func _matches(node: Node, channel: StringName, active: bool) -> bool:
@@ -77,7 +76,7 @@ func _matches(node: Node, channel: StringName, active: bool) -> bool:
 	if node is ChannelSwitch: return node.active == active
 	if node is FloodPit: return active and node.triggered
 	if node is EncounterZone: return node.state == (&"active" if active else &"cleared")
-	return active and node is Enemy and node.is_dying()
+	return active and node is Enemy and node.completed_channel() == channel
 
 func _actor_signature(resource: Resource, script_path: String, channel: StringName) -> PackedByteArray:
 	return var_to_bytes([resource.resource_path, resource.get("id"), script_path, channel,

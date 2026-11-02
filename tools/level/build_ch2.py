@@ -138,7 +138,7 @@ THEMES = {
 STORY = {
     'pawnshop': dict(intro='ch2_s01_morning'),
     # 阿勇頭目戰（NE-265）制伏時啟動這個頻道，關卡寫入制伏旗標；帳櫃與小薇的劇情讀這個旗標。
-    'ledger_office': dict(done={'ch2_yong_down': 'ch2_yong_subdued'}),
+    'ledger_office': dict(durable=True, done={'ch2_yong_down': 'ch2_yong_subdued'}),
 }
 
 # 本章的敵人（NE-266）：字元 -> (資料檔, 設計資料裡的名稱)。押運手與票據投手是本章才有的收帳人身份；阿勇是頭目（NE-265）。
