@@ -99,6 +99,74 @@ const NPC_SOURCES := {
 }
 
 const BOUNDARIES := {
+	"ch1_b_dinner_food": {
+		"policy": TERMINAL, "then": "", "mode": "bubbles",
+		"when": {},
+		"operations": [
+			{"kind": "transaction", "id": "ch1.daily_dinner"},
+			{"kind": "flag", "id": "ch1_dinner_done", "value": true},
+		],
+	},
+	"ch1_t_label_watch": {
+		"policy": TERMINAL, "then": "", "mode": "dialogue",
+		"when": {"not": {"flag": "ch1_label_watch_seen", "equals": true}},
+		"operations": [
+			{"kind": "flag", "id": "ch1_label_watch_seen", "value": true},
+		],
+	},
+	"ch1_t_label_guitar": {
+		"policy": TERMINAL, "then": "", "mode": "dialogue",
+		"when": {"not": {"flag": "ch1_label_guitar_seen", "equals": true}},
+		"operations": [
+			{"kind": "flag", "id": "ch1_label_guitar_seen", "value": true},
+		],
+	},
+	"ch1_t_label_raincoat": {
+		"policy": TERMINAL, "then": "", "mode": "dialogue",
+		"when": {"not": {"flag": "ch1_label_raincoat_seen", "equals": true}},
+		"operations": [
+			{"kind": "flag", "id": "ch1_label_raincoat_seen", "value": true},
+		],
+	},
+	"ch1_t_label_fare": {
+		"policy": TERMINAL, "then": "", "mode": "dialogue",
+		"when": {"not": {"flag": "ch1_label_fare_seen", "equals": true}},
+		"operations": [
+			{"kind": "flag", "id": "ch1_label_fare_seen", "value": true},
+		],
+	},
+	"ch1_t_egret_1": {
+		"policy": TERMINAL, "then": "", "mode": "animated",
+		"when": {"flag": "ch1_dinner_done", "equals": true},
+		"operations": [
+			{"kind": "flag", "id": "ch1_heard_brief", "value": true},
+		],
+	},
+	"ch1_t_handoff_accept": {
+		"policy": TERMINAL, "then": "", "mode": "animated",
+		"when": {"all": [{"item": "ch1_data_disk"}, {"not": {"flag": "ch1_disk_delivered", "equals": true}}]},
+		"operations": [
+			{"kind": "item_transfer", "id": "ch1_data_disk", "destination": "ch1_handoff_cabinet"},
+			{"kind": "flag", "id": "ch1_disk_delivered", "value": true},
+		],
+	},
+	"ch1_t_handoff_receipt": {
+		"policy": TERMINAL, "then": "", "mode": "animated",
+		"when": {"all": [{"flag": "ch1_disk_delivered", "equals": true}, {"not": {"flag": "ch1_disk_receipt_taken", "equals": true}}]},
+		"operations": [
+			{"kind": "item_acquire", "id": "ch1_delivery_receipt"},
+			{"kind": "flag", "id": "ch1_disk_receipt_taken", "value": true},
+		],
+	},
+	"ch1_t_handoff_summary": {
+		"policy": TERMINAL, "then": "", "mode": "dialogue",
+		"when": {"all": [{"flag": "ch1_disk_delivered", "equals": true}, {"flag": "ch1_disk_receipt_taken", "equals": true}, {"not": {"flag": "ch1_market_summary_known", "equals": true}}]},
+		"operations": [
+			{"kind": "item_acquire", "id": "ch1_market_summary"},
+			{"kind": "flag", "id": "ch1_market_summary_known", "value": true},
+			{"kind": "flag", "id": "ch1_handoff_done", "value": true},
+		],
+	},
 	"ch1_p05_service_fall": {"policy": TERMINAL, "flag": "ch1_prologue_service_heard", "then": ""},
 	"ch1_p05_service_clean": {"policy": TERMINAL, "flag": "ch1_prologue_service_heard", "then": ""},
 	"ch1_p06_call": {"policy": TERMINAL, "then": "", "operations": [

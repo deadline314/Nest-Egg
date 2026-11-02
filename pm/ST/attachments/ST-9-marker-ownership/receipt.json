@@ -1,0 +1,46 @@
+{
+  "base": "92d62c08d711f6d2a5d13e8ecb6f240c269ebdc8",
+  "negative": {
+    "processes": 4,
+    "checks": 49,
+    "failures": 23
+  },
+  "after": {
+    "processes": 4,
+    "checks": 42,
+    "failures": 0
+  },
+  "matrix-final": {
+    "processes": 31,
+    "checks": 632,
+    "failures": 0
+  },
+  "handoff": {
+    "processes": 2,
+    "checks": 107,
+    "failures": 0
+  },
+  "sunday": {
+    "processes": 8,
+    "checks": 133,
+    "failures": 0
+  },
+  "clinic": {
+    "processes": 4,
+    "checks": 59,
+    "failures": 0
+  },
+  "native": {
+    "processes": 6,
+    "checks": 111,
+    "failures": 0
+  },
+  "required": {
+    "groups": 7,
+    "checks": 3896,
+    "seconds": 141,
+    "new_failures": 0,
+    "known_failures": 0
+  },
+  "archive_sha256": "81fb21f7c890481417ba716c6bc37c6dddc4bdf037a2cf4ef146d8fd35c0cc1f"
+}

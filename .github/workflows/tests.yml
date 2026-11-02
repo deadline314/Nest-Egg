@@ -141,6 +141,12 @@ jobs:
         run: |
           python3 tools/run_ch2_reading_completion.py --godot "$GODOT" --output "${{ runner.temp }}/ch2-reading-completion"
 
+      - name: Check finite story ownership and damaged-metadata recovery
+        if: steps.gate.outputs.skip != 'true'
+        timeout-minutes: 45
+        run: |
+          python3 tools/run_story_marker_completion.py --godot "$GODOT" --output "${{ runner.temp }}/story-marker-completion"
+
       - name: Check optional Sunday choice and cold continuation
         if: steps.gate.outputs.skip != 'true'
         timeout-minutes: 15
@@ -261,6 +267,8 @@ jobs:
             ${{ runner.temp }}/ch2-evidence-completion/**/*.log
             ${{ runner.temp }}/ch2-reading-completion/**/*.json
             ${{ runner.temp }}/ch2-reading-completion/**/*.log
+            ${{ runner.temp }}/story-marker-completion/**/*.json
+            ${{ runner.temp }}/story-marker-completion/**/*.log
             ${{ runner.temp }}/sunday-choice/**/*.log
             ${{ runner.temp }}/sunday-choice/**/*.json
             ${{ runner.temp }}/voice-completion/**/*.log

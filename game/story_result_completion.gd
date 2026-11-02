@@ -40,7 +40,7 @@ func choose(option: Dictionary, retry: Callable) -> Dictionary:
 	if not Sources.owns_choice(String(Story._current_cinematic)):
 		if choice_pending(): return {"handled": true, "accepted": false}
 		var scene: Dictionary = Story._scenes.get(String(Story._current_cinematic), {})
-		if scene.get("completion_policy", "") in COMPLETION_POLICIES:
+		if Sources.owns_boundary(String(Story._current_cinematic)) or scene.get("completion_policy", "") in COMPLETION_POLICIES:
 			push_warning("[StoryResultCompletion] marked segment contains an unregistered choice")
 			Story.reset_active_presentation(&"leave")
 			EventBus.toast_requested.emit(Prompt.copy("這段對話暫時無法繼續，原進度保留。", "この会話は未対応です。元の進行状況は保持されています。", "This conversation is unavailable. Your previous progress is preserved."))
@@ -128,7 +128,7 @@ func complete(id: StringName, request: int) -> Dictionary:
 	if choice_pending() and id == _id and request == _request:
 		return {"handled": true, "ready": false}
 	var scene: Dictionary = Story._scenes.get(String(id), {})
-	if scene.get("completion_policy", "") not in COMPLETION_POLICIES:
+	if not Sources.owns_boundary(String(id)) and scene.get("completion_policy", "") not in COMPLETION_POLICIES:
 		return {}
 	# Standalone tools retain legacy presentation; a real Main cannot fall through.
 	if not main.get("_active_run"):
@@ -149,9 +149,9 @@ func complete(id: StringName, request: int) -> Dictionary:
 		continuation = &""
 	var result: Dictionary
 	if Sources.owns_boundary(String(id)) and Sources.boundary(String(id), Story._scenes, Story._scene_sources).is_empty():
-		result = {"error": "results differ from the finite authored boundary"}
+		result = {"error": "results differ from the finite authored boundary", "reload_original": true}
 	elif scene.get("completion_policy") in CONTINUATION_POLICIES and continuation == &"" and not closes_here:
-		result = {"error": "continuation differs from its finite authored contract"}
+		result = {"error": "continuation differs from its finite authored contract", "reload_original": true}
 	else:
 		result = _prepare_and_commit(scene, continuation)
 	# A semantic refusal can lead to its authored options, but that new position
