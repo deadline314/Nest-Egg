@@ -229,11 +229,13 @@ def _freight(source: ProductionSource):
                    _opt("drain", "把輪轉向蓄水槽那一側。", "ch3_t_c02_drained", "水會改道流進蓄水槽。"),
                    _opt("back", "把輪轉向主槽那一側。", "ch3_t_c02_wheel_wrong", "主槽已經滿了。"),
                    _opt("leave", "先離開排水輪。", None, "之後可以再來。")))
-    source.add("ch3_t_c02_wheel_wrong", "C02", (("label", "閥門頂住了，水位停在原處。輪要轉向蓄水槽那一側，再試一次。"),),
+    # 轉輪是凜自己的動作（WorldPropAction 的 turn）：手握手輪前緣推過去；轉錯方向推到三成就頂住、往回彈。
+    source.add("ch3_t_c02_wheel_wrong", "C02", steps=[dict(do="world_action", id="pump_wheel_jam"), *beats(
+        ("label", "閥門頂住了，水位停在原處。輪要轉向蓄水槽那一側，再試一次。"))],
                mode="animated", next_scene="ch3_t_c02_wheel")
-    source.add("ch3_t_c02_drained", "C02", (
+    source.add("ch3_t_c02_drained", "C02", steps=[dict(do="world_action", id="pump_wheel_drain"), *beats(
         ("label", "水流改道進了蓄水槽，主槽的浮標落到低線，下槽的照明亮了。"),
-        ("lamp", "水位到低線了。去下槽的乾地，把泡水的支路關掉。")),
+        ("lamp", "水位到低線了。去下槽的乾地，把泡水的支路關掉。"))],
         mode="animated", completion=(set_flag("ch3_pump_low"),))
     source.add("ch3_t_c02_wheel_revisit", "C02", (("label", "排水輪鎖在蓄水槽那一側，主槽維持低水位。"),), when=low)
 

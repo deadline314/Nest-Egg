@@ -24,5 +24,35 @@
     "kind": "take_paper",
     "station": [24, 57],
     "facing": -1
+  },
+  "pump_wheel_drain": {
+    "scene": "ch3_t_c02_drained",
+    "level": "res://data/levels/ch3_pump.tres",
+    "source": "res://data/npcs/ch3_drain_wheel.tres",
+    "prop": "sluice_hall__drain_wheel",
+    "reaction": "drain_wheel",
+    "kind": "turn",
+    "station": [-6, 42],
+    "facing": 1,
+    "hub": [12.7, 2.4],
+    "radius": [11.0, 1.4],
+    "sweep": [180, 140],
+    "strokes": 2,
+    "stall": 1.0
+  },
+  "pump_wheel_jam": {
+    "scene": "ch3_t_c02_wheel_wrong",
+    "level": "res://data/levels/ch3_pump.tres",
+    "source": "res://data/npcs/ch3_drain_wheel.tres",
+    "prop": "sluice_hall__drain_wheel",
+    "reaction": "drain_wheel",
+    "kind": "turn",
+    "station": [-6, 42],
+    "facing": 1,
+    "hub": [12.7, 2.4],
+    "radius": [11.0, 1.4],
+    "sweep": [140, 180],
+    "strokes": 1,
+    "stall": 0.35
   }
 }

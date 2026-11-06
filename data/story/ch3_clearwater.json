@@ -1329,6 +1329,10 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "world_action",
+     "id": "pump_wheel_jam"
+    },
+    {
      "do": "say",
      "speaker": "label",
      "text": "閥門頂住了，水位停在原處。輪要轉向蓄水槽那一側，再試一次。",
@@ -1342,6 +1346,10 @@
   "ch3_t_c02_drained": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "world_action",
+     "id": "pump_wheel_drain"
+    },
     {
      "do": "say",
      "speaker": "label",

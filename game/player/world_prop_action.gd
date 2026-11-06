@@ -2,6 +2,9 @@ class_name WorldPropAction
 extends RefCounted
 ## Bounded presentation on the real player. Inventory and durable results belong
 ## to StoryResultCompletion; this owner only moves a hand and temporary visuals.
+## 種類：insert（把持有的物品送進插口）、take_paper（接住出紙口的紙）、turn（握住手輪沿輪緣轉動，ST-21）。
+## turn 的資料：hub＝手輪中心、radius＝輪緣的橢圓半徑（側視時是扁的橢圓）、sweep＝手沿前半圈從哪個角度推到哪個角度（度，0＝右、90＝前下緣）、
+## strokes＝推幾次（每次推完鬆手回到起點再握）、stall＝推到幾成就卡住（1＝推到底；小於 1 會在那裡頂住、往回彈一點，表示轉不動）。
 
 const TABLE := "res://data/cutscene/world_prop_actions.json"
 const CONTACT_TOLERANCE := 0.25
@@ -62,7 +65,7 @@ static func problem(id: Variant, scene: String, overlay: Variant) -> String:
 	if not id is String or not id.is_valid_identifier() or overlay != true:
 		return "world_action requires a named action in an overlay scene"
 	var spec := definition(id)
-	if spec.is_empty() or spec.get("scene") != scene or spec.get("kind") not in ["insert", "take_paper"]:
+	if spec.is_empty() or spec.get("scene") != scene or spec.get("kind") not in ["insert", "take_paper", "turn"]:
 		return "world_action is missing or belongs to another scene"
 	for key: String in ["level", "source", "prop", "reaction"]:
 		if not spec.get(key) is String or spec[key].is_empty():
@@ -82,6 +85,14 @@ static func problem(id: Variant, scene: String, overlay: Variant) -> String:
 			return "world_action requires item and contact anchor"
 		if typeof(spec.get("width")) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(spec["width"])) or float(spec["width"]) < 1.0 or float(spec["width"]) > 8.0:
 			return "world_action width must be 1..8"
+	if spec["kind"] == "turn":
+		points.append_array(["hub", "radius", "sweep"])
+		var strokes: Variant = spec.get("strokes", 1)
+		if typeof(strokes) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(strokes)) or float(strokes) != floorf(float(strokes)) or int(strokes) < 1 or int(strokes) > 3:
+			return "world_action strokes must be 1..3"
+		var stall: Variant = spec.get("stall", 1.0)
+		if typeof(stall) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(stall)) or float(stall) <= 0.0 or float(stall) > 1.0:
+			return "world_action stall must be in (0, 1]"
 	for key: String in points:
 		var point: Variant = spec.get(key)
 		if not point is Array or point.size() != 2:
@@ -89,6 +100,12 @@ static func problem(id: Variant, scene: String, overlay: Variant) -> String:
 		for component: Variant in point:
 			if typeof(component) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(component)) or absf(float(component)) > 256.0:
 				return "world_action coordinates must be finite and bounded"
+	if spec["kind"] == "turn":
+		if float(spec["radius"][0]) < 1.0 or float(spec["radius"][1]) < 0.0 or float(spec["radius"][1]) > float(spec["radius"][0]):
+			return "world_action radius must be a flat rim ellipse (1 <= x, 0 <= y <= x)"
+		var sweep := absf(float(spec["sweep"][1]) - float(spec["sweep"][0]))
+		if sweep < 10.0 or sweep > 180.0:
+			return "world_action sweep must cover 10..180 degrees of the rim"
 	return ""
 
 
@@ -161,6 +178,8 @@ func start(id: String, player: Player, scene: String) -> bool:
 		_carrier.add_child(_disk)
 		_sequence = [{"id":"approach"}, {"id":"pocket", "time":0.4}, {"id":"present", "time":0.4},
 			{"id":"contact", "time":0.6}, {"id":"insert", "time":0.6}, {"id":"release", "time":0.35}]
+	elif _spec["kind"] == "turn":
+		_sequence = turn_sequence(int(_spec.get("strokes", 1)), float(_spec.get("stall", 1.0)))
 	else:
 		if not reaction._paper_shown:
 			return _fail("world action has no receipt at the outlet")
@@ -258,6 +277,10 @@ func after_frame(rig: CharacterRig) -> void:
 			_fail("world action contact is unavailable")
 			return
 		var target := _from_hand.lerp(goal, eased)
+		if phase in ["turn", "recoil"]:
+			target = goal  # 沿輪緣走，不是直線內插
+		elif phase == "regrip":
+			target += Vector2(0.0, -1.5 * sin(PI * eased))  # 鬆手回到起點時微微抬起，不在輪緣上拖
 		var weight := 1.0 - eased if phase == "release" else 1.0
 		var angle := 0.0 if int(_spec["facing"]) > 0 else PI
 		var placed := rig.place_hand(&"front", target, angle, weight)
@@ -304,6 +327,11 @@ func after_frame(rig: CharacterRig) -> void:
 		_update_held(reaction, 0.0)
 	elif phase == "stow" and is_instance_valid(_paper):
 		_paper.hide()
+	elif phase == "turn":
+		contacts_completed += 1
+		Sfx.play(&"switch", -12.0)
+	elif phase == "recoil":
+		Sfx.play(&"empty", -6.0)
 	_index += 1
 	if _index >= _sequence.size():
 		done = true
@@ -326,6 +354,10 @@ func _goal(player: Player, reaction: PropReaction) -> Vector2:
 		"contact": return reaction.contact_global(StringName(_spec["anchor"])) - Vector2((_tip.x - _grip.x) * _disk_scale, 0.0)
 		"insert": return reaction.contact_global(StringName(_spec["anchor"])) - Vector2(0.3, 0.0)
 		"take": return reaction.paper_tip_global()
+		"reach", "regrip": return rim_global(float(_spec["sweep"][0]))
+		"turn": return rim_global(_turn_angle(smoothstep(0.0, 1.0, clampf(_elapsed / _duration, 0.0, 1.0))))
+		"recoil": return rim_global(lerpf(_turn_angle(1.0), _turn_angle(1.0) - signf(float(_spec["sweep"][1]) - float(_spec["sweep"][0])) * RECOIL_DEGREES,
+				sin(PI * clampf(_elapsed / _duration, 0.0, 1.0))))
 		"pull": return _paper_start + Vector2(0.0, 1.0)
 		"release": return _from_hand
 	return Vector2.INF
@@ -387,3 +419,37 @@ func _live_player() -> Player:
 func _live_reaction() -> PropReaction:
 	var value := _reaction.get_ref() as PropReaction if _reaction != null else null
 	return value if is_instance_valid(value) and value.is_inside_tree() and not value.is_queued_for_deletion() else null
+
+
+## 推手輪卡住時往回彈的角度（度）。
+const RECOIL_DEGREES := 8.0
+
+
+## turn 的階段：走過去、伸手握住、推（卡住時多一段回彈）、鬆手回起點再握……最後放手。
+static func turn_sequence(strokes: int, stall: float) -> Array[Dictionary]:
+	var sequence: Array[Dictionary] = [{"id": "approach"}, {"id": "reach", "time": 0.35}]
+	for i in strokes:
+		if i > 0:
+			sequence.append({"id": "regrip", "time": 0.25})
+		sequence.append({"id": "turn", "time": 0.55 * maxf(0.3, stall)})
+		if stall < 1.0:
+			sequence.append({"id": "recoil", "time": 0.3})
+	sequence.append({"id": "release", "time": 0.35})
+	return sequence
+
+
+## 這一推走到的輪緣角度（度）：卡住時只走到 stall 那一成。
+func _turn_angle(progress: float) -> float:
+	var stall := float(_spec.get("stall", 1.0))
+	return lerpf(float(_spec["sweep"][0]), float(_spec["sweep"][1]), progress * stall)
+
+
+## 手輪輪緣上某個角度的世界座標（擺設自己的座標系，0 度＝右、90 度＝前下緣）。
+func rim_global(degrees: float) -> Vector2:
+	var prop := _prop.get_ref() as PropNode if _prop != null else null
+	if not is_instance_valid(prop):
+		return Vector2.INF
+	var radians := deg_to_rad(degrees)
+	var hub := Vector2(_spec["hub"][0], _spec["hub"][1])
+	return prop.to_global(hub + Vector2(float(_spec["radius"][0]) * cos(radians), float(_spec["radius"][1]) * sin(radians)))
+

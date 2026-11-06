@@ -69,8 +69,11 @@ func _run() -> void:
 	await _enter("pump")
 	await _talk(&"ch3_branch_panel")
 	_check(not GameState.has_flag(&"ch3_wet_branch_isolated"), "the panel is still under water before draining")
+	_watch_world_actions()
 	await _talk(&"ch3_drain_wheel", ["back", "drain"])
+	_watching_actions = false
 	_check(GameState.has_flag(&"ch3_pump_low"), "turning the wheel the wrong way only stalls; the right way drains the tank")
+	_check(_action_phases.has("pump_wheel_jam:recoil") and _action_phases.has("pump_wheel_drain:turn"), "Rin's hand actually pushes the wheel both ways (phases seen: %s)" % [_action_phases.keys()])
 	await _talk(&"ch3_branch_panel", ["main", "branch", "power"])
 	_check(GameState.has_flag(&"ch3_wet_branch_isolated") and GameState.has_flag(&"ch3_lift_powered"), "the wet branch is isolated and the main line powered")
 	await _enter("plaza")
@@ -182,3 +185,35 @@ func _run() -> void:
 	Settings.set_skip_cutscenes(_previous_skip)
 	print("CH3_FLOW_PROBE route=%s yong=%s skip=%s failures=%d" % [_route, _yong, _skip_setting, _failures])
 	get_tree().quit(1 if _failures > 0 else 0)
+
+
+var _watching_actions := false
+var _action_phases: Dictionary = {}
+
+
+## 地圖上凜自己的動作（WorldPropAction）：記下每一個看到的階段；有畫面時每個階段的開頭與中段各拍一張。
+func _watch_world_actions() -> void:
+	_watching_actions = true
+	var last := ""
+	var shots := 0
+	while _watching_actions and is_inside_tree():
+		await get_tree().process_frame
+		var action: WorldPropAction = _level.player._visual.interaction_action if is_instance_valid(_level) else null
+		if action == null or action.done or action._spec.is_empty():
+			continue
+		var id := ""
+		for key: String in ["pump_wheel_jam", "pump_wheel_drain"]:
+			if WorldPropAction.definition(key) == action._spec:
+				id = key
+		var key := "%s:%s" % [id, action.phase]
+		if key != last:
+			last = key
+			_action_phases[key] = true
+			if action.phase != "approach" and shots < 24:
+				shots += 1
+				_capture("ST-21-wheel-%02d-%s-%s" % [shots, id.trim_prefix("pump_wheel_"), action.phase])
+		elif action.phase in ["turn", "recoil"] and action._elapsed > action._duration * 0.5 and not _action_phases.has(key + ":mid") and shots < 24:
+			_action_phases[key + ":mid"] = true
+			shots += 1
+			_capture("ST-21-wheel-%02d-%s-%s-mid" % [shots, id.trim_prefix("pump_wheel_"), action.phase])
+
