@@ -39,11 +39,29 @@ func _run() -> void:
 	GameState.start_new_run(GameState.difficulties[1])
 	Story.reset_progress()
 	Story.auto_skip = false
-	# 第一章收尾的真實結果：資料盤已交、回執與摘要在手、宵夜照選擇（留下才知道地址）。
-	for done in [&"ch1_complete", &"ch1_handoff_done", &"ch1_supper_done", &"ledger_disk_obtained"]:
+	_carry_ch1_results()
+	await _play_chapter()
+	print("CH2_FLOW_PROBE route=%s supper=%s pay=%s failures=%d" % [_route, _supper, _pay, _failures])
+	get_tree().quit(1 if _failures > 0 else 0)
+
+
+## 第一章收尾的真實結果（新遊戲直接從第二章早上開始時用；跨章探針改由真的存檔帶進來）。
+func _carry_ch1_results() -> void:
+	# 第一章收尾的真實結果：資料盤已交進委託櫃、回執與摘要在手、宵夜照選擇（留下才知道地址）。
+	# 盤要「取得後交出」而不是只設旗標：正式 Main 保存故事結果前會核對必需物品（data/save/required_items.json），
+	# 旗標說已取得卻沒有交出紀錄時，存檔會被要求整份修復，巡帳員的通行就存不進去。
+	for done in [&"ch1_complete", &"ch1_handoff_done", &"ch1_supper_done", &"ledger_disk_obtained", &"ch1_disk_delivered"]:
 		GameState.set_flag(done)
+	StoryItems.acquire(&"ch1_data_disk", false)
+	StoryItems.transfer(&"ch1_data_disk")
+	for kept: StringName in [&"ch1_delivery_receipt", &"ch1_market_summary"]:
+		StoryItems.acquire(kept, false)
 	if _supper == "stay":
 		GameState.set_flag(&"knows_ali_address")
+
+
+## 從當舖的早上推到屋頂章末，沿途檢查旗標、帳務、物品與任務；不結束程序（跨章探針接著用）。
+func _play_chapter() -> void:
 	var credits := Progression.credits
 	# H1 當舖：進場的一句話，老 K 結算七百二十，修收音機（先接錯一次）。
 	await _enter("pawnshop")
@@ -161,8 +179,6 @@ func _run() -> void:
 	_check(catalog.issues.is_empty() and open_main.is_empty(), "all chapter 2 main quests are complete (%d open: %s)" % [open_main.size(), open_main.map(func(q: Dictionary) -> String: return str(q.get("id")))])
 	var open_side := catalog.list_for("ch2_heron", "side", false, GameState.world_flags)
 	_check(open_side.is_empty(), "every side quest this route touched is complete (%s)" % [open_side.map(func(q: Dictionary) -> String: return str(q.get("id")))])
-	print("CH2_FLOW_PROBE route=%s supper=%s pay=%s failures=%d" % [_route, _supper, _pay, _failures])
-	get_tree().quit(1 if _failures > 0 else 0)
 
 
 ## BG-46：安排在已上傳查帳的館外，專驗客人簿退出、重入、重試、一次性獎勵；不代稱真人章節通關。

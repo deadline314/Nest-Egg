@@ -7,7 +7,7 @@ extends "res://tools/ch2_flow_probe.gd"
 ##          文件還在手上、任務停在下一步；再把市集的線索收完，證明讀檔後還能往下推。
 
 const MARKET := "res://data/levels/ch2_market.tres"
-const LIMIT_MSEC := 120000
+const ProbeMainRoute := preload("res://tools/probe_main_route.gd")
 ## 讀檔後不該再播的段落（已經看過或已經結算）。
 const DONE_SCENES: Array[StringName] = [&"ch2_s01_morning", &"ch2_t_s01_settle", &"ch2_t_s02_power", &"ch2_t_s03_brief", &"ch2_t_s06_open"]
 ## 早上結算、代墊四十、修好收音機（支線獎勵）各一筆，依編號排序。
@@ -17,7 +17,7 @@ const DOCUMENTS: Array[StringName] = [&"ch2_check_card", &"ch2_evidence_receipt"
 var _mode := ""
 var _save_dir := ""
 var _main: Node
-var _played: Array[StringName] = []
+var _route_main: ProbeMainRoute
 
 
 func _ready() -> void:
@@ -34,38 +34,16 @@ func _ready() -> void:
 
 
 func _main_level() -> Level:
-	var screen: Variant = _main.get("_screen") if is_instance_valid(_main) else null
-	return screen as Level if screen is Level else null
+	return _route_main.level()
 
 
 func _wait_level(path: String, other_than: Level = null) -> bool:
-	var deadline := Time.get_ticks_msec() + LIMIT_MSEC
-	while Time.get_ticks_msec() < deadline:
-		var level := _main_level()
-		if level != null and level != other_than and level.data.resource_path == path and level.player != null and level.is_inside_tree():
-			return true
-		await _settle(1)
-	return false
+	return await _route_main.wait_level(path, other_than)
 
 
 ## 區域切換走 Main 的出入口路由（會存檔），而不是探針自己換關卡。
 func _enter(area: String, near := Vector2.INF) -> void:
-	var path := level_pattern % area
-	var current := _main_level()
-	if current == null or current.data.resource_path != path:
-		GameState.pending_portal = &""
-		_main.call("_on_area_requested", path)
-		_check(await _wait_level(path, current), "Main routes into %s" % area)
-	_level = _main_level()
-	await _settle(30)
-	for i in STEP_LIMIT:
-		if not Story.is_cinematic_active():
-			break
-		Story.skip_cinematic()
-		await _settle(4)
-	if near != Vector2.INF:
-		_level.player.global_position = near
-		await _settle(20)
+	_level = await _route_main.enter(level_pattern % area, near)
 
 
 func _receipts() -> Array:
@@ -77,10 +55,12 @@ func _receipts() -> Array:
 
 func _run() -> void:
 	_shots = {}
-	Story.scene_started.connect(func(id: StringName, _mode_name: StringName) -> void: _played.append(id))
+	# 播過的段落記在基底探針的 _played（字串）。
+	Story.scene_started.connect(func(id: StringName, _mode_name: StringName) -> void: _played.append(String(id)))
 	_main = (load("res://scenes/main.tscn") as PackedScene).instantiate()
 	_main.set("_run_store", RunSaveStore.new(_save_dir.path_join("slot.json")))
 	add_child(_main)
+	_route_main = ProbeMainRoute.new(self, _main)
 	await _settle(30)
 	if _mode == "write":
 		await _write()
@@ -91,23 +71,11 @@ func _run() -> void:
 
 
 func _write() -> void:
-	var deadline := Time.get_ticks_msec() + LIMIT_MSEC
-	var started := false
-	while Time.get_ticks_msec() < deadline and _main_level() == null:
-		if not started and not bool(_main.call("_route_pending")):
-			_main.call("_on_start_requested", GameState.difficulties[1])
-			started = _main.get("_active_run")
-		await _settle(30)
-	_check(_main_level() != null, "a new game from Main enters the first area")
-	# 開場演出還在播時寫入的東西會在換區時跟著演出一起撤回：先像玩家一樣看完開場，再帶入前章的結果。
-	for i in STEP_LIMIT:
-		if not Story.is_cinematic_active():
-			break
-		Story.skip_cinematic()
-		await _settle(4)
+	_check(await _route_main.start_new_game(), "a new game from Main enters the first area")
+	# 開場看完以後再帶入前章的結果（開場演出還在播時寫入的東西會在換區時跟著演出一起撤回）。
 	# 第一章收尾的真實結果（宵夜留下、初次建檔已做過），再從當舖的早上開始。
-	for done in [&"ch1_complete", &"ch1_handoff_done", &"ch1_supper_done", &"ledger_disk_obtained", &"knows_ali_address", &"ch1_first_death_done"]:
-		GameState.set_flag(done)
+	_carry_ch1_results()
+	GameState.set_flag(&"ch1_first_death_done")
 	await _enter("pawnshop")
 	await _talk(&"ch2_old_k", ["settle"])
 	await _talk(&"ch2_radio", ["antenna", "power", "antenna", "speaker", "middle", "save"])
@@ -153,16 +121,8 @@ func _write() -> void:
 
 
 func _continue() -> void:
-	var store := _main.get("_run_store") as RunSaveStore
-	var data: Dictionary = store.read()
-	_check(not data.is_empty(), "the previous process left a readable save")
+	var data: Dictionary = await _route_main.continue_game()
 	var saved_credits := int((data.get("progression", {}) as Dictionary).get("credits", -1))
-	var deadline := Time.get_ticks_msec() + LIMIT_MSEC
-	while Time.get_ticks_msec() < deadline and bool(_main.call("_route_pending")):
-		await _settle(10)
-	_main.call("_on_continue_requested")
-	var saved_level := str(data.get("level", ""))
-	_check(await _wait_level(saved_level), "continue lands back in the saved area %s" % saved_level.get_file())
 	_level = _main_level()
 	await _settle(120)
 	_capture("ST-19-resume-continue")
@@ -170,7 +130,7 @@ func _continue() -> void:
 	_check(_receipts() == RECEIPTS.map(func(id: StringName) -> String: return String(id)), "each story payment is recorded once (%s)" % [_receipts()])
 	_check(DOCUMENTS.all(func(id: StringName) -> bool: return StoryItems.holds(id)), "the documents are still in hand")
 	_check(GameState.deaths == 1, "the death from the previous process is remembered")
-	_check(not _played.any(func(id: StringName) -> bool: return DONE_SCENES.has(id)), "no finished scene replays on continue (played %s)" % [_played])
+	_check(not _played.any(func(id: String) -> bool: return DONE_SCENES.has(StringName(id))), "no finished scene replays on continue (played %s)" % [_played])
 	var catalog := QuestCatalog.new()
 	catalog.load_story_sources()
 	var open_main := catalog.list_for("ch2_heron", "main", false, GameState.world_flags)

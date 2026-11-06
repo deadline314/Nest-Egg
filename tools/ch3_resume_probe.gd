@@ -27,20 +27,8 @@ func _flags_all() -> bool:
 
 
 func _write() -> void:
-	var deadline := Time.get_ticks_msec() + LIMIT_MSEC
-	var started := false
-	while Time.get_ticks_msec() < deadline and _main_level() == null:
-		if not started and not bool(_main.call("_route_pending")):
-			_main.call("_on_start_requested", GameState.difficulties[1])
-			started = _main.get("_active_run")
-		await _settle(30)
-	_check(_main_level() != null, "a new game from Main enters the first area")
-	# 開場演出還在播時寫入的東西會在換區時跟著演出一起撤回：先像玩家一樣看完開場，再帶入前章的結果。
-	for i in STEP_LIMIT:
-		if not Story.is_cinematic_active():
-			break
-		Story.skip_cinematic()
-		await _settle(4)
+	_check(await _route_main.start_new_game(), "a new game from Main enters the first area")
+	# 開場看完以後再帶入前章的結果（開場演出還在播時寫入的東西會在換區時跟著演出一起撤回）。
 	# 第二章章末的真實結果（初次建檔已做過），診所索引在手。
 	for done in [&"ch1_complete", &"ch2_heron_closed", &"ch2_audit_submitted", &"ch1_first_death_done"]:
 		GameState.set_flag(done)
@@ -92,23 +80,15 @@ func _write() -> void:
 
 
 func _continue() -> void:
-	var store := _main.get("_run_store") as RunSaveStore
-	var data: Dictionary = store.read()
-	_check(not data.is_empty(), "the previous process left a readable save")
+	var data: Dictionary = await _route_main.continue_game()
 	var saved_credits := int((data.get("progression", {}) as Dictionary).get("credits", -1))
-	var deadline := Time.get_ticks_msec() + LIMIT_MSEC
-	while Time.get_ticks_msec() < deadline and bool(_main.call("_route_pending")):
-		await _settle(10)
-	_main.call("_on_continue_requested")
-	var saved_level := str(data.get("level", ""))
-	_check(await _wait_level(saved_level), "continue lands back in the saved area %s" % saved_level.get_file())
 	_level = _main_level()
 	await _settle(120)
 	_check(Progression.credits == saved_credits, "credits come back exactly as saved (%d)" % Progression.credits)
 	_check(_receipts() == CH3_RECEIPTS.map(func(id: StringName) -> String: return String(id)), "the reconciliation payment is recorded once (%s)" % [_receipts()])
 	_check(_holds_all() and _flags_all(), "documents and world switches come back with the save")
 	_check(GameState.deaths == 1, "the death from the previous process is remembered")
-	_check(not _played.any(func(id: StringName) -> bool: return CH3_DONE_SCENES.has(id)), "no finished scene replays on continue (played %s)" % [_played])
+	_check(not _played.any(func(id: String) -> bool: return CH3_DONE_SCENES.has(StringName(id))), "no finished scene replays on continue (played %s)" % [_played])
 	await _enter("clinic")
 	var credits := Progression.credits
 	await _talk(&"ch3_zhi")

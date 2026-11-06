@@ -49,11 +49,24 @@ func _run() -> void:
 	Story.auto_skip = false
 	_previous_skip = Settings.get_skip_cutscenes()
 	Settings.set_skip_cutscenes(_skip_setting)
+	_carry_ch2_results()
+	await _play_chapter()
+	Settings.set_skip_cutscenes(_previous_skip)
+	print("CH3_FLOW_PROBE route=%s yong=%s skip=%s failures=%d" % [_route, _yong, _skip_setting, _failures])
+	get_tree().quit(1 if _failures > 0 else 0)
+
+
+## 第二章章末的結果（單獨跑第三章時用；跨章探針改由真的存檔帶進來）。
+func _carry_ch2_results() -> void:
 	# 第二章章末的真實結果：章末已過、診所索引在手、阿勇父女依路線（兩路都活著）。
 	for done in [&"ch1_complete", &"ch2_heron_closed", &"ch2_audit_submitted", &"ch2_original_ledger_taken", &"harbor_walk_ready"]:
 		GameState.set_flag(done)
 	GameState.set_flag(&"yong_link_choice", _yong)
 	StoryItems.acquire(&"ch2_clinic_index")
+
+
+## 從週日早上的當舖推到第三章章末，沿途檢查旗標、帳務、物品與任務；不結束程序。
+func _play_chapter() -> void:
 	var credits := Progression.credits
 	# C00 當舖：早飯、追問一次、確認出門。
 	await _enter("pawnshop")
@@ -113,8 +126,7 @@ func _run() -> void:
 	await _enter("gate_hall")
 	await _talk(&"ch3_scanner_gate")
 	_check(GameState.has_flag(&"ch3_janus_intro_seen") and not GameState.has_flag(&"ch3_janus_disabled"), "the gatekeeper introduction does not open the gate")
-	EventBus.mechanism_toggled.emit(&"ch3_janus_down", true)
-	await _settle(4)
+	await _stop_gatekeeper()
 	_check(GameState.has_flag(&"ch3_janus_disabled"), "the boss fight's stop channel writes the disabled flag")
 	await _enter("clinic")
 	await _enter("gate_hall")
@@ -189,7 +201,10 @@ func _run() -> void:
 	if _full():
 		var open_side := catalog.list_for("ch3_clearwater", "side", false, GameState.world_flags)
 		_check(open_side.is_empty(), "every side quest is complete on the full route (%s)" % [open_side.map(func(q: Dictionary) -> String: return str(q.get("id")))])
-	Settings.set_skip_cutscenes(_previous_skip)
-	print("CH3_FLOW_PROBE route=%s yong=%s skip=%s failures=%d" % [_route, _yong, _skip_setting, _failures])
-	get_tree().quit(1 if _failures > 0 else 0)
 
+
+## 守門人戰的結果：單獨跑時直接送出戰鬥組的機關頻道（關卡沒有啟用持久結果）。
+## 在真正的 Main 裡跑的探針要改成真的拔下維修插銷（見 ch3_handoff_probe.gd）。
+func _stop_gatekeeper() -> void:
+	EventBus.mechanism_toggled.emit(&"ch3_janus_down", true)
+	await _settle(4)
