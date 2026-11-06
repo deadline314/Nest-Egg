@@ -9,10 +9,9 @@ from __future__ import annotations
 
 import json
 import re
+import struct
 from dataclasses import dataclass
 from pathlib import Path
-
-from PIL import Image
 
 import towel_staging
 from build_ch1_story import actor as stage_actor, stage as stage_scene
@@ -38,6 +37,15 @@ def prop_size(scene: str, prop_id: str) -> tuple[float, float]:
     return float(match.group(1)), float(match.group(2))
 
 
+def png_width(path: Path) -> int:
+    """PNG 貼圖的寬（讀檔頭的 IHDR，不依賴影像套件；CI 的劇本檢查沒有安裝 Pillow）。"""
+    with path.open("rb") as handle:
+        header = handle.read(24)
+    if len(header) < 24 or header[:8] != b"\x89PNG\r\n\x1a\n" or header[12:16] != b"IHDR":
+        raise ValueError(f"{path} 不是有效的 PNG，讀不到寬度")
+    return struct.unpack(">I", header[16:20])[0]
+
+
 def background(scene: str, modulate: str | None = None) -> dict:
     layer = {"kind": "sprite", "path": SCENE_ART % scene, "pos": [-64, -36.0], "scale": 0.5, "filter": "linear", "source_width": 1536}
     if modulate:
@@ -49,7 +57,7 @@ def prop_layer(scene: str, prop_id: str, x: float, floor: float, scale: float, *
     """關卡擺設貼在舞台上：左緣 x、底邊落在 floor；縮放＝演員縮放 × 世界寬 ÷ 貼圖寬（StageFitAudit 依此核對）。"""
     width, height = prop_size(scene, prop_id)
     path = PROP_ART % (scene, prop_id)
-    tex_w = Image.open(_res_path(path)).size[0]
+    tex_w = png_width(_res_path(path))
     layer = {"kind": "sprite", "path": path, "pos": [round(x, 1), round(floor - height * scale, 1)],
              "scale": round(scale * width / tex_w, 4), "filter": "linear", "source_width": tex_w}
     if glow:
