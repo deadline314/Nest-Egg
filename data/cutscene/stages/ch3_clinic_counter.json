@@ -1,0 +1,85 @@
+{
+ "camera": {
+  "pos": [
+   440,
+   196
+  ],
+  "zoom": 1.25
+ },
+ "floor": 302,
+ "floors": [
+  276
+ ],
+ "furniture": [
+  {
+   "id": "clinic_counter",
+   "kind": "counter",
+   "rect": [
+    460,
+    213,
+    244,
+    77
+   ]
+  }
+ ],
+ "layers": [
+  {
+   "kind": "gradient",
+   "top": "#1a2026",
+   "bottom": "#2a3238",
+   "parallax": 0.0
+  },
+  {
+   "kind": "rect",
+   "rect": [
+    -200,
+    392,
+    1040,
+    160
+   ],
+   "color": "#9aa0a6"
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scenes/clinic.webp",
+   "pos": [
+    -64,
+    -36.0
+   ],
+   "scale": 0.5,
+   "filter": "linear",
+   "source_width": 1536,
+   "modulate": "#d2d8dc"
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    470,
+    120
+   ],
+   "radius": 300,
+   "color": "#0c1218",
+   "intensity": 1.0,
+   "alpha": 0.25
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scenes/clinic.webp",
+   "pos": [
+    460.0,
+    211.0
+   ],
+   "scale": 0.5,
+   "filter": "linear",
+   "source_width": 1536,
+   "modulate": "#d2d8dc",
+   "region": [
+    1048,
+    494,
+    488,
+    266
+   ],
+   "depth": "front"
+  }
+ ]
+}

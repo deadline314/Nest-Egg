@@ -1680,6 +1680,42 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch3_clinic_counter",
+     "pos": [
+      440,
+      262.2
+     ],
+     "zoom": 1.25,
+     "fade": 0.8
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      392,
+      302
+     ],
+     "facing": 1,
+     "scale": 2.14,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "zhi",
+     "kind": "zhi",
+     "pos": [
+      584,
+      276
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "zhi"
+    },
+    {
      "do": "say",
      "speaker": "rin",
      "text": "代收說費用照月報十七，我來看原始公開表。",
@@ -1726,7 +1762,7 @@
      "en": "Objection review pays 180 credits from the clinic audit fund once all three records are confirmed."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "all": [
      {
@@ -1756,6 +1792,42 @@
   "ch3_t_c04_after": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch3_clinic_counter",
+     "pos": [
+      440,
+      262.2
+     ],
+     "zoom": 1.25,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      392,
+      302
+     ],
+     "facing": 1,
+     "scale": 2.14,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "zhi",
+     "kind": "zhi",
+     "pos": [
+      584,
+      276
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "zhi"
+    },
     {
      "do": "say",
      "speaker": "zhi",
@@ -1792,11 +1864,47 @@
      "en": "Bring a number if you have questions. I can explain the referral column. The inner door is closed today for rest."
     }
    ],
-   "overlay": true
+   "pose_policy": "supported"
   },
   "ch3_t_c04_disease": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch3_clinic_counter",
+     "pos": [
+      440,
+      262.2
+     ],
+     "zoom": 1.25,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      392,
+      302
+     ],
+     "facing": 1,
+     "scale": 2.14,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "zhi",
+     "kind": "zhi",
+     "pos": [
+      584,
+      276
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "zhi"
+    },
     {
      "do": "say",
      "speaker": "rin",
@@ -1819,7 +1927,7 @@
      "en": "I'll check this summary first, without tying it to my own name."
     }
    ],
-   "overlay": true
+   "pose_policy": "supported"
   },
   "ch3_t_c04_no_index": {
    "mode": "animated",

@@ -148,6 +148,46 @@ def _staged(where: str, lines: tuple, opening: bool = False) -> list[dict]:
     return steps + beats(*lines)
 
 
+# 夾層診所的公開櫃檯（C04，ST-21）：舞台用 art/environment/scenes/clinic.webp（1536×864 縮 0.5，鋪滿 -64..704 × -36..396）。
+# 量自立繪：接待櫃檯正面左緣 x≈460、頂面 y≈213、左下角落地 y≈290（正面高約 77）；後牆踢腳線 y≈276。
+# 櫃檯正面切成一塊畫在演員前面（depth front），芷姐站在櫃檯後只露出上半身；凜站在櫃檯左前方的地板上。
+# 縮放照櫃檯高度定：櫃檯正面高 77 是身高的 0.62（stage_proportions 的 counter 0.6～0.64）→ 凜 58 × 2.14 ≈ 124；芷姐在後面一點，縮放 2.0。
+CLINIC_STAGE = "ch3_clinic_counter"
+CLINIC_FLOOR = 302
+CLINIC_BEHIND = 276
+CLINIC_CAST = (("rin", "rin", 392, CLINIC_FLOOR, 1, 2.14), ("zhi", "zhi", 584, CLINIC_BEHIND, -1, 2.0))
+CLINIC_SHOT = (440, 196, 1.25)  # 鏡頭右緣停在立繪右緣（704）以內
+# 櫃檯正面在原圖的範圍（原圖像素）：x 1048～1536、y 494～760（頂面的前緣到右端落地）。
+CLINIC_COUNTER_REGION = [1048, 494, 488, 266]
+
+
+def clinic_stage() -> dict:
+    """診所公開櫃檯的舞台（data/cutscene/stages/ch3_clinic_counter.json 由 build_ch3_story.py 寫出）。"""
+    background = {"kind": "sprite", "path": "res://art/environment/scenes/clinic.webp", "pos": [-64, -36.0], "scale": 0.5,
+                  "filter": "linear", "source_width": 1536, "modulate": "#d2d8dc"}
+    region = CLINIC_COUNTER_REGION
+    counter_front = dict(background, pos=[-64 + region[0] * 0.5, -36.0 + region[1] * 0.5], region=region, depth="front")
+    layers = [
+        {"kind": "gradient", "top": "#1a2026", "bottom": "#2a3238", "parallax": 0.0},
+        {"kind": "rect", "rect": [-200, 392, 1040, 160], "color": "#9aa0a6"},
+        background,
+        # 白色診間壓暗一點，凜的白髮與芷姐的淺色制服才不會糊進牆面（同 NE-251）。
+        {"kind": "glow", "pos": [470, 120], "radius": 300, "color": "#0c1218", "intensity": 1.0, "alpha": 0.25},
+        counter_front,
+    ]
+    furniture = [{"id": "clinic_counter", "kind": "counter", "rect": [460, 213, 244, 77]}]
+    return {"camera": {"pos": list(CLINIC_SHOT[:2]), "zoom": CLINIC_SHOT[2]}, "floor": CLINIC_FLOOR,
+            "floors": [CLINIC_BEHIND], "furniture": furniture, "layers": layers}
+
+
+def _clinic_staged(lines: tuple, opening: bool = False) -> list[dict]:
+    x, y, zoom = CLINIC_SHOT
+    steps = [stage_scene(CLINIC_STAGE, x=x, y=y, zoom=zoom, fade_in=0.8 if opening else 0.25, feet=CLINIC_FLOOR)]
+    for ident, kind, ax, ay, facing, scale in CLINIC_CAST:
+        steps.append(stage_actor(ident, kind, ax, ay, facing=facing, scale=scale, speaker=kind, weapon=""))
+    return steps + beats(*lines)
+
+
 def _documents_and_transactions(source: ProductionSource):
     source.documents = dict(DOCUMENTS)
     for canonical, (filename, _amount) in TRANSACTIONS.items():
@@ -287,23 +327,24 @@ def _clinic(source: ProductionSource):
     roster = flag("ch3_nursing_roster_taken")
     register = flag("ch3_followup_register_taken")
     reconciled = flag("ch3_report_reconciled")
-    source.add("ch3_t_c04_counter", "C04", (
+    # 第一次見芷姐是正式過場（ST-21）：診所公開櫃檯的舞台，凜在櫃檯前、芷姐在櫃檯後；接著的追問留在同一個畫面上。
+    source.add("ch3_t_c04_counter", "C04", steps=_clinic_staged((
         ("rin", "代收說費用照月報十七，我來看原始公開表。"),
         ("zhi", "我是這班的護士芷姐。十七是月份批號，不是你的診斷號。"),
         ("zhi", "市場錯收已結案，查核權還在。你能看的是去掉姓名的統計，不是每個人的病歷。"),
         ("rin", "我先對同一批人，有名字也不替他們作答。"),
         ("zhi", "公開報表在桌上，輪班表在工作廊，追蹤名冊在門邊的閱覽櫃。三份都用編號，日期要一起看。"),
-        ("label", "核閱異議處理報酬一百八十信用點，由診所公開查核帳支付，三份證據確認後結算。")),
+        ("label", "核閱異議處理報酬一百八十信用點，由診所公開查核帳支付，三份證據確認後結算。")), opening=True),
         when=all_of(negate(access), item("ch2_clinic_index")), mode="animated",
         completion=(set_flag("ch3_clinic_access"), grant("ch3_review_slip")), next_scene="ch3_t_c04_after")
-    source.add("ch3_t_c04_after", "C04", (("zhi", "有問題拿編號來問，我能解釋轉介欄。有人正在休息，裡面的門今天不開。"),),
+    source.add("ch3_t_c04_after", "C04", steps=_clinic_staged((("zhi", "有問題拿編號來問，我能解釋轉介欄。有人正在休息，裡面的門今天不開。"),)),
                options=(
                    _opt("disease", "問檔案標頭的「錨人耗損症」。", "ch3_t_c04_disease", "可選的追問。"),
                    _opt("go", "先去看三份資料。", None, "三份可以照任意順序看。")))
-    source.add("ch3_t_c04_disease", "C04", (
+    source.add("ch3_t_c04_disease", "C04", steps=_clinic_staged((
         ("rin", "這是復原的人生病，還是付帳的人？"),
         ("zhi", "這一冊追蹤的是錨人的記憶與生活能力，不是受錨者的新身體。"),
-        ("rin", "我先查這份總表，不把它貼到自己名字上。")), mode="animated")
+        ("rin", "我先查這份總表，不把它貼到自己名字上。"))), mode="animated")
     source.add("ch3_t_c04_no_index", "C04", (("zhi", "月報要用索引來查。索引在前章的帳櫃裡，拿到再來找我。"),),
                when=all_of(negate(access), negate(item("ch2_clinic_index"))))
     source.add("ch3_t_c04_revisit", "C04", (("zhi", "先看月份與編號，有一份缺了就從原櫃再印。我不收查核入場費。"),), when=access)
