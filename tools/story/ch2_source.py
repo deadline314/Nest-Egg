@@ -7,7 +7,7 @@
 from __future__ import annotations
 
 import sys
-from dataclasses import replace
+from dataclasses import dataclass, replace
 from pathlib import Path
 
 sys.dont_write_bytecode = True
@@ -17,7 +17,8 @@ from ch1_closure import (Option, ProductionSource, Quest, QuestStep, all_of, any
                          negate, receipt, say, set_flag, transaction, transfer)
 from build_ch1_story import actor as stage_actor, stage as stage_scene  # noqa: E402
 from chapter_compiler import route_back_to_choices  # noqa: E402
-from ch2_stages import BOOTH, COLLECTION, LEDGER, Cast  # noqa: E402
+import towel_staging  # noqa: E402
+from ch2_stages import BOOTH, COLLECTION, LEDGER, PAWNSHOP, Cast, Stage  # noqa: E402
 
 # 舞台演出：屋頂的茶沿用第一章的屋頂舞台（地面線 262、凜縮放 2.2；鷺的骨架只比凜高 3%，同舞台用同一個縮放）。
 # 兩人站在茶座兩側、面向對方（0.40W 與 0.60W）；接續的段落沿用同一個舞台與站位，只用很短的淡入。
@@ -796,34 +797,65 @@ def _guest_book_frames(source: ProductionSource):
 
 
 
-# 正式過場（ST-19）：代收處、帳房與電話亭的對話放上舞台（tools/story/ch2_stages.py），選擇也留在同一個畫面上。
-# 每段給舞台、演員與是否為開場（開場淡入較長，接續的段落沿用站位只用很短的淡入）；回訪的一句話仍留在地圖上。
+# 正式過場（ST-19）：當舖櫃臺、代收處、帳房與電話亭的對話放上舞台（tools/story/ch2_stages.py），選擇也留在同一個畫面上。
+# 每段給舞台、演員、是否為開場（開場淡入較長，接續的段落沿用站位只用很短的淡入），以及插在第幾句台詞之前的動作；
+# 回訪的一句話仍留在地圖上。
+@dataclass(frozen=True)
+class Frame:
+    stage: Stage
+    cast: tuple[Cast, ...]
+    opening: bool = False
+    cues: tuple[tuple[int, tuple[dict, ...]], ...] = ()   # （第幾句台詞之前, 動作）
+
+
+_PAWNSHOP_CAST = (Cast("k", 205, 1, kind="old_k", scale=3.6), Cast("rin", 325, -1, scale=3.4))
 _COLLECTION_CAST = (Cast("rin", 230, 1), Cast("ali", 300, 1), Cast("vig", 430, -1, floor=322))
 _LEDGER_CAST = (Cast("rin", 250, 1), Cast("yong", 440, -1), Cast("xiaowei", 490, -1))
+_TOWEL_RESTS = ((0, tuple(towel_staging.rest_steps())),)
 FORMAL_FRAMES = {
-    **{ident: (COLLECTION, _COLLECTION_CAST, ident in {"ch2_t_s06_open", "ch2_t_s06_ali_paid_revisit"}) for ident in (
+    # S01：老 K 把乾毛巾推過櫃臺，說「頭髮先擦乾」，凜拿起來按一下頭髮再回話。
+    "ch2_t_s01_settle": Frame(PAWNSHOP, _PAWNSHOP_CAST, True, ((0, tuple(towel_staging.push_steps())), (1, tuple(towel_staging.wipe_steps())))),
+    "ch2_t_s01_settled": Frame(PAWNSHOP, _PAWNSHOP_CAST, cues=_TOWEL_RESTS),
+    "ch2_t_s01_reaction": Frame(PAWNSHOP, _PAWNSHOP_CAST, cues=_TOWEL_RESTS),
+    "ch2_t_s01_reaction_left": Frame(PAWNSHOP, _PAWNSHOP_CAST, cues=_TOWEL_RESTS),
+    **{ident: Frame(COLLECTION, _COLLECTION_CAST, ident in {"ch2_t_s06_open", "ch2_t_s06_ali_paid_revisit"}) for ident in (
         "ch2_t_s06_open", "ch2_t_s06_pay_confirm", "ch2_t_s06_open_again", "ch2_t_s06_short", "ch2_t_s06_paid", "ch2_t_s06_ask",
         "ch2_t_s06_invite", "ch2_t_s06_invite_left", "ch2_t_s06_invite_stayed", "ch2_t_s06_close",
         "ch2_t_s06_ali_paid_revisit", "ch2_t_s06_ask_late", "ch2_t_s06_later")},
-    "ch2_t_s13_cut": (LEDGER, _LEDGER_CAST, True),
-    "ch2_t_s13_keep": (LEDGER, _LEDGER_CAST + (Cast("medic", 540, -1, kind="nurse"),), True),
-    "ch2_t_s13_cabinet": (LEDGER, (Cast("rin", 280, 1), Cast("yong", 440, -1)), False),
+    "ch2_t_s13_cut": Frame(LEDGER, _LEDGER_CAST, True),
+    "ch2_t_s13_keep": Frame(LEDGER, _LEDGER_CAST + (Cast("medic", 540, -1, kind="nurse"),), True),
+    "ch2_t_s13_cabinet": Frame(LEDGER, (Cast("rin", 280, 1), Cast("yong", 440, -1))),
     # 鷺倒下：她跪在地上，凜蹲在旁邊看傷。
-    "ch2_t_s13_fall": (LEDGER, (
+    "ch2_t_s13_fall": Frame(LEDGER, (
         Cast("rin", 240, 1, pose="crouch", pose_reason="蹲下看鷺傷在哪裡。", pose_support="雙腳踩在帳房地板 y=296。"),
-        Cast("egret", 300, -1, pose="crouch", pose_reason="鷺受傷倒下，撐著跪在地上。", pose_support="膝蓋與腳尖著地，帳房地板 y=296。")), False),
-    "ch2_t_s14_return": (BOOTH, (Cast("egret", 240, 1), Cast("rin", 330, -1), Cast("banyan", 400, -1)), True),
-    "ch2_t_s14_quiet": (BOOTH, (Cast("egret", 240, 1), Cast("rin", 330, -1)), False),
+        Cast("egret", 300, -1, pose="crouch", pose_reason="鷺受傷倒下，撐著跪在地上。", pose_support="膝蓋與腳尖著地，帳房地板 y=296。"))),
+    "ch2_t_s14_return": Frame(BOOTH, (Cast("egret", 240, 1), Cast("rin", 330, -1), Cast("banyan", 400, -1)), True),
+    "ch2_t_s14_quiet": Frame(BOOTH, (Cast("egret", 240, 1), Cast("rin", 330, -1))),
 }
 
 
+def _with_cues(steps: tuple[dict, ...], cues: tuple[tuple[int, tuple[dict, ...]], ...], ident: str) -> tuple[dict, ...]:
+    """把動作插在指定的第幾句台詞（do=say）之前；指到不存在的台詞就報錯，不默默略過。"""
+    wanted = dict(cues)
+    result: list[dict] = []
+    says = 0
+    for step in steps:
+        if step.get("do") == "say":
+            result.extend(wanted.pop(says, ()))
+            says += 1
+        result.append(step)
+    if wanted:
+        raise ValueError(f"{ident} 只有 {says} 句台詞，動作指到第 {sorted(wanted)} 句")
+    return tuple(result)
+
+
 def _formal_frames(source: ProductionSource):
-    for ident, (stage, cast, opening) in FORMAL_FRAMES.items():
+    for ident, frame in FORMAL_FRAMES.items():
         segment = source.segments.get(ident)
         if segment is None:
             raise KeyError(f"FORMAL_FRAMES 指到不存在的段落 {ident}")
-        source.segments[ident] = replace(segment, mode="animated", steps=tuple(stage.frame(cast, opening)) + segment.steps)
-
+        steps = tuple(frame.stage.frame(frame.cast, frame.opening)) + _with_cues(segment.steps, frame.cues, ident)
+        source.segments[ident] = replace(segment, mode="animated", steps=steps)
 
 DISPATCH = {
     "old_k": ["ch2_t_s01_settle", "ch2_t_s01_revisit"],

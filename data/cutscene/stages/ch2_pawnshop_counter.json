@@ -1,0 +1,85 @@
+{
+ "camera": {
+  "pos": [
+   300,
+   290
+  ],
+  "zoom": 0.88
+ },
+ "floor": 348,
+ "layers": [
+  {
+   "kind": "gradient",
+   "top": "#120d09",
+   "bottom": "#241810",
+   "parallax": 0.0
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scenes/pawnshop_front.webp",
+   "pos": [
+    -64,
+    -36.0
+   ],
+   "scale": 0.5,
+   "filter": "linear",
+   "source_width": 1536
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    330,
+    70
+   ],
+   "radius": 230,
+   "color": "#ffb066",
+   "intensity": 0.7,
+   "additive": true,
+   "alpha": 0.35,
+   "pulse": 0.06,
+   "pulse_depth": 0.2
+  },
+  {
+   "kind": "motes",
+   "count": 24,
+   "color": "#cfe0ff",
+   "opacity": 0.3,
+   "area": [
+    0,
+    30,
+    640,
+    280
+   ],
+   "drift": [
+    2,
+    -3
+   ],
+   "size": 1.1,
+   "seed": 7
+  },
+  {
+   "kind": "sprite",
+   "id": "towel",
+   "path": "res://art/environment/scene_props/pawnshop_front_contacts/towel.png",
+   "pos": [
+    215,
+    197.9
+   ],
+   "scale": 0.0802,
+   "source_width": 480,
+   "filter": "linear"
+  }
+ ],
+ "furniture": [
+  {
+   "id": "shop_counter",
+   "kind": "counter",
+   "rect": [
+    36,
+    207,
+    444,
+    129
+   ]
+  }
+ ]
+}

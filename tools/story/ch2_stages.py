@@ -7,18 +7,21 @@
 """
 from __future__ import annotations
 
+import json
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 
 from PIL import Image
 
+import towel_staging
 from build_ch1_story import actor as stage_actor, stage as stage_scene
 
 ROOT = Path(__file__).resolve().parents[2]
 SCENE_ART = "res://art/environment/scenes/%s.webp"
 PROP_ART = "res://art/environment/scene_props/%s/%s.png"
 PROP_DATA = ROOT / "data/environment/scene_props"
+STAGE_DATA = ROOT / "data/cutscene/stages"
 _SIZE = re.compile(r"size\s*=\s*Vector2\(\s*([-\d.]+)\s*,\s*([-\d.]+)\s*\)")
 
 
@@ -67,6 +70,7 @@ class Cast:
     pose: str | None = None
     pose_reason: str | None = None
     pose_support: str | None = None
+    scale: float | None = None   # 沒給就用舞台的演員縮放（同一舞台身高不同的人才另外給）
 
 
 @dataclass(frozen=True)
@@ -95,7 +99,8 @@ class Stage:
         for member in cast:
             kind = member.kind or member.ident
             ground = self.floor if member.floor is None else member.floor
-            steps.append(stage_actor(member.ident, kind, member.x, ground, facing=member.facing, scale=self.scale,
+            scale = self.scale if member.scale is None else member.scale
+            steps.append(stage_actor(member.ident, kind, member.x, ground, facing=member.facing, scale=scale,
                                      speaker=kind, pose=member.pose, weapon="", pose_reason=member.pose_reason,
                                      pose_support=member.pose_support))
         return steps
@@ -136,4 +141,16 @@ COLLECTION = Stage(
              "pulse": 0.06, "pulse_depth": 0.2},
             prop_layer("neon_market", "neon_market__debt_desk", 380, COLLECTION_FLOOR, 2.0, front=True)))
 
-STAGES = (LEDGER, BOOTH, COLLECTION)
+
+
+def derived(ident: str, base: str, extra: tuple[dict, ...], scale: float, shot: tuple[float, float, float]) -> Stage:
+    """沿用既有舞台（立繪、家具、地面線）再加幾件擺設；原舞台檔不動，加的東西畫在原本的圖層之後。"""
+    data = json.loads((STAGE_DATA / f"{base}.json").read_text(encoding="utf-8"))
+    return Stage(ident, floor=data["floor"], scale=scale, shot=shot, layers=tuple(data["layers"]) + extra,
+                 furniture=tuple(data.get("furniture", ())), floors=tuple(data.get("floors", ())))
+
+
+# --- 當舖櫃臺（S01）：沿用第一章的 ch1_pawnshop_front，櫃臺上多一條乾毛巾（tools/story/towel_staging.py） ---------
+PAWNSHOP = derived("ch2_pawnshop_counter", "ch1_pawnshop_front", tuple(towel_staging.layers()), scale=3.5, shot=(300, 290, 0.88))
+
+STAGES = (LEDGER, BOOTH, COLLECTION, PAWNSHOP)

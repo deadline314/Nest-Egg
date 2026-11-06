@@ -718,11 +718,164 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch2_pawnshop_counter",
+     "pos": [
+      300,
+      291.5
+     ],
+     "zoom": 0.88,
+     "fade": 0.8
+    },
+    {
+     "do": "actor",
+     "id": "k",
+     "kind": "old_k",
+     "pos": [
+      205,
+      348
+     ],
+     "facing": 1,
+     "scale": 3.6,
+     "weapon": "",
+     "speaker": "old_k"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      325,
+      348
+     ],
+     "facing": -1,
+     "scale": 3.4,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "reach",
+     "id": "k",
+     "hand": "front",
+     "space": "prop",
+     "prop": "towel",
+     "to": [
+      80,
+      30
+     ],
+     "time": 0.4
+    },
+    {
+     "do": "prop_move",
+     "id": "towel",
+     "to": [
+      268,
+      197.9
+     ],
+     "time": 0.6,
+     "wait": true
+    },
+    {
+     "do": "reach",
+     "id": "k",
+     "hand": "front",
+     "release": true,
+     "time": 0.3
+    },
+    {
      "do": "say",
      "speaker": "old_k",
      "text": "頭髮先擦乾，昨晚那個鍋我換過了喔。",
      "ja": "まず髪を拭きな。昨夜の鍋は取り替えておいたよ。",
      "en": "Towel your hair dry first. I replaced that pot from last night."
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "space": "prop",
+     "prop": "towel",
+     "to": [
+      240,
+      30
+     ],
+     "time": 0.35,
+     "grip": true
+    },
+    {
+     "do": "prop_hold",
+     "id": "towel",
+     "actor": "rin",
+     "hand": "front",
+     "point": [
+      240,
+      30
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      100,
+      35
+     ],
+     "time": 0.45,
+     "space": "part",
+     "target_actor": "rin",
+     "part": "head"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      78,
+      48
+     ],
+     "time": 0.3,
+     "space": "part",
+     "target_actor": "rin",
+     "part": "head"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      100,
+      35
+     ],
+     "time": 0.3,
+     "space": "part",
+     "target_actor": "rin",
+     "part": "head"
+    },
+    {
+     "do": "wait",
+     "time": 0.2
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "to": [
+      293.2,
+      200.3
+     ],
+     "time": 0.45
+    },
+    {
+     "do": "prop_release",
+     "id": "towel"
+    },
+    {
+     "do": "reach",
+     "id": "rin",
+     "hand": "front",
+     "release": true,
+     "time": 0.3
     },
     {
      "do": "say",
@@ -778,7 +931,7 @@
      "en": "Ten percent, as before. I take 80, you get 720."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "not": {
      "receipt": "ch1.commission.settled",
@@ -787,57 +940,120 @@
    }
   },
   "ch2_t_s01_settled": {
-   "mode": "dialogue",
-   "lines": [
+   "mode": "animated",
+   "steps": [
     {
+     "do": "scene",
+     "id": "ch2_pawnshop_counter",
+     "pos": [
+      300,
+      291.5
+     ],
+     "zoom": 0.88,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "k",
+     "kind": "old_k",
+     "pos": [
+      205,
+      348
+     ],
+     "facing": 1,
+     "scale": 3.6,
+     "weapon": "",
+     "speaker": "old_k"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      325,
+      348
+     ],
+     "facing": -1,
+     "scale": 3.4,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "prop_move",
+     "id": "towel",
+     "to": [
+      274,
+      197.9
+     ],
+     "time": 0,
+     "wait": true
+    },
+    {
+     "do": "say",
      "speaker": "rin",
      "text": "一成照舊，這筆保費我記著。",
      "ja": "1割は同じか。この保険料、覚えとく。",
      "en": "Same ten percent. I'll remember this protection fee."
     },
     {
+     "do": "say",
      "speaker": "old_k",
      "text": "你先把今天的帳算好，別連早餐也省了。",
      "ja": "まず今日の帳簿を片付けな。朝飯まで抜くんじゃないよ。",
      "en": "Sort out today's books first. And don't skip breakfast either."
     },
     {
+     "do": "say",
      "speaker": "rin",
      "text": "你那本帳不能借我看？",
      "ja": "その帳簿、見せてもらえないか。",
      "en": "Can I look at your ledger?"
     },
     {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
      "speaker": "old_k",
      "text": "每個人的東西都記在裡面，不能整本借走啦。",
      "ja": "みんなのことが書いてあるんだよ。丸ごと持ち出すのは無理だ。",
      "en": "Everybody's business is in there. I can't lend you the whole book."
     },
     {
+     "do": "say",
      "speaker": "egret",
      "text": "資料盤有一筆市場修繕代收，找不到付款附件。委託要我們核對，不是再偷一片盤。",
      "ja": "データ盤に市場の修繕の代行徴収が1件あるが、支払いの添付が見つからない。依頼されたのは照合であって、もう1枚盤を盗むことじゃない。",
      "en": "The data disc has a market repair collection with no payment attachment. The job is to check it, not to steal another disc."
     },
     {
+     "do": "say",
      "speaker": "rin",
      "text": "我拿回執去找收據，盤已經不在我這裡。",
      "ja": "受領証を持って領収書を探してくる。盤はもう私の手元にない。",
      "en": "I'll take the receipt and find the payment record. The disc isn't with me anymore."
     },
     {
+     "do": "wait",
+     "time": 0.35
+    },
+    {
+     "do": "say",
      "speaker": "old_k",
      "text": "上面指定查這筆，別替他們多接別人的帳。",
      "ja": "上はこの1件だけ調べろと指定している。よそ様の帳簿まで勝手に引き受けるんじゃないよ。",
      "en": "Upstairs only asked you to check this one. Don't go taking on other people's accounts for them."
     },
     {
+     "do": "say",
      "speaker": "rin",
      "text": "我核完才回來，飯留著。",
      "ja": "照合が終わったら戻る。飯は取っておいて。",
      "en": "I'll come back once I've checked. Save me some food."
     }
    ],
+   "pose_policy": "supported",
    "when": {
     "not": {
      "receipt": "ch1.commission.settled",
@@ -861,6 +1077,52 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch2_pawnshop_counter",
+     "pos": [
+      300,
+      291.5
+     ],
+     "zoom": 0.88,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "k",
+     "kind": "old_k",
+     "pos": [
+      205,
+      348
+     ],
+     "facing": 1,
+     "scale": 3.6,
+     "weapon": "",
+     "speaker": "old_k"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      325,
+      348
+     ],
+     "facing": -1,
+     "scale": 3.4,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "prop_move",
+     "id": "towel",
+     "to": [
+      274,
+      197.9
+     ],
+     "time": 0,
+     "wait": true
+    },
+    {
      "do": "say",
      "speaker": "old_k",
      "text": "昨晚吃過麵，今天也要吃喔。",
@@ -875,7 +1137,7 @@
      "en": "I'm keeping the two meals separate."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "all": [
      {
@@ -888,6 +1150,52 @@
   "ch2_t_s01_reaction_left": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_pawnshop_counter",
+     "pos": [
+      300,
+      291.5
+     ],
+     "zoom": 0.88,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "k",
+     "kind": "old_k",
+     "pos": [
+      205,
+      348
+     ],
+     "facing": 1,
+     "scale": 3.6,
+     "weapon": "",
+     "speaker": "old_k"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      325,
+      348
+     ],
+     "facing": -1,
+     "scale": 3.4,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "prop_move",
+     "id": "towel",
+     "to": [
+      274,
+      197.9
+     ],
+     "time": 0,
+     "wait": true
+    },
     {
      "do": "say",
      "speaker": "old_k",
@@ -903,7 +1211,7 @@
      "en": "I just don't want them mixed up."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "not": {
      "flag": "knows_ali_address",
