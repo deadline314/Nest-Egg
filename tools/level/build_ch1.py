@@ -1114,6 +1114,8 @@ def write_npc_files():
                 lines.append(f'{field} = &"{n[field]}"')
         if n.get('pose'):
             lines.append(f'pose = &"{n["pose"]}"')
+        if n.get('pose_before_flag'):  # 旗標寫入前用 pose_before（ST-21：守門人被扶坐下之前站著）
+            lines += [f'pose_before_flag = &"{n["pose_before_flag"]}"', f'pose_before = &"{n["pose_before"]}"']
         lines += [f'loop = &"{n["loop"]}"', f'facing = {n["facing"]}', f'prompt = {json.dumps(n["prompt"], ensure_ascii=False)}',
                   f'talks = Array[ExtResource("{talk_script}")]([' + ', '.join(f'SubResource("{x}")' for x in subs) + '])']
         if reaction_subs:

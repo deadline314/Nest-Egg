@@ -5,6 +5,9 @@ extends RefCounted
 ## 種類：insert（把持有的物品送進插口）、take_paper（接住出紙口的紙）、turn（握住手輪沿輪緣轉動，ST-21）。
 ## turn 的資料：hub＝手輪中心、radius＝輪緣的橢圓半徑（側視時是扁的橢圓）、sweep＝手沿前半圈從哪個角度推到哪個角度（度，0＝右、90＝前下緣）、
 ## strokes＝推幾次（每次推完鬆手回到起點再握）、stall＝推到幾成就卡住（1＝推到底；小於 1 會在那裡頂住、往回彈一點，表示轉不動）。
+## support（扶人坐下，ST-21）：沒有擺設，對象就是正在交談的場景人物；station 相對於人物的位置，person_facing 是人物在演出中面向哪邊
+## （例如面向櫃檯坐下），bone＋contact 是手扶的地方（人物骨頭加偏移；contact.x 正的是人物前方、負的是背後），
+## pose 是扶完之後人物的姿勢（例如 sit）。人物換姿勢時手跟著那根骨頭下來；演出只換姿勢與面向，旗標仍由保存成功後的結果寫入。
 
 const TABLE := "res://data/cutscene/world_prop_actions.json"
 const CONTACT_TOLERANCE := 0.25
@@ -65,9 +68,12 @@ static func problem(id: Variant, scene: String, overlay: Variant) -> String:
 	if not id is String or not id.is_valid_identifier() or overlay != true:
 		return "world_action requires a named action in an overlay scene"
 	var spec := definition(id)
-	if spec.is_empty() or spec.get("scene") != scene or spec.get("kind") not in ["insert", "take_paper", "turn"]:
+	if spec.is_empty() or spec.get("scene") != scene or spec.get("kind") not in ["insert", "take_paper", "turn", "support"]:
 		return "world_action is missing or belongs to another scene"
-	for key: String in ["level", "source", "prop", "reaction"]:
+	var required: Array[String] = ["level", "source", "prop", "reaction"]
+	if spec["kind"] == "support":
+		required = ["level", "source", "bone", "pose"]
+	for key: String in required:
 		if not spec.get(key) is String or spec[key].is_empty():
 			return "world_action requires " + key
 	if not spec["level"].begins_with("res://data/levels/") or not spec["source"].begins_with("res://data/npcs/"):
@@ -85,6 +91,12 @@ static func problem(id: Variant, scene: String, overlay: Variant) -> String:
 			return "world_action requires item and contact anchor"
 		if typeof(spec.get("width")) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(spec["width"])) or float(spec["width"]) < 1.0 or float(spec["width"]) > 8.0:
 			return "world_action width must be 1..8"
+	if spec["kind"] == "support":
+		points.append("contact")
+		if not spec["bone"].is_valid_identifier() or spec["pose"] not in ["sit", "idle", "lean", "crouch"]:
+			return "world_action support requires a bone name and a known pose"
+		if typeof(spec.get("person_facing")) not in [TYPE_INT, TYPE_FLOAT] or absf(float(spec["person_facing"])) != 1.0:
+			return "world_action support person_facing must be -1 or 1"
 	if spec["kind"] == "turn":
 		points.append_array(["hub", "radius", "sweep"])
 		var strokes: Variant = spec.get("strokes", 1)
@@ -134,6 +146,8 @@ func start(id: String, player: Player, scene: String) -> bool:
 	if source == null:
 		return _fail("world action requires the actual talking source")
 	_source = weakref(source)
+	if _spec["kind"] == "support":
+		return _start_support(player, source)
 	var prop: PropNode
 	for node: Node in player.get_tree().get_nodes_in_group(PropNode.GROUP):
 		if node is PropNode and level.is_ancestor_of(node) and node.data != null and String(node.data.id) == _spec["prop"]:
@@ -227,7 +241,7 @@ func before_frame(input: RigInput, delta: float) -> void:
 	var player := _live_player()
 	var reaction := _live_reaction()
 	var source := _source.get_ref() as NpcActor if _source != null else null
-	if player == null or reaction == null or not is_instance_valid(source) or not source.is_inside_tree() or source.is_queued_for_deletion() \
+	if player == null or (reaction == null and _spec.get("kind") != "support") or not is_instance_valid(source) or not source.is_inside_tree() or source.is_queued_for_deletion() \
 			or not source._talking or not player.interaction.active or Story.current_presentation_request() != _request or Story._current_cinematic != StringName(_spec["scene"]):
 		_fail("world action owner/request retired")
 		close()
@@ -251,7 +265,7 @@ func before_frame(input: RigInput, delta: float) -> void:
 		if absf(_station.x - _start_position.x) > 0.01:
 			input.facing = 1 if _station.x > _start_position.x else -1
 			input.aim_dir = Vector2(input.facing, 0)
-	elif phase == "feed":
+	elif phase == "feed" and reaction != null:
 		reaction.presentation_tick(dt)
 	else:
 		input.hand_grip_front = true
@@ -262,7 +276,7 @@ func after_frame(rig: CharacterRig) -> void:
 		return
 	var player := _live_player()
 	var reaction := _live_reaction()
-	if player == null or reaction == null:
+	if player == null or (reaction == null and _spec.get("kind") != "support"):
 		_fail("world action lost its fixture")
 		return
 	var t := clampf(_elapsed / _duration, 0.0, 1.0)
@@ -277,8 +291,8 @@ func after_frame(rig: CharacterRig) -> void:
 			_fail("world action contact is unavailable")
 			return
 		var target := _from_hand.lerp(goal, eased)
-		if phase in ["turn", "recoil"]:
-			target = goal  # 沿輪緣走，不是直線內插
+		if phase in ["turn", "recoil", "lower"]:
+			target = goal  # 沿輪緣走、跟著人物的肩膀下來，不是直線內插
 		elif phase == "regrip":
 			target += Vector2(0.0, -1.5 * sin(PI * eased))  # 鬆手回到起點時微微抬起，不在輪緣上拖
 		var weight := 1.0 - eased if phase == "release" else 1.0
@@ -288,7 +302,7 @@ func after_frame(rig: CharacterRig) -> void:
 		contact_error = _last_hand.distance_to(target)
 		if phase != "release" and t >= 1.0 and (not placed or contact_error > CONTACT_TOLERANCE):
 			if _elapsed > _duration + 0.5:
-				_fail("world action cannot physically reach its contact")
+				_fail("world action cannot physically reach its contact (%s phase, palm %.2f from %s)" % [phase, contact_error, target])
 			return
 		_update_held(reaction, eased)
 	# Retire presentation footsteps rather than replaying stale falls after unpause.
@@ -332,6 +346,8 @@ func after_frame(rig: CharacterRig) -> void:
 		Sfx.play(&"switch", -12.0)
 	elif phase == "recoil":
 		Sfx.play(&"empty", -6.0)
+	elif phase == "lower":
+		contacts_completed += 1
 	_index += 1
 	if _index >= _sequence.size():
 		done = true
@@ -341,6 +357,10 @@ func after_frame(rig: CharacterRig) -> void:
 
 func _enter_phase() -> void:
 	phase = _sequence[_index]["id"]
+	if phase == "lower":
+		var source := _source.get_ref() as NpcActor if _source != null else null
+		if is_instance_valid(source):
+			source.present_pose(StringName(_spec["pose"]))
 	_elapsed = 0.0
 	_phase_started = false
 	_duration = maxf(0.1, absf(_station.x - _start_position.x) / APPROACH_SPEED * 1.5) if phase == "approach" else float(_sequence[_index]["time"])
@@ -354,7 +374,8 @@ func _goal(player: Player, reaction: PropReaction) -> Vector2:
 		"contact": return reaction.contact_global(StringName(_spec["anchor"])) - Vector2((_tip.x - _grip.x) * _disk_scale, 0.0)
 		"insert": return reaction.contact_global(StringName(_spec["anchor"])) - Vector2(0.3, 0.0)
 		"take": return reaction.paper_tip_global()
-		"reach", "regrip": return rim_global(float(_spec["sweep"][0]))
+		"steady", "lower": return support_global()
+		"reach", "regrip": return rim_global(float(_spec["sweep"][0])) if _spec["kind"] == "turn" else support_global()
 		"turn": return rim_global(_turn_angle(smoothstep(0.0, 1.0, clampf(_elapsed / _duration, 0.0, 1.0))))
 		"recoil": return rim_global(lerpf(_turn_angle(1.0), _turn_angle(1.0) - signf(float(_spec["sweep"][1]) - float(_spec["sweep"][0])) * RECOIL_DEGREES,
 				sin(PI * clampf(_elapsed / _duration, 0.0, 1.0))))
@@ -452,4 +473,36 @@ func rim_global(degrees: float) -> Vector2:
 	var radians := deg_to_rad(degrees)
 	var hub := Vector2(_spec["hub"][0], _spec["hub"][1])
 	return prop.to_global(hub + Vector2(float(_spec["radius"][0]) * cos(radians), float(_spec["radius"][1]) * sin(radians)))
+
+
+## support：走到人物旁、手扶住、他換姿勢時手跟著下來、放手。對象是正在交談的人物本身，不需要擺設。
+func _start_support(player: Player, source: NpcActor) -> bool:
+	if not player._visual.rig.has_hand_grip(&"front"):
+		return _fail("world action requires a registered grip")
+	if not source.bone_global(StringName(_spec["bone"])).is_finite():
+		return _fail("world action support needs the person's rig bone")
+	_player = weakref(player)
+	_start_position = player.global_position
+	_station = source.global_position + Vector2(_spec["station"][0], _spec["station"][1])
+	# 世界在演出中暫停，人物不會自己轉頭；先讓他面向資料寫的方向（例如櫃檯），手扶的位置才對得上。
+	if source._actor != null:
+		source._actor.face(int(_spec["person_facing"]))
+	if not route_clear(player, _station):
+		return _fail("world action approach is blocked or unsupported", &"route")
+	player.velocity = Vector2.ZERO
+	_sequence = [{"id": "approach"}, {"id": "reach", "time": 0.4}, {"id": "steady", "time": 0.3}, {"id": "lower", "time": 1.1}, {"id": "release", "time": 0.4}]
+	_enter_phase()
+	return true
+
+
+## 手扶的位置：人物那根骨頭的世界位置加上偏移（偏移依人物面向左右翻）。
+func support_global() -> Vector2:
+	var source := _source.get_ref() as NpcActor if _source != null else null
+	if not is_instance_valid(source):
+		return Vector2.INF
+	var at := source.bone_global(StringName(_spec["bone"]))
+	if not at.is_finite():
+		return Vector2.INF
+	var side := float(source._actor.facing) if source._actor != null else 1.0
+	return at + Vector2(float(_spec["contact"][0]) * side, float(_spec["contact"][1]))
 

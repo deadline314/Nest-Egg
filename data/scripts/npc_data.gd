@@ -15,6 +15,10 @@ enum Kind { PERSON, OBJECT }
 @export var rig_id: String = ""
 ## 站姿（CutsceneActor.POSES 之一），例如受傷的人用 crouch。
 @export var pose: StringName = &"idle"
+## 換姿勢的條件（ST-21）：pose_before_flag 還沒寫入時用 pose_before，寫入後用 pose。
+## 例如守門人停機後先站著，凜扶他坐下（旗標寫入）之後才坐在凳子上；兩個欄位都空白＝一直用 pose。
+@export var pose_before_flag: StringName = &""
+@export var pose_before: StringName = &""
 ## 專屬工作循環（art/rigs/npc_animations.json 的 loops，例如 stir、hammer、tablet；空白＝只有待機呼吸）與幅度倍率。
 @export var loop: StringName = &""
 @export var loop_scale: float = 1.0
@@ -111,3 +115,11 @@ func validate() -> PackedStringArray:
 		else:
 			problems.append_array(talk.validate(id))
 	return problems
+
+
+## 依目前的旗標該用哪個姿勢（has_flag 是旗標讀取函式，測試可替換）。
+func current_pose(has_flag: Callable) -> StringName:
+	if pose_before_flag != &"" and pose_before != &"" and not bool(has_flag.call(pose_before_flag)):
+		return pose_before
+	return pose
+

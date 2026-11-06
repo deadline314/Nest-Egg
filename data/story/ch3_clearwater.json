@@ -3276,15 +3276,15 @@
      "en": "Sit down first; the door has already opened."
     },
     {
+     "do": "world_action",
+     "id": "janus_sit_support"
+    },
+    {
      "do": "say",
      "speaker": "zhi",
      "text": "現在休息，我把牌子放到桌上。",
      "ja": "休憩に入るので、札を机の上に置いておきます。",
      "en": "I am taking a break now, so I am placing the sign on the desk."
-    },
-    {
-     "do": "wait",
-     "time": 0.35
     },
     {
      "do": "say",
@@ -3299,6 +3299,10 @@
      "text": "這一筆我核過了，你不用再站起來。",
      "ja": "この分はもう確認しましたので、もう立ち上がらなくて結構です。",
      "en": "I have already checked this one, so you do not need to stand up again."
+    },
+    {
+     "do": "wait",
+     "time": 0.35
     },
     {
      "do": "say",

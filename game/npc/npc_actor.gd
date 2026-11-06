@@ -186,7 +186,7 @@ func _build_visual() -> void:
 		_actor.queue_free()
 		_actor = null
 		return
-	_actor.set_pose(data.pose)
+	_actor.set_pose(data.current_pose(GameState.has_flag))
 	_actor.set_loop(data.loop, data.loop_scale)
 	_actor.face(data.facing)
 	if not rig_id.is_empty():
@@ -290,6 +290,7 @@ func _present_talk(index: int, scene: StringName, once: bool) -> bool:
 		_prompt.show()
 	if _actor != null and is_instance_valid(_actor):
 		_actor.set_talking(false)
+		refresh_pose()
 	if not is_inside_tree() or not completed:
 		return false
 	if settled:
@@ -440,3 +441,27 @@ func restore_state(state: Variant) -> void:
 	if typeof(raw) == TYPE_ARRAY:
 		for index: Variant in raw:
 			claimed[int(index)] = true
+
+
+## 依旗標回到該有的姿勢（演出取消時回到原本的站姿；結果保存後換成新的姿勢）。
+func refresh_pose() -> void:
+	if _actor != null and is_instance_valid(_actor) and data != null:
+		var wanted := data.current_pose(GameState.has_flag)
+		if _actor.pose != wanted:
+			_actor.set_pose(wanted)
+
+
+## 演出中暫時換姿勢（地圖動作「扶人坐下」用）；不寫旗標，演出結束後由 refresh_pose 依旗標決定。
+func present_pose(pose: StringName) -> bool:
+	if _actor == null or not is_instance_valid(_actor) or _actor.rig == null:
+		return false
+	_actor.set_pose(pose)
+	return true
+
+
+## 骨架某根骨頭在世界的位置（沒有骨架或沒有這根骨頭時回傳 INF）。
+func bone_global(bone_name: StringName) -> Vector2:
+	if _actor == null or not is_instance_valid(_actor) or _actor.rig == null or not _actor.rig.has_bone(bone_name):
+		return Vector2.INF
+	return _actor.rig.bone(bone_name).global_position
+

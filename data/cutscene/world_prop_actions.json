@@ -54,5 +54,17 @@
     "sweep": [140, 180],
     "strokes": 1,
     "stall": 0.35
+  },
+  "janus_sit_support": {
+    "scene": "ch3_t_c12_aftercare",
+    "level": "res://data/levels/ch3_gate_hall.tres",
+    "source": "res://data/npcs/ch3_gatekeeper.tres",
+    "kind": "support",
+    "station": [15, 0],
+    "facing": -1,
+    "person_facing": -1,
+    "bone": "arm_back_upper",
+    "contact": [-4, -4],
+    "pose": "sit"
   }
 }

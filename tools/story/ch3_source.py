@@ -464,13 +464,15 @@ def _gate_hall(source: ProductionSource):
     source.add("ch3_c11_defeat_hint", "C11", (
         ("lamp", "看他蓄力，再打斷橙色的掃描臂。盾擊撲空三次會裂盾，繞背停通訊器就能阻止增援。"),), mode="radio")
 
-    source.add("ch3_t_c12_aftercare", "C12", (
+    # 扶椅是凜自己的動作（WorldPropAction 的 support）：說完「你先坐」，手扶住守門人的肩膀，他坐回櫃檯旁的凳子時手跟著下來。
+    source.add("ch3_t_c12_aftercare", "C12", steps=[*beats(
         ("janus", "謝謝光臨，歡迎您再來。"),
-        ("rin", "你先坐，門已經開了。"),
+        ("rin", "你先坐，門已經開了。")),
+        dict(do="world_action", id="janus_sit_support"), *beats(
         ("zhi", "現在休息，我把牌子放到桌上。"),
         ("janus", "請問您有預約嗎？"),
         ("zhi", "這一筆我核過了，你不用再站起來。"),
-        ("zhi", "側路開了，邊緣電梯也是你的證能去的範圍。帶回市場的紙別弄丟。")),
+        ("zhi", "側路開了，邊緣電梯也是你的證能去的範圍。帶回市場的紙別弄丟。"))],
         when=all_of(disabled, negate(aftercare)), mode="animated",
         completion=(set_flag("ch3_janus_aftercare_done"), set_flag("ch3_care_passage_open"), set_flag("m3_available"),
                     transaction("ch3.gate_disabled"), grant("ch3_gate_receipt")))

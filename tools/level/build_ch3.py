@@ -62,6 +62,7 @@ NPCS = {
     'ch3_reading_desk': dict(name='閱覽桌', speaker='label', kind=O, prompt='{interact} 在閱覽桌核對三份資料', talks=[('ch3_dispatch_reconcile', 0)]),
     'ch3_scanner_gate': dict(name='門禁閘', speaker='label', kind=O, prompt='{interact} 掃夾層證', talks=[('ch3_dispatch_gate', 0)]),
     'ch3_gatekeeper': dict(name='守門人', speaker='janus', rig='janus', pose='sit', loop='glance', facing=1, prompt='{interact} 看看守門人',
+                           pose_before_flag='ch3_janus_aftercare_done', pose_before='idle',  # 停機後先站在櫃檯旁，凜扶他坐下才坐到凳子上
                            talks=[('ch3_dispatch_gatekeeper', 0)], spawn_requires_flag='ch3_janus_disabled'),
     'ch3_light_spot': dict(name='地上的光斑', speaker='label', kind=O, prompt='{interact} 停在光裡', talks=[('ch3_dispatch_light', 0)]),
     'ch3_telescope': dict(name='觀景框', speaker='label', kind=O, prompt='{interact} 從觀景框看遠處', talks=[('ch3_dispatch_telescope', 0)]),
@@ -340,6 +341,7 @@ def build_gate_hall():
     a.prop('gate_hall__inspection_table', 23)
     a.prop('gate_hall__notice_board', 23, y=16, dy=8, support='wall')
     a.prop('clinic__gatekeeper_desk', 30)
+    a.prop('gate_hall__desk_stool', 32, dx=3)   # 守門人停機後坐的凳子（ST-21 C12）：坐姿的骨盆落在凳面上，不坐在空中
     a.stand(32, 'ⓙ')
     a.prop('gate_hall__guard_booth', 51)
     a.prop('gate_hall__waiting_bench', 61)
