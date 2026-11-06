@@ -35,6 +35,7 @@ func _wait_flag(flag: StringName, frames := 900) -> bool:
 
 
 func _run() -> void:
+	action_shot_prefix = "ST-21"
 	_shots = {
 		"ch3_t_c00_choice:choice": "ST-21-c00-breakfast", "ch3_t_c02_wheel:choice": "ST-21-c02-wheel",
 		"ch3_t_c04_counter": "ST-21-c04-zhi", "ch3_t_c08_population:choice": "ST-21-c08-reconcile",
@@ -191,36 +192,4 @@ func _run() -> void:
 	Settings.set_skip_cutscenes(_previous_skip)
 	print("CH3_FLOW_PROBE route=%s yong=%s skip=%s failures=%d" % [_route, _yong, _skip_setting, _failures])
 	get_tree().quit(1 if _failures > 0 else 0)
-
-
-var _watching_actions := false
-var _action_phases: Dictionary = {}
-
-
-## 地圖上凜自己的動作（WorldPropAction）：記下每一個看到的階段；有畫面時每個階段的開頭與中段各拍一張。
-func _watch_world_actions() -> void:
-	_watching_actions = true
-	_action_phases.clear()
-	var last := ""
-	var shots := 0
-	while _watching_actions and is_inside_tree():
-		await get_tree().process_frame
-		var action: WorldPropAction = _level.player._visual.interaction_action if is_instance_valid(_level) else null
-		if action == null or action.done or action._spec.is_empty():
-			continue
-		var id := ""
-		for key: String in ["pump_wheel_jam", "pump_wheel_drain", "janus_sit_support"]:
-			if WorldPropAction.definition(key) == action._spec:
-				id = key
-		var key := "%s:%s" % [id, action.phase]
-		if key != last:
-			last = key
-			_action_phases[key] = true
-			if action.phase != "approach" and shots < 24:
-				shots += 1
-				_capture("ST-21-action-%s-%02d-%s" % [id, shots, action.phase])
-		elif action.phase in ["turn", "recoil", "lower"] and action._elapsed > action._duration * 0.5 and not _action_phases.has(key + ":mid") and shots < 24:
-			_action_phases[key + ":mid"] = true
-			shots += 1
-			_capture("ST-21-action-%s-%02d-%s-mid" % [id, shots, action.phase])
 

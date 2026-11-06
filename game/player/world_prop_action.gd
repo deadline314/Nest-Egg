@@ -8,6 +8,9 @@ extends RefCounted
 ## support（扶人坐下，ST-21）：沒有擺設，對象就是正在交談的場景人物；station 相對於人物的位置，person_facing 是人物在演出中面向哪邊
 ## （例如面向櫃檯坐下），bone＋contact 是手扶的地方（人物骨頭加偏移；contact.x 正的是人物前方、負的是背後），
 ## pose 是扶完之後人物的姿勢（例如 sit）。人物換姿勢時手跟著那根骨頭下來；演出只換姿勢與面向，旗標仍由保存成功後的結果寫入。
+## place（拿起、沖洗、放好，ST-19）：手到擺設的 pick 點拿起一件只用來呈現的東西（texture／width／grip，例如一只碗），
+## 繞著 pick 點做 scrub_loops 圈小動作（scrub 是橢圓半徑，往上繞；0 圈就是直接拿起），再放到 drop 點、放手。不需要擺設的反應物件，也不動任何物品。
+## hand_angle（選填，度）：手掌朝向，0＝朝前平舉、正的往下彎（例如在水槽邊向下沖碗）；沒寫就是 0。
 
 const TABLE := "res://data/cutscene/world_prop_actions.json"
 const CONTACT_TOLERANCE := 0.25
@@ -68,11 +71,13 @@ static func problem(id: Variant, scene: String, overlay: Variant) -> String:
 	if not id is String or not id.is_valid_identifier() or overlay != true:
 		return "world_action requires a named action in an overlay scene"
 	var spec := definition(id)
-	if spec.is_empty() or spec.get("scene") != scene or spec.get("kind") not in ["insert", "take_paper", "turn", "support"]:
+	if spec.is_empty() or spec.get("scene") != scene or spec.get("kind") not in ["insert", "take_paper", "turn", "support", "place"]:
 		return "world_action is missing or belongs to another scene"
 	var required: Array[String] = ["level", "source", "prop", "reaction"]
 	if spec["kind"] == "support":
 		required = ["level", "source", "bone", "pose"]
+	elif spec["kind"] == "place":
+		required = ["level", "source", "prop"]
 	for key: String in required:
 		if not spec.get(key) is String or spec[key].is_empty():
 			return "world_action requires " + key
@@ -91,6 +96,20 @@ static func problem(id: Variant, scene: String, overlay: Variant) -> String:
 			return "world_action requires item and contact anchor"
 		if typeof(spec.get("width")) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(spec["width"])) or float(spec["width"]) < 1.0 or float(spec["width"]) > 8.0:
 			return "world_action width must be 1..8"
+	if spec["kind"] == "place":
+		points.append_array(["grip", "pick", "drop", "scrub"])
+		var texture: Variant = spec.get("texture")
+		if not texture is String or not (texture.begins_with("res://art/items/world/") or texture.begins_with("res://art/environment/scene_props/")) \
+				or not ResourceLoader.exists(texture):
+			return "world_action place requires a registered held texture"
+		if typeof(spec.get("width")) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(spec["width"])) or float(spec["width"]) < 1.0 or float(spec["width"]) > 12.0:
+			return "world_action place width must be 1..12"
+		var tilt: Variant = spec.get("hand_angle", 0.0)
+		if typeof(tilt) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(tilt)) or absf(float(tilt)) > 100.0:
+			return "world_action hand_angle must be within ±100 degrees"
+		var loops: Variant = spec.get("scrub_loops", 0)
+		if typeof(loops) not in [TYPE_INT, TYPE_FLOAT] or float(loops) != floorf(float(loops)) or int(loops) < 0 or int(loops) > 3:
+			return "world_action scrub_loops must be 0..3"
 	if spec["kind"] == "support":
 		points.append("contact")
 		if not spec["bone"].is_valid_identifier() or spec["pose"] not in ["sit", "idle", "lean", "crouch"]:
@@ -156,6 +175,8 @@ func start(id: String, player: Player, scene: String) -> bool:
 			prop = node
 	if prop == null or prop.flip:
 		return _fail("world action prop is unavailable or mirrored")
+	if _spec["kind"] == "place":
+		return _start_place(player, prop)
 	var reaction: PropReaction
 	for child in prop.get_children():
 		if child is PropReaction and String(child.reaction_id) == _spec["reaction"]:
@@ -201,14 +222,19 @@ func start(id: String, player: Player, scene: String) -> bool:
 		_sequence = [{"id":"approach"}, {"id":"feed", "time":0.1}, {"id":"take", "time":0.5},
 			{"id":"pull", "time":0.3}, {"id":"stow", "time":0.65}, {"id":"release", "time":0.35}]
 	_enter_phase()
-	var camera := player.get_viewport().get_camera_2d() as LevelCamera
-	if camera != null:
-		var feet_y := CutsceneChecker.FEET_MAX_SCREEN_Y - 4.0
-		var point := Vector2((_station.x + prop.global_position.x + prop.data.size.x * 0.5) * 0.5,
-			_station.y - (feet_y - player.get_viewport_rect().size.y * 0.5) / camera.zoom.y)
-		if camera.acquire_presentation_focus(self, point):
-			_camera = weakref(camera)
+	_frame_camera(player, prop.global_position.x + prop.data.size.x * 0.5)
 	return true
+
+
+## 演出期間鏡頭對準站位與互動對象的中間，腳底留在對話框之上；鏡頭已被別的演出持有時維持原樣。
+func _frame_camera(player: Player, subject_x: float) -> void:
+	var camera := player.get_viewport().get_camera_2d() as LevelCamera
+	if camera == null:
+		return
+	var feet_y := CutsceneChecker.FEET_MAX_SCREEN_Y - 4.0
+	var point := Vector2((_station.x + subject_x) * 0.5, _station.y - (feet_y - player.get_viewport_rect().size.y * 0.5) / camera.zoom.y)
+	if camera.acquire_presentation_focus(self, point):
+		_camera = weakref(camera)
 
 
 ## Static preflight, once per action. Never move the paused body through a wall or gap.
@@ -241,7 +267,7 @@ func before_frame(input: RigInput, delta: float) -> void:
 	var player := _live_player()
 	var reaction := _live_reaction()
 	var source := _source.get_ref() as NpcActor if _source != null else null
-	if player == null or (reaction == null and _spec.get("kind") != "support") or not is_instance_valid(source) or not source.is_inside_tree() or source.is_queued_for_deletion() \
+	if player == null or (reaction == null and not _without_reaction()) or not is_instance_valid(source) or not source.is_inside_tree() or source.is_queued_for_deletion() \
 			or not source._talking or not player.interaction.active or Story.current_presentation_request() != _request or Story._current_cinematic != StringName(_spec["scene"]):
 		_fail("world action owner/request retired")
 		close()
@@ -276,7 +302,7 @@ func after_frame(rig: CharacterRig) -> void:
 		return
 	var player := _live_player()
 	var reaction := _live_reaction()
-	if player == null or (reaction == null and _spec.get("kind") != "support"):
+	if player == null or (reaction == null and not _without_reaction()):
 		_fail("world action lost its fixture")
 		return
 	var t := clampf(_elapsed / _duration, 0.0, 1.0)
@@ -291,12 +317,12 @@ func after_frame(rig: CharacterRig) -> void:
 			_fail("world action contact is unavailable")
 			return
 		var target := _from_hand.lerp(goal, eased)
-		if phase in ["turn", "recoil", "lower"]:
+		if phase in ["turn", "recoil", "lower", "scrub"]:
 			target = goal  # 沿輪緣走、跟著人物的肩膀下來，不是直線內插
 		elif phase == "regrip":
 			target += Vector2(0.0, -1.5 * sin(PI * eased))  # 鬆手回到起點時微微抬起，不在輪緣上拖
 		var weight := 1.0 - eased if phase == "release" else 1.0
-		var angle := 0.0 if int(_spec["facing"]) > 0 else PI
+		var angle := hand_angle()
 		var placed := rig.place_hand(&"front", target, angle, weight)
 		_last_hand = rig.hand_contact_global(&"front")
 		contact_error = _last_hand.distance_to(target)
@@ -348,6 +374,16 @@ func after_frame(rig: CharacterRig) -> void:
 		Sfx.play(&"empty", -6.0)
 	elif phase == "lower":
 		contacts_completed += 1
+	elif phase == "lift":
+		if is_instance_valid(_disk):
+			_disk.show()
+			_update_held(reaction, 1.0)
+		Sfx.play(&"step_wet", -14.0)  # 碗離開水面的水聲
+	elif phase == "place":
+		contacts_completed += 1
+		if is_instance_valid(_disk):
+			_disk.hide()
+		Sfx.play(&"switch", -14.0)
 	_index += 1
 	if _index >= _sequence.size():
 		done = true
@@ -375,6 +411,9 @@ func _goal(player: Player, reaction: PropReaction) -> Vector2:
 		"insert": return reaction.contact_global(StringName(_spec["anchor"])) - Vector2(0.3, 0.0)
 		"take": return reaction.paper_tip_global()
 		"steady", "lower": return support_global()
+		"pick", "lift": return _prop_point("pick")
+		"scrub": return _prop_point("pick") + _scrub_offset(clampf(_elapsed / _duration, 0.0, 1.0))
+		"place": return _prop_point("drop")
 		"reach", "regrip": return rim_global(float(_spec["sweep"][0])) if _spec["kind"] == "turn" else support_global()
 		"turn": return rim_global(_turn_angle(smoothstep(0.0, 1.0, clampf(_elapsed / _duration, 0.0, 1.0))))
 		"recoil": return rim_global(lerpf(_turn_angle(1.0), _turn_angle(1.0) - signf(float(_spec["sweep"][1]) - float(_spec["sweep"][0])) * RECOIL_DEGREES,
@@ -492,6 +531,7 @@ func _start_support(player: Player, source: NpcActor) -> bool:
 	player.velocity = Vector2.ZERO
 	_sequence = [{"id": "approach"}, {"id": "reach", "time": 0.4}, {"id": "steady", "time": 0.3}, {"id": "lower", "time": 1.1}, {"id": "release", "time": 0.4}]
 	_enter_phase()
+	_frame_camera(player, source.global_position.x)
 	return true
 
 
@@ -505,4 +545,65 @@ func support_global() -> Vector2:
 		return Vector2.INF
 	var side := float(source._actor.facing) if source._actor != null else 1.0
 	return at + Vector2(float(_spec["contact"][0]) * side, float(_spec["contact"][1]))
+
+
+func _without_reaction() -> bool:
+	return _spec.get("kind") in ["support", "place"]
+
+
+## place：走到擺設前、伸手到 pick 點、拿起要呈現的東西、繞小圈、放到 drop 點、放手。
+func _start_place(player: Player, prop: PropNode) -> bool:
+	if not player._visual.rig.has_hand_grip(&"front"):
+		return _fail("world action requires a registered grip")
+	var texture := RigLibrary.optional_texture(_spec["texture"])
+	if texture == null:
+		return _fail("world action held texture is unavailable")
+	_grip = Vector2(_spec["grip"][0], _spec["grip"][1])
+	if not Rect2(Vector2.ZERO, texture.get_size()).has_point(_grip):
+		return _fail("world action grip is outside its texture")
+	_player = weakref(player)
+	_prop = weakref(prop)
+	_start_position = player.global_position
+	_station = prop.to_global(Vector2(_spec["station"][0], _spec["station"][1]))
+	if not route_clear(player, _station):
+		return _fail("world action approach is blocked or unsupported", &"route")
+	player.velocity = Vector2.ZERO
+	_disk_scale = float(_spec["width"]) / texture.get_width()
+	_make_carrier(player)
+	_disk = Sprite2D.new()
+	_disk.texture = texture
+	_disk.centered = false
+	_disk.hide()
+	_carrier.add_child(_disk)
+	_sequence = place_sequence(int(_spec.get("scrub_loops", 0)))
+	_enter_phase()
+	_frame_camera(player, prop.global_position.x + prop.data.size.x * 0.5)
+	return true
+
+
+## place 的階段：走過去、伸手、拿起、（繞圈）、放到定點、放手。
+static func place_sequence(loops: int) -> Array[Dictionary]:
+	var sequence: Array[Dictionary] = [{"id": "approach"}, {"id": "pick", "time": 0.35}, {"id": "lift", "time": 0.2}]
+	if loops > 0:
+		sequence.append({"id": "scrub", "time": 0.5 * loops})
+	sequence.append_array([{"id": "place", "time": 0.5}, {"id": "release", "time": 0.35}])
+	return sequence
+
+
+func _prop_point(key: String) -> Vector2:
+	var prop := _prop.get_ref() as PropNode if _prop != null else null
+	return prop.to_global(Vector2(_spec[key][0], _spec[key][1])) if is_instance_valid(prop) else Vector2.INF
+
+
+## 繞圈的偏移：progress 0→1 走完 scrub_loops 圈，起點與終點都在 pick 點上。
+func _scrub_offset(progress: float) -> Vector2:
+	var loops := float(_spec.get("scrub_loops", 0))
+	var angle := TAU * loops * progress
+	return Vector2(float(_spec["scrub"][0]) * sin(angle), -float(_spec["scrub"][1]) * (1.0 - cos(angle)) * 0.5)
+
+
+## 放手時的手掌世界角度：朝右時就是 hand_angle，朝左時左右鏡像。
+func hand_angle() -> float:
+	var tilt := deg_to_rad(float(_spec.get("hand_angle", 0.0)))
+	return tilt if int(_spec["facing"]) > 0 else PI - tilt
 

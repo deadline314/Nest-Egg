@@ -301,3 +301,36 @@ func _find_death_screen() -> DeathScreen:
 	for node in _level.find_children("*", "DeathScreen", true, false):
 		return node as DeathScreen
 	return null
+
+## 地圖動作截圖檔名的前綴（各章探針設成自己的票號）。
+var action_shot_prefix := "ST"
+var _watching_actions := false
+var _action_phases: Dictionary = {}
+
+
+## 地圖上凜自己的動作（WorldPropAction）：記下每一個看到的階段；有畫面時每個階段的開頭與中段各拍一張。
+func _watch_world_actions() -> void:
+	_watching_actions = true
+	_action_phases.clear()
+	var last := ""
+	var shots := 0
+	while _watching_actions and is_inside_tree():
+		await get_tree().process_frame
+		var action: WorldPropAction = _level.player._visual.interaction_action if is_instance_valid(_level) else null
+		if action == null or action.done or action._spec.is_empty():
+			continue
+		var id := ""
+		for key: Variant in WorldPropAction._table:
+			if WorldPropAction.definition(str(key)) == action._spec:
+				id = str(key)
+		var key := "%s:%s" % [id, action.phase]
+		if key != last:
+			last = key
+			_action_phases[key] = true
+			if action.phase != "approach" and shots < 24:
+				shots += 1
+				_capture("%s-action-%s-%02d-%s" % [action_shot_prefix, id, shots, action.phase])
+		elif action.phase in ["turn", "recoil", "lower", "scrub", "place"] and action._elapsed > action._duration * 0.5 and not _action_phases.has(key + ":mid") and shots < 24:
+			_action_phases[key + ":mid"] = true
+			shots += 1
+			_capture("%s-action-%s-%02d-%s-mid" % [action_shot_prefix, id, shots, action.phase])

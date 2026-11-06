@@ -66,5 +66,39 @@
     "bone": "arm_back_upper",
     "contact": [-4, -4],
     "pose": "sit"
+  },
+  "ali_bowl_rack": {
+    "scene": "ch2_t_s07_soup",
+    "level": "res://data/levels/ch2_ali_home.tres",
+    "source": "res://data/npcs/ch2_ali_home.tres",
+    "prop": "ali_kitchen__sink_drying_rack",
+    "kind": "place",
+    "station": [18, 40.5],
+    "facing": 1,
+    "hand_angle": 40,
+    "texture": "res://art/environment/scene_props/ali_kitchen_contacts/bowl.png",
+    "width": 6.0,
+    "grip": [24, 30],
+    "pick": [16.5, 11.0],
+    "scrub": [1.2, 1.2],
+    "scrub_loops": 2,
+    "drop": [24.0, 9.0]
+  },
+  "ali_bowl_wet_end": {
+    "scene": "ch2_t_s07_wash_wrong",
+    "level": "res://data/levels/ch2_ali_home.tres",
+    "source": "res://data/npcs/ch2_ali_home.tres",
+    "prop": "ali_kitchen__sink_drying_rack",
+    "kind": "place",
+    "station": [18, 40.5],
+    "facing": 1,
+    "hand_angle": 40,
+    "texture": "res://art/environment/scene_props/ali_kitchen_contacts/bowl.png",
+    "width": 6.0,
+    "grip": [24, 30],
+    "pick": [16.5, 11.0],
+    "scrub": [1.2, 1.2],
+    "scrub_loops": 1,
+    "drop": [25.5, 8.0]
   }
 }

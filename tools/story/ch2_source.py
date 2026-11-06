@@ -453,15 +453,17 @@ def _ali_home(source: ProductionSource):
         _opt("left", "放到左邊的乾燥架。", "ch2_t_s07_soup", "左邊是乾的。"),
         _opt("right", "放到右邊的架子。", "ch2_t_s07_wash_wrong", "右邊還在滴水。"),
         _opt("stop", "先不洗了，下次再來。", None, "地址記下了，試湯留到下次。")))
-    source.add("ch2_t_s07_wash_wrong", "S07", (("ali", "那邊還滴水，換到左邊就好。"),), mode="animated", next_scene="ch2_t_s07_wash")
-    source.add("ch2_t_s07_soup", "S07", (
+    # 洗碗是凜自己的動作（WorldPropAction 的 place）：在水龍頭下沖一隻碗，放到碗架上；放錯是放到碗架右邊還在滴水的那一頭。
+    source.add("ch2_t_s07_wash_wrong", "S07", steps=[dict(do="world_action", id="ali_bowl_wet_end"), *beats(
+        ("ali", "那邊還滴水，換到左邊就好。"))], mode="animated", next_scene="ch2_t_s07_wash")
+    source.add("ch2_t_s07_soup", "S07", steps=[dict(do="world_action", id="ali_bowl_rack"), *beats(
         ("rin", "這鍋放的梨比昨晚多。"),
         ("ali", "我在試能煮一整晚的湯，梨嬸以前就是這樣教我的。她在梨攤邊撿到我，所以我叫阿梨。"),
         ("rin", "攤子準備叫什麼？"),
         ("ali", "名字還沒想好，我先想每天要給人吃什麼。"),
         ("rin", "我可以把攤租先付了。"),
         ("ali", "你先替我把錯的帳找出來。要不要租，我會自己簽，不用你替我答應。"),
-        ("rin", "那你簽，我記要用的東西。")),
+        ("rin", "那你簽，我記要用的東西。"))],
         mode="animated", completion=(set_flag("ch2_ali_home_visit"), set_flag("sq1_soup_practice_done"), transaction("ch2.sq1_soup")))
     source.add("ch2_t_s07_revisit", "S07", (("ali", "碗放左邊就好，今天我先試湯，不收新的攤租。"),), when=visited)
 

@@ -23,6 +23,7 @@ func _ready() -> void:
 
 
 func _run() -> void:
+	action_shot_prefix = "ST-19"
 	_shots = {
 		"ch2_t_s17_book": "BG-46-book", "ch2_t_s17_open:choice": "BG-46-reservations", "ch2_t_s21_close": "BG-46-close",
 		"ch2_t_s01_settle:choice": "ST-19-s01-settle", "ch2_t_s02_power:choice": "ST-19-s02-radio",
@@ -82,7 +83,11 @@ func _run() -> void:
 	_check(GameState.has_flag(&"ch2_evidence_contract") and GameState.has_flag(&"ch2_banyan_heard"), "the contract copy and Banyan's story")
 	# H21 阿梨家：先放錯架子一次。
 	await _enter("ali_home")
+	_watch_world_actions()
 	await _talk(&"ch2_ali_home", ["wash", "right", "left"])
+	_watching_actions = false
+	_check(_action_phases.has("ali_bowl_wet_end:place") and _action_phases.has("ali_bowl_rack:scrub") and _action_phases.has("ali_bowl_rack:place"),
+			"Rin rinses a bowl and puts it on the rack, first on the wet end (phases seen: %s)" % [_action_phases.keys()])
 	_check(GameState.has_flag(&"sq1_soup_practice_done") and GameState.has_flag(&"knows_ali_address"), "washing and tasting completes the soup node and leaves the address known")
 	# H12c 貨道：守衛、橋梯、代收簿、對帳（先犯兩種錯）。
 	await _enter("loading")

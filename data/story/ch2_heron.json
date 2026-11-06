@@ -3642,6 +3642,10 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "world_action",
+     "id": "ali_bowl_wet_end"
+    },
+    {
      "do": "say",
      "speaker": "ali",
      "text": "那邊還滴水，換到左邊就好。",
@@ -3655,6 +3659,10 @@
   "ch2_t_s07_soup": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "world_action",
+     "id": "ali_bowl_rack"
+    },
     {
      "do": "say",
      "speaker": "rin",

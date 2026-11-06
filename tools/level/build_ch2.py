@@ -301,11 +301,12 @@ def build_ali_home():
     a.stand(6, 'P')
     # 這間廚房自己的東西（BG-38）：門口補過的油紙傘、洗碗池與晾碗架（凜在這裡洗碗）、一張小桌、
     # 湯鍋（阿梨站在爐子旁）、小冰箱；牆上是調味料架、晾著圍裙的窗與手寫食譜。
+    # 洗碗池挨著湯爐（ST-19，2026-11-06）：凜在爐邊和阿梨說完，走幾步就到水槽洗碗，不用穿過整間廚房。
     a.prop('ali_kitchen__patched_umbrella', 9)
-    a.prop('ali_kitchen__sink_drying_rack', 12)
-    a.prop('ali_kitchen__spice_shelf', 13, y=15, support='wall')
-    a.prop('ali_kitchen__small_table', 19)
-    a.prop('ali_kitchen__window_apron', 23, y=17, support='wall')
+    a.prop('ali_kitchen__small_table', 14)
+    a.prop('ali_kitchen__window_apron', 21, y=17, support='wall')
+    a.prop('ali_kitchen__sink_drying_rack', 26)
+    a.prop('ali_kitchen__spice_shelf', 27, y=15, support='wall')
     a.prop('ali_kitchen__soup_stove', 30)
     a.stand(32, 'Ⓐ')
     a.prop('ali_kitchen__small_fridge', 36)

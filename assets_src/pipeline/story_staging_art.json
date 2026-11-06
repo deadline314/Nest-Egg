@@ -210,6 +210,27 @@
         "relief": 0.1,
         "detail": 0.0
       }
+    },
+    {
+      "id": "ali_kitchen_bowl",
+      "input": "assets_src/candidates/st19_ali_bowl/dirty-bowl-cropped.png",
+      "sha256": "3833d84d1007663d24c26bcde60377e9db0da0e7f2ab50ff8d6a2ba844fce00d",
+      "size": [
+        277,
+        157
+      ],
+      "output": "art/environment/scene_props/ali_kitchen_contacts/bowl.png",
+      "kind": "prop",
+      "grade": {},
+      "alpha_floor": 0,
+      "pad_even": true,
+      "emission": "none",
+      "normal": {
+        "profile": "pillow",
+        "round_px": 6.0,
+        "relief": 0.1,
+        "detail": 0.0
+      }
     }
   ]
 }
