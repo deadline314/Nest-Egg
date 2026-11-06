@@ -1,0 +1,61 @@
+{
+ "camera": {
+  "pos": [
+   300,
+   196
+  ],
+  "zoom": 1.15
+ },
+ "floor": 292,
+ "layers": [
+  {
+   "kind": "gradient",
+   "top": "#05080c",
+   "bottom": "#0c141a",
+   "parallax": 0.0
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scenes/anchor_phone_booth.webp",
+   "pos": [
+    -64,
+    -36.0
+   ],
+   "scale": 0.5,
+   "filter": "linear",
+   "source_width": 1536,
+   "modulate": "#c8d2dc"
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scene_props/anchor_phone_booth/anchor_phone_booth__phone_booth.png",
+   "pos": [
+    150,
+    142.0
+   ],
+   "scale": 0.2492,
+   "filter": "linear",
+   "source_width": 191,
+   "glow": true
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    174,
+    190
+   ],
+   "radius": 140,
+   "color": "#7fe0c8",
+   "intensity": 0.8,
+   "additive": true,
+   "alpha": 0.35,
+   "pulse": 0.08,
+   "pulse_depth": 0.25
+  },
+  {
+   "kind": "rain",
+   "depth": "front",
+   "opacity": 0.3
+  }
+ ]
+}

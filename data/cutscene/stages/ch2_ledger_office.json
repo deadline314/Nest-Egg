@@ -1,0 +1,55 @@
+{
+ "camera": {
+  "pos": [
+   320,
+   200
+  ],
+  "zoom": 1.2
+ },
+ "floor": 296,
+ "layers": [
+  {
+   "kind": "gradient",
+   "top": "#120808",
+   "bottom": "#2a1410",
+   "parallax": 0.0
+  },
+  {
+   "kind": "sprite",
+   "path": "res://art/environment/scenes/yong_hideout.webp",
+   "pos": [
+    -64,
+    -36.0
+   ],
+   "scale": 0.5,
+   "filter": "linear",
+   "source_width": 1536
+  },
+  {
+   "kind": "glow",
+   "pos": [
+    310,
+    160
+   ],
+   "radius": 150,
+   "color": "#ffd08a",
+   "intensity": 0.6,
+   "additive": true,
+   "alpha": 0.3,
+   "pulse": 0.05,
+   "pulse_depth": 0.2
+  }
+ ],
+ "furniture": [
+  {
+   "id": "ledger_desk",
+   "kind": "counter",
+   "rect": [
+    217,
+    215,
+    165,
+    69
+   ]
+  }
+ ]
+}

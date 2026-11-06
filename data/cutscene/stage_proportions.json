@@ -78,6 +78,10 @@
     "cloth_corner": [
       0.03,
       0.1
+    ],
+    "phone_booth": [
+      1.25,
+      1.45
     ]
   },
   "seat_kinds": [
@@ -105,6 +109,13 @@
     "dawn_noodle_stall__ali_noodle_cart": {
       "kind": "counter",
       "exempt": "攤車含車頂與招牌，整體沒有通用尺寸；檯面高度在畫面上對過凜的腰"
+    },
+    "anchor_phone_booth__phone_booth": {
+      "kind": "phone_booth"
+    },
+    "neon_market__debt_desk": {
+      "kind": "table",
+      "exempt": "照關卡同一張收款折疊桌的大小（桌面約 0.35H，比一般桌矮），舞台和地圖一致；放大會和地圖對不上"
     }
   }
 }

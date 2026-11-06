@@ -6,6 +6,7 @@
 """
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
@@ -14,12 +15,14 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools/story"))
 
 import ch2_source  # noqa: E402
+import ch2_stages  # noqa: E402
 from ch1_runtime_backend import DEATH_SEQUENCES  # noqa: E402
 from chapter_compiler import ChapterSpec, CompileError, write_chapter, write_documents, write_transactions  # noqa: E402
 
 OUT = ROOT / "data/story/ch2_heron.json"
 ITEM_DIR = ROOT / "data/story_items"
 TRANSACTION_DIR = ROOT / "data/story_transactions"
+STAGE_DIR = ROOT / "data/cutscene/stages"
 
 
 def spec() -> ChapterSpec:
@@ -42,12 +45,20 @@ def spec() -> ChapterSpec:
     )
 
 
+def write_stages():
+    """本章自己的過場舞台（帳房、電話亭、代收處）。格式同第一章的 write_stage：縮排 1、結尾換行。"""
+    for stage in ch2_stages.STAGES:
+        path = STAGE_DIR / f"{stage.ident}.json"
+        path.write_text(json.dumps(stage.definition(), ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+
+
 def main():
     try:
         chapter = spec()
         write_documents(chapter.source, "ch2_heron", ITEM_DIR, 200)
         write_transactions(ch2_source.TRANSACTIONS, TRANSACTION_DIR, "ch2.")
         write_chapter(chapter, OUT)
+        write_stages()
     except CompileError as error:
         print(str(error), file=sys.stderr)
         return 2

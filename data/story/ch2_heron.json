@@ -2643,6 +2643,55 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch2_collection_desk",
+     "pos": [
+      330,
+      288.6
+     ],
+     "zoom": 1.2,
+     "fade": 0.8
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      230,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "vig",
+     "kind": "vig",
+     "pos": [
+      430,
+      322
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "vig"
+    },
+    {
      "do": "say",
      "speaker": "vig",
      "text": "今天四十信用點代收款，加上前帳的利息，我才能替您收租攤申請。",
@@ -2718,7 +2767,7 @@
      "en": "Ask me first, okay?"
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "not": {
      "flag": "ch2_market_contact_done",
@@ -2729,6 +2778,55 @@
   "ch2_t_s06_pay_confirm": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_collection_desk",
+     "pos": [
+      330,
+      288.6
+     ],
+     "zoom": 1.2,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      230,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "vig",
+     "kind": "vig",
+     "pos": [
+      430,
+      322
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "vig"
+    },
     {
      "do": "say",
      "speaker": "label",
@@ -2766,7 +2864,7 @@
      "en": "Advance forty credits. Only today's collection is lifted; Pear's debt is not settled."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "not": {
      "flag": "ch2_market_contact_done",
@@ -2777,6 +2875,55 @@
   "ch2_t_s06_open_again": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_collection_desk",
+     "pos": [
+      330,
+      288.6
+     ],
+     "zoom": 1.2,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      230,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "vig",
+     "kind": "vig",
+     "pos": [
+      430,
+      322
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "vig"
+    },
     {
      "do": "say",
      "speaker": "ali",
@@ -2814,7 +2961,7 @@
      "en": "Ask me first, okay?"
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "not": {
      "flag": "ch2_market_contact_done",
@@ -2826,6 +2973,55 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch2_collection_desk",
+     "pos": [
+      330,
+      288.6
+     ],
+     "zoom": 1.2,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      230,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "vig",
+     "kind": "vig",
+     "pos": [
+      430,
+      322
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "vig"
+    },
+    {
      "do": "say",
      "speaker": "label",
      "text": "信用點不夠，先問阿梨並核對收據。",
@@ -2833,12 +3029,61 @@
      "en": "Not enough credits. First, ask Pear and check the receipt."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "then": "ch2_dispatch_back_s06_open_again"
   },
   "ch2_t_s06_paid": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_collection_desk",
+     "pos": [
+      330,
+      288.6
+     ],
+     "zoom": 1.2,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      230,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "vig",
+     "kind": "vig",
+     "pos": [
+      430,
+      322
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "vig"
+    },
     {
      "do": "say",
      "speaker": "rin",
@@ -2854,7 +3099,7 @@
      "en": "I'll note this down for you, but the stall matter isn't resolved yet."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "not": {
      "flag": "ch2_market_contact_done",
@@ -2889,6 +3134,55 @@
   "ch2_t_s06_ask": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_collection_desk",
+     "pos": [
+      330,
+      288.6
+     ],
+     "zoom": 1.2,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      230,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "vig",
+     "kind": "vig",
+     "pos": [
+      430,
+      322
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "vig"
+    },
     {
      "do": "say",
      "speaker": "rin",
@@ -2936,7 +3230,7 @@
      "en": "You may look at the stub, but the original can't be taken away."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "not": {
      "flag": "ch2_market_contact_done",
@@ -2969,6 +3263,55 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch2_collection_desk",
+     "pos": [
+      330,
+      288.6
+     ],
+     "zoom": 1.2,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      230,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "vig",
+     "kind": "vig",
+     "pos": [
+      430,
+      322
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "vig"
+    },
+    {
      "do": "say",
      "speaker": "ali",
      "text": "復原館夜班下班了，我在市場找位置，後樓三樓的小廚房還有湯。",
@@ -2976,12 +3319,61 @@
      "en": "The night shift at the Restoration Hall is over, and I'm looking for a spot in the market. There's still soup left in the small kitchen on the third floor of the back building."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "then": "ch2_dispatch_s06_supper"
   },
   "ch2_t_s06_invite_left": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_collection_desk",
+     "pos": [
+      330,
+      288.6
+     ],
+     "zoom": 1.2,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      230,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "vig",
+     "kind": "vig",
+     "pos": [
+      430,
+      322
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "vig"
+    },
     {
      "do": "say",
      "speaker": "ali",
@@ -2990,7 +3382,7 @@
      "en": "You left first last night, so I didn't get to save you a bowl."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "not": {
      "flag": "knows_ali_address",
@@ -3003,6 +3395,55 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch2_collection_desk",
+     "pos": [
+      330,
+      288.6
+     ],
+     "zoom": 1.2,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      230,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "vig",
+     "kind": "vig",
+     "pos": [
+      430,
+      322
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "vig"
+    },
+    {
      "do": "say",
      "speaker": "ali",
      "text": "昨晚那碗不是租攤試吃，這次才算。",
@@ -3010,7 +3451,7 @@
      "en": "Last night's bowl was just a stall tasting. This time it counts."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "flag": "knows_ali_address",
     "equals": true
@@ -3020,6 +3461,55 @@
   "ch2_t_s06_close": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_collection_desk",
+     "pos": [
+      330,
+      288.6
+     ],
+     "zoom": 1.2,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      230,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "vig",
+     "kind": "vig",
+     "pos": [
+      430,
+      322
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "vig"
+    },
     {
      "do": "say",
      "speaker": "rin",
@@ -3035,7 +3525,7 @@
      "en": "You can find me on the outside stairs of the back building. If you want to come in, just knock. You don't need to borrow a key from anyone for me."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "results": [
     {
      "kind": "flag",
@@ -3047,6 +3537,55 @@
   "ch2_t_s06_ali_paid_revisit": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_collection_desk",
+     "pos": [
+      330,
+      288.6
+     ],
+     "zoom": 1.2,
+     "fade": 0.8
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      230,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "vig",
+     "kind": "vig",
+     "pos": [
+      430,
+      322
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "vig"
+    },
     {
      "do": "say",
      "speaker": "ali",
@@ -3084,7 +3623,7 @@
      "en": "I remember the forty you advanced. Would you like to hear about the stall first?"
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "all": [
      {
@@ -3103,6 +3642,55 @@
   "ch2_t_s06_ask_late": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_collection_desk",
+     "pos": [
+      330,
+      288.6
+     ],
+     "zoom": 1.2,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      230,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "vig",
+     "kind": "vig",
+     "pos": [
+      430,
+      322
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "vig"
+    },
     {
      "do": "say",
      "speaker": "rin",
@@ -3125,7 +3713,7 @@
      "en": "I'll find out first why he collected twice. Sign off on the stall matter yourself."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "not": {
      "flag": "ch2_ali_need_asked",
@@ -3148,6 +3736,55 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch2_collection_desk",
+     "pos": [
+      330,
+      288.6
+     ],
+     "zoom": 1.2,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      230,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "ali",
+     "kind": "ali",
+     "pos": [
+      300,
+      330
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "ali"
+    },
+    {
+     "do": "actor",
+     "id": "vig",
+     "kind": "vig",
+     "pos": [
+      430,
+      322
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "vig"
+    },
+    {
      "do": "say",
      "speaker": "ali",
      "text": "我留著申請，等你回來再談。",
@@ -3155,7 +3792,7 @@
      "en": "I'll keep the application. We can talk when you're back."
     }
    ],
-   "overlay": true
+   "pose_policy": "supported"
   },
   "ch2_t_s06_ali_revisit": {
    "mode": "animated",
@@ -4657,6 +5294,55 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch2_ledger_office",
+     "pos": [
+      320,
+      254.6
+     ],
+     "zoom": 1.2,
+     "fade": 0.8
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      250,
+      296
+     ],
+     "facing": 1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "yong",
+     "kind": "yong",
+     "pos": [
+      440,
+      296
+     ],
+     "facing": -1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "yong"
+    },
+    {
+     "do": "actor",
+     "id": "xiaowei",
+     "kind": "xiaowei",
+     "pos": [
+      490,
+      296
+     ],
+     "facing": -1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "xiaowei"
+    },
+    {
      "do": "say",
      "speaker": "yong",
      "text": "你永久拆了我和她的連結，還要我認你算的帳？",
@@ -4689,7 +5375,7 @@
      "en": "Take the umbrella. The people waiting for you outside will take you."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "all": [
      {
@@ -4719,6 +5405,68 @@
   "ch2_t_s13_keep": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_ledger_office",
+     "pos": [
+      320,
+      254.6
+     ],
+     "zoom": 1.2,
+     "fade": 0.8
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      250,
+      296
+     ],
+     "facing": 1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "yong",
+     "kind": "yong",
+     "pos": [
+      440,
+      296
+     ],
+     "facing": -1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "yong"
+    },
+    {
+     "do": "actor",
+     "id": "xiaowei",
+     "kind": "xiaowei",
+     "pos": [
+      490,
+      296
+     ],
+     "facing": -1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "xiaowei"
+    },
+    {
+     "do": "actor",
+     "id": "medic",
+     "kind": "nurse",
+     "pos": [
+      540,
+      296
+     ],
+     "facing": -1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "nurse"
+    },
     {
      "do": "say",
      "speaker": "yong",
@@ -4759,7 +5507,7 @@
      "en": "All right. I'll walk behind you."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "all": [
      {
@@ -4791,6 +5539,42 @@
   "ch2_t_s13_cabinet": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_ledger_office",
+     "pos": [
+      320,
+      254.6
+     ],
+     "zoom": 1.2,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      280,
+      296
+     ],
+     "facing": 1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "yong",
+     "kind": "yong",
+     "pos": [
+      440,
+      296
+     ],
+     "facing": -1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "yong"
+    },
     {
      "do": "say",
      "speaker": "label",
@@ -4824,7 +5608,7 @@
      "en": "Upstairs changes it every day, and all I get are copies. If you want to know how it was calculated, go ask them up there."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "all": [
      {
@@ -4864,6 +5648,48 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "scene",
+     "id": "ch2_ledger_office",
+     "pos": [
+      320,
+      254.6
+     ],
+     "zoom": 1.2,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      240,
+      296
+     ],
+     "facing": 1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "rin",
+     "pose": "crouch",
+     "pose_reason": "蹲下看鷺傷在哪裡。",
+     "pose_support": "雙腳踩在帳房地板 y=296。"
+    },
+    {
+     "do": "actor",
+     "id": "egret",
+     "kind": "egret",
+     "pos": [
+      300,
+      296
+     ],
+     "facing": -1,
+     "scale": 1.9,
+     "weapon": "",
+     "speaker": "egret",
+     "pose": "crouch",
+     "pose_reason": "鷺受傷倒下，撐著跪在地上。",
+     "pose_support": "膝蓋與腳尖著地，帳房地板 y=296。"
+    },
+    {
      "do": "say",
      "speaker": "rin",
      "text": "鷺姐，你先別起來，讓我看看傷在哪裡。",
@@ -4896,7 +5722,7 @@
      "en": "Take her umbrella too. Both of its ribs are broken."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "all": [
      {
@@ -4939,6 +5765,55 @@
   "ch2_t_s14_return": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_phone_booth",
+     "pos": [
+      300,
+      248.8
+     ],
+     "zoom": 1.15,
+     "fade": 0.8
+    },
+    {
+     "do": "actor",
+     "id": "egret",
+     "kind": "egret",
+     "pos": [
+      240,
+      292
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "egret"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      330,
+      292
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "rin"
+    },
+    {
+     "do": "actor",
+     "id": "banyan",
+     "kind": "banyan",
+     "pos": [
+      400,
+      292
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "banyan"
+    },
     {
      "do": "say",
      "speaker": "voice",
@@ -4986,7 +5861,7 @@
      "en": "If the umbrella cost money too, I'd have been catching rain in my hands by now."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "not": {
      "flag": "ch2_egret_returned",
@@ -4998,6 +5873,42 @@
   "ch2_t_s14_quiet": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "scene",
+     "id": "ch2_phone_booth",
+     "pos": [
+      300,
+      248.8
+     ],
+     "zoom": 1.15,
+     "fade": 0.25
+    },
+    {
+     "do": "actor",
+     "id": "egret",
+     "kind": "egret",
+     "pos": [
+      240,
+      292
+     ],
+     "facing": 1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "egret"
+    },
+    {
+     "do": "actor",
+     "id": "rin",
+     "kind": "rin",
+     "pos": [
+      330,
+      292
+     ],
+     "facing": -1,
+     "scale": 2.0,
+     "weapon": "",
+     "speaker": "rin"
+    },
     {
      "do": "say",
      "speaker": "rin",
@@ -5020,7 +5931,7 @@
      "en": "The entrance is clear, so the ledgers can be uploaded. Once you've checked everything, head back to the rooftop, and don't miss the commission settlement."
     }
    ],
-   "overlay": true,
+   "pose_policy": "supported",
    "when": {
     "not": {
      "flag": "ch2_egret_returned",
