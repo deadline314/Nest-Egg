@@ -180,9 +180,11 @@ class Build:
         n = 0
         for f in sorted((self.work / "overrides").glob("*.png")) if (self.work / "overrides").exists() else []:
             target = self.char_dir / "parts" / f.name
-            from PIL import Image
-            if not target.exists() or Image.open(f).mode != "RGBA" or Image.open(f).size != Image.open(target).size:
-                sys.exit(f"[textures] override {f} requires an existing part and RGBA PNG of the same size: {target}")
+            from cut_layers import validate_final_override
+            try:
+                validate_final_override(f, target)
+            except ValueError as error:
+                sys.exit(f"[textures] {error}")
             shutil.copy(f, target)
             n += 1
         if n:

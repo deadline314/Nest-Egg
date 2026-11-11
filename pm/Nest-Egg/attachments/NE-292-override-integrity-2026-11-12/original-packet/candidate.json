@@ -1,0 +1,25 @@
+{
+  "base": "64905fba7ce1aaf03e235331d7ced1e4e711d106",
+  "files": {
+    "tools/comfyui/build_character.py": {
+      "sha256": "69177c9e2eb620a4fd4845cd1c34884f0b73c78b7707259f77314a5d9eb6cb10",
+      "bytes": 14537,
+      "baseline_sha256": "cffbe531984a13095a2b96f1eb6c749f929db53e4d2cef61cbae41c9b3fd21eb"
+    },
+    "tools/comfyui/cut_layers.py": {
+      "sha256": "6344215e993b91f369fc663120c34c0ce701ea9891baf84033fc2a9b6e32e92f",
+      "bytes": 29475,
+      "baseline_sha256": "d9e01c87a53515f7d578326232568fb16a79e3e7ee399e0d0e075f2ecc8d5c2a"
+    },
+    "tools/comfyui/test_final_overrides.py": {
+      "sha256": "5fd1ca2bde2ae00cbeac78989f03e33c4e771be2659de516eb49eb64743bccf0",
+      "bytes": 8185
+    },
+    ".github/workflows/art-cuts.yml": {
+      "sha256": "1192c9699877767620f6c947de7facf3345031ab480116c554d4d650e08d775c",
+      "bytes": 1552,
+      "baseline_sha256": "b82c37ee93aaa9a17c055beafb05cd954e584590c2cbd3f578e3f9413a429301"
+    }
+  },
+  "C_product_modified": false
+}

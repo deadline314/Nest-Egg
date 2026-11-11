@@ -1,0 +1,75 @@
+{
+  "ticket": "NE-292",
+  "files": {
+    ".gitattributes": {
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    "candidate.json": {
+      "bytes": 996,
+      "sha256": "e560a7d8e5581d3cef78bd23e8ec99bffc06ab3808e03d483508e5ca9b103ac1"
+    },
+    "candidate.patch": {
+      "bytes": 11422,
+      "sha256": "e80324180c38b8aed647183b79eda2d89683fb46ec6382a0c3f8d793c19e7bc7"
+    },
+    "index.json": {
+      "bytes": 134761,
+      "sha256": "a68cc9f75c83ffb6f10e9e15dc6f4cfba23cf523f222a7c55aab8f93135a056f"
+    },
+    "raw.zip": {
+      "bytes": 850222,
+      "sha256": "4c6ff61d7f2b71a0ddf858adf3f86f33ae91aee4acd0d7a2a31b5de4cf3c7eed"
+    },
+    "reader-controls.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "reader-controls.stdout.json": {
+      "bytes": 125,
+      "sha256": "ade32d0bd165a25c6807ac0f7818f3653489093b77773f2f491028d0b346f911"
+    },
+    "reader-v1.py.txt": {
+      "bytes": 5987,
+      "sha256": "65ea7ade22272c4c6237a0979d98fa41d7e6ffbd00590fc95d6c5ab898af08f1"
+    },
+    "reader-v1.stderr.log": {
+      "bytes": 679,
+      "sha256": "9c03eac3865141f9ec3d5bbd5ddded36425ccd12d999e8bf8c1a501cc9f4ccd5"
+    },
+    "reader-v1.stdout.json": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "reader-v2.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "reader-v2.stdout.json": {
+      "bytes": 3576,
+      "sha256": "32bf07f7eb2fac0e1dcecd239deb3d0fcc1caa099bb39e1cda2898e237d8f8aa"
+    },
+    "reader.stderr.log": {
+      "bytes": 679,
+      "sha256": "9c03eac3865141f9ec3d5bbd5ddded36425ccd12d999e8bf8c1a501cc9f4ccd5"
+    },
+    "reader.stdout.json": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "reader_controls.py": {
+      "bytes": 1901,
+      "sha256": "6617761abab0005bbd8dad8d3a3ae0ecbe278b2c6adb87a14039560a41cba727"
+    },
+    "README.md": {
+      "bytes": 5209,
+      "sha256": "8bebaf2b589e5fb0388159282935c80db46214a7f6ee86a938320bf237be9225"
+    },
+    "verify_ne292.py": {
+      "bytes": 6005,
+      "sha256": "7c2e5c8a7e1abe69af2d5c54f9b665494c80ae92a5d0b313489709f16092ca71"
+    }
+  },
+  "total_bytes": 1021570,
+  "runtime_staging": "candidate.json only; C union-safe narrow adoption required"
+}

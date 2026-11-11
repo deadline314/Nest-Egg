@@ -1,0 +1,105 @@
+{
+  "verified": true,
+  "ticket": "NE-292",
+  "published_base": "64905fba7ce1aaf03e235331d7ced1e4e711d106",
+  "members": 687,
+  "permanent_before": "8 tests / 4 expected failures",
+  "permanent_after": "8 tests / 0 failures",
+  "pipeline": {
+    "test_source_alpha": 0,
+    "test_joint_caps": 0,
+    "test_mask_delivery": 0,
+    "test_point_mask_cache": 0,
+    "test_point_mask_validation": 0,
+    "test_cache_options": 0,
+    "test_registered_layers": 0,
+    "test_hand_attachments": 0
+  },
+  "cases": {
+    "before": {
+      "test_all_overrides_validate_before_first_delivery_change": {
+        "source_exact": true,
+        "delivery_exact": false,
+        "expected_original_failure": true
+      },
+      "test_tiff_named_png_refuses_before_delivery_changes": {
+        "source_exact": true,
+        "delivery_exact": false,
+        "expected_original_failure": true
+      },
+      "test_truncated_png_refuses_before_delivery_changes": {
+        "source_exact": true,
+        "delivery_exact": false,
+        "expected_original_failure": true
+      },
+      "test_unknown_part_refuses_before_delivery_changes": {
+        "source_exact": true,
+        "delivery_exact": true,
+        "expected_original_failure": false
+      },
+      "test_valid_crc_broken_idat_requires_complete_decode": {
+        "source_exact": true,
+        "delivery_exact": false,
+        "expected_original_failure": true
+      },
+      "test_valid_png_keeps_its_original_encoded_bytes": {
+        "source_exact": true,
+        "delivery_exact": false,
+        "expected_original_failure": false
+      },
+      "test_wrong_mode_refuses_before_delivery_changes": {
+        "source_exact": true,
+        "delivery_exact": true,
+        "expected_original_failure": false
+      },
+      "test_wrong_size_refuses_before_delivery_changes": {
+        "source_exact": true,
+        "delivery_exact": true,
+        "expected_original_failure": false
+      }
+    },
+    "after": {
+      "test_all_overrides_validate_before_first_delivery_change": {
+        "source_exact": true,
+        "delivery_exact": true,
+        "expected_original_failure": false
+      },
+      "test_tiff_named_png_refuses_before_delivery_changes": {
+        "source_exact": true,
+        "delivery_exact": true,
+        "expected_original_failure": false
+      },
+      "test_truncated_png_refuses_before_delivery_changes": {
+        "source_exact": true,
+        "delivery_exact": true,
+        "expected_original_failure": false
+      },
+      "test_unknown_part_refuses_before_delivery_changes": {
+        "source_exact": true,
+        "delivery_exact": true,
+        "expected_original_failure": false
+      },
+      "test_valid_crc_broken_idat_requires_complete_decode": {
+        "source_exact": true,
+        "delivery_exact": true,
+        "expected_original_failure": false
+      },
+      "test_valid_png_keeps_its_original_encoded_bytes": {
+        "source_exact": true,
+        "delivery_exact": false,
+        "expected_original_failure": false
+      },
+      "test_wrong_mode_refuses_before_delivery_changes": {
+        "source_exact": true,
+        "delivery_exact": true,
+        "expected_original_failure": false
+      },
+      "test_wrong_size_refuses_before_delivery_changes": {
+        "source_exact": true,
+        "delivery_exact": true,
+        "expected_original_failure": false
+      }
+    }
+  },
+  "scope": "CPU encoded source integrity and publication only; no actor/native/performance acceptance"
+}

@@ -44,3 +44,4 @@ jobs:
           python tools/comfyui/test_cache_options.py
           python tools/comfyui/test_registered_layers.py
           python tools/comfyui/test_hand_attachments.py
+          python tools/comfyui/test_final_overrides.py

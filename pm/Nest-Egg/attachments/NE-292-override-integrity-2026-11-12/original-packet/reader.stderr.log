@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\work\ne255-cpu-review-20261112\ne292-delivery\verify_ne292.py", line 109, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\stanl\Github\Nest-Egg\work\ne255-cpu-review-20261112\ne292-delivery\verify_ne292.py", line 104, in main
+    result = verify(index, (folder / index["raw_zip"]["name"]).read_bytes())
+  File "C:\Users\stanl\Github\Nest-Egg\work\ne255-cpu-review-20261112\ne292-delivery\verify_ne292.py", line 44, in verify
+    assert ("FAILED (failures=4)" if mode == "before" else "\nOK\n") in log
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

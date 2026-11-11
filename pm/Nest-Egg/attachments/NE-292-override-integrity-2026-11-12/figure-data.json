@@ -1,0 +1,57 @@
+{
+  "scope": "Data figure from original CPU test stderr; not a game screenshot",
+  "before_failures": 4,
+  "after_failures": 0,
+  "rows": [
+    {
+      "test": "test_truncated_png_refuses_before_delivery_changes",
+      "label": "截斷 PNG",
+      "before_pass": false,
+      "after_pass": true
+    },
+    {
+      "test": "test_tiff_named_png_refuses_before_delivery_changes",
+      "label": "TIFF 偽裝成 PNG",
+      "before_pass": false,
+      "after_pass": true
+    },
+    {
+      "test": "test_valid_crc_broken_idat_requires_complete_decode",
+      "label": "CRC 正確但像素損毀",
+      "before_pass": false,
+      "after_pass": true
+    },
+    {
+      "test": "test_all_overrides_validate_before_first_delivery_change",
+      "label": "第二張損毀，保留整組成品",
+      "before_pass": false,
+      "after_pass": true
+    },
+    {
+      "test": "test_wrong_mode_refuses_before_delivery_changes",
+      "label": "拒絕非 RGBA",
+      "before_pass": true,
+      "after_pass": true
+    },
+    {
+      "test": "test_wrong_size_refuses_before_delivery_changes",
+      "label": "拒絕尺寸不符",
+      "before_pass": true,
+      "after_pass": true
+    },
+    {
+      "test": "test_unknown_part_refuses_before_delivery_changes",
+      "label": "拒絕未知零件",
+      "before_pass": true,
+      "after_pass": true
+    },
+    {
+      "test": "test_valid_png_keeps_its_original_encoded_bytes",
+      "label": "合法 PNG 原始內容保留",
+      "before_pass": true,
+      "after_pass": true
+    }
+  ],
+  "before_log_sha256": "2ae62b4346d17bd2238eee1b0994a96929a953ed61e4d68aecf87a7eb29addd9",
+  "after_log_sha256": "0c7877f7ab83c5343cd9b764be65a27d5ab8607b227e48e3b1f38f650155a686"
+}

@@ -1,0 +1,799 @@
+{
+  "archive": "root-checks.zip",
+  "bytes": 146904,
+  "sha256": "859e61412d2f4106ccb9cd0365e5fbde6047f562ddc8182d35277e61bb97f491",
+  "entries": {
+    "adoption.json": {
+      "bytes": 94434,
+      "sha256": "4de2ac8dc6ef721044682bfebb2e4587cf379074a8cc164acceb351186308d25"
+    },
+    "c-native-context-v12.json": {
+      "bytes": 46924,
+      "sha256": "9c38951ef5c7ecf2d96257dfa21901b3159d9f86f237f45e6c2261951e6fb863"
+    },
+    "c-union-permanent.json": {
+      "bytes": 348,
+      "sha256": "5638ecc5362d6acca7ac7f39ff74e6d46f9fca4fb05c7c4fa5a79604617a44d1"
+    },
+    "c-union-permanent.log": {
+      "bytes": 1284,
+      "sha256": "975f0aa630d43c0b12e7165010863dee4bf8a64378e7c7b96cd322417b729670"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/after/recipe.json": {
+      "bytes": 296,
+      "sha256": "ae8baf081193aa26545723ca16a550c2dfbf6aec43c34f46f7280b58a6fce550"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/after/rig.json": {
+      "bytes": 1595,
+      "sha256": "91fc48e147e2ab351fccdc4982cd3c0d39529e303149b33036937981e530647b"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/after/skin/character.json": {
+      "bytes": 1051,
+      "sha256": "354d6a5805050442d52e51292b9b1ba3b77731b6ee48262f9e636a2bea540a13"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/after/skin/parts.tmp/.gdignore": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/after/skin/parts.tmp/panel.png": {
+      "bytes": 96,
+      "sha256": "192a22a2b64ce6137460e147096ba3bca02ecd477e8d9fb28168af95203d18d6"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/after/skin/parts.tmp/trim.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/after/skin/parts/panel.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/after/skin/parts/trim.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/after/source/.gdignore": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/after/source/06_parts/panel.png": {
+      "bytes": 79,
+      "sha256": "d5d21b46c23e534e1590650f399bfd749697b8b103bd04f9a529ec6ab3b7ca0c"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/after/source/06_parts/trim.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/after/source/base_rgba.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/after/source/overrides/panel.png": {
+      "bytes": 757,
+      "sha256": "539e3b9faca37e43ffbc0f24f308b0d1f625e41775820beb7093dbea1f1850a8"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/after/source/overrides/trim.png": {
+      "bytes": 757,
+      "sha256": "c488fa901b9bd123bac57a947d44365e4c05f29a5ad69f61b545634180fe6644"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/after/spec.json": {
+      "bytes": 1107,
+      "sha256": "9468608a0500ed5d63fa9c4b26427f2949c88bbd4ee3aa37df17225e51b50d10"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/delivery-before/rig.json": {
+      "bytes": 1595,
+      "sha256": "91fc48e147e2ab351fccdc4982cd3c0d39529e303149b33036937981e530647b"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/delivery-before/skin/character.json": {
+      "bytes": 1051,
+      "sha256": "354d6a5805050442d52e51292b9b1ba3b77731b6ee48262f9e636a2bea540a13"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/delivery-before/skin/parts/panel.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/delivery-before/skin/parts/trim.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/snapshots.json": {
+      "bytes": 1048,
+      "sha256": "629c466f48477a9bea60fec4b6e939882035c2998e29e5fef6df69cca807c1dd"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/source-before/source/.gdignore": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/source-before/source/06_parts/panel.png": {
+      "bytes": 79,
+      "sha256": "d5d21b46c23e534e1590650f399bfd749697b8b103bd04f9a529ec6ab3b7ca0c"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/source-before/source/06_parts/trim.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/source-before/source/base_rgba.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/source-before/source/overrides/panel.png": {
+      "bytes": 757,
+      "sha256": "539e3b9faca37e43ffbc0f24f308b0d1f625e41775820beb7093dbea1f1850a8"
+    },
+    "fixtures/test_all_overrides_validate_before_first_delivery_change/source-before/source/overrides/trim.png": {
+      "bytes": 757,
+      "sha256": "c488fa901b9bd123bac57a947d44365e4c05f29a5ad69f61b545634180fe6644"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/after/recipe.json": {
+      "bytes": 296,
+      "sha256": "20071dfa66f1ec0fbbfc09ee075adfca016a86e77451a4c6101040368bb5f99b"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/after/rig.json": {
+      "bytes": 1595,
+      "sha256": "91fc48e147e2ab351fccdc4982cd3c0d39529e303149b33036937981e530647b"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/after/skin/character.json": {
+      "bytes": 1051,
+      "sha256": "354d6a5805050442d52e51292b9b1ba3b77731b6ee48262f9e636a2bea540a13"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/after/skin/parts.tmp/.gdignore": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/after/skin/parts.tmp/panel.png": {
+      "bytes": 96,
+      "sha256": "192a22a2b64ce6137460e147096ba3bca02ecd477e8d9fb28168af95203d18d6"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/after/skin/parts.tmp/trim.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/after/skin/parts/panel.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/after/skin/parts/trim.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/after/source/.gdignore": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/after/source/06_parts/panel.png": {
+      "bytes": 79,
+      "sha256": "d5d21b46c23e534e1590650f399bfd749697b8b103bd04f9a529ec6ab3b7ca0c"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/after/source/06_parts/trim.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/after/source/base_rgba.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/after/source/overrides/panel.png": {
+      "bytes": 830,
+      "sha256": "ace86e5037589944cbe2237e635b5d380b1a6021b7d3dba50dcb54bedbcaf975"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/after/spec.json": {
+      "bytes": 1107,
+      "sha256": "9468608a0500ed5d63fa9c4b26427f2949c88bbd4ee3aa37df17225e51b50d10"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/delivery-before/rig.json": {
+      "bytes": 1595,
+      "sha256": "91fc48e147e2ab351fccdc4982cd3c0d39529e303149b33036937981e530647b"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/delivery-before/skin/character.json": {
+      "bytes": 1051,
+      "sha256": "354d6a5805050442d52e51292b9b1ba3b77731b6ee48262f9e636a2bea540a13"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/delivery-before/skin/parts/panel.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/delivery-before/skin/parts/trim.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/snapshots.json": {
+      "bytes": 944,
+      "sha256": "ecd21b23cab89ae86e32c3e11c4a789ba5bf876e1b7001e8d126d172653f3de6"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/source-before/source/.gdignore": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/source-before/source/06_parts/panel.png": {
+      "bytes": 79,
+      "sha256": "d5d21b46c23e534e1590650f399bfd749697b8b103bd04f9a529ec6ab3b7ca0c"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/source-before/source/06_parts/trim.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/source-before/source/base_rgba.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_tiff_named_png_refuses_before_delivery_changes/source-before/source/overrides/panel.png": {
+      "bytes": 830,
+      "sha256": "ace86e5037589944cbe2237e635b5d380b1a6021b7d3dba50dcb54bedbcaf975"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/after/recipe.json": {
+      "bytes": 296,
+      "sha256": "831201502b78bd98efe83f6e514e96b3dc9e8bc1348cd0d62e340f4414a05c18"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/after/rig.json": {
+      "bytes": 1595,
+      "sha256": "91fc48e147e2ab351fccdc4982cd3c0d39529e303149b33036937981e530647b"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/after/skin/character.json": {
+      "bytes": 1051,
+      "sha256": "354d6a5805050442d52e51292b9b1ba3b77731b6ee48262f9e636a2bea540a13"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/after/skin/parts.tmp/.gdignore": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/after/skin/parts.tmp/panel.png": {
+      "bytes": 96,
+      "sha256": "192a22a2b64ce6137460e147096ba3bca02ecd477e8d9fb28168af95203d18d6"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/after/skin/parts.tmp/trim.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/after/skin/parts/panel.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/after/skin/parts/trim.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/after/source/.gdignore": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/after/source/06_parts/panel.png": {
+      "bytes": 79,
+      "sha256": "d5d21b46c23e534e1590650f399bfd749697b8b103bd04f9a529ec6ab3b7ca0c"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/after/source/06_parts/trim.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/after/source/base_rgba.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/after/source/overrides/panel.png": {
+      "bytes": 43,
+      "sha256": "f1fa2ddd2b81467a6edf33fa666453c5bf0e797c74c6bb4959313ff40bad4917"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/after/spec.json": {
+      "bytes": 1107,
+      "sha256": "9468608a0500ed5d63fa9c4b26427f2949c88bbd4ee3aa37df17225e51b50d10"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/delivery-before/rig.json": {
+      "bytes": 1595,
+      "sha256": "91fc48e147e2ab351fccdc4982cd3c0d39529e303149b33036937981e530647b"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/delivery-before/skin/character.json": {
+      "bytes": 1051,
+      "sha256": "354d6a5805050442d52e51292b9b1ba3b77731b6ee48262f9e636a2bea540a13"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/delivery-before/skin/parts/panel.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/delivery-before/skin/parts/trim.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/snapshots.json": {
+      "bytes": 944,
+      "sha256": "f54db6d0a4b757d9ba389ddcea8ebd2649e3f4d0f0153b26798cb7aa9b332597"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/source-before/source/.gdignore": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/source-before/source/06_parts/panel.png": {
+      "bytes": 79,
+      "sha256": "d5d21b46c23e534e1590650f399bfd749697b8b103bd04f9a529ec6ab3b7ca0c"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/source-before/source/06_parts/trim.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/source-before/source/base_rgba.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_truncated_png_refuses_before_delivery_changes/source-before/source/overrides/panel.png": {
+      "bytes": 43,
+      "sha256": "f1fa2ddd2b81467a6edf33fa666453c5bf0e797c74c6bb4959313ff40bad4917"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/after/recipe.json": {
+      "bytes": 296,
+      "sha256": "b8a081ea7f2fdc3e71b7daa195111865f69d3d267a99cf504b140d28f6a5de02"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/after/rig.json": {
+      "bytes": 1595,
+      "sha256": "91fc48e147e2ab351fccdc4982cd3c0d39529e303149b33036937981e530647b"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/after/skin/character.json": {
+      "bytes": 1051,
+      "sha256": "354d6a5805050442d52e51292b9b1ba3b77731b6ee48262f9e636a2bea540a13"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/after/skin/parts.tmp/.gdignore": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/after/skin/parts.tmp/panel.png": {
+      "bytes": 96,
+      "sha256": "192a22a2b64ce6137460e147096ba3bca02ecd477e8d9fb28168af95203d18d6"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/after/skin/parts.tmp/trim.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/after/skin/parts/panel.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/after/skin/parts/trim.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/after/source/.gdignore": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/after/source/06_parts/panel.png": {
+      "bytes": 79,
+      "sha256": "d5d21b46c23e534e1590650f399bfd749697b8b103bd04f9a529ec6ab3b7ca0c"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/after/source/06_parts/trim.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/after/source/base_rgba.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/after/source/overrides/unknown.png": {
+      "bytes": 88,
+      "sha256": "35eeddfa7f3684870ddd3948156ddb3ade6b19f94e56ee79d587903ef93f99b7"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/after/spec.json": {
+      "bytes": 1107,
+      "sha256": "9468608a0500ed5d63fa9c4b26427f2949c88bbd4ee3aa37df17225e51b50d10"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/delivery-before/rig.json": {
+      "bytes": 1595,
+      "sha256": "91fc48e147e2ab351fccdc4982cd3c0d39529e303149b33036937981e530647b"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/delivery-before/skin/character.json": {
+      "bytes": 1051,
+      "sha256": "354d6a5805050442d52e51292b9b1ba3b77731b6ee48262f9e636a2bea540a13"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/delivery-before/skin/parts/panel.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/delivery-before/skin/parts/trim.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/snapshots.json": {
+      "bytes": 946,
+      "sha256": "01eb7f9c2a2b7033b1926df707d532a51a24de6188d87fbe169ab6c5f387a393"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/source-before/source/.gdignore": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/source-before/source/06_parts/panel.png": {
+      "bytes": 79,
+      "sha256": "d5d21b46c23e534e1590650f399bfd749697b8b103bd04f9a529ec6ab3b7ca0c"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/source-before/source/06_parts/trim.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/source-before/source/base_rgba.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_unknown_part_refuses_before_delivery_changes/source-before/source/overrides/unknown.png": {
+      "bytes": 88,
+      "sha256": "35eeddfa7f3684870ddd3948156ddb3ade6b19f94e56ee79d587903ef93f99b7"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/after/recipe.json": {
+      "bytes": 296,
+      "sha256": "f8d5f1fd9278b088b18588ca6526b3365fa3caf372bf5861c347110e8975a837"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/after/rig.json": {
+      "bytes": 1595,
+      "sha256": "91fc48e147e2ab351fccdc4982cd3c0d39529e303149b33036937981e530647b"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/after/skin/character.json": {
+      "bytes": 1051,
+      "sha256": "354d6a5805050442d52e51292b9b1ba3b77731b6ee48262f9e636a2bea540a13"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/after/skin/parts.tmp/.gdignore": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/after/skin/parts.tmp/panel.png": {
+      "bytes": 96,
+      "sha256": "192a22a2b64ce6137460e147096ba3bca02ecd477e8d9fb28168af95203d18d6"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/after/skin/parts.tmp/trim.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/after/skin/parts/panel.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/after/skin/parts/trim.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/after/source/.gdignore": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/after/source/06_parts/panel.png": {
+      "bytes": 79,
+      "sha256": "d5d21b46c23e534e1590650f399bfd749697b8b103bd04f9a529ec6ab3b7ca0c"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/after/source/06_parts/trim.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/after/source/base_rgba.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/after/source/overrides/panel.png": {
+      "bytes": 757,
+      "sha256": "c488fa901b9bd123bac57a947d44365e4c05f29a5ad69f61b545634180fe6644"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/after/spec.json": {
+      "bytes": 1107,
+      "sha256": "9468608a0500ed5d63fa9c4b26427f2949c88bbd4ee3aa37df17225e51b50d10"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/delivery-before/rig.json": {
+      "bytes": 1595,
+      "sha256": "91fc48e147e2ab351fccdc4982cd3c0d39529e303149b33036937981e530647b"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/delivery-before/skin/character.json": {
+      "bytes": 1051,
+      "sha256": "354d6a5805050442d52e51292b9b1ba3b77731b6ee48262f9e636a2bea540a13"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/delivery-before/skin/parts/panel.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/delivery-before/skin/parts/trim.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/snapshots.json": {
+      "bytes": 944,
+      "sha256": "5d63367c7c82be2a994dcb8402f10687a326da9a582de31501252a0cf4e9ac3b"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/source-before/source/.gdignore": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/source-before/source/06_parts/panel.png": {
+      "bytes": 79,
+      "sha256": "d5d21b46c23e534e1590650f399bfd749697b8b103bd04f9a529ec6ab3b7ca0c"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/source-before/source/06_parts/trim.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/source-before/source/base_rgba.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_valid_crc_broken_idat_requires_complete_decode/source-before/source/overrides/panel.png": {
+      "bytes": 757,
+      "sha256": "c488fa901b9bd123bac57a947d44365e4c05f29a5ad69f61b545634180fe6644"
+    },
+    "fixtures/test_valid_png_keeps_its_original_encoded_bytes/after/recipe.json": {
+      "bytes": 296,
+      "sha256": "5700a3b389a3b8ca69d914fa31579f6cb11206174117a036ceaa92b8eff7bffd"
+    },
+    "fixtures/test_valid_png_keeps_its_original_encoded_bytes/after/rig.json": {
+      "bytes": 1595,
+      "sha256": "91fc48e147e2ab351fccdc4982cd3c0d39529e303149b33036937981e530647b"
+    },
+    "fixtures/test_valid_png_keeps_its_original_encoded_bytes/after/skin/character.json": {
+      "bytes": 1051,
+      "sha256": "354d6a5805050442d52e51292b9b1ba3b77731b6ee48262f9e636a2bea540a13"
+    },
+    "fixtures/test_valid_png_keeps_its_original_encoded_bytes/after/skin/parts/panel.png": {
+      "bytes": 757,
+      "sha256": "539e3b9faca37e43ffbc0f24f308b0d1f625e41775820beb7093dbea1f1850a8"
+    },
+    "fixtures/test_valid_png_keeps_its_original_encoded_bytes/after/skin/parts/trim.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_valid_png_keeps_its_original_encoded_bytes/after/source/.gdignore": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixtures/test_valid_png_keeps_its_original_encoded_bytes/after/source/06_parts/panel.png": {
+      "bytes": 79,
+      "sha256": "d5d21b46c23e534e1590650f399bfd749697b8b103bd04f9a529ec6ab3b7ca0c"
+    },
+    "fixtures/test_valid_png_keeps_its_original_encoded_bytes/after/source/06_parts/trim.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_valid_png_keeps_its_original_encoded_bytes/after/source/base_rgba.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_valid_png_keeps_its_original_encoded_bytes/after/source/overrides/panel.png": {
+      "bytes": 757,
+      "sha256": "539e3b9faca37e43ffbc0f24f308b0d1f625e41775820beb7093dbea1f1850a8"
+    },
+    "fixtures/test_valid_png_keeps_its_original_encoded_bytes/after/spec.json": {
+      "bytes": 1107,
+      "sha256": "9468608a0500ed5d63fa9c4b26427f2949c88bbd4ee3aa37df17225e51b50d10"
+    },
+    "fixtures/test_valid_png_keeps_its_original_encoded_bytes/delivery-before/rig.json": {
+      "bytes": 1595,
+      "sha256": "91fc48e147e2ab351fccdc4982cd3c0d39529e303149b33036937981e530647b"
+    },
+    "fixtures/test_valid_png_keeps_its_original_encoded_bytes/delivery-before/skin/character.json": {
+      "bytes": 1051,
+      "sha256": "354d6a5805050442d52e51292b9b1ba3b77731b6ee48262f9e636a2bea540a13"
+    },
+    "fixtures/test_valid_png_keeps_its_original_encoded_bytes/delivery-before/skin/parts/panel.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_valid_png_keeps_its_original_encoded_bytes/delivery-before/skin/parts/trim.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_valid_png_keeps_its_original_encoded_bytes/snapshots.json": {
+      "bytes": 944,
+      "sha256": "e11de02c969dd104a342a71847290eb82d2c19fd269d461ec796864c41130cbb"
+    },
+    "fixtures/test_valid_png_keeps_its_original_encoded_bytes/source-before/source/.gdignore": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixtures/test_valid_png_keeps_its_original_encoded_bytes/source-before/source/06_parts/panel.png": {
+      "bytes": 79,
+      "sha256": "d5d21b46c23e534e1590650f399bfd749697b8b103bd04f9a529ec6ab3b7ca0c"
+    },
+    "fixtures/test_valid_png_keeps_its_original_encoded_bytes/source-before/source/06_parts/trim.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_valid_png_keeps_its_original_encoded_bytes/source-before/source/base_rgba.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_valid_png_keeps_its_original_encoded_bytes/source-before/source/overrides/panel.png": {
+      "bytes": 757,
+      "sha256": "539e3b9faca37e43ffbc0f24f308b0d1f625e41775820beb7093dbea1f1850a8"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/after/recipe.json": {
+      "bytes": 296,
+      "sha256": "9931edea55e345ff61adf5ea6cb51a1b5e69a38b2fcc142ca710cf6a739d4cbf"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/after/rig.json": {
+      "bytes": 1595,
+      "sha256": "91fc48e147e2ab351fccdc4982cd3c0d39529e303149b33036937981e530647b"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/after/skin/character.json": {
+      "bytes": 1051,
+      "sha256": "354d6a5805050442d52e51292b9b1ba3b77731b6ee48262f9e636a2bea540a13"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/after/skin/parts.tmp/.gdignore": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/after/skin/parts.tmp/panel.png": {
+      "bytes": 96,
+      "sha256": "192a22a2b64ce6137460e147096ba3bca02ecd477e8d9fb28168af95203d18d6"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/after/skin/parts.tmp/trim.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/after/skin/parts/panel.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/after/skin/parts/trim.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/after/source/.gdignore": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/after/source/06_parts/panel.png": {
+      "bytes": 79,
+      "sha256": "d5d21b46c23e534e1590650f399bfd749697b8b103bd04f9a529ec6ab3b7ca0c"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/after/source/06_parts/trim.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/after/source/base_rgba.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/after/source/overrides/panel.png": {
+      "bytes": 83,
+      "sha256": "051932e7a1b0626b1c5db27230a9bd8220c6a3feb5b69dc60fb0dd9e95934e78"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/after/spec.json": {
+      "bytes": 1107,
+      "sha256": "9468608a0500ed5d63fa9c4b26427f2949c88bbd4ee3aa37df17225e51b50d10"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/delivery-before/rig.json": {
+      "bytes": 1595,
+      "sha256": "91fc48e147e2ab351fccdc4982cd3c0d39529e303149b33036937981e530647b"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/delivery-before/skin/character.json": {
+      "bytes": 1051,
+      "sha256": "354d6a5805050442d52e51292b9b1ba3b77731b6ee48262f9e636a2bea540a13"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/delivery-before/skin/parts/panel.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/delivery-before/skin/parts/trim.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/snapshots.json": {
+      "bytes": 944,
+      "sha256": "39a190bc97c49c39a95f2e0ef193667b479566ea42dc92aabbcf261b28ae0fbe"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/source-before/source/.gdignore": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/source-before/source/06_parts/panel.png": {
+      "bytes": 79,
+      "sha256": "d5d21b46c23e534e1590650f399bfd749697b8b103bd04f9a529ec6ab3b7ca0c"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/source-before/source/06_parts/trim.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/source-before/source/base_rgba.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_wrong_mode_refuses_before_delivery_changes/source-before/source/overrides/panel.png": {
+      "bytes": 83,
+      "sha256": "051932e7a1b0626b1c5db27230a9bd8220c6a3feb5b69dc60fb0dd9e95934e78"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/after/recipe.json": {
+      "bytes": 296,
+      "sha256": "d840615014d07b5a791641631dd149e1057d9456496bd1e9c70553b971984d8e"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/after/rig.json": {
+      "bytes": 1595,
+      "sha256": "91fc48e147e2ab351fccdc4982cd3c0d39529e303149b33036937981e530647b"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/after/skin/character.json": {
+      "bytes": 1051,
+      "sha256": "354d6a5805050442d52e51292b9b1ba3b77731b6ee48262f9e636a2bea540a13"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/after/skin/parts.tmp/.gdignore": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/after/skin/parts.tmp/panel.png": {
+      "bytes": 96,
+      "sha256": "192a22a2b64ce6137460e147096ba3bca02ecd477e8d9fb28168af95203d18d6"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/after/skin/parts.tmp/trim.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/after/skin/parts/panel.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/after/skin/parts/trim.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/after/source/.gdignore": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/after/source/06_parts/panel.png": {
+      "bytes": 79,
+      "sha256": "d5d21b46c23e534e1590650f399bfd749697b8b103bd04f9a529ec6ab3b7ca0c"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/after/source/06_parts/trim.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/after/source/base_rgba.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/after/source/overrides/panel.png": {
+      "bytes": 70,
+      "sha256": "6a34118ba2e0bf5da5ab14cb63b121e2e8b2987a876668a9b2f9c30e1357470b"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/after/spec.json": {
+      "bytes": 1107,
+      "sha256": "9468608a0500ed5d63fa9c4b26427f2949c88bbd4ee3aa37df17225e51b50d10"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/delivery-before/rig.json": {
+      "bytes": 1595,
+      "sha256": "91fc48e147e2ab351fccdc4982cd3c0d39529e303149b33036937981e530647b"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/delivery-before/skin/character.json": {
+      "bytes": 1051,
+      "sha256": "354d6a5805050442d52e51292b9b1ba3b77731b6ee48262f9e636a2bea540a13"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/delivery-before/skin/parts/panel.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/delivery-before/skin/parts/trim.png": {
+      "bytes": 96,
+      "sha256": "16384bccb23cfa39860007326fe64749f88c7c5950a1ea102caf5e6b9d8e334c"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/snapshots.json": {
+      "bytes": 944,
+      "sha256": "ff0e12c3bda638b872c773da51b7af21581a00d36b263c58b5547b0d8ccfdb52"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/source-before/source/.gdignore": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/source-before/source/06_parts/panel.png": {
+      "bytes": 79,
+      "sha256": "d5d21b46c23e534e1590650f399bfd749697b8b103bd04f9a529ec6ab3b7ca0c"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/source-before/source/06_parts/trim.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/source-before/source/base_rgba.png": {
+      "bytes": 78,
+      "sha256": "eab6de285befdcffd11e8722587e692d3873ee8e1ec35b19da9b1a686bc291f9"
+    },
+    "fixtures/test_wrong_size_refuses_before_delivery_changes/source-before/source/overrides/panel.png": {
+      "bytes": 70,
+      "sha256": "6a34118ba2e0bf5da5ab14cb63b121e2e8b2987a876668a9b2f9c30e1357470b"
+    },
+    "original-affected.json": {
+      "bytes": 371,
+      "sha256": "437a5445c8162030b0455da8240ed2a48a9da59a3b806bce4b9600166ddffff9"
+    },
+    "original-affected.log": {
+      "bytes": 88,
+      "sha256": "cd0d830004b900fd80ee02e198866c2d06ba1c7e19a03c5dfed76e7528e41963"
+    },
+    "root-checks.json": {
+      "bytes": 48361,
+      "sha256": "a7515105e637552eaba75a20a8ac16e7e430e0b9cebebb2a6488009ecd1bbb63"
+    }
+  }
+}

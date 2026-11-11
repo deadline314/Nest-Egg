@@ -29,6 +29,23 @@ PAD = 3
 NOTE = "由 tools/comfyui/cut_layers.py 依分件圖層切出"
 
 
+def validate_final_override(path: Path, target: Path) -> None:
+    """Reject invalid encoded replacements before any accepted output changes."""
+    if not target.is_file():
+        raise ValueError(f"{path}: final override requires an existing part: {target}")
+    try:
+        with Image.open(target) as generated:
+            expected_size = generated.size
+        with Image.open(path) as image:
+            if image.format != "PNG" or image.mode != "RGBA" or image.size != expected_size:
+                raise ValueError(f"expected RGBA PNG of size {expected_size}, got {image.format} {image.mode} {image.size}")
+            image.verify()
+        with Image.open(path) as image:
+            image.load()
+    except (OSError, SyntaxError, ValueError) as error:
+        raise ValueError(f"{path}: invalid final override for {target}: {error}") from error
+
+
 def sha256(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as stream:
@@ -457,9 +474,7 @@ def main() -> None:
         textures[name] = definition
     # swap in the new files only now that everything above worked
     for path in (work / "overrides").glob("*.png"):
-        target = out_parts / path.name
-        if not target.exists() or Image.open(path).mode != "RGBA" or Image.open(path).size != Image.open(target).size:
-            raise ValueError(f"{path}: final override requires an existing part and RGBA PNG of the same size")
+        validate_final_override(path, out_parts / path.name)
     (out_parts / ".gdignore").unlink()
     if final_parts.exists():
         for imp in final_parts.glob("*.import"):  # keep the engine's import records (and their uids) of textures that still exist
