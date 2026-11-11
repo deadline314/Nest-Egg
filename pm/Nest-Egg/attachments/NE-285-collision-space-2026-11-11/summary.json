@@ -1,0 +1,72 @@
+{
+  "formal_red": {
+    "checks": 16,
+    "hit_tick": 292,
+    "pre_tick": 292,
+    "thaw_tick": 297,
+    "retained": false,
+    "native": false,
+    "fx_sha256": "42874c62bd217c1b3725089629a27416519f45b4f87f9a16d39759c51f0a9b9b"
+  },
+  "formal_cpu_green": {
+    "checks": 16,
+    "hit_tick": 293,
+    "pre_tick": 293,
+    "thaw_tick": 298,
+    "retained": true,
+    "native": false,
+    "fx_sha256": "93994b4193b9433fcc43795b4b93d955c9e3c098d069cc5ed91dad250259f99f"
+  },
+  "formal_native_green": {
+    "checks": 21,
+    "hit_tick": 292,
+    "pre_tick": 292,
+    "thaw_tick": 293,
+    "retained": true,
+    "native": true,
+    "fx_sha256": "93994b4193b9433fcc43795b4b93d955c9e3c098d069cc5ed91dad250259f99f"
+  },
+  "controls": {
+    "checks": 829,
+    "negative_failures": 7,
+    "green_failures": 0,
+    "negative_exit": 1,
+    "green_exit": 0
+  },
+  "scope": "NE285 collision space only; maul visible contact remains an unpassed NE277 condition; no performance, physical controller or human listening claim.",
+  "archive_verifier_checks": 1051,
+  "official_affected": {
+    "groups": 71,
+    "checks": 93799,
+    "new_failures": 0,
+    "known_failures": 0,
+    "exit": 0,
+    "seconds": 861.7950195000158,
+    "source_count": 12,
+    "sources_stable": true,
+    "script_errors": 0,
+    "error_headers_by_shard": [
+      84,
+      66,
+      27,
+      25
+    ],
+    "shutdown_by_shard": [
+      {
+        "area_rid": 1,
+        "objectdb": 4,
+        "resources": 2
+      },
+      {
+        "objectdb": 9,
+        "resources": 5
+      },
+      {
+        "area_rid": 6,
+        "objectdb": 16,
+        "resources": 8
+      },
+      {}
+    ]
+  }
+}

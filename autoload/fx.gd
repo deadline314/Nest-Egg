@@ -61,6 +61,10 @@ var _slowmo_until_msec := 0
 var _slowmo_ready_msec := 0
 ## 局部頓幀中的節點 → [結束時間（毫秒）, 原本的 process_mode]。
 var _frozen: Dictionary = {}
+## A local pause stops scripts, never removes an actor or its inherited hurtboxes from physics.
+## Counts handle overlapping ancestor/child pauses without restoring a collision mode too early.
+var _freeze_collision_owners: Dictionary = {}
+var _collision_space_holds: Dictionary = {}
 
 
 ## 夾在上限內的 HDR 發光色（intensity 超過 HDR_PEAK_MAX 時以上限計）。
@@ -222,6 +226,9 @@ func freeze(nodes: Array, seconds: float) -> void:
 		var entry: Variant = _frozen.get(node)
 		if entry == null:
 			_frozen[node] = [until, node.process_mode]
+			var held := PackedInt64Array()
+			_retain_collision_space(node, held)
+			_freeze_collision_owners[node] = held
 			node.process_mode = Node.PROCESS_MODE_DISABLED
 		else:
 			entry[0] = maxi(int(entry[0]), until)
@@ -236,7 +243,38 @@ func _release_frozen(now: int) -> void:
 			(key as Node).process_mode = entry[1]
 			if entry.size() > 2 and key is Node2D:
 				(key as Node2D).position = entry[2]
+		_release_collision_space(key)
 		_frozen.erase(key)
+
+
+func _retain_collision_space(node: Node, into: PackedInt64Array) -> void:
+	if node is CollisionObject2D:
+		var collision := node as CollisionObject2D
+		var id := collision.get_instance_id()
+		var existing: Variant = _collision_space_holds.get(id)
+		if existing != null:
+			existing[2] = int(existing[2]) + 1
+			into.append(id)
+		elif collision.can_process():
+			_collision_space_holds[id] = [weakref(collision), collision.disable_mode, 1]
+			into.append(id)
+			collision.disable_mode = CollisionObject2D.DISABLE_MODE_KEEP_ACTIVE
+	for child in node.get_children():
+		_retain_collision_space(child, into)
+
+
+func _release_collision_space(owner: Variant) -> void:
+	var held: PackedInt64Array = _freeze_collision_owners.get(owner, PackedInt64Array())
+	for id in held:
+		var entry: Array = _collision_space_holds[id]
+		entry[2] = int(entry[2]) - 1
+		if int(entry[2]) > 0:
+			continue
+		var collision := (entry[0] as WeakRef).get_ref() as CollisionObject2D
+		if is_instance_valid(collision):
+			collision.disable_mode = int(entry[1])
+		_collision_space_holds.erase(id)
+	_freeze_collision_owners.erase(owner)
 
 
 ## 凍結中的 2D 節點每影格在原位附近微抖（只在有畫面的情況下；放開時回到原位）。

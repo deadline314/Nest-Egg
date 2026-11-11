@@ -12,6 +12,7 @@ func run() -> void:
 	await _test_shake_duration_is_honored()
 	_test_bad_events_are_safe()
 	_test_feel_settings()
+	await preload("res://tests/helpers/freeze_collision_space_checks.gd").run(self)
 	await _test_global_hitstop()
 	await _test_slowmo()
 	await _test_camera()
