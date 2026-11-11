@@ -55,7 +55,22 @@ def git_paths(*args):
 
 
 def tracked_files():
-    return [line for line in git_paths("ls-files", "-co", "--exclude-standard") if not any(part in SKIP_DIRS for part in Path(line).parts)]
+    ignored = {}
+    return [line for line in git_paths("ls-files", "-co", "--exclude-standard")
+            if not any(part in SKIP_DIRS for part in Path(line).parts)
+            and not godot_ignored_directory(Path(line).parent, ignored)]
+
+
+def godot_ignored_directory(directory, cache):
+    """Mirror Godot's directory markers; cache ancestors, never snapshot contents."""
+    key = directory.as_posix()
+    if key not in cache:
+        inherited = directory != Path(".") and godot_ignored_directory(directory.parent, cache)
+        try:
+            cache[key] = inherited or (ROOT / directory / ".gdignore").is_file()
+        except OSError as error:
+            raise SelectionError(f"無法檢查 Godot 忽略目錄 {directory}: {error}") from error
+    return cache[key]
 
 
 def changed_files(base):
@@ -83,14 +98,22 @@ def strip_suite_registration(text):
 
 def build_graph(files):
     texts = {f: read_text(f) for f in files if Path(f).suffix in SCAN_EXT}
+    known_files = set(files)
     provides = {}  # 名稱 -> 檔案
+
+    def provide(name, path):
+        previous = provides.get(name)
+        if previous is not None and previous != path:
+            raise SelectionError(f"同名正式類別／單例 {name}：{previous} 與 {path}")
+        provides[name] = path
+
     autoloads = AUTOLOAD_RE.findall(read_text("project.godot"))
     for name, rel in autoloads:
-        provides[name] = rel
+        provide(name, rel)
     for f, text in texts.items():
         if f.endswith(".gd"):
             for name in CLASS_RE.findall(text):
-                provides[name] = f
+                provide(name, f)
     suite_of = {}  # 測試檔 -> 套件名稱
     for f, text in texts.items():
         if f.startswith("tests/suite/") and f.endswith(".gd"):
@@ -114,7 +137,7 @@ def build_graph(files):
         for path in set(PATH_RE.findall(scan_text)):
             stripped = path.rstrip("/")
             rel = stripped[len("res://"):]
-            if rel in files_set(files) and rel != f:
+            if rel in known_files and rel != f:
                 used.add(rel)
             for member in dir_members.get(stripped, []):
                 if member != f:
@@ -122,16 +145,6 @@ def build_graph(files):
         for target in used:
             dependents[target].add(f)
     return dependents, suite_of
-
-
-_files_cache = None
-
-
-def files_set(files):
-    global _files_cache
-    if _files_cache is None:
-        _files_cache = set(files)
-    return _files_cache
 
 
 def select(changed, files):
@@ -190,7 +203,11 @@ def run(args):
     files = tracked_files()
     all_suites = sorted(set(re.findall(r"class_name\s+(\w+Suite)\b", "\n".join(read_text(f) for f in files if f.startswith("tests/suite/")))))
     changed = args.files if args.files is not None else changed_files(args.base)
-    if args.all or any(f in RUN_ALL or (f.startswith("tools/godot_audio/") and f.endswith(".patch")) for f in changed):
+    ignored = {}
+    boundary_changed = any(Path(f).name == ".gdignore"
+                           and not godot_ignored_directory(Path(f).parent.parent, ignored)
+                           for f in changed)
+    if args.all or boundary_changed or any(f in RUN_ALL or (f.startswith("tools/godot_audio/") and f.endswith(".patch")) for f in changed):
         print("ALL" if not args.explain else "全部（改到整個專案或測試流程本身）")
         return 0
     code_changes = [f for f in changed if not f.startswith(("pm/", "design/", "assets_src/")) and not f.endswith((".md", ".py")) or f == "tools/select_tests.py"]

@@ -35,7 +35,7 @@ def git(repo, *args):
 def write(repo, rel, text):
     path = Path(repo) / rel
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(text, encoding="utf-8")
+    path.write_text(text, encoding="utf-8", newline="\n")
 
 
 def make_repo(root):
@@ -91,9 +91,9 @@ class SelectTestsTest(unittest.TestCase):
         self.addCleanup(self.tmp.cleanup)
         copy_tools(self.root)
         self.base = make_repo(self.root)
-        for patch in (mock.patch.object(st, "ROOT", self.root), mock.patch.object(st, "_files_cache", None)):
-            patch.start()
-            self.addCleanup(patch.stop)
+        patch = mock.patch.object(st, "ROOT", self.root)
+        patch.start()
+        self.addCleanup(patch.stop)
 
     def test_chinese_paths_are_listed(self):
         files = st.tracked_files()
@@ -133,6 +133,50 @@ class SelectTestsTest(unittest.TestCase):
             code, out, err = run_main("--base", self.base)
         self.assertEqual((code, out), (2, ""))
         self.assertIn("無法執行 git", err)
+
+    def test_ignored_snapshots_do_not_hide_an_indirect_suite(self):
+        write(self.root, "game/leaf.gd", "class_name Leaf\nextends RefCounted\n")
+        write(self.root, "game/host.gd", "class_name Host\nextends RefCounted\nvar leaf: Leaf\n")
+        write(self.root, "tests/suite/host.gd", "class_name HostSuite\nextends Node\nvar host: Host\n")
+        self.assertEqual(run_main("--files", "game/leaf.gd")[:2], (0, "HostSuite"))
+        write(self.root, "diagnostics/.gdignore", "")
+        for index in range(31):
+            write(self.root, f"diagnostics/nested/source_{index}.gd", f"class_name Snapshot{index}\nextends Node\nvar host: Host\n")
+        self.assertEqual(run_main("--files", "game/leaf.gd")[:2], (0, "HostSuite"))
+
+    def test_ignored_duplicate_class_does_not_replace_formal_class(self):
+        write(self.root, "game/leaf.gd", "class_name Leaf\nextends RefCounted\n")
+        write(self.root, "game/host.gd", "class_name Host\nextends RefCounted\nvar leaf: Leaf\n")
+        write(self.root, "tests/suite/host.gd", "class_name HostSuite\nextends Node\nvar host: Host\n")
+        write(self.root, "z_archive/.gdignore", "")
+        write(self.root, "z_archive/source/copy.gd", "class_name Host\nextends RefCounted\n")
+        self.assertEqual(run_main("--files", "game/leaf.gd")[:2], (0, "HostSuite"))
+
+    def test_visible_duplicate_class_fails_with_both_paths(self):
+        for path in ["game/first.gd", "game/second.gd"]:
+            write(self.root, path, "class_name Duplicate\nextends RefCounted\n")
+        code, out, err = run_main("--files", "game/first.gd")
+        self.assertEqual((code, out), (2, ""))
+        for name in ["Duplicate", "game/first.gd", "game/second.gd"]:
+            self.assertIn(name, err)
+
+    def test_new_visible_code_still_selects_its_suite(self):
+        write(self.root, "game/new.gd", "class_name NewThing\nextends RefCounted\n")
+        write(self.root, "tests/suite/new.gd", "class_name NewSuite\nextends Node\nvar target: NewThing\n")
+        self.assertEqual(run_main("--files", "game/new.gd")[:2], (0, "NewSuite"))
+
+    def test_adding_visible_ignore_boundary_runs_all(self):
+        write(self.root, "game/.gdignore", "")
+        self.assertEqual(run_main("--base", self.base)[:2], (0, "ALL"))
+
+    def test_removing_visible_ignore_boundary_runs_all(self):
+        write(self.root, "game/archive/.gdignore", "")
+        write(self.root, "game/archive/archived.gd", "extends Node\n")
+        git(self.root, "add", "-A")
+        git(self.root, "commit", "-q", "-m", "archive fixture")
+        base = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=self.root).decode().strip()
+        (self.root / "game/archive/.gdignore").unlink()
+        self.assertEqual(run_main("--base", base)[:2], (0, "ALL"))
 
 
 @unittest.skipUnless(HAVE_GIT and HAVE_BASH, "需要 git 與 bash")
