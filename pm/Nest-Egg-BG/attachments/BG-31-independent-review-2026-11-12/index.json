@@ -1,0 +1,91 @@
+{
+  "archive": "original-route-review.zip",
+  "bytes": 1470970,
+  "sha256": "9ea110070cfe07c594dd5a72f80eed62bf46a438bdb8c6f6eed9a0b85d851899",
+  "entries": {
+    "exact-crlf-reconstruction/cold.log": {
+      "bytes": 45228,
+      "sha256": "5d6d06f18b6c9314cc4a8f51fb121bbcabf3e27b0f4416a7c9f9d6dc5a98e731"
+    },
+    "exact-crlf-reconstruction/record.log": {
+      "bytes": 56933,
+      "sha256": "7f929a54b0cba24c07a985b51a133c6528ef52994816b685a73c9cf0cfa9f630"
+    },
+    "historical/README.md": {
+      "bytes": 2895,
+      "sha256": "1d2d4543088d85f759ea705375d7f8facf97805f0998a20e768351b1b3b06d75"
+    },
+    "historical/after-real-audio/cold-memory.csv": {
+      "bytes": 2026,
+      "sha256": "aa4f15bb55cab98c4966c56ee48c31955b4c8a1a0ed607234751cdf80bc06a2f"
+    },
+    "historical/after-real-audio/cold-summary.json": {
+      "bytes": 44489,
+      "sha256": "568a197bcbe793ad1694889f4c79bc58394b7b32832203a7e3c732f985f69933"
+    },
+    "historical/after-real-audio/cold-wrapper.json": {
+      "bytes": 842,
+      "sha256": "7c134d0a6aec4b973f89486032262b17e8869910ef9904d7b834955e4d2bb5eb"
+    },
+    "historical/after-real-audio/cold.log": {
+      "bytes": 45069,
+      "sha256": "8012e3b6139c519e0697995fe9275bfde8ad3b43d8190f88a12bf9767cca95f5"
+    },
+    "historical/after-real-audio/record-memory.csv": {
+      "bytes": 3606,
+      "sha256": "c347e7ab4e9d4d0b3c7c2c2188bd0d97705aca12f6aa7b7f94dbac5313587002"
+    },
+    "historical/after-real-audio/record-summary.json": {
+      "bytes": 59522,
+      "sha256": "48f63a446368cd3b332c040577591f346cdad07dd3b3e9db4c538b39340e831d"
+    },
+    "historical/after-real-audio/record-wrapper.json": {
+      "bytes": 847,
+      "sha256": "09a53c138d3edfbbfbc780489c0085877b99c0e3d0d6c93fe0c9f8fc2e89f930"
+    },
+    "historical/after-real-audio/record.log": {
+      "bytes": 56753,
+      "sha256": "a240ac45558d65b7fb0aaa8e9e7df14032d6b5a6b4410261532808fb583f02b7"
+    },
+    "historical/before/record-exit-error.log": {
+      "bytes": 38557,
+      "sha256": "26ae6635d5ae28a0b5683f623907513fd804ed22820767247dc79d34545fe9a3"
+    },
+    "historical/before/record-wrapper.json": {
+      "bytes": 1050,
+      "sha256": "b050860d011292b3ccfb9478654ea5ac75d16caa462e631a8cf522fda6ac3788"
+    },
+    "historical/before/verbose-leak-lines.txt": {
+      "bytes": 2119,
+      "sha256": "6fb1914ae1855b298bc06808ffa5ddb72442035887867c4a9dca2363c1c0d567"
+    },
+    "historical/runs.json": {
+      "bytes": 7693,
+      "sha256": "026cb4e506a8e85ef08e493674c0570007852a8824b9c731c24c8a575052ee83"
+    },
+    "original-images/menu.png": {
+      "bytes": 82426,
+      "sha256": "d72964570b672503709f5f9ea9af5d7173b35c6a3ca555dfa1d4357bcdcf6ab5"
+    },
+    "original-images/npc.png": {
+      "bytes": 580154,
+      "sha256": "8ced9b1b9f2d119c57e206f6a9ebc0bbf46976f930948306b063186b16092fc5"
+    },
+    "original-images/world.png": {
+      "bytes": 756299,
+      "sha256": "5d71c8121f7f190a002625929984ca65ed2cde6cf9cee58b0b8e6b3a337e4c2f"
+    },
+    "published-reference/core/audio/audio_release.gd": {
+      "bytes": 1194,
+      "sha256": "e4e1d57a59903c24ec65f2b8eec81ff489b14ff9a9c3133fc31cb06126a09cd5"
+    },
+    "published-reference/game/main.gd": {
+      "bytes": 28002,
+      "sha256": "3a84f70a6b21ec91d9cba16eae9dea4d5897716729bac01a870a41ac8328b3d2"
+    },
+    "review.json": {
+      "bytes": 789,
+      "sha256": "9065e4b0a54a84fb328cd01dfe7ed8b62e6029a9aba9f4b4c4cf85ee173e06d6"
+    }
+  }
+}
