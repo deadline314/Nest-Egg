@@ -1,0 +1,22 @@
+{
+  "source_head": "991d1a2c72e1e8ce684824de3acb1944ecaddcdc",
+  "historical_fix": "a5dd106c0b6755db2e70ef1fbf770bac1d6037f1",
+  "files": {
+    "game/melee/melee_module.gd": "666dde58e4bc822811be3b171f2adbad5c8b58d676c788eececcfd18534e8d9c",
+    "game/enemies/enemy.gd": "d8dc659be5dc38f56824d530b7a8b485de94cb4704d33500d1ff8e2b85154397",
+    "core/components/hurtbox.gd": "53f3673f57b7ab2a6f26c20462840463794188401e09b2bacf4e05c0fe00b2e8",
+    "tools/ne268_native_contact_probe.gd": "8eb0d31a1c6e7d6bb8c7e3442513854f74be2e6228aca71e5be3ec832fa50613",
+    "tools/ne268_legacy_melee.gd": "3e6db66725ad6e722a23b9ca7b8b7c897825209bcac0fb8ec367874947ea481b",
+    "tools/verify_ne268_native_contact.py": "6e054737233b9de8e9c478e03935d7c3a440b73fee41c1bf0f03d618a75059fe"
+  },
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "native_exit_codes": {
+    "before": 0,
+    "current": 0,
+    "initial_unassigned_chapter": -1073741819
+  },
+  "heavy_enemies_exit": 0,
+  "heavy_enemies_checks": 293,
+  "heavy_enemies_failures": 0,
+  "heavy_enemies_seconds": 121.5
+}

@@ -1,0 +1,96 @@
+{
+	"adapter": "AMD Radeon RX 9070 XT",
+	"arranged_arena": true,
+	"failed": false,
+	"hdr_2d": true,
+	"legacy_coordinates": false,
+	"records": [
+		{
+			"contact_checks_pass": true,
+			"damage": [
+				{
+					"amount": 6,
+					"contact": [
+						508.5,
+						295.799987792969
+					],
+					"knockback": [
+						420.0,
+						-160.0
+					],
+					"part": "",
+					"stagger": 3,
+					"weak": false
+				}
+			],
+			"events": [
+				{
+					"above_feet": 24.2000122070313,
+					"feedback": [
+						508.5,
+						295.799987792969
+					],
+					"feet": [
+						512.0,
+						320.0
+					],
+					"inside_hurtbox": true
+				}
+			],
+			"hit_count": 1,
+			"hp": 993,
+			"numbers": [
+				[
+					508.5,
+					295.799987792969
+				]
+			],
+			"side": 1
+		},
+		{
+			"contact_checks_pass": true,
+			"damage": [
+				{
+					"amount": 6,
+					"contact": [
+						451.5,
+						295.799987792969
+					],
+					"knockback": [
+						-420.0,
+						-160.0
+					],
+					"part": "",
+					"stagger": 3,
+					"weak": false
+				}
+			],
+			"events": [
+				{
+					"above_feet": 24.2000122070313,
+					"feedback": [
+						451.5,
+						295.799987792969
+					],
+					"feet": [
+						448.0,
+						320.0
+					],
+					"inside_hurtbox": true
+				}
+			],
+			"hit_count": 1,
+			"hp": 993,
+			"numbers": [
+				[
+					451.5,
+					295.799987792969
+				]
+			],
+			"side": -1
+		}
+	],
+	"renderer": "forward_plus",
+	"virtual_aim": true,
+	"zoom": 3.4
+}
