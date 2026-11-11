@@ -842,17 +842,17 @@ func _test_local_drip() -> void:
 		check(drip.stage() == &"splash" and drip.drop_position().is_equal_approx(to), "the drop splashes on the water surface")
 		drip.clock = LocalDrip.FALL_TIME + LocalDrip.SPLASH_TIME + 0.05
 		check(drip.stage() == &"wait", "then it waits for the next drop")
-		# 不在畫面內就不走時間；進畫面後才走，暫停時停住。
+		# 滴水由 _process 更新；等待真正的畫面更新，避免物理追趕 tick 尚未繪製就斷言。
 		drip.on_screen = false
 		var parked := drip.clock
-		await frames(3)
+		await _motion_process_frames(3)
 		check(is_equal_approx(drip.clock, parked), "an off-screen drip does not advance")
 		drip.on_screen = true
-		await frames(3)
+		await _motion_process_frames(3)
 		check(not is_equal_approx(drip.clock, parked), "an on-screen drip advances")
 		runner.get_tree().paused = true
 		var frozen := drip.clock
-		await frames(3)
+		await _motion_process_frames(3)
 		check(is_equal_approx(drip.clock, frozen), "the drip stops while the game is paused")
 		runner.get_tree().paused = false
 	node.queue_free()

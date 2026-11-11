@@ -1,0 +1,16 @@
+{
+  "archive": "diagnostic-and-red-raw.zip",
+  "sha256": "20f0f5b2eb97560b76644fbae7b1b894b5e9f533ccb470ac2cbf1b65e7f260ca",
+  "bytes": 306404,
+  "members": 52,
+  "original_affected_checks": 71186,
+  "original_affected_new_failures": 1,
+  "diagnostic_trials_per_case": 20,
+  "diagnostic_checks_per_case": 260,
+  "red_failures": 20,
+  "green_catchup_failures": 0,
+  "green_normal_failures": 0,
+  "negative_stopped_clock_failures": 20,
+  "stress_physics_ticks_per_second": 6000,
+  "normal_physics_ticks_per_second": 60
+}
