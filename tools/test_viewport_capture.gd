@@ -35,9 +35,17 @@ func _ready() -> void:
 		translucent.size = Vector2(16,16)
 		translucent.color = Color(1,1,1,.37)
 		viewport.add_child(translucent)
+		var dark_values := [0.015, 0.03, 0.045, 0.06, 0.09, 0.12, 0.15, 0.2]
+		for i in dark_values.size():
+			var dark := ColorRect.new()
+			dark.position = Vector2(i * 8, 40)
+			dark.size = Vector2(8, 8)
+			dark.color = Color(dark_values[i], dark_values[i], dark_values[i])
+			viewport.add_child(dark)
 		for i in 3: await RenderingServer.frame_post_draw
 		var raw := viewport.get_texture().get_image()
 		var encoded := preload("res://tools/viewport_capture.gd").image(viewport)
+		assert(encoded.get_data() == preload("res://tools/viewport_capture.gd").encode(raw, hdr).get_data())
 		var pixel := encoded.get_pixel(10,10)
 		print("CAPTURE_CHECK HDR=",hdr," raw_format=",raw.get_format()," raw=",raw.get_pixel(10,10)," encoded=",pixel)
 		assert(absf(pixel.r - rect.color.r) < .012 and absf(pixel.g - rect.color.g) < .012 and absf(pixel.b - rect.color.b) < .012)
@@ -45,7 +53,12 @@ func _ready() -> void:
 		assert(encoded.get_pixel(50,50).a == 0)
 		assert(absf(encoded.get_pixel(45,5).a - .37) < .006)
 		if not hdr: assert(raw.get_data() == encoded.get_data())
+		for i in dark_values.size():
+			var actual := encoded.get_pixel(i * 8 + 4, 44)
+			assert(absf(actual.r - dark_values[i]) <= 1.0 / 255.0 + 0.0001)
 		if not out.is_empty():
+			var bytes := FileAccess.open(out.path_join("hdr_%s_raw.bin" % hdr), FileAccess.WRITE)
+			bytes.store_buffer(raw.get_data())
 			assert(raw.save_png(out.path_join("hdr_%s_raw.png" % hdr)) == OK)
 			assert(encoded.save_png(out.path_join("hdr_%s_encoded.png" % hdr)) == OK)
 		viewport.queue_free()

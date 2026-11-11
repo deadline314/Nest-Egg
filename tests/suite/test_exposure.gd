@@ -13,6 +13,7 @@ const MAX_FILL := 4.0
 
 
 func run() -> void:
+	_test_capture_precision()
 	_test_budget_model()
 	_test_every_profile_stays_in_budget()
 	_test_glow_cap()
@@ -23,6 +24,32 @@ func run() -> void:
 	await _test_enemy_fill_is_separate()
 	await _test_weapon_light()
 	_test_brightness_tiers()
+
+
+## PNG transfer must precede 8-bit quantization; otherwise correct dark renders look damaged.
+func _test_capture_precision() -> void:
+	for format in [Image.FORMAT_RGBAH, Image.FORMAT_RGBAF]:
+		var raw := Image.create(256, 1, false, format)
+		for x in 256:
+			var value := x / 255.0 * 0.03
+			raw.set_pixel(x, 0, Color(value, value * 0.75, value * 0.5, 0.37))
+		var bytes := raw.get_data()
+		var encoded := preload("res://tools/viewport_capture.gd").encode(raw, true)
+		var levels := {}
+		var error := 0.0
+		for x in 256:
+			var linear := raw.get_pixel(x, 0)
+			var actual := encoded.get_pixel(x, 0)
+			for pair in [[linear.r, actual.r], [linear.g, actual.g], [linear.b, actual.b]]:
+				var expected: float = pair[0] * 12.92 if pair[0] <= 0.0031308 else 1.055 * pow(pair[0], 1.0 / 2.4) - 0.055
+				error = maxf(error, absf(pair[1] - expected))
+			levels[roundi(actual.r * 255)] = true
+		check(error <= 1.0 / 255.0 + 0.00001 and levels.size() >= 48, "HDR format %d preserves dark sRGB precision (%.6f, %d levels)" % [format, error, levels.size()])
+		check(encoded.get_size() == raw.get_size() and absf(encoded.get_pixel(0, 0).a - 0.37) < 0.004, "HDR format %d preserves PNG dimensions and alpha" % format)
+		check(raw.get_data() == bytes, "HDR format %d preserves original float readback bytes" % format)
+	var ldr := Image.create(3, 2, false, Image.FORMAT_RGBA8)
+	ldr.fill(Color(0.12, 0.34, 0.56, 0.37))
+	check(preload("res://tools/viewport_capture.gd").encode(ldr, false).get_data() == ldr.get_data(), "LDR capture preserves every original byte")
 
 
 func _test_budget_model() -> void:
