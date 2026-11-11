@@ -1,0 +1,97 @@
+{
+  "archive": "original-selector-raw.zip",
+  "bytes": 23490,
+  "sha256": "cfd8daf1c1ac2ffcd85e5458e041eef7a2f946013c91e7c49e16f51c5da1f68e",
+  "base": "83319fef08227dd4868474fa2307c305dd7f703d",
+  "groups": 1,
+  "checks": 94,
+  "new_failures": 0,
+  "known_failures": 0,
+  "exit": 0,
+  "seconds": 41.27357580000535,
+  "source_sha256": {
+    "tests/suite/test_combat_hud.gd": "da63de606a9615e337a01ca32eebace606309dc7936fa4177a8a0135f1d8bf2b"
+  },
+  "entries": {
+    "candidate-source/tests/suite/test_combat_hud.gd": {
+      "bytes": 16218,
+      "sha256": "da63de606a9615e337a01ca32eebace606309dc7936fa4177a8a0135f1d8bf2b"
+    },
+    "executed-runner.py": {
+      "bytes": 3654,
+      "sha256": "77d9c13de0348b48a5bf03f587587568a70ea68e81eeef62c847eecf053bafea"
+    },
+    "official-tools/tests/known_failures.txt": {
+      "bytes": 381,
+      "sha256": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf"
+    },
+    "official-tools/tools/run_tests_changed.sh": {
+      "bytes": 2430,
+      "sha256": "71bbbd76f1941fda43a4db6f061538a2ae37bcb77765674908a9957899b8f336"
+    },
+    "official-tools/tools/run_tests_parallel.sh": {
+      "bytes": 4733,
+      "sha256": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba"
+    },
+    "official-tools/tools/select_tests.py": {
+      "bytes": 10446,
+      "sha256": "07fe95c5c5f75f35e35ba70b9b3a4c801547f6c7213ae7a13de15ee3dc765c81"
+    },
+    "official-tools/tools/test_filters.sh": {
+      "bytes": 1995,
+      "sha256": "509706b8257b8e46f6e8c01ebeda0ecd976b6607975f66430bd6774461500c80"
+    },
+    "official/candidate.json": {
+      "bytes": 398,
+      "sha256": "fc9a1514aa2e980d0653a932bafd79a6b59fa165241736bcdb6ccd580461c9e4"
+    },
+    "official/command.json": {
+      "bytes": 336,
+      "sha256": "9c4082c0178fa2fbaef7b863314522ef98592e7a443f756084300d1faf39b661"
+    },
+    "official/exit.json": {
+      "bytes": 1382,
+      "sha256": "c44f498d7377309833e7abeb04065b43867a54d7874ada3746e9154861b3d223"
+    },
+    "official/full.log": {
+      "bytes": 272,
+      "sha256": "34792cbd5946a5e0cefc06e302460c2d24f7f3227900b4713ba3600bf350c0e5"
+    },
+    "official/generated-uid-context.json": {
+      "bytes": 890,
+      "sha256": "85feaeb8f11631deefb908a70b7ab2da0221cb57993e3b7a075680b8e399df11"
+    },
+    "official/import.json": {
+      "bytes": 417,
+      "sha256": "9c846950060e42613226cabed3544e4e43783ef5cbac5ccf75beff23d2c2fd2e"
+    },
+    "official/import.log": {
+      "bytes": 1703,
+      "sha256": "a9950038c3f2699a57e119696f4b70f7eb47cc2bbf15dfbf290609d5243599ae"
+    },
+    "official/logs/data_0/Godot/app_userdata/Nest Egg/logs/godot.log": {
+      "bytes": 154,
+      "sha256": "0ccebe4734982df30354b0fbf2b63d6fc90ba952f3c25e5f130bc915dd7aeae3"
+    },
+    "official/logs/data_0/Godot/app_userdata/Nest Egg/settings.cfg": {
+      "bytes": 52,
+      "sha256": "27b17722a0ed61909e866f426c5f9823ce39a46774ad52bfe77e8dfb5b0587b7"
+    },
+    "official/logs/shard_0.log": {
+      "bytes": 159,
+      "sha256": "0782c336bf1dab6393d7bc7e344b149516cfd4d128bcee7c5c924716b0265787"
+    },
+    "official/runner-before.json": {
+      "bytes": 163,
+      "sha256": "bfc826bf93162004da8f717049fec0144081b202a2ce7e208222338793390966"
+    },
+    "official/source-before.json": {
+      "bytes": 107,
+      "sha256": "ff324ba0de6bd0de6021466a7c698d81152157a89530a7ad505b418a7844d4ca"
+    },
+    "official/test-source-before.json": {
+      "bytes": 994,
+      "sha256": "d66c75614cb279a099aae348c555ff9bf08d6e4100b2c5ff1bede0431ce1b8d7"
+    }
+  }
+}

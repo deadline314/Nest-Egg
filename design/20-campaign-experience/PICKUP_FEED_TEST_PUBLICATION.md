@@ -27,3 +27,9 @@
 [SceneTree signals](https://docs.godotengine.org/en/stable/classes/class_scenetree.html#signals)：physics與process訊號皆先於對應節點回呼，不保證節點已發布新狀態。
 
 [SceneTreeTimer](https://docs.godotengine.org/en/stable/classes/class_scenetreetimer.html)：預設計時器在該畫面所有節點的 process 之後處理；不必改變產品時間或行為。
+
+## 最後交付
+
+永久變更只有取消通訊後的一處等待與註解；完整原檔可逐byte逆向重建。原六個UI修正保持相同，三種時鐘最後36/0，停Feed負控制12/2。原selector只選一組CombatHudSuite，94/0，沒有為通過修改selector、filter或known failures。
+
+[原source objects、全部v1–v4、metadata明確勘誤與正式94項原件](../../pm/Nest-Egg/attachments/NE-291-pickup-publication-2026-11-12/README.md)。本票不代表NE228完整31組或210頁配置已通過。

@@ -97,7 +97,8 @@ func _check_pickup_feed(hud: Hud) -> void:
 	check(not feed.visible and is_equal_approx((feed.get_child(feed.get_child_count() - 1) as PickupFeed._Row).left, kept), "通訊出現時拾取紀錄讓位，剩餘時間保留")
 	Story._scenes.erase("ne228_feed_radio")
 	Story._layer.cancel_radio()
-	await frames(2)
+	# Feed visibility is published by _process; physics ticks can finish before any UI update.
+	await runner.get_tree().create_timer(0.0, true, false, true).timeout
 	check(feed.visible and feed.lines().size() == PickupFeed.MAX_ROWS, "通訊結束後拾取紀錄回來")
 	var deadline := Time.get_ticks_msec() + int((PickupFeed.HOLD + 1.5) * 1000.0)
 	while Time.get_ticks_msec() < deadline and not feed.lines().is_empty():

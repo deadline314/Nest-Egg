@@ -1,0 +1,69 @@
+{
+  "scope": "Same six UI sources; only the single test wait differs. Data visualization, not native game screenshot.",
+  "proof_sha256": "831888e10ad10b1a7586000817362bb741b3dfd4c4f0aeea65e501760d72525b",
+  "rows": [
+    {
+      "case": "candidate-60-60-v2",
+      "checks": 12,
+      "failures": 0,
+      "process_steps": 2,
+      "physics_steps": 2,
+      "feed_visible": true,
+      "rows": 4
+    },
+    {
+      "case": "candidate-240-30-v2",
+      "checks": 12,
+      "failures": 1,
+      "process_steps": 0,
+      "physics_steps": 2,
+      "feed_visible": false,
+      "rows": 4
+    },
+    {
+      "case": "candidate-120-30-v2",
+      "checks": 12,
+      "failures": 1,
+      "process_steps": 0,
+      "physics_steps": 2,
+      "feed_visible": false,
+      "rows": 4
+    },
+    {
+      "case": "fixed-six-60-60-v4",
+      "checks": 12,
+      "failures": 0,
+      "process_steps": 1,
+      "physics_steps": 0,
+      "feed_visible": true,
+      "rows": 4
+    },
+    {
+      "case": "fixed-six-240-30-v4",
+      "checks": 12,
+      "failures": 0,
+      "process_steps": 1,
+      "physics_steps": 0,
+      "feed_visible": true,
+      "rows": 4
+    },
+    {
+      "case": "fixed-six-120-30-v4",
+      "checks": 12,
+      "failures": 0,
+      "process_steps": 1,
+      "physics_steps": 4,
+      "feed_visible": true,
+      "rows": 4
+    },
+    {
+      "case": "fixed-six-240-30-frozen-negative-v4",
+      "checks": 12,
+      "failures": 2,
+      "process_steps": 1,
+      "physics_steps": 0,
+      "feed_visible": false,
+      "rows": 4
+    }
+  ]
+}
