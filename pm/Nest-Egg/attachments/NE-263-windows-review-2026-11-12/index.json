@@ -1,0 +1,48 @@
+{
+  "archive": "original-windows-review.zip",
+  "bytes": 15994,
+  "sha256": "298caf573ac6af25efd346dcbc0ab962486d52718e521c92b64208a73fa2d696",
+  "tests": 19,
+  "failures": 0,
+  "skips": 0,
+  "exit": 0,
+  "scope": "Actual Windows default-encoding selector/CLI tests, explicit Git Bash executable search path, no Python UTF-8 workaround; no game runtime or rendering claim",
+  "entries": {
+    "context.json": {
+      "bytes": 1084,
+      "sha256": "b6c9549281763a439639a82ad9c0b64b77faac5a0447425ff17f8aedfee9e5bc"
+    },
+    "exit.json": {
+      "bytes": 920,
+      "sha256": "88fe2ce3193da9e6628604b9d485f4170566c2fcb27e81f1c03d14e0210df5eb"
+    },
+    "source/tests/known_failures.txt": {
+      "bytes": 381,
+      "sha256": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf"
+    },
+    "source/tools/run_tests_changed.sh": {
+      "bytes": 2430,
+      "sha256": "71bbbd76f1941fda43a4db6f061538a2ae37bcb77765674908a9957899b8f336"
+    },
+    "source/tools/run_tests_parallel.sh": {
+      "bytes": 4733,
+      "sha256": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba"
+    },
+    "source/tools/select_tests.py": {
+      "bytes": 10446,
+      "sha256": "07fe95c5c5f75f35e35ba70b9b3a4c801547f6c7213ae7a13de15ee3dc765c81"
+    },
+    "source/tools/test_filters.sh": {
+      "bytes": 1995,
+      "sha256": "509706b8257b8e46f6e8c01ebeda0ecd976b6607975f66430bd6774461500c80"
+    },
+    "source/tools/test_select_tests.py": {
+      "bytes": 12834,
+      "sha256": "b0e96d7f85f699fad9082a8f072d7c774537fecae1ca41cbe46364bb7a03d78a"
+    },
+    "unit.log": {
+      "bytes": 124,
+      "sha256": "1bf96d8eb509363a34854fe29efba378a2c1ea891d9d2d378cfd0078a8b3a34a"
+    }
+  }
+}
