@@ -1,0 +1,231 @@
+{
+  "archive": "source-audit.raw.zip",
+  "bytes": 221033,
+  "sha256": "ac145561708c1fd3a9febda6648c7eb6d415875841bd32905f0c3858cc4b50eb",
+  "members": {
+    "tested-D/core/components/hurtbox.gd": {
+      "bytes": 9133,
+      "sha256": "53f3673f57b7ab2a6f26c20462840463794188401e09b2bacf4e05c0fe00b2e8"
+    },
+    "current-C/core/components/hurtbox.gd": {
+      "bytes": 10688,
+      "sha256": "06aa499fae310cc0825c9354f271861b99d390209238edf115813a15ecb72247"
+    },
+    "exact-diff/core/components/hurtbox.gd.diff": {
+      "bytes": 1963,
+      "sha256": "e1d16733efd9d8718377de424b841eaaf134f7a03a8abc88f54c1799837e71da"
+    },
+    "content-diff/core/components/hurtbox.gd.diff": {
+      "bytes": 1963,
+      "sha256": "e1d16733efd9d8718377de424b841eaaf134f7a03a8abc88f54c1799837e71da"
+    },
+    "tested-D/core/melee_art.gd": {
+      "bytes": 13662,
+      "sha256": "5971045bffa84fac227957808d028c0078774e69addb9ee6300a0a58777563b3"
+    },
+    "current-C/core/melee_art.gd": {
+      "bytes": 14211,
+      "sha256": "0c9a5b60c856a04647d24f6ed64a2f889bd908e0c13abe6ec7e7bcf27b1accff"
+    },
+    "exact-diff/core/melee_art.gd.diff": {
+      "bytes": 2360,
+      "sha256": "9bea9aa5788c357f2a7fabe1fa5294ab1091581696785bad8a41910796ca2b90"
+    },
+    "content-diff/core/melee_art.gd.diff": {
+      "bytes": 2360,
+      "sha256": "9bea9aa5788c357f2a7fabe1fa5294ab1091581696785bad8a41910796ca2b90"
+    },
+    "tested-D/data/scripts/terrain_material_data.gd": {
+      "bytes": 1846,
+      "sha256": "b93838f0c08091ce24c2c304bd36690f33aae2c858d39bb7230346c858d2f051"
+    },
+    "current-C/data/scripts/terrain_material_data.gd": {
+      "bytes": 1885,
+      "sha256": "91d688a8e40bbb279a7ac36775151b43c98389d69c67e2c3756073b9bf9a1731"
+    },
+    "exact-diff/data/scripts/terrain_material_data.gd.diff": {
+      "bytes": 3930,
+      "sha256": "06b5735dc1ca42002d0abdce9ad75c1e21ab70b11cd2014d0d6bbf11b41d3926"
+    },
+    "content-diff/data/scripts/terrain_material_data.gd.diff": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "published/data/scripts/terrain_material_data.gd": {
+      "bytes": 1846,
+      "sha256": "b93838f0c08091ce24c2c304bd36690f33aae2c858d39bb7230346c858d2f051"
+    },
+    "tested-D/game/cutscene/cutscene_actor.gd": {
+      "bytes": 10643,
+      "sha256": "ca9b963c63d4a5c6f3c0b43acb632009b541326d32ac784b785699bb41a8a548"
+    },
+    "current-C/game/cutscene/cutscene_actor.gd": {
+      "bytes": 10798,
+      "sha256": "cf0629a1de977371dda28aec7d43f4946f412a6ecda36608327a5d0f65589968"
+    },
+    "exact-diff/game/cutscene/cutscene_actor.gd.diff": {
+      "bytes": 486,
+      "sha256": "c3b28bbff73b5395fa17fa418d1dbbed82502bcc18c11f52de86e61f39c76eeb"
+    },
+    "content-diff/game/cutscene/cutscene_actor.gd.diff": {
+      "bytes": 486,
+      "sha256": "c3b28bbff73b5395fa17fa418d1dbbed82502bcc18c11f52de86e61f39c76eeb"
+    },
+    "tested-D/game/cutscene/cutscene_player.gd": {
+      "bytes": 36566,
+      "sha256": "9be52f7647f47c63c320e2cb55cad50ceea46469769dc1f2ff2b9dd12abc80bb"
+    },
+    "current-C/game/cutscene/cutscene_player.gd": {
+      "bytes": 39404,
+      "sha256": "339db5a6154036ee6963b7a667183dda888c6df1bcfe45f85c03910e792bdf59"
+    },
+    "exact-diff/game/cutscene/cutscene_player.gd.diff": {
+      "bytes": 4988,
+      "sha256": "de8a9ae2025559b9fa5cbe3b831660198f7f93868b81cebb463a9abfefb6a2d8"
+    },
+    "content-diff/game/cutscene/cutscene_player.gd.diff": {
+      "bytes": 4988,
+      "sha256": "de8a9ae2025559b9fa5cbe3b831660198f7f93868b81cebb463a9abfefb6a2d8"
+    },
+    "tested-D/game/cutscene/cutscene_reach.gd": {
+      "bytes": 7278,
+      "sha256": "a44109c15074662404c6b4142820c835a53fa00e190667d89a89306ba1790d85"
+    },
+    "current-C/game/cutscene/cutscene_reach.gd": {
+      "bytes": 7535,
+      "sha256": "5af5ec7dc4d6984116502431a8f449fc027a07839dc775b05190013e761a47b1"
+    },
+    "exact-diff/game/cutscene/cutscene_reach.gd.diff": {
+      "bytes": 1585,
+      "sha256": "f354f01f921586d6a881658efc2f52e53e47db125504cf29f01ffc49748d4af8"
+    },
+    "content-diff/game/cutscene/cutscene_reach.gd.diff": {
+      "bytes": 1585,
+      "sha256": "f354f01f921586d6a881658efc2f52e53e47db125504cf29f01ffc49748d4af8"
+    },
+    "tested-D/game/enemies/janus_boss.gd": {
+      "bytes": 28535,
+      "sha256": "e11937fb623ece0e0e45944262aadffdfc764f9719b9fcec70941582f69adf37"
+    },
+    "current-C/game/enemies/janus_boss.gd": {
+      "bytes": 27231,
+      "sha256": "858ee3e56a3f6e296478aaad53579abfb1ca4bd5bd9d8446f145a801dd46b996"
+    },
+    "exact-diff/game/enemies/janus_boss.gd.diff": {
+      "bytes": 2699,
+      "sha256": "c70f061c9a9069fad2cb91d14b75e40335562809d977ae77e565fcb48b7fd052"
+    },
+    "content-diff/game/enemies/janus_boss.gd.diff": {
+      "bytes": 2699,
+      "sha256": "c70f061c9a9069fad2cb91d14b75e40335562809d977ae77e565fcb48b7fd052"
+    },
+    "tested-D/game/melee/melee_module.gd": {
+      "bytes": 22741,
+      "sha256": "a134d19363a7774cac6f9796bff99bb572d8e1032b809469c530b8a32d96bd15"
+    },
+    "current-C/game/melee/melee_module.gd": {
+      "bytes": 29160,
+      "sha256": "08262cbc93dc57fc76fb68496bc8dbab2f3d95ec4528cb9fc844fc2321eee90d"
+    },
+    "exact-diff/game/melee/melee_module.gd.diff": {
+      "bytes": 12732,
+      "sha256": "0b6d14587673f8ec09a96b702f1ede9af22c264d2fb84ed5cb9f1c6683be5387"
+    },
+    "content-diff/game/melee/melee_module.gd.diff": {
+      "bytes": 12732,
+      "sha256": "0b6d14587673f8ec09a96b702f1ede9af22c264d2fb84ed5cb9f1c6683be5387"
+    },
+    "tested-D/game/player/melee_held.gd": {
+      "bytes": 13922,
+      "sha256": "27c8a629e22ec858c171d1f3487692ee3e9a82d5ea94c2f419f4cb864e42dc4b"
+    },
+    "current-C/game/player/melee_held.gd": {
+      "bytes": 14809,
+      "sha256": "174749f25e122e52d1a6ba74bb4dd4ab6a43bfb3fca76fca3fbe5650a37a54aa"
+    },
+    "exact-diff/game/player/melee_held.gd.diff": {
+      "bytes": 2739,
+      "sha256": "9cd444df19e0294b64e16d0c7ae2e21d3a4c318c8f74aa4226df31be308d8810"
+    },
+    "content-diff/game/player/melee_held.gd.diff": {
+      "bytes": 2739,
+      "sha256": "9cd444df19e0294b64e16d0c7ae2e21d3a4c318c8f74aa4226df31be308d8810"
+    },
+    "tested-D/game/player/melee_set.gd": {
+      "bytes": 19826,
+      "sha256": "76c8794123fe21cdf7220083ad0d4e11d0cc8a5839246325186f6d0629bb0709"
+    },
+    "current-C/game/player/melee_set.gd": {
+      "bytes": 20640,
+      "sha256": "3415d7c1e788943694467a4815580c4c9bf228ebfae782a88ef20a8c620a075d"
+    },
+    "exact-diff/game/player/melee_set.gd.diff": {
+      "bytes": 1737,
+      "sha256": "e6904493af1f763860f0fd0b4af1135f7c50e2f5e73a9b19487eb5c709904c24"
+    },
+    "content-diff/game/player/melee_set.gd.diff": {
+      "bytes": 1737,
+      "sha256": "e6904493af1f763860f0fd0b4af1135f7c50e2f5e73a9b19487eb5c709904c24"
+    },
+    "tested-D/game/player/player_visual.gd": {
+      "bytes": 26385,
+      "sha256": "4f3b2391912d7154c2895c0b9243c60fae9ccbde5555f0eb20dd0bfd37852012"
+    },
+    "current-C/game/player/player_visual.gd": {
+      "bytes": 26503,
+      "sha256": "6b3b02d946cef618557943cf19675f151c4a5289bd5d1e4be6613f127947968e"
+    },
+    "exact-diff/game/player/player_visual.gd.diff": {
+      "bytes": 343,
+      "sha256": "dc5b272dce439b3016db081f294ead86bdbf082f824e60db8735c51e8688bfdd"
+    },
+    "content-diff/game/player/player_visual.gd.diff": {
+      "bytes": 343,
+      "sha256": "dc5b272dce439b3016db081f294ead86bdbf082f824e60db8735c51e8688bfdd"
+    },
+    "tested-D/game/rig/npc_animator.gd": {
+      "bytes": 29458,
+      "sha256": "590fca3bacbc85bc134afaf52dd0f1b210efe8beb2f4649712cdd855f792034f"
+    },
+    "current-C/game/rig/npc_animator.gd": {
+      "bytes": 29772,
+      "sha256": "1a7c7df4ef6dedeb8923fdad8a1dcebd2e8f95421643fb7933b5cd17fcaa0308"
+    },
+    "exact-diff/game/rig/npc_animator.gd.diff": {
+      "bytes": 725,
+      "sha256": "3e3d8e5aaf81c86af4ab60595c68ea41cf36916a88d77f5e4c21d28d399533ec"
+    },
+    "content-diff/game/rig/npc_animator.gd.diff": {
+      "bytes": 725,
+      "sha256": "3e3d8e5aaf81c86af4ab60595c68ea41cf36916a88d77f5e4c21d28d399533ec"
+    },
+    "tested-same-source/game/level/terrain.gd": {
+      "bytes": 15364,
+      "sha256": "db56e1741448f5bb5620e66b17c308fcf7ccd4020bea64a8fe195b8fb323e996"
+    },
+    "tested-same-source/game/level/terrain_edges.gd": {
+      "bytes": 2288,
+      "sha256": "597f8624a4e3463b57af933342b2782748405fd37e762957c9baef1cf4229167"
+    },
+    "post-capture-same-source/data/player/player_tuning.tres": {
+      "bytes": 1320,
+      "sha256": "495611fa31574ee4059ae1661294ebe05626c0fb07a9f2ab74f675da474d6d98"
+    },
+    "post-capture-same-source/data/weapons/pistol.tres": {
+      "bytes": 1057,
+      "sha256": "4334479e906707033f0df031d8c5c6f7ed87c72a07516664a4f80fb324eaa0f8"
+    },
+    "audit.json": {
+      "bytes": 14921,
+      "sha256": "309ed0993f458f134a765082e248118c87fb1fea249515b129a9b5c450be0c38"
+    },
+    "audit-script.py": {
+      "bytes": 8722,
+      "sha256": "3e97b107ecf7241be97edbd07b30450d5bb429bcac939552d1a833776b7ba4a1"
+    },
+    "audit-script-rejected-crlf.py": {
+      "bytes": 8117,
+      "sha256": "5744b6e61bab5de8c1d5bf457e6f7f91b677fe0a3e1b89a567f9fd772699903d"
+    }
+  }
+}

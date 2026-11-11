@@ -1,0 +1,27 @@
+{
+  "reviewed_canonical_original_pixel_pairs": [
+    "pm/Nest-Egg-BG/images/BG-40-native-high-ch2_lounge_front-c2r2-canonical-outer-pair.png",
+    "pm/Nest-Egg-BG/images/BG-40-native-high-ch2_pawnshop-c5r1-canonical-outer-pair.png",
+    "pm/Nest-Egg-BG/images/BG-40-native-high-ch2_pawnshop-c2r1-canonical-outer-pair.png",
+    "pm/Nest-Egg-BG/images/BG-40-native-high-ch3_office_hall-c0r2-canonical-outer-pair.png",
+    "pm/Nest-Egg-BG/images/BG-40-native-high-ch3_office_hall-c1r2-canonical-outer-pair.png",
+    "pm/Nest-Egg-BG/images/BG-40-native-low-ch2_lounge_front-c2r2-canonical-outer-pair.png",
+    "pm/Nest-Egg-BG/images/BG-40-native-low-ch2_lounge_front-c2r1-canonical-outer-pair.png",
+    "pm/Nest-Egg-BG/images/BG-40-native-low-ch2_pawnshop-c5r1-canonical-outer-pair.png",
+    "pm/Nest-Egg-BG/images/BG-40-native-low-ch3_office_hall-c3r2-canonical-outer-pair.png",
+    "pm/Nest-Egg-BG/images/BG-40-native-low-ch3_office_hall-c1r2-canonical-outer-pair.png"
+  ],
+  "also_reviewed": [
+    "office-smoke-current-props full PNG",
+    "office-smoke original/current canonical outer"
+  ],
+  "finding": "Heads, back/waist and both legs remain distinguishable; new props stay behind the player and feet remain supported. Lounge added paper lamp/table brightens the original outer ring and reduces numerical player contrast; office replaces the broad white sofa glow with a narrower bench glow. No claim that every contrast scalar improved or that all full frames were manually inspected.",
+  "scope": "selected actual native original pixels; no human gameplay or physical controller claim",
+  "independent_primary_review": {
+    "completed": true,
+    "date": "2026-11-12",
+    "reviewed_exact_original_pairs": 10,
+    "also_reviewed_office_original_and_current_full_frames": true,
+    "finding": "The new lounge paper lamp lights the player while the book/table remain behind both legs. Office bench narrows the old sofa glow; head, back, waist, both legs and supported feet remain clear. Both pawnshop minima retain distinct silhouettes. Readability is accepted without claiming numerical contrast is monotonic; all original scalar decreases remain published."
+  }
+}

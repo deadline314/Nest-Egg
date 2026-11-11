@@ -1,0 +1,1354 @@
+{
+  "controls_valid": true,
+  "levels": {
+    "ch2_lounge_front": {
+      "cells": 9,
+      "standable": 6,
+      "minimum_player": 2.27169102504374,
+      "minimum_edge": 3.41303345495122,
+      "all_thresholds_passed": true,
+      "player_decrease_cells": [
+        {
+          "column": 2.0,
+          "row": 1.0,
+          "delta": -2.8904880738464502
+        },
+        {
+          "column": 2.0,
+          "row": 2.0,
+          "delta": -2.9400759886048196
+        }
+      ],
+      "edge_decrease_cells": []
+    },
+    "ch2_pawnshop": {
+      "cells": 18,
+      "standable": 12,
+      "minimum_player": 0.881173472144281,
+      "minimum_edge": 3.05307625018177,
+      "all_thresholds_passed": true,
+      "player_decrease_cells": [
+        {
+          "column": 2.0,
+          "row": 1.0,
+          "delta": -6.406050001572794e-08
+        },
+        {
+          "column": 2.0,
+          "row": 2.0,
+          "delta": -4.849599988254738e-08
+        }
+      ],
+      "edge_decrease_cells": []
+    },
+    "ch3_office_hall": {
+      "cells": 12,
+      "standable": 8,
+      "minimum_player": 1.10720407951311,
+      "minimum_edge": 3.14103888148781,
+      "all_thresholds_passed": true,
+      "player_decrease_cells": [
+        {
+          "column": 1.0,
+          "row": 1.0,
+          "delta": -0.5714328460368601
+        },
+        {
+          "column": 3.0,
+          "row": 1.0,
+          "delta": -0.019534109570980007
+        },
+        {
+          "column": 1.0,
+          "row": 2.0,
+          "delta": -0.6225896030331199
+        },
+        {
+          "column": 3.0,
+          "row": 2.0,
+          "delta": -0.01935655559934002
+        }
+      ],
+      "edge_decrease_cells": []
+    }
+  },
+  "observations": [
+    {
+      "level": "ch2_lounge_front",
+      "column": 0.0,
+      "row": 0.0,
+      "player_visible": false,
+      "enemy_count": 0,
+      "controls_valid": true
+    },
+    {
+      "level": "ch2_lounge_front",
+      "column": 1.0,
+      "row": 0.0,
+      "player_visible": false,
+      "enemy_count": 0,
+      "controls_valid": true
+    },
+    {
+      "level": "ch2_lounge_front",
+      "column": 2.0,
+      "row": 0.0,
+      "player_visible": false,
+      "enemy_count": 0,
+      "controls_valid": true
+    },
+    {
+      "level": "ch2_lounge_front",
+      "column": 0.0,
+      "row": 1.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 5.88983957082834,
+      "edge": 3.41303345495122,
+      "original_player": 5.88983957082834,
+      "original_edge": 3.41303345495122,
+      "player_delta": 0.0,
+      "edge_delta": 0.0,
+      "feet": [
+        168.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          168.0,
+          319.984375
+        ],
+        "floor": [
+          168.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch2_lounge_front",
+      "column": 1.0,
+      "row": 1.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 6.40111578837344,
+      "edge": 3.53133084785428,
+      "original_player": 6.40111578837344,
+      "original_edge": 3.53133084785428,
+      "player_delta": 0.0,
+      "edge_delta": 0.0,
+      "feet": [
+        472.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          472.0,
+          319.984375
+        ],
+        "floor": [
+          472.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch2_lounge_front",
+      "column": 2.0,
+      "row": 1.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 2.2802202492624,
+      "edge": 3.70827951263897,
+      "original_player": 5.17070832310885,
+      "original_edge": 3.41063470530669,
+      "player_delta": -2.8904880738464502,
+      "edge_delta": 0.29764480733228016,
+      "feet": [
+        728.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          728.0,
+          319.984375
+        ],
+        "floor": [
+          728.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch2_lounge_front",
+      "column": 0.0,
+      "row": 2.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 5.87820822480085,
+      "edge": 3.47462344642639,
+      "original_player": 5.87820822480085,
+      "original_edge": 3.47462344642639,
+      "player_delta": 0.0,
+      "edge_delta": 0.0,
+      "feet": [
+        168.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          168.0,
+          319.984375
+        ],
+        "floor": [
+          168.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch2_lounge_front",
+      "column": 1.0,
+      "row": 2.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 6.36763963778692,
+      "edge": 3.57169369241467,
+      "original_player": 6.36763963778692,
+      "original_edge": 3.57169369241467,
+      "player_delta": 0.0,
+      "edge_delta": 0.0,
+      "feet": [
+        472.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          472.0,
+          319.984375
+        ],
+        "floor": [
+          472.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch2_lounge_front",
+      "column": 2.0,
+      "row": 2.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 2.27169102504374,
+      "edge": 3.7109233504132,
+      "original_player": 5.21176701364856,
+      "original_edge": 3.44683434190445,
+      "player_delta": -2.9400759886048196,
+      "edge_delta": 0.26408900850874995,
+      "feet": [
+        728.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          728.0,
+          319.984375
+        ],
+        "floor": [
+          728.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch2_pawnshop",
+      "column": 0.0,
+      "row": 0.0,
+      "player_visible": false,
+      "enemy_count": 0,
+      "controls_valid": true
+    },
+    {
+      "level": "ch2_pawnshop",
+      "column": 1.0,
+      "row": 0.0,
+      "player_visible": false,
+      "enemy_count": 0,
+      "controls_valid": true
+    },
+    {
+      "level": "ch2_pawnshop",
+      "column": 2.0,
+      "row": 0.0,
+      "player_visible": false,
+      "enemy_count": 0,
+      "controls_valid": true
+    },
+    {
+      "level": "ch2_pawnshop",
+      "column": 3.0,
+      "row": 0.0,
+      "player_visible": false,
+      "enemy_count": 0,
+      "controls_valid": true
+    },
+    {
+      "level": "ch2_pawnshop",
+      "column": 4.0,
+      "row": 0.0,
+      "player_visible": false,
+      "enemy_count": 0,
+      "controls_valid": true
+    },
+    {
+      "level": "ch2_pawnshop",
+      "column": 5.0,
+      "row": 0.0,
+      "player_visible": false,
+      "enemy_count": 0,
+      "controls_valid": true
+    },
+    {
+      "level": "ch2_pawnshop",
+      "column": 0.0,
+      "row": 1.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 2.88019905210824,
+      "edge": 4.62083833495999,
+      "original_player": 2.88019905210824,
+      "original_edge": 4.62083833495999,
+      "player_delta": 0.0,
+      "edge_delta": 0.0,
+      "feet": [
+        168.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          168.0,
+          319.984375
+        ],
+        "floor": [
+          168.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch2_pawnshop",
+      "column": 1.0,
+      "row": 1.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 3.65485825940793,
+      "edge": 4.51738775115592,
+      "original_player": 3.65485825940793,
+      "original_edge": 4.51738775115592,
+      "player_delta": 0.0,
+      "edge_delta": 0.0,
+      "feet": [
+        472.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          472.0,
+          319.984375
+        ],
+        "floor": [
+          472.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch2_pawnshop",
+      "column": 2.0,
+      "row": 1.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 1.50722758365054,
+      "edge": 3.62962195643347,
+      "original_player": 1.50722764771104,
+      "original_edge": 3.62962195643347,
+      "player_delta": -6.406050001572794e-08,
+      "edge_delta": 0.0,
+      "feet": [
+        776.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          776.0,
+          319.984375
+        ],
+        "floor": [
+          776.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch2_pawnshop",
+      "column": 3.0,
+      "row": 1.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 1.48701866682609,
+      "edge": 3.95722626995769,
+      "original_player": 1.48701866682609,
+      "original_edge": 3.95722626995769,
+      "player_delta": 0.0,
+      "edge_delta": 0.0,
+      "feet": [
+        1080.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          1080.0,
+          319.984375
+        ],
+        "floor": [
+          1080.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch2_pawnshop",
+      "column": 4.0,
+      "row": 1.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 2.03482469428423,
+      "edge": 3.10842887575091,
+      "original_player": 2.03482469428423,
+      "original_edge": 3.10842887575091,
+      "player_delta": 0.0,
+      "edge_delta": 0.0,
+      "feet": [
+        1400.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          1400.0,
+          319.984375
+        ],
+        "floor": [
+          1400.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch2_pawnshop",
+      "column": 5.0,
+      "row": 1.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 0.881173472144281,
+      "edge": 3.50555080376238,
+      "original_player": 0.881173472144281,
+      "original_edge": 3.50555080376238,
+      "player_delta": 0.0,
+      "edge_delta": 0.0,
+      "feet": [
+        1624.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          1624.0,
+          319.984375
+        ],
+        "floor": [
+          1624.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch2_pawnshop",
+      "column": 0.0,
+      "row": 2.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 2.79891849390508,
+      "edge": 4.73676712164313,
+      "original_player": 2.79891849390508,
+      "original_edge": 4.73676712164313,
+      "player_delta": 0.0,
+      "edge_delta": 0.0,
+      "feet": [
+        168.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          168.0,
+          319.984375
+        ],
+        "floor": [
+          168.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch2_pawnshop",
+      "column": 1.0,
+      "row": 2.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 3.50129324209383,
+      "edge": 4.58607632625551,
+      "original_player": 3.50129324209383,
+      "original_edge": 4.58607632625551,
+      "player_delta": 0.0,
+      "edge_delta": 0.0,
+      "feet": [
+        472.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          472.0,
+          319.984375
+        ],
+        "floor": [
+          472.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch2_pawnshop",
+      "column": 2.0,
+      "row": 2.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 1.47858286556122,
+      "edge": 3.56451859519714,
+      "original_player": 1.47858291405722,
+      "original_edge": 3.56451859519714,
+      "player_delta": -4.849599988254738e-08,
+      "edge_delta": 0.0,
+      "feet": [
+        776.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          776.0,
+          319.984375
+        ],
+        "floor": [
+          776.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch2_pawnshop",
+      "column": 3.0,
+      "row": 2.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 1.4621813723418,
+      "edge": 3.91022084247084,
+      "original_player": 1.4621813723418,
+      "original_edge": 3.91022084247084,
+      "player_delta": 0.0,
+      "edge_delta": 0.0,
+      "feet": [
+        1080.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          1080.0,
+          319.984375
+        ],
+        "floor": [
+          1080.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch2_pawnshop",
+      "column": 4.0,
+      "row": 2.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 2.02562603782147,
+      "edge": 3.05307625018177,
+      "original_player": 2.02562603782147,
+      "original_edge": 3.05307625018177,
+      "player_delta": 0.0,
+      "edge_delta": 0.0,
+      "feet": [
+        1400.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          1400.0,
+          319.984375
+        ],
+        "floor": [
+          1400.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch2_pawnshop",
+      "column": 5.0,
+      "row": 2.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 0.887274249047392,
+      "edge": 3.47312304577839,
+      "original_player": 0.887274249047392,
+      "original_edge": 3.47312304577839,
+      "player_delta": 0.0,
+      "edge_delta": 0.0,
+      "feet": [
+        1624.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          1624.0,
+          319.984375
+        ],
+        "floor": [
+          1624.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch3_office_hall",
+      "column": 0.0,
+      "row": 0.0,
+      "player_visible": false,
+      "enemy_count": 0,
+      "controls_valid": true
+    },
+    {
+      "level": "ch3_office_hall",
+      "column": 1.0,
+      "row": 0.0,
+      "player_visible": false,
+      "enemy_count": 0,
+      "controls_valid": true
+    },
+    {
+      "level": "ch3_office_hall",
+      "column": 2.0,
+      "row": 0.0,
+      "player_visible": false,
+      "enemy_count": 0,
+      "controls_valid": true
+    },
+    {
+      "level": "ch3_office_hall",
+      "column": 3.0,
+      "row": 0.0,
+      "player_visible": false,
+      "enemy_count": 0,
+      "controls_valid": true
+    },
+    {
+      "level": "ch3_office_hall",
+      "column": 0.0,
+      "row": 1.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 1.15304158179782,
+      "edge": 4.69887698031057,
+      "original_player": 1.15304158179782,
+      "original_edge": 4.69887698031057,
+      "player_delta": 0.0,
+      "edge_delta": 0.0,
+      "feet": [
+        168.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          168.0,
+          319.984375
+        ],
+        "floor": [
+          168.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch3_office_hall",
+      "column": 1.0,
+      "row": 1.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 1.42266665801045,
+      "edge": 3.2730303684337,
+      "original_player": 1.99409950404731,
+      "original_edge": 3.21201192368434,
+      "player_delta": -0.5714328460368601,
+      "edge_delta": 0.0610184447493598,
+      "feet": [
+        472.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          472.0,
+          319.984375
+        ],
+        "floor": [
+          472.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch3_office_hall",
+      "column": 2.0,
+      "row": 1.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 2.29084793640979,
+      "edge": 3.75901185089406,
+      "original_player": 0.850576083297325,
+      "original_edge": 2.87893125129724,
+      "player_delta": 1.440271853112465,
+      "edge_delta": 0.8800805995968202,
+      "feet": [
+        776.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          776.0,
+          319.984375
+        ],
+        "floor": [
+          776.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch3_office_hall",
+      "column": 3.0,
+      "row": 1.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 1.3494703183754,
+      "edge": 3.70861173261184,
+      "original_player": 1.36900442794638,
+      "original_edge": 3.70861173261184,
+      "player_delta": -0.019534109570980007,
+      "edge_delta": 0.0,
+      "feet": [
+        856.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          856.0,
+          319.984375
+        ],
+        "floor": [
+          856.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch3_office_hall",
+      "column": 0.0,
+      "row": 2.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 1.10720407951311,
+      "edge": 4.58952296054851,
+      "original_player": 1.10720407951311,
+      "original_edge": 4.58952296054851,
+      "player_delta": 0.0,
+      "edge_delta": 0.0,
+      "feet": [
+        168.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          168.0,
+          319.984375
+        ],
+        "floor": [
+          168.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch3_office_hall",
+      "column": 1.0,
+      "row": 2.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 1.34806201090103,
+      "edge": 3.14103888148781,
+      "original_player": 1.97065161393415,
+      "original_edge": 3.07692247042859,
+      "player_delta": -0.6225896030331199,
+      "edge_delta": 0.06411641105921984,
+      "feet": [
+        472.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          472.0,
+          319.984375
+        ],
+        "floor": [
+          472.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch3_office_hall",
+      "column": 2.0,
+      "row": 2.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 2.27705351204457,
+      "edge": 3.64424648747819,
+      "original_player": 0.849127078835117,
+      "original_edge": 2.74115549391359,
+      "player_delta": 1.427926433209453,
+      "edge_delta": 0.9030909935646001,
+      "feet": [
+        776.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          776.0,
+          319.984375
+        ],
+        "floor": [
+          776.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    },
+    {
+      "level": "ch3_office_hall",
+      "column": 3.0,
+      "row": 2.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 1.29430279418649,
+      "edge": 3.59936351817472,
+      "original_player": 1.31365934978583,
+      "original_edge": 3.59936351817472,
+      "player_delta": -0.01935655559934002,
+      "edge_delta": 0.0,
+      "feet": [
+        856.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          856.0,
+          319.984375
+        ],
+        "floor": [
+          856.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    }
+  ],
+  "all_thresholds_passed": true,
+  "scope": "same present geometry; only original BG40 prop delta; decreases retained explicitly; no enemies/exposure sample is fabricated",
+  "verifier_sha256": "beae259566743c03743e7dd249f1bc7c641ca0293746f81dba0f51439cd8aed7"
+}

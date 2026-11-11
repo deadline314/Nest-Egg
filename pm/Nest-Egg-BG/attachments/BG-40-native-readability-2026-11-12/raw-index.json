@@ -1,0 +1,111 @@
+{
+  "maximum_zip_bytes": 95000000,
+  "cases": [
+    {
+      "name": "bg40-cpu-validate-v1",
+      "index": "raw/bg40-cpu-validate-v1.members.json",
+      "index_sha256": "cfc4096449385859e194d2f94438f9eceb1d833404c713f474cb58c893ee7935",
+      "members": 1098,
+      "archives": [
+        {
+          "file": "bg40-cpu-validate-v1-01.raw.zip",
+          "bytes": 1723384,
+          "sha256": "c8b045dfc08a195720ede994c2a482d32aa82773cee02a610f63fd9d982d9c0b"
+        }
+      ]
+    },
+    {
+      "name": "bg40-pawn-smoke-high-v1",
+      "index": "raw/bg40-pawn-smoke-high-v1.members.json",
+      "index_sha256": "b693ddc3c0808549544274b33788a98265ea1ded9566c2b455df5e772265cb81",
+      "members": 1104,
+      "archives": [
+        {
+          "file": "bg40-pawn-smoke-high-v1-01.raw.zip",
+          "bytes": 11441018,
+          "sha256": "96970ac1536bb857a51901fdcd0e241e2810de6a0db762b63d2dd5a8a86205af"
+        }
+      ]
+    },
+    {
+      "name": "bg40-office-smoke-high-v1",
+      "index": "raw/bg40-office-smoke-high-v1.members.json",
+      "index_sha256": "f7bddf4b6b0b1f3e492c360d907c5351dc84d8f22b727424581dda5ab2825b82",
+      "members": 1104,
+      "archives": [
+        {
+          "file": "bg40-office-smoke-high-v1-01.raw.zip",
+          "bytes": 9331407,
+          "sha256": "2e543df1d71159e366f76ebc67d9b7f05a2d520794f576a48fcdb57578d867b0"
+        }
+      ]
+    },
+    {
+      "name": "bg40-all-high-v1",
+      "index": "raw/bg40-all-high-v1.members.json",
+      "index_sha256": "8d6641c46afb44a8b47707337b5b37ddebc1a382379b83249ae310b1d89fd1a3",
+      "members": 1248,
+      "archives": [
+        {
+          "file": "bg40-all-high-v1-01.raw.zip",
+          "bytes": 33584539,
+          "sha256": "e4961a8eb3a566eba3f7629e3a3d86aa854ac69c7cbe78035a8971828f28855e"
+        },
+        {
+          "file": "bg40-all-high-v1-02.raw.zip",
+          "bytes": 43772716,
+          "sha256": "325aaf06244d45386d83d4548379a3d18530de1047c700a6e2f491db77d28306"
+        },
+        {
+          "file": "bg40-all-high-v1-03.raw.zip",
+          "bytes": 47768261,
+          "sha256": "b5ed86fa0d301422387611c7a1c78aba506000cf3f1316d808138543fce227dc"
+        },
+        {
+          "file": "bg40-all-high-v1-04.raw.zip",
+          "bytes": 51967710,
+          "sha256": "2d7286eda22929263764b565c4f82b0aabbed48b82cd1a9944ceaa8613692268"
+        },
+        {
+          "file": "bg40-all-high-v1-05.raw.zip",
+          "bytes": 5339035,
+          "sha256": "b0d38f5bbb730843f60bef5bd62bb75ab69b52469e03ef11ff65137f451f7b22"
+        }
+      ]
+    },
+    {
+      "name": "bg40-all-low-v1",
+      "index": "raw/bg40-all-low-v1.members.json",
+      "index_sha256": "6adb9709edc0629379494fa49ceb1c400782f99bc6356cf2412f5d74953443c5",
+      "members": 1248,
+      "archives": [
+        {
+          "file": "bg40-all-low-v1-01.raw.zip",
+          "bytes": 31990661,
+          "sha256": "1d80a7902022977c11b01d68b76bf3d89e0db306ee5169ada6bd8112313d9150"
+        },
+        {
+          "file": "bg40-all-low-v1-02.raw.zip",
+          "bytes": 46471061,
+          "sha256": "6f68f29545d34cc0d90b0efb286749c597da94e9d8d8b627bb86a042eea16a08"
+        },
+        {
+          "file": "bg40-all-low-v1-03.raw.zip",
+          "bytes": 49285432,
+          "sha256": "b41ed7e50142eb8be92676fcb8f54bd9fdac225ea8bce2f4a7203d14993ca4b9"
+        },
+        {
+          "file": "bg40-all-low-v1-04.raw.zip",
+          "bytes": 47564036,
+          "sha256": "c9f14a6e5f994ebd9ec388d2e74ec7864be32bd34089e0343ada8eb90e1b191e"
+        },
+        {
+          "file": "bg40-all-low-v1-05.raw.zip",
+          "bytes": 4904510,
+          "sha256": "1bc9985598fc0996f1eabf7905402ab0dafed6d9a870afecbb9a5faaf729ddfa"
+        }
+      ]
+    }
+  ],
+  "scope": "original native evidence retained externally; no raw member rewritten"
+}

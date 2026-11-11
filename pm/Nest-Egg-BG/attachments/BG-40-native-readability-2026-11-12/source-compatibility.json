@@ -1,0 +1,81 @@
+{
+  "actual_d_git_head": "be43e4f55efc7bbe4ab97ab81fe84eb41cbfa819",
+  "scope": "exact D source receipt plus overlays; not entire current C runtime",
+  "current_c_differences": [
+    {
+      "path": "core/components/hurtbox.gd",
+      "tested_d_sha256": "53f3673f57b7ab2a6f26c20462840463794188401e09b2bacf4e05c0fe00b2e8",
+      "current_c_sha256": "06aa499fae310cc0825c9354f271861b99d390209238edf115813a15ecb72247"
+    },
+    {
+      "path": "core/melee_art.gd",
+      "tested_d_sha256": "5971045bffa84fac227957808d028c0078774e69addb9ee6300a0a58777563b3",
+      "current_c_sha256": "0c9a5b60c856a04647d24f6ed64a2f889bd908e0c13abe6ec7e7bcf27b1accff"
+    },
+    {
+      "path": "data/scripts/terrain_material_data.gd",
+      "tested_d_sha256": "b93838f0c08091ce24c2c304bd36690f33aae2c858d39bb7230346c858d2f051",
+      "current_c_sha256": "91d688a8e40bbb279a7ac36775151b43c98389d69c67e2c3756073b9bf9a1731"
+    },
+    {
+      "path": "game/cutscene/cutscene_actor.gd",
+      "tested_d_sha256": "ca9b963c63d4a5c6f3c0b43acb632009b541326d32ac784b785699bb41a8a548",
+      "current_c_sha256": "cf0629a1de977371dda28aec7d43f4946f412a6ecda36608327a5d0f65589968"
+    },
+    {
+      "path": "game/cutscene/cutscene_player.gd",
+      "tested_d_sha256": "9be52f7647f47c63c320e2cb55cad50ceea46469769dc1f2ff2b9dd12abc80bb",
+      "current_c_sha256": "339db5a6154036ee6963b7a667183dda888c6df1bcfe45f85c03910e792bdf59"
+    },
+    {
+      "path": "game/cutscene/cutscene_reach.gd",
+      "tested_d_sha256": "a44109c15074662404c6b4142820c835a53fa00e190667d89a89306ba1790d85",
+      "current_c_sha256": "5af5ec7dc4d6984116502431a8f449fc027a07839dc775b05190013e761a47b1"
+    },
+    {
+      "path": "game/enemies/janus_boss.gd",
+      "tested_d_sha256": "e11937fb623ece0e0e45944262aadffdfc764f9719b9fcec70941582f69adf37",
+      "current_c_sha256": "858ee3e56a3f6e296478aaad53579abfb1ca4bd5bd9d8446f145a801dd46b996"
+    },
+    {
+      "path": "game/melee/melee_module.gd",
+      "tested_d_sha256": "a134d19363a7774cac6f9796bff99bb572d8e1032b809469c530b8a32d96bd15",
+      "current_c_sha256": "08262cbc93dc57fc76fb68496bc8dbab2f3d95ec4528cb9fc844fc2321eee90d"
+    },
+    {
+      "path": "game/player/melee_held.gd",
+      "tested_d_sha256": "27c8a629e22ec858c171d1f3487692ee3e9a82d5ea94c2f419f4cb864e42dc4b",
+      "current_c_sha256": "174749f25e122e52d1a6ba74bb4dd4ab6a43bfb3fca76fca3fbe5650a37a54aa"
+    },
+    {
+      "path": "game/player/melee_set.gd",
+      "tested_d_sha256": "76c8794123fe21cdf7220083ad0d4e11d0cc8a5839246325186f6d0629bb0709",
+      "current_c_sha256": "3415d7c1e788943694467a4815580c4c9bf228ebfae782a88ef20a8c620a075d"
+    },
+    {
+      "path": "game/player/player_visual.gd",
+      "tested_d_sha256": "4f3b2391912d7154c2895c0b9243c60fae9ccbde5555f0eb20dd0bfd37852012",
+      "current_c_sha256": "6b3b02d946cef618557943cf19675f151c4a5289bd5d1e4be6613f127947968e"
+    },
+    {
+      "path": "game/rig/npc_animator.gd",
+      "tested_d_sha256": "590fca3bacbc85bc134afaf52dd0f1b210efe8beb2f4649712cdd855f792034f",
+      "current_c_sha256": "1a7c7df4ef6dedeb8923fdad8a1dcebd2e8f95421643fb7933b5cd17fcaa0308"
+    }
+  ],
+  "same_important_sources": [
+    "game/rig/character_rig.gd",
+    "game/rig/humanoid_animator.gd",
+    "tools/held_lighting_state.gd",
+    "tools/contrast_probe.gd",
+    "tools/viewport_capture.gd"
+  ],
+  "native_sources_unchanged": true,
+  "product_changes": 0,
+  "formal_main_tools_changes": 0,
+  "three_current_level_theme_map_sources_match_c": true,
+  "post_capture_matching_shader_sha256": {
+    "art/shaders/character_light.gdshader": "1822c51dcfab7feaaadc2b181eadb2eca47e4bacc737ca83535c6e99d566be60",
+    "art/shaders/dissolve.gdshader": "11dac192d82cfea0e7e702d638ae86920c7663d8d7f63ac5fd598bade806de4f"
+  }
+}

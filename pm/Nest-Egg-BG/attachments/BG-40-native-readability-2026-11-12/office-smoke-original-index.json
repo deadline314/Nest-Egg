@@ -1,0 +1,2886 @@
+{
+  "columns": 4.0,
+  "contact_shadows": 1.0,
+  "frame_ms_median": 0.0,
+  "level": "ch3_office_hall",
+  "level_size": [
+    1024.0,
+    384.0
+  ],
+  "probe": {
+    "adapter": "AMD Radeon RX 9070 XT",
+    "brightness": 0.5,
+    "cycle_sample_interval": 0.2,
+    "cycle_samples": 0,
+    "engine": "4.7.2-stable (official)",
+    "fixed_gamepad_aim": true,
+    "fog_hidden": false,
+    "hdr_2d": true,
+    "kind": "stationary lighting fixture",
+    "lamp_hold": 1.0,
+    "paired_fog_clock": -1.0,
+    "quality": 2,
+    "reference_fog": false,
+    "renderer": "forward_plus",
+    "source_sha256": {
+      "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+      "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+      "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+      "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+      "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+      "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+    },
+    "thresholds": {
+      "edge": 1.0,
+      "player": 0.6
+    },
+    "wall_shadows_hidden": false
+  },
+  "rows": 3.0,
+  "shots": [
+    {
+      "bg40": {
+        "controls_valid": true,
+        "prop_delta": {
+          "added": [
+            {
+              "id": "tianqiong_corridor__portrait_frame",
+              "support": "wall",
+              "x": 21.0,
+              "y": 12.0
+            },
+            {
+              "ground": true,
+              "id": "tianqiong_corridor__sleek_bench",
+              "x": 26.0
+            },
+            {
+              "ground": true,
+              "id": "tianqiong_corridor__frosted_partition",
+              "x": 38.0
+            },
+            {
+              "id": "tianqiong_corridor__wall_light_strip",
+              "support": "wall",
+              "x": 44.0,
+              "y": 10.0
+            },
+            {
+              "ground": true,
+              "id": "tianqiong_corridor__cloud_sculpture",
+              "x": 46.0
+            },
+            {
+              "ground": true,
+              "id": "tianqiong_corridor__modern_planter",
+              "x": 51.0
+            },
+            {
+              "ground": true,
+              "id": "tianqiong_corridor__water_cooler",
+              "x": 56.0
+            }
+          ],
+          "commit": "3e9ddccd6",
+          "reference": "same current geometry with only original BG40 prop delta; later unrelated props retained",
+          "removed": [
+            {
+              "ground": true,
+              "id": "accounting_lobby__lobby_sofa",
+              "x": 26.0
+            },
+            {
+              "ground": true,
+              "id": "accounting_lobby__light_column",
+              "x": 44.0
+            },
+            {
+              "ground": true,
+              "id": "accounting_lobby__lobby_tree",
+              "x": 50.0
+            }
+          ]
+        },
+        "records": [
+          {
+            "ambient": "(0.56, 0.58, 0.62, 1.0)",
+            "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-588.7999, -331.2)]",
+            "canvas_transform_values": [
+              1.91999971866608,
+              0.0,
+              0.0,
+              1.91999971866608,
+              -588.799926757813,
+              -331.199951171875
+            ],
+            "density": 2.0,
+            "enemies": [],
+            "enemy_fill": 1.0,
+            "enemy_fill_scale": 1.0,
+            "enemy_inventory": [],
+            "files": {
+              "png": "bg55-cell000-A0.png",
+              "raw": "bg55-cell000-A0.bin"
+            },
+            "fog_density": 0.3,
+            "format": 14.0,
+            "height": 720.0,
+            "held": {
+              "actors": [],
+              "aim": "(1.0, 0.0)",
+              "camera": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-588.7999, -331.2)]",
+              "fog_time": 0.633176989417989,
+              "fog_visible": true,
+              "lamps": [
+                {
+                  "at": [
+                    168.0,
+                    146.0
+                  ],
+                  "clock": 0.0,
+                  "dead": false,
+                  "energy": 1.10000002384186,
+                  "fixture": "led_panel",
+                  "state": "stable"
+                },
+                {
+                  "at": [
+                    392.0,
+                    146.0
+                  ],
+                  "clock": 0.0,
+                  "dead": false,
+                  "energy": 1.10000002384186,
+                  "fixture": "security_flood",
+                  "state": "stable"
+                },
+                {
+                  "at": [
+                    648.0,
+                    146.0
+                  ],
+                  "clock": 0.0,
+                  "dead": false,
+                  "energy": 1.10000002384186,
+                  "fixture": "led_panel",
+                  "state": "stable"
+                },
+                {
+                  "at": [
+                    872.0,
+                    146.0
+                  ],
+                  "clock": 0.0,
+                  "dead": false,
+                  "energy": 1.10000002384186,
+                  "fixture": "security_flood",
+                  "state": "stable"
+                }
+              ],
+              "lighting_owners": {
+                "active_lights": 6.0,
+                "active_shadow_lights": 3.0,
+                "contact_shadows": [
+                  {
+                    "bounds": [
+                      459.988677978516,
+                      318.0,
+                      27.4984245300293,
+                      7.0
+                    ],
+                    "cast": true,
+                    "instance": 864815157191.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@CharacterBody2D@454/ContactShadow",
+                    "shift": 1.73789626034823,
+                    "visible": true
+                  }
+                ],
+                "parallax": [
+                  {
+                    "position": "(153.3334, 86.25)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(148.7334, 85.215)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(148.7334, 85.215)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(145.6667, 84.525)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(134.9334, 82.11)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(128.8, 80.73)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(113.4667, 77.28)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(76.66669, 69.0)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(-69.00003, 0.0)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  }
+                ],
+                "physics_bodies": [
+                  {
+                    "disable_mode": 2.0,
+                    "instance": 584803421167.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Terrain/Solid",
+                    "space_valid": true
+                  },
+                  {
+                    "disable_mode": 2.0,
+                    "instance": 585105411066.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Terrain/Platforms",
+                    "space_valid": true
+                  },
+                  {
+                    "disable_mode": 2.0,
+                    "instance": 864597053396.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@CharacterBody2D@454",
+                    "space_valid": true
+                  }
+                ],
+                "scene_lights": [
+                  {
+                    "budget_visible": false,
+                    "enabled": false,
+                    "energy": 0.497369229793549,
+                    "instance": 581682858963.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/tianqiong_corridor__wall_light_strip/@PointLight2D@121",
+                    "position": "(772.9, 170.7)",
+                    "shadow": false,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": false,
+                    "enabled": true,
+                    "energy": 0.5,
+                    "instance": 863254876316.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@428/@PointLight2D@432",
+                    "position": "(56.0, 298.0)",
+                    "shadow": false,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": false,
+                    "enabled": true,
+                    "energy": 0.349999994039536,
+                    "instance": 863607197857.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@433/@PointLight2D@437",
+                    "position": "(232.0, 296.0)",
+                    "shadow": false,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 0.349999994039536,
+                    "instance": 863774969970.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@438/@PointLight2D@442",
+                    "position": "(456.0, 296.0)",
+                    "shadow": false,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 0.5,
+                    "instance": 863959519197.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@443/@PointLight2D@447",
+                    "position": "(584.0, 298.0)",
+                    "shadow": false,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": false,
+                    "enabled": true,
+                    "energy": 0.5,
+                    "instance": 864144068565.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@448/@PointLight2D@452",
+                    "position": "(968.0, 298.0)",
+                    "shadow": false,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": false,
+                    "energy": 0.0,
+                    "instance": 895064477459.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@CharacterBody2D@454/@Node2D@465/BladeLight/@PointLight2D@470",
+                    "position": "(0.0, 0.0)",
+                    "shadow": false,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 1.10000002384186,
+                    "instance": 861593932000.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/@Node2D@404/@PointLight2D@408",
+                    "position": "(168.0, 146.0)",
+                    "shadow": true,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 1.10000002384186,
+                    "instance": 862533456077.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/@Node2D@410/@PointLight2D@414",
+                    "position": "(392.0, 146.0)",
+                    "shadow": true,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 1.10000002384186,
+                    "instance": 862650896585.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/@Node2D@416/@PointLight2D@420",
+                    "position": "(648.0, 146.0)",
+                    "shadow": true,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": false,
+                    "enabled": true,
+                    "energy": 1.10000002384186,
+                    "instance": 862768337112.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/@Node2D@422/@PointLight2D@426",
+                    "position": "(872.0, 146.0)",
+                    "shadow": true,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 0.800000011920929,
+                    "instance": 962575997037.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/accounting_lobby__light_column/@PointLight2D@690",
+                    "position": "(721.4, 267.5)",
+                    "shadow": false,
+                    "visible": true
+                  }
+                ],
+                "valid": true,
+                "viewport_final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+                "viewport_final_transform_values": [
+                  2.0,
+                  0.0,
+                  0.0,
+                  2.0,
+                  0.0,
+                  0.0
+                ],
+                "wall_shadows": [
+                  {
+                    "active_lights": 4.0,
+                    "camera_synchronized": true,
+                    "caster_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-588.7999, -331.2)]",
+                    "caster_transform_values": [
+                      1.91999971866608,
+                      0.0,
+                      0.0,
+                      1.91999971866608,
+                      -588.799926757813,
+                      -331.199951171875
+                    ],
+                    "chosen": [
+                      895165140774.0,
+                      862533456077.0,
+                      862650896585.0,
+                      861593932000.0
+                    ],
+                    "drawn_origin": "(-1177.6, -662.3999)",
+                    "drawn_scale": "(3.839999, 3.839999)",
+                    "enabled": true,
+                    "expected_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-588.7999, -331.2)]",
+                    "expected_transform_values": [
+                      1.91999971866608,
+                      0.0,
+                      0.0,
+                      1.91999971866608,
+                      -588.799926757813,
+                      -331.199951171875
+                    ],
+                    "flagged_casters": 1.0,
+                    "limit": 4.0,
+                    "suspended": false
+                  }
+                ]
+              },
+              "player": "(472.0, 319.9844)",
+              "player_support": {
+                "feet": [
+                  472.0,
+                  319.984375
+                ],
+                "floor": [
+                  472.0,
+                  320.0
+                ],
+                "found": true,
+                "gap": 0.015625,
+                "layout_floor": 320.0,
+                "normal": [
+                  0.0,
+                  -1.0
+                ],
+                "on_floor_cache": true,
+                "safe_margin": 0.0799999982118607,
+                "solver_contact": true,
+                "solver_normal": [
+                  0.0,
+                  -1.0
+                ],
+                "valid": true,
+                "visible": true
+              },
+              "rain": [],
+              "shader_time_scale": 0.0,
+              "weapon_light_energy": 1.60000002384186,
+              "weapon_light_position": "(486.0145, 272.9808)"
+            },
+            "label": "A0",
+            "player": {
+              "below_screen_rect": [
+                542.0,
+                597.0,
+                186.0,
+                24.0
+              ],
+              "contrast": 2.00235462348743,
+              "edge_contrast": 3.20818751840884,
+              "edge_screen_rect": [
+                542.0,
+                566.0,
+                186.0,
+                12.0
+              ],
+              "feet": [
+                472.0,
+                319.984375
+              ],
+              "outer_screen_rect": [
+                523.0,
+                266.0,
+                224.0,
+                362.0
+              ],
+              "parts": {
+                "body": 0.0568297973632812,
+                "bright": 2.00235462348743,
+                "dark": 0.690666939840674,
+                "inner": 0.72570205078125,
+                "outer": 0.228372409091059
+              },
+              "screen_rect": [
+                600.0,
+                343.0,
+                70.0,
+                208.0
+              ]
+            },
+            "player_contact_shadow": {
+              "bounds": [
+                459.988677978516,
+                318.0,
+                27.4984245300293,
+                7.0
+              ],
+              "cast": true,
+              "shift": 1.73789626034823,
+              "visible": true
+            },
+            "player_light_energy": 0.221364006400108,
+            "player_light_visible": true,
+            "player_visible": true,
+            "prop_reference": true,
+            "props": [
+              {
+                "id": "tianqiong_corridor__petition_box",
+                "instance": 577874430812.0,
+                "position": [
+                  208.0,
+                  275.0
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__portrait_frame",
+                "instance": 578763623353.0,
+                "position": [
+                  336.0,
+                  148.0
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__sleek_bench",
+                "instance": 579636038594.0,
+                "position": [
+                  416.0,
+                  303.5
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__frosted_partition",
+                "instance": 580223241155.0,
+                "position": [
+                  608.0,
+                  242.0
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__wall_light_strip",
+                "instance": 580810443720.0,
+                "position": [
+                  704.0,
+                  165.5
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__cloud_sculpture",
+                "instance": 581749967828.0,
+                "position": [
+                  736.0,
+                  275.0
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__modern_planter",
+                "instance": 582337170391.0,
+                "position": [
+                  816.0,
+                  275.0
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__water_cooler",
+                "instance": 582957927389.0,
+                "position": [
+                  896.0,
+                  284.0
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "accounting_lobby__lobby_sofa",
+                "instance": 960931829848.0,
+                "position": [
+                  416.0,
+                  297.5
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "accounting_lobby__light_column",
+                "instance": 961703581795.0,
+                "position": [
+                  704.0,
+                  215.0
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "accounting_lobby__lobby_tree",
+                "instance": 962777323627.0,
+                "position": [
+                  800.0,
+                  242.0
+                ],
+                "visible": true,
+                "z": -21.0
+              }
+            ],
+            "raw_sha256": "abb67fceed8acdb2011933b0be6fef6d45a13bbe11acf0c0f3942f2108b8ff58",
+            "weapon_light": {
+              "enabled": true,
+              "energy": 1.60000002384186,
+              "expected_origin": "(486.0145, 272.9808)",
+              "fade_level": 1.0,
+              "origin_error": 0.0,
+              "position": [
+                486.014526367188,
+                272.980804443359
+              ],
+              "reach": 190.0,
+              "visible": true
+            },
+            "width": 1280.0,
+            "world_environment": {
+              "active": true,
+              "background_mode": 3.0,
+              "cap": 2.0,
+              "glow_enabled": true,
+              "intensity": 0.899999976158142,
+              "threshold": 1.0
+            }
+          },
+          {
+            "ambient": "(0.56, 0.58, 0.62, 1.0)",
+            "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-588.7999, -331.2)]",
+            "canvas_transform_values": [
+              1.91999971866608,
+              0.0,
+              0.0,
+              1.91999971866608,
+              -588.799926757813,
+              -331.199951171875
+            ],
+            "density": 2.0,
+            "enemies": [],
+            "enemy_fill": 1.0,
+            "enemy_fill_scale": 1.0,
+            "enemy_inventory": [],
+            "files": {
+              "png": "bg55-cell000-A0.png",
+              "raw": "bg55-cell000-A0.bin"
+            },
+            "fog_density": 0.3,
+            "format": 14.0,
+            "height": 720.0,
+            "held": {
+              "actors": [],
+              "aim": "(1.0, 0.0)",
+              "camera": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-588.7999, -331.2)]",
+              "fog_time": 0.633176989417989,
+              "fog_visible": true,
+              "lamps": [
+                {
+                  "at": [
+                    168.0,
+                    146.0
+                  ],
+                  "clock": 0.0,
+                  "dead": false,
+                  "energy": 1.10000002384186,
+                  "fixture": "led_panel",
+                  "state": "stable"
+                },
+                {
+                  "at": [
+                    392.0,
+                    146.0
+                  ],
+                  "clock": 0.0,
+                  "dead": false,
+                  "energy": 1.10000002384186,
+                  "fixture": "security_flood",
+                  "state": "stable"
+                },
+                {
+                  "at": [
+                    648.0,
+                    146.0
+                  ],
+                  "clock": 0.0,
+                  "dead": false,
+                  "energy": 1.10000002384186,
+                  "fixture": "led_panel",
+                  "state": "stable"
+                },
+                {
+                  "at": [
+                    872.0,
+                    146.0
+                  ],
+                  "clock": 0.0,
+                  "dead": false,
+                  "energy": 1.10000002384186,
+                  "fixture": "security_flood",
+                  "state": "stable"
+                }
+              ],
+              "lighting_owners": {
+                "active_lights": 6.0,
+                "active_shadow_lights": 3.0,
+                "contact_shadows": [
+                  {
+                    "bounds": [
+                      459.988677978516,
+                      318.0,
+                      27.4984245300293,
+                      7.0
+                    ],
+                    "cast": true,
+                    "instance": 864815157191.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@CharacterBody2D@454/ContactShadow",
+                    "shift": 1.73789626034823,
+                    "visible": true
+                  }
+                ],
+                "parallax": [
+                  {
+                    "position": "(153.3334, 86.25)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(148.7334, 85.215)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(148.7334, 85.215)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(145.6667, 84.525)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(134.9334, 82.11)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(128.8, 80.73)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(113.4667, 77.28)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(76.66669, 69.0)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(-69.00003, 0.0)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  }
+                ],
+                "physics_bodies": [
+                  {
+                    "disable_mode": 2.0,
+                    "instance": 584803421167.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Terrain/Solid",
+                    "space_valid": true
+                  },
+                  {
+                    "disable_mode": 2.0,
+                    "instance": 585105411066.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Terrain/Platforms",
+                    "space_valid": true
+                  },
+                  {
+                    "disable_mode": 2.0,
+                    "instance": 864597053396.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@CharacterBody2D@454",
+                    "space_valid": true
+                  }
+                ],
+                "scene_lights": [
+                  {
+                    "budget_visible": false,
+                    "enabled": false,
+                    "energy": 0.497369229793549,
+                    "instance": 581682858963.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/tianqiong_corridor__wall_light_strip/@PointLight2D@121",
+                    "position": "(772.9, 170.7)",
+                    "shadow": false,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": false,
+                    "enabled": true,
+                    "energy": 0.5,
+                    "instance": 863254876316.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@428/@PointLight2D@432",
+                    "position": "(56.0, 298.0)",
+                    "shadow": false,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": false,
+                    "enabled": true,
+                    "energy": 0.349999994039536,
+                    "instance": 863607197857.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@433/@PointLight2D@437",
+                    "position": "(232.0, 296.0)",
+                    "shadow": false,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 0.349999994039536,
+                    "instance": 863774969970.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@438/@PointLight2D@442",
+                    "position": "(456.0, 296.0)",
+                    "shadow": false,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 0.5,
+                    "instance": 863959519197.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@443/@PointLight2D@447",
+                    "position": "(584.0, 298.0)",
+                    "shadow": false,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": false,
+                    "enabled": true,
+                    "energy": 0.5,
+                    "instance": 864144068565.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@448/@PointLight2D@452",
+                    "position": "(968.0, 298.0)",
+                    "shadow": false,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": false,
+                    "energy": 0.0,
+                    "instance": 895064477459.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@CharacterBody2D@454/@Node2D@465/BladeLight/@PointLight2D@470",
+                    "position": "(0.0, 0.0)",
+                    "shadow": false,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 1.10000002384186,
+                    "instance": 861593932000.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/@Node2D@404/@PointLight2D@408",
+                    "position": "(168.0, 146.0)",
+                    "shadow": true,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 1.10000002384186,
+                    "instance": 862533456077.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/@Node2D@410/@PointLight2D@414",
+                    "position": "(392.0, 146.0)",
+                    "shadow": true,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 1.10000002384186,
+                    "instance": 862650896585.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/@Node2D@416/@PointLight2D@420",
+                    "position": "(648.0, 146.0)",
+                    "shadow": true,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": false,
+                    "enabled": true,
+                    "energy": 1.10000002384186,
+                    "instance": 862768337112.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/@Node2D@422/@PointLight2D@426",
+                    "position": "(872.0, 146.0)",
+                    "shadow": true,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 0.800000011920929,
+                    "instance": 962575997037.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/accounting_lobby__light_column/@PointLight2D@690",
+                    "position": "(721.4, 267.5)",
+                    "shadow": false,
+                    "visible": true
+                  }
+                ],
+                "valid": true,
+                "viewport_final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+                "viewport_final_transform_values": [
+                  2.0,
+                  0.0,
+                  0.0,
+                  2.0,
+                  0.0,
+                  0.0
+                ],
+                "wall_shadows": [
+                  {
+                    "active_lights": 4.0,
+                    "camera_synchronized": true,
+                    "caster_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-588.7999, -331.2)]",
+                    "caster_transform_values": [
+                      1.91999971866608,
+                      0.0,
+                      0.0,
+                      1.91999971866608,
+                      -588.799926757813,
+                      -331.199951171875
+                    ],
+                    "chosen": [
+                      895165140774.0,
+                      862533456077.0,
+                      862650896585.0,
+                      861593932000.0
+                    ],
+                    "drawn_origin": "(-1177.6, -662.3999)",
+                    "drawn_scale": "(3.839999, 3.839999)",
+                    "enabled": true,
+                    "expected_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-588.7999, -331.2)]",
+                    "expected_transform_values": [
+                      1.91999971866608,
+                      0.0,
+                      0.0,
+                      1.91999971866608,
+                      -588.799926757813,
+                      -331.199951171875
+                    ],
+                    "flagged_casters": 1.0,
+                    "limit": 4.0,
+                    "suspended": false
+                  }
+                ]
+              },
+              "player": "(472.0, 319.9844)",
+              "player_support": {
+                "feet": [
+                  472.0,
+                  319.984375
+                ],
+                "floor": [
+                  472.0,
+                  320.0
+                ],
+                "found": true,
+                "gap": 0.015625,
+                "layout_floor": 320.0,
+                "normal": [
+                  0.0,
+                  -1.0
+                ],
+                "on_floor_cache": true,
+                "safe_margin": 0.0799999982118607,
+                "solver_contact": true,
+                "solver_normal": [
+                  0.0,
+                  -1.0
+                ],
+                "valid": true,
+                "visible": true
+              },
+              "rain": [],
+              "shader_time_scale": 0.0,
+              "weapon_light_energy": 1.60000002384186,
+              "weapon_light_position": "(486.0145, 272.9808)"
+            },
+            "label": "A1",
+            "player": {
+              "below_screen_rect": [
+                542.0,
+                597.0,
+                186.0,
+                24.0
+              ],
+              "contrast": 2.00235462348743,
+              "edge_contrast": 3.20818751840884,
+              "edge_screen_rect": [
+                542.0,
+                566.0,
+                186.0,
+                12.0
+              ],
+              "feet": [
+                472.0,
+                319.984375
+              ],
+              "outer_screen_rect": [
+                523.0,
+                266.0,
+                224.0,
+                362.0
+              ],
+              "parts": {
+                "body": 0.0568297973632812,
+                "bright": 2.00235462348743,
+                "dark": 0.690666939840674,
+                "inner": 0.72570205078125,
+                "outer": 0.228372409091059
+              },
+              "screen_rect": [
+                600.0,
+                343.0,
+                70.0,
+                208.0
+              ]
+            },
+            "player_contact_shadow": {
+              "bounds": [
+                459.988677978516,
+                318.0,
+                27.4984245300293,
+                7.0
+              ],
+              "cast": true,
+              "shift": 1.73789626034823,
+              "visible": true
+            },
+            "player_light_energy": 0.221364006400108,
+            "player_light_visible": true,
+            "player_visible": true,
+            "prop_reference": true,
+            "props": [
+              {
+                "id": "tianqiong_corridor__petition_box",
+                "instance": 577874430812.0,
+                "position": [
+                  208.0,
+                  275.0
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__portrait_frame",
+                "instance": 578763623353.0,
+                "position": [
+                  336.0,
+                  148.0
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__sleek_bench",
+                "instance": 579636038594.0,
+                "position": [
+                  416.0,
+                  303.5
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__frosted_partition",
+                "instance": 580223241155.0,
+                "position": [
+                  608.0,
+                  242.0
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__wall_light_strip",
+                "instance": 580810443720.0,
+                "position": [
+                  704.0,
+                  165.5
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__cloud_sculpture",
+                "instance": 581749967828.0,
+                "position": [
+                  736.0,
+                  275.0
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__modern_planter",
+                "instance": 582337170391.0,
+                "position": [
+                  816.0,
+                  275.0
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__water_cooler",
+                "instance": 582957927389.0,
+                "position": [
+                  896.0,
+                  284.0
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "accounting_lobby__lobby_sofa",
+                "instance": 960931829848.0,
+                "position": [
+                  416.0,
+                  297.5
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "accounting_lobby__light_column",
+                "instance": 961703581795.0,
+                "position": [
+                  704.0,
+                  215.0
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "accounting_lobby__lobby_tree",
+                "instance": 962777323627.0,
+                "position": [
+                  800.0,
+                  242.0
+                ],
+                "visible": true,
+                "z": -21.0
+              }
+            ],
+            "raw_sha256": "abb67fceed8acdb2011933b0be6fef6d45a13bbe11acf0c0f3942f2108b8ff58",
+            "weapon_light": {
+              "enabled": true,
+              "energy": 1.60000002384186,
+              "expected_origin": "(486.0145, 272.9808)",
+              "fade_level": 1.0,
+              "origin_error": 0.0,
+              "position": [
+                486.014526367188,
+                272.980804443359
+              ],
+              "reach": 190.0,
+              "visible": true
+            },
+            "width": 1280.0,
+            "world_environment": {
+              "active": true,
+              "background_mode": 3.0,
+              "cap": 2.0,
+              "glow_enabled": true,
+              "intensity": 0.899999976158142,
+              "threshold": 1.0
+            }
+          },
+          {
+            "ambient": "(0.56, 0.58, 0.62, 1.0)",
+            "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-588.7999, -331.2)]",
+            "canvas_transform_values": [
+              1.91999971866608,
+              0.0,
+              0.0,
+              1.91999971866608,
+              -588.799926757813,
+              -331.199951171875
+            ],
+            "density": 2.0,
+            "enemies": [],
+            "enemy_fill": 1.0,
+            "enemy_fill_scale": 1.0,
+            "enemy_inventory": [],
+            "files": {
+              "png": "bg55-cell000-product.png",
+              "raw": "bg55-cell000-product.bin"
+            },
+            "fog_density": 0.3,
+            "format": 14.0,
+            "height": 720.0,
+            "held": {
+              "actors": [],
+              "aim": "(1.0, 0.0)",
+              "camera": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-588.7999, -331.2)]",
+              "fog_time": 0.633176989417989,
+              "fog_visible": true,
+              "lamps": [
+                {
+                  "at": [
+                    168.0,
+                    146.0
+                  ],
+                  "clock": 0.0,
+                  "dead": false,
+                  "energy": 1.10000002384186,
+                  "fixture": "led_panel",
+                  "state": "stable"
+                },
+                {
+                  "at": [
+                    392.0,
+                    146.0
+                  ],
+                  "clock": 0.0,
+                  "dead": false,
+                  "energy": 1.10000002384186,
+                  "fixture": "security_flood",
+                  "state": "stable"
+                },
+                {
+                  "at": [
+                    648.0,
+                    146.0
+                  ],
+                  "clock": 0.0,
+                  "dead": false,
+                  "energy": 1.10000002384186,
+                  "fixture": "led_panel",
+                  "state": "stable"
+                },
+                {
+                  "at": [
+                    872.0,
+                    146.0
+                  ],
+                  "clock": 0.0,
+                  "dead": false,
+                  "energy": 1.10000002384186,
+                  "fixture": "security_flood",
+                  "state": "stable"
+                }
+              ],
+              "lighting_owners": {
+                "active_lights": 5.0,
+                "active_shadow_lights": 3.0,
+                "contact_shadows": [
+                  {
+                    "bounds": [
+                      459.988677978516,
+                      318.0,
+                      27.4984245300293,
+                      7.0
+                    ],
+                    "cast": true,
+                    "instance": 864815157191.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@CharacterBody2D@454/ContactShadow",
+                    "shift": 1.73789626034823,
+                    "visible": true
+                  }
+                ],
+                "parallax": [
+                  {
+                    "position": "(153.3334, 86.25)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(148.7334, 85.215)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(148.7334, 85.215)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(145.6667, 84.525)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(134.9334, 82.11)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(128.8, 80.73)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(113.4667, 77.28)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(76.66669, 69.0)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(-69.00003, 0.0)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  }
+                ],
+                "physics_bodies": [
+                  {
+                    "disable_mode": 2.0,
+                    "instance": 584803421167.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Terrain/Solid",
+                    "space_valid": true
+                  },
+                  {
+                    "disable_mode": 2.0,
+                    "instance": 585105411066.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Terrain/Platforms",
+                    "space_valid": true
+                  },
+                  {
+                    "disable_mode": 2.0,
+                    "instance": 864597053396.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@CharacterBody2D@454",
+                    "space_valid": true
+                  }
+                ],
+                "scene_lights": [
+                  {
+                    "budget_visible": false,
+                    "enabled": true,
+                    "energy": 0.497369229793549,
+                    "instance": 581682858963.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/tianqiong_corridor__wall_light_strip/@PointLight2D@121",
+                    "position": "(772.9, 170.7)",
+                    "shadow": false,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": false,
+                    "enabled": true,
+                    "energy": 0.5,
+                    "instance": 863254876316.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@428/@PointLight2D@432",
+                    "position": "(56.0, 298.0)",
+                    "shadow": false,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": false,
+                    "enabled": true,
+                    "energy": 0.349999994039536,
+                    "instance": 863607197857.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@433/@PointLight2D@437",
+                    "position": "(232.0, 296.0)",
+                    "shadow": false,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 0.349999994039536,
+                    "instance": 863774969970.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@438/@PointLight2D@442",
+                    "position": "(456.0, 296.0)",
+                    "shadow": false,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 0.5,
+                    "instance": 863959519197.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@443/@PointLight2D@447",
+                    "position": "(584.0, 298.0)",
+                    "shadow": false,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": false,
+                    "enabled": true,
+                    "energy": 0.5,
+                    "instance": 864144068565.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@448/@PointLight2D@452",
+                    "position": "(968.0, 298.0)",
+                    "shadow": false,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": false,
+                    "energy": 0.0,
+                    "instance": 895064477459.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@CharacterBody2D@454/@Node2D@465/BladeLight/@PointLight2D@470",
+                    "position": "(0.0, 0.0)",
+                    "shadow": false,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 1.10000002384186,
+                    "instance": 861593932000.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/@Node2D@404/@PointLight2D@408",
+                    "position": "(168.0, 146.0)",
+                    "shadow": true,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 1.10000002384186,
+                    "instance": 862533456077.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/@Node2D@410/@PointLight2D@414",
+                    "position": "(392.0, 146.0)",
+                    "shadow": true,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 1.10000002384186,
+                    "instance": 862650896585.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/@Node2D@416/@PointLight2D@420",
+                    "position": "(648.0, 146.0)",
+                    "shadow": true,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": false,
+                    "enabled": true,
+                    "energy": 1.10000002384186,
+                    "instance": 862768337112.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/@Node2D@422/@PointLight2D@426",
+                    "position": "(872.0, 146.0)",
+                    "shadow": true,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": false,
+                    "energy": 0.800000011920929,
+                    "instance": 962575997037.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/accounting_lobby__light_column/@PointLight2D@690",
+                    "position": "(721.4, 267.5)",
+                    "shadow": false,
+                    "visible": false
+                  }
+                ],
+                "valid": true,
+                "viewport_final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+                "viewport_final_transform_values": [
+                  2.0,
+                  0.0,
+                  0.0,
+                  2.0,
+                  0.0,
+                  0.0
+                ],
+                "wall_shadows": [
+                  {
+                    "active_lights": 4.0,
+                    "camera_synchronized": true,
+                    "caster_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-588.7999, -331.2)]",
+                    "caster_transform_values": [
+                      1.91999971866608,
+                      0.0,
+                      0.0,
+                      1.91999971866608,
+                      -588.799926757813,
+                      -331.199951171875
+                    ],
+                    "chosen": [
+                      895165140774.0,
+                      862533456077.0,
+                      862650896585.0,
+                      861593932000.0
+                    ],
+                    "drawn_origin": "(-1177.6, -662.3999)",
+                    "drawn_scale": "(3.839999, 3.839999)",
+                    "enabled": true,
+                    "expected_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-588.7999, -331.2)]",
+                    "expected_transform_values": [
+                      1.91999971866608,
+                      0.0,
+                      0.0,
+                      1.91999971866608,
+                      -588.799926757813,
+                      -331.199951171875
+                    ],
+                    "flagged_casters": 1.0,
+                    "limit": 4.0,
+                    "suspended": false
+                  }
+                ]
+              },
+              "player": "(472.0, 319.9844)",
+              "player_support": {
+                "feet": [
+                  472.0,
+                  319.984375
+                ],
+                "floor": [
+                  472.0,
+                  320.0
+                ],
+                "found": true,
+                "gap": 0.015625,
+                "layout_floor": 320.0,
+                "normal": [
+                  0.0,
+                  -1.0
+                ],
+                "on_floor_cache": true,
+                "safe_margin": 0.0799999982118607,
+                "solver_contact": true,
+                "solver_normal": [
+                  0.0,
+                  -1.0
+                ],
+                "valid": true,
+                "visible": true
+              },
+              "rain": [],
+              "shader_time_scale": 0.0,
+              "weapon_light_energy": 1.60000002384186,
+              "weapon_light_position": "(486.0145, 272.9808)"
+            },
+            "label": "product",
+            "player": {
+              "below_screen_rect": [
+                542.0,
+                597.0,
+                186.0,
+                24.0
+              ],
+              "contrast": 1.41273462063361,
+              "edge_contrast": 3.26985261073111,
+              "edge_screen_rect": [
+                542.0,
+                566.0,
+                186.0,
+                12.0
+              ],
+              "feet": [
+                472.0,
+                319.984375
+              ],
+              "outer_screen_rect": [
+                523.0,
+                266.0,
+                224.0,
+                362.0
+              ],
+              "parts": {
+                "body": 0.0456527648925781,
+                "bright": 1.41273462063361,
+                "dark": 0.632586100535824,
+                "inner": 0.411128759765625,
+                "outer": 0.15868884380347
+              },
+              "screen_rect": [
+                600.0,
+                343.0,
+                70.0,
+                208.0
+              ]
+            },
+            "player_contact_shadow": {
+              "bounds": [
+                459.988677978516,
+                318.0,
+                27.4984245300293,
+                7.0
+              ],
+              "cast": true,
+              "shift": 1.73789626034823,
+              "visible": true
+            },
+            "player_light_energy": 0.221364006400108,
+            "player_light_visible": true,
+            "player_visible": true,
+            "prop_reference": false,
+            "props": [
+              {
+                "id": "tianqiong_corridor__petition_box",
+                "instance": 577874430812.0,
+                "position": [
+                  208.0,
+                  275.0
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__portrait_frame",
+                "instance": 578763623353.0,
+                "position": [
+                  336.0,
+                  148.0
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__sleek_bench",
+                "instance": 579636038594.0,
+                "position": [
+                  416.0,
+                  303.5
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__frosted_partition",
+                "instance": 580223241155.0,
+                "position": [
+                  608.0,
+                  242.0
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__wall_light_strip",
+                "instance": 580810443720.0,
+                "position": [
+                  704.0,
+                  165.5
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__cloud_sculpture",
+                "instance": 581749967828.0,
+                "position": [
+                  736.0,
+                  275.0
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__modern_planter",
+                "instance": 582337170391.0,
+                "position": [
+                  816.0,
+                  275.0
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__water_cooler",
+                "instance": 582957927389.0,
+                "position": [
+                  896.0,
+                  284.0
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "accounting_lobby__lobby_sofa",
+                "instance": 960931829848.0,
+                "position": [
+                  416.0,
+                  297.5
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "accounting_lobby__light_column",
+                "instance": 961703581795.0,
+                "position": [
+                  704.0,
+                  215.0
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "accounting_lobby__lobby_tree",
+                "instance": 962777323627.0,
+                "position": [
+                  800.0,
+                  242.0
+                ],
+                "visible": false,
+                "z": -21.0
+              }
+            ],
+            "raw_sha256": "4b9232a4e1830b626bb47c05e58cb7217577fc65986d35741b35693bce2e6a30",
+            "weapon_light": {
+              "enabled": true,
+              "energy": 1.60000002384186,
+              "expected_origin": "(486.0145, 272.9808)",
+              "fade_level": 1.0,
+              "origin_error": 0.0,
+              "position": [
+                486.014526367188,
+                272.980804443359
+              ],
+              "reach": 190.0,
+              "visible": true
+            },
+            "width": 1280.0,
+            "world_environment": {
+              "active": true,
+              "background_mode": 3.0,
+              "cap": 2.0,
+              "glow_enabled": true,
+              "intensity": 0.899999976158142,
+              "threshold": 1.0
+            }
+          },
+          {
+            "ambient": "(0.56, 0.58, 0.62, 1.0)",
+            "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-588.7999, -331.2)]",
+            "canvas_transform_values": [
+              1.91999971866608,
+              0.0,
+              0.0,
+              1.91999971866608,
+              -588.799926757813,
+              -331.199951171875
+            ],
+            "density": 2.0,
+            "enemies": [],
+            "enemy_fill": 1.0,
+            "enemy_fill_scale": 1.0,
+            "enemy_inventory": [],
+            "files": {
+              "png": "bg55-cell000-A0.png",
+              "raw": "bg55-cell000-A0.bin"
+            },
+            "fog_density": 0.3,
+            "format": 14.0,
+            "height": 720.0,
+            "held": {
+              "actors": [],
+              "aim": "(1.0, 0.0)",
+              "camera": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-588.7999, -331.2)]",
+              "fog_time": 0.633176989417989,
+              "fog_visible": true,
+              "lamps": [
+                {
+                  "at": [
+                    168.0,
+                    146.0
+                  ],
+                  "clock": 0.0,
+                  "dead": false,
+                  "energy": 1.10000002384186,
+                  "fixture": "led_panel",
+                  "state": "stable"
+                },
+                {
+                  "at": [
+                    392.0,
+                    146.0
+                  ],
+                  "clock": 0.0,
+                  "dead": false,
+                  "energy": 1.10000002384186,
+                  "fixture": "security_flood",
+                  "state": "stable"
+                },
+                {
+                  "at": [
+                    648.0,
+                    146.0
+                  ],
+                  "clock": 0.0,
+                  "dead": false,
+                  "energy": 1.10000002384186,
+                  "fixture": "led_panel",
+                  "state": "stable"
+                },
+                {
+                  "at": [
+                    872.0,
+                    146.0
+                  ],
+                  "clock": 0.0,
+                  "dead": false,
+                  "energy": 1.10000002384186,
+                  "fixture": "security_flood",
+                  "state": "stable"
+                }
+              ],
+              "lighting_owners": {
+                "active_lights": 6.0,
+                "active_shadow_lights": 3.0,
+                "contact_shadows": [
+                  {
+                    "bounds": [
+                      459.988677978516,
+                      318.0,
+                      27.4984245300293,
+                      7.0
+                    ],
+                    "cast": true,
+                    "instance": 864815157191.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@CharacterBody2D@454/ContactShadow",
+                    "shift": 1.73789626034823,
+                    "visible": true
+                  }
+                ],
+                "parallax": [
+                  {
+                    "position": "(153.3334, 86.25)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(148.7334, 85.215)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(148.7334, 85.215)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(145.6667, 84.525)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(134.9334, 82.11)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(128.8, 80.73)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(113.4667, 77.28)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(76.66669, 69.0)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(-69.00003, 0.0)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  }
+                ],
+                "physics_bodies": [
+                  {
+                    "disable_mode": 2.0,
+                    "instance": 584803421167.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Terrain/Solid",
+                    "space_valid": true
+                  },
+                  {
+                    "disable_mode": 2.0,
+                    "instance": 585105411066.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Terrain/Platforms",
+                    "space_valid": true
+                  },
+                  {
+                    "disable_mode": 2.0,
+                    "instance": 864597053396.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@CharacterBody2D@454",
+                    "space_valid": true
+                  }
+                ],
+                "scene_lights": [
+                  {
+                    "budget_visible": false,
+                    "enabled": false,
+                    "energy": 0.497369229793549,
+                    "instance": 581682858963.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/tianqiong_corridor__wall_light_strip/@PointLight2D@121",
+                    "position": "(772.9, 170.7)",
+                    "shadow": false,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": false,
+                    "enabled": true,
+                    "energy": 0.5,
+                    "instance": 863254876316.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@428/@PointLight2D@432",
+                    "position": "(56.0, 298.0)",
+                    "shadow": false,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": false,
+                    "enabled": true,
+                    "energy": 0.349999994039536,
+                    "instance": 863607197857.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@433/@PointLight2D@437",
+                    "position": "(232.0, 296.0)",
+                    "shadow": false,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 0.349999994039536,
+                    "instance": 863774969970.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@438/@PointLight2D@442",
+                    "position": "(456.0, 296.0)",
+                    "shadow": false,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 0.5,
+                    "instance": 863959519197.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@443/@PointLight2D@447",
+                    "position": "(584.0, 298.0)",
+                    "shadow": false,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": false,
+                    "enabled": true,
+                    "energy": 0.5,
+                    "instance": 864144068565.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@448/@PointLight2D@452",
+                    "position": "(968.0, 298.0)",
+                    "shadow": false,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": false,
+                    "energy": 0.0,
+                    "instance": 895064477459.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@CharacterBody2D@454/@Node2D@465/BladeLight/@PointLight2D@470",
+                    "position": "(0.0, 0.0)",
+                    "shadow": false,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 1.10000002384186,
+                    "instance": 861593932000.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/@Node2D@404/@PointLight2D@408",
+                    "position": "(168.0, 146.0)",
+                    "shadow": true,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 1.10000002384186,
+                    "instance": 862533456077.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/@Node2D@410/@PointLight2D@414",
+                    "position": "(392.0, 146.0)",
+                    "shadow": true,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 1.10000002384186,
+                    "instance": 862650896585.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/@Node2D@416/@PointLight2D@420",
+                    "position": "(648.0, 146.0)",
+                    "shadow": true,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": false,
+                    "enabled": true,
+                    "energy": 1.10000002384186,
+                    "instance": 862768337112.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/@Node2D@422/@PointLight2D@426",
+                    "position": "(872.0, 146.0)",
+                    "shadow": true,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 0.800000011920929,
+                    "instance": 962575997037.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/accounting_lobby__light_column/@PointLight2D@690",
+                    "position": "(721.4, 267.5)",
+                    "shadow": false,
+                    "visible": true
+                  }
+                ],
+                "valid": true,
+                "viewport_final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+                "viewport_final_transform_values": [
+                  2.0,
+                  0.0,
+                  0.0,
+                  2.0,
+                  0.0,
+                  0.0
+                ],
+                "wall_shadows": [
+                  {
+                    "active_lights": 4.0,
+                    "camera_synchronized": true,
+                    "caster_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-588.7999, -331.2)]",
+                    "caster_transform_values": [
+                      1.91999971866608,
+                      0.0,
+                      0.0,
+                      1.91999971866608,
+                      -588.799926757813,
+                      -331.199951171875
+                    ],
+                    "chosen": [
+                      895165140774.0,
+                      862533456077.0,
+                      862650896585.0,
+                      861593932000.0
+                    ],
+                    "drawn_origin": "(-1177.6, -662.3999)",
+                    "drawn_scale": "(3.839999, 3.839999)",
+                    "enabled": true,
+                    "expected_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-588.7999, -331.2)]",
+                    "expected_transform_values": [
+                      1.91999971866608,
+                      0.0,
+                      0.0,
+                      1.91999971866608,
+                      -588.799926757813,
+                      -331.199951171875
+                    ],
+                    "flagged_casters": 1.0,
+                    "limit": 4.0,
+                    "suspended": false
+                  }
+                ]
+              },
+              "player": "(472.0, 319.9844)",
+              "player_support": {
+                "feet": [
+                  472.0,
+                  319.984375
+                ],
+                "floor": [
+                  472.0,
+                  320.0
+                ],
+                "found": true,
+                "gap": 0.015625,
+                "layout_floor": 320.0,
+                "normal": [
+                  0.0,
+                  -1.0
+                ],
+                "on_floor_cache": true,
+                "safe_margin": 0.0799999982118607,
+                "solver_contact": true,
+                "solver_normal": [
+                  0.0,
+                  -1.0
+                ],
+                "valid": true,
+                "visible": true
+              },
+              "rain": [],
+              "shader_time_scale": 0.0,
+              "weapon_light_energy": 1.60000002384186,
+              "weapon_light_position": "(486.0145, 272.9808)"
+            },
+            "label": "restore-product",
+            "player": {
+              "below_screen_rect": [
+                542.0,
+                597.0,
+                186.0,
+                24.0
+              ],
+              "contrast": 2.00235462348743,
+              "edge_contrast": 3.20818751840884,
+              "edge_screen_rect": [
+                542.0,
+                566.0,
+                186.0,
+                12.0
+              ],
+              "feet": [
+                472.0,
+                319.984375
+              ],
+              "outer_screen_rect": [
+                523.0,
+                266.0,
+                224.0,
+                362.0
+              ],
+              "parts": {
+                "body": 0.0568297973632812,
+                "bright": 2.00235462348743,
+                "dark": 0.690666939840674,
+                "inner": 0.72570205078125,
+                "outer": 0.228372409091059
+              },
+              "screen_rect": [
+                600.0,
+                343.0,
+                70.0,
+                208.0
+              ]
+            },
+            "player_contact_shadow": {
+              "bounds": [
+                459.988677978516,
+                318.0,
+                27.4984245300293,
+                7.0
+              ],
+              "cast": true,
+              "shift": 1.73789626034823,
+              "visible": true
+            },
+            "player_light_energy": 0.221364006400108,
+            "player_light_visible": true,
+            "player_visible": true,
+            "prop_reference": true,
+            "props": [
+              {
+                "id": "tianqiong_corridor__petition_box",
+                "instance": 577874430812.0,
+                "position": [
+                  208.0,
+                  275.0
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__portrait_frame",
+                "instance": 578763623353.0,
+                "position": [
+                  336.0,
+                  148.0
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__sleek_bench",
+                "instance": 579636038594.0,
+                "position": [
+                  416.0,
+                  303.5
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__frosted_partition",
+                "instance": 580223241155.0,
+                "position": [
+                  608.0,
+                  242.0
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__wall_light_strip",
+                "instance": 580810443720.0,
+                "position": [
+                  704.0,
+                  165.5
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__cloud_sculpture",
+                "instance": 581749967828.0,
+                "position": [
+                  736.0,
+                  275.0
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__modern_planter",
+                "instance": 582337170391.0,
+                "position": [
+                  816.0,
+                  275.0
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__water_cooler",
+                "instance": 582957927389.0,
+                "position": [
+                  896.0,
+                  284.0
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "accounting_lobby__lobby_sofa",
+                "instance": 960931829848.0,
+                "position": [
+                  416.0,
+                  297.5
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "accounting_lobby__light_column",
+                "instance": 961703581795.0,
+                "position": [
+                  704.0,
+                  215.0
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "accounting_lobby__lobby_tree",
+                "instance": 962777323627.0,
+                "position": [
+                  800.0,
+                  242.0
+                ],
+                "visible": true,
+                "z": -21.0
+              }
+            ],
+            "raw_sha256": "abb67fceed8acdb2011933b0be6fef6d45a13bbe11acf0c0f3942f2108b8ff58",
+            "weapon_light": {
+              "enabled": true,
+              "energy": 1.60000002384186,
+              "expected_origin": "(486.0145, 272.9808)",
+              "fade_level": 1.0,
+              "origin_error": 0.0,
+              "position": [
+                486.014526367188,
+                272.980804443359
+              ],
+              "reach": 190.0,
+              "visible": true
+            },
+            "width": 1280.0,
+            "world_environment": {
+              "active": true,
+              "background_mode": 3.0,
+              "cap": 2.0,
+              "glow_enabled": true,
+              "intensity": 0.899999976158142,
+              "threshold": 1.0
+            }
+          },
+          {
+            "ambient": "(0.56, 0.58, 0.62, 1.0)",
+            "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-588.7999, -331.2)]",
+            "canvas_transform_values": [
+              1.91999971866608,
+              0.0,
+              0.0,
+              1.91999971866608,
+              -588.799926757813,
+              -331.199951171875
+            ],
+            "density": 2.0,
+            "enemies": [],
+            "enemy_fill": 1.0,
+            "enemy_fill_scale": 1.0,
+            "enemy_inventory": [],
+            "files": {
+              "png": "bg55-cell000-product.png",
+              "raw": "bg55-cell000-product.bin"
+            },
+            "fog_density": 0.3,
+            "format": 14.0,
+            "height": 720.0,
+            "held": {
+              "actors": [],
+              "aim": "(1.0, 0.0)",
+              "camera": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-588.7999, -331.2)]",
+              "fog_time": 0.633176989417989,
+              "fog_visible": true,
+              "lamps": [
+                {
+                  "at": [
+                    168.0,
+                    146.0
+                  ],
+                  "clock": 0.0,
+                  "dead": false,
+                  "energy": 1.10000002384186,
+                  "fixture": "led_panel",
+                  "state": "stable"
+                },
+                {
+                  "at": [
+                    392.0,
+                    146.0
+                  ],
+                  "clock": 0.0,
+                  "dead": false,
+                  "energy": 1.10000002384186,
+                  "fixture": "security_flood",
+                  "state": "stable"
+                },
+                {
+                  "at": [
+                    648.0,
+                    146.0
+                  ],
+                  "clock": 0.0,
+                  "dead": false,
+                  "energy": 1.10000002384186,
+                  "fixture": "led_panel",
+                  "state": "stable"
+                },
+                {
+                  "at": [
+                    872.0,
+                    146.0
+                  ],
+                  "clock": 0.0,
+                  "dead": false,
+                  "energy": 1.10000002384186,
+                  "fixture": "security_flood",
+                  "state": "stable"
+                }
+              ],
+              "lighting_owners": {
+                "active_lights": 5.0,
+                "active_shadow_lights": 3.0,
+                "contact_shadows": [
+                  {
+                    "bounds": [
+                      459.988677978516,
+                      318.0,
+                      27.4984245300293,
+                      7.0
+                    ],
+                    "cast": true,
+                    "instance": 864815157191.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@CharacterBody2D@454/ContactShadow",
+                    "shift": 1.73789626034823,
+                    "visible": true
+                  }
+                ],
+                "parallax": [
+                  {
+                    "position": "(153.3334, 86.25)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(148.7334, 85.215)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(148.7334, 85.215)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(145.6667, 84.525)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(134.9334, 82.11)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(128.8, 80.73)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(113.4667, 77.28)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(76.66669, 69.0)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  },
+                  {
+                    "position": "(-69.00003, 0.0)",
+                    "screen_offset": "(153.3334, 86.25)",
+                    "scroll_offset": "(0.0, 0.0)"
+                  }
+                ],
+                "physics_bodies": [
+                  {
+                    "disable_mode": 2.0,
+                    "instance": 584803421167.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Terrain/Solid",
+                    "space_valid": true
+                  },
+                  {
+                    "disable_mode": 2.0,
+                    "instance": 585105411066.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Terrain/Platforms",
+                    "space_valid": true
+                  },
+                  {
+                    "disable_mode": 2.0,
+                    "instance": 864597053396.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@CharacterBody2D@454",
+                    "space_valid": true
+                  }
+                ],
+                "scene_lights": [
+                  {
+                    "budget_visible": false,
+                    "enabled": true,
+                    "energy": 0.497369229793549,
+                    "instance": 581682858963.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/tianqiong_corridor__wall_light_strip/@PointLight2D@121",
+                    "position": "(772.9, 170.7)",
+                    "shadow": false,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": false,
+                    "enabled": true,
+                    "energy": 0.5,
+                    "instance": 863254876316.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@428/@PointLight2D@432",
+                    "position": "(56.0, 298.0)",
+                    "shadow": false,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": false,
+                    "enabled": true,
+                    "energy": 0.349999994039536,
+                    "instance": 863607197857.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@433/@PointLight2D@437",
+                    "position": "(232.0, 296.0)",
+                    "shadow": false,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 0.349999994039536,
+                    "instance": 863774969970.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@438/@PointLight2D@442",
+                    "position": "(456.0, 296.0)",
+                    "shadow": false,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 0.5,
+                    "instance": 863959519197.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@443/@PointLight2D@447",
+                    "position": "(584.0, 298.0)",
+                    "shadow": false,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": false,
+                    "enabled": true,
+                    "energy": 0.5,
+                    "instance": 864144068565.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@Area2D@448/@PointLight2D@452",
+                    "position": "(968.0, 298.0)",
+                    "shadow": false,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": false,
+                    "energy": 0.0,
+                    "instance": 895064477459.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/Entities/@CharacterBody2D@454/@Node2D@465/BladeLight/@PointLight2D@470",
+                    "position": "(0.0, 0.0)",
+                    "shadow": false,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 1.10000002384186,
+                    "instance": 861593932000.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/@Node2D@404/@PointLight2D@408",
+                    "position": "(168.0, 146.0)",
+                    "shadow": true,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 1.10000002384186,
+                    "instance": 862533456077.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/@Node2D@410/@PointLight2D@414",
+                    "position": "(392.0, 146.0)",
+                    "shadow": true,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": true,
+                    "energy": 1.10000002384186,
+                    "instance": 862650896585.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/@Node2D@416/@PointLight2D@420",
+                    "position": "(648.0, 146.0)",
+                    "shadow": true,
+                    "visible": true
+                  },
+                  {
+                    "budget_visible": false,
+                    "enabled": true,
+                    "energy": 1.10000002384186,
+                    "instance": 862768337112.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/@Node2D@422/@PointLight2D@426",
+                    "position": "(872.0, 146.0)",
+                    "shadow": true,
+                    "visible": false
+                  },
+                  {
+                    "budget_visible": true,
+                    "enabled": false,
+                    "energy": 0.800000011920929,
+                    "instance": 962575997037.0,
+                    "path": "/root/BG40Readability/@Node2D@83/World/accounting_lobby__light_column/@PointLight2D@690",
+                    "position": "(721.4, 267.5)",
+                    "shadow": false,
+                    "visible": false
+                  }
+                ],
+                "valid": true,
+                "viewport_final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+                "viewport_final_transform_values": [
+                  2.0,
+                  0.0,
+                  0.0,
+                  2.0,
+                  0.0,
+                  0.0
+                ],
+                "wall_shadows": [
+                  {
+                    "active_lights": 4.0,
+                    "camera_synchronized": true,
+                    "caster_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-588.7999, -331.2)]",
+                    "caster_transform_values": [
+                      1.91999971866608,
+                      0.0,
+                      0.0,
+                      1.91999971866608,
+                      -588.799926757813,
+                      -331.199951171875
+                    ],
+                    "chosen": [
+                      895165140774.0,
+                      862533456077.0,
+                      862650896585.0,
+                      861593932000.0
+                    ],
+                    "drawn_origin": "(-1177.6, -662.3999)",
+                    "drawn_scale": "(3.839999, 3.839999)",
+                    "enabled": true,
+                    "expected_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-588.7999, -331.2)]",
+                    "expected_transform_values": [
+                      1.91999971866608,
+                      0.0,
+                      0.0,
+                      1.91999971866608,
+                      -588.799926757813,
+                      -331.199951171875
+                    ],
+                    "flagged_casters": 1.0,
+                    "limit": 4.0,
+                    "suspended": false
+                  }
+                ]
+              },
+              "player": "(472.0, 319.9844)",
+              "player_support": {
+                "feet": [
+                  472.0,
+                  319.984375
+                ],
+                "floor": [
+                  472.0,
+                  320.0
+                ],
+                "found": true,
+                "gap": 0.015625,
+                "layout_floor": 320.0,
+                "normal": [
+                  0.0,
+                  -1.0
+                ],
+                "on_floor_cache": true,
+                "safe_margin": 0.0799999982118607,
+                "solver_contact": true,
+                "solver_normal": [
+                  0.0,
+                  -1.0
+                ],
+                "valid": true,
+                "visible": true
+              },
+              "rain": [],
+              "shader_time_scale": 0.0,
+              "weapon_light_energy": 1.60000002384186,
+              "weapon_light_position": "(486.0145, 272.9808)"
+            },
+            "label": "authored-final",
+            "player": {
+              "below_screen_rect": [
+                542.0,
+                597.0,
+                186.0,
+                24.0
+              ],
+              "contrast": 1.41273462063361,
+              "edge_contrast": 3.26985261073111,
+              "edge_screen_rect": [
+                542.0,
+                566.0,
+                186.0,
+                12.0
+              ],
+              "feet": [
+                472.0,
+                319.984375
+              ],
+              "outer_screen_rect": [
+                523.0,
+                266.0,
+                224.0,
+                362.0
+              ],
+              "parts": {
+                "body": 0.0456527648925781,
+                "bright": 1.41273462063361,
+                "dark": 0.632586100535824,
+                "inner": 0.411128759765625,
+                "outer": 0.15868884380347
+              },
+              "screen_rect": [
+                600.0,
+                343.0,
+                70.0,
+                208.0
+              ]
+            },
+            "player_contact_shadow": {
+              "bounds": [
+                459.988677978516,
+                318.0,
+                27.4984245300293,
+                7.0
+              ],
+              "cast": true,
+              "shift": 1.73789626034823,
+              "visible": true
+            },
+            "player_light_energy": 0.221364006400108,
+            "player_light_visible": true,
+            "player_visible": true,
+            "prop_reference": false,
+            "props": [
+              {
+                "id": "tianqiong_corridor__petition_box",
+                "instance": 577874430812.0,
+                "position": [
+                  208.0,
+                  275.0
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__portrait_frame",
+                "instance": 578763623353.0,
+                "position": [
+                  336.0,
+                  148.0
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__sleek_bench",
+                "instance": 579636038594.0,
+                "position": [
+                  416.0,
+                  303.5
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__frosted_partition",
+                "instance": 580223241155.0,
+                "position": [
+                  608.0,
+                  242.0
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__wall_light_strip",
+                "instance": 580810443720.0,
+                "position": [
+                  704.0,
+                  165.5
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__cloud_sculpture",
+                "instance": 581749967828.0,
+                "position": [
+                  736.0,
+                  275.0
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__modern_planter",
+                "instance": 582337170391.0,
+                "position": [
+                  816.0,
+                  275.0
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "tianqiong_corridor__water_cooler",
+                "instance": 582957927389.0,
+                "position": [
+                  896.0,
+                  284.0
+                ],
+                "visible": true,
+                "z": -21.0
+              },
+              {
+                "id": "accounting_lobby__lobby_sofa",
+                "instance": 960931829848.0,
+                "position": [
+                  416.0,
+                  297.5
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "accounting_lobby__light_column",
+                "instance": 961703581795.0,
+                "position": [
+                  704.0,
+                  215.0
+                ],
+                "visible": false,
+                "z": -21.0
+              },
+              {
+                "id": "accounting_lobby__lobby_tree",
+                "instance": 962777323627.0,
+                "position": [
+                  800.0,
+                  242.0
+                ],
+                "visible": false,
+                "z": -21.0
+              }
+            ],
+            "raw_sha256": "4b9232a4e1830b626bb47c05e58cb7217577fc65986d35741b35693bce2e6a30",
+            "weapon_light": {
+              "enabled": true,
+              "energy": 1.60000002384186,
+              "expected_origin": "(486.0145, 272.9808)",
+              "fade_level": 1.0,
+              "origin_error": 0.0,
+              "position": [
+                486.014526367188,
+                272.980804443359
+              ],
+              "reach": 190.0,
+              "visible": true
+            },
+            "width": 1280.0,
+            "world_environment": {
+              "active": true,
+              "background_mode": 3.0,
+              "cap": 2.0,
+              "glow_enabled": true,
+              "intensity": 0.899999976158142,
+              "threshold": 1.0
+            }
+          }
+        ],
+        "scope": "same current runtime/geometry; only BG40 prop additions/removals counterfactual; later unrelated props retained"
+      },
+      "column": 1.0,
+      "file": "office-smoke-high-v1-c01-r01.png",
+      "passed": true,
+      "row": 1.0,
+      "world": [
+        306.666687011719,
+        172.5,
+        333.333435058594,
+        187.500030517578
+      ]
+    }
+  ],
+  "tag": "office-smoke-high-v1",
+  "tile": 16.0,
+  "view": [
+    333.333343505859,
+    187.5
+  ]
+}

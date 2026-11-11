@@ -1,0 +1,70 @@
+{
+  "controls_valid": true,
+  "levels": {
+    "ch3_office_hall": {
+      "cells": 1,
+      "standable": 1,
+      "minimum_player": 1.41273462063361,
+      "minimum_edge": 3.26985261073111,
+      "all_thresholds_passed": true,
+      "player_decrease_cells": [
+        {
+          "column": 1.0,
+          "row": 1.0,
+          "delta": -0.5896200028538201
+        }
+      ],
+      "edge_decrease_cells": []
+    }
+  },
+  "observations": [
+    {
+      "level": "ch3_office_hall",
+      "column": 1.0,
+      "row": 1.0,
+      "player_visible": true,
+      "enemy_count": 0,
+      "controls_valid": true,
+      "player": 1.41273462063361,
+      "edge": 3.26985261073111,
+      "original_player": 2.00235462348743,
+      "original_edge": 3.20818751840884,
+      "player_delta": -0.5896200028538201,
+      "edge_delta": 0.06166509232226991,
+      "feet": [
+        472.0,
+        319.984375
+      ],
+      "support": {
+        "feet": [
+          472.0,
+          319.984375
+        ],
+        "floor": [
+          472.0,
+          320.0
+        ],
+        "found": true,
+        "gap": 0.015625,
+        "layout_floor": 320.0,
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "on_floor_cache": true,
+        "safe_margin": 0.0799999982118607,
+        "solver_contact": true,
+        "solver_normal": [
+          0.0,
+          -1.0
+        ],
+        "valid": true,
+        "visible": true
+      },
+      "thresholds_passed": true
+    }
+  ],
+  "all_thresholds_passed": true,
+  "scope": "same present geometry; only original BG40 prop delta; decreases retained explicitly; no enemies/exposure sample is fabricated",
+  "verifier_sha256": "beae259566743c03743e7dd249f1bc7c641ca0293746f81dba0f51439cd8aed7"
+}

@@ -1,0 +1,1223 @@
+[
+  {
+    "quality": "high",
+    "level": "ch2_lounge_front",
+    "column": 2,
+    "row": 2,
+    "reasons": [
+      "minimum-current-player",
+      "largest-player-decrease"
+    ],
+    "originals": [
+      {
+        "label": "original-props",
+        "file": "pm/Nest-Egg-BG/images/BG-40-native-high-ch2_lounge_front-c2r2-original-props.png",
+        "sha256": "65b08ae66ad31d7978825922b0e05fdbff788f7336baf44633608e3047394844",
+        "source": "bg40-all-high-v1/ch2_lounge_front/bg55-cell026-A0.png",
+        "raw_sha256": "c9be43b973dde155fc01e153db9d9671f8471af38f0df8439a6f1529a7639618",
+        "player": {
+          "below_screen_rect": [
+            542.0,
+            504.0,
+            186.0,
+            24.0
+          ],
+          "contrast": 5.21176701364856,
+          "edge_contrast": 3.44683434190445,
+          "edge_screen_rect": [
+            542.0,
+            474.0,
+            186.0,
+            12.0
+          ],
+          "feet": [
+            728.0,
+            319.984375
+          ],
+          "outer_screen_rect": [
+            523.0,
+            174.0,
+            224.0,
+            362.0
+          ],
+          "parts": {
+            "body": 0.00381476593017578,
+            "bright": 5.21176701364856,
+            "dark": 0.190230407405131,
+            "inner": 0.1626837890625,
+            "outer": 0.00940931117685277
+          },
+          "screen_rect": [
+            600.0,
+            251.0,
+            70.0,
+            208.0
+          ]
+        },
+        "world_environment": {
+          "active": true,
+          "background_mode": 3.0,
+          "cap": 2.0,
+          "glow_enabled": true,
+          "intensity": 0.850000023841858,
+          "threshold": 1.10000002384186
+        }
+      },
+      {
+        "label": "current-props",
+        "file": "pm/Nest-Egg-BG/images/BG-40-native-high-ch2_lounge_front-c2r2-current-props.png",
+        "sha256": "a7690f5bee82fbebb0372b6b7eb5ad9e7c7a80367d20a040d84e82352faaaeba",
+        "source": "bg40-all-high-v1/ch2_lounge_front/bg55-cell026-product.png",
+        "raw_sha256": "04e419d8d4611180735bd4d34d6d36507715e98aca5c1a16123c56cb2bde8be5",
+        "player": {
+          "below_screen_rect": [
+            542.0,
+            504.0,
+            186.0,
+            24.0
+          ],
+          "contrast": 2.27169102504374,
+          "edge_contrast": 3.7109233504132,
+          "edge_screen_rect": [
+            542.0,
+            474.0,
+            186.0,
+            12.0
+          ],
+          "feet": [
+            728.0,
+            319.984375
+          ],
+          "outer_screen_rect": [
+            523.0,
+            174.0,
+            224.0,
+            362.0
+          ],
+          "parts": {
+            "body": 0.0322871215820313,
+            "bright": 2.27169102504374,
+            "dark": 0.518313126555348,
+            "inner": 0.335142138671875,
+            "outer": 0.088550023811349
+          },
+          "screen_rect": [
+            600.0,
+            251.0,
+            70.0,
+            208.0
+          ]
+        },
+        "world_environment": {
+          "active": true,
+          "background_mode": 3.0,
+          "cap": 2.0,
+          "glow_enabled": true,
+          "intensity": 0.850000023841858,
+          "threshold": 1.10000002384186
+        }
+      }
+    ],
+    "pair": "pm/Nest-Egg-BG/images/BG-40-native-high-ch2_lounge_front-c2r2-pair.png",
+    "canonical_outer_pair": "pm/Nest-Egg-BG/images/BG-40-native-high-ch2_lounge_front-c2r2-canonical-outer-pair.png",
+    "scope": "unscaled original pixels; same body/outer screen rectangles; original props left/current props right"
+  },
+  {
+    "quality": "high",
+    "level": "ch2_pawnshop",
+    "column": 5,
+    "row": 1,
+    "reasons": [
+      "minimum-current-player"
+    ],
+    "originals": [
+      {
+        "label": "original-props",
+        "file": "pm/Nest-Egg-BG/images/BG-40-native-high-ch2_pawnshop-c5r1-original-props.png",
+        "sha256": "14af5432bef525692eda8ea2ebee1d1a8eefd42718bba6c218e67798002ee7d7",
+        "source": "bg40-all-high-v1/ch2_pawnshop/bg55-cell011-A0.png",
+        "raw_sha256": "c0bb1b9209e2e34e97a110b1543e7e5f6a427d9a7d86035a3d0a8dfffa577206",
+        "player": {
+          "below_screen_rect": [
+            542.0,
+            597.0,
+            186.0,
+            24.0
+          ],
+          "contrast": 0.881173472144281,
+          "edge_contrast": 3.50555080376238,
+          "edge_screen_rect": [
+            542.0,
+            566.0,
+            186.0,
+            12.0
+          ],
+          "feet": [
+            1624.0,
+            319.984375
+          ],
+          "outer_screen_rect": [
+            523.0,
+            266.0,
+            224.0,
+            362.0
+          ],
+          "parts": {
+            "body": 0.0201264724731445,
+            "bright": 0.881173472144281,
+            "dark": 0.708319031649424,
+            "inner": 0.238792529296875,
+            "outer": 0.117569731409133
+          },
+          "screen_rect": [
+            600.0,
+            343.0,
+            70.0,
+            208.0
+          ]
+        },
+        "world_environment": {
+          "active": true,
+          "background_mode": 3.0,
+          "cap": 2.0,
+          "glow_enabled": true,
+          "intensity": 0.800000011920929,
+          "threshold": 1.10000002384186
+        }
+      },
+      {
+        "label": "current-props",
+        "file": "pm/Nest-Egg-BG/images/BG-40-native-high-ch2_pawnshop-c5r1-current-props.png",
+        "sha256": "14af5432bef525692eda8ea2ebee1d1a8eefd42718bba6c218e67798002ee7d7",
+        "source": "bg40-all-high-v1/ch2_pawnshop/bg55-cell011-A0.png",
+        "raw_sha256": "c0bb1b9209e2e34e97a110b1543e7e5f6a427d9a7d86035a3d0a8dfffa577206",
+        "player": {
+          "below_screen_rect": [
+            542.0,
+            597.0,
+            186.0,
+            24.0
+          ],
+          "contrast": 0.881173472144281,
+          "edge_contrast": 3.50555080376238,
+          "edge_screen_rect": [
+            542.0,
+            566.0,
+            186.0,
+            12.0
+          ],
+          "feet": [
+            1624.0,
+            319.984375
+          ],
+          "outer_screen_rect": [
+            523.0,
+            266.0,
+            224.0,
+            362.0
+          ],
+          "parts": {
+            "body": 0.0201264724731445,
+            "bright": 0.881173472144281,
+            "dark": 0.708319031649424,
+            "inner": 0.238792529296875,
+            "outer": 0.117569731409133
+          },
+          "screen_rect": [
+            600.0,
+            343.0,
+            70.0,
+            208.0
+          ]
+        },
+        "world_environment": {
+          "active": true,
+          "background_mode": 3.0,
+          "cap": 2.0,
+          "glow_enabled": true,
+          "intensity": 0.800000011920929,
+          "threshold": 1.10000002384186
+        }
+      }
+    ],
+    "pair": "pm/Nest-Egg-BG/images/BG-40-native-high-ch2_pawnshop-c5r1-pair.png",
+    "canonical_outer_pair": "pm/Nest-Egg-BG/images/BG-40-native-high-ch2_pawnshop-c5r1-canonical-outer-pair.png",
+    "scope": "unscaled original pixels; same body/outer screen rectangles; original props left/current props right"
+  },
+  {
+    "quality": "high",
+    "level": "ch2_pawnshop",
+    "column": 2,
+    "row": 1,
+    "reasons": [
+      "largest-player-decrease"
+    ],
+    "originals": [
+      {
+        "label": "original-props",
+        "file": "pm/Nest-Egg-BG/images/BG-40-native-high-ch2_pawnshop-c2r1-original-props.png",
+        "sha256": "d5f67e138dfd212897c3c709099f1aaef2393b4a193a14ea45a3abc79413e044",
+        "source": "bg40-all-high-v1/ch2_pawnshop/bg55-cell008-A0.png",
+        "raw_sha256": "c93cb88c77c4e173291f749311c9ebb30f39ebca18e8ab16dc3777ec5cfbee07",
+        "player": {
+          "below_screen_rect": [
+            532.0,
+            597.0,
+            185.0,
+            24.0
+          ],
+          "contrast": 1.50722764771104,
+          "edge_contrast": 3.62962195643347,
+          "edge_screen_rect": [
+            532.0,
+            566.0,
+            185.0,
+            12.0
+          ],
+          "feet": [
+            776.0,
+            319.984375
+          ],
+          "outer_screen_rect": [
+            513.0,
+            266.0,
+            223.0,
+            362.0
+          ],
+          "parts": {
+            "body": 0.00924354553222656,
+            "bright": 1.50722764771104,
+            "dark": 0.658529661932336,
+            "inner": 0.194719165039063,
+            "outer": 0.0656400754973682
+          },
+          "screen_rect": [
+            590.0,
+            343.0,
+            70.0,
+            208.0
+          ]
+        },
+        "world_environment": {
+          "active": true,
+          "background_mode": 3.0,
+          "cap": 2.0,
+          "glow_enabled": true,
+          "intensity": 0.800000011920929,
+          "threshold": 1.10000002384186
+        }
+      },
+      {
+        "label": "current-props",
+        "file": "pm/Nest-Egg-BG/images/BG-40-native-high-ch2_pawnshop-c2r1-current-props.png",
+        "sha256": "a20edd6f73e77a008969bb413cb3cfab0aeefd7ae91d5d7d3cb7494fe27fb01a",
+        "source": "bg40-all-high-v1/ch2_pawnshop/bg55-cell008-product.png",
+        "raw_sha256": "d5f20bf1b1f42886b338b8c8c5fc870aa93cd9b91e5f9965ba7bdf2bf5d4681a",
+        "player": {
+          "below_screen_rect": [
+            532.0,
+            597.0,
+            185.0,
+            24.0
+          ],
+          "contrast": 1.50722758365054,
+          "edge_contrast": 3.62962195643347,
+          "edge_screen_rect": [
+            532.0,
+            566.0,
+            185.0,
+            12.0
+          ],
+          "feet": [
+            776.0,
+            319.984375
+          ],
+          "outer_screen_rect": [
+            513.0,
+            266.0,
+            223.0,
+            362.0
+          ],
+          "parts": {
+            "body": 0.00924354553222656,
+            "bright": 1.50722758365054,
+            "dark": 0.658529670657017,
+            "inner": 0.194719165039063,
+            "outer": 0.0656400776855006
+          },
+          "screen_rect": [
+            590.0,
+            343.0,
+            70.0,
+            208.0
+          ]
+        },
+        "world_environment": {
+          "active": true,
+          "background_mode": 3.0,
+          "cap": 2.0,
+          "glow_enabled": true,
+          "intensity": 0.800000011920929,
+          "threshold": 1.10000002384186
+        }
+      }
+    ],
+    "pair": "pm/Nest-Egg-BG/images/BG-40-native-high-ch2_pawnshop-c2r1-pair.png",
+    "canonical_outer_pair": "pm/Nest-Egg-BG/images/BG-40-native-high-ch2_pawnshop-c2r1-canonical-outer-pair.png",
+    "scope": "unscaled original pixels; same body/outer screen rectangles; original props left/current props right"
+  },
+  {
+    "quality": "high",
+    "level": "ch3_office_hall",
+    "column": 0,
+    "row": 2,
+    "reasons": [
+      "minimum-current-player"
+    ],
+    "originals": [
+      {
+        "label": "original-props",
+        "file": "pm/Nest-Egg-BG/images/BG-40-native-high-ch3_office_hall-c0r2-original-props.png",
+        "sha256": "9e971ed1ed5b80e2f9ad67dc04fcf8b5ac6825c76fde5f71f31411940d6306d6",
+        "source": "bg40-all-high-v1/ch3_office_hall/bg55-cell035-A0.png",
+        "raw_sha256": "ca0f52b3c608b4e4ceb0dbd868337387db6157bf36cce2a556a714265ad33b70",
+        "player": {
+          "below_screen_rect": [
+            552.0,
+            504.0,
+            186.0,
+            24.0
+          ],
+          "contrast": 1.10720407951311,
+          "edge_contrast": 4.58952296054851,
+          "edge_screen_rect": [
+            552.0,
+            474.0,
+            186.0,
+            12.0
+          ],
+          "feet": [
+            168.0,
+            319.984375
+          ],
+          "outer_screen_rect": [
+            533.0,
+            174.0,
+            224.0,
+            362.0
+          ],
+          "parts": {
+            "body": 0.0583867736816406,
+            "bright": 1.10720407951311,
+            "dark": 0.318147600488679,
+            "inner": 0.222247338867187,
+            "outer": 0.094961498614392
+          },
+          "screen_rect": [
+            610.0,
+            251.0,
+            70.0,
+            208.0
+          ]
+        },
+        "world_environment": {
+          "active": true,
+          "background_mode": 3.0,
+          "cap": 2.0,
+          "glow_enabled": true,
+          "intensity": 0.899999976158142,
+          "threshold": 1.0
+        }
+      },
+      {
+        "label": "current-props",
+        "file": "pm/Nest-Egg-BG/images/BG-40-native-high-ch3_office_hall-c0r2-current-props.png",
+        "sha256": "9e971ed1ed5b80e2f9ad67dc04fcf8b5ac6825c76fde5f71f31411940d6306d6",
+        "source": "bg40-all-high-v1/ch3_office_hall/bg55-cell035-A0.png",
+        "raw_sha256": "ca0f52b3c608b4e4ceb0dbd868337387db6157bf36cce2a556a714265ad33b70",
+        "player": {
+          "below_screen_rect": [
+            552.0,
+            504.0,
+            186.0,
+            24.0
+          ],
+          "contrast": 1.10720407951311,
+          "edge_contrast": 4.58952296054851,
+          "edge_screen_rect": [
+            552.0,
+            474.0,
+            186.0,
+            12.0
+          ],
+          "feet": [
+            168.0,
+            319.984375
+          ],
+          "outer_screen_rect": [
+            533.0,
+            174.0,
+            224.0,
+            362.0
+          ],
+          "parts": {
+            "body": 0.0583867736816406,
+            "bright": 1.10720407951311,
+            "dark": 0.318147600488679,
+            "inner": 0.222247338867187,
+            "outer": 0.094961498614392
+          },
+          "screen_rect": [
+            610.0,
+            251.0,
+            70.0,
+            208.0
+          ]
+        },
+        "world_environment": {
+          "active": true,
+          "background_mode": 3.0,
+          "cap": 2.0,
+          "glow_enabled": true,
+          "intensity": 0.899999976158142,
+          "threshold": 1.0
+        }
+      }
+    ],
+    "pair": "pm/Nest-Egg-BG/images/BG-40-native-high-ch3_office_hall-c0r2-pair.png",
+    "canonical_outer_pair": "pm/Nest-Egg-BG/images/BG-40-native-high-ch3_office_hall-c0r2-canonical-outer-pair.png",
+    "scope": "unscaled original pixels; same body/outer screen rectangles; original props left/current props right"
+  },
+  {
+    "quality": "high",
+    "level": "ch3_office_hall",
+    "column": 1,
+    "row": 2,
+    "reasons": [
+      "largest-player-decrease"
+    ],
+    "originals": [
+      {
+        "label": "original-props",
+        "file": "pm/Nest-Egg-BG/images/BG-40-native-high-ch3_office_hall-c1r2-original-props.png",
+        "sha256": "469cacb392a1491d09d434a41afef335260d5a98f6cf03a02912c9df799bd6e7",
+        "source": "bg40-all-high-v1/ch3_office_hall/bg55-cell036-A0.png",
+        "raw_sha256": "37f4eaae6860af5bdb2ee5e83b1e3fccfdc4ed2b04c1188747968b72201bb991",
+        "player": {
+          "below_screen_rect": [
+            542.0,
+            504.0,
+            186.0,
+            24.0
+          ],
+          "contrast": 1.97065161393415,
+          "edge_contrast": 3.07692247042859,
+          "edge_screen_rect": [
+            542.0,
+            474.0,
+            186.0,
+            12.0
+          ],
+          "feet": [
+            472.0,
+            319.984375
+          ],
+          "outer_screen_rect": [
+            523.0,
+            174.0,
+            224.0,
+            362.0
+          ],
+          "parts": {
+            "body": 0.0563101135253906,
+            "bright": 1.97065161393415,
+            "dark": 0.693773760905098,
+            "inner": 0.72027216796875,
+            "outer": 0.229195215115911
+          },
+          "screen_rect": [
+            600.0,
+            251.0,
+            70.0,
+            208.0
+          ]
+        },
+        "world_environment": {
+          "active": true,
+          "background_mode": 3.0,
+          "cap": 2.0,
+          "glow_enabled": true,
+          "intensity": 0.899999976158142,
+          "threshold": 1.0
+        }
+      },
+      {
+        "label": "current-props",
+        "file": "pm/Nest-Egg-BG/images/BG-40-native-high-ch3_office_hall-c1r2-current-props.png",
+        "sha256": "88e9005ab7ffa1cdaa6f9e35a79c2579747fa639a8557006bb784feb3d181763",
+        "source": "bg40-all-high-v1/ch3_office_hall/bg55-cell036-product.png",
+        "raw_sha256": "cc245ac18ad9621f2806ae6489f5530e981545e4d360e090058114bf51de0f02",
+        "player": {
+          "below_screen_rect": [
+            542.0,
+            504.0,
+            186.0,
+            24.0
+          ],
+          "contrast": 1.34806201090103,
+          "edge_contrast": 3.14103888148781,
+          "edge_screen_rect": [
+            542.0,
+            474.0,
+            186.0,
+            12.0
+          ],
+          "feet": [
+            472.0,
+            319.984375
+          ],
+          "outer_screen_rect": [
+            523.0,
+            174.0,
+            224.0,
+            362.0
+          ],
+          "parts": {
+            "body": 0.0452045471191406,
+            "bright": 1.34806201090103,
+            "dark": 0.636615928085796,
+            "inner": 0.40132919921875,
+            "outer": 0.159436998368315
+          },
+          "screen_rect": [
+            600.0,
+            251.0,
+            70.0,
+            208.0
+          ]
+        },
+        "world_environment": {
+          "active": true,
+          "background_mode": 3.0,
+          "cap": 2.0,
+          "glow_enabled": true,
+          "intensity": 0.899999976158142,
+          "threshold": 1.0
+        }
+      }
+    ],
+    "pair": "pm/Nest-Egg-BG/images/BG-40-native-high-ch3_office_hall-c1r2-pair.png",
+    "canonical_outer_pair": "pm/Nest-Egg-BG/images/BG-40-native-high-ch3_office_hall-c1r2-canonical-outer-pair.png",
+    "scope": "unscaled original pixels; same body/outer screen rectangles; original props left/current props right"
+  },
+  {
+    "quality": "low",
+    "level": "ch2_lounge_front",
+    "column": 2,
+    "row": 2,
+    "reasons": [
+      "minimum-current-player"
+    ],
+    "originals": [
+      {
+        "label": "original-props",
+        "file": "pm/Nest-Egg-BG/images/BG-40-native-low-ch2_lounge_front-c2r2-original-props.png",
+        "sha256": "b081e43d18d26e9087388c76804c0027b7f32cff1fb82d04a91f6ce025f2cc60",
+        "source": "bg40-all-low-v1/ch2_lounge_front/bg55-cell026-A0.png",
+        "raw_sha256": "4e5f30c2b71c90b455058146951b7753e369974a34f905e7cac06cd81f379926",
+        "player": {
+          "below_screen_rect": [
+            542.0,
+            504.0,
+            186.0,
+            24.0
+          ],
+          "contrast": 4.89185417861866,
+          "edge_contrast": 3.42718994716529,
+          "edge_screen_rect": [
+            542.0,
+            474.0,
+            186.0,
+            12.0
+          ],
+          "feet": [
+            728.0,
+            319.984375
+          ],
+          "outer_screen_rect": [
+            523.0,
+            174.0,
+            224.0,
+            362.0
+          ],
+          "parts": {
+            "body": 0.00320590209960938,
+            "bright": 4.89185417861866,
+            "dark": 0.19667515090297,
+            "inner": 0.150199877929687,
+            "outer": 0.00888732014911994
+          },
+          "screen_rect": [
+            600.0,
+            251.0,
+            70.0,
+            208.0
+          ]
+        },
+        "world_environment": {
+          "active": true,
+          "background_mode": 3.0,
+          "cap": 2.0,
+          "glow_enabled": true,
+          "intensity": 0.850000023841858,
+          "threshold": 1.10000002384186
+        }
+      },
+      {
+        "label": "current-props",
+        "file": "pm/Nest-Egg-BG/images/BG-40-native-low-ch2_lounge_front-c2r2-current-props.png",
+        "sha256": "1e5d536a6382b768581e1358a3e3cc915c9ccb2c2e4ba7204b63c9e7aa754edf",
+        "source": "bg40-all-low-v1/ch2_lounge_front/bg55-cell026-product.png",
+        "raw_sha256": "7a021a8f459e07b0ae1c269810220d34ba6ccec678cd6d281837616e07b47e44",
+        "player": {
+          "below_screen_rect": [
+            542.0,
+            504.0,
+            186.0,
+            24.0
+          ],
+          "contrast": 2.27408404126433,
+          "edge_contrast": 3.6848346754734,
+          "edge_screen_rect": [
+            542.0,
+            474.0,
+            186.0,
+            12.0
+          ],
+          "feet": [
+            728.0,
+            319.984375
+          ],
+          "outer_screen_rect": [
+            523.0,
+            174.0,
+            224.0,
+            362.0
+          ],
+          "parts": {
+            "body": 0.0320464233398438,
+            "bright": 2.27408404126433,
+            "dark": 0.523043797959529,
+            "inner": 0.337274658203125,
+            "outer": 0.0891220181584461
+          },
+          "screen_rect": [
+            600.0,
+            251.0,
+            70.0,
+            208.0
+          ]
+        },
+        "world_environment": {
+          "active": true,
+          "background_mode": 3.0,
+          "cap": 2.0,
+          "glow_enabled": true,
+          "intensity": 0.850000023841858,
+          "threshold": 1.10000002384186
+        }
+      }
+    ],
+    "pair": "pm/Nest-Egg-BG/images/BG-40-native-low-ch2_lounge_front-c2r2-pair.png",
+    "canonical_outer_pair": "pm/Nest-Egg-BG/images/BG-40-native-low-ch2_lounge_front-c2r2-canonical-outer-pair.png",
+    "scope": "unscaled original pixels; same body/outer screen rectangles; original props left/current props right"
+  },
+  {
+    "quality": "low",
+    "level": "ch2_lounge_front",
+    "column": 2,
+    "row": 1,
+    "reasons": [
+      "largest-player-decrease"
+    ],
+    "originals": [
+      {
+        "label": "original-props",
+        "file": "pm/Nest-Egg-BG/images/BG-40-native-low-ch2_lounge_front-c2r1-original-props.png",
+        "sha256": "0a376e35ef0b2187c6f9c4f7f331f62fa66487f8b67e8aa6756374284e8ffb5e",
+        "source": "bg40-all-low-v1/ch2_lounge_front/bg55-cell023-A0.png",
+        "raw_sha256": "5b86b0b631c7fd5e0a7767a7da20ab9586c1c6bc781c44b1d5796ebd825ed63c",
+        "player": {
+          "below_screen_rect": [
+            542.0,
+            597.0,
+            186.0,
+            24.0
+          ],
+          "contrast": 5.0585073872292,
+          "edge_contrast": 3.45891482143889,
+          "edge_screen_rect": [
+            542.0,
+            566.0,
+            186.0,
+            12.0
+          ],
+          "feet": [
+            728.0,
+            319.984375
+          ],
+          "outer_screen_rect": [
+            523.0,
+            266.0,
+            224.0,
+            362.0
+          ],
+          "parts": {
+            "body": 0.00319350814819336,
+            "bright": 5.0585073872292,
+            "dark": 0.179920962158152,
+            "inner": 0.151346948242188,
+            "outer": 0.00828203999608416
+          },
+          "screen_rect": [
+            600.0,
+            343.0,
+            70.0,
+            208.0
+          ]
+        },
+        "world_environment": {
+          "active": true,
+          "background_mode": 3.0,
+          "cap": 2.0,
+          "glow_enabled": true,
+          "intensity": 0.850000023841858,
+          "threshold": 1.10000002384186
+        }
+      },
+      {
+        "label": "current-props",
+        "file": "pm/Nest-Egg-BG/images/BG-40-native-low-ch2_lounge_front-c2r1-current-props.png",
+        "sha256": "d6238bf361a27689ba5dbbbb2a608e06ff098fb11a0aed1ec4a677670cc26117",
+        "source": "bg40-all-low-v1/ch2_lounge_front/bg55-cell023-product.png",
+        "raw_sha256": "c0038d31ecbb07ec3a5550fb5f77d962068ff57b20c97765655727298d944f27",
+        "player": {
+          "below_screen_rect": [
+            542.0,
+            597.0,
+            186.0,
+            24.0
+          ],
+          "contrast": 2.31305254579804,
+          "edge_contrast": 3.74553509228139,
+          "edge_screen_rect": [
+            542.0,
+            566.0,
+            186.0,
+            12.0
+          ],
+          "feet": [
+            728.0,
+            319.984375
+          ],
+          "outer_screen_rect": [
+            523.0,
+            266.0,
+            224.0,
+            362.0
+          ],
+          "parts": {
+            "body": 0.0318070007324219,
+            "bright": 2.31305254579804,
+            "dark": 0.520628045211447,
+            "inner": 0.338050390625,
+            "outer": 0.088072656764565
+          },
+          "screen_rect": [
+            600.0,
+            343.0,
+            70.0,
+            208.0
+          ]
+        },
+        "world_environment": {
+          "active": true,
+          "background_mode": 3.0,
+          "cap": 2.0,
+          "glow_enabled": true,
+          "intensity": 0.850000023841858,
+          "threshold": 1.10000002384186
+        }
+      }
+    ],
+    "pair": "pm/Nest-Egg-BG/images/BG-40-native-low-ch2_lounge_front-c2r1-pair.png",
+    "canonical_outer_pair": "pm/Nest-Egg-BG/images/BG-40-native-low-ch2_lounge_front-c2r1-canonical-outer-pair.png",
+    "scope": "unscaled original pixels; same body/outer screen rectangles; original props left/current props right"
+  },
+  {
+    "quality": "low",
+    "level": "ch2_pawnshop",
+    "column": 5,
+    "row": 1,
+    "reasons": [
+      "minimum-current-player"
+    ],
+    "originals": [
+      {
+        "label": "original-props",
+        "file": "pm/Nest-Egg-BG/images/BG-40-native-low-ch2_pawnshop-c5r1-original-props.png",
+        "sha256": "671b49deffa3afe04c425e2afd1b5e6952340e13b195eedd31e1573a9530f254",
+        "source": "bg40-all-low-v1/ch2_pawnshop/bg55-cell011-A0.png",
+        "raw_sha256": "13c5abffce00c270f523a63dc820e6d37c0701406da155a7a057444d727903ff",
+        "player": {
+          "below_screen_rect": [
+            542.0,
+            597.0,
+            186.0,
+            24.0
+          ],
+          "contrast": 0.853852665066719,
+          "edge_contrast": 3.50826665966443,
+          "edge_screen_rect": [
+            542.0,
+            566.0,
+            186.0,
+            12.0
+          ],
+          "feet": [
+            1624.0,
+            319.984375
+          ],
+          "outer_screen_rect": [
+            523.0,
+            266.0,
+            224.0,
+            362.0
+          ],
+          "parts": {
+            "body": 0.00315805206298828,
+            "bright": 0.664253771893864,
+            "dark": 0.853852665066719,
+            "inner": 0.243712475585938,
+            "outer": 0.138456889231407
+          },
+          "screen_rect": [
+            600.0,
+            343.0,
+            70.0,
+            208.0
+          ]
+        },
+        "world_environment": {
+          "active": true,
+          "background_mode": 3.0,
+          "cap": 2.0,
+          "glow_enabled": true,
+          "intensity": 0.800000011920929,
+          "threshold": 1.10000002384186
+        }
+      },
+      {
+        "label": "current-props",
+        "file": "pm/Nest-Egg-BG/images/BG-40-native-low-ch2_pawnshop-c5r1-current-props.png",
+        "sha256": "671b49deffa3afe04c425e2afd1b5e6952340e13b195eedd31e1573a9530f254",
+        "source": "bg40-all-low-v1/ch2_pawnshop/bg55-cell011-A0.png",
+        "raw_sha256": "13c5abffce00c270f523a63dc820e6d37c0701406da155a7a057444d727903ff",
+        "player": {
+          "below_screen_rect": [
+            542.0,
+            597.0,
+            186.0,
+            24.0
+          ],
+          "contrast": 0.853852665066719,
+          "edge_contrast": 3.50826665966443,
+          "edge_screen_rect": [
+            542.0,
+            566.0,
+            186.0,
+            12.0
+          ],
+          "feet": [
+            1624.0,
+            319.984375
+          ],
+          "outer_screen_rect": [
+            523.0,
+            266.0,
+            224.0,
+            362.0
+          ],
+          "parts": {
+            "body": 0.00315805206298828,
+            "bright": 0.664253771893864,
+            "dark": 0.853852665066719,
+            "inner": 0.243712475585938,
+            "outer": 0.138456889231407
+          },
+          "screen_rect": [
+            600.0,
+            343.0,
+            70.0,
+            208.0
+          ]
+        },
+        "world_environment": {
+          "active": true,
+          "background_mode": 3.0,
+          "cap": 2.0,
+          "glow_enabled": true,
+          "intensity": 0.800000011920929,
+          "threshold": 1.10000002384186
+        }
+      }
+    ],
+    "pair": "pm/Nest-Egg-BG/images/BG-40-native-low-ch2_pawnshop-c5r1-pair.png",
+    "canonical_outer_pair": "pm/Nest-Egg-BG/images/BG-40-native-low-ch2_pawnshop-c5r1-canonical-outer-pair.png",
+    "scope": "unscaled original pixels; same body/outer screen rectangles; original props left/current props right"
+  },
+  {
+    "quality": "low",
+    "level": "ch3_office_hall",
+    "column": 3,
+    "row": 2,
+    "reasons": [
+      "minimum-current-player"
+    ],
+    "originals": [
+      {
+        "label": "original-props",
+        "file": "pm/Nest-Egg-BG/images/BG-40-native-low-ch3_office_hall-c3r2-original-props.png",
+        "sha256": "2c407013e81514541db51344624cd5d3050c62b9a12f6de21fc3c9739b509009",
+        "source": "bg40-all-low-v1/ch3_office_hall/bg55-cell038-A0.png",
+        "raw_sha256": "24a72b5c2d609d39b097989a7514fa00ceeb765d6b82e53d2fa8365e0a03328c",
+        "player": {
+          "below_screen_rect": [
+            542.0,
+            504.0,
+            186.0,
+            24.0
+          ],
+          "contrast": 1.34365545252865,
+          "edge_contrast": 3.51940838587439,
+          "edge_screen_rect": [
+            542.0,
+            474.0,
+            186.0,
+            12.0
+          ],
+          "feet": [
+            856.0,
+            319.984375
+          ],
+          "outer_screen_rect": [
+            523.0,
+            174.0,
+            224.0,
+            362.0
+          ],
+          "parts": {
+            "body": 0.0762741577148437,
+            "bright": 1.34365545252865,
+            "dark": 0.242138904140655,
+            "inner": 0.2777240234375,
+            "outer": 0.107034041252214
+          },
+          "screen_rect": [
+            600.0,
+            251.0,
+            70.0,
+            208.0
+          ]
+        },
+        "world_environment": {
+          "active": true,
+          "background_mode": 3.0,
+          "cap": 2.0,
+          "glow_enabled": true,
+          "intensity": 0.899999976158142,
+          "threshold": 1.0
+        }
+      },
+      {
+        "label": "current-props",
+        "file": "pm/Nest-Egg-BG/images/BG-40-native-low-ch3_office_hall-c3r2-current-props.png",
+        "sha256": "338f952acf79834d902f36584770052cd7858f65172bbf9318a743863e864a70",
+        "source": "bg40-all-low-v1/ch3_office_hall/bg55-cell038-product.png",
+        "raw_sha256": "2831bf8442c71c56a51bd7ac69c6ac4968b1f725292613379a7cc070c9522792",
+        "player": {
+          "below_screen_rect": [
+            542.0,
+            504.0,
+            186.0,
+            24.0
+          ],
+          "contrast": 1.3270619607651,
+          "edge_contrast": 3.51940838587439,
+          "edge_screen_rect": [
+            542.0,
+            474.0,
+            186.0,
+            12.0
+          ],
+          "feet": [
+            856.0,
+            319.984375
+          ],
+          "outer_screen_rect": [
+            523.0,
+            174.0,
+            224.0,
+            362.0
+          ],
+          "parts": {
+            "body": 0.0762741577148437,
+            "bright": 1.3270619607651,
+            "dark": 0.247504693654848,
+            "inner": 0.2777240234375,
+            "outer": 0.107939878033851
+          },
+          "screen_rect": [
+            600.0,
+            251.0,
+            70.0,
+            208.0
+          ]
+        },
+        "world_environment": {
+          "active": true,
+          "background_mode": 3.0,
+          "cap": 2.0,
+          "glow_enabled": true,
+          "intensity": 0.899999976158142,
+          "threshold": 1.0
+        }
+      }
+    ],
+    "pair": "pm/Nest-Egg-BG/images/BG-40-native-low-ch3_office_hall-c3r2-pair.png",
+    "canonical_outer_pair": "pm/Nest-Egg-BG/images/BG-40-native-low-ch3_office_hall-c3r2-canonical-outer-pair.png",
+    "scope": "unscaled original pixels; same body/outer screen rectangles; original props left/current props right"
+  },
+  {
+    "quality": "low",
+    "level": "ch3_office_hall",
+    "column": 1,
+    "row": 2,
+    "reasons": [
+      "largest-player-decrease"
+    ],
+    "originals": [
+      {
+        "label": "original-props",
+        "file": "pm/Nest-Egg-BG/images/BG-40-native-low-ch3_office_hall-c1r2-original-props.png",
+        "sha256": "ff471c4da9836df02bd07051ccc29c54ccc1ebf7ee3e828a35d1246034467a12",
+        "source": "bg40-all-low-v1/ch3_office_hall/bg55-cell036-A0.png",
+        "raw_sha256": "f5b90726420f7e1a637514a54a9d7e45dd929349bac420edfe273c4a56293791",
+        "player": {
+          "below_screen_rect": [
+            542.0,
+            504.0,
+            186.0,
+            24.0
+          ],
+          "contrast": 2.16365146371308,
+          "edge_contrast": 3.04070242803686,
+          "edge_screen_rect": [
+            542.0,
+            474.0,
+            186.0,
+            12.0
+          ],
+          "feet": [
+            472.0,
+            319.984375
+          ],
+          "outer_screen_rect": [
+            523.0,
+            174.0,
+            224.0,
+            362.0
+          ],
+          "parts": {
+            "body": 0.053682177734375,
+            "bright": 2.16365146371308,
+            "dark": 0.709632185476093,
+            "inner": 0.7827912109375,
+            "outer": 0.233754631363624
+          },
+          "screen_rect": [
+            600.0,
+            251.0,
+            70.0,
+            208.0
+          ]
+        },
+        "world_environment": {
+          "active": true,
+          "background_mode": 3.0,
+          "cap": 2.0,
+          "glow_enabled": true,
+          "intensity": 0.899999976158142,
+          "threshold": 1.0
+        }
+      },
+      {
+        "label": "current-props",
+        "file": "pm/Nest-Egg-BG/images/BG-40-native-low-ch3_office_hall-c1r2-current-props.png",
+        "sha256": "08f288c41e741ce56766442f228e5ab2389966165fe63685c2cef816a0bc289d",
+        "source": "bg40-all-low-v1/ch3_office_hall/bg55-cell036-product.png",
+        "raw_sha256": "db51b6ce732c630494979b6a2ab9c88fa00ce0c457a1c2694f10672c78324928",
+        "player": {
+          "below_screen_rect": [
+            542.0,
+            504.0,
+            186.0,
+            24.0
+          ],
+          "contrast": 1.4869926602915,
+          "edge_contrast": 3.09882638480039,
+          "edge_screen_rect": [
+            542.0,
+            474.0,
+            186.0,
+            12.0
+          ],
+          "feet": [
+            472.0,
+            319.984375
+          ],
+          "outer_screen_rect": [
+            523.0,
+            174.0,
+            224.0,
+            362.0
+          ],
+          "parts": {
+            "body": 0.03798115234375,
+            "bright": 1.4869926602915,
+            "dark": 0.676125571604035,
+            "inner": 0.4252302734375,
+            "outer": 0.159023557466115
+          },
+          "screen_rect": [
+            600.0,
+            251.0,
+            70.0,
+            208.0
+          ]
+        },
+        "world_environment": {
+          "active": true,
+          "background_mode": 3.0,
+          "cap": 2.0,
+          "glow_enabled": true,
+          "intensity": 0.899999976158142,
+          "threshold": 1.0
+        }
+      }
+    ],
+    "pair": "pm/Nest-Egg-BG/images/BG-40-native-low-ch3_office_hall-c1r2-pair.png",
+    "canonical_outer_pair": "pm/Nest-Egg-BG/images/BG-40-native-low-ch3_office_hall-c1r2-canonical-outer-pair.png",
+    "scope": "unscaled original pixels; same body/outer screen rectangles; original props left/current props right"
+  }
+]

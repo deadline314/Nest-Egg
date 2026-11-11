@@ -1,0 +1,119 @@
+{
+  "scope": "unscaled original PNG copies and exact canonical outer crop; no retouch; original props left/current props right",
+  "observations": [
+    {
+      "label": "original-props",
+      "original_file": "D:\\NestEggVerification\\native-ticket-batch-20261111\\work\\bg40-office-smoke-high-v1\\ch3_office_hall\\bg55-cell000-A0.png",
+      "source_sha256": "cb114da21a7c917eb28d61765e30fec3b6c0a0d27c1f8b0e38195d4e4443b546",
+      "image": "pm/Nest-Egg-BG/images/BG-40-native-office-smoke-original-props.png",
+      "crop": "pm/Nest-Egg-BG/images/BG-40-native-office-smoke-original-props-canonical-outer.png",
+      "canonical_player": {
+        "below_screen_rect": [
+          542.0,
+          597.0,
+          186.0,
+          24.0
+        ],
+        "contrast": 2.00235462348743,
+        "edge_contrast": 3.20818751840884,
+        "edge_screen_rect": [
+          542.0,
+          566.0,
+          186.0,
+          12.0
+        ],
+        "feet": [
+          472.0,
+          319.984375
+        ],
+        "outer_screen_rect": [
+          523.0,
+          266.0,
+          224.0,
+          362.0
+        ],
+        "parts": {
+          "body": 0.0568297973632812,
+          "bright": 2.00235462348743,
+          "dark": 0.690666939840674,
+          "inner": 0.72570205078125,
+          "outer": 0.228372409091059
+        },
+        "screen_rect": [
+          600.0,
+          343.0,
+          70.0,
+          208.0
+        ]
+      },
+      "raw": "bg55-cell000-A0.bin",
+      "raw_sha256": "abb67fceed8acdb2011933b0be6fef6d45a13bbe11acf0c0f3942f2108b8ff58",
+      "density": 2.0,
+      "canvas_transform_values": [
+        1.91999971866608,
+        0.0,
+        0.0,
+        1.91999971866608,
+        -588.799926757813,
+        -331.199951171875
+      ]
+    },
+    {
+      "label": "current-props",
+      "original_file": "D:\\NestEggVerification\\native-ticket-batch-20261111\\work\\bg40-office-smoke-high-v1\\ch3_office_hall\\bg55-cell000-product.png",
+      "source_sha256": "efe840f3393176b0bb20f20dd24685df982b82d39eb6ad986fb877b9d04ac7d4",
+      "image": "pm/Nest-Egg-BG/images/BG-40-native-office-smoke-current-props.png",
+      "crop": "pm/Nest-Egg-BG/images/BG-40-native-office-smoke-current-props-canonical-outer.png",
+      "canonical_player": {
+        "below_screen_rect": [
+          542.0,
+          597.0,
+          186.0,
+          24.0
+        ],
+        "contrast": 1.41273462063361,
+        "edge_contrast": 3.26985261073111,
+        "edge_screen_rect": [
+          542.0,
+          566.0,
+          186.0,
+          12.0
+        ],
+        "feet": [
+          472.0,
+          319.984375
+        ],
+        "outer_screen_rect": [
+          523.0,
+          266.0,
+          224.0,
+          362.0
+        ],
+        "parts": {
+          "body": 0.0456527648925781,
+          "bright": 1.41273462063361,
+          "dark": 0.632586100535824,
+          "inner": 0.411128759765625,
+          "outer": 0.15868884380347
+        },
+        "screen_rect": [
+          600.0,
+          343.0,
+          70.0,
+          208.0
+        ]
+      },
+      "raw": "bg55-cell000-product.bin",
+      "raw_sha256": "4b9232a4e1830b626bb47c05e58cb7217577fc65986d35741b35693bce2e6a30",
+      "density": 2.0,
+      "canvas_transform_values": [
+        1.91999971866608,
+        0.0,
+        0.0,
+        1.91999971866608,
+        -588.799926757813,
+        -331.199951171875
+      ]
+    }
+  ]
+}

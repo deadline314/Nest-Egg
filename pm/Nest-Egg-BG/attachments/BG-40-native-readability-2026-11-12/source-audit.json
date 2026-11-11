@@ -1,0 +1,310 @@
+{
+  "scope": "read-only exact source audit; original native reports/ZIPs unchanged; no C or D product writes",
+  "current_head": "aa120de62735d12e6b7728301b14ab89cec7634f",
+  "files": [
+    {
+      "path": "core/components/hurtbox.gd",
+      "tested_d_sha256": "53f3673f57b7ab2a6f26c20462840463794188401e09b2bacf4e05c0fe00b2e8",
+      "current_c_sha256": "06aa499fae310cc0825c9354f271861b99d390209238edf115813a15ecb72247",
+      "tested_bytes": 9133,
+      "current_bytes": 10688,
+      "tested_crlf": 0,
+      "current_crlf": 0,
+      "only_line_endings": false,
+      "active_path": "not invoked",
+      "rendering_assessment": "Only adds triangle_contact(), called by visible melee collision. No enemy, attack, collision query or damage is initiated by this fixture; existing receive/shape code is unchanged.",
+      "requires_native_retake": false
+    },
+    {
+      "path": "core/melee_art.gd",
+      "tested_d_sha256": "5971045bffa84fac227957808d028c0078774e69addb9ee6300a0a58777563b3",
+      "current_c_sha256": "0c9a5b60c856a04647d24f6ed64a2f889bd908e0c13abe6ec7e7bcf27b1accff",
+      "tested_bytes": 13662,
+      "current_bytes": 14211,
+      "tested_crlf": 0,
+      "current_crlf": 0,
+      "only_line_endings": false,
+      "active_path": "not drawn",
+      "rendering_assessment": "Extracts draw_transform()/texture_rect() and uses the same textured polygon algebra. MeleeHeld is hidden for the default pistol; the three LevelData legend resources contain no WeaponData pickup. No new draw call is introduced.",
+      "requires_native_retake": false
+    },
+    {
+      "path": "data/scripts/terrain_material_data.gd",
+      "tested_d_sha256": "b93838f0c08091ce24c2c304bd36690f33aae2c858d39bb7230346c858d2f051",
+      "current_c_sha256": "91d688a8e40bbb279a7ac36775151b43c98389d69c67e2c3756073b9bf9a1731",
+      "tested_bytes": 1846,
+      "current_bytes": 1885,
+      "tested_crlf": 0,
+      "current_crlf": 39,
+      "only_line_endings": true,
+      "active_path": "active but byte-identical to published blob",
+      "rendering_assessment": "Tested LF file is exactly the current published Git blob. Current C work file differs only by 39 CRLF line endings; all exports/defaults/normal_path/validate code is identical.",
+      "requires_native_retake": false,
+      "published_commit": "aa120de62735d12e6b7728301b14ab89cec7634f",
+      "published_sha256": "b93838f0c08091ce24c2c304bd36690f33aae2c858d39bb7230346c858d2f051",
+      "tested_exact_published_bytes": true
+    },
+    {
+      "path": "game/cutscene/cutscene_actor.gd",
+      "tested_d_sha256": "ca9b963c63d4a5c6f3c0b43acb632009b541326d32ac784b785699bb41a8a548",
+      "current_c_sha256": "cf0629a1de977371dda28aec7d43f4946f412a6ecda36608327a5d0f65589968",
+      "tested_bytes": 10643,
+      "current_bytes": 10798,
+      "tested_crlf": 0,
+      "current_crlf": 0,
+      "only_line_endings": false,
+      "active_path": "not invoked",
+      "rendering_assessment": "Only adds hand_target_complete() getter. SceneTour marks all story scenes seen and uses auto_skip before constructing the level; no CutsceneActor performance is started.",
+      "requires_native_retake": false
+    },
+    {
+      "path": "game/cutscene/cutscene_player.gd",
+      "tested_d_sha256": "9be52f7647f47c63c320e2cb55cad50ceea46469769dc1f2ff2b9dd12abc80bb",
+      "current_c_sha256": "339db5a6154036ee6963b7a667183dda888c6df1bcfe45f85c03910e792bdf59",
+      "tested_bytes": 36566,
+      "current_bytes": 39404,
+      "tested_crlf": 0,
+      "current_crlf": 0,
+      "only_line_endings": false,
+      "active_path": "not invoked",
+      "rendering_assessment": "Changes reach/move waiting, weak-reference actor lifetime checks and posture readiness. No reach/move/cutscene job executes in this held scene fixture.",
+      "requires_native_retake": false
+    },
+    {
+      "path": "game/cutscene/cutscene_reach.gd",
+      "tested_d_sha256": "a44109c15074662404c6b4142820c835a53fa00e190667d89a89306ba1790d85",
+      "current_c_sha256": "5af5ec7dc4d6984116502431a8f449fc027a07839dc775b05190013e761a47b1",
+      "tested_bytes": 7278,
+      "current_bytes": 7535,
+      "tested_crlf": 0,
+      "current_crlf": 0,
+      "only_line_endings": false,
+      "active_path": "not invoked",
+      "rendering_assessment": "Tracks whether a requested hand pose was published and exposes complete(); only used for the absent cutscene reach path.",
+      "requires_native_retake": false
+    },
+    {
+      "path": "game/enemies/janus_boss.gd",
+      "tested_d_sha256": "e11937fb623ece0e0e45944262aadffdfc764f9719b9fcec70941582f69adf37",
+      "current_c_sha256": "858ee3e56a3f6e296478aaad53579abfb1ca4bd5bd9d8446f145a801dd46b996",
+      "tested_bytes": 28535,
+      "current_bytes": 27231,
+      "tested_crlf": 0,
+      "current_crlf": 0,
+      "only_line_endings": false,
+      "active_path": "not instantiated",
+      "rendering_assessment": "Moves the same config defaults/cache into JanusConfig. Original native inventories contain zero Enemy instances in all three levels; none has a JANUS legend resource.",
+      "requires_native_retake": false
+    },
+    {
+      "path": "game/melee/melee_module.gd",
+      "tested_d_sha256": "a134d19363a7774cac6f9796bff99bb572d8e1032b809469c530b8a32d96bd15",
+      "current_c_sha256": "08262cbc93dc57fc76fb68496bc8dbab2f3d95ec4528cb9fc844fc2321eee90d",
+      "tested_bytes": 22741,
+      "current_bytes": 29160,
+      "tested_crlf": 0,
+      "current_crlf": 0,
+      "only_line_endings": false,
+      "active_path": "called no-op after visual warmup; attack branches inactive",
+      "rendering_assessment": "New after_visible_pose() checks false pending flags and phase NONE. Fixture only supplies aim_right, never melee/shoot; no start_attack, strike, recovery, visible contact or hit feedback executes. Existing idle pose_progress() remains -1.",
+      "requires_native_retake": false
+    },
+    {
+      "path": "game/player/melee_held.gd",
+      "tested_d_sha256": "27c8a629e22ec858c171d1f3487692ee3e9a82d5ea94c2f419f4cb864e42dc4b",
+      "current_c_sha256": "174749f25e122e52d1a6ba74bb4dd4ab6a43bfb3fca76fca3fbe5650a37a54aa",
+      "tested_bytes": 13922,
+      "current_bytes": 14809,
+      "tested_crlf": 0,
+      "current_crlf": 0,
+      "only_line_endings": false,
+      "active_path": "hidden path only",
+      "rendering_assessment": "New contact-sweep object is allocated, then its state is cleared in the not-shown early return. Default weapon is pistol, shows_melee_weapon() is false. New draw_transform/tip/contact capture calls occur only for a shown melee weapon.",
+      "requires_native_retake": false
+    },
+    {
+      "path": "game/player/melee_set.gd",
+      "tested_d_sha256": "76c8794123fe21cdf7220083ad0d4e11d0cc8a5839246325186f6d0629bb0709",
+      "current_c_sha256": "3415d7c1e788943694467a4815580c4c9bf228ebfae782a88ef20a8c620a075d",
+      "tested_bytes": 19826,
+      "current_bytes": 20640,
+      "tested_crlf": 0,
+      "current_crlf": 0,
+      "only_line_endings": false,
+      "active_path": "new getter unused; validation only accepts optional field",
+      "rendering_assessment": "Adds contact_span() and optional-field validation. No attack/weapon is selected or changed by the fixture. MeleeHeld never reaches contact capture while the pistol is active; existing resource values are not altered.",
+      "requires_native_retake": false
+    },
+    {
+      "path": "game/player/player_visual.gd",
+      "tested_d_sha256": "4f3b2391912d7154c2895c0b9243c60fae9ccbde5555f0eb20dd0bfd37852012",
+      "current_c_sha256": "6b3b02d946cef618557943cf19675f151c4a5289bd5d1e4be6613f127947968e",
+      "tested_bytes": 26385,
+      "current_bytes": 26503,
+      "tested_crlf": 0,
+      "current_crlf": 0,
+      "only_line_endings": false,
+      "active_path": "active warmup with no-op addition; then held disabled",
+      "rendering_assessment": "Only adds player.melee.after_visible_pose() after all rig and held-weapon updates. With phase NONE and all pending flags false, this writes no rig/material/pose/lighting values. All existing rig and firearm drawing code is byte-identical after newline normalization.",
+      "requires_native_retake": false
+    },
+    {
+      "path": "game/rig/npc_animator.gd",
+      "tested_d_sha256": "590fca3bacbc85bc134afaf52dd0f1b210efe8beb2f4649712cdd855f792034f",
+      "current_c_sha256": "1a7c7df4ef6dedeb8923fdad8a1dcebd2e8f95421643fb7933b5cd17fcaa0308",
+      "tested_bytes": 29458,
+      "current_bytes": 29772,
+      "tested_crlf": 0,
+      "current_crlf": 0,
+      "only_line_endings": false,
+      "active_path": "animation may be active but changed getters are not",
+      "rendering_assessment": "Only adds posture_active()/posture_ready() read-only getters, consumed by the cutscene move wait. No animation update, NPC data, posture blend or rendering method changes.",
+      "requires_native_retake": false
+    }
+  ],
+  "terrain_materials": [
+    {
+      "path": "data/environment/materials/concrete.tres",
+      "tested_sha256": "71786249eab3fb61368391652a2a8b587334aba49226063c626b6bc7e6adcc43",
+      "current_working_sha256": "cf19ac8d04aedd524ed3f629d0733e195f8efa2be930d95c848eaf956b381538",
+      "tested_exact_published_bytes": true,
+      "same_material_content_after_only_crlf_to_lf": true,
+      "tested_crlf": 0,
+      "current_crlf": 13,
+      "post_capture_body_top_side_and_normal_matches": [
+        {
+          "field": "body",
+          "path": "art/environment/materials/concrete_body.png",
+          "sha256": "1cecda870b55d06f8827f15094d226aaae2c50d01d4369bc1b631e5b6166b140",
+          "bytes": 19086
+        },
+        {
+          "field": "body",
+          "path": "art/environment/materials/concrete_body_n.png",
+          "sha256": "ff7a13fd5ac36d9da9776f59f54afddb8a4731dd8ef8aeb758f70820acec0b10",
+          "bytes": 57959
+        },
+        {
+          "field": "top",
+          "path": "art/environment/materials/concrete_top.png",
+          "sha256": "c10cce0f8ddcfbf0e5840edb907c2defd29a2aabea2cdf51a898ef80aabaa3dd",
+          "bytes": 836
+        },
+        {
+          "field": "top",
+          "path": "art/environment/materials/concrete_top_n.png",
+          "sha256": "b7062858c74af46c9f1a921eabf8845dbb9420d38ae999100e07cbbbeef1c2f3",
+          "bytes": 3536
+        },
+        {
+          "field": "side",
+          "path": "art/environment/materials/concrete_side.png",
+          "sha256": "4ec4b630b64c461f6e8031eda0c534592a219f7b592aeb9a7c70919f2430a05c",
+          "bytes": 2170
+        },
+        {
+          "field": "side",
+          "path": "art/environment/materials/concrete_side_n.png",
+          "sha256": "c3fa9abefc051521eaf2fff6680d25277754a8ae1a0e3d4d313f1909e2192475",
+          "bytes": 7292
+        }
+      ]
+    },
+    {
+      "path": "data/environment/materials/asphalt.tres",
+      "tested_sha256": "ea0a839616389864f58f5dfe0b443d365859d9286231ade65a3d2317143ba4e6",
+      "current_working_sha256": "059429dc063cd1dd48e0c354c5e2fdbdfe16cf6fb4080f4e36d3328d28b194e6",
+      "tested_exact_published_bytes": true,
+      "same_material_content_after_only_crlf_to_lf": true,
+      "tested_crlf": 0,
+      "current_crlf": 13,
+      "post_capture_body_top_side_and_normal_matches": [
+        {
+          "field": "body",
+          "path": "art/environment/materials/asphalt_body.png",
+          "sha256": "5306cd86f6e5d0faaaa54972197a7b9491d4ee6c8cb4b0e17678b9064e4cc5c4",
+          "bytes": 53522
+        },
+        {
+          "field": "body",
+          "path": "art/environment/materials/asphalt_body_n.png",
+          "sha256": "ce2a1b02c1e90d32ba4fcf6056b1e7885696ad744a30a847e03de9a2adac21dc",
+          "bytes": 111572
+        },
+        {
+          "field": "top",
+          "path": "art/environment/materials/asphalt_top.png",
+          "sha256": "5b6e6f844cb81fb2870a37e292121b9da3a8a18ddb41298858baf35169a9af82",
+          "bytes": 4370
+        },
+        {
+          "field": "top",
+          "path": "art/environment/materials/asphalt_top_n.png",
+          "sha256": "df7b58fcc851b4d166812f7b30291ea23a04f442c37bdefb882b9506f3e03a67",
+          "bytes": 9916
+        },
+        {
+          "field": "side",
+          "path": "art/environment/materials/asphalt_side.png",
+          "sha256": "7b6dacd5219e2eaac7e3e00657464c321fd397bb54b21dc7e33b4f2505814c6f",
+          "bytes": 5087
+        },
+        {
+          "field": "side",
+          "path": "art/environment/materials/asphalt_side_n.png",
+          "sha256": "fceedb7a47cbd97d32932e2dcc158c729d4ca3e2a72f6e68bdd30e58d4d670dc",
+          "bytes": 10991
+        }
+      ]
+    },
+    {
+      "path": "data/environment/materials/facility_floor.tres",
+      "tested_sha256": "e4ec3bfb7115baa61dc221d06eb2741bdb72ea953331f0ed5d544277ae20c961",
+      "current_working_sha256": "57e7583b6f6ca79df0d07a3e376ffe1c1aa8c8820d60f625ea2bab71a83df4cc",
+      "tested_exact_published_bytes": true,
+      "same_material_content_after_only_crlf_to_lf": true,
+      "tested_crlf": 0,
+      "current_crlf": 13,
+      "post_capture_body_top_side_and_normal_matches": [
+        {
+          "field": "body",
+          "path": "art/environment/materials/facility_floor_body.png",
+          "sha256": "b4f20f4c2c7c9e1a39e8d7bac903abd040dd1e8f7c04d3cbfdb270ae642e4d1b",
+          "bytes": 17301
+        },
+        {
+          "field": "body",
+          "path": "art/environment/materials/facility_floor_body_n.png",
+          "sha256": "c96cf3e7ddd50f30cf16c4f46204a52fc25ce05ca40f6c4b86e9d491335c4694",
+          "bytes": 23950
+        },
+        {
+          "field": "top",
+          "path": "art/environment/materials/facility_floor_top.png",
+          "sha256": "972d6efecddff0c373b318115ca38816667c889dbe8e84db50abd5baddff48ec",
+          "bytes": 2456
+        },
+        {
+          "field": "top",
+          "path": "art/environment/materials/facility_floor_top_n.png",
+          "sha256": "a78088d8853ee2b164ea9105f6191a8eacae6166279d36aa3dec96900b5f6f71",
+          "bytes": 4291
+        },
+        {
+          "field": "side",
+          "path": "art/environment/materials/facility_floor_side.png",
+          "sha256": "0f98a5fabda82f2e9a8cd1564723f82765592f7f48710705c24eed4e44ce7d78",
+          "bytes": 3249
+        },
+        {
+          "field": "side",
+          "path": "art/environment/materials/facility_floor_side_n.png",
+          "sha256": "521413c555962f7dbdfc06a722a18019c3655bd5f832e1842f3bd08dba8a1fdc",
+          "bytes": 4235
+        }
+      ]
+    }
+  ],
+  "conclusion": "No rendering-relevant active change in the measured no-enemy/no-attack/no-cutscene fixture. TerrainMaterialData exactly equals published Git bytes; its apparent SHA mismatch was only C work-tree CRLF. No native retake is required for these twelve differences.",
+  "limitations": "This is scoped reachability and source equivalence, not a claim that complete C/D runtimes are identical. Post-capture texture equality is explicitly separated from original capture receipts."
+}
