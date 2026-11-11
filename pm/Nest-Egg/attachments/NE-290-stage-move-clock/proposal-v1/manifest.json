@@ -1,0 +1,90 @@
+{
+  "base_commit": "2c5cc9fc9f9869c045aa8a762260cfd50112ace8",
+  "status": "Pure published candidate CPU green; independent native and joint official pending. No C runtime modifications.",
+  "files": [
+    {
+      "path": "game/cutscene/cutscene_actor.gd",
+      "base_sha256": "cf0629a1de977371dda28aec7d43f4946f412a6ecda36608327a5d0f65589968",
+      "candidate_sha256": "b5e45518edc3370cd5af9163477bbc6d8d7180a82f4ab489bdab61cba36c2ace",
+      "bytes": 13014,
+      "patch": "game__cutscene__cutscene_actor.gd.patch"
+    },
+    {
+      "path": "game/cutscene/cutscene_player.gd",
+      "base_sha256": "3866e06829b493af4e3f45987b345a0a27f46b97b771308f0d7ad5c0c9bc28cd",
+      "candidate_sha256": "99fbce51966260736bde793f3e0b60a19f379566da58fed57b4e39308412d9ad",
+      "bytes": 38347,
+      "patch": "game__cutscene__cutscene_player.gd.patch"
+    },
+    {
+      "path": "game/cutscene/cutscene_move_clock.gd",
+      "base_sha256": null,
+      "candidate_sha256": "3d605cea343938624bf878f2da1dba5f08f3ad4c3ff1f8d38177cd41ffd2f8c2",
+      "bytes": 2029,
+      "patch": "game__cutscene__cutscene_move_clock.gd.patch"
+    },
+    {
+      "path": "game/cutscene/cutscene_move_clock.gd.uid",
+      "base_sha256": null,
+      "candidate_sha256": "4e8576556eed8dc473e70c84a1f5796fcb11ef5e87f7c5304642f06fbdb56d6d",
+      "bytes": 19,
+      "patch": "game__cutscene__cutscene_move_clock.gd.uid.patch"
+    },
+    {
+      "path": "tests/helpers/stage_move_clock_checks.gd",
+      "base_sha256": null,
+      "candidate_sha256": "4e1fcd46519ae852327e2eec3aad98052c5e95e79444146e818e997dc9e5837a",
+      "bytes": 7561,
+      "patch": "tests__helpers__stage_move_clock_checks.gd.patch"
+    },
+    {
+      "path": "tests/helpers/stage_move_clock_checks.gd.uid",
+      "base_sha256": null,
+      "candidate_sha256": "67a4aa71fdc8b2b64edb93fb625324821b71f966ff37268a96a003df6c08ae3e",
+      "bytes": 20,
+      "patch": "tests__helpers__stage_move_clock_checks.gd.uid.patch"
+    },
+    {
+      "path": "tests/suite/test_cutscene.gd",
+      "base_sha256": "524ba0d02b286cbfa6059a18cc69524e9d2756e776b2eff67101eaeebdbc0058",
+      "candidate_sha256": "c25cff59ba7e6eb302b62558b6bf6ff790617f2bad4bfdaff1a7990b84097fe2",
+      "bytes": 56579,
+      "patch": "tests__suite__test_cutscene.gd.patch"
+    }
+  ],
+  "C_union_player": {
+    "base_sha256": "339db5a6154036ee6963b7a667183dda888c6df1bcfe45f85c03910e792bdf59",
+    "candidate_sha256": "474435b1bc431bbe524f0a4601ce8a99c8484ae071495a947b2a86cfc98efb6b",
+    "source": "C-union-safe-player.gd.txt",
+    "notes": "Preserves the entire existing NE267 standing prep and live-move alias plus published reach287; do NOT stage whole union as NE290. Published-only Player in sourcebytes is the independent merge proposal."
+  },
+  "core_fixture_sha256": "a79d6d99a7069a07ee6e7c92fd457f45c5b9cbf6b5e7d64d2c409f55938b4013",
+  "pure_old_core": {
+    "checks": 108,
+    "failures": 26,
+    "exit": 1,
+    "folder": "published-clock-red-v1"
+  },
+  "pure_new": {
+    "checks": 165,
+    "failures": 0,
+    "exit": 0,
+    "folder": "published-clock-green-v1"
+  },
+  "pure_suites": {
+    "names": [
+      "CutsceneSuite",
+      "LocomotionSuite"
+    ],
+    "checks": 1946,
+    "failures": 0,
+    "exit": 0,
+    "folder": "published-focused-v1"
+  },
+  "excluded": [
+    "NE267 NPC getters/standing preparation/adapter/motion/art",
+    "NE277 unmerged geometry",
+    "physical controller or keyboard acceptance",
+    "performance claims"
+  ]
+}

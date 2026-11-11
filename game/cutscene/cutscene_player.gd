@@ -678,23 +678,47 @@ func _do_move(step: Dictionary) -> void:
 	var actor := _need_actor(step)
 	if actor == null:
 		return
+	var job: Dictionary = step.duplicate(true)
+	var reference: WeakRef = weakref(actor)
+	if bool(step.get("wait", true)):
+		await _move_job(reference, actor.actor_id, job)
+	else:
+		_move_job(reference, actor.actor_id, job)
+
+
+func _move_job(reference: WeakRef, id: StringName, step: Dictionary) -> void:
+	var actor := _live_step_actor(reference, id)
+	if actor == null:
+		if _running and not skipping and bool(step.get("wait", true)):
+			cancel()
+		return
 	var target := _vec(step.get("to"), actor.position)
-	var time := maxf(0.01, float(step.get("time", 1.0)))
-	if absf(target.x - actor.position.x) > 0.5:
+	if absf(target.x - actor.position.x) > .5:
 		actor.face(1 if target.x > actor.position.x else -1)
 	actor.set_pose(StringName(str(step.get("pose", "walk"))))
+	var physics_clock := actor.hand_targets_active()
 	var tween := _new_tween()
-	if actor.hand_targets_active():
-		# 物理 Tween 在演員的 idle IK 之前更新，避免持物跟隨落後一個繪製影格。
+	tween.bind_node(actor)
+	if physics_clock:
 		tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 		tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	tween.tween_property(actor, "position", target, time)
+	var duration := maxf(.01, float(step.get("time", 1.0)))
+	var publication := preload("res://game/cutscene/cutscene_move_clock.gd").new(self, actor, target, duration, speed, physics_clock)
+	tween.tween_method(publication.publish, 0.0, 1.0, duration)
 	var then_pose := StringName(str(step.get("then", "idle")))
-	tween.tween_callback(func() -> void:
-		if is_instance_valid(actor):
-			actor.set_pose(then_pose))
-	if bool(step.get("wait", true)):
-		await _wait_tween(tween)
+	tween.tween_callback(publication.complete.bind(then_pose))
+	while tween.is_valid() and publication.active():
+		await get_tree().process_frame
+		if not is_instance_valid(self):
+			publication.stop()
+			return
+	if not publication.finished:
+		if tween.is_valid():
+			tween.kill()
+		var superseded: bool = publication.superseded()
+		publication.stop()
+		if not superseded and _running and not skipping and bool(step.get("wait", true)):
+			cancel()
 
 
 func _do_say(step: Dictionary) -> void:

@@ -1,0 +1,54 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+MOVE_CLOCK_CASE pattern=[0.01666666666667] held=false speed=1.0 face=-1 samples=150 velocity_error=0.00032997131348 gait_min=1.0 hold=0.0
+MOVE_CLOCK_CASE pattern=[0.01666666666667] held=false speed=1.0 face=1 samples=150 velocity_error=0.0012264251709 gait_min=1.0 hold=0.0
+MOVE_CLOCK_CASE pattern=[0.01666666666667] held=false speed=2.0 face=-1 samples=30 velocity_error=0.00035858154297 gait_min=1.0 hold=0.0
+MOVE_CLOCK_CASE pattern=[0.01666666666667] held=false speed=2.0 face=1 samples=30 velocity_error=0.00129318237305 gait_min=1.0 hold=0.0
+MOVE_CLOCK_CASE pattern=[0.01666666666667] held=true speed=1.0 face=-1 samples=150 velocity_error=0.00032997131348 gait_min=1.0 hold=0.00000852992252
+MOVE_CLOCK_CASE pattern=[0.01666666666667] held=true speed=1.0 face=1 samples=150 velocity_error=0.0012264251709 gait_min=1.0 hold=0.00003075507266
+MOVE_CLOCK_CASE pattern=[0.01666666666667] held=true speed=2.0 face=-1 samples=30 velocity_error=0.00035858154297 gait_min=1.0 hold=0.00000381469727
+MOVE_CLOCK_CASE pattern=[0.01666666666667] held=true speed=2.0 face=1 samples=30 velocity_error=0.00129318237305 gait_min=1.0 hold=0.00000381469727
+MOVE_CLOCK_CASE pattern=[0.00833333333333, 0.03333333333333] held=false speed=1.0 face=-1 samples=121 velocity_error=0.00079727172852 gait_min=1.0 hold=0.0
+MOVE_CLOCK_CASE pattern=[0.00833333333333, 0.03333333333333] held=false speed=1.0 face=1 samples=121 velocity_error=0.0020923614502 gait_min=1.0 hold=0.0
+MOVE_CLOCK_CASE pattern=[0.00833333333333, 0.03333333333333] held=false speed=2.0 face=-1 samples=24 velocity_error=0.00057983398438 gait_min=1.0 hold=0.0
+MOVE_CLOCK_CASE pattern=[0.00833333333333, 0.03333333333333] held=false speed=2.0 face=1 samples=24 velocity_error=0.0024528503418 gait_min=1.0 hold=0.0
+MOVE_CLOCK_CASE pattern=[0.00833333333333, 0.03333333333333] held=true speed=1.0 face=-1 samples=122 velocity_error=0.00028991699219 gait_min=1.0 hold=0.00000852992252
+MOVE_CLOCK_CASE pattern=[0.00833333333333, 0.03333333333333] held=true speed=1.0 face=1 samples=122 velocity_error=0.0012264251709 gait_min=1.0 hold=0.00003075507266
+MOVE_CLOCK_CASE pattern=[0.00833333333333, 0.03333333333333] held=true speed=2.0 face=-1 samples=26 velocity_error=0.00035858154297 gait_min=1.0 hold=0.00000381469727
+MOVE_CLOCK_CASE pattern=[0.00833333333333, 0.03333333333333] held=true speed=2.0 face=1 samples=26 velocity_error=0.00129318237305 gait_min=1.0 hold=0.00000381469727
+MOVE_CLOCK_CASE pattern=[0.00833333333333, 0.01666666666667] held=false speed=1.0 face=-1 samples=200 velocity_error=0.00079727172852 gait_min=1.0 hold=0.0
+MOVE_CLOCK_CASE pattern=[0.00833333333333, 0.01666666666667] held=false speed=1.0 face=1 samples=200 velocity_error=0.0020923614502 gait_min=1.0 hold=0.0
+MOVE_CLOCK_CASE pattern=[0.00833333333333, 0.01666666666667] held=false speed=2.0 face=-1 samples=40 velocity_error=0.00057983398438 gait_min=1.0 hold=0.0
+MOVE_CLOCK_CASE pattern=[0.00833333333333, 0.01666666666667] held=false speed=2.0 face=1 samples=40 velocity_error=0.0024528503418 gait_min=1.0 hold=0.0
+MOVE_CLOCK_CASE pattern=[0.00833333333333, 0.01666666666667] held=true speed=1.0 face=-1 samples=201 velocity_error=0.00032997131348 gait_min=1.0 hold=0.00000852992252
+MOVE_CLOCK_CASE pattern=[0.00833333333333, 0.01666666666667] held=true speed=1.0 face=1 samples=201 velocity_error=0.0012264251709 gait_min=1.0 hold=0.00003075507266
+MOVE_CLOCK_CASE pattern=[0.00833333333333, 0.01666666666667] held=true speed=2.0 face=-1 samples=41 velocity_error=0.00035858154297 gait_min=1.0 hold=0.00000381469727
+MOVE_CLOCK_CASE pattern=[0.00833333333333, 0.01666666666667] held=true speed=2.0 face=1 samples=41 velocity_error=0.00129318237305 gait_min=1.0 hold=0.00000381469727
+WARNING: [CutsceneReach] visitor/front cannot reach stage point (99.84339, 149.5352); keeping original arm pose
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] apply (res://game/cutscene/cutscene_reach.gd:150)
+       [1] _advance_stage_actor (res://game/cutscene/cutscene_actor.gd:230)
+       [2] _process (res://game/cutscene/cutscene_actor.gd:207)
+       [3] _process (res://tests/helpers/reach_completion_checks.gd:6)
+WARNING: [Cutscene] 場景 test_ne287_contact 第 1 步（reach）: reach actor visitor/front cannot update; cancelling presentation
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _wait_hand_contact (res://game/cutscene/cutscene_player.gd:539)
+WARNING: [Cutscene] 場景 test_ne287_contact 第 1 步（reach）: reach actor visitor/front cannot update; cancelling presentation
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _wait_hand_contact (res://game/cutscene/cutscene_player.gd:539)
+WARNING: [Cutscene] 場景 test_ne287_contact 第 1 步（reach）: reach actor visitor/front cannot update; cancelling presentation
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _wait_hand_contact (res://game/cutscene/cutscene_player.gd:539)
+WARNING: [Cutscene] 場景 test_ne287_contact 第 1 步（reach）: reach actor visitor/front cannot update; cancelling presentation
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _wait_hand_contact (res://game/cutscene/cutscene_player.gd:539)
+WARNING: [Cutscene] 場景 test_ne287_contact 第 1 步（reach）: reach actor visitor/front cannot update; cancelling presentation
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _wait_hand_contact (res://game/cutscene/cutscene_player.gd:539)
+STAGE_CLOCK 289/0

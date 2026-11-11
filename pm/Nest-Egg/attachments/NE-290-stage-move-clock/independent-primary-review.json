@@ -1,0 +1,57 @@
+{
+  "classification": "Independent primary review; original images, no image alteration",
+  "pure_native": {
+    "images": 7,
+    "all_seen": true,
+    "scope": "Controlled real callbacks, published Rin/kettle; static published S18 separately labelled"
+  },
+  "guest_scene": {
+    "images": 19,
+    "all_seen": true,
+    "scope": "Actual loaded S18 natural presentation with synthetic dialogue advancement, no Story outcomes or human-input acceptance",
+    "clock_appearance": "No new clock jump seen in these samples; feet, held paper and support remain readable; existing NE267 source seam failures stay separate"
+  },
+  "material_foot": {
+    "original_threshold_stage_px": 1.0,
+    "report_recomputed_exactly": true,
+    "source_sha256": "80e81c1c224239a203a0cb2529de9e97201475884801033acb52cc19d298e2e2",
+    "source_preserved": "guest-scene-clock-v1/material_sources/art/characters/guest_zheng/parts/foot.png"
+  },
+  "images": {
+    "published-native-v1\\fixed_idle--1.png": "6391715db23bcfcd7e7f2a2b7be9ceb5ce85a22af548efe0ebb51a752e674f7c",
+    "published-native-v1\\fixed_idle-1.png": "1a55b12702f34bfa04af8270a33c2be605a6cdba8de177e52aded832f7222459",
+    "published-native-v1\\published-s18-static.png": "e78881017b73e79dd7c8e95e61d3b66ead99fbe3c6e819c63b78142513c50d86",
+    "published-native-v1\\variable_held_physics--1.png": "e24256cc4570aaf29baf35f6f53f9ffd26439e96198c8fdda69da64cff7f7bde",
+    "published-native-v1\\variable_held_physics-1.png": "06edf5ceec0056dc858a67a9672a4562bf82668335413b42a5850a5a8c9dd810",
+    "published-native-v1\\variable_idle--1.png": "af55554dc9dd8afb920da858e88441329bffeb3804c4763be588549e00449be8",
+    "published-native-v1\\variable_idle-1.png": "d060cf5a5be09afb8fe6c28541615bed7bf5ca6ef3cdcc57e2172d307924e82d",
+    "guest-scene-clock-v1\\ch2_t_s18_done-idle.png": "804cf53230d9de23b7b085b2d94159b7f6b6618f5a7763efe7e73b3b7161cab4",
+    "guest-scene-clock-v1\\ch2_t_s18_done-sit.png": "55d208a1b1662b29adc5149735c1282d475214df8c2fa036c2a8d823ac385289",
+    "guest-scene-clock-v1\\ch2_t_s18_done-slip-rest.png": "c82ab5c94065c9bf2a97941ee29eb0e983220fa4087e665d7c4da4ce8093459b",
+    "guest-scene-clock-v1\\ch2_t_s18_done-walk-2.png": "1cb7afb46528774fefa8e75dcfaacec4eb4f5feb6b4d659594108c33cdac78e0",
+    "guest-scene-clock-v1\\ch2_t_s18_done-walk-3.png": "1779c561d1289f221374f7db6feee10de971128001c67e4df2fdcccd992b61ea",
+    "guest-scene-clock-v1\\ch2_t_s18_done-walk-4.png": "d015395e5f8a3473abde56bbcf664dbc2e94e9bc1845c185ac4064f92edb225d",
+    "guest-scene-clock-v1\\ch2_t_s18_done-walk-5.png": "e0a3f674fd1668285c0d95354bb29a30baeae119ec02e280f15fb571c0fd2285",
+    "guest-scene-clock-v1\\ch2_t_s18_done-walk-6.png": "80a8f54c1408325c59424cf534eff472cef4f022e35ead5194ab2a56de80e42f",
+    "guest-scene-clock-v1\\ch2_t_s18_name-sit.png": "1b16974fef810ba7b04a47b48a97f10cf80946a72026e7ce502ca46ddf20759c",
+    "guest-scene-clock-v1\\ch2_t_s18_name-slip-rest.png": "e5bbf8f3742d8a7eb4d0d797342f5b78e6e41c7a3f1f1c2cb4e0e55ec0a2ae19",
+    "guest-scene-clock-v1\\ch2_t_s18_ticket-idle.png": "29b815c6f6af315caa1ee115d9591014a3bc6a02d43ddb1e1aee4e0f40946ced",
+    "guest-scene-clock-v1\\ch2_t_s18_ticket-sit.png": "dec4538490dc758f0f761e08140ea0e09591fa89a9bf989671213542bee2110a",
+    "guest-scene-clock-v1\\ch2_t_s18_ticket-slip-held.png": "b84e45da6d408f6c62eed5eb268e3d7d2750872d0f6f303bf2c87ea69c491d12",
+    "guest-scene-clock-v1\\ch2_t_s18_ticket-slip-rest.png": "8c310d24eaff6bbbd7c8e437e559589ef2b13c06af49a7e9e6cd581e4973257b",
+    "guest-scene-clock-v1\\ch2_t_s18_ticket-walk-1.png": "6f9e373239dd753c0c634b2e8e509ca580f5e731446d843e5fdbdbd998b24469",
+    "guest-scene-clock-v1\\ch2_t_s18_ticket-walk-2.png": "3d7d8235785f65c17c8de7b270ec7bf63e7576daa0240775d8af4f637ae99864",
+    "guest-scene-clock-v1\\ch2_t_s18_ticket-walk-3.png": "4f6981e9fae3f4e1eb6ad2b0ad98238aa897d6e9a922d5217d27a463bb5e9738",
+    "guest-scene-clock-v1\\ch2_t_s18_ticket-walk-4.png": "f2eb80a8dadd9b44b6474c87c1daf711ae75021baac203ec074d0b23f25336df",
+    "guest-scene-clock-v1\\ch2_t_s18_ticket-walk-5.png": "cb5cbb2cfed2dbee605585f4942a43267e3360b7ab222ec8cd61573cb9e98aab"
+  },
+  "regression": {
+    "groups": 70,
+    "checks": 94097,
+    "new_failures": 0,
+    "known_failures": 0,
+    "exit": 0,
+    "seconds": 847.0403381999931,
+    "scope": "Published8c + NE277 v8 exact26 + pure NE290 exact7; no NPC WIP or new UI fixes; 200 existing/filtered ERROR lines, no SCRIPT ERROR"
+  }
+}

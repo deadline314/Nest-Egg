@@ -1,0 +1,592 @@
+{
+	"adapter": "AMD Radeon RX 9070 XT",
+	"captures": [
+		{
+			"file": "fixed_idle--1.png",
+			"hdr": true,
+			"raw": {
+				"file": "fixed_idle--1.png.raw",
+				"format": 14,
+				"hdr": true,
+				"sha256": "c4eeb294b3130cc6e9fa05d3813eaa5e02559a8dae7ab73ff39d0ee5201575ca",
+				"size": [
+					1280,
+					720
+				]
+			}
+		},
+		{
+			"file": "fixed_idle-1.png",
+			"hdr": true,
+			"raw": {
+				"file": "fixed_idle-1.png.raw",
+				"format": 14,
+				"hdr": true,
+				"sha256": "158addc5785baa1a24fa22035b1cdde015006d0069b1befceedb0fd67524f7a3",
+				"size": [
+					1280,
+					720
+				]
+			}
+		},
+		{
+			"file": "variable_idle--1.png",
+			"hdr": true,
+			"raw": {
+				"file": "variable_idle--1.png.raw",
+				"format": 14,
+				"hdr": true,
+				"sha256": "bd85b1da658fa4c23b4779fddf31b4e9706d7c945d2b63be0e81c46421d30215",
+				"size": [
+					1280,
+					720
+				]
+			}
+		},
+		{
+			"file": "variable_idle-1.png",
+			"hdr": true,
+			"raw": {
+				"file": "variable_idle-1.png.raw",
+				"format": 14,
+				"hdr": true,
+				"sha256": "d23eac3a4287533a6489e69cc94aa086ba79a34018879d937fa6f84f78418433",
+				"size": [
+					1280,
+					720
+				]
+			}
+		},
+		{
+			"file": "variable_held_physics--1.png",
+			"hdr": true,
+			"raw": {
+				"file": "variable_held_physics--1.png.raw",
+				"format": 14,
+				"hdr": true,
+				"sha256": "14d3ca9de1ca3b846a5d29cc00373946ddba4b007ed4571b5c64516621b0a434",
+				"size": [
+					1280,
+					720
+				]
+			}
+		},
+		{
+			"file": "variable_held_physics-1.png",
+			"hdr": true,
+			"raw": {
+				"file": "variable_held_physics-1.png.raw",
+				"format": 14,
+				"hdr": true,
+				"sha256": "b11dd42777c8277b1ffbceeaa8afa6a1afaec670d156bc30cd99eaa916a2285d",
+				"size": [
+					1280,
+					720
+				]
+			}
+		},
+		{
+			"file": "published-s18-static.png",
+			"hdr": true,
+			"raw": {
+				"file": "published-s18-static.png.raw",
+				"format": 14,
+				"hdr": true,
+				"sha256": "820d785031861401f8ba4b7d5be5b7d00cef5ab615be2170f3f6117bbf9a51ff",
+				"size": [
+					1280,
+					720
+				]
+			}
+		}
+	],
+	"classification": "native Forward+ synthetic real Tween/Actor callback timelines; no human input/performance claim",
+	"formal_published_S18": {
+		"actors": [
+			"ali"
+		],
+		"file": "published-s18-static.png",
+		"scene": "ch2_t_s18_ticket",
+		"scope": "unaltered published S18 display; published scene has no NE267 guest actor; this frame alone is not a movement test"
+	},
+	"pages": [
+		{
+			"cells": [
+				{
+					"actor_x": 142.095001220703,
+					"bounds": [
+						78.432991027832,
+						171.992630004883,
+						147.171051025391,
+						334.877807617188
+					],
+					"facing": -1,
+					"floor_stage_y": 180.0,
+					"frame": 90,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.0,
+					"input_velocity": -29.9998207092285,
+					"pattern": [
+						0.0166666666666667
+					]
+				},
+				{
+					"actor_x": 140.139999389648,
+					"bounds": [
+						72.975212097168,
+						171.486114501953,
+						152.570892333984,
+						336.921112060547
+					],
+					"facing": -1,
+					"floor_stage_y": 180.0,
+					"frame": 91,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.0,
+					"input_velocity": -30.0000553131104,
+					"pattern": [
+						0.0166666666666667
+					]
+				},
+				{
+					"actor_x": 138.184997558594,
+					"bounds": [
+						68.2712707519531,
+						171.027359008789,
+						157.204238891602,
+						338.805358886719
+					],
+					"facing": -1,
+					"floor_stage_y": 180.0,
+					"frame": 92,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.0,
+					"input_velocity": -30.0000553131104,
+					"pattern": [
+						0.0166666666666667
+					]
+				},
+				{
+					"actor_x": 136.229995727539,
+					"bounds": [
+						64.565071105957,
+						170.634094238281,
+						160.829864501953,
+						340.456298828125
+					],
+					"facing": -1,
+					"floor_stage_y": 180.0,
+					"frame": 93,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.0,
+					"input_velocity": -29.9998435974121,
+					"pattern": [
+						0.0166666666666667
+					]
+				}
+			],
+			"file": "fixed_idle--1.png"
+		},
+		{
+			"cells": [
+				{
+					"actor_x": 497.904998779297,
+					"bounds": [
+						94.39599609375,
+						171.992630004883,
+						147.171127319336,
+						334.877807617188
+					],
+					"facing": 1,
+					"floor_stage_y": 180.0,
+					"frame": 90,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.0,
+					"input_velocity": 29.9998207092285,
+					"pattern": [
+						0.0166666666666667
+					]
+				},
+				{
+					"actor_x": 499.859985351563,
+					"bounds": [
+						94.453857421875,
+						171.486114501953,
+						152.570785522461,
+						336.921051025391
+					],
+					"facing": 1,
+					"floor_stage_y": 180.0,
+					"frame": 91,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.0,
+					"input_velocity": 29.9998207092285,
+					"pattern": [
+						0.0166666666666667
+					]
+				},
+				{
+					"actor_x": 501.815002441406,
+					"bounds": [
+						94.5244750976563,
+						171.027359008789,
+						157.204162597656,
+						338.805358886719
+					],
+					"facing": 1,
+					"floor_stage_y": 180.0,
+					"frame": 92,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.0,
+					"input_velocity": 30.0002899169922,
+					"pattern": [
+						0.0166666666666667
+					]
+				},
+				{
+					"actor_x": 503.77001953125,
+					"bounds": [
+						94.6051025390625,
+						170.634078979492,
+						160.829849243164,
+						340.456298828125
+					],
+					"facing": 1,
+					"floor_stage_y": 180.0,
+					"frame": 93,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.0,
+					"input_velocity": 30.0000762939453,
+					"pattern": [
+						0.0166666666666667
+					]
+				}
+			],
+			"file": "fixed_idle-1.png"
+		},
+		{
+			"cells": [
+				{
+					"actor_x": 99.0849914550781,
+					"bounds": [
+						83.9961166381836,
+						175.465728759766,
+						141.325958251953,
+						324.984130859375
+					],
+					"facing": -1,
+					"floor_stage_y": 180.0,
+					"frame": 90,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.0,
+					"input_velocity": -30.0002899169922,
+					"pattern": [
+						0.00833333333333333,
+						0.0333333333333333
+					]
+				},
+				{
+					"actor_x": 95.1750030517578,
+					"bounds": [
+						79.3875274658203,
+						175.38623046875,
+						146.104080200195,
+						325.063598632813
+					],
+					"facing": -1,
+					"floor_stage_y": 180.0,
+					"frame": 91,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.0,
+					"input_velocity": -29.9999389648438,
+					"pattern": [
+						0.00833333333333333,
+						0.0333333333333333
+					]
+				},
+				{
+					"actor_x": 94.1974945068359,
+					"bounds": [
+						78.4377288818359,
+						175.301223754883,
+						147.090850830078,
+						325.148681640625
+					],
+					"facing": -1,
+					"floor_stage_y": 180.0,
+					"frame": 92,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.0,
+					"input_velocity": -30.0002899169922,
+					"pattern": [
+						0.00833333333333333,
+						0.0333333333333333
+					]
+				},
+				{
+					"actor_x": 90.2874908447266,
+					"bounds": [
+						75.9994506835938,
+						174.724761962891,
+						149.644790649414,
+						325.765350341797
+					],
+					"facing": -1,
+					"floor_stage_y": 180.0,
+					"frame": 93,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.0,
+					"input_velocity": -29.9999485015869,
+					"pattern": [
+						0.00833333333333333,
+						0.0333333333333333
+					]
+				}
+			],
+			"file": "variable_idle--1.png"
+		},
+		{
+			"cells": [
+				{
+					"actor_x": 540.9150390625,
+					"bounds": [
+						94.6779174804688,
+						175.465728759766,
+						141.326095581055,
+						324.984130859375
+					],
+					"facing": 1,
+					"floor_stage_y": 180.0,
+					"frame": 90,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.0,
+					"input_velocity": 30.0012264251709,
+					"pattern": [
+						0.00833333333333333,
+						0.0333333333333333
+					]
+				},
+				{
+					"actor_x": 544.825012207031,
+					"bounds": [
+						94.5084838867188,
+						175.38623046875,
+						146.104064941406,
+						325.063598632813
+					],
+					"facing": 1,
+					"floor_stage_y": 180.0,
+					"frame": 91,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.0,
+					"input_velocity": 29.9998207092285,
+					"pattern": [
+						0.00833333333333333,
+						0.0333333333333333
+					]
+				},
+				{
+					"actor_x": 545.802490234375,
+					"bounds": [
+						94.4713745117188,
+						175.301208496094,
+						147.090850830078,
+						325.148651123047
+					],
+					"facing": 1,
+					"floor_stage_y": 180.0,
+					"frame": 92,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.0,
+					"input_velocity": 29.9993534088135,
+					"pattern": [
+						0.00833333333333333,
+						0.0333333333333333
+					]
+				},
+				{
+					"actor_x": 549.712524414063,
+					"bounds": [
+						94.3558349609375,
+						174.724761962891,
+						149.644790649414,
+						325.765350341797
+					],
+					"facing": 1,
+					"floor_stage_y": 180.0,
+					"frame": 93,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.0,
+					"input_velocity": 30.0001831054688,
+					"pattern": [
+						0.00833333333333333,
+						0.0333333333333333
+					]
+				}
+			],
+			"file": "variable_idle-1.png"
+		},
+		{
+			"cells": [
+				{
+					"actor_x": 101.039993286133,
+					"bounds": [
+						120.709251403809,
+						175.34733581543,
+						138.120849609375,
+						325.102478027344
+					],
+					"facing": -1,
+					"floor_stage_y": 180.0,
+					"frame": 90,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.000003814697265625,
+					"input_velocity": -30.0000553131104,
+					"pattern": [
+						0.00833333333333333,
+						0.0333333333333333
+					]
+				},
+				{
+					"actor_x": 97.1299896240234,
+					"bounds": [
+						115.052696228027,
+						175.47883605957,
+						143.957641601563,
+						324.971008300781
+					],
+					"facing": -1,
+					"floor_stage_y": 180.0,
+					"frame": 91,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.000003814697265625,
+					"input_velocity": -30.0000553131104,
+					"pattern": [
+						0.00833333333333333,
+						0.0333333333333333
+					]
+				},
+				{
+					"actor_x": 95.1750030517578,
+					"bounds": [
+						112.987533569336,
+						175.38623046875,
+						146.104019165039,
+						325.063598632813
+					],
+					"facing": -1,
+					"floor_stage_y": 180.0,
+					"frame": 92,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.0,
+					"input_velocity": -29.9998207092285,
+					"pattern": [
+						0.00833333333333333,
+						0.0333333333333333
+					]
+				},
+				{
+					"actor_x": 91.2649841308594,
+					"bounds": [
+						110.013977050781,
+						174.901763916016,
+						149.206787109375,
+						325.548065185547
+					],
+					"facing": -1,
+					"floor_stage_y": 180.0,
+					"frame": 93,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.0,
+					"input_velocity": -30.0000762939453,
+					"pattern": [
+						0.00833333333333333,
+						0.0333333333333333
+					]
+				}
+			],
+			"file": "variable_held_physics--1.png"
+		},
+		{
+			"cells": [
+				{
+					"actor_x": 538.960021972656,
+					"bounds": [
+						61.169921875,
+						175.347320556641,
+						138.12092590332,
+						325.102508544922
+					],
+					"facing": 1,
+					"floor_stage_y": 180.0,
+					"frame": 90,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.000003814697265625,
+					"input_velocity": 30.0002899169922,
+					"pattern": [
+						0.00833333333333333,
+						0.0333333333333333
+					]
+				},
+				{
+					"actor_x": 542.869995117188,
+					"bounds": [
+						60.9896240234375,
+						175.47883605957,
+						143.957656860352,
+						324.971008300781
+					],
+					"facing": 1,
+					"floor_stage_y": 180.0,
+					"frame": 91,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.000003814697265625,
+					"input_velocity": 29.9993534088135,
+					"pattern": [
+						0.00833333333333333,
+						0.0333333333333333
+					]
+				},
+				{
+					"actor_x": 544.825012207031,
+					"bounds": [
+						60.908447265625,
+						175.38623046875,
+						146.104064941406,
+						325.063598632813
+					],
+					"facing": 1,
+					"floor_stage_y": 180.0,
+					"frame": 92,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.0,
+					"input_velocity": 30.0002899169922,
+					"pattern": [
+						0.00833333333333333,
+						0.0333333333333333
+					]
+				},
+				{
+					"actor_x": 548.734985351563,
+					"bounds": [
+						60.7793579101563,
+						174.901748657227,
+						149.206588745117,
+						325.548095703125
+					],
+					"facing": 1,
+					"floor_stage_y": 180.0,
+					"frame": 93,
+					"gait_weight": 1.0,
+					"held_contact_error_stage": 0.0,
+					"input_velocity": 29.9991397857666,
+					"pattern": [
+						0.00833333333333333,
+						0.0333333333333333
+					]
+				}
+			],
+			"file": "variable_held_physics-1.png"
+		}
+	]
+}

@@ -1,0 +1,159 @@
+extends RefCounted
+## Real dispatcher/Tween and actor callbacks, with explicit render and physics timelines.
+static func run(s:TestSuite)->void:
+	for pattern:Array in [[1.0/60.0],[1.0/120.0,1.0/30.0],[1.0/120.0,1.0/60.0]]:
+		for held:bool in [false,true]:
+			for rate:float in [1.0,2.0]:
+				for facing:int in [-1,1]:
+					await _case(s,pattern,held,rate,facing)
+	await _ownership_and_pause(s)
+
+static func _start(player:CutscenePlayer,step:Dictionary)->void:
+	await player._do_move(step)
+
+static func _case(s:TestSuite,pattern:Array,held:bool,rate:float,facing:int)->void:
+	var player:=CutscenePlayer.new()
+	s.runner.add_child(player)
+	player._root=Control.new()
+	player.add_child(player._root)
+	player._running=true
+	player.speed=rate
+	player._stage=StageLibrary.Stage.new()
+	player.add_child(player._stage)
+	var actor:=CutsceneActor.new()
+	player._stage.actors.add_child(actor)
+	assert(actor.setup(&"visitor","rin","",3.4,""))
+	actor.position=Vector2(320,180)
+	actor.ground_y=180
+	actor.face(facing)
+	for i in 180:actor._process(1.0/60.0)
+	player._actors[&"visitor"]=actor
+	var grip:=Vector2(350,200)
+	var prop:StageLayers._Sprite
+	if held:
+		var shoulder:=player._stage.actors.to_local(actor.rig.bone(&"arm_front_upper").global_position)
+		var unit:=actor.scale.y*actor.rig.body_scale()
+		var local_target:=shoulder+Vector2(5.0*facing,8.0)*unit-actor.position
+		assert(actor.set_hand_target({"hand":"front","space":"actor","to":[local_target.x,local_target.y],"angle":PI if facing<0 else 0.0,"time":0.0}))
+		actor._process(1.0/60.0)
+		var definition:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/cutscene/stages/ch1_pawnshop_kitchen.json"))
+		for layer:Dictionary in definition.layers:
+			if layer.get("id")=="kettle":
+				prop=StageLayers.create(layer,"move clock fixture") as StageLayers._Sprite
+				break
+		assert(prop!=null)
+		player._stage.add_layer(prop)
+		prop.position=player._stage.to_local(actor.hand_contact_global(&"front"))-prop.transform.basis_xform(prop.source_point(grip))
+		assert(player._stage.hold_prop("kettle",actor,&"front",grip).is_empty())
+	var duration:=4.0
+	var expected_velocity:=30.0*rate*facing
+	var distance:=30.0*actor.scale.x*actor.rig.body_scale()*duration*facing
+	_start(player,{"id":"visitor","to":[actor.position.x+distance,180],"time":duration,"pose":"walk","then":"idle","wait":true})
+	assert(player._tweens.size()==1)
+	var tween:Tween=player._tweens[0]
+	tween.pause()
+	s.check(actor.hand_targets_active()==held,"move exercises the real hand-target clock branch")
+	var elapsed:=0.0
+	var physics_pending:=0.0
+	var samples:=0
+	var worst_velocity_error:=0.0
+	var lowest_gait:=1.0
+	var worst_hold:=0.0
+	for frame in 1200:
+		var delta:float=pattern[frame%pattern.size()]
+		var moving_before:=actor.pose==&"walk"
+		if held:
+			physics_pending+=delta
+			while physics_pending>=1.0/60.0:
+				physics_pending-=1.0/60.0
+				tween.custom_step(1.0/60.0)
+		actor._process(delta)
+		player._stage._process(delta)
+		if not held:tween.custom_step(delta)
+		elapsed+=delta
+		if elapsed>1.5 and moving_before and actor.pose==&"walk":
+			samples+=1
+			worst_velocity_error=maxf(worst_velocity_error,absf(actor._input.velocity.x-expected_velocity))
+			lowest_gait=minf(lowest_gait,actor.rig.animator._gait_w)
+			if held:
+				var point:=player._stage.to_local(prop.to_global(prop.source_point(grip)))
+				worst_hold=maxf(worst_hold,point.distance_to(player._stage.to_local(actor.hand_contact_global(&"front"))))
+		if actor.pose==&"idle":break
+	var label:="pattern=%s held=%s speed=%s face=%s"%[pattern,held,rate,facing]
+	s.check(samples>0,label+" exercises actual steady movement")
+	s.check(worst_velocity_error<=absf(expected_velocity)*.001+.00001,label+" consumes velocity from the same published time interval")
+	s.check(lowest_gait>=.99,label+" keeps steady gait engaged across render/physics clocks")
+	if held:s.check(worst_hold<=StagePropHold.CONTACT_TOLERANCE,label+" retains actual kettle/grip contact")
+	print("MOVE_CLOCK_CASE ",label," samples=",samples," velocity_error=",worst_velocity_error," gait_min=",lowest_gait," hold=",worst_hold)
+	player.free()
+	await s.frames(1)
+
+
+static func _ownership_and_pause(s:TestSuite)->void:
+	var p:=CutscenePlayer.new()
+	s.runner.add_child(p)
+	p._root=Control.new()
+	p.add_child(p._root)
+	p._running=true
+	var actor:=CutsceneActor.new()
+	p.add_child(actor)
+	assert(actor.setup(&"visitor","old_k","",1.0,""))
+	actor.position=Vector2(30,100)
+	actor.ground_y=100
+	for frame in 180:actor._process(1.0/60.0)
+	p._actors[&"visitor"]=actor
+	if not actor.has_method("begin_stage_move"):
+		s.check(false,"actor exposes explicit movement publication ownership")
+		p.free()
+		await s.frames(1)
+		return
+	var token:int=actor.begin_stage_move(false)
+	var before:=actor._t
+	s.check(not actor.consume_stage_move(token,Vector2(35,100),0.0),"zero publication cannot move or advance the actor")
+	s.check(actor.position==Vector2(30,100) and actor._t==before,"zero publication preserves position and actor time")
+	var replacement:int=actor.begin_stage_move(false)
+	s.check(not actor.consume_stage_move(token,Vector2(100,100),.1),"superseded token cannot publish")
+	actor.end_stage_move(token)
+	s.check(actor.stage_move_current(replacement),"old cleanup cannot release a replacement movement")
+	actor._reset_stage_move_clock()
+	s.check(not actor.stage_move_current(replacement) and not actor.stage_move_superseded(replacement),"reset invalidates old ownership instead of calling it a successful supersession")
+	var transport_script:=preload("res://game/cutscene/cutscene_move_clock.gd")
+	var early:=transport_script.new(p,actor,Vector2(40,100),1.0,1.0,false)
+	early.complete(&"sit")
+	s.check(not early.finished and actor.pose!=&"sit","early completion cannot fabricate arrival or then posture")
+	var complete:=transport_script.new(p,actor,Vector2(40,100),1.0,1.0,false)
+	complete.publish(0.0)
+	s.check(actor.position==Vector2(30,100),"initial progress is not a duplicate body sample")
+	complete.publish(1.0)
+	complete.complete(&"idle")
+	var settled:=actor._t
+	complete.publish(.5)
+	complete.complete(&"sit")
+	s.check(complete.finished and actor.pose==&"idle" and actor._t==settled,"completed publication ignores late samples and duplicate callbacks")
+	actor._process(.01)
+	s.check(is_equal_approx(actor._t,settled+.01),"idle completion resumes the next render interval immediately")
+	token=actor.begin_stage_move(true)
+	actor.consume_stage_move(token,Vector2(41,100),.01)
+	actor.consume_stage_move(token,Vector2(42,100),.01)
+	actor.end_stage_move(token,true)
+	settled=actor._t
+	actor._process(.02)
+	s.check(is_equal_approx(actor._t,settled),"two physical publications are not consumed again by their render callback")
+	actor._process(.01)
+	s.check(is_equal_approx(actor._t,settled+.01),"physical completion introduces no future-clock catch-up wait")
+	actor.set_pose(&"idle")
+	actor._process(.01)
+	_start(p,{"id":"visitor","to":[80,100],"time":.2,"pose":"walk","then":"idle","wait":true})
+	var tween:Tween=p._tweens.back()
+	tween.pause()
+	var position_before:=actor.position
+	for frame in 3:await s.frames(1)
+	s.check(p._running and not p.skipping and actor.position==position_before and actor._stage_move_active,"paused move stays pending without false completion or cancellation")
+	tween.custom_step(.2)
+	tween.play()
+	for frame in 30:
+		if actor.pose==&"idle":break
+		await s.frames(1)
+	s.check(p._running and actor.pose==&"idle" and not actor._stage_move_active and is_equal_approx(actor.position.x,80),"paused move can resume and publish its true endpoint")
+	p.free()
+	await s.frames(1)

@@ -1,0 +1,100 @@
+--- a/game/cutscene/cutscene_actor.gd
++++ b/game/cutscene/cutscene_actor.gd
+@@ -36,6 +36,12 @@
+ var _shadow_pose: StringName = &""
+ var _reaches: Array[CutsceneReach] = [CutsceneReach.new(&"front"), CutsceneReach.new(&"back")]
+ var reach_speed := 1.0
++## A move temporarily owns body/reach updates on its configured Tween clock.
++var _stage_move_token := 0
++var _stage_move_reset_token := 0
++var _stage_move_active := false
++var _stage_move_physics := false
++var _stage_move_render_credit := 0.0
+ 
+ 
+ func _init() -> void:
+@@ -45,6 +51,7 @@
+ 
+ ## kind 是骨架外觀 id；找不到時用 portrait（圖片路徑）做剪影，兩者都沒有回傳 false。
+ func setup(id: StringName, kind: String, portrait_path: String, unit_scale: float, weapon: String) -> bool:
++	_reset_stage_move_clock()
+ 	actor_id = id
+ 	scale = Vector2.ONE * unit_scale
+ 	if kind != "" and not RigLibrary.character(kind).is_empty():
+@@ -190,6 +197,17 @@
+ 
+ 
+ func _process(delta: float) -> void:
++	if _stage_move_active:
++		_stage_move_render_credit = 0.0
++		return
++	var credit := _stage_move_render_credit
++	var step_delta := maxf(0.0, delta - credit)
++	_stage_move_render_credit = 0.0
++	if step_delta > 0.0 or credit == 0.0:
++		_advance_stage_actor(step_delta)
++
++
++func _advance_stage_actor(delta: float) -> void:
+ 	_t += delta
+ 	if _settling:
+ 		var progress := (rig.animator as NpcAnimator).posture_progress() if rig != null and rig.animator is NpcAnimator else 1.0
+@@ -267,3 +285,58 @@
+ 		&"jump":
+ 			_input.on_floor = false
+ 			_input.velocity = Vector2(60.0 * facing, -120.0)
++
++
++func begin_stage_move(physics_clock: bool) -> int:
++	_stage_move_token += 1
++	_stage_move_active = true
++	_stage_move_physics = physics_clock
++	_stage_move_render_credit = 0.0
++	_last_position = position
++	_position_known = true
++	return _stage_move_token
++
++
++func stage_move_current(token: int) -> bool:
++	return _stage_move_active and token == _stage_move_token
++
++
++func stage_move_superseded(token: int) -> bool:
++	return token > _stage_move_reset_token and token < _stage_move_token
++
++
++func consume_stage_move(token: int, point: Vector2, delta: float) -> bool:
++	if not stage_move_current(token) or not point.is_finite() or not is_finite(delta) or delta <= 0.0:
++		return false
++	if not is_inside_tree() or is_queued_for_deletion() or not is_processing() or not can_process() or pose == &"dead":
++		return false
++	position = point
++	_advance_stage_actor(delta)
++	if _stage_move_physics:
++		_stage_move_render_credit += delta
++	return true
++
++
++func end_stage_move(token: int, completed := false) -> void:
++	if token != _stage_move_token:
++		return
++	_stage_move_active = false
++	# Physics samples already consumed part/all of the next render callback's interval.
++	# Idle samples are published after that callback, so its next interval is wholly new.
++	if not completed or not _stage_move_physics:
++		_stage_move_render_credit = 0.0
++	_last_position = position
++	_position_known = true
++
++
++func _reset_stage_move_clock() -> void:
++	_stage_move_token += 1
++	_stage_move_reset_token = _stage_move_token
++	_stage_move_active = false
++	_stage_move_physics = false
++	_stage_move_render_credit = 0.0
++	_position_known = false
++
++
++func _exit_tree() -> void:
++	_reset_stage_move_clock()

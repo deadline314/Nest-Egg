@@ -1,0 +1,9 @@
+{
+  "classification": "Independent rescan of unchanged raw logs, both ObjectDB leaked/were leaked and RID/resource diagnostics",
+  "logs": [
+    "published-clock-red-v1/native.log",
+    "published-clock-green-v1/native.log",
+    "published-focused-v1/native.log"
+  ],
+  "exit_leaks": []
+}

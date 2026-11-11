@@ -1,0 +1,10 @@
+--- a/tests/suite/test_cutscene.gd
++++ b/tests/suite/test_cutscene.gd
+@@ -35,6 +35,7 @@
+ 
+ 
+ func run() -> void:
++	await preload("res://tests/helpers/stage_move_clock_checks.gd").run(self)
+ 	preload("res://tests/helpers/world_prop_action_checks.gd").run(self)
+ 	preload("res://tests/helpers/world_paper_reach_checks.gd").run(self)
+ 	preload("res://tests/helpers/world_wheel_reach_checks.gd").run(self)

@@ -1,0 +1,59 @@
+{
+  "classification": "Original unmodified native RGBH bytes; independent float-before-quantization reader",
+  "frames": [
+    {
+      "file": "fixed_idle--1.png.raw",
+      "bytes": 5529600,
+      "sha256": "c4eeb294b3130cc6e9fa05d3813eaa5e02559a8dae7ab73ff39d0ee5201575ca",
+      "png": "fixed_idle--1.png",
+      "maximum_srgb_rounding_error": 1
+    },
+    {
+      "file": "fixed_idle-1.png.raw",
+      "bytes": 5529600,
+      "sha256": "158addc5785baa1a24fa22035b1cdde015006d0069b1befceedb0fd67524f7a3",
+      "png": "fixed_idle-1.png",
+      "maximum_srgb_rounding_error": 1
+    },
+    {
+      "file": "variable_idle--1.png.raw",
+      "bytes": 5529600,
+      "sha256": "bd85b1da658fa4c23b4779fddf31b4e9706d7c945d2b63be0e81c46421d30215",
+      "png": "variable_idle--1.png",
+      "maximum_srgb_rounding_error": 1
+    },
+    {
+      "file": "variable_idle-1.png.raw",
+      "bytes": 5529600,
+      "sha256": "d23eac3a4287533a6489e69cc94aa086ba79a34018879d937fa6f84f78418433",
+      "png": "variable_idle-1.png",
+      "maximum_srgb_rounding_error": 1
+    },
+    {
+      "file": "variable_held_physics--1.png.raw",
+      "bytes": 5529600,
+      "sha256": "14d3ca9de1ca3b846a5d29cc00373946ddba4b007ed4571b5c64516621b0a434",
+      "png": "variable_held_physics--1.png",
+      "maximum_srgb_rounding_error": 1
+    },
+    {
+      "file": "variable_held_physics-1.png.raw",
+      "bytes": 5529600,
+      "sha256": "b11dd42777c8277b1ffbceeaa8afa6a1afaec670d156bc30cd99eaa916a2285d",
+      "png": "variable_held_physics-1.png",
+      "maximum_srgb_rounding_error": 1
+    },
+    {
+      "file": "published-s18-static.png.raw",
+      "bytes": 5529600,
+      "sha256": "820d785031861401f8ba4b7d5be5b7d00cef5ab615be2170f3f6117bbf9a51ff",
+      "png": "published-s18-static.png",
+      "maximum_srgb_rounding_error": 1
+    }
+  ],
+  "archive": {
+    "file": "raw.zip",
+    "bytes": 4703414,
+    "sha256": "461171d824f597e61f45d4835d32e22a47da73a9c0bab21d84a35eb4c89a04a8"
+  }
+}

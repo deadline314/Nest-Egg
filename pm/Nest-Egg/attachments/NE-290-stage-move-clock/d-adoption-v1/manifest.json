@@ -1,0 +1,20 @@
+{
+  "status": "D-only initial runtime candidate, not yet compiled or green; C345 untouched",
+  "files": [
+    {
+      "path": "game/cutscene/cutscene_actor.gd",
+      "base_sha256": "cf0629a1de977371dda28aec7d43f4946f412a6ecda36608327a5d0f65589968",
+      "candidate_sha256": "8ea1fe87459b968e0770889917809ee2e695b8c4ce8d0f90521d43c3247b4d09"
+    },
+    {
+      "path": "game/cutscene/cutscene_player.gd",
+      "base_sha256": "339db5a6154036ee6963b7a667183dda888c6df1bcfe45f85c03910e792bdf59",
+      "candidate_sha256": "46f12661a4cd5710912832ba280818308da310dac5c578b67309afb072f5709d"
+    },
+    {
+      "path": "game/cutscene/cutscene_move_clock.gd",
+      "base_sha256": null,
+      "candidate_sha256": "58d31e71045c2d40ee84ff5a9d295ca876b42cfe9277f9b87e0042e1bfca79ff"
+    }
+  ]
+}

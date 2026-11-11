@@ -1,0 +1,77 @@
+extends RefCounted
+## A move's position and animation interval are one publication, on its original Tween clock.
+var token: int
+var finished := false
+var _owner: WeakRef
+var _actor: WeakRef
+var _id: StringName
+var _from: Vector2
+var _to: Vector2
+var _duration: float
+var _rate: float
+var _progress := 0.0
+
+
+func _init(owner: Node, actor: CutsceneActor, target: Vector2, duration: float, rate: float, physics_clock: bool) -> void:
+	_owner = weakref(owner)
+	_actor = weakref(actor)
+	_id = actor.actor_id
+	_from = actor.position
+	_to = target
+	_duration = duration
+	_rate = rate # Same immutable configuration snapshot passed to this Tween's speed_scale.
+	token = actor.begin_stage_move(physics_clock)
+
+
+func _current_actor() -> CutsceneActor:
+	var owner = _owner.get_ref()
+	if not is_instance_valid(owner):
+		return null
+	var actor: CutsceneActor = owner._live_step_actor(_actor, _id)
+	return actor if actor != null and actor.is_processing() and actor.stage_move_current(token) else null
+
+
+func active() -> bool:
+	return not finished and _current_actor() != null
+
+
+func publish(progress: float) -> void:
+	if finished:
+		return
+	var actor := _current_actor()
+	if actor == null or not is_finite(progress) or progress < _progress or not is_finite(_rate) or _rate <= 0.0:
+		stop()
+		return
+	var next := clampf(progress, 0.0, 1.0)
+	var delta := (next - _progress) * _duration / _rate
+	_progress = next
+	if delta > 0.0 and not actor.consume_stage_move(token, _from.lerp(_to, next), delta):
+		stop()
+
+
+func complete(then_pose: StringName) -> void:
+	if finished:
+		return
+	if _progress < 1.0:
+		stop()
+		return
+	var actor := _current_actor()
+	if actor == null:
+		stop()
+		return
+	actor.end_stage_move(token, true)
+	actor.set_pose(then_pose)
+	finished = true
+
+
+func superseded() -> bool:
+	var actor := _actor.get_ref() as CutsceneActor
+	return actor != null and actor.stage_move_superseded(token)
+
+
+func stop() -> void:
+	if finished:
+		return
+	var actor := _actor.get_ref() as CutsceneActor
+	if actor != null:
+		actor.end_stage_move(token)

@@ -1,0 +1,40 @@
+--- a/game/cutscene/cutscene_player.gd
++++ b/game/cutscene/cutscene_player.gd
+@@ -729,24 +729,28 @@
+ 	if absf(target.x - actor.position.x) > .5:
+ 		actor.face(1 if target.x > actor.position.x else -1)
+ 	actor.set_pose(move_pose)
++	var physics_clock := actor.hand_targets_active()
+ 	var tween := _new_tween()
+-	if actor.hand_targets_active():
++	tween.bind_node(actor)
++	if physics_clock:
+ 		tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+ 		tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+-	tween.tween_property(actor, "position", target, maxf(.01, float(step.get("time", 1.0))))
++	var duration := maxf(.01, float(step.get("time", 1.0)))
++	var publication := preload("res://game/cutscene/cutscene_move_clock.gd").new(self, actor, target, duration, speed, physics_clock)
++	tween.tween_method(publication.publish, 0.0, 1.0, duration)
+ 	var then_pose := StringName(str(step.get("then", "idle")))
+-	tween.tween_callback(func() -> void:
+-		var current := _live_move_actor(reference, id)
+-		if current != null:
+-			current.set_pose(then_pose))
+-	while tween.is_valid() and tween.is_running() and _live_move_actor(reference, id) != null:
++	tween.tween_callback(publication.complete.bind(then_pose))
++	while tween.is_valid() and publication.active():
+ 		await get_tree().process_frame
+ 		if not is_instance_valid(self):
++			publication.stop()
+ 			return
+-	if _live_move_actor(reference, id) == null:
++	if not publication.finished:
+ 		if tween.is_valid():
+ 			tween.kill()
+-		if _running and not skipping and bool(step.get("wait", true)):
++		var superseded: bool = publication.superseded()
++		publication.stop()
++		if not superseded and _running and not skipping and bool(step.get("wait", true)):
+ 			cancel()
+ 
+ 
