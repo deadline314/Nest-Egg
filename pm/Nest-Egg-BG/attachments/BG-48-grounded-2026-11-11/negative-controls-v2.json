@@ -1,0 +1,27 @@
+{
+  "baseline_cells": 9,
+  "baseline_supported_points": 6,
+  "negative_controls": [
+    {
+      "case": "fog",
+      "rejected": true,
+      "reason": "fog control values"
+    },
+    {
+      "case": "ambient",
+      "rejected": true,
+      "reason": "ambient control"
+    },
+    {
+      "case": "enemy-fill",
+      "rejected": true,
+      "reason": "enemy fill control"
+    },
+    {
+      "case": "world-environment",
+      "rejected": true,
+      "reason": "world environment control"
+    }
+  ],
+  "original_index_unchanged_sha256": "85be985f1b39890c354a35162cdc38e5ab07d9efbadc1fe1319af7c5167adbf8"
+}

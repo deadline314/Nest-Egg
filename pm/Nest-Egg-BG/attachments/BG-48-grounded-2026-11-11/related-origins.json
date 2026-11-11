@@ -1,0 +1,146 @@
+[
+  {
+    "kind": "promenade",
+    "quality": "high",
+    "case": "regression-grounded-ch2_market-high-v2",
+    "archives": [
+      {
+        "path": "../BG-55-market-gate-2026-11-11/regression-grounded-ch2_market-high-v2-raw.zip",
+        "sha256": "aaa0cedb16cd75d892cf95729b5b7460169fe9353b303b44e4cb8dbf188b88a3",
+        "bytes": 64839765
+      }
+    ]
+  },
+  {
+    "kind": "promenade",
+    "quality": "low",
+    "case": "regression-grounded-ch2_market-low-v2",
+    "archives": [
+      {
+        "path": "../BG-55-market-gate-2026-11-11/regression-grounded-ch2_market-low-v2-raw.zip",
+        "sha256": "af04e72da749fad6f786c3bd7bd498e0fb6fbf738b118a64762e4fe8570bb7d0",
+        "bytes": 60428387
+      }
+    ]
+  },
+  {
+    "kind": "handoff-original-point",
+    "quality": "high",
+    "case": "native-bg49-held-complete-high-v6",
+    "scope": "one original authored counter point, not nine-cell tour; reuse of published BG49 native capture",
+    "archives": [
+      {
+        "path": "../BG-49-native-readability-2026-11-11/native-bg49-held-complete-high-v6-part01-raw.zip",
+        "sha256": "65f02df1bae07ab006abbfd832e192716496757d4516543d7a059a68045e1a91",
+        "bytes": 43543739,
+        "selected_members": [
+          "ch1_handoff/bg49-held.json",
+          "ch1_handoff/bg55-cell014-A0.bin",
+          "ch1_handoff/bg55-cell014-A0.png"
+        ]
+      },
+      {
+        "path": "../BG-49-native-readability-2026-11-11/native-bg49-held-complete-high-v6-part02-raw.zip",
+        "sha256": "386a5277a82517524f97440495031cc7972abc4d8c44f749193f48b3a22997b6",
+        "bytes": 18765748,
+        "selected_members": [
+          "command.json",
+          "exit.json",
+          "source-before.json"
+        ]
+      }
+    ],
+    "members": {
+      "ch1_handoff/bg49-held.json": {
+        "bytes": 56734,
+        "sha256": "5a093a41c6dc80c3edd18b6772e83fc0ed5e61944ae1484187aa604497f3c585",
+        "archive": "native-bg49-held-complete-high-v6-part01-raw.zip"
+      },
+      "ch1_handoff/bg55-cell014-A0.bin": {
+        "bytes": 5529600,
+        "sha256": "7ca3898228af306703908fcb8795c3c2c5f53ef50f2b0ec9b7810dc1872e9e27",
+        "archive": "native-bg49-held-complete-high-v6-part01-raw.zip"
+      },
+      "ch1_handoff/bg55-cell014-A0.png": {
+        "bytes": 375450,
+        "sha256": "e5bf39d784b1f1ebadaf41d7beaa59e352ee72a6ff701707ceccee2374a22f2f",
+        "archive": "native-bg49-held-complete-high-v6-part01-raw.zip"
+      },
+      "command.json": {
+        "bytes": 839,
+        "sha256": "7a3531f82e3787b894b03c9a0022ca2c2743469c0d587a0123f2fb3469208f31",
+        "archive": "native-bg49-held-complete-high-v6-part02-raw.zip"
+      },
+      "exit.json": {
+        "bytes": 46962,
+        "sha256": "2b4f2cac385f1aed2bfd657f623da3e283db83804777937b362fdba30af9adf6",
+        "archive": "native-bg49-held-complete-high-v6-part02-raw.zip"
+      },
+      "source-before.json": {
+        "bytes": 45797,
+        "sha256": "32ef67bccf86619257bcc7e5ad734b7eb6fbd46d8559f4664550cbd84faf86b5",
+        "archive": "native-bg49-held-complete-high-v6-part02-raw.zip"
+      }
+    }
+  },
+  {
+    "kind": "handoff-original-point",
+    "quality": "low",
+    "case": "native-bg49-held-complete-low-v6",
+    "scope": "one original authored counter point, not nine-cell tour; reuse of published BG49 native capture",
+    "archives": [
+      {
+        "path": "../BG-49-native-readability-2026-11-11/native-bg49-held-complete-low-v6-part01-raw.zip",
+        "sha256": "892f4b234a7974373871707d18865cc2758a5a9949131234450b09ce65223864",
+        "bytes": 40150073,
+        "selected_members": [
+          "ch1_handoff/bg49-held.json",
+          "ch1_handoff/bg55-cell014-A0.bin",
+          "ch1_handoff/bg55-cell014-A0.png"
+        ]
+      },
+      {
+        "path": "../BG-49-native-readability-2026-11-11/native-bg49-held-complete-low-v6-part02-raw.zip",
+        "sha256": "18fd55836efaf0e047670548ad1b47a0bcc04e3899810db14b91ad8c3521ff05",
+        "bytes": 18198455,
+        "selected_members": [
+          "command.json",
+          "exit.json",
+          "source-before.json"
+        ]
+      }
+    ],
+    "members": {
+      "ch1_handoff/bg49-held.json": {
+        "bytes": 54987,
+        "sha256": "8a4259bbbaae506772bc6f6825d681b47b0d51113b810805dfb2fa563e481896",
+        "archive": "native-bg49-held-complete-low-v6-part01-raw.zip"
+      },
+      "ch1_handoff/bg55-cell014-A0.bin": {
+        "bytes": 5529600,
+        "sha256": "acd38103b1582f226e070a50477bbea708815e9f7711985f1874662bd033d690",
+        "archive": "native-bg49-held-complete-low-v6-part01-raw.zip"
+      },
+      "ch1_handoff/bg55-cell014-A0.png": {
+        "bytes": 448758,
+        "sha256": "b196e5b43b437050ef05ce599fbc07eaa99a6a7ee9e006dd268f5b0a359834ec",
+        "archive": "native-bg49-held-complete-low-v6-part01-raw.zip"
+      },
+      "command.json": {
+        "bytes": 837,
+        "sha256": "29cfeaf44627125f2ceff4523005390574dc27f29909adcfa21738b3559fdae2",
+        "archive": "native-bg49-held-complete-low-v6-part02-raw.zip"
+      },
+      "exit.json": {
+        "bytes": 46962,
+        "sha256": "6d91cfc95c9309041b376197ac28b589c2d17a852d5e5ac0defb6ecfc498d408",
+        "archive": "native-bg49-held-complete-low-v6-part02-raw.zip"
+      },
+      "source-before.json": {
+        "bytes": 45797,
+        "sha256": "32ef67bccf86619257bcc7e5ad734b7eb6fbd46d8559f4664550cbd84faf86b5",
+        "archive": "native-bg49-held-complete-low-v6-part02-raw.zip"
+      }
+    }
+  }
+]
