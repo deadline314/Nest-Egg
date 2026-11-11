@@ -1,0 +1,541 @@
+{
+  "archive": "original-raw.zip",
+  "bytes": 2755041,
+  "sha256": "b81f2450cc54ecef8efb2f56addbd75006d4258a2010cb6b85b1e5f85573824b",
+  "base": "2c5cc9fc9f9869c045aa8a762260cfd50112ace8",
+  "entries": {
+    "native/after/command-before.json": {
+      "bytes": 851,
+      "sha256": "fd43d1f65f54b02007171fad8f284e29adbd99960c9f1cfeea4d9decd6268eac"
+    },
+    "native/after/executed-main_menu.gd": {
+      "bytes": 12144,
+      "sha256": "5108f1ca86a98fe33d665e935554f3d3fecdc161f5ff74a71a0544e987d50379"
+    },
+    "native/after/menu.bin": {
+      "bytes": 5529600,
+      "sha256": "6dae0903270dd3333f138f1f6342a9dde77ae392e56fcc02b50b74d9bd14b767"
+    },
+    "native/after/menu.json": {
+      "bytes": 423,
+      "sha256": "605fd018d759c20597f8b81c8d2b778ff85b373229ae79ef2319f94a42423f52"
+    },
+    "native/after/menu.png": {
+      "bytes": 104929,
+      "sha256": "4587580c2869c14780914b7fea18a316c9189d3ca4eb820ca71dc892c5925432"
+    },
+    "native/after/process.log": {
+      "bytes": 149,
+      "sha256": "b18c5b59db008f72702ffed2699e6e46b0571f75903f8c1913961e964f5d1221"
+    },
+    "native/after/receipt.json": {
+      "bytes": 978,
+      "sha256": "182d1f962950587fbf677ec9e6a72f787095b1b7d55e5daf6a2af9f11eda1daf"
+    },
+    "native/before/command-before.json": {
+      "bytes": 852,
+      "sha256": "921b0dd52704a61222e8fc382b8ba404e96740cc9c731f42a0d4d307cfb42033"
+    },
+    "native/before/executed-main_menu.gd": {
+      "bytes": 12147,
+      "sha256": "8734cdd1f7058ab335f6370c64e41880715b96a5a2f08e7154671b258b1ac2c8"
+    },
+    "native/before/menu.bin": {
+      "bytes": 5529600,
+      "sha256": "dcdbcc1d5493d6b3ba220b458191948f7c67b7050546be6eaa8137d8b1a5dd16"
+    },
+    "native/before/menu.json": {
+      "bytes": 429,
+      "sha256": "1a6958cc4a5bd3d9db00e0a9e0f080b9c6b40d28189bc53dda246f34058999be"
+    },
+    "native/before/menu.png": {
+      "bytes": 105209,
+      "sha256": "21c67e9e1c444373fc71b6cce23c2de1f682a4f3668f6f51c4281d7ff7ef8cd0"
+    },
+    "native/before/process.log": {
+      "bytes": 149,
+      "sha256": "b18c5b59db008f72702ffed2699e6e46b0571f75903f8c1913961e964f5d1221"
+    },
+    "native/before/receipt.json": {
+      "bytes": 978,
+      "sha256": "fe572ea2b3c4ae31c6d4cd4dfe8c4c06f04e709ef0ab4bdbfc2369cc2e5b6293"
+    },
+    "native/context.json": {
+      "bytes": 503,
+      "sha256": "5a1539763e36ad32ff0bb23275878f1638e1016ab687a78808fd50f4d92e9e09"
+    },
+    "native/executed-runner.py": {
+      "bytes": 5499,
+      "sha256": "3f6fdf48cbd8e33325f3891acfb378cc18c715acaa0f8d7e7c91a924e8685127"
+    },
+    "native/probe.gd": {
+      "bytes": 1600,
+      "sha256": "f9a1c204e514598f2e83f2261355e34d648088635390d419d29aa9dc06560366"
+    },
+    "native/probe.tscn": {
+      "bytes": 193,
+      "sha256": "001d7dd702f25b865c210fa43ee0b32157a088f877a9e14e55cb45208f755d9e"
+    },
+    "official-executed-runner.py": {
+      "bytes": 3656,
+      "sha256": "9a31b2bd4928c538ec31be705ef9fba24d10a10480b278c9cf93c80ae5460e75"
+    },
+    "official/candidate.json": {
+      "bytes": 398,
+      "sha256": "b384ebb404035bd6c05d7c979860e6f83b137516391a3b3e42ba457d2c2533bd"
+    },
+    "official/command.json": {
+      "bytes": 336,
+      "sha256": "cd9e56587a27c07d95e0e9e2eeec01a6f104fa391e6a113dcd57b1c7a22f3477"
+    },
+    "official/exit.json": {
+      "bytes": 1260,
+      "sha256": "e676916716d583a32a0a2b2ad9039949f53c2b90ba82abf82825ad807882736d"
+    },
+    "official/full.log": {
+      "bytes": 894,
+      "sha256": "7f56de9d98d4df2dcd46b115344781d7171b294c80269ec7935f10c6849c40e4"
+    },
+    "official/generated-uid-context.json": {
+      "bytes": 784,
+      "sha256": "8fe946eb464fc58b83ce6c2cbc811fc83eee04ff6905aa1b21492ebb498e25b7"
+    },
+    "official/import.json": {
+      "bytes": 416,
+      "sha256": "444e6da9a97df09d28d63fe97572198278bc19f30c0737825dfcdf59896ab469"
+    },
+    "official/import.log": {
+      "bytes": 1976,
+      "sha256": "9c7b1347332ea2c638f74ff23ce6ccfeceb1a782b83e4774275f7e4a1d7b9eec"
+    },
+    "official/logs/data_0/Godot/app_userdata/Nest Egg/logs/godot.log": {
+      "bytes": 164,
+      "sha256": "02d804a47b12561ec809e35a52075b552f72bef8b5947f5084543aa3b3252624"
+    },
+    "official/logs/data_1/Godot/app_userdata/Nest Egg/codex.cfg": {
+      "bytes": 28,
+      "sha256": "e30e8a3fd4aaed476cae87b57fb34adc8fe1a24a1a0aa421250af2285b215fdb"
+    },
+    "official/logs/data_1/Godot/app_userdata/Nest Egg/logs/godot.log": {
+      "bytes": 259255,
+      "sha256": "237bb264832286b4da30f0086c54d902005d0a0ad7303474c0429953b5a8343d"
+    },
+    "official/logs/data_1/Godot/app_userdata/Nest Egg/settings.cfg": {
+      "bytes": 55,
+      "sha256": "1459c9917eabf8e66840f3b01a5e19769f246995fc6be2bcd379e377705bf93e"
+    },
+    "official/logs/data_2/Godot/app_userdata/Nest Egg/codex.cfg": {
+      "bytes": 28,
+      "sha256": "e30e8a3fd4aaed476cae87b57fb34adc8fe1a24a1a0aa421250af2285b215fdb"
+    },
+    "official/logs/data_2/Godot/app_userdata/Nest Egg/logs/godot.log": {
+      "bytes": 90073,
+      "sha256": "755fbef6c74b65e1135b05748c8e4b8abe40ebaf48268ab0acb7398515f32c2c"
+    },
+    "official/logs/data_2/Godot/app_userdata/Nest Egg/ne245-encounter-resume/authored_edges.json": {
+      "bytes": 10782,
+      "sha256": "22cf5caadccd658391ae680951a42e8e24310faa8bee3c22b296796430b3d807"
+    },
+    "official/logs/data_2/Godot/app_userdata/Nest Egg/ne245-encounter-resume/authored_edges.json.bak": {
+      "bytes": 10782,
+      "sha256": "22cf5caadccd658391ae680951a42e8e24310faa8bee3c22b296796430b3d807"
+    },
+    "official/logs/data_2/Godot/app_userdata/Nest Egg/ne245-encounter-resume/reinforcement.json": {
+      "bytes": 10827,
+      "sha256": "e18908ff15a4dfe840c018f61bded5cbff5c7f51676b814232eaf5931d78bfb5"
+    },
+    "official/logs/data_2/Godot/app_userdata/Nest Egg/ne245-encounter-resume/reinforcement.json.bak": {
+      "bytes": 10827,
+      "sha256": "e18908ff15a4dfe840c018f61bded5cbff5c7f51676b814232eaf5931d78bfb5"
+    },
+    "official/logs/data_2/Godot/app_userdata/Nest Egg/ne245-restore-guard/consumed_false_key.json": {
+      "bytes": 10892,
+      "sha256": "4ff50726da30d74df9b4f2eda2a9a443f9f1bd25890d2ba49ace53ea242b7b59"
+    },
+    "official/logs/data_2/Godot/app_userdata/Nest Egg/ne245-restore-guard/consumed_false_key.json.bak": {
+      "bytes": 10892,
+      "sha256": "4ff50726da30d74df9b4f2eda2a9a443f9f1bd25890d2ba49ace53ea242b7b59"
+    },
+    "official/logs/data_2/Godot/app_userdata/Nest Egg/ne245-restore-guard/destination.json": {
+      "bytes": 7556,
+      "sha256": "6b8e9bb99e6359a9dda00171e0f19bb6de8510aa3d7bd81eccdb2f45c4263749"
+    },
+    "official/logs/data_2/Godot/app_userdata/Nest Egg/ne245-restore-guard/destination.json.bak": {
+      "bytes": 10892,
+      "sha256": "4ff50726da30d74df9b4f2eda2a9a443f9f1bd25890d2ba49ace53ea242b7b59"
+    },
+    "official/logs/data_2/Godot/app_userdata/Nest Egg/ne245-restore-guard/dynamic_factory_failure.json": {
+      "bytes": 10892,
+      "sha256": "4ff50726da30d74df9b4f2eda2a9a443f9f1bd25890d2ba49ace53ea242b7b59"
+    },
+    "official/logs/data_2/Godot/app_userdata/Nest Egg/ne245-restore-guard/dynamic_factory_failure.json.bak": {
+      "bytes": 10892,
+      "sha256": "4ff50726da30d74df9b4f2eda2a9a443f9f1bd25890d2ba49ace53ea242b7b59"
+    },
+    "official/logs/data_2/Godot/app_userdata/Nest Egg/ne245-restore-guard/missing_live_member.json": {
+      "bytes": 10892,
+      "sha256": "4ff50726da30d74df9b4f2eda2a9a443f9f1bd25890d2ba49ace53ea242b7b59"
+    },
+    "official/logs/data_2/Godot/app_userdata/Nest Egg/ne245-restore-guard/missing_live_member.json.bak": {
+      "bytes": 10892,
+      "sha256": "4ff50726da30d74df9b4f2eda2a9a443f9f1bd25890d2ba49ace53ea242b7b59"
+    },
+    "official/logs/data_2/Godot/app_userdata/Nest Egg/settings.cfg": {
+      "bytes": 842,
+      "sha256": "cb01ec1a8788f78bdb50fde4c4df29f95fa65230d6b9564177cf30d4c9e333a1"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/logs/godot.log": {
+      "bytes": 96697,
+      "sha256": "eef89224661ce60e848934e8979adff7997e4ad92ca9acc8f32b4104c9ac7d33"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-destination-refusal/area-refuse.json": {
+      "bytes": 8560,
+      "sha256": "22e8e133ca85c9935a92eafc78f8c7fd8e0bdeba39daba850d20f5d24360486f"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-destination-refusal/area-refuse.json.bak": {
+      "bytes": 8560,
+      "sha256": "22e8e133ca85c9935a92eafc78f8c7fd8e0bdeba39daba850d20f5d24360486f"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-destination-refusal/area-success.json": {
+      "bytes": 7599,
+      "sha256": "0e6552e9eef5019e38a16db7660b6a21be13c8657052fb6a6613d86eda1d2708"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-destination-refusal/area-success.json.bak": {
+      "bytes": 8560,
+      "sha256": "601ff5f85032382bc819d2476e1f91ef73e35f17c98bbe26dbde0b9bcec016ac"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-destination-refusal/chapter-refuse.json": {
+      "bytes": 8560,
+      "sha256": "e885ac06887c61120c67937926d190578e435565fd2eba05871b2d03013e54dd"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-destination-refusal/chapter-refuse.json.bak": {
+      "bytes": 8560,
+      "sha256": "e885ac06887c61120c67937926d190578e435565fd2eba05871b2d03013e54dd"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-destination-refusal/chapter-success.json": {
+      "bytes": 7532,
+      "sha256": "5b36d1885ebdb0d34c9cfca5253bf8b4ffd2220c97e6729c75b7dcece2443c40"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-destination-refusal/chapter-success.json.bak": {
+      "bytes": 8561,
+      "sha256": "f30e683ca2411bb829b473c47a96393536514e719c7a2418dd284927dbf508ca"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-destination-refusal/retry_nonpersistent-refuse.json": {
+      "bytes": 13106,
+      "sha256": "13249c8992a3d65b3f12d42aa96def689ae77b03f76514dd91de57ee41065d64"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-destination-refusal/retry_nonpersistent-refuse.json.bak": {
+      "bytes": 13106,
+      "sha256": "13249c8992a3d65b3f12d42aa96def689ae77b03f76514dd91de57ee41065d64"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-destination-refusal/retry_nonpersistent-success.json": {
+      "bytes": 7155,
+      "sha256": "e7e434a6a2410fe3757eecd9a62815069e4324e766eaf694f9a7b53e94d4c6ca"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-destination-refusal/retry_nonpersistent-success.json.bak": {
+      "bytes": 13120,
+      "sha256": "55f233b03732013ccbc9a8b384eaa3943ddff3caf37f7e975fe289bc18bedcea"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-destination-refusal/retry_persistent-refuse.json": {
+      "bytes": 8574,
+      "sha256": "0cdd193cbc40fcf3ff026974d7f8bafb513a49fe35e381de46c7269876cffa83"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-destination-refusal/retry_persistent-refuse.json.bak": {
+      "bytes": 8574,
+      "sha256": "0cdd193cbc40fcf3ff026974d7f8bafb513a49fe35e381de46c7269876cffa83"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-destination-refusal/retry_persistent-success.json": {
+      "bytes": 7591,
+      "sha256": "98e8e0f7a65763b8d3981b7cc437234c3de85366a0b7051e2f1d90abc932f235"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-destination-refusal/retry_persistent-success.json.bak": {
+      "bytes": 8560,
+      "sha256": "f34ce5759ed7c169dfcf3d5a1baee6307fa6be7fec8c90ce7df899c0c73ba369"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/food-repair-owner.json": {
+      "bytes": 8213,
+      "sha256": "6c7e9d4120f83771b55e3d208a62d93a7bcdf52624b70c7e3326f65242e57cbd"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/food-repair-owner.json.bak": {
+      "bytes": 8213,
+      "sha256": "6c7e9d4120f83771b55e3d208a62d93a7bcdf52624b70c7e3326f65242e57cbd"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/interrupted_0.json": {
+      "bytes": 2,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/interrupted_0.json.bak": {
+      "bytes": 6194,
+      "sha256": "7448b964dae063a47a641052640e18e98ae7c60a18a7f0fac287f704f284c92d"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/interrupted_0.json.freshbak": {
+      "bytes": 6194,
+      "sha256": "7448b964dae063a47a641052640e18e98ae7c60a18a7f0fac287f704f284c92d"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/interrupted_0.json.previous": {
+      "bytes": 6194,
+      "sha256": "63fc4e75a2414600de11ec6a6b6a3880cb62b26e4eb97d91f93584ca7ae2aef3"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/interrupted_0.json.previous.bak": {
+      "bytes": 6194,
+      "sha256": "63fc4e75a2414600de11ec6a6b6a3880cb62b26e4eb97d91f93584ca7ae2aef3"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/interrupted_1.json": {
+      "bytes": 2,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/interrupted_1.json.bak": {
+      "bytes": 6194,
+      "sha256": "7448b964dae063a47a641052640e18e98ae7c60a18a7f0fac287f704f284c92d"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/interrupted_1.json.freshbak": {
+      "bytes": 6194,
+      "sha256": "7448b964dae063a47a641052640e18e98ae7c60a18a7f0fac287f704f284c92d"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/interrupted_1.json.previous": {
+      "bytes": 6194,
+      "sha256": "63fc4e75a2414600de11ec6a6b6a3880cb62b26e4eb97d91f93584ca7ae2aef3"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/interrupted_1.json.previous.bak": {
+      "bytes": 6194,
+      "sha256": "63fc4e75a2414600de11ec6a6b6a3880cb62b26e4eb97d91f93584ca7ae2aef3"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/interrupted_2.json": {
+      "bytes": 2,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/interrupted_2.json.bak": {
+      "bytes": 6194,
+      "sha256": "7448b964dae063a47a641052640e18e98ae7c60a18a7f0fac287f704f284c92d"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/interrupted_2.json.freshbak": {
+      "bytes": 6194,
+      "sha256": "7448b964dae063a47a641052640e18e98ae7c60a18a7f0fac287f704f284c92d"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/interrupted_2.json.previous": {
+      "bytes": 6194,
+      "sha256": "63fc4e75a2414600de11ec6a6b6a3880cb62b26e4eb97d91f93584ca7ae2aef3"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/interrupted_2.json.previous.bak": {
+      "bytes": 6194,
+      "sha256": "63fc4e75a2414600de11ec6a6b6a3880cb62b26e4eb97d91f93584ca7ae2aef3"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/interrupted_3.json": {
+      "bytes": 2,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/interrupted_3.json.bak": {
+      "bytes": 6194,
+      "sha256": "7448b964dae063a47a641052640e18e98ae7c60a18a7f0fac287f704f284c92d"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/interrupted_3.json.freshbak": {
+      "bytes": 6194,
+      "sha256": "7448b964dae063a47a641052640e18e98ae7c60a18a7f0fac287f704f284c92d"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/interrupted_3.json.previous": {
+      "bytes": 6194,
+      "sha256": "63fc4e75a2414600de11ec6a6b6a3880cb62b26e4eb97d91f93584ca7ae2aef3"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/interrupted_3.json.previous.bak": {
+      "bytes": 6194,
+      "sha256": "63fc4e75a2414600de11ec6a6b6a3880cb62b26e4eb97d91f93584ca7ae2aef3"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/npc-reactions.json": {
+      "bytes": 6612,
+      "sha256": "a031b1924b969929e0223a969fb5b10fe75688f3231f33b3fc50384f844cd2c5"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/npc-reactions.json.bak": {
+      "bytes": 6612,
+      "sha256": "a031b1924b969929e0223a969fb5b10fe75688f3231f33b3fc50384f844cd2c5"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/npc-repair-boundary.json": {
+      "bytes": 8199,
+      "sha256": "c713c336ced9dea790b3a503d4895e7b4a5ec7bb481c9762c1fad5ae9323bca3"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/npc-repair-boundary.json.bak": {
+      "bytes": 8199,
+      "sha256": "c713c336ced9dea790b3a503d4895e7b4a5ec7bb481c9762c1fad5ae9323bca3"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/npc-terminal.json": {
+      "bytes": 8283,
+      "sha256": "23b0d193b7980d4ead736ca935f6b798e498b474992d59528a28fef480eb8a02"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/npc-terminal.json.bak": {
+      "bytes": 8557,
+      "sha256": "30721bc672183668972447518b33b01a8de9af33cd04b42e97f078c6380d9fb5"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/npc-terminal.json.previous": {
+      "bytes": 8264,
+      "sha256": "be817ea2b660771220ccd3ddf7c32fa22b160f45d1489979bb471e00f79bc4fd"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/npc-terminal.json.previous.bak": {
+      "bytes": 8538,
+      "sha256": "e4b4e1f1c4347075cdf9b93fcc1c00f8a096a641dac0c32372f78141bdd71f09"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/rollback.json": {
+      "bytes": 6194,
+      "sha256": "624fa7ada05d1af41548105679c93093a786495fa2e33b8f04d604fee08eefc0"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/rollback.json.bak": {
+      "bytes": 6194,
+      "sha256": "624fa7ada05d1af41548105679c93093a786495fa2e33b8f04d604fee08eefc0"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/rollback.json.previous": {
+      "bytes": 6194,
+      "sha256": "63fc4e75a2414600de11ec6a6b6a3880cb62b26e4eb97d91f93584ca7ae2aef3"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/unit.json": {
+      "bytes": 7,
+      "sha256": "be302461cda285db3ed2d45fb767b23e08ca8808b35a638009937df22b332d73"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/unit.json.bak": {
+      "bytes": 6193,
+      "sha256": "51d841f1d58fd4879c83a4d6aaef84f5f60c155af4f3eb821269ffe3093092b0"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/unit.json.invalid": {
+      "bytes": 7,
+      "sha256": "be302461cda285db3ed2d45fb767b23e08ca8808b35a638009937df22b332d73"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/unit.json.previous": {
+      "bytes": 6195,
+      "sha256": "1548d9e2727a807cac90d583e7f19d146fbc1a825608d9c68c102532651d30fe"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/unit.json.previous.bak": {
+      "bytes": 6195,
+      "sha256": "1548d9e2727a807cac90d583e7f19d146fbc1a825608d9c68c102532651d30fe"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/unknown_backup.json": {
+      "bytes": 7,
+      "sha256": "be302461cda285db3ed2d45fb767b23e08ca8808b35a638009937df22b332d73"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/unknown_backup.json.bak": {
+      "bytes": 15,
+      "sha256": "8eedf8924c22cfe64f5530ce2daa51f4bd552c93327b3edb9636b32ddf82c1e7"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/unknown_transaction.json": {
+      "bytes": 6194,
+      "sha256": "7448b964dae063a47a641052640e18e98ae7c60a18a7f0fac287f704f284c92d"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/unknown_transaction.json.bak": {
+      "bytes": 6194,
+      "sha256": "7448b964dae063a47a641052640e18e98ae7c60a18a7f0fac287f704f284c92d"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/unknown_transaction.json.newrun.previous": {
+      "bytes": 91,
+      "sha256": "a169e4bf4190dd23e6bab44a6df20ee7bac9ac5cad8621d564b37244efc7fc84"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/unknown_transaction.json.previous": {
+      "bytes": 15,
+      "sha256": "8eedf8924c22cfe64f5530ce2daa51f4bd552c93327b3edb9636b32ddf82c1e7"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/unknown_transaction.json.previous.bak": {
+      "bytes": 6194,
+      "sha256": "7448b964dae063a47a641052640e18e98ae7c60a18a7f0fac287f704f284c92d"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/world-repair-owner.json": {
+      "bytes": 8771,
+      "sha256": "6446333167086e2559f981c5ca50214fdc0e34a26b8fd9872485b5b0dff0fe0e"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-suite/world-repair-owner.json.bak": {
+      "bytes": 8771,
+      "sha256": "6446333167086e2559f981c5ca50214fdc0e34a26b8fd9872485b5b0dff0fe0e"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-terminal-refusal.json": {
+      "bytes": 8222,
+      "sha256": "60ec24e117e3adec922bf2d0ad258975b15f078e1ae7a0d10519084b700c5114"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne230-terminal-refusal.json.bak": {
+      "bytes": 8223,
+      "sha256": "8e174d4445bdb9721186c9561d0f2fe41c8f868074e8c97cec79244bbb65c171"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne246-completion/first-save.json": {
+      "bytes": 8498,
+      "sha256": "ebe920948654c43889b54d0e5c7630ff0949755d7ae798a82897e9b269d7d070"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne246-completion/first-save.json.bak": {
+      "bytes": 8204,
+      "sha256": "fa1df99123b881f49bd49067d6c3cfd05628da08c06eff105ba0b241b0f4f83d"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne246-completion/rollback.json.bak": {
+      "bytes": 8248,
+      "sha256": "01fae17059c64b69d80a7307106068629b12dd2fbc84023dc9534d468cdd9134"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne246-completion/rollback.json.tmp": {
+      "bytes": 8548,
+      "sha256": "972f1d89659f77f3d6310bd31e6be33ae1f2ea0b2670c56fc79fef3d40cca841"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne246-completion/slot.json": {
+      "bytes": 8523,
+      "sha256": "ae7bb08c59f4aa4e9df546f54414c177bf73eb016d728b602a448045991402c0"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/ne246-completion/slot.json.bak": {
+      "bytes": 8523,
+      "sha256": "df5db15687b16ea8357a4c25b5eefa15afe3086c3876e07ac915fa9c00fb38ad"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/st9-home-completion.json": {
+      "bytes": 8568,
+      "sha256": "681f650eea9a505a6db09acd3be963041294a7456dde2c8417eb2564765b4aa3"
+    },
+    "official/logs/data_3/Godot/app_userdata/Nest Egg/st9-home-completion.json.bak": {
+      "bytes": 8280,
+      "sha256": "7604684abe5e48e7341e7aba40d9dde304537be087ad6c6cf73ad774f9422b8c"
+    },
+    "official/logs/shard_0.log": {
+      "bytes": 169,
+      "sha256": "bac901a78a059a90e10a5d2ddbbe8e39391eead53428e339d2a12a7fa729bcd5"
+    },
+    "official/logs/shard_1.log": {
+      "bytes": 263193,
+      "sha256": "490d47593ec34b0cf26a605ba3a8250ba3e0f1a5fd7439dbda9dceeb7323bbdc"
+    },
+    "official/logs/shard_2.log": {
+      "bytes": 91371,
+      "sha256": "07738a28d97852810f76af0c1c81d64a32970366083e00ebf06cb6a28f714ff1"
+    },
+    "official/logs/shard_3.log": {
+      "bytes": 98246,
+      "sha256": "e3e600278d0e8d220d0e4cab614c2276589f1739f1a5b5dd582de737ebf32b85"
+    },
+    "official/original-main_menu.gd": {
+      "bytes": 12147,
+      "sha256": "8734cdd1f7058ab335f6370c64e41880715b96a5a2f08e7154671b258b1ac2c8"
+    },
+    "official/runner-before.json": {
+      "bytes": 165,
+      "sha256": "97134e09460a9caf7db5e7e953e739cf0342b1b9befa6b3a340dbbd4e00b92d0"
+    },
+    "official/source-before.json": {
+      "bytes": 92,
+      "sha256": "193db860b2885969cb9105eb248ebd82e9ef0354abc9bd7e4f32b739e1c322f5"
+    },
+    "official/test-source-before.json": {
+      "bytes": 873,
+      "sha256": "8a895703ab9cf79035dbea705d4ded25fe6280aeafc0adab5f0d9f43b1fd8f7e"
+    },
+    "rejected-forced-quit/before/command-before.json": {
+      "bytes": 869,
+      "sha256": "80b21714f4236c8006a7206a030dd0bcc9f10fa7d29fa11f62b9f84ae47985f5"
+    },
+    "rejected-forced-quit/before/executed-main_menu.gd": {
+      "bytes": 12147,
+      "sha256": "8734cdd1f7058ab335f6370c64e41880715b96a5a2f08e7154671b258b1ac2c8"
+    },
+    "rejected-forced-quit/before/process.log": {
+      "bytes": 1010,
+      "sha256": "20b1084aec303b7f8983c03ce27d3c52e3c0dece1b70ddec94233e8ec3fe712a"
+    },
+    "rejected-forced-quit/before/receipt.json": {
+      "bytes": 13964,
+      "sha256": "f5bd8a162552b07220097db3dd93f6a68d5fa834739f6d0be790aee100de7d26"
+    },
+    "rejected-forced-quit/candidate-context.json": {
+      "bytes": 484,
+      "sha256": "61091938296038918a4c7208592a61153abaab7ecc914725985b0acf377f7115"
+    },
+    "rejected-forced-quit/executed-runner.py": {
+      "bytes": 3425,
+      "sha256": "a69eb46f3664b2234b8a0875e2327ce9e24205018b3234822adb8c4cc72ac94d"
+    }
+  },
+  "rejected_movie_frames_kept_outside_git": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\ne228-menu-native-pair-v1\\before\\frames"
+}
