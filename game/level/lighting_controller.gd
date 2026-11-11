@@ -6,7 +6,7 @@ extends Node
 
 const MIN_FADE := 0.01
 ## 角色補光倍率上限（避免環境光趨近全黑時補到過曝）。
-const MAX_CHARACTER_FILL := 4.0
+const MAX_CHARACTER_FILL := LightKit.CHARACTER_FILL_MAX
 ## 閃電：兩次閃電之間的最短間隔（秒）、閃光顏色、雷聲延遲範圍（秒，距離感）。
 const LIGHTNING_MIN_GAP := 6.0
 const LIGHTNING_COLOR := Color(0.72, 0.8, 1.0)
@@ -266,6 +266,9 @@ func _apply() -> void:
 	LightKit.player_light_energy = LightKit.player_light_for(ambient_luma, LightKit.character_fill)
 	LightKit.character_light_cap = LightKit.character_light_cap_for(ambient_luma, LightKit.character_fill)
 	LightKit.enemy_light_cap = LightKit.character_light_cap * LightKit.ENEMY_LIGHT_GAIN
+	var creature_floor := clampf(current.creature_floor, 0.0, 1.0) if is_finite(current.creature_floor) else 0.0
+	LightKit.creature_fill = clampf(creature_floor / ambient_luma, 1.0, MAX_CHARACTER_FILL) if creature_floor > 0.0 else 0.0
+	LightKit.creature_light_cap = LightKit.character_light_cap_for(ambient_luma, maxf(1.0, LightKit.creature_fill)) * LightKit.ENEMY_LIGHT_GAIN
 	LightKit.lamp_power = current.lamp_power
 	_rim_light.color = current.rim_color
 	_rim_light.energy = current.rim_energy
@@ -287,6 +290,8 @@ func _on_exiting() -> void:
 	LightKit.player_light_energy = LightKit.PLAYER_LIGHT_BASE_ENERGY
 	LightKit.character_light_cap = LightKit.CHARACTER_LIGHT_CAP_MAX
 	LightKit.enemy_light_cap = LightKit.CHARACTER_LIGHT_CAP_MAX * LightKit.ENEMY_LIGHT_GAIN
+	LightKit.creature_fill = 0.0
+	LightKit.creature_light_cap = LightKit.CHARACTER_LIGHT_CAP_MAX * LightKit.ENEMY_LIGHT_GAIN
 	LightKit.lamp_power = 1.0
 	LitTextures.set_enabled(true)
 	if EventBus.lighting_override_requested.is_connected(set_override):

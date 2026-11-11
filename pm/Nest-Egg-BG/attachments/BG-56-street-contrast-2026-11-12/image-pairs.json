@@ -1,0 +1,285 @@
+{
+  "scope": "left original profile/material reference, right candidate; exact unscaled PNG pixel concatenation, no added drawing or resampling",
+  "pairs": [
+    {
+      "quality": "high",
+      "point": "brute-platform",
+      "crop": false,
+      "image": "BG-56-high-brute-platform-pair.png",
+      "sha256": "5046474000192d72d73ae591c5c530e152bbf8d9a19b83e974667eccf0ffb5c2",
+      "left": "BG-56-high-brute-platform-before.png",
+      "right": "BG-56-high-brute-platform-after.png",
+      "panel_size": [
+        1280,
+        720
+      ],
+      "source_pixels_unchanged": true
+    },
+    {
+      "quality": "high",
+      "point": "brute-platform",
+      "crop": true,
+      "image": "BG-56-high-brute-platform-crop-pair.png",
+      "sha256": "b442f1ca1a6c01b4caf0bc3a39c9c5762335bfea3b2217bc3833b567aee649c5",
+      "left": "BG-56-high-brute-platform-before-crop.png",
+      "right": "BG-56-high-brute-platform-after-crop.png",
+      "panel_size": [
+        184,
+        341
+      ],
+      "source_pixels_unchanged": true
+    },
+    {
+      "quality": "high",
+      "point": "sweeper",
+      "crop": false,
+      "image": "BG-56-high-sweeper-pair.png",
+      "sha256": "85b889fe74488427a25b5fdc32575d673ccd024b31ad7f946f2000fd602c51ab",
+      "left": "BG-56-high-sweeper-before.png",
+      "right": "BG-56-high-sweeper-after.png",
+      "panel_size": [
+        1280,
+        720
+      ],
+      "source_pixels_unchanged": true
+    },
+    {
+      "quality": "high",
+      "point": "sweeper",
+      "crop": true,
+      "image": "BG-56-high-sweeper-crop-pair.png",
+      "sha256": "ac431d510176e25a62ee6aa3a6bcb089317bcd5a6e2a70f03a78ba8b3c5a7682",
+      "left": "BG-56-high-sweeper-before-crop.png",
+      "right": "BG-56-high-sweeper-after-crop.png",
+      "panel_size": [
+        177,
+        326
+      ],
+      "source_pixels_unchanged": true
+    },
+    {
+      "quality": "high",
+      "point": "drone",
+      "crop": false,
+      "image": "BG-56-high-drone-pair.png",
+      "sha256": "55c216b205ac9d3352b644bfba3f0ad8237cb7a0728acef29e1baa92e55d2622",
+      "left": "BG-56-high-drone-before.png",
+      "right": "BG-56-high-drone-after.png",
+      "panel_size": [
+        1280,
+        720
+      ],
+      "source_pixels_unchanged": true
+    },
+    {
+      "quality": "high",
+      "point": "drone",
+      "crop": true,
+      "image": "BG-56-high-drone-crop-pair.png",
+      "sha256": "3a80d95163e0492d2ee2307a0a88384321329cdf47121a4642cbecd87e31ae9e",
+      "left": "BG-56-high-drone-before-crop.png",
+      "right": "BG-56-high-drone-after-crop.png",
+      "panel_size": [
+        224,
+        189
+      ],
+      "source_pixels_unchanged": true
+    },
+    {
+      "quality": "high",
+      "point": "platform98",
+      "crop": false,
+      "image": "BG-56-high-platform98-pair.png",
+      "sha256": "2c310793ba7f2df18575bb59a878f0bc1aeb7e385081b71c27bd02bac145cb0c",
+      "left": "BG-56-high-platform98-before.png",
+      "right": "BG-56-high-platform98-after.png",
+      "panel_size": [
+        1280,
+        720
+      ],
+      "source_pixels_unchanged": true
+    },
+    {
+      "quality": "high",
+      "point": "platform98",
+      "crop": true,
+      "image": "BG-56-high-platform98-crop-pair.png",
+      "sha256": "6d174f8e13db4df12db764ab5abf11d95b4410b7b5d1a12b4bf5300ece8af208",
+      "left": "BG-56-high-platform98-before-crop.png",
+      "right": "BG-56-high-platform98-after-crop.png",
+      "panel_size": [
+        370,
+        332
+      ],
+      "source_pixels_unchanged": true
+    },
+    {
+      "quality": "high",
+      "point": "platform175",
+      "crop": false,
+      "image": "BG-56-high-platform175-pair.png",
+      "sha256": "2ab04641fbd08322a02f509c90120311ee85b94891d9e802a8e5f846ab05d281",
+      "left": "BG-56-high-platform175-before.png",
+      "right": "BG-56-high-platform175-after.png",
+      "panel_size": [
+        1280,
+        720
+      ],
+      "source_pixels_unchanged": true
+    },
+    {
+      "quality": "high",
+      "point": "platform175",
+      "crop": true,
+      "image": "BG-56-high-platform175-crop-pair.png",
+      "sha256": "48de8888045c882889a1fd8edc6c977d6f6f87e6e91a949b1cb37eb07cf55c80",
+      "left": "BG-56-high-platform175-before-crop.png",
+      "right": "BG-56-high-platform175-after-crop.png",
+      "panel_size": [
+        176,
+        333
+      ],
+      "source_pixels_unchanged": true
+    },
+    {
+      "quality": "low",
+      "point": "brute-platform",
+      "crop": false,
+      "image": "BG-56-low-brute-platform-pair.png",
+      "sha256": "8c7cc8b81dfa990eebbf76d1e9147793b25108f92d022dfabf1acb97b9d08016",
+      "left": "BG-56-low-brute-platform-before.png",
+      "right": "BG-56-low-brute-platform-after.png",
+      "panel_size": [
+        1280,
+        720
+      ],
+      "source_pixels_unchanged": true
+    },
+    {
+      "quality": "low",
+      "point": "brute-platform",
+      "crop": true,
+      "image": "BG-56-low-brute-platform-crop-pair.png",
+      "sha256": "8a8ae22b5bfe75d2b54205612943ec02dd87879e4cca18477d087476a8ec411a",
+      "left": "BG-56-low-brute-platform-before-crop.png",
+      "right": "BG-56-low-brute-platform-after-crop.png",
+      "panel_size": [
+        184,
+        341
+      ],
+      "source_pixels_unchanged": true
+    },
+    {
+      "quality": "low",
+      "point": "sweeper",
+      "crop": false,
+      "image": "BG-56-low-sweeper-pair.png",
+      "sha256": "9f0ec936387e1087393049a30370fee3920a76aaf1e896116ccf0c76c5327bd4",
+      "left": "BG-56-low-sweeper-before.png",
+      "right": "BG-56-low-sweeper-after.png",
+      "panel_size": [
+        1280,
+        720
+      ],
+      "source_pixels_unchanged": true
+    },
+    {
+      "quality": "low",
+      "point": "sweeper",
+      "crop": true,
+      "image": "BG-56-low-sweeper-crop-pair.png",
+      "sha256": "8392fcdcfd3f55e400a58618ff7a3c505bae46d7ff7e66b6d85ac220c987ccf6",
+      "left": "BG-56-low-sweeper-before-crop.png",
+      "right": "BG-56-low-sweeper-after-crop.png",
+      "panel_size": [
+        177,
+        326
+      ],
+      "source_pixels_unchanged": true
+    },
+    {
+      "quality": "low",
+      "point": "drone",
+      "crop": false,
+      "image": "BG-56-low-drone-pair.png",
+      "sha256": "dae5ee19c75b5be3d329baf640b17ab13bedc8ddb25615809c540b1abad5c505",
+      "left": "BG-56-low-drone-before.png",
+      "right": "BG-56-low-drone-after.png",
+      "panel_size": [
+        1280,
+        720
+      ],
+      "source_pixels_unchanged": true
+    },
+    {
+      "quality": "low",
+      "point": "drone",
+      "crop": true,
+      "image": "BG-56-low-drone-crop-pair.png",
+      "sha256": "dfe26a0a22c720e9cd07afdfd5f27b86fd7597a285bc279e4d51689d36fc642d",
+      "left": "BG-56-low-drone-before-crop.png",
+      "right": "BG-56-low-drone-after-crop.png",
+      "panel_size": [
+        224,
+        189
+      ],
+      "source_pixels_unchanged": true
+    },
+    {
+      "quality": "low",
+      "point": "platform98",
+      "crop": false,
+      "image": "BG-56-low-platform98-pair.png",
+      "sha256": "9829f201ec8f1cde204b9c4c1dd9767328f3718bdac528cd0c6b9a18a0775f19",
+      "left": "BG-56-low-platform98-before.png",
+      "right": "BG-56-low-platform98-after.png",
+      "panel_size": [
+        1280,
+        720
+      ],
+      "source_pixels_unchanged": true
+    },
+    {
+      "quality": "low",
+      "point": "platform98",
+      "crop": true,
+      "image": "BG-56-low-platform98-crop-pair.png",
+      "sha256": "8b037762cb543ce3a014596b4c0f31f4fda15e78950c1aba454b4e6694ebf3c2",
+      "left": "BG-56-low-platform98-before-crop.png",
+      "right": "BG-56-low-platform98-after-crop.png",
+      "panel_size": [
+        370,
+        332
+      ],
+      "source_pixels_unchanged": true
+    },
+    {
+      "quality": "low",
+      "point": "platform175",
+      "crop": false,
+      "image": "BG-56-low-platform175-pair.png",
+      "sha256": "4a91c28e0a7df201dc2830be3ed8d89c73617ecb1049bbf82dc61423c8ab6ac9",
+      "left": "BG-56-low-platform175-before.png",
+      "right": "BG-56-low-platform175-after.png",
+      "panel_size": [
+        1280,
+        720
+      ],
+      "source_pixels_unchanged": true
+    },
+    {
+      "quality": "low",
+      "point": "platform175",
+      "crop": true,
+      "image": "BG-56-low-platform175-crop-pair.png",
+      "sha256": "53c505c033ed1da6032dd516199eae521dea5a4bd984ca2f0d4c15aeeb9e5d6f",
+      "left": "BG-56-low-platform175-before-crop.png",
+      "right": "BG-56-low-platform175-after-crop.png",
+      "panel_size": [
+        176,
+        333
+      ],
+      "source_pixels_unchanged": true
+    }
+  ]
+}

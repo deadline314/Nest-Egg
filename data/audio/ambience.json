@@ -3,6 +3,36 @@
  "fade": 2.0,
  "default": [],
  "profiles": {
+  "street_market_creature": [
+   {
+    "sound": "amb_rain",
+    "volume_db": -8
+   },
+   {
+    "sound": "amb_city_night",
+    "volume_db": -6
+   }
+  ],
+  "street_harbor": [
+   {
+    "sound": "amb_rain_light",
+    "volume_db": -8
+   },
+   {
+    "sound": "amb_generator",
+    "volume_db": -10
+   }
+  ],
+  "street_market": [
+   {
+    "sound": "amb_rain",
+    "volume_db": -8
+   },
+   {
+    "sound": "amb_city_night",
+    "volume_db": -6
+   }
+  ],
   "rooftop": [
    {
     "sound": "amb_rain",

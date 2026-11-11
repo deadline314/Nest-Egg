@@ -1,0 +1,190 @@
+{
+  "scope": "18 exact owned candidates; review-only, no C product writes/staging; raw patch context remains inside ZIP",
+  "files": [
+    {
+      "path": "data/scripts/lighting_profile.gd",
+      "candidate_sha256": "0c166b9f2eef2e53340f50b0320bd6e13babcc9ad90ac19903ba71b0fd00ec81",
+      "bytes": 8576,
+      "current_c_sha256": "d83742f0d355297e991671ab54aa05e52f107b03c2c1134aac81d6123245923a",
+      "own_base_sha256": "d83742f0d355297e991671ab54aa05e52f107b03c2c1134aac81d6123245923a",
+      "base_matches_current_c": true,
+      "integration": "apply only own hunks to current C; preserve any other edits",
+      "patch_sha256": "e60d2c92b23d55895ab49923879a09c6de0613b8356199d2f53efd4026d2229c"
+    },
+    {
+      "path": "core/light_kit.gd",
+      "candidate_sha256": "d8ee9b71a5144dda7fb2a75e15834ab7fefcd96d44c7a2a6c3c036c7b2649eed",
+      "bytes": 14531,
+      "current_c_sha256": "d6289ce49551559d173e76dd5f48c895d99b183f620802a2428b8cc744b937c1",
+      "own_base_sha256": "d6289ce49551559d173e76dd5f48c895d99b183f620802a2428b8cc744b937c1",
+      "base_matches_current_c": true,
+      "integration": "apply only own hunks to current C; preserve any other edits",
+      "patch_sha256": "40799dc1aa5b0aff74dfb12b5578b540ca5a4fce3d0ac74f52b8bab82931ce60"
+    },
+    {
+      "path": "game/level/lighting_controller.gd",
+      "candidate_sha256": "ee08cb1fb8ee819664c14ee5aa938e802473bf9176729faef04f59472231a681",
+      "bytes": 12473,
+      "current_c_sha256": "969283f3f8dd7167793a882a2e27b56a3e2abdb30fcea4b809b317d166dbffd3",
+      "own_base_sha256": "969283f3f8dd7167793a882a2e27b56a3e2abdb30fcea4b809b317d166dbffd3",
+      "base_matches_current_c": true,
+      "integration": "apply only own hunks to current C; preserve any other edits",
+      "patch_sha256": "6e41cf3762b263ee3f9566b178357de86bd08ee6c951582650d48fddcc9d9a5f"
+    },
+    {
+      "path": "game/creature/part_creature.gd",
+      "candidate_sha256": "6f95a1f01bcfb0b358a33c487ee3a7073a0638d1854aa5c2049a7b6fa991f4e9",
+      "bytes": 17719,
+      "current_c_sha256": "e75014df7ec22151eb8395ac74d8daab433f65d8959938f24d621e094b056f55",
+      "own_base_sha256": "e75014df7ec22151eb8395ac74d8daab433f65d8959938f24d621e094b056f55",
+      "base_matches_current_c": true,
+      "integration": "apply only own hunks to current C; preserve any other edits",
+      "patch_sha256": "8fad729f2f33965c066dff219814e28e7fd5483eb82df7a216d89cf94f6179a8"
+    },
+    {
+      "path": "game/enemies/enemy.gd",
+      "candidate_sha256": "4d2b5b7d25a9d48accc836953a705dc7141bcb02f1f435eda3ccf43d0b0f57fe",
+      "bytes": 39549,
+      "current_c_sha256": "d8dc659be5dc38f56824d530b7a8b485de94cb4704d33500d1ff8e2b85154397",
+      "own_base_sha256": "d8dc659be5dc38f56824d530b7a8b485de94cb4704d33500d1ff8e2b85154397",
+      "base_matches_current_c": true,
+      "integration": "apply only own hunks to current C; preserve any other edits",
+      "patch_sha256": "74ffc6b18680361b117de7baf626b6b214326cb0fb30bbc4665def7b41b7bb87"
+    },
+    {
+      "path": "tests/suite/test_part_creature.gd",
+      "candidate_sha256": "7a8f12a5e27819e94621c2cafa09ca6c59bfb509e8f323b6c7bf902c2d4b2868",
+      "bytes": 6962,
+      "current_c_sha256": "3777bb9b7c84ecffe6028b5cb1a4d83d502c8252b75c6bda315905139db4f541",
+      "own_base_sha256": "3777bb9b7c84ecffe6028b5cb1a4d83d502c8252b75c6bda315905139db4f541",
+      "base_matches_current_c": true,
+      "integration": "apply only own hunks to current C; preserve any other edits",
+      "patch_sha256": "8f464993b4a63ae8c7b64f92ad821ce5c6ee7923c3ca86220fc095828e2b4b53"
+    },
+    {
+      "path": "tools/level/build_ch1.py",
+      "candidate_sha256": "f056b3fede2c46f34026ed36022900f166132ca8bec81ebbb26c9f398c94eba4",
+      "bytes": 81962,
+      "current_c_sha256": "ad9f2be25a9b4253b2f02dade7b76b20063ec56fb962c3efdb12c8a504eba617",
+      "own_base_sha256": "ad9f2be25a9b4253b2f02dade7b76b20063ec56fb962c3efdb12c8a504eba617",
+      "base_matches_current_c": true,
+      "integration": "full copy only if current C bytes still match current_c_sha256 (new files require absent destination)",
+      "patch_sha256": "3b1bae7aaa1f56e7c96f69dfeb56d40b47fe22a7060648d79680ab7b73273e3d"
+    },
+    {
+      "path": "data/lighting/street_market.tres",
+      "candidate_sha256": "1a0f0f2a85176425f55c10ae11d1a5b6e38268e1f9e9a3a15fc33804f0146971",
+      "bytes": 1175,
+      "current_c_sha256": null,
+      "own_base_sha256": null,
+      "base_matches_current_c": true,
+      "integration": "full copy only if current C bytes still match current_c_sha256 (new files require absent destination)",
+      "patch_sha256": "5736bb0746c542dc7e1606aaaf69938153a375299a8418ea90823e59614bb700"
+    },
+    {
+      "path": "data/lighting/street_market_creature.tres",
+      "candidate_sha256": "8f857c71205ef8f4b93e781e0215724505a86f6347dc2f0625df787e902c51da",
+      "bytes": 1205,
+      "current_c_sha256": null,
+      "own_base_sha256": null,
+      "base_matches_current_c": true,
+      "integration": "full copy only if current C bytes still match current_c_sha256 (new files require absent destination)",
+      "patch_sha256": "6e23caa14d9ff73232cb376f22993e6a86d0d6bd51ab637d7275a2db63ceb260"
+    },
+    {
+      "path": "data/lighting/street_harbor.tres",
+      "candidate_sha256": "4908df34378e6032be02af62f26c6050409601b47cecc363576b645c6b36b309",
+      "bytes": 1224,
+      "current_c_sha256": null,
+      "own_base_sha256": null,
+      "base_matches_current_c": true,
+      "integration": "full copy only if current C bytes still match current_c_sha256 (new files require absent destination)",
+      "patch_sha256": "decdec35fafc02df4e14384ff774f359abe7cd29d2c1de496a37ba88a7396806"
+    },
+    {
+      "path": "data/environment/materials/street_asphalt.tres",
+      "candidate_sha256": "2cace2e875dabe81d8185fc55890b2748c013532879b17555f22cf5f91de9942",
+      "bytes": 496,
+      "current_c_sha256": null,
+      "own_base_sha256": null,
+      "base_matches_current_c": true,
+      "integration": "full copy only if current C bytes still match current_c_sha256 (new files require absent destination)",
+      "patch_sha256": "9a6b56195474eac096debe26874ce3eefb85c0421181dbdac432ed791d56675d"
+    },
+    {
+      "path": "data/levels/ch1_street.tres",
+      "candidate_sha256": "41cfa9525df29765af621cb8859f4d2636087c47c0d9c1077e2de4f2a8462bfd",
+      "bytes": 6329,
+      "current_c_sha256": "5a925a0586bc7a3acfcb664980b9687c0af48de9b9f0664ebf7b6a84e84ed262",
+      "own_base_sha256": "5a925a0586bc7a3acfcb664980b9687c0af48de9b9f0664ebf7b6a84e84ed262",
+      "base_matches_current_c": true,
+      "integration": "full copy only if current C bytes still match current_c_sha256 (new files require absent destination)",
+      "patch_sha256": "38f27e4e6eb32f1063eab6e6f95eaf72a344177c07fa64a790f409f573b812bf"
+    },
+    {
+      "path": "data/environment/themes/ch1_street.tres",
+      "candidate_sha256": "7c12736547d05155fd644c29f2aac06444e9fdd8e477f4e600edb886e7cc4a72",
+      "bytes": 5534,
+      "current_c_sha256": "16c039496ca3821390520a207669b679ecc62d565ea8280db161604c569c5205",
+      "own_base_sha256": "16c039496ca3821390520a207669b679ecc62d565ea8280db161604c569c5205",
+      "base_matches_current_c": true,
+      "integration": "full copy only if current C bytes still match current_c_sha256 (new files require absent destination)",
+      "patch_sha256": "fc615a67f4251fe57a891df09281140bd3acd498d65e4c42023efd406cd03889"
+    },
+    {
+      "path": "data/audio/ambience.json",
+      "candidate_sha256": "448bc106a7ce5826385d80268ee8d9779ae24efc70f189146717121ec3ad08dc",
+      "bytes": 4980,
+      "current_c_sha256": "a5e5531ccd3cfe1a37110f6e5257f66555d04fad059277d90f4bbed21aa456df",
+      "own_base_sha256": "a5e5531ccd3cfe1a37110f6e5257f66555d04fad059277d90f4bbed21aa456df",
+      "base_matches_current_c": true,
+      "integration": "full copy only if current C bytes still match current_c_sha256 (new files require absent destination)",
+      "patch_sha256": "a1c779d8b8e561266f1990a1f70a01e49ff38d28f5a8ba6560b5bb1af1d47312"
+    },
+    {
+      "path": "data/audio/music.json",
+      "candidate_sha256": "340a6bb7e211bfc1b71405b9c7b1d133a2887cb5c0c766f5e7905086eadace4a",
+      "bytes": 9879,
+      "current_c_sha256": "0ade819d1942a6228400a349562a75aaa62ab6faadaf49a98fb2e4b9f1da8c90",
+      "own_base_sha256": "0ade819d1942a6228400a349562a75aaa62ab6faadaf49a98fb2e4b9f1da8c90",
+      "base_matches_current_c": true,
+      "integration": "full copy only if current C bytes still match current_c_sha256 (new files require absent destination)",
+      "patch_sha256": "77a51cfe85e4ab3f82740ebb2ebb6ff2a9debb879ad9780e76fa4c0a67c12f0a"
+    },
+    {
+      "path": "data/audio/footsteps.json",
+      "candidate_sha256": "3cb72c7d4ce14c852d74b6e62774e23811edd554f4116a08478d30f6275677b8",
+      "bytes": 1684,
+      "current_c_sha256": "7fe55e3d134408f7148563a1e60f1fe07c8423fac6a73f31864e7d8fc555dc28",
+      "own_base_sha256": "7fe55e3d134408f7148563a1e60f1fe07c8423fac6a73f31864e7d8fc555dc28",
+      "base_matches_current_c": true,
+      "integration": "full copy only if current C bytes still match current_c_sha256 (new files require absent destination)",
+      "patch_sha256": "9b1916b870282c95097f791c24f7df420fce32d7c1569b057d63245ecbaeef56"
+    },
+    {
+      "path": "data/lighting_preview/scenes.json",
+      "candidate_sha256": "0a93ac657aca108c845e4420ba1e910ad908a3f70e8d1b3a3d1952f0bf69a359",
+      "bytes": 1163,
+      "current_c_sha256": "ba5a28edc8aa39ec923c0b883328ac0c3c5b80e23dccbf7bc0686b5b1be889f9",
+      "own_base_sha256": "ba5a28edc8aa39ec923c0b883328ac0c3c5b80e23dccbf7bc0686b5b1be889f9",
+      "base_matches_current_c": true,
+      "integration": "full copy only if current C bytes still match current_c_sha256 (new files require absent destination)",
+      "patch_sha256": "3774bcbb3fcc6765e9e9eb844e8eadc85c2c32b8558b96393b7a38db4f68b6a6"
+    },
+    {
+      "path": "data/environment/materials/street_asphalt_platform.tres",
+      "candidate_sha256": "06e908899b2e68b707ba4f41462fce0406389c3fbe9f79651c2bae6ed72aec01",
+      "bytes": 506,
+      "current_c_sha256": null,
+      "own_base_sha256": null,
+      "base_matches_current_c": true,
+      "integration": "full copy only if current C bytes still match current_c_sha256 (new files require absent destination)",
+      "patch_sha256": "202a5ceba820cfa0fd4b8763ad5936db5f9b81302e45cb423f88357809e39fd9"
+    }
+  ],
+  "runtime_refresh": {
+    "autoload/fx.gd": "93994b4193b9433fcc43795b4b93d955c9e3c098d069cc5ed91dad250259f99f",
+    "published_commit": "d2377979",
+    "scope": "already published runtime, not a BG56 owned product"
+  }
+}

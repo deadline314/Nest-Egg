@@ -256,6 +256,7 @@ func _creature_aim() -> float:
 func _drive_creature(delta: float) -> void:
 	if creature == null:
 		return
+	creature.set_lighting(LightKit.creature_fill, LightKit.creature_light_cap)
 	var params := _body_kick_params()
 	creature.extra_position = params[0]
 	creature.extra_rotation = params[1]

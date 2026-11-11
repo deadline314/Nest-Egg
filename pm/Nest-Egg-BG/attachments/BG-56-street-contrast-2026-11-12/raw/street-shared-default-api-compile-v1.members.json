@@ -1,0 +1,3830 @@
+{
+  "name": "street-shared-default-api-compile-v1",
+  "role": "history-diagnostic",
+  "original_bytes_preserved": true,
+  "members": [
+    {
+      "member": "street-shared-default-api-compile-v1/.gdignore",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/base-git.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1070,
+      "sha256": "ff2fcac1357d327e382d79211a9fd83e58644e43de9c02bbb2f146397db43350"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/command.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 416,
+      "sha256": "9e01ac8563042f65028698c93a7e51845bfcef3074d2f7014a066f6bc2b91b96"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/exit.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 67352,
+      "sha256": "889ed4f5a9eaa6ac4f008368a6639b905c5dd1323d2bc1c6611351fe8f587a76"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/offline-verifier.py",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 12220,
+      "sha256": "60fb2f4ff5e692beab5550bca845beabf36a4ddcb5176db2ff0e2bc916ccd8a0"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/run.log",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 430,
+      "sha256": "a782bb4f7792773f521810ef17a0af5fe5a3a3fe6047f212091a45d0c6a3ab22"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/runner.py",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 8058,
+      "sha256": "a5da71b58721d59a2711374303dcd016d0477fdafedda52d366b21b9ad63cfa2"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source-before.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 65762,
+      "sha256": "d8dd61b78310ac83dd70a292256c056c8bc828818d8b7ad5505a5782858b2b28"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_brute/character.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4292,
+      "sha256": "337f6761243ef3dc4166ea43b6943bd6f7fd31edd743a32919eeea394e54f75e"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_brute/parts/arm_lower.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 38936,
+      "sha256": "45f7aa472a1c53f903a5ddf6b5b74dbb220656cfcc5e0bcd0ea8df4c59fb718c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_brute/parts/arm_lower_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 33023,
+      "sha256": "1252e727bebd98691d7664a0196eb2c4fa764fa4b895f7e17af6c69931efdea9"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_brute/parts/arm_upper.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 43336,
+      "sha256": "45fabf7ebc34dea4f32bdbc1bacdfe809326dd45de3c6714bc68c23e30f17ad8"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_brute/parts/arm_upper_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 35270,
+      "sha256": "bc9ae86ac4d46dd33072b527f5047fae5254040e50feec699ae2a221a98af180"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_brute/parts/foot.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 49574,
+      "sha256": "45d3d8aa7867d32713bbf7b4ff89c38f1261c4fe52f8bb9a608b8aa88ebed5c5"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_brute/parts/foot_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 42506,
+      "sha256": "aed9f082f879106206bf5ed143ae5e411814c2a3ba267a34c34e4379efdcf66f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_brute/parts/hand.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 23822,
+      "sha256": "9314d39c6bb568fa958a2ecd60dbd7e1440e168525e6fe97589554fab12ed4af"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_brute/parts/hand_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 21485,
+      "sha256": "7df10a188feaf6ad555bf841dc96992fec4a08f3cc6aea0b9e93eeaf739b7662"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_brute/parts/head.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 27057,
+      "sha256": "70838e43b8a9149bc31e21412d93c2d341575c4eb8ace1c65c056bba895058ab"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_brute/parts/head_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 23881,
+      "sha256": "57807baaaa9eef5d76b7faa9f6e683420d2bac16030c7fe6e7ab97b10172a4ae"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_brute/parts/leg_lower.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 69426,
+      "sha256": "7108b680ea378bc36fc65a2d495481823eacf9bd88ba85f8b6db904170728ef5"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_brute/parts/leg_lower_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 58517,
+      "sha256": "b5cbb178ef88916e24d6173866cb09d8a66528ce69e82a8d5dd9e6bf331c6dfd"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_brute/parts/leg_upper.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 149259,
+      "sha256": "2b4204140de1dcf5d6b93c183996437862346e2061b0ce8295d3ebdc1a9a68dc"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_brute/parts/leg_upper_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 117664,
+      "sha256": "fa6f1fbc55c2c2bc47c44f52e740b34a720cff8ec50bf87a40d9ac129109f242"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_brute/parts/pelvis.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 102262,
+      "sha256": "bd59851d8ea5f3fb14671a675d1db0c5ce0f1a4481127cf8c0d6e9f5e7efeba4"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_brute/parts/pelvis_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 81027,
+      "sha256": "e4cb9842c1e3116aee04c47d3e775a64845033c32af496aca9808679282f19b6"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_brute/parts/torso.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 152841,
+      "sha256": "b225ac245320997f184a263b273a41107a622c38063ac6d5d7aafc38f845c8cb"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_brute/parts/torso_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 107352,
+      "sha256": "c0ad3ad62a7d3d896fae2dc6fc2bde115f39c4426ffc2253a3d1cd1fc3c20c07"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_gunner/character.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4291,
+      "sha256": "20a8f08f877ba7149ed2087bce3647dae4d3b79eed88257377eaeddc08748357"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_gunner/parts/arm_lower.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 24023,
+      "sha256": "38c331784d602976ee37fe61be8385e0fc5cd44711dd3ec0a599c0967473a12d"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_gunner/parts/arm_lower_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 20454,
+      "sha256": "433402db5135c1f5457ac73bcceb4b430167dc22e5e2652d4e9fbe862adf111c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_gunner/parts/arm_upper.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 26942,
+      "sha256": "5da23dc44de09ee0455767636f86e72f8092e11ed9b758ce994c350ab38628d0"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_gunner/parts/arm_upper_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 23250,
+      "sha256": "93babd659076feac4ebfeddb6f91cde16d648d567b79b2bcab93e2e7b7334b19"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_gunner/parts/foot.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 22272,
+      "sha256": "92218529973fdd24bb44322649932a8ad6b25a9837d54634fe8038c6d0511391"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_gunner/parts/foot_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 20891,
+      "sha256": "2e843ee25c21e4ee00eb1ffe3ed9a3bcfbb1c95ebdc20f9a0fe91c1051b69dc7"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_gunner/parts/hand.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 12546,
+      "sha256": "befb12cc075fd727bc7653c51eb6ba060b90bde37e1497cf4931411274015bad"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_gunner/parts/hand_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 12144,
+      "sha256": "d91e64c8da8c35abeaef80b788f71a7188d3de708b9899f8242cc890ebed957b"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_gunner/parts/head.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 31125,
+      "sha256": "bc729d39500220baf52748a900a5bebe10326eea14a9e6b120e62833a4822a16"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_gunner/parts/head_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 28387,
+      "sha256": "3b63629d90d5d08690ee286c454691fbb45c0a06c902d0cc6dce3ddd08558187"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_gunner/parts/leg_lower.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 36055,
+      "sha256": "64dfb171c1839e4af3b4ca4c35ac4666abe197f6ecc22ced5888fbb2546b27a3"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_gunner/parts/leg_lower_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 33615,
+      "sha256": "d529d9300868a832590777aa6d6b03720b2c1838cc18fb00435a4cf7812a7a40"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_gunner/parts/leg_upper.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 59690,
+      "sha256": "7889ddda728ffb3cdc804ec2281736e06a4e2db667b4c625c4086862f03569a6"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_gunner/parts/leg_upper_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 52442,
+      "sha256": "598ce8dd52f831a164eb43dc65763e74bf96faa22574e20a5a7d73382f761572"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_gunner/parts/pelvis.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 46245,
+      "sha256": "f0c4f27ca9f3e41fa3ac7bfb8b62a9ec3f7cb872b7c168f7c19fd3d08f636398"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_gunner/parts/pelvis_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 37879,
+      "sha256": "74fbd68a7852ddf31fc2d2a652270d2cc1f38f5f08bf848939ed60dec85834f3"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_gunner/parts/torso.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 94857,
+      "sha256": "709ee4d02fa4b55ed709f4205e289b2add937ab688b4bd63ad9e3376ff3d8737"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/collector_gunner/parts/torso_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 73301,
+      "sha256": "20bf50f704978c0d5fae0440bbbeb5e3d6fe43d18c2f0e71581b58304dfcf4f7"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/sweeper/character.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4302,
+      "sha256": "f2291f541cc7569747227d80c05ff02346fbd6890d917d1672252b06d2304025"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/sweeper/parts/arm_lower.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 26471,
+      "sha256": "0400a8e1771d0d488c1a48c88e3e93bc87d5fd993fd227d66f5307e0dbfad9c4"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/sweeper/parts/arm_lower_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 22486,
+      "sha256": "9907b86adbf2650798ff39a6f5e2f48a3510b8759d22b454faf0f833d6fa776a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/sweeper/parts/arm_upper.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 27206,
+      "sha256": "63b9db17c30738f013fafbefb707a3611d0f48c2e369f35d69d139b16d9f11a3"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/sweeper/parts/arm_upper_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 23526,
+      "sha256": "b3cb6f30ac0efe865e96422983118522826f1681db36db23391172043503ce8a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/sweeper/parts/foot.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 23384,
+      "sha256": "01554b5c819b6028e1d1f115306e7b1d6bd7cc308068e1e07ce04eef67ddeb51"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/sweeper/parts/foot_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 21121,
+      "sha256": "b22a20cc4305b8254c0677b8d98624185b65340c905f5e74f100fa397e8aee8f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/sweeper/parts/hand.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 13501,
+      "sha256": "f73ec79942633d6447b904f3068979cd114b2cfe9fd3df114e703d62153a5767"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/sweeper/parts/hand_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 13163,
+      "sha256": "a5e12633050db8a83681314a39a1bb29032cc523b857ac882b2f4cca4244aeed"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/sweeper/parts/head.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 31831,
+      "sha256": "fd7c73af66a554c2117459795dff275ce882b7555c1830bffb300d730eae48fc"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/sweeper/parts/head_glow.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 423,
+      "sha256": "3c72d64bcff89b7f42973cf38583d2885eea6bb7d42e539f576f387b5991b62b"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/sweeper/parts/head_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 28752,
+      "sha256": "f7b1b6aedaec72e6e7e0273f141dca0762eea00a0bc9561b25de8b01db01f300"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/sweeper/parts/leg_lower.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 48835,
+      "sha256": "c3be3a3f67727a25c7fb786988920710b798b269699e5ca41463bfee2f931712"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/sweeper/parts/leg_lower_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 44135,
+      "sha256": "49af89f9651ac49228b418b82bc6c1c77a81d9609a5e6d3783a317e2aafa9bdd"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/sweeper/parts/leg_upper.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 63843,
+      "sha256": "28ae31ec7b6e1f694e13cf30488b5743447ca99634ca49ba89d664e82a19a9c6"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/sweeper/parts/leg_upper_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 54558,
+      "sha256": "156012afc56ff73eab592820a3bd3479a3fb85fc4669cd90d505f2d8973e297e"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/sweeper/parts/pelvis.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 34874,
+      "sha256": "cdcb710f832cec6ecc7cbc8cf84cd2ac59060e0d0f56f8c81c27ca95bbad4995"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/sweeper/parts/pelvis_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 30051,
+      "sha256": "b80fd63b8a1c14fd8a25220ec087831971ac0709661536d5646d6981b5248353"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/sweeper/parts/torso.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 102454,
+      "sha256": "fe8b9657f6006e77043fb6579eadd09e61652cc950831da05cca52d87ffe105b"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/characters/sweeper/parts/torso_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 82139,
+      "sha256": "299d9ffa0e76c606227e69be461cb4bd349001f3fdf89e56e904c3e9c5ed6a02"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/bomber.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2892,
+      "sha256": "08b52e120cb8babb606e8aa51e0f1f6ea086de973d23c539ce3b425428475e6f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/bomber/body.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 8690,
+      "sha256": "bea3b9c09e8fbdcd45a04c6405dfbc653185f49bab87fe44cd32201a2742f209"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/bomber/body_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 7938,
+      "sha256": "fdac1319b9561e743501e584953b033baa444f05af1f030d82939473f454b079"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/bomber/leg.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 985,
+      "sha256": "97196a1968c1ec21914a4407cfb729fc0be168a179da79c5e143f80bfc015b94"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/bomber/leg_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 932,
+      "sha256": "3e77227c7a8321e00de7cf0120da6f310096844baf92f8b8f30757f64f746a2f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/buoy_worm.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2102,
+      "sha256": "5b8ed5683bed550efd9416fe26b7515755f4f054ba782c545fe68eacecfe3f48"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/buoy_worm/body.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5170,
+      "sha256": "023eb89a3f2b0ab36121af0b3023d6dc6c703fc071d488958a92f7cfcbbf5581"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/buoy_worm/body_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5457,
+      "sha256": "7423427a11ef015395de0a6e886f6cf8d00b21442847fc196a462f946e39c735"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/buoy_worm/leg.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 922,
+      "sha256": "d19cab9fb1236fb5baaa8270a76259f7c60cf323e73c097940258d130cf8ec56"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/buoy_worm/leg_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 863,
+      "sha256": "10b21b3762afcd381461a510643d21820f95997321c5c7f18371e1b4101cc97a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/cloud_jelly.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2619,
+      "sha256": "2ccdc5357d37be70cc59215f88387f632858365e5a5b9b9997d540884b33de2a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/cloud_jelly/body.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 12042,
+      "sha256": "4cb841bbed3661ae1cded8c7a99b61a61a9fc615f593bc3c172ca61d2d146ab8"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/cloud_jelly/body_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 10786,
+      "sha256": "50611495f4d9b34767abff0167b770ce83dbc3f7cf26555bccb2fd451491614a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/cloud_jelly/tentacle.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3633,
+      "sha256": "9dd41b36b9b099935cbdc97f1a15e8c1db3d85ec7969608470dbf76acdaacbce"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/cloud_jelly/tentacle_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3755,
+      "sha256": "fe52d848ed0b6cca10dcb03bfe4f10e815d9dd7bcdd15be26e3a8371ca3ac19f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/cloud_serpent.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1238,
+      "sha256": "76f59df173fec046520b486b86413ec12be3f7911e00b224e97da72aa465832b"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/cloud_serpent/head.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6607,
+      "sha256": "22e21b157d1ce53f30a3d5f75ed43fd3c80f862da2f909408eefddc03fbc9dd9"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/cloud_serpent/head_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6249,
+      "sha256": "6c320036bac421b86ec0e0ca341e8fb2c65187e6e550182304ef9882459f8eec"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/cloud_serpent/segment.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5642,
+      "sha256": "d5392e0cb49d9bb921fb9dcd69d75502c88322ba6c4f251c17ae28064b43dcb0"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/cloud_serpent/segment_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4641,
+      "sha256": "2fd5bb2c29abaa2ec063777bc6fe274344e34c8e3f8effec66124aa3ece137fb"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/drone.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2288,
+      "sha256": "a45e4b8c192781799e2919ae8fb630c8dad91c8aeb76ef0656ae56453eae80ff"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/drone/body.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 7312,
+      "sha256": "35d0f1791ac5d4018eb191527522aee7dd4133f6b5b6f05cd333094344693c28"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/drone/body_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6979,
+      "sha256": "0124646e39a22a4739408c132ea883192546909a28646c2fb8ab072cbdfbb829"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/drone/wing.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2114,
+      "sha256": "3caca891c116eaedb6717fd6bb40f2f0580d1c6e7db4cccdb1208ca12d784f5d"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/drone/wing_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1917,
+      "sha256": "d0a9a1aaea381ed2a56d334ab0b76fbf12c8699ef5ef91a403a22896118b267b"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/mimic.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2613,
+      "sha256": "a835cbbeb4bc661653a97a0bc40e8377120655c0a9ef5aebb8efc50c8c43bbfe"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/mimic/closed.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 19241,
+      "sha256": "198f2a918cab3c86e7a0c4e74ebab15a99afcc2e962ab7ac4242922962e6f49a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/mimic/closed_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 12796,
+      "sha256": "bc1f9d3edd7f48d4de982291dc88dff170a4ae5cf149d25f1533eb34a95b696d"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/mimic/open.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 22911,
+      "sha256": "78e40e770d5d82eff206c5547963b8ccea6bb6ab20afb44bd89d52739c1b3f9a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/mimic/open_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 19277,
+      "sha256": "8775385ee9c2f910f86e59f013806645af71bc6ed2a9467810d38c52eb6be367"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/rail_cannon.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2058,
+      "sha256": "094f3f113e0b294086b6c937f9ef0a0e2d0eedcf8a6280759fc5a9f31b009bbd"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/rail_cannon/barrel.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5024,
+      "sha256": "b8916a7b8be7d2ce46fe9beb183253255bdbbbb9a86510212892b10cca592b1c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/rail_cannon/barrel_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4878,
+      "sha256": "6294483f67543ddc138f84d8035a9156b6aec03c60d31f481b16e228aefc51c4"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/rail_cannon/slider.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 14161,
+      "sha256": "dcf0becf57a085dccc607793220c8c9a7a1c8e14dbc491b5f5b9f5dd3bd493b7"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/rail_cannon/slider_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 13575,
+      "sha256": "6b1ecdb41768b1e4df0caa89c31c2c7a1751be4b5c6b67d9d0f6023442f96bf3"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/repair_drone.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1930,
+      "sha256": "357e2fe906bd9541e71bbe9dff155a94437bd651f96cf9383e75580f6fa90902"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/repair_drone/arm.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1994,
+      "sha256": "dafcb6ed1cb9396bab87ed45a3d84b066e5b2e26baa285a7940387579f348d0f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/repair_drone/arm_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1768,
+      "sha256": "a464148b1738bb7de5650bba2bf5ca6993110d3a4b54f65ab3823e9c4ed6c187"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/repair_drone/body.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 10729,
+      "sha256": "eadcb42dd769ba7a3d05290b4f114a95ae656e9f2c807e8bfd94fe66394638aa"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/repair_drone/body_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 9954,
+      "sha256": "4c670a104acdc43ddf430e950abc74ca74b077a48f17b8528a456b1df1314dbb"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/salvage_arm.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2981,
+      "sha256": "717bc560d04f0e608b82c9cb23286b3375ea94c4de302f86847ecc0fe5cf4e5e"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/salvage_arm/body.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 34303,
+      "sha256": "1fd59a4a97f70314a8fbc3a06ae3138dfd1482d9a9ce97d92f3769686fcf3650"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/salvage_arm/body_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 29770,
+      "sha256": "4d10dfedf41fe6fd1da3397d1ea3beceab0abf225140fbe643566265898d1125"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/salvage_arm/tentacle.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4508,
+      "sha256": "7e9345acaa237783210be18b57720c8b075864168283b2e77ce07bf84bb33df0"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/salvage_arm/tentacle_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4208,
+      "sha256": "8d1ae51efe264a428af49217d31dcc15e1a305bb0efd43ec3c97b36d56950ad6"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/searchlight_drone.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4099,
+      "sha256": "76b183cddb1997555c1e1639fe78bc7a1c6b5cd605034868c472eef0bf775a29"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/searchlight_drone/body.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5395,
+      "sha256": "bed021d7eb144b4c771b4014e4cbf2805904490aeafa94393d020641b6006e71"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/searchlight_drone/body_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5366,
+      "sha256": "827676e9d1d21f47ca1c225044dba44bb4af78c0a5fadddf0e8b52f4482adaca"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/searchlight_drone/thruster.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2932,
+      "sha256": "3c6a83192d3b90a670ef75bada45c1130a49fbeab8698de7a166ab0c09fcb4ce"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/searchlight_drone/thruster_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2617,
+      "sha256": "67909c5223e6fbbc38fe259694925d54bfa3a6a9b6e5ef5f58f8cd1ebc051809"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/shaft_bat.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5345,
+      "sha256": "8f54be9d85bf8e6492b30ae8c957479b91fbee673db7ce9dee461458907dd26c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/shaft_bat/body.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6921,
+      "sha256": "cbf20a307b737e359fc08860c7607b7d5db5dbbd04cf863c089c26a190ce8ff5"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/shaft_bat/body_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6893,
+      "sha256": "3ef0d366465bf731950d9640ce4562125cd0361a9bd9edf7863e359e797146ef"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/shaft_bat/wing.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6359,
+      "sha256": "7e8560ab5e87636a0cc12e42bf2b420b9fc107bbf5b504fb2e19fc3f6d61530c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/shaft_bat/wing_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6412,
+      "sha256": "5a0dcb3f389dea2f75724955907491f0cb4f40803505e2ecd2545e83f12b5941"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/shock_hound.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3082,
+      "sha256": "357646aa442c236e70406cf56315a2d7cc4acbfc56e77e5f8d827244e4d4b3c6"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/shock_hound/body.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 12579,
+      "sha256": "12fd9fd7842e15371f4dbb1b2ee66614177722dee14efbde79f6ae1c652cc428"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/shock_hound/body_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 13739,
+      "sha256": "b28ef203debf4f2edcb8584339864ddf76e35322490df27c70ccc2036ca4f638"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/shock_hound/tail.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2229,
+      "sha256": "56f3299751cb615016dd9143c3b2f2238b8332334e2f326368e1194205c6c2af"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/shock_hound/tail_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2149,
+      "sha256": "7a8ca78bdada16c45996e1ebd9c8b3cdf130e75448e543ad67dbee46c01e53ea"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/swarm_bee.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2915,
+      "sha256": "4ccf84be4021d38c37d35548be45b4fadb437e7f2b2f42ad5542d2ebed45ad6b"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/swarm_bee/body.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2422,
+      "sha256": "306fd78240be75dd2bac1e2f56adc586586b0eaa57fb282edef3674757d8a519"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/swarm_bee/body_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2469,
+      "sha256": "cf9cb9da2b454e031d68e79e5572e2ca81b4130f4fc6b87e62f92ca09d01297f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/tangle_wire.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2248,
+      "sha256": "3acd51456cd28c370f00b13cc389585b37a0df289cfb29312eb331daa5788dfe"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/tangle_wire/body.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6803,
+      "sha256": "5c5404c27cbee35d1be2e76bb2007c05c021684c9aaf0d1d334678d4fb2478df"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/tangle_wire/body_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5965,
+      "sha256": "a637273b111f8a9c340817226170df256a6d90337b743dec2ade617cfd38b92a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/tangle_wire/tentacle.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2720,
+      "sha256": "5814473762649a6078507a98d32f42ae38bc3c96a2d28f26d330af3d92c15376"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/tangle_wire/tentacle_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2808,
+      "sha256": "8b55c1824c38e175a3b7a681560d6d0f197377c471d404c9da757aa79d021473"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/test_body.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1880,
+      "sha256": "6662981cf1d4abcf61d787b12d391a53c6c32b7399c92e580ba1db6bc77e18df"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/test_creature.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1808,
+      "sha256": "37478e43413f1a75f6e22767cb90e7b35610953675094798cc2f7d884237bd03"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/test_tentacle.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3182,
+      "sha256": "77a578f8acc98d856b30cb12fac902337453028e530c68d7403904afb3bd802b"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/turret.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1559,
+      "sha256": "7819d382a2ebeea8c89045d567f8fcc6b29852965e44ded6325a1a488def4f4b"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/turret/barrel.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3080,
+      "sha256": "070c11ab054886c585a6c8a6eec7808cb27dc42dcafa95de7028ec04f85e29fc"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/turret/barrel_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2693,
+      "sha256": "4804f00632d9ff2b64f04792bcab7cfdbecd554595559e7e3ccc515392480add"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/turret/base.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 10557,
+      "sha256": "713d55510d11adfc3b18a971b2998e8bab191546a91a0c137cc45c00fed339cd"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/turret/base_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 10082,
+      "sha256": "1958a1067ad799946ed46ce60b6dd91fc80c71f280473d09231226dd556c8e25"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/turret/head.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 8941,
+      "sha256": "80da376dbb3d4a1503ff0b2b4210e4011aab2fc0c2023bbbc8ecd35b27869458"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/turret/head_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 8476,
+      "sha256": "6220aed71784cffc88242cbac244109cb42c40c80b1cd205ef3b924e0d6bb238"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/wall_gecko.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4647,
+      "sha256": "861e4460f883caf1466017270a28d3ee8f268e5951a7def45327cb7eb51d098a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/wall_gecko/body.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 8390,
+      "sha256": "ba79fdae9e0e4a1c8944a191e39e078ee0b94ff2c4dafa5d4e66a5e4838ff155"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/wall_gecko/body_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 8764,
+      "sha256": "c2b8b4ff1e2281da4a3e9265c937031bee58a62984a3f23a42122cdc1415b3b5"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/watchdog.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 9882,
+      "sha256": "0f083a4870eb0b3c04d5f3249da782ac7f857167f98024b110013651b272ce36"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/watchdog/body.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 394046,
+      "sha256": "4967c48972857fcc9aba050ea03d728424226b513aa3fa27f9337da10918b1d2"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/watchdog/body_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 247215,
+      "sha256": "7ab5cb435fad6602e97ba06e33f703ed19133cf337b7eec1cea4289973e8fed2"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/watchdog/front_lower.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 38277,
+      "sha256": "1b07762e0225beae938789be2a18fae26aaef4c17946facd7a0d81d56a00397f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/watchdog/front_lower_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 30542,
+      "sha256": "bad9f96d1f06cde31c74c85665d76be517452b733b9c33aadfa8f108e39f0c94"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/watchdog/front_paw.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 22451,
+      "sha256": "103d11cd40a5faf6bb3243293653f9f89b0fce807ee91651efbf1ab34991763f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/watchdog/front_paw_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 20051,
+      "sha256": "32e017c95c702bed8528b2ee7cd9d2928304acada35bd3a75fa70fe1ed51159b"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/watchdog/front_upper.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 79612,
+      "sha256": "d3c44731765ca75c0cae5d2f64d7eac513db021f7629fa4b2864c7b42753474a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/watchdog/front_upper_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 37616,
+      "sha256": "77fa34911c7e7adb807ed40f11cf970d172f16390fc59a80ca5b06d7dd597d4b"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/watchdog/head.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 71959,
+      "sha256": "86e567fe528fca8abb7a65674f4aff3d920d8a60e0b5f323c24619be0c5f6108"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/watchdog/head_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 52102,
+      "sha256": "5ef8974df8d425f3dfa877af9b29b55419de7b4004cc2809c4d9687ec726c904"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/watchdog/rear_meta.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 29761,
+      "sha256": "2ad188776afa435ee7ae5f4973b188b273a6fe64a2a1cff73183aa6d21dcaa0d"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/watchdog/rear_meta_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 25225,
+      "sha256": "5773d1981e877d9c4fb6f63c19924ac8dceef9de51dcb75329bb1a121a0cfdf9"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/watchdog/rear_paw.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 21031,
+      "sha256": "574c416f209fab28e7b8e0fd25d4294c1516ae6fa4b4f82bbe90c1bcef81d9ef"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/watchdog/rear_paw_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 18497,
+      "sha256": "f6c1e52e3c66cf47d04e5ae180003d275a376ce9140c77666a78d9e6f4962dc2"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/watchdog/rear_shank.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 35746,
+      "sha256": "68758bfe8f2f043fc6bab67962a2ad5b9a4e30855ed36befc3da32424fba9618"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/watchdog/rear_shank_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 26980,
+      "sha256": "a703589f35b634f12fbba0a9c6ffb2c2530f5df8f8161568b90f7a3afaad5fdc"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/watchdog/rear_thigh.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 70685,
+      "sha256": "cb48de8ea3d19bd6978ff19229d3cba29af04f53788f6bc56974fb49ed93df92"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/watchdog/rear_thigh_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 43791,
+      "sha256": "33525e3427ad9f4a85577a345c62e8afba2cc411c8f84622a5c4b310b69acee9"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/watchdog/tail.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 20607,
+      "sha256": "f9b8686ac17c9eb327e0a358f424a61c3d46c20dbb127601f4aff2d1755bc16c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/watchdog/tail_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 15056,
+      "sha256": "36d5f54bbbd738af2eb4a731978280b25167c1e90cc215767d9673cb04771b5f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/watchdog/turret.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 21185,
+      "sha256": "57223742a5707272eefcd58af99a6eb07f36b1d79ffec86d01bf6d93c832cddd"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/creatures/watchdog/turret_n.png",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 15994,
+      "sha256": "b9a9f2f4111ec5c38f19260350279211ba7dc8be6cdff0276af2312d4b206bcb"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/rigs/collector_brute.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2686,
+      "sha256": "a1420f3eb61aaa1119ccd25ac6cbfc3d5387f850b2e2610b93f4a898dff9a43f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/rigs/collector_gunner.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2688,
+      "sha256": "49b82ee6b1ecce7774479f7d3b1213f5868569c7240c30744c8c2c8fca95c4c6"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/rigs/sweeper.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2331,
+      "sha256": "71c754b17797c24d89d7e693455ae430fb4fff7983386a35b7a9f889767611e3"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/art/shaders/character_light.gdshader",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3459,
+      "sha256": "1822c51dcfab7feaaadc2b181eadb2eca47e4bacc737ca83535c6e99d566be60"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/autoload/ambience.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4171,
+      "sha256": "871344243dd5909c2741b3fbd5d59e7cddcbfbd904ee6540f64780430d783c81"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/autoload/defeat_codex.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3777,
+      "sha256": "b6e71c93b7676a2370d6a016c4669eaa5c17c550603b5d337c9269165df49fff"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/autoload/dev_menu.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4949,
+      "sha256": "283e80492b47d77f9f93dbef77fd4c5e52080c97caf4315bbdb36c69dc492076"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/autoload/event_bus.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3630,
+      "sha256": "907bacb0661f619ed8f5a696276dc3d1868446184ff6e509e3cb4532a0ffa47c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/autoload/feel.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 11552,
+      "sha256": "1b7feafd549991978346dd54e75d832cb5f08508cccf520f363d78ac2ff799bb"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/autoload/fx.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 30188,
+      "sha256": "42874c62bd217c1b3725089629a27416519f45b4f87f9a16d39759c51f0a9b9b"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/autoload/game_state.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 22865,
+      "sha256": "f27963b5951415ba59f81a18eadac8752a111a674c34a57e34836a25e94a28f3"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/autoload/gameplay_lock.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3872,
+      "sha256": "9efdc042fe0efd430df2a87ff30be326db1ab2d0aa4ea39f921907301437e42c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/autoload/input_bindings.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 31918,
+      "sha256": "a3da67e4ecdd0d2d9972c7f0c738ae648f10493a9241c571080bf0a16886944e"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/autoload/music.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 16285,
+      "sha256": "cea54f5cc9fa74667d12d32cffc9471a350fd1dd7fcb457f4afe6ab12fa69d34"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/autoload/progression.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 23720,
+      "sha256": "c025b901d051fb36b813dda2a1d19333413e64a61576148fff4c6f380998de23"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/autoload/projectile_pool.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2532,
+      "sha256": "7d707db302ad3eafbc949709da9d04538468d6270ae2ba1e4c3ba0c0c4b15cca"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/autoload/settings.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 13140,
+      "sha256": "796ca45f5eb7e732997f93fd4af74114589c98fb8ad17082f482d1d9bae6256f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/autoload/sfx.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 35500,
+      "sha256": "fa8ee84c0ecc8c3c885f6573d03151a5183331dec873713af9114f3681789f9d"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/autoload/story.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 65035,
+      "sha256": "6fdbe81aba2cbd86493a8c90c5acf102805f5d75a1203cda8614b107a43271e3"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/autoload/story_items.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 10914,
+      "sha256": "f14631475f8f8b21c4c7efb89ecdf623341b8e73f3cb3e345dfbd95ba4ef999a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/autoload/transition.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 7870,
+      "sha256": "88c75e70224d796849e9661e475831aa6974dfc2e3d2e7decffd77ef9d4ca85e"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/aim_input.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4417,
+      "sha256": "389cbabc618fa544675fa8804f16cc5086d05aa3d8f8206a9d9a7be3d961bd8a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/ammo_icons.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1690,
+      "sha256": "93c54d2d53c30948c47b85fe0db7d09f0cb386e17464dff5684d281830a852b1"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/asset_prefetch.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 24012,
+      "sha256": "9e6e6ecfe8faf1ef80eaf2655321843ca0b6df1a704cac74380910fc78d341b8"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/attack_tokens.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4728,
+      "sha256": "3bf5ddf6e6c3614d98a59a6ed862065372e58d01d42910d3ba816ba5d48ab7dd"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/audio/audio_catalog.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 8568,
+      "sha256": "928bef8feacd1fc7d8d9c8d1e8ef2ea858dc20048a2f2afdc7a0353a0b16d11f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/audio/audio_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2091,
+      "sha256": "bd8db4e17451584119ba681fdf4747cfe932bbde6f3768238fefd633a945615e"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/audio/audio_data_writer.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3880,
+      "sha256": "59b8c545471fd59b0494a7c224fafea9a400d288b3a7c82f781e8e7517ea0a2b"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/audio/audio_release.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1194,
+      "sha256": "e4e1d57a59903c24ec65f2b8eec81ff489b14ff9a9c3133fc31cb06126a09cd5"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/audio/audition_player.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1911,
+      "sha256": "197258e9dac12334164a5d17cff800f2d444f92cb68b39d69bee33b0711a54ac"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/audio/character_sounds.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1363,
+      "sha256": "8c2ef2c4b2d6e2649fe34272c2d4f8a564345e8a332d01429ccd0f53b5ba6c16"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/audio/crossfade_player.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4297,
+      "sha256": "bc7fbc680e8dd25d8a9267782ba86b9da05b966d2ad0f54e6cfe361dc38230af"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/audio/footsteps.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3024,
+      "sha256": "8535933b1a78addfca1c8ce6a838f3ec5746465fc9ef5d7123384941c193f6fe"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/audio/placement_doc.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 7501,
+      "sha256": "7973242f112c0afda215478d04965572079a2342eb4b95dd7b000fb62f8f3b34"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/audio/reload_cue_track.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1681,
+      "sha256": "c05ac799853dfe16184c307b93c9c70e962fdf467ac4dda45add4038739997ff"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/audio/reload_cues.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5802,
+      "sha256": "6968bc895423e9efc6d9db2591d50fb982394b08bb0b3da2d97f059e46724f93"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/audio/sound_bank.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 10795,
+      "sha256": "220ecbeb714fbe3d2a4ab9937a9d8456d2a9155287dfa6955e052b00fb085b58"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/audio/sound_profile_table.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5828,
+      "sha256": "7b5570efbdd7775ca28ffab76f201757efcdc6db705ac9c959cde2e69f01e402"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/audio/stage_scenes.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5218,
+      "sha256": "9f0266cfa23783aa7ad478a58c799fe8baade039f6d98c45dca6c653360cefdc"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/audio/weapon_sounds.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1442,
+      "sha256": "ee6c9d7fc2dbee56a62659fd57aeead5c552c32bb6f7c13407979280a32d8390"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/campaign_edition.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 9462,
+      "sha256": "542af6f5dfddcac6bac87f417c92b105e32bd676ae80cf113becc8a17fb1c9b6"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/campaign_ledger.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 21891,
+      "sha256": "0ca6f2ab6a8ec9874f1fdd5e813ad96528f8cceb9007e08a3b14252f31832520"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/chapter_audit.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 16134,
+      "sha256": "e2d26f1873de6d613ce182985d93070c8362c8436759c846f3b48c91fc44bfdf"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/combat.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 292,
+      "sha256": "4847754c6bdf26b8c0cbade7981ac795411cc8dbf4cf36d2ebc5d8d5f8bf7cb0"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/components/bone_hitbox.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1823,
+      "sha256": "d8049cbf7ef57e2ff7ef8f70e44386c8fe9f4507f892f03f031c64fa2cf04356"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/components/contact_hitbox.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2296,
+      "sha256": "76c9f7d7ec8cd88f4b07cf272e970d26a0603f5d513c569b57bf441adf726c1c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/components/health_component.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2626,
+      "sha256": "ab3b34ec9a9d00309246cae2036ef719a19ebf6a7a8b2114540916859251054a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/components/hurtbox.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 9133,
+      "sha256": "53f3673f57b7ab2a6f26c20462840463794188401e09b2bacf4e05c0fe00b2e8"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/continuity_audit.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 19827,
+      "sha256": "3f2a661c90a9a90563d0d40942e1834f8132192d2558f357018991c26a3aa862"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/damage_info.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2211,
+      "sha256": "0ad4808db9a944ab912e868e30bb7d543b88470390bd7da7ef3e682383e92049"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/display_mode.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1348,
+      "sha256": "3382a4b01aad0aa3912cc170a0837d3bc0c2939d22dfb332151c0bd68f164533"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/economy_report.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4753,
+      "sha256": "b5815e20534fff78344db118d4ed4edbce8bc6d9028beb6d54a1e5e8debbff2e"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/feel_ab.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5502,
+      "sha256": "158a31143d463ee08fa67648fedf3ac3bfe666ad32633ecaa4be190901ae7ae4"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/feel_diagnostics.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2079,
+      "sha256": "58a906192e132ba4af5d56d88a663a0b47f3880ffe6ddddd43fb6086f17e963f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/feel_params.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 9608,
+      "sha256": "b7e9c97eeefcac981a5d7ff7ef6940006b67fbbd28ffe584030e07cb9229d692"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/feel_record.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 7779,
+      "sha256": "6db149d7d21a4a52eff0100f8f2e0c64e1cfcdf5280815f17d8b0891b3c65774"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/flash_guard.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1576,
+      "sha256": "35bc92ed3262cc9316c9ebc63fe2e6c703be4911c91bb957513b5e6a80c88869"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/ground_probe.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 736,
+      "sha256": "75271f112113218759196880dc2c266dc35f7a7b69c4c01dd24138d084f32316"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/input_feel.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5885,
+      "sha256": "76bcdc10516064b49c6bd27e55d96cba95a554c6b734f8db99c9360dc7d2d8ba"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/item_icons.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5283,
+      "sha256": "df250f81fc0d24ee91e75b4862f962216ab9a4a7227a80e890cfd07f28cba586"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/lamp_fixtures.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6500,
+      "sha256": "666ebe7cc53930a7bd5de99dd1cef557b2930bd05c992b3082b41fdf19fccdc3"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/lamp_flicker.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 9903,
+      "sha256": "ebe8559352750118174c5392c048028a9bd72d599806da4cc29d50282b543fd3"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/layers.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 469,
+      "sha256": "dfcfab1cba6fc1ceb42e5cb7412aff60996b946506ad660c7c2ebde76044252e"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/light_kit.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 14531,
+      "sha256": "d8ee9b71a5144dda7fb2a75e15834ab7fefcd96d44c7a2a6c3c036c7b2649eed"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/light_quality.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2590,
+      "sha256": "7a3527f88b75a7c36583abfc916ff04984e3ff04a8d9faa95509e479bbd3f37f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/lit_textures.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3244,
+      "sha256": "c38e209e9ec732889a2940858c9b7ad638ccb66a5828673020a9207ca047acab"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/melee_art.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 13662,
+      "sha256": "5971045bffa84fac227957808d028c0078774e69addb9ee6300a0a58777563b3"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/navigation/quest_catalog.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 7812,
+      "sha256": "86782221547acf53231a23843504f7402b475641a50a99f286650f320589e4de"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/navigation/quest_map_index.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6224,
+      "sha256": "ceb44cf383133534252e0f25bdca914b162e1a1a9b1c891feeec832cc196101d"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/navigation/quest_map_state.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4860,
+      "sha256": "87c96df3f2ef88084b51d884053742070ea0fdc7229cebfb5db0572648fd7c5c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/pacing_estimate.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 9187,
+      "sha256": "f7dcfc650619668278c884b0187043ef1dcc39d39f9be856a3638dcaf005ebc2"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/palette.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1629,
+      "sha256": "7cbbf690257f51a40de183b968b2d00da2c8431b41a98d3f3e5abb2e39b72476"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/player_text_audit.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 7557,
+      "sha256": "5ed28fb9dbb2fcc6856b0d4963cffcf2e2d13ce0b1004034b6b63b8898244e3d"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/prop_library.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1561,
+      "sha256": "29307e04cb60ff79f66826030018e192e19b6409fcf34449df3157995294abca"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/required_item_repair.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3374,
+      "sha256": "d1e7a9cca6f1406f6a232ca32bb9ce19f9e9949dbec64b7ebe9d53c244a09e8e"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/resource_catalog.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2378,
+      "sha256": "2bb9986b5f266c3e8137042846c179a58cda671b4c4d20de57693ceee2c84b5e"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/run_destination.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1573,
+      "sha256": "eb09f5e3a80b8bad5fe391adaba7c9f84db208a91c717b529e95a64b796f6e4c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/run_flag_commit.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5176,
+      "sha256": "c13d28fa57d9f44ff36dfb33c10a412c02594bba770378e3e41b6341289741a6"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/run_save_codec.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5825,
+      "sha256": "f767c41a24633a73ca48a865c991146a01c7491325e3f0129952ed457fa9d9af"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/run_save_store.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 30377,
+      "sha256": "1033befefbd04f934cac74abfdf74335c416b31b29ef4d068a3768d987ebb781"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/run_snapshot.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 21627,
+      "sha256": "81903039971dc6c39c5732262b7fc4014ab94746e21c0b72b9c0865d52d9820c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/scene_audit.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 27826,
+      "sha256": "9b5401c2cb41fb2b5151e983c17ba542f57af4448457e5725c9be5d0171883a4"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/stage_fit_audit.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 10098,
+      "sha256": "264bb04d30b620a49d607e81a306d043c21fc2260bf8ac1915676f3f4f3d1576"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/state_machine.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1972,
+      "sha256": "d31a2e277b5706712a0e2633b9e2d3d610a50b5dd9d663d861b247b588de3a4c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/story_condition_tree.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 12241,
+      "sha256": "94612bd3e4a4e1d2828e56313290f1a66c952e097367fe3912356d0496131e75"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/story_install_bundle.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6817,
+      "sha256": "4b7edc551d116e01024ae07d9e0e463a51893dcb7e8196a508f04ccb07788faf"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/story_item_text.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3192,
+      "sha256": "46f05d590fbfefb49e0b160fed8d6b1aa972861cce529efc2faed9e34ecf3484"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/story_lint.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 14339,
+      "sha256": "738e81490c8dd21b7fd28794b96d19840e06e678d1b3f54bcdc8688912b0abf1"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/story_locale.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6223,
+      "sha256": "bb757c9b36c37c31f1a937ea4ab411972553e5e2e93556d30fc7936c4e020d76"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/story_outcomes.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 15267,
+      "sha256": "60e268389b607dd2d5d26ba643f4cdeb196ab299f31abff012361b79a16f7843"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/story_reactions.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 10833,
+      "sha256": "31e82727ea6d9b5701466950fd95f824c9d031ea75b8f3f9b3bee331c6d899c0"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/story_result_plan.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 16573,
+      "sha256": "006dbf02a8893b243eebb621d739d4074767a244d73e3d0e55e9503f4d896d8d"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/story_rules.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 8030,
+      "sha256": "a8de6bc1cab6f4aa14203ff207f1d06d480c6cf62350bf810c094cf4b66a9879"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/story_transaction_ledger.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 7805,
+      "sha256": "e68d99794a1dd35e30bf770b43a0c8f379322ca3fed3d2393c5628e3bcd4f62c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/texture_release.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1567,
+      "sha256": "69a7af0dceb9d5eb99eec9b20cc31beedce9002116272e0fba465dec9a45fbd0"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/weapon_catalog.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4773,
+      "sha256": "5d96b4da4ff1fc364963258a63b9ddc634334a5159aaa3096921ea512b8f7913"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/weapon_icons.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1135,
+      "sha256": "122ba3b420afe634b8f61ceda8c74a1ec0542c7d51706f68ea3b553b533fa52c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/weapon_system.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5927,
+      "sha256": "9c77a5eaec82b77b33e6a2902078e806a8dd18618dd0e4a6718f3ab465ce35e4"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/core/weapon_tuning.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1494,
+      "sha256": "d00a88e30a2ec4a7366ffb6f89d60d8e251bc6334497c2f22a726a9959d078bd"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/audio/ambience.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4828,
+      "sha256": "2e1ef364b48771a888f046b33aafa9cc2c935fa4acb463a346adef163f8e3bf7"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/audio/footsteps.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1648,
+      "sha256": "b90e3d81d608031462e9a1c687116e8ec2b3b34d8bbeff2c45712f06d45df9a2"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/audio/music.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 9816,
+      "sha256": "636de3188561d2c4a1659dc1714a87cf9eae340d6e8c0b1260520771ace247e5"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/bomber.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 817,
+      "sha256": "024c4b083d3b3ac43086a77ababf353c201e2044a60a32c8d611a7595785e560"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/buoy_worm.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1205,
+      "sha256": "8c0f67270c023165132b1339f1bd62e681d9a17dea61bf9ffc4164da5bd5ede8"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/buoy_worm_small.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1091,
+      "sha256": "e0b98e6c0f185b6a57e3b5f3df21ddf9ce7a36dfccd294fef6f6a5ef2fb262be"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/ch1_inspector.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1165,
+      "sha256": "ed33c305c5e4fc015bc48674dc18337b9f4d1861a22a2763c164f45069d2759b"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/ch2_bill_thrower.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1247,
+      "sha256": "1abc99d5168f963df568ec0828dfe7840da5be81d160f5c69751b75e061ce208"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/ch2_escort.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1372,
+      "sha256": "1a9961767323971b60547217b8e3367402325db6c88b82f9af40ba24fda51fd2"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/cloud_jelly.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1028,
+      "sha256": "dc972f0fdc39a6316ee8dd902dd90f32c612f9ddec1c261b44933683567d97d4"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/cloud_serpent.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1047,
+      "sha256": "7820f39e8eceb4a353ae9a17e2027cd7f116f6c7ecacee0f787778e3dd64d97f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/collector_brute.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1157,
+      "sha256": "01d6f068dca969175a8dd7ec99f81f89762306702fe4752991fe871452ac9d29"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/collector_gunner.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1146,
+      "sha256": "b77a0eeb261fe9a2342879afac3a552e98041ed91e88c1edcce5d2fc30a76aeb"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/custodian.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1452,
+      "sha256": "63feced1b823e8d62b6007122be56e215b33167dd17ea7527db7afb4e37cc45a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/drone.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 869,
+      "sha256": "34cd18c5a191ad29a8271d61ea1d74309fd471740431b185020c3e8de03d2374"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/elite_grunt.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1091,
+      "sha256": "73415134da75cfd198af8f66042ee1e06d14d6222bc4409170f2f0395e8262be"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/flamer.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1194,
+      "sha256": "83c4b96ca088d953d2bf05f60f3247d74b3fbffe3603db9494dbe99bb76cbd3f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/grunt.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1067,
+      "sha256": "df3430f123abcaf56d238de570cac4e2bec3926c536f03f4d1882a7927eaa025"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/heavy_gunner.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1368,
+      "sha256": "4f571c1db951d67ff5f60a743f35cf049edc23e422b48f6d4b2920ab6623a045"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/insulation_inspector.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1042,
+      "sha256": "41502b9d57e42b323aee4d6a378c905c1f94b57f39b850cdb7e2467e9eb94575"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/janus.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1136,
+      "sha256": "c5e6ce4f110ee22e253b4c28611f125e04d23b80a221a38dae536941fca29b14"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/mimic.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 887,
+      "sha256": "8a59d936a10d6288aba86ae5199d6a18f5ef0fcddb0579447c84efd9d4d5da96"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/mortar.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1165,
+      "sha256": "582c35ade3fc6214d13b62009a1dc82741afd4fa9c26b54275b78c1c10551571"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/pump_inspector.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1115,
+      "sha256": "4ef4d7298186033def58f88262a16538b75ad32aa8109975db9f644b0beffce5"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/rail_cannon.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1053,
+      "sha256": "755273b4c4d145b7200b60ac55016d4fdabee2ce1b7b0256f8fe8cf546143da4"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/reclaimer.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1345,
+      "sha256": "450caba56c4f651969524dc6b3d544810b64189f1a27c863d76153f8524532bc"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/repair_drone.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 893,
+      "sha256": "a9bb2cb69892289a8d0e23610417700991a161655a454295f503a5da4fbcd5ff"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/salvage_arm.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1091,
+      "sha256": "9e2740497218c1d3fb9b8f59b76b6f04b12d4b34007f249f4926c39268bbc3c1"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/searchlight_drone.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 937,
+      "sha256": "f6f3cc38c7ae674e46c2a56076ba9d4f839fa2b930970ed679c00d38998fcc3c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/shaft_bat.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 948,
+      "sha256": "18dd54137c9081ec5b1db62c1115520970e4ba8834df8bd2645e29350058fa2c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/shield_rusher.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1180,
+      "sha256": "ee357583b7f55b6910af80692d9b08be2b1db54b2a2070957e69442c7f5bc5a3"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/shock_hound.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 914,
+      "sha256": "6ec9144b796c428069a4fd2e230613541702d556d04222e9f1b3e685aa70febb"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/slasher.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1088,
+      "sha256": "1e56acf9c02f9e8f0387a69837fbc75b615d44572f3a14a2428ae3ef1cf77a4f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/sniper.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1105,
+      "sha256": "c1e53b700a5ec8cfe1e222f103319bb9e2852379ebfae25c20a1cda5efc101c1"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/stalker.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1139,
+      "sha256": "4e38f648cfa9fbee862aec6b86f38680f1c8fb78f9df07172177bd9c2652324c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/swarm_bee.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1006,
+      "sha256": "eaba4898ef08ca4af66067bfde8bd886f0c59a790f2438686dc614909b99eb85"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/sweeper.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1107,
+      "sha256": "c00cd83109ded7be58584b720912085655f50840bb364d0306c19c1081a768ac"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/tangle_wire.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 918,
+      "sha256": "26bd7345925759c37d515b8505ae2fd70060c3045caab1847045f4d31fc56d95"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/turret.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 941,
+      "sha256": "6b750bf1d944620d00e53561924aea0994781ac1a11fe0df94364f1c7d12124f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/wall_gecko.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 969,
+      "sha256": "cf1dbd41e2a771189f5606f0916e77acb91388bcf807ead69bd7b50440ca2914"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/warden.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1977,
+      "sha256": "83f99f790b969f6526675b49d0ece859173160e2e8955f277e65fbd4b6a0b6ad"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/watchdog.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1870,
+      "sha256": "b756ce82064d0373b5f50e585cb9dcc23527ded8294e8b4cc3c66ef18d7e57c5"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/enemies/yong.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1345,
+      "sha256": "c89e83d954ce08c75ea58832cbce8f2ef3cf06bd16ae041a7d2c5782e75dd667"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/environment/materials/asphalt.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 507,
+      "sha256": "ea0a839616389864f58f5dfe0b443d365859d9286231ade65a3d2317143ba4e6"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/environment/materials/brick.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 492,
+      "sha256": "4c3b31b95671db50b45be46f702abd330ac4be15745d478353ee9aca55666181"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/environment/materials/concrete.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 507,
+      "sha256": "71786249eab3fb61368391652a2a8b587334aba49226063c626b6bc7e6adcc43"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/environment/materials/container_blue.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 527,
+      "sha256": "125d7e688bca5e225b8223d0f716820301ff0d35b4e6e8e0cee00b9c4f041afe"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/environment/materials/container_green.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 530,
+      "sha256": "091565bc4fb7d6d6d6c52607afae74933e172d3cdd1c61c489947b9458dca38a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/environment/materials/container_red.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 522,
+      "sha256": "cb0f2d17d04c60a0bab1428a463cc7488a46175788acbda8aa105d6f67cc2dfc"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/environment/materials/container_rust.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 526,
+      "sha256": "d370dd8c18f9587c9be20a7f869d52c9b99f5826e5a213a1690a19347fd8486c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/environment/materials/facility_floor.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 519,
+      "sha256": "e4ec3bfb7115baa61dc221d06eb2741bdb72ea953331f0ed5d544277ae20c961"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/environment/materials/facility_panel.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 519,
+      "sha256": "7985017a311fac168f41364d5e7b41110668257823951eb8e2d98fc08792632d"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/environment/materials/glass_curtain.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 515,
+      "sha256": "436b96f2afa2f31e2014ebbbb9c8c7471c5c5b63fe039f6435e49aabbf262b92"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/environment/materials/grate.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 477,
+      "sha256": "99f188cdf0c0cefaef330f96e489d1fd8ccd30a2646fffb3477360838a278ff3"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/environment/materials/hangar.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 501,
+      "sha256": "b0bc4044e808928e97e4a27df636da1e390bd3eeb300a1ece17c5eeb79efba27"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/environment/materials/hangar_wall.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 515,
+      "sha256": "ca7d719b63636d54090fa3e3471ced2f2d7c77ef5e7a44cb34e54e1b0e301f18"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/environment/materials/old_metal.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 496,
+      "sha256": "91734f57ed556a7fc31975a403f1d2062b8a037cc690b712c0b9f0ea03b8983f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/environment/materials/rooftop.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 499,
+      "sha256": "b6bbc7c81ee3e65d98d805ecfde4c8d6b86e4753119a4a1d23cdbd2c48d9d5f7"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/environment/materials/steel_plate.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 501,
+      "sha256": "7bd98073e294316fe9d40c639f4c3287dcc4b14a2b4eaa404fe94c01bfdb2799"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/environment/materials/street_asphalt.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 496,
+      "sha256": "2cace2e875dabe81d8185fc55890b2748c013532879b17555f22cf5f91de9942"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/environment/themes/ch1_street.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5392,
+      "sha256": "2cc1e221a7306ceeaa4895dac608cbcbfa6856e4ad6238f87dd4cb5443b315cc"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/levels/ch1_street.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6012,
+      "sha256": "831580dcb2d1653e8e31e16f8a31bbb6add516f578a81148a0eba8ddd8dfc7a6"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/levels/ch1_street_map.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 7010,
+      "sha256": "4dad6f895db8181469980fd32f9f025f5dd663301fa7fde34ec9a87a602da615"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/levels/ch2_market_gate.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3347,
+      "sha256": "263bb017249b6e2d47348e3c443398f26f73faf23e691e02c11a414cc82a4d64"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/alarm.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 638,
+      "sha256": "78856e656b888dfd59dabf1192d7dd4bf1b2ec4aee845997b9b204247840fb9d"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/alley_calm.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1121,
+      "sha256": "4961d33ad7a504695334c4363819475f16765afdc77fa854a857067b3bf9a7b4"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/basement_amber.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1119,
+      "sha256": "f846acf01d4b84fb1b8b3725bdd4151a8cea9ea6b1291b88f8372cb0e92bbf06"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/blackout.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 652,
+      "sha256": "ebb514522ea09de8027f0dd0b438091a3cd824ff25f6e25113422d5979576cfd"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/broadcast_storm.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1253,
+      "sha256": "b2479414bd9851894bfd2a63a7fc5b0e88feea18e1d40d8fe239f522d74a60c4"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/clinic_ward.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1107,
+      "sha256": "d9baceeaa3f94c74bff1212f9b5fe601f48a08a0404971e217ae015355f904f2"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/facility.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1132,
+      "sha256": "9c0a6e590450509069dd52f1ab3903e401191da7c089767f17829cc7af82323c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/factory_rust.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1133,
+      "sha256": "7fe45bc60bfbf6b6cf0e8bf5015d0fc18cf54bc2e1579263e93892d8ac638ee6"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/flood_night.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1135,
+      "sha256": "82a0052a0d75790a1b0b29862ea546c95be53bf59f035088bc7e7969bed3c110"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/freight.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1197,
+      "sha256": "d369a5cdc48959ec271de1e8f65f2ba268354f40ad4880e7fc85d0312aadc674"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/garden_day.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1098,
+      "sha256": "3ac73a2208c0b9180b2e28009ed629015a19bcb384604c09a5c65e55f227a972"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/hangar.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1120,
+      "sha256": "96386bb347a98e3adfb668568628c62f45fb94f288baca6c0727f8e21c8c96ab"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/harbor_approach.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1205,
+      "sha256": "e4ff629e9ad49b1a32f3ec04f1625e65e8d25fad8b074eb2839f44d5e2f99574"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/lounge_front.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1174,
+      "sha256": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/lounge_safe.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1151,
+      "sha256": "ae2b7e93748d55eef090a669107ddd88527ad9c29b29ce8e43b7e2d0db2f9ed1"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/market.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1168,
+      "sha256": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/market_gate.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1173,
+      "sha256": "0be8c9c3656da86ba4fe765794270884dd63b5e1052ae12ddbe9557740c4a09f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/mezzanine_gray.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1154,
+      "sha256": "10672ae3d67b6b2ee155026a3c5b4b2f3c6d9588d2bcffe1e74c70e596365cc8"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/neutral.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 416,
+      "sha256": "33f950056bf23c4b4be5a3310b9237d1c8ef9083c5584fec5d9594cc416c1e6f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/pawnshop_warm.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1099,
+      "sha256": "8254bcf67cb4d4c85da4412be56a1059f4f3edfa3d153952bb487b88652c6270"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/power_room.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1116,
+      "sha256": "bd2e90565b464d63906b4e81f06fd8bdd44282b5ecc29c544b5cc12a3aa6cf80"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/reclaimer_arena.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1124,
+      "sha256": "93063a422e7232a3129650e530daddb0b6cff59cb2893ab918e8305a7a117870"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/residential.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1142,
+      "sha256": "ab57ccea56dca437044cf7a08db5c3e6647d11879958a626d4c16a14cc48328e"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/rooftop.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1177,
+      "sha256": "3494bea62dd968c2cd47df9def3208b150a8f06e12af9d9a898ff841ac65b48e"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/shaft.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1109,
+      "sha256": "04c0cb38e177f87d8db1e269bc2125e9a85cceba7cb801d22c33f53d9c5eaa17"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/shaft_deep.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1115,
+      "sha256": "a183f0f217fa1e3b6ba14173426f12c85d939ce3240ceadc396a4edaebf5c051"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/street_harbor.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1224,
+      "sha256": "4908df34378e6032be02af62f26c6050409601b47cecc363576b645c6b36b309"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/street_market.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1175,
+      "sha256": "1a0f0f2a85176425f55c10ae11d1a5b6e38268e1f9e9a3a15fc33804f0146971"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/sunlit_edge.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1111,
+      "sha256": "3e8b32660c0293a03c2a77d8964e1d26ce9b642b0f2a0ee713454edfa7a801c1"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/sunny_day.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1097,
+      "sha256": "0e88f7f1832df79b3d262f5f591b6230cb6e6e016b466f8d1ddcd58fcfacc006"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/tower_white.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1098,
+      "sha256": "ad8faac40454c3822a5a66ea541a7be8a5b7d62c6408c43db525de39efa0575a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/transfer.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1113,
+      "sha256": "23ddc22da2d01ae05a7c9421455854437c4fdd49297eb4881a2d2dc88cf9d887"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting/warehouse_interior.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1243,
+      "sha256": "15ed3562470bcdb2e5a875d858711ecb309db5e02d125601ab4a3a26f5057f13"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/lighting_preview/scenes.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1116,
+      "sha256": "ebd41711c323901707243344652f2dac9573304283bd2761693356a27d93b33f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/melee/ion_glaive.json",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 7381,
+      "sha256": "18dc55099b74f6ad7998f7a7234db0497eb658728dc4430f982e569564d31e8f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/arm_shield_part_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2604,
+      "sha256": "ac7c3287a6c3d6c467d2fffcb31fffec09629adcf6dd57977636e4dfdfce1324"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/backdrop_layer.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1305,
+      "sha256": "70670d2a3f53542f3d250969bf49c822f76fcebc3e840ca69c2796437dd76391"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/breakable_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2601,
+      "sha256": "c2da481f9d4c90c45a16deac83f41df3a48ec2ef4b62b28d928c5cfcc59f7bb0"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/chase_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1465,
+      "sha256": "636ae830ae58af311ac151cb53c63c14db579150826a6eb13d89ec6222c4acf2"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/cinematic_entry_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 671,
+      "sha256": "2d25a7ee5fcada6ba57c3b4433316aa5612118495f11476d5e7d228eb98d065b"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/consumable_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1311,
+      "sha256": "74961de559c70c0c1afc15654716d00ebce522a6e90558224776c1db14dba531"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/credit_pile_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 528,
+      "sha256": "fce754f2aa2f16ab92229b88a9a105b240fddb696cf574181a8b75ee57b3e7ed"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/cyber_ability_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2222,
+      "sha256": "6001e2f0e6e80709c98bec24854a06434053b75013373d517cc0309776fe8340"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/difficulty_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 671,
+      "sha256": "842dcce4839ab0563537cb2c07786bc47a19fe013508634d193b539a69cd9bb7"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/enemy_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 8451,
+      "sha256": "b1b4545bdfcec86a5f1e3bbe6f5f538741d037604fcb8d4a4c3ebab4860a3cc9"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/env_zone.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1369,
+      "sha256": "167d171f1b605003b22190522d82e948c1e54627cbcb0ae70967afd8e7d6d42f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/environment_theme.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2395,
+      "sha256": "da48c3a7202943c6d66c2cb3e4ef9886480c74d6b05ba16b32f06dd29d6b23b5"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/facade_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1563,
+      "sha256": "ac25a041eca7e6ae30b0f5f2e13f9023789e15494c04b1afb9d575d4698be9e9"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/lamp_style.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3027,
+      "sha256": "f3f18f2f483081a821b75a6d1efe64b6586692c7e422f483a7e4a4d43ad8adfb"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/level_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 11265,
+      "sha256": "0b0feea82a65f3b1d17f5cccdca8b448f3a809679221deeba4a13073e304c94b"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/lighting_event.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 882,
+      "sha256": "fbb616e6d26433353a6df5aa37488ed7b3c101ec87f46901eff8776eca0cdf51"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/lighting_profile.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 8576,
+      "sha256": "0c166b9f2eef2e53340f50b0320bd6e13babcc9ad90ac19903ba71b0fd00ec81"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/lighting_zone.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 972,
+      "sha256": "0c617294f2595b0b44f45f3731da7f927ad99178570c9aabb6209f6e2d4bd2a0"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/mechanism_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5277,
+      "sha256": "3ed2c4f3b25e11cb9ba5805bff27e7869424ee02c84df7aed6777d62903e0ea5"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/npc_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6525,
+      "sha256": "64021b6d4ca9e3abd9a4718f9f25a2426938460af1d46468e7c7c3a2851df40a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/npc_reaction.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2832,
+      "sha256": "301a61dfe35e92de6099df33499003dae38877318e1ae64bc364e02736aeb33e"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/npc_talk.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2751,
+      "sha256": "ce34b606a4055f2e4161d8b449b83faa9adf7bb6d655cd825da55d067d988401"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/player_tuning.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3246,
+      "sha256": "486619a5a4d8e97edc1137b5bb2218018b1a80027ca8bcb77ab9648f884a2ee6"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/portal_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2615,
+      "sha256": "7ecd48b339c23dab36b217175bca4eeb6dd846adb6aee684cc7a50a072d08d1c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/projectile_spec.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4419,
+      "sha256": "df38ab8751e3519c7c5f80d194110193d59d79d23a764e0f14db3f924c700827"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/prop_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5546,
+      "sha256": "66880c4586e687acb09d56b441f759d1673c2a4a2ed0a5a860885459056df0ab"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/shop_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1836,
+      "sha256": "3f048506d2828859bc20cdb6cea8709a554664aebc8fcabb59e491ce1a078ba8"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/story_item_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3668,
+      "sha256": "59bbad9c0e378428d31226ef990b01bb5fec418cbe6e551f15038854ef10223a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/story_transaction_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2745,
+      "sha256": "3a581074d19921dec36d0be41b922f678a2f47e441aab6155b6907e411e3422d"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/terrain_material_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1846,
+      "sha256": "b93838f0c08091ce24c2c304bd36690f33aae2c858d39bb7230346c858d2f051"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/throwable_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3226,
+      "sha256": "0b8d5c01c835dd021ac5df88ff96c0df0a1e51cfbf3b5cce8f14d794078d55dc"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/training_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2493,
+      "sha256": "460822a44216b205c042a6e50e77bb106864a31833e4d65ae6054832b11ae2eb"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/vehicle_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 517,
+      "sha256": "4675b98cf6b61dd773b534e000b0b78373eff12f4f494973b74b50c285c5b980"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/weapon_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 7401,
+      "sha256": "3218601005db718ea090238c4d001963c0ea59805601c8dc19100fbcbc08ebb5"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/data/scripts/weapon_upgrade_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2431,
+      "sha256": "ec5835db9a95f3d440d61f0b79559091a23113b63c51384d42e61e6326f961e1"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/channel_completion.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 15245,
+      "sha256": "42e96e06e92c9cff93f22dcd9ca645a1f8055f029f5c68967b38dd2796dc9c71"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/creature/chain_creature.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 26458,
+      "sha256": "b2441ac8d59e9d67d8cf82d7f046f66d974d898cb1c70c1ca8f29df7d6c7e7ab"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/creature/chain_mesh.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2417,
+      "sha256": "e92d2f0c637a8a651a5f39695ba7e5a175094ef0e5e304f1d7da6e81508448c3"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/creature/chain_pose.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2121,
+      "sha256": "61be167dea29ca417ef00274f11327240898c4a37f15fa20ec19e6fd8e989e15"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/creature/foot_gait.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1249,
+      "sha256": "67b8402ffee9efc9b2e2f11aa35fce17701460043bb183aa106c8454b2d0bad4"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/creature/part_creature.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 17719,
+      "sha256": "6f95a1f01bcfb0b358a33c487ee3a7073a0638d1854aa5c2049a7b6fa991f4e9"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/creature/worm_belly.gdshader",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 697,
+      "sha256": "937c9d7bbee607a047d1fe5d0f160ae98a7e9e7c655bf3aca97e63c9bb3babb6"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/creature/worm_creature.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 10409,
+      "sha256": "2ac660ca8c6e9c61092f44022504a81a277bdae0d73d6540ad7df2bc57902a95"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/cutscene/cinematic_entrance.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2552,
+      "sha256": "c1e3a26c73e8deac115c9eee3a5e14a82fa947fef01c21fa06cdc73d64ebb146"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/cutscene/cutscene_actor.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 10643,
+      "sha256": "ca9b963c63d4a5c6f3c0b43acb632009b541326d32ac784b785699bb41a8a548"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/cutscene/cutscene_checker.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 23750,
+      "sha256": "31ad865e7df918fb587a1bda95a0950aac8aa0015928aca19a4aab8e4c09e221"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/cutscene/cutscene_dialogue.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 8204,
+      "sha256": "78ec3abb92e3c55d1a62d2144f12f4041bc89444617fdad31daaf06d94991a0c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/cutscene/cutscene_player.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 36566,
+      "sha256": "9be52f7647f47c63c320e2cb55cad50ceea46469769dc1f2ff2b9dd12abc80bb"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/cutscene/cutscene_prop_action.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3699,
+      "sha256": "0c499fd4f4f9f8caf283e6d44297467649233ad7604c1e26e1689dcf5d086bd1"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/cutscene/cutscene_reach.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 7278,
+      "sha256": "a44109c15074662404c6b4142820c835a53fa00e190667d89a89306ba1790d85"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/cutscene/stage_layers.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 25802,
+      "sha256": "bdbc47462e0c59f527598787623f0e0d309e713aaf6573cc7f8c2287242105a8"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/cutscene/stage_library.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 13125,
+      "sha256": "b3b8882c6a6663a9cb9774d82217d9c80bf5e64395a2e20b1f30269b53839c10"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/cutscene/stage_prop_binding.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1531,
+      "sha256": "c4205eae0a3d21bf2404772177c029a1adb51c98d6233961feafec666d11f05f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/cutscene/stage_prop_hold.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5014,
+      "sha256": "534cfacc7c6ae9d2b34e354c5c2278d6e6a52072afc28865e2f59e5477e6229d"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/cutscene/stage_sprite_geometry.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4421,
+      "sha256": "808cc3953e01085e2ea25c90f146f02e8f0c388dc81a80e287d4e3b0199adf32"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/bill_thrower.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5012,
+      "sha256": "3ceaac2a60759055f3cb35c766f1d610a7cd5fc08a9128fc3f06fd9b1b4764a0"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/bomber.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3140,
+      "sha256": "bdb45a66b79c68c7815e7f2c8a2ffa7e54989277e04146396479024f989d0d9b"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/boss/boss_hold_point.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4581,
+      "sha256": "65aae27a62e9cb493910a97e9721f465662f0d4c89e16e7d491c41e7e48d8066"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/boss/boss_mark.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 11342,
+      "sha256": "631d92dd4a9371ea126f6187b2e289f752b74f7bc899ec5674c52af2eb87d6c7"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/boss/boss_pattern.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 16499,
+      "sha256": "642cbde786a61d3d1ecdd1cfc6c8ccedc5eccb5f8b34c00ee087c7c838eb05e8"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/boss/boss_strike_area.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2623,
+      "sha256": "fa549ed1d4e64f4d305a2302aadf8d60eb67fe935a3685b267bdfa968d6ce77d"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/boss/pattern_boss.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 46236,
+      "sha256": "7103a74e18b0df610338870d6a3bdbc11d00cad7464e38571735478524fec91c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/buoy_worm.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3989,
+      "sha256": "54e6aec8c7bfddffb8be4add9bec65697f047c74ad1edd8e34ed514716f1e49f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/chain_enemy.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 8545,
+      "sha256": "0ddb4c93b2b56f2f3a065af2bef18fa5b459ca1d4a01c3fc2b604e5fd095c5c9"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/chain_hook.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 8393,
+      "sha256": "f333cff96a193a60cd48d0e5eca517c270786ac0627a1e56ac603995442ae17c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/chainsaw_arm.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1987,
+      "sha256": "22482cf7acd8dda4959f7435463d2923055cf5695ace0dd7f54df2b02d17df91"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/cloud_jelly.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3414,
+      "sha256": "eaff285a441957344503777f0419a27e90faff91a1263fed65ffcf9ec3e4e628"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/cloud_serpent.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 7004,
+      "sha256": "ddc6a05d00eb150254057fac0b5d1cba923be227b099ca67e668b3625d9eafa9"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/custodian.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2675,
+      "sha256": "e97282f8a638d35182afb0833f94afac1f58874dfd0b3015078cc3b8aefe35d0"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/drone.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4646,
+      "sha256": "0fffa62d3d241e57205120c549f3038d34edb36cc17f563c2b7310e9f3b1d740"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/enemy.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 39549,
+      "sha256": "4d2b5b7d25a9d48accc836953a705dc7141bcb02f1f435eda3ccf43d0b0f57fe"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/enemy_glow.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5208,
+      "sha256": "b872d3d8a882111e1561cb1f70b72b29578a290cb147bcf03b1702782c9bfcfd"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/enemy_vfx.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 9142,
+      "sha256": "c4489f50f779a7aedcc4b2311343beefcacd2132f0eeb748a0108c31745d0426"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/escort_baton.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2103,
+      "sha256": "7fc5fdb23939566e50a421315059fe8102ae2df9688ae119d2dc02f8299785fb"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/flamer.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 8721,
+      "sha256": "9fa81730a371288802cf21680151c13095bb1aa6431416c1897456102ad1c71e"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/fuel_tank.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4067,
+      "sha256": "13aea33e2a516704adccc7016e60baac61e879083b569a5fe3d1211146838f20"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/grunt.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2684,
+      "sha256": "97b33174bcf9aef3106705a96dae6c7a81b81faeff195a844a42d36a8b39a5bd"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/heavy_gunner.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 8627,
+      "sha256": "aee5919b9ffe0442ca2ad0c9adf7b5fa0beb4cd6a3ee361183f47e0ecc965354"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/hydraulic_claw.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1647,
+      "sha256": "d7ad5d02b6c8d11995fbb6ea279268a677f621cc18d5539c4649503573670141"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/insulation_inspector.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 8636,
+      "sha256": "684ccd25f2da49baa7afe8c3b2fd4500d51fe9bfb2eb9761b98e25c97b510e03"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/janus_boss.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 28535,
+      "sha256": "e11937fb623ece0e0e45944262aadffdfc764f9719b9fcec70941582f69adf37"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/mimic.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 9212,
+      "sha256": "99752aff28858f60aa69cf513c89ef975d0fd943785fd958293797bc66fcf644"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/mortar.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4091,
+      "sha256": "a9a6e702c0e709849f7cd143a48fa7e051f515479960766d26a9bc1d74328565"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/plasma_whip.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2206,
+      "sha256": "20aac9f0a7f51c85b6921bee69b5e03ffbd03eed223299dc109fb3af74f620df"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/pump_inspector.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6820,
+      "sha256": "c0e869d27335940ba42cdacad200cfe2539a69e42f8d8cd36b1e87f697b629c4"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/rail_cannon.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3814,
+      "sha256": "5afb62be3c95e21121c77de22e67e56f3608ac941ffa57e6acd465b2692c1072"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/reclaimer_boss.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 17284,
+      "sha256": "f0efae4acb34d64d18241565a204a5a55169220359c61c6f7ae4b127f8528674"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/repair_drone.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5408,
+      "sha256": "6196f21a56e49f76204e84f5eaf9899629be40a4e8478c6b94da7dfed830790a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/salvage_arm.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5564,
+      "sha256": "c51acff1e73dad50e9fb7a5a8308c3b7b0c78594d0f4acb3614d137876e37fb5"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/searchlight_drone.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 13269,
+      "sha256": "89aacf48bf4dcfb20960594b51046be2339697434e564e72f341bf33c3881282"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/shaft_bat.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4813,
+      "sha256": "9a16117612c5a8f2a267d56b6b8c708727e639597203e9ea57d4860e6659a0aa"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/shield_rusher.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4148,
+      "sha256": "e069fea62b4b34ddd4ba4f869a6cbb4451c33916b448928cc6eacb9eba2a1800"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/shock_hound.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 8431,
+      "sha256": "8e9c95da7cb598a3465d85e807edb2cf783b1d88f54dce93b2036885a1ff1b2f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/slasher.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5258,
+      "sha256": "c43252ad3c94c8fdb745b4e092c90ca826f8cc4340ffd4cf4660ec6f1bde13e2"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/sniper.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5428,
+      "sha256": "53030c41976abb1838c549e143c9094cbc41b08729098a6735724240c55dfbc0"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/stalker.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6300,
+      "sha256": "8aecbb523ae6c8a8acea33210b56807539d65c855758e1ef1818a1a21f31f555"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/strike_enemy.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 7850,
+      "sha256": "00bb308e409fc7a87d9178867847c0c9fa6986e8f46504d0311fce039cecf93a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/strike_spec.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4171,
+      "sha256": "eab274e23316db09f688a315cd36937ad4cbf17e93ed2921588f11b47393d4e8"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/surface_walker.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3357,
+      "sha256": "9d219f30967366228492542728cc8267d00f0d588d51b74b336c90a948aa192d"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/swarm_bee.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4792,
+      "sha256": "2e97c1ae781d67931a08a3f51e75e17283db174137fe397731a39434378bd5a5"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/tangle_wire.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2644,
+      "sha256": "c5aa401f682c379cb9c948c6ee00d73b7c3d1cbe0b12ec5af63452a9daa57dfd"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/turret.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4797,
+      "sha256": "ee04baf18610a7a560a1c70d4aa65dfbe6e70d5348b40b76e3ef7ac31bb22c58"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/wall_gecko.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5470,
+      "sha256": "15cd47f3b970806f76f2bcd95d45f5a43d7e9869642a19afc512d575aab200e8"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/warden_boss.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 13000,
+      "sha256": "3410ce2b8680b63b92f8f88b6f65e5cb42d3d9fed32f28bf29b63f5549054aba"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/watchdog.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1508,
+      "sha256": "23ae7d6fe5dd1eda0c9072a22518676b1f921d297d30612b31d738704558e7d6"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/enemies/yong_boss.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 17382,
+      "sha256": "6b68f0658a9481f0da41940e2be07a499913dd092fc3ab1af735cbb593ade33e"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/fx/damage_numbers.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3016,
+      "sha256": "262d47d0402fead996f0d9ed23c9dee510a71061d520efa807060e6294b67903"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/fx/hit_feedback.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6722,
+      "sha256": "01fb79fb80fa444e3984a3c7aac8c551b89a97cff473d11dcdffd349d1ffcd93"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/fx/melee_fx.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2280,
+      "sha256": "f6f62211b406a055fe957eece3ff0950eb6bf7b8dc5203249398c42427ec5236"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/fx/pickup_fx.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1383,
+      "sha256": "a3a8f928993f9297d2e78ef36310ae1edea730dec9b50de5510ffb2f6c6406ef"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/fx/player_fx.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1903,
+      "sha256": "b167f17db2882bd3b6e6e0dc8065965f278d4f9f838539c4c546a96091b98415"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/fx/shield_surface.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 7553,
+      "sha256": "02c9daf4709e8c0d42961ff7df338044d318146d1b905c9df585a014236ba4d0"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/fx/soft_whip.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 7190,
+      "sha256": "49c1ddcead36a98fc54ffed965fab554f6ce3cd05f83455d2a85592d717ad271"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/hazards/electric_rail.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3438,
+      "sha256": "c02d847d60a1f55b851b690d48628bed0143bf1f6b62d2c6154198aafeecda52"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/hazards/laser_fence.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2169,
+      "sha256": "f70ddcaa213b32ce506925d60748107211150a2f22e3df7dbdc070855aa0edd1"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/hazards/light_curtain.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4493,
+      "sha256": "0197b9d7e5363dd9e243174eb9cff3b91325d9ca8dffa5b24e37b0b1f47ac99e"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/hazards/spikes.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1174,
+      "sha256": "1f609823084391be27b69dfbf37a49170ceb08a21aef33095fc78f4b6a058401"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/back_wall.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6948,
+      "sha256": "4cd6c9362e2019691fbea66b6362b7ff9fd1aa11766f4eaa661b55649bc31204"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/camera_tuning.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 7596,
+      "sha256": "b247b15222cebc7fb5c74e04e48f56d81cebbf748a055f71eeccc5afda5e21a3"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/checkpoint.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 14311,
+      "sha256": "c437b6d2b0defafc5a8d87a0c41d89f47003284c56f9d12c1b6db04644a6a382"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/chunked_drawer.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1759,
+      "sha256": "5943a714de9852c8bf80a7d56687fb83cf181f011b207ccb46d7df067c796af8"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/encounter_snapshot.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5096,
+      "sha256": "709c05c725f6fe4868e509e76d9cf322c783c7bd68741ce349510b16b4a64eba"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/back_wall_geometry.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6423,
+      "sha256": "5f63a94728b377082a0828657b9617e55f9ed77e190c10062ad89dc90af1d761"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/contact_shadow.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6829,
+      "sha256": "6c1f9332aba98558b94d8f45a2b1374ec37ed8355625967b241e23c0963dd835"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/fog_layer.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4763,
+      "sha256": "2801a22611e78a911ebeec5c01ee3073bbbef08107d5f8260aa25163fe88266b"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/foreground_layer.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6406,
+      "sha256": "0f10e789fb696671744cf5e83ec0488743b34ed29345fd03a6faa927e032857e"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/glow_scan.gdshader",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 835,
+      "sha256": "f41fba0f9bde951091241e2a89b9049e6c8d91579ba5f5fcb4ad793076767c1f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/holo_billboard.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3022,
+      "sha256": "67bc5bf3fe8e2b64bfa6121364f7714353f1359ab2e0e416faa5fc62c2f53058"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/lamp_sparks.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1953,
+      "sha256": "558c75aeb12e2977a31a5fecfbe7ae04787b850b28d83783a805b02e76e4d146"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/light_shaft.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 8211,
+      "sha256": "80d9f42942dde782a8168faa18e59dc15bc7ef4e584b6f326a7db1973e9cecfc"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/local_drip.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2729,
+      "sha256": "a15bfdd4e238ba7ccab1136f6ad28d6b7eeb0da6fff0abb62e232570b36ac7fa"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/local_water_flow.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1544,
+      "sha256": "18294b34e45b399a5c50479fd859e75ab3b24b45daac29bc054676d6085955c9"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/local_water_flow.gdshader",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1384,
+      "sha256": "52cdef958ed3d32d2d8e41b101f015937a6ad4b3e56eef53fbdc250ec7826371"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/local_water_flow_emissive.gdshader",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1406,
+      "sha256": "957ef5b2312c53992b437fe1bb0ea2441cfe682f55e2b530f1aa347ac586125f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/neon_sign.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3667,
+      "sha256": "54ea60eb4ba73d75cbfa14c85a91aaeafa308f76482f303c1f421ba79dc5e6c6"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/prop_node.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 8216,
+      "sha256": "38389087e45acca6d0666ead5126d5d2b4e90115b5a7ab207264f63cbcf98651"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/prop_paper_visual.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 941,
+      "sha256": "9a9632eaca81535b2d7a393f847e8b90b9edc334c6100c883e3da5130528eec5"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/prop_placement.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1503,
+      "sha256": "371ed4f1e98f6c16e63c16850b654cf7e048ad39e368b2c032ea818949b43e9f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/prop_reaction.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 14740,
+      "sha256": "c5309dccbcc05e5c425ad702fe023a9eadcc80fa4f49556e1b3f50d9db6024a4"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/puddle_ripple.gdshader",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1407,
+      "sha256": "c3c922bbcc681726bf4e5d3fe9965796c66f8799665cff61bef07af05b0c51f9"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/rain_layer.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6129,
+      "sha256": "d105c4bdf3c4afe6040480068f66fd11caf039e85a4a80bcc894cfe6d01a3295"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/scenery_support.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6290,
+      "sha256": "3b7bf779b23d17af9699404804ef1b37e9dccaaef18773af00399aeb4cf71a05"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/steam_vent.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1528,
+      "sha256": "8d8aed07b90a11042efec5c3c68e7bc960258d025f8a912572b2415d8493e81c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/sway.gdshader",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 784,
+      "sha256": "3f0f09cb64cb2f20f0a518b0cbda57ebbbe0b283eb657977809703a0a1ce4400"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/sway_emissive.gdshader",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 918,
+      "sha256": "a71dd61b3b0fef875dea80e1cf639c4c7f3a9ee9d645c6124d46889e3045ecab"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/wall_shadows.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 12210,
+      "sha256": "ac95fb52ac8abc89c8603ae2aa33a961faa4f467b94b729435db3e11fa15a489"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/wall_shadows.gdshader",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4866,
+      "sha256": "caf8bafbb9db82e59581e610cbf981c2f8669e3e81ed025f0b1516d8abad3d6c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/environment/window_life.gdshader",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1428,
+      "sha256": "2fcb1b27229aa4e0970cf647904a770a01b1dcff3d9406d6da954d60cd571074"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/ghost_platforms.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3302,
+      "sha256": "aa1b58184eddefe12eebe10f2ff99fd8f6c4060529f3963dbc46c0271d82bd6f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/hint_sign.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1438,
+      "sha256": "7c2a6e0bc148adba9c439c089a1af18566cf8d18e54b4507ffef31673615de54"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/lamp.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 16593,
+      "sha256": "e06b3f62b6baebc22e3839c3cf61b2546448c978a231470f904dde7281218eee"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/lamp_buzz.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2728,
+      "sha256": "ee54eea77669db099cd72f5e0e7e05e1be0dee3506c369b7203e0d5e08af574a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/level.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 65006,
+      "sha256": "106a73d29d0ad97e13f95c375668825d5c9e38990471fd58456a48ef5c2a02a1"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/level_background.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 9215,
+      "sha256": "9d37b3c7078ce17cf593cb7f5c36fc9d4cb77d396218976f0911e0a493a39997"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/level_builder.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 7581,
+      "sha256": "9882212c0b83e4621fc8126195a31c944b6d9976c0bc680aff3be5a413857a39"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/level_camera.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 15374,
+      "sha256": "c49f971ec18cad3447e4b5f43736001aaf0402d8bc9c99ea586cd84c93e332a9"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/level_layout.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2577,
+      "sha256": "2829310a4d20e1afe310bb03547aafe8aa10a8f90c1948a8958b2fdd42f5aff9"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/light_budget.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2959,
+      "sha256": "203a54fbc1560950529dc90fd8320cd5c979185b762b0388519fbc73c2f2fedd"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/lighting_controller.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 12473,
+      "sha256": "ee08cb1fb8ee819664c14ee5aa938e802473bf9176729faef04f59472231a681"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/map_bubbles.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 13477,
+      "sha256": "033bcb2dea02343232459acebf26090fa1b65a3678e247ef58e837ab8e9586e8"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/post_process.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 7303,
+      "sha256": "4bd5a7cd0c819547545914d6d539f0dc938c0a0954bc43e74737703c0896166c"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/post_process.gdshader",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3026,
+      "sha256": "c29de8713fae0864d982601ca198729bd72e7c1278ab1fa3c8c05306a948c515"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/prompt_layout.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 12778,
+      "sha256": "48cba28bc97b7eb3587aafec57ead457a635819b2b5cdc08cbe4177ea18480bd"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/terrain.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 15364,
+      "sha256": "db56e1741448f5bb5620e66b17c308fcf7ccd4020bea64a8fe195b8fb323e996"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/terrain_edges.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2288,
+      "sha256": "597f8624a4e3463b57af933342b2782748405fd37e762957c9baef1cf4229167"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/world_layers.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2531,
+      "sha256": "31abd99829afd45a2a81651ac7ddf0360806699eb91dc2759122b5204ad6fb72"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/world_prompt.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 10999,
+      "sha256": "aabe6690f993029361f413ce3421d86ea0c9fd1cadf868fda1467b4c88648981"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/world_state.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1505,
+      "sha256": "59d836c7e5bb43d3bea47e92a9b01d3693b0443de128208525c23baf506f1fa9"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/level/world_text_layout.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 976,
+      "sha256": "65b45eb768ad7fa3218cc09ca038743f54c1f932b4a4ee0651c8447412a84815"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/main.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 28002,
+      "sha256": "3a84f70a6b21ec91d9cba16eae9dea4d5897716729bac01a870a41ac8328b3d2"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/melee/melee_module.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 22741,
+      "sha256": "a134d19363a7774cac6f9796bff99bb572d8e1032b809469c530b8a32d96bd15"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/melee/melee_move.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 14456,
+      "sha256": "af662c18e7756e212178ece679d879f6a54be3d5a8a7a63810762f9cb0c072dc"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/npc/npc_actor.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 18475,
+      "sha256": "d44729928180b1d366a371730fd5f841d3df20275d4b164368a99e42b7fd7d73"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/npc/npc_awareness.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5831,
+      "sha256": "fa190bca2bf4b99a32f2cb29fc9c645317708ce6abeceebfebd7507e9379f01b"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/pickups/collectible_pickup.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2328,
+      "sha256": "8d005a83f313a4da6a87f4760015f57e6af1b235f18c510c706495b4225b7612"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/pickups/consumable_pickup.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1680,
+      "sha256": "c806e89d986302030dd6b5a2f13c04a2b27d225ab629a0f81c30c676d28ef179"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/pickups/credit_pickup.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2000,
+      "sha256": "35a1de98dac2feed0c6dae730010576e373deac12ec132461abe1bec0655b449"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/pickups/health_pickup.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 756,
+      "sha256": "35d442f27dd7279a57c03e61481e470363aea85ce81e9ef0fa18944c753fbc4f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/pickups/pickup.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4516,
+      "sha256": "1dc17436e42e124c158357f9a4f59e80a8acac5e7f54af2df4856a499c4b8ce7"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/pickups/weapon_pickup.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2123,
+      "sha256": "eaeaecb020779ad8b2ee02ff5a793ba80bef84e1cae387259db301443534b89b"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/player/blade_light.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2907,
+      "sha256": "7b95b310b85c0187c7b20636c0b6ef2f9ff2b1da7ea6f7917ae555710e93d720"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/player/consumable_bag.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1958,
+      "sha256": "e4e351456ed93227d23544c2e0b795126e48ba8f348d227f78b4f1725dafb88d"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/player/cyber_system.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 7573,
+      "sha256": "ff782488791a35a4e8c044ed90993931bb6fd2dbe453abb2bbb2b63f94f612a0"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/player/dash_silhouette.gdshader",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 276,
+      "sha256": "a8ab180afed7c78de58c2d0a34549be1b67401be7fdbf6409269142fb6748581"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/player/dash_silhouette_pool.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 14725,
+      "sha256": "7643b4d77e58af7dd117dcc1a867f6641bd2622cf2bd0c417cfd8baa5fbb8ce8"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/player/guard_presenter.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3474,
+      "sha256": "27c243245f593cf76052a7b9f55debdf92e8b83ff1a89a3439733d193dda4ca4"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/player/guard_stats.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3765,
+      "sha256": "5bbfac1e1256b1daaf67164c06e74218b3214ded0a18f98038be7c9c6eba0a04"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/player/loadout.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 11327,
+      "sha256": "5c2f370e966c22be7cb8a1aef223a974d983556a82897f319888ae311e6dfc1d"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/player/melee_command_input.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1885,
+      "sha256": "950e03b83a0959a7916896f5eff9c9c05ecc8b03aa0e92ccc0f4659162c71e06"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/player/melee_data.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2234,
+      "sha256": "52e14a7490c27ef6757d9fc0590d76b408eb3eb5c3bc267c291e3b19a76aba8a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/player/melee_held.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 13922,
+      "sha256": "27c8a629e22ec858c171d1f3487692ee3e9a82d5ea94c2f419f4cb864e42dc4b"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/player/melee_hum.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2722,
+      "sha256": "6c96e1d0e5e2ce9212a39123f4781b38d8b801386ca1d3ce3ca892229a1cd876"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/player/melee_set.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 19826,
+      "sha256": "76c8794123fe21cdf7220083ad0d4e11d0cc8a5839246325186f6d0629bb0709"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/player/player.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 49351,
+      "sha256": "eb3963150f2b6e878ebab9b26e79fa659dddc3cfa84ec7f7970cc58564194c2a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/player/player_carry.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 9396,
+      "sha256": "0451845da99dba1286f4c5109b311a3b0274fd50a4ed49e41b25dbbdde0af1ed"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/player/player_interaction.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1861,
+      "sha256": "f334074e7330423f781348fdc46928ffd60e1c36dd8eef95289f0d3dfdfe68ab"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/player/player_visual.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 26385,
+      "sha256": "4f3b2391912d7154c2895c0b9243c60fae9ccbde5555f0eb20dd0bfd37852012"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/player/vehicle_command_input.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2060,
+      "sha256": "2ae0fb3494734d3c684c6167e5cb6667a876cced3e87e87fec4357055041fecb"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/player/weapon_light.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4933,
+      "sha256": "44562c4693153a4f0d91be2c2aa3a915e72667fb8305b308ec1cf85890fdf8dd"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/player/world_prop_action.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 28698,
+      "sha256": "15e96c51a5c5326dbf0597a14b35d1342d226820e2503543603dd935d172ea0f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/projectiles/arc_field.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3794,
+      "sha256": "eebb6001693d9c5e4843ecd05cee632fe4482562e142c166e7ce29b524f84889"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/projectiles/explosion.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1749,
+      "sha256": "5761ec7abf7b386591e1727cc38cba6893e1523711c1f2d17bb34eb53e3d933e"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/projectiles/particle_field.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6891,
+      "sha256": "2ce282d8f2a9f6d041dbccf59602edc8ab0d69dda4dc8f20ca454bdc2059e3e2"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/projectiles/projectile.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 12516,
+      "sha256": "8018c6058da731a9cfc2165f1e4365ce57264a8c28a7910a66ee3c4857712c50"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/projectiles/projectile_art.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6012,
+      "sha256": "cf07ce1cb7b53bdaaccce94c1a3971df0d7e027f4f1f3706ed7c0ed899dc487e"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/projectiles/shock_ring.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1383,
+      "sha256": "67ce08594c9c66e7a13ebce2ae619606b74a80fb25d2af1ec8c44b969252554a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/projectiles/vfx_atlas.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6875,
+      "sha256": "c3283899e8dd0a28aaa0010b03ed6b75c6f83d85e5086bb7744ba856f2296816"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/props/breakable.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 11526,
+      "sha256": "ceb3bf633772e96840e8ff651dd3fffb584bb34c9ae586da7d86fee987a10452"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/props/channel_switch.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 382,
+      "sha256": "00a62e6f48f35ec41f1a52f8e02f34dbedefe477100f97a03d29473842d8dfdd"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/props/encounter_zone.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6226,
+      "sha256": "7fd9a31def7a56d6b774b4132cf89e9b4fed1996ffd31f40bd127367401428bb"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/props/fixture_art.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4782,
+      "sha256": "3e2a23de20d0ac1e3457ff052156524f67b996d30353a1a86bd8ebfab8a883f5"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/props/flood_pit.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6443,
+      "sha256": "57b3a53599f94006468a450ae0325994a218d403a84b3489dc9b15e0c03d79b7"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/props/gate.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4297,
+      "sha256": "24fb56b359c0b6d59602abb7db9f9ad90cb8079cf6c04e4597c6ab8adff99da6"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/props/lift.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5043,
+      "sha256": "f0a3d529ee63ac98ee9c8c7c0b7835af38e44f7a63164db7cb81373921a79e63"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/props/mechanism_switch.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4262,
+      "sha256": "90e8160814f36fa45ff6f6a77acf16bae74040a6322fab88355ece34045a0241"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/props/portal.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 9181,
+      "sha256": "74102b1e46441ca5193005c6f9bf62b01db5fb468c97a7b3c30ccce6d1b93240"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/props/power_grid.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3444,
+      "sha256": "ee4bcfc30df8f5adc7e39137f4277af518c0e0c7b10fe8becd42039f584b9db5"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/props/power_switch.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1264,
+      "sha256": "47f8b8705a521e2714ba3f013b614048ffe769422bf67bfade617174f30652c4"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/props/shop_station.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3082,
+      "sha256": "da829e30990f3981557ce1b95380984ddff92972f86de1aca83acaba24550a0a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/props/throwable.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 14909,
+      "sha256": "c52e76fd7df66ffe70e1bc7a3cba82d590e6823de3a597f4a7c3c64c340ec406"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/props/training_art.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6936,
+      "sha256": "20c883329416bb86765e624f2c7d0e026ae7dca57af134a418755cb06aac11d1"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/props/training_station.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 11808,
+      "sha256": "14c90ac98842de781a8c2a02b9a1a1d882fb82908ce8705620662af454a1e2dd"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/radio_completion.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 125,
+      "sha256": "9b6c803e98160918af7ed833c02838ce9674860242f35ccf9c151aef5ba3324d"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/rig/anim_audit.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 15149,
+      "sha256": "6b935c6561aa2bcb6c3f0395256583ca1a3b897168a9fe96e56c78ad994e4e25"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/rig/character_rig.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 79007,
+      "sha256": "8d0db9d94614b5360374cbf43b223e08ff40ae22193ab56faaf12d68138f151b"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/rig/eye_blink.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 4647,
+      "sha256": "51391cde90709bd0e06a312d04e90d222804081a4fd6caeb567de99e47794505"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/rig/gait_shape.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1909,
+      "sha256": "925627d3439af42bb28ac826d568ae6e1d6c4e73320b552dbf355ee135c81d89"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/rig/humanoid_animator.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 75841,
+      "sha256": "2236b4d7dfdb948542672a5cc3797c6bb7d51e0a1fd230336a9b932fb1a758cf"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/rig/inertia_lean.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2092,
+      "sha256": "03156957eb2b6a3d80e732db7422f10752f86e1c345837fc1009eab987060672"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/rig/locomotion_audit.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6075,
+      "sha256": "86f8cda01ffb7dd1f42f5b04d191527efc15522e18a88bd57c7f414396a9647e"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/rig/npc_animator.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 29458,
+      "sha256": "590fca3bacbc85bc134afaf52dd0f1b210efe8beb2f4649712cdd855f792034f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/rig/npc_gesture.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 9103,
+      "sha256": "dd2e0bba42acfbe778be640d21836f63e4c2e879eb31993da8a708faf33221f3"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/rig/npc_life.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 19035,
+      "sha256": "2add0b09807133e5fd201814c9ef7c77543a4006c55ac8edfd08ce885306d361"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/rig/rig_debris.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3316,
+      "sha256": "5bd01987586390836c2205a5a0472b3ba46bd91ead9a5206619778bfe8cc6742"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/rig/rig_input.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3188,
+      "sha256": "9b92a1fe65c0ab0f78edabd73ceae53d454a380157d6a94431c96c510f69f88d"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/rig/rig_library.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 6867,
+      "sha256": "ffac4b9a2a978eafa3b4b3a05579a2e5e6b814d711e060ccd1b825eb17256d98"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/rig/rig_part_mesh.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 12462,
+      "sha256": "dfd10fad29e68084c5cf87b7caa6a0a2633b11c4170295dc139cb4c7dc203021"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/skip_completion.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5567,
+      "sha256": "c8ae3e6e01ab25c16f09d0fc2b433a785731da226961903efbde109441d4a013"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/story_flag_completion.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 12522,
+      "sha256": "6fa83e40855c3005e136c6324206d49321786287c69a912e82ccdc073d156cb3"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/story_flag_sources.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2353,
+      "sha256": "ec197ee4f561f1453ba1bdaba6d2338b9dea75102c6a707d9b5e9905064bea25"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/story_result_ch2.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 3396,
+      "sha256": "b28963fafb875c5582387bf2400cb195afa2dfad68c34bdfa0177e8061f59114"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/story_result_clinic.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 8092,
+      "sha256": "8dec25587033f47486e8c24f46fba768c52165e00cd25851eef1910fedfab7d0"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/story_result_completion.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 27182,
+      "sha256": "220ea022db13daf01e1d3bf91c0dc9fd8a27bfac6001505dd23fb1553de84d35"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/story_result_sources.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 18667,
+      "sha256": "8ea021d197c8b6c36ee9ec7b28fce6225d93ea37f66fb4f3efce73841805b855"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/story_result_supper.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5296,
+      "sha256": "3051720196a5c1f0b3b19bf0cf066ea9784e1ed6f74b2befcd5358c19b739be0"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/training_completion.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5837,
+      "sha256": "fa06b27dbcdf3601636c68cded8bc76f34f8a20cbccc30e6fb60d09891c462b4"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/vehicles/vehicle.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 8682,
+      "sha256": "2baa3689893f92a015db996cfc76e1bfee88fb025f1a0b6d50df10d97dccea71"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/game/world_item_completion.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 8622,
+      "sha256": "b3c00a91df63f628a9dde856e5d02786e719ea919f3dba4b4f0a128b3225ae99"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/project.godot",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1846,
+      "sha256": "3816650dfb5570f2ba965947c84d105cfa15f043fae335e0c1b01e422d39ef31"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/tools/bg55_enemy_readability_probe.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 16641,
+      "sha256": "7194d1c212d6649eb00a69d11f7fe40137bd322b04dec7657e3b0f20ebdec3ac"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/tools/bg56_reference/ch1_street_before.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5997,
+      "sha256": "5a925a0586bc7a3acfcb664980b9687c0af48de9b9f0664ebf7b6a84e84ed262"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/tools/bg56_reference/ch1_street_theme_before.tres",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 2528,
+      "sha256": "16c039496ca3821390520a207669b679ecc62d565ea8280db161604c569c5205"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/tools/contrast_probe.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5858,
+      "sha256": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/tools/held_lighting_state.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5339,
+      "sha256": "6dcc999044460695bb4febd31c968a4f196ce563ae6f70da024df4383b6d1a4f"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/tools/level/build_ch1.py",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 81908,
+      "sha256": "eca52751e64eedd7fc275f6488b311a110059c66d755df5d8e7b5a5a5718d7aa"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/tools/readability_phase_probe.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 9324,
+      "sha256": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/tools/scene_tour.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 12797,
+      "sha256": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/tools/street_creature_default_probe.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 1463,
+      "sha256": "5532c344e4051027a4ebc142b83d312e321ea0836709e656b4f3e86cd4a0fad4"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/tools/street_creature_default_probe.tscn",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 202,
+      "sha256": "edf73321a23a49b1d24b425b380b76d5140f94bffcf8b963526bed6b4f16684b"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/tools/street_drone_contrast_probe.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 8773,
+      "sha256": "647035d85a4456dbac9fe532904d29cd059fe708d334d475a7e0b2efb2de726b"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/tools/street_drone_contrast_probe.tscn",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 198,
+      "sha256": "1c9ff078233de522d73a000ad60339a2ae16332fb432df6b72db07096d85d6bb"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/tools/street_shared_acceptance_probe.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 13408,
+      "sha256": "0c7d9a3c60556f41ca79f58a3b209d20eb36e99265348016f69fe8b4dec3f1fe"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/tools/street_shared_contrast_probe.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 17564,
+      "sha256": "ff40d4d2ffb3d7ea1b4b217056bfe68897aae673020947721769c2df1f050f77"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/tools/street_shared_contrast_probe.tscn",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 200,
+      "sha256": "fb513a048544ba31fa68b00e4b2182bc6d000b93697cdc47a5a00a596f62248d"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/tools/verify_bg49_held.py",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 21370,
+      "sha256": "da98e8badf166c3b90d9704557489aa3f78ffba26462d9e0de0d0bde40184cfb"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/tools/verify_bg55_readability.py",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 9838,
+      "sha256": "ff55d3bf1cccae10ca5686a24809814100ddb9c87dcfa6eca60ed213476eccb7"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/tools/verify_street_shared_contrast.py",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 12220,
+      "sha256": "60fb2f4ff5e692beab5550bca845beabf36a4ddcb5176db2ff0e2bc916ccd8a0"
+    },
+    {
+      "member": "street-shared-default-api-compile-v1/source/tools/viewport_capture.gd",
+      "archive": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 785,
+      "sha256": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+    }
+  ],
+  "archives": [
+    {
+      "file": "street-shared-default-api-compile-v1-01.raw.zip",
+      "bytes": 5749683,
+      "sha256": "10910124abdba817a623b886bd806f708edfbadbff22ce3398b49b2da1c0deae"
+    }
+  ]
+}

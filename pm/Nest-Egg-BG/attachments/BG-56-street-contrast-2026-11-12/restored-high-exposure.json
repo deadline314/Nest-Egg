@@ -1,0 +1,2730 @@
+{
+  "controls_valid": true,
+  "observations": 170,
+  "final_observations": 34,
+  "final_exposure_passed": true,
+  "results": [
+    {
+      "waypoint": "c05-r00",
+      "label": "A0",
+      "id": "drone",
+      "instance": 858506924237,
+      "feet": [
+        1672.0,
+        160.0
+      ],
+      "opaque_pixels_lower_bound": 1473,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r00",
+      "label": "A1",
+      "id": "drone",
+      "instance": 858506924237,
+      "feet": [
+        1672.0,
+        160.0
+      ],
+      "opaque_pixels_lower_bound": 1473,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r00",
+      "label": "product",
+      "id": "drone",
+      "instance": 858506924237,
+      "feet": [
+        1672.0,
+        160.0
+      ],
+      "opaque_pixels_lower_bound": 1473,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r00",
+      "label": "restore-product",
+      "id": "drone",
+      "instance": 858506924237,
+      "feet": [
+        1672.0,
+        160.0
+      ],
+      "opaque_pixels_lower_bound": 1473,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r00",
+      "label": "authored-final",
+      "id": "drone",
+      "instance": 858506924237,
+      "feet": [
+        1672.0,
+        160.0
+      ],
+      "opaque_pixels_lower_bound": 1473,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r00",
+      "label": "A0",
+      "id": "sweeper",
+      "instance": 860956397725,
+      "feet": [
+        2296.0,
+        160.0
+      ],
+      "opaque_pixels_lower_bound": 3008,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0003324468085106383,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r00",
+      "label": "A1",
+      "id": "sweeper",
+      "instance": 860956397725,
+      "feet": [
+        2296.0,
+        160.0
+      ],
+      "opaque_pixels_lower_bound": 3008,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0003324468085106383,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r00",
+      "label": "product",
+      "id": "sweeper",
+      "instance": 860956397725,
+      "feet": [
+        2296.0,
+        160.0
+      ],
+      "opaque_pixels_lower_bound": 3008,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0003324468085106383,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r00",
+      "label": "restore-product",
+      "id": "sweeper",
+      "instance": 860956397725,
+      "feet": [
+        2296.0,
+        160.0
+      ],
+      "opaque_pixels_lower_bound": 3008,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0003324468085106383,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r00",
+      "label": "authored-final",
+      "id": "sweeper",
+      "instance": 860956397725,
+      "feet": [
+        2296.0,
+        160.0
+      ],
+      "opaque_pixels_lower_bound": 3008,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0003324468085106383,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c03-r01",
+      "label": "A0",
+      "id": "sweeper",
+      "instance": 887229518427,
+      "feet": [
+        1064.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5282,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0001893222264293828,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c03-r01",
+      "label": "A1",
+      "id": "sweeper",
+      "instance": 887229518427,
+      "feet": [
+        1064.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5282,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0001893222264293828,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c03-r01",
+      "label": "product",
+      "id": "sweeper",
+      "instance": 887229518427,
+      "feet": [
+        1064.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5282,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0001893222264293828,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c03-r01",
+      "label": "restore-product",
+      "id": "sweeper",
+      "instance": 887229518427,
+      "feet": [
+        1064.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5282,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0001893222264293828,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c03-r01",
+      "label": "authored-final",
+      "id": "sweeper",
+      "instance": 887229518427,
+      "feet": [
+        1064.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5282,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0001893222264293828,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r01",
+      "label": "A0",
+      "id": "sweeper",
+      "instance": 884847153668,
+      "feet": [
+        1256.0,
+        256.0
+      ],
+      "opaque_pixels_lower_bound": 5527,
+      "white_pixels_upper_bound": 17,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.003075809661660937,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r01",
+      "label": "A0",
+      "id": "sweeper",
+      "instance": 888856908442,
+      "feet": [
+        1352.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5342,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r01",
+      "label": "A0",
+      "id": "collector_gunner",
+      "instance": 890484298457,
+      "feet": [
+        1448.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 4876,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r01",
+      "label": "A1",
+      "id": "sweeper",
+      "instance": 884847153668,
+      "feet": [
+        1256.0,
+        256.0
+      ],
+      "opaque_pixels_lower_bound": 5527,
+      "white_pixels_upper_bound": 17,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.003075809661660937,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r01",
+      "label": "A1",
+      "id": "sweeper",
+      "instance": 888856908442,
+      "feet": [
+        1352.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5342,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r01",
+      "label": "A1",
+      "id": "collector_gunner",
+      "instance": 890484298457,
+      "feet": [
+        1448.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 4876,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r01",
+      "label": "product",
+      "id": "sweeper",
+      "instance": 884847153668,
+      "feet": [
+        1256.0,
+        256.0
+      ],
+      "opaque_pixels_lower_bound": 5527,
+      "white_pixels_upper_bound": 18,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0032567396417586395,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r01",
+      "label": "product",
+      "id": "sweeper",
+      "instance": 888856908442,
+      "feet": [
+        1352.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5342,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r01",
+      "label": "product",
+      "id": "collector_gunner",
+      "instance": 890484298457,
+      "feet": [
+        1448.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 4876,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r01",
+      "label": "restore-product",
+      "id": "sweeper",
+      "instance": 884847153668,
+      "feet": [
+        1256.0,
+        256.0
+      ],
+      "opaque_pixels_lower_bound": 5527,
+      "white_pixels_upper_bound": 17,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.003075809661660937,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r01",
+      "label": "restore-product",
+      "id": "sweeper",
+      "instance": 888856908442,
+      "feet": [
+        1352.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5342,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r01",
+      "label": "restore-product",
+      "id": "collector_gunner",
+      "instance": 890484298457,
+      "feet": [
+        1448.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 4876,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r01",
+      "label": "authored-final",
+      "id": "sweeper",
+      "instance": 884847153668,
+      "feet": [
+        1256.0,
+        256.0
+      ],
+      "opaque_pixels_lower_bound": 5527,
+      "white_pixels_upper_bound": 18,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0032567396417586395,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r01",
+      "label": "authored-final",
+      "id": "sweeper",
+      "instance": 888856908442,
+      "feet": [
+        1352.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5342,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r01",
+      "label": "authored-final",
+      "id": "collector_gunner",
+      "instance": 890484298457,
+      "feet": [
+        1448.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 4876,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r01",
+      "label": "A0",
+      "id": "sweeper",
+      "instance": 892984103734,
+      "feet": [
+        1576.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5367,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r01",
+      "label": "A0",
+      "id": "sweeper",
+      "instance": 895232250761,
+      "feet": [
+        1784.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5566,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.00017966223499820338,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r01",
+      "label": "A1",
+      "id": "sweeper",
+      "instance": 892984103734,
+      "feet": [
+        1576.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5367,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r01",
+      "label": "A1",
+      "id": "sweeper",
+      "instance": 895232250761,
+      "feet": [
+        1784.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5566,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.00017966223499820338,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r01",
+      "label": "product",
+      "id": "sweeper",
+      "instance": 892984103734,
+      "feet": [
+        1576.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5367,
+      "white_pixels_upper_bound": 44,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.008198248555990311,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r01",
+      "label": "product",
+      "id": "sweeper",
+      "instance": 895232250761,
+      "feet": [
+        1784.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5566,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.00017966223499820338,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r01",
+      "label": "restore-product",
+      "id": "sweeper",
+      "instance": 892984103734,
+      "feet": [
+        1576.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5367,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r01",
+      "label": "restore-product",
+      "id": "sweeper",
+      "instance": 895232250761,
+      "feet": [
+        1784.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5566,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.00017966223499820338,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r01",
+      "label": "authored-final",
+      "id": "sweeper",
+      "instance": 892984103734,
+      "feet": [
+        1576.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5367,
+      "white_pixels_upper_bound": 44,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.008198248555990311,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r01",
+      "label": "authored-final",
+      "id": "sweeper",
+      "instance": 895232250761,
+      "feet": [
+        1784.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5566,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.00017966223499820338,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c06-r01",
+      "label": "A0",
+      "id": "collector_brute",
+      "instance": 897010635728,
+      "feet": [
+        2136.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 10894,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c06-r01",
+      "label": "A1",
+      "id": "collector_brute",
+      "instance": 897010635728,
+      "feet": [
+        2136.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 10894,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c06-r01",
+      "label": "product",
+      "id": "collector_brute",
+      "instance": 897010635728,
+      "feet": [
+        2136.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 10894,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c06-r01",
+      "label": "restore-product",
+      "id": "collector_brute",
+      "instance": 897010635728,
+      "feet": [
+        2136.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 10894,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c06-r01",
+      "label": "authored-final",
+      "id": "collector_brute",
+      "instance": 897010635728,
+      "feet": [
+        2136.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 10894,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r01",
+      "label": "A0",
+      "id": "drone",
+      "instance": 872817889315,
+      "feet": [
+        2376.0,
+        224.0
+      ],
+      "opaque_pixels_lower_bound": 1441,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r01",
+      "label": "A0",
+      "id": "sweeper",
+      "instance": 906623980586,
+      "feet": [
+        2216.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5311,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r01",
+      "label": "A1",
+      "id": "drone",
+      "instance": 872817889315,
+      "feet": [
+        2376.0,
+        224.0
+      ],
+      "opaque_pixels_lower_bound": 1441,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r01",
+      "label": "A1",
+      "id": "sweeper",
+      "instance": 906623980586,
+      "feet": [
+        2216.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5311,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r01",
+      "label": "product",
+      "id": "drone",
+      "instance": 872817889315,
+      "feet": [
+        2376.0,
+        224.0
+      ],
+      "opaque_pixels_lower_bound": 1441,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r01",
+      "label": "product",
+      "id": "sweeper",
+      "instance": 906623980586,
+      "feet": [
+        2216.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5311,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r01",
+      "label": "restore-product",
+      "id": "drone",
+      "instance": 872817889315,
+      "feet": [
+        2376.0,
+        224.0
+      ],
+      "opaque_pixels_lower_bound": 1441,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r01",
+      "label": "restore-product",
+      "id": "sweeper",
+      "instance": 906623980586,
+      "feet": [
+        2216.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5311,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r01",
+      "label": "authored-final",
+      "id": "drone",
+      "instance": 872817889315,
+      "feet": [
+        2376.0,
+        224.0
+      ],
+      "opaque_pixels_lower_bound": 1441,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r01",
+      "label": "authored-final",
+      "id": "sweeper",
+      "instance": 906623980586,
+      "feet": [
+        2216.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5311,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c08-r01",
+      "label": "A0",
+      "id": "collector_gunner",
+      "instance": 873237319709,
+      "feet": [
+        2664.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 4898,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c08-r01",
+      "label": "A0",
+      "id": "ch1_inspector",
+      "instance": 909073454227,
+      "feet": [
+        2696.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 8197,
+      "white_pixels_upper_bound": 53,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.006465780163474442,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c08-r01",
+      "label": "A1",
+      "id": "collector_gunner",
+      "instance": 873237319709,
+      "feet": [
+        2664.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 4898,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c08-r01",
+      "label": "A1",
+      "id": "ch1_inspector",
+      "instance": 909073454227,
+      "feet": [
+        2696.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 8197,
+      "white_pixels_upper_bound": 53,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.006465780163474442,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c08-r01",
+      "label": "product",
+      "id": "collector_gunner",
+      "instance": 873237319709,
+      "feet": [
+        2664.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 4898,
+      "white_pixels_upper_bound": 12,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.002449979583503471,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c08-r01",
+      "label": "product",
+      "id": "ch1_inspector",
+      "instance": 909073454227,
+      "feet": [
+        2696.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 8197,
+      "white_pixels_upper_bound": 53,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.006465780163474442,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c08-r01",
+      "label": "restore-product",
+      "id": "collector_gunner",
+      "instance": 873237319709,
+      "feet": [
+        2664.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 4898,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c08-r01",
+      "label": "restore-product",
+      "id": "ch1_inspector",
+      "instance": 909073454227,
+      "feet": [
+        2696.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 8197,
+      "white_pixels_upper_bound": 53,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.006465780163474442,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c08-r01",
+      "label": "authored-final",
+      "id": "collector_gunner",
+      "instance": 873237319709,
+      "feet": [
+        2664.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 4898,
+      "white_pixels_upper_bound": 12,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.002449979583503471,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c08-r01",
+      "label": "authored-final",
+      "id": "ch1_inspector",
+      "instance": 909073454227,
+      "feet": [
+        2696.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 8197,
+      "white_pixels_upper_bound": 53,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.006465780163474442,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c09-r01",
+      "label": "A0",
+      "id": "collector_gunner",
+      "instance": 882783555297,
+      "feet": [
+        2840.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 4949,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c09-r01",
+      "label": "A0",
+      "id": "drone",
+      "instance": 884427723246,
+      "feet": [
+        2952.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 1419,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c09-r01",
+      "label": "A1",
+      "id": "collector_gunner",
+      "instance": 882783555297,
+      "feet": [
+        2840.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 4949,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c09-r01",
+      "label": "A1",
+      "id": "drone",
+      "instance": 884427723246,
+      "feet": [
+        2952.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 1419,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c09-r01",
+      "label": "product",
+      "id": "collector_gunner",
+      "instance": 882783555297,
+      "feet": [
+        2840.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 4949,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c09-r01",
+      "label": "product",
+      "id": "drone",
+      "instance": 884427723246,
+      "feet": [
+        2952.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 1419,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c09-r01",
+      "label": "restore-product",
+      "id": "collector_gunner",
+      "instance": 882783555297,
+      "feet": [
+        2840.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 4949,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c09-r01",
+      "label": "restore-product",
+      "id": "drone",
+      "instance": 884427723246,
+      "feet": [
+        2952.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 1419,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c09-r01",
+      "label": "authored-final",
+      "id": "collector_gunner",
+      "instance": 882783555297,
+      "feet": [
+        2840.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 4949,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c09-r01",
+      "label": "authored-final",
+      "id": "drone",
+      "instance": 884427723246,
+      "feet": [
+        2952.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 1419,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c03-r02",
+      "label": "A0",
+      "id": "sweeper",
+      "instance": 887229518427,
+      "feet": [
+        1064.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5327,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.00018772292096865028,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c03-r02",
+      "label": "A1",
+      "id": "sweeper",
+      "instance": 887229518427,
+      "feet": [
+        1064.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5327,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.00018772292096865028,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c03-r02",
+      "label": "product",
+      "id": "sweeper",
+      "instance": 887229518427,
+      "feet": [
+        1064.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5327,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.00018772292096865028,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c03-r02",
+      "label": "restore-product",
+      "id": "sweeper",
+      "instance": 887229518427,
+      "feet": [
+        1064.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5327,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.00018772292096865028,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c03-r02",
+      "label": "authored-final",
+      "id": "sweeper",
+      "instance": 887229518427,
+      "feet": [
+        1064.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5327,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.00018772292096865028,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r02",
+      "label": "A0",
+      "id": "sweeper",
+      "instance": 884847153668,
+      "feet": [
+        1256.0,
+        256.0
+      ],
+      "opaque_pixels_lower_bound": 5543,
+      "white_pixels_upper_bound": 9,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0016236694930543028,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r02",
+      "label": "A0",
+      "id": "sweeper",
+      "instance": 888856908442,
+      "feet": [
+        1352.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5425,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.00018433179723502304,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r02",
+      "label": "A0",
+      "id": "collector_gunner",
+      "instance": 890484298457,
+      "feet": [
+        1448.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 4868,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r02",
+      "label": "A1",
+      "id": "sweeper",
+      "instance": 884847153668,
+      "feet": [
+        1256.0,
+        256.0
+      ],
+      "opaque_pixels_lower_bound": 5543,
+      "white_pixels_upper_bound": 9,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0016236694930543028,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r02",
+      "label": "A1",
+      "id": "sweeper",
+      "instance": 888856908442,
+      "feet": [
+        1352.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5425,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.00018433179723502304,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r02",
+      "label": "A1",
+      "id": "collector_gunner",
+      "instance": 890484298457,
+      "feet": [
+        1448.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 4868,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r02",
+      "label": "product",
+      "id": "sweeper",
+      "instance": 884847153668,
+      "feet": [
+        1256.0,
+        256.0
+      ],
+      "opaque_pixels_lower_bound": 5543,
+      "white_pixels_upper_bound": 9,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0016236694930543028,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r02",
+      "label": "product",
+      "id": "sweeper",
+      "instance": 888856908442,
+      "feet": [
+        1352.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5425,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.00018433179723502304,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r02",
+      "label": "product",
+      "id": "collector_gunner",
+      "instance": 890484298457,
+      "feet": [
+        1448.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 4868,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r02",
+      "label": "restore-product",
+      "id": "sweeper",
+      "instance": 884847153668,
+      "feet": [
+        1256.0,
+        256.0
+      ],
+      "opaque_pixels_lower_bound": 5543,
+      "white_pixels_upper_bound": 9,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0016236694930543028,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r02",
+      "label": "restore-product",
+      "id": "sweeper",
+      "instance": 888856908442,
+      "feet": [
+        1352.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5425,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.00018433179723502304,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r02",
+      "label": "restore-product",
+      "id": "collector_gunner",
+      "instance": 890484298457,
+      "feet": [
+        1448.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 4868,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r02",
+      "label": "authored-final",
+      "id": "sweeper",
+      "instance": 884847153668,
+      "feet": [
+        1256.0,
+        256.0
+      ],
+      "opaque_pixels_lower_bound": 5543,
+      "white_pixels_upper_bound": 9,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0016236694930543028,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r02",
+      "label": "authored-final",
+      "id": "sweeper",
+      "instance": 888856908442,
+      "feet": [
+        1352.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5425,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.00018433179723502304,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c04-r02",
+      "label": "authored-final",
+      "id": "collector_gunner",
+      "instance": 890484298457,
+      "feet": [
+        1448.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 4868,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r02",
+      "label": "A0",
+      "id": "sweeper",
+      "instance": 892984103734,
+      "feet": [
+        1576.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5438,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r02",
+      "label": "A0",
+      "id": "sweeper",
+      "instance": 895232250761,
+      "feet": [
+        1784.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5639,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r02",
+      "label": "A1",
+      "id": "sweeper",
+      "instance": 892984103734,
+      "feet": [
+        1576.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5438,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r02",
+      "label": "A1",
+      "id": "sweeper",
+      "instance": 895232250761,
+      "feet": [
+        1784.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5639,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r02",
+      "label": "product",
+      "id": "sweeper",
+      "instance": 892984103734,
+      "feet": [
+        1576.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5438,
+      "white_pixels_upper_bound": 81,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.014895182052225083,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r02",
+      "label": "product",
+      "id": "sweeper",
+      "instance": 895232250761,
+      "feet": [
+        1784.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5639,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r02",
+      "label": "restore-product",
+      "id": "sweeper",
+      "instance": 892984103734,
+      "feet": [
+        1576.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5438,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r02",
+      "label": "restore-product",
+      "id": "sweeper",
+      "instance": 895232250761,
+      "feet": [
+        1784.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5639,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r02",
+      "label": "authored-final",
+      "id": "sweeper",
+      "instance": 892984103734,
+      "feet": [
+        1576.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5438,
+      "white_pixels_upper_bound": 81,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.014895182052225083,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c05-r02",
+      "label": "authored-final",
+      "id": "sweeper",
+      "instance": 895232250761,
+      "feet": [
+        1784.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5639,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c06-r02",
+      "label": "A0",
+      "id": "collector_brute",
+      "instance": 897010635728,
+      "feet": [
+        2136.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 10903,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c06-r02",
+      "label": "A1",
+      "id": "collector_brute",
+      "instance": 897010635728,
+      "feet": [
+        2136.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 10903,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c06-r02",
+      "label": "product",
+      "id": "collector_brute",
+      "instance": 897010635728,
+      "feet": [
+        2136.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 10903,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c06-r02",
+      "label": "restore-product",
+      "id": "collector_brute",
+      "instance": 897010635728,
+      "feet": [
+        2136.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 10903,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c06-r02",
+      "label": "authored-final",
+      "id": "collector_brute",
+      "instance": 897010635728,
+      "feet": [
+        2136.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 10903,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r02",
+      "label": "A0",
+      "id": "drone",
+      "instance": 872817889315,
+      "feet": [
+        2376.0,
+        224.0
+      ],
+      "opaque_pixels_lower_bound": 1467,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r02",
+      "label": "A0",
+      "id": "sweeper",
+      "instance": 906623980586,
+      "feet": [
+        2216.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5386,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0001856665428889714,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r02",
+      "label": "A1",
+      "id": "drone",
+      "instance": 872817889315,
+      "feet": [
+        2376.0,
+        224.0
+      ],
+      "opaque_pixels_lower_bound": 1467,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r02",
+      "label": "A1",
+      "id": "sweeper",
+      "instance": 906623980586,
+      "feet": [
+        2216.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5386,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0001856665428889714,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r02",
+      "label": "product",
+      "id": "drone",
+      "instance": 872817889315,
+      "feet": [
+        2376.0,
+        224.0
+      ],
+      "opaque_pixels_lower_bound": 1467,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r02",
+      "label": "product",
+      "id": "sweeper",
+      "instance": 906623980586,
+      "feet": [
+        2216.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5386,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0001856665428889714,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r02",
+      "label": "restore-product",
+      "id": "drone",
+      "instance": 872817889315,
+      "feet": [
+        2376.0,
+        224.0
+      ],
+      "opaque_pixels_lower_bound": 1467,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r02",
+      "label": "restore-product",
+      "id": "sweeper",
+      "instance": 906623980586,
+      "feet": [
+        2216.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5386,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0001856665428889714,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r02",
+      "label": "authored-final",
+      "id": "drone",
+      "instance": 872817889315,
+      "feet": [
+        2376.0,
+        224.0
+      ],
+      "opaque_pixels_lower_bound": 1467,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c07-r02",
+      "label": "authored-final",
+      "id": "sweeper",
+      "instance": 906623980586,
+      "feet": [
+        2216.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 5386,
+      "white_pixels_upper_bound": 1,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0001856665428889714,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c08-r02",
+      "label": "A0",
+      "id": "collector_gunner",
+      "instance": 873237319709,
+      "feet": [
+        2664.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 3717,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c08-r02",
+      "label": "A0",
+      "id": "ch1_inspector",
+      "instance": 909073454227,
+      "feet": [
+        2696.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 8265,
+      "white_pixels_upper_bound": 53,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.006412583182093164,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c08-r02",
+      "label": "A1",
+      "id": "collector_gunner",
+      "instance": 873237319709,
+      "feet": [
+        2664.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 3717,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c08-r02",
+      "label": "A1",
+      "id": "ch1_inspector",
+      "instance": 909073454227,
+      "feet": [
+        2696.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 8265,
+      "white_pixels_upper_bound": 53,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.006412583182093164,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c08-r02",
+      "label": "product",
+      "id": "collector_gunner",
+      "instance": 873237319709,
+      "feet": [
+        2664.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 3717,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c08-r02",
+      "label": "product",
+      "id": "ch1_inspector",
+      "instance": 909073454227,
+      "feet": [
+        2696.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 8265,
+      "white_pixels_upper_bound": 55,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.006654567453115548,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c08-r02",
+      "label": "restore-product",
+      "id": "collector_gunner",
+      "instance": 873237319709,
+      "feet": [
+        2664.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 3717,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c08-r02",
+      "label": "restore-product",
+      "id": "ch1_inspector",
+      "instance": 909073454227,
+      "feet": [
+        2696.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 8265,
+      "white_pixels_upper_bound": 53,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.006412583182093164,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c08-r02",
+      "label": "authored-final",
+      "id": "collector_gunner",
+      "instance": 873237319709,
+      "feet": [
+        2664.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 3717,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c08-r02",
+      "label": "authored-final",
+      "id": "ch1_inspector",
+      "instance": 909073454227,
+      "feet": [
+        2696.0,
+        320.0
+      ],
+      "opaque_pixels_lower_bound": 8265,
+      "white_pixels_upper_bound": 55,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.006654567453115548,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c09-r02",
+      "label": "A0",
+      "id": "collector_gunner",
+      "instance": 882783555297,
+      "feet": [
+        2840.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 3741,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c09-r02",
+      "label": "A0",
+      "id": "drone",
+      "instance": 884427723246,
+      "feet": [
+        2952.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 1423,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c09-r02",
+      "label": "A1",
+      "id": "collector_gunner",
+      "instance": 882783555297,
+      "feet": [
+        2840.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 3741,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c09-r02",
+      "label": "A1",
+      "id": "drone",
+      "instance": 884427723246,
+      "feet": [
+        2952.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 1423,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c09-r02",
+      "label": "product",
+      "id": "collector_gunner",
+      "instance": 882783555297,
+      "feet": [
+        2840.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 3741,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c09-r02",
+      "label": "product",
+      "id": "drone",
+      "instance": 884427723246,
+      "feet": [
+        2952.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 1423,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c09-r02",
+      "label": "restore-product",
+      "id": "collector_gunner",
+      "instance": 882783555297,
+      "feet": [
+        2840.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 3741,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c09-r02",
+      "label": "restore-product",
+      "id": "drone",
+      "instance": 884427723246,
+      "feet": [
+        2952.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 1423,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c09-r02",
+      "label": "authored-final",
+      "id": "collector_gunner",
+      "instance": 882783555297,
+      "feet": [
+        2840.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 3741,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "c09-r02",
+      "label": "authored-final",
+      "id": "drone",
+      "instance": 884427723246,
+      "feet": [
+        2952.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 1423,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-106-13",
+      "label": "A0",
+      "id": "drone",
+      "instance": 858506924237,
+      "feet": [
+        1672.0,
+        160.0
+      ],
+      "opaque_pixels_lower_bound": 1423,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-106-13",
+      "label": "A1",
+      "id": "drone",
+      "instance": 858506924237,
+      "feet": [
+        1672.0,
+        160.0
+      ],
+      "opaque_pixels_lower_bound": 1423,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-106-13",
+      "label": "product",
+      "id": "drone",
+      "instance": 858506924237,
+      "feet": [
+        1672.0,
+        160.0
+      ],
+      "opaque_pixels_lower_bound": 1423,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-106-13",
+      "label": "restore-product",
+      "id": "drone",
+      "instance": 858506924237,
+      "feet": [
+        1672.0,
+        160.0
+      ],
+      "opaque_pixels_lower_bound": 1423,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-106-13",
+      "label": "authored-final",
+      "id": "drone",
+      "instance": 858506924237,
+      "feet": [
+        1672.0,
+        160.0
+      ],
+      "opaque_pixels_lower_bound": 1423,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-164-15",
+      "label": "A0",
+      "id": "collector_gunner",
+      "instance": 873237319709,
+      "feet": [
+        2664.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 4825,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-164-15",
+      "label": "A1",
+      "id": "collector_gunner",
+      "instance": 873237319709,
+      "feet": [
+        2664.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 4825,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-164-15",
+      "label": "product",
+      "id": "collector_gunner",
+      "instance": 873237319709,
+      "feet": [
+        2664.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 4825,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-164-15",
+      "label": "restore-product",
+      "id": "collector_gunner",
+      "instance": 873237319709,
+      "feet": [
+        2664.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 4825,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-164-15",
+      "label": "authored-final",
+      "id": "collector_gunner",
+      "instance": 873237319709,
+      "feet": [
+        2664.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 4825,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-175-15",
+      "label": "A0",
+      "id": "collector_gunner",
+      "instance": 882783555297,
+      "feet": [
+        2840.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 4825,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-175-15",
+      "label": "A1",
+      "id": "collector_gunner",
+      "instance": 882783555297,
+      "feet": [
+        2840.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 4825,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-175-15",
+      "label": "product",
+      "id": "collector_gunner",
+      "instance": 882783555297,
+      "feet": [
+        2840.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 4825,
+      "white_pixels_upper_bound": 87,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.018031088082901554,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-175-15",
+      "label": "restore-product",
+      "id": "collector_gunner",
+      "instance": 882783555297,
+      "feet": [
+        2840.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 4825,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-175-15",
+      "label": "authored-final",
+      "id": "collector_gunner",
+      "instance": 882783555297,
+      "feet": [
+        2840.0,
+        240.0
+      ],
+      "opaque_pixels_lower_bound": 4825,
+      "white_pixels_upper_bound": 87,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.018031088082901554,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-76-16",
+      "label": "A0",
+      "id": "sweeper",
+      "instance": 884847153668,
+      "feet": [
+        1256.0,
+        256.0
+      ],
+      "opaque_pixels_lower_bound": 5232,
+      "white_pixels_upper_bound": 38,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.007262996941896025,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-76-16",
+      "label": "A1",
+      "id": "sweeper",
+      "instance": 884847153668,
+      "feet": [
+        1256.0,
+        256.0
+      ],
+      "opaque_pixels_lower_bound": 5232,
+      "white_pixels_upper_bound": 38,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.007262996941896025,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-76-16",
+      "label": "product",
+      "id": "sweeper",
+      "instance": 884847153668,
+      "feet": [
+        1256.0,
+        256.0
+      ],
+      "opaque_pixels_lower_bound": 5232,
+      "white_pixels_upper_bound": 38,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.007262996941896025,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-76-16",
+      "label": "restore-product",
+      "id": "sweeper",
+      "instance": 884847153668,
+      "feet": [
+        1256.0,
+        256.0
+      ],
+      "opaque_pixels_lower_bound": 5232,
+      "white_pixels_upper_bound": 38,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.007262996941896025,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-76-16",
+      "label": "authored-final",
+      "id": "sweeper",
+      "instance": 884847153668,
+      "feet": [
+        1256.0,
+        256.0
+      ],
+      "opaque_pixels_lower_bound": 5232,
+      "white_pixels_upper_bound": 38,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.007262996941896025,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-98-16",
+      "label": "A0",
+      "id": "drone",
+      "instance": 858506924237,
+      "feet": [
+        1672.0,
+        160.0
+      ],
+      "opaque_pixels_lower_bound": 1410,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-98-16",
+      "label": "A1",
+      "id": "drone",
+      "instance": 858506924237,
+      "feet": [
+        1672.0,
+        160.0
+      ],
+      "opaque_pixels_lower_bound": 1410,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-98-16",
+      "label": "product",
+      "id": "drone",
+      "instance": 858506924237,
+      "feet": [
+        1672.0,
+        160.0
+      ],
+      "opaque_pixels_lower_bound": 1410,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-98-16",
+      "label": "restore-product",
+      "id": "drone",
+      "instance": 858506924237,
+      "feet": [
+        1672.0,
+        160.0
+      ],
+      "opaque_pixels_lower_bound": 1410,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "platform-98-16",
+      "label": "authored-final",
+      "id": "drone",
+      "instance": 858506924237,
+      "feet": [
+        1672.0,
+        160.0
+      ],
+      "opaque_pixels_lower_bound": 1410,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 5,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "enemy-872398458943",
+      "label": "A0",
+      "id": "drone",
+      "instance": 872398458943,
+      "feet": [
+        2984.0,
+        192.0
+      ],
+      "opaque_pixels_lower_bound": 1463,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "enemy-872398458943",
+      "label": "A1",
+      "id": "drone",
+      "instance": 872398458943,
+      "feet": [
+        2984.0,
+        192.0
+      ],
+      "opaque_pixels_lower_bound": 1463,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "enemy-872398458943",
+      "label": "product",
+      "id": "drone",
+      "instance": 872398458943,
+      "feet": [
+        2984.0,
+        192.0
+      ],
+      "opaque_pixels_lower_bound": 1463,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "enemy-872398458943",
+      "label": "restore-product",
+      "id": "drone",
+      "instance": 872398458943,
+      "feet": [
+        2984.0,
+        192.0
+      ],
+      "opaque_pixels_lower_bound": 1463,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    },
+    {
+      "waypoint": "enemy-872398458943",
+      "label": "authored-final",
+      "id": "drone",
+      "instance": 872398458943,
+      "feet": [
+        2984.0,
+        192.0
+      ],
+      "opaque_pixels_lower_bound": 1463,
+      "white_pixels_upper_bound": 0,
+      "dilation_radius": 6,
+      "ratio_upper_bound": 0.0,
+      "exact_ratio": null,
+      "passed": true
+    }
+  ],
+  "verifier_sha256": "61fb2f86e9ce049589d7524eee90a456a8cbe534bc79cc9f5d2eb150b0ebfd85",
+  "scope": "W conservatively includes displaced white pixels and may include background; H counts only opaque physical source fragments. W/H is an upper bound, never an exact ratio or background denominator."
+}

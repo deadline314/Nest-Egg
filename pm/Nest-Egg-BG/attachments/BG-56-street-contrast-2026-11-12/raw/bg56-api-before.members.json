@@ -1,0 +1,50 @@
+{
+  "name": "bg56-api-before",
+  "role": "history-diagnostic",
+  "original_bytes_preserved": true,
+  "members": [
+    {
+      "member": "bg56-api-before/core/light_kit.gd",
+      "archive": "bg56-api-before-01.raw.zip",
+      "bytes": 14318,
+      "sha256": "d6289ce49551559d173e76dd5f48c895d99b183f620802a2428b8cc744b937c1"
+    },
+    {
+      "member": "bg56-api-before/data/scripts/lighting_profile.gd",
+      "archive": "bg56-api-before-01.raw.zip",
+      "bytes": 8212,
+      "sha256": "d83742f0d355297e991671ab54aa05e52f107b03c2c1134aac81d6123245923a"
+    },
+    {
+      "member": "bg56-api-before/game/creature/part_creature.gd",
+      "archive": "bg56-api-before-01.raw.zip",
+      "bytes": 14980,
+      "sha256": "e75014df7ec22151eb8395ac74d8daab433f65d8959938f24d621e094b056f55"
+    },
+    {
+      "member": "bg56-api-before/game/enemies/enemy.gd",
+      "archive": "bg56-api-before-01.raw.zip",
+      "bytes": 39473,
+      "sha256": "d8dc659be5dc38f56824d530b7a8b485de94cb4704d33500d1ff8e2b85154397"
+    },
+    {
+      "member": "bg56-api-before/game/level/lighting_controller.gd",
+      "archive": "bg56-api-before-01.raw.zip",
+      "bytes": 11954,
+      "sha256": "969283f3f8dd7167793a882a2e27b56a3e2abdb30fcea4b809b317d166dbffd3"
+    },
+    {
+      "member": "bg56-api-before/manifest.json",
+      "archive": "bg56-api-before-01.raw.zip",
+      "bytes": 1165,
+      "sha256": "119391a23db7338e0948274d333aef2b95a37ee7dd61e6fe4c13c40e897a0916"
+    }
+  ],
+  "archives": [
+    {
+      "file": "bg56-api-before-01.raw.zip",
+      "bytes": 34607,
+      "sha256": "9265ec275a94c3c65982b778d52ef8df0abfbabd452323f387ff232e9020ad97"
+    }
+  ]
+}

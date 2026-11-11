@@ -14,6 +14,7 @@ const GLOW_LUMINANCE_CAP := 2.0
 ## 角色曝光預算（NE-213）：白色零件（頭髮、衣服）在「環境光 × 補光 + 玩家自己的光 + 附近的燈」之下，峰值要壓在泛光門檻附近，
 ## 超過就會被泛光吃成一團白。玩家自己的光依這個預算在亮場景自動調暗（player_light_energy）。
 const CHARACTER_EXPOSURE_BUDGET := 1.0
+const CHARACTER_FILL_MAX := 4.0
 ## 預留給附近路燈與閃光的亮度（估計值）。
 const NEARBY_LIGHT_ALLOWANCE := 0.2
 ## 單盞光對角色的亮度上限（角色專用的受光，見 art/shaders/character_light.gdshader）：亮場景小、暗場景大。
@@ -41,6 +42,9 @@ static var character_light_cap := CHARACTER_LIGHT_CAP_MAX
 ## 敵人身上單盞光的亮度上限：比主角高（ENEMY_LIGHT_GAIN 倍），被槍燈或場景燈照到的敵人會明顯亮起來。
 ## 主角的上限壓得低是為了白色頭髮不過曝；敵人多半是深色裝甲，沒有這個問題。
 static var enemy_light_cap := CHARACTER_LIGHT_CAP_MAX * ENEMY_LIGHT_GAIN
+## 可選的零件式生物補光；0 不接管任何原材質／tint。
+static var creature_fill := 0.0
+static var creature_light_cap := CHARACTER_LIGHT_CAP_MAX * ENEMY_LIGHT_GAIN
 ## 玩家身上那盞光目前的能量（亮場景自動調暗，由 LightingController 依光影設定更新，Player 每影格套用）。
 static var player_light_energy := PLAYER_LIGHT_BASE_ENERGY
 ## 場景燈的供電（0~1）：由 LightingController 依光影設定更新，每盞燈依自己的門檻依序熄滅／亮起。

@@ -1,0 +1,428 @@
+{
+  "name": "final-tools-and-integration",
+  "role": "exact-delivery-source",
+  "original_bytes_preserved": true,
+  "members": [
+    {
+      "member": "final-runners/work/bg56_author_candidate.py",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 6717,
+      "sha256": "a30673b20299bce04b93dd4a458edcb68c3e0abb68eefe444cf348936a3b5bf4"
+    },
+    {
+      "member": "final-runners/work/bg56_author_edge98.py",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 3500,
+      "sha256": "e62b5a450c74439e67c69d0940f15db80ef3a144b71ffe16cc870e216737d03b"
+    },
+    {
+      "member": "final-runners/work/bg56_author_ramp.py",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 4624,
+      "sha256": "e9479aaa0b6ead5b925ad0c6f95a21611770860c0941ee8dcb0ca97115cf8105"
+    },
+    {
+      "member": "final-runners/work/bg56_cpu_run.py",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 4596,
+      "sha256": "d6381136bf2d2eab948d3f7827e9c9f09d4071c6ddfadc8db77e93c86fd22015"
+    },
+    {
+      "member": "final-runners/work/bg56_default_theme_control.py",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 2164,
+      "sha256": "13a22720fda4f449b94715242a822819dc6fa7bcf470b2514963f7b52c36b37e"
+    },
+    {
+      "member": "final-runners/work/bg56_lab_run.py",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 5774,
+      "sha256": "53edcf71dd8e5930f62e87116bbc38bdebac6c6012f83b5eeb1c05ec67ece1ed"
+    },
+    {
+      "member": "final-runners/work/bg56_pack_raw.py",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 6513,
+      "sha256": "409ce91fa37a1297912f907a1791de6a28efd1b9d2be723ce7b282aba69a4849"
+    },
+    {
+      "member": "final-runners/work/bg56_prepare_own_hunks.py",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 3244,
+      "sha256": "1c2fe0420fc422b53d07c4be6e0f7dc0adf7a79716afeae14752a1ee9f1c2a18"
+    },
+    {
+      "member": "final-runners/work/bg56_select_images.py",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 4087,
+      "sha256": "50ce7d8e6e645b773fa519683f80a6135d46c67c3854ba30703b296850eab381"
+    },
+    {
+      "member": "final-runners/work/street_shared_run.py",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 9107,
+      "sha256": "0fd02d98cf9b71b5ad2ef3d3f84490bdeb382e5f8060eb789a22b11aeb55b9bf"
+    },
+    {
+      "member": "final-tools/tools/bg56_reference/ch1_street_before.tres",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 5997,
+      "sha256": "5a925a0586bc7a3acfcb664980b9687c0af48de9b9f0664ebf7b6a84e84ed262"
+    },
+    {
+      "member": "final-tools/tools/bg56_reference/ch1_street_initial_candidate.tres",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 6012,
+      "sha256": "831580dcb2d1653e8e31e16f8a31bbb6add516f578a81148a0eba8ddd8dfc7a6"
+    },
+    {
+      "member": "final-tools/tools/bg56_reference/ch1_street_theme_before.tres",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 2528,
+      "sha256": "16c039496ca3821390520a207669b679ecc62d565ea8280db161604c569c5205"
+    },
+    {
+      "member": "final-tools/tools/street_actor_mask.gd",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 20794,
+      "sha256": "75b0d34a4e6906fe1027ba5167472cd3e482fd80a13e58132b0734eeb4ab5a2e"
+    },
+    {
+      "member": "final-tools/tools/street_actor_mask.gd.uid",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 20,
+      "sha256": "a91d56509376aa4e4ef3453feb2efb41a40c85a39bd46e3de9b4a30f197613c7"
+    },
+    {
+      "member": "final-tools/tools/street_creature_damage_probe.gd",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 7481,
+      "sha256": "4c0b19274149edbb72823da1dbd5dc1d3d9bed844c73c428e713dcad72f4655f"
+    },
+    {
+      "member": "final-tools/tools/street_creature_damage_probe.gd.uid",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 20,
+      "sha256": "b6a4b8b59235c3722afecd223e13426a3ab6a3d87800f55d857e31c8f1be7167"
+    },
+    {
+      "member": "final-tools/tools/street_creature_damage_probe.tscn",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 200,
+      "sha256": "9b0c64845be95058459d2d72efc28d2536988bdf9a4e7a90b50cfbf873d83cea"
+    },
+    {
+      "member": "final-tools/tools/street_creature_default_probe.gd",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 1468,
+      "sha256": "04b867623b3ae966803a8b8cc5f253254227567ac2c1ebbc8780521f5abdd42a"
+    },
+    {
+      "member": "final-tools/tools/street_creature_default_probe.gd.uid",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 20,
+      "sha256": "efd356f538305f0e65903095da46d1b95f24eadefc379fea5773169d4de9c4ec"
+    },
+    {
+      "member": "final-tools/tools/street_creature_default_probe.tscn",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 202,
+      "sha256": "edf73321a23a49b1d24b425b380b76d5140f94bffcf8b963526bed6b4f16684b"
+    },
+    {
+      "member": "final-tools/tools/street_creature_ramp.gd",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 537,
+      "sha256": "012cb4f3565334429f52bc81af0bd1fd07cd51d594e509294fa32daea0e8801f"
+    },
+    {
+      "member": "final-tools/tools/street_creature_ramp.gd.uid",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 20,
+      "sha256": "9bdb112be1c2596e516e57581b638c6ef8b088dfd83428257f7d3cd4b2a7d48b"
+    },
+    {
+      "member": "final-tools/tools/street_creature_ramp_probe.gd",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 6668,
+      "sha256": "bb9828bcae9b7701eb6b43e8776fb958bcd29b90528f311c7fb2a358cfc04bd2"
+    },
+    {
+      "member": "final-tools/tools/street_creature_ramp_probe.gd.uid",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 19,
+      "sha256": "bb68ae5e5fe280b2d528c6e6b34186a1ebc09becb4bd67013dc3afa7052d578b"
+    },
+    {
+      "member": "final-tools/tools/street_creature_ramp_probe.tscn",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 196,
+      "sha256": "73e277263357317f593def0d936f3cff142a40ffcf6dbfe9c460689615b32de7"
+    },
+    {
+      "member": "final-tools/tools/street_creature_region_probe.gd",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 3963,
+      "sha256": "ff4580689a74d84d78b4631c4c52bb97c3051ea691e137a5830ef59b961156ec"
+    },
+    {
+      "member": "final-tools/tools/street_creature_region_probe.gd.uid",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 20,
+      "sha256": "c97933b5d46a85debbe8aa367fe1635ebfce706347e56f80569e9f139c338c7c"
+    },
+    {
+      "member": "final-tools/tools/street_creature_region_probe.tscn",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 200,
+      "sha256": "6b966cb8b040c8f1cedb7693c57f1723cef3deb5ac5d207edaac3ac6c5199f27"
+    },
+    {
+      "member": "final-tools/tools/street_drone_contrast_probe.gd",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 8773,
+      "sha256": "647035d85a4456dbac9fe532904d29cd059fe708d334d475a7e0b2efb2de726b"
+    },
+    {
+      "member": "final-tools/tools/street_drone_contrast_probe.gd.uid",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 20,
+      "sha256": "8d9f6e9a497cfbc63fb7623285b925aff6ed53e9d10e4cdd1806164020ba948a"
+    },
+    {
+      "member": "final-tools/tools/street_drone_contrast_probe.tscn",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 198,
+      "sha256": "1c9ff078233de522d73a000ad60339a2ae16332fb432df6b72db07096d85d6bb"
+    },
+    {
+      "member": "final-tools/tools/street_edge_margin_probe.gd",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 4515,
+      "sha256": "2fbc1071060b971e16cf9cefde62742ce924fbe17264632454d31d89df2ae114"
+    },
+    {
+      "member": "final-tools/tools/street_edge_margin_probe.gd.uid",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 20,
+      "sha256": "77049511b3e93b38068886d9764dc4081df5ea4f02ccb9facadf148d26499108"
+    },
+    {
+      "member": "final-tools/tools/street_edge_margin_probe.tscn",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 192,
+      "sha256": "7ea52256378cc1ce96570e802780969cb28ff16289cbcfabf8b3efd4eb52dee6"
+    },
+    {
+      "member": "final-tools/tools/street_shared_acceptance_probe.gd",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 13782,
+      "sha256": "1c44a0bbf511692156fbfc8dd55202577fa5e87af377fe1cebba4c0a91527cbb"
+    },
+    {
+      "member": "final-tools/tools/street_shared_acceptance_probe.gd.uid",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 20,
+      "sha256": "ee407d0eeb653b1461d04ef97336cea287d31a9f3aa08659ad0b13e2a7afee2b"
+    },
+    {
+      "member": "final-tools/tools/street_shared_acceptance_probe.tscn",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 204,
+      "sha256": "8f6ab57a172491000dc8adc99f77992c838941c25dc543209e0d716e045c8f1e"
+    },
+    {
+      "member": "final-tools/tools/street_shared_action_probe.gd",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 14469,
+      "sha256": "8b07e700f021ab739f0b7f5208408ee8d25a2abd70a7130f55c156f7cbe66c51"
+    },
+    {
+      "member": "final-tools/tools/street_shared_action_probe.gd.uid",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 19,
+      "sha256": "c3fb94aaf548e55183672e4d44360b701c62916ce014d9a35a3c918c7ae93f58"
+    },
+    {
+      "member": "final-tools/tools/street_shared_action_probe.tscn",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 196,
+      "sha256": "2a19b70314f38f7b7abad1e661820d4ca44c633925b9f2611a9c2dd9161ac810"
+    },
+    {
+      "member": "final-tools/tools/street_shared_contrast_probe.gd",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 17564,
+      "sha256": "ff40d4d2ffb3d7ea1b4b217056bfe68897aae673020947721769c2df1f050f77"
+    },
+    {
+      "member": "final-tools/tools/street_shared_contrast_probe.gd.uid",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 19,
+      "sha256": "e3ec63aff10c6e3089795098ac3af8909538e4a1e972ef1e35408cb18b9eef3b"
+    },
+    {
+      "member": "final-tools/tools/street_shared_contrast_probe.tscn",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 200,
+      "sha256": "fb513a048544ba31fa68b00e4b2182bc6d000b93697cdc47a5a00a596f62248d"
+    },
+    {
+      "member": "final-tools/tools/street_shared_local_candidate_probe.gd",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 2600,
+      "sha256": "f81b214c1e5bcbc3553997c7edee07eb11551e109dfd38f4f521f478764409b1"
+    },
+    {
+      "member": "final-tools/tools/street_shared_local_candidate_probe.gd.uid",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 20,
+      "sha256": "a10b16aee082c8b10db14e499b39144ed7057a6d52d5176192a44b7f0aa61814"
+    },
+    {
+      "member": "final-tools/tools/street_shared_local_candidate_probe.tscn",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 213,
+      "sha256": "779250251f800b5a9a29c0e18af691c81cc45cd38be45180b0f4082c5c7c3302"
+    },
+    {
+      "member": "final-tools/tools/street_shared_masked_probe.gd",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 2149,
+      "sha256": "e0071dd9bdd914d4a249bf11b1ce138ad312198bf759b1b8dcda3b67252ef42e"
+    },
+    {
+      "member": "final-tools/tools/street_shared_masked_probe.gd.uid",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 19,
+      "sha256": "1b98da41f4b19c1bb266e0d68391ce80d4ca30e71ad875d719f8149a523e31e8"
+    },
+    {
+      "member": "final-tools/tools/street_shared_masked_probe.tscn",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 196,
+      "sha256": "0ed11b8ad79558d27ca407b75bdf7b49a84625c132fe1f5e06f80ae9d63accb8"
+    },
+    {
+      "member": "final-tools/tools/street_shared_related_probe.gd",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 541,
+      "sha256": "5372ab025441a064492ad5fe261c0cadf96a7be5d1418f4b3dfefe45b40dbb65"
+    },
+    {
+      "member": "final-tools/tools/street_shared_related_probe.tscn",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 198,
+      "sha256": "e60ed3cd2cf98457d3e03532b86fc7a69ac0f5e2fe3130c6c9ac8f702cdd178e"
+    },
+    {
+      "member": "final-tools/tools/test_street_creature_lighting.gd",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 5982,
+      "sha256": "6dcab51787dbe9e0462202ce6caae08ae792fce0b869871c0e96217cecad0ec5"
+    },
+    {
+      "member": "final-tools/tools/test_street_creature_lighting.gd.uid",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 20,
+      "sha256": "d31d27efe0539db4feca0dac3f7562031cb8de85f37d07c42d5b9a8ee8bff4c3"
+    },
+    {
+      "member": "final-tools/tools/test_street_creature_lighting.tscn",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 203,
+      "sha256": "87c4e4b35a5d3a69298d333488890e3b37bcdebc405a3660824e444916ec2930"
+    },
+    {
+      "member": "final-tools/tools/test_street_creature_ramp.gd",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 1150,
+      "sha256": "0a18ad7ced9868de15792685ddc28a1865f4933c24ed2cb145881a3cfda8895b"
+    },
+    {
+      "member": "final-tools/tools/test_street_creature_ramp.gd.uid",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 20,
+      "sha256": "16b72740837b7aaab5e24ad0b38af2a1ac85f941ed6a036c0a24ad923e2beb63"
+    },
+    {
+      "member": "final-tools/tools/test_street_creature_ramp.tscn",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 194,
+      "sha256": "5b8f807b61809d905e599fb929d7e6b86b4a21cbd6990216b456cfe7c67f04bd"
+    },
+    {
+      "member": "final-tools/tools/test_street_shared_data.gd",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 6164,
+      "sha256": "1e02f98ab2b8d82dac2dd5880d66220d4d03d4e7ff3c37b44e78d1a6f8bd1f7e"
+    },
+    {
+      "member": "final-tools/tools/test_street_shared_data.gd.uid",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 20,
+      "sha256": "63bfec41996d210dc0328858aafa7c9a2db6fca361fdc08b072e10f9fbb4230a"
+    },
+    {
+      "member": "final-tools/tools/test_street_shared_data.tscn",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 191,
+      "sha256": "afd8742d1f56e0a9e6ffa5bd515af82062d8faa3b02e3fe7ec7377e1aa076205"
+    },
+    {
+      "member": "final-tools/tools/verify_street_actor_masks.py",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 13498,
+      "sha256": "61fb2f86e9ce049589d7524eee90a456a8cbe534bc79cc9f5d2eb150b0ebfd85"
+    },
+    {
+      "member": "final-tools/tools/verify_street_creature_default.py",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 2146,
+      "sha256": "d6d5a62b8eb53885cc782fadcb0c0992150b80e158f152766b0f59aad7a4443f"
+    },
+    {
+      "member": "final-tools/tools/verify_street_creature_labs.py",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 7598,
+      "sha256": "682b3b48351d0523e328aef94f8b5d91cd2e1eb134d6f66b3e0458c8c15edfaf"
+    },
+    {
+      "member": "final-tools/tools/verify_street_drone_factors.py",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 5769,
+      "sha256": "ba54e4e2a887e0210089ec4210e7caccc0a10667f3990ffceb44134ad2f33566"
+    },
+    {
+      "member": "final-tools/tools/verify_street_shared_contrast.py",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 12220,
+      "sha256": "60fb2f4ff5e692beab5550bca845beabf36a4ddcb5176db2ff0e2bc916ccd8a0"
+    },
+    {
+      "member": "final-tools/tools/verify_street_shared_coverage.py",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 4094,
+      "sha256": "47eca83219f70f9d9c6589cc7adfc56de5af52053575f33c1edd3e111d29df08"
+    },
+    {
+      "member": "integration/BG56-own-hunks-v1.raw.zip",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 237198,
+      "sha256": "fc5c7aceac6c781387e61df8586b227018184b547691cd2489a43ef6b1914d56"
+    },
+    {
+      "member": "integration/BG56-product-candidate-sha256.json",
+      "archive": "final-tools-and-integration-01.raw.zip",
+      "bytes": 6223,
+      "sha256": "c1d7ec2d7c883e1ef8a16a26c1f79cd8293098bdb3a8e36d3e1e1353a9d65641"
+    }
+  ],
+  "archives": [
+    {
+      "file": "final-tools-and-integration-01.raw.zip",
+      "bytes": 326389,
+      "sha256": "56148142202a0563789cf8244dda5855943d1b099282f2777435436771d2cb54"
+    }
+  ]
+}

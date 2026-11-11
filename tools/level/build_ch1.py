@@ -185,6 +185,7 @@ class Area:
         self.hints = []
         self.chars = set()
         self.zones = []          # (起點欄, 過渡欄, 光影 id)
+        self.material_zones = []  # optional (起點欄, 材質 id)，其餘主題內容保持
         self.regions = []        # 材質覆蓋區（貨櫃…）
         self.triggers = []       # (欄, 場景 id)：地圖上的 & 劇情觸發點
         self.encounters = []     # 遭遇紀錄（設計報告與檢查用，見 encounter）
@@ -675,8 +676,13 @@ def build_street():
     # 街燈的高度約 4 公尺（主角身高的兩倍多）：第 8 列的桿子有主角的三倍高，使用者覺得太高（BG-36）。
     for x in (11, 31, 78, 104, 126, 150, 176, 201):
         a.lamp(x, 12)
-    a.zone(0, 'market')
-    a.zone(181, 'harbor_approach', 14)
+    a.zone(0, 'street_market')
+    a.zone(172, 'street_market_creature', 4)
+    a.zone(181, 'street_harbor', 14)
+    a.material_zones = [(0, 'asphalt'), (76, 'street_asphalt'), (82, 'asphalt'),
+                        (98, 'street_asphalt_platform'), (104, 'asphalt'),
+                        (122, 'street_asphalt'), (126, 'asphalt'),
+                        (164, 'street_asphalt'), (170, 'asphalt')]
     return a
 
 
@@ -1265,16 +1271,20 @@ def write_theme(area, theme_key):
     w = TresWriter('EnvironmentTheme', 'res://data/scripts/environment_theme.gd')
     zone_script = w.ext('res://data/scripts/env_zone.gd', 'Script')
     layer_script = w.ext('res://data/scripts/backdrop_layer.gd', 'Script')
-    mat = w.ext(f'res://data/environment/materials/{material}.tres')
+    # Preserve resource registration/order for themes without local zones.
+    w.ext(f'res://data/environment/materials/{material}.tres')
     facade_refs = ', '.join(f'ExtResource("{w.ext(f"res://data/environment/facades/{f}.tres")}")' for f in facades)
     facade_script = w.ext('res://data/scripts/facade_data.gd', 'Script')
-    body = [f'script = ExtResource("{zone_script}")', 'from_tile = 0', f'material = ExtResource("{mat}")',
-            f'facades = Array[ExtResource("{facade_script}")]([{facade_refs}])']
-    if interior:
-        scale = 8 if interior in ('facility_panel', 'hangar_wall', 'steel_plate') else 4
-        body += [f'interior = "res://art/environment/materials/{interior}_body.png"', f'interior_scale = {scale}']
-    body += [f'hole_chance = {holes}', f'label = "{area.name}"']
-    zone = w.sub(body)
+    zones = []
+    for start, surface in area.material_zones or [(0, material)]:
+        surface_ref = w.ext(f'res://data/environment/materials/{surface}.tres')
+        body = [f'script = ExtResource("{zone_script}")', f'from_tile = {start}', f'material = ExtResource("{surface_ref}")',
+                f'facades = Array[ExtResource("{facade_script}")]([{facade_refs}])']
+        if interior:
+            scale = 8 if interior in ('facility_panel', 'hangar_wall', 'steel_plate') else 4
+            body += [f'interior = "res://art/environment/materials/{interior}_body.png"', f'interior_scale = {scale}']
+        body += [f'hole_chance = {holes}', f'label = "{area.name}"']
+        zones.append(w.sub(body))
     layers = []
     for tex, scroll, bottom, source_width in BACKDROP:
         ext = 'png' if tex == 'near_foreground' else 'webp'
@@ -1285,7 +1295,7 @@ def write_theme(area, theme_key):
                      'bottom_y = 300.0', 'texture_scale = 2', 'tint = Color(1.4, 1.35, 1.5, 1)', f'source_width = {SKY_SOURCE_WIDTH}'])
     dirs = ', '.join(json.dumps(SCENE_PROPS % s) for s in prop_scenes)
     res = [f'script = ExtResource("{w.script_id}")',
-           f'zones = Array[ExtResource("{zone_script}")]([SubResource("{zone}")])',
+           'zones = Array[ExtResource("%s")]([%s])' % (zone_script, ', '.join(f'SubResource("{zone}")' for zone in zones)),
            'backdrop = Array[ExtResource("%s")]([%s])' % (layer_script, ', '.join(f'SubResource("{x}")' for x in layers)),
            f'sky = SubResource("{sky_sub}")',
            f'extra_prop_dirs = PackedStringArray({dirs})']

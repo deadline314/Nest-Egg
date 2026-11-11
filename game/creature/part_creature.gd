@@ -19,6 +19,7 @@ const FLASH_BRIGHTNESS := 1.45
 const RECOIL_RECOVERY := 8.0
 const GAIT_THRESHOLD := 6.0
 const PROPS: Array[String] = ["rot", "x", "y", "sx", "sy"]
+const LIGHT_SHADER := preload("res://art/shaders/character_light.gdshader")
 
 var creature_id := ""
 var state: StringName = &"idle"
@@ -38,6 +39,15 @@ var _aim := 0.0
 var _recoil := 0.0
 var _flash_left := 0.0
 var _wear := Color.WHITE
+## All caches belong to this instance. Default 0 never binds a material or tint.
+var _light_material: ShaderMaterial
+var _lighting_fill := 0.0
+var _lighting_cap := 0.0
+var _lighting_pending := false
+var _source_materials: Array[Material] = []
+var _source_tints := PackedColorArray()
+var _lighting_tints := PackedColorArray()
+var _lighting_claimed := PackedByteArray()
 var _root_params := {"bob_amp": 0.0, "bob_freq": 1.5, "tilt": 0.0}
 var _root_target := {"bob_amp": 0.0, "bob_freq": 1.5, "tilt": 0.0}
 var _bob_phase := 0.0
@@ -111,6 +121,10 @@ func _add_part(entry: Dictionary, dir: String, texture_scale: float) -> void:
 	sprite.scale = Vector2.ONE * texture_scale
 	var tint := float(entry.get("tint", 1.0))
 	sprite.self_modulate = Color(tint, tint, tint, 1.0)
+	_source_materials.append(sprite.material)
+	_source_tints.append(sprite.self_modulate)
+	_lighting_tints.append(sprite.self_modulate)
+	_lighting_claimed.append(0)
 	joint.add_child(sprite)
 	var recoil: Variant = entry.get("recoil", [0.0, 0.0])
 	_by_name[part_name] = _parts.size()
@@ -122,6 +136,49 @@ func _add_part(entry: Dictionary, dir: String, texture_scale: float) -> void:
 		"muzzle": RigLibrary.vec2(entry.get("muzzle"), Vector2.ZERO) if entry.has("muzzle") else Vector2.INF,
 		"pos": Vector2.ZERO, "rot": 0.0, "scale": Vector2.ONE,
 	})
+
+
+## Optional area lighting. Keep alpha, normals, parent flash/wear and foreign
+## emission/dissolve materials intact. One cached material, no per-frame arrays.
+func set_lighting(fill: float, cap: float) -> void:
+	var requested := clampf(fill, 1.0, LightKit.CHARACTER_FILL_MAX) if is_finite(fill) and is_finite(cap) and fill > 0.0 else 0.0
+	if requested == 0.0 and _lighting_fill == 0.0 and not _lighting_pending:
+		return
+	if requested > 0.0:
+		var bound := clampf(cap, 0.05, 4.0)
+		if _light_material == null:
+			_light_material = ShaderMaterial.new()
+			_light_material.shader = LIGHT_SHADER
+		if not is_equal_approx(requested, _lighting_fill):
+			_light_material.set_shader_parameter("fill", requested)
+		if not is_equal_approx(bound, _lighting_cap):
+			_light_material.set_shader_parameter("light_cap", bound)
+		_lighting_cap = bound
+	_lighting_pending = false
+	for i in _parts.size():
+		var sprite: Sprite2D = _parts[i]["sprite"]
+		# An existing custom material, or an active foreign effect, owns its
+		# entire appearance. Recheck cheap bindings so its eventual release is
+		# noticed even when the area's fill/cap have not changed.
+		var original: Material = _source_materials[i]
+		if original != null or sprite.use_parent_material or (sprite.material != original and sprite.material != _light_material):
+			_lighting_pending = _lighting_pending or _lighting_claimed[i] != 0
+			continue
+		if requested > 0.0:
+			if _lighting_claimed[i] == 0:
+				_source_tints[i] = sprite.self_modulate
+			var tint: Color = _source_tints[i]
+			var lit := Color(tint.r * requested, tint.g * requested, tint.b * requested, tint.a)
+			if sprite.material != _light_material: sprite.material = _light_material
+			if sprite.self_modulate != lit: sprite.self_modulate = lit
+			_lighting_tints[i] = lit
+			_lighting_claimed[i] = 1
+		elif _lighting_claimed[i] != 0:
+			if sprite.material == _light_material: sprite.material = original
+			# A foreign effect may also own a transient tint; do not erase it.
+			if sprite.self_modulate == _lighting_tints[i]: sprite.self_modulate = _source_tints[i]
+			_lighting_claimed[i] = 0
+	_lighting_fill = requested
 
 
 ## 所有狀態用到的通道（零件＋屬性）合成一份表；每個通道各自有目前參數、目標參數與相位。

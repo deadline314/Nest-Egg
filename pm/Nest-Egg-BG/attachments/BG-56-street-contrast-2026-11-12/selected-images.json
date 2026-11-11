@@ -1,0 +1,2337 @@
+{
+  "scope": "original native PNG bytes plus exact unscaled crops; before is original profile/material in the same current runtime and geometry",
+  "images": [
+    {
+      "quality": "high",
+      "point": "brute-platform",
+      "waypoint": "c06-r01",
+      "label": "before",
+      "original_case": "street-shared-authored-edge98-final-high40-v1",
+      "original_png": "bg55-cell017-A0.png",
+      "original_raw_sha256": "9f9f86735edf52f3b8f3bd5b7c51a8121dcbd11bb0ce46afb6c75747a6ca80f6",
+      "image": "BG-56-high-brute-platform-before.png",
+      "image_sha256": "8095faa757785c48f2ce2fecbe66e918a5f7f2547174ced288d3044fc986c623",
+      "crop": "BG-56-high-brute-platform-before-crop.png",
+      "crop_sha256": "a87bf26d11f48f27a99626a57a89d5b8b05b359339c5be19605064b0b5882925",
+      "crop_box_pixels": [
+        1044,
+        281,
+        1228,
+        622
+      ],
+      "unscaled_crop_pixels_verified": true,
+      "player": {
+        "below_mean": 0.0496092905824358,
+        "below_screen_rect": [
+          552,
+          351,
+          186,
+          24
+        ],
+        "contrast": 2.02054907425714,
+        "edge_contrast": 0.503738196365672,
+        "edge_mean": 0.0846741490707259,
+        "edge_screen_rect": [
+          552,
+          320,
+          186,
+          13
+        ],
+        "feet": [
+          2008.0,
+          255.984375
+        ],
+        "outer_screen_rect": [
+          533,
+          21,
+          224,
+          362
+        ],
+        "parts": {
+          "body": 0.0361321746826172,
+          "bright": 2.02054907425714,
+          "dark": 0.517766941099391,
+          "inner": 0.33159345703125,
+          "outer": 0.0964005114261284
+        },
+        "screen_rect": [
+          610,
+          97,
+          70,
+          209
+        ]
+      },
+      "enemies": [
+        {
+          "aux_full_visual_parts": {
+            "body": 0.00967505187988281,
+            "bright": 0.415157919437109,
+            "dark": 0.0459642504214329,
+            "inner": 0.0240181457519531,
+            "outer": 0.0111047588027926
+          },
+          "contrast": 0.213122069648738,
+          "facing": -1,
+          "feet": [
+            2136.0,
+            320.0
+          ],
+          "fill": 1.42668668617269,
+          "ground_support": {
+            "feet": [
+              2136.0,
+              320.0
+            ],
+            "floor": [
+              2136.0,
+              320.0
+            ],
+            "found": true,
+            "gap": 0.0,
+            "normal": [
+              0.0,
+              -1.0
+            ],
+            "on_floor_cache": false,
+            "safe_margin": 0.0799999982118607
+          },
+          "id": "collector_brute",
+          "instance": 897010635728,
+          "light_cap": 0.608,
+          "outer_screen_rect": [
+            1025,
+            320,
+            223,
+            308
+          ],
+          "parts": {
+            "body": 0.00956434631347656,
+            "bright": 0.213122069648738,
+            "dark": 0.0859641118957822,
+            "inner": 0.0192382415771484,
+            "outer": 0.0123448419238717
+          },
+          "passed": false,
+          "screen_rect": [
+            1102,
+            397,
+            70,
+            155
+          ],
+          "skin": "collector_brute",
+          "uses_gravity": true,
+          "visual_world_bounds": "[P: (2125.91, 257.8328), S: (19.7644, 62.49701)]",
+          "visual_world_bounds_values": [
+            2125.90966796875,
+            257.832824707031,
+            19.764404296875,
+            62.4970092773438
+          ]
+        }
+      ]
+    },
+    {
+      "quality": "high",
+      "point": "brute-platform",
+      "waypoint": "c06-r01",
+      "label": "after",
+      "original_case": "street-shared-authored-edge98-final-high40-v1",
+      "original_png": "bg55-cell017-product.png",
+      "original_raw_sha256": "ca76e6125217581641abe7d1dbad01216f92ca08a83f4850138ddc403c297558",
+      "image": "BG-56-high-brute-platform-after.png",
+      "image_sha256": "eb86656433589cc87b17bbdef943e0d66636fe321db2367fa5d6848272b2c159",
+      "crop": "BG-56-high-brute-platform-after-crop.png",
+      "crop_sha256": "c4f53e68564de8e9a89fc8c2abf33b6ddf90c893869960c1252d0644dddedb03",
+      "crop_box_pixels": [
+        1044,
+        281,
+        1228,
+        622
+      ],
+      "unscaled_crop_pixels_verified": true,
+      "player": {
+        "below_mean": 0.0496181391406897,
+        "below_screen_rect": [
+          552,
+          351,
+          186,
+          24
+        ],
+        "contrast": 1.89838105373454,
+        "edge_contrast": 1.71710576148521,
+        "edge_mean": 0.169159846963047,
+        "edge_screen_rect": [
+          552,
+          320,
+          186,
+          13
+        ],
+        "feet": [
+          2008.0,
+          255.984375
+        ],
+        "outer_screen_rect": [
+          533,
+          21,
+          224,
+          362
+        ],
+        "parts": {
+          "body": 0.0361376708984375,
+          "bright": 1.89838105373454,
+          "dark": 0.537225854238935,
+          "inner": 0.33159345703125,
+          "outer": 0.101306843549168
+        },
+        "screen_rect": [
+          610,
+          97,
+          70,
+          209
+        ]
+      },
+      "enemies": [
+        {
+          "aux_full_visual_parts": {
+            "body": 0.0139741027832031,
+            "bright": 0.915213285920248,
+            "dark": -0.092247748924931,
+            "inner": 0.0395722473144531,
+            "outer": 0.0111047588027926
+          },
+          "contrast": 0.584138251705395,
+          "facing": -1,
+          "feet": [
+            2136.0,
+            320.0
+          ],
+          "fill": 2.37781114362115,
+          "ground_support": {
+            "feet": [
+              2136.0,
+              320.0
+            ],
+            "floor": [
+              2136.0,
+              320.0
+            ],
+            "found": true,
+            "gap": 0.0,
+            "normal": [
+              0.0,
+              -1.0
+            ],
+            "on_floor_cache": false,
+            "safe_margin": 0.0799999982118607
+          },
+          "id": "collector_brute",
+          "instance": 897010635728,
+          "light_cap": 0.608,
+          "outer_screen_rect": [
+            1025,
+            320,
+            223,
+            308
+          ],
+          "parts": {
+            "body": 0.0144529113769531,
+            "bright": 0.584138251705395,
+            "dark": -0.0255360969077102,
+            "inner": 0.0332191650390625,
+            "outer": 0.0135950255489189
+          },
+          "passed": true,
+          "screen_rect": [
+            1102,
+            397,
+            70,
+            155
+          ],
+          "skin": "collector_brute",
+          "uses_gravity": true,
+          "visual_world_bounds": "[P: (2125.91, 257.8328), S: (19.7644, 62.49701)]",
+          "visual_world_bounds_values": [
+            2125.90966796875,
+            257.832824707031,
+            19.764404296875,
+            62.4970092773438
+          ]
+        }
+      ]
+    },
+    {
+      "quality": "high",
+      "point": "sweeper",
+      "waypoint": "c04-r02",
+      "label": "before",
+      "original_case": "street-shared-authored-edge98-final-high40-v1",
+      "original_png": "bg55-cell026-A0.png",
+      "original_raw_sha256": "7037c1ee9dc65b46cf3a871e7390f58ef1eba543c9ae110750a59bbe59168a8d",
+      "image": "BG-56-high-sweeper-before.png",
+      "image_sha256": "1751fee9e4aa98e1de1a952369f97302d99abde9c392dd141cac03916c0e7f4f",
+      "crop": "BG-56-high-sweeper-before-crop.png",
+      "crop_sha256": "45a1f16196ea52d87b1891da5d332d06030d5086b397369fd4baffaf35579806",
+      "crop_box_pixels": [
+        395,
+        212,
+        572,
+        538
+      ],
+      "unscaled_crop_pixels_verified": true,
+      "player": {
+        "below_mean": 5.60061547186997e-05,
+        "below_screen_rect": [
+          573,
+          504,
+          185,
+          24
+        ],
+        "contrast": 2.98525011912226,
+        "edge_contrast": 2.59511192828654,
+        "edge_mean": 0.0521035869606175,
+        "edge_screen_rect": [
+          573,
+          474,
+          185,
+          12
+        ],
+        "feet": [
+          1400.0,
+          319.984375
+        ],
+        "outer_screen_rect": [
+          554,
+          174,
+          223,
+          362
+        ],
+        "parts": {
+          "body": 0.0127175109863281,
+          "bright": 2.98525011912226,
+          "dark": 0.42184629708743,
+          "inner": 0.205523876953125,
+          "outer": 0.0365896418573587
+        },
+        "screen_rect": [
+          631,
+          251,
+          70,
+          208
+        ]
+      },
+      "enemies": [
+        {
+          "aux_full_visual_parts": {
+            "body": 0.0138759094238281,
+            "bright": 0.670594297633254,
+            "dark": 0.0573640605143063,
+            "inner": 0.0400368591308594,
+            "outer": 0.0159374261099264
+          },
+          "contrast": 0.417115349693079,
+          "facing": -1,
+          "feet": [
+            1352.0,
+            320.0
+          ],
+          "fill": 1.42668668617269,
+          "ground_support": {
+            "feet": [
+              1352.0,
+              320.0
+            ],
+            "floor": [
+              1352.0,
+              320.0
+            ],
+            "found": true,
+            "gap": 0.0,
+            "normal": [
+              0.0,
+              -1.0
+            ],
+            "on_floor_cache": false,
+            "safe_margin": 0.0799999982118607
+          },
+          "id": "sweeper",
+          "instance": 888856908442,
+          "light_cap": 0.608,
+          "outer_screen_rect": [
+            369,
+            228,
+            224,
+            308
+          ],
+          "parts": {
+            "body": 0.0141833343505859,
+            "bright": 0.417115349693079,
+            "dark": 0.154644333511562,
+            "inner": 0.037303369140625,
+            "outer": 0.0204366300548758
+          },
+          "passed": false,
+          "screen_rect": [
+            446,
+            305,
+            70,
+            154
+          ],
+          "skin": "sweeper",
+          "uses_gravity": true,
+          "visual_world_bounds": "[P: (1343.583, 263.8265), S: (17.9165, 58.67352)]",
+          "visual_world_bounds_values": [
+            1343.58349609375,
+            263.826477050781,
+            17.91650390625,
+            58.6735229492188
+          ]
+        }
+      ]
+    },
+    {
+      "quality": "high",
+      "point": "sweeper",
+      "waypoint": "c04-r02",
+      "label": "after",
+      "original_case": "street-shared-authored-edge98-final-high40-v1",
+      "original_png": "bg55-cell026-product.png",
+      "original_raw_sha256": "137f26115c552518a5a3c91659a3648f27e05639700a1a09c84a7ab2f920710d",
+      "image": "BG-56-high-sweeper-after.png",
+      "image_sha256": "0e38a14bc209e56db2fbd72d1668625c30cb63075642cde18c501f8590595a51",
+      "crop": "BG-56-high-sweeper-after-crop.png",
+      "crop_sha256": "605bb0bfcbb2e8f76a0e5de163b59e32ef190cad823f7642c3633149eea36b64",
+      "crop_box_pixels": [
+        395,
+        212,
+        572,
+        538
+      ],
+      "unscaled_crop_pixels_verified": true,
+      "player": {
+        "below_mean": 5.60061547186997e-05,
+        "below_screen_rect": [
+          573,
+          504,
+          185,
+          24
+        ],
+        "contrast": 2.98525011912226,
+        "edge_contrast": 2.59511192828654,
+        "edge_mean": 0.0521035869606175,
+        "edge_screen_rect": [
+          573,
+          474,
+          185,
+          12
+        ],
+        "feet": [
+          1400.0,
+          319.984375
+        ],
+        "outer_screen_rect": [
+          554,
+          174,
+          223,
+          362
+        ],
+        "parts": {
+          "body": 0.0127175109863281,
+          "bright": 2.98525011912226,
+          "dark": 0.42184629708743,
+          "inner": 0.205523876953125,
+          "outer": 0.0365896418573587
+        },
+        "screen_rect": [
+          631,
+          251,
+          70,
+          208
+        ]
+      },
+      "enemies": [
+        {
+          "aux_full_visual_parts": {
+            "body": 0.0158897857666016,
+            "bright": 2.19106360955463,
+            "dark": 0.0013256522937115,
+            "inner": 0.09467861328125,
+            "outer": 0.0159374262982039
+          },
+          "contrast": 1.62778718712217,
+          "facing": -1,
+          "feet": [
+            1352.0,
+            320.0
+          ],
+          "fill": 2.37781114362115,
+          "ground_support": {
+            "feet": [
+              1352.0,
+              320.0
+            ],
+            "floor": [
+              1352.0,
+              320.0
+            ],
+            "found": true,
+            "gap": 0.0,
+            "normal": [
+              0.0,
+              -1.0
+            ],
+            "on_floor_cache": false,
+            "safe_margin": 0.0799999982118607
+          },
+          "id": "sweeper",
+          "instance": 888856908442,
+          "light_cap": 0.608,
+          "outer_screen_rect": [
+            369,
+            228,
+            224,
+            308
+          ],
+          "parts": {
+            "body": 0.0163363952636719,
+            "bright": 1.62778718712217,
+            "dark": 0.132725634176396,
+            "inner": 0.0900970092773438,
+            "outer": 0.0218972319436251
+          },
+          "passed": true,
+          "screen_rect": [
+            446,
+            305,
+            70,
+            154
+          ],
+          "skin": "sweeper",
+          "uses_gravity": true,
+          "visual_world_bounds": "[P: (1343.583, 263.8265), S: (17.9165, 58.67352)]",
+          "visual_world_bounds_values": [
+            1343.58349609375,
+            263.826477050781,
+            17.91650390625,
+            58.6735229492188
+          ]
+        }
+      ]
+    },
+    {
+      "quality": "high",
+      "point": "drone",
+      "waypoint": "enemy-872398458943",
+      "label": "before",
+      "original_case": "street-shared-authored-edge98-final-high40-v1",
+      "original_png": "bg55-cell039-A0.png",
+      "original_raw_sha256": "c3cf593f998b98b4fde80fbf818a01e3de7786db14e5dea7190533bd5d121609",
+      "image": "BG-56-high-drone-before.png",
+      "image_sha256": "18dd5c75e5b59e0ed60bc730cfe133ad5830a7789ed43c98153078686fa63389",
+      "crop": "BG-56-high-drone-before-crop.png",
+      "crop_sha256": "5aac30e089bd4b2328deb77dbb78e18b984d960536a87239a1554d3fc9ba9296",
+      "crop_box_pixels": [
+        528,
+        331,
+        752,
+        520
+      ],
+      "unscaled_crop_pixels_verified": true,
+      "player": null,
+      "enemies": [
+        {
+          "aux_full_visual_parts": {
+            "body": 0.0,
+            "bright": 0.0771745947176269,
+            "dark": 0.177198558740615,
+            "inner": 0.00618309936523437,
+            "outer": 0.00430720098081971
+          },
+          "contrast": 0.242367440345396,
+          "facing": -1,
+          "feet": [
+            2984.0,
+            192.0
+          ],
+          "fill": null,
+          "ground_support": {
+            "feet": [
+              2984.0,
+              192.0
+            ],
+            "found": false
+          },
+          "id": "drone",
+          "instance": 872398458943,
+          "light_cap": null,
+          "outer_screen_rect": [
+            528,
+            229,
+            224,
+            308
+          ],
+          "parts": {
+            "body": 0.0,
+            "bright": -0.23168025779727,
+            "dark": 0.242367440345396,
+            "inner": 0.0002821204662323,
+            "outer": 0.00639802070956109
+          },
+          "passed": false,
+          "screen_rect": [
+            605,
+            306,
+            70,
+            154
+          ],
+          "skin": "",
+          "uses_gravity": false,
+          "visual_world_bounds": "[P: (2969.0, 166.5), S: (30.0, 23.0)]",
+          "visual_world_bounds_values": [
+            2969.0,
+            166.5,
+            30.0,
+            23.0
+          ]
+        }
+      ]
+    },
+    {
+      "quality": "high",
+      "point": "drone",
+      "waypoint": "enemy-872398458943",
+      "label": "after",
+      "original_case": "street-shared-authored-edge98-final-high40-v1",
+      "original_png": "bg55-cell039-product.png",
+      "original_raw_sha256": "e9e4c0fd76c468b55ab1cb59ada1688f94cb6bf595ffd38c5f8f8864f7e1fba1",
+      "image": "BG-56-high-drone-after.png",
+      "image_sha256": "5cb396296616527b4d2a776e07601fc2ece99deca69f849179be775dfd34fded",
+      "crop": "BG-56-high-drone-after-crop.png",
+      "crop_sha256": "b91cdedbbdacc136bf4651e798ffb0a7d553af2222e73640497e77fa8775f46b",
+      "crop_box_pixels": [
+        528,
+        331,
+        752,
+        520
+      ],
+      "unscaled_crop_pixels_verified": true,
+      "player": null,
+      "enemies": [
+        {
+          "aux_full_visual_parts": {
+            "body": 0.0,
+            "bright": 1.71043457585239,
+            "dark": 0.17735025823232,
+            "inner": 0.0458952270507813,
+            "outer": 0.00431168331375724
+          },
+          "contrast": 0.656659490682009,
+          "facing": -1,
+          "feet": [
+            2984.0,
+            192.0
+          ],
+          "fill": null,
+          "ground_support": {
+            "feet": [
+              2984.0,
+              192.0
+            ],
+            "found": false
+          },
+          "id": "drone",
+          "instance": 872398458943,
+          "light_cap": null,
+          "outer_screen_rect": [
+            528,
+            229,
+            224,
+            308
+          ],
+          "parts": {
+            "body": 0.0,
+            "bright": 0.656659490682009,
+            "dark": 0.248415224501349,
+            "inner": 0.0240844345092773,
+            "outer": 0.00661043790666288
+          },
+          "passed": true,
+          "screen_rect": [
+            605,
+            306,
+            70,
+            154
+          ],
+          "skin": "",
+          "uses_gravity": false,
+          "visual_world_bounds": "[P: (2969.0, 166.5), S: (30.0, 23.0)]",
+          "visual_world_bounds_values": [
+            2969.0,
+            166.5,
+            30.0,
+            23.0
+          ]
+        }
+      ]
+    },
+    {
+      "quality": "high",
+      "point": "platform98",
+      "waypoint": "platform-98-16",
+      "label": "before",
+      "original_case": "street-shared-authored-edge98-final-high40-v1",
+      "original_png": "bg55-cell038-A0.png",
+      "original_raw_sha256": "b3f89c3007e544b6a716c99752352cec86aad77c44bdf77cfbf057925f00a4aa",
+      "image": "BG-56-high-platform98-before.png",
+      "image_sha256": "a3961faff7130a80929cafde3dc17e4ddfd564b50f5df1eee466428697461247",
+      "crop": "BG-56-high-platform98-before-crop.png",
+      "crop_sha256": "a5867a7b9cc54ff2abaafcd1fa1645dc18118947884dd0a60ff81a3d7ac9c03f",
+      "crop_box_pixels": [
+        455,
+        363,
+        825,
+        695
+      ],
+      "unscaled_crop_pixels_verified": true,
+      "player": {
+        "below_mean": 0.0834710132937705,
+        "below_screen_rect": [
+          547,
+          640,
+          186,
+          24
+        ],
+        "contrast": 4.18017697044218,
+        "edge_contrast": 0.00832382508460464,
+        "edge_mean": 0.0843322879097547,
+        "edge_screen_rect": [
+          547,
+          609,
+          186,
+          13
+        ],
+        "feet": [
+          1624.0,
+          255.984375
+        ],
+        "outer_screen_rect": [
+          528,
+          310,
+          224,
+          361
+        ],
+        "parts": {
+          "body": 0.0103058990478516,
+          "bright": 4.18017697044218,
+          "dark": 0.494399095202177,
+          "inner": 0.29050166015625,
+          "outer": 0.0399403576225207
+        },
+        "screen_rect": [
+          605,
+          386,
+          70,
+          209
+        ]
+      },
+      "enemies": [
+        {
+          "aux_full_visual_parts": {
+            "body": 0.0,
+            "bright": 4.0206053946231,
+            "dark": 0.0205844161513176,
+            "inner": 0.0825224731445312,
+            "outer": 0.000420340792831367
+          },
+          "contrast": 2.30333187857727,
+          "facing": -1,
+          "feet": [
+            1672.0,
+            160.0
+          ],
+          "fill": null,
+          "ground_support": {
+            "feet": [
+              1672.0,
+              160.0
+            ],
+            "found": false
+          },
+          "id": "drone",
+          "instance": 858506924237,
+          "light_cap": null,
+          "outer_screen_rect": [
+            712,
+            0,
+            224,
+            303
+          ],
+          "parts": {
+            "body": 0.0,
+            "bright": 2.30333187857727,
+            "dark": 0.149133219941476,
+            "inner": 0.0576462768554687,
+            "outer": 0.00350544229570741
+          },
+          "passed": true,
+          "screen_rect": [
+            789,
+            72,
+            70,
+            154
+          ],
+          "skin": "",
+          "uses_gravity": false,
+          "visual_world_bounds": "[P: (1657.0, 134.5), S: (30.0, 23.0)]",
+          "visual_world_bounds_values": [
+            1657.0,
+            134.5,
+            30.0,
+            23.0
+          ]
+        }
+      ]
+    },
+    {
+      "quality": "high",
+      "point": "platform98",
+      "waypoint": "platform-98-16",
+      "label": "after",
+      "original_case": "street-shared-authored-edge98-final-high40-v1",
+      "original_png": "bg55-cell038-product.png",
+      "original_raw_sha256": "ff363e198940ee46213218d38110163af1351bc9e4212080cdd2c47729d8ed13",
+      "image": "BG-56-high-platform98-after.png",
+      "image_sha256": "047e28b132e4de63d5998f6523348a2c50ae7096374e4268f1b1bbb33d11a0e3",
+      "crop": "BG-56-high-platform98-after-crop.png",
+      "crop_sha256": "b107f58f1ef2094de8ace40b855f2d9b8ef5f8191dd9f311176e0f3c46e1f00d",
+      "crop_box_pixels": [
+        455,
+        363,
+        825,
+        695
+      ],
+      "unscaled_crop_pixels_verified": true,
+      "player": {
+        "below_mean": 0.0835741232201188,
+        "below_screen_rect": [
+          547,
+          640,
+          186,
+          24
+        ],
+        "contrast": 3.41187539680665,
+        "edge_contrast": 1.66893728951031,
+        "edge_mean": 0.256432839690511,
+        "edge_screen_rect": [
+          547,
+          609,
+          186,
+          13
+        ],
+        "feet": [
+          1624.0,
+          255.984375
+        ],
+        "outer_screen_rect": [
+          528,
+          310,
+          224,
+          361
+        ],
+        "parts": {
+          "body": 0.0103986877441406,
+          "bright": 3.41187539680665,
+          "dark": 0.568069225504003,
+          "inner": 0.29050166015625,
+          "outer": 0.0503786105067685
+        },
+        "screen_rect": [
+          605,
+          386,
+          70,
+          209
+        ]
+      },
+      "enemies": [
+        {
+          "aux_full_visual_parts": {
+            "body": 0.0,
+            "bright": 4.0206053946231,
+            "dark": 0.0205844161513176,
+            "inner": 0.0825224731445312,
+            "outer": 0.000420340792831367
+          },
+          "contrast": 2.30333187857727,
+          "facing": -1,
+          "feet": [
+            1672.0,
+            160.0
+          ],
+          "fill": null,
+          "ground_support": {
+            "feet": [
+              1672.0,
+              160.0
+            ],
+            "found": false
+          },
+          "id": "drone",
+          "instance": 858506924237,
+          "light_cap": null,
+          "outer_screen_rect": [
+            712,
+            0,
+            224,
+            303
+          ],
+          "parts": {
+            "body": 0.0,
+            "bright": 2.30333187857727,
+            "dark": 0.149133219941476,
+            "inner": 0.0576462768554687,
+            "outer": 0.00350544229570741
+          },
+          "passed": true,
+          "screen_rect": [
+            789,
+            72,
+            70,
+            154
+          ],
+          "skin": "",
+          "uses_gravity": false,
+          "visual_world_bounds": "[P: (1657.0, 134.5), S: (30.0, 23.0)]",
+          "visual_world_bounds_values": [
+            1657.0,
+            134.5,
+            30.0,
+            23.0
+          ]
+        }
+      ]
+    },
+    {
+      "quality": "high",
+      "point": "platform175",
+      "waypoint": "platform-175-15",
+      "label": "before",
+      "original_case": "street-shared-authored-edge98-final-high40-v1",
+      "original_png": "bg55-cell036-A0.png",
+      "original_raw_sha256": "69ac93479ae74ababa4351fc32a1622467f9f8c8f4de8db185ab7f48527018a8",
+      "image": "BG-56-high-platform175-before.png",
+      "image_sha256": "dcade2198321326eaa239f45dd8cc573404c5138d154d1c73cd615d8b416a554",
+      "crop": "BG-56-high-platform175-before-crop.png",
+      "crop_sha256": "b32e673456205ec6de732d00dce48a0f513ff1750822b2e725d4921739095931",
+      "crop_box_pixels": [
+        678,
+        340,
+        854,
+        673
+      ],
+      "unscaled_crop_pixels_verified": true,
+      "player": {
+        "below_mean": 0.0122074251267965,
+        "below_screen_rect": [
+          547,
+          640,
+          186,
+          24
+        ],
+        "contrast": 4.88241528580561,
+        "edge_contrast": 1.65711764515724,
+        "edge_mean": 0.0655789176094917,
+        "edge_screen_rect": [
+          547,
+          609,
+          186,
+          13
+        ],
+        "feet": [
+          2808.0,
+          239.984375
+        ],
+        "outer_screen_rect": [
+          528,
+          310,
+          224,
+          361
+        ],
+        "parts": {
+          "body": 0.021461213684082,
+          "bright": 4.88241528580561,
+          "dark": 0.332495018359095,
+          "inner": 0.345378662109375,
+          "outer": 0.0421137142409923
+        },
+        "screen_rect": [
+          605,
+          386,
+          70,
+          209
+        ]
+      },
+      "enemies": [
+        {
+          "aux_full_visual_parts": {
+            "body": 0.0294916076660156,
+            "bright": -0.329292217339269,
+            "dark": 0.792878986829966,
+            "inner": 0.140265759277344,
+            "outer": 0.21895020069927
+          },
+          "contrast": 0.817833979067368,
+          "facing": -1,
+          "feet": [
+            2840.0,
+            240.0
+          ],
+          "fill": 1.41956482066252,
+          "ground_support": {
+            "feet": [
+              2840.0,
+              240.0
+            ],
+            "floor": [
+              2840.0,
+              240.0
+            ],
+            "found": true,
+            "gap": 0.0,
+            "normal": [
+              0.0,
+              -1.0
+            ],
+            "on_floor_cache": false,
+            "safe_margin": 0.0799999982118607
+          },
+          "id": "collector_gunner",
+          "instance": 882783555297,
+          "light_cap": 0.60902332361516,
+          "outer_screen_rect": [
+            651,
+            363,
+            224,
+            309
+          ],
+          "parts": {
+            "body": 0.02856767578125,
+            "bright": -0.499853025647649,
+            "dark": 0.817833979067368,
+            "inner": 0.113345263671875,
+            "outer": 0.246612157045529
+          },
+          "passed": true,
+          "screen_rect": [
+            728,
+            440,
+            70,
+            155
+          ],
+          "skin": "collector_gunner",
+          "uses_gravity": true,
+          "visual_world_bounds": "[P: (2832.118, 181.9025), S: (17.38208, 60.5975)]",
+          "visual_world_bounds_values": [
+            2832.11791992188,
+            181.902496337891,
+            17.382080078125,
+            60.5975036621094
+          ]
+        }
+      ]
+    },
+    {
+      "quality": "high",
+      "point": "platform175",
+      "waypoint": "platform-175-15",
+      "label": "after",
+      "original_case": "street-shared-authored-edge98-final-high40-v1",
+      "original_png": "bg55-cell036-product.png",
+      "original_raw_sha256": "4ae340b9ee5315fa18b741ebe21efb4d078992f151fe3872a2d21991d8f1050d",
+      "image": "BG-56-high-platform175-after.png",
+      "image_sha256": "597fe7b9bdfb29e7a4e259c89883be6582a6522fab1a29a4c78cd3aec983f6b5",
+      "crop": "BG-56-high-platform175-after-crop.png",
+      "crop_sha256": "0cba9f62faa4d2b93cb25fa8e379b85b753be556051fcc031367025fff320f70",
+      "crop_box_pixels": [
+        678,
+        340,
+        854,
+        673
+      ],
+      "unscaled_crop_pixels_verified": true,
+      "player": {
+        "below_mean": 0.0122074251267965,
+        "below_screen_rect": [
+          547,
+          640,
+          186,
+          24
+        ],
+        "contrast": 4.72083892099331,
+        "edge_contrast": 1.65711764515724,
+        "edge_mean": 0.0655789176094917,
+        "edge_screen_rect": [
+          547,
+          609,
+          186,
+          13
+        ],
+        "feet": [
+          2808.0,
+          239.984375
+        ],
+        "outer_screen_rect": [
+          528,
+          310,
+          224,
+          361
+        ],
+        "parts": {
+          "body": 0.021461213684082,
+          "bright": 4.72083892099331,
+          "dark": 0.350829838868603,
+          "inner": 0.345378662109375,
+          "outer": 0.0438680213086534
+        },
+        "screen_rect": [
+          605,
+          386,
+          70,
+          209
+        ]
+      },
+      "enemies": [
+        {
+          "aux_full_visual_parts": {
+            "body": 0.0341997619628906,
+            "bright": -0.0628982371992672,
+            "dark": 0.773175490942134,
+            "inner": 0.203920654296875,
+            "outer": 0.21895020069927
+          },
+          "contrast": 0.806915240742834,
+          "facing": -1,
+          "feet": [
+            2840.0,
+            240.0
+          ],
+          "fill": 2.34058619121679,
+          "ground_support": {
+            "feet": [
+              2840.0,
+              240.0
+            ],
+            "floor": [
+              2840.0,
+              240.0
+            ],
+            "found": true,
+            "gap": 0.0,
+            "normal": [
+              0.0,
+              -1.0
+            ],
+            "on_floor_cache": false,
+            "safe_margin": 0.0799999982118607
+          },
+          "id": "collector_gunner",
+          "instance": 882783555297,
+          "light_cap": 0.60902332361516,
+          "outer_screen_rect": [
+            651,
+            363,
+            224,
+            309
+          ],
+          "parts": {
+            "body": 0.0321479736328125,
+            "bright": -0.344412744116576,
+            "dark": 0.806915240742834,
+            "inner": 0.157059790039062,
+            "outer": 0.250078145128781
+          },
+          "passed": true,
+          "screen_rect": [
+            728,
+            440,
+            70,
+            155
+          ],
+          "skin": "collector_gunner",
+          "uses_gravity": true,
+          "visual_world_bounds": "[P: (2832.118, 181.9025), S: (17.38208, 60.5975)]",
+          "visual_world_bounds_values": [
+            2832.11791992188,
+            181.902496337891,
+            17.382080078125,
+            60.5975036621094
+          ]
+        }
+      ]
+    },
+    {
+      "quality": "low",
+      "point": "brute-platform",
+      "waypoint": "c06-r01",
+      "label": "before",
+      "original_case": "street-shared-authored-edge98-final-low40-v1",
+      "original_png": "bg55-cell017-A0.png",
+      "original_raw_sha256": "abec7a907d22fea004d91e70b7292521f63731abd9ac302b9cc3c393c40b1908",
+      "image": "BG-56-low-brute-platform-before.png",
+      "image_sha256": "21ae9f670e34463739fd597b22a7e05199db60344b21b792d078c8e933d0141d",
+      "crop": "BG-56-low-brute-platform-before-crop.png",
+      "crop_sha256": "a03a7410e24daab9b90377c4ba4bd22a8d7e085467c502a28b88800900d2dc58",
+      "crop_box_pixels": [
+        1044,
+        281,
+        1228,
+        622
+      ],
+      "unscaled_crop_pixels_verified": true,
+      "player": {
+        "below_mean": 0.0660157575680792,
+        "below_screen_rect": [
+          552,
+          351,
+          186,
+          24
+        ],
+        "contrast": 1.88634990107617,
+        "edge_contrast": 0.237573080437359,
+        "edge_mean": 0.0864507860596809,
+        "edge_screen_rect": [
+          552,
+          320,
+          186,
+          13
+        ],
+        "feet": [
+          2008.0,
+          255.984375
+        ],
+        "outer_screen_rect": [
+          533,
+          21,
+          224,
+          362
+        ],
+        "parts": {
+          "body": 0.0435106384277344,
+          "bright": 1.88634990107617,
+          "dark": 0.490941581689172,
+          "inner": 0.34010390625,
+          "outer": 0.104761002162536
+        },
+        "screen_rect": [
+          610,
+          97,
+          70,
+          209
+        ]
+      },
+      "enemies": [
+        {
+          "aux_full_visual_parts": {
+            "body": 0.00915469055175781,
+            "bright": 0.443917822609434,
+            "dark": 0.0912454756557134,
+            "inner": 0.0263238159179688,
+            "outer": 0.0120820307032798
+          },
+          "contrast": 0.300594239139094,
+          "facing": -1,
+          "feet": [
+            2136.0,
+            320.0
+          ],
+          "fill": 1.42668668617269,
+          "ground_support": {
+            "feet": [
+              2136.0,
+              320.0
+            ],
+            "floor": [
+              2136.0,
+              320.0
+            ],
+            "found": true,
+            "gap": 0.0,
+            "normal": [
+              0.0,
+              -1.0
+            ],
+            "on_floor_cache": false,
+            "safe_margin": 0.0799999982118607
+          },
+          "id": "collector_brute",
+          "instance": 896943526862,
+          "light_cap": 0.608,
+          "outer_screen_rect": [
+            1025,
+            320,
+            223,
+            308
+          ],
+          "parts": {
+            "body": 0.0089951171875,
+            "bright": 0.300594239139094,
+            "dark": 0.110723993128715,
+            "inner": 0.0224062744140625,
+            "outer": 0.0126053069727055
+          },
+          "passed": false,
+          "screen_rect": [
+            1102,
+            397,
+            70,
+            155
+          ],
+          "skin": "collector_brute",
+          "uses_gravity": true,
+          "visual_world_bounds": "[P: (2125.91, 257.8328), S: (19.7644, 62.49701)]",
+          "visual_world_bounds_values": [
+            2125.90966796875,
+            257.832824707031,
+            19.764404296875,
+            62.4970092773438
+          ]
+        }
+      ]
+    },
+    {
+      "quality": "low",
+      "point": "brute-platform",
+      "waypoint": "c06-r01",
+      "label": "after",
+      "original_case": "street-shared-authored-edge98-final-low40-v1",
+      "original_png": "bg55-cell017-product.png",
+      "original_raw_sha256": "c5bc39411725c5f24912a4fb5da0450e488ccfcf8be34bd78597a544200ea8fc",
+      "image": "BG-56-low-brute-platform-after.png",
+      "image_sha256": "4e641b48a1549750984536e9baec027d3b4bfa379c97bb622fec7be56c7c7a3d",
+      "crop": "BG-56-low-brute-platform-after-crop.png",
+      "crop_sha256": "3961c6fc9e0473877e0c5621394495acf2f7d15ff8150fe9da8758f43d5fd780",
+      "crop_box_pixels": [
+        1044,
+        281,
+        1228,
+        622
+      ],
+      "unscaled_crop_pixels_verified": true,
+      "player": {
+        "below_mean": 0.0660247193494791,
+        "below_screen_rect": [
+          552,
+          351,
+          186,
+          24
+        ],
+        "contrast": 1.77734802582708,
+        "edge_contrast": 1.2194301730628,
+        "edge_mean": 0.170925857753494,
+        "edge_screen_rect": [
+          552,
+          320,
+          186,
+          13
+        ],
+        "feet": [
+          2008.0,
+          255.984375
+        ],
+        "outer_screen_rect": [
+          533,
+          21,
+          224,
+          362
+        ],
+        "parts": {
+          "body": 0.0435106384277344,
+          "bright": 1.77734802582708,
+          "dark": 0.51016597377917,
+          "inner": 0.34010390625,
+          "outer": 0.109657465647562
+        },
+        "screen_rect": [
+          610,
+          97,
+          70,
+          209
+        ]
+      },
+      "enemies": [
+        {
+          "aux_full_visual_parts": {
+            "body": 0.0137976654052734,
+            "bright": 0.849641986348063,
+            "dark": -0.0534764995975886,
+            "inner": 0.0393402709960938,
+            "outer": 0.0120820307032797
+          },
+          "contrast": 0.537160341784745,
+          "facing": -1,
+          "feet": [
+            2136.0,
+            320.0
+          ],
+          "fill": 2.37781114362115,
+          "ground_support": {
+            "feet": [
+              2136.0,
+              320.0
+            ],
+            "floor": [
+              2136.0,
+              320.0
+            ],
+            "found": true,
+            "gap": 0.0,
+            "normal": [
+              0.0,
+              -1.0
+            ],
+            "on_floor_cache": false,
+            "safe_margin": 0.0799999982118607
+          },
+          "id": "collector_brute",
+          "instance": 896943526862,
+          "light_cap": 0.608,
+          "outer_screen_rect": [
+            1025,
+            320,
+            223,
+            308
+          ],
+          "parts": {
+            "body": 0.0142174377441406,
+            "bright": 0.537160341784745,
+            "dark": -0.0108435770145497,
+            "inner": 0.0320334594726562,
+            "outer": 0.0138503785572831
+          },
+          "passed": true,
+          "screen_rect": [
+            1102,
+            397,
+            70,
+            155
+          ],
+          "skin": "collector_brute",
+          "uses_gravity": true,
+          "visual_world_bounds": "[P: (2125.91, 257.8328), S: (19.7644, 62.49701)]",
+          "visual_world_bounds_values": [
+            2125.90966796875,
+            257.832824707031,
+            19.764404296875,
+            62.4970092773438
+          ]
+        }
+      ]
+    },
+    {
+      "quality": "low",
+      "point": "sweeper",
+      "waypoint": "c04-r02",
+      "label": "before",
+      "original_case": "street-shared-authored-edge98-final-low40-v1",
+      "original_png": "bg55-cell026-A0.png",
+      "original_raw_sha256": "a22297cdebf49bec29f49cb57435b3860d58715ad324efc435a79c25b799957a",
+      "image": "BG-56-low-sweeper-before.png",
+      "image_sha256": "c4deb88b65c520e28ec1cb6bcb684ceb0e265fdeee75ee8d60a8588ac9f18b9e",
+      "crop": "BG-56-low-sweeper-before-crop.png",
+      "crop_sha256": "57a736dd0ec22fe2f327a00f10ada32f110819e2ec7d936623937a5827b311db",
+      "crop_box_pixels": [
+        395,
+        212,
+        572,
+        538
+      ],
+      "unscaled_crop_pixels_verified": true,
+      "player": {
+        "below_mean": 5.83275444040427e-05,
+        "below_screen_rect": [
+          573,
+          504,
+          185,
+          24
+        ],
+        "contrast": 2.97419463273192,
+        "edge_contrast": 2.59630136484018,
+        "edge_mean": 0.0521357907243517,
+        "edge_screen_rect": [
+          573,
+          474,
+          185,
+          12
+        ],
+        "feet": [
+          1400.0,
+          319.984375
+        ],
+        "outer_screen_rect": [
+          554,
+          174,
+          223,
+          362
+        ],
+        "parts": {
+          "body": 0.0127599182128906,
+          "bright": 2.97419463273192,
+          "dark": 0.422899519284617,
+          "inner": 0.205600732421875,
+          "outer": 0.0367664025721845
+        },
+        "screen_rect": [
+          631,
+          251,
+          70,
+          208
+        ]
+      },
+      "enemies": [
+        {
+          "aux_full_visual_parts": {
+            "body": 0.0144683868408203,
+            "bright": 0.656626538426911,
+            "dark": 0.0461052371381488,
+            "inner": 0.0398611572265625,
+            "outer": 0.016134370564536
+          },
+          "contrast": 0.41193443594835,
+          "facing": -1,
+          "feet": [
+            1352.0,
+            320.0
+          ],
+          "fill": 1.42668668617269,
+          "ground_support": {
+            "feet": [
+              1352.0,
+              320.0
+            ],
+            "floor": [
+              1352.0,
+              320.0
+            ],
+            "found": true,
+            "gap": 0.0,
+            "normal": [
+              0.0,
+              -1.0
+            ],
+            "on_floor_cache": false,
+            "safe_margin": 0.0799999982118607
+          },
+          "id": "sweeper",
+          "instance": 888789799576,
+          "light_cap": 0.608,
+          "outer_screen_rect": [
+            369,
+            228,
+            224,
+            308
+          ],
+          "parts": {
+            "body": 0.0146863250732422,
+            "bright": 0.41193443594835,
+            "dark": 0.143372783603607,
+            "inner": 0.0371716796875,
+            "outer": 0.02049173830731
+          },
+          "passed": false,
+          "screen_rect": [
+            446,
+            305,
+            70,
+            154
+          ],
+          "skin": "sweeper",
+          "uses_gravity": true,
+          "visual_world_bounds": "[P: (1343.583, 263.8265), S: (17.9165, 58.67352)]",
+          "visual_world_bounds_values": [
+            1343.58349609375,
+            263.826477050781,
+            17.91650390625,
+            58.6735229492188
+          ]
+        }
+      ]
+    },
+    {
+      "quality": "low",
+      "point": "sweeper",
+      "waypoint": "c04-r02",
+      "label": "after",
+      "original_case": "street-shared-authored-edge98-final-low40-v1",
+      "original_png": "bg55-cell026-product.png",
+      "original_raw_sha256": "ab986c94d5810d48eb748a619e41c1b0631e875487e5e050a245df38fe34eff9",
+      "image": "BG-56-low-sweeper-after.png",
+      "image_sha256": "f644d2f15e8b71de611a4568530dc825d9cdba6cae483bc93c5fcf7cc3f92d16",
+      "crop": "BG-56-low-sweeper-after-crop.png",
+      "crop_sha256": "04ceb9378f074339fabe8a4881bc9700d3eed538b4852df25395088b3cf237c5",
+      "crop_box_pixels": [
+        395,
+        212,
+        572,
+        538
+      ],
+      "unscaled_crop_pixels_verified": true,
+      "player": {
+        "below_mean": 5.83275444040427e-05,
+        "below_screen_rect": [
+          573,
+          504,
+          185,
+          24
+        ],
+        "contrast": 2.97419463273192,
+        "edge_contrast": 2.59630136484018,
+        "edge_mean": 0.0521357907243517,
+        "edge_screen_rect": [
+          573,
+          474,
+          185,
+          12
+        ],
+        "feet": [
+          1400.0,
+          319.984375
+        ],
+        "outer_screen_rect": [
+          554,
+          174,
+          223,
+          362
+        ],
+        "parts": {
+          "body": 0.0127599182128906,
+          "bright": 2.97419463273192,
+          "dark": 0.422899519284617,
+          "inner": 0.205600732421875,
+          "outer": 0.0367664025721845
+        },
+        "screen_rect": [
+          631,
+          251,
+          70,
+          208
+        ]
+      },
+      "enemies": [
+        {
+          "aux_full_visual_parts": {
+            "body": 0.0168432250976563,
+            "bright": 2.16845932043138,
+            "dark": -0.0196171822573839,
+            "inner": 0.094490283203125,
+            "outer": 0.0161343705645359
+          },
+          "contrast": 1.62295936241633,
+          "facing": -1,
+          "feet": [
+            1352.0,
+            320.0
+          ],
+          "fill": 2.37781114362115,
+          "ground_support": {
+            "feet": [
+              1352.0,
+              320.0
+            ],
+            "floor": [
+              1352.0,
+              320.0
+            ],
+            "found": true,
+            "gap": 0.0,
+            "normal": [
+              0.0,
+              -1.0
+            ],
+            "on_floor_cache": false,
+            "safe_margin": 0.0799999982118607
+          },
+          "id": "sweeper",
+          "instance": 888789799576,
+          "light_cap": 0.608,
+          "outer_screen_rect": [
+            369,
+            228,
+            224,
+            308
+          ],
+          "parts": {
+            "body": 0.0177937744140625,
+            "bright": 1.62295936241633,
+            "dark": 0.0989617180769668,
+            "inner": 0.0900192260742188,
+            "outer": 0.0219446933302339
+          },
+          "passed": true,
+          "screen_rect": [
+            446,
+            305,
+            70,
+            154
+          ],
+          "skin": "sweeper",
+          "uses_gravity": true,
+          "visual_world_bounds": "[P: (1343.583, 263.8265), S: (17.9165, 58.67352)]",
+          "visual_world_bounds_values": [
+            1343.58349609375,
+            263.826477050781,
+            17.91650390625,
+            58.6735229492188
+          ]
+        }
+      ]
+    },
+    {
+      "quality": "low",
+      "point": "drone",
+      "waypoint": "enemy-872331350077",
+      "label": "before",
+      "original_case": "street-shared-authored-edge98-final-low40-v1",
+      "original_png": "bg55-cell039-A0.png",
+      "original_raw_sha256": "176c9b8a54d26689bc901933353b0f188084be0abc56228af3ece68538c022c8",
+      "image": "BG-56-low-drone-before.png",
+      "image_sha256": "71d480a0e094d21510178eea197aff6930ac67d885c177e4cfd6bdc777a402e6",
+      "crop": "BG-56-low-drone-before-crop.png",
+      "crop_sha256": "ddfa926d4c7b02fda4c517a869cefb0fbf37cfcf4d15056d9bcf48bdbeab5b8e",
+      "crop_box_pixels": [
+        528,
+        331,
+        752,
+        520
+      ],
+      "unscaled_crop_pixels_verified": true,
+      "player": null,
+      "enemies": [
+        {
+          "aux_full_visual_parts": {
+            "body": 0.0,
+            "bright": 0.0646787785689928,
+            "dark": 0.179320864552099,
+            "inner": 0.00594628601074219,
+            "outer": 0.00437006027828968
+          },
+          "contrast": 0.243486498304186,
+          "facing": -1,
+          "feet": [
+            2984.0,
+            192.0
+          ],
+          "fill": null,
+          "ground_support": {
+            "feet": [
+              2984.0,
+              192.0
+            ],
+            "found": false
+          },
+          "id": "drone",
+          "instance": 872331350077,
+          "light_cap": null,
+          "outer_screen_rect": [
+            528,
+            229,
+            224,
+            308
+          ],
+          "parts": {
+            "body": 0.0,
+            "bright": -0.231891274710021,
+            "dark": 0.243486498304186,
+            "inner": 0.000306543731689453,
+            "outer": 0.00643706947089199
+          },
+          "passed": false,
+          "screen_rect": [
+            605,
+            306,
+            70,
+            154
+          ],
+          "skin": "",
+          "uses_gravity": false,
+          "visual_world_bounds": "[P: (2969.0, 166.5), S: (30.0, 23.0)]",
+          "visual_world_bounds_values": [
+            2969.0,
+            166.5,
+            30.0,
+            23.0
+          ]
+        }
+      ]
+    },
+    {
+      "quality": "low",
+      "point": "drone",
+      "waypoint": "enemy-872331350077",
+      "label": "after",
+      "original_case": "street-shared-authored-edge98-final-low40-v1",
+      "original_png": "bg55-cell039-product.png",
+      "original_raw_sha256": "aab76a1cee495a2d43fc173c60f033911718b846e9980ae61341a5cccac51b92",
+      "image": "BG-56-low-drone-after.png",
+      "image_sha256": "750e1da83d2bb58f538a94f560e9bbe9865f4173b7321f2a55878ad3d2df8e0c",
+      "crop": "BG-56-low-drone-after-crop.png",
+      "crop_sha256": "cad9f5dcd750662db67b7c86b5c4f92f86a360367c31baebc2ecfac902dae8f4",
+      "crop_box_pixels": [
+        528,
+        331,
+        752,
+        520
+      ],
+      "unscaled_crop_pixels_verified": true,
+      "player": null,
+      "enemies": [
+        {
+          "aux_full_visual_parts": {
+            "body": 0.0,
+            "bright": 1.63964297763138,
+            "dark": 0.179459220510973,
+            "inner": 0.0443391052246094,
+            "outer": 0.00437416945012111
+          },
+          "contrast": 0.629596576372744,
+          "facing": -1,
+          "feet": [
+            2984.0,
+            192.0
+          ],
+          "fill": null,
+          "ground_support": {
+            "feet": [
+              2984.0,
+              192.0
+            ],
+            "found": false
+          },
+          "id": "drone",
+          "instance": 872331350077,
+          "light_cap": null,
+          "outer_screen_rect": [
+            528,
+            229,
+            224,
+            308
+          ],
+          "parts": {
+            "body": 0.0,
+            "bright": 0.629596576372744,
+            "dark": 0.24910543345901,
+            "inner": 0.0234041381835937,
+            "outer": 0.00663489774886822
+          },
+          "passed": true,
+          "screen_rect": [
+            605,
+            306,
+            70,
+            154
+          ],
+          "skin": "",
+          "uses_gravity": false,
+          "visual_world_bounds": "[P: (2969.0, 166.5), S: (30.0, 23.0)]",
+          "visual_world_bounds_values": [
+            2969.0,
+            166.5,
+            30.0,
+            23.0
+          ]
+        }
+      ]
+    },
+    {
+      "quality": "low",
+      "point": "platform98",
+      "waypoint": "platform-98-16",
+      "label": "before",
+      "original_case": "street-shared-authored-edge98-final-low40-v1",
+      "original_png": "bg55-cell038-A0.png",
+      "original_raw_sha256": "395b00ee628dda0995490c0bef398398bdbc4d442ee232e11d619736ff346d4b",
+      "image": "BG-56-low-platform98-before.png",
+      "image_sha256": "579d314f6c5764e2e0f62e5ba0c1c11bf8311a4f862f0cb1950a5810b0f7eed5",
+      "crop": "BG-56-low-platform98-before-crop.png",
+      "crop_sha256": "d22bf0adb030be10336bfdbde8b570438dd91f3cbf9e52508ce65d090746144a",
+      "crop_box_pixels": [
+        455,
+        363,
+        825,
+        695
+      ],
+      "unscaled_crop_pixels_verified": true,
+      "player": {
+        "below_mean": 0.0915814717446178,
+        "below_screen_rect": [
+          547,
+          640,
+          186,
+          24
+        ],
+        "contrast": 4.17736860437229,
+        "edge_contrast": -0.0150875514887418,
+        "edge_mean": 0.0898979805444813,
+        "edge_screen_rect": [
+          547,
+          609,
+          186,
+          13
+        ],
+        "feet": [
+          1624.0,
+          255.984375
+        ],
+        "outer_screen_rect": [
+          528,
+          310,
+          224,
+          361
+        ],
+        "parts": {
+          "body": 0.0112543273925781,
+          "bright": 4.17736860437229,
+          "dark": 0.491628488489711,
+          "inner": 0.298301025390625,
+          "outer": 0.041479305360221
+        },
+        "screen_rect": [
+          605,
+          386,
+          70,
+          209
+        ]
+      },
+      "enemies": [
+        {
+          "aux_full_visual_parts": {
+            "body": 0.0,
+            "bright": 4.52883770809978,
+            "dark": 0.025976612233801,
+            "inner": 0.0935257690429687,
+            "outer": 0.000533387854133053
+          },
+          "contrast": 2.60693083509055,
+          "facing": -1,
+          "feet": [
+            1672.0,
+            160.0
+          ],
+          "fill": null,
+          "ground_support": {
+            "feet": [
+              1672.0,
+              160.0
+            ],
+            "found": false
+          },
+          "id": "drone",
+          "instance": 858439815371,
+          "light_cap": null,
+          "outer_screen_rect": [
+            712,
+            0,
+            224,
+            303
+          ],
+          "parts": {
+            "body": 0.0,
+            "bright": 2.60693083509055,
+            "dark": 0.151490190718524,
+            "inner": 0.0650180114746094,
+            "outer": 0.00357073516561482
+          },
+          "passed": true,
+          "screen_rect": [
+            789,
+            72,
+            70,
+            154
+          ],
+          "skin": "",
+          "uses_gravity": false,
+          "visual_world_bounds": "[P: (1657.0, 134.5), S: (30.0, 23.0)]",
+          "visual_world_bounds_values": [
+            1657.0,
+            134.5,
+            30.0,
+            23.0
+          ]
+        }
+      ]
+    },
+    {
+      "quality": "low",
+      "point": "platform98",
+      "waypoint": "platform-98-16",
+      "label": "after",
+      "original_case": "street-shared-authored-edge98-final-low40-v1",
+      "original_png": "bg55-cell038-product.png",
+      "original_raw_sha256": "a0a509b34a7b40612b5d2d6e2a8f35edc0c8741fd7cbbcd663e8e0653f65be23",
+      "image": "BG-56-low-platform98-after.png",
+      "image_sha256": "72d538f8197623a525c816f4767657a20ee3fe5d40dab875533f3838df0ea772",
+      "crop": "BG-56-low-platform98-after-crop.png",
+      "crop_sha256": "96d4df6184b5ea400fc2c67206ce06bb419d7b445b741d790b739b0dbbccd56f",
+      "crop_box_pixels": [
+        455,
+        363,
+        825,
+        695
+      ],
+      "unscaled_crop_pixels_verified": true,
+      "player": {
+        "below_mean": 0.0916892811567769,
+        "below_screen_rect": [
+          547,
+          640,
+          186,
+          24
+        ],
+        "contrast": 3.42547112967148,
+        "edge_contrast": 1.54210663372417,
+        "edge_mean": 0.263926062544527,
+        "edge_screen_rect": [
+          547,
+          609,
+          186,
+          13
+        ],
+        "feet": [
+          1624.0,
+          255.984375
+        ],
+        "outer_screen_rect": [
+          528,
+          310,
+          224,
+          361
+        ],
+        "parts": {
+          "body": 0.0113655853271484,
+          "bright": 3.42547112967148,
+          "dark": 0.563911262427774,
+          "inner": 0.298301025390625,
+          "outer": 0.051924777286764
+        },
+        "screen_rect": [
+          605,
+          386,
+          70,
+          209
+        ]
+      },
+      "enemies": [
+        {
+          "aux_full_visual_parts": {
+            "body": 0.0,
+            "bright": 4.52883770809978,
+            "dark": 0.025976612233801,
+            "inner": 0.0935257690429687,
+            "outer": 0.000533387854133053
+          },
+          "contrast": 2.60693083509055,
+          "facing": -1,
+          "feet": [
+            1672.0,
+            160.0
+          ],
+          "fill": null,
+          "ground_support": {
+            "feet": [
+              1672.0,
+              160.0
+            ],
+            "found": false
+          },
+          "id": "drone",
+          "instance": 858439815371,
+          "light_cap": null,
+          "outer_screen_rect": [
+            712,
+            0,
+            224,
+            303
+          ],
+          "parts": {
+            "body": 0.0,
+            "bright": 2.60693083509055,
+            "dark": 0.151490190718524,
+            "inner": 0.0650180114746094,
+            "outer": 0.00357073516561482
+          },
+          "passed": true,
+          "screen_rect": [
+            789,
+            72,
+            70,
+            154
+          ],
+          "skin": "",
+          "uses_gravity": false,
+          "visual_world_bounds": "[P: (1657.0, 134.5), S: (30.0, 23.0)]",
+          "visual_world_bounds_values": [
+            1657.0,
+            134.5,
+            30.0,
+            23.0
+          ]
+        }
+      ]
+    },
+    {
+      "quality": "low",
+      "point": "platform175",
+      "waypoint": "platform-175-15",
+      "label": "before",
+      "original_case": "street-shared-authored-edge98-final-low40-v1",
+      "original_png": "bg55-cell036-A0.png",
+      "original_raw_sha256": "a801ce5da1b9de51921b36c2067604fcbb439dcdcf759352ea14d8661af80e64",
+      "image": "BG-56-low-platform175-before.png",
+      "image_sha256": "a15a0095d7d95467ca23a915f6ac0d5b6209cfaed2f0670c629f214904384d84",
+      "crop": "BG-56-low-platform175-before-crop.png",
+      "crop_sha256": "124fae226d1d243cdd866a941ff1165992acdb60671dea17e58bd4748b6b6336",
+      "crop_box_pixels": [
+        678,
+        340,
+        854,
+        673
+      ],
+      "unscaled_crop_pixels_verified": true,
+      "player": {
+        "below_mean": 0.016523674455675,
+        "below_screen_rect": [
+          547,
+          640,
+          186,
+          24
+        ],
+        "contrast": 4.29563499347009,
+        "edge_contrast": 1.48337492707011,
+        "edge_mean": 0.0707019773876941,
+        "edge_screen_rect": [
+          547,
+          609,
+          186,
+          13
+        ],
+        "feet": [
+          2808.0,
+          239.984375
+        ],
+        "outer_screen_rect": [
+          528,
+          310,
+          224,
+          361
+        ],
+        "parts": {
+          "body": 0.0278266479492187,
+          "bright": 4.29563499347009,
+          "dark": 0.328748228916116,
+          "inner": 0.357313671875,
+          "outer": 0.051249939306666
+        },
+        "screen_rect": [
+          605,
+          386,
+          70,
+          209
+        ]
+      },
+      "enemies": [
+        {
+          "aux_full_visual_parts": {
+            "body": 0.0329461303710937,
+            "bright": -0.3387084146318,
+            "dark": 0.794238266587477,
+            "inner": 0.15016201171875,
+            "outer": 0.237317672693515
+          },
+          "contrast": 0.818884110376941,
+          "facing": -1,
+          "feet": [
+            2840.0,
+            240.0
+          ],
+          "fill": 1.41956482066252,
+          "ground_support": {
+            "feet": [
+              2840.0,
+              240.0
+            ],
+            "floor": [
+              2840.0,
+              240.0
+            ],
+            "found": true,
+            "gap": 0.0,
+            "normal": [
+              0.0,
+              -1.0
+            ],
+            "on_floor_cache": false,
+            "safe_margin": 0.0799999982118607
+          },
+          "id": "collector_gunner",
+          "instance": 882716446414,
+          "light_cap": 0.60902332361516,
+          "outer_screen_rect": [
+            651,
+            363,
+            224,
+            309
+          ],
+          "parts": {
+            "body": 0.0319919860839844,
+            "bright": -0.491875940399926,
+            "dark": 0.818884110376941,
+            "inner": 0.125864501953125,
+            "outer": 0.26706474176391
+          },
+          "passed": true,
+          "screen_rect": [
+            728,
+            440,
+            70,
+            155
+          ],
+          "skin": "collector_gunner",
+          "uses_gravity": true,
+          "visual_world_bounds": "[P: (2832.118, 181.9025), S: (17.38208, 60.5975)]",
+          "visual_world_bounds_values": [
+            2832.11791992188,
+            181.902496337891,
+            17.382080078125,
+            60.5975036621094
+          ]
+        }
+      ]
+    },
+    {
+      "quality": "low",
+      "point": "platform175",
+      "waypoint": "platform-175-15",
+      "label": "after",
+      "original_case": "street-shared-authored-edge98-final-low40-v1",
+      "original_png": "bg55-cell036-product.png",
+      "original_raw_sha256": "bdc05528845db750e571fe528727b45bd7f006866d1a9992038631f2bdc4fda9",
+      "image": "BG-56-low-platform175-after.png",
+      "image_sha256": "ea746f135446843c056774ba794cfa0a09ac103b5ffeb71978fe1e920dd76319",
+      "crop": "BG-56-low-platform175-after-crop.png",
+      "crop_sha256": "98477c8cf015f88c20d5ae5903fe39476294a9e6be03bd4f39eaaf41a4aeaf6b",
+      "crop_box_pixels": [
+        678,
+        340,
+        854,
+        673
+      ],
+      "unscaled_crop_pixels_verified": true,
+      "player": {
+        "below_mean": 0.016523674455675,
+        "below_screen_rect": [
+          547,
+          640,
+          186,
+          24
+        ],
+        "contrast": 4.16781058894172,
+        "edge_contrast": 1.48337492707011,
+        "edge_mean": 0.0707019773876941,
+        "edge_screen_rect": [
+          547,
+          609,
+          186,
+          13
+        ],
+        "feet": [
+          2808.0,
+          239.984375
+        ],
+        "outer_screen_rect": [
+          528,
+          310,
+          224,
+          361
+        ],
+        "parts": {
+          "body": 0.0278266479492187,
+          "bright": 4.16781058894172,
+          "dark": 0.344950697181623,
+          "inner": 0.357313671875,
+          "outer": 0.0530122873857626
+        },
+        "screen_rect": [
+          605,
+          386,
+          70,
+          209
+        ]
+      },
+      "enemies": [
+        {
+          "aux_full_visual_parts": {
+            "body": 0.037102294921875,
+            "bright": -0.107618997061534,
+            "dark": 0.778086385112428,
+            "inner": 0.209625402832031,
+            "outer": 0.237317672693515
+          },
+          "contrast": 0.807637802893627,
+          "facing": -1,
+          "feet": [
+            2840.0,
+            240.0
+          ],
+          "fill": 2.34058619121679,
+          "ground_support": {
+            "feet": [
+              2840.0,
+              240.0
+            ],
+            "floor": [
+              2840.0,
+              240.0
+            ],
+            "found": true,
+            "gap": 0.0,
+            "normal": [
+              0.0,
+              -1.0
+            ],
+            "on_floor_cache": false,
+            "safe_margin": 0.0799999982118607
+          },
+          "id": "collector_gunner",
+          "instance": 882716446414,
+          "light_cap": 0.60902332361516,
+          "outer_screen_rect": [
+            651,
+            363,
+            224,
+            309
+          ],
+          "parts": {
+            "body": 0.0358872802734375,
+            "bright": -0.354371031090244,
+            "dark": 0.807637802893627,
+            "inner": 0.167575561523438,
+            "outer": 0.270531513541265
+          },
+          "passed": true,
+          "screen_rect": [
+            728,
+            440,
+            70,
+            155
+          ],
+          "skin": "collector_gunner",
+          "uses_gravity": true,
+          "visual_world_bounds": "[P: (2832.118, 181.9025), S: (17.38208, 60.5975)]",
+          "visual_world_bounds_values": [
+            2832.11791992188,
+            181.902496337891,
+            17.382080078125,
+            60.5975036621094
+          ]
+        }
+      ]
+    }
+  ]
+}

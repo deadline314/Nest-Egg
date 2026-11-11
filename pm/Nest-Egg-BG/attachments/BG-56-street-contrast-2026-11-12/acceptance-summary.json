@@ -1,0 +1,82 @@
+{
+  "scope": "native automated final candidate; same runtime/geometry with original profile/material reference versus candidate data; final static indices and exact source receipts retained",
+  "qualities": [
+    {
+      "quality": "high",
+      "case": "street-shared-authored-edge98-final-high40-v1",
+      "camera_grid": 33,
+      "total_cells": 40,
+      "standable_player_cells": 28,
+      "platforms": 8,
+      "actual_alive_visible_enemy_instances": 16,
+      "covered_enemy_instances": 16,
+      "enemy_observations": 34,
+      "minimum_player_contrast": 1.49379530527358,
+      "minimum_edge_contrast": 1.65711764515724,
+      "minimum_enemy_contrast": 0.480647769230104,
+      "maximum_exposure_upper_bound": 0.018031088082901554,
+      "native_exit": 0,
+      "native_sources_unchanged": true,
+      "independent_controls_valid": true,
+      "all_thresholds_passed": true
+    },
+    {
+      "quality": "low",
+      "case": "street-shared-authored-edge98-final-low40-v1",
+      "camera_grid": 33,
+      "total_cells": 40,
+      "standable_player_cells": 28,
+      "platforms": 8,
+      "actual_alive_visible_enemy_instances": 16,
+      "covered_enemy_instances": 16,
+      "enemy_observations": 34,
+      "minimum_player_contrast": 1.44319370984171,
+      "minimum_edge_contrast": 1.2194301730628,
+      "minimum_enemy_contrast": 0.46670768903885,
+      "maximum_exposure_upper_bound": 0.01844559585492228,
+      "native_exit": 0,
+      "native_sources_unchanged": true,
+      "independent_controls_valid": true,
+      "all_thresholds_passed": true
+    }
+  ],
+  "thresholds": {
+    "player": 0.6,
+    "enemy": 0.45,
+    "edge": 1,
+    "exposure_upper": 0.02
+  },
+  "product_manifest": "product-candidate.json",
+  "own_hunks_zip": "replay/producers-and-refs.raw.zip",
+  "formal_changed_scope": {
+    "base": "published83a",
+    "candidate_files": 18,
+    "groups": 74,
+    "checks": 95701,
+    "new_failures": 0,
+    "known_failures": 0,
+    "exit": 0,
+    "wall_seconds": 914.403,
+    "sources_unchanged": true,
+    "receipt": "official-index.json",
+    "scope": "18 product/permanent-test deltas only; not all ticket producers or Python readers"
+  },
+  "hardware": "AMD Radeon RX 9070 XT",
+  "renderer": "native Forward+ Vulkan HDR2D",
+  "brightness": 0.5,
+  "upstream_fx": {
+    "commit": "d2377979",
+    "sha256": "93994b4193b9433fcc43795b4b93d955c9e3c098d069cc5ed91dad250259f99f"
+  },
+  "cpu_checks": {
+    "api": 64,
+    "data": 1818,
+    "permanent_part_creature": 108,
+    "expected_original_missing_creature_error_lines": 1,
+    "ram_floor_curve": 16660,
+    "default_theme_byte_controls": 10,
+    "missing_music_negative_checks": 1808,
+    "missing_music_negative_failures": 1,
+    "missing_music_negative_actual_exit": 1
+  }
+}

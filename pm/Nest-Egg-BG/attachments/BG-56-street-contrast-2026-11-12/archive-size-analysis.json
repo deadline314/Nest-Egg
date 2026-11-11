@@ -1,0 +1,92 @@
+{
+  "groups": {
+    "metadata/log/code": {
+      "entries": 2853,
+      "bytes": 799627213,
+      "compressed": 77294818,
+      "unique": 2074
+    },
+    "source snapshots": {
+      "entries": 47777,
+      "bytes": 489653614,
+      "compressed": 317700043,
+      "unique": 817
+    },
+    "native float frames/masks": {
+      "entries": 1246,
+      "bytes": 7676928000,
+      "compressed": 1594963452,
+      "unique": 1188
+    },
+    "native PNG": {
+      "entries": 1675,
+      "bytes": 437739284,
+      "compressed": 436029156,
+      "unique": 1183
+    }
+  },
+  "largest_cases": [
+    {
+      "case": "street-shared-authored-high40-v1",
+      "compressed_bytes": 163964359
+    },
+    {
+      "case": "street-shared-authored-edge98-final-high40-v1",
+      "compressed_bytes": 163328222
+    },
+    {
+      "case": "street-shared-authored-final-high40-v1",
+      "compressed_bytes": 163033458
+    },
+    {
+      "case": "street-shared-authored-edge98-final-low40-v1",
+      "compressed_bytes": 156969476
+    },
+    {
+      "case": "street-shared-authored-final-low40-v1",
+      "compressed_bytes": 156943010
+    },
+    {
+      "case": "street-shared-authored-low40-v1",
+      "compressed_bytes": 156831387
+    },
+    {
+      "case": "street-shared-local-candidate-high-v1",
+      "compressed_bytes": 155483358
+    },
+    {
+      "case": "street-shared-local-candidate-low-v1",
+      "compressed_bytes": 149290788
+    },
+    {
+      "case": "bg56-lab-actions-high-v1",
+      "compressed_bytes": 105169782
+    },
+    {
+      "case": "bg56-lab-actions-final-high-v1",
+      "compressed_bytes": 101192717
+    },
+    {
+      "case": "street-shared-full-baseline-high-v1",
+      "compressed_bytes": 99619689
+    },
+    {
+      "case": "bg56-lab-actions-final-low-v1",
+      "compressed_bytes": 98217984
+    },
+    {
+      "case": "street-shared-related-gate-high-v1",
+      "compressed_bytes": 58650589
+    },
+    {
+      "case": "street-shared-related-gate-low-v1",
+      "compressed_bytes": 56717549
+    },
+    {
+      "case": "bg56-lab-ram-ramp-actions-high-v1",
+      "compressed_bytes": 37562056
+    }
+  ],
+  "source_repeated_entries": 46960,
+  "scope": "actual ZIP central-directory compressed sizes plus original member SHA; no payload changed"
+}
