@@ -1,0 +1,351 @@
+{
+  "date_taipei": "2026-11-11",
+  "base_commit": "4d30c799be7ca89de36d745a1a798092d658dc3c",
+  "product_changes": [],
+  "engine": "Godot 4.7.2.stable.official.ed1daf0bf",
+  "renderer": "Vulkan 1.4.359 - Forward+ - AMD Radeon RX 9070 XT",
+  "physical_controller_verified": false,
+  "human_prologue_timing_verified": false,
+  "performance_measurement": false,
+  "storage_isolation": "Per-process APPDATA/LOCALAPPDATA/XDG_DATA_HOME under this evidence directory",
+  "initial_cache_failure": {
+    "stopped_exit_codes": [
+      -1,
+      -1
+    ],
+    "logs": [
+      "initial-cache-ui-headless.log",
+      "initial-cache-cold-seed.log"
+    ],
+    "valid_test": false
+  },
+  "runs": [
+    {
+      "summary": [
+        "SUITE_TIME UiScreensSuite 125.3",
+        "checks: 460, failures: 0"
+      ],
+      "gpu_lock": true,
+      "log_sha256": "c072168a0fe3525e4a75e40f0ae33b029947c5b9c5f9a898f5712bad8fe5d9fd",
+      "error_lines": [
+        "ERROR: [RigLibrary] 無法讀取定義檔：res://art/characters/test_no_such_character/character.json",
+        "ERROR: [HdPortrait] 找不到角色骨架「test_no_such_character」，立繪不顯示。"
+      ],
+      "exit_code": 0,
+      "fail_count": 0,
+      "name": "ui-headless",
+      "pass_count": 0,
+      "godot_arguments": [
+        "--headless",
+        "--path",
+        ".",
+        "res://tests/smoke_test.tscn",
+        "--",
+        "--only=UiScreensSuite"
+      ]
+    },
+    {
+      "summary": [],
+      "gpu_lock": false,
+      "log_sha256": "c502d4999eda79685b658b4843ff1afd3700e7a4d06c6aafc0767a74edc28f88",
+      "error_lines": [],
+      "exit_code": 0,
+      "fail_count": 0,
+      "name": "cold-seed",
+      "pass_count": 1,
+      "godot_arguments": [
+        "--headless",
+        "--path",
+        ".",
+        "res://tools/codex_replay_probe.tscn",
+        "--",
+        "--mode=seed",
+        "--out=C:/Users/stanl/Github/Nest-Egg/pm/Nest-Egg/attachments/NE-279-native-2026-11-11/cold-slot"
+      ]
+    },
+    {
+      "summary": [],
+      "gpu_lock": false,
+      "log_sha256": "0fc5fc2f76665624c2040a9360f91126d0bfe5027dff790ad00e5f543e9966b1",
+      "error_lines": [],
+      "exit_code": 0,
+      "fail_count": 0,
+      "name": "cold-replay",
+      "pass_count": 6,
+      "godot_arguments": [
+        "--headless",
+        "--path",
+        ".",
+        "res://tools/codex_replay_probe.tscn",
+        "--",
+        "--mode=replay",
+        "--out=C:/Users/stanl/Github/Nest-Egg/pm/Nest-Egg/attachments/NE-279-native-2026-11-11/cold-slot"
+      ]
+    },
+    {
+      "summary": [],
+      "gpu_lock": false,
+      "log_sha256": "8822f512a6fc5d0c0bd1fdcbbc8bad998717af3691464d3990aebe8256671b54",
+      "error_lines": [],
+      "exit_code": 0,
+      "fail_count": 0,
+      "name": "cold-verify",
+      "pass_count": 2,
+      "godot_arguments": [
+        "--headless",
+        "--path",
+        ".",
+        "res://tools/codex_replay_probe.tscn",
+        "--",
+        "--mode=verify",
+        "--out=C:/Users/stanl/Github/Nest-Egg/pm/Nest-Egg/attachments/NE-279-native-2026-11-11/cold-slot"
+      ]
+    },
+    {
+      "summary": [],
+      "gpu_lock": true,
+      "log_sha256": "c34f58f78b58afe5f9791d51e99c6b7311826e23a180242d13f4df3a0f5ae3e9",
+      "error_lines": [],
+      "exit_code": 0,
+      "fail_count": 0,
+      "name": "native-720",
+      "pass_count": 140,
+      "godot_arguments": [
+        "--path",
+        ".",
+        "--rendering-driver",
+        "vulkan",
+        "--rendering-method",
+        "forward_plus",
+        "res://tools/codex_replay_probe.tscn",
+        "--",
+        "--mode=capture",
+        "--size=1280x720",
+        "--out=C:/Users/stanl/Github/Nest-Egg/pm/Nest-Egg/attachments/NE-279-native-2026-11-11/native-720"
+      ]
+    },
+    {
+      "summary": [],
+      "gpu_lock": true,
+      "log_sha256": "c34f58f78b58afe5f9791d51e99c6b7311826e23a180242d13f4df3a0f5ae3e9",
+      "error_lines": [],
+      "exit_code": 0,
+      "fail_count": 0,
+      "name": "native-1080",
+      "pass_count": 140,
+      "godot_arguments": [
+        "--path",
+        ".",
+        "--rendering-driver",
+        "vulkan",
+        "--rendering-method",
+        "forward_plus",
+        "res://tools/codex_replay_probe.tscn",
+        "--",
+        "--mode=capture",
+        "--size=1920x1080",
+        "--out=C:/Users/stanl/Github/Nest-Egg/pm/Nest-Egg/attachments/NE-279-native-2026-11-11/native-1080"
+      ]
+    },
+    {
+      "summary": [
+        "PROLOGUE_REPLAY_PROBE mode=skip failures=0"
+      ],
+      "gpu_lock": true,
+      "log_sha256": "9df05b8418d6f4fd7fae6934bce003be3d04ee587b61f3661c16844afdcc9f4c",
+      "error_lines": [],
+      "exit_code": 0,
+      "fail_count": 0,
+      "name": "main-skip",
+      "pass_count": 28,
+      "godot_arguments": [
+        "--path",
+        ".",
+        "--rendering-driver",
+        "vulkan",
+        "--rendering-method",
+        "forward_plus",
+        "res://tools/prologue_replay_probe.tscn",
+        "--",
+        "--mode=skip",
+        "--save-dir=C:/Users/stanl/Github/Nest-Egg/pm/Nest-Egg/attachments/NE-279-native-2026-11-11/main-slot",
+        "--out=C:/Users/stanl/Github/Nest-Egg/pm/Nest-Egg/attachments/NE-279-native-2026-11-11/main-skip"
+      ]
+    },
+    {
+      "summary": [
+        "PROLOGUE_REPLAY_PROBE mode=continue-skip failures=0"
+      ],
+      "gpu_lock": true,
+      "log_sha256": "c8b07895f4202bae52a90455c1d4fff69f4f55cf0fee9a55d9f8265571213dc9",
+      "error_lines": [],
+      "exit_code": 0,
+      "fail_count": 0,
+      "name": "main-continue",
+      "pass_count": 27,
+      "godot_arguments": [
+        "--path",
+        ".",
+        "--rendering-driver",
+        "vulkan",
+        "--rendering-method",
+        "forward_plus",
+        "res://tools/prologue_replay_probe.tscn",
+        "--",
+        "--mode=continue-skip",
+        "--save-dir=C:/Users/stanl/Github/Nest-Egg/pm/Nest-Egg/attachments/NE-279-native-2026-11-11/main-slot",
+        "--out=C:/Users/stanl/Github/Nest-Egg/pm/Nest-Egg/attachments/NE-279-native-2026-11-11/main-continue"
+      ]
+    }
+  ],
+  "cold_process_hashes": [
+    {
+      "mode": "seed",
+      "files": [
+        {
+          "Algorithm": "SHA256",
+          "Hash": "62468B5C994152F03597F85EF1AB2AD78EA4BA7A0B2E64DC300783F11603B209",
+          "Path": "C:\\Users\\stanl\\Github\\Nest-Egg\\pm\\Nest-Egg\\attachments\\NE-279-native-2026-11-11\\cold-slot\\slot.json"
+        },
+        {
+          "Algorithm": "SHA256",
+          "Hash": "62468B5C994152F03597F85EF1AB2AD78EA4BA7A0B2E64DC300783F11603B209",
+          "Path": "C:\\Users\\stanl\\Github\\Nest-Egg\\pm\\Nest-Egg\\attachments\\NE-279-native-2026-11-11\\cold-slot\\slot.json.bak"
+        }
+      ]
+    },
+    {
+      "mode": "replay",
+      "files": [
+        {
+          "Algorithm": "SHA256",
+          "Hash": "62468B5C994152F03597F85EF1AB2AD78EA4BA7A0B2E64DC300783F11603B209",
+          "Path": "C:\\Users\\stanl\\Github\\Nest-Egg\\pm\\Nest-Egg\\attachments\\NE-279-native-2026-11-11\\cold-slot\\slot.json"
+        },
+        {
+          "Algorithm": "SHA256",
+          "Hash": "62468B5C994152F03597F85EF1AB2AD78EA4BA7A0B2E64DC300783F11603B209",
+          "Path": "C:\\Users\\stanl\\Github\\Nest-Egg\\pm\\Nest-Egg\\attachments\\NE-279-native-2026-11-11\\cold-slot\\slot.json.bak"
+        }
+      ]
+    },
+    {
+      "mode": "verify",
+      "files": [
+        {
+          "Algorithm": "SHA256",
+          "Hash": "62468B5C994152F03597F85EF1AB2AD78EA4BA7A0B2E64DC300783F11603B209",
+          "Path": "C:\\Users\\stanl\\Github\\Nest-Egg\\pm\\Nest-Egg\\attachments\\NE-279-native-2026-11-11\\cold-slot\\slot.json"
+        },
+        {
+          "Algorithm": "SHA256",
+          "Hash": "62468B5C994152F03597F85EF1AB2AD78EA4BA7A0B2E64DC300783F11603B209",
+          "Path": "C:\\Users\\stanl\\Github\\Nest-Egg\\pm\\Nest-Egg\\attachments\\NE-279-native-2026-11-11\\cold-slot\\slot.json.bak"
+        }
+      ]
+    }
+  ],
+  "source_sha256": [
+    {
+      "path": "ui/codex_screen.gd",
+      "sha256": "fb91fe9e3a918841421237c5300f48c9e12666360115c1591c4ca3a4891d57cc"
+    },
+    {
+      "path": "ui/codex_replay_page.gd",
+      "sha256": "3860b49529012b08f205a41314a5dba4e22cf381641422f57857db1db9b74e48"
+    },
+    {
+      "path": "autoload/story.gd",
+      "sha256": "6fdbe81aba2cbd86493a8c90c5acf102805f5d75a1203cda8614b107a43271e3"
+    },
+    {
+      "path": "tests/helpers/codex_replay_checks.gd",
+      "sha256": "0ecdffa78c9544a20869351032e066db15d80bcf11f155f7a037945763debf7f"
+    },
+    {
+      "path": "tests/suite/test_ui_screens.gd",
+      "sha256": "314212470fdd6cc7bf3517ace66f596d6ff5f03db63b84edef31ea685ba929a6"
+    },
+    {
+      "path": "tools/codex_replay_probe.gd",
+      "sha256": "469afcaf01d062f85b4abae6baa95d6bde2abefd94de57d884763a4b2c85ea7f"
+    },
+    {
+      "path": "tools/prologue_replay_probe.gd",
+      "sha256": "f1cd6870240cdba98b9d58f61117c4f6003f2c4e7beae4ff3b5f956e53f0c722"
+    },
+    {
+      "path": "tools/prologue_resume_probe.gd",
+      "sha256": "2c63a1d0990690b2ed09873768dcd130d691b70504cb413290a59582d89ab0b9"
+    },
+    {
+      "path": "core/run_save_store.gd",
+      "sha256": "1033befefbd04f934cac74abfdf74335c416b31b29ef4d068a3768d987ebb781"
+    },
+    {
+      "path": "core/run_snapshot.gd",
+      "sha256": "81903039971dc6c39c5732262b7fc4014ab94746e21c0b72b9c0865d52d9820c"
+    },
+    {
+      "path": "project.godot",
+      "sha256": "3816650dfb5570f2ba965947c84d105cfa15f043fae335e0c1b01e422d39ef31"
+    }
+  ],
+  "engine_binaries": [
+    {
+      "path": "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe",
+      "sha256": "c8f0a6bc45a19b33541501e57f6f7cd972ab18453743266339d495cbbe846643"
+    },
+    {
+      "path": "C:/Tools/Godot/Godot_v4.7.2-stable_win64.exe",
+      "sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424"
+    }
+  ],
+  "images": [
+    {
+      "sha256": "882f2d9e93ac0bdc40bc2b20c5a63d8938a67be620198ec8b1260c625ff8c3c3",
+      "path": "images/NE-279-native-memories-zh-720.png"
+    },
+    {
+      "sha256": "3a5a39de298766aad494f519a539e47fc351ca77c77c1b2c797b3b6c33cb484a",
+      "path": "images/NE-279-native-memories-ja-720.png"
+    },
+    {
+      "sha256": "c74486459cbe16deaffd926c9686a05b0b3c81cbea80ea3424e372cdc698c1e3",
+      "path": "images/NE-279-native-memories-en-720.png"
+    },
+    {
+      "sha256": "c3f94ddd4a5ba1db785f85d4cf631f9f73afd8e7fdbb7902993e52d317b8fb96",
+      "path": "images/NE-279-native-memories-zh-1080.png"
+    },
+    {
+      "sha256": "c5a6033cf5cfa271ba05d351c145cec7de9aa222ed3a52f5195ed41a985dde15",
+      "path": "images/NE-279-native-memories-ja-1080.png"
+    },
+    {
+      "sha256": "13f9b4462e1c6bea628c9ad73d85fd2801aa0ddfba2f3555f3624d1e5d4e0bb6",
+      "path": "images/NE-279-native-memories-en-1080.png"
+    },
+    {
+      "sha256": "dde54e85b367cad308f60a034605de2efe7b709ac2db8ae2c37ffbd54f688263",
+      "path": "images/NE-279-native-empty-720.png"
+    },
+    {
+      "sha256": "b27a22951964614dd2646ebaf0f1ed4f5c15810428a34f9159e33b0b34ef1002",
+      "path": "images/NE-279-native-pause-return-720.png"
+    },
+    {
+      "sha256": "1d3047a128b09105fbcdb802b444bdfed4b3ee6dca091bdecfe42ae73e439ba1",
+      "path": "images/NE-279-native-earned-archive.png"
+    },
+    {
+      "sha256": "67cb6e9de11ede222e46e29ce99a50658a35663ca61d505f4feee399d12bcc9a",
+      "path": "images/NE-279-native-earned-replay.png"
+    },
+    {
+      "sha256": "086dd5bf2859b6edd6abec7523a99a765f486550757922e90853a2952cc693db",
+      "path": "images/NE-279-native-cold-archive.png"
+    }
+  ],
+  "raw_archive_sha256": "694fe93c6e9f5dab7e35e338cae7b392a72f3e8ef9641f8cd30e1c852ba6005a"
+}
