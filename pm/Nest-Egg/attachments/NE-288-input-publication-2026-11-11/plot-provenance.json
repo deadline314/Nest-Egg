@@ -1,0 +1,63 @@
+{
+  "scope": "Data visualization of original log summaries only; not gameplay, human evaluation or performance evidence.",
+  "raw_sha256": "fe84d461d2d16010b1819602e5679c5b45643db71a4c15642b08e341faefb6c1",
+  "output_sha256": "320e2410a3c0e1dacf38f5e516886241c93c2d9b1850888041391ffe62f47340",
+  "rows": [
+    [
+      "Original Shift / actual put-down stack",
+      "595",
+      "5",
+      "1",
+      "Original symptoms"
+    ],
+    [
+      "Only Shift -> CapsLock",
+      "595",
+      "2",
+      "1",
+      "Carry symptoms removed"
+    ],
+    [
+      "Final fixture / seven schedules",
+      "1015",
+      "0",
+      "0",
+      "Pass"
+    ],
+    [
+      "Formal helper path / original Carry",
+      "145",
+      "0",
+      "0",
+      "Pass"
+    ],
+    [
+      "Omit the mouse event",
+      "145",
+      "11",
+      "1",
+      "Expected rejection"
+    ],
+    [
+      "Use gameplay-bound Shift again",
+      "145",
+      "11",
+      "1",
+      "Expected rejection"
+    ],
+    [
+      "Stop real lift updates",
+      "145",
+      "3",
+      "1",
+      "Expected rejection"
+    ],
+    [
+      "Stop normal pose updates",
+      "145",
+      "2",
+      "1",
+      "Expected rejection"
+    ]
+  ]
+}

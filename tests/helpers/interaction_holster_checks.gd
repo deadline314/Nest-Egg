@@ -1,6 +1,16 @@
 extends RefCounted
 ## NE-278：真實 NPC 入口、暫停中的呈現、取消與當下裝備恢復。
 
+# Observe the dispatched event, rather than assuming parse_input_event was published.
+class DeviceWitness extends Node:
+	var joy := false
+	var keyboard := false
+	var mouse := false
+	func _input(event: InputEvent) -> void:
+		if event is InputEventJoypadMotion and event.axis == JOY_AXIS_RIGHT_X and event.axis_value > 0.5: joy = true
+		if event is InputEventKey and event.physical_keycode == KEY_CAPSLOCK and event.pressed: keyboard = true
+		if event is InputEventMouseMotion and event.relative.length_squared() > 1.0: mouse = true
+
 const OVERLAY := &"test_holster_overlay"
 const CHAIN := &"test_holster_chain"
 const STAGE := &"test_holster_stage"
@@ -111,7 +121,7 @@ static func run(s: NpcSuite) -> void:
 	await _switch_devices(s)
 	s.check(player.interaction.active and not crosshair.visible and not player._visual.rig.weapon_root().visible, "device changes while choosing do not reveal the gun or crosshair")
 	Story._player.choose(0)
-	await s.frames(4)
+	await _published(s, func() -> bool: return not player.interaction.active and not s.runner.get_tree().paused and not GameplayLock.is_locked() and crosshair.visible and marker.talk_count == 1, "choice completion is actually published before carry setup")
 	s.check(not player.interaction.active and crosshair.visible and marker.talk_count == 1, "choosing the close option completes the actual object talk and restores the weapon scope")
 	marker.data.talks[0].scene = OVERLAY
 	# 搬運物件不當成武器藏掉，也不把手放下留下浮空箱子。
@@ -119,10 +129,14 @@ static func run(s: NpcSuite) -> void:
 	crate.configure(load("res://data/throwables/crate_small.tres") as ThrowableData)
 	level._entities.add_child(crate)
 	player.carry.pick(crate)
-	await s.frames(35)
+	await _published(s, func() -> bool: return player.carry.phase == PlayerCarry.Phase.HOLDING and player.carry.held == crate and player._visual._input.action == PlayerCarry.POSE_HOLD and player._visual._carry_hid_weapon and not player._visual.rig.weapon_root().visible and crate.global_position.is_equal_approx(player.carry.hold_point()), "carried-object HOLDING support is actually published before reading")
 	var carry_time := player.carry._phase_t
 	var carry_position := crate.global_position
+	var front_hand := player._visual.rig.hand_contact_global(&"front")
+	var back_hand := player._visual.rig.hand_contact_global(&"back")
 	marker._talk()
+	s.check(player._visual.rig.hand_contact_global(&"front").distance_to(front_hand) < 0.001 and player._visual.rig.hand_contact_global(&"back").distance_to(back_hand) < 0.001, "first synchronous reading frame preserves both actual support hand contacts")
+	s.check(player.interaction.active and player.carry.is_holding() and player._visual._interaction_input.action == PlayerCarry.POSE_HOLD and crate.global_position == carry_position and player.carry._phase_t == carry_time and not player._visual.rig.weapon_root().visible, "first synchronous reading frame preserves the published carried-object support")
 	await s.frames(18)
 	s.check(player.interaction.active and player._visual._interaction_input.action == PlayerCarry.POSE_HOLD and crate.global_position == carry_position and player.carry._phase_t == carry_time, "reading preserves the frozen carried-object support pose and object position")
 	Story.reset_active_presentation(&"probe")
@@ -143,7 +157,7 @@ static func run(s: NpcSuite) -> void:
 	var lethal := DamageInfo.create(9999, Combat.Team.ENEMY, &"test_holster")
 	lethal.ignore_invulnerability = true
 	player.health.take_damage(lethal)
-	await s.frames(3)
+	await _published(s, func() -> bool: return player.is_dead() and not player.interaction.active and not crosshair.visible, "death crosshair presentation is actually published")
 	s.check(player.is_dead() and not player.interaction.active and not crosshair.visible, "death cannot leave a holster scope or crosshair on the corpse")
 	s.runner.remove_child(crosshair)
 	s.check(not EventBus.player_spawned.is_connected(crosshair._bind_player) and not player.interaction.changed.is_connected(crosshair._refresh_visibility), "detached HUD releases both global spawn and old-player interaction callbacks")
@@ -178,18 +192,29 @@ static func run(s: NpcSuite) -> void:
 
 
 static func _switch_devices(s: TestSuite) -> void:
+	var witness := DeviceWitness.new()
+	witness.process_mode = Node.PROCESS_MODE_ALWAYS
+	s.runner.add_child(witness)
 	var joy := InputEventJoypadMotion.new()
 	joy.axis = JOY_AXIS_RIGHT_X
 	joy.axis_value = 0.8
 	Input.parse_input_event(joy)
+	Input.flush_buffered_events()
+	s.check(InputBindings.using_gamepad, "synthetic gamepad switch actually publishes")
 	await s.frames(2)
 	joy = joy.duplicate() as InputEventJoypadMotion
 	joy.axis_value = 0.0
 	Input.parse_input_event(joy)
 	var key := InputEventKey.new()
-	key.physical_keycode = KEY_SHIFT
+	key.physical_keycode = KEY_CAPSLOCK
 	key.pressed = true
+	var unbound := true
+	for action: StringName in InputMap.get_actions():
+		unbound = unbound and not key.is_action(action)
+	s.check(unbound, "synthetic keyboard device event is unbound to every InputMap action")
 	Input.parse_input_event(key)
+	Input.flush_buffered_events()
+	s.check(not InputBindings.using_gamepad, "synthetic keyboard switch actually publishes")
 	key = key.duplicate() as InputEventKey
 	key.pressed = false
 	Input.parse_input_event(key)
@@ -197,4 +222,19 @@ static func _switch_devices(s: TestSuite) -> void:
 	mouse.position = Vector2(100, 100)
 	mouse.relative = Vector2(8, 3)
 	Input.parse_input_event(mouse)
-	await s.frames(2)
+	Input.flush_buffered_events()
+	await _published(s, func() -> bool:
+		for action: StringName in [&"dash", &"melee", &"block", &"shoot", &"interact"]:
+			if Input.is_action_pressed(action) or Input.is_action_just_pressed(action): return false
+		return not InputBindings.using_gamepad, "device events are published with no gameplay action edge")
+	s.check(witness.joy and witness.keyboard and witness.mouse, "all three synthetic device events actually dispatch")
+	witness.queue_free()
+
+
+static func _published(s: TestSuite, condition: Callable, message: String) -> void:
+	var deadline := Time.get_ticks_msec()+3000
+	# This is a real process boundary; physics-frame catch-up alone does not publish UI/visual state.
+	await s.runner.get_tree().process_frame
+	while not condition.call() and Time.get_ticks_msec() < deadline:
+		await s.runner.get_tree().process_frame
+	s.check(condition.call(), message)

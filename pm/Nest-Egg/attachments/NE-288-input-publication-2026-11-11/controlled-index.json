@@ -1,0 +1,1440 @@
+{
+  "scope": "Headless controlled input/publication regression evidence. Actual NE277 candidate gameplay is context, not a NE288 gameplay change. No GPU performance, physical controller or human evaluation claim. Original application-data caches excluded; executed commands, source copies, logs and receipts retained byte-for-byte.",
+  "raw_sha256": "fe84d461d2d16010b1819602e5679c5b45643db71a4c15642b08e341faefb6c1",
+  "raw_bytes": 1703736,
+  "cases": {
+    "original-stack-red": "holster-stack-grid-quiet-v6",
+    "neutral-key-only": "holster-neutral-key-grid-v6",
+    "wrong-readiness-proposal": "holster-neutral-published-grid-v6",
+    "ready-seven-grid": "holster-neutral-published-grid-v6-valid",
+    "final-seven-grid": "holster-formal-seven-grid-v1",
+    "missing-mouse-negative": "holster-missing-mouse-negative-v1",
+    "bound-shift-negative": "holster-bound-shift-negative-v1",
+    "stopped-carry-negative": "holster-stopped-carry-negative-v1",
+    "stopped-visual-negative": "holster-stopped-visual-negative-v1",
+    "formal-path-original-carry": "holster-final-formal-path-original-carry-v1"
+  },
+  "entries": {
+    "original-stack-red/command.json": {
+      "bytes": 364,
+      "sha256": "eff7e51780d158b524c474e2300b2540a4508dfa678e5471eeb4b45378763030"
+    },
+    "original-stack-red/executed-runner.py": {
+      "bytes": 2610,
+      "sha256": "6a8c0f4ebae9ae1dd4c7a2a616b150504c1b4132ee54873859b6317a9586027b"
+    },
+    "original-stack-red/process.log": {
+      "bytes": 427335,
+      "sha256": "e14a0ee0079fac1666e653428bb7ec41def180bf1590cf897e7ea22d3fa8bb8f"
+    },
+    "original-stack-red/receipt.json": {
+      "bytes": 6715,
+      "sha256": "c12ffcea24b5e803a159a0d34d2ee989dcdbae7c08ee9a1d644a230bc1a24bfb"
+    },
+    "original-stack-red/source/core/components/hurtbox.gd": {
+      "bytes": 10688,
+      "sha256": "06aa499fae310cc0825c9354f271861b99d390209238edf115813a15ecb72247"
+    },
+    "original-stack-red/source/core/melee_art.gd": {
+      "bytes": 14211,
+      "sha256": "0c9a5b60c856a04647d24f6ed64a2f889bd908e0c13abe6ec7e7bcf27b1accff"
+    },
+    "original-stack-red/source/core/melee_contact_sweep.gd": {
+      "bytes": 6555,
+      "sha256": "88549832dab234b81693064256e0d8de2702b228c10bbd0e746c8555d401ad09"
+    },
+    "original-stack-red/source/core/melee_contact_sweep.gd.uid": {
+      "bytes": 20,
+      "sha256": "df639a59aa5932aadb5f0a176a4096fffff3aaabf1e7a0ccf566b212088625ca"
+    },
+    "original-stack-red/source/data/audio/stage_scenes.json": {
+      "bytes": 41693,
+      "sha256": "b8bda0866d755999c6aa609fa9cebda7d6d4b77eb7453a691a278b5ac43b7ef3"
+    },
+    "original-stack-red/source/data/melee/hydraulic_maul.json": {
+      "bytes": 7274,
+      "sha256": "4f67ae4545964af27dd727d132f7fabb81b1f3f97cda4e9529e2e66b7fe3e387"
+    },
+    "original-stack-red/source/data/melee/ion_glaive.json": {
+      "bytes": 7406,
+      "sha256": "0d9956942bedb2e249309dcc384aa139fbf5ed9de626a2d19695786dc054ac6b"
+    },
+    "original-stack-red/source/data/melee/mono_dagger.json": {
+      "bytes": 8752,
+      "sha256": "8adc7ee18ee5fd9ec08c44ef9daef5e871f1970364726f8d94ca6426556168da"
+    },
+    "original-stack-red/source/data/melee/thermal_blade.json": {
+      "bytes": 8592,
+      "sha256": "84619140858b23de8a1abc9b5c02e16ed3f30b02bf5bf1d31dfeac789a6dd96d"
+    },
+    "original-stack-red/source/game/melee/melee_module.gd": {
+      "bytes": 29160,
+      "sha256": "08262cbc93dc57fc76fb68496bc8dbab2f3d95ec4528cb9fc844fc2321eee90d"
+    },
+    "original-stack-red/source/game/player/melee_held.gd": {
+      "bytes": 14809,
+      "sha256": "174749f25e122e52d1a6ba74bb4dd4ab6a43bfb3fca76fca3fbe5650a37a54aa"
+    },
+    "original-stack-red/source/game/player/melee_set.gd": {
+      "bytes": 20640,
+      "sha256": "3415d7c1e788943694467a4815580c4c9bf228ebfae782a88ef20a8c620a075d"
+    },
+    "original-stack-red/source/game/player/player_carry.gd": {
+      "bytes": 9396,
+      "sha256": "0451845da99dba1286f4c5109b311a3b0274fd50a4ed49e41b25dbbdde0af1ed"
+    },
+    "original-stack-red/source/game/player/player_visual.gd": {
+      "bytes": 26503,
+      "sha256": "6b3b02d946cef618557943cf19675f151c4a5289bd5d1e4be6613f127947968e"
+    },
+    "original-stack-red/source/tests/helpers/interaction_holster_checks.gd": {
+      "bytes": 12560,
+      "sha256": "81a67dee6f048737563412b98b2f0e4da5e11a1fd39b502b43fccfb3e63ca4d3"
+    },
+    "original-stack-red/source/tests/helpers/melee_contact_geometry_checks.gd": {
+      "bytes": 5592,
+      "sha256": "1bf4d01c75fede1b0b1a41ad2fd4d92c31d314b50bf31bbb9269675885dc2475"
+    },
+    "original-stack-red/source/tests/helpers/melee_contact_geometry_checks.gd.uid": {
+      "bytes": 20,
+      "sha256": "d600852ff547145662572ceda9e7ff4ee4d589c0eb578cd155bb3bb5809041ae"
+    },
+    "original-stack-red/source/tests/helpers/melee_contact_parts_checks.gd": {
+      "bytes": 4124,
+      "sha256": "963eeeff55597446a74a2c0929c95f06bc51c799ce6e34527c1ffa7d1bca88b0"
+    },
+    "original-stack-red/source/tests/helpers/melee_contact_parts_checks.gd.uid": {
+      "bytes": 19,
+      "sha256": "e97718ff701b207c8db7f08a114f63580cf7afa15f701b257fe06b7c382d067f"
+    },
+    "original-stack-red/source/tests/suite/test_audio.gd": {
+      "bytes": 55797,
+      "sha256": "59e66e67c7801a9aaa9887e73105c2667a3d562489d0d5420453721b13a25f4e"
+    },
+    "original-stack-red/source/tests/suite/test_heavy_enemies.gd": {
+      "bytes": 38531,
+      "sha256": "33ffdd2cea7cf337d6bd0d2e9152a86948dcd858a237c658fc778d75d78bd5fe"
+    },
+    "original-stack-red/source/tests/suite/test_melee.gd": {
+      "bytes": 27749,
+      "sha256": "fc09b8af587da01123ccb77bb973e8ac4844d0d17bc33de6466cc68c4f9437bf"
+    },
+    "original-stack-red/source/tests/suite/test_melee_weapons.gd": {
+      "bytes": 63362,
+      "sha256": "cdc1c6396519c371daf840da6dc4c922bdefd06c70ffa1b34b3c833ae456006a"
+    },
+    "original-stack-red/source/tools/run_ne277_delivery.py": {
+      "bytes": 15258,
+      "sha256": "f60f26141683f2f85e1dc4fb591a218207f9d687ebfc78e99a8e7d9c05d4117e"
+    },
+    "original-stack-red/source/tools/sound_lab/lab_arena.gd": {
+      "bytes": 12380,
+      "sha256": "f41c36a8d8ef39ff45c5f473b70d23222159d189eb45388dec5fd10c964414b2"
+    },
+    "original-stack-red/source/tools/sound_lab/stage_actions.gd": {
+      "bytes": 25207,
+      "sha256": "bfc5c65e05d7a4676d55c3fcceb89ec33243a81cf4168202e62fdcf1d40d3a97"
+    },
+    "original-stack-red/source/work/ne277-contact-order/holster_checks.gd": {
+      "bytes": 8762,
+      "sha256": "6e3c2445d2e2257501022389988ebc402e7ae07f5499404b7e89743bb616a5a7"
+    },
+    "original-stack-red/source/work/ne277-contact-order/holster_checks.tscn": {
+      "bytes": 191,
+      "sha256": "80009215837b2e44eefca4a3ea96ae6109035db26e0d2eaeaf2213d661d3d0bd"
+    },
+    "original-stack-red/source/work/ne277-contact-order/regression_checks.gd": {
+      "bytes": 3412,
+      "sha256": "7a3eb4d6849714cd8c4af9fe94d3679e33a4e52fef83efa700ec8db3346cd23d"
+    },
+    "original-stack-red/source/work/ne277-contact-order/regression_checks.tscn": {
+      "bytes": 197,
+      "sha256": "10cffe2338f06fee18c813bfd73f3e199366813d08f64725d4add843187ce0d5"
+    },
+    "neutral-key-only/command.json": {
+      "bytes": 381,
+      "sha256": "9f86207f4a069f07ee4b3e1959dfb364a38b2f141184cdb629a48245afc17612"
+    },
+    "neutral-key-only/executed-runner.py": {
+      "bytes": 2714,
+      "sha256": "349d22a5e69bd2c770beb705a34d9d1a49f06b2ec8d307db1e95beb836a4ae1e"
+    },
+    "neutral-key-only/process.log": {
+      "bytes": 409431,
+      "sha256": "712d4880e14148215a2c55eeda5fa501da8ddc29e4e84d537257d0350faa27bb"
+    },
+    "neutral-key-only/receipt.json": {
+      "bytes": 6953,
+      "sha256": "a5a578203db9758a1151d740aa8cb49ac0b3f648e6f01c6999ff044fa4150313"
+    },
+    "neutral-key-only/source/core/components/hurtbox.gd": {
+      "bytes": 10688,
+      "sha256": "06aa499fae310cc0825c9354f271861b99d390209238edf115813a15ecb72247"
+    },
+    "neutral-key-only/source/core/melee_art.gd": {
+      "bytes": 14211,
+      "sha256": "0c9a5b60c856a04647d24f6ed64a2f889bd908e0c13abe6ec7e7bcf27b1accff"
+    },
+    "neutral-key-only/source/core/melee_contact_sweep.gd": {
+      "bytes": 6555,
+      "sha256": "88549832dab234b81693064256e0d8de2702b228c10bbd0e746c8555d401ad09"
+    },
+    "neutral-key-only/source/core/melee_contact_sweep.gd.uid": {
+      "bytes": 20,
+      "sha256": "df639a59aa5932aadb5f0a176a4096fffff3aaabf1e7a0ccf566b212088625ca"
+    },
+    "neutral-key-only/source/data/audio/stage_scenes.json": {
+      "bytes": 41693,
+      "sha256": "b8bda0866d755999c6aa609fa9cebda7d6d4b77eb7453a691a278b5ac43b7ef3"
+    },
+    "neutral-key-only/source/data/melee/hydraulic_maul.json": {
+      "bytes": 7274,
+      "sha256": "4f67ae4545964af27dd727d132f7fabb81b1f3f97cda4e9529e2e66b7fe3e387"
+    },
+    "neutral-key-only/source/data/melee/ion_glaive.json": {
+      "bytes": 7406,
+      "sha256": "0d9956942bedb2e249309dcc384aa139fbf5ed9de626a2d19695786dc054ac6b"
+    },
+    "neutral-key-only/source/data/melee/mono_dagger.json": {
+      "bytes": 8752,
+      "sha256": "8adc7ee18ee5fd9ec08c44ef9daef5e871f1970364726f8d94ca6426556168da"
+    },
+    "neutral-key-only/source/data/melee/thermal_blade.json": {
+      "bytes": 8592,
+      "sha256": "84619140858b23de8a1abc9b5c02e16ed3f30b02bf5bf1d31dfeac789a6dd96d"
+    },
+    "neutral-key-only/source/game/melee/melee_module.gd": {
+      "bytes": 29160,
+      "sha256": "08262cbc93dc57fc76fb68496bc8dbab2f3d95ec4528cb9fc844fc2321eee90d"
+    },
+    "neutral-key-only/source/game/player/melee_held.gd": {
+      "bytes": 14809,
+      "sha256": "174749f25e122e52d1a6ba74bb4dd4ab6a43bfb3fca76fca3fbe5650a37a54aa"
+    },
+    "neutral-key-only/source/game/player/melee_set.gd": {
+      "bytes": 20640,
+      "sha256": "3415d7c1e788943694467a4815580c4c9bf228ebfae782a88ef20a8c620a075d"
+    },
+    "neutral-key-only/source/game/player/player_carry.gd": {
+      "bytes": 9396,
+      "sha256": "0451845da99dba1286f4c5109b311a3b0274fd50a4ed49e41b25dbbdde0af1ed"
+    },
+    "neutral-key-only/source/game/player/player_visual.gd": {
+      "bytes": 26503,
+      "sha256": "6b3b02d946cef618557943cf19675f151c4a5289bd5d1e4be6613f127947968e"
+    },
+    "neutral-key-only/source/tests/helpers/interaction_holster_checks.gd": {
+      "bytes": 12560,
+      "sha256": "81a67dee6f048737563412b98b2f0e4da5e11a1fd39b502b43fccfb3e63ca4d3"
+    },
+    "neutral-key-only/source/tests/helpers/melee_contact_geometry_checks.gd": {
+      "bytes": 5592,
+      "sha256": "1bf4d01c75fede1b0b1a41ad2fd4d92c31d314b50bf31bbb9269675885dc2475"
+    },
+    "neutral-key-only/source/tests/helpers/melee_contact_geometry_checks.gd.uid": {
+      "bytes": 20,
+      "sha256": "d600852ff547145662572ceda9e7ff4ee4d589c0eb578cd155bb3bb5809041ae"
+    },
+    "neutral-key-only/source/tests/helpers/melee_contact_parts_checks.gd": {
+      "bytes": 4124,
+      "sha256": "963eeeff55597446a74a2c0929c95f06bc51c799ce6e34527c1ffa7d1bca88b0"
+    },
+    "neutral-key-only/source/tests/helpers/melee_contact_parts_checks.gd.uid": {
+      "bytes": 19,
+      "sha256": "e97718ff701b207c8db7f08a114f63580cf7afa15f701b257fe06b7c382d067f"
+    },
+    "neutral-key-only/source/tests/suite/test_audio.gd": {
+      "bytes": 55797,
+      "sha256": "59e66e67c7801a9aaa9887e73105c2667a3d562489d0d5420453721b13a25f4e"
+    },
+    "neutral-key-only/source/tests/suite/test_heavy_enemies.gd": {
+      "bytes": 38531,
+      "sha256": "33ffdd2cea7cf337d6bd0d2e9152a86948dcd858a237c658fc778d75d78bd5fe"
+    },
+    "neutral-key-only/source/tests/suite/test_melee.gd": {
+      "bytes": 27749,
+      "sha256": "fc09b8af587da01123ccb77bb973e8ac4844d0d17bc33de6466cc68c4f9437bf"
+    },
+    "neutral-key-only/source/tests/suite/test_melee_weapons.gd": {
+      "bytes": 63362,
+      "sha256": "cdc1c6396519c371daf840da6dc4c922bdefd06c70ffa1b34b3c833ae456006a"
+    },
+    "neutral-key-only/source/tools/run_ne277_delivery.py": {
+      "bytes": 15258,
+      "sha256": "f60f26141683f2f85e1dc4fb591a218207f9d687ebfc78e99a8e7d9c05d4117e"
+    },
+    "neutral-key-only/source/tools/sound_lab/lab_arena.gd": {
+      "bytes": 12380,
+      "sha256": "f41c36a8d8ef39ff45c5f473b70d23222159d189eb45388dec5fd10c964414b2"
+    },
+    "neutral-key-only/source/tools/sound_lab/stage_actions.gd": {
+      "bytes": 25207,
+      "sha256": "bfc5c65e05d7a4676d55c3fcceb89ec33243a81cf4168202e62fdcf1d40d3a97"
+    },
+    "neutral-key-only/source/work/ne277-contact-order/holster_checks.gd": {
+      "bytes": 8897,
+      "sha256": "ed397fc7eb2fd96e7c49d2b61dee2f99c66f37c3b6dade840486bb987e4068d8"
+    },
+    "neutral-key-only/source/work/ne277-contact-order/holster_checks.tscn": {
+      "bytes": 191,
+      "sha256": "80009215837b2e44eefca4a3ea96ae6109035db26e0d2eaeaf2213d661d3d0bd"
+    },
+    "neutral-key-only/source/work/ne277-contact-order/holster_neutral.gd": {
+      "bytes": 12563,
+      "sha256": "ca226b78707845fa438bbbe1f4f47abfa6900d2c3177a7089573582a694d6e9d"
+    },
+    "neutral-key-only/source/work/ne277-contact-order/regression_checks.gd": {
+      "bytes": 3412,
+      "sha256": "7a3eb4d6849714cd8c4af9fe94d3679e33a4e52fef83efa700ec8db3346cd23d"
+    },
+    "neutral-key-only/source/work/ne277-contact-order/regression_checks.tscn": {
+      "bytes": 197,
+      "sha256": "10cffe2338f06fee18c813bfd73f3e199366813d08f64725d4add843187ce0d5"
+    },
+    "wrong-readiness-proposal/command.json": {
+      "bytes": 391,
+      "sha256": "9dc9feb6ec70281900bb3a627722f29c361c5b0bbeda7b71296fb9a992943d70"
+    },
+    "wrong-readiness-proposal/executed-runner.py": {
+      "bytes": 2824,
+      "sha256": "39097732fb676dea951e40a7a2f183fc11624170479ce1de3c33eb4705be9dd5"
+    },
+    "wrong-readiness-proposal/process.log": {
+      "bytes": 409957,
+      "sha256": "60482b13ecb9714d378be0a71d49eef525e928d92c228bc4745fa6cc393c8b04"
+    },
+    "wrong-readiness-proposal/receipt.json": {
+      "bytes": 6949,
+      "sha256": "2b18c8b8f347ce448c457a4ddb710b7e0bbc031e22bd4fd76d0baf812672b519"
+    },
+    "wrong-readiness-proposal/source/core/components/hurtbox.gd": {
+      "bytes": 10688,
+      "sha256": "06aa499fae310cc0825c9354f271861b99d390209238edf115813a15ecb72247"
+    },
+    "wrong-readiness-proposal/source/core/melee_art.gd": {
+      "bytes": 14211,
+      "sha256": "0c9a5b60c856a04647d24f6ed64a2f889bd908e0c13abe6ec7e7bcf27b1accff"
+    },
+    "wrong-readiness-proposal/source/core/melee_contact_sweep.gd": {
+      "bytes": 6555,
+      "sha256": "88549832dab234b81693064256e0d8de2702b228c10bbd0e746c8555d401ad09"
+    },
+    "wrong-readiness-proposal/source/core/melee_contact_sweep.gd.uid": {
+      "bytes": 20,
+      "sha256": "df639a59aa5932aadb5f0a176a4096fffff3aaabf1e7a0ccf566b212088625ca"
+    },
+    "wrong-readiness-proposal/source/data/audio/stage_scenes.json": {
+      "bytes": 41693,
+      "sha256": "b8bda0866d755999c6aa609fa9cebda7d6d4b77eb7453a691a278b5ac43b7ef3"
+    },
+    "wrong-readiness-proposal/source/data/melee/hydraulic_maul.json": {
+      "bytes": 7274,
+      "sha256": "4f67ae4545964af27dd727d132f7fabb81b1f3f97cda4e9529e2e66b7fe3e387"
+    },
+    "wrong-readiness-proposal/source/data/melee/ion_glaive.json": {
+      "bytes": 7406,
+      "sha256": "0d9956942bedb2e249309dcc384aa139fbf5ed9de626a2d19695786dc054ac6b"
+    },
+    "wrong-readiness-proposal/source/data/melee/mono_dagger.json": {
+      "bytes": 8752,
+      "sha256": "8adc7ee18ee5fd9ec08c44ef9daef5e871f1970364726f8d94ca6426556168da"
+    },
+    "wrong-readiness-proposal/source/data/melee/thermal_blade.json": {
+      "bytes": 8592,
+      "sha256": "84619140858b23de8a1abc9b5c02e16ed3f30b02bf5bf1d31dfeac789a6dd96d"
+    },
+    "wrong-readiness-proposal/source/game/melee/melee_module.gd": {
+      "bytes": 29160,
+      "sha256": "08262cbc93dc57fc76fb68496bc8dbab2f3d95ec4528cb9fc844fc2321eee90d"
+    },
+    "wrong-readiness-proposal/source/game/player/melee_held.gd": {
+      "bytes": 14809,
+      "sha256": "174749f25e122e52d1a6ba74bb4dd4ab6a43bfb3fca76fca3fbe5650a37a54aa"
+    },
+    "wrong-readiness-proposal/source/game/player/melee_set.gd": {
+      "bytes": 20640,
+      "sha256": "3415d7c1e788943694467a4815580c4c9bf228ebfae782a88ef20a8c620a075d"
+    },
+    "wrong-readiness-proposal/source/game/player/player_carry.gd": {
+      "bytes": 9396,
+      "sha256": "0451845da99dba1286f4c5109b311a3b0274fd50a4ed49e41b25dbbdde0af1ed"
+    },
+    "wrong-readiness-proposal/source/game/player/player_visual.gd": {
+      "bytes": 26503,
+      "sha256": "6b3b02d946cef618557943cf19675f151c4a5289bd5d1e4be6613f127947968e"
+    },
+    "wrong-readiness-proposal/source/tests/helpers/interaction_holster_checks.gd": {
+      "bytes": 12560,
+      "sha256": "81a67dee6f048737563412b98b2f0e4da5e11a1fd39b502b43fccfb3e63ca4d3"
+    },
+    "wrong-readiness-proposal/source/tests/helpers/melee_contact_geometry_checks.gd": {
+      "bytes": 5592,
+      "sha256": "1bf4d01c75fede1b0b1a41ad2fd4d92c31d314b50bf31bbb9269675885dc2475"
+    },
+    "wrong-readiness-proposal/source/tests/helpers/melee_contact_geometry_checks.gd.uid": {
+      "bytes": 20,
+      "sha256": "d600852ff547145662572ceda9e7ff4ee4d589c0eb578cd155bb3bb5809041ae"
+    },
+    "wrong-readiness-proposal/source/tests/helpers/melee_contact_parts_checks.gd": {
+      "bytes": 4124,
+      "sha256": "963eeeff55597446a74a2c0929c95f06bc51c799ce6e34527c1ffa7d1bca88b0"
+    },
+    "wrong-readiness-proposal/source/tests/helpers/melee_contact_parts_checks.gd.uid": {
+      "bytes": 19,
+      "sha256": "e97718ff701b207c8db7f08a114f63580cf7afa15f701b257fe06b7c382d067f"
+    },
+    "wrong-readiness-proposal/source/tests/suite/test_audio.gd": {
+      "bytes": 55797,
+      "sha256": "59e66e67c7801a9aaa9887e73105c2667a3d562489d0d5420453721b13a25f4e"
+    },
+    "wrong-readiness-proposal/source/tests/suite/test_heavy_enemies.gd": {
+      "bytes": 38531,
+      "sha256": "33ffdd2cea7cf337d6bd0d2e9152a86948dcd858a237c658fc778d75d78bd5fe"
+    },
+    "wrong-readiness-proposal/source/tests/suite/test_melee.gd": {
+      "bytes": 27749,
+      "sha256": "fc09b8af587da01123ccb77bb973e8ac4844d0d17bc33de6466cc68c4f9437bf"
+    },
+    "wrong-readiness-proposal/source/tests/suite/test_melee_weapons.gd": {
+      "bytes": 63362,
+      "sha256": "cdc1c6396519c371daf840da6dc4c922bdefd06c70ffa1b34b3c833ae456006a"
+    },
+    "wrong-readiness-proposal/source/tools/run_ne277_delivery.py": {
+      "bytes": 15258,
+      "sha256": "f60f26141683f2f85e1dc4fb591a218207f9d687ebfc78e99a8e7d9c05d4117e"
+    },
+    "wrong-readiness-proposal/source/tools/sound_lab/lab_arena.gd": {
+      "bytes": 12380,
+      "sha256": "f41c36a8d8ef39ff45c5f473b70d23222159d189eb45388dec5fd10c964414b2"
+    },
+    "wrong-readiness-proposal/source/tools/sound_lab/stage_actions.gd": {
+      "bytes": 25207,
+      "sha256": "bfc5c65e05d7a4676d55c3fcceb89ec33243a81cf4168202e62fdcf1d40d3a97"
+    },
+    "wrong-readiness-proposal/source/work/ne277-contact-order/holster_checks.gd": {
+      "bytes": 9018,
+      "sha256": "8ad83825478379bfb6c72d4628b009f96244583f5805f4082062e4c54fad9238"
+    },
+    "wrong-readiness-proposal/source/work/ne277-contact-order/holster_checks.tscn": {
+      "bytes": 191,
+      "sha256": "80009215837b2e44eefca4a3ea96ae6109035db26e0d2eaeaf2213d661d3d0bd"
+    },
+    "wrong-readiness-proposal/source/work/ne277-contact-order/holster_ready.gd": {
+      "bytes": 14744,
+      "sha256": "e8bcd9bee944dca63e17ba4b21384a40174bd19eca30850bc1abdf0b527b454b"
+    },
+    "wrong-readiness-proposal/source/work/ne277-contact-order/regression_checks.gd": {
+      "bytes": 3412,
+      "sha256": "7a3eb4d6849714cd8c4af9fe94d3679e33a4e52fef83efa700ec8db3346cd23d"
+    },
+    "wrong-readiness-proposal/source/work/ne277-contact-order/regression_checks.tscn": {
+      "bytes": 197,
+      "sha256": "10cffe2338f06fee18c813bfd73f3e199366813d08f64725d4add843187ce0d5"
+    },
+    "ready-seven-grid/command.json": {
+      "bytes": 397,
+      "sha256": "70192b38dc529cca442753fb41e10d507c2550af99af15076d1fd5c57fcd2c31"
+    },
+    "ready-seven-grid/executed-runner.py": {
+      "bytes": 2824,
+      "sha256": "39097732fb676dea951e40a7a2f183fc11624170479ce1de3c33eb4705be9dd5"
+    },
+    "ready-seven-grid/process.log": {
+      "bytes": 410520,
+      "sha256": "f551c4547cfec42a9b50eb772bccc77e728b14f0e0dd530f9d23dcde0c375e26"
+    },
+    "ready-seven-grid/receipt.json": {
+      "bytes": 6949,
+      "sha256": "c437fac4c256470b0c97df029c85b351eb10ce8755a6f0f324f2ae7210ff2b67"
+    },
+    "ready-seven-grid/source/core/components/hurtbox.gd": {
+      "bytes": 10688,
+      "sha256": "06aa499fae310cc0825c9354f271861b99d390209238edf115813a15ecb72247"
+    },
+    "ready-seven-grid/source/core/melee_art.gd": {
+      "bytes": 14211,
+      "sha256": "0c9a5b60c856a04647d24f6ed64a2f889bd908e0c13abe6ec7e7bcf27b1accff"
+    },
+    "ready-seven-grid/source/core/melee_contact_sweep.gd": {
+      "bytes": 6555,
+      "sha256": "88549832dab234b81693064256e0d8de2702b228c10bbd0e746c8555d401ad09"
+    },
+    "ready-seven-grid/source/core/melee_contact_sweep.gd.uid": {
+      "bytes": 20,
+      "sha256": "df639a59aa5932aadb5f0a176a4096fffff3aaabf1e7a0ccf566b212088625ca"
+    },
+    "ready-seven-grid/source/data/audio/stage_scenes.json": {
+      "bytes": 41693,
+      "sha256": "b8bda0866d755999c6aa609fa9cebda7d6d4b77eb7453a691a278b5ac43b7ef3"
+    },
+    "ready-seven-grid/source/data/melee/hydraulic_maul.json": {
+      "bytes": 7274,
+      "sha256": "4f67ae4545964af27dd727d132f7fabb81b1f3f97cda4e9529e2e66b7fe3e387"
+    },
+    "ready-seven-grid/source/data/melee/ion_glaive.json": {
+      "bytes": 7406,
+      "sha256": "0d9956942bedb2e249309dcc384aa139fbf5ed9de626a2d19695786dc054ac6b"
+    },
+    "ready-seven-grid/source/data/melee/mono_dagger.json": {
+      "bytes": 8752,
+      "sha256": "8adc7ee18ee5fd9ec08c44ef9daef5e871f1970364726f8d94ca6426556168da"
+    },
+    "ready-seven-grid/source/data/melee/thermal_blade.json": {
+      "bytes": 8592,
+      "sha256": "84619140858b23de8a1abc9b5c02e16ed3f30b02bf5bf1d31dfeac789a6dd96d"
+    },
+    "ready-seven-grid/source/game/melee/melee_module.gd": {
+      "bytes": 29160,
+      "sha256": "08262cbc93dc57fc76fb68496bc8dbab2f3d95ec4528cb9fc844fc2321eee90d"
+    },
+    "ready-seven-grid/source/game/player/melee_held.gd": {
+      "bytes": 14809,
+      "sha256": "174749f25e122e52d1a6ba74bb4dd4ab6a43bfb3fca76fca3fbe5650a37a54aa"
+    },
+    "ready-seven-grid/source/game/player/melee_set.gd": {
+      "bytes": 20640,
+      "sha256": "3415d7c1e788943694467a4815580c4c9bf228ebfae782a88ef20a8c620a075d"
+    },
+    "ready-seven-grid/source/game/player/player_carry.gd": {
+      "bytes": 9396,
+      "sha256": "0451845da99dba1286f4c5109b311a3b0274fd50a4ed49e41b25dbbdde0af1ed"
+    },
+    "ready-seven-grid/source/game/player/player_visual.gd": {
+      "bytes": 26503,
+      "sha256": "6b3b02d946cef618557943cf19675f151c4a5289bd5d1e4be6613f127947968e"
+    },
+    "ready-seven-grid/source/tests/helpers/interaction_holster_checks.gd": {
+      "bytes": 12560,
+      "sha256": "81a67dee6f048737563412b98b2f0e4da5e11a1fd39b502b43fccfb3e63ca4d3"
+    },
+    "ready-seven-grid/source/tests/helpers/melee_contact_geometry_checks.gd": {
+      "bytes": 5592,
+      "sha256": "1bf4d01c75fede1b0b1a41ad2fd4d92c31d314b50bf31bbb9269675885dc2475"
+    },
+    "ready-seven-grid/source/tests/helpers/melee_contact_geometry_checks.gd.uid": {
+      "bytes": 20,
+      "sha256": "d600852ff547145662572ceda9e7ff4ee4d589c0eb578cd155bb3bb5809041ae"
+    },
+    "ready-seven-grid/source/tests/helpers/melee_contact_parts_checks.gd": {
+      "bytes": 4124,
+      "sha256": "963eeeff55597446a74a2c0929c95f06bc51c799ce6e34527c1ffa7d1bca88b0"
+    },
+    "ready-seven-grid/source/tests/helpers/melee_contact_parts_checks.gd.uid": {
+      "bytes": 19,
+      "sha256": "e97718ff701b207c8db7f08a114f63580cf7afa15f701b257fe06b7c382d067f"
+    },
+    "ready-seven-grid/source/tests/suite/test_audio.gd": {
+      "bytes": 55797,
+      "sha256": "59e66e67c7801a9aaa9887e73105c2667a3d562489d0d5420453721b13a25f4e"
+    },
+    "ready-seven-grid/source/tests/suite/test_heavy_enemies.gd": {
+      "bytes": 38531,
+      "sha256": "33ffdd2cea7cf337d6bd0d2e9152a86948dcd858a237c658fc778d75d78bd5fe"
+    },
+    "ready-seven-grid/source/tests/suite/test_melee.gd": {
+      "bytes": 27749,
+      "sha256": "fc09b8af587da01123ccb77bb973e8ac4844d0d17bc33de6466cc68c4f9437bf"
+    },
+    "ready-seven-grid/source/tests/suite/test_melee_weapons.gd": {
+      "bytes": 63362,
+      "sha256": "cdc1c6396519c371daf840da6dc4c922bdefd06c70ffa1b34b3c833ae456006a"
+    },
+    "ready-seven-grid/source/tools/run_ne277_delivery.py": {
+      "bytes": 15258,
+      "sha256": "f60f26141683f2f85e1dc4fb591a218207f9d687ebfc78e99a8e7d9c05d4117e"
+    },
+    "ready-seven-grid/source/tools/sound_lab/lab_arena.gd": {
+      "bytes": 12380,
+      "sha256": "f41c36a8d8ef39ff45c5f473b70d23222159d189eb45388dec5fd10c964414b2"
+    },
+    "ready-seven-grid/source/tools/sound_lab/stage_actions.gd": {
+      "bytes": 25207,
+      "sha256": "bfc5c65e05d7a4676d55c3fcceb89ec33243a81cf4168202e62fdcf1d40d3a97"
+    },
+    "ready-seven-grid/source/work/ne277-contact-order/holster_checks.gd": {
+      "bytes": 9018,
+      "sha256": "8ad83825478379bfb6c72d4628b009f96244583f5805f4082062e4c54fad9238"
+    },
+    "ready-seven-grid/source/work/ne277-contact-order/holster_checks.tscn": {
+      "bytes": 191,
+      "sha256": "80009215837b2e44eefca4a3ea96ae6109035db26e0d2eaeaf2213d661d3d0bd"
+    },
+    "ready-seven-grid/source/work/ne277-contact-order/holster_ready.gd": {
+      "bytes": 14818,
+      "sha256": "6904c68a1afeac7199be29532986880c8c9ba336ede165b062ae99a61586bdb6"
+    },
+    "ready-seven-grid/source/work/ne277-contact-order/regression_checks.gd": {
+      "bytes": 3412,
+      "sha256": "7a3eb4d6849714cd8c4af9fe94d3679e33a4e52fef83efa700ec8db3346cd23d"
+    },
+    "ready-seven-grid/source/work/ne277-contact-order/regression_checks.tscn": {
+      "bytes": 197,
+      "sha256": "10cffe2338f06fee18c813bfd73f3e199366813d08f64725d4add843187ce0d5"
+    },
+    "final-seven-grid/command.json": {
+      "bytes": 386,
+      "sha256": "2ca368af41b4595f7c229770c57a68b9e7a7cd5371de5b0f3b5a47e6877ccab5"
+    },
+    "final-seven-grid/executed-runner.py": {
+      "bytes": 2935,
+      "sha256": "26b1aea3e9df84131dfeac2180280d42ca369e0e6ecefd76f3bd71a5e3c89112"
+    },
+    "final-seven-grid/process.log": {
+      "bytes": 410328,
+      "sha256": "629260929d6c854cbb2cb79e5c9f5f49a11bf4f0aa7d87161959d5fa471921e4"
+    },
+    "final-seven-grid/receipt.json": {
+      "bytes": 6951,
+      "sha256": "906de60ec7199f80ed10ed6d9aedffa7d67b84f00255c27abd07a211700b349e"
+    },
+    "final-seven-grid/source/core/components/hurtbox.gd": {
+      "bytes": 10688,
+      "sha256": "06aa499fae310cc0825c9354f271861b99d390209238edf115813a15ecb72247"
+    },
+    "final-seven-grid/source/core/melee_art.gd": {
+      "bytes": 14211,
+      "sha256": "0c9a5b60c856a04647d24f6ed64a2f889bd908e0c13abe6ec7e7bcf27b1accff"
+    },
+    "final-seven-grid/source/core/melee_contact_sweep.gd": {
+      "bytes": 6555,
+      "sha256": "88549832dab234b81693064256e0d8de2702b228c10bbd0e746c8555d401ad09"
+    },
+    "final-seven-grid/source/core/melee_contact_sweep.gd.uid": {
+      "bytes": 20,
+      "sha256": "df639a59aa5932aadb5f0a176a4096fffff3aaabf1e7a0ccf566b212088625ca"
+    },
+    "final-seven-grid/source/data/audio/stage_scenes.json": {
+      "bytes": 41693,
+      "sha256": "b8bda0866d755999c6aa609fa9cebda7d6d4b77eb7453a691a278b5ac43b7ef3"
+    },
+    "final-seven-grid/source/data/melee/hydraulic_maul.json": {
+      "bytes": 7274,
+      "sha256": "4f67ae4545964af27dd727d132f7fabb81b1f3f97cda4e9529e2e66b7fe3e387"
+    },
+    "final-seven-grid/source/data/melee/ion_glaive.json": {
+      "bytes": 7406,
+      "sha256": "0d9956942bedb2e249309dcc384aa139fbf5ed9de626a2d19695786dc054ac6b"
+    },
+    "final-seven-grid/source/data/melee/mono_dagger.json": {
+      "bytes": 8752,
+      "sha256": "8adc7ee18ee5fd9ec08c44ef9daef5e871f1970364726f8d94ca6426556168da"
+    },
+    "final-seven-grid/source/data/melee/thermal_blade.json": {
+      "bytes": 8592,
+      "sha256": "84619140858b23de8a1abc9b5c02e16ed3f30b02bf5bf1d31dfeac789a6dd96d"
+    },
+    "final-seven-grid/source/game/melee/melee_module.gd": {
+      "bytes": 29160,
+      "sha256": "08262cbc93dc57fc76fb68496bc8dbab2f3d95ec4528cb9fc844fc2321eee90d"
+    },
+    "final-seven-grid/source/game/player/melee_held.gd": {
+      "bytes": 14809,
+      "sha256": "174749f25e122e52d1a6ba74bb4dd4ab6a43bfb3fca76fca3fbe5650a37a54aa"
+    },
+    "final-seven-grid/source/game/player/melee_set.gd": {
+      "bytes": 20640,
+      "sha256": "3415d7c1e788943694467a4815580c4c9bf228ebfae782a88ef20a8c620a075d"
+    },
+    "final-seven-grid/source/game/player/player_carry.gd": {
+      "bytes": 9396,
+      "sha256": "0451845da99dba1286f4c5109b311a3b0274fd50a4ed49e41b25dbbdde0af1ed"
+    },
+    "final-seven-grid/source/game/player/player_visual.gd": {
+      "bytes": 26503,
+      "sha256": "6b3b02d946cef618557943cf19675f151c4a5289bd5d1e4be6613f127947968e"
+    },
+    "final-seven-grid/source/tests/helpers/interaction_holster_checks.gd": {
+      "bytes": 12560,
+      "sha256": "81a67dee6f048737563412b98b2f0e4da5e11a1fd39b502b43fccfb3e63ca4d3"
+    },
+    "final-seven-grid/source/tests/helpers/melee_contact_geometry_checks.gd": {
+      "bytes": 5592,
+      "sha256": "1bf4d01c75fede1b0b1a41ad2fd4d92c31d314b50bf31bbb9269675885dc2475"
+    },
+    "final-seven-grid/source/tests/helpers/melee_contact_geometry_checks.gd.uid": {
+      "bytes": 20,
+      "sha256": "d600852ff547145662572ceda9e7ff4ee4d589c0eb578cd155bb3bb5809041ae"
+    },
+    "final-seven-grid/source/tests/helpers/melee_contact_parts_checks.gd": {
+      "bytes": 4124,
+      "sha256": "963eeeff55597446a74a2c0929c95f06bc51c799ce6e34527c1ffa7d1bca88b0"
+    },
+    "final-seven-grid/source/tests/helpers/melee_contact_parts_checks.gd.uid": {
+      "bytes": 19,
+      "sha256": "e97718ff701b207c8db7f08a114f63580cf7afa15f701b257fe06b7c382d067f"
+    },
+    "final-seven-grid/source/tests/suite/test_audio.gd": {
+      "bytes": 55797,
+      "sha256": "59e66e67c7801a9aaa9887e73105c2667a3d562489d0d5420453721b13a25f4e"
+    },
+    "final-seven-grid/source/tests/suite/test_heavy_enemies.gd": {
+      "bytes": 38531,
+      "sha256": "33ffdd2cea7cf337d6bd0d2e9152a86948dcd858a237c658fc778d75d78bd5fe"
+    },
+    "final-seven-grid/source/tests/suite/test_melee.gd": {
+      "bytes": 27749,
+      "sha256": "fc09b8af587da01123ccb77bb973e8ac4844d0d17bc33de6466cc68c4f9437bf"
+    },
+    "final-seven-grid/source/tests/suite/test_melee_weapons.gd": {
+      "bytes": 63362,
+      "sha256": "cdc1c6396519c371daf840da6dc4c922bdefd06c70ffa1b34b3c833ae456006a"
+    },
+    "final-seven-grid/source/tools/run_ne277_delivery.py": {
+      "bytes": 15258,
+      "sha256": "f60f26141683f2f85e1dc4fb591a218207f9d687ebfc78e99a8e7d9c05d4117e"
+    },
+    "final-seven-grid/source/tools/sound_lab/lab_arena.gd": {
+      "bytes": 12380,
+      "sha256": "f41c36a8d8ef39ff45c5f473b70d23222159d189eb45388dec5fd10c964414b2"
+    },
+    "final-seven-grid/source/tools/sound_lab/stage_actions.gd": {
+      "bytes": 25207,
+      "sha256": "bfc5c65e05d7a4676d55c3fcceb89ec33243a81cf4168202e62fdcf1d40d3a97"
+    },
+    "final-seven-grid/source/work/ne277-contact-order/holster_checks.gd": {
+      "bytes": 9140,
+      "sha256": "9ccc97a8427c5ce1b3d78fdcdd2f3138ff2363336ff583f94c5eca6a0ec3e19a"
+    },
+    "final-seven-grid/source/work/ne277-contact-order/holster_checks.tscn": {
+      "bytes": 191,
+      "sha256": "80009215837b2e44eefca4a3ea96ae6109035db26e0d2eaeaf2213d661d3d0bd"
+    },
+    "final-seven-grid/source/work/ne277-contact-order/holster_formal.gd": {
+      "bytes": 16052,
+      "sha256": "f45c5a9e3f41288d6013991b4dd21281309cbf23bf0332f2f1414826d4da7449"
+    },
+    "final-seven-grid/source/work/ne277-contact-order/regression_checks.gd": {
+      "bytes": 3412,
+      "sha256": "7a3eb4d6849714cd8c4af9fe94d3679e33a4e52fef83efa700ec8db3346cd23d"
+    },
+    "final-seven-grid/source/work/ne277-contact-order/regression_checks.tscn": {
+      "bytes": 197,
+      "sha256": "10cffe2338f06fee18c813bfd73f3e199366813d08f64725d4add843187ce0d5"
+    },
+    "missing-mouse-negative/command.json": {
+      "bytes": 392,
+      "sha256": "1e6920ecd7425da2e943944e9cf961dba4a8971bb8e80ca41f27557f8aaeced8"
+    },
+    "missing-mouse-negative/executed-runner.py": {
+      "bytes": 3090,
+      "sha256": "f2a7ec568b9fc99349b56b766b4ee500e846864b0c73ffede0baf9c5befb8314"
+    },
+    "missing-mouse-negative/process.log": {
+      "bytes": 60622,
+      "sha256": "9d4e90c5262533651841a42ec857da04b575f4e545818b5426e10fdd9fc6ec6a"
+    },
+    "missing-mouse-negative/receipt.json": {
+      "bytes": 6965,
+      "sha256": "f0edd21a997bc45797f65aab361aacdc8f532ca7182ed6065a4e05d04b74b4d9"
+    },
+    "missing-mouse-negative/source/core/components/hurtbox.gd": {
+      "bytes": 10688,
+      "sha256": "06aa499fae310cc0825c9354f271861b99d390209238edf115813a15ecb72247"
+    },
+    "missing-mouse-negative/source/core/melee_art.gd": {
+      "bytes": 14211,
+      "sha256": "0c9a5b60c856a04647d24f6ed64a2f889bd908e0c13abe6ec7e7bcf27b1accff"
+    },
+    "missing-mouse-negative/source/core/melee_contact_sweep.gd": {
+      "bytes": 6555,
+      "sha256": "88549832dab234b81693064256e0d8de2702b228c10bbd0e746c8555d401ad09"
+    },
+    "missing-mouse-negative/source/core/melee_contact_sweep.gd.uid": {
+      "bytes": 20,
+      "sha256": "df639a59aa5932aadb5f0a176a4096fffff3aaabf1e7a0ccf566b212088625ca"
+    },
+    "missing-mouse-negative/source/data/audio/stage_scenes.json": {
+      "bytes": 41693,
+      "sha256": "b8bda0866d755999c6aa609fa9cebda7d6d4b77eb7453a691a278b5ac43b7ef3"
+    },
+    "missing-mouse-negative/source/data/melee/hydraulic_maul.json": {
+      "bytes": 7274,
+      "sha256": "4f67ae4545964af27dd727d132f7fabb81b1f3f97cda4e9529e2e66b7fe3e387"
+    },
+    "missing-mouse-negative/source/data/melee/ion_glaive.json": {
+      "bytes": 7406,
+      "sha256": "0d9956942bedb2e249309dcc384aa139fbf5ed9de626a2d19695786dc054ac6b"
+    },
+    "missing-mouse-negative/source/data/melee/mono_dagger.json": {
+      "bytes": 8752,
+      "sha256": "8adc7ee18ee5fd9ec08c44ef9daef5e871f1970364726f8d94ca6426556168da"
+    },
+    "missing-mouse-negative/source/data/melee/thermal_blade.json": {
+      "bytes": 8592,
+      "sha256": "84619140858b23de8a1abc9b5c02e16ed3f30b02bf5bf1d31dfeac789a6dd96d"
+    },
+    "missing-mouse-negative/source/game/melee/melee_module.gd": {
+      "bytes": 29160,
+      "sha256": "08262cbc93dc57fc76fb68496bc8dbab2f3d95ec4528cb9fc844fc2321eee90d"
+    },
+    "missing-mouse-negative/source/game/player/melee_held.gd": {
+      "bytes": 14809,
+      "sha256": "174749f25e122e52d1a6ba74bb4dd4ab6a43bfb3fca76fca3fbe5650a37a54aa"
+    },
+    "missing-mouse-negative/source/game/player/melee_set.gd": {
+      "bytes": 20640,
+      "sha256": "3415d7c1e788943694467a4815580c4c9bf228ebfae782a88ef20a8c620a075d"
+    },
+    "missing-mouse-negative/source/game/player/player_carry.gd": {
+      "bytes": 9396,
+      "sha256": "0451845da99dba1286f4c5109b311a3b0274fd50a4ed49e41b25dbbdde0af1ed"
+    },
+    "missing-mouse-negative/source/game/player/player_visual.gd": {
+      "bytes": 26503,
+      "sha256": "6b3b02d946cef618557943cf19675f151c4a5289bd5d1e4be6613f127947968e"
+    },
+    "missing-mouse-negative/source/tests/helpers/interaction_holster_checks.gd": {
+      "bytes": 12560,
+      "sha256": "81a67dee6f048737563412b98b2f0e4da5e11a1fd39b502b43fccfb3e63ca4d3"
+    },
+    "missing-mouse-negative/source/tests/helpers/melee_contact_geometry_checks.gd": {
+      "bytes": 5592,
+      "sha256": "1bf4d01c75fede1b0b1a41ad2fd4d92c31d314b50bf31bbb9269675885dc2475"
+    },
+    "missing-mouse-negative/source/tests/helpers/melee_contact_geometry_checks.gd.uid": {
+      "bytes": 20,
+      "sha256": "d600852ff547145662572ceda9e7ff4ee4d589c0eb578cd155bb3bb5809041ae"
+    },
+    "missing-mouse-negative/source/tests/helpers/melee_contact_parts_checks.gd": {
+      "bytes": 4124,
+      "sha256": "963eeeff55597446a74a2c0929c95f06bc51c799ce6e34527c1ffa7d1bca88b0"
+    },
+    "missing-mouse-negative/source/tests/helpers/melee_contact_parts_checks.gd.uid": {
+      "bytes": 19,
+      "sha256": "e97718ff701b207c8db7f08a114f63580cf7afa15f701b257fe06b7c382d067f"
+    },
+    "missing-mouse-negative/source/tests/suite/test_audio.gd": {
+      "bytes": 55797,
+      "sha256": "59e66e67c7801a9aaa9887e73105c2667a3d562489d0d5420453721b13a25f4e"
+    },
+    "missing-mouse-negative/source/tests/suite/test_heavy_enemies.gd": {
+      "bytes": 38531,
+      "sha256": "33ffdd2cea7cf337d6bd0d2e9152a86948dcd858a237c658fc778d75d78bd5fe"
+    },
+    "missing-mouse-negative/source/tests/suite/test_melee.gd": {
+      "bytes": 27749,
+      "sha256": "fc09b8af587da01123ccb77bb973e8ac4844d0d17bc33de6466cc68c4f9437bf"
+    },
+    "missing-mouse-negative/source/tests/suite/test_melee_weapons.gd": {
+      "bytes": 63362,
+      "sha256": "cdc1c6396519c371daf840da6dc4c922bdefd06c70ffa1b34b3c833ae456006a"
+    },
+    "missing-mouse-negative/source/tools/run_ne277_delivery.py": {
+      "bytes": 15258,
+      "sha256": "f60f26141683f2f85e1dc4fb591a218207f9d687ebfc78e99a8e7d9c05d4117e"
+    },
+    "missing-mouse-negative/source/tools/sound_lab/lab_arena.gd": {
+      "bytes": 12380,
+      "sha256": "f41c36a8d8ef39ff45c5f473b70d23222159d189eb45388dec5fd10c964414b2"
+    },
+    "missing-mouse-negative/source/tools/sound_lab/stage_actions.gd": {
+      "bytes": 25207,
+      "sha256": "bfc5c65e05d7a4676d55c3fcceb89ec33243a81cf4168202e62fdcf1d40d3a97"
+    },
+    "missing-mouse-negative/source/work/ne277-contact-order/holster_checks.gd": {
+      "bytes": 9415,
+      "sha256": "c317f17cc6e6782ca17f151f19529110e9d52749ae6d4f38b1d069e29da74349"
+    },
+    "missing-mouse-negative/source/work/ne277-contact-order/holster_checks.tscn": {
+      "bytes": 191,
+      "sha256": "80009215837b2e44eefca4a3ea96ae6109035db26e0d2eaeaf2213d661d3d0bd"
+    },
+    "missing-mouse-negative/source/work/ne277-contact-order/holster_missing_mouse.gd": {
+      "bytes": 16064,
+      "sha256": "2e65795b606e3840a1cc82e42ffae14ee1e911467af1b7faa2ca33eca08a7fa6"
+    },
+    "missing-mouse-negative/source/work/ne277-contact-order/regression_checks.gd": {
+      "bytes": 3412,
+      "sha256": "7a3eb4d6849714cd8c4af9fe94d3679e33a4e52fef83efa700ec8db3346cd23d"
+    },
+    "missing-mouse-negative/source/work/ne277-contact-order/regression_checks.tscn": {
+      "bytes": 197,
+      "sha256": "10cffe2338f06fee18c813bfd73f3e199366813d08f64725d4add843187ce0d5"
+    },
+    "bound-shift-negative/command.json": {
+      "bytes": 388,
+      "sha256": "555ef9635d8ee4426305c08225f931e34f5a794d830a009ee45ef6ac16a2bc28"
+    },
+    "bound-shift-negative/executed-runner.py": {
+      "bytes": 3090,
+      "sha256": "f2a7ec568b9fc99349b56b766b4ee500e846864b0c73ffede0baf9c5befb8314"
+    },
+    "bound-shift-negative/process.log": {
+      "bytes": 63471,
+      "sha256": "10001ecb02d9c33273df47d7169ae63940b099a066807127262089b2f32a2f89"
+    },
+    "bound-shift-negative/receipt.json": {
+      "bytes": 6961,
+      "sha256": "0f3bca77376b545bcd683c2d5b616e2b36bbcac2f7d838b8bbc621627af03b8a"
+    },
+    "bound-shift-negative/source/core/components/hurtbox.gd": {
+      "bytes": 10688,
+      "sha256": "06aa499fae310cc0825c9354f271861b99d390209238edf115813a15ecb72247"
+    },
+    "bound-shift-negative/source/core/melee_art.gd": {
+      "bytes": 14211,
+      "sha256": "0c9a5b60c856a04647d24f6ed64a2f889bd908e0c13abe6ec7e7bcf27b1accff"
+    },
+    "bound-shift-negative/source/core/melee_contact_sweep.gd": {
+      "bytes": 6555,
+      "sha256": "88549832dab234b81693064256e0d8de2702b228c10bbd0e746c8555d401ad09"
+    },
+    "bound-shift-negative/source/core/melee_contact_sweep.gd.uid": {
+      "bytes": 20,
+      "sha256": "df639a59aa5932aadb5f0a176a4096fffff3aaabf1e7a0ccf566b212088625ca"
+    },
+    "bound-shift-negative/source/data/audio/stage_scenes.json": {
+      "bytes": 41693,
+      "sha256": "b8bda0866d755999c6aa609fa9cebda7d6d4b77eb7453a691a278b5ac43b7ef3"
+    },
+    "bound-shift-negative/source/data/melee/hydraulic_maul.json": {
+      "bytes": 7274,
+      "sha256": "4f67ae4545964af27dd727d132f7fabb81b1f3f97cda4e9529e2e66b7fe3e387"
+    },
+    "bound-shift-negative/source/data/melee/ion_glaive.json": {
+      "bytes": 7406,
+      "sha256": "0d9956942bedb2e249309dcc384aa139fbf5ed9de626a2d19695786dc054ac6b"
+    },
+    "bound-shift-negative/source/data/melee/mono_dagger.json": {
+      "bytes": 8752,
+      "sha256": "8adc7ee18ee5fd9ec08c44ef9daef5e871f1970364726f8d94ca6426556168da"
+    },
+    "bound-shift-negative/source/data/melee/thermal_blade.json": {
+      "bytes": 8592,
+      "sha256": "84619140858b23de8a1abc9b5c02e16ed3f30b02bf5bf1d31dfeac789a6dd96d"
+    },
+    "bound-shift-negative/source/game/melee/melee_module.gd": {
+      "bytes": 29160,
+      "sha256": "08262cbc93dc57fc76fb68496bc8dbab2f3d95ec4528cb9fc844fc2321eee90d"
+    },
+    "bound-shift-negative/source/game/player/melee_held.gd": {
+      "bytes": 14809,
+      "sha256": "174749f25e122e52d1a6ba74bb4dd4ab6a43bfb3fca76fca3fbe5650a37a54aa"
+    },
+    "bound-shift-negative/source/game/player/melee_set.gd": {
+      "bytes": 20640,
+      "sha256": "3415d7c1e788943694467a4815580c4c9bf228ebfae782a88ef20a8c620a075d"
+    },
+    "bound-shift-negative/source/game/player/player_carry.gd": {
+      "bytes": 9396,
+      "sha256": "0451845da99dba1286f4c5109b311a3b0274fd50a4ed49e41b25dbbdde0af1ed"
+    },
+    "bound-shift-negative/source/game/player/player_visual.gd": {
+      "bytes": 26503,
+      "sha256": "6b3b02d946cef618557943cf19675f151c4a5289bd5d1e4be6613f127947968e"
+    },
+    "bound-shift-negative/source/tests/helpers/interaction_holster_checks.gd": {
+      "bytes": 12560,
+      "sha256": "81a67dee6f048737563412b98b2f0e4da5e11a1fd39b502b43fccfb3e63ca4d3"
+    },
+    "bound-shift-negative/source/tests/helpers/melee_contact_geometry_checks.gd": {
+      "bytes": 5592,
+      "sha256": "1bf4d01c75fede1b0b1a41ad2fd4d92c31d314b50bf31bbb9269675885dc2475"
+    },
+    "bound-shift-negative/source/tests/helpers/melee_contact_geometry_checks.gd.uid": {
+      "bytes": 20,
+      "sha256": "d600852ff547145662572ceda9e7ff4ee4d589c0eb578cd155bb3bb5809041ae"
+    },
+    "bound-shift-negative/source/tests/helpers/melee_contact_parts_checks.gd": {
+      "bytes": 4124,
+      "sha256": "963eeeff55597446a74a2c0929c95f06bc51c799ce6e34527c1ffa7d1bca88b0"
+    },
+    "bound-shift-negative/source/tests/helpers/melee_contact_parts_checks.gd.uid": {
+      "bytes": 19,
+      "sha256": "e97718ff701b207c8db7f08a114f63580cf7afa15f701b257fe06b7c382d067f"
+    },
+    "bound-shift-negative/source/tests/suite/test_audio.gd": {
+      "bytes": 55797,
+      "sha256": "59e66e67c7801a9aaa9887e73105c2667a3d562489d0d5420453721b13a25f4e"
+    },
+    "bound-shift-negative/source/tests/suite/test_heavy_enemies.gd": {
+      "bytes": 38531,
+      "sha256": "33ffdd2cea7cf337d6bd0d2e9152a86948dcd858a237c658fc778d75d78bd5fe"
+    },
+    "bound-shift-negative/source/tests/suite/test_melee.gd": {
+      "bytes": 27749,
+      "sha256": "fc09b8af587da01123ccb77bb973e8ac4844d0d17bc33de6466cc68c4f9437bf"
+    },
+    "bound-shift-negative/source/tests/suite/test_melee_weapons.gd": {
+      "bytes": 63362,
+      "sha256": "cdc1c6396519c371daf840da6dc4c922bdefd06c70ffa1b34b3c833ae456006a"
+    },
+    "bound-shift-negative/source/tools/run_ne277_delivery.py": {
+      "bytes": 15258,
+      "sha256": "f60f26141683f2f85e1dc4fb591a218207f9d687ebfc78e99a8e7d9c05d4117e"
+    },
+    "bound-shift-negative/source/tools/sound_lab/lab_arena.gd": {
+      "bytes": 12380,
+      "sha256": "f41c36a8d8ef39ff45c5f473b70d23222159d189eb45388dec5fd10c964414b2"
+    },
+    "bound-shift-negative/source/tools/sound_lab/stage_actions.gd": {
+      "bytes": 25207,
+      "sha256": "bfc5c65e05d7a4676d55c3fcceb89ec33243a81cf4168202e62fdcf1d40d3a97"
+    },
+    "bound-shift-negative/source/work/ne277-contact-order/holster_bound_shift.gd": {
+      "bytes": 16046,
+      "sha256": "7f888db8595406fb64a179007bf96d75084264731907a965f0187ab0b2dccc04"
+    },
+    "bound-shift-negative/source/work/ne277-contact-order/holster_checks.gd": {
+      "bytes": 9415,
+      "sha256": "c317f17cc6e6782ca17f151f19529110e9d52749ae6d4f38b1d069e29da74349"
+    },
+    "bound-shift-negative/source/work/ne277-contact-order/holster_checks.tscn": {
+      "bytes": 191,
+      "sha256": "80009215837b2e44eefca4a3ea96ae6109035db26e0d2eaeaf2213d661d3d0bd"
+    },
+    "bound-shift-negative/source/work/ne277-contact-order/regression_checks.gd": {
+      "bytes": 3412,
+      "sha256": "7a3eb4d6849714cd8c4af9fe94d3679e33a4e52fef83efa700ec8db3346cd23d"
+    },
+    "bound-shift-negative/source/work/ne277-contact-order/regression_checks.tscn": {
+      "bytes": 197,
+      "sha256": "10cffe2338f06fee18c813bfd73f3e199366813d08f64725d4add843187ce0d5"
+    },
+    "stopped-carry-negative/command.json": {
+      "bytes": 392,
+      "sha256": "4ba1f7839ccb4b6eb0051b5c2dbe210b6cf927c0fdcbdb28e1b82afca79aa3ac"
+    },
+    "stopped-carry-negative/executed-runner.py": {
+      "bytes": 3090,
+      "sha256": "f2a7ec568b9fc99349b56b766b4ee500e846864b0c73ffede0baf9c5befb8314"
+    },
+    "stopped-carry-negative/process.log": {
+      "bytes": 58377,
+      "sha256": "9d8b557aa48ed29ef3d34c321eb33789ec3531272bf6045f983f633297ce7b55"
+    },
+    "stopped-carry-negative/receipt.json": {
+      "bytes": 6966,
+      "sha256": "91cc7e0e6cbbfbe621aaf73b89726ab7a61ff9db688b9d6b76f707ff4f136ac7"
+    },
+    "stopped-carry-negative/source/core/components/hurtbox.gd": {
+      "bytes": 10688,
+      "sha256": "06aa499fae310cc0825c9354f271861b99d390209238edf115813a15ecb72247"
+    },
+    "stopped-carry-negative/source/core/melee_art.gd": {
+      "bytes": 14211,
+      "sha256": "0c9a5b60c856a04647d24f6ed64a2f889bd908e0c13abe6ec7e7bcf27b1accff"
+    },
+    "stopped-carry-negative/source/core/melee_contact_sweep.gd": {
+      "bytes": 6555,
+      "sha256": "88549832dab234b81693064256e0d8de2702b228c10bbd0e746c8555d401ad09"
+    },
+    "stopped-carry-negative/source/core/melee_contact_sweep.gd.uid": {
+      "bytes": 20,
+      "sha256": "df639a59aa5932aadb5f0a176a4096fffff3aaabf1e7a0ccf566b212088625ca"
+    },
+    "stopped-carry-negative/source/data/audio/stage_scenes.json": {
+      "bytes": 41693,
+      "sha256": "b8bda0866d755999c6aa609fa9cebda7d6d4b77eb7453a691a278b5ac43b7ef3"
+    },
+    "stopped-carry-negative/source/data/melee/hydraulic_maul.json": {
+      "bytes": 7274,
+      "sha256": "4f67ae4545964af27dd727d132f7fabb81b1f3f97cda4e9529e2e66b7fe3e387"
+    },
+    "stopped-carry-negative/source/data/melee/ion_glaive.json": {
+      "bytes": 7406,
+      "sha256": "0d9956942bedb2e249309dcc384aa139fbf5ed9de626a2d19695786dc054ac6b"
+    },
+    "stopped-carry-negative/source/data/melee/mono_dagger.json": {
+      "bytes": 8752,
+      "sha256": "8adc7ee18ee5fd9ec08c44ef9daef5e871f1970364726f8d94ca6426556168da"
+    },
+    "stopped-carry-negative/source/data/melee/thermal_blade.json": {
+      "bytes": 8592,
+      "sha256": "84619140858b23de8a1abc9b5c02e16ed3f30b02bf5bf1d31dfeac789a6dd96d"
+    },
+    "stopped-carry-negative/source/game/melee/melee_module.gd": {
+      "bytes": 29160,
+      "sha256": "08262cbc93dc57fc76fb68496bc8dbab2f3d95ec4528cb9fc844fc2321eee90d"
+    },
+    "stopped-carry-negative/source/game/player/melee_held.gd": {
+      "bytes": 14809,
+      "sha256": "174749f25e122e52d1a6ba74bb4dd4ab6a43bfb3fca76fca3fbe5650a37a54aa"
+    },
+    "stopped-carry-negative/source/game/player/melee_set.gd": {
+      "bytes": 20640,
+      "sha256": "3415d7c1e788943694467a4815580c4c9bf228ebfae782a88ef20a8c620a075d"
+    },
+    "stopped-carry-negative/source/game/player/player_carry.gd": {
+      "bytes": 9396,
+      "sha256": "0451845da99dba1286f4c5109b311a3b0274fd50a4ed49e41b25dbbdde0af1ed"
+    },
+    "stopped-carry-negative/source/game/player/player_visual.gd": {
+      "bytes": 26503,
+      "sha256": "6b3b02d946cef618557943cf19675f151c4a5289bd5d1e4be6613f127947968e"
+    },
+    "stopped-carry-negative/source/tests/helpers/interaction_holster_checks.gd": {
+      "bytes": 12560,
+      "sha256": "81a67dee6f048737563412b98b2f0e4da5e11a1fd39b502b43fccfb3e63ca4d3"
+    },
+    "stopped-carry-negative/source/tests/helpers/melee_contact_geometry_checks.gd": {
+      "bytes": 5592,
+      "sha256": "1bf4d01c75fede1b0b1a41ad2fd4d92c31d314b50bf31bbb9269675885dc2475"
+    },
+    "stopped-carry-negative/source/tests/helpers/melee_contact_geometry_checks.gd.uid": {
+      "bytes": 20,
+      "sha256": "d600852ff547145662572ceda9e7ff4ee4d589c0eb578cd155bb3bb5809041ae"
+    },
+    "stopped-carry-negative/source/tests/helpers/melee_contact_parts_checks.gd": {
+      "bytes": 4124,
+      "sha256": "963eeeff55597446a74a2c0929c95f06bc51c799ce6e34527c1ffa7d1bca88b0"
+    },
+    "stopped-carry-negative/source/tests/helpers/melee_contact_parts_checks.gd.uid": {
+      "bytes": 19,
+      "sha256": "e97718ff701b207c8db7f08a114f63580cf7afa15f701b257fe06b7c382d067f"
+    },
+    "stopped-carry-negative/source/tests/suite/test_audio.gd": {
+      "bytes": 55797,
+      "sha256": "59e66e67c7801a9aaa9887e73105c2667a3d562489d0d5420453721b13a25f4e"
+    },
+    "stopped-carry-negative/source/tests/suite/test_heavy_enemies.gd": {
+      "bytes": 38531,
+      "sha256": "33ffdd2cea7cf337d6bd0d2e9152a86948dcd858a237c658fc778d75d78bd5fe"
+    },
+    "stopped-carry-negative/source/tests/suite/test_melee.gd": {
+      "bytes": 27749,
+      "sha256": "fc09b8af587da01123ccb77bb973e8ac4844d0d17bc33de6466cc68c4f9437bf"
+    },
+    "stopped-carry-negative/source/tests/suite/test_melee_weapons.gd": {
+      "bytes": 63362,
+      "sha256": "cdc1c6396519c371daf840da6dc4c922bdefd06c70ffa1b34b3c833ae456006a"
+    },
+    "stopped-carry-negative/source/tools/run_ne277_delivery.py": {
+      "bytes": 15258,
+      "sha256": "f60f26141683f2f85e1dc4fb591a218207f9d687ebfc78e99a8e7d9c05d4117e"
+    },
+    "stopped-carry-negative/source/tools/sound_lab/lab_arena.gd": {
+      "bytes": 12380,
+      "sha256": "f41c36a8d8ef39ff45c5f473b70d23222159d189eb45388dec5fd10c964414b2"
+    },
+    "stopped-carry-negative/source/tools/sound_lab/stage_actions.gd": {
+      "bytes": 25207,
+      "sha256": "bfc5c65e05d7a4676d55c3fcceb89ec33243a81cf4168202e62fdcf1d40d3a97"
+    },
+    "stopped-carry-negative/source/work/ne277-contact-order/holster_checks.gd": {
+      "bytes": 9415,
+      "sha256": "c317f17cc6e6782ca17f151f19529110e9d52749ae6d4f38b1d069e29da74349"
+    },
+    "stopped-carry-negative/source/work/ne277-contact-order/holster_checks.tscn": {
+      "bytes": 191,
+      "sha256": "80009215837b2e44eefca4a3ea96ae6109035db26e0d2eaeaf2213d661d3d0bd"
+    },
+    "stopped-carry-negative/source/work/ne277-contact-order/holster_stopped_carry.gd": {
+      "bytes": 16137,
+      "sha256": "25c7adbda10e650156acf203ca79493d61c223e3b49503f7b4e1ea763ec51c58"
+    },
+    "stopped-carry-negative/source/work/ne277-contact-order/regression_checks.gd": {
+      "bytes": 3412,
+      "sha256": "7a3eb4d6849714cd8c4af9fe94d3679e33a4e52fef83efa700ec8db3346cd23d"
+    },
+    "stopped-carry-negative/source/work/ne277-contact-order/regression_checks.tscn": {
+      "bytes": 197,
+      "sha256": "10cffe2338f06fee18c813bfd73f3e199366813d08f64725d4add843187ce0d5"
+    },
+    "stopped-visual-negative/command.json": {
+      "bytes": 394,
+      "sha256": "ed88ee476f942ddc46c93e80f9466eb01d0f026eb249ffe9919603bef1cf551c"
+    },
+    "stopped-visual-negative/executed-runner.py": {
+      "bytes": 3090,
+      "sha256": "f2a7ec568b9fc99349b56b766b4ee500e846864b0c73ffede0baf9c5befb8314"
+    },
+    "stopped-visual-negative/process.log": {
+      "bytes": 59835,
+      "sha256": "e1813d18b0351a1e7dfaf5bc492811c3ff7492a451655e8b69938f8242c92130"
+    },
+    "stopped-visual-negative/receipt.json": {
+      "bytes": 6968,
+      "sha256": "8fe1f67b238e3f1f3040b91d2741b97a584429c3b0f39098a6d180d224261013"
+    },
+    "stopped-visual-negative/source/core/components/hurtbox.gd": {
+      "bytes": 10688,
+      "sha256": "06aa499fae310cc0825c9354f271861b99d390209238edf115813a15ecb72247"
+    },
+    "stopped-visual-negative/source/core/melee_art.gd": {
+      "bytes": 14211,
+      "sha256": "0c9a5b60c856a04647d24f6ed64a2f889bd908e0c13abe6ec7e7bcf27b1accff"
+    },
+    "stopped-visual-negative/source/core/melee_contact_sweep.gd": {
+      "bytes": 6555,
+      "sha256": "88549832dab234b81693064256e0d8de2702b228c10bbd0e746c8555d401ad09"
+    },
+    "stopped-visual-negative/source/core/melee_contact_sweep.gd.uid": {
+      "bytes": 20,
+      "sha256": "df639a59aa5932aadb5f0a176a4096fffff3aaabf1e7a0ccf566b212088625ca"
+    },
+    "stopped-visual-negative/source/data/audio/stage_scenes.json": {
+      "bytes": 41693,
+      "sha256": "b8bda0866d755999c6aa609fa9cebda7d6d4b77eb7453a691a278b5ac43b7ef3"
+    },
+    "stopped-visual-negative/source/data/melee/hydraulic_maul.json": {
+      "bytes": 7274,
+      "sha256": "4f67ae4545964af27dd727d132f7fabb81b1f3f97cda4e9529e2e66b7fe3e387"
+    },
+    "stopped-visual-negative/source/data/melee/ion_glaive.json": {
+      "bytes": 7406,
+      "sha256": "0d9956942bedb2e249309dcc384aa139fbf5ed9de626a2d19695786dc054ac6b"
+    },
+    "stopped-visual-negative/source/data/melee/mono_dagger.json": {
+      "bytes": 8752,
+      "sha256": "8adc7ee18ee5fd9ec08c44ef9daef5e871f1970364726f8d94ca6426556168da"
+    },
+    "stopped-visual-negative/source/data/melee/thermal_blade.json": {
+      "bytes": 8592,
+      "sha256": "84619140858b23de8a1abc9b5c02e16ed3f30b02bf5bf1d31dfeac789a6dd96d"
+    },
+    "stopped-visual-negative/source/game/melee/melee_module.gd": {
+      "bytes": 29160,
+      "sha256": "08262cbc93dc57fc76fb68496bc8dbab2f3d95ec4528cb9fc844fc2321eee90d"
+    },
+    "stopped-visual-negative/source/game/player/melee_held.gd": {
+      "bytes": 14809,
+      "sha256": "174749f25e122e52d1a6ba74bb4dd4ab6a43bfb3fca76fca3fbe5650a37a54aa"
+    },
+    "stopped-visual-negative/source/game/player/melee_set.gd": {
+      "bytes": 20640,
+      "sha256": "3415d7c1e788943694467a4815580c4c9bf228ebfae782a88ef20a8c620a075d"
+    },
+    "stopped-visual-negative/source/game/player/player_carry.gd": {
+      "bytes": 9396,
+      "sha256": "0451845da99dba1286f4c5109b311a3b0274fd50a4ed49e41b25dbbdde0af1ed"
+    },
+    "stopped-visual-negative/source/game/player/player_visual.gd": {
+      "bytes": 26503,
+      "sha256": "6b3b02d946cef618557943cf19675f151c4a5289bd5d1e4be6613f127947968e"
+    },
+    "stopped-visual-negative/source/tests/helpers/interaction_holster_checks.gd": {
+      "bytes": 12560,
+      "sha256": "81a67dee6f048737563412b98b2f0e4da5e11a1fd39b502b43fccfb3e63ca4d3"
+    },
+    "stopped-visual-negative/source/tests/helpers/melee_contact_geometry_checks.gd": {
+      "bytes": 5592,
+      "sha256": "1bf4d01c75fede1b0b1a41ad2fd4d92c31d314b50bf31bbb9269675885dc2475"
+    },
+    "stopped-visual-negative/source/tests/helpers/melee_contact_geometry_checks.gd.uid": {
+      "bytes": 20,
+      "sha256": "d600852ff547145662572ceda9e7ff4ee4d589c0eb578cd155bb3bb5809041ae"
+    },
+    "stopped-visual-negative/source/tests/helpers/melee_contact_parts_checks.gd": {
+      "bytes": 4124,
+      "sha256": "963eeeff55597446a74a2c0929c95f06bc51c799ce6e34527c1ffa7d1bca88b0"
+    },
+    "stopped-visual-negative/source/tests/helpers/melee_contact_parts_checks.gd.uid": {
+      "bytes": 19,
+      "sha256": "e97718ff701b207c8db7f08a114f63580cf7afa15f701b257fe06b7c382d067f"
+    },
+    "stopped-visual-negative/source/tests/suite/test_audio.gd": {
+      "bytes": 55797,
+      "sha256": "59e66e67c7801a9aaa9887e73105c2667a3d562489d0d5420453721b13a25f4e"
+    },
+    "stopped-visual-negative/source/tests/suite/test_heavy_enemies.gd": {
+      "bytes": 38531,
+      "sha256": "33ffdd2cea7cf337d6bd0d2e9152a86948dcd858a237c658fc778d75d78bd5fe"
+    },
+    "stopped-visual-negative/source/tests/suite/test_melee.gd": {
+      "bytes": 27749,
+      "sha256": "fc09b8af587da01123ccb77bb973e8ac4844d0d17bc33de6466cc68c4f9437bf"
+    },
+    "stopped-visual-negative/source/tests/suite/test_melee_weapons.gd": {
+      "bytes": 63362,
+      "sha256": "cdc1c6396519c371daf840da6dc4c922bdefd06c70ffa1b34b3c833ae456006a"
+    },
+    "stopped-visual-negative/source/tools/run_ne277_delivery.py": {
+      "bytes": 15258,
+      "sha256": "f60f26141683f2f85e1dc4fb591a218207f9d687ebfc78e99a8e7d9c05d4117e"
+    },
+    "stopped-visual-negative/source/tools/sound_lab/lab_arena.gd": {
+      "bytes": 12380,
+      "sha256": "f41c36a8d8ef39ff45c5f473b70d23222159d189eb45388dec5fd10c964414b2"
+    },
+    "stopped-visual-negative/source/tools/sound_lab/stage_actions.gd": {
+      "bytes": 25207,
+      "sha256": "bfc5c65e05d7a4676d55c3fcceb89ec33243a81cf4168202e62fdcf1d40d3a97"
+    },
+    "stopped-visual-negative/source/work/ne277-contact-order/holster_checks.gd": {
+      "bytes": 9415,
+      "sha256": "c317f17cc6e6782ca17f151f19529110e9d52749ae6d4f38b1d069e29da74349"
+    },
+    "stopped-visual-negative/source/work/ne277-contact-order/holster_checks.tscn": {
+      "bytes": 191,
+      "sha256": "80009215837b2e44eefca4a3ea96ae6109035db26e0d2eaeaf2213d661d3d0bd"
+    },
+    "stopped-visual-negative/source/work/ne277-contact-order/holster_stopped_visual.gd": {
+      "bytes": 16141,
+      "sha256": "d405c0839f642d42d5ee8f3cffe249e0b97ecaee3abe3fd440cf547f624200d9"
+    },
+    "stopped-visual-negative/source/work/ne277-contact-order/regression_checks.gd": {
+      "bytes": 3412,
+      "sha256": "7a3eb4d6849714cd8c4af9fe94d3679e33a4e52fef83efa700ec8db3346cd23d"
+    },
+    "stopped-visual-negative/source/work/ne277-contact-order/regression_checks.tscn": {
+      "bytes": 197,
+      "sha256": "10cffe2338f06fee18c813bfd73f3e199366813d08f64725d4add843187ce0d5"
+    },
+    "formal-path-original-carry/command.json": {
+      "bytes": 379,
+      "sha256": "dbcf9658e09e5820e06a707d355dbf9657285c7d8b2c3a655f184ec76d2b237e"
+    },
+    "formal-path-original-carry/executed-runner.py": {
+      "bytes": 3090,
+      "sha256": "f2a7ec568b9fc99349b56b766b4ee500e846864b0c73ffede0baf9c5befb8314"
+    },
+    "formal-path-original-carry/process.log": {
+      "bytes": 56484,
+      "sha256": "e490dcc0af829e1a3fab8fe80d59fe299d87b332622326fabf3f105e76007111"
+    },
+    "formal-path-original-carry/receipt.json": {
+      "bytes": 6716,
+      "sha256": "e14d9e95f8742e90be3e2ce40251bf89d9c8f77493415c8b3e8e8daf20e617f0"
+    },
+    "formal-path-original-carry/source/core/components/hurtbox.gd": {
+      "bytes": 10688,
+      "sha256": "06aa499fae310cc0825c9354f271861b99d390209238edf115813a15ecb72247"
+    },
+    "formal-path-original-carry/source/core/melee_art.gd": {
+      "bytes": 14211,
+      "sha256": "0c9a5b60c856a04647d24f6ed64a2f889bd908e0c13abe6ec7e7bcf27b1accff"
+    },
+    "formal-path-original-carry/source/core/melee_contact_sweep.gd": {
+      "bytes": 6555,
+      "sha256": "88549832dab234b81693064256e0d8de2702b228c10bbd0e746c8555d401ad09"
+    },
+    "formal-path-original-carry/source/core/melee_contact_sweep.gd.uid": {
+      "bytes": 20,
+      "sha256": "df639a59aa5932aadb5f0a176a4096fffff3aaabf1e7a0ccf566b212088625ca"
+    },
+    "formal-path-original-carry/source/data/audio/stage_scenes.json": {
+      "bytes": 41693,
+      "sha256": "b8bda0866d755999c6aa609fa9cebda7d6d4b77eb7453a691a278b5ac43b7ef3"
+    },
+    "formal-path-original-carry/source/data/melee/hydraulic_maul.json": {
+      "bytes": 7274,
+      "sha256": "4f67ae4545964af27dd727d132f7fabb81b1f3f97cda4e9529e2e66b7fe3e387"
+    },
+    "formal-path-original-carry/source/data/melee/ion_glaive.json": {
+      "bytes": 7406,
+      "sha256": "0d9956942bedb2e249309dcc384aa139fbf5ed9de626a2d19695786dc054ac6b"
+    },
+    "formal-path-original-carry/source/data/melee/mono_dagger.json": {
+      "bytes": 8752,
+      "sha256": "8adc7ee18ee5fd9ec08c44ef9daef5e871f1970364726f8d94ca6426556168da"
+    },
+    "formal-path-original-carry/source/data/melee/thermal_blade.json": {
+      "bytes": 8592,
+      "sha256": "84619140858b23de8a1abc9b5c02e16ed3f30b02bf5bf1d31dfeac789a6dd96d"
+    },
+    "formal-path-original-carry/source/game/melee/melee_module.gd": {
+      "bytes": 29160,
+      "sha256": "08262cbc93dc57fc76fb68496bc8dbab2f3d95ec4528cb9fc844fc2321eee90d"
+    },
+    "formal-path-original-carry/source/game/player/melee_held.gd": {
+      "bytes": 14809,
+      "sha256": "174749f25e122e52d1a6ba74bb4dd4ab6a43bfb3fca76fca3fbe5650a37a54aa"
+    },
+    "formal-path-original-carry/source/game/player/melee_set.gd": {
+      "bytes": 20640,
+      "sha256": "3415d7c1e788943694467a4815580c4c9bf228ebfae782a88ef20a8c620a075d"
+    },
+    "formal-path-original-carry/source/game/player/player_carry.gd": {
+      "bytes": 9396,
+      "sha256": "0451845da99dba1286f4c5109b311a3b0274fd50a4ed49e41b25dbbdde0af1ed"
+    },
+    "formal-path-original-carry/source/game/player/player_visual.gd": {
+      "bytes": 26503,
+      "sha256": "6b3b02d946cef618557943cf19675f151c4a5289bd5d1e4be6613f127947968e"
+    },
+    "formal-path-original-carry/source/tests/helpers/interaction_holster_checks.gd": {
+      "bytes": 16052,
+      "sha256": "f45c5a9e3f41288d6013991b4dd21281309cbf23bf0332f2f1414826d4da7449"
+    },
+    "formal-path-original-carry/source/tests/helpers/melee_contact_geometry_checks.gd": {
+      "bytes": 5592,
+      "sha256": "1bf4d01c75fede1b0b1a41ad2fd4d92c31d314b50bf31bbb9269675885dc2475"
+    },
+    "formal-path-original-carry/source/tests/helpers/melee_contact_geometry_checks.gd.uid": {
+      "bytes": 20,
+      "sha256": "d600852ff547145662572ceda9e7ff4ee4d589c0eb578cd155bb3bb5809041ae"
+    },
+    "formal-path-original-carry/source/tests/helpers/melee_contact_parts_checks.gd": {
+      "bytes": 4124,
+      "sha256": "963eeeff55597446a74a2c0929c95f06bc51c799ce6e34527c1ffa7d1bca88b0"
+    },
+    "formal-path-original-carry/source/tests/helpers/melee_contact_parts_checks.gd.uid": {
+      "bytes": 19,
+      "sha256": "e97718ff701b207c8db7f08a114f63580cf7afa15f701b257fe06b7c382d067f"
+    },
+    "formal-path-original-carry/source/tests/suite/test_audio.gd": {
+      "bytes": 55797,
+      "sha256": "59e66e67c7801a9aaa9887e73105c2667a3d562489d0d5420453721b13a25f4e"
+    },
+    "formal-path-original-carry/source/tests/suite/test_heavy_enemies.gd": {
+      "bytes": 38531,
+      "sha256": "33ffdd2cea7cf337d6bd0d2e9152a86948dcd858a237c658fc778d75d78bd5fe"
+    },
+    "formal-path-original-carry/source/tests/suite/test_melee.gd": {
+      "bytes": 27749,
+      "sha256": "fc09b8af587da01123ccb77bb973e8ac4844d0d17bc33de6466cc68c4f9437bf"
+    },
+    "formal-path-original-carry/source/tests/suite/test_melee_weapons.gd": {
+      "bytes": 63362,
+      "sha256": "cdc1c6396519c371daf840da6dc4c922bdefd06c70ffa1b34b3c833ae456006a"
+    },
+    "formal-path-original-carry/source/tools/run_ne277_delivery.py": {
+      "bytes": 15258,
+      "sha256": "f60f26141683f2f85e1dc4fb591a218207f9d687ebfc78e99a8e7d9c05d4117e"
+    },
+    "formal-path-original-carry/source/tools/sound_lab/lab_arena.gd": {
+      "bytes": 12380,
+      "sha256": "f41c36a8d8ef39ff45c5f473b70d23222159d189eb45388dec5fd10c964414b2"
+    },
+    "formal-path-original-carry/source/tools/sound_lab/stage_actions.gd": {
+      "bytes": 25207,
+      "sha256": "bfc5c65e05d7a4676d55c3fcceb89ec33243a81cf4168202e62fdcf1d40d3a97"
+    },
+    "formal-path-original-carry/source/work/ne277-contact-order/holster_checks.gd": {
+      "bytes": 9415,
+      "sha256": "c317f17cc6e6782ca17f151f19529110e9d52749ae6d4f38b1d069e29da74349"
+    },
+    "formal-path-original-carry/source/work/ne277-contact-order/holster_checks.tscn": {
+      "bytes": 191,
+      "sha256": "80009215837b2e44eefca4a3ea96ae6109035db26e0d2eaeaf2213d661d3d0bd"
+    },
+    "formal-path-original-carry/source/work/ne277-contact-order/regression_checks.gd": {
+      "bytes": 3412,
+      "sha256": "7a3eb4d6849714cd8c4af9fe94d3679e33a4e52fef83efa700ec8db3346cd23d"
+    },
+    "formal-path-original-carry/source/work/ne277-contact-order/regression_checks.tscn": {
+      "bytes": 197,
+      "sha256": "10cffe2338f06fee18c813bfd73f3e199366813d08f64725d4add843187ce0d5"
+    },
+    "authoring/build_holster_ready.py": {
+      "bytes": 3746,
+      "sha256": "c9e35d4f29e20e84ab9458cfa2ced1809ef787983dc7aab584de6d649a0f36ad"
+    },
+    "authoring/build_holster_formal.py": {
+      "bytes": 2474,
+      "sha256": "7e7142d7711bd666420d9da1e8c31e8c1e45171389c757d80c569f2df6a20d59"
+    },
+    "authoring/build_holster_negatives.py": {
+      "bytes": 1057,
+      "sha256": "6c33e889dbb31793399c23ca242911facad183989b2ff0543b8b804976a3dc20"
+    },
+    "authoring/run_negative_batch.py": {
+      "bytes": 987,
+      "sha256": "4d1d4c31df09c3c51062cb7a68361f53ba6a1fa099ad5c9c50e1a12c367dc062"
+    },
+    "authoring/build_ne288_packet.py": {
+      "bytes": 2997,
+      "sha256": "84d8c8331ef0dede79b60ff71da1697550729f2e5cf31e787345fec89fcb9a6d"
+    },
+    "authoring/original-interaction-holster-before-ne288.gd": {
+      "bytes": 12560,
+      "sha256": "81a67dee6f048737563412b98b2f0e4da5e11a1fd39b502b43fccfb3e63ca4d3"
+    },
+    "final/tests/helpers/interaction_holster_checks.gd": {
+      "bytes": 16052,
+      "sha256": "f45c5a9e3f41288d6013991b4dd21281309cbf23bf0332f2f1414826d4da7449"
+    }
+  },
+  "final_helper_sha256": "f45c5a9e3f41288d6013991b4dd21281309cbf23bf0332f2f1414826d4da7449"
+}
