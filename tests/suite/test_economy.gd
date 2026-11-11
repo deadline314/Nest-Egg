@@ -20,6 +20,7 @@ func run() -> void:
 	_test_death_cap()
 	_test_old_k_reacts_to_deaths()
 	_test_income_matches_prices()
+	_test_story_actors_without_drops()
 	await _test_counter_and_pages()
 	Progression.reset_run()
 
@@ -225,3 +226,22 @@ func _test_counter_and_pages() -> void:
 	screen.queue_free()
 	await end_level(level)
 	Progression.reset_run()
+
+
+## NE-231: these actors do not publish credit drops; their story rewards are settled separately.
+func _test_story_actors_without_drops() -> void:
+	for path in ["res://data/enemies/yong.tres", "res://data/enemies/janus.tres"]:
+		var enemy := load(path) as EnemyData
+		check(enemy != null, "story actor without credit drops loads: %s" % path)
+		if enemy == null:
+			continue
+		var layout := LevelLayout.new()
+		layout.spawns.append({"resource":enemy})
+		var income := EconomyReport.area_income(layout)
+		check(int(income["enemies"]) == 0 and int(income["total"]) == 0, "a story completion without credit drops must not add a death bounty to the chapter ledger: %s" % path)
+	var grunt := load("res://data/enemies/grunt.tres") as EnemyData
+	check(grunt != null, "ordinary enemy positive-control data loads")
+	if grunt != null:
+		var layout := LevelLayout.new()
+		layout.spawns.append({"resource":grunt})
+		check(grunt.credit_value > 0 and int(EconomyReport.area_income(layout)["enemies"]) == grunt.credit_value and int(EconomyReport.area_income(layout)["total"]) == grunt.credit_value, "ordinary enemy death income equals its actual positive resource credit value")

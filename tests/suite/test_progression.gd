@@ -404,7 +404,10 @@ func _test_data() -> void:
 	check(bad.validate().size() >= 3, "invalid upgrade data is reported")
 	for file in DirAccess.get_files_at("res://data/enemies"):
 		var enemy := load("res://data/enemies/%s" % file) as EnemyData
-		check(enemy != null and enemy.credit_value > 0, "enemy drops credits: %s" % file)
+		if enemy != null and enemy.id in [&"yong", &"janus"]:
+			check(enemy.credit_value == 0, "story actor without credit drops has no death bounty: %s" % file)
+		else:
+			check(enemy != null and enemy.credit_value > 0, "enemy drops credits: %s" % file)
 
 
 func _test_credits() -> void:
