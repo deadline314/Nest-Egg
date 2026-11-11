@@ -9,6 +9,7 @@ var _width := 1280
 var _height := 720
 var _shared_workload := false
 var _rows: Array[Dictionary] = []
+var _freeze_samples: Array[Dictionary] = []
 var _issues: Array[String] = []
 
 
@@ -37,12 +38,16 @@ func _ready() -> void:
 
 
 func _run() -> void:
+	var sources := preload("res://tools/world_pause_sample.gd").source_receipt(_out, ["res://tools/quest_map_perf_probe.gd", "res://tools/world_pause_sample.gd", "res://ui/kit/scene_backdrop.gd"])
 	Settings.use_storage("user://ne223-perf-probe-settings.cfg")
 	Settings.set_ui_text_scale(1.0)
+	get_window().size = Vector2i(_width, _height)
+	DisplayMode.ensure_scaling(get_window())
 	Story.auto_skip = true
 	GameState.start_new_run(GameState.difficulties[0])
 	add_child(LightKit.create_environment())
 	var level := Level.new()
+	level.process_mode = Node.PROCESS_MODE_PAUSABLE
 	level.configure(load("res://data/levels/ch1_pawnshop.tres") as LevelData)
 	add_child(level)
 	# 真場景暖身；首次開 UI 仍獨立列出，不預建地圖或覆蓋畫面。
@@ -53,6 +58,7 @@ func _run() -> void:
 		await _measure("idle", round_index)
 		await _measure("pause", round_index, KEY_P)
 		_expect(pause._root.visible and get_tree().paused, "暫停應開啟並凍結世界。")
+		var frozen := preload("res://tools/world_pause_sample.gd").snapshot(level)
 		await _measure("journal", round_index, KEY_O)
 		_expect(is_instance_valid(pause._navigation) and pause._navigation._page == "quests", "任務快捷鍵應打開正式任務目錄。")
 		if not is_instance_valid(pause._navigation):
@@ -83,11 +89,14 @@ func _run() -> void:
 		_expect(screen._page == "quests", "區域返回應先回任務目錄。")
 		await _tap(KEY_ESCAPE)
 		_expect(not is_instance_valid(pause._navigation) and pause._root.visible and get_tree().paused, "任務返回應先回暫停選單。")
+		var after := preload("res://tools/world_pause_sample.gd").snapshot(level)
+		_freeze_samples.append({"round": round_index, "before": frozen, "after": after, "unchanged": frozen == after})
+		_expect(frozen == after and level.process_mode == Node.PROCESS_MODE_PAUSABLE, "選單操作期間玩家、鏡頭、世界霧時間與遊玩時間都必須真正凍結。")
 		await _tap(KEY_ESCAPE)
 		_expect(not pause._root.visible and not get_tree().paused, "暫停返回後才恢復遊戲。")
 		await _settle()
 		_rows.append({"action": "retained", "round": round_index, "static_bytes": int(Performance.get_monitor(Performance.MEMORY_STATIC)), "nodes": int(Performance.get_monitor(Performance.OBJECT_NODE_COUNT)), "cache_entries": QuestMapCanvas._cache.size()})
-	var report := {"renderer": RenderingServer.get_current_rendering_method(), "adapter": RenderingServer.get_video_adapter_name(), "godot": Engine.get_version_info()["string"], "resolution": [_width, _height], "rounds": _rounds, "vsync": false, "shared_workload": _shared_workload, "timing": "input to next frame_post_draw; includes frame scheduling and rendering submission, not physical display latency", "input": "synthetic keyboard events through the real PauseMenu; no physical controller", "level": level.data.resource_path, "samples": _rows, "summary": _summary(), "issues": _issues}
+	var report := {"renderer": RenderingServer.get_current_rendering_method(), "adapter": RenderingServer.get_video_adapter_name(), "godot": Engine.get_version_info()["string"], "resolution": [_width, _height], "rounds": _rounds, "vsync": false, "shared_workload": _shared_workload, "timing": "input to next frame_post_draw; includes frame scheduling and rendering submission, not physical display latency", "input": "synthetic keyboard events through the real PauseMenu; no physical controller", "level": level.data.resource_path, "sources": sources, "samples": _rows, "freeze_samples": _freeze_samples, "summary": _summary(), "issues": _issues}
 	var file := FileAccess.open(_out.path_join("quest-map-perf-%d.json" % _width), FileAccess.WRITE)
 	file.store_string(JSON.stringify(report, "\t"))
 	print("QUEST_MAP_PERF ", JSON.stringify(report["summary"]))
@@ -138,7 +147,9 @@ func _settle() -> void:
 
 func _capture(page: String) -> void:
 	await RenderingServer.frame_post_draw
-	var error := preload("res://tools/viewport_capture.gd").image(get_viewport()).save_png(_out.path_join("NE-223-native-%s-%d.png" % [page, _width]))
+	var encoded := preload("res://tools/viewport_capture.gd").image(get_viewport())
+	_expect(encoded.get_size() == Vector2i(_width, _height), "截圖實際像素必須符合要求的原生解析度。")
+	var error := encoded.save_png(_out.path_join("NE-223-native-%s-%d.png" % [page, _width]))
 	_expect(error == OK, "截圖應可儲存：%s" % page)
 
 
