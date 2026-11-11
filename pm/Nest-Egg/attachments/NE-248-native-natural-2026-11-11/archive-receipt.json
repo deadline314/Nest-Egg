@@ -1,0 +1,13 @@
+{
+  "original_file_count": 53,
+  "original_manifest_entries": 52,
+  "archive_entry_count": 54,
+  "archive_sha256": "62c97c4c2306f6b014e26a8d2c71d89260048dd430893e13d9f03bafb0b706bc",
+  "original_manifest_sha256": "378764630df2a2567179fcb1ce6cd018df88200272158a88a3997c2d920a97f6",
+  "probe_archive_entry": "source/ne248_natural_core_probe.gd",
+  "probe_report_sha256": "68790ba9f1a8bdc7c4668e56fce656df63a29a1fad3b38a6172cd72f80ff91cd",
+  "original_probe_crlf_count": 314,
+  "current_probe_lf_sha256": "3cbfca23699fd2814ea6a803fd2a7d5fcb23d8f99ac66077e4bc9e63b7643872",
+  "preservation_verified": true,
+  "rule": "Archive probe bytes must match report SHA exactly; current probe must equal only CRLF-to-LF conversion. All ten product sources remain byte-exact SHA checks. Original reports and manifest are unchanged."
+}

@@ -1,0 +1,102 @@
+{
+  "checks": 291,
+  "failures": 0,
+  "evidence_source": "raw.zip original bytes",
+  "probe_source_rule": "original archive SHA plus exact CRLF-to-LF comparison only; ten product sources remain byte-exact",
+  "scope": "Minimal verifier read-set exported from actual HEAD Git blobs plus current verifier; not a whole-project build or gameplay rerun",
+  "runs": [
+    {
+      "side": 1,
+      "core_facing": -1,
+      "phase2_t": 17.7166666666669,
+      "phase2_hp": 45,
+      "core_hp": [
+        45,
+        43
+      ],
+      "core_part": "core",
+      "core_damage": 2,
+      "core_weak": true,
+      "core_marker": "weak",
+      "body_damage": 1,
+      "closed_damage": 1,
+      "hp_accounted": 50,
+      "probe_checks": 17
+    },
+    {
+      "side": -1,
+      "core_facing": 1,
+      "phase2_t": 20.6333333333334,
+      "phase2_hp": 45,
+      "core_hp": [
+        45,
+        43
+      ],
+      "core_part": "core",
+      "core_damage": 2,
+      "core_weak": true,
+      "core_marker": "weak",
+      "body_damage": 1,
+      "closed_damage": 1,
+      "hp_accounted": 49,
+      "probe_checks": 17
+    }
+  ],
+  "git_sources": [
+    {
+      "file": "core/aim_input.gd",
+      "git_blob_sha256": "389cbabc618fa544675fa8804f16cc5086d05aa3d8f8206a9d9a7be3d961bd8a",
+      "product_byte_exact": true
+    },
+    {
+      "file": "core/components/health_component.gd",
+      "git_blob_sha256": "ab3b34ec9a9d00309246cae2036ef719a19ebf6a7a8b2114540916859251054a",
+      "product_byte_exact": true
+    },
+    {
+      "file": "core/components/hurtbox.gd",
+      "git_blob_sha256": "53f3673f57b7ab2a6f26c20462840463794188401e09b2bacf4e05c0fe00b2e8",
+      "product_byte_exact": true
+    },
+    {
+      "file": "data/enemies/warden.tres",
+      "git_blob_sha256": "83f99f790b969f6526675b49d0ece859173160e2e8955f277e65fbd4b6a0b6ad",
+      "product_byte_exact": true
+    },
+    {
+      "file": "data/player/player_tuning.tres",
+      "git_blob_sha256": "495611fa31574ee4059ae1661294ebe05626c0fb07a9f2ab74f675da474d6d98",
+      "product_byte_exact": true
+    },
+    {
+      "file": "data/projectiles/pistol_shot.tres",
+      "git_blob_sha256": "424eb245b7ffdf2216c96c484b93897b018cf3292cc672c6b06bac837a1021c7",
+      "product_byte_exact": true
+    },
+    {
+      "file": "data/weapons/pistol.tres",
+      "git_blob_sha256": "4334479e906707033f0df031d8c5c6f7ed87c72a07516664a4f80fb324eaa0f8",
+      "product_byte_exact": true
+    },
+    {
+      "file": "game/enemies/warden_boss.gd",
+      "git_blob_sha256": "3410ce2b8680b63b92f8f88b6f65e5cb42d3d9fed32f28bf29b63f5549054aba",
+      "product_byte_exact": true
+    },
+    {
+      "file": "game/player/player.gd",
+      "git_blob_sha256": "eb3963150f2b6e878ebab9b26e79fa659dddc3cfa84ec7f7970cc58564194c2a",
+      "product_byte_exact": true
+    },
+    {
+      "file": "game/projectiles/projectile.gd",
+      "git_blob_sha256": "8018c6058da731a9cfc2165f1e4365ce57264a8c28a7910a66ee3c4857712c50",
+      "product_byte_exact": true
+    },
+    {
+      "file": "tools/ne248_natural_core_probe.gd",
+      "git_blob_sha256": "3cbfca23699fd2814ea6a803fd2a7d5fcb23d8f99ac66077e4bc9e63b7643872",
+      "product_byte_exact": false
+    }
+  ]
+}

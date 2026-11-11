@@ -1,0 +1,14 @@
+[
+  {
+    "negative_control": "probe-token",
+    "expected_rejection": true,
+    "reason": "current probe differs from archived source only by exact CRLF-to-LF conversion",
+    "actual_files_modified": false
+  },
+  {
+    "negative_control": "product-crlf",
+    "expected_rejection": true,
+    "reason": "unchanged product source bytes: res://core/components/hurtbox.gd",
+    "actual_files_modified": false
+  }
+]

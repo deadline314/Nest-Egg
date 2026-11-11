@@ -1,0 +1,45 @@
+{
+  "checks": 291,
+  "failures": 0,
+  "evidence_source": "raw.zip original bytes",
+  "probe_source_rule": "original archive SHA plus exact CRLF-to-LF comparison only; ten product sources remain byte-exact",
+  "scope": "native GPU arranged arena; public scripted inputs; not human campaign or physical-device testing",
+  "runs": [
+    {
+      "side": 1,
+      "core_facing": -1,
+      "phase2_t": 17.7166666666669,
+      "phase2_hp": 45,
+      "core_hp": [
+        45,
+        43
+      ],
+      "core_part": "core",
+      "core_damage": 2,
+      "core_weak": true,
+      "core_marker": "weak",
+      "body_damage": 1,
+      "closed_damage": 1,
+      "hp_accounted": 50,
+      "probe_checks": 17
+    },
+    {
+      "side": -1,
+      "core_facing": 1,
+      "phase2_t": 20.6333333333334,
+      "phase2_hp": 45,
+      "core_hp": [
+        45,
+        43
+      ],
+      "core_part": "core",
+      "core_damage": 2,
+      "core_weak": true,
+      "core_marker": "weak",
+      "body_damage": 1,
+      "closed_damage": 1,
+      "hp_accounted": 49,
+      "probe_checks": 17
+    }
+  ]
+}

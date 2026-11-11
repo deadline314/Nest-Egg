@@ -42,7 +42,7 @@
 3. 依 repo 既有 yong_fight 的公共入口，將 final×canvas 轉換後的 InputEventMouseMotion 交給 Input.parse_input_event，並維持游標在視窗內；保留 OS warp 配合原生游標，沒有改 AimInput 或角色值。[無頭 20 秒診斷](diagnostic-parse-headless/report.json)自然在 17.033 秒到 45／phase2；[原生 20 秒診斷](diagnostic-parse-mouse/report.json)在 17.3 秒到 phase2 並拍到真 core／2／weak。短輪尚未完成全部條件，因此仍保留非零退出與未完成檢查。
 4. [最早的無頭舊送達診斷](headless-right/outcome.txt)已主動停止，只記五個初始前提，不作通過或產品缺陷宣稱。完整正式結果只採用 right／left 兩輪原生與 headless-current-right 的完整重播。
 
-原 240 秒上限、所有部位／傷害／weak／marker／面向／倍率判定均維持；沒有延長核心窗口或等待預算。新增嚴格斷言要求核心回饋接觸點在有效核心內。[與封存 v9 的完整差異](archived-v9-to-native.patch)、[來源收據](receipt.json)可核對送達與觀察修改。
+原 240 秒上限、所有部位／傷害／weak／marker／面向／倍率判定均維持；沒有延長核心窗口或等待預算。新增嚴格斷言要求核心回饋接觸點在有效核心內。[與封存 v9 的完整差異（raw.zip 內 archived-v9-to-native.patch）](raw.zip)、[來源收據](receipt.json)可核對送達與觀察修改。
 
 ## 重跑
 
@@ -55,3 +55,24 @@ python tools/verify_ne248_native_core.py <絕對目錄>
 ```
 
 各次真正的 shell 結束碼另存為該目錄的 exit-code.txt。不要省略 --parse-mouse：沒有此旗標是保留的舊送達負控制。--diagnostic-ticks 只供明示短診斷，驗證器拒絕將其當完整驗收；--logic-only 只跳過渲染擷取。設定寫入位置隔離到各自輸出目錄，正式存檔停用。原生版與無頭版都不直接呼叫私有射擊或傷害方法。
+
+
+## 2026-11-11：原始位元組與 Git 換行補證
+
+原生事件、原 report/source SHA、234 項驗證紀錄、manifest 與既有收據均保持原樣。Git 的 text=auto/eol=lf 會把提交中的 CRLF 正規化，不能將方便閱讀的 sidecar 位元組當成原始測試位元組。
+
+[raw.zip](raw.zip)逐位元組保存補證前的全部 53 個附件檔案，以及真正被測、含 314 個 CRLF 的 probe；共 54 entries。原始 manifest 的 52 條全部逐檔重算通過，manifest 本身亦完整保存。原 probe SHA 為 `68790ba9f1a8bdc7c4668e56fce656df63a29a1fad3b38a6172cd72f80ff91cd`，與原 report 一致。ZIP 本身由局部 .gitattributes 明示 -text 保護，未對主程式添加換行例外。[保存收據](archive-receipt.json)記錄 ZIP SHA、原 manifest SHA、檔案數與換行數。
+
+主 probe 現在使用 LF，僅移除每組 CRLF 中的 CR，沒有更改 token、玩法、輸入策略或任何原事件。驗證器只針對這一份 probe 採取兩項明示規則：ZIP 內真正被測來源的 SHA 必須逐 byte 等於 report；目前工具必須逐 byte 等於該來源僅做 CRLF→LF 的結果。其餘 **10 個產品來源仍逐 byte 對原 SHA**，沒有換行或內容寬鬆處理。
+
+驗證器以 ZIP 內的原始報告、log、真正退出碼與 PNG 驗證，並依原 manifest 逐檔核對。新的 [291／0 儲存驗證](archive-verification.json)是在原生命帳驗證上加上保存與換行邊界檢查，不是重跑原生，也沒有改寫原本 234 項紀錄。
+
+[負控制](archive-negative-controls.json)透過同一完整驗證器、僅在記憶體替換待讀內容：probe 的 `var side := 1` 改為 `var side := 2` 仍被拒絕；產品 hurtbox 來源只加入一個 CRLF 也被拒絕。沒有變更任何真實產品檔案。[Git blob 讀取集驗證](archive-fresh-git-verification.json)將目前 HEAD 的 11 個來源 blob 匯出到隔離暫存目錄，配合新驗證器與 ZIP，同樣 291／0；這是驗證器所需檔案的 fresh-checkout 等價讀取集，不是完整遊戲建置或遊玩。
+
+原 patch 的 diff context 是合法補丁空白，但不適合當作一般新增文字跑 git diff --check；它已完整收進 ZIP。展示連結指向 ZIP，本機原檔保留並由局部 .gitignore 排除重新加入 Git。
+
+重跑儲存與原生命帳驗證（不啟動 Godot）：
+
+```powershell
+python tools/verify_ne248_native_core.py pm/Nest-Egg/attachments/NE-248-native-natural-2026-11-11
+```
