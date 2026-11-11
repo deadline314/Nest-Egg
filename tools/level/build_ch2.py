@@ -251,7 +251,7 @@ def build_market_gate():
         a.lamp(x, 9)
     # 巡帳員旁邊的台階下多一盞低燈，入口第一個戰區的敵人輪廓才不會沒進夜色。
     a.lamp(22, 15)
-    a.zone(0, 'market')
+    a.zone(0, 'market_gate')
     a.features = {'loop': '上層公眾攤道（x=24～83，第 14 列）：可以完全繞過地面兩個戰鬥區',
                   'landmark': '市場的水位尺（x=112）', 'reward': '公眾攤道中段的信用點（x=50）',
                   'secret': '無', 'vertical': '地面與攤道兩層'}

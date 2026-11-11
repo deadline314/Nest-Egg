@@ -1,0 +1,461 @@
+{
+  "quality": "low",
+  "adapter": "AMD Radeon RX 9070 XT",
+  "actors": [
+    {
+      "id": "ch2_escort",
+      "skin": "collector_brute",
+      "physics_samples": 385,
+      "states": [
+        "approach",
+        "patrol",
+        "recover",
+        "strike",
+        "windup"
+      ],
+      "enemy_hp": 6,
+      "player_min_hp": 997,
+      "actual_enemy_projectiles": 0,
+      "live_beam_origin_error_max_world_pixels": 0.147419065237045,
+      "live_beam_note": "ordinary owner update ordering retained; no post-draw pose or light correction",
+      "captures": [
+        {
+          "file": "ch2_escort-00-patrol.png",
+          "state": "patrol",
+          "action": "",
+          "raw_sha256": "72be6abe95cbc267ced87e304716e3440d86e2fd9b729bc9f06575082e13dc3c",
+          "exposure": {
+            "screen_rect": [
+              647,
+              221,
+              261,
+              425
+            ],
+            "white_pixels_including_background": 0,
+            "pixels_including_background": 110925,
+            "hdr_channel_peak": 0.443359375,
+            "visible_body_white_ratio": 0.0,
+            "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+          }
+        },
+        {
+          "file": "ch2_escort-01-patrol.png",
+          "state": "patrol",
+          "action": "",
+          "raw_sha256": "a626e300b783a8333b2cd35ea5e6f062ff600ee22c8856f56a917072ba9ed9e2",
+          "exposure": {
+            "screen_rect": [
+              587,
+              223,
+              303,
+              423
+            ],
+            "white_pixels_including_background": 0,
+            "pixels_including_background": 128169,
+            "hdr_channel_peak": 0.81396484375,
+            "visible_body_white_ratio": 0.0,
+            "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+          }
+        },
+        {
+          "file": "ch2_escort-02-patrol.png",
+          "state": "patrol",
+          "action": "",
+          "raw_sha256": "e95611f5d39097a1acdb90102c2e1378067f7d28f1d563bc52eec22c3c96546a",
+          "exposure": {
+            "screen_rect": [
+              562,
+              224,
+              295,
+              422
+            ],
+            "white_pixels_including_background": 0,
+            "pixels_including_background": 124490,
+            "hdr_channel_peak": 0.708984375,
+            "visible_body_white_ratio": 0.0,
+            "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+          }
+        },
+        {
+          "file": "ch2_escort-03-windup.png",
+          "state": "windup",
+          "action": "ch2_escort.windup",
+          "raw_sha256": "2cf99353527b8f9acf0944002bf99f9786a7fb557bb642da7f3f0dc94c4c6bd4",
+          "exposure": {
+            "screen_rect": [
+              523,
+              235,
+              290,
+              417
+            ],
+            "white_pixels_including_background": 0,
+            "pixels_including_background": 120930,
+            "hdr_channel_peak": 8.03125,
+            "visible_body_white_ratio": 0.0,
+            "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+          }
+        },
+        {
+          "file": "ch2_escort-04-windup.png",
+          "state": "windup",
+          "action": "ch2_escort.windup",
+          "raw_sha256": "b22d8ce973580c47ea6373ee02cb76d38b4d1c7b4f13cd5bef14fdc80ec2e7ec",
+          "exposure": {
+            "screen_rect": [
+              510,
+              254,
+              347,
+              406
+            ],
+            "white_pixels_including_background": 230,
+            "pixels_including_background": 140882,
+            "hdr_channel_peak": 8.5,
+            "visible_body_white_ratio": null,
+            "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+          }
+        },
+        {
+          "file": "ch2_escort-05-windup.png",
+          "state": "windup",
+          "action": "ch2_escort.windup",
+          "raw_sha256": "852fe6913a846e403a16b417e3e2fc67bf947513f964590952d1e131815187f1",
+          "exposure": {
+            "screen_rect": [
+              509,
+              259,
+              387,
+              401
+            ],
+            "white_pixels_including_background": 227,
+            "pixels_including_background": 155187,
+            "hdr_channel_peak": 8.5,
+            "visible_body_white_ratio": null,
+            "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+          }
+        },
+        {
+          "file": "ch2_escort-06-windup.png",
+          "state": "windup",
+          "action": "ch2_escort.windup",
+          "raw_sha256": "a6a13d7f52c3dcfcf404a7f2d11e26a37c615bf252af800f82e1d58336743f2a",
+          "exposure": {
+            "screen_rect": [
+              509,
+              239,
+              369,
+              421
+            ],
+            "white_pixels_including_background": 233,
+            "pixels_including_background": 155349,
+            "hdr_channel_peak": 8.4921875,
+            "visible_body_white_ratio": null,
+            "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+          }
+        },
+        {
+          "file": "ch2_escort-07-strike.png",
+          "state": "strike",
+          "action": "ch2_escort.strike",
+          "raw_sha256": "2f119bd3a2232123d80095cead208f8b54e292de1cd604443c6aa2c79774a1a4",
+          "exposure": {
+            "screen_rect": [
+              481,
+              214,
+              368,
+              429
+            ],
+            "white_pixels_including_background": 25,
+            "pixels_including_background": 157872,
+            "hdr_channel_peak": 7.63671875,
+            "visible_body_white_ratio": null,
+            "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+          }
+        },
+        {
+          "file": "ch2_escort-08-strike.png",
+          "state": "strike",
+          "action": "ch2_escort.strike",
+          "raw_sha256": "bd4e245f01f7dc25d5486b9415145840fc6cac65e92f666730c3461debcd8f5d",
+          "exposure": {
+            "screen_rect": [
+              381,
+              234,
+              333,
+              428
+            ],
+            "white_pixels_including_background": 16,
+            "pixels_including_background": 142524,
+            "hdr_channel_peak": 7.72265625,
+            "visible_body_white_ratio": null,
+            "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+          }
+        },
+        {
+          "file": "ch2_escort-09-recover.png",
+          "state": "recover",
+          "action": "ch2_escort.recover",
+          "raw_sha256": "938f772bcdb4f7172d13580a1f9d43a1681f8f51bb84cd77d94d21890aa1827a",
+          "exposure": {
+            "screen_rect": [
+              370,
+              236,
+              314,
+              418
+            ],
+            "white_pixels_including_background": 10,
+            "pixels_including_background": 131252,
+            "hdr_channel_peak": 7.4296875,
+            "visible_body_white_ratio": null,
+            "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+          }
+        },
+        {
+          "file": "ch2_escort-10-recover.png",
+          "state": "recover",
+          "action": "ch2_escort.recover",
+          "raw_sha256": "fc701aa821482dfe8d603e695a63bb2d80be09bb5c2646278e2f4316abb2d674",
+          "exposure": {
+            "screen_rect": [
+              382,
+              232,
+              323,
+              418
+            ],
+            "white_pixels_including_background": 21,
+            "pixels_including_background": 135014,
+            "hdr_channel_peak": 7.734375,
+            "visible_body_white_ratio": null,
+            "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+          }
+        },
+        {
+          "file": "ch2_escort-11-recover.png",
+          "state": "recover",
+          "action": "ch2_escort.recover",
+          "raw_sha256": "f58b38514e2b73fa06388796f324443fe15b869a3f00ce9c58068f52c010785e",
+          "exposure": {
+            "screen_rect": [
+              393,
+              223,
+              312,
+              427
+            ],
+            "white_pixels_including_background": 21,
+            "pixels_including_background": 133224,
+            "hdr_channel_peak": 7.5,
+            "visible_body_white_ratio": null,
+            "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch2_bill_thrower",
+      "skin": "collector_gunner",
+      "physics_samples": 399,
+      "states": [
+        "aim",
+        "patrol",
+        "recover",
+        "windup"
+      ],
+      "enemy_hp": 5,
+      "player_min_hp": 996,
+      "actual_enemy_projectiles": 5,
+      "live_beam_origin_error_max_world_pixels": 0.0805359780788422,
+      "live_beam_note": "ordinary owner update ordering retained; no post-draw pose or light correction",
+      "captures": [
+        {
+          "file": "ch2_bill_thrower-00-aim.png",
+          "state": "aim",
+          "action": "",
+          "raw_sha256": "94c169dd1bc2bd788363d9d4477fd8012b6f4d016bec6c53fd8c5234edbf8b73",
+          "exposure": {
+            "screen_rect": [
+              658,
+              236,
+              256,
+              411
+            ],
+            "white_pixels_including_background": 0,
+            "pixels_including_background": 105216,
+            "hdr_channel_peak": 0.8095703125,
+            "visible_body_white_ratio": 0.0,
+            "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+          }
+        },
+        {
+          "file": "ch2_bill_thrower-01-aim.png",
+          "state": "aim",
+          "action": "",
+          "raw_sha256": "eba89a977b75e1d90c5153b8341b5a79396bdf72ea768a3a7a9cbf96c99ab6fd",
+          "exposure": {
+            "screen_rect": [
+              656,
+              236,
+              262,
+              410
+            ],
+            "white_pixels_including_background": 0,
+            "pixels_including_background": 107420,
+            "hdr_channel_peak": 0.8125,
+            "visible_body_white_ratio": 0.0,
+            "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+          }
+        },
+        {
+          "file": "ch2_bill_thrower-02-aim.png",
+          "state": "aim",
+          "action": "",
+          "raw_sha256": "6cd6be0ba5b08baa1783ec7165ac508cf53604d549e434999a4a9499115e72a3",
+          "exposure": {
+            "screen_rect": [
+              656,
+              236,
+              262,
+              410
+            ],
+            "white_pixels_including_background": 0,
+            "pixels_including_background": 107420,
+            "hdr_channel_peak": 0.81591796875,
+            "visible_body_white_ratio": 0.0,
+            "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+          }
+        },
+        {
+          "file": "ch2_bill_thrower-03-aim.png",
+          "state": "aim",
+          "action": "",
+          "raw_sha256": "69bbffa688e7b8d705dc6993d27e30eca65b760fd28b0dc35c5787c90f39768b",
+          "exposure": {
+            "screen_rect": [
+              656,
+              236,
+              262,
+              410
+            ],
+            "white_pixels_including_background": 0,
+            "pixels_including_background": 107420,
+            "hdr_channel_peak": 0.81884765625,
+            "visible_body_white_ratio": 0.0,
+            "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+          }
+        },
+        {
+          "file": "ch2_bill_thrower-04-windup.png",
+          "state": "windup",
+          "action": "",
+          "raw_sha256": "ae48411715f4620825ba9d72f19ac75ea93d2b146a75be6e53bb735ee3747a4a",
+          "exposure": {
+            "screen_rect": [
+              655,
+              232,
+              262,
+              414
+            ],
+            "white_pixels_including_background": 0,
+            "pixels_including_background": 108468,
+            "hdr_channel_peak": 7.71875,
+            "visible_body_white_ratio": 0.0,
+            "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+          }
+        },
+        {
+          "file": "ch2_bill_thrower-05-windup.png",
+          "state": "windup",
+          "action": "",
+          "raw_sha256": "71106a6e5b6de4e02284bbf5db81265ade31b6c9c6d98b953c0ac32e6dddec00",
+          "exposure": {
+            "screen_rect": [
+              655,
+              231,
+              262,
+              415
+            ],
+            "white_pixels_including_background": 110,
+            "pixels_including_background": 108730,
+            "hdr_channel_peak": 8.3515625,
+            "visible_body_white_ratio": null,
+            "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+          }
+        },
+        {
+          "file": "ch2_bill_thrower-06-windup.png",
+          "state": "windup",
+          "action": "",
+          "raw_sha256": "c850508199cf0de14a73f88be4d0cdf1107b5d43375f25a6459ad97247fec9e6",
+          "exposure": {
+            "screen_rect": [
+              655,
+              231,
+              262,
+              415
+            ],
+            "white_pixels_including_background": 120,
+            "pixels_including_background": 108730,
+            "hdr_channel_peak": 8.40625,
+            "visible_body_white_ratio": null,
+            "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+          }
+        },
+        {
+          "file": "ch2_bill_thrower-07-recover.png",
+          "state": "recover",
+          "action": "",
+          "raw_sha256": "82105667b4412db611aa06805914c5ca6aa0cd8d5d6ff6d44b94c0f031980cd3",
+          "exposure": {
+            "screen_rect": [
+              655,
+              232,
+              262,
+              414
+            ],
+            "white_pixels_including_background": 0,
+            "pixels_including_background": 108468,
+            "hdr_channel_peak": 0.83984375,
+            "visible_body_white_ratio": 0.0,
+            "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+          }
+        },
+        {
+          "file": "ch2_bill_thrower-08-recover.png",
+          "state": "recover",
+          "action": "",
+          "raw_sha256": "78bd7f08c08f90a3cfdc8653e07cbfe0bf526e3abc4a1325c50e1c7ff4e6b54d",
+          "exposure": {
+            "screen_rect": [
+              654,
+              236,
+              262,
+              410
+            ],
+            "white_pixels_including_background": 0,
+            "pixels_including_background": 107420,
+            "hdr_channel_peak": 0.84716796875,
+            "visible_body_white_ratio": 0.0,
+            "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+          }
+        },
+        {
+          "file": "ch2_bill_thrower-09-recover.png",
+          "state": "recover",
+          "action": "",
+          "raw_sha256": "84844bc137ab56e8e7853df72e787a7d8dafbeeb6b2d1558a9c69fd5cc8a271c",
+          "exposure": {
+            "screen_rect": [
+              654,
+              236,
+              262,
+              410
+            ],
+            "white_pixels_including_background": 0,
+            "pixels_including_background": 107420,
+            "hdr_channel_peak": 0.845703125,
+            "visible_body_white_ratio": 0.0,
+            "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+[
+  {
+    "quality": "high",
+    "case": "accept-high-v3",
+    "column": 3.0,
+    "row": 2.0,
+    "enemy_id": "ch2_bill_thrower",
+    "skin": "collector_gunner",
+    "feet": [
+      1128.0,
+      320.0
+    ],
+    "before": 0.341809194110771,
+    "after": 0.588671591741048,
+    "native_crop_rect": [
+      676,
+      158,
+      235,
+      410
+    ],
+    "files": {
+      "before": {
+        "native_source": "pm/Nest-Egg-BG/attachments/BG-55-market-gate-2026-11-11/accept-high-v3/ch2_market_gate/bg55-cell017-A0.png",
+        "full": "pm/Nest-Egg-BG/images/BG-55-final-high-before.png",
+        "crop": "pm/Nest-Egg-BG/images/BG-55-final-high-before-native-crop.png"
+      },
+      "after": {
+        "native_source": "pm/Nest-Egg-BG/attachments/BG-55-market-gate-2026-11-11/accept-high-v3/ch2_market_gate/bg55-cell017-product.png",
+        "full": "pm/Nest-Egg-BG/images/BG-55-final-high-after.png",
+        "crop": "pm/Nest-Egg-BG/images/BG-55-final-high-after-native-crop.png"
+      }
+    }
+  },
+  {
+    "quality": "low",
+    "case": "accept-low-v4",
+    "column": 3.0,
+    "row": 2.0,
+    "enemy_id": "ch2_bill_thrower",
+    "skin": "collector_gunner",
+    "feet": [
+      1128.0,
+      320.0
+    ],
+    "before": 0.385327543843015,
+    "after": 0.477271607415717,
+    "native_crop_rect": [
+      676,
+      158,
+      235,
+      410
+    ],
+    "files": {
+      "before": {
+        "native_source": "pm/Nest-Egg-BG/attachments/BG-55-market-gate-2026-11-11/accept-low-v4/ch2_market_gate/bg55-cell017-A0.png",
+        "full": "pm/Nest-Egg-BG/images/BG-55-final-low-before.png",
+        "crop": "pm/Nest-Egg-BG/images/BG-55-final-low-before-native-crop.png"
+      },
+      "after": {
+        "native_source": "pm/Nest-Egg-BG/attachments/BG-55-market-gate-2026-11-11/accept-low-v4/ch2_market_gate/bg55-cell017-product.png",
+        "full": "pm/Nest-Egg-BG/images/BG-55-final-low-after.png",
+        "crop": "pm/Nest-Egg-BG/images/BG-55-final-low-after-native-crop.png"
+      }
+    }
+  }
+]

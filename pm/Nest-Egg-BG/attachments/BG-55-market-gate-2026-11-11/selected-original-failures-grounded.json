@@ -1,0 +1,66 @@
+[
+  {
+    "quality": "high",
+    "case": "accept-high-grounded-v2",
+    "column": 3.0,
+    "row": 1.0,
+    "id": "ch2_escort",
+    "skin": "collector_brute",
+    "feet": [
+      968.0,
+      320.0
+    ],
+    "before": 0.208320719871028,
+    "after": 0.984478053905916,
+    "crop_rect": [
+      53,
+      235,
+      261,
+      425
+    ],
+    "files": {
+      "before": {
+        "source": "pm/Nest-Egg-BG/attachments/BG-55-market-gate-2026-11-11/accept-high-grounded-v2/ch2_market_gate/bg55-cell010-A0.png",
+        "full": "pm/Nest-Egg-BG/images/BG-55-grounded-high-red-before.png",
+        "crop": "pm/Nest-Egg-BG/images/BG-55-grounded-high-red-before-native-crop.png"
+      },
+      "after": {
+        "source": "pm/Nest-Egg-BG/attachments/BG-55-market-gate-2026-11-11/accept-high-grounded-v2/ch2_market_gate/bg55-cell010-product.png",
+        "full": "pm/Nest-Egg-BG/images/BG-55-grounded-high-red-after.png",
+        "crop": "pm/Nest-Egg-BG/images/BG-55-grounded-high-red-after-native-crop.png"
+      }
+    }
+  },
+  {
+    "quality": "low",
+    "case": "accept-low-grounded-v2",
+    "column": 3.0,
+    "row": 1.0,
+    "id": "ch2_escort",
+    "skin": "collector_brute",
+    "feet": [
+      968.0,
+      320.0
+    ],
+    "before": 0.269702225315384,
+    "after": 1.02712920550569,
+    "crop_rect": [
+      53,
+      235,
+      261,
+      425
+    ],
+    "files": {
+      "before": {
+        "source": "pm/Nest-Egg-BG/attachments/BG-55-market-gate-2026-11-11/accept-low-grounded-v2/ch2_market_gate/bg55-cell010-A0.png",
+        "full": "pm/Nest-Egg-BG/images/BG-55-grounded-low-red-before.png",
+        "crop": "pm/Nest-Egg-BG/images/BG-55-grounded-low-red-before-native-crop.png"
+      },
+      "after": {
+        "source": "pm/Nest-Egg-BG/attachments/BG-55-market-gate-2026-11-11/accept-low-grounded-v2/ch2_market_gate/bg55-cell010-product.png",
+        "full": "pm/Nest-Egg-BG/images/BG-55-grounded-low-red-after.png",
+        "crop": "pm/Nest-Egg-BG/images/BG-55-grounded-low-red-after-native-crop.png"
+      }
+    }
+  }
+]

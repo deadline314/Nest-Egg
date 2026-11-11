@@ -1,0 +1,410 @@
+[
+  {
+    "case": "regression-grounded-ch1_street-high-v2",
+    "column": 6,
+    "row": 1,
+    "source": "pm/Nest-Egg-BG/attachments/BG-55-market-gate-2026-11-11/regression-grounded-ch1_street-high-v2/ch1_street/bg55-cell001-A0.png",
+    "image": "pm/Nest-Egg-BG/images/BG-55-related-ch1-high-c6r1.png",
+    "player_support": {
+      "feet": [
+        2008.0,
+        255.984375
+      ],
+      "floor": [
+        2008.0,
+        256.0
+      ],
+      "found": true,
+      "gap": 0.015625,
+      "layout_floor": 256.0,
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "on_floor_cache": true,
+      "safe_margin": 0.0799999982118607,
+      "solver_contact": true,
+      "solver_normal": [
+        0.0,
+        -1.0
+      ],
+      "valid": true,
+      "visible": true
+    },
+    "player_contact_shadow": {
+      "bounds": [
+        1992.83264160156,
+        254.0,
+        21.9987392425537,
+        7.0
+      ],
+      "cast": true,
+      "shift": -1.41803533380682,
+      "visible": true
+    },
+    "player_contrast": 1.57860228532082,
+    "edge_contrast": 0.503747089954504,
+    "enemies": [
+      {
+        "id": "collector_brute",
+        "feet": [
+          2136.0,
+          320.0
+        ],
+        "contrast": 0.21273393151876,
+        "passed": false,
+        "support": {
+          "feet": [
+            2136.0,
+            320.0
+          ],
+          "floor": [
+            2136.0,
+            320.0
+          ],
+          "found": true,
+          "gap": 0.0,
+          "normal": [
+            0.0,
+            -1.0
+          ],
+          "on_floor_cache": false,
+          "safe_margin": 0.0799999982118607
+        }
+      }
+    ]
+  },
+  {
+    "case": "regression-grounded-ch1_street-high-v2",
+    "column": 4,
+    "row": 2,
+    "source": "pm/Nest-Egg-BG/attachments/BG-55-market-gate-2026-11-11/regression-grounded-ch1_street-high-v2/ch1_street/bg55-cell002-A0.png",
+    "image": "pm/Nest-Egg-BG/images/BG-55-related-ch1-high-c4r2.png",
+    "player_support": {
+      "feet": [
+        1400.0,
+        319.984375
+      ],
+      "floor": [
+        1400.0,
+        320.0
+      ],
+      "found": true,
+      "gap": 0.015625,
+      "layout_floor": 320.0,
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "on_floor_cache": true,
+      "safe_margin": 0.0799999982118607,
+      "solver_contact": true,
+      "solver_normal": [
+        0.0,
+        -1.0
+      ],
+      "valid": true,
+      "visible": true
+    },
+    "player_contact_shadow": {
+      "bounds": [
+        1386.6416015625,
+        318.0,
+        21.9987392425537,
+        7.0
+      ],
+      "cast": true,
+      "shift": 0.390922685102983,
+      "visible": true
+    },
+    "player_contrast": 2.96598131635858,
+    "edge_contrast": 2.59537689183322,
+    "enemies": [
+      {
+        "id": "sweeper",
+        "feet": [
+          1256.0,
+          256.0
+        ],
+        "contrast": 0.554080503249292,
+        "passed": true,
+        "support": {
+          "feet": [
+            1256.0,
+            256.0
+          ],
+          "floor": [
+            1256.0,
+            256.0
+          ],
+          "found": true,
+          "gap": 0.0,
+          "normal": [
+            0.0,
+            -1.0
+          ],
+          "on_floor_cache": false,
+          "safe_margin": 0.0799999982118607
+        }
+      },
+      {
+        "id": "sweeper",
+        "feet": [
+          1352.0,
+          320.0
+        ],
+        "contrast": 0.415826412060307,
+        "passed": false,
+        "support": {
+          "feet": [
+            1352.0,
+            320.0
+          ],
+          "floor": [
+            1352.0,
+            320.0
+          ],
+          "found": true,
+          "gap": 0.0,
+          "normal": [
+            0.0,
+            -1.0
+          ],
+          "on_floor_cache": false,
+          "safe_margin": 0.0799999982118607
+        }
+      },
+      {
+        "id": "collector_gunner",
+        "feet": [
+          1448.0,
+          320.0
+        ],
+        "contrast": 1.96216976407564,
+        "passed": true,
+        "support": {
+          "feet": [
+            1448.0,
+            320.0
+          ],
+          "floor": [
+            1448.0,
+            320.0
+          ],
+          "found": true,
+          "gap": 0.0,
+          "normal": [
+            0.0,
+            -1.0
+          ],
+          "on_floor_cache": false,
+          "safe_margin": 0.0799999982118607
+        }
+      }
+    ]
+  },
+  {
+    "case": "regression-grounded-ch1_street-low-v2",
+    "column": 6,
+    "row": 1,
+    "source": "pm/Nest-Egg-BG/attachments/BG-55-market-gate-2026-11-11/regression-grounded-ch1_street-low-v2/ch1_street/bg55-cell001-A0.png",
+    "image": "pm/Nest-Egg-BG/images/BG-55-related-ch1-low-c6r1.png",
+    "player_support": {
+      "feet": [
+        2008.0,
+        255.984375
+      ],
+      "floor": [
+        2008.0,
+        256.0
+      ],
+      "found": true,
+      "gap": 0.015625,
+      "layout_floor": 256.0,
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "on_floor_cache": true,
+      "safe_margin": 0.0799999982118607,
+      "solver_contact": true,
+      "solver_normal": [
+        0.0,
+        -1.0
+      ],
+      "valid": true,
+      "visible": true
+    },
+    "player_contact_shadow": {
+      "bounds": [
+        1992.83264160156,
+        254.0,
+        21.9987392425537,
+        7.0
+      ],
+      "cast": true,
+      "shift": -1.41803533380682,
+      "visible": true
+    },
+    "player_contrast": 1.41176656590318,
+    "edge_contrast": 0.237566371856544,
+    "enemies": [
+      {
+        "id": "collector_brute",
+        "feet": [
+          2136.0,
+          320.0
+        ],
+        "contrast": 0.300871872464017,
+        "passed": false,
+        "support": {
+          "feet": [
+            2136.0,
+            320.0
+          ],
+          "floor": [
+            2136.0,
+            320.0
+          ],
+          "found": true,
+          "gap": 0.0,
+          "normal": [
+            0.0,
+            -1.0
+          ],
+          "on_floor_cache": false,
+          "safe_margin": 0.0799999982118607
+        }
+      }
+    ]
+  },
+  {
+    "case": "regression-grounded-ch1_street-low-v2",
+    "column": 4,
+    "row": 2,
+    "source": "pm/Nest-Egg-BG/attachments/BG-55-market-gate-2026-11-11/regression-grounded-ch1_street-low-v2/ch1_street/bg55-cell002-A0.png",
+    "image": "pm/Nest-Egg-BG/images/BG-55-related-ch1-low-c4r2.png",
+    "player_support": {
+      "feet": [
+        1400.0,
+        319.984375
+      ],
+      "floor": [
+        1400.0,
+        320.0
+      ],
+      "found": true,
+      "gap": 0.015625,
+      "layout_floor": 320.0,
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "on_floor_cache": true,
+      "safe_margin": 0.0799999982118607,
+      "solver_contact": true,
+      "solver_normal": [
+        0.0,
+        -1.0
+      ],
+      "valid": true,
+      "visible": true
+    },
+    "player_contact_shadow": {
+      "bounds": [
+        1386.6416015625,
+        318.0,
+        21.9987392425537,
+        7.0
+      ],
+      "cast": true,
+      "shift": 0.390922685102983,
+      "visible": true
+    },
+    "player_contrast": 2.93106164218294,
+    "edge_contrast": 2.59610638668539,
+    "enemies": [
+      {
+        "id": "sweeper",
+        "feet": [
+          1256.0,
+          256.0
+        ],
+        "contrast": 0.532711563606543,
+        "passed": true,
+        "support": {
+          "feet": [
+            1256.0,
+            256.0
+          ],
+          "floor": [
+            1256.0,
+            256.0
+          ],
+          "found": true,
+          "gap": 0.0,
+          "normal": [
+            0.0,
+            -1.0
+          ],
+          "on_floor_cache": false,
+          "safe_margin": 0.0799999982118607
+        }
+      },
+      {
+        "id": "sweeper",
+        "feet": [
+          1352.0,
+          320.0
+        ],
+        "contrast": 0.413017380776668,
+        "passed": false,
+        "support": {
+          "feet": [
+            1352.0,
+            320.0
+          ],
+          "floor": [
+            1352.0,
+            320.0
+          ],
+          "found": true,
+          "gap": 0.0,
+          "normal": [
+            0.0,
+            -1.0
+          ],
+          "on_floor_cache": false,
+          "safe_margin": 0.0799999982118607
+        }
+      },
+      {
+        "id": "collector_gunner",
+        "feet": [
+          1448.0,
+          320.0
+        ],
+        "contrast": 1.83091299867003,
+        "passed": true,
+        "support": {
+          "feet": [
+            1448.0,
+            320.0
+          ],
+          "floor": [
+            1448.0,
+            320.0
+          ],
+          "found": true,
+          "gap": 0.0,
+          "normal": [
+            0.0,
+            -1.0
+          ],
+          "on_floor_cache": false,
+          "safe_margin": 0.0799999982118607
+        }
+      }
+    ]
+  }
+]

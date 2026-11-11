@@ -1,0 +1,1061 @@
+{
+  "cells": 4,
+  "unique_native_images": 4,
+  "enemy_measurements": 40,
+  "control_failures": 0,
+  "camera_dependent_owners_complete": true,
+  "results": [
+    {
+      "level": "ch1_street",
+      "column": 4.0,
+      "row": 1.0,
+      "controls_valid": true,
+      "player_from_raw": {
+        "contrast": 3.2902864018923443,
+        "edge": 4.3394972290802505,
+        "passed": true
+      },
+      "observations": [
+        {
+          "label": "A0",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "sweeper",
+              "feet": [
+                1256.0,
+                256.0
+              ],
+              "contrast": 0.49107207892934,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  0,
+                  12,
+                  227,
+                  402
+                ],
+                "white_pixels_including_background": 234,
+                "pixels_including_background": 91254,
+                "hdr_channel_peak": 2.75390625,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "sweeper",
+              "feet": [
+                1352.0,
+                320.0
+              ],
+              "contrast": 0.434911207091628,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  356,
+                  258,
+                  240,
+                  402
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96480,
+                "hdr_channel_peak": 2.76953125,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "collector_gunner",
+              "feet": [
+                1448.0,
+                320.0
+              ],
+              "contrast": 1.79743292150361,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  727,
+                  251,
+                  235,
+                  410
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96350,
+                "hdr_channel_peak": 0.97998046875,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "A1",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "sweeper",
+              "feet": [
+                1256.0,
+                256.0
+              ],
+              "contrast": 0.49107207892934,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  0,
+                  12,
+                  227,
+                  402
+                ],
+                "white_pixels_including_background": 234,
+                "pixels_including_background": 91254,
+                "hdr_channel_peak": 2.75390625,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "sweeper",
+              "feet": [
+                1352.0,
+                320.0
+              ],
+              "contrast": 0.434911207091628,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  356,
+                  258,
+                  240,
+                  402
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96480,
+                "hdr_channel_peak": 2.76953125,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "collector_gunner",
+              "feet": [
+                1448.0,
+                320.0
+              ],
+              "contrast": 1.79743292150361,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  727,
+                  251,
+                  235,
+                  410
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96350,
+                "hdr_channel_peak": 0.97998046875,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "product",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "sweeper",
+              "feet": [
+                1256.0,
+                256.0
+              ],
+              "contrast": 0.49107207892934,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  0,
+                  12,
+                  227,
+                  402
+                ],
+                "white_pixels_including_background": 234,
+                "pixels_including_background": 91254,
+                "hdr_channel_peak": 2.75390625,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "sweeper",
+              "feet": [
+                1352.0,
+                320.0
+              ],
+              "contrast": 0.434911207091628,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  356,
+                  258,
+                  240,
+                  402
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96480,
+                "hdr_channel_peak": 2.76953125,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "collector_gunner",
+              "feet": [
+                1448.0,
+                320.0
+              ],
+              "contrast": 1.79743292150361,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  727,
+                  251,
+                  235,
+                  410
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96350,
+                "hdr_channel_peak": 0.97998046875,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "restore-product",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "sweeper",
+              "feet": [
+                1256.0,
+                256.0
+              ],
+              "contrast": 0.49107207892934,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  0,
+                  12,
+                  227,
+                  402
+                ],
+                "white_pixels_including_background": 234,
+                "pixels_including_background": 91254,
+                "hdr_channel_peak": 2.75390625,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "sweeper",
+              "feet": [
+                1352.0,
+                320.0
+              ],
+              "contrast": 0.434911207091628,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  356,
+                  258,
+                  240,
+                  402
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96480,
+                "hdr_channel_peak": 2.76953125,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "collector_gunner",
+              "feet": [
+                1448.0,
+                320.0
+              ],
+              "contrast": 1.79743292150361,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  727,
+                  251,
+                  235,
+                  410
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96350,
+                "hdr_channel_peak": 0.97998046875,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "authored-final",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "sweeper",
+              "feet": [
+                1256.0,
+                256.0
+              ],
+              "contrast": 0.49107207892934,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  0,
+                  12,
+                  227,
+                  402
+                ],
+                "white_pixels_including_background": 234,
+                "pixels_including_background": 91254,
+                "hdr_channel_peak": 2.75390625,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "sweeper",
+              "feet": [
+                1352.0,
+                320.0
+              ],
+              "contrast": 0.434911207091628,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  356,
+                  258,
+                  240,
+                  402
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96480,
+                "hdr_channel_peak": 2.76953125,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "collector_gunner",
+              "feet": [
+                1448.0,
+                320.0
+              ],
+              "contrast": 1.79743292150361,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  727,
+                  251,
+                  235,
+                  410
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96350,
+                "hdr_channel_peak": 0.97998046875,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": "ch1_street",
+      "column": 6.0,
+      "row": 1.0,
+      "controls_valid": true,
+      "player_from_raw": {
+        "contrast": 1.9762545010737622,
+        "edge": 0.5378981883686768,
+        "passed": false
+      },
+      "observations": [
+        {
+          "label": "A0",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "collector_brute",
+              "feet": [
+                2136.0,
+                320.0
+              ],
+              "contrast": 0.283296195892138,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  1005,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 7,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 2.248046875,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "A1",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "collector_brute",
+              "feet": [
+                2136.0,
+                320.0
+              ],
+              "contrast": 0.283296195892138,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  1005,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 7,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 2.248046875,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "product",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "collector_brute",
+              "feet": [
+                2136.0,
+                320.0
+              ],
+              "contrast": 0.283296195892138,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  1005,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 7,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 2.248046875,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "restore-product",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "collector_brute",
+              "feet": [
+                2136.0,
+                320.0
+              ],
+              "contrast": 0.283296195892138,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  1005,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 7,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 2.248046875,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "authored-final",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "collector_brute",
+              "feet": [
+                2136.0,
+                320.0
+              ],
+              "contrast": 0.283296195892138,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  1005,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 7,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 2.248046875,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": "ch1_street",
+      "column": 4.0,
+      "row": 2.0,
+      "controls_valid": true,
+      "player_from_raw": {
+        "contrast": 3.1084699759593173,
+        "edge": 4.758165985372586,
+        "passed": true
+      },
+      "observations": [
+        {
+          "label": "A0",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "sweeper",
+              "feet": [
+                1256.0,
+                256.0
+              ],
+              "contrast": 0.537155273915993,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  0,
+                  0,
+                  227,
+                  322
+                ],
+                "white_pixels_including_background": 58,
+                "pixels_including_background": 73094,
+                "hdr_channel_peak": 4.45703125,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "sweeper",
+              "feet": [
+                1352.0,
+                320.0
+              ],
+              "contrast": 0.392223232653463,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  356,
+                  166,
+                  240,
+                  402
+                ],
+                "white_pixels_including_background": 1,
+                "pixels_including_background": 96480,
+                "hdr_channel_peak": 5.0078125,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "collector_gunner",
+              "feet": [
+                1448.0,
+                320.0
+              ],
+              "contrast": 1.77742354488591,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  727,
+                  158,
+                  235,
+                  410
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96350,
+                "hdr_channel_peak": 0.9609375,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "A1",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "sweeper",
+              "feet": [
+                1256.0,
+                256.0
+              ],
+              "contrast": 0.537155273915993,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  0,
+                  0,
+                  227,
+                  322
+                ],
+                "white_pixels_including_background": 58,
+                "pixels_including_background": 73094,
+                "hdr_channel_peak": 4.45703125,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "sweeper",
+              "feet": [
+                1352.0,
+                320.0
+              ],
+              "contrast": 0.392223232653463,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  356,
+                  166,
+                  240,
+                  402
+                ],
+                "white_pixels_including_background": 1,
+                "pixels_including_background": 96480,
+                "hdr_channel_peak": 5.0078125,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "collector_gunner",
+              "feet": [
+                1448.0,
+                320.0
+              ],
+              "contrast": 1.77742354488591,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  727,
+                  158,
+                  235,
+                  410
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96350,
+                "hdr_channel_peak": 0.9609375,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "product",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "sweeper",
+              "feet": [
+                1256.0,
+                256.0
+              ],
+              "contrast": 0.537155273915993,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  0,
+                  0,
+                  227,
+                  322
+                ],
+                "white_pixels_including_background": 58,
+                "pixels_including_background": 73094,
+                "hdr_channel_peak": 4.45703125,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "sweeper",
+              "feet": [
+                1352.0,
+                320.0
+              ],
+              "contrast": 0.392223232653463,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  356,
+                  166,
+                  240,
+                  402
+                ],
+                "white_pixels_including_background": 1,
+                "pixels_including_background": 96480,
+                "hdr_channel_peak": 5.0078125,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "collector_gunner",
+              "feet": [
+                1448.0,
+                320.0
+              ],
+              "contrast": 1.77742354488591,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  727,
+                  158,
+                  235,
+                  410
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96350,
+                "hdr_channel_peak": 0.9609375,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "restore-product",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "sweeper",
+              "feet": [
+                1256.0,
+                256.0
+              ],
+              "contrast": 0.537155273915993,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  0,
+                  0,
+                  227,
+                  322
+                ],
+                "white_pixels_including_background": 58,
+                "pixels_including_background": 73094,
+                "hdr_channel_peak": 4.45703125,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "sweeper",
+              "feet": [
+                1352.0,
+                320.0
+              ],
+              "contrast": 0.392223232653463,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  356,
+                  166,
+                  240,
+                  402
+                ],
+                "white_pixels_including_background": 1,
+                "pixels_including_background": 96480,
+                "hdr_channel_peak": 5.0078125,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "collector_gunner",
+              "feet": [
+                1448.0,
+                320.0
+              ],
+              "contrast": 1.77742354488591,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  727,
+                  158,
+                  235,
+                  410
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96350,
+                "hdr_channel_peak": 0.9609375,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "authored-final",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "sweeper",
+              "feet": [
+                1256.0,
+                256.0
+              ],
+              "contrast": 0.537155273915993,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  0,
+                  0,
+                  227,
+                  322
+                ],
+                "white_pixels_including_background": 58,
+                "pixels_including_background": 73094,
+                "hdr_channel_peak": 4.45703125,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "sweeper",
+              "feet": [
+                1352.0,
+                320.0
+              ],
+              "contrast": 0.392223232653463,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  356,
+                  166,
+                  240,
+                  402
+                ],
+                "white_pixels_including_background": 1,
+                "pixels_including_background": 96480,
+                "hdr_channel_peak": 5.0078125,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "collector_gunner",
+              "feet": [
+                1448.0,
+                320.0
+              ],
+              "contrast": 1.77742354488591,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  727,
+                  158,
+                  235,
+                  410
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96350,
+                "hdr_channel_peak": 0.9609375,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": "ch1_street",
+      "column": 6.0,
+      "row": 2.0,
+      "controls_valid": true,
+      "player_from_raw": {
+        "contrast": 3.4176578951051653,
+        "edge": 7.654945322370015,
+        "passed": true
+      },
+      "observations": [
+        {
+          "label": "A0",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "collector_brute",
+              "feet": [
+                2136.0,
+                320.0
+              ],
+              "contrast": 0.378255958855892,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  1005,
+                  143,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 5,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 2.09765625,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "A1",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "collector_brute",
+              "feet": [
+                2136.0,
+                320.0
+              ],
+              "contrast": 0.378255958855892,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  1005,
+                  143,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 5,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 2.09765625,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "product",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "collector_brute",
+              "feet": [
+                2136.0,
+                320.0
+              ],
+              "contrast": 0.378255958855892,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  1005,
+                  143,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 5,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 2.09765625,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "restore-product",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "collector_brute",
+              "feet": [
+                2136.0,
+                320.0
+              ],
+              "contrast": 0.378255958855892,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  1005,
+                  143,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 5,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 2.09765625,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "authored-final",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "collector_brute",
+              "feet": [
+                2136.0,
+                320.0
+              ],
+              "contrast": 0.378255958855892,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  1005,
+                  143,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 5,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 2.09765625,
+                "visible_body_white_ratio": null,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

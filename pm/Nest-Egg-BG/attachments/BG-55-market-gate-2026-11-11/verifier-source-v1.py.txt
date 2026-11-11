@@ -1,0 +1,111 @@
+"""Recompute BG55 enemy measurements from the original floating viewport bytes."""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import re
+from pathlib import Path
+
+import numpy as np
+from PIL import Image
+
+FORMATS = {14: ("<f2", 3), 15: ("<f2", 4), 10: ("<f4", 3), 11: ("<f4", 4)}
+
+
+def mapped_rect(feet: list[float], transform: str, density: float, ring: int, width: int, height: int) -> list[int]:
+    values = [float(v) for v in re.findall(r"[-+]?\d+(?:\.\d+)?(?:[eE][-+]?\d+)?", transform)]
+    assert len(values) == 6, transform
+    xx, xy, yx, yy, ox, oy = values
+    fx, fy = feet
+    corners = np.array([[fx - 9 - ring, fy - 44 - ring], [fx + 9 + ring, fy - 44 - ring],
+                        [fx - 9 - ring, fy - 4 + ring], [fx + 9 + ring, fy - 4 + ring]])
+    raster = (corners @ np.array([[xx, xy], [yx, yy]]) + [ox, oy]) * density
+    start = np.maximum(np.floor(raster.min(axis=0)), [0, 0]).astype(int)
+    end = np.minimum(np.ceil(raster.max(axis=0)), [width, height]).astype(int)
+    if np.any(end <= start):
+        return [0, 0, 0, 0]
+    return [int(start[0]), int(start[1]), int(end[0] - start[0]), int(end[1] - start[1])]
+
+
+def parts_from_pixels(rgb: np.ndarray, body: list[int], outer: list[int]) -> dict[str, float]:
+    # An explicit pixel mask selects the ring; it does not use a world-space
+    # area as a denominator or call the Godot mapper under test.
+    x, y, w, h = body
+    ox, oy, ow, oh = outer
+    luma = rgb[..., 0] * 0.2126 + rgb[..., 1] * 0.7152 + rgb[..., 2] * 0.0722
+    inside = luma[y:y + h, x:x + w].reshape(-1)
+    yy, xx = np.mgrid[oy:oy + oh, ox:ox + ow]
+    ring = luma[oy:oy + oh, ox:ox + ow][~((xx >= x) & (xx < x + w) & (yy >= y) & (yy < y + h))]
+    if not inside.size or not ring.size:
+        return dict(inner=0.0, body=0.0, outer=0.0, bright=0.0, dark=0.0)
+    outside = float(ring.mean())
+    inner = float(np.quantile(inside, 0.9, method="lower"))
+    dark_body = float(np.quantile(inside, 0.25 if outside >= 0.12 else 0.5, method="lower"))
+    return dict(inner=inner, body=dark_body, outer=outside,
+                bright=(inner - outside) / (outside + 0.02), dark=(outside - dark_body) / (outside + 0.02))
+
+
+def verify(folder: Path) -> dict:
+    images: dict[tuple, np.ndarray] = {}
+    cells = measurements = control_failures = 0
+    results = []
+    for index in sorted(folder.glob("*/*-index.json")):
+        data = json.loads(index.read_bytes())
+        for shot in data["shots"]:
+            probe = shot["bg55"]
+            records = probe["records"]
+            assert records and records[0]["label"] == "A0"
+            cells += 1
+            first = records[0]
+            valid = True
+            for record in records:
+                key = (index.parent, record["raw_sha256"])
+                if key not in images:
+                    raw = (index.parent / record["files"]["raw"]).read_bytes()
+                    assert hashlib.sha256(raw).hexdigest() == record["raw_sha256"], record["files"]
+                    dtype, channels = FORMATS[record["format"]]
+                    pixels = np.frombuffer(raw, dtype=dtype).reshape(int(record["height"]), int(record["width"]), channels).astype(np.float64)
+                    assert np.isfinite(pixels).all()
+                    shown = np.asarray(Image.open(index.parent / record["files"]["png"]).convert("RGB"), dtype=np.float64) / 255
+                    rgb = pixels[..., :3]
+                    expected = np.where(rgb <= 0.0031308, rgb * 12.92, 1.055 * np.maximum(rgb, 0) ** (1 / 2.4) - 0.055)
+                    assert np.max(np.abs(shown - np.clip(expected, 0, 1))) <= 1 / 255 + 0.00001, record["files"]
+                    images[key] = rgb
+                rgb = images[key]
+                valid = valid and record["held"] == first["held"]
+                if record["label"] == "A1" or record["label"].startswith("restore-"):
+                    valid = valid and record["raw_sha256"] == first["raw_sha256"]
+                for enemy in record["enemies"]:
+                    body = mapped_rect(enemy["feet"], record["canvas_transform"], record["density"], 0, record["width"], record["height"])
+                    outer = mapped_rect(enemy["feet"], record["canvas_transform"], record["density"], 20, record["width"], record["height"])
+                    assert body == enemy["screen_rect"] and outer == enemy["outer_screen_rect"], (index, enemy["id"], "geometry")
+                    expected_parts = parts_from_pixels(rgb, body, outer)
+                    for name, value in expected_parts.items():
+                        assert abs(value - enemy["parts"][name]) <= 0.000002, (index, enemy["id"], name, value, enemy["parts"][name])
+                    contrast = max(expected_parts["bright"], expected_parts["dark"])
+                    assert abs(contrast - enemy["contrast"]) <= 0.000002
+                    assert enemy["passed"] == (contrast >= 0.45)
+                    measurements += 1
+            assert probe["controls_valid"] == valid, (index, "control verdict")
+            control_failures += not valid
+            results.append(dict(level=data["level"], column=shot["column"], row=shot["row"], controls_valid=valid,
+                                observations=[dict(label=r["label"], player_visible=r["player_visible"],
+                                                   enemies=[dict(id=e["id"], feet=e["feet"], contrast=e["contrast"], passed=e["passed"])
+                                                            for e in r["enemies"]]) for r in records]))
+    assert cells > 0, "No BG55 controlled cell was checked"
+    return dict(cells=cells, unique_native_images=len(images), enemy_measurements=measurements,
+                control_failures=control_failures, results=results)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("folder", type=Path)
+    parser.add_argument("--out", type=Path)
+    args = parser.parse_args()
+    report = verify(args.folder)
+    text = json.dumps(report, ensure_ascii=False, indent=2) + "\n"
+    if args.out:
+        args.out.write_bytes(text.encode())
+    print(json.dumps({key: value for key, value in report.items() if key != "results"}))
+    raise SystemExit(1 if report["control_failures"] else 0)

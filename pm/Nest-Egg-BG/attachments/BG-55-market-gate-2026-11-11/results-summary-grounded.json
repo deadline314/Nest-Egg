@@ -1,0 +1,213 @@
+{
+  "scope": "market gate original thresholds; related-region zero-regression checks retain all original threshold failures",
+  "product_sources": [
+    {
+      "path": "data/lighting/market_gate.tres",
+      "sha256": "0be8c9c3656da86ba4fe765794270884dd63b5e1052ae12ddbe9557740c4a09f",
+      "bytes": 1173
+    },
+    {
+      "path": "data/levels/ch2_market_gate.tres",
+      "sha256": "263bb017249b6e2d47348e3c443398f26f73faf23e691e02c11a414cc82a4d64",
+      "bytes": 3347
+    },
+    {
+      "path": "tools/level/build_ch2.py",
+      "sha256": "c271044d91ba0e743030750430ac8513acdb01dc40a417922ee7b59c7c75e472",
+      "bytes": 29900
+    },
+    {
+      "path": "data/audio/ambience.json",
+      "sha256": "a5e5531ccd3cfe1a37110f6e5257f66555d04fad059277d90f4bbed21aa456df",
+      "bytes": 4536
+    },
+    {
+      "path": "data/audio/music.json",
+      "sha256": "0ade819d1942a6228400a349562a75aaa62ab6faadaf49a98fb2e4b9f1da8c90",
+      "bytes": 9707
+    },
+    {
+      "path": "data/lighting_preview/scenes.json",
+      "sha256": "ba5a28edc8aa39ec923c0b883328ac0c3c5b80e23dccbf7bc0686b5b1be889f9",
+      "bytes": 1040
+    }
+  ],
+  "results": [
+    {
+      "case": "accept-high-grounded-v2",
+      "engine_exit": 0,
+      "level": "ch2_market_gate",
+      "shots": 21,
+      "standing_shots": 14,
+      "player_min": 3.46849467669517,
+      "edge_min": 3.42611702370212,
+      "enemy_min": 0.75969691007771,
+      "controls_valid": true,
+      "threshold_failures": [],
+      "related_profile_comparison_exact_raw_no_change": false
+    },
+    {
+      "case": "accept-low-grounded-v2",
+      "engine_exit": 0,
+      "level": "ch2_market_gate",
+      "shots": 21,
+      "standing_shots": 14,
+      "player_min": 3.06010908898332,
+      "edge_min": 3.43357413627308,
+      "enemy_min": 0.787023678347508,
+      "controls_valid": true,
+      "threshold_failures": [],
+      "related_profile_comparison_exact_raw_no_change": false
+    },
+    {
+      "case": "regression-grounded-ch1_street-high-v2",
+      "engine_exit": 1,
+      "level": "ch1_street",
+      "shots": 4,
+      "standing_shots": 4,
+      "player_min": 1.57860228532082,
+      "edge_min": 0.503747089954504,
+      "enemy_min": 0.21273393151876,
+      "controls_valid": true,
+      "threshold_failures": [
+        {
+          "column": 6.0,
+          "row": 1.0,
+          "enemy": "collector_brute",
+          "feet": [
+            2136.0,
+            320.0
+          ],
+          "contrast": 0.21273393151876
+        },
+        {
+          "column": 6.0,
+          "row": 1.0,
+          "player_feet": [
+            2008.0,
+            255.984375
+          ],
+          "player": 1.57860228532082,
+          "edge": 0.503747089954504
+        },
+        {
+          "column": 4.0,
+          "row": 2.0,
+          "enemy": "sweeper",
+          "feet": [
+            1352.0,
+            320.0
+          ],
+          "contrast": 0.415826412060307
+        },
+        {
+          "column": 6.0,
+          "row": 2.0,
+          "enemy": "collector_brute",
+          "feet": [
+            2136.0,
+            320.0
+          ],
+          "contrast": 0.404162214557239
+        }
+      ],
+      "related_profile_comparison_exact_raw_no_change": true
+    },
+    {
+      "case": "regression-grounded-ch1_street-low-v2",
+      "engine_exit": 1,
+      "level": "ch1_street",
+      "shots": 4,
+      "standing_shots": 4,
+      "player_min": 1.41176656590318,
+      "edge_min": 0.237566371856544,
+      "enemy_min": 0.300871872464017,
+      "controls_valid": true,
+      "threshold_failures": [
+        {
+          "column": 6.0,
+          "row": 1.0,
+          "enemy": "collector_brute",
+          "feet": [
+            2136.0,
+            320.0
+          ],
+          "contrast": 0.300871872464017
+        },
+        {
+          "column": 6.0,
+          "row": 1.0,
+          "player_feet": [
+            2008.0,
+            255.984375
+          ],
+          "player": 1.41176656590318,
+          "edge": 0.237566371856544
+        },
+        {
+          "column": 4.0,
+          "row": 2.0,
+          "enemy": "sweeper",
+          "feet": [
+            1352.0,
+            320.0
+          ],
+          "contrast": 0.413017380776668
+        }
+      ],
+      "related_profile_comparison_exact_raw_no_change": true
+    },
+    {
+      "case": "regression-grounded-ch2_lounge_front-high-v2",
+      "engine_exit": 0,
+      "level": "ch2_lounge_front",
+      "shots": 9,
+      "standing_shots": 6,
+      "player_min": 2.21322571659148,
+      "edge_min": 3.41303501211812,
+      "enemy_min": null,
+      "controls_valid": true,
+      "threshold_failures": [],
+      "related_profile_comparison_exact_raw_no_change": true
+    },
+    {
+      "case": "regression-grounded-ch2_lounge_front-low-v2",
+      "engine_exit": 0,
+      "level": "ch2_lounge_front",
+      "shots": 9,
+      "standing_shots": 6,
+      "player_min": 2.29575305464203,
+      "edge_min": 3.44682560599991,
+      "enemy_min": null,
+      "controls_valid": true,
+      "threshold_failures": [],
+      "related_profile_comparison_exact_raw_no_change": true
+    },
+    {
+      "case": "regression-grounded-ch2_market-high-v2",
+      "engine_exit": 0,
+      "level": "ch2_market",
+      "shots": 24,
+      "standing_shots": 16,
+      "player_min": 3.44262864658313,
+      "edge_min": 2.98516737062714,
+      "enemy_min": null,
+      "controls_valid": true,
+      "threshold_failures": [],
+      "related_profile_comparison_exact_raw_no_change": true
+    },
+    {
+      "case": "regression-grounded-ch2_market-low-v2",
+      "engine_exit": 0,
+      "level": "ch2_market",
+      "shots": 24,
+      "standing_shots": 16,
+      "player_min": 2.9366256568809,
+      "edge_min": 2.98669219684286,
+      "enemy_min": null,
+      "controls_valid": true,
+      "threshold_failures": [],
+      "related_profile_comparison_exact_raw_no_change": true
+    }
+  ]
+}

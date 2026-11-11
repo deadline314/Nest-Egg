@@ -1,0 +1,243 @@
+{
+  "scope": "market gate original thresholds; related-region zero-regression checks retain all original threshold failures",
+  "product_sources": [
+    {
+      "path": "data/lighting/market_gate.tres",
+      "sha256": "0be8c9c3656da86ba4fe765794270884dd63b5e1052ae12ddbe9557740c4a09f",
+      "bytes": 1173
+    },
+    {
+      "path": "data/levels/ch2_market_gate.tres",
+      "sha256": "263bb017249b6e2d47348e3c443398f26f73faf23e691e02c11a414cc82a4d64",
+      "bytes": 3347
+    },
+    {
+      "path": "tools/level/build_ch2.py",
+      "sha256": "c271044d91ba0e743030750430ac8513acdb01dc40a417922ee7b59c7c75e472",
+      "bytes": 29900
+    },
+    {
+      "path": "data/audio/ambience.json",
+      "sha256": "a5e5531ccd3cfe1a37110f6e5257f66555d04fad059277d90f4bbed21aa456df",
+      "bytes": 4536
+    },
+    {
+      "path": "data/audio/music.json",
+      "sha256": "0ade819d1942a6228400a349562a75aaa62ab6faadaf49a98fb2e4b9f1da8c90",
+      "bytes": 9707
+    },
+    {
+      "path": "data/lighting_preview/scenes.json",
+      "sha256": "ba5a28edc8aa39ec923c0b883328ac0c3c5b80e23dccbf7bc0686b5b1be889f9",
+      "bytes": 1040
+    }
+  ],
+  "results": [
+    {
+      "case": "accept-high-v3",
+      "engine_exit": 0,
+      "level": "ch2_market_gate",
+      "shots": 21,
+      "standing_shots": 14,
+      "player_min": 3.32190687707947,
+      "edge_min": 6.01704397460011,
+      "enemy_min": 0.588671591741048,
+      "controls_valid": true,
+      "threshold_failures": [],
+      "related_profile_comparison_exact_raw_no_change": false
+    },
+    {
+      "case": "accept-low-v4",
+      "engine_exit": 0,
+      "level": "ch2_market_gate",
+      "shots": 21,
+      "standing_shots": 14,
+      "player_min": 3.28926840259968,
+      "edge_min": 6.02607414080896,
+      "enemy_min": 0.477271607415717,
+      "controls_valid": true,
+      "threshold_failures": [],
+      "related_profile_comparison_exact_raw_no_change": false
+    },
+    {
+      "case": "regression-ch1_street-high-v1",
+      "engine_exit": 1,
+      "level": "ch1_street",
+      "shots": 4,
+      "standing_shots": 4,
+      "player_min": 2.07433194601508,
+      "edge_min": 0.849620810106386,
+      "enemy_min": 0.196557873810436,
+      "controls_valid": true,
+      "threshold_failures": [
+        {
+          "column": 4.0,
+          "row": 1.0,
+          "enemy": "sweeper",
+          "feet": [
+            1352.0,
+            320.0
+          ],
+          "contrast": 0.441162341387572
+        },
+        {
+          "column": 6.0,
+          "row": 1.0,
+          "enemy": "collector_brute",
+          "feet": [
+            2136.0,
+            320.0
+          ],
+          "contrast": 0.196557873810436
+        },
+        {
+          "column": 6.0,
+          "row": 1.0,
+          "player_feet": [
+            2008.0,
+            254.0
+          ],
+          "player": 2.07433194601508,
+          "edge": 0.849620810106386
+        },
+        {
+          "column": 4.0,
+          "row": 2.0,
+          "enemy": "sweeper",
+          "feet": [
+            1352.0,
+            320.0
+          ],
+          "contrast": 0.399989246330829
+        },
+        {
+          "column": 6.0,
+          "row": 2.0,
+          "enemy": "collector_brute",
+          "feet": [
+            2136.0,
+            320.0
+          ],
+          "contrast": 0.361202750011844
+        }
+      ],
+      "related_profile_comparison_exact_raw_no_change": true
+    },
+    {
+      "case": "regression-ch1_street-low-v1",
+      "engine_exit": 1,
+      "level": "ch1_street",
+      "shots": 4,
+      "standing_shots": 4,
+      "player_min": 1.97625450107368,
+      "edge_min": 0.537898188368682,
+      "enemy_min": 0.283296195892138,
+      "controls_valid": true,
+      "threshold_failures": [
+        {
+          "column": 4.0,
+          "row": 1.0,
+          "enemy": "sweeper",
+          "feet": [
+            1352.0,
+            320.0
+          ],
+          "contrast": 0.434911207091628
+        },
+        {
+          "column": 6.0,
+          "row": 1.0,
+          "enemy": "collector_brute",
+          "feet": [
+            2136.0,
+            320.0
+          ],
+          "contrast": 0.283296195892138
+        },
+        {
+          "column": 6.0,
+          "row": 1.0,
+          "player_feet": [
+            2008.0,
+            254.0
+          ],
+          "player": 1.97625450107368,
+          "edge": 0.537898188368682
+        },
+        {
+          "column": 4.0,
+          "row": 2.0,
+          "enemy": "sweeper",
+          "feet": [
+            1352.0,
+            320.0
+          ],
+          "contrast": 0.392223232653463
+        },
+        {
+          "column": 6.0,
+          "row": 2.0,
+          "enemy": "collector_brute",
+          "feet": [
+            2136.0,
+            320.0
+          ],
+          "contrast": 0.378255958855892
+        }
+      ],
+      "related_profile_comparison_exact_raw_no_change": true
+    },
+    {
+      "case": "regression-ch2_lounge_front-high-v1",
+      "engine_exit": 0,
+      "level": "ch2_lounge_front",
+      "shots": 9,
+      "standing_shots": 6,
+      "player_min": 1.99051792065481,
+      "edge_min": 5.90820797334739,
+      "enemy_min": null,
+      "controls_valid": true,
+      "threshold_failures": [],
+      "related_profile_comparison_exact_raw_no_change": true
+    },
+    {
+      "case": "regression-ch2_lounge_front-low-v1",
+      "engine_exit": 0,
+      "level": "ch2_lounge_front",
+      "shots": 9,
+      "standing_shots": 6,
+      "player_min": 2.01466148182315,
+      "edge_min": 5.94688040115744,
+      "enemy_min": null,
+      "controls_valid": true,
+      "threshold_failures": [],
+      "related_profile_comparison_exact_raw_no_change": true
+    },
+    {
+      "case": "regression-ch2_market-high-v1",
+      "engine_exit": 0,
+      "level": "ch2_market",
+      "shots": 24,
+      "standing_shots": 16,
+      "player_min": 3.18951777343648,
+      "edge_min": 5.87470392554806,
+      "enemy_min": null,
+      "controls_valid": true,
+      "threshold_failures": [],
+      "related_profile_comparison_exact_raw_no_change": true
+    },
+    {
+      "case": "regression-ch2_market-low-v1",
+      "engine_exit": 0,
+      "level": "ch2_market",
+      "shots": 24,
+      "standing_shots": 16,
+      "player_min": 2.92789048304679,
+      "edge_min": 5.84318261648302,
+      "enemy_min": null,
+      "controls_valid": true,
+      "threshold_failures": [],
+      "related_profile_comparison_exact_raw_no_change": true
+    }
+  ]
+}

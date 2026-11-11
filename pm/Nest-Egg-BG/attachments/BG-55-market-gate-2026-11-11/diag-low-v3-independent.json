@@ -1,0 +1,626 @@
+{
+  "cells": 3,
+  "unique_native_images": 15,
+  "enemy_measurements": 44,
+  "control_failures": 0,
+  "results": [
+    {
+      "level": "ch2_market_gate",
+      "column": 1.0,
+      "row": 1.0,
+      "controls_valid": true,
+      "observations": [
+        {
+          "label": "A0",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                584.0,
+                320.0
+              ],
+              "contrast": 0.342151718922451,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "A1",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                584.0,
+                320.0
+              ],
+              "contrast": 0.342151718922451,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "fill-min",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                584.0,
+                320.0
+              ],
+              "contrast": 0.234030828604364,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "restore-fill-min",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                584.0,
+                320.0
+              ],
+              "contrast": 0.342151718922451,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "fill-max",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                584.0,
+                320.0
+              ],
+              "contrast": 0.939331128140719,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "label": "restore-fill-max",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                584.0,
+                320.0
+              ],
+              "contrast": 0.342151718922451,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "fog-half",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                584.0,
+                320.0
+              ],
+              "contrast": 0.340246365692916,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "restore-fog-half",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                584.0,
+                320.0
+              ],
+              "contrast": 0.342151718922451,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "fog-quarter",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                584.0,
+                320.0
+              ],
+              "contrast": 0.331497538611027,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "restore-fog-quarter",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                584.0,
+                320.0
+              ],
+              "contrast": 0.342151718922451,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "authored-final",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                584.0,
+                320.0
+              ],
+              "contrast": 0.342151718922451,
+              "passed": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": "ch2_market_gate",
+      "column": 2.0,
+      "row": 1.0,
+      "controls_valid": true,
+      "observations": [
+        {
+          "label": "A0",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                712.0,
+                320.0
+              ],
+              "contrast": 0.246684726316926,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "A1",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                712.0,
+                320.0
+              ],
+              "contrast": 0.246684726316926,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "fill-min",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                712.0,
+                320.0
+              ],
+              "contrast": 0.261348916032522,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "restore-fill-min",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                712.0,
+                320.0
+              ],
+              "contrast": 0.246684726316926,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "fill-max",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                712.0,
+                320.0
+              ],
+              "contrast": 1.35843482000066,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "label": "restore-fill-max",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                712.0,
+                320.0
+              ],
+              "contrast": 0.246684726316926,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "fog-half",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                712.0,
+                320.0
+              ],
+              "contrast": 0.381922399242557,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "restore-fog-half",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                712.0,
+                320.0
+              ],
+              "contrast": 0.246684726316926,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "fog-quarter",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                712.0,
+                320.0
+              ],
+              "contrast": 0.43708932451144,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "restore-fog-quarter",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                712.0,
+                320.0
+              ],
+              "contrast": 0.246684726316926,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "authored-final",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                712.0,
+                320.0
+              ],
+              "contrast": 0.246684726316926,
+              "passed": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": "ch2_market_gate",
+      "column": 3.0,
+      "row": 1.0,
+      "controls_valid": true,
+      "observations": [
+        {
+          "label": "A0",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                968.0,
+                320.0
+              ],
+              "contrast": 0.268225842480507,
+              "passed": false
+            },
+            {
+              "id": "ch2_bill_thrower",
+              "feet": [
+                1128.0,
+                320.0
+              ],
+              "contrast": 0.360690431100135,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "A1",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                968.0,
+                320.0
+              ],
+              "contrast": 0.268225842480507,
+              "passed": false
+            },
+            {
+              "id": "ch2_bill_thrower",
+              "feet": [
+                1128.0,
+                320.0
+              ],
+              "contrast": 0.360690431100135,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "fill-min",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                968.0,
+                320.0
+              ],
+              "contrast": 0.281391638270429,
+              "passed": false
+            },
+            {
+              "id": "ch2_bill_thrower",
+              "feet": [
+                1128.0,
+                320.0
+              ],
+              "contrast": 0.358617917561736,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "restore-fill-min",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                968.0,
+                320.0
+              ],
+              "contrast": 0.268225842480507,
+              "passed": false
+            },
+            {
+              "id": "ch2_bill_thrower",
+              "feet": [
+                1128.0,
+                320.0
+              ],
+              "contrast": 0.360690431100135,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "fill-max",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                968.0,
+                320.0
+              ],
+              "contrast": 1.06109902004915,
+              "passed": true
+            },
+            {
+              "id": "ch2_bill_thrower",
+              "feet": [
+                1128.0,
+                320.0
+              ],
+              "contrast": 0.564683232338268,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "label": "restore-fill-max",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                968.0,
+                320.0
+              ],
+              "contrast": 0.268225842480507,
+              "passed": false
+            },
+            {
+              "id": "ch2_bill_thrower",
+              "feet": [
+                1128.0,
+                320.0
+              ],
+              "contrast": 0.360690431100135,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "fog-half",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                968.0,
+                320.0
+              ],
+              "contrast": 0.387800282362085,
+              "passed": false
+            },
+            {
+              "id": "ch2_bill_thrower",
+              "feet": [
+                1128.0,
+                320.0
+              ],
+              "contrast": 0.470288705492008,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "label": "restore-fog-half",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                968.0,
+                320.0
+              ],
+              "contrast": 0.268225842480507,
+              "passed": false
+            },
+            {
+              "id": "ch2_bill_thrower",
+              "feet": [
+                1128.0,
+                320.0
+              ],
+              "contrast": 0.360690431100135,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "fog-quarter",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                968.0,
+                320.0
+              ],
+              "contrast": 0.438383910062182,
+              "passed": false
+            },
+            {
+              "id": "ch2_bill_thrower",
+              "feet": [
+                1128.0,
+                320.0
+              ],
+              "contrast": 0.510755777974785,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "label": "restore-fog-quarter",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                968.0,
+                320.0
+              ],
+              "contrast": 0.268225842480507,
+              "passed": false
+            },
+            {
+              "id": "ch2_bill_thrower",
+              "feet": [
+                1128.0,
+                320.0
+              ],
+              "contrast": 0.360690431100135,
+              "passed": false
+            }
+          ]
+        },
+        {
+          "label": "authored-final",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                968.0,
+                320.0
+              ],
+              "contrast": 0.268225842480507,
+              "passed": false
+            },
+            {
+              "id": "ch2_bill_thrower",
+              "feet": [
+                1128.0,
+                320.0
+              ],
+              "contrast": 0.360690431100135,
+              "passed": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

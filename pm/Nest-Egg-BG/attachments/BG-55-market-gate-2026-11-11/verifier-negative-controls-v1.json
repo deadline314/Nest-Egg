@@ -1,0 +1,25 @@
+{
+  "source_sha256": "017fc0cfde1b4d9962b64f9796db60a70b9f52ebb4d826523b8e01780d4e320c",
+  "cases": [
+    {
+      "mutation": "raw-byte",
+      "rejected": true,
+      "original_files_modified": false
+    },
+    {
+      "mutation": "reported-contrast",
+      "rejected": true,
+      "original_files_modified": false
+    },
+    {
+      "mutation": "reported-geometry",
+      "rejected": true,
+      "original_files_modified": false
+    },
+    {
+      "mutation": "control-verdict",
+      "rejected": true,
+      "original_files_modified": false
+    }
+  ]
+}

@@ -1,0 +1,1198 @@
+{
+  "cells": 3,
+  "unique_native_images": 15,
+  "enemy_measurements": 44,
+  "control_failures": 0,
+  "results": [
+    {
+      "level": "ch2_market_gate",
+      "column": 1.0,
+      "row": 1.0,
+      "controls_valid": true,
+      "observations": [
+        {
+          "label": "A0",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                584.0,
+                320.0
+              ],
+              "contrast": 0.430968775827681,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  934,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 0.355224609375,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "A1",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                584.0,
+                320.0
+              ],
+              "contrast": 0.430968775827681,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  934,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 0.355224609375,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "fill-min",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                584.0,
+                320.0
+              ],
+              "contrast": 0.302560010044876,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  934,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 0.355224609375,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "restore-fill-min",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                584.0,
+                320.0
+              ],
+              "contrast": 0.430968775827681,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  934,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 0.355224609375,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "fill-max",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                584.0,
+                320.0
+              ],
+              "contrast": 1.03950734635458,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  934,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 0.414306640625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "restore-fill-max",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                584.0,
+                320.0
+              ],
+              "contrast": 0.430968775827681,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  934,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 0.355224609375,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "fog-half",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                584.0,
+                320.0
+              ],
+              "contrast": 0.428631998938712,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  934,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 0.355712890625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "restore-fog-half",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                584.0,
+                320.0
+              ],
+              "contrast": 0.430968775827681,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  934,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 0.355224609375,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "fog-quarter",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                584.0,
+                320.0
+              ],
+              "contrast": 0.41947302923461,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  934,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 0.35595703125,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "restore-fog-quarter",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                584.0,
+                320.0
+              ],
+              "contrast": 0.430968775827681,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  934,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 0.355224609375,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "authored-final",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                584.0,
+                320.0
+              ],
+              "contrast": 0.430968775827681,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  934,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 0.355224609375,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": "ch2_market_gate",
+      "column": 2.0,
+      "row": 1.0,
+      "controls_valid": true,
+      "observations": [
+        {
+          "label": "A0",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                712.0,
+                320.0
+              ],
+              "contrast": 0.251803312361792,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  247,
+                  235,
+                  262,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 111350,
+                "hdr_channel_peak": 0.51416015625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "A1",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                712.0,
+                320.0
+              ],
+              "contrast": 0.251803312361792,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  247,
+                  235,
+                  262,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 111350,
+                "hdr_channel_peak": 0.51416015625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "fill-min",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                712.0,
+                320.0
+              ],
+              "contrast": 0.266708810715246,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  247,
+                  235,
+                  262,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 111350,
+                "hdr_channel_peak": 0.51416015625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "restore-fill-min",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                712.0,
+                320.0
+              ],
+              "contrast": 0.251803312361792,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  247,
+                  235,
+                  262,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 111350,
+                "hdr_channel_peak": 0.51416015625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "fill-max",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                712.0,
+                320.0
+              ],
+              "contrast": 1.124704511264,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  247,
+                  235,
+                  262,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 111350,
+                "hdr_channel_peak": 0.51416015625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "restore-fill-max",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                712.0,
+                320.0
+              ],
+              "contrast": 0.251803312361792,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  247,
+                  235,
+                  262,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 111350,
+                "hdr_channel_peak": 0.51416015625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "fog-half",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                712.0,
+                320.0
+              ],
+              "contrast": 0.387072264040921,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  247,
+                  235,
+                  262,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 111350,
+                "hdr_channel_peak": 0.51513671875,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "restore-fog-half",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                712.0,
+                320.0
+              ],
+              "contrast": 0.251803312361792,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  247,
+                  235,
+                  262,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 111350,
+                "hdr_channel_peak": 0.51416015625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "fog-quarter",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                712.0,
+                320.0
+              ],
+              "contrast": 0.442072665890307,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  247,
+                  235,
+                  262,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 111350,
+                "hdr_channel_peak": 0.515625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "restore-fog-quarter",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                712.0,
+                320.0
+              ],
+              "contrast": 0.251803312361792,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  247,
+                  235,
+                  262,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 111350,
+                "hdr_channel_peak": 0.51416015625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "authored-final",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                712.0,
+                320.0
+              ],
+              "contrast": 0.251803312361792,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  247,
+                  235,
+                  262,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 111350,
+                "hdr_channel_peak": 0.51416015625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": "ch2_market_gate",
+      "column": 3.0,
+      "row": 1.0,
+      "controls_valid": true,
+      "observations": [
+        {
+          "label": "A0",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                968.0,
+                320.0
+              ],
+              "contrast": 0.264702949016235,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  53,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 0.45166015625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "ch2_bill_thrower",
+              "feet": [
+                1128.0,
+                320.0
+              ],
+              "contrast": 0.359737894560865,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  676,
+                  251,
+                  235,
+                  410
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96350,
+                "hdr_channel_peak": 0.82861328125,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "A1",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                968.0,
+                320.0
+              ],
+              "contrast": 0.264702949016235,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  53,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 0.45166015625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "ch2_bill_thrower",
+              "feet": [
+                1128.0,
+                320.0
+              ],
+              "contrast": 0.359737894560865,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  676,
+                  251,
+                  235,
+                  410
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96350,
+                "hdr_channel_peak": 0.82861328125,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "fill-min",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                968.0,
+                320.0
+              ],
+              "contrast": 0.277578416354958,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  53,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 0.45166015625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "ch2_bill_thrower",
+              "feet": [
+                1128.0,
+                320.0
+              ],
+              "contrast": 0.357266869403246,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  676,
+                  251,
+                  235,
+                  410
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96350,
+                "hdr_channel_peak": 0.82861328125,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "restore-fill-min",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                968.0,
+                320.0
+              ],
+              "contrast": 0.264702949016235,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  53,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 0.45166015625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "ch2_bill_thrower",
+              "feet": [
+                1128.0,
+                320.0
+              ],
+              "contrast": 0.359737894560865,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  676,
+                  251,
+                  235,
+                  410
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96350,
+                "hdr_channel_peak": 0.82861328125,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "fill-max",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                968.0,
+                320.0
+              ],
+              "contrast": 0.986903889364101,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  53,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 0.45166015625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "ch2_bill_thrower",
+              "feet": [
+                1128.0,
+                320.0
+              ],
+              "contrast": 0.591026612660596,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  676,
+                  251,
+                  235,
+                  410
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96350,
+                "hdr_channel_peak": 0.82861328125,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "restore-fill-max",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                968.0,
+                320.0
+              ],
+              "contrast": 0.264702949016235,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  53,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 0.45166015625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "ch2_bill_thrower",
+              "feet": [
+                1128.0,
+                320.0
+              ],
+              "contrast": 0.359737894560865,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  676,
+                  251,
+                  235,
+                  410
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96350,
+                "hdr_channel_peak": 0.82861328125,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "fog-half",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                968.0,
+                320.0
+              ],
+              "contrast": 0.383143628736644,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  53,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 0.45166015625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "ch2_bill_thrower",
+              "feet": [
+                1128.0,
+                320.0
+              ],
+              "contrast": 0.460483730887411,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  676,
+                  251,
+                  235,
+                  410
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96350,
+                "hdr_channel_peak": 0.86376953125,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "restore-fog-half",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                968.0,
+                320.0
+              ],
+              "contrast": 0.264702949016235,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  53,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 0.45166015625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "ch2_bill_thrower",
+              "feet": [
+                1128.0,
+                320.0
+              ],
+              "contrast": 0.359737894560865,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  676,
+                  251,
+                  235,
+                  410
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96350,
+                "hdr_channel_peak": 0.82861328125,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "fog-quarter",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                968.0,
+                320.0
+              ],
+              "contrast": 0.433262238249661,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  53,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 0.45166015625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "ch2_bill_thrower",
+              "feet": [
+                1128.0,
+                320.0
+              ],
+              "contrast": 0.499181488710935,
+              "passed": true,
+              "exposure": {
+                "screen_rect": [
+                  676,
+                  251,
+                  235,
+                  410
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96350,
+                "hdr_channel_peak": 0.88134765625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "restore-fog-quarter",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                968.0,
+                320.0
+              ],
+              "contrast": 0.264702949016235,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  53,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 0.45166015625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "ch2_bill_thrower",
+              "feet": [
+                1128.0,
+                320.0
+              ],
+              "contrast": 0.359737894560865,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  676,
+                  251,
+                  235,
+                  410
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96350,
+                "hdr_channel_peak": 0.82861328125,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        },
+        {
+          "label": "authored-final",
+          "player_visible": true,
+          "enemies": [
+            {
+              "id": "ch2_escort",
+              "feet": [
+                968.0,
+                320.0
+              ],
+              "contrast": 0.264702949016235,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  53,
+                  235,
+                  261,
+                  425
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 110925,
+                "hdr_channel_peak": 0.45166015625,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            },
+            {
+              "id": "ch2_bill_thrower",
+              "feet": [
+                1128.0,
+                320.0
+              ],
+              "contrast": 0.359737894560865,
+              "passed": false,
+              "exposure": {
+                "screen_rect": [
+                  676,
+                  251,
+                  235,
+                  410
+                ],
+                "white_pixels_including_background": 0,
+                "pixels_including_background": 96350,
+                "hdr_channel_peak": 0.82861328125,
+                "visible_body_white_ratio": 0.0,
+                "scope": "zero white pixels in this containing rectangle proves none on the visible actor; nonzero is not an enemy-only ratio"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

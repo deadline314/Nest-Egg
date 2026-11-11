@@ -1,0 +1,100 @@
+{
+  "archive": "final-protocol-source-raw.zip",
+  "sha256": "a4a519a9ceef56fddefcd5b16c7342ee9b8cc8ca5be9bb24d7f225b475fbd0ff",
+  "bytes": 45987,
+  "members": {
+    "tools/bg55_enemy_readability_probe.gd": {
+      "sha256": "7194d1c212d6649eb00a69d11f7fe40137bd322b04dec7657e3b0f20ebdec3ac",
+      "bytes": 16641
+    },
+    "tools/bg55_enemy_readability_probe.gd.uid": {
+      "sha256": "e6e1f2f5589bf8f0d032c12da85e76fe7b9287ca440f9614eef09c12d7299649",
+      "bytes": 20
+    },
+    "tools/bg55_enemy_readability_probe.tscn": {
+      "sha256": "9abfb02674b29d7ebc67e010e854c427582a17e40831f2b922d613a2bd468f6c",
+      "bytes": 200
+    },
+    "tools/bg55_enemy_action_probe.gd": {
+      "sha256": "95a8e772705da2e20030596960a2d5ee21568cd33986c62ff3b628cdff7b4819",
+      "bytes": 9384
+    },
+    "tools/bg55_enemy_action_probe.gd.uid": {
+      "sha256": "1248cd57595d536390d68d62cc74af0cafa3fc9a8a2c05a8fc2b6a7d58df077c",
+      "bytes": 20
+    },
+    "tools/bg55_enemy_action_probe.tscn": {
+      "sha256": "f9d29b8af8a123549e26fdbac89a1706c2a222cdc6d97eec47a61d54d7117ee2",
+      "bytes": 190
+    },
+    "tools/test_bg55_probe_controls.gd": {
+      "sha256": "3c6cff8302c4e2b80d9d6594280025a5dcd3138d0d87260decd8d413302fe66e",
+      "bytes": 10673
+    },
+    "tools/test_bg55_probe_controls.gd.uid": {
+      "sha256": "50bbe949f704160d9b89670a3ffc7803b162e6495d8120b70d4bcc192064d155",
+      "bytes": 20
+    },
+    "tools/test_bg55_probe_controls.tscn": {
+      "sha256": "33bd3373c90f4ee74bf21324b3b9177f1cfffd68f7d48ffbb7d41ed269b22dd0",
+      "bytes": 188
+    },
+    "tools/held_lighting_state.gd": {
+      "sha256": "6dcc999044460695bb4febd31c968a4f196ce563ae6f70da024df4383b6d1a4f",
+      "bytes": 5339
+    },
+    "tools/held_lighting_state.gd.uid": {
+      "sha256": "26a70b1bcac95c3ec58d706884ede34e3336e007655d18524a0e62f26a851f43",
+      "bytes": 19
+    },
+    "tools/verify_bg55_readability.py": {
+      "sha256": "9936f1890e26dbce41ab004735915a1c0694822af23b5f9afd5d170da5a1345e",
+      "bytes": 14747
+    },
+    "tools/verify_bg55_actions.py": {
+      "sha256": "a892fdd90797e132119c1f51b60757f3b9661104f08b1bff8e9ce940b9888913",
+      "bytes": 4554
+    },
+    "tools/test_bg55_evidence_verifiers.py": {
+      "sha256": "d3ee8d65361249baca3e4a509625a3246404c2b06963724763ba373d84204167",
+      "bytes": 2976
+    },
+    "data/lighting/market_gate.tres": {
+      "sha256": "0be8c9c3656da86ba4fe765794270884dd63b5e1052ae12ddbe9557740c4a09f",
+      "bytes": 1173
+    },
+    "data/levels/ch2_market_gate.tres": {
+      "sha256": "263bb017249b6e2d47348e3c443398f26f73faf23e691e02c11a414cc82a4d64",
+      "bytes": 3347
+    },
+    "tools/level/build_ch2.py": {
+      "sha256": "c271044d91ba0e743030750430ac8513acdb01dc40a417922ee7b59c7c75e472",
+      "bytes": 29900
+    },
+    "data/audio/ambience.json": {
+      "sha256": "a5e5531ccd3cfe1a37110f6e5257f66555d04fad059277d90f4bbed21aa456df",
+      "bytes": 4536
+    },
+    "data/audio/music.json": {
+      "sha256": "0ade819d1942a6228400a349562a75aaa62ab6faadaf49a98fb2e4b9f1da8c90",
+      "bytes": 9707
+    },
+    "data/lighting_preview/scenes.json": {
+      "sha256": "ba5a28edc8aa39ec923c0b883328ac0c3c5b80e23dccbf7bc0686b5b1be889f9",
+      "bytes": 1040
+    },
+    "work/bg55-run.py": {
+      "sha256": "b97bddab088ecdd63d15a512d7b27b6f3c0b80cba420918cdd347b289fe8cd60",
+      "bytes": 4709
+    },
+    "work/bg55-grounded-run.py": {
+      "sha256": "b341f4ee2b46fc8490c6b0ed1d70127a9c030812ee66a640bd00612cd38bf8ff",
+      "bytes": 977
+    },
+    "work/bg55-package.py": {
+      "sha256": "542b9152857627b1d905dbc8802ddc504c1553e1418ca3c028740c1b5e3875be",
+      "bytes": 2942
+    }
+  },
+  "members_verified": true
+}
