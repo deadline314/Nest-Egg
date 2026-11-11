@@ -14,7 +14,7 @@ extends PatternBoss
 ## 盾裂、通訊器壞、剩餘穩定度存在故事旗標（重試、死亡與續玩都保留，不重抽已破的部件）；持久世界的損血不另外套用。
 ## 外觀：人物用既有的守門人骨架（art/characters/janus）；外接工作架目前是程式繪製的暫代（角色美術交付後換成零件圖，只改資料）。
 
-const CONFIG_KEY := "gatekeeper"
+const CONFIG_KEY := JanusConfig.CONFIG_KEY
 const SHIELD := &"shield"
 const SHIELD_LOCK := &"shield_lock"
 const ARM_LOCK := &"arm_lock"
@@ -24,17 +24,8 @@ const PIN_REACH := Vector2(30.0, 40.0)
 const FADE_TIME := 1.2
 const QUESTION_TIME := 1.6
 
-## 從 janus.json 的 gatekeeper 段讀的設定（缺欄位時用這裡的預設）。
-const DEFAULTS := {
-	"wake_flag": "ch3_janus_intro_seen", "disabled_flag": "ch3_janus_disabled",
-	"misses_flag": "ch3_janus_shield_misses", "comm_flag": "ch3_janus_comm_broken",
-	"stability_flag": "ch3_janus_device_stability", "lost_flag": "ch3_janus_lost_once",
-	"bark_sorry": "ch3_c11_bark_sorry", "bark_repeat": "ch3_c11_bark_repeat", "defeat_hint": "ch3_c11_defeat_hint",
-	"turn_delay": 0.8, "replay_chance": 0.3, "replay_max": 2, "seed": 271,
-	"crack_misses": 3, "comm_hits": 6, "pin_offset": [-12.0, -22.0],
-}
-
-static var _config_cache: Dictionary = {}
+## 純資料類別保留相同 defaults；不讓 Enemy 衍生腳本持有 static 快取。
+const DEFAULTS := JanusConfig.DEFAULTS
 
 var config: Dictionary = {}
 var shield_misses := 0
@@ -91,24 +82,7 @@ func _setup_states() -> void:
 
 
 static func _load_config(id: StringName) -> Dictionary:
-	var key := String(id)
-	if _config_cache.has(key):
-		return _config_cache[key]
-	var merged := DEFAULTS.duplicate(true)
-	var path := BossPattern.DIR % key
-	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path)) if FileAccess.file_exists(path) else null
-	var section: Variant = (parsed as Dictionary).get(CONFIG_KEY, {}) if parsed is Dictionary else {}
-	if section is Dictionary:
-		for field: String in section:
-			if merged.has(field) and typeof(section[field]) in [typeof(merged[field]), TYPE_FLOAT, TYPE_INT]:
-				merged[field] = section[field]
-			else:
-				push_error("[JanusBoss] %s 的 %s.%s 不認得或型別不對，改用預設" % [path, CONFIG_KEY, field])
-	else:
-		push_error("[JanusBoss] %s 的 %s 不是物件，全部用預設" % [path, CONFIG_KEY])
-	_config_cache[key] = merged
-	return merged
-
+	return JanusConfig.load_for(id)
 
 ## 讀回故事旗標：已停機就不再出現；盾裂、通訊器壞、剩餘穩定度照舊；穩定度 0 但還沒拔插銷就直接停住等拔。
 func _restore_from_flags() -> void:

@@ -24,6 +24,7 @@ func run() -> void:
 	await _test_insulation_safe_above_rail()
 	_test_ch3_placement()
 	await check_defeatable_on_every_difficulty(ALL)
+	preload("res://tests/helpers/janus_config_checks.gd").run(self)
 	_test_janus_data()
 	await _test_janus_wakes_after_intro()
 	await _test_janus_person_protected()
