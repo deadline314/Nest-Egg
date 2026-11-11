@@ -1,0 +1,623 @@
+{
+	"adapter": "",
+	"checks": [
+		{
+			"actual": "[P: (4, 4), S: (10, 10)]",
+			"expected": "[P: (4, 4), S: (10, 10)]",
+			"message": "identity: actual pixel bounds",
+			"passed": true
+		},
+		{
+			"actual": 100.0,
+			"expected": 100.0,
+			"message": "identity: pixel count",
+			"passed": true
+		},
+		{
+			"actual": 0.25,
+			"expected": 0.25,
+			"message": "identity: uniform mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "identity: uniform contrast",
+			"passed": true
+		},
+		{
+			"actual": 0.25,
+			"expected": 0.25,
+			"message": "identity: uniform outer mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "identity: cannot falsely pass readability",
+			"passed": true
+		},
+		{
+			"actual": "[P: (8, 8), S: (20, 20)]",
+			"expected": "[P: (8, 8), S: (20, 20)]",
+			"message": "zoom2: actual pixel bounds",
+			"passed": true
+		},
+		{
+			"actual": 400.0,
+			"expected": 400.0,
+			"message": "zoom2: pixel count",
+			"passed": true
+		},
+		{
+			"actual": 0.25,
+			"expected": 0.25,
+			"message": "zoom2: uniform mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "zoom2: uniform contrast",
+			"passed": true
+		},
+		{
+			"actual": 0.25,
+			"expected": 0.25,
+			"message": "zoom2: uniform outer mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "zoom2: cannot falsely pass readability",
+			"passed": true
+		},
+		{
+			"actual": "[P: (8, 8), S: (20, 20)]",
+			"expected": "[P: (8, 8), S: (20, 20)]",
+			"message": "density2: actual pixel bounds",
+			"passed": true
+		},
+		{
+			"actual": 400.0,
+			"expected": 400.0,
+			"message": "density2: pixel count",
+			"passed": true
+		},
+		{
+			"actual": 0.25,
+			"expected": 0.25,
+			"message": "density2: uniform mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "density2: uniform contrast",
+			"passed": true
+		},
+		{
+			"actual": 0.25,
+			"expected": 0.25,
+			"message": "density2: uniform outer mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "density2: cannot falsely pass readability",
+			"passed": true
+		},
+		{
+			"actual": "[P: (16, 16), S: (40, 40)]",
+			"expected": "[P: (16, 16), S: (40, 40)]",
+			"message": "zoom2+density2: actual pixel bounds",
+			"passed": true
+		},
+		{
+			"actual": 1600.0,
+			"expected": 1600.0,
+			"message": "zoom2+density2: pixel count",
+			"passed": true
+		},
+		{
+			"actual": 0.25,
+			"expected": 0.25,
+			"message": "zoom2+density2: uniform mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "zoom2+density2: uniform contrast",
+			"passed": true
+		},
+		{
+			"actual": 0.25,
+			"expected": 0.25,
+			"message": "zoom2+density2: uniform outer mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "zoom2+density2: cannot falsely pass readability",
+			"passed": true
+		},
+		{
+			"actual": "[P: (2, 2), S: (5, 5)]",
+			"expected": "[P: (2, 2), S: (5, 5)]",
+			"message": "zoom-half: actual pixel bounds",
+			"passed": true
+		},
+		{
+			"actual": 25.0,
+			"expected": 25.0,
+			"message": "zoom-half: pixel count",
+			"passed": true
+		},
+		{
+			"actual": 0.25,
+			"expected": 0.25,
+			"message": "zoom-half: uniform mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "zoom-half: uniform contrast",
+			"passed": true
+		},
+		{
+			"actual": 0.25,
+			"expected": 0.25,
+			"message": "zoom-half: uniform outer mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "zoom-half: cannot falsely pass readability",
+			"passed": true
+		},
+		{
+			"actual": "[P: (2, 2), S: (5, 5)]",
+			"expected": "[P: (2, 2), S: (5, 5)]",
+			"message": "density-half: actual pixel bounds",
+			"passed": true
+		},
+		{
+			"actual": 25.0,
+			"expected": 25.0,
+			"message": "density-half: pixel count",
+			"passed": true
+		},
+		{
+			"actual": 0.25,
+			"expected": 0.25,
+			"message": "density-half: uniform mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "density-half: uniform contrast",
+			"passed": true
+		},
+		{
+			"actual": 0.25,
+			"expected": 0.25,
+			"message": "density-half: uniform outer mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "density-half: cannot falsely pass readability",
+			"passed": true
+		},
+		{
+			"actual": "[P: (9, 11), S: (10, 10)]",
+			"expected": "[P: (9, 11), S: (10, 10)]",
+			"message": "translation: actual pixel bounds",
+			"passed": true
+		},
+		{
+			"actual": 100.0,
+			"expected": 100.0,
+			"message": "translation: pixel count",
+			"passed": true
+		},
+		{
+			"actual": 0.25,
+			"expected": 0.25,
+			"message": "translation: uniform mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "translation: uniform contrast",
+			"passed": true
+		},
+		{
+			"actual": 0.25,
+			"expected": 0.25,
+			"message": "translation: uniform outer mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "translation: cannot falsely pass readability",
+			"passed": true
+		},
+		{
+			"actual": "[P: (4, 4), S: (11, 11)]",
+			"expected": "[P: (4, 4), S: (11, 11)]",
+			"message": "fractional-translation: actual pixel bounds",
+			"passed": true
+		},
+		{
+			"actual": 121.0,
+			"expected": 121.0,
+			"message": "fractional-translation: pixel count",
+			"passed": true
+		},
+		{
+			"actual": 0.25,
+			"expected": 0.25,
+			"message": "fractional-translation: uniform mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "fractional-translation: uniform contrast",
+			"passed": true
+		},
+		{
+			"actual": 0.25,
+			"expected": 0.25,
+			"message": "fractional-translation: uniform outer mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "fractional-translation: cannot falsely pass readability",
+			"passed": true
+		},
+		{
+			"actual": "[P: (0, 0), S: (6, 6)]",
+			"expected": "[P: (0, 0), S: (6, 6)]",
+			"message": "clipped: actual pixel bounds",
+			"passed": true
+		},
+		{
+			"actual": 36.0,
+			"expected": 36.0,
+			"message": "clipped: pixel count",
+			"passed": true
+		},
+		{
+			"actual": 0.25,
+			"expected": 0.25,
+			"message": "clipped: uniform mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "clipped: uniform contrast",
+			"passed": true
+		},
+		{
+			"actual": 0.25,
+			"expected": 0.25,
+			"message": "clipped: uniform outer mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "clipped: cannot falsely pass readability",
+			"passed": true
+		},
+		{
+			"actual": "[P: (0, 0), S: (24, 24)]",
+			"expected": "[P: (0, 0), S: (24, 24)]",
+			"message": "clipped-zoom+density: actual pixel bounds",
+			"passed": true
+		},
+		{
+			"actual": 576.0,
+			"expected": 576.0,
+			"message": "clipped-zoom+density: pixel count",
+			"passed": true
+		},
+		{
+			"actual": 0.25,
+			"expected": 0.25,
+			"message": "clipped-zoom+density: uniform mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "clipped-zoom+density: uniform contrast",
+			"passed": true
+		},
+		{
+			"actual": 0.25,
+			"expected": 0.25,
+			"message": "clipped-zoom+density: uniform outer mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "clipped-zoom+density: cannot falsely pass readability",
+			"passed": true
+		},
+		{
+			"actual": "[P: (0, 0), S: (0, 0)]",
+			"expected": "[P: (0, 0), S: (0, 0)]",
+			"message": "off-screen: actual pixel bounds",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "off-screen: pixel count",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "off-screen: uniform mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "off-screen: uniform contrast",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "off-screen: uniform outer mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "off-screen: cannot falsely pass readability",
+			"passed": true
+		},
+		{
+			"actual": "[P: (0, 0), S: (64, 64)]",
+			"expected": "[P: (0, 0), S: (64, 64)]",
+			"message": "no-visible-outer-ring: actual pixel bounds",
+			"passed": true
+		},
+		{
+			"actual": 4096.0,
+			"expected": 4096.0,
+			"message": "no-visible-outer-ring: pixel count",
+			"passed": true
+		},
+		{
+			"actual": 0.25,
+			"expected": 0.25,
+			"message": "no-visible-outer-ring: uniform mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "no-visible-outer-ring: uniform contrast",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "no-visible-outer-ring: uniform outer mean",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "no-visible-outer-ring: cannot falsely pass readability",
+			"passed": true
+		},
+		{
+			"actual": 2.0,
+			"expected": 2.0,
+			"message": "HDR fixture retains 2.0",
+			"passed": true
+		},
+		{
+			"actual": 2.0,
+			"expected": 2.0,
+			"message": "HDR transformed mean is 2.0",
+			"passed": true
+		},
+		{
+			"actual": 0.0,
+			"expected": 0.0,
+			"message": "HDR uniform contrast",
+			"passed": true
+		},
+		{
+			"actual": 1600.0,
+			"expected": 1600.0,
+			"message": "pattern inner hand-count is 1600",
+			"passed": true
+		},
+		{
+			"actual": 3136.0,
+			"expected": 3136.0,
+			"message": "pattern outer hand-count is 3136",
+			"passed": true
+		},
+		{
+			"actual": 0.400000005960464,
+			"expected": 0.4,
+			"message": "pattern interior mean",
+			"passed": true
+		},
+		{
+			"actual": 0.400000005960464,
+			"expected": 0.4,
+			"message": "pattern bright percentile",
+			"passed": true
+		},
+		{
+			"actual": 0.400000005960464,
+			"expected": 0.4,
+			"message": "pattern body percentile",
+			"passed": true
+		},
+		{
+			"actual": 0.100000001490116,
+			"expected": 0.1,
+			"message": "pattern ring mean",
+			"passed": true
+		},
+		{
+			"actual": 2.50000000620882,
+			"expected": 2.5,
+			"message": "pattern bright hand-answer (0.4-0.1)/(0.1+0.02)",
+			"passed": true
+		},
+		{
+			"actual": -2.50000000620882,
+			"expected": -2.5,
+			"message": "pattern dark hand-answer",
+			"passed": true
+		},
+		{
+			"actual": 2.50000000620882,
+			"expected": 2.5,
+			"message": "pattern chosen contrast",
+			"passed": true
+		}
+	],
+	"contrast_probe_sha256": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+	"failures": 0,
+	"hdr_2d": true,
+	"native": false,
+	"renderer": "forward_plus",
+	"rows": [
+		{
+			"contrast": 0.0,
+			"expected_pixels": 100,
+			"mean": 0.25,
+			"name": "identity",
+			"pixels": 100.0
+		},
+		{
+			"contrast": 0.0,
+			"expected_pixels": 400,
+			"mean": 0.25,
+			"name": "zoom2",
+			"pixels": 400.0
+		},
+		{
+			"contrast": 0.0,
+			"expected_pixels": 400,
+			"mean": 0.25,
+			"name": "density2",
+			"pixels": 400.0
+		},
+		{
+			"contrast": 0.0,
+			"expected_pixels": 1600,
+			"mean": 0.25,
+			"name": "zoom2+density2",
+			"pixels": 1600.0
+		},
+		{
+			"contrast": 0.0,
+			"expected_pixels": 25,
+			"mean": 0.25,
+			"name": "zoom-half",
+			"pixels": 25.0
+		},
+		{
+			"contrast": 0.0,
+			"expected_pixels": 25,
+			"mean": 0.25,
+			"name": "density-half",
+			"pixels": 25.0
+		},
+		{
+			"contrast": 0.0,
+			"expected_pixels": 100,
+			"mean": 0.25,
+			"name": "translation",
+			"pixels": 100.0
+		},
+		{
+			"contrast": 0.0,
+			"expected_pixels": 121,
+			"mean": 0.25,
+			"name": "fractional-translation",
+			"pixels": 121.0
+		},
+		{
+			"contrast": 0.0,
+			"expected_pixels": 36,
+			"mean": 0.25,
+			"name": "clipped",
+			"pixels": 36.0
+		},
+		{
+			"contrast": 0.0,
+			"expected_pixels": 576,
+			"mean": 0.25,
+			"name": "clipped-zoom+density",
+			"pixels": 576.0
+		},
+		{
+			"contrast": 0.0,
+			"expected_pixels": 0,
+			"mean": 0.0,
+			"name": "off-screen",
+			"pixels": 0.0
+		},
+		{
+			"contrast": 0.0,
+			"expected_pixels": 4096,
+			"mean": 0.25,
+			"name": "no-visible-outer-ring",
+			"pixels": 4096.0
+		},
+		{
+			"contrast": 0.0,
+			"expected_pixels": 1600,
+			"mean": 2.0,
+			"name": "HDR2.0",
+			"pixels": 1600.0
+		},
+		{
+			"contrast": 2.50000000620882,
+			"expected_pixels": 1600,
+			"mean": 0.400000005960464,
+			"name": "0.4 / 0.1 pattern",
+			"parts": {
+				"body": 0.400000005960464,
+				"bright": 2.50000000620882,
+				"dark": -2.50000000620882,
+				"inner": 0.400000005960464,
+				"outer": 0.100000001490116
+			},
+			"pixels": 1600.0
+		}
+	],
+	"scope": "fixed 64x64 floating-point test images; not a game route or scene readability acceptance",
+	"test_sha256": "c20c4ea13870e2d1ee4bb446067e881e6ab8a7d60bf88f327e2d334a7ff5e50b"
+}

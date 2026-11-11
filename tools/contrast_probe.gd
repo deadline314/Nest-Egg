@@ -55,11 +55,16 @@ func contrast(box: Rect2, ring: float) -> float:
 ## 對比的組成（調光影時看是哪一邊不夠）：inner＝身體亮部、body＝身體暗部或中位數、outer＝周圍一圈的平均，
 ## bright＝亮部比周圍亮多少、dark＝身體比周圍暗多少。
 func contrast_parts(box: Rect2, ring: float) -> Dictionary:
-	var inner := _percentile_luma(box, 0.9)
+	var inner_count := _pixel_count(box)
 	var outer_box := box.grow(ring)
+	var outer_count := _pixel_count(outer_box) - inner_count
+	# No visible body or surrounding ring means no measurable contrast.
+	# Returning zero keeps an off-screen/cropped fixture from falsely passing.
+	if inner_count <= 0.0 or outer_count <= 0.0:
+		return {"inner": 0.0, "body": 0.0, "outer": 0.0, "bright": 0.0, "dark": 0.0}
+	var inner := _percentile_luma(box, 0.9)
 	var outer_total := _luma_sum(outer_box) - _luma_sum(box)
-	var outer_count := _pixel_count(outer_box) - _pixel_count(box)
-	var outer := outer_total / maxf(1.0, outer_count)
+	var outer := outer_total / outer_count
 	var body := _percentile_luma(box, DARK_PERCENTILE if outer >= SILHOUETTE_MIN_OUTER else MEDIAN_PERCENTILE)
 	return {"inner": inner, "body": body, "outer": outer, "bright": (inner - outer) / (outer + 0.02), "dark": (outer - body) / (outer + 0.02)}
 
@@ -95,13 +100,14 @@ func _percentile_luma(world_rect: Rect2, q: float) -> float:
 
 
 func _screen_rect(world_rect: Rect2) -> Rect2i:
-	var a := _to_screen * world_rect.position * _scale
-	var b := _to_screen * world_rect.end * _scale
-	return Rect2i(Vector2i(a.floor()), Vector2i((b - a).ceil())).intersection(Rect2i(Vector2i.ZERO, _image.get_size()))
+	var projected: Rect2 = _to_screen * world_rect
+	var start := Vector2i((projected.position * _scale).floor())
+	var end := Vector2i((projected.end * _scale).ceil())
+	return Rect2i(start, end - start).intersection(Rect2i(Vector2i.ZERO, _image.get_size()))
 
 
 func _pixel_count(world_rect: Rect2) -> float:
-	return world_rect.size.x * _scale * world_rect.size.y * _scale
+	return float(_screen_rect(world_rect).get_area())
 
 
 func _luma_sum(world_rect: Rect2) -> float:

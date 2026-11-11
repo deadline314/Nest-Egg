@@ -1,0 +1,21 @@
+{
+  "checks": 84,
+  "red_failures": 38,
+  "green_failures": 0,
+  "native_failures": 0,
+  "red_exit": 1,
+  "green_exit": 0,
+  "native_exit": 0,
+  "red_green_identical_test_sha256": "c20c4ea13870e2d1ee4bb446067e881e6ab8a7d60bf88f327e2d334a7ff5e50b",
+  "final_native_test_sha256": "777cb68ea11df5d62eec59a0c17c23e057fa78a3e37cfcc7b85a96319acf3499",
+  "test_logic_identical": true,
+  "only_native_source_change": "Label line_spacing=-4; test values and checks unchanged",
+  "contrast_probe_before": "3206464c34e339380f3629274788a3f17fe342d4b8e41526d7d82164f888c5c6",
+  "contrast_probe_after": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+  "source_is_lf": true,
+  "raw_zip_sha256": "ae89be2902a244f0885633e00dec7da33e90b6e86e3cce6b06e92eaebd09cdd3",
+  "raw_files": 19,
+  "raw_zip_verified": true,
+  "native_image_reviewed": true,
+  "native_scope": "fixed floating image fixture and result text on Radeon Forward+; not a game route or scene contrast acceptance"
+}

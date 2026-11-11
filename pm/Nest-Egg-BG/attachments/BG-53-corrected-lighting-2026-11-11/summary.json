@@ -1,0 +1,1311 @@
+[
+  {
+    "case": "ch1-high",
+    "exit": 1,
+    "seconds": 6.329436500003794,
+    "source_after": {
+      "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+      "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+      "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd",
+      "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+      "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+      "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+      "tools/readability_check.gd": "b677c123ff80b77293a377bff5d009a66d913aedda5cf065d8ace48fc6f1b77d",
+      "tools/ch1_readability_check.gd": "117452dbc3edb022958e99dc596d13c7bb861f1203f33a273ae9690f51a43ca9",
+      "core/aim_input.gd": "389cbabc618fa544675fa8804f16cc5086d05aa3d8f8206a9d9a7be3d961bd8a",
+      "tools/test_contrast_probe_geometry.gd": "777cb68ea11df5d62eec59a0c17c23e057fa78a3e37cfcc7b85a96319acf3499",
+      "pm/Nest-Egg-BG/attachments/BG-53-corrected-lighting-2026-11-11/native_ch1.gd": "13a82e948a540d968f18c652e9e0a1781049ed8be6f13f46dfcdc0b9f477b245",
+      "pm/Nest-Egg-BG/attachments/BG-53-corrected-lighting-2026-11-11/native_ch1.tscn": "5c8449acb0bf3c4ac8189902e968017422ff4f3d9a9eaef21477682351a08af0"
+    },
+    "engine_error_lines": [],
+    "photos": 0,
+    "levels": [],
+    "chapter_spots": 0,
+    "invalid_spots": [],
+    "failed_spots": [],
+    "harbor": [],
+    "chapter_min": {
+      "player_contrast": null,
+      "edge_contrast": null,
+      "enemy_contrast": null
+    }
+  },
+  {
+    "case": "ch1-high-all",
+    "exit": 0,
+    "seconds": 113.96408920000249,
+    "source_after": {
+      "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+      "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+      "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd",
+      "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+      "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+      "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+      "tools/readability_check.gd": "b677c123ff80b77293a377bff5d009a66d913aedda5cf065d8ace48fc6f1b77d",
+      "tools/ch1_readability_check.gd": "117452dbc3edb022958e99dc596d13c7bb861f1203f33a273ae9690f51a43ca9",
+      "core/aim_input.gd": "389cbabc618fa544675fa8804f16cc5086d05aa3d8f8206a9d9a7be3d961bd8a",
+      "tools/test_contrast_probe_geometry.gd": "777cb68ea11df5d62eec59a0c17c23e057fa78a3e37cfcc7b85a96319acf3499",
+      "pm/Nest-Egg-BG/attachments/BG-53-corrected-lighting-2026-11-11/native_ch1.gd": "13a82e948a540d968f18c652e9e0a1781049ed8be6f13f46dfcdc0b9f477b245",
+      "pm/Nest-Egg-BG/attachments/BG-53-corrected-lighting-2026-11-11/native_ch1.tscn": "5c8449acb0bf3c4ac8189902e968017422ff4f3d9a9eaef21477682351a08af0"
+    },
+    "engine_error_lines": [],
+    "photos": 18,
+    "levels": [],
+    "chapter_spots": 18,
+    "invalid_spots": [],
+    "failed_spots": [],
+    "harbor": [
+      {
+        "column": 200,
+        "edge_contrast": 2.30608956350088,
+        "enemy": "res://data/enemies/sweeper.tres",
+        "enemy_column": 206,
+        "enemy_contrast": 1.98385326166178,
+        "enemy_feet": [
+          3304.0,
+          319.99609375
+        ],
+        "expected_enemy_feet": [
+          3304.0,
+          320.0
+        ],
+        "feet": [
+          3208.0,
+          319.997741699219
+        ],
+        "level": "ch1_street",
+        "materials": [
+          "res://data/environment/materials/asphalt.tres"
+        ],
+        "passed": true,
+        "path": "res://data/levels/ch1_street.tres",
+        "player_contrast": 2.90613019429202,
+        "props": [
+          {
+            "ground": true,
+            "id": "harbor_street__fish_cart",
+            "x": 14.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__parked_scooter",
+            "x": 42.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__pole_wire_knot",
+            "x": 54.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__restore_queue_sign",
+            "x": 28.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__stacked_neon_signs",
+            "x": 74.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__rebirth_billboard",
+            "x": 102.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__steam_manhole",
+            "x": 118.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__tide_gauge",
+            "x": 144.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__umbrella_vending",
+            "x": 173.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__stacked_neon_signs",
+            "x": 178.0
+          }
+        ],
+        "sampling_valid": true,
+        "screenshot": "ST-6-ch1_street-200.png",
+        "spot": "碼頭入口",
+        "theme": "res://data/environment/themes/ch1_street.tres"
+      }
+    ],
+    "chapter_min": {
+      "player_contrast": 1.18811154236021,
+      "edge_contrast": 1.6619590950985,
+      "enemy_contrast": 1.16271450939348
+    }
+  },
+  {
+    "case": "ch1-low",
+    "exit": 1,
+    "seconds": 6.101657299994258,
+    "source_after": {
+      "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+      "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+      "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd",
+      "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+      "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+      "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+      "tools/readability_check.gd": "b677c123ff80b77293a377bff5d009a66d913aedda5cf065d8ace48fc6f1b77d",
+      "tools/ch1_readability_check.gd": "117452dbc3edb022958e99dc596d13c7bb861f1203f33a273ae9690f51a43ca9",
+      "core/aim_input.gd": "389cbabc618fa544675fa8804f16cc5086d05aa3d8f8206a9d9a7be3d961bd8a",
+      "tools/test_contrast_probe_geometry.gd": "777cb68ea11df5d62eec59a0c17c23e057fa78a3e37cfcc7b85a96319acf3499",
+      "pm/Nest-Egg-BG/attachments/BG-53-corrected-lighting-2026-11-11/native_ch1.gd": "13a82e948a540d968f18c652e9e0a1781049ed8be6f13f46dfcdc0b9f477b245",
+      "pm/Nest-Egg-BG/attachments/BG-53-corrected-lighting-2026-11-11/native_ch1.tscn": "5c8449acb0bf3c4ac8189902e968017422ff4f3d9a9eaef21477682351a08af0"
+    },
+    "engine_error_lines": [],
+    "photos": 0,
+    "levels": [],
+    "chapter_spots": 0,
+    "invalid_spots": [],
+    "failed_spots": [],
+    "harbor": [],
+    "chapter_min": {
+      "player_contrast": null,
+      "edge_contrast": null,
+      "enemy_contrast": null
+    }
+  },
+  {
+    "case": "ch1-low-all",
+    "exit": 0,
+    "seconds": 114.00085669998953,
+    "source_after": {
+      "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+      "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+      "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd",
+      "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+      "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+      "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+      "tools/readability_check.gd": "b677c123ff80b77293a377bff5d009a66d913aedda5cf065d8ace48fc6f1b77d",
+      "tools/ch1_readability_check.gd": "117452dbc3edb022958e99dc596d13c7bb861f1203f33a273ae9690f51a43ca9",
+      "core/aim_input.gd": "389cbabc618fa544675fa8804f16cc5086d05aa3d8f8206a9d9a7be3d961bd8a",
+      "tools/test_contrast_probe_geometry.gd": "777cb68ea11df5d62eec59a0c17c23e057fa78a3e37cfcc7b85a96319acf3499",
+      "pm/Nest-Egg-BG/attachments/BG-53-corrected-lighting-2026-11-11/native_ch1.gd": "13a82e948a540d968f18c652e9e0a1781049ed8be6f13f46dfcdc0b9f477b245",
+      "pm/Nest-Egg-BG/attachments/BG-53-corrected-lighting-2026-11-11/native_ch1.tscn": "5c8449acb0bf3c4ac8189902e968017422ff4f3d9a9eaef21477682351a08af0"
+    },
+    "engine_error_lines": [],
+    "photos": 18,
+    "levels": [],
+    "chapter_spots": 18,
+    "invalid_spots": [],
+    "failed_spots": [],
+    "harbor": [
+      {
+        "column": 200,
+        "edge_contrast": 2.33953464465753,
+        "enemy": "res://data/enemies/sweeper.tres",
+        "enemy_column": 206,
+        "enemy_contrast": 2.16436612769811,
+        "enemy_feet": [
+          3304.0,
+          319.99609375
+        ],
+        "expected_enemy_feet": [
+          3304.0,
+          320.0
+        ],
+        "feet": [
+          3208.0,
+          319.997741699219
+        ],
+        "level": "ch1_street",
+        "materials": [
+          "res://data/environment/materials/asphalt.tres"
+        ],
+        "passed": true,
+        "path": "res://data/levels/ch1_street.tres",
+        "player_contrast": 2.81876311764757,
+        "props": [
+          {
+            "ground": true,
+            "id": "harbor_street__fish_cart",
+            "x": 14.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__parked_scooter",
+            "x": 42.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__pole_wire_knot",
+            "x": 54.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__restore_queue_sign",
+            "x": 28.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__stacked_neon_signs",
+            "x": 74.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__rebirth_billboard",
+            "x": 102.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__steam_manhole",
+            "x": 118.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__tide_gauge",
+            "x": 144.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__umbrella_vending",
+            "x": 173.0
+          },
+          {
+            "ground": true,
+            "id": "harbor_street__stacked_neon_signs",
+            "x": 178.0
+          }
+        ],
+        "sampling_valid": true,
+        "screenshot": "ST-6-ch1_street-200.png",
+        "spot": "碼頭入口",
+        "theme": "res://data/environment/themes/ch1_street.tres"
+      }
+    ],
+    "chapter_min": {
+      "player_contrast": 1.2788887608264,
+      "edge_contrast": 1.39421501676077,
+      "enemy_contrast": 1.02253075488506
+    }
+  },
+  {
+    "case": "geometry-native-corrected",
+    "exit": 0,
+    "seconds": 6.200750399992103,
+    "source_after": {
+      "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+      "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+      "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd",
+      "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+      "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+      "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+      "tools/readability_check.gd": "b677c123ff80b77293a377bff5d009a66d913aedda5cf065d8ace48fc6f1b77d",
+      "tools/ch1_readability_check.gd": "117452dbc3edb022958e99dc596d13c7bb861f1203f33a273ae9690f51a43ca9",
+      "core/aim_input.gd": "389cbabc618fa544675fa8804f16cc5086d05aa3d8f8206a9d9a7be3d961bd8a",
+      "tools/test_contrast_probe_geometry.gd": "777cb68ea11df5d62eec59a0c17c23e057fa78a3e37cfcc7b85a96319acf3499",
+      "pm/Nest-Egg-BG/attachments/BG-53-corrected-lighting-2026-11-11/native_ch1.gd": "13a82e948a540d968f18c652e9e0a1781049ed8be6f13f46dfcdc0b9f477b245",
+      "pm/Nest-Egg-BG/attachments/BG-53-corrected-lighting-2026-11-11/native_ch1.tscn": "5c8449acb0bf3c4ac8189902e968017422ff4f3d9a9eaef21477682351a08af0"
+    },
+    "engine_error_lines": [],
+    "photos": 1,
+    "levels": [],
+    "known_answer_report": {
+      "adapter": "AMD Radeon RX 9070 XT",
+      "checks": [
+        {
+          "actual": "[P: (4, 4), S: (10, 10)]",
+          "expected": "[P: (4, 4), S: (10, 10)]",
+          "message": "identity: actual pixel bounds",
+          "passed": true
+        },
+        {
+          "actual": 100.0,
+          "expected": 100.0,
+          "message": "identity: pixel count",
+          "passed": true
+        },
+        {
+          "actual": 0.25,
+          "expected": 0.25,
+          "message": "identity: uniform mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "identity: uniform contrast",
+          "passed": true
+        },
+        {
+          "actual": 0.25,
+          "expected": 0.25,
+          "message": "identity: uniform outer mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "identity: cannot falsely pass readability",
+          "passed": true
+        },
+        {
+          "actual": "[P: (8, 8), S: (20, 20)]",
+          "expected": "[P: (8, 8), S: (20, 20)]",
+          "message": "zoom2: actual pixel bounds",
+          "passed": true
+        },
+        {
+          "actual": 400.0,
+          "expected": 400.0,
+          "message": "zoom2: pixel count",
+          "passed": true
+        },
+        {
+          "actual": 0.25,
+          "expected": 0.25,
+          "message": "zoom2: uniform mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "zoom2: uniform contrast",
+          "passed": true
+        },
+        {
+          "actual": 0.25,
+          "expected": 0.25,
+          "message": "zoom2: uniform outer mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "zoom2: cannot falsely pass readability",
+          "passed": true
+        },
+        {
+          "actual": "[P: (8, 8), S: (20, 20)]",
+          "expected": "[P: (8, 8), S: (20, 20)]",
+          "message": "density2: actual pixel bounds",
+          "passed": true
+        },
+        {
+          "actual": 400.0,
+          "expected": 400.0,
+          "message": "density2: pixel count",
+          "passed": true
+        },
+        {
+          "actual": 0.25,
+          "expected": 0.25,
+          "message": "density2: uniform mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "density2: uniform contrast",
+          "passed": true
+        },
+        {
+          "actual": 0.25,
+          "expected": 0.25,
+          "message": "density2: uniform outer mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "density2: cannot falsely pass readability",
+          "passed": true
+        },
+        {
+          "actual": "[P: (16, 16), S: (40, 40)]",
+          "expected": "[P: (16, 16), S: (40, 40)]",
+          "message": "zoom2+density2: actual pixel bounds",
+          "passed": true
+        },
+        {
+          "actual": 1600.0,
+          "expected": 1600.0,
+          "message": "zoom2+density2: pixel count",
+          "passed": true
+        },
+        {
+          "actual": 0.25,
+          "expected": 0.25,
+          "message": "zoom2+density2: uniform mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "zoom2+density2: uniform contrast",
+          "passed": true
+        },
+        {
+          "actual": 0.25,
+          "expected": 0.25,
+          "message": "zoom2+density2: uniform outer mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "zoom2+density2: cannot falsely pass readability",
+          "passed": true
+        },
+        {
+          "actual": "[P: (2, 2), S: (5, 5)]",
+          "expected": "[P: (2, 2), S: (5, 5)]",
+          "message": "zoom-half: actual pixel bounds",
+          "passed": true
+        },
+        {
+          "actual": 25.0,
+          "expected": 25.0,
+          "message": "zoom-half: pixel count",
+          "passed": true
+        },
+        {
+          "actual": 0.25,
+          "expected": 0.25,
+          "message": "zoom-half: uniform mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "zoom-half: uniform contrast",
+          "passed": true
+        },
+        {
+          "actual": 0.25,
+          "expected": 0.25,
+          "message": "zoom-half: uniform outer mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "zoom-half: cannot falsely pass readability",
+          "passed": true
+        },
+        {
+          "actual": "[P: (2, 2), S: (5, 5)]",
+          "expected": "[P: (2, 2), S: (5, 5)]",
+          "message": "density-half: actual pixel bounds",
+          "passed": true
+        },
+        {
+          "actual": 25.0,
+          "expected": 25.0,
+          "message": "density-half: pixel count",
+          "passed": true
+        },
+        {
+          "actual": 0.25,
+          "expected": 0.25,
+          "message": "density-half: uniform mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "density-half: uniform contrast",
+          "passed": true
+        },
+        {
+          "actual": 0.25,
+          "expected": 0.25,
+          "message": "density-half: uniform outer mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "density-half: cannot falsely pass readability",
+          "passed": true
+        },
+        {
+          "actual": "[P: (9, 11), S: (10, 10)]",
+          "expected": "[P: (9, 11), S: (10, 10)]",
+          "message": "translation: actual pixel bounds",
+          "passed": true
+        },
+        {
+          "actual": 100.0,
+          "expected": 100.0,
+          "message": "translation: pixel count",
+          "passed": true
+        },
+        {
+          "actual": 0.25,
+          "expected": 0.25,
+          "message": "translation: uniform mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "translation: uniform contrast",
+          "passed": true
+        },
+        {
+          "actual": 0.25,
+          "expected": 0.25,
+          "message": "translation: uniform outer mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "translation: cannot falsely pass readability",
+          "passed": true
+        },
+        {
+          "actual": "[P: (4, 4), S: (11, 11)]",
+          "expected": "[P: (4, 4), S: (11, 11)]",
+          "message": "fractional-translation: actual pixel bounds",
+          "passed": true
+        },
+        {
+          "actual": 121.0,
+          "expected": 121.0,
+          "message": "fractional-translation: pixel count",
+          "passed": true
+        },
+        {
+          "actual": 0.25,
+          "expected": 0.25,
+          "message": "fractional-translation: uniform mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "fractional-translation: uniform contrast",
+          "passed": true
+        },
+        {
+          "actual": 0.25,
+          "expected": 0.25,
+          "message": "fractional-translation: uniform outer mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "fractional-translation: cannot falsely pass readability",
+          "passed": true
+        },
+        {
+          "actual": "[P: (0, 0), S: (6, 6)]",
+          "expected": "[P: (0, 0), S: (6, 6)]",
+          "message": "clipped: actual pixel bounds",
+          "passed": true
+        },
+        {
+          "actual": 36.0,
+          "expected": 36.0,
+          "message": "clipped: pixel count",
+          "passed": true
+        },
+        {
+          "actual": 0.25,
+          "expected": 0.25,
+          "message": "clipped: uniform mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "clipped: uniform contrast",
+          "passed": true
+        },
+        {
+          "actual": 0.25,
+          "expected": 0.25,
+          "message": "clipped: uniform outer mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "clipped: cannot falsely pass readability",
+          "passed": true
+        },
+        {
+          "actual": "[P: (0, 0), S: (24, 24)]",
+          "expected": "[P: (0, 0), S: (24, 24)]",
+          "message": "clipped-zoom+density: actual pixel bounds",
+          "passed": true
+        },
+        {
+          "actual": 576.0,
+          "expected": 576.0,
+          "message": "clipped-zoom+density: pixel count",
+          "passed": true
+        },
+        {
+          "actual": 0.25,
+          "expected": 0.25,
+          "message": "clipped-zoom+density: uniform mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "clipped-zoom+density: uniform contrast",
+          "passed": true
+        },
+        {
+          "actual": 0.25,
+          "expected": 0.25,
+          "message": "clipped-zoom+density: uniform outer mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "clipped-zoom+density: cannot falsely pass readability",
+          "passed": true
+        },
+        {
+          "actual": "[P: (0, 0), S: (0, 0)]",
+          "expected": "[P: (0, 0), S: (0, 0)]",
+          "message": "off-screen: actual pixel bounds",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "off-screen: pixel count",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "off-screen: uniform mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "off-screen: uniform contrast",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "off-screen: uniform outer mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "off-screen: cannot falsely pass readability",
+          "passed": true
+        },
+        {
+          "actual": "[P: (0, 0), S: (64, 64)]",
+          "expected": "[P: (0, 0), S: (64, 64)]",
+          "message": "no-visible-outer-ring: actual pixel bounds",
+          "passed": true
+        },
+        {
+          "actual": 4096.0,
+          "expected": 4096.0,
+          "message": "no-visible-outer-ring: pixel count",
+          "passed": true
+        },
+        {
+          "actual": 0.25,
+          "expected": 0.25,
+          "message": "no-visible-outer-ring: uniform mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "no-visible-outer-ring: uniform contrast",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "no-visible-outer-ring: uniform outer mean",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "no-visible-outer-ring: cannot falsely pass readability",
+          "passed": true
+        },
+        {
+          "actual": 2.0,
+          "expected": 2.0,
+          "message": "HDR fixture retains 2.0",
+          "passed": true
+        },
+        {
+          "actual": 2.0,
+          "expected": 2.0,
+          "message": "HDR transformed mean is 2.0",
+          "passed": true
+        },
+        {
+          "actual": 0.0,
+          "expected": 0.0,
+          "message": "HDR uniform contrast",
+          "passed": true
+        },
+        {
+          "actual": 1600.0,
+          "expected": 1600.0,
+          "message": "pattern inner hand-count is 1600",
+          "passed": true
+        },
+        {
+          "actual": 3136.0,
+          "expected": 3136.0,
+          "message": "pattern outer hand-count is 3136",
+          "passed": true
+        },
+        {
+          "actual": 0.400000005960464,
+          "expected": 0.4,
+          "message": "pattern interior mean",
+          "passed": true
+        },
+        {
+          "actual": 0.400000005960464,
+          "expected": 0.4,
+          "message": "pattern bright percentile",
+          "passed": true
+        },
+        {
+          "actual": 0.400000005960464,
+          "expected": 0.4,
+          "message": "pattern body percentile",
+          "passed": true
+        },
+        {
+          "actual": 0.100000001490116,
+          "expected": 0.1,
+          "message": "pattern ring mean",
+          "passed": true
+        },
+        {
+          "actual": 2.50000000620882,
+          "expected": 2.5,
+          "message": "pattern bright hand-answer (0.4-0.1)/(0.1+0.02)",
+          "passed": true
+        },
+        {
+          "actual": -2.50000000620882,
+          "expected": -2.5,
+          "message": "pattern dark hand-answer",
+          "passed": true
+        },
+        {
+          "actual": 2.50000000620882,
+          "expected": 2.5,
+          "message": "pattern chosen contrast",
+          "passed": true
+        }
+      ],
+      "contrast_probe_sha256": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+      "failures": 0,
+      "hdr_2d": true,
+      "native": true,
+      "renderer": "forward_plus",
+      "rows": [
+        {
+          "contrast": 0.0,
+          "expected_pixels": 100,
+          "mean": 0.25,
+          "name": "identity",
+          "pixels": 100.0
+        },
+        {
+          "contrast": 0.0,
+          "expected_pixels": 400,
+          "mean": 0.25,
+          "name": "zoom2",
+          "pixels": 400.0
+        },
+        {
+          "contrast": 0.0,
+          "expected_pixels": 400,
+          "mean": 0.25,
+          "name": "density2",
+          "pixels": 400.0
+        },
+        {
+          "contrast": 0.0,
+          "expected_pixels": 1600,
+          "mean": 0.25,
+          "name": "zoom2+density2",
+          "pixels": 1600.0
+        },
+        {
+          "contrast": 0.0,
+          "expected_pixels": 25,
+          "mean": 0.25,
+          "name": "zoom-half",
+          "pixels": 25.0
+        },
+        {
+          "contrast": 0.0,
+          "expected_pixels": 25,
+          "mean": 0.25,
+          "name": "density-half",
+          "pixels": 25.0
+        },
+        {
+          "contrast": 0.0,
+          "expected_pixels": 100,
+          "mean": 0.25,
+          "name": "translation",
+          "pixels": 100.0
+        },
+        {
+          "contrast": 0.0,
+          "expected_pixels": 121,
+          "mean": 0.25,
+          "name": "fractional-translation",
+          "pixels": 121.0
+        },
+        {
+          "contrast": 0.0,
+          "expected_pixels": 36,
+          "mean": 0.25,
+          "name": "clipped",
+          "pixels": 36.0
+        },
+        {
+          "contrast": 0.0,
+          "expected_pixels": 576,
+          "mean": 0.25,
+          "name": "clipped-zoom+density",
+          "pixels": 576.0
+        },
+        {
+          "contrast": 0.0,
+          "expected_pixels": 0,
+          "mean": 0.0,
+          "name": "off-screen",
+          "pixels": 0.0
+        },
+        {
+          "contrast": 0.0,
+          "expected_pixels": 4096,
+          "mean": 0.25,
+          "name": "no-visible-outer-ring",
+          "pixels": 4096.0
+        },
+        {
+          "contrast": 0.0,
+          "expected_pixels": 1600,
+          "mean": 2.0,
+          "name": "HDR2.0",
+          "pixels": 1600.0
+        },
+        {
+          "contrast": 2.50000000620882,
+          "expected_pixels": 1600,
+          "mean": 0.400000005960464,
+          "name": "0.4 / 0.1 pattern",
+          "parts": {
+            "body": 0.400000005960464,
+            "bright": 2.50000000620882,
+            "dark": -2.50000000620882,
+            "inner": 0.400000005960464,
+            "outer": 0.100000001490116
+          },
+          "pixels": 1600.0
+        }
+      ],
+      "scope": "fixed 64x64 floating-point test images; not a game route or scene readability acceptance",
+      "test_sha256": "777cb68ea11df5d62eec59a0c17c23e057fa78a3e37cfcc7b85a96319acf3499"
+    }
+  },
+  {
+    "case": "scene-high",
+    "exit": 0,
+    "seconds": 93.77645720000146,
+    "source_after": {
+      "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+      "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+      "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd",
+      "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+      "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+      "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+      "tools/readability_check.gd": "b677c123ff80b77293a377bff5d009a66d913aedda5cf065d8ace48fc6f1b77d",
+      "tools/ch1_readability_check.gd": "117452dbc3edb022958e99dc596d13c7bb861f1203f33a273ae9690f51a43ca9",
+      "core/aim_input.gd": "389cbabc618fa544675fa8804f16cc5086d05aa3d8f8206a9d9a7be3d961bd8a",
+      "tools/test_contrast_probe_geometry.gd": "777cb68ea11df5d62eec59a0c17c23e057fa78a3e37cfcc7b85a96319acf3499",
+      "pm/Nest-Egg-BG/attachments/BG-53-corrected-lighting-2026-11-11/native_ch1.gd": "13a82e948a540d968f18c652e9e0a1781049ed8be6f13f46dfcdc0b9f477b245",
+      "pm/Nest-Egg-BG/attachments/BG-53-corrected-lighting-2026-11-11/native_ch1.tscn": "5c8449acb0bf3c4ac8189902e968017422ff4f3d9a9eaef21477682351a08af0"
+    },
+    "engine_error_lines": [],
+    "photos": 51,
+    "levels": [
+      {
+        "level": "ch2_ledger_front",
+        "photos": 9,
+        "player_samples": 6,
+        "player_min": 3.67497104802867,
+        "edge_min": 6.2131964897796,
+        "enemy_min": null,
+        "enemy_samples": 0,
+        "cycle_player_min": null,
+        "cycle_edge_min": null,
+        "all_fixed_aim": true,
+        "probe": {
+          "adapter": "AMD Radeon RX 9070 XT",
+          "brightness": 0.5,
+          "cycle_sample_interval": 0.2,
+          "cycle_samples": 0,
+          "engine": "4.7.2-stable (official)",
+          "fixed_gamepad_aim": true,
+          "fog_hidden": false,
+          "hdr_2d": true,
+          "kind": "stationary lighting fixture",
+          "lamp_hold": -1.0,
+          "paired_fog_clock": -1.0,
+          "quality": 2,
+          "reference_fog": false,
+          "renderer": "forward_plus",
+          "source_sha256": {
+            "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+            "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+            "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+            "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+            "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+            "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+          },
+          "thresholds": {
+            "edge": 1.0,
+            "player": 0.6
+          },
+          "wall_shadows_hidden": false
+        }
+      },
+      {
+        "level": "ch2_ledger_office",
+        "photos": 12,
+        "player_samples": 6,
+        "player_min": 5.13558480168047,
+        "edge_min": 4.69738778683764,
+        "enemy_min": 0.261743470753606,
+        "enemy_samples": 2,
+        "cycle_player_min": null,
+        "cycle_edge_min": null,
+        "all_fixed_aim": true,
+        "probe": {
+          "adapter": "AMD Radeon RX 9070 XT",
+          "brightness": 0.5,
+          "cycle_sample_interval": 0.2,
+          "cycle_samples": 0,
+          "engine": "4.7.2-stable (official)",
+          "fixed_gamepad_aim": true,
+          "fog_hidden": false,
+          "hdr_2d": true,
+          "kind": "stationary lighting fixture",
+          "lamp_hold": -1.0,
+          "paired_fog_clock": -1.0,
+          "quality": 2,
+          "reference_fog": false,
+          "renderer": "forward_plus",
+          "source_sha256": {
+            "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+            "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+            "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+            "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+            "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+            "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+          },
+          "thresholds": {
+            "edge": 1.0,
+            "player": 0.6
+          },
+          "wall_shadows_hidden": false
+        }
+      },
+      {
+        "level": "ch2_pawnshop",
+        "photos": 18,
+        "player_samples": 12,
+        "player_min": 0.825714474431505,
+        "edge_min": 5.17887265023669,
+        "enemy_min": null,
+        "enemy_samples": 0,
+        "cycle_player_min": null,
+        "cycle_edge_min": null,
+        "all_fixed_aim": true,
+        "probe": {
+          "adapter": "AMD Radeon RX 9070 XT",
+          "brightness": 0.5,
+          "cycle_sample_interval": 0.2,
+          "cycle_samples": 0,
+          "engine": "4.7.2-stable (official)",
+          "fixed_gamepad_aim": true,
+          "fog_hidden": false,
+          "hdr_2d": true,
+          "kind": "stationary lighting fixture",
+          "lamp_hold": -1.0,
+          "paired_fog_clock": -1.0,
+          "quality": 2,
+          "reference_fog": false,
+          "renderer": "forward_plus",
+          "source_sha256": {
+            "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+            "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+            "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+            "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+            "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+            "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+          },
+          "thresholds": {
+            "edge": 1.0,
+            "player": 0.6
+          },
+          "wall_shadows_hidden": false
+        }
+      },
+      {
+        "level": "ch3_office_hall",
+        "photos": 12,
+        "player_samples": 8,
+        "player_min": 1.02428410108292,
+        "edge_min": 6.36048993454411,
+        "enemy_min": null,
+        "enemy_samples": 0,
+        "cycle_player_min": null,
+        "cycle_edge_min": null,
+        "all_fixed_aim": true,
+        "probe": {
+          "adapter": "AMD Radeon RX 9070 XT",
+          "brightness": 0.5,
+          "cycle_sample_interval": 0.2,
+          "cycle_samples": 0,
+          "engine": "4.7.2-stable (official)",
+          "fixed_gamepad_aim": true,
+          "fog_hidden": false,
+          "hdr_2d": true,
+          "kind": "stationary lighting fixture",
+          "lamp_hold": -1.0,
+          "paired_fog_clock": -1.0,
+          "quality": 2,
+          "reference_fog": false,
+          "renderer": "forward_plus",
+          "source_sha256": {
+            "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+            "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+            "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+            "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+            "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+            "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+          },
+          "thresholds": {
+            "edge": 1.0,
+            "player": 0.6
+          },
+          "wall_shadows_hidden": false
+        }
+      }
+    ]
+  },
+  {
+    "case": "scene-low",
+    "exit": 0,
+    "seconds": 98.25565359999018,
+    "source_after": {
+      "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+      "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+      "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd",
+      "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+      "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+      "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+      "tools/readability_check.gd": "b677c123ff80b77293a377bff5d009a66d913aedda5cf065d8ace48fc6f1b77d",
+      "tools/ch1_readability_check.gd": "117452dbc3edb022958e99dc596d13c7bb861f1203f33a273ae9690f51a43ca9",
+      "core/aim_input.gd": "389cbabc618fa544675fa8804f16cc5086d05aa3d8f8206a9d9a7be3d961bd8a",
+      "tools/test_contrast_probe_geometry.gd": "777cb68ea11df5d62eec59a0c17c23e057fa78a3e37cfcc7b85a96319acf3499",
+      "pm/Nest-Egg-BG/attachments/BG-53-corrected-lighting-2026-11-11/native_ch1.gd": "13a82e948a540d968f18c652e9e0a1781049ed8be6f13f46dfcdc0b9f477b245",
+      "pm/Nest-Egg-BG/attachments/BG-53-corrected-lighting-2026-11-11/native_ch1.tscn": "5c8449acb0bf3c4ac8189902e968017422ff4f3d9a9eaef21477682351a08af0"
+    },
+    "engine_error_lines": [],
+    "photos": 51,
+    "levels": [
+      {
+        "level": "ch2_ledger_front",
+        "photos": 9,
+        "player_samples": 6,
+        "player_min": 3.6508782693823,
+        "edge_min": 5.89807358891162,
+        "enemy_min": null,
+        "enemy_samples": 0,
+        "cycle_player_min": null,
+        "cycle_edge_min": null,
+        "all_fixed_aim": true,
+        "probe": {
+          "adapter": "AMD Radeon RX 9070 XT",
+          "brightness": 0.5,
+          "cycle_sample_interval": 0.2,
+          "cycle_samples": 0,
+          "engine": "4.7.2-stable (official)",
+          "fixed_gamepad_aim": true,
+          "fog_hidden": false,
+          "hdr_2d": true,
+          "kind": "stationary lighting fixture",
+          "lamp_hold": -1.0,
+          "paired_fog_clock": -1.0,
+          "quality": 0,
+          "reference_fog": false,
+          "renderer": "forward_plus",
+          "source_sha256": {
+            "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+            "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+            "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+            "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+            "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+            "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+          },
+          "thresholds": {
+            "edge": 1.0,
+            "player": 0.6
+          },
+          "wall_shadows_hidden": false
+        }
+      },
+      {
+        "level": "ch2_ledger_office",
+        "photos": 12,
+        "player_samples": 6,
+        "player_min": 5.2504605592146,
+        "edge_min": 4.20183173262929,
+        "enemy_min": 0.13477311036354,
+        "enemy_samples": 2,
+        "cycle_player_min": null,
+        "cycle_edge_min": null,
+        "all_fixed_aim": true,
+        "probe": {
+          "adapter": "AMD Radeon RX 9070 XT",
+          "brightness": 0.5,
+          "cycle_sample_interval": 0.2,
+          "cycle_samples": 0,
+          "engine": "4.7.2-stable (official)",
+          "fixed_gamepad_aim": true,
+          "fog_hidden": false,
+          "hdr_2d": true,
+          "kind": "stationary lighting fixture",
+          "lamp_hold": -1.0,
+          "paired_fog_clock": -1.0,
+          "quality": 0,
+          "reference_fog": false,
+          "renderer": "forward_plus",
+          "source_sha256": {
+            "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+            "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+            "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+            "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+            "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+            "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+          },
+          "thresholds": {
+            "edge": 1.0,
+            "player": 0.6
+          },
+          "wall_shadows_hidden": false
+        }
+      },
+      {
+        "level": "ch2_pawnshop",
+        "photos": 18,
+        "player_samples": 12,
+        "player_min": 0.847639560004192,
+        "edge_min": 4.90246532004016,
+        "enemy_min": null,
+        "enemy_samples": 0,
+        "cycle_player_min": null,
+        "cycle_edge_min": null,
+        "all_fixed_aim": true,
+        "probe": {
+          "adapter": "AMD Radeon RX 9070 XT",
+          "brightness": 0.5,
+          "cycle_sample_interval": 0.2,
+          "cycle_samples": 0,
+          "engine": "4.7.2-stable (official)",
+          "fixed_gamepad_aim": true,
+          "fog_hidden": false,
+          "hdr_2d": true,
+          "kind": "stationary lighting fixture",
+          "lamp_hold": -1.0,
+          "paired_fog_clock": -1.0,
+          "quality": 0,
+          "reference_fog": false,
+          "renderer": "forward_plus",
+          "source_sha256": {
+            "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+            "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+            "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+            "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+            "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+            "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+          },
+          "thresholds": {
+            "edge": 1.0,
+            "player": 0.6
+          },
+          "wall_shadows_hidden": false
+        }
+      },
+      {
+        "level": "ch3_office_hall",
+        "photos": 12,
+        "player_samples": 8,
+        "player_min": 1.16863247991834,
+        "edge_min": 5.98870729836673,
+        "enemy_min": null,
+        "enemy_samples": 0,
+        "cycle_player_min": null,
+        "cycle_edge_min": null,
+        "all_fixed_aim": true,
+        "probe": {
+          "adapter": "AMD Radeon RX 9070 XT",
+          "brightness": 0.5,
+          "cycle_sample_interval": 0.2,
+          "cycle_samples": 0,
+          "engine": "4.7.2-stable (official)",
+          "fixed_gamepad_aim": true,
+          "fog_hidden": false,
+          "hdr_2d": true,
+          "kind": "stationary lighting fixture",
+          "lamp_hold": -1.0,
+          "paired_fog_clock": -1.0,
+          "quality": 0,
+          "reference_fog": false,
+          "renderer": "forward_plus",
+          "source_sha256": {
+            "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+            "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+            "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+            "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+            "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+            "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+          },
+          "thresholds": {
+            "edge": 1.0,
+            "player": 0.6
+          },
+          "wall_shadows_hidden": false
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://pm/Nest-Egg-BG/attachments/BG-53-corrected-lighting-2026-11-11/native_ch1.gd" id="1"]
+
+[node name="CorrectedCh1Readability" type="Node"]
+script = ExtResource("1")

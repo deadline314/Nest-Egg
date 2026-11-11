@@ -1,0 +1,31 @@
+{
+  "checks": 3893,
+  "new_failures": 0,
+  "known_failures": 0,
+  "exit": 0,
+  "selected": [
+    "DevMenuSuite",
+    "ExposureSuite",
+    "ReadabilityTargetsSuite",
+    "main",
+    "MeleeSuite",
+    "MeleeWeaponsSuite"
+  ],
+  "wrapper": "tools/run_tests_changed.sh 96373764",
+  "log_notes": "Existing filters retain shutdown diagnostics: 1 CanvasItem, 9 ObjectDB and 5 resources. Not a claim that all raw logs have no ERROR.",
+  "raw_zip_sha256": "c4a38236b94f93e3ce1497f552bf6cc7571c4fb1186fe6789fe1ae027d8e9ea1",
+  "files": {
+    "work\\bg54-changed-tests.log": {
+      "sha256": "8ce3620ae909126837b8704f618ae8f487acc7d9f4ce42c5a59e3ff4897d8109",
+      "bytes": 447
+    },
+    "work\\bg54-changed-tests\\shard_0.log": {
+      "sha256": "62dd0a3ca15c64715238248273a30f5acf7ee9262fe5d2873d0cc2027d80667c",
+      "bytes": 6263
+    },
+    "work\\bg54-changed-tests\\shard_1.log": {
+      "sha256": "50da3e587c232365f77286c2771c7f19369f8cb76a7af1ddc0ec71b28f45646c",
+      "bytes": 58313
+    }
+  }
+}

@@ -14,6 +14,7 @@ const MAX_FILL := 4.0
 
 func run() -> void:
 	_test_capture_precision()
+	_test_contrast_geometry()
 	_test_budget_model()
 	_test_every_profile_stays_in_budget()
 	_test_glow_cap()
@@ -50,6 +51,25 @@ func _test_capture_precision() -> void:
 	var ldr := Image.create(3, 2, false, Image.FORMAT_RGBA8)
 	ldr.fill(Color(0.12, 0.34, 0.56, 0.37))
 	check(preload("res://tools/viewport_capture.gd").encode(ldr, false).get_data() == ldr.get_data(), "LDR capture preserves every original byte")
+
+
+## Known float pixels make scale/area errors observable without rendering or changing thresholds.
+func _test_contrast_geometry() -> void:
+	var probe := ContrastProbe.new()
+	probe._image = Image.create(64, 64, false, Image.FORMAT_RGBAF)
+	probe._image.fill(Color(0.25, 0.25, 0.25))
+	probe._scale = 2.0
+	probe._to_screen = Transform2D.IDENTITY.scaled(Vector2(2, 2))
+	var box := Rect2(4, 4, 10, 10)
+	check(absf(probe.mean_luma(box) - 0.25) < 0.000001, "scaled constant float image retains its known mean luminance")
+	check(absf(probe.contrast(box, 2)) < 0.000001, "scaled uniform gray has zero contrast")
+	probe._image.fill(Color(0.1, 0.1, 0.1))
+	probe._image.fill_rect(Rect2i(16, 16, 40, 40), Color(0.4, 0.4, 0.4))
+	var parts := probe.contrast_parts(box, 2)
+	check(absf(parts["bright"] - 2.5) < 0.00001, "known 0.4 body and 0.1 ring retain physical contrast 2.5 after both scales")
+	var outside := Rect2(100, 100, 10, 10)
+	check(probe.mean_luma(outside) == 0.0 and probe.contrast(outside, 2) == 0.0, "fully off-screen samples cannot report contrast")
+	check(probe.contrast(box, 0) == 0.0, "a body with no surrounding ring cannot report contrast")
 
 
 func _test_budget_model() -> void:
