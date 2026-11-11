@@ -24,6 +24,7 @@ func _run() -> void:
 	add_child(LightKit.create_environment())
 	Story.auto_skip = true
 	var data := PropsSuite.level_data()
+	data.chapter = &"ch1_kasa"
 	var zone := LightingZone.new()
 	zone.profile = load("res://data/lighting/facility.tres")
 	data.lighting_zones = [zone]
@@ -61,9 +62,9 @@ func _run() -> void:
 	var lift := _prop_at(level, Lift, 50) as Lift
 	level.player.global_position = lift.global_position + Vector2(0, -2)
 	var rail_position: Vector2 = lift._rails.global_position
-	for frame in 180:
+	for frame in 360:
 		await get_tree().physics_frame
-		if lift._phase == Lift.Phase.UP and lift.position.y < lift._start_y - 10:
+		if lift._phase == Lift.Phase.UP and lift.position.y < lift._start_y - 10 and level.player.is_on_floor() and absf(level.player.global_position.y - lift.global_position.y) <= 2:
 			break
 	level_camera_snap()
 	await _photo("lift-riding", level)

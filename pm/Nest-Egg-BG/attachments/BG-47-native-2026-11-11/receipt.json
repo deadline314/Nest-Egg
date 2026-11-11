@@ -1,0 +1,315 @@
+{
+  "date_taipei": "2026-11-11",
+  "kind": "fresh native revalidation after BG-54; legacy visual acceptance withdrawn and replaced",
+  "engine": "Godot 4.7.2.stable.official.ed1daf0bf",
+  "renderer": "Vulkan 1.4.359 - Forward+ - AMD Radeon RX 9070 XT",
+  "helper_sha256": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd",
+  "runs": [
+    {
+      "name": "normal",
+      "checks": 106,
+      "failures": 0,
+      "exit_code": 0,
+      "passed": true,
+      "expected_loader_errors": 0,
+      "unexpected_errors": [],
+      "exit_diagnostics": [],
+      "image_count": 17,
+      "source_and_assets_unchanged": true,
+      "helper_sha256_before": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd",
+      "helper_sha256_after": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd",
+      "formal_assets_before": {
+        "art/environment/fixtures/breakable_crate.png": "4813f7d73992be9d68eb78d6d5c5da72bdccfec137ab1a0c9571faebca80e7b5",
+        "art/environment/fixtures/breakable_crate_damaged.png": "1c2c7805b234d652df09b40a81f5dcba2e242ba925a4de8b44bdfd69940866b9",
+        "art/environment/fixtures/breakable_crate_broken.png": "c95c4bd6429e636ebefe9e88d22af225f409ec7e25f2ad4aecb6ea64e29f48bc",
+        "art/environment/fixtures/breakable_barrel.png": "051eb46587bc27b834a5701fcfd3f5fceb9c93e7d609e473038d971b49273f2b",
+        "art/environment/fixtures/breakable_barrel_damaged.png": "66e0b4a2b66014cceb8c68aa8e30f6f6a46918dd4a0462c22cf1e46b31491f6b",
+        "art/environment/fixtures/breakable_barrel_broken.png": "42d6104056b4aca303625a8ea0415be94d5351cea2aaa1e7c6545bc8a842727a",
+        "art/environment/fixtures/breakable_glass.png": "4dcb70411771bb4d825eda7c8b79cb4cb6ea70fda5fb713e2a4ad0d00cafb6c9",
+        "art/environment/fixtures/breakable_glass_damaged.png": "5050b0e605ad7c88564270dde4d393047417ed60c7bb029cc2e1cf2165a0258f",
+        "art/environment/fixtures/breakable_glass_broken.png": "8abb0b237428620195a7868d027667796c40db5d3b2f476107ea7da050aa9c59",
+        "art/environment/fixtures/lift_deck.png": "60294472bac6febde3b802a9b52467fe04b735c0182bb64d85bd5be06e8adb72",
+        "art/environment/fixtures/lift_rail.png": "8373209275b8c86811c7c6c721a090b0b4194d52e6e99a2a1dbe5ab7157a3d69",
+        "art/environment/fixtures/lift_stop.png": "cbd497047ecd8cbbc0a2f0730fc0392419e391a50592531c57a0b43406733264",
+        "art/environment/fixtures/power_switch_on.png": "0f62000a02dcaa7652a9ec98ca941f1fb104f641e77aa3ed901c1d04cd9edadb",
+        "art/environment/fixtures/power_switch_off.png": "dc600b1d0d1bd9ac150ff572c97da5fdac7397f13539992293bb43ddd7bf6795"
+      },
+      "formal_assets_after": {
+        "art/environment/fixtures/breakable_crate.png": "4813f7d73992be9d68eb78d6d5c5da72bdccfec137ab1a0c9571faebca80e7b5",
+        "art/environment/fixtures/breakable_crate_damaged.png": "1c2c7805b234d652df09b40a81f5dcba2e242ba925a4de8b44bdfd69940866b9",
+        "art/environment/fixtures/breakable_crate_broken.png": "c95c4bd6429e636ebefe9e88d22af225f409ec7e25f2ad4aecb6ea64e29f48bc",
+        "art/environment/fixtures/breakable_barrel.png": "051eb46587bc27b834a5701fcfd3f5fceb9c93e7d609e473038d971b49273f2b",
+        "art/environment/fixtures/breakable_barrel_damaged.png": "66e0b4a2b66014cceb8c68aa8e30f6f6a46918dd4a0462c22cf1e46b31491f6b",
+        "art/environment/fixtures/breakable_barrel_broken.png": "42d6104056b4aca303625a8ea0415be94d5351cea2aaa1e7c6545bc8a842727a",
+        "art/environment/fixtures/breakable_glass.png": "4dcb70411771bb4d825eda7c8b79cb4cb6ea70fda5fb713e2a4ad0d00cafb6c9",
+        "art/environment/fixtures/breakable_glass_damaged.png": "5050b0e605ad7c88564270dde4d393047417ed60c7bb029cc2e1cf2165a0258f",
+        "art/environment/fixtures/breakable_glass_broken.png": "8abb0b237428620195a7868d027667796c40db5d3b2f476107ea7da050aa9c59",
+        "art/environment/fixtures/lift_deck.png": "60294472bac6febde3b802a9b52467fe04b735c0182bb64d85bd5be06e8adb72",
+        "art/environment/fixtures/lift_rail.png": "8373209275b8c86811c7c6c721a090b0b4194d52e6e99a2a1dbe5ab7157a3d69",
+        "art/environment/fixtures/lift_stop.png": "cbd497047ecd8cbbc0a2f0730fc0392419e391a50592531c57a0b43406733264",
+        "art/environment/fixtures/power_switch_on.png": "0f62000a02dcaa7652a9ec98ca941f1fb104f641e77aa3ed901c1d04cd9edadb",
+        "art/environment/fixtures/power_switch_off.png": "dc600b1d0d1bd9ac150ff572c97da5fdac7397f13539992293bb43ddd7bf6795"
+      },
+      "log_sha256": "858d97e2fa75617f0741921ea7a58b41d32c70dc24d3906d777f746b9ce988d7",
+      "record_in_new_bundle": "normal/run.json"
+    },
+    {
+      "name": "fallback",
+      "checks": 68,
+      "failures": 0,
+      "exit_code": 0,
+      "passed": true,
+      "expected_loader_errors": 15,
+      "unexpected_errors": [],
+      "exit_diagnostics": [],
+      "image_count": 5,
+      "source_and_assets_unchanged": true,
+      "helper_sha256_before": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd",
+      "helper_sha256_after": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd",
+      "formal_assets_before": {
+        "art/environment/fixtures/breakable_crate.png": "4813f7d73992be9d68eb78d6d5c5da72bdccfec137ab1a0c9571faebca80e7b5",
+        "art/environment/fixtures/breakable_crate_damaged.png": "1c2c7805b234d652df09b40a81f5dcba2e242ba925a4de8b44bdfd69940866b9",
+        "art/environment/fixtures/breakable_crate_broken.png": "c95c4bd6429e636ebefe9e88d22af225f409ec7e25f2ad4aecb6ea64e29f48bc",
+        "art/environment/fixtures/breakable_barrel.png": "051eb46587bc27b834a5701fcfd3f5fceb9c93e7d609e473038d971b49273f2b",
+        "art/environment/fixtures/breakable_barrel_damaged.png": "66e0b4a2b66014cceb8c68aa8e30f6f6a46918dd4a0462c22cf1e46b31491f6b",
+        "art/environment/fixtures/breakable_barrel_broken.png": "42d6104056b4aca303625a8ea0415be94d5351cea2aaa1e7c6545bc8a842727a",
+        "art/environment/fixtures/breakable_glass.png": "4dcb70411771bb4d825eda7c8b79cb4cb6ea70fda5fb713e2a4ad0d00cafb6c9",
+        "art/environment/fixtures/breakable_glass_damaged.png": "5050b0e605ad7c88564270dde4d393047417ed60c7bb029cc2e1cf2165a0258f",
+        "art/environment/fixtures/breakable_glass_broken.png": "8abb0b237428620195a7868d027667796c40db5d3b2f476107ea7da050aa9c59",
+        "art/environment/fixtures/lift_deck.png": "60294472bac6febde3b802a9b52467fe04b735c0182bb64d85bd5be06e8adb72",
+        "art/environment/fixtures/lift_rail.png": "8373209275b8c86811c7c6c721a090b0b4194d52e6e99a2a1dbe5ab7157a3d69",
+        "art/environment/fixtures/lift_stop.png": "cbd497047ecd8cbbc0a2f0730fc0392419e391a50592531c57a0b43406733264",
+        "art/environment/fixtures/power_switch_on.png": "0f62000a02dcaa7652a9ec98ca941f1fb104f641e77aa3ed901c1d04cd9edadb",
+        "art/environment/fixtures/power_switch_off.png": "dc600b1d0d1bd9ac150ff572c97da5fdac7397f13539992293bb43ddd7bf6795"
+      },
+      "formal_assets_after": {
+        "art/environment/fixtures/breakable_crate.png": "4813f7d73992be9d68eb78d6d5c5da72bdccfec137ab1a0c9571faebca80e7b5",
+        "art/environment/fixtures/breakable_crate_damaged.png": "1c2c7805b234d652df09b40a81f5dcba2e242ba925a4de8b44bdfd69940866b9",
+        "art/environment/fixtures/breakable_crate_broken.png": "c95c4bd6429e636ebefe9e88d22af225f409ec7e25f2ad4aecb6ea64e29f48bc",
+        "art/environment/fixtures/breakable_barrel.png": "051eb46587bc27b834a5701fcfd3f5fceb9c93e7d609e473038d971b49273f2b",
+        "art/environment/fixtures/breakable_barrel_damaged.png": "66e0b4a2b66014cceb8c68aa8e30f6f6a46918dd4a0462c22cf1e46b31491f6b",
+        "art/environment/fixtures/breakable_barrel_broken.png": "42d6104056b4aca303625a8ea0415be94d5351cea2aaa1e7c6545bc8a842727a",
+        "art/environment/fixtures/breakable_glass.png": "4dcb70411771bb4d825eda7c8b79cb4cb6ea70fda5fb713e2a4ad0d00cafb6c9",
+        "art/environment/fixtures/breakable_glass_damaged.png": "5050b0e605ad7c88564270dde4d393047417ed60c7bb029cc2e1cf2165a0258f",
+        "art/environment/fixtures/breakable_glass_broken.png": "8abb0b237428620195a7868d027667796c40db5d3b2f476107ea7da050aa9c59",
+        "art/environment/fixtures/lift_deck.png": "60294472bac6febde3b802a9b52467fe04b735c0182bb64d85bd5be06e8adb72",
+        "art/environment/fixtures/lift_rail.png": "8373209275b8c86811c7c6c721a090b0b4194d52e6e99a2a1dbe5ab7157a3d69",
+        "art/environment/fixtures/lift_stop.png": "cbd497047ecd8cbbc0a2f0730fc0392419e391a50592531c57a0b43406733264",
+        "art/environment/fixtures/power_switch_on.png": "0f62000a02dcaa7652a9ec98ca941f1fb104f641e77aa3ed901c1d04cd9edadb",
+        "art/environment/fixtures/power_switch_off.png": "dc600b1d0d1bd9ac150ff572c97da5fdac7397f13539992293bb43ddd7bf6795"
+      },
+      "log_sha256": "167a51b8c543b2a0d206db776b6408c8a9ca74490cd5f7440ab02bd7b1b79d2f",
+      "record_in_new_bundle": "fallback/run.json"
+    },
+    {
+      "name": "warehouse",
+      "checks": 4,
+      "failures": 0,
+      "exit_code": 0,
+      "passed": true,
+      "expected_loader_errors": 0,
+      "unexpected_errors": [],
+      "exit_diagnostics": [],
+      "image_count": 2,
+      "source_and_assets_unchanged": true,
+      "helper_sha256_before": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd",
+      "helper_sha256_after": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd",
+      "formal_assets_before": {
+        "art/environment/fixtures/breakable_crate.png": "4813f7d73992be9d68eb78d6d5c5da72bdccfec137ab1a0c9571faebca80e7b5",
+        "art/environment/fixtures/breakable_crate_damaged.png": "1c2c7805b234d652df09b40a81f5dcba2e242ba925a4de8b44bdfd69940866b9",
+        "art/environment/fixtures/breakable_crate_broken.png": "c95c4bd6429e636ebefe9e88d22af225f409ec7e25f2ad4aecb6ea64e29f48bc",
+        "art/environment/fixtures/breakable_barrel.png": "051eb46587bc27b834a5701fcfd3f5fceb9c93e7d609e473038d971b49273f2b",
+        "art/environment/fixtures/breakable_barrel_damaged.png": "66e0b4a2b66014cceb8c68aa8e30f6f6a46918dd4a0462c22cf1e46b31491f6b",
+        "art/environment/fixtures/breakable_barrel_broken.png": "42d6104056b4aca303625a8ea0415be94d5351cea2aaa1e7c6545bc8a842727a",
+        "art/environment/fixtures/breakable_glass.png": "4dcb70411771bb4d825eda7c8b79cb4cb6ea70fda5fb713e2a4ad0d00cafb6c9",
+        "art/environment/fixtures/breakable_glass_damaged.png": "5050b0e605ad7c88564270dde4d393047417ed60c7bb029cc2e1cf2165a0258f",
+        "art/environment/fixtures/breakable_glass_broken.png": "8abb0b237428620195a7868d027667796c40db5d3b2f476107ea7da050aa9c59",
+        "art/environment/fixtures/lift_deck.png": "60294472bac6febde3b802a9b52467fe04b735c0182bb64d85bd5be06e8adb72",
+        "art/environment/fixtures/lift_rail.png": "8373209275b8c86811c7c6c721a090b0b4194d52e6e99a2a1dbe5ab7157a3d69",
+        "art/environment/fixtures/lift_stop.png": "cbd497047ecd8cbbc0a2f0730fc0392419e391a50592531c57a0b43406733264",
+        "art/environment/fixtures/power_switch_on.png": "0f62000a02dcaa7652a9ec98ca941f1fb104f641e77aa3ed901c1d04cd9edadb",
+        "art/environment/fixtures/power_switch_off.png": "dc600b1d0d1bd9ac150ff572c97da5fdac7397f13539992293bb43ddd7bf6795"
+      },
+      "formal_assets_after": {
+        "art/environment/fixtures/breakable_crate.png": "4813f7d73992be9d68eb78d6d5c5da72bdccfec137ab1a0c9571faebca80e7b5",
+        "art/environment/fixtures/breakable_crate_damaged.png": "1c2c7805b234d652df09b40a81f5dcba2e242ba925a4de8b44bdfd69940866b9",
+        "art/environment/fixtures/breakable_crate_broken.png": "c95c4bd6429e636ebefe9e88d22af225f409ec7e25f2ad4aecb6ea64e29f48bc",
+        "art/environment/fixtures/breakable_barrel.png": "051eb46587bc27b834a5701fcfd3f5fceb9c93e7d609e473038d971b49273f2b",
+        "art/environment/fixtures/breakable_barrel_damaged.png": "66e0b4a2b66014cceb8c68aa8e30f6f6a46918dd4a0462c22cf1e46b31491f6b",
+        "art/environment/fixtures/breakable_barrel_broken.png": "42d6104056b4aca303625a8ea0415be94d5351cea2aaa1e7c6545bc8a842727a",
+        "art/environment/fixtures/breakable_glass.png": "4dcb70411771bb4d825eda7c8b79cb4cb6ea70fda5fb713e2a4ad0d00cafb6c9",
+        "art/environment/fixtures/breakable_glass_damaged.png": "5050b0e605ad7c88564270dde4d393047417ed60c7bb029cc2e1cf2165a0258f",
+        "art/environment/fixtures/breakable_glass_broken.png": "8abb0b237428620195a7868d027667796c40db5d3b2f476107ea7da050aa9c59",
+        "art/environment/fixtures/lift_deck.png": "60294472bac6febde3b802a9b52467fe04b735c0182bb64d85bd5be06e8adb72",
+        "art/environment/fixtures/lift_rail.png": "8373209275b8c86811c7c6c721a090b0b4194d52e6e99a2a1dbe5ab7157a3d69",
+        "art/environment/fixtures/lift_stop.png": "cbd497047ecd8cbbc0a2f0730fc0392419e391a50592531c57a0b43406733264",
+        "art/environment/fixtures/power_switch_on.png": "0f62000a02dcaa7652a9ec98ca941f1fb104f641e77aa3ed901c1d04cd9edadb",
+        "art/environment/fixtures/power_switch_off.png": "dc600b1d0d1bd9ac150ff572c97da5fdac7397f13539992293bb43ddd7bf6795"
+      },
+      "log_sha256": "051a1f29beacab78d4c044aca2ae4877fa230206e3b80b0e46f432744dd60318",
+      "record_in_new_bundle": "warehouse/run.json"
+    }
+  ],
+  "visually_reviewed_fresh_images": 24,
+  "selected_images": [
+    {
+      "path": "images/BG-47-native-pawnshop-damaged.png",
+      "source_in_new_bundle": "normal/images/campaign-pawnshop-damaged.png",
+      "sha256": "fd0422140ffc34ccaf3a0ba3084c0fcdb2ee21ea9c0f0d097726f50d353ce20b"
+    },
+    {
+      "path": "images/BG-47-native-pawnshop-broken.png",
+      "source_in_new_bundle": "normal/images/campaign-pawnshop-broken.png",
+      "sha256": "2250bdd595a56d06846a1e89571fa27c5e34be031f724a0d21a724347ad71a15"
+    },
+    {
+      "path": "images/BG-47-native-glass-damaged.png",
+      "source_in_new_bundle": "normal/images/glass-damaged.png",
+      "sha256": "1eaebb317842c9f016fb3e173011c043ca81fea37653884e3b80d69965521952"
+    },
+    {
+      "path": "images/BG-47-native-lift-riding.png",
+      "source_in_new_bundle": "normal/images/lift-riding.png",
+      "sha256": "55e9440a210fd56f6fd63be2317bd8795fdc08eb201b11ea2d4f4fd15359714d"
+    },
+    {
+      "path": "images/BG-47-native-power-supplied.png",
+      "source_in_new_bundle": "normal/images/power-supplied.png",
+      "sha256": "17508e352d5fb79aed162ac88ebb1333694443aaafbf720a91a923a3e48be7e9"
+    },
+    {
+      "path": "images/BG-47-native-power-cut.png",
+      "source_in_new_bundle": "normal/images/power-cut.png",
+      "sha256": "6710c9c0da38f40b7ee5d9c043ed3be7583d4fe65546217a8d79bb8238da7cd4"
+    },
+    {
+      "path": "images/BG-47-native-throwable-fuse.png",
+      "source_in_new_bundle": "normal/images/throwable-fuse.png",
+      "sha256": "9665f8aa4827a21e114b806dd05bb039883240a0b8c40d71a53e73e8fd98e44a"
+    },
+    {
+      "path": "images/BG-47-native-fallback-crate.png",
+      "source_in_new_bundle": "fallback/images/fallback-crate-intact.png",
+      "sha256": "b4872dc45d3cffb286aee41ffc81d0b463e1cfb15ddb3c2974a5190008837e29"
+    },
+    {
+      "path": "images/BG-47-native-fallback-lift.png",
+      "source_in_new_bundle": "fallback/images/fallback-lift-riding.png",
+      "sha256": "5de048200dfa7b5b1b99524121e2bfff8c6856891f6f82691ee371151c928e01"
+    },
+    {
+      "path": "images/BG-47-native-warehouse-intact.png",
+      "source_in_new_bundle": "warehouse/images/campaign-warehouse-barrel-intact.png",
+      "sha256": "a881dd5008290ade6189ca9631679947dc43bf0d3376c6af0bd4c3d1eeb6086a"
+    },
+    {
+      "path": "images/BG-47-native-warehouse-damaged.png",
+      "source_in_new_bundle": "warehouse/images/campaign-warehouse-barrel-damaged.png",
+      "sha256": "0608dbab859aeb40fd23eec298a9002dfaeed19e0732c2026df7b060e5d497f4"
+    }
+  ],
+  "formal_asset_count": 14,
+  "game_lighting_material_or_geometry_changes": false,
+  "old_pngs_reencoded": false,
+  "performance_measurement": false,
+  "source_snapshot_note": "Every fingerprinted text source and raw process log is stored unchanged as bytes inside the new binary zip. Outer JSON may have Git-normalized line endings; it is not the hashed raw evidence.",
+  "engine_sha256": {
+    "Godot_v4.7.2-stable_win64_console.exe": "c8f0a6bc45a19b33541501e57f6f7cd972ab18453743266339d495cbbe846643",
+    "Godot_v4.7.2-stable_win64.exe": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424"
+  },
+  "new_raw_bundle": {
+    "path": "bg54-recapture-raw.zip",
+    "sha256": "b9a4ead3145b32b628cbf80dbd5e5cbf51bfbee5567419cd66f93c6bfca2d28e"
+  },
+  "legacy_evidence": {
+    "visual_acceptance_withdrawn": true,
+    "raw_bundle": {
+      "path": "raw.zip",
+      "sha256": "d793d8f9db068e5dea70e9e49f8326f6036ed2b4e5288b872f9cd9b23cf32746"
+    },
+    "metadata_and_original_selected_images": {
+      "path": "legacy-metadata.zip",
+      "sha256": "f34ae55c9877b8c94d77c76396fc7c9a34b3a4c28a44cea028a24daa5c61b56a"
+    }
+  },
+  "scope": "arranged actual props, missing/corrupt-resource fallback and original canonical map spots; not human campaign timing, physical controller or performance",
+  "images": [
+    {
+      "path": "images/BG-47-native-pawnshop-damaged.png",
+      "source_in_new_bundle": "normal/images/campaign-pawnshop-damaged.png",
+      "sha256": "fd0422140ffc34ccaf3a0ba3084c0fcdb2ee21ea9c0f0d097726f50d353ce20b"
+    },
+    {
+      "path": "images/BG-47-native-pawnshop-broken.png",
+      "source_in_new_bundle": "normal/images/campaign-pawnshop-broken.png",
+      "sha256": "2250bdd595a56d06846a1e89571fa27c5e34be031f724a0d21a724347ad71a15"
+    },
+    {
+      "path": "images/BG-47-native-glass-damaged.png",
+      "source_in_new_bundle": "normal/images/glass-damaged.png",
+      "sha256": "1eaebb317842c9f016fb3e173011c043ca81fea37653884e3b80d69965521952"
+    },
+    {
+      "path": "images/BG-47-native-lift-riding.png",
+      "source_in_new_bundle": "normal/images/lift-riding.png",
+      "sha256": "55e9440a210fd56f6fd63be2317bd8795fdc08eb201b11ea2d4f4fd15359714d"
+    },
+    {
+      "path": "images/BG-47-native-power-supplied.png",
+      "source_in_new_bundle": "normal/images/power-supplied.png",
+      "sha256": "17508e352d5fb79aed162ac88ebb1333694443aaafbf720a91a923a3e48be7e9"
+    },
+    {
+      "path": "images/BG-47-native-power-cut.png",
+      "source_in_new_bundle": "normal/images/power-cut.png",
+      "sha256": "6710c9c0da38f40b7ee5d9c043ed3be7583d4fe65546217a8d79bb8238da7cd4"
+    },
+    {
+      "path": "images/BG-47-native-throwable-fuse.png",
+      "source_in_new_bundle": "normal/images/throwable-fuse.png",
+      "sha256": "9665f8aa4827a21e114b806dd05bb039883240a0b8c40d71a53e73e8fd98e44a"
+    },
+    {
+      "path": "images/BG-47-native-fallback-crate.png",
+      "source_in_new_bundle": "fallback/images/fallback-crate-intact.png",
+      "sha256": "b4872dc45d3cffb286aee41ffc81d0b463e1cfb15ddb3c2974a5190008837e29"
+    },
+    {
+      "path": "images/BG-47-native-fallback-lift.png",
+      "source_in_new_bundle": "fallback/images/fallback-lift-riding.png",
+      "sha256": "5de048200dfa7b5b1b99524121e2bfff8c6856891f6f82691ee371151c928e01"
+    },
+    {
+      "path": "images/BG-47-native-warehouse-intact.png",
+      "source_in_new_bundle": "warehouse/images/campaign-warehouse-barrel-intact.png",
+      "sha256": "a881dd5008290ade6189ca9631679947dc43bf0d3376c6af0bd4c3d1eeb6086a"
+    },
+    {
+      "path": "images/BG-47-native-warehouse-damaged.png",
+      "source_in_new_bundle": "warehouse/images/campaign-warehouse-barrel-damaged.png",
+      "sha256": "0608dbab859aeb40fd23eec298a9002dfaeed19e0732c2026df7b060e5d497f4"
+    }
+  ],
+  "archive_byte_preservation": {
+    "raw.zip": {
+      "sha256": "d793d8f9db068e5dea70e9e49f8326f6036ed2b4e5288b872f9cd9b23cf32746",
+      "git_blob_unfiltered": "c0ed9118a94a4e4049cd7dca9b20ff8120a0e712",
+      "git_blob_filtered": "c0ed9118a94a4e4049cd7dca9b20ff8120a0e712",
+      "git_filter_preserves_bytes": true
+    },
+    "legacy-metadata.zip": {
+      "sha256": "f34ae55c9877b8c94d77c76396fc7c9a34b3a4c28a44cea028a24daa5c61b56a",
+      "git_blob_unfiltered": "dc0e879d0c0cb3fbfdfaa7888e7ff28b0b404c56",
+      "git_blob_filtered": "dc0e879d0c0cb3fbfdfaa7888e7ff28b0b404c56",
+      "git_filter_preserves_bytes": true
+    },
+    "bg54-recapture-raw.zip": {
+      "sha256": "b9a4ead3145b32b628cbf80dbd5e5cbf51bfbee5567419cd66f93c6bfca2d28e",
+      "git_blob_unfiltered": "444e8188a3ae2af2aded9caffb2d0ecb558d5d34",
+      "git_blob_filtered": "444e8188a3ae2af2aded9caffb2d0ecb558d5d34",
+      "git_filter_preserves_bytes": true
+    }
+  },
+  "all_three_source_snapshots_identical": true,
+  "fourteen_assets_also_match_legacy_source": true
+}
