@@ -1,0 +1,35 @@
+{
+  "scope": "Log-derived data figure only; not a game screenshot.",
+  "raw_sha256": "09ef1a071cb01509e1254d7422cc3608a080409b0ad07825b9dad4c47519baad",
+  "output_sha256": "83d9e7f36cc595620af254a90f851eb34de8a041794d0d57628512ed7a372433",
+  "values": {
+    "original-red": {
+      "checks": 31,
+      "failures": 1
+    },
+    "layout-nudge-old-row-red": {
+      "checks": 32,
+      "failures": 1
+    },
+    "current-row-only-red": {
+      "checks": 31,
+      "failures": 1
+    },
+    "final-timer-green": {
+      "checks": 32,
+      "failures": 0
+    },
+    "final-full-suite": {
+      "checks": 397,
+      "failures": 0
+    },
+    "final-wrong-target": {
+      "checks": 32,
+      "failures": 1
+    },
+    "final-stopped-layout": {
+      "checks": 32,
+      "failures": 4
+    }
+  }
+}

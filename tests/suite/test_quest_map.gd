@@ -554,7 +554,7 @@ func _check_prompt_avoids_objective(level: Level) -> void:
 	var guidance: QuestGuidance = level.hud.quest_guidance
 	var row := Rect2()
 	for i in 60:
-		await frames(1)
+		await _prompt_ui_frame()
 		row = guidance.row_world_rect()
 		if row.has_area():
 			break
@@ -567,27 +567,45 @@ func _check_prompt_avoids_objective(level: Level) -> void:
 	var holder := Node2D.new()
 	level.add_child(holder)
 	holder.add_child(prompt)
-	await frames(2)
+	await _prompt_ui_frame()
 	# 提示框原本的位置正好壓在目標列中央。
 	holder.global_position += row.get_center() - prompt.base_rect().get_center()
+	# 等提示本身處理及對齊後的版面發布，再獨立確認它已到自己的目標；不以重疊結果作前提。
+	var aligned_process := Engine.get_process_frames()
+	var deadline := Time.get_ticks_msec() + 3000
+	var published := false
+	while Time.get_ticks_msec() < deadline:
+		await _prompt_ui_frame()
+		published = prompt.is_processing() and prompt.can_process() and PromptLayout._frame >= aligned_process and prompt._nudge.distance_to(prompt._nudge_target) <= 0.01
+		if published:
+			break
+	check(published, "prompt layout publishes and converges to its own target before sampling")
 	var faded := false
 	for i in 120:
-		await frames(1)
+		await _prompt_ui_frame()
 		if prompt.is_showing() and guidance._row.modulate.a < 0.05:
 			faded = true
 			break
 	var placed := Rect2(prompt.base_rect().position + prompt._nudge, prompt.base_rect().size)
 	check(faded and guidance.yielding, "a world prompt over the objective row makes the row fade out")
 	check(guidance._row.mouse_filter == Control.MOUSE_FILTER_IGNORE, "the faded objective row no longer catches the mouse tooltip")
-	check(placed.intersects(row), "the prompt itself stays in place instead of being pushed off screen")
+	var observation_row := guidance.row_world_rect()
+	check(placed.intersects(observation_row), "the prompt itself stays in place instead of being pushed off screen")
 	holder.queue_free()
 	var back := false
 	for i in 120:
-		await frames(1)
+		await _prompt_ui_frame()
 		if not guidance.yielding and guidance._row.modulate.a > 0.35:
 			back = true
 			break
 	check(back, "the objective row comes back once the prompt is gone")
+
+
+## process_frame 在節點更新前發出；零時 timer 在本輪所有 Node._process 後才回來。
+func _prompt_ui_frame() -> void:
+	await runner.get_tree().process_frame
+	await runner.get_tree().create_timer(0.0, true, false, true).timeout
+
 
 
 func _key(code: Key) -> void:

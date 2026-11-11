@@ -1,0 +1,117 @@
+{
+  "archive": "official-raw.zip",
+  "sha256": "6caa910b6ab981d645cdc7fe26932fd9d2b9f77c937d5525c24219e9899ab74a",
+  "bytes": 71426,
+  "base": "99dfc03b2f2c0e2ea597fc6826d8e4ba8f3b5a8c",
+  "groups": 1,
+  "checks": 397,
+  "new_failures": 0,
+  "known_failures": 0,
+  "exit": 0,
+  "entries": {
+    "executed-runner.py": {
+      "sha256": "f319daa8946dfa8b8ef49d09666908add25fe6de91d9d679bdb3eccdca38df43",
+      "bytes": 3651
+    },
+    "official/adoption.json": {
+      "sha256": "3fe8ded7bd6ac39aa0fd40329084bbbd354c6c10bbe3b77250c949a835d20af5",
+      "bytes": 1608
+    },
+    "official/candidate.json": {
+      "sha256": "6d031070012397a05e79642e6fa3db1bef4874042f05f9b6708a06ad61bfd266",
+      "bytes": 389
+    },
+    "official/command.json": {
+      "sha256": "93c35264e4b5e1fafb2e4f8e1625bb1ff2fcb82f88eec1c5724e9b2af61b91e4",
+      "bytes": 336
+    },
+    "official/exit.json": {
+      "sha256": "a312065082ae2aa807f57ab5ebceaa63bce7867d26fd0f700541370887374ba6",
+      "bytes": 1273
+    },
+    "official/full.log": {
+      "sha256": "5edfe85007d93e71c1f257f3702b880bf66bb52e329b6b054e840a3750dbe334",
+      "bytes": 268
+    },
+    "official/generated-uid-context.json": {
+      "sha256": "8fe946eb464fc58b83ce6c2cbc811fc83eee04ff6905aa1b21492ebb498e25b7",
+      "bytes": 784
+    },
+    "official/import.json": {
+      "sha256": "e6fd3201ac147d41bb7a3ef3d0bf243c9f87ab70a4132a4773688c556803e564",
+      "bytes": 416
+    },
+    "official/import.log": {
+      "sha256": "7272f1a616b95db4510273232271ced55a1c572c7648ad7c5e53b3f97730858b",
+      "bytes": 1060
+    },
+    "official/logs/data_0/Godot/app_userdata/Nest Egg/logs/godot.log": {
+      "sha256": "c0c48ea45a80ed5a9d6bbaedd3e855692b860369005361b9d0390fce459e09c3",
+      "bytes": 6192
+    },
+    "official/logs/data_0/Godot/app_userdata/Nest Egg/settings.cfg": {
+      "sha256": "f01608430d28a136f0a121e105f23a9a328190216edd13aadc41c0978a266505",
+      "bytes": 321
+    },
+    "official/logs/shard_0.log": {
+      "sha256": "ba40bf0122e9c8e01a9910c26853c0dec8f7430e162e0e285547cae9a02dd892",
+      "bytes": 6294
+    },
+    "official/original-test_quest_map.gd": {
+      "sha256": "df0acf05d43adab2a3a66a441a9a9369ef3c12fe1fd153c0a961850f34926f59",
+      "bytes": 44308
+    },
+    "official/runner-before.json": {
+      "sha256": "b78b4804fe56e2af6fcb44b7a3f81e4217a15ebc274bf99ac8a9695476853c00",
+      "bytes": 160
+    },
+    "official/source-before.json": {
+      "sha256": "e53259b495cfddc08ab4ea049e822155cad8674cfd07fe9eccbb21a94e88b20f",
+      "bytes": 106
+    },
+    "official/test-source-before.json": {
+      "sha256": "2a93d784302bae7c21e56fbf4757f95253e5f4773b020aa54142e73f06081504",
+      "bytes": 887
+    },
+    "source/game/level/level_camera.gd": {
+      "sha256": "c49f971ec18cad3447e4b5f43736001aaf0402d8bc9c99ea586cd84c93e332a9",
+      "bytes": 15374
+    },
+    "source/game/level/prompt_layout.gd": {
+      "sha256": "48cba28bc97b7eb3587aafec57ead457a635819b2b5cdc08cbe4177ea18480bd",
+      "bytes": 12778
+    },
+    "source/game/level/world_prompt.gd": {
+      "sha256": "aabe6690f993029361f413ce3421d86ea0c9fd1cadf868fda1467b4c88648981",
+      "bytes": 10999
+    },
+    "source/game/level/world_text_layout.gd": {
+      "sha256": "65b45eb768ad7fa3218cc09ca038743f54c1f932b4a4ee0651c8447412a84815",
+      "bytes": 976
+    },
+    "source/tests/suite/test_quest_map.gd": {
+      "sha256": "58b20d358282eb52effc2be4cc4ffbeafc91d4f3ac2f8e62981c0cef448771dd",
+      "bytes": 45254
+    },
+    "source/tools/run_tests_changed.sh": {
+      "sha256": "71bbbd76f1941fda43a4db6f061538a2ae37bcb77765674908a9957899b8f336",
+      "bytes": 2430
+    },
+    "source/tools/run_tests_parallel.sh": {
+      "sha256": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba",
+      "bytes": 4733
+    },
+    "source/tools/select_tests.py": {
+      "sha256": "07fe95c5c5f75f35e35ba70b9b3a4c801547f6c7213ae7a13de15ee3dc765c81",
+      "bytes": 10446
+    },
+    "source/ui/hud.gd": {
+      "sha256": "e3e90272bd72dfd4da312ea310742f0df215217fbf689df94d41091d829e7a16",
+      "bytes": 18504
+    },
+    "source/ui/quest_guidance.gd": {
+      "sha256": "4a3d4f05d181d9aa0697a1c82817875cec53ab896e666a0696b264dff9f564e5",
+      "bytes": 9767
+    }
+  }
+}

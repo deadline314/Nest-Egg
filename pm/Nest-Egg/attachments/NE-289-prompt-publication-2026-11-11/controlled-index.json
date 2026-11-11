@@ -1,0 +1,641 @@
+{
+  "scope": "Headless UI fixture diagnosis and proposal only. The original 77-group batch remains red; official affected verification is separate. Player, camera, quest authority and product UI unchanged. Original command/source/log/receipt bytes retained; application-data caches excluded.",
+  "raw_sha256": "09ef1a071cb01509e1254d7422cc3608a080409b0ad07825b9dad4c47519baad",
+  "raw_bytes": 671265,
+  "final_test_sha256": "58b20d358282eb52effc2be4cc4ffbeafc91d4f3ac2f8e62981c0cef448771dd",
+  "cases": {
+    "original-red": "original-runtime-fps15",
+    "layout-only-red": "published-runtime-fps15",
+    "layout-nudge-old-row-red": "nudge-ready-runtime-fps15",
+    "current-row-only-red": "current-row-only-runtime-fps15",
+    "first-both-green": "current-frame-nudge-runtime-fps15",
+    "first-wrong-target": "wrong-target-runtime-fps15",
+    "first-stopped-layout": "stopped-layout-runtime-fps15",
+    "final-timer-green": "final-post-process-runtime-fps15",
+    "final-wrong-target": "final-wrong-target-fps15",
+    "final-stopped-layout": "final-stopped-layout-fps15",
+    "final-full-suite": "final-full-suite"
+  },
+  "entries": {
+    "original-red/command.json": {
+      "sha256": "d6c7ff4652ec6dd1fd0f1f955fa57d2507e5cf5d5415d22322b8beb1db001923",
+      "bytes": 254
+    },
+    "original-red/executed-runner.py": {
+      "sha256": "6239fb8a86d37e8ca7a13d1b42f021d3abbde9d43eb2646b481ce99c3f19a49b",
+      "bytes": 1787
+    },
+    "original-red/process.log": {
+      "sha256": "98435cf429533ae132429b3a0274b63211bbb94d5a3cc93cc30df09535aea2b2",
+      "bytes": 36119
+    },
+    "original-red/receipt.json": {
+      "sha256": "ff96d9729171a17a13c5891cc3e8b2e6da525dad89bc24e21fdff8ab204745c5",
+      "bytes": 2026
+    },
+    "original-red/source/game/level/level_camera.gd": {
+      "sha256": "c49f971ec18cad3447e4b5f43736001aaf0402d8bc9c99ea586cd84c93e332a9",
+      "bytes": 15374
+    },
+    "original-red/source/game/level/prompt_layout.gd": {
+      "sha256": "48cba28bc97b7eb3587aafec57ead457a635819b2b5cdc08cbe4177ea18480bd",
+      "bytes": 12778
+    },
+    "original-red/source/game/level/world_prompt.gd": {
+      "sha256": "aabe6690f993029361f413ce3421d86ea0c9fd1cadf868fda1467b4c88648981",
+      "bytes": 10999
+    },
+    "original-red/source/game/level/world_text_layout.gd": {
+      "sha256": "65b45eb768ad7fa3218cc09ca038743f54c1f932b4a4ee0651c8447412a84815",
+      "bytes": 976
+    },
+    "original-red/source/tests/suite/test_quest_map.gd": {
+      "sha256": "df0acf05d43adab2a3a66a441a9a9369ef3c12fe1fd153c0a961850f34926f59",
+      "bytes": 44308
+    },
+    "original-red/source/ui/hud.gd": {
+      "sha256": "e3e90272bd72dfd4da312ea310742f0df215217fbf689df94d41091d829e7a16",
+      "bytes": 18504
+    },
+    "original-red/source/ui/quest_guidance.gd": {
+      "sha256": "4a3d4f05d181d9aa0697a1c82817875cec53ab896e666a0696b264dff9f564e5",
+      "bytes": 9767
+    },
+    "original-red/source/work/ne289-prompt-diag/probe.gd": {
+      "sha256": "766911de9b4ca58ac039f50f16a0fe55e494bef89fe128a138ff46b352b46493",
+      "bytes": 5990
+    },
+    "original-red/source/work/ne289-prompt-diag/probe.tscn": {
+      "sha256": "07f9f721dfafe3e3db20914e552d9660dfe96d13136cc78a0e7cbc4ccc37eb9f",
+      "bytes": 181
+    },
+    "layout-only-red/command.json": {
+      "sha256": "7a5077be41e3cb96acc06401f28208d9dbdf0d71a792ce56cd31ab7b02797adf",
+      "bytes": 278
+    },
+    "layout-only-red/executed-runner.py": {
+      "sha256": "6239fb8a86d37e8ca7a13d1b42f021d3abbde9d43eb2646b481ce99c3f19a49b",
+      "bytes": 1787
+    },
+    "layout-only-red/process.log": {
+      "sha256": "4fff893b3ce3e63fe3a87d06fd975e9e4bb48d420b4328cf99a7573cabd860f5",
+      "bytes": 171573
+    },
+    "layout-only-red/receipt.json": {
+      "sha256": "f1c30606ef01c232ba69a676c17d0360566a6cbe8b3d272ed09da3f3f1177e8e",
+      "bytes": 2026
+    },
+    "layout-only-red/source/game/level/level_camera.gd": {
+      "sha256": "c49f971ec18cad3447e4b5f43736001aaf0402d8bc9c99ea586cd84c93e332a9",
+      "bytes": 15374
+    },
+    "layout-only-red/source/game/level/prompt_layout.gd": {
+      "sha256": "48cba28bc97b7eb3587aafec57ead457a635819b2b5cdc08cbe4177ea18480bd",
+      "bytes": 12778
+    },
+    "layout-only-red/source/game/level/world_prompt.gd": {
+      "sha256": "aabe6690f993029361f413ce3421d86ea0c9fd1cadf868fda1467b4c88648981",
+      "bytes": 10999
+    },
+    "layout-only-red/source/game/level/world_text_layout.gd": {
+      "sha256": "65b45eb768ad7fa3218cc09ca038743f54c1f932b4a4ee0651c8447412a84815",
+      "bytes": 976
+    },
+    "layout-only-red/source/tests/suite/test_quest_map.gd": {
+      "sha256": "df0acf05d43adab2a3a66a441a9a9369ef3c12fe1fd153c0a961850f34926f59",
+      "bytes": 44308
+    },
+    "layout-only-red/source/ui/hud.gd": {
+      "sha256": "e3e90272bd72dfd4da312ea310742f0df215217fbf689df94d41091d829e7a16",
+      "bytes": 18504
+    },
+    "layout-only-red/source/ui/quest_guidance.gd": {
+      "sha256": "4a3d4f05d181d9aa0697a1c82817875cec53ab896e666a0696b264dff9f564e5",
+      "bytes": 9767
+    },
+    "layout-only-red/source/work/ne289-prompt-diag/probe.gd": {
+      "sha256": "fb4521234b0ac0ed0920aa610525351214751f68a300a2b0883f6f6be3fec487",
+      "bytes": 6374
+    },
+    "layout-only-red/source/work/ne289-prompt-diag/probe.tscn": {
+      "sha256": "07f9f721dfafe3e3db20914e552d9660dfe96d13136cc78a0e7cbc4ccc37eb9f",
+      "bytes": 181
+    },
+    "layout-nudge-old-row-red/command.json": {
+      "sha256": "6dee6f035c9bc690989f66ab43d7a0dce99e749cd8bc1a8ac646afabb3ca3707",
+      "bytes": 275
+    },
+    "layout-nudge-old-row-red/executed-runner.py": {
+      "sha256": "6239fb8a86d37e8ca7a13d1b42f021d3abbde9d43eb2646b481ce99c3f19a49b",
+      "bytes": 1787
+    },
+    "layout-nudge-old-row-red/process.log": {
+      "sha256": "adfa70c382c03edba5aa8f4c292c477fc4d0d3e78aee8d9f0bd39f0256bea53f",
+      "bytes": 171292
+    },
+    "layout-nudge-old-row-red/receipt.json": {
+      "sha256": "0dc9e4a2b62286edb0fc017a6a5ff2f0e3f4169592a6adffd03d32953e34adae",
+      "bytes": 2026
+    },
+    "layout-nudge-old-row-red/source/game/level/level_camera.gd": {
+      "sha256": "c49f971ec18cad3447e4b5f43736001aaf0402d8bc9c99ea586cd84c93e332a9",
+      "bytes": 15374
+    },
+    "layout-nudge-old-row-red/source/game/level/prompt_layout.gd": {
+      "sha256": "48cba28bc97b7eb3587aafec57ead457a635819b2b5cdc08cbe4177ea18480bd",
+      "bytes": 12778
+    },
+    "layout-nudge-old-row-red/source/game/level/world_prompt.gd": {
+      "sha256": "aabe6690f993029361f413ce3421d86ea0c9fd1cadf868fda1467b4c88648981",
+      "bytes": 10999
+    },
+    "layout-nudge-old-row-red/source/game/level/world_text_layout.gd": {
+      "sha256": "65b45eb768ad7fa3218cc09ca038743f54c1f932b4a4ee0651c8447412a84815",
+      "bytes": 976
+    },
+    "layout-nudge-old-row-red/source/tests/suite/test_quest_map.gd": {
+      "sha256": "df0acf05d43adab2a3a66a441a9a9369ef3c12fe1fd153c0a961850f34926f59",
+      "bytes": 44308
+    },
+    "layout-nudge-old-row-red/source/ui/hud.gd": {
+      "sha256": "e3e90272bd72dfd4da312ea310742f0df215217fbf689df94d41091d829e7a16",
+      "bytes": 18504
+    },
+    "layout-nudge-old-row-red/source/ui/quest_guidance.gd": {
+      "sha256": "4a3d4f05d181d9aa0697a1c82817875cec53ab896e666a0696b264dff9f564e5",
+      "bytes": 9767
+    },
+    "layout-nudge-old-row-red/source/work/ne289-prompt-diag/probe.gd": {
+      "sha256": "6910bf4261b66e7b5f10b8b83761ac7cdbeca1af035dfe8fce5407ac735ae45d",
+      "bytes": 7905
+    },
+    "layout-nudge-old-row-red/source/work/ne289-prompt-diag/probe.tscn": {
+      "sha256": "07f9f721dfafe3e3db20914e552d9660dfe96d13136cc78a0e7cbc4ccc37eb9f",
+      "bytes": 181
+    },
+    "current-row-only-red/command.json": {
+      "sha256": "2c0dd05aa0036ec3b8450f3536475f5ac35921c9c6dabbb8c1fa5aa47a7494d5",
+      "bytes": 273
+    },
+    "current-row-only-red/executed-runner.py": {
+      "sha256": "6239fb8a86d37e8ca7a13d1b42f021d3abbde9d43eb2646b481ce99c3f19a49b",
+      "bytes": 1787
+    },
+    "current-row-only-red/process.log": {
+      "sha256": "d3c6d14f9713854366962f17c902f4e7ab339c35ec11367d9dc2ef0ecf8394fb",
+      "bytes": 40796
+    },
+    "current-row-only-red/receipt.json": {
+      "sha256": "065553d004153a6d70deed1f65c0b5eb3d96d619dc74ed7f956785996a3c2000",
+      "bytes": 2026
+    },
+    "current-row-only-red/source/game/level/level_camera.gd": {
+      "sha256": "c49f971ec18cad3447e4b5f43736001aaf0402d8bc9c99ea586cd84c93e332a9",
+      "bytes": 15374
+    },
+    "current-row-only-red/source/game/level/prompt_layout.gd": {
+      "sha256": "48cba28bc97b7eb3587aafec57ead457a635819b2b5cdc08cbe4177ea18480bd",
+      "bytes": 12778
+    },
+    "current-row-only-red/source/game/level/world_prompt.gd": {
+      "sha256": "aabe6690f993029361f413ce3421d86ea0c9fd1cadf868fda1467b4c88648981",
+      "bytes": 10999
+    },
+    "current-row-only-red/source/game/level/world_text_layout.gd": {
+      "sha256": "65b45eb768ad7fa3218cc09ca038743f54c1f932b4a4ee0651c8447412a84815",
+      "bytes": 976
+    },
+    "current-row-only-red/source/tests/suite/test_quest_map.gd": {
+      "sha256": "df0acf05d43adab2a3a66a441a9a9369ef3c12fe1fd153c0a961850f34926f59",
+      "bytes": 44308
+    },
+    "current-row-only-red/source/ui/hud.gd": {
+      "sha256": "e3e90272bd72dfd4da312ea310742f0df215217fbf689df94d41091d829e7a16",
+      "bytes": 18504
+    },
+    "current-row-only-red/source/ui/quest_guidance.gd": {
+      "sha256": "4a3d4f05d181d9aa0697a1c82817875cec53ab896e666a0696b264dff9f564e5",
+      "bytes": 9767
+    },
+    "current-row-only-red/source/work/ne289-prompt-diag/probe.gd": {
+      "sha256": "ab5d12809ef5dfe62d28573f706d013fcf41192c38ed96ac38eba7e7917bbe78",
+      "bytes": 8579
+    },
+    "current-row-only-red/source/work/ne289-prompt-diag/probe.tscn": {
+      "sha256": "07f9f721dfafe3e3db20914e552d9660dfe96d13136cc78a0e7cbc4ccc37eb9f",
+      "bytes": 181
+    },
+    "first-both-green/command.json": {
+      "sha256": "8d54a97bdeaf7ddf93b202c0676572ab1ac064f4351ba0ce2a6965b5ed3909eb",
+      "bytes": 294
+    },
+    "first-both-green/executed-runner.py": {
+      "sha256": "6239fb8a86d37e8ca7a13d1b42f021d3abbde9d43eb2646b481ce99c3f19a49b",
+      "bytes": 1787
+    },
+    "first-both-green/independent-reprojection.json": {
+      "sha256": "19c5dda50a7882bcbd6fcec3c5dadc5e70adb121240ef2aad3f5ddda4377b3b3",
+      "bytes": 766
+    },
+    "first-both-green/process.log": {
+      "sha256": "6d36b536f7482a3e1df805cf44641275874b211995a91160d2aba653c18c0bbf",
+      "bytes": 183340
+    },
+    "first-both-green/receipt.json": {
+      "sha256": "c5b6cd8a4e1992eb076d8dca46533e9fa94a70178b4ad95ee24d4d82252f34c8",
+      "bytes": 2026
+    },
+    "first-both-green/source/game/level/level_camera.gd": {
+      "sha256": "c49f971ec18cad3447e4b5f43736001aaf0402d8bc9c99ea586cd84c93e332a9",
+      "bytes": 15374
+    },
+    "first-both-green/source/game/level/prompt_layout.gd": {
+      "sha256": "48cba28bc97b7eb3587aafec57ead457a635819b2b5cdc08cbe4177ea18480bd",
+      "bytes": 12778
+    },
+    "first-both-green/source/game/level/world_prompt.gd": {
+      "sha256": "aabe6690f993029361f413ce3421d86ea0c9fd1cadf868fda1467b4c88648981",
+      "bytes": 10999
+    },
+    "first-both-green/source/game/level/world_text_layout.gd": {
+      "sha256": "65b45eb768ad7fa3218cc09ca038743f54c1f932b4a4ee0651c8447412a84815",
+      "bytes": 976
+    },
+    "first-both-green/source/tests/suite/test_quest_map.gd": {
+      "sha256": "df0acf05d43adab2a3a66a441a9a9369ef3c12fe1fd153c0a961850f34926f59",
+      "bytes": 44308
+    },
+    "first-both-green/source/ui/hud.gd": {
+      "sha256": "e3e90272bd72dfd4da312ea310742f0df215217fbf689df94d41091d829e7a16",
+      "bytes": 18504
+    },
+    "first-both-green/source/ui/quest_guidance.gd": {
+      "sha256": "4a3d4f05d181d9aa0697a1c82817875cec53ab896e666a0696b264dff9f564e5",
+      "bytes": 9767
+    },
+    "first-both-green/source/work/ne289-prompt-diag/probe.gd": {
+      "sha256": "ab5d12809ef5dfe62d28573f706d013fcf41192c38ed96ac38eba7e7917bbe78",
+      "bytes": 8579
+    },
+    "first-both-green/source/work/ne289-prompt-diag/probe.tscn": {
+      "sha256": "07f9f721dfafe3e3db20914e552d9660dfe96d13136cc78a0e7cbc4ccc37eb9f",
+      "bytes": 181
+    },
+    "first-wrong-target/command.json": {
+      "sha256": "2a184c36e7eaffd57eac18345009cb88a0cbaa18c99744aa8b3518686558a2f8",
+      "bytes": 314
+    },
+    "first-wrong-target/executed-runner.py": {
+      "sha256": "6239fb8a86d37e8ca7a13d1b42f021d3abbde9d43eb2646b481ce99c3f19a49b",
+      "bytes": 1787
+    },
+    "first-wrong-target/process.log": {
+      "sha256": "205e74e65b6ca3d7e74ce23b79232aad803ce0aad42864dd78ca167c9a8f0c34",
+      "bytes": 171364
+    },
+    "first-wrong-target/receipt.json": {
+      "sha256": "c64f1482bc6948cb00ace2de6a0eea97644d0b466f40381ad71c36957aca03cf",
+      "bytes": 2025
+    },
+    "first-wrong-target/source/game/level/level_camera.gd": {
+      "sha256": "c49f971ec18cad3447e4b5f43736001aaf0402d8bc9c99ea586cd84c93e332a9",
+      "bytes": 15374
+    },
+    "first-wrong-target/source/game/level/prompt_layout.gd": {
+      "sha256": "48cba28bc97b7eb3587aafec57ead457a635819b2b5cdc08cbe4177ea18480bd",
+      "bytes": 12778
+    },
+    "first-wrong-target/source/game/level/world_prompt.gd": {
+      "sha256": "aabe6690f993029361f413ce3421d86ea0c9fd1cadf868fda1467b4c88648981",
+      "bytes": 10999
+    },
+    "first-wrong-target/source/game/level/world_text_layout.gd": {
+      "sha256": "65b45eb768ad7fa3218cc09ca038743f54c1f932b4a4ee0651c8447412a84815",
+      "bytes": 976
+    },
+    "first-wrong-target/source/tests/suite/test_quest_map.gd": {
+      "sha256": "df0acf05d43adab2a3a66a441a9a9369ef3c12fe1fd153c0a961850f34926f59",
+      "bytes": 44308
+    },
+    "first-wrong-target/source/ui/hud.gd": {
+      "sha256": "e3e90272bd72dfd4da312ea310742f0df215217fbf689df94d41091d829e7a16",
+      "bytes": 18504
+    },
+    "first-wrong-target/source/ui/quest_guidance.gd": {
+      "sha256": "4a3d4f05d181d9aa0697a1c82817875cec53ab896e666a0696b264dff9f564e5",
+      "bytes": 9767
+    },
+    "first-wrong-target/source/work/ne289-prompt-diag/probe.gd": {
+      "sha256": "ab5d12809ef5dfe62d28573f706d013fcf41192c38ed96ac38eba7e7917bbe78",
+      "bytes": 8579
+    },
+    "first-wrong-target/source/work/ne289-prompt-diag/probe.tscn": {
+      "sha256": "07f9f721dfafe3e3db20914e552d9660dfe96d13136cc78a0e7cbc4ccc37eb9f",
+      "bytes": 181
+    },
+    "first-stopped-layout/command.json": {
+      "sha256": "1ad42d5986a4bece28bd247fdeee7b7a298cdfbf65cd49e760abe3c00802c61f",
+      "bytes": 313
+    },
+    "first-stopped-layout/executed-runner.py": {
+      "sha256": "6239fb8a86d37e8ca7a13d1b42f021d3abbde9d43eb2646b481ce99c3f19a49b",
+      "bytes": 1787
+    },
+    "first-stopped-layout/process.log": {
+      "sha256": "44a274f748a6b4eca59668144abb16614bcc7c00823f2d45f1883ee4461ec3ce",
+      "bytes": 1226156
+    },
+    "first-stopped-layout/receipt.json": {
+      "sha256": "4706d52897aa950210f7231c9d12532df4adb8d449ccd9165652193c5f69ce28",
+      "bytes": 2026
+    },
+    "first-stopped-layout/source/game/level/level_camera.gd": {
+      "sha256": "c49f971ec18cad3447e4b5f43736001aaf0402d8bc9c99ea586cd84c93e332a9",
+      "bytes": 15374
+    },
+    "first-stopped-layout/source/game/level/prompt_layout.gd": {
+      "sha256": "48cba28bc97b7eb3587aafec57ead457a635819b2b5cdc08cbe4177ea18480bd",
+      "bytes": 12778
+    },
+    "first-stopped-layout/source/game/level/world_prompt.gd": {
+      "sha256": "aabe6690f993029361f413ce3421d86ea0c9fd1cadf868fda1467b4c88648981",
+      "bytes": 10999
+    },
+    "first-stopped-layout/source/game/level/world_text_layout.gd": {
+      "sha256": "65b45eb768ad7fa3218cc09ca038743f54c1f932b4a4ee0651c8447412a84815",
+      "bytes": 976
+    },
+    "first-stopped-layout/source/tests/suite/test_quest_map.gd": {
+      "sha256": "df0acf05d43adab2a3a66a441a9a9369ef3c12fe1fd153c0a961850f34926f59",
+      "bytes": 44308
+    },
+    "first-stopped-layout/source/ui/hud.gd": {
+      "sha256": "e3e90272bd72dfd4da312ea310742f0df215217fbf689df94d41091d829e7a16",
+      "bytes": 18504
+    },
+    "first-stopped-layout/source/ui/quest_guidance.gd": {
+      "sha256": "4a3d4f05d181d9aa0697a1c82817875cec53ab896e666a0696b264dff9f564e5",
+      "bytes": 9767
+    },
+    "first-stopped-layout/source/work/ne289-prompt-diag/probe.gd": {
+      "sha256": "ab5d12809ef5dfe62d28573f706d013fcf41192c38ed96ac38eba7e7917bbe78",
+      "bytes": 8579
+    },
+    "first-stopped-layout/source/work/ne289-prompt-diag/probe.tscn": {
+      "sha256": "07f9f721dfafe3e3db20914e552d9660dfe96d13136cc78a0e7cbc4ccc37eb9f",
+      "bytes": 181
+    },
+    "final-timer-green/command.json": {
+      "sha256": "d6c7ff4652ec6dd1fd0f1f955fa57d2507e5cf5d5415d22322b8beb1db001923",
+      "bytes": 254
+    },
+    "final-timer-green/executed-runner.py": {
+      "sha256": "6239fb8a86d37e8ca7a13d1b42f021d3abbde9d43eb2646b481ce99c3f19a49b",
+      "bytes": 1787
+    },
+    "final-timer-green/independent-reprojection.json": {
+      "sha256": "8312da025cab710b2725b65f2f02a39fb09d7e25c9c607ae3f8e4d68571b3593",
+      "bytes": 754
+    },
+    "final-timer-green/process.log": {
+      "sha256": "2cc8fe4527534e027913e6317ed0fff7cf433c3f5903d452e949b4d89d3ec0bb",
+      "bytes": 171835
+    },
+    "final-timer-green/receipt.json": {
+      "sha256": "202b25fe9c2117814cead37fb4561e0f78924d74d9b5314f03873b65c5d25669",
+      "bytes": 2025
+    },
+    "final-timer-green/source/game/level/level_camera.gd": {
+      "sha256": "c49f971ec18cad3447e4b5f43736001aaf0402d8bc9c99ea586cd84c93e332a9",
+      "bytes": 15374
+    },
+    "final-timer-green/source/game/level/prompt_layout.gd": {
+      "sha256": "48cba28bc97b7eb3587aafec57ead457a635819b2b5cdc08cbe4177ea18480bd",
+      "bytes": 12778
+    },
+    "final-timer-green/source/game/level/world_prompt.gd": {
+      "sha256": "aabe6690f993029361f413ce3421d86ea0c9fd1cadf868fda1467b4c88648981",
+      "bytes": 10999
+    },
+    "final-timer-green/source/game/level/world_text_layout.gd": {
+      "sha256": "65b45eb768ad7fa3218cc09ca038743f54c1f932b4a4ee0651c8447412a84815",
+      "bytes": 976
+    },
+    "final-timer-green/source/tests/suite/test_quest_map.gd": {
+      "sha256": "df0acf05d43adab2a3a66a441a9a9369ef3c12fe1fd153c0a961850f34926f59",
+      "bytes": 44308
+    },
+    "final-timer-green/source/ui/hud.gd": {
+      "sha256": "e3e90272bd72dfd4da312ea310742f0df215217fbf689df94d41091d829e7a16",
+      "bytes": 18504
+    },
+    "final-timer-green/source/ui/quest_guidance.gd": {
+      "sha256": "4a3d4f05d181d9aa0697a1c82817875cec53ab896e666a0696b264dff9f564e5",
+      "bytes": 9767
+    },
+    "final-timer-green/source/work/ne289-prompt-diag/probe.gd": {
+      "sha256": "c7d99209573072e5ee3a2fb80fb34fa7b093e49931ed94021673dd303eda5a05",
+      "bytes": 7391
+    },
+    "final-timer-green/source/work/ne289-prompt-diag/probe.tscn": {
+      "sha256": "07f9f721dfafe3e3db20914e552d9660dfe96d13136cc78a0e7cbc4ccc37eb9f",
+      "bytes": 181
+    },
+    "final-wrong-target/command.json": {
+      "sha256": "9f9c7b84f8187af0b49b98aabce88ee1ba5de29c672383b344a2c86760e20d1a",
+      "bytes": 274
+    },
+    "final-wrong-target/executed-runner.py": {
+      "sha256": "6239fb8a86d37e8ca7a13d1b42f021d3abbde9d43eb2646b481ce99c3f19a49b",
+      "bytes": 1787
+    },
+    "final-wrong-target/process.log": {
+      "sha256": "7edd5b45e8109dab1392984fb20dd1d323582ff21a2da59e8eab1c007dc73caa",
+      "bytes": 174532
+    },
+    "final-wrong-target/receipt.json": {
+      "sha256": "2da3f4dcd84cc640a92421fb3127962e23deab4e1bcd06c6bdc51b914cf47b73",
+      "bytes": 2026
+    },
+    "final-wrong-target/source/game/level/level_camera.gd": {
+      "sha256": "c49f971ec18cad3447e4b5f43736001aaf0402d8bc9c99ea586cd84c93e332a9",
+      "bytes": 15374
+    },
+    "final-wrong-target/source/game/level/prompt_layout.gd": {
+      "sha256": "48cba28bc97b7eb3587aafec57ead457a635819b2b5cdc08cbe4177ea18480bd",
+      "bytes": 12778
+    },
+    "final-wrong-target/source/game/level/world_prompt.gd": {
+      "sha256": "aabe6690f993029361f413ce3421d86ea0c9fd1cadf868fda1467b4c88648981",
+      "bytes": 10999
+    },
+    "final-wrong-target/source/game/level/world_text_layout.gd": {
+      "sha256": "65b45eb768ad7fa3218cc09ca038743f54c1f932b4a4ee0651c8447412a84815",
+      "bytes": 976
+    },
+    "final-wrong-target/source/tests/suite/test_quest_map.gd": {
+      "sha256": "df0acf05d43adab2a3a66a441a9a9369ef3c12fe1fd153c0a961850f34926f59",
+      "bytes": 44308
+    },
+    "final-wrong-target/source/ui/hud.gd": {
+      "sha256": "e3e90272bd72dfd4da312ea310742f0df215217fbf689df94d41091d829e7a16",
+      "bytes": 18504
+    },
+    "final-wrong-target/source/ui/quest_guidance.gd": {
+      "sha256": "4a3d4f05d181d9aa0697a1c82817875cec53ab896e666a0696b264dff9f564e5",
+      "bytes": 9767
+    },
+    "final-wrong-target/source/work/ne289-prompt-diag/probe.gd": {
+      "sha256": "c7d99209573072e5ee3a2fb80fb34fa7b093e49931ed94021673dd303eda5a05",
+      "bytes": 7391
+    },
+    "final-wrong-target/source/work/ne289-prompt-diag/probe.tscn": {
+      "sha256": "07f9f721dfafe3e3db20914e552d9660dfe96d13136cc78a0e7cbc4ccc37eb9f",
+      "bytes": 181
+    },
+    "final-stopped-layout/command.json": {
+      "sha256": "753c78483bc18dc6f9bd4791e8c070456822c94632f9ef11e412fe1936e08d61",
+      "bytes": 273
+    },
+    "final-stopped-layout/executed-runner.py": {
+      "sha256": "6239fb8a86d37e8ca7a13d1b42f021d3abbde9d43eb2646b481ce99c3f19a49b",
+      "bytes": 1787
+    },
+    "final-stopped-layout/process.log": {
+      "sha256": "ef7353688d2d8d054ed5e14d9246984081e162cc57f316c85a41a984fe7f3bf0",
+      "bytes": 2619593
+    },
+    "final-stopped-layout/receipt.json": {
+      "sha256": "a6fd23bfdb9fa465f7e8dcebcadfd193007d3c7d22d19d987bc2bcccf7067e3a",
+      "bytes": 2026
+    },
+    "final-stopped-layout/source/game/level/level_camera.gd": {
+      "sha256": "c49f971ec18cad3447e4b5f43736001aaf0402d8bc9c99ea586cd84c93e332a9",
+      "bytes": 15374
+    },
+    "final-stopped-layout/source/game/level/prompt_layout.gd": {
+      "sha256": "48cba28bc97b7eb3587aafec57ead457a635819b2b5cdc08cbe4177ea18480bd",
+      "bytes": 12778
+    },
+    "final-stopped-layout/source/game/level/world_prompt.gd": {
+      "sha256": "aabe6690f993029361f413ce3421d86ea0c9fd1cadf868fda1467b4c88648981",
+      "bytes": 10999
+    },
+    "final-stopped-layout/source/game/level/world_text_layout.gd": {
+      "sha256": "65b45eb768ad7fa3218cc09ca038743f54c1f932b4a4ee0651c8447412a84815",
+      "bytes": 976
+    },
+    "final-stopped-layout/source/tests/suite/test_quest_map.gd": {
+      "sha256": "df0acf05d43adab2a3a66a441a9a9369ef3c12fe1fd153c0a961850f34926f59",
+      "bytes": 44308
+    },
+    "final-stopped-layout/source/ui/hud.gd": {
+      "sha256": "e3e90272bd72dfd4da312ea310742f0df215217fbf689df94d41091d829e7a16",
+      "bytes": 18504
+    },
+    "final-stopped-layout/source/ui/quest_guidance.gd": {
+      "sha256": "4a3d4f05d181d9aa0697a1c82817875cec53ab896e666a0696b264dff9f564e5",
+      "bytes": 9767
+    },
+    "final-stopped-layout/source/work/ne289-prompt-diag/probe.gd": {
+      "sha256": "c7d99209573072e5ee3a2fb80fb34fa7b093e49931ed94021673dd303eda5a05",
+      "bytes": 7391
+    },
+    "final-stopped-layout/source/work/ne289-prompt-diag/probe.tscn": {
+      "sha256": "07f9f721dfafe3e3db20914e552d9660dfe96d13136cc78a0e7cbc4ccc37eb9f",
+      "bytes": 181
+    },
+    "final-full-suite/command.json": {
+      "sha256": "d370a33edfa49622cd53b5beda2f2efa61bbf49187ee0378c9e9fef570edb127",
+      "bytes": 225
+    },
+    "final-full-suite/executed-runner.py": {
+      "sha256": "6239fb8a86d37e8ca7a13d1b42f021d3abbde9d43eb2646b481ce99c3f19a49b",
+      "bytes": 1787
+    },
+    "final-full-suite/process.log": {
+      "sha256": "3c4e218f0d2f08e0e759e896817b1786554dc7d5d19e42a41cd311ac74c12c91",
+      "bytes": 60010
+    },
+    "final-full-suite/receipt.json": {
+      "sha256": "a12c1ca17b66ebfce0db19b0f0098edce6cd374e85424fe56ae70ea882508f54",
+      "bytes": 2026
+    },
+    "final-full-suite/source/game/level/level_camera.gd": {
+      "sha256": "c49f971ec18cad3447e4b5f43736001aaf0402d8bc9c99ea586cd84c93e332a9",
+      "bytes": 15374
+    },
+    "final-full-suite/source/game/level/prompt_layout.gd": {
+      "sha256": "48cba28bc97b7eb3587aafec57ead457a635819b2b5cdc08cbe4177ea18480bd",
+      "bytes": 12778
+    },
+    "final-full-suite/source/game/level/world_prompt.gd": {
+      "sha256": "aabe6690f993029361f413ce3421d86ea0c9fd1cadf868fda1467b4c88648981",
+      "bytes": 10999
+    },
+    "final-full-suite/source/game/level/world_text_layout.gd": {
+      "sha256": "65b45eb768ad7fa3218cc09ca038743f54c1f932b4a4ee0651c8447412a84815",
+      "bytes": 976
+    },
+    "final-full-suite/source/tests/suite/test_quest_map.gd": {
+      "sha256": "df0acf05d43adab2a3a66a441a9a9369ef3c12fe1fd153c0a961850f34926f59",
+      "bytes": 44308
+    },
+    "final-full-suite/source/ui/hud.gd": {
+      "sha256": "e3e90272bd72dfd4da312ea310742f0df215217fbf689df94d41091d829e7a16",
+      "bytes": 18504
+    },
+    "final-full-suite/source/ui/quest_guidance.gd": {
+      "sha256": "4a3d4f05d181d9aa0697a1c82817875cec53ab896e666a0696b264dff9f564e5",
+      "bytes": 9767
+    },
+    "final-full-suite/source/work/ne289-prompt-diag/probe.gd": {
+      "sha256": "c7d99209573072e5ee3a2fb80fb34fa7b093e49931ed94021673dd303eda5a05",
+      "bytes": 7391
+    },
+    "final-full-suite/source/work/ne289-prompt-diag/probe.tscn": {
+      "sha256": "07f9f721dfafe3e3db20914e552d9660dfe96d13136cc78a0e7cbc4ccc37eb9f",
+      "bytes": 181
+    },
+    "authoring/build.py": {
+      "sha256": "587a6e00ee443825f34e08ad6825e0897c961575f69f2ef60b8f8bba4cc46b21",
+      "bytes": 4662
+    },
+    "authoring/build_final.py": {
+      "sha256": "d1d9726786f817889a8310cd72be07ddfc1ad12a45cc1dc1a00ff2b59f951750",
+      "bytes": 3645
+    },
+    "authoring/driver.gd.txt": {
+      "sha256": "36d8c5f17d747ebcba0b6890c509734c1a11ab45f3d18d4d69e86c012c4f49dd",
+      "bytes": 4144
+    },
+    "authoring/run.py": {
+      "sha256": "6239fb8a86d37e8ca7a13d1b42f021d3abbde9d43eb2646b481ce99c3f19a49b",
+      "bytes": 1787
+    },
+    "authoring/controls.py": {
+      "sha256": "6f9723ed4bcd77d4aae6a164e5667b1768abd97d41dd12d58f2a20d8e4c6dc9c",
+      "bytes": 1049
+    },
+    "authoring/final_controls.py": {
+      "sha256": "28ac41d8d05494682c3c17aed162a2473a61034ce5aaaeeb7b1b1b12d74b522c",
+      "bytes": 979
+    },
+    "authoring/reproject.py": {
+      "sha256": "5f95148b45e14b5148e06497c823a18122117f6e1e87b1cd4fc739be438bc4c3",
+      "bytes": 1804
+    },
+    "authoring/build_packet.py": {
+      "sha256": "1a3b1a8c18d14acba6fd690772a83b33ef2b7a0150f4cad2e9d4b6f99537e8b5",
+      "bytes": 2717
+    },
+    "authoring/adoption-manifest.json": {
+      "sha256": "3fe8ded7bd6ac39aa0fd40329084bbbd354c6c10bbe3b77250c949a835d20af5",
+      "bytes": 1608
+    },
+    "final/tests/suite/test_quest_map.gd": {
+      "sha256": "58b20d358282eb52effc2be4cc4ffbeafc91d4f3ac2f8e62981c0cef448771dd",
+      "bytes": 45254
+    }
+  }
+}
