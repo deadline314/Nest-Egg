@@ -1,0 +1,299 @@
+{
+  "rate": 48000,
+  "channels": 2,
+  "sample_width": 2,
+  "seconds": 46.51733333333333,
+  "master_sha256": "6ddc690d4b27221a201ed7cf52769062762d30dbfc6d523801b3edce548b4f04",
+  "pcm_sha256": "88762796264c143c411ac3a35ecb6f1d17909ab23c6d1d2c39525b935a5897fc",
+  "scope": "master mix includes ambience/music and existing shared hit sounds",
+  "rows": [
+    {
+      "name": "blade/-1/cut_1/reduced-false",
+      "file": "clips/blade--1-cut_1-reduced-false.wav",
+      "frames": 33414,
+      "peak_dbfs": -4.095132452327147,
+      "rms_dbfs": -19.52275527642139,
+      "clip_sha256": "40458d4fdea03fbb639c2d639b3e0feda3efeadd0ee541295edb0ba08438202b"
+    },
+    {
+      "name": "blade/-1/cut_3/reduced-false",
+      "file": "clips/blade--1-cut_3-reduced-false.wav",
+      "frames": 41732,
+      "peak_dbfs": -3.812653190117801,
+      "rms_dbfs": -21.558929023480605,
+      "clip_sha256": "458a150e5f6d7aab6f94776e01a40a3d1af6d15f83df4043ec83dcfcb133d246"
+    },
+    {
+      "name": "blade/-1/cut_1/reduced-true",
+      "file": "clips/blade--1-cut_1-reduced-true.wav",
+      "frames": 35966,
+      "peak_dbfs": -4.808763943634132,
+      "rms_dbfs": -20.012013997000558,
+      "clip_sha256": "772739e62fa5623ea9154bad71cb690ef764e5da59c84d632b0f29740c755f72"
+    },
+    {
+      "name": "blade/-1/cut_3/reduced-true",
+      "file": "clips/blade--1-cut_3-reduced-true.wav",
+      "frames": 41900,
+      "peak_dbfs": -2.906141758172317,
+      "rms_dbfs": -20.471111647450897,
+      "clip_sha256": "7888e6a4606cca24ae51984430c9ed4529b5555c720ec3e76845e3695060694c"
+    },
+    {
+      "name": "blade/1/cut_1/reduced-false",
+      "file": "clips/blade-1-cut_1-reduced-false.wav",
+      "frames": 33911,
+      "peak_dbfs": -4.118524506132091,
+      "rms_dbfs": -20.083444252942357,
+      "clip_sha256": "dcab78c7e202c25afd1b698a72c065553399caa9c582a0d1053cb44f7aef09fc"
+    },
+    {
+      "name": "blade/1/cut_3/reduced-false",
+      "file": "clips/blade-1-cut_3-reduced-false.wav",
+      "frames": 39807,
+      "peak_dbfs": -2.687780631536549,
+      "rms_dbfs": -19.423174551280887,
+      "clip_sha256": "6f25179789469fd57f6635e805b415f74b4a5dc3ce27f8e60778f2d4e253543b"
+    },
+    {
+      "name": "blade/1/cut_1/reduced-true",
+      "file": "clips/blade-1-cut_1-reduced-true.wav",
+      "frames": 32080,
+      "peak_dbfs": -3.7463014683277103,
+      "rms_dbfs": -19.813799519642846,
+      "clip_sha256": "de0a5b33c89b0f9a9a30c0720eda4754722bf019cf9d47b3d58216db8349ae1c"
+    },
+    {
+      "name": "blade/1/cut_3/reduced-true",
+      "file": "clips/blade-1-cut_3-reduced-true.wav",
+      "frames": 37960,
+      "peak_dbfs": -2.7990185388066786,
+      "rms_dbfs": -19.526650000183917,
+      "clip_sha256": "234fae4fba839d23e31a8287508069aee8aab4c877a9e5df28c46c2ec0f1246d"
+    },
+    {
+      "name": "dagger/-1/stab_1/reduced-false",
+      "file": "clips/dagger--1-stab_1-reduced-false.wav",
+      "frames": 24408,
+      "peak_dbfs": -2.9753109156154824,
+      "rms_dbfs": -19.446377634883795,
+      "clip_sha256": "439d66cdea4f9f15bb1611a7515d46fb18d779b062d29bfccfca121deb4d8d0d"
+    },
+    {
+      "name": "dagger/-1/flurry/reduced-false",
+      "file": "clips/dagger--1-flurry-reduced-false.wav",
+      "frames": 27620,
+      "peak_dbfs": -2.7446757041968004,
+      "rms_dbfs": -20.541692759164572,
+      "clip_sha256": "6f981a5146f4cc347f37addeced88aa0042c79960952a6c21bc1d79264cf2fb8"
+    },
+    {
+      "name": "dagger/-1/stab_1/reduced-true",
+      "file": "clips/dagger--1-stab_1-reduced-true.wav",
+      "frames": 22914,
+      "peak_dbfs": -4.002609394019346,
+      "rms_dbfs": -19.467642582875943,
+      "clip_sha256": "d81ef51c57f183fddbd76b6497a220f288bbe74b60b4cecdc8e475819f0d04a4"
+    },
+    {
+      "name": "dagger/-1/flurry/reduced-true",
+      "file": "clips/dagger--1-flurry-reduced-true.wav",
+      "frames": 27202,
+      "peak_dbfs": -2.533125252724327,
+      "rms_dbfs": -21.94369429315359,
+      "clip_sha256": "100c4ed9fd0d2679c499310afa8753fca9f0cd9a831643e08d506f2e60a9f8a3"
+    },
+    {
+      "name": "dagger/1/stab_1/reduced-false",
+      "file": "clips/dagger-1-stab_1-reduced-false.wav",
+      "frames": 23349,
+      "peak_dbfs": -3.301712066469059,
+      "rms_dbfs": -20.165442240084737,
+      "clip_sha256": "6194431412f8567f4673c8fef0db230051402da06dd9ed32c33e58237e761f12"
+    },
+    {
+      "name": "dagger/1/flurry/reduced-false",
+      "file": "clips/dagger-1-flurry-reduced-false.wav",
+      "frames": 27920,
+      "peak_dbfs": -2.3474194856921247,
+      "rms_dbfs": -20.18213774838196,
+      "clip_sha256": "4ee817b152b069973be58e2c4ef89a5f4db5913d13234f35e54a92985afa83cc"
+    },
+    {
+      "name": "dagger/1/stab_1/reduced-true",
+      "file": "clips/dagger-1-stab_1-reduced-true.wav",
+      "frames": 24024,
+      "peak_dbfs": -2.7770946123848543,
+      "rms_dbfs": -19.2911348938964,
+      "clip_sha256": "823462a27e7f1d6db26aecb33d701f9fa13c895ac791a50f38e13a8d0ad66404"
+    },
+    {
+      "name": "dagger/1/flurry/reduced-true",
+      "file": "clips/dagger-1-flurry-reduced-true.wav",
+      "frames": 28476,
+      "peak_dbfs": -3.0198549968177684,
+      "rms_dbfs": -22.62409159803312,
+      "clip_sha256": "d74c29771b94f92cf299b6c63a193329bc96c73f2a4e4c05b09a231183682483"
+    },
+    {
+      "name": "glaive/-1/thrust/reduced-false",
+      "file": "clips/glaive--1-thrust-reduced-false.wav",
+      "frames": 40620,
+      "peak_dbfs": -4.180927091593527,
+      "rms_dbfs": -21.638152146333105,
+      "clip_sha256": "8227d42d8f5ab91718a212258514f9dc2335a9a9b15d30440cee14249fb9e60f"
+    },
+    {
+      "name": "glaive/-1/sweep/reduced-false",
+      "file": "clips/glaive--1-sweep-reduced-false.wav",
+      "frames": 51293,
+      "peak_dbfs": -3.3203396628599395,
+      "rms_dbfs": -23.263842385120444,
+      "clip_sha256": "3020c936d926288718185d641fb34e455ef05fb70e92e648ffeba117e8d8ccac"
+    },
+    {
+      "name": "glaive/-1/thrust/reduced-true",
+      "file": "clips/glaive--1-thrust-reduced-true.wav",
+      "frames": 42327,
+      "peak_dbfs": -4.134723166414283,
+      "rms_dbfs": -20.211678570575437,
+      "clip_sha256": "a9694197ca43b44298665502bb1c1b9acc0ba480ec0aa44f7d4e4cceb69143ea"
+    },
+    {
+      "name": "glaive/-1/sweep/reduced-true",
+      "file": "clips/glaive--1-sweep-reduced-true.wav",
+      "frames": 48916,
+      "peak_dbfs": -2.892817568284452,
+      "rms_dbfs": -21.721782476102725,
+      "clip_sha256": "b0ad43e5a5c495ccbba3e7cfe5fccef5f619669831d7e30604e173e0a2b96d5c"
+    },
+    {
+      "name": "glaive/1/thrust/reduced-false",
+      "file": "clips/glaive-1-thrust-reduced-false.wav",
+      "frames": 41068,
+      "peak_dbfs": -3.0899393382120603,
+      "rms_dbfs": -20.70727131813434,
+      "clip_sha256": "233d69ff8e0a981f5ce8613522a0857d04258bc94359049f1603315a6d343c18"
+    },
+    {
+      "name": "glaive/1/sweep/reduced-false",
+      "file": "clips/glaive-1-sweep-reduced-false.wav",
+      "frames": 49468,
+      "peak_dbfs": -3.591018858692122,
+      "rms_dbfs": -21.378287061150804,
+      "clip_sha256": "433819a5a27074cea34bb42b45006d84b509bf5808172f2fb451f0c99cd0996b"
+    },
+    {
+      "name": "glaive/1/thrust/reduced-true",
+      "file": "clips/glaive-1-thrust-reduced-true.wav",
+      "frames": 41631,
+      "peak_dbfs": -2.9637444035095633,
+      "rms_dbfs": -20.315437982691083,
+      "clip_sha256": "b885b7f42698b37f0078f00b15a10c8044dd8bcb682f17e20091fad8b1ca655d"
+    },
+    {
+      "name": "glaive/1/sweep/reduced-true",
+      "file": "clips/glaive-1-sweep-reduced-true.wav",
+      "frames": 48982,
+      "peak_dbfs": -2.6682974448157513,
+      "rms_dbfs": -20.017726961160307,
+      "clip_sha256": "ae7884f8983b24f80315dc7aa30b91f966b92e1a64bb4c0e139243cbe0f5516a"
+    },
+    {
+      "name": "maul/-1/smash/reduced-false",
+      "file": "clips/maul--1-smash-reduced-false.wav",
+      "frames": 62886,
+      "peak_dbfs": -2.3415169761672336,
+      "rms_dbfs": -21.050907008704804,
+      "clip_sha256": "42f71f7dfad57e94cca689315528d06504ba6097f6a5dd913a128676cebaf073"
+    },
+    {
+      "name": "maul/-1/slam/reduced-false",
+      "file": "clips/maul--1-slam-reduced-false.wav",
+      "frames": 71423,
+      "peak_dbfs": -2.4290760340274433,
+      "rms_dbfs": -20.273445603183312,
+      "clip_sha256": "57824b4f55921bfc92e2c529df61b97b7f2fc1f62e58d2ba93c3c9fe9d199153"
+    },
+    {
+      "name": "maul/-1/smash/reduced-true",
+      "file": "clips/maul--1-smash-reduced-true.wav",
+      "frames": 62147,
+      "peak_dbfs": -3.0363830969515924,
+      "rms_dbfs": -19.902636623179006,
+      "clip_sha256": "891b4d636648bf947b3d9809dec13d316034733a7c8b5fe4c2035db1f2bb3ca5"
+    },
+    {
+      "name": "maul/-1/slam/reduced-true",
+      "file": "clips/maul--1-slam-reduced-true.wav",
+      "frames": 71140,
+      "peak_dbfs": -3.8163543007361467,
+      "rms_dbfs": -20.093508872259143,
+      "clip_sha256": "9ea87f98800ed5f58048456d455bf4bed60c60f513f34eae52e8160ac2266f8a"
+    },
+    {
+      "name": "maul/1/smash/reduced-false",
+      "file": "clips/maul-1-smash-reduced-false.wav",
+      "frames": 62269,
+      "peak_dbfs": -2.5221324741528,
+      "rms_dbfs": -19.649407812094342,
+      "clip_sha256": "d6a8cae679c83901bea157c648ebe5dfd319e28a25902da1db97eed905593666"
+    },
+    {
+      "name": "maul/1/slam/reduced-false",
+      "file": "clips/maul-1-slam-reduced-false.wav",
+      "frames": 74036,
+      "peak_dbfs": -1.992510721419132,
+      "rms_dbfs": -20.391746844457778,
+      "clip_sha256": "75701018705f3bee73261db07a0b12a87f70529a37d36aa8ab2b9b7d76e888ef"
+    },
+    {
+      "name": "maul/1/smash/reduced-true",
+      "file": "clips/maul-1-smash-reduced-true.wav",
+      "frames": 64163,
+      "peak_dbfs": -2.709117895879523,
+      "rms_dbfs": -20.64033350465631,
+      "clip_sha256": "0c8ad325da691130d18f4a66748374b6aec2bf3c0f5b57aae5ed5cbd4a6b0fa9"
+    },
+    {
+      "name": "maul/1/slam/reduced-true",
+      "file": "clips/maul-1-slam-reduced-true.wav",
+      "frames": 71846,
+      "peak_dbfs": -1.8159386908892472,
+      "rms_dbfs": -19.82321923789239,
+      "clip_sha256": "3718e75a03ce9f77bd534589120a5865e007493086f91347b1da7720e9e03f70"
+    },
+    {
+      "name": "whip/-1/lash/reduced-false",
+      "file": "clips/whip--1-lash-reduced-false.wav",
+      "frames": 47474,
+      "peak_dbfs": -4.093009022506507,
+      "rms_dbfs": -19.643293262496734,
+      "clip_sha256": "91ea97bf76c63c4bccdd164cff189a0805088466bff6717f3e4be1c68ed91c96"
+    },
+    {
+      "name": "whip/-1/lash/reduced-true",
+      "file": "clips/whip--1-lash-reduced-true.wav",
+      "frames": 47304,
+      "peak_dbfs": -3.3768543670717017,
+      "rms_dbfs": -21.048828143088084,
+      "clip_sha256": "6f3492bc00ba2460ed382050f8793511433857d8af934f9cdddffbc8ee24e094"
+    },
+    {
+      "name": "whip/1/lash/reduced-false",
+      "file": "clips/whip-1-lash-reduced-false.wav",
+      "frames": 43969,
+      "peak_dbfs": -2.741040680231605,
+      "rms_dbfs": -19.742085083256388,
+      "clip_sha256": "0ec2633e50a8aac8623fded518620993955cb2743a75ea27aa94f5cb236737d4"
+    },
+    {
+      "name": "whip/1/lash/reduced-true",
+      "file": "clips/whip-1-lash-reduced-true.wav",
+      "frames": 44938,
+      "peak_dbfs": -1.241714423157627,
+      "rms_dbfs": -20.99695573070531,
+      "clip_sha256": "0eecc4a3b5b007e886a3ab84560ca9c3f17e95d60deb98e68c1a399987d62cf0"
+    }
+  ]
+}

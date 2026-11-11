@@ -97,7 +97,8 @@
     }
    ],
    "grip": {
-    "hands": 2
+    "hands": 2,
+    "shaft_side": 1
    },
    "feedback": {
     "reaction": "light",
@@ -195,7 +196,8 @@
     }
    ],
    "grip": {
-    "hands": 2
+    "hands": 2,
+    "shaft_side": 1
    },
    "feedback": {
     "reaction": "light",
@@ -265,24 +267,26 @@
     {
      "t": 0.4,
      "angle": 1.8,
-     "reach": 8.5,
-     "tilt": 0.7
+     "reach": 9.5,
+     "tilt": -1.0
     },
     {
      "t": 0.55,
      "angle": 0.4,
-     "reach": 9
+     "reach": 12,
+     "tilt": -1.0
     },
     {
      "t": 0.7,
      "angle": -0.9,
-     "reach": 8,
-     "tilt": -0.1
+     "reach": 12,
+     "tilt": -1.0
     },
     {
      "t": 0.85,
      "angle": -1.2,
-     "reach": 7.5
+     "reach": 12,
+     "tilt": -1.0
     },
     {
      "t": 1,
@@ -292,7 +296,8 @@
     }
    ],
    "grip": {
-    "hands": 2
+    "hands": 2,
+    "shaft_side": -1
    },
    "feedback": {
     "reaction": "light",
@@ -390,7 +395,8 @@
     }
    ],
    "grip": {
-    "hands": 2
+    "hands": 2,
+    "shaft_side": 1
    },
    "feedback": {
     "reaction": "light",

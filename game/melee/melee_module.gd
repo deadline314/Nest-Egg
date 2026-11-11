@@ -42,6 +42,8 @@ var visual_left := 0.0
 ## 多段判定（MeleeMove.hits）：目前開到第幾段（-1＝還沒開始）、這一段是否已經播過命中聲。
 var hit_window := -1
 var _window_sound_done := false
+## Reused until the first damaging contact is dispatched. LIGHT reactions also share that first pause.
+var _first_contact_targets: Array[Node] = []
 ## 按住招式（MeleeSet.hold）：這一招是不是按住招式、模式（charge 蓄力／sustain 持續／repeat 重複）、
 ## 蓄滿了沒有、持續模式下一次判定的時間。
 var hold_mode := ""
@@ -277,6 +279,7 @@ func start_attack(continue_combo: bool) -> bool:
 	landed = false
 	feedback_done = false
 	hit_ids.clear()
+	_first_contact_targets.clear()
 	hit_window = -1
 	_window_sound_done = false
 	hold_mode = ""
@@ -337,6 +340,7 @@ func _tick_phase(delta: float) -> void:
 
 func end(keep_combo := true) -> void:
 	var was_active := phase != Phase.NONE
+	_first_contact_targets.clear()
 	phase = Phase.NONE
 	visual_left = 0.0
 	if was_active:
@@ -473,6 +477,10 @@ func hit_pass() -> void:
 		if result == Hurtbox.Result.DAMAGED:
 			landed = true
 			landed_now = true
+			if not feedback_done and target_hurtbox.health != null:
+				var victim := target_hurtbox.health.get_parent()
+				if victim != null and victim != host and not _first_contact_targets.has(victim):
+					_first_contact_targets.append(victim)
 			EventBus.hit_confirmed.emit(contact, target_hurtbox.health.is_dead)
 			EventBus.hit_marker.emit(&"kill" if target_hurtbox.health.is_dead else (&"weak" if info.weak_hit else &"hit"))
 			if info.weak_hit or int(def["stagger"]) >= 3:
@@ -482,9 +490,13 @@ func hit_pass() -> void:
 	if landed_now and not feedback_done:
 		feedback_done = true
 		InputBindings.vibrate(0.25, 0.45 if heavy else 0.2, 0.1)
-		# 延後到物理步驟之後：頓幀會停用自己，不能在自己的物理處理中途做。被打到的敵人在 Enemy 裡依受擊層級自己凍結。
+		# 延後到物理步驟之後：第一個接觸同步暫停雙方，不提升敵人的受傷等級。
+		# 後續目標仍依自身受傷反應停頓，不再凍住攻擊者。
 		# 頓幀一招只有一次（多段、多目標都不疊加）。
-		var ctx := {"targets": [host], "dir": host.aim_dir, "origin": host.global_position}
+		var nodes: Array = [host]
+		nodes.append_array(_first_contact_targets)
+		_first_contact_targets.clear()
+		var ctx := {"targets": nodes, "dir": host.aim_dir, "origin": host.global_position}
 		if float(def["hitstop"]) > 0.0:
 			ctx["freeze"] = float(def["hitstop"])
 		Feel.play.call_deferred(StringName(str(def["event"])), ctx)

@@ -159,6 +159,8 @@ var _idle_pin_w := 0.0
 var _kneel_w := 0.0
 var _kneel_parts := false  # 跪姿的專屬零件（前大腿用坐姿畫的那一塊）有沒有換上
 var _idle_foot_x: Array[float] = [0.0, 0.0]
+## Reused leg IK blend base; do not allocate a temporary pose for each chain each frame.
+var _feet_base: Array[float] = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 ## 放鬆程度 0（舉槍）～1（槍垂下）。
 var _relax := 0.0
 ## 專屬動作：目前（或剛結束、正在淡出）的動作、各骨頭的目標角度與權重。
@@ -571,7 +573,20 @@ func _step_legs() -> void:
 		# 等高：固定在腿剛好夠得到最大步幅的高度（膝蓋彎曲吸收），再加上資料指定的小幅起伏。
 		var reach := _leg_length * _gait_reach
 		floor_sag = maxf(GAIT_MIN_SAG, _leg_length - sqrt(maxf(0.0, reach * reach - _gait_amp_now * _gait_amp_now))) + _gait_bob
-	_place_feet(offsets, angles, _gait_w, floor_sag, _gait_reach, false, _land_sag())
+	# Idle pinning and gait are two grounded targets, not a fade through unplanted rest legs.
+	# Blend their foot positions before solving IK, so the floor stays the same throughout.
+	# Without idle pinning (air/blocked/authored poses), preserve the original gait fade.
+	var planted := minf(1.0, _gait_w + _idle_pin_w)
+	var gait := smoothstep(0.0, 1.0, _gait_w / maxf(0.001, _gait_w + _idle_pin_w))
+	var reach := _gait_reach
+	if _idle_pin_w > 0.0:
+		for i in LEG_CHAINS.size():
+			var idle_x: float = _idle_foot_x[i] - _global_pos[LEG_CHAINS[i][0]].x
+			offsets[i] = Vector2(lerpf(idle_x, offsets[i].x, gait), offsets[i].y * gait)
+			angles[i] *= gait
+		reach = lerpf(float((_motion["idle"] as Dictionary)["pin_reach"]), reach, gait)
+		floor_sag *= gait
+	_place_feet(offsets, angles, planted, floor_sag, reach, false, _land_sag())
 
 
 ## 待機時兩腳固定在地上：骨盆左右微移、身體隨之起伏，膝蓋自然彎曲（重心轉移），腳不滑。
@@ -596,6 +611,7 @@ func _place_feet(offsets: Array[Vector2], angles: Array[float], weight: float, f
 	_ground_shift = lerpf(_ground_shift, drop, weight) if blend_shift else drop
 	_apply_body()
 	_forward_kinematics()
+	_remember_feet_base()
 	for i in LEG_CHAINS.size():
 		var chain: Array = LEG_CHAINS[i]
 		var upper: StringName = chain[0]
@@ -603,13 +619,20 @@ func _place_feet(offsets: Array[Vector2], angles: Array[float], weight: float, f
 		var foot: StringName = chain[2]
 		if not (_rig.has_bone(upper) and _rig.has_bone(lower) and _rig.has_bone(foot)):
 			continue
-		var before := [_rig.bone(upper).rotation, _rig.bone(lower).rotation, _rig.bone(foot).rotation]
 		var hip: Vector2 = _global_pos[upper]
 		_reach_leg(upper, lower, foot, Vector2(hip.x + offsets[i].x, _ground_y - offsets[i].y), angles[i])
-		_rig.bone(upper).rotation = lerp_angle(before[0], _rig.bone(upper).rotation, weight)
-		_rig.bone(lower).rotation = lerp_angle(before[1], _rig.bone(lower).rotation, weight)
-		_rig.bone(foot).rotation = lerp_angle(before[2], _rig.bone(foot).rotation, weight)
+		_rig.bone(upper).rotation = lerp_angle(_feet_base[i * 3], _rig.bone(upper).rotation, weight)
+		_rig.bone(lower).rotation = lerp_angle(_feet_base[i * 3 + 1], _rig.bone(lower).rotation, weight)
+		_rig.bone(foot).rotation = lerp_angle(_feet_base[i * 3 + 2], _rig.bone(foot).rotation, weight)
 	_forward_kinematics()
+
+
+func _remember_feet_base() -> void:
+	for i in LEG_CHAINS.size():
+		for j in 3:
+			var bone := _rig.bone(LEG_CHAINS[i][j])
+			if bone != null:
+				_feet_base[i * 3 + j] = bone.rotation
 
 
 ## 單膝跪（動作資料 crouch.kneel 有內容時，蹲下就用它）：後膝著地、後腳腳尖點地，前腳掌用 IK 平放在地上。

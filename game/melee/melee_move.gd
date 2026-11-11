@@ -10,7 +10,7 @@ extends RefCounted
 ##   path      武器走的路徑：[{t 招式進度 0～1, angle 握把在肩膀的哪個方向（朝右空間的弧度，0＝正前方、正的往下）,
 ##             reach 握把離肩膀多遠（骨架單位，主角手臂全長約 14）, tilt 武器相對這個方向再轉多少（可省略＝0，順著手臂）}]，
 ##             4～6 個關鍵點；手去握武器（前手的掌心追著這條路徑），不是武器跟著手臂。
-##   grip      握法：hands 1＝單手、2＝雙手（另一隻手握在桿上，位置由武器外觀資料的 second 決定）。
+##   grip      hands 1＝單手、2＝雙手；選用 shaft_side -1＝桿尾、1＝前手前方，避免不相連握區換邊。
 ##   feedback  命中回饋：reaction 敵人的反應輕重（light／heavy，要和 stagger 一致）、low 低頻的悶擊聲、high 高頻的切割或撞擊聲。
 ##
 ## 動作進度（角色姿勢與 path 的 t）：前搖 0～0.4、出招 0.4～0.7、收招 0.7～1（跟隨段在收招的最前面）。
@@ -102,6 +102,14 @@ static func hands(def: Dictionary) -> int:
 	return int((grip as Dictionary).get("hands", 1)) if grip is Dictionary else 1
 
 
+static func shaft_side(def: Dictionary) -> int:
+	var grip: Variant = def.get("grip")
+	if not grip is Dictionary or hands(def) != 2:
+		return 0
+	var value: Variant = (grip as Dictionary).get("shaft_side", 0)
+	return int(value) if _number(value) and float(value) in [-1.0, 1.0] else 0
+
+
 static func reaction(def: Dictionary) -> String:
 	var feedback: Variant = def.get("feedback")
 	if feedback is Dictionary and (feedback as Dictionary).get("reaction") is String:
@@ -145,8 +153,12 @@ static func problems(raw: Dictionary, source: String) -> PackedStringArray:
 		var grip: Variant = raw.grip
 		if not grip is Dictionary or not _number((grip as Dictionary).get("hands")) or int(grip.hands) not in [1, 2] or float(grip.hands) != floorf(float(grip.hands)):
 			errors.append(source + "/grip/hands must be 1 or 2")
-		elif (grip as Dictionary).size() != 1:
-			errors.append(source + "/grip has unknown fields")
+		else:
+			for key: Variant in grip:
+				if key not in ["hands", "shaft_side"]:
+					errors.append(source + "/grip has unknown fields")
+			if grip.has("shaft_side") and (int(grip.hands) != 2 or not _number(grip.shaft_side) or float(grip.shaft_side) not in [-1.0, 1.0]):
+				errors.append(source + "/grip/shaft_side must be -1 (tail) or 1 (front) on a two-handed move")
 	if raw.has("feedback"):
 		errors.append_array(_feedback_problems(raw.feedback, raw, source + "/feedback"))
 	return errors

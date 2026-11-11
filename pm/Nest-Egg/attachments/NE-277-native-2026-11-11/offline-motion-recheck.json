@@ -1,0 +1,62 @@
+{
+  "reader_sha256": {
+    "tools/ne277_verify.py": "f2700652342edd2ece608525c6a1fb81bc05aa694622782da407f0693f09451c",
+    "tools/test_ne277_verify.py": "375e0823a0bd5f3a32f3361c84ac3a1dac8dcbbb71cafc7dac3c9787a27687ce"
+  },
+  "runs": [
+    {
+      "archive": "cpu-motion-final.zip",
+      "archive_sha256": "bf2d5f5669babed110e86ac978f65c582e3f8f6d9db2d82737e2c2abe46addf9",
+      "expected_rows": 42,
+      "original_checks_unchanged": 524,
+      "errors": [],
+      "all_eight_metrics_and_grounded_trace_verified": true,
+      "scope": "Offline recheck of original observations; no new engine run."
+    },
+    {
+      "archive": "native-blade-final.zip",
+      "archive_sha256": "562e1b74e2e43bceca7a9d38484ea0045b7b36b820a96ac32df0dc704f3df752",
+      "expected_rows": 10,
+      "original_checks_unchanged": 1724,
+      "errors": [],
+      "all_eight_metrics_and_grounded_trace_verified": true,
+      "scope": "Offline recheck of original observations; no new engine run."
+    },
+    {
+      "archive": "native-dagger-final.zip",
+      "archive_sha256": "fc8f6a5f26292df4b2c571c091ca31c7049040ee509a4a7a7f5bf9846a182f24",
+      "expected_rows": 10,
+      "original_checks_unchanged": 1104,
+      "errors": [],
+      "all_eight_metrics_and_grounded_trace_verified": true,
+      "scope": "Offline recheck of original observations; no new engine run."
+    },
+    {
+      "archive": "native-glaive-final.zip",
+      "archive_sha256": "d5e7d31c1077f2b452b96909f57d697af52fae873cd9217354e8ec00292f7472",
+      "expected_rows": 8,
+      "original_checks_unchanged": 1646,
+      "errors": [],
+      "all_eight_metrics_and_grounded_trace_verified": true,
+      "scope": "Offline recheck of original observations; no new engine run."
+    },
+    {
+      "archive": "native-maul-final.zip",
+      "archive_sha256": "13d704f3bb898857e509cb512059f549e54f84e4afb569373095fb86888c4ec1",
+      "expected_rows": 8,
+      "original_checks_unchanged": 2540,
+      "errors": [],
+      "all_eight_metrics_and_grounded_trace_verified": true,
+      "scope": "Offline recheck of original observations; no new engine run."
+    },
+    {
+      "archive": "native-whip-final.zip",
+      "archive_sha256": "5b4878cb6fda351f3abbfce5416a2ba93cc8ed3879f2aaa9f5ba76f229a1cf45",
+      "expected_rows": 6,
+      "original_checks_unchanged": 1354,
+      "errors": [],
+      "all_eight_metrics_and_grounded_trace_verified": true,
+      "scope": "Offline recheck of original observations; no new engine run."
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "scope": "Final grounded-handoff candidate; supersedes the seven-file step8 candidate. thermal_blade is now original HEAD bytes and excluded.",
+  "files": {
+    "game/melee/melee_module.gd": {
+      "sha256": "a134d19363a7774cac6f9796bff99bb572d8e1032b809469c530b8a32d96bd15",
+      "bytes": 22741,
+      "crlf": 0
+    },
+    "game/melee/melee_move.gd": {
+      "sha256": "af662c18e7756e212178ece679d879f6a54be3d5a8a7a63810762f9cb0c072dc",
+      "bytes": 14456,
+      "crlf": 0
+    },
+    "game/player/melee_held.gd": {
+      "sha256": "27c8a629e22ec858c171d1f3487692ee3e9a82d5ea94c2f419f4cb864e42dc4b",
+      "bytes": 13922,
+      "crlf": 0
+    },
+    "game/player/player_visual.gd": {
+      "sha256": "4f3b2391912d7154c2895c0b9243c60fae9ccbde5555f0eb20dd0bfd37852012",
+      "bytes": 26385,
+      "crlf": 0
+    },
+    "game/rig/humanoid_animator.gd": {
+      "sha256": "2236b4d7dfdb948542672a5cc3797c6bb7d51e0a1fd230336a9b932fb1a758cf",
+      "bytes": 75841,
+      "crlf": 0
+    },
+    "data/melee/ion_glaive.json": {
+      "sha256": "18dc55099b74f6ad7998f7a7234db0497eb658728dc4430f982e569564d31e8f",
+      "bytes": 7381,
+      "crlf": 0
+    },
+    "tests/suite/test_melee.gd": {
+      "sha256": "ba7d1127c1e5a4b2ac80cdccd335ff4bec60782d76f651fb6b43b6f779050136",
+      "bytes": 27590,
+      "crlf": 0
+    },
+    "tests/suite/test_locomotion.gd": {
+      "sha256": "8fb93faf9c898989167916f4d79866b55141350ee699f2a4dadf94db4928c94e",
+      "bytes": 6754,
+      "crlf": 0
+    },
+    "tests/helpers/gait_handoff_audit.gd": {
+      "sha256": "716ffa6f8bcc97ecdee9627946591277dc3ce1084879471f9b80a8dfa987f737",
+      "bytes": 1739,
+      "crlf": 0
+    },
+    "tests/helpers/broken_gait_handoff.gd": {
+      "sha256": "5fa4b242ad65021ffe92acdcbc58461d5ce6ff010980c3e7eb4231d0331453f5",
+      "bytes": 231,
+      "crlf": 0
+    }
+  }
+}

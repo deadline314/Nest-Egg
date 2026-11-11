@@ -26,9 +26,31 @@ const MAX_STEP_HZ := 4.5
 
 func run() -> void:
 	await _test_motion_data()
+	await _test_grounded_handoffs()
 	await _test_gait_is_smooth()
 	await _test_stride_scales_with_speed()
 	await _test_grounded_characters()
+
+
+## Idle and gait must share a planted transition, including actual lunge-sized body offsets.
+func _test_grounded_handoffs() -> void:
+	var audit := preload("res://tests/helpers/gait_handoff_audit.gd")
+	var broken := preload("res://tests/helpers/broken_gait_handoff.gd")
+	for facing in [-1, 1]:
+		for body in [Vector3.ZERO, Vector3(14, 5, 0.35)]:
+			var rig := _make()
+			var result: Dictionary = audit.measure(rig, facing, body)
+			var label := "facing %d, body %s" % [facing, str(body)]
+			check(float(result["leg_pop"]) <= audit.MAX_LEG_STEP, "%s: idle/run/idle leg changes stay within %.2f rad (%.3f)" % [label, audit.MAX_LEG_STEP, result["leg_pop"]])
+			check(float(result["penetration"]) <= audit.MAX_PENETRATION, "%s: grounded foot anchors do not cross the floor (%.3f px)" % [label, result["penetration"]])
+			_free(rig)
+			await frames(1)
+			var control := _make()
+			control.animator = broken.new(control)
+			var failure: Dictionary = audit.measure(control, facing, body)
+			check(not bool(failure["accepted"]), "%s: the same audit rejects a deliberately lost idle contact target" % label)
+			_free(control)
+			await frames(1)
 
 
 func _make() -> CharacterRig:

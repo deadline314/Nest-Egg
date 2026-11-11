@@ -62,6 +62,7 @@ var _speed := 0.0
 var _swing_blend := 0.0
 var _facing := 0
 var _settled := false
+var _second_along := NAN
 var _origin := Vector2.ZERO
 var _direction := Vector2.RIGHT
 var _reach := -1.0
@@ -105,6 +106,7 @@ func update(delta: float) -> void:
 	var carry := float(_spec["carry"]) + float(_spec["couple"]) * angle_difference(PI * 0.5, arm_angle)
 	var target := lerp_angle(carry, arm_angle + float(_spec["swing"]), smoothstep(0.0, 1.0, _swing_blend))
 	if not _settled or facing != _facing:
+		_second_along = NAN
 		# 剛拿出來、或轉身：直接到位，不要掃過半圈。
 		_angle = target
 		_speed = 0.0
@@ -167,29 +169,35 @@ func has_second_grip() -> bool:
 
 
 func second_grip() -> Vector2:
-	return _origin + _direction * float(_spec["second"])
+	return _origin + _direction * (_second_along if is_finite(_second_along) else float(_spec["second"]))
 
 
 ## 雙手招式時後手在桿上的握點：桿上離 shoulder（後肩）在 [near, far]（手臂搆得到）之內、距離最接近 ideal（手肘自然彎著）的一點；
 ## 範圍內都沒有點時取離範圍最近的一點（交給手臂 IK 判斷握不握得到）。
 ## 可以握的地方是前手往刃尖方向「一個拳頭」到外觀資料的 second，以及前手往桿尾方向那一段（長柄的戰戟：刺擊時後手握在桿尾）；
 ## 握把離桿尾不到兩個拳頭的武器（錘）只有前面那一段。每半個像素試一次（最多幾十次，只在雙手招式時算）。
-func second_grip_near(shoulder: Vector2, ideal := 0.0, near := 0.0, far := INF) -> Vector2:
+func second_grip_near(shoulder: Vector2, ideal := 0.0, near := 0.0, far := INF, shaft_side := 0) -> Vector2:
 	var second := float(_spec["second"])
-	var best := minf(SECOND_MIN, second)
+	var best := -SECOND_MIN if shaft_side < 0 else minf(SECOND_MIN, second)
 	var best_error := INF
 	var tail_end := _butt - SECOND_TAIL_MARGIN
 	var s := -tail_end if tail_end >= SECOND_MIN else best
 	while s <= second + 0.001:
-		if absf(s) >= SECOND_MIN - 0.001 or s == minf(SECOND_MIN, second):
+		if (shaft_side == 0 or signf(s) == shaft_side) and (absf(s) >= SECOND_MIN - 0.001 or s == minf(SECOND_MIN, second)):
 			var distance := shoulder.distance_to(_origin + _direction * s)
 			var outside := maxf(near - distance, distance - far)
 			var error := absf(distance - ideal) if outside <= 0.0 else OUT_OF_REACH + outside
+			if outside <= 0.0 and is_finite(_second_along):
+				error = absf(s - _second_along) + absf(distance - ideal) * 0.01
 			if error < best_error:
 				best_error = error
 				best = s
 		s += SECOND_STEP
 	return _origin + _direction * best
+
+
+func remember_second_grip(point: Vector2) -> void:
+	_second_along = (point - _origin).dot(_direction)
 
 
 ## 武器最遠的一點（世界座標）：刃尖或錘頭；鞭子是鞭梢。量「畫面上的武器打得到多遠」用。
@@ -215,6 +223,7 @@ func angle() -> float:
 
 func _adopt(weapon: WeaponData) -> void:
 	_weapon = weapon
+	_second_along = NAN
 	_spec = DEFAULT.duplicate()
 	_spec.merge(MeleeArt.hold_spec(weapon), true)
 	var entry := MeleeArt.art(weapon)

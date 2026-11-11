@@ -1,0 +1,133 @@
+{
+  "runs": [
+    {
+      "weapon": "blade",
+      "rows": 10,
+      "physics_steps": 530,
+      "pngs": 1070,
+      "checks": 1724,
+      "passed": true,
+      "diagnostics": [],
+      "adapter": "AMD Radeon RX 9070 XT",
+      "renderer": "forward_plus",
+      "source_inputs": 478,
+      "source_unchanged": true,
+      "max_metrics": {
+        "angle_pop": 0.56160878051411,
+        "knee_hyper": -0.0577104799449444,
+        "limb_pinch": 0.66868238704931,
+        "mesh_fold": 0.25
+      },
+      "max_foot_anchor_penetration_px": 2.86102294921875e-06,
+      "archive": "native-blade-final.zip",
+      "raw_zip_sha256": "562e1b74e2e43bceca7a9d38484ea0045b7b36b820a96ac32df0dc704f3df752"
+    },
+    {
+      "weapon": "dagger",
+      "rows": 10,
+      "physics_steps": 320,
+      "pngs": 650,
+      "checks": 1104,
+      "passed": true,
+      "diagnostics": [],
+      "adapter": "AMD Radeon RX 9070 XT",
+      "renderer": "forward_plus",
+      "source_inputs": 478,
+      "source_unchanged": true,
+      "max_metrics": {
+        "angle_pop": 0.538900437002832,
+        "knee_hyper": -0.0577125065028667,
+        "limb_pinch": 0.698823792541365,
+        "mesh_fold": 0.25
+      },
+      "max_foot_anchor_penetration_px": 2.86102294921875e-06,
+      "archive": "native-dagger-final.zip",
+      "raw_zip_sha256": "fc8f6a5f26292df4b2c571c091ca31c7049040ee509a4a7a7f5bf9846a182f24"
+    },
+    {
+      "weapon": "glaive",
+      "rows": 8,
+      "physics_steps": 510,
+      "pngs": 1028,
+      "checks": 1646,
+      "passed": true,
+      "diagnostics": [],
+      "adapter": "AMD Radeon RX 9070 XT",
+      "renderer": "forward_plus",
+      "source_inputs": 478,
+      "source_unchanged": true,
+      "max_metrics": {
+        "angle_pop": 0.821993906389583,
+        "knee_hyper": -0.0577440969645977,
+        "limb_pinch": 0.721439102334429,
+        "mesh_fold": 0.25
+      },
+      "max_foot_anchor_penetration_px": 2.86102294921875e-06,
+      "archive": "native-glaive-final.zip",
+      "raw_zip_sha256": "d5e7d31c1077f2b452b96909f57d697af52fae873cd9217354e8ec00292f7472"
+    },
+    {
+      "weapon": "maul",
+      "rows": 8,
+      "physics_steps": 808,
+      "pngs": 1624,
+      "checks": 2540,
+      "passed": true,
+      "diagnostics": [],
+      "adapter": "AMD Radeon RX 9070 XT",
+      "renderer": "forward_plus",
+      "source_inputs": 478,
+      "source_unchanged": true,
+      "max_metrics": {
+        "angle_pop": 0.476352409882979,
+        "knee_hyper": -0.0576883070170879,
+        "limb_pinch": 0.744215201963322,
+        "mesh_fold": 0.25
+      },
+      "max_foot_anchor_penetration_px": 3.814697265625e-06,
+      "archive": "native-maul-final.zip",
+      "raw_zip_sha256": "13d704f3bb898857e509cb512059f549e54f84e4afb569373095fb86888c4ec1"
+    },
+    {
+      "weapon": "whip",
+      "rows": 6,
+      "physics_steps": 422,
+      "pngs": 850,
+      "checks": 1354,
+      "passed": true,
+      "diagnostics": [],
+      "adapter": "AMD Radeon RX 9070 XT",
+      "renderer": "forward_plus",
+      "source_inputs": 478,
+      "source_unchanged": true,
+      "max_metrics": {
+        "angle_pop": 0.414807742292231,
+        "knee_hyper": -0.0576729290187359,
+        "limb_pinch": 0.300694257152214,
+        "mesh_fold": 0.166666666666667
+      },
+      "max_foot_anchor_penetration_px": 2.86102294921875e-06,
+      "archive": "native-whip-final.zip",
+      "raw_zip_sha256": "5b4878cb6fda351f3abbfce5416a2ba93cc8ed3879f2aaa9f5ba76f229a1cf45"
+    },
+    {
+      "kind": "feedback",
+      "rows": 36,
+      "checks": 362,
+      "passed": true,
+      "diagnostics": [],
+      "source_unchanged": true,
+      "source_inputs": 696,
+      "damage_contacts": 36,
+      "normal_shake_signals": 30,
+      "reduced_shake_signals": 0,
+      "rate": 48000,
+      "channels": 2,
+      "sample_width_bytes": 2,
+      "seconds": 46.51733333333333,
+      "clips": 36,
+      "pcm_slices_byte_identical": true,
+      "archive": "native-feedback-final.zip"
+    }
+  ]
+}

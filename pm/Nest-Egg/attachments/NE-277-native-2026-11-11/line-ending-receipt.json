@@ -1,0 +1,150 @@
+{
+  "before": {
+    "game/melee/melee_module.gd": {
+      "sha256": "a134d19363a7774cac6f9796bff99bb572d8e1032b809469c530b8a32d96bd15",
+      "crlf": 0
+    },
+    "game/melee/melee_move.gd": {
+      "sha256": "af662c18e7756e212178ece679d879f6a54be3d5a8a7a63810762f9cb0c072dc",
+      "crlf": 0
+    },
+    "game/player/melee_held.gd": {
+      "sha256": "27c8a629e22ec858c171d1f3487692ee3e9a82d5ea94c2f419f4cb864e42dc4b",
+      "crlf": 0
+    },
+    "game/player/player_visual.gd": {
+      "sha256": "4f3b2391912d7154c2895c0b9243c60fae9ccbde5555f0eb20dd0bfd37852012",
+      "crlf": 0
+    },
+    "data/melee/ion_glaive.json": {
+      "sha256": "e1fa641ba2444b502b7241efdce9112ecb7377a01e1dc75c52887cc550852eee",
+      "crlf": 420
+    },
+    "data/melee/thermal_blade.json": {
+      "sha256": "cea3c8f33e73e5a2c56e512a8425ca19f7f11e8fdb88f01f084791141c416f68",
+      "crlf": 499
+    },
+    "tests/suite/test_melee.gd": {
+      "sha256": "ba7d1127c1e5a4b2ac80cdccd335ff4bec60782d76f651fb6b43b6f779050136",
+      "crlf": 0
+    },
+    "tools/melee_joint_audit.gd": {
+      "sha256": "21fbeadb658e32a882e667454c52f5136ce2b5cb6eebc1a5211727f6b44e4aaf",
+      "crlf": 0
+    },
+    "tools/ne277_delivery_probe.gd": {
+      "sha256": "a393c1f8150a5c7aa2151e27e212cd33df1a23ddf89f28fff766b402b72bda26",
+      "crlf": 0
+    },
+    "tools/ne277_delivery_probe.tscn": {
+      "sha256": "d2a5cd095dee813becea1c5b8dd76acccfc0bca0480e1ea748296f2ec334b0f7",
+      "crlf": 0
+    },
+    "tools/ne277_delivery_probe.gd.uid": {
+      "sha256": "fc8f33b5433e97ccae4032718e3fe7fd04486ac6c4396d8626dfa5b8861d97dc",
+      "crlf": 0
+    },
+    "tools/ne277_feedback_probe.gd": {
+      "sha256": "ec1d36ca90a826190a38da93abe52afbe9446633e086d1745f75f24a82adeebd",
+      "crlf": 0
+    },
+    "tools/ne277_feedback_probe.tscn": {
+      "sha256": "0e04531b5567775a515ca763ee46dbc21093aabd13778a7bd8ca987a2a879705",
+      "crlf": 0
+    },
+    "tools/ne277_feedback_probe.gd.uid": {
+      "sha256": "fe8fdea0a4205f55e078c2c034dfc4b323cc42f1af0054121ab98057e2808191",
+      "crlf": 0
+    },
+    "tools/ne277_verify.py": {
+      "sha256": "83241ae50c8e32e39275f2c0112b4c8c73eab98312dc831cc228b9d519cc1698",
+      "crlf": 0
+    },
+    "tools/test_ne277_verify.py": {
+      "sha256": "378c41b6503b5448410565ad96f54e5ece67f9aadd4a5229abdc55379b1f9be9",
+      "crlf": 0
+    },
+    "tools/run_ne277_delivery.py": {
+      "sha256": "4cec22a90ad3c71fcbd1c8d3d8c0f2295011da0cd9efb000926f102e015a48ef",
+      "crlf": 173
+    },
+    "tools/audio/ne277_recording_report.py": {
+      "sha256": "d4794f75db83256d8c7cdf30cbfdb1b5d4fb3d9c1b1de86f6abef6e45bb3a4e5",
+      "crlf": 0
+    }
+  },
+  "after": {
+    "game/melee/melee_module.gd": {
+      "sha256": "a134d19363a7774cac6f9796bff99bb572d8e1032b809469c530b8a32d96bd15",
+      "crlf": 0
+    },
+    "game/melee/melee_move.gd": {
+      "sha256": "af662c18e7756e212178ece679d879f6a54be3d5a8a7a63810762f9cb0c072dc",
+      "crlf": 0
+    },
+    "game/player/melee_held.gd": {
+      "sha256": "27c8a629e22ec858c171d1f3487692ee3e9a82d5ea94c2f419f4cb864e42dc4b",
+      "crlf": 0
+    },
+    "game/player/player_visual.gd": {
+      "sha256": "4f3b2391912d7154c2895c0b9243c60fae9ccbde5555f0eb20dd0bfd37852012",
+      "crlf": 0
+    },
+    "data/melee/ion_glaive.json": {
+      "sha256": "18dc55099b74f6ad7998f7a7234db0497eb658728dc4430f982e569564d31e8f",
+      "crlf": 0
+    },
+    "data/melee/thermal_blade.json": {
+      "sha256": "92446810afd38c09a24ac8efb67693f27018295f20d3f825b287699aa2a1a562",
+      "crlf": 0
+    },
+    "tests/suite/test_melee.gd": {
+      "sha256": "ba7d1127c1e5a4b2ac80cdccd335ff4bec60782d76f651fb6b43b6f779050136",
+      "crlf": 0
+    },
+    "tools/melee_joint_audit.gd": {
+      "sha256": "21fbeadb658e32a882e667454c52f5136ce2b5cb6eebc1a5211727f6b44e4aaf",
+      "crlf": 0
+    },
+    "tools/ne277_delivery_probe.gd": {
+      "sha256": "a393c1f8150a5c7aa2151e27e212cd33df1a23ddf89f28fff766b402b72bda26",
+      "crlf": 0
+    },
+    "tools/ne277_delivery_probe.tscn": {
+      "sha256": "d2a5cd095dee813becea1c5b8dd76acccfc0bca0480e1ea748296f2ec334b0f7",
+      "crlf": 0
+    },
+    "tools/ne277_delivery_probe.gd.uid": {
+      "sha256": "fc8f33b5433e97ccae4032718e3fe7fd04486ac6c4396d8626dfa5b8861d97dc",
+      "crlf": 0
+    },
+    "tools/ne277_feedback_probe.gd": {
+      "sha256": "ec1d36ca90a826190a38da93abe52afbe9446633e086d1745f75f24a82adeebd",
+      "crlf": 0
+    },
+    "tools/ne277_feedback_probe.tscn": {
+      "sha256": "0e04531b5567775a515ca763ee46dbc21093aabd13778a7bd8ca987a2a879705",
+      "crlf": 0
+    },
+    "tools/ne277_feedback_probe.gd.uid": {
+      "sha256": "fe8fdea0a4205f55e078c2c034dfc4b323cc42f1af0054121ab98057e2808191",
+      "crlf": 0
+    },
+    "tools/ne277_verify.py": {
+      "sha256": "83241ae50c8e32e39275f2c0112b4c8c73eab98312dc831cc228b9d519cc1698",
+      "crlf": 0
+    },
+    "tools/test_ne277_verify.py": {
+      "sha256": "378c41b6503b5448410565ad96f54e5ece67f9aadd4a5229abdc55379b1f9be9",
+      "crlf": 0
+    },
+    "tools/run_ne277_delivery.py": {
+      "sha256": "ef2acb6c79e3b05eb24a534369f96f9b9b1ab025fad80c43ff679ef325bd2846",
+      "crlf": 0
+    },
+    "tools/audio/ne277_recording_report.py": {
+      "sha256": "d4794f75db83256d8c7cdf30cbfdb1b5d4fb3d9c1b1de86f6abef6e45bb3a4e5",
+      "crlf": 0
+    }
+  }
+}

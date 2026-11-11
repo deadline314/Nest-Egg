@@ -9,6 +9,7 @@ const DT := 1.0 / 60.0
 func run() -> void:
 	_test_data()
 	await _test_phases_and_single_hit()
+	await _test_light_contact_pair_pause()
 	await _test_whiff_recovers_fully()
 	await _test_expired_early_command()
 	await _test_hit_cancel_and_combo()
@@ -71,6 +72,27 @@ func _test_phases_and_single_hit() -> void:
 	await physics_frames(6)
 	check(enemy.health.current == before - int(MeleeData.attack(str(MeleeData.combo()[0]))["damage"]), "one swing hits the same target only once")
 	await physics_frames(3)
+	await end_level(level)
+
+
+func _test_light_contact_pair_pause() -> void:
+	await open_level(10.0)
+	var player := level.player
+	player.loadout.reset(load("res://data/weapons/melee/melee_dagger.tres") as WeaponData)
+	player.facing = -1
+	var enemy := await _target_at(-16.0)
+	enemy.health.setup(999, 0.0)
+	var damaged := false
+	var paused_pair := false
+	player._try_melee()
+	for frame in 45:
+		await physics_frames(1)
+		if enemy.health.current < 999:
+			damaged = true
+			paused_pair = Fx._frozen.has(player) and Fx._frozen.has(enemy)
+			break
+	check(damaged and enemy._flinch_left == 0.0 and enemy._stun_left == 0.0, "the real first dagger stab remains a LIGHT reaction without granting flinch or stagger")
+	check(paused_pair, "the first damaging LIGHT contact pauses the actual attacker and victim together")
 	await end_level(level)
 
 
@@ -265,6 +287,14 @@ func _test_module_format() -> void:
 	bad["path"] = [{"t": 0.0, "angle": 0.0, "reach": 20.0}]
 	var problems := MeleeMove.problems(bad, "test/attacks/bad")
 	check(problems.size() >= 3, "overlapping or late hit windows, a reaction that contradicts stagger and a short or unreachable path are refused: %s" % ", ".join(problems))
+	for side: Variant in [-1, 1]:
+		var authored := move.duplicate(true)
+		authored["grip"] = {"hands": 2, "shaft_side": side}
+		check(MeleeMove.problems(authored, "test/shaft").is_empty(), "two-handed moves may author either connected shaft side")
+	for grip: Dictionary in [{"hands": 1, "shaft_side": 1}, {"hands": 2, "shaft_side": 0}, {"hands": 2, "shaft_side": 0.5}, {"hands": 2, "shaft_side": "tail"}, {"hands": 2, "shaft_side": true}, {"hands": 2, "shaft_side": 1, "unknown": 1}]:
+		var invalid := move.duplicate(true)
+		invalid["grip"] = grip
+		check(not MeleeMove.problems(invalid, "test/shaft").is_empty(), "invalid or single-handed shaft-side declarations are refused: %s" % str(grip))
 	# 搬到新格式之前的每一招都是「出招開始時一段、持續整個出招」：搬完的時間、距離、傷害不變。
 	var sets: Array[MeleeSet] = [MeleeData.default_set()]
 	for id: String in HOLD_WEAPONS:

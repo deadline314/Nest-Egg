@@ -360,11 +360,14 @@ func _update_melee_pose() -> void:
 ## 雙手招式時後手要握的桿上那一點（世界座標）；搆得到的範圍和骨架的判斷一致（HumanoidAnimator.place_second_hand）。
 func second_grip(shoulder: Vector2) -> Vector2:
 	var reach := second_hand_reach()
-	var grip := _melee_held.second_grip_near(shoulder, reach * SECOND_HAND_BEND, reach * SECOND_HAND_NEAREST, reach * 0.9)
+	# A move may author which side of the front hand the rear hand occupies.
+	# The two shaft intervals are disconnected; nearest-distance selection cannot slide between them.
+	var shaft_side := MeleeMove.shaft_side(player.melee.attack) if player.melee.is_active() else 0
+	var grip := _melee_held.second_grip_near(shoulder, reach * SECOND_HAND_BEND, reach * SECOND_HAND_NEAREST, reach * 0.9, shaft_side)
 	var distance := shoulder.distance_to(grip)
 	if distance < reach * HumanoidAnimator.SECOND_HAND_MIN or distance > reach * HumanoidAnimator.SECOND_HAND_REACH:
 		# 舒服的範圍裡沒有點（桿子正好穿過肩膀附近）：退一步，在手臂真的搆得到的範圍裡挑，手肘彎多一點也不要放開。
-		grip = _melee_held.second_grip_near(shoulder, reach * SECOND_HAND_BEND, reach * (HumanoidAnimator.SECOND_HAND_MIN + 0.02), reach * (HumanoidAnimator.SECOND_HAND_REACH - 0.02))
+		grip = _melee_held.second_grip_near(shoulder, reach * SECOND_HAND_BEND, reach * (HumanoidAnimator.SECOND_HAND_MIN + 0.02), reach * (HumanoidAnimator.SECOND_HAND_REACH - 0.02), shaft_side)
 	return grip
 
 
@@ -441,11 +444,13 @@ func _physics_process(delta: float) -> void:
 		_input.melee_second_angle = _melee_held.angle()
 	rig.animate(delta, _input)
 	_melee_held.update(delta)
-	if _input.melee_path_w > 0.0 and _input.melee_second and player.melee.two_handed_now():
+	if _input.melee_second and (player.melee.two_handed_now() or not player.melee.is_active()):
 		# 雙手招式：武器這一格的位置定了，後手才去握桿（每一格兩隻手都在武器上，不晚一格）。
 		# 長柄武器的後手可以沿著桿子滑：握在桿上離後肩最近、搆得到的那一點（手臂短，伸直刺擊時固定的握點會搆不到）。
 		var shoulder := rig.bone(&"arm_back_upper").global_position if rig.has_bone(&"arm_back_upper") else _melee_held.second_grip()
-		rig.place_second_hand(second_grip(shoulder), _melee_held.angle())
+		var grip := second_grip(shoulder) if player.melee.is_active() else _melee_held.second_grip()
+		if rig.place_second_hand(grip, _melee_held.angle()):
+			_melee_held.remember_second_grip(grip)
 	_input.recoil = 0.0
 	_input.hurt = false
 	_input.jumped = false
