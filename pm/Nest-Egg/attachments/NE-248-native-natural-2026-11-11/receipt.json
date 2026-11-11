@@ -1,0 +1,72 @@
+{
+  "base_head": "209c442a8c01ee64252ce9da6af3359b83516af6",
+  "archived_probe": "replay/warden_natural_probe_v9.gd",
+  "archived_probe_sha256": "79c59dd376ae43db682bf690017a153e4a34854e2c0d06c948b13c1d874fa2e4",
+  "archive_sha256": "7b315231f50ecf1bf6fa8ac5e1d94c2ff68ba1fb23b66c59c070c0bbc099afa4",
+  "native_probe_sha256": "68790ba9f1a8bdc7c4668e56fce656df63a29a1fad3b38a6172cd72f80ff91cd",
+  "independent_verifier_sha256": "8e8d84fbfe14da20940d6ac3dbacd55b5ca8d2b58a9b66a8b7f88873e7c179e0",
+  "changes_to_formal_game_files": false,
+  "native_runs": [
+    {
+      "side": 1,
+      "exit": 0,
+      "checks": 17,
+      "failures": 0
+    },
+    {
+      "side": -1,
+      "exit": 0,
+      "checks": 17,
+      "failures": 0
+    }
+  ],
+  "final_head_at_verification": "61742fffb6fc8f90e49891567ed814dd84abf936",
+  "independent_verification": {
+    "checks": 234,
+    "failures": 0,
+    "scope": "native GPU arranged arena; public scripted inputs; not human campaign or physical-device testing",
+    "runs": [
+      {
+        "side": 1,
+        "core_facing": -1,
+        "phase2_t": 17.7166666666669,
+        "phase2_hp": 45,
+        "core_hp": [
+          45,
+          43
+        ],
+        "core_part": "core",
+        "core_damage": 2,
+        "core_weak": true,
+        "core_marker": "weak",
+        "body_damage": 1,
+        "closed_damage": 1,
+        "hp_accounted": 50,
+        "probe_checks": 17
+      },
+      {
+        "side": -1,
+        "core_facing": 1,
+        "phase2_t": 20.6333333333334,
+        "phase2_hp": 45,
+        "core_hp": [
+          45,
+          43
+        ],
+        "core_part": "core",
+        "core_damage": 2,
+        "core_weak": true,
+        "core_marker": "weak",
+        "body_damage": 1,
+        "closed_damage": 1,
+        "hp_accounted": 49,
+        "probe_checks": 17
+      }
+    ]
+  },
+  "native_images_reviewed": 10,
+  "selected_images": {
+    "pm\\Nest-Egg\\images\\NE-248-radeon-native-core-left.png": "9b3475907cf26fed31d5e973f76736f268c7185f12b7b6287b76b75d47dc7e90",
+    "pm\\Nest-Egg\\images\\NE-248-radeon-native-core-right.png": "750fb3dc6e6b8b8458a40cd14d7898024e7d59aef6b7d6922ab0123273d9a34e"
+  }
+}

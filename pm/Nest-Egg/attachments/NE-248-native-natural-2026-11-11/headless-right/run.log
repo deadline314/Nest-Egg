@@ -1,0 +1,52 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+CHECK true player retains authored one-second hit invulnerability
+CHECK true arena uses the active authored first chapter
+CHECK true real boss exposes the authored core hurt part
+CHECK true boss starts with original 90 HP and phase 1
+CHECK true actual Player uses unchanged starting pistol
+NATURAL tick=0 stage=damage hp=90 state=intro
+NATURAL tick=120 stage=damage hp=90 state=idle
+NATURAL tick=240 stage=damage hp=90 state=leap
+NATURAL tick=360 stage=damage hp=90 state=burst
+NATURAL tick=480 stage=damage hp=90 state=leap
+NATURAL tick=600 stage=damage hp=90 state=idle
+NATURAL tick=720 stage=damage hp=90 state=idle
+NATURAL tick=840 stage=damage hp=89 state=idle
+NATURAL tick=960 stage=damage hp=89 state=idle
+NATURAL tick=1080 stage=damage hp=89 state=leap
+NATURAL tick=1200 stage=damage hp=89 state=burst_windup
+NATURAL tick=1320 stage=damage hp=89 state=leap_windup
+NATURAL tick=1440 stage=damage hp=89 state=idle
+NATURAL tick=1560 stage=damage hp=89 state=idle
+NATURAL tick=1680 stage=damage hp=89 state=leap
+NATURAL tick=1800 stage=damage hp=89 state=burst_windup
+NATURAL tick=1920 stage=damage hp=89 state=leap_windup
+NATURAL tick=2040 stage=damage hp=89 state=idle
+NATURAL tick=2160 stage=damage hp=89 state=idle
+NATURAL tick=2280 stage=damage hp=89 state=leap
+NATURAL tick=2400 stage=damage hp=89 state=burst_windup
+NATURAL tick=2520 stage=damage hp=89 state=leap_windup
+NATURAL tick=2640 stage=damage hp=88 state=idle
+NATURAL tick=2760 stage=damage hp=88 state=idle
+NATURAL tick=2880 stage=damage hp=88 state=idle
+NATURAL tick=3000 stage=damage hp=88 state=burst
+NATURAL tick=3120 stage=damage hp=88 state=leap
+NATURAL tick=3240 stage=damage hp=88 state=burst_windup
+NATURAL tick=3360 stage=damage hp=88 state=idle
+NATURAL tick=3480 stage=damage hp=88 state=idle
+NATURAL tick=3600 stage=damage hp=88 state=idle
+NATURAL tick=3720 stage=damage hp=88 state=leap
+NATURAL tick=3840 stage=damage hp=88 state=burst_windup
+NATURAL tick=3960 stage=damage hp=88 state=leap_windup
+NATURAL tick=4080 stage=damage hp=88 state=idle
+NATURAL tick=4200 stage=damage hp=88 state=idle
+NATURAL tick=4320 stage=damage hp=87 state=leap
+NATURAL tick=4440 stage=damage hp=87 state=burst_windup
+NATURAL tick=4560 stage=damage hp=87 state=leap_windup
+NATURAL tick=4680 stage=damage hp=87 state=idle
+NATURAL tick=4800 stage=damage hp=87 state=idle
+NATURAL tick=4920 stage=damage hp=87 state=idle
+NATURAL tick=5040 stage=damage hp=87 state=burst
+NATURAL tick=5160 stage=damage hp=87 state=leap
+NATURAL tick=5280 stage=damage hp=87 state=burst_windup

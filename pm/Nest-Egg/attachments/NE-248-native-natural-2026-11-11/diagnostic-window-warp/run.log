@@ -1,0 +1,19 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.359 - Forward+ - Using Device #0: AMD - AMD Radeon RX 9070 XT
+
+CHECK true player retains authored one-second hit invulnerability
+CHECK true arena uses the active authored first chapter
+CHECK true real boss exposes the authored core hurt part
+CHECK true boss starts with original 90 HP and phase 1
+CHECK true actual Player uses unchanged starting pistol
+NATURAL tick=0 stage=damage hp=90 state=intro
+INPUT_CONTRACT {"aim_error_degrees":-1.0,"canvas_transform":"[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-0.000117, -346.5599)]","final_transform":"[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]","flying_player_pistol":0,"intended_world":[],"magazine":12,"mouse_viewport":"(-38.5, 539.5)","mouse_world_error":-1.0,"player_state":0,"using_gamepad":false,"viewport_rect":"[P: (0.0, 0.0), S: (640.0, 360.0)]","warp_logical":"(0.0, 0.0)","warp_window":"(0.0, 0.0)","window_focus":true,"window_size":"(1280, 720)","world_mouse":[-20.0520267486572,461.489593505859]}
+NATURAL tick=120 stage=damage hp=90 state=idle
+INPUT_CONTRACT {"aim_error_degrees":142.114393683,"canvas_transform":"[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-5.410136, -346.5599)]","final_transform":"[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]","flying_player_pistol":0,"intended_world":[467.599914550781,295.0],"magazine":12,"mouse_viewport":"(-38.5, 539.5)","mouse_world_error":512.623657226563,"player_state":0,"using_gamepad":false,"viewport_rect":"[P: (0.0, 0.0), S: (640.0, 360.0)]","warp_logical":"(892.3815, 219.84)","warp_window":"(1784.763, 439.6801)","window_focus":true,"window_size":"(1280, 720)","world_mouse":[-17.2343082427979,461.489593505859]}
+CHECK false real player pistol damage naturally triggers phase 2
+CHECK false natural exposed core receives one 2x weak hit
+CHECK false exposed window body shot stays ordinary 1x
+CHECK false closed core path stays ordinary 1x
+CHECK true both actors remain alive for the bounded verification
+saved C:/Users/stanl/Github/Nest-Egg/pm/Nest-Egg/attachments/NE-248-native-natural-2026-11-11/diagnostic-window-warp/summary.png (OK)
+NATURAL_CORE checks=10 failures=4

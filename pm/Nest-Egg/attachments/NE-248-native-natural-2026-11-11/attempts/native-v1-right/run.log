@@ -1,0 +1,135 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.359 - Forward+ - Using Device #0: AMD - AMD Radeon RX 9070 XT
+
+CHECK true player retains authored one-second hit invulnerability
+CHECK true arena uses the active authored first chapter
+CHECK true real boss exposes the authored core hurt part
+CHECK true boss starts with original 90 HP and phase 1
+CHECK true actual Player uses unchanged starting pistol
+NATURAL tick=0 stage=damage hp=90 state=intro
+NATURAL tick=120 stage=damage hp=90 state=idle
+NATURAL tick=240 stage=damage hp=89 state=leap
+NATURAL tick=360 stage=damage hp=89 state=burst
+NATURAL tick=480 stage=damage hp=89 state=leap
+NATURAL tick=600 stage=damage hp=89 state=burst_windup
+NATURAL tick=720 stage=damage hp=89 state=idle
+NATURAL tick=840 stage=damage hp=89 state=idle
+NATURAL tick=960 stage=damage hp=89 state=idle
+NATURAL tick=1080 stage=damage hp=89 state=leap
+NATURAL tick=1200 stage=damage hp=88 state=burst_windup
+NATURAL tick=1320 stage=damage hp=88 state=leap_windup
+NATURAL tick=1440 stage=damage hp=86 state=idle
+NATURAL tick=1560 stage=damage hp=86 state=idle
+NATURAL tick=1680 stage=damage hp=86 state=leap
+NATURAL tick=1800 stage=damage hp=86 state=burst_windup
+NATURAL tick=1920 stage=damage hp=86 state=leap_windup
+NATURAL tick=2040 stage=damage hp=86 state=idle
+NATURAL tick=2160 stage=damage hp=86 state=idle
+NATURAL tick=2280 stage=damage hp=86 state=leap
+NATURAL tick=2400 stage=damage hp=84 state=burst_windup
+NATURAL tick=2520 stage=damage hp=84 state=leap_windup
+NATURAL tick=2640 stage=damage hp=84 state=idle
+NATURAL tick=2760 stage=damage hp=84 state=idle
+NATURAL tick=2880 stage=damage hp=84 state=idle
+NATURAL tick=3000 stage=damage hp=84 state=burst
+NATURAL tick=3120 stage=damage hp=84 state=leap
+NATURAL tick=3240 stage=damage hp=83 state=idle
+NATURAL tick=3360 stage=damage hp=83 state=idle
+NATURAL tick=3480 stage=damage hp=81 state=idle
+NATURAL tick=3600 stage=damage hp=81 state=idle
+NATURAL tick=3720 stage=damage hp=81 state=leap
+NATURAL tick=3840 stage=damage hp=80 state=burst_windup
+NATURAL tick=3960 stage=damage hp=80 state=leap_windup
+NATURAL tick=4080 stage=damage hp=80 state=idle
+NATURAL tick=4200 stage=damage hp=80 state=idle
+NATURAL tick=4320 stage=damage hp=80 state=leap
+NATURAL tick=4440 stage=damage hp=79 state=burst_windup
+NATURAL tick=4560 stage=damage hp=79 state=leap_windup
+NATURAL tick=4680 stage=damage hp=77 state=idle
+NATURAL tick=4800 stage=damage hp=77 state=idle
+NATURAL tick=4920 stage=damage hp=77 state=idle
+NATURAL tick=5040 stage=damage hp=77 state=burst
+NATURAL tick=5160 stage=damage hp=77 state=leap
+NATURAL tick=5280 stage=damage hp=77 state=idle
+NATURAL tick=5400 stage=damage hp=77 state=idle
+NATURAL tick=5520 stage=damage hp=76 state=idle
+NATURAL tick=5640 stage=damage hp=76 state=idle
+NATURAL tick=5760 stage=damage hp=76 state=leap
+NATURAL tick=5880 stage=damage hp=74 state=burst_windup
+NATURAL tick=6000 stage=damage hp=74 state=leap_windup
+NATURAL tick=6120 stage=damage hp=73 state=idle
+NATURAL tick=6240 stage=damage hp=73 state=idle
+NATURAL tick=6360 stage=damage hp=73 state=leap
+NATURAL tick=6480 stage=damage hp=73 state=burst_windup
+NATURAL tick=6600 stage=damage hp=73 state=leap_windup
+NATURAL tick=6720 stage=damage hp=72 state=idle
+NATURAL tick=6840 stage=damage hp=72 state=idle
+NATURAL tick=6960 stage=damage hp=70 state=idle
+NATURAL tick=7080 stage=damage hp=70 state=burst
+NATURAL tick=7200 stage=damage hp=70 state=leap
+NATURAL tick=7320 stage=damage hp=70 state=burst_windup
+NATURAL tick=7440 stage=damage hp=70 state=idle
+NATURAL tick=7560 stage=damage hp=70 state=idle
+NATURAL tick=7680 stage=damage hp=70 state=idle
+NATURAL tick=7800 stage=damage hp=70 state=leap
+NATURAL tick=7920 stage=damage hp=69 state=burst_windup
+NATURAL tick=8040 stage=damage hp=69 state=leap_windup
+NATURAL tick=8160 stage=damage hp=67 state=idle
+NATURAL tick=8280 stage=damage hp=67 state=idle
+NATURAL tick=8400 stage=damage hp=67 state=leap
+NATURAL tick=8520 stage=damage hp=67 state=burst
+NATURAL tick=8640 stage=damage hp=67 state=leap_windup
+NATURAL tick=8760 stage=damage hp=67 state=idle
+NATURAL tick=8880 stage=damage hp=67 state=idle
+NATURAL tick=9000 stage=damage hp=66 state=idle
+NATURAL tick=9120 stage=damage hp=66 state=idle
+NATURAL tick=9240 stage=damage hp=66 state=leap
+NATURAL tick=9360 stage=damage hp=64 state=burst_windup
+NATURAL tick=9480 stage=damage hp=64 state=leap_windup
+NATURAL tick=9600 stage=damage hp=63 state=idle
+NATURAL tick=9720 stage=damage hp=63 state=idle
+NATURAL tick=9840 stage=damage hp=63 state=leap
+NATURAL tick=9960 stage=damage hp=63 state=burst_windup
+NATURAL tick=10080 stage=damage hp=63 state=leap_windup
+NATURAL tick=10200 stage=damage hp=62 state=idle
+NATURAL tick=10320 stage=damage hp=62 state=idle
+NATURAL tick=10440 stage=damage hp=62 state=leap
+NATURAL tick=10560 stage=damage hp=60 state=burst
+NATURAL tick=10680 stage=damage hp=60 state=leap_windup
+NATURAL tick=10800 stage=damage hp=60 state=idle
+NATURAL tick=10920 stage=damage hp=60 state=idle
+NATURAL tick=11040 stage=damage hp=60 state=idle
+NATURAL tick=11160 stage=damage hp=60 state=idle
+NATURAL tick=11280 stage=damage hp=60 state=leap
+NATURAL tick=11400 stage=damage hp=60 state=burst_windup
+NATURAL tick=11520 stage=damage hp=60 state=idle
+NATURAL tick=11640 stage=damage hp=60 state=idle
+NATURAL tick=11760 stage=damage hp=60 state=idle
+NATURAL tick=11880 stage=damage hp=60 state=leap
+NATURAL tick=12000 stage=damage hp=60 state=burst_windup
+NATURAL tick=12120 stage=damage hp=60 state=leap_windup
+NATURAL tick=12240 stage=damage hp=60 state=idle
+NATURAL tick=12360 stage=damage hp=60 state=idle
+NATURAL tick=12480 stage=damage hp=60 state=leap
+NATURAL tick=12600 stage=damage hp=60 state=burst
+NATURAL tick=12720 stage=damage hp=60 state=leap_windup
+NATURAL tick=12840 stage=damage hp=60 state=idle
+NATURAL tick=12960 stage=damage hp=60 state=idle
+NATURAL tick=13080 stage=damage hp=60 state=idle
+NATURAL tick=13200 stage=damage hp=60 state=burst
+NATURAL tick=13320 stage=damage hp=60 state=leap
+NATURAL tick=13440 stage=damage hp=60 state=burst_windup
+NATURAL tick=13560 stage=damage hp=60 state=idle
+NATURAL tick=13680 stage=damage hp=60 state=idle
+NATURAL tick=13800 stage=damage hp=60 state=idle
+NATURAL tick=13920 stage=damage hp=60 state=leap
+NATURAL tick=14040 stage=damage hp=60 state=burst_windup
+NATURAL tick=14160 stage=damage hp=60 state=leap_windup
+NATURAL tick=14280 stage=damage hp=60 state=idle
+CHECK false real player pistol damage naturally triggers phase 2
+CHECK false natural exposed core receives one 2x weak hit
+CHECK false exposed window body shot stays ordinary 1x
+CHECK false closed core path stays ordinary 1x
+CHECK true both actors remain alive for the bounded verification
+saved C:/Users/stanl/Github/Nest-Egg/pm/Nest-Egg/attachments/NE-248-native-natural-2026-11-11/right/summary.png (OK)
+NATURAL_CORE checks=10 failures=4

@@ -1,0 +1,43 @@
+  [comfy] another GPU job is running; waiting for it to finish
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.359 - Forward+ - Using Device #0: AMD - AMD Radeon RX 9070 XT
+
+CHECK true player retains authored one-second hit invulnerability
+CHECK true arena uses the active authored first chapter
+CHECK true real boss exposes the authored core hurt part
+CHECK true boss starts with original 90 HP and phase 1
+CHECK true actual Player uses unchanged starting pistol
+NATURAL tick=0 stage=damage hp=90 state=intro
+INPUT_CONTRACT {"aim_error_degrees":-1.0,"canvas_transform":"[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-456.3279, -346.5599)]","final_transform":"[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]","flying_player_pistol":0,"intended_world":[],"magazine":12,"mouse_viewport":"(7.0, 354.5)","mouse_world_error":-1.0,"player_state":0,"using_gamepad":false,"viewport_rect":"[P: (0.0, 0.0), S: (640.0, 360.0)]","warp_logical":"(0.0, 0.0)","warp_window":"(0.0, 0.0)","window_focus":true,"window_size":"(1280, 720)","world_mouse":[241.316680908203,365.135437011719]}
+NATURAL tick=120 stage=damage hp=86 state=idle
+INPUT_CONTRACT {"aim_error_degrees":0.0127212273291487,"canvas_transform":"[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-497.5997, -346.4396)]","final_transform":"[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]","flying_player_pistol":1,"intended_world":[467.599914550781,295.0],"magazine":7,"mouse_viewport":"(401.0, 220.0)","mouse_world_error":0.421345740556717,"player_state":0,"using_gamepad":false,"viewport_rect":"[P: (0.0, 0.0), S: (640.0, 360.0)]","warp_logical":"(400.192, 219.9603)","warp_window":"(800.384, 439.9207)","window_focus":true,"window_size":"(1280, 720)","world_mouse":[468.020751953125,295.020690917969]}
+NATURAL tick=240 stage=damage hp=81 state=leap
+INPUT_CONTRACT {"aim_error_degrees":0.195289142274975,"canvas_transform":"[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-311.1342, -302.467)]","final_transform":"[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]","flying_player_pistol":0,"intended_world":[287.213012695313,292.688903808594],"magazine":2,"mouse_viewport":"(236.0, 261.0)","mouse_world_error":2.37991428375244,"player_state":0,"using_gamepad":false,"viewport_rect":"[P: (0.0, 0.0), S: (640.0, 360.0)]","warp_logical":"(240.3147, 259.4955)","warp_window":"(480.6294, 518.9911)","window_focus":true,"window_size":"(1280, 720)","world_mouse":[284.965789794922,293.472473144531]}
+NATURAL tick=360 stage=damage hp=74 state=burst
+INPUT_CONTRACT {"aim_error_degrees":0.031171279159699,"canvas_transform":"[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-109.8464, -346.5464)]","final_transform":"[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]","flying_player_pistol":1,"intended_world":[260.676635742188,294.925231933594],"magazine":9,"mouse_viewport":"(390.5, 219.5)","mouse_world_error":0.135214149951935,"player_state":0,"using_gamepad":false,"viewport_rect":"[P: (0.0, 0.0), S: (640.0, 360.0)]","warp_logical":"(390.6526, 219.71)","warp_window":"(781.3053, 439.42)","window_focus":true,"window_size":"(1280, 720)","world_mouse":[260.597137451172,294.815856933594]}
+NATURAL tick=480 stage=damage hp=67 state=leap
+INPUT_CONTRACT {"aim_error_degrees":0.533021933051418,"canvas_transform":"[X: (1.92, 0.000059), Y: (-0.000059, 1.92), O: (-245.3702, -347.1352)]","final_transform":"[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]","flying_player_pistol":0,"intended_world":[236.121917724609,288.257415771484],"magazine":3,"mouse_viewport":"(212.5, 204.5)","mouse_world_error":2.54682326316834,"player_state":0,"using_gamepad":false,"viewport_rect":"[P: (0.0, 0.0), S: (640.0, 360.0)]","warp_logical":"(207.9667, 206.333)","warp_window":"(415.9333, 412.6661)","window_focus":true,"window_size":"(1280, 720)","world_mouse":[238.483001708984,287.302642822266]}
+NATURAL tick=600 stage=damage hp=61 state=idle
+INPUT_CONTRACT {"aim_error_degrees":0.396835458201195,"canvas_transform":"[X: (1.92, -0.00003), Y: (0.00003, 1.92), O: (-261.2418, -346.5353)]","final_transform":"[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]","flying_player_pistol":0,"intended_world":[194.985885620117,294.925231933594],"magazine":0,"mouse_viewport":"(114.0, 219.5)","mouse_world_error":0.461711794137955,"player_state":0,"using_gamepad":false,"viewport_rect":"[P: (0.0, 0.0), S: (640.0, 360.0)]","warp_logical":"(113.14, 219.7151)","warp_window":"(226.28, 439.4302)","window_focus":true,"window_size":"(1280, 720)","world_mouse":[195.433807373047,294.813232421875]}
+NATURAL tick=720 stage=damage hp=58 state=idle
+INPUT_CONTRACT {"aim_error_degrees":0.00960111237268563,"canvas_transform":"[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-334.4859, -346.5587)]","final_transform":"[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]","flying_player_pistol":1,"intended_world":[215.585998535156,294.925231933594],"magazine":8,"mouse_viewport":"(79.0, 219.5)","mouse_world_error":0.250811815261841,"player_state":0,"using_gamepad":false,"viewport_rect":"[P: (0.0, 0.0), S: (640.0, 360.0)]","warp_logical":"(79.43918, 219.6976)","warp_window":"(158.8784, 439.3952)","window_focus":true,"window_size":"(1280, 720)","world_mouse":[215.357269287109,294.822326660156]}
+NATURAL tick=840 stage=damage hp=56 state=idle
+INPUT_CONTRACT {"aim_error_degrees":1.29764277425328,"canvas_transform":"[X: (1.92, -0.000012), Y: (0.000012, 1.92), O: (-249.4602, -333.0266)]","final_transform":"[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]","flying_player_pistol":0,"intended_world":[472.91943359375,294.925231933594],"magazine":6,"mouse_viewport":"(632.0, 235.0)","mouse_world_error":13.8582944869995,"player_state":0,"using_gamepad":false,"viewport_rect":"[P: (0.0, 0.0), S: (640.0, 360.0)]","warp_logical":"(658.5486, 233.2239)","warp_window":"(1317.097, 466.4478)","window_focus":true,"window_size":"(1280, 720)","world_mouse":[459.092041015625,295.850189208984]}
+NATURAL tick=960 stage=damage hp=47 state=idle
+INPUT_CONTRACT {"aim_error_degrees":0.0298983026531379,"canvas_transform":"[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-472.8753, -346.5591)]","final_transform":"[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]","flying_player_pistol":0,"intended_world":[453.519317626953,294.925231933594],"magazine":0,"mouse_viewport":"(398.0, 219.5)","mouse_world_error":0.119815587997437,"player_state":0,"using_gamepad":false,"viewport_rect":"[P: (0.0, 0.0), S: (640.0, 360.0)]","warp_logical":"(397.8816, 219.6972)","warp_window":"(795.7632, 439.3944)","window_focus":true,"window_size":"(1280, 720)","world_mouse":[453.580993652344,294.822509765625]}
+saved C:/Users/stanl/Github/Nest-Egg/pm/Nest-Egg/attachments/NE-248-native-natural-2026-11-11/diagnostic-parse-mouse/phase2.png (OK)
+NATURAL tick=1080 stage=wait_core hp=45 state=phase_shift
+INPUT_CONTRACT {"aim_error_degrees":0.0268264217388713,"canvas_transform":"[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-445.628, -346.856)]","final_transform":"[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]","flying_player_pistol":0,"intended_world":[428.970092773438,246.075927734375],"magazine":10,"mouse_viewport":"(377.5, 125.5)","mouse_world_error":0.263768315315247,"player_state":0,"using_gamepad":false,"viewport_rect":"[P: (0.0, 0.0), S: (640.0, 360.0)]","warp_logical":"(377.9945, 125.6097)","warp_window":"(755.989, 251.2194)","window_focus":true,"window_size":"(1280, 720)","world_mouse":[428.712585449219,246.018798828125]}
+CHECK true real player pistol damage naturally triggers phase 2
+CHECK false natural exposed core receives one 2x weak hit
+CHECK false exposed window body shot stays ordinary 1x
+CHECK false closed core path stays ordinary 1x
+CHECK true both actors remain alive for the bounded verification
+CHECK true core shot uses the requested natural facing
+CHECK true core comparison isolates the part multiplier from leap vulnerability
+CHECK true exposed core real pistol resolves core with 2 damage and weak flag
+CHECK true core hit feedback lies inside the selected authored core
+CHECK true actual weak hit marker is emitted for core hit
+saved C:/Users/stanl/Github/Nest-Egg/pm/Nest-Egg/attachments/NE-248-native-natural-2026-11-11/diagnostic-parse-mouse/core_hit.png (OK)
+saved C:/Users/stanl/Github/Nest-Egg/pm/Nest-Egg/attachments/NE-248-native-natural-2026-11-11/diagnostic-parse-mouse/summary.png (OK)
+NATURAL_CORE checks=15 failures=3

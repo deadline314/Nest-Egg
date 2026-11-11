@@ -1,0 +1,1677 @@
+{
+  "captures": [],
+  "chapter": "ch1_kasa",
+  "checks": [
+    {
+      "message": "player retains authored one-second hit invulnerability",
+      "passed": true
+    },
+    {
+      "message": "arena uses the active authored first chapter",
+      "passed": true
+    },
+    {
+      "message": "real boss exposes the authored core hurt part",
+      "passed": true
+    },
+    {
+      "message": "boss starts with original 90 HP and phase 1",
+      "passed": true
+    },
+    {
+      "message": "actual Player uses unchanged starting pistol",
+      "passed": true
+    },
+    {
+      "message": "real player pistol damage naturally triggers phase 2",
+      "passed": false
+    },
+    {
+      "message": "natural exposed core receives one 2x weak hit",
+      "passed": false
+    },
+    {
+      "message": "exposed window body shot stays ordinary 1x",
+      "passed": false
+    },
+    {
+      "message": "closed core path stays ordinary 1x",
+      "passed": false
+    },
+    {
+      "message": "both actors remain alive for the bounded verification",
+      "passed": true
+    }
+  ],
+  "diagnostic_ticks": 1200,
+  "engine": {
+    "build": "official",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "hex": 263938,
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "status": "stable",
+    "string": "4.7.2-stable (official)",
+    "timestamp": 0
+  },
+  "gpu": "AMD Radeon RX 9070 XT",
+  "hdr_2d": true,
+  "hits": [],
+  "initial_side": 1,
+  "logic_only": false,
+  "logical_warp": false,
+  "mode": "current",
+  "player_hit_invulnerability": 1.0,
+  "renderer": "forward_plus",
+  "scope": "actual Level and Player public movement/shoot/reload/mouse input in explicitly arranged arena; player 999 HP with authored hit invulnerability; no enemy HP/phase/FSM/core writes; not full campaign or human device play",
+  "shots": [],
+  "source_sha256": {
+    "res://core/aim_input.gd": "389cbabc618fa544675fa8804f16cc5086d05aa3d8f8206a9d9a7be3d961bd8a",
+    "res://core/components/health_component.gd": "ab3b34ec9a9d00309246cae2036ef719a19ebf6a7a8b2114540916859251054a",
+    "res://core/components/hurtbox.gd": "53f3673f57b7ab2a6f26c20462840463794188401e09b2bacf4e05c0fe00b2e8",
+    "res://data/enemies/warden.tres": "83f99f790b969f6526675b49d0ece859173160e2e8955f277e65fbd4b6a0b6ad",
+    "res://data/player/player_tuning.tres": "495611fa31574ee4059ae1661294ebe05626c0fb07a9f2ab74f675da474d6d98",
+    "res://data/projectiles/pistol_shot.tres": "424eb245b7ffdf2216c96c484b93897b018cf3292cc672c6b06bac837a1021c7",
+    "res://data/weapons/pistol.tres": "4334479e906707033f0df031d8c5c6f7ed87c72a07516664a4f80fb324eaa0f8",
+    "res://game/enemies/warden_boss.gd": "3410ce2b8680b63b92f8f88b6f65e5cb42d3d9fed32f28bf29b63f5549054aba",
+    "res://game/player/player.gd": "eb3963150f2b6e878ebab9b26e79fa659dddc3cfa84ec7f7970cc58564194c2a",
+    "res://game/projectiles/projectile.gd": "8018c6058da731a9cfc2165f1e4365ce57264a8c28a7910a66ee3c4857712c50",
+    "res://tools/ne248_natural_core_probe.gd": "6d0ed66c5a87cefda9c266b9fb17bb0a685e038db61e05ae52244234b27ebb73"
+  },
+  "timeline": [
+    {
+      "body_scale": 1.0,
+      "boss": [
+        480.0,
+        320.0
+      ],
+      "boss_facing": -1,
+      "core": [
+        480.0,
+        320.0
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": -1.0,
+        "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-0.000117, -346.5599)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": -1.0,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(0.0, 0.0)",
+        "warp_window": "(0.0, 0.0)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -20.0520267486572,
+          461.489624023438
+        ]
+      },
+      "kind": "sample",
+      "phase": 1,
+      "player": [
+        288.0,
+        320.0
+      ],
+      "stage": "damage",
+      "state": "intro",
+      "t": 0.0
+    },
+    {
+      "body_scale": 1.0,
+      "boss": [
+        480.0,
+        320.0
+      ],
+      "boss_facing": -1,
+      "core": [
+        480.0,
+        320.0
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": -1.0,
+        "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-0.000117, -346.5599)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": -1.0,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(0.0, 0.0)",
+        "warp_window": "(0.0, 0.0)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -20.0520267486572,
+          461.489624023438
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        288.0,
+        320.0
+      ],
+      "stage": "damage",
+      "state": "intro",
+      "t": 0.0166666666666667
+    },
+    {
+      "body_scale": 1.0,
+      "boss": [
+        480.0,
+        320.0
+      ],
+      "boss_facing": -1,
+      "core": [
+        475.630279541016,
+        247.064727783203
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 142.638077947043,
+        "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-6.118124, -346.5599)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          480.0,
+          295.0
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 524.017333984375,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(915.4818, 219.84)",
+        "warp_window": "(1830.964, 439.6799)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -16.8655643463135,
+          461.489624023438
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        301.694458007813,
+        320.0
+      ],
+      "stage": "damage",
+      "state": "idle",
+      "t": 1.41666666666667
+    },
+    {
+      "body_scale": 1.0,
+      "boss": [
+        467.233245849609,
+        320.0
+      ],
+      "boss_facing": -1,
+      "core": [
+        463.573272705078,
+        247.496215820313
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 142.114407343378,
+        "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-5.409579, -346.5599)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          467.599914550781,
+          295.0
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 512.623901367188,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(892.3821, 219.84)",
+        "warp_window": "(1784.764, 439.6799)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -17.23459815979,
+          461.489624023438
+        ]
+      },
+      "kind": "sample",
+      "phase": 1,
+      "player": [
+        300.055572509766,
+        320.0
+      ],
+      "stage": "damage",
+      "state": "idle",
+      "t": 2.0
+    },
+    {
+      "body_scale": 1.0,
+      "boss": [
+        456.599853515625,
+        320.0
+      ],
+      "boss_facing": -1,
+      "core": [
+        452.877960205078,
+        248.327606201172
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 141.483256882934,
+        "canvas_transform": "[X: (1.92, 0.000116), Y: (-0.000116, 1.92), O: (0.033566, -346.2191)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          456.599853515625,
+          295.0
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 504.824005126953,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(876.6709, 220.2338)",
+        "warp_window": "(1753.342, 440.4676)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -20.0417003631592,
+          461.313323974609
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        289.333343505859,
+        320.0
+      ],
+      "stage": "damage",
+      "state": "leap_windup",
+      "t": 2.51666666666666
+    },
+    {
+      "body_scale": 1.0,
+      "boss": [
+        453.434844970703,
+        313.272155761719
+      ],
+      "boss_facing": -1,
+      "core": [
+        451.357543945313,
+        241.399703979492
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 141.453955371394,
+        "canvas_transform": "[X: (1.919999, 0.001517), Y: (-0.001517, 1.919999), O: (0.752017, -347.86)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          456.599853515625,
+          295.0
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 505.145874023438,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(876.9759, 219.2325)",
+        "warp_window": "(1753.952, 438.4651)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -20.0785694122314,
+          462.1826171875
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        289.333343505859,
+        320.0
+      ],
+      "stage": "damage",
+      "state": "leap",
+      "t": 3.11666666666666
+    },
+    {
+      "body_scale": 1.0,
+      "boss": [
+        284.076782226563,
+        319.925231933594
+      ],
+      "boss_facing": -1,
+      "core": [
+        277.170318603516,
+        252.423110961914
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 125.674756728183,
+        "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-0.000117, -346.5599)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          287.213012695313,
+          292.688903808594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 350.578796386719,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(551.4488, 215.4026)",
+        "warp_window": "(1102.898, 430.8053)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -20.0520267486572,
+          461.489624023438
+        ]
+      },
+      "kind": "sample",
+      "phase": 1,
+      "player": [
+        160.166656494141,
+        320.0
+      ],
+      "stage": "damage",
+      "state": "leap",
+      "t": 3.99999999999999
+    },
+    {
+      "body_scale": 2.0,
+      "boss": [
+        284.076782226563,
+        319.925231933594
+      ],
+      "boss_facing": -1,
+      "core": [
+        277.623352050781,
+        250.761383056641
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 124.249596776724,
+        "canvas_transform": "[X: (1.919999, -0.001364), Y: (0.001364, 1.919999), O: (3.997138, -350.4979)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          284.076782226563,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 349.846557617188,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(549.8267, 215.3708)",
+        "warp_window": "(1099.653, 430.7417)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -22.4632949829102,
+          463.524749755859
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        157.666656494141,
+        320.0
+      ],
+      "stage": "damage",
+      "state": "idle",
+      "t": 4.03333333333332
+    },
+    {
+      "body_scale": 2.0,
+      "boss": [
+        260.676635742188,
+        319.925231933594
+      ],
+      "boss_facing": -1,
+      "core": [
+        256.968292236328,
+        248.628326416016
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 112.515304461886,
+        "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-0.000117, -346.5599)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          260.676635742188,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 326.423461914063,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(500.4989, 219.6964)",
+        "warp_window": "(1000.998, 439.3928)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -20.0520267486572,
+          461.489624023438
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        86.101921081543,
+        319.999267578125
+      ],
+      "stage": "damage",
+      "state": "burst_windup",
+      "t": 5.19999999999999
+    },
+    {
+      "body_scale": 1.0,
+      "boss": [
+        260.676635742188,
+        319.925231933594
+      ],
+      "boss_facing": -1,
+      "core": [
+        254.488662719727,
+        250.645874023438
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 112.515304461886,
+        "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-0.000117, -346.5599)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          260.676635742188,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 326.423461914063,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(500.4989, 219.6964)",
+        "warp_window": "(1000.998, 439.3928)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -20.0520267486572,
+          461.489624023438
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        86.101921081543,
+        319.999267578125
+      ],
+      "stage": "damage",
+      "state": "burst",
+      "t": 5.79999999999998
+    },
+    {
+      "body_scale": 1.0,
+      "boss": [
+        260.676635742188,
+        319.925231933594
+      ],
+      "boss_facing": -1,
+      "core": [
+        257.277435302734,
+        246.930816650391
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 112.515304461886,
+        "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-0.000117, -346.5599)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          260.676635742188,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 326.423461914063,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(500.4989, 219.6964)",
+        "warp_window": "(1000.998, 439.3928)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -20.0520267486572,
+          461.489624023438
+        ]
+      },
+      "kind": "sample",
+      "phase": 1,
+      "player": [
+        86.101921081543,
+        319.999267578125
+      ],
+      "stage": "damage",
+      "state": "burst",
+      "t": 5.99999999999998
+    },
+    {
+      "body_scale": 1.0,
+      "boss": [
+        260.676635742188,
+        319.925231933594
+      ],
+      "boss_facing": -1,
+      "core": [
+        257.497100830078,
+        246.83251953125
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 112.515304461886,
+        "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-0.000117, -346.5599)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          260.676635742188,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 326.423461914063,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(500.4989, 219.6964)",
+        "warp_window": "(1000.998, 439.3928)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -20.0520267486572,
+          461.489624023438
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        86.101921081543,
+        319.999267578125
+      ],
+      "stage": "damage",
+      "state": "idle",
+      "t": 6.19999999999998
+    },
+    {
+      "body_scale": 1.0,
+      "boss": [
+        237.276489257813,
+        319.925231933594
+      ],
+      "boss_facing": -1,
+      "core": [
+        233.662231445313,
+        248.339981079102
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 110.050617039508,
+        "canvas_transform": "[X: (1.92, -0.000414), Y: (0.000414, 1.92), O: (-0.007121, -347.0045)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          237.276489257813,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 306.735717773438,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(455.6859, 219.1535)",
+        "warp_window": "(911.3718, 438.3071)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -20.1480140686035,
+          461.716796875
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        81.2319641113281,
+        319.998931884766
+      ],
+      "stage": "damage",
+      "state": "leap_windup",
+      "t": 7.38333333333331
+    },
+    {
+      "body_scale": 1.0,
+      "boss": [
+        235.784774780273,
+        313.257446289063
+      ],
+      "boss_facing": -1,
+      "core": [
+        233.998748779297,
+        241.384994506836
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 118.091020107799,
+        "canvas_transform": "[X: (1.92, 0.000639), Y: (-0.000639, 1.92), O: (-0.654714, -346.4051)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          237.276489257813,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 306.076385498047,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(454.7277, 220.0028)",
+        "warp_window": "(909.4554, 440.0056)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -19.557580947876,
+          461.41552734375
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        157.731964111328,
+        319.998931884766
+      ],
+      "stage": "damage",
+      "state": "leap",
+      "t": 7.98333333333331
+    },
+    {
+      "body_scale": 1.0,
+      "boss": [
+        232.801864624023,
+        300.674133300781
+      ],
+      "boss_facing": -1,
+      "core": [
+        230.799911499023,
+        229.669769287109
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 127.194104988295,
+        "canvas_transform": "[X: (1.92, 0.000216), Y: (-0.000216, 1.92), O: (-0.28187, -346.3789)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          234.293319702148,
+          281.840789794922
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 311.177154541016,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(449.5005, 194.8058)",
+        "warp_window": "(899.0009, 389.6117)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -19.8534564971924,
+          461.397583007813
+        ]
+      },
+      "kind": "sample",
+      "phase": 1,
+      "player": [
+        161.981964111328,
+        319.998931884766
+      ],
+      "stage": "damage",
+      "state": "leap",
+      "t": 7.99999999999998
+    },
+    {
+      "body_scale": 2.0,
+      "boss": [
+        155.246200561523,
+        319.925231933594
+      ],
+      "boss_facing": -1,
+      "core": [
+        148.803283691406,
+        250.821350097656
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 22.5923379535089,
+        "canvas_transform": "[X: (1.919998, 0.002337), Y: (-0.002337, 1.919998), O: (-1.039774, -340.3697)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          155.246200561523,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 238.815734863281,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(296.3434, 226.2492)",
+        "warp_window": "(592.6868, 452.4984)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -18.9526786804199,
+          458.288940429688
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        274.606964111328,
+        319.998931884766
+      ],
+      "stage": "damage",
+      "state": "idle",
+      "t": 8.90000000000002
+    },
+    {
+      "body_scale": 2.0,
+      "boss": [
+        177.546325683594,
+        319.925231933594
+      ],
+      "boss_facing": 1,
+      "core": [
+        181.206253051758,
+        248.88996887207
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 22.3108778106438,
+        "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-182.8344, -346.5599)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          177.179656982422,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 195.31721496582,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(157.3505, 219.6964)",
+        "warp_window": "(314.7009, 439.3928)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          75.174201965332,
+          461.489624023438
+        ]
+      },
+      "kind": "sample",
+      "phase": 1,
+      "player": [
+        406.489776611328,
+        303.45263671875
+      ],
+      "stage": "damage",
+      "state": "idle",
+      "t": 10.0000000000001
+    },
+    {
+      "body_scale": 2.0,
+      "boss": [
+        178.646331787109,
+        319.925231933594
+      ],
+      "boss_facing": 1,
+      "core": [
+        182.333511352539,
+        248.66015625
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 22.9941921333266,
+        "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-197.4436, -346.5599)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          178.646331787109,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 192.180755615234,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(145.5573, 219.6964)",
+        "warp_window": "(291.1146, 439.3928)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          82.7831497192383,
+          461.489624023438
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        414.989776611328,
+        306.285949707031
+      ],
+      "stage": "damage",
+      "state": "burst_windup",
+      "t": 10.0833333333334
+    },
+    {
+      "body_scale": 1.0,
+      "boss": [
+        178.646331787109,
+        319.925231933594
+      ],
+      "boss_facing": 1,
+      "core": [
+        184.869140625,
+        250.641189575195
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 25.8775308782381,
+        "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-327.5047, -346.5599)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          178.646331787109,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 168.921875,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(15.49619, 219.6964)",
+        "warp_window": "(30.99237, 439.3928)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          150.523315429688,
+          461.489624023438
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        475.239776611328,
+        319.925262451172
+      ],
+      "stage": "damage",
+      "state": "burst",
+      "t": 10.6833333333334
+    },
+    {
+      "body_scale": 1.0,
+      "boss": [
+        178.646331787109,
+        319.925231933594
+      ],
+      "boss_facing": 1,
+      "core": [
+        181.779205322266,
+        246.75944519043
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 26.392602273738,
+        "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-338.8002, -346.5599)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          178.646331787109,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 168.042587280273,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(4.200714, 219.6964)",
+        "warp_window": "(8.401428, 439.3928)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          156.406372070313,
+          461.489624023438
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        475.239776611328,
+        319.925262451172
+      ],
+      "stage": "damage",
+      "state": "idle",
+      "t": 11.0833333333335
+    },
+    {
+      "body_scale": 1.0,
+      "boss": [
+        198.746444702148,
+        319.925231933594
+      ],
+      "boss_facing": 1,
+      "core": [
+        202.406372070313,
+        247.931564331055
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 26.1263307640396,
+        "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-339.3597, -346.5599)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          198.379776000977,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 171.700576782227,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(41.52939, 219.6964)",
+        "warp_window": "(83.05878, 439.3928)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          156.697784423828,
+          461.489624023438
+        ]
+      },
+      "kind": "sample",
+      "phase": 1,
+      "player": [
+        475.239776611328,
+        319.925262451172
+      ],
+      "stage": "damage",
+      "state": "idle",
+      "t": 12.0000000000002
+    },
+    {
+      "body_scale": 1.0,
+      "boss": [
+        202.046463012695,
+        319.925231933594
+      ],
+      "boss_facing": 1,
+      "core": [
+        205.738143920898,
+        248.300796508789
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 24.5722526995447,
+        "canvas_transform": "[X: (1.92, -0.000227), Y: (0.000227, 1.92), O: (-348.6731, -346.1181)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          202.046463012695,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 171.224761962891,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(39.32288, 220.0925)",
+        "warp_window": "(78.64575, 440.185)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          161.494079589844,
+          461.278533935547
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        486.462585449219,
+        304.591125488281
+      ],
+      "stage": "damage",
+      "state": "leap_windup",
+      "t": 12.2500000000002
+    },
+    {
+      "body_scale": 1.0,
+      "boss": [
+        206.713684082031,
+        313.257751464844
+      ],
+      "boss_facing": 1,
+      "core": [
+        208.785430908203,
+        241.385299682617
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 26.2601956415827,
+        "canvas_transform": "[X: (1.92, 0.001211), Y: (-0.001211, 1.92), O: (-361.337, -346.7788)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          202.046463012695,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 169.929275512695,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(26.23495, 219.7223)",
+        "warp_window": "(52.46991, 439.4445)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          168.435394287109,
+          461.497314453125
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        487.462585449219,
+        319.9931640625
+      ],
+      "stage": "damage",
+      "state": "leap",
+      "t": 12.8500000000002
+    },
+    {
+      "body_scale": 2.0,
+      "boss": [
+        458.713287353516,
+        319.925231933594
+      ],
+      "boss_facing": 1,
+      "core": [
+        465.253265380859,
+        250.822799682617
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 133.412623397377,
+        "canvas_transform": "[X: (1.92, -0.001478), Y: (0.001478, 1.92), O: (-186.4326, -347.9453)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          458.713287353516,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 417.066192626953,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(694.7325, 217.6333)",
+        "warp_window": "(1389.465, 435.2666)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          76.692497253418,
+          462.270172119141
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        375.7958984375,
+        319.9931640625
+      ],
+      "stage": "damage",
+      "state": "idle",
+      "t": 13.7666666666669
+    },
+    {
+      "body_scale": 2.0,
+      "boss": [
+        453.646575927734,
+        319.925231933594
+      ],
+      "boss_facing": -1,
+      "core": [
+        449.937744140625,
+        247.510894775391
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 136.167047444346,
+        "canvas_transform": "[X: (1.92, -0.000023), Y: (0.000023, 1.92), O: (-141.3802, -346.5693)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          454.013244628906,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 433.697937011719,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(730.3317, 219.6768)",
+        "warp_window": "(1460.663, 439.3536)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          53.5780258178711,
+          461.4951171875
+        ]
+      },
+      "kind": "sample",
+      "phase": 1,
+      "player": [
+        338.2958984375,
+        319.9931640625
+      ],
+      "stage": "damage",
+      "state": "idle",
+      "t": 14.0000000000003
+    },
+    {
+      "body_scale": 2.0,
+      "boss": [
+        435.313140869141,
+        319.925231933594
+      ],
+      "boss_facing": -1,
+      "core": [
+        431.568084716797,
+        247.920303344727
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 139.244074986193,
+        "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-0.48085, -346.5599)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          435.313140869141,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 484.637145996094,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(835.3203, 219.6964)",
+        "warp_window": "(1670.641, 439.3928)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -19.8016452789307,
+          461.489624023438
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        260.928955078125,
+        319.996276855469
+      ],
+      "stage": "damage",
+      "state": "burst_windup",
+      "t": 14.9333333333337
+    },
+    {
+      "body_scale": 1.0,
+      "boss": [
+        435.313140869141,
+        319.925231933594
+      ],
+      "boss_facing": -1,
+      "core": [
+        429.004333496094,
+        250.64469909668
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 139.270507818281,
+        "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-0.005537, -346.5599)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          435.313140869141,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 484.86962890625,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(835.7955, 219.6964)",
+        "warp_window": "(1671.591, 439.3928)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -20.0492038726807,
+          461.489624023438
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        260.928955078125,
+        319.996276855469
+      ],
+      "stage": "damage",
+      "state": "burst",
+      "t": 15.5333333333337
+    },
+    {
+      "body_scale": 1.0,
+      "boss": [
+        435.313140869141,
+        319.925231933594
+      ],
+      "boss_facing": -1,
+      "core": [
+        432.089996337891,
+        246.800842285156
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 139.270794686227,
+        "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-0.000293, -346.5599)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          435.313140869141,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 484.872222900391,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(835.8008, 219.6964)",
+        "warp_window": "(1671.602, 439.3928)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -20.0519351959229,
+          461.489624023438
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        260.928955078125,
+        319.996276855469
+      ],
+      "stage": "damage",
+      "state": "idle",
+      "t": 15.9333333333337
+    },
+    {
+      "body_scale": 1.0,
+      "boss": [
+        433.913116455078,
+        319.925231933594
+      ],
+      "boss_facing": -1,
+      "core": [
+        430.921112060547,
+        247.426651000977
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 139.22970426818,
+        "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-0.000146, -346.5599)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          434.27978515625,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 483.901916503906,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(833.817, 219.6964)",
+        "warp_window": "(1667.634, 439.3928)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -20.0520114898682,
+          461.489624023438
+        ]
+      },
+      "kind": "sample",
+      "phase": 1,
+      "player": [
+        260.928955078125,
+        319.996276855469
+      ],
+      "stage": "damage",
+      "state": "idle",
+      "t": 16.0000000000004
+    },
+    {
+      "body_scale": 1.0,
+      "boss": [
+        411.912994384766,
+        319.925231933594
+      ],
+      "boss_facing": -1,
+      "core": [
+        408.288909912109,
+        247.730453491211
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 137.432736139063,
+        "canvas_transform": "[X: (1.92, 0.000455), Y: (-0.000455, 1.92), O: (0.040369, -346.2427)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          411.912994384766,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 462.825866699219,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(790.7789, 220.2011)",
+        "warp_window": "(1581.558, 440.4022)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -19.9637699127197,
+          461.3291015625
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        244.811920166016,
+        319.991516113281
+      ],
+      "stage": "damage",
+      "state": "leap_windup",
+      "t": 17.116666666667
+    },
+    {
+      "body_scale": 1.0,
+      "boss": [
+        408.779388427734,
+        313.257598876953
+      ],
+      "boss_facing": -1,
+      "core": [
+        406.960296630859,
+        241.385147094727
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 137.387424664109,
+        "canvas_transform": "[X: (1.919999, 0.001991), Y: (-0.001991, 1.919999), O: (-0.755495, -347.3217)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          411.912994384766,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 462.302459716797,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(789.5298, 219.7545)",
+        "warp_window": "(1579.06, 439.5091)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -19.1796169281006,
+          461.906433105469
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        244.811920166016,
+        319.991516113281
+      ],
+      "stage": "damage",
+      "state": "leap",
+      "t": 17.7166666666669
+    },
+    {
+      "body_scale": 1.0,
+      "boss": [
+        352.382720947266,
+        236.007675170898
+      ],
+      "boss_facing": -1,
+      "core": [
+        345.382446289063,
+        168.096466064453
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 162.50298646873,
+        "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-0.000117, -346.5599)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          355.515869140625,
+          213.174346923828
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 450.235168457031,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(682.5903, 62.73474)",
+        "warp_window": "(1365.181, 125.4695)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -20.0520267486572,
+          461.489624023438
+        ]
+      },
+      "kind": "sample",
+      "phase": 1,
+      "player": [
+        205.645263671875,
+        319.991516113281
+      ],
+      "stage": "damage",
+      "state": "leap",
+      "t": 18.0000000000003
+    },
+    {
+      "body_scale": 2.0,
+      "boss": [
+        239.589401245117,
+        319.925231933594
+      ],
+      "boss_facing": -1,
+      "core": [
+        233.217391967773,
+        250.765533447266
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 116.245120503468,
+        "canvas_transform": "[X: (1.92, -0.000014), Y: (0.000014, 1.92), O: (-3.627308, -348.5954)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          239.589401245117,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 307.466918945313,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(456.3884, 217.6576)",
+        "warp_window": "(912.7768, 435.3152)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -18.1662311553955,
+          462.549621582031
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        113.589706420898,
+        319.991516113281
+      ],
+      "stage": "damage",
+      "state": "idle",
+      "t": 18.6333333333336
+    },
+    {
+      "body_scale": 2.0,
+      "boss": [
+        216.189270019531,
+        319.925231933594
+      ],
+      "boss_facing": -1,
+      "core": [
+        212.481948852539,
+        247.72981262207
+      ],
+      "core_scale": 1.0,
+      "hp": 90,
+      "input_contract": {
+        "aim_error_degrees": 83.7589103201898,
+        "canvas_transform": "[X: (1.92, 0.0), Y: (0.0, 1.92), O: (-0.000117, -346.5599)]",
+        "final_transform": "[X: (2.0, 0.0), Y: (0.0, 2.0), O: (0.0, 0.0)]",
+        "flying_player_pistol": 0,
+        "intended_world": [
+          216.189270019531,
+          294.925231933594
+        ],
+        "magazine": 12,
+        "mouse_viewport": "(-38.5, 539.5)",
+        "mouse_world_error": 289.056488037109,
+        "player_state": 0,
+        "using_gamepad": false,
+        "viewport_rect": "[P: (0.0, 0.0), S: (640.0, 360.0)]",
+        "warp_logical": "(415.0832, 219.6964)",
+        "warp_window": "(830.1664, 439.3928)",
+        "window_focus": true,
+        "window_size": "(1280, 720)",
+        "world_mouse": [
+          -20.0520267486572,
+          461.489624023438
+        ]
+      },
+      "kind": "state",
+      "phase": 1,
+      "player": [
+        201.59928894043,
+        319.925262451172
+      ],
+      "stage": "damage",
+      "state": "burst_windup",
+      "t": 19.8000000000002
+    }
+  ],
+  "viewport_warp": true
+}

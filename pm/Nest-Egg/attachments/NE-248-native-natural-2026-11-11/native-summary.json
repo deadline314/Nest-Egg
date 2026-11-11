@@ -1,0 +1,148 @@
+{
+  "right": {
+    "probe_checks": 17,
+    "failures": 0,
+    "shots_attempted": 41,
+    "projectile_activations_observed": 39,
+    "projectile_expiries": 41,
+    "expired_without_contact": 0,
+    "boss_damage_events": 39,
+    "markers": {
+      "hit": 40,
+      "weak": 1
+    },
+    "median_shot_attempt_interval": 0.26666666666667016,
+    "gate_samples": {
+      "aim_not_ready": 916,
+      "may_fire_false": 2544,
+      "pistol_in_flight": 493,
+      "reloading": 167
+    },
+    "cases": {
+      "core": [
+        {
+          "t": 31.9333333333328,
+          "hp": [
+            45,
+            43
+          ],
+          "part": "core",
+          "amount": 2,
+          "weak": true,
+          "marker": "weak",
+          "body_scale": 1.0,
+          "core_scale": 2.0,
+          "facing": -1
+        }
+      ],
+      "body": [
+        {
+          "t": 52.7833333333316,
+          "hp": [
+            42,
+            41
+          ],
+          "part": "",
+          "amount": 1,
+          "weak": false,
+          "marker": "hit",
+          "body_scale": 1.0,
+          "core_scale": 2.0,
+          "facing": -1
+        }
+      ],
+      "closed": [
+        {
+          "t": 54.4833333333315,
+          "hp": [
+            41,
+            40
+          ],
+          "part": "core",
+          "amount": 1,
+          "weak": false,
+          "marker": "hit",
+          "body_scale": 1.0,
+          "core_scale": 1.0,
+          "facing": -1
+        }
+      ]
+    },
+    "completed_t": 54.4833333333315,
+    "terminal_positive_life_without_hurtbox_id": 0,
+    "diagnostic_note": "activation_observed samples are a lower bound: a projectile may activate and expire between observer physics callbacks; expiry records count actual completed player_pistol instances"
+  },
+  "left": {
+    "probe_checks": 17,
+    "failures": 0,
+    "shots_attempted": 46,
+    "projectile_activations_observed": 46,
+    "projectile_expiries": 46,
+    "expired_without_contact": 1,
+    "boss_damage_events": 42,
+    "markers": {
+      "hit": 41,
+      "weak": 1
+    },
+    "median_shot_attempt_interval": 0.26666666666669947,
+    "gate_samples": {
+      "aim_not_ready": 767,
+      "may_fire_false": 2216,
+      "pistol_in_flight": 743,
+      "reloading": 174
+    },
+    "cases": {
+      "core": [
+        {
+          "t": 31.3333333333328,
+          "hp": [
+            45,
+            43
+          ],
+          "part": "core",
+          "amount": 2,
+          "weak": true,
+          "marker": "weak",
+          "body_scale": 1.0,
+          "core_scale": 2.0,
+          "facing": 1
+        }
+      ],
+      "body": [
+        {
+          "t": 52.166666666665,
+          "hp": [
+            43,
+            42
+          ],
+          "part": "",
+          "amount": 1,
+          "weak": false,
+          "marker": "hit",
+          "body_scale": 1.0,
+          "core_scale": 2.0,
+          "facing": 1
+        }
+      ],
+      "closed": [
+        {
+          "t": 53.2999999999983,
+          "hp": [
+            42,
+            41
+          ],
+          "part": "core",
+          "amount": 1,
+          "weak": false,
+          "marker": "hit",
+          "body_scale": 1.0,
+          "core_scale": 1.0,
+          "facing": 1
+        }
+      ]
+    },
+    "completed_t": 53.2999999999983,
+    "terminal_positive_life_without_hurtbox_id": 3,
+    "diagnostic_note": "activation_observed samples are a lower bound: a projectile may activate and expire between observer physics callbacks; expiry records count actual completed player_pistol instances"
+  }
+}
