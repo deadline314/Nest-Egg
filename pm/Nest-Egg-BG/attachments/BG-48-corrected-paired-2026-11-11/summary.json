@@ -1,0 +1,562 @@
+[
+  {
+    "case": "paired-related-high-after",
+    "exit": 0,
+    "seconds": 97.55651570000919,
+    "source_after": {
+      "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+      "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+      "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd",
+      "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+      "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+      "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23"
+    },
+    "engine_error_lines": [],
+    "photos": 54,
+    "levels": [
+      {
+        "level": "ch1_handoff",
+        "photos": 9,
+        "player_samples": 6,
+        "player_min": 3.29303994149486,
+        "edge_min": 5.62125467609793,
+        "enemy_min": null,
+        "enemy_samples": 0,
+        "cycle_player_min": null,
+        "cycle_edge_min": null,
+        "all_fixed_aim": true,
+        "probe": {
+          "adapter": "AMD Radeon RX 9070 XT",
+          "brightness": 0.5,
+          "cycle_sample_interval": 0.2,
+          "cycle_samples": 0,
+          "engine": "4.7.2-stable (official)",
+          "fixed_gamepad_aim": true,
+          "fog_hidden": false,
+          "hdr_2d": true,
+          "kind": "stationary lighting fixture",
+          "lamp_hold": 1.0,
+          "paired_fog_clock": 12.0,
+          "quality": 2,
+          "reference_fog": false,
+          "renderer": "forward_plus",
+          "source_sha256": {
+            "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+            "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+            "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+            "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+            "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+            "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+          },
+          "thresholds": {
+            "edge": 1.0,
+            "player": 0.6
+          },
+          "wall_shadows_hidden": false
+        }
+      },
+      {
+        "level": "ch2_market",
+        "photos": 24,
+        "player_samples": 16,
+        "player_min": 2.77886337598026,
+        "edge_min": 4.96315567759568,
+        "enemy_min": null,
+        "enemy_samples": 0,
+        "cycle_player_min": null,
+        "cycle_edge_min": null,
+        "all_fixed_aim": true,
+        "probe": {
+          "adapter": "AMD Radeon RX 9070 XT",
+          "brightness": 0.5,
+          "cycle_sample_interval": 0.2,
+          "cycle_samples": 0,
+          "engine": "4.7.2-stable (official)",
+          "fixed_gamepad_aim": true,
+          "fog_hidden": false,
+          "hdr_2d": true,
+          "kind": "stationary lighting fixture",
+          "lamp_hold": 1.0,
+          "paired_fog_clock": 12.0,
+          "quality": 2,
+          "reference_fog": false,
+          "renderer": "forward_plus",
+          "source_sha256": {
+            "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+            "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+            "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+            "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+            "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+            "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+          },
+          "thresholds": {
+            "edge": 1.0,
+            "player": 0.6
+          },
+          "wall_shadows_hidden": false
+        }
+      },
+      {
+        "level": "ch2_market_gate",
+        "photos": 21,
+        "player_samples": 11,
+        "player_min": 2.32295621624458,
+        "edge_min": 5.01318327232882,
+        "enemy_min": 0.104045372539675,
+        "enemy_samples": 8,
+        "cycle_player_min": null,
+        "cycle_edge_min": null,
+        "all_fixed_aim": true,
+        "probe": {
+          "adapter": "AMD Radeon RX 9070 XT",
+          "brightness": 0.5,
+          "cycle_sample_interval": 0.2,
+          "cycle_samples": 0,
+          "engine": "4.7.2-stable (official)",
+          "fixed_gamepad_aim": true,
+          "fog_hidden": false,
+          "hdr_2d": true,
+          "kind": "stationary lighting fixture",
+          "lamp_hold": 1.0,
+          "paired_fog_clock": 12.0,
+          "quality": 2,
+          "reference_fog": false,
+          "renderer": "forward_plus",
+          "source_sha256": {
+            "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+            "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+            "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+            "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+            "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+            "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+          },
+          "thresholds": {
+            "edge": 1.0,
+            "player": 0.6
+          },
+          "wall_shadows_hidden": false
+        }
+      }
+    ]
+  },
+  {
+    "case": "paired-related-high-before",
+    "exit": 0,
+    "seconds": 99.11608809999598,
+    "source_after": {
+      "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+      "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+      "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd",
+      "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+      "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+      "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23"
+    },
+    "engine_error_lines": [],
+    "photos": 54,
+    "levels": [
+      {
+        "level": "ch1_handoff",
+        "photos": 9,
+        "player_samples": 6,
+        "player_min": 3.210769873559,
+        "edge_min": 5.73275899107597,
+        "enemy_min": null,
+        "enemy_samples": 0,
+        "cycle_player_min": null,
+        "cycle_edge_min": null,
+        "all_fixed_aim": true,
+        "probe": {
+          "adapter": "AMD Radeon RX 9070 XT",
+          "brightness": 0.5,
+          "cycle_sample_interval": 0.2,
+          "cycle_samples": 0,
+          "engine": "4.7.2-stable (official)",
+          "fixed_gamepad_aim": true,
+          "fog_hidden": false,
+          "hdr_2d": true,
+          "kind": "stationary lighting fixture",
+          "lamp_hold": 1.0,
+          "paired_fog_clock": 12.0,
+          "quality": 2,
+          "reference_fog": true,
+          "renderer": "forward_plus",
+          "source_sha256": {
+            "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+            "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+            "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+            "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+            "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+            "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+          },
+          "thresholds": {
+            "edge": 1.0,
+            "player": 0.6
+          },
+          "wall_shadows_hidden": false
+        }
+      },
+      {
+        "level": "ch2_market",
+        "photos": 24,
+        "player_samples": 16,
+        "player_min": 2.66666731739327,
+        "edge_min": 4.83090456212912,
+        "enemy_min": null,
+        "enemy_samples": 0,
+        "cycle_player_min": null,
+        "cycle_edge_min": null,
+        "all_fixed_aim": true,
+        "probe": {
+          "adapter": "AMD Radeon RX 9070 XT",
+          "brightness": 0.5,
+          "cycle_sample_interval": 0.2,
+          "cycle_samples": 0,
+          "engine": "4.7.2-stable (official)",
+          "fixed_gamepad_aim": true,
+          "fog_hidden": false,
+          "hdr_2d": true,
+          "kind": "stationary lighting fixture",
+          "lamp_hold": 1.0,
+          "paired_fog_clock": 12.0,
+          "quality": 2,
+          "reference_fog": true,
+          "renderer": "forward_plus",
+          "source_sha256": {
+            "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+            "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+            "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+            "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+            "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+            "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+          },
+          "thresholds": {
+            "edge": 1.0,
+            "player": 0.6
+          },
+          "wall_shadows_hidden": false
+        }
+      },
+      {
+        "level": "ch2_market_gate",
+        "photos": 21,
+        "player_samples": 11,
+        "player_min": 2.21684011644147,
+        "edge_min": 5.29345396210199,
+        "enemy_min": 0.117788694099927,
+        "enemy_samples": 8,
+        "cycle_player_min": null,
+        "cycle_edge_min": null,
+        "all_fixed_aim": true,
+        "probe": {
+          "adapter": "AMD Radeon RX 9070 XT",
+          "brightness": 0.5,
+          "cycle_sample_interval": 0.2,
+          "cycle_samples": 0,
+          "engine": "4.7.2-stable (official)",
+          "fixed_gamepad_aim": true,
+          "fog_hidden": false,
+          "hdr_2d": true,
+          "kind": "stationary lighting fixture",
+          "lamp_hold": 1.0,
+          "paired_fog_clock": 12.0,
+          "quality": 2,
+          "reference_fog": true,
+          "renderer": "forward_plus",
+          "source_sha256": {
+            "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+            "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+            "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+            "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+            "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+            "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+          },
+          "thresholds": {
+            "edge": 1.0,
+            "player": 0.6
+          },
+          "wall_shadows_hidden": false
+        }
+      }
+    ]
+  },
+  {
+    "case": "paired-related-low-after",
+    "exit": 0,
+    "seconds": 97.62439489999088,
+    "source_after": {
+      "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+      "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+      "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd",
+      "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+      "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+      "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23"
+    },
+    "engine_error_lines": [],
+    "photos": 54,
+    "levels": [
+      {
+        "level": "ch1_handoff",
+        "photos": 9,
+        "player_samples": 6,
+        "player_min": 4.76569846614566,
+        "edge_min": 5.76239256459798,
+        "enemy_min": null,
+        "enemy_samples": 0,
+        "cycle_player_min": null,
+        "cycle_edge_min": null,
+        "all_fixed_aim": true,
+        "probe": {
+          "adapter": "AMD Radeon RX 9070 XT",
+          "brightness": 0.5,
+          "cycle_sample_interval": 0.2,
+          "cycle_samples": 0,
+          "engine": "4.7.2-stable (official)",
+          "fixed_gamepad_aim": true,
+          "fog_hidden": false,
+          "hdr_2d": true,
+          "kind": "stationary lighting fixture",
+          "lamp_hold": 1.0,
+          "paired_fog_clock": 12.0,
+          "quality": 0,
+          "reference_fog": false,
+          "renderer": "forward_plus",
+          "source_sha256": {
+            "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+            "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+            "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+            "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+            "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+            "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+          },
+          "thresholds": {
+            "edge": 1.0,
+            "player": 0.6
+          },
+          "wall_shadows_hidden": false
+        }
+      },
+      {
+        "level": "ch2_market",
+        "photos": 24,
+        "player_samples": 16,
+        "player_min": 2.74023529728631,
+        "edge_min": 4.81302797572001,
+        "enemy_min": null,
+        "enemy_samples": 0,
+        "cycle_player_min": null,
+        "cycle_edge_min": null,
+        "all_fixed_aim": true,
+        "probe": {
+          "adapter": "AMD Radeon RX 9070 XT",
+          "brightness": 0.5,
+          "cycle_sample_interval": 0.2,
+          "cycle_samples": 0,
+          "engine": "4.7.2-stable (official)",
+          "fixed_gamepad_aim": true,
+          "fog_hidden": false,
+          "hdr_2d": true,
+          "kind": "stationary lighting fixture",
+          "lamp_hold": 1.0,
+          "paired_fog_clock": 12.0,
+          "quality": 0,
+          "reference_fog": false,
+          "renderer": "forward_plus",
+          "source_sha256": {
+            "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+            "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+            "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+            "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+            "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+            "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+          },
+          "thresholds": {
+            "edge": 1.0,
+            "player": 0.6
+          },
+          "wall_shadows_hidden": false
+        }
+      },
+      {
+        "level": "ch2_market_gate",
+        "photos": 21,
+        "player_samples": 11,
+        "player_min": 2.37510244114365,
+        "edge_min": 4.95641394326049,
+        "enemy_min": 0.106285160577366,
+        "enemy_samples": 8,
+        "cycle_player_min": null,
+        "cycle_edge_min": null,
+        "all_fixed_aim": true,
+        "probe": {
+          "adapter": "AMD Radeon RX 9070 XT",
+          "brightness": 0.5,
+          "cycle_sample_interval": 0.2,
+          "cycle_samples": 0,
+          "engine": "4.7.2-stable (official)",
+          "fixed_gamepad_aim": true,
+          "fog_hidden": false,
+          "hdr_2d": true,
+          "kind": "stationary lighting fixture",
+          "lamp_hold": 1.0,
+          "paired_fog_clock": 12.0,
+          "quality": 0,
+          "reference_fog": false,
+          "renderer": "forward_plus",
+          "source_sha256": {
+            "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+            "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+            "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+            "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+            "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+            "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+          },
+          "thresholds": {
+            "edge": 1.0,
+            "player": 0.6
+          },
+          "wall_shadows_hidden": false
+        }
+      }
+    ]
+  },
+  {
+    "case": "paired-related-low-before",
+    "exit": 0,
+    "seconds": 97.76115629999549,
+    "source_after": {
+      "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+      "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+      "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd",
+      "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+      "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+      "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23"
+    },
+    "engine_error_lines": [],
+    "photos": 54,
+    "levels": [
+      {
+        "level": "ch1_handoff",
+        "photos": 9,
+        "player_samples": 6,
+        "player_min": 4.71091636305249,
+        "edge_min": 5.76239256459798,
+        "enemy_min": null,
+        "enemy_samples": 0,
+        "cycle_player_min": null,
+        "cycle_edge_min": null,
+        "all_fixed_aim": true,
+        "probe": {
+          "adapter": "AMD Radeon RX 9070 XT",
+          "brightness": 0.5,
+          "cycle_sample_interval": 0.2,
+          "cycle_samples": 0,
+          "engine": "4.7.2-stable (official)",
+          "fixed_gamepad_aim": true,
+          "fog_hidden": false,
+          "hdr_2d": true,
+          "kind": "stationary lighting fixture",
+          "lamp_hold": 1.0,
+          "paired_fog_clock": 12.0,
+          "quality": 0,
+          "reference_fog": true,
+          "renderer": "forward_plus",
+          "source_sha256": {
+            "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+            "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+            "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+            "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+            "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+            "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+          },
+          "thresholds": {
+            "edge": 1.0,
+            "player": 0.6
+          },
+          "wall_shadows_hidden": false
+        }
+      },
+      {
+        "level": "ch2_market",
+        "photos": 24,
+        "player_samples": 16,
+        "player_min": 2.79333753442867,
+        "edge_min": 4.92045035453413,
+        "enemy_min": null,
+        "enemy_samples": 0,
+        "cycle_player_min": null,
+        "cycle_edge_min": null,
+        "all_fixed_aim": true,
+        "probe": {
+          "adapter": "AMD Radeon RX 9070 XT",
+          "brightness": 0.5,
+          "cycle_sample_interval": 0.2,
+          "cycle_samples": 0,
+          "engine": "4.7.2-stable (official)",
+          "fixed_gamepad_aim": true,
+          "fog_hidden": false,
+          "hdr_2d": true,
+          "kind": "stationary lighting fixture",
+          "lamp_hold": 1.0,
+          "paired_fog_clock": 12.0,
+          "quality": 0,
+          "reference_fog": true,
+          "renderer": "forward_plus",
+          "source_sha256": {
+            "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+            "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+            "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+            "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+            "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+            "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+          },
+          "thresholds": {
+            "edge": 1.0,
+            "player": 0.6
+          },
+          "wall_shadows_hidden": false
+        }
+      },
+      {
+        "level": "ch2_market_gate",
+        "photos": 21,
+        "player_samples": 11,
+        "player_min": 2.79388884820322,
+        "edge_min": 4.67866170326618,
+        "enemy_min": 0.118698101423742,
+        "enemy_samples": 8,
+        "cycle_player_min": null,
+        "cycle_edge_min": null,
+        "all_fixed_aim": true,
+        "probe": {
+          "adapter": "AMD Radeon RX 9070 XT",
+          "brightness": 0.5,
+          "cycle_sample_interval": 0.2,
+          "cycle_samples": 0,
+          "engine": "4.7.2-stable (official)",
+          "fixed_gamepad_aim": true,
+          "fog_hidden": false,
+          "hdr_2d": true,
+          "kind": "stationary lighting fixture",
+          "lamp_hold": 1.0,
+          "paired_fog_clock": 12.0,
+          "quality": 0,
+          "reference_fog": true,
+          "renderer": "forward_plus",
+          "source_sha256": {
+            "data/lighting/lounge_front.tres": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+            "data/lighting/market.tres": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+            "tools/contrast_probe.gd": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+            "tools/readability_phase_probe.gd": "edb949b9ad67b867f70adae2edf787749397a188dd8beda5ac415388ddbe3217",
+            "tools/scene_tour.gd": "61250fc7988499b90b4e8b08cc99789a4972bc2e6cd2749cc144b1116a3e2e39",
+            "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+          },
+          "thresholds": {
+            "edge": 1.0,
+            "player": 0.6
+          },
+          "wall_shadows_hidden": false
+        }
+      }
+    ]
+  }
+]

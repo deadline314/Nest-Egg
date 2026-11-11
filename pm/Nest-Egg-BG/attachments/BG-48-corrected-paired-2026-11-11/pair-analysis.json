@@ -1,0 +1,1353 @@
+{
+  "scope": "Independent native processes; fog time is held at 12, other actor/rain/post times are not locked. Unlabeled enemy arrays must not be matched by order. Deltas do not establish product regression or non-regression.",
+  "cells": [
+    {
+      "quality": "high",
+      "level": "ch1_handoff",
+      "column": 0.0,
+      "row": 1.0,
+      "world": [
+        0.0,
+        172.5,
+        333.333404541016,
+        187.500030517578
+      ],
+      "player_before": 5.09023728247887,
+      "player_after": 5.09356399305327,
+      "player_delta": 0.003326710574400593,
+      "edge_before": 5.76640470538498,
+      "edge_after": 5.62125467609793,
+      "edge_delta": -0.14515002928705023,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch1_handoff",
+      "column": 1.0,
+      "row": 1.0,
+      "world": [
+        306.666687011719,
+        172.5,
+        333.333435058594,
+        187.500030517578
+      ],
+      "player_before": 4.7916862131804,
+      "player_after": 4.65888309865928,
+      "player_delta": -0.1328031145211197,
+      "edge_before": 5.73275899107597,
+      "edge_after": 5.73253643025301,
+      "edge_delta": -0.00022256082296046031,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch1_handoff",
+      "column": 2.0,
+      "row": 1.0,
+      "world": [
+        434.666656494141,
+        172.5,
+        333.333404541016,
+        187.500030517578
+      ],
+      "player_before": 3.38169586342462,
+      "player_after": 3.33867966311957,
+      "player_delta": -0.043016200305050045,
+      "edge_before": 7.55305927176065,
+      "edge_after": 7.56588407771922,
+      "edge_delta": 0.012824805958570273,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch1_handoff",
+      "column": 0.0,
+      "row": 2.0,
+      "world": [
+        0.0,
+        196.5,
+        333.333404541016,
+        187.500030517578
+      ],
+      "player_before": 4.84319687764703,
+      "player_after": 4.91479497105507,
+      "player_delta": 0.07159809340803935,
+      "edge_before": 6.58820053830239,
+      "edge_after": 6.48742388681741,
+      "edge_delta": -0.1007766514849795,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch1_handoff",
+      "column": 1.0,
+      "row": 2.0,
+      "world": [
+        306.666687011719,
+        196.5,
+        333.333435058594,
+        187.500030517578
+      ],
+      "player_before": 4.46104817918269,
+      "player_after": 4.4930144627952,
+      "player_delta": 0.03196628361251008,
+      "edge_before": 6.58257409313453,
+      "edge_after": 6.58241286618722,
+      "edge_delta": -0.00016122694730924536,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch1_handoff",
+      "column": 2.0,
+      "row": 2.0,
+      "world": [
+        434.666656494141,
+        196.5,
+        333.333404541016,
+        187.500030517578
+      ],
+      "player_before": 3.210769873559,
+      "player_after": 3.29303994149486,
+      "player_delta": 0.08227006793586034,
+      "edge_before": 8.46008968583754,
+      "edge_after": 8.4759566679727,
+      "edge_delta": 0.0158669821351598,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market",
+      "column": 0.0,
+      "row": 1.0,
+      "world": [
+        0.0,
+        172.5,
+        333.333404541016,
+        187.500030517578
+      ],
+      "player_before": 4.42924947422378,
+      "player_after": 4.30390746814347,
+      "player_delta": -0.12534200608030943,
+      "edge_before": 5.45656700121649,
+      "edge_after": 5.60675513492603,
+      "edge_delta": 0.15018813370954032,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market",
+      "column": 1.0,
+      "row": 1.0,
+      "world": [
+        306.666687011719,
+        172.5,
+        333.333435058594,
+        187.500030517578
+      ],
+      "player_before": 4.01963115531737,
+      "player_after": 4.19100304888244,
+      "player_delta": 0.17137189356506966,
+      "edge_before": 4.83090456212912,
+      "edge_after": 4.96315567759568,
+      "edge_delta": 0.13225111546656088,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market",
+      "column": 2.0,
+      "row": 1.0,
+      "world": [
+        613.333374023438,
+        172.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 3.10119458912393,
+      "player_after": 3.11980201490445,
+      "player_delta": 0.018607425780519993,
+      "edge_before": 5.76172461099108,
+      "edge_after": 5.68159981404543,
+      "edge_delta": -0.08012479694565044,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market",
+      "column": 3.0,
+      "row": 1.0,
+      "world": [
+        920.000122070313,
+        172.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 3.6722166556262,
+      "player_after": 3.64322835623321,
+      "player_delta": -0.02898829939298997,
+      "edge_before": 5.62067549927755,
+      "edge_after": 5.64982138895717,
+      "edge_delta": 0.029145889679619508,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market",
+      "column": 4.0,
+      "row": 1.0,
+      "world": [
+        1226.66674804688,
+        172.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 3.06658257207671,
+      "player_after": 3.09361654795097,
+      "player_delta": 0.02703397587425993,
+      "edge_before": 5.58555398190426,
+      "edge_after": 5.69122035450888,
+      "edge_delta": 0.1056663726046203,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market",
+      "column": 5.0,
+      "row": 1.0,
+      "world": [
+        1533.33361816406,
+        172.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 5.44476390800526,
+      "player_after": 5.53574084828076,
+      "player_delta": 0.09097694027549963,
+      "edge_before": 5.60249284183486,
+      "edge_after": 5.54093660509294,
+      "edge_delta": -0.06155623674192068,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market",
+      "column": 6.0,
+      "row": 1.0,
+      "world": [
+        1840.00012207031,
+        172.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 3.8863802763338,
+      "player_after": 3.77953885277628,
+      "player_delta": -0.10684142355751991,
+      "edge_before": 5.23787874214379,
+      "edge_after": 5.25837180222965,
+      "edge_delta": 0.020493060085859938,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market",
+      "column": 7.0,
+      "row": 1.0,
+      "world": [
+        1906.66650390625,
+        172.5,
+        333.33349609375,
+        187.500030517578
+      ],
+      "player_before": 3.5857236898632,
+      "player_after": 3.85891801912768,
+      "player_delta": 0.27319432926447984,
+      "edge_before": 5.73173374581194,
+      "edge_after": 5.72523045306517,
+      "edge_delta": -0.006503292746770306,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market",
+      "column": 0.0,
+      "row": 2.0,
+      "world": [
+        0.0,
+        196.5,
+        333.333404541016,
+        187.500030517578
+      ],
+      "player_before": 4.19890883681553,
+      "player_after": 4.34124181571687,
+      "player_delta": 0.1423329789013401,
+      "edge_before": 6.43402235976083,
+      "edge_after": 6.18036579800191,
+      "edge_delta": -0.2536565617589197,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market",
+      "column": 1.0,
+      "row": 2.0,
+      "world": [
+        306.666687011719,
+        196.5,
+        333.333435058594,
+        187.500030517578
+      ],
+      "player_before": 3.94549938785912,
+      "player_after": 3.87462502499209,
+      "player_delta": -0.07087436286702964,
+      "edge_before": 5.45448674486377,
+      "edge_after": 5.56032717522774,
+      "edge_delta": 0.10584043036396995,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market",
+      "column": 2.0,
+      "row": 2.0,
+      "world": [
+        613.333374023438,
+        196.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 2.66666731739327,
+      "player_after": 2.77886337598026,
+      "player_delta": 0.11219605858699033,
+      "edge_before": 6.53051271294256,
+      "edge_after": 6.495702359732,
+      "edge_delta": -0.0348103532105597,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market",
+      "column": 3.0,
+      "row": 2.0,
+      "world": [
+        920.000122070313,
+        196.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 3.84096052363499,
+      "player_after": 3.28946114296639,
+      "player_delta": -0.5514993806685999,
+      "edge_before": 6.56728489130972,
+      "edge_after": 6.43830145421946,
+      "edge_delta": -0.12898343709025983,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market",
+      "column": 4.0,
+      "row": 2.0,
+      "world": [
+        1226.66674804688,
+        196.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 2.85616599073712,
+      "player_after": 2.914623399347,
+      "player_delta": 0.05845740860987991,
+      "edge_before": 6.48213622486672,
+      "edge_after": 6.42079747279951,
+      "edge_delta": -0.06133875206720951,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market",
+      "column": 5.0,
+      "row": 2.0,
+      "world": [
+        1533.33361816406,
+        196.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 5.42478410292814,
+      "player_after": 5.34364445292573,
+      "player_delta": -0.08113965000240952,
+      "edge_before": 6.42541439979413,
+      "edge_after": 6.30897386065725,
+      "edge_delta": -0.1164405391368799,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market",
+      "column": 6.0,
+      "row": 2.0,
+      "world": [
+        1840.00012207031,
+        196.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 3.86423841820698,
+      "player_after": 3.79017626036597,
+      "player_delta": -0.07406215784101011,
+      "edge_before": 5.80508353171967,
+      "edge_after": 5.69515424030836,
+      "edge_delta": -0.10992929141130947,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market",
+      "column": 7.0,
+      "row": 2.0,
+      "world": [
+        1906.66650390625,
+        196.5,
+        333.33349609375,
+        187.500030517578
+      ],
+      "player_before": 3.59657688310275,
+      "player_after": 3.6824524268212,
+      "player_delta": 0.08587554371845041,
+      "edge_before": 6.56822721685749,
+      "edge_after": 6.47774859546389,
+      "edge_delta": -0.09047862139359975,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market_gate",
+      "column": 0.0,
+      "row": 1.0,
+      "world": [
+        0.0,
+        172.5,
+        333.333404541016,
+        187.500030517578
+      ],
+      "player_before": 4.7471394732886,
+      "player_after": 4.68792666410014,
+      "player_delta": -0.059212809188459836,
+      "edge_before": 5.60497554112843,
+      "edge_after": 5.52591310626678,
+      "edge_delta": -0.07906243486164932,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market_gate",
+      "column": 4.0,
+      "row": 1.0,
+      "world": [
+        1226.66674804688,
+        172.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 3.24605663021165,
+      "player_after": 3.18388102990597,
+      "player_delta": -0.0621756003056797,
+      "edge_before": 7.07509737997212,
+      "edge_after": 7.17492512673951,
+      "edge_delta": 0.09982774676739048,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market_gate",
+      "column": 5.0,
+      "row": 1.0,
+      "world": [
+        1533.33361816406,
+        172.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 3.11028822002434,
+      "player_after": 3.17164474203957,
+      "player_delta": 0.06135652201523012,
+      "edge_before": 6.79839398605141,
+      "edge_after": 6.71304232257107,
+      "edge_delta": -0.08535166348034018,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market_gate",
+      "column": 6.0,
+      "row": 1.0,
+      "world": [
+        1586.66650390625,
+        172.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 4.04547179885557,
+      "player_after": 4.13489424037432,
+      "player_delta": 0.08942244151874945,
+      "edge_before": 5.47598959489131,
+      "edge_after": 5.65369824697151,
+      "edge_delta": 0.17770865208020048,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market_gate",
+      "column": 0.0,
+      "row": 2.0,
+      "world": [
+        0.0,
+        196.5,
+        333.333404541016,
+        187.500030517578
+      ],
+      "player_before": 4.54464955600687,
+      "player_after": 4.62116263155752,
+      "player_delta": 0.07651307555065046,
+      "edge_before": 6.33449229509676,
+      "edge_after": 6.46131184282851,
+      "edge_delta": 0.12681954773174997,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market_gate",
+      "column": 1.0,
+      "row": 2.0,
+      "world": [
+        306.666687011719,
+        196.5,
+        333.333435058594,
+        187.500030517578
+      ],
+      "player_before": 2.60116013446205,
+      "player_after": 3.52277414699592,
+      "player_delta": 0.9216140125338699,
+      "edge_before": 5.29345396210199,
+      "edge_after": 5.17217864852003,
+      "edge_delta": -0.12127531358195931,
+      "enemy_before_unlabeled": [
+        0.306347331597092,
+        0.408537171237245
+      ],
+      "enemy_after_unlabeled": [
+        0.377943298360585,
+        0.307219290330546
+      ]
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market_gate",
+      "column": 2.0,
+      "row": 2.0,
+      "world": [
+        613.333374023438,
+        196.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 2.21684011644147,
+      "player_after": 2.32295621624458,
+      "player_delta": 0.10611609980310988,
+      "edge_before": 6.80003693835439,
+      "edge_after": 5.01318327232882,
+      "edge_delta": -1.7868536660255705,
+      "enemy_before_unlabeled": [
+        0.364563865219456
+      ],
+      "enemy_after_unlabeled": [
+        0.369241987869402
+      ]
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market_gate",
+      "column": 3.0,
+      "row": 2.0,
+      "world": [
+        920.000122070313,
+        196.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 4.25400617087505,
+      "player_after": 4.29079344958578,
+      "player_delta": 0.0367872787107304,
+      "edge_before": 6.4302163114839,
+      "edge_after": 6.43026925007004,
+      "edge_delta": 5.293858614052738e-05,
+      "enemy_before_unlabeled": [
+        0.317282411041949
+      ],
+      "enemy_after_unlabeled": [
+        0.451829960620614
+      ]
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market_gate",
+      "column": 4.0,
+      "row": 2.0,
+      "world": [
+        1226.66674804688,
+        196.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 3.01483877627136,
+      "player_after": 3.05572690289113,
+      "player_delta": 0.040888126619769594,
+      "edge_before": 8.01846625945381,
+      "edge_after": 8.06700128884562,
+      "edge_delta": 0.04853502939181098,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market_gate",
+      "column": 5.0,
+      "row": 2.0,
+      "world": [
+        1533.33361816406,
+        196.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 2.99440121194322,
+      "player_after": 3.24872498366,
+      "player_delta": 0.25432377171677967,
+      "edge_before": 7.64265002774075,
+      "edge_after": 7.67335529871044,
+      "edge_delta": 0.030705270969690446,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "high",
+      "level": "ch2_market_gate",
+      "column": 6.0,
+      "row": 2.0,
+      "world": [
+        1586.66650390625,
+        196.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 4.02315847868299,
+      "player_after": 4.10309479404233,
+      "player_delta": 0.07993631535934043,
+      "edge_before": 6.09418912916866,
+      "edge_after": 6.08065025921991,
+      "edge_delta": -0.013538869948749976,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch1_handoff",
+      "column": 0.0,
+      "row": 1.0,
+      "world": [
+        0.0,
+        172.5,
+        333.333404541016,
+        187.500030517578
+      ],
+      "player_before": 5.05783507111892,
+      "player_after": 5.28742163566282,
+      "player_delta": 0.22958656454389992,
+      "edge_before": 5.83521863988441,
+      "edge_after": 5.817204933138,
+      "edge_delta": -0.018013706746409675,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch1_handoff",
+      "column": 1.0,
+      "row": 1.0,
+      "world": [
+        306.666687011719,
+        172.5,
+        333.333435058594,
+        187.500030517578
+      ],
+      "player_before": 5.18603492619543,
+      "player_after": 5.35152206730591,
+      "player_delta": 0.16548714111048035,
+      "edge_before": 5.76239256459798,
+      "edge_after": 5.76239256459798,
+      "edge_delta": 0.0,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch1_handoff",
+      "column": 2.0,
+      "row": 1.0,
+      "world": [
+        434.666656494141,
+        172.5,
+        333.333404541016,
+        187.500030517578
+      ],
+      "player_before": 4.79705926822085,
+      "player_after": 4.96133289537207,
+      "player_delta": 0.1642736271512204,
+      "edge_before": 5.79416586588433,
+      "edge_after": 5.79415830786384,
+      "edge_delta": -7.558020490350259e-06,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch1_handoff",
+      "column": 0.0,
+      "row": 2.0,
+      "world": [
+        0.0,
+        196.5,
+        333.333404541016,
+        187.500030517578
+      ],
+      "player_before": 4.82728197197381,
+      "player_after": 4.98156089764422,
+      "player_delta": 0.15427892567041024,
+      "edge_before": 6.51588122842132,
+      "edge_after": 6.51443725093629,
+      "edge_delta": -0.0014439774850307785,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch1_handoff",
+      "column": 1.0,
+      "row": 2.0,
+      "world": [
+        306.666687011719,
+        196.5,
+        333.333435058594,
+        187.500030517578
+      ],
+      "player_before": 5.09978164771766,
+      "player_after": 5.03963668203098,
+      "player_delta": -0.06014496568668015,
+      "edge_before": 6.53306270371099,
+      "edge_after": 6.53352148927851,
+      "edge_delta": 0.00045878556751954847,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch1_handoff",
+      "column": 2.0,
+      "row": 2.0,
+      "world": [
+        434.666656494141,
+        196.5,
+        333.333404541016,
+        187.500030517578
+      ],
+      "player_before": 4.71091636305249,
+      "player_after": 4.76569846614566,
+      "player_delta": 0.05478210309316989,
+      "edge_before": 6.56642275134672,
+      "edge_after": 6.56638129049575,
+      "edge_delta": -4.146085097023189e-05,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market",
+      "column": 0.0,
+      "row": 1.0,
+      "world": [
+        0.0,
+        172.5,
+        333.333404541016,
+        187.500030517578
+      ],
+      "player_before": 4.22324896722517,
+      "player_after": 4.25394808318111,
+      "player_delta": 0.030699115955940215,
+      "edge_before": 5.60000045409504,
+      "edge_after": 5.65750341758904,
+      "edge_delta": 0.05750296349399964,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market",
+      "column": 1.0,
+      "row": 1.0,
+      "world": [
+        306.666687011719,
+        172.5,
+        333.333435058594,
+        187.500030517578
+      ],
+      "player_before": 4.19209135021178,
+      "player_after": 4.29173680241156,
+      "player_delta": 0.0996454521997796,
+      "edge_before": 4.92045035453413,
+      "edge_after": 4.81302797572001,
+      "edge_delta": -0.1074223788141202,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market",
+      "column": 2.0,
+      "row": 1.0,
+      "world": [
+        613.333374023438,
+        172.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 2.92228288915621,
+      "player_after": 3.08008942658135,
+      "player_delta": 0.15780653742513984,
+      "edge_before": 5.70635148254849,
+      "edge_after": 5.58351092252561,
+      "edge_delta": -0.12284056002287969,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market",
+      "column": 3.0,
+      "row": 1.0,
+      "world": [
+        920.000122070313,
+        172.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 3.86574018062467,
+      "player_after": 3.81489112319274,
+      "player_delta": -0.050849057431930245,
+      "edge_before": 5.5356424344357,
+      "edge_after": 5.58353977051542,
+      "edge_delta": 0.047897336079720354,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market",
+      "column": 4.0,
+      "row": 1.0,
+      "world": [
+        1226.66674804688,
+        172.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 3.23898510776322,
+      "player_after": 3.33789305807272,
+      "player_delta": 0.09890795030950006,
+      "edge_before": 5.6396035247026,
+      "edge_after": 5.62713192203109,
+      "edge_delta": -0.012471602671509707,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market",
+      "column": 5.0,
+      "row": 1.0,
+      "world": [
+        1533.33361816406,
+        172.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 5.56901144196959,
+      "player_after": 5.5798224663446,
+      "player_delta": 0.010811024375009914,
+      "edge_before": 5.66429086586503,
+      "edge_after": 5.53689128498747,
+      "edge_delta": -0.12739958087755987,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market",
+      "column": 6.0,
+      "row": 1.0,
+      "world": [
+        1840.00012207031,
+        172.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 3.75497692424631,
+      "player_after": 3.69315784436113,
+      "player_delta": -0.06181907988517965,
+      "edge_before": 5.28214153070162,
+      "edge_after": 5.24125315412039,
+      "edge_delta": -0.04088837658123001,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market",
+      "column": 7.0,
+      "row": 1.0,
+      "world": [
+        1906.66650390625,
+        172.5,
+        333.33349609375,
+        187.500030517578
+      ],
+      "player_before": 3.51129085525622,
+      "player_after": 3.80730623965972,
+      "player_delta": 0.2960153844035003,
+      "edge_before": 5.71465021090723,
+      "edge_after": 5.86325133358843,
+      "edge_delta": 0.14860112268119963,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market",
+      "column": 0.0,
+      "row": 2.0,
+      "world": [
+        0.0,
+        196.5,
+        333.333404541016,
+        187.500030517578
+      ],
+      "player_before": 4.14629954935569,
+      "player_after": 4.14808450740754,
+      "player_delta": 0.001784958051850083,
+      "edge_before": 6.52440104475552,
+      "edge_after": 6.40805632818891,
+      "edge_delta": -0.11634471656661027,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market",
+      "column": 1.0,
+      "row": 2.0,
+      "world": [
+        306.666687011719,
+        196.5,
+        333.333435058594,
+        187.500030517578
+      ],
+      "player_before": 4.03807545483438,
+      "player_after": 4.12827910502744,
+      "player_delta": 0.09020365019306009,
+      "edge_before": 5.39996221223966,
+      "edge_after": 5.50236498667118,
+      "edge_delta": 0.10240277443152035,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market",
+      "column": 2.0,
+      "row": 2.0,
+      "world": [
+        613.333374023438,
+        196.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 2.79333753442867,
+      "player_after": 2.74023529728631,
+      "player_delta": -0.053102237142359954,
+      "edge_before": 6.48940621956188,
+      "edge_after": 6.53990076653832,
+      "edge_delta": 0.050494546976440624,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market",
+      "column": 3.0,
+      "row": 2.0,
+      "world": [
+        920.000122070313,
+        196.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 3.68444168465503,
+      "player_after": 3.53786919503516,
+      "player_delta": -0.1465724896198699,
+      "edge_before": 6.34533888028218,
+      "edge_after": 6.24759825744345,
+      "edge_delta": -0.09774062283873075,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market",
+      "column": 4.0,
+      "row": 2.0,
+      "world": [
+        1226.66674804688,
+        196.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 3.08452134866094,
+      "player_after": 3.14427629328976,
+      "player_delta": 0.05975494462881992,
+      "edge_before": 6.46476434408412,
+      "edge_after": 6.47270122888611,
+      "edge_delta": 0.00793688480198984,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market",
+      "column": 5.0,
+      "row": 2.0,
+      "world": [
+        1533.33361816406,
+        196.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 5.52637018106205,
+      "player_after": 5.5255695488543,
+      "player_delta": -0.0008006322077500627,
+      "edge_before": 6.41871142260015,
+      "edge_after": 6.42835294100241,
+      "edge_delta": 0.009641518402260019,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market",
+      "column": 6.0,
+      "row": 2.0,
+      "world": [
+        1840.00012207031,
+        196.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 3.6635042867711,
+      "player_after": 3.97196956004469,
+      "player_delta": 0.30846527327358997,
+      "edge_before": 5.64608494580747,
+      "edge_after": 5.77371292874131,
+      "edge_delta": 0.12762798293384048,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market",
+      "column": 7.0,
+      "row": 2.0,
+      "world": [
+        1906.66650390625,
+        196.5,
+        333.33349609375,
+        187.500030517578
+      ],
+      "player_before": 3.55207999729161,
+      "player_after": 3.61155415465601,
+      "player_delta": 0.05947415736439998,
+      "edge_before": 6.66858631208468,
+      "edge_after": 6.45829022996346,
+      "edge_delta": -0.21029608212122053,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market_gate",
+      "column": 0.0,
+      "row": 1.0,
+      "world": [
+        0.0,
+        172.5,
+        333.333404541016,
+        187.500030517578
+      ],
+      "player_before": 4.05763700096248,
+      "player_after": 4.30164488273485,
+      "player_delta": 0.24400788177237054,
+      "edge_before": 5.6931720079394,
+      "edge_after": 5.64601964542102,
+      "edge_delta": -0.047152362518380286,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market_gate",
+      "column": 4.0,
+      "row": 1.0,
+      "world": [
+        1226.66674804688,
+        172.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 4.09918585539456,
+      "player_after": 3.8617045897994,
+      "player_delta": -0.23748126559515992,
+      "edge_before": 6.0652879520643,
+      "edge_after": 5.9450135633197,
+      "edge_delta": -0.12027438874460028,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market_gate",
+      "column": 5.0,
+      "row": 1.0,
+      "world": [
+        1533.33361816406,
+        172.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 3.63871047631857,
+      "player_after": 3.6601306884037,
+      "player_delta": 0.021420212085129897,
+      "edge_before": 5.79204525158748,
+      "edge_after": 5.67237969813403,
+      "edge_delta": -0.11966555345344965,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market_gate",
+      "column": 6.0,
+      "row": 1.0,
+      "world": [
+        1586.66650390625,
+        172.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 3.8560140044301,
+      "player_after": 4.13015716476646,
+      "player_delta": 0.27414316033635977,
+      "edge_before": 5.42468015752938,
+      "edge_after": 5.38785218627947,
+      "edge_delta": -0.03682797124991044,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market_gate",
+      "column": 0.0,
+      "row": 2.0,
+      "world": [
+        0.0,
+        196.5,
+        333.333404541016,
+        187.500030517578
+      ],
+      "player_before": 3.985656710834,
+      "player_after": 4.10889316366136,
+      "player_delta": 0.12323645282735995,
+      "edge_before": 6.38010771532858,
+      "edge_after": 6.5135035272489,
+      "edge_delta": 0.13339581192031957,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market_gate",
+      "column": 1.0,
+      "row": 2.0,
+      "world": [
+        306.666687011719,
+        196.5,
+        333.333435058594,
+        187.500030517578
+      ],
+      "player_before": 2.91023425099612,
+      "player_after": 2.41482420705638,
+      "player_delta": -0.49541004393974,
+      "edge_before": 4.67866170326618,
+      "edge_after": 4.95641394326049,
+      "edge_delta": 0.2777522399943093,
+      "enemy_before_unlabeled": [
+        0.40856995894973,
+        0.553070855507108
+      ],
+      "enemy_after_unlabeled": [
+        0.405974264211406,
+        0.596132887689266
+      ]
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market_gate",
+      "column": 2.0,
+      "row": 2.0,
+      "world": [
+        613.333374023438,
+        196.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 2.79388884820322,
+      "player_after": 2.37510244114365,
+      "player_delta": -0.41878640705956993,
+      "edge_before": 5.79300676430071,
+      "edge_after": 5.66417462496628,
+      "edge_delta": -0.12883213933443027,
+      "enemy_before_unlabeled": [
+        0.519033778161506
+      ],
+      "enemy_after_unlabeled": [
+        0.41168746950409
+      ]
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market_gate",
+      "column": 3.0,
+      "row": 2.0,
+      "world": [
+        920.000122070313,
+        196.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 3.97204062447023,
+      "player_after": 4.09587063229834,
+      "player_delta": 0.1238300078281096,
+      "edge_before": 6.44166617962335,
+      "edge_after": 6.44166617962335,
+      "edge_delta": 0.0,
+      "enemy_before_unlabeled": [
+        0.311485853856989
+      ],
+      "enemy_after_unlabeled": [
+        0.283160278345159
+      ]
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market_gate",
+      "column": 4.0,
+      "row": 2.0,
+      "world": [
+        1226.66674804688,
+        196.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 3.82419015668871,
+      "player_after": 3.62036269411218,
+      "player_delta": -0.2038274625765304,
+      "edge_before": 6.93046459354074,
+      "edge_after": 6.76285170676721,
+      "edge_delta": -0.16761288677353026,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market_gate",
+      "column": 5.0,
+      "row": 2.0,
+      "world": [
+        1533.33361816406,
+        196.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 3.57729834532205,
+      "player_after": 3.56658629460787,
+      "player_delta": -0.0107120507141798,
+      "edge_before": 6.30439722554863,
+      "edge_after": 6.47112048732082,
+      "edge_delta": 0.16672326177218988,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    },
+    {
+      "quality": "low",
+      "level": "ch2_market_gate",
+      "column": 6.0,
+      "row": 2.0,
+      "world": [
+        1586.66650390625,
+        196.5,
+        333.333374023438,
+        187.500030517578
+      ],
+      "player_before": 3.83549099735772,
+      "player_after": 3.7851722469491,
+      "player_delta": -0.050318750408619994,
+      "edge_before": 5.92172280622674,
+      "edge_after": 5.90767901359509,
+      "edge_delta": -0.01404379263165012,
+      "enemy_before_unlabeled": [],
+      "enemy_after_unlabeled": []
+    }
+  ]
+}
