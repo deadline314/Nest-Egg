@@ -127,3 +127,14 @@ readiness 改為實際核對契約，不再寫死「NE-230 尚未交付」：三
 ## 2026-10-30：Windows 建置路徑預檢
 
 Windows 建置使用可攜路徑上限，不依賴系統長路徑設定：檔案最多259個UTF-16單位，目錄最多247個。`prepare` 在建立任何輸出之前，同時檢查來源 stage 與較長的 export 工作副本；超限訊息列出實際路徑、長度，並提示縮短 `--out-root`（例如 `C:/NE`）或 `--version`。這只核對已選定來源路徑，不保證所有引擎生成快取路徑；Linux 不套用 Windows 上限。Windows 的輸出位置請使用短路徑，無須變更登錄設定。
+
+
+## 2026-11-11：跨章頭目資料的乾淨退出（NE-286）
+
+固定 f52cb415 在 Windows／Godot 4.7.2／RX 9070 XT 主機建立的候選包，雙平台匯出內容完整；Windows版號回報正確，但退出有505 ObjectDB／306 resources、texture/font RID與VariantPools診斷，原工具嚴格拒絕，沒有成功manifest。原始失敗包與log保留，不代稱真人通關。
+
+隔離副本22輪縮減後，最小資料組合是第二章帳房與第三章門禁大廳；直接載入阿勇→JANUS兩個behavior scripts亦重現，反序與各自載入均乾淨。純Main啟動、只讀edition id與全關卡分半讀取也乾淨。延後四frame、清個別快取、取消catalog排序／型別／validation、untyped array、Yong命名及正常import均未解決；全部只在診斷副本控制，未採入產品。
+
+JANUS保留原全部行為，僅移除其Enemy衍生類別的static設定欄位（診斷時改局部dictionary）便讓完整版號回報0 ERROR。[官方static_unload文件](https://docs.godotengine.org/en/latest/classes/class_%40gdscript.html)仍列腳本釋放bug，實機該註解也未解決；[官方問題122022](https://github.com/godotengine/godot/issues/122022)只作型別／factory互動線索，不宣稱同一bug。
+
+正式修復將設定快取移到沒有Enemy／Node繼承、沒有回指頭目類別的純資料leaf；保留defaults、一次讀取與原API。不重排序報告、不關快取、不延後退出或放寬ERROR規則。驗證雙順序、完整報告及相關戰鬥回歸，NE-232再從修正後固定提交重建單檔。版本報告不代稱人工／實體手把驗收。
