@@ -1,0 +1,6 @@
+# Windows 11, CPython 3.13, Radeon RX 9070 / XT (gfx1201).
+# Install into an isolated environment with:
+# uv pip install --python <venv>/Scripts/python.exe --index-url https://stable.repo.amd.com/rocm/whl-next/ -r tools/comfyui/requirements-rocm-windows.txt
+torch[device-gfx1201]==2.13.0+rocm10.0.0
+torchvision[device-gfx1201]==0.28.0+rocm10.0.0
+torchaudio==2.11.0.2+rocm10.0.0

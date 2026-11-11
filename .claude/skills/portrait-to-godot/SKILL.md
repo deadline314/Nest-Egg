@@ -12,7 +12,9 @@ description: 從零做一個新角色或新外觀並放進 Nest Egg 的完整流
 - [visual-verification](../visual-verification/SKILL.md)：實機畫面怎麼拍、怎麼量
 - 逐項案例（成因、怎麼提早發現、修法、不能用的掩蓋做法，附前後圖所在的票）：`pm/Nest-Egg/attachments/NE-255-lessons.md`
 
-環境：本機 `COMFYUI_DIR=D:/ComfyUI`、Python 用 `D:/ComfyUI/.venv/Scripts/python.exe`（PowerShell 先設 `$env:PYTHONUTF8='1'`）、Godot 用 `C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe`。`start_comfyui.ps1` 沒有說明參數（加 `-Help` 也會啟動），建置輸出的「no websocket heartbeat (ModuleNotFoundError)」是正常的。生成一次一張；用 GPU 的 Godot 指令包在 `tools/comfyui/gpu_lock.py -- …` 裡；做完用 `tools/comfyui/start_comfyui.ps1 -Stop` 收掉模型。下面各關寫的 `python` 都指上面那個 venv 直譯器。
+環境（2026-11-11）：本機顯卡為 Radeon RX 9070 XT；`COMFYUI_DIR=D:/ComfyUI`，新環境指定 `COMFYUI_PYTHON=D:/ComfyUI/.venv-rocm/Scripts/python.exe`（Python 3.13.15／PyTorch 2.13.0+rocm10.0.0，ROCm 使用 `torch.cuda` 裝置命名空間）。舊 `.venv` CUDA 環境保留。PowerShell 先設 `$env:PYTHONUTF8='1'`；Godot 用 `C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe`。先用指定直譯器跑 `tools/comfyui/runtime_probe.py --exercise`，再以 `start_comfyui.ps1 -PlanOnly -Port <埠>` 核對實際後端與路徑；預覽不啟停服務，不能和 `-Stop`／`-Restart` 合用。客戶端 `COMFY_HOST` 要指向同一埠，重試才會沿用同一服務。非預設埠的資料與 log 自動隔離，避免共用資料庫鎖。
+
+生成一次一張；生成客戶端與原生 Godot 驗證共用 `tools/comfyui/gpu_lock.py -- …` 的鎖。此鎖只協調本 repo／其 worktree，其他專案的 GPU 工作仍須觀察排隊與記憶體。先辨識既有服務的直譯器、埠與工作；只有自己啟動的服務才用 `start_comfyui.ps1 -Stop -Port <埠>` 收掉，不能停止或重啟其他工作持有的服務。指定埠若由另一環境提供，腳本會報錯，改用空埠；不以靜默切 CPU 或停掉別人的工作解決。下面各關的 `python` 指明確選定的 GPU 環境直譯器。安裝、實測與共享服務生成的界線見 `design/03-art-pipeline/RADEON_RUNTIME.md`。
 
 ## 三類問題的總表
 

@@ -24,6 +24,7 @@ import re
 import subprocess
 import time
 import urllib.request
+import urllib.parse
 from pathlib import Path
 
 if os.name == "nt":
@@ -46,7 +47,7 @@ DEAD_POLLS = 3  # consecutive failed polls (about 2 s apart) before the server c
 # Fatal device errors only. ComfyUI also prints "Ran out of memory when regular VAE decoding, retrying with tiled VAE
 # decoding" and recovers by itself, so plain "out of memory" is not enough.
 _FATAL_LOG = re.compile(r"OutOfMemoryError|UR_RESULT_ERROR_OUT_OF_(?:DEVICE|HOST)_MEMORY|UR_RESULT_ERROR_DEVICE_LOST|"
-                        r"CUDA error: out of memory|std::bad_alloc|DefaultCPUAllocator: can't allocate memory")
+                        r"(?:CUDA|HIP) error: out of memory|std::bad_alloc|DefaultCPUAllocator: can't allocate memory")
 _RECOVERED = re.compile(r"retrying with tiled", re.I)
 _OOM_TEXT = re.compile(r"out of memory|OutOfMemory|OUT_OF_DEVICE_MEMORY|OUT_OF_HOST_MEMORY|DEVICE_LOST", re.I)
 
@@ -120,7 +121,11 @@ def server_warm() -> bool:
 
 
 def _start(*flags: str) -> None:
-    cmd = ["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(START_SCRIPT), *flags]
+    endpoint = urllib.parse.urlsplit(HOST)
+    if endpoint.hostname not in ("localhost", "127.0.0.1", "::1"):
+        raise ComfyStalled(f"Cannot start a local ComfyUI for remote endpoint {HOST}; start that server on its host.")
+    cmd = ["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(START_SCRIPT),
+           "-Port", str(endpoint.port or 8188), *flags]
     r = subprocess.run(cmd, capture_output=True, text=True)
     out = (r.stdout + r.stderr).strip()
     if r.returncode != 0:
@@ -163,7 +168,9 @@ def log_path() -> Path | None:
     """The server log written by start_comfyui.ps1 (newest one when several installs exist)."""
     if os.environ.get("COMFY_LOG"):
         return Path(os.environ["COMFY_LOG"])
-    found = [p for p in (Path(d) / "nest_egg" / "comfy.log" for d in (os.environ.get("COMFYUI_DIR", ""), "C:/ComfyUI", "D:/ComfyUI"))
+    port = urllib.parse.urlsplit(HOST).port or 8188
+    log_name = "comfy.log" if port == 8188 else f"comfy-{port}.log"
+    found = [p for p in (Path(d) / "nest_egg" / log_name for d in (os.environ.get("COMFYUI_DIR", ""), "C:/ComfyUI", "D:/ComfyUI"))
              if p.parent.parent.exists() and p.exists()]
     return max(found, key=lambda p: p.stat().st_mtime) if found else None
 

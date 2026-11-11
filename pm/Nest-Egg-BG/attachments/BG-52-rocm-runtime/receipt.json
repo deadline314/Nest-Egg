@@ -1,0 +1,17 @@
+{
+  "archive_sha256": "bae972d8599eecfe9617a2e680dd051aace519ccd7fa1b74a9fe0a76536e3e96",
+  "original_file_count": 66,
+  "delivery_source_sha256": {
+    "tools/comfyui/start_comfyui.ps1": "bcdfa2fa8711e6e4bfa60dc16f00bb289858a842154e0ed72bdf5834b8a084b6",
+    "tools/comfyui/comfy_guard.py": "dbf5944399393102f7254f60febeddb2943a8027fff40c6bf83a8829a6d052ad",
+    "tools/comfyui/runtime_probe.py": "e91ba15dcd97aa38b784e69f762697222ec335fe30c247b3826818bde3bdf231",
+    "tools/comfyui/test_runtime_probe.py": "537e6b938bbac067d1620a620805abbe0b9f42a7069e5505eaec4180298947cf",
+    "tools/comfyui/requirements-rocm-windows.txt": "67f5e9c2497d63b64e6c07eea48a2a10f64f611a1e10713e606a70a7d92421f9",
+    "tools/comfyui/verify_rocm_evidence.py": "eb4d9200be6d4ac22f01b192d235f903abffc50fa7e6db333092e011fda3f26f",
+    "tools/comfyui/comfy_api.py": "e128571f9bcd3e3e880d0056fccab5c7f13863ab05046d54b7c26105e763f675",
+    "tools/comfyui/field_design.py": "c1e44669de793fd961d8e108c16a26a8608b6176b1225f7551bc51d616de76cd"
+  },
+  "generation_server": "existing shared 8188, .venv-aot-amd; no restart/unload by this client",
+  "lifecycle_server": "own 8189, .venv-rocm; no model loaded during lifecycle",
+  "scope": "GPU runtime and workflow sample only; no art adoption, benchmark or claim of exclusive GPU use"
+}

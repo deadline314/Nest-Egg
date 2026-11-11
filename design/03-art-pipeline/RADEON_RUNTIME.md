@@ -17,3 +17,15 @@
 - [AMD：ROCm 10.0 相容矩陣](https://rocm.docs.amd.com/en/docs-10.0.0/compatibility/compatibility-matrix.html)
 
 網站會更新；交付以保存的實際套件版本、硬體測試與生成紀錄為準。
+
+## 實測與操作（2026-11-11）
+
+獨立環境為 `D:/ComfyUI/.venv-rocm`，Python 3.13.15、PyTorch 2.13.0+rocm10.0.0、gfx1201 裝置套件。實際 `torch.version.hip` 為 7.15.26333，這是套件回報的執行期版本，不改寫成 wheel 的 ROCm 10.0 標籤。9070 XT 上的 0～15 平方和實際得到 1240，沒有 CPU 回退。套件固定清單在 `tools/comfyui/requirements-rocm-windows.txt`；ComfyUI 保留原版本 79be670，原 CUDA 環境、模型與定稿未替換。
+
+啟動前明確設定 `COMFYUI_DIR`、`COMFYUI_PYTHON` 及客戶端 `COMFY_HOST`，以 `-PlanOnly -Port 8189` 預覽。實際啟動、重用、重新啟動與停止均維持該埠及直譯器。非預設埠使用獨立的 user/input/output/temp、log 及明確 SQLite URL；只有 user 路徑仍會觸發 ComfyUI 的舊資料庫搬移，首次錯誤已保存，明確資料庫 URL 後重新驗證沒有該錯誤。停止只精確比對指定埠，不能把 8189 認成 81890。
+
+一次原生 832×1216、25 步的既有 Qwen RGBA 工作流已成功，seed 26711；工作圖、提示、輸出及完整 alpha 分布均保存。生成透過既有共享 8188 服務的正常佇列完成；該服務使用 `.venv-aot-amd`，同為 Python 3.13.15／PyTorch 2.13.0+rocm10.0.0／9070 XT。這不冒稱獨立 `.venv-rocm` 服務完成模型生成：後者另驗 GPU 張量與 8189 服務生命週期。客戶端在共享服務上禁止啟停／重試重啟，也不卸載其他工作模型。
+
+原生透明圖不作角色定稿。提示指定中年女性，但樣本的年齡與性別呈現不足，仍須角色票的身份、畫風、動作與接點驗收。原始 alpha 有低透明度雜點；不切掉、重繪或把它冒稱精修完成。黑、灰、白底只供檢視原始 alpha，原 PNG 未改。
+
+本 repo 與 worktree 以共享鎖串行生成／原生 Godot，其他專案的工作另行觀察；本次沒有獨占 GPU 的效能宣稱。詳細版本、失敗與重跑方法見 `pm/Nest-Egg-BG/attachments/BG-52-rocm-runtime/README.md`。
