@@ -138,3 +138,11 @@ Windows 建置使用可攜路徑上限，不依賴系統長路徑設定：檔案
 JANUS保留原全部行為，僅移除其Enemy衍生類別的static設定欄位（診斷時改局部dictionary）便讓完整版號回報0 ERROR。[官方static_unload文件](https://docs.godotengine.org/en/latest/classes/class_%40gdscript.html)仍列腳本釋放bug，實機該註解也未解決；[官方問題122022](https://github.com/godotengine/godot/issues/122022)只作型別／factory互動線索，不宣稱同一bug。
 
 正式修復將設定快取移到沒有Enemy／Node繼承、沒有回指頭目類別的純資料leaf；保留defaults、一次讀取與原API。不重排序報告、不關快取、不延後退出或放寬ERROR規則。驗證雙順序、完整報告及相關戰鬥回歸，NE-232再從修正後固定提交重建單檔。版本報告不代稱人工／實體手把驗收。
+
+## 2026-11-12：修復後累積候選的原生啟動
+
+固定來源 `99dfc03b2f2c0e2ea597fc6826d8e4ba8f3b5a8c` 的三份 `0.1.261112-candidate` 完成實際雙平台單檔匯出及Windows乾淨版號回報。RX9070XT／Forward+三個主選單均正常，第一章實際選單新遊戲與關閉後新程序續玩保留同一故事／導航／成長。候選及章節就緒界線不變，原f52失敗stage完整保留。正式完整原生驗收硬體改為實際RX9070XT，舊ArcB580紀錄仍屬歷史。
+
+Windows GUI release stdout可能空白，原生log核對應讀該次隔離使用者目錄的godot.log或明確指定log-file；仍保留stdout與原退出收據，不能由空stdout推定渲染器或零錯誤。桌面工具SendInput的邏輯keycode與physical_keycode須分別實測；本次P／Escape的physical都變成4194313，故只計已實際成功的選單動作，不調整遊戲的實體鍵綁定來過測。
+
+[三候選的完整證據與可重驗原件](../../pm/Nest-Egg/attachments/NE-232/candidates-2026-11-12/README.md)。

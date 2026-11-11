@@ -1,0 +1,472 @@
+{
+  "base": "99dfc03b2f2c0e2ea597fc6826d8e4ba8f3b5a8c",
+  "version": "0.1.261112-candidate",
+  "candidates": [
+    {
+      "chapter": "ch1_kasa",
+      "stage": "D:\\NE232\\0.1.261112-candidate-through-ch1_kasa-99dfc03b2f2c0e2ea597fc6826d8e4ba8f3b5a8c",
+      "source_files": 8630,
+      "source_bytes": 229854293,
+      "source_sha256": "0913a70f1586c870b6018783c6523dc20396cbad5cd1d9c66d6b8e3cc101e4b5",
+      "windows": {
+        "file": "NestEgg-0.1.261112-candidate-through-ch1_kasa.exe",
+        "bytes": 296595744,
+        "sha256": "931c0c06b3716cc9a4103e639cdbcf5aebd4ebaa1781ee34d4716eb39197b3b0",
+        "pck_bytes": 187327252,
+        "entries": 9605,
+        "size_limit_ok": true,
+        "largest_entries": [
+          {
+            "path": ".godot/imported/pawnshop_kitchen_extended.webp-f0fdd76ad7eb4c1a17a1e56b7c810010.ctex",
+            "bytes": 1539202
+          },
+          {
+            "path": ".godot/imported/neon_market.webp-ffe862f30059c88e248936275fb08b72.ctex",
+            "bytes": 1468350
+          },
+          {
+            "path": ".godot/imported/calm_market.ogg-0e4a5fdd0e48ba232008a88abbfb9ff6.oggvorbisstr",
+            "bytes": 1413694
+          },
+          {
+            "path": ".godot/imported/public_garden.webp-8e4396f2955f8ae0eaae5ad5bd41b34b.ctex",
+            "bytes": 1390994
+          },
+          {
+            "path": ".godot/imported/calm_arena.ogg-1c6194dad8385bb0816e8b184f62d87c.oggvorbisstr",
+            "bytes": 1371594
+          },
+          {
+            "path": ".godot/imported/safe_clinic.ogg-417a695cf8e1e819f583b7b270b493ec.oggvorbisstr",
+            "bytes": 1358614
+          },
+          {
+            "path": ".godot/imported/menu_dark.ogg-d59f907d17c881dfe1dae7062e7fc300.oggvorbisstr",
+            "bytes": 1354986
+          },
+          {
+            "path": ".godot/imported/safe_pawnshop.ogg-0eb7b2aed59b2c2b7ccd42a371b94fbd.oggvorbisstr",
+            "bytes": 1350782
+          },
+          {
+            "path": ".godot/imported/calm_hangar.ogg-4fd3b325dbdbbffe7e321704722789a5.oggvorbisstr",
+            "bytes": 1329938
+          },
+          {
+            "path": ".godot/imported/boss_reclaimer.ogg-0d47ee2479fd453ab199f24a6c61d74a.oggvorbisstr",
+            "bytes": 1324234
+          },
+          {
+            "path": ".godot/imported/calm_rooftop.ogg-69028a6272d75da47e692b78e9721bf9.oggvorbisstr",
+            "bytes": 1322526
+          },
+          {
+            "path": ".godot/imported/calm_shaft.ogg-84c0de08a0c519d898237f41253c5b2e.oggvorbisstr",
+            "bytes": 1289182
+          },
+          {
+            "path": ".godot/imported/calm_shaft_deep.ogg-43262e3c3726c147942e5609c3e2cade.oggvorbisstr",
+            "bytes": 1235586
+          },
+          {
+            "path": ".godot/imported/pawnshop_front_extended.webp-af7517cf249f38cb4dcda78799a05315.ctex",
+            "bytes": 1212698
+          },
+          {
+            "path": ".godot/imported/calm_facility.ogg-91d89c9f347557713792943ab0edd141.oggvorbisstr",
+            "bytes": 1119154
+          }
+        ]
+      },
+      "linux": {
+        "file": "NestEgg-0.1.261112-candidate-through-ch1_kasa.x86_64",
+        "bytes": 260846672,
+        "sha256": "6b8251fb541d93b47011ad1a9db1c7dfb4dc3ddb0cfe00229ab38c5ce7e30016",
+        "pck_bytes": 187327244,
+        "entries": 9605,
+        "size_limit_ok": true,
+        "largest_entries": [
+          {
+            "path": ".godot/imported/pawnshop_kitchen_extended.webp-f0fdd76ad7eb4c1a17a1e56b7c810010.ctex",
+            "bytes": 1539202
+          },
+          {
+            "path": ".godot/imported/neon_market.webp-ffe862f30059c88e248936275fb08b72.ctex",
+            "bytes": 1468350
+          },
+          {
+            "path": ".godot/imported/calm_market.ogg-0e4a5fdd0e48ba232008a88abbfb9ff6.oggvorbisstr",
+            "bytes": 1413694
+          },
+          {
+            "path": ".godot/imported/public_garden.webp-8e4396f2955f8ae0eaae5ad5bd41b34b.ctex",
+            "bytes": 1390994
+          },
+          {
+            "path": ".godot/imported/calm_arena.ogg-1c6194dad8385bb0816e8b184f62d87c.oggvorbisstr",
+            "bytes": 1371594
+          },
+          {
+            "path": ".godot/imported/safe_clinic.ogg-417a695cf8e1e819f583b7b270b493ec.oggvorbisstr",
+            "bytes": 1358614
+          },
+          {
+            "path": ".godot/imported/menu_dark.ogg-d59f907d17c881dfe1dae7062e7fc300.oggvorbisstr",
+            "bytes": 1354986
+          },
+          {
+            "path": ".godot/imported/safe_pawnshop.ogg-0eb7b2aed59b2c2b7ccd42a371b94fbd.oggvorbisstr",
+            "bytes": 1350782
+          },
+          {
+            "path": ".godot/imported/calm_hangar.ogg-4fd3b325dbdbbffe7e321704722789a5.oggvorbisstr",
+            "bytes": 1329938
+          },
+          {
+            "path": ".godot/imported/boss_reclaimer.ogg-0d47ee2479fd453ab199f24a6c61d74a.oggvorbisstr",
+            "bytes": 1324234
+          },
+          {
+            "path": ".godot/imported/calm_rooftop.ogg-69028a6272d75da47e692b78e9721bf9.oggvorbisstr",
+            "bytes": 1322526
+          },
+          {
+            "path": ".godot/imported/calm_shaft.ogg-84c0de08a0c519d898237f41253c5b2e.oggvorbisstr",
+            "bytes": 1289182
+          },
+          {
+            "path": ".godot/imported/calm_shaft_deep.ogg-43262e3c3726c147942e5609c3e2cade.oggvorbisstr",
+            "bytes": 1235586
+          },
+          {
+            "path": ".godot/imported/pawnshop_front_extended.webp-af7517cf249f38cb4dcda78799a05315.ctex",
+            "bytes": 1212698
+          },
+          {
+            "path": ".godot/imported/calm_facility.ogg-91d89c9f347557713792943ab0edd141.oggvorbisstr",
+            "bytes": 1119154
+          }
+        ]
+      },
+      "native_forward_plus": true,
+      "native_gpu": "AMD Radeon RX 9070 XT",
+      "native_menu_frames": 90,
+      "formal_release": false,
+      "chapter_acceptance": false
+    },
+    {
+      "chapter": "ch2_heron",
+      "stage": "D:\\NE232\\0.1.261112-candidate-through-ch2_heron-99dfc03b2f2c0e2ea597fc6826d8e4ba8f3b5a8c",
+      "source_files": 8630,
+      "source_bytes": 229854294,
+      "source_sha256": "d2ec829536a0b6edeb3503ca24821ef5b1bae9f0f8e558c7ab961e4c257a65cb",
+      "windows": {
+        "file": "NestEgg-0.1.261112-candidate-through-ch2_heron.exe",
+        "bytes": 296595744,
+        "sha256": "5daae07eec56fb0a61d1444665fb16722f37f4076ca4d7878c9d71878f508d64",
+        "pck_bytes": 187327252,
+        "entries": 9605,
+        "size_limit_ok": true,
+        "largest_entries": [
+          {
+            "path": ".godot/imported/pawnshop_kitchen_extended.webp-f0fdd76ad7eb4c1a17a1e56b7c810010.ctex",
+            "bytes": 1539202
+          },
+          {
+            "path": ".godot/imported/neon_market.webp-ffe862f30059c88e248936275fb08b72.ctex",
+            "bytes": 1468350
+          },
+          {
+            "path": ".godot/imported/calm_market.ogg-0e4a5fdd0e48ba232008a88abbfb9ff6.oggvorbisstr",
+            "bytes": 1413694
+          },
+          {
+            "path": ".godot/imported/public_garden.webp-8e4396f2955f8ae0eaae5ad5bd41b34b.ctex",
+            "bytes": 1390994
+          },
+          {
+            "path": ".godot/imported/calm_arena.ogg-1c6194dad8385bb0816e8b184f62d87c.oggvorbisstr",
+            "bytes": 1371594
+          },
+          {
+            "path": ".godot/imported/safe_clinic.ogg-417a695cf8e1e819f583b7b270b493ec.oggvorbisstr",
+            "bytes": 1358614
+          },
+          {
+            "path": ".godot/imported/menu_dark.ogg-d59f907d17c881dfe1dae7062e7fc300.oggvorbisstr",
+            "bytes": 1354986
+          },
+          {
+            "path": ".godot/imported/safe_pawnshop.ogg-0eb7b2aed59b2c2b7ccd42a371b94fbd.oggvorbisstr",
+            "bytes": 1350782
+          },
+          {
+            "path": ".godot/imported/calm_hangar.ogg-4fd3b325dbdbbffe7e321704722789a5.oggvorbisstr",
+            "bytes": 1329938
+          },
+          {
+            "path": ".godot/imported/boss_reclaimer.ogg-0d47ee2479fd453ab199f24a6c61d74a.oggvorbisstr",
+            "bytes": 1324234
+          },
+          {
+            "path": ".godot/imported/calm_rooftop.ogg-69028a6272d75da47e692b78e9721bf9.oggvorbisstr",
+            "bytes": 1322526
+          },
+          {
+            "path": ".godot/imported/calm_shaft.ogg-84c0de08a0c519d898237f41253c5b2e.oggvorbisstr",
+            "bytes": 1289182
+          },
+          {
+            "path": ".godot/imported/calm_shaft_deep.ogg-43262e3c3726c147942e5609c3e2cade.oggvorbisstr",
+            "bytes": 1235586
+          },
+          {
+            "path": ".godot/imported/pawnshop_front_extended.webp-af7517cf249f38cb4dcda78799a05315.ctex",
+            "bytes": 1212698
+          },
+          {
+            "path": ".godot/imported/calm_facility.ogg-91d89c9f347557713792943ab0edd141.oggvorbisstr",
+            "bytes": 1119154
+          }
+        ]
+      },
+      "linux": {
+        "file": "NestEgg-0.1.261112-candidate-through-ch2_heron.x86_64",
+        "bytes": 260846672,
+        "sha256": "3b9fa27317a566462704c128f3cd49a5d58b3ad045d9928ace468b69d209f177",
+        "pck_bytes": 187327244,
+        "entries": 9605,
+        "size_limit_ok": true,
+        "largest_entries": [
+          {
+            "path": ".godot/imported/pawnshop_kitchen_extended.webp-f0fdd76ad7eb4c1a17a1e56b7c810010.ctex",
+            "bytes": 1539202
+          },
+          {
+            "path": ".godot/imported/neon_market.webp-ffe862f30059c88e248936275fb08b72.ctex",
+            "bytes": 1468350
+          },
+          {
+            "path": ".godot/imported/calm_market.ogg-0e4a5fdd0e48ba232008a88abbfb9ff6.oggvorbisstr",
+            "bytes": 1413694
+          },
+          {
+            "path": ".godot/imported/public_garden.webp-8e4396f2955f8ae0eaae5ad5bd41b34b.ctex",
+            "bytes": 1390994
+          },
+          {
+            "path": ".godot/imported/calm_arena.ogg-1c6194dad8385bb0816e8b184f62d87c.oggvorbisstr",
+            "bytes": 1371594
+          },
+          {
+            "path": ".godot/imported/safe_clinic.ogg-417a695cf8e1e819f583b7b270b493ec.oggvorbisstr",
+            "bytes": 1358614
+          },
+          {
+            "path": ".godot/imported/menu_dark.ogg-d59f907d17c881dfe1dae7062e7fc300.oggvorbisstr",
+            "bytes": 1354986
+          },
+          {
+            "path": ".godot/imported/safe_pawnshop.ogg-0eb7b2aed59b2c2b7ccd42a371b94fbd.oggvorbisstr",
+            "bytes": 1350782
+          },
+          {
+            "path": ".godot/imported/calm_hangar.ogg-4fd3b325dbdbbffe7e321704722789a5.oggvorbisstr",
+            "bytes": 1329938
+          },
+          {
+            "path": ".godot/imported/boss_reclaimer.ogg-0d47ee2479fd453ab199f24a6c61d74a.oggvorbisstr",
+            "bytes": 1324234
+          },
+          {
+            "path": ".godot/imported/calm_rooftop.ogg-69028a6272d75da47e692b78e9721bf9.oggvorbisstr",
+            "bytes": 1322526
+          },
+          {
+            "path": ".godot/imported/calm_shaft.ogg-84c0de08a0c519d898237f41253c5b2e.oggvorbisstr",
+            "bytes": 1289182
+          },
+          {
+            "path": ".godot/imported/calm_shaft_deep.ogg-43262e3c3726c147942e5609c3e2cade.oggvorbisstr",
+            "bytes": 1235586
+          },
+          {
+            "path": ".godot/imported/pawnshop_front_extended.webp-af7517cf249f38cb4dcda78799a05315.ctex",
+            "bytes": 1212698
+          },
+          {
+            "path": ".godot/imported/calm_facility.ogg-91d89c9f347557713792943ab0edd141.oggvorbisstr",
+            "bytes": 1119154
+          }
+        ]
+      },
+      "native_forward_plus": true,
+      "native_gpu": "AMD Radeon RX 9070 XT",
+      "native_menu_frames": 90,
+      "formal_release": false,
+      "chapter_acceptance": false
+    },
+    {
+      "chapter": "ch3_clearwater",
+      "stage": "D:\\NE232\\0.1.261112-candidate-through-ch3_clearwater-99dfc03b2f2c0e2ea597fc6826d8e4ba8f3b5a8c",
+      "source_files": 8630,
+      "source_bytes": 229854299,
+      "source_sha256": "dbf58e5fc1d405cbe191707492edf32494ea22cc493be7b362bfcac0ff8c159b",
+      "windows": {
+        "file": "NestEgg-0.1.261112-candidate-through-ch3_clearwater.exe",
+        "bytes": 296595744,
+        "sha256": "855ee7d93896b8f7b7248694b43427adc707d6aca43662c84efb02cb18077ba1",
+        "pck_bytes": 187327252,
+        "entries": 9605,
+        "size_limit_ok": true,
+        "largest_entries": [
+          {
+            "path": ".godot/imported/pawnshop_kitchen_extended.webp-f0fdd76ad7eb4c1a17a1e56b7c810010.ctex",
+            "bytes": 1539202
+          },
+          {
+            "path": ".godot/imported/neon_market.webp-ffe862f30059c88e248936275fb08b72.ctex",
+            "bytes": 1468350
+          },
+          {
+            "path": ".godot/imported/calm_market.ogg-0e4a5fdd0e48ba232008a88abbfb9ff6.oggvorbisstr",
+            "bytes": 1413694
+          },
+          {
+            "path": ".godot/imported/public_garden.webp-8e4396f2955f8ae0eaae5ad5bd41b34b.ctex",
+            "bytes": 1390994
+          },
+          {
+            "path": ".godot/imported/calm_arena.ogg-1c6194dad8385bb0816e8b184f62d87c.oggvorbisstr",
+            "bytes": 1371594
+          },
+          {
+            "path": ".godot/imported/safe_clinic.ogg-417a695cf8e1e819f583b7b270b493ec.oggvorbisstr",
+            "bytes": 1358614
+          },
+          {
+            "path": ".godot/imported/menu_dark.ogg-d59f907d17c881dfe1dae7062e7fc300.oggvorbisstr",
+            "bytes": 1354986
+          },
+          {
+            "path": ".godot/imported/safe_pawnshop.ogg-0eb7b2aed59b2c2b7ccd42a371b94fbd.oggvorbisstr",
+            "bytes": 1350782
+          },
+          {
+            "path": ".godot/imported/calm_hangar.ogg-4fd3b325dbdbbffe7e321704722789a5.oggvorbisstr",
+            "bytes": 1329938
+          },
+          {
+            "path": ".godot/imported/boss_reclaimer.ogg-0d47ee2479fd453ab199f24a6c61d74a.oggvorbisstr",
+            "bytes": 1324234
+          },
+          {
+            "path": ".godot/imported/calm_rooftop.ogg-69028a6272d75da47e692b78e9721bf9.oggvorbisstr",
+            "bytes": 1322526
+          },
+          {
+            "path": ".godot/imported/calm_shaft.ogg-84c0de08a0c519d898237f41253c5b2e.oggvorbisstr",
+            "bytes": 1289182
+          },
+          {
+            "path": ".godot/imported/calm_shaft_deep.ogg-43262e3c3726c147942e5609c3e2cade.oggvorbisstr",
+            "bytes": 1235586
+          },
+          {
+            "path": ".godot/imported/pawnshop_front_extended.webp-af7517cf249f38cb4dcda78799a05315.ctex",
+            "bytes": 1212698
+          },
+          {
+            "path": ".godot/imported/calm_facility.ogg-91d89c9f347557713792943ab0edd141.oggvorbisstr",
+            "bytes": 1119154
+          }
+        ]
+      },
+      "linux": {
+        "file": "NestEgg-0.1.261112-candidate-through-ch3_clearwater.x86_64",
+        "bytes": 260846672,
+        "sha256": "98d170d32edbb540cfb9e5fc4435890320a99adb9af8947500b6f07fe7f92626",
+        "pck_bytes": 187327244,
+        "entries": 9605,
+        "size_limit_ok": true,
+        "largest_entries": [
+          {
+            "path": ".godot/imported/pawnshop_kitchen_extended.webp-f0fdd76ad7eb4c1a17a1e56b7c810010.ctex",
+            "bytes": 1539202
+          },
+          {
+            "path": ".godot/imported/neon_market.webp-ffe862f30059c88e248936275fb08b72.ctex",
+            "bytes": 1468350
+          },
+          {
+            "path": ".godot/imported/calm_market.ogg-0e4a5fdd0e48ba232008a88abbfb9ff6.oggvorbisstr",
+            "bytes": 1413694
+          },
+          {
+            "path": ".godot/imported/public_garden.webp-8e4396f2955f8ae0eaae5ad5bd41b34b.ctex",
+            "bytes": 1390994
+          },
+          {
+            "path": ".godot/imported/calm_arena.ogg-1c6194dad8385bb0816e8b184f62d87c.oggvorbisstr",
+            "bytes": 1371594
+          },
+          {
+            "path": ".godot/imported/safe_clinic.ogg-417a695cf8e1e819f583b7b270b493ec.oggvorbisstr",
+            "bytes": 1358614
+          },
+          {
+            "path": ".godot/imported/menu_dark.ogg-d59f907d17c881dfe1dae7062e7fc300.oggvorbisstr",
+            "bytes": 1354986
+          },
+          {
+            "path": ".godot/imported/safe_pawnshop.ogg-0eb7b2aed59b2c2b7ccd42a371b94fbd.oggvorbisstr",
+            "bytes": 1350782
+          },
+          {
+            "path": ".godot/imported/calm_hangar.ogg-4fd3b325dbdbbffe7e321704722789a5.oggvorbisstr",
+            "bytes": 1329938
+          },
+          {
+            "path": ".godot/imported/boss_reclaimer.ogg-0d47ee2479fd453ab199f24a6c61d74a.oggvorbisstr",
+            "bytes": 1324234
+          },
+          {
+            "path": ".godot/imported/calm_rooftop.ogg-69028a6272d75da47e692b78e9721bf9.oggvorbisstr",
+            "bytes": 1322526
+          },
+          {
+            "path": ".godot/imported/calm_shaft.ogg-84c0de08a0c519d898237f41253c5b2e.oggvorbisstr",
+            "bytes": 1289182
+          },
+          {
+            "path": ".godot/imported/calm_shaft_deep.ogg-43262e3c3726c147942e5609c3e2cade.oggvorbisstr",
+            "bytes": 1235586
+          },
+          {
+            "path": ".godot/imported/pawnshop_front_extended.webp-af7517cf249f38cb4dcda78799a05315.ctex",
+            "bytes": 1212698
+          },
+          {
+            "path": ".godot/imported/calm_facility.ogg-91d89c9f347557713792943ab0edd141.oggvorbisstr",
+            "bytes": 1119154
+          }
+        ]
+      },
+      "native_forward_plus": true,
+      "native_gpu": "AMD Radeon RX 9070 XT",
+      "native_menu_frames": 90,
+      "formal_release": false,
+      "chapter_acceptance": false
+    }
+  ],
+  "binaries_kept_outside_git": true,
+  "images": {
+    "pm/Nest-Egg/images/NE-232-ch1_kasa-candidate-menu.png": "0b31157788f625c85b54649b56e83ca1539f7928711035950d27669ba59dd051",
+    "pm/Nest-Egg/images/NE-232-ch2_heron-candidate-menu.png": "7f971611f14bd861a2346e9e4ca6e216905c1285ec8720b5d3b1fb66b8c43f10",
+    "pm/Nest-Egg/images/NE-232-ch3_clearwater-candidate-menu.png": "17bf79687af02a982157db5685912292434c78797b33d1fce482c40e711c93a1",
+    "pm/Nest-Egg/images/NE-232-new-game-native.png": "e85a228ab4f5f97b5db63619a55f8ca2a49c551d26fdcce1168ac288b16bc24b",
+    "pm/Nest-Egg/images/NE-232-playable-prologue-native.png": "afc91fd7c06b9b6cfeb379653c9430790cc1539a6fa4434e52562348598cc3c6",
+    "pm/Nest-Egg/images/NE-232-cold-resume-native.png": "2130874f6e9df9dfccab9ea89e4f09ee49361bc660303bc6c7a721818b98864e"
+  },
+  "scope": "three immutable cumulative candidates, native startup menus and first-edition OS new-game/cold-resume; not full chapter, physical gamepad or cross-edition acceptance"
+}
