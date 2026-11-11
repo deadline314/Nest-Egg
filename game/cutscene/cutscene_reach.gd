@@ -25,6 +25,7 @@ var _binding_angle := 0.0
 var _contact_offset: Variant = null
 var _follow_rotation := false
 var _grip := false
+var _published := false
 
 
 func _init(which: StringName) -> void:
@@ -90,6 +91,7 @@ static func problem(step: Dictionary) -> String:
 
 
 func configure(step: Dictionary, actor_position := Vector2.ZERO) -> void:
+	_published = false
 	_binding = null
 	_duration = float(step.get("time", DEFAULT_TIME))
 	_wanted = 0.0 if step.get("release", false) else 1.0
@@ -138,6 +140,7 @@ func apply(actor: CutsceneActor, delta: float) -> void:
 	angle = lerp_angle(_from_angle, _to_angle, progress)
 	weight = move_toward(weight, _wanted, delta / maxf(_duration, 0.0001))
 	if weight <= 0.0:
+		_published = true
 		return
 	if parent == null or actor.rig == null:
 		return
@@ -146,6 +149,7 @@ func apply(actor: CutsceneActor, delta: float) -> void:
 	if not actor.rig.place_hand(hand, parent.to_global(stage_point), direction.angle(), smoothstep(0.0, 1.0, weight), _contact_offset) and not _reported:
 		push_warning("[CutsceneReach] %s/%s cannot reach stage point %s; keeping original arm pose" % [actor.actor_id, hand, stage_point])
 		_reported = true
+	_published = true
 
 
 func bind_to(binding: StagePropBinding, angle_offset: float, follow_rotation := false) -> void:
@@ -172,6 +176,11 @@ func gripping() -> bool:
 
 func settled() -> bool:
 	return _wanted == 1.0 and weight >= 1.0 and _elapsed >= _duration
+
+
+## A consumed pose, including zero-time requests and release back to animation.
+func complete() -> bool:
+	return _published and _elapsed >= _duration and weight == _wanted
 
 
 func keep_with_body(actor_position: Vector2) -> void:

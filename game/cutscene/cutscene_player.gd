@@ -487,6 +487,15 @@ func _do_prop_move(step: Dictionary) -> void:
 			await get_tree().process_frame  # 下一步收手前，讓演員看見控制桿的最後姿態。
 
 
+func _live_step_actor(reference: WeakRef, id: StringName) -> CutsceneActor:
+	if not _running or skipping or not is_inside_tree():
+		return null
+	var actor := reference.get_ref() as CutsceneActor
+	if actor == null or actor.is_queued_for_deletion() or not actor.is_inside_tree() or not actor.can_process() or _actors.get(id) != actor or actor.pose == &"dead":
+		return null
+	return actor
+
+
 func _do_reach(step: Dictionary) -> void:
 	var issue := CutsceneReach.problem(step)
 	if not issue.is_empty():
@@ -520,7 +529,21 @@ func _do_reach(step: Dictionary) -> void:
 		return
 	actor.reach_speed = speed
 	if step.get("wait", true):
-		await _wait_time(float(step.get("time", CutsceneReach.DEFAULT_TIME)))
+		await _wait_hand_contact(weakref(actor), actor.actor_id, StringName(step["hand"]))
+
+
+func _wait_hand_contact(reference: WeakRef, id: StringName, hand: StringName) -> void:
+	while _running and not skipping and is_inside_tree():
+		var actor := _live_step_actor(reference, id)
+		if actor == null or not actor.is_processing() or not is_instance_valid(actor.rig):
+			push_warning("[Cutscene] %s: reach actor %s/%s cannot update; cancelling presentation" % [_current_where, id, hand])
+			cancel()
+			return
+		if actor.hand_target_complete(hand):
+			return
+		await get_tree().process_frame
+		if not is_instance_valid(self):
+			return
 
 
 func _do_prop(step: Dictionary) -> void:

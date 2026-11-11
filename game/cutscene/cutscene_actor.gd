@@ -158,6 +158,10 @@ func hand_target_settled(hand: StringName) -> bool:
 	return (hand == &"front" or hand == &"back") and _reaches[0 if hand == &"front" else 1].settled()
 
 
+func hand_target_complete(hand: StringName) -> bool:
+	return (hand == &"front" or hand == &"back") and _reaches[0 if hand == &"front" else 1].complete()
+
+
 func hand_contact_global(hand: StringName) -> Vector2:
 	if rig == null or (hand != &"front" and hand != &"back"):
 		return Vector2.INF
