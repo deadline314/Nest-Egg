@@ -11,6 +11,9 @@ var pinned_id := ""
 var explored: Dictionary = {}
 var activated: Dictionary = {}
 var revision := 0
+## 地形只依各區探索變化失效；釘選與復原點不會改變地形。
+var _exploration_revisions: Dictionary = {}
+var _restore_revision := 0
 var issues := PackedStringArray()
 
 
@@ -47,7 +50,12 @@ func reveal(path: String, cells: Array[Vector2i]) -> void:
 			explored[path][key] = true
 			dirty = true
 	if dirty:
+		_exploration_revisions[path] = exploration_revision(path) + 1
 		_touch()
+
+
+func exploration_revision(path: String) -> int:
+	return int(_exploration_revisions.get(path, _restore_revision))
 
 
 func knows(path: String, cell: Vector2i) -> bool:
@@ -66,6 +74,9 @@ func snapshot() -> Dictionary:
 
 
 func restore(raw: Variant, catalog: QuestCatalog, maps: QuestMapIndex, notify := true) -> void:
+	# 讀檔可把探索倒退；即使格數一樣也必須失效。
+	_restore_revision = revision + 1
+	_exploration_revisions.clear()
 	pinned_id = ""
 	explored.clear()
 	activated.clear()

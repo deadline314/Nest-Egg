@@ -1,0 +1,20 @@
+{
+  "observed_head": "991d1a2c72e1e8ce684824de3acb1944ecaddcdc",
+  "date": "2026-11-11",
+  "test": {
+    "checks": 396,
+    "failures": 0,
+    "seconds": 14.5,
+    "exit_code": 0,
+    "log": "quest-map-tests-final2.log"
+  },
+  "physical_controller_tested": false,
+  "isolated_performance_acceptance": false,
+  "sources": {
+    "core/navigation/quest_map_state.gd": "87c96df3f2ef88084b51d884053742070ea0fdc7229cebfb5db0572648fd7c5c",
+    "ui/quest_map_canvas.gd": "2b26cda629ee38a68e5521a4da6de5e1430b029953297a0ed825dbdfee627d5f",
+    "tests/suite/test_quest_map.gd": "df0acf05d43adab2a3a66a441a9a9369ef3c12fe1fd153c0a961850f34926f59",
+    "tools/quest_map_perf_probe.gd": "637701122cfbc27ffd5d692607749ebed0c36d9ceeb6d650378b73d2ea33c7e8",
+    "tools/quest_map_perf_probe.tscn": "613e7cdbe1b52c7eb9d534c3c8f0b2de120855518ed435beaed82f22c150c798"
+  }
+}

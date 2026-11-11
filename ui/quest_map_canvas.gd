@@ -39,7 +39,12 @@ var zoom := 1.0
 var builds := 0
 ## 目前區域已探索的可通行格子比例（0～1），隨貼圖一起快取。
 var explored_ratio := 0.0
-var _cache: Dictionary = {}
+## 頁切換與關閉覆蓋畫面會銷毀 Canvas，因此地形快取跨實例保存。
+## 弱引用不延長關卡／新遊戲的生命；同一章每區只留最新版。
+static var _cache: Dictionary = {}
+static var _cache_state: WeakRef
+static var _cache_maps: WeakRef
+static var _cache_parse_count := -1
 var _texture: Texture2D
 var _map_rect := Rect2()
 var _view := Rect2()
@@ -86,14 +91,18 @@ func refresh() -> void:
 func _region_map() -> void:
 	var area: Dictionary = maps.areas[path]
 	var layout: LevelLayout = area["layout"]
-	var key := "%s:%d" % [path, state.revision]
-	if not _cache.has(key):
-		# 只保留目前畫面的貼圖，探索前進不會累積舊版本。
+	if _cache_state == null or _cache_state.get_ref() != state or _cache_maps == null or _cache_maps.get_ref() != maps or _cache_parse_count != maps.parse_count:
 		_cache.clear()
-		_cache[key] = _build_terrain(layout)
+		_cache_state = weakref(state)
+		_cache_maps = weakref(maps)
+		_cache_parse_count = maps.parse_count
+	var revision := state.exploration_revision(path)
+	if not _cache.has(path) or _cache[path]["revision"] != revision:
+		_cache[path] = _build_terrain(layout)
+		_cache[path]["revision"] = revision
 		builds += 1
-	_texture = _cache[key]["texture"]
-	explored_ratio = _cache[key]["ratio"]
+	_texture = _cache[path]["texture"]
+	explored_ratio = _cache[path]["ratio"]
 	var cells := Vector2(layout.width, layout.height)
 	var avail := size - Vector2(PAD, PAD) * 2
 	var factor := _cell_size(cells, avail)

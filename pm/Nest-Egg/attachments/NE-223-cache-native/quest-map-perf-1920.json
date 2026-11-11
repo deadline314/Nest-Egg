@@ -1,0 +1,840 @@
+{
+	"adapter": "AMD Radeon RX 9070 XT",
+	"godot": "4.7.2-stable (official)",
+	"input": "synthetic keyboard events through the real PauseMenu; no physical controller",
+	"issues": [],
+	"level": "res://data/levels/ch1_pawnshop.tres",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"rounds": 16,
+	"samples": [
+		{
+			"action": "idle",
+			"first_open": true,
+			"frame_ms": 17.654,
+			"input_ms": 0.001,
+			"round": 0
+		},
+		{
+			"action": "pause",
+			"first_open": true,
+			"frame_ms": 66.424,
+			"input_ms": 3.66,
+			"round": 0
+		},
+		{
+			"action": "journal",
+			"first_open": true,
+			"frame_ms": 69.377,
+			"input_ms": 40.052,
+			"round": 0
+		},
+		{
+			"action": "region",
+			"first_open": true,
+			"frame_ms": 36.149,
+			"input_ms": 14.211,
+			"round": 0
+		},
+		{
+			"action": "world",
+			"first_open": true,
+			"frame_ms": 52.786,
+			"input_ms": 9.537,
+			"round": 0
+		},
+		{
+			"action": "back-region",
+			"first_open": true,
+			"frame_ms": 16.369,
+			"input_ms": 6.918,
+			"round": 0
+		},
+		{
+			"action": "retained",
+			"cache_entries": 1,
+			"nodes": 1072,
+			"round": 0,
+			"static_bytes": 227131425
+		},
+		{
+			"action": "idle",
+			"first_open": false,
+			"frame_ms": 3.959,
+			"input_ms": 0.001,
+			"round": 1
+		},
+		{
+			"action": "pause",
+			"first_open": false,
+			"frame_ms": 6.927,
+			"input_ms": 2.835,
+			"round": 1
+		},
+		{
+			"action": "journal",
+			"first_open": false,
+			"frame_ms": 25.406,
+			"input_ms": 17.453,
+			"round": 1
+		},
+		{
+			"action": "region",
+			"first_open": false,
+			"frame_ms": 17.519,
+			"input_ms": 9.542,
+			"round": 1
+		},
+		{
+			"action": "world",
+			"first_open": false,
+			"frame_ms": 47.03,
+			"input_ms": 8.562,
+			"round": 1
+		},
+		{
+			"action": "back-region",
+			"first_open": false,
+			"frame_ms": 15.943,
+			"input_ms": 8.351,
+			"round": 1
+		},
+		{
+			"action": "retained",
+			"cache_entries": 1,
+			"nodes": 1072,
+			"round": 1,
+			"static_bytes": 227249609
+		},
+		{
+			"action": "idle",
+			"first_open": false,
+			"frame_ms": 7.232,
+			"input_ms": 0.0,
+			"round": 2
+		},
+		{
+			"action": "pause",
+			"first_open": false,
+			"frame_ms": 7.77,
+			"input_ms": 2.838,
+			"round": 2
+		},
+		{
+			"action": "journal",
+			"first_open": false,
+			"frame_ms": 24.719,
+			"input_ms": 18.039,
+			"round": 2
+		},
+		{
+			"action": "region",
+			"first_open": false,
+			"frame_ms": 16.512,
+			"input_ms": 7.564,
+			"round": 2
+		},
+		{
+			"action": "world",
+			"first_open": false,
+			"frame_ms": 41.048,
+			"input_ms": 6.534,
+			"round": 2
+		},
+		{
+			"action": "back-region",
+			"first_open": false,
+			"frame_ms": 14.319,
+			"input_ms": 7.5,
+			"round": 2
+		},
+		{
+			"action": "retained",
+			"cache_entries": 1,
+			"nodes": 1072,
+			"round": 2,
+			"static_bytes": 227460225
+		},
+		{
+			"action": "idle",
+			"first_open": false,
+			"frame_ms": 4.848,
+			"input_ms": 0.0,
+			"round": 3
+		},
+		{
+			"action": "pause",
+			"first_open": false,
+			"frame_ms": 7.76,
+			"input_ms": 2.856,
+			"round": 3
+		},
+		{
+			"action": "journal",
+			"first_open": false,
+			"frame_ms": 22.995,
+			"input_ms": 16.132,
+			"round": 3
+		},
+		{
+			"action": "region",
+			"first_open": false,
+			"frame_ms": 16.239,
+			"input_ms": 7.935,
+			"round": 3
+		},
+		{
+			"action": "world",
+			"first_open": false,
+			"frame_ms": 41.865,
+			"input_ms": 7.113,
+			"round": 3
+		},
+		{
+			"action": "back-region",
+			"first_open": false,
+			"frame_ms": 16.771,
+			"input_ms": 7.148,
+			"round": 3
+		},
+		{
+			"action": "retained",
+			"cache_entries": 1,
+			"nodes": 1072,
+			"round": 3,
+			"static_bytes": 227567265
+		},
+		{
+			"action": "idle",
+			"first_open": false,
+			"frame_ms": 3.465,
+			"input_ms": 0.0,
+			"round": 4
+		},
+		{
+			"action": "pause",
+			"first_open": false,
+			"frame_ms": 7.466,
+			"input_ms": 2.902,
+			"round": 4
+		},
+		{
+			"action": "journal",
+			"first_open": false,
+			"frame_ms": 21.474,
+			"input_ms": 15.494,
+			"round": 4
+		},
+		{
+			"action": "region",
+			"first_open": false,
+			"frame_ms": 14.021,
+			"input_ms": 7.616,
+			"round": 4
+		},
+		{
+			"action": "world",
+			"first_open": false,
+			"frame_ms": 39.328,
+			"input_ms": 6.926,
+			"round": 4
+		},
+		{
+			"action": "back-region",
+			"first_open": false,
+			"frame_ms": 13.769,
+			"input_ms": 7.512,
+			"round": 4
+		},
+		{
+			"action": "retained",
+			"cache_entries": 1,
+			"nodes": 1072,
+			"round": 4,
+			"static_bytes": 227584041
+		},
+		{
+			"action": "idle",
+			"first_open": false,
+			"frame_ms": 3.721,
+			"input_ms": 0.0,
+			"round": 5
+		},
+		{
+			"action": "pause",
+			"first_open": false,
+			"frame_ms": 5.546,
+			"input_ms": 2.196,
+			"round": 5
+		},
+		{
+			"action": "journal",
+			"first_open": false,
+			"frame_ms": 21.109,
+			"input_ms": 15.775,
+			"round": 5
+		},
+		{
+			"action": "region",
+			"first_open": false,
+			"frame_ms": 13.692,
+			"input_ms": 7.769,
+			"round": 5
+		},
+		{
+			"action": "world",
+			"first_open": false,
+			"frame_ms": 39.039,
+			"input_ms": 5.988,
+			"round": 5
+		},
+		{
+			"action": "back-region",
+			"first_open": false,
+			"frame_ms": 13.923,
+			"input_ms": 7.227,
+			"round": 5
+		},
+		{
+			"action": "retained",
+			"cache_entries": 1,
+			"nodes": 1072,
+			"round": 5,
+			"static_bytes": 227606013
+		},
+		{
+			"action": "idle",
+			"first_open": false,
+			"frame_ms": 2.592,
+			"input_ms": 0.001,
+			"round": 6
+		},
+		{
+			"action": "pause",
+			"first_open": false,
+			"frame_ms": 5.587,
+			"input_ms": 2.727,
+			"round": 6
+		},
+		{
+			"action": "journal",
+			"first_open": false,
+			"frame_ms": 20.878,
+			"input_ms": 15.806,
+			"round": 6
+		},
+		{
+			"action": "region",
+			"first_open": false,
+			"frame_ms": 13.336,
+			"input_ms": 6.979,
+			"round": 6
+		},
+		{
+			"action": "world",
+			"first_open": false,
+			"frame_ms": 38.937,
+			"input_ms": 6.348,
+			"round": 6
+		},
+		{
+			"action": "back-region",
+			"first_open": false,
+			"frame_ms": 26.454,
+			"input_ms": 8.151,
+			"round": 6
+		},
+		{
+			"action": "retained",
+			"cache_entries": 1,
+			"nodes": 1072,
+			"round": 6,
+			"static_bytes": 227605761
+		},
+		{
+			"action": "idle",
+			"first_open": false,
+			"frame_ms": 2.496,
+			"input_ms": 0.001,
+			"round": 7
+		},
+		{
+			"action": "pause",
+			"first_open": false,
+			"frame_ms": 5.452,
+			"input_ms": 2.679,
+			"round": 7
+		},
+		{
+			"action": "journal",
+			"first_open": false,
+			"frame_ms": 21.808,
+			"input_ms": 15.814,
+			"round": 7
+		},
+		{
+			"action": "region",
+			"first_open": false,
+			"frame_ms": 15.114,
+			"input_ms": 8.044,
+			"round": 7
+		},
+		{
+			"action": "world",
+			"first_open": false,
+			"frame_ms": 37.582,
+			"input_ms": 6.234,
+			"round": 7
+		},
+		{
+			"action": "back-region",
+			"first_open": false,
+			"frame_ms": 18.755,
+			"input_ms": 9.828,
+			"round": 7
+		},
+		{
+			"action": "retained",
+			"cache_entries": 1,
+			"nodes": 1072,
+			"round": 7,
+			"static_bytes": 227612777
+		},
+		{
+			"action": "idle",
+			"first_open": false,
+			"frame_ms": 2.513,
+			"input_ms": 0.0,
+			"round": 8
+		},
+		{
+			"action": "pause",
+			"first_open": false,
+			"frame_ms": 5.852,
+			"input_ms": 2.708,
+			"round": 8
+		},
+		{
+			"action": "journal",
+			"first_open": false,
+			"frame_ms": 21.526,
+			"input_ms": 16.113,
+			"round": 8
+		},
+		{
+			"action": "region",
+			"first_open": false,
+			"frame_ms": 14.993,
+			"input_ms": 7.157,
+			"round": 8
+		},
+		{
+			"action": "world",
+			"first_open": false,
+			"frame_ms": 37.021,
+			"input_ms": 6.082,
+			"round": 8
+		},
+		{
+			"action": "back-region",
+			"first_open": false,
+			"frame_ms": 14.65,
+			"input_ms": 7.694,
+			"round": 8
+		},
+		{
+			"action": "retained",
+			"cache_entries": 1,
+			"nodes": 1072,
+			"round": 8,
+			"static_bytes": 227614457
+		},
+		{
+			"action": "idle",
+			"first_open": false,
+			"frame_ms": 2.445,
+			"input_ms": 0.001,
+			"round": 9
+		},
+		{
+			"action": "pause",
+			"first_open": false,
+			"frame_ms": 4.74,
+			"input_ms": 2.206,
+			"round": 9
+		},
+		{
+			"action": "journal",
+			"first_open": false,
+			"frame_ms": 19.829,
+			"input_ms": 15.193,
+			"round": 9
+		},
+		{
+			"action": "region",
+			"first_open": false,
+			"frame_ms": 12.871,
+			"input_ms": 7.242,
+			"round": 9
+		},
+		{
+			"action": "world",
+			"first_open": false,
+			"frame_ms": 37.672,
+			"input_ms": 6.581,
+			"round": 9
+		},
+		{
+			"action": "back-region",
+			"first_open": false,
+			"frame_ms": 13.887,
+			"input_ms": 7.21,
+			"round": 9
+		},
+		{
+			"action": "retained",
+			"cache_entries": 1,
+			"nodes": 1072,
+			"round": 9,
+			"static_bytes": 227611341
+		},
+		{
+			"action": "idle",
+			"first_open": false,
+			"frame_ms": 2.592,
+			"input_ms": 0.0,
+			"round": 10
+		},
+		{
+			"action": "pause",
+			"first_open": false,
+			"frame_ms": 5.045,
+			"input_ms": 2.497,
+			"round": 10
+		},
+		{
+			"action": "journal",
+			"first_open": false,
+			"frame_ms": 23.612,
+			"input_ms": 17.107,
+			"round": 10
+		},
+		{
+			"action": "region",
+			"first_open": false,
+			"frame_ms": 13.354,
+			"input_ms": 7.367,
+			"round": 10
+		},
+		{
+			"action": "world",
+			"first_open": false,
+			"frame_ms": 37.978,
+			"input_ms": 6.568,
+			"round": 10
+		},
+		{
+			"action": "back-region",
+			"first_open": false,
+			"frame_ms": 13.028,
+			"input_ms": 6.792,
+			"round": 10
+		},
+		{
+			"action": "retained",
+			"cache_entries": 1,
+			"nodes": 1072,
+			"round": 10,
+			"static_bytes": 227628725
+		},
+		{
+			"action": "idle",
+			"first_open": false,
+			"frame_ms": 2.498,
+			"input_ms": 0.0,
+			"round": 11
+		},
+		{
+			"action": "pause",
+			"first_open": false,
+			"frame_ms": 6.292,
+			"input_ms": 2.806,
+			"round": 11
+		},
+		{
+			"action": "journal",
+			"first_open": false,
+			"frame_ms": 22.21,
+			"input_ms": 16.296,
+			"round": 11
+		},
+		{
+			"action": "region",
+			"first_open": false,
+			"frame_ms": 17.006,
+			"input_ms": 9.669,
+			"round": 11
+		},
+		{
+			"action": "world",
+			"first_open": false,
+			"frame_ms": 38.658,
+			"input_ms": 6.783,
+			"round": 11
+		},
+		{
+			"action": "back-region",
+			"first_open": false,
+			"frame_ms": 57.408,
+			"input_ms": 8.519,
+			"round": 11
+		},
+		{
+			"action": "retained",
+			"cache_entries": 1,
+			"nodes": 1072,
+			"round": 11,
+			"static_bytes": 227634093
+		},
+		{
+			"action": "idle",
+			"first_open": false,
+			"frame_ms": 3.314,
+			"input_ms": 0.0,
+			"round": 12
+		},
+		{
+			"action": "pause",
+			"first_open": false,
+			"frame_ms": 7.532,
+			"input_ms": 2.715,
+			"round": 12
+		},
+		{
+			"action": "journal",
+			"first_open": false,
+			"frame_ms": 22.509,
+			"input_ms": 16.438,
+			"round": 12
+		},
+		{
+			"action": "region",
+			"first_open": false,
+			"frame_ms": 13.646,
+			"input_ms": 7.448,
+			"round": 12
+		},
+		{
+			"action": "world",
+			"first_open": false,
+			"frame_ms": 37.08,
+			"input_ms": 6.038,
+			"round": 12
+		},
+		{
+			"action": "back-region",
+			"first_open": false,
+			"frame_ms": 14.461,
+			"input_ms": 7.902,
+			"round": 12
+		},
+		{
+			"action": "retained",
+			"cache_entries": 1,
+			"nodes": 1072,
+			"round": 12,
+			"static_bytes": 227641241
+		},
+		{
+			"action": "idle",
+			"first_open": false,
+			"frame_ms": 4.706,
+			"input_ms": 0.001,
+			"round": 13
+		},
+		{
+			"action": "pause",
+			"first_open": false,
+			"frame_ms": 6.793,
+			"input_ms": 3.692,
+			"round": 13
+		},
+		{
+			"action": "journal",
+			"first_open": false,
+			"frame_ms": 23.186,
+			"input_ms": 15.614,
+			"round": 13
+		},
+		{
+			"action": "region",
+			"first_open": false,
+			"frame_ms": 15.102,
+			"input_ms": 7.945,
+			"round": 13
+		},
+		{
+			"action": "world",
+			"first_open": false,
+			"frame_ms": 39.41,
+			"input_ms": 5.856,
+			"round": 13
+		},
+		{
+			"action": "back-region",
+			"first_open": false,
+			"frame_ms": 14.715,
+			"input_ms": 7.425,
+			"round": 13
+		},
+		{
+			"action": "retained",
+			"cache_entries": 1,
+			"nodes": 1072,
+			"round": 13,
+			"static_bytes": 227647573
+		},
+		{
+			"action": "idle",
+			"first_open": false,
+			"frame_ms": 2.461,
+			"input_ms": 0.001,
+			"round": 14
+		},
+		{
+			"action": "pause",
+			"first_open": false,
+			"frame_ms": 5.592,
+			"input_ms": 2.75,
+			"round": 14
+		},
+		{
+			"action": "journal",
+			"first_open": false,
+			"frame_ms": 21.021,
+			"input_ms": 16.176,
+			"round": 14
+		},
+		{
+			"action": "region",
+			"first_open": false,
+			"frame_ms": 18.326,
+			"input_ms": 9.388,
+			"round": 14
+		},
+		{
+			"action": "world",
+			"first_open": false,
+			"frame_ms": 40.208,
+			"input_ms": 6.476,
+			"round": 14
+		},
+		{
+			"action": "back-region",
+			"first_open": false,
+			"frame_ms": 13.707,
+			"input_ms": 7.534,
+			"round": 14
+		},
+		{
+			"action": "retained",
+			"cache_entries": 1,
+			"nodes": 1072,
+			"round": 14,
+			"static_bytes": 227648177
+		},
+		{
+			"action": "idle",
+			"first_open": false,
+			"frame_ms": 2.503,
+			"input_ms": 0.001,
+			"round": 15
+		},
+		{
+			"action": "pause",
+			"first_open": false,
+			"frame_ms": 5.587,
+			"input_ms": 2.685,
+			"round": 15
+		},
+		{
+			"action": "journal",
+			"first_open": false,
+			"frame_ms": 22.392,
+			"input_ms": 16.355,
+			"round": 15
+		},
+		{
+			"action": "region",
+			"first_open": false,
+			"frame_ms": 21.27,
+			"input_ms": 11.388,
+			"round": 15
+		},
+		{
+			"action": "world",
+			"first_open": false,
+			"frame_ms": 47.056,
+			"input_ms": 7.355,
+			"round": 15
+		},
+		{
+			"action": "back-region",
+			"first_open": false,
+			"frame_ms": 15.435,
+			"input_ms": 7.171,
+			"round": 15
+		},
+		{
+			"action": "retained",
+			"cache_entries": 1,
+			"nodes": 1072,
+			"round": 15,
+			"static_bytes": 227653749
+		}
+	],
+	"shared_workload": true,
+	"summary": {
+		"back-region": {
+			"first_ms": 16.369,
+			"warm_max_ms": 57.408,
+			"warm_median_ms": 14.65,
+			"warm_p95_ms": 57.408
+		},
+		"idle": {
+			"first_ms": 17.654,
+			"warm_max_ms": 7.232,
+			"warm_median_ms": 2.592,
+			"warm_p95_ms": 7.232
+		},
+		"journal": {
+			"first_ms": 69.377,
+			"warm_max_ms": 25.406,
+			"warm_median_ms": 22.21,
+			"warm_p95_ms": 25.406
+		},
+		"pause": {
+			"first_ms": 66.424,
+			"warm_max_ms": 7.77,
+			"warm_median_ms": 5.852,
+			"warm_p95_ms": 7.77
+		},
+		"region": {
+			"first_ms": 36.149,
+			"warm_max_ms": 21.27,
+			"warm_median_ms": 15.102,
+			"warm_p95_ms": 21.27
+		},
+		"world": {
+			"first_ms": 52.786,
+			"warm_max_ms": 47.056,
+			"warm_median_ms": 39.039,
+			"warm_p95_ms": 47.056
+		}
+	},
+	"timing": "input to next frame_post_draw; includes frame scheduling and rendering submission, not physical display latency",
+	"vsync": false
+}

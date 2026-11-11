@@ -15,6 +15,7 @@ func run() -> void:
 	maps.load_chapter(&"ch1_kasa")
 	_test_real_maps(maps)
 	_test_state(catalog, maps)
+	await _test_terrain_cache(catalog, maps)
 	await _test_ui(catalog, maps)
 	await _test_runtime()
 	_test_display_defaults()
@@ -244,6 +245,82 @@ func _test_state(catalog: QuestCatalog, maps: QuestMapIndex) -> void:
 		check(not restored.issues.is_empty() and restored.pinned_id.is_empty() and restored.explored.is_empty(), "corrupt navigation safely defaults and identifies fields")
 
 
+## 快取的生命必須跨過分頁與重開，但不能跨新遊戲／換章／讀檔。
+func _test_terrain_cache(catalog: QuestCatalog, maps: QuestMapIndex) -> void:
+	var state := QuestMapState.new()
+	state.reveal(PAWN, [Vector2i(50, 19)])
+	var canvas := _cache_canvas(maps, state)
+	await frames(3)
+	var texture := canvas._texture
+	var builds := canvas.builds
+	await frames(30)
+	check(canvas.builds == builds and canvas._texture == texture, "idle map never rebuilds terrain each frame")
+	state.pin("nav_test_side", catalog)
+	var activated := false
+	for path: String in maps.areas:
+		var layout: LevelLayout = maps.areas[path]["layout"]
+		if not layout.checkpoints.is_empty():
+			state.activate(path, layout.checkpoints[0], layout.tile_size)
+			activated = true
+			break
+	check(activated, "cache checkpoint check uses a real chapter checkpoint")
+	state.reveal(ROOF, [Vector2i(1, 1)])
+	canvas.refresh()
+	check(canvas.builds == builds and canvas._texture == texture, "pinning, checkpoints and exploring another area preserve terrain")
+	canvas.queue_free()
+	await frames(2)
+	canvas = _cache_canvas(maps, state)
+	await frames(3)
+	check(canvas.builds == 0 and canvas._texture == texture, "a replacement canvas reuses terrain after tabs or overlay reopen")
+	state.reveal(PAWN, [Vector2i(51, 19)])
+	canvas.refresh()
+	check(canvas.builds == 1 and canvas._texture != texture, "new exploration replaces the area's terrain")
+	var snapshot := state.snapshot()
+	snapshot["explored"][PAWN] = {"60,19": true, "61,19": true}
+	texture = canvas._texture
+	state.restore(snapshot, catalog, maps, false)
+	canvas.refresh()
+	check(canvas.builds == 2 and canvas._texture != texture and state.knows(PAWN, Vector2i(60, 19)) and not state.knows(PAWN, Vector2i(50, 19)), "restoring different cells invalidates terrain even when explored cell count matches")
+	for x in range(52, 62):
+		state.reveal(PAWN, [Vector2i(x, 19)])
+		canvas.refresh()
+	check(QuestMapCanvas._cache.size() == 1, "repeated exploration retains one current texture per area")
+	for path: String in maps.areas:
+		canvas.path = path
+		canvas.refresh()
+	check(QuestMapCanvas._cache.size() == maps.areas.size(), "terrain cache is bounded by the current chapter's area count")
+	canvas.queue_free()
+	await frames(2)
+	canvas = _cache_canvas(maps, QuestMapState.new())
+	await frames(3)
+	check(canvas.builds == 1 and canvas.explored_ratio == 0 and QuestMapCanvas._cache.size() == 1, "new run drops cached exploration from the previous state")
+	var next_maps := QuestMapIndex.new()
+	next_maps.load_chapter(&"ch2_heron")
+	check(not next_maps.areas.is_empty(), "next chapter cache check uses real chapter areas")
+	canvas.maps = next_maps
+	if not next_maps.areas.is_empty():
+		canvas.path = next_maps.areas.keys()[0]
+		canvas.refresh()
+		check(QuestMapCanvas._cache.size() == 1, "changing map index releases the previous chapter's terrain cache")
+	next_maps.load_chapter(&"ch1_kasa")
+	canvas.path = PAWN
+	canvas.refresh()
+	check(canvas.builds == 3 and QuestMapCanvas._cache.size() == 1, "reloading the same map index invalidates its cached geometry")
+	canvas.queue_free()
+	await frames(2)
+
+
+func _cache_canvas(maps: QuestMapIndex, state: QuestMapState) -> QuestMapCanvas:
+	var canvas := QuestMapCanvas.new()
+	canvas.maps = maps
+	canvas.state = state
+	canvas.path = PAWN
+	canvas.size = Vector2(480, 270)
+	runner.get_tree().root.add_child(canvas)
+	canvas.refresh()
+	return canvas
+
+
 func _test_ui(catalog: QuestCatalog, maps: QuestMapIndex) -> void:
 	var old_flags := GameState.world_flags.duplicate(true)
 	GameState.world_flags = {"nav_test_done": true}
@@ -318,6 +395,23 @@ func _test_ui(catalog: QuestCatalog, maps: QuestMapIndex) -> void:
 		check(screen._body.get_global_rect().end.y <= 348, "navigation content fits 640x360 design: %s" % page)
 		for button: Button in screen.find_children("*", "Button", true, false):
 			check(not button.tooltip_text.is_empty(), "navigation button has readable tooltip: %s" % button.text)
+		if screen._canvas != null:
+			for marker in screen._canvas._markers:
+				marker.grab_focus()
+				check(screen._status.text == marker.tooltip_text, "focused map marker shows the same text as mouse tooltip: %s" % marker.text)
+	screen.show_page("quests", false)
+	await _key(KEY_E)
+	await frames(3)
+	check(screen._page == "region", "keyboard next-tab shortcut opens the region map")
+	await _key(KEY_Q)
+	await frames(3)
+	check(screen._page == "quests", "keyboard previous-tab shortcut returns to quests")
+	await _joy(JOY_BUTTON_RIGHT_SHOULDER)
+	await frames(3)
+	check(screen._page == "region", "controller RB switches to region map")
+	await _joy(JOY_BUTTON_LEFT_SHOULDER)
+	await frames(3)
+	check(screen._page == "quests", "controller LB switches back to quests")
 	await _test_journal_input(screen, false)
 	await _test_journal_input(screen, true)
 	await _test_completed_pin_label(screen)
@@ -413,6 +507,7 @@ func _check_filter_groups(screen: QuestMapScreen) -> void:
 
 func _test_runtime() -> void:
 	var level := await start_level(load(PAWN) as LevelData)
+	await _test_pause_navigation(level)
 	await _check_fixed_hud_reading_space(level)
 	await _check_caption_avoids_actor(level)
 	await _check_destination_reading_priority(level)
@@ -427,6 +522,31 @@ func _test_runtime() -> void:
 	await end_level(level)
 	GameState.start_new_run(GameState.difficulties[1])
 	check(not is_same(state, QuestMapState.for_run()) and QuestMapState.for_run().explored.is_empty(), "new run clears previous exploration")
+
+
+func _test_pause_navigation(level: Level) -> void:
+	var pause: PauseMenu = level._pause_menu
+	await _key(KEY_O)
+	await frames(3)
+	check(is_instance_valid(pause._navigation) and pause._navigation._page == "quests" and runner.get_tree().paused, "O opens the real pause journal while the world remains paused")
+	await _key(KEY_ESCAPE)
+	await frames(3)
+	check(not is_instance_valid(pause._navigation) and pause._root.visible and runner.get_tree().paused, "journal return goes to pause rather than gameplay")
+	pause._map_button.grab_focus()
+	await _joy(JOY_BUTTON_A)
+	await frames(3)
+	check(is_instance_valid(pause._navigation) and pause._navigation._page == "region", "controller confirms the real pause map button")
+	if is_instance_valid(pause._navigation):
+		check(pause._navigation._canvas != null, "real pause map has a terrain canvas")
+	await _joy(JOY_BUTTON_B)
+	await frames(3)
+	check(not is_instance_valid(pause._navigation) and runner.get_tree().paused and runner.get_viewport().gui_get_focus_owner() == pause._map_button, "controller returns to pause and restores the selected map button")
+	check(not pause._map_button.tooltip_text.contains("快捷鍵"), "controller device changes refresh pause map tooltip")
+	await _key(KEY_UP)
+	check(pause._map_button.tooltip_text.contains(InputBindings.primary_label(&"map")), "keyboard device changes restore the current map shortcut tooltip")
+	await _key(KEY_ESCAPE)
+	await frames(3)
+	check(not pause._root.visible and not runner.get_tree().paused, "a second return closes pause and resumes gameplay")
 
 
 ## 世界提示（訓練站、告示）壓到 HUD 目標列時，目標列淡出讓位、提示框留在原處；提示收起後目標列回來（序章實際畫面曾疊字）。

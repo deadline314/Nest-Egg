@@ -1,0 +1,103 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+[QuestMap] Current story quest count: 29; chapter walkthrough requires Session 3 sources.
+WARNING: [QuestMap] navigation.version: 格式不符，改用預設導覽狀態。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:119)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:244)
+       [2] run (res://tests/suite/test_quest_map.gd:17)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [QuestMap] navigation.version: 格式不符，改用預設導覽狀態。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:119)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:244)
+       [2] run (res://tests/suite/test_quest_map.gd:17)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [QuestMap] navigation.version: 格式不符，改用預設導覽狀態。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:119)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:244)
+       [2] run (res://tests/suite/test_quest_map.gd:17)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [QuestMap] navigation.pinned_id: 找不到任務，改為追蹤主線。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:119)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:244)
+       [2] run (res://tests/suite/test_quest_map.gd:17)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [QuestMap] navigation.explored: 必須是物件，改用未探索狀態。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:119)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:244)
+       [2] run (res://tests/suite/test_quest_map.gd:17)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [QuestMap] navigation.activated: 必須是物件，改用未啟用狀態。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:119)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:244)
+       [2] run (res://tests/suite/test_quest_map.gd:17)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [QuestMap] navigation.pinned_id: 找不到任務，改為追蹤主線。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:119)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:244)
+       [2] run (res://tests/suite/test_quest_map.gd:17)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [QuestMap] navigation.explored.res://data/levels/ch1_pawnshop.tres.bad: 無效格座標，已略過。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:119)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:244)
+       [2] run (res://tests/suite/test_quest_map.gd:17)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [QuestMap] navigation.explored.res://data/levels/ch1_pawnshop.tres.9999,1: 無效格座標，已略過。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:119)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:244)
+       [2] run (res://tests/suite/test_quest_map.gd:17)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [QuestMap] navigation.activated.fake: 找不到存檔點，已略過。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:119)
+       [1] _test_state (res://tests/suite/test_quest_map.gd:244)
+       [2] run (res://tests/suite/test_quest_map.gd:17)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [QuestCatalog] res://data/story/ch3_clearwater.json.quests[7]/title：1 處沒有ja譯文：/text（ja，改用英文）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] display_text (res://core/navigation/quest_catalog.gd:101)
+       [1] _quest_row (res://ui/quest_map_screen.gd:316)
+       [2] _test_story_language (res://tests/suite/test_quest_map.gd:137)
+       [3] frames (res://tests/suite/test_suite.gd:23)
+       [4] _frames (res://tests/smoke_test.gd:125)
+WARNING: [QuestCatalog] res://data/story/ch3_clearwater.json.quests[7]/title：1 處沒有ja譯文：/text（ja，保留中文）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] display_text (res://core/navigation/quest_catalog.gd:101)
+       [1] _quest_row (res://ui/quest_map_screen.gd:316)
+       [2] _test_story_language (res://tests/suite/test_quest_map.gd:141)
+       [3] frames (res://tests/suite/test_suite.gd:23)
+       [4] _frames (res://tests/smoke_test.gd:125)
+SUITE_TIME QuestMapSuite 23.3
+checks: 396, failures: 1
+FAIL: cache checkpoint check uses a real checkpoint

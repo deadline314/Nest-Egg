@@ -1,0 +1,5 @@
+受影響的測試：ApplyPanelSuite,Chapter1MapSuite,Chapter2Suite,ClipEditorSuite,CombatHudSuite,CutsceneSuite,DeathReactionSuite,DevMenuSuite,EncounterSuite,FeelLabSuite,InputFeelSuite,QuestMapSuite,RunSaveSuite,SoundLabSuite,SoundStageSuite,StageCoverageCharactersSuite,StageCoverageWeaponsSuite,StageCoverageWorldSuite,UiScreensSuite,main
+Running 20 groups in 2 processes (logs: C:/Users/stanl/Github/Nest-Egg/work/ticket-queue-tests-20261111)
+  process 0 (estimated 365 s): main,EncounterSuite,DeathReactionSuite,CombatHudSuite,Chapter2Suite,ApplyPanelSuite
+  process 1 (estimated 350 s): UiScreensSuite,StageCoverageWorldSuite,StageCoverageWeaponsSuite,StageCoverageCharactersSuite,SoundStageSuite,SoundLabSuite,RunSaveSuite,QuestMapSuite,InputFeelSuite,FeelLabSuite,DevMenuSuite,CutsceneSuite,ClipEditorSuite,Chapter1MapSuite
+checks: 9113, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 959 s)
