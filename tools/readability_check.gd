@@ -34,6 +34,17 @@ func targets() -> Array[Dictionary]:
 	return LEVELS
 
 
+## Presentation-only fixture preparation; the default sampler changes no data.
+func _prepare_probe_level(_data: LevelData) -> void:
+	pass
+
+
+## Opt-in observer of the original immutable pixel input. Default changes no
+## pixels, actor state, formulas, points or sampling interval.
+func _record_probe_sample(_probe: ContrastProbe, _level: Level, _spot: Array, _sample: int, _foe: Enemy, _sums: Array[float]) -> void:
+	pass
+
+
 func _ready() -> void:
 	_run.call_deferred()
 
@@ -104,6 +115,7 @@ func _check_level(path: String, spots: Array, enemy_path := "res://data/enemies/
 	var data := (load(path) as LevelData).duplicate()
 	data.intro_scene = &""
 	data.show_chapter_card = false
+	_prepare_probe_level(data)
 	var level := Level.new()
 	level.configure(data)
 	add_child(level)
@@ -175,6 +187,7 @@ func _check_level(path: String, spots: Array, enemy_path := "res://data/enemies/
 			edge_contrast += probe.edge_contrast(player.global_position) / float(SAMPLES)
 			if is_instance_valid(foe):
 				enemy_contrast += probe.character_contrast(foe.global_position) / float(SAMPLES)
+			_record_probe_sample(probe, level, spot, sample, foe, [player_contrast, edge_contrast, enemy_contrast])
 			await get_tree().create_timer(SAMPLE_INTERVAL).timeout
 		if _detail:
 			var last := ContrastProbe.capture(get_viewport())

@@ -1,0 +1,34 @@
+{
+  "native_expected_exit": 1,
+  "native_actual_exit": 1,
+  "independent_rejected": true,
+  "verifier_sha256": "a21ae0a67b042ba0e133b49ccf564e39c6dfa638f103ca4661c5411baf2c875b",
+  "observations": [
+    {
+      "label": "A0",
+      "opaque_head_pixels": 0,
+      "upper_bound": null
+    },
+    {
+      "label": "A1",
+      "opaque_head_pixels": 0,
+      "upper_bound": null
+    },
+    {
+      "label": "product",
+      "opaque_head_pixels": 0,
+      "upper_bound": null
+    },
+    {
+      "label": "restore-product",
+      "opaque_head_pixels": 0,
+      "upper_bound": null
+    },
+    {
+      "label": "authored-final",
+      "opaque_head_pixels": 0,
+      "upper_bound": null
+    }
+  ],
+  "originals_modified": false
+}

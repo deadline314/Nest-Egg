@@ -1,0 +1,610 @@
+{
+  "cases": 31,
+  "original_members": 11282,
+  "final_runs": {
+    "native-bg49-held-complete-high-v6": {
+      "points": 18,
+      "images": 90,
+      "actor_observations": 120,
+      "observations": [
+        {
+          "spot": "電話亭",
+          "player": 4.06846108765365,
+          "edge": 6.43539661446077,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "交接櫃",
+          "player": 11.0622213489774,
+          "edge": 5.51076756424662,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "復原館",
+          "player": 1.84292467427457,
+          "edge": 4.15806146897511,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "後空地",
+          "player": 3.16534827744695,
+          "edge": 3.70127081561475,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "店面",
+          "player": 1.74518232391982,
+          "edge": 2.59822607674544,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "廚房",
+          "player": 1.50225038471269,
+          "edge": 3.4109120207266,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "天亮店面",
+          "player": 1.72739755652189,
+          "edge": 3.0835937826217,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "工作桌",
+          "player": 1.62010928732202,
+          "edge": 2.89741209822245,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "射擊線",
+          "player": 1.96456869334303,
+          "edge": 2.65418851692954,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "訓練器",
+          "player": 1.91187338436781,
+          "edge": 2.88290911908802,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "屋頂水塔",
+          "player": 1.99340926889149,
+          "edge": 4.24881307303396,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "宵夜麵攤",
+          "player": 4.40758885588263,
+          "edge": 2.8400330447701,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "市集",
+          "player": 4.4813723038049,
+          "edge": 2.10665343013069,
+          "enemies": [
+            1.18582709313318
+          ],
+          "controls_valid": true,
+          "exposure_upper_bounds": [
+            0.0
+          ]
+        },
+        {
+          "spot": "碼頭入口",
+          "player": 2.4757551036172,
+          "edge": 2.29803794069824,
+          "enemies": [
+            1.91539129345151
+          ],
+          "controls_valid": true,
+          "exposure_upper_bounds": [
+            0.00165837479270315
+          ]
+        },
+        {
+          "spot": "倉庫深處",
+          "player": 4.01561547832087,
+          "edge": 3.14847676283213,
+          "enemies": [
+            2.1105603997292
+          ],
+          "controls_valid": true,
+          "exposure_upper_bounds": [
+            0.0
+          ]
+        },
+        {
+          "spot": "上層走道",
+          "player": 4.72752488066173,
+          "edge": 3.33590807871223,
+          "enemies": [
+            2.68730265999709
+          ],
+          "controls_valid": true,
+          "exposure_upper_bounds": [
+            null
+          ]
+        },
+        {
+          "spot": "看門狗前廳",
+          "player": 3.64313953491835,
+          "edge": 3.02807433661134,
+          "enemies": [
+            2.38693432479414
+          ],
+          "controls_valid": true,
+          "exposure_upper_bounds": [
+            null
+          ]
+        },
+        {
+          "spot": "閘門廳",
+          "player": 4.06834746165185,
+          "edge": 2.90348677064002,
+          "enemies": [
+            2.21297797477072
+          ],
+          "controls_valid": true,
+          "exposure_upper_bounds": [
+            null
+          ]
+        }
+      ]
+    },
+    "native-bg49-held-complete-low-v6": {
+      "points": 18,
+      "images": 90,
+      "actor_observations": 120,
+      "observations": [
+        {
+          "spot": "電話亭",
+          "player": 5.51798350118263,
+          "edge": 3.00412901810246,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "交接櫃",
+          "player": 9.85978046863798,
+          "edge": 2.07506734074227,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "復原館",
+          "player": 2.00333673838714,
+          "edge": 3.75975567133175,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "後空地",
+          "player": 2.93905520816167,
+          "edge": 3.84310500407395,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "店面",
+          "player": 1.77756840937451,
+          "edge": 2.65927506289385,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "廚房",
+          "player": 1.69357920223813,
+          "edge": 2.44991376668539,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "天亮店面",
+          "player": 1.86083416592513,
+          "edge": 2.48546424356893,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "工作桌",
+          "player": 1.6791255873001,
+          "edge": 2.99157261680078,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "射擊線",
+          "player": 1.82145731260485,
+          "edge": 2.78691668453587,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "訓練器",
+          "player": 1.90482069361815,
+          "edge": 2.89507216406952,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "屋頂水塔",
+          "player": 2.07929017439394,
+          "edge": 4.15373895394433,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "宵夜麵攤",
+          "player": 3.89932014598358,
+          "edge": 2.89543729138115,
+          "enemies": [],
+          "controls_valid": true,
+          "exposure_upper_bounds": []
+        },
+        {
+          "spot": "市集",
+          "player": 4.38724855685814,
+          "edge": 2.18202774248658,
+          "enemies": [
+            1.00606218099584
+          ],
+          "controls_valid": true,
+          "exposure_upper_bounds": [
+            0.0
+          ]
+        },
+        {
+          "spot": "碼頭入口",
+          "player": 2.46825191868858,
+          "edge": 2.43139978777008,
+          "enemies": [
+            1.99944440051188
+          ],
+          "controls_valid": true,
+          "exposure_upper_bounds": [
+            0.00165562913907285
+          ]
+        },
+        {
+          "spot": "倉庫深處",
+          "player": 3.63124731258881,
+          "edge": 3.22985459115542,
+          "enemies": [
+            1.86532010770381
+          ],
+          "controls_valid": true,
+          "exposure_upper_bounds": [
+            0.0
+          ]
+        },
+        {
+          "spot": "上層走道",
+          "player": 4.61229603278551,
+          "edge": 3.39624025192316,
+          "enemies": [
+            2.27391627884323
+          ],
+          "controls_valid": true,
+          "exposure_upper_bounds": [
+            null
+          ]
+        },
+        {
+          "spot": "看門狗前廳",
+          "player": 3.79957311451678,
+          "edge": 3.06189387920165,
+          "enemies": [
+            2.03938337339862
+          ],
+          "controls_valid": true,
+          "exposure_upper_bounds": [
+            0.0
+          ]
+        },
+        {
+          "spot": "閘門廳",
+          "player": 4.23374052874784,
+          "edge": 2.46234758009219,
+          "enemies": [
+            2.06568078465021
+          ],
+          "controls_valid": true,
+          "exposure_upper_bounds": [
+            null
+          ]
+        }
+      ]
+    },
+    "native-bg49-pool-complete-high-v5": {
+      "lamps": 1,
+      "observations": [
+        {
+          "lamp": 176,
+          "before": 5.72377475686137,
+          "after": 6.47222959239143,
+          "controls_valid": true
+        }
+      ]
+    },
+    "native-bg49-pool-complete-low-v5": {
+      "lamps": 1,
+      "observations": [
+        {
+          "lamp": 176,
+          "before": 5.98196191092963,
+          "after": 6.68391739942488,
+          "controls_valid": true
+        }
+      ]
+    },
+    "native-bg49-world-complete-high-v5": {
+      "points": 18,
+      "native_float_samples": 288,
+      "scope": "independent reconstruction from exact player/enemy outer ROI floats, including original body/ring/ground strips; not full-frame HDR",
+      "observations": [
+        {
+          "spot": "工作桌",
+          "player": 1.7682838728030683,
+          "edge": 2.8267502228742387,
+          "enemy": 0.0
+        },
+        {
+          "spot": "射擊線",
+          "player": 1.8635830229690402,
+          "edge": 2.4634859547877364,
+          "enemy": 0.0
+        },
+        {
+          "spot": "訓練器",
+          "player": 1.9900843581716594,
+          "edge": 2.7258721829753307,
+          "enemy": 0.0
+        },
+        {
+          "spot": "後空地",
+          "player": 3.3869893259475514,
+          "edge": 3.5395420526412593,
+          "enemy": 0.0
+        },
+        {
+          "spot": "店面",
+          "player": 1.7328195825237074,
+          "edge": 1.9437218276991355,
+          "enemy": 0.0
+        },
+        {
+          "spot": "廚房",
+          "player": 1.5799701042608314,
+          "edge": 3.268261743467233,
+          "enemy": 0.0
+        },
+        {
+          "spot": "屋頂水塔",
+          "player": 2.1935499383585473,
+          "edge": 4.192302540774092,
+          "enemy": 0.0
+        },
+        {
+          "spot": "市集",
+          "player": 4.48294913089353,
+          "edge": 1.907729512569771,
+          "enemy": 1.1642594098102528
+        },
+        {
+          "spot": "碼頭入口",
+          "player": 3.080142676046114,
+          "edge": 2.343516975018412,
+          "enemy": 1.9707202229536944
+        },
+        {
+          "spot": "電話亭",
+          "player": 4.677546342818568,
+          "edge": 6.301233932619557,
+          "enemy": 0.0
+        },
+        {
+          "spot": "看門狗前廳",
+          "player": 4.246017163565638,
+          "edge": 2.9064734155834655,
+          "enemy": 2.232929124790032
+        },
+        {
+          "spot": "閘門廳",
+          "player": 3.944908244295235,
+          "edge": 2.5804421970650386,
+          "enemy": 2.16966805600461
+        },
+        {
+          "spot": "倉庫深處",
+          "player": 4.509164644022265,
+          "edge": 3.0231685641133965,
+          "enemy": 1.9319512164625077
+        },
+        {
+          "spot": "上層走道",
+          "player": 4.540367380556787,
+          "edge": 3.175723964374009,
+          "enemy": 2.701010169903531
+        },
+        {
+          "spot": "交接櫃",
+          "player": 11.33694770885784,
+          "edge": 5.291522721657671,
+          "enemy": 0.0
+        },
+        {
+          "spot": "復原館",
+          "player": 1.9729612923566135,
+          "edge": 4.129007453642521,
+          "enemy": 0.0
+        },
+        {
+          "spot": "宵夜麵攤",
+          "player": 4.163372720915419,
+          "edge": 2.7900568526302925,
+          "enemy": 0.0
+        },
+        {
+          "spot": "天亮店面",
+          "player": 1.9142254629895532,
+          "edge": 2.5746530650920287,
+          "enemy": 0.0
+        }
+      ]
+    },
+    "native-bg49-world-complete-low-v5": {
+      "points": 18,
+      "native_float_samples": 288,
+      "scope": "independent reconstruction from exact player/enemy outer ROI floats, including original body/ring/ground strips; not full-frame HDR",
+      "observations": [
+        {
+          "spot": "工作桌",
+          "player": 1.6978483393413222,
+          "edge": 2.9187042593551085,
+          "enemy": 0.0
+        },
+        {
+          "spot": "射擊線",
+          "player": 1.7820299666825932,
+          "edge": 2.6304678299376647,
+          "enemy": 0.0
+        },
+        {
+          "spot": "訓練器",
+          "player": 1.882436762365306,
+          "edge": 2.794087399045093,
+          "enemy": 0.0
+        },
+        {
+          "spot": "後空地",
+          "player": 3.220559907326132,
+          "edge": 3.5917688212548073,
+          "enemy": 0.0
+        },
+        {
+          "spot": "店面",
+          "player": 1.8232591596605725,
+          "edge": 2.0858575598236264,
+          "enemy": 0.0
+        },
+        {
+          "spot": "廚房",
+          "player": 1.714222492738083,
+          "edge": 2.3926372999106365,
+          "enemy": 0.0
+        },
+        {
+          "spot": "屋頂水塔",
+          "player": 2.120197964326302,
+          "edge": 4.143341751457677,
+          "enemy": 0.0
+        },
+        {
+          "spot": "市集",
+          "player": 3.8862087595930976,
+          "edge": 2.124691389387797,
+          "enemy": 0.9641944643027953
+        },
+        {
+          "spot": "碼頭入口",
+          "player": 3.2094893499757275,
+          "edge": 2.3538582198109395,
+          "enemy": 2.1048492842301023
+        },
+        {
+          "spot": "電話亭",
+          "player": 5.946949737900238,
+          "edge": 2.8673028311170543,
+          "enemy": 0.0
+        },
+        {
+          "spot": "看門狗前廳",
+          "player": 4.151396677423689,
+          "edge": 2.9565676975479054,
+          "enemy": 1.8784698946943177
+        },
+        {
+          "spot": "閘門廳",
+          "player": 4.130970704452687,
+          "edge": 2.585996027849857,
+          "enemy": 2.0040038438592487
+        },
+        {
+          "spot": "倉庫深處",
+          "player": 4.062986340187431,
+          "edge": 3.1049065117861696,
+          "enemy": 1.6859167483212685
+        },
+        {
+          "spot": "上層走道",
+          "player": 4.356408165283459,
+          "edge": 3.241310506919622,
+          "enemy": 2.285471505980282
+        },
+        {
+          "spot": "交接櫃",
+          "player": 13.356269514223044,
+          "edge": 2.618816263556069,
+          "enemy": 0.0
+        },
+        {
+          "spot": "復原館",
+          "player": 2.0299877532959916,
+          "edge": 3.68516913412324,
+          "enemy": 0.0
+        },
+        {
+          "spot": "宵夜麵攤",
+          "player": 3.799310222674822,
+          "edge": 2.8201286281538986,
+          "enemy": 0.0
+        },
+        {
+          "spot": "天亮店面",
+          "player": 2.0276541516969067,
+          "edge": 2.089515379712928,
+          "enemy": 0.0
+        }
+      ]
+    }
+  },
+  "shared_source_files": 438,
+  "all_original_bytes_verified": true
+}

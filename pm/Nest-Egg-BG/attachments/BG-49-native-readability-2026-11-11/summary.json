@@ -1,0 +1,92 @@
+{
+  "high": {
+    "world": {
+      "spot": "碼頭入口",
+      "player": 3.080142676046114,
+      "edge": 2.343516975018412,
+      "enemy": 1.9707202229536944
+    },
+    "held": [
+      {
+        "label": "reference",
+        "player": 2.25372108789504,
+        "edge": 2.23504389243706,
+        "enemy": 3.26941280904438,
+        "white": 1,
+        "opaque_head": 603,
+        "upper": 0.00165837479270315,
+        "png": "BG-49-native-reference-high.png",
+        "mask": "BG-49-native-reference-high-head-mask.png",
+        "enemy_crop": "BG-49-native-reference-high-enemy-crop.png"
+      },
+      {
+        "label": "current",
+        "player": 2.4757551036172,
+        "edge": 2.29803794069824,
+        "enemy": 1.91539129345151,
+        "white": 1,
+        "opaque_head": 603,
+        "upper": 0.00165837479270315,
+        "png": "BG-49-native-current-high.png",
+        "mask": "BG-49-native-current-high-head-mask.png",
+        "enemy_crop": "BG-49-native-current-high-enemy-crop.png"
+      }
+    ],
+    "pool": {
+      "lamps": 1,
+      "observations": [
+        {
+          "lamp": 176,
+          "before": 5.72377475686137,
+          "after": 6.47222959239143,
+          "controls_valid": true
+        }
+      ]
+    }
+  },
+  "low": {
+    "world": {
+      "spot": "碼頭入口",
+      "player": 3.2094893499757275,
+      "edge": 2.3538582198109395,
+      "enemy": 2.1048492842301023
+    },
+    "held": [
+      {
+        "label": "reference",
+        "player": 2.29903991380566,
+        "edge": 2.35923425176134,
+        "enemy": 3.4945706139002,
+        "white": 1,
+        "opaque_head": 604,
+        "upper": 0.00165562913907285,
+        "png": "BG-49-native-reference-low.png",
+        "mask": "BG-49-native-reference-low-head-mask.png",
+        "enemy_crop": "BG-49-native-reference-low-enemy-crop.png"
+      },
+      {
+        "label": "current",
+        "player": 2.46825191868858,
+        "edge": 2.43139978777008,
+        "enemy": 1.99944440051188,
+        "white": 1,
+        "opaque_head": 604,
+        "upper": 0.00165562913907285,
+        "png": "BG-49-native-current-low.png",
+        "mask": "BG-49-native-current-low-head-mask.png",
+        "enemy_crop": "BG-49-native-current-low-enemy-crop.png"
+      }
+    ],
+    "pool": {
+      "lamps": 1,
+      "observations": [
+        {
+          "lamp": 176,
+          "before": 5.98196191092963,
+          "after": 6.68391739942488,
+          "controls_valid": true
+        }
+      ]
+    }
+  }
+}
