@@ -27,7 +27,7 @@
 # 跟其他票的關係
 
 - Blocks：無
-- Blocked by：無
+- Blocked by：NE-292
 - Related：NE-222、NE-90、NE-218、NE-67
 
 ---
