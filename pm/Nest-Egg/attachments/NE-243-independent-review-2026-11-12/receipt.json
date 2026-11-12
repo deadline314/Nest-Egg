@@ -1,0 +1,38 @@
+{
+  "base": "4a2f9ecfaf3d98db102e79b37420821f714549ca",
+  "historical_commit": "800c1cedf0f72f779ef9bc20cda25b6b972a303b",
+  "files": {
+    "art_src/characters/rin2/base_rgba.png": "401888dc14dcca469428e4df45c07648e36fd1822497031f8c28213fafc24fd9",
+    "art_src/characters/rin_inventory/design_s24302.png": "e37feae6c7e6e27ff18a63f9c5f32c81f2f557284613260abee9cdf7554afdf9",
+    "art_src/characters/rin_inventory/generate.py": "9680d1a48e6842df714e5333243cd06174e16b3fb640fcac656f7b9b2e1b957e",
+    "art_src/characters/rin_inventory/prompt.txt": "fdfa6bd737b38c685a97b260298dacf2f963ebbd83915663cce1871ae00af575",
+    "art_src/characters/rin_inventory/publish.py": "36eeb137cbfc7012225334edbd93daf6fbceb0c0c78c973ba1fcec28f5977622",
+    "art/portraits/rin_inventory.png": "15847ee5ce584995b7af9da9745b7a6645d3ed06f93560e94ace14e0ef269f19",
+    "ui/inventory/side_portrait.gd": "1c75bc3e683c446369a444e6d5e6f6847298306246479f37c7d08d3c5735eb7e",
+    "pm/Nest-Egg/images/NE-243-three-backgrounds.png": "0087d06f9c4f9d19a4f2d45c7f59bc813ddcd84903d7ec97a9b6fef79af002db",
+    "pm/Nest-Egg/images/NE-243-original-vs-game.jpg": "693a43731c82d63b1d6bc439c2a8821cbc82d37b4422689e490b2c6f058e721d",
+    "pm/Nest-Egg/images/NE-244-layout-720.jpg": "6fd2ef9d07db1235c1a81fb0fb98b2f2143497e679c70607a8edfadefba90452",
+    "pm/Nest-Egg/images/NE-244-layout-large-text.jpg": "42c1ea8ae1a0aa5d90b85d63350f4849b1af3dec1ddeb4c85edad7db058a5f2c"
+  },
+  "all_11_files_byte_identical_to_historical": true,
+  "source_size": [
+    1056,
+    1536
+  ],
+  "published_size": [
+    468,
+    1506
+  ],
+  "alpha_floor": 40,
+  "margin": 16,
+  "crop": [
+    291,
+    6,
+    759,
+    1512
+  ],
+  "source_crop_pixels_equal": true,
+  "full_transparent_margin": true,
+  "generated_seed": 24302,
+  "scope": "Independent review of unchanged approved-reference/source/prompt/publication and historical Forward+ image composites. No new model/GPU render, full UI layout run, new physical-controller test or new human approval."
+}
