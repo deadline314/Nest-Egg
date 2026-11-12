@@ -81,11 +81,77 @@ func _test_main_menu() -> void:
 
 
 func _test_codex() -> void:
+	var previous_unlocks := DefeatCodex.unlocked_ids()
+	var definitions := DefeatCodex.get_all_cards()
+	var longest := 0
+	for i in definitions.size():
+		if str(definitions[i]["hint"]).length() > str(definitions[longest]["hint"]).length(): longest = i
+	# Real unlocked details resize the wall after focus; keep progress changes in memory.
+	DefeatCodex.restore_unlocked([definitions.front()["id"], definitions.back()["id"], definitions[longest]["id"]])
 	var codex := CodexScreen.new()
 	runner.add_child(codex)
 	await frames(3)
 	check(codex._first_card != null, "圖鑑有卡片可以聚焦")
 	check(codex._detail_title.text != "", "圖鑑一開始就顯示第一張卡片的詳情")
+	var wall := codex._defeat_body.get_child(0) as ScrollContainer
+	var bar := wall.get_v_scroll_bar()
+	check(bar.max_value <= bar.page or (bar.is_visible_in_tree() and bar.size.x > 0), "overflowing defeat cards expose a visible scrollbar")
+	var grid := wall.get_child(0)
+	var last_card := grid.get_child(grid.get_child_count() - 1) as Control
+	last_card.grab_focus()
+	await frames(3)
+	check(wall.get_global_rect().grow(1).encloses(last_card.get_global_rect()), "focusing the last real defeat card scrolls the entire card into view")
+	var selected_scroll := wall.scroll_vertical
+	codex._tabs[1].grab_focus()
+	wall.queue_sort()
+	await frames(3)
+	check(codex._tabs[1].has_focus() and wall.scroll_vertical == selected_scroll, "relayout does not steal focus or scroll back after focus leaves the card wall")
+	var long_card := grid.get_child(longest) as Control
+	long_card.grab_focus()
+	await frames(3)
+	var back := codex._legend.get_parent().get_children().back() as Control
+	var view := codex.get_viewport_rect()
+	check(view.encloses(codex._legend.get_global_rect()) and view.encloses(back.get_global_rect()), "the longest real unlocked guide keeps the legend and return inside the page")
+	check(codex._detail_hint.text == "攻略　" + str(definitions[longest]["hint"]), "long defeat guidance retains its complete authored text")
+	var detail := codex._detail_hint.get_parent().get_parent() as ScrollContainer
+	if detail != null:
+		for i in 8:
+			var down := InputEventAction.new()
+			down.action = &"ui_page_down"
+			down.pressed = true
+			codex._unhandled_input(down)
+			await frames(1)
+	var at_end := detail != null and detail.scroll_vertical > 0 and detail.get_v_scroll_bar().value + detail.get_v_scroll_bar().page >= detail.get_v_scroll_bar().max_value - 1
+	check(at_end and codex._detail_hint.get_global_rect().end.y <= detail.get_global_rect().end.y + 1, "PageDown reaches the end of the real guide without cropping or shrinking text")
+	codex._first_card.grab_focus()
+	await frames(3)
+	check(detail != null and detail.scroll_vertical == 0, "changing the selected card resets its reading position")
+	var wheel_point := wall.get_global_rect().get_center()
+	var motion := InputEventMouseMotion.new()
+	motion.position = wheel_point
+	motion.global_position = wheel_point
+	codex.get_viewport().push_input(motion, true)
+	await frames(3)
+	var before_wheel := wall.scroll_vertical
+	var wheel := InputEventMouseButton.new()
+	wheel.position = wheel_point
+	wheel.global_position = wheel_point
+	wheel.button_index = MOUSE_BUTTON_WHEEL_DOWN
+	wheel.pressed = true
+	codex.get_viewport().push_input(wheel, true)
+	var wheel_position := wall.scroll_vertical
+	wheel.pressed = false
+	codex.get_viewport().push_input(wheel, true)
+	await frames(3)
+	check(wheel_position > before_wheel and wall.scroll_vertical >= wheel_position, "real wheel scrolling stays where the user moved it instead of following the old focus back")
+	var previous_scale := Settings.get_ui_text_scale()
+	Settings.set_ui_text_scale(1.0)
+	await frames(3)
+	last_card.grab_focus()
+	await frames(3)
+	Settings.set_ui_text_scale(1.2)
+	await frames(3)
+	check(last_card.has_focus() and wall.get_global_rect().grow(1).encloses(last_card.get_global_rect()), "changing text scale from 1.0 to 1.2 keeps the focused last card fully visible")
 	var cards := DefeatCodex.get_all_cards()
 	var locked: Dictionary = {}
 	for card in cards:
@@ -99,7 +165,9 @@ func _test_codex() -> void:
 	codex.closed.connect(func() -> void: closed[0] = true)
 	codex._close()
 	check(closed[0], "圖鑑可以關閉")
+	DefeatCodex.restore_unlocked(previous_unlocks)
 	await frames(2)
+	Settings.set_ui_text_scale(previous_scale)
 
 
 func _test_pause_info() -> void:

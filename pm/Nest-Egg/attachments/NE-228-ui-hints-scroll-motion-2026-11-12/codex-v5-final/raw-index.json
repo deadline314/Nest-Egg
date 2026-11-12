@@ -1,0 +1,23 @@
+{
+  "bytes": 8887203,
+  "sha256": "6654ddbe668b14ad049761aa4dd2789f5a87957a6233031e70a61d705178b9f6",
+  "virtual_files": 12775,
+  "zip_members": 1594,
+  "format": "content-addressed original bytes; members.json maps virtual names to objects/SHA256",
+  "private_queue_archive": {
+    "scope": "original external Comfy queue graphs, excluded from Git; no external job operations",
+    "archive": "D:\\NestEggDeliveries\\NE228-codex-v5-20261112\\final-v1\\private-queues.zip",
+    "bytes": 3764,
+    "sha256": "7ad9ca9212dee849438f4b38fa1b7fe252ea0ed7d10063276f5ff56d7d0e98d4",
+    "files": {
+      "epochs/native-cb3a-1080-scale12-v1/queue-before.json": {
+        "bytes": 6773,
+        "sha256": "b998b1eb089757ce8d8b2c7b1fd4c4aec86e8448df30d842e8dea7834f563673"
+      },
+      "epochs/native-cb3a-720-v1/queue-after.json": {
+        "bytes": 6732,
+        "sha256": "de8acb6de5aa47f54c00e9b8899f8c2d488d44e5bbf49d4d2cb152ab96c395a7"
+      }
+    }
+  }
+}

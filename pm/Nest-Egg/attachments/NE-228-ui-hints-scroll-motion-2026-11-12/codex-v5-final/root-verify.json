@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "epochs_preserved": 47,
+  "final_native": [
+    {
+      "epoch": "native-cb3a-720-clean-v2",
+      "size": [
+        1280,
+        720
+      ],
+      "initial_text_scale": 1.0,
+      "pictures": 8,
+      "wheel": [
+        0,
+        23,
+        23
+      ],
+      "last_enclosed": true,
+      "full_longest_guide_at_end": true,
+      "queue_before_after_empty": true
+    },
+    {
+      "epoch": "native-cb3a-1080-scale12-clean-v2",
+      "size": [
+        1920,
+        1080
+      ],
+      "initial_text_scale": 1.2,
+      "pictures": 8,
+      "wheel": [
+        0,
+        23,
+        23
+      ],
+      "last_enclosed": true,
+      "full_longest_guide_at_end": true,
+      "queue_before_after_empty": true
+    }
+  ],
+  "final_cpu_original_checks": [
+    16,
+    29
+  ],
+  "formal_result_link": {
+    "groups": 19,
+    "checks": 9212,
+    "independent_formal_reader": "separate published artifact; not rerun by this reader"
+  },
+  "private_external_graph_files": 2,
+  "virtual_files": 12775,
+  "zip_members": 1594,
+  "mother_UI210": "pending"
+}

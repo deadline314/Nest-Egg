@@ -1,0 +1,21 @@
+{
+  "scope": "reader-only in-memory counterexamples; actual engine controls are preserved separately",
+  "raw_sha256": "6654ddbe668b14ad049761aa4dd2789f5a87957a6233031e70a61d705178b9f6",
+  "controls": [
+    {
+      "fault": "wheel-snapback",
+      "rejected": true,
+      "reader_line": 82
+    },
+    {
+      "fault": "resize-target-hidden",
+      "rejected": true,
+      "reader_line": 73
+    },
+    {
+      "fault": "truncated-guide",
+      "rejected": true,
+      "reader_line": 75
+    }
+  ]
+}

@@ -14,6 +14,9 @@ var _detail_title: Label
 var _detail_number: Label
 var _detail_text: Label
 var _detail_hint: Label
+var _detail_scroll: ScrollContainer
+var _wall_view_size := Vector2.ZERO
+var _wall_content_minimum := Vector2.ZERO
 var _first_card: Button
 var _defeat_body: HBoxContainer
 var _replay_page: ReplayPage
@@ -80,6 +83,7 @@ func _ready() -> void:
 	_replay_page.hide()
 
 	_legend = UiKit.label("", UiKit.FS_BODY, Palette.UI_TEXT)
+	_legend.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	layout.add_child(_legend)
 	InputBindings.bindings_changed.connect(_refresh_legend)
 	_refresh_legend()
@@ -109,10 +113,14 @@ func select_tab(index: int) -> void:
 		_first_card.grab_focus.call_deferred()
 	else:
 		_tabs[_current_tab].grab_focus.call_deferred()
+	_refresh_legend()
 
 
 func _refresh_legend() -> void:
 	_legend.text = InputBindings.format(ReplayPage.copy("{inventory_prev_tab}/{inventory_next_tab} 分頁　{ui_accept} 確認　{ui_cancel} 返回", "{inventory_prev_tab}/{inventory_next_tab} タブ　{ui_accept} 決定　{ui_cancel} 戻る", "{inventory_prev_tab}/{inventory_next_tab} Tabs   {ui_accept} Confirm   {ui_cancel} Back"))
+	if _current_tab == 0:
+		var keys := InputBindings.format("{aim_up}/{aim_down}") if InputBindings.using_gamepad else "PgUp/PgDn"
+		_legend.text += "　" + ReplayPage.copy("%s 詳情", "%s 詳細", "%s Details") % keys
 
 
 func _start_replay(id: StringName) -> void:
@@ -151,10 +159,14 @@ func _exit_tree() -> void:
 
 func _build_wall() -> Control:
 	var scroll := ScrollContainer.new()
+	scroll.follow_focus = true
+	# Layout changes keep focus visible; user scrolling must retain its chosen position.
+	scroll.sort_children.connect(_keep_wall_focus_visible.bind(scroll))
 	scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	var grid := GridContainer.new()
+	grid.sort_children.connect(_keep_wall_focus_visible.bind(scroll))
 	grid.columns = COLUMNS
 	grid.add_theme_constant_override(&"h_separation", 6)
 	grid.add_theme_constant_override(&"v_separation", 6)
@@ -167,21 +179,59 @@ func _build_wall() -> Control:
 	return scroll
 
 
+func _keep_wall_focus_visible(scroll: ScrollContainer) -> void:
+	if not is_instance_valid(scroll) or not scroll.is_inside_tree() or not scroll.is_visible_in_tree() or not scroll.follow_focus:
+		return
+	var content := scroll.get_child(0) as Container if scroll.get_child_count() > 0 else null
+	var minimum := content.get_combined_minimum_size() if content != null else Vector2.ZERO
+	if scroll.size == _wall_view_size and minimum == _wall_content_minimum:
+		return
+	# Capture the geometry at signal emission; a deferred signal can observe a newer
+	# minimum before the corresponding child rectangles have actually been sorted.
+	_apply_wall_focus_layout.call_deferred(scroll, scroll.size, minimum)
+
+
+func _apply_wall_focus_layout(scroll: ScrollContainer, view_size: Vector2, minimum: Vector2) -> void:
+	if not is_instance_valid(scroll) or not scroll.is_inside_tree() or not scroll.is_visible_in_tree() or not scroll.follow_focus:
+		return
+	var content := scroll.get_child(0) as Control if scroll.get_child_count() > 0 else null
+	if content == null or scroll.size != view_size or content.get_combined_minimum_size() != minimum:
+		return
+	if view_size == _wall_view_size and minimum == _wall_content_minimum:
+		return
+	_wall_view_size = view_size
+	_wall_content_minimum = minimum
+	var focused := scroll.get_viewport().gui_get_focus_owner()
+	if is_instance_valid(focused) and scroll.is_ancestor_of(focused):
+		scroll.ensure_control_visible(focused)
+
+
 func _build_detail() -> Control:
 	var panel := UiPanel.new("詳情", Palette.WARNING)
 	panel.custom_minimum_size = Vector2(DETAIL_WIDTH, 0)
+	panel.body.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_detail_scroll = ScrollContainer.new()
+	_detail_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_detail_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_detail_scroll.focus_mode = Control.FOCUS_ALL
+	panel.body.add_child(_detail_scroll)
+	var text := VBoxContainer.new()
+	text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	text.add_theme_constant_override(&"separation", 6)
+	_detail_scroll.add_child(text)
+	ScrollCue.attach(_detail_scroll)
 	_detail_number = UiKit.label("", UiKit.FS_BODY, Palette.UI_MUTED)
-	panel.body.add_child(_detail_number)
+	text.add_child(_detail_number)
 	_detail_title = UiKit.label("", UiKit.FS_TITLE, Palette.UI_TEXT)
 	_detail_title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	panel.body.add_child(_detail_title)
+	text.add_child(_detail_title)
 	_detail_text = UiKit.label("", UiKit.FS_BODY, Palette.UI_MUTED)
 	_detail_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	panel.body.add_child(_detail_text)
-	panel.body.add_child(UiDivider.new())
+	text.add_child(_detail_text)
+	text.add_child(UiDivider.new())
 	_detail_hint = UiKit.label("", UiKit.FS_BODY, Palette.CYAN)
 	_detail_hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	panel.body.add_child(_detail_hint)
+	text.add_child(_detail_hint)
 	return panel
 
 
@@ -202,6 +252,7 @@ func _make_card(card: Dictionary) -> UiCard:
 
 
 func _show_detail(card: Dictionary) -> void:
+	_detail_scroll.scroll_vertical = 0
 	var unlocked := bool(card.get("unlocked", false))
 	_detail_number.text = "No.%02d" % int(card.get("number", 0))
 	if unlocked:
@@ -223,6 +274,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed(&"inventory_prev_tab") or event.is_action_pressed(&"inventory_next_tab"):
 		select_tab(_current_tab + (1 if event.is_action_pressed(&"inventory_next_tab") else -1))
 		get_viewport().set_input_as_handled()
+	elif _current_tab == 0:
+		var direction := 1 if event.is_action_pressed(&"aim_down") or event.is_action_pressed(&"ui_page_down") else -1 if event.is_action_pressed(&"aim_up") or event.is_action_pressed(&"ui_page_up") else 0
+		if direction != 0 and ScrollCue.step(_detail_scroll, direction):
+			get_viewport().set_input_as_handled()
 
 
 func _close() -> void:

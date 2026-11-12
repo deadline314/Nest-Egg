@@ -1,0 +1,46 @@
+{
+  "base": "187d330a983ad9f847549d245d25d24a5d058bc4",
+  "paths": [
+    {
+      "path": "ui/settings_screen.gd",
+      "base_sha256": "e3b2841878df0b5d06bed7d1378c2cb10632a894da2136b031521510a3cb9551",
+      "candidate_sha256": "e3b2841878df0b5d06bed7d1378c2cb10632a894da2136b031521510a3cb9551",
+      "changed_from_published": false
+    },
+    {
+      "path": "ui/kit/ui_theme.gd",
+      "base_sha256": "4df6349d248f23990b9e915440b7b7c6b5aecab01c278f16ff49e30bd3cb99d2",
+      "candidate_sha256": "4df6349d248f23990b9e915440b7b7c6b5aecab01c278f16ff49e30bd3cb99d2",
+      "changed_from_published": false
+    },
+    {
+      "path": "ui/codex_screen.gd",
+      "base_sha256": "fb91fe9e3a918841421237c5300f48c9e12666360115c1591c4ca3a4891d57cc",
+      "candidate_sha256": "cb3a1565146a0c87e7a9f878f90bbfed2204588671181f2b02ab2d88a5bd4c21",
+      "changed_from_published": true
+    },
+    {
+      "path": "ui/death_screen.gd",
+      "base_sha256": "443f2bc95e32da1a2e79db09fa2ea15aaee841cb6a844c5149edb8cbc0bd10af",
+      "candidate_sha256": "443f2bc95e32da1a2e79db09fa2ea15aaee841cb6a844c5149edb8cbc0bd10af",
+      "changed_from_published": false
+    },
+    {
+      "path": "tests/helpers/settings_device_checks.gd",
+      "base_sha256": "94891b32d2157688e4bdf6dfb04f202cc437a0733f33035f4da17a1ad2f5aaf8",
+      "candidate_sha256": "94891b32d2157688e4bdf6dfb04f202cc437a0733f33035f4da17a1ad2f5aaf8",
+      "changed_from_published": false
+    },
+    {
+      "path": "tests/suite/test_ui_screens.gd",
+      "base_sha256": "5e257e2a9f339fd47793af96c75ccf3f3b4384cc925abb1f8564a17c949cd028",
+      "candidate_sha256": "a9fd0603245471164596877092a0040b3ba3f770ecf4e1297069cc9340870c38",
+      "changed_from_published": true
+    }
+  ],
+  "formal_delta_paths": [
+    "ui/codex_screen.gd",
+    "tests/suite/test_ui_screens.gd"
+  ],
+  "scope": "D-only Codex full-focus and bounded actual long guide; C unchanged; native and official scope pending"
+}

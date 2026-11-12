@@ -1,0 +1,500 @@
+{
+  "scope": "Codex only; full UI210/Threat/physical-controller and natural campaign progression remain pending",
+  "native_final": [
+    "native-cb3a-720-clean-v2",
+    "native-cb3a-1080-scale12-clean-v2"
+  ],
+  "cpu_final": [
+    "detail-sync-snapshot-trace-60-60-v17",
+    "detail-final-layout-signature-120-30-v18"
+  ],
+  "formal_link": {
+    "groups": 19,
+    "checks": 9212,
+    "new_failures": 0,
+    "files": [
+      {
+        "path": "pm/Nest-Egg/attachments/NE-228-ui-hints-scroll-motion-2026-11-12/official-codex-final-v1-index.json",
+        "bytes": 663091,
+        "sha256": "de04538c9f780611a5a566fe1e78bffe034b7c44125969cf2a107f4e283dd0a9"
+      },
+      {
+        "path": "pm/Nest-Egg/attachments/NE-228-ui-hints-scroll-motion-2026-11-12/official-codex-final-v1-raw.zip",
+        "bytes": 6436741,
+        "sha256": "2948c3f1488f003a7db177caefa05e0aac88d58d39747ad6175fc63d5853af1f"
+      },
+      {
+        "path": "pm/Nest-Egg/attachments/NE-228-ui-hints-scroll-motion-2026-11-12/verify_official_codex_final_v1.py",
+        "bytes": 2449,
+        "sha256": "8e67bc59918e530b753f6f7a1f1fa62dcf573830e953c380e5c7ce264694fe9d"
+      }
+    ]
+  },
+  "source_sha256": {
+    "ui/codex_screen.gd": "cb3a1565146a0c87e7a9f878f90bbfed2204588671181f2b02ab2d88a5bd4c21",
+    "tests/suite/test_ui_screens.gd": "a9fd0603245471164596877092a0040b3ba3f770ecf4e1297069cc9340870c38"
+  },
+  "c_guard": "v14,364 paths, captured before/after each final native",
+  "epochs": [
+    {
+      "epoch": "detail-bounded-long-60-60-v8",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 24,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "detail-final-layout-signature-120-30-v18",
+      "classification": "accepted final v5 CPU control",
+      "files": 24,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "detail-final-return-long-120-30-scale12-v10",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 24,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "detail-gated-signature-120-30-v13",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 24,
+      "private_queue_files": [],
+      "exit": 1,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "detail-gated-wheel-resize-60-60-v12",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 24,
+      "private_queue_files": [],
+      "exit": 1,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "detail-grid-gated-layout-trace-v15",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 24,
+      "private_queue_files": [],
+      "exit": 1,
+      "sources_unchanged": true,
+      "diagnostics": [
+        "ERROR: Signal 'resized' is already connected to given callable 'Node(runner.gd)::record' in that object.",
+        "ERROR: Signal 'minimum_size_changed' is already connected to given callable 'Node(runner.gd)::record' in that object.",
+        "ERROR: Signal 'sort_children' is already connected to given callable 'Node(runner.gd)::record' in that object.",
+        "ERROR: Signal 'resized' is already connected to given callable 'Node(runner.gd)::record' in that object.",
+        "ERROR: Signal 'minimum_size_changed' is already connected to given callable 'Node(runner.gd)::record' in that object.",
+        "ERROR: Signal 'sort_children' is already connected to given callable 'Node(runner.gd)::record' in that object.",
+        "ERROR: Signal 'resized' is already connected to given callable 'Node(runner.gd)::record' in that object.",
+        "ERROR: Signal 'minimum_size_changed' is already connected to given callable 'Node(runner.gd)::record' in that object.",
+        "ERROR: Signal 'resized' is already connected to given callable 'Node(runner.gd)::record' in that object.",
+        "ERROR: Signal 'minimum_size_changed' is already connected to given callable 'Node(runner.gd)::record' in that object.",
+        "ERROR: Signal 'sort_children' is already connected to given callable 'Node(runner.gd)::record' in that object.",
+        "ERROR: Signal 'resized' is already connected to given callable 'Node(runner.gd)::record' in that object.",
+        "ERROR: Signal 'minimum_size_changed' is already connected to given callable 'Node(runner.gd)::record' in that object.",
+        "ERROR: Signal 'sort_children' is already connected to given callable 'Node(runner.gd)::record' in that object.",
+        "ERROR: Signal 'resized' is already connected to given callable 'Node(runner.gd)::record' in that object.",
+        "ERROR: Signal 'minimum_size_changed' is already connected to given callable 'Node(runner.gd)::record' in that object."
+      ]
+    },
+    {
+      "epoch": "detail-grid-gated-signature-120-30-scale12-v14",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 24,
+      "private_queue_files": [],
+      "exit": 1,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "detail-grid-gated-signature-60-60-v14",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 24,
+      "private_queue_files": [],
+      "exit": 1,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "detail-original-long-60-60-v8",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 24,
+      "private_queue_files": [],
+      "exit": 1,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "detail-permanent-follow-false-v9",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 24,
+      "private_queue_files": [],
+      "exit": 1,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "detail-permanent-long-120-30-scale12-v9",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 24,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "detail-permanent-long-60-60-v9",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 24,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "detail-prior-focus-final-newtest-v10",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 24,
+      "private_queue_files": [],
+      "exit": 1,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "detail-sync-snapshot-trace-60-60-v16",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 23,
+      "private_queue_files": [],
+      "exit": 4294967295,
+      "sources_unchanged": true,
+      "diagnostics": [
+        "SCRIPT ERROR: Parse Error: Identifier \"extra\" not declared in the current scope.",
+        "SCRIPT ERROR: Parse Error: Identifier \"row\" not declared in the current scope.",
+        "SCRIPT ERROR: Parse Error: Identifier \"row\" not declared in the current scope.",
+        "SCRIPT ERROR: Parse Error: Identifier \"event\" not declared in the current scope.",
+        "SCRIPT ERROR: Parse Error: Identifier \"row\" not declared in the current scope.",
+        "ERROR: Failed to load script \"res://work/ne228-codex-focus-observer/runner.gd\" with error \"Parse error\"."
+      ]
+    },
+    {
+      "epoch": "detail-sync-snapshot-trace-60-60-v17",
+      "classification": "accepted final v5 CPU control",
+      "files": 24,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "detail-wheel-nohook-ram-v11",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 24,
+      "private_queue_files": [],
+      "exit": 1,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "detail-wheel-sort-hook-v11",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 24,
+      "private_queue_files": [],
+      "exit": 1,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "final-guard-follow-false-negative-v7",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 24,
+      "private_queue_files": [],
+      "exit": 1,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "final-guard-long-removal-60-60-v7",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 24,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "final-guard-long-scale12-120-30-v7",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 24,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "fixed-follow-false-negative-v5",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 20,
+      "private_queue_files": [],
+      "exit": 1,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "fixed-last-only-v3",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 20,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "fixed-long-240-30-v5",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 20,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "fixed-long-scale12-v5",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 20,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "fixed-permanent-60-unlimited-v5",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 20,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "fixed-sort-all-v4",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 20,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "fixed-unlocked-original3-v3",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 20,
+      "private_queue_files": [],
+      "exit": 1,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "isolated-60-60-v1",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 20,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "native-cb3a-1080-scale12-clean-v2",
+      "classification": "accepted final v5 native",
+      "files": 1331,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "native-cb3a-1080-scale12-v1",
+      "classification": "preflight rejected busy; engine not started",
+      "files": 4,
+      "private_queue_files": [
+        {
+          "original_path": "epochs/native-cb3a-1080-scale12-v1/queue-before.json",
+          "bytes": 6773,
+          "sha256": "b998b1eb089757ce8d8b2c7b1fd4c4aec86e8448df30d842e8dea7834f563673"
+        }
+      ],
+      "exit": null
+    },
+    {
+      "epoch": "native-cb3a-720-clean-v2",
+      "classification": "accepted final v5 native",
+      "files": 1331,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "native-cb3a-720-v1",
+      "classification": "functional pass only; rejected final queue qualification (busy after)",
+      "files": 1331,
+      "private_queue_files": [
+        {
+          "original_path": "epochs/native-cb3a-720-v1/queue-after.json",
+          "bytes": 6732,
+          "sha256": "de8acb6de5aa47f54c00e9b8899f8c2d488d44e5bbf49d4d2cb152ab96c395a7"
+        }
+      ],
+      "exit": 0,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "native-detail-bounded-1080-scale12-v1",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 1329,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "native-detail-bounded-720-v1",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 1329,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "native-detail-old-720-v1",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 1329,
+      "private_queue_files": [],
+      "exit": 1,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "native-detail-parse-v1",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 10,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": null,
+      "diagnostics": []
+    },
+    {
+      "epoch": "native-detail-parse-v2",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 10,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": null,
+      "diagnostics": []
+    },
+    {
+      "epoch": "native-final-v1",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 1325,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "native-follow-only-v1",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 1325,
+      "private_queue_files": [],
+      "exit": 1,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "native-gated-final-parse-v1",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 10,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": null,
+      "diagnostics": []
+    },
+    {
+      "epoch": "native-parse-v1",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 6,
+      "private_queue_files": [],
+      "exit": 1,
+      "sources_unchanged": null,
+      "diagnostics": [
+        "SCRIPT ERROR: Compile Error: Identifier not found: Settings",
+        "ERROR: Failed to load script \"res://work/ne228-codex-focus-observer/native.gd\" with error \"Compilation failed\"."
+      ]
+    },
+    {
+      "epoch": "native-parse-v2",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 8,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": null,
+      "diagnostics": []
+    },
+    {
+      "epoch": "native-published-v1",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 1325,
+      "private_queue_files": [],
+      "exit": 1,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "old-product-permanent-newtest-v6",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 20,
+      "private_queue_files": [],
+      "exit": 1,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "prefix-unlimited-v1",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 20,
+      "private_queue_files": [],
+      "exit": 0,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "unlocked-postprocess-v2",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 20,
+      "private_queue_files": [],
+      "exit": 1,
+      "sources_unchanged": true,
+      "diagnostics": []
+    },
+    {
+      "epoch": "unlocked-unlimited-v1",
+      "classification": "legacy diagnostic; not final acceptance",
+      "files": 20,
+      "private_queue_files": [],
+      "exit": 1,
+      "sources_unchanged": true,
+      "diagnostics": []
+    }
+  ]
+}

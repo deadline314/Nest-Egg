@@ -1,0 +1,4 @@
+{
+  "reason": "The pending Codex path was not part of prior364 guard; first attempt raised KeyError during preconditions, before any source write. Prior364 reverified unchanged. Correct next guard adds that one path and updates only existing UI test path.",
+  "source_writes_in_first_attempt": false
+}
