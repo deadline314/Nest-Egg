@@ -57,6 +57,8 @@ func run() -> void:
 	preload("res://tests/helpers/stage_prop_state_checks.gd").run(self)
 	preload("res://tests/helpers/story_batch_preflight_checks.gd").run(self)
 	_test_story_condition_boundary()
+	_test_story_fact_boundary()
+	_test_story_derived_boundary()
 	await _test_story_features()
 	await _test_story_custody()
 	await _test_story_runtime()
@@ -984,6 +986,193 @@ func _test_story_condition_boundary() -> void:
 	Story._scenes.erase("test_bad_cutscene_boundary_target")
 	Story._scenes.erase("test_bad_cutscene_boundary_route")
 	check(GameState.world_flags == previous_flags and StoryItems.snapshot() == previous_items and Progression.snapshot() == previous_progress and Story.progress_snapshot() == previous_seen, "condition rejection leaves actual flags, custody, wallet and story progress unchanged")
+
+
+## ST-3: invalid facts cannot become eligibility through not or short-circuit.
+func _test_story_fact_boundary() -> void:
+	var previous_flags := GameState.world_flags.duplicate(true)
+	var previous_items := StoryItems.snapshot()
+	var previous_progress := Progression.snapshot()
+	var previous_seen := Story.progress_snapshot()
+	var previous_scenes := Story._scenes.duplicate(true)
+	var previous_sources := Story._scene_sources.duplicate()
+	var previous_chapters := Story._scene_chapter.duplicate()
+	var previous_runtime := Story.outcomes.runtime_facts.duplicate(true)
+	var previous_producers := Story.outcomes._condition_producers.duplicate()
+	var previous_reports := Story.outcomes._condition_reports.duplicate()
+	var previous_ledger: StoryTransactionLedger = Progression._story_transactions
+	var where := "test_bad_cutscene/facts"
+	for leaf: Dictionary in [{"flag":"test_bad_cutscene_missing_fact","equals":true}, {"item":"test_bad_cutscene_missing_item"}, {"receipt":"test_bad_cutscene.missing_receipt","status":"recorded"}]:
+		check(not StoryRules.holds({"not":leaf}, Callable(), where), "unknown default fact cannot be inverted into eligibility")
+		check(not StoryRules.holds({"not":leaf}, Story.fact, where), "an explicit default-owner alias cannot bypass fact admission")
+		check(not StoryRules.holds({"any":[{},leaf]}, Callable(), where), "a true alternative cannot hide an unknown default fact")
+		check(not StoryRules.holds({"all":[{"not":{}},leaf]}, Callable(), where), "a false alternative still validates later facts")
+	check(not StoryRules.holds({"any":[{}, {"flag":"test_bad_cutscene_missing_fact","equals":true}]}, Callable(Story,"fact"),where), "exact default Callable identity retains full-tree evidence checks")
+	GameState.world_flags["test_bad_cutscene_missing_fact"] = true
+	check(not StoryRules.holds({"flag":"test_bad_cutscene_missing_fact"}, Callable(), where), "an unregistered live value cannot declare its own condition name")
+	var produced := {"for_chapter":"test_bad_cutscene", "scenes":{"test_bad_cutscene_producer":{"mode":"radio", "lines":[{"speaker":"rin","text":"測試。"}], "set_flags":["test_bad_cutscene_known_producer"]}}}
+	var produced_bytes := var_to_bytes(produced)
+	var chapter := JSON.new()
+	chapter.parse(JSON.stringify(produced))
+	chapter.take_over_path("res://test_bad_cutscene_fact_producer.json")
+	check(Story.load_chapter(chapter.resource_path), "condition producers register through the actual chapter loader")
+	check(StoryRules.holds({"flag":"test_bad_cutscene_known_producer","equals":false}), "a registered legacy producer's not-yet-written flag keeps its missing default")
+	check(var_to_bytes(produced)==produced_bytes, "condition producer registration does not modify authored input")
+	var duplicate := JSON.new()
+	duplicate.parse(JSON.stringify({"for_chapter":"test_bad_cutscene", "scenes":{"test_bad_cutscene_producer":{"set_flags":["test_bad_cutscene_ignored_producer"]}}}))
+	duplicate.take_over_path("res://test_bad_cutscene_ignored_producer.json")
+	Story.load_chapter(duplicate.resource_path)
+	check(not Story.outcomes._condition_producers.has("test_bad_cutscene_ignored_producer"), "a rejected duplicate scene cannot declare new fact names")
+	var same_path := JSON.new()
+	same_path.parse(JSON.stringify({"for_chapter":"test_bad_cutscene", "scenes":{"test_bad_cutscene_producer":{"set_flags":["test_bad_cutscene_same_path_ignored"]}}}))
+	same_path.take_over_path("res://test_bad_cutscene_fact_producer.json")
+	var same_input := var_to_bytes(same_path.data)
+	Story.load_chapter(same_path.resource_path)
+	check(not Story.outcomes._condition_producers.has("test_bad_cutscene_same_path_ignored") and Story.outcomes._condition_producers.has("test_bad_cutscene_known_producer"), "same-path rejected replacement cannot extend the actual producer registry")
+	check(var_to_bytes(same_path.data)==same_input, "same-path rejected producer input remains untouched")
+	var invalid := {"not":{"flag":"test_bad_cutscene_missing_fact","equals":true}}
+	Story._scenes["test_bad_cutscene_fact_scene"] = {"when":invalid}
+	check(not Story.scene_available(&"test_bad_cutscene_fact_scene"), "the actual scene gate rejects unresolved default facts")
+	Story.outcomes.runtime_facts["test_bad_cutscene_provider"] = "no_such_provider"
+	check(not StoryRules.holds({"not":{"flag":"test_bad_cutscene_provider"}}, Callable(), where), "a declared invalid runtime provider is not a false fact")
+	Story.outcomes.runtime_facts["test_bad_cutscene_context"] = "context:test_bad_cutscene_absent"
+	check(StoryRules.holds({"not":{"flag":"test_bad_cutscene_context"}}, Callable(), where), "missing legitimate context remains an ordinary false value")
+	var live := {"flag":"ch1_true_death_record_known","equals":true}
+	check(StoryRules.holds(live,Story.fact,where), "a valid explicit default-owner alias keeps its actual live value")
+	var holder := Node.new()
+	var callback := Callable(holder, "is_inside_tree").unbind(2)
+	check(not StoryRules.holds(live, callback, where), "a valid candidate callback keeps overriding the live provider")
+	holder.free()
+	check(not callback.is_null() and not callback.is_valid() and not StoryRules.holds(live, callback, where), "a stale non-null callback is rejected without falling back to live facts")
+	var calls := [0]
+	var reader := func(_kind: StringName, id: StringName) -> Variant:
+		calls[0] += 1
+		return [] if id==&"test_bad_cutscene_bad_value" else true
+	var good := {"flag":"first","equals":true}
+	var bad := {"flag":"test_bad_cutscene_bad_value","equals":true}
+	check(not StoryRules.holds({"any":[good,bad]},reader,where) and calls[0]==2, "true-any inspects each necessary fact once and rejects a later bad value")
+	calls[0]=0
+	check(not StoryRules.holds({"all":[{"not":good},bad]},reader,where) and calls[0]==2, "false-all also inspects the later fact once")
+	calls[0]=0
+	check(StoryRules.holds({"any":[good,good]},reader,where) and calls[0]==2, "full valid-any intentionally reads both occurrences exactly once")
+	for value: Variant in [[], {}, INF, NAN]:
+		var invalid_value := func(_kind: StringName,_id: StringName) -> Variant:return value
+		check(not StoryRules.holds({"not":good},invalid_value,where), "nonfinite or nonscalar candidate facts cannot pass not")
+	var missing := StoryTransactionLedger.new()
+	Progression._story_transactions = missing
+	var receipt := {"receipt":"ch1.daily_dinner","status":"recorded"}
+	check(StoryRules.holds({"not":receipt},Callable(),where), "a canonical empty ledger has an ordinary missing receipt")
+	check(StoryRules.holds({"account":"ch1_lounge","equals":"none"},Callable(),where), "a canonical empty ledger still projects none")
+	check(not StoryRules.holds({"account":"test_bad_cutscene_account","equals":"none"},Callable(),where), "an unknown default account cannot alias the meal account")
+	var later := {"receipt":"ch1.revival_meal.later_pay","status":"recorded"}
+	check(StoryRules.holds({"not":later},Callable(),where), "canonical receipt resources outside chapter operation maps remain declared")
+	var cache := {}
+	var proof := Story.outcomes._condition_ledger(cache)
+	check(proof["valid"] and is_same(proof,Story.outcomes._condition_ledger(cache)), "one root cache reuses exactly the same ledger proof")
+	var locked := StoryTransactionLedger.new()
+	locked.restore({"version":999,"receipts":{}},true,"test_bad_cutscene/locked")
+	Progression._story_transactions = locked
+	check(not StoryRules.holds({"not":receipt},Callable(),where), "untrusted receipt status remains invalid under not")
+	check(not StoryRules.holds({"any":[{},receipt]},Callable(),where), "a true alternative cannot hide a locked ledger")
+	check(not StoryRules.holds({"not":receipt},Story.fact,where), "an explicit default alias retains untrusted-ledger rejection")
+	var resource := load("res://data/story_transactions/ch1_daily_dinner.tres") as StoryTransactionData
+	var descriptor := resource.descriptor()
+	var recorded := StoryTransactionLedger.new()
+	recorded.restore({"version":1,"receipts":{"ch1.daily_dinner":{"definition_fingerprint":descriptor["fingerprint"],"credits_delta":descriptor["credits_delta"]}}},true)
+	Progression._story_transactions = recorded
+	check(StoryRules.holds(receipt,Callable(),where), "current canonical recorded receipt is admitted")
+	var original_delta := resource.credits_delta
+	resource.credits_delta += 1
+	check(not StoryRules.holds(receipt,Callable(),where), "the next root verifies current resource descriptors instead of a stale trusted cache")
+	resource.credits_delta = original_delta
+	check(StoryRules.holds(receipt,Callable(),where), "restoring the actual current definition restores receipt validity")
+	var local_owner := StoryOutcomes.new()
+	local_owner.report_condition(where+".flag: repeated")
+	local_owner.report_condition(where+".flag: repeated")
+	check(local_owner._condition_reports.size()==1, "repeated condition errors are reported once per owner")
+	for i in StoryConditionTree.MAX_FACTS - 1:
+		local_owner._condition_reports[str(i)] = true
+	var report_count := local_owner._condition_reports.size()
+	local_owner.report_condition(where+".flag: bounded")
+	check(report_count==StoryConditionTree.MAX_FACTS and local_owner._condition_reports.size()==report_count, "condition-report memory remains bounded")
+	local_owner.clear()
+	check(local_owner._condition_reports.is_empty() and not local_owner._condition_catalog_loaded, "chapter reload clears diagnostic and definition-cache lifecycle")
+	Progression._story_transactions = previous_ledger
+	GameState.world_flags = previous_flags
+	Story._scenes = previous_scenes
+	Story._scene_sources = previous_sources
+	Story._scene_chapter = previous_chapters
+	Story.outcomes.runtime_facts = previous_runtime
+	Story.outcomes._condition_producers = previous_producers
+	Story.outcomes._condition_reports = previous_reports
+	check(GameState.world_flags==previous_flags and StoryItems.snapshot()==previous_items and Progression.snapshot()==previous_progress and Story.progress_snapshot()==previous_seen, "fact validation leaves actual flag/item/wallet/progress state unchanged")
+
+
+func _test_story_derived_boundary() -> void:
+	var original_flags := GameState.world_flags.duplicate(true)
+	var original_sources := Story.outcomes.derived_flags.duplicate(true)
+	var original_reports := Story.outcomes._condition_reports.duplicate()
+	var original_ledger: StoryTransactionLedger = Progression._story_transactions
+	var items := StoryItems.snapshot()
+	var wallet := Progression.snapshot()
+	var progress := Story.progress_snapshot()
+	var a := "test_bad_cutscene_derived_a"
+	var b := "test_bad_cutscene_derived_b"
+	var where := "test_bad_cutscene/derived"
+	var inverted := {"not":{"flag":a,"equals":true}}
+	GameState.world_flags[a] = false
+	for source: Variant in [{"flag":"test_bad_cutscene_unknown_derived_source","equals":true}, {"not":{"unknown":true}}, []]:
+		Story.outcomes.derived_flags = {a:source}
+		var input := var_to_bytes(source)
+		check(not StoryRules.holds(inverted,Callable(),where), "invalid derived provenance cannot become eligibility through not")
+		check(var_to_bytes(source)==input and GameState.world_flags[a]==false, "provenance checking preserves the source and stored scalar")
+	Story.outcomes.derived_flags = {a:{"flag":b,"equals":true},b:{"flag":a,"equals":true}}
+	check(not StoryRules.holds(inverted,Callable(),where), "cycles across registered derived sources are rejected within one root")
+	Story.outcomes.derived_flags = {a:{"flag":a,"equals":true}}
+	check(not StoryRules.holds(inverted,Callable(),where), "a self-referencing derived source cannot restart condition evaluation")
+	GameState.world_flags[a] = true
+	var deep: Dictionary = {}
+	for i in 14:
+		deep = {"not":deep}
+	Story.outcomes.derived_flags = {a:deep}
+	check(StoryRules.holds({"flag":a,"equals":true},Callable(),where), "expanded source depth16 remains valid while preserving stored true")
+	Story.outcomes.derived_flags[a] = {"not":deep}
+	check(not StoryRules.holds({"flag":a,"equals":true},Callable(),where), "expanded source depth17 cannot obtain a fresh root budget")
+	var groups: Array = []
+	for i in 32:
+		var children: Array = []
+		for j in (7 if i<31 else 5):
+			children.append({})
+		groups.append({"all":children})
+	Story.outcomes.derived_flags = {a:{"all":groups}}
+	check(StoryRules.holds({"flag":a,"equals":true},Callable(),where), "exactly256 combined root and source occurrences remain valid")
+	groups[31]["all"].append({})
+	check(not StoryRules.holds({"flag":a,"equals":true},Callable(),where), "the combined257th occurrence is rejected")
+	Story.outcomes.derived_flags = {a:{"not":{}}}
+	var changes: Array = []
+	var on_change := func(id: StringName,value: Variant) -> void: changes.append([id,value])
+	GameState.flag_changed.connect(on_change)
+	check(StoryRules.holds({"flag":a,"equals":true},Callable(),where) and GameState.world_flags[a]==true and changes.is_empty(), "a valid false formula does not replace or publish its stored true value during reads")
+	Story.outcomes.derived_flags[a] = {"flag":"test_bad_cutscene_unknown_derived_source","equals":true}
+	Story.outcomes.refresh_derived()
+	check(GameState.world_flags[a]==true and changes.is_empty(), "invalid refresh preserves and does not publish over the last stored scalar")
+	Story.outcomes.derived_flags[a] = {"not":{}}
+	Story.outcomes.refresh_derived()
+	check(GameState.world_flags[a]==false and changes.size()==1 and changes[0]==[StringName(a),false], "valid explicit refresh keeps its original update and signal behavior")
+	GameState.flag_changed.disconnect(on_change)
+	var missing := StoryTransactionLedger.new()
+	Progression._story_transactions = missing
+	Story.outcomes.derived_flags = {a:{"receipt":"ch1.daily_dinner","status":"recorded"}}
+	check(StoryRules.holds(inverted,Callable(),where), "a valid missing source receipt remains ordinary false, not invalid")
+	var locked := StoryTransactionLedger.new()
+	locked.restore({"version":999,"receipts":{}},true,"test_bad_cutscene/derived_locked")
+	Progression._story_transactions = locked
+	check(not StoryRules.holds(inverted,Callable(),where), "locked ledger provenance cannot be laundered through a stored derived false")
+	Progression._story_transactions = original_ledger
+	GameState.world_flags = original_flags
+	Story.outcomes.derived_flags = original_sources
+	Story.outcomes._condition_reports = original_reports
+	check(StoryItems.snapshot()==items and Progression.snapshot()==wallet and Story.progress_snapshot()==progress and GameState.world_flags==original_flags, "derived proof and controlled refresh restore actual owner state")
 
 
 ## ST-9：正式劇本的執行期契約——分派、前置條件、段尾結果與交易、交易失敗改接、選項接續、衍生旗標、

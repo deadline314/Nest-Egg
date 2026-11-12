@@ -1,0 +1,108 @@
+{
+  "root": "D:\\NestEggVerification\\st3-condition-boundary-20261112\\work\\st3-facts-audit\\candidate-v4",
+  "scope": "Precise evidence/source packet; not an operation on primary C/index. Original2fa affected22 and published81 five-suite integration separately labelled.",
+  "candidate_files": {
+    "core/story_rules.gd": {
+      "sha256": "c1fa99236256944091f77b8e637d298af339b6ce6b8b3e378bff78cc2a1b95b4",
+      "bytes": 14562
+    },
+    "core/story_outcomes.gd": {
+      "sha256": "c94b8626cd08260267b4132af916246968ca89dcb0a8dbc57ea5f1c0f915db96",
+      "bytes": 21803
+    },
+    "tests/suite/test_cutscene.gd": {
+      "sha256": "f750d8477bafad2907d99015dff3bc34e913c368f41bb68afaa066d34dbf9ee6",
+      "bytes": 77200
+    }
+  },
+  "files": {
+    ".gdignore": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    ".gitattributes": {
+      "sha256": "1823aa5ec76fea63c06a14745db5628aec46f2c34129c635339bfe1a752e21ac",
+      "bytes": 120
+    },
+    ".gitignore": {
+      "sha256": "862263fa1f46c20f0d1e4dac5ffcc75abd55c08211b2c3864c5f8764b9d87793",
+      "bytes": 19
+    },
+    "affected-2fa-index.json": {
+      "sha256": "cc35ff8e935c2bc1288bf1c6b729be56cce7809ac559e94cdaf96fbbe2d865ff",
+      "bytes": 4127
+    },
+    "affected-2fa-raw.zip": {
+      "sha256": "c1d77888ca8133712e806b47facff18c1a74f85859916a6ce004303ab5c604f6",
+      "bytes": 1305995
+    },
+    "integration-81-index.json": {
+      "sha256": "62e74ffc12dd77006f54b1d3f395f202bac94ad27ccc5aa88ed3a09cb5206da3",
+      "bytes": 3765
+    },
+    "integration-81-raw.zip": {
+      "sha256": "596533cfc63e5d60842ca4ee97e34ef23a4dfd085cf8f5c874f908b1fdbdd0c9",
+      "bytes": 1293982
+    },
+    "manifest.json": {
+      "sha256": "54feb36d4ca1dcb26c6fa24db8664ba5e50b8d24bb2b4154bccfa39950557639",
+      "bytes": 4147
+    },
+    "README.md": {
+      "sha256": "138b2d93f2acedf4dcb39612d37e8c78e0942a4b6bf2e66c087a56b06817cae1",
+      "bytes": 5601
+    },
+    "selector.log": {
+      "sha256": "08de8dbb1cfec9fc246b4960d474de389de2baccb8d622ae3512ff79920176c5",
+      "bytes": 358
+    },
+    "short-index.json": {
+      "sha256": "4e99e5ee0e2d517233814aab3691e50df848bf69155657fd44675bf1b9a22f79",
+      "bytes": 473608
+    },
+    "short-raw.zip": {
+      "sha256": "86332c7f5f4562f217ab557dbba37a5f43911ef008b77f5be7a0373c2134f55e",
+      "bytes": 9286431
+    },
+    "source/core/story_outcomes.gd": {
+      "sha256": "c94b8626cd08260267b4132af916246968ca89dcb0a8dbc57ea5f1c0f915db96",
+      "bytes": 21803
+    },
+    "source/core/story_rules.gd": {
+      "sha256": "c1fa99236256944091f77b8e637d298af339b6ce6b8b3e378bff78cc2a1b95b4",
+      "bytes": 14562
+    },
+    "source/tests/suite/test_cutscene.gd": {
+      "sha256": "f750d8477bafad2907d99015dff3bc34e913c368f41bb68afaa066d34dbf9ee6",
+      "bytes": 77200
+    },
+    "story_outcomes.gd.diff": {
+      "sha256": "00c7b5fc763773f8e3f0ae5ccbd7ed4a3725775e9cb870588c0d88f14180300b",
+      "bytes": 8608
+    },
+    "story_rules.gd.diff": {
+      "sha256": "43c47f92bcefa3d55c57c0b6aea5adb5287d6435747c48d7c5e3ec011c537115",
+      "bytes": 5865
+    },
+    "test_cutscene.gd.diff": {
+      "sha256": "7e92e72e1ab78fe683039ae7c3748d788a3bbe3ee8915400904c84dc2519dfe3",
+      "bytes": 15880
+    },
+    "verify.py": {
+      "sha256": "ddf40aa1cfd80d00ccc12fbf47a3ec1ef588e7459abf2212d68e16a30650ae3f",
+      "bytes": 2682
+    },
+    "verify_affected.py": {
+      "sha256": "0f3b2b2ae1e24a2c4d43f3b504f2b87de4a82f7d8c01ffaf32dc6f562c6c89d7",
+      "bytes": 2475
+    },
+    "verify_short.py": {
+      "sha256": "90069dac51e30ee880da789d6d2b5e799190f3678cf33dbc5815dc94647a996e",
+      "bytes": 3350
+    }
+  },
+  "normalized_external_text": [
+    "selector.log"
+  ],
+  "total_bytes": 12530578
+}

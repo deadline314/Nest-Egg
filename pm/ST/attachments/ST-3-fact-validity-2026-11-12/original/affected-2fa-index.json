@@ -1,0 +1,125 @@
+{
+  "scope": "Original changed.sh22/SHARDS2/default-headless on base2fa+only3-v4, old death1/3/5. Not latest81 integration.",
+  "archive": {
+    "name": "affected-2fa-raw.zip",
+    "bytes": 1305995,
+    "sha256": "c1d77888ca8133712e806b47facff18c1a74f85859916a6ce004303ab5c604f6"
+  },
+  "members": {
+    "command.json": {
+      "bytes": 1729,
+      "crc32": 2002683569,
+      "sha256": "75f9407e0f49302e57b4f58a426a26fc9c06a7bac7a2320ea3896d2511b2ec66"
+    },
+    "diagnostics.json": {
+      "bytes": 949,
+      "crc32": 1321599374,
+      "sha256": "ce65654d1586fd84322e8aa347217dd274f31dd603e3a9a1d1d21c22e281736a"
+    },
+    "executed-runner.py": {
+      "bytes": 3484,
+      "crc32": 1134586060,
+      "sha256": "eb1f6e00ad6c684a6dfea8b9ed59c802f76623fda53c68c3ad0816fb7b6501f1"
+    },
+    "exit.json": {
+      "bytes": 289,
+      "crc32": 1101599142,
+      "sha256": "216a23e57156a89f2862b0a2cc64b35727fb6b218c493c0e458fa286f3f9be11"
+    },
+    "full.log": {
+      "bytes": 1029,
+      "crc32": 2516652016,
+      "sha256": "388724e92936e29d0e5b453a32307b68a906e40dfde607fda34a0049f2f33847"
+    },
+    "logs/shard_0.log": {
+      "bytes": 154037,
+      "crc32": 814433529,
+      "sha256": "5e9ed648cc3ec894b3556a2c60acd24233195a025e04707dba75ebe6f7c32ddc"
+    },
+    "logs/shard_1.log": {
+      "bytes": 296248,
+      "crc32": 148531755,
+      "sha256": "1db1f5cc9bb096174625b766cf1d2389e3a71ba5dbf7b2f7bf2cd46510fd8025"
+    },
+    "runner/tests/known_failures.txt": {
+      "bytes": 381,
+      "crc32": 2961364506,
+      "sha256": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf"
+    },
+    "runner/tools/run_tests_changed.sh": {
+      "bytes": 2430,
+      "crc32": 1494273722,
+      "sha256": "71bbbd76f1941fda43a4db6f061538a2ae37bcb77765674908a9957899b8f336"
+    },
+    "runner/tools/run_tests_parallel.sh": {
+      "bytes": 4733,
+      "crc32": 3280756684,
+      "sha256": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba"
+    },
+    "runner/tools/test_filters.sh": {
+      "bytes": 1995,
+      "crc32": 2156573367,
+      "sha256": "509706b8257b8e46f6e8c01ebeda0ecd976b6607975f66430bd6774461500c80"
+    },
+    "source-after.json": {
+      "bytes": 1632691,
+      "crc32": 3614991841,
+      "sha256": "f5789395494c5f80873456f54b96b8b1855e94de24e81566ef6a4f923b94df90"
+    },
+    "source-before.json": {
+      "bytes": 1632691,
+      "crc32": 3614991841,
+      "sha256": "f5789395494c5f80873456f54b96b8b1855e94de24e81566ef6a4f923b94df90"
+    },
+    "suite-times-observed.txt": {
+      "bytes": 467,
+      "crc32": 1563064243,
+      "sha256": "d611d23c1f0cdb8914723f013bc1605ffca24fcb00c25ea0e98b922a7825f02c"
+    },
+    "suite-times-provenance.json": {
+      "bytes": 256,
+      "crc32": 3154566021,
+      "sha256": "18eeb6b416fd90fef4436363df30ee983d64872d69b2537abf30fa9a86611a91"
+    },
+    "uid-context.json": {
+      "bytes": 196406,
+      "crc32": 1346951106,
+      "sha256": "ecde98cf5cfa46f04e5ab63759352e5aa7c01a05bed031a8e9bb97af22d30273"
+    }
+  },
+  "result": {
+    "exit": 0,
+    "seconds": 731.2679072000028,
+    "source_fixed": true,
+    "source_count": 13157,
+    "script_errors": 0,
+    "shards": 2,
+    "child_exit_scope": "Original runner waits for children and verifies final check totals/errors. Wrapper records runner exit, not separate child exits."
+  },
+  "diagnostics": {
+    "shard_0.log": {
+      "error_lines": 10,
+      "unexpected_diagnostic_lines": [],
+      "shutdown_error_lines": [],
+      "shutdown_warnings": [],
+      "checks": [
+        "checks: 4946, failures: 0"
+      ]
+    },
+    "shard_1.log": {
+      "error_lines": 137,
+      "unexpected_diagnostic_lines": [],
+      "shutdown_error_lines": [
+        "ERROR: 6 RID allocations of type 'P11GodotArea2D' were leaked at exit.",
+        "ERROR: 13 resources still in use at exit (run with --verbose for details)."
+      ],
+      "shutdown_warnings": [
+        "WARNING: 7 RIDs of type \"CanvasItem\" were leaked.",
+        "WARNING: 25 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+      ],
+      "checks": [
+        "checks: 40620, failures: 0"
+      ]
+    }
+  }
+}

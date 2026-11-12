@@ -1,0 +1,191 @@
+diff --git a/core/story_outcomes.gd b/core/story_outcomes.gd
+index 2cd1a7e3..22d2f944 100644
+--- a/core/story_outcomes.gd
++++ b/core/story_outcomes.gd
+@@ -23,6 +23,12 @@ var event_scenes: Array[Dictionary] = []
+ ## 進行中演出鏈提供的情境事實（例如「真正的初次建檔」）；演出結束或取消即清除。
+ var context_facts: Dictionary = {}
+ var _transaction_cache: Dictionary = {}
++## Names come from loaded producers, never from conditions that read them.
++var _condition_producers: Dictionary = {}
++var _condition_resources: Array[StoryTransactionData] = []
++var _condition_catalog_loaded := false
++var _condition_catalog_error := ""
++var _condition_reports: Dictionary = {}
+ 
+ 
+ func clear() -> void:
+@@ -32,6 +38,11 @@ func clear() -> void:
+ 	event_scenes.clear()
+ 	context_facts.clear()
+ 	_transaction_cache.clear()
++	_condition_producers.clear()
++	_condition_resources.clear()
++	_condition_catalog_loaded = false
++	_condition_catalog_error = ""
++	_condition_reports.clear()
+ 
+ 
+ ## 合併一份章節的表；格式錯誤記錄具體位置並略過該筆，不影響其他內容。
+@@ -55,6 +66,21 @@ func merge_chapter(data: Dictionary, path: String) -> void:
+ 			else:
+ 				push_error("[StoryOutcomes] %s 的 %s[%d] 不是物件，已略過" % [path, key, i])
+ 
++	var scenes: Variant = data.get("scenes", {})
++	if scenes is Dictionary:
++		for scene_id: Variant in scenes:
++			# load_chapter may have rejected a duplicate scene from this source.
++			var admitted: Variant = Story._scenes.get(String(scene_id), {})
++			if Story._scene_sources.get(String(scene_id), "") != path or not is_same(admitted, scenes[scene_id]):
++				continue
++			for entry: Dictionary in StoryRules.entries(admitted):
++				for flag: Variant in StoryRules.flag_names(entry.get("set_flags", [])):
++					if StoryRules._condition_id(flag) and (not entry["set_flags"] is Dictionary or GameState._flag_value_valid(entry["set_flags"][flag])):
++						_condition_producers[String(flag)] = path + "/scenes/" + str(scene_id)
++				for op: Dictionary in operations(entry):
++					if op.get("kind") == "flag" and StoryRules._condition_id(op.get("id")) and GameState._flag_value_valid(op.get("value", true)):
++						_condition_producers[String(op["id"])] = path + "/scenes/" + str(scene_id)
++
+ 
+ ## 讀取一個旗標事實：執行期事實 > 情境事實 > 本輪旗標。未知提供者記錄後回 false。
+ func flag_value(name: StringName) -> Variant:
+@@ -132,6 +158,126 @@ func account_state(_account: StringName) -> String:
+ 	return str(StoryConditionTree.ACCOUNT_MASKS.get(mask, "invalid"))
+ 
+ 
++## Default condition facts retain invalid separately from legitimate false/missing.
++## The root owns cache/failure; empty failure permits a legitimate null flag value.
++## No per-leaf result object; ledger proof is shared only within that synchronous call.
++func condition_fact(kind: StringName, id: StringName, cache: Dictionary, failure: Array[String]) -> Variant:
++	var key := String(id)
++	match kind:
++		&"flag":
++			if not GameState.flag_defaults.has(key) and not runtime_facts.has(key) and not derived_flags.has(key) and not _condition_producers.has(key):
++				failure[0] = "未登記的旗標：" + key
++				return null
++			if runtime_facts.has(key):
++				var provider: Variant = runtime_facts[key]
++				if not (provider is String or provider is StringName):
++					failure[0] = "runtime_facts.%s 提供者型別無效" % key
++					return null
++				var name := String(provider)
++				if name.begins_with("context:"):
++					var context_key := name.substr(8)
++					if context_key.is_empty() or (context_facts.has(context_key) and not context_facts[context_key] is bool):
++						failure[0] = "runtime_facts.%s 情境事實無效" % key
++						return null
++				elif not RUNTIME_PROVIDERS.has(name):
++					failure[0] = "runtime_facts.%s 未知提供者：%s" % [key, name]
++					return null
++			elif derived_flags.has(key) and not _condition_derived(key, cache, failure):
++				return null
++			return flag_value(id)
++		&"held":
++			if StoryItems.find(id) == null:
++				failure[0] = "未登記的道具：" + key
++				return null
++			return StoryItems.holds(id)
++		&"receipt", &"account":
++			if kind == &"account" and id != &"ch1_lounge":
++				failure[0] = "未登記的帳務投影：" + key
++				return null
++			var proof := _condition_ledger(cache)
++			if not proof["valid"]:
++				failure[0] = String(proof["error"])
++				return null
++			if kind == &"receipt":
++				if not cache["definitions"].has(key):
++					failure[0] = "未登記的收據：" + key
++					return null
++				return cache["ledger"]["receipts"].has(key)
++			return proof["account"]
++	failure[0] = "未知事實種類：" + String(kind)
++	return null
++
++
++## Validate provenance without replacing or writing the stored derived scalar.
++func _condition_derived(key: String, cache: Dictionary, failure: Array[String]) -> bool:
++	if not cache.has("derived_checked"):
++		cache["derived_checked"] = {}
++		cache["derived_visiting"] = {}
++	var checked: Dictionary = cache["derived_checked"]
++	var visiting: Dictionary = cache["derived_visiting"]
++	if checked.has(key):
++		return true
++	if visiting.has(key):
++		failure[0] = "derived_flags.%s: 派生來源循環" % key
++		return false
++	visiting[key] = true
++	var source: Variant = derived_flags[key]
++	var problem := StoryRules._condition_problem(source, int(cache["depth"]) + 1, cache["schema_budget"])
++	if not problem.is_empty():
++		failure[0] = problem
++	else:
++		StoryRules._holds_valid(source, Callable(), cache, failure)
++	visiting.erase(key)
++	if not failure[0].is_empty():
++		failure[0] = "derived_flags." + key + failure[0]
++		return false
++	checked[key] = true
++	return true
++
++
++func _condition_ledger(cache: Dictionary) -> Dictionary:
++	if cache.has("ledger_proof"):
++		return cache["ledger_proof"]
++	if not _condition_catalog_loaded:
++		_condition_catalog_loaded = true
++		var count := 0
++		for file in DirAccess.get_files_at("res://data/story_transactions"):
++			if file.trim_suffix(".remap").ends_with(".tres"):
++				count += 1
++		if count <= StoryConditionTree.MAX_FACTS:
++			for resource: StoryTransactionData in ResourceCatalog.load_dir("res://data/story_transactions", StoryTransactionData, "StoryConditions"):
++				_condition_resources.append(resource)
++		if count == 0 or count > StoryConditionTree.MAX_FACTS or _condition_resources.size() != count:
++			_condition_catalog_error = "res://data/story_transactions 的正式資源缺漏、重複或型別無效"
++	var definitions := {}
++	var error := _condition_catalog_error
++	if error.is_empty():
++		for resource in _condition_resources:
++			var descriptor := resource.descriptor()
++			if descriptor.has("error") or definitions.has(String(resource.id)):
++				error = resource.resource_path + ": " + str(descriptor.get("error", "重複交易 ID"))
++				break
++			definitions[String(resource.id)] = descriptor
++	cache["definitions"] = definitions
++	if not error.is_empty():
++		cache["ledger_proof"] = {"valid": false, "error": error}
++	else:
++		cache["ledger"] = Progression._story_transactions.snapshot()
++		cache["ledger_proof"] = StoryConditionTree.verify_ledger({"ledger": cache["ledger"]}, {"ledger_locked": Progression._story_transactions._locked, "transaction_definitions": definitions})
++	return cache["ledger_proof"]
++
++
++## Bounded owner-local report-once cache, reset with loaded chapter tables.
++func report_condition(problem: String) -> void:
++	problem = problem.left(512)
++	if _condition_reports.has(problem):
++		return
++	if _condition_reports.size() >= StoryConditionTree.MAX_FACTS:
++		return
++	_condition_reports[problem] = true
++	push_error("[StoryRules] " + problem)
++
++
+ static func operations(scene: Dictionary) -> Array[Dictionary]:
+ 	var result: Array[Dictionary] = []
+ 	var raw: Variant = scene.get("results", [])
+@@ -257,7 +403,11 @@ func commit(scene_id: StringName, scene: Dictionary, transfers: Array[StringName
+ ## 衍生旗標依條件重算並寫入本輪旗標（例如四張標籤都讀過）。只在值改變時寫入。
+ func refresh_derived() -> void:
+ 	for name: String in derived_flags:
+-		var value := StoryRules.holds(derived_flags[name])
++		var failure: Array[String] = [""]
++		var value := StoryRules._checked_value(derived_flags[name], Callable(), "derived_flags." + name, failure)
++		if not failure[0].is_empty():
++			report_condition(failure[0])
++			continue
+ 		if GameState.get_flag(StringName(name)) != value:
+ 			# 衍生值可由其他旗標重算：不另外請求保存，觸發它的結果或讀檔流程自己會保存。
+ 			GameState.set_flag(StringName(name), value, false)

@@ -1,0 +1,127 @@
+diff --git a/core/story_rules.gd b/core/story_rules.gd
+index 2bfa8c90..a954fab1 100644
+--- a/core/story_rules.gd
++++ b/core/story_rules.gd
+@@ -37,13 +37,36 @@ static func custody_allows(entry: Dictionary, custody_reader: Callable = Callabl
+ ## 不套用純 StoryConditionTree 的第一章帳務 ID／facts 快照政策。空物件代表沒有前置條件。
+ ## facts(kind, id) 回傳事實：kind 為 &"flag"／&"held"／&"receipt"／&"account"；未提供時讀 Story（正式遊戲）。
+ ## equals 的字面值不接受 null；facts 回傳 null 仍沿用 same_value 的預設值比較。
+-## 先完整驗一次結構才求值；not／短路分支不能把壞條件變成成功。
++## 先完整驗一次結構才求值；無效事實也不會被 not 反轉。
++## all／any 讀取每個必要 occurrence 一次，不再短路略過壞事實；合法回呼仍讀自己的候選狀態。
+ static func holds(condition: Variant, facts: Callable = Callable(), where: String = "$") -> bool:
+-	var problem := condition_error(condition, where)
++	var failure: Array[String] = [""]
++	var value := _checked_value(condition, facts, where, failure)
++	if not failure[0].is_empty():
++		Story.outcomes.report_condition(failure[0])
++		return false
++	return value
++
++
++## Shared with the actual derived-refresh owner, which must not store invalid=false.
++static func _checked_value(condition: Variant, facts: Callable, where: String, failure: Array[String]) -> bool:
++	var schema_budget: Array[int] = [0]
++	var problem := _condition_problem(condition, 1, schema_budget)
+ 	if not problem.is_empty():
+-		push_error("[StoryRules] " + problem)
++		failure[0] = (where.left(256) + problem).left(512)
++		return false
++	if not facts.is_null() and not facts.is_valid():
++		failure[0] = where.left(256) + ": 事實回呼已失效，不能改讀正式狀態"
+ 		return false
+-	return _holds_valid(condition, facts if facts.is_valid() else Story.fact)
++	var reader := facts
++	# An explicit alias of the actual default owner has the same evidence rules.
++	if not reader.is_null() and reader == Story.fact:
++		reader = Callable()
++	var value := _holds_valid(condition, reader, {"schema_budget":schema_budget, "nodes":0, "depth":0}, failure)
++	if not failure[0].is_empty():
++		failure[0] = (where.left(256) + failure[0]).left(512)
++		return false
++	return value
+ 
+ 
+ ## 純結構檢查，不讀取任何事實。沿用共用條件樹的有界限制，但保留執行期葉節點契約。
+@@ -136,28 +159,64 @@ static func _condition_scalar(raw: Variant) -> bool:
+ 	return (raw is int or raw is float) and is_finite(float(raw)) and absf(float(raw)) <= StoryConditionTree.MAX_NUMBER
+ 
+ 
+-static func _holds_valid(raw: Dictionary, reader: Callable) -> bool:
++static func _holds_valid(raw: Dictionary, reader: Callable, cache: Dictionary, failure: Array[String]) -> bool:
++	var depth := int(cache["depth"]) + 1
++	cache["depth"] = depth
++	cache["nodes"] += 1
++	var value := false
++	if depth > StoryConditionTree.MAX_DEPTH or int(cache["nodes"]) > StoryConditionTree.MAX_NODES:
++		failure[0] = ": 條件與派生來源的深度或節點數超過上限"
++	else:
++		value = _holds_node(raw, reader, cache, failure)
++	cache["depth"] = depth - 1
++	return value
++
++
++static func _holds_node(raw: Dictionary, reader: Callable, cache: Dictionary, failure: Array[String]) -> bool:
+ 	if raw.is_empty():
+ 		return true
+ 	if raw.has("all") or raw.has("any"):
+ 		var all := raw.has("all")
+-		var children: Variant = raw["all"] if all else raw["any"]
+-		if not children is Array or (children as Array).is_empty():
+-			return false
+-		for child: Variant in children:
+-			if _holds_valid(child, reader) != all:
+-				return not all
+-		return all
++		var children: Array = raw["all"] if all else raw["any"]
++		var value := all
++		for i in children.size():
++			var child := _holds_valid(children[i], reader, cache, failure)
++			if not failure[0].is_empty():
++				failure[0] = ".%s[%d]" % ["all" if all else "any", i] + failure[0]
++				return false
++			value = (value and child) if all else (value or child)
++		return value
+ 	if raw.has("not"):
+-		return not _holds_valid(raw["not"], reader)
+-	if raw.has("flag"):
+-		return same_value(reader.call(&"flag", StringName(str(raw["flag"]))), raw.get("equals", true))
+-	if raw.has("item"):
+-		return bool(reader.call(&"held", StringName(str(raw["item"]))))
+-	if raw.has("receipt"):
+-		return str(raw.get("status", "")) == "recorded" and bool(reader.call(&"receipt", StringName(str(raw["receipt"]))))
+-	if raw.has("account"):
+-		return str(reader.call(&"account", StringName(str(raw["account"])))) == str(raw.get("equals", ""))
++		var value := _holds_valid(raw["not"], reader, cache, failure)
++		if not failure[0].is_empty():
++			failure[0] = ".not" + failure[0]
++			return false
++		return not value
++	var op := "flag" if raw.has("flag") else ("item" if raw.has("item") else ("receipt" if raw.has("receipt") else "account"))
++	var kind := &"held" if op == "item" else StringName(op)
++	var id := StringName(str(raw[op]))
++	var actual: Variant
++	if reader.is_null():
++		actual = Story.outcomes.condition_fact(kind, id, cache, failure)
++		if not failure[0].is_empty():
++			failure[0] = "." + op + ": " + failure[0]
++			return false
++	else:
++		actual = reader.call(kind, id)
++	var valid: bool
++	if kind == &"flag":
++		valid = actual == null or _condition_scalar(actual)
++	elif kind == &"held" or kind == &"receipt":
++		valid = actual is bool
++	else:
++		valid = (actual is String or actual is StringName) and String(actual).length() <= StoryConditionTree.MAX_TEXT_LENGTH
++	if not valid:
++		failure[0] = "." + op + ": " + String(id) + " 的事實型別或有限值無效"
++		return false
++	match kind:
++		&"flag": return same_value(actual, raw.get("equals", true))
++		&"held", &"receipt": return actual
++		&"account": return String(actual) == String(raw["equals"])
+ 	return false
+ 
+ 

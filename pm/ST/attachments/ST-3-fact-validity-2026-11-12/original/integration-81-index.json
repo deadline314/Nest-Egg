@@ -1,0 +1,124 @@
+{
+  "scope": "Latest81 published death1/2/3 plus exact same facts-v4 source3; original5-suite integration only. Does not rename2fa22 result.",
+  "archive": {
+    "name": "integration-81-raw.zip",
+    "bytes": 1293982,
+    "sha256": "596533cfc63e5d60842ca4ee97e34ef23a4dfd085cf8f5c874f908b1fdbdd0c9"
+  },
+  "members": {
+    "adoption-receipt.json": {
+      "sha256": "db8361a66cbacc0c25020acf002c6481bf5b2f1940d8970643b55da673de2bee",
+      "bytes": 1413,
+      "crc32": 4204693795
+    },
+    "command.json": {
+      "sha256": "cdaeafe680841a0df061f0200a3814e72551ea311df594098d49f239dbd0a46b",
+      "bytes": 1842,
+      "crc32": 1293711896
+    },
+    "diagnostics.json": {
+      "sha256": "64d2af1aa469093d1f525d002150e8b53ea396ecc1e6f1b3e706bfaaddb01a66",
+      "bytes": 599,
+      "crc32": 2560952435
+    },
+    "executed-runner.py": {
+      "sha256": "6131f8945e0dd0cf30111b97e16490141246cb62edd8b4b521570f2bd7cd76ee",
+      "bytes": 3865,
+      "crc32": 1290273121
+    },
+    "exit.json": {
+      "sha256": "de3914ec3465bd55ed3ce10dbf61f789a5cc74547b30f8d35b37045b63582070",
+      "bytes": 580,
+      "crc32": 1898489424
+    },
+    "full.log": {
+      "sha256": "4c01a455a83d25f7a7e281759ce68175d14b827a5894c408f21cc9a69f263f66",
+      "bytes": 365,
+      "crc32": 1656369697
+    },
+    "logs/shard_0.log": {
+      "sha256": "d31c5186da8de154fb6b5e0e1a567f7c244a960b311be376da673248f026b229",
+      "bytes": 296903,
+      "crc32": 2996095128
+    },
+    "logs/shard_1.log": {
+      "sha256": "976eab9be6bb52f25c99f4a8d9ed9aa03c51d538fe5558c8f49b0039379857a9",
+      "bytes": 87752,
+      "crc32": 2632964629
+    },
+    "runner/tests/known_failures.txt": {
+      "sha256": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf",
+      "bytes": 381,
+      "crc32": 2961364506
+    },
+    "runner/tools/run_tests_parallel.sh": {
+      "sha256": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba",
+      "bytes": 4733,
+      "crc32": 3280756684
+    },
+    "runner/tools/test_filters.sh": {
+      "sha256": "509706b8257b8e46f6e8c01ebeda0ecd976b6607975f66430bd6774461500c80",
+      "bytes": 1995,
+      "crc32": 2156573367
+    },
+    "source-after.json": {
+      "sha256": "3cac16e4b90211e11f84bf236b6cadf49a6cc0d475d872da0593b92d70725a84",
+      "bytes": 1632691,
+      "crc32": 4071761431
+    },
+    "source-before.json": {
+      "sha256": "3cac16e4b90211e11f84bf236b6cadf49a6cc0d475d872da0593b92d70725a84",
+      "bytes": 1632691,
+      "crc32": 4071761431
+    },
+    "uid-context.json": {
+      "sha256": "ecde98cf5cfa46f04e5ab63759352e5aa7c01a05bed031a8e9bb97af22d30273",
+      "bytes": 196406,
+      "crc32": 1346951106
+    }
+  },
+  "result": {
+    "exit": 0,
+    "seconds": 80.30753849999746,
+    "source_fixed": true,
+    "source_count": 13157,
+    "script_errors": 0,
+    "shards": 2,
+    "expected_groups": [
+      "StoryLintSuite",
+      "CutsceneSuite",
+      "DeathFlowSuite",
+      "MusicSuite",
+      "UiScreensSuite"
+    ],
+    "observed_groups": [
+      "CutsceneSuite",
+      "DeathFlowSuite",
+      "MusicSuite",
+      "StoryLintSuite",
+      "UiScreensSuite"
+    ],
+    "groups_complete": true,
+    "child_exit_scope": "Original runner waits for children and verifies final check totals/errors. Wrapper records runner exit, not separate child exits."
+  },
+  "diagnostics": {
+    "shard_0.log": {
+      "error_lines": 76,
+      "unexpected_diagnostic_lines": [],
+      "shutdown_error_lines": [],
+      "shutdown_warnings": [],
+      "checks": [
+        "checks: 2204, failures: 0"
+      ]
+    },
+    "shard_1.log": {
+      "error_lines": 3,
+      "unexpected_diagnostic_lines": [],
+      "shutdown_error_lines": [],
+      "shutdown_warnings": [],
+      "checks": [
+        "checks: 723, failures: 0"
+      ]
+    }
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "base": "2fa7bde15a08d0744d968c796ed9c5c4bf614015",
+  "files": {
+    "core/story_rules.gd": {
+      "sha256": "c1fa99236256944091f77b8e637d298af339b6ce6b8b3e378bff78cc2a1b95b4",
+      "bytes": 14562
+    },
+    "core/story_outcomes.gd": {
+      "sha256": "c94b8626cd08260267b4132af916246968ca89dcb0a8dbc57ea5f1c0f915db96",
+      "bytes": 21803
+    },
+    "tests/suite/test_cutscene.gd": {
+      "sha256": "f750d8477bafad2907d99015dff3bc34e913c368f41bb68afaa066d34dbf9ee6",
+      "bytes": 77200
+    }
+  },
+  "short": {
+    "alias": {
+      "path": "alias-1794484007771771700",
+      "receipt_sha256": "b53b90b5b2e05bbe4ce96ae3d07befbf441256943a03b9b36e9d2135d6f8a621",
+      "seconds": 5.619230799988145,
+      "result": {
+        "checks": 8,
+        "failures": 0
+      }
+    },
+    "derived": {
+      "path": "derived-1794484013655086400",
+      "receipt_sha256": "de99f05a559239dbdea36e5649a676b80d06f9fe9f57df60ddf9894895e39f97",
+      "seconds": 5.331647099985275,
+      "result": {
+        "checks": 8,
+        "failures": 0
+      }
+    },
+    "local": {
+      "path": "local-1794484019245681000",
+      "receipt_sha256": "6a6db0d4ccace4d0f43ebd492f6bfb11e1b7692a6256dc751b2832754b569068",
+      "seconds": 6.444229499989888,
+      "result": {
+        "checks": 140,
+        "failures": 0
+      }
+    },
+    "matrix": {
+      "path": "matrix-1794484025941745500",
+      "receipt_sha256": "71d37c3417598961a52e5ae2ccd6e3dc8f20be27ee345d68099b1452d4ed36b8",
+      "seconds": 5.830602700007148,
+      "result": {
+        "comparisons": 5764,
+        "conditions": 524,
+        "default_comparisons": 524,
+        "extra_callback_reads": 3742,
+        "failures": 0,
+        "no_state_mutation": true
+      }
+    },
+    "run": {
+      "path": "run-1794484032029424400",
+      "receipt_sha256": "9526d9c5a754f79769b133000be11b50ca8c276b7e6e85756fb0ea8fd00fdbd5",
+      "seconds": 5.836390299984487,
+      "result": {
+        "controls_failed": 0,
+        "counterexamples": 0,
+        "restored": true,
+        "rows": 23
+      }
+    },
+    "admission": {
+      "path": "admission-1794484038107390300",
+      "receipt_sha256": "83a39641f80f7cf01be225d316f8261385440513633531802b3d1c10c292e39b",
+      "seconds": 5.754521700000623,
+      "result": {
+        "actual_producers_restored": true,
+        "checks": 3,
+        "failures": 0,
+        "reports_and_resource_cache_reset": true,
+        "scope": "Actual public load_all restores authoritative producers after cache clear; no gameplay/presentation.",
+        "source_count": 119,
+        "state_restored": true
+      }
+    }
+  },
+  "selector": {
+    "argv": [
+      "python",
+      "tools/select_tests.py",
+      "--base",
+      "2fa7bde15a08d0744d968c796ed9c5c4bf614015"
+    ],
+    "count": 22,
+    "groups": [
+      "AudioSuite",
+      "Chapter1MapSuite",
+      "Chapter2StorySuite",
+      "Chapter2Suite",
+      "Chapter3StorySuite",
+      "ChapterCutscenesSuite",
+      "ContinuitySuite",
+      "CutsceneSuite",
+      "DeathReactionSuite",
+      "EncounterSuite",
+      "EnvironmentSuite",
+      "FxMeleePickupsSuite",
+      "FxUpgradesSuite",
+      "InputFeelSuite",
+      "LayerOrderSuite",
+      "MeleeSuite",
+      "MeleeWeaponsSuite",
+      "ProtagonistMotionSuite",
+      "RunSaveSuite",
+      "SoundStageSuite",
+      "SupplySuite",
+      "UiScreensSuite"
+    ],
+    "executed_long": false
+  },
+  "red_proofs": {
+    "facts23": "run-1794480844882894100 (14 counterexample observations,9 controls0fail)",
+    "derived8": "derived-1794483473719688800 (5 actual failures;0SCRIPT/state restored)",
+    "explicit_default_alias8": "alias-1794483879213912700 (5 actual failures;0SCRIPT/state restored)"
+  },
+  "semantics": "Default facts retain owner validity; explicit Story.fact uses same owner. Candidate opaque callbacks keep own namespace, explicit null and values; whole-tree actual values checked once per occurrence. Derived source graph shares root bounds/visiting; reads preserve stored scalar, invalid refresh preserves last stored value. Actual current ledger/descriptors verified once/root. Not a declaration guarantee for opaque callbacks or natural gameplay proof."
+}
