@@ -1,0 +1,24 @@
+{
+  "scope": "in-memory reader negative controls only; not additional gameplay runs",
+  "raw_sha256": "3b32ba913a870dd9be7e83873e09252d7a16b0ec17bdde49884ca752bc030232",
+  "controls": [
+    {
+      "fault": "crouch-no-flight",
+      "rejected": true,
+      "exception": "AssertionError",
+      "reader_line": 95
+    },
+    {
+      "fault": "shield-no-callback",
+      "rejected": true,
+      "exception": "AssertionError",
+      "reader_line": 104
+    },
+    {
+      "fault": "jump-grounded",
+      "rejected": true,
+      "exception": "AssertionError",
+      "reader_line": 112
+    }
+  ]
+}

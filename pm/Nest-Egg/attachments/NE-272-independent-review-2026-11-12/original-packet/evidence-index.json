@@ -1,0 +1,3113 @@
+{
+  "scope": "Read-only Git blobs, existing CI log and original images; no engine execution, native capture, physical-input or natural full-route claim.",
+  "refs": {
+    "initial": "0f66990f50cab43a73c9cd2921a270aaefbff747",
+    "repair": "b649a7c21b4bc5d231e02007ca24bd2b4d9c7913",
+    "ci": "ba37327fbe4e8a0f293b735f4a4e5aa6b58d2dfd",
+    "published": "a4f2db7a81cd8c58bf8dea1afcdf499375dcba58"
+  },
+  "original_commit_paths": [
+    "art/vfx/enemies/insulation_inspector.json",
+    "art/vfx/enemies/pump_inspector.json",
+    "data/audio/character_sounds.json",
+    "data/bosses/janus.json",
+    "data/codex/defeat_cards.json",
+    "data/combat/chapter_rosters.json",
+    "data/enemies/insulation_inspector.tres",
+    "data/enemies/pump_inspector.tres",
+    "data/levels/ch3_design.json",
+    "data/levels/ch3_mezzanine.tres",
+    "data/levels/ch3_mezzanine_map.json",
+    "data/levels/ch3_pump.tres",
+    "data/levels/ch3_pump_map.json",
+    "data/projectiles/insulation_pulse.tres",
+    "game/enemies/insulation_inspector.gd",
+    "game/enemies/insulation_inspector.gd.uid",
+    "game/enemies/pump_inspector.gd",
+    "game/enemies/pump_inspector.gd.uid",
+    "pm/Nest-Egg/[NE-272]配置第三章泵室與夾層的兩種巡檢器.md",
+    "pm/Nest-Egg/[NE-97]調整每章的敵人名單並重新擺放.md",
+    "pm/Nest-Egg/images/NE-272-insulation-lock.png",
+    "pm/Nest-Egg/images/NE-272-mezzanine-fight.png",
+    "pm/Nest-Egg/images/NE-272-pump-telegraph.png",
+    "pm/user_guide.md",
+    "tests/smoke_test.gd",
+    "tests/suite/test_ch3_enemies.gd",
+    "tests/suite/test_ch3_enemies.gd.uid",
+    "tools/level/build_ch3.py",
+    "tools/scenarios/ch3_combat_scenario.gd",
+    "tools/scenarios/enemy_scenarios.gd"
+  ],
+  "sources": [
+    {
+      "source_path": "art/vfx/enemies/insulation_inspector.json",
+      "versions": {
+        "initial": {
+          "path": "source/initial/art/vfx/enemies/insulation_inspector.json",
+          "bytes": 820,
+          "sha256": "dcee5da9f7352cbebe12c61737616d26dfbb89f720f1179a8d1d4869b002f3df"
+        },
+        "repair": {
+          "path": "source/repair/art/vfx/enemies/insulation_inspector.json",
+          "bytes": 820,
+          "sha256": "dcee5da9f7352cbebe12c61737616d26dfbb89f720f1179a8d1d4869b002f3df"
+        },
+        "ci": {
+          "path": "source/ci/art/vfx/enemies/insulation_inspector.json",
+          "bytes": 820,
+          "sha256": "dcee5da9f7352cbebe12c61737616d26dfbb89f720f1179a8d1d4869b002f3df"
+        },
+        "published": {
+          "path": "source/published/art/vfx/enemies/insulation_inspector.json",
+          "bytes": 820,
+          "sha256": "dcee5da9f7352cbebe12c61737616d26dfbb89f720f1179a8d1d4869b002f3df"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "art/vfx/enemies/pump_inspector.json",
+      "versions": {
+        "initial": {
+          "path": "source/initial/art/vfx/enemies/pump_inspector.json",
+          "bytes": 829,
+          "sha256": "746a7edee603cd6ef97a583caf5d853beac881b7e58b2726092d048311bbd1fe"
+        },
+        "repair": {
+          "path": "source/repair/art/vfx/enemies/pump_inspector.json",
+          "bytes": 829,
+          "sha256": "746a7edee603cd6ef97a583caf5d853beac881b7e58b2726092d048311bbd1fe"
+        },
+        "ci": {
+          "path": "source/ci/art/vfx/enemies/pump_inspector.json",
+          "bytes": 829,
+          "sha256": "746a7edee603cd6ef97a583caf5d853beac881b7e58b2726092d048311bbd1fe"
+        },
+        "published": {
+          "path": "source/published/art/vfx/enemies/pump_inspector.json",
+          "bytes": 829,
+          "sha256": "746a7edee603cd6ef97a583caf5d853beac881b7e58b2726092d048311bbd1fe"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "core/attack_tokens.gd",
+      "versions": {
+        "initial": {
+          "path": "source/initial/core/attack_tokens.gd",
+          "bytes": 4728,
+          "sha256": "3bf5ddf6e6c3614d98a59a6ed862065372e58d01d42910d3ba816ba5d48ab7dd"
+        },
+        "repair": {
+          "path": "source/repair/core/attack_tokens.gd",
+          "bytes": 4728,
+          "sha256": "3bf5ddf6e6c3614d98a59a6ed862065372e58d01d42910d3ba816ba5d48ab7dd"
+        },
+        "ci": {
+          "path": "source/ci/core/attack_tokens.gd",
+          "bytes": 4728,
+          "sha256": "3bf5ddf6e6c3614d98a59a6ed862065372e58d01d42910d3ba816ba5d48ab7dd"
+        },
+        "published": {
+          "path": "source/published/core/attack_tokens.gd",
+          "bytes": 4728,
+          "sha256": "3bf5ddf6e6c3614d98a59a6ed862065372e58d01d42910d3ba816ba5d48ab7dd"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "core/components/hurtbox.gd",
+      "versions": {
+        "initial": {
+          "path": "source/initial/core/components/hurtbox.gd",
+          "bytes": 9133,
+          "sha256": "53f3673f57b7ab2a6f26c20462840463794188401e09b2bacf4e05c0fe00b2e8"
+        },
+        "repair": {
+          "path": "source/repair/core/components/hurtbox.gd",
+          "bytes": 9133,
+          "sha256": "53f3673f57b7ab2a6f26c20462840463794188401e09b2bacf4e05c0fe00b2e8"
+        },
+        "ci": {
+          "path": "source/ci/core/components/hurtbox.gd",
+          "bytes": 9133,
+          "sha256": "53f3673f57b7ab2a6f26c20462840463794188401e09b2bacf4e05c0fe00b2e8"
+        },
+        "published": {
+          "path": "source/published/core/components/hurtbox.gd",
+          "bytes": 9133,
+          "sha256": "53f3673f57b7ab2a6f26c20462840463794188401e09b2bacf4e05c0fe00b2e8"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "core/damage_info.gd",
+      "versions": {
+        "initial": {
+          "path": "source/initial/core/damage_info.gd",
+          "bytes": 2211,
+          "sha256": "0ad4808db9a944ab912e868e30bb7d543b88470390bd7da7ef3e682383e92049"
+        },
+        "repair": {
+          "path": "source/repair/core/damage_info.gd",
+          "bytes": 2211,
+          "sha256": "0ad4808db9a944ab912e868e30bb7d543b88470390bd7da7ef3e682383e92049"
+        },
+        "ci": {
+          "path": "source/ci/core/damage_info.gd",
+          "bytes": 2211,
+          "sha256": "0ad4808db9a944ab912e868e30bb7d543b88470390bd7da7ef3e682383e92049"
+        },
+        "published": {
+          "path": "source/published/core/damage_info.gd",
+          "bytes": 2211,
+          "sha256": "0ad4808db9a944ab912e868e30bb7d543b88470390bd7da7ef3e682383e92049"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/audio/character_sounds.json",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/audio/character_sounds.json",
+          "bytes": 3155,
+          "sha256": "d446f2212b326b009e2307431e59b36e54a8bf855cd59648ae1361fcfe287b28"
+        },
+        "repair": {
+          "path": "source/repair/data/audio/character_sounds.json",
+          "bytes": 3197,
+          "sha256": "8682a332d61fe4085ae76845b572b1af8929061dca91203ecbf55c728e67e304"
+        },
+        "ci": {
+          "path": "source/ci/data/audio/character_sounds.json",
+          "bytes": 3341,
+          "sha256": "9241d27588013e9c043961dcf0deb623becb1f56bb301282da3e12b54d67397d"
+        },
+        "published": {
+          "path": "source/published/data/audio/character_sounds.json",
+          "bytes": 3341,
+          "sha256": "9241d27588013e9c043961dcf0deb623becb1f56bb301282da3e12b54d67397d"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/bosses/janus.json",
+      "versions": {
+        "initial": null,
+        "repair": {
+          "path": "source/repair/data/bosses/janus.json",
+          "bytes": 4010,
+          "sha256": "8ef85a486520a4ee9ca3d3f89fc36657468932e8abe66cabaaabda9f407a752b"
+        },
+        "ci": {
+          "path": "source/ci/data/bosses/janus.json",
+          "bytes": 4010,
+          "sha256": "8ef85a486520a4ee9ca3d3f89fc36657468932e8abe66cabaaabda9f407a752b"
+        },
+        "published": {
+          "path": "source/published/data/bosses/janus.json",
+          "bytes": 4010,
+          "sha256": "8ef85a486520a4ee9ca3d3f89fc36657468932e8abe66cabaaabda9f407a752b"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/codex/defeat_cards.json",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/codex/defeat_cards.json",
+          "bytes": 17677,
+          "sha256": "f16af656b483e76dcd25c5be76c8eb44cd926ab50de985998b6b32e20b06d771"
+        },
+        "repair": {
+          "path": "source/repair/data/codex/defeat_cards.json",
+          "bytes": 18185,
+          "sha256": "3b5b4ddae5af57621abe1ff408469cb466c3b85ae0bddc480286fd1a1ee99f31"
+        },
+        "ci": {
+          "path": "source/ci/data/codex/defeat_cards.json",
+          "bytes": 19967,
+          "sha256": "b1f56cd60842a358cf92a96cdb5155cfbf37a7cd95c8c2648e12e0127e2c3089"
+        },
+        "published": {
+          "path": "source/published/data/codex/defeat_cards.json",
+          "bytes": 19967,
+          "sha256": "b1f56cd60842a358cf92a96cdb5155cfbf37a7cd95c8c2648e12e0127e2c3089"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/combat/attack_tokens.json",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/combat/attack_tokens.json",
+          "bytes": 493,
+          "sha256": "b05874134f93a5ddddf83b80f2ed39f7e6f8399d156b18a993e4c8e9c2b19800"
+        },
+        "repair": {
+          "path": "source/repair/data/combat/attack_tokens.json",
+          "bytes": 493,
+          "sha256": "b05874134f93a5ddddf83b80f2ed39f7e6f8399d156b18a993e4c8e9c2b19800"
+        },
+        "ci": {
+          "path": "source/ci/data/combat/attack_tokens.json",
+          "bytes": 493,
+          "sha256": "b05874134f93a5ddddf83b80f2ed39f7e6f8399d156b18a993e4c8e9c2b19800"
+        },
+        "published": {
+          "path": "source/published/data/combat/attack_tokens.json",
+          "bytes": 493,
+          "sha256": "b05874134f93a5ddddf83b80f2ed39f7e6f8399d156b18a993e4c8e9c2b19800"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/combat/chapter_rosters.json",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/combat/chapter_rosters.json",
+          "bytes": 1630,
+          "sha256": "4484279b25011506c5e7435601762b4158c179288d40cc5a2d5a7c439b0b7e18"
+        },
+        "repair": {
+          "path": "source/repair/data/combat/chapter_rosters.json",
+          "bytes": 2108,
+          "sha256": "5de5a4ddea8640a31a99b1616c92a6a0fa4aaf8465d03df2665d0b78e63186f6"
+        },
+        "ci": {
+          "path": "source/ci/data/combat/chapter_rosters.json",
+          "bytes": 2165,
+          "sha256": "c7c33a7f15ec1b57c88bfb887e9b281bb74405353bf6ebc204af46b956996965"
+        },
+        "published": {
+          "path": "source/published/data/combat/chapter_rosters.json",
+          "bytes": 2165,
+          "sha256": "c7c33a7f15ec1b57c88bfb887e9b281bb74405353bf6ebc204af46b956996965"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/enemies/insulation_inspector.tres",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/enemies/insulation_inspector.tres",
+          "bytes": 1042,
+          "sha256": "41502b9d57e42b323aee4d6a378c905c1f94b57f39b850cdb7e2467e9eb94575"
+        },
+        "repair": {
+          "path": "source/repair/data/enemies/insulation_inspector.tres",
+          "bytes": 1042,
+          "sha256": "41502b9d57e42b323aee4d6a378c905c1f94b57f39b850cdb7e2467e9eb94575"
+        },
+        "ci": {
+          "path": "source/ci/data/enemies/insulation_inspector.tres",
+          "bytes": 1042,
+          "sha256": "41502b9d57e42b323aee4d6a378c905c1f94b57f39b850cdb7e2467e9eb94575"
+        },
+        "published": {
+          "path": "source/published/data/enemies/insulation_inspector.tres",
+          "bytes": 1042,
+          "sha256": "41502b9d57e42b323aee4d6a378c905c1f94b57f39b850cdb7e2467e9eb94575"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/enemies/pump_inspector.tres",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/enemies/pump_inspector.tres",
+          "bytes": 1115,
+          "sha256": "4ef4d7298186033def58f88262a16538b75ad32aa8109975db9f644b0beffce5"
+        },
+        "repair": {
+          "path": "source/repair/data/enemies/pump_inspector.tres",
+          "bytes": 1115,
+          "sha256": "4ef4d7298186033def58f88262a16538b75ad32aa8109975db9f644b0beffce5"
+        },
+        "ci": {
+          "path": "source/ci/data/enemies/pump_inspector.tres",
+          "bytes": 1115,
+          "sha256": "4ef4d7298186033def58f88262a16538b75ad32aa8109975db9f644b0beffce5"
+        },
+        "published": {
+          "path": "source/published/data/enemies/pump_inspector.tres",
+          "bytes": 1115,
+          "sha256": "4ef4d7298186033def58f88262a16538b75ad32aa8109975db9f644b0beffce5"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/levels/ch3_clinic.tres",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/levels/ch3_clinic.tres",
+          "bytes": 2756,
+          "sha256": "d1d3e7ea2870bf65102cb45376f1be4866be236aa0fa11ad1ccdc62e2cea5875"
+        },
+        "repair": {
+          "path": "source/repair/data/levels/ch3_clinic.tres",
+          "bytes": 2756,
+          "sha256": "d1d3e7ea2870bf65102cb45376f1be4866be236aa0fa11ad1ccdc62e2cea5875"
+        },
+        "ci": {
+          "path": "source/ci/data/levels/ch3_clinic.tres",
+          "bytes": 2756,
+          "sha256": "d1d3e7ea2870bf65102cb45376f1be4866be236aa0fa11ad1ccdc62e2cea5875"
+        },
+        "published": {
+          "path": "source/published/data/levels/ch3_clinic.tres",
+          "bytes": 2756,
+          "sha256": "d1d3e7ea2870bf65102cb45376f1be4866be236aa0fa11ad1ccdc62e2cea5875"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/levels/ch3_clinic_map.json",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/levels/ch3_clinic_map.json",
+          "bytes": 3555,
+          "sha256": "2562c4105e42849984bed63d6a2fbc167d7234aaf625d9ce95cceac099b84afd"
+        },
+        "repair": {
+          "path": "source/repair/data/levels/ch3_clinic_map.json",
+          "bytes": 3555,
+          "sha256": "2562c4105e42849984bed63d6a2fbc167d7234aaf625d9ce95cceac099b84afd"
+        },
+        "ci": {
+          "path": "source/ci/data/levels/ch3_clinic_map.json",
+          "bytes": 3625,
+          "sha256": "e6792a9ccab5896adc78e803e952fea811707827cd1b5438f7afcc83cef0091c"
+        },
+        "published": {
+          "path": "source/published/data/levels/ch3_clinic_map.json",
+          "bytes": 3625,
+          "sha256": "e6792a9ccab5896adc78e803e952fea811707827cd1b5438f7afcc83cef0091c"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/levels/ch3_design.json",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/levels/ch3_design.json",
+          "bytes": 4381,
+          "sha256": "eddf3904943f5ee8b7ff3afe44b1102ade6ff43bee54911a0ac4e99de83ad81f"
+        },
+        "repair": {
+          "path": "source/repair/data/levels/ch3_design.json",
+          "bytes": 4405,
+          "sha256": "da53d3802056648f7ddf49948db6c58744387e521a1334ac4cae4d6ceb696d95"
+        },
+        "ci": {
+          "path": "source/ci/data/levels/ch3_design.json",
+          "bytes": 4405,
+          "sha256": "da53d3802056648f7ddf49948db6c58744387e521a1334ac4cae4d6ceb696d95"
+        },
+        "published": {
+          "path": "source/published/data/levels/ch3_design.json",
+          "bytes": 4405,
+          "sha256": "da53d3802056648f7ddf49948db6c58744387e521a1334ac4cae4d6ceb696d95"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/levels/ch3_gate_hall.tres",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/levels/ch3_gate_hall.tres",
+          "bytes": 2725,
+          "sha256": "fc4b77ea9c02c25bf39a25ed9f0e2acd784302c913a92341309a226a92975b62"
+        },
+        "repair": {
+          "path": "source/repair/data/levels/ch3_gate_hall.tres",
+          "bytes": 2836,
+          "sha256": "fa72e56d7c98cfbffc22b6aa7268886b2b4046e87a4e9d1c31cdad9ec854f760"
+        },
+        "ci": {
+          "path": "source/ci/data/levels/ch3_gate_hall.tres",
+          "bytes": 2867,
+          "sha256": "2dbae02c0d9f5765b5359c9731fe6846314966fa1b7000ca29825cba20a632e3"
+        },
+        "published": {
+          "path": "source/published/data/levels/ch3_gate_hall.tres",
+          "bytes": 2867,
+          "sha256": "2dbae02c0d9f5765b5359c9731fe6846314966fa1b7000ca29825cba20a632e3"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/levels/ch3_gate_hall_map.json",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/levels/ch3_gate_hall_map.json",
+          "bytes": 2528,
+          "sha256": "e8c3d31f071aed3a63c01ed0200ee5d84aa7ff683f3de48cec623fc60bb6a761"
+        },
+        "repair": {
+          "path": "source/repair/data/levels/ch3_gate_hall_map.json",
+          "bytes": 2529,
+          "sha256": "1bd71efc5d7df9813cf13da6364ef6c04b7dfb0ba819bf25bcbd93259cb9a983"
+        },
+        "ci": {
+          "path": "source/ci/data/levels/ch3_gate_hall_map.json",
+          "bytes": 3040,
+          "sha256": "b3d6fc7a41ef3b4eb21b9fd9524eab013d3dd023719bc3723b3bee751ca7e51b"
+        },
+        "published": {
+          "path": "source/published/data/levels/ch3_gate_hall_map.json",
+          "bytes": 3040,
+          "sha256": "b3d6fc7a41ef3b4eb21b9fd9524eab013d3dd023719bc3723b3bee751ca7e51b"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/levels/ch3_glass_edge.tres",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/levels/ch3_glass_edge.tres",
+          "bytes": 2677,
+          "sha256": "cc38dec3b6e01c75eade53946e325743d5fd56389850acf177db5c973f47af1c"
+        },
+        "repair": {
+          "path": "source/repair/data/levels/ch3_glass_edge.tres",
+          "bytes": 2677,
+          "sha256": "cc38dec3b6e01c75eade53946e325743d5fd56389850acf177db5c973f47af1c"
+        },
+        "ci": {
+          "path": "source/ci/data/levels/ch3_glass_edge.tres",
+          "bytes": 2677,
+          "sha256": "cc38dec3b6e01c75eade53946e325743d5fd56389850acf177db5c973f47af1c"
+        },
+        "published": {
+          "path": "source/published/data/levels/ch3_glass_edge.tres",
+          "bytes": 2677,
+          "sha256": "cc38dec3b6e01c75eade53946e325743d5fd56389850acf177db5c973f47af1c"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/levels/ch3_glass_edge_map.json",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/levels/ch3_glass_edge_map.json",
+          "bytes": 2568,
+          "sha256": "fd4e760537f1ebab69b6431026805f87d7a7e331d88d68ae96a0cdad5beadaf4"
+        },
+        "repair": {
+          "path": "source/repair/data/levels/ch3_glass_edge_map.json",
+          "bytes": 2568,
+          "sha256": "fd4e760537f1ebab69b6431026805f87d7a7e331d88d68ae96a0cdad5beadaf4"
+        },
+        "ci": {
+          "path": "source/ci/data/levels/ch3_glass_edge_map.json",
+          "bytes": 2709,
+          "sha256": "c9d90d4d65a0d1850c98671cad5059da64b96cf54ea10179181062269ea0c6f8"
+        },
+        "published": {
+          "path": "source/published/data/levels/ch3_glass_edge_map.json",
+          "bytes": 2709,
+          "sha256": "c9d90d4d65a0d1850c98671cad5059da64b96cf54ea10179181062269ea0c6f8"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/levels/ch3_mezzanine.tres",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/levels/ch3_mezzanine.tres",
+          "bytes": 2776,
+          "sha256": "e1cf4a38ecc45f78f9fbe63c995fc8e416a637b2e73b4cf64e7ccd90479bf68f"
+        },
+        "repair": {
+          "path": "source/repair/data/levels/ch3_mezzanine.tres",
+          "bytes": 2776,
+          "sha256": "e1cf4a38ecc45f78f9fbe63c995fc8e416a637b2e73b4cf64e7ccd90479bf68f"
+        },
+        "ci": {
+          "path": "source/ci/data/levels/ch3_mezzanine.tres",
+          "bytes": 2776,
+          "sha256": "e1cf4a38ecc45f78f9fbe63c995fc8e416a637b2e73b4cf64e7ccd90479bf68f"
+        },
+        "published": {
+          "path": "source/published/data/levels/ch3_mezzanine.tres",
+          "bytes": 2776,
+          "sha256": "e1cf4a38ecc45f78f9fbe63c995fc8e416a637b2e73b4cf64e7ccd90479bf68f"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/levels/ch3_mezzanine_map.json",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/levels/ch3_mezzanine_map.json",
+          "bytes": 2939,
+          "sha256": "8e9fc6fc91072a6be0d3cbc4fcb7f22d338d70c99fdc963e7312a833b968feb2"
+        },
+        "repair": {
+          "path": "source/repair/data/levels/ch3_mezzanine_map.json",
+          "bytes": 2939,
+          "sha256": "8e9fc6fc91072a6be0d3cbc4fcb7f22d338d70c99fdc963e7312a833b968feb2"
+        },
+        "ci": {
+          "path": "source/ci/data/levels/ch3_mezzanine_map.json",
+          "bytes": 3006,
+          "sha256": "490d20970dcc73b394b91a5aa5dd13a99c92d41c1c769025137a85b65df0cd6c"
+        },
+        "published": {
+          "path": "source/published/data/levels/ch3_mezzanine_map.json",
+          "bytes": 3006,
+          "sha256": "490d20970dcc73b394b91a5aa5dd13a99c92d41c1c769025137a85b65df0cd6c"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/levels/ch3_office_hall.tres",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/levels/ch3_office_hall.tres",
+          "bytes": 2371,
+          "sha256": "79becac771cf0c6a97427d5fe295412da547fe1f5bb0450518a146c52bcbf5a7"
+        },
+        "repair": {
+          "path": "source/repair/data/levels/ch3_office_hall.tres",
+          "bytes": 2371,
+          "sha256": "79becac771cf0c6a97427d5fe295412da547fe1f5bb0450518a146c52bcbf5a7"
+        },
+        "ci": {
+          "path": "source/ci/data/levels/ch3_office_hall.tres",
+          "bytes": 2371,
+          "sha256": "79becac771cf0c6a97427d5fe295412da547fe1f5bb0450518a146c52bcbf5a7"
+        },
+        "published": {
+          "path": "source/published/data/levels/ch3_office_hall.tres",
+          "bytes": 2371,
+          "sha256": "79becac771cf0c6a97427d5fe295412da547fe1f5bb0450518a146c52bcbf5a7"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/levels/ch3_office_hall_map.json",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/levels/ch3_office_hall_map.json",
+          "bytes": 2372,
+          "sha256": "932dcc8c4777d6035f49edc893a29e78bf24cb5be69b6b0a869001826f84a997"
+        },
+        "repair": {
+          "path": "source/repair/data/levels/ch3_office_hall_map.json",
+          "bytes": 2372,
+          "sha256": "932dcc8c4777d6035f49edc893a29e78bf24cb5be69b6b0a869001826f84a997"
+        },
+        "ci": {
+          "path": "source/ci/data/levels/ch3_office_hall_map.json",
+          "bytes": 2713,
+          "sha256": "4c3e13ea0141c894d7941f1fead8e1063530d45a095f5d6acb737b5be1ea5cb2"
+        },
+        "published": {
+          "path": "source/published/data/levels/ch3_office_hall_map.json",
+          "bytes": 2713,
+          "sha256": "4c3e13ea0141c894d7941f1fead8e1063530d45a095f5d6acb737b5be1ea5cb2"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/levels/ch3_pawnshop.tres",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/levels/ch3_pawnshop.tres",
+          "bytes": 2763,
+          "sha256": "51d2d1163b12de484e57e399a6d0027f291595f819e87b96fca30657f6e63601"
+        },
+        "repair": {
+          "path": "source/repair/data/levels/ch3_pawnshop.tres",
+          "bytes": 2763,
+          "sha256": "51d2d1163b12de484e57e399a6d0027f291595f819e87b96fca30657f6e63601"
+        },
+        "ci": {
+          "path": "source/ci/data/levels/ch3_pawnshop.tres",
+          "bytes": 2763,
+          "sha256": "51d2d1163b12de484e57e399a6d0027f291595f819e87b96fca30657f6e63601"
+        },
+        "published": {
+          "path": "source/published/data/levels/ch3_pawnshop.tres",
+          "bytes": 2763,
+          "sha256": "51d2d1163b12de484e57e399a6d0027f291595f819e87b96fca30657f6e63601"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/levels/ch3_pawnshop_map.json",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/levels/ch3_pawnshop_map.json",
+          "bytes": 5221,
+          "sha256": "12ecdd36d8f21b29249b9ff38c9bbb807c395147bb06a64604b7d38b91298b11"
+        },
+        "repair": {
+          "path": "source/repair/data/levels/ch3_pawnshop_map.json",
+          "bytes": 5221,
+          "sha256": "12ecdd36d8f21b29249b9ff38c9bbb807c395147bb06a64604b7d38b91298b11"
+        },
+        "ci": {
+          "path": "source/ci/data/levels/ch3_pawnshop_map.json",
+          "bytes": 5221,
+          "sha256": "12ecdd36d8f21b29249b9ff38c9bbb807c395147bb06a64604b7d38b91298b11"
+        },
+        "published": {
+          "path": "source/published/data/levels/ch3_pawnshop_map.json",
+          "bytes": 5221,
+          "sha256": "12ecdd36d8f21b29249b9ff38c9bbb807c395147bb06a64604b7d38b91298b11"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/levels/ch3_plaza.tres",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/levels/ch3_plaza.tres",
+          "bytes": 3164,
+          "sha256": "5f6f0485d11b20edf55465a29678e92992daf4c3e369708fdb30f89e9e132c14"
+        },
+        "repair": {
+          "path": "source/repair/data/levels/ch3_plaza.tres",
+          "bytes": 3164,
+          "sha256": "5f6f0485d11b20edf55465a29678e92992daf4c3e369708fdb30f89e9e132c14"
+        },
+        "ci": {
+          "path": "source/ci/data/levels/ch3_plaza.tres",
+          "bytes": 3191,
+          "sha256": "424afaf50547965218036e4c0cba1ab60f16bb1a06a5e0a11f2f5cdf1b16f7fe"
+        },
+        "published": {
+          "path": "source/published/data/levels/ch3_plaza.tres",
+          "bytes": 3191,
+          "sha256": "424afaf50547965218036e4c0cba1ab60f16bb1a06a5e0a11f2f5cdf1b16f7fe"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/levels/ch3_plaza_map.json",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/levels/ch3_plaza_map.json",
+          "bytes": 3216,
+          "sha256": "3ec3c2c484242c535d0a64660eb6a5a5a6d81496082191e953bfa28eabda86a4"
+        },
+        "repair": {
+          "path": "source/repair/data/levels/ch3_plaza_map.json",
+          "bytes": 3216,
+          "sha256": "3ec3c2c484242c535d0a64660eb6a5a5a6d81496082191e953bfa28eabda86a4"
+        },
+        "ci": {
+          "path": "source/ci/data/levels/ch3_plaza_map.json",
+          "bytes": 3557,
+          "sha256": "8f8da205b63e3d888c6438b881afca9a96fb8c92c53cd03cb692fe7ab97299f8"
+        },
+        "published": {
+          "path": "source/published/data/levels/ch3_plaza_map.json",
+          "bytes": 3557,
+          "sha256": "8f8da205b63e3d888c6438b881afca9a96fb8c92c53cd03cb692fe7ab97299f8"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/levels/ch3_pump.tres",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/levels/ch3_pump.tres",
+          "bytes": 2621,
+          "sha256": "68980bc717f6fc0b4073f3e55c637f20807eb23cd7082926ed8fce912ddb8b78"
+        },
+        "repair": {
+          "path": "source/repair/data/levels/ch3_pump.tres",
+          "bytes": 2621,
+          "sha256": "68980bc717f6fc0b4073f3e55c637f20807eb23cd7082926ed8fce912ddb8b78"
+        },
+        "ci": {
+          "path": "source/ci/data/levels/ch3_pump.tres",
+          "bytes": 2621,
+          "sha256": "68980bc717f6fc0b4073f3e55c637f20807eb23cd7082926ed8fce912ddb8b78"
+        },
+        "published": {
+          "path": "source/published/data/levels/ch3_pump.tres",
+          "bytes": 2621,
+          "sha256": "68980bc717f6fc0b4073f3e55c637f20807eb23cd7082926ed8fce912ddb8b78"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/levels/ch3_pump_map.json",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/levels/ch3_pump_map.json",
+          "bytes": 2749,
+          "sha256": "4e9b75660f713686ae7a0f3528ff46773a7c694d53520db113235502f81bcd34"
+        },
+        "repair": {
+          "path": "source/repair/data/levels/ch3_pump_map.json",
+          "bytes": 2749,
+          "sha256": "4e9b75660f713686ae7a0f3528ff46773a7c694d53520db113235502f81bcd34"
+        },
+        "ci": {
+          "path": "source/ci/data/levels/ch3_pump_map.json",
+          "bytes": 2966,
+          "sha256": "2d3bbc2083ab8082f04d2341b847c17fd1bff97f301426e034a4eab7c9c2f360"
+        },
+        "published": {
+          "path": "source/published/data/levels/ch3_pump_map.json",
+          "bytes": 2966,
+          "sha256": "2d3bbc2083ab8082f04d2341b847c17fd1bff97f301426e034a4eab7c9c2f360"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/levels/ch3_showroom.tres",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/levels/ch3_showroom.tres",
+          "bytes": 2473,
+          "sha256": "747c2b1c3829f0af3f6823a970af80e755b66a3790557eb5e978738c21ba1034"
+        },
+        "repair": {
+          "path": "source/repair/data/levels/ch3_showroom.tres",
+          "bytes": 2473,
+          "sha256": "747c2b1c3829f0af3f6823a970af80e755b66a3790557eb5e978738c21ba1034"
+        },
+        "ci": {
+          "path": "source/ci/data/levels/ch3_showroom.tres",
+          "bytes": 2473,
+          "sha256": "747c2b1c3829f0af3f6823a970af80e755b66a3790557eb5e978738c21ba1034"
+        },
+        "published": {
+          "path": "source/published/data/levels/ch3_showroom.tres",
+          "bytes": 2473,
+          "sha256": "747c2b1c3829f0af3f6823a970af80e755b66a3790557eb5e978738c21ba1034"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/levels/ch3_showroom_map.json",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/levels/ch3_showroom_map.json",
+          "bytes": 3121,
+          "sha256": "630d9e944e7162df38b6b623fb60935b9988d9f64ce51409254101bf25ed8c93"
+        },
+        "repair": {
+          "path": "source/repair/data/levels/ch3_showroom_map.json",
+          "bytes": 3121,
+          "sha256": "630d9e944e7162df38b6b623fb60935b9988d9f64ce51409254101bf25ed8c93"
+        },
+        "ci": {
+          "path": "source/ci/data/levels/ch3_showroom_map.json",
+          "bytes": 3121,
+          "sha256": "edc506b2d7ee11975ccd23d96e54bcebb4455791ea5a6ea8e4112c4440526bc5"
+        },
+        "published": {
+          "path": "source/published/data/levels/ch3_showroom_map.json",
+          "bytes": 3121,
+          "sha256": "edc506b2d7ee11975ccd23d96e54bcebb4455791ea5a6ea8e4112c4440526bc5"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/projectiles/insulation_pulse.tres",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/projectiles/insulation_pulse.tres",
+          "bytes": 413,
+          "sha256": "e60d29bf17a3281454d4e784195a343b8f6680d8472b2ee23965e057d41eec51"
+        },
+        "repair": {
+          "path": "source/repair/data/projectiles/insulation_pulse.tres",
+          "bytes": 413,
+          "sha256": "e60d29bf17a3281454d4e784195a343b8f6680d8472b2ee23965e057d41eec51"
+        },
+        "ci": {
+          "path": "source/ci/data/projectiles/insulation_pulse.tres",
+          "bytes": 413,
+          "sha256": "e60d29bf17a3281454d4e784195a343b8f6680d8472b2ee23965e057d41eec51"
+        },
+        "published": {
+          "path": "source/published/data/projectiles/insulation_pulse.tres",
+          "bytes": 413,
+          "sha256": "e60d29bf17a3281454d4e784195a343b8f6680d8472b2ee23965e057d41eec51"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "data/scripts/projectile_spec.gd",
+      "versions": {
+        "initial": {
+          "path": "source/initial/data/scripts/projectile_spec.gd",
+          "bytes": 4401,
+          "sha256": "082e29508b6b87b5281db764b63cb8b4fd4d15c167e285f628a482ba6199583f"
+        },
+        "repair": {
+          "path": "source/repair/data/scripts/projectile_spec.gd",
+          "bytes": 4401,
+          "sha256": "082e29508b6b87b5281db764b63cb8b4fd4d15c167e285f628a482ba6199583f"
+        },
+        "ci": {
+          "path": "source/ci/data/scripts/projectile_spec.gd",
+          "bytes": 4419,
+          "sha256": "df38ab8751e3519c7c5f80d194110193d59d79d23a764e0f14db3f924c700827"
+        },
+        "published": {
+          "path": "source/published/data/scripts/projectile_spec.gd",
+          "bytes": 4419,
+          "sha256": "df38ab8751e3519c7c5f80d194110193d59d79d23a764e0f14db3f924c700827"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "design/12-cast-redraw/CHAPTER_ROSTERS.md",
+      "versions": {
+        "initial": {
+          "path": "source/initial/design/12-cast-redraw/CHAPTER_ROSTERS.md",
+          "bytes": 6292,
+          "sha256": "1a564350e38476816b3575940fa08f52e0af2f7ff4610b27c92f0c29d16e53b4"
+        },
+        "repair": {
+          "path": "source/repair/design/12-cast-redraw/CHAPTER_ROSTERS.md",
+          "bytes": 10530,
+          "sha256": "2ccc5e239bdf1e05d01892c07669584859efa9af43f4678a34be44eb1610c063"
+        },
+        "ci": {
+          "path": "source/ci/design/12-cast-redraw/CHAPTER_ROSTERS.md",
+          "bytes": 16254,
+          "sha256": "2ca6779c0bf10b33a649b6369dd8f31d465ac8e0273a7f9e4f7a13513af82d62"
+        },
+        "published": {
+          "path": "source/published/design/12-cast-redraw/CHAPTER_ROSTERS.md",
+          "bytes": 16254,
+          "sha256": "2ca6779c0bf10b33a649b6369dd8f31d465ac8e0273a7f9e4f7a13513af82d62"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "design/13-story-v2/CH03_IMPLEMENTATION.md",
+      "versions": {
+        "initial": {
+          "path": "source/initial/design/13-story-v2/CH03_IMPLEMENTATION.md",
+          "bytes": 5227,
+          "sha256": "ff0f6e7f512812642e3ba396df37d32240307993ece2bdd6621de54303ceb78a"
+        },
+        "repair": {
+          "path": "source/repair/design/13-story-v2/CH03_IMPLEMENTATION.md",
+          "bytes": 5227,
+          "sha256": "ff0f6e7f512812642e3ba396df37d32240307993ece2bdd6621de54303ceb78a"
+        },
+        "ci": {
+          "path": "source/ci/design/13-story-v2/CH03_IMPLEMENTATION.md",
+          "bytes": 9245,
+          "sha256": "365a3dd9aab2426cacfa7ab10ec65c975121c3cfd336b92d4e2cfc3e6469d7f7"
+        },
+        "published": {
+          "path": "source/published/design/13-story-v2/CH03_IMPLEMENTATION.md",
+          "bytes": 9245,
+          "sha256": "365a3dd9aab2426cacfa7ab10ec65c975121c3cfd336b92d4e2cfc3e6469d7f7"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "design/13-story-v2/SCRIPT_CH03.md",
+      "versions": {
+        "initial": {
+          "path": "source/initial/design/13-story-v2/SCRIPT_CH03.md",
+          "bytes": 82237,
+          "sha256": "c70cae7cd2f26207e676cbff55f4c37c0614069bebc927169ee152f056d48701"
+        },
+        "repair": {
+          "path": "source/repair/design/13-story-v2/SCRIPT_CH03.md",
+          "bytes": 82237,
+          "sha256": "c70cae7cd2f26207e676cbff55f4c37c0614069bebc927169ee152f056d48701"
+        },
+        "ci": {
+          "path": "source/ci/design/13-story-v2/SCRIPT_CH03.md",
+          "bytes": 82237,
+          "sha256": "c70cae7cd2f26207e676cbff55f4c37c0614069bebc927169ee152f056d48701"
+        },
+        "published": {
+          "path": "source/published/design/13-story-v2/SCRIPT_CH03.md",
+          "bytes": 82237,
+          "sha256": "c70cae7cd2f26207e676cbff55f4c37c0614069bebc927169ee152f056d48701"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "game/creature/part_creature.gd",
+      "versions": {
+        "initial": {
+          "path": "source/initial/game/creature/part_creature.gd",
+          "bytes": 14980,
+          "sha256": "e75014df7ec22151eb8395ac74d8daab433f65d8959938f24d621e094b056f55"
+        },
+        "repair": {
+          "path": "source/repair/game/creature/part_creature.gd",
+          "bytes": 14980,
+          "sha256": "e75014df7ec22151eb8395ac74d8daab433f65d8959938f24d621e094b056f55"
+        },
+        "ci": {
+          "path": "source/ci/game/creature/part_creature.gd",
+          "bytes": 17719,
+          "sha256": "6f95a1f01bcfb0b358a33c487ee3a7073a0638d1854aa5c2049a7b6fa991f4e9"
+        },
+        "published": {
+          "path": "source/published/game/creature/part_creature.gd",
+          "bytes": 17719,
+          "sha256": "6f95a1f01bcfb0b358a33c487ee3a7073a0638d1854aa5c2049a7b6fa991f4e9"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "game/enemies/enemy.gd",
+      "versions": {
+        "initial": {
+          "path": "source/initial/game/enemies/enemy.gd",
+          "bytes": 37307,
+          "sha256": "70cf8894bb0de35dec40b3a994b68ad47f19a0fac856972593c490aea1c3bfc2"
+        },
+        "repair": {
+          "path": "source/repair/game/enemies/enemy.gd",
+          "bytes": 37307,
+          "sha256": "70cf8894bb0de35dec40b3a994b68ad47f19a0fac856972593c490aea1c3bfc2"
+        },
+        "ci": {
+          "path": "source/ci/game/enemies/enemy.gd",
+          "bytes": 39549,
+          "sha256": "4d2b5b7d25a9d48accc836953a705dc7141bcb02f1f435eda3ccf43d0b0f57fe"
+        },
+        "published": {
+          "path": "source/published/game/enemies/enemy.gd",
+          "bytes": 39549,
+          "sha256": "4d2b5b7d25a9d48accc836953a705dc7141bcb02f1f435eda3ccf43d0b0f57fe"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "game/enemies/insulation_inspector.gd",
+      "versions": {
+        "initial": {
+          "path": "source/initial/game/enemies/insulation_inspector.gd",
+          "bytes": 8636,
+          "sha256": "684ccd25f2da49baa7afe8c3b2fd4500d51fe9bfb2eb9761b98e25c97b510e03"
+        },
+        "repair": {
+          "path": "source/repair/game/enemies/insulation_inspector.gd",
+          "bytes": 8636,
+          "sha256": "684ccd25f2da49baa7afe8c3b2fd4500d51fe9bfb2eb9761b98e25c97b510e03"
+        },
+        "ci": {
+          "path": "source/ci/game/enemies/insulation_inspector.gd",
+          "bytes": 8636,
+          "sha256": "684ccd25f2da49baa7afe8c3b2fd4500d51fe9bfb2eb9761b98e25c97b510e03"
+        },
+        "published": {
+          "path": "source/published/game/enemies/insulation_inspector.gd",
+          "bytes": 8636,
+          "sha256": "684ccd25f2da49baa7afe8c3b2fd4500d51fe9bfb2eb9761b98e25c97b510e03"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "game/enemies/insulation_inspector.gd.uid",
+      "versions": {
+        "initial": {
+          "path": "source/initial/game/enemies/insulation_inspector.gd.uid",
+          "bytes": 20,
+          "sha256": "00a045e003889ad8e7e6405613c906390957316068f226cf6564b25ea5368c46"
+        },
+        "repair": {
+          "path": "source/repair/game/enemies/insulation_inspector.gd.uid",
+          "bytes": 20,
+          "sha256": "00a045e003889ad8e7e6405613c906390957316068f226cf6564b25ea5368c46"
+        },
+        "ci": {
+          "path": "source/ci/game/enemies/insulation_inspector.gd.uid",
+          "bytes": 20,
+          "sha256": "00a045e003889ad8e7e6405613c906390957316068f226cf6564b25ea5368c46"
+        },
+        "published": {
+          "path": "source/published/game/enemies/insulation_inspector.gd.uid",
+          "bytes": 20,
+          "sha256": "00a045e003889ad8e7e6405613c906390957316068f226cf6564b25ea5368c46"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "game/enemies/janus_boss.gd",
+      "versions": {
+        "initial": null,
+        "repair": {
+          "path": "source/repair/game/enemies/janus_boss.gd",
+          "bytes": 28310,
+          "sha256": "90f88bf6efed93459fbc22d0c103695213021e3508396c9c360a9c98770c3cbf"
+        },
+        "ci": {
+          "path": "source/ci/game/enemies/janus_boss.gd",
+          "bytes": 27231,
+          "sha256": "858ee3e56a3f6e296478aaad53579abfb1ca4bd5bd9d8446f145a801dd46b996"
+        },
+        "published": {
+          "path": "source/published/game/enemies/janus_boss.gd",
+          "bytes": 27231,
+          "sha256": "858ee3e56a3f6e296478aaad53579abfb1ca4bd5bd9d8446f145a801dd46b996"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "game/enemies/pump_inspector.gd",
+      "versions": {
+        "initial": {
+          "path": "source/initial/game/enemies/pump_inspector.gd",
+          "bytes": 6512,
+          "sha256": "c44d0fc717fa866ee044e9516aa846adeb9b742cc2979b23934713d4a399219e"
+        },
+        "repair": {
+          "path": "source/repair/game/enemies/pump_inspector.gd",
+          "bytes": 6820,
+          "sha256": "c0e869d27335940ba42cdacad200cfe2539a69e42f8d8cd36b1e87f697b629c4"
+        },
+        "ci": {
+          "path": "source/ci/game/enemies/pump_inspector.gd",
+          "bytes": 6820,
+          "sha256": "c0e869d27335940ba42cdacad200cfe2539a69e42f8d8cd36b1e87f697b629c4"
+        },
+        "published": {
+          "path": "source/published/game/enemies/pump_inspector.gd",
+          "bytes": 6820,
+          "sha256": "c0e869d27335940ba42cdacad200cfe2539a69e42f8d8cd36b1e87f697b629c4"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "game/enemies/pump_inspector.gd.uid",
+      "versions": {
+        "initial": {
+          "path": "source/initial/game/enemies/pump_inspector.gd.uid",
+          "bytes": 20,
+          "sha256": "8458fa91dcba9e5cfebdc50cb644cb17c7a4579897ff99a1a410d647c162691f"
+        },
+        "repair": {
+          "path": "source/repair/game/enemies/pump_inspector.gd.uid",
+          "bytes": 20,
+          "sha256": "8458fa91dcba9e5cfebdc50cb644cb17c7a4579897ff99a1a410d647c162691f"
+        },
+        "ci": {
+          "path": "source/ci/game/enemies/pump_inspector.gd.uid",
+          "bytes": 20,
+          "sha256": "8458fa91dcba9e5cfebdc50cb644cb17c7a4579897ff99a1a410d647c162691f"
+        },
+        "published": {
+          "path": "source/published/game/enemies/pump_inspector.gd.uid",
+          "bytes": 20,
+          "sha256": "8458fa91dcba9e5cfebdc50cb644cb17c7a4579897ff99a1a410d647c162691f"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "game/level/level.gd",
+      "versions": {
+        "initial": {
+          "path": "source/initial/game/level/level.gd",
+          "bytes": 58656,
+          "sha256": "33802f7048ba0a691294a42504935980826be060c594f55f450ed6053232903e"
+        },
+        "repair": {
+          "path": "source/repair/game/level/level.gd",
+          "bytes": 58656,
+          "sha256": "33802f7048ba0a691294a42504935980826be060c594f55f450ed6053232903e"
+        },
+        "ci": {
+          "path": "source/ci/game/level/level.gd",
+          "bytes": 65006,
+          "sha256": "106a73d29d0ad97e13f95c375668825d5c9e38990471fd58456a48ef5c2a02a1"
+        },
+        "published": {
+          "path": "source/published/game/level/level.gd",
+          "bytes": 65006,
+          "sha256": "106a73d29d0ad97e13f95c375668825d5c9e38990471fd58456a48ef5c2a02a1"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "game/player/player.gd",
+      "versions": {
+        "initial": {
+          "path": "source/initial/game/player/player.gd",
+          "bytes": 59521,
+          "sha256": "5b3d78de38097d42e10576607d4333425c813cd94eacc16ace60325e2506d73a"
+        },
+        "repair": {
+          "path": "source/repair/game/player/player.gd",
+          "bytes": 59521,
+          "sha256": "5b3d78de38097d42e10576607d4333425c813cd94eacc16ace60325e2506d73a"
+        },
+        "ci": {
+          "path": "source/ci/game/player/player.gd",
+          "bytes": 49351,
+          "sha256": "eb3963150f2b6e878ebab9b26e79fa659dddc3cfa84ec7f7970cc58564194c2a"
+        },
+        "published": {
+          "path": "source/published/game/player/player.gd",
+          "bytes": 49351,
+          "sha256": "eb3963150f2b6e878ebab9b26e79fa659dddc3cfa84ec7f7970cc58564194c2a"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "game/projectiles/projectile.gd",
+      "versions": {
+        "initial": {
+          "path": "source/initial/game/projectiles/projectile.gd",
+          "bytes": 12516,
+          "sha256": "8018c6058da731a9cfc2165f1e4365ce57264a8c28a7910a66ee3c4857712c50"
+        },
+        "repair": {
+          "path": "source/repair/game/projectiles/projectile.gd",
+          "bytes": 12516,
+          "sha256": "8018c6058da731a9cfc2165f1e4365ce57264a8c28a7910a66ee3c4857712c50"
+        },
+        "ci": {
+          "path": "source/ci/game/projectiles/projectile.gd",
+          "bytes": 12516,
+          "sha256": "8018c6058da731a9cfc2165f1e4365ce57264a8c28a7910a66ee3c4857712c50"
+        },
+        "published": {
+          "path": "source/published/game/projectiles/projectile.gd",
+          "bytes": 12516,
+          "sha256": "8018c6058da731a9cfc2165f1e4365ce57264a8c28a7910a66ee3c4857712c50"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "pm/Nest-Egg/[NE-272]配置第三章泵室與夾層的兩種巡檢器.md",
+      "versions": {
+        "initial": {
+          "path": "source/initial/pm/Nest-Egg/[NE-272]配置第三章泵室與夾層的兩種巡檢器.md",
+          "bytes": 6630,
+          "sha256": "52a9fe7e02a29d4bb1516762772a4ff8904f4793353e5243b5de2285d274b6c3"
+        },
+        "repair": {
+          "path": "source/repair/pm/Nest-Egg/[NE-272]配置第三章泵室與夾層的兩種巡檢器.md",
+          "bytes": 7819,
+          "sha256": "d6b15027b2d8a7f911ba33c7e5e14accfb5c7cbb9a90949dfb1a83015a6512ad"
+        },
+        "ci": {
+          "path": "source/ci/pm/Nest-Egg/[NE-272]配置第三章泵室與夾層的兩種巡檢器.md",
+          "bytes": 7847,
+          "sha256": "11920d790a9dd086b3275232a32390aaf1d85093fea33493fd9e837c18b9b4ad"
+        },
+        "published": {
+          "path": "source/published/pm/Nest-Egg/[NE-272]配置第三章泵室與夾層的兩種巡檢器.md",
+          "bytes": 7847,
+          "sha256": "11920d790a9dd086b3275232a32390aaf1d85093fea33493fd9e837c18b9b4ad"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "pm/Nest-Egg/[NE-97]調整每章的敵人名單並重新擺放.md",
+      "versions": {
+        "initial": {
+          "path": "source/initial/pm/Nest-Egg/[NE-97]調整每章的敵人名單並重新擺放.md",
+          "bytes": 6944,
+          "sha256": "5218226a902dab23db687dc602154d7802de24ca759757ff86523a86da1cbd2f"
+        },
+        "repair": {
+          "path": "source/repair/pm/Nest-Egg/[NE-97]調整每章的敵人名單並重新擺放.md",
+          "bytes": 8998,
+          "sha256": "fb71fba96f3cbe79f249efe5e09f7a1cb3eac60c4e8b7d2cca251a620d9b70bf"
+        },
+        "ci": {
+          "path": "source/ci/pm/Nest-Egg/[NE-97]調整每章的敵人名單並重新擺放.md",
+          "bytes": 10468,
+          "sha256": "f9dcca872818208c6dd0b32b1bbb6f8ebca95e21edcc2fcacd111ca6418e1238"
+        },
+        "published": {
+          "path": "source/published/pm/Nest-Egg/[NE-97]調整每章的敵人名單並重新擺放.md",
+          "bytes": 10468,
+          "sha256": "f9dcca872818208c6dd0b32b1bbb6f8ebca95e21edcc2fcacd111ca6418e1238"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "pm/Nest-Egg/images/NE-272-insulation-lock.png",
+      "versions": {
+        "initial": {
+          "path": "source/initial/pm/Nest-Egg/images/NE-272-insulation-lock.png",
+          "bytes": 272079,
+          "sha256": "de84001dc797b9c77fbfb2c2ec6d36c632c67cd903b3ff0e5d95c40d0cbaa8a4"
+        },
+        "repair": {
+          "path": "source/repair/pm/Nest-Egg/images/NE-272-insulation-lock.png",
+          "bytes": 272079,
+          "sha256": "de84001dc797b9c77fbfb2c2ec6d36c632c67cd903b3ff0e5d95c40d0cbaa8a4"
+        },
+        "ci": {
+          "path": "source/ci/pm/Nest-Egg/images/NE-272-insulation-lock.png",
+          "bytes": 272079,
+          "sha256": "de84001dc797b9c77fbfb2c2ec6d36c632c67cd903b3ff0e5d95c40d0cbaa8a4"
+        },
+        "published": {
+          "path": "source/published/pm/Nest-Egg/images/NE-272-insulation-lock.png",
+          "bytes": 272079,
+          "sha256": "de84001dc797b9c77fbfb2c2ec6d36c632c67cd903b3ff0e5d95c40d0cbaa8a4"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "pm/Nest-Egg/images/NE-272-mezzanine-fight.png",
+      "versions": {
+        "initial": {
+          "path": "source/initial/pm/Nest-Egg/images/NE-272-mezzanine-fight.png",
+          "bytes": 304097,
+          "sha256": "7873c0ec6da61ae2ad476b99731d83a99ed3bb84399f1945b457d2e7da500f2d"
+        },
+        "repair": {
+          "path": "source/repair/pm/Nest-Egg/images/NE-272-mezzanine-fight.png",
+          "bytes": 304097,
+          "sha256": "7873c0ec6da61ae2ad476b99731d83a99ed3bb84399f1945b457d2e7da500f2d"
+        },
+        "ci": {
+          "path": "source/ci/pm/Nest-Egg/images/NE-272-mezzanine-fight.png",
+          "bytes": 304097,
+          "sha256": "7873c0ec6da61ae2ad476b99731d83a99ed3bb84399f1945b457d2e7da500f2d"
+        },
+        "published": {
+          "path": "source/published/pm/Nest-Egg/images/NE-272-mezzanine-fight.png",
+          "bytes": 304097,
+          "sha256": "7873c0ec6da61ae2ad476b99731d83a99ed3bb84399f1945b457d2e7da500f2d"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "pm/Nest-Egg/images/NE-272-pump-telegraph.png",
+      "versions": {
+        "initial": {
+          "path": "source/initial/pm/Nest-Egg/images/NE-272-pump-telegraph.png",
+          "bytes": 250129,
+          "sha256": "f0d67741c5730af140d2e29fff9cafed3eadb36174e42fdb68f2cee54555c96a"
+        },
+        "repair": {
+          "path": "source/repair/pm/Nest-Egg/images/NE-272-pump-telegraph.png",
+          "bytes": 250129,
+          "sha256": "f0d67741c5730af140d2e29fff9cafed3eadb36174e42fdb68f2cee54555c96a"
+        },
+        "ci": {
+          "path": "source/ci/pm/Nest-Egg/images/NE-272-pump-telegraph.png",
+          "bytes": 250129,
+          "sha256": "f0d67741c5730af140d2e29fff9cafed3eadb36174e42fdb68f2cee54555c96a"
+        },
+        "published": {
+          "path": "source/published/pm/Nest-Egg/images/NE-272-pump-telegraph.png",
+          "bytes": 250129,
+          "sha256": "f0d67741c5730af140d2e29fff9cafed3eadb36174e42fdb68f2cee54555c96a"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "pm/user_guide.md",
+      "versions": {
+        "initial": {
+          "path": "source/initial/pm/user_guide.md",
+          "bytes": 63780,
+          "sha256": "bcf0e7bce4b9b2661887f8d858dc1cf3b983c30c7267694d6de5d92d8c4be6c9"
+        },
+        "repair": {
+          "path": "source/repair/pm/user_guide.md",
+          "bytes": 64319,
+          "sha256": "22053d20f00c1478ad44d177881ff6bbc980fb538a6fdd2fc68e7a25b4191ecd"
+        },
+        "ci": {
+          "path": "source/ci/pm/user_guide.md",
+          "bytes": 123046,
+          "sha256": "7c322f566cdac5bb72f80c2584dba903a9b3e34173c7b005ef95bde669005143"
+        },
+        "published": {
+          "path": "source/published/pm/user_guide.md",
+          "bytes": 123046,
+          "sha256": "7c322f566cdac5bb72f80c2584dba903a9b3e34173c7b005ef95bde669005143"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "tests/helpers/chapter_story_checks.gd",
+      "versions": {
+        "initial": {
+          "path": "source/initial/tests/helpers/chapter_story_checks.gd",
+          "bytes": 5381,
+          "sha256": "0a1697e33b099451036973f6b9c2f3f6ec26a21c07978829907057198f67acd0"
+        },
+        "repair": {
+          "path": "source/repair/tests/helpers/chapter_story_checks.gd",
+          "bytes": 5381,
+          "sha256": "0a1697e33b099451036973f6b9c2f3f6ec26a21c07978829907057198f67acd0"
+        },
+        "ci": {
+          "path": "source/ci/tests/helpers/chapter_story_checks.gd",
+          "bytes": 5381,
+          "sha256": "0a1697e33b099451036973f6b9c2f3f6ec26a21c07978829907057198f67acd0"
+        },
+        "published": {
+          "path": "source/published/tests/helpers/chapter_story_checks.gd",
+          "bytes": 5381,
+          "sha256": "0a1697e33b099451036973f6b9c2f3f6ec26a21c07978829907057198f67acd0"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "tests/helpers/janus_config_checks.gd",
+      "versions": {
+        "initial": null,
+        "repair": null,
+        "ci": {
+          "path": "source/ci/tests/helpers/janus_config_checks.gd",
+          "bytes": 1224,
+          "sha256": "78860d1b412c1d886e793b1f40371f65f843aac533c5befc7c255344217aee37"
+        },
+        "published": {
+          "path": "source/published/tests/helpers/janus_config_checks.gd",
+          "bytes": 1224,
+          "sha256": "78860d1b412c1d886e793b1f40371f65f843aac533c5befc7c255344217aee37"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "tests/known_failures.txt",
+      "versions": {
+        "initial": {
+          "path": "source/initial/tests/known_failures.txt",
+          "bytes": 381,
+          "sha256": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf"
+        },
+        "repair": {
+          "path": "source/repair/tests/known_failures.txt",
+          "bytes": 381,
+          "sha256": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf"
+        },
+        "ci": {
+          "path": "source/ci/tests/known_failures.txt",
+          "bytes": 381,
+          "sha256": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf"
+        },
+        "published": {
+          "path": "source/published/tests/known_failures.txt",
+          "bytes": 381,
+          "sha256": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "tests/smoke_test.gd",
+      "versions": {
+        "initial": {
+          "path": "source/initial/tests/smoke_test.gd",
+          "bytes": 101194,
+          "sha256": "2bbaaebe9d064fff84dc40875d2b6230c1364f87eaf4c47c5f7bf79b3fd2b878"
+        },
+        "repair": {
+          "path": "source/repair/tests/smoke_test.gd",
+          "bytes": 102999,
+          "sha256": "142441fe5b8823a9bdae31d35dc6169b2f5fb879ae52b4acf7757b4fcc6cbef9"
+        },
+        "ci": {
+          "path": "source/ci/tests/smoke_test.gd",
+          "bytes": 105448,
+          "sha256": "e15cf22a4a7b9585c8d9bc52808108cca43dfbd8669f3b12638114256fe68e90"
+        },
+        "published": {
+          "path": "source/published/tests/smoke_test.gd",
+          "bytes": 105448,
+          "sha256": "e15cf22a4a7b9585c8d9bc52808108cca43dfbd8669f3b12638114256fe68e90"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "tests/suite/enemy_suite_base.gd",
+      "versions": {
+        "initial": {
+          "path": "source/initial/tests/suite/enemy_suite_base.gd",
+          "bytes": 5846,
+          "sha256": "95d8989ad161182191d556e0eadfdc4db63196c035a3b022ea0c43d502809e54"
+        },
+        "repair": {
+          "path": "source/repair/tests/suite/enemy_suite_base.gd",
+          "bytes": 5846,
+          "sha256": "95d8989ad161182191d556e0eadfdc4db63196c035a3b022ea0c43d502809e54"
+        },
+        "ci": {
+          "path": "source/ci/tests/suite/enemy_suite_base.gd",
+          "bytes": 5846,
+          "sha256": "95d8989ad161182191d556e0eadfdc4db63196c035a3b022ea0c43d502809e54"
+        },
+        "published": {
+          "path": "source/published/tests/suite/enemy_suite_base.gd",
+          "bytes": 5846,
+          "sha256": "95d8989ad161182191d556e0eadfdc4db63196c035a3b022ea0c43d502809e54"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "tests/suite/test_ch3_enemies.gd",
+      "versions": {
+        "initial": {
+          "path": "source/initial/tests/suite/test_ch3_enemies.gd",
+          "bytes": 8013,
+          "sha256": "58a3673cef60c7c738126893b84b7d3221315cb057ccc29cc4c57fd861b6e848"
+        },
+        "repair": {
+          "path": "source/repair/tests/suite/test_ch3_enemies.gd",
+          "bytes": 24485,
+          "sha256": "552df51018be12442eacd54ed4a5d27a7bc95a81bb1cacb70fdb50a7a310d99a"
+        },
+        "ci": {
+          "path": "source/ci/tests/suite/test_ch3_enemies.gd",
+          "bytes": 24550,
+          "sha256": "a9726a37d7d5171bf0ccc5d62cabbe529e5cc63cb428034c5d58a43c7bc11680"
+        },
+        "published": {
+          "path": "source/published/tests/suite/test_ch3_enemies.gd",
+          "bytes": 24550,
+          "sha256": "a9726a37d7d5171bf0ccc5d62cabbe529e5cc63cb428034c5d58a43c7bc11680"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "tests/suite/test_ch3_enemies.gd.uid",
+      "versions": {
+        "initial": {
+          "path": "source/initial/tests/suite/test_ch3_enemies.gd.uid",
+          "bytes": 19,
+          "sha256": "fad326f22bbd1cdab0028b17e512551aaeea01b2da72defbc99ddf729ad7682c"
+        },
+        "repair": {
+          "path": "source/repair/tests/suite/test_ch3_enemies.gd.uid",
+          "bytes": 19,
+          "sha256": "fad326f22bbd1cdab0028b17e512551aaeea01b2da72defbc99ddf729ad7682c"
+        },
+        "ci": {
+          "path": "source/ci/tests/suite/test_ch3_enemies.gd.uid",
+          "bytes": 19,
+          "sha256": "fad326f22bbd1cdab0028b17e512551aaeea01b2da72defbc99ddf729ad7682c"
+        },
+        "published": {
+          "path": "source/published/tests/suite/test_ch3_enemies.gd.uid",
+          "bytes": 19,
+          "sha256": "fad326f22bbd1cdab0028b17e512551aaeea01b2da72defbc99ddf729ad7682c"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "tests/suite/test_ch3_story.gd",
+      "versions": {
+        "initial": {
+          "path": "source/initial/tests/suite/test_ch3_story.gd",
+          "bytes": 5764,
+          "sha256": "63a32607d4e10e0fe5b43ee936635ed8b03f174ea9faec9fe825a163393984cc"
+        },
+        "repair": {
+          "path": "source/repair/tests/suite/test_ch3_story.gd",
+          "bytes": 5764,
+          "sha256": "63a32607d4e10e0fe5b43ee936635ed8b03f174ea9faec9fe825a163393984cc"
+        },
+        "ci": {
+          "path": "source/ci/tests/suite/test_ch3_story.gd",
+          "bytes": 5764,
+          "sha256": "63a32607d4e10e0fe5b43ee936635ed8b03f174ea9faec9fe825a163393984cc"
+        },
+        "published": {
+          "path": "source/published/tests/suite/test_ch3_story.gd",
+          "bytes": 5764,
+          "sha256": "63a32607d4e10e0fe5b43ee936635ed8b03f174ea9faec9fe825a163393984cc"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "tests/suite/test_feel.gd",
+      "versions": {
+        "initial": {
+          "path": "source/initial/tests/suite/test_feel.gd",
+          "bytes": 42867,
+          "sha256": "1a5bc480b7427a6728e3a2b5919a1591166902a10d6823adb006d7d380597a34"
+        },
+        "repair": {
+          "path": "source/repair/tests/suite/test_feel.gd",
+          "bytes": 42867,
+          "sha256": "1a5bc480b7427a6728e3a2b5919a1591166902a10d6823adb006d7d380597a34"
+        },
+        "ci": {
+          "path": "source/ci/tests/suite/test_feel.gd",
+          "bytes": 49090,
+          "sha256": "eda92a01905dd7f303d280a1a9aeddf6eb6e3bf63e1d2312c5514c1cbf62d791"
+        },
+        "published": {
+          "path": "source/published/tests/suite/test_feel.gd",
+          "bytes": 49090,
+          "sha256": "eda92a01905dd7f303d280a1a9aeddf6eb6e3bf63e1d2312c5514c1cbf62d791"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "tests/suite/test_input_feel.gd",
+      "versions": {
+        "initial": {
+          "path": "source/initial/tests/suite/test_input_feel.gd",
+          "bytes": 15982,
+          "sha256": "2fe014fc521650aa47d2dab40f2d1c89a1178b2098e573c91bae2c64f938202f"
+        },
+        "repair": {
+          "path": "source/repair/tests/suite/test_input_feel.gd",
+          "bytes": 15982,
+          "sha256": "2fe014fc521650aa47d2dab40f2d1c89a1178b2098e573c91bae2c64f938202f"
+        },
+        "ci": {
+          "path": "source/ci/tests/suite/test_input_feel.gd",
+          "bytes": 25763,
+          "sha256": "e1e30388e2427bfa52968232f4303ccb907a6c17a3701a32f8b2c0bd39a2d7d5"
+        },
+        "published": {
+          "path": "source/published/tests/suite/test_input_feel.gd",
+          "bytes": 25763,
+          "sha256": "e1e30388e2427bfa52968232f4303ccb907a6c17a3701a32f8b2c0bd39a2d7d5"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "tools/level/build_ch3.py",
+      "versions": {
+        "initial": {
+          "path": "source/initial/tools/level/build_ch3.py",
+          "bytes": 28354,
+          "sha256": "8892387153c90465b58694efeb98b687be5d9c392d05945eef3d0c75e860b924"
+        },
+        "repair": {
+          "path": "source/repair/tools/level/build_ch3.py",
+          "bytes": 28608,
+          "sha256": "504b0dc523fc5593108810c0401a38523390d91b01c5d01c7243d87bc72144e7"
+        },
+        "ci": {
+          "path": "source/ci/tools/level/build_ch3.py",
+          "bytes": 31237,
+          "sha256": "227492cb9a1583594a7e6fa41f7fd6f6630799bed249b4b8e19bc152c4aa7e0a"
+        },
+        "published": {
+          "path": "source/published/tools/level/build_ch3.py",
+          "bytes": 31237,
+          "sha256": "227492cb9a1583594a7e6fa41f7fd6f6630799bed249b4b8e19bc152c4aa7e0a"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "tools/run_tests_parallel.sh",
+      "versions": {
+        "initial": {
+          "path": "source/initial/tools/run_tests_parallel.sh",
+          "bytes": 4733,
+          "sha256": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba"
+        },
+        "repair": {
+          "path": "source/repair/tools/run_tests_parallel.sh",
+          "bytes": 4733,
+          "sha256": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba"
+        },
+        "ci": {
+          "path": "source/ci/tools/run_tests_parallel.sh",
+          "bytes": 4733,
+          "sha256": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba"
+        },
+        "published": {
+          "path": "source/published/tools/run_tests_parallel.sh",
+          "bytes": 4733,
+          "sha256": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "tools/scenarios/ch3_combat_scenario.gd",
+      "versions": {
+        "initial": {
+          "path": "source/initial/tools/scenarios/ch3_combat_scenario.gd",
+          "bytes": 3366,
+          "sha256": "b4ce5976c0af96aad091e6f01c7ac420f360e283469a25af809a41030e39ed5e"
+        },
+        "repair": {
+          "path": "source/repair/tools/scenarios/ch3_combat_scenario.gd",
+          "bytes": 7760,
+          "sha256": "8c5d07b8ccf71aafbb6f92b20470d9f7c7d1def9fd08d3cde5e6d80b0ad9fd84"
+        },
+        "ci": {
+          "path": "source/ci/tools/scenarios/ch3_combat_scenario.gd",
+          "bytes": 7760,
+          "sha256": "8c5d07b8ccf71aafbb6f92b20470d9f7c7d1def9fd08d3cde5e6d80b0ad9fd84"
+        },
+        "published": {
+          "path": "source/published/tools/scenarios/ch3_combat_scenario.gd",
+          "bytes": 7760,
+          "sha256": "8c5d07b8ccf71aafbb6f92b20470d9f7c7d1def9fd08d3cde5e6d80b0ad9fd84"
+        }
+      },
+      "repair_equals_published": true,
+      "ci_equals_published": true
+    },
+    {
+      "source_path": "tools/scenarios/enemy_scenarios.gd",
+      "versions": {
+        "initial": {
+          "path": "source/initial/tools/scenarios/enemy_scenarios.gd",
+          "bytes": 4341,
+          "sha256": "6a69ad8c36a79b7463b850344a6aa35cfb6c0d64d52ff6d9d316fcdcca62d380"
+        },
+        "repair": {
+          "path": "source/repair/tools/scenarios/enemy_scenarios.gd",
+          "bytes": 4341,
+          "sha256": "6a69ad8c36a79b7463b850344a6aa35cfb6c0d64d52ff6d9d316fcdcca62d380"
+        },
+        "ci": {
+          "path": "source/ci/tools/scenarios/enemy_scenarios.gd",
+          "bytes": 4905,
+          "sha256": "658affc1fba25490f72a8d1c2ea4d9e62d22e51036430c4198ed7432fd7eb601"
+        },
+        "published": {
+          "path": "source/published/tools/scenarios/enemy_scenarios.gd",
+          "bytes": 4905,
+          "sha256": "658affc1fba25490f72a8d1c2ea4d9e62d22e51036430c4198ed7432fd7eb601"
+        }
+      },
+      "repair_equals_published": false,
+      "ci_equals_published": true
+    }
+  ],
+  "images": [
+    {
+      "path": "pm/Nest-Egg/images/NE-272-insulation-lock.png",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA",
+      "sha256": "de84001dc797b9c77fbfb2c2ec6d36c632c67cd903b3ff0e5d95c40d0cbaa8a4",
+      "initial_equals_published": true
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-272-mezzanine-fight.png",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA",
+      "sha256": "7873c0ec6da61ae2ad476b99731d83a99ed3bb84399f1945b457d2e7da500f2d",
+      "initial_equals_published": true
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-272-pump-telegraph.png",
+      "size": [
+        1280,
+        720
+      ],
+      "mode": "RGBA",
+      "sha256": "f0d67741c5730af140d2e29fff9cafed3eadb36174e42fdb68f2cee54555c96a",
+      "initial_equals_published": true
+    }
+  ],
+  "ci": {
+    "run_id": 43114416692,
+    "job_id": 130838550773,
+    "head_sha": "ba37327fbe4e8a0f293b735f4a4e5aa6b58d2dfd",
+    "files": [
+      {
+        "path": "ci/run.json",
+        "bytes": 7750,
+        "sha256": "cab93369dd685254423e8c6d82cf06a3416980a876c42dcccf5f3334f995899e"
+      },
+      {
+        "path": "ci/index.json",
+        "bytes": 705,
+        "sha256": "35a7426aa60ef6f72384f1e0c29b0715ad2a15de4257357532564a05df1329c4"
+      },
+      {
+        "path": "ci/job-130838550773.log",
+        "bytes": 517706,
+        "sha256": "cb4f2838c709130f035fb4eee958b02165ccba296b9e20bb906d3fd1fef0c162"
+      }
+    ],
+    "plans": [
+      {
+        "process": 0,
+        "line": 5188,
+        "suites": [
+          "MeleeSuite",
+          "PhoneBoothSuite",
+          "InputFeelSuite",
+          "NpcAnimationSuite",
+          "Chapter3StorySuite",
+          "PacingSuite",
+          "StoryLintSuite",
+          "EconomySuite"
+        ],
+        "raw": "2026-11-11T23:51:04.5242292Z   process 0 (estimated 515 s): MeleeSuite,PhoneBoothSuite,InputFeelSuite,NpcAnimationSuite,Chapter3StorySuite,PacingSuite,StoryLintSuite,EconomySuite"
+      },
+      {
+        "process": 1,
+        "line": 5189,
+        "suites": [
+          "MeleeWeaponsSuite",
+          "HeavyEnemiesSuite",
+          "AssaultEnemiesSuite",
+          "UiScreensSuite",
+          "DeathReactionSuite",
+          "NewEnemiesSuite",
+          "AttackTokensSuite",
+          "AnimAuditSuite",
+          "ProgressionSuite",
+          "FloodPitSuite",
+          "TransitionSuite",
+          "ProtagonistMotionSuite",
+          "Chapter2ArtSuite"
+        ],
+        "raw": "2026-11-11T23:51:04.5261299Z   process 1 (estimated 515 s): MeleeWeaponsSuite,HeavyEnemiesSuite,AssaultEnemiesSuite,UiScreensSuite,DeathReactionSuite,NewEnemiesSuite,AttackTokensSuite,AnimAuditSuite,ProgressionSuite,FloodPitSuite,TransitionSuite,ProtagonistMotionSuite,Chapter2ArtSuite"
+      },
+      {
+        "process": 2,
+        "line": 5190,
+        "suites": [
+          "StageCoverageWorldSuite",
+          "EnvironmentSuite",
+          "RunSaveSuite",
+          "CutsceneSuite",
+          "AmmoTraySuite",
+          "ExoticEnemiesSuite",
+          "FxMeleePickupsSuite",
+          "NpcLifeSuite",
+          "AudioSuite",
+          "MapBubblesSuite",
+          "Chapter2StorySuite",
+          "RigActionsSuite",
+          "LayerOrderSuite",
+          "AmmoIconsSuite"
+        ],
+        "raw": "2026-11-11T23:51:04.5297808Z   process 2 (estimated 515 s): StageCoverageWorldSuite,EnvironmentSuite,RunSaveSuite,CutsceneSuite,AmmoTraySuite,ExoticEnemiesSuite,FxMeleePickupsSuite,NpcLifeSuite,AudioSuite,MapBubblesSuite,Chapter2StorySuite,RigActionsSuite,LayerOrderSuite,AmmoIconsSuite"
+      },
+      {
+        "process": 3,
+        "line": 5191,
+        "suites": [
+          "FxUpgradesSuite",
+          "ContinuitySuite",
+          "Chapter2EnemiesSuite",
+          "NpcSuite",
+          "ReconEnemiesSuite",
+          "Chapter2ExpansionSuite",
+          "ChainCreatureSuite",
+          "CollectiblesSuite",
+          "AreasSuite",
+          "QuestMapSuite",
+          "SceneSanitySuite",
+          "ReloadCuesSuite",
+          "FeelLabSuite",
+          "StoryContentSuite",
+          "RigMeshSuite",
+          "ReadabilityTargetsSuite",
+          "PostureSuite",
+          "PoseMeshSuite",
+          "PartCreatureSuite",
+          "EnemyVfxSuite",
+          "DevMenuSuite",
+          "ClipEditorSuite",
+          "CharactersSuite",
+          "ChapterCutscenesSuite",
+          "ApplyPanelSuite"
+        ],
+        "raw": "2026-11-11T23:51:04.5350498Z   process 3 (estimated 514 s): FxUpgradesSuite,ContinuitySuite,Chapter2EnemiesSuite,NpcSuite,ReconEnemiesSuite,Chapter2ExpansionSuite,ChainCreatureSuite,CollectiblesSuite,AreasSuite,QuestMapSuite,SceneSanitySuite,ReloadCuesSuite,FeelLabSuite,StoryContentSuite,RigMeshSuite,ReadabilityTargetsSuite,PostureSuite,PoseMeshSuite,PartCreatureSuite,EnemyVfxSuite,DevMenuSuite,ClipEditorSuite,CharactersSuite,ChapterCutscenesSuite,ApplyPanelSuite"
+      },
+      {
+        "process": 4,
+        "line": 5192,
+        "suites": [
+          "ReclaimerSuite",
+          "StageCoverageWeaponsSuite",
+          "ThrowablesSuite",
+          "Chapter3EnemiesSuite",
+          "StrikeEnemiesSuite",
+          "EncounterSuite",
+          "HitReactionSuite",
+          "CombatHudSuite",
+          "SupplySuite",
+          "DeathFlowSuite",
+          "MusicSuite",
+          "EnforcerArtDeliverySuite",
+          "UiKitSuite",
+          "FeelToolsSuite"
+        ],
+        "raw": "2026-11-11T23:51:04.5397684Z   process 4 (estimated 514 s): ReclaimerSuite,StageCoverageWeaponsSuite,ThrowablesSuite,Chapter3EnemiesSuite,StrikeEnemiesSuite,EncounterSuite,HitReactionSuite,CombatHudSuite,SupplySuite,DeathFlowSuite,MusicSuite,EnforcerArtDeliverySuite,UiKitSuite,FeelToolsSuite"
+      },
+      {
+        "process": 5,
+        "line": 5193,
+        "suites": [
+          "main",
+          "Chapter1MapSuite",
+          "Chapter2Suite",
+          "SoundStageSuite",
+          "StageCoverageCharactersSuite",
+          "Chapter1EnemiesSuite",
+          "HeavyGunnerArtDeliverySuite",
+          "PropsSuite",
+          "ExposureSuite",
+          "FeelSuite",
+          "LocomotionSuite",
+          "WorldPromptSuite",
+          "SoundLabSuite",
+          "EyeBlinkSuite"
+        ],
+        "raw": "2026-11-11T23:51:04.5417194Z   process 5 (estimated 514 s): main,Chapter1MapSuite,Chapter2Suite,SoundStageSuite,StageCoverageCharactersSuite,Chapter1EnemiesSuite,HeavyGunnerArtDeliverySuite,PropsSuite,ExposureSuite,FeelSuite,LocomotionSuite,WorldPromptSuite,SoundLabSuite,EyeBlinkSuite"
+      }
+    ],
+    "planned_count": 88,
+    "unique_count": 88,
+    "chapter3_suite_processes": [
+      4
+    ],
+    "summary_lines": [
+      {
+        "line": 5194,
+        "raw": "2026-11-12T00:02:04.6442741Z checks: 98797, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 660 s)"
+      }
+    ],
+    "per_suite_assertion_counts": null,
+    "later_run_43151017874": "skip=true; not a second execution"
+  },
+  "maps": {
+    "pawnshop": {
+      "versions": {
+        "repair": {
+          "width": 112,
+          "height": 24,
+          "spawns": [],
+          "grid_sha256": "ac363ff30046e597f282ddd7a8eb4c2a869c7134c87114429c8e1e57d6ff47b4",
+          "rows": [
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#...............................................#...............................#",
+            "#..............................#....*.........*.........*.........*.......*....#........*.........*.......*....#",
+            "#..............................#...............................................#...............................#",
+            "#..............................#...............................................#...............................#",
+            "#..............................#...............................................#...............................#",
+            "#..............................#...............................................#...............................#",
+            "#...........======.............#...............................................#...............................#",
+            "#..............................................................................................................#",
+            "#..............................................................................................................#",
+            "#...................................ⓜ...P..K......ⓞ...............Ⓡ.......F..................Ⓜ.................#",
+            "################################################################################################################",
+            "################################################################################################################",
+            "################################################################################################################",
+            "################################################################################################################"
+          ]
+        },
+        "ci": {
+          "width": 112,
+          "height": 24,
+          "spawns": [],
+          "grid_sha256": "ac363ff30046e597f282ddd7a8eb4c2a869c7134c87114429c8e1e57d6ff47b4",
+          "rows": [
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#...............................................#...............................#",
+            "#..............................#....*.........*.........*.........*.......*....#........*.........*.......*....#",
+            "#..............................#...............................................#...............................#",
+            "#..............................#...............................................#...............................#",
+            "#..............................#...............................................#...............................#",
+            "#..............................#...............................................#...............................#",
+            "#...........======.............#...............................................#...............................#",
+            "#..............................................................................................................#",
+            "#..............................................................................................................#",
+            "#...................................ⓜ...P..K......ⓞ...............Ⓡ.......F..................Ⓜ.................#",
+            "################################################################################################################",
+            "################################################################################################################",
+            "################################################################################################################",
+            "################################################################################################################"
+          ]
+        },
+        "published": {
+          "width": 112,
+          "height": 24,
+          "spawns": [],
+          "grid_sha256": "ac363ff30046e597f282ddd7a8eb4c2a869c7134c87114429c8e1e57d6ff47b4",
+          "rows": [
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#################################################################################",
+            "#..............................#...............................................#...............................#",
+            "#..............................#....*.........*.........*.........*.......*....#........*.........*.......*....#",
+            "#..............................#...............................................#...............................#",
+            "#..............................#...............................................#...............................#",
+            "#..............................#...............................................#...............................#",
+            "#..............................#...............................................#...............................#",
+            "#...........======.............#...............................................#...............................#",
+            "#..............................................................................................................#",
+            "#..............................................................................................................#",
+            "#...................................ⓜ...P..K......ⓞ...............Ⓡ.......F..................Ⓜ.................#",
+            "################################################################################################################",
+            "################################################################################################################",
+            "################################################################################################################",
+            "################################################################################################################"
+          ]
+        }
+      },
+      "repair_grid_equals_published": true,
+      "ci_grid_equals_published": true
+    },
+    "plaza": {
+      "versions": {
+        "repair": {
+          "width": 96,
+          "height": 24,
+          "spawns": [],
+          "grid_sha256": "b2485b6efb3c4d05d39bb4a02dbb6297bf33a62c612dd7c26942939d7ac03062",
+          "rows": [
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#...........*...............*.....................................*...................*........#",
+            "#..........................................................................c...................#",
+            "#........................................................................=====.................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#...................................................................====.......................#",
+            "#..............................................................................................#",
+            "#..h..P.........................Ⓘ.......Ⓗ.......L.......ⓢ...Ⅴ................................Ⅰ.#",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################"
+          ]
+        },
+        "ci": {
+          "width": 96,
+          "height": 24,
+          "spawns": [],
+          "grid_sha256": "b2485b6efb3c4d05d39bb4a02dbb6297bf33a62c612dd7c26942939d7ac03062",
+          "rows": [
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#...........*...............*.....................................*...................*........#",
+            "#..........................................................................c...................#",
+            "#........................................................................=====.................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#...................................................................====.......................#",
+            "#..............................................................................................#",
+            "#..h..P.........................Ⓘ.......Ⓗ.......L.......ⓢ...Ⅴ................................Ⅰ.#",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################"
+          ]
+        },
+        "published": {
+          "width": 96,
+          "height": 24,
+          "spawns": [],
+          "grid_sha256": "b2485b6efb3c4d05d39bb4a02dbb6297bf33a62c612dd7c26942939d7ac03062",
+          "rows": [
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#...........*...............*.....................................*...................*........#",
+            "#..........................................................................c...................#",
+            "#........................................................................=====.................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#...................................................................====.......................#",
+            "#..............................................................................................#",
+            "#..h..P.........................Ⓘ.......Ⓗ.......L.......ⓢ...Ⅴ................................Ⅰ.#",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################"
+          ]
+        }
+      },
+      "repair_grid_equals_published": true,
+      "ci_grid_equals_published": true
+    },
+    "pump": {
+      "versions": {
+        "repair": {
+          "width": 80,
+          "height": 24,
+          "spawns": [
+            {
+              "id": "insulation_inspector",
+              "cell": [
+                52,
+                15
+              ]
+            },
+            {
+              "id": "pump_inspector",
+              "cell": [
+                28,
+                19
+              ]
+            },
+            {
+              "id": "pump_inspector",
+              "cell": [
+                44,
+                19
+              ]
+            }
+          ],
+          "grid_sha256": "ec693ba3e84f45705131a5a460f07175b0aabb88d548942b9d037e4153571921",
+          "rows": [
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#.............*...................*...................*...............*........#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#.............................Ⓙ.............................................Ⅵ..#",
+            "#..........===================================================================.#",
+            "#..............................................................................#",
+            "#...................................................Ш..........................#",
+            "#..............................................................................#",
+            "#.......===....................................................................#",
+            "#..............................................................................#",
+            "#..Ⅱ..P.....................Ж...............Ж...................Ⓚ.........c....#",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################"
+          ]
+        },
+        "ci": {
+          "width": 80,
+          "height": 24,
+          "spawns": [
+            {
+              "id": "insulation_inspector",
+              "cell": [
+                52,
+                15
+              ]
+            },
+            {
+              "id": "pump_inspector",
+              "cell": [
+                28,
+                19
+              ]
+            },
+            {
+              "id": "pump_inspector",
+              "cell": [
+                44,
+                19
+              ]
+            }
+          ],
+          "grid_sha256": "ec693ba3e84f45705131a5a460f07175b0aabb88d548942b9d037e4153571921",
+          "rows": [
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#.............*...................*...................*...............*........#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#.............................Ⓙ.............................................Ⅵ..#",
+            "#..........===================================================================.#",
+            "#..............................................................................#",
+            "#...................................................Ш..........................#",
+            "#..............................................................................#",
+            "#.......===....................................................................#",
+            "#..............................................................................#",
+            "#..Ⅱ..P.....................Ж...............Ж...................Ⓚ.........c....#",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################"
+          ]
+        },
+        "published": {
+          "width": 80,
+          "height": 24,
+          "spawns": [
+            {
+              "id": "insulation_inspector",
+              "cell": [
+                52,
+                15
+              ]
+            },
+            {
+              "id": "pump_inspector",
+              "cell": [
+                28,
+                19
+              ]
+            },
+            {
+              "id": "pump_inspector",
+              "cell": [
+                44,
+                19
+              ]
+            }
+          ],
+          "grid_sha256": "ec693ba3e84f45705131a5a460f07175b0aabb88d548942b9d037e4153571921",
+          "rows": [
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#.............*...................*...................*...............*........#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#.............................Ⓙ.............................................Ⅵ..#",
+            "#..........===================================================================.#",
+            "#..............................................................................#",
+            "#...................................................Ш..........................#",
+            "#..............................................................................#",
+            "#.......===....................................................................#",
+            "#..............................................................................#",
+            "#..Ⅱ..P.....................Ж...............Ж...................Ⓚ.........c....#",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################"
+          ]
+        }
+      },
+      "repair_grid_equals_published": true,
+      "ci_grid_equals_published": true
+    },
+    "mezzanine": {
+      "versions": {
+        "repair": {
+          "width": 80,
+          "height": 24,
+          "spawns": [
+            {
+              "id": "insulation_inspector",
+              "cell": [
+                46,
+                16
+              ]
+            },
+            {
+              "id": "pump_inspector",
+              "cell": [
+                52,
+                19
+              ]
+            }
+          ],
+          "grid_sha256": "0cf1740c4b9176a0ed4ed577b95330e381c11798c85e484fba892d2ce7182a8b",
+          "rows": [
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "#..............................................................................#",
+            "#...........*...............*.................*.................*.........*....#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#........................................==================....................#",
+            "#..............................................................................#",
+            "#.............................................Ш................................#",
+            "#.....................................===..................===.................#",
+            "#..............................................................................#",
+            "#..Ⅲ...P..............C.........ⓝ...1...............Ж.............Ⅶ.........Ⅳ..#",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################"
+          ]
+        },
+        "ci": {
+          "width": 80,
+          "height": 24,
+          "spawns": [
+            {
+              "id": "insulation_inspector",
+              "cell": [
+                46,
+                16
+              ]
+            },
+            {
+              "id": "pump_inspector",
+              "cell": [
+                52,
+                19
+              ]
+            }
+          ],
+          "grid_sha256": "0cf1740c4b9176a0ed4ed577b95330e381c11798c85e484fba892d2ce7182a8b",
+          "rows": [
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "#..............................................................................#",
+            "#...........*...............*.................*.................*.........*....#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#........................................==================....................#",
+            "#..............................................................................#",
+            "#.............................................Ш................................#",
+            "#.....................................===..................===.................#",
+            "#..............................................................................#",
+            "#..Ⅲ...P..............C.........ⓝ...1...............Ж.............Ⅶ.........Ⅳ..#",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################"
+          ]
+        },
+        "published": {
+          "width": 80,
+          "height": 24,
+          "spawns": [
+            {
+              "id": "insulation_inspector",
+              "cell": [
+                46,
+                16
+              ]
+            },
+            {
+              "id": "pump_inspector",
+              "cell": [
+                52,
+                19
+              ]
+            }
+          ],
+          "grid_sha256": "0cf1740c4b9176a0ed4ed577b95330e381c11798c85e484fba892d2ce7182a8b",
+          "rows": [
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "#..............................................................................#",
+            "#...........*...............*.................*.................*.........*....#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#........................................==================....................#",
+            "#..............................................................................#",
+            "#.............................................Ш................................#",
+            "#.....................................===..................===.................#",
+            "#..............................................................................#",
+            "#..Ⅲ...P..............C.........ⓝ...1...............Ж.............Ⅶ.........Ⅳ..#",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################"
+          ]
+        }
+      },
+      "repair_grid_equals_published": true,
+      "ci_grid_equals_published": true
+    },
+    "clinic": {
+      "versions": {
+        "repair": {
+          "width": 96,
+          "height": 24,
+          "spawns": [],
+          "grid_sha256": "aa0e65bcde825af35f20e8bfc62de5d72a2eeb1380c87060c9c6d2e915fad360",
+          "rows": [
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "#..............................................#...............................................#",
+            "#.........*...........*.............*..........#........*...............*...............*......#",
+            "#..............................................#...............................................#",
+            "#..............................................#...............................................#",
+            "#..............................................#...............................................#",
+            "#..............................................#...............................................#",
+            "#..............................................#...............................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..m..P.....Ⓞ...........ⓩ.........ⓟ...ⓔ.....................ⓣ...............ⓓ...............ⅰ..#",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################"
+          ]
+        },
+        "ci": {
+          "width": 96,
+          "height": 24,
+          "spawns": [],
+          "grid_sha256": "aa0e65bcde825af35f20e8bfc62de5d72a2eeb1380c87060c9c6d2e915fad360",
+          "rows": [
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "#..............................................#...............................................#",
+            "#.........*...........*.............*..........#........*...............*...............*......#",
+            "#..............................................#...............................................#",
+            "#..............................................#...............................................#",
+            "#..............................................#...............................................#",
+            "#..............................................#...............................................#",
+            "#..............................................#...............................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..m..P.....Ⓞ...........ⓩ.........ⓟ...ⓔ.....................ⓣ...............ⓓ...............ⅰ..#",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################"
+          ]
+        },
+        "published": {
+          "width": 96,
+          "height": 24,
+          "spawns": [],
+          "grid_sha256": "aa0e65bcde825af35f20e8bfc62de5d72a2eeb1380c87060c9c6d2e915fad360",
+          "rows": [
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "#..............................................#...............................................#",
+            "#.........*...........*.............*..........#........*...............*...............*......#",
+            "#..............................................#...............................................#",
+            "#..............................................#...............................................#",
+            "#..............................................#...............................................#",
+            "#..............................................#...............................................#",
+            "#..............................................#...............................................#",
+            "#..............................................................................................#",
+            "#..............................................................................................#",
+            "#..m..P.....Ⓞ...........ⓩ.........ⓟ...ⓔ.....................ⓣ...............ⓓ...............ⅰ..#",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################",
+            "################################################################################################"
+          ]
+        }
+      },
+      "repair_grid_equals_published": true,
+      "ci_grid_equals_published": true
+    },
+    "gate_hall": {
+      "versions": {
+        "repair": {
+          "width": 72,
+          "height": 24,
+          "spawns": [
+            {
+              "id": "janus",
+              "cell": [
+                36,
+                19
+              ]
+            }
+          ],
+          "grid_sha256": "89046e583c58cd268d559a6b978e404997db78e938a70910677828f754f3ee41",
+          "rows": [
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "#......................................................................#",
+            "#...........*.............*.............*.............*.........*......#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#..........................................========....................#",
+            "#......................................................................#",
+            "#.......................................===............................#",
+            "#......................................................................#",
+            "#..ⅱ..P...C.......Ⓖ.............ⓙ...Ю.....................Ⅷ.........ⅲ..#",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################"
+          ]
+        },
+        "ci": {
+          "width": 72,
+          "height": 24,
+          "spawns": [
+            {
+              "id": "janus",
+              "cell": [
+                36,
+                19
+              ]
+            }
+          ],
+          "grid_sha256": "89046e583c58cd268d559a6b978e404997db78e938a70910677828f754f3ee41",
+          "rows": [
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "#......................................................................#",
+            "#...........*.............*.............*.............*.........*......#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#..........................................========....................#",
+            "#......................................................................#",
+            "#.......................................===............................#",
+            "#......................................................................#",
+            "#..ⅱ..P...C.......Ⓖ.............ⓙ...Ю.....................Ⅷ.........ⅲ..#",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################"
+          ]
+        },
+        "published": {
+          "width": 72,
+          "height": 24,
+          "spawns": [
+            {
+              "id": "janus",
+              "cell": [
+                36,
+                19
+              ]
+            }
+          ],
+          "grid_sha256": "89046e583c58cd268d559a6b978e404997db78e938a70910677828f754f3ee41",
+          "rows": [
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "#......................................................................#",
+            "#...........*.............*.............*.............*.........*......#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#..........................................========....................#",
+            "#......................................................................#",
+            "#.......................................===............................#",
+            "#......................................................................#",
+            "#..ⅱ..P...C.......Ⓖ.............ⓙ...Ю.....................Ⅷ.........ⅲ..#",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################"
+          ]
+        }
+      },
+      "repair_grid_equals_published": true,
+      "ci_grid_equals_published": true
+    },
+    "glass_edge": {
+      "versions": {
+        "repair": {
+          "width": 72,
+          "height": 24,
+          "spawns": [],
+          "grid_sha256": "bbf1376461635bea8dd56d21a366a164106303dca64c5d31391a236cfdff0d86",
+          "rows": [
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#...............*.......................*.......................*......#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#..Ⅸ..P.....C.......Ⓟ.........Ⓠ.............ⅳ...............ⅴ.......ⅵ..#",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################"
+          ]
+        },
+        "ci": {
+          "width": 72,
+          "height": 24,
+          "spawns": [],
+          "grid_sha256": "bbf1376461635bea8dd56d21a366a164106303dca64c5d31391a236cfdff0d86",
+          "rows": [
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#...............*.......................*.......................*......#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#..Ⅸ..P.....C.......Ⓟ.........Ⓠ.............ⅳ...............ⅴ.......ⅵ..#",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################"
+          ]
+        },
+        "published": {
+          "width": 72,
+          "height": 24,
+          "spawns": [],
+          "grid_sha256": "bbf1376461635bea8dd56d21a366a164106303dca64c5d31391a236cfdff0d86",
+          "rows": [
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#...............*.......................*.......................*......#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#......................................................................#",
+            "#..Ⅸ..P.....C.......Ⓟ.........Ⓠ.............ⅳ...............ⅴ.......ⅵ..#",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################",
+            "########################################################################"
+          ]
+        }
+      },
+      "repair_grid_equals_published": true,
+      "ci_grid_equals_published": true
+    },
+    "showroom": {
+      "versions": {
+        "repair": {
+          "width": 80,
+          "height": 24,
+          "spawns": [],
+          "grid_sha256": "4330f845a2b53e1c862ff717b2cd827d36a19ec827d264a3bb901445c64f1c51",
+          "rows": [
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "#..............................................................................#",
+            "#...........*.....................*............*.............*..........*......#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..Ⅹ..P.........ⓛ...............Ⓐ.............Ⓑ.............Ⓤ...............ⅶ..#",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################"
+          ]
+        },
+        "ci": {
+          "width": 80,
+          "height": 24,
+          "spawns": [],
+          "grid_sha256": "4330f845a2b53e1c862ff717b2cd827d36a19ec827d264a3bb901445c64f1c51",
+          "rows": [
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "#..............................................................................#",
+            "#...........*.....................*............*.............*..........*......#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..Ⅹ..P.........ⓛ...............Ⓐ.............Ⓑ.............Ⓤ...............ⅶ..#",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################"
+          ]
+        },
+        "published": {
+          "width": 80,
+          "height": 24,
+          "spawns": [],
+          "grid_sha256": "4330f845a2b53e1c862ff717b2cd827d36a19ec827d264a3bb901445c64f1c51",
+          "rows": [
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "#..............................................................................#",
+            "#...........*.....................*............*.............*..........*......#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..............................................................................#",
+            "#..Ⅹ..P.........ⓛ...............Ⓐ.............Ⓑ.............Ⓤ...............ⅶ..#",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################",
+            "################################################################################"
+          ]
+        }
+      },
+      "repair_grid_equals_published": true,
+      "ci_grid_equals_published": true
+    },
+    "office_hall": {
+      "versions": {
+        "repair": {
+          "width": 64,
+          "height": 24,
+          "spawns": [],
+          "grid_sha256": "1a8e637ba238b1af6138233c902eacf983ca4d5ba645079df13365412b718fc5",
+          "rows": [
+            "################################################################",
+            "################################################################",
+            "################################################################",
+            "################################################################",
+            "################################################################",
+            "################################################################",
+            "################################################################",
+            "################################################################",
+            "#..............................................................#",
+            "#.........*.............*...............*.............*........#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..Ⅺ..P.......ⓧ.............Ⓦ.......ⅷ.......................Ⅻ..#",
+            "################################################################",
+            "################################################################",
+            "################################################################",
+            "################################################################"
+          ]
+        },
+        "ci": {
+          "width": 64,
+          "height": 24,
+          "spawns": [],
+          "grid_sha256": "1a8e637ba238b1af6138233c902eacf983ca4d5ba645079df13365412b718fc5",
+          "rows": [
+            "################################################################",
+            "################################################################",
+            "################################################################",
+            "################################################################",
+            "################################################################",
+            "################################################################",
+            "################################################################",
+            "################################################################",
+            "#..............................................................#",
+            "#.........*.............*...............*.............*........#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..Ⅺ..P.......ⓧ.............Ⓦ.......ⅷ.......................Ⅻ..#",
+            "################################################################",
+            "################################################################",
+            "################################################################",
+            "################################################################"
+          ]
+        },
+        "published": {
+          "width": 64,
+          "height": 24,
+          "spawns": [],
+          "grid_sha256": "1a8e637ba238b1af6138233c902eacf983ca4d5ba645079df13365412b718fc5",
+          "rows": [
+            "################################################################",
+            "################################################################",
+            "################################################################",
+            "################################################################",
+            "################################################################",
+            "################################################################",
+            "################################################################",
+            "################################################################",
+            "#..............................................................#",
+            "#.........*.............*...............*.............*........#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..............................................................#",
+            "#..Ⅺ..P.......ⓧ.............Ⓦ.......ⅷ.......................Ⅻ..#",
+            "################################################################",
+            "################################################################",
+            "################################################################",
+            "################################################################"
+          ]
+        }
+      },
+      "repair_grid_equals_published": true,
+      "ci_grid_equals_published": true
+    }
+  },
+  "inspector_test_functions": {
+    "_test_data": {
+      "initial_equals_published": true,
+      "repair_equals_published": true,
+      "ci_equals_published": true,
+      "published_function_sha256": "fb5634bb2e49927400ddbd3ce8602e9a796a5188d947513c21229e4dbbccafdc"
+    },
+    "_test_pump_telegraph_and_path": {
+      "initial_equals_published": true,
+      "repair_equals_published": true,
+      "ci_equals_published": true,
+      "published_function_sha256": "5f1e58c6a12e5f390de85469b10fbb471e44fb78c6fc4c8db79cb1f8c844b820"
+    },
+    "_test_pump_patrol_stays_home": {
+      "initial_equals_published": false,
+      "repair_equals_published": true,
+      "ci_equals_published": true,
+      "published_function_sha256": "57e1028946006e967c870d09f671f85f38fd4e27d866bc585cb8474e882ad3a7"
+    },
+    "_test_pump_ignores_player_above": {
+      "initial_equals_published": true,
+      "repair_equals_published": true,
+      "ci_equals_published": true,
+      "published_function_sha256": "ef96258954c1cd2b740b6635ca06acc64e58e4c2cb6de0222b64fa0b39ecfed7"
+    },
+    "_test_pump_ram_unlocks_card": {
+      "initial_equals_published": true,
+      "repair_equals_published": true,
+      "ci_equals_published": true,
+      "published_function_sha256": "2fa5b3a20439761c94862d5bc5c82db94f4d35619c9157b8178b231f9bbf1abf"
+    },
+    "_test_insulation_crouch_and_stand": {
+      "initial_equals_published": true,
+      "repair_equals_published": true,
+      "ci_equals_published": true,
+      "published_function_sha256": "54c2d3c231ac68cbebe07317d726f40e70ae6d947f666934fb142ca76a2fe721"
+    },
+    "_test_insulation_safe_above_rail": {
+      "initial_equals_published": true,
+      "repair_equals_published": true,
+      "ci_equals_published": true,
+      "published_function_sha256": "ebdd987974d5fa393db158426029d82335da52546bdd5ddab7c8ba2d48771890"
+    },
+    "_test_ch3_placement": {
+      "initial_equals_published": false,
+      "repair_equals_published": true,
+      "ci_equals_published": true,
+      "published_function_sha256": "cb9045e09de98cfc1494a56994ad70cfe4f53c3e84e6d035abbba696197b16d0"
+    }
+  }
+}

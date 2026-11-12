@@ -1,0 +1,65 @@
+{
+  "status": "passed",
+  "source_paths": 66,
+  "ci_groups": 88,
+  "ci_total_checks": 98797,
+  "ci_per_suite_checks": null,
+  "new_headless_checks": 35,
+  "new_headless_failures": 0,
+  "controls": [
+    {
+      "case": "standing",
+      "checks": 8,
+      "health": [
+        6,
+        5
+      ],
+      "guard": [
+        100.0,
+        100.0
+      ],
+      "pulse_crossing_samples": 0
+    },
+    {
+      "case": "crouch",
+      "checks": 9,
+      "health": [
+        6,
+        6
+      ],
+      "guard": [
+        100.0,
+        100.0
+      ],
+      "pulse_crossing_samples": 1
+    },
+    {
+      "case": "shield",
+      "checks": 9,
+      "health": [
+        6,
+        6
+      ],
+      "guard": [
+        100.0,
+        76.0
+      ],
+      "pulse_crossing_samples": 0
+    },
+    {
+      "case": "jump",
+      "checks": 9,
+      "health": [
+        6,
+        6
+      ],
+      "guard": [
+        100.0,
+        100.0
+      ],
+      "pulse_crossing_samples": 1
+    }
+  ],
+  "virtual_files": 984,
+  "zip_members": 197
+}
