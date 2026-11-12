@@ -1,0 +1,48 @@
+{
+  "base": "b2abac978cf6a14feaf254bb608b3779299fa89f",
+  "files": [
+    {
+      "path": "tools/run_ch2_evidence_completion.py",
+      "bytes": 4370,
+      "sha256": "eeeee2d37b0a01b59e0d4041952fb061cc598acf8508b3668d0e516175723fb7",
+      "crlf": 0
+    },
+    {
+      "path": "tools/run_ch2_reading_completion.py",
+      "bytes": 4731,
+      "sha256": "034f33c90441747ab942bccdbaf7cfb8b1bc2530f6bfdc3bb0af0817bfdd87b6",
+      "crlf": 0
+    },
+    {
+      "path": "tools/run_patroller_completion.py",
+      "bytes": 3306,
+      "sha256": "72cc67ae183cd65c9fbe6e57ddd7e51a3f0e61145d4638c66805e375af4f1b17",
+      "crlf": 0
+    },
+    {
+      "path": "tools/run_story_marker_completion.py",
+      "bytes": 6748,
+      "sha256": "46f430fedc7e99dad01290f875d318c4c9f2e2431f087ec65a75566df093967c",
+      "crlf": 0
+    },
+    {
+      "path": "tools/run_voice_completion.py",
+      "bytes": 6235,
+      "sha256": "805deb8d28a6a5e5a38db5c090d729749e4ae383a9ccf55e947f3d562ac5e102",
+      "crlf": 0
+    },
+    {
+      "path": "tools/runtime_probe.py",
+      "bytes": 5196,
+      "sha256": "326ee9ee050307726e60563c5f4594de5d84218a66a9a5f15d43bdff0ce7ec0b",
+      "crlf": 0
+    },
+    {
+      "path": "tools/test_runtime_probe.py",
+      "bytes": 10192,
+      "sha256": "e3a8e3e37d6242c057368bfe8865edcad8b72f9a451d1ed57cefbe7e77ee3890",
+      "crlf": 0
+    }
+  ],
+  "scope": "Only seven Python tool/CI-probe callers; no GD/data/product changes"
+}

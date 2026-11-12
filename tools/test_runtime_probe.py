@@ -8,6 +8,7 @@ import sys
 import tempfile
 import time
 import unittest
+from unittest.mock import Mock, patch
 
 from runtime_probe import run_case
 
@@ -103,6 +104,89 @@ class RuntimeProbeTests(unittest.TestCase):
             if time.monotonic() >= deadline:
                 self.fail("timed-out child still runs after its owned group was terminated")
             time.sleep(0.01)
+
+
+class ExactDiagnosticTests(unittest.TestCase):
+    ERROR = "ERROR: [StoryContracts] res://data/story/ch2_heron.json/scenes/ch2_t_s05_gate: live content differs from independent contract"
+
+    def run_fixture(self, lines, expected=(), checks=3, failures=None, code=0):
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = pathlib.Path(temporary)
+            def start(command, **kwargs):
+                out = pathlib.Path(next(x[6:] for x in command if x.startswith("--out=")))
+                out.mkdir()
+                (out / "result.json").write_text(json.dumps({"checks": checks, "failures": [] if failures is None else failures}))
+                kwargs["stdout"].write("\n".join(lines) + "\n")
+                process = Mock(pid=123)
+                process.wait.return_value = code
+                process.poll.return_value = code
+                return process
+            with patch("runtime_probe.subprocess.Popen", side_effect=start):
+                return run_case("fixture", directory / "unused-engine", directory, 5,
+                                project=directory, scene="res://fixture.tscn", slot=directory / "slot",
+                                expected_diagnostics=expected)
+
+    def test_default_zero_diagnostics_stays_strict(self):
+        self.assertTrue(self.run_fixture([])["passed"])
+        self.assertFalse(self.run_fixture([self.ERROR])["passed"])
+
+    def test_exact_intentional_error_once(self):
+        result = self.run_fixture([self.ERROR], (self.ERROR,))
+        self.assertTrue(result["passed"])
+        self.assertEqual(result["diagnostics"], [self.ERROR])
+        self.assertEqual(result["diagnostic_count"], 1)
+        self.assertEqual(result["observed_expected_diagnostics"], {self.ERROR: 1})
+        self.assertEqual(result["unexpected_diagnostic_count"], 0)
+
+    def test_missing_expected_error_rejects(self):
+        result = self.run_fixture([], (self.ERROR,))
+        self.assertFalse(result["passed"])
+        self.assertEqual(result["missing_expected_diagnostics"], {self.ERROR: 1})
+
+    def test_duplicate_expected_error_rejects(self):
+        result = self.run_fixture([self.ERROR, self.ERROR], (self.ERROR,))
+        self.assertFalse(result["passed"])
+        self.assertEqual(result["diagnostic_count"], 2)
+        self.assertEqual(result["unexpected_diagnostic_count"], 1)
+
+    def test_wrong_scene_or_path_rejects(self):
+        for altered in (self.ERROR.replace("s05_gate", "s08_contract"), self.ERROR.replace("ch2_heron", "ch1_kasa")):
+            with self.subTest(line=altered):
+                self.assertFalse(self.run_fixture([altered], (self.ERROR,))["passed"])
+
+    def test_other_error_and_script_error_reject(self):
+        for extra in ("ERROR: unrelated", "SCRIPT ERROR: late failure", "Leaked instance: GDScriptFunctionState:123"):
+            with self.subTest(extra=extra):
+                result = self.run_fixture([self.ERROR, extra], (self.ERROR,))
+                self.assertFalse(result["passed"])
+                self.assertEqual(result["unexpected_diagnostic_count"], 1)
+
+    def test_hidden_after_summary_limit_rejects(self):
+        expected = tuple("ERROR: deliberate " + str(i) for i in range(32))
+        result = self.run_fixture([*expected, "SCRIPT ERROR: thirty-third diagnostic"], expected)
+        self.assertFalse(result["passed"])
+        self.assertEqual(result["diagnostic_count"], 33)
+        self.assertEqual(len(result["diagnostics"]), 32)
+        self.assertEqual(result["unexpected_diagnostic_count"], 1)
+
+    def test_full_line_not_truncated_summary_is_compared(self):
+        expected = "ERROR: " + "x" * 600 + " original"
+        altered = "ERROR: " + "x" * 600 + " altered"
+        self.assertTrue(self.run_fixture([expected], (expected,))["passed"])
+        self.assertFalse(self.run_fixture([altered], (expected,))["passed"])
+
+    def test_expected_error_does_not_bypass_exit_or_assertions(self):
+        for kwargs in ({"code": 1}, {"checks": 0}, {"checks": True}, {"failures": ["real assertion"]}):
+            with self.subTest(kwargs=kwargs):
+                self.assertFalse(self.run_fixture([self.ERROR], (self.ERROR,), **kwargs)["passed"])
+
+    def test_probe_cannot_authorize_diagnostics(self):
+        self.assertFalse(self.run_fixture([self.ERROR], failures=[])["passed"])
+
+    def test_pattern_and_script_error_configuration_rejects(self):
+        for expected in ((".*StoryContracts.*",), ("SCRIPT ERROR: deliberate",), [self.ERROR], (self.ERROR+"\n",)):
+            with self.subTest(expected=expected), self.assertRaises(ValueError):
+                self.run_fixture([], expected)
 
 
 if __name__ == "__main__":

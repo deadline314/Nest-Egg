@@ -1,0 +1,51 @@
+{
+  "base": "b2abac978cf6a14feaf254bb608b3779299fa89f",
+  "files": {
+    "tools/run_ch2_evidence_completion.py": {
+      "before_physical_sha256": "007babff252a4e50059b49f91ab4f4cb18b20d4eddfea544e9d62cb5a12c430a",
+      "before_canonical_sha256": "007babff252a4e50059b49f91ab4f4cb18b20d4eddfea544e9d62cb5a12c430a",
+      "sha256": "eeeee2d37b0a01b59e0d4041952fb061cc598acf8508b3668d0e516175723fb7",
+      "bytes": 4370
+    },
+    "tools/run_ch2_reading_completion.py": {
+      "before_physical_sha256": "a340a831a1bc8cf92a36638c3d24d89dfacad64cc46a1829110c1c43f9116fa9",
+      "before_canonical_sha256": "a340a831a1bc8cf92a36638c3d24d89dfacad64cc46a1829110c1c43f9116fa9",
+      "sha256": "034f33c90441747ab942bccdbaf7cfb8b1bc2530f6bfdc3bb0af0817bfdd87b6",
+      "bytes": 4731
+    },
+    "tools/run_patroller_completion.py": {
+      "before_physical_sha256": "7404f9a7d6b77cfbd70e85bcae75b91ae52dc5fcf4df343ec3e00655cc1d8f47",
+      "before_canonical_sha256": "7404f9a7d6b77cfbd70e85bcae75b91ae52dc5fcf4df343ec3e00655cc1d8f47",
+      "sha256": "72cc67ae183cd65c9fbe6e57ddd7e51a3f0e61145d4638c66805e375af4f1b17",
+      "bytes": 3306
+    },
+    "tools/run_story_marker_completion.py": {
+      "before_physical_sha256": "45741ef1c152fe79e4554c448c7a257b5ebb0e2a20c5568494661ffabca26276",
+      "before_canonical_sha256": "45741ef1c152fe79e4554c448c7a257b5ebb0e2a20c5568494661ffabca26276",
+      "sha256": "46f430fedc7e99dad01290f875d318c4c9f2e2431f087ec65a75566df093967c",
+      "bytes": 6748
+    },
+    "tools/run_voice_completion.py": {
+      "before_physical_sha256": "d266a5b5786a1f29239362d97662a213d1672dc6db936ec39260c3023d1ae68d",
+      "before_canonical_sha256": "d266a5b5786a1f29239362d97662a213d1672dc6db936ec39260c3023d1ae68d",
+      "sha256": "805deb8d28a6a5e5a38db5c090d729749e4ae383a9ccf55e947f3d562ac5e102",
+      "bytes": 6235
+    },
+    "tools/runtime_probe.py": {
+      "before_physical_sha256": "fef2c934c0673ab6f385fa30b027893ffc6316bc42e3fcd7cb35484edca6c6d1",
+      "before_canonical_sha256": "fef2c934c0673ab6f385fa30b027893ffc6316bc42e3fcd7cb35484edca6c6d1",
+      "sha256": "326ee9ee050307726e60563c5f4594de5d84218a66a9a5f15d43bdff0ce7ec0b",
+      "bytes": 5196
+    },
+    "tools/test_runtime_probe.py": {
+      "before_physical_sha256": "a99ae8ba2754056241b541ce35ddbdd98ba8964eedb81cd18efa1bfd1278c36a",
+      "before_canonical_sha256": "a99ae8ba2754056241b541ce35ddbdd98ba8964eedb81cd18efa1bfd1278c36a",
+      "sha256": "e3a8e3e37d6242c057368bfe8865edcad8b72f9a451d1ed57cefbe7e77ee3890",
+      "bytes": 10192
+    }
+  },
+  "old_guard_count": 449,
+  "new_guard_count": 456,
+  "new_guard_sha256": "23fe4261718b5ef9d8ff6bd1f5b154916089c046d62aec1faf7956b376d10a3a",
+  "scope": "Seven Python tools only. Existing stock leak stays rejected. Original safe CI remains the completion authority."
+}

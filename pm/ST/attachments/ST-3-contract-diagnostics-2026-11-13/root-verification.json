@@ -1,0 +1,13 @@
+{
+  "actual_relocated_packet_command": "python -X utf8 pm/ST/attachments/ST-3-contract-diagnostics-2026-11-13/original/verify.py",
+  "exit_code": 0,
+  "stdout_sha256": "dd0175b564203cfea2e50090d78e4b016452ddd546b29a1bfd7b28c6372a2bf2",
+  "stderr_bytes": 0,
+  "packet_integrity": "PASS",
+  "local_batch": "29 green / 1 actual shutdown leak RED, full98 incomplete",
+  "root_independent_result_self_authorization_controls": "4/0, actual source identical to adopted runtime_probe.py",
+  "third_party_readonly_review": "Seven fixed sources reviewed: default strict0, normalized full lines and complete total count, exactly22 mutation exceptions/98 processes; result JSON never authorizes errors. No blocking defect. Two nonblocking observations preserved: whitespace normalization and original self-report test duplication; Root independently exercised actual injection without changing frozen sources.",
+  "primary_guard_count": 456,
+  "primary_guard_sha256": "23fe4261718b5ef9d8ff6bd1f5b154916089c046d62aec1faf7956b376d10a3a",
+  "new_full_CI_success_claimed": false
+}

@@ -18,6 +18,24 @@ SOURCES = ["game/story_flag_sources.gd", "game/story_flag_completion.gd", "game/
            "tests/probes/story_marker_completion.tscn", "tools/run_story_marker_completion.py",
            "tools/runtime_probe.py", "tests/probes/story_contract_audit.gd",
            "tests/probes/story_contract_audit.tscn"]
+SOURCES += ['core/story_result_catalog.gd', 'data/story_contracts/catalog.json', 'data/story_contracts/ch1.json', 'data/story_contracts/ch2.json', 'data/story_contracts/migration-5a.json']
+
+
+# Deliberate live-content mutations; full independent error lines, once each.
+EXPECTED_DIAGNOSTICS = {
+    'label--missing': ('ERROR: [StoryContracts] res://data/story/ch1_kasa.json/scenes/ch1_t_label_watch: live content differs from independent contract',),
+    'label--shifted': ('ERROR: [StoryContracts] res://data/story/ch1_kasa.json/scenes/ch1_t_label_watch: live content differs from independent contract',),
+    'label--malformed': ('ERROR: [StoryContracts] res://data/story/ch1_kasa.json/scenes/ch1_t_label_watch: live content differs from independent contract',),
+    'label--missing_choice': ('ERROR: [StoryContracts] res://data/story/ch1_kasa.json/scenes/ch1_t_label_watch: live content differs from independent contract',),
+    'gate--missing': ('ERROR: [StoryContracts] res://data/story/ch2_heron.json/scenes/ch2_t_s05_gate: live content differs from independent contract',),
+    'gate--shifted': ('ERROR: [StoryContracts] res://data/story/ch2_heron.json/scenes/ch2_t_s05_gate: live content differs from independent contract',),
+    'gate--malformed': ('ERROR: [StoryContracts] res://data/story/ch2_heron.json/scenes/ch2_t_s05_gate: live content differs from independent contract',),
+    'gate--missing_choice': ('ERROR: [StoryContracts] res://data/story/ch2_heron.json/scenes/ch2_t_s05_gate: live content differs from independent contract',),
+    'item--missing': ('ERROR: [StoryContracts] res://data/story/ch2_heron.json/scenes/ch2_t_s08_contract: live content differs from independent contract',),
+    'item--shifted': ('ERROR: [StoryContracts] res://data/story/ch2_heron.json/scenes/ch2_t_s08_contract: live content differs from independent contract',),
+    'item--malformed': ('ERROR: [StoryContracts] res://data/story/ch2_heron.json/scenes/ch2_t_s08_contract: live content differs from independent contract',),
+    'item--missing_choice': ('ERROR: [StoryContracts] res://data/story/ch2_heron.json/scenes/ch2_t_s08_contract: live content differs from independent contract',),
+}
 
 
 def main():
@@ -51,7 +69,8 @@ def main():
             slot = output / producer / mode.removesuffix("_read")
             case = run_case(producer + "--" + mode, args.godot.resolve(), output, 240,
                             project=PROJECT, scene="res://tests/probes/story_marker_completion.tscn",
-                            slot=slot, verbose=True)
+                            slot=slot, verbose=True,
+                            expected_diagnostics=EXPECTED_DIAGNOSTICS.get(producer + '--' + mode, ()))
             data = case.get("result", {})
             publications = data.get("publications", [])
             coherent = (isinstance(publications, list)

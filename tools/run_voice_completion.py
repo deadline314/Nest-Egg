@@ -17,6 +17,13 @@ MODES = ["write", "completed_read", "choice_read", "first_read", "second_read", 
          "cancel", "cancel_read", "invalid", "invalid_skip", "return_then_ask"]
 
 
+# Deliberate live-content mutations; full independent error lines, once each.
+EXPECTED_DIAGNOSTICS = {
+    'invalid': ('ERROR: [StoryContracts] res://data/story/ch1_kasa.json/scenes/ch1_t_lamp_voice_second_prompt: live content differs from independent contract',),
+    'invalid_skip': ('ERROR: [StoryContracts] res://data/story/ch1_kasa.json/scenes/ch1_t_lamp_voice_second_prompt: live content differs from independent contract',),
+}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--godot", type=pathlib.Path, default=os.environ.get("GODOT"))
@@ -35,7 +42,8 @@ def main():
                  "core/story_outcomes.gd", "data/story/ch1_kasa.json",
                  "tests/helpers/voice_completion_base.gd", "tests/probes/voice_completion.gd",
                  "tests/probes/voice_completion.tscn", "tools/run_save_probe.gd",
-                 "tools/runtime_probe.py", "tools/run_voice_completion.py"]:
+                 "tools/runtime_probe.py", "tools/run_voice_completion.py",
+                 'core/story_result_catalog.gd', 'data/story_contracts/catalog.json', 'data/story_contracts/ch1.json', 'data/story_contracts/ch2.json', 'data/story_contracts/migration-5a.json']:
         target = output / "source" / name
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(PROJECT / name, target)
@@ -62,7 +70,8 @@ def main():
                 raise ValueError("pending continuation must use the exact original primary bytes")
             receipt["original_pending_primaries"][mode] = hashlib.sha256(payload).hexdigest()
         case = run_case(mode, engine, output, args.timeout, project=PROJECT,
-                        scene="res://tests/probes/voice_completion.tscn", slot=slot)
+                        scene="res://tests/probes/voice_completion.tscn", slot=slot,
+                        expected_diagnostics=EXPECTED_DIAGNOSTICS.get(mode, ()))
         if mode == "write":
             rows = case.get("result", {}).get("publications", [])
             coherent = (isinstance(rows, list) and len(rows) == 3

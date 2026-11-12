@@ -1,0 +1,1886 @@
+{
+  "source.zip": {
+    "bytes": 25552,
+    "sha256": "54a2acc13d91020d2c1007310d8dac9370c4c99d616707c3a0d8fc9eb995354b",
+    "members": [
+      {
+        "path": "tools/run_ch2_evidence_completion.py",
+        "bytes": 4370,
+        "crc32": "644d47dc",
+        "sha256": "eeeee2d37b0a01b59e0d4041952fb061cc598acf8508b3668d0e516175723fb7"
+      },
+      {
+        "path": "before/tools/run_ch2_evidence_completion.py",
+        "bytes": 3643,
+        "crc32": "18215908",
+        "sha256": "007babff252a4e50059b49f91ab4f4cb18b20d4eddfea544e9d62cb5a12c430a"
+      },
+      {
+        "path": "tools/run_ch2_reading_completion.py",
+        "bytes": 4731,
+        "crc32": "d425d5d3",
+        "sha256": "034f33c90441747ab942bccdbaf7cfb8b1bc2530f6bfdc3bb0af0817bfdd87b6"
+      },
+      {
+        "path": "before/tools/run_ch2_reading_completion.py",
+        "bytes": 3705,
+        "crc32": "e78669fd",
+        "sha256": "a340a831a1bc8cf92a36638c3d24d89dfacad64cc46a1829110c1c43f9116fa9"
+      },
+      {
+        "path": "tools/run_patroller_completion.py",
+        "bytes": 3306,
+        "crc32": "41282832",
+        "sha256": "72cc67ae183cd65c9fbe6e57ddd7e51a3f0e61145d4638c66805e375af4f1b17"
+      },
+      {
+        "path": "before/tools/run_patroller_completion.py",
+        "bytes": 2635,
+        "crc32": "d73f8223",
+        "sha256": "7404f9a7d6b77cfbd70e85bcae75b91ae52dc5fcf4df343ec3e00655cc1d8f47"
+      },
+      {
+        "path": "tools/run_story_marker_completion.py",
+        "bytes": 6748,
+        "crc32": "519aa3dc",
+        "sha256": "46f430fedc7e99dad01290f875d318c4c9f2e2431f087ec65a75566df093967c"
+      },
+      {
+        "path": "before/tools/run_story_marker_completion.py",
+        "bytes": 4458,
+        "crc32": "bbd91209",
+        "sha256": "45741ef1c152fe79e4554c448c7a257b5ebb0e2a20c5568494661ffabca26276"
+      },
+      {
+        "path": "tools/run_voice_completion.py",
+        "bytes": 6235,
+        "crc32": "afae91f4",
+        "sha256": "805deb8d28a6a5e5a38db5c090d729749e4ae383a9ccf55e947f3d562ac5e102"
+      },
+      {
+        "path": "before/tools/run_voice_completion.py",
+        "bytes": 5524,
+        "crc32": "b2272acd",
+        "sha256": "d266a5b5786a1f29239362d97662a213d1672dc6db936ec39260c3023d1ae68d"
+      },
+      {
+        "path": "tools/runtime_probe.py",
+        "bytes": 5196,
+        "crc32": "c411d8ca",
+        "sha256": "326ee9ee050307726e60563c5f4594de5d84218a66a9a5f15d43bdff0ce7ec0b"
+      },
+      {
+        "path": "before/tools/runtime_probe.py",
+        "bytes": 3601,
+        "crc32": "fcdb0146",
+        "sha256": "fef2c934c0673ab6f385fa30b027893ffc6316bc42e3fcd7cb35484edca6c6d1"
+      },
+      {
+        "path": "tools/test_runtime_probe.py",
+        "bytes": 10192,
+        "crc32": "3cea8810",
+        "sha256": "e3a8e3e37d6242c057368bfe8865edcad8b72f9a451d1ed57cefbe7e77ee3890"
+      },
+      {
+        "path": "before/tools/test_runtime_probe.py",
+        "bytes": 5522,
+        "crc32": "08dc6470",
+        "sha256": "a99ae8ba2754056241b541ce35ddbdd98ba8964eedb81cd18efa1bfd1278c36a"
+      }
+    ]
+  },
+  "raw.zip": {
+    "bytes": 6437636,
+    "sha256": "379f8defbe96cf8df0fa39a290260e15c457fabc39039a559092bd81579be1f5",
+    "members": [
+      {
+        "path": ".gdignore",
+        "bytes": 0,
+        "crc32": "00000000",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "baseline-contract-red/contract/result.json",
+        "bytes": 58,
+        "crc32": "789e4791",
+        "sha256": "24e642516eaafe28d4de2dac23249d10befc4d71fe597664400b2f757e758009"
+      },
+      {
+        "path": "baseline-contract-red/contract-process.json",
+        "bytes": 594,
+        "crc32": "502da7a0",
+        "sha256": "002dd726be99046a63964b0d8368fb38cb9db0e865c802c8e4fdcec76b36db5d"
+      },
+      {
+        "path": "baseline-contract-red/contract-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 794673,
+        "crc32": "fdb7c9f4",
+        "sha256": "8f04438a5c3657d5f6652b7f592583f76e518df0926379b8731ddcd12a325eba"
+      },
+      {
+        "path": "baseline-contract-red/contract.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "baseline-contract-red/contract.log",
+        "bytes": 802739,
+        "crc32": "62b7f83d",
+        "sha256": "0572343f7afa2180879ac499e52f2eb9932d4ccf50efab838b9d34c250df7e06"
+      },
+      {
+        "path": "baseline-contract-red/receipt.json",
+        "bytes": 353,
+        "crc32": "55e3a1b0",
+        "sha256": "a29b3ffe2874c55787fe5b7faa9e87309e49f9e5589ca8f2697c483cc9769ccf"
+      },
+      {
+        "path": "baseline-contract-red/slot/slot.json",
+        "bytes": 10120,
+        "crc32": "45406ce6",
+        "sha256": "d9fc2a4b0935aa798ef912304ec74e97f4316155248d88f1321a15cd00df30f2"
+      },
+      {
+        "path": "baseline-contract-red/slot/slot.json.bak",
+        "bytes": 10120,
+        "crc32": "a76eff16",
+        "sha256": "343a59038db436c6f239741d1bfb4ecdfe1b3fb3a65d2be16012433ea6ea57dc"
+      },
+      {
+        "path": "before/core/story_result_catalog.gd",
+        "bytes": 27881,
+        "crc32": "1483a184",
+        "sha256": "62ea8ae1323169345b6cd41103be6ee35b6de7c58d04aec924439d90964a5aaf"
+      },
+      {
+        "path": "before/tests/probes/patroller_completion.gd",
+        "bytes": 8563,
+        "crc32": "f665d170",
+        "sha256": "5bd0d2157c6760af9fec90914e7a246143b0b2c7d908ba36e57b52d0747cd493"
+      },
+      {
+        "path": "before/tools/runtime_probe.py",
+        "bytes": 3601,
+        "crc32": "fcdb0146",
+        "sha256": "fef2c934c0673ab6f385fa30b027893ffc6316bc42e3fcd7cb35484edca6c6d1"
+      },
+      {
+        "path": "candidate.diff",
+        "bytes": 20756,
+        "crc32": "530f2456",
+        "sha256": "3801c8e4bb3b202f28fbe089a68a081af9d4960c1b653eadff503db3a86a1aaa"
+      },
+      {
+        "path": "candidate.json",
+        "bytes": 1299,
+        "crc32": "818d9430",
+        "sha256": "bd15af383c1274ee0d5857083436a0e74c3eb8d03a8a438d28b9135d23b3e9e2"
+      },
+      {
+        "path": "ch2_evidence_completion-command.json",
+        "bytes": 1095,
+        "crc32": "276f3c49",
+        "sha256": "083e87d35095934f1ab06ee34eaf4f4b6cc986ae57cf6a145a355fe9bda813bc"
+      },
+      {
+        "path": "ch2_evidence_completion-stdout.log",
+        "bytes": 494,
+        "crc32": "bf0a70a5",
+        "sha256": "30d85c97609d7f7e3406e800513514784b05e8a83cf696ee9cbaf7edaa06756a"
+      },
+      {
+        "path": "ch2_reading_completion-command.json",
+        "bytes": 1093,
+        "crc32": "8b571506",
+        "sha256": "7dfc749332f4a0e9f89b82fda73d5459683c45639deda15e61462b96c7f011ba"
+      },
+      {
+        "path": "ch2_reading_completion-stdout.log",
+        "bytes": 664,
+        "crc32": "9337819c",
+        "sha256": "5410b0f266989c73b214ee54ba5607eecdc14bb7601dd7afdf394d10ec8cc7f8"
+      },
+      {
+        "path": "changed-command.json",
+        "bytes": 885,
+        "crc32": "4d009908",
+        "sha256": "65d5ca18684a73ede4edc0a89394a1fdc2a2b4e7377a02b585fb0b6aaa9eb467"
+      },
+      {
+        "path": "changed-stdout.log",
+        "bytes": 88,
+        "crc32": "602f212b",
+        "sha256": "cd0d830004b900fd80ee02e198866c2d06ba1c7e19a03c5dfed76e7528e41963"
+      },
+      {
+        "path": "exit.json",
+        "bytes": 840,
+        "crc32": "5994e49e",
+        "sha256": "66463ffa733873a1e57e845981e446a2c8e8c2de168eb4c29f5855135fbe0050"
+      },
+      {
+        "path": "mutation-inventory.json",
+        "bytes": 6396,
+        "crc32": "fb43bde5",
+        "sha256": "7d5824a9453a7c1146f7a3b36661639963703324e7c1b8e94b6dc9378db87b8c"
+      },
+      {
+        "path": "original-ci/job-connector-decoded.log",
+        "bytes": 478507,
+        "crc32": "0de10c1b",
+        "sha256": "62cb226b882b5cb19cb0f300b0642511390b6d37e6358183d9343ca092198c42"
+      },
+      {
+        "path": "original-ci/test-logs.zip",
+        "bytes": 1266530,
+        "crc32": "c3393951",
+        "sha256": "807726827e480bf5269c9e47d97e095a5f5416f9d8b310a988ea1e68f8396d16"
+      },
+      {
+        "path": "patroller_completion-command.json",
+        "bytes": 1089,
+        "crc32": "5995eb08",
+        "sha256": "1f56af743f9156e751dbd0d6991398c553a82777274208abb0892864857a1371"
+      },
+      {
+        "path": "patroller_completion-stdout.log",
+        "bytes": 532,
+        "crc32": "48930666",
+        "sha256": "548f88b32eace4120a1529a83bb50d6d8964bf5c7295566814730bc5acda5d06"
+      },
+      {
+        "path": "progress.json",
+        "bytes": 544,
+        "crc32": "0a9cfd95",
+        "sha256": "175570a2703f0cf88a46870ee116757063e6957d58bdc1b3ee37aad962d46779"
+      },
+      {
+        "path": "README.md",
+        "bytes": 966,
+        "crc32": "5f2d7ada",
+        "sha256": "3cded666eb032dbd7b93682c1e6b46b25f2cd311d24888a9deda2dcb42348544"
+      },
+      {
+        "path": "rumor-baseline-original-helper/receipt.json",
+        "bytes": 478,
+        "crc32": "95508f05",
+        "sha256": "f5ea7b1aa36d3a502a6e44a9a1873055889f77de811d3427b2d97131690642bc"
+      },
+      {
+        "path": "rumor-baseline-original-helper/rumor--accepted/result.json",
+        "bytes": 275,
+        "crc32": "e27c8f94",
+        "sha256": "7050e95bbc6101933676fa9f746dd85beb7fc8c29ef3c2841b7b044fd6032e27"
+      },
+      {
+        "path": "rumor-baseline-original-helper/rumor--accepted/rumor-flag-0-primary.json",
+        "bytes": 10310,
+        "crc32": "ecdf2f07",
+        "sha256": "e82fa654ed32cb37c807e6dd28d621bbaf56c50c1d0e86c26b4f27412ce78cf6"
+      },
+      {
+        "path": "rumor-baseline-original-helper/rumor--accepted-process.json",
+        "bytes": 628,
+        "crc32": "24b4a333",
+        "sha256": "53ab8e8886a0cfce64cc754e3be9cf6a6482883b7c83fd4368a5fd804631d359"
+      },
+      {
+        "path": "rumor-baseline-original-helper/rumor--accepted-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 1070051,
+        "crc32": "89b4260e",
+        "sha256": "216d887a16d1910a1cf8881f36d7c87517f1bda6e89da623a8beadb8d9b62982"
+      },
+      {
+        "path": "rumor-baseline-original-helper/rumor--accepted.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "rumor-baseline-original-helper/rumor--accepted.log",
+        "bytes": 1080701,
+        "crc32": "6532dcb4",
+        "sha256": "63acf10f93ea648c3dce5bcb82524b2a3d601384b66a25d0fbc22f68ce9cfa2d"
+      },
+      {
+        "path": "rumor-baseline-original-helper/slot/slot.json",
+        "bytes": 11736,
+        "crc32": "ba77070e",
+        "sha256": "5168109316b5f226d0b3938d3885080ece9a80fba2f79c0daa03da3730bfbe7e"
+      },
+      {
+        "path": "rumor-baseline-original-helper/slot/slot.json.bak",
+        "bytes": 10036,
+        "crc32": "2b1c9ee7",
+        "sha256": "21871d0405dc1690f3b96862dcb4c1bfc57b594ec6fdbbdc71b1e41bcd037ea6"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection/accepted/slot.json",
+        "bytes": 12793,
+        "crc32": "749e5635",
+        "sha256": "c7774e12c29653b68756952425ca208a86c0212da41c4f7b6f7b4fbfadeea45b"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection/accepted/slot.json.bak",
+        "bytes": 12792,
+        "crc32": "61a9a307",
+        "sha256": "3c95239e51174a05ab6eadeffbdc85c680fb7b705de4b6106f207a2f2a8d905a"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection/cancel/slot.json",
+        "bytes": 11309,
+        "crc32": "85751bf2",
+        "sha256": "2103d04fb0d87933209f5a7bc3852b08e19af53c8198127c54ebbad322dd0f84"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection/cancel/slot.json.bak",
+        "bytes": 11309,
+        "crc32": "4395f82c",
+        "sha256": "c1b274ef2d70e55b0153ad952e5433c2e94254a7eb8cdac421f9e6a253464236"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection/contract/slot.json",
+        "bytes": 10717,
+        "crc32": "fbcfe002",
+        "sha256": "c2cf24941c8e76b3e1ac5b0c26ae2c3ca75a9043d6e5224e6a285dde2f22572b"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection/contract/slot.json.bak",
+        "bytes": 10708,
+        "crc32": "685a3f6d",
+        "sha256": "769fbebb97ce9b74ebd1e9ef657cbf2a5e0700f9e12a7a72cf9fb0e0da3f707f"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection/duplicate/slot.json",
+        "bytes": 11057,
+        "crc32": "f19a21a8",
+        "sha256": "602755f45880295b93e003b297b75cf25efbf7573e36eb02e2088199a773919e"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection/duplicate/slot.json.bak",
+        "bytes": 11057,
+        "crc32": "82129eed",
+        "sha256": "9aa083e039a05a086fc5ca187e815cb11ab1732ebd5202ea26c503cc7f2ce025"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection/stale/slot.json",
+        "bytes": 10969,
+        "crc32": "dd45eef6",
+        "sha256": "4b70e605aab0acbcb33aea68303edba16066359112803d156a5589ef2e63b9cc"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection/stale/slot.json.bak",
+        "bytes": 10960,
+        "crc32": "1f886434",
+        "sha256": "b538f42781d12ee0d99a63b3692cea8da2328b18e911d4c104d01301cfdd3ee2"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--accepted/collection-flag-1-primary.json",
+        "bytes": 11099,
+        "crc32": "7bea608f",
+        "sha256": "99f86519b6dfd509807f69cf4364a8d664d302b54943080ffc70f88060d96e66"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--accepted/collection-item-0-primary.json",
+        "bytes": 11099,
+        "crc32": "7bea608f",
+        "sha256": "99f86519b6dfd509807f69cf4364a8d664d302b54943080ffc70f88060d96e66"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--accepted/result.json",
+        "bytes": 460,
+        "crc32": "5bb1001d",
+        "sha256": "44cd831ab48a3f2c429948bc5bad8344f6b7422443b2382c6958361af4630b3f"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--accepted-process.json",
+        "bytes": 649,
+        "crc32": "e36cc369",
+        "sha256": "a59ffcf1e9d3ccd94d47323f76db424ddb03600cad9bbbe9f789eb5fd4f70581"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--accepted-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 1058651,
+        "crc32": "0fda035d",
+        "sha256": "c454f42b27f60120e37309bdb31568761f254356b85e669ab103d3d64adf9c75"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--accepted.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--accepted.log",
+        "bytes": 1069189,
+        "crc32": "4d56b147",
+        "sha256": "40ff82a8344f2098d9b197172e000224e86f385e67cfdd0a3680bf1ee958d309"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--accepted_read/result.json",
+        "bytes": 112,
+        "crc32": "d84facde",
+        "sha256": "df0a9aa9dade061b23a9cac0a091b4e98ebb03c1b33d5114c537f11f99c1c931"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--accepted_read-process.json",
+        "bytes": 659,
+        "crc32": "702dfc20",
+        "sha256": "59647d7e4bd783defe380f1d4705504bc515b739646e1cd0474e203a472f7f90"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--accepted_read-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 826081,
+        "crc32": "d4fb5528",
+        "sha256": "92d646061ca033525a58315f7409f37cca5d3703ae037251691b029dc2e44952"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--accepted_read.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--accepted_read.log",
+        "bytes": 834673,
+        "crc32": "714c7a61",
+        "sha256": "5360f3ca1c0a42a79e494d3dee64f1a102526995292eac6bf2fb9b6ccaa99739"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--cancel/result.json",
+        "bytes": 106,
+        "crc32": "a93ab2c6",
+        "sha256": "1405f8ae1749f5284300a4213a1e880aa1dcea5c9d362235e33e03539bb4a385"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--cancel-process.json",
+        "bytes": 643,
+        "crc32": "7bd7b6b6",
+        "sha256": "545621542f7a1ae80e46e528f39d31d4dca27366e3d2ddaf98ad723383ebf06e"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--cancel-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 850899,
+        "crc32": "1e4b4cee",
+        "sha256": "0aec12b6d1bbc93be03b47185b2f307b0584276b8000b13bab967059b2718e47"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--cancel.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--cancel.log",
+        "bytes": 859498,
+        "crc32": "68b64c9c",
+        "sha256": "1e6a37110530364ddd4d7b63de6b90068c23383b8cd061a69e6c7c3bf5a74850"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--cancel_read/result.json",
+        "bytes": 110,
+        "crc32": "352fc2ae",
+        "sha256": "b8dadee1f1daf6bff782dab93113f2b1b49e3d857940f073e6728d2f5c3c4bbc"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--cancel_read-process.json",
+        "bytes": 653,
+        "crc32": "26a0d8dc",
+        "sha256": "0922453731d740bd1a1b50183eefde71f3115ff5548c36573067a1b36eadc3f1"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--cancel_read-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 823671,
+        "crc32": "01976ae3",
+        "sha256": "52c0edee32a84b2ed6c43c3d089219cd3bdb20acd8f3b18a0ec93393ccab289b"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--cancel_read.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--cancel_read.log",
+        "bytes": 832251,
+        "crc32": "22b62d05",
+        "sha256": "c4825dac69b156c9b8c5cd830fd6caf599d34801c46477b6158694a9128a6626"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--contract/result.json",
+        "bytes": 108,
+        "crc32": "2c7ffe12",
+        "sha256": "121d468dfc561b2df97689e22fdb2980d1b4d65dc6267261bfa6277183f4c0d7"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--contract-process.json",
+        "bytes": 649,
+        "crc32": "4a16e25f",
+        "sha256": "7a957484beb9c5897f92aba809fd9db9632a7424eff0210a440c47a7d9305597"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--contract-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 786331,
+        "crc32": "f709367c",
+        "sha256": "1110229d136c414a5e78681d6324c5106af0c8a69129ccb071cb32a71b26e283"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--contract.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--contract.log",
+        "bytes": 794326,
+        "crc32": "309e90e0",
+        "sha256": "bbe7b2ff4f580c01024cabe1623ba9de01fc653e43bea28959860a6fff87eef0"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--duplicate/result.json",
+        "bytes": 109,
+        "crc32": "1d77f3f9",
+        "sha256": "0ab4f2dd55c640bda94a76949330e2dee93e3c08648d58700687bc117ab6c78d"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--duplicate-process.json",
+        "bytes": 652,
+        "crc32": "609367d2",
+        "sha256": "8286b473660b28f61871faf4cf427a3520f3127a61e5f27f79238471c77ec1f5"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--duplicate-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 786919,
+        "crc32": "26be770e",
+        "sha256": "9bd86fa96b0639916969d852db74b464e2a94807a269bdb7c14291e3f22ed78d"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--duplicate.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--duplicate.log",
+        "bytes": 794912,
+        "crc32": "df4150cd",
+        "sha256": "7bf1d39a8d9eee488c8d7adae221aaa96fb101af310cc95b1aa4765ae4991b0c"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--stale/result.json",
+        "bytes": 105,
+        "crc32": "d2bbea2f",
+        "sha256": "021c3ef8ef43b0e7888dccc71939c9de7ac373f5453ccbcfa63b3f0ce7ed1344"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--stale-process.json",
+        "bytes": 640,
+        "crc32": "a861c2e3",
+        "sha256": "6c030160fdc1a54b60ce2abe412c83fcc3fe4f6d8abb819ed88071abacc23fa4"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--stale-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 968895,
+        "crc32": "db81fa86",
+        "sha256": "e545934d1eb90d4ce590c03e7f7343e91cbb2cb0036c4ba2431ae9f4ed7aae7f"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--stale.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_ch2_evidence_completion/collection--stale.log",
+        "bytes": 978554,
+        "crc32": "5255c001",
+        "sha256": "54fdb44f22fd1384fe2672341a99b9a1151409fc54bcd974a796ad4dcd0a4bc4"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract/accepted/slot.json",
+        "bytes": 11992,
+        "crc32": "57fbaac7",
+        "sha256": "05af83e916668b2e515c9e17257ee4aba11690293103a5d6951b86df9c6a5ab9"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract/accepted/slot.json.bak",
+        "bytes": 11992,
+        "crc32": "1059df22",
+        "sha256": "8c582d3f44d7c0ce059cba5a059b2bc66a69ce0d046ae96d37206809993afa18"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract/cancel/slot.json",
+        "bytes": 11909,
+        "crc32": "065fabf9",
+        "sha256": "52bb1db14ee8491c63d273ab40129cf8a224da2783460fb3314bfa35d36cd9c5"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract/cancel/slot.json.bak",
+        "bytes": 11909,
+        "crc32": "7658ec76",
+        "sha256": "77183204206dc3a5128fc6f67a8e690d52e97b342c2598a2a023dd52c63d86fa"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract/contract/slot.json",
+        "bytes": 10016,
+        "crc32": "9412d73e",
+        "sha256": "47b791bc993c1cede46f8fc2674f3742baa77961ba2250fc4b28a2cef8555dfb"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract/contract/slot.json.bak",
+        "bytes": 10016,
+        "crc32": "ebfa0ecb",
+        "sha256": "d61f4dfa8c296f3131589047a228535477df089d2de7ba430700fbcbe6476737"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract/duplicate/slot.json",
+        "bytes": 10016,
+        "crc32": "4df30db2",
+        "sha256": "a65971812231ba46869ab0f17e90c3a7e885fabff82a451dfef85b224ee790aa"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract/duplicate/slot.json.bak",
+        "bytes": 10016,
+        "crc32": "33834679",
+        "sha256": "9ce08f665d804343c030cc4ccc9454a9aa51802e2dd609e8b671531565bc5338"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract/stale/slot.json",
+        "bytes": 10268,
+        "crc32": "634f8ada",
+        "sha256": "2c5d3dfb1f9fafdc635feca742df2f966d6db12898c9f3388b9b1479be6c2bdf"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract/stale/slot.json.bak",
+        "bytes": 10268,
+        "crc32": "63371602",
+        "sha256": "bfbb13362d6c1c5cda0f0e0dcc8094d343e904403f967eadf9ff91d7b08f71a8"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--accepted/contract-flag-1-primary.json",
+        "bytes": 10390,
+        "crc32": "9ab97e7a",
+        "sha256": "78b286461f578666905a8321d028114844fd5df44a2c9da2461fba1d786eb29c"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--accepted/contract-item-0-primary.json",
+        "bytes": 10390,
+        "crc32": "9ab97e7a",
+        "sha256": "78b286461f578666905a8321d028114844fd5df44a2c9da2461fba1d786eb29c"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--accepted/result.json",
+        "bytes": 454,
+        "crc32": "10f93597",
+        "sha256": "344985b5d63244c1eda01975496cec5e3dac951fe3017f8a844a312559e8e760"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--accepted-process.json",
+        "bytes": 643,
+        "crc32": "62adb769",
+        "sha256": "92c459232770060a4865ab7fb6eb7776ef6efbe0cfba4774576de78e1428238b"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--accepted-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 1067553,
+        "crc32": "dcb4e282",
+        "sha256": "1a29efa82e10f95ec55bbcaf63acf3628e092adfb16ed3ef44327a91d27ac0f6"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--accepted.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--accepted.log",
+        "bytes": 1078192,
+        "crc32": "9216b72d",
+        "sha256": "a58d60ff8f88fb93fa46710128a4608f24c33efd67f54795da61e29fd3caef7c"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--accepted_read/result.json",
+        "bytes": 110,
+        "crc32": "44e45785",
+        "sha256": "6043240804e2e6530bc3f45a1ae524a4afbe8560d03be0e85f788c29cb872e9c"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--accepted_read-process.json",
+        "bytes": 653,
+        "crc32": "ec05fb27",
+        "sha256": "f8c5340c4fad9c270d9fea462a0bc48d7be290b672cf78acd32a57ddedcbfc0d"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--accepted_read-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 841472,
+        "crc32": "f50494e4",
+        "sha256": "1d87bc56fe36461541d8c799d2ea96ac8e4a06ef6ca4e19f2e7e95b34a0b3835"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--accepted_read.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--accepted_read.log",
+        "bytes": 850199,
+        "crc32": "dc935dd6",
+        "sha256": "ca3e8de68c457e3ca0037cc0d354b4649710a1fb66c03f1b55b5910936fa3e15"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--cancel/result.json",
+        "bytes": 104,
+        "crc32": "be3fab7c",
+        "sha256": "bca99b9f7601763cc5a93dda33d47dbb931263d0107da8377be5f0ba47ab6947"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--cancel-process.json",
+        "bytes": 637,
+        "crc32": "17057b18",
+        "sha256": "88b2ad54d11d3463710d7ac69d75208a3547eca8e3d0e593eefd157c53f61728"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--cancel-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 861578,
+        "crc32": "a32e6b39",
+        "sha256": "2d87e368ddca6755e5896537e2d8d7702f69701710908c9b2f05dbb9e0efc371"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--cancel.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--cancel.log",
+        "bytes": 870287,
+        "crc32": "8b67a4a6",
+        "sha256": "43afe933e99f30ba466d4453fc849e87ea227b797910febdb9dd8ea0ca75b1a1"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--cancel_read/result.json",
+        "bytes": 108,
+        "crc32": "a49f0d2d",
+        "sha256": "f672d173e833ac18dc34a0e72af6fedfa2dc3a18f505cd77f94596e755ce591b"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--cancel_read-process.json",
+        "bytes": 647,
+        "crc32": "50824fb1",
+        "sha256": "b7df024bbc2b7bb8793277405730330e65c3a8036b82d46f021b3f9a80a5afa6"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--cancel_read-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 841472,
+        "crc32": "2e351d2f",
+        "sha256": "267444b3525bf509f5b3e0bf46d61170f65e5b19641c5c9b2ba4dee2f680f676"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--cancel_read.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--cancel_read.log",
+        "bytes": 850199,
+        "crc32": "83f491ab",
+        "sha256": "b66432081907314668d91cf310561e33c541555b2cd762f3cff2d49c95f951a4"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--contract/result.json",
+        "bytes": 106,
+        "crc32": "adb64a09",
+        "sha256": "7fff0634a485bf39c1ff5d5c444c9fadba6a7d4f7a534ca25fd3632448a39c87"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--contract-process.json",
+        "bytes": 643,
+        "crc32": "e17e2804",
+        "sha256": "e11bffea42da31c7604067c3006d52fcf258b8b0a9404419b6cba5e152fbe6b6"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--contract-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 797628,
+        "crc32": "b442e478",
+        "sha256": "1025d2933e2bf6d2d8a050310be3c5f52bf2be8871d832fa272a6ab31457e3a1"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--contract.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--contract.log",
+        "bytes": 805741,
+        "crc32": "483d17fe",
+        "sha256": "d1a8c9c7eb6c7bf63c34938e05bdce378bb040a610aae5b44c71573a1c68ae4b"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--duplicate/result.json",
+        "bytes": 107,
+        "crc32": "28892ed3",
+        "sha256": "18d7c2aef658130bb4c2aabd2c8b6eb41a4c741c516c4d81745faaef58de1401"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--duplicate-process.json",
+        "bytes": 646,
+        "crc32": "931b35b4",
+        "sha256": "6657ef386b416bc77a0ce59da165dabaeca13014e68702252f6a05d30aebcdab"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--duplicate-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 800114,
+        "crc32": "f3fa977d",
+        "sha256": "9361a8d74ef790965672a6b459de62190ef9a1bbe5ae80ac73fb13b52c9c8e5f"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--duplicate.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--duplicate.log",
+        "bytes": 808235,
+        "crc32": "7078255f",
+        "sha256": "ea3671d62fb564e2f2092c63f8abbc0d0152fa6244bc2dc7ad9cefe70fbf8415"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--stale/result.json",
+        "bytes": 103,
+        "crc32": "78878893",
+        "sha256": "946d40f28a50de6756c9247bec3490d8d45d65cd0cb50eebf3f79ae77d0730e3"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--stale-process.json",
+        "bytes": 634,
+        "crc32": "71558454",
+        "sha256": "3023d5f3002f7809b00d52bd3af2ebfb63c3b5a22f54d7e0f5230afed51d2138"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--stale-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 989457,
+        "crc32": "5e5401de",
+        "sha256": "e048a9f3ac7b5507aac2b70106a8f0d4b2b42119efe8e2479f2ea53e55c2c9bd"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--stale.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_ch2_evidence_completion/contract--stale.log",
+        "bytes": 999291,
+        "crc32": "8953d36a",
+        "sha256": "b20aee25a7f16009d9c97b0b6bcf778c9b60aa444e3acb19615b9582177eccea"
+      },
+      {
+        "path": "run_ch2_evidence_completion/receipt.json",
+        "bytes": 11363,
+        "crc32": "f37bb8f0",
+        "sha256": "80fb6873963963eb3f9482929383514dbf3f66ad52ab156d5e5e37e3bfaa55e6"
+      },
+      {
+        "path": "run_ch2_evidence_completion/source/core/story_result_catalog.gd",
+        "bytes": 27881,
+        "crc32": "1483a184",
+        "sha256": "62ea8ae1323169345b6cd41103be6ee35b6de7c58d04aec924439d90964a5aaf"
+      },
+      {
+        "path": "run_ch2_evidence_completion/source/data/npcs/ch2_collection_book.tres",
+        "bytes": 645,
+        "crc32": "379e4b09",
+        "sha256": "697e7d106517605c4511b6c4fcabfe997de017773d69d2c5455484cffbfd3acd"
+      },
+      {
+        "path": "run_ch2_evidence_completion/source/data/npcs/ch2_rent_window.tres",
+        "bytes": 647,
+        "crc32": "de5e1838",
+        "sha256": "534a0c85387acdabb02bceffcc915e958b1c6ed14276c65d8264d523d6ca9f2d"
+      },
+      {
+        "path": "run_ch2_evidence_completion/source/data/story/ch2_heron.json",
+        "bytes": 268958,
+        "crc32": "f4fd502f",
+        "sha256": "019c0e63ede80b69325c667d3678b9ca71bc357f625a20e1cfcd98dfcb54bf44"
+      },
+      {
+        "path": "run_ch2_evidence_completion/source/data/story_contracts/catalog.json",
+        "bytes": 270,
+        "crc32": "4c982412",
+        "sha256": "0798b3a76452b04397e0d115f7f5f05227fd8c47f37019f143b3ee6a6a22c371"
+      },
+      {
+        "path": "run_ch2_evidence_completion/source/data/story_contracts/ch1.json",
+        "bytes": 24792,
+        "crc32": "8383f290",
+        "sha256": "9d9145c158e17767f93338d62fdb2b35c80c8cd69b6384a27aca7f6918a389b2"
+      },
+      {
+        "path": "run_ch2_evidence_completion/source/data/story_contracts/ch2.json",
+        "bytes": 4909,
+        "crc32": "6fc6fd5f",
+        "sha256": "f2e7810879c04019d03193fdb63a7a660991291fd17fd6da1fa97d272e8576f2"
+      },
+      {
+        "path": "run_ch2_evidence_completion/source/data/story_contracts/migration-5a.json",
+        "bytes": 141463,
+        "crc32": "7ca6edaa",
+        "sha256": "e86b82e0a7e5d9f6988290cb7b61eb55f7459849901771d6bc95848acf93a8c8"
+      },
+      {
+        "path": "run_ch2_evidence_completion/source/game/level/level.gd",
+        "bytes": 65317,
+        "crc32": "faf2a519",
+        "sha256": "c6b4168525e06a05f192cab3361d7350aea58ae2a5f268d12699dd51629e7bb4"
+      },
+      {
+        "path": "run_ch2_evidence_completion/source/game/story_result_ch2.gd",
+        "bytes": 84,
+        "crc32": "52412b0d",
+        "sha256": "bc569026b3133d13ff84d33e95bd2afc1ff1557650fd47012f56a71d547be55a"
+      },
+      {
+        "path": "run_ch2_evidence_completion/source/game/story_result_completion.gd",
+        "bytes": 32071,
+        "crc32": "b632cc8f",
+        "sha256": "92be5123c438f662eebc5ec16dbccf5367540b19a26bc2d517995b3316a6192f"
+      },
+      {
+        "path": "run_ch2_evidence_completion/source/game/story_result_sources.gd",
+        "bytes": 7107,
+        "crc32": "3cfafcac",
+        "sha256": "db646534c285bc93f5d7f41b51a56a02c0c81666834d31d771440bae69877103"
+      },
+      {
+        "path": "run_ch2_evidence_completion/source/tests/probes/ch2_evidence_completion.gd",
+        "bytes": 12572,
+        "crc32": "30d06624",
+        "sha256": "4fbcc949655ce6ccf1fbac7990967f459862b47bc832649d068440b43956cd4e"
+      },
+      {
+        "path": "run_ch2_evidence_completion/source/tests/probes/ch2_evidence_completion.tscn",
+        "bytes": 198,
+        "crc32": "6203451c",
+        "sha256": "9ce647f9750cf78ff273457a5abd8f372403f49be7f8d63fe44cca648a3057e5"
+      },
+      {
+        "path": "run_ch2_evidence_completion/source/tools/run_ch2_evidence_completion.py",
+        "bytes": 4370,
+        "crc32": "644d47dc",
+        "sha256": "eeeee2d37b0a01b59e0d4041952fb061cc598acf8508b3668d0e516175723fb7"
+      },
+      {
+        "path": "run_ch2_evidence_completion/source/tools/runtime_probe.py",
+        "bytes": 5196,
+        "crc32": "c411d8ca",
+        "sha256": "326ee9ee050307726e60563c5f4594de5d84218a66a9a5f15d43bdff0ce7ec0b"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan/accepted/slot.json",
+        "bytes": 11939,
+        "crc32": "df5396e5",
+        "sha256": "572cdb5f85d710954c46de10ae679c84ac801a76e1b45c1578d461cd536afb3d"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan/accepted/slot.json.bak",
+        "bytes": 11939,
+        "crc32": "76bce7a5",
+        "sha256": "81eccfa6a1db07a9ed2684d596e0846230eb1148654d0296e5c272919edc9fe1"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan/cancel/slot.json",
+        "bytes": 10269,
+        "crc32": "8a44cc00",
+        "sha256": "3f5fe0dcf721bb33f23ef6a0a1a63c16043aa50567a8452debbc531bc18e3bf2"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan/cancel/slot.json.bak",
+        "bytes": 10269,
+        "crc32": "8a115dbd",
+        "sha256": "16e9b228b7e03e6165104a2962233abae6d45273f7f635f89645b174580b9d4c"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan/contract/slot.json",
+        "bytes": 10017,
+        "crc32": "84c033a5",
+        "sha256": "62d43239913e2c8150de0dd2ad0fa0035856d1275aaefe0a18b190792fa7e49f"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan/contract/slot.json.bak",
+        "bytes": 10017,
+        "crc32": "4a3d411b",
+        "sha256": "9fad4d302820f4f0d8c074deefb3a69ce388d49d468c55cd07fb868182dff575"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan/duplicate/slot.json",
+        "bytes": 10017,
+        "crc32": "d355e9dd",
+        "sha256": "8e025d545c2031a89c22ea594df2c9e81fd8937d97492aa4668a77e9228242c8"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan/duplicate/slot.json.bak",
+        "bytes": 10017,
+        "crc32": "cc4488a9",
+        "sha256": "6ec0f0a834dba27aa99f505b9f1f2d31a93df790eecd3dc18a89900323df543b"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan/stale/slot.json",
+        "bytes": 11919,
+        "crc32": "ce263549",
+        "sha256": "6e82e412e59ea2750786bda2b25ada0c1336ccf5e9e298c084842d08828422fb"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan/stale/slot.json.bak",
+        "bytes": 11919,
+        "crc32": "48089257",
+        "sha256": "6a89655275cc12e67223a197e59163b5fab44748f949be41e744cb47f7ccfc29"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--accepted/banyan-flag-0-primary.json",
+        "bytes": 10311,
+        "crc32": "666fd189",
+        "sha256": "d5a4316e57bdd7276ed92d267431d755ecbf261ea13dd21a22841de4d6370e87"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--accepted/result.json",
+        "bytes": 277,
+        "crc32": "20369f16",
+        "sha256": "3a9006d31a42441a05050c5b894fd8fb622a2d2262418af5f6b60f340132ef56"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--accepted-process.json",
+        "bytes": 634,
+        "crc32": "18bb2cb1",
+        "sha256": "667f45f38b20a274dca2f4bdcb85bef4af1ba6f73447e3b6621fca2089b6c0e6"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--accepted-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 1071509,
+        "crc32": "6840897d",
+        "sha256": "05791076af2408b04e0e318c604d2fdcd942d08ecdf955bb0ec542e0df40d978"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--accepted.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--accepted.log",
+        "bytes": 1082168,
+        "crc32": "9546ca13",
+        "sha256": "7032fb84d4db4420da884092f3b125494faee5c7927a19099203fb6f1d3697b3"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--accepted_read/result.json",
+        "bytes": 108,
+        "crc32": "50617aac",
+        "sha256": "459735f6dda139475b055e7e74d4a1494660fb26f94d150a52714251fa77928c"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--accepted_read-process.json",
+        "bytes": 643,
+        "crc32": "182caab7",
+        "sha256": "fa3142c22c0b3bf5e312b22041998ef85694152c7b01b321182b9993e9172486"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--accepted_read-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 840700,
+        "crc32": "1c2b869c",
+        "sha256": "868d13dbefd66e8a3eb94c40a6473027cea70f9ffc6f9af36f3b60abe13c4307"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--accepted_read.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--accepted_read.log",
+        "bytes": 849423,
+        "crc32": "20d25ae1",
+        "sha256": "dbfeac1e16ecfa227028c71f168d41d57c0d92a128d5512c4ca4808db77cb93b"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--cancel/result.json",
+        "bytes": 102,
+        "crc32": "e30cdc61",
+        "sha256": "736c48b52523b4a13b9d8e8f4983a3cee202fbcba93df69bc623acd4922b9de5"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--cancel-process.json",
+        "bytes": 628,
+        "crc32": "9bc5716c",
+        "sha256": "4648473159f5e8fead3dafb2f77b01d863dc4df3c2871353a2f8d7e25ea7a1d4"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--cancel-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 860509,
+        "crc32": "29126a2a",
+        "sha256": "acc4a024e68ec0c1354c15475390005e75ad9adba7dcb52c84d8f051b11e4235"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--cancel.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--cancel.log",
+        "bytes": 869211,
+        "crc32": "4624e26a",
+        "sha256": "c827b1196f8db684ec337696c1809598af65df85747eddf0b25d96d98845d0b8"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--cancel_read/result.json",
+        "bytes": 106,
+        "crc32": "469d7faf",
+        "sha256": "1c4cf1b80ee5e3025838d0a0ba872cf82334a6a12cc571d330849f2683f9f673"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--cancel_read-process.json",
+        "bytes": 638,
+        "crc32": "2411e869",
+        "sha256": "b45541e0ada1673f29401f5ac627b049f7a1e2bff0af1f2b0aad61957b226e22"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--cancel_read-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 840700,
+        "crc32": "eb73ecf0",
+        "sha256": "64e6be8f8c714b9306f4004b3e73d7bd6772a023703a37c1147b9acddd4c83df"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--cancel_read.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--cancel_read.log",
+        "bytes": 849423,
+        "crc32": "9895c449",
+        "sha256": "7dbed2bdb18e499107e39b22e6d0b37d80fc7d68ec304c0e92b3dca840abcd58"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--contract/result.json",
+        "bytes": 104,
+        "crc32": "86509850",
+        "sha256": "ff4ec187d25ef3bf3ea40f7e75387078b33c664f9cb22ab07a9ba0bab4c09b71"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--contract-process.json",
+        "bytes": 634,
+        "crc32": "61fbeca7",
+        "sha256": "182faea7ccf09958ab1757e9bd1578d66ba273c891e45cafe5ec1375fa116217"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--contract-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 798030,
+        "crc32": "744f01e5",
+        "sha256": "1cefa8032e081ed013c27b9d060c45075ef5573101d2185334fc6a82b79e6534"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--contract.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--contract.log",
+        "bytes": 806145,
+        "crc32": "21f89c4f",
+        "sha256": "7e97e03d794b7d2b01c40dc3d1f8cbfa83f2c6cab1d01d90fc81001f31ef960b"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--duplicate/result.json",
+        "bytes": 105,
+        "crc32": "4dc9e3e6",
+        "sha256": "5f3e919a769e30ef6307e533e3629b976f4413da73eb4544ea75bf8c2be7324b"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--duplicate-process.json",
+        "bytes": 637,
+        "crc32": "ca1fdf45",
+        "sha256": "c4a4706084cb17855842956e65c7b5f6489b257c7c92adc6b2cba7080024cdcd"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--duplicate-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 796661,
+        "crc32": "aa9a365f",
+        "sha256": "81b8912440d546a085561c0c3f076992be3a2cd2dd03f0146ed99b3b0d3ee45f"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--duplicate.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--duplicate.log",
+        "bytes": 804760,
+        "crc32": "110a4f52",
+        "sha256": "4d04d1559b8f03b52131f7dd8789d5be15d83739b598ae2ce0c3c4a5af256fd5"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--stale/result.json",
+        "bytes": 101,
+        "crc32": "25a6df83",
+        "sha256": "749c8707913080c6410890ab8080a4309abc7388aa4de0e212d490b23f2893ce"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--stale-process.json",
+        "bytes": 624,
+        "crc32": "428b5ea7",
+        "sha256": "7d4260bb044a86a0a55d344da31d3163f00aa202df560de2795e01ee18772c8b"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--stale-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 987618,
+        "crc32": "67e312a8",
+        "sha256": "a8315f9afdca073ca4a87d1d7a250fc41b8a801317d5ca5b351d6afb9e4bbf49"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--stale.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_ch2_reading_completion/banyan--stale.log",
+        "bytes": 997442,
+        "crc32": "153b133a",
+        "sha256": "48a74bf7db00b9055c0e794dec78b0f205518f11facc122c037bda7354f0714e"
+      },
+      {
+        "path": "run_ch2_reading_completion/receipt.json",
+        "bytes": 7877,
+        "crc32": "6df0d536",
+        "sha256": "18ae41673ea354a8e4a34c5c81667a1c9d273b445b0e36e21623e29758ededf6"
+      },
+      {
+        "path": "run_ch2_reading_completion/rumor/accepted/slot.json",
+        "bytes": 11736,
+        "crc32": "d700a8ef",
+        "sha256": "bcecb54e48960359ee39d6f62a164919f7cbb7e43af74e8ce92582051706abf3"
+      },
+      {
+        "path": "run_ch2_reading_completion/rumor/accepted/slot.json.bak",
+        "bytes": 10036,
+        "crc32": "1f0d2414",
+        "sha256": "aab7af9a1b37320287431f82028a3f7f170f5579ad91849f716b0da8508b9b0f"
+      },
+      {
+        "path": "run_ch2_reading_completion/rumor--accepted/result.json",
+        "bytes": 275,
+        "crc32": "e27c8f94",
+        "sha256": "7050e95bbc6101933676fa9f746dd85beb7fc8c29ef3c2841b7b044fd6032e27"
+      },
+      {
+        "path": "run_ch2_reading_completion/rumor--accepted/rumor-flag-0-primary.json",
+        "bytes": 10310,
+        "crc32": "21e6ec1b",
+        "sha256": "00e63ca35b211c61471ca64827ff3b655586c6a93b77c815368ce35599dc49c7"
+      },
+      {
+        "path": "run_ch2_reading_completion/rumor--accepted-process.json",
+        "bytes": 631,
+        "crc32": "32b8a80c",
+        "sha256": "da45e55256981509d6f674fd8376dc974b18d34957f13afc5723609a049c8d99"
+      },
+      {
+        "path": "run_ch2_reading_completion/rumor--accepted-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 1072458,
+        "crc32": "91535798",
+        "sha256": "a9a1276cb631c637a8a58d235793ccc110d33d3b34803f85f49a7ee31515943f"
+      },
+      {
+        "path": "run_ch2_reading_completion/rumor--accepted.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_ch2_reading_completion/rumor--accepted.log",
+        "bytes": 1083582,
+        "crc32": "b035b028",
+        "sha256": "9ff43f629e7d592e665de485fb7534a6cc194bdff5164a6fa924e94e2f242cfd"
+      },
+      {
+        "path": "run_ch2_reading_completion/source/core/story_result_catalog.gd",
+        "bytes": 27881,
+        "crc32": "1483a184",
+        "sha256": "62ea8ae1323169345b6cd41103be6ee35b6de7c58d04aec924439d90964a5aaf"
+      },
+      {
+        "path": "run_ch2_reading_completion/source/data/npcs/ch2_banyan.tres",
+        "bytes": 617,
+        "crc32": "5d0549a6",
+        "sha256": "f7cc72bd5a081d7fd9fdf26b79942a0ad861cd5fa2037bcbf773e7f3d80a87b8"
+      },
+      {
+        "path": "run_ch2_reading_completion/source/data/npcs/ch2_guard.tres",
+        "bytes": 634,
+        "crc32": "e7be5ba9",
+        "sha256": "dccbf6070f156816963475625241f1e40771ad657cb4e6d232ec1e75555f3f31"
+      },
+      {
+        "path": "run_ch2_reading_completion/source/data/npcs/ch2_hawker.tres",
+        "bytes": 625,
+        "crc32": "5c235f62",
+        "sha256": "10aac011468e36496442304f518c778b9556cb62ac8c636227de0b04ebf57932"
+      },
+      {
+        "path": "run_ch2_reading_completion/source/data/npcs/ch2_sc1_lever.tres",
+        "bytes": 636,
+        "crc32": "4b1caefe",
+        "sha256": "ebfa67a501499aa481bd51d3c33b8cc9b12bad4dbe758f5ca07bc0b6a8ca41ce"
+      },
+      {
+        "path": "run_ch2_reading_completion/source/data/story/ch2_heron.json",
+        "bytes": 268958,
+        "crc32": "f4fd502f",
+        "sha256": "019c0e63ede80b69325c667d3678b9ca71bc357f625a20e1cfcd98dfcb54bf44"
+      },
+      {
+        "path": "run_ch2_reading_completion/source/data/story_contracts/catalog.json",
+        "bytes": 270,
+        "crc32": "4c982412",
+        "sha256": "0798b3a76452b04397e0d115f7f5f05227fd8c47f37019f143b3ee6a6a22c371"
+      },
+      {
+        "path": "run_ch2_reading_completion/source/data/story_contracts/ch1.json",
+        "bytes": 24792,
+        "crc32": "8383f290",
+        "sha256": "9d9145c158e17767f93338d62fdb2b35c80c8cd69b6384a27aca7f6918a389b2"
+      },
+      {
+        "path": "run_ch2_reading_completion/source/data/story_contracts/ch2.json",
+        "bytes": 4909,
+        "crc32": "6fc6fd5f",
+        "sha256": "f2e7810879c04019d03193fdb63a7a660991291fd17fd6da1fa97d272e8576f2"
+      },
+      {
+        "path": "run_ch2_reading_completion/source/data/story_contracts/migration-5a.json",
+        "bytes": 141463,
+        "crc32": "7ca6edaa",
+        "sha256": "e86b82e0a7e5d9f6988290cb7b61eb55f7459849901771d6bc95848acf93a8c8"
+      },
+      {
+        "path": "run_ch2_reading_completion/source/game/level/level.gd",
+        "bytes": 65317,
+        "crc32": "faf2a519",
+        "sha256": "c6b4168525e06a05f192cab3361d7350aea58ae2a5f268d12699dd51629e7bb4"
+      },
+      {
+        "path": "run_ch2_reading_completion/source/game/story_result_ch2.gd",
+        "bytes": 84,
+        "crc32": "52412b0d",
+        "sha256": "bc569026b3133d13ff84d33e95bd2afc1ff1557650fd47012f56a71d547be55a"
+      },
+      {
+        "path": "run_ch2_reading_completion/source/game/story_result_completion.gd",
+        "bytes": 32071,
+        "crc32": "b632cc8f",
+        "sha256": "92be5123c438f662eebc5ec16dbccf5367540b19a26bc2d517995b3316a6192f"
+      },
+      {
+        "path": "run_ch2_reading_completion/source/game/story_result_sources.gd",
+        "bytes": 7107,
+        "crc32": "3cfafcac",
+        "sha256": "db646534c285bc93f5d7f41b51a56a02c0c81666834d31d771440bae69877103"
+      },
+      {
+        "path": "run_ch2_reading_completion/source/tests/probes/ch2_reading_completion.gd",
+        "bytes": 12714,
+        "crc32": "4d4b56a5",
+        "sha256": "14c51f3ff2c6672eb626cec11175b2606cdd39912bb5520ad0edafc52daa49a9"
+      },
+      {
+        "path": "run_ch2_reading_completion/source/tests/probes/ch2_reading_completion.tscn",
+        "bytes": 197,
+        "crc32": "11aecec6",
+        "sha256": "62fbb030f717b132364309b8ad03a6698dee8ba9f6711ab2c88acfdf82450fda"
+      },
+      {
+        "path": "run_ch2_reading_completion/source/tools/run_ch2_reading_completion.py",
+        "bytes": 4731,
+        "crc32": "d425d5d3",
+        "sha256": "034f33c90441747ab942bccdbaf7cfb8b1bc2530f6bfdc3bb0af0817bfdd87b6"
+      },
+      {
+        "path": "run_ch2_reading_completion/source/tools/runtime_probe.py",
+        "bytes": 5196,
+        "crc32": "c411d8ca",
+        "sha256": "326ee9ee050307726e60563c5f4594de5d84218a66a9a5f15d43bdff0ce7ec0b"
+      },
+      {
+        "path": "run_ci_probes.py",
+        "bytes": 3425,
+        "crc32": "0fd530cf",
+        "sha256": "d4719276927fa09faabf3561290bd4e6986dcbf167db7bfb9e907943987c8283"
+      },
+      {
+        "path": "run_patroller_completion/accepted/result.json",
+        "bytes": 58,
+        "crc32": "5926565f",
+        "sha256": "1a8635e00235f05b09649cb39300114ec762c3689e46e7233d2c3577c5c03d49"
+      },
+      {
+        "path": "run_patroller_completion/accepted/slot.json",
+        "bytes": 11710,
+        "crc32": "b48aac22",
+        "sha256": "e62ff80dbcb373ce927883924c21adc8152778912650728bd9398dba9768b35c"
+      },
+      {
+        "path": "run_patroller_completion/accepted/slot.json.bak",
+        "bytes": 11710,
+        "crc32": "83016f7f",
+        "sha256": "8c23779f99e0eedc446317b224896515b4d0f6be5d8536a009d4678f38fc898c"
+      },
+      {
+        "path": "run_patroller_completion/accepted-process.json",
+        "bytes": 604,
+        "crc32": "6701b8e9",
+        "sha256": "008cc5366cedd6edc0f1b12d525b0541ff57443ba92983d7ca649a362126e80c"
+      },
+      {
+        "path": "run_patroller_completion/accepted-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 1058358,
+        "crc32": "2a2abd53",
+        "sha256": "e139a44c55b774b6f3ab455212f5bfbb7f8325a81d8f7db444c35ead641874ea"
+      },
+      {
+        "path": "run_patroller_completion/accepted.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_patroller_completion/accepted.log",
+        "bytes": 1068913,
+        "crc32": "65e1b112",
+        "sha256": "3948ca2dfe88335a260d14686827272d209cb85a927ce52cd9f5d4cd4261ffdb"
+      },
+      {
+        "path": "run_patroller_completion/accepted_read/result.json",
+        "bytes": 62,
+        "crc32": "a14d9eb1",
+        "sha256": "f88b7e4ae27746467547d2489ecbd4194f3ac47a7436ad9784aa35f7b410d3e1"
+      },
+      {
+        "path": "run_patroller_completion/accepted_read-process.json",
+        "bytes": 614,
+        "crc32": "043be722",
+        "sha256": "d8f52b17156d5e64ee2eada7e77c3040da7c24eb48787ce1c04af5a2f5c9f7c7"
+      },
+      {
+        "path": "run_patroller_completion/accepted_read-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 842872,
+        "crc32": "85e6de37",
+        "sha256": "ba4265d96841b83c4cd0a5caa109d29383e6b622b6a31ab0c580ac3a6acd21d2"
+      },
+      {
+        "path": "run_patroller_completion/accepted_read.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_patroller_completion/accepted_read.log",
+        "bytes": 851578,
+        "crc32": "268558d6",
+        "sha256": "de650db96ec388fdac1e5f3612572bc32c15d797b3116dadfb06347a5751e431"
+      },
+      {
+        "path": "run_patroller_completion/cancel/result.json",
+        "bytes": 56,
+        "crc32": "f91c86d1",
+        "sha256": "5da268788a72c95afbb27a11d422eff530a0069d19576eef815889bbb1a085dd"
+      },
+      {
+        "path": "run_patroller_completion/cancel/slot.json",
+        "bytes": 11692,
+        "crc32": "8db43051",
+        "sha256": "9351afc53bcebccaba3262d967c508a81a8e4634b67cd3461b8f1219e98c7efd"
+      },
+      {
+        "path": "run_patroller_completion/cancel/slot.json.bak",
+        "bytes": 11692,
+        "crc32": "bbe99062",
+        "sha256": "5642f24b0c16c3e6b9003db959bbcbc308f44206a04e92e716744305c5f52100"
+      },
+      {
+        "path": "run_patroller_completion/cancel-process.json",
+        "bytes": 598,
+        "crc32": "dd74ce0a",
+        "sha256": "2c9934d9026536a8cb44af87557900478e4a39968f4c67d2328aaa8ea8d91c4b"
+      },
+      {
+        "path": "run_patroller_completion/cancel-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 862022,
+        "crc32": "47c6edd8",
+        "sha256": "eee2b027feb059641452fce68f394c6232d7ca2b405c25ba1eb91115f587e252"
+      },
+      {
+        "path": "run_patroller_completion/cancel.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_patroller_completion/cancel.log",
+        "bytes": 870702,
+        "crc32": "108433f2",
+        "sha256": "7ed9b6719dce723463b298c453567b46ce4f98fbdc0bdfbd59cb22ae3f5c7258"
+      },
+      {
+        "path": "run_patroller_completion/cancel_read/result.json",
+        "bytes": 60,
+        "crc32": "18f57647",
+        "sha256": "a3496e3e6aad51ee14996e0c613fc5fac6a48ee347a53e0a47e47eae8c1edc2f"
+      },
+      {
+        "path": "run_patroller_completion/cancel_read-process.json",
+        "bytes": 608,
+        "crc32": "ec71f462",
+        "sha256": "70a77f8fb788085211ae3e575b6a295de4e3a62d0238ea9b74d02639e57e31c7"
+      },
+      {
+        "path": "run_patroller_completion/cancel_read-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 842255,
+        "crc32": "8a8b1283",
+        "sha256": "a3ae8d1cb002443e6407ec485e02a6684613b77d059601eccf46154eee0f6a3a"
+      },
+      {
+        "path": "run_patroller_completion/cancel_read.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_patroller_completion/cancel_read.log",
+        "bytes": 850958,
+        "crc32": "02ee52a2",
+        "sha256": "f2b1aca82df934d0719253233f287b48f5a18f906a8582e507b57a3c137767d2"
+      },
+      {
+        "path": "run_patroller_completion/choice/result.json",
+        "bytes": 56,
+        "crc32": "f0beb8a0",
+        "sha256": "21a2d25c7c64f2711eedc83c224b9baa7ffb40b87db838d4f7c54e23b37abda3"
+      },
+      {
+        "path": "run_patroller_completion/choice/slot.json",
+        "bytes": 10120,
+        "crc32": "0756c6c8",
+        "sha256": "09f7f499d1ef2cf55d614d3bfafa858a012fb0952b221c578440ed853d9320cb"
+      },
+      {
+        "path": "run_patroller_completion/choice/slot.json.bak",
+        "bytes": 10120,
+        "crc32": "5a9f4969",
+        "sha256": "5991f62759814faafcb3a94f7effa1755a023d59f16da38e706c63869a96d8e0"
+      },
+      {
+        "path": "run_patroller_completion/choice-process.json",
+        "bytes": 598,
+        "crc32": "b55680c0",
+        "sha256": "99dab99e6185f11a0e16748956a7392746eb3d72e37f24247f9e30486bb7a129"
+      },
+      {
+        "path": "run_patroller_completion/choice-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 916172,
+        "crc32": "98b13da9",
+        "sha256": "ed84984ef17ac6bfee164a0f1b5f87f62d1d16e26c5707d097af804281cb1bcc"
+      },
+      {
+        "path": "run_patroller_completion/choice.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_patroller_completion/choice.log",
+        "bytes": 925308,
+        "crc32": "9146395a",
+        "sha256": "7c69d028f523f9f48951e9f9279faf951872992441e909368a5e8cebf2f28218"
+      },
+      {
+        "path": "run_patroller_completion/contract/result.json",
+        "bytes": 58,
+        "crc32": "789e4791",
+        "sha256": "24e642516eaafe28d4de2dac23249d10befc4d71fe597664400b2f757e758009"
+      },
+      {
+        "path": "run_patroller_completion/contract/slot.json",
+        "bytes": 10361,
+        "crc32": "528955e5",
+        "sha256": "5d07d7d6cce273c64268ffd6d7be78a4ecb3783a60cfc51b704dcb64581ae6bf"
+      },
+      {
+        "path": "run_patroller_completion/contract/slot.json.bak",
+        "bytes": 10352,
+        "crc32": "167b519d",
+        "sha256": "b7fee22afd4179d7e211761b597a63f6a150d7f2f8b176a2716e7ceed4cd04fa"
+      },
+      {
+        "path": "run_patroller_completion/contract-process.json",
+        "bytes": 604,
+        "crc32": "65fb061c",
+        "sha256": "29271e5861cc42f1ff7077f169f855ceed592814ee6ea5739d009abc61920db4"
+      },
+      {
+        "path": "run_patroller_completion/contract-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 798793,
+        "crc32": "cff6350b",
+        "sha256": "20a548c3215491421eab9fdf244fb68e76733dc304bd5d0ec70f1a2679db8f1c"
+      },
+      {
+        "path": "run_patroller_completion/contract.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_patroller_completion/contract.log",
+        "bytes": 806880,
+        "crc32": "f9d8e488",
+        "sha256": "8695dcc060e70797861d011957802773a3c7f094b412e18d724b7c8e045fa74c"
+      },
+      {
+        "path": "run_patroller_completion/direct/result.json",
+        "bytes": 56,
+        "crc32": "290c48d9",
+        "sha256": "e85b97f8b2b40a55b2829c9ec19f564e889f15ad682d9a89b3f5a1af5e1b349a"
+      },
+      {
+        "path": "run_patroller_completion/direct/slot.json",
+        "bytes": 10120,
+        "crc32": "50d90f64",
+        "sha256": "6496ce439a0a8f16a0d011e5c0604c4a7145816aa488b6e838e60937d5d979a7"
+      },
+      {
+        "path": "run_patroller_completion/direct/slot.json.bak",
+        "bytes": 10120,
+        "crc32": "bef54c0e",
+        "sha256": "682195237c47818deb69b926dd7d9341f1c8bb90d5cbe45844e90d6eb4387a63"
+      },
+      {
+        "path": "run_patroller_completion/direct-process.json",
+        "bytes": 598,
+        "crc32": "6af2ba0f",
+        "sha256": "db6f29cc61f9b415ef57be205f0428f5401568108155fda610971af7f2dba157"
+      },
+      {
+        "path": "run_patroller_completion/direct-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 791052,
+        "crc32": "faed2a38",
+        "sha256": "eab099a4fdd159ce4631058c2ca6dcd19f7d89c7cecafe86a8458925e5100a27"
+      },
+      {
+        "path": "run_patroller_completion/direct.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_patroller_completion/direct.log",
+        "bytes": 799082,
+        "crc32": "fd934f32",
+        "sha256": "fd8498a7c2191e1fba978ebf67cd25fad6600729410e122b31189706b695650a"
+      },
+      {
+        "path": "run_patroller_completion/duplicate/result.json",
+        "bytes": 59,
+        "crc32": "ec35c6bb",
+        "sha256": "016243b5906c7327781442ccc9421dac732d7fc12fc7d1e0103c1a774128290b"
+      },
+      {
+        "path": "run_patroller_completion/duplicate/slot.json",
+        "bytes": 10120,
+        "crc32": "d917044c",
+        "sha256": "9261ef86f83fd68c59d19916c2f6de7ca6e9fbbb7bfd315f807a0eb1362a8346"
+      },
+      {
+        "path": "run_patroller_completion/duplicate/slot.json.bak",
+        "bytes": 10120,
+        "crc32": "64038f5a",
+        "sha256": "7ae17d6e776127dfbc86913b5394660b643d7f2dc051dec0211d9846aa2ad94e"
+      },
+      {
+        "path": "run_patroller_completion/duplicate-process.json",
+        "bytes": 607,
+        "crc32": "84d9f40c",
+        "sha256": "b2ae76dff2f90b0e91e59e9c5d39088f76d109866bb46c708797b10133d49984"
+      },
+      {
+        "path": "run_patroller_completion/duplicate-profile/Godot/app_userdata/Nest Egg/logs/godot.log",
+        "bytes": 802512,
+        "crc32": "bef29468",
+        "sha256": "8d6b4700af3211330264c71ced3f420dc3609e93578c0a9cc326a794e09682c1"
+      },
+      {
+        "path": "run_patroller_completion/duplicate.exit",
+        "bytes": 3,
+        "crc32": "8e51abd1",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "run_patroller_completion/duplicate.log",
+        "bytes": 810616,
+        "crc32": "f3f270da",
+        "sha256": "212a00116ad259ccd24727538907b91f1f31b5045a76e15ed6b9ca34da726c4a"
+      },
+      {
+        "path": "run_patroller_completion/receipt.json",
+        "bytes": 6365,
+        "crc32": "7e406e56",
+        "sha256": "a2cd48ea33b11aa04aedb708f87daf9c49501cdb061a3dd206d41358358ba7e7"
+      },
+      {
+        "path": "run_patroller_completion/source/core/story_result_catalog.gd",
+        "bytes": 27881,
+        "crc32": "1483a184",
+        "sha256": "62ea8ae1323169345b6cd41103be6ee35b6de7c58d04aec924439d90964a5aaf"
+      },
+      {
+        "path": "run_patroller_completion/source/data/npcs/ch2_patroller.tres",
+        "bytes": 634,
+        "crc32": "aa5e9a3c",
+        "sha256": "843cff0819b26854b3ad5ca2befa5af1b2fd9939df49c00c562b769a50985031"
+      },
+      {
+        "path": "run_patroller_completion/source/data/story/ch2_heron.json",
+        "bytes": 268958,
+        "crc32": "f4fd502f",
+        "sha256": "019c0e63ede80b69325c667d3678b9ca71bc357f625a20e1cfcd98dfcb54bf44"
+      },
+      {
+        "path": "run_patroller_completion/source/data/story_contracts/catalog.json",
+        "bytes": 270,
+        "crc32": "4c982412",
+        "sha256": "0798b3a76452b04397e0d115f7f5f05227fd8c47f37019f143b3ee6a6a22c371"
+      },
+      {
+        "path": "run_patroller_completion/source/data/story_contracts/ch1.json",
+        "bytes": 24792,
+        "crc32": "8383f290",
+        "sha256": "9d9145c158e17767f93338d62fdb2b35c80c8cd69b6384a27aca7f6918a389b2"
+      },
+      {
+        "path": "run_patroller_completion/source/data/story_contracts/ch2.json",
+        "bytes": 4909,
+        "crc32": "6fc6fd5f",
+        "sha256": "f2e7810879c04019d03193fdb63a7a660991291fd17fd6da1fa97d272e8576f2"
+      },
+      {
+        "path": "run_patroller_completion/source/data/story_contracts/migration-5a.json",
+        "bytes": 141463,
+        "crc32": "7ca6edaa",
+        "sha256": "e86b82e0a7e5d9f6988290cb7b61eb55f7459849901771d6bc95848acf93a8c8"
+      },
+      {
+        "path": "run_patroller_completion/source/game/level/level.gd",
+        "bytes": 65317,
+        "crc32": "faf2a519",
+        "sha256": "c6b4168525e06a05f192cab3361d7350aea58ae2a5f268d12699dd51629e7bb4"
+      },
+      {
+        "path": "run_patroller_completion/source/game/story_result_ch2.gd",
+        "bytes": 84,
+        "crc32": "52412b0d",
+        "sha256": "bc569026b3133d13ff84d33e95bd2afc1ff1557650fd47012f56a71d547be55a"
+      },
+      {
+        "path": "run_patroller_completion/source/game/story_result_completion.gd",
+        "bytes": 32071,
+        "crc32": "b632cc8f",
+        "sha256": "92be5123c438f662eebc5ec16dbccf5367540b19a26bc2d517995b3316a6192f"
+      },
+      {
+        "path": "run_patroller_completion/source/game/story_result_sources.gd",
+        "bytes": 7107,
+        "crc32": "3cfafcac",
+        "sha256": "db646534c285bc93f5d7f41b51a56a02c0c81666834d31d771440bae69877103"
+      },
+      {
+        "path": "run_patroller_completion/source/tests/probes/patroller_completion.gd",
+        "bytes": 8563,
+        "crc32": "f665d170",
+        "sha256": "5bd0d2157c6760af9fec90914e7a246143b0b2c7d908ba36e57b52d0747cd493"
+      },
+      {
+        "path": "run_patroller_completion/source/tests/probes/patroller_completion.tscn",
+        "bytes": 196,
+        "crc32": "ed1f4824",
+        "sha256": "7166e4f025f481ef7d6caf6e562b087a2cfd0462e62f0f958591f222f517f2a2"
+      },
+      {
+        "path": "run_patroller_completion/source/tools/run_patroller_completion.py",
+        "bytes": 3306,
+        "crc32": "41282832",
+        "sha256": "72cc67ae183cd65c9fbe6e57ddd7e51a3f0e61145d4638c66805e375af4f1b17"
+      },
+      {
+        "path": "run_patroller_completion/source/tools/runtime_probe.py",
+        "bytes": 5196,
+        "crc32": "c411d8ca",
+        "sha256": "326ee9ee050307726e60563c5f4594de5d84218a66a9a5f15d43bdff0ce7ec0b"
+      },
+      {
+        "path": "selector-command.json",
+        "bytes": 951,
+        "crc32": "3c9071d9",
+        "sha256": "6805d418dfde987bce6da6093f1947b54ea3aa5736ea36a09bcd6e41b784ed08"
+      },
+      {
+        "path": "selector-stdout.log",
+        "bytes": 94,
+        "crc32": "ac534855",
+        "sha256": "98912690f0dd620e927ee82a547cbdca5c21a65fcc87de90f59d921b8fc299c7"
+      },
+      {
+        "path": "source-after.json",
+        "bytes": 618148,
+        "crc32": "fda4546e",
+        "sha256": "d97b35e514953bb45215e4021e32c5ccd75ac25a4c0517e0e0a3036e4f443302"
+      },
+      {
+        "path": "source-before.json",
+        "bytes": 618148,
+        "crc32": "fda4546e",
+        "sha256": "d97b35e514953bb45215e4021e32c5ccd75ac25a4c0517e0e0a3036e4f443302"
+      },
+      {
+        "path": "unit-posix-command.json",
+        "bytes": 923,
+        "crc32": "cdaf92d0",
+        "sha256": "031fba3b5c985f84564d64865e01cf0bdeb02cc915561a1fbb5f6c1af427a067"
+      },
+      {
+        "path": "unit-posix-stdout.log",
+        "bytes": 119,
+        "crc32": "ee0832b9",
+        "sha256": "7aae771dced8eda3a47cc1dd833d7b764646724c07a5d3d03246cb52ee401e9e"
+      },
+      {
+        "path": "unit-windows-command.json",
+        "bytes": 878,
+        "crc32": "b500fe2d",
+        "sha256": "bcc6e2724bc9e72d6b425344a9a043dd238e777d8623ca87e9f8a3b90a822047"
+      },
+      {
+        "path": "unit-windows-stdout.log",
+        "bytes": 136,
+        "crc32": "db6e6b93",
+        "sha256": "48c071cfbcae36d770476ff7edf32866307a19c2eb39918a055629edf3be4e61"
+      }
+    ]
+  }
+}

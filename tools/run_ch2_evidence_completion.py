@@ -17,6 +17,14 @@ SOURCES = ["game/story_result_ch2.gd", "game/story_result_sources.gd",
            "data/npcs/ch2_collection_book.tres", "tests/probes/ch2_evidence_completion.gd",
            "tests/probes/ch2_evidence_completion.tscn", "tools/run_ch2_evidence_completion.py",
            "tools/runtime_probe.py"]
+SOURCES += ['core/story_result_catalog.gd', 'data/story_contracts/catalog.json', 'data/story_contracts/ch1.json', 'data/story_contracts/ch2.json', 'data/story_contracts/migration-5a.json']
+
+
+# Deliberate live-content mutations; full independent error lines, once each.
+EXPECTED_DIAGNOSTICS = {
+    'contract--contract': ('ERROR: [StoryContracts] res://data/story/ch2_heron.json/scenes/ch2_t_s08_contract: live content differs from independent contract',),
+    'collection--contract': ('ERROR: [StoryContracts] res://data/story/ch2_heron.json/scenes/ch2_t_s08_collection: live content differs from independent contract',),
+}
 
 
 def main():
@@ -42,7 +50,8 @@ def main():
             slot = output / producer / ("accepted" if mode == "accepted_read" else "cancel" if mode == "cancel_read" else mode)
             case = run_case(producer + "--" + mode, args.godot.resolve(), output, 240,
                             project=PROJECT, scene="res://tests/probes/ch2_evidence_completion.tscn",
-                            slot=slot, verbose=True)
+                            slot=slot, verbose=True,
+                            expected_diagnostics=EXPECTED_DIAGNOSTICS.get(producer + '--' + mode, ()))
             data = case.get("result", {})
             publications = data.get("publications", [])
             coherent = (isinstance(publications, list)

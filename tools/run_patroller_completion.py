@@ -18,6 +18,14 @@ SOURCES = ["game/story_result_ch2.gd", "game/story_result_sources.gd",
            "data/story/ch2_heron.json", "data/npcs/ch2_patroller.tres",
            "tests/probes/patroller_completion.gd", "tests/probes/patroller_completion.tscn",
            "tools/run_patroller_completion.py", "tools/runtime_probe.py"]
+SOURCES += ['core/story_result_catalog.gd', 'data/story_contracts/catalog.json', 'data/story_contracts/ch1.json', 'data/story_contracts/ch2.json', 'data/story_contracts/migration-5a.json']
+
+
+# Deliberate live-content mutations; full independent error lines, once each.
+EXPECTED_DIAGNOSTICS = {
+    'contract': ('ERROR: [StoryContracts] res://data/story/ch2_heron.json/scenes/ch2_t_s05_gate: live content differs from independent contract',),
+    'choice': ('ERROR: [StoryContracts] res://data/story/ch2_heron.json/scenes/ch2_t_s05_gate: live content differs from independent contract',),
+}
 
 
 def main():
@@ -41,7 +49,8 @@ def main():
     for mode, slot in CASES:
         case = run_case(mode, args.godot.resolve(), output, 240, project=PROJECT,
                         scene="res://tests/probes/patroller_completion.tscn",
-                        slot=output / slot, verbose=True)
+                        slot=output / slot, verbose=True,
+                        expected_diagnostics=EXPECTED_DIAGNOSTICS.get(mode, ()))
         cases.append(case)
         write_json(output / "receipt.json", {"engine_sha256": engine_hash,
                    "source_sha256": hashes, "cases": cases})
