@@ -9,6 +9,8 @@ signal menu_requested
 
 const NOISE_SHADER := "res://ui/transition/transition.gdshader"
 const NOISE_TIME := 0.45
+## Mandatory explanation is brief; the original sequence stays available to read.
+const BRIEF_MANDATORY_MAX := 1.2
 const CARD_OPEN_TIME := 0.28
 const CARD_WIDTH := 380.0
 const RECORD_TITLE := "NEST 回溯紀錄 #%d"
@@ -24,6 +26,7 @@ var _sequence_buttons: Control
 ## 按鈕說明的固定列（NE-229）；死亡序列播完、按鈕出現時一起出現。
 var _hint_slot: Control
 var _sequence_left := 0.0
+var _brief_left := 0.0
 
 
 
@@ -69,7 +72,6 @@ func _ready() -> void:
 	buttons.add_child(retry)
 	buttons.add_child(menu)
 	column.add_child(buttons)
-	retry.grab_focus.call_deferred()
 	# 鍵盤與手把移動焦點時，在按鈕下方的固定一列顯示同一句說明：列高先保留，
 	# 說明出現或收起時版面不跳動；文字放大、卡片變高時也不會蓋到按鈕。
 	var hint_slot := CenterContainer.new()
@@ -91,8 +93,10 @@ func _ready() -> void:
 		hint_slot.hide()
 		sequence_complete = false
 		_advance_sequence()
+		_brief_left = minf(BRIEF_MANDATORY_MAX, maxf(0.0, _sequence_left))
 	else:
 		_open_card(file)
+		retry.grab_focus.call_deferred()
 
 
 func _make_file_card() -> Control:
@@ -191,6 +195,13 @@ func _finish_sequence() -> void:
 	sequence_complete = true
 	_sequence_label.hide()
 	_sequence_card.show()
+	_show_sequence_actions()
+
+
+## Opening the same actions twice must not steal a player-selected menu focus.
+func _show_sequence_actions() -> void:
+	if not is_instance_valid(_sequence_buttons) or _sequence_buttons.visible:
+		return
 	_sequence_buttons.show()
 	if is_instance_valid(_hint_slot):
 		_hint_slot.show()
@@ -200,6 +211,9 @@ func _finish_sequence() -> void:
 func _process(delta: float) -> void:
 	if sequence_complete:
 		return
+	_brief_left = maxf(0.0, _brief_left - delta)
+	if _brief_left <= 0.0:
+		_show_sequence_actions()
 	_sequence_left -= delta
 	if _sequence_left <= 0.0:
 		_advance_sequence()

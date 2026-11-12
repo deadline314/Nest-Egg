@@ -2,7 +2,7 @@ class_name QuestGuidance
 extends Control
 ## 只讀故事旗標，探索取樣 5 Hz；關卡索引只在章節切換建立。
 
-var catalog := QuestCatalog.new()
+var catalog: QuestCatalog
 var maps := QuestMapIndex.new()
 var state: QuestMapState
 var level: Level
@@ -41,7 +41,8 @@ func _ready() -> void:
 		set_process(false)
 		return
 	state = QuestMapState.for_run()
-	catalog.load_story_sources()
+	if catalog == null:
+		catalog = state.catalog_copy()
 	maps = QuestMapIndex.for_chapter(level.data.chapter)
 	_row = SlantBanner.new("", Palette.CYAN)
 	_row.fill_strength = 0.14

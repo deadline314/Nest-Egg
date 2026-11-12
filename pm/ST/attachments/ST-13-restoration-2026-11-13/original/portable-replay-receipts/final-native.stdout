@@ -1,0 +1,79 @@
+{
+  "scope": "Native layout and independent full-pixel encoding only; not natural retry timing",
+  "reports": [
+    {
+      "archive": "D:\\NestEggVerification\\proofs\\st13-restoration-clock-20261112\\public-replay-v1\\native-layout-v3-count2\\native-raw.zip",
+      "sha256": "bf67d7a9a648e5af3468a56a768a51f70032e86338dcae503713752692172d10",
+      "members_verified": 9,
+      "native_images": [
+        {
+          "page": "early-actions",
+          "size": [
+            1280,
+            720
+          ],
+          "pixels": 921600,
+          "max_srgb_error": 0.003921308517456055,
+          "max_alpha_error": 0.0
+        },
+        {
+          "page": "voluntary-card",
+          "size": [
+            1280,
+            720
+          ],
+          "pixels": 921600,
+          "max_srgb_error": 0.003921308517456055,
+          "max_alpha_error": 0.0
+        },
+        {
+          "page": "natural-finish-menu",
+          "size": [
+            1280,
+            720
+          ],
+          "pixels": 921600,
+          "max_srgb_error": 0.003921308517456055,
+          "max_alpha_error": 0.0
+        }
+      ]
+    },
+    {
+      "archive": "D:\\NestEggVerification\\proofs\\st13-restoration-clock-20261112\\public-replay-v1\\native-layout-v3-count3\\native-raw.zip",
+      "sha256": "5ca5fd30b55555839ccacc143129d5136cf0ea49ff61604aee8b862167f29f56",
+      "members_verified": 9,
+      "native_images": [
+        {
+          "page": "early-actions",
+          "size": [
+            1280,
+            720
+          ],
+          "pixels": 921600,
+          "max_srgb_error": 0.003921308517456055,
+          "max_alpha_error": 0.0
+        },
+        {
+          "page": "voluntary-card",
+          "size": [
+            1280,
+            720
+          ],
+          "pixels": 921600,
+          "max_srgb_error": 0.003921308517456055,
+          "max_alpha_error": 0.0
+        },
+        {
+          "page": "natural-finish-menu",
+          "size": [
+            1280,
+            720
+          ],
+          "pixels": 921600,
+          "max_srgb_error": 0.003921308517456055,
+          "max_alpha_error": 0.0
+        }
+      ]
+    }
+  ]
+}

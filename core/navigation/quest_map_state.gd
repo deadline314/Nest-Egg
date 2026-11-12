@@ -15,6 +15,9 @@ var revision := 0
 var _exploration_revisions: Dictionary = {}
 var _restore_revision := 0
 var issues := PackedStringArray()
+## Definitions share this run lifetime; every UI receives its own mutable copy.
+var _source_catalog: QuestCatalog
+var _catalog_paths: Array[String] = []
 
 
 static func for_run() -> QuestMapState:
@@ -23,6 +26,29 @@ static func for_run() -> QuestMapState:
 		_run_areas = GameState.area_states
 		_shared = QuestMapState.new()
 	return _shared
+
+
+## Story reload is the existing source-change boundary, including language reloads.
+static func invalidate_catalog() -> void:
+	if _shared != null:
+		_shared._source_catalog = null
+		_shared._catalog_paths.clear()
+
+
+func catalog_copy(paths: Array[String] = Story.CHAPTER_PATHS) -> QuestCatalog:
+	if _source_catalog == null or _catalog_paths != paths:
+		_source_catalog = null
+		_catalog_paths.clear()
+		var loaded := QuestCatalog.new()
+		loaded.load_story_sources(paths)
+		if not loaded.issues.is_empty():
+			return loaded  # Rejected loads remain retryable, with their original path issues.
+		_source_catalog = loaded
+		_catalog_paths = paths.duplicate()
+	var result := QuestCatalog.new()
+	result.quests.assign(_source_catalog.quests.duplicate(true))
+	result.issues = _source_catalog.issues.duplicate()
+	return result
 
 
 func pin(id: String, catalog: QuestCatalog) -> void:

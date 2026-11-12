@@ -1,0 +1,24 @@
+{
+  "scope": "Read-only final eight-source proof; native pixel/readiness is independently verified by verify_native_layout_v3.py",
+  "clocks": [
+    {
+      "case": "final-main-v1-count2",
+      "complete_control_msec": 2956.851,
+      "refusal": false
+    },
+    {
+      "case": "final-main-v1-count3",
+      "complete_control_msec": 2583.626,
+      "refusal": false
+    },
+    {
+      "case": "final-main-refusal-v1-count2",
+      "complete_control_msec": 2884.077,
+      "refusal": true
+    }
+  ],
+  "hint_regression": "19/2 ->19/0",
+  "original_two_suites": "486/0,1 existing expected no-booth ERROR retained",
+  "prior_official_inventory_rejection_preserved": true,
+  "final_official_pending": false
+}

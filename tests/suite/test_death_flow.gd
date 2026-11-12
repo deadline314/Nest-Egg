@@ -15,6 +15,8 @@ func run() -> void:
 	_test_validation()
 	_test_chapter_data()
 	_test_published_death_sequences()
+	await _test_restoration_brief_actions()
+	_test_restoration_delay_policy()
 	await _test_first_death_flow()
 	await _test_second_death_uses_the_screen()
 	await _test_unfinished_scene_plays_again()
@@ -123,6 +125,58 @@ func _test_chapter_data() -> void:
 # ---------------------------------------------------------------------------
 # 流程
 # ---------------------------------------------------------------------------
+
+## Synthetic UI-delta controls only; natural Level/Main clocks are measured separately.
+func _test_restoration_brief_actions() -> void:
+	for first_seconds in [2.2,0.4]:
+		var screen:=DeathScreen.new()
+		var planned:={"skippable":false,"steps":[{"kind":"line","speaker":"lamp","text":"復原連線已重新建立。","time":first_seconds},{"kind":"status","text":"你可以重試，也可以繼續閱讀。","time":1.0},{"kind":"card","time":1.2}]}
+		screen.sequence=planned.duplicate(true)
+		screen.setup({"title":"復原紀錄","text":"保留原本的文字與閱讀時間。"},true)
+		runner.get_tree().root.add_child(screen)
+		screen.set_process(false)
+		await frames(2)
+		var mandatory:=minf(first_seconds,1.2)
+		screen._process(mandatory-.01)
+		check(not screen._sequence_buttons.is_visible_in_tree(),"ordinary actions stay hidden during the brief initial explanation")
+		screen._process(.02)
+		await frames(2)
+		var hint := screen._hint_slot.get_child(0) as FocusHintBar
+		var retry := screen._sequence_buttons.get_child(0) as Button
+		check(hint.is_visible_in_tree() and hint.text() == retry.tooltip_text and hint._label.size.x > 1, "opening actions publishes the focused retry explanation, not only its empty slot")
+		var early:=screen._sequence_buttons.is_visible_in_tree()
+		check(early and screen._hint_slot.is_visible_in_tree(),"ordinary actions and fixed focus hint become available after min(first step,1.2seconds)")
+		check(not screen.sequence_complete,"opening actions leaves the voluntary sequence unfinished")
+		var menu:=screen._sequence_buttons.get_child(1) as Button
+		if early:menu.grab_focus()
+		for step in 3:screen._process(3.0)
+		check(screen.sequence_complete and screen.sequence==planned,"the original text/step times and natural finish remain intact")
+		check(early and menu.has_focus(),"natural voluntary finish does not steal the selected menu focus")
+		screen.free()
+		await frames(2)
+	for action in [&"ui_accept",&"ui_cancel",&"interact"]:
+		var skip:=DeathScreen.new()
+		skip.sequence={"skippable":true,"steps":[{"kind":"status","text":"保留原有提早略過操作。","time":2.0},{"kind":"card","time":1.0}]}
+		skip.setup({},true)
+		runner.get_tree().root.add_child(skip)
+		skip.set_process(false)
+		var event:=InputEventAction.new()
+		event.action=action
+		event.pressed=true
+		skip._unhandled_input(event)
+		check(skip.sequence_complete and skip._sequence_buttons.is_visible_in_tree(),"original skippable sequence accepts its early action: "+String(action))
+		skip.free()
+		await frames(2)
+
+func _test_restoration_delay_policy() -> void:
+	var level:=Level.new()
+	var policy:=&"_death_presentation_delay"
+	check(level.has_method(policy),"the death entry owns an explicit ordinary-versus-story delay policy")
+	if level.has_method(policy):
+		check(is_equal_approx(float(level.call(policy,{})),.7),"ordinary death uses the short0.7second entry before existing actions")
+		check(is_equal_approx(float(level.call(policy,{"scene":String(FIRST_DEATH_SCENE)})),1.1),"first clinic death retains its original1.1second entry")
+		check(is_equal_approx(float(level.call(policy,{"scene":"another_authored_death"})),1.1),"other authored story deaths retain the same original entry")
+	level.free()
 
 func _test_published_death_sequences() -> void:
 	for chapter: StringName in [&"ch1_kasa", &"ch2_heron", &"ch3_clearwater"]:

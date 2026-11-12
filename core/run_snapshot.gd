@@ -231,14 +231,14 @@ static func _apply_components_silent(data: Dictionary) -> void:
 	Progression.restore(data["progression"], false)
 	GameState.restore_story_progress(data["story"], "run/story", false)
 	# 先還原故事與 area_states，再建正式導覽索引。
-	var catalog := QuestCatalog.new()
-	catalog.load_story_sources()
+	var navigation := QuestMapState.for_run()
+	var catalog := navigation.catalog_copy()
 	var index := QuestMapIndex.new()
 	for chapter in Story.chapter_ids():
 		var source := QuestMapIndex.for_chapter(chapter)
 		index.areas.merge(source.areas)
 		index.checkpoint_keys.append_array(source.checkpoint_keys)
-	QuestMapState.for_run().restore(data["navigation"], catalog, index, false)
+	navigation.restore(data["navigation"], catalog, index, false)
 
 
 ## 呼叫端先還原 live Level 及 Main 路由欄位，再開放觀察者。

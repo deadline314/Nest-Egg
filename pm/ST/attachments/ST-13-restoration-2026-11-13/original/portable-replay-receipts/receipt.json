@@ -1,0 +1,77 @@
+{
+  "python": "3.13.15 (tags/v3.13.15:4061bc4, Aug  5 2026, 13:05:39) [MSC v.1944 64 bit (AMD64)]",
+  "executable": "C:\\Users\\stanl\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+  "packet": "D:/NestEggVerification/proofs/st13-restoration-clock-20261112/public-candidate-v1",
+  "raw_root": "D:/NestEggVerification/proofs/st13-restoration-clock-20261112",
+  "extracted_root": "D:/NestEggVerification/proofs/st13-restoration-clock-20261112/public-replay-v1",
+  "engines_started": false,
+  "managed_checkout_required": false,
+  "archives": {
+    "completed-evidence-v1.zip": {
+      "bytes": 24103553,
+      "sha256": "f7b80d33d3785081fab2db2fe0fe63744cb99474870183f68dfcf8f2b2bdfaba",
+      "member_count": 1123,
+      "crc_pass": true,
+      "all_member_sha_pass": true
+    },
+    "final-supplement-v1.zip": {
+      "bytes": 2825371,
+      "sha256": "9fb4d313c18d640884e59db8003504dd48109fd6d5331a5c2dde89e7db22302e",
+      "member_count": 19,
+      "crc_pass": true,
+      "all_member_sha_pass": true
+    }
+  },
+  "external_raw": {
+    "native-layout-v3-count2/native-raw.zip": {
+      "bytes": 17726666,
+      "sha256": "bf67d7a9a648e5af3468a56a768a51f70032e86338dcae503713752692172d10",
+      "member_count": 10,
+      "crc_pass": true
+    },
+    "native-layout-v3-count3/native-raw.zip": {
+      "bytes": 17761543,
+      "sha256": "5ca5fd30b55555839ccacc143129d5136cf0ea49ff61604aee8b862167f29f56",
+      "member_count": 10,
+      "crc_pass": true
+    }
+  },
+  "runs": [
+    {
+      "label": "final-delivery",
+      "command": [
+        "C:\\Users\\stanl\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-X",
+        "utf8",
+        "D:\\NestEggVerification\\proofs\\st13-restoration-clock-20261112\\public-replay-v1\\verify_final_delivery.py",
+        "--raw-root",
+        "D:\\NestEggVerification\\proofs\\st13-restoration-clock-20261112\\public-replay-v1",
+        "--require-official"
+      ],
+      "cwd": "D:/NestEggVerification/proofs/st13-restoration-clock-20261112/public-replay-v1",
+      "exit_code": 0,
+      "wall_seconds": 0.3734728999843355,
+      "reader_sha256": "cf27af47cb77fe0c42d7b87c1119982e966cbac1bdf4712cba6d43d4875bef5d",
+      "stdout_sha256": "4305d860b9f2dfb313fa7f43e55f4188bd24ff9d2d2fc79c51d2d8a3c7dc2e44",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-native",
+      "command": [
+        "C:\\Users\\stanl\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-X",
+        "utf8",
+        "D:\\NestEggVerification\\proofs\\st13-restoration-clock-20261112\\public-replay-v1\\verify_native_layout_final.py",
+        "--raw-root",
+        "D:\\NestEggVerification\\proofs\\st13-restoration-clock-20261112\\public-replay-v1"
+      ],
+      "cwd": "D:/NestEggVerification/proofs/st13-restoration-clock-20261112/public-replay-v1",
+      "exit_code": 0,
+      "wall_seconds": 0.9008091000141576,
+      "reader_sha256": "8ead752085f79092a6c1a23281742e161773ccb6789c89bf1714ff4564ec4be1",
+      "stdout_sha256": "3880d9f0a6c67f16f6e214a644ff0609105fbf07922644c530da3e64ab5b0066",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "accepted": true
+}

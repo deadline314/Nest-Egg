@@ -8,6 +8,8 @@ const ROOF := "res://data/levels/ch1_rooftop.tres"
 
 
 func run() -> void:
+	_test_run_catalog_reuse()
+	await _test_guidance_catalog_injection()
 	var catalog := fixture_catalog()
 	_test_catalog(catalog)
 	_test_required_route_steps()
@@ -21,6 +23,77 @@ func run() -> void:
 	_test_display_defaults()
 	await _test_story_language()
 	await _test_radio_objective_handoff()
+
+
+func _test_run_catalog_reuse() -> void:
+	GameState.start_new_run(GameState.difficulties[1])
+	var state := QuestMapState.for_run()
+	check(state.has_method(&"catalog_copy"), "the existing run owner supplies isolated validated quest copies")
+	if not state.has_method(&"catalog_copy"):
+		return
+	var first := state.call(&"catalog_copy") as QuestCatalog
+	var retained := state.get("_source_catalog") as QuestCatalog
+	var second := state.call(&"catalog_copy") as QuestCatalog
+	check(retained != null and is_same(retained, state.get("_source_catalog")) and not is_same(first, second), "repeated consumers reuse one validated definition without sharing their mutable catalog")
+	check(not first.quests.is_empty() and first.issues.is_empty() and first.quests == second.quests, "copied canonical definitions retain their original values")
+	var original := first.quests.duplicate(true)
+	second.quests[0]["steps"][0]["title"] = "UI mutation fixture"
+	second.issues.append("UI issue mutation fixture")
+	second.quests.clear()
+	var third := state.call(&"catalog_copy") as QuestCatalog
+	check(first.quests == original and third.quests == original and third.issues.is_empty(), "nested step, array and issue mutations cannot poison another consumer or the retained definitions")
+	GameState.register_death()
+	GameState.enter_level()
+	check(is_same(state, QuestMapState.for_run()) and is_same(retained, state.get("_source_catalog")), "death and area changes retain the validated definitions with the original run lifetime")
+	var task: Dictionary = third.quests[0]
+	var complete := {str(task["complete_flag"]): true}
+	for step: Dictionary in task["steps"]:
+		complete[str(step["complete_flag"])] = true
+	check(QuestCatalog.status(task, complete) == "completed" and QuestCatalog.status(task, {}) != "completed", "definition reuse never caches task status or story flags")
+	var previous_language := Story.language
+	Story.set_language("en" if previous_language != "en" else "ja")
+	check(state.get("_source_catalog") == null, "the existing Story reload boundary invalidates the run definition snapshot")
+	var translated := state.call(&"catalog_copy") as QuestCatalog
+	check(translated.quests == original and QuestCatalog.display_text(translated.quests[0], "title") == translated.quests[0]["title_" + Story.language], "a language reload preserves canonical facts while the existing display policy chooses the translation")
+	Story.set_language(previous_language)
+	var paths: Array[String] = ["user://st13-invalid-quest-source.json"]
+	var file := FileAccess.open(paths[0], FileAccess.WRITE)
+	file.store_string("{");file.close()
+	var broken := state.call(&"catalog_copy", paths) as QuestCatalog
+	check(not broken.issues.is_empty() and str(broken.issues).contains(paths[0]) and state.get("_source_catalog") == null, "damaged definitions retain their exact source issue and are never retained as a successful load")
+	file = FileAccess.open(paths[0], FileAccess.WRITE)
+	file.store_buffer(FileAccess.get_file_as_bytes(FIXTURE));file.close()
+	var repaired := state.call(&"catalog_copy", paths) as QuestCatalog
+	check(repaired.issues.is_empty() and repaired.quests.size() == 3, "repairing the same source path is retried after a rejected definition load")
+	var changed := JSON.parse_string(FileAccess.get_file_as_string(FIXTURE)) as Dictionary
+	changed["quests"][0]["title"] = "查看修復後的來源"
+	file = FileAccess.open(paths[0], FileAccess.WRITE)
+	file.store_string(JSON.stringify(changed));file.close()
+	Story.load_all()
+	var reloaded := state.call(&"catalog_copy", paths) as QuestCatalog
+	check(reloaded.quests[0]["title"] == "查看修復後的來源", "a real source reload replaces previously validated definitions")
+	check(DirAccess.remove_absolute(paths[0]) == OK, "remove only the definition test's owned source file")
+	GameState.start_new_run(GameState.difficulties[1])
+	var fresh := QuestMapState.for_run()
+	check(not is_same(fresh, state) and fresh.get("_source_catalog") == null, "a new run cannot retain the previous run's quest definition owner")
+	var saved := RunSnapshot.capture(PAWN, {})
+	RunSnapshot.apply(saved, false)
+	var restored := QuestMapState.for_run()
+	var restored_definitions := restored.get("_source_catalog") as QuestCatalog
+	var restored_copy := restored.call(&"catalog_copy") as QuestCatalog
+	check(not is_same(restored, fresh) and restored_definitions != null and is_same(restored_definitions, restored.get("_source_catalog")) and restored_copy.issues.is_empty(), "real run restore warms the same navigation owner that the following HUD will reuse")
+
+
+func _test_guidance_catalog_injection() -> void:
+	var level := await start_level(load(PAWN) as LevelData)
+	var injected := fixture_catalog()
+	var before := injected.quests.duplicate(true)
+	var guidance := QuestGuidance.new()
+	guidance.catalog = injected
+	level.hud.quest_guidance.get_parent().add_child(guidance)
+	check(is_same(guidance.catalog, injected) and guidance.catalog.quests == before, "explicit guidance fixtures retain their supplied catalog instead of loading canonical sources over it")
+	guidance.free()
+	await end_level(level)
 
 
 func _visible_quest_text(root: Node) -> PackedStringArray:

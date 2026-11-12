@@ -221,6 +221,7 @@ func chapter_paths() -> Array[String]:
 
 ## 載入 chapter_paths() 的所有章節（先清空）。單一章節壞掉只記錄錯誤，不影響其他章節。
 func load_all() -> void:
+	QuestMapState.invalidate_catalog()
 	_chapters.clear()
 	_speakers.clear()
 	_scenes.clear()

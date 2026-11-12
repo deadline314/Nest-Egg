@@ -16,6 +16,7 @@ static var channel_handler: Callable
 const ENCOUNTER_SNAPSHOT = preload("res://game/level/encounter_snapshot.gd")
 const PLAYER_TUNING_PATH := "res://data/player/player_tuning.tres"
 const DEATH_SCREEN_DELAY := 1.1
+const ORDINARY_DEATH_SCREEN_DELAY := 0.7
 const VICTORY_DELAY := 2.8
 const BOSS_SPAWN_DELAY := 0.8
 ## 進入戰場左界多少像素後觸發頭目戰。
@@ -1022,7 +1023,7 @@ func _on_player_died(cause: StringName) -> void:
 	_apply_death_to_world(not bool(scene_entry.get("free", false)))
 	# 同一份快照先落死亡計數、世界與扣款；黑幕前必須保存。
 	critical_save_requested.emit()
-	await get_tree().create_timer(DEATH_SCREEN_DELAY, false).timeout
+	await get_tree().create_timer(_death_presentation_delay(scene_entry), false).timeout
 	if not is_inside_tree():
 		return
 	if not scene_entry.is_empty():
@@ -1034,6 +1035,11 @@ func _on_player_died(cause: StringName) -> void:
 	screen.retry_requested.connect(_request_retry)
 	screen.menu_requested.connect(_request_menu)
 	add_child(screen)
+
+
+## Authored story deaths retain their established entrance; only ordinary retry is shorter.
+func _death_presentation_delay(scene_entry: Dictionary) -> float:
+	return DEATH_SCREEN_DELAY if not scene_entry.is_empty() else ORDINARY_DEATH_SCREEN_DELAY
 
 
 ## 死亡後、重生前的特殊過場（見 StoryReactions 的 death_scenes）。播完（含按 Esc 跳過）才登記復原點，然後重生。
