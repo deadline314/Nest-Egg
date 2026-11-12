@@ -1,0 +1,78 @@
+{
+  "files": {
+    ".gitattributes": {
+      "bytes": 51,
+      "sha256": "4dff872b4b8a0115aa48cb287782b6c87908d65399d230c8bcb24f58f9717ae6"
+    },
+    "candidate.diff": {
+      "bytes": 6782,
+      "sha256": "35f258003bdcb51b0e1dda4aeac1fa9f11e60a4148096db3c9803fe3bf5e59f4"
+    },
+    "pixel-replay.json": {
+      "bytes": 207,
+      "sha256": "7373a70f1cd0a4669da776e1aedddae70c039bd4344742a368bdaa0f5aaab036"
+    },
+    "raw.zip": {
+      "bytes": 17292535,
+      "sha256": "2ede30cb5275edfedbbb8dd14d49ab9600e808cae6398898685e1ca47a1947e8"
+    },
+    "README.md": {
+      "bytes": 2018,
+      "sha256": "aa701e07fa7cfcceb88e22e20c33df7b683a2345eb51fc4bb1a6ed978684a8f9"
+    },
+    "scope.json": {
+      "bytes": 500,
+      "sha256": "374bddace2aa23b5b2674ec196eda8f01094d2d697d5bf75c800a5da8e3116ed"
+    },
+    "source-manifest.json": {
+      "bytes": 488,
+      "sha256": "2ad18e1a4db731b87d1a54aa7c18a5ec2a19a785a98a665edf01d609ec040a56"
+    },
+    "source.zip": {
+      "bytes": 57579,
+      "sha256": "8e3be3e59b254870d03a9d1f49e0fb34fee899cdaf925b9b6d2f4b707ff31dd1"
+    }
+  },
+  "native_frames": [
+    {
+      "air_jump_used": false,
+      "format": 14,
+      "on_floor": false,
+      "png_sha256": "4edfb56e6e1ace1bdcc1656be5b740a0de330fe2771b0ce87fb9c62fb9e26faa",
+      "position": [
+        88.0,
+        260.619720458984
+      ],
+      "raw_sha256": "3a8a3c210cc342f10efbe542b685213c7912e35948b0f17c3f8a8c7b1a781e51",
+      "size": [
+        1280,
+        720
+      ],
+      "tag": "locked-second-press",
+      "velocity": [
+        0.0,
+        -24.0000133514404
+      ]
+    },
+    {
+      "air_jump_used": true,
+      "format": 14,
+      "on_floor": false,
+      "png_sha256": "4a5cc43019beeb6346263570dc55e4e2556fbb258f6b75ee09051861412796a2",
+      "position": [
+        88.0,
+        248.391891479492
+      ],
+      "raw_sha256": "ddd0c67ec7f1235055e58d7762e77a81065b7da42616e6a4a3425ebc80116e0b",
+      "size": [
+        1280,
+        720
+      ],
+      "tag": "earned-air-jump",
+      "velocity": [
+        0.0,
+        -386.666687011719
+      ]
+    }
+  ]
+}

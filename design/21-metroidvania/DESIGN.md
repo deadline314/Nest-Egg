@@ -33,3 +33,5 @@ Area 擁有自己的高度，預設 24；先證明未改幾何時三章產物逐
 每張票走原 changed 測試；三章生成回歸、舊檔／拒寫／取消／冷讀與真來源驗證不放寬。原生驗證在 9070XT、Forward+/HDR 下保存同格 A/A、單燈方向及遮擋、恢復 A；本體／發光分開讀，涵蓋 LOW/HIGH、持物／姿勢切換與 fade。圖像 header 正常只證明資源存在，不證明手部像素受光正確。舊地圖 186 格巡覽是改造前基線，不能當新地圖驗收。耗時、曝光、失敗原件與未驗範圍如實記錄。
 
 設計參考：[Hollow Knight 開發者訪談](https://www.pcgamer.com/how-to-design-a-great-metroidvania-map/)的地理連貫與相互連接；[任天堂 Dread 七個定義](https://www.nintendo.com/en-gb/News/2021/July/Metroid-Dread-Report-Vol-3-Seven-points-that-define-the-2D-saga-2007780.html)及[探索指引](https://www.nintendo.com/en-gb/News/2022/January/Metroid-Dread-Report-Vol-11-Power-through-with-these-pointers-for-exploration-and-combat-2102114.html)的能力解鎖、回訪與可讀導覽。具體港區設計為本專案決策，不複製原作品地圖。
+
+能力與輸入由 NE-296 交付；章內安全練習與高處回訪由 NE-298 的實際地形驗收，不以工具測試場取代章內教學。

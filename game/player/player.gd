@@ -99,6 +99,7 @@ const LATENCY_ACTIONS: Array[StringName] = [&"shoot", &"melee", &"jump", &"dash"
 var _dash_left := 0.0
 var _dash_cooldown_left := 0.0
 var _air_dash_used := false
+var _air_jump_used := false
 var _fire_cooldown_left := 0.0
 enum MeleePhase { NONE, WINDUP, ACTIVE, RECOVERY }
 ## 近戰模組（NE-277）。下面的 _melee_* 是舊名稱的轉接（測試與工具沿用），資料都在模組裡。
@@ -285,6 +286,21 @@ func _ready() -> void:
 	EventBus.player_spawned.emit(self)
 	_on_health_changed(health.current, health.max_health)
 	_emit_guard()
+	GameState.flag_changed.connect(_on_air_jump_unlocked)
+
+
+func has_air_jump() -> bool:
+	return tuning != null and GameState.has_flag(tuning.air_jump_unlock_flag)
+
+
+func _on_air_jump_unlocked(flag: StringName, _value: Variant) -> void:
+	if tuning == null or flag != tuning.air_jump_unlock_flag or not has_air_jump():
+		return
+	var ancestor := get_parent()
+	while ancestor != null and not ancestor is Level:
+		ancestor = ancestor.get_parent()
+	if ancestor is Level and is_instance_valid(ancestor.hud):
+		ancestor.hud.show_context_hint(self, "空中再躍已解鎖，離地後再按一次跳躍 {jump}", 12.0)
 
 
 ## Actual standing presentation bounds, mirrored for both facings. The head
@@ -496,13 +512,16 @@ func _process_normal(delta: float) -> void:
 	if on_floor:
 		_coyote_left = InputFeel.window("coyote", tuning.coyote_time)
 		_air_dash_used = false
+		_air_jump_used = false
 	if Input.is_action_just_pressed(&"jump"):
 		_jump_buffer_left = InputFeel.window("jump_buffer", tuning.jump_buffer)
 	if _jump_buffer_left > 0.0:
 		if on_floor and down and _is_standing_on_platform():
 			_start_drop_through()
 			_jump_buffer_left = 0.0
-		elif _coyote_left > 0.0:
+		elif _coyote_left > 0.0 or (not on_floor and not _air_jump_used and has_air_jump()):
+			if _coyote_left <= 0.0:
+				_air_jump_used = true
 			velocity.y = -tuning.jump_velocity
 			_coyote_left = 0.0
 			_jump_buffer_left = 0.0

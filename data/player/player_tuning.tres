@@ -19,6 +19,7 @@ jump_velocity = 420.0
 jump_cut = 0.45
 coyote_time = 0.1
 jump_buffer = 0.12
+air_jump_unlock_flag = &"ledger_disk_obtained"
 apex_speed_threshold = 55.0
 apex_gravity_multiplier = 0.5
 corner_correction = 6

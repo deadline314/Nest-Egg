@@ -1,0 +1,148 @@
+diff --git a/data/player/player_tuning.tres b/data/player/player_tuning.tres
+index 6a967fd71..e8e7172a4 100644
+--- a/data/player/player_tuning.tres
++++ b/data/player/player_tuning.tres
+@@ -19,6 +19,7 @@ jump_velocity = 420.0
+ jump_cut = 0.45
+ coyote_time = 0.1
+ jump_buffer = 0.12
++air_jump_unlock_flag = &"ledger_disk_obtained"
+ apex_speed_threshold = 55.0
+ apex_gravity_multiplier = 0.5
+ corner_correction = 6
+diff --git a/data/scripts/player_tuning.gd b/data/scripts/player_tuning.gd
+index 4d8fab710..a36760a7f 100644
+--- a/data/scripts/player_tuning.gd
++++ b/data/scripts/player_tuning.gd
+@@ -22,6 +22,8 @@ extends Resource
+ @export var jump_cut: float = 0.45
+ @export var coyote_time: float = 0.1
+ @export var jump_buffer: float = 0.12
++## 永久空中再躍的正式進度條件；空值表示此角色未提供能力。
++@export var air_jump_unlock_flag: StringName = &""
+ ## 跳躍頂點附近（|垂直速度| 小於門檻）且按住跳躍鍵時降低重力，讓空中瞄準更從容。
+ @export var apex_speed_threshold: float = 45.0
+ @export var apex_gravity_multiplier: float = 0.5
+diff --git a/game/player/player.gd b/game/player/player.gd
+index 2e2ed7a7b..7360b6d02 100644
+--- a/game/player/player.gd
++++ b/game/player/player.gd
+@@ -99,6 +99,7 @@ const LATENCY_ACTIONS: Array[StringName] = [&"shoot", &"melee", &"jump", &"dash"
+ var _dash_left := 0.0
+ var _dash_cooldown_left := 0.0
+ var _air_dash_used := false
++var _air_jump_used := false
+ var _fire_cooldown_left := 0.0
+ enum MeleePhase { NONE, WINDUP, ACTIVE, RECOVERY }
+ ## 近戰模組（NE-277）。下面的 _melee_* 是舊名稱的轉接（測試與工具沿用），資料都在模組裡。
+@@ -285,6 +286,21 @@ func _ready() -> void:
+ 	EventBus.player_spawned.emit(self)
+ 	_on_health_changed(health.current, health.max_health)
+ 	_emit_guard()
++	GameState.flag_changed.connect(_on_air_jump_unlocked)
++
++
++func has_air_jump() -> bool:
++	return tuning != null and GameState.has_flag(tuning.air_jump_unlock_flag)
++
++
++func _on_air_jump_unlocked(flag: StringName, _value: Variant) -> void:
++	if tuning == null or flag != tuning.air_jump_unlock_flag or not has_air_jump():
++		return
++	var ancestor := get_parent()
++	while ancestor != null and not ancestor is Level:
++		ancestor = ancestor.get_parent()
++	if ancestor is Level and is_instance_valid(ancestor.hud):
++		ancestor.hud.show_context_hint(self, "空中再躍已解鎖，離地後再按一次跳躍 {jump}", 12.0)
+ 
+ 
+ ## Actual standing presentation bounds, mirrored for both facings. The head
+@@ -496,13 +512,16 @@ func _process_normal(delta: float) -> void:
+ 	if on_floor:
+ 		_coyote_left = InputFeel.window("coyote", tuning.coyote_time)
+ 		_air_dash_used = false
++		_air_jump_used = false
+ 	if Input.is_action_just_pressed(&"jump"):
+ 		_jump_buffer_left = InputFeel.window("jump_buffer", tuning.jump_buffer)
+ 	if _jump_buffer_left > 0.0:
+ 		if on_floor and down and _is_standing_on_platform():
+ 			_start_drop_through()
+ 			_jump_buffer_left = 0.0
+-		elif _coyote_left > 0.0:
++		elif _coyote_left > 0.0 or (not on_floor and not _air_jump_used and has_air_jump()):
++			if _coyote_left <= 0.0:
++				_air_jump_used = true
+ 			velocity.y = -tuning.jump_velocity
+ 			_coyote_left = 0.0
+ 			_jump_buffer_left = 0.0
+diff --git a/tests/suite/test_input_feel.gd b/tests/suite/test_input_feel.gd
+index 6b299561f..fa1454a38 100644
+--- a/tests/suite/test_input_feel.gd
++++ b/tests/suite/test_input_feel.gd
+@@ -13,6 +13,66 @@ func run() -> void:
+ 	await _test_controller_flow()
+ 	await _test_controller_ui_flow()
+ 	await _test_dash_buffer()
++	await _test_air_jump()
++
++
++func _air_jump_press() -> void:
++	Input.action_release(&"jump")
++	await physics_frames(2)
++	Input.action_press(&"jump")
++	await physics_frames(2)
++
++
++func _test_air_jump() -> void:
++	var level := await start_level(PropsSuite.level_data())
++	var player := level.player
++	await physics_frames(10)
++	check(player.is_on_floor() and not player.has_air_jump(), "a fresh run lands without the permanent aerial ability")
++	await _air_jump_press()
++	check(player.velocity.y < 0.0 and not player._air_jump_used, "the original ground jump does not consume an air jump")
++	Input.action_release(&"jump")
++	await physics_frames(8)
++	var before := player.velocity.y
++	await _air_jump_press()
++	check(player.velocity.y > before and not player._air_jump_used, "an unearned second jump cannot reset upward velocity")
++	Input.action_release(&"jump")
++	await physics_frames(90)
++	GameState.set_flag(&"ledger_disk_obtained", true, false)
++	check(player.has_air_jump(), "the actual persisted disk milestone unlocks aerial movement")
++	check(level.hud._hint_template.contains("{jump}") and level.hud._hint_template.contains("空中再躍"), "unlock guidance uses the player's current jump binding")
++	await _air_jump_press()
++	Input.action_release(&"jump")
++	await physics_frames(8)
++	await _air_jump_press()
++	check(player.velocity.y < -player.tuning.jump_velocity * 0.8 and player._air_jump_used, "a separate airborne press performs exactly one new upward impulse")
++	Input.action_release(&"jump")
++	await physics_frames(2)
++	check(player.velocity.y > -player.tuning.jump_velocity * 0.65, "releasing the extra jump retains the original short-hop cut")
++	before = player.velocity.y
++	await _air_jump_press()
++	check(player.velocity.y > before and player._air_jump_used, "a third press cannot create an unlimited air climb")
++	Input.action_release(&"jump")
++	await physics_frames(90)
++	check(player.is_on_floor() and not player._air_jump_used, "real ground contact resets the extra jump")
++	await _air_jump_press()
++	Input.action_release(&"jump")
++	await physics_frames(8)
++	player._try_dash(1.0)
++	check(player.state == Player.State.DASH and not player._air_jump_used, "air dashing does not consume the separate jump allowance")
++	await physics_frames(16)
++	await _air_jump_press()
++	check(player.velocity.y < 0.0 and player._air_jump_used, "the extra jump remains available after an air dash")
++	Input.action_release(&"jump")
++	var saved_progress := RunSaveCodec.encode(GameState.story_progress_snapshot())
++	GameState.set_flag(&"ledger_disk_obtained", false, false)
++	check(not player.has_air_jump(), "the live formal condition remains authoritative when progress is removed")
++	var restored := RunSaveCodec.decode(saved_progress)
++	check(restored.has("data"), "existing progress serializes with no extra ability field")
++	await end_level(level)
++	GameState.restore_story_progress(restored.get("data", {}), "test_air_jump", false)
++	level = await spawn_level(PropsSuite.level_data())
++	check(level.player.has_air_jump() and not level.player._air_jump_used, "rebuilding the player preserves earned progress without a stale airborne counter")
++	await end_level(level)
+ 
+ 
+ func _test_controller_ui_flow() -> void:

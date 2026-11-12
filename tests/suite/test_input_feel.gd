@@ -13,6 +13,66 @@ func run() -> void:
 	await _test_controller_flow()
 	await _test_controller_ui_flow()
 	await _test_dash_buffer()
+	await _test_air_jump()
+
+
+func _air_jump_press() -> void:
+	Input.action_release(&"jump")
+	await physics_frames(2)
+	Input.action_press(&"jump")
+	await physics_frames(2)
+
+
+func _test_air_jump() -> void:
+	var level := await start_level(PropsSuite.level_data())
+	var player := level.player
+	await physics_frames(10)
+	check(player.is_on_floor() and not player.has_air_jump(), "a fresh run lands without the permanent aerial ability")
+	await _air_jump_press()
+	check(player.velocity.y < 0.0 and not player._air_jump_used, "the original ground jump does not consume an air jump")
+	Input.action_release(&"jump")
+	await physics_frames(8)
+	var before := player.velocity.y
+	await _air_jump_press()
+	check(player.velocity.y > before and not player._air_jump_used, "an unearned second jump cannot reset upward velocity")
+	Input.action_release(&"jump")
+	await physics_frames(90)
+	GameState.set_flag(&"ledger_disk_obtained", true, false)
+	check(player.has_air_jump(), "the actual persisted disk milestone unlocks aerial movement")
+	check(level.hud._hint_template.contains("{jump}") and level.hud._hint_template.contains("空中再躍"), "unlock guidance uses the player's current jump binding")
+	await _air_jump_press()
+	Input.action_release(&"jump")
+	await physics_frames(8)
+	await _air_jump_press()
+	check(player.velocity.y < -player.tuning.jump_velocity * 0.8 and player._air_jump_used, "a separate airborne press performs exactly one new upward impulse")
+	Input.action_release(&"jump")
+	await physics_frames(2)
+	check(player.velocity.y > -player.tuning.jump_velocity * 0.65, "releasing the extra jump retains the original short-hop cut")
+	before = player.velocity.y
+	await _air_jump_press()
+	check(player.velocity.y > before and player._air_jump_used, "a third press cannot create an unlimited air climb")
+	Input.action_release(&"jump")
+	await physics_frames(90)
+	check(player.is_on_floor() and not player._air_jump_used, "real ground contact resets the extra jump")
+	await _air_jump_press()
+	Input.action_release(&"jump")
+	await physics_frames(8)
+	player._try_dash(1.0)
+	check(player.state == Player.State.DASH and not player._air_jump_used, "air dashing does not consume the separate jump allowance")
+	await physics_frames(16)
+	await _air_jump_press()
+	check(player.velocity.y < 0.0 and player._air_jump_used, "the extra jump remains available after an air dash")
+	Input.action_release(&"jump")
+	var saved_progress := RunSaveCodec.encode(GameState.story_progress_snapshot())
+	GameState.set_flag(&"ledger_disk_obtained", false, false)
+	check(not player.has_air_jump(), "the live formal condition remains authoritative when progress is removed")
+	var restored := RunSaveCodec.decode(saved_progress)
+	check(restored.has("data"), "existing progress serializes with no extra ability field")
+	await end_level(level)
+	GameState.restore_story_progress(restored.get("data", {}), "test_air_jump", false)
+	level = await spawn_level(PropsSuite.level_data())
+	check(level.player.has_air_jump() and not level.player._air_jump_used, "rebuilding the player preserves earned progress without a stale airborne counter")
+	await end_level(level)
 
 
 func _test_controller_ui_flow() -> void:

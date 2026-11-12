@@ -22,6 +22,8 @@ extends Resource
 @export var jump_cut: float = 0.45
 @export var coyote_time: float = 0.1
 @export var jump_buffer: float = 0.12
+## 永久空中再躍的正式進度條件；空值表示此角色未提供能力。
+@export var air_jump_unlock_flag: StringName = &""
 ## 跳躍頂點附近（|垂直速度| 小於門檻）且按住跳躍鍵時降低重力，讓空中瞄準更從容。
 @export var apex_speed_threshold: float = 45.0
 @export var apex_gravity_multiplier: float = 0.5
