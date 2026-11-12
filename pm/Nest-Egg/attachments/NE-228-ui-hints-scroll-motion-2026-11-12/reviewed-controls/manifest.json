@@ -1,0 +1,91 @@
+{
+  "scope": "Five adopted sources only: dynamic settings hints, actual scrollbar thickness, static reduced-motion death; no pending Codex follow-focus/relayout or its new assertions",
+  "base": "ba37327fbe4e8a0f293b735f4a4e5aa6b58d2dfd",
+  "sources": {
+    "tests/helpers/settings_device_checks.gd": {
+      "before_sha256": "d9a9d45de55380943a10df4e0a6db94b65042e1a1de6c4eae2e9cee2ba4689d7",
+      "candidate_sha256": "94891b32d2157688e4bdf6dfb04f202cc437a0733f33035f4da17a1ad2f5aaf8"
+    },
+    "tests/suite/test_ui_screens.gd": {
+      "before_sha256": "314212470fdd6cc7bf3517ace66f596d6ff5f03db63b84edef31ea685ba929a6",
+      "candidate_sha256": "5e257e2a9f339fd47793af96c75ccf3f3b4384cc925abb1f8564a17c949cd028"
+    },
+    "ui/death_screen.gd": {
+      "before_sha256": "b0ccfc47931d38f16e979d7c49f75f4d004175ffa5dfbe656e2aa76e470a9ed1",
+      "candidate_sha256": "443f2bc95e32da1a2e79db09fa2ea15aaee841cb6a844c5149edb8cbc0bd10af"
+    },
+    "ui/kit/ui_theme.gd": {
+      "before_sha256": "e796f61f85556cc17b0a90ca270e12cb0175bd444c6ec0873d1ac0e498a69ac3",
+      "candidate_sha256": "4df6349d248f23990b9e915440b7b7c6b5aecab01c278f16ff49e30bd3cb99d2"
+    },
+    "ui/settings_screen.gd": {
+      "before_sha256": "dc534d24e4b255a40de3ea3e5712b7bf5272a5133fdc15f30f5ba60d16acf0cc",
+      "candidate_sha256": "e3b2841878df0b5d06bed7d1378c2cb10632a894da2136b031521510a3cb9551"
+    }
+  },
+  "archive": "source.zip",
+  "bytes": 47419,
+  "sha256": "8df8342c19eaeb7b1c1df672d1e078c38cb256933719b2bdcf4dec3dcebad23c",
+  "members": {
+    "baseline/tests/helpers/settings_device_checks.gd": {
+      "bytes": 7346,
+      "sha256": "d9a9d45de55380943a10df4e0a6db94b65042e1a1de6c4eae2e9cee2ba4689d7"
+    },
+    "baseline/tests/suite/test_ui_screens.gd": {
+      "bytes": 15172,
+      "sha256": "314212470fdd6cc7bf3517ace66f596d6ff5f03db63b84edef31ea685ba929a6"
+    },
+    "baseline/ui/death_screen.gd": {
+      "bytes": 7998,
+      "sha256": "b0ccfc47931d38f16e979d7c49f75f4d004175ffa5dfbe656e2aa76e470a9ed1"
+    },
+    "baseline/ui/kit/ui_theme.gd": {
+      "bytes": 7716,
+      "sha256": "e796f61f85556cc17b0a90ca270e12cb0175bd444c6ec0873d1ac0e498a69ac3"
+    },
+    "baseline/ui/settings_screen.gd": {
+      "bytes": 29792,
+      "sha256": "dc534d24e4b255a40de3ea3e5712b7bf5272a5133fdc15f30f5ba60d16acf0cc"
+    },
+    "candidate/tests/helpers/settings_device_checks.gd": {
+      "bytes": 8721,
+      "sha256": "94891b32d2157688e4bdf6dfb04f202cc437a0733f33035f4da17a1ad2f5aaf8"
+    },
+    "candidate/tests/suite/test_ui_screens.gd": {
+      "bytes": 15861,
+      "sha256": "5e257e2a9f339fd47793af96c75ccf3f3b4384cc925abb1f8564a17c949cd028"
+    },
+    "candidate/ui/death_screen.gd": {
+      "bytes": 8147,
+      "sha256": "443f2bc95e32da1a2e79db09fa2ea15aaee841cb6a844c5149edb8cbc0bd10af"
+    },
+    "candidate/ui/kit/ui_theme.gd": {
+      "bytes": 7971,
+      "sha256": "4df6349d248f23990b9e915440b7b7c6b5aecab01c278f16ff49e30bd3cb99d2"
+    },
+    "candidate/ui/settings_screen.gd": {
+      "bytes": 29865,
+      "sha256": "e3b2841878df0b5d06bed7d1378c2cb10632a894da2136b031521510a3cb9551"
+    },
+    "diff/tests__helpers__settings_device_checks.gd.diff": {
+      "bytes": 2072,
+      "sha256": "0dbd0d683e7cbdf50aa7383e62dc79aa054073a9bed9e2e77f75da063998fa4d"
+    },
+    "diff/tests__suite__test_ui_screens.gd.diff": {
+      "bytes": 1000,
+      "sha256": "d58bd1641460fa647f78b27d63bb4c97633e59f2693e133427b59ef95902c9ba"
+    },
+    "diff/ui__death_screen.gd.diff": {
+      "bytes": 718,
+      "sha256": "976f8d1afae7e8d69ec6fbd6365624ce6faa2d8f3971ac33360c4bc1ba0ca70e"
+    },
+    "diff/ui__kit__ui_theme.gd.diff": {
+      "bytes": 979,
+      "sha256": "de58750c501d2a07058d9cb59c0343f73354e22a347ecc15bbb10c6d263b2f7b"
+    },
+    "diff/ui__settings_screen.gd.diff": {
+      "bytes": 690,
+      "sha256": "32d0798040117235ed10bde23c9d52204669800fcdc89c58e26200e6b33e8b87"
+    }
+  }
+}

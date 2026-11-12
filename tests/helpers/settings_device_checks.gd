@@ -10,6 +10,7 @@ static func run(suite: TestSuite) -> void:
 	suite.runner.add_child(settings)
 	await suite.frames(4)
 	suite.check(await _exercise(suite, settings), "all settings device/capture stages complete")
+	await _quality_hints(suite, settings)
 	InputBindings.set_joy_button(&"jump", joy[&"jump"])
 	InputBindings.set_code(&"jump", 0, codes[&"jump"][0])
 	suite.check(InputBindings._codes == codes and InputBindings._joy == joy, "settings checks restore every original keyboard and controller binding")
@@ -125,3 +126,28 @@ static func _tap(suite: TestSuite, event: InputEvent) -> void:
 static func _send(event: InputEvent) -> void:
 	Input.parse_input_event(event)
 	Input.flush_buffered_events()
+
+
+static func _quality_hints(suite: TestSuite, settings: SettingsScreen) -> void:
+	var before := Settings.get_light_quality()
+	var tab_before := settings._tabs.current_tab
+	settings._tabs.current_tab = 2
+	await suite.frames(2)
+	var tier := LightQuality.Tier.HIGH if before == LightQuality.Tier.LOW else LightQuality.Tier.LOW
+	var index := settings._quality_option.get_item_index(tier)
+	settings._quality_option.select(index)
+	settings._quality_option.item_selected.emit(index)
+	settings._brightness_slider.grab_focus()
+	await suite.frames(2)
+	settings._quality_option.grab_focus()
+	await suite.frames(2)
+	suite.check(settings._status.text == LightQuality.DESCRIPTIONS[tier], "quality focus explains the current selection after a real selection signal")
+	for point: Vector2 in [Vector2(2, 2), settings._quality_option.get_global_rect().get_center()]:
+		var motion := InputEventMouseMotion.new()
+		motion.position = point
+		motion.global_position = point
+		suite.runner.get_viewport().push_input(motion, true)
+		await suite.frames(2)
+	suite.check(settings._status.text == settings._quality_option.tooltip_text and settings._status.text == LightQuality.DESCRIPTIONS[tier], "quality hover and focus share the current description, not its construction-time copy")
+	Settings.set_light_quality(before)
+	settings._tabs.current_tab = tab_before

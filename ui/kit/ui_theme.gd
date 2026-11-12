@@ -141,8 +141,16 @@ static func _toggles(t: Theme) -> void:
 
 static func _scrollbars(t: Theme) -> void:
 	for kind: StringName in [&"VScrollBar", &"HScrollBar"]:
-		t.set_stylebox(&"scroll", kind, _plain(Color(Palette.CYAN_DIM, 0.15), 0))
-		t.set_stylebox(&"scroll_focus", kind, _plain(Color(Palette.CYAN_DIM, 0.15), 0))
+		var track := _plain(Color(Palette.CYAN_DIM, 0.15), 0)
+		# Style-box minimum size gives a real thickness to automatic scrollbars.
+		if kind == &"VScrollBar":
+			track.content_margin_left = 2
+			track.content_margin_right = 2
+		else:
+			track.content_margin_top = 2
+			track.content_margin_bottom = 2
+		t.set_stylebox(&"scroll", kind, track)
+		t.set_stylebox(&"scroll_focus", kind, track.duplicate() as StyleBox)
 		t.set_stylebox(&"grabber", kind, _plain(Palette.CYAN_DIM, 0))
 		t.set_stylebox(&"grabber_highlight", kind, _plain(Palette.CYAN, 0))
 		t.set_stylebox(&"grabber_pressed", kind, _plain(Palette.WHITE, 0))

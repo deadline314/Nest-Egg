@@ -113,11 +113,14 @@ func _ready() -> void:
 func _bind_hints(node: Node) -> void:
 	if node is Control and (node as Control).tooltip_text != "":
 		var control := node as Control
-		var text := control.tooltip_text
-		control.focus_entered.connect(_set_status.bind(text))
-		control.mouse_entered.connect(_set_status.bind(text))
+		control.focus_entered.connect(_show_control_hint.bind(control))
+		control.mouse_entered.connect(_show_control_hint.bind(control))
 	for child in node.get_children():
 		_bind_hints(child)
+
+
+func _show_control_hint(control: Control) -> void:
+	_set_status(control.tooltip_text)
 
 
 func close() -> void:

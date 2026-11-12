@@ -278,6 +278,20 @@ func _test_death_screen() -> void:
 	runner.add_child(broken)
 	await frames(3)
 	check(is_instance_valid(broken), "卡片資料缺欄位時仍能顯示")
+	var previous_motion := Settings.get_reduce_ui_motion()
+	Settings.set_reduce_ui_motion(true)
+	var reduced := DeathScreen.new()
+	reduced.setup({}, true)
+	runner.add_child(reduced)
+	var card: UiPanel
+	var animated_overlay := false
+	for node in reduced.find_children("*", "", true, false):
+		if node is UiPanel: card = node
+		if node is ColorRect and node.material is ShaderMaterial: animated_overlay = true
+	check(card != null and card.scale == Vector2.ONE and card.modulate.a == 1.0, "減少介面動態時敗北卡片立即完整顯示")
+	check(not animated_overlay, "減少介面動態時不播放敗北雜訊遮罩")
+	Settings.set_reduce_ui_motion(previous_motion)
+	reduced.queue_free()
 	screen.queue_free()
 	broken.queue_free()
 	GameState.deaths = 0

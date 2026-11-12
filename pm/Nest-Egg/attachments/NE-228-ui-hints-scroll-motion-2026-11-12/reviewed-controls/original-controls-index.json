@@ -1,0 +1,352 @@
+{
+  "external_raw_root": "D:\\NestEggDeliveries\\NE228-20261112",
+  "scope": "Four defect fixes only; whole 210-cell matrix and hardware criteria remain pending. All original successes/failures kept externally.",
+  "archives": [
+    {
+      "path": "ne228-all-calibration-720-v1.zip",
+      "bytes": 14733261,
+      "sha256": "c63c69e1c67742ab8de6f8ee9abb7389cc425f228c3d42206a0674eba77b9a7b",
+      "role": "diagnostic-preserved",
+      "original_exit": 0,
+      "sources_unchanged": true,
+      "member_count": 1746
+    },
+    {
+      "path": "ne228-all-producer-parse-v4.zip",
+      "bytes": 2743697,
+      "sha256": "a93894277c7ffbb6113195a71fdf1977da97edaf0b1807375b60a828903a8804",
+      "role": "diagnostic-preserved",
+      "original_exit": 0,
+      "sources_unchanged": true,
+      "member_count": 1620
+    },
+    {
+      "path": "ne228-core-calibration-720-v1.zip",
+      "bytes": 10130774,
+      "sha256": "fc126254345ea77e302ca4cb7f6a9cfe908bddc2db59e8eb7826b656c1ab9532",
+      "role": "diagnostic-preserved",
+      "original_exit": 0,
+      "sources_unchanged": true,
+      "member_count": 1731
+    },
+    {
+      "path": "ne228-core-producer-parse-v3.zip",
+      "bytes": 1654953,
+      "sha256": "104ab746a32d98ff4fa3f7bf7057b7e725b20131bcf213f16b63ddc52aa975aa",
+      "role": "diagnostic-preserved",
+      "original_exit": 0,
+      "sources_unchanged": true,
+      "member_count": 518
+    },
+    {
+      "path": "ne228-corrected-capture-parse-v1.zip",
+      "bytes": 2750784,
+      "sha256": "8a4de64a147f66409fce3e022c3cd695b7edaf6b83afc46d278b861c708434c4",
+      "role": "diagnostic-preserved",
+      "original_exit": 0,
+      "sources_unchanged": true,
+      "member_count": 1626
+    },
+    {
+      "path": "ne228-death-reduced-candidate-cpu-v1.zip",
+      "bytes": 2749707,
+      "sha256": "114f1c9dd5f163d99b7372310260150371461eb0620a39b9c0a241bae4947e18",
+      "role": "diagnostic-preserved",
+      "original_exit": 0,
+      "sources_unchanged": true,
+      "member_count": 1627
+    },
+    {
+      "path": "ne228-death-reduced-candidate-native-v1.zip",
+      "bytes": 4075511,
+      "sha256": "6ba2adf7dbde681799d1e8c0eccee6891aeacfd32210191bc470e171ce9ba59e",
+      "role": "diagnostic-preserved",
+      "original_exit": 0,
+      "sources_unchanged": true,
+      "member_count": 1698
+    },
+    {
+      "path": "ne228-death-reduced-original-cpu-v1.zip",
+      "bytes": 2748849,
+      "sha256": "4f3fee109f91c51291ba351bb6bd32a652622fdbb37aae63031217c8da7a4a1a",
+      "role": "diagnostic-preserved",
+      "original_exit": 1,
+      "sources_unchanged": true,
+      "member_count": 1626
+    },
+    {
+      "path": "ne228-death-reduced-original-native-v1.zip",
+      "bytes": 4080842,
+      "sha256": "fd2f0b78fb682a1e838122e67dfb4e737922f6f72a3c5d589665ba4b4fd836ce",
+      "role": "diagnostic-preserved",
+      "original_exit": 1,
+      "sources_unchanged": true,
+      "member_count": 1697
+    },
+    {
+      "path": "ne228-final-1080-large-v1.zip",
+      "bytes": 22665191,
+      "sha256": "49d49de461c7e064b17217a53cb565432753730cbbc60ce45295b460f9f136c3",
+      "role": "diagnostic-preserved",
+      "original_exit": 0,
+      "sources_unchanged": true,
+      "member_count": 1750
+    },
+    {
+      "path": "ne228-final-1080-normal-v1.zip",
+      "bytes": 22338096,
+      "sha256": "80344163fd3e2950fc47bd33db7130259548cd673dcdab9edc4b934074295067",
+      "role": "diagnostic-preserved",
+      "original_exit": 0,
+      "sources_unchanged": true,
+      "member_count": 1750
+    },
+    {
+      "path": "ne228-final-720-normal-v1.zip",
+      "bytes": 14240209,
+      "sha256": "436cb0f63be828430bcd5969ad4300b344d9e0af12f4407972a6527ad793456f",
+      "role": "diagnostic-preserved",
+      "original_exit": 0,
+      "sources_unchanged": true,
+      "member_count": 1750
+    },
+    {
+      "path": "ne228-final-720-reduced-v1.zip",
+      "bytes": 15102718,
+      "sha256": "83ec7d046e1ea7abc0cc4b2c28c5995cb34f17d3f4d0cc4d0541a2482c6fa5ee",
+      "role": "diagnostic-preserved",
+      "original_exit": 0,
+      "sources_unchanged": true,
+      "member_count": 1751
+    },
+    {
+      "path": "ne228-final-producer-parse-v5.zip",
+      "bytes": 2749837,
+      "sha256": "1915d084790f400afcdc6d453977fd3880a179c58d552d27d424e7d22149cfb4",
+      "role": "diagnostic-preserved",
+      "original_exit": 2,
+      "sources_unchanged": true,
+      "member_count": 1625
+    },
+    {
+      "path": "ne228-final-producer-parse-v6.zip",
+      "bytes": 2749152,
+      "sha256": "e80d258f5ca62d787b77cc8307221d598dde9d8c9d01a78a51248e032f8b2937",
+      "role": "diagnostic-preserved",
+      "original_exit": 0,
+      "sources_unchanged": true,
+      "member_count": 1625
+    },
+    {
+      "path": "ne228-final-wide-reduced-v1.zip",
+      "bytes": 22468352,
+      "sha256": "d5cf26794737734034b996463435849524c419317b622d28a8037f26cbad34e5",
+      "role": "diagnostic-preserved",
+      "original_exit": 1,
+      "sources_unchanged": true,
+      "member_count": 1750
+    },
+    {
+      "path": "ne228-import-v1.zip",
+      "bytes": 4935631,
+      "sha256": "0ff054c83927a223dcdf0acd94b1535385245d3c05cb38651919232b2a2bf04c",
+      "role": "diagnostic-preserved",
+      "original_exit": 0,
+      "sources_unchanged": true,
+      "member_count": 514
+    },
+    {
+      "path": "ne228-menu-calibration-720-v1.zip",
+      "bytes": 3666971,
+      "sha256": "a15923c8861dcaa910cb484c5ec972d3bcb8a6e3df1d67146045a302f45c09e0",
+      "role": "diagnostic-preserved",
+      "original_exit": 0,
+      "sources_unchanged": true,
+      "member_count": 596
+    },
+    {
+      "path": "ne228-menu-calibration-720-v2.zip",
+      "bytes": 3708281,
+      "sha256": "c16377e65b61890c4578d1c63f5ab468d13cf4ca5852806ec89e75d9dbb45c81",
+      "role": "diagnostic-preserved",
+      "original_exit": 1,
+      "sources_unchanged": true,
+      "member_count": 597
+    },
+    {
+      "path": "ne228-menu-calibration-720-v3.zip",
+      "bytes": 3706251,
+      "sha256": "506db607eb4f8bafd615237cd96bbaee70fa36aa4f5106b53b27804f9a7a04f1",
+      "role": "diagnostic-preserved",
+      "original_exit": 0,
+      "sources_unchanged": true,
+      "member_count": 600
+    },
+    {
+      "path": "ne228-pause-alpha-diagnostic-v1.zip",
+      "bytes": 2757770,
+      "sha256": "47deb9ecac0a49852ea6e8bbf73788a613002b0666c926e44480a4544b245745",
+      "role": "diagnostic-preserved",
+      "original_exit": 0,
+      "sources_unchanged": true,
+      "member_count": 1630
+    },
+    {
+      "path": "ne228-quality-candidate-cpu-v1.zip",
+      "bytes": 1650991,
+      "sha256": "c3315746bd5337abf639091d0a4aece2fc050b265cccae18121c445a5aef3215",
+      "role": "diagnostic-preserved",
+      "original_exit": 0,
+      "sources_unchanged": true,
+      "member_count": 516
+    },
+    {
+      "path": "ne228-quality-candidate-native-v1.zip",
+      "bytes": 3175939,
+      "sha256": "e1fc491df931c1ec847d7443a116adbe3f9f02536d0a7f7f9c7b9abbb81f02e6",
+      "role": "diagnostic-preserved",
+      "original_exit": 0,
+      "sources_unchanged": true,
+      "member_count": 590
+    },
+    {
+      "path": "ne228-quality-original-cpu-v1.zip",
+      "bytes": 1649936,
+      "sha256": "879f57685febce7525137870e866d6b751c0296a0a549bebeaad1fece8619102",
+      "role": "diagnostic-preserved",
+      "original_exit": 1,
+      "sources_unchanged": true,
+      "member_count": 515
+    },
+    {
+      "path": "ne228-quality-original-native-v1.zip",
+      "bytes": 3162410,
+      "sha256": "d4bb591f099a14b7203a23544eeaf223a26e8a9572c9b8fa1d0af042387311fc",
+      "role": "diagnostic-preserved",
+      "original_exit": 1,
+      "sources_unchanged": true,
+      "member_count": 589
+    },
+    {
+      "path": "ne228-scrollbar-candidate-cpu-v4.zip",
+      "bytes": 1656067,
+      "sha256": "33a8e6f9aa4564cde396228d322f012ab9e0a703df6af6236c424e0241db71a1",
+      "role": "diagnostic-preserved",
+      "original_exit": 0,
+      "sources_unchanged": true,
+      "member_count": 519
+    },
+    {
+      "path": "ne228-scrollbar-original-cpu-v1.zip",
+      "bytes": 1652142,
+      "sha256": "e80642cfddf5a352f96794dfcedd3fcd0585524358e8e3e792a4fd7ad544a5ec",
+      "role": "diagnostic-preserved",
+      "original_exit": 1,
+      "sources_unchanged": true,
+      "member_count": 516
+    },
+    {
+      "path": "ne228-scrollbar-original-cpu-v2.zip",
+      "bytes": 1652663,
+      "sha256": "f2a4d73c8b4bedff46faf03fcb7af3ba1f3008fdb9fe5a8eda47b1bf3cce2c9a",
+      "role": "diagnostic-preserved",
+      "original_exit": 1,
+      "sources_unchanged": true,
+      "member_count": 518
+    },
+    {
+      "path": "ne228-scrollbar-original-cpu-v3.zip",
+      "bytes": 1653160,
+      "sha256": "5f4783ca373a2fdf1fcd522e20fea778dc1889dffe4c66484210b9c84ef3ba4f",
+      "role": "diagnostic-preserved",
+      "original_exit": 1,
+      "sources_unchanged": true,
+      "member_count": 518
+    },
+    {
+      "path": "ne228-scrollbar-original-cpu-v4.zip",
+      "bytes": 1655313,
+      "sha256": "7bc02c940ec665c63db444482b934e326f7cdb583b99337f812c1b825a13a2ac",
+      "role": "diagnostic-preserved",
+      "original_exit": 1,
+      "sources_unchanged": true,
+      "member_count": 518
+    },
+    {
+      "path": "ne228-tool-parse-v2.zip",
+      "bytes": 1650503,
+      "sha256": "4b84afd894df0510b53f665591288209858fcc5211fcbaf1aabf2450930afb1f",
+      "role": "diagnostic-preserved",
+      "original_exit": 0,
+      "sources_unchanged": true,
+      "member_count": 515
+    }
+  ],
+  "full_original_index": {
+    "path": "raw-index-fixes-commit30.json",
+    "sha256": "9d6a29563224a371fe5b7bd4f2b30fc3a82bf08fbb530faea5cc91dc51c52860",
+    "bytes": 4649902
+  },
+  "candidate_files": [
+    {
+      "path": "ui/settings_screen.gd",
+      "base_sha256": "dc534d24e4b255a40de3ea3e5712b7bf5272a5133fdc15f30f5ba60d16acf0cc",
+      "current_c_sha256": "dc534d24e4b255a40de3ea3e5712b7bf5272a5133fdc15f30f5ba60d16acf0cc",
+      "candidate_sha256": "e3b2841878df0b5d06bed7d1378c2cb10632a894da2136b031521510a3cb9551",
+      "c_matches_base": true,
+      "c_only_newlines": true,
+      "candidate_lf_only": true,
+      "diff": "ui__settings_screen.gd.diff"
+    },
+    {
+      "path": "ui/kit/ui_theme.gd",
+      "base_sha256": "e796f61f85556cc17b0a90ca270e12cb0175bd444c6ec0873d1ac0e498a69ac3",
+      "current_c_sha256": "e796f61f85556cc17b0a90ca270e12cb0175bd444c6ec0873d1ac0e498a69ac3",
+      "candidate_sha256": "4df6349d248f23990b9e915440b7b7c6b5aecab01c278f16ff49e30bd3cb99d2",
+      "c_matches_base": true,
+      "c_only_newlines": true,
+      "candidate_lf_only": true,
+      "diff": "ui__kit__ui_theme.gd.diff"
+    },
+    {
+      "path": "ui/codex_screen.gd",
+      "base_sha256": "fb91fe9e3a918841421237c5300f48c9e12666360115c1591c4ca3a4891d57cc",
+      "current_c_sha256": "fb91fe9e3a918841421237c5300f48c9e12666360115c1591c4ca3a4891d57cc",
+      "candidate_sha256": "549baab059f2ccd2c4cb648b8eae428ecc6ada55e1a3471c238892a7c1783db4",
+      "c_matches_base": true,
+      "c_only_newlines": true,
+      "candidate_lf_only": true,
+      "diff": "ui__codex_screen.gd.diff"
+    },
+    {
+      "path": "ui/death_screen.gd",
+      "base_sha256": "b0ccfc47931d38f16e979d7c49f75f4d004175ffa5dfbe656e2aa76e470a9ed1",
+      "current_c_sha256": "b0ccfc47931d38f16e979d7c49f75f4d004175ffa5dfbe656e2aa76e470a9ed1",
+      "candidate_sha256": "443f2bc95e32da1a2e79db09fa2ea15aaee841cb6a844c5149edb8cbc0bd10af",
+      "c_matches_base": true,
+      "c_only_newlines": true,
+      "candidate_lf_only": true,
+      "diff": "ui__death_screen.gd.diff"
+    },
+    {
+      "path": "tests/helpers/settings_device_checks.gd",
+      "base_sha256": "d9a9d45de55380943a10df4e0a6db94b65042e1a1de6c4eae2e9cee2ba4689d7",
+      "current_c_sha256": "d9a9d45de55380943a10df4e0a6db94b65042e1a1de6c4eae2e9cee2ba4689d7",
+      "candidate_sha256": "94891b32d2157688e4bdf6dfb04f202cc437a0733f33035f4da17a1ad2f5aaf8",
+      "c_matches_base": true,
+      "c_only_newlines": true,
+      "candidate_lf_only": true,
+      "diff": "tests__helpers__settings_device_checks.gd.diff"
+    },
+    {
+      "path": "tests/suite/test_ui_screens.gd",
+      "base_sha256": "314212470fdd6cc7bf3517ace66f596d6ff5f03db63b84edef31ea685ba929a6",
+      "current_c_sha256": "314212470fdd6cc7bf3517ace66f596d6ff5f03db63b84edef31ea685ba929a6",
+      "candidate_sha256": "e743564313aa497b1954e87eff0fc235af7236fa44a8215d5828b67d1a3fd684",
+      "c_matches_base": true,
+      "c_only_newlines": true,
+      "candidate_lf_only": true,
+      "diff": "tests__suite__test_ui_screens.gd.diff"
+    }
+  ]
+}

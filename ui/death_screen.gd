@@ -116,6 +116,10 @@ func _make_file_card() -> Control:
 
 ## 檔案卡展開：以上緣為軸從壓扁展開。
 func _open_card(card: Control) -> void:
+	if Settings.get_reduce_ui_motion():
+		card.scale = Vector2.ONE
+		card.modulate = Color.WHITE
+		return
 	card.pivot_offset_ratio = Vector2(0.5, 0.0)
 	card.scale = Vector2(1.0, 0.05)
 	card.modulate.a = 0.0
@@ -126,6 +130,8 @@ func _open_card(card: Control) -> void:
 
 ## 進入時的雜訊溶解（減少閃光時改為單純淡入）。
 func _play_noise_in(root: Control) -> void:
+	if Settings.get_reduce_ui_motion():
+		return
 	if Settings.get_reduce_flashes():
 		root.modulate.a = 0.0
 		root.create_tween().tween_property(root, "modulate:a", 1.0, NOISE_TIME)
