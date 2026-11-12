@@ -1,0 +1,57 @@
+{
+  "app_git_head": "d20d88f46e4889e46efbbbe4d165ddf396db4346",
+  "tracked_worktree_diff": [],
+  "tracked_index_diff": [],
+  "untracked_scope": "Root existing work/st22-native-review-v1, new own continuous leaf and generated .gd.uid only; not misrepresented as completely empty git status",
+  "untracked_files": [
+    "tests/helpers/freeze_collision_space_checks.gd.uid",
+    "tools/capture_precision_probe.gd.uid",
+    "tools/ne248_natural_core_probe.gd.uid",
+    "tools/quest_map_perf_probe.gd.uid",
+    "tools/test_capture_precision.gd.uid",
+    "tools/test_contrast_probe_geometry.gd.uid",
+    "tools/world_pause_sample.gd.uid",
+    "work/st22-continuous-head-v1/capture.gd",
+    "work/st22-continuous-head-v1/capture.tscn",
+    "work/st22-continuous-head-v1/parse.gd",
+    "work/st22-continuous-head-v1/parse.tscn",
+    "work/st22-native-review-v1/alpha-v2-preparation.json",
+    "work/st22-native-review-v1/alpha-v3-correction.json",
+    "work/st22-native-review-v1/capture.gd",
+    "work/st22-native-review-v1/capture.tscn",
+    "work/st22-native-review-v1/preparation.json"
+  ],
+  "d_source_count": 18967,
+  "c_guard_count": 397,
+  "producer_sha256": "f8123fd647e8ad42018eda53b957f374827313e1243a8d9b5739d118bcd4e1d4",
+  "draws": 258,
+  "original50_sample": 64,
+  "first_complete_process": 1670,
+  "after50_actor_seconds": 3.216538000000199,
+  "after50_breath_cycles": 1.1938056809842723,
+  "roi": [
+    522,
+    45,
+    180,
+    206
+  ],
+  "minimum_alpha_margin_pixels": 0.7857131958007955,
+  "first_any_alpha_y_at_minimum": 86.5,
+  "safe_top_pixels": 85.7142868041992,
+  "maximum_any_alpha_outside": 0,
+  "minimum_opaque_pixels": 2430,
+  "same_draw_aa_control_samples": [
+    0,
+    12,
+    52
+  ],
+  "same_draw_aa_max_differences": 0,
+  "new_conservative_body_outside_frames": 88,
+  "full_selected_samples": {
+    "first": 0,
+    "last": 257,
+    "narrowest": 52,
+    "worst": 0
+  },
+  "scope": "only this new current-source home2 natural short trace; original v1 body-top observation lacked alpha and remains unknown, never rewritten; no natural Main run/human/physical-controller/performance claim"
+}

@@ -1,0 +1,10 @@
+{
+  "scope": "new packaging metadata correction, no native or source changes",
+  "original_tool": "pack_continuous.py",
+  "failure": "asserted entire git status empty; generated UIDs/Root and own untracked work are legitimate. Tracked product worktree and index are unchanged.",
+  "original_zip_preserved_sha256": {
+    "history-and-source-original.zip": "eae80c1e152fbb010edf2a4f67bd357dadfb20d478d0c6fcebf91eab712f9592",
+    "native720-continuous-v4.original.zip": "8149db8851b1d6cacbbab5041574b495d74c194c0f0d602616ca5a05e597af9b"
+  },
+  "container_overwrites": false
+}

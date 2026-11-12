@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "scope": "original reviewer algorithms with only temporary root path substitution, no original epoch or reviewer edits; earliest six have no alpha, final12 are settled samples not a continuous trace",
+  "records": [
+    {
+      "epoch": "native720-v1",
+      "archive_sha256": "29dea3e4c6a8a786744755412af97278783540bcb6c22b63c95e1f2efa7f3095",
+      "members": 28,
+      "native_records": 6,
+      "body_bbox_outliers": [
+        {
+          "label": "ST-22-c14_home-2",
+          "bounds": [
+            {
+              "id": "rin",
+              "pose": "idle",
+              "logical_bounds": [
+                255.7749633789065,
+                41.6016540527344,
+                76.2210388183595,
+                193.693161010742
+              ]
+            }
+          ]
+        }
+      ],
+      "alpha_scope": "none in original; body outlier is not an opaque clipping/padding verdict"
+    },
+    {
+      "epoch": "native720-alpha-v3",
+      "archive_sha256": "3e65420acaab71dd025fb8709e7004d993a33eac6df47a43d3bbbd772e0c7c8d",
+      "members": 41,
+      "native_records": 6,
+      "body_bbox_outliers": [],
+      "alpha_records": 6,
+      "any_alpha_outside_total": 0
+    },
+    {
+      "epoch": "nativewide-alpha-v3",
+      "archive_sha256": "04ce2ff7dbdfd6f001753892a1dc632682dc40a3169776754a1177d6f1045baf",
+      "members": 41,
+      "native_records": 6,
+      "body_bbox_outliers": [],
+      "alpha_records": 6,
+      "any_alpha_outside_total": 0
+    }
+  ],
+  "parser_import_source_members": 46
+}

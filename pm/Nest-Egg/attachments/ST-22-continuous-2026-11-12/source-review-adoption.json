@@ -1,0 +1,25 @@
+{
+  "published_review_base": "f25d9b8a05c0e0fc83c58e69f20cd229c3922048",
+  "native_source_base": "d20d88f46e4889e46efbbbe4d165ddf396db4346",
+  "native_framing_actor_shader_sources_unchanged_through_review_base": true,
+  "source_prefixes_compared": [
+    "game/cutscene",
+    "game/rig",
+    "art/characters",
+    "art/shaders",
+    "data/cutscene",
+    "tools/cinematic_safe_area_capture.gd",
+    "tools/cinematic_safe_area_capture.tscn",
+    "core/cinematic_frame.gd"
+  ],
+  "proposed_manifest_sha256": "62cf0134a2a41f94a3b490f0af8e67e7f1b0fe89f6ee9f55505430483fa5cfef",
+  "protected_current_count": 402,
+  "protected_guard_sha256": "5c1ac1cc91fa4aedc37252a72433d69aad582e9fe9b4ff16f2162a858f990137",
+  "protected_current_unchanged": true,
+  "root_independent_replays": {
+    "continuous_and_two_reject_controls_exit": 0,
+    "original_three_epochs_and_12_alpha_exit": 0
+  },
+  "root_personal_view": "All12 settled final original viewport PNGs and continuous first/last/narrowest/worst full originals; initial six diagnostic images were separately viewed. No whole desktop control.",
+  "scope": "Evidence-only review. Controlled original scenes, current runtime source comparison; no new natural Main playthrough, physical controller, performance or old missing-alpha inference."
+}

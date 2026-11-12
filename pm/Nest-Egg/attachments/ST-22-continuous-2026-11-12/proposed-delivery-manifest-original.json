@@ -1,0 +1,181 @@
+{
+  "scope": "evidence-only proposed stage; all original epochs/Root tools preserved. No C product, pm or index written by worker. Root appends ST22 Commit4 separately. No new res://tools/registry.",
+  "file_count": 28,
+  "bytes": 100348062,
+  "reader_commands": [
+    "python verify.py",
+    "python verify_root_epochs.py",
+    "python read_capture_v2.py <epoch_or_unpacked_root> <new_output>"
+  ],
+  "external_original": "D:/NestEggDeliveries/ST22-continuous-20261112/native720-continuous-v4.original.zip",
+  "rows": [
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\history-and-source-original.zip",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/history-and-source-original.zip",
+      "bytes": 9123601,
+      "sha256": "eae80c1e152fbb010edf2a4f67bd357dadfb20d478d0c6fcebf91eab712f9592"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\history-index.json",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/history-index.json",
+      "bytes": 12908,
+      "sha256": "3b951a5b26bbeb63bb10dccdd7cc4501de8995df5074da679379b9f22e5d4925"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\images-index.json",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/images-index.json",
+      "bytes": 1356,
+      "sha256": "71d6a03cfe9ff659b9fb9b2bf773af129961cdf8d3cda34e7bc9f035debce63a"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\native720-alpha-v3.root-original.zip",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/native720-alpha-v3.root-original.zip",
+      "bytes": 16013302,
+      "sha256": "3e65420acaab71dd025fb8709e7004d993a33eac6df47a43d3bbbd772e0c7c8d"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\native720-continuous-v4.original.zip",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/native720-continuous-v4.original.zip",
+      "bytes": 24112884,
+      "sha256": "8149db8851b1d6cacbbab5041574b495d74c194c0f0d602616ca5a05e597af9b"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\native720-v1.root-original.zip",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/native720-v1.root-original.zip",
+      "bytes": 15626235,
+      "sha256": "29dea3e4c6a8a786744755412af97278783540bcb6c22b63c95e1f2efa7f3095"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\nativewide-alpha-v3.root-original.zip",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/nativewide-alpha-v3.root-original.zip",
+      "bytes": 23204197,
+      "sha256": "04ce2ff7dbdfd6f001753892a1dc632682dc40a3169776754a1177d6f1045baf"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\packaging-erratum.json",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/packaging-erratum.json",
+      "bytes": 573,
+      "sha256": "fcafca68ca2e567709b84c29569131a90a50e879fe7bdf6823759dc55e636b2e"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\raw-index.json",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/raw-index.json",
+      "bytes": 46311,
+      "sha256": "2a9f25158ddecdd4f2e338d11c61be9e6074f7542603bad26015782f9ea51739"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\read_capture_v2.py",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/read_capture_v2.py",
+      "bytes": 7479,
+      "sha256": "77b81a9dab126e7e596b35741022249ac9c644c2d60be3436590a2d179c4e938"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\README.md",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/README.md",
+      "bytes": 4259,
+      "sha256": "5e5d56a6dbe1b0612d6bc3aaa2b77213ef9cb09975f8df1c35f142a64c57acdd"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\root-epochs-index.json",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/root-epochs-index.json",
+      "bytes": 29880,
+      "sha256": "dc744376e786c5f0a9373dc4f44999fac3497a1865f78ccaa107900ce9df9044"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\root-independent-original.zip",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/root-independent-original.zip",
+      "bytes": 5355,
+      "sha256": "192079f83d764b0acc6f08db6ea722dcc581809ea60c6c208283a592ebfd8fca"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\root-parser-import-and-reviewers-original.zip",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/root-parser-import-and-reviewers-original.zip",
+      "bytes": 7042245,
+      "sha256": "24daecb85f41a740c76210e61dad291ffc96ef6650b91d583381c2bbe9622383"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\selected\\full-first.png",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/selected/full-first.png",
+      "bytes": 627918,
+      "sha256": "d9cdaf98076bb28d077c7a1620b086a9e286280afdc6968d8e53c370683c6aa9"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\selected\\full-last.png",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/selected/full-last.png",
+      "bytes": 632298,
+      "sha256": "9733d10a51c929ebd0ccb154b5e7e808e37e685caed55a064ef90439afb5a07a"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\selected\\full-narrowest.png",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/selected/full-narrowest.png",
+      "bytes": 635264,
+      "sha256": "c0f55f41378ed0bf545275ebb918f597532b1353b1cc4b14a40f080831c80f68"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\selected\\full-worst.png",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/selected/full-worst.png",
+      "bytes": 627918,
+      "sha256": "d9cdaf98076bb28d077c7a1620b086a9e286280afdc6968d8e53c370683c6aa9"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\selected\\reference-alpha-first.png",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/selected/reference-alpha-first.png",
+      "bytes": 29138,
+      "sha256": "fcc832ab41397af23d04d4722903a4d795f214f185159776086bfeb2f7847ea3"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\selected\\reference-alpha-narrowest.png",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/selected/reference-alpha-narrowest.png",
+      "bytes": 29279,
+      "sha256": "8fd1f4e1cbf3ac373c63b678eaec660e0627238a606056e046dab23e1d9861a1"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\summary.json",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/summary.json",
+      "bytes": 2114,
+      "sha256": "6d5abe647a5265042ddf48f82002eb404bf3d0311527d09f4e13e3d0a4b58fbd"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\verification-original.zip",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/verification-original.zip",
+      "bytes": 2131,
+      "sha256": "11ab826b30a10eff793bd5374c3efbcbca8fb94def16b59a6e33664e133a6e3a"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\verify.py",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/verify.py",
+      "bytes": 3974,
+      "sha256": "3268d2716f63b20b9838e6b9a26d9d8fc4b6e634ad4835f90c46233bf0eb0661"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\verify_root_epochs.py",
+      "target": "pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/verify_root_epochs.py",
+      "bytes": 4045,
+      "sha256": "9132a5f627191911547fe4bff06b11a39b41634a889a60699574752d71438a03"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\selected\\full-first.png",
+      "target": "pm/Nest-Egg/images/ST-22-home2-continuous-first.png",
+      "bytes": 627918,
+      "sha256": "d9cdaf98076bb28d077c7a1620b086a9e286280afdc6968d8e53c370683c6aa9"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\selected\\full-narrowest.png",
+      "target": "pm/Nest-Egg/images/ST-22-home2-continuous-narrowest.png",
+      "bytes": 635264,
+      "sha256": "c0f55f41378ed0bf545275ebb918f597532b1353b1cc4b14a40f080831c80f68"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\selected\\full-worst.png",
+      "target": "pm/Nest-Egg/images/ST-22-home2-continuous-worst.png",
+      "bytes": 627918,
+      "sha256": "d9cdaf98076bb28d077c7a1620b086a9e286280afdc6968d8e53c370683c6aa9"
+    },
+    {
+      "source": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\st22-continuous-head-v1\\delivery-v1\\selected\\full-last.png",
+      "target": "pm/Nest-Egg/images/ST-22-home2-continuous-last.png",
+      "bytes": 632298,
+      "sha256": "9733d10a51c929ebd0ccb154b5e7e808e37e685caed55a064ef90439afb5a07a"
+    }
+  ]
+}

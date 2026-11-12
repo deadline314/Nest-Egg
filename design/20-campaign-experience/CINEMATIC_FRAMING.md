@@ -67,3 +67,12 @@ Forward+隔離探針使用獨立user資料，保護正式存檔。按真輸入�
 最後四組含已free畫面的matching取消通知共799 checks、0 new、0 known、27秒，EXIT0（C:/tmp/st22-freed-guard-fixed-console.log及同名前綴logs/shard_0.log）。5366453717重新隔離匯入EXIT0、無Script／Parse／Compile／ERROR；原selector選66組（含main），原run_tests_changed.sh HEAD、SHARDS=2已自然EXIT0，47,088 checks、0 new、0 known、797秒；shard0為34,493、shard1為12,595。沒有更改registry／filter／known failures。完整console、兩shard與SHA報表在pm/Nest-Egg/attachments/ST-22-final-*.log、ST-22-verification.json。raw保留原本預期容錯ERROR，以及退出ObjectDB 4／25、resources 2／13診斷；本票未宣稱所有引擎警告或既有物件生命週期問題均已消除。
 
 根代理最後目視確認人物近端預告／對話文字與肖像安全，NPC自身重複互動prompt消失，寬視口工具EXPAND的零遮幅成立。正式16:9 home-movie仍有老K與凜頭部超出上緣／被黑邊遮擋；保留原圖交ST-10舞台範圍，**本票UI安全區通過不能代稱演員與關鍵動作構圖通過**。一般告示牌與氣泡文字疊層屬BG-22／ST-9，本票不改地圖／演員美術／骨架補圖。此限制對應ST-22第五驗收條件，保持未勾選；所有native探針是合成輸入／受控路由，未宣稱實體手把人工驗收。
+
+
+## 2026-11-13 本機原生構圖補驗
+
+上方首次交付中「正式home頭部越界／第五條未勾」為當時歷史限制；Commit-2／3構圖修正後，本輪已以RX9070XT Forward+重看同組六鏡，720p及超寬共12張完整原圖、同frame實際頭部alpha均在安全區。home第二鏡另258個連續影格涵蓋目標句首、原50process標記後3.216538秒及1.193806呼吸圈，所有正alpha在內，最窄餘量0.785713實體像素。
+
+保守actor框包含透明區，不直接冒稱實際裁切；只有同frame原RGBAH證據才作像素判斷。初次無alpha的舊影格保持未定；新資料不可替舊格補結論。三個head/hair遮罩亦不代表整體肢體或曝光驗收。超寬工具EXPAND只作用於觀察視口，正式顯示設定、物理、演員與材質不改。
+
+來源d20至整合f25d的電影／演員／材質／舞台比對無變動。根代理獨立解包重算兩reader並親看最後12張及連續4張原圖，原工具失敗、解析錯誤與來源門禁均保留；[原件及重算](../../pm/Nest-Egg/attachments/ST-22-continuous-2026-11-12/README.md)。自然Main路線、全流程實體手把與效能仍依所屬票驗收。
