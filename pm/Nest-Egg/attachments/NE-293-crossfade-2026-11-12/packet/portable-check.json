@@ -1,0 +1,56 @@
+{
+  "accepted": true,
+  "checks": [
+    {
+      "command": [
+        "verify_state.py"
+      ],
+      "exit": 0,
+      "expected_exit": 0
+    },
+    {
+      "command": [
+        "verify_pcm.py"
+      ],
+      "exit": 0,
+      "expected_exit": 0
+    },
+    {
+      "command": [
+        "unequal-pcm/verify.py"
+      ],
+      "exit": 0,
+      "expected_exit": 0
+    },
+    {
+      "command": [
+        "summarize_official.py",
+        "published-default-official-1794475000448228800"
+      ],
+      "exit": 0,
+      "expected_exit": 0
+    },
+    {
+      "command": [
+        "before_verify_holds.py",
+        "runs/1794472002092308000-holds",
+        "--audio-tools",
+        "hold-replay/canonical-audio-tools"
+      ],
+      "exit": 1,
+      "expected_exit": 1
+    },
+    {
+      "command": [
+        "hold-replay/verify_holds.py",
+        "hold-replay/runs/1794475671530991700",
+        "--audio-tools",
+        "hold-replay/canonical-audio-tools"
+      ],
+      "exit": 0,
+      "expected_exit": 0
+    }
+  ],
+  "scope": "No Godot/GPU/network/live WT. Exact2 candidates; original default30 script/raw/filter outcome; state26 red/green; equal and unequal actual PCM; unchanged34-row hold RED/GREEN. Individual default child exit codes were not captured and are not invented. No human/controller/Forward+ claim.",
+  "provenance": "Actual successful portable CLI stdout; JSON serialized with LF for source control. Byte-original stdout retained in delivery/portable-cli-stdout.raw.log."
+}

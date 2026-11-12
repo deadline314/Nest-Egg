@@ -1,0 +1,1019 @@
+{
+  "schema": "ne293-crossfade-public-v1",
+  "base": "4a2f9ecfaf3d98db102e79b37420821f714549ca",
+  "candidate": {
+    "core/audio/crossfade_player.gd": {
+      "source": "product/core/audio/crossfade_player.gd",
+      "sha256": "117f7d67a1b0f628486710aab94f346b0a9f205451c582e1207845907341a566"
+    },
+    "tests/suite/test_audio.gd": {
+      "source": "product/tests/suite/test_audio.gd",
+      "sha256": "5fe813e38c116cc70eccdec5788c57f0b6deb8ebb0493606f0ef609f6591ef8e"
+    }
+  },
+  "external_recommended": "D:\\NestEggDeliveries\\NE293-20261112",
+  "archives": {
+    "source-readers.zip": {
+      "bytes": 96213,
+      "sha256": "85707c268bff5f6f2bcada7dee377337ba92bc650af7f020d103382984e44b3e",
+      "external": false,
+      "members": {
+        "README.md": {
+          "bytes": 9035,
+          "crc32": 1619230873,
+          "sha256": "75155b5f01b210f0b1c0c25cf4fa69a321068d204ca82dc6117cd5afe3015b1c"
+        },
+        "baseline-crossfade_player.gd": {
+          "bytes": 4297,
+          "crc32": 2004811925,
+          "sha256": "bc7fbc680e8dd25d8a9267782ba86b9da05b966d2ad0f54e6cfe361dc38230af"
+        },
+        "before_verify_holds.py": {
+          "bytes": 11139,
+          "crc32": 2691175061,
+          "sha256": "e8feb6c4212bfe5cf84498658a9813669cbdc45cb80c664daa354da79a273856"
+        },
+        "candidate-crossfade_player.gd": {
+          "bytes": 4540,
+          "crc32": 2647092311,
+          "sha256": "117f7d67a1b0f628486710aab94f346b0a9f205451c582e1207845907341a566"
+        },
+        "candidate.diff": {
+          "bytes": 4768,
+          "crc32": 1125843579,
+          "sha256": "59c9e66b61e055fc639927d4a6985f782b78976084ffd67212d428aad18fde34"
+        },
+        "canonical-runtime/tools/audio/melee_pcm_clock.gd": {
+          "bytes": 8009,
+          "crc32": 894604530,
+          "sha256": "a2b9608ec12220f0a7da7ebd9c5bf40e09c7e754f51eff2d23e72151fe4aa027"
+        },
+        "canonical-runtime/tools/audio/melee_pcm_clock.gd.uid": {
+          "bytes": 19,
+          "crc32": 3231360870,
+          "sha256": "53bcd14bde387899d48f5a5da27ea698c7d7d11bec31d68a2d50a1d5657fc6cc"
+        },
+        "canonical-runtime/tools/audio/melee_sound_content.gd": {
+          "bytes": 6506,
+          "crc32": 2127274753,
+          "sha256": "6619345f528ac156878ca0ac0f85e769292a08766e32f57f723d8584952471f6"
+        },
+        "canonical-runtime/tools/audio/melee_sound_content.gd.uid": {
+          "bytes": 19,
+          "crc32": 197239806,
+          "sha256": "a09cf2a0813e9b6595d3e18f059284f14b53989c8b39a5de1e99b9540f92e1b5"
+        },
+        "canonical-runtime/tools/melee_sound_probe.gd": {
+          "bytes": 10474,
+          "crc32": 346659610,
+          "sha256": "45fdab97de6a96da82a07f5c6b24f8fd95741a2e19ace72d72172bba2af55b27"
+        },
+        "godot_audio_only.py": {
+          "bytes": 859,
+          "crc32": 1430866105,
+          "sha256": "bb32a0d33fa6dfa79c19237a34010d08f0015b5851da16426bc8997fcaa5315b"
+        },
+        "hold-replay/audit_melee.gd": {
+          "bytes": 574,
+          "crc32": 1509582220,
+          "sha256": "1c9e9b9da1cced7ba0966bcf9ed489d35972f33f4f600634daccd727089f8532"
+        },
+        "hold-replay/canonical-audio-tools/melee_pcm_reader.py": {
+          "bytes": 8592,
+          "crc32": 2533486381,
+          "sha256": "3279ca1209580fe154279448a879eb162c833fbb0fae75b2242df4ea28473d33"
+        },
+        "hold-replay/canonical-audio-tools/melee_sound_report.py": {
+          "bytes": 9565,
+          "crc32": 1231550732,
+          "sha256": "ffdcd7b539811cd407dad2dbdfa3e357c0da02813f445f9d0900bbfba4bdbe32"
+        },
+        "hold-replay/contract-before-replay.json": {
+          "bytes": 745,
+          "crc32": 4166435103,
+          "sha256": "f3a87f7889d7c726349e0629186a669289fe76fdd39300c6163f78805bc4b57a"
+        },
+        "hold-replay/hold-result.json": {
+          "bytes": 9315,
+          "crc32": 3652406244,
+          "sha256": "871f2d8114df2870a79228bdbe3a34584785e4109e78ab72620cf694c3b93132"
+        },
+        "hold-replay/probe.gd": {
+          "bytes": 14017,
+          "crc32": 3250340403,
+          "sha256": "41f1e6205de1b09cc5a3d01f706b238042f9279e29ae7e8c8f6430e274609ed5"
+        },
+        "hold-replay/probe.tscn": {
+          "bytes": 190,
+          "crc32": 2059457431,
+          "sha256": "f3048e77a6a8170067fac2099e50a7b42a499394c5fd8327ef125e4b9a799f61"
+        },
+        "hold-replay/run.py": {
+          "bytes": 4228,
+          "crc32": 2061741969,
+          "sha256": "c3c2804658a02b5b3f01d887408030521391fda69fbb16eefc21bded61a53fb3"
+        },
+        "hold-replay/verify_holds.py": {
+          "bytes": 11146,
+          "crc32": 1145831683,
+          "sha256": "15c87838e8132855e79a0227b09f42de442bf712a1fccc3a196ac9e6ec05f489"
+        },
+        "import-metadata/tests/helpers/freeze_collision_space_checks.gd.uid": {
+          "bytes": 20,
+          "crc32": 3106382348,
+          "sha256": "1e329a6eddac954c3ed5087c1ea11d8d34d415215a32effdb973b763d638b6b2"
+        },
+        "import-metadata/tools/capture_precision_probe.gd.uid": {
+          "bytes": 19,
+          "crc32": 3971173157,
+          "sha256": "df740cf6258ae46b020d98e15a7153f84c45abac5b70ec3f1a5d855cf7c4f22c"
+        },
+        "import-metadata/tools/ne248_natural_core_probe.gd.uid": {
+          "bytes": 19,
+          "crc32": 4196993551,
+          "sha256": "0b6785a731295816926d870b0ca24dc22f75635ef788918d5f8fdfdb8f84adcd"
+        },
+        "import-metadata/tools/quest_map_perf_probe.gd.uid": {
+          "bytes": 20,
+          "crc32": 945877531,
+          "sha256": "4564e4655dfd83667a40d83af641b98959397bbbba8c9fdb2aceb51ef9b4424b"
+        },
+        "import-metadata/tools/test_capture_precision.gd.uid": {
+          "bytes": 20,
+          "crc32": 3623227616,
+          "sha256": "603ce7da79902f6cdcdc87d7f01c6d99dd686d7ef0f0ea9ed7bca4ebd7604ffc"
+        },
+        "import-metadata/tools/test_contrast_probe_geometry.gd.uid": {
+          "bytes": 20,
+          "crc32": 3825351044,
+          "sha256": "e2c0caf6a4729225a7bfc35548ed82f5b136d8b74be11dc6a6a3579b48842c97"
+        },
+        "import-metadata/tools/world_pause_sample.gd.uid": {
+          "bytes": 19,
+          "crc32": 772160057,
+          "sha256": "ecbafcf778dd642c1251203c6d8434f1a9a154970b269f258f6fa664af716a1f"
+        },
+        "make_figures.py": {
+          "bytes": 7457,
+          "crc32": 1244976645,
+          "sha256": "7948b39549c6e36ca9402cc44653393a25358d5ef5995294e9e821d155df64b1"
+        },
+        "pcm-result.json": {
+          "bytes": 1445,
+          "crc32": 154264534,
+          "sha256": "85185da1c62899caf44c7ca4df7937e633120d794e6dc7bfc48109c47b36cc98"
+        },
+        "probe.gd": {
+          "bytes": 9157,
+          "crc32": 1362709891,
+          "sha256": "4da2e0e604383ba5b9bbf02a7a79fc049d3c611633978651cb66399fa22c8c04"
+        },
+        "probe.tscn": {
+          "bytes": 173,
+          "crc32": 536239502,
+          "sha256": "57574b0452408593b508c4551f7abb3b78ed1a3072ecb32cb36d1487487ec072"
+        },
+        "product/core/audio/crossfade_player.gd": {
+          "bytes": 4540,
+          "crc32": 2647092311,
+          "sha256": "117f7d67a1b0f628486710aab94f346b0a9f205451c582e1207845907341a566"
+        },
+        "product/tests/suite/test_audio.gd": {
+          "bytes": 57783,
+          "crc32": 1392667503,
+          "sha256": "5fe813e38c116cc70eccdec5788c57f0b6deb8ebb0493606f0ef609f6591ef8e"
+        },
+        "published-candidate-2-manifest.json": {
+          "bytes": 2148,
+          "crc32": 2592511418,
+          "sha256": "b0a6fabc2886e2d2781b752ec3adce1e495a36100064e4cb226091a18caae0d8"
+        },
+        "run.py": {
+          "bytes": 2928,
+          "crc32": 3717270097,
+          "sha256": "4621beffeb50fa94db2e5a04f98bd6e696e719afd73a697f64c213ac6aceb130"
+        },
+        "run_official.py": {
+          "bytes": 7928,
+          "crc32": 435177346,
+          "sha256": "ca96750a01c5dfbf3db13be516f9d8fb84db0644f305be042ec74b8e0f42f4cd"
+        },
+        "summarize_official.py": {
+          "bytes": 3088,
+          "crc32": 3176655387,
+          "sha256": "eb352bffd09ee4ebae867fc84fd7757b3ff2eada0e15dc643674cc0ff0e6a6f3"
+        },
+        "unequal-pcm/baseline_crossfade.gd": {
+          "bytes": 4333,
+          "crc32": 547297432,
+          "sha256": "d0fc8d5f5226ce6e506bd0a1c84f8e3db1d6510d344ca031999c3660e3ef6e5c"
+        },
+        "unequal-pcm/candidate_crossfade.gd": {
+          "bytes": 4576,
+          "crc32": 5629970,
+          "sha256": "407a0f7c5964dc46880607a1087aac60b4d6b394fd7efa425e60315584ada9ef"
+        },
+        "unequal-pcm/probe.gd": {
+          "bytes": 3637,
+          "crc32": 863053786,
+          "sha256": "649839dcea370d49e66e68d73c60eb3ab20138d0797390e0b43f7df923cb59c0"
+        },
+        "unequal-pcm/probe.tscn": {
+          "bytes": 173,
+          "crc32": 3111828639,
+          "sha256": "644d01d729f4cc58403a15a7f8c63b1c3b0f87438e9affe97fcd419bd280e499"
+        },
+        "unequal-pcm/run.py": {
+          "bytes": 2121,
+          "crc32": 1781896205,
+          "sha256": "284b2b42053d38c9bc20c2dcd930abf7f0a6b7f5fdd9841c39ea5c1f128ba19d"
+        },
+        "unequal-pcm/verified.json": {
+          "bytes": 3646,
+          "crc32": 1760234339,
+          "sha256": "5b7b6aa1b420d22d3b1ef79c1d6070808f2c3cb66a8e7b71cc6d1edd654cc537"
+        },
+        "unequal-pcm/verify.py": {
+          "bytes": 4446,
+          "crc32": 1007498613,
+          "sha256": "d4f2087e8e0f76336244923737df6adab9750ff72000642b1d0730c1762de075"
+        },
+        "verify_pcm.py": {
+          "bytes": 2990,
+          "crc32": 3351011639,
+          "sha256": "faa9005393256f7826d18aa32f0f3d6c6336c8cd79360a90dc1147be672a5d9d"
+        },
+        "verify_state.py": {
+          "bytes": 1429,
+          "crc32": 540191916,
+          "sha256": "95abf49198ca4e51c63faf7b7e8282a1bc6c3ba84148a1e162e68a041a95f7a2"
+        }
+      }
+    },
+    "proof-raw.zip": {
+      "bytes": 2670046,
+      "sha256": "66918ce8199cd6fe0258986e9f50c3c2b98d0fc2950d3d58adfff86b56e9cd8a",
+      "external": false,
+      "members": {
+        "published-default-official-1794475000448228800/command.json": {
+          "bytes": 1598,
+          "crc32": 3258605769,
+          "sha256": "a7f03d23c99d34ae878c9e8909e5bee934c7fceabd750fc32b350a330da53672"
+        },
+        "published-default-official-1794475000448228800/executed-godot_audio_only.py": {
+          "bytes": 859,
+          "crc32": 1430866105,
+          "sha256": "bb32a0d33fa6dfa79c19237a34010d08f0015b5851da16426bc8997fcaa5315b"
+        },
+        "published-default-official-1794475000448228800/executed-runner.py": {
+          "bytes": 7928,
+          "crc32": 435177346,
+          "sha256": "ca96750a01c5dfbf3db13be516f9d8fb84db0644f305be042ec74b8e0f42f4cd"
+        },
+        "published-default-official-1794475000448228800/exit.json": {
+          "bytes": 854,
+          "crc32": 440228555,
+          "sha256": "fe19fa30486388444962a6977b8f175e476b27c1a3e764cdb68105c75e7e605b"
+        },
+        "published-default-official-1794475000448228800/full.log": {
+          "bytes": 1241,
+          "crc32": 2215839701,
+          "sha256": "f7fa0dad242a8dd395412ebff0b1c9959bb2b07ed7a056779c2ef73b489775b6"
+        },
+        "published-default-official-1794475000448228800/generated-metadata.json": {
+          "bytes": 784,
+          "crc32": 3293894407,
+          "sha256": "8fe946eb464fc58b83ce6c2cbc811fc83eee04ff6905aa1b21492ebb498e25b7"
+        },
+        "published-default-official-1794475000448228800/godot_audio_only.sh": {
+          "bytes": 181,
+          "crc32": 2926729726,
+          "sha256": "7b965871d9689914f02462fa6696f8e754bdc02c1ef163a77e0538d7da51cfee"
+        },
+        "published-default-official-1794475000448228800/import-command.json": {
+          "bytes": 268,
+          "crc32": 4101143068,
+          "sha256": "dd00a014ec41ab91f218e16067bc21d60ca4aaff5c46e73e3508460d03543799"
+        },
+        "published-default-official-1794475000448228800/import-exit.json": {
+          "bytes": 117,
+          "crc32": 2556581635,
+          "sha256": "3416526404f48adece67aa87faf28ae04136cd65d81a7c9103b8362540033f3c"
+        },
+        "published-default-official-1794475000448228800/import.log": {
+          "bytes": 1060,
+          "crc32": 3225977255,
+          "sha256": "7272f1a616b95db4510273232271ced55a1c572c7648ad7c5e53b3f97730858b"
+        },
+        "published-default-official-1794475000448228800/logs/shard_0.log": {
+          "bytes": 294569,
+          "crc32": 2566208143,
+          "sha256": "9a10afafbae27d43c91dc28633fd612957fbacda43b7e58c2acf833591f5f570"
+        },
+        "published-default-official-1794475000448228800/logs/shard_1.log": {
+          "bytes": 211553,
+          "crc32": 804992257,
+          "sha256": "bb995a5f0f2ae1d023c0526254decb4585f82109f95b2c15094ecd1d6ed50ab1"
+        },
+        "published-default-official-1794475000448228800/observed-godot-exits.json": {
+          "bytes": 160,
+          "crc32": 2987781094,
+          "sha256": "7053771a38d0588054e1f7812bae02d3fdf710fc0c4f78895ed32da5e1d83bf6"
+        },
+        "published-default-official-1794475000448228800/observer-summary-failure.log": {
+          "bytes": 412,
+          "crc32": 3124756034,
+          "sha256": "c323f217ecb062002eab2849d3945f928b760dee105dc9cfaeb80b511333be19"
+        },
+        "published-default-official-1794475000448228800/source-after.json": {
+          "bytes": 452114,
+          "crc32": 660426695,
+          "sha256": "9ebe451f33c5a89c57948f47bdb7cf31a916dc77602b0c7bcee47c886b2326ce"
+        },
+        "published-default-official-1794475000448228800/source-before-import.json": {
+          "bytes": 451333,
+          "crc32": 3708341293,
+          "sha256": "5e7e9df4638106cbf05b2e095e76ee31a8621d74fccb256d4560fd0f613f3e88"
+        },
+        "published-default-official-1794475000448228800/source-before.json": {
+          "bytes": 452114,
+          "crc32": 585532570,
+          "sha256": "457a41f756e620065f88ad6a0abf37b9b66882bec9025a200a35ad798b5f1c82"
+        },
+        "published-default-official-1794475000448228800/source/tests/known_failures.txt": {
+          "bytes": 381,
+          "crc32": 2961364506,
+          "sha256": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf"
+        },
+        "published-default-official-1794475000448228800/source/tools/run_tests_changed.sh": {
+          "bytes": 2430,
+          "crc32": 1494273722,
+          "sha256": "71bbbd76f1941fda43a4db6f061538a2ae37bcb77765674908a9957899b8f336"
+        },
+        "published-default-official-1794475000448228800/source/tools/run_tests_parallel.sh": {
+          "bytes": 4733,
+          "crc32": 3280756684,
+          "sha256": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba"
+        },
+        "published-default-official-1794475000448228800/source/tools/select_tests.py": {
+          "bytes": 10446,
+          "crc32": 1906185771,
+          "sha256": "07fe95c5c5f75f35e35ba70b9b3a4c801547f6c7213ae7a13de15ee3dc765c81"
+        },
+        "published-default-official-1794475000448228800/source/tools/test_filters.sh": {
+          "bytes": 1995,
+          "crc32": 2156573367,
+          "sha256": "509706b8257b8e46f6e8c01ebeda0ecd976b6607975f66430bd6774461500c80"
+        },
+        "published-default-official-1794475000448228800/verified-summary.json": {
+          "bytes": 1289,
+          "crc32": 877606735,
+          "sha256": "da064f4bb2ac4c0fd1fc964bc9d35b4074051eb1ce8d592ff7c842b498da84e4"
+        },
+        "runs/1794473416764590300-baseline-state/appdata/Godot/app_userdata/Nest Egg/logs/godot.log": {
+          "bytes": 201,
+          "crc32": 1789360082,
+          "sha256": "b4d5cb7dd4777c405a0b855e9e42ab1faf9834af31b70fc7a4c8bc72efb36acb"
+        },
+        "runs/1794473416764590300-baseline-state/command.json": {
+          "bytes": 215021,
+          "crc32": 2417979174,
+          "sha256": "aad9bcf337a1151150eb5c1525314c9a325b85746e32dd8ad96dd10bb5b97421"
+        },
+        "runs/1794473416764590300-baseline-state/engine.log": {
+          "bytes": 205,
+          "crc32": 3678968779,
+          "sha256": "b7354b77083e37a12e874778c7adeadc707cfd174022afb95ba07d8025ce10e4"
+        },
+        "runs/1794473416764590300-baseline-state/executed-crossfade_player.gd": {
+          "bytes": 4297,
+          "crc32": 2004811925,
+          "sha256": "bc7fbc680e8dd25d8a9267782ba86b9da05b966d2ad0f54e6cfe361dc38230af"
+        },
+        "runs/1794473416764590300-baseline-state/exit.json": {
+          "bytes": 214446,
+          "crc32": 932172413,
+          "sha256": "7bf70a37137263b4e64b661dd0f738f04531080d183266f9283e8b339a196413"
+        },
+        "runs/1794473416764590300-baseline-state/probe.gd": {
+          "bytes": 9157,
+          "crc32": 1362709891,
+          "sha256": "4da2e0e604383ba5b9bbf02a7a79fc049d3c611633978651cb66399fa22c8c04"
+        },
+        "runs/1794473416764590300-baseline-state/probe.tscn": {
+          "bytes": 173,
+          "crc32": 536239502,
+          "sha256": "57574b0452408593b508c4551f7abb3b78ed1a3072ecb32cb36d1487487ec072"
+        },
+        "runs/1794473416764590300-baseline-state/result.json": {
+          "bytes": 3604,
+          "crc32": 635638111,
+          "sha256": "d87f2a7255786c59a7a92236a76a8919619d8ccf6378f324311f4590bcbb7edc"
+        },
+        "runs/1794473435109872200-candidate-state/appdata/Godot/app_userdata/Nest Egg/logs/godot.log": {
+          "bytes": 201,
+          "crc32": 399541143,
+          "sha256": "7fc8443bd2eaf05423bc9ef302c79db533a073e4f71596376e180cbe3c0cf54c"
+        },
+        "runs/1794473435109872200-candidate-state/command.json": {
+          "bytes": 215023,
+          "crc32": 3359394399,
+          "sha256": "6b9b25df3ce104b2c5516c038ce4fa185d97203c7d32f76ad2f7dde6c7d780b2"
+        },
+        "runs/1794473435109872200-candidate-state/engine.log": {
+          "bytes": 205,
+          "crc32": 3716372768,
+          "sha256": "0b09ddf9fa93a08703f280e789ad9261924cb9e5e40438a780df33bf00c06e85"
+        },
+        "runs/1794473435109872200-candidate-state/executed-crossfade_player.gd": {
+          "bytes": 4551,
+          "crc32": 704910359,
+          "sha256": "97d006353ae4a724f992eb3e07d03fd2a7f73deb8e7b45ea0b884b87215a8ab5"
+        },
+        "runs/1794473435109872200-candidate-state/exit.json": {
+          "bytes": 214446,
+          "crc32": 393703006,
+          "sha256": "e581ca2584abbce4bbe44c1d380cdd161eb182e1b2c6a0bc8554f48ca8d952dc"
+        },
+        "runs/1794473435109872200-candidate-state/probe.gd": {
+          "bytes": 9157,
+          "crc32": 1362709891,
+          "sha256": "4da2e0e604383ba5b9bbf02a7a79fc049d3c611633978651cb66399fa22c8c04"
+        },
+        "runs/1794473435109872200-candidate-state/probe.tscn": {
+          "bytes": 173,
+          "crc32": 536239502,
+          "sha256": "57574b0452408593b508c4551f7abb3b78ed1a3072ecb32cb36d1487487ec072"
+        },
+        "runs/1794473435109872200-candidate-state/result.json": {
+          "bytes": 3642,
+          "crc32": 3189261875,
+          "sha256": "3b99ea5e42ac4ff7514919e449afaf1020f33f03a5eba300f71843a8cddff473"
+        },
+        "runs/1794473446128261000-candidate-state/appdata/Godot/app_userdata/Nest Egg/logs/godot.log": {
+          "bytes": 201,
+          "crc32": 248230614,
+          "sha256": "da835e356f81f8b11ce1fe362fbb5f01dcf043d6bb2f43d6315df29a3d4bc98e"
+        },
+        "runs/1794473446128261000-candidate-state/command.json": {
+          "bytes": 215023,
+          "crc32": 3561425916,
+          "sha256": "a276661f00ad88d61abe85d6db9162cb9703b141c5abf69c4f6475ab90faba58"
+        },
+        "runs/1794473446128261000-candidate-state/engine.log": {
+          "bytes": 205,
+          "crc32": 3695260439,
+          "sha256": "9af84ac085b80332908d29a38d3df73d96939481c1842516af1569cb0756d2bb"
+        },
+        "runs/1794473446128261000-candidate-state/executed-crossfade_player.gd": {
+          "bytes": 4540,
+          "crc32": 2647092311,
+          "sha256": "117f7d67a1b0f628486710aab94f346b0a9f205451c582e1207845907341a566"
+        },
+        "runs/1794473446128261000-candidate-state/exit.json": {
+          "bytes": 214446,
+          "crc32": 1737292199,
+          "sha256": "05e25ca250cc03e5dcb0e69fd51404dc8474794fac3ddf943e26d872332e6e7a"
+        },
+        "runs/1794473446128261000-candidate-state/probe.gd": {
+          "bytes": 9157,
+          "crc32": 1362709891,
+          "sha256": "4da2e0e604383ba5b9bbf02a7a79fc049d3c611633978651cb66399fa22c8c04"
+        },
+        "runs/1794473446128261000-candidate-state/probe.tscn": {
+          "bytes": 173,
+          "crc32": 536239502,
+          "sha256": "57574b0452408593b508c4551f7abb3b78ed1a3072ecb32cb36d1487487ec072"
+        },
+        "runs/1794473446128261000-candidate-state/result.json": {
+          "bytes": 3641,
+          "crc32": 3965092595,
+          "sha256": "28a2dcb1a8adf7aed1d72752c6c335f856e49c43aaf194b9fd8aa8dbb7543019"
+        },
+        "runs/1794473459581321500-baseline-pcm/actual.f32": {
+          "bytes": 659456,
+          "crc32": 2971636618,
+          "sha256": "32d1c50beda8304edeaeff3700d6ec88e86b665e0c93f8c6778820955dcddebc"
+        },
+        "runs/1794473459581321500-baseline-pcm/appdata/Godot/app_userdata/Nest Egg/logs/godot.log": {
+          "bytes": 200,
+          "crc32": 2453345744,
+          "sha256": "a33a158340cdc5f3cee11656af94b1744b3442a71be648d9901986e0b34b5e44"
+        },
+        "runs/1794473459581321500-baseline-pcm/command.json": {
+          "bytes": 215015,
+          "crc32": 185039237,
+          "sha256": "ce50d458934a8363d5f9c29f6a196423060fa5056f3acf3fe59405e7af92ed6d"
+        },
+        "runs/1794473459581321500-baseline-pcm/engine.log": {
+          "bytes": 204,
+          "crc32": 4079810274,
+          "sha256": "3a7cfb27e0b00b474085d0b9997f9b2fa7b9318208ca3b4ea9c94b151377bbb1"
+        },
+        "runs/1794473459581321500-baseline-pcm/executed-crossfade_player.gd": {
+          "bytes": 4297,
+          "crc32": 2004811925,
+          "sha256": "bc7fbc680e8dd25d8a9267782ba86b9da05b966d2ad0f54e6cfe361dc38230af"
+        },
+        "runs/1794473459581321500-baseline-pcm/exit.json": {
+          "bytes": 214446,
+          "crc32": 318036638,
+          "sha256": "6b5eccc356d982ed95951a49b7e446b14a1808555a8de77aa0f57a7ae9d207d7"
+        },
+        "runs/1794473459581321500-baseline-pcm/probe.gd": {
+          "bytes": 9157,
+          "crc32": 1362709891,
+          "sha256": "4da2e0e604383ba5b9bbf02a7a79fc049d3c611633978651cb66399fa22c8c04"
+        },
+        "runs/1794473459581321500-baseline-pcm/probe.tscn": {
+          "bytes": 173,
+          "crc32": 536239502,
+          "sha256": "57574b0452408593b508c4551f7abb3b78ed1a3072ecb32cb36d1487487ec072"
+        },
+        "runs/1794473459581321500-baseline-pcm/result.json": {
+          "bytes": 1967,
+          "crc32": 3757664935,
+          "sha256": "1536e0729a71a7880061540080aea904e74df5e0641c6205310ba1934f42d067"
+        },
+        "runs/1794473474700396200-candidate-pcm/actual.f32": {
+          "bytes": 659456,
+          "crc32": 585171477,
+          "sha256": "91f53d07919447cf83e69249384c96ef350a84984d6b77edb5769f1307713420"
+        },
+        "runs/1794473474700396200-candidate-pcm/appdata/Godot/app_userdata/Nest Egg/logs/godot.log": {
+          "bytes": 200,
+          "crc32": 2453345744,
+          "sha256": "a33a158340cdc5f3cee11656af94b1744b3442a71be648d9901986e0b34b5e44"
+        },
+        "runs/1794473474700396200-candidate-pcm/command.json": {
+          "bytes": 215017,
+          "crc32": 786563716,
+          "sha256": "f8441556197687cdd64a6841916b9ef3c30fbaa659153dc139a100f74c782dec"
+        },
+        "runs/1794473474700396200-candidate-pcm/engine.log": {
+          "bytes": 204,
+          "crc32": 4079810274,
+          "sha256": "3a7cfb27e0b00b474085d0b9997f9b2fa7b9318208ca3b4ea9c94b151377bbb1"
+        },
+        "runs/1794473474700396200-candidate-pcm/executed-crossfade_player.gd": {
+          "bytes": 4540,
+          "crc32": 2647092311,
+          "sha256": "117f7d67a1b0f628486710aab94f346b0a9f205451c582e1207845907341a566"
+        },
+        "runs/1794473474700396200-candidate-pcm/exit.json": {
+          "bytes": 214446,
+          "crc32": 3896193017,
+          "sha256": "2f9cf03ad39a6f0a3e866df20a60cc3d5fd9080836f1f2cc787925a185a30a94"
+        },
+        "runs/1794473474700396200-candidate-pcm/probe.gd": {
+          "bytes": 9157,
+          "crc32": 1362709891,
+          "sha256": "4da2e0e604383ba5b9bbf02a7a79fc049d3c611633978651cb66399fa22c8c04"
+        },
+        "runs/1794473474700396200-candidate-pcm/probe.tscn": {
+          "bytes": 173,
+          "crc32": 536239502,
+          "sha256": "57574b0452408593b508c4551f7abb3b78ed1a3072ecb32cb36d1487487ec072"
+        },
+        "runs/1794473474700396200-candidate-pcm/result.json": {
+          "bytes": 2017,
+          "crc32": 338624696,
+          "sha256": "8345c03c1a2da1072d8c093e4a3e77cb3d3e642c906b015002c5e14554b48da6"
+        },
+        "unequal-pcm/runs/1794476804078500200-baseline/actual.f32": {
+          "bytes": 602112,
+          "crc32": 228193708,
+          "sha256": "957ece59464bca769a0eeea90eb3f38b83da40477a46968194c00510397d16d2"
+        },
+        "unequal-pcm/runs/1794476804078500200-baseline/appdata/Godot/app_userdata/Nest Egg/logs/godot.log": {
+          "bytes": 177,
+          "crc32": 371641359,
+          "sha256": "3483d5fdc64e81d36177d12847ad4ba5d095b8d8c36991c73acde06764184747"
+        },
+        "unequal-pcm/runs/1794476804078500200-baseline/baseline_crossfade.gd": {
+          "bytes": 4333,
+          "crc32": 547297432,
+          "sha256": "d0fc8d5f5226ce6e506bd0a1c84f8e3db1d6510d344ca031999c3660e3ef6e5c"
+        },
+        "unequal-pcm/runs/1794476804078500200-baseline/candidate_crossfade.gd": {
+          "bytes": 4576,
+          "crc32": 5629970,
+          "sha256": "407a0f7c5964dc46880607a1087aac60b4d6b394fd7efa425e60315584ada9ef"
+        },
+        "unequal-pcm/runs/1794476804078500200-baseline/command.json": {
+          "bytes": 461116,
+          "crc32": 504665617,
+          "sha256": "48018be6d344444f862097fd252ec1e97fa56127a94951e97dc9ba02901e32f1"
+        },
+        "unequal-pcm/runs/1794476804078500200-baseline/engine.log": {
+          "bytes": 180,
+          "crc32": 1523924788,
+          "sha256": "bea87ff312f156f1e9848438249f05f685d4c908a31dcbb8e323477f1c9400dd"
+        },
+        "unequal-pcm/runs/1794476804078500200-baseline/exit.json": {
+          "bytes": 460343,
+          "crc32": 3859653987,
+          "sha256": "2c06e5a5c929287a3c0500dad43e2ce83cc9cf981fd2fb9781bfe2e01011b7a8"
+        },
+        "unequal-pcm/runs/1794476804078500200-baseline/probe.gd": {
+          "bytes": 3637,
+          "crc32": 863053786,
+          "sha256": "649839dcea370d49e66e68d73c60eb3ab20138d0797390e0b43f7df923cb59c0"
+        },
+        "unequal-pcm/runs/1794476804078500200-baseline/probe.tscn": {
+          "bytes": 173,
+          "crc32": 3111828639,
+          "sha256": "644d01d729f4cc58403a15a7f8c63b1c3b0f87438e9affe97fcd419bd280e499"
+        },
+        "unequal-pcm/runs/1794476804078500200-baseline/result.json": {
+          "bytes": 43512,
+          "crc32": 10329092,
+          "sha256": "0932fda5de4de6f782c027baff15dc27a4bfa5f490eadeb8b876931a8d39ed82"
+        },
+        "unequal-pcm/runs/1794476813175979400-candidate/actual.f32": {
+          "bytes": 602112,
+          "crc32": 2206552491,
+          "sha256": "715183391eabc71f6919b7aa37507f81814a4f95e3c0f56f279348072a39bce8"
+        },
+        "unequal-pcm/runs/1794476813175979400-candidate/appdata/Godot/app_userdata/Nest Egg/logs/godot.log": {
+          "bytes": 177,
+          "crc32": 371641359,
+          "sha256": "3483d5fdc64e81d36177d12847ad4ba5d095b8d8c36991c73acde06764184747"
+        },
+        "unequal-pcm/runs/1794476813175979400-candidate/baseline_crossfade.gd": {
+          "bytes": 4333,
+          "crc32": 547297432,
+          "sha256": "d0fc8d5f5226ce6e506bd0a1c84f8e3db1d6510d344ca031999c3660e3ef6e5c"
+        },
+        "unequal-pcm/runs/1794476813175979400-candidate/candidate_crossfade.gd": {
+          "bytes": 4576,
+          "crc32": 5629970,
+          "sha256": "407a0f7c5964dc46880607a1087aac60b4d6b394fd7efa425e60315584ada9ef"
+        },
+        "unequal-pcm/runs/1794476813175979400-candidate/command.json": {
+          "bytes": 461118,
+          "crc32": 896679396,
+          "sha256": "ddb951b13e8c0335c1b1dfa3e3f66e2340ea882d4d2340a5ef3b5f2f04983d20"
+        },
+        "unequal-pcm/runs/1794476813175979400-candidate/engine.log": {
+          "bytes": 180,
+          "crc32": 1523924788,
+          "sha256": "bea87ff312f156f1e9848438249f05f685d4c908a31dcbb8e323477f1c9400dd"
+        },
+        "unequal-pcm/runs/1794476813175979400-candidate/exit.json": {
+          "bytes": 460343,
+          "crc32": 3859653987,
+          "sha256": "2c06e5a5c929287a3c0500dad43e2ce83cc9cf981fd2fb9781bfe2e01011b7a8"
+        },
+        "unequal-pcm/runs/1794476813175979400-candidate/probe.gd": {
+          "bytes": 3637,
+          "crc32": 863053786,
+          "sha256": "649839dcea370d49e66e68d73c60eb3ab20138d0797390e0b43f7df923cb59c0"
+        },
+        "unequal-pcm/runs/1794476813175979400-candidate/probe.tscn": {
+          "bytes": 173,
+          "crc32": 3111828639,
+          "sha256": "644d01d729f4cc58403a15a7f8c63b1c3b0f87438e9affe97fcd419bd280e499"
+        },
+        "unequal-pcm/runs/1794476813175979400-candidate/result.json": {
+          "bytes": 44435,
+          "crc32": 3238352204,
+          "sha256": "f818841d48ffb664aa057561b323f1659b51f52ffb57974414e770fa53d41e2b"
+        }
+      }
+    },
+    "before-hold-red-raw.zip": {
+      "bytes": 91569131,
+      "sha256": "de3c7eb2140d7dcd5775c8cc8af7802173b9cc707d84ed64d926d213133a4cf0",
+      "external": true,
+      "members": {
+        "runs/1794472002092308000-holds/appdata/Godot/app_userdata/Nest Egg/logs/godot.log": {
+          "bytes": 208,
+          "crc32": 442663186,
+          "sha256": "ca2a6f914af11b198fe68ebf41b5128458118abc7e36bdd12937da77f7eee5d2"
+        },
+        "runs/1794472002092308000-holds/command.json": {
+          "bytes": 443285,
+          "crc32": 3243414985,
+          "sha256": "82d6f54cb7cc7c0ddb8cfea726df72e77c793065007c163c938aeb2d49f2bd5d"
+        },
+        "runs/1794472002092308000-holds/engine.log": {
+          "bytes": 212,
+          "crc32": 3463355105,
+          "sha256": "9b6ac496d6066ee1bdd21dd52882ad414083fe5b2ab143f15ab2a9ca1218770d"
+        },
+        "runs/1794472002092308000-holds/executed-leaf.zip": {
+          "bytes": 7399,
+          "crc32": 3943871434,
+          "sha256": "6cf359aceed7b9041f1595d5634b89d36565638afb4f8708764bb98dcb899d5b"
+        },
+        "runs/1794472002092308000-holds/exit.json": {
+          "bytes": 442802,
+          "crc32": 1790275031,
+          "sha256": "9646ce8190697e0416459c09dff03be6c782f5a73d85172fb970e05333c072ad"
+        },
+        "runs/1794472002092308000-holds/published-inputs/data/feel/materials.json": {
+          "bytes": 1810,
+          "crc32": 3360951878,
+          "sha256": "778d18bf76315c4daabba51e003593112fcf7f567773f543876ad48bc1ae5901"
+        },
+        "runs/1794472002092308000-holds/published-inputs/data/feel/sound_events.json": {
+          "bytes": 7793,
+          "crc32": 3628523613,
+          "sha256": "345b1e6a03ffaa4d258c7b5f9919c90703563ca9374c6bd810c3853dc2441be6"
+        },
+        "runs/1794472002092308000-holds/published-inputs/data/melee/hydraulic_maul.json": {
+          "bytes": 7245,
+          "crc32": 2232408754,
+          "sha256": "c4211c7ba2b0bd4b24c2ac1bd87a30753156fcc4585889f783f0902a1856a53b"
+        },
+        "runs/1794472002092308000-holds/published-inputs/data/melee/ion_glaive.json": {
+          "bytes": 7381,
+          "crc32": 2350638872,
+          "sha256": "18dc55099b74f6ad7998f7a7234db0497eb658728dc4430f982e569564d31e8f"
+        },
+        "runs/1794472002092308000-holds/published-inputs/data/melee/mono_dagger.json": {
+          "bytes": 8681,
+          "crc32": 894082454,
+          "sha256": "030e30435a4cd45349044485ebc773c3c5d6cb320c2bf04d57f5804c8afd7d93"
+        },
+        "runs/1794472002092308000-holds/published-inputs/data/melee/mono_whip.json": {
+          "bytes": 5623,
+          "crc32": 2428973373,
+          "sha256": "0dfe61549422849c9a32cc0f15cb7ccc359d1b60f84ef0506497e68afec7963e"
+        },
+        "runs/1794472002092308000-holds/published-inputs/data/melee/thermal_blade.json": {
+          "bytes": 8561,
+          "crc32": 3263649552,
+          "sha256": "8ac6a971b4dffde7ce40ffbdf6f4b1d17d2d1a0a2b648a02e2cee871c6134aaf"
+        },
+        "runs/1794472002092308000-holds/published-inputs/game/melee/melee_module.gd": {
+          "bytes": 22741,
+          "crc32": 4279311485,
+          "sha256": "a134d19363a7774cac6f9796bff99bb572d8e1032b809469c530b8a32d96bd15"
+        },
+        "runs/1794472002092308000-holds/published-inputs/game/player/melee_command_input.gd": {
+          "bytes": 1885,
+          "crc32": 1191080678,
+          "sha256": "950e03b83a0959a7916896f5eff9c9c05ecc8b03aa0e92ccc0f4659162c71e06"
+        },
+        "runs/1794472002092308000-holds/recording/bus-Ambience.f32": {
+          "bytes": 19890176,
+          "crc32": 2094297034,
+          "sha256": "0db1b3aa8a9ea3c6ec3e607a906ed21e84ab33db6bb64dc97a85196e08b0007f"
+        },
+        "runs/1794472002092308000-holds/recording/bus-Ambience.wav": {
+          "bytes": 9945132,
+          "crc32": 1215898938,
+          "sha256": "acaeec446e32e79865eda937d0db4de4023b05990e9049ade406c21483e9e49e"
+        },
+        "runs/1794472002092308000-holds/recording/bus-Master.f32": {
+          "bytes": 19890176,
+          "crc32": 1957434317,
+          "sha256": "1d76f0e1a8b373ffc88ce71cb119632ae322e614888802051f3c77ea895655b4"
+        },
+        "runs/1794472002092308000-holds/recording/bus-Master.wav": {
+          "bytes": 9945132,
+          "crc32": 1766836979,
+          "sha256": "52a4f418fc3d20da0d010bec16b368ef7f95f20f1975dab21ee83d1c5757dc89"
+        },
+        "runs/1794472002092308000-holds/recording/bus-Music.f32": {
+          "bytes": 19890176,
+          "crc32": 3365831517,
+          "sha256": "b7c69fe66d8dbadea09645aa1fff4a7dc0939e9321f7b10d19019275ea660c49"
+        },
+        "runs/1794472002092308000-holds/recording/bus-Music.wav": {
+          "bytes": 9945132,
+          "crc32": 3707746726,
+          "sha256": "c45b52f0b3d0f42a82da4785bbd32120646518fc50bb23fbea09ff4c80a80cab"
+        },
+        "runs/1794472002092308000-holds/recording/bus-SFX.f32": {
+          "bytes": 19890176,
+          "crc32": 895495396,
+          "sha256": "ed0965331987d09eacb18406feef0640ec1da8054ccbb6fabad99e8412410477"
+        },
+        "runs/1794472002092308000-holds/recording/bus-SFX.wav": {
+          "bytes": 9945132,
+          "crc32": 3783407390,
+          "sha256": "040175944a1f38652f173a176376474815361a57cc8dbdfdb08d2cd1b2dce693"
+        },
+        "runs/1794472002092308000-holds/recording/exit.json": {
+          "bytes": 442802,
+          "crc32": 1790275031,
+          "sha256": "9646ce8190697e0416459c09dff03be6c782f5a73d85172fb970e05333c072ad"
+        },
+        "runs/1794472002092308000-holds/recording/hold-index.json": {
+          "bytes": 1117301,
+          "crc32": 4180303333,
+          "sha256": "a0a6433089dae649d50f3b4dd28ab83a715c9933a5cd71170d3e9303279186b4"
+        },
+        "runs/1794472002092308000-holds/recording/melee-master.wav": {
+          "bytes": 9945132,
+          "crc32": 1766836979,
+          "sha256": "52a4f418fc3d20da0d010bec16b368ef7f95f20f1975dab21ee83d1c5757dc89"
+        },
+        "runs/1794472002092308000-holds/recording/melee-sfx.wav": {
+          "bytes": 9945132,
+          "crc32": 3783407390,
+          "sha256": "040175944a1f38652f173a176376474815361a57cc8dbdfdb08d2cd1b2dce693"
+        }
+      }
+    },
+    "after-hold-green-raw.zip": {
+      "bytes": 92391412,
+      "sha256": "b631d4d4a0072ba66c135eb351a3e604c4c27ff78ca9ec5c2ffef0b9374b0027",
+      "external": true,
+      "members": {
+        "hold-replay/runs/1794475671530991700/appdata/Godot/app_userdata/Nest Egg/logs/godot.log": {
+          "bytes": 208,
+          "crc32": 442663186,
+          "sha256": "ca2a6f914af11b198fe68ebf41b5128458118abc7e36bdd12937da77f7eee5d2"
+        },
+        "hold-replay/runs/1794475671530991700/command.json": {
+          "bytes": 461311,
+          "crc32": 1034645746,
+          "sha256": "979085a384694a90c4579ffabdbbd86d85bcef67f382859f638191ac2432eac2"
+        },
+        "hold-replay/runs/1794475671530991700/engine.log": {
+          "bytes": 212,
+          "crc32": 3463355105,
+          "sha256": "9b6ac496d6066ee1bdd21dd52882ad414083fe5b2ab143f15ab2a9ca1218770d"
+        },
+        "hold-replay/runs/1794475671530991700/executed-leaf.zip": {
+          "bytes": 7367,
+          "crc32": 2646716994,
+          "sha256": "ca8e126a8698fccc560e2016e84558e78e1e4de0f0d1568345e943b39362431a"
+        },
+        "hold-replay/runs/1794475671530991700/exit.json": {
+          "bytes": 460929,
+          "crc32": 1449897202,
+          "sha256": "d84fd677949c661a19b029f5e66576e936f5d866c3b5abad03f1ba7600ae7367"
+        },
+        "hold-replay/runs/1794475671530991700/published-inputs/core/audio/crossfade_player.gd": {
+          "bytes": 4540,
+          "crc32": 2647092311,
+          "sha256": "117f7d67a1b0f628486710aab94f346b0a9f205451c582e1207845907341a566"
+        },
+        "hold-replay/runs/1794475671530991700/published-inputs/data/audio/ambience.json": {
+          "bytes": 5138,
+          "crc32": 2275344018,
+          "sha256": "400236571fb76d0752312e529b6228fa10f2013c861d32db059e23343e6a868b"
+        },
+        "hold-replay/runs/1794475671530991700/published-inputs/data/audio/music.json": {
+          "bytes": 9879,
+          "crc32": 4250834871,
+          "sha256": "340a6bb7e211bfc1b71405b9c7b1d133a2887cb5c0c766f5e7905086eadace4a"
+        },
+        "hold-replay/runs/1794475671530991700/published-inputs/data/feel/materials.json": {
+          "bytes": 1810,
+          "crc32": 3360951878,
+          "sha256": "778d18bf76315c4daabba51e003593112fcf7f567773f543876ad48bc1ae5901"
+        },
+        "hold-replay/runs/1794475671530991700/published-inputs/data/feel/sound_events.json": {
+          "bytes": 7793,
+          "crc32": 3628523613,
+          "sha256": "345b1e6a03ffaa4d258c7b5f9919c90703563ca9374c6bd810c3853dc2441be6"
+        },
+        "hold-replay/runs/1794475671530991700/published-inputs/data/melee/hydraulic_maul.json": {
+          "bytes": 7245,
+          "crc32": 2232408754,
+          "sha256": "c4211c7ba2b0bd4b24c2ac1bd87a30753156fcc4585889f783f0902a1856a53b"
+        },
+        "hold-replay/runs/1794475671530991700/published-inputs/data/melee/ion_glaive.json": {
+          "bytes": 7381,
+          "crc32": 2350638872,
+          "sha256": "18dc55099b74f6ad7998f7a7234db0497eb658728dc4430f982e569564d31e8f"
+        },
+        "hold-replay/runs/1794475671530991700/published-inputs/data/melee/mono_dagger.json": {
+          "bytes": 8681,
+          "crc32": 894082454,
+          "sha256": "030e30435a4cd45349044485ebc773c3c5d6cb320c2bf04d57f5804c8afd7d93"
+        },
+        "hold-replay/runs/1794475671530991700/published-inputs/data/melee/mono_whip.json": {
+          "bytes": 5623,
+          "crc32": 2428973373,
+          "sha256": "0dfe61549422849c9a32cc0f15cb7ccc359d1b60f84ef0506497e68afec7963e"
+        },
+        "hold-replay/runs/1794475671530991700/published-inputs/data/melee/thermal_blade.json": {
+          "bytes": 8561,
+          "crc32": 3263649552,
+          "sha256": "8ac6a971b4dffde7ce40ffbdf6f4b1d17d2d1a0a2b648a02e2cee871c6134aaf"
+        },
+        "hold-replay/runs/1794475671530991700/published-inputs/game/melee/melee_module.gd": {
+          "bytes": 22741,
+          "crc32": 4279311485,
+          "sha256": "a134d19363a7774cac6f9796bff99bb572d8e1032b809469c530b8a32d96bd15"
+        },
+        "hold-replay/runs/1794475671530991700/published-inputs/game/player/melee_command_input.gd": {
+          "bytes": 1885,
+          "crc32": 1191080678,
+          "sha256": "950e03b83a0959a7916896f5eff9c9c05ecc8b03aa0e92ccc0f4659162c71e06"
+        },
+        "hold-replay/runs/1794475671530991700/recording/bus-Ambience.f32": {
+          "bytes": 19918848,
+          "crc32": 1453296414,
+          "sha256": "0ffebd9db1de29f200603590d0efab4291024c4b52005552ef6868ee626cd770"
+        },
+        "hold-replay/runs/1794475671530991700/recording/bus-Ambience.wav": {
+          "bytes": 9959468,
+          "crc32": 2112243978,
+          "sha256": "b6f162b745979251d6543a59566ff9c28398f1466dabd42280414725373978b1"
+        },
+        "hold-replay/runs/1794475671530991700/recording/bus-Master.f32": {
+          "bytes": 19918848,
+          "crc32": 2960974052,
+          "sha256": "2d2922dcf04c0e6c6cdee2b74d6a962816f71138e89f239588c7022131f3810a"
+        },
+        "hold-replay/runs/1794475671530991700/recording/bus-Master.wav": {
+          "bytes": 9959468,
+          "crc32": 1876259074,
+          "sha256": "7adc1583ddd56c5c0e0c498154e9161fcde1cf9f3483fb0b9a88f42a4b852a5b"
+        },
+        "hold-replay/runs/1794475671530991700/recording/bus-Music.f32": {
+          "bytes": 19918848,
+          "crc32": 2333110863,
+          "sha256": "ad3043f71502a2c630f683a006326ed77fec4554a0cb1a16927e7583297b5f81"
+        },
+        "hold-replay/runs/1794475671530991700/recording/bus-Music.wav": {
+          "bytes": 9959468,
+          "crc32": 2004869322,
+          "sha256": "55c3d6596f98c7d571c087e6a56f12ee6e9e1cafddc3bb8c6e1081e073626ba3"
+        },
+        "hold-replay/runs/1794475671530991700/recording/bus-SFX.f32": {
+          "bytes": 19918848,
+          "crc32": 2605777786,
+          "sha256": "7dc022e3a6f9590af5f8eaeb7c521f482289dedcc62cfa6b8a47ec4c3a416356"
+        },
+        "hold-replay/runs/1794475671530991700/recording/bus-SFX.wav": {
+          "bytes": 9959468,
+          "crc32": 864742577,
+          "sha256": "b831f20207d639254df1d2737ae79bf65aeae0ce304950d184014db97ed90b72"
+        },
+        "hold-replay/runs/1794475671530991700/recording/exit.json": {
+          "bytes": 460929,
+          "crc32": 1449897202,
+          "sha256": "d84fd677949c661a19b029f5e66576e936f5d866c3b5abad03f1ba7600ae7367"
+        },
+        "hold-replay/runs/1794475671530991700/recording/hold-index.json": {
+          "bytes": 1119372,
+          "crc32": 747367168,
+          "sha256": "b7ed1f3d477510c83624f670a34ee6da2e0c80c9ccb9fd5fced5160e9944d909"
+        },
+        "hold-replay/runs/1794475671530991700/recording/melee-master.wav": {
+          "bytes": 9959468,
+          "crc32": 1876259074,
+          "sha256": "7adc1583ddd56c5c0e0c498154e9161fcde1cf9f3483fb0b9a88f42a4b852a5b"
+        },
+        "hold-replay/runs/1794475671530991700/recording/melee-sfx.wav": {
+          "bytes": 9959468,
+          "crc32": 864742577,
+          "sha256": "b831f20207d639254df1d2737ae79bf65aeae0ce304950d184014db97ed90b72"
+        }
+      }
+    }
+  },
+  "local_files": {
+    ".gitignore": "862263fa1f46c20f0d1e4dac5ffcc75abd55c08211b2c3864c5f8764b9d87793",
+    "README.md": "75155b5f01b210f0b1c0c25cf4fa69a321068d204ca82dc6117cd5afe3015b1c",
+    "verify_delivery.py": "f97e932bf5ca438032e7183db7a9edf53750001921a32abe1206ec552279cc5d",
+    "figures/fixed-input-before-after.png": "91da972b9880f07452f83681c83cb429a7153aaf3cea39919f5c00f39df09c1c",
+    "figures/holds-before-after.png": "f6df8a8827e7469e999dd2eeb44bf2c2ddd5af66da91c50796db1f7c04814652",
+    "figures/maul-idle-before-after.png": "5dcaffd4326a7b0002de4cd4755a074b10414ee841f9ef3b7380d02255e9bf45",
+    "portable-check.json": "6857995e67f934a66e1c366b2fdb5e8dd3c317e64c7a25c6b096965c791591fb"
+  },
+  "unchanged_hold_inputs": [
+    "game/melee/melee_module.gd",
+    "game/player/melee_command_input.gd",
+    "data/feel/materials.json",
+    "data/feel/sound_events.json",
+    "data/melee/hydraulic_maul.json",
+    "data/melee/ion_glaive.json",
+    "data/melee/mono_dagger.json",
+    "data/melee/mono_whip.json",
+    "data/melee/thermal_blade.json"
+  ],
+  "portable_command": "python verify_delivery.py --raw-root D:/NestEggDeliveries/NE293-20261112",
+  "default_scope": {
+    "groups": 30,
+    "checks": 47507,
+    "new": 0,
+    "known": 0,
+    "script_exit": 0,
+    "individual_child_exits": "unknown; failed optional observer retained"
+  },
+  "hold_scope": {
+    "rows": 34,
+    "hold_segments": 10,
+    "damage": 32,
+    "frames_per_bus": 2489856,
+    "sample_rate": 48000,
+    "problems": 0
+  },
+  "historical_raw_preserved_in_place": [
+    "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\ne293-crossfade-20261112\\published-official-1794474159874263500",
+    "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\ne293-crossfade-20261112\\audio-music-specialist-1794473625836733000",
+    "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\ne293-crossfade-20261112\\initial-import",
+    "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\ne261-audio-source-review-20261112\\hold-supplement\\runs"
+  ],
+  "scope": "Only default raw/state/fixedPCM/unequalPCM and actual before/after34hold are packaged. Other historical epochs remain in original locations. No dependency on either verification WT for portable readers."
+}

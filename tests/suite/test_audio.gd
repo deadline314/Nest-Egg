@@ -571,6 +571,41 @@ func _test_crossfade_player() -> void:
 		fader._process(0.1)
 	check(not fader.is_playing() and fader.voices_playing() == 0 and fader.current_stream() == null, "stop fades everything out")
 	check(not fader.play(null), "a missing stream is ignored")
+	# NE-293: same dB targets/durations, interpolation in amplitude rather than dB.
+	fader.stop(0.0)
+	fader.play(a, 0.0, 0.0, 0.0, true)
+	fader.play(b, 0.0, 1.0, 1.0, true)
+	fader._process(0.5)
+	check(absf(fader._players[0].volume_linear + fader._players[1].volume_linear - 1.001) < 0.0001, "equal-level crossfade keeps the amplitude at its midpoint")
+	fader._process(0.5)
+	check(fader.voices_playing() == 1 and is_equal_approx(fader._players[fader._active].volume_db, 0.0), "amplitude fade preserves the original one-second endpoint and stops the old voice")
+	fader.play(a, -6.0, 0.8, 0.4, true)
+	var incoming := fader._active
+	var outgoing := 1 - incoming
+	fader._process(0.2)
+	check(absf(fader._players[outgoing].volume_linear - 0.5005) < 0.0001, "outgoing amplitude follows its own shorter duration")
+	check(absf(fader._players[incoming].volume_linear - lerpf(0.001, db_to_linear(-6.0), 0.25)) < 0.0001, "incoming amplitude follows its own target and longer duration")
+	fader._process(0.6)
+	check(fader.voices_playing() == 1 and is_equal_approx(fader._players[incoming].volume_db, -6.0), "unequal fade endpoints remain in public dB units")
+	var unchanged := fader._players[incoming].volume_linear
+	fader.set_volume(-12.0, 0.3)
+	fader._process(0.0)
+	check(fader._players[incoming].volume_linear == unchanged, "zero delta does not round-trip the active volume")
+	fader.stop(0.0)
+	fader.play(a, -70.0, 0.3, 0.3, true)
+	fader._process(0.3)
+	check(absf(fader._players[fader._active].volume_db + 70.0) < 0.002, "an initial target below silent dB still converges")
+	fader.set_volume(-59.9, 0.3)
+	fader._process(0.3)
+	fader.stop(0.4)
+	for i in 400:
+		fader._process(0.001)
+	check(fader.voices_playing() == 0, "small linear gains still reach the original dB stop threshold")
+	fader.play(a, 0.0, 0.0, 0.0, true)
+	fader.play(b, 0.0, 0.0, 0.0, true)
+	fader._process(0.0)
+	check(fader.voices_playing() == 1, "zero delta still stops an inactive fade-zero voice already at silence")
+	fader.stop(0.0)
 	fader.queue_free()
 
 

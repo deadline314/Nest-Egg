@@ -1,0 +1,14 @@
+{
+  "base": "4a2f9ecfaf3d98db102e79b37420821f714549ca",
+  "before": {
+    "core/audio/crossfade_player.gd": "bc7fbc680e8dd25d8a9267782ba86b9da05b966d2ad0f54e6cfe361dc38230af",
+    "tests/suite/test_audio.gd": "59e66e67c7801a9aaa9887e73105c2667a3d562489d0d5420453721b13a25f4e"
+  },
+  "after": {
+    "core/audio/crossfade_player.gd": "117f7d67a1b0f628486710aab94f346b0a9f205451c582e1207845907341a566",
+    "tests/suite/test_audio.gd": "5fe813e38c116cc70eccdec5788c57f0b6deb8ebb0493606f0ef609f6591ef8e"
+  },
+  "count": 380,
+  "previous_guard_count": 378,
+  "unrelated_protected_sources_unchanged": true
+}

@@ -1,7 +1,8 @@
 class_name CrossfadePlayer
 extends Node
 ## 交叉淡化播放器：兩個串流播放器輪流上場，換曲時舊的淡出、新的淡入（環境音與背景音樂共用）。
-## 音量用分貝線性漸變，不用 Tween，所以沒有殘留的動畫物件；節點在暫停時照常運作（音樂不因暫停中斷）。
+## 音量目標維持分貝，淡化改用振幅線性漸變，避免換曲中段兩聲道同時過小；不使用 Tween。
+## 沿用各自淡化秒數與端點；節點在暫停時照常運作（音樂不因暫停中斷）。
 ## 迴圈：需要時把串流複製一份再開啟 loop，不會改到共用的音效庫資源。
 
 const SILENT_DB := -60.0
@@ -9,6 +10,7 @@ const SILENT_DB := -60.0
 var bus: StringName = &"Master"
 var _players: Array[AudioStreamPlayer] = []
 var _targets: Array[float] = [SILENT_DB, SILENT_DB]
+## 各聲道的振幅／秒；_targets 仍是公開 API 使用的 dB 目標。
 var _rates: Array[float] = [0.0, 0.0]
 var _active := -1
 var _stream: AudioStream
@@ -45,7 +47,7 @@ func play(stream: AudioStream, volume_db := 0.0, fade_in := 1.5, fade_out := 1.5
 	player.stream = _prepared(stream, loop)
 	player.volume_db = SILENT_DB if fade_in > 0.0 else volume_db
 	_targets[_active] = volume_db
-	_rates[_active] = (volume_db - SILENT_DB) / maxf(0.05, fade_in) if fade_in > 0.0 else 0.0
+	_rates[_active] = absf(db_to_linear(volume_db) - player.volume_linear) / maxf(0.05, fade_in) if fade_in > 0.0 else 0.0
 	player.play(from_position)
 	return true
 
@@ -109,7 +111,7 @@ func voices_playing() -> int:
 
 func _fade_to(index: int, target_db: float, fade: float) -> void:
 	_targets[index] = target_db
-	var distance := absf(target_db - _players[index].volume_db)
+	var distance := absf(db_to_linear(target_db) - _players[index].volume_linear)
 	_rates[index] = distance / maxf(0.05, fade) if fade > 0.0 else 0.0
 	if fade <= 0.0:
 		_players[index].volume_db = target_db
@@ -120,8 +122,8 @@ func _process(delta: float) -> void:
 		var player := _players[i]
 		if not player.playing:
 			continue
-		if _rates[i] > 0.0 and not is_equal_approx(player.volume_db, _targets[i]):
-			player.volume_db = move_toward(player.volume_db, _targets[i], _rates[i] * delta)
+		if delta > 0.0 and _rates[i] > 0.0 and not is_equal_approx(player.volume_db, _targets[i]):
+			player.volume_linear = move_toward(player.volume_linear, db_to_linear(_targets[i]), _rates[i] * delta)
 		if i != _active and player.volume_db <= SILENT_DB + 0.01:
 			player.stop()
 
