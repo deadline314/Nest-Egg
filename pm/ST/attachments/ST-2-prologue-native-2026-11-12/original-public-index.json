@@ -1,0 +1,271 @@
+{
+  "classification": "Original real Main/new-game route, actual ch1_p01_door narration/title; functional evidence only, concurrent ST3 headless run; no performance, mother-tongue or human completion claim",
+  "images": [
+    {
+      "path": "D:\\NestEggVerification\\proofs\\st2-locale-native-20261112\\prepare-v2-native\\ja\\ja-narration.png",
+      "sha256": "d5bf7330a065fbc6c809ea769497c81c7d83a8b141d0f0df20a3f5b98a1718a4",
+      "kind": "narration",
+      "language": "ja",
+      "visible_text": "沈港市の下層の港湾区では、雨が降りやまず、水位は毎晩上がり続けている。",
+      "global_rect": [
+        0.0,
+        -12.0,
+        640.0,
+        372.0
+      ]
+    },
+    {
+      "path": "D:\\NestEggVerification\\proofs\\st2-locale-native-20261112\\prepare-v2-native\\ja\\ja-subtitle.png",
+      "sha256": "5e65c35e4e0c1dfc98f2b995e4b733b8bd42ce68327e04a8e89ef4687e0e39f9",
+      "kind": "subtitle",
+      "language": "ja",
+      "visible_text": "巣卵質店",
+      "global_rect": [
+        0.0,
+        36.0,
+        640.0,
+        324.0
+      ]
+    },
+    {
+      "path": "D:\\NestEggVerification\\proofs\\st2-locale-native-20261112\\prepare-v2-native\\en\\en-narration.png",
+      "sha256": "495319a7bd8a97494693e7d258f0e0501b760a6d425b92dc640cbaf1b1124f69",
+      "kind": "narration",
+      "language": "en",
+      "visible_text": "In Sinkport's lower docks, the rain never stops, and the water rises every night.",
+      "global_rect": [
+        0.0,
+        -12.0,
+        640.0,
+        372.0
+      ]
+    },
+    {
+      "path": "D:\\NestEggVerification\\proofs\\st2-locale-native-20261112\\prepare-v2-native\\en\\en-subtitle.png",
+      "sha256": "d75286174241c5f50acf342de766516df50f324236f995dd68b95a52361e5362",
+      "kind": "subtitle",
+      "language": "en",
+      "visible_text": "Nest Egg Pawnshop",
+      "global_rect": [
+        0.0,
+        36.0,
+        640.0,
+        324.0
+      ]
+    }
+  ],
+  "story_source_sha256": "080413bd31db971639dd3756488f6c15fc58067ee25a3125751f31331fd0df73",
+  "guards": {
+    "c_context": "C387 v20",
+    "d_runtime_dependency_superset_count": 8682,
+    "own_producers": 4,
+    "before_sha256": "6ea5937c8ec7d570d7b038ca988e83886fab09a38efe0682661b8967dc4fef0a",
+    "after_sha256": "6ea5937c8ec7d570d7b038ca988e83886fab09a38efe0682661b8967dc4fef0a",
+    "identical_bytes_stored_once": "guards/source-fixed.json",
+    "sealed_seven_unchanged": true
+  },
+  "engine_processes": 2,
+  "gpu_lock_released": true,
+  "native_errors_warnings_leaks": 0,
+  "native_png_count": 4,
+  "timing": {
+    "ja": {
+      "narration_full_ms": 7711,
+      "title_and_sub_full_ms": 11015,
+      "full_to_full_ms": 3304,
+      "original_narration_hold_seconds": 2.4,
+      "original_narration_out_seconds": 0.4,
+      "original_title_in_seconds": 0.5,
+      "original_title_hold_seconds": 1.8,
+      "scope": "full-visible post-draw milestones and immutable original source/speed; not per-frame ramp sampling or a performance measurement"
+    },
+    "en": {
+      "narration_full_ms": 9530,
+      "title_and_sub_full_ms": 12836,
+      "full_to_full_ms": 3306,
+      "original_narration_hold_seconds": 2.4,
+      "original_narration_out_seconds": 0.4,
+      "original_title_in_seconds": 0.5,
+      "original_title_hold_seconds": 1.8,
+      "scope": "full-visible post-draw milestones and immutable original source/speed; not per-frame ramp sampling or a performance measurement"
+    }
+  },
+  "files": {
+    "ja/manifest.json": {
+      "bytes": 5829,
+      "sha256": "d69f4a5031a486cff392d1ccac2f383e552919fdc56db561f39b502f331dfaea"
+    },
+    "ja/ja-narration-linear.bin": {
+      "bytes": 5529600,
+      "sha256": "06d33c2f839b75fdd78742003f84aaf928cee3f2eaadb4689fbe745f54059e74"
+    },
+    "ja/ja-narration.png": {
+      "bytes": 374621,
+      "sha256": "d5bf7330a065fbc6c809ea769497c81c7d83a8b141d0f0df20a3f5b98a1718a4"
+    },
+    "ja/ja-subtitle-linear.bin": {
+      "bytes": 5529600,
+      "sha256": "bad5751b3af03c4c8aee9855dacd9cc021d5161fd0f9c63f6c9f3420310e79d8"
+    },
+    "ja/ja-subtitle.png": {
+      "bytes": 369427,
+      "sha256": "5e65c35e4e0c1dfc98f2b995e4b733b8bd42ce68327e04a8e89ef4687e0e39f9"
+    },
+    "commands/ja/native.log": {
+      "bytes": 4524,
+      "sha256": "2ef88162a0fe6c2d3f643e7ef03f184d84fd15b1d25c76f130056db36b534a02"
+    },
+    "commands/ja/native-process.json": {
+      "bytes": 1382,
+      "sha256": "2bd50bc266e76f3c8410b0b09eb3472bc1a04d62b5b9abd54909069e14b93807"
+    },
+    "commands/ja/metadata-reader.log": {
+      "bytes": 119,
+      "sha256": "bdac70408322623a942cd9bc241c32df87cff78a6ba68f521c1174a71ad27ac6"
+    },
+    "commands/ja/metadata-reader-process.json": {
+      "bytes": 1327,
+      "sha256": "02dfc939f53b14b0ca7519afd425425c7a766bbc887fd98053370b754b71b41c"
+    },
+    "en/manifest.json": {
+      "bytes": 5818,
+      "sha256": "87964059d9ff5bf0c8fe1bb11dc227fdf2982eda5826d3ded85a7117558156e1"
+    },
+    "en/en-narration-linear.bin": {
+      "bytes": 5529600,
+      "sha256": "ce76c282e7748715d0ff8bc048ad2919bde08c8c4a7ace7cc72615f1d2e13a2f"
+    },
+    "en/en-narration.png": {
+      "bytes": 375164,
+      "sha256": "495319a7bd8a97494693e7d258f0e0501b760a6d425b92dc640cbaf1b1124f69"
+    },
+    "en/en-subtitle-linear.bin": {
+      "bytes": 5529600,
+      "sha256": "15e68798d69a8e37122314718d0229d4903435fba388bd5bcf13cf8fa8878785"
+    },
+    "en/en-subtitle.png": {
+      "bytes": 374656,
+      "sha256": "d75286174241c5f50acf342de766516df50f324236f995dd68b95a52361e5362"
+    },
+    "commands/en/native.log": {
+      "bytes": 4513,
+      "sha256": "6c77f5c4a76abd1b647a6ced4d68ea785c9754838d53e91e79250bcf9b1842a8"
+    },
+    "commands/en/native-process.json": {
+      "bytes": 1384,
+      "sha256": "20134b9ed650b075abd9f5cf60f5d7852e5c1eaa4ad97f16fcbb9193d6e1fb89"
+    },
+    "commands/en/metadata-reader.log": {
+      "bytes": 119,
+      "sha256": "32b36f060cea522fab03712e9e13fe4e101593a0467ce276d7f6bd3d3f718097"
+    },
+    "commands/en/metadata-reader-process.json": {
+      "bytes": 1328,
+      "sha256": "3f4186cfc66e06fd81f6812be7c37b3b10673f538fff315265036309269a9ed8"
+    },
+    "visual-review.json": {
+      "bytes": 2142,
+      "sha256": "ce4cfcb6cb2a8562649ea6a25151a6e5658691f6f8fa9be029baa4983d747481"
+    },
+    "guards/source-fixed.json": {
+      "bytes": 1166881,
+      "sha256": "6ea5937c8ec7d570d7b038ca988e83886fab09a38efe0682661b8967dc4fef0a"
+    },
+    "queues/outside-before.json": {
+      "bytes": 242,
+      "sha256": "693a8b540090a9b8d2dbcd80a33e4c46c54ed237915757fc8bd57f69bdfa736a"
+    },
+    "queues/inside-before.json": {
+      "bytes": 242,
+      "sha256": "693a8b540090a9b8d2dbcd80a33e4c46c54ed237915757fc8bd57f69bdfa736a"
+    },
+    "queues/inside-after.json": {
+      "bytes": 242,
+      "sha256": "693a8b540090a9b8d2dbcd80a33e4c46c54ed237915757fc8bd57f69bdfa736a"
+    },
+    "queues/outside-after.json": {
+      "bytes": 242,
+      "sha256": "693a8b540090a9b8d2dbcd80a33e4c46c54ed237915757fc8bd57f69bdfa736a"
+    },
+    "producer/capture.gd": {
+      "bytes": 8816,
+      "sha256": "c5c1ca92451c58efee9bafa24ceea592ca43f175e05590c0ea4e2f0cb9e6a741"
+    },
+    "producer/capture.tscn": {
+      "bytes": 188,
+      "sha256": "9d9f22e39fff6f3adc70f33ecde9dd6df731ea808af2c98a249f613cf620117b"
+    },
+    "producer/read_capture.py": {
+      "bytes": 5213,
+      "sha256": "6b4ebadfc45f50f7ea740bd82c674833c33bea79ebc66cf1c8b47742acaf6fd5"
+    },
+    "producer/run_capture.py": {
+      "bytes": 9475,
+      "sha256": "600e5eeb5839180cc84c961932508adf670d3389528f1904714cdbe083390da4"
+    },
+    "cpu/cpu-ready.json": {
+      "bytes": 635,
+      "sha256": "3a58e6afc6a223f808fd61ba72d3e0e4921acdb900c4a3270c934e5fe364fa7c"
+    },
+    "cpu/parser.log": {
+      "bytes": 174,
+      "sha256": "c8149a6855af347be0efeb51cbc248b1c2ee60323e1fd7c479367fcc129024ed"
+    },
+    "cpu/parser-process.json": {
+      "bytes": 1127,
+      "sha256": "794a32ce3dc9215347413accd5ad5c161ac7036b790ee0b301e76f301d1555b4"
+    },
+    "cpu/reader-controls.log": {
+      "bytes": 139,
+      "sha256": "e087ef5d079ada525ecf246c87d4d99a418ec80eba9c46d128ef8ca182ac7b02"
+    },
+    "cpu/reader-controls-process.json": {
+      "bytes": 1140,
+      "sha256": "bf1977f1886ae46e1d675d7873dea2ee98613db283a6f87f674ed135ebe7291d"
+    },
+    "reader-results/float-png-reader.log": {
+      "bytes": 1053,
+      "sha256": "255897691b58f24d3972215d51c967aa3a37602a92f4f270b3efafb1ee7a4910"
+    },
+    "reader-results/float-png-reader-process.json": {
+      "bytes": 1256,
+      "sha256": "c6c6be42dd540165778f49e43611b2d3d38004f9459519fcdff260f0d2477405"
+    },
+    "reader-results/float-png-result.json": {
+      "bytes": 1053,
+      "sha256": "255897691b58f24d3972215d51c967aa3a37602a92f4f270b3efafb1ee7a4910"
+    },
+    "reader-results/reader-source.json": {
+      "bytes": 374,
+      "sha256": "3318b29d8239fb884e2ece0ef80040c0bed41b80f3fc448a8ecde82f11217661"
+    },
+    "readers/verify_index.py": {
+      "bytes": 1903,
+      "sha256": "46b1c3470f4463bb19f252ab1b791e9be717ed24214cd506a00a879f865775e3"
+    },
+    "readers/verify_capture_precision.py": {
+      "bytes": 3065,
+      "sha256": "4039cbea2aae881d4c395ae64d85086c11827a1a8aa15e49dac97be8aebe111e"
+    },
+    "source/data/story/ch1_kasa.json": {
+      "bytes": 269123,
+      "sha256": "080413bd31db971639dd3756488f6c15fc58067ee25a3125751f31331fd0df73"
+    },
+    "source/core/story_locale.gd": {
+      "bytes": 7669,
+      "sha256": "2fecf62aaa240f4b9e6b518f90fd8f83ac88631c4616885b97eb6615be8e67d2"
+    },
+    "source/game/cutscene/cutscene_player.gd": {
+      "bytes": 38347,
+      "sha256": "99fbce51966260736bde793f3e0b60a19f379566da58fed57b4e39308412d9ad"
+    },
+    "source/game/main.gd": {
+      "bytes": 28002,
+      "sha256": "3a84f70a6b21ec91d9cba16eae9dea4d5897716729bac01a870a41ac8328b3d2"
+    },
+    "source/tools/viewport_capture.gd": {
+      "bytes": 785,
+      "sha256": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+    }
+  }
+}

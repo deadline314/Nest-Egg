@@ -140,3 +140,31 @@
 | 來源與重建 | Python4項通過，534處／477種原文、0缺譯；重建冪等 |
 
 [完整原件、精準來源範圍與重算入口](attachments/ST-2-narration-localization-2026-11-12/README.md)。本次原生文字畫面與完整套件不以舊圖或局部結果代稱，票維持進行中。
+
+
+# Commit-6
+
+## 內文
+
+從真正的新遊戲進入序章，以原節奏播放日文與英文，分別保存完整開場旁白與當舖副標。四張本機Forward+原生畫面已逐張檢視，文字與副標完整可讀，沒有截字，也沒有縮字或改舞台。
+
+### 測試結果
+
+| 項目 | 結果 |
+|---|---|
+| 真新遊戲序章 | JA／EN各旁白及副標，4張1280×720原圖 |
+| 自然退出與診斷 | 兩程序exit0，0警告／ERROR／腳本錯誤／退出洩漏 |
+| 原始像素 | 4×921600像素的HDR→sRGB／alpha重算通過 |
+| 來源 | C387／D8682與原七檔、四個觀察程式前後一致 |
+
+[完整原包與獨立重算入口](attachments/ST-2-prologue-native-2026-11-12/README.md)。本次保存四個文字時點，不代稱完整章節通關或母語審稿。
+
+### 截圖
+
+![日文序章旁白](images/ST-2-ja-prologue-narration.png)
+
+![日文當舖副標](images/ST-2-ja-prologue-subtitle.png)
+
+![英文序章旁白](images/ST-2-en-prologue-narration.png)
+
+![英文當舖副標](images/ST-2-en-prologue-subtitle.png)
