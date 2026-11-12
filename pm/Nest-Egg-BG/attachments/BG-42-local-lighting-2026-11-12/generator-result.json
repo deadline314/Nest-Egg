@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "areas": 10,
+  "changed_area": "ledger_office",
+  "unrelated_area_outputs_byte_identical": 9,
+  "only_delta": "lighting profile resource path/id",
+  "production_sources_unchanged": {
+    "tools/level/build_ch1.py": "f056b3fede2c46f34026ed36022900f166132ca8bec81ebbb26c9f398c94eba4",
+    "tools/level/build_ch2.py": "c271044d91ba0e743030750430ac8513acdb01dc40a417922ee7b59c7c75e472",
+    "tools/level/scenery_placement.py": "fbdbf5356d63f5c274d82859c08bf36ce7099a89a444163ccc83d66a14a8c011"
+  },
+  "scope": "Same actual generator with isolated output directories; generated ten baseline/candidate LevelData resources, no primary writes or geometry changes."
+}

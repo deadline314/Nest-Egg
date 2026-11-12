@@ -1,0 +1,228 @@
+{
+  "absolute_pass": true,
+  "no_worse": true,
+  "cells": 9,
+  "standable": 6,
+  "enemy_observations": 0,
+  "decreases": [],
+  "observations": [
+    {
+      "level": "ch2_ledger_front",
+      "column": 0.0,
+      "row": 0.0,
+      "absolute_pass": true,
+      "baseline": {
+        "enemies": []
+      },
+      "final": {
+        "enemies": []
+      },
+      "candidate_prop_reference": {
+        "enemies": []
+      },
+      "deltas": {},
+      "enemy_deltas": [],
+      "no_worse": true
+    },
+    {
+      "level": "ch2_ledger_front",
+      "column": 1.0,
+      "row": 0.0,
+      "absolute_pass": true,
+      "baseline": {
+        "enemies": []
+      },
+      "final": {
+        "enemies": []
+      },
+      "candidate_prop_reference": {
+        "enemies": []
+      },
+      "deltas": {},
+      "enemy_deltas": [],
+      "no_worse": true
+    },
+    {
+      "level": "ch2_ledger_front",
+      "column": 2.0,
+      "row": 0.0,
+      "absolute_pass": true,
+      "baseline": {
+        "enemies": []
+      },
+      "final": {
+        "enemies": []
+      },
+      "candidate_prop_reference": {
+        "enemies": []
+      },
+      "deltas": {},
+      "enemy_deltas": [],
+      "no_worse": true
+    },
+    {
+      "level": "ch2_ledger_front",
+      "column": 0.0,
+      "row": 1.0,
+      "absolute_pass": true,
+      "baseline": {
+        "enemies": [],
+        "player": 3.5995959484123854,
+        "edge": 4.389405928050031
+      },
+      "final": {
+        "enemies": [],
+        "player": 3.5995959484123854,
+        "edge": 4.389405928050031
+      },
+      "candidate_prop_reference": {
+        "enemies": [],
+        "player": 3.5995959484123854,
+        "edge": 4.389405928050031
+      },
+      "deltas": {
+        "player": 0.0,
+        "edge": 0.0
+      },
+      "enemy_deltas": [],
+      "no_worse": true
+    },
+    {
+      "level": "ch2_ledger_front",
+      "column": 1.0,
+      "row": 1.0,
+      "absolute_pass": true,
+      "baseline": {
+        "enemies": [],
+        "player": 3.385994038041206,
+        "edge": 4.028122314388473
+      },
+      "final": {
+        "enemies": [],
+        "player": 3.8023131915685107,
+        "edge": 4.028122314388473
+      },
+      "candidate_prop_reference": {
+        "enemies": [],
+        "player": 3.385994038041206,
+        "edge": 4.028122314388473
+      },
+      "deltas": {
+        "player": 0.41631915352730475,
+        "edge": 0.0
+      },
+      "enemy_deltas": [],
+      "no_worse": true
+    },
+    {
+      "level": "ch2_ledger_front",
+      "column": 2.0,
+      "row": 1.0,
+      "absolute_pass": true,
+      "baseline": {
+        "enemies": [],
+        "player": 3.5533996605867904,
+        "edge": 3.9827978647778015
+      },
+      "final": {
+        "enemies": [],
+        "player": 3.5533996605867904,
+        "edge": 3.9827978647778015
+      },
+      "candidate_prop_reference": {
+        "enemies": [],
+        "player": 3.5533996605867904,
+        "edge": 3.9827978647778015
+      },
+      "deltas": {
+        "player": 0.0,
+        "edge": 0.0
+      },
+      "enemy_deltas": [],
+      "no_worse": true
+    },
+    {
+      "level": "ch2_ledger_front",
+      "column": 0.0,
+      "row": 2.0,
+      "absolute_pass": true,
+      "baseline": {
+        "enemies": [],
+        "player": 3.5314402674020293,
+        "edge": 4.495940141056602
+      },
+      "final": {
+        "enemies": [],
+        "player": 3.5314402674020293,
+        "edge": 4.495940141056602
+      },
+      "candidate_prop_reference": {
+        "enemies": [],
+        "player": 3.5314402674020293,
+        "edge": 4.495940141056602
+      },
+      "deltas": {
+        "player": 0.0,
+        "edge": 0.0
+      },
+      "enemy_deltas": [],
+      "no_worse": true
+    },
+    {
+      "level": "ch2_ledger_front",
+      "column": 1.0,
+      "row": 2.0,
+      "absolute_pass": true,
+      "baseline": {
+        "enemies": [],
+        "player": 3.376975658109818,
+        "edge": 4.024043892811251
+      },
+      "final": {
+        "enemies": [],
+        "player": 3.7694451008903753,
+        "edge": 4.024043892811251
+      },
+      "candidate_prop_reference": {
+        "enemies": [],
+        "player": 3.376975658109818,
+        "edge": 4.024043892811251
+      },
+      "deltas": {
+        "player": 0.3924694427805573,
+        "edge": 0.0
+      },
+      "enemy_deltas": [],
+      "no_worse": true
+    },
+    {
+      "level": "ch2_ledger_front",
+      "column": 2.0,
+      "row": 2.0,
+      "absolute_pass": true,
+      "baseline": {
+        "enemies": [],
+        "player": 3.5696889176350157,
+        "edge": 3.9702177613335046
+      },
+      "final": {
+        "enemies": [],
+        "player": 3.5696889176350157,
+        "edge": 3.9702177613335046
+      },
+      "candidate_prop_reference": {
+        "enemies": [],
+        "player": 3.5696889176350157,
+        "edge": 3.9702177613335046
+      },
+      "deltas": {
+        "player": 0.0,
+        "edge": 0.0
+      },
+      "enemy_deltas": [],
+      "no_worse": true
+    }
+  ],
+  "scope": "Current held geometry with original BG42 prop delta and only proposed local office profile; unchanged thresholds; no head exposure or performance acceptance",
+  "reader_sha256": "1dcdb8adf40ac445cb0c08f501f120e315123e70d04df150280d077a13a0a44c"
+}

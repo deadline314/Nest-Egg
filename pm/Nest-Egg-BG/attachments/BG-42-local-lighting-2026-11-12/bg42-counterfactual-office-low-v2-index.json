@@ -1,0 +1,818 @@
+{
+  "archive": "bg42-counterfactual-office-low-v2-original.zip",
+  "bytes": 87192730,
+  "sha256": "360c55a219461d9963059f489b67788fb25583641706a0377e0cd15dce2aa03a",
+  "members": {
+    "ch2_ledger_office/bg55-cell000-A0.bin": {
+      "bytes": 5529600,
+      "sha256": "029a13ca18ab05104141da710b7dfcf7d9c5a99b997c3ab85aa4f657c1cd7a19",
+      "crc32": "b0a91086"
+    },
+    "ch2_ledger_office/bg55-cell000-A0.png": {
+      "bytes": 248167,
+      "sha256": "fce37f07a09bc7f96c5fe0cfa3d5f859cad408f1bbb6d9583182e585bc81fe31",
+      "crc32": "13c72081"
+    },
+    "ch2_ledger_office/bg55-cell001-A0.bin": {
+      "bytes": 5529600,
+      "sha256": "9aaea26105b76252d3f2ff2bc7bf2b7ec87361036a634c229a2f0044f5adbb85",
+      "crc32": "f03792a9"
+    },
+    "ch2_ledger_office/bg55-cell001-A0.png": {
+      "bytes": 397754,
+      "sha256": "3c518f6816cb60a74d7aafb9206c4f49402a864c59da5616a51112b237583eec",
+      "crc32": "693de75c"
+    },
+    "ch2_ledger_office/bg55-cell002-A0.bin": {
+      "bytes": 5529600,
+      "sha256": "a1204be6caf9bcf1a00f765afe8a157a3e315b407bdd6f6ad9e12d19db275a0d",
+      "crc32": "a1aa5607"
+    },
+    "ch2_ledger_office/bg55-cell002-A0.png": {
+      "bytes": 294979,
+      "sha256": "a5bafd2687361bfdd47980b6a9b4d602d30d3de84dbe196794dad9ad1e72a782",
+      "crc32": "b6576731"
+    },
+    "ch2_ledger_office/bg55-cell003-A0.bin": {
+      "bytes": 5529600,
+      "sha256": "f23aa303138e8b7567b69eb6a237e40a22ad2b236e5e1515fb2076e32ff53b02",
+      "crc32": "6360263d"
+    },
+    "ch2_ledger_office/bg55-cell003-A0.png": {
+      "bytes": 269798,
+      "sha256": "bad0a91b516734e3f3b51332dcca6eafc605baaa4b27bc7eeba30fa3d21833ad",
+      "crc32": "c4043876"
+    },
+    "ch2_ledger_office/bg55-cell003-reference-new.bin": {
+      "bytes": 5529600,
+      "sha256": "04a85bc9f23f43d56fc3f2cea872d977b1fc4e48b0d96707f7934403e588f2d7",
+      "crc32": "7430406d"
+    },
+    "ch2_ledger_office/bg55-cell003-reference-new.png": {
+      "bytes": 266396,
+      "sha256": "df617989aaa39030c88cd59ee0b756e020b8e10f59e00a9ff332aba13c99f072",
+      "crc32": "3d3ea59f"
+    },
+    "ch2_ledger_office/bg55-cell004-A0.bin": {
+      "bytes": 5529600,
+      "sha256": "3073ad08d3b3088697e638f91d4f089dcba32664d93df7c0f4f20b114574d2cd",
+      "crc32": "d7edc976"
+    },
+    "ch2_ledger_office/bg55-cell004-A0.png": {
+      "bytes": 341345,
+      "sha256": "5abfa257bca9738eb6ed2a545d4fa3eebb789e1c1d86fec8044ed858fb9763c2",
+      "crc32": "f163f21e"
+    },
+    "ch2_ledger_office/bg55-cell004-reference-new.bin": {
+      "bytes": 5529600,
+      "sha256": "71341c781728fa78785ea5d8311ba4a4bfea0dc2393a44426bf6e0f1f1311238",
+      "crc32": "a50dfba6"
+    },
+    "ch2_ledger_office/bg55-cell004-reference-new.png": {
+      "bytes": 339554,
+      "sha256": "03b69cb546202bc108ad347ea2675683daf6375aad5d0b8bd643d749d160c285",
+      "crc32": "3e3187f2"
+    },
+    "ch2_ledger_office/bg55-cell005-A0.bin": {
+      "bytes": 5529600,
+      "sha256": "eb67d7264d0912705d21256324a81ff6d3102873581c35c7e819d1655589d6a7",
+      "crc32": "cfa02a6b"
+    },
+    "ch2_ledger_office/bg55-cell005-A0.png": {
+      "bytes": 347626,
+      "sha256": "f1b466410e644d295e6ce1a60bdacfd552dd183b28c92ca12d7c823f05300da4",
+      "crc32": "2b9a5532"
+    },
+    "ch2_ledger_office/bg55-cell005-reference-new.bin": {
+      "bytes": 5529600,
+      "sha256": "1ffd49a2cd9fb819d50421200cc754bf70d1ed16f95c50e407eca9f71cc52060",
+      "crc32": "f2b313e5"
+    },
+    "ch2_ledger_office/bg55-cell005-reference-new.png": {
+      "bytes": 346075,
+      "sha256": "49e39f9c51ab146aa2529402270741d34eb44a7fbfed11672da03601e13607c8",
+      "crc32": "97fdf1c1"
+    },
+    "ch2_ledger_office/bg55-cell006-A0.bin": {
+      "bytes": 5529600,
+      "sha256": "426d2d7df659a6c9851c9b76630daa589dba3622ca91bba16cbde5a3e037fa91",
+      "crc32": "1659c0da"
+    },
+    "ch2_ledger_office/bg55-cell006-A0.png": {
+      "bytes": 362480,
+      "sha256": "8c955da1d070fa1b814385d9f50e2f7f01b538e8ad18c6d1712bc4ed4586bb0b",
+      "crc32": "485adcfc"
+    },
+    "ch2_ledger_office/bg55-cell006-product-new.bin": {
+      "bytes": 5529600,
+      "sha256": "bd19581922d07f8cba32c98870dcfb22339be83bb0384b865fd2e14946b38783",
+      "crc32": "44d5906b"
+    },
+    "ch2_ledger_office/bg55-cell006-product-new.png": {
+      "bytes": 357908,
+      "sha256": "761bee2a1db12a3a71241c46a47d98c60fe32ab395147fa99519b422d2b738e2",
+      "crc32": "c1a75e2e"
+    },
+    "ch2_ledger_office/bg55-cell006-product-old.bin": {
+      "bytes": 5529600,
+      "sha256": "aeac2223372cf258fafb7446468d7c9aa92013c4031fc754dc6e3078d36377fa",
+      "crc32": "32235d34"
+    },
+    "ch2_ledger_office/bg55-cell006-product-old.png": {
+      "bytes": 353818,
+      "sha256": "cb75759077fccd9c889360ed3975130fda5161b2b2c9a16f9200be6981f1649b",
+      "crc32": "b47d6cc1"
+    },
+    "ch2_ledger_office/bg55-cell006-reference-new.bin": {
+      "bytes": 5529600,
+      "sha256": "1024fbebaf3cc1dc80aacd9917905eae9bff6dcb355346c4c042ad566df29acc",
+      "crc32": "60af0d85"
+    },
+    "ch2_ledger_office/bg55-cell006-reference-new.png": {
+      "bytes": 365379,
+      "sha256": "b84434f7e0a6a7c3bf98fd741c38c1ed070f25946d551c554aa4f0ad2790ce29",
+      "crc32": "63f1a56c"
+    },
+    "ch2_ledger_office/bg55-cell007-A0.bin": {
+      "bytes": 5529600,
+      "sha256": "f418c3ed0017ed1944d5c0681e7d83ce1d13bf036fb5b31fad829f89ecc37697",
+      "crc32": "3268549c"
+    },
+    "ch2_ledger_office/bg55-cell007-A0.png": {
+      "bytes": 275867,
+      "sha256": "304e6920c7eaca2af066ab4554b97a4eef280c36321aaa53cd34ff1a4adcfa1c",
+      "crc32": "a58d7762"
+    },
+    "ch2_ledger_office/bg55-cell007-product-new.bin": {
+      "bytes": 5529600,
+      "sha256": "819f945f65e6b981f5aba140a706dbd3b70ade8b0997f70a4d75f7c9cb3497ba",
+      "crc32": "1b477910"
+    },
+    "ch2_ledger_office/bg55-cell007-product-new.png": {
+      "bytes": 261499,
+      "sha256": "fffcd9c927d6a8c906bc824244abb21b39486607d87e44ab55fc1233665c110a",
+      "crc32": "8d2f0bf7"
+    },
+    "ch2_ledger_office/bg55-cell007-product-old.bin": {
+      "bytes": 5529600,
+      "sha256": "bddb355c4d2aa2ac5ac12d106d6e8693e0903656a59c1d31fed4f783ed084c40",
+      "crc32": "49f69051"
+    },
+    "ch2_ledger_office/bg55-cell007-product-old.png": {
+      "bytes": 265244,
+      "sha256": "5fe40b748b105bd095d5276d1a68fdb2362fd2b175d72ed537b28c03e5a80798",
+      "crc32": "d644562b"
+    },
+    "ch2_ledger_office/bg55-cell007-reference-new.bin": {
+      "bytes": 5529600,
+      "sha256": "db97e95f37758b1a161cc7e0ed5a914856b399770571ed3da74729e742dc9208",
+      "crc32": "597c0ecb"
+    },
+    "ch2_ledger_office/bg55-cell007-reference-new.png": {
+      "bytes": 271812,
+      "sha256": "e9fe9b94559cda4a08ef13fd2c5901e9a807c6c8068b189462b16a963ec430ae",
+      "crc32": "4e707b14"
+    },
+    "ch2_ledger_office/bg55-cell008-A0.bin": {
+      "bytes": 5529600,
+      "sha256": "dc84040179ceba22ed4f0001b269a59499f171673a23336fe8bafbfcb28fa8bb",
+      "crc32": "103b8943"
+    },
+    "ch2_ledger_office/bg55-cell008-A0.png": {
+      "bytes": 304209,
+      "sha256": "8d15c4298fcefbef0beb9aac3f429c67c29f2508a61122375a7adce9b24f30cf",
+      "crc32": "ef373a81"
+    },
+    "ch2_ledger_office/bg55-cell008-reference-new.bin": {
+      "bytes": 5529600,
+      "sha256": "d841e1c5ba6b68ce756689d84e3f3f260f81db10bc4f2b6990c573200a88a804",
+      "crc32": "a3ca62a2"
+    },
+    "ch2_ledger_office/bg55-cell008-reference-new.png": {
+      "bytes": 302218,
+      "sha256": "4fefc0f261a13fc3d1434f0a25c20393f63d873c946c74ee5a87d6a220b76572",
+      "crc32": "c7b2e88c"
+    },
+    "ch2_ledger_office/bg55-cell009-A0.bin": {
+      "bytes": 5529600,
+      "sha256": "c07ecd0b42fd33d80bf4968b007bf36cea53f12272c85b8d4a285fe9cf4fc2f0",
+      "crc32": "7a25045d"
+    },
+    "ch2_ledger_office/bg55-cell009-A0.png": {
+      "bytes": 281807,
+      "sha256": "42e7376cb1bbbd92b85b9250ba0d995e1d7760886d8a28a8901e53325465e1fa",
+      "crc32": "1cdedd8e"
+    },
+    "ch2_ledger_office/bg55-cell009-reference-new.bin": {
+      "bytes": 5529600,
+      "sha256": "6b363ea0b4ce7b6ec750f35ac20f63c34186512f37258ffd9853f60e47b6bfdd",
+      "crc32": "129bb950"
+    },
+    "ch2_ledger_office/bg55-cell009-reference-new.png": {
+      "bytes": 279370,
+      "sha256": "03cfa1a3bec9e77652eb5db9d536d9600b8b4a343668d96d25d238a1254a08b6",
+      "crc32": "4db652a8"
+    },
+    "ch2_ledger_office/bg55-cell010-A0.bin": {
+      "bytes": 5529600,
+      "sha256": "ea0c910de170faee7ec360468f6b87fa41a48298054ba4606a3806c215ec536b",
+      "crc32": "9eec3513"
+    },
+    "ch2_ledger_office/bg55-cell010-A0.png": {
+      "bytes": 361346,
+      "sha256": "0230ddd2e55ba959585fc6e231ffaea42a837a89bfb3f2e0b5de02d4d7853f53",
+      "crc32": "dae51f6e"
+    },
+    "ch2_ledger_office/bg55-cell010-product-new.bin": {
+      "bytes": 5529600,
+      "sha256": "0b1ca134a1d822aefdb9c827f6f26f2abd5cb8089e0914515df0f73f05980e8c",
+      "crc32": "01a7ae81"
+    },
+    "ch2_ledger_office/bg55-cell010-product-new.png": {
+      "bytes": 337476,
+      "sha256": "40b841034c3ba44b78dc604f2e4c21bc4a1ad92b8039486775f38a959a08f47c",
+      "crc32": "935d9bd5"
+    },
+    "ch2_ledger_office/bg55-cell010-product-old.bin": {
+      "bytes": 5529600,
+      "sha256": "ad22d27cfc2ebb013ff4ec3304dd415402ec5a5d0cb8d3d46bb62b581814ff84",
+      "crc32": "736fa7d1"
+    },
+    "ch2_ledger_office/bg55-cell010-product-old.png": {
+      "bytes": 334868,
+      "sha256": "2727f1c53b6ddc1822f3a4319d795ee01c10d71a7d3b9ba842fd390333f62d56",
+      "crc32": "daa084a5"
+    },
+    "ch2_ledger_office/bg55-cell010-reference-new.bin": {
+      "bytes": 5529600,
+      "sha256": "70af8a6809765cef940a4d6881aa1c0cc238d94fd2f2f07aac14dcdca4af559e",
+      "crc32": "ded591d3"
+    },
+    "ch2_ledger_office/bg55-cell010-reference-new.png": {
+      "bytes": 363685,
+      "sha256": "cb25f614e3450e7de5e378cb757e01631a6464293638012ef4b52b4f28252033",
+      "crc32": "13538923"
+    },
+    "ch2_ledger_office/bg55-cell011-A0.bin": {
+      "bytes": 5529600,
+      "sha256": "c20998bbb07accd017837ed3195852a03c5a7db5e8acb691b0d45f76547dfea1",
+      "crc32": "51aeb931"
+    },
+    "ch2_ledger_office/bg55-cell011-A0.png": {
+      "bytes": 255584,
+      "sha256": "6edba655903fb1e02526a2d7fc11fd5aecd0eee84c259f83f2c4b31633608a9d",
+      "crc32": "f11b72ff"
+    },
+    "ch2_ledger_office/bg55-cell011-product-new.bin": {
+      "bytes": 5529600,
+      "sha256": "edd585da3ef2041e9ee7765e2756920c472f30ab444089f3db976e8c27f5d885",
+      "crc32": "14c5c073"
+    },
+    "ch2_ledger_office/bg55-cell011-product-new.png": {
+      "bytes": 241245,
+      "sha256": "e0fc97c9903976f1a85fe09218b55ae6a4d59a9b69dfe8b2c518217cf823a603",
+      "crc32": "c2d2abf8"
+    },
+    "ch2_ledger_office/bg55-cell011-product-old.bin": {
+      "bytes": 5529600,
+      "sha256": "739fd144210f4fd9197e978f325600257f403ebb465c6a930512bb5aa65a714b",
+      "crc32": "8ba478b8"
+    },
+    "ch2_ledger_office/bg55-cell011-product-old.png": {
+      "bytes": 245188,
+      "sha256": "bb94394da399487a8f31c031c1b378c582d30ed2fc8ed6c062b5dfd3bd96a9c7",
+      "crc32": "ce868bf9"
+    },
+    "ch2_ledger_office/bg55-cell011-reference-new.bin": {
+      "bytes": 5529600,
+      "sha256": "650935f79ff0ad120b5e998c55b722316f82e87c4075fc733c032373fdd6ce7f",
+      "crc32": "9dc8775e"
+    },
+    "ch2_ledger_office/bg55-cell011-reference-new.png": {
+      "bytes": 251023,
+      "sha256": "ed3e8a90d44d0b80f3c4b35e3dbeffefe43855675802eb1026cc23bab60851e4",
+      "crc32": "8ef0ac13"
+    },
+    "ch2_ledger_office/counterfactual-office-low-v2-c00-r00.png": {
+      "bytes": 248167,
+      "sha256": "fce37f07a09bc7f96c5fe0cfa3d5f859cad408f1bbb6d9583182e585bc81fe31",
+      "crc32": "13c72081"
+    },
+    "ch2_ledger_office/counterfactual-office-low-v2-c00-r01.png": {
+      "bytes": 341345,
+      "sha256": "5abfa257bca9738eb6ed2a545d4fa3eebb789e1c1d86fec8044ed858fb9763c2",
+      "crc32": "f163f21e"
+    },
+    "ch2_ledger_office/counterfactual-office-low-v2-c00-r02.png": {
+      "bytes": 304209,
+      "sha256": "8d15c4298fcefbef0beb9aac3f429c67c29f2508a61122375a7adce9b24f30cf",
+      "crc32": "ef373a81"
+    },
+    "ch2_ledger_office/counterfactual-office-low-v2-c01-r00.png": {
+      "bytes": 397754,
+      "sha256": "3c518f6816cb60a74d7aafb9206c4f49402a864c59da5616a51112b237583eec",
+      "crc32": "693de75c"
+    },
+    "ch2_ledger_office/counterfactual-office-low-v2-c01-r01.png": {
+      "bytes": 347626,
+      "sha256": "f1b466410e644d295e6ce1a60bdacfd552dd183b28c92ca12d7c823f05300da4",
+      "crc32": "2b9a5532"
+    },
+    "ch2_ledger_office/counterfactual-office-low-v2-c01-r02.png": {
+      "bytes": 281807,
+      "sha256": "42e7376cb1bbbd92b85b9250ba0d995e1d7760886d8a28a8901e53325465e1fa",
+      "crc32": "1cdedd8e"
+    },
+    "ch2_ledger_office/counterfactual-office-low-v2-c02-r00.png": {
+      "bytes": 294979,
+      "sha256": "a5bafd2687361bfdd47980b6a9b4d602d30d3de84dbe196794dad9ad1e72a782",
+      "crc32": "b6576731"
+    },
+    "ch2_ledger_office/counterfactual-office-low-v2-c02-r01.png": {
+      "bytes": 353818,
+      "sha256": "cb75759077fccd9c889360ed3975130fda5161b2b2c9a16f9200be6981f1649b",
+      "crc32": "b47d6cc1"
+    },
+    "ch2_ledger_office/counterfactual-office-low-v2-c02-r02.png": {
+      "bytes": 334868,
+      "sha256": "2727f1c53b6ddc1822f3a4319d795ee01c10d71a7d3b9ba842fd390333f62d56",
+      "crc32": "daa084a5"
+    },
+    "ch2_ledger_office/counterfactual-office-low-v2-c03-r00.png": {
+      "bytes": 269798,
+      "sha256": "bad0a91b516734e3f3b51332dcca6eafc605baaa4b27bc7eeba30fa3d21833ad",
+      "crc32": "c4043876"
+    },
+    "ch2_ledger_office/counterfactual-office-low-v2-c03-r01.png": {
+      "bytes": 265244,
+      "sha256": "5fe40b748b105bd095d5276d1a68fdb2362fd2b175d72ed537b28c03e5a80798",
+      "crc32": "d644562b"
+    },
+    "ch2_ledger_office/counterfactual-office-low-v2-c03-r02.png": {
+      "bytes": 245188,
+      "sha256": "bb94394da399487a8f31c031c1b378c582d30ed2fc8ed6c062b5dfd3bd96a9c7",
+      "crc32": "ce868bf9"
+    },
+    "ch2_ledger_office/counterfactual-office-low-v2-index.json": {
+      "bytes": 2344516,
+      "sha256": "b79f469b4a2267d65c29aa22fa819352ecd74e1903e69184b62dafed7233d2dc",
+      "crc32": "e659c856"
+    },
+    "command.json": {
+      "bytes": 708,
+      "sha256": "03e1226af2ecd6d5cafa682aa092050726a56e47e36ecbdbcc0d45366b5b4ed4",
+      "crc32": "f47d4c04"
+    },
+    "exit.json": {
+      "bytes": 1273846,
+      "sha256": "983661c710f1a50918db6c1689b84da384a663fa40d6010bf5d6b15b7c13ee03",
+      "crc32": "9b299377"
+    },
+    "host-gpu-lock-before.json": {
+      "bytes": 280,
+      "sha256": "01ee22e60e645dfabf6dd661f1711984df121f287253c8c4116c1c355ad42047",
+      "crc32": "76536d00"
+    },
+    "independent-v2.json": {
+      "bytes": 8449,
+      "sha256": "7a9435e4b5548b7ef3c01013f2f3f24662aea868403b5e1c3e9dc7bd1a0ff008",
+      "crc32": "6d04abc0"
+    },
+    "queue-after.json": {
+      "bytes": 323,
+      "sha256": "db7d1688ac98acfae70d492d2f639af250942c711c8dabb143caa446f70371e4",
+      "crc32": "ea4a6467"
+    },
+    "queue-before.json": {
+      "bytes": 322,
+      "sha256": "10355acc106f14e8ac27ab99f09da89ca3f2f16f7ca319c09cae41e82a82031c",
+      "crc32": "9fd0a6f2"
+    },
+    "run.log": {
+      "bytes": 199,
+      "sha256": "05d6390df859cebab575c6d4148d1c29a8f49de80576555c000f1e67594e88ba",
+      "crc32": "4b498c65"
+    },
+    "runner.py": {
+      "bytes": 4781,
+      "sha256": "a743793be7efade80360c085273fe85e22c12f2bde437cedaac05d77be938319",
+      "crc32": "f3c605a1"
+    },
+    "source-before.json": {
+      "bytes": 1253085,
+      "sha256": "093090a8e3ea0db76c825b99070933f387d0cff6a4a13cd9108e8b50e2251159",
+      "crc32": "72bc7c21"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/logs/godot.log": {
+      "bytes": 195,
+      "sha256": "b5487dc110cc0a98263db4628f14a5049c12fabb6f77621d6e80307e6eae619b",
+      "crc32": "8b99386a"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/readability_phase_settings.cfg": {
+      "bytes": 42,
+      "sha256": "237dae01ba7a2cda7dd61b7aacb7c20dfda6f9b71fd0057ee2523f254143c048",
+      "crc32": "59e7bdd5"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/BestFitNormalShaderRD/c4b1d2e5a1d6f84559f49734aae94706b402e2be89eae7753b8b413800d96d42/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 852,
+      "sha256": "d115a8d428f19f1b56ce836d37ef3c4b4b2c1f81daef0f05e1c8f329b5e50e21",
+      "crc32": "25e2a5e2"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/BlitShaderRD/ae4daaa7a60bb17ebd7e9de5db9422fb448b52ad89776ae7aa53fee442f7cc60/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 6484,
+      "sha256": "7965b54854f14f031497212292bcd60cd9c8e18a051253448b2e28f3fb0cc862",
+      "crc32": "1709bb11"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/BokehDofShaderRD/8c692c9cd2f46f54f2c82d9a4a12be5f889d873a3c9698546a6eb5ec0c263647/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 5876,
+      "sha256": "289a8bc2a8e3759617bf3e329ef1834a024ff76ed774ecec2cefdc5e4377e2db",
+      "crc32": "97b2e9c0"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CanvasOcclusionShaderRD/606df5c981910bc4bc719cf497719273e80d1f314f65e68820bf8e2111368cdb/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 2920,
+      "sha256": "6ae1f24a1c09ad1777fca49e65cda1010208cc809c2b8be0fb65b0bcd138e2b4",
+      "crc32": "b12f5897"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CanvasSdfShaderRD/a4f6d732dba9a4cc0c37a1ca52936369e2ee148e9d03efe1b81bfed822adb1eb/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 4776,
+      "sha256": "59a23247ebe60935e8bfe7b961fabd1c3b38d0997640d3184ad6c8bbc72f74e5",
+      "crc32": "6acba282"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/191b69a2c4438e53853754a26a9463dd1cfade90.vulkan.cache": {
+      "bytes": 23196,
+      "sha256": "b2bc32c5fcb40b3a9d97180824f23719e95e8c9a9e68be170e3bb2ff1ab5c294",
+      "crc32": "e1b7cbec"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/1ea7afb1e0cda189d48c9e2dde7afdcaed880af3.vulkan.cache": {
+      "bytes": 42772,
+      "sha256": "a782081a1981601ad02a2b3e37b006f4c6e5c84e47feed33d17a69cfcd7e6ea9",
+      "crc32": "843deb59"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/2358e18ff7b606bc5be9e18cc58523e7eacfc9ca.vulkan.cache": {
+      "bytes": 24792,
+      "sha256": "68b7183179ed56ce63c85606291efa6a3316a4be0c69f13d978424ff5dbf9f67",
+      "crc32": "7be61f94"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/5148f21435eb8f0e8d04a130b75372ce8e69dfad.vulkan.cache": {
+      "bytes": 23380,
+      "sha256": "dbc71c5e5a8610466205dc287c7fcd717c5c581e4cbd6a0865a50a51c1c3d8f0",
+      "crc32": "480489fe"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/631224d9051202620dac04fe025b557c97069e92.vulkan.cache": {
+      "bytes": 41032,
+      "sha256": "11ff351e4965848e8a82560e75f8b11416d2be332296d881c729b1a0fb95c4fe",
+      "crc32": "f64d70ad"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/7bb82408df84e2631b338fa798d1730f04e50cee.vulkan.cache": {
+      "bytes": 29308,
+      "sha256": "037f9dfe0bb956fc9ece8216bd4e4e0606ceb7bf0d1eceb2d695c2e04bd9eb13",
+      "crc32": "f507bc74"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/80f9aa7a58ea4910a399e875cc3c13369df814f6.vulkan.cache": {
+      "bytes": 34792,
+      "sha256": "eac9eca9cf51313d2a041c0aa58464b64ff2387602ec113c45e7afd1b97f0b9d",
+      "crc32": "f5e45a32"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 39424,
+      "sha256": "f3514e453b661a73a47a326f545acdaa0c1f73f560edf5d1aceb1f66a8c494ff",
+      "crc32": "c6d5da9b"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/89e0c5a264d1558e7bc2ca0dc3d0afd834fbe7b6.vulkan.cache": {
+      "bytes": 23900,
+      "sha256": "19514007e0592097df8d3759b4e6cc9055d554770f6670aae7ef2871a988bbc8",
+      "crc32": "5cd93e7c"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/8f9335de72e837eeead40640cc01fddc5baf5a7c.vulkan.cache": {
+      "bytes": 23584,
+      "sha256": "8da2f08cc0ef4d6c6770163e8d842524882c1ad094c87a63be4e862f03d507db",
+      "crc32": "6ce1758b"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/945182c16bf707c232fef4e8c901bbdb5f1c9939.vulkan.cache": {
+      "bytes": 26216,
+      "sha256": "43bb69377dceb382df3140c92719f13e7529915756d58c015e2f6813751bff17",
+      "crc32": "3d698321"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/b37146ca4c086605f648fe1432573833f7d72e3f.vulkan.cache": {
+      "bytes": 44952,
+      "sha256": "d508ba366678b913075fb4e7b99af97f276328dae935d345228a33f7cf95d48c",
+      "crc32": "5eee14a1"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/c076dc1ec356b9902b23050406b1e2842ae490dd.vulkan.cache": {
+      "bytes": 45628,
+      "sha256": "042e203a49af4d0ee67c5964fe6ad709cf1ab27b2203756785a2d2e24ad7323c",
+      "crc32": "562af232"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/c2f7efc3419efdd79fabd056897820a83f2ac2c9.vulkan.cache": {
+      "bytes": 41284,
+      "sha256": "80a2491435115aa66b539ffb1c0a77b56ea018d1729396cfbafbb02c3466a5f8",
+      "crc32": "5df2606f"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/ef42a2d7eb32cab396c0502b3e0005a534305e70.vulkan.cache": {
+      "bytes": 25868,
+      "sha256": "50a693c3c07402bb8056335560dd02d031d82bea363fa9a67f5660e6725bbcd4",
+      "crc32": "c9f973dd"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ClusterDebugShaderRD/25eb5280da03a5dfefcf122ab21c9f6184c2a0d8edfb398d0b9e784c99ede8d6/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 1720,
+      "sha256": "aa9f5b048b0b1c8e8f494c4fb98d8965275b17fd75c4f690069cdc42065cebb1",
+      "crc32": "ac3df386"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ClusterRenderShaderRD/092c9f39b8c42523662d45db394a8d4f7f068d617876866d55d9fd69e5afb357/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 3108,
+      "sha256": "9396cb86793c582e1f01f41fa47591f352b3c5453ee14008e4707563bfceddf3",
+      "crc32": "c2255b01"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ClusterStoreShaderRD/77e74456f71eccced2f4bd06086f33d4ae56a013ce717690f960759226272eb4/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 1196,
+      "sha256": "c4d22c78edf4b6f15da9c37cbf9a896c78dcad68a3c878e050e82229101ffed1",
+      "crc32": "2a96b4a6"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CopyShaderRD/c374588e7ae9bf64919d0186bea3104b4f721cc0691d284a9998e1e7d06c5eb8/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 13948,
+      "sha256": "f44b871c9e3847dac6050a56558dcc13fc44420640f19806fc322bd101bcf2c2",
+      "crc32": "84148a67"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CopyToFbShaderRD/72456b3a82af4da12c412275d4c8ffa4a6a5447d9daffeeef86bc16965803813/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 5464,
+      "sha256": "86e81e6910e87c6916484f2958bda91277ec74e115f40a508564e14b7660c3e7",
+      "crc32": "690dc4e1"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CubeToDpShaderRD/da14e2c9b701a4bd7336b87667bf4f3b4f645de09781824763d2bbceead56c83/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 1312,
+      "sha256": "f166a93c1f926f134ab8bd59706dac5d4f5a64c502de839821e46ed591eec1ce",
+      "crc32": "8e7ea970"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CubeToOctmapShaderRD/7a5a6871c4fae131d3fef2e125ac23cbe81a1a042028f8c294461282de463c9a/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 1080,
+      "sha256": "7a1cba76f5ead927fc71d6f546063d6b520336287f271da333112cde405442ca",
+      "crc32": "622c34b3"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/FsrUpscaleShaderRD/a8da3dfed3e309742ca78c4162d15f2ab08af4f694a51407089ecec1d1be54be/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 11500,
+      "sha256": "7f81eb5493816e754e128cb8ab3fcebef98f349f64bd825ac0f1b1938a36b188",
+      "crc32": "149bfcb1"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/GiShaderRD/3fa2391092c717dea4bdf7f4f65ccf42ffd4018c158c431a4e234d9fa17737a6/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 30500,
+      "sha256": "5870330b474ade1de74af337567b26e2c147f442a76a54f7e06e59b1388f188a",
+      "crc32": "421135cf"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/GiShaderRD/87dc8f2e3eb0653ed625d759392e8a08fcd79fe90d61dcc8f6ce34a8cfe35f7f/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 33892,
+      "sha256": "2f5bde67ae09db13f351636066c67729b42777d5a63a504fa0c71c3a244e4cb5",
+      "crc32": "6d8ec1a2"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/IntegrateDfgShaderRD/4d699e26d43b88b86cb33c2b829767ea8e935055bb48dea880f66eb29760577a/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 1992,
+      "sha256": "0fc196279115538414b28047c7597c7d1f5431428348edcc8648226b673625cf",
+      "crc32": "5e8b82c3"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/LuminanceReduceShaderRD/c759f2761a12e9ff1fa625818963f94aa0ff511eb314a313ea89c615c37dd078/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 2780,
+      "sha256": "4ab315d3fb4e4b9bbb755bb93244730261f346b3cc07053ea215ea38c7ef99fb",
+      "crc32": "4a0335b7"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/MotionVectorsShaderRD/4d3ba0c01e8b64c74a0f2f0fd20ddc8099d56cfbb3ee9e7dbe6dc3c54c174725/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 1628,
+      "sha256": "378a7791bc59449973a5b4a9147d74e109c7142884d9b3090571eb78a50b9dc9",
+      "crc32": "241a7cbd"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/OctmapDownsamplerShaderRD/17404978f453a0a0388dfb81b2d08f173476d2c3b680e2e6aa35bcf438e24f11/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 2896,
+      "sha256": "8e665f40fa0bb37bf263f5097c7d6558cad7af4b7125d8a51677c0163c4e4678",
+      "crc32": "9d6ac6a2"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/OctmapFilterShaderRD/cd03c4ea34362e2724f4d4536156039ee5ca21c31167b8840dfc65dad2d6bb11/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 23104,
+      "sha256": "80e295d389b28b4a4cc3f495885ba19ef7bd6581720fb8cdefd597ba5b207e07",
+      "crc32": "5cc17cb7"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/OctmapRoughnessShaderRD/8470960c68b74292e24251e3b7e41d28e9a5054dce0cd1d77c2a2a865a10af43/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 5208,
+      "sha256": "46e0ad73121a4ef1153fcf93977e200aa33360380c0628feac2d18cac92ebae4",
+      "crc32": "bd61fa4b"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ParticlesCopyShaderRD/ce2b95c8a6b9e21f14c989c3ca095de77d9bb5e86213ae4180fb97cbd2c02a10/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 44972,
+      "sha256": "5ce3413d1ae6be36ed51781db85fcbf7e29d0c1330f3b2b9508ce151e029be00",
+      "crc32": "d336b964"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ParticlesShaderRD/f645828ab356b17f1478c77373935ecd2417e1c227a96b62417396293d13970e/07b5904b662900d90454c39c46885098de79aa4c.vulkan.cache": {
+      "bytes": 6256,
+      "sha256": "db079e5a460d0ed4fcce9d003a3c1afb6845617ba01f90b452c11c30536e5ea2",
+      "crc32": "26e54866"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ResolveShaderRD/58e536c56eaff31a31ef93f224579af7b242a06469b7b0a7736cdeb7e16898b6/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 3904,
+      "sha256": "575c4d0d401897e630d5a22819a26c1506dfe6d42911f8ac2c76344fde338495",
+      "crc32": "269ecd65"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SceneForwardClusteredShaderRD/cdfe2a8d86deff48154b1cd0d6e857301f5e37f0d8930754f63ff9c2c85045a6/347259af253e6bbec7ad5c69332af5ca731015aa.vulkan.cache": {
+      "bytes": 58708,
+      "sha256": "a8fb742a0c37c71a35ebcaaa9f65da521cc50fdf420d3b5aac8aead84f19b5a6",
+      "crc32": "47c94a36"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SceneForwardClusteredShaderRD/cdfe2a8d86deff48154b1cd0d6e857301f5e37f0d8930754f63ff9c2c85045a6/a784797763b72ce058effad41b273eb697df9814.vulkan.cache": {
+      "bytes": 106424,
+      "sha256": "da2f01d04874112bccc46da6a96eefc7137782febe0d868df988edb524ce415a",
+      "crc32": "be041c32"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SceneForwardClusteredShaderRD/cdfe2a8d86deff48154b1cd0d6e857301f5e37f0d8930754f63ff9c2c85045a6/b600e18e20b53d8932999d48838b29553c586934.vulkan.cache": {
+      "bytes": 108956,
+      "sha256": "e72dbaff1cf84a4c8b91c122ae5a337ecfe6ab275211424eb4ebdb8d183d5dc6",
+      "crc32": "1d5b99e2"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ScreenSpaceReflectionDownsampleShaderRD/f6b46656954490c0153a8a5200455cc0834ec5881821ec7bf328b4c688fc4f6f/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 3724,
+      "sha256": "e5ac376f07b2fcb1331e72c426149ef4e6702e3e298415012653ffb2a4b7a0a5",
+      "crc32": "c5549380"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ScreenSpaceReflectionFilterShaderRD/fda60a18cb83e7ff26ce7ee2f43dce1d37326b2767d06922b0e5f9356abd1a1e/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 1624,
+      "sha256": "6d410f3657986c3b0f9058f2aeebacbe65f3ee6665796c09005f91d8995d3f36",
+      "crc32": "9121bcd4"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ScreenSpaceReflectionHizShaderRD/4c407c9b5cd4f954c012a0de78629e18a5e9268536eb1d78853c8a247ef0a772/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 2912,
+      "sha256": "8de2a252fba35d61109bb9c5210c948b76f46052a232f049c3d0fef6e7f4b4bf",
+      "crc32": "2f29d4ad"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ScreenSpaceReflectionResolveShaderRD/b29422945b4d1600883d0fcf89124633e34efb678505e5bcb9fdb6623fbfb8d4/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 1616,
+      "sha256": "3f3176442d350127f285243f8c8f0820abee959faa478f5de34431b6d6a3b2d8",
+      "crc32": "1f608d6f"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ScreenSpaceReflectionShaderRD/a2d0cb08973e8562ed3b82d74b6f0f1ecf1dbd2ac788049eaa06925ad6c28bed/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 3868,
+      "sha256": "4923ed8f74ca34c9f2ee9de718801b5811fac0678ba4d084fb40dadb3ace8081",
+      "crc32": "4052a32e"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SdfgiDebugProbesShaderRD/05e9a03efe957bf14f0a60730a97ab25e037f5a3f347b3427feb9723fd82fb1c/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 7756,
+      "sha256": "184981e9d1267cedb108a489e96d94a2b57c84bf23293e185e305988839a1761",
+      "crc32": "70951664"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SdfgiDebugShaderRD/365142e07e83cbbda433d4ed971a1c8413d3a400e8646e2ed2a0f7dda127068a/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 2256,
+      "sha256": "75a53d6ad3dcc43cef01e08c3dd3fec43527c2cea14297f8db837ff0207c9bb6",
+      "crc32": "5c535032"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SdfgiDirectLightShaderRD/59245d18d90efd79551ef5eda25bbda9867cb893341a1d23b0f75db5d4490716/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 16636,
+      "sha256": "3b31edf55bb45a47d9187ce30d31fa5e19f18c8086711e4e4cb2f7f49b653f6d",
+      "crc32": "5599b316"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SdfgiIntegrateShaderRD/f20a6d93247c8e2db82979d4e6477fa070ed91e03db2b1320e32dffabdb4ff23/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 12088,
+      "sha256": "5eec6f0139f4da1bbb325c4d981931a91fa2f36b5616fa924afd1470a94dafec",
+      "crc32": "98c7b2a3"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SdfgiPreprocessShaderRD/548b5bca0563ad9662e1e9577ac4921dfc156154487ba331733b0283ce26fcb9/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 14304,
+      "sha256": "c5a300e4ea0150c2a5769056a2e78568a140578398452936cad1e7ab7991fddd",
+      "crc32": "a9b66921"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ShadowFrustumShaderRD/248bc9deb54d10af912f2da1bd4b006bc43cfe08659a206fa573baf48e4050e0/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 696,
+      "sha256": "5efde48fb163c76730d307ce0a5b8a1477adc87a535fb05df38d63c82c0e0337",
+      "crc32": "dd99ea2a"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SkeletonShaderRD/e6bc641e2a094416c99b1294ac5e453c55d24e0b62c1da47c8f7f93ae7877bfa/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 5140,
+      "sha256": "947be4a0deb0eda91e06151d1995345cab34dc48a30ebdd2d7ba7a0a4dcec475",
+      "crc32": "96192ea3"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SkyShaderRD/25c4162ba5ed1f15e722f73bf07201837a6ae7b301288dd32ff9f71634118d9c/0fa1946a11e1cca806ebfe4b3b4ac7f723d8b701.vulkan.cache": {
+      "bytes": 15384,
+      "sha256": "748f831699ec06d347e8e8e8fd580e60c2d707d5abd96e44d488c409fe9b6fe8",
+      "crc32": "8b41fd48"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SkyShaderRD/25c4162ba5ed1f15e722f73bf07201837a6ae7b301288dd32ff9f71634118d9c/ff1961ca0c4c55a79eb12f819a7b6345801bbbaf.vulkan.cache": {
+      "bytes": 15696,
+      "sha256": "69266dd555041764a82b8c551f6785781df45ff973b57dff942b58afe1432716",
+      "crc32": "18021a66"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SmaaBlendingShaderRD/d7b7c8cec00f24f9aa8db356b4df88c5fe032d38ce38673bd520c280c936fb80/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 1940,
+      "sha256": "cb3291ab5763674987c0f7dcd81412f760241b95533b86ad6ec08bfc403a3283",
+      "crc32": "d1ee51c0"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SmaaEdgeDetectionShaderRD/8879d099a2601bd01d4582b1e86a091c5f89a7bc46aecc9e805410f75bcda245/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 1400,
+      "sha256": "bc4d7fad2b9f16fa80029761c7e6b864b23d28e958c13815695eed6fd1df2855",
+      "crc32": "6cdf8e6a"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SmaaWeightCalculationShaderRD/de1d49d5ff947e8b8382f43a79f57c4cceb02eed6f86d5175093ca63e94052bf/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 4496,
+      "sha256": "079012a02bfedf45b2c45c9772724da8500a4b07b90aab6643d89d7533346880",
+      "crc32": "937fa751"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SortShaderRD/d8d77897b86870d358bf870233e14233981c2db9ff06641cd8f405379ac8872f/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 3020,
+      "sha256": "eace1d8fa7bb24c135e89e476ae9e605a1db2807a02c44b93dac46e246745d43",
+      "crc32": "aaf8f88c"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SpecularMergeShaderRD/70920fc883de48dd253fbc2503dd8f4e65941df0da07e074541df12df090de98/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 3268,
+      "sha256": "fcdf68071dcee315d8bfb59d6b02edb68b923c977f476186762d38a5c83942fe",
+      "crc32": "20dadde9"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SsaoBlurShaderRD/379e714dbee2f412e6657f0557a56dd9f4a00c93ed1aef7af78b047b59ef4bcb/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 3036,
+      "sha256": "2e9c80ce2d3daca7e5643542adfaa107319bb0650681e60516313ec3edd50f2c",
+      "crc32": "35621eeb"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SsaoImportanceMapShaderRD/72382d26e5b22e99ee9ed29670565e78ff7ee01c960072119a5be86db2ee0fc8/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 2536,
+      "sha256": "3ae31c2a1b308c855e02a8da4be6cf7e9d55e8cd6990ebb1cb00ed84fbf2a5c4",
+      "crc32": "0d50c110"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SsaoInterleaveShaderRD/cb27e637ffea15e2c6c4ae1b2c90deac962dae9481ef866601d8ecb863d6a9b6/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 2696,
+      "sha256": "9f582640a6af6981149a1173ad51cd7f3a82a90d0bcc4eca8b943f6e269f4290",
+      "crc32": "adcf8f6d"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SsaoShaderRD/40091d5cef6924b0632dfb92dbf5a6c61f97edd6dd653d20e2c7662009912eed/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 14364,
+      "sha256": "d25fb8a3e4ee078068971b66d005b5bf0ccc2fdbaa82b44211f61bd88aebaf35",
+      "crc32": "55d8604f"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SsEffectsDownsampleShaderRD/d2ccd37f99a0b00eca4ba6f53cddf8d03f02119a69a0b02dc777026129561703/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 9604,
+      "sha256": "2f31a16bea421a39b8e4558e9664cbab26d32032283fe014219e206f48a56eb8",
+      "crc32": "697e6834"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SsilBlurShaderRD/4f0d60ba5581090f5efc9941b040e46832bf6864d77d52e8631cea227b5d8279/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 3112,
+      "sha256": "315f8d48a7e58f0f33dc908f49ccb481f960ce77766a52f2ca8d287da9944e6f",
+      "crc32": "e96a6bf7"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SsilImportanceMapShaderRD/bf370911d6b5be81e5fbf6014d236deb74697ee1b3e2eeb870f5140913d9bee6/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 2580,
+      "sha256": "75315284701be4f9c6b1f5d2246f0423e8c6fa2963db12f347b0fdf14dd51775",
+      "crc32": "4921f238"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SsilInterleaveShaderRD/0f78dde6bc33a0264706f9a466ae77f41b24641381aa171c2b1ee40923f6547c/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 2840,
+      "sha256": "f1ed54a284de52821a60c8144320b89ff52b15ba4d877c1cf7c253454509dbfc",
+      "crc32": "dcd6bddc"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SsilShaderRD/17c51ec55574b54c0834b41688f478d19599eb3f90a1230981e06d74d89473e1/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 14184,
+      "sha256": "3f397a6c4046ecd3e1c4f283052a3b86ade8fbaa121bbdfcd64b6a802b277031",
+      "crc32": "5fae104b"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SubsurfaceScatteringShaderRD/4870fb4fc36514a7031473d566046fc2841628db992f9421056a8dfbc0830d97/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 5120,
+      "sha256": "fc301aa9659042754f42238dbd12ce53b43fbf20b2bfad6e209cf39bb963a46d",
+      "crc32": "15f002c6"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/TaaResolveShaderRD/a1ca2d745847530de0720910ad5bfa2466e0ab33647b7a631f2900d7b4617a60/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 3664,
+      "sha256": "629b9250dac9b7ce875c21f3b74d657e1fd7d356e8c944390582137c96769afa",
+      "crc32": "fa4d23d2"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/TexBlitShaderRD/fd9c885eab1da0d330a04ebfd7796019cde57f82208202f3bfc96cae74155212/1e8995c9eb0e9b0b053035999de68595c521a33e.vulkan.cache": {
+      "bytes": 6316,
+      "sha256": "109ee5b7eddee510c0ad83c7f3a10e1947c2f7f837a26671bb414765cdf15390",
+      "crc32": "5dcd29a1"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/TonemapShaderRD/1b9049fef136690ef56085339cc9ad699de6d63e5d3afa1677201c6dedd6f2a8/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 23436,
+      "sha256": "73e0d5d41ec8dba99d9ebc6d9ee20aa2d12061b5463f4ec306cf957262fadf87",
+      "crc32": "41398523"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/VolumetricFogProcessShaderRD/7ac17802c709a8ec8fb2d47fade023ddd95a3c675451c8e53ce81469b4ce8b5d/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 28388,
+      "sha256": "a19a77a1f9b59412c7e852b8079c977afa66beee980dab085e0891d4633fc0fa",
+      "crc32": "0ea293c6"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/VolumetricFogShaderRD/8454dc7c2a5c9574b6123e01388a4c83969bb236ab7422fd0eb06b91dd9f7449/3377d4ca9d0fc2e16f62596ee37d619e8e7e3f54.vulkan.cache": {
+      "bytes": 3172,
+      "sha256": "9067f1354452042ecd53e6eba707fc88395d505862e112daabbfa6f53beaa6a8",
+      "crc32": "ec626477"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/VoxelGiDebugShaderRD/e7afc074bea566006e261dd7312ae8e5c1a6a22e1eab6aa29b590ca925df679b/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 4808,
+      "sha256": "fd13837190945c52f4c2c748685cea5bc26ccea99b7d287d4d11e5e27c2638a2",
+      "crc32": "4d94f6dd"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/VoxelGiShaderRD/cf478b2dd85c8c4b0519274ac94659b26ee34e27a1714122915056a7010b4b7c/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 21968,
+      "sha256": "89e75a677b63195491610a3a91a8afee6499dbd3588a0b7b7b0aeddf70271339",
+      "crc32": "a3c58beb"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/VrsShaderRD/fa59a74699f8241cd3f8174eaef045dc8d40f3b29bf36af5414713c289f82717/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 2560,
+      "sha256": "094ce311a998c666e2e47558dd4b2c8451db9e2c909f3e494765ce52e7b8f8eb",
+      "crc32": "707de3c2"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/vulkan/pipelines.forward_plus.amd_radeon_rx_9070_xt.cache": {
+      "bytes": 1756840,
+      "sha256": "55fb29bb17929ce0602052cd3c1a374d4efbe237b27629a8ef714b53a76b169c",
+      "crc32": "4c1c1d71"
+    }
+  },
+  "scope": "Complete original run folder, including diagnostics, red readers, exact native PNG/raw pixels and original process receipts. Archive integrity is not an acceptance result."
+}

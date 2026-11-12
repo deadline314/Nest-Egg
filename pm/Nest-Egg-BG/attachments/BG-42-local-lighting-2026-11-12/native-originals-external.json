@@ -1,0 +1,62 @@
+{
+  "directory": "D:\\NestEggDeliveries\\BG42-20261112",
+  "archives": [
+    {
+      "archive": "bg42-counterfactual-front-high-v2-original.zip",
+      "index": "bg42-counterfactual-front-high-v2-index.json",
+      "bytes": 38005083,
+      "sha256": "32e75dcf6501fbaafafb2eb4c7011050be84300f253d7595dfa3b02ebb5da601",
+      "members": 126
+    },
+    {
+      "archive": "bg42-counterfactual-front-low-v2-original.zip",
+      "index": "bg42-counterfactual-front-low-v2-index.json",
+      "bytes": 41185698,
+      "sha256": "c0945e879649187c5db37d7af8a2a74fc0ef40af63d28c246bb43e60dbbe4002",
+      "members": 124
+    },
+    {
+      "archive": "bg42-counterfactual-lounge-high-v2-original.zip",
+      "index": "bg42-counterfactual-lounge-high-v2-index.json",
+      "bytes": 28744556,
+      "sha256": "13ae7b8bbe4297a964823b979f7bca4581744e365fb99a9824eff47ad5070036",
+      "members": 123
+    },
+    {
+      "archive": "bg42-counterfactual-lounge-low-v2-original.zip",
+      "index": "bg42-counterfactual-lounge-low-v2-index.json",
+      "bytes": 28092740,
+      "sha256": "267f61b1dfa6c5db82800c61b7d2efcd9e8d369dbd4db359a3899c802ce90ef3",
+      "members": 122
+    },
+    {
+      "archive": "bg42-counterfactual-office-high-v1-original.zip",
+      "index": "bg42-counterfactual-office-high-v1-index.json",
+      "bytes": 1684353,
+      "sha256": "454f01b930b075d441a959667f8ae1321f0a7d98f0c95298ace1d572d6de7eca",
+      "members": 77
+    },
+    {
+      "archive": "bg42-counterfactual-office-high-v2-original.zip",
+      "index": "bg42-counterfactual-office-high-v2-index.json",
+      "bytes": 85388117,
+      "sha256": "9460d0f7d487a7c2b6e2b3ca050337abf781ddd6c8572afc74286872c4599891",
+      "members": 167
+    },
+    {
+      "archive": "bg42-counterfactual-office-low-v2-original.zip",
+      "index": "bg42-counterfactual-office-low-v2-index.json",
+      "bytes": 87192730,
+      "sha256": "360c55a219461d9963059f489b67788fb25583641706a0377e0cd15dce2aa03a",
+      "members": 162
+    },
+    {
+      "archive": "bg42-counterfactual-parser-v2-original.zip",
+      "index": "bg42-counterfactual-parser-v2-index.json",
+      "bytes": 798,
+      "sha256": "6df6fa1756b449e821384737ab5cbc5ca32920a66ad9a894abd11074c60da8ef",
+      "members": 2
+    }
+  ],
+  "scope": "Exact native originals retained persistently outside Git. Public per-member SHA/CRC indexes and original replay readers require these archives; remote checkout alone does not contain native raw pixels. Original work run folders remain unchanged."
+}

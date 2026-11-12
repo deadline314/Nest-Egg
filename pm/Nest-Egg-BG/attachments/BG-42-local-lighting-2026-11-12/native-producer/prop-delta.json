@@ -1,0 +1,66 @@
+{
+  "ch2_ledger_front": {
+    "added": [
+      {
+        "id": "yong_hideout__isolation_diagram",
+        "x": 27,
+        "y": 17,
+        "dx": 12,
+        "support": "wall"
+      },
+      {
+        "id": "yong_hideout__isolation_box",
+        "x": 31,
+        "ground": true
+      }
+    ],
+    "removed": [
+      {
+        "id": "yong_hideout__debt_blackboard",
+        "x": 28,
+        "y": 13,
+        "support": "wall"
+      }
+    ],
+    "origin_commit": "e676a2d96b78873860afad8a0d3aeada8f369eb0",
+    "current_geometry": "published 8c788e7c; later unrelated props retained"
+  },
+  "ch2_ledger_office": {
+    "added": [
+      {
+        "id": "yong_hideout__ledger_cabinet",
+        "x": 53,
+        "dx": 10,
+        "ground": true
+      }
+    ],
+    "removed": [
+      {
+        "id": "yong_hideout__vault_safe",
+        "x": 54,
+        "ground": true
+      }
+    ],
+    "origin_commit": "e676a2d96b78873860afad8a0d3aeada8f369eb0",
+    "current_geometry": "published 8c788e7c; later unrelated props retained"
+  },
+  "ch2_lounge_front": {
+    "added": [
+      {
+        "id": "revival_lounge__commission_terminal",
+        "x": 16,
+        "dx": -1,
+        "ground": true
+      }
+    ],
+    "removed": [
+      {
+        "id": "clinic__report_cabinet",
+        "x": 16,
+        "ground": true
+      }
+    ],
+    "origin_commit": "e676a2d96b78873860afad8a0d3aeada8f369eb0",
+    "current_geometry": "published 8c788e7c; later unrelated props retained"
+  }
+}

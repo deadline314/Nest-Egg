@@ -1,0 +1,112 @@
+{
+  "absolute_original_thresholds_pass": true,
+  "strict_hdr_numeric_no_worse": false,
+  "captured_output_no_regression": false,
+  "exceptions": [
+    {
+      "level": "ch2_lounge_front",
+      "column": 0.0,
+      "row": 1.0,
+      "metric": "player",
+      "raw_delta_preserved": -6.193637958062936e-08,
+      "strict_hdr_no_worse": false,
+      "rois": [
+        {
+          "field": "screen_rect",
+          "rect": [
+            610,
+            343,
+            70,
+            208
+          ],
+          "source_format": 14.0,
+          "native_channels": 3,
+          "native_alpha": "implicit opaque",
+          "png_mode": "RGBA",
+          "png_rgba_byte_equal": true,
+          "reference_png_roi_sha256": "2b55a3ba71eff5ff02109a88c043128a7b54f50727e908de0b52b595094fc13e",
+          "product_png_roi_sha256": "2b55a3ba71eff5ff02109a88c043128a7b54f50727e908de0b52b595094fc13e",
+          "hdr_changed_components": 0,
+          "hdr_changed_pixels": 0,
+          "maximum_native_format_ulp": 0,
+          "equivalent_at_captured_output": true
+        },
+        {
+          "field": "outer_screen_rect",
+          "rect": [
+            533,
+            266,
+            224,
+            362
+          ],
+          "source_format": 14.0,
+          "native_channels": 3,
+          "native_alpha": "implicit opaque",
+          "png_mode": "RGBA",
+          "png_rgba_byte_equal": true,
+          "reference_png_roi_sha256": "440f4954c74c95bbcb3545a6a43d7f4113eca94ddb037bfef2234b0e1f0f7f03",
+          "product_png_roi_sha256": "440f4954c74c95bbcb3545a6a43d7f4113eca94ddb037bfef2234b0e1f0f7f03",
+          "hdr_changed_components": 10,
+          "hdr_changed_pixels": 8,
+          "maximum_native_format_ulp": 28,
+          "equivalent_at_captured_output": false
+        }
+      ],
+      "captured_output_equivalent": false
+    },
+    {
+      "level": "ch2_lounge_front",
+      "column": 0.0,
+      "row": 2.0,
+      "metric": "player",
+      "raw_delta_preserved": -1.6633699750912e-08,
+      "strict_hdr_no_worse": false,
+      "rois": [
+        {
+          "field": "screen_rect",
+          "rect": [
+            610,
+            251,
+            70,
+            208
+          ],
+          "source_format": 14.0,
+          "native_channels": 3,
+          "native_alpha": "implicit opaque",
+          "png_mode": "RGBA",
+          "png_rgba_byte_equal": true,
+          "reference_png_roi_sha256": "565feeb8c8c18f892ac3aed75daf8b7755e27df83a7b84e4f885d00ef0549e66",
+          "product_png_roi_sha256": "565feeb8c8c18f892ac3aed75daf8b7755e27df83a7b84e4f885d00ef0549e66",
+          "hdr_changed_components": 0,
+          "hdr_changed_pixels": 0,
+          "maximum_native_format_ulp": 0,
+          "equivalent_at_captured_output": true
+        },
+        {
+          "field": "outer_screen_rect",
+          "rect": [
+            533,
+            174,
+            224,
+            362
+          ],
+          "source_format": 14.0,
+          "native_channels": 3,
+          "native_alpha": "implicit opaque",
+          "png_mode": "RGBA",
+          "png_rgba_byte_equal": true,
+          "reference_png_roi_sha256": "1f7efbb51b4db306acfab71ad17ce01d66b1f6bb6f1b0813d7a7de7b1e7178f6",
+          "product_png_roi_sha256": "1f7efbb51b4db306acfab71ad17ce01d66b1f6bb6f1b0813d7a7de7b1e7178f6",
+          "hdr_changed_components": 3,
+          "hdr_changed_pixels": 3,
+          "maximum_native_format_ulp": 3,
+          "equivalent_at_captured_output": false
+        }
+      ],
+      "captured_output_equivalent": false
+    }
+  ],
+  "cells": 9,
+  "scope": "Only these recorded source-matched ROI captures. HDR negative values remain negative/strict=false. Separate exact RGBA PNG equality plus at most one adjacent native-format floating value per component; no epsilon, no lower absolute thresholds, no stochastic-noise or unseen-angle claim.",
+  "reader_sha256": "7ef7a404d7b67700f68f290d64039b4e26b8ae43a666137d9fbed03d2082fb4d"
+}

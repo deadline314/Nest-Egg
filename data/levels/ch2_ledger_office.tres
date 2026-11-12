@@ -6,7 +6,7 @@
 [ext_resource type="Resource" path="res://data/npcs/ch2_xiaowei.tres" id="4_ch2_xiaowei"]
 [ext_resource type="Resource" path="res://data/enemies/yong.tres" id="5_yong"]
 [ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="6_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/warehouse_interior.tres" id="7_warehouse_interior"]
+[ext_resource type="Resource" path="res://data/lighting/ledger_office_interior.tres" id="7_ledger_office_interior"]
 [ext_resource type="Resource" path="res://data/environment/themes/ch2_ledger_office.tres" id="8_ch2_ledger_office"]
 
 [sub_resource type="Resource" id="Resource_0"]
@@ -35,7 +35,7 @@ style = "door"
 script = ExtResource("6_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("7_warehouse_interior")
+profile = ExtResource("7_ledger_office_interior")
 
 [resource]
 script = ExtResource("1_level_data")

@@ -1,0 +1,393 @@
+{
+  "archive": "bg42-counterfactual-office-high-v1-original.zip",
+  "bytes": 1684353,
+  "sha256": "454f01b930b075d441a959667f8ae1321f0a7d98f0c95298ace1d572d6de7eca",
+  "members": {
+    "command.json": {
+      "bytes": 711,
+      "sha256": "3d39aca9d022ef431b36e2e5a8062289a7a08dfd9e23bd9c9c4a3aafe0e08e0a",
+      "crc32": "0409d832"
+    },
+    "early-termination.json": {
+      "bytes": 206,
+      "sha256": "d598d28c83852cbc99ba15c06b42cdba6a1bf4a8406b710d859d8f8f04cecff8",
+      "crc32": "a3489a46"
+    },
+    "exit.json": {
+      "bytes": 1274176,
+      "sha256": "ec3e29740706a85b6b28d085e65fa4b32b34cb2f5bb6baed9cfdc50eecb02dcf",
+      "crc32": "52ddc4af"
+    },
+    "host-gpu-lock-before.json": {
+      "bytes": 280,
+      "sha256": "01ee22e60e645dfabf6dd661f1711984df121f287253c8c4116c1c355ad42047",
+      "crc32": "76536d00"
+    },
+    "queue-after.json": {
+      "bytes": 322,
+      "sha256": "a2004ffb705a0b2a1bcb7a2da7bb0f0cf2a087cf06f1cb29a14ecf5f81615283",
+      "crc32": "2dbcdded"
+    },
+    "queue-before.json": {
+      "bytes": 322,
+      "sha256": "5ee3a85406f2a7e2770b01f7f76bf37958ffd4bf417a9a1390b46eda531573af",
+      "crc32": "f50d30b8"
+    },
+    "run.log": {
+      "bytes": 721,
+      "sha256": "d04bcd9df58453db3104c7789b94946f1e6a2c6ea366f07c8d9ae1abb369f875",
+      "crc32": "56c6d791"
+    },
+    "runner.py": {
+      "bytes": 4781,
+      "sha256": "75bbb5ca02b058b81b2851028de632af458aecf91922954ec4fd9262d07a50b6",
+      "crc32": "3b15ea2f"
+    },
+    "source-before.json": {
+      "bytes": 1253085,
+      "sha256": "2c419a9dafee785148e5ab07e6629383b4857b839e97f849d171b98592564b2c",
+      "crc32": "a21a79e9"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/logs/godot.log": {
+      "bytes": 712,
+      "sha256": "d3194a9a30d99b7b2d91c2ef7607ee5beafd3c0bc5b9de4e1666aa55258abfff",
+      "crc32": "b0985d86"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/BestFitNormalShaderRD/c4b1d2e5a1d6f84559f49734aae94706b402e2be89eae7753b8b413800d96d42/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 852,
+      "sha256": "d115a8d428f19f1b56ce836d37ef3c4b4b2c1f81daef0f05e1c8f329b5e50e21",
+      "crc32": "25e2a5e2"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/BlitShaderRD/ae4daaa7a60bb17ebd7e9de5db9422fb448b52ad89776ae7aa53fee442f7cc60/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 6484,
+      "sha256": "e8e778c9b0efda14d3f00b77ee1c64d5e569217f5409b193b11528fbe59cdbdb",
+      "crc32": "dd8077f7"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/BokehDofShaderRD/8c692c9cd2f46f54f2c82d9a4a12be5f889d873a3c9698546a6eb5ec0c263647/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 5876,
+      "sha256": "f01090e85b1b321988a1212bcfa3722b21b41f061fc3a2bcbe7d6d0a071f9a95",
+      "crc32": "6831caa5"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CanvasOcclusionShaderRD/606df5c981910bc4bc719cf497719273e80d1f314f65e68820bf8e2111368cdb/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 2920,
+      "sha256": "19c9a08080038ac2e256d376bfeefe62cd58d48feaea7feb065ab58762ab2af9",
+      "crc32": "557a0428"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CanvasSdfShaderRD/a4f6d732dba9a4cc0c37a1ca52936369e2ee148e9d03efe1b81bfed822adb1eb/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 4776,
+      "sha256": "9c7bb3e9b5e916d27774de3d5462802be0df1a5d82424caa682384f6876121ca",
+      "crc32": "83b36e90"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/80f9aa7a58ea4910a399e875cc3c13369df814f6.vulkan.cache": {
+      "bytes": 34792,
+      "sha256": "d28dceba8ece6e99009dea5b3664503687cfa3786995fd757af9ae9b0b59004e",
+      "crc32": "6114271c"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 39424,
+      "sha256": "3f01730cf5d6b8e85e6ce373c0b2e07f1660abdc73a4ebac2b00719d1efbd89b",
+      "crc32": "64bca4f2"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/89e0c5a264d1558e7bc2ca0dc3d0afd834fbe7b6.vulkan.cache": {
+      "bytes": 23900,
+      "sha256": "b5026c834a23436e5bf4d335ec82dfdf5ad3487586a7a12ddb966f6d85df2458",
+      "crc32": "7aa3bd3a"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CanvasShaderRD/5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79/8f9335de72e837eeead40640cc01fddc5baf5a7c.vulkan.cache": {
+      "bytes": 23584,
+      "sha256": "882381633290936ac3b9edc24f12246e856d37e9710565b6ad8114ae7ceaf0b7",
+      "crc32": "208da21b"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ClusterDebugShaderRD/25eb5280da03a5dfefcf122ab21c9f6184c2a0d8edfb398d0b9e784c99ede8d6/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 1720,
+      "sha256": "5981d9ff43f29ae9d78acc6a99a86d137b8739c67758e258f0acaee1d6d93f24",
+      "crc32": "a686a83f"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ClusterRenderShaderRD/092c9f39b8c42523662d45db394a8d4f7f068d617876866d55d9fd69e5afb357/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 3108,
+      "sha256": "e941bbd0a20a3ee26d6588622ead8ddd90f1b9a3d39e8ac8530675c144c121f9",
+      "crc32": "120d3d0c"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ClusterStoreShaderRD/77e74456f71eccced2f4bd06086f33d4ae56a013ce717690f960759226272eb4/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 1196,
+      "sha256": "890c08df5368d457d0b20525c8a765ba5e017f8a8ab546cfd166ceae28df6bc2",
+      "crc32": "a784b0eb"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CopyShaderRD/c374588e7ae9bf64919d0186bea3104b4f721cc0691d284a9998e1e7d06c5eb8/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 13948,
+      "sha256": "d77c1489c4468d7d53d93f765546e38512be2ad08c9799458d719b463a9debe1",
+      "crc32": "c9889b62"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CopyToFbShaderRD/72456b3a82af4da12c412275d4c8ffa4a6a5447d9daffeeef86bc16965803813/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 5464,
+      "sha256": "4712764719efc78e5ed415f35351c26d98f9d15c82d21d85bdd2f7edd4c180f0",
+      "crc32": "b317312c"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CubeToDpShaderRD/da14e2c9b701a4bd7336b87667bf4f3b4f645de09781824763d2bbceead56c83/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 1312,
+      "sha256": "1bd643480fe3f0e555d33212230640292d646e14d4cd79543b303ea650729efe",
+      "crc32": "cf455367"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/CubeToOctmapShaderRD/7a5a6871c4fae131d3fef2e125ac23cbe81a1a042028f8c294461282de463c9a/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 1080,
+      "sha256": "bf1b344898a9695ae4e55affee6014bf0d3cba9a9b3df6630a874fb7c4f8afc6",
+      "crc32": "dfce4e69"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/FsrUpscaleShaderRD/a8da3dfed3e309742ca78c4162d15f2ab08af4f694a51407089ecec1d1be54be/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 11500,
+      "sha256": "e768fbde446c86e489013d366a33912977dfb10a1b9750284d69939025043af1",
+      "crc32": "6e7eaa16"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/GiShaderRD/87dc8f2e3eb0653ed625d759392e8a08fcd79fe90d61dcc8f6ce34a8cfe35f7f/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 33892,
+      "sha256": "bc55e2620888aaa111127801777bd6aced47da4e897fa4651211d05a8dfb0d2e",
+      "crc32": "eb2786b6"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/IntegrateDfgShaderRD/4d699e26d43b88b86cb33c2b829767ea8e935055bb48dea880f66eb29760577a/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 1992,
+      "sha256": "2df3d14979c9bb2958b3077c9e832573088d2b2756c0f0216fd524d049faa051",
+      "crc32": "46d39ea4"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/LuminanceReduceShaderRD/c759f2761a12e9ff1fa625818963f94aa0ff511eb314a313ea89c615c37dd078/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 2780,
+      "sha256": "6b94a0106087a01d97b18d372ec0f25e8d0322416895d9dfbbd29fb62dea15d7",
+      "crc32": "3cc7db3b"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/MotionVectorsShaderRD/4d3ba0c01e8b64c74a0f2f0fd20ddc8099d56cfbb3ee9e7dbe6dc3c54c174725/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 1628,
+      "sha256": "530e818caf7f2ced23ae9814921eee2b2b6ec446516f400ce3d1c80d6d3efd8b",
+      "crc32": "5eed52a0"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/OctmapDownsamplerShaderRD/17404978f453a0a0388dfb81b2d08f173476d2c3b680e2e6aa35bcf438e24f11/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 2896,
+      "sha256": "f02026205e75f6a8ab6b30cedd51992619d5e451a652ac603e62a3fc0069f974",
+      "crc32": "121e1566"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/OctmapFilterShaderRD/cd03c4ea34362e2724f4d4536156039ee5ca21c31167b8840dfc65dad2d6bb11/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 23104,
+      "sha256": "8ef687c481e4f83a95a440d5b7fc9765138fadf2d811a768a007ba4699b58f59",
+      "crc32": "fee51e58"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/OctmapRoughnessShaderRD/8470960c68b74292e24251e3b7e41d28e9a5054dce0cd1d77c2a2a865a10af43/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 5208,
+      "sha256": "10ce105ea931c6637718b1d13a3b0314c256008b4fd34b8848ceb77f0e3b514b",
+      "crc32": "68c8684a"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ParticlesCopyShaderRD/ce2b95c8a6b9e21f14c989c3ca095de77d9bb5e86213ae4180fb97cbd2c02a10/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 44972,
+      "sha256": "d24d5a76bddb34e7b4c9494927b5af544bc93c7d1cffc2445f6128a3f3bc706e",
+      "crc32": "ea879216"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ParticlesShaderRD/f645828ab356b17f1478c77373935ecd2417e1c227a96b62417396293d13970e/07b5904b662900d90454c39c46885098de79aa4c.vulkan.cache": {
+      "bytes": 6256,
+      "sha256": "0c783dcc9523e49fcfd97e8214a23ca55b36cfeed885ba48d500dfc1da953464",
+      "crc32": "7b717ac2"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ResolveShaderRD/58e536c56eaff31a31ef93f224579af7b242a06469b7b0a7736cdeb7e16898b6/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 3904,
+      "sha256": "641ba287f86057a907b8c047febf594e9b1211c9bb319d676c716303901b2cf4",
+      "crc32": "d3e1f5c4"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SceneForwardClusteredShaderRD/cdfe2a8d86deff48154b1cd0d6e857301f5e37f0d8930754f63ff9c2c85045a6/347259af253e6bbec7ad5c69332af5ca731015aa.vulkan.cache": {
+      "bytes": 58708,
+      "sha256": "1bb6316d1cd61dc160fb2b2511ac0bbacf1af224d0fa34e78f9387a109f58a39",
+      "crc32": "a9b5de02"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SceneForwardClusteredShaderRD/cdfe2a8d86deff48154b1cd0d6e857301f5e37f0d8930754f63ff9c2c85045a6/a784797763b72ce058effad41b273eb697df9814.vulkan.cache": {
+      "bytes": 106424,
+      "sha256": "958eac29c3ba3963511494fb697319d0578878ced5a1876afce5d8c22b12c582",
+      "crc32": "44b10362"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SceneForwardClusteredShaderRD/cdfe2a8d86deff48154b1cd0d6e857301f5e37f0d8930754f63ff9c2c85045a6/b600e18e20b53d8932999d48838b29553c586934.vulkan.cache": {
+      "bytes": 108956,
+      "sha256": "d5231f2f19ec511446d119e8b34ac69c18fc68e73ed1e3827867d50cb0cef243",
+      "crc32": "87385aea"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ScreenSpaceReflectionDownsampleShaderRD/f6b46656954490c0153a8a5200455cc0834ec5881821ec7bf328b4c688fc4f6f/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 3724,
+      "sha256": "df47cc1461fd209c6e154a4a70b127a47061b223fd4fffd9714ab8609cc4ab48",
+      "crc32": "9b666153"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ScreenSpaceReflectionFilterShaderRD/fda60a18cb83e7ff26ce7ee2f43dce1d37326b2767d06922b0e5f9356abd1a1e/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 1624,
+      "sha256": "ed9322a43f1d557c31d25c8ca6e57c5e56f11b335fd8f3263641fab6c7dcb957",
+      "crc32": "12481c78"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ScreenSpaceReflectionHizShaderRD/4c407c9b5cd4f954c012a0de78629e18a5e9268536eb1d78853c8a247ef0a772/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 2912,
+      "sha256": "ce2c707fd75124427f51aa554086ced7e96572fbd58759980a0d0a099c165be9",
+      "crc32": "45f43e99"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ScreenSpaceReflectionResolveShaderRD/b29422945b4d1600883d0fcf89124633e34efb678505e5bcb9fdb6623fbfb8d4/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 1616,
+      "sha256": "d2293d715f35844adb2eeb6eacb1ec71a7bf9cd62c3ed748155c2cbde84aa6ba",
+      "crc32": "4b9c8b8e"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ScreenSpaceReflectionShaderRD/a2d0cb08973e8562ed3b82d74b6f0f1ecf1dbd2ac788049eaa06925ad6c28bed/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 3868,
+      "sha256": "4923ed8f74ca34c9f2ee9de718801b5811fac0678ba4d084fb40dadb3ace8081",
+      "crc32": "4052a32e"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SdfgiDebugProbesShaderRD/05e9a03efe957bf14f0a60730a97ab25e037f5a3f347b3427feb9723fd82fb1c/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 7756,
+      "sha256": "7621463ed438d4fb0c0a65c417693a29350fa2182f407ba69462e7b539edfe15",
+      "crc32": "831e5ea3"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SdfgiDebugShaderRD/365142e07e83cbbda433d4ed971a1c8413d3a400e8646e2ed2a0f7dda127068a/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 2256,
+      "sha256": "b002d3a852887647806048bfdb39713315c1a0a64aec9d448fda1e099df3aa6c",
+      "crc32": "82341202"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SdfgiDirectLightShaderRD/59245d18d90efd79551ef5eda25bbda9867cb893341a1d23b0f75db5d4490716/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 16636,
+      "sha256": "8161b1e1ec61e08f5c69f467f37cfbd78901640e9a95878c73b0a519f89f36b2",
+      "crc32": "c776572b"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SdfgiIntegrateShaderRD/f20a6d93247c8e2db82979d4e6477fa070ed91e03db2b1320e32dffabdb4ff23/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 12088,
+      "sha256": "8758d691b25753fa00ba77a1983fdbab2cdfca2128ff102efd6a5c1a04f7db76",
+      "crc32": "724e6cf3"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SdfgiPreprocessShaderRD/548b5bca0563ad9662e1e9577ac4921dfc156154487ba331733b0283ce26fcb9/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 14304,
+      "sha256": "ab069aba01bf8a646582ea1e337471d7a995c60f5a1b81f7f37a9f9fb61b899a",
+      "crc32": "914119b7"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/ShadowFrustumShaderRD/248bc9deb54d10af912f2da1bd4b006bc43cfe08659a206fa573baf48e4050e0/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 696,
+      "sha256": "4d0ee9d6134b7f5d63a11431b2033f9667b025b87a1e213af0ae48935f1f130e",
+      "crc32": "6a55ed8a"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SkeletonShaderRD/e6bc641e2a094416c99b1294ac5e453c55d24e0b62c1da47c8f7f93ae7877bfa/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 5140,
+      "sha256": "ffb253ebadd8803b55c3d348bbda10f7b3518368c7b31296954cc4c78a27a4b9",
+      "crc32": "cb6e1fef"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SkyShaderRD/25c4162ba5ed1f15e722f73bf07201837a6ae7b301288dd32ff9f71634118d9c/0fa1946a11e1cca806ebfe4b3b4ac7f723d8b701.vulkan.cache": {
+      "bytes": 15384,
+      "sha256": "16cc6f5c98e0e20d75bb29e5a2380a9c2948c3e9c8216a054133e4ae81ff3dfb",
+      "crc32": "5bd60a7d"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SkyShaderRD/25c4162ba5ed1f15e722f73bf07201837a6ae7b301288dd32ff9f71634118d9c/ff1961ca0c4c55a79eb12f819a7b6345801bbbaf.vulkan.cache": {
+      "bytes": 15696,
+      "sha256": "2d68943037a5ae1dce5e00302336832a85b7a77adc4e8a86cbbbd92ad35380ef",
+      "crc32": "090f3c5e"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SmaaBlendingShaderRD/d7b7c8cec00f24f9aa8db356b4df88c5fe032d38ce38673bd520c280c936fb80/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 1940,
+      "sha256": "4e9fb65ebaeb0b0a59e1d92fd66f9ab976de1fbb1d8570a490d2f2f1d126758b",
+      "crc32": "8783db3f"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SmaaEdgeDetectionShaderRD/8879d099a2601bd01d4582b1e86a091c5f89a7bc46aecc9e805410f75bcda245/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 1400,
+      "sha256": "c28ba81899c2230107a0d3f321071eb8aab46fe8a7ab2849c0c24f7c95a863ee",
+      "crc32": "6424ebbe"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SmaaWeightCalculationShaderRD/de1d49d5ff947e8b8382f43a79f57c4cceb02eed6f86d5175093ca63e94052bf/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 4496,
+      "sha256": "6d2a65c6ca6caaedc27565e2dac1824542f626df081d9ff3aaf3862453a73404",
+      "crc32": "4698bbdd"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SortShaderRD/d8d77897b86870d358bf870233e14233981c2db9ff06641cd8f405379ac8872f/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 3020,
+      "sha256": "5cfba7fa8b8542a22a4ecd046dcde387a91ee0b50c2e4e23921dbf58d9676795",
+      "crc32": "2a7391ad"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SpecularMergeShaderRD/70920fc883de48dd253fbc2503dd8f4e65941df0da07e074541df12df090de98/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 3268,
+      "sha256": "833dfb9f2191055be4bf17d9fbca63fd4d8f92ce12a6657bc42afd770753e2d9",
+      "crc32": "6a9cb6df"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SsaoBlurShaderRD/379e714dbee2f412e6657f0557a56dd9f4a00c93ed1aef7af78b047b59ef4bcb/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 3036,
+      "sha256": "34d5ce3313c173640cf6a83cbbe41815c8a9439526651d0d82f5d64619ba29fe",
+      "crc32": "17271102"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SsaoImportanceMapShaderRD/72382d26e5b22e99ee9ed29670565e78ff7ee01c960072119a5be86db2ee0fc8/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 2536,
+      "sha256": "55084be596dcaa4d27858b407a6c1bd2e7d116058169591ee130197cabf77209",
+      "crc32": "0dc9d903"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SsaoInterleaveShaderRD/cb27e637ffea15e2c6c4ae1b2c90deac962dae9481ef866601d8ecb863d6a9b6/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 2696,
+      "sha256": "fa8f00f1a506665643a7727b0542a6ffed575e4b846bbafa40acd07bdb16f7fe",
+      "crc32": "f9e24e94"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SsaoShaderRD/40091d5cef6924b0632dfb92dbf5a6c61f97edd6dd653d20e2c7662009912eed/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 14364,
+      "sha256": "73b92ec8d697a45da830331cd83794c2f79318f8662428b6b9dd265ed2bbcce5",
+      "crc32": "d429399e"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SsEffectsDownsampleShaderRD/d2ccd37f99a0b00eca4ba6f53cddf8d03f02119a69a0b02dc777026129561703/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 9604,
+      "sha256": "ac3a7ba64fdf033953c26a13e79213cab2c9c1bbc584067b671f1191055e3e2f",
+      "crc32": "a4fe9221"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SsilBlurShaderRD/4f0d60ba5581090f5efc9941b040e46832bf6864d77d52e8631cea227b5d8279/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 3112,
+      "sha256": "c7bd5b0c490c68f31c5106883e1efd20fec66d14d44576257e51a607fe347995",
+      "crc32": "012f0122"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SsilImportanceMapShaderRD/bf370911d6b5be81e5fbf6014d236deb74697ee1b3e2eeb870f5140913d9bee6/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 2580,
+      "sha256": "df030aa93fd8bd96ec268ed886f5d4b5ca9d6e1d4e673200d0eaf769c7a686ef",
+      "crc32": "ec30e117"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SsilInterleaveShaderRD/0f78dde6bc33a0264706f9a466ae77f41b24641381aa171c2b1ee40923f6547c/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 2840,
+      "sha256": "493a1b5b2a5d28f7920ee0b8658f68753d84970f64d87664f513839997cb849e",
+      "crc32": "a49512f8"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SsilShaderRD/17c51ec55574b54c0834b41688f478d19599eb3f90a1230981e06d74d89473e1/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 14184,
+      "sha256": "43e4e4697a66803a667e8bf7c149ec2fbf1dc0cace10aa7708c33c1dd9fd524e",
+      "crc32": "bacd06be"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/SubsurfaceScatteringShaderRD/4870fb4fc36514a7031473d566046fc2841628db992f9421056a8dfbc0830d97/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 5120,
+      "sha256": "8e40c131a1963ced946d7d626758b7f97d52fc8bc4976661ecf712e04951aef7",
+      "crc32": "78a965f5"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/TaaResolveShaderRD/a1ca2d745847530de0720910ad5bfa2466e0ab33647b7a631f2900d7b4617a60/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 3664,
+      "sha256": "e25ebb446310d9574e22167e7e10a2cdbc858494f569cf7dd772399abde9d99a",
+      "crc32": "76e932bc"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/TexBlitShaderRD/fd9c885eab1da0d330a04ebfd7796019cde57f82208202f3bfc96cae74155212/1e8995c9eb0e9b0b053035999de68595c521a33e.vulkan.cache": {
+      "bytes": 6316,
+      "sha256": "adf124dac4b092420be3cd80e1c278e459b2535eb8c8e713f2fecae54ffaf7a8",
+      "crc32": "d0cbbf9a"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/TonemapShaderRD/1b9049fef136690ef56085339cc9ad699de6d63e5d3afa1677201c6dedd6f2a8/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 23436,
+      "sha256": "7890e711c8c07c63bc3585495f7fbbe0bac343ccce340dc4545ea2226199eb0f",
+      "crc32": "1ffb2e85"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/VolumetricFogProcessShaderRD/7ac17802c709a8ec8fb2d47fade023ddd95a3c675451c8e53ce81469b4ce8b5d/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 28388,
+      "sha256": "b773b3f0d7b91edfe2ceddee9e0a1da6b4034c5396b1d72d88447300f35cb425",
+      "crc32": "52b3a751"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/VolumetricFogShaderRD/8454dc7c2a5c9574b6123e01388a4c83969bb236ab7422fd0eb06b91dd9f7449/3377d4ca9d0fc2e16f62596ee37d619e8e7e3f54.vulkan.cache": {
+      "bytes": 3172,
+      "sha256": "9a1933e2e84ae4e3ccf381170c37de9b68117eb490b4c7264f6e64faeed6eddc",
+      "crc32": "32dd7b6b"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/VoxelGiDebugShaderRD/e7afc074bea566006e261dd7312ae8e5c1a6a22e1eab6aa29b590ca925df679b/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 4808,
+      "sha256": "edfb2f759c2aeb7f4dd3b5413eb1035f8a7be4c37ec7def9f80443715f100213",
+      "crc32": "ba2069a8"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/VoxelGiShaderRD/cf478b2dd85c8c4b0519274ac94659b26ee34e27a1714122915056a7010b4b7c/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 21968,
+      "sha256": "3be7066961ac8a08e81060485348d69c90cd59bdaa3d9e269cc8608b573b2076",
+      "crc32": "25c1cc85"
+    },
+    "user/roaming/Godot/app_userdata/Nest Egg/shader_cache/VrsShaderRD/fa59a74699f8241cd3f8174eaef045dc8d40f3b29bf36af5414713c289f82717/8305c75c1294a9f00656f0f14344bb8bedcfe4e7.vulkan.cache": {
+      "bytes": 2560,
+      "sha256": "c050f53393437461f38562d58d86c63cda332b327d4508910c2757fa4a75c3d8",
+      "crc32": "aea0be53"
+    }
+  },
+  "scope": "Complete original run folder, including diagnostics, red readers, exact native PNG/raw pixels and original process receipts. Archive integrity is not an acceptance result."
+}

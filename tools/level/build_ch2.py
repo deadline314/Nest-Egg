@@ -412,7 +412,7 @@ def build_ledger_office():
     a.stand(68, 'ⅳ')
     for x in (14, 34, 50):
         a.lamp(x, 7)
-    a.zone(0, 'warehouse_interior')
+    a.zone(0, 'ledger_office_interior')
     a.features = {'arena': '阿勇戰區（x=8～58），兩層平台繞鐵棍', 'landmark': '帳櫃（x=54）', 'vertical': '地面與中段平台兩層',
                   'loop': '家屬出口（x=68）搬送後通到市集電話亭', 'reward': '帳櫃裡的原帳與索引'}
     return a
