@@ -318,3 +318,10 @@
 - 日文：<https://uhiyama-lab.com/ja/notes/ue/game-feel-hit-feedback/>（「当たった感じ」）、<https://wikiwiki.jp/nenaiko/%E3%82%B2%E3%83%BC%E3%83%A0%E7%94%A8%E8%AA%9E/%E3%83%92%E3%83%83%E3%83%88%E3%82%B9%E3%83%88%E3%83%83%E3%83%97>（ヒットストップ）、<https://www.4gamer.net/guide/ggxrd/031723018/>、<https://www.gamespark.jp/article/2026/06/06/167464.html>（《Gravity Circuit》的手觸感）
 - 中文：<https://www.gcores.com/articles/167815>、<https://www.gcores.com/articles/167891>（《只狼》與《鬼泣 5》的受擊設計）、<https://www.gcores.com/articles/208724>、<https://www.bilibili.com/opus/935443031017914368>
 - 打擊感實驗室範例：<https://cliffleecl.itch.io/game-feel-lab>、GDQuest：<https://www.gdquest.com/library/juicy_attack>
+
+
+## 弱點提示與開發受擊框（NE-262）
+
+平常遊玩不在敵人頭部或其他弱點上持續畫四角標記。弱點的傷害倍率、命中火花、聲音和準星標記保留；開發檢查另外以黃色表示弱點、青色表示普通可命中部位。已停用部位不畫開發受擊框。
+
+[2026-11-12 原生畫面與命中回饋驗收](../../pm/Nest-Egg/attachments/NE-262-weak-bracket-2026-11-12/README.md)保留同姿勢完整 A/A、舊繪製單因素對照、真頭身受擊及故障控制。原始測試數字與新證據分開記錄，不以命中聲音事件代稱人工試聽。

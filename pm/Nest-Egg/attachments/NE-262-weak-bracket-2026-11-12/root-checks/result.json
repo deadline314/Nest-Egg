@@ -1,0 +1,41 @@
+[
+  {
+    "folder": "cpu/1794424808909237300",
+    "extra": [],
+    "exit": 0,
+    "expected_exit": 0
+  },
+  {
+    "folder": "cpu/1794424851834357800-body-as-head",
+    "extra": [],
+    "exit": 0,
+    "expected_exit": 0
+  },
+  {
+    "folder": "native/1794458794004251200",
+    "extra": [],
+    "exit": 0,
+    "expected_exit": 0
+  },
+  {
+    "folder": "native/1794458820369780000-after-still-brackets",
+    "extra": [],
+    "exit": 1,
+    "expected_exit": 1
+  },
+  {
+    "folder": "native/1794458851658330200-debug-off",
+    "extra": [],
+    "exit": 1,
+    "expected_exit": 1
+  },
+  {
+    "folder": "native/1794458794004251200",
+    "extra": [
+      "--projection-shift",
+      "24"
+    ],
+    "exit": 1,
+    "expected_exit": 1
+  }
+]

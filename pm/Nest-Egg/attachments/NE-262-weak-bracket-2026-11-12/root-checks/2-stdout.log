@@ -1,0 +1,562 @@
+{
+  "mode": "native",
+  "width": 1280,
+  "height": 720,
+  "same_pose": true,
+  "actual_aa_equal": true,
+  "observations": [
+    {
+      "name": "legacy-before",
+      "lines": [
+        {
+          "actor": "grunt",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 59,
+          "required": 4,
+          "a": [
+            235.095703125,
+            305.1988525390624
+          ],
+          "b": [
+            247.095703125,
+            305.1988525390624
+          ]
+        },
+        {
+          "actor": "grunt",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 56,
+          "required": 4,
+          "a": [
+            235.095703125,
+            305.1988525390624
+          ],
+          "b": [
+            235.095703125,
+            317.1988525390624
+          ]
+        },
+        {
+          "actor": "grunt",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 59,
+          "required": 4,
+          "a": [
+            283.095703125,
+            305.1988525390624
+          ],
+          "b": [
+            271.095703125,
+            305.1988525390624
+          ]
+        },
+        {
+          "actor": "grunt",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 56,
+          "required": 4,
+          "a": [
+            283.095703125,
+            305.1988525390624
+          ],
+          "b": [
+            283.095703125,
+            317.1988525390624
+          ]
+        },
+        {
+          "actor": "grunt",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 30,
+          "required": 4,
+          "a": [
+            283.095703125,
+            357.1988525390624
+          ],
+          "b": [
+            271.095703125,
+            357.1988525390624
+          ]
+        },
+        {
+          "actor": "grunt",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 56,
+          "required": 4,
+          "a": [
+            283.095703125,
+            357.1988525390624
+          ],
+          "b": [
+            283.095703125,
+            345.1988525390624
+          ]
+        },
+        {
+          "actor": "grunt",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 31,
+          "required": 4,
+          "a": [
+            235.095703125,
+            357.1988525390624
+          ],
+          "b": [
+            247.095703125,
+            357.1988525390624
+          ]
+        },
+        {
+          "actor": "grunt",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 56,
+          "required": 4,
+          "a": [
+            235.095703125,
+            357.1988525390624
+          ],
+          "b": [
+            235.095703125,
+            345.1988525390624
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "back_power",
+          "weak": true,
+          "changed_color_pixels": 56,
+          "required": 4,
+          "a": [
+            1030.8000488281252,
+            300.75146484375
+          ],
+          "b": [
+            1042.8000488281252,
+            300.75146484375
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "back_power",
+          "weak": true,
+          "changed_color_pixels": 56,
+          "required": 4,
+          "a": [
+            1030.8000488281252,
+            300.75146484375
+          ],
+          "b": [
+            1030.8000488281252,
+            312.75146484375
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "back_power",
+          "weak": true,
+          "changed_color_pixels": 56,
+          "required": 4,
+          "a": [
+            1098.8000488281252,
+            300.75146484375
+          ],
+          "b": [
+            1086.8000488281252,
+            300.75146484375
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "back_power",
+          "weak": true,
+          "changed_color_pixels": 59,
+          "required": 4,
+          "a": [
+            1098.8000488281252,
+            300.75146484375
+          ],
+          "b": [
+            1098.8000488281252,
+            312.75146484375
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "back_power",
+          "weak": true,
+          "changed_color_pixels": 59,
+          "required": 4,
+          "a": [
+            1098.8000488281252,
+            352.75146484375
+          ],
+          "b": [
+            1086.8000488281252,
+            352.75146484375
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "back_power",
+          "weak": true,
+          "changed_color_pixels": 59,
+          "required": 4,
+          "a": [
+            1098.8000488281252,
+            352.75146484375
+          ],
+          "b": [
+            1098.8000488281252,
+            340.75146484375
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "back_power",
+          "weak": true,
+          "changed_color_pixels": 59,
+          "required": 4,
+          "a": [
+            1030.8000488281252,
+            352.75146484375
+          ],
+          "b": [
+            1042.8000488281252,
+            352.75146484375
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "back_power",
+          "weak": true,
+          "changed_color_pixels": 56,
+          "required": 4,
+          "a": [
+            1030.8000488281252,
+            352.75146484375
+          ],
+          "b": [
+            1030.8000488281252,
+            340.75146484375
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 56,
+          "required": 4,
+          "a": [
+            782.0,
+            257.6624755859376
+          ],
+          "b": [
+            794.0,
+            257.6624755859376
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 56,
+          "required": 4,
+          "a": [
+            782.0,
+            257.6624755859376
+          ],
+          "b": [
+            782.0,
+            269.6624755859376
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 56,
+          "required": 4,
+          "a": [
+            882.0,
+            257.6624755859376
+          ],
+          "b": [
+            870.0,
+            257.6624755859376
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 56,
+          "required": 4,
+          "a": [
+            882.0,
+            257.6624755859376
+          ],
+          "b": [
+            882.0,
+            269.6624755859376
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 59,
+          "required": 4,
+          "a": [
+            882.0,
+            341.6624755859376
+          ],
+          "b": [
+            870.0,
+            341.6624755859376
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 56,
+          "required": 4,
+          "a": [
+            882.0,
+            341.6624755859376
+          ],
+          "b": [
+            882.0,
+            329.6624755859376
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 59,
+          "required": 4,
+          "a": [
+            782.0,
+            341.6624755859376
+          ],
+          "b": [
+            794.0,
+            341.6624755859376
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 56,
+          "required": 4,
+          "a": [
+            782.0,
+            341.6624755859376
+          ],
+          "b": [
+            782.0,
+            329.6624755859376
+          ]
+        }
+      ],
+      "all_changed_pixels": 1058
+    },
+    {
+      "name": "debug",
+      "lines": [
+        {
+          "actor": "grunt",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 174,
+          "required": 11,
+          "a": [
+            241.095703125,
+            311.1988525390624
+          ],
+          "b": [
+            277.095703125,
+            311.1988525390624
+          ]
+        },
+        {
+          "actor": "grunt",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 161,
+          "required": 11,
+          "a": [
+            277.095703125,
+            311.1988525390624
+          ],
+          "b": [
+            277.095703125,
+            351.1988525390624
+          ]
+        },
+        {
+          "actor": "grunt",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 36,
+          "required": 11,
+          "a": [
+            277.095703125,
+            351.1988525390624
+          ],
+          "b": [
+            241.095703125,
+            351.1988525390624
+          ]
+        },
+        {
+          "actor": "grunt",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 156,
+          "required": 11,
+          "a": [
+            241.095703125,
+            351.1988525390624
+          ],
+          "b": [
+            241.095703125,
+            311.1988525390624
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 376,
+          "required": 26,
+          "a": [
+            788.0,
+            263.6624755859376
+          ],
+          "b": [
+            876.0,
+            263.6624755859376
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 312,
+          "required": 18,
+          "a": [
+            876.0,
+            263.6624755859376
+          ],
+          "b": [
+            876.0,
+            335.6624755859376
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 198,
+          "required": 26,
+          "a": [
+            876.0,
+            335.6624755859376
+          ],
+          "b": [
+            788.0,
+            335.6624755859376
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "head",
+          "weak": true,
+          "changed_color_pixels": 312,
+          "required": 18,
+          "a": [
+            788.0,
+            335.6624755859376
+          ],
+          "b": [
+            788.0,
+            263.6624755859376
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "gun_arm",
+          "weak": false,
+          "changed_color_pixels": 286,
+          "required": 19,
+          "a": [
+            888.1600341796876,
+            286.2958984375
+          ],
+          "b": [
+            952.1600341796876,
+            286.2958984375
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "gun_arm",
+          "weak": false,
+          "changed_color_pixels": 168,
+          "required": 11,
+          "a": [
+            952.1600341796876,
+            286.2958984375
+          ],
+          "b": [
+            952.1600341796876,
+            322.2958984375
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "gun_arm",
+          "weak": false,
+          "changed_color_pixels": 280,
+          "required": 19,
+          "a": [
+            952.1600341796876,
+            322.2958984375
+          ],
+          "b": [
+            888.1600341796876,
+            322.2958984375
+          ]
+        },
+        {
+          "actor": "watchdog",
+          "part": "gun_arm",
+          "weak": false,
+          "changed_color_pixels": 173,
+          "required": 11,
+          "a": [
+            888.1600341796876,
+            322.2958984375
+          ],
+          "b": [
+            888.1600341796876,
+            286.2958984375
+          ]
+        }
+      ],
+      "all_changed_pixels": 2350
+    }
+  ],
+  "scope": "B differs only by the exact archived weak-point draw routine; this proves renderer changes at real authored part geometry, not a complete historical build or user listening."
+}

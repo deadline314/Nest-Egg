@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "D:\NestEggVerification\bg42-published-8c788e7c-20261112\work\ne262-producer\verify.py", line 118, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "D:\NestEggVerification\bg42-published-8c788e7c-20261112\work\ne262-producer\verify.py", line 115, in main
+    result=check_cpu(args.folder) if (args.folder/'cpu-result.json').is_file() else check_render(args.folder,args.projection_shift)
+                                                                                    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\NestEggVerification\bg42-published-8c788e7c-20261112\work\ne262-producer\verify.py", line 104, in check_render
+    assert count>=required,('missing renderer line at independently projected geometry',names[index],line['actor'],line['part'],count,required)
+           ^^^^^^^^^^^^^^^
+AssertionError: ('missing renderer line at independently projected geometry', 'debug', 'grunt', 'head', 0, 11)

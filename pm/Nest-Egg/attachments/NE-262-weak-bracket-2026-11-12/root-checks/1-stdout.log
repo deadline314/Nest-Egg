@@ -1,0 +1,12 @@
+{
+  "mode": "cpu",
+  "checks": 14,
+  "expected_negative": true,
+  "recorded_failures": [
+    "actual head damage is the authored 1.5x rounded from one",
+    "the actual hit identifies the head and weak flag",
+    "the real Enemy weak callback emits the authored request through the unchanged published particle scaling",
+    "the real projectile emits the weak marker and the real Crosshair receives it"
+  ],
+  "pcm_or_listening": false
+}

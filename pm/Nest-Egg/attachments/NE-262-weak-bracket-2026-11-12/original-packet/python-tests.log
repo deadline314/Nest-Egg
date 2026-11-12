@@ -1,0 +1,15 @@
+test_corrupt_archive_refused (test_pack.FailClosed.test_corrupt_archive_refused) ... ok
+test_safe_archive_and_extra_member_rejected (test_pack.FailClosed.test_safe_archive_and_extra_member_rejected) ... ok
+test_unexpected_acceptance_is_not_called_a_negative_pass (test_pack.FailClosed.test_unexpected_acceptance_is_not_called_a_negative_pass) ... ok
+test_wrong_rejection_reason_is_refused (test_pack.FailClosed.test_wrong_rejection_reason_is_refused) ... ok
+test_debug_contains_weak_and_ordinary_rects (test_geometry.Geometry.test_debug_contains_weak_and_ordinary_rects) ... ok
+test_disabled_debug_part_excluded_but_legacy_not_per_part_gated (test_geometry.Geometry.test_disabled_debug_part_excluded_but_legacy_not_per_part_gated) ... ok
+test_exact_original_corner_count (test_geometry.Geometry.test_exact_original_corner_count) ... ok
+test_main_hurtbox_disables_original_corner (test_geometry.Geometry.test_main_hurtbox_disables_original_corner) ... ok
+test_nonzero_origin_and_negative_axis (test_geometry.Geometry.test_nonzero_origin_and_negative_axis) ... ok
+test_wrong_projection_rejected_without_modifying_pixels (test_geometry.Geometry.test_wrong_projection_rejected_without_modifying_pixels) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 1.750s
+
+OK
