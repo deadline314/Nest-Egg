@@ -1,0 +1,561 @@
+{
+  "scope": "Earlier failures remain failures. Product reds, invalid fixture premise, sparse input omissions and reader metadata/format rejections are separate causes; none is retroactively relabeled as the v14 source.",
+  "cases": [
+    {
+      "case": "original-horizontal-room-precondition",
+      "original_capture": "D:\\NestEggVerification\\ne228-ui-shadow-20261112\\work\\ne264-current-producer\\720-all60-v1",
+      "selected_frames": [],
+      "members": [
+        {
+          "path": "original-horizontal-room-precondition/c-after.json",
+          "bytes": 46946,
+          "sha256": "98f609526f8fb939ffb704b0e68e482a61ffa298880e0174b1ab44297ee7414d"
+        },
+        {
+          "path": "original-horizontal-room-precondition/c-before.json",
+          "bytes": 46946,
+          "sha256": "98f609526f8fb939ffb704b0e68e482a61ffa298880e0174b1ab44297ee7414d"
+        },
+        {
+          "path": "original-horizontal-room-precondition/c-context-expected.json",
+          "bytes": 48660,
+          "sha256": "dbe0624adaba2b87903f74b2485b024e7a2cfb751194364cb039ac80eb4d82b3"
+        },
+        {
+          "path": "original-horizontal-room-precondition/command.json",
+          "bytes": 715,
+          "sha256": "1bbf59c612c9d3194a754880cc89c94741dad1e43a61a6255afb6d7a1fa3b671"
+        },
+        {
+          "path": "original-horizontal-room-precondition/exit.json",
+          "bytes": 371053,
+          "sha256": "d32e89dde89b4352165fa296b5ec1cd4b6a626623248f6e8b3d5b44e590db824"
+        },
+        {
+          "path": "original-horizontal-room-precondition/fixture-manifest.json",
+          "bytes": 10429,
+          "sha256": "6d5b543a36a65d83421d2a55074662d11da86c428227b0302c791d9daab65b1e"
+        },
+        {
+          "path": "original-horizontal-room-precondition/queue-after.json",
+          "bytes": 473,
+          "sha256": "2374464106d78e5cf63383d9c9b949b8dec3594f9818dcc018fe955d8cb23fe1"
+        },
+        {
+          "path": "original-horizontal-room-precondition/queue-before.json",
+          "bytes": 473,
+          "sha256": "086f507a1542962cbd62dc7d640ce855861179d70e6c7afeebd511e79fd94182"
+        },
+        {
+          "path": "original-horizontal-room-precondition/result.json",
+          "bytes": 2412876,
+          "sha256": "801cb9c77e3365382c8f338b082b81203f8930a643f91780fe1643f9b5384401"
+        },
+        {
+          "path": "original-horizontal-room-precondition/run.log",
+          "bytes": 1465,
+          "sha256": "f327aff6bd49de9796232632293cb69c5bd16707f4d6131b7ec6651d56e1f1ae"
+        },
+        {
+          "path": "original-horizontal-room-precondition/runner.py",
+          "bytes": 5838,
+          "sha256": "da6b01d588c7c1281a1aa6f766f2a39b6ec9df2fe1503f67262e5c93df70e152"
+        },
+        {
+          "path": "original-horizontal-room-precondition/source/ui/ammo_tray.gd",
+          "bytes": 18617,
+          "sha256": "410a1dc4f454b2715c893bb7f325f69149b2038a56446a82c27debcfb174d2b4"
+        },
+        {
+          "path": "original-horizontal-room-precondition/source/ui/hud_placement.gd",
+          "bytes": 2193,
+          "sha256": "33be477a3eaddb3740ee436ed1f29aefd87b6fac377b38ada3f9ffb74ae83170"
+        },
+        {
+          "path": "original-horizontal-room-precondition/source/ui/vitals_tag.gd",
+          "bytes": 12855,
+          "sha256": "2f687eb6662d8aa049aa8151ebde638ef7a935f8de89fce7705f336811e439ac"
+        },
+        {
+          "path": "original-horizontal-room-precondition/source/ui/weapon_bar.gd",
+          "bytes": 4137,
+          "sha256": "ae55f5599e395b575e4016e6f89c1ea2546f878f1ffbd1ea28cffe025092d6ac"
+        }
+      ],
+      "scope": "Original result/source/receipts and selected actual raw frames; deliberately a selected failure proof, not a complete old capture archive. Full original epoch remains unchanged at original_capture."
+    },
+    {
+      "case": "v8-mixed-product-red",
+      "original_capture": "D:\\NestEggVerification\\ne264-hud-route-20261112\\work\\ne264-mixed-producer\\mixed720-all30-v1",
+      "selected_frames": [
+        {
+          "phase": "mixed",
+          "sample": 1
+        },
+        {
+          "phase": "mixed",
+          "sample": 2
+        },
+        {
+          "phase": "mixed",
+          "sample": 4
+        }
+      ],
+      "members": [
+        {
+          "path": "v8-mixed-product-red/c-after.json",
+          "bytes": 49274,
+          "sha256": "fe5b54aaba70fb44b43fe9c76d4de9bfe77de1dd3ae34716176a17abb3d10af7"
+        },
+        {
+          "path": "v8-mixed-product-red/c-before.json",
+          "bytes": 49274,
+          "sha256": "fe5b54aaba70fb44b43fe9c76d4de9bfe77de1dd3ae34716176a17abb3d10af7"
+        },
+        {
+          "path": "v8-mixed-product-red/c-context-expected.json",
+          "bytes": 51175,
+          "sha256": "5afc95c7c2f108d9951e769e1418f45e32955d0dcb9ac864e605db634c08279e"
+        },
+        {
+          "path": "v8-mixed-product-red/candidate-manifest.json",
+          "bytes": 1186,
+          "sha256": "226b3c9698446ee46c2e3202621334b56dd4f9ad56bc49e8b8fff75e2efdf29e"
+        },
+        {
+          "path": "v8-mixed-product-red/command.json",
+          "bytes": 1066,
+          "sha256": "7f89efb8591c4b8051dd5c41e9f89f4335d7bf879280e544f5c14355848d28cd"
+        },
+        {
+          "path": "v8-mixed-product-red/exit.json",
+          "bytes": 372611,
+          "sha256": "1cbc3141ae35e10e0fbbaa7c0f4011d4c32a2adbf46e1b59a015013dd27e028e"
+        },
+        {
+          "path": "v8-mixed-product-red/fixture-manifest.json",
+          "bytes": 10997,
+          "sha256": "9531d7e1f68a002221ed71d46abe526358af73a4a51248d5a1a5b1623ea31e73"
+        },
+        {
+          "path": "v8-mixed-product-red/frame-0001.raw",
+          "bytes": 241302,
+          "sha256": "9e38c23e8c20faf4051d874ff1aa5e1827f21d89abfcd06d477616b8bb5aa94c"
+        },
+        {
+          "path": "v8-mixed-product-red/frame-0002.raw",
+          "bytes": 328440,
+          "sha256": "d4683c07044891182dbd1e91e335a2b4be11c7ed4844803970ab5493d8251633"
+        },
+        {
+          "path": "v8-mixed-product-red/frame-0004.raw",
+          "bytes": 296730,
+          "sha256": "4fa441225cc5a84fd40f824492452fb68764fe64d9a1f2d2c6a42f6820adc011"
+        },
+        {
+          "path": "v8-mixed-product-red/guard-original.py",
+          "bytes": 2014,
+          "sha256": "778e54d52c411d25a45fd09d6a4755d6cfdfd261469b244496b7b26638e556b1"
+        },
+        {
+          "path": "v8-mixed-product-red/head-texture--9223371157191782011.rgba8",
+          "bytes": 177868,
+          "sha256": "5e5054ecac63378a58c44ce4240d495c1f653d18d6d3dadefbd6cd1ec188bff2"
+        },
+        {
+          "path": "v8-mixed-product-red/locked-engine.json",
+          "bytes": 690,
+          "sha256": "c0413fb3a8ce9bdad219004a2b890f59c28f80e2ea6d7641453186afd9d37107"
+        },
+        {
+          "path": "v8-mixed-product-red/queue-after.json",
+          "bytes": 473,
+          "sha256": "47a35efbe3610f6df76c0d36068ac44d1c44ede6cf4cc8b3c1954590800b65e6"
+        },
+        {
+          "path": "v8-mixed-product-red/queue-before.json",
+          "bytes": 473,
+          "sha256": "65cf0749e0350f5ca11e7e300830c315071649d44a21d38c8da21657e2cc1bee"
+        },
+        {
+          "path": "v8-mixed-product-red/result.json",
+          "bytes": 436927,
+          "sha256": "6ddaa8eff17e312ef82b3d8616614f511bd5d3c19b065112798638caa85d55df"
+        },
+        {
+          "path": "v8-mixed-product-red/run.log",
+          "bytes": 785,
+          "sha256": "68a56b5193bfdd865d0aa1f7b5009b13a66f1ce8d0a182f2e1de4f8548aa4455"
+        },
+        {
+          "path": "v8-mixed-product-red/runner.py",
+          "bytes": 7474,
+          "sha256": "d511413df949d464fec60bc322356598017b9448f54a5de6db8cdc8cd7aa9dc3"
+        },
+        {
+          "path": "v8-mixed-product-red/runtime-context-after.json",
+          "bytes": 1254107,
+          "sha256": "226ba1c002a7b5e4916640dfd0b97614d38effb0cdafa15ea7ce1a99b44ec895"
+        },
+        {
+          "path": "v8-mixed-product-red/runtime-context-before.json",
+          "bytes": 1254107,
+          "sha256": "226ba1c002a7b5e4916640dfd0b97614d38effb0cdafa15ea7ce1a99b44ec895"
+        },
+        {
+          "path": "v8-mixed-product-red/source/tests/suite/test_ammo_tray.gd",
+          "bytes": 16165,
+          "sha256": "9673fe7b8c2b98a7da56d4420d41d13a6da57e34cd29f574e097d6463c5544ed"
+        },
+        {
+          "path": "v8-mixed-product-red/source/ui/ammo_tray.gd",
+          "bytes": 19257,
+          "sha256": "502dc05dfd7926d2c9c64037ef332a0f0828c1fafd3bfc5db0daed2754955b2c"
+        },
+        {
+          "path": "v8-mixed-product-red/source/ui/hud_placement.gd",
+          "bytes": 5260,
+          "sha256": "6e5383df9ed1a4f7e18addf256d35cc7b92562a6b0acdad8e37680026c6698b8"
+        },
+        {
+          "path": "v8-mixed-product-red/source/ui/vitals_tag.gd",
+          "bytes": 13345,
+          "sha256": "89de99cbd6e2fbea7d7351ea53e657c46d09a00e5fc4802a7a290a4fe73c9e9d"
+        },
+        {
+          "path": "v8-mixed-product-red/source/ui/weapon_bar.gd",
+          "bytes": 4137,
+          "sha256": "ae55f5599e395b575e4016e6f89c1ea2546f878f1ffbd1ea28cffe025092d6ac"
+        },
+        {
+          "path": "v8-mixed-product-red/try-lock-original.py",
+          "bytes": 1406,
+          "sha256": "71402e67f2bfd1a621ca40ca47cbb3e5dfd6ddc5e702097e1490bfc9e8087798"
+        }
+      ],
+      "scope": "Original result/source/receipts and selected actual raw frames; deliberately a selected failure proof, not a complete old capture archive. Full original epoch remains unchanged at original_capture."
+    },
+    {
+      "case": "v11-view-head-product-red",
+      "original_capture": "D:\\NestEggVerification\\ne264-canonical-v9-20261112\\work\\ne264-route-producer\\canonical720-all60-v11-v1",
+      "selected_frames": [
+        {
+          "phase": "turn",
+          "sample": 16
+        },
+        {
+          "phase": "turn",
+          "sample": 17
+        },
+        {
+          "phase": "run-aim-up",
+          "sample": 30
+        },
+        {
+          "phase": "run-aim-up",
+          "sample": 33
+        }
+      ],
+      "members": [
+        {
+          "path": "v11-view-head-product-red/c-after.json",
+          "bytes": 49367,
+          "sha256": "b19fb247e9f88fec92dbeb53e75b9ee571b017faa828bec54eca31ba5214fa23"
+        },
+        {
+          "path": "v11-view-head-product-red/c-before.json",
+          "bytes": 49367,
+          "sha256": "b19fb247e9f88fec92dbeb53e75b9ee571b017faa828bec54eca31ba5214fa23"
+        },
+        {
+          "path": "v11-view-head-product-red/c-context-expected.json",
+          "bytes": 51296,
+          "sha256": "ebdcac5d61ffbbcf4b6aa66ac991010f9b418118ea10c864ddf89a8e372165da"
+        },
+        {
+          "path": "v11-view-head-product-red/candidate-manifest.json",
+          "bytes": 1253,
+          "sha256": "950e9eee19bb1444458f0bc00b1a4ee68cf68493bb73cba04f777948c4559801"
+        },
+        {
+          "path": "v11-view-head-product-red/command.json",
+          "bytes": 1086,
+          "sha256": "edf1bbd5eec8431d0a31ea83ee287ebd86eed46aca4586811ca4648575afe6d4"
+        },
+        {
+          "path": "v11-view-head-product-red/exit.json",
+          "bytes": 373069,
+          "sha256": "5958b07cf4574fc90e88168d6b768019581270491241ca3d5f9ad43c07eb8de1"
+        },
+        {
+          "path": "v11-view-head-product-red/fixture-manifest.json",
+          "bytes": 13229,
+          "sha256": "e35dd177c1d0e9774606ca03246c0030d1c75a3c2593e98d03b3f62ecd005b6f"
+        },
+        {
+          "path": "v11-view-head-product-red/frame-0016.raw",
+          "bytes": 325500,
+          "sha256": "881ee4ab845b5197a103545f57ab6d042fea7cabd17868559f3763dc8774f4d8"
+        },
+        {
+          "path": "v11-view-head-product-red/frame-0017.raw",
+          "bytes": 339228,
+          "sha256": "22394efa0092a47fc898f96e466eac2c3446a7fa91750fd55813015553dcd066"
+        },
+        {
+          "path": "v11-view-head-product-red/frame-0127.raw",
+          "bytes": 435744,
+          "sha256": "ede3ccba5d14416a4e6bf947e0bb3373f869ee18720f083639a5fb76e9535356"
+        },
+        {
+          "path": "v11-view-head-product-red/frame-0130.raw",
+          "bytes": 390150,
+          "sha256": "f08058cfd0dd507eddbf20b86d5cafaefe8daaca4f52ba70a1e2d321de9fa4f1"
+        },
+        {
+          "path": "v11-view-head-product-red/guard-original.py",
+          "bytes": 2014,
+          "sha256": "778e54d52c411d25a45fd09d6a4755d6cfdfd261469b244496b7b26638e556b1"
+        },
+        {
+          "path": "v11-view-head-product-red/head-texture--9223371150027910642.rgba8",
+          "bytes": 177868,
+          "sha256": "85e2b1a8d0e93f0e7850cafbd80a2e753373796b383aa81dc5d40407adc9e85f"
+        },
+        {
+          "path": "v11-view-head-product-red/head-texture--9223371151219092981.rgba8",
+          "bytes": 177868,
+          "sha256": "4531ae316bbbe70b55950205995ef606ed3257bfcb7c6889f1f17c5cae0b5a0a"
+        },
+        {
+          "path": "v11-view-head-product-red/head-texture--9223371156638133888.rgba8",
+          "bytes": 177868,
+          "sha256": "5e5054ecac63378a58c44ce4240d495c1f653d18d6d3dadefbd6cd1ec188bff2"
+        },
+        {
+          "path": "v11-view-head-product-red/locked-engine.json",
+          "bytes": 699,
+          "sha256": "752bb1559387628e44fe6270a7834a7d51eeb384fae2d63eaf864b22149bc9d4"
+        },
+        {
+          "path": "v11-view-head-product-red/queue-after.json",
+          "bytes": 473,
+          "sha256": "d21d04ccb67a79696fa7b1eb59bf617c8f76825744d9283858d6b584b80dd913"
+        },
+        {
+          "path": "v11-view-head-product-red/queue-before.json",
+          "bytes": 473,
+          "sha256": "ceb3fb25988266846e677fa8b91529af1907004c1c8e8dec69ba21eec7b6d5c6"
+        },
+        {
+          "path": "v11-view-head-product-red/result.json",
+          "bytes": 1120272,
+          "sha256": "9396c61c45425fccdd0faa94be3233d79a01aced2c105d7aaa806cdcbe68a7aa"
+        },
+        {
+          "path": "v11-view-head-product-red/run.log",
+          "bytes": 1757,
+          "sha256": "b8e8fb1e3021291dd5b3578d009f53778b3b06258e248c4e47e38001552a7d74"
+        },
+        {
+          "path": "v11-view-head-product-red/runner.py",
+          "bytes": 7110,
+          "sha256": "b18992b3ffd4ef8709f858436c10532d21901f90eab10fd65a51ee6fe721c315"
+        },
+        {
+          "path": "v11-view-head-product-red/runtime-context-after.json",
+          "bytes": 1257097,
+          "sha256": "e620e63a83ff4df9a95cefebca0926c0fd13b94d6dd947a333b90efe13a11625"
+        },
+        {
+          "path": "v11-view-head-product-red/runtime-context-before.json",
+          "bytes": 1257097,
+          "sha256": "e620e63a83ff4df9a95cefebca0926c0fd13b94d6dd947a333b90efe13a11625"
+        },
+        {
+          "path": "v11-view-head-product-red/source/tests/suite/test_ammo_tray.gd",
+          "bytes": 17616,
+          "sha256": "76f8523678c477bfa78862645d7a2f83a0e64bf235720df10bded4a30bad2808"
+        },
+        {
+          "path": "v11-view-head-product-red/source/ui/ammo_tray.gd",
+          "bytes": 18837,
+          "sha256": "fba1e12936bb19338cc441a4a91853eec050c176a654b71535e48bf2169111be"
+        },
+        {
+          "path": "v11-view-head-product-red/source/ui/hud_placement.gd",
+          "bytes": 6658,
+          "sha256": "bc999f6db81236dfa034b62d4c2a48a718c2bc2007643f15167c3329d1f13a9f"
+        },
+        {
+          "path": "v11-view-head-product-red/source/ui/vitals_tag.gd",
+          "bytes": 13368,
+          "sha256": "01940f704e8acb0192d14394a85dbf8b7f772dde2fc05fa7919e0ef329038739"
+        },
+        {
+          "path": "v11-view-head-product-red/source/ui/weapon_bar.gd",
+          "bytes": 4137,
+          "sha256": "ae55f5599e395b575e4016e6f89c1ea2546f878f1ffbd1ea28cffe025092d6ac"
+        },
+        {
+          "path": "v11-view-head-product-red/try-lock-original.py",
+          "bytes": 1406,
+          "sha256": "71402e67f2bfd1a621ca40ca47cbb3e5dfd6ddc5e702097e1490bfc9e8087798"
+        }
+      ],
+      "scope": "Original result/source/receipts and selected actual raw frames; deliberately a selected failure proof, not a complete old capture archive. Full original epoch remains unchanged at original_capture."
+    },
+    {
+      "case": "v12-aim-product-red",
+      "original_capture": "D:\\NestEggVerification\\ne264-canonical-v9-20261112\\work\\ne264-route-producer\\canonical720-all60-v12-v1",
+      "selected_frames": [
+        {
+          "phase": "run-aim-up",
+          "sample": 0
+        },
+        {
+          "phase": "run-aim-up",
+          "sample": 8
+        }
+      ],
+      "members": [
+        {
+          "path": "v12-aim-product-red/c-after.json",
+          "bytes": 49793,
+          "sha256": "624f23c2f9d33956928eaf27add7a35ef56ef2231788503844fe781ae41f4b86"
+        },
+        {
+          "path": "v12-aim-product-red/c-before.json",
+          "bytes": 49793,
+          "sha256": "624f23c2f9d33956928eaf27add7a35ef56ef2231788503844fe781ae41f4b86"
+        },
+        {
+          "path": "v12-aim-product-red/c-context-expected.json",
+          "bytes": 52087,
+          "sha256": "8d3f332cb5dde1eb971e664726347eb3cdeee03d0fd756b0b32057564b83a0ea"
+        },
+        {
+          "path": "v12-aim-product-red/candidate-manifest.json",
+          "bytes": 1246,
+          "sha256": "8e8307c335a2ba75a24d095f1887618e32576a8f4196574b742414813b0cc59f"
+        },
+        {
+          "path": "v12-aim-product-red/command.json",
+          "bytes": 1086,
+          "sha256": "23b43a88681abdb0b86c2b4dc2641a47df2dc49496a8c21f178cb4696165bab2"
+        },
+        {
+          "path": "v12-aim-product-red/exit.json",
+          "bytes": 373069,
+          "sha256": "766955fe22c4774aa0e003e70722bc24357720a4c4b33fb025fc6fb48c81ade8"
+        },
+        {
+          "path": "v12-aim-product-red/fixture-manifest.json",
+          "bytes": 15306,
+          "sha256": "d386a955de274d4adf8fb843082c7f2f79ce86ae7b1ae65cf8906d3bb754e06b"
+        },
+        {
+          "path": "v12-aim-product-red/frame-0097.raw",
+          "bytes": 375756,
+          "sha256": "869bd73f3dd17cb9b4d8cb469400c5a7bada003fe854fae8ca999897d29a0610"
+        },
+        {
+          "path": "v12-aim-product-red/frame-0105.raw",
+          "bytes": 383358,
+          "sha256": "01582e9a57b1fdf7b622229c30d19a1316d58976d0b7f60612555ecaecddf245"
+        },
+        {
+          "path": "v12-aim-product-red/guard-original.py",
+          "bytes": 2014,
+          "sha256": "778e54d52c411d25a45fd09d6a4755d6cfdfd261469b244496b7b26638e556b1"
+        },
+        {
+          "path": "v12-aim-product-red/head-texture--9223371149893692914.rgba8",
+          "bytes": 177868,
+          "sha256": "85e2b1a8d0e93f0e7850cafbd80a2e753373796b383aa81dc5d40407adc9e85f"
+        },
+        {
+          "path": "v12-aim-product-red/head-texture--9223371151084875253.rgba8",
+          "bytes": 177868,
+          "sha256": "4531ae316bbbe70b55950205995ef606ed3257bfcb7c6889f1f17c5cae0b5a0a"
+        },
+        {
+          "path": "v12-aim-product-red/head-texture--9223371156503916160.rgba8",
+          "bytes": 177868,
+          "sha256": "5e5054ecac63378a58c44ce4240d495c1f653d18d6d3dadefbd6cd1ec188bff2"
+        },
+        {
+          "path": "v12-aim-product-red/locked-engine.json",
+          "bytes": 699,
+          "sha256": "2f5bf506cbee6891ba6cee8353bec09d7259ffbbc3a1131474c1457b25b0428b"
+        },
+        {
+          "path": "v12-aim-product-red/queue-after.json",
+          "bytes": 473,
+          "sha256": "4ad51d30ccfb127ad8a31f81ee307422a4765582dc1f3f77c0201af438dab3aa"
+        },
+        {
+          "path": "v12-aim-product-red/queue-before.json",
+          "bytes": 473,
+          "sha256": "64e72df580c30e03bcc4c3f98de85fc238501ae4c8e3eab6fbb9bfd99b8e33e0"
+        },
+        {
+          "path": "v12-aim-product-red/result.json",
+          "bytes": 1120922,
+          "sha256": "07fa2eee738c163aa536e2153c2de1bc057c6843b8290507b62fb2580cb81e01"
+        },
+        {
+          "path": "v12-aim-product-red/run.log",
+          "bytes": 1757,
+          "sha256": "6f65f8cd2e95f96849aa787fee427ee87d2eb1f30bf6a2463d454354c72ebb83"
+        },
+        {
+          "path": "v12-aim-product-red/runner.py",
+          "bytes": 7092,
+          "sha256": "c0475e9f7a155221efa7181e22c12b7172aa6199b652aff5927e8b43f2a66cc7"
+        },
+        {
+          "path": "v12-aim-product-red/runtime-context-after.json",
+          "bytes": 1257097,
+          "sha256": "ff698052c8df43c83ccf5740f4822afe58094410996a68367dc1bc840da326ee"
+        },
+        {
+          "path": "v12-aim-product-red/runtime-context-before.json",
+          "bytes": 1257097,
+          "sha256": "ff698052c8df43c83ccf5740f4822afe58094410996a68367dc1bc840da326ee"
+        },
+        {
+          "path": "v12-aim-product-red/source/tests/suite/test_ammo_tray.gd",
+          "bytes": 18988,
+          "sha256": "edf06b9e0160684ecc62643e3a33d21c94a56cab93931349b84f878c104d6d7b"
+        },
+        {
+          "path": "v12-aim-product-red/source/ui/ammo_tray.gd",
+          "bytes": 20680,
+          "sha256": "f8300efeb11373b2f4cded2f23d8ca287dfd2f558f03596a6832a37477f1f37e"
+        },
+        {
+          "path": "v12-aim-product-red/source/ui/hud_placement.gd",
+          "bytes": 7320,
+          "sha256": "7ccf92b21f82155973004c63fb68afed413e5a029639b969a57512b0be1b4574"
+        },
+        {
+          "path": "v12-aim-product-red/source/ui/vitals_tag.gd",
+          "bytes": 13865,
+          "sha256": "00729d6a5bd834a015ed96de90b66d6603a0cfe8f56391e8ee77a1d89d77ad88"
+        },
+        {
+          "path": "v12-aim-product-red/source/ui/weapon_bar.gd",
+          "bytes": 4137,
+          "sha256": "ae55f5599e395b575e4016e6f89c1ea2546f878f1ffbd1ea28cffe025092d6ac"
+        },
+        {
+          "path": "v12-aim-product-red/try-lock-original.py",
+          "bytes": 1406,
+          "sha256": "71402e67f2bfd1a621ca40ca47cbb3e5dfd6ddc5e702097e1490bfc9e8087798"
+        }
+      ],
+      "scope": "Original result/source/receipts and selected actual raw frames; deliberately a selected failure proof, not a complete old capture archive. Full original epoch remains unchanged at original_capture."
+    }
+  ]
+}

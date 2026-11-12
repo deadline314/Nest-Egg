@@ -39,6 +39,7 @@ var _has_pos := false
 var _side := -1.0
 ## 移到頭頂的權重（0 在背後、1 在頭上）；規則與彈帶相同（HudPlacement），兩者一起移動不會疊在一起。
 var _above := 0.0
+var _placement := HudPlacement.FollowState.new()
 var _time := 0.0
 var _shake_left := 0.0
 var _parry_left := 0.0
@@ -103,23 +104,53 @@ func _tick_effects(delta: float) -> void:
 
 
 func _follow(player: Player, delta: float) -> void:
-	_side = move_toward(_side, -float(player.facing), delta * 6.0)
-	var head := get_viewport().get_canvas_transform() * (player.global_position + HEAD_OFFSET)
+	var wanted_side := -float(player.facing)
+	var canvas := get_viewport().get_canvas_transform()
+	var head := canvas * (player.global_position + HEAD_OFFSET)
 	var width := _content_width() + PAD * 2.0
 	var height := PAD + PIP_H + 3.0 + GUARD_H + PAD
 	var view_width := get_viewport_rect().size.x
-	var wanted_above := HudPlacement.above_target(head.x, -float(player.facing), view_width)
-	_above = wanted_above if not _has_pos else move_toward(_above, wanted_above, delta * HudPlacement.BLEND_SPEED)
-	var beside := head + Vector2(_side * (SIDE_GAP + width * 0.5) - width * 0.5, -10.0)
-	# 頭頂模式：彈帶在頭頂正上方一列，生命護盾標籤再往上一列。
-	var over := Vector2(head.x - width * 0.5, head.y - HudPlacement.ABOVE_GAP - AmmoTray.ICON.y - HudPlacement.ROW_GAP - height)
-	var target := beside.lerp(over, smoothstep(0.0, 1.0, _above))
-	target.x += HudPlacement.clamp_shift(target.x, width, view_width)
-	if not _has_pos or _pos.distance_to(target) > SNAP_DISTANCE:
-		_pos = target
-		_has_pos = true
+	var wanted_above := HudPlacement.above_target(head.x, wanted_side, view_width)
+	if _placement.should_reset(player, canvas, head, SNAP_DISTANCE):
+		_has_pos = false
+	var font := UiKit.font()
+	var descent := font.get_descent(9)
+	var line := font.get_ascent(9) + descent + 2.0
+	var band := maxf(maxf(AmmoTray.ICON.y, AmmoIcons.CELL.y), font.get_ascent(9) + 2.0) + HudPlacement.ROW_GAP + height
+	var actual_head := _placement.screen_rect(player, canvas)
+	_placement.update_guide(actual_head, canvas * player.global_position, delta, descent, line, band + HudPlacement.EDGE_MARGIN, FOLLOW_SHARPNESS, view_width, canvas * player.muzzle_position())
+	var muzzle := canvas * player.muzzle_position()
+	var vertical_side := _placement.aim_side(player, actual_head, muzzle, view_width)
+	if vertical_side != 0.0:
+		wanted_side = vertical_side
+		var edge := minf(actual_head.position.x, muzzle.x)
+		actual_head.size.x = maxf(actual_head.end.x, muzzle.x) - edge
+		actual_head.position.x = edge
+	_placement.choose_corridor(_above, _side, wanted_side, player.aim_dir, _pos.y + height * 0.5, muzzle.y)
+	var desired_beside := head + Vector2(wanted_side * (SIDE_GAP + width * 0.5) - width * 0.5, -10.0)
+	var desired_fit := HudPlacement.beside_position(desired_beside, Rect2(desired_beside, Vector2(width, height)), actual_head, wanted_side, view_width)
+	if not is_finite(desired_fit.x):
+		wanted_above = 1.0
+	if not _has_pos:
+		_side = wanted_side
+		_above = wanted_above
 	else:
-		_pos = _pos.lerp(target, 1.0 - exp(-delta * FOLLOW_SHARPNESS))
+		if not is_equal_approx(_side, wanted_side):
+			wanted_above = 1.0
+			if _above >= 0.99 and _placement.guide_ready:
+				_side = move_toward(_side, wanted_side, delta * HudPlacement.SIDE_SPEED)
+		if _placement.guide_ready:
+			_above = move_toward(_above, wanted_above, delta * HudPlacement.BLEND_SPEED)
+	head.y = _placement.foot_y + canvas.basis_xform(HEAD_OFFSET).y
+	var beside := head + Vector2(_side * (SIDE_GAP + width * 0.5) - width * 0.5, -10.0)
+	var fit := HudPlacement.beside_position(beside, Rect2(beside, Vector2(width, height)), actual_head, _side, view_width)
+	if is_finite(fit.x):
+		beside.x = fit.x
+	var over := Vector2(_placement.guide_x - width * 0.5, _placement.corridor_y() - band)
+	var target := HudPlacement.routed_target(beside, over, _above)
+	target.x += HudPlacement.clamp_shift(target.x, width, view_width)
+	_pos = target
+	_has_pos = true
 
 
 func _content_width() -> float:

@@ -50,6 +50,7 @@ var _side := -1.0
 var _draw_side := -1.0
 ## 移到頭頂的權重（0 在背後、1 在頭上）；主角靠近畫面邊緣、背後放不下時才往上移（NE-264）。
 var _above := 0.0
+var _placement := HudPlacement.FollowState.new()
 var _time := 0.0
 var _flip_left := 0.0
 var _hint := ""
@@ -186,31 +187,76 @@ func _follow(player: Player, delta: float) -> void:
 	var to_screen := get_viewport().get_canvas_transform()
 	var anchor: Vector2 = to_screen * (player.global_position + Vector2(0, -34))
 	var aim: Vector2 = to_screen * player.aim_point
-	# 放在與準星相反的一側；準星在角色正上方或正下方時維持原本那一側，避免左右跳動。
 	if absf(aim.x - anchor.x) > 8.0:
 		_side = -1.0 if aim.x > anchor.x else 1.0
 	var view_width := get_viewport_rect().size.x
-	# 用面向判斷（與生命護盾標籤相同）；準星方向只決定背後是哪一側的顯示。
 	var wanted_above := HudPlacement.above_target(anchor.x, -float(player.facing), view_width)
+	if _placement.should_reset(player, to_screen, anchor, SNAP_DISTANCE):
+		_has_pos = false
+	var head := _placement.screen_rect(player, to_screen)
+	var tag_height := VitalsTag.PAD * 2.0 + VitalsTag.PIP_H + 3.0 + VitalsTag.GUARD_H
+	var band := maxf(maxf(ICON.y, AmmoIcons.CELL.y), _obstacle_ascent + 2.0) + HudPlacement.ROW_GAP + tag_height
+	_placement.update_guide(head, to_screen * player.global_position, delta, _obstacle_descent, _obstacle_ascent + _obstacle_descent + 2.0, band + HudPlacement.EDGE_MARGIN, FOLLOW_SHARPNESS, view_width, to_screen * player.muzzle_position())
+	var muzzle := to_screen * player.muzzle_position()
+	var vertical_side := _placement.aim_side(player, head, muzzle, view_width)
+	if vertical_side != 0.0:
+		_side = vertical_side
+		var edge := minf(head.position.x, muzzle.x)
+		head.size.x = maxf(head.end.x, muzzle.x) - edge
+		head.position.x = edge
+	_placement.choose_corridor(_above, _draw_side, _side, player.aim_dir, _pos.y - ICON.y * 0.5, muzzle.y)
+	var width := _row_width()
+	var desired_beside := anchor + Vector2(_side * SIDE_GAP, -LIFT)
+	var desired_bounds := _layout_bounds_at(desired_beside, 0.0).merge(_layout_bounds_at(desired_beside, 1.0))
+	var desired_fit := HudPlacement.beside_position(desired_beside, desired_bounds, head, _side, view_width)
+	if not is_finite(desired_fit.x):
+		wanted_above = 1.0
 	if not _has_pos:
 		_draw_side = _side
 		_above = wanted_above
 	else:
-		_draw_side = move_toward(_draw_side, _side, delta * 2.0 / FLIP_TIME)
-		_above = move_toward(_above, wanted_above, delta * HudPlacement.BLEND_SPEED)
-	var width := _row_width()
+		if not is_equal_approx(_draw_side, _side):
+			wanted_above = 1.0
+			if _above >= 0.99 and _placement.guide_ready:
+				_draw_side = move_toward(_draw_side, _side, delta * HudPlacement.SIDE_SPEED)
+		if _placement.guide_ready:
+			_above = move_toward(_above, wanted_above, delta * HudPlacement.BLEND_SPEED)
+	anchor.y = _placement.foot_y + to_screen.basis_xform(Vector2(0, -34)).y
 	var beside := anchor + Vector2(_draw_side * SIDE_GAP, -LIFT)
-	var head: Vector2 = to_screen * (player.global_position + HudPlacement.HEAD_OFFSET)
-	var over := Vector2(anchor.x - _draw_side * width * 0.5, head.y - HudPlacement.ABOVE_GAP)
-	var target := beside.lerp(over, smoothstep(0.0, 1.0, _above))
-	# 整排（含收攏中的寬度）留在畫面左右邊緣之內。
-	var span := absf(_draw_side) * width
-	target.x += HudPlacement.clamp_shift(target.x if _draw_side >= 0.0 else target.x - span, span, view_width)
-	if not _has_pos or _pos.distance_to(target) > SNAP_DISTANCE:
-		_pos = target
-		_has_pos = true
+	var envelope := _layout_bounds_at(beside, 0.0).merge(_layout_bounds_at(beside, 1.0))
+	var fit := HudPlacement.beside_position(beside, envelope, head, _draw_side, view_width)
+	if is_finite(fit.x):
+		beside.x = fit.x
+	var over := Vector2(_placement.guide_x - _draw_side * width * 0.5, _placement.corridor_y())
+	var target := HudPlacement.routed_target(beside, over, _above)
+	var actual := _layout_bounds_at(target, _above)
+	target.x += HudPlacement.clamp_shift(actual.position.x, actual.size.x, view_width)
+	_pos = target
+	_has_pos = true
+
+
+## Use the drawing helpers and cached font metrics; no arrays/materials per frame.
+## Pooled ejected shells are intentionally not attached layout bounds.
+func _layout_bounds_at(origin: Vector2, reserve_above: float) -> Rect2:
+	var offset := origin - _pos
+	var bounds := Rect2()
+	if is_energy:
+		bounds = _battery_icon_rect(1.0)
+		for i in max_ammo:
+			bounds = _merge_prompt_rect(bounds, _battery_cell_rect(i))
 	else:
-		_pos = _pos.lerp(target, 1.0 - exp(-FOLLOW_SHARPNESS * delta))
+		var count := icon_count()
+		var shown := _icons_for(ammo) if not _reloading else int(_refill)
+		for i in count:
+			bounds = _merge_prompt_rect(bounds, _icon_draw_rect(i, shown, 1.0))
+		if _per_icon >= 2.0 and count > 0:
+			bounds = _merge_prompt_rect(bounds, _baseline_rect(_slot_position(count - 1) + Vector2(0, -3), _obstacle_icon_label_width, false))
+	if bounds.has_area():
+		bounds.position += offset
+	if ammo == 0 and not _reloading:
+		bounds = _merge_prompt_rect(bounds, _baseline_rect(origin + Vector2(-16.0 if _draw_side < 0.0 else 0.0, 7.0), _obstacle_hint_width, false))
+	var aligned := (_draw_side < 0.0) != (reserve_above > 0.5)
+	return _merge_prompt_rect(bounds, _baseline_rect(_reserve_anchor_at(origin, reserve_above), _obstacle_reserve_width, aligned))
 
 
 ## 整排在畫面上的寬度（子彈圖示或電池格，不含備彈數字）。
@@ -436,9 +482,13 @@ func _draw_reserve(alpha: float) -> void:
 
 ## 備彈數字：在背後時寫在彈帶下方靠主角；移到頭頂時改寫在整排靠畫面內側的那一端（外側可能就是畫面邊緣），不壓到頭髮。
 func _reserve_anchor() -> Vector2:
-	var below := _pos + Vector2(-2.0 if _draw_side < 0.0 else 2.0, 9.0)
-	var inner := Vector2(_pos.x - _draw_side * 3.0, _pos.y - 1.0)
-	return below.lerp(inner, smoothstep(0.0, 1.0, _above))
+	return _reserve_anchor_at(_pos, _above)
+
+
+func _reserve_anchor_at(origin: Vector2, above: float) -> Vector2:
+	var below := origin + Vector2(-2.0 if _draw_side < 0.0 else 2.0, 9.0)
+	var inner := Vector2(origin.x - _draw_side * 3.0, origin.y - 1.0)
+	return below.lerp(inner, smoothstep(0.0, 1.0, above))
 
 
 func _reserve_right_aligned() -> bool:

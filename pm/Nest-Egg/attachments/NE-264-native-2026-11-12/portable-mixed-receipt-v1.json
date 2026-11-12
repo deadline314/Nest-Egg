@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "utc": "2026-11-12T14:34:59.799071+00:00",
+  "reader_sha256": "7de1e76b226df5ee58b56ac5a46bc295e578f33deaae15f7bbe3506874d810c5",
+  "cases": [
+    {
+      "case": "mixed30",
+      "zip_sha256": "f0b72971a4adb09736ff1332c0fe94fa32499705f7e72bc02f7dabe6df2f669d",
+      "members": 1615,
+      "draws": 54,
+      "passed": true
+    }
+  ],
+  "selected_images_verified": 71,
+  "negative_controls": {
+    "metadata_on_actual_ray": "rejected",
+    "original_exactly24_displacement": "rejected"
+  },
+  "scope": "original bytes and independent read-only geometry/pixel/source/queue validation; no new native, physical input, chapter completion or performance claim"
+}
