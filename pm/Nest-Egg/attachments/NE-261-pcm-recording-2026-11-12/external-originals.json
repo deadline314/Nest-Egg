@@ -1,0 +1,21 @@
+{
+  "directory": "D:\\NestEggDeliveries\\NE261-20261112\\pcm-progress-20261112",
+  "archives": [
+    {
+      "path": "stage5/accepted-raw.zip",
+      "bytes": 82571586,
+      "sha256": "8f80304ac364f2324111b12d2e4b0f502efdc20046392e87a44fa760bb412ad9"
+    },
+    {
+      "path": "hold-supplement/1794471276726598400-holds-raw.zip",
+      "bytes": 91719078,
+      "sha256": "b49d0af2e4f26bd9e29f4925bcc110c6f3057362df958d26823bcc6a50b3be3f"
+    },
+    {
+      "path": "hold-supplement/1794472002092308000-holds-raw.zip",
+      "bytes": 91569131,
+      "sha256": "de3c7eb2140d7dcd5775c8cc8af7802173b9cc707d84ed64d926d213133a4cf0"
+    }
+  ],
+  "scope": "Exact large original audio containers persist outside Git with original indexes. Smaller source/control/receipt packets and waveform are in Git. Remote checkout alone does not contain these three PCM recording containers; original work files remain unchanged."
+}

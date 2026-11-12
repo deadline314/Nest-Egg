@@ -1,0 +1,101 @@
+{
+  "checks": 19,
+  "failures": 0,
+  "scope": "Read-only index/content and original threshold rejection controls; actual loudness recording remains RED, no synthetic metric is presented as captured game audio.",
+  "results": [
+    {
+      "control": "actual34row10hold32damage content",
+      "accepted": true
+    },
+    {
+      "control": "no actual public release",
+      "rejected": true,
+      "diagnostic": "missing actual public hold/release"
+    },
+    {
+      "control": "hold not entered",
+      "rejected": true,
+      "diagnostic": ""
+    },
+    {
+      "control": "missing charge full",
+      "rejected": true,
+      "diagnostic": "not fully charged"
+    },
+    {
+      "control": "missing repeated cycles",
+      "rejected": true,
+      "diagnostic": ""
+    },
+    {
+      "control": "zero-space target",
+      "rejected": true,
+      "diagnostic": ""
+    },
+    {
+      "control": "wrong damage source",
+      "rejected": true,
+      "diagnostic": ""
+    },
+    {
+      "control": "health delta does not match callback",
+      "rejected": true,
+      "diagnostic": ""
+    },
+    {
+      "control": "false hit in miss",
+      "rejected": true,
+      "diagnostic": "hit sound in real miss"
+    },
+    {
+      "control": "missing actual material layer",
+      "rejected": true,
+      "diagnostic": "actual damage/material/hit layer mismatch"
+    },
+    {
+      "control": "hold sample boundary exceeds real PCM",
+      "rejected": true,
+      "diagnostic": "segment boundary outside true PCM"
+    },
+    {
+      "control": "hum remains after holster",
+      "rejected": true,
+      "diagnostic": ""
+    },
+    {
+      "control": "actual original full-hold maul idle bed failure",
+      "rejected": true,
+      "diagnostic": {
+        "weapon": "maul",
+        "part": "idle",
+        "rule": "idle <= own actual bed - 10dB",
+        "actual": -43.44089173902893,
+        "limit": -54.16758923349469
+      }
+    },
+    {
+      "control": "synthetic metric positive with original limits",
+      "accepted": true
+    },
+    {
+      "control": "hold louder than pistol",
+      "rejected": true
+    },
+    {
+      "control": "hum less than6dB below steps",
+      "rejected": true
+    },
+    {
+      "control": "hum less than10dB belowbed",
+      "rejected": true
+    },
+    {
+      "control": "hum below original audibility bound",
+      "rejected": true
+    },
+    {
+      "control": "holster remains audible",
+      "rejected": true
+    }
+  ]
+}

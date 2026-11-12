@@ -21,8 +21,11 @@ import sys
 import wave
 from pathlib import Path
 
+from melee_pcm_reader import load as load_verified_pcm, verify_content
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
+
+REPORT_VERSION = 'ne261-capture-report-v2'
 
 WINDOW = 0.05
 # The hum has to stay this far under the footsteps (their loud level) and under everything that is not a sound effect (ambience and music).
@@ -101,14 +104,31 @@ def main() -> int:
     args = parser.parse_args()
     folder = Path(args.folder)
     index = json.loads((folder / "melee-index.json").read_text(encoding="utf-8"))
-    sfx, rate = read(folder / "melee-sfx.wav")
-    master, master_rate = read(folder / "melee-master.wav")
+    verify_content(index)
+    rate, buses = load_verified_pcm(folder, index)
+    # Keep the published SFX int16 metric and all original acceptance limits.
+    sfx = np.frombuffer(buses["SFX"]["pcm_s16"], dtype="<i2").reshape(-1, 2).mean(axis=1, dtype=np.float32)
+    sfx /= 32768.0
+    # Direct Music/Ambience captures after their existing effects, with actual
+    # stable bus gains, normalized to SFX's pre-gain measurement plane. This is
+    # a pre-Master balance measurement, never post-limiter Master minus SFX.
+    bed = np.zeros_like(sfx)
+    for name in ("Music", "Ambience"):
+        contribution = np.frombuffer(buses[name]["raw_f32"], dtype="<f4").reshape(-1, 2).mean(axis=1)
+        contribution *= buses[name]["gain"]
+        contribution /= buses["SFX"]["gain"]
+        bed += contribution
+        del contribution
+    assert np.isfinite(bed).all(), "nonfinite independent bed"
+    for segment in index["segments"]:
+        segment["start"] = segment["bus_start_frames"]["SFX"] / rate
+        segment["end"] = segment["bus_end_frames"]["SFX"] / rate
     rows = []
     for segment in index["segments"]:
-        cut = slice(int(segment["start"] * rate), int(segment["end"] * rate))
+        cut = slice(segment["bus_start_frames"]["SFX"], segment["bus_end_frames"]["SFX"])
         peak, loud, floor = levels(sfx[cut], rate)
-        # Both recorders sit before their bus volume, so the master recording is the SFX bus plus everything else (ambience, music).
-        rest = master[cut][: sfx[cut].size] - sfx[cut][: master[cut].size]
+        rest = bed[cut]
+        assert rest.size == sfx[cut].size > 0, "empty/truncated bed/SFX segment"
         rows.append({**segment, "peak": peak, "loud": loud, "floor": floor, "bed": levels(rest, rate)[2]})
     print("%-8s %-11s %7s %7s %7s %7s  %s" % ("weapon", "part", "peak", "loud", "floor", "bed", "sounds"))
     for row in rows:
@@ -134,7 +154,9 @@ def main() -> int:
             if row["part"] == "holster" and row["floor"] > -70.0 and row["floor"] > next(r for r in rows if r["weapon"] == row["weapon"] and r["part"] == "idle")["floor"] - 10.0:
                 problems.append("%s hum still sounds after holstering (%.1f dB)" % (row["weapon"], row["floor"]))
     if args.png:
-        sheet(master, master_rate, index["segments"], rows, Path(args.png))
+        master = np.frombuffer(buses["Master"]["pcm_s16"], dtype="<i2").reshape(-1, 2).mean(axis=1, dtype=np.float32)
+        master /= 32768.0
+        sheet(master, rate, index["segments"], rows, Path(args.png))
     for problem in problems:
         print("PROBLEM:", problem)
     print("MELEE_SOUND_REPORT problems", len(problems))

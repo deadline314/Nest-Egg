@@ -1,0 +1,43 @@
+{
+  "source_files": {
+    "tools/melee_sound_probe.gd": {
+      "sha256": "45fdab97de6a96da82a07f5c6b24f8fd95741a2e19ace72d72172bba2af55b27",
+      "bytes": 10474
+    },
+    "tools/audio/melee_sound_report.py": {
+      "sha256": "ffdcd7b539811cd407dad2dbdfa3e357c0da02813f445f9d0900bbfba4bdbe32",
+      "bytes": 9565
+    },
+    "tools/audio/melee_pcm_clock.gd": {
+      "sha256": "a2b9608ec12220f0a7da7ebd9c5bf40e09c7e754f51eff2d23e72151fe4aa027",
+      "bytes": 8009
+    },
+    "tools/audio/melee_pcm_reader.py": {
+      "sha256": "3279ca1209580fe154279448a879eb162c833fbb0fae75b2242df4ea28473d33",
+      "bytes": 8592
+    },
+    "tools/audio/melee_sound_content.gd": {
+      "sha256": "6619345f528ac156878ca0ac0f85e769292a08766e32f57f723d8584952471f6",
+      "bytes": 6506
+    }
+  },
+  "metadata_files": {
+    "tools/audio/melee_pcm_clock.gd.uid": {
+      "sha256": "53bcd14bde387899d48f5a5da27ea698c7d7d11bec31d68a2d50a1d5657fc6cc",
+      "bytes": 19,
+      "text": "uid://gushvtonlhbk"
+    },
+    "tools/audio/melee_sound_content.gd.uid": {
+      "sha256": "a09cf2a0813e9b6595d3e18f059284f14b53989c8b39a5de1e99b9540f92e1b5",
+      "bytes": 19,
+      "text": "uid://c6u0pw62af5l"
+    }
+  },
+  "only_source_changed_from_stage4": [
+    "tools/audio/melee_pcm_clock.gd"
+  ],
+  "metadata_origin": "Actual fresh Godot4.7.2 headless editor import on detached896+only5, no handwritten UID",
+  "epoch": "stage5 final legacy WAV compatibility",
+  "accepted_run": "1794468251143191900",
+  "negative_run": "1794468143021993100"
+}

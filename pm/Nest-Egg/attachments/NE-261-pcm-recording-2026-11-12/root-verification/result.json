@@ -1,0 +1,53 @@
+{
+  "results": [
+    {
+      "command": [
+        "verify_equivalence.py"
+      ],
+      "exit": 0,
+      "expected_exit": 0
+    },
+    {
+      "command": [
+        "test_reader.py"
+      ],
+      "exit": 0,
+      "expected_exit": 0
+    },
+    {
+      "command": [
+        "verify_holds.py",
+        "runs/1794471276726598400-holds",
+        "--audio-tools",
+        "canonical-audio-tools"
+      ],
+      "exit": 1,
+      "expected_exit": 1
+    },
+    {
+      "command": [
+        "verify_holds.py",
+        "runs/1794472002092308000-holds",
+        "--audio-tools",
+        "canonical-audio-tools"
+      ],
+      "exit": 1,
+      "expected_exit": 1
+    },
+    {
+      "command": [
+        "C:\\Users\\stanl\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-X",
+        "utf8",
+        "C:\\Users\\stanl\\Github\\Nest-Egg\\pm\\Nest-Egg\\attachments\\NE-261-pcm-recording-2026-11-12\\original-stage5\\verify_delivery.py",
+        "--raw-root",
+        "D:\\NestEggDeliveries\\NE261-20261112\\pcm-progress-20261112\\stage5\\accepted-raw.zip"
+      ],
+      "exit": 0,
+      "expected_exit": 0
+    }
+  ],
+  "engine_started": false,
+  "hold_loudness_accepted": false,
+  "scope": "Fresh public source/control containers plus exact external original raw; unchanged Windows default-locale supplemental readers. Expected-red captures remain red."
+}

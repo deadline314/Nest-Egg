@@ -1,0 +1,120 @@
+{
+  "schema": "ne261-hold-supplement-delivery-v1",
+  "accepted": false,
+  "raw": [
+    {
+      "path": "1794470369378598000-parse-raw.zip",
+      "bytes": 398248,
+      "sha256": "c1b9625421eec435342117ee3c64fbbd475ea7baf6ea63a6c7a80a2a65a02edd",
+      "members": 14,
+      "engine_exit": 0,
+      "expected_scope": "functional process only; full hold loudness RED if kind=holds"
+    },
+    {
+      "path": "1794470431883845700-equivalence-original-raw.zip",
+      "bytes": 584692,
+      "sha256": "13316a475018ea8bd8a278d53aa401b7859b849d206faa48278381051e4f7613",
+      "members": 16,
+      "engine_exit": 0,
+      "expected_scope": "functional process only; full hold loudness RED if kind=holds"
+    },
+    {
+      "path": "1794470536051457300-equivalence-observer-raw.zip",
+      "bytes": 586615,
+      "sha256": "86f301086db7b2998e0995722ab249e627f90cb91180da285a34b023db66af00",
+      "members": 16,
+      "engine_exit": 1,
+      "expected_scope": "preserved observer-state RED"
+    },
+    {
+      "path": "1794470800081490100-equivalence-original-raw.zip",
+      "bytes": 584889,
+      "sha256": "e1756557d2d9ae394b7d72f9cec36d52eb0a05744d5230fe6f691804976e77f6",
+      "members": 16,
+      "engine_exit": 0,
+      "expected_scope": "functional process only; full hold loudness RED if kind=holds"
+    },
+    {
+      "path": "1794470901349902000-equivalence-observer-raw.zip",
+      "bytes": 586260,
+      "sha256": "5cfb4f3f980aa9c48e7097b1fe43e9126e8d21119f24ec7fdc879b86dff4c2d6",
+      "members": 16,
+      "engine_exit": 0,
+      "expected_scope": "functional process only; full hold loudness RED if kind=holds"
+    },
+    {
+      "path": "1794471276726598400-holds-raw.zip",
+      "bytes": 91719078,
+      "sha256": "b49d0af2e4f26bd9e29f4925bcc110c6f3057362df958d26823bcc6a50b3be3f",
+      "members": 26,
+      "engine_exit": 0,
+      "expected_scope": "functional process only; full hold loudness RED if kind=holds"
+    },
+    {
+      "path": "1794472002092308000-holds-raw.zip",
+      "bytes": 91569131,
+      "sha256": "de3c7eb2140d7dcd5775c8cc8af7802173b9cc707d84ed64d926d213133a4cf0",
+      "members": 26,
+      "engine_exit": 0,
+      "expected_scope": "functional process only; full hold loudness RED if kind=holds"
+    }
+  ],
+  "source": {
+    "path": "source-and-review-v2.zip",
+    "bytes": 131319,
+    "sha256": "b032cbf24a7a700336d4ad53c906f982f4e3204b57fe99c3e9f341ebf1f2b827"
+  },
+  "files": {
+    "README.md": "0f0c47f1f76b8c7625889ee3c3e4e3ea0834b455982a512bd981df1dd317c029",
+    "audit_melee.gd": "1c9e9b9da1cced7ba0966bcf9ed489d35972f33f4f600634daccd727089f8532",
+    "probe.gd": "877e574b9177b66c20128ffaa2aae54d9c4022fa35a051e43461d5e793f1739a",
+    "probe-v1-original-hold-red.gd": "53d0430c21f86d299e2fc06d8b4d0a3ba8b4a4ea1969946a8f4b8026e3cbe25a",
+    "probe.tscn": "c0643794586cb6fd6c29af3af22cf479398d8c41f7a311c442f33b578e12b9f4",
+    "run.py": "54653b7b37ca9ad806fd1a2af3b92c3687b0078253f283bfcc4bc9660d87b98e",
+    "verify_holds.py": "e8feb6c4212bfe5cf84498658a9813669cbdc45cb80c664daa354da79a273856",
+    "verify_holds-v0-unresolved-event-layers.py": "52f46fa609715cfacf508ffcc0dbf36e412f6c671f6f46ec3dd203c6ceaba9a0",
+    "verify_equivalence.py": "7908e8b9a3d3e05521fcf73ff00be9ef2d335df2366888549ad4fba5b95210f9",
+    "verify_equivalence-v0-wrong-pass-count.py": "63d9a9aa54746402c33e88fd9e91e7066baadf46b4bd31e8ae98df6ba5ede38e",
+    "test_reader.py": "64e6629b9497af36f97ecda7ca0f52dae7784264272a1868980a441506ecb9b6",
+    "package.py": "396401d0dec9d628c6d6eb6bb618f44070f3016bcaf88ac52a2f58326ba1de17",
+    "reader-controls.json": "d3fd7e9b41fdea79b3865f688e452f6401b077f418a368613607292e6e7d85c1",
+    "equivalence-result.json": "c1f325316621f3368f2eeb4eb5d6eb8baeb46f6c7fc5790c157c36763cfd13a2",
+    "hold-result-v1.json": "caf2d176f30fb05560f979699207c79d93729598b61c45b53ccef536beca5545",
+    "hold-result-v2-metadata.json": "4b3e7115d90c08374901c011f5256608603afcef815bbbbe8ac191697a57eb69",
+    "hold-reader-original.log": "ba9de7a46ed47eb0292b6bdb9846c4dd028b97d7af32b1944770163c4366850c",
+    "hold-reader-metadata.log": "57c18a9d2a2fd7b98724cd564f35705a93121256527f197e454519c548c0e4b1",
+    "idle-cause-pcm-v1.json": "abffb3a8b71dc6f774fe1d7ffb8d8c566ceb0386e72c8f4d5601eebbfbfc3bc9",
+    "cause-source-manifest.json": "7a71f4577e6793ca66e7309fdb618a29b4987d246faf46e31bc721c5d4cb9821",
+    "canonical-audio-tools/melee_pcm_reader.py": "3279ca1209580fe154279448a879eb162c833fbb0fae75b2242df4ea28473d33",
+    "canonical-audio-tools/melee_sound_report.py": "ffdcd7b539811cd407dad2dbdfa3e357c0da02813f445f9d0900bbfba4bdbe32",
+    "cause-source/audio/sfx/melee_maul_idle_01.ogg": "8a9312b7c4af5f47adc61c5c34f8dbe67ceb52a986f8bc1c0946453313b3c5b4",
+    "cause-source/autoload/ambience.gd": "871344243dd5909c2741b3fbd5d59e7cddcbfbd904ee6540f64780430d783c81",
+    "cause-source/autoload/music.gd": "cea54f5cc9fa74667d12d32cffc9471a350fd1dd7fcb457f4afe6ab12fa69d34",
+    "cause-source/autoload/sfx.gd": "fa8ee84c0ecc8c3c885f6573d03151a5183331dec873713af9114f3681789f9d",
+    "cause-source/core/audio/crossfade_player.gd": "bc7fbc680e8dd25d8a9267782ba86b9da05b966d2ad0f54e6cfe361dc38230af",
+    "cause-source/core/audio/sound_bank.gd": "220ecbeb714fbe3d2a4ab9937a9d8456d2a9155287dfa6955e052b00fb085b58",
+    "cause-source/data/audio/ambience.json": "448bc106a7ce5826385d80268ee8d9779ae24efc70f189146717121ec3ad08dc",
+    "cause-source/data/audio/music.json": "340a6bb7e211bfc1b71405b9c7b1d133a2887cb5c0c766f5e7905086eadace4a",
+    "cause-source/data/audio/sound_bank.json": "5a06d4f17a5ceb5a2674888a24fc9d634b986a80ec3199fb82ad4dae677688a7",
+    "cause-source/data/scripts/level_data.gd": "0b0feea82a65f3b1d17f5cccdca8b448f3a809679221deeba4a13073e304c94b",
+    "cause-source/game/level/lighting_controller.gd": "ee08cb1fb8ee819664c14ee5aa938e802473bf9176729faef04f59472231a681",
+    "cause-source/game/player/melee_hum.gd": "6c96e1d0e5e2ce9212a39123f4781b38d8b801386ca1d3ce3ca892229a1cd876",
+    "cause-source/tests/suite/test_new_enemies.gd": "f98253a9320fcb8a4cbc733c09e3d627cd5c90fed11b5bd03bfc54da1eb3d661",
+    "cause-source/tools/scenarios/scenario_base.gd": "ef1199a05afaec1399a01f7d0f5b7d54643ae703a1ffaa525b702c25da3ac66d",
+    "verify_holds-v1-locale-default.py": "05b3771993aa1cbb087e0c2b623ad6e1d7d6a842c825d52a4e64355554ebda43",
+    "test_reader-v1-locale-default.py": "a8e1b5d030eca8389ee9626d9c8d16af068c9f7c167e38e2abf3a6afea710a22",
+    "verify_equivalence-v1-locale-default.py": "b116fca8521d884e3f33bec84e832ce9ed8211b62fe179bbc01a7d6c2365950a",
+    "portable-check-failed-v1.json": "54c0978a7f7ffe45255bbb422172e6f50da567ce161ac4ba45d746be55fcd134",
+    "portable-failure-v1.log": "3ad48d421d084850e774dcd162069b33346622c14c858c84e1b09ce70649a92e"
+  },
+  "recompute": [
+    "Extract source-and-review.zip and each raw ZIP to the same folder.",
+    "python verify_equivalence.py (expect exit0)",
+    "python test_reader.py (expect19checks0failures)",
+    "python verify_holds.py runs/1794471276726598400-holds --audio-tools canonical-audio-tools (expect exit1: original maul idle-bed)",
+    "python verify_holds.py runs/1794472002092308000-holds --audio-tools canonical-audio-tools (expect exit1: metadata replay maul idle-bed)"
+  ],
+  "scope": "All original epochs retained, immutable published896 plus canonical7, software input/headless WASAPI, actual PCM and action content. No C26, renderer, human hearing, physical controller or performance claim.",
+  "supersedes_source_only": "source-and-review.zip remains historical; raw ZIPs unchanged.",
+  "portable_check": "portable-check-v2.json"
+}

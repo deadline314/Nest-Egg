@@ -17,25 +17,41 @@ const MAX_STEPS := 6
 
 var _segments: Array[Dictionary] = []
 var _start_usec := 0
-var _master := AudioEffectRecord.new()
-var _sfx := AudioEffectRecord.new()
+var _clock
 var _failures := 0
 var _granted: Dictionary = {}
+var _content
+var _culling_before := true
+var _culling_overridden := false
 
 
 func _ready() -> void:
 	for argument: String in OS.get_cmdline_user_args():
 		if argument.begins_with("--out="):
 			out_dir = argument.trim_prefix("--out=").replace("\\", "/")
-	if not out_dir.is_absolute_path() or DisplayServer.get_name() == "headless":
-		push_error("[MeleeSoundProbe] 需要原生視窗與 --out=<絕對資料夾>")
+	if not out_dir.is_absolute_path() or AudioServer.get_driver_name().strip_edges().is_empty() or AudioServer.get_driver_name().to_lower() == "dummy":
+		push_error("[MeleeSoundProbe] 需要實際非Dummy音訊driver與 --out=<絕對資料夾>（headless僅音訊，不是原生畫面驗收）")
 		get_tree().quit(2)
 		return
-	DirAccess.make_dir_recursive_absolute(out_dir)
+	print("NE261_GAME_RUNTIME " + JSON.stringify({"display":DisplayServer.get_name(),"audio_driver":AudioServer.get_driver_name(),"adapter":RenderingServer.get_video_adapter_name(),"rendering_device_null":RenderingServer.get_rendering_device()==null}))
+	var mkdir_error := DirAccess.make_dir_recursive_absolute(out_dir)
+	if mkdir_error != OK or not DirAccess.dir_exists_absolute(out_dir):
+		push_error("[MeleeSoundProbe] mkdir path=%s error=%s directory_exists=%s" % [out_dir,error_string(mkdir_error),DirAccess.dir_exists_absolute(out_dir)])
+		get_tree().quit(2)
+		return
+	if OS.get_cmdline_user_args().has("--parser-only"):
+		get_tree().quit(0)
+		return
 	_run.call_deferred()
 
 
 func _run() -> void:
+	# Dummy rendering cannot publish VisibleOnScreenEnabler2D visibility.
+	# Match the existing smoke precondition only in this headless fixture.
+	_culling_before=Enemy.activation_culling_enabled
+	if DisplayServer.get_name()=="headless":
+		Enemy.activation_culling_enabled=false
+		_culling_overridden=true
 	Story.auto_skip = true
 	# 不套用暗的光影設定：那一份有閃電，雷聲會混進錄音。
 	await open_arena("", 12.0)
@@ -44,15 +60,19 @@ func _run() -> void:
 	AimInput.using_gamepad = true
 	AimInput._last_stick_dir = Vector2.RIGHT
 	Sfx.sound_played.connect(_heard)
-	for effect: AudioEffectRecord in [_master, _sfx]:
-		effect.format = AudioStreamWAV.FORMAT_16_BITS
-	AudioServer.add_bus_effect(0, _master)
-	AudioServer.add_bus_effect(AudioServer.get_bus_index(Sfx.BUS), _sfx)
+	_content=preload("res://tools/audio/melee_sound_content.gd").new()
+	add_child(_content)
+	_clock = preload("res://tools/audio/melee_pcm_clock.gd").new()
+	add_child(_clock)
+	if not _clock.attach():
+		await _abort_clock()
+		return
 	var pistol := load("res://data/weapons/pistol.tres") as WeaponData
 	await _arm(pistol)
 	await settle(30)
-	_master.set_recording_active(true)
-	_sfx.set_recording_active(true)
+	if not await _clock.start():
+		await _abort_clock()
+		return
 	_start_usec = Time.get_ticks_usec()
 
 	_begin("ref", "silence")
@@ -71,6 +91,7 @@ func _run() -> void:
 		await settle(3)
 		Input.action_release(&"shoot")
 		await _seconds(0.45)
+	_content.close()
 	await clear_enemies()
 	_begin("ref", "walk")
 	Input.action_press(&"move_right")
@@ -107,28 +128,42 @@ func _run() -> void:
 		if hum != null and hum.call(&"sounding") != &"":
 			push_error("[MeleeSoundProbe] %s 收起來之後待機聲還在響" % weapon.id)
 			_failures += 1
+		_content.close()
 	_begin("ref", "end")
 	await _seconds(0.3)
+	_content.close()
 	_segments.pop_back()
 
-	_master.set_recording_active(false)
-	_sfx.set_recording_active(false)
-	_save(_master, "melee-master.wav")
-	_save(_sfx, "melee-sfx.wav")
+	var sample_end: Dictionary = _clock.stop()
+	var pcm_index: Dictionary = await _clock.save(out_dir, sample_end)
+	_failures += _clock.problems.size()
+	_failures += _content.problems.size()
+	pcm_index["cleanup"] = _clock.cleanup()
 	for base_id: StringName in _granted:
 		Progression._upgrades[base_id] = _granted[base_id]
-	var total := _now()
 	for index in _segments.size():
-		_segments[index]["end"] = _segments[index + 1]["start"] if index + 1 < _segments.size() else total
+		var next: Dictionary = _segments[index + 1]["bus_start_frames"] if index + 1 < _segments.size() else sample_end["frames"]
+		_segments[index]["bus_end_frames"] = next
+		_segments[index]["start"] = float(_segments[index]["bus_start_frames"]["SFX"]) / pcm_index["mix_rate"]
+		_segments[index]["end"] = float(next["SFX"]) / pcm_index["mix_rate"]
 	var writer := FileAccess.open(out_dir.path_join("melee-index.json"), FileAccess.WRITE)
-	if writer != null:
-		writer.store_string(JSON.stringify({"segments": _segments, "sfx_bus_db": AudioServer.get_bus_volume_db(AudioServer.get_bus_index(Sfx.BUS)),
-			"master_db": AudioServer.get_bus_volume_db(0)}, "\t"))
+	if writer == null:
+		push_error("[MeleeSoundProbe] index open path=%s error=%s" % [out_dir.path_join("melee-index.json"),error_string(FileAccess.get_open_error())])
+		_failures += 1
+	else:
+		writer.store_string(JSON.stringify({"content_contract":"ne261-actual-actions-v1","headless_activation_culling_disabled":_culling_overridden,"content_problems":_content.problems,"segments": _segments, "sfx_bus_db": AudioServer.get_bus_volume_db(AudioServer.get_bus_index(Sfx.BUS)),
+			"master_db": AudioServer.get_bus_volume_db(0), "sample_clock": pcm_index, "runtime": {"audio_driver":AudioServer.get_driver_name(),"display":DisplayServer.get_name()}, "scope": "Published weapon combo/extension recording; does not cover the five added hold modes or human listening. Headless recording is not native visual acceptance."}, "\t"))
+		writer.flush()
+		var write_error := writer.get_error()
 		writer.close()
+		if write_error != OK:
+			push_error("[MeleeSoundProbe] index write path=%s error=%s" % [out_dir.path_join("melee-index.json"),error_string(write_error)])
+			_failures += 1
 	for segment: Dictionary in _segments:
 		print("MELEE_SOUND:%s/%s %s" % [segment["weapon"], segment["part"], ", ".join(PackedStringArray(segment["sounds"]))])
 	print("MELEE_SOUND_PROBE failures ", _failures)
 	await finish()
+	_restore_culling()
 	get_tree().quit(1 if _failures > 0 else 0)
 
 
@@ -195,7 +230,9 @@ func _grant_extension(weapon: WeaponData) -> void:
 
 
 func _begin(weapon: String, part: String) -> void:
-	_segments.append({"weapon": weapon, "part": part, "start": _now(), "sounds": []})
+	_content.close()
+	_segments.append({"weapon": weapon, "part": part, "wall_seconds_diagnostic_only": _now(), "bus_start_frames": _clock.mark(), "sounds": []})
+	_content.begin(_segments[-1],player,_clock)
 
 
 func _heard(id: StringName) -> void:
@@ -211,10 +248,20 @@ func _seconds(duration: float) -> void:
 	await get_tree().create_timer(duration, false).timeout
 
 
-func _save(effect: AudioEffectRecord, file_name: String) -> void:
-	var recording := effect.get_recording()
-	if recording == null:
-		push_error("[MeleeSoundProbe] 沒有錄到聲音：%s" % file_name)
-		_failures += 1
-		return
-	recording.save_to_wav(out_dir.path_join(file_name))
+
+func _abort_clock() -> void:
+	_clock.cleanup()
+	await finish()
+	_restore_culling()
+	get_tree().quit(1)
+
+
+func _restore_culling() -> void:
+	if _culling_overridden:
+		Enemy.activation_culling_enabled=_culling_before
+		_culling_overridden=false
+		print("NE261_CULLING_RESTORED " + str(Enemy.activation_culling_enabled==_culling_before))
+
+
+func _exit_tree() -> void:
+	_restore_culling()

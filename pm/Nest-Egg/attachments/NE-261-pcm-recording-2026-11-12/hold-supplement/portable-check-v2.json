@@ -1,0 +1,49 @@
+{
+  "directory": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\ne261-audio-source-review-20261112\\hold-supplement\\portable-check-v2-1794472492812358300",
+  "all_expected": true,
+  "checks": [
+    {
+      "command": [
+        "C:\\Users\\stanl\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "verify_equivalence.py"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "matched": true
+    },
+    {
+      "command": [
+        "C:\\Users\\stanl\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "test_reader.py"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "matched": true
+    },
+    {
+      "command": [
+        "C:\\Users\\stanl\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "verify_holds.py",
+        "runs/1794471276726598400-holds",
+        "--audio-tools",
+        "canonical-audio-tools"
+      ],
+      "exit": 1,
+      "expected_exit": 1,
+      "matched": true
+    },
+    {
+      "command": [
+        "C:\\Users\\stanl\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "verify_holds.py",
+        "runs/1794472002092308000-holds",
+        "--audio-tools",
+        "canonical-audio-tools"
+      ],
+      "exit": 1,
+      "expected_exit": 1,
+      "matched": true
+    }
+  ],
+  "scope": "Fresh extracted source and raw ZIPs, actual default-locale new Python processes, no engine. Loudness remains RED."
+}

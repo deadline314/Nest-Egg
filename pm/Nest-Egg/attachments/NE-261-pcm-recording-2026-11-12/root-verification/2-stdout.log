@@ -1,0 +1,28 @@
+{
+  "reader_version": "ne261-five-hold-reader-v1",
+  "accepted": false,
+  "content": {
+    "segments": 34,
+    "measured_hold_segments": 10,
+    "hit_pass_calls": 312,
+    "actual_hold_damage_events": 32,
+    "scope": "actual armor target only; no human hearing, physical controller, render, all-material or C26 claim"
+  },
+  "mix_rate": 48000,
+  "frames": {
+    "Ambience": 2489344,
+    "Master": 2489344,
+    "Music": 2489344,
+    "SFX": 2489344
+  },
+  "problems": [
+    {
+      "weapon": "maul",
+      "part": "idle",
+      "rule": "idle <= own actual bed - 10dB",
+      "actual": -43.44089173902893,
+      "limit": -54.16758923349469
+    }
+  ],
+  "measurement_plane": "SFX before its actual bus gain; direct Music+Ambience captured after existing effects, actual stable gains normalized to SFX. Never Master minus SFX."
+}

@@ -1,0 +1,58 @@
+{
+  "accepted": true,
+  "same_source_epoch": true,
+  "necessary_state_equal": true,
+  "installed_uninstalled_idle": true,
+  "actual_public_inputs_damage_material_weapon_events_equal": {
+    "inputs": [
+      [
+        true,
+        true
+      ],
+      [
+        false,
+        false
+      ]
+    ],
+    "rows": [
+      {
+        "part": "entry_hit",
+        "health_delta": 2,
+        "damage": [
+          [
+            "melee",
+            2,
+            false,
+            "cut_1",
+            false
+          ]
+        ],
+        "confirmed": 1,
+        "weapon_material_calls": [
+          "mat_armor",
+          "melee_blade_hit"
+        ]
+      },
+      {
+        "part": "hold_hit",
+        "health_delta": 7,
+        "damage": [
+          [
+            "melee",
+            7,
+            false,
+            "dash_cut",
+            true
+          ]
+        ],
+        "confirmed": 1,
+        "weapon_material_calls": [
+          "mat_armor",
+          "melee_blade_hit_heavy"
+        ]
+      }
+    ]
+  },
+  "not_audio_byte_equality": true,
+  "scope": "Short original published module versus observation-only subclass, each one natural blade public hold/release. Not proof of five-weapon loudness."
+}
