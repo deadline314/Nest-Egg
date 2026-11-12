@@ -1,0 +1,322 @@
+{
+  "base": "dbbafd79122426fe4f85b2e6e3c32df03be8503a",
+  "command": [
+    "git",
+    "grep",
+    "-n",
+    "-F",
+    "-e",
+    "StoryRules.",
+    "dbbafd79122426fe4f85b2e6e3c32df03be8503a",
+    "--",
+    "autoload",
+    "core",
+    "data/scripts",
+    "game",
+    "ui",
+    "tests",
+    "tools"
+  ],
+  "callers": [
+    {
+      "path": "autoload/story.gd",
+      "line": 340,
+      "method": "transfer_ids",
+      "source": "var transfers := StoryRules.transfer_ids(scene)"
+    },
+    {
+      "path": "autoload/story.gd",
+      "line": 361,
+      "method": "transfer_ids",
+      "source": "for item in StoryRules.transfer_ids(_scenes.get(String(id), {})):"
+    },
+    {
+      "path": "autoload/story.gd",
+      "line": 384,
+      "method": "holds",
+      "source": "return not scene.has(\"when\") or StoryRules.holds(scene[\"when\"])"
+    },
+    {
+      "path": "autoload/story.gd",
+      "line": 399,
+      "method": "holds",
+      "source": "and StoryRules.holds(route.get(\"when\", {})) and scene_available(target) and can_transfer_for(target):"
+    },
+    {
+      "path": "autoload/story.gd",
+      "line": 421,
+      "method": "validate_transfers",
+      "source": "problems.append_array(StoryRules.validate_transfers(\"場景 %s\" % scene_id, scene))"
+    },
+    {
+      "path": "autoload/story.gd",
+      "line": 484,
+      "method": "entries",
+      "source": "for entry in StoryRules.entries(scene.get(\"steps\", [])):"
+    },
+    {
+      "path": "autoload/story.gd",
+      "line": 581,
+      "method": "entries",
+      "source": "for step: Variant in StoryRules.entries(steps):"
+    },
+    {
+      "path": "autoload/story.gd",
+      "line": 639,
+      "method": "entries",
+      "source": "for step in StoryRules.entries(target.get(\"steps\", [])):"
+    },
+    {
+      "path": "autoload/story.gd",
+      "line": 858,
+      "method": "entries",
+      "source": "for step: Dictionary in StoryRules.entries(scene.get(\"steps\", [])):"
+    },
+    {
+      "path": "autoload/story.gd",
+      "line": 908,
+      "method": "entries",
+      "source": "for step: Dictionary in StoryRules.entries(scene.get(\"steps\", [])):"
+    },
+    {
+      "path": "autoload/story.gd",
+      "line": 1348,
+      "method": "flag_names",
+      "source": "for flag: Variant in StoryRules.flag_names(flags):"
+    },
+    {
+      "path": "autoload/story.gd",
+      "line": 1353,
+      "method": "transfer_ids",
+      "source": "var transfers := StoryRules.transfer_ids(option)"
+    },
+    {
+      "path": "autoload/story.gd",
+      "line": 1399,
+      "method": "default_option",
+      "source": "var option := StoryRules.default_option(step, StoryRules.options(step, GameState.has_flag, StoryItems.owns))"
+    },
+    {
+      "path": "autoload/story.gd",
+      "line": 1399,
+      "method": "options",
+      "source": "var option := StoryRules.default_option(step, StoryRules.options(step, GameState.has_flag, StoryItems.owns))"
+    },
+    {
+      "path": "autoload/story.gd",
+      "line": 1403,
+      "method": "eligible",
+      "source": "if not _resolve_skipped_steps(step.get(\"steps\", []) if StoryRules.eligible(step, GameState.has_flag, StoryItems.owns) else step.get(\"else_steps\", []), retry):"
+    },
+    {
+      "path": "core/continuity_audit.gd",
+      "line": 36,
+      "method": "entries",
+      "source": "for entry in StoryRules.entries(scene):"
+    },
+    {
+      "path": "core/continuity_audit.gd",
+      "line": 37,
+      "method": "flag_names",
+      "source": "for flag: Variant in StoryRules.flag_names(entry.get(\"set_flags\", [])):"
+    },
+    {
+      "path": "core/continuity_audit.gd",
+      "line": 260,
+      "method": "entries",
+      "source": "for entry in StoryRules.entries(scene):"
+    },
+    {
+      "path": "core/continuity_audit.gd",
+      "line": 261,
+      "method": "flag_names",
+      "source": "for flag: Variant in StoryRules.flag_names(entry.get(\"set_flags\", [])):"
+    },
+    {
+      "path": "core/continuity_audit.gd",
+      "line": 274,
+      "method": "entries",
+      "source": "for entry in StoryRules.entries(scene.get(\"steps\", [])):"
+    },
+    {
+      "path": "core/run_flag_commit.gd",
+      "line": 29,
+      "method": "holds",
+      "source": "flags[derived] = StoryRules.holds(Story.outcomes.derived_flags[derived], facts)"
+    },
+    {
+      "path": "core/run_flag_commit.gd",
+      "line": 35,
+      "method": "holds",
+      "source": "if resumable and not Story._seen.has(scene_id) and (not scene.has(\"when\") or StoryRules.holds(scene[\"when\"], facts)):"
+    },
+    {
+      "path": "core/story_outcomes.gd",
+      "line": 80,
+      "method": "same_value",
+      "source": "return {} if StoryRules.same_value(_runtime_fact(name,provider),condition[\"equals\"]) else {\"not\":{}}"
+    },
+    {
+      "path": "core/story_outcomes.gd",
+      "line": 260,
+      "method": "holds",
+      "source": "var value := StoryRules.holds(derived_flags[name])"
+    },
+    {
+      "path": "data/scripts/npc_data.gd",
+      "line": 72,
+      "method": "custody_allows",
+      "source": "if not custody.is_empty() and not StoryRules.custody_allows(custody, custody_reader):"
+    },
+    {
+      "path": "game/cutscene/cutscene_checker.gd",
+      "line": 120,
+      "method": "validate_choice",
+      "source": "problems.append_array(StoryRules.validate_choice(where, step))"
+    },
+    {
+      "path": "game/cutscene/cutscene_player.gd",
+      "line": 921,
+      "method": "options",
+      "source": "_choice_options = StoryRules.options(step, GameState.has_flag, StoryItems.owns)"
+    },
+    {
+      "path": "game/cutscene/cutscene_player.gd",
+      "line": 963,
+      "method": "default_option",
+      "source": "var option := _choice_options[_chosen] if _chosen >= 0 else StoryRules.default_option(step, _choice_options)"
+    },
+    {
+      "path": "game/cutscene/cutscene_player.gd",
+      "line": 976,
+      "method": "eligible",
+      "source": "var key := \"steps\" if StoryRules.eligible(step, GameState.has_flag, StoryItems.owns) else \"else_steps\""
+    },
+    {
+      "path": "game/story_flag_completion.gd",
+      "line": 48,
+      "method": "transfer_ids",
+      "source": "if not cinematic and not protected and (not results is Array or not results.is_empty() or not StoryRules.transfer_ids(scene).is_empty() or not (Story._pending_transfers.get(id, []) as Array).is_empty()):"
+    },
+    {
+      "path": "game/story_flag_completion.gd",
+      "line": 116,
+      "method": "transfer_ids",
+      "source": "if scene.get(\"mode\", \"\") not in [\"animated\", \"dialogue\"] or not str(scene.get(\"then\", \"\")).is_empty() or Story.offers_choice(scene) or not StoryRules.transfer_ids(scene).is_empty() or not (Story._pending_transfers.get(id, []) as Array).is_empty():"
+    },
+    {
+      "path": "game/story_flag_completion.gd",
+      "line": 151,
+      "method": "holds",
+      "source": "flags[flag] = StoryRules.holds(Story.outcomes.derived_flags[flag], facts)"
+    },
+    {
+      "path": "game/story_result_completion.gd",
+      "line": 66,
+      "method": "eligible",
+      "source": "if not StoryRules.eligible(contract[\"option\"], GameState.has_flag, StoryItems.owns):"
+    },
+    {
+      "path": "game/story_result_completion.gd",
+      "line": 420,
+      "method": "holds",
+      "source": "next[\"flags\"][flag] = StoryRules.holds(Story.outcomes.derived_flags[flag], facts)"
+    },
+    {
+      "path": "game/story_result_completion.gd",
+      "line": 421,
+      "method": "holds",
+      "source": "if continuation != &\"\" and not StoryRules.holds(Story.outcomes.bind_context_condition((Story._scenes[String(continuation)] as Dictionary).get(\"when\", {})), facts):"
+    },
+    {
+      "path": "tests/suite/test_ch1_map.gd",
+      "line": 638,
+      "method": "entries",
+      "source": "for entry in StoryRules.entries(scene.get(\"steps\", [])):"
+    },
+    {
+      "path": "tests/suite/test_ch1_map.gd",
+      "line": 668,
+      "method": "entries",
+      "source": "for entry in StoryRules.entries(scene.get(\"steps\", [])):"
+    },
+    {
+      "path": "tests/suite/test_ch1_map.gd",
+      "line": 1110,
+      "method": "entries",
+      "source": "for entry in StoryRules.entries(copy.get(\"steps\", [])):"
+    },
+    {
+      "path": "tests/suite/test_cutscene.gd",
+      "line": 679,
+      "method": "eligible",
+      "source": "check(StoryRules.eligible({\"requires_flag\": \"test_story_route\"}, GameState.has_flag, StoryItems.owns) == entry[1], \"branch prerequisites use the same scalar truth\")"
+    },
+    {
+      "path": "tests/suite/test_cutscene.gd",
+      "line": 733,
+      "method": "eligible",
+      "source": "check(StoryRules.eligible({\"requires_item\": \"doc_crayon_drawing\"}, GameState.has_flag, StoryItems.owns), \"later story conditions inspect the existing inventory\")"
+    },
+    {
+      "path": "tests/suite/test_cutscene.gd",
+      "line": 734,
+      "method": "eligible",
+      "source": "check(not StoryRules.eligible({\"requires_item\": \"missing_item\"}, GameState.has_flag, StoryItems.owns), \"missing story items cannot satisfy a condition\")"
+    },
+    {
+      "path": "tests/suite/test_cutscene.gd",
+      "line": 817,
+      "method": "eligible",
+      "source": "check(StoryRules.eligible({\"requires_held_item\": \"ch1_data_disk\"}, GameState.has_flag, StoryItems.owns), \"custody: a held original satisfies the held condition\")"
+    },
+    {
+      "path": "tests/suite/test_cutscene.gd",
+      "line": 818,
+      "method": "eligible",
+      "source": "check(not StoryRules.eligible({\"requires_transferred_item\": \"ch1_data_disk\"}, GameState.has_flag, StoryItems.owns), \"custody: an undelivered original is not treated as handed over\")"
+    },
+    {
+      "path": "tests/suite/test_cutscene.gd",
+      "line": 819,
+      "method": "eligible",
+      "source": "check(not StoryRules.eligible({\"unless_held_item\": \"ch1_data_disk\"}, GameState.has_flag, StoryItems.owns), \"custody: unless_held blocks while the original is in hand\")"
+    },
+    {
+      "path": "tests/suite/test_cutscene.gd",
+      "line": 861,
+      "method": "eligible",
+      "source": "check(StoryRules.eligible({\"requires_transferred_item\": \"ch1_data_disk\"}, GameState.has_flag, StoryItems.owns) and StoryRules.eligible({\"requires_item\": \"ch1_data_disk\"}, GameState.has_flag, StoryItems.owns) and StoryRules.eligible({\"unless_held_item\": \"ch1_data_disk\"}, GameState.has_flag, StoryItems.owns), \"custody: story conditions now see obtained, not held, and transferred\")"
+    },
+    {
+      "path": "tests/suite/test_cutscene.gd",
+      "line": 861,
+      "method": "eligible",
+      "source": "check(StoryRules.eligible({\"requires_transferred_item\": \"ch1_data_disk\"}, GameState.has_flag, StoryItems.owns) and StoryRules.eligible({\"requires_item\": \"ch1_data_disk\"}, GameState.has_flag, StoryItems.owns) and StoryRules.eligible({\"unless_held_item\": \"ch1_data_disk\"}, GameState.has_flag, StoryItems.owns), \"custody: story conditions now see obtained, not held, and transferred\")"
+    },
+    {
+      "path": "tests/suite/test_cutscene.gd",
+      "line": 861,
+      "method": "eligible",
+      "source": "check(StoryRules.eligible({\"requires_transferred_item\": \"ch1_data_disk\"}, GameState.has_flag, StoryItems.owns) and StoryRules.eligible({\"requires_item\": \"ch1_data_disk\"}, GameState.has_flag, StoryItems.owns) and StoryRules.eligible({\"unless_held_item\": \"ch1_data_disk\"}, GameState.has_flag, StoryItems.owns), \"custody: story conditions now see obtained, not held, and transferred\")"
+    },
+    {
+      "path": "tests/suite/test_cutscene.gd",
+      "line": 888,
+      "method": "validate_transfers",
+      "source": "check(not StoryRules.validate_transfers(\"x\", {\"transfer_items\": [\"no_such_item\"]}).is_empty() and not StoryRules.validate_transfers(\"x\", {\"transfer_items\": []}).is_empty(), \"custody: unknown or empty transfer lists are reported with their location\")"
+    },
+    {
+      "path": "tests/suite/test_cutscene.gd",
+      "line": 888,
+      "method": "validate_transfers",
+      "source": "check(not StoryRules.validate_transfers(\"x\", {\"transfer_items\": [\"no_such_item\"]}).is_empty() and not StoryRules.validate_transfers(\"x\", {\"transfer_items\": []}).is_empty(), \"custody: unknown or empty transfer lists are reported with their location\")"
+    },
+    {
+      "path": "tests/suite/test_cutscene.gd",
+      "line": 890,
+      "method": "validate_choice",
+      "source": "check(Array(StoryRules.validate_choice(\"x\", bad_default)).any(func(p: String) -> bool: return p.contains(\"default\")), \"custody: a default option may not hand over an original\")"
+    }
+  ]
+}

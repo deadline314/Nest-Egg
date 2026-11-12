@@ -1,0 +1,303 @@
+{
+  "base": "dbbafd79122426fe4f85b2e6e3c32df03be8503a",
+  "method": "immutable git show/grep only; no Godot/GPU/tests/product/PM/worktree/index/commit mutation",
+  "criteria": [
+    {
+      "id": 1,
+      "acceptance": "過場選項、不同後續、選擇旗標",
+      "verdict": "正式接入與歷史真入口證據支持；條件壞資料另有已確認缺口",
+      "source": [
+        "data/npcs/ch1_egret.tres:9",
+        "tools/story/ch1_closure.py",
+        "data/story/ch1_kasa.json /scenes/ch1_t_egret_sunday_prompt/steps/4/options",
+        "game/story_result_completion.gd:40-90",
+        "game/story_result_sources.gd:64-74"
+      ],
+      "tests": [
+        "tests/suite/test_cutscene.gd:668-731",
+        "tests/suite/test_cutscene.gd:917-977",
+        "tests/probes/sunday_choice.gd"
+      ],
+      "evidence": [
+        "pm/ST/attachments/ST-9-sunday-choice/README.md:15-35",
+        "pm/ST/attachments/ST-9-sunday-choice/validation.json"
+      ],
+      "limits": "fixture不是唯一證據；週日正式入口已有拒寫/重試、返回/預設略過與冷程序接續。只授權有限原屋頂來源，不是任意選項的通用耐久承諾。"
+    },
+    {
+      "id": 2,
+      "acceptance": "旗標保存、缺漏/損毀預設回退與具體診斷",
+      "verdict": "存檔owner與既有回歸支持；不能延伸為runtime條件也已fail-closed",
+      "source": [
+        "autoload/game_state.gd:437-470",
+        "autoload/game_state.gd:477-515",
+        "autoload/story.gd:367-399",
+        "core/story_rules.gd:38-76"
+      ],
+      "tests": [
+        "tests/suite/test_cutscene.gd:739-752",
+        "tests/suite/test_story_content.gd:314-364"
+      ],
+      "evidence": [
+        "pm/ST/[ST-3]加入故事需要的對話選項旗標與演出功能.md Commit-1/2/6",
+        "pm/ST/attachments/ST-3-conditions/manifest.json"
+      ],
+      "limits": "已知宣告旗標的磁碟錯型/缺值回退有來源與file/path警告。strict條件框架的not-invalid防護沒有同等進入StoryRules.holds；未知flag/item/壞ledger的值級接線不可從schema-only修復推定完成。"
+    },
+    {
+      "id": 3,
+      "acceptance": "物件按鍵短台詞、狀態變體、已聽記錄",
+      "verdict": "正式四標籤/真NPC完成與冷讀證據支持",
+      "source": [
+        "data/npcs/ch1_label_watch.tres:8",
+        "data/npcs/ch1_label_guitar.tres:8",
+        "data/npcs/ch1_label_raincoat.tres:8",
+        "data/npcs/ch1_label_fare.tres:8",
+        "tools/level/build_ch1.py:1060-1066",
+        "game/npc/npc_actor.gd:237-320",
+        "data/scripts/npc_data.gd:53-75",
+        "data/story/ch1_kasa.json /scenes/ch1_dispatch_label_*"
+      ],
+      "tests": [
+        "tests/suite/test_cutscene.gd:753-765",
+        "tests/helpers/npc_terminal_save_checks.gd",
+        "tests/probes/story_marker_completion.gd"
+      ],
+      "evidence": [
+        "pm/ST/attachments/ST-9-npc-completion/README.md:3-21",
+        "pm/ST/attachments/ST-9-npc-completion/validation.json"
+      ],
+      "limits": "正式標籤已讀旗標、NPC次數及三份磁碟world投影先保存後通知；原始once fixture只能證框架。安排位置/前提、軟體畫面與人類自然探索分開。"
+    },
+    {
+      "id": 4,
+      "acceptance": "死亡序列：台詞/另一聲音/狀態列/記憶卡，之後縮短與可略過",
+      "verdict": "通用能力與正式資料皆存在；票內三次測試流程不能直接視作正式節奏通過",
+      "source": [
+        "autoload/story.gd:1408-1455",
+        "game/level/level.gd:1028-1035",
+        "game/level/level.gd:1296-1326",
+        "tools/story/ch1_runtime_backend.py:88-102",
+        "data/story/ch1_kasa.json /death_sequences",
+        "design/13-story-v2/STORY_FEATURES.md:45-61",
+        "design/13-story-v2/SCRIPT_CH01.md:794-796"
+      ],
+      "tests": [
+        "tests/fixtures/story_features.json:4-13",
+        "tests/suite/test_cutscene.gd:766-780",
+        "tests/suite/test_death_flow.gd"
+      ],
+      "evidence": [
+        "pm/ST/[ST-3]加入故事需要的對話選項旗標與演出功能.md Commit-1",
+        "pm/ST/attachments/ST-9-clinic-results/README.md:3-7"
+      ],
+      "limits": "fixture門檻1/2/3，正式作者與三章重用門檻1/3/5；真首次死亡走診間不經一般DeathScreen。舊SCRIPT設計與票內測試流程寫第二次縮短/第三次略過，現行作者只寫首個電話亭死亡完整版、之後縮短/再後略過，未找到明示第五次理由。本審查不改節奏、不判定序列崩潰。"
+    },
+    {
+      "id": 5,
+      "acceptance": "故事道具可入背包並被後續劇情檢查",
+      "verdict": "框架與正式灰布/資料盤/回執等入口支持；茶杯測試指示已非現行道具流程",
+      "source": [
+        "autoload/story_items.gd",
+        "core/story_rules.gd:5-30",
+        "data/story/ch1_kasa.json /scenes/ch1_t_clinic_cloth_take/results",
+        "data/story/ch1_kasa.json /scenes/ch1_t_handoff_*",
+        "game/story_result_clinic.gd"
+      ],
+      "tests": [
+        "tests/suite/test_cutscene.gd:732-734",
+        "tests/suite/test_collectibles.gd:197-222",
+        "tests/probes/clinic_completion.gd:23-82",
+        "tests/probes/clinic_original.gd:53-95"
+      ],
+      "evidence": [
+        "pm/ST/attachments/ST-3-custody/manifest.json",
+        "pm/ST/attachments/ST-9-clinic-results/README.md:32-65"
+      ],
+      "limits": "正式杯/托盤是演出道具，當前選擇取得灰布且茶不取走；不能稱原測試流程第4步「茶杯進道具欄」已照字面驗證。廣義驗收項目5不指定茶杯。"
+    },
+    {
+      "id": 6,
+      "acceptance": "以上由資料描述、新增內容不需改程式",
+      "verdict": "通用schema可資料化；正式耐久結果僅有限已登記來源，不能照字面泛稱任意新內容零程式",
+      "source": [
+        "design/13-story-v2/STORY_FEATURES.md",
+        "design/20-campaign-experience/CH1_STORY_RUNTIME.md",
+        "tools/story/ch1_runtime_backend.py:3-11",
+        "game/story_result_sources.gd:1-90",
+        "game/story_result_completion.gd:2-3",
+        "game/story_result_completion.gd:38-66"
+      ],
+      "tests": [
+        "tools/story/test_completion_policies.py",
+        "tests/probes/story_contract_audit.gd",
+        "tests/suite/test_cutscene.gd:917-977"
+      ],
+      "evidence": [
+        "pm/ST/attachments/ST-3-conditions/manifest.json formal_scene_wired=false",
+        "pm/ST/attachments/ST-3-result-plan/manifest.json",
+        "pm/ST/attachments/ST-3-silent-install/manifest.json formal_scene_installed=false",
+        "design/20-campaign-experience/TERMINAL_STORY_RESULTS.md:40-56"
+      ],
+      "limits": "choices/branches/death/items可新增資料；但新正式耐久producer要擴充有限來源與契約。目前不是通用atomic_v1。不能為滿足此句放寬來源授權，也不能把歷史framework packet當正式完整接線。"
+    },
+    {
+      "id": 7,
+      "acceptance": "既有功能不回歸、完整測試全通過",
+      "verdict": "接受並保留歷史原結果；本只讀審查未取得dbb全套新執行證據，也未重跑",
+      "source": [
+        "tools/run_tests_changed.sh",
+        "tools/run_tests_parallel.sh",
+        "tests/known_failures.txt"
+      ],
+      "tests": [
+        "tests/suite/test_cutscene.gd",
+        "tests/suite/test_death_reactions.gd",
+        "tests/suite/test_collectibles.gd",
+        "tests/suite/test_run_save.gd"
+      ],
+      "evidence": [
+        "ST-3票Commit-1完整45286/0、Commit-2完整45317/0",
+        "pm/ST/attachments/ST-3-custody/manifest.json 9005/0",
+        "pm/ST/attachments/ST-3-silent-install/manifest.json 41891/0",
+        "pm/ST/attachments/ST-9-terminal-results/validation.json 65524/0",
+        "pm/ST/attachments/ST-9-npc-completion/validation.json 63403/0",
+        "pm/ST/attachments/ST-9-clinic-results/validation.json"
+      ],
+      "limits": "歷史baseline、範圍與已封存失敗維持原記錄；不把新source/入口反例、較晚資料配置或本次source inspection冒充同一完整套件已重跑。未修改assertions/filter/known。"
+    },
+    {
+      "id": 8,
+      "acceptance": "廣播接續/重播/重設首句立即持續可見",
+      "verdict": "當前同一生命週期修復仍在，原始紅綠/畫面範圍有可驗packet",
+      "source": [
+        "ui/dialogue_layer.gd:42",
+        "ui/dialogue_layer.gd:172",
+        "ui/dialogue_layer.gd:228-266"
+      ],
+      "tests": [
+        "tests/suite/test_death_reactions.gd:317-385"
+      ],
+      "evidence": [
+        "pm/ST/attachments/ST-3-radio-verification.json",
+        "design/20-campaign-experience/RADIO_LIFECYCLE.md"
+      ],
+      "limits": "現有退場Tween在_next_radio與cancel前kill；原真Story/DialogueLayer一般與減少動態、next/reset/replay 18影格回歸保留。原packet154/4紅→154/0綠、原選取180/0；84ms修前與99ms修後捕捉不當成同一時間。舊版native GPU證據非本次新GPU測試、非全關卡真人遊玩。"
+    },
+    {
+      "id": 9,
+      "acceptance": "取得史/現持有分開；已交原件不因重播/死亡/續玩復生；未完成可取消",
+      "verdict": "服務/框架生命週期及正式交接櫃冷讀各有真證據；不可合併宣稱完整自然流程",
+      "source": [
+        "autoload/story_items.gd",
+        "core/story_rules.gd:5-30",
+        "autoload/story.gd:332-363",
+        "game/story_result_completion.gd",
+        "data/story/ch1_kasa.json /scenes/ch1_t_handoff_accept/results"
+      ],
+      "tests": [
+        "tests/suite/test_cutscene.gd:798-903",
+        "tests/suite/test_collectibles.gd:197-222",
+        "tests/probes/handoff_completion.gd:33-52",
+        "tests/probes/handoff_completion.gd:65-144"
+      ],
+      "evidence": [
+        "pm/ST/attachments/ST-3-custody/manifest.json formal_story_verified=false",
+        "pm/ST/attachments/ST-9-terminal-results/README.md:3-11",
+        "pm/ST/attachments/ST-9-clinic-results/README.md:50"
+      ],
+      "limits": "cutscene fixture驗取消/選交未播完/安全預設/完成轉交/重播拒絕/JSON往返；Collectibles驗register_death、checkpoint清除及真Level重建不復生。正式Main交盤/取回執/摘要有原主檔及獨立冷讀；其前提是公開服務安排持盤/金額/位置，未找到同一packet自然取得盤→正式交付→真致死→冷續玩全串，不能代稱已跑。"
+    }
+  ],
+  "confirmed_source_counterexamples": [
+    {
+      "input": {
+        "not": {
+          "unknown": true
+        }
+      },
+      "source_trace": "StoryRules.holds:54-55 -> child unknown at64 returns false -> not false=true",
+      "observed_kind": "deterministic source trace; not a fresh native execution"
+    },
+    {
+      "input": {
+        "any": [
+          {},
+          {
+            "unknown": true
+          }
+        ]
+      },
+      "source_trace": "StoryRules.holds:45-52 first child true returns before visiting invalid second child",
+      "observed_kind": "deterministic source trace; not existing published JSON corruption"
+    }
+  ],
+  "schema_differences": [
+    {
+      "topic": "legacy外層",
+      "runtime": "eligible: requires_flag/unless_flag/requires_item(取得史) + requires_held/unless_held/requires_transferred；ID先str→StringName；flag_reader使用八種scalar truth",
+      "strict": "不是when tree schema，strict evaluate拒絕requires_item這類op",
+      "guard": "不要把legacy外層欄位直接當strict when或改其owns/held語義"
+    },
+    {
+      "topic": "when形狀",
+      "runtime": "空物件true；all/any/not/flag/item/receipt/account；同時多op/額外key依分支先後接受；沒有budget",
+      "strict": "exact keys；深16/節點256/children32；ID<=64、String<=256、finite scalar<=999999999",
+      "guard": "共享結構驗證可修未知op/形狀/bounds；需保留合法API相容與全分支invalid傳遞"
+    },
+    {
+      "topic": "flag葉",
+      "runtime": "equals可省略預設true；same_value null可等false/空字串/0/unset；int/float數值比；String/StringName按str",
+      "strict": "equals必需；宣告facts存在才合法；數值可相等但bool不與數字混同；StringName非strict scalar",
+      "guard": "正式三章沒有缺equals，API相容仍應明示；不得把未知事實任意補false再在not下放行"
+    },
+    {
+      "topic": "布林樹",
+      "runtime": "短路；invalid與false混為bool；not({unknown:true})會成true",
+      "strict": "validate+evaluate valid/value/error；每支走完驗事實；invalid不被not或其他分支蓋掉",
+      "guard": "schema-only gate不等於完整值級ledger/facts接線"
+    },
+    {
+      "topic": "receipt/account",
+      "runtime": "reader回bool/String；account_state忽略account參數；false/status投影不能獨立區分未存在與壞/locked",
+      "strict": "receipt葉僅第一章7ID；account僅ch1_lounge與合法6子集；ledger需locked、當前descriptor指紋/delta/依賴證明；descriptor表可包含後章交易",
+      "guard": "不能只拿live ledger覆蓋proposed candidate。現行正式三章receipt葉只用ch1 IDs，不代表API永遠只有七種"
+    },
+    {
+      "topic": "候選快照",
+      "runtime": "run_flag_commit29/35、StoryFlagCompletion151、StoryResultCompletion420/421以Callable讀候選flags/held/ledger",
+      "strict": "evaluate需顯式facts/context投影",
+      "guard": "新adapter必須保留reader候選語義、runtime/context已宣告預設，不要無條件回live服務"
+    }
+  ],
+  "source_sha256": {
+    "core/story_rules.gd": "a8de6bc1cab6f4aa14203ff207f1d06d480c6cf62350bf810c094cf4b66a9879",
+    "core/story_condition_tree.gd": "94612bd3e4a4e1d2828e56313290f1a66c952e097367fe3912356d0496131e75",
+    "autoload/story.gd": "6fdbe81aba2cbd86493a8c90c5acf102805f5d75a1203cda8614b107a43271e3",
+    "autoload/game_state.gd": "f27963b5951415ba59f81a18eadac8752a111a674c34a57e34836a25e94a28f3",
+    "autoload/story_items.gd": "f14631475f8f8b21c4c7efb89ecdf623341b8e73f3cb3e345dfbd95ba4ef999a",
+    "core/story_outcomes.gd": "60e268389b607dd2d5d26ba643f4cdeb196ab299f31abff012361b79a16f7843",
+    "core/run_flag_commit.gd": "c13d28fa57d9f44ff36dfb33c10a412c02594bba770378e3e41b6341289741a6",
+    "core/story_result_plan.gd": "006dbf02a8893b243eebb621d739d4074767a244d73e3d0e55e9503f4d896d8d",
+    "game/story_flag_completion.gd": "6fa83e40855c3005e136c6324206d49321786287c69a912e82ccdc073d156cb3",
+    "game/story_result_completion.gd": "220ea022db13daf01e1d3bf91c0dc9fd8a27bfac6001505dd23fb1553de84d35",
+    "game/story_result_sources.gd": "8ea021d197c8b6c36ee9ec7b28fce6225d93ea37f66fb4f3efce73841805b855",
+    "ui/dialogue_layer.gd": "85680e1db1f82524b5aa7e1f2930c8074e1ca1fa9aa27a8aa01757a8fa1bb7ff",
+    "data/scripts/npc_data.gd": "64021b6d4ca9e3abd9a4718f9f25a2426938460af1d46468e7c7c3a2851df40a",
+    "game/npc/npc_actor.gd": "d44729928180b1d366a371730fd5f841d3df20275d4b164368a99e42b7fd7d73",
+    "game/level/level.gd": "106a73d29d0ad97e13f95c375668825d5c9e38990471fd58456a48ef5c2a02a1",
+    "tools/story/ch1_runtime_backend.py": "13e8ea447ea49a507cbab85aaaeb6ea2c821968272316eb285279539804e0c6c",
+    "data/story/ch1_kasa.json": "ff6bb036f11fe5a777153d0ebc253759ac86fa37677c5089c96048ae45f23ef5",
+    "data/story/ch2_heron.json": "57390b672d601fce5b23da3f77974140423e64ab9a9d43747105caf46249a684",
+    "data/story/ch3_clearwater.json": "ea2ce29797472ed50f918062f5cd9da80aed51c9e9fa677f02b5b54a35f5365b",
+    "tests/suite/test_story_content.gd": "ae69cba462c7376fcaa191cb4a508cb2beb608fa931060b60e1936490116b3b5",
+    "tests/suite/test_cutscene.gd": "54b013dcd705c39f69ae2757d7433b6794e2192626d6d6d018b18acbf6d5b8cb",
+    "tests/suite/test_collectibles.gd": "42928295868e877e8bcf097726afb46ba6d630a6d9d61c69e1d26f34ed05f8a0",
+    "tests/suite/test_death_reactions.gd": "a5ede137fa9ec0405a54e2a70b0660b9915088980e24f585a8e44ab5bff51f94"
+  },
+  "callers_file": "storyrules-callers.json",
+  "packet_checks_file": "packet-checks.json",
+  "new_engine_runs": 0,
+  "pm_changed": false,
+  "product_changed": false
+}

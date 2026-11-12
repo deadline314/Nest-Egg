@@ -5,6 +5,7 @@ extends RefCounted
 ## 物品條件分三種：requires_item 看「本輪曾取得」；requires_held_item／unless_held_item 看「目前手上有原件」；
 ## requires_transferred_item 看「原件已交出」。交出後歷史仍在，所以回顧與交付後的回訪要用後兩種。
 const CUSTODY_KEYS: Array[String] = ["requires_held_item", "unless_held_item", "requires_transferred_item"]
+const CONDITION_OPERATORS: Array[String] = ["all", "any", "not"]
 
 
 static func eligible(entry: Dictionary, flag_reader: Callable, item_reader: Callable, custody_reader: Callable = Callable()) -> bool:
@@ -31,28 +32,124 @@ static func custody_allows(entry: Dictionary, custody_reader: Callable = Callabl
 	return true
 
 
-## 條件樹（格式見 StoryConditionTree.validate）：all／any／not、{flag, equals}、{item}（目前手上有原件）、
-## {receipt, status}（正式交易已記錄）、{account, equals}（餐帳狀態）。空物件代表沒有前置條件。
+## 執行期條件樹：all／any／not、{flag, equals}、{item}（目前手上有原件）、
+## {receipt, status}、{account, equals}。保留 flag 省略 equals=true 與原 facts reader；
+## 不套用純 StoryConditionTree 的第一章帳務 ID／facts 快照政策。空物件代表沒有前置條件。
 ## facts(kind, id) 回傳事實：kind 為 &"flag"／&"held"／&"receipt"／&"account"；未提供時讀 Story（正式遊戲）。
-## 格式錯誤一律視為不成立，載入時由 Story.validate 指出位置。
-static func holds(condition: Variant, facts: Callable = Callable()) -> bool:
-	if not condition is Dictionary:
+## equals 的字面值不接受 null；facts 回傳 null 仍沿用 same_value 的預設值比較。
+## 先完整驗一次結構才求值；not／短路分支不能把壞條件變成成功。
+static func holds(condition: Variant, facts: Callable = Callable(), where: String = "$") -> bool:
+	var problem := condition_error(condition, where)
+	if not problem.is_empty():
+		push_error("[StoryRules] " + problem)
 		return false
-	var raw: Dictionary = condition
+	return _holds_valid(condition, facts if facts.is_valid() else Story.fact)
+
+
+## 純結構檢查，不讀取任何事實。沿用共用條件樹的有界限制，但保留執行期葉節點契約。
+static func condition_error(condition: Variant, where: String = "$") -> String:
+	var problem := _condition_problem(condition, 1, [0])
+	return (where.left(256) + problem).left(512) if not problem.is_empty() else ""
+
+
+static func _condition_problem(raw: Variant, depth: int, budget: Array[int]) -> String:
+	budget[0] += 1
+	if depth > StoryConditionTree.MAX_DEPTH or budget[0] > StoryConditionTree.MAX_NODES:
+		return ": 條件深度或節點數超過上限（含循環引用）"
+	if not raw is Dictionary:
+		return ": 條件必須是物件"
+	if raw.is_empty():
+		return ""
+	for op in CONDITION_OPERATORS:
+		if not raw.has(op):
+			continue
+		if raw.size() != 1:
+			return _extra_condition_key(raw, op) + ": 條件不能混用運算或含額外欄位"
+		if op == "not":
+			var problem := _condition_problem(raw[op], depth + 1, budget)
+			return ".not" + problem if not problem.is_empty() else ""
+		var children: Variant = raw[op]
+		if not children is Array or children.is_empty() or children.size() > StoryConditionTree.MAX_CHILDREN:
+			return "." + op + ": 子條件必須是 1 到 %d 項的清單" % StoryConditionTree.MAX_CHILDREN
+		for i in children.size():
+			var problem := _condition_problem(children[i], depth + 1, budget)
+			if not problem.is_empty():
+				return ".%s[%d]" % [op, i] + problem
+		return ""
+	var op := ""
+	if raw.has("flag"):
+		op = "flag"
+	elif raw.has("item"):
+		op = "item"
+	elif raw.has("receipt"):
+		op = "receipt"
+	elif raw.has("account"):
+		op = "account"
+	if op.is_empty():
+		return _extra_condition_key(raw, "") + ": 未知條件運算"
+	var companion := "status" if op == "receipt" else ("equals" if op != "item" else "")
+	var expected_size := 1 + int(not companion.is_empty() and raw.has(companion))
+	if raw.size() != expected_size:
+		return _extra_condition_key(raw, op, companion) + ": 條件含額外欄位"
+	if not _condition_id(raw[op]):
+		return "." + op + ": 條件名稱必須是有效的非空文字 ID"
+	if op == "flag":
+		if raw.has("equals") and not _condition_scalar(raw["equals"]):
+			return ".equals: 旗標比較值必須是有界的布林、文字或有限數字"
+	elif op == "receipt":
+		if not raw.has("status") or not (raw["status"] is String or raw["status"] is StringName) or String(raw["status"]) != "recorded":
+			return ".status: 收據條件只接受 recorded"
+	elif op == "account":
+		if not raw.has("equals") or not (raw["equals"] is String or raw["equals"] is StringName) or String(raw["equals"]).is_empty() or String(raw["equals"]).length() > StoryConditionTree.MAX_TEXT_LENGTH:
+			return ".equals: 帳務比較值必須是有界的非空文字"
+	return ""
+
+
+static func _extra_condition_key(raw: Dictionary, op: String, companion: String = "") -> String:
+	for key: Variant in raw:
+		if not (key is String or key is StringName):
+			return "[非文字鍵]"
+		if String(key) != op and String(key) != companion:
+			return "." + String(key).left(64)
+	return ""
+
+
+static func _condition_id(raw: Variant) -> bool:
+	if not (raw is String or raw is StringName):
+		return false
+	var text := String(raw)
+	if text.is_empty() or text.length() > StoryConditionTree.MAX_ID_LENGTH:
+		return false
+	for i in text.length():
+		var code := text.unicode_at(i)
+		var letter := code >= 97 and code <= 122
+		if (i == 0 and not letter) or (not letter and not (code >= 48 and code <= 57) and code != 95 and code != 46):
+			return false
+	return true
+
+
+static func _condition_scalar(raw: Variant) -> bool:
+	if raw is bool:
+		return true
+	if raw is String or raw is StringName:
+		return String(raw).length() <= StoryConditionTree.MAX_TEXT_LENGTH
+	return (raw is int or raw is float) and is_finite(float(raw)) and absf(float(raw)) <= StoryConditionTree.MAX_NUMBER
+
+
+static func _holds_valid(raw: Dictionary, reader: Callable) -> bool:
 	if raw.is_empty():
 		return true
-	var reader := facts if facts.is_valid() else Story.fact
 	if raw.has("all") or raw.has("any"):
 		var all := raw.has("all")
 		var children: Variant = raw["all"] if all else raw["any"]
 		if not children is Array or (children as Array).is_empty():
 			return false
 		for child: Variant in children:
-			if holds(child, reader) != all:
+			if _holds_valid(child, reader) != all:
 				return not all
 		return all
 	if raw.has("not"):
-		return raw["not"] is Dictionary and not (raw["not"] as Dictionary).is_empty() and not holds(raw["not"], reader)
+		return not _holds_valid(raw["not"], reader)
 	if raw.has("flag"):
 		return same_value(reader.call(&"flag", StringName(str(raw["flag"]))), raw.get("equals", true))
 	if raw.has("item"):

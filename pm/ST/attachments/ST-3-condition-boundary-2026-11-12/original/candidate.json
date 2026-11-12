@@ -1,0 +1,52 @@
+{
+  "base": "f80d0d9fe30732981d0d657e4ba3a983c820f427",
+  "branch": "codex/st3-condition-boundary-20261112",
+  "files": {
+    "core/story_rules.gd": {
+      "candidate_sha256": "a6b7ef1a481d4af8ecf55eada98bd8d6586dca6b8c04e6f36a27441299b954a6",
+      "candidate_bytes": 12177,
+      "base_sha256": "a8de6bc1cab6f4aa14203ff207f1d06d480c6cf62350bf810c094cf4b66a9879",
+      "line_endings": "LF"
+    },
+    "tests/suite/test_cutscene.gd": {
+      "candidate_sha256": "0087cc20c984c91027a6778ed1888c9dc03316c0e1f97ac983a0a26b0c488d7c",
+      "candidate_bytes": 62628,
+      "base_sha256": "54b013dcd705c39f69ae2757d7433b6794e2192626d6d6d018b18acbf6d5b8cb",
+      "line_endings": "LF"
+    }
+  },
+  "selector": {
+    "count": 22,
+    "groups": [
+      "AudioSuite",
+      "Chapter1MapSuite",
+      "Chapter2StorySuite",
+      "Chapter2Suite",
+      "Chapter3StorySuite",
+      "ChapterCutscenesSuite",
+      "ContinuitySuite",
+      "CutsceneSuite",
+      "DeathReactionSuite",
+      "EncounterSuite",
+      "EnvironmentSuite",
+      "FxMeleePickupsSuite",
+      "FxUpgradesSuite",
+      "InputFeelSuite",
+      "LayerOrderSuite",
+      "MeleeSuite",
+      "MeleeWeaponsSuite",
+      "ProtagonistMotionSuite",
+      "RunSaveSuite",
+      "SoundStageSuite",
+      "SupplySuite",
+      "UiScreensSuite"
+    ],
+    "argv": [
+      "python",
+      "tools/select_tests.py",
+      "--base",
+      "f80d0d9fe30732981d0d657e4ba3a983c820f427"
+    ]
+  },
+  "scope": "Structural schema preflight once per public holds, original private evaluation. Runtime default equals / StringName / caller facts preserved; literal equals:null is invalid. Not a complete strict facts/ledger adapter."
+}

@@ -1,5 +1,13 @@
 # 純敘事條件樹契約
 
+## 2026-11-12：正式執行期的結構拒絕邊界
+
+`StoryRules.holds` 在求值之前先完整驗證條件樹的格式，沿用16層、256節點、每組32子項及既有ID／文字／數值上限。未知運算、額外鍵、錯型或超限時回false，錯誤含有界的具體欄位路徑；任何事實讀取都在整樹結構通過後進行，`not`及`any`不會把壞分支反轉或略過為成功。正常求值保留原短路次數及呼叫端提供的候選facts。
+
+執行期既有契約保留：flag省略equals代表true、StringName別名及原numeric比較仍可用，facts讀取回null時維持既有預設比較；直接把null寫成equals值仍依本設計拒絕。第二、三章的合法收據與帳務名稱由原owner供應，不限制為下方純框架的第一章七ID。
+
+下方`StoryConditionTree`仍是獨立的嚴格facts／ledger API。這次正式入口的結構保護不代表未知旗標名稱、損毀帳本與全部章節facts adapter已完成值級接線；這些責任仍須由實際producer／registry／owner驗證。新增正式耐久來源也須符合現有來源契約，不能以格式通過當成取得保存授權。
+
 此階段只交付 `core/story_condition_tree.gd` 的唯讀驗證與求值，以及既有 `StoryContentSuite` 的回歸案例。尚未接入 `StoryRules`、`Story`、選項 UI、場景前置條件、存讀檔或正式故事產生器。不是十項 production backend capabilities 的完成聲明，也不是第一章完整交付。
 
 ## 來源與既有行為

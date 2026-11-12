@@ -1,0 +1,20 @@
+{
+  "before": {
+    "core/story_rules.gd": "a8de6bc1cab6f4aa14203ff207f1d06d480c6cf62350bf810c094cf4b66a9879",
+    "tests/suite/test_cutscene.gd": "517caa353ad9f19fb51ef08349fa99939cf79059a8a08ca6d2b522871324b3c0"
+  },
+  "working_after": {
+    "core/story_rules.gd": "a6b7ef1a481d4af8ecf55eada98bd8d6586dca6b8c04e6f36a27441299b954a6",
+    "tests/suite/test_cutscene.gd": "68fa71301dea2ff4375c99c0025001277780ace67b92526f755e2baf22a40e87"
+  },
+  "canonical_after": {
+    "core/story_rules.gd": "a6b7ef1a481d4af8ecf55eada98bd8d6586dca6b8c04e6f36a27441299b954a6",
+    "tests/suite/test_cutscene.gd": "0087cc20c984c91027a6778ed1888c9dc03316c0e1f97ac983a0a26b0c488d7c"
+  },
+  "staged_sources": {
+    "tests/suite/test_cutscene.gd": "D:\\NestEggVerification\\st3-condition-boundary-20261112\\work\\st3-proof\\delivery\\source\\tests\\suite\\test_cutscene.gd"
+  },
+  "previous_count": 387,
+  "count": 388,
+  "other_test_wip_preserved": true
+}

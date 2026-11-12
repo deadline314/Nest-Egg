@@ -1,0 +1,550 @@
+{
+  "base": "dbbafd79122426fe4f85b2e6e3c32df03be8503a",
+  "historical_st3": [
+    {
+      "manifest": "pm/ST/attachments/ST-3-radio-verification.json",
+      "manifest_sha256": "fedf2b296e0a009bd3ace56d6c067419461a0f7a9f2dd1e440b28f87290386af",
+      "baseline": "3c053d316fc4da97b00887c2cbbed60b19a12334",
+      "scope": null,
+      "log_hash_checks": [
+        {
+          "path": "pm/ST/attachments/ST-3-radio-baseline-import.log",
+          "expected_repository_lf_sha256": "d00ddd96b2d6fabd61be227ff7063dcac8f80692a7a5c33616f49a7ecfa024c4",
+          "actual_published_blob_sha256": "d00ddd96b2d6fabd61be227ff7063dcac8f80692a7a5c33616f49a7ecfa024c4",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-radio-baseline-probe.log",
+          "expected_repository_lf_sha256": "8ddd6767d9c4264bdcd9c9312390c4ba4ab4a6e12cdb3a0a90470eac230a9a3a",
+          "actual_published_blob_sha256": "8ddd6767d9c4264bdcd9c9312390c4ba4ab4a6e12cdb3a0a90470eac230a9a3a",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-radio-probe.log",
+          "expected_repository_lf_sha256": "fcf04c1ec8c82c3e70967ab16470fac8ac30a38667f2bfb26a4afd0e3cfbd2fd",
+          "actual_published_blob_sha256": "fcf04c1ec8c82c3e70967ab16470fac8ac30a38667f2bfb26a4afd0e3cfbd2fd",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-radio-red-console.log",
+          "expected_repository_lf_sha256": "71afb2184d3836200e963196eb2befa7289eac86857ba733cc9c26bb53aed960",
+          "actual_published_blob_sha256": "71afb2184d3836200e963196eb2befa7289eac86857ba733cc9c26bb53aed960",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-radio-red-shard_0.log",
+          "expected_repository_lf_sha256": "ca91aa3df0ff67d0dccbdd92a7aab27b6eeed81b918fa443e22f08eeca18d223",
+          "actual_published_blob_sha256": "ca91aa3df0ff67d0dccbdd92a7aab27b6eeed81b918fa443e22f08eeca18d223",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-radio-green-console.log",
+          "expected_repository_lf_sha256": "275960541169990e62b550d7c14ab9f0c02691a2ca4b53d947fec81d05aeabe9",
+          "actual_published_blob_sha256": "275960541169990e62b550d7c14ab9f0c02691a2ca4b53d947fec81d05aeabe9",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-radio-green-shard_0.log",
+          "expected_repository_lf_sha256": "c82098b87070cfa2a52ca0b5b1ce5b1cd8847bff63d2597a4b361021b54bd918",
+          "actual_published_blob_sha256": "c82098b87070cfa2a52ca0b5b1ce5b1cd8847bff63d2597a4b361021b54bd918",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-radio-changed-console.log",
+          "expected_repository_lf_sha256": "286be69e57f637b0671892108e9e3c37b638e1ed3256347814a64c2beaa8b369",
+          "actual_published_blob_sha256": "286be69e57f637b0671892108e9e3c37b638e1ed3256347814a64c2beaa8b369",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-radio-changed-shard_0.log",
+          "expected_repository_lf_sha256": "792b83d77fadf1ebe879c8b091651cf3eaf156e52a1843b9fb34e9645d80149a",
+          "actual_published_blob_sha256": "792b83d77fadf1ebe879c8b091651cf3eaf156e52a1843b9fb34e9645d80149a",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-radio-before-forward.log",
+          "expected_repository_lf_sha256": "c41a07e670bba0aef57e47ee1f97918ec1451e32c1b03a69f52c24a30f5a03b2",
+          "actual_published_blob_sha256": "c41a07e670bba0aef57e47ee1f97918ec1451e32c1b03a69f52c24a30f5a03b2",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-radio-after-forward.log",
+          "expected_repository_lf_sha256": "b991b629bb6a542c2744c63a7c1ba54855705c3fb9ad7fc8a3c881bb1b8e2528",
+          "actual_published_blob_sha256": "b991b629bb6a542c2744c63a7c1ba54855705c3fb9ad7fc8a3c881bb1b8e2528",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-radio-before.png.json",
+          "expected_repository_lf_sha256": "b738fcc39ea2164015bfbabcd302699c5c5399d14cbd5ac6e0dc14dc3d5de989",
+          "actual_published_blob_sha256": "b738fcc39ea2164015bfbabcd302699c5c5399d14cbd5ac6e0dc14dc3d5de989",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-radio-after.png.json",
+          "expected_repository_lf_sha256": "50f9e895ba047f98d85acb68cc468540f75b04a58477007c67384b3951cd2cfe",
+          "actual_published_blob_sha256": "50f9e895ba047f98d85acb68cc468540f75b04a58477007c67384b3951cd2cfe",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-radio-radio_lifecycle_probe.gd.txt",
+          "expected_repository_lf_sha256": "b735dda0023e6e3be1aeacd96124bdcaa004a550e9eda49232976ac8d6685514",
+          "actual_published_blob_sha256": "b735dda0023e6e3be1aeacd96124bdcaa004a550e9eda49232976ac8d6685514",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-radio-radio_lifecycle_probe.tscn.txt",
+          "expected_repository_lf_sha256": "93051305927a8df0b161f0973d2a52eff299371e98468262257156f1d3e37c15",
+          "actual_published_blob_sha256": "93051305927a8df0b161f0973d2a52eff299371e98468262257156f1d3e37c15",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-radio-latest-import.log",
+          "expected_repository_lf_sha256": "502eed53a413f1a05693443d85fb1250b74ff10d13eadbc4c107c1f8a037ca31",
+          "actual_published_blob_sha256": "502eed53a413f1a05693443d85fb1250b74ff10d13eadbc4c107c1f8a037ca31",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-radio-latest-changed-console.log",
+          "expected_repository_lf_sha256": "b4b9e4d2e411811c72bb71873f8b31303ef497cd8cdfc6bb81d49d2a5cb778df",
+          "actual_published_blob_sha256": "b4b9e4d2e411811c72bb71873f8b31303ef497cd8cdfc6bb81d49d2a5cb778df",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-radio-latest-changed-shard_0.log",
+          "expected_repository_lf_sha256": "445c026fac45aa3cb06fa167486326764265daa58e0433c093f57bd502123ffb",
+          "actual_published_blob_sha256": "445c026fac45aa3cb06fa167486326764265daa58e0433c093f57bd502123ffb",
+          "match": true
+        }
+      ]
+    },
+    {
+      "manifest": "pm/ST/attachments/ST-3-custody/manifest.json",
+      "manifest_sha256": "634dfcf772ecd4c76c40aeea6fc922dcdccbed7f4f4ff07ca226ad258586390c",
+      "baseline": "d68ddb79a041d8d76ffb076ce48fb0b38c5834ba",
+      "scope": null,
+      "log_hash_checks": [
+        {
+          "path": "pm/ST/attachments/ST-3-custody/initial-import-raw.log",
+          "expected_repository_lf_sha256": "59ad48e504d7f698bc389afe7a5ee86d406440def2581463fb9deefa4b1c8c79",
+          "actual_published_blob_sha256": "59ad48e504d7f698bc389afe7a5ee86d406440def2581463fb9deefa4b1c8c79",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-custody/initial-collectibles-raw.log",
+          "expected_repository_lf_sha256": "7b0a2f2f664ce11b23f38fabe22c8c1a5356f93494a78adade4c0a23467989af",
+          "actual_published_blob_sha256": "7b0a2f2f664ce11b23f38fabe22c8c1a5356f93494a78adade4c0a23467989af",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-custody/initial-classification.txt",
+          "expected_repository_lf_sha256": "dccbb584a49c01c7f22462fdf60f0f813ab56fe96b50f673b56dda3bdfcdd788",
+          "actual_published_blob_sha256": "dccbb584a49c01c7f22462fdf60f0f813ab56fe96b50f673b56dda3bdfcdd788",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-custody/v2-import-raw.log",
+          "expected_repository_lf_sha256": "d57a20406fef665b7bd0c3b0aac6cf731c1d2153cc41ad970ce34f2a3b2ce4cc",
+          "actual_published_blob_sha256": "d57a20406fef665b7bd0c3b0aac6cf731c1d2153cc41ad970ce34f2a3b2ce4cc",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-custody/v2-collectibles-raw.log",
+          "expected_repository_lf_sha256": "7ed61e1526da035b40be1e2cabcf47c9e99df6b275cbaf9893e2624b25d56a96",
+          "actual_published_blob_sha256": "7ed61e1526da035b40be1e2cabcf47c9e99df6b275cbaf9893e2624b25d56a96",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-custody/final-import-raw.log",
+          "expected_repository_lf_sha256": "d57a20406fef665b7bd0c3b0aac6cf731c1d2153cc41ad970ce34f2a3b2ce4cc",
+          "actual_published_blob_sha256": "d57a20406fef665b7bd0c3b0aac6cf731c1d2153cc41ad970ce34f2a3b2ce4cc",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-custody/final-collectibles-raw.log",
+          "expected_repository_lf_sha256": "e7501eb9cf89d7b0a7fd2112cb4ba355a3d2d749f50ab8ade30c72dffe73f87c",
+          "actual_published_blob_sha256": "e7501eb9cf89d7b0a7fd2112cb4ba355a3d2d749f50ab8ade30c72dffe73f87c",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-custody/final-collectibles-classification.txt",
+          "expected_repository_lf_sha256": "ee99dfd051206ef4b642a1c72c2319cb8135e74a74bfc46338df1e60885ec9bd",
+          "actual_published_blob_sha256": "ee99dfd051206ef4b642a1c72c2319cb8135e74a74bfc46338df1e60885ec9bd",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-custody/final-changed-console-raw.log",
+          "expected_repository_lf_sha256": "a843df677312160031351a88789e028e1e7a69f2e36b55b62ba6a498b7d41340",
+          "actual_published_blob_sha256": "a843df677312160031351a88789e028e1e7a69f2e36b55b62ba6a498b7d41340",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-custody/final-changed-raw.log",
+          "expected_repository_lf_sha256": "3056fa79e5c73b4abc2f61ad43c63583242a014ec6be7162cd9365154fb9d4cc",
+          "actual_published_blob_sha256": "3056fa79e5c73b4abc2f61ad43c63583242a014ec6be7162cd9365154fb9d4cc",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-custody/final-changed-classification.txt",
+          "expected_repository_lf_sha256": "687e31a6bec6d5f26513c7602a35da81ef2f6d270525b7af862ab185803ba41c",
+          "actual_published_blob_sha256": "687e31a6bec6d5f26513c7602a35da81ef2f6d270525b7af862ab185803ba41c",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-custody/result.json",
+          "expected_repository_lf_sha256": "d828038d74555ea147041e3d7b867e4a9635c787f683576d46bc6073a2691bc5",
+          "actual_published_blob_sha256": "d828038d74555ea147041e3d7b867e4a9635c787f683576d46bc6073a2691bc5",
+          "match": true
+        }
+      ]
+    },
+    {
+      "manifest": "pm/ST/attachments/ST-3-conditions/manifest.json",
+      "manifest_sha256": "26de256293122c5e78ef88683d8283f827a272e3f0e0af578e6cb76f1b19014a",
+      "baseline": "ea48f8c6ed1911b5266694a5b3543a9cfc4fcb0b",
+      "scope": null,
+      "log_hash_checks": [
+        {
+          "path": "pm/ST/attachments/ST-3-conditions/initial-runtime-failure-raw.log",
+          "expected_repository_lf_sha256": "b99792ad4d5b531b90881113d8389dc1f52badcc06f7b35d9ccb3e47a8b69e33",
+          "actual_published_blob_sha256": "b99792ad4d5b531b90881113d8389dc1f52badcc06f7b35d9ccb3e47a8b69e33",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-conditions/initial-console-raw.log",
+          "expected_repository_lf_sha256": "ad43cb8c62be324cd929eded949238b869b9837ef6100da8f9dca113b162e20b",
+          "actual_published_blob_sha256": "ad43cb8c62be324cd929eded949238b869b9837ef6100da8f9dca113b162e20b",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-conditions/repaired-import-raw.log",
+          "expected_repository_lf_sha256": "d57a20406fef665b7bd0c3b0aac6cf731c1d2153cc41ad970ce34f2a3b2ce4cc",
+          "actual_published_blob_sha256": "d57a20406fef665b7bd0c3b0aac6cf731c1d2153cc41ad970ce34f2a3b2ce4cc",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-conditions/repaired-runtime-raw.log",
+          "expected_repository_lf_sha256": "5647715f3b8a6517316f01b6aa62694b967c023201dd705e959d879abd677e60",
+          "actual_published_blob_sha256": "5647715f3b8a6517316f01b6aa62694b967c023201dd705e959d879abd677e60",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-conditions/repaired-console-raw.log",
+          "expected_repository_lf_sha256": "0439feb79e1d6469bbeaf4fa018ab9c2c429d4dd4a90dfc7e3359f751d58237e",
+          "actual_published_blob_sha256": "0439feb79e1d6469bbeaf4fa018ab9c2c429d4dd4a90dfc7e3359f751d58237e",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-conditions/latest-import-raw.log",
+          "expected_repository_lf_sha256": "a8c3204bdb86c52f6312f6fcee811578367db53e1a7e159837f01ab8a6b5e893",
+          "actual_published_blob_sha256": "a8c3204bdb86c52f6312f6fcee811578367db53e1a7e159837f01ab8a6b5e893",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-conditions/latest-integration-raw.log",
+          "expected_repository_lf_sha256": "433ce84ca4dfbfc91d9b6bedbe1cb392a00a964b777b36f777d1dfa4a7fe8434",
+          "actual_published_blob_sha256": "433ce84ca4dfbfc91d9b6bedbe1cb392a00a964b777b36f777d1dfa4a7fe8434",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-conditions/latest-integration-console-raw.log",
+          "expected_repository_lf_sha256": "539de431295bd4786f686a2ead994be746818d18e4199dcf8dc604d65f49339b",
+          "actual_published_blob_sha256": "539de431295bd4786f686a2ead994be746818d18e4199dcf8dc604d65f49339b",
+          "match": true
+        }
+      ]
+    },
+    {
+      "manifest": "pm/ST/attachments/ST-3-result-plan/manifest.json",
+      "manifest_sha256": "b2506907b75cfc20a5ebdec3ab7e400ea063aad17c6686e54fa559628c186473",
+      "baseline": "109f2ea30ac68244e69ae1f0e387fe224a9939f1",
+      "scope": null,
+      "log_hash_checks": [
+        {
+          "path": "pm/ST/attachments/ST-3-result-plan/import-raw.log",
+          "expected_repository_lf_sha256": "c94dc9a65ca97a0e01b5c4659763fcbbbbca554d490f91c14d4be4e8afff96fd",
+          "actual_published_blob_sha256": "c94dc9a65ca97a0e01b5c4659763fcbbbbca554d490f91c14d4be4e8afff96fd",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-result-plan/target-console-raw.log",
+          "expected_repository_lf_sha256": "544254f0dad0805be8c4a8e8708a023bb6613008139999ea5c04da958decf7a3",
+          "actual_published_blob_sha256": "544254f0dad0805be8c4a8e8708a023bb6613008139999ea5c04da958decf7a3",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-result-plan/target-raw.log",
+          "expected_repository_lf_sha256": "b991fc15d18ac35dc524b6993c975cfedfd0538843c8c6028c46995b6bdabed3",
+          "actual_published_blob_sha256": "b991fc15d18ac35dc524b6993c975cfedfd0538843c8c6028c46995b6bdabed3",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-result-plan/changed-console-raw.log",
+          "expected_repository_lf_sha256": "ae70e4d79dd9834b7b842909ee8ba170d065bbdb156837d0b966dbc576035c01",
+          "actual_published_blob_sha256": "ae70e4d79dd9834b7b842909ee8ba170d065bbdb156837d0b966dbc576035c01",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-result-plan/changed-raw.log",
+          "expected_repository_lf_sha256": "b991fc15d18ac35dc524b6993c975cfedfd0538843c8c6028c46995b6bdabed3",
+          "actual_published_blob_sha256": "b991fc15d18ac35dc524b6993c975cfedfd0538843c8c6028c46995b6bdabed3",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-result-plan/import-exit.txt",
+          "expected_repository_lf_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "actual_published_blob_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-result-plan/target-exit.txt",
+          "expected_repository_lf_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "actual_published_blob_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-result-plan/changed-exit.txt",
+          "expected_repository_lf_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "actual_published_blob_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "match": true
+        }
+      ]
+    },
+    {
+      "manifest": "pm/ST/attachments/ST-3-silent-install/manifest.json",
+      "manifest_sha256": "a06c3ffeb57fd962f62bf6c512f2e999fe312476fbf88ce61d643aae6a7b9534",
+      "baseline": "951f3add2981bd69c04609a21b87fa8d42139597",
+      "scope": null,
+      "log_hash_checks": [
+        {
+          "path": "pm/ST/attachments/ST-3-silent-install/import-raw.log",
+          "expected_repository_lf_sha256": "0fd4b48035db07b2def539104150a10f0ca88abfa36aed44f4dd41c69c37f64c",
+          "actual_published_blob_sha256": "0fd4b48035db07b2def539104150a10f0ca88abfa36aed44f4dd41c69c37f64c",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-silent-install/target-console-raw.log",
+          "expected_repository_lf_sha256": "a443a6d4860d3e06d3c676b74ae29c0d5b2d127413a2be1fa032ac7b87c35980",
+          "actual_published_blob_sha256": "a443a6d4860d3e06d3c676b74ae29c0d5b2d127413a2be1fa032ac7b87c35980",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-silent-install/target-raw.log",
+          "expected_repository_lf_sha256": "2d1d689124b6c39fde0c5b0d970b2a134b356c91fb0061d1ce9e26206a325092",
+          "actual_published_blob_sha256": "2d1d689124b6c39fde0c5b0d970b2a134b356c91fb0061d1ce9e26206a325092",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-silent-install/changed-console-raw.log",
+          "expected_repository_lf_sha256": "0e762a38b71c1441a9ced814c04bccae35e805f55af1b083a85a033b6a61cbeb",
+          "actual_published_blob_sha256": "0e762a38b71c1441a9ced814c04bccae35e805f55af1b083a85a033b6a61cbeb",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-silent-install/changed-raw.log",
+          "expected_repository_lf_sha256": "6bb20195716c6fd43955070cf75d10dbbc10092ed7b0232ad50e9ddf2534bfa0",
+          "actual_published_blob_sha256": "6bb20195716c6fd43955070cf75d10dbbc10092ed7b0232ad50e9ddf2534bfa0",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-silent-install/import-exit.txt",
+          "expected_repository_lf_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "actual_published_blob_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-silent-install/target-exit.txt",
+          "expected_repository_lf_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "actual_published_blob_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-silent-install/changed-exit.txt",
+          "expected_repository_lf_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "actual_published_blob_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-silent-install/import-444-raw.log",
+          "expected_repository_lf_sha256": "c42ab9b74a0533ad63636690735f98edc1fff54b742581d70d9a1f007bff4884",
+          "actual_published_blob_sha256": "c42ab9b74a0533ad63636690735f98edc1fff54b742581d70d9a1f007bff4884",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-silent-install/import-444-exit.txt",
+          "expected_repository_lf_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "actual_published_blob_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-silent-install/integration-444-console-raw.log",
+          "expected_repository_lf_sha256": "391ba8f5cd69e8da22f06a4a15e279d0193b2c6e5157b1db943f81c8bd1a9eac",
+          "actual_published_blob_sha256": "391ba8f5cd69e8da22f06a4a15e279d0193b2c6e5157b1db943f81c8bd1a9eac",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-silent-install/integration-444-raw.log",
+          "expected_repository_lf_sha256": "7fa9b6832bb757a0c448d5dd4761ed0575181290e0a734e7105d81ccb166d359",
+          "actual_published_blob_sha256": "7fa9b6832bb757a0c448d5dd4761ed0575181290e0a734e7105d81ccb166d359",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-silent-install/integration-444-exit.txt",
+          "expected_repository_lf_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "actual_published_blob_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "match": true
+        }
+      ]
+    },
+    {
+      "manifest": "pm/ST/attachments/ST-3-durable-write/manifest.json",
+      "manifest_sha256": "56d14cdf4982715f21e9c845980466b3e5378d137b9e46f3aa969ce8125bee28",
+      "baseline": "29d45a8ee95e2cd8da864a8116bf9ccf47ec1d38",
+      "scope": "additive prepared existing-run disk writer; Main/world/production story capability not enabled",
+      "log_hash_checks": [
+        {
+          "path": "pm/ST/attachments/ST-3-durable-write/changed-final-console.log",
+          "expected_repository_lf_sha256": "f192bfc0e315f98d42a1081d44b29ae0bf9733b4666500b726fea41dbfd098cb",
+          "actual_published_blob_sha256": "f192bfc0e315f98d42a1081d44b29ae0bf9733b4666500b726fea41dbfd098cb",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-durable-write/changed-final.exit",
+          "expected_repository_lf_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+          "actual_published_blob_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-durable-write/changed-final.log",
+          "expected_repository_lf_sha256": "1629170deef0066ea7cf9a2aa662dcd515aee6efedeed4af904f6cd4053e2cf9",
+          "actual_published_blob_sha256": "1629170deef0066ea7cf9a2aa662dcd515aee6efedeed4af904f6cd4053e2cf9",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-durable-write/process-alias-primary_backup-fresh-read.exit",
+          "expected_repository_lf_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+          "actual_published_blob_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-durable-write/process-alias-primary_backup-fresh-read.log",
+          "expected_repository_lf_sha256": "a7a7f444a5d276041a23bc2dcae38139db987650733380cc2afdb306a962714d",
+          "actual_published_blob_sha256": "a7a7f444a5d276041a23bc2dcae38139db987650733380cc2afdb306a962714d",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-durable-write/process-alias-tmp_backup-fresh-read.exit",
+          "expected_repository_lf_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+          "actual_published_blob_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-durable-write/process-alias-tmp_backup-fresh-read.log",
+          "expected_repository_lf_sha256": "c2c19bc1fecac29b586e3c74d83d27a66ba0519a5bc585bee72c9fc940571847",
+          "actual_published_blob_sha256": "c2c19bc1fecac29b586e3c74d83d27a66ba0519a5bc585bee72c9fc940571847",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-durable-write/process-alias-tmp_external-fresh-read.exit",
+          "expected_repository_lf_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+          "actual_published_blob_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-durable-write/process-alias-tmp_external-fresh-read.log",
+          "expected_repository_lf_sha256": "c2c19bc1fecac29b586e3c74d83d27a66ba0519a5bc585bee72c9fc940571847",
+          "actual_published_blob_sha256": "c2c19bc1fecac29b586e3c74d83d27a66ba0519a5bc585bee72c9fc940571847",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-durable-write/process-alias-tmp_primary-fresh-read.exit",
+          "expected_repository_lf_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+          "actual_published_blob_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-durable-write/process-alias-tmp_primary-fresh-read.log",
+          "expected_repository_lf_sha256": "c2c19bc1fecac29b586e3c74d83d27a66ba0519a5bc585bee72c9fc940571847",
+          "actual_published_blob_sha256": "c2c19bc1fecac29b586e3c74d83d27a66ba0519a5bc585bee72c9fc940571847",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-durable-write/process-alias-tmp_primary_open_fail-fresh-read.exit",
+          "expected_repository_lf_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+          "actual_published_blob_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-durable-write/process-alias-tmp_primary_open_fail-fresh-read.log",
+          "expected_repository_lf_sha256": "a7a7f444a5d276041a23bc2dcae38139db987650733380cc2afdb306a962714d",
+          "actual_published_blob_sha256": "a7a7f444a5d276041a23bc2dcae38139db987650733380cc2afdb306a962714d",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-durable-write/process-hardlink-backup_removed-fresh-read.exit",
+          "expected_repository_lf_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+          "actual_published_blob_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-durable-write/process-hardlink-backup_removed-fresh-read.log",
+          "expected_repository_lf_sha256": "a7a7f444a5d276041a23bc2dcae38139db987650733380cc2afdb306a962714d",
+          "actual_published_blob_sha256": "a7a7f444a5d276041a23bc2dcae38139db987650733380cc2afdb306a962714d",
+          "match": true
+        },
+        {
+          "path": "pm/ST/attachments/ST-3-durable-write/process-hardlink-primary_committed-fresh-read.exit",
+          "expected_repository_lf_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+          "actual_published_blob_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+          "match": true
+        }
+      ]
+    }
+  ],
+  "formal_followups": [
+    {
+      "validation": "pm/ST/attachments/ST-9-terminal-results/validation.json",
+      "validation_sha256": "8c3b805b6d1a7c28434b40812b7a3cbaee1070d806f97175683abba8304b24cd",
+      "base": "ddbb6248dc4b469e5286108ae421aa1effb0d5fe",
+      "readme": "pm/ST/attachments/ST-9-terminal-results/README.md",
+      "summary": "checks: 65524, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 501 s)",
+      "archive": "pm/ST/attachments/ST-9-terminal-results/raw.zip",
+      "recorded_archive_sha256": "a9c448b5ab6f9f1d4020f71f0aad8c3204353017a0fc60efb845c1415c08bcd3",
+      "actual_archive_sha256": "a9c448b5ab6f9f1d4020f71f0aad8c3204353017a0fc60efb845c1415c08bcd3",
+      "archive_hash_matches_recorded": true
+    },
+    {
+      "validation": "pm/ST/attachments/ST-9-npc-completion/validation.json",
+      "validation_sha256": "a6c1d306e1b363dba56350c485a586aefedd3cafd455d7b80f20e7ea1a51915c",
+      "base": "a651df03e99cf5a57a99551d2e5b82fb96ce1002",
+      "readme": "pm/ST/attachments/ST-9-npc-completion/README.md",
+      "summary": "checks: 63403, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 1187 s)",
+      "archive": "pm/ST/attachments/ST-9-npc-completion/raw.zip",
+      "recorded_archive_sha256": "7e209edca5e20d1911e36dfe1319103091852f165642f87c93d4aca869a6f47f",
+      "actual_archive_sha256": "7e209edca5e20d1911e36dfe1319103091852f165642f87c93d4aca869a6f47f",
+      "archive_hash_matches_recorded": true,
+      "recorded_archive_source": "pm/ST/attachments/ST-9-npc-completion/README.md:28"
+    },
+    {
+      "validation": "pm/ST/attachments/ST-9-sunday-choice/validation.json",
+      "validation_sha256": "95b764966c295f9d4c8486da38b2c448e705a90b3fc3c9faae59d7b1d746edfb",
+      "base": "598c2324b247c0b9a256f1697b4e37cef41da261",
+      "readme": "pm/ST/attachments/ST-9-sunday-choice/README.md",
+      "summary": null,
+      "archive": "pm/ST/attachments/ST-9-sunday-choice/evidence.zip",
+      "recorded_archive_sha256": "1119502c1b4314e796056301cd7a1640c41f2f607740c37d48fb71f151cb197d",
+      "actual_archive_sha256": "1119502c1b4314e796056301cd7a1640c41f2f607740c37d48fb71f151cb197d",
+      "archive_hash_matches_recorded": true
+    },
+    {
+      "validation": "pm/ST/attachments/ST-9-clinic-results/validation.json",
+      "validation_sha256": "d1e2807e0792a8f71f896471b17defbafeb281f1b6334a6f306a2a324fb7f9b6",
+      "base": "a276c2cb69ef762c4a91c0d344aee43dd445d090",
+      "readme": "pm/ST/attachments/ST-9-clinic-results/README.md",
+      "summary": null,
+      "archive": "pm/ST/attachments/ST-9-clinic-results/evidence.zip",
+      "recorded_archive_sha256": "d9df152c0ce18e3ae9764933b1bf844c8a0d215b2d72d560af0eac262dc12a94",
+      "actual_archive_sha256": "d9df152c0ce18e3ae9764933b1bf844c8a0d215b2d72d560af0eac262dc12a94",
+      "archive_hash_matches_recorded": true
+    }
+  ]
+}

@@ -56,6 +56,7 @@ func run() -> void:
 	await preload("res://tests/helpers/dialogue_trigger_edge_checks.gd").run(self)
 	preload("res://tests/helpers/stage_prop_state_checks.gd").run(self)
 	preload("res://tests/helpers/story_batch_preflight_checks.gd").run(self)
+	_test_story_condition_boundary()
 	await _test_story_features()
 	await _test_story_custody()
 	await _test_story_runtime()
@@ -910,6 +911,79 @@ func _test_story_custody() -> void:
 	StoryItems.restore(previous_items)
 	Story.restore_progress(previous_seen)
 	Story.auto_skip = previous_auto
+
+
+## ST-3：整樹格式在任何事實讀取之前拒絕，不讓 not／any／all 把壞分支放行。
+func _test_story_condition_boundary() -> void:
+	var calls := [0]
+	var reader := func(_kind: StringName, _id: StringName) -> Variant:
+		calls[0] += 1
+		return true
+	var previous_flags := GameState.world_flags.duplicate(true)
+	var previous_items := StoryItems.snapshot()
+	var previous_progress := Progression.snapshot()
+	var previous_seen := Story.progress_snapshot()
+	for condition: Variant in [null, true, [], {"flag": "ready", "equals": null}, {"not": {"flag": "ready", "equals": null}}, {"unknown": true}, {"not": {"unknown": true}},
+			{"any": [{}, {"unknown": true}]}, {"any": [{"flag": "ready"}, {"unknown": true}]},
+			{"all": [{"flag": "ready", "equals": false}, {"unknown": true}]},
+			{"not": {"any": []}}, {"all": {}}, {"not": []}, {"all": [{}], "extra": true},
+			{"flag": 7}, {"flag": ""}, {"flag": "bad id"}, {"flag": "ready", "equals": []},
+			{"flag": "ready", "equals": INF}, {"flag": "ready", "equals": NAN},
+			{"item": {}}, {"receipt": "ch2.settled"}, {"receipt": "ch2.settled", "status": "other"},
+			{"account": "chapter3", "equals": []}, {"item": "disk", "extra": false}]:
+		calls[0] = 0
+		check(not StoryRules.condition_error(condition).is_empty(), "condition boundary rejects malformed schema before evaluation")
+		check(not StoryRules.holds(condition, reader, "test_bad_cutscene/condition") and calls[0] == 0, "malformed branches cannot read facts or acquire eligibility")
+	check(StoryRules.condition_error({"any": [{}, {"not": {"unknown": true}}]}, "scene.when").begins_with("scene.when.any[1].not.unknown:"), "condition errors identify the exact nested field and source context")
+	check(StoryRules.holds({}, reader) and not StoryRules.holds({"not": {}}, reader), "empty condition keeps its original identity under not")
+	check(StoryRules.holds({"flag": "ready"}, reader), "omitted flag equals keeps the existing true default")
+	var missing := func(_kind: StringName, _id: StringName) -> Variant: return null
+	for expected: Variant in [false, "", 0, 0.0, "unset"]:
+		check(StoryRules.holds({"flag": "missing", "equals": expected}, missing), "missing runtime flags keep their original null/default comparison")
+	var name := func(_kind: StringName, _id: StringName) -> Variant: return &"choice"
+	check(StoryRules.holds({&"flag": &"name", &"equals": "choice"}, name), "StringName names and scalar comparison remain compatible")
+	check(StoryRules.holds({"flag": "number", "equals": 2.0}, func(_kind: StringName, _id: StringName) -> Variant: return 2), "runtime numeric comparison remains value-based")
+	check(StoryRules.holds({"receipt": "ch2.future.settled", "status": "recorded"}, reader), "runtime receipt schema is not restricted to the first chapter's seven IDs")
+	check(StoryRules.holds({"account": "chapter3", "equals": "chapter3_done"}, func(_kind: StringName, _id: StringName) -> Variant: return "chapter3_done"), "candidate account facts remain supplied by the caller")
+	var leaf := {"flag": "ready"}
+	calls[0] = 0
+	check(StoryRules.holds({"all": [leaf, leaf]}, reader) and calls[0] == 2 and leaf == {"flag": "ready"}, "shared valid children preserve both reader calls and input bytes")
+	var deep: Dictionary = {}
+	for i in 15:
+		deep = {"not": deep}
+	check(StoryRules.condition_error(deep).is_empty() and not StoryRules.condition_error({"not": deep}).is_empty(), "runtime condition depth keeps the shared 16-node limit")
+	var groups: Array = []
+	for i in 32:
+		var children: Array = []
+		for j in (7 if i < 31 else 6):
+			children.append({})
+		groups.append({"all": children})
+	check(StoryRules.condition_error({"all": groups}).is_empty(), "exactly 256 condition occurrences are accepted")
+	groups[31]["all"].append({})
+	check(not StoryRules.condition_error({"all": groups}).is_empty(), "the 257th occurrence is rejected even when every child is true")
+	var width: Array = []
+	for i in 32:
+		width.append({})
+	check(StoryRules.condition_error({"any": width}).is_empty(), "32 valid alternatives remain supported")
+	width.append({})
+	check(not StoryRules.condition_error({"any": width}).is_empty(), "a 33rd alternative is rejected before true short-circuit")
+	var cycle: Dictionary = {}
+	cycle["not"] = cycle
+	check(not StoryRules.condition_error(cycle).is_empty(), "cyclic condition is bounded and safely rejected")
+	cycle.clear()
+	var object := RefCounted.new()
+	check(not StoryRules.condition_error({object: true}).is_empty() and not StoryRules.condition_error({"flag": object}).is_empty(), "objects cannot enter condition keys or scalar names")
+	var bad := {"any": [{}, {"test_bad_cutscene_unknown": true}]}
+	Story._scenes["test_bad_cutscene_boundary_target"] = {"when": bad}
+	check(not Story.scene_available(&"test_bad_cutscene_boundary_target"), "the actual scene-availability gate rejects a hidden malformed branch")
+	Story._scenes["test_bad_cutscene_boundary_target"] = {}
+	Story._scenes["test_bad_cutscene_boundary_route"] = {"mode": "dispatch", "routes": [{"target": "test_bad_cutscene_boundary_target", "when": bad}]}
+	check(Story.resolve_dispatch(&"test_bad_cutscene_boundary_route") == &"", "the actual dispatcher cannot select a malformed true-any route")
+	var options := StoryRules.options({"options": [{"id": "bad", "when": bad}, {"id": "good"}]}, GameState.has_flag, StoryItems.owns)
+	check(options.size() == 1 and options[0]["id"] == "good" and not StoryRules.eligible({"when": bad}, GameState.has_flag, StoryItems.owns), "choice and inline-branch gates share the same fail-closed boundary")
+	Story._scenes.erase("test_bad_cutscene_boundary_target")
+	Story._scenes.erase("test_bad_cutscene_boundary_route")
+	check(GameState.world_flags == previous_flags and StoryItems.snapshot() == previous_items and Progression.snapshot() == previous_progress and Story.progress_snapshot() == previous_seen, "condition rejection leaves actual flags, custody, wallet and story progress unchanged")
 
 
 ## ST-9：正式劇本的執行期契約——分派、前置條件、段尾結果與交易、交易失敗改接、選項接續、衍生旗標、
