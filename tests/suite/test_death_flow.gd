@@ -14,6 +14,7 @@ func run() -> void:
 	_test_pick_bad_data()
 	_test_validation()
 	_test_chapter_data()
+	_test_published_death_sequences()
 	await _test_first_death_flow()
 	await _test_second_death_uses_the_screen()
 	await _test_unfinished_scene_plays_again()
@@ -123,6 +124,16 @@ func _test_chapter_data() -> void:
 # 流程
 # ---------------------------------------------------------------------------
 
+func _test_published_death_sequences() -> void:
+	for chapter: StringName in [&"ch1_kasa", &"ch2_heron", &"ch3_clearwater"]:
+		var first := Story.death_sequence(chapter, 1)
+		var second := Story.death_sequence(chapter, 2)
+		var third := Story.death_sequence(chapter, 3)
+		check(second.get("min_deaths") == 2 and second.get("steps", []).size() < first.get("steps", []).size(), "%s: the second recorded death uses the shortened published sequence" % chapter)
+		check(third.get("min_deaths") == 3 and bool(third.get("skippable", false)), "%s: the third recorded death can skip the published sequence" % chapter)
+		check(Story.death_sequence(chapter, 10) == third, "%s: later deaths retain the shortest skippable sequence" % chapter)
+
+
 func _test_first_death_flow() -> void:
 	Story.auto_skip = true
 	Story.reset_progress()
@@ -170,6 +181,7 @@ func _test_second_death_uses_the_screen() -> void:
 	Story.auto_skip = true
 	Story.reset_progress()
 	GameState.start_new_run(GameState.difficulties[1])
+	GameState.register_death()
 	GameState.set_flag(SEEN_FLAG)
 	Progression.credits = 1000
 	var started: Array[StringName] = []
@@ -184,6 +196,8 @@ func _test_second_death_uses_the_screen() -> void:
 		screens = level.get_children().filter(func(n: Node) -> bool: return n is DeathScreen)
 		guard += 1
 	check(not screens.is_empty(), "a later death shows the normal death screen")
+	if not screens.is_empty():
+		check(GameState.deaths == 2 and (screens[0] as DeathScreen).sequence.get("min_deaths") == 2, "the actual second lethal hit opens the shortened published sequence")
 	check(not started.has(FIRST_DEATH_SCENE), "the clinic is not shown again")
 	check(Progression.credits < 1000, "a normal death charges the revival fee (%d)" % Progression.credits)
 	Story.scene_started.disconnect(on_started)

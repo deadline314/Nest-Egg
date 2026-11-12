@@ -85,7 +85,7 @@ CHAPTER_EXTRA = {
     "teaser": "下一步：明早核對交盤回執，再去市集查那張缺的附件。",
     "release_note": "進度已保存。",
 }
-# 一般死亡的畫面序列（第一次死亡走初次建檔，不經過死亡畫面，所以完整版出現在第一次在電話亭醒來）：
+# 一般死亡依本輪累計次數選序列；初次建檔已計入第一次死亡，之後首次回電話亭就用第二次的簡化版。
 # 錄音的「再來一次，沒關係」→ 一個呼吸後燈說「歡迎回來」→ 狀態列 → 記憶卡；之後縮短，再之後可略過。
 DEATH_SEQUENCES = [
     {"min_deaths": 1, "skippable": False, "steps": [
@@ -93,11 +93,11 @@ DEATH_SEQUENCES = [
         {"kind": "line", "speaker": "lamp", "text": "歡迎回來，你又回到亭子了。", "time": 1.8},
         {"kind": "status", "text": "復原完成，復原費已從身上的信用點扣除。", "time": 1.6},
         {"kind": "card", "time": 2.4}]},
-    {"min_deaths": 3, "skippable": False, "steps": [
+    {"min_deaths": 2, "skippable": False, "steps": [
         {"kind": "line", "speaker": "lamp", "text": "歡迎回來，路線還接著。", "time": 1.2},
         {"kind": "status", "text": "復原完成，復原費已結算。", "time": 1.0},
         {"kind": "card", "time": 1.2}]},
-    {"min_deaths": 5, "skippable": True, "steps": [
+    {"min_deaths": 3, "skippable": True, "steps": [
         {"kind": "line", "speaker": "lamp", "text": "你知道流程的，我們再走一次。", "time": 0.9},
         {"kind": "card", "time": 0.8}]},
 ]

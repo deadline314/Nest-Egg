@@ -1,0 +1,20 @@
+{
+  "base": "2fa7bde15a08d0744d968c796ed9c5c4bf614015",
+  "archive": {
+    "file": "proof-raw.zip",
+    "bytes": 24612687,
+    "sha256": "80a0d6088266f89c490bd9873a992be53d86e020d1e69d00249b054e299d11a3",
+    "members": 101
+  },
+  "candidate": {
+    "tools/story/ch1_runtime_backend.py": "d5f00f10d1421b2be0aa4490442da725b876c7332aa5331d4271e3b236076d71",
+    "data/story/ch1_kasa.json": "641b6bc4f51c27681241230184853e0d0d3735ebd289640f61c0ff46d0c954af",
+    "data/story/ch2_heron.json": "019c0e63ede80b69325c667d3678b9ca71bc357f625a20e1cfcd98dfcb54bf44",
+    "data/story/ch3_clearwater.json": "0ad1147190e05d3e1c4e4beb7e4645bdedb3cea3803b415f6ec0fe3f15e3746f",
+    "tests/suite/test_death_flow.gd": "d7a8d6b08989f2a0cefb077a882a61732b50cd98ab3fda0ef7c6f7bd01508cbc",
+    "design/13-story-v2/STORY_FEATURES.md": "fe4e9d4d0c950ce403db24ec9dcaf7f2f3bd631baae94b8d2425694045c8ea05"
+  },
+  "native_epoch": "native-02",
+  "diagnostic_native_epoch": "native-01",
+  "classification": "native-01 preserves correctly recorded entrance-noise/radio overlap; accepted images are native-02 after normal startup and transition waits. Neither epoch is a full restoration timing or physical input test."
+}
