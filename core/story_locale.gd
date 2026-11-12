@@ -10,7 +10,7 @@ const SOURCE_LANGUAGE := "zh"
 const FALLBACK := "en"
 ## 玩家看得到的欄位（和產生器的 VISIBLE_FIELDS 一致）。
 const VISIBLE_FIELDS: PackedStringArray = ["text", "explanation", "title", "subtitle", "end_title", "teaser", "release_note",
-		"end_card", "background", "reward", "blocked_reason", "suggestion", "prompt"]
+		"end_card", "background", "reward", "blocked_reason", "suggestion", "prompt", "sub"]
 ## 不是玩家看的子樹（條件、旗標、舞台參數）。
 const SKIP_KEYS: PackedStringArray = ["when", "set_flags", "results", "routes", "flag_defaults", "derived_flags", "transactions",
 		"runtime_facts", "speakers", "stages"]
@@ -80,17 +80,19 @@ static func _localize_node(node: Variant, path: String, language: String, missin
 		var dict := node as Dictionary
 		for key: Variant in dict.keys():
 			var name := str(key)
-			if SKIP_KEYS.has(name):
+			if SKIP_KEYS.has(name) or name.ends_with("_ja") or name.ends_with("_en"):
 				continue
 			var value: Variant = dict[key]
 			if VISIBLE_FIELDS.has(name) and value is String and _is_source_text(value):
-				var wanted := str(dict.get(field_key(name, language), ""))
-				if wanted.strip_edges().is_empty():
-					var fallback := str(dict.get(field_key(name, FALLBACK), "")) if language != FALLBACK else ""
-					missing.append("%s/%s（%s%s）" % [path, name, language, "，改用英文" if not fallback.is_empty() else "，保留中文"])
-					wanted = fallback
-				if not wanted.strip_edges().is_empty():
+				var wanted := _choose_translation(dict, name, language, "%s/%s" % [path, name], missing)
+				if not wanted.is_empty():
 					dict[key] = wanted
+			elif name == "lines" and dict.get("do") == "narrate" and value is Array:
+				for index in value.size():
+					if value[index] is String and _is_source_text(value[index]):
+						var wanted := _choose_translation(dict, name, language, "%s/lines/%d" % [path, index], missing, index)
+						if not wanted.is_empty():
+							value[index] = wanted
 			elif value is Dictionary or value is Array:
 				_localize_node(value, "%s/%s" % [path, name], language, missing)
 	elif node is Array:
@@ -105,13 +107,19 @@ static func _audit_node(node: Variant, path: String, missing: PackedStringArray)
 		var dict := node as Dictionary
 		for key: Variant in dict.keys():
 			var name := str(key)
-			if SKIP_KEYS.has(name):
+			if SKIP_KEYS.has(name) or name.ends_with("_ja") or name.ends_with("_en"):
 				continue
 			var value: Variant = dict[key]
 			if VISIBLE_FIELDS.has(name) and value is String and _is_source_text(value):
 				for language in ["ja", "en"]:
-					if str(dict.get(field_key(name, language), "")).strip_edges().is_empty():
+					if _translation(dict, name, language).is_empty():
 						missing.append("%s/%s（缺%s）" % [path, name, "日文" if language == "ja" else "英文"])
+			elif name == "lines" and dict.get("do") == "narrate" and value is Array:
+				for index in value.size():
+					if value[index] is String and _is_source_text(value[index]):
+						for language in ["ja", "en"]:
+							if _translation(dict, name, language, index).is_empty():
+								missing.append("%s/lines/%d（缺%s）" % [path, index, "日文" if language == "ja" else "英文"])
 			elif value is Dictionary or value is Array:
 				_audit_node(value, "%s/%s" % [path, name], missing)
 	elif node is Array:
@@ -119,6 +127,24 @@ static func _audit_node(node: Variant, path: String, missing: PackedStringArray)
 		for index in list.size():
 			if list[index] is Dictionary or list[index] is Array:
 				_audit_node(list[index], "%s/%d" % [path, index], missing)
+
+
+## narrate.lines 的譯文沿用欄位後綴，必須是同長陣列；每個位置只接受非空字串。
+static func _translation(dict: Dictionary, field: String, language: String, index := -1) -> String:
+	var value: Variant = dict.get(field_key(field, language))
+	if index >= 0:
+		if not value is Array or value.size() != dict[field].size():
+			return ""
+		value = value[index]
+	return value if value is String and not value.strip_edges().is_empty() else ""
+
+
+static func _choose_translation(dict: Dictionary, field: String, language: String, path: String, missing: PackedStringArray, index := -1) -> String:
+	var wanted := _translation(dict, field, language, index)
+	if wanted.is_empty():
+		wanted = _translation(dict, field, FALLBACK, index) if language != FALLBACK else ""
+		missing.append("%s（%s%s）" % [path, language, "，改用英文" if not wanted.is_empty() else "，保留中文"])
+	return wanted
 
 
 ## 有中日文字（中文原文）的欄位才需要譯文；純符號、數字或已是英文的欄位不算。

@@ -7992,7 +7992,13 @@
      "lines": [
       "沉港市的下層港區，雨沒有停過，水位每晚都在漲。"
      ],
-     "time": 2.4
+     "time": 2.4,
+     "lines_ja": [
+      "沈港市の下層の港湾区では、雨が降りやまず、水位は毎晩上がり続けている。"
+     ],
+     "lines_en": [
+      "In Sinkport's lower docks, the rain never stops, and the water rises every night."
+     ]
     },
     {
      "do": "title",
@@ -8001,7 +8007,9 @@
      "time": 1.8,
      "color": "#35e0ff",
      "ja": "序章　雨の中の灯",
-     "en": "Prologue: The Lamp in the Rain"
+     "en": "Prologue: The Lamp in the Rain",
+     "sub_ja": "巣卵質店",
+     "sub_en": "Nest Egg Pawnshop"
     },
     {
      "do": "scene",
@@ -8074,7 +8082,7 @@
      "do": "say",
      "speaker": "old_k",
      "text": "先把鞋擦乾。巢蛋當舖收貨，不收你一路踩進來的水。",
-     "ja": "まず靴を拭きな。巢蛋当舗は品物を預かる店だ。ここまで踏み込んできた水は預からんぞ。",
+     "ja": "まず靴を拭きな。巣卵質店は品物を預かる店だ。ここまで踏み込んできた水は預からんぞ。",
      "en": "Dry your shoes first. The Nest Egg pawnshop takes in goods, not the water you've tracked in all the way."
     },
     {

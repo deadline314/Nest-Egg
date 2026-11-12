@@ -27,6 +27,7 @@ func run() -> void:
 	_test_items_pass()
 	_test_story_validation_integration()
 	_test_locale()
+	_test_locale_narration()
 
 
 ## ST-2：三語欄位。選了日文就換成日文；缺日文退回英文，再缺退回中文，並記下位置；宣告三語的章節會列出缺譯。
@@ -55,6 +56,56 @@ func _test_locale() -> void:
 	check(Story.set_language("en") and str(Story.chapter_info(&"ch1_kasa").get("title", "")) != title_zh, "switching to English reloads the chapter in English")
 	check(str(Story._speakers.get("rin", {}).get("name", "")) == "Rin" and str(Story._speakers.get("lamp", {}).get("name", "")) == "Wick", "speaker nameplates switch language too")
 	check(Story.set_language("zh") and str(Story.chapter_info(&"ch1_kasa").get("title", "")) == title_zh and str(Story._speakers["rin"]["name"]) == "凜", "switching back restores the Chinese text")
+
+
+func _test_locale_narration() -> void:
+	var data := {"scenes": {"opening": {"steps": [
+		{"do": "narrate", "lines": ["雨沒有停過。", "只有英文的一句。", "沒有譯文的一句。", 17, {"id": "中文代碼"}],
+			"lines_ja": ["雨は降り続いていた。", " ", {"bad": true}, 17, {"id": "中文代碼"}],
+			"lines_en": ["The rain never stopped.", "Only English here.", "", 17, {"id": "中文代碼"}]},
+		{"do": "title", "sub": "巢蛋當舖", "sub_ja": {"bad": true}, "sub_en": "Nest Egg Pawnshop"},
+		{"do": "title", "sub": "保留中文副標", "sub_ja": 12, "sub_en": ["bad"]},
+		{"do": "flags", "lines": ["中文代碼"]}],
+		"when": {"text": "中文條件"}, "set_flags": ["中文旗標"]}}}
+	var audit := StoryLocale.audit(data)
+	check(audit.size() == 6 and audit.has("/scenes/opening/steps/0/lines/1（缺日文）") and audit.has("/scenes/opening/steps/1/sub（缺日文）"), "narration and subtitle audit validates types at their exact source paths: %s" % [audit])
+	check(StoryLocale.report("res://data/story/fixture.json", audit, "缺譯").contains("res://data/story/fixture.json"), "missing narration reports retain their source file")
+	var ja: Dictionary = data.duplicate(true)
+	var missing := StoryLocale.localize(ja, "ja")
+	var steps: Array = ja["scenes"]["opening"]["steps"]
+	check(steps[0]["lines"].slice(0, 3) == ["雨は降り続いていた。", "Only English here.", "沒有譯文的一句。"], "narration localizes each string with Japanese, English, then Chinese fallback")
+	check(steps[0]["lines"].slice(3) == [17, {"id": "中文代碼"}] and steps[3]["lines"] == ["中文代碼"], "mixed narration values and non-narration string arrays remain intact")
+	check(steps[1]["sub"] == "Nest Egg Pawnshop" and steps[2]["sub"] == "保留中文副標", "subtitle rejects non-string translations and falls back safely")
+	check(missing.size() == 4 and missing.has("/scenes/opening/steps/0/lines/1（ja，改用英文）") and missing.has("/scenes/opening/steps/0/lines/2（ja，保留中文）") and missing.has("/scenes/opening/steps/1/sub（ja，改用英文）"), "each narration/subtitle fallback records the precise path and chosen language: %s" % [missing])
+	check(ja["scenes"]["opening"]["when"] == data["scenes"]["opening"]["when"] and ja["scenes"]["opening"]["set_flags"] == ["中文旗標"], "narration localization preserves conditions and flags")
+	for bad: Variant in ["wrong container", [], ["wrong length"]]:
+		var malformed := {"scenes": {"opening": {"steps": [{"do": "narrate", "lines": ["原文一。", "原文二。"], "lines_ja": bad, "lines_en": bad}]}}}
+		var bad_missing := StoryLocale.localize(malformed, "ja")
+		check(malformed["scenes"]["opening"]["steps"][0]["lines"] == ["原文一。", "原文二。"] and bad_missing.size() == 2 and bad_missing[1].begins_with("/scenes/opening/steps/0/lines/1"), "wrong narration container/length preserves both source strings and reports each index: %s" % [bad])
+	# 真序章與語言切換：同時保留 seen-only、completed 與世界旗標。
+	var seen_before := Story._seen.duplicate(true)
+	var completed_before := Story._completed.duplicate(true)
+	var flags_before := GameState.world_flags.duplicate(true)
+	Story._completed.erase(&"ch1_p02_talk")
+	Story._seen[&"ch1_p02_talk"] = true
+	Story._seen[&"ch1_p01_door"] = true
+	Story._completed[&"ch1_p01_door"] = true
+	GameState.world_flags["test_locale_progress"] = 7
+	var expected_seen := Story._seen.duplicate(true)
+	var expected_completed := Story._completed.duplicate(true)
+	var expected_flags := GameState.world_flags.duplicate(true)
+	var narration := {"zh": "沉港市的下層港區，雨沒有停過，水位每晚都在漲。", "ja": "沈港市の下層の港湾区では、雨が降りやまず、水位は毎晩上がり続けている。", "en": "In Sinkport's lower docks, the rain never stops, and the water rises every night."}
+	var subtitles := {"zh": "巢蛋當舖", "ja": "巣卵質店", "en": "Nest Egg Pawnshop"}
+	for language: String in ["ja", "en", "zh"]:
+		check(Story.set_language(language), "the prologue supports %s" % language)
+		var opening: Array = Story._scenes["ch1_p01_door"]["steps"]
+		check(opening[1]["lines"][0] == narration[language] and opening[2]["sub"] == subtitles[language], "real prologue narration and subtitle display %s" % language)
+		if language == "ja":
+			check(str(opening[11]["text"]).contains(subtitles["ja"]), "the Japanese prologue subtitle and Old K dialogue use the same pawnshop name")
+		check(Story._seen == expected_seen and Story._completed == expected_completed and GameState.world_flags == expected_flags, "switching to %s preserves seen/completed/world_flags snapshots" % language)
+	Story._seen.assign(seen_before)
+	Story._completed.assign(completed_before)
+	GameState.world_flags = flags_before
 
 
 # ---------------------------------------------------------------------------

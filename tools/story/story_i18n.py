@@ -3,6 +3,7 @@
 
 規則（遊戲端見 core/story_locale.gd）：
 - 「text」的譯文放在同一個字典的 ja／en；其他可見欄位 K（選項的 explanation 等）放在 K_ja／K_en。
+- narrate.lines 的字串依原索引放在同長 lines_ja／lines_en 陣列；每個位置獨立檢查譯文型別。
 - 對照表以中文原文為鍵：原文改了就視為缺譯，產生器列出具體場景與位置，遊戲退回英文，再退回中文。
 - 雙關句在對照表標 "transcreate": true，輸出時保留標記（三種語言各自重寫，不逐字翻）。
 - 對照表格式：{"<中文>": {"ja": "...", "en": "...", "transcreate": true?, "note": "給譯者的說明（不輸出）"}}
@@ -22,7 +23,7 @@ ROOT = Path(__file__).resolve().parents[2]
 TABLE_DIR = ROOT / "tools/story/i18n"
 LANGUAGES = ("ja", "en")
 # 劇本裡玩家看得到的文字欄位（場景台詞、旁白、選項、選擇提示、章節資訊、任務）。
-VISIBLE_FIELDS = ("text", "explanation", "title", "subtitle", "end_title", "teaser", "release_note", "end_card", "background", "reward",
+VISIBLE_FIELDS = ("text", "explanation", "title", "subtitle", "sub", "end_title", "teaser", "release_note", "end_card", "background", "reward",
                   "blocked_reason", "suggestion", "prompt")
 # 這些子樹不是玩家看的文字（舞台參數、條件、旗標）。
 SKIP_KEYS = {"when", "set_flags", "results", "routes", "flag_defaults", "derived_flags", "transactions", "runtime_facts",
@@ -49,16 +50,46 @@ def _localized_key(field: str, lang: str) -> str:
     return lang if field == "text" else f"{field}_{lang}"
 
 
+def _translation(owner, field, lang):
+    """Only nonblank strings count; narration uses (lines, index) field references."""
+    if isinstance(field, tuple):
+        name, index = field
+        values = owner.get(_localized_key(name, lang))
+        if not isinstance(values, list) or len(values) != len(owner[name]):
+            return ""
+        value = values[index]
+    else:
+        value = owner.get(_localized_key(field, lang))
+    return value if isinstance(value, str) and value.strip() else ""
+
+
+def _set_translation(owner, field, lang, text):
+    if isinstance(field, tuple):
+        name, index = field
+        key = _localized_key(name, lang)
+        values = owner.get(key)
+        if not isinstance(values, list) or len(values) != len(owner[name]):
+            values = ["" if isinstance(value, str) and _has_cjk(value) else value for value in owner[name]]
+            owner[key] = values
+        values[index] = text
+    else:
+        owner[_localized_key(field, lang)] = text
+
+
 def walk(node, path="", out=None):
-    """列出 (路徑, 字典, 欄位, 中文) — 每一個玩家看得到、還是中文的欄位。"""
+    """列出 (路徑, 字典, 欄位或 (lines, 索引), 中文)，僅包含可見來源，不掃譯文 metadata。"""
     if out is None:
         out = []
     if isinstance(node, dict):
         for key, value in node.items():
-            if key in SKIP_KEYS:
+            if key in SKIP_KEYS or key.endswith(("_ja", "_en")):
                 continue
             if key in VISIBLE_FIELDS and isinstance(value, str) and value.strip() and _has_cjk(value):
                 out.append((f"{path}/{key}", node, key, value))
+            elif key == "lines" and node.get("do") == "narrate" and isinstance(value, list):
+                for index, text in enumerate(value):
+                    if isinstance(text, str) and _has_cjk(text):
+                        out.append((f"{path}/lines/{index}", node, ("lines", index), text))
             elif isinstance(value, (dict, list)):
                 walk(value, f"{path}/{key}", out)
     elif isinstance(node, list):
@@ -93,12 +124,11 @@ def apply(document: dict, table: dict) -> list[str]:
     for path, owner, field, zh in walk(document):
         entry = table.get(zh, {})
         for lang in LANGUAGES:
-            key = _localized_key(field, lang)
-            if owner.get(key):
+            if _translation(owner, field, lang):
                 continue
             text = entry.get(lang, "")
             if isinstance(text, str) and text.strip():
-                owner[key] = text
+                _set_translation(owner, field, lang, text)
             else:
                 missing.append(f"{path} [{lang}] {zh}")
         if entry.get("transcreate") and field == "text":
@@ -112,8 +142,8 @@ def missing_strings(document: dict, table: dict) -> list[str]:
         if zh in seen:
             continue
         entry = table.get(zh, {})
-        key = (lambda lang: f"name_{lang}") if field == "name" else (lambda lang: _localized_key(field, lang))
-        if all(owner.get(key(lang)) or entry.get(lang) for lang in LANGUAGES):
+        if all(_translation(owner, field, lang) or
+               (isinstance(entry.get(lang), str) and entry[lang].strip()) for lang in LANGUAGES):
             continue
         seen.append(zh)
     return seen

@@ -1,0 +1,50 @@
+{
+  "base": "4a2f9ecfaf3d98db102e79b37420821f714549ca",
+  "branch": "codex/st2-localization-fix-20261112",
+  "tree": "D:\\NestEggVerification\\st2-localization-fix-20261112",
+  "patch_sha256": "1248be2f2ff8a58c790842221bce4739fe11e9b824828e7e98e739e1f6a30650",
+  "files": [
+    {
+      "path": "core/story_locale.gd",
+      "absolute_path": "D:\\NestEggVerification\\st2-localization-fix-20261112\\core\\story_locale.gd",
+      "before_sha256": "bb757c9b36c37c31f1a937ea4ab411972553e5e2e93556d30fc7936c4e020d76",
+      "after_sha256": "2fecf62aaa240f4b9e6b518f90fd8f83ac88631c4616885b97eb6615be8e67d2"
+    },
+    {
+      "path": "data/story/ch1_kasa.json",
+      "absolute_path": "D:\\NestEggVerification\\st2-localization-fix-20261112\\data\\story\\ch1_kasa.json",
+      "before_sha256": "ff6bb036f11fe5a777153d0ebc253759ac86fa37677c5089c96048ae45f23ef5",
+      "after_sha256": "080413bd31db971639dd3756488f6c15fc58067ee25a3125751f31331fd0df73"
+    },
+    {
+      "path": "design/13-story-v2/DIALOGUE_READABILITY.md",
+      "absolute_path": "D:\\NestEggVerification\\st2-localization-fix-20261112\\design\\13-story-v2\\DIALOGUE_READABILITY.md",
+      "before_sha256": "deca3d3e81870f1c68c53e68559cce242693ebabe0efed02703efb10799d57c8",
+      "after_sha256": "9c36618dde4bb5c69c30eed0b57008eaee920ba0ebe620d94dad193d990e7270"
+    },
+    {
+      "path": "tests/suite/test_story_lint.gd",
+      "absolute_path": "D:\\NestEggVerification\\st2-localization-fix-20261112\\tests\\suite\\test_story_lint.gd",
+      "before_sha256": "13c339a2383a04cd7e39d7fde793d532cf90a81b556ac285d15990cb8c3adc4b",
+      "after_sha256": "5fffc94e449a56f47e2545166c3ee61f2271938e3889ac32caa8042aafa4b55a"
+    },
+    {
+      "path": "tools/story/i18n/ch1_kasa.json",
+      "absolute_path": "D:\\NestEggVerification\\st2-localization-fix-20261112\\tools\\story\\i18n\\ch1_kasa.json",
+      "before_sha256": "d9142cd883569913c859c91739e0a31f98c5926042b022e53dd09d7a67e9f072",
+      "after_sha256": "ae42ee6443c8646fd157781cf491c075901619160a90b70e4a480bf599d595a7"
+    },
+    {
+      "path": "tools/story/story_i18n.py",
+      "absolute_path": "D:\\NestEggVerification\\st2-localization-fix-20261112\\tools\\story\\story_i18n.py",
+      "before_sha256": "36ddcc4debfb69a6361749956c28b59167d7e4a221b0f985136ef1aebf7b9ee8",
+      "after_sha256": "19591f4379ad7d3ae596c0eaad723e05718923328be7498e5fcdb832120425a2"
+    },
+    {
+      "path": "tools/story/test_story_i18n.py",
+      "absolute_path": "D:\\NestEggVerification\\st2-localization-fix-20261112\\tools\\story\\test_story_i18n.py",
+      "before_sha256": null,
+      "after_sha256": "ad2009da48fe73d782abc36b14a81cb15138a6509991d5be40c9ade5070d02e7"
+    }
+  ]
+}
