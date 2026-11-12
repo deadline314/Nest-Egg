@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="StoryItemData" load_steps=2 format=3]
+[ext_resource type="Script" path="res://data/scripts/story_item_data.gd" id="1"]
+[resource]
+script = ExtResource("1")
+id = &"ch2_patrol_copy"
+display_name = "測試副本"
+description = "只用於隔離資料契約驗收。"
+category = 0
+order = 290
+chapter = &"ch2_heron"
+body = "非正式故事內容。"
+trigger = 3
+icon = "doc_stub"

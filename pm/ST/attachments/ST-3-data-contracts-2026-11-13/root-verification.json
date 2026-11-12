@@ -1,0 +1,13 @@
+{
+  "command": "python -X utf8 pm/ST/attachments/ST-3-data-contracts-2026-11-13/original/verify_delivery.py",
+  "exit_code": 0,
+  "actual_command_completed": true,
+  "stdout_sha256": "a6cb36bfca874294df41a59fe771d6bcebc71b68290cfb7f7790ba0f4ef6e98a",
+  "stderr_bytes": 0,
+  "primary_guard_count": 449,
+  "primary_guard_sha256": "abeaa7ceacd287321faadec55b0be3bc14d980ec9c9f2b446b6ff701cbf5089e",
+  "portable_reader_relocated_to_public_packet": true,
+  "scope": "Read-only original archive replay, not a new engine or native run. Primary NPC physical test WIP retained; staged test uses exact tested canonical source.",
+  "artifact_whitespace_scope": "Original candidate.diff is a unified-diff artifact: context prefix spaces before tabs and blank context lines are retained byte-exact; only that archived artifact disables whitespace lint. Product source checks remain enabled.",
+  "initial_diff_check": "Refused only archived candidate.diff context prefixes; original bytes and first lint log retained privately."
+}

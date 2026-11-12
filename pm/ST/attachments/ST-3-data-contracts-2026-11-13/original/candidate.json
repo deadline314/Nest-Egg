@@ -1,0 +1,211 @@
+{
+  "base": "f25d9b8a05c0e0fc83c58e69f20cd229c3922048",
+  "files": {
+    ".github/workflows/tests.yml": {
+      "bytes": 14799,
+      "sha256": "7d5637e1204eb0a75fe46891d803d76e9c381ae897eedb4f06e2d47d1d5f504f"
+    },
+    "autoload/story.gd": {
+      "bytes": 66228,
+      "sha256": "bbef24654f123296bb130538fe3d7ffedf0ac0fb3cb767e991d4ccb4df0f214b"
+    },
+    "core/story_result_catalog.gd": {
+      "bytes": 27881,
+      "sha256": "62ea8ae1323169345b6cd41103be6ee35b6de7c58d04aec924439d90964a5aaf"
+    },
+    "core/story_result_catalog.gd.uid": {
+      "bytes": 19,
+      "sha256": "5f760a68ff01931a7241a156d35e27d1855718949dddbd1a68ed3b821eb492f1"
+    },
+    "data/story_contracts/catalog.json": {
+      "bytes": 270,
+      "sha256": "0798b3a76452b04397e0d115f7f5f05227fd8c47f37019f143b3ee6a6a22c371"
+    },
+    "data/story_contracts/ch1.json": {
+      "bytes": 24792,
+      "sha256": "9d9145c158e17767f93338d62fdb2b35c80c8cd69b6384a27aca7f6918a389b2"
+    },
+    "data/story_contracts/ch2.json": {
+      "bytes": 4909,
+      "sha256": "f2e7810879c04019d03193fdb63a7a660991291fd17fd6da1fa97d272e8576f2"
+    },
+    "data/story_contracts/migration-5a.json": {
+      "bytes": 141463,
+      "sha256": "e86b82e0a7e5d9f6988290cb7b61eb55f7459849901771d6bc95848acf93a8c8"
+    },
+    "game/story_result_ch2.gd": {
+      "bytes": 84,
+      "sha256": "bc569026b3133d13ff84d33e95bd2afc1ff1557650fd47012f56a71d547be55a"
+    },
+    "game/story_result_completion.gd": {
+      "bytes": 32071,
+      "sha256": "92be5123c438f662eebc5ec16dbccf5367540b19a26bc2d517995b3316a6192f"
+    },
+    "game/story_result_sources.gd": {
+      "bytes": 7107,
+      "sha256": "db646534c285bc93f5d7f41b51a56a02c0c81666834d31d771440bae69877103"
+    },
+    "game/story_result_supper.gd": {
+      "bytes": 84,
+      "sha256": "6ac740eb9db754dd680ba74605f4beaad17b0221dcd96d07600744bc31e2e5a9"
+    },
+    "tests/fixtures/story_contracts_data_only/catalog.json": {
+      "bytes": 216,
+      "sha256": "5f43d9d42e4ae1bc5f8987317fabb4e9275c0bc71ae446eb2285eb6664fbd817"
+    },
+    "tests/fixtures/story_contracts_data_only/ch1.json": {
+      "bytes": 24792,
+      "sha256": "9d9145c158e17767f93338d62fdb2b35c80c8cd69b6384a27aca7f6918a389b2"
+    },
+    "tests/fixtures/story_contracts_data_only/ch2.json": {
+      "bytes": 6867,
+      "sha256": "deaef85d2ea389846aadf3890d3c97b516022a76bd4ba1635111bcf200f970a3"
+    },
+    "tests/fixtures/story_contracts_data_only/manual-item.tres": {
+      "bytes": 418,
+      "sha256": "9640c2bfa0baf5b1b2e3713fa1b40f704173e5fe08cfbea7f18c4ff5c0e5ccef"
+    },
+    "tests/fixtures/story_contracts_data_only/mapping.json": {
+      "bytes": 708,
+      "sha256": "1ddcbcc9445f50664b838b6e50f066e15c948548794959c33cb3c3866edfc590"
+    },
+    "tests/fixtures/story_contracts_data_only/npc-bypass-overlay.tres": {
+      "bytes": 1309,
+      "sha256": "5c3e1c53bc0c941d2c61dcc4419b6bdd3847c05e6d223d4e6bb20c64634f0cbf"
+    },
+    "tests/fixtures/story_contracts_data_only/npc-overlay.tres": {
+      "bytes": 1096,
+      "sha256": "b98760aa8e67a1d041ec2c9c15a4de1706223216bb624fcf195354e5d8534d7d"
+    },
+    "tests/fixtures/story_contracts_data_only/other_mainflags-mapping.json": {
+      "bytes": 723,
+      "sha256": "26a06f4fb988137821a75ac32936c8b440cc64f4be1cc994884c018eea183513"
+    },
+    "tests/fixtures/story_contracts_data_only/other_mainflags-story.json": {
+      "bytes": 318412,
+      "sha256": "53ddf8f0e691a59d6ba715cd569b4052f7867b13028e1439a17d5b3203149aa2"
+    },
+    "tests/fixtures/story_contracts_data_only/other_radio_chain-mapping.json": {
+      "bytes": 725,
+      "sha256": "a97ba4bf550b8f7fa2eb1a785ce05275a80c57b39631cf8c96b1d530a0d5e6b9"
+    },
+    "tests/fixtures/story_contracts_data_only/other_radio_chain-story.json": {
+      "bytes": 318783,
+      "sha256": "2ee560e534e27f62d09ffaab13bdede3c13366569672cd766e90df4adcfc00ba"
+    },
+    "tests/fixtures/story_contracts_data_only/other_radio_flags-mapping.json": {
+      "bytes": 725,
+      "sha256": "af833648f3d85e01ef9f22e5fd7b3ed2707dd2d201321868688013de2c7cc426"
+    },
+    "tests/fixtures/story_contracts_data_only/other_radio_flags-story.json": {
+      "bytes": 318387,
+      "sha256": "a42795ff328ac59766323f903cb3cedbc657cfe0e4deb256cf0d7830e55a0773"
+    },
+    "tests/fixtures/story_contracts_data_only/other_radio_item-mapping.json": {
+      "bytes": 724,
+      "sha256": "d6485d27ef04e71b5700ce55cf34ad7f20a1776aa4f6c959c708ecbe9fd9e164"
+    },
+    "tests/fixtures/story_contracts_data_only/other_radio_item-story.json": {
+      "bytes": 318503,
+      "sha256": "1bc61c336d17c7057fa66a3412ca1e4e66fc6d69ff365bbc5de158fc32579794"
+    },
+    "tests/fixtures/story_contracts_data_only/source.py": {
+      "bytes": 1364,
+      "sha256": "01178e029e5319e7f8ea0e90ce8ce3f965baeaa27662a4a2d6baa3f11c2a2a57"
+    },
+    "tests/fixtures/story_contracts_data_only/story-overlay.json": {
+      "bytes": 317970,
+      "sha256": "ff3814a897c0a4bcd2d8edaeb8ed810794433eb47b5a0462758ece4f8e085e7d"
+    },
+    "tests/fixtures/story_result_contract_originals.json": {
+      "bytes": 28570,
+      "sha256": "5f0f02e3ed1194b25d113e173f9b8d1025a4e2548055ca643c8117af530e49bb"
+    },
+    "tests/fixtures/story_result_legacy_originals.json": {
+      "bytes": 19647,
+      "sha256": "3f7c1c0a0617bbc67b4e95acc88028e1acedc5b9dc276795872ab69256998813"
+    },
+    "tests/helpers/story_contract_catalog_checks.gd": {
+      "bytes": 6620,
+      "sha256": "da1483b24cb87f42335ca714f7db604b36c9b285b739b830394577c97d8dbea3"
+    },
+    "tests/helpers/story_contract_catalog_checks.gd.uid": {
+      "bytes": 20,
+      "sha256": "f32ea28a416d8a03bc1913629ddaa805e018aef93e1e05ee1bb9e7085e8320e2"
+    },
+    "tests/helpers/story_contract_io_checks.gd": {
+      "bytes": 2775,
+      "sha256": "61b0596d374e82830630cee138a1516000440e2f3d25ebd3ebeedd7983baea19"
+    },
+    "tests/helpers/story_contract_io_checks.gd.uid": {
+      "bytes": 20,
+      "sha256": "fbf103c2f2da5877c222153eec82c1a167f7e5b7449eca1490a7c417b19d7640"
+    },
+    "tests/helpers/story_contract_lifetime_checks.gd": {
+      "bytes": 3824,
+      "sha256": "2a31e009c04356d304a2e438522845f9ce1e93755a9fbea41bd927c243ce37d7"
+    },
+    "tests/helpers/story_contract_lifetime_checks.gd.uid": {
+      "bytes": 19,
+      "sha256": "41e04525db778afab23dd7cc07ecaf3cc74fbea03f58c2cb6070d99d838bec3a"
+    },
+    "tests/helpers/story_contract_migration_checks.gd": {
+      "bytes": 4462,
+      "sha256": "c78d5e9db82ec05c29742766172544acfa245cd3c3fc4f781962eeeec5acb8c6"
+    },
+    "tests/helpers/story_contract_migration_checks.gd.uid": {
+      "bytes": 20,
+      "sha256": "be32e1e580471ee603035b47e6cad8f7ec22901e2ccb0af756a4a77719024d0a"
+    },
+    "tests/helpers/story_contract_passive_context_checks.gd": {
+      "bytes": 3672,
+      "sha256": "9153e52cec97a5c61ffde42238aa5e03c3cd168a787344196f97845c4ab8adb4"
+    },
+    "tests/helpers/story_contract_passive_context_checks.gd.uid": {
+      "bytes": 19,
+      "sha256": "99b540010695a3404f5603daa7ed58cca48334894e8df80a9e9444ba200422fb"
+    },
+    "tests/helpers/supper_source_checks.gd": {
+      "bytes": 4609,
+      "sha256": "5182e39f9bdb169d7e9501b14714047e3bcb1553d4cbe6184454fa866de56b0d"
+    },
+    "tests/helpers/voice_source_checks.gd": {
+      "bytes": 3273,
+      "sha256": "08316b8cacabc6a2c1eb49b47ae15a7b200ad7d656b37026777cba6578a51cca"
+    },
+    "tests/probes/supper_completion.gd": {
+      "bytes": 14989,
+      "sha256": "e757404b4f20349e0073096007c3be21e389b78b7dc6756689236d017574dba2"
+    },
+    "tests/suite/test_cutscene.gd": {
+      "bytes": 77587,
+      "sha256": "5de4aadbaa589f64c785db397d7e164be9ff0b1443d3d9d34df10b315c3fc859"
+    },
+    "tools/story/ch1_closure.py": {
+      "bytes": 76013,
+      "sha256": "005f934934ddbd6de6744b7eb57e9de91b56fccb2b9ba9800d342262a659e842"
+    },
+    "tools/story/ch1_runtime_backend.py": {
+      "bytes": 39988,
+      "sha256": "d9424df5e2ccfb216a603ce5fb685b98a25d1e15ae3f7a530e3060d9e391cb1c"
+    },
+    "tools/story/chapter_compiler.py": {
+      "bytes": 15971,
+      "sha256": "386829ec0f2d637cf412df107c20321fa7eeb0549f3e82089945dcdf211d3d0e"
+    },
+    "tools/story/story_contracts.py": {
+      "bytes": 22847,
+      "sha256": "e0d1e40e759e621bb4b46045f1669f1420d8f79d2d9efd39f714ee6289aa6954"
+    },
+    "tools/story/test_story_contracts.py": {
+      "bytes": 10611,
+      "sha256": "ae636cef85275afc84bde2cea4aff24203975d253eb6a554552a87f6e62bed7a"
+    }
+  },
+  "official_epoch": "official-author-f25d-v2",
+  "late_author_paths": [
+    "tools/story/story_contracts.py",
+    "tools/story/test_story_contracts.py"
+  ],
+  "scope": "official exact GD/data/resources plus late two-Python-author patch, independently selected0 Godot groups and verified18+6; no claim all final50 tested in same61"
+}

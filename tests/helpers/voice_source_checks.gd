@@ -1,4 +1,5 @@
 extends RefCounted
+const Original := preload("res://tests/fixtures/story_result_contract_originals.json")
 const Sources := preload("res://game/story_result_sources.gd")
 
 
@@ -9,7 +10,7 @@ static func run(s: TestSuite) -> void:
 	for id: String in scenes:
 		locations[id] = Sources.SOURCE
 	var before := var_to_bytes([GameState.world_flags, Progression.snapshot(), StoryItems.snapshot(), Story.progress_snapshot()])
-	for id: String in Sources.CHOICES:
+	for id: String in Original.data["sources"]["CHOICES"]:
 		s.check(not Sources.choice_step(id, scenes, locations).is_empty(), "authored optional question validates every finite target: " + id)
 	var first := "ch1_t_lamp_voice_first"
 	var prompt := "ch1_t_lamp_voice_prompt"

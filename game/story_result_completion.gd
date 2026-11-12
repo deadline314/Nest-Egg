@@ -12,10 +12,10 @@ const Prompt := preload("res://ui/radio_save_prompt.gd")
 const SEGMENTS := {
 	"ch1_b_dinner_food": "res://data/levels/ch1_pawnshop.tres",
 }
-const NPC_SOURCES := Sources.NPC_SOURCES
 var main: Node
 var _id: StringName
 var _request := 0
+var _contract_revision := -1
 var _lock := 0
 var _prompt: Control
 var _events: Array = []
@@ -40,6 +40,12 @@ func choice_pending() -> bool:
 func choose(option: Dictionary, retry: Callable) -> Dictionary:
 	if FlagSources.owns(String(Story._current_cinematic)):
 		return main.get("_story_completion").refuse_choice()
+	var gate := _catalog_gate(Story._current_cinematic, Story.current_presentation_request())
+	if gate.get("unavailable_host",false): return {"handled":true,"accepted":false}
+	if main.get("_active_run") and gate.get("state") == Sources.Catalog.REFUSED:
+		Story.reset_active_presentation(&"leave")
+		EventBus.toast_requested.emit(Prompt.copy("這段對話暫時無法繼續，原進度保留。", "この会話は未対応です。元の進行状況は保持されています。", "This conversation is unavailable. Your previous progress is preserved."))
+		return {"handled":true,"accepted":false}
 	if not Sources.owns_choice(String(Story._current_cinematic)):
 		if choice_pending(): return {"handled": true, "accepted": false}
 		var scene: Dictionary = Story._scenes.get(String(Story._current_cinematic), {})
@@ -72,6 +78,7 @@ func choose(option: Dictionary, retry: Callable) -> Dictionary:
 		return {"handled": true, "accepted": false}
 	if main.has_method("_defer_world_operation") and main.call("_defer_world_operation", retry): return {"handled": true, "accepted": false}
 	_id = id
+	if _request == 0: _contract_revision = Sources.revision()
 	_request = request
 	_choice_target = StringName(contract["target"])
 	_choice_retry = retry
@@ -132,8 +139,12 @@ func complete(id: StringName, request: int) -> Dictionary:
 		return {} # Finite flag sources retain their original owner even with a wrong tag.
 	if choice_pending() and id == _id and request == _request:
 		return {"handled": true, "ready": false}
-	var scene: Dictionary = Story._scenes.get(String(id), {})
-	if not Sources.owns_boundary(String(id)) and scene.get("completion_policy", "") not in COMPLETION_POLICIES:
+	var raw_scene: Variant = Story._scenes.get(String(id), {})
+	var gate := _catalog_gate(id, request)
+	if gate.get("unavailable_host",false): return {"handled":true,"ready":false}
+	var refused: bool = gate.get("state") == Sources.Catalog.REFUSED
+	var scene: Dictionary = raw_scene if raw_scene is Dictionary else {}
+	if not refused and not Sources.owns_boundary(String(id)) and scene.get("completion_policy", "") not in COMPLETION_POLICIES:
 		return {}
 	# Standalone tools retain legacy presentation; a real Main cannot fall through.
 	if not main.get("_active_run"):
@@ -142,6 +153,7 @@ func complete(id: StringName, request: int) -> Dictionary:
 	if _publishing or (_request != 0 and (_request != request or _id != id)):
 		return {"handled": true, "ready": false}
 	if _request == 0:
+		_contract_revision = Sources.revision()
 		var player: CutscenePlayer = Story._player if is_instance_valid(Story._player) else null
 		_user_skipped = player != null and player.scene_id == id and player.user_skipped
 	_id = id
@@ -153,7 +165,9 @@ func complete(id: StringName, request: int) -> Dictionary:
 	if closes_here:
 		continuation = &""
 	var result: Dictionary
-	if Sources.owns_boundary(String(id)) and Sources.boundary(String(id), Story._scenes, Story._scene_sources).is_empty():
+	if refused:
+		result = {"error":str(gate.get("error","catalog refused")),"reload_original":true}
+	elif Sources.owns_boundary(String(id)) and Sources.boundary(String(id), Story._scenes, Story._scene_sources).is_empty():
 		result = {"error": "results differ from the finite authored boundary", "reload_original": true}
 	elif scene.get("completion_policy") in CONTINUATION_POLICIES and continuation == &"" and not closes_here:
 		result = {"error": "continuation differs from its finite authored contract", "reload_original": true}
@@ -193,10 +207,12 @@ func _clinic_closes_here() -> bool:
 
 
 func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choice := false) -> Dictionary:
+	if _contract_revision != Sources.revision():
+		return {"error":"NPC contract revision changed; old request must not commit","reload_original":true}
 	var problem := Story.outcomes.result_contract_problem(_id, scene)
 	if not problem.is_empty():
 		return {"error": problem}
-	var level := main.get("_screen") as Level
+	var level := _live_level()
 	if level == null or not level.is_initialized() or level.data.resource_path != main.get("_level_path") or not level.data.persistent_world or main.call("_route_pending"):
 		return {"error": "terminal results require the current persistent Main Level"}
 	if Story._scene_sources.get(String(_id)) != Sources.authored_source(String(_id)):
@@ -315,6 +331,7 @@ func _prepare_and_commit(scene: Dictionary, continuation: StringName = &"", choi
 
 
 func _source_unchanged(level: Level, npc: Dictionary, death: Dictionary) -> bool:
+	if _contract_revision != Sources.revision() or not is_instance_valid(level) or _live_level() != level: return false
 	if not _npc_unchanged(level,npc):
 		return false
 	if death.is_empty():
@@ -325,24 +342,67 @@ func _source_unchanged(level: Level, npc: Dictionary, death: Dictionary) -> bool
 	return Clinic.valid(Story._scenes,Story._scene_sources) and Clinic.owns_source(current) and current == death
 
 
+## A Variant can retain a previously-freed Object. Check its tag and lifetime
+## before any `is Level`/cast, including a host retired by a same-turn callback.
+func _live_level() -> Level:
+	var raw: Variant = main.get("_screen")
+	if typeof(raw) != TYPE_OBJECT or not is_instance_valid(raw) or not raw is Level: return null
+	return null if raw.is_queued_for_deletion() else raw as Level
+
+
+func _catalog_gate(id: StringName, request: int) -> Dictionary:
+	var level := _live_level()
+	if level == null:
+		var raw: Variant = main.get("_screen")
+		if typeof(raw) == TYPE_OBJECT:
+			if not is_instance_valid(raw) or raw is Level:
+				return {"state":Sources.Catalog.REFUSED,"unavailable_host":true,"error":"Main Level was released or is leaving"}
+		elif raw != null:
+			return {"state":Sources.Catalog.REFUSED,"unavailable_host":true,"error":"Main screen has an invalid type"}
+	return Sources._route(String(id),Story._scenes,Story._scene_sources,_npc_origin(level,id,request))
+
+
+## Scope evidence only. Reward-free prepare remains a separate formal-write
+## admission; failure there must never downgrade a genuine NPC to legacy.
+func _npc_origin(level: Level, id: StringName, request: int) -> Dictionary:
+	var context := Story.presentation_context_for_request(id,request)
+	var framing: String = context.get("framing_source","")
+	if framing not in ["person","object"]: return {"kind":"none"}
+	var invalid := {"kind":"invalid","error":"claimed NPC request has no actual original actor/spawn/talk"}
+	if not is_instance_valid(level) or level.is_queued_for_deletion() or not level.is_initialized() or level.died or not is_instance_valid(level.data) or level.data.resource_path != main.get("_level_path") or request <= 0: return invalid
+	var player: Variant = level.player
+	var entities: Variant = level._entities
+	if typeof(player) != TYPE_OBJECT or not is_instance_valid(player) or player.is_queued_for_deletion() or player.is_dead() or typeof(entities) != TYPE_OBJECT or not is_instance_valid(entities) or entities.is_queued_for_deletion(): return invalid
+	var passive: Array = Story._passive_requests.get(id,[])
+	if not (Story._current_cinematic == id and Story.current_presentation_request() == request) and (passive.is_empty() or int(passive[0]) != request): return invalid
+	var raw: Variant = context.get("talk_index")
+	if not (raw is int or raw is float) or not is_finite(float(raw)) or raw < 0 or floorf(float(raw)) != raw: return invalid
+	var index := int(raw)
+	for node: Node in entities.get_children():
+		if not is_instance_valid(node): continue
+		var actor := node as NpcActor
+		if actor == null or not level.npc_sources.has(actor) or actor.is_queued_for_deletion() or not actor.is_inside_tree() or not is_instance_valid(actor.data) or actor.state_key() != context.get("source_id") or not actor.is_present() or not actor.get("_talking") or actor.get("_presentation_index") != index or index >= actor.data.talks.size(): continue
+		if framing != ("person" if actor.data.kind == NpcData.Kind.PERSON else "object") or not Story.is_npc_presentation(actor.data,index,id): continue
+		for spawn: Dictionary in level._layout.spawns:
+			if spawn["resource"] == actor.data and spawn["cell"] == actor.cell:
+				return {"kind":"npc","actor":actor,"index":index,"metadata":{"npc":actor.data.resource_path,"index":index,"entry":String(actor.data.talks[index].scene),"talk":_talk_descriptor(actor.data.talks[index])}}
+	return invalid
+
+
+static func _talk_descriptor(talk: NpcTalk) -> Dictionary:
+	return {"scene":String(talk.scene),"min_talks":talk.min_talks,"min_deaths":talk.min_deaths,"after_scene":String(talk.after_scene),"requires_flag":String(talk.requires_flag),"unless_flag":String(talk.unless_flag),"requires_item":String(talk.requires_item),"requires_held_item":String(talk.requires_held_item),"unless_held_item":String(talk.unless_held_item),"requires_transferred_item":String(talk.requires_transferred_item),"once":talk.once,"credits":talk.credits,"consumable":talk.consumable.resource_path if talk.consumable else "","story_item":talk.story_item.resource_path if talk.story_item else ""}
+
+
 func _npc_source(level: Level) -> Dictionary:
 	var source: Dictionary = Sources.npc_source(String(_id))
 	var allowed: Array = source.get("levels", [])
-	if level.died or not allowed.has(level.data.resource_path) or level.player == null or level.player.is_dead():
-		return {}
-	var context := Story.current_presentation_context()
-	var index: int = context.get("talk_index", -1)
-	for node: Node in level._entities.get_children():
-		var actor := node as NpcActor
-		if actor == null or not level.npc_sources.has(actor) or actor.is_queued_for_deletion() or not actor.is_inside_tree() or actor.data == null or actor.data.resource_path != source.get("npc", "") or actor.state_key() != context.get("source_id") or not actor.is_present():
-			continue
-		var prepared := actor.prepare_story_completion(index)
-		if prepared.is_empty() or not Story.is_npc_presentation(actor.data, index, _id):
-			continue
-		for spawn: Dictionary in level._layout.spawns:
-			if spawn["resource"] == actor.data and spawn["cell"] == actor.cell:
-				return {"actor": actor, "key": actor.state_key(), "prepared": prepared}
-	return {}
+	if not allowed.has(level.data.resource_path): return {}
+	var origin := _npc_origin(level,_id,_request)
+	if origin.get("kind") != "npc": return {}
+	var actor: NpcActor = origin["actor"]
+	if actor.data.resource_path != source.get("npc",""): return {}
+	var prepared := actor.prepare_story_completion(origin["index"])
+	return {"actor":actor,"key":actor.state_key(),"prepared":prepared} if not prepared.is_empty() else {}
 
 
 func _npc_unchanged(level: Level, expected: Dictionary) -> bool:
@@ -495,6 +555,7 @@ func _reset(_reason: StringName) -> void:
 func _clear() -> void:
 	_id = &""
 	_request = 0
+	_contract_revision = -1
 	_user_skipped = false
 	_recovery = false
 	_reload_original = false

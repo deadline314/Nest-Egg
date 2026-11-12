@@ -1,434 +1,116 @@
 extends RefCounted
-## Finite authored producer contracts, independent of filesystem and live owners.
-const SOURCE := "res://data/story/ch1_kasa.json"
-const Supper := preload("res://game/story_result_supper.gd")
+## Compatibility facade. Catalog matching never replaces Main's actual producer.
+const Catalog := preload("res://core/story_result_catalog.gd")
 const Clinic := preload("res://game/story_result_clinic.gd")
-const Chapter2 := preload("res://game/story_result_ch2.gd")
-const TERMINAL := "main_terminal_results_v1"
-const CONTINUATION := "main_flags_continuation_v1"
-const RESULT_CONTINUATION := "main_source_results_continuation_v1"
-const CONTINUATION_POLICIES := [CONTINUATION, RESULT_CONTINUATION]
-const VOICE_SOURCE := {
-	"npc": "res://data/npcs/ch1_lamp_voice.tres",
-	"levels": ["res://data/levels/ch1_booth_alley.tres"],
-}
-const ALI_SOURCE := {
-	"npc": "res://data/npcs/ch1_ali_lounge.tres",
-	"levels": ["res://data/levels/ch1_lounge.tres"],
-}
-const STALL_SOURCE := Supper.NPC_SOURCE
-const PROLOGUE_SOURCE := {
-	"npc": "res://data/npcs/ch1_old_k_counter.tres",
-	"levels": ["res://data/levels/ch1_prologue.tres"],
-}
-const MAX_ROUTE_NODES := 64
-const NPC_SOURCES := {
-	"ch1_p05_service_fall": PROLOGUE_SOURCE,
-	"ch1_p05_service_clean": PROLOGUE_SOURCE,
-	"ch1_p06_call": PROLOGUE_SOURCE,
-
-	"ch1_t_supper_choice_ordered": STALL_SOURCE,
-	"ch1_t_supper_choice_none": STALL_SOURCE,
-	"ch1_t_supper_leave_options": STALL_SOURCE,
-	"ch1_t_supper_insufficient": STALL_SOURCE,
-	"ch1_t_supper_tab_confirm": STALL_SOURCE,
-	"ch1_t_supper_host_prompt": STALL_SOURCE,
-	"ch1_t_supper_host_none_prompt": STALL_SOURCE,
-	"ch1_t_supper_pay": STALL_SOURCE,
-	"ch1_t_supper_paid_goodbye": STALL_SOURCE,
-	"ch1_t_supper_tab": STALL_SOURCE,
-	"ch1_t_supper_tab_goodbye": STALL_SOURCE,
-	"ch1_t_supper_leave_none": STALL_SOURCE,
-	"ch1_t_supper_return": STALL_SOURCE,
-	"ch1_t_supper_stay_host": STALL_SOURCE,
-	"ch1_t_supper_stay_host_none": STALL_SOURCE,
-	"ch1_t_supper_stay_meal": STALL_SOURCE,
-	"ch1_t_supper_stay_address": STALL_SOURCE,
-
-	"ch1_t_label_watch": {
-		"npc": "res://data/npcs/ch1_label_watch.tres",
-		"levels": ["res://data/levels/ch1_pawnshop.tres", "res://data/levels/ch1_pawnshop_dawn.tres"],
-	},
-	"ch1_t_label_guitar": {
-		"npc": "res://data/npcs/ch1_label_guitar.tres",
-		"levels": ["res://data/levels/ch1_pawnshop.tres", "res://data/levels/ch1_pawnshop_dawn.tres"],
-	},
-	"ch1_t_label_raincoat": {
-		"npc": "res://data/npcs/ch1_label_raincoat.tres",
-		"levels": ["res://data/levels/ch1_pawnshop.tres", "res://data/levels/ch1_pawnshop_dawn.tres"],
-	},
-	"ch1_t_label_fare": {
-		"npc": "res://data/npcs/ch1_label_fare.tres",
-		"levels": ["res://data/levels/ch1_pawnshop.tres", "res://data/levels/ch1_pawnshop_dawn.tres"],
-	},
-	"ch1_t_egret_1": {
-		"npc": "res://data/npcs/ch1_egret.tres",
-		"levels": ["res://data/levels/ch1_rooftop.tres"],
-	},
-	"ch1_t_egret_sunday_prompt": {
-		"npc": "res://data/npcs/ch1_egret.tres",
-		"levels": ["res://data/levels/ch1_rooftop.tres"],
-	},
-	"ch1_t_egret_sunday": {
-		"npc": "res://data/npcs/ch1_egret.tres",
-		"levels": ["res://data/levels/ch1_rooftop.tres"],
-	},
-	"ch1_t_handoff_accept": {
-		"npc": "res://data/npcs/ch1_handoff_cabinet.tres",
-		"levels": ["res://data/levels/ch1_handoff.tres"],
-	},
-	"ch1_t_handoff_receipt": {
-		"npc": "res://data/npcs/ch1_handoff_cabinet.tres",
-		"levels": ["res://data/levels/ch1_handoff.tres"],
-	},
-	"ch1_t_handoff_summary": {
-		"npc": "res://data/npcs/ch1_handoff_cabinet.tres",
-		"levels": ["res://data/levels/ch1_handoff.tres"],
-	},
-	"ch1_t_ali_order": ALI_SOURCE,
-	"ch1_t_ali_sit": ALI_SOURCE,
-	"ch1_t_ali_name": ALI_SOURCE,
-	"ch1_t_ali_2_ordered": ALI_SOURCE,
-	"ch1_t_ali_2_sit": ALI_SOURCE,
-	"ch1_t_ali_evening_close": ALI_SOURCE,
-	"ch1_t_lamp_voice_prompt": VOICE_SOURCE,
-	"ch1_t_lamp_voice_first": VOICE_SOURCE,
-	"ch1_t_lamp_voice_second_prompt": VOICE_SOURCE,
-	"ch1_t_lamp_voice_second": VOICE_SOURCE,
-	"ch1_t_lamp_voice_later": VOICE_SOURCE,
-}
-
+const Flags := preload("res://game/story_flag_sources.gd")
+const SOURCE := "res://data/story/ch1_kasa.json"
+const TERMINAL := Catalog.TERMINAL
+const CONTINUATION := Catalog.CONTINUATION
+const RESULT_CONTINUATION := Catalog.RESULT_CONTINUATION
+const CONTINUATION_POLICIES := Catalog.CONTINUATION_POLICIES
+const MAX_ROUTE_NODES := Catalog.MAX_ROUTE_NODES
 const BOUNDARIES := {
-	"ch1_b_dinner_food": {
-		"policy": TERMINAL, "then": "", "mode": "bubbles",
-		"when": {},
-		"operations": [
-			{"kind": "transaction", "id": "ch1.daily_dinner"},
-			{"kind": "flag", "id": "ch1_dinner_done", "value": true},
-		],
-	},
-	"ch1_t_label_watch": {
-		"policy": TERMINAL, "then": "", "mode": "dialogue",
-		"when": {"not": {"flag": "ch1_label_watch_seen", "equals": true}},
-		"operations": [
-			{"kind": "flag", "id": "ch1_label_watch_seen", "value": true},
-		],
-	},
-	"ch1_t_label_guitar": {
-		"policy": TERMINAL, "then": "", "mode": "dialogue",
-		"when": {"not": {"flag": "ch1_label_guitar_seen", "equals": true}},
-		"operations": [
-			{"kind": "flag", "id": "ch1_label_guitar_seen", "value": true},
-		],
-	},
-	"ch1_t_label_raincoat": {
-		"policy": TERMINAL, "then": "", "mode": "dialogue",
-		"when": {"not": {"flag": "ch1_label_raincoat_seen", "equals": true}},
-		"operations": [
-			{"kind": "flag", "id": "ch1_label_raincoat_seen", "value": true},
-		],
-	},
-	"ch1_t_label_fare": {
-		"policy": TERMINAL, "then": "", "mode": "dialogue",
-		"when": {"not": {"flag": "ch1_label_fare_seen", "equals": true}},
-		"operations": [
-			{"kind": "flag", "id": "ch1_label_fare_seen", "value": true},
-		],
-	},
-	"ch1_t_egret_1": {
-		"policy": TERMINAL, "then": "", "mode": "animated",
-		"when": {"flag": "ch1_dinner_done", "equals": true},
-		"operations": [
-			{"kind": "flag", "id": "ch1_heard_brief", "value": true},
-		],
-	},
-	"ch1_t_handoff_accept": {
-		"policy": TERMINAL, "then": "", "mode": "animated",
-		"when": {"all": [{"item": "ch1_data_disk"}, {"not": {"flag": "ch1_disk_delivered", "equals": true}}]},
-		"operations": [
-			{"kind": "item_transfer", "id": "ch1_data_disk", "destination": "ch1_handoff_cabinet"},
-			{"kind": "flag", "id": "ch1_disk_delivered", "value": true},
-		],
-	},
-	"ch1_t_handoff_receipt": {
-		"policy": TERMINAL, "then": "", "mode": "animated",
-		"when": {"all": [{"flag": "ch1_disk_delivered", "equals": true}, {"not": {"flag": "ch1_disk_receipt_taken", "equals": true}}]},
-		"operations": [
-			{"kind": "item_acquire", "id": "ch1_delivery_receipt"},
-			{"kind": "flag", "id": "ch1_disk_receipt_taken", "value": true},
-		],
-	},
-	"ch1_t_handoff_summary": {
-		"policy": TERMINAL, "then": "", "mode": "dialogue",
-		"when": {"all": [{"flag": "ch1_disk_delivered", "equals": true}, {"flag": "ch1_disk_receipt_taken", "equals": true}, {"not": {"flag": "ch1_market_summary_known", "equals": true}}]},
-		"operations": [
-			{"kind": "item_acquire", "id": "ch1_market_summary"},
-			{"kind": "flag", "id": "ch1_market_summary_known", "value": true},
-			{"kind": "flag", "id": "ch1_handoff_done", "value": true},
-		],
-	},
-	"ch1_p05_service_fall": {"policy": TERMINAL, "flag": "ch1_prologue_service_heard", "then": ""},
-	"ch1_p05_service_clean": {"policy": TERMINAL, "flag": "ch1_prologue_service_heard", "then": ""},
-	"ch1_p06_call": {"policy": TERMINAL, "then": "", "operations": [
-		{"kind": "flag", "id": "ch1_prologue_done", "value": true},
-		{"kind": "flag", "id": "ch1_prologue_exit", "value": true},
-	]},
-
-	"ch1_t_ali_order": {"policy": RESULT_CONTINUATION, "then": "ch1_t_ali_name", "operations": [
-		{"kind": "transaction", "id": "ch1.revival_meal.order"},
-		{"kind": "item_acquire", "id": "ch1_lounge_bill"},
-		{"kind": "flag", "id": "ch1_ali_reception_selected", "value": true},
-	]},
-	"ch1_t_ali_sit": {"policy": CONTINUATION, "flag": "ch1_ali_reception_selected", "then": "ch1_t_ali_name"},
-	"ch1_t_ali_name": {"policy": TERMINAL, "flag": "ch1_met_ali", "then": ""},
-	"ch1_t_ali_2_ordered": {"policy": CONTINUATION, "flag": "ch1_ali_evening_talk_done", "then": "ch1_t_ali_evening_close"},
-	"ch1_t_ali_2_sit": {"policy": CONTINUATION, "flag": "ch1_ali_evening_talk_done", "then": "ch1_t_ali_evening_close"},
-	"ch1_t_ali_evening_close": {"policy": TERMINAL, "flag": "ch1_lounge_evening_done", "then": ""},
-	"ch1_t_egret_sunday": {"policy": TERMINAL, "flag": "asked_egret_sunday", "then": ""},
-	"ch1_t_lamp_voice_first": {"policy": CONTINUATION, "flag": "ch1_lamp_voice_asked", "then": "ch1_t_lamp_voice_second_prompt"},
-	"ch1_t_lamp_voice_second": {"policy": TERMINAL, "flag": "sq5_lamp_voice_noticed", "then": ""},
-	"ch1_t_lamp_voice_later": {"policy": TERMINAL, "flag": "", "then": "", "repeatable": true},
+  "ch1_b_dinner_food": {
+    "policy": "main_terminal_results_v1",
+    "then": "",
+    "mode": "bubbles",
+    "when": {},
+    "operations": [
+      {
+        "kind": "transaction",
+        "id": "ch1.daily_dinner"
+      },
+      {
+        "kind": "flag",
+        "id": "ch1_dinner_done",
+        "value": true
+      }
+    ]
+  }
 }
-const CHOICES := {
-	"ch1_t_egret_sunday_prompt": {
-		"default": "return", "options": [
-			{"id": "ask", "target": "ch1_t_egret_sunday", "flags": {"ch1_sunday_accepted": true}},
-			{"id": "return", "target": "", "flags": {}},
-		],
-	},
-	"ch1_t_lamp_voice_prompt": {
-		"default": "return", "options": [
-			{"id": "ask", "target": "ch1_t_lamp_voice_first", "flags": {"ch1_voice_accepted": true}},
-			{"id": "return", "target": "", "flags": {}},
-		],
-	},
-	"ch1_t_lamp_voice_second_prompt": {
-		"default": "later", "options": [
-			{"id": "ask", "target": "ch1_t_lamp_voice_second", "flags": {}},
-			{"id": "later", "target": "ch1_t_lamp_voice_later", "flags": {}},
-		],
-	},
-}
+static var _catalog
 
+static func _catalog_instance():
+	if _catalog == null: _catalog = Catalog.new()
+	return _catalog
+
+static func reload_catalog() -> bool:
+	var previous := revision()
+	_catalog_instance().reload()
+	return previous != revision()
+
+static func revision() -> int:
+	return int(_catalog_instance().revision)
+
+static func inspect(id: String, scenes: Dictionary, sources: Dictionary) -> Dictionary:
+	if _catalog_instance()._protected.has(id): return _catalog_instance().inspect(id, scenes, sources)
+	# These remain subject to their original live owners, never catalog metadata.
+	if Clinic.owns(id) or Flags.owns(id) or BOUNDARIES.has(id):
+		return {"state":Catalog.NOT_OWNED,"revision":revision()}
+	var scene: Variant = scenes.get(id, {})
+	if scene is Dictionary and (scene.get("completion_policy", "") == "main_flags_v1" or (scene.get("mode") == "radio" and scene.get("freeze", false) == true and scene.get("results", []) is Array and scene.get("results", []).is_empty() and scene.get("transfer_items", []) is Array and scene.get("transfer_items", []).is_empty())):
+		return {"state":Catalog.NOT_OWNED,"revision":revision()}
+	return _catalog_instance().inspect(id, scenes, sources)
 
 static func owns_choice(id: String) -> bool:
-	return CHOICES.has(id) or Supper.CHOICES.has(id)
+	return _catalog_instance().owns_choice(id)
 
 static func owns_boundary(id: String) -> bool:
-	return not _boundary_rule(id).is_empty() or Clinic.owns(id)
-
-static func _choice_rule(id: String) -> Dictionary:
-	return CHOICES.get(id, Supper.CHOICES.get(id, {}))
-
-static func _boundary_rule(id: String) -> Dictionary:
-	return Chapter2.BOUNDARIES.get(id, BOUNDARIES.get(id, Supper.BOUNDARIES.get(id, {})))
+	return Clinic.owns(id) or BOUNDARIES.has(id) or not _catalog_instance()._boundary_rule(id).is_empty()
 
 static func npc_source(id: String) -> Dictionary:
-	return Chapter2.NPC_SOURCES.get(id, NPC_SOURCES.get(id, {}))
+	return _catalog_instance().npc_source(id)
 
 static func authored_source(id: String) -> String:
-	return Chapter2.SOURCE if Chapter2.NPC_SOURCES.has(id) else SOURCE
-
-static func _loaded(id: String, scenes: Dictionary, sources: Dictionary) -> Dictionary:
-	var scene: Variant = scenes.get(id)
-	if not _text_equals(sources.get(id), authored_source(id)) or not scene is Dictionary or not RunSaveCodec.validate_tree(scene, 32768).is_empty():
-		return {}
-	return scene
-
-
-static func _empty_array(data: Dictionary, key: String) -> bool:
-	var value: Variant = data.get(key, [])
-	return value is Array and value.is_empty()
-
-
-static func _text_equals(raw: Variant, expected: String) -> bool:
-	return typeof(raw) in [TYPE_STRING, TYPE_STRING_NAME] and String(raw) == expected
-
-
-static func _value_equals(raw: Variant, expected: Variant) -> bool:
-	return (raw is bool and raw == expected) if expected is bool else (expected is String and _text_equals(raw, expected))
-
-static func _option_condition(raw: Variant, expected: Dictionary) -> bool:
-	if not raw is Dictionary or raw.size() != expected.size():
-		return false
-	for key: String in expected:
-		if not _value_equals(raw.get(key), expected[key]):
-			return false
-	return true
-
-static func _condition_matches(raw: Variant, expected: Variant, depth := 0) -> bool:
-	if depth > 16: return false
-	if expected is Dictionary:
-		if not raw is Dictionary or raw.size() != expected.size(): return false
-		for key: String in expected:
-			if not raw.has(key) or not _condition_matches(raw[key], expected[key], depth + 1): return false
-		return true
-	if expected is Array:
-		if not raw is Array or raw.size() != expected.size(): return false
-		for i in expected.size():
-			if not _condition_matches(raw[i], expected[i], depth + 1): return false
-		return true
-	return _value_equals(raw, expected)
-
-static func _flags_match(raw: Variant, expected: Dictionary) -> bool:
-	if not raw is Dictionary or raw.size() != expected.size():
-		return false
-	for key: String in expected:
-		if not raw.has(key) or not _value_equals(raw[key], expected[key]):
-			return false
-	return true
-
-
-static func _operations_match(raw: Variant, expected: Array) -> bool:
-	if not raw is Array or raw.size() != expected.size():
-		return false
-	for i in expected.size():
-		var operation: Variant = raw[i]
-		if not operation is Dictionary or operation.size() != expected[i].size():
-			return false
-		for key: String in expected[i]:
-			if not _value_equals(operation.get(key), expected[i][key]):
-				return false
-	return true
-
+	return _catalog_instance().authored_source(id)
 
 static func boundary(id: String, scenes: Dictionary, sources: Dictionary) -> Dictionary:
-	if Clinic.owns(id):
-		return Clinic.boundary(id,scenes,sources)
-	var rule := _boundary_rule(id)
-	if rule.is_empty():
-		return {}
-	var scene := _loaded(id, scenes, sources)
-	var operations: Array = rule.get("operations", []).duplicate(true)
-	if not str(rule.get("flag", "")).is_empty():
-		operations.append({"kind": "flag", "id": rule["flag"], "value": true})
-	if not _text_equals(scene.get("completion_policy"), rule["policy"]) or not _text_equals(scene.get("then", ""), rule["then"]) or not _operations_match(scene.get("results", []), operations) or not _empty_array(scene, "set_flags") or not _empty_array(scene, "transfer_items"):
-		return {}
-	if rule.has("mode") and not _text_equals(scene.get("mode"), rule["mode"]): return {}
-	if rule.has("when") and not _condition_matches(scene.get("when", {}), rule["when"]): return {}
-	var steps: Variant = scene.get("steps", [])
-	if not steps is Array:
-		return {}
-	for step: Variant in steps:
-		if not step is Dictionary or step.get("do") in ["choice", "branch"]:
-			return {}
-	if rule.get("repeatable", false):
-		var expected: Dictionary = rule.get("repeat_condition", {"flag": "ch1_lamp_voice_asked", "equals": true})
-		if not _option_condition(scene.get("when"), expected):
-			return {}
-		if id == "ch1_t_lamp_voice_later" and not operations.is_empty():
-			return {}
-	if not _option_condition(scene.get("on_failure", {}), rule.get("failures", {})):
-		return {}
-	return rule
-
-
-static func _option_matches(raw: Variant, expected: Dictionary) -> bool:
-	return raw is Dictionary and _text_equals(raw.get("id"), expected["id"]) and _flags_match(raw.get("set_flags", {}), expected["flags"]) and _text_equals(raw.get("target", ""), expected["target"]) and _empty_array(raw, "steps") and _empty_array(raw, "transfer_items") and _option_condition(raw.get("when", {}), expected.get("when", {}))
-
-
-static func _local_choice_step(id: String, scenes: Dictionary, sources: Dictionary) -> Dictionary:
-	var rule := _choice_rule(id)
-	if rule.is_empty():
-		return {}
-	var scene := _loaded(id, scenes, sources)
-	if scene.is_empty() or not str(scene.get("then", "")).is_empty() or not _empty_array(scene, "results") or not _empty_array(scene, "set_flags") or not _empty_array(scene, "transfer_items"):
-		return {}
-	var steps: Variant = scene.get("steps")
-	if not steps is Array or steps.is_empty() or steps.size() > 64:
-		return {}
-	for i in steps.size():
-		if not steps[i] is Dictionary:
-			return {}
-		if i < steps.size() - 1 and steps[i].get("do") not in ["scene", "actor", "say"]:
-			var waits: Dictionary = rule.get("waits", {})
-			var duration: Variant = steps[i].get("time")
-			if steps[i].get("do") != "wait" or not waits.has(str(i)) or not typeof(duration) in [TYPE_INT, TYPE_FLOAT] or duration != waits[str(i)]:
-				return {}
-	var step: Dictionary = steps.back()
-	var options: Variant = step.get("options")
-	if not _text_equals(step.get("do"), "choice") or not _text_equals(step.get("default"), rule["default"]) or not options is Array or options.size() != rule["options"].size():
-		return {}
-	for i in options.size():
-		var expected: Dictionary = rule["options"][i]
-		if not _option_matches(options[i], expected):
-			return {}
-	return step
-
-
-## One bounded, memoized authored graph; gray nodes reject cycles. Metadata is
-## registered here rather than inferred from arbitrary loaded story payloads.
-static func _route_valid(id: String, scenes: Dictionary, sources: Dictionary, visits: Dictionary) -> bool:
-	if visits.has(id):
-		return visits[id] == 2
-	if visits.size() >= MAX_ROUTE_NODES or npc_source(id).is_empty():
-		return false
-	visits[id] = 1
-	var targets: Array = []
-	if owns_choice(id):
-		if _local_choice_step(id, scenes, sources).is_empty():
-			return false
-		for option: Dictionary in _choice_rule(id)["options"]:
-			if not option["target"].is_empty():
-				targets.append(option["target"])
-	else:
-		var rule := boundary(id, scenes, sources)
-		if rule.is_empty():
-			return false
-		if not rule["then"].is_empty():
-			targets.append(rule["then"])
-		for target: String in rule.get("failures", {}).values():
-			targets.append(target)
-	for target: String in targets:
-		if npc_source(id) != npc_source(target) or not _route_valid(target, scenes, sources, visits):
-			return false
-	visits[id] = 2
-	return true
+	if Clinic.owns(id): return Clinic.boundary(id, scenes, sources)
+	if not BOUNDARIES.has(id): return _catalog_instance().boundary(id, scenes, sources).duplicate(true)
+	var rule: Dictionary = BOUNDARIES[id]
+	var scene: Dictionary = _catalog_instance()._loaded(id, scenes, sources)
+	if scene.is_empty() or not _catalog_instance()._text_equals(scene.get("completion_policy"), rule["policy"]) or not _catalog_instance()._text_equals(scene.get("then", ""), rule["then"]) or not _catalog_instance()._operations_match(scene.get("results", []), rule["operations"]) or not _catalog_instance()._empty_array(scene, "set_flags") or not _catalog_instance()._empty_array(scene, "transfer_items") or not _catalog_instance()._text_equals(scene.get("mode"), rule["mode"]): return {}
+	for step: Variant in scene.get("steps", []):
+		if not step is Dictionary or step.get("do") in ["choice", "branch"]: return {}
+	return rule.duplicate(true)
 
 static func choice_step(id: String, scenes: Dictionary, sources: Dictionary) -> Dictionary:
-	return _local_choice_step(id, scenes, sources) if _route_valid(id, scenes, sources, {}) else {}
+	return _catalog_instance().choice_step(id, scenes, sources).duplicate(true)
+
+static func choice(id: String, option: Dictionary, scenes: Dictionary, sources: Dictionary) -> Dictionary:
+	return _catalog_instance().choice(id, option, scenes, sources).duplicate(true)
+
+static func continuation(id: String, scenes: Dictionary, sources: Dictionary) -> StringName:
+	return Clinic.continuation(id, scenes, sources) if Clinic.owns(id) else _catalog_instance().continuation(id, scenes, sources)
 
 static func repeatable(id: String, scenes: Dictionary, sources: Dictionary) -> bool:
 	return boundary(id, scenes, sources).get("repeatable", false)
 
 static func failure(id: String, reason: String, scenes: Dictionary, sources: Dictionary) -> StringName:
-	var rule := boundary(id, scenes, sources)
-	if not _route_valid(id, scenes, sources, {}):
-		return &""
-	return StringName(rule.get("failures", {}).get(reason, ""))
+	return _catalog_instance().failure(id, reason, scenes, sources)
 
-## Only two result-free goodbyes outlive their producer's dispatcher phase.
-## The original data, same original talk entry and prior committed producer are
-## required. Live source, spawn, index and eligibility remain caller checks.
 static func pending_terminal(npc_path: String, entry: StringName, id: String, scenes: Dictionary, sources: Dictionary, completed: Dictionary) -> bool:
-	if entry != &"ch1_dispatch_ali_stall" or npc_path != STALL_SOURCE["npc"] or completed.has(StringName(id)) or _loaded(String(entry), scenes, sources).is_empty():
-		return false
+	if entry != &"ch1_dispatch_ali_stall" or npc_path != npc_source(id).get("npc", "") or completed.has(StringName(id)) or _catalog_instance()._loaded(String(entry), scenes, sources).is_empty(): return false
 	var rule := boundary(id, scenes, sources)
 	var previous: String = rule.get("pending_after", "")
-	return not previous.is_empty() and completed.has(StringName(previous)) and continuation(previous, scenes, sources) == StringName(id) and _route_valid(id, scenes, sources, {})
-
-static func choice(id: String, option: Dictionary, scenes: Dictionary, sources: Dictionary) -> Dictionary:
-	if not RunSaveCodec.validate_tree(option, 32768).is_empty():
-		return {}
-	var step := choice_step(id, scenes, sources)
-	if step.is_empty():
-		return {}
-	var rule := _choice_rule(id)
-	for i in rule["options"].size():
-		var expected: Dictionary = rule["options"][i]
-		if not _option_matches(option, expected):
-			continue
-		var operations: Array = []
-		for flag: String in expected["flags"]:
-			operations.append({"kind": "flag", "id": flag, "value": expected["flags"][flag]})
-		return {"when": scenes[id].get("when", {}), "results": operations, "target": expected["target"], "option": step["options"][i], "return": expected["target"].is_empty()}
-	return {}
+	return not previous.is_empty() and completed.has(StringName(previous)) and continuation(previous, scenes, sources) == StringName(id) and _catalog_instance()._route_valid(id, scenes, sources, {})
 
 
-static func continuation(id: String, scenes: Dictionary, sources: Dictionary) -> StringName:
-	if Clinic.owns(id):
-		return Clinic.continuation(id,scenes,sources)
-	var rule := boundary(id, scenes, sources)
-	if rule.is_empty() or rule["policy"] not in CONTINUATION_POLICIES or not _route_valid(id, scenes, sources, {}):
-		return &""
-	return StringName(rule["then"])
+## Caller selection only. The live Main computes origin; metadata never grants
+## a producer. A sealed original legacy route is selected before catalog inspect.
+static func _route(id: String, scenes: Dictionary, sources: Dictionary, origin: Dictionary) -> Dictionary:
+	var catalog = _catalog_instance()
+	if catalog._protected.has(id): return catalog.inspect(id,scenes,sources)
+	if Clinic.owns(id) or Flags.owns(id) or BOUNDARIES.has(id): return {"state":Catalog.NOT_OWNED}
+	var scene: Variant = scenes.get(id,{})
+	if not scene is Dictionary: return catalog._refused(str(sources.get(id,"")) + "/scenes/" + id + ": malformed scene")
+	if scene.get("completion_policy","") == "main_flags_v1" or (scene.get("mode") == "radio" and scene.get("freeze",false) == true and scene.get("results",[]) is Array and scene.get("results",[]).is_empty() and scene.get("transfer_items",[]) is Array and scene.get("transfer_items",[]).is_empty()): return {"state":Catalog.NOT_OWNED}
+	if not catalog._writes(scene): return {"state":Catalog.NOT_OWNED}
+	if scene.get("completion_policy","") in [TERMINAL,CONTINUATION,RESULT_CONTINUATION]: return catalog.inspect(id,scenes,sources)
+	if not catalog._error.is_empty() and not catalog._migration_error.is_empty(): return catalog._refused(catalog._error + "; " + catalog._migration_error)
+	if origin.get("kind") == "none": return {"state":Catalog.NOT_OWNED}
+	if origin.get("kind") != "npc": return catalog._refused(str(sources.get(id,"")) + "/scenes/" + id + ": " + str(origin.get("error","invalid actual NPC origin")))
+	# Unmanaged chapter writers are unchanged; this is not a chapter coordinator.
+	if catalog._error.is_empty() and not catalog._covered.has(sources.get(id,"")): return {"state":Catalog.NOT_OWNED}
+	if catalog._legacy_match(id,origin["metadata"],scenes,sources): return {"state":Catalog.NOT_OWNED}
+	return catalog._refused(str(sources.get(id,"")) + "/scenes/" + id + ": NPC effects need an independent supported contract; " + catalog._migration_error)

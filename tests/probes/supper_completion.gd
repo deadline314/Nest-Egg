@@ -1,6 +1,6 @@
 extends "res://tests/helpers/supper_completion_base.gd"
 const Sources := preload("res://game/story_result_sources.gd")
-const Supper := preload("res://game/story_result_supper.gd")
+const Original := preload("res://tests/fixtures/story_result_contract_originals.json")
 var case_name := ""
 var publications: Array = []
 var starts := {}
@@ -38,7 +38,7 @@ func _inject(id: StringName, kind: StringName) -> void:
 			faulted = true
 			before_count = _actor().talk_count
 			initial_wallet = Progression.credits
-			expected_next = StringName(Supper.BOUNDARIES[String(target)]["then"])
+			expected_next = StringName(Original.data["supper"]["BOUNDARIES"][String(target)]["then"])
 		return
 	if id == target and case_name == "insufficient" and not faulted:
 		_check(Progression.spend(40) and Progression.credits == 193, "ordinary pre-payment spend creates actual insufficient cash without editing the wallet")
@@ -47,11 +47,11 @@ func _inject(id: StringName, kind: StringName) -> void:
 func _fault() -> void:
 	selected_option = _wanted() if choosing else ""
 	if choosing:
-		for option: Dictionary in Supper.CHOICES[String(target)]["options"]:
+		for option: Dictionary in Original.data["supper"]["CHOICES"][String(target)]["options"]:
 			if option["id"] == selected_option:
 				expected_next = StringName(option["target"])
 	else:
-		expected_next = Sources.failure(String(target), "insufficient_credits", Story._scenes, Story._scene_sources) if case_name == "insufficient" else StringName(Supper.BOUNDARIES[String(target)]["then"])
+		expected_next = Sources.failure(String(target), "insufficient_credits", Story._scenes, Story._scene_sources) if case_name == "insufficient" else StringName(Original.data["supper"]["BOUNDARIES"][String(target)]["then"])
 	initial_wallet = Progression.credits
 	super._fault()
 

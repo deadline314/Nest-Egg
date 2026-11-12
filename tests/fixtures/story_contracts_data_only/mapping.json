@@ -1,0 +1,21 @@
+{
+  "scope": "synthetic data-only overlay; not shipped story",
+  "catalog": "res://tests/fixtures/story_contracts_data_only/catalog.json",
+  "files": [
+    {
+      "fixture": "story-overlay.json",
+      "target": "data/story/ch2_heron.json",
+      "sha256": "ff3814a897c0a4bcd2d8edaeb8ed810794433eb47b5a0462758ece4f8e085e7d"
+    },
+    {
+      "fixture": "npc-overlay.tres",
+      "target": "data/npcs/ch2_patroller.tres",
+      "sha256": "b98760aa8e67a1d041ec2c9c15a4de1706223216bb624fcf195354e5d8534d7d"
+    },
+    {
+      "fixture": "manual-item.tres",
+      "target": "data/story_items/ch2_patrol_copy.tres",
+      "sha256": "9640c2bfa0baf5b1b2e3713fa1b40f704173e5fe08cfbea7f18c4ff5c0e5ccef"
+    }
+  ]
+}

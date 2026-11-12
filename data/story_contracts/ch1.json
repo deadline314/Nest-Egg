@@ -1,0 +1,987 @@
+{
+  "version": 1,
+  "records": [
+    {
+      "id": "ch1_p05_service_fall",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_old_k_counter.tres",
+      "levels": [
+        "res://data/levels/ch1_prologue.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "flag": "ch1_prologue_service_heard",
+        "then": ""
+      }
+    },
+    {
+      "id": "ch1_p05_service_clean",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_old_k_counter.tres",
+      "levels": [
+        "res://data/levels/ch1_prologue.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "flag": "ch1_prologue_service_heard",
+        "then": ""
+      }
+    },
+    {
+      "id": "ch1_p06_call",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_old_k_counter.tres",
+      "levels": [
+        "res://data/levels/ch1_prologue.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch1_prologue_done",
+            "value": true
+          },
+          {
+            "kind": "flag",
+            "id": "ch1_prologue_exit",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_supper_choice_ordered",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ali_stall.tres",
+      "levels": [
+        "res://data/levels/ch1_stall.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "return",
+        "options": [
+          {
+            "id": "leave",
+            "target": "ch1_t_supper_leave_options",
+            "flags": {
+              "ch1_supper_choice": "leave"
+            }
+          },
+          {
+            "id": "stay",
+            "target": "ch1_t_supper_host_prompt",
+            "flags": {
+              "ch1_supper_choice": "stay"
+            }
+          },
+          {
+            "id": "return",
+            "target": "",
+            "flags": {}
+          }
+        ],
+        "waits": {
+          "6": 0.35
+        }
+      }
+    },
+    {
+      "id": "ch1_t_supper_choice_none",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ali_stall.tres",
+      "levels": [
+        "res://data/levels/ch1_stall.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "return",
+        "options": [
+          {
+            "id": "leave",
+            "target": "ch1_t_supper_leave_none",
+            "flags": {
+              "ch1_supper_choice": "leave"
+            }
+          },
+          {
+            "id": "stay",
+            "target": "ch1_t_supper_host_none_prompt",
+            "flags": {
+              "ch1_supper_choice": "stay"
+            }
+          },
+          {
+            "id": "return",
+            "target": "",
+            "flags": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_supper_leave_options",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ali_stall.tres",
+      "levels": [
+        "res://data/levels/ch1_stall.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "rechoose",
+        "options": [
+          {
+            "id": "pay",
+            "target": "ch1_t_supper_pay",
+            "flags": {}
+          },
+          {
+            "id": "defer",
+            "target": "ch1_t_supper_tab_confirm",
+            "flags": {}
+          },
+          {
+            "id": "rechoose",
+            "target": "ch1_t_supper_return",
+            "flags": {},
+            "when": {
+              "flag": "ch1_supper_can_rechoose",
+              "equals": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_supper_insufficient",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ali_stall.tres",
+      "levels": [
+        "res://data/levels/ch1_stall.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "return",
+        "options": [
+          {
+            "id": "defer",
+            "target": "ch1_t_supper_tab_confirm",
+            "flags": {}
+          },
+          {
+            "id": "stay",
+            "target": "ch1_t_supper_return",
+            "flags": {}
+          },
+          {
+            "id": "return",
+            "target": "",
+            "flags": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_supper_tab_confirm",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ali_stall.tres",
+      "levels": [
+        "res://data/levels/ch1_stall.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "return",
+        "options": [
+          {
+            "id": "confirm",
+            "target": "ch1_t_supper_tab",
+            "flags": {}
+          },
+          {
+            "id": "return",
+            "target": "",
+            "flags": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_supper_host_prompt",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ali_stall.tres",
+      "levels": [
+        "res://data/levels/ch1_stall.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "return",
+        "options": [
+          {
+            "id": "accept",
+            "target": "ch1_t_supper_stay_host",
+            "flags": {}
+          },
+          {
+            "id": "return",
+            "target": "ch1_t_supper_return",
+            "flags": {},
+            "when": {
+              "flag": "ch1_supper_can_rechoose",
+              "equals": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_supper_host_none_prompt",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ali_stall.tres",
+      "levels": [
+        "res://data/levels/ch1_stall.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "return",
+        "options": [
+          {
+            "id": "accept",
+            "target": "ch1_t_supper_stay_host_none",
+            "flags": {}
+          },
+          {
+            "id": "return",
+            "target": "ch1_t_supper_return",
+            "flags": {},
+            "when": {
+              "flag": "ch1_supper_can_rechoose",
+              "equals": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_supper_pay",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ali_stall.tres",
+      "levels": [
+        "res://data/levels/ch1_stall.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_source_results_continuation_v1",
+        "then": "ch1_t_supper_paid_goodbye",
+        "operations": [
+          {
+            "kind": "transaction",
+            "id": "ch1.revival_meal.paid"
+          },
+          {
+            "kind": "flag",
+            "id": "ch1_supper_done",
+            "value": true
+          }
+        ],
+        "failures": {
+          "insufficient_credits": "ch1_t_supper_insufficient"
+        }
+      }
+    },
+    {
+      "id": "ch1_t_supper_paid_goodbye",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ali_stall.tres",
+      "levels": [
+        "res://data/levels/ch1_stall.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "operations": [],
+        "pending_after": "ch1_t_supper_pay"
+      }
+    },
+    {
+      "id": "ch1_t_supper_tab",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ali_stall.tres",
+      "levels": [
+        "res://data/levels/ch1_stall.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_source_results_continuation_v1",
+        "then": "ch1_t_supper_tab_goodbye",
+        "operations": [
+          {
+            "kind": "transaction",
+            "id": "ch1.revival_meal.tab"
+          },
+          {
+            "kind": "item_acquire",
+            "id": "ch1_lounge_tab"
+          },
+          {
+            "kind": "flag",
+            "id": "ch1_supper_done",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_supper_tab_goodbye",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ali_stall.tres",
+      "levels": [
+        "res://data/levels/ch1_stall.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "operations": [],
+        "pending_after": "ch1_t_supper_tab"
+      }
+    },
+    {
+      "id": "ch1_t_supper_leave_none",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ali_stall.tres",
+      "levels": [
+        "res://data/levels/ch1_stall.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch1_supper_done",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_supper_return",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ali_stall.tres",
+      "levels": [
+        "res://data/levels/ch1_stall.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch1_supper_choice",
+            "value": "unset"
+          }
+        ],
+        "repeatable": true,
+        "repeat_condition": {
+          "flag": "ch1_supper_can_rechoose",
+          "equals": true
+        }
+      }
+    },
+    {
+      "id": "ch1_t_supper_stay_host",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ali_stall.tres",
+      "levels": [
+        "res://data/levels/ch1_stall.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_source_results_continuation_v1",
+        "then": "ch1_t_supper_stay_meal",
+        "operations": [
+          {
+            "kind": "transaction",
+            "id": "ch1.revival_meal.gift"
+          },
+          {
+            "kind": "flag",
+            "id": "ch1_supper_host_accepted",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_supper_stay_host_none",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ali_stall.tres",
+      "levels": [
+        "res://data/levels/ch1_stall.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_flags_continuation_v1",
+        "then": "ch1_t_supper_stay_meal",
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch1_supper_host_accepted",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_supper_stay_meal",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ali_stall.tres",
+      "levels": [
+        "res://data/levels/ch1_stall.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_flags_continuation_v1",
+        "then": "ch1_t_supper_stay_address",
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch1_supper_meal_done",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_supper_stay_address",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ali_stall.tres",
+      "levels": [
+        "res://data/levels/ch1_stall.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "knows_ali_address",
+            "value": true
+          },
+          {
+            "kind": "flag",
+            "id": "sq1_first_supper_done",
+            "value": true
+          },
+          {
+            "kind": "flag",
+            "id": "ch1_supper_done",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_label_watch",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_label_watch.tres",
+      "levels": [
+        "res://data/levels/ch1_pawnshop.tres",
+        "res://data/levels/ch1_pawnshop_dawn.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "dialogue",
+        "when": {
+          "not": {
+            "flag": "ch1_label_watch_seen",
+            "equals": true
+          }
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch1_label_watch_seen",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_label_guitar",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_label_guitar.tres",
+      "levels": [
+        "res://data/levels/ch1_pawnshop.tres",
+        "res://data/levels/ch1_pawnshop_dawn.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "dialogue",
+        "when": {
+          "not": {
+            "flag": "ch1_label_guitar_seen",
+            "equals": true
+          }
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch1_label_guitar_seen",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_label_raincoat",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_label_raincoat.tres",
+      "levels": [
+        "res://data/levels/ch1_pawnshop.tres",
+        "res://data/levels/ch1_pawnshop_dawn.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "dialogue",
+        "when": {
+          "not": {
+            "flag": "ch1_label_raincoat_seen",
+            "equals": true
+          }
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch1_label_raincoat_seen",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_label_fare",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_label_fare.tres",
+      "levels": [
+        "res://data/levels/ch1_pawnshop.tres",
+        "res://data/levels/ch1_pawnshop_dawn.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "dialogue",
+        "when": {
+          "not": {
+            "flag": "ch1_label_fare_seen",
+            "equals": true
+          }
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch1_label_fare_seen",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_egret_1",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_egret.tres",
+      "levels": [
+        "res://data/levels/ch1_rooftop.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "flag": "ch1_dinner_done",
+          "equals": true
+        },
+        "operations": [
+          {
+            "kind": "flag",
+            "id": "ch1_heard_brief",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_egret_sunday_prompt",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_egret.tres",
+      "levels": [
+        "res://data/levels/ch1_rooftop.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "return",
+        "options": [
+          {
+            "id": "ask",
+            "target": "ch1_t_egret_sunday",
+            "flags": {
+              "ch1_sunday_accepted": true
+            }
+          },
+          {
+            "id": "return",
+            "target": "",
+            "flags": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_egret_sunday",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_egret.tres",
+      "levels": [
+        "res://data/levels/ch1_rooftop.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "flag": "asked_egret_sunday",
+        "then": ""
+      }
+    },
+    {
+      "id": "ch1_t_handoff_accept",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_handoff_cabinet.tres",
+      "levels": [
+        "res://data/levels/ch1_handoff.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "item": "ch1_data_disk"
+            },
+            {
+              "not": {
+                "flag": "ch1_disk_delivered",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "item_transfer",
+            "id": "ch1_data_disk",
+            "destination": "ch1_handoff_cabinet"
+          },
+          {
+            "kind": "flag",
+            "id": "ch1_disk_delivered",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_handoff_receipt",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_handoff_cabinet.tres",
+      "levels": [
+        "res://data/levels/ch1_handoff.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "animated",
+        "when": {
+          "all": [
+            {
+              "flag": "ch1_disk_delivered",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch1_disk_receipt_taken",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "item_acquire",
+            "id": "ch1_delivery_receipt"
+          },
+          {
+            "kind": "flag",
+            "id": "ch1_disk_receipt_taken",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_handoff_summary",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_handoff_cabinet.tres",
+      "levels": [
+        "res://data/levels/ch1_handoff.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "then": "",
+        "mode": "dialogue",
+        "when": {
+          "all": [
+            {
+              "flag": "ch1_disk_delivered",
+              "equals": true
+            },
+            {
+              "flag": "ch1_disk_receipt_taken",
+              "equals": true
+            },
+            {
+              "not": {
+                "flag": "ch1_market_summary_known",
+                "equals": true
+              }
+            }
+          ]
+        },
+        "operations": [
+          {
+            "kind": "item_acquire",
+            "id": "ch1_market_summary"
+          },
+          {
+            "kind": "flag",
+            "id": "ch1_market_summary_known",
+            "value": true
+          },
+          {
+            "kind": "flag",
+            "id": "ch1_handoff_done",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_ali_order",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ali_lounge.tres",
+      "levels": [
+        "res://data/levels/ch1_lounge.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_source_results_continuation_v1",
+        "then": "ch1_t_ali_name",
+        "operations": [
+          {
+            "kind": "transaction",
+            "id": "ch1.revival_meal.order"
+          },
+          {
+            "kind": "item_acquire",
+            "id": "ch1_lounge_bill"
+          },
+          {
+            "kind": "flag",
+            "id": "ch1_ali_reception_selected",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_ali_sit",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ali_lounge.tres",
+      "levels": [
+        "res://data/levels/ch1_lounge.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_flags_continuation_v1",
+        "flag": "ch1_ali_reception_selected",
+        "then": "ch1_t_ali_name"
+      }
+    },
+    {
+      "id": "ch1_t_ali_name",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ali_lounge.tres",
+      "levels": [
+        "res://data/levels/ch1_lounge.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "flag": "ch1_met_ali",
+        "then": ""
+      }
+    },
+    {
+      "id": "ch1_t_ali_2_ordered",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ali_lounge.tres",
+      "levels": [
+        "res://data/levels/ch1_lounge.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_flags_continuation_v1",
+        "flag": "ch1_ali_evening_talk_done",
+        "then": "ch1_t_ali_evening_close"
+      }
+    },
+    {
+      "id": "ch1_t_ali_2_sit",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ali_lounge.tres",
+      "levels": [
+        "res://data/levels/ch1_lounge.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_flags_continuation_v1",
+        "flag": "ch1_ali_evening_talk_done",
+        "then": "ch1_t_ali_evening_close"
+      }
+    },
+    {
+      "id": "ch1_t_ali_evening_close",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_ali_lounge.tres",
+      "levels": [
+        "res://data/levels/ch1_lounge.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "flag": "ch1_lounge_evening_done",
+        "then": ""
+      }
+    },
+    {
+      "id": "ch1_t_lamp_voice_prompt",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_lamp_voice.tres",
+      "levels": [
+        "res://data/levels/ch1_booth_alley.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "return",
+        "options": [
+          {
+            "id": "ask",
+            "target": "ch1_t_lamp_voice_first",
+            "flags": {
+              "ch1_voice_accepted": true
+            }
+          },
+          {
+            "id": "return",
+            "target": "",
+            "flags": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_lamp_voice_first",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_lamp_voice.tres",
+      "levels": [
+        "res://data/levels/ch1_booth_alley.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_flags_continuation_v1",
+        "flag": "ch1_lamp_voice_asked",
+        "then": "ch1_t_lamp_voice_second_prompt"
+      }
+    },
+    {
+      "id": "ch1_t_lamp_voice_second_prompt",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_lamp_voice.tres",
+      "levels": [
+        "res://data/levels/ch1_booth_alley.tres"
+      ],
+      "role": "choice",
+      "rule": {
+        "default": "later",
+        "options": [
+          {
+            "id": "ask",
+            "target": "ch1_t_lamp_voice_second",
+            "flags": {}
+          },
+          {
+            "id": "later",
+            "target": "ch1_t_lamp_voice_later",
+            "flags": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch1_t_lamp_voice_second",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_lamp_voice.tres",
+      "levels": [
+        "res://data/levels/ch1_booth_alley.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "flag": "sq5_lamp_voice_noticed",
+        "then": ""
+      }
+    },
+    {
+      "id": "ch1_t_lamp_voice_later",
+      "source": "res://data/story/ch1_kasa.json",
+      "npc": "res://data/npcs/ch1_lamp_voice.tres",
+      "levels": [
+        "res://data/levels/ch1_booth_alley.tres"
+      ],
+      "role": "boundary",
+      "rule": {
+        "policy": "main_terminal_results_v1",
+        "flag": "",
+        "then": "",
+        "repeatable": true
+      }
+    }
+  ]
+}

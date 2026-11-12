@@ -1,6 +1,6 @@
 extends RefCounted
 const Sources := preload("res://game/story_result_sources.gd")
-const Supper := preload("res://game/story_result_supper.gd")
+const Original := preload("res://tests/fixtures/story_result_contract_originals.json")
 
 static func run(s: TestSuite) -> void:
 	var scenes: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(Sources.SOURCE))["scenes"]
@@ -8,11 +8,11 @@ static func run(s: TestSuite) -> void:
 	for id: String in scenes:
 		locations[id] = Sources.SOURCE
 	var before := var_to_bytes([GameState.world_flags, Progression.snapshot(), StoryItems.snapshot(), Story.progress_snapshot()])
-	for id: String in Supper.BOUNDARIES:
+	for id: String in Original.data["supper"]["BOUNDARIES"]:
 		s.check(not Sources.boundary(id, scenes, locations).is_empty(), "actual supper result has a finite contract: " + id)
-		if not Supper.BOUNDARIES[id]["then"].is_empty():
-			s.check(String(Sources.continuation(id, scenes, locations)) == Supper.BOUNDARIES[id]["then"], "same original stall source retains its actual unread segment: " + id)
-	for id: String in Supper.CHOICES:
+		if not Original.data["supper"]["BOUNDARIES"][id]["then"].is_empty():
+			s.check(String(Sources.continuation(id, scenes, locations)) == Original.data["supper"]["BOUNDARIES"][id]["then"], "same original stall source retains its actual unread segment: " + id)
+	for id: String in Original.data["supper"]["CHOICES"]:
 		s.check(not Sources.choice_step(id, scenes, locations).is_empty(), "all original menu/default/condition paths validate: " + id)
 	var root := "ch1_t_supper_choice_ordered"
 	var leaf := "ch1_t_supper_stay_address"
@@ -44,7 +44,7 @@ static func run(s: TestSuite) -> void:
 	changed["ch1_t_supper_pay"]["on_failure"]["insufficient_credits"] = leaf
 	s.check(Sources.failure("ch1_t_supper_pay", "insufficient_credits", changed, locations) == &"", "failure route cannot bypass payment and reveal address")
 	var entry := &"ch1_dispatch_ali_stall"
-	var npc: String = Supper.NPC_SOURCE["npc"]
+	var npc: String = Original.data["supper"]["NPC_SOURCE"]["npc"]
 	for pair: Array in [["ch1_t_supper_pay","ch1_t_supper_paid_goodbye"],["ch1_t_supper_tab","ch1_t_supper_tab_goodbye"]]:
 		var completed := {StringName(pair[0]):true}
 		s.check(Sources.pending_terminal(npc, entry, pair[1], scenes, locations, completed), "only successful original producer admits its pending goodbye")

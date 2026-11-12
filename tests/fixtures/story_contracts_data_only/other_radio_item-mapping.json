@@ -1,0 +1,21 @@
+{
+  "scope": "synthetic data-only overlay; not shipped story",
+  "catalog": "res://tests/fixtures/story_contracts_data_only/catalog.json",
+  "files": [
+    {
+      "fixture": "other_radio_item-story.json",
+      "target": "data/story/ch2_heron.json",
+      "sha256": "1bc61c336d17c7057fa66a3412ca1e4e66fc6d69ff365bbc5de158fc32579794"
+    },
+    {
+      "fixture": "npc-bypass-overlay.tres",
+      "target": "data/npcs/ch2_patroller.tres",
+      "sha256": "5c3e1c53bc0c941d2c61dcc4419b6bdd3847c05e6d223d4e6bb20c64634f0cbf"
+    },
+    {
+      "fixture": "manual-item.tres",
+      "target": "data/story_items/ch2_patrol_copy.tres",
+      "sha256": "9640c2bfa0baf5b1b2e3713fa1b40f704173e5fe08cfbea7f18c4ff5c0e5ccef"
+    }
+  ]
+}

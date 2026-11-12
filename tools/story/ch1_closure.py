@@ -12,6 +12,7 @@ import hashlib
 import json
 from pathlib import Path
 from typing import Any, Protocol
+import story_contracts
 
 SCRIPT = "design/13-story-v2/CH01_CLOSURE_SCRIPT.md"
 ENTRY_CONTRACT = {"upstream_source": "design/13-story-v2/PROLOGUE_SCRIPT.md", "upstream_section": "P06",
@@ -830,6 +831,18 @@ def _condition_errors(expression, where):
 def validate_source(source: ProductionSource) -> list[str]:
     """Meaningful CPU source checks; not StoryLint, engine or save/load tests."""
     problems = []
+    try:
+        contracts = story_contracts.load_records()
+    except ValueError as error:
+        return [str(error)]
+    try:
+        npc = story_contracts.validate_author_bindings(source, "res://data/story/ch1_kasa.json")
+        for ident in npc:
+            segment = source.segments[ident]
+            if (segment.completion or any(option.intent for option in segment.options)) and ident not in contracts:
+                problems.append(f"res://data/story/ch1_kasa.json/scenes/{ident}: NPC effects/intent require an independent catalog contract")
+    except ValueError as error:
+        problems.append(str(error))
     producers = source.producer_index()
     sections = {segment.section for segment in source.segments.values()}
     required = {f"F{i:02}" for i in range(1, 10)} | {f"O{i:02}" for i in range(1, 5)}
@@ -875,9 +888,9 @@ def validate_source(source: ProductionSource) -> list[str]:
             for name in _condition_receipts(option.when):
                 if name not in source.transactions:
                     problems.append(f"{where}/{option.id}: unknown receipt {name}")
-            for operation in option.intent:
-                if operation.get("kind") != "flag" or operation.get("id") not in {"ch1_supper_choice", "ch1_sunday_accepted", "ch1_voice_accepted"}:
-                    problems.append(f"{where}/{option.id}: irreversible result incorrectly stored as choice intent")
+            intent_problem = story_contracts.validate_intent(segment.id, option, contracts)
+            if intent_problem:
+                problems.append(intent_problem)
         for target in targets:
             if target not in source.segments:
                 problems.append(f"{where}: next/option target {target} missing")

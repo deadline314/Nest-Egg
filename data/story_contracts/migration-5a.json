@@ -1,0 +1,5487 @@
+{
+  "base": "5a363c4e29c186661eba364cc2bbee3cee374178",
+  "legacy": {
+    "ch2_t_s01_settled": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "ch1.commission.settled",
+            "kind": "transaction"
+          },
+          {
+            "id": "ch2_morning_settled",
+            "kind": "flag",
+            "value": true
+          }
+        ],
+        "steps": [
+          {
+            "do": "prop_move",
+            "id": "towel",
+            "time": 0,
+            "to": [
+              274,
+              197.9
+            ],
+            "wait": true
+          }
+        ],
+        "then": "ch2_t_s01_reaction",
+        "when": {
+          "not": {
+            "receipt": "ch1.commission.settled",
+            "status": "recorded"
+          }
+        }
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_old_k",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_old_k.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_old_k",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s02_off": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "ch2_radio_repaired",
+            "kind": "flag",
+            "value": true
+          },
+          {
+            "id": "sq4_broadcast_heard",
+            "kind": "flag",
+            "value": true
+          },
+          {
+            "id": "ch2.sq4_radio",
+            "kind": "transaction"
+          }
+        ],
+        "when": {
+          "not": {
+            "equals": true,
+            "flag": "ch2_radio_repaired"
+          }
+        }
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_radio",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_radio.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_radio",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s02_save_late": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "sq4_clip_saved",
+            "kind": "flag",
+            "value": true
+          },
+          {
+            "id": "ch2_radio_clip",
+            "kind": "item_acquire"
+          }
+        ],
+        "when": {
+          "not": {
+            "equals": true,
+            "flag": "sq4_clip_saved"
+          }
+        }
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_radio",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_radio.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_radio",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s02_saved": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "ch2_radio_repaired",
+            "kind": "flag",
+            "value": true
+          },
+          {
+            "id": "sq4_broadcast_heard",
+            "kind": "flag",
+            "value": true
+          },
+          {
+            "id": "ch2.sq4_radio",
+            "kind": "transaction"
+          },
+          {
+            "id": "sq4_clip_saved",
+            "kind": "flag",
+            "value": true
+          },
+          {
+            "id": "ch2_radio_clip",
+            "kind": "item_acquire"
+          }
+        ],
+        "when": {
+          "not": {
+            "equals": true,
+            "flag": "ch2_radio_repaired"
+          }
+        }
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_radio",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_radio.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_radio",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s03_rain": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "ch2_brief_done",
+            "kind": "flag",
+            "value": true
+          },
+          {
+            "id": "ch2_check_card",
+            "kind": "item_acquire"
+          }
+        ],
+        "when": {
+          "not": {
+            "equals": true,
+            "flag": "ch2_brief_done"
+          }
+        }
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_egret",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_egret.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_egret",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s04_asked": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "sq2_sunday_heard",
+            "kind": "flag",
+            "value": true
+          },
+          {
+            "id": "ch2.sq2_sunday",
+            "kind": "transaction"
+          }
+        ],
+        "then": "ch2_dispatch_back_egret_hub",
+        "when": {
+          "equals": true,
+          "flag": "asked_egret_sunday"
+        }
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_egret",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_egret.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_egret",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s04_new": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "sq2_sunday_heard",
+            "kind": "flag",
+            "value": true
+          },
+          {
+            "id": "ch2.sq2_sunday",
+            "kind": "transaction"
+          }
+        ],
+        "then": "ch2_dispatch_back_egret_hub",
+        "when": {
+          "not": {
+            "equals": true,
+            "flag": "asked_egret_sunday"
+          }
+        }
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_egret",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_egret.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_egret",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s06_ask": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "ch2_ali_need_asked",
+            "kind": "flag",
+            "value": true
+          },
+          {
+            "id": "ch2.sq1_need",
+            "kind": "transaction"
+          },
+          {
+            "id": "ch2_evidence_receipt",
+            "kind": "item_acquire"
+          },
+          {
+            "id": "ch2_evidence_receipt",
+            "kind": "flag",
+            "value": true
+          }
+        ],
+        "then": "ch2_t_s06_invite",
+        "when": {
+          "not": {
+            "equals": true,
+            "flag": "ch2_market_contact_done"
+          }
+        }
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_ali_market",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_ali_market.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_ali_market",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        },
+        {
+          "entry": "ch2_dispatch_vig",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_vig.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_vig",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s06_ask_late": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "ch2_ali_need_asked",
+            "kind": "flag",
+            "value": true
+          },
+          {
+            "id": "ch2.sq1_need",
+            "kind": "transaction"
+          }
+        ],
+        "when": {
+          "not": {
+            "equals": true,
+            "flag": "ch2_ali_need_asked"
+          }
+        }
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_ali_lounge",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_ali_lounge.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_ali_lounge",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        },
+        {
+          "entry": "ch2_dispatch_ali_market",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_ali_market.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_ali_market",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s06_close": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "ch2_market_contact_done",
+            "kind": "flag",
+            "value": true
+          }
+        ]
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_ali_market",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_ali_market.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_ali_market",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        },
+        {
+          "entry": "ch2_dispatch_vig",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_vig.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_vig",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s06_paid": {
+      "effects": {
+        "mode": "animated",
+        "on_failure": {
+          "insufficient_credits": "ch2_t_s06_short"
+        },
+        "results": [
+          {
+            "id": "ch2.market_advance",
+            "kind": "transaction"
+          },
+          {
+            "id": "ali_advance_40",
+            "kind": "flag",
+            "value": 40
+          },
+          {
+            "id": "ch2_evidence_receipt",
+            "kind": "item_acquire"
+          },
+          {
+            "id": "ch2_evidence_receipt",
+            "kind": "flag",
+            "value": true
+          }
+        ],
+        "then": "ch2_t_s06_invite",
+        "when": {
+          "not": {
+            "equals": true,
+            "flag": "ch2_market_contact_done"
+          }
+        }
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_ali_market",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_ali_market.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_ali_market",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        },
+        {
+          "entry": "ch2_dispatch_vig",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_vig.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_vig",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s07_address_new": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "knows_ali_address",
+            "kind": "flag",
+            "value": true
+          }
+        ],
+        "then": "ch2_dispatch_back_s07_bowls",
+        "when": {
+          "not": {
+            "equals": true,
+            "flag": "knows_ali_address"
+          }
+        }
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_ali_home",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_ali_home.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_ali_home",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s07_leave": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "ch2_ali_home_visit",
+            "kind": "flag",
+            "value": true
+          }
+        ]
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_ali_home",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_ali_home.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_ali_home",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s07_soup": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "ch2_ali_home_visit",
+            "kind": "flag",
+            "value": true
+          },
+          {
+            "id": "sq1_soup_practice_done",
+            "kind": "flag",
+            "value": true
+          },
+          {
+            "id": "ch2.sq1_soup",
+            "kind": "transaction"
+          }
+        ],
+        "steps": [
+          {
+            "do": "world_action",
+            "id": "ali_bowl_rack"
+          }
+        ]
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_ali_home",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_ali_home.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_ali_home",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s10_done": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "ch2_market_reconciled",
+            "kind": "flag",
+            "value": true
+          }
+        ]
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_reconcile",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_drying_desk.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_reconcile",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s11_boxes": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "ch2_yong_intro_seen",
+            "kind": "flag",
+            "value": true
+          }
+        ],
+        "when": {
+          "not": {
+            "equals": true,
+            "flag": "ch2_yong_intro_seen"
+          }
+        }
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_ledger_door",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_ledger_door.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_ledger_door",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s13_cabinet": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "ch2_original_ledger_taken",
+            "kind": "flag",
+            "value": true
+          },
+          {
+            "id": "ch2_original_ledger",
+            "kind": "item_acquire"
+          },
+          {
+            "id": "ch2_ali_page",
+            "kind": "item_acquire"
+          },
+          {
+            "id": "ch2_clinic_index",
+            "kind": "item_acquire"
+          }
+        ],
+        "then": "ch2_t_s13_fall",
+        "when": {
+          "all": [
+            {
+              "equals": true,
+              "flag": "ch2_yong_subdued"
+            },
+            {
+              "not": {
+                "equals": true,
+                "flag": "ch2_original_ledger_taken"
+              }
+            }
+          ]
+        }
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_cabinet",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_ledger_cabinet.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_cabinet",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s13_cut": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "ch2.yong_subdued",
+            "kind": "transaction"
+          }
+        ],
+        "then": "ch2_t_s13_cabinet",
+        "when": {
+          "all": [
+            {
+              "equals": true,
+              "flag": "ch2_yong_subdued"
+            },
+            {
+              "equals": "cut",
+              "flag": "yong_link_choice"
+            },
+            {
+              "not": {
+                "equals": true,
+                "flag": "ch2_original_ledger_taken"
+              }
+            }
+          ]
+        }
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_cabinet",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_ledger_cabinet.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_cabinet",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s13_fall": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "ch2_egret_transport_done",
+            "kind": "flag",
+            "value": true
+          }
+        ],
+        "when": {
+          "all": [
+            {
+              "equals": true,
+              "flag": "ch2_original_ledger_taken"
+            },
+            {
+              "not": {
+                "equals": true,
+                "flag": "ch2_egret_transport_done"
+              }
+            }
+          ]
+        }
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_cabinet",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_ledger_cabinet.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_cabinet",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s13_keep": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "ch2.yong_subdued",
+            "kind": "transaction"
+          }
+        ],
+        "then": "ch2_t_s13_cabinet",
+        "when": {
+          "all": [
+            {
+              "equals": true,
+              "flag": "ch2_yong_subdued"
+            },
+            {
+              "not": {
+                "equals": "cut",
+                "flag": "yong_link_choice"
+              }
+            },
+            {
+              "not": {
+                "equals": true,
+                "flag": "ch2_original_ledger_taken"
+              }
+            }
+          ]
+        }
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_cabinet",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_ledger_cabinet.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_cabinet",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s14_quiet": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "ch2_egret_returned",
+            "kind": "flag",
+            "value": true
+          },
+          {
+            "id": "egret_restoration_count",
+            "kind": "flag",
+            "value": 214
+          }
+        ],
+        "when": {
+          "not": {
+            "equals": true,
+            "flag": "ch2_egret_returned"
+          }
+        }
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_egret_booth",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_egret_booth.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_egret_booth",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s15_upload": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "ch2_audit_submitted",
+            "kind": "flag",
+            "value": true
+          },
+          {
+            "id": "ch2.audit_settled",
+            "kind": "transaction"
+          }
+        ],
+        "when": {
+          "all": [
+            {
+              "all": [
+                {
+                  "equals": true,
+                  "flag": "ch2_egret_returned"
+                },
+                {
+                  "equals": true,
+                  "flag": "ch2_original_ledger_taken"
+                },
+                {
+                  "equals": true,
+                  "flag": "ch2_market_reconciled"
+                }
+              ]
+            },
+            {
+              "not": {
+                "equals": true,
+                "flag": "ch2_audit_submitted"
+              }
+            }
+          ]
+        }
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_terminal",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_terminal.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_terminal",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s16_correct": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "sq1_ledger_delivered",
+            "kind": "flag",
+            "value": true
+          },
+          {
+            "id": "ali_ledger_action",
+            "kind": "flag",
+            "value": "correct"
+          },
+          {
+            "id": "ch2_ali_page",
+            "kind": "item_transfer"
+          },
+          {
+            "id": "ch2.sq1_ledger",
+            "kind": "transaction"
+          }
+        ],
+        "then": "ch2_dispatch_s16_close"
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_ali_lounge",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_ali_lounge.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_ali_lounge",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s16_hold": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "sq1_ledger_delivered",
+            "kind": "flag",
+            "value": true
+          },
+          {
+            "id": "ali_ledger_action",
+            "kind": "flag",
+            "value": "hold"
+          },
+          {
+            "id": "ch2_ali_page",
+            "kind": "item_transfer"
+          },
+          {
+            "id": "ch2.sq1_ledger",
+            "kind": "transaction"
+          }
+        ],
+        "then": "ch2_dispatch_s16_close"
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_ali_lounge",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_ali_lounge.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_ali_lounge",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s17_book": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "ch2_guest_book_entered",
+            "kind": "flag",
+            "value": true
+          }
+        ],
+        "then": "ch2_dispatch_back_s17_open",
+        "when": {
+          "not": {
+            "equals": true,
+            "flag": "ch2_guest_book_entered"
+          }
+        }
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_guest_entry",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_guest_entry.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_guest_entry",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s18_done": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "guest_ticket_answered",
+            "kind": "flag",
+            "value": true
+          },
+          {
+            "id": "ch2.guest_zheng",
+            "kind": "transaction"
+          }
+        ],
+        "then": "ch2_dispatch_s17_next"
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_guest_entry",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_guest_entry.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_guest_entry",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s19_done": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "guest_band_answered",
+            "kind": "flag",
+            "value": true
+          },
+          {
+            "id": "ch2.guest_chen",
+            "kind": "transaction"
+          }
+        ],
+        "then": "ch2_dispatch_s17_next"
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_guest_entry",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_guest_entry.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_guest_entry",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s20_done": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "guest_letter_answered",
+            "kind": "flag",
+            "value": true
+          },
+          {
+            "id": "ch2.guest_hong",
+            "kind": "transaction"
+          }
+        ],
+        "then": "ch2_dispatch_s17_next"
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_guest_entry",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_guest_entry.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_guest_entry",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s21_close": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "guest_book_completed",
+            "kind": "flag",
+            "value": true
+          },
+          {
+            "id": "ch2.guest_book",
+            "kind": "transaction"
+          }
+        ],
+        "when": {
+          "all": [
+            {
+              "all": [
+                {
+                  "equals": true,
+                  "flag": "guest_ticket_answered"
+                },
+                {
+                  "equals": true,
+                  "flag": "guest_band_answered"
+                },
+                {
+                  "equals": true,
+                  "flag": "guest_letter_answered"
+                }
+              ]
+            },
+            {
+              "not": {
+                "equals": true,
+                "flag": "guest_book_completed"
+              }
+            }
+          ]
+        }
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_guest_entry",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_guest_entry.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_guest_entry",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    },
+    "ch2_t_s22_greycoat": {
+      "effects": {
+        "mode": "animated",
+        "results": [
+          {
+            "id": "ch2_heron_closed",
+            "kind": "flag",
+            "value": true
+          },
+          {
+            "id": "harbor_walk_ready",
+            "kind": "flag",
+            "value": true
+          }
+        ]
+      },
+      "origins": [
+        {
+          "entry": "ch2_dispatch_egret",
+          "index": 0,
+          "npc": "res://data/npcs/ch2_egret.tres",
+          "talk": {
+            "after_scene": "",
+            "consumable": "",
+            "credits": 0,
+            "min_deaths": 0,
+            "min_talks": 0,
+            "once": false,
+            "requires_flag": "",
+            "requires_held_item": "",
+            "requires_item": "",
+            "requires_transferred_item": "",
+            "scene": "ch2_dispatch_egret",
+            "story_item": "",
+            "unless_flag": "",
+            "unless_held_item": ""
+          }
+        }
+      ],
+      "source": "res://data/story/ch2_heron.json"
+    }
+  },
+  "protected": [
+    "ch1_p05_service_clean",
+    "ch1_p05_service_fall",
+    "ch1_p06_call",
+    "ch1_t_ali_2_ordered",
+    "ch1_t_ali_2_sit",
+    "ch1_t_ali_evening_close",
+    "ch1_t_ali_name",
+    "ch1_t_ali_order",
+    "ch1_t_ali_sit",
+    "ch1_t_egret_1",
+    "ch1_t_egret_sunday",
+    "ch1_t_egret_sunday_prompt",
+    "ch1_t_handoff_accept",
+    "ch1_t_handoff_receipt",
+    "ch1_t_handoff_summary",
+    "ch1_t_label_fare",
+    "ch1_t_label_guitar",
+    "ch1_t_label_raincoat",
+    "ch1_t_label_watch",
+    "ch1_t_lamp_voice_first",
+    "ch1_t_lamp_voice_later",
+    "ch1_t_lamp_voice_prompt",
+    "ch1_t_lamp_voice_second",
+    "ch1_t_lamp_voice_second_prompt",
+    "ch1_t_supper_choice_none",
+    "ch1_t_supper_choice_ordered",
+    "ch1_t_supper_host_none_prompt",
+    "ch1_t_supper_host_prompt",
+    "ch1_t_supper_insufficient",
+    "ch1_t_supper_leave_none",
+    "ch1_t_supper_leave_options",
+    "ch1_t_supper_paid_goodbye",
+    "ch1_t_supper_pay",
+    "ch1_t_supper_return",
+    "ch1_t_supper_stay_address",
+    "ch1_t_supper_stay_host",
+    "ch1_t_supper_stay_host_none",
+    "ch1_t_supper_stay_meal",
+    "ch1_t_supper_tab",
+    "ch1_t_supper_tab_confirm",
+    "ch1_t_supper_tab_goodbye",
+    "ch2_t_s05_gate",
+    "ch2_t_s08_banyan",
+    "ch2_t_s08_collection",
+    "ch2_t_s08_contract",
+    "ch2_t_s08_rumor",
+    "ch2_t_s09_guard",
+    "ch2_t_s09_lever"
+  ],
+  "routes": {
+    "ch2_dispatch_ali_home": {
+      "ch2_dispatch_ali_home": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s07_door",
+              "when": {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_ali_home_visit"
+                }
+              }
+            },
+            {
+              "target": "ch2_t_s07_revisit",
+              "when": {
+                "equals": true,
+                "flag": "ch2_ali_home_visit"
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_back_s07_bowls": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s07_bowls",
+              "when": {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_ali_home_visit"
+                }
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_back_s07_wash": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s07_wash",
+              "when": {}
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_s07_address": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s07_address_known",
+              "when": {
+                "equals": true,
+                "flag": "knows_ali_address"
+              }
+            },
+            {
+              "target": "ch2_t_s07_address_new",
+              "when": {
+                "all": [
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "knows_ali_address"
+                    }
+                  },
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "knows_ali_address"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s07_address_known": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_dispatch_back_s07_bowls",
+          "when": {
+            "equals": true,
+            "flag": "knows_ali_address"
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s07_address_new": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "knows_ali_address",
+              "kind": "flag",
+              "value": true
+            }
+          ],
+          "then": "ch2_dispatch_back_s07_bowls",
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "knows_ali_address"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s07_bowls": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "wash",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "wash",
+                  "target": "ch2_t_s07_wash"
+                },
+                {
+                  "id": "address",
+                  "target": "ch2_t_s07_leave"
+                }
+              ]
+            }
+          ],
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_ali_home_visit"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s07_door": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_dispatch_s07_address",
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_ali_home_visit"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s07_leave": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "ch2_ali_home_visit",
+              "kind": "flag",
+              "value": true
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s07_revisit": {
+        "effects": {
+          "mode": "animated",
+          "when": {
+            "equals": true,
+            "flag": "ch2_ali_home_visit"
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s07_soup": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "ch2_ali_home_visit",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "sq1_soup_practice_done",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "ch2.sq1_soup",
+              "kind": "transaction"
+            }
+          ],
+          "steps": [
+            {
+              "do": "world_action",
+              "id": "ali_bowl_rack"
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s07_wash": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "stop",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "left",
+                  "target": "ch2_t_s07_soup"
+                },
+                {
+                  "id": "right",
+                  "target": "ch2_t_s07_wash_wrong"
+                },
+                {
+                  "id": "stop"
+                }
+              ]
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s07_wash_wrong": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "do": "world_action",
+              "id": "ali_bowl_wet_end"
+            }
+          ],
+          "then": "ch2_dispatch_back_s07_wash"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      }
+    },
+    "ch2_dispatch_ali_lounge": {
+      "ch2_dispatch_ali_lounge": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s16_page",
+              "when": {
+                "all": [
+                  {
+                    "equals": true,
+                    "flag": "ch2_audit_submitted"
+                  },
+                  {
+                    "item": "ch2_ali_page"
+                  },
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "sq1_ledger_delivered"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "target": "ch2_t_s16_revisit_correct",
+              "when": {
+                "equals": "correct",
+                "flag": "ali_ledger_action"
+              }
+            },
+            {
+              "target": "ch2_t_s16_revisit_hold",
+              "when": {
+                "equals": "hold",
+                "flag": "ali_ledger_action"
+              }
+            },
+            {
+              "target": "ch2_t_s16_idle",
+              "when": {}
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_s16_close": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s16_advance",
+              "when": {
+                "equals": 40,
+                "flag": "ali_advance_40"
+              }
+            },
+            {
+              "target": "ch2_t_s16_need",
+              "when": {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_ali_need_asked"
+                }
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_ask_late": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "ch2_ali_need_asked",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "ch2.sq1_need",
+              "kind": "transaction"
+            }
+          ],
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_ali_need_asked"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s16_advance": {
+        "effects": {
+          "mode": "animated",
+          "when": {
+            "equals": 40,
+            "flag": "ali_advance_40"
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s16_correct": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "sq1_ledger_delivered",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "ali_ledger_action",
+              "kind": "flag",
+              "value": "correct"
+            },
+            {
+              "id": "ch2_ali_page",
+              "kind": "item_transfer"
+            },
+            {
+              "id": "ch2.sq1_ledger",
+              "kind": "transaction"
+            }
+          ],
+          "then": "ch2_dispatch_s16_close"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s16_hold": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "sq1_ledger_delivered",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "ali_ledger_action",
+              "kind": "flag",
+              "value": "hold"
+            },
+            {
+              "id": "ch2_ali_page",
+              "kind": "item_transfer"
+            },
+            {
+              "id": "ch2.sq1_ledger",
+              "kind": "transaction"
+            }
+          ],
+          "then": "ch2_dispatch_s16_close"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s16_idle": {
+        "effects": {
+          "mode": "animated"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s16_need": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "no",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "ask",
+                  "target": "ch2_t_s06_ask_late"
+                },
+                {
+                  "id": "no"
+                }
+              ]
+            }
+          ],
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_ali_need_asked"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s16_page": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "later",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "correct",
+                  "target": "ch2_t_s16_correct"
+                },
+                {
+                  "id": "hold",
+                  "target": "ch2_t_s16_hold"
+                },
+                {
+                  "id": "later"
+                }
+              ]
+            }
+          ],
+          "when": {
+            "all": [
+              {
+                "equals": true,
+                "flag": "ch2_audit_submitted"
+              },
+              {
+                "item": "ch2_ali_page"
+              },
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "sq1_ledger_delivered"
+                }
+              }
+            ]
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s16_revisit_correct": {
+        "effects": {
+          "mode": "animated",
+          "when": {
+            "equals": "correct",
+            "flag": "ali_ledger_action"
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s16_revisit_hold": {
+        "effects": {
+          "mode": "animated",
+          "when": {
+            "equals": "hold",
+            "flag": "ali_ledger_action"
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      }
+    },
+    "ch2_dispatch_ali_market": {
+      "ch2_dispatch_ali_market": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s06_open",
+              "when": {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_market_contact_done"
+                }
+              }
+            },
+            {
+              "target": "ch2_t_s06_ali_paid_revisit",
+              "when": {
+                "all": [
+                  {
+                    "equals": true,
+                    "flag": "ch2_market_contact_done"
+                  },
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "ch2_ali_need_asked"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "target": "ch2_t_s06_ali_revisit",
+              "when": {
+                "all": [
+                  {
+                    "equals": true,
+                    "flag": "ch2_market_contact_done"
+                  },
+                  {
+                    "equals": true,
+                    "flag": "ch2_ali_need_asked"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_s06_supper": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s06_invite_stayed",
+              "when": {
+                "equals": true,
+                "flag": "knows_ali_address"
+              }
+            },
+            {
+              "target": "ch2_t_s06_invite_left",
+              "when": {
+                "not": {
+                  "equals": true,
+                  "flag": "knows_ali_address"
+                }
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_ali_paid_revisit": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "later",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "ask",
+                  "target": "ch2_t_s06_ask_late"
+                },
+                {
+                  "id": "later",
+                  "target": "ch2_t_s06_later"
+                }
+              ]
+            }
+          ],
+          "when": {
+            "all": [
+              {
+                "equals": true,
+                "flag": "ch2_market_contact_done"
+              },
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_ali_need_asked"
+                }
+              }
+            ]
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_ali_revisit": {
+        "effects": {
+          "mode": "animated",
+          "when": {
+            "all": [
+              {
+                "equals": true,
+                "flag": "ch2_market_contact_done"
+              },
+              {
+                "equals": true,
+                "flag": "ch2_ali_need_asked"
+              }
+            ]
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_ask": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "ch2_ali_need_asked",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "ch2.sq1_need",
+              "kind": "transaction"
+            },
+            {
+              "id": "ch2_evidence_receipt",
+              "kind": "item_acquire"
+            },
+            {
+              "id": "ch2_evidence_receipt",
+              "kind": "flag",
+              "value": true
+            }
+          ],
+          "then": "ch2_t_s06_invite",
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_market_contact_done"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_ask_late": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "ch2_ali_need_asked",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "ch2.sq1_need",
+              "kind": "transaction"
+            }
+          ],
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_ali_need_asked"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_close": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "ch2_market_contact_done",
+              "kind": "flag",
+              "value": true
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_invite": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_dispatch_s06_supper"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_invite_left": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_t_s06_close",
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "knows_ali_address"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_invite_stayed": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_t_s06_close",
+          "when": {
+            "equals": true,
+            "flag": "knows_ali_address"
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_later": {
+        "effects": {
+          "mode": "animated"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_open": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "pay",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "pay",
+                  "target": "ch2_t_s06_pay_confirm"
+                },
+                {
+                  "id": "ask",
+                  "target": "ch2_t_s06_ask"
+                }
+              ]
+            }
+          ],
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_market_contact_done"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_open_again": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "pay",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "pay",
+                  "target": "ch2_t_s06_pay_confirm"
+                },
+                {
+                  "id": "ask",
+                  "target": "ch2_t_s06_ask"
+                }
+              ]
+            }
+          ],
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_market_contact_done"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_paid": {
+        "effects": {
+          "mode": "animated",
+          "on_failure": {
+            "insufficient_credits": "ch2_t_s06_short"
+          },
+          "results": [
+            {
+              "id": "ch2.market_advance",
+              "kind": "transaction"
+            },
+            {
+              "id": "ali_advance_40",
+              "kind": "flag",
+              "value": 40
+            },
+            {
+              "id": "ch2_evidence_receipt",
+              "kind": "item_acquire"
+            },
+            {
+              "id": "ch2_evidence_receipt",
+              "kind": "flag",
+              "value": true
+            }
+          ],
+          "then": "ch2_t_s06_invite",
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_market_contact_done"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_pay_confirm": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "back",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "confirm",
+                  "target": "ch2_t_s06_paid"
+                },
+                {
+                  "id": "back",
+                  "target": "ch2_t_s06_open_again"
+                }
+              ]
+            }
+          ],
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_market_contact_done"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      }
+    },
+    "ch2_dispatch_cabinet": {
+      "ch2_dispatch_cabinet": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s13_locked",
+              "when": {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_yong_subdued"
+                }
+              }
+            },
+            {
+              "target": "ch2_t_s13_cut",
+              "when": {
+                "all": [
+                  {
+                    "equals": true,
+                    "flag": "ch2_yong_subdued"
+                  },
+                  {
+                    "equals": "cut",
+                    "flag": "yong_link_choice"
+                  },
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "ch2_original_ledger_taken"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "target": "ch2_t_s13_keep",
+              "when": {
+                "all": [
+                  {
+                    "equals": true,
+                    "flag": "ch2_yong_subdued"
+                  },
+                  {
+                    "not": {
+                      "equals": "cut",
+                      "flag": "yong_link_choice"
+                    }
+                  },
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "ch2_original_ledger_taken"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "target": "ch2_t_s13_fall",
+              "when": {
+                "all": [
+                  {
+                    "all": [
+                      {
+                        "equals": true,
+                        "flag": "ch2_original_ledger_taken"
+                      },
+                      {
+                        "not": {
+                          "equals": true,
+                          "flag": "ch2_egret_transport_done"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "ch2_egret_transport_done"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "target": "ch2_t_s13_revisit",
+              "when": {
+                "equals": true,
+                "flag": "ch2_original_ledger_taken"
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s13_cabinet": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "ch2_original_ledger_taken",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "ch2_original_ledger",
+              "kind": "item_acquire"
+            },
+            {
+              "id": "ch2_ali_page",
+              "kind": "item_acquire"
+            },
+            {
+              "id": "ch2_clinic_index",
+              "kind": "item_acquire"
+            }
+          ],
+          "then": "ch2_t_s13_fall",
+          "when": {
+            "all": [
+              {
+                "equals": true,
+                "flag": "ch2_yong_subdued"
+              },
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_original_ledger_taken"
+                }
+              }
+            ]
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s13_cut": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "ch2.yong_subdued",
+              "kind": "transaction"
+            }
+          ],
+          "then": "ch2_t_s13_cabinet",
+          "when": {
+            "all": [
+              {
+                "equals": true,
+                "flag": "ch2_yong_subdued"
+              },
+              {
+                "equals": "cut",
+                "flag": "yong_link_choice"
+              },
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_original_ledger_taken"
+                }
+              }
+            ]
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s13_fall": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "ch2_egret_transport_done",
+              "kind": "flag",
+              "value": true
+            }
+          ],
+          "when": {
+            "all": [
+              {
+                "equals": true,
+                "flag": "ch2_original_ledger_taken"
+              },
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_egret_transport_done"
+                }
+              }
+            ]
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s13_keep": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "ch2.yong_subdued",
+              "kind": "transaction"
+            }
+          ],
+          "then": "ch2_t_s13_cabinet",
+          "when": {
+            "all": [
+              {
+                "equals": true,
+                "flag": "ch2_yong_subdued"
+              },
+              {
+                "not": {
+                  "equals": "cut",
+                  "flag": "yong_link_choice"
+                }
+              },
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_original_ledger_taken"
+                }
+              }
+            ]
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s13_locked": {
+        "effects": {
+          "mode": "animated",
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_yong_subdued"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s13_revisit": {
+        "effects": {
+          "mode": "animated",
+          "when": {
+            "equals": true,
+            "flag": "ch2_original_ledger_taken"
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      }
+    },
+    "ch2_dispatch_egret": {
+      "ch2_dispatch_back_egret_hub": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_egret_hub",
+              "when": {
+                "all": [
+                  {
+                    "equals": true,
+                    "flag": "ch2_brief_done"
+                  },
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "ch2_audit_submitted"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_egret": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s03_tea",
+              "when": {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_brief_done"
+                }
+              }
+            },
+            {
+              "target": "ch2_t_s22_tea",
+              "when": {
+                "all": [
+                  {
+                    "all": [
+                      {
+                        "equals": true,
+                        "flag": "ch2_audit_submitted"
+                      },
+                      {
+                        "equals": true,
+                        "flag": "ch2_egret_returned"
+                      }
+                    ]
+                  },
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "ch2_heron_closed"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "target": "ch2_t_egret_hub",
+              "when": {
+                "all": [
+                  {
+                    "equals": true,
+                    "flag": "ch2_brief_done"
+                  },
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "ch2_audit_submitted"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "target": "ch2_t_s22_revisit",
+              "when": {
+                "equals": true,
+                "flag": "ch2_heron_closed"
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_s22_sunday": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s22_sunday_known",
+              "when": {
+                "equals": true,
+                "flag": "sq2_sunday_heard"
+              }
+            },
+            {
+              "target": "ch2_t_s22_sunday_unknown",
+              "when": {
+                "not": {
+                  "equals": true,
+                  "flag": "sq2_sunday_heard"
+                }
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_sunday": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s04_asked",
+              "when": {
+                "all": [
+                  {
+                    "equals": true,
+                    "flag": "asked_egret_sunday"
+                  },
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "sq2_sunday_heard"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "target": "ch2_t_s04_new",
+              "when": {
+                "all": [
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "asked_egret_sunday"
+                    }
+                  },
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "sq2_sunday_heard"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_egret_hub": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "leave",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "sunday",
+                  "target": "ch2_dispatch_sunday",
+                  "when": {
+                    "not": {
+                      "equals": true,
+                      "flag": "sq2_sunday_heard"
+                    }
+                  }
+                },
+                {
+                  "id": "heavy",
+                  "target": "ch2_t_s03_heavy"
+                },
+                {
+                  "id": "brief",
+                  "target": "ch2_t_s03_brief_again"
+                },
+                {
+                  "id": "leave"
+                }
+              ]
+            }
+          ],
+          "when": {
+            "all": [
+              {
+                "equals": true,
+                "flag": "ch2_brief_done"
+              },
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_audit_submitted"
+                }
+              }
+            ]
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s03_brief": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_t_s03_rain",
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_brief_done"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s03_brief_again": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_dispatch_back_egret_hub"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s03_heavy": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_dispatch_back_egret_hub"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s03_rain": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "ch2_brief_done",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "ch2_check_card",
+              "kind": "item_acquire"
+            }
+          ],
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_brief_done"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s03_tea": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_t_s03_brief",
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_brief_done"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s04_asked": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "sq2_sunday_heard",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "ch2.sq2_sunday",
+              "kind": "transaction"
+            }
+          ],
+          "then": "ch2_dispatch_back_egret_hub",
+          "when": {
+            "equals": true,
+            "flag": "asked_egret_sunday"
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s04_new": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "sq2_sunday_heard",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "ch2.sq2_sunday",
+              "kind": "transaction"
+            }
+          ],
+          "then": "ch2_dispatch_back_egret_hub",
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "asked_egret_sunday"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s22_decided": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_dispatch_s22_sunday",
+          "when": {
+            "all": [
+              {
+                "all": [
+                  {
+                    "equals": true,
+                    "flag": "ch2_audit_submitted"
+                  },
+                  {
+                    "equals": true,
+                    "flag": "ch2_egret_returned"
+                  }
+                ]
+              },
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_heron_closed"
+                }
+              }
+            ]
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s22_greycoat": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "ch2_heron_closed",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "harbor_walk_ready",
+              "kind": "flag",
+              "value": true
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s22_revisit": {
+        "effects": {
+          "mode": "animated",
+          "when": {
+            "equals": true,
+            "flag": "ch2_heron_closed"
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s22_sunday_known": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_t_s22_greycoat",
+          "when": {
+            "equals": true,
+            "flag": "sq2_sunday_heard"
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s22_sunday_unknown": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_t_s22_greycoat",
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "sq2_sunday_heard"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s22_tea": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "wait",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "go",
+                  "target": "ch2_t_s22_decided"
+                },
+                {
+                  "id": "wait"
+                }
+              ]
+            }
+          ],
+          "when": {
+            "all": [
+              {
+                "all": [
+                  {
+                    "equals": true,
+                    "flag": "ch2_audit_submitted"
+                  },
+                  {
+                    "equals": true,
+                    "flag": "ch2_egret_returned"
+                  }
+                ]
+              },
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_heron_closed"
+                }
+              }
+            ]
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      }
+    },
+    "ch2_dispatch_egret_booth": {
+      "ch2_dispatch_egret_booth": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s14_return",
+              "when": {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_egret_returned"
+                }
+              }
+            },
+            {
+              "target": "ch2_t_s14_revisit",
+              "when": {
+                "equals": true,
+                "flag": "ch2_egret_returned"
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s14_quiet": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "ch2_egret_returned",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "egret_restoration_count",
+              "kind": "flag",
+              "value": 214
+            }
+          ],
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_egret_returned"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s14_return": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_t_s14_quiet",
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_egret_returned"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s14_revisit": {
+        "effects": {
+          "mode": "animated",
+          "when": {
+            "equals": true,
+            "flag": "ch2_egret_returned"
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      }
+    },
+    "ch2_dispatch_guest_entry": {
+      "ch2_dispatch_back_s17_open": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s17_open",
+              "when": {
+                "not": {
+                  "equals": true,
+                  "flag": "guest_book_completed"
+                }
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_back_s18_name": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s18_name",
+              "when": {}
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_back_s18_ticket": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s18_ticket",
+              "when": {}
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_back_s19_band": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s19_band",
+              "when": {}
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_back_s19_quiet": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s19_quiet",
+              "when": {}
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_back_s20_letter": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s20_letter",
+              "when": {}
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_back_s20_story": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s20_story",
+              "when": {}
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_guest_entry": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s17_offer",
+              "when": {
+                "all": [
+                  {
+                    "equals": true,
+                    "flag": "ch2_audit_submitted"
+                  },
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "guest_book_completed"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "target": "ch2_t_s17_revisit",
+              "when": {
+                "equals": true,
+                "flag": "guest_book_completed"
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_s17_enter": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s17_book",
+              "when": {
+                "all": [
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "ch2_guest_book_entered"
+                    }
+                  },
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "ch2_guest_book_entered"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "target": "ch2_t_s17_open",
+              "when": {
+                "not": {
+                  "equals": true,
+                  "flag": "guest_book_completed"
+                }
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_s17_next": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s21_close",
+              "when": {
+                "all": [
+                  {
+                    "all": [
+                      {
+                        "all": [
+                          {
+                            "equals": true,
+                            "flag": "guest_ticket_answered"
+                          },
+                          {
+                            "equals": true,
+                            "flag": "guest_band_answered"
+                          },
+                          {
+                            "equals": true,
+                            "flag": "guest_letter_answered"
+                          }
+                        ]
+                      },
+                      {
+                        "not": {
+                          "equals": true,
+                          "flag": "guest_book_completed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "guest_book_completed"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "target": "ch2_t_s17_open",
+              "when": {
+                "not": {
+                  "equals": true,
+                  "flag": "guest_book_completed"
+                }
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s17_book": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "ch2_guest_book_entered",
+              "kind": "flag",
+              "value": true
+            }
+          ],
+          "then": "ch2_dispatch_back_s17_open",
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_guest_book_entered"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s17_offer": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "leave",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "watch",
+                  "target": "ch2_dispatch_s17_enter"
+                },
+                {
+                  "id": "leave"
+                }
+              ]
+            }
+          ],
+          "when": {
+            "all": [
+              {
+                "equals": true,
+                "flag": "ch2_audit_submitted"
+              },
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "guest_book_completed"
+                }
+              }
+            ]
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s17_open": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "back",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "zheng",
+                  "target": "ch2_t_s18_ticket",
+                  "when": {
+                    "not": {
+                      "equals": true,
+                      "flag": "guest_ticket_answered"
+                    }
+                  }
+                },
+                {
+                  "id": "chen",
+                  "target": "ch2_t_s19_band",
+                  "when": {
+                    "not": {
+                      "equals": true,
+                      "flag": "guest_band_answered"
+                    }
+                  }
+                },
+                {
+                  "id": "hong",
+                  "target": "ch2_t_s20_letter",
+                  "when": {
+                    "not": {
+                      "equals": true,
+                      "flag": "guest_letter_answered"
+                    }
+                  }
+                },
+                {
+                  "id": "back"
+                }
+              ]
+            }
+          ],
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "guest_book_completed"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s17_revisit": {
+        "effects": {
+          "mode": "animated",
+          "when": {
+            "equals": true,
+            "flag": "guest_book_completed"
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s18_dad": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_dispatch_back_s18_ticket"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s18_done": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "guest_ticket_answered",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "ch2.guest_zheng",
+              "kind": "transaction"
+            }
+          ],
+          "then": "ch2_dispatch_s17_next"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s18_name": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "back",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "fish",
+                  "target": "ch2_t_s18_done"
+                },
+                {
+                  "id": "meat",
+                  "target": "ch2_t_s18_wrong"
+                },
+                {
+                  "id": "back"
+                }
+              ]
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s18_ticket": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "back",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "ask",
+                  "target": "ch2_t_s18_name"
+                },
+                {
+                  "id": "dad",
+                  "target": "ch2_t_s18_dad"
+                },
+                {
+                  "id": "back"
+                }
+              ]
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s18_wrong": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_dispatch_back_s18_name"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s19_band": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "back",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "today",
+                  "target": "ch2_t_s19_quiet"
+                },
+                {
+                  "id": "death",
+                  "target": "ch2_t_s19_wrong_death"
+                },
+                {
+                  "id": "back"
+                }
+              ]
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s19_done": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "guest_band_answered",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "ch2.guest_chen",
+              "kind": "transaction"
+            }
+          ],
+          "then": "ch2_dispatch_s17_next"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s19_quiet": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "back",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "soup",
+                  "target": "ch2_t_s19_done"
+                },
+                {
+                  "id": "scallion",
+                  "target": "ch2_t_s19_wrong_soup"
+                },
+                {
+                  "id": "back"
+                }
+              ]
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s19_wrong_death": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_dispatch_back_s19_band"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s19_wrong_soup": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_dispatch_back_s19_quiet"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s20_done": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "guest_letter_answered",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "ch2.guest_hong",
+              "kind": "transaction"
+            }
+          ],
+          "then": "ch2_dispatch_s17_next"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s20_letter": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "back",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "listen",
+                  "target": "ch2_t_s20_story"
+                },
+                {
+                  "id": "forgive",
+                  "target": "ch2_t_s20_wrong"
+                },
+                {
+                  "id": "back"
+                }
+              ]
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s20_story": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "back",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "heard",
+                  "target": "ch2_t_s20_done"
+                },
+                {
+                  "id": "fine",
+                  "target": "ch2_t_s20_wrong_fine"
+                },
+                {
+                  "id": "back"
+                }
+              ]
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s20_wrong": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_dispatch_back_s20_letter"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s20_wrong_fine": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_dispatch_back_s20_story"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s21_close": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "guest_book_completed",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "ch2.guest_book",
+              "kind": "transaction"
+            }
+          ],
+          "when": {
+            "all": [
+              {
+                "all": [
+                  {
+                    "equals": true,
+                    "flag": "guest_ticket_answered"
+                  },
+                  {
+                    "equals": true,
+                    "flag": "guest_band_answered"
+                  },
+                  {
+                    "equals": true,
+                    "flag": "guest_letter_answered"
+                  }
+                ]
+              },
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "guest_book_completed"
+                }
+              }
+            ]
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      }
+    },
+    "ch2_dispatch_ledger_door": {
+      "ch2_dispatch_ledger_door": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s11_intro",
+              "when": {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_yong_intro_seen"
+                }
+              }
+            },
+            {
+              "target": "ch2_t_s11_revisit",
+              "when": {
+                "equals": true,
+                "flag": "ch2_yong_intro_seen"
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s11_boxes": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "ch2_yong_intro_seen",
+              "kind": "flag",
+              "value": true
+            }
+          ],
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_yong_intro_seen"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s11_intro": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_t_s11_xiaowei",
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_yong_intro_seen"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s11_revisit": {
+        "effects": {
+          "mode": "animated",
+          "when": {
+            "equals": true,
+            "flag": "ch2_yong_intro_seen"
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s11_xiaowei": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_t_s11_boxes",
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_yong_intro_seen"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      }
+    },
+    "ch2_dispatch_old_k": {
+      "ch2_dispatch_old_k": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s01_settle",
+              "when": {
+                "not": {
+                  "receipt": "ch1.commission.settled",
+                  "status": "recorded"
+                }
+              }
+            },
+            {
+              "target": "ch2_t_s01_revisit",
+              "when": {
+                "receipt": "ch1.commission.settled",
+                "status": "recorded"
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s01_reaction": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "do": "prop_move",
+              "id": "towel",
+              "time": 0,
+              "to": [
+                274,
+                197.9
+              ],
+              "wait": true
+            }
+          ],
+          "when": {
+            "all": [
+              {
+                "equals": true,
+                "flag": "knows_ali_address"
+              }
+            ]
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s01_revisit": {
+        "effects": {
+          "mode": "animated",
+          "when": {
+            "receipt": "ch1.commission.settled",
+            "status": "recorded"
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s01_settle": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "do": "reach",
+              "hand": "front",
+              "id": "k",
+              "prop": "towel",
+              "space": "prop",
+              "time": 0.4,
+              "to": [
+                80,
+                30
+              ]
+            },
+            {
+              "do": "prop_move",
+              "id": "towel",
+              "time": 0.6,
+              "to": [
+                268,
+                197.9
+              ],
+              "wait": true
+            },
+            {
+              "do": "reach",
+              "hand": "front",
+              "id": "k",
+              "release": true,
+              "time": 0.3
+            },
+            {
+              "do": "reach",
+              "grip": true,
+              "hand": "front",
+              "id": "rin",
+              "prop": "towel",
+              "space": "prop",
+              "time": 0.35,
+              "to": [
+                240,
+                30
+              ]
+            },
+            {
+              "actor": "rin",
+              "do": "prop_hold",
+              "follow_rotation": false,
+              "hand": "front",
+              "id": "towel",
+              "point": [
+                240,
+                30
+              ]
+            },
+            {
+              "do": "reach",
+              "hand": "front",
+              "id": "rin",
+              "part": "head",
+              "space": "part",
+              "target_actor": "rin",
+              "time": 0.45,
+              "to": [
+                100,
+                35
+              ]
+            },
+            {
+              "do": "reach",
+              "hand": "front",
+              "id": "rin",
+              "part": "head",
+              "space": "part",
+              "target_actor": "rin",
+              "time": 0.3,
+              "to": [
+                78,
+                48
+              ]
+            },
+            {
+              "do": "reach",
+              "hand": "front",
+              "id": "rin",
+              "part": "head",
+              "space": "part",
+              "target_actor": "rin",
+              "time": 0.3,
+              "to": [
+                100,
+                35
+              ]
+            },
+            {
+              "do": "reach",
+              "hand": "front",
+              "id": "rin",
+              "time": 0.45,
+              "to": [
+                293.2,
+                200.3
+              ]
+            },
+            {
+              "do": "prop_release",
+              "id": "towel"
+            },
+            {
+              "do": "reach",
+              "hand": "front",
+              "id": "rin",
+              "release": true,
+              "time": 0.3
+            },
+            {
+              "default": "later",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "settle",
+                  "target": "ch2_t_s01_settled"
+                },
+                {
+                  "id": "later"
+                }
+              ]
+            }
+          ],
+          "when": {
+            "not": {
+              "receipt": "ch1.commission.settled",
+              "status": "recorded"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s01_settled": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "ch1.commission.settled",
+              "kind": "transaction"
+            },
+            {
+              "id": "ch2_morning_settled",
+              "kind": "flag",
+              "value": true
+            }
+          ],
+          "steps": [
+            {
+              "do": "prop_move",
+              "id": "towel",
+              "time": 0,
+              "to": [
+                274,
+                197.9
+              ],
+              "wait": true
+            }
+          ],
+          "then": "ch2_t_s01_reaction",
+          "when": {
+            "not": {
+              "receipt": "ch1.commission.settled",
+              "status": "recorded"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      }
+    },
+    "ch2_dispatch_radio": {
+      "ch2_dispatch_back_s02_antenna": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s02_antenna",
+              "when": {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_radio_repaired"
+                }
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_back_s02_power": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s02_power",
+              "when": {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_radio_repaired"
+                }
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_back_s02_speaker": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s02_speaker",
+              "when": {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_radio_repaired"
+                }
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_back_s02_tune": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s02_tune",
+              "when": {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_radio_repaired"
+                }
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_radio": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s02_intro",
+              "when": {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_radio_repaired"
+                }
+              }
+            },
+            {
+              "target": "ch2_t_s02_relisten",
+              "when": {
+                "all": [
+                  {
+                    "equals": true,
+                    "flag": "ch2_radio_repaired"
+                  },
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "sq4_clip_saved"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "target": "ch2_t_s02_revisit",
+              "when": {
+                "all": [
+                  {
+                    "equals": true,
+                    "flag": "ch2_radio_repaired"
+                  },
+                  {
+                    "equals": true,
+                    "flag": "sq4_clip_saved"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s02_antenna": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "leave",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "power",
+                  "target": "ch2_t_s02_antenna_wrong"
+                },
+                {
+                  "id": "antenna",
+                  "target": "ch2_t_s02_speaker"
+                },
+                {
+                  "id": "speaker",
+                  "target": "ch2_t_s02_antenna_wrong"
+                },
+                {
+                  "id": "leave"
+                }
+              ]
+            }
+          ],
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_radio_repaired"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s02_antenna_wrong": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_dispatch_back_s02_antenna"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s02_broadcast": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "leave",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "save",
+                  "target": "ch2_t_s02_saved"
+                },
+                {
+                  "id": "off",
+                  "target": "ch2_t_s02_off"
+                },
+                {
+                  "id": "leave"
+                }
+              ]
+            }
+          ],
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_radio_repaired"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s02_intro": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_dispatch_back_s02_power",
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_radio_repaired"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s02_off": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "ch2_radio_repaired",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "sq4_broadcast_heard",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "ch2.sq4_radio",
+              "kind": "transaction"
+            }
+          ],
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_radio_repaired"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s02_power": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "leave",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "power",
+                  "target": "ch2_t_s02_antenna"
+                },
+                {
+                  "id": "antenna",
+                  "target": "ch2_t_s02_power_wrong"
+                },
+                {
+                  "id": "speaker",
+                  "target": "ch2_t_s02_power_wrong"
+                },
+                {
+                  "id": "leave"
+                }
+              ]
+            }
+          ],
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_radio_repaired"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s02_power_wrong": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_dispatch_back_s02_power"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s02_relisten": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "off",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "save",
+                  "target": "ch2_t_s02_save_late"
+                },
+                {
+                  "id": "off"
+                }
+              ]
+            }
+          ],
+          "when": {
+            "all": [
+              {
+                "equals": true,
+                "flag": "ch2_radio_repaired"
+              },
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "sq4_clip_saved"
+                }
+              }
+            ]
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s02_revisit": {
+        "effects": {
+          "mode": "animated",
+          "when": {
+            "all": [
+              {
+                "equals": true,
+                "flag": "ch2_radio_repaired"
+              },
+              {
+                "equals": true,
+                "flag": "sq4_clip_saved"
+              }
+            ]
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s02_save_late": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "sq4_clip_saved",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "ch2_radio_clip",
+              "kind": "item_acquire"
+            }
+          ],
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "sq4_clip_saved"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s02_saved": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "ch2_radio_repaired",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "sq4_broadcast_heard",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "ch2.sq4_radio",
+              "kind": "transaction"
+            },
+            {
+              "id": "sq4_clip_saved",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "ch2_radio_clip",
+              "kind": "item_acquire"
+            }
+          ],
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_radio_repaired"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s02_speaker": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "leave",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "power",
+                  "target": "ch2_t_s02_speaker_wrong"
+                },
+                {
+                  "id": "antenna",
+                  "target": "ch2_t_s02_speaker_wrong"
+                },
+                {
+                  "id": "speaker",
+                  "target": "ch2_t_s02_tune"
+                },
+                {
+                  "id": "leave"
+                }
+              ]
+            }
+          ],
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_radio_repaired"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s02_speaker_wrong": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_dispatch_back_s02_speaker"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s02_tune": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "middle",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "middle",
+                  "target": "ch2_t_s02_broadcast"
+                },
+                {
+                  "id": "edge",
+                  "target": "ch2_t_s02_tune_wrong"
+                }
+              ]
+            }
+          ],
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_radio_repaired"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s02_tune_wrong": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_dispatch_back_s02_tune"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      }
+    },
+    "ch2_dispatch_reconcile": {
+      "ch2_dispatch_back_s10_batch": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s10_batch",
+              "when": {}
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_back_s10_interest": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s10_interest",
+              "when": {}
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_back_s10_principal": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s10_principal",
+              "when": {
+                "all": [
+                  {
+                    "all": [
+                      {
+                        "equals": true,
+                        "flag": "ch2_evidence_contract"
+                      },
+                      {
+                        "equals": true,
+                        "flag": "ch2_evidence_receipt"
+                      },
+                      {
+                        "equals": true,
+                        "flag": "ch2_evidence_collection"
+                      }
+                    ]
+                  },
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "ch2_market_reconciled"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_reconcile": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s10_missing_receipt",
+              "when": {
+                "all": [
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "ch2_market_reconciled"
+                    }
+                  },
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "ch2_evidence_receipt"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "target": "ch2_t_s10_missing_collection",
+              "when": {
+                "all": [
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "ch2_market_reconciled"
+                    }
+                  },
+                  {
+                    "equals": true,
+                    "flag": "ch2_evidence_receipt"
+                  },
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "ch2_evidence_collection"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "target": "ch2_t_s10_missing_contract",
+              "when": {
+                "all": [
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "ch2_market_reconciled"
+                    }
+                  },
+                  {
+                    "equals": true,
+                    "flag": "ch2_evidence_receipt"
+                  },
+                  {
+                    "equals": true,
+                    "flag": "ch2_evidence_collection"
+                  },
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "ch2_evidence_contract"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "target": "ch2_t_s10_principal",
+              "when": {
+                "all": [
+                  {
+                    "all": [
+                      {
+                        "equals": true,
+                        "flag": "ch2_evidence_contract"
+                      },
+                      {
+                        "equals": true,
+                        "flag": "ch2_evidence_receipt"
+                      },
+                      {
+                        "equals": true,
+                        "flag": "ch2_evidence_collection"
+                      }
+                    ]
+                  },
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "ch2_market_reconciled"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "target": "ch2_t_s10_revisit",
+              "when": {
+                "equals": true,
+                "flag": "ch2_market_reconciled"
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s10_batch": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "window",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "north",
+                  "target": "ch2_t_s10_done"
+                },
+                {
+                  "id": "window",
+                  "target": "ch2_t_s10_batch_wrong"
+                }
+              ]
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s10_batch_wrong": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_dispatch_back_s10_batch"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s10_done": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "ch2_market_reconciled",
+              "kind": "flag",
+              "value": true
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s10_interest": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "collection",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "collection",
+                  "target": "ch2_t_s10_batch"
+                },
+                {
+                  "id": "contract",
+                  "target": "ch2_t_s10_interest_wrong"
+                }
+              ]
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s10_interest_wrong": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_dispatch_back_s10_interest"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s10_missing_collection": {
+        "effects": {
+          "mode": "animated",
+          "when": {
+            "all": [
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_market_reconciled"
+                }
+              },
+              {
+                "equals": true,
+                "flag": "ch2_evidence_receipt"
+              },
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_evidence_collection"
+                }
+              }
+            ]
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s10_missing_contract": {
+        "effects": {
+          "mode": "animated",
+          "when": {
+            "all": [
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_market_reconciled"
+                }
+              },
+              {
+                "equals": true,
+                "flag": "ch2_evidence_receipt"
+              },
+              {
+                "equals": true,
+                "flag": "ch2_evidence_collection"
+              },
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_evidence_contract"
+                }
+              }
+            ]
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s10_missing_receipt": {
+        "effects": {
+          "mode": "animated",
+          "when": {
+            "all": [
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_market_reconciled"
+                }
+              },
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_evidence_receipt"
+                }
+              }
+            ]
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s10_principal": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "principal",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "principal",
+                  "target": "ch2_t_s10_interest"
+                },
+                {
+                  "id": "total",
+                  "target": "ch2_t_s10_principal_wrong"
+                }
+              ]
+            }
+          ],
+          "when": {
+            "all": [
+              {
+                "all": [
+                  {
+                    "equals": true,
+                    "flag": "ch2_evidence_contract"
+                  },
+                  {
+                    "equals": true,
+                    "flag": "ch2_evidence_receipt"
+                  },
+                  {
+                    "equals": true,
+                    "flag": "ch2_evidence_collection"
+                  }
+                ]
+              },
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_market_reconciled"
+                }
+              }
+            ]
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s10_principal_wrong": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_dispatch_back_s10_principal"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s10_revisit": {
+        "effects": {
+          "mode": "animated",
+          "when": {
+            "equals": true,
+            "flag": "ch2_market_reconciled"
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      }
+    },
+    "ch2_dispatch_terminal": {
+      "ch2_dispatch_terminal": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s15_not_ready",
+              "when": {
+                "all": [
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "ch2_audit_submitted"
+                    }
+                  },
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "ch2_original_ledger_taken"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "target": "ch2_t_s15_wait_egret",
+              "when": {
+                "all": [
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "ch2_audit_submitted"
+                    }
+                  },
+                  {
+                    "equals": true,
+                    "flag": "ch2_original_ledger_taken"
+                  },
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "ch2_egret_returned"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "target": "ch2_t_s15_upload",
+              "when": {
+                "all": [
+                  {
+                    "all": [
+                      {
+                        "all": [
+                          {
+                            "equals": true,
+                            "flag": "ch2_egret_returned"
+                          },
+                          {
+                            "equals": true,
+                            "flag": "ch2_original_ledger_taken"
+                          },
+                          {
+                            "equals": true,
+                            "flag": "ch2_market_reconciled"
+                          }
+                        ]
+                      },
+                      {
+                        "not": {
+                          "equals": true,
+                          "flag": "ch2_audit_submitted"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "not": {
+                      "equals": true,
+                      "flag": "ch2_audit_submitted"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "target": "ch2_t_s15_revisit",
+              "when": {
+                "equals": true,
+                "flag": "ch2_audit_submitted"
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s15_not_ready": {
+        "effects": {
+          "mode": "animated",
+          "when": {
+            "all": [
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_audit_submitted"
+                }
+              },
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_original_ledger_taken"
+                }
+              }
+            ]
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s15_revisit": {
+        "effects": {
+          "mode": "animated",
+          "when": {
+            "equals": true,
+            "flag": "ch2_audit_submitted"
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s15_upload": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "ch2_audit_submitted",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "ch2.audit_settled",
+              "kind": "transaction"
+            }
+          ],
+          "when": {
+            "all": [
+              {
+                "all": [
+                  {
+                    "equals": true,
+                    "flag": "ch2_egret_returned"
+                  },
+                  {
+                    "equals": true,
+                    "flag": "ch2_original_ledger_taken"
+                  },
+                  {
+                    "equals": true,
+                    "flag": "ch2_market_reconciled"
+                  }
+                ]
+              },
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_audit_submitted"
+                }
+              }
+            ]
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s15_wait_egret": {
+        "effects": {
+          "mode": "animated",
+          "when": {
+            "all": [
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_audit_submitted"
+                }
+              },
+              {
+                "equals": true,
+                "flag": "ch2_original_ledger_taken"
+              },
+              {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_egret_returned"
+                }
+              }
+            ]
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      }
+    },
+    "ch2_dispatch_vig": {
+      "ch2_dispatch_s06_supper": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s06_invite_stayed",
+              "when": {
+                "equals": true,
+                "flag": "knows_ali_address"
+              }
+            },
+            {
+              "target": "ch2_t_s06_invite_left",
+              "when": {
+                "not": {
+                  "equals": true,
+                  "flag": "knows_ali_address"
+                }
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_dispatch_vig": {
+        "effects": {
+          "mode": "dispatch",
+          "routes": [
+            {
+              "target": "ch2_t_s06_open",
+              "when": {
+                "not": {
+                  "equals": true,
+                  "flag": "ch2_market_contact_done"
+                }
+              }
+            },
+            {
+              "target": "ch2_t_s06_vig_revisit",
+              "when": {
+                "equals": true,
+                "flag": "ch2_market_contact_done"
+              }
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_ask": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "ch2_ali_need_asked",
+              "kind": "flag",
+              "value": true
+            },
+            {
+              "id": "ch2.sq1_need",
+              "kind": "transaction"
+            },
+            {
+              "id": "ch2_evidence_receipt",
+              "kind": "item_acquire"
+            },
+            {
+              "id": "ch2_evidence_receipt",
+              "kind": "flag",
+              "value": true
+            }
+          ],
+          "then": "ch2_t_s06_invite",
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_market_contact_done"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_close": {
+        "effects": {
+          "mode": "animated",
+          "results": [
+            {
+              "id": "ch2_market_contact_done",
+              "kind": "flag",
+              "value": true
+            }
+          ]
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_invite": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_dispatch_s06_supper"
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_invite_left": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_t_s06_close",
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "knows_ali_address"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_invite_stayed": {
+        "effects": {
+          "mode": "animated",
+          "then": "ch2_t_s06_close",
+          "when": {
+            "equals": true,
+            "flag": "knows_ali_address"
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_open": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "pay",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "pay",
+                  "target": "ch2_t_s06_pay_confirm"
+                },
+                {
+                  "id": "ask",
+                  "target": "ch2_t_s06_ask"
+                }
+              ]
+            }
+          ],
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_market_contact_done"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_open_again": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "pay",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "pay",
+                  "target": "ch2_t_s06_pay_confirm"
+                },
+                {
+                  "id": "ask",
+                  "target": "ch2_t_s06_ask"
+                }
+              ]
+            }
+          ],
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_market_contact_done"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_paid": {
+        "effects": {
+          "mode": "animated",
+          "on_failure": {
+            "insufficient_credits": "ch2_t_s06_short"
+          },
+          "results": [
+            {
+              "id": "ch2.market_advance",
+              "kind": "transaction"
+            },
+            {
+              "id": "ali_advance_40",
+              "kind": "flag",
+              "value": 40
+            },
+            {
+              "id": "ch2_evidence_receipt",
+              "kind": "item_acquire"
+            },
+            {
+              "id": "ch2_evidence_receipt",
+              "kind": "flag",
+              "value": true
+            }
+          ],
+          "then": "ch2_t_s06_invite",
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_market_contact_done"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_pay_confirm": {
+        "effects": {
+          "mode": "animated",
+          "steps": [
+            {
+              "default": "back",
+              "do": "choice",
+              "options": [
+                {
+                  "id": "confirm",
+                  "target": "ch2_t_s06_paid"
+                },
+                {
+                  "id": "back",
+                  "target": "ch2_t_s06_open_again"
+                }
+              ]
+            }
+          ],
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "ch2_market_contact_done"
+            }
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      },
+      "ch2_t_s06_vig_revisit": {
+        "effects": {
+          "mode": "animated",
+          "when": {
+            "equals": true,
+            "flag": "ch2_market_contact_done"
+          }
+        },
+        "source": "res://data/story/ch2_heron.json"
+      }
+    }
+  },
+  "version": 1
+}

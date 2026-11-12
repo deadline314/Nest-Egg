@@ -1,0 +1,779 @@
+{
+  "ch2_t_s01_settled": [
+    {
+      "entry": "ch2_dispatch_old_k",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_old_k.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_old_k",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s02_off": [
+    {
+      "entry": "ch2_dispatch_radio",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_radio.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_radio",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s02_save_late": [
+    {
+      "entry": "ch2_dispatch_radio",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_radio.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_radio",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s02_saved": [
+    {
+      "entry": "ch2_dispatch_radio",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_radio.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_radio",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s03_rain": [
+    {
+      "entry": "ch2_dispatch_egret",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_egret.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_egret",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s04_asked": [
+    {
+      "entry": "ch2_dispatch_egret",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_egret.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_egret",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s04_new": [
+    {
+      "entry": "ch2_dispatch_egret",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_egret.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_egret",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s06_ask": [
+    {
+      "entry": "ch2_dispatch_ali_market",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_ali_market.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_ali_market",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    },
+    {
+      "entry": "ch2_dispatch_vig",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_vig.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_vig",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s06_ask_late": [
+    {
+      "entry": "ch2_dispatch_ali_lounge",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_ali_lounge.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_ali_lounge",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    },
+    {
+      "entry": "ch2_dispatch_ali_market",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_ali_market.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_ali_market",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s06_close": [
+    {
+      "entry": "ch2_dispatch_ali_market",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_ali_market.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_ali_market",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    },
+    {
+      "entry": "ch2_dispatch_vig",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_vig.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_vig",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s06_paid": [
+    {
+      "entry": "ch2_dispatch_ali_market",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_ali_market.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_ali_market",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    },
+    {
+      "entry": "ch2_dispatch_vig",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_vig.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_vig",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s07_address_new": [
+    {
+      "entry": "ch2_dispatch_ali_home",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_ali_home.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_ali_home",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s07_leave": [
+    {
+      "entry": "ch2_dispatch_ali_home",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_ali_home.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_ali_home",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s07_soup": [
+    {
+      "entry": "ch2_dispatch_ali_home",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_ali_home.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_ali_home",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s10_done": [
+    {
+      "entry": "ch2_dispatch_reconcile",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_drying_desk.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_reconcile",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s11_boxes": [
+    {
+      "entry": "ch2_dispatch_ledger_door",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_ledger_door.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_ledger_door",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s12_choice": [],
+  "ch2_t_s12_keep_pause": [],
+  "ch2_t_s12_keep_revival": [],
+  "ch2_t_s13_cabinet": [
+    {
+      "entry": "ch2_dispatch_cabinet",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_ledger_cabinet.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_cabinet",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s13_cut": [
+    {
+      "entry": "ch2_dispatch_cabinet",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_ledger_cabinet.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_cabinet",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s13_fall": [
+    {
+      "entry": "ch2_dispatch_cabinet",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_ledger_cabinet.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_cabinet",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s13_keep": [
+    {
+      "entry": "ch2_dispatch_cabinet",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_ledger_cabinet.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_cabinet",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s14_quiet": [
+    {
+      "entry": "ch2_dispatch_egret_booth",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_egret_booth.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_egret_booth",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s15_upload": [
+    {
+      "entry": "ch2_dispatch_terminal",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_terminal.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_terminal",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s16_correct": [
+    {
+      "entry": "ch2_dispatch_ali_lounge",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_ali_lounge.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_ali_lounge",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s16_hold": [
+    {
+      "entry": "ch2_dispatch_ali_lounge",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_ali_lounge.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_ali_lounge",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s17_book": [
+    {
+      "entry": "ch2_dispatch_guest_entry",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_guest_entry.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_guest_entry",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s18_done": [
+    {
+      "entry": "ch2_dispatch_guest_entry",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_guest_entry.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_guest_entry",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s19_done": [
+    {
+      "entry": "ch2_dispatch_guest_entry",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_guest_entry.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_guest_entry",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s20_done": [
+    {
+      "entry": "ch2_dispatch_guest_entry",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_guest_entry.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_guest_entry",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s21_close": [
+    {
+      "entry": "ch2_dispatch_guest_entry",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_guest_entry.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_guest_entry",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ],
+  "ch2_t_s22_greycoat": [
+    {
+      "entry": "ch2_dispatch_egret",
+      "index": 0,
+      "npc": "res://data/npcs/ch2_egret.tres",
+      "talk": {
+        "after_scene": "",
+        "consumable": "",
+        "credits": 0,
+        "min_deaths": 0,
+        "min_talks": 0,
+        "once": false,
+        "requires_flag": "",
+        "requires_held_item": "",
+        "requires_item": "",
+        "requires_transferred_item": "",
+        "scene": "ch2_dispatch_egret",
+        "story_item": "",
+        "unless_flag": "",
+        "unless_held_item": ""
+      }
+    }
+  ]
+}

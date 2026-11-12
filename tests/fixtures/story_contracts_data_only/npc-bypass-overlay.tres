@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="NpcData" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/npc_data.gd" id="1_npc_data"]
+[ext_resource type="Script" path="res://data/scripts/npc_talk.gd" id="2_npc_talk"]
+
+[sub_resource type="Resource" id="Resource_0"]
+script = ExtResource("2_npc_talk")
+scene = &"ch2_dispatch_patroller"
+
+[sub_resource type="Resource" id="Resource_ContractAck"]
+script = ExtResource("2_npc_talk")
+scene = &"ch2_t_patrol_note_ack"
+requires_flag = &"test_contract_ack_mode"
+
+[sub_resource type="Resource" id="Resource_ContractPrompt"]
+script = ExtResource("2_npc_talk")
+scene = &"ch2_t_patrol_copy_prompt"
+requires_flag = &"test_contract_copy_mode"
+unless_flag = &"ch2_patrol_copy_received"
+
+[sub_resource type="Resource" id="Resource_ContractBypass"]
+script = ExtResource("2_npc_talk")
+scene = &"ch2_t_patrol_unknown"
+requires_flag = &"test_contract_bypass_mode"
+
+[resource]
+script = ExtResource("1_npc_data")
+id = &"ch2_patroller"
+display_name = "巡帳員"
+speaker = "patroller"
+rig_id = "resident"
+loop = &"glance"
+facing = -1
+prompt = "{interact} 出示查核證"
+talks = Array[ExtResource("2_npc_talk")]([SubResource("Resource_0"), SubResource("Resource_ContractAck"), SubResource("Resource_ContractPrompt"), SubResource("Resource_ContractBypass")])

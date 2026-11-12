@@ -13,6 +13,7 @@
 from __future__ import annotations
 
 import copy
+import story_contracts
 import json
 import os
 import sys
@@ -247,22 +248,16 @@ def _compile_segment(segment, source, inside_presentation, base_scene):
     # flag policy does not advertise the future atomic item/money coordinator.
     if segment.binding == "home" and scene.get("mode") == "animated" and results and all(op["kind"] == "flag" for op in results) and not segment.options and not segment.next_scene:
         scene["completion_policy"] = "main_flags_v1"
-    if segment.id in {"ch1_b_dinner_food", "ch1_t_handoff_accept", "ch1_t_handoff_receipt", "ch1_t_handoff_summary",
-                      "ch1_t_label_watch", "ch1_t_label_guitar", "ch1_t_label_raincoat", "ch1_t_label_fare", "ch1_t_egret_1", "ch1_t_egret_sunday", "ch1_t_lamp_voice_second", "ch1_t_lamp_voice_later", "ch1_t_ali_name", "ch1_t_ali_evening_close"}:
+    if segment.id == "ch1_b_dinner_food":
         scene["completion_policy"] = "main_terminal_results_v1"
+    # Existing physical cabinet adapter, not a catalog-granted destination.
+    if segment.id == "ch1_t_handoff_accept":
+        for authored in segment.completion:
+            if authored["kind"] == "item_transfer" and authored.get("destination") != "dock_commission_cabinet":
+                raise CompileError(f"{segment.id}: transfer differs from original physical cabinet binding")
         for op in scene.get("results", []):
             if op["kind"] == "item_transfer":
                 op["destination"] = "ch1_handoff_cabinet"
-    if segment.id in {"ch1_t_lamp_voice_first", "ch1_t_ali_2_ordered", "ch1_t_ali_2_sit", "ch1_t_ali_sit"}:
-        scene["completion_policy"] = "main_flags_continuation_v1"
-    if segment.id == "ch1_t_ali_order":
-        scene["completion_policy"] = "main_source_results_continuation_v1"
-    if segment.id in {'ch1_t_supper_leave_none', 'ch1_t_supper_return', 'ch1_t_supper_paid_goodbye', 'ch1_t_supper_stay_address', 'ch1_t_supper_tab_goodbye'}:
-        scene["completion_policy"] = 'main_terminal_results_v1'
-    if segment.id in {'ch1_t_supper_stay_meal', 'ch1_t_supper_stay_host_none'}:
-        scene["completion_policy"] = 'main_flags_continuation_v1'
-    if segment.id in {'ch1_t_supper_stay_host', 'ch1_t_supper_pay', 'ch1_t_supper_tab'}:
-        scene["completion_policy"] = 'main_source_results_continuation_v1'
     if segment.id in {"ch1_c09_wake", "ch1_t_clinic_cloth_look"}:
         scene["completion_policy"] = "main_flags_continuation_v1"
     if segment.id in {"ch1_t_clinic_cloth_take", "ch1_t_clinic_cloth_leave"}:
@@ -598,6 +593,16 @@ DURABLE_POLICIES = ("main_flags_v1", "main_terminal_results_v1",
                     "main_flags_continuation_v1", "main_source_results_continuation_v1")
 
 
+def apply_npc_contracts(scenes, source_path, author_source, entry_ids):
+    try:
+        records = story_contracts.load_records()
+        story_contracts.apply_policies(scenes, source_path, records)
+        story_contracts.validate_generated(scenes, source_path, records)
+        story_contracts.validate_npc_declarations(scenes, source_path, author_source, records, entry_ids)
+    except ValueError as error:
+        raise CompileError(str(error)) from error
+
+
 def validate_completion_policies(scenes):
     for ident, scene in scenes.items():
         if not isinstance(scene, dict):
@@ -644,6 +649,7 @@ def compile_document():
         scenes[ident]["title"] = title
         scenes[ident]["gallery_order"] = order
     _mark_important_radio(scenes)
+    apply_npc_contracts(scenes, "res://data/story/ch1_kasa.json", source, {binding:f"ch1_dispatch_{binding}" for binding in DISPATCH_PHASES})
     validate_completion_policies(scenes)
     speakers = copy.deepcopy(legacy.SPEAKERS)
     speakers.update(copy.deepcopy(source.speakers))

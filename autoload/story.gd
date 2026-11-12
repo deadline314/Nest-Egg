@@ -93,6 +93,8 @@ var _request_results: Dictionary[int, bool] = {}
 var passive_completion_gate: Callable
 var cinematic_completion_gate: Callable
 var _passive_requests: Dictionary[StringName, Array] = {}
+## Sanitized origin belongs to its exact passive request, not the active cinematic.
+var _passive_contexts: Dictionary[int, Dictionary] = {}
 var _bubble_facts_bound := false
 var _resetting_presentation := false
 ## 選項選到的交付在場景播完才生效；取消、死亡或換區時丟棄（場景 id → 物品 id 清單）。
@@ -119,6 +121,9 @@ class PreparedInstall extends RefCounted:
 func _install_source() -> Dictionary:
 	var waiters: Array = []
 	var results: Array = []
+	var passive_contexts: Array = []
+	for request: int in _passive_contexts:
+		passive_contexts.append([request, _passive_contexts[request]])
 	for request: int in _waiters:
 		waiters.append([request, _waiters[request]])
 	for request: int in _request_results:
@@ -126,7 +131,7 @@ func _install_source() -> Dictionary:
 	return {"seen": _seen, "completed": _completed, "generation": _presentation_generation,
 		"request_serial": _request_serial, "current_request": _current_request, "finished_request": _finished_request,
 		"cinematic": String(_current_cinematic), "context": _presentation_context, "queue": _cinematic_queue,
-		"waiters": waiters, "results": results, "passive": _passive_requests, "resetting": _resetting_presentation,
+		"waiters": waiters, "results": results, "passive": _passive_requests, "passive_contexts": passive_contexts, "resetting": _resetting_presentation,
 		"scenes": _scenes}
 
 
@@ -138,7 +143,7 @@ func prepare_install(raw: Variant, whole_run: bool) -> Dictionary:
 		return {"error": errors[0]}
 	if not raw is Array or raw.size() > _scenes.size():
 		return {"error": "install/story/completed must be a bounded scene list"}
-	if whole_run and (_current_cinematic != &"" or _current_request != 0 or _finished_request != 0 or not _cinematic_queue.is_empty() or not _passive_requests.is_empty() or not _waiters.is_empty() or _resetting_presentation):
+	if whole_run and (_current_cinematic != &"" or _current_request != 0 or _finished_request != 0 or not _cinematic_queue.is_empty() or not _passive_requests.is_empty() or not _passive_contexts.is_empty() or not _waiters.is_empty() or _resetting_presentation):
 		return {"error": "install/story/presentation must settle before whole-run preparation"}
 	var prepared := PreparedInstall.new()
 	if not whole_run:
@@ -222,6 +227,8 @@ func chapter_paths() -> Array[String]:
 ## 載入 chapter_paths() 的所有章節（先清空）。單一章節壞掉只記錄錯誤，不影響其他章節。
 func load_all() -> void:
 	QuestMapState.invalidate_catalog()
+	if preload("res://game/story_result_sources.gd").reload_catalog():
+		reset_active_presentation(&"load")
 	_chapters.clear()
 	_speakers.clear()
 	_scenes.clear()
@@ -806,6 +813,16 @@ func current_presentation_context() -> Dictionary:
 	return _presentation_context.duplicate(true)
 
 
+## Lookup does not authenticate an NPC; Main still verifies the original live
+## actor/spawn/talk. Passive radios must not borrow another cinematic's origin.
+func presentation_context_for_request(id: StringName, request: int) -> Dictionary:
+	if _current_cinematic == id and _current_request == request:
+		return _presentation_context.duplicate(true)
+	if (_passive_requests.get(id, []) as Array).has(request):
+		return (_passive_contexts.get(request, {}) as Dictionary).duplicate(true)
+	return {}
+
+
 ## runtime 關聯用，不能存檔；讀檔重新入隊會得到新handle。
 func current_presentation_request() -> int:
 	return _current_request
@@ -957,6 +974,7 @@ func reset_active_presentation(reason: StringName = &"leave") -> void:
 		for request in requests:
 			_complete_request(request, false)
 	_passive_requests.clear()
+	_passive_contexts.clear()
 	if is_instance_valid(_layer):
 		_layer.cancel_radio()
 	_resetting_presentation = false
@@ -1041,6 +1059,7 @@ func _on_passive_finished(id: StringName, expected_request := 0) -> void:
 		guarded = passive_completion_gate.call(id, int(requests[0])) if passive_completion_gate.is_valid() else {}
 	if guarded.get("handled", false) and not guarded.get("ready", false):
 		return
+	var context := presentation_context_for_request(id,int(requests[0]))
 	var request := int(requests.pop_front())
 	if requests.is_empty():
 		_passive_requests.erase(id)
@@ -1055,7 +1074,7 @@ func _on_passive_finished(id: StringName, expected_request := 0) -> void:
 		result_completion.finish()
 	var next := StringName(str(applied["failure_scene"])) if not applied["ok"] else StringName(str((_scenes.get(String(id), {}) as Dictionary).get("then", "")))
 	if next != &"" and has_scene(next):
-		play(next, applied["ok"])
+		play(next, applied["ok"], context)
 
 
 func play(id: StringName, once := true, context: Dictionary = {}) -> bool:
@@ -1097,6 +1116,7 @@ func _enqueue_request(id: StringName, once: bool, context: Dictionary, waiting :
 		if not _passive_requests.has(id):
 			_passive_requests[id] = []
 		_passive_requests[id].append(request)
+		_passive_contexts[request] = presentation_context(context)
 		if mode != MODE_BUBBLES or not _play_bubbles(id, request):
 			scene_started.emit(id, MODE_RADIO)
 			# 重要通訊凍結世界等確認；自動略過（測試）時照一般通訊播，不卡住流程。
@@ -1156,6 +1176,7 @@ func _wait_for_request(request: int) -> bool:
 func _complete_request(request: int, completed: bool) -> void:
 	if request == 0:
 		return
+	_passive_contexts.erase(request)
 	if request == _context_request:
 		outcomes.context_facts.clear()
 		_context_request = 0

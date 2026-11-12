@@ -127,6 +127,7 @@ jobs:
         timeout-minutes: 20
         run: |
           python3 tools/story/test_chapter_completion_policies.py
+          python3 tools/story/test_story_contracts.py
           python3 tools/run_patroller_completion.py --godot "$GODOT" --output "${{ runner.temp }}/patroller-completion"
 
       - name: Check chapter-two evidence items and original cold reads
