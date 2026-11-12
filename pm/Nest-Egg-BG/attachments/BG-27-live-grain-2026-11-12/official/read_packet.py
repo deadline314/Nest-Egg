@@ -1,0 +1,50 @@
+"""Verify compact raw/source ZIPs without Godot, extraction or mutable worktree."""
+import hashlib
+import json
+from pathlib import Path
+import re
+import zipfile
+
+P=Path(__file__).resolve().parent
+def archive(name):
+    index=json.loads((P/(name+'-index.json')).read_text(encoding='utf8'))
+    path=P/index['zip']
+    assert path.stat().st_size==index['bytes']
+    assert hashlib.sha256(path.read_bytes()).hexdigest()==index['sha256']
+    with zipfile.ZipFile(path) as z:
+        assert z.testzip() is None
+        assert set(z.namelist())==set(index['members'])
+        items={}
+        for member,expected in index['members'].items():
+            raw=z.read(member)
+            assert len(raw)==expected['bytes'] and hashlib.sha256(raw).hexdigest()==expected['sha256']
+            items[member]=raw
+    return items
+
+raw=archive('raw-minimal')
+source=archive('sources')
+def j(name):return json.loads(raw[name])
+candidate=j('candidate.json')
+before=j('source-before.json')
+assert before==j('source-after-import.json')==j('source-after.json')
+assert len(before)==27674 and candidate['official_base']=='896d3e8a7fb1b0018df0aec47ed8c5a37bb881c0'
+for name,expected in candidate['files'].items():
+    assert before[name]==expected and hashlib.sha256(source[name]).hexdigest()==expected
+uid=j('generated-uid.json')
+assert hashlib.sha256(source[uid['path'].replace('\\','/')]).hexdigest()==uid['sha256']
+assert j('import-process.json')['exit_code']==0 and j('import-diagnostics.json')==[]
+assert j('source-status.json')['fixed'] and j('source-status.json')['uid_fixed']
+assert j('affected-process.json')['exit_code']==0
+assert j('filter-recheck.json')['exit_code']==0
+entry=raw['affected.log'].decode('utf8',errors='replace')
+shard=raw['logs/shard_0.log'].decode('utf8',errors='replace')
+assert 'Running 26 groups in 1 processes' in entry
+assert len(re.findall(r'^SUITE_TIME ',shard,re.M))==26
+assert re.search(r'^checks: 51928, new failures: 0, known failures .*: 0 ',entry,re.M)
+assert not re.search(r'^FAIL:|SCRIPT ERROR',shard,re.M)
+print('26 groups / 51,928 checks / 0 new / 0 known / original entry exit0')
+print('27,674 frozen sources exact; three canonical files and actual generated UID verified')
+print('Original filters retained. Raw deliberately expected errors and historical exit diagnostics remain visible.')
+for item in j('filter-recheck.json')['raw_error_lines']:
+    if re.search(r'ObjectDB.*leak|were leaked|resources still in use',item['text']):
+        print('raw line',item['line'],item['text'])

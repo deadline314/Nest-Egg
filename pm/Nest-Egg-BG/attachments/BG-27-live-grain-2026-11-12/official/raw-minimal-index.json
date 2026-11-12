@@ -1,0 +1,79 @@
+{
+  "zip": "raw-minimal.zip",
+  "bytes": 3792449,
+  "sha256": "221fd0d55015004b361ff1f888ca225e56229878c3b15b1debda0dc1b03b6c59",
+  "members": {
+    "candidate.json": {
+      "bytes": 1068,
+      "sha256": "e053b39efdc0153b2bca1dcd3eed611e3c5f6ac933e8d414897da5ae599ef42d"
+    },
+    "source-before.json": {
+      "bytes": 3768391,
+      "sha256": "179323fb9a55b00f50caf07b32b1e318138c6143c5b1430235952bf94152321b"
+    },
+    "source-after-import.json": {
+      "bytes": 3768391,
+      "sha256": "179323fb9a55b00f50caf07b32b1e318138c6143c5b1430235952bf94152321b"
+    },
+    "source-after.json": {
+      "bytes": 3768391,
+      "sha256": "179323fb9a55b00f50caf07b32b1e318138c6143c5b1430235952bf94152321b"
+    },
+    "import.log": {
+      "bytes": 799698,
+      "sha256": "dfdfd104ffd40dd0c2b1e3c201a5b42dcee6361b8df2428a28e19fbb49ae5afb"
+    },
+    "import-process.json": {
+      "bytes": 415,
+      "sha256": "ed5c4e495aed6735d0ea74d838ac38acd1520b492d3fdad44d57f59377e4ab29"
+    },
+    "import-diagnostics.json": {
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "generated-uid.json": {
+      "bytes": 146,
+      "sha256": "e4e1f5103c27cdaa711b5aecb87ceb9810e75e4a153984d4ce0c9f91a89285b7"
+    },
+    "grain_accessibility_checks.gd.uid": {
+      "bytes": 20,
+      "sha256": "8be71eb7dfe9d851b352500938282d365cb1ec66e47ea4ce904f14208471f9c5"
+    },
+    "affected.log": {
+      "bytes": 1085,
+      "sha256": "c2810e393f9057a4b19419ad7b7dcd8a559fba22849edeb37f21042173a67a2f"
+    },
+    "affected-process.json": {
+      "bytes": 336,
+      "sha256": "bf103048df1650efd7f0dfae8bd2d35f11436ae9f49faf96e1afd23e0960cf09"
+    },
+    "source-status.json": {
+      "bytes": 549,
+      "sha256": "13a8057dcdd1d20b985d1520bce6ca68942da4f230da7b22c5e3bdb473411ce5"
+    },
+    "raw-diagnostics-and-failures.json": {
+      "bytes": 21570,
+      "sha256": "773f870b48726967ca469bf2d9d0876405377eb92a2dd1058329069d43dd8c86"
+    },
+    "filter-recheck.json": {
+      "bytes": 24213,
+      "sha256": "e80a3812b65b18d34e856fbdf4586cef209d9b0fb5b7e6143ec7103a6749b23f"
+    },
+    "entry-source.json": {
+      "bytes": 492,
+      "sha256": "13f8b59dcb889e2059ef58617d2f7457982b8a80f08029e875ac07e4934c4f51"
+    },
+    "test_filters.sh.txt": {
+      "bytes": 1995,
+      "sha256": "509706b8257b8e46f6e8c01ebeda0ecd976b6607975f66430bd6774461500c80"
+    },
+    "known_failures.txt": {
+      "bytes": 381,
+      "sha256": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf"
+    },
+    "logs/shard_0.log": {
+      "bytes": 419204,
+      "sha256": "00f2ccf5fbd8f9f7d3d508bb571daa6e9c8ac6210e74ce75f6cfaaaebcd690a7"
+    }
+  }
+}

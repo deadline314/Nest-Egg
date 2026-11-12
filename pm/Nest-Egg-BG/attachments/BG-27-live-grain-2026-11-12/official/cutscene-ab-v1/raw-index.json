@@ -1,0 +1,63 @@
+{
+  "zip": "raw.zip",
+  "bytes": 5002475,
+  "sha256": "cfd7e223a9b8c739457eefb36df49c91a908278562f47817156def434ac758fb",
+  "members": {
+    "A_baseline-before.json": {
+      "bytes": 3781687,
+      "sha256": "301af166d9e3f7b3227c931d5ecb7543f2f9124b4c5c9cd8db362804668abb84"
+    },
+    "A_baseline-after.json": {
+      "bytes": 3781687,
+      "sha256": "301af166d9e3f7b3227c931d5ecb7543f2f9124b4c5c9cd8db362804668abb84"
+    },
+    "B_candidate-before.json": {
+      "bytes": 3781687,
+      "sha256": "aaeab4d96f072c541d0dd9d6d47110b28a80c21f27977512359b51144c5b15bf"
+    },
+    "B_candidate-after.json": {
+      "bytes": 3781687,
+      "sha256": "aaeab4d96f072c541d0dd9d6d47110b28a80c21f27977512359b51144c5b15bf"
+    },
+    "A_baseline-process.json": {
+      "bytes": 7361,
+      "sha256": "ecc0e61bda12be887ab22ab4bd2b858317ca90f649cd67314a00f428bbb94add"
+    },
+    "B_candidate-process.json": {
+      "bytes": 7363,
+      "sha256": "f4016301d2a086935679fd8443228ad002102ea5757b37a60c594f85fdbfe69e"
+    },
+    "A_baseline.log": {
+      "bytes": 263260,
+      "sha256": "c5367f385a33cfeddae9d161d53ba7f43e0dd9f7a0cc89f060a04b7e1b65281d"
+    },
+    "B_candidate.log": {
+      "bytes": 263260,
+      "sha256": "22366f0c7d7f01b9f943fad6f0e25e27425f8090541276cf84b8b37cc0fed395"
+    },
+    "candidate-restored.json": {
+      "bytes": 400,
+      "sha256": "ea3d293cac94030df8650ca8071edae997669f284c72e19643ca337195ec0df8"
+    },
+    "comparison.json": {
+      "bytes": 8638,
+      "sha256": "c695d987d9ed5881e2ab45f36f04ef0db38028420133ec0d3ddcff257c410a0c"
+    },
+    "plan.json": {
+      "bytes": 875,
+      "sha256": "c0217713ca8db6100c4825ea3d16cc83a51cc1c1495f1b2562d6774baf4e75f2"
+    },
+    "run.py": {
+      "bytes": 4607,
+      "sha256": "d1edb7414ebb70fd396d3f038c68697f42a28ba11a36a4cf6d1aa22b1a102600"
+    },
+    "baseline_sources/game/cutscene/stage_layers.gd": {
+      "bytes": 25802,
+      "sha256": "bdbc47462e0c59f527598787623f0e0d309e713aaf6573cc7f8c2287242105a8"
+    },
+    "baseline_sources/tests/suite/test_cutscene.gd": {
+      "bytes": 56579,
+      "sha256": "c25cff59ba7e6eb302b62558b6bf6ff790617f2bad4bfdaff1a7990b84097fe2"
+    }
+  }
+}

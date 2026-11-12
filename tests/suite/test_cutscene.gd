@@ -79,6 +79,7 @@ func run() -> void:
 	await _test_saved_arena_initialization()
 	_test_real_data()
 	await preload("res://tests/helpers/resume_physics_scope_checks.gd").run(self)
+	await preload("res://tests/helpers/grain_accessibility_checks.gd").run(self)
 
 
 ## A malformed result must not be silently filtered after a real payment.

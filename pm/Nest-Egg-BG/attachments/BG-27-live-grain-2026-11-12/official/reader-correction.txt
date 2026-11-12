@@ -1,0 +1,1 @@
+First packet-reader attempt rejected with KeyError: the original generated-uid receipt stores a Windows relative path, while ZIP members use canonical POSIX paths. Preserve original receipt/ZIP bytes; only normalize the lookup key in the independent reader. No engine rerun or filter/threshold change.

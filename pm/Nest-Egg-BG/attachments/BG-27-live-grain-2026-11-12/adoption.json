@@ -1,0 +1,25 @@
+{
+  "before": {
+    "tests/helpers/grain_accessibility_checks.gd": null,
+    "tests/suite/test_cutscene.gd": "526ab8abc4ebf77f8843d4812eca58aeaada06544df2e4f1223b07f1207303c0",
+    "game/cutscene/stage_layers.gd": "bdbc47462e0c59f527598787623f0e0d309e713aaf6573cc7f8c2287242105a8",
+    "tests/helpers/grain_accessibility_checks.gd.uid": null
+  },
+  "working_after": {
+    "tests/helpers/grain_accessibility_checks.gd": "87baecf4a92abee49deb0033b30b727782f48d92e9339f35e1044dbea5bd3ded",
+    "tests/suite/test_cutscene.gd": "517caa353ad9f19fb51ef08349fa99939cf79059a8a08ca6d2b522871324b3c0",
+    "game/cutscene/stage_layers.gd": "ed38abeab217e14072026ebddca51920e3e39120b24f6eb3b4564bfc8e16ad62",
+    "tests/helpers/grain_accessibility_checks.gd.uid": "8be71eb7dfe9d851b352500938282d365cb1ec66e47ea4ce904f14208471f9c5"
+  },
+  "canonical_after": {
+    "tests/helpers/grain_accessibility_checks.gd": "87baecf4a92abee49deb0033b30b727782f48d92e9339f35e1044dbea5bd3ded",
+    "tests/suite/test_cutscene.gd": "54b013dcd705c39f69ae2757d7433b6794e2192626d6d6d018b18acbf6d5b8cb",
+    "game/cutscene/stage_layers.gd": "ed38abeab217e14072026ebddca51920e3e39120b24f6eb3b4564bfc8e16ad62",
+    "tests/helpers/grain_accessibility_checks.gd.uid": "8be71eb7dfe9d851b352500938282d365cb1ec66e47ea4ce904f14208471f9c5"
+  },
+  "staged_sources": {
+    "tests/suite/test_cutscene.gd": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\bg27-live-grain-candidate-v1\\candidate\\tests\\suite\\test_cutscene.gd"
+  },
+  "count": 378,
+  "other_test_changes_preserved": true
+}

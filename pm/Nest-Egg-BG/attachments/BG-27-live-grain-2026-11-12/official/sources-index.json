@@ -1,0 +1,55 @@
+{
+  "zip": "sources.zip",
+  "sha256": "a5a093c15ad773b9299c4bf6ac220af0be98446b785c8083dc2a82f05cdc3ad9",
+  "bytes": 38891,
+  "members": {
+    "tests/helpers/grain_accessibility_checks.gd": {
+      "sha256": "87baecf4a92abee49deb0033b30b727782f48d92e9339f35e1044dbea5bd3ded",
+      "bytes": 2266
+    },
+    "tests/suite/test_cutscene.gd": {
+      "sha256": "54b013dcd705c39f69ae2757d7433b6794e2192626d6d6d018b18acbf6d5b8cb",
+      "bytes": 56657
+    },
+    "game/cutscene/stage_layers.gd": {
+      "sha256": "ed38abeab217e14072026ebddca51920e3e39120b24f6eb3b4564bfc8e16ad62",
+      "bytes": 26047
+    },
+    "tools/run_tests_changed.sh": {
+      "sha256": "71bbbd76f1941fda43a4db6f061538a2ae37bcb77765674908a9957899b8f336",
+      "bytes": 2430
+    },
+    "tools/run_tests_parallel.sh": {
+      "sha256": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba",
+      "bytes": 4733
+    },
+    "tools/select_tests.py": {
+      "sha256": "07fe95c5c5f75f35e35ba70b9b3a4c801547f6c7213ae7a13de15ee3dc765c81",
+      "bytes": 10446
+    },
+    "tools/test_filters.sh": {
+      "sha256": "509706b8257b8e46f6e8c01ebeda0ecd976b6607975f66430bd6774461500c80",
+      "bytes": 1995
+    },
+    "tests/known_failures.txt": {
+      "sha256": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf",
+      "bytes": 381
+    },
+    "tests/helpers/grain_accessibility_checks.gd.uid": {
+      "sha256": "8be71eb7dfe9d851b352500938282d365cb1ec66e47ea4ce904f14208471f9c5",
+      "bytes": 20
+    },
+    "orchestration/run.py": {
+      "sha256": "987b1d24362f695fb585b61179afd453d3ff40ce02074c01f26bbb472adf7ddb",
+      "bytes": 4929
+    },
+    "orchestration/candidate.json": {
+      "sha256": "e053b39efdc0153b2bca1dcd3eed611e3c5f6ac933e8d414897da5ae599ef42d",
+      "bytes": 1068
+    },
+    "orchestration/generated-uid.json": {
+      "sha256": "e4e1f5103c27cdaa711b5aecb87ceb9810e75e4a153984d4ce0c9f91a89285b7",
+      "bytes": 146
+    }
+  }
+}

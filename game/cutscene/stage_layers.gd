@@ -604,8 +604,15 @@ class _Grain:
 		_amount = clampi(int(def.get("amount", 160)), 0, MAX_GRAIN)
 		_color = StageLayers.color_of(def.get("color", "#ffffff"))
 		_color.a = float(def.get("opacity", 0.18))
-		# 減少閃光時不畫會跳動的顆粒。
-		visible = not Settings.get_reduce_flashes()
+
+	func _ready() -> void:
+		Settings.display_changed.connect(_sync_accessibility)
+		_sync_accessibility()
+
+	func _sync_accessibility() -> void:
+		# Keep authored visibility separate from accessibility, including hidden layers.
+		set_process(not Settings.get_reduce_flashes())
+		queue_redraw()
 
 	func _process(delta: float) -> void:
 		_t += delta
@@ -615,6 +622,8 @@ class _Grain:
 			queue_redraw()
 
 	func _draw() -> void:
+		if Settings.get_reduce_flashes():
+			return
 		var rng := RandomNumberGenerator.new()
 		rng.seed = _seed
 		for i in _amount:

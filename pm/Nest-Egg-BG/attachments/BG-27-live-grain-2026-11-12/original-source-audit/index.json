@@ -1,0 +1,413 @@
+{
+  "base": "a4f2db7a81cd8c58bf8dea1afcdf499375dcba58",
+  "original_commit": "705a9c640fb5cdd115a9ce67cd1fd4bb02d60262",
+  "profile_count": 34,
+  "stage_count": 24,
+  "nonzero_profiles": [
+    {
+      "path": "data/lighting/broadcast_storm.tres",
+      "grain": 0.03,
+      "reason": "廣播風暴期間訊號受干擾，畫面帶少量雜訊；離開風暴就恢復乾淨。"
+    }
+  ],
+  "grain_layers": [
+    {
+      "path": "data/cutscene/stages/blue_sky_seam.json",
+      "layer": 4,
+      "kind": "grain",
+      "amount": 30,
+      "opacity": 0.05,
+      "depth": "front",
+      "reason": "藍天的接縫是世界露出破綻的畫面，少量顆粒表示訊號不穩。"
+    },
+    {
+      "path": "data/cutscene/stages/test_room.json",
+      "layer": 5,
+      "kind": "grain",
+      "amount": 80,
+      "depth": "front",
+      "reason": "測試用舞台：驗證前層與顆粒圖層。"
+    },
+    {
+      "path": "data/cutscene/stages/white_room.json",
+      "layer": 5,
+      "kind": "grain",
+      "amount": 140,
+      "opacity": 0.2,
+      "depth": "front",
+      "reason": "白房間是記憶裡的畫面，少量顆粒表示這不是現實。",
+      "color": "#7a7266"
+    }
+  ],
+  "images": [
+    {
+      "path": "pm/Nest-Egg-BG/images/BG-27-levels-1.jpg",
+      "bytes": 249218,
+      "sha256": "59af35e67c740c86d8ed86c8eca80e70cbb4113147080d091563f85d6539732a",
+      "dimensions": [
+        1126,
+        1023
+      ],
+      "same_as_original": true
+    },
+    {
+      "path": "pm/Nest-Egg-BG/images/BG-27-levels-2.jpg",
+      "bytes": 241353,
+      "sha256": "a29ef73804e047f10861031f9f3cef612449b6ea274e9b144ac5859cc2d8a853",
+      "dimensions": [
+        1126,
+        1023
+      ],
+      "same_as_original": true
+    },
+    {
+      "path": "pm/Nest-Egg-BG/images/BG-27-levels-3.jpg",
+      "bytes": 240084,
+      "sha256": "b0d02e98c36bfa76c28afe753778ae9aee7a0c2f5858f29f85c208579f315348",
+      "dimensions": [
+        1126,
+        1023
+      ],
+      "same_as_original": true
+    },
+    {
+      "path": "pm/Nest-Egg-BG/images/BG-27-low-health-after.jpg",
+      "bytes": 55119,
+      "sha256": "61ef74dc0df73bc76604a01020095aa4374cb0bddf4d95f1364080a5f2d1ec9a",
+      "dimensions": [
+        960,
+        540
+      ],
+      "same_as_original": true
+    },
+    {
+      "path": "pm/Nest-Egg-BG/images/BG-27-rooftop-detail.png",
+      "bytes": 172807,
+      "sha256": "26d4e915db577810528f47acdbc54a516841b41ab80005eb7b5b835a4c81c036",
+      "dimensions": [
+        966,
+        292
+      ],
+      "same_as_original": true
+    },
+    {
+      "path": "pm/Nest-Egg-BG/images/BG-27-stages.jpg",
+      "bytes": 108003,
+      "sha256": "e6a4264676465bd4e4b492531d0787971dd8f65144f54f54e4afdbed4fd8ea6c",
+      "dimensions": [
+        1286,
+        774
+      ],
+      "same_as_original": true
+    }
+  ],
+  "source_archive": {
+    "file": "source.zip",
+    "sha256": "94056c2c7b1ff2867012e19e978495e284e147afa210efd20b7617a471a2742f",
+    "entries": {
+      "published/data/cutscene/stages/blue_sky_seam.json": {
+        "sha256": "d13a1098f9702fd8753d56e0931629f9f3ee56247cf9319bce8083e3e547c1d0",
+        "bytes": 898
+      },
+      "published/data/cutscene/stages/ch1_dawn_noodle_stall.json": {
+        "sha256": "dc0f894af533c94d5207ea4b61370dcc9e42879f48029f53afb969826d4385ec",
+        "bytes": 3437
+      },
+      "published/data/cutscene/stages/ch1_pawnshop_front.json": {
+        "sha256": "0c13a2c257b95f160760005e8a4c75a5d84e9a14ee442462400881b7bbc5f049",
+        "bytes": 917
+      },
+      "published/data/cutscene/stages/ch1_pawnshop_kitchen.json": {
+        "sha256": "194ce661ab42c096ae1f28e3fbce95ce86742532418ec9e7dba1c1d8982b1ae3",
+        "bytes": 4628
+      },
+      "published/data/cutscene/stages/ch1_revival_lounge.json": {
+        "sha256": "1b92ba497f9fcbe232cd7ee0829a524ab7f820f56e166abf46046bccf2ffa84d",
+        "bytes": 1021
+      },
+      "published/data/cutscene/stages/ch1_revival_room.json": {
+        "sha256": "f52c190db68ef537989bbcbd3ab8a9eaf231822441ce87b1821bbb7243ccda2e",
+        "bytes": 2797
+      },
+      "published/data/cutscene/stages/ch1_rooftop.json": {
+        "sha256": "d359f4dddae009209700a8e7af621c72d064d241706db5ed98ddd81cc2cf63a1",
+        "bytes": 851
+      },
+      "published/data/cutscene/stages/ch2_collection_desk.json": {
+        "sha256": "fd97859667edbbe4d60a59e408e4e63341acca2de157668d364699620b6da33f",
+        "bytes": 875
+      },
+      "published/data/cutscene/stages/ch2_guest_book_room.json": {
+        "sha256": "ce4e369465e6359ae706987b56bba594bd6cce74536169d226e4a73902719664",
+        "bytes": 1375
+      },
+      "published/data/cutscene/stages/ch2_ledger_office.json": {
+        "sha256": "b18a73307a8814ab339e8faf01a8f7a05f14b4946acecc97839426d823dbd778",
+        "bytes": 713
+      },
+      "published/data/cutscene/stages/ch2_pawnshop_counter.json": {
+        "sha256": "998f1bd0fda2617240d82d0ef9b2b0fb739ccec6a1baad513f98e7582c049c38",
+        "bytes": 1151
+      },
+      "published/data/cutscene/stages/ch2_phone_booth.json": {
+        "sha256": "e40a83eb7cb565fa84af967c4e4ac47065d4145e1e83e7ca1dbdb1c9ef8c17ca",
+        "bytes": 942
+      },
+      "published/data/cutscene/stages/ch3_clinic_counter.json": {
+        "sha256": "f4a53ad4b9500d6120d60c617af8735ab4da0a72164a6986aead126cb9867b09",
+        "bytes": 1097
+      },
+      "published/data/cutscene/stages/ch3_office_hall.json": {
+        "sha256": "1f8abee57aec321cf128e7423ea31e4cc587bb9b6d4158ca7b296fad8d3c6f75",
+        "bytes": 3330
+      },
+      "published/data/cutscene/stages/elevator_rise.json": {
+        "sha256": "9aca4d14a15be68edad2b3b0a6a95b6314bb15d16139de8b91393c8aab39a0af",
+        "bytes": 2831
+      },
+      "published/data/cutscene/stages/hangar_red.json": {
+        "sha256": "bc95e470500f27e4acdd18e93649337f722946f2e2397b235c9abf6c500a41a0",
+        "bytes": 1832
+      },
+      "published/data/cutscene/stages/old_k_shop.json": {
+        "sha256": "2ea7ae2e437eb181c48f14e051474e3309e273ba0b2df6695e008a221c29c7c5",
+        "bytes": 1246
+      },
+      "published/data/cutscene/stages/old_k_shop_dawn.json": {
+        "sha256": "7cb3df40e3c9bbb90e1962fa47d5fb4fc97b6754e97bab10a8da6cf9dbfafb9f",
+        "bytes": 1094
+      },
+      "published/data/cutscene/stages/rainy_harbor.json": {
+        "sha256": "c75f5a27003c79beb49976c6e07247493185d7cb09f56ed0312689c70e23fb1b",
+        "bytes": 3086
+      },
+      "published/data/cutscene/stages/shaft_descent.json": {
+        "sha256": "d33a28702a59fa03d191dfcf42139d1e7a027bf732f7b015d6fd9aac83b1f372",
+        "bytes": 23543
+      },
+      "published/data/cutscene/stages/terminal_room.json": {
+        "sha256": "1bc3360e267278487752bad40be79f5d359abd8026cb1d25be65319e540ca3b0",
+        "bytes": 1087
+      },
+      "published/data/cutscene/stages/test_room.json": {
+        "sha256": "612c4bbb6563b259a2255dcc853105db8ca67b291ca3598f3cc40a872be17fd8",
+        "bytes": 607
+      },
+      "published/data/cutscene/stages/transfer_corridor.json": {
+        "sha256": "17774134447963e70bfe67bf44518c58dbae6358a51a551e40c8cfbc3aa9181d",
+        "bytes": 1096
+      },
+      "published/data/cutscene/stages/white_room.json": {
+        "sha256": "fc6be9c1f213aa2801bd4016ae03d0103466e94095fb69604dceb02dc7c558e9",
+        "bytes": 1314
+      },
+      "published/data/lighting/alarm.tres": {
+        "sha256": "78856e656b888dfd59dabf1192d7dd4bf1b2ec4aee845997b9b204247840fb9d",
+        "bytes": 638
+      },
+      "published/data/lighting/alley_calm.tres": {
+        "sha256": "4961d33ad7a504695334c4363819475f16765afdc77fa854a857067b3bf9a7b4",
+        "bytes": 1121
+      },
+      "published/data/lighting/basement_amber.tres": {
+        "sha256": "f846acf01d4b84fb1b8b3725bdd4151a8cea9ea6b1291b88f8372cb0e92bbf06",
+        "bytes": 1119
+      },
+      "published/data/lighting/blackout.tres": {
+        "sha256": "ebb514522ea09de8027f0dd0b438091a3cd824ff25f6e25113422d5979576cfd",
+        "bytes": 652
+      },
+      "published/data/lighting/broadcast_storm.tres": {
+        "sha256": "b2479414bd9851894bfd2a63a7fc5b0e88feea18e1d40d8fe239f522d74a60c4",
+        "bytes": 1253
+      },
+      "published/data/lighting/clinic_ward.tres": {
+        "sha256": "d9baceeaa3f94c74bff1212f9b5fe601f48a08a0404971e217ae015355f904f2",
+        "bytes": 1107
+      },
+      "published/data/lighting/facility.tres": {
+        "sha256": "9c0a6e590450509069dd52f1ab3903e401191da7c089767f17829cc7af82323c",
+        "bytes": 1132
+      },
+      "published/data/lighting/factory_rust.tres": {
+        "sha256": "7fe45bc60bfbf6b6cf0e8bf5015d0fc18cf54bc2e1579263e93892d8ac638ee6",
+        "bytes": 1133
+      },
+      "published/data/lighting/flood_night.tres": {
+        "sha256": "82a0052a0d75790a1b0b29862ea546c95be53bf59f035088bc7e7969bed3c110",
+        "bytes": 1135
+      },
+      "published/data/lighting/freight.tres": {
+        "sha256": "d369a5cdc48959ec271de1e8f65f2ba268354f40ad4880e7fc85d0312aadc674",
+        "bytes": 1197
+      },
+      "published/data/lighting/garden_day.tres": {
+        "sha256": "3ac73a2208c0b9180b2e28009ed629015a19bcb384604c09a5c65e55f227a972",
+        "bytes": 1098
+      },
+      "published/data/lighting/hangar.tres": {
+        "sha256": "96386bb347a98e3adfb668568628c62f45fb94f288baca6c0727f8e21c8c96ab",
+        "bytes": 1120
+      },
+      "published/data/lighting/harbor_approach.tres": {
+        "sha256": "e4ff629e9ad49b1a32f3ec04f1625e65e8d25fad8b074eb2839f44d5e2f99574",
+        "bytes": 1205
+      },
+      "published/data/lighting/lounge_front.tres": {
+        "sha256": "3808924833079eb013782f9f81ade41d53309964eed178578d6fe12b043789ea",
+        "bytes": 1174
+      },
+      "published/data/lighting/lounge_safe.tres": {
+        "sha256": "ae2b7e93748d55eef090a669107ddd88527ad9c29b29ce8e43b7e2d0db2f9ed1",
+        "bytes": 1151
+      },
+      "published/data/lighting/market.tres": {
+        "sha256": "b656f572b5d5c0020525ca702ba4d4889a74b7adcea592100d9715bdac00aa23",
+        "bytes": 1168
+      },
+      "published/data/lighting/market_gate.tres": {
+        "sha256": "0be8c9c3656da86ba4fe765794270884dd63b5e1052ae12ddbe9557740c4a09f",
+        "bytes": 1173
+      },
+      "published/data/lighting/mezzanine_gray.tres": {
+        "sha256": "10672ae3d67b6b2ee155026a3c5b4b2f3c6d9588d2bcffe1e74c70e596365cc8",
+        "bytes": 1154
+      },
+      "published/data/lighting/neutral.tres": {
+        "sha256": "33f950056bf23c4b4be5a3310b9237d1c8ef9083c5584fec5d9594cc416c1e6f",
+        "bytes": 416
+      },
+      "published/data/lighting/pawnshop_warm.tres": {
+        "sha256": "8254bcf67cb4d4c85da4412be56a1059f4f3edfa3d153952bb487b88652c6270",
+        "bytes": 1099
+      },
+      "published/data/lighting/power_room.tres": {
+        "sha256": "bd2e90565b464d63906b4e81f06fd8bdd44282b5ecc29c544b5cc12a3aa6cf80",
+        "bytes": 1116
+      },
+      "published/data/lighting/reclaimer_arena.tres": {
+        "sha256": "93063a422e7232a3129650e530daddb0b6cff59cb2893ab918e8305a7a117870",
+        "bytes": 1124
+      },
+      "published/data/lighting/residential.tres": {
+        "sha256": "ab57ccea56dca437044cf7a08db5c3e6647d11879958a626d4c16a14cc48328e",
+        "bytes": 1142
+      },
+      "published/data/lighting/rooftop.tres": {
+        "sha256": "3494bea62dd968c2cd47df9def3208b150a8f06e12af9d9a898ff841ac65b48e",
+        "bytes": 1177
+      },
+      "published/data/lighting/shaft.tres": {
+        "sha256": "04c0cb38e177f87d8db1e269bc2125e9a85cceba7cb801d22c33f53d9c5eaa17",
+        "bytes": 1109
+      },
+      "published/data/lighting/shaft_deep.tres": {
+        "sha256": "a183f0f217fa1e3b6ba14173426f12c85d939ce3240ceadc396a4edaebf5c051",
+        "bytes": 1115
+      },
+      "published/data/lighting/street_harbor.tres": {
+        "sha256": "4908df34378e6032be02af62f26c6050409601b47cecc363576b645c6b36b309",
+        "bytes": 1224
+      },
+      "published/data/lighting/street_market.tres": {
+        "sha256": "1a0f0f2a85176425f55c10ae11d1a5b6e38268e1f9e9a3a15fc33804f0146971",
+        "bytes": 1175
+      },
+      "published/data/lighting/street_market_creature.tres": {
+        "sha256": "8f857c71205ef8f4b93e781e0215724505a86f6347dc2f0625df787e902c51da",
+        "bytes": 1205
+      },
+      "published/data/lighting/sunlit_edge.tres": {
+        "sha256": "3e8b32660c0293a03c2a77d8964e1d26ce9b642b0f2a0ee713454edfa7a801c1",
+        "bytes": 1111
+      },
+      "published/data/lighting/sunny_day.tres": {
+        "sha256": "0e88f7f1832df79b3d262f5f591b6230cb6e6e016b466f8d1ddcd58fcfacc006",
+        "bytes": 1097
+      },
+      "published/data/lighting/tower_white.tres": {
+        "sha256": "ad8faac40454c3822a5a66ea541a7be8a5b7d62c6408c43db525de39efa0575a",
+        "bytes": 1098
+      },
+      "published/data/lighting/transfer.tres": {
+        "sha256": "23ddc22da2d01ae05a7c9421455854437c4fdd49297eb4881a2d2dc88cf9d887",
+        "bytes": 1113
+      },
+      "published/data/lighting/warehouse_interior.tres": {
+        "sha256": "15ed3562470bcdb2e5a875d858711ecb309db5e02d125601ab4a3a26f5057f13",
+        "bytes": 1243
+      },
+      "published/game/cutscene/stage_layers.gd": {
+        "sha256": "bdbc47462e0c59f527598787623f0e0d309e713aaf6573cc7f8c2287242105a8",
+        "bytes": 25802
+      },
+      "published/game/cutscene/stage_library.gd": {
+        "sha256": "b3b8882c6a6663a9cb9774d82217d9c80bf5e64395a2e20b1f30269b53839c10",
+        "bytes": 13125
+      },
+      "published/game/level/post_process.gd": {
+        "sha256": "4bd5a7cd0c819547545914d6d539f0dc938c0a0954bc43e74737703c0896166c",
+        "bytes": 7303
+      },
+      "published/game/level/post_process.gdshader": {
+        "sha256": "c29de8713fae0864d982601ca198729bd72e7c1278ab1fa3c8c05306a948c515",
+        "bytes": 3026
+      },
+      "published/data/scripts/lighting_profile.gd": {
+        "sha256": "0c166b9f2eef2e53340f50b0320bd6e13babcc9ad90ac19903ba71b0fd00ec81",
+        "bytes": 8576
+      },
+      "published/tests/smoke_test.gd": {
+        "sha256": "e15cf22a4a7b9585c8d9bc52808108cca43dfbd8669f3b12638114256fe68e90",
+        "bytes": 105448
+      },
+      "published/tools/assets/stage_defs.py": {
+        "sha256": "39d71d32d24bacde416a7c5ff031429219b781931fa6feee0243b273eee8a9d8",
+        "bytes": 11194
+      },
+      "published/tools/story/build_ch1_story.py": {
+        "sha256": "a541a20aeec7b3f602cc744c15d512ba0267649bbe24bf7a6f1b731185ba4148",
+        "bytes": 32958
+      },
+      "published/autoload/settings.gd": {
+        "sha256": "796ca45f5eb7e732997f93fd4af74114589c98fb8ad17082f482d1d9bae6256f",
+        "bytes": 13140
+      },
+      "original/game/cutscene/stage_layers.gd": {
+        "sha256": "0f655bc339506941cffb951ceb000b12ab8a744f17495f88fbda58b904cc1293",
+        "bytes": 15954
+      },
+      "original/game/cutscene/stage_library.gd": {
+        "sha256": "5fdcfda3de79f3c37faab4d3bbb8cf03c51dd3881ef7a45888b76975a4a2154f",
+        "bytes": 6652
+      },
+      "original/game/level/post_process.gd": {
+        "sha256": "4bd5a7cd0c819547545914d6d539f0dc938c0a0954bc43e74737703c0896166c",
+        "bytes": 7303
+      },
+      "original/game/level/post_process.gdshader": {
+        "sha256": "f2f4988e8989706497b610737c812b3127b7b97e01dece40ffad7be3e531aef5",
+        "bytes": 2959
+      },
+      "original/data/scripts/lighting_profile.gd": {
+        "sha256": "2783e6abe76da0781e9f46915996ce163d5c74a938b98e815c1e2b14894402e2",
+        "bytes": 7246
+      },
+      "original/tests/smoke_test.gd": {
+        "sha256": "d2c6ede0248e75e2d6e380d05196b468732ab923d12537f707bacc15f848c480",
+        "bytes": 101075
+      },
+      "original/tools/assets/stage_defs.py": {
+        "sha256": "1251df8d004c4968217145b3211bb53696cb0e9de2a9ca37ba67ee5b87669f67",
+        "bytes": 9475
+      },
+      "original/tools/story/build_ch1_story.py": {
+        "sha256": "78da64bb49568137d2b215c95a12d35e7c66fe43743246f437aed8fb603be82c",
+        "bytes": 28874
+      }
+    }
+  },
+  "engine_started": false,
+  "live_preference_bug": "Confirmed real8/3 baseline vs candidate8/0 checks plus1 actual RAM compile gate; original Grain visibility only set at construction. Both logs retained outside this original source review.",
+  "scope": "Static all-published profile/stage enumeration and original images/source; no historical test execution reconstructed and no new native runtime claim."
+}
