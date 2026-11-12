@@ -11,7 +11,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
 from scenery_placement import prepare_props
-from level_kit import Grid, PLAYER_JUMP_TILES, HEADROOM  # noqa: E402
+from level_kit import Grid, RouteState, PLAYER_JUMP_TILES, HEADROOM  # noqa: E402
 
 ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
 LEVEL_DIR = os.path.join(ROOT, 'data', 'levels')
@@ -175,12 +175,17 @@ SKY_SOURCE_WIDTH = 4096
 class Area:
     """一個區域：格子網格加上道具清單、提示牌、光影與出入口。"""
 
-    def __init__(self, ident, name, width, ground, **options):
+    def __init__(self, ident, name, width, ground, *, height=H, **options):
         self.id = ident
         self.name = name
         self.w = width
+        self.grid = Grid(width, height)
+        if type(ground) is not int or not 0 < ground < height:
+            raise ValueError(f'{ident}: ground {ground!r} outside 1..{height - 1}')
+        self.h = height
         self.ground = ground
-        self.grid = Grid(width, H)
+        self.route_gates = []
+        self.route_supports = []
         self.props = []
         self.hints = []
         self.chars = set()
@@ -194,9 +199,9 @@ class Area:
         self.group = ident       # 同一組的區域（一個地點切成幾張地圖）合起來要有完整的特色（迴圈、秘密…）
         self.options = options
         g = self.grid
-        g.fill(0, 0, 0, H - 1, '#')
-        g.fill(width - 1, width - 1, 0, H - 1, '#')
-        g.fill(1, width - 2, ground, H - 1, '#')
+        g.fill(0, 0, 0, self.h - 1, '#')
+        g.fill(width - 1, width - 1, 0, self.h - 1, '#')
+        g.fill(1, width - 2, ground, self.h - 1, '#')
 
     # --- 格子 -------------------------------------------------------------
     def block(self, x0, x1, y0, y1, c='#'):
@@ -281,16 +286,39 @@ class Area:
     def zone(self, start, profile, blend=12):
         self.zones.append((start, blend, profile))
 
+    def _route_region(self, collection, name, rect, condition):
+        if not isinstance(name, str) or not name:
+            raise ValueError(f'{self.id}: route region needs a name')
+        if len(condition) != 1 or next(iter(condition)) not in ('flag', 'mechanism', 'ability'):
+            raise ValueError(f'{self.id}/{name}: specify exactly one flag, mechanism or ability')
+        ident = next(iter(condition.values()))
+        if not isinstance(ident, str) or not ident:
+            raise ValueError(f'{self.id}/{name}: condition id must be nonempty')
+        if len(rect) != 4:
+            raise ValueError(f'{self.id}/{name}: expected x0,x1,y0,y1 rectangle')
+        self.grid.rect(*rect)
+        if any(r['name'] == name for r in self.route_gates + self.route_supports):
+            raise ValueError(f'{self.id}/{name}: duplicate route region')
+        collection.append({'name': name, 'rect': tuple(rect), 'condition': dict(condition)})
+
+    def route_gate(self, name, rect, **condition):
+        """An explicit closed gate occupies rect until its named fact is true."""
+        self._route_region(self.route_gates, name, rect, condition)
+
+    def route_platform(self, name, rect, **condition):
+        """Support such as a raised raft exists only in the given mechanism state."""
+        self._route_region(self.route_supports, name, rect, condition)
+
     # --- 檢查 -------------------------------------------------------------
     def solid_below(self, x, y):
         """格子 (x, y) 底下是不是站得住（實心或單向平台）。"""
-        return self.grid.at(x, y + 1) in ('#', '=')
+        return y + 1 < self.h and self.grid.at(x, y + 1) in ('#', '=')
 
     def check(self, flying=('d',)):
         problems = []
         g = self.grid
         legend_chars = set(RES) | set(PORTALS) | set(DYN_RES)
-        for y in range(H):
+        for y in range(self.h):
             for x in range(self.w):
                 c = g.at(x, y)
                 if c in ('P', 'C') or c in legend_chars or c.isdigit():
@@ -313,7 +341,7 @@ class Area:
                 problems.append(f'{self.id}/{e["name"]}: 成員 {len(e["members"])} 個，超過上限 {MAX_MEMBERS}')
             if len(e['members']) + len(e['reinforcements']) > MAX_ALIVE:
                 problems.append(f'{self.id}/{e["name"]}: 成員加增援 {len(e["members"]) + len(e["reinforcements"])} 個，超過同屏上限 {MAX_ALIVE}')
-            inside = sorted(g.at(x, y) for y in range(H) for x in range(e['x0'], e['x1'] + 1) if g.at(x, y) in enemy_chars)
+            inside = sorted(g.at(x, y) for y in range(self.h) for x in range(e['x0'], e['x1'] + 1) if g.at(x, y) in enemy_chars)
             if e['lock'] and inside != sorted(e['members']):
                 problems.append(f'{self.id}/{e["name"]}: 鎖場範圍內的敵人 {inside} 和宣告的成員 {sorted(e["members"])} 不一致')
             if not e['lock']:
@@ -323,20 +351,25 @@ class Area:
         return problems
 
 
-def reachable(area, start, targets, open_chars=('a', 'r', 's', 'v')):
+def reachable(area, start, targets, open_chars=('a', 'r', 's', 'v'), *, state=None):
     """簡化的平台可達性：從起點出發，能走、能跳（上 5 格、橫 7 格內）、能落下。回傳到不了的目標清單。
-    閘門視為打開；水坑視為漲滿（坑口有貨櫃浮橋）。"""
+    不傳 state 的舊幾何檢查視閘門已開、水坑已滿，不能用來證明進度鎖。
+    傳 RouteState 時只使用明示的門/支撐與移動界線；不自動開門或補浮橋。"""
+    if state is not None:
+        return _state_reachable(area, start, targets, state)
+    if area.route_gates or area.route_supports:
+        raise ValueError(f'{area.id}: declared route conditions require an explicit RouteState')
     g = area.grid
 
     def cell(x, y):
-        if x < 0 or x >= area.w or y < 0 or y >= H:
+        if x < 0 or x >= area.w or y < 0 or y >= area.h:
             return '#'
         return g.at(x, y)
 
     def solid(x, y):
         return cell(x, y) == '#'
 
-    pits = [(x, y) for x in range(area.w) for y in range(H) if cell(x, y) == 'W']
+    pits = [(x, y) for x in range(area.w) for y in range(area.h) if cell(x, y) == 'W']
     raft = set()
     if pits:
         px = pits[0][0]
@@ -351,9 +384,9 @@ def reachable(area, start, targets, open_chars=('a', 'r', 's', 'v')):
 
     def land(x, y):
         # 從 (x, y) 往下落到第一個有支撐的位置；落出地圖回傳 None
-        while y < H - 1 and not support(x, y):
+        while y < area.h - 1 and not support(x, y):
             y += 1
-        return (x, y) if y < H - 1 and free(x, y) else None
+        return (x, y) if y < area.h - 1 and free(x, y) else None
 
     seen = {start}
     stack = [start]
@@ -386,6 +419,79 @@ def reachable(area, start, targets, open_chars=('a', 'r', 's', 'v')):
         if not near:
             missing.append(f'{area.id}: {c!r} 在 ({tx},{ty}) 到不了')
     return missing
+
+
+def _state_reachable(area, start, targets, state):
+    """Grid-route approximation using explicit barriers/support and nodes (x,y).
+
+    Rise, horizontal clearance and landing are checked along each candidate move;
+    this deliberately does not claim to simulate dash/air-jump timing or lifts.
+    """
+    if not isinstance(state, RouteState):
+        raise ValueError(f'{area.id}: expected RouteState')
+    blocked, supports = set(), set()
+    for records, cells, enabled in ((area.route_gates, blocked, False), (area.route_supports, supports, True)):
+        for record in records:
+            try:
+                allowed = state.allows(record['condition'])
+            except ValueError as error:
+                raise ValueError(f'{area.id}/{record["name"]}: {error}') from error
+            if allowed == enabled:
+                x0, x1, y0, y1 = record['rect']
+                cells.update((x, y) for y in range(y0, y1 + 1) for x in range(x0, x1 + 1))
+
+    def inside(x, y):
+        return 0 <= x < area.w and 0 <= y < area.h
+
+    def solid(x, y):
+        return not inside(x, y) or area.grid.at(x, y) == '#' or (x, y) in blocked
+
+    def free(x, y):
+        return all(not solid(x, y - k) for k in range(HEADROOM))
+
+    def support(x, y):
+        return solid(x, y + 1) or area.grid.at(x, y + 1) == '=' or (x, y + 1) in supports
+
+    def land(x, y):
+        while y < area.h - 1:
+            if not free(x, y):
+                return None
+            if support(x, y):
+                return x, y
+            y += 1
+        return None
+
+    if start is None or len(start) != 2 or not inside(*start) or not free(*start) or not support(*start):
+        raise ValueError(f'{area.id}/{state.name}: invalid standing start {start!r}')
+    for name, point in targets:
+        if len(point) != 2 or not inside(*point):
+            raise ValueError(f'{area.id}/{state.name}: target {name!r} outside bounds: {point!r}')
+    seen, pending = {tuple(start)}, [tuple(start)]
+    jump = min(state.jump_tiles, area.h)
+    span = min(state.jump_span, area.w)
+    while pending:
+        x, y = pending.pop()
+        # The player can drop through one-way platforms; solid floors stay solid.
+        below = (x, y + 1)
+        if area.grid.at(*below) == '=' or below in supports:
+            dropped = land(x, y + 2)
+            if dropped is not None and dropped not in seen:
+                seen.add(dropped)
+                pending.append(dropped)
+        for nx in range(max(1, x - span), min(area.w - 1, x + span + 1)):
+            direction = 1 if nx >= x else -1
+            for ty in range(max(HEADROOM - 1, y - jump), y + 1):
+                if not all(free(x, yy) for yy in range(ty, y + 1)):
+                    continue
+                if not all(free(xx, ty) for xx in range(x, nx + direction, direction)):
+                    continue
+                node = land(nx, ty)
+                if node is not None and node not in seen:
+                    seen.add(node)
+                    pending.append(node)
+    return [f'{area.id}/{state.name}: {name!r} 在 ({x},{y}) 到不了'
+            for name, (x, y) in targets
+            if not any((x + dx, y + dy) in seen for dx in (-1, 0, 1) for dy in (-1, 0, 1))]
 
 
 def write_tres_value(v):
@@ -835,8 +941,10 @@ def build_warehouse_full():
 def slice_area(full, ident, name, x0, x1, pad_left, pad_right):
     """把一張做好的地圖切出 [x0, x1) 欄成新的區域（ST-14）：兩側各補 pad 欄空地與外牆，格子、道具、提示牌（重新編號）、觸發點、遭遇、
     材質區與光影一起搬過去。切在機關與遭遇範圍之外（切到的東西會被 assert 擋下）。"""
+    if not (0 <= x0 < x1 <= full.w) or any(type(v) is not int or v < 0 for v in (pad_left, pad_right)):
+        raise ValueError(f'{full.id}: invalid slice {x0!r}..{x1!r}, pads {pad_left!r},{pad_right!r}')
     width = pad_left + (x1 - x0) + pad_right
-    a = Area(ident, name, width, full.ground, **full.options)
+    a = Area(ident, name, width, full.ground, height=full.h, **full.options)
     a.combat = full.combat
     a.group = full.group
     a.ceiling(1, width - 2, 4)
@@ -845,7 +953,7 @@ def slice_area(full, ident, name, x0, x1, pad_left, pad_right):
         nx = x + shift
         if nx <= 0 or nx >= width - 1:
             continue
-        for y in range(H):
+        for y in range(full.h):
             c = full.grid.at(x, y)
             if c.isdigit():
                 a.hints.append(full.hints[int(c) - 1])
@@ -874,6 +982,13 @@ def slice_area(full, ident, name, x0, x1, pad_left, pad_right):
         else:
             assert r['x1'] < x0 or r['x0'] >= x1, f'{full.id}: 材質區 {r} 被切在邊界上'
     a.triggers = [(x + shift, scene) for x, scene in full.triggers if x0 <= x < x1]
+    for collection, add in ((full.route_gates, a.route_gate), (full.route_supports, a.route_platform)):
+        for region in collection:
+            rx0, rx1, ry0, ry1 = region['rect']
+            if x0 <= rx0 and rx1 < x1:
+                add(region['name'], (rx0 + shift, rx1 + shift, ry0, ry1), **region['condition'])
+            elif not (rx1 < x0 or rx0 >= x1):
+                raise ValueError(f'{full.id}/{region["name"]}: route region cut by slice {x0}..{x1}')
     return a
 
 
@@ -1206,10 +1321,10 @@ def render_overview(areas, out_dir):
     for a in areas:
         if not a.combat:
             continue
-        w, h = a.w * cell, H * cell + 28
+        w, h = a.w * cell, a.h * cell + 28
         img = Image.new('RGB', (w, h), (18, 20, 28))
         d = ImageDraw.Draw(img)
-        for y in range(H):
+        for y in range(a.h):
             for x in range(a.w):
                 c = a.grid.at(x, y)
                 box = (x * cell, y * cell + 14, x * cell + cell - 1, y * cell + 14 + cell - 1)
@@ -1227,9 +1342,9 @@ def render_overview(areas, out_dir):
                     d.rectangle(box, fill=(180, 120, 255))
         for e in a.encounters:
             if e['lock']:
-                d.rectangle((e['x0'] * cell, 14, e['x1'] * cell + cell - 1, 14 + H * cell), outline=(255, 160, 40))
+                d.rectangle((e['x0'] * cell, 14, e['x1'] * cell + cell - 1, 14 + a.h * cell), outline=(255, 160, 40))
                 d.text((e['x0'] * cell + 3, 1), e['name'], fill=(255, 190, 90), font=font)
-        d.text((2, H * cell + 16), f'{a.id}  紅＝敵人 洋紅＝迷你頭目 橘＝競技場閘門／鎖場框 黃＝獎勵 紫＝出入口 藍＝電話亭 青＝平台', fill=(190, 200, 220), font=font)
+        d.text((2, a.h * cell + 16), f'{a.id}  紅＝敵人 洋紅＝迷你頭目 橘＝競技場閘門／鎖場框 黃＝獎勵 紫＝出入口 藍＝電話亭 青＝平台', fill=(190, 200, 220), font=font)
         os.makedirs(out_dir, exist_ok=True)
         img.save(os.path.join(out_dir, f'ST-11-map-{a.id}.png'))
         print('wrote', os.path.join(out_dir, f'ST-11-map-{a.id}.png'))
@@ -1243,6 +1358,7 @@ def report(areas):
             locks += 1 if e['lock'] else 0
     print(f'遭遇 {total} 場，其中鎖場 {locks} 場')
     for a in areas:
+        print(f'  {a.id}: {a.w}x{a.h} 格')
         if a.encounters:
             print(f'  {a.id}: ' + '、'.join(f'{e["name"]}{"（鎖）" if e["lock"] else ""}' for e in a.encounters))
 
@@ -1361,7 +1477,7 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
         zone_ids.append(w.sub([f'script = ExtResource("{zone_script}")', f'start_tile = {start}', f'blend_tiles = {blend}', f'profile = ExtResource("{prof}")']))
     theme = w.ext(theme_path)
     res = [f'script = ExtResource("{w.script_id}")', f'id = &"{PREFIX}_{level_id}"', f'display_name = "{opts.pop("display_name", area.name)}"',
-           'tile_size = 16', f'height = {H}',
+           'tile_size = 16', f'height = {area.h}',
            'legend = Dictionary[String, Resource]({\n' + ',\n'.join(legend) + '\n})' if legend else 'legend = Dictionary[String, Resource]({})',
            'hints = PackedStringArray(' + ', '.join(json.dumps(h, ensure_ascii=False) for h in area.hints) + ')',
            f'chapter = &"{CHAPTER}"',
@@ -1405,8 +1521,8 @@ def main():
     problems = []
     for a in areas:
         problems += a.check()
-        start = next(((x, y) for y in range(H) for x in range(a.w) if a.grid.at(x, y) == 'P'), None)
-        goals = [(a.grid.at(x, y), (x, y)) for y in range(H) for x in range(a.w)
+        start = next(((x, y) for y in range(a.h) for x in range(a.w) if a.grid.at(x, y) == 'P'), None)
+        goals = [(a.grid.at(x, y), (x, y)) for y in range(a.h) for x in range(a.w)
                  if a.grid.at(x, y) in set(RES) | set(PORTALS) | {'C'} and a.grid.at(x, y) not in ('d', 'a', 'r', 's', 'v', 'W', 'X')]
         problems += reachable(a, start, goals)
     if problems:

@@ -5,6 +5,7 @@
 """
 import json
 import os
+from types import MappingProxyType
 
 TILE = 16
 PLAYER_JUMP_TILES = 5  # 玩家跳躍約 88px ≈ 5.5 格
@@ -14,23 +15,69 @@ SEGMENT_WIDTH = 50
 HEADROOM = 3           # 站得下玩家需要的淨空格數
 
 
+class RouteState:
+    """One explicit route-check snapshot, not a gameplay flag/ability authority.
+
+    Facts must include both true and false conditions used by the area. Movement
+    limits are the caller's grid approximation, not proof of player physics.
+    """
+
+    def __init__(self, name, *, flags=None, mechanisms=None, abilities=None,
+                 jump_tiles=PLAYER_JUMP_TILES, jump_span=7):
+        if not isinstance(name, str) or not name.strip():
+            raise ValueError('route state needs a nonempty name')
+        self.name = name
+        self.facts = {}
+        for kind, raw in (('flag', flags), ('mechanism', mechanisms), ('ability', abilities)):
+            values = {} if raw is None else dict(raw)
+            if any(not isinstance(k, str) or not k or type(v) is not bool for k, v in values.items()):
+                raise ValueError(f'{name}/{kind}: expected named boolean facts')
+            self.facts[kind] = MappingProxyType(values)
+        for key, value in (('jump_tiles', jump_tiles), ('jump_span', jump_span)):
+            if type(value) is not int or value < 0:
+                raise ValueError(f'{name}/{key}: expected a nonnegative integer')
+        self.jump_tiles = jump_tiles
+        self.jump_span = jump_span
+
+    def allows(self, condition):
+        kind, ident = next(iter(condition.items()))
+        if ident not in self.facts[kind]:
+            raise ValueError(f'{self.name}/{kind}/{ident}: route fact was not specified')
+        return self.facts[kind][ident]
+
+
 class Grid:
     def __init__(self, width, height):
+        if type(width) is not int or type(height) is not int or width < 1 or height < 1:
+            raise ValueError(f'grid: invalid dimensions {width!r}x{height!r}')
         self.w, self.h = width, height
         self.g = [['.'] * width for _ in range(height)]
 
+    def _point(self, x, y):
+        if type(x) is not int or type(y) is not int or not (0 <= x < self.w and 0 <= y < self.h):
+            raise ValueError(f'grid {self.w}x{self.h}: cell ({x!r},{y!r}) outside bounds')
+
+    def rect(self, x0, x1, y0, y1):
+        self._point(x0, y0)
+        self._point(x1, y1)
+        if x1 < x0 or y1 < y0:
+            raise ValueError(f'grid {self.w}x{self.h}: reversed rectangle {(x0, x1, y0, y1)}')
+
     def put(self, x, y, c):
+        self._point(x, y)
         self.g[y][x] = c
 
     def fill(self, x0, x1, y0, y1, c):
+        self.rect(x0, x1, y0, y1)
         for y in range(y0, y1 + 1):
             for x in range(x0, x1 + 1):
                 self.g[y][x] = c
 
     def empty(self, x, y):
-        return self.g[y][x] == '.'
+        return self.at(x, y) == '.'
 
     def at(self, x, y):
+        self._point(x, y)
         return self.g[y][x]
 
     def rows(self):
@@ -42,6 +89,7 @@ class Grid:
 
     def surface(self, x, ignore_chars=('#',)):
         """第 x 欄的可站立地面（列）：最上面一個實心格，上方至少有 HEADROOM 格非實心；沒有回傳 None。"""
+        self._point(x, 0)
         for y in range(self.h):
             if self.g[y][x] != '#':
                 continue
@@ -82,5 +130,6 @@ class Grid:
             for key, value in (extra or {}).items():
                 f.write(',\n  "' + key + '": [\n' + ',\n'.join('    ' + json.dumps(v, ensure_ascii=False) for v in value) + '\n  ]')
             f.write('\n}\n')
-        json.load(open(path))
+        with open(path, encoding='utf-8') as f:
+            json.load(f)
         print(f"{name}: {self.w}x{self.h} written")

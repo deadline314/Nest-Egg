@@ -474,8 +474,8 @@ def main():
     problems = []
     for a in areas:
         problems += a.check()
-        start = next(((x, y) for y in range(H) for x in range(a.w) if a.grid.at(x, y) == 'P'), None)
-        goals = [(a.grid.at(x, y), (x, y)) for y in range(H) for x in range(a.w)
+        start = next(((x, y) for y in range(a.h) for x in range(a.w) if a.grid.at(x, y) == 'P'), None)
+        goals = [(a.grid.at(x, y), (x, y)) for y in range(a.h) for x in range(a.w)
                  if a.grid.at(x, y) in set(kit.RES) | set(PORTALS) | {'C'}]
         problems += kit.reachable(a, start, goals)
     if problems:

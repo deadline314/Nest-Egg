@@ -236,6 +236,7 @@ jobs:
         if: steps.gate.outputs.skip != 'true'
         timeout-minutes: 20
         run: |
+          python3 tools/level/test_level_kit.py
           python3 tools/level/check_channel_generation.py
           python3 tools/run_nonlethal_completion.py --godot "$GODOT" --output "${{ runner.temp }}/nonlethal-completion"
           python3 tools/run_nonlethal_completion.py --boss janus --godot "$GODOT" --output "${{ runner.temp }}/janus-completion"

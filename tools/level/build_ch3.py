@@ -472,8 +472,8 @@ def main():
     problems = []
     for a in areas:
         problems += a.check(flying=('d',) + HANGING)
-        start = next(((x, y) for y in range(H) for x in range(a.w) if a.grid.at(x, y) == 'P'), None)
-        goals = [(a.grid.at(x, y), (x, y)) for y in range(H) for x in range(a.w)
+        start = next(((x, y) for y in range(a.h) for x in range(a.w) if a.grid.at(x, y) == 'P'), None)
+        goals = [(a.grid.at(x, y), (x, y)) for y in range(a.h) for x in range(a.w)
                  if a.grid.at(x, y) in (set(kit.RES) - set(HANGING)) | set(PORTALS) | {'C'}]  # 吊軌上的敵人不用走得到
         problems += kit.reachable(a, start, goals)
     if problems:

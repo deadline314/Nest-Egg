@@ -1,0 +1,603 @@
+diff --git a/.github/workflows/tests.yml b/.github/workflows/tests.yml
+index c86556079..324abd0e6 100644
+--- a/.github/workflows/tests.yml
++++ b/.github/workflows/tests.yml
+@@ -236,6 +236,7 @@ jobs:
+         if: steps.gate.outputs.skip != 'true'
+         timeout-minutes: 20
+         run: |
++          python3 tools/level/test_level_kit.py
+           python3 tools/level/check_channel_generation.py
+           python3 tools/run_nonlethal_completion.py --godot "$GODOT" --output "${{ runner.temp }}/nonlethal-completion"
+           python3 tools/run_nonlethal_completion.py --boss janus --godot "$GODOT" --output "${{ runner.temp }}/janus-completion"
+diff --git a/tools/level/build_ch1.py b/tools/level/build_ch1.py
+index b4536584c..f186a9eb3 100644
+--- a/tools/level/build_ch1.py
++++ b/tools/level/build_ch1.py
+@@ -11,7 +11,7 @@ import sys
+ 
+ sys.path.insert(0, os.path.dirname(__file__))
+ from scenery_placement import prepare_props
+-from level_kit import Grid, PLAYER_JUMP_TILES, HEADROOM  # noqa: E402
++from level_kit import Grid, RouteState, PLAYER_JUMP_TILES, HEADROOM  # noqa: E402
+ 
+ ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
+ LEVEL_DIR = os.path.join(ROOT, 'data', 'levels')
+@@ -175,12 +175,17 @@ SKY_SOURCE_WIDTH = 4096
+ class Area:
+     """一個區域：格子網格加上道具清單、提示牌、光影與出入口。"""
+ 
+-    def __init__(self, ident, name, width, ground, **options):
++    def __init__(self, ident, name, width, ground, *, height=H, **options):
+         self.id = ident
+         self.name = name
+         self.w = width
++        self.grid = Grid(width, height)
++        if type(ground) is not int or not 0 < ground < height:
++            raise ValueError(f'{ident}: ground {ground!r} outside 1..{height - 1}')
++        self.h = height
+         self.ground = ground
+-        self.grid = Grid(width, H)
++        self.route_gates = []
++        self.route_supports = []
+         self.props = []
+         self.hints = []
+         self.chars = set()
+@@ -194,9 +199,9 @@ class Area:
+         self.group = ident       # 同一組的區域（一個地點切成幾張地圖）合起來要有完整的特色（迴圈、秘密…）
+         self.options = options
+         g = self.grid
+-        g.fill(0, 0, 0, H - 1, '#')
+-        g.fill(width - 1, width - 1, 0, H - 1, '#')
+-        g.fill(1, width - 2, ground, H - 1, '#')
++        g.fill(0, 0, 0, self.h - 1, '#')
++        g.fill(width - 1, width - 1, 0, self.h - 1, '#')
++        g.fill(1, width - 2, ground, self.h - 1, '#')
+ 
+     # --- 格子 -------------------------------------------------------------
+     def block(self, x0, x1, y0, y1, c='#'):
+@@ -281,16 +286,39 @@ class Area:
+     def zone(self, start, profile, blend=12):
+         self.zones.append((start, blend, profile))
+ 
++    def _route_region(self, collection, name, rect, condition):
++        if not isinstance(name, str) or not name:
++            raise ValueError(f'{self.id}: route region needs a name')
++        if len(condition) != 1 or next(iter(condition)) not in ('flag', 'mechanism', 'ability'):
++            raise ValueError(f'{self.id}/{name}: specify exactly one flag, mechanism or ability')
++        ident = next(iter(condition.values()))
++        if not isinstance(ident, str) or not ident:
++            raise ValueError(f'{self.id}/{name}: condition id must be nonempty')
++        if len(rect) != 4:
++            raise ValueError(f'{self.id}/{name}: expected x0,x1,y0,y1 rectangle')
++        self.grid.rect(*rect)
++        if any(r['name'] == name for r in self.route_gates + self.route_supports):
++            raise ValueError(f'{self.id}/{name}: duplicate route region')
++        collection.append({'name': name, 'rect': tuple(rect), 'condition': dict(condition)})
++
++    def route_gate(self, name, rect, **condition):
++        """An explicit closed gate occupies rect until its named fact is true."""
++        self._route_region(self.route_gates, name, rect, condition)
++
++    def route_platform(self, name, rect, **condition):
++        """Support such as a raised raft exists only in the given mechanism state."""
++        self._route_region(self.route_supports, name, rect, condition)
++
+     # --- 檢查 -------------------------------------------------------------
+     def solid_below(self, x, y):
+         """格子 (x, y) 底下是不是站得住（實心或單向平台）。"""
+-        return self.grid.at(x, y + 1) in ('#', '=')
++        return y + 1 < self.h and self.grid.at(x, y + 1) in ('#', '=')
+ 
+     def check(self, flying=('d',)):
+         problems = []
+         g = self.grid
+         legend_chars = set(RES) | set(PORTALS) | set(DYN_RES)
+-        for y in range(H):
++        for y in range(self.h):
+             for x in range(self.w):
+                 c = g.at(x, y)
+                 if c in ('P', 'C') or c in legend_chars or c.isdigit():
+@@ -313,7 +341,7 @@ class Area:
+                 problems.append(f'{self.id}/{e["name"]}: 成員 {len(e["members"])} 個，超過上限 {MAX_MEMBERS}')
+             if len(e['members']) + len(e['reinforcements']) > MAX_ALIVE:
+                 problems.append(f'{self.id}/{e["name"]}: 成員加增援 {len(e["members"]) + len(e["reinforcements"])} 個，超過同屏上限 {MAX_ALIVE}')
+-            inside = sorted(g.at(x, y) for y in range(H) for x in range(e['x0'], e['x1'] + 1) if g.at(x, y) in enemy_chars)
++            inside = sorted(g.at(x, y) for y in range(self.h) for x in range(e['x0'], e['x1'] + 1) if g.at(x, y) in enemy_chars)
+             if e['lock'] and inside != sorted(e['members']):
+                 problems.append(f'{self.id}/{e["name"]}: 鎖場範圍內的敵人 {inside} 和宣告的成員 {sorted(e["members"])} 不一致')
+             if not e['lock']:
+@@ -323,20 +351,25 @@ class Area:
+         return problems
+ 
+ 
+-def reachable(area, start, targets, open_chars=('a', 'r', 's', 'v')):
++def reachable(area, start, targets, open_chars=('a', 'r', 's', 'v'), *, state=None):
+     """簡化的平台可達性：從起點出發，能走、能跳（上 5 格、橫 7 格內）、能落下。回傳到不了的目標清單。
+-    閘門視為打開；水坑視為漲滿（坑口有貨櫃浮橋）。"""
++    不傳 state 的舊幾何檢查視閘門已開、水坑已滿，不能用來證明進度鎖。
++    傳 RouteState 時只使用明示的門/支撐與移動界線；不自動開門或補浮橋。"""
++    if state is not None:
++        return _state_reachable(area, start, targets, state)
++    if area.route_gates or area.route_supports:
++        raise ValueError(f'{area.id}: declared route conditions require an explicit RouteState')
+     g = area.grid
+ 
+     def cell(x, y):
+-        if x < 0 or x >= area.w or y < 0 or y >= H:
++        if x < 0 or x >= area.w or y < 0 or y >= area.h:
+             return '#'
+         return g.at(x, y)
+ 
+     def solid(x, y):
+         return cell(x, y) == '#'
+ 
+-    pits = [(x, y) for x in range(area.w) for y in range(H) if cell(x, y) == 'W']
++    pits = [(x, y) for x in range(area.w) for y in range(area.h) if cell(x, y) == 'W']
+     raft = set()
+     if pits:
+         px = pits[0][0]
+@@ -351,9 +384,9 @@ def reachable(area, start, targets, open_chars=('a', 'r', 's', 'v')):
+ 
+     def land(x, y):
+         # 從 (x, y) 往下落到第一個有支撐的位置；落出地圖回傳 None
+-        while y < H - 1 and not support(x, y):
++        while y < area.h - 1 and not support(x, y):
+             y += 1
+-        return (x, y) if y < H - 1 and free(x, y) else None
++        return (x, y) if y < area.h - 1 and free(x, y) else None
+ 
+     seen = {start}
+     stack = [start]
+@@ -388,6 +421,79 @@ def reachable(area, start, targets, open_chars=('a', 'r', 's', 'v')):
+     return missing
+ 
+ 
++def _state_reachable(area, start, targets, state):
++    """Grid-route approximation using explicit barriers/support and nodes (x,y).
++
++    Rise, horizontal clearance and landing are checked along each candidate move;
++    this deliberately does not claim to simulate dash/air-jump timing or lifts.
++    """
++    if not isinstance(state, RouteState):
++        raise ValueError(f'{area.id}: expected RouteState')
++    blocked, supports = set(), set()
++    for records, cells, enabled in ((area.route_gates, blocked, False), (area.route_supports, supports, True)):
++        for record in records:
++            try:
++                allowed = state.allows(record['condition'])
++            except ValueError as error:
++                raise ValueError(f'{area.id}/{record["name"]}: {error}') from error
++            if allowed == enabled:
++                x0, x1, y0, y1 = record['rect']
++                cells.update((x, y) for y in range(y0, y1 + 1) for x in range(x0, x1 + 1))
++
++    def inside(x, y):
++        return 0 <= x < area.w and 0 <= y < area.h
++
++    def solid(x, y):
++        return not inside(x, y) or area.grid.at(x, y) == '#' or (x, y) in blocked
++
++    def free(x, y):
++        return all(not solid(x, y - k) for k in range(HEADROOM))
++
++    def support(x, y):
++        return solid(x, y + 1) or area.grid.at(x, y + 1) == '=' or (x, y + 1) in supports
++
++    def land(x, y):
++        while y < area.h - 1:
++            if not free(x, y):
++                return None
++            if support(x, y):
++                return x, y
++            y += 1
++        return None
++
++    if start is None or len(start) != 2 or not inside(*start) or not free(*start) or not support(*start):
++        raise ValueError(f'{area.id}/{state.name}: invalid standing start {start!r}')
++    for name, point in targets:
++        if len(point) != 2 or not inside(*point):
++            raise ValueError(f'{area.id}/{state.name}: target {name!r} outside bounds: {point!r}')
++    seen, pending = {tuple(start)}, [tuple(start)]
++    jump = min(state.jump_tiles, area.h)
++    span = min(state.jump_span, area.w)
++    while pending:
++        x, y = pending.pop()
++        # The player can drop through one-way platforms; solid floors stay solid.
++        below = (x, y + 1)
++        if area.grid.at(*below) == '=' or below in supports:
++            dropped = land(x, y + 2)
++            if dropped is not None and dropped not in seen:
++                seen.add(dropped)
++                pending.append(dropped)
++        for nx in range(max(1, x - span), min(area.w - 1, x + span + 1)):
++            direction = 1 if nx >= x else -1
++            for ty in range(max(HEADROOM - 1, y - jump), y + 1):
++                if not all(free(x, yy) for yy in range(ty, y + 1)):
++                    continue
++                if not all(free(xx, ty) for xx in range(x, nx + direction, direction)):
++                    continue
++                node = land(nx, ty)
++                if node is not None and node not in seen:
++                    seen.add(node)
++                    pending.append(node)
++    return [f'{area.id}/{state.name}: {name!r} 在 ({x},{y}) 到不了'
++            for name, (x, y) in targets
++            if not any((x + dx, y + dy) in seen for dx in (-1, 0, 1) for dy in (-1, 0, 1))]
++
++
+ def write_tres_value(v):
+     return json.dumps(v, ensure_ascii=False)
+ 
+@@ -835,8 +941,10 @@ def build_warehouse_full():
+ def slice_area(full, ident, name, x0, x1, pad_left, pad_right):
+     """把一張做好的地圖切出 [x0, x1) 欄成新的區域（ST-14）：兩側各補 pad 欄空地與外牆，格子、道具、提示牌（重新編號）、觸發點、遭遇、
+     材質區與光影一起搬過去。切在機關與遭遇範圍之外（切到的東西會被 assert 擋下）。"""
++    if not (0 <= x0 < x1 <= full.w) or any(type(v) is not int or v < 0 for v in (pad_left, pad_right)):
++        raise ValueError(f'{full.id}: invalid slice {x0!r}..{x1!r}, pads {pad_left!r},{pad_right!r}')
+     width = pad_left + (x1 - x0) + pad_right
+-    a = Area(ident, name, width, full.ground, **full.options)
++    a = Area(ident, name, width, full.ground, height=full.h, **full.options)
+     a.combat = full.combat
+     a.group = full.group
+     a.ceiling(1, width - 2, 4)
+@@ -845,7 +953,7 @@ def slice_area(full, ident, name, x0, x1, pad_left, pad_right):
+         nx = x + shift
+         if nx <= 0 or nx >= width - 1:
+             continue
+-        for y in range(H):
++        for y in range(full.h):
+             c = full.grid.at(x, y)
+             if c.isdigit():
+                 a.hints.append(full.hints[int(c) - 1])
+@@ -874,6 +982,13 @@ def slice_area(full, ident, name, x0, x1, pad_left, pad_right):
+         else:
+             assert r['x1'] < x0 or r['x0'] >= x1, f'{full.id}: 材質區 {r} 被切在邊界上'
+     a.triggers = [(x + shift, scene) for x, scene in full.triggers if x0 <= x < x1]
++    for collection, add in ((full.route_gates, a.route_gate), (full.route_supports, a.route_platform)):
++        for region in collection:
++            rx0, rx1, ry0, ry1 = region['rect']
++            if x0 <= rx0 and rx1 < x1:
++                add(region['name'], (rx0 + shift, rx1 + shift, ry0, ry1), **region['condition'])
++            elif not (rx1 < x0 or rx0 >= x1):
++                raise ValueError(f'{full.id}/{region["name"]}: route region cut by slice {x0}..{x1}')
+     return a
+ 
+ 
+@@ -1206,10 +1321,10 @@ def render_overview(areas, out_dir):
+     for a in areas:
+         if not a.combat:
+             continue
+-        w, h = a.w * cell, H * cell + 28
++        w, h = a.w * cell, a.h * cell + 28
+         img = Image.new('RGB', (w, h), (18, 20, 28))
+         d = ImageDraw.Draw(img)
+-        for y in range(H):
++        for y in range(a.h):
+             for x in range(a.w):
+                 c = a.grid.at(x, y)
+                 box = (x * cell, y * cell + 14, x * cell + cell - 1, y * cell + 14 + cell - 1)
+@@ -1227,9 +1342,9 @@ def render_overview(areas, out_dir):
+                     d.rectangle(box, fill=(180, 120, 255))
+         for e in a.encounters:
+             if e['lock']:
+-                d.rectangle((e['x0'] * cell, 14, e['x1'] * cell + cell - 1, 14 + H * cell), outline=(255, 160, 40))
++                d.rectangle((e['x0'] * cell, 14, e['x1'] * cell + cell - 1, 14 + a.h * cell), outline=(255, 160, 40))
+                 d.text((e['x0'] * cell + 3, 1), e['name'], fill=(255, 190, 90), font=font)
+-        d.text((2, H * cell + 16), f'{a.id}  紅＝敵人 洋紅＝迷你頭目 橘＝競技場閘門／鎖場框 黃＝獎勵 紫＝出入口 藍＝電話亭 青＝平台', fill=(190, 200, 220), font=font)
++        d.text((2, a.h * cell + 16), f'{a.id}  紅＝敵人 洋紅＝迷你頭目 橘＝競技場閘門／鎖場框 黃＝獎勵 紫＝出入口 藍＝電話亭 青＝平台', fill=(190, 200, 220), font=font)
+         os.makedirs(out_dir, exist_ok=True)
+         img.save(os.path.join(out_dir, f'ST-11-map-{a.id}.png'))
+         print('wrote', os.path.join(out_dir, f'ST-11-map-{a.id}.png'))
+@@ -1243,6 +1358,7 @@ def report(areas):
+             locks += 1 if e['lock'] else 0
+     print(f'遭遇 {total} 場，其中鎖場 {locks} 場')
+     for a in areas:
++        print(f'  {a.id}: {a.w}x{a.h} 格')
+         if a.encounters:
+             print(f'  {a.id}: ' + '、'.join(f'{e["name"]}{"（鎖）" if e["lock"] else ""}' for e in a.encounters))
+ 
+@@ -1361,7 +1477,7 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
+         zone_ids.append(w.sub([f'script = ExtResource("{zone_script}")', f'start_tile = {start}', f'blend_tiles = {blend}', f'profile = ExtResource("{prof}")']))
+     theme = w.ext(theme_path)
+     res = [f'script = ExtResource("{w.script_id}")', f'id = &"{PREFIX}_{level_id}"', f'display_name = "{opts.pop("display_name", area.name)}"',
+-           'tile_size = 16', f'height = {H}',
++           'tile_size = 16', f'height = {area.h}',
+            'legend = Dictionary[String, Resource]({\n' + ',\n'.join(legend) + '\n})' if legend else 'legend = Dictionary[String, Resource]({})',
+            'hints = PackedStringArray(' + ', '.join(json.dumps(h, ensure_ascii=False) for h in area.hints) + ')',
+            f'chapter = &"{CHAPTER}"',
+@@ -1405,8 +1521,8 @@ def main():
+     problems = []
+     for a in areas:
+         problems += a.check()
+-        start = next(((x, y) for y in range(H) for x in range(a.w) if a.grid.at(x, y) == 'P'), None)
+-        goals = [(a.grid.at(x, y), (x, y)) for y in range(H) for x in range(a.w)
++        start = next(((x, y) for y in range(a.h) for x in range(a.w) if a.grid.at(x, y) == 'P'), None)
++        goals = [(a.grid.at(x, y), (x, y)) for y in range(a.h) for x in range(a.w)
+                  if a.grid.at(x, y) in set(RES) | set(PORTALS) | {'C'} and a.grid.at(x, y) not in ('d', 'a', 'r', 's', 'v', 'W', 'X')]
+         problems += reachable(a, start, goals)
+     if problems:
+diff --git a/tools/level/build_ch2.py b/tools/level/build_ch2.py
+index 166828e49..97f065eee 100644
+--- a/tools/level/build_ch2.py
++++ b/tools/level/build_ch2.py
+@@ -474,8 +474,8 @@ def main():
+     problems = []
+     for a in areas:
+         problems += a.check()
+-        start = next(((x, y) for y in range(H) for x in range(a.w) if a.grid.at(x, y) == 'P'), None)
+-        goals = [(a.grid.at(x, y), (x, y)) for y in range(H) for x in range(a.w)
++        start = next(((x, y) for y in range(a.h) for x in range(a.w) if a.grid.at(x, y) == 'P'), None)
++        goals = [(a.grid.at(x, y), (x, y)) for y in range(a.h) for x in range(a.w)
+                  if a.grid.at(x, y) in set(kit.RES) | set(PORTALS) | {'C'}]
+         problems += kit.reachable(a, start, goals)
+     if problems:
+diff --git a/tools/level/build_ch3.py b/tools/level/build_ch3.py
+index 245161d6e..ec09b268c 100644
+--- a/tools/level/build_ch3.py
++++ b/tools/level/build_ch3.py
+@@ -472,8 +472,8 @@ def main():
+     problems = []
+     for a in areas:
+         problems += a.check(flying=('d',) + HANGING)
+-        start = next(((x, y) for y in range(H) for x in range(a.w) if a.grid.at(x, y) == 'P'), None)
+-        goals = [(a.grid.at(x, y), (x, y)) for y in range(H) for x in range(a.w)
++        start = next(((x, y) for y in range(a.h) for x in range(a.w) if a.grid.at(x, y) == 'P'), None)
++        goals = [(a.grid.at(x, y), (x, y)) for y in range(a.h) for x in range(a.w)
+                  if a.grid.at(x, y) in (set(kit.RES) - set(HANGING)) | set(PORTALS) | {'C'}]  # 吊軌上的敵人不用走得到
+         problems += kit.reachable(a, start, goals)
+     if problems:
+diff --git a/tools/level/level_kit.py b/tools/level/level_kit.py
+index c62de9edb..492819b91 100644
+--- a/tools/level/level_kit.py
++++ b/tools/level/level_kit.py
+@@ -5,6 +5,7 @@
+ """
+ import json
+ import os
++from types import MappingProxyType
+ 
+ TILE = 16
+ PLAYER_JUMP_TILES = 5  # 玩家跳躍約 88px ≈ 5.5 格
+@@ -14,23 +15,69 @@ SEGMENT_WIDTH = 50
+ HEADROOM = 3           # 站得下玩家需要的淨空格數
+ 
+ 
++class RouteState:
++    """One explicit route-check snapshot, not a gameplay flag/ability authority.
++
++    Facts must include both true and false conditions used by the area. Movement
++    limits are the caller's grid approximation, not proof of player physics.
++    """
++
++    def __init__(self, name, *, flags=None, mechanisms=None, abilities=None,
++                 jump_tiles=PLAYER_JUMP_TILES, jump_span=7):
++        if not isinstance(name, str) or not name.strip():
++            raise ValueError('route state needs a nonempty name')
++        self.name = name
++        self.facts = {}
++        for kind, raw in (('flag', flags), ('mechanism', mechanisms), ('ability', abilities)):
++            values = {} if raw is None else dict(raw)
++            if any(not isinstance(k, str) or not k or type(v) is not bool for k, v in values.items()):
++                raise ValueError(f'{name}/{kind}: expected named boolean facts')
++            self.facts[kind] = MappingProxyType(values)
++        for key, value in (('jump_tiles', jump_tiles), ('jump_span', jump_span)):
++            if type(value) is not int or value < 0:
++                raise ValueError(f'{name}/{key}: expected a nonnegative integer')
++        self.jump_tiles = jump_tiles
++        self.jump_span = jump_span
++
++    def allows(self, condition):
++        kind, ident = next(iter(condition.items()))
++        if ident not in self.facts[kind]:
++            raise ValueError(f'{self.name}/{kind}/{ident}: route fact was not specified')
++        return self.facts[kind][ident]
++
++
+ class Grid:
+     def __init__(self, width, height):
++        if type(width) is not int or type(height) is not int or width < 1 or height < 1:
++            raise ValueError(f'grid: invalid dimensions {width!r}x{height!r}')
+         self.w, self.h = width, height
+         self.g = [['.'] * width for _ in range(height)]
+ 
++    def _point(self, x, y):
++        if type(x) is not int or type(y) is not int or not (0 <= x < self.w and 0 <= y < self.h):
++            raise ValueError(f'grid {self.w}x{self.h}: cell ({x!r},{y!r}) outside bounds')
++
++    def rect(self, x0, x1, y0, y1):
++        self._point(x0, y0)
++        self._point(x1, y1)
++        if x1 < x0 or y1 < y0:
++            raise ValueError(f'grid {self.w}x{self.h}: reversed rectangle {(x0, x1, y0, y1)}')
++
+     def put(self, x, y, c):
++        self._point(x, y)
+         self.g[y][x] = c
+ 
+     def fill(self, x0, x1, y0, y1, c):
++        self.rect(x0, x1, y0, y1)
+         for y in range(y0, y1 + 1):
+             for x in range(x0, x1 + 1):
+                 self.g[y][x] = c
+ 
+     def empty(self, x, y):
+-        return self.g[y][x] == '.'
++        return self.at(x, y) == '.'
+ 
+     def at(self, x, y):
++        self._point(x, y)
+         return self.g[y][x]
+ 
+     def rows(self):
+@@ -42,6 +89,7 @@ class Grid:
+ 
+     def surface(self, x, ignore_chars=('#',)):
+         """第 x 欄的可站立地面（列）：最上面一個實心格，上方至少有 HEADROOM 格非實心；沒有回傳 None。"""
++        self._point(x, 0)
+         for y in range(self.h):
+             if self.g[y][x] != '#':
+                 continue
+@@ -82,5 +130,6 @@ class Grid:
+             for key, value in (extra or {}).items():
+                 f.write(',\n  "' + key + '": [\n' + ',\n'.join('    ' + json.dumps(v, ensure_ascii=False) for v in value) + '\n  ]')
+             f.write('\n}\n')
+-        json.load(open(path))
++        with open(path, encoding='utf-8') as f:
++            json.load(f)
+         print(f"{name}: {self.w}x{self.h} written")
+--- /dev/null
++++ b/tools/level/test_level_kit.py
+@@ -0,0 +1,152 @@
++"""CPU-only generator height/state contracts; never runs Godot or writes shipping data."""
++import contextlib
++import io
++import json
++from pathlib import Path
++import tempfile
++from types import SimpleNamespace
++import unittest
++from unittest.mock import Mock, patch
++
++import build_ch1 as kit
++from level_kit import Grid, RouteState
++
++
++class HeightTests(unittest.TestCase):
++    def test_independent_height_and_default(self):
++        tall = kit.Area('tower', 'Tower', 24, 43, height=48)
++        short = kit.Area('short', 'Short', 24, 12, height=16)
++        with patch.object(kit, 'H', 99):
++            default = kit.Area('default', 'Default', 24, 20)
++        self.assertEqual((tall.h, short.h, default.h), (48, 16, 24))
++        self.assertEqual((tall.grid.h, short.grid.h, default.grid.h), (48, 16, 24))
++        tall.put(3, 42, 'P')
++        self.assertEqual(short.grid.at(3, 11), '.')
++        self.assertEqual(tall.check(), [])
++
++    def test_bounds_rejected_before_mutation(self):
++        grid = Grid(8, 12)
++        for x, y in ((-1, 0), (8, 0), (0, -1), (0, 12), (True, 0), (1.5, 0)):
++            with self.subTest(point=(x, y)), self.assertRaises(ValueError):
++                grid.put(x, y, '#')
++        before = grid.rows()
++        for rect in ((0, 8, 0, 5), (0, 5, -1, 5), (4, 2, 0, 5)):
++            with self.subTest(rect=rect), self.assertRaises(ValueError):
++                grid.fill(*rect, '#')
++        self.assertEqual(before, grid.rows())
++        for dimensions in ((0, 12), (8, 0), (8, -1), (8, 12.0), (True, 12)):
++            with self.subTest(dimensions=dimensions), self.assertRaises(ValueError):
++                Grid(*dimensions)
++        with self.assertRaises(ValueError):
++            kit.Area('bad', 'Bad', 10, 24, height=24)
++
++    def test_slice_keeps_height_and_condition_coordinates(self):
++        area = kit.Area('tower', 'Tower', 24, 43, height=48)
++        area.put(9, 42, 'P')
++        area.platform(4, 12, 31)
++        area.route_gate('disk', (8, 8, 4, 42), flag='ledger_disk_obtained')
++        area.route_platform('raft', (10, 12, 30, 30), mechanism='flood_c')
++        cut = kit.slice_area(area, 'cut', 'Cut', 4, 18, 2, 2)
++        self.assertEqual(cut.h, 48)
++        self.assertEqual(cut.grid.at(7, 42), 'P')
++        self.assertEqual(cut.grid.at(7, 31), '=')
++        self.assertEqual(cut.route_gates[0]['rect'], (6, 6, 4, 42))
++        self.assertEqual(cut.route_supports[0]['rect'], (8, 10, 30, 30))
++        with self.assertRaisesRegex(ValueError, 'route region cut'):
++            kit.slice_area(area, 'bad', 'Bad', 9, 11, 2, 2)
++
++    def test_json_level_render_and_report_use_instance_height(self):
++        area = kit.Area('tower', 'Tower', 24, 43, height=48)
++        area.put(3, 42, 'P')
++        area.combat = True
++        with tempfile.TemporaryDirectory() as folder, contextlib.redirect_stdout(io.StringIO()) as output:
++            area.grid.write('tower', (folder, 'map.json'))
++            rows = json.loads((Path(folder) / 'map.json').read_text(encoding='utf8'))['segments'][0]
++            self.assertEqual(len(rows), 48)
++            self.assertEqual(rows[42][3], 'P')
++            with patch.object(kit, 'LEVEL_DIR', folder):
++                kit.write_level(area, theme=False, theme_path='res://data/environment/themes/ch1_street.tres')
++            self.assertIn('height = 48', (Path(folder) / 'ch1_tower.tres').read_text(encoding='utf8'))
++            # Pillow is optional in the generator; assert its public output
++            # dimensions without introducing a new CI package dependency.
++            image = Mock()
++            image_api = Mock()
++            image_api.new.return_value = image
++            pillow = SimpleNamespace(Image=image_api, ImageDraw=Mock(), ImageFont=Mock())
++            with patch.dict('sys.modules', {'PIL': pillow}):
++                kit.render_overview([area], folder)
++            image_api.new.assert_called_once_with('RGB', (24 * 6, 48 * 6 + 28), (18, 20, 28))
++            image.save.assert_called_once_with(str(Path(folder) / 'ST-11-map-tower.png'))
++            kit.report([area])
++            self.assertIn('tower: 24x48', output.getvalue())
++
++
++class RouteTests(unittest.TestCase):
++    def setUp(self):
++        self.area = kit.Area('test', 'Test', 30, 20)
++        self.area.put(3, 19, 'P')
++        self.target = [('exit', (25, 19))]
++
++    def test_flags_mechanisms_and_abilities_block_without_implicit_open(self):
++        for kind in ('flag', 'mechanism', 'ability'):
++            with self.subTest(kind=kind):
++                area = kit.Area(kind, kind, 30, 20)
++                area.route_gate('door', (14, 15, 0, 19), **{kind: 'actual_condition'})
++                facts = {'flags' if kind == 'flag' else 'mechanisms' if kind == 'mechanism' else 'abilities': {'actual_condition': False}}
++                closed = RouteState('before', **facts)
++                self.assertTrue(kit.reachable(area, (3, 19), self.target, state=closed))
++                facts[next(iter(facts))]['actual_condition'] = True
++                # The already-created snapshot must not change with its caller.
++                self.assertTrue(kit.reachable(area, (3, 19), self.target, state=closed))
++                self.assertEqual(kit.reachable(area, (3, 19), self.target, state=RouteState('after', **facts)), [])
++                with self.assertRaisesRegex(ValueError, 'not specified'):
++                    kit.reachable(area, (3, 19), self.target, state=RouteState('missing'))
++                with self.assertRaisesRegex(ValueError, 'explicit RouteState'):
++                    kit.reachable(area, (3, 19), self.target)
++
++    def test_missing_raft_is_not_implicitly_flooded(self):
++        self.area.clear(7, 21, 20, 23)
++        self.area.route_platform('raft', (7, 21, 20, 20), mechanism='flood_c')
++        dry = RouteState('dry', mechanisms={'flood_c': False}, jump_tiles=0, jump_span=1)
++        wet = RouteState('flooded', mechanisms={'flood_c': True}, jump_tiles=0, jump_span=1)
++        self.assertTrue(kit.reachable(self.area, (3, 19), self.target, state=dry))
++        self.assertEqual(kit.reachable(self.area, (3, 19), self.target, state=wet), [])
++
++    def test_multiple_standing_nodes_in_same_column_and_drop_through(self):
++        area = kit.Area('tower', 'Tower', 24, 43, height=48)
++        for index, y in enumerate(range(38, 7, -5)):
++            area.platform(3 if index % 2 == 0 else 9, 8 if index % 2 == 0 else 14, y)
++        state = RouteState('normal')
++        self.assertEqual(kit.reachable(area, (3, 42), [('top', (6, 7))], state=state), [])
++        area.platform(1, 22, 20)
++        self.assertEqual(kit.reachable(area, (18, 19), [('below', (18, 42))], state=state), [])
++        area.block(1, 22, 20, 20)
++        self.assertTrue(kit.reachable(area, (18, 19), [('below', (18, 42))], state=state))
++
++    def test_landing_is_not_allowed_through_wall_or_ceiling(self):
++        self.area.block(14, 15, 0, 19)
++        self.assertTrue(kit.reachable(self.area, (3, 19), self.target, state=RouteState('wall')))
++        with self.assertRaisesRegex(ValueError, 'invalid standing start'):
++            kit.reachable(self.area, (14, 19), self.target, state=RouteState('embedded'))
++        with self.assertRaisesRegex(ValueError, 'outside bounds'):
++            kit.reachable(self.area, (3, 19), [('bad', (30, 19))], state=RouteState('bad'))
++
++    def test_explicit_movement_bounds_change_reachability(self):
++        self.area.platform(16, 25, 12)
++        goal = [('ledge', (20, 11))]
++        self.assertTrue(kit.reachable(self.area, (3, 19), goal, state=RouteState('base')))
++        self.assertEqual(kit.reachable(self.area, (3, 19), goal, state=RouteState('calibrated', jump_tiles=9)), [])
++
++    def test_malformed_conditions_and_state_refused(self):
++        for condition in ({}, {'flag': 'a', 'mechanism': 'b'}, {'unknown': 'x'}, {'flag': ''}):
++            with self.subTest(condition=condition), self.assertRaises(ValueError):
++                self.area.route_gate('bad', (10, 10, 0, 19), **condition)
++        with self.assertRaises(ValueError):
++            self.area.route_gate('outside', (10, 10, 0, 24), flag='x')
++        for raw in ({'flags': {'x': 1}}, {'mechanisms': {'x': None}}, {'jump_tiles': -1}, {'jump_span': 3.5}):
++            with self.subTest(raw=raw), self.assertRaises(ValueError):
++                RouteState('bad', **raw)
++
++
++if __name__ == '__main__':
++    unittest.main()

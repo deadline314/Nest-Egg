@@ -1,0 +1,29 @@
+{
+  "base": "78c367b1efc2f7945196d9373b24c3d8377394ba",
+  "files": {
+    "tools/level/build_ch1.py": {
+      "bytes": 87996,
+      "sha256": "25dff6a90130ad91ac48b15272a3ea3de0cd7cc7c831a78d6b988df7df67cbf9"
+    },
+    "tools/level/build_ch2.py": {
+      "bytes": 29908,
+      "sha256": "31521f3fd5a8eac8224e120735f06e289cf4dd52c244b4f3e42e3b694b4cb944"
+    },
+    "tools/level/build_ch3.py": {
+      "bytes": 31241,
+      "sha256": "0248b3e0a9366d1ccb022635036c5b9475c6328100c6d7192fb2451fbcd261a3"
+    },
+    "tools/level/level_kit.py": {
+      "bytes": 5881,
+      "sha256": "048d3bdba8ea3ee9372e3a653d292b66dd9513bae4e0711561be8331db196b2e"
+    },
+    "tools/level/test_level_kit.py": {
+      "bytes": 8307,
+      "sha256": "d94b4c71fe2ef049417f6fedd709fe9bbc2c74d3713614e6c79601f0a8018202"
+    },
+    ".github/workflows/tests.yml": {
+      "bytes": 14847,
+      "sha256": "e4bf66ceb6b4671b8611312d783f82cccca60a56222037fb3721cb877bdbdd94"
+    }
+  }
+}
