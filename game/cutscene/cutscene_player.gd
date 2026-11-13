@@ -628,6 +628,10 @@ func _do_actor(step: Dictionary) -> void:
 	actor.set_pose(StringName(str(step.get("pose", "idle"))))
 	if step.has("seat_sag"):
 		actor.configure_seat(step["seat_sag"])
+	# Distant figures (far roofs, crowds) read as background: darken the whole actor, not the stage light.
+	if step.has("shade"):
+		var shade := clampf(float(step["shade"]), 0.1, 1.0) if typeof(step["shade"]) in [TYPE_INT, TYPE_FLOAT] and is_finite(float(step["shade"])) else 1.0
+		actor.modulate = Color(shade, shade, shade)
 	actor.set_loop(StringName(str(step.get("loop", ""))), float(step.get("loop_scale", 1.0)))
 	actor.speaker_id = StringName(str(step.get("speaker", id)))
 	actor.ground_y = float(step["ground"]) if step.has("ground") else (_stage.floor_y if _stage != null else NAN)

@@ -125,6 +125,9 @@ static func audit_stages(scenes: Dictionary, stage_def: Callable) -> Array[Dicti
 					actor_scales.clear()
 				"actor":
 					poses[id] = str(step.get("pose", "idle"))
+					# A declared backdrop figure (a person on a far roof) is scenery: not on the stage floor, not actor-sized.
+					if step.get("backdrop", false) == true:
+						continue
 					if step.has("scale") and stage_id != "":
 						var key := "%s|%s" % [stage_id, step.get("kind", id)]
 						(scales.get_or_add(key, []) as Array).append(float(step["scale"]))

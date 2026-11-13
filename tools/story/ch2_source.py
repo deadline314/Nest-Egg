@@ -305,12 +305,14 @@ def _rooftop(source: ProductionSource):
         ("rin", "你不是每次都說最後一次，怎麼還留週日？"),
         ("egret", "有個人要見，工作不能佔那天。")), opening=False),
         when=negate(flag("sq2_sunday_heard")), mode="animated", next_scene="ch2_t_s22_greycoat")
-    source.add("ch2_t_s22_greycoat", "S22", steps=_on_roof((
+    # NE-267: the unnamed grey-coat stands on the far roof as a small distant figure; no lines, no identity unlocked.
+    source.add("ch2_t_s22_greycoat", "S22", steps=_roof_cast(0.25) + [
+        dict(stage_actor("greycoat", "ch2_greycoat", 440, 130, facing=-1, scale=0.6), shade=0.42, backdrop=True)] + beats(
         ("rin", "對面那個人一直看這邊，他今天是不是先我們進市場？"),
         ("egret", "看見了不代表知道，我們明天再看。"),
         ("lamp", "港區的通路都接上了，市場後門能回當舖街口。上層那條還沒通，明天得從廣場走。"),
         ("rin", "我先回去，老 K 留了飯。"),
-        ("egret", "喝完再走，這次我真不追妳。")), opening=False),
+        ("egret", "喝完再走，這次我真不追妳。")),
         mode="animated", completion=(set_flag("ch2_heron_closed"), set_flag("harbor_walk_ready")))
     source.add("ch2_t_s22_revisit", "S22", (("egret", "明天別算我，週日我不接案。"),), when=flag("ch2_heron_closed"))
 

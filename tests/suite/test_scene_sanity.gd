@@ -391,6 +391,12 @@ func _test_stages() -> void:
 			{"do": "actor", "id": "b", "kind": "nurse", "pos": [200, 250], "scale": 3.0},
 		]},
 		"not_animated": {"mode": "radio", "steps": []},
+		# 標了 backdrop 的遠景人物（對面樓頂）不踩舞台地面、不算同尺寸；沒標的同一個人仍然要報。
+		"far_roof": {"mode": "animated", "steps": [
+			{"do": "scene", "id": "room"},
+			{"do": "actor", "id": "far", "kind": "rin", "pos": [100, 120], "scale": 0.6, "backdrop": true},
+			{"do": "actor", "id": "near", "kind": "rin", "pos": [200, 300], "scale": 3.0},
+		]},
 		# 玻璃牆後的室內地面登記在 floors：站在那條線上的人不算浮空。
 		"two_floors": {"mode": "animated", "steps": [
 			{"do": "scene", "id": "glass"},
@@ -403,6 +409,7 @@ func _test_stages() -> void:
 	check(feet.size() == 2, "an actor floating above the floor and one walking below it are reported, not the seated or squatting ones (%d)" % feet.size())
 	check(not str(feet).contains("good"), "a scene with feet on the floor is clean")
 	check(not str(feet).contains("two_floors"), "actors on a stage's second floor line (behind the glass) are not floating")
+	check(not str(issues).contains("far_roof"), "a declared backdrop figure on a far roof is neither floating nor off-scale")
 	var spread := issues.filter(func(i: Dictionary) -> bool: return i["code"] == "stage_scale")
 	check(spread.size() == 1 and str(spread[0]["where"]).contains("nurse"), "two nurses at scale 2.0 and 3.0 on one stage are reported")
 

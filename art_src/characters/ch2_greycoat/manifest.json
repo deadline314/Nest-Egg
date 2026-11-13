@@ -1,0 +1,46 @@
+[
+  {
+    "step": "parts",
+    "seconds": 450.1,
+    "outputs": [
+      "art_src\\characters\\ch2_greycoat\\06_parts",
+      "art_src\\characters\\ch2_greycoat\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 3.9,
+    "outputs": [
+      "art_src\\characters\\ch2_greycoat\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 3.0,
+    "outputs": [
+      "art\\characters\\ch2_greycoat\\character.json",
+      "art\\rigs\\ch2_greycoat.json",
+      "art\\characters\\ch2_greycoat\\parts",
+      "art\\portraits\\ch2_greycoat.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 7.2,
+    "outputs": [
+      "art\\characters\\ch2_greycoat\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 16.4,
+    "outputs": [
+      ".godot"
+    ]
+  }
+]

@@ -408,6 +408,12 @@ static func _check_step(where: String, kind: String, step: Dictionary, defined: 
 			if step.has("pose") and not CutsceneActor.POSES.has(str(step["pose"])):
 				problems.append("%s 的動作「%s」不存在" % [where, step["pose"]])
 
+			if step.has("backdrop") and not step["backdrop"] is bool:
+				problems.append("%s 的 backdrop 必須是 true 或 false（遠處建物上的背景人物）" % where)
+			if step.has("shade"):
+				var shade: Variant = step["shade"]
+				if typeof(shade) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(shade)) or float(shade) < 0.1 or float(shade) > 1.0:
+					problems.append("%s 的 shade 必須是 0.1..1 的數字（遠景人物變暗的程度）" % where)
 			if step.has("seat_sag"):
 				var sag: Variant = step["seat_sag"]
 				if typeof(sag) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(sag)) or float(sag) < 0.0 or float(sag) > 0.9:
