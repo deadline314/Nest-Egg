@@ -1,0 +1,1025 @@
+{
+  "base": "9470bc439587817e5b3213e4c4e23d3e1e71b31c",
+  "scope": "Original four published layout spawn cells; never regenerated from revision2",
+  "areas": {
+    "rooftop": {
+      "size_tiles": [
+        72,
+        24
+      ],
+      "source_sha256": "91704417bf4763d9582a3d9e1fa4f1e1bb92bcecfc9283b6fef02d2d78b18868",
+      "spawns": [
+        {
+          "id": "ch1_egret",
+          "kind": "NpcData",
+          "glyph": "E",
+          "old_cell": [
+            54,
+            17
+          ]
+        },
+        {
+          "id": "roof_stairs",
+          "kind": "PortalData",
+          "glyph": "T",
+          "old_cell": [
+            3,
+            17
+          ]
+        },
+        {
+          "id": "credits_small",
+          "kind": "CreditPileData",
+          "glyph": "c",
+          "old_cell": [
+            20,
+            17
+          ]
+        },
+        {
+          "id": "credits_small",
+          "kind": "CreditPileData",
+          "glyph": "c",
+          "old_cell": [
+            62,
+            17
+          ]
+        }
+      ],
+      "starts": [
+        [
+          5,
+          17
+        ]
+      ],
+      "checkpoints": []
+    },
+    "street": {
+      "size_tiles": [
+        208,
+        24
+      ],
+      "source_sha256": "4dad6f895db8181469980fd32f9f025f5dd663301fa7fde34ec9a87a602da615",
+      "spawns": [
+        {
+          "id": "crate_small",
+          "kind": "ThrowableData",
+          "glyph": "%",
+          "old_cell": [
+            95,
+            19
+          ]
+        },
+        {
+          "id": "crate_small",
+          "kind": "ThrowableData",
+          "glyph": "%",
+          "old_cell": [
+            96,
+            19
+          ]
+        },
+        {
+          "id": "crate_small",
+          "kind": "ThrowableData",
+          "glyph": "%",
+          "old_cell": [
+            157,
+            19
+          ]
+        },
+        {
+          "id": "fuel_barrel",
+          "kind": "ThrowableData",
+          "glyph": "D",
+          "old_cell": [
+            104,
+            19
+          ]
+        },
+        {
+          "id": "fuel_barrel",
+          "kind": "ThrowableData",
+          "glyph": "D",
+          "old_cell": [
+            165,
+            19
+          ]
+        },
+        {
+          "id": "pipe",
+          "kind": "ThrowableData",
+          "glyph": "I",
+          "old_cell": [
+            155,
+            19
+          ]
+        },
+        {
+          "id": "street_warehouse",
+          "kind": "PortalData",
+          "glyph": "N",
+          "old_cell": [
+            204,
+            19
+          ]
+        },
+        {
+          "id": "ch1_secret_wall",
+          "kind": "BreakableData",
+          "glyph": "X",
+          "old_cell": [
+            187,
+            19
+          ]
+        },
+        {
+          "id": "collector_brute",
+          "kind": "EnemyData",
+          "glyph": "b",
+          "old_cell": [
+            133,
+            19
+          ]
+        },
+        {
+          "id": "credits_small",
+          "kind": "CreditPileData",
+          "glyph": "c",
+          "old_cell": [
+            184,
+            19
+          ]
+        },
+        {
+          "id": "credits_small",
+          "kind": "CreditPileData",
+          "glyph": "c",
+          "old_cell": [
+            203,
+            19
+          ]
+        },
+        {
+          "id": "drone",
+          "kind": "EnemyData",
+          "glyph": "d",
+          "old_cell": [
+            104,
+            9
+          ]
+        },
+        {
+          "id": "drone",
+          "kind": "EnemyData",
+          "glyph": "d",
+          "old_cell": [
+            186,
+            11
+          ]
+        },
+        {
+          "id": "drone",
+          "kind": "EnemyData",
+          "glyph": "d",
+          "old_cell": [
+            148,
+            13
+          ]
+        },
+        {
+          "id": "drone",
+          "kind": "EnemyData",
+          "glyph": "d",
+          "old_cell": [
+            184,
+            14
+          ]
+        },
+        {
+          "id": "shield_cell",
+          "kind": "ConsumableData",
+          "glyph": "e",
+          "old_cell": [
+            188,
+            19
+          ]
+        },
+        {
+          "id": "doc_echo_flyer",
+          "kind": "StoryItemData",
+          "glyph": "f",
+          "old_cell": [
+            22,
+            19
+          ]
+        },
+        {
+          "id": "sweeper",
+          "kind": "EnemyData",
+          "glyph": "g",
+          "old_cell": [
+            143,
+            9
+          ]
+        },
+        {
+          "id": "sweeper",
+          "kind": "EnemyData",
+          "glyph": "g",
+          "old_cell": [
+            78,
+            15
+          ]
+        },
+        {
+          "id": "sweeper",
+          "kind": "EnemyData",
+          "glyph": "g",
+          "old_cell": [
+            66,
+            19
+          ]
+        },
+        {
+          "id": "sweeper",
+          "kind": "EnemyData",
+          "glyph": "g",
+          "old_cell": [
+            84,
+            19
+          ]
+        },
+        {
+          "id": "sweeper",
+          "kind": "EnemyData",
+          "glyph": "g",
+          "old_cell": [
+            98,
+            19
+          ]
+        },
+        {
+          "id": "sweeper",
+          "kind": "EnemyData",
+          "glyph": "g",
+          "old_cell": [
+            111,
+            19
+          ]
+        },
+        {
+          "id": "sweeper",
+          "kind": "EnemyData",
+          "glyph": "g",
+          "old_cell": [
+            138,
+            19
+          ]
+        },
+        {
+          "id": "street_home",
+          "kind": "PortalData",
+          "glyph": "h",
+          "old_cell": [
+            6,
+            19
+          ]
+        },
+        {
+          "id": "med_injector",
+          "kind": "ConsumableData",
+          "glyph": "i",
+          "old_cell": [
+            121,
+            19
+          ]
+        },
+        {
+          "id": "street_booth",
+          "kind": "PortalData",
+          "glyph": "j",
+          "old_cell": [
+            34,
+            19
+          ]
+        },
+        {
+          "id": "collector_gunner",
+          "kind": "EnemyData",
+          "glyph": "k",
+          "old_cell": [
+            166,
+            14
+          ]
+        },
+        {
+          "id": "collector_gunner",
+          "kind": "EnemyData",
+          "glyph": "k",
+          "old_cell": [
+            177,
+            14
+          ]
+        },
+        {
+          "id": "collector_gunner",
+          "kind": "EnemyData",
+          "glyph": "k",
+          "old_cell": [
+            90,
+            19
+          ]
+        },
+        {
+          "id": "street_market",
+          "kind": "PortalData",
+          "glyph": "m",
+          "old_cell": [
+            186,
+            19
+          ]
+        },
+        {
+          "id": "doc_collection_notice",
+          "kind": "StoryItemData",
+          "glyph": "o",
+          "old_cell": [
+            185,
+            19
+          ]
+        },
+        {
+          "id": "credits_large",
+          "kind": "CreditPileData",
+          "glyph": "q",
+          "old_cell": [
+            139,
+            9
+          ]
+        },
+        {
+          "id": "credits_large",
+          "kind": "CreditPileData",
+          "glyph": "q",
+          "old_cell": [
+            191,
+            19
+          ]
+        },
+        {
+          "id": "ch1_inspector",
+          "kind": "EnemyData",
+          "glyph": "z",
+          "old_cell": [
+            168,
+            19
+          ]
+        },
+        {
+          "id": "ch1_enc_street_plaza",
+          "kind": "MechanismData",
+          "glyph": "α",
+          "old_cell": [
+            105,
+            19
+          ]
+        },
+        {
+          "id": "ch1_arena_street_plaza",
+          "kind": "MechanismData",
+          "glyph": "β",
+          "old_cell": [
+            92,
+            19
+          ]
+        },
+        {
+          "id": "ch1_arena_street_plaza",
+          "kind": "MechanismData",
+          "glyph": "β",
+          "old_cell": [
+            118,
+            19
+          ]
+        },
+        {
+          "id": "ch1_enc_street_blockade",
+          "kind": "MechanismData",
+          "glyph": "γ",
+          "old_cell": [
+            167,
+            19
+          ]
+        },
+        {
+          "id": "ch1_arena_street_blockade",
+          "kind": "MechanismData",
+          "glyph": "δ",
+          "old_cell": [
+            152,
+            19
+          ]
+        },
+        {
+          "id": "ch1_arena_street_blockade",
+          "kind": "MechanismData",
+          "glyph": "δ",
+          "old_cell": [
+            182,
+            19
+          ]
+        }
+      ],
+      "starts": [
+        [
+          4,
+          19
+        ]
+      ],
+      "checkpoints": []
+    },
+    "warehouse": {
+      "size_tiles": [
+        166,
+        24
+      ],
+      "source_sha256": "fba3b8627fb20ca01fbbb8c6a08a275d20394b81f7340cb27a8a86e357a942c9",
+      "spawns": [
+        {
+          "id": "crate_small",
+          "kind": "ThrowableData",
+          "glyph": "%",
+          "old_cell": [
+            43,
+            16
+          ]
+        },
+        {
+          "id": "crate_small",
+          "kind": "ThrowableData",
+          "glyph": "%",
+          "old_cell": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "crate_small",
+          "kind": "ThrowableData",
+          "glyph": "%",
+          "old_cell": [
+            110,
+            16
+          ]
+        },
+        {
+          "id": "concrete_chunk",
+          "kind": "ThrowableData",
+          "glyph": "@",
+          "old_cell": [
+            46,
+            13
+          ]
+        },
+        {
+          "id": "ch1_switch_a",
+          "kind": "MechanismData",
+          "glyph": "A",
+          "old_cell": [
+            83,
+            16
+          ]
+        },
+        {
+          "id": "fuel_barrel",
+          "kind": "ThrowableData",
+          "glyph": "D",
+          "old_cell": [
+            56,
+            16
+          ]
+        },
+        {
+          "id": "fuel_barrel",
+          "kind": "ThrowableData",
+          "glyph": "D",
+          "old_cell": [
+            61,
+            16
+          ]
+        },
+        {
+          "id": "fuel_barrel",
+          "kind": "ThrowableData",
+          "glyph": "D",
+          "old_cell": [
+            108,
+            16
+          ]
+        },
+        {
+          "id": "pipe",
+          "kind": "ThrowableData",
+          "glyph": "I",
+          "old_cell": [
+            41,
+            16
+          ]
+        },
+        {
+          "id": "wh_street",
+          "kind": "PortalData",
+          "glyph": "O",
+          "old_cell": [
+            3,
+            16
+          ]
+        },
+        {
+          "id": "ch1_switch_b",
+          "kind": "MechanismData",
+          "glyph": "R",
+          "old_cell": [
+            107,
+            10
+          ]
+        },
+        {
+          "id": "wh_vault",
+          "kind": "PortalData",
+          "glyph": "U",
+          "old_cell": [
+            162,
+            16
+          ]
+        },
+        {
+          "id": "ch1_flood_pit",
+          "kind": "MechanismData",
+          "glyph": "W",
+          "old_cell": [
+            123,
+            22
+          ]
+        },
+        {
+          "id": "ch1_gate_a",
+          "kind": "MechanismData",
+          "glyph": "a",
+          "old_cell": [
+            90,
+            16
+          ]
+        },
+        {
+          "id": "collector_brute",
+          "kind": "EnemyData",
+          "glyph": "b",
+          "old_cell": [
+            95,
+            16
+          ]
+        },
+        {
+          "id": "collector_brute",
+          "kind": "EnemyData",
+          "glyph": "b",
+          "old_cell": [
+            114,
+            16
+          ]
+        },
+        {
+          "id": "credits_small",
+          "kind": "CreditPileData",
+          "glyph": "c",
+          "old_cell": [
+            28,
+            16
+          ]
+        },
+        {
+          "id": "credits_small",
+          "kind": "CreditPileData",
+          "glyph": "c",
+          "old_cell": [
+            66,
+            16
+          ]
+        },
+        {
+          "id": "credits_small",
+          "kind": "CreditPileData",
+          "glyph": "c",
+          "old_cell": [
+            68,
+            16
+          ]
+        },
+        {
+          "id": "credits_small",
+          "kind": "CreditPileData",
+          "glyph": "c",
+          "old_cell": [
+            113,
+            16
+          ]
+        },
+        {
+          "id": "drone",
+          "kind": "EnemyData",
+          "glyph": "d",
+          "old_cell": [
+            108,
+            6
+          ]
+        },
+        {
+          "id": "drone",
+          "kind": "EnemyData",
+          "glyph": "d",
+          "old_cell": [
+            100,
+            7
+          ]
+        },
+        {
+          "id": "drone",
+          "kind": "EnemyData",
+          "glyph": "d",
+          "old_cell": [
+            123,
+            7
+          ]
+        },
+        {
+          "id": "sweeper",
+          "kind": "EnemyData",
+          "glyph": "g",
+          "old_cell": [
+            30,
+            16
+          ]
+        },
+        {
+          "id": "sweeper",
+          "kind": "EnemyData",
+          "glyph": "g",
+          "old_cell": [
+            38,
+            16
+          ]
+        },
+        {
+          "id": "sweeper",
+          "kind": "EnemyData",
+          "glyph": "g",
+          "old_cell": [
+            137,
+            16
+          ]
+        },
+        {
+          "id": "sweeper",
+          "kind": "EnemyData",
+          "glyph": "g",
+          "old_cell": [
+            140,
+            16
+          ]
+        },
+        {
+          "id": "med_injector",
+          "kind": "ConsumableData",
+          "glyph": "i",
+          "old_cell": [
+            24,
+            11
+          ]
+        },
+        {
+          "id": "med_injector",
+          "kind": "ConsumableData",
+          "glyph": "i",
+          "old_cell": [
+            9,
+            16
+          ]
+        },
+        {
+          "id": "collector_gunner",
+          "kind": "EnemyData",
+          "glyph": "k",
+          "old_cell": [
+            23,
+            11
+          ]
+        },
+        {
+          "id": "collector_gunner",
+          "kind": "EnemyData",
+          "glyph": "k",
+          "old_cell": [
+            47,
+            13
+          ]
+        },
+        {
+          "id": "collector_gunner",
+          "kind": "EnemyData",
+          "glyph": "k",
+          "old_cell": [
+            116,
+            16
+          ]
+        },
+        {
+          "id": "doc_dike_log",
+          "kind": "StoryItemData",
+          "glyph": "l",
+          "old_cell": [
+            84,
+            16
+          ]
+        },
+        {
+          "id": "ch1_gate_b",
+          "kind": "MechanismData",
+          "glyph": "r",
+          "old_cell": [
+            112,
+            16
+          ]
+        },
+        {
+          "id": "ch1_gate_c",
+          "kind": "MechanismData",
+          "glyph": "s",
+          "old_cell": [
+            133,
+            16
+          ]
+        },
+        {
+          "id": "ch1_gate_watchdog",
+          "kind": "MechanismData",
+          "glyph": "v",
+          "old_cell": [
+            73,
+            16
+          ]
+        },
+        {
+          "id": "watchdog",
+          "kind": "EnemyData",
+          "glyph": "w",
+          "old_cell": [
+            58,
+            16
+          ]
+        }
+      ],
+      "starts": [
+        [
+          4,
+          16
+        ]
+      ],
+      "checkpoints": [
+        [
+          77,
+          16
+        ]
+      ]
+    },
+    "vault": {
+      "size_tiles": [
+        124,
+        24
+      ],
+      "source_sha256": "b78322a70a3f81a0d3ce214ce545a9f717cb78ab23f273a587e01fecbd7e4eb0",
+      "spawns": [
+        {
+          "id": "wh_upper",
+          "kind": "PortalData",
+          "glyph": "L",
+          "old_cell": [
+            120,
+            8
+          ]
+        },
+        {
+          "id": "vault_prev",
+          "kind": "PortalData",
+          "glyph": "M",
+          "old_cell": [
+            3,
+            16
+          ]
+        },
+        {
+          "id": "ch1_secret_wall",
+          "kind": "BreakableData",
+          "glyph": "X",
+          "old_cell": [
+            114,
+            16
+          ]
+        },
+        {
+          "id": "credits_small",
+          "kind": "CreditPileData",
+          "glyph": "c",
+          "old_cell": [
+            70,
+            8
+          ]
+        },
+        {
+          "id": "credits_small",
+          "kind": "CreditPileData",
+          "glyph": "c",
+          "old_cell": [
+            26,
+            16
+          ]
+        },
+        {
+          "id": "credits_small",
+          "kind": "CreditPileData",
+          "glyph": "c",
+          "old_cell": [
+            90,
+            16
+          ]
+        },
+        {
+          "id": "drone",
+          "kind": "EnemyData",
+          "glyph": "d",
+          "old_cell": [
+            90,
+            6
+          ]
+        },
+        {
+          "id": "drone",
+          "kind": "EnemyData",
+          "glyph": "d",
+          "old_cell": [
+            52,
+            9
+          ]
+        },
+        {
+          "id": "sweeper",
+          "kind": "EnemyData",
+          "glyph": "g",
+          "old_cell": [
+            72,
+            8
+          ]
+        },
+        {
+          "id": "sweeper",
+          "kind": "EnemyData",
+          "glyph": "g",
+          "old_cell": [
+            84,
+            8
+          ]
+        },
+        {
+          "id": "med_injector",
+          "kind": "ConsumableData",
+          "glyph": "i",
+          "old_cell": [
+            47,
+            16
+          ]
+        },
+        {
+          "id": "med_injector",
+          "kind": "ConsumableData",
+          "glyph": "i",
+          "old_cell": [
+            80,
+            16
+          ]
+        },
+        {
+          "id": "collector_gunner",
+          "kind": "EnemyData",
+          "glyph": "k",
+          "old_cell": [
+            96,
+            8
+          ]
+        },
+        {
+          "id": "collector_gunner",
+          "kind": "EnemyData",
+          "glyph": "k",
+          "old_cell": [
+            28,
+            16
+          ]
+        },
+        {
+          "id": "credits_large",
+          "kind": "CreditPileData",
+          "glyph": "q",
+          "old_cell": [
+            118,
+            16
+          ]
+        },
+        {
+          "id": "ch1_data_disk",
+          "kind": "StoryItemData",
+          "glyph": "y",
+          "old_cell": [
+            40,
+            16
+          ]
+        },
+        {
+          "id": "ch1_inspector",
+          "kind": "EnemyData",
+          "glyph": "z",
+          "old_cell": [
+            37,
+            16
+          ]
+        },
+        {
+          "id": "ch1_enc_warehouse_vault",
+          "kind": "MechanismData",
+          "glyph": "ε",
+          "old_cell": [
+            34,
+            16
+          ]
+        },
+        {
+          "id": "ch1_arena_warehouse_vault",
+          "kind": "MechanismData",
+          "glyph": "ζ",
+          "old_cell": [
+            22,
+            16
+          ]
+        },
+        {
+          "id": "ch1_arena_warehouse_vault",
+          "kind": "MechanismData",
+          "glyph": "ζ",
+          "old_cell": [
+            46,
+            16
+          ]
+        },
+        {
+          "id": "ch1_enc_warehouse_walkway",
+          "kind": "MechanismData",
+          "glyph": "η",
+          "old_cell": [
+            90,
+            8
+          ]
+        },
+        {
+          "id": "ch1_arena_warehouse_walkway",
+          "kind": "MechanismData",
+          "glyph": "θ",
+          "old_cell": [
+            65,
+            8
+          ]
+        },
+        {
+          "id": "ch1_arena_warehouse_walkway",
+          "kind": "MechanismData",
+          "glyph": "θ",
+          "old_cell": [
+            115,
+            8
+          ]
+        }
+      ],
+      "starts": [
+        [
+          4,
+          16
+        ]
+      ],
+      "checkpoints": [
+        [
+          7,
+          16
+        ]
+      ]
+    }
+  }
+}

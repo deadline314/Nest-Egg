@@ -1,0 +1,736 @@
+{
+  "scope": "CPU literal map/const replay of existing floor+4-row-headroom contract; not Godot/physics/render pass",
+  "original_failure_count": 13,
+  "candidate_failure_count": 0,
+  "negative_controls": 3,
+  "records": [
+    {
+      "epoch": "original",
+      "area": "ch1_prologue",
+      "label": "工作桌",
+      "actor": "player",
+      "cell": [
+        24,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "original",
+      "area": "ch1_prologue",
+      "label": "射擊線",
+      "actor": "player",
+      "cell": [
+        50,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "original",
+      "area": "ch1_prologue",
+      "label": "訓練器",
+      "actor": "player",
+      "cell": [
+        85,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "original",
+      "area": "ch1_pawnshop",
+      "label": "後空地",
+      "actor": "player",
+      "cell": [
+        18,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "original",
+      "area": "ch1_pawnshop",
+      "label": "店面",
+      "actor": "player",
+      "cell": [
+        55,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "original",
+      "area": "ch1_pawnshop",
+      "label": "廚房",
+      "actor": "player",
+      "cell": [
+        88,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "original",
+      "area": "ch1_rooftop",
+      "label": "屋頂水塔",
+      "actor": "player",
+      "cell": [
+        42,
+        18
+      ],
+      "inside": true,
+      "support": false,
+      "headroom": true
+    },
+    {
+      "epoch": "original",
+      "area": "ch1_street",
+      "label": "市集",
+      "actor": "player",
+      "cell": [
+        60,
+        20
+      ],
+      "inside": true,
+      "support": false,
+      "headroom": true
+    },
+    {
+      "epoch": "original",
+      "area": "ch1_street",
+      "label": "市集",
+      "actor": "enemy",
+      "cell": [
+        66,
+        20
+      ],
+      "inside": true,
+      "support": false,
+      "headroom": true
+    },
+    {
+      "epoch": "original",
+      "area": "ch1_street",
+      "label": "碼頭入口",
+      "actor": "player",
+      "cell": [
+        200,
+        20
+      ],
+      "inside": true,
+      "support": false,
+      "headroom": true
+    },
+    {
+      "epoch": "original",
+      "area": "ch1_street",
+      "label": "碼頭入口",
+      "actor": "enemy",
+      "cell": [
+        206,
+        20
+      ],
+      "inside": true,
+      "support": false,
+      "headroom": true
+    },
+    {
+      "epoch": "original",
+      "area": "ch1_booth_alley",
+      "label": "電話亭",
+      "actor": "player",
+      "cell": [
+        26,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "original",
+      "area": "ch1_warehouse",
+      "label": "看門狗前廳",
+      "actor": "player",
+      "cell": [
+        54,
+        17
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": false
+    },
+    {
+      "epoch": "original",
+      "area": "ch1_warehouse",
+      "label": "看門狗前廳",
+      "actor": "enemy",
+      "cell": [
+        60,
+        17
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": false
+    },
+    {
+      "epoch": "original",
+      "area": "ch1_warehouse",
+      "label": "閘門廳",
+      "actor": "player",
+      "cell": [
+        78,
+        17
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": false
+    },
+    {
+      "epoch": "original",
+      "area": "ch1_warehouse",
+      "label": "閘門廳",
+      "actor": "enemy",
+      "cell": [
+        84,
+        17
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": false
+    },
+    {
+      "epoch": "original",
+      "area": "ch1_vault",
+      "label": "倉庫深處",
+      "actor": "player",
+      "cell": [
+        22,
+        17
+      ],
+      "inside": true,
+      "support": false,
+      "headroom": true
+    },
+    {
+      "epoch": "original",
+      "area": "ch1_vault",
+      "label": "倉庫深處",
+      "actor": "enemy",
+      "cell": [
+        28,
+        17
+      ],
+      "inside": true,
+      "support": false,
+      "headroom": true
+    },
+    {
+      "epoch": "original",
+      "area": "ch1_vault",
+      "label": "上層走道",
+      "actor": "player",
+      "cell": [
+        83,
+        9
+      ],
+      "inside": true,
+      "support": false,
+      "headroom": true
+    },
+    {
+      "epoch": "original",
+      "area": "ch1_vault",
+      "label": "上層走道",
+      "actor": "enemy",
+      "cell": [
+        89,
+        9
+      ],
+      "inside": true,
+      "support": false,
+      "headroom": true
+    },
+    {
+      "epoch": "original",
+      "area": "ch1_handoff",
+      "label": "交接櫃",
+      "actor": "player",
+      "cell": [
+        18,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "original",
+      "area": "ch1_lounge",
+      "label": "復原館",
+      "actor": "player",
+      "cell": [
+        25,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "original",
+      "area": "ch1_stall",
+      "label": "宵夜麵攤",
+      "actor": "player",
+      "cell": [
+        25,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "original",
+      "area": "ch1_pawnshop_dawn",
+      "label": "天亮店面",
+      "actor": "player",
+      "cell": [
+        55,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_prologue",
+      "label": "工作桌",
+      "actor": "player",
+      "cell": [
+        24,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_prologue",
+      "label": "射擊線",
+      "actor": "player",
+      "cell": [
+        50,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_prologue",
+      "label": "訓練器",
+      "actor": "player",
+      "cell": [
+        85,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_pawnshop",
+      "label": "後空地",
+      "actor": "player",
+      "cell": [
+        18,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_pawnshop",
+      "label": "店面",
+      "actor": "player",
+      "cell": [
+        55,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_pawnshop",
+      "label": "廚房",
+      "actor": "player",
+      "cell": [
+        88,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_rooftop",
+      "label": "屋頂水塔",
+      "actor": "player",
+      "cell": [
+        42,
+        50
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_street",
+      "label": "市集",
+      "actor": "player",
+      "cell": [
+        84,
+        32
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_street",
+      "label": "市集",
+      "actor": "enemy",
+      "cell": [
+        90,
+        32
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_street",
+      "label": "碼頭入口",
+      "actor": "player",
+      "cell": [
+        200,
+        52
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_street",
+      "label": "碼頭入口",
+      "actor": "enemy",
+      "cell": [
+        206,
+        52
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_booth_alley",
+      "label": "電話亭",
+      "actor": "player",
+      "cell": [
+        26,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_warehouse",
+      "label": "看門狗前廳",
+      "actor": "player",
+      "cell": [
+        52,
+        49
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_warehouse",
+      "label": "看門狗前廳",
+      "actor": "enemy",
+      "cell": [
+        58,
+        49
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_warehouse",
+      "label": "閘門廳",
+      "actor": "player",
+      "cell": [
+        78,
+        49
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_warehouse",
+      "label": "閘門廳",
+      "actor": "enemy",
+      "cell": [
+        84,
+        49
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_vault",
+      "label": "倉庫深處",
+      "actor": "player",
+      "cell": [
+        22,
+        49
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_vault",
+      "label": "倉庫深處",
+      "actor": "enemy",
+      "cell": [
+        28,
+        49
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_vault",
+      "label": "上層走道",
+      "actor": "player",
+      "cell": [
+        83,
+        13
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_vault",
+      "label": "上層走道",
+      "actor": "enemy",
+      "cell": [
+        89,
+        13
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_handoff",
+      "label": "交接櫃",
+      "actor": "player",
+      "cell": [
+        18,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_lounge",
+      "label": "復原館",
+      "actor": "player",
+      "cell": [
+        25,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_stall",
+      "label": "宵夜麵攤",
+      "actor": "player",
+      "cell": [
+        25,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "epoch": "candidate",
+      "area": "ch1_pawnshop_dawn",
+      "label": "天亮店面",
+      "actor": "player",
+      "cell": [
+        55,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    }
+  ],
+  "framing": [
+    {
+      "area": "ch1_pawnshop",
+      "cell": [
+        55,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "area": "ch1_street",
+      "cell": [
+        84,
+        32
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "area": "ch1_rooftop",
+      "cell": [
+        42,
+        50
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "area": "ch1_warehouse",
+      "cell": [
+        52,
+        49
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "area": "ch1_lounge",
+      "cell": [
+        25,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    },
+    {
+      "area": "ch1_stall",
+      "cell": [
+        25,
+        20
+      ],
+      "inside": true,
+      "support": true,
+      "headroom": true
+    }
+  ],
+  "map_sources": [
+    {
+      "path": "data\\levels\\ch1_booth_alley_map.json",
+      "sha256": "d547515e018b6884bc514b958b5374eaec6fcce05bca3e772f8c554afecc0585"
+    },
+    {
+      "path": "data\\levels\\ch1_handoff_map.json",
+      "sha256": "2f1885eb87eff78733d6dc6db6a23e21f1b9e6d4758aaf78c0a033b133e3481c"
+    },
+    {
+      "path": "data\\levels\\ch1_lounge_map.json",
+      "sha256": "ba72bd6fb88967dfedda8f65abee8f75016ed28936c04c460b80cf32a2b7f1ca"
+    },
+    {
+      "path": "data\\levels\\ch1_pawnshop_map.json",
+      "sha256": "cda44c1716f32bf4918e701a182fc2e2a815c80c1df32939a3c1573455e0670a"
+    },
+    {
+      "path": "data\\levels\\ch1_prologue_map.json",
+      "sha256": "2a6acff80eb5f05fe1c3082b8e77b559d09bb835fe6c426cbd41397dd662fd3d"
+    },
+    {
+      "path": "data\\levels\\ch1_rooftop_map.json",
+      "sha256": "c03e16854c1ca1862b54102435ea91d7574bd5b18bd229f6eeeeffb4de93e62e"
+    },
+    {
+      "path": "data\\levels\\ch1_stall_map.json",
+      "sha256": "f234ee8d0eefab3cc02873e098f3a69967910f77eaa65906d504179e1b76ed23"
+    },
+    {
+      "path": "data\\levels\\ch1_street_map.json",
+      "sha256": "155d5461b3f2d3cbc8e78b8498d6ac3cc1fb0265d1bf8175a07ea19a78fc444e"
+    },
+    {
+      "path": "data\\levels\\ch1_vault_map.json",
+      "sha256": "e4938a6667654df06d3fb5a8c035de9767a54717b6d30b87f15242917e8d11d7"
+    },
+    {
+      "path": "data\\levels\\ch1_warehouse_map.json",
+      "sha256": "6441a104fa45dca255cfd9ef4b5b7d003ade4f4561ebec1aa1ab8a7995ee3e0a"
+    }
+  ]
+}

@@ -1,0 +1,4214 @@
+{
+  "status": "v8 CPU actual mapping, indoor ceilings restored; native pending",
+  "base": "92521d0cf3c18bd3dad4b13a316844e70bfaecd0",
+  "areas": {
+    "ch1_prologue": {
+      "size_tiles": [
+        120,
+        24
+      ],
+      "layout_revision": 1,
+      "legacy_layout": {
+        "revision": 1,
+        "cell_offset": [
+          0,
+          0
+        ],
+        "cells": {}
+      }
+    },
+    "ch1_pawnshop": {
+      "size_tiles": [
+        112,
+        24
+      ],
+      "layout_revision": 1,
+      "legacy_layout": {
+        "revision": 1,
+        "cell_offset": [
+          0,
+          0
+        ],
+        "cells": {}
+      }
+    },
+    "ch1_rooftop": {
+      "size_tiles": [
+        72,
+        56
+      ],
+      "layout_revision": 2,
+      "legacy_layout": {
+        "revision": 1,
+        "cell_offset": [
+          0,
+          32
+        ],
+        "cells": {}
+      }
+    },
+    "ch1_street": {
+      "size_tiles": [
+        208,
+        56
+      ],
+      "layout_revision": 2,
+      "legacy_layout": {
+        "revision": 1,
+        "cell_offset": [
+          0,
+          32
+        ],
+        "cells": {
+          "66,19": [
+            66,
+            31
+          ],
+          "78,15": [
+            78,
+            31
+          ],
+          "84,19": [
+            84,
+            31
+          ],
+          "90,19": [
+            90,
+            31
+          ],
+          "98,19": [
+            98,
+            31
+          ],
+          "111,19": [
+            111,
+            31
+          ],
+          "104,9": [
+            104,
+            23
+          ],
+          "95,19": [
+            95,
+            31
+          ],
+          "96,19": [
+            96,
+            31
+          ],
+          "104,19": [
+            104,
+            31
+          ],
+          "105,19": [
+            105,
+            31
+          ],
+          "92,19": [
+            92,
+            31
+          ],
+          "118,19": [
+            118,
+            31
+          ],
+          "143,9": [
+            143,
+            44
+          ],
+          "148,13": [
+            148,
+            32
+          ],
+          "155,19": [
+            155,
+            36
+          ],
+          "157,19": [
+            157,
+            36
+          ],
+          "165,19": [
+            165,
+            36
+          ],
+          "166,14": [
+            166,
+            36
+          ],
+          "168,19": [
+            168,
+            36
+          ],
+          "177,14": [
+            177,
+            36
+          ],
+          "167,19": [
+            167,
+            36
+          ],
+          "152,19": [
+            152,
+            36
+          ],
+          "182,19": [
+            182,
+            36
+          ],
+          "184,14": [
+            184,
+            28
+          ],
+          "186,11": [
+            186,
+            25
+          ],
+          "139,9": [
+            100,
+            23
+          ],
+          "78,12": [
+            78,
+            27
+          ],
+          "104,12": [
+            104,
+            27
+          ],
+          "176,12": [
+            176,
+            32
+          ],
+          "82,19": [
+            82,
+            31
+          ],
+          "86,19": [
+            86,
+            31
+          ]
+        }
+      }
+    },
+    "ch1_booth_alley": {
+      "size_tiles": [
+        56,
+        24
+      ],
+      "layout_revision": 1,
+      "legacy_layout": {
+        "revision": 1,
+        "cell_offset": [
+          0,
+          0
+        ],
+        "cells": {}
+      }
+    },
+    "ch1_warehouse": {
+      "size_tiles": [
+        166,
+        56
+      ],
+      "layout_revision": 2,
+      "legacy_layout": {
+        "revision": 1,
+        "cell_offset": [
+          0,
+          32
+        ],
+        "cells": {
+          "162,16": [
+            162,
+            16
+          ],
+          "137,16": [
+            137,
+            44
+          ],
+          "140,16": [
+            146,
+            40
+          ],
+          "119,16": [
+            119,
+            54
+          ]
+        }
+      }
+    },
+    "ch1_vault": {
+      "size_tiles": [
+        124,
+        56
+      ],
+      "layout_revision": 2,
+      "legacy_layout": {
+        "revision": 1,
+        "cell_offset": [
+          0,
+          32
+        ],
+        "cells": {
+          "40,16": [
+            40,
+            28
+          ],
+          "37,16": [
+            37,
+            28
+          ],
+          "28,16": [
+            28,
+            28
+          ],
+          "26,16": [
+            30,
+            28
+          ],
+          "34,16": [
+            34,
+            28
+          ],
+          "22,16": [
+            27,
+            28
+          ],
+          "46,16": [
+            49,
+            28
+          ],
+          "47,16": [
+            47,
+            28
+          ],
+          "72,8": [
+            72,
+            12
+          ],
+          "84,8": [
+            84,
+            12
+          ],
+          "96,8": [
+            96,
+            12
+          ],
+          "70,8": [
+            70,
+            12
+          ],
+          "90,16": [
+            89,
+            12
+          ],
+          "90,8": [
+            90,
+            12
+          ],
+          "65,8": [
+            65,
+            12
+          ],
+          "115,8": [
+            115,
+            12
+          ],
+          "90,6": [
+            90,
+            6
+          ],
+          "52,9": [
+            60,
+            44
+          ],
+          "80,16": [
+            80,
+            12
+          ],
+          "114,16": [
+            114,
+            28
+          ],
+          "118,16": [
+            118,
+            28
+          ],
+          "120,8": [
+            120,
+            12
+          ]
+        }
+      }
+    },
+    "ch1_handoff": {
+      "size_tiles": [
+        48,
+        24
+      ],
+      "layout_revision": 1,
+      "legacy_layout": {
+        "revision": 1,
+        "cell_offset": [
+          0,
+          0
+        ],
+        "cells": {}
+      }
+    },
+    "ch1_lounge": {
+      "size_tiles": [
+        56,
+        24
+      ],
+      "layout_revision": 1,
+      "legacy_layout": {
+        "revision": 1,
+        "cell_offset": [
+          0,
+          0
+        ],
+        "cells": {}
+      }
+    },
+    "ch1_stall": {
+      "size_tiles": [
+        48,
+        24
+      ],
+      "layout_revision": 1,
+      "legacy_layout": {
+        "revision": 1,
+        "cell_offset": [
+          0,
+          0
+        ],
+        "cells": {}
+      }
+    },
+    "ch1_pawnshop_dawn": {
+      "size_tiles": [
+        112,
+        24
+      ],
+      "layout_revision": 1,
+      "legacy_layout": {
+        "revision": 1,
+        "cell_offset": [
+          0,
+          0
+        ],
+        "cells": {}
+      }
+    }
+  },
+  "entity_mappings": [
+    {
+      "level": "ch1_prologue",
+      "kind": "PortalData",
+      "id": "prologue_exit",
+      "resource": "data/levels/ch1_prologue.tres#Resource_0",
+      "old_cell": [
+        40,
+        19
+      ],
+      "new_cell": [
+        40,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_prologue",
+      "kind": "TrainingData",
+      "id": "ch1_training_workbench",
+      "resource": "data/props/ch1_training_workbench.tres",
+      "old_cell": [
+        24,
+        19
+      ],
+      "new_cell": [
+        24,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_prologue",
+      "kind": "TrainingData",
+      "id": "ch1_training_platform",
+      "resource": "data/props/ch1_training_platform.tres",
+      "old_cell": [
+        30,
+        17
+      ],
+      "new_cell": [
+        30,
+        17
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_prologue",
+      "kind": "TrainingData",
+      "id": "ch1_training_range",
+      "resource": "data/props/ch1_training_range.tres",
+      "old_cell": [
+        46,
+        19
+      ],
+      "new_cell": [
+        46,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_prologue",
+      "kind": "TrainingData",
+      "id": "ch1_training_area",
+      "resource": "data/props/ch1_training_area.tres",
+      "old_cell": [
+        72,
+        19
+      ],
+      "new_cell": [
+        72,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_prologue",
+      "kind": "NpcData",
+      "id": "ch1_prologue_catalog",
+      "resource": "data/npcs/ch1_prologue_catalog.tres",
+      "old_cell": [
+        20,
+        19
+      ],
+      "new_cell": [
+        20,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_prologue",
+      "kind": "TrainingData",
+      "id": "ch1_training_dummy",
+      "resource": "data/props/ch1_training_dummy.tres",
+      "old_cell": [
+        79,
+        19
+      ],
+      "new_cell": [
+        79,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_prologue",
+      "kind": "TrainingData",
+      "id": "ch1_training_dash",
+      "resource": "data/props/ch1_training_dash.tres",
+      "old_cell": [
+        103,
+        19
+      ],
+      "new_cell": [
+        103,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_prologue",
+      "kind": "NpcData",
+      "id": "ch1_prologue_service_sheet",
+      "resource": "data/npcs/ch1_prologue_service_sheet.tres",
+      "old_cell": [
+        34,
+        19
+      ],
+      "new_cell": [
+        34,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_prologue",
+      "kind": "TrainingData",
+      "id": "ch1_training_trainer",
+      "resource": "data/props/ch1_training_trainer.tres",
+      "old_cell": [
+        90,
+        19
+      ],
+      "new_cell": [
+        90,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_prologue",
+      "kind": "NpcData",
+      "id": "ch1_old_k_backyard",
+      "resource": "data/npcs/ch1_old_k_backyard.tres",
+      "old_cell": [
+        68,
+        19
+      ],
+      "new_cell": [
+        68,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_prologue",
+      "kind": "NpcData",
+      "id": "ch1_old_k_counter",
+      "resource": "data/npcs/ch1_old_k_counter.tres",
+      "old_cell": [
+        38,
+        19
+      ],
+      "new_cell": [
+        38,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_prologue",
+      "kind": "NpcData",
+      "id": "ch1_old_k_prologue",
+      "resource": "data/npcs/ch1_old_k_prologue.tres",
+      "old_cell": [
+        37,
+        19
+      ],
+      "new_cell": [
+        37,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_prologue",
+      "kind": "TrainingData",
+      "id": "ch1_training_target_high",
+      "resource": "data/props/ch1_training_target_high.tres",
+      "old_cell": [
+        65,
+        14
+      ],
+      "new_cell": [
+        65,
+        14
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_prologue",
+      "kind": "TrainingData",
+      "id": "ch1_training_target",
+      "resource": "data/props/ch1_training_target.tres",
+      "old_cell": [
+        60,
+        19
+      ],
+      "new_cell": [
+        60,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_prologue",
+      "kind": "player_start",
+      "old_cell": [
+        3,
+        19
+      ],
+      "new_cell": [
+        3,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_prologue",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        24,
+        11
+      ],
+      "new_cell": [
+        24,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_prologue",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        36,
+        11
+      ],
+      "new_cell": [
+        36,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_prologue",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        49,
+        11
+      ],
+      "new_cell": [
+        49,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_prologue",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        60,
+        11
+      ],
+      "new_cell": [
+        60,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_prologue",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        79,
+        11
+      ],
+      "new_cell": [
+        79,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_prologue",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        91,
+        11
+      ],
+      "new_cell": [
+        91,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_prologue",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        106,
+        11
+      ],
+      "new_cell": [
+        106,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "PortalData",
+      "id": "pawn_front",
+      "resource": "data/levels/ch1_pawnshop.tres#Resource_0",
+      "old_cell": [
+        74,
+        19
+      ],
+      "new_cell": [
+        74,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "PortalData",
+      "id": "pawn_basement",
+      "resource": "data/levels/ch1_pawnshop.tres#Resource_1",
+      "old_cell": [
+        43,
+        19
+      ],
+      "new_cell": [
+        43,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "PortalData",
+      "id": "pawn_stairs",
+      "resource": "data/levels/ch1_pawnshop.tres#Resource_2",
+      "old_cell": [
+        108,
+        19
+      ],
+      "new_cell": [
+        108,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "ShopData",
+      "id": "ch1_pawn",
+      "resource": "data/shops/ch1_pawn.tres",
+      "old_cell": [
+        56,
+        19
+      ],
+      "new_cell": [
+        56,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "CreditPileData",
+      "id": "credits_small",
+      "resource": "data/props/credits_small.tres",
+      "old_cell": [
+        24,
+        19
+      ],
+      "new_cell": [
+        24,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "CreditPileData",
+      "id": "credits_small",
+      "resource": "data/props/credits_small.tres",
+      "old_cell": [
+        67,
+        19
+      ],
+      "new_cell": [
+        67,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "NpcData",
+      "id": "ch1_old_k",
+      "resource": "data/npcs/ch1_old_k.tres",
+      "old_cell": [
+        86,
+        19
+      ],
+      "new_cell": [
+        86,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "StoryItemData",
+      "id": "doc_pawn_stub",
+      "resource": "data/story_items/doc_pawn_stub.tres",
+      "old_cell": [
+        71,
+        19
+      ],
+      "new_cell": [
+        71,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "WeaponData",
+      "id": "melee_dagger",
+      "resource": "data/weapons/melee/melee_dagger.tres",
+      "old_cell": [
+        14,
+        15
+      ],
+      "new_cell": [
+        14,
+        15
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "BreakableData",
+      "id": "ch1_crate",
+      "resource": "data/props/ch1_crate.tres",
+      "old_cell": [
+        5,
+        19
+      ],
+      "new_cell": [
+        5,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "BreakableData",
+      "id": "ch1_crate",
+      "resource": "data/props/ch1_crate.tres",
+      "old_cell": [
+        9,
+        19
+      ],
+      "new_cell": [
+        9,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "NpcData",
+      "id": "ch1_label_fare",
+      "resource": "data/npcs/ch1_label_fare.tres",
+      "old_cell": [
+        45,
+        19
+      ],
+      "new_cell": [
+        45,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "NpcData",
+      "id": "ch1_label_guitar",
+      "resource": "data/npcs/ch1_label_guitar.tres",
+      "old_cell": [
+        48,
+        19
+      ],
+      "new_cell": [
+        48,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "NpcData",
+      "id": "ch1_label_raincoat",
+      "resource": "data/npcs/ch1_label_raincoat.tres",
+      "old_cell": [
+        37,
+        19
+      ],
+      "new_cell": [
+        37,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "NpcData",
+      "id": "ch1_label_watch",
+      "resource": "data/npcs/ch1_label_watch.tres",
+      "old_cell": [
+        34,
+        19
+      ],
+      "new_cell": [
+        34,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "player_start",
+      "old_cell": [
+        40,
+        19
+      ],
+      "new_cell": [
+        40,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        36,
+        11
+      ],
+      "new_cell": [
+        36,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        46,
+        11
+      ],
+      "new_cell": [
+        46,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        56,
+        11
+      ],
+      "new_cell": [
+        56,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        66,
+        11
+      ],
+      "new_cell": [
+        66,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        74,
+        11
+      ],
+      "new_cell": [
+        74,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        88,
+        11
+      ],
+      "new_cell": [
+        88,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        98,
+        11
+      ],
+      "new_cell": [
+        98,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        106,
+        11
+      ],
+      "new_cell": [
+        106,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop",
+      "kind": "story_trigger",
+      "id": "&",
+      "old_cell": [
+        82,
+        19
+      ],
+      "new_cell": [
+        82,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_rooftop",
+      "kind": "NpcData",
+      "id": "ch1_egret",
+      "resource": "data/npcs/ch1_egret.tres",
+      "old_cell": [
+        54,
+        17
+      ],
+      "new_cell": [
+        54,
+        49
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_rooftop",
+      "kind": "PortalData",
+      "id": "roof_stairs",
+      "resource": "data/levels/ch1_rooftop.tres#Resource_0",
+      "old_cell": [
+        3,
+        17
+      ],
+      "new_cell": [
+        3,
+        49
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_rooftop",
+      "kind": "CreditPileData",
+      "id": "credits_small",
+      "resource": "data/props/credits_small.tres",
+      "old_cell": [
+        20,
+        17
+      ],
+      "new_cell": [
+        20,
+        49
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_rooftop",
+      "kind": "CreditPileData",
+      "id": "credits_small",
+      "resource": "data/props/credits_small.tres",
+      "old_cell": [
+        62,
+        17
+      ],
+      "new_cell": [
+        62,
+        49
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_rooftop",
+      "kind": "player_start",
+      "old_cell": [
+        5,
+        17
+      ],
+      "new_cell": [
+        5,
+        49
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_rooftop",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        12,
+        12
+      ],
+      "new_cell": [
+        12,
+        44
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_rooftop",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        40,
+        12
+      ],
+      "new_cell": [
+        40,
+        44
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_rooftop",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        66,
+        12
+      ],
+      "new_cell": [
+        66,
+        44
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_rooftop",
+      "kind": "story_trigger",
+      "id": "&",
+      "old_cell": [
+        34,
+        17
+      ],
+      "new_cell": [
+        34,
+        49
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "ThrowableData",
+      "id": "crate_small",
+      "resource": "data/throwables/crate_small.tres",
+      "old_cell": [
+        95,
+        19
+      ],
+      "new_cell": [
+        95,
+        31
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "ThrowableData",
+      "id": "crate_small",
+      "resource": "data/throwables/crate_small.tres",
+      "old_cell": [
+        96,
+        19
+      ],
+      "new_cell": [
+        96,
+        31
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "ThrowableData",
+      "id": "crate_small",
+      "resource": "data/throwables/crate_small.tres",
+      "old_cell": [
+        157,
+        19
+      ],
+      "new_cell": [
+        157,
+        36
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "ThrowableData",
+      "id": "fuel_barrel",
+      "resource": "data/throwables/fuel_barrel.tres",
+      "old_cell": [
+        104,
+        19
+      ],
+      "new_cell": [
+        104,
+        31
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "ThrowableData",
+      "id": "fuel_barrel",
+      "resource": "data/throwables/fuel_barrel.tres",
+      "old_cell": [
+        165,
+        19
+      ],
+      "new_cell": [
+        165,
+        36
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "ThrowableData",
+      "id": "pipe",
+      "resource": "data/throwables/pipe.tres",
+      "old_cell": [
+        155,
+        19
+      ],
+      "new_cell": [
+        155,
+        36
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "PortalData",
+      "id": "street_warehouse",
+      "resource": "data/levels/ch1_street.tres#Resource_0",
+      "old_cell": [
+        204,
+        19
+      ],
+      "new_cell": [
+        204,
+        51
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "BreakableData",
+      "id": "ch1_secret_wall",
+      "resource": "data/props/ch1_secret_wall.tres",
+      "old_cell": [
+        187,
+        19
+      ],
+      "new_cell": [
+        187,
+        51
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "EnemyData",
+      "id": "collector_brute",
+      "resource": "data/enemies/collector_brute.tres",
+      "old_cell": [
+        133,
+        19
+      ],
+      "new_cell": [
+        133,
+        51
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "CreditPileData",
+      "id": "credits_small",
+      "resource": "data/props/credits_small.tres",
+      "old_cell": [
+        184,
+        19
+      ],
+      "new_cell": [
+        184,
+        51
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "CreditPileData",
+      "id": "credits_small",
+      "resource": "data/props/credits_small.tres",
+      "old_cell": [
+        203,
+        19
+      ],
+      "new_cell": [
+        203,
+        51
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "EnemyData",
+      "id": "drone",
+      "resource": "data/enemies/drone.tres",
+      "old_cell": [
+        104,
+        9
+      ],
+      "new_cell": [
+        104,
+        23
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "EnemyData",
+      "id": "drone",
+      "resource": "data/enemies/drone.tres",
+      "old_cell": [
+        186,
+        11
+      ],
+      "new_cell": [
+        186,
+        25
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "EnemyData",
+      "id": "drone",
+      "resource": "data/enemies/drone.tres",
+      "old_cell": [
+        148,
+        13
+      ],
+      "new_cell": [
+        148,
+        32
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "EnemyData",
+      "id": "drone",
+      "resource": "data/enemies/drone.tres",
+      "old_cell": [
+        184,
+        14
+      ],
+      "new_cell": [
+        184,
+        28
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "ConsumableData",
+      "id": "shield_cell",
+      "resource": "data/consumables/shield_cell.tres",
+      "old_cell": [
+        188,
+        19
+      ],
+      "new_cell": [
+        188,
+        51
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "StoryItemData",
+      "id": "doc_echo_flyer",
+      "resource": "data/story_items/doc_echo_flyer.tres",
+      "old_cell": [
+        22,
+        19
+      ],
+      "new_cell": [
+        22,
+        51
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "EnemyData",
+      "id": "sweeper",
+      "resource": "data/enemies/sweeper.tres",
+      "old_cell": [
+        143,
+        9
+      ],
+      "new_cell": [
+        143,
+        44
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "EnemyData",
+      "id": "sweeper",
+      "resource": "data/enemies/sweeper.tres",
+      "old_cell": [
+        78,
+        15
+      ],
+      "new_cell": [
+        78,
+        31
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "EnemyData",
+      "id": "sweeper",
+      "resource": "data/enemies/sweeper.tres",
+      "old_cell": [
+        66,
+        19
+      ],
+      "new_cell": [
+        66,
+        31
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "EnemyData",
+      "id": "sweeper",
+      "resource": "data/enemies/sweeper.tres",
+      "old_cell": [
+        84,
+        19
+      ],
+      "new_cell": [
+        84,
+        31
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "EnemyData",
+      "id": "sweeper",
+      "resource": "data/enemies/sweeper.tres",
+      "old_cell": [
+        98,
+        19
+      ],
+      "new_cell": [
+        98,
+        31
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "EnemyData",
+      "id": "sweeper",
+      "resource": "data/enemies/sweeper.tres",
+      "old_cell": [
+        111,
+        19
+      ],
+      "new_cell": [
+        111,
+        31
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "EnemyData",
+      "id": "sweeper",
+      "resource": "data/enemies/sweeper.tres",
+      "old_cell": [
+        138,
+        19
+      ],
+      "new_cell": [
+        138,
+        51
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "PortalData",
+      "id": "street_home",
+      "resource": "data/levels/ch1_street.tres#Resource_1",
+      "old_cell": [
+        6,
+        19
+      ],
+      "new_cell": [
+        6,
+        51
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "ConsumableData",
+      "id": "med_injector",
+      "resource": "data/consumables/med_injector.tres",
+      "old_cell": [
+        121,
+        19
+      ],
+      "new_cell": [
+        121,
+        51
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "PortalData",
+      "id": "street_booth",
+      "resource": "data/levels/ch1_street.tres#Resource_2",
+      "old_cell": [
+        34,
+        19
+      ],
+      "new_cell": [
+        34,
+        51
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "EnemyData",
+      "id": "collector_gunner",
+      "resource": "data/enemies/collector_gunner.tres",
+      "old_cell": [
+        166,
+        14
+      ],
+      "new_cell": [
+        166,
+        36
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "EnemyData",
+      "id": "collector_gunner",
+      "resource": "data/enemies/collector_gunner.tres",
+      "old_cell": [
+        177,
+        14
+      ],
+      "new_cell": [
+        177,
+        36
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "EnemyData",
+      "id": "collector_gunner",
+      "resource": "data/enemies/collector_gunner.tres",
+      "old_cell": [
+        90,
+        19
+      ],
+      "new_cell": [
+        90,
+        31
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "PortalData",
+      "id": "street_market",
+      "resource": "data/levels/ch1_street.tres#Resource_3",
+      "old_cell": [
+        186,
+        19
+      ],
+      "new_cell": [
+        186,
+        51
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "StoryItemData",
+      "id": "doc_collection_notice",
+      "resource": "data/story_items/doc_collection_notice.tres",
+      "old_cell": [
+        185,
+        19
+      ],
+      "new_cell": [
+        185,
+        51
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "CreditPileData",
+      "id": "credits_large",
+      "resource": "data/props/credits_large.tres",
+      "old_cell": [
+        139,
+        9
+      ],
+      "new_cell": [
+        100,
+        23
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "CreditPileData",
+      "id": "credits_large",
+      "resource": "data/props/credits_large.tres",
+      "old_cell": [
+        191,
+        19
+      ],
+      "new_cell": [
+        191,
+        51
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "EnemyData",
+      "id": "ch1_inspector",
+      "resource": "data/enemies/ch1_inspector.tres",
+      "old_cell": [
+        168,
+        19
+      ],
+      "new_cell": [
+        168,
+        36
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "MechanismData",
+      "id": "ch1_enc_street_plaza",
+      "resource": "data/props/ch1_enc_street_plaza.tres",
+      "old_cell": [
+        105,
+        19
+      ],
+      "new_cell": [
+        105,
+        31
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "MechanismData",
+      "id": "ch1_arena_street_plaza",
+      "resource": "data/props/ch1_arena_street_plaza.tres",
+      "old_cell": [
+        92,
+        19
+      ],
+      "new_cell": [
+        92,
+        31
+      ],
+      "mapping": "override",
+      "retired_resource_not_placed": true
+    },
+    {
+      "level": "ch1_street",
+      "kind": "MechanismData",
+      "id": "ch1_arena_street_plaza",
+      "resource": "data/props/ch1_arena_street_plaza.tres",
+      "old_cell": [
+        118,
+        19
+      ],
+      "new_cell": [
+        118,
+        31
+      ],
+      "mapping": "override",
+      "retired_resource_not_placed": true
+    },
+    {
+      "level": "ch1_street",
+      "kind": "MechanismData",
+      "id": "ch1_enc_street_blockade",
+      "resource": "data/props/ch1_enc_street_blockade.tres",
+      "old_cell": [
+        167,
+        19
+      ],
+      "new_cell": [
+        167,
+        36
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "MechanismData",
+      "id": "ch1_arena_street_blockade",
+      "resource": "data/props/ch1_arena_street_blockade.tres",
+      "old_cell": [
+        152,
+        19
+      ],
+      "new_cell": [
+        152,
+        36
+      ],
+      "mapping": "override",
+      "retired_resource_not_placed": true
+    },
+    {
+      "level": "ch1_street",
+      "kind": "MechanismData",
+      "id": "ch1_arena_street_blockade",
+      "resource": "data/props/ch1_arena_street_blockade.tres",
+      "old_cell": [
+        182,
+        19
+      ],
+      "new_cell": [
+        182,
+        36
+      ],
+      "mapping": "override",
+      "retired_resource_not_placed": true
+    },
+    {
+      "level": "ch1_street",
+      "kind": "player_start",
+      "old_cell": [
+        4,
+        19
+      ],
+      "new_cell": [
+        4,
+        51
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        11,
+        12
+      ],
+      "new_cell": [
+        11,
+        44
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        31,
+        12
+      ],
+      "new_cell": [
+        31,
+        44
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        54,
+        12
+      ],
+      "new_cell": [
+        54,
+        44
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        78,
+        12
+      ],
+      "new_cell": [
+        78,
+        27
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        104,
+        12
+      ],
+      "new_cell": [
+        104,
+        27
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        126,
+        12
+      ],
+      "new_cell": [
+        126,
+        44
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        150,
+        12
+      ],
+      "new_cell": [
+        150,
+        44
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        176,
+        12
+      ],
+      "new_cell": [
+        176,
+        32
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        201,
+        12
+      ],
+      "new_cell": [
+        201,
+        44
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "story_trigger",
+      "id": "&",
+      "old_cell": [
+        9,
+        19
+      ],
+      "new_cell": [
+        9,
+        51
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "story_trigger",
+      "id": "&",
+      "old_cell": [
+        50,
+        19
+      ],
+      "new_cell": [
+        50,
+        51
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "story_trigger",
+      "id": "&",
+      "old_cell": [
+        82,
+        19
+      ],
+      "new_cell": [
+        82,
+        31
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "story_trigger",
+      "id": "&",
+      "old_cell": [
+        120,
+        19
+      ],
+      "new_cell": [
+        120,
+        51
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "story_trigger",
+      "id": "&",
+      "old_cell": [
+        149,
+        19
+      ],
+      "new_cell": [
+        149,
+        51
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_street",
+      "kind": "story_trigger",
+      "id": "&",
+      "old_cell": [
+        183,
+        19
+      ],
+      "new_cell": [
+        183,
+        51
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_booth_alley",
+      "kind": "PortalData",
+      "id": "booth_street",
+      "resource": "data/levels/ch1_booth_alley.tres#Resource_0",
+      "old_cell": [
+        4,
+        19
+      ],
+      "new_cell": [
+        4,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_booth_alley",
+      "kind": "CreditPileData",
+      "id": "credits_small",
+      "resource": "data/props/credits_small.tres",
+      "old_cell": [
+        18,
+        19
+      ],
+      "new_cell": [
+        18,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_booth_alley",
+      "kind": "CreditPileData",
+      "id": "credits_small",
+      "resource": "data/props/credits_small.tres",
+      "old_cell": [
+        44,
+        19
+      ],
+      "new_cell": [
+        44,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_booth_alley",
+      "kind": "StoryItemData",
+      "id": "doc_rain_news",
+      "resource": "data/story_items/doc_rain_news.tres",
+      "old_cell": [
+        36,
+        19
+      ],
+      "new_cell": [
+        36,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_booth_alley",
+      "kind": "NpcData",
+      "id": "ch1_lamp_voice",
+      "resource": "data/npcs/ch1_lamp_voice.tres",
+      "old_cell": [
+        29,
+        19
+      ],
+      "new_cell": [
+        29,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_booth_alley",
+      "kind": "player_start",
+      "old_cell": [
+        6,
+        19
+      ],
+      "new_cell": [
+        6,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_booth_alley",
+      "kind": "checkpoint",
+      "old_cell": [
+        26,
+        19
+      ],
+      "new_cell": [
+        26,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_booth_alley",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        26,
+        11
+      ],
+      "new_cell": [
+        26,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "ThrowableData",
+      "id": "crate_small",
+      "resource": "data/throwables/crate_small.tres",
+      "old_cell": [
+        43,
+        16
+      ],
+      "new_cell": [
+        43,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "ThrowableData",
+      "id": "crate_small",
+      "resource": "data/throwables/crate_small.tres",
+      "old_cell": [
+        44,
+        16
+      ],
+      "new_cell": [
+        44,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "ThrowableData",
+      "id": "crate_small",
+      "resource": "data/throwables/crate_small.tres",
+      "old_cell": [
+        110,
+        16
+      ],
+      "new_cell": [
+        110,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "ThrowableData",
+      "id": "concrete_chunk",
+      "resource": "data/throwables/concrete_chunk.tres",
+      "old_cell": [
+        46,
+        13
+      ],
+      "new_cell": [
+        46,
+        45
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "MechanismData",
+      "id": "ch1_switch_a",
+      "resource": "data/props/ch1_switch_a.tres",
+      "old_cell": [
+        83,
+        16
+      ],
+      "new_cell": [
+        83,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "ThrowableData",
+      "id": "fuel_barrel",
+      "resource": "data/throwables/fuel_barrel.tres",
+      "old_cell": [
+        56,
+        16
+      ],
+      "new_cell": [
+        56,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "ThrowableData",
+      "id": "fuel_barrel",
+      "resource": "data/throwables/fuel_barrel.tres",
+      "old_cell": [
+        61,
+        16
+      ],
+      "new_cell": [
+        61,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "ThrowableData",
+      "id": "fuel_barrel",
+      "resource": "data/throwables/fuel_barrel.tres",
+      "old_cell": [
+        108,
+        16
+      ],
+      "new_cell": [
+        108,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "ThrowableData",
+      "id": "pipe",
+      "resource": "data/throwables/pipe.tres",
+      "old_cell": [
+        41,
+        16
+      ],
+      "new_cell": [
+        41,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "PortalData",
+      "id": "wh_street",
+      "resource": "data/levels/ch1_warehouse.tres#Resource_0",
+      "old_cell": [
+        3,
+        16
+      ],
+      "new_cell": [
+        3,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "MechanismData",
+      "id": "ch1_switch_b",
+      "resource": "data/props/ch1_switch_b.tres",
+      "old_cell": [
+        107,
+        10
+      ],
+      "new_cell": [
+        107,
+        42
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "PortalData",
+      "id": "wh_vault",
+      "resource": "data/levels/ch1_warehouse.tres#Resource_1",
+      "old_cell": [
+        162,
+        16
+      ],
+      "new_cell": [
+        162,
+        16
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "MechanismData",
+      "id": "ch1_flood_pit",
+      "resource": "data/props/ch1_flood_pit.tres",
+      "old_cell": [
+        123,
+        22
+      ],
+      "new_cell": [
+        123,
+        54
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "MechanismData",
+      "id": "ch1_gate_a",
+      "resource": "data/props/ch1_gate_a.tres",
+      "old_cell": [
+        90,
+        16
+      ],
+      "new_cell": [
+        90,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "EnemyData",
+      "id": "collector_brute",
+      "resource": "data/enemies/collector_brute.tres",
+      "old_cell": [
+        95,
+        16
+      ],
+      "new_cell": [
+        95,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "EnemyData",
+      "id": "collector_brute",
+      "resource": "data/enemies/collector_brute.tres",
+      "old_cell": [
+        114,
+        16
+      ],
+      "new_cell": [
+        114,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "CreditPileData",
+      "id": "credits_small",
+      "resource": "data/props/credits_small.tres",
+      "old_cell": [
+        28,
+        16
+      ],
+      "new_cell": [
+        28,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "CreditPileData",
+      "id": "credits_small",
+      "resource": "data/props/credits_small.tres",
+      "old_cell": [
+        66,
+        16
+      ],
+      "new_cell": [
+        66,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "CreditPileData",
+      "id": "credits_small",
+      "resource": "data/props/credits_small.tres",
+      "old_cell": [
+        68,
+        16
+      ],
+      "new_cell": [
+        68,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "CreditPileData",
+      "id": "credits_small",
+      "resource": "data/props/credits_small.tres",
+      "old_cell": [
+        113,
+        16
+      ],
+      "new_cell": [
+        113,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "EnemyData",
+      "id": "drone",
+      "resource": "data/enemies/drone.tres",
+      "old_cell": [
+        108,
+        6
+      ],
+      "new_cell": [
+        108,
+        38
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "EnemyData",
+      "id": "drone",
+      "resource": "data/enemies/drone.tres",
+      "old_cell": [
+        100,
+        7
+      ],
+      "new_cell": [
+        100,
+        39
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "EnemyData",
+      "id": "drone",
+      "resource": "data/enemies/drone.tres",
+      "old_cell": [
+        123,
+        7
+      ],
+      "new_cell": [
+        123,
+        39
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "EnemyData",
+      "id": "sweeper",
+      "resource": "data/enemies/sweeper.tres",
+      "old_cell": [
+        30,
+        16
+      ],
+      "new_cell": [
+        30,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "EnemyData",
+      "id": "sweeper",
+      "resource": "data/enemies/sweeper.tres",
+      "old_cell": [
+        38,
+        16
+      ],
+      "new_cell": [
+        38,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "EnemyData",
+      "id": "sweeper",
+      "resource": "data/enemies/sweeper.tres",
+      "old_cell": [
+        137,
+        16
+      ],
+      "new_cell": [
+        137,
+        44
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "EnemyData",
+      "id": "sweeper",
+      "resource": "data/enemies/sweeper.tres",
+      "old_cell": [
+        140,
+        16
+      ],
+      "new_cell": [
+        146,
+        40
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "ConsumableData",
+      "id": "med_injector",
+      "resource": "data/consumables/med_injector.tres",
+      "old_cell": [
+        24,
+        11
+      ],
+      "new_cell": [
+        24,
+        43
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "ConsumableData",
+      "id": "med_injector",
+      "resource": "data/consumables/med_injector.tres",
+      "old_cell": [
+        9,
+        16
+      ],
+      "new_cell": [
+        9,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "EnemyData",
+      "id": "collector_gunner",
+      "resource": "data/enemies/collector_gunner.tres",
+      "old_cell": [
+        23,
+        11
+      ],
+      "new_cell": [
+        23,
+        43
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "EnemyData",
+      "id": "collector_gunner",
+      "resource": "data/enemies/collector_gunner.tres",
+      "old_cell": [
+        47,
+        13
+      ],
+      "new_cell": [
+        47,
+        45
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "EnemyData",
+      "id": "collector_gunner",
+      "resource": "data/enemies/collector_gunner.tres",
+      "old_cell": [
+        116,
+        16
+      ],
+      "new_cell": [
+        116,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "StoryItemData",
+      "id": "doc_dike_log",
+      "resource": "data/story_items/doc_dike_log.tres",
+      "old_cell": [
+        84,
+        16
+      ],
+      "new_cell": [
+        84,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "MechanismData",
+      "id": "ch1_gate_b",
+      "resource": "data/props/ch1_gate_b.tres",
+      "old_cell": [
+        112,
+        16
+      ],
+      "new_cell": [
+        112,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "MechanismData",
+      "id": "ch1_gate_c",
+      "resource": "data/props/ch1_gate_c.tres",
+      "old_cell": [
+        133,
+        16
+      ],
+      "new_cell": [
+        133,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "MechanismData",
+      "id": "ch1_gate_watchdog",
+      "resource": "data/props/ch1_gate_watchdog.tres",
+      "old_cell": [
+        73,
+        16
+      ],
+      "new_cell": [
+        73,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "EnemyData",
+      "id": "watchdog",
+      "resource": "data/enemies/watchdog.tres",
+      "old_cell": [
+        58,
+        16
+      ],
+      "new_cell": [
+        58,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "player_start",
+      "old_cell": [
+        4,
+        16
+      ],
+      "new_cell": [
+        4,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "checkpoint",
+      "old_cell": [
+        77,
+        16
+      ],
+      "new_cell": [
+        77,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        12,
+        5
+      ],
+      "new_cell": [
+        12,
+        37
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        40,
+        5
+      ],
+      "new_cell": [
+        40,
+        37
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        66,
+        5
+      ],
+      "new_cell": [
+        66,
+        37
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        90,
+        5
+      ],
+      "new_cell": [
+        90,
+        37
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        118,
+        5
+      ],
+      "new_cell": [
+        118,
+        37
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "story_trigger",
+      "id": "&",
+      "old_cell": [
+        10,
+        16
+      ],
+      "new_cell": [
+        10,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "story_trigger",
+      "id": "&",
+      "old_cell": [
+        117,
+        16
+      ],
+      "new_cell": [
+        117,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "story_trigger",
+      "id": "&",
+      "old_cell": [
+        119,
+        16
+      ],
+      "new_cell": [
+        119,
+        54
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_warehouse",
+      "kind": "story_trigger",
+      "id": "&",
+      "old_cell": [
+        135,
+        16
+      ],
+      "new_cell": [
+        135,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "PortalData",
+      "id": "wh_upper",
+      "resource": "data/levels/ch1_vault.tres#Resource_0",
+      "old_cell": [
+        120,
+        8
+      ],
+      "new_cell": [
+        120,
+        12
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "PortalData",
+      "id": "vault_prev",
+      "resource": "data/levels/ch1_vault.tres#Resource_1",
+      "old_cell": [
+        3,
+        16
+      ],
+      "new_cell": [
+        3,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "BreakableData",
+      "id": "ch1_secret_wall",
+      "resource": "data/props/ch1_secret_wall.tres",
+      "old_cell": [
+        114,
+        16
+      ],
+      "new_cell": [
+        114,
+        28
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "CreditPileData",
+      "id": "credits_small",
+      "resource": "data/props/credits_small.tres",
+      "old_cell": [
+        70,
+        8
+      ],
+      "new_cell": [
+        70,
+        12
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "CreditPileData",
+      "id": "credits_small",
+      "resource": "data/props/credits_small.tres",
+      "old_cell": [
+        26,
+        16
+      ],
+      "new_cell": [
+        30,
+        28
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "CreditPileData",
+      "id": "credits_small",
+      "resource": "data/props/credits_small.tres",
+      "old_cell": [
+        90,
+        16
+      ],
+      "new_cell": [
+        89,
+        12
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "EnemyData",
+      "id": "drone",
+      "resource": "data/enemies/drone.tres",
+      "old_cell": [
+        90,
+        6
+      ],
+      "new_cell": [
+        90,
+        6
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "EnemyData",
+      "id": "drone",
+      "resource": "data/enemies/drone.tres",
+      "old_cell": [
+        52,
+        9
+      ],
+      "new_cell": [
+        60,
+        44
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "EnemyData",
+      "id": "sweeper",
+      "resource": "data/enemies/sweeper.tres",
+      "old_cell": [
+        72,
+        8
+      ],
+      "new_cell": [
+        72,
+        12
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "EnemyData",
+      "id": "sweeper",
+      "resource": "data/enemies/sweeper.tres",
+      "old_cell": [
+        84,
+        8
+      ],
+      "new_cell": [
+        84,
+        12
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "ConsumableData",
+      "id": "med_injector",
+      "resource": "data/consumables/med_injector.tres",
+      "old_cell": [
+        47,
+        16
+      ],
+      "new_cell": [
+        47,
+        28
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "ConsumableData",
+      "id": "med_injector",
+      "resource": "data/consumables/med_injector.tres",
+      "old_cell": [
+        80,
+        16
+      ],
+      "new_cell": [
+        80,
+        12
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "EnemyData",
+      "id": "collector_gunner",
+      "resource": "data/enemies/collector_gunner.tres",
+      "old_cell": [
+        96,
+        8
+      ],
+      "new_cell": [
+        96,
+        12
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "EnemyData",
+      "id": "collector_gunner",
+      "resource": "data/enemies/collector_gunner.tres",
+      "old_cell": [
+        28,
+        16
+      ],
+      "new_cell": [
+        28,
+        28
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "CreditPileData",
+      "id": "credits_large",
+      "resource": "data/props/credits_large.tres",
+      "old_cell": [
+        118,
+        16
+      ],
+      "new_cell": [
+        118,
+        28
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "StoryItemData",
+      "id": "ch1_data_disk",
+      "resource": "data/story_items/ch1_data_disk.tres",
+      "old_cell": [
+        40,
+        16
+      ],
+      "new_cell": [
+        40,
+        28
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "EnemyData",
+      "id": "ch1_inspector",
+      "resource": "data/enemies/ch1_inspector.tres",
+      "old_cell": [
+        37,
+        16
+      ],
+      "new_cell": [
+        37,
+        28
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "MechanismData",
+      "id": "ch1_enc_warehouse_vault",
+      "resource": "data/props/ch1_enc_warehouse_vault.tres",
+      "old_cell": [
+        34,
+        16
+      ],
+      "new_cell": [
+        34,
+        28
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "MechanismData",
+      "id": "ch1_arena_warehouse_vault",
+      "resource": "data/props/ch1_arena_warehouse_vault.tres",
+      "old_cell": [
+        22,
+        16
+      ],
+      "new_cell": [
+        27,
+        28
+      ],
+      "mapping": "override",
+      "retired_resource_not_placed": true
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "MechanismData",
+      "id": "ch1_arena_warehouse_vault",
+      "resource": "data/props/ch1_arena_warehouse_vault.tres",
+      "old_cell": [
+        46,
+        16
+      ],
+      "new_cell": [
+        49,
+        28
+      ],
+      "mapping": "override",
+      "retired_resource_not_placed": true
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "MechanismData",
+      "id": "ch1_enc_warehouse_walkway",
+      "resource": "data/props/ch1_enc_warehouse_walkway.tres",
+      "old_cell": [
+        90,
+        8
+      ],
+      "new_cell": [
+        90,
+        12
+      ],
+      "mapping": "override"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "MechanismData",
+      "id": "ch1_arena_warehouse_walkway",
+      "resource": "data/props/ch1_arena_warehouse_walkway.tres",
+      "old_cell": [
+        65,
+        8
+      ],
+      "new_cell": [
+        65,
+        12
+      ],
+      "mapping": "override",
+      "retired_resource_not_placed": true
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "MechanismData",
+      "id": "ch1_arena_warehouse_walkway",
+      "resource": "data/props/ch1_arena_warehouse_walkway.tres",
+      "old_cell": [
+        115,
+        8
+      ],
+      "new_cell": [
+        115,
+        12
+      ],
+      "mapping": "override",
+      "retired_resource_not_placed": true
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "player_start",
+      "old_cell": [
+        4,
+        16
+      ],
+      "new_cell": [
+        4,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "checkpoint",
+      "old_cell": [
+        7,
+        16
+      ],
+      "new_cell": [
+        7,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        26,
+        5
+      ],
+      "new_cell": [
+        26,
+        37
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        52,
+        5
+      ],
+      "new_cell": [
+        52,
+        37
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        80,
+        5
+      ],
+      "new_cell": [
+        80,
+        37
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        106,
+        5
+      ],
+      "new_cell": [
+        106,
+        37
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_vault",
+      "kind": "story_trigger",
+      "id": "&",
+      "old_cell": [
+        48,
+        16
+      ],
+      "new_cell": [
+        48,
+        48
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_handoff",
+      "kind": "PortalData",
+      "id": "handoff_lounge",
+      "resource": "data/levels/ch1_handoff.tres#Resource_0",
+      "old_cell": [
+        44,
+        19
+      ],
+      "new_cell": [
+        44,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_handoff",
+      "kind": "PortalData",
+      "id": "handoff_arrival",
+      "resource": "data/levels/ch1_handoff.tres#Resource_1",
+      "old_cell": [
+        6,
+        19
+      ],
+      "new_cell": [
+        6,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_handoff",
+      "kind": "NpcData",
+      "id": "ch1_handoff_cabinet",
+      "resource": "data/npcs/ch1_handoff_cabinet.tres",
+      "old_cell": [
+        18,
+        19
+      ],
+      "new_cell": [
+        18,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_handoff",
+      "kind": "player_start",
+      "old_cell": [
+        4,
+        19
+      ],
+      "new_cell": [
+        4,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_handoff",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        18,
+        14
+      ],
+      "new_cell": [
+        18,
+        14
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_handoff",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        36,
+        14
+      ],
+      "new_cell": [
+        36,
+        14
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_handoff",
+      "kind": "story_trigger",
+      "id": "&",
+      "old_cell": [
+        10,
+        19
+      ],
+      "new_cell": [
+        10,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_lounge",
+      "kind": "PortalData",
+      "id": "lounge_exit",
+      "resource": "data/levels/ch1_lounge.tres#Resource_0",
+      "old_cell": [
+        52,
+        19
+      ],
+      "new_cell": [
+        52,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_lounge",
+      "kind": "NpcData",
+      "id": "ch1_ali_lounge",
+      "resource": "data/npcs/ch1_ali_lounge.tres",
+      "old_cell": [
+        30,
+        19
+      ],
+      "new_cell": [
+        30,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_lounge",
+      "kind": "PortalData",
+      "id": "lounge_handoff",
+      "resource": "data/levels/ch1_lounge.tres#Resource_1",
+      "old_cell": [
+        2,
+        19
+      ],
+      "new_cell": [
+        2,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_lounge",
+      "kind": "player_start",
+      "old_cell": [
+        4,
+        19
+      ],
+      "new_cell": [
+        4,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_lounge",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        10,
+        11
+      ],
+      "new_cell": [
+        10,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_lounge",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        24,
+        11
+      ],
+      "new_cell": [
+        24,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_lounge",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        38,
+        11
+      ],
+      "new_cell": [
+        38,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_lounge",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        50,
+        11
+      ],
+      "new_cell": [
+        50,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_lounge",
+      "kind": "story_trigger",
+      "id": "&",
+      "old_cell": [
+        12,
+        19
+      ],
+      "new_cell": [
+        12,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_stall",
+      "kind": "NpcData",
+      "id": "ch1_ali_stall",
+      "resource": "data/npcs/ch1_ali_stall.tres",
+      "old_cell": [
+        21,
+        19
+      ],
+      "new_cell": [
+        21,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_stall",
+      "kind": "PortalData",
+      "id": "stall_home",
+      "resource": "data/levels/ch1_stall.tres#Resource_0",
+      "old_cell": [
+        44,
+        19
+      ],
+      "new_cell": [
+        44,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_stall",
+      "kind": "player_start",
+      "old_cell": [
+        4,
+        19
+      ],
+      "new_cell": [
+        4,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_stall",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        20,
+        12
+      ],
+      "new_cell": [
+        20,
+        12
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_stall",
+      "kind": "story_trigger",
+      "id": "&",
+      "old_cell": [
+        12,
+        19
+      ],
+      "new_cell": [
+        12,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "PortalData",
+      "id": "pawn_front",
+      "resource": "data/levels/ch1_pawnshop_dawn.tres#Resource_0",
+      "old_cell": [
+        74,
+        19
+      ],
+      "new_cell": [
+        74,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "PortalData",
+      "id": "pawn_basement",
+      "resource": "data/levels/ch1_pawnshop_dawn.tres#Resource_1",
+      "old_cell": [
+        43,
+        19
+      ],
+      "new_cell": [
+        43,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "PortalData",
+      "id": "pawn_stairs",
+      "resource": "data/levels/ch1_pawnshop_dawn.tres#Resource_2",
+      "old_cell": [
+        108,
+        19
+      ],
+      "new_cell": [
+        108,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "ShopData",
+      "id": "ch1_pawn",
+      "resource": "data/shops/ch1_pawn.tres",
+      "old_cell": [
+        56,
+        19
+      ],
+      "new_cell": [
+        56,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "CreditPileData",
+      "id": "credits_small",
+      "resource": "data/props/credits_small.tres",
+      "old_cell": [
+        24,
+        19
+      ],
+      "new_cell": [
+        24,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "CreditPileData",
+      "id": "credits_small",
+      "resource": "data/props/credits_small.tres",
+      "old_cell": [
+        67,
+        19
+      ],
+      "new_cell": [
+        67,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "NpcData",
+      "id": "ch1_old_k",
+      "resource": "data/npcs/ch1_old_k.tres",
+      "old_cell": [
+        86,
+        19
+      ],
+      "new_cell": [
+        86,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "StoryItemData",
+      "id": "doc_pawn_stub",
+      "resource": "data/story_items/doc_pawn_stub.tres",
+      "old_cell": [
+        71,
+        19
+      ],
+      "new_cell": [
+        71,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "WeaponData",
+      "id": "melee_dagger",
+      "resource": "data/weapons/melee/melee_dagger.tres",
+      "old_cell": [
+        14,
+        15
+      ],
+      "new_cell": [
+        14,
+        15
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "BreakableData",
+      "id": "ch1_crate",
+      "resource": "data/props/ch1_crate.tres",
+      "old_cell": [
+        5,
+        19
+      ],
+      "new_cell": [
+        5,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "BreakableData",
+      "id": "ch1_crate",
+      "resource": "data/props/ch1_crate.tres",
+      "old_cell": [
+        9,
+        19
+      ],
+      "new_cell": [
+        9,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "NpcData",
+      "id": "ch1_label_fare",
+      "resource": "data/npcs/ch1_label_fare.tres",
+      "old_cell": [
+        45,
+        19
+      ],
+      "new_cell": [
+        45,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "NpcData",
+      "id": "ch1_label_guitar",
+      "resource": "data/npcs/ch1_label_guitar.tres",
+      "old_cell": [
+        48,
+        19
+      ],
+      "new_cell": [
+        48,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "NpcData",
+      "id": "ch1_label_raincoat",
+      "resource": "data/npcs/ch1_label_raincoat.tres",
+      "old_cell": [
+        37,
+        19
+      ],
+      "new_cell": [
+        37,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "NpcData",
+      "id": "ch1_label_watch",
+      "resource": "data/npcs/ch1_label_watch.tres",
+      "old_cell": [
+        34,
+        19
+      ],
+      "new_cell": [
+        34,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "player_start",
+      "old_cell": [
+        40,
+        19
+      ],
+      "new_cell": [
+        40,
+        19
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        36,
+        11
+      ],
+      "new_cell": [
+        36,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        46,
+        11
+      ],
+      "new_cell": [
+        46,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        56,
+        11
+      ],
+      "new_cell": [
+        56,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        66,
+        11
+      ],
+      "new_cell": [
+        66,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        74,
+        11
+      ],
+      "new_cell": [
+        74,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        88,
+        11
+      ],
+      "new_cell": [
+        88,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        98,
+        11
+      ],
+      "new_cell": [
+        98,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "light",
+      "id": "*",
+      "old_cell": [
+        106,
+        11
+      ],
+      "new_cell": [
+        106,
+        11
+      ],
+      "mapping": "offset"
+    },
+    {
+      "level": "ch1_pawnshop_dawn",
+      "kind": "story_trigger",
+      "id": "&",
+      "old_cell": [
+        82,
+        19
+      ],
+      "new_cell": [
+        82,
+        19
+      ],
+      "mapping": "offset"
+    }
+  ],
+  "new_portals": [
+    {
+      "level": "ch1_vault",
+      "id": "vault_street",
+      "cell": [
+        116,
+        12
+      ],
+      "target_level": "ch1_street",
+      "target_portal": "street_vault",
+      "requires_flag": "ledger_disk_obtained"
+    },
+    {
+      "level": "ch1_street",
+      "id": "street_vault",
+      "cell": [
+        122,
+        15
+      ],
+      "target_level": "ch1_vault",
+      "target_portal": "vault_street",
+      "requires_flag": "ledger_disk_obtained"
+    },
+    {
+      "level": "ch1_street",
+      "id": "street_roof",
+      "cell": [
+        46,
+        15
+      ],
+      "target_level": "ch1_rooftop",
+      "target_portal": "roof_maintenance",
+      "requires_flag": "ledger_disk_obtained"
+    },
+    {
+      "level": "ch1_rooftop",
+      "id": "roof_maintenance",
+      "cell": [
+        66,
+        31
+      ],
+      "target_level": "ch1_street",
+      "target_portal": "street_roof",
+      "requires_flag": "ledger_disk_obtained"
+    }
+  ],
+  "safe_landings_proposal": {
+    "ch1_street": [
+      {
+        "when": {},
+        "cell": [
+          4,
+          51
+        ]
+      },
+      {
+        "when": {
+          "ch1_street_route_open": true
+        },
+        "cell": [
+          204,
+          51
+        ]
+      }
+    ],
+    "ch1_warehouse": [
+      {
+        "when": {},
+        "cell": [
+          3,
+          48
+        ]
+      },
+      {
+        "when": {
+          "watchdog_defeated": true
+        },
+        "cell": [
+          77,
+          48
+        ]
+      }
+    ],
+    "ch1_vault": [
+      {
+        "when": {},
+        "cell": [
+          4,
+          48
+        ]
+      },
+      {
+        "when": {
+          "ledger_disk_obtained": true
+        },
+        "cell": [
+          43,
+          28
+        ]
+      }
+    ],
+    "ch1_rooftop": [
+      {
+        "when": {},
+        "cell": [
+          5,
+          49
+        ]
+      }
+    ]
+  },
+  "limits": [
+    "All old resource cells have one destination. No distinct old resource cells merge in this proposal.",
+    "Visual JSON props need explicit correct layer anchors rather than current topmost ground_surface auto-placement.",
+    "Metadata format is the Root agreed legacy_layout, not a new runtime/save implementation.",
+    "Air-jump platform height and representative routes still require actual Player/native controls."
+  ],
+  "v3_delta": [
+    {
+      "level": "ch1_vault",
+      "kind": "EnemyData",
+      "old_cell": [
+        52,
+        9
+      ],
+      "v3_new_cell": [
+        52,
+        20
+      ],
+      "v4_new_cell": [
+        60,
+        44
+      ],
+      "reason": "Outside original walkway encounter; move away from the new practice room."
+    }
+  ],
+  "practice": {
+    "level": "ch1_vault",
+    "room_x": [
+      27,
+      50
+    ],
+    "foot_start": [
+      46,
+      20
+    ],
+    "foot_target": [
+      40,
+      12
+    ],
+    "retry_floor": 21,
+    "actual_input_verified": false
+  },
+  "v4_delta": {
+    "original_resource_destinations_changed": 0,
+    "new_portal_cells": {
+      "street_vault": {
+        "before": [
+          114,
+          15
+        ],
+        "after": [
+          122,
+          15
+        ]
+      },
+      "vault_street": {
+        "before": [
+          104,
+          12
+        ],
+        "after": [
+          116,
+          12
+        ]
+      }
+    },
+    "removed_retired_gate_placements": 8,
+    "legacy_gate_keys_and_resource_files_preserved": true,
+    "secret_drop_opening_columns": [
+      111,
+      112,
+      113
+    ]
+  },
+  "v7_to_v8_resource_delta": [
+    {
+      "level": "ch1_vault",
+      "kind": "EnemyData",
+      "id": "drone",
+      "old_cell": [
+        90,
+        6
+      ],
+      "before_new_cell": [
+        90,
+        3
+      ],
+      "new_cell": [
+        90,
+        6
+      ],
+      "reason": "Restore full original indoor ceiling rows0..3 without embedding this flying enemy."
+    }
+  ]
+}

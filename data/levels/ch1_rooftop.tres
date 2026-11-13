@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=10 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Resource" path="res://data/npcs/ch1_egret.tres" id="2_ch1_egret"]
@@ -19,6 +19,18 @@ height = 44
 style = "hidden"
 
 [sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("3_portal_data")
+id = &"roof_maintenance"
+target_level = "res://data/levels/ch1_street.tres"
+target_portal = &"street_roof"
+requires_flag = &"ledger_disk_obtained"
+locked_text = "先拿到倉庫的資料盤，維修通道才會開放。"
+prompt = "{interact} 走維修通道"
+width = 24
+height = 56
+style = "door"
+
+[sub_resource type="Resource" id="Resource_2"]
 script = ExtResource("5_lighting_zone")
 start_tile = 0
 blend_tiles = 12
@@ -29,11 +41,12 @@ script = ExtResource("1_level_data")
 id = &"ch1_rooftop"
 display_name = "屋頂"
 tile_size = 16
-height = 24
+height = 56
 legend = Dictionary[String, Resource]({
 "E": ExtResource("2_ch1_egret"),
 "T": SubResource("Resource_0"),
-"c": ExtResource("4_credits_small")
+"c": ExtResource("4_credits_small"),
+"↧": SubResource("Resource_1")
 })
 hints = PackedStringArray("屋頂中間有一條縫，助跑後按 {jump} 跳過去。")
 chapter = &"ch1_kasa"
@@ -41,6 +54,6 @@ persistent_world = true
 show_chapter_card = false
 environment = ExtResource("7_ch1_rooftop")
 layout_path = "res://data/levels/ch1_rooftop_map.json"
-lighting_zones = Array[ExtResource("5_lighting_zone")]([SubResource("Resource_1")])
+lighting_zones = Array[ExtResource("5_lighting_zone")]([SubResource("Resource_2")])
 story_triggers = PackedStringArray("ch1_b_roof")
 death_credit_cap = 250

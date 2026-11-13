@@ -1,0 +1,79 @@
+{
+  "scope": "CPU static live authored layout/resources; not actual Godot or scene input",
+  "prior_geometry": {
+    "CPU_only": true,
+    "original_failures": 13,
+    "candidate_failures": 0,
+    "framing_points": 6,
+    "rejected_negative_controls": 3
+  },
+  "three_beats": [
+    {
+      "id": "plaza",
+      "start": [
+        93,
+        32
+      ],
+      "four_row_headroom": true,
+      "targets": [
+        {
+          "target": [
+            98,
+            31
+          ],
+          "actual_resource": "data/enemies/sweeper.tres",
+          "glyph": "g"
+        },
+        {
+          "target": [
+            111,
+            31
+          ],
+          "actual_resource": "data/enemies/sweeper.tres",
+          "glyph": "g"
+        }
+      ]
+    },
+    {
+      "id": "barricade",
+      "start": [
+        153,
+        37
+      ],
+      "four_row_headroom": true,
+      "targets": [
+        {
+          "target": [
+            166,
+            36
+          ],
+          "actual_resource": "data/enemies/collector_gunner.tres",
+          "glyph": "k"
+        }
+      ]
+    },
+    {
+      "id": "foyer",
+      "start": [
+        41,
+        49
+      ],
+      "four_row_headroom": true,
+      "targets": [
+        {
+          "target": [
+            47,
+            45
+          ],
+          "actual_resource": "data/enemies/collector_gunner.tres",
+          "glyph": "k"
+        }
+      ]
+    }
+  ],
+  "roster_street": [
+    98,
+    32
+  ],
+  "source_manifest_sha256": "ff8451d5d8d0967a2e1f4c82557a8bdbffb4d0e95597fd2d5d7dfc6e78e9d528"
+}

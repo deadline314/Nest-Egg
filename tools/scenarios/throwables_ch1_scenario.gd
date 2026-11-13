@@ -19,12 +19,12 @@ const SYNTHETIC_DEVICE := 999
 ## 每一段：關卡、主角起點（欄）、依序要撿起來丟的東西 [種類, 它在地圖上的欄, 丟向哪一欄哪一列附近的敵人]、
 ## 之後要用槍射的油桶在哪一欄（-1＝不射）與站在哪一欄射。
 const BEATS := [
-	{"id": "plaza", "level": STREET, "start": 93.0, "barrel_tile": -1, "shoot_from": 0.0,
-		"throws": [[&"crate_small", 95, Vector2(98, 19)], [&"fuel_barrel", 104, Vector2(111, 19)]]},
-	{"id": "barricade", "level": STREET, "start": 153.0, "barrel_tile": -1, "shoot_from": 0.0,
-		"throws": [[&"pipe", 155, Vector2(166, 14)]]},
-	{"id": "foyer", "level": WAREHOUSE, "start": 41.5, "barrel_tile": 56, "shoot_from": 51.0,
-		"throws": [[&"crate_small", 43, Vector2(47, 13)]]},
+	{"id": "plaza", "level": STREET, "start": 93.0, "floor_row": 32, "barrel_tile": -1, "shoot_from": 0.0,
+		"throws": [[&"crate_small", 95, Vector2(98, 31)], [&"fuel_barrel", 104, Vector2(111, 31)]]},
+	{"id": "barricade", "level": STREET, "start": 153.0, "floor_row": 37, "barrel_tile": -1, "shoot_from": 0.0,
+		"throws": [[&"pipe", 155, Vector2(166, 36)]]},
+	{"id": "foyer", "level": WAREHOUSE, "start": 41.5, "floor_row": 49, "barrel_tile": 56, "shoot_from": 51.0,
+		"throws": [[&"crate_small", 43, Vector2(47, 45)]]},
 ]
 
 var _use_pad := false
@@ -86,7 +86,17 @@ func _play(beat: Dictionary) -> void:
 	for zone in level.find_children("*", "EncounterZone", true, false):
 		zone.queue_free()
 	var start_tile: float = beat["start"]
-	player.global_position = Vector2(start_tile * 16.0, level._layout.floor_below(int(start_tile), 10))
+	# Tall rooms have platforms/ceilings above the intended scene; use its authored floor.
+	var floor_row: int = beat["floor_row"]
+	var start_column := int(start_tile)
+	var valid_floor := level._layout.cell(start_column, floor_row) in ["#", "="]
+	for row in range(floor_row - 4, floor_row):
+		valid_floor = valid_floor and level._layout.cell(start_column, row) != "#"
+	if not valid_floor:
+		push_error("[ThrowablesCh1] %s: invalid floor/headroom at %d/%d" % [beat["id"], start_column, floor_row])
+		await _close()
+		return
+	player.global_position = Vector2(start_tile * 16.0, floor_row * level._layout.tile_size)
 	player.velocity = Vector2.ZERO
 	snap_camera()
 	await wait(TITLE_CARD_TIME)

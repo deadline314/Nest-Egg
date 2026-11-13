@@ -36,6 +36,7 @@ func run() -> void:
 	_test_props()
 	_test_portals()
 	_test_roster()
+	_test_entry_distance_contract()
 	_test_encounters()
 	_test_teaching_curve()
 	_test_narrative()
@@ -76,7 +77,8 @@ func _test_data() -> void:
 		var data := _datas[id]
 		var layout := _layouts[id]
 		check(layout.is_valid() and layout.warnings.is_empty(), "%s parses without warnings %s" % [id, layout.warnings])
-		check(layout.height == 24 and data.height == 24, "%s is 24 tiles tall like the other levels" % id)
+		var expected_height := 56 if id in ["street", "warehouse", "vault", "rooftop"] else 24
+		check(layout.height == expected_height and data.height == expected_height, "%s uses its authored %d-tile room height" % [id, expected_height])
 		check(data.persistent_world, "%s keeps the world between areas" % id)
 		check(str(data.id) == "ch1_%s" % id, "%s has a matching level id (%s)" % [id, data.id])
 		check(data.validate_lighting().is_empty(), "%s lighting is valid %s" % [id, data.validate_lighting()])
@@ -243,19 +245,19 @@ func _test_roster() -> void:
 		check(placed.get(id, 0) == members, "%s: enemies on the map match the encounter table (%d vs %d)" % [id, placed.get(id, 0), members])
 	for id in ["pawnshop", "rooftop", "booth_alley", "lounge", "stall"]:
 		check(_enemy_spawns(id).is_empty(), "%s is a safe area without enemies" % id)
-	# 每一個出入口進來，最近的敵人都在 18 格以外；出生點也一樣。
+	# 每個真出入口/出生點與敵人的腳底距離至少18格，包含垂直房間。
 	for id in _datas:
 		var layout := _layouts[id]
-		var entries: Array[float] = [layout.player_start.x / TILE]
+		var entries: Array[Vector2] = [layout.player_start / TILE]
 		for pos in layout.checkpoints:
-			entries.append(pos.x / TILE)
+			entries.append(pos / TILE)
 		for spawn in _portals_of(id):
 			if not (spawn["resource"] as PortalData).is_locked_door():
-				entries.append(float((spawn["cell"] as Vector2i).x) + 0.5)
+				entries.append(Vector2(spawn["cell"]) + Vector2(0.5, 1.0))
 		for spawn in _enemy_spawns(id):
-			var x := float((spawn["cell"] as Vector2i).x) + 0.5
+			var position := Vector2(spawn["cell"]) + Vector2(0.5, 1.0)
 			for entry in entries:
-				check(absf(x - entry) >= FIRST_ENEMY_DISTANCE, "%s: enemy at column %d is %d+ tiles from the entrance at %d" % [id, int(x), FIRST_ENEMY_DISTANCE, int(entry)])
+				check(_entry_is_clear(entry, position), "%s: enemy at %s is %d+ tiles from the entrance at %s (actual %.2f)" % [id, position, FIRST_ENEMY_DISTANCE, entry, entry.distance_to(position)])
 	# 新種類出現的間隔：依路線（街道、倉庫）第一次遇到的種類，同一個區域裡相隔至少 20 格。
 	var seen_kinds: Dictionary[StringName, bool] = {}
 	for id in ["street", "warehouse", "vault"]:
@@ -288,7 +290,20 @@ func _test_roster() -> void:
 	check(introduced == [&"sweeper", &"collector_gunner", &"drone", &"collector_brute", &"ch1_inspector"], "the street introduces: sweeper, gunner, drone, brute, inspector (%s)" % [introduced])
 
 
-## 鎖場遭遇（ST-11）：總數與鎖場數、閘門成對且頻道對得上、範圍在地圖內且不重疊、鎖場範圍內的敵人數與設計資料一致、
+static func _entry_is_clear(entry: Vector2, enemy: Vector2) -> bool:
+	return entry.is_finite() and enemy.is_finite() and entry.distance_to(enemy) >= FIRST_ENEMY_DISTANCE
+
+
+func _test_entry_distance_contract() -> void:
+	check(not _entry_is_clear(Vector2.ZERO, Vector2(17.9, 0)), "a same-floor enemy closer than18 tiles is refused")
+	check(not _entry_is_clear(Vector2.ZERO, Vector2(12, 12)), "a diagonal enemy closer than18 tiles is refused")
+	check(not _entry_is_clear(Vector2.ZERO, Vector2(3, 16)), "vertical offset does not exempt a genuinely near enemy")
+	check(_entry_is_clear(Vector2(10, 3), Vector2(10, 21)), "two vertically separated floors18 tiles apart meet the unchanged limit")
+	check(_entry_is_clear(Vector2.ZERO, Vector2(18, 0)), "the original same-floor18-tile boundary remains valid")
+	check(_entry_is_clear(Vector2.ZERO, Vector2(16, 24)), "a distant cargo-shaft enemy is measured in both axes")
+
+
+## 遭遇（ST-11）：總數與波次數、真正封路門成對且頻道對得上、範圍在地圖內且不重疊、區內敵人數與設計資料一致、
 ## 成員與增援不超過同屏上限；戰鬥區都有迴圈、獎勵、秘密、地標與垂直空間的說明。
 func _test_encounters() -> void:
 	var design := _design()
@@ -331,7 +346,10 @@ func _test_encounters() -> void:
 			check(left >= 1 and right <= layout.width - 2, "%s: the locked zone %s stays inside the map (%d..%d)" % [id, zone.id, left, right])
 			var gates: Array = gate_cells.get(zone.channel, [])
 			gates.sort()
-			check(gates.size() == 2 and gates[0] == left and gates[1] == right, "%s: %s has one arena gate at each end (%s vs %d..%d)" % [id, zone.id, gates, left, right])
+			if zone.lock_combat_area:
+				check(gates.size() == 2 and gates[0] == left and gates[1] == right, "%s: %s has one arena gate at each end (%s vs %d..%d)" % [id, zone.id, gates, left, right])
+			else:
+				check(gates.is_empty(), "%s: free encounter %s does not place unused legacy gates" % [id, zone.id])
 			for other in ranges:
 				check(right < other.x or left > other.y, "%s: locked zones do not overlap (%s)" % [id, zone.id])
 			ranges.append(Vector2i(left, right))
@@ -1248,7 +1266,7 @@ func _test_free_encounters_play_through() -> void:
 					gates += 1
 					check(node.is_open and not node.visible and node.collision_layer == 0 and node.get_child_count() == 0,
 						"%s: %s legacy gate is open, hidden, nonblocking and creates no wall, occluder or prompt" % [id, zone.data.id])
-			check(gates == 2 and not zone.data.lock_combat_area, "%s: both original boundary anchors of %s remain free (%d)" % [id, zone.data.id, gates])
+			check(gates == 0 and not zone.data.lock_combat_area, "%s: ordinary wave %s stays free without obsolete boundary nodes (%d)" % [id, zone.data.id, gates])
 			check(zone.living_members() > 0, "%s: %s still has true living encounter members" % [id, zone.data.id])
 			var guard := 0
 			while zone.state == &"active" and guard < 60 * 25:

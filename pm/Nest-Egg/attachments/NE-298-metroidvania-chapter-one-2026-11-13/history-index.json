@@ -1,0 +1,60 @@
+{
+  "base": "92521d0cf3c18bd3dad4b13a316844e70bfaecd0",
+  "generated_index": true,
+  "archives": [
+    {
+      "path": "history/cold-import-v1.zip",
+      "bytes": 4764295,
+      "sha256": "aad4f64b44de82f764a6ea88eca283a6e642c169f036c725dc6581141ab70ba7",
+      "scope": "Original engine epoch, not reclassified/replayed to green"
+    },
+    {
+      "path": "history/focused-v1.zip",
+      "bytes": 1468739,
+      "sha256": "b0f8b3867f46e693c9b948c4e756c94e68132a9ad57e92f415cc153257c73831",
+      "scope": "Original engine epoch, not reclassified/replayed to green"
+    },
+    {
+      "path": "history/focused-v2.zip",
+      "bytes": 1469068,
+      "sha256": "ed9bb7744485b48b87fe7f408e45fca90cc395dd92fd2d06a175c268d1c09d04",
+      "scope": "Original engine epoch, not reclassified/replayed to green"
+    },
+    {
+      "path": "history/focused-v3.zip",
+      "bytes": 1468311,
+      "sha256": "3567938287cc4953d165f44d01acd98fcdeb733b8098b2762b75b3ef2c73b66c",
+      "scope": "Original engine epoch, not reclassified/replayed to green"
+    },
+    {
+      "path": "history/native-parser-v1.zip",
+      "bytes": 1466949,
+      "sha256": "f00ffc6eb6539dff8e6310cbdddd4cc8153b53de68a932ae2ba07698a7105e46",
+      "scope": "Original engine epoch, not reclassified/replayed to green"
+    },
+    {
+      "path": "history/native-high-v1.zip",
+      "bytes": 22814708,
+      "sha256": "13cd5ae343c916ca322d91c0cdfe675425bc6d5938895d2a1c58f6ec35b851dd",
+      "scope": "Original engine epoch, not reclassified/replayed to green"
+    },
+    {
+      "path": "history/native-parser-v2.zip",
+      "bytes": 1467050,
+      "sha256": "891d16653997f7b99ebbd5aacd161351abdc39055495b1390eac77573fbaaf21",
+      "scope": "Original engine epoch, not reclassified/replayed to green"
+    },
+    {
+      "path": "history/cpu-and-source-epochs.zip",
+      "bytes": 2154980,
+      "sha256": "a7e382927d96d3ad9281940e54218e6e3e40705e0e85761e24f8bc44fd753c21",
+      "scope": "Original CPU raw/source candidates; statuses are per epoch"
+    }
+  ],
+  "source_boundaries": [
+    "coldimport and v6 double-suite green belong to their original sources",
+    "v7 native89/1 is a real partial failure; private source reconstructed only where explicitly documented and SHA-equal",
+    "v8 native152/0 high is separate from future integrated72/LOW"
+  ],
+  "owned_runtime_delivery": "native-v8-high/native-metadata.zip runtime21-source.zip"
+}

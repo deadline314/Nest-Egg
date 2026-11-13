@@ -4,6 +4,8 @@ extends TestSuite
 ## This catches a sampling baseline drifting into a wall after a map redesign.
 const PROBE := preload("res://tools/ch1_readability_check.gd")
 const ROSTER := "res://data/combat/chapter_rosters.json"
+const FRAMING := preload("res://tools/framing_probe.gd")
+const THROWABLES := preload("res://tools/scenarios/throwables_ch1_scenario.gd")
 
 
 func run() -> void:
@@ -38,6 +40,27 @@ func run() -> void:
 		check(seen.has(id), "all current campaign data are sampled: %s" % id)
 	check(seen.size() == roster["levels"].size(), "probe scope equals the canonical campaign level list")
 	probe.free()
+	# Framing shares authored standing points and must migrate with the campaign sampler.
+	for spot: Array in FRAMING.SPOTS:
+		var data := load("res://data/levels/%s.tres" % str(spot[0])) as LevelData
+		check(data != null, "framing probe level exists: %s" % str(spot[0]))
+		if data != null:
+			_check_floor(LevelBuilder.parse(data), str(spot[0]), "framing", int(spot[1]), int(spot[2]))
+	# These actual-input scenarios also consume the redesigned chapter's standing cells.
+	for beat: Dictionary in THROWABLES.BEATS:
+		var data := load(str(beat["level"])) as LevelData
+		check(data != null, "throwables probe level exists: %s" % str(beat["level"]))
+		if data == null:
+			continue
+		var layout := LevelBuilder.parse(data)
+		_check_floor(layout, String(data.id), "throwables " + str(beat["id"]), int(beat["start"]), int(beat["floor_row"]))
+		for step: Array in beat["throws"]:
+			var target: Vector2 = step[2]
+			var found := false
+			for spawn: Dictionary in layout.spawns:
+				if spawn["resource"] is EnemyData and spawn["cell"] == Vector2i(int(target.x), int(target.y)):
+					found = true
+			check(found, "%s/%s: throw target names a true placed enemy at %s" % [data.id, beat["id"], target])
 	var legacy := LevelBuilder.parse(load("res://data/levels/level_01.tres") as LevelData)
 	check(PROBE.probe_floor(legacy, 30, "屋頂巷弄") == 18.0 * legacy.tile_size, "legacy player probe stands on its upper roof")
 	check(PROBE.probe_floor(legacy, 36, "屋頂巷弄") == 15.0 * legacy.tile_size, "legacy enemy probe stands on its own adjacent roof")

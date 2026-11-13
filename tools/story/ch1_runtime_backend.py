@@ -113,8 +113,8 @@ UNPUBLISHED_QUESTS = {"ch1_next_morning", "sq6_ch1_cloth"}
 ## 任務步驟的地圖位置：指向完成這一步的人物、物件、機關或觸發點所在的格子（角色腳底那一格）。
 ## 關卡改了位置要一起改；tests/suite/test_ch1_map.gd 會逐步核對格子上真的是那個東西。
 QUEST_LOCATIONS = {
-    "dinner": ("pawnshop", 82, 19), "brief": ("rooftop", 54, 17), "street_clear": ("street", 182, 19),
-    "watchdog": ("warehouse", 58, 16), "flood": ("warehouse", 123, 22), "disk_pickup": ("vault", 40, 16),
+    "dinner": ("pawnshop", 82, 19), "brief": ("rooftop", 54, 49), "street_clear": ("street", 167, 36),
+    "watchdog": ("warehouse", 58, 48), "flood": ("warehouse", 123, 54), "disk_pickup": ("vault", 40, 28),
     "cabinet": ("handoff", 18, 19), "ali_lounge": ("lounge", 30, 19), "ali_stall": ("stall", 21, 19),
     "home": ("pawnshop_dawn", 74, 19), "voice": ("booth_alley", 29, 19),
     "label_watch": ("pawnshop", 34, 19), "label_guitar": ("pawnshop", 48, 19),

@@ -218,11 +218,11 @@ def _bindings(source):
     # These are honest authoring candidates, never proof of runtime reachability.
     entries = {
         "dinner": ("map_scene", "ST-9/ST-16/ST-22", "P06 safe exit -> ch1_pawnshop kitchen dinner", location("pawnshop", 82, 19), "real prologue safe exit and split bubble continuation"),
-        "brief": ("npc", "ST-9/ST-22", "ch1_rooftop Egret talks", location("rooftop", 54, 17), "bind complete briefing"),
-        "street_clear": ("mechanism", "level owner", "street arena_blockade/last required encounter", location("street", 182, 19), "map exact persistent clear producer"),
-        "watchdog": ("mechanism", "level owner", "warehouse watchdog_gate", location("warehouse", 58, 16), "channel event to flag"),
-        "flood": ("mechanism", "level owner", "warehouse flood_c", location("warehouse", 123, 22), "persistent mechanism state to flag"),
-        "disk_pickup": ("pickup", "ST-9/level owner", "vault legend y -> ch1_data_disk.tres", location("vault", 40, 16), "acquire history+world producer"),
+        "brief": ("npc", "ST-9/ST-22", "ch1_rooftop Egret talks", location("rooftop", 54, 49), "bind complete briefing"),
+        "street_clear": ("mechanism", "level owner", "street arena_blockade/last required encounter", location("street", 167, 36), "map exact persistent clear producer"),
+        "watchdog": ("mechanism", "level owner", "warehouse watchdog_gate", location("warehouse", 58, 48), "channel event to flag"),
+        "flood": ("mechanism", "level owner", "warehouse flood_c", location("warehouse", 123, 54), "persistent mechanism state to flag"),
+        "disk_pickup": ("pickup", "ST-9/level owner", "vault legend y -> ch1_data_disk.tres", location("vault", 40, 28), "acquire history+world producer"),
         "cabinet": ("object", "NE-178/ST-9", "lounge new exterior handoff cabinet", location("handoff", 18, 19), "exterior/staging/object absent"),
         "ali_lounge": ("npc", "ST-9/ST-22", "lounge Y -> ali talks", location("lounge", 30, 19), "conditions and explicit menu"),
         "ali_stall": ("npc", "ST-9/ST-22", "stall Q -> ali talks", location("stall", 21, 19), "explicit route and account result"),

@@ -1,0 +1,39 @@
+{
+  "scope": "NE298 authored sampling migration only; no renderer/runtime threshold changes",
+  "previous_native": "92521+21v8 HIGH152/0 remains original21, these3 not represented as native-tested",
+  "files": [
+    {
+      "path": "tools/ch1_readability_check.gd",
+      "before": {
+        "bytes": 1778,
+        "sha256": "117452dbc3edb022958e99dc596d13c7bb861f1203f33a273ae9690f51a43ca9"
+      },
+      "after": {
+        "bytes": 1878,
+        "sha256": "6ac31a60ea527cc7aaaa58f54ae9d246c5b2e4ddb6e483695d6b0a020e5dd43e"
+      }
+    },
+    {
+      "path": "tools/framing_probe.gd",
+      "before": {
+        "bytes": 17802,
+        "sha256": "5284686cc06b5b9debdfe937645bc0d51af409d2780c80b8d0e987ca6c8ff225"
+      },
+      "after": {
+        "bytes": 17802,
+        "sha256": "8d4645067c52a77d13e2476205f29cf6acfe5fb3efa912453ba050910d8222f8"
+      }
+    },
+    {
+      "path": "tests/suite/test_readability_targets.gd",
+      "before": {
+        "bytes": 3666,
+        "sha256": "1b0915aafb8bcfe2ae4acd114cf178aa5e2b2bc24df55ec2391942a0a1718971"
+      },
+      "after": {
+        "bytes": 4106,
+        "sha256": "f38e62d54246e1aa2701d306be19afd4a25f6034ec0511272ac994a12de79bfe"
+      }
+    }
+  ]
+}

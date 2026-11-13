@@ -128,7 +128,10 @@ class Grid:
                 f.write('    [\n' + ',\n'.join('      "' + r + '"' for r in seg) + '\n    ]' + (',' if si < len(segments) - 1 else '') + '\n')
             f.write('  ]')
             for key, value in (extra or {}).items():
-                f.write(',\n  "' + key + '": [\n' + ',\n'.join('    ' + json.dumps(v, ensure_ascii=False) for v in value) + '\n  ]')
+                if isinstance(value, list):
+                    f.write(',\n  "' + key + '": [\n' + ',\n'.join('    ' + json.dumps(v, ensure_ascii=False) for v in value) + '\n  ]')
+                else:
+                    f.write(',\n  "' + key + '": ' + json.dumps(value, ensure_ascii=False, allow_nan=False))
             f.write('\n}\n')
         with open(path, encoding='utf-8') as f:
             json.load(f)

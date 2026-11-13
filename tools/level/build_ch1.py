@@ -6,6 +6,8 @@
 用法：python3 tools/level/build_ch1.py
 """
 import json
+import copy
+import re
 import os
 import sys
 
@@ -669,7 +671,7 @@ def rooftop_shell(a):
     a.zone(0, 'rooftop')
 
 
-def build_rooftop():
+def _build_rooftop_v1():
     a = Area('rooftop', '屋頂', 72, 18)
     rooftop_shell(a)
     a.stand(3, 'T')
@@ -683,7 +685,7 @@ def build_rooftop():
     return a
 
 
-def build_street():
+def _build_street_v1():
     """港區街道（ST-11 重設計）：市集口（安全）→ 掩護教學 → 格擋 → 鎖場「街心」→ 近戰與高路 → 空襲 → 鎖場「路障」（迷你頭目）→ 裂縫牆秘密房 → 倉庫門。
     逐場遭遇與設計理由見 design/13-story-v2/CH01_PACING_V2.md §3.1。"""
     a = Area('street', '港區街道', 208, 20)
@@ -992,7 +994,7 @@ def slice_area(full, ident, name, x0, x1, pad_left, pad_right):
     return a
 
 
-def build_warehouse_pair():
+def _build_warehouse_pair_v1():
     """倉庫切成兩個區域：前半「碼頭倉庫」（前廳、閘門廳、水坑與坑對岸，切在保險箱鎖場之前）與後半「倉庫深處」（保險箱、階梯、上層走道）。
     水坑與它的閘門在同一張地圖裡（機關頻道不跨區域）。後半的開頭留 22 欄空地、一個存檔點，前半的結尾留 24 欄，鎖場與敵人離出入口都在 18 格以上。"""
     full = build_warehouse_full()
@@ -1351,16 +1353,16 @@ def render_overview(areas, out_dir):
 
 
 def report(areas):
-    total = locks = 0
+    total = waves = 0
     for a in areas:
         for e in a.encounters:
             total += 1
-            locks += 1 if e['lock'] else 0
-    print(f'遭遇 {total} 場，其中鎖場 {locks} 場')
+            waves += 1 if e['lock'] else 0
+    print(f'遭遇 {total} 場，其中波次區 {waves} 場；普通路線不鎖場')
     for a in areas:
         print(f'  {a.id}: {a.w}x{a.h} 格')
         if a.encounters:
-            print(f'  {a.id}: ' + '、'.join(f'{e["name"]}{"（鎖）" if e["lock"] else ""}' for e in a.encounters))
+            print(f'  {a.id}: ' + '、'.join(f'{e["name"]}{"（波）" if e["lock"] else ""}' for e in a.encounters))
 
 
 # ---------------------------------------------------------------------------
@@ -1512,6 +1514,220 @@ def write_level(area, theme_key=None, level_id=None, map_name=None, persist=True
     print('wrote', path)
 
 
+
+# NE298 authored room data: these wrappers preserve original content identities.
+# The chapter-two/three builders use the common shell, not these chapter-one rooms.
+def _retired_gate_glyphs(area):
+    """Read the existing gate owner contract; live combat gates are not removed."""
+    retired = set()
+    for encounter in area.encounters:
+        if not encounter.get('gate_char'):
+            continue
+        path = os.path.join(ENCOUNTER_DIR, f'{PREFIX}_arena_{encounter["key"]}.tres')
+        with open(path, encoding='utf8') as source:
+            text = source.read()
+        lock = re.search(r'^lock_combat_area\s*=\s*(.+)$', text, re.MULTILINE)
+        if (re.search(r'^kind\s*=\s*1\s*$', text, re.MULTILINE)
+                and re.search(r'^arena_gate\s*=\s*true\s*$', text, re.MULTILINE)
+                and (lock is None or lock.group(1).strip() == 'false')):
+            retired.add(encounter['gate_char'])
+    return retired
+
+
+def _v2_area(old):
+    path = os.path.join(LEVEL_DIR, 'ch1_layout_v2.json')
+    with open(path, encoding='utf-8') as source:
+        authored = json.load(source)
+    if not isinstance(authored, dict) or authored.get('version') != 2 or not isinstance(authored.get('areas'), dict) or old.id not in authored['areas']:
+        raise ValueError(f'{path}/{old.id}: missing layout revision 2')
+    spec = authored['areas'][old.id]
+    if not isinstance(spec, dict) or not isinstance(spec.get('geometry'), dict):
+        raise ValueError(f'{path}/{old.id}: expected an authored geometry object')
+    legacy = copy.deepcopy(spec.get('legacy_layout'))
+    if not isinstance(legacy, dict) or set(legacy) != {'revision', 'cell_offset', 'cells'} or not isinstance(legacy['cell_offset'], list) or len(legacy['cell_offset']) != 2 or not isinstance(legacy['cells'], dict) or len(legacy['cells']) > 4096:
+        raise ValueError(f'{path}/{old.id}/legacy_layout: expected revision, offset and bounded cell mapping')
+    dx, dy = legacy['cell_offset']
+    if type(legacy['revision']) is not int or legacy['revision'] != 1 or type(dx) is not int or type(dy) is not int:
+        raise ValueError(f'{path}/{old.id}/legacy_layout: invalid revision/offset')
+    area = Area(old.id, old.name, old.w, old.ground + dy, height=spec['height'], **old.options)
+    for key, point in legacy['cells'].items():
+        parts = key.split(',')
+        if len(parts) != 2 or not all(part.isdigit() for part in parts):
+            raise ValueError(f'{path}/{old.id}/cells/{key}: invalid old cell')
+        x, y = map(int, parts)
+        if key != f'{x},{y}' or not 0 <= x < old.w or not 0 <= y < old.h or old.grid.at(x, y) in '.#=':
+            raise ValueError(f'{path}/{old.id}/cells/{key}: no original content at this cell')
+        if not isinstance(point, list) or len(point) != 2:
+            raise ValueError(f'{path}/{old.id}/cells/{key}: expected two integer coordinates')
+        area.grid._point(*point)
+    area.hints = list(old.hints)
+    area.triggers = list(old.triggers)
+    area.encounters = copy.deepcopy(old.encounters)
+    area.zones = list(old.zones)
+    area.material_zones = list(old.material_zones)
+    area.regions = [dict(r, y0=r['y0'] + dy, y1=r['y1'] + dy) for r in old.regions]
+    area.props = copy.deepcopy(old.props)
+    area.legacy_props = prepare_props(old.props, old.id)
+    area.prop_floors = dict(spec.get('prop_floors', {}))
+    area.prop_overrides = copy.deepcopy(spec.get('prop_overrides', {}))
+    for prop in area.props:
+        if 'y' in prop:
+            prop['y'] += dy
+        if 'ceiling_row' in prop:
+            prop['ceiling_row'] += dy
+    area.combat, area.group = old.combat, old.group
+    area.features = dict(old.features)
+    area.legacy_layout = legacy
+    retired_gates = _retired_gate_glyphs(old)
+    area.retired_gate_glyphs = retired_gates
+    area.capability_targets = copy.deepcopy(spec.get('capability_targets', {}))
+    area.legacy_rows = old.grid.rows()
+    geometry = spec['geometry']
+    if not geometry.get('reset_geometry', False):
+        for y, row in enumerate(area.legacy_rows):
+            for x, char in enumerate(row):
+                area.grid.put(x + dx, y + dy, char if char in '.#=' else '.')
+    if geometry.get('fill_upper', 0):
+        area.block(0, area.w - 1, 0, geometry['fill_upper'] - 1)
+    for rect in geometry.get('clear', []):
+        area.clear(*rect)
+    for rect in geometry.get('blocks', []):
+        area.block(*rect)
+    for x0, x1, y in geometry.get('platforms', []):
+        area.platform(x0, x1, y)
+
+    def standing_row(x, preferred):
+        candidates = [y for y in range(HEADROOM - 1, area.h - 1)
+                      if area.grid.at(x, y + 1) in '#='
+                      and all(area.grid.at(x, y - k) not in '#=' for k in range(HEADROOM))]
+        if not candidates:
+            raise ValueError(f'{old.id}: no standing row for marker at x={x}')
+        return min(candidates, key=lambda y: abs(y - preferred))
+
+    for y, row in enumerate(area.legacy_rows):
+        for x, char in enumerate(row):
+            if char in '.#=':
+                continue
+            if char in retired_gates:
+                # Keep old-cell migration metadata and resource files, but the
+                # new room no longer places a hidden, noncolliding legacy door.
+                continue
+            key = f'{x},{y}'
+            nx, ny = legacy['cells'].get(key, [x + dx, y + dy])
+            if key not in legacy['cells'] and (char.isdigit() or char in '&H'):
+                ny = standing_row(nx, ny)
+            elif char == '*' and area.grid.at(nx, ny) in '#=':
+                ny = max(2, standing_row(nx, ny) - 4)
+            area.grid._point(nx, ny)
+            if area.grid.at(nx, ny) != '.':
+                raise ValueError(f'{old.id}/{key}/{char}: new cell ({nx},{ny}) occupied by {area.grid.at(nx, ny)!r}')
+            area.put(nx, ny, char)
+            if [nx, ny] != [x + dx, y + dy]:
+                legacy['cells'][key] = [nx, ny]
+    glyphs = {'vault_street':'↞', 'street_vault':'↠', 'street_roof':'↟', 'roof_maintenance':'↧'}
+    for portal in spec['portals']:
+        char = glyphs[portal['id']]
+        PORTALS[char] = dict(id=portal['id'], to='res://data/levels/' + portal['target_level'] + '.tres',
+                            target=portal['target_portal'], requires=portal['requires_flag'], mode=0,
+                            prompt='{interact} 走維修通道', locked='先拿到倉庫的資料盤，維修通道才會開放。', style='door', w=24, h=56)
+        area.put(*portal['cell'], char)
+    return area
+
+
+def build_rooftop():
+    area = _v2_area(_build_rooftop_v1())
+    area.features.update(loop='維修階梯接街道上層；資料盤取得後雙向開放', vertical='屋頂地面與維修出口兩層')
+    return area
+
+
+def build_street():
+    area = _v2_area(_build_street_v1())
+    area.features.update(loop='資料盤取得後，維修高路連屋頂與倉庫深處',
+                         vertical='低處街口、市集高臺、排水線與路障高路',
+                         reward='市集上方第23列信用點：取得空中再躍後回訪', landmark='上方維修管線與下方排水口')
+    return area
+
+
+def build_warehouse_pair():
+    front, back = _build_warehouse_pair_v1()
+    front, back = _v2_area(front), _v2_area(back)
+    front.features.update(vertical='保留水位閘門，通過後爬升至貨道頂部')
+    back.features.update(loop='上層維修門回港區街道；原交接出口仍保留', vertical='入口、資料盤平台、上層走道')
+    for name, x, y, channel in [('watchdog',73,48,'watchdog_gate'),('gate_a',90,48,'flood_a'),
+                                ('gate_b',112,48,'flood_b'),('gate_c',133,48,'flood_c')]:
+        front.route_gate(name, (x,x,y-9,y), mechanism=channel)
+    front.route_platform('flood_raft', (118,128,49,49), mechanism='flood_c')
+    back.hint(46, '取得資料盤後，在空中再按 {jump} 跳上高台；失手會落回這個平台，可再試一次。', row=20)
+    return front, back
+
+
+def _v2_route_checks(area):
+    """Named geometric snapshots; actual Player/portal usage is tested separately."""
+    start = next(( (x,y) for y in range(area.h) for x in range(area.w) if area.grid.at(x,y) == 'P'), None)
+    scenarios = {
+        'street': [('before_disk', RouteState('before_disk'), [('warehouse',(204,51))], []),
+                   ('after_disk_grid_bound', RouteState('after_disk_grid_bound', flags={'ledger_disk_obtained':True}, jump_tiles=10),
+                    [('vault_loop',(122,15)),('roof_loop',(46,15)),('reward',(100,23))], [])],
+        'rooftop': [('brief', RouteState('brief'), [('egret',(54,49)),('maintenance',(66,31))], [])],
+        'warehouse': [
+            ('watchdog', RouteState('watchdog', mechanisms={'watchdog_gate':False,'flood_a':False,'flood_b':False,'flood_c':False}), [('watchdog',(58,48))], [('exit',(162,16))]),
+            ('dry', RouteState('dry', mechanisms={'watchdog_gate':True,'flood_a':True,'flood_b':True,'flood_c':False}), [('plate',(123,54))], [('exit',(162,16))]),
+            ('flooded', RouteState('flooded', mechanisms={'watchdog_gate':True,'flood_a':True,'flood_b':True,'flood_c':True}), [('exit',(162,16))], [])],
+        'vault': [('before_disk', RouteState('before_disk'), [('disk',(40,28)),('handoff',(120,12)),
+                                                           ('street_loop',(116,12)),('secret',(118,28))], [])],
+    }
+    problems = []
+    for name, state, goals, forbidden in scenarios[area.id]:
+        problems += reachable(area, start, goals, state=state)
+        for target in forbidden:
+            if not reachable(area, start, [target], state=state):
+                problems.append(f'{area.id}/{name}: forbidden target {target[0]} is reachable')
+    return problems
+
+
+def _map_extra(area):
+    props = prepare_props(area.props, area.id)
+    if hasattr(area, 'legacy_layout'):
+        # In a tall room, the first platform from above is not necessarily this
+        # ground prop's floor. Select an authored solid floor and store its row.
+        contacts_path = os.path.join(ROOT, 'data/environment/scenery_contacts.json')
+        with open(contacts_path, encoding='utf-8') as source:
+            contacts = json.load(source)
+        for prop in props:
+            source_key = f'{prop["id"]}:{prop["x"]}'
+            prop.update(area.prop_overrides.get(source_key, {}))
+            if prop.get('support') == 'ceiling':
+                original = next(p for p in area.legacy_props if p['id'] == prop['id'] and p['x'] == prop['x'])
+                if 'ceiling_row' in original:
+                    prop['ceiling_row'] = original['ceiling_row'] + area.legacy_layout['cell_offset'][1]
+            if not prop.get('ground', False):
+                continue
+            ident = prop['id']
+            folder = ident.split('__', 1)[0]
+            path = os.path.join(ROOT, 'data/environment/scene_props', folder, ident + '.tres')
+            with open(path, encoding='utf-8') as source:
+                text = source.read()
+            match = re.search(r'^size\s*=\s*Vector2\(([^,]+),\s*([^\)]+)\)', text, re.MULTILINE)
+            if not match:
+                raise ValueError(f'{path}: missing PropData size')
+            width, height = map(float, match.groups())
+            center = min(area.w - 1, max(0, int(prop['x']) + int(width / TILE * 0.5)))
+            floor = area.prop_floors.get(source_key, area.grid.surface(center))
+            if floor is None:
+                raise ValueError(f'{area.id}/{ident}: no solid floor at x={center}')
+            prop['ground'] = False
+            prop['y'] = floor - 1
+            prop['dy'] = prop.get('dy', 0) + height * float(contacts.get(ident, {}).get('bottom_margin', 0))
+    extra = {'props': props}
+    if area.regions:
+        extra['regions'] = area.regions
+    if hasattr(area, 'legacy_layout'):
+        extra.update(layout_revision=2, legacy_layout=area.legacy_layout)
+        if area.capability_targets:
+            extra['capability_targets'] = area.capability_targets
+    return extra
+
+
 def main():
     write_data_files()
     write_training_files()
@@ -1524,7 +1740,7 @@ def main():
         start = next(((x, y) for y in range(a.h) for x in range(a.w) if a.grid.at(x, y) == 'P'), None)
         goals = [(a.grid.at(x, y), (x, y)) for y in range(a.h) for x in range(a.w)
                  if a.grid.at(x, y) in set(RES) | set(PORTALS) | {'C'} and a.grid.at(x, y) not in ('d', 'a', 'r', 's', 'v', 'W', 'X')]
-        problems += reachable(a, start, goals)
+        problems += _v2_route_checks(a) if hasattr(a, 'legacy_layout') else reachable(a, start, goals)
     if problems:
         print('\n'.join(problems))
         sys.exit(1)
@@ -1535,9 +1751,7 @@ def main():
     if '--render' in sys.argv:
         render_overview(areas, os.path.join(ROOT, 'pm', 'ST', 'images'))
     for a in areas:
-        extra = {"props": prepare_props(a.props, a.id)}
-        if a.regions:
-            extra["regions"] = a.regions
+        extra = _map_extra(a)
         a.grid.write(a.id, (LEVEL_DIR, f'{PREFIX}_{a.id}_map.json'), extra)
     by_id = {a.id: a for a in areas}
     write_level(by_id['prologue'], display_name='巢蛋當舖（試貨）', skip_portal='&"prologue_exit"',

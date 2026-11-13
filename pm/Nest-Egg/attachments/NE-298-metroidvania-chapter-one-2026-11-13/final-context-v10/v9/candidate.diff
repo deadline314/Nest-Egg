@@ -1,0 +1,58 @@
+--- a/tools/ch1_readability_check.gd
++++ b/tools/ch1_readability_check.gd
+@@ -1,16 +1,17 @@
+ extends "res://tools/readability_check.gd"
+ ## ST-6: current campaign geometry, including ST-14's warehouse split and dawn reuse, the prologue (ST-16) and the handoff (ST-9).
++## NE-298 layout v2: explicit real support rows, including the relocated market and upper walkway.
+ ## Shares ContrastProbe, sample count and thresholds with the existing chapter checker.
+ ## Safe areas have no enemy probe; combat areas use the chapter's existing sweeper.
+ ## 取樣的主角與敵人要站在同一側：閘門廳原本的敵人位置在關著的閘門另一邊，槍燈被閘門擋住（子彈也打不到），不算可讀性的樣本。
+ const PROBES := {
+ 	"ch1_prologue": [["工作桌", 24, 20], ["射擊線", 50, 20], ["訓練器", 85, 20]],
+ 	"ch1_pawnshop": [["後空地", 18, 20], ["店面", 55, 20], ["廚房", 88, 20]],
+-	"ch1_rooftop": [["屋頂水塔", 42, 18]],
+-	"ch1_street": [["市集", 60, 20], ["碼頭入口", 200, 20]],
++	"ch1_rooftop": [["屋頂水塔", 42, 50]],
++	"ch1_street": [["市集", 84, 32], ["碼頭入口", 200, 52]],
+ 	"ch1_booth_alley": [["電話亭", 26, 20]],
+-	"ch1_warehouse": [["看門狗前廳", 54, 17], ["閘門廳", 78, 17]],
+-	"ch1_vault": [["倉庫深處", 22, 17], ["上層走道", 83, 9]],
++	"ch1_warehouse": [["看門狗前廳", 52, 49], ["閘門廳", 78, 49]],
++	"ch1_vault": [["倉庫深處", 22, 49], ["上層走道", 83, 13]],
+ 	"ch1_handoff": [["交接櫃", 18, 20]],
+ 	"ch1_lounge": [["復原館", 25, 20]],
+ 	"ch1_stall": [["宵夜麵攤", 25, 20]],
+--- a/tools/framing_probe.gd
++++ b/tools/framing_probe.gd
+@@ -16,7 +16,7 @@
+ const DIFF_THRESHOLD := 0.04
+ ## 取樣點 [關卡, 欄, 地面列]：和第一章可讀性檢查同一批平地（室內、戶外、屋頂、倉庫）。
+ const SPOTS := [
+-	["ch1_pawnshop", 55, 20], ["ch1_street", 60, 20], ["ch1_rooftop", 42, 18], ["ch1_warehouse", 54, 17],
++	["ch1_pawnshop", 55, 20], ["ch1_street", 84, 32], ["ch1_rooftop", 42, 50], ["ch1_warehouse", 52, 49],
+ 	["ch1_lounge", 25, 20], ["ch1_stall", 25, 20],
+ ]
+ 
+--- a/tests/suite/test_readability_targets.gd
++++ b/tests/suite/test_readability_targets.gd
+@@ -4,6 +4,7 @@
+ ## This catches a sampling baseline drifting into a wall after a map redesign.
+ const PROBE := preload("res://tools/ch1_readability_check.gd")
+ const ROSTER := "res://data/combat/chapter_rosters.json"
++const FRAMING := preload("res://tools/framing_probe.gd")
+ 
+ 
+ func run() -> void:
+@@ -38,6 +39,12 @@
+ 		check(seen.has(id), "all current campaign data are sampled: %s" % id)
+ 	check(seen.size() == roster["levels"].size(), "probe scope equals the canonical campaign level list")
+ 	probe.free()
++	# Framing shares authored standing points and must migrate with the campaign sampler.
++	for spot: Array in FRAMING.SPOTS:
++		var data := load("res://data/levels/%s.tres" % str(spot[0])) as LevelData
++		check(data != null, "framing probe level exists: %s" % str(spot[0]))
++		if data != null:
++			_check_floor(LevelBuilder.parse(data), str(spot[0]), "framing", int(spot[1]), int(spot[2]))
+ 	var legacy := LevelBuilder.parse(load("res://data/levels/level_01.tres") as LevelData)
+ 	check(PROBE.probe_floor(legacy, 30, "屋頂巷弄") == 18.0 * legacy.tile_size, "legacy player probe stands on its upper roof")
+ 	check(PROBE.probe_floor(legacy, 36, "屋頂巷弄") == 15.0 * legacy.tile_size, "legacy enemy probe stands on its own adjacent roof")

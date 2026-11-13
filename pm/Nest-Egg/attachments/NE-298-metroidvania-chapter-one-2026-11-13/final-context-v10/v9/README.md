@@ -1,0 +1,15 @@
+# NE298 v9 sampling supplement
+
+原74來源正式87組：99,481checks／20new／0known，Root已報sourceexact；原shard0的13項全是ReadabilityTargetsSuite硬編舊坐標。原來源與log保留，不改21v8已封79MB或原生152/0收據。
+
+本增量只改三檔：章一取樣表七點、framing同類三點、既有ReadabilityTargetsSuite新增framing支撐與四格headroom回歸。原floor/body/headroom檢查、原敵人距離96px、原取樣角度與contrast閾值均未改。candidate24-manifest.json的files精確列原21v8與新三檔，沒有把另三票算進本票來源。
+
+CPU按真JSONsegments拼接，重播原floor/四格headroom契約得13個原錯誤、新0；六個framing點全有真floor/headroom。三個RAM負控（移除floor／塞入headroom／越界）全拒絕。這僅CPU幾何校對，不是Godot測試或原生contrast綠；Root統一focused／formal與視覺門禁。
+
+新點：roof42/50；street84/32和200/52；warehouse52/49和78/49；vault22/49和83/13。street60/52的foe66被新高臺實牆埋住，故不能盲+32；vault83/41也不是新upperwalkway13。warehouse前廳52讓foe58與實際barrel61留三格，仍同在watchdoggate73左側，沒有改96px間距。現場桶／門／道具的實體碰撞仍以新原生standing guard為準，不以此CPU宣稱通過。
+
+真正共用caller：ReadabilityTargetsSuite直接讀PROBES；harbor_readability_probe繼承該表，bg49_world繼承harbor；bg49_held讀同PROBES，framing有獨立SPOTS故同步遷移並新增永久回歸。verify_bg49_held/verify_bg49_delivery讀封存source表，不改舊artifact或reader。ExposureSuite使用獨立arena fixture／lighting profiles，不是這13個FAIL；PoseMeshSuite沒有這批CH1座標。
+
+另發現歷史截圖scenario chapter_roster的street98/20與throwables_ch1的舊throw目標高度未遷移；它們不是此次共用readability/framing caller或已跑的正式失敗，不冒稱其舊scenario已可在新地圖重錄。本補件不新增此類舊畫面驗收、不改其歷史artifact。Watchdog三scenario依真actor/anchor取得位置，沒有本表的七個硬編站立row。
+
+未啟動engine/import/parser/native；primary runtime／PM／index均未改。

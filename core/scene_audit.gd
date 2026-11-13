@@ -372,12 +372,19 @@ static func _buried_depth(layout: LevelLayout, rect: Rect2) -> float:
 
 ## 從主角起點走、跳、落得到的站點集合（格座標 → true）。閘門視為打開，升降梯與光橋視為平台，水坑視為漲滿。
 static func reachable_cells(layout: LevelLayout, extra_platforms: Array[Vector2i] = []) -> Dictionary:
+	return _reachable_cells(layout, extra_platforms, JUMP_UP_CELLS, false)
+
+
+static func _reachable_cells(layout: LevelLayout, extra_platforms: Array[Vector2i], jump_up: int, strict_arc: bool) -> Dictionary:
+	# Preserve the original ordinary model; the new ability screen must fit the
+	# actual Player collider (currently44px), not the legacy two-cell estimate.
+	var body_cells := maxi(BODY_CELLS, ceili(Player.BODY_SIZE.y / float(layout.tile_size))) if strict_arc else BODY_CELLS
 	var extra: Dictionary = {}
 	for cell in extra_platforms:
 		extra[cell] = true
 	var start_x := int(floorf(layout.player_start.x / layout.tile_size))
 	var start_y := int(ceilf(layout.player_start.y / layout.tile_size)) - 1
-	var start := _land(layout, extra, Vector2i(start_x, start_y))
+	var start := _land(layout, extra, Vector2i(start_x, start_y), body_cells)
 	var seen: Dictionary = {}
 	if start.x < 0:
 		return seen
@@ -389,19 +396,80 @@ static func reachable_cells(layout: LevelLayout, extra_platforms: Array[Vector2i
 			var nx := at.x + dx
 			if nx < 1 or nx >= layout.width - 1:
 				continue
-			for dy in range(-JUMP_UP_CELLS, 1):
+			for dy in range(-jump_up, 1):
 				var ty := at.y + dy
-				if ty < 0 or not _free_body(layout, nx, ty):
+				if ty < 0 or not _free_body(layout, nx, ty, body_cells):
 					continue
 				if dy < 0 and _column_blocked(layout, at.x, at.y - 1, ty):
 					continue
 				if absi(dx) > 1 and dy == 0 and _row_blocked(layout, at.x, nx, at.y):
 					continue
-				var node := Vector2i(nx, ty) if _supported(layout, extra, nx, ty) else _land(layout, extra, Vector2i(nx, ty))
+				if strict_arc:
+					var clear := true
+					for xx in range(mini(at.x, nx), maxi(at.x, nx) + 1):
+						if not _free_body(layout, xx, ty, body_cells):
+							clear = false
+							break
+					if not clear:
+						continue
+				var node := Vector2i(nx, ty) if _supported(layout, extra, nx, ty) else _land(layout, extra, Vector2i(nx, ty), body_cells)
 				if node.x >= 0 and not seen.has(node):
 					seen[node] = true
 					stack.append(node)
 	return seen
+
+
+## Only the implemented NE296 extra jump is recognized. This is an upper-bound
+## screen, not proof of controllable timing; native before/after input is required.
+static func _air_jump_bound(tuning: PlayerTuning, tile: int, height: int) -> int:
+	if tuning == null or tile < 1:
+		return 0
+	for value in [tuning.jump_velocity, tuning.gravity, tuning.apex_speed_threshold, tuning.apex_gravity_multiplier]:
+		if not is_finite(value):
+			return 0
+	if tuning.jump_velocity <= 0.0 or tuning.gravity <= 0.0 or tuning.apex_gravity_multiplier <= 0.0 or tuning.apex_speed_threshold < 0.0:
+		return 0
+	# Hold-jump ascent: ordinary gravity above the apex threshold, then the
+	# same slow-apex gravity as Player._apply_gravity. One extra jump resets v.
+	var slow := minf(tuning.jump_velocity, tuning.apex_speed_threshold)
+	var ascent := (tuning.jump_velocity * tuning.jump_velocity - slow * slow) / (2.0 * tuning.gravity)
+	ascent += slow * slow / (2.0 * tuning.gravity * tuning.apex_gravity_multiplier)
+	return mini(height, ceili(2.0 * ascent / float(tile))) if is_finite(ascent) else 0
+
+
+static func _validate_capability_targets(raw: Variant, data: LevelData, layout: LevelLayout, targets: Array[Dictionary], tuning: PlayerTuning, issues: Array[Dictionary]) -> Dictionary:
+	var where := "%s capability_targets" % data.id
+	if not raw is Dictionary or raw.size() > 32:
+		_add(issues, ERROR, "capability_target", where, "必須是最多32個明確格位的物件")
+		return {}
+	var result: Dictionary = {}
+	var cells: Dictionary = {}
+	for target in targets:
+		cells[target["cell"]] = target
+	for key: Variant in raw:
+		var problem := ""
+		var point := Vector2i(-1, -1)
+		if key is String:
+			var parts: PackedStringArray = String(key).split(",")
+			if parts.size() == 2 and parts[0].is_valid_int() and parts[1].is_valid_int():
+				point = Vector2i(int(parts[0]), int(parts[1]))
+		if not key is String or key != "%d,%d" % [point.x, point.y] or point.x < 0 or point.y < 0 or point.x >= layout.width or point.y >= layout.height or not cells.has(point):
+			problem = "格位必須精確對應圖中的真實目標"
+		else:
+			var entry: Variant = raw[key]
+			if not entry is Dictionary or entry.size() != 2 or not entry.has("ability") or not entry.has("flag") or not entry["ability"] is String or entry["ability"] != "air_jump":
+				problem = "只支援air_jump與flag兩個欄位"
+			elif not entry["flag"] is String or tuning == null or tuning.air_jump_unlock_flag == &"" or entry["flag"] != String(tuning.air_jump_unlock_flag):
+				problem = "flag必須符合實際PlayerTuning.air_jump_unlock_flag"
+			else:
+				var resource: Variant = cells[point].get("resource")
+				if resource is PortalData and String(resource.requires_flag) != entry["flag"]:
+					problem = "回程入口的真實旗標條件不符"
+		if not problem.is_empty():
+			_add(issues, ERROR, "capability_target", "%s/%s" % [where, str(key)], problem)
+			return {}  # Never partly accept malformed metadata.
+		result[point] = true
+	return result
 
 
 static func _check_reachability(data: LevelData, layout: LevelLayout, issues: Array[Dictionary]) -> void:
@@ -414,12 +482,28 @@ static func _check_reachability(data: LevelData, layout: LevelLayout, issues: Ar
 	for spawn in layout.spawns:
 		var res := spawn["resource"] as Resource
 		if res is PortalData or res is NpcData or res is ShopData or res is ConsumableData or res is StoryItemData or res is CreditPileData:
-			targets.append({"label": "%s %s" % [_kind_of(res), _name_of(res)], "cell": spawn["cell"]})
+			targets.append({"label": "%s %s" % [_kind_of(res), _name_of(res)], "cell": spawn["cell"], "resource": res})
 	for point in layout.checkpoints:
 		targets.append({"label": "checkpoint", "cell": Vector2i(int(point.x / layout.tile_size), int(ceilf(point.y / layout.tile_size)) - 1)})
+	var capability: Dictionary = {}
+	var late_seen: Dictionary = {}
+	var late_bound := 0
+	if not data.layout_path.is_empty() and ResourceLoader.exists(data.layout_path):
+		var json := load(data.layout_path) as JSON
+		if json != null and json.data is Dictionary and json.data.has("capability_targets"):
+			var tuning := load("res://data/player/player_tuning.tres") as PlayerTuning
+			capability = _validate_capability_targets(json.data["capability_targets"], data, layout, targets, tuning, issues)
+			late_bound = _air_jump_bound(tuning, layout.tile_size, layout.height)
+			if not capability.is_empty() and late_bound > JUMP_UP_CELLS:
+				late_seen = _reachable_cells(layout, extra, late_bound, true)
+			elif not capability.is_empty():
+				_add(issues, ERROR, "capability_target", data.id, "空中再躍調校沒有有效的可達上界")
 	for target in targets:
 		if not _near_seen(seen, target["cell"]):
-			_add(issues, WARN, "unreachable", "%s %s" % [data.id, _cell_text(target["cell"])], "%s 從起點走不到（跳 %d 格高、%d 格遠內）" % [target["label"], JUMP_UP_CELLS, JUMP_ACROSS_CELLS])
+			if not capability.has(target["cell"]) or not _near_seen(late_seen, target["cell"]):
+				_add(issues, WARN, "unreachable", "%s %s" % [data.id, _cell_text(target["cell"])], "%s 從起點走不到（跳 %d 格高、%d 格遠內）" % [target["label"], late_bound if capability.has(target["cell"]) else JUMP_UP_CELLS, JUMP_ACROSS_CELLS])
+		elif capability.has(target["cell"]):
+			_add(issues, ERROR, "capability_target", "%s %s" % [data.id, _cell_text(target["cell"])], "能力目標在取得前已能到達")
 
 
 ## 升降梯在行程頂端、光橋與水坑浮橋額外多出來的可站格。
@@ -453,18 +537,18 @@ static func _supported(layout: LevelLayout, extra: Dictionary, x: int, y: int) -
 	return _supports(layout.cell(x, y + 1)) or extra.has(Vector2i(x, y + 1))
 
 
-static func _free_body(layout: LevelLayout, x: int, y: int) -> bool:
-	for k in BODY_CELLS:
+static func _free_body(layout: LevelLayout, x: int, y: int, body_cells: int = BODY_CELLS) -> bool:
+	for k in body_cells:
 		if layout.cell(x, y - k) == SOLID:
 			return false
 	return true
 
 
-static func _land(layout: LevelLayout, extra: Dictionary, from: Vector2i) -> Vector2i:
+static func _land(layout: LevelLayout, extra: Dictionary, from: Vector2i, body_cells: int = BODY_CELLS) -> Vector2i:
 	var y := from.y
 	while y < layout.height - 1 and not _supported(layout, extra, from.x, y):
 		y += 1
-	if y >= layout.height - 1 or not _free_body(layout, from.x, y):
+	if y >= layout.height - 1 or not _free_body(layout, from.x, y, body_cells):
 		return Vector2i(-1, -1)
 	return Vector2i(from.x, y)
 

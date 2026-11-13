@@ -1,0 +1,97 @@
+{
+  "base": "92521d0cf3c18bd3dad4b13a316844e70bfaecd0",
+  "owned": {
+    "tools/level/build_ch1.py": {
+      "size": 100081,
+      "sha256": "d31b85ba96298e194e81cbfbf399da7ebea78780337860146cb6ef168d7ac9a6"
+    },
+    "tools/level/level_kit.py": {
+      "size": 6060,
+      "sha256": "3a0b6a2281bede7868dabf5e69169c02c7a53f90a78a1a73d5fcf91be855c969"
+    },
+    "tools/level/test_level_kit.py": {
+      "size": 18701,
+      "sha256": "6f05339940b158111b000cd4b6fe30b3c2f1a5d3c58ff9e6942cd6422a0adcc5"
+    },
+    "core/scene_audit.gd": {
+      "size": 32785,
+      "sha256": "4e2b9dc1f3e487a4fbf3fa32d387df4b42739c527da13239b347f02c8a391a43"
+    },
+    "tests/suite/test_scene_sanity.gd": {
+      "size": 32411,
+      "sha256": "14acc28a8c70b9f96b84ea58f430c66f13c934572fbc74e2b9038c93037d87f4"
+    },
+    "tests/suite/test_ch1_map.gd": {
+      "size": 86327,
+      "sha256": "628a8ddc4811fa22fa7622809e6a36d0f6bc85b9214423cb735994a29d27b3f0"
+    },
+    "tools/story/ch1_closure.py": {
+      "size": 76013,
+      "sha256": "e55da1de468ba9218aed8439bb44cb667cf3474cbda8849eaceec87be721a242"
+    },
+    "tools/story/ch1_runtime_backend.py": {
+      "size": 39988,
+      "sha256": "48567c45b4d9941b392b14d52f6e729c6370193e2ce0a992440200f9f3754e12"
+    },
+    "data/story/ch1_kasa.json": {
+      "size": 269123,
+      "sha256": "a4a195bbe20fd0d5ecb155aa07c442e8ea9a4e8b3712e1a9febecd448feca2f9"
+    },
+    "data/levels/ch1_layout_v2.json": {
+      "size": 10032,
+      "sha256": "9d27fd8213b681d055beed21bca3c1b5515924a0e105c46d14c6c54053dd071c"
+    },
+    "tests/fixtures/ch1_layout_v1_cells.json": {
+      "size": 20169,
+      "sha256": "3990d9036d20606906b44bad2cbf2d164cffd47ace7a4af4b5470db7e6650d14"
+    },
+    "design/21-metroidvania/CHAPTER1.md": {
+      "size": 10125,
+      "sha256": "1dee3bee18d7738b55b01288ec1b550c92c78ccbfcdda1eec765c8e2bc183a40"
+    },
+    "data/levels/ch1_design.json": {
+      "size": 8146,
+      "sha256": "b935052c6d7239a41fa6eef7e83d8b4a73637e6cf11ca8f204002f85d9ef0b1e"
+    },
+    "data/levels/ch1_rooftop.tres": {
+      "size": 2229,
+      "sha256": "f2acbaeabf5c3986510a3b3c281c00d1d732859a0d9f20aa0096628a6fc3d5cb"
+    },
+    "data/levels/ch1_rooftop_map.json": {
+      "size": 6006,
+      "sha256": "c03e16854c1ca1862b54102435ea91d7574bd5b18bd229f6eeeeffb4de93e62e"
+    },
+    "data/levels/ch1_street.tres": {
+      "size": 6827,
+      "sha256": "507556b9cf34eb3fb6d83d3efe691794b8bed0f40ff008c2201acddf6970748b"
+    },
+    "data/levels/ch1_street_map.json": {
+      "size": 16444,
+      "sha256": "155d5461b3f2d3cbc8e78b8498d6ac3cc1fb0265d1bf8175a07ea19a78fc444e"
+    },
+    "data/levels/ch1_warehouse.tres": {
+      "size": 4955,
+      "sha256": "e873b1d81c8a56c343c1bf66d78ab5f267fa6362a9fc2ba789227de374fe14f6"
+    },
+    "data/levels/ch1_warehouse_map.json": {
+      "size": 12910,
+      "sha256": "6441a104fa45dca255cfd9ef4b5b7d003ade4f4561ebec1aa1ab8a7995ee3e0a"
+    },
+    "data/levels/ch1_vault.tres": {
+      "size": 4040,
+      "sha256": "a1c8356dbb48935bd95c82a0df6c2a61d4baa3100446da41571a771ed99c5ba2"
+    },
+    "data/levels/ch1_vault_map.json": {
+      "size": 9586,
+      "sha256": "e4938a6667654df06d3fb5a8c035de9767a54717b6d30b87f15242917e8d11d7"
+    }
+  },
+  "published_dependencies": {
+    "game/player/player.gd": "399d44009fef7c7c330c2c3018c46c3868271a10770525f7bfac0459c30752ca",
+    "data/scripts/player_tuning.gd": "cf08ec75daf5844b00d061115072d42dabba2c8ecddee0589ddad9d6cb66cbb4",
+    "data/player/player_tuning.tres": "d85f04607309e2265efa021f71d4a448a3c23a50ee9ed19faa6000f2ce3bc453"
+  },
+  "engine_tested": false,
+  "previous_native": "native-high-v1 on v7:89/1 partial11 images, preserved",
+  "mapping": "../mapping-actual-v8.json"
+}

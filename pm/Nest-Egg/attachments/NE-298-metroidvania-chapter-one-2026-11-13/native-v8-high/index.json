@@ -1,0 +1,95 @@
+{
+  "kind": "NE298 v8 high source92521+owned21; not four-ticket integrated native",
+  "engine_receipt": {
+    "mode": "native_high",
+    "base": "92521d0cf3c18bd3dad4b13a316844e70bfaecd0",
+    "exit": 0,
+    "seconds": 58.241,
+    "engine_started": true,
+    "owned_pid": 31624,
+    "error": null,
+    "output_error": null,
+    "checks": 152,
+    "failures": 0,
+    "capture_files_check": {
+      "capture_files_verified": 21,
+      "scope": "File and actual recorded ledger contract only. Separate engine/source/queue receipt and original verify_capture_precision pixel pass are required."
+    },
+    "diagnostics": [],
+    "source_before_count": 10185,
+    "source_after_count": 10185,
+    "changed": [],
+    "removed": [],
+    "added": [],
+    "parser_uid_additions": [],
+    "c_unchanged": true,
+    "four_queue_gates": true,
+    "accepted": true
+  },
+  "chunks": [
+    {
+      "path": "pixels-00.zip",
+      "bytes": 14389459,
+      "sha256": "cbd98099dd32d70ed81f3569fbbc2071ff0e9412faa6aaf671970af4ac641e7f",
+      "captures": [
+        "vault-locked-air",
+        "vault-locked-landed",
+        "vault-earned-air",
+        "vault-earned-landed",
+        "street-locked-air",
+        "street-locked-landed"
+      ]
+    },
+    {
+      "path": "pixels-01.zip",
+      "bytes": 11029499,
+      "sha256": "088b4cd91c25e59c86ec3d1a39daa70e23500572e69983648411188d5750bbe1",
+      "captures": [
+        "street-earned-air",
+        "street-earned-landed",
+        "street-ordinary-step",
+        "warehouse-ordinary-step",
+        "vault-ordinary-step",
+        "rooftop-ordinary-step"
+      ]
+    },
+    {
+      "path": "pixels-02.zip",
+      "bytes": 9442433,
+      "sha256": "68d3f3b45ed50ba752ca179215a32ba63f4550a618c2f7d5931234ac7ddf3fd7",
+      "captures": [
+        "view-street-4-51",
+        "view-street-124-36",
+        "view-warehouse-77-48",
+        "view-warehouse-148-16",
+        "view-vault-43-28",
+        "view-vault-116-12"
+      ]
+    },
+    {
+      "path": "pixels-03.zip",
+      "bytes": 5183047,
+      "sha256": "70a1a91a0ff585ee88c74bfad923221d411a91b695b906cdeae16f2ae6202342",
+      "captures": [
+        "view-rooftop-48-49",
+        "view-rooftop-66-31",
+        "air-jump-guide"
+      ]
+    }
+  ],
+  "precision_verifier_sha256": "4039cbea2aae881d4c395ae64d85086c11827a1a8aa15e49dac97be8aebe111e",
+  "metadata": {
+    "path": "native-metadata.zip",
+    "bytes": 1686128,
+    "sha256": "d53a1117b1dccec081f1ba44a37f6fa9a8804447d2a4028a5372097595975dab"
+  },
+  "capture_count": 21,
+  "pixels_verified": 19353600,
+  "all_originals_unchanged": true,
+  "scope": "Automated actual Input/physics and arranged representative views/progress; no natural campaign, physical controller, performance, head-alpha/exposure or integrated72-source claim.",
+  "private_source": {
+    "path": "private-source.zip",
+    "bytes": 11468,
+    "sha256": "9f75e553237e80c01e2632faa161bb601879f887fb93ded69d0bbf2ee298c845"
+  }
+}

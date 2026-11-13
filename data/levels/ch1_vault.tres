@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=22 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=21 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="2_portal_data"]
@@ -12,12 +12,10 @@
 [ext_resource type="Resource" path="res://data/story_items/ch1_data_disk.tres" id="10_ch1_data_disk"]
 [ext_resource type="Resource" path="res://data/enemies/ch1_inspector.tres" id="11_ch1_inspector"]
 [ext_resource type="Resource" path="res://data/props/ch1_enc_warehouse_vault.tres" id="12_ch1_enc_warehouse_vault"]
-[ext_resource type="Resource" path="res://data/props/ch1_arena_warehouse_vault.tres" id="13_ch1_arena_warehouse_vault"]
-[ext_resource type="Resource" path="res://data/props/ch1_enc_warehouse_walkway.tres" id="14_ch1_enc_warehouse_walkway"]
-[ext_resource type="Resource" path="res://data/props/ch1_arena_warehouse_walkway.tres" id="15_ch1_arena_warehouse_walkway"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="16_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/warehouse_interior.tres" id="17_warehouse_interior"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch1_vault.tres" id="18_ch1_vault"]
+[ext_resource type="Resource" path="res://data/props/ch1_enc_warehouse_walkway.tres" id="13_ch1_enc_warehouse_walkway"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="14_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/warehouse_interior.tres" id="15_warehouse_interior"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch1_vault.tres" id="16_ch1_vault"]
 
 [sub_resource type="Resource" id="Resource_0"]
 script = ExtResource("2_portal_data")
@@ -40,17 +38,29 @@ height = 44
 style = "road"
 
 [sub_resource type="Resource" id="Resource_2"]
-script = ExtResource("16_lighting_zone")
+script = ExtResource("2_portal_data")
+id = &"vault_street"
+target_level = "res://data/levels/ch1_street.tres"
+target_portal = &"street_vault"
+requires_flag = &"ledger_disk_obtained"
+locked_text = "先拿到倉庫的資料盤，維修通道才會開放。"
+prompt = "{interact} 走維修通道"
+width = 24
+height = 56
+style = "door"
+
+[sub_resource type="Resource" id="Resource_3"]
+script = ExtResource("14_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("17_warehouse_interior")
+profile = ExtResource("15_warehouse_interior")
 
 [resource]
 script = ExtResource("1_level_data")
 id = &"ch1_vault"
 display_name = "倉庫深處"
 tile_size = 16
-height = 24
+height = 56
 legend = Dictionary[String, Resource]({
 "L": SubResource("Resource_0"),
 "M": SubResource("Resource_1"),
@@ -64,16 +74,15 @@ legend = Dictionary[String, Resource]({
 "y": ExtResource("10_ch1_data_disk"),
 "z": ExtResource("11_ch1_inspector"),
 "ε": ExtResource("12_ch1_enc_warehouse_vault"),
-"ζ": ExtResource("13_ch1_arena_warehouse_vault"),
-"η": ExtResource("14_ch1_enc_warehouse_walkway"),
-"θ": ExtResource("15_ch1_arena_warehouse_walkway")
+"η": ExtResource("13_ch1_enc_warehouse_walkway"),
+"↞": SubResource("Resource_2")
 })
-hints = PackedStringArray("保險箱裡有一片資料盤，拿到後就能從上層通道離開。")
+hints = PackedStringArray("保險箱裡有一片資料盤，拿到後就能從上層通道離開。", "取得資料盤後，在空中再按 {jump} 跳上高台；失手會落回這個平台，可再試一次。")
 chapter = &"ch1_kasa"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("18_ch1_vault")
+environment = ExtResource("16_ch1_vault")
 layout_path = "res://data/levels/ch1_vault_map.json"
-lighting_zones = Array[ExtResource("16_lighting_zone")]([SubResource("Resource_2")])
+lighting_zones = Array[ExtResource("14_lighting_zone")]([SubResource("Resource_3")])
 story_triggers = PackedStringArray("ch1_g10_disk")
 death_credit_cap = 250

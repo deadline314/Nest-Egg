@@ -16,7 +16,7 @@ const COLUMN_HALF_WIDTH := 10.0
 const DIFF_THRESHOLD := 0.04
 ## 取樣點 [關卡, 欄, 地面列]：和第一章可讀性檢查同一批平地（室內、戶外、屋頂、倉庫）。
 const SPOTS := [
-	["ch1_pawnshop", 55, 20], ["ch1_street", 60, 20], ["ch1_rooftop", 42, 18], ["ch1_warehouse", 54, 17],
+	["ch1_pawnshop", 55, 20], ["ch1_street", 84, 32], ["ch1_rooftop", 42, 50], ["ch1_warehouse", 52, 49],
 	["ch1_lounge", 25, 20], ["ch1_stall", 25, 20],
 ]
 

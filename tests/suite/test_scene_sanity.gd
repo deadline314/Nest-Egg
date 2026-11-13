@@ -11,6 +11,7 @@ func run() -> void:
 	_test_standing()
 	_test_ladders()
 	_test_reachability()
+	_test_capability_reachability()
 	_test_links()
 	_test_stages()
 	_test_stage_fit()
@@ -274,6 +275,68 @@ func _test_reachability() -> void:
 	var floating := _layout(rows, Vector2i(1, 13))
 	_spawn(floating, _portal("door", 44, "high"), Vector2i(7, 4))
 	check(_codes(SceneAudit.audit(_data(), floating)).has("unreachable"), "a door on an unreachable platform is reported")
+
+
+
+## NE298: late geometry annotations validate one real ability; no blanket skip.
+func _test_capability_reachability() -> void:
+	var tuning := load("res://data/player/player_tuning.tres") as PlayerTuning
+	var rows: Array[String] = []
+	for y in 32:
+		rows.append(".".repeat(24))
+	rows[24] = "#".repeat(24)
+	rows[16] = "........====............"
+	var layout := _layout(rows, Vector2i(2, 23))
+	var target := Vector2i(10, 15)
+	var targets: Array[Dictionary] = [{"cell": target, "resource": CreditPileData.new()}]
+	var data := _data("late_fixture")
+	var issues: Array[Dictionary] = []
+	var raw := {"10,15": {"ability": "air_jump", "flag": String(tuning.air_jump_unlock_flag)}}
+	var valid := SceneAudit._validate_capability_targets(raw, data, layout, targets, tuning, issues)
+	check(issues.is_empty() and valid.has(target), "the actual extra-jump flag can describe a real late pickup")
+	check(not SceneAudit.reachable_cells(layout).has(target), "an annotated eight-cell ledge remains unreachable before the ability")
+	var bound := SceneAudit._air_jump_bound(tuning, layout.tile_size, layout.height)
+	check(bound >= 8 and bound <= layout.height, "the finite actual tuning supplies a bounded extra-jump screen")
+	check(SceneAudit._reachable_cells(layout, [], bound, true).has(target), "the late ledge passes the bounded post-ability geometry screen")
+	for bad in [
+		{"10,15": {"ability": "air_jump", "flag": "unknown_flag"}},
+		{"10,15": {"ability": "flight", "flag": String(tuning.air_jump_unlock_flag)}},
+		{"10,15": {"ability": "air_jump", "flag": String(tuning.air_jump_unlock_flag), "jump": 999}},
+		{"": {"ability": "air_jump", "flag": String(tuning.air_jump_unlock_flag)}},
+		{"99,15": {"ability": "air_jump", "flag": String(tuning.air_jump_unlock_flag)}},
+		{"11,10": {"ability": "air_jump", "flag": String(tuning.air_jump_unlock_flag)}},
+		{"010,15": {"ability": "air_jump", "flag": String(tuning.air_jump_unlock_flag)}}]:
+		issues.clear()
+		var refused := SceneAudit._validate_capability_targets(bad, data, layout, targets, tuning, issues)
+		check(refused.is_empty() and _codes(issues).has("capability_target"), "a malformed or unowned late target is rejected: %s" % bad)
+	var portal := _portal("door", 56)
+	portal.requires_flag = &"different_condition"
+	issues.clear()
+	var portal_targets: Array[Dictionary] = [{"cell":target, "resource":portal}]
+	check(SceneAudit._validate_capability_targets(raw, data, layout, portal_targets, tuning, issues).is_empty() and not issues.is_empty(), "a return door must use the same actual unlock flag")
+	var wall_rows := rows.duplicate()
+	for y in 24:
+		wall_rows[y] = wall_rows[y].substr(0, 6) + "#" + wall_rows[y].substr(7)
+	var wall := _layout(wall_rows, Vector2i(2, 23))
+	check(not SceneAudit._reachable_cells(wall, [], bound, true).has(target), "an extra jump does not pass through a full-height wall")
+	var high_rows: Array[String] = []
+	for y in 32:
+		high_rows.append(".".repeat(24))
+	high_rows[31] = "#".repeat(24)
+	high_rows[6] = "........====............"
+	var too_high := _layout(high_rows, Vector2i(2, 30))
+	check(not SceneAudit._reachable_cells(too_high, [], bound, true).has(Vector2i(10,5)), "an annotation does not grant unlimited jump height")
+	var invalid_tuning := tuning.duplicate(true) as PlayerTuning
+	invalid_tuning.gravity = 0.0
+	check(SceneAudit._air_jump_bound(invalid_tuning, 16, 32) == 0, "invalid gravity cannot produce an unlimited capability bound")
+	var low_roof_rows: Array[String] = []
+	for y in 16:
+		low_roof_rows.append(".".repeat(24))
+	low_roof_rows[9] = "#".repeat(24)
+	low_roof_rows[12] = "#".repeat(24)
+	var low_roof := _layout(low_roof_rows, Vector2i(2,11))
+	check(SceneAudit.reachable_cells(low_roof).has(Vector2i(10,11)), "the retained legacy two-cell model accepts its historical corridor diagnostic")
+	check(ceili(Player.BODY_SIZE.y / 16.0) == 3 and not SceneAudit._reachable_cells(low_roof, [], bound, true).has(Vector2i(10,11)), "the new late route refuses a ceiling which clips the actual44px body")
 
 
 # ---------------------------------------------------------------------------

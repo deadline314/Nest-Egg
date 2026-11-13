@@ -8,7 +8,7 @@ func run() -> void:
 	Story.auto_skip = true
 	for target in [
 		["legacy", "level_01", 185, 20],
-		["street", "ch1_street", 98, 20],
+		["street", "ch1_street", 98, 32],
 		["shaft", "level_02", 112, 14],
 		["mezzanine", "level_02", 174, 20],
 		["power", "level_02", 360, 20],
