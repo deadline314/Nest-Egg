@@ -1,0 +1,16 @@
+{
+  "description": "巡帳員（ch2_patroller）的建置配方。功能姿勢文生圖，seed 24101；原始來源與提示保持，分件及後續步驟另驗。",
+  "id": "ch2_patroller",
+  "name": "巡帳員",
+  "spec": "tools/comfyui/specs/ch2_patroller_side.json",
+  "rig": "art/rigs/ch2_patroller.json",
+  "work": "art_src/characters/ch2_patroller",
+  "design": {
+    "size": [
+      1024,
+      1536
+    ],
+    "prompt": "Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat muted colors, bold clean black outlines, hard-edged two-tone shading, at most one small lit accent. Full body, strict side view facing right, the whole figure from the top of the head to the soles inside the frame, tall in the frame: the figure fills nine tenths of the picture height. The character stands upright and still, like a model sheet: weight evenly on both feet, hips and shoulders level, the spine vertical, the chest not pushed out and the lower back not arched, the head level. The near arm hangs straight down beside the thigh with an open empty hand; it is not swept back. The far arm is hidden behind the torso. The feet are a small step apart with the far foot half a step ahead, so the far shin and the far shoe show in front of the near leg. The market entrance patroller, a clearly adult man in his late forties who checks inspection passes at the harbour market gate for the market office. About seven heads tall, stocky with a slight stoop from long shifts, neutral upright posture. Short greying crew cut under a faded navy rain cap with a short stiff brim, a square tired face with a heavy jaw, a broken-and-reset nose and one ear a little larger than the other, deep lines between the brows. A dull navy hip-length rain cape-coat with a high collar, its shoulders darkened by rain and one front button replaced with a mismatched grey one; a small rectangular cloth armband in faded orange on the near upper arm as the only accent; plain charcoal work trousers tucked into scuffed black rubber boots. A slim grey clipboard hangs from his belt on a short cord at the far hip. No armour, no weapons, no badge that glows, no object held. Empty hands. Uneven rough hand-inked linework with varied line weight, gritty grime and fabric wrinkles where the cloth bends, slightly asymmetrical, lived-in and worn, matte not glossy, not airbrushed, no idealized perfect face. Few large plain shapes, no decorative details beyond the ones described. Even overcast light, no glow, no bloom, no text.",
+    "pick": 24101
+  }
+}

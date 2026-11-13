@@ -72,3 +72,11 @@ NpcAnimator只讀posture_active()/posture_ready(target)反映已消費姿勢與�
 CutscenePlayer walk/run使用此介面；站姿、持槍與無posture角色維持同步起步，wait=false維持非阻塞。
 準備與移動以弱引用及actor-id檢查取消/跳過/死亡/移除；失去blocking actor取消演出，不套完成結果。
 舊五動作及兩坐站範圍保留；新增walk、walk↔sit另補雙朝向四倍率逐格原生與全彩，不沿用舊scope0冒稱通過。
+
+## 陳女士與洪先生的全身單位（2026-11-13）
+
+兩人沿用鄭先生的保留來源流程：`field_spec --source-record` 取關節（姿勢模型預測後逐點核對）、遠側腿只取膝蓋以下、保留來源半透明邊緣，不做模糊、邊緣重畫或盲目補洞；設定集中在各自的 `art_src/characters/<id>/configure_spec.py`。工具環境：SAM 與 Qwen 走 ComfyUI 伺服器（`D:/ComfyUI/.venv` 的 Python 有 cv2／requests），姿勢模型需要 ROCm 的 `D:/ComfyUI/.venv-aot-amd`。
+
+S19／S20 的坐椅客人由 `tools/story/ch2_source.py` 的 `_SEATED_GUESTS` 一張表描述：講者、外觀、入場坐下的第一段、起身離開的最後一段、坐著的理由與坐深。坐深依腿長在正式舞台量，臀底落在右椅座面，不浮空也不陷入；洪先生較高，用 0.45。
+
+未完成：兩人的 NPC 動作逐格接點仍有真縫（陳女士 519、洪先生 109／33,600 取樣），起立走出的連續畫面、端湯與寫信的手部演出還沒做。

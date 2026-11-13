@@ -56,7 +56,7 @@ SPEAKERS = {
     "xiaowei": {"name": "小薇", "color": "#f4e07a", "portrait": "res://art/portraits/xiaowei.png"},
     "banyan": {"name": "榕伯", "color": "#9fc28a", "portrait": "res://art/portraits/banyan.png"},
     "ye": {"name": "葉", "color": "#c8d8f0", "portrait": "res://art/portraits/ye.png", "formal": True},
-    "patroller": {"name": "巡帳員", "color": "#c0a080", "portrait": "res://art/portraits/resident.png"},
+    "patroller": {"name": "巡帳員", "color": "#c0a080", "portrait": "res://art/portraits/ch2_patroller.png"},
     "window_clerk": {"name": "視窗員", "color": "#a0b0c0", "portrait": "res://art/portraits/resident.png", "formal": True},
     "hawker": {"name": "小販", "color": "#c8b090", "portrait": "res://art/portraits/resident.png"},
     "medic": {"name": "救護員", "color": "#a8d0c8", "portrait": "res://art/portraits/nurse.png"},

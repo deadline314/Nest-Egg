@@ -38,7 +38,7 @@ NPCS = {
     'ch2_radio': dict(name='工作檯的收音機', speaker='label', kind=O, prompt='{interact} 看看工作檯的收音機', talks=[('ch2_dispatch_radio', 0)]),
     'ch2_egret': dict(name='鷺', speaker='egret', rig='egret', pose='lean', loop='yawn', facing=-1, prompt='{interact} 和鷺說話',
                       talks=[('ch2_dispatch_egret', 0)]),
-    'ch2_patroller': dict(name='巡帳員', speaker='patroller', rig='resident', loop='glance', facing=-1, prompt='{interact} 出示查核證',
+    'ch2_patroller': dict(name='巡帳員', speaker='patroller', rig='ch2_patroller', loop='glance', facing=-1, prompt='{interact} 出示查核證',
                           talks=[('ch2_dispatch_patroller', 0)]),
     'ch2_vig': dict(name='利息', speaker='vig', rig='vig', loop='tablet', facing=-1, prompt='{interact} 和利息說話',
                     talks=[('ch2_dispatch_vig', 0)]),
