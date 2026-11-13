@@ -34,6 +34,7 @@ var _sweep_shape := RectangleShape2D.new()
 var _terrain_collision := KinematicCollision2D.new()
 var _prompt: WorldPrompt
 var _flash := 0.0
+var _emission: _Emission
 var _body_art: Sprite2D
 var _body_id: StringName
 
@@ -79,7 +80,11 @@ func _ready() -> void:
 		_prompt.reach_check = _pickup_prompt_reachable
 		add_child(_prompt)
 	add_to_group(GROUP)
-	LightKit.mark_emissive(self)
+	_emission = _Emission.new()
+	_emission.name = "Emission"
+	_emission.prop = self
+	LightKit.mark_emissive(_emission)
+	add_child(_emission)
 	_body_id = FixtureArt.throwable_body(data.look)
 	if _body_id != &"":
 		_body_art = FixtureArt.attach(self, _body_id, Vector2(-data.size.x * 0.5, -data.size.y), data.size)
@@ -167,6 +172,8 @@ func _physics_process(delta: float) -> void:
 	else:
 		_rest(delta)
 	queue_redraw()
+	if _emission != null:
+		_emission.queue_redraw()
 
 
 func _rest(delta: float) -> void:
@@ -288,6 +295,8 @@ func _on_damaged(_info: DamageInfo) -> void:
 	FixtureArt.damage(_body_art, _body_id, health.ratio(), data.size)
 	Fx.impact(world_center(), Vector2.UP, data.color.lightened(0.3), 4)
 	queue_redraw()
+	if _emission != null:
+		_emission.queue_redraw()
 
 
 ## 被打壞：會爆炸的先點燃引信（預兆），其他直接碎掉。
@@ -371,24 +380,12 @@ func _draw() -> void:
 				var c := rect.get_center()
 				var s := minf(rect.size.x, rect.size.y) * 0.24
 				draw_colored_polygon(PackedVector2Array([c + Vector2(0, -s), c + Vector2(s, s * 0.8), c + Vector2(-s, s * 0.8)]), Palette.WARNING.darkened(0.1))
-			# 頂端警示燈：平常微亮，點燃引信後快速閃。
-			draw_rect(Rect2(Vector2(-1.5, rect.position.y - 2.0), Vector2(3, 2)), LightKit.glow(Palette.DANGER, fuse_light_energy()))
 		ThrowableData.Look.PIPE:
 			draw_rect(rect, data.color.darkened(0.25))
 			draw_line(Vector2(rect.position.x, rect.position.y + 1.0), Vector2(rect.end.x, rect.position.y + 1.0), data.color.lightened(0.35), 1.0)
 		ThrowableData.Look.CHUNK:
 			draw_colored_polygon(PackedVector2Array([rect.position + Vector2(1, 2), Vector2(rect.end.x - 2, rect.position.y), rect.end, Vector2(rect.position.x, rect.end.y)]), data.color)
-	# 可撿的提示：上緣一條細亮線（與可破壞物的語言一致）。
-	if state == State.REST:
-		draw_line(rect.position, Vector2(rect.end.x, rect.position.y), Color(Palette.TERRAIN_TOP, 0.8), 1.0)
-	if _flash > 0.0:
-		draw_rect(rect, Color(1, 1, 1, 0.5))
-	# 引信燒著：地上畫出爆炸範圍（紅圈越縮越緊），看得到會炸到哪。
-	if _fuse_left >= 0.0:
-		var t := 1.0 - clampf(_fuse_left / maxf(0.01, data.fuse), 0.0, 1.0)
-		var at := Vector2(0, -data.size.y * 0.5)
-		draw_arc(at, data.explosion_radius, 0.0, TAU, 40, Color(LightKit.glow(Palette.DANGER, 1.6), 0.35 + 0.5 * t), 1.5)
-		draw_arc(at, data.explosion_radius * (1.0 - t), 0.0, TAU, 32, Color(LightKit.glow(Palette.DANGER, 2.2), 0.6), 1.0)
+
 
 
 ## Two smooth pulses per second; reduced flashes retains a steady warning.
@@ -398,3 +395,27 @@ func fuse_light_energy() -> float:
 	if Settings.get_reduce_flashes():
 		return 2.0
 	return 2.0 + 0.6 * sin((data.fuse - _fuse_left) * TAU * 2.0)
+
+
+## Status light and warnings retain their own unshaded canvas, never the metal/wood body.
+class _Emission:
+	extends Node2D
+	var prop: Throwable
+
+	func _draw() -> void:
+		if prop.data == null:
+			return
+		var rect := Rect2(Vector2(-prop.data.size.x * 0.5, -prop.data.size.y), prop.data.size)
+		if prop.data.look == ThrowableData.Look.BARREL:
+			draw_rect(Rect2(Vector2(-1.5, rect.position.y - 2.0), Vector2(3, 2)), LightKit.glow(Palette.DANGER, prop.fuse_light_energy()))
+		# 可撿的提示：上緣一條細亮線（與可破壞物的語言一致）。
+		if prop.state == State.REST:
+			draw_line(rect.position, Vector2(rect.end.x, rect.position.y), Color(Palette.TERRAIN_TOP, 0.8), 1.0)
+		if prop._flash > 0.0:
+			draw_rect(rect, Color(1, 1, 1, 0.5))
+		# 引信燒著：地上畫出爆炸範圍（紅圈越縮越緊），看得到會炸到哪。
+		if prop._fuse_left >= 0.0:
+			var t := 1.0 - clampf(prop._fuse_left / maxf(0.01, prop.data.fuse), 0.0, 1.0)
+			var at := Vector2(0, -prop.data.size.y * 0.5)
+			draw_arc(at, prop.data.explosion_radius, 0.0, TAU, 40, Color(LightKit.glow(Palette.DANGER, 1.6), 0.35 + 0.5 * t), 1.5)
+			draw_arc(at, prop.data.explosion_radius * (1.0 - t), 0.0, TAU, 32, Color(LightKit.glow(Palette.DANGER, 2.2), 0.6), 1.0)

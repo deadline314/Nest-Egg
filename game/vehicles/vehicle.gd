@@ -32,6 +32,7 @@ var _was_on_floor := true
 var _fall_speed := 0.0
 var _light: PointLight2D
 var _prompt: WorldPrompt
+var _emission: _Emission
 
 
 func configure(p_data: VehicleData) -> void:
@@ -39,11 +40,15 @@ func configure(p_data: VehicleData) -> void:
 
 
 func _ready() -> void:
-	LightKit.mark_emissive(self)
 	if data == null:
 		push_error("[Vehicle] 缺少 VehicleData，已移除。")
 		queue_free()
 		return
+	_emission = _Emission.new()
+	_emission.name = "Emission"
+	_emission.vehicle = self
+	LightKit.mark_emissive(_emission)
+	add_child(_emission)
 	add_to_group(&"vehicles")
 	collision_layer = Layers.VEHICLE
 	collision_mask = Layers.SOLID
@@ -135,6 +140,7 @@ func _physics_process(delta: float) -> void:
 	if global_position.y > fall_limit_y and not destroyed:
 		health.kill(DamageInfo.create(health.current, Combat.Team.ENEMY, &"pit"))
 	queue_redraw()
+	_emission.queue_redraw()
 
 
 func _drive(delta: float) -> void:
@@ -229,13 +235,17 @@ func _explode_and_eject() -> void:
 
 
 func _draw() -> void:
+	_draw_body(self, false)
+
+
+func _draw_body(canvas: Node2D, flash: bool) -> void:
 	if data == null:
 		return
 	var w := data.body_size.x
 	var h := data.body_size.y
 	var f := float(facing)
 	var base := data.color.darkened(0.55) if destroyed else data.color
-	if _flash_left > 0.0:
+	if flash:
 		base = LightKit.glow(Palette.WHITE, 2.0)
 	var walking := is_on_floor() and absf(velocity.x) > 10.0
 	var step := sin(_anim_time * 10.0) * 3.0 if walking else 0.0
@@ -243,20 +253,34 @@ func _draw() -> void:
 	for side: float in [-1.0, 1.0]:
 		var hip := Vector2(side * w * 0.3, -h * 0.4)
 		var knee := Vector2(side * w * 0.45 + step * side, -h * 0.2)
-		draw_line(hip, knee, base.darkened(0.35), 4.0)
-		draw_line(knee, Vector2(side * w * 0.35 - step * side, 0), base.darkened(0.35), 4.0)
+		canvas.draw_line(hip, knee, base.darkened(0.35), 4.0)
+		canvas.draw_line(knee, Vector2(side * w * 0.35 - step * side, 0), base.darkened(0.35), 4.0)
 	# 機身
-	draw_rect(Rect2(-w * 0.5, -h * 0.85, w, h * 0.45), base)
-	draw_rect(Rect2(-w * 0.5, -h * 0.85, w, 3), base.lightened(0.25))
-	# 駕駛艙
-	var occupied := driver != null and not destroyed
-	var cockpit := LightKit.glow(Palette.CYAN, 2.0) if occupied else Palette.CYAN_DIM.darkened(0.4)
-	draw_rect(Rect2(f * w * 0.05 - 4, -h * 0.8, 8, 6), cockpit)
+	canvas.draw_rect(Rect2(-w * 0.5, -h * 0.85, w, h * 0.45), base)
+	canvas.draw_rect(Rect2(-w * 0.5, -h * 0.85, w, 3), base.lightened(0.25))
+	if driver == null or destroyed:
+		canvas.draw_rect(Rect2(f * w * 0.05 - 4, -h * 0.8, 8, 6), Palette.CYAN_DIM.darkened(0.4))
 	# 主砲
 	var mount_point := Vector2(0, -h * 0.7)
-	draw_line(mount_point, mount_point + aim_dir * 16.0, base.lightened(0.15), 5.0)
-	if _muzzle_flash > 0.0:
-		var tip := mount_point + aim_dir * 18.0
-		draw_circle(tip, 5.0, LightKit.glow(Palette.WARNING, 3.0))
-	if destroyed and int(_anim_time * 8.0) % 3 == 0:
-		draw_circle(Vector2(randf_range(-w, w) * 0.3, -h * randf_range(0.4, 0.8)), 1.5, LightKit.glow(Palette.WARNING, 2.5))
+	canvas.draw_line(mount_point, mount_point + aim_dir * 16.0, base.lightened(0.15), 5.0)
+
+
+class _Emission:
+	extends Node2D
+	var vehicle: Vehicle
+
+	func _draw() -> void:
+		if vehicle.data == null:
+			return
+		var w := vehicle.data.body_size.x
+		var h := vehicle.data.body_size.y
+		if vehicle._flash_left > 0.0:
+			vehicle._draw_body(self, true)
+		if vehicle.driver != null and not vehicle.destroyed:
+			draw_rect(Rect2(float(vehicle.facing) * w * 0.05 - 4, -h * 0.8, 8, 6), LightKit.glow(Palette.CYAN, 2.0))
+		var mount_point := Vector2(0, -h * 0.7)
+		if vehicle._muzzle_flash > 0.0:
+			var tip := mount_point + vehicle.aim_dir * 18.0
+			draw_circle(tip, 5.0, LightKit.glow(Palette.WARNING, 3.0))
+		if vehicle.destroyed and int(vehicle._anim_time * 8.0) % 3 == 0:
+			draw_circle(Vector2(randf_range(-w, w) * 0.3, -h * randf_range(0.4, 0.8)), 1.5, LightKit.glow(Palette.WARNING, 2.5))

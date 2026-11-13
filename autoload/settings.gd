@@ -112,6 +112,7 @@ func _load() -> void:
 	if err != OK and err != ERR_FILE_NOT_FOUND:
 		push_warning("[Settings] 設定檔損毀或無法讀取（%s），改用預設值。" % error_string(err))
 		_config = ConfigFile.new()
+	LitTextures.set_enabled(LightQuality.normal_maps())
 
 
 # ---------------------------------------------------------------------------
@@ -192,6 +193,7 @@ func get_light_quality() -> int:
 
 func set_light_quality(tier: int) -> void:
 	set_value(DISPLAY_SECTION, "light_quality", clampi(tier, LightQuality.Tier.LOW, LightQuality.Tier.HIGH))
+	LitTextures.set_enabled(LightQuality.normal_maps())
 	display_changed.emit()
 
 

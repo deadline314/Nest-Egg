@@ -1,0 +1,414 @@
+{
+  "archives": {
+    "raw.zip": {
+      "bytes": 1764249,
+      "sha256": "f65b338940c2c3ab7fb06040b6e0d3bcb508b912d1098947d87120455c3ac2c6",
+      "members": {
+        "capture.json": {
+          "sha256": "8ac396e7e91e61a6d0e6010312a938b848077f92a015f62923ea2c7c07a9a6c1",
+          "bytes": 104355
+        },
+        "held-A1.raw": {
+          "sha256": "3929ec07f198d1c7800a480a4181e4a0069bf9564c3cc845003290ffaab73ff4",
+          "bytes": 5529600
+        },
+        "held-A2.raw": {
+          "sha256": "3929ec07f198d1c7800a480a4181e4a0069bf9564c3cc845003290ffaab73ff4",
+          "bytes": 5529600
+        },
+        "held-A3.raw": {
+          "sha256": "3929ec07f198d1c7800a480a4181e4a0069bf9564c3cc845003290ffaab73ff4",
+          "bytes": 5529600
+        },
+        "held-B.raw": {
+          "sha256": "0604f4f8f4717619f486ca4fe54edcf269fabaa4f39f5221efc712bb8c3b84b6",
+          "bytes": 5529600
+        },
+        "released-HIGH.raw": {
+          "sha256": "cc98cabccf2ad69fa6349bc90f983c27e210d77dc0dde684085bd38744aba587",
+          "bytes": 5529600
+        },
+        "released-LOW.raw": {
+          "sha256": "4cc981a57a553b4017ec0d5dfe8bf59417ff5f290f42c6d755d99713b94dd763",
+          "bytes": 5529600
+        },
+        "released-restored-HIGH.raw": {
+          "sha256": "cc98cabccf2ad69fa6349bc90f983c27e210d77dc0dde684085bd38744aba587",
+          "bytes": 5529600
+        }
+      }
+    },
+    "evidence.zip": {
+      "bytes": 2095557,
+      "sha256": "87729b6ea17add9b3eedb12af2c47c7e8afa2a4ce4bdb25685310f1ccc3e9666",
+      "members": {
+        "context-preparation/NE295-owner-manifest.json": {
+          "sha256": "440a3a3644dbe5914b83fe78f1cd6f80bfe704bbfe3d20bd0019e46dddd04620",
+          "bytes": 7604
+        },
+        "context-preparation/before/art/shaders/character_light.gdshader": {
+          "sha256": "749d897b9555e522bd450f3cb4b16a66386179ce504d18a580210774da7c9c19",
+          "bytes": 3233
+        },
+        "context-preparation/before/art/shaders/character_light_response.gdshaderinc": {
+          "sha256": "fa150b202c908f1f0eeceb5968a6d322c4ad1ff00e8665cc6977ec49c11e4b23",
+          "bytes": 547
+        },
+        "context-preparation/before/art/shaders/character_light_response.gdshaderinc.uid": {
+          "sha256": "62f80ce798ac2fa03666ee591bbfe4c6d97dc6b2e7505c61a67854af9e964e07",
+          "bytes": 19
+        },
+        "context-preparation/before/art/shaders/dissolve.gdshader": {
+          "sha256": "29904dfef7c614c2de38fe8bbe48fa2d53194d08cc12eb7655ab8d6d0fcab5eb",
+          "bytes": 1832
+        },
+        "context-preparation/before/game/rig/character_rig.gd": {
+          "sha256": "33ca9729a56f0f79abb615810587e3bbd34d4aca6bd3915fcd12fc0e1230b03c",
+          "bytes": 82342
+        },
+        "context-preparation/before/game/rig/rig_debris.gd": {
+          "sha256": "18e2765e99d4b3e3dc7ba5e1266a18145d5d5500db09604e09006a837d0930d8",
+          "bytes": 4200
+        },
+        "context-preparation/execute_held_final_v29.py.txt": {
+          "sha256": "17badc2fc833c452677fee065318ddc53e6f01d7b9b69370d65e6c36975a1068",
+          "bytes": 11094
+        },
+        "context-preparation/incoming/art/shaders/character_light.gdshader": {
+          "sha256": "f5d755e862229294f06f4b48af7cc4f1422a68c0d713b28412721b4c1c990489",
+          "bytes": 3455
+        },
+        "context-preparation/incoming/art/shaders/character_light_response.gdshaderinc": {
+          "sha256": "51fde070644e686b9de380be927a26065a6d5a05b978be7e9dc839b02d73d9ca",
+          "bytes": 1481
+        },
+        "context-preparation/incoming/art/shaders/character_light_response.gdshaderinc.uid": {
+          "sha256": "62f80ce798ac2fa03666ee591bbfe4c6d97dc6b2e7505c61a67854af9e964e07",
+          "bytes": 19
+        },
+        "context-preparation/incoming/art/shaders/dissolve.gdshader": {
+          "sha256": "e24354f32f3503fd53a10a4f10fa772f3cb508558109ea5013aaa15b4525623f",
+          "bytes": 2004
+        },
+        "context-preparation/incoming/game/rig/character_rig.gd": {
+          "sha256": "67035de354713004b3b949f8056faf0019344a845de1592d805216fcddefeaa8",
+          "bytes": 82527
+        },
+        "context-preparation/incoming/game/rig/rig_debris.gd": {
+          "sha256": "18e2765e99d4b3e3dc7ba5e1266a18145d5d5500db09604e09006a837d0930d8",
+          "bytes": 4200
+        },
+        "context-preparation/manifest.json": {
+          "sha256": "8fa932dacb278000d14f02ef9c3a4c55e255888abc6ce462fa5e897c676dd095",
+          "bytes": 6343
+        },
+        "context-preparation/tracked-union.diff": {
+          "sha256": "dd8c156f6fa65701b093bea8b53f0b90ce1b772f8d84fd93d210db710b51c417",
+          "bytes": 53763
+        },
+        "held-final-native-v2/after.json": {
+          "sha256": "2df95720aaa13cdfdf0372b4456ac9ea9f2cf64b830ebe5700e12098bece3e81",
+          "bytes": 1384758
+        },
+        "held-final-native-v2/before.json": {
+          "sha256": "2df95720aaa13cdfdf0372b4456ac9ea9f2cf64b830ebe5700e12098bece3e81",
+          "bytes": 1384758
+        },
+        "held-final-native-v2/captures/capture.json": {
+          "sha256": "8ac396e7e91e61a6d0e6010312a938b848077f92a015f62923ea2c7c07a9a6c1",
+          "bytes": 104355
+        },
+        "held-final-native-v2/command.json": {
+          "sha256": "44d17675a47ca856366e23f5465da402125ec07c4456e346aa4b6e0c327224cf",
+          "bytes": 776
+        },
+        "held-final-native-v2/completion.json": {
+          "sha256": "eab972a665d15ea4a9a28064f8ca11240b6dff6035800dfec1e3ffdbf7408690",
+          "bytes": 527
+        },
+        "held-final-native-v2/environment.json": {
+          "sha256": "4a57fe05911693a6bd77f95ff948a25f95340c76edfca68c2109527332cd211b",
+          "bytes": 624
+        },
+        "held-final-native-v2/external-processes-after.json": {
+          "sha256": "3ec5ade50ab530fbc15cef3cf9479afc65179c4a9895b8611d232e19efe6e1ce",
+          "bytes": 571
+        },
+        "held-final-native-v2/external-processes-before.json": {
+          "sha256": "3ec5ade50ab530fbc15cef3cf9479afc65179c4a9895b8611d232e19efe6e1ce",
+          "bytes": 571
+        },
+        "held-final-native-v2/godot.log": {
+          "sha256": "1376f1548470bb10cc1b8e1b692c7e3b1178d657a75478c383503504fb5525be",
+          "bytes": 146
+        },
+        "held-final-native-v2/process.json": {
+          "sha256": "e8bcfb3b646f1dc9aa4e262931184c04d8981b95ec71bb9533d1bbf7cd462e80",
+          "bytes": 164
+        },
+        "held-final-native-v2/process.log": {
+          "sha256": "b18c5b59db008f72702ffed2699e6e46b0571f75903f8c1913961e964f5d1221",
+          "bytes": 149
+        },
+        "held-final-native-v2/queue-after-unlock.json": {
+          "sha256": "9989b3f09a432fa3c34f7b9262a4db8c55e1778866084e59e8529231a7661f9d",
+          "bytes": 302
+        },
+        "held-final-native-v2/queue-before-lock.json": {
+          "sha256": "9989b3f09a432fa3c34f7b9262a4db8c55e1778866084e59e8529231a7661f9d",
+          "bytes": 302
+        },
+        "held-final-native-v2/queue-inside-after.json": {
+          "sha256": "9989b3f09a432fa3c34f7b9262a4db8c55e1778866084e59e8529231a7661f9d",
+          "bytes": 302
+        },
+        "held-final-native-v2/queue-inside-before.json": {
+          "sha256": "9989b3f09a432fa3c34f7b9262a4db8c55e1778866084e59e8529231a7661f9d",
+          "bytes": 302
+        },
+        "held-final-native-v2/reader.exit.txt": {
+          "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+          "bytes": 1
+        },
+        "held-final-native-v2/reader.stderr.log": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "held-final-native-v2/reader.stdout.log": {
+          "sha256": "54f702b1d84994473067f9fd73368b2f62b8147285a7f26f944410e7e88c5add",
+          "bytes": 306
+        },
+        "held-final-native-v2/source-gate.json": {
+          "sha256": "5c6f15fcc5e2402420c00cc4be79a15f3c3b0f3499ca46b11910b998015f2d61",
+          "bytes": 150
+        },
+        "held-final-native-v2/started.json": {
+          "sha256": "ea082c11aef892ec4974a586e7a19fcf81971e55fdfec8fe648195654889abbf",
+          "bytes": 25
+        },
+        "held-final-parser-v2/after.json": {
+          "sha256": "2df95720aaa13cdfdf0372b4456ac9ea9f2cf64b830ebe5700e12098bece3e81",
+          "bytes": 1384758
+        },
+        "held-final-parser-v2/before.json": {
+          "sha256": "2df95720aaa13cdfdf0372b4456ac9ea9f2cf64b830ebe5700e12098bece3e81",
+          "bytes": 1384758
+        },
+        "held-final-parser-v2/command.json": {
+          "sha256": "90be3075d670f8fc09ff622e72eaaf1529d4bea5000db6388585e2c35dd0ee48",
+          "bytes": 561
+        },
+        "held-final-parser-v2/completion.json": {
+          "sha256": "8625f5fc4580d3db9480e5057cfa2892a4f0ea3c732f0ff811ae4be32bea1c34",
+          "bytes": 527
+        },
+        "held-final-parser-v2/environment.json": {
+          "sha256": "893b2d3b569b7a4f97e5e2fa2538f4df3bb0e77f2febe1162b4c0d34ee6d394a",
+          "bytes": 624
+        },
+        "held-final-parser-v2/external-processes-after.json": {
+          "sha256": "3ec5ade50ab530fbc15cef3cf9479afc65179c4a9895b8611d232e19efe6e1ce",
+          "bytes": 571
+        },
+        "held-final-parser-v2/external-processes-before.json": {
+          "sha256": "3ec5ade50ab530fbc15cef3cf9479afc65179c4a9895b8611d232e19efe6e1ce",
+          "bytes": 571
+        },
+        "held-final-parser-v2/godot.log": {
+          "sha256": "6d1c065383a27c36804949b6ffa4b09714470b112e5dacc0bd5aeb7b9c147c4e",
+          "bytes": 73
+        },
+        "held-final-parser-v2/process.json": {
+          "sha256": "bc6f472b12214a0e208d10a5a423dd72fc2a21b0c031e672f094118e813108fe",
+          "bytes": 164
+        },
+        "held-final-parser-v2/process.log": {
+          "sha256": "83cf0b082206af2aa236c83064fbcfa76be1e00a4aa3558574b2f65965d9481c",
+          "bytes": 75
+        },
+        "held-final-parser-v2/queue-after-unlock.json": {
+          "sha256": "9989b3f09a432fa3c34f7b9262a4db8c55e1778866084e59e8529231a7661f9d",
+          "bytes": 302
+        },
+        "held-final-parser-v2/queue-before-lock.json": {
+          "sha256": "9989b3f09a432fa3c34f7b9262a4db8c55e1778866084e59e8529231a7661f9d",
+          "bytes": 302
+        },
+        "held-final-parser-v2/queue-inside-after.json": {
+          "sha256": "9989b3f09a432fa3c34f7b9262a4db8c55e1778866084e59e8529231a7661f9d",
+          "bytes": 302
+        },
+        "held-final-parser-v2/queue-inside-before.json": {
+          "sha256": "9989b3f09a432fa3c34f7b9262a4db8c55e1778866084e59e8529231a7661f9d",
+          "bytes": 302
+        },
+        "held-final-parser-v2/source-gate.json": {
+          "sha256": "5c6f15fcc5e2402420c00cc4be79a15f3c3b0f3499ca46b11910b998015f2d61",
+          "bytes": 150
+        },
+        "held-final-parser-v2/started.json": {
+          "sha256": "884e5041866564728f51358e15a3f304e080e35ec77a799c445fab8bec5eacac",
+          "bytes": 26
+        }
+      }
+    },
+    "sources.zip": {
+      "bytes": 145053,
+      "sha256": "f9104f3359964540cccdc0a971f7f2f9a9a8735ba9056618dfdc4b25e4cfa3bc",
+      "members": {
+        "borrowed6/art/shaders/character_light.gdshader": {
+          "sha256": "f5d755e862229294f06f4b48af7cc4f1422a68c0d713b28412721b4c1c990489",
+          "bytes": 3455
+        },
+        "borrowed6/art/shaders/character_light_response.gdshaderinc": {
+          "sha256": "51fde070644e686b9de380be927a26065a6d5a05b978be7e9dc839b02d73d9ca",
+          "bytes": 1481
+        },
+        "borrowed6/art/shaders/character_light_response.gdshaderinc.uid": {
+          "sha256": "62f80ce798ac2fa03666ee591bbfe4c6d97dc6b2e7505c61a67854af9e964e07",
+          "bytes": 19
+        },
+        "borrowed6/art/shaders/dissolve.gdshader": {
+          "sha256": "e24354f32f3503fd53a10a4f10fa772f3cb508558109ea5013aaa15b4525623f",
+          "bytes": 2004
+        },
+        "borrowed6/game/rig/character_rig.gd": {
+          "sha256": "67035de354713004b3b949f8056faf0019344a845de1592d805216fcddefeaa8",
+          "bytes": 82527
+        },
+        "borrowed6/game/rig/rig_debris.gd": {
+          "sha256": "18e2765e99d4b3e3dc7ba5e1266a18145d5d5500db09604e09006a837d0930d8",
+          "bytes": 4200
+        },
+        "owned18/autoload/settings.gd": {
+          "sha256": "542e84cd7eb56ab6c7597927e31b997bafea7613533545da5c8f192e45be7d3d",
+          "bytes": 13246
+        },
+        "owned18/game/cutscene/cutscene_player.gd": {
+          "sha256": "5affabed28bcbb9d3a89b3ce777b6930437574cfbbee8cb80c5aae90ec6ddf0b",
+          "bytes": 38780
+        },
+        "owned18/game/cutscene/stage_layers.gd": {
+          "sha256": "3bca06da841ee4040f8973359834b7a10d54669fc6dd5060c4bef9a3b38c5fc0",
+          "bytes": 27351
+        },
+        "owned18/game/cutscene/stage_library.gd": {
+          "sha256": "57179949f4ca40b581cfa11aa77353f4409d0938acce03836adcbbf5119f2016",
+          "bytes": 16987
+        },
+        "owned18/game/cutscene/stage_prop_hold.gd": {
+          "sha256": "d3507d5d79827831022abddadb3c4f90a0a773930c09ab3ab7d3a353aae055a2",
+          "bytes": 5896
+        },
+        "owned18/game/level/lighting_controller.gd": {
+          "sha256": "be32dfa5c3c10da7ef11eca229c1f253d155d74f896fd675c9c8900b82ffc029",
+          "bytes": 12442
+        },
+        "owned18/game/pickups/collectible_pickup.gd": {
+          "sha256": "34e80beab06230b6844f26367a2577f74ec353c35b3e68f31c1190dcbf0c8033",
+          "bytes": 2589
+        },
+        "owned18/game/pickups/consumable_pickup.gd": {
+          "sha256": "b96823caf54dfef0b54eb567ff4acd40db764bcca0366a16cae2d89d7fde0d6e",
+          "bytes": 1787
+        },
+        "owned18/game/pickups/credit_pickup.gd": {
+          "sha256": "e1cf47159bb6adfe211be8f08177919a4b7fb1234092f3dcbd81d532c7ac2ea5",
+          "bytes": 2166
+        },
+        "owned18/game/pickups/health_pickup.gd": {
+          "sha256": "4d18702e7d54b6be439b3a9534cba68d6c3ad5bf7ecab39c40f5e97fe94b0282",
+          "bytes": 833
+        },
+        "owned18/game/pickups/pickup.gd": {
+          "sha256": "8ef3c1e33a019a764f316e032cd568a6bdac1874e9890fb9fa8bc78c6e36f1b7",
+          "bytes": 5370
+        },
+        "owned18/game/pickups/weapon_pickup.gd": {
+          "sha256": "304c68950602604497cbe2537b6e31f73f35599ef0c692f2dcb4f8f0ddedd89d",
+          "bytes": 2229
+        },
+        "owned18/game/props/throwable.gd": {
+          "sha256": "0e7cd51e756443385dc49575aa7f60106ff5c0ed1f01cd193d667bb7c1a5a791",
+          "bytes": 15476
+        },
+        "owned18/game/vehicles/vehicle.gd": {
+          "sha256": "bf008eb55ad742e6f17eb74615b7ffa0171cb19438e5a31f4c9727d9ce56f9fc",
+          "bytes": 9350
+        },
+        "owned18/tests/helpers/scene_lighting_checks.gd": {
+          "sha256": "984284e7211d20017d17ae7243ff75507226bf380ed53ebb125dcb294fa7ed31",
+          "bytes": 11724
+        },
+        "owned18/tests/helpers/scene_lighting_checks.gd.uid": {
+          "sha256": "99eecf8edb481a2e1cf6e5f11c12e0dc0872271be5c39fd02f19ced9bc142dd4",
+          "bytes": 20
+        },
+        "owned18/tests/helpers/stage_prop_hold_checks.gd": {
+          "sha256": "8e5f9899b948be20aecf4b3c7575febd29c093db43566c9d0fbda8f311438723",
+          "bytes": 6134
+        },
+        "owned18/tests/suite/test_environment.gd": {
+          "sha256": "29284e9e889c57ca8a03f4167494f8d92e01eba1b20fd0aef10eb96588ea327f",
+          "bytes": 97207
+        },
+        "producers/execute_held_final_v29.py": {
+          "sha256": "17badc2fc833c452677fee065318ddc53e6f01d7b9b69370d65e6c36975a1068",
+          "bytes": 11094
+        },
+        "producers/work/bg57-native-v4/capture.gd": {
+          "sha256": "dae09be7e58bf6ab1cc6515b46e6bcf1ab0c2a5557705bb551481c3c8853751a",
+          "bytes": 14383
+        },
+        "producers/work/bg57-native-v4/capture.tscn": {
+          "sha256": "6329b91f6208251b8758b6c51c53f01476d9b4fe95fb2967935e8d08dbb7ee0f",
+          "bytes": 187
+        },
+        "producers/work/bg57-native-v4/read_fixture.py": {
+          "sha256": "3e9f45fec356bccddbedd8f93f10f477c104082074ce13bf5b3b32b8db57f584",
+          "bytes": 7809
+        },
+        "producers/work/bg57-native-v4/test_reader.py": {
+          "sha256": "385bac5fea6f313dee247aba59921aff3265914a82e4724d1603ed2697e6b733",
+          "bytes": 2422
+        },
+        "producers/work/bg57-stage-held-v1/capture.gd": {
+          "sha256": "bdc712186d8ecd9a61039bf3330b8dfcf30a5c6391c37b47ab028e6d0beb2b3f",
+          "bytes": 7587
+        },
+        "producers/work/bg57-stage-held-v1/capture.tscn": {
+          "sha256": "f8e94e019d89caebfc15dc023020921460d8abb9443630c3b2b7080b6698b8c8",
+          "bytes": 187
+        },
+        "producers/work/bg57-stage-held-v1/gallery_reader.py": {
+          "sha256": "25e6145612d7f8e547e894c30fac8bae2bc3cc9207446d4d2fdc421151cf0fbd",
+          "bytes": 7825
+        },
+        "producers/work/bg57-stage-held-v1/read_held.py": {
+          "sha256": "8a29fb17426c70539bd679fe29966a298db8314fd10814c477e6791bdbfb42ef",
+          "bytes": 4099
+        }
+      }
+    }
+  },
+  "files": {
+    ".gdignore": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".gitattributes": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+    "evidence.zip": "87729b6ea17add9b3eedb12af2c47c7e8afa2a4ce4bdb25685310f1ccc3e9666",
+    "gallery_reader.py": "25e6145612d7f8e547e894c30fac8bae2bc3cc9207446d4d2fdc421151cf0fbd",
+    "manifest.json": "c065653c3ecdd5b123cec3e8bde9b2e983f51f90fdf08d0ad72a9c6026f1b674",
+    "raw.zip": "f65b338940c2c3ab7fb06040b6e0d3bcb508b912d1098947d87120455c3ac2c6",
+    "README.md": "b3e36729cb6e2614b0b55b1a3d3dd2c9f9cd6e3b97df61ea26b94f29ea70e03d",
+    "read_held.py": "8a29fb17426c70539bd679fe29966a298db8314fd10814c477e6791bdbfb42ef",
+    "sources.zip": "f9104f3359964540cccdc0a971f7f2f9a9a8735ba9056618dfdc4b25e4cfa3bc",
+    "verify.py": "c25bd7c9b669cdb956f00f2d7702223f94d58c0685e43629d92b286d740b62d5",
+    "png/held-A1.png": "1115471df893b40b8d5667e3145b7608b3e8e3075e2138bad6078df0f5db6c2f",
+    "png/held-A2.png": "1115471df893b40b8d5667e3145b7608b3e8e3075e2138bad6078df0f5db6c2f",
+    "png/held-A3.png": "1115471df893b40b8d5667e3145b7608b3e8e3075e2138bad6078df0f5db6c2f",
+    "png/held-B.png": "cab4e13d28e6e01a257cf66019d18c47826c4e86273d6511a29cd503b1758b00",
+    "png/released-HIGH.png": "857ddd7a19761823800c2d7bd651fef7eac2e98f8f8bac1cc725822f4da50be9",
+    "png/released-LOW.png": "83669565ee886acddcf3fe43060cb1cbd5dd525cd645f9af86ff3f0f7c146f89",
+    "png/released-restored-HIGH.png": "857ddd7a19761823800c2d7bd651fef7eac2e98f8f8bac1cc725822f4da50be9"
+  },
+  "official_accepted": false
+}

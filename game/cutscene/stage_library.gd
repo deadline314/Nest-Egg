@@ -47,6 +47,7 @@ static func validate(id: StringName) -> PackedStringArray:
 	if def.is_empty():
 		problems.append("過場場景 %s 讀不到" % id)
 		return problems
+	problems.append_array(lighting_problems(def))
 	var layers: Variant = def.get("layers", [])
 	if typeof(layers) != TYPE_ARRAY or (layers as Array).is_empty():
 		problems.append("過場場景 %s 沒有任何圖層" % id)
@@ -83,6 +84,32 @@ static func validate(id: StringName) -> PackedStringArray:
 		if not anchor_issue.is_empty():
 			problems.append("過場場景 %s 第 %d 層支撐無效：%s" % [id, index, anchor_issue])
 	problems.append_array(_parent_problems(id, layers))
+	return problems
+
+
+## Stage lights are explicit, bounded local sources, never inferred from decorative glow.
+static func lighting_problems(def: Dictionary) -> PackedStringArray:
+	var problems := PackedStringArray()
+	if def.has("ambient") and (not def["ambient"] is String or not Color.html_is_valid(def["ambient"]) or Color(def["ambient"]).a != 1.0):
+		problems.append("stage ambient must be an opaque HTML color")
+	var lights: Variant = def.get("lights", [])
+	if not lights is Array or lights.size() > 8:
+		problems.append("stage lights must be an array of at most eight local sources")
+		return problems
+	for i in lights.size():
+		var entry: Variant = lights[i]
+		if not entry is Dictionary:
+			problems.append("stage light %d must be an object" % i)
+			continue
+		var pos: Variant = entry.get("pos")
+		if not pos is Array or pos.size() != 2 or not StageLayers._finite(pos[0]) or not StageLayers._finite(pos[1]) or absf(float(pos[0])) > 8192.0 or absf(float(pos[1])) > 8192.0:
+			problems.append("stage light %d pos must contain two finite stage coordinates" % i)
+		for key: String in ["radius", "energy"]:
+			var limit := 1024.0 if key == "radius" else LightKit.CHARACTER_LIGHT_CAP_MAX
+			if not StageLayers._finite(entry.get(key)) or float(entry[key]) <= 0.0 or float(entry[key]) > limit:
+				problems.append("stage light %d %s must be finite and within (0, %s]" % [i, key, limit])
+		if not entry.get("color") is String or not Color.html_is_valid(entry["color"]) or Color(entry["color"]).a != 1.0:
+			problems.append("stage light %d color must be an opaque HTML color" % i)
 	return problems
 
 
@@ -141,6 +168,7 @@ static func build(id: StringName) -> Stage:
 	var def := definition(id)
 	var stage := Stage.new()
 	stage.stage_id = id
+	stage.configure_lighting(def)
 	var layers: Variant = def.get("layers", [])
 	if typeof(layers) == TYPE_ARRAY:
 		var index := 0
@@ -179,6 +207,9 @@ class Stage:
 	var front := Node2D.new()
 	var _props: Dictionary = {}
 	var _held: Array[StagePropHold] = []
+	var _ambient: CanvasModulate
+	var _local_lights: Array[PointLight2D] = []
+	var _ambient_color := Color.WHITE
 
 	func _init() -> void:
 		process_mode = Node.PROCESS_MODE_ALWAYS
@@ -191,6 +222,58 @@ class Stage:
 		add_child(actors)
 		add_child(front)
 		actors.y_sort_enabled = true
+		actors.child_entered_tree.connect(_actor_entered)
+
+	func _ready() -> void:
+		# A stage shares its owner's independent CanvasLayer, not the gameplay canvas.
+		var canvas_layer := get_canvas_layer_node()
+		var layer := canvas_layer.layer if canvas_layer != null else 0
+		for light: PointLight2D in _local_lights:
+			light.range_layer_min = layer
+			light.range_layer_max = layer
+
+	func configure_lighting(def: Dictionary) -> void:
+		if _ambient != null:
+			return  # Immutable stage definition is applied once.
+		if not def.has("ambient") and not def.has("lights"):
+			return
+		var issues := StageLibrary.lighting_problems(def)
+		if not issues.is_empty():
+			push_warning("[Stage] %s local lighting is invalid, retaining white ambient: %s" % [stage_id, "; ".join(issues)])
+			return
+		_ambient = CanvasModulate.new()
+		_ambient.name = "StageAmbient"
+		_ambient_color = Color(def.get("ambient", "#ffffff"))
+		_ambient.color = _ambient_color
+		add_child(_ambient)
+		for entry: Dictionary in def.get("lights", []):
+			var light := LightKit.create_point_light(Color(entry["color"]), float(entry["radius"]), float(entry["energy"]), false, false)
+			light.position = StageLayers.vec2_of(entry["pos"])
+			_local_lights.append(light)
+			add_child(light)
+		for actor: Node in actors.get_children():
+			_apply_actor_lighting(actor)
+
+	func _actor_entered(node: Node) -> void:
+		if node is CutsceneActor:
+			# Production builds the rig before entering; fixtures may set it up later.
+			var callback := _actor_visual_entered.bind(node)
+			if not node.child_entered_tree.is_connected(callback):
+				node.child_entered_tree.connect(callback)
+			_apply_actor_lighting(node)
+
+	func _actor_visual_entered(node: Node, actor: CutsceneActor) -> void:
+		if node is CharacterRig and actor.get_parent() == actors:
+			(node as CharacterRig).set_local_lighting(_ambient_color)
+
+	func _apply_actor_lighting(node: Node) -> void:
+		if node is CutsceneActor and node.rig != null:
+			node.rig.set_local_lighting(_ambient_color)
+
+	func _exit_tree() -> void:
+		for hold: StagePropHold in _held:
+			hold.release()
+		_held.clear()
 
 	func add_layer(node: Node2D) -> void:
 		if node.has_meta(&"prop_id"):

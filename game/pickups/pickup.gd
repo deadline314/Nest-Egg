@@ -17,10 +17,11 @@ var _time := 0.0
 var _retry_left := RETRY_INTERVAL
 var _glint_offset := randf() * GLINT_PERIOD
 var _collection_finished := false
+var _emission: _Emission
+var _world_sprite: Dictionary = {}
 
 
 func _ready() -> void:
-	LightKit.mark_emissive(self)
 	collision_layer = 0
 	collision_mask = Layers.PLAYER
 	monitorable = false
@@ -38,6 +39,11 @@ func _ready() -> void:
 		prompt.radius = 56.0
 		prompt.offset = Vector2(0, -26)
 		add_child(prompt)
+	_emission = _Emission.new()
+	_emission.name = "Emission"
+	_emission.pickup = self
+	LightKit.mark_emissive(_emission)
+	add_child(_emission)
 
 
 func hint_text() -> String:
@@ -60,23 +66,18 @@ func _fx_kind() -> StringName:
 @abstract func _draw_icon() -> void
 
 
+## Procedural missing-art warnings stay emissive while their panel/body remains reflective.
+func _draw_fallback_emission(_canvas: Node2D) -> void:
+	pass
+
+
 ## 畫場景小圖（art/items/world/<key>.png，24×24，腳底對齊，另有自發光層）；沒有這張圖回傳 false，呼叫端改用程式繪製。
 func _draw_world_sprite(key: String) -> bool:
 	var sprite := ItemIcons.world(key)
+	_world_sprite = sprite
 	if sprite.is_empty():
 		return false
-	var base: Texture2D = sprite["base"]
-	var size := ItemIcons.WORLD_SIZE
-	var ratio := size / base.get_size()
-	var origin := Vector2(-size.x * 0.5, -size.y * 0.5 - 4.0)
-	var outline: Texture2D = sprite.get("outline")
-	if outline != null:
-		var pad := Vector2(outline.get_size() - base.get_size()) * 0.5 * ratio
-		draw_texture_rect(outline, Rect2(origin - pad, size + pad * 2.0), false, Color(0.62, 0.85, 0.88, 0.65))
-	draw_texture_rect(base, Rect2(origin, size), false)
-	var glow: Texture2D = sprite["glow"]
-	if glow != null:
-		draw_texture_rect(glow, Rect2(origin, size), false, LightKit.glow(Color(1, 1, 1, 0.25), 1.1 + 0.1 * sin(_time * 5.0)))
+	draw_texture_rect(sprite["base"], Rect2(Vector2(-ItemIcons.WORLD_SIZE.x * 0.5, -ItemIcons.WORLD_SIZE.y * 0.5 - 4.0), ItemIcons.WORLD_SIZE), false)
 	return true
 
 
@@ -88,12 +89,13 @@ func _process(delta: float) -> void:
 		for body in get_overlapping_bodies():
 			_on_body_entered(body)
 	queue_redraw()
+	if _emission != null:
+		_emission.queue_redraw()
 
 
 func _draw() -> void:
 	draw_set_transform(Vector2(0, -8 + sin(_time * BOB_SPEED) * BOB_HEIGHT))
 	_draw_icon()
-	_draw_glint()
 	draw_set_transform(Vector2.ZERO)
 
 
@@ -132,15 +134,38 @@ static func resolve_player(body: Node) -> Player:
 	return null
 
 
-## 圖示上偶爾閃過的四芒星，提醒這裡有東西可以撿（很短、很小，不干擾閱讀）。
-func _draw_glint() -> void:
-	var phase := fmod(_time + _glint_offset, GLINT_PERIOD)
-	if phase > GLINT_TIME:
-		return
-	var t := phase / GLINT_TIME
-	var strength := sin(t * PI)
-	var color := Color(Fx.hdr(Palette.WHITE, 2.0), strength)
-	var center := Vector2(3.0, -4.0)
-	var reach := 2.0 + 3.5 * strength
-	draw_line(center - Vector2(reach, 0.0), center + Vector2(reach, 0.0), color, 1.0)
-	draw_line(center - Vector2(0.0, reach), center + Vector2(0.0, reach), color, 1.0)
+## Emission never includes the reflective item body.
+class _Emission:
+	extends Node2D
+	var pickup: Pickup
+
+	func _draw() -> void:
+		draw_set_transform(Vector2(0, -8 + sin(pickup._time * BOB_SPEED) * BOB_HEIGHT))
+		var sprite := pickup._world_sprite
+		if not sprite.is_empty():
+			var base: Texture2D = sprite["base"]
+			var size := ItemIcons.WORLD_SIZE
+			var origin := Vector2(-size.x * 0.5, -size.y * 0.5 - 4.0)
+			var outline: Texture2D = sprite.get("outline")
+			if outline != null:
+				var pad := Vector2(outline.get_size() - base.get_size()) * 0.5 * size / base.get_size()
+				draw_texture_rect(outline, Rect2(origin - pad, size + pad * 2.0), false, Color(0.62, 0.85, 0.88, 0.65))
+			var glow: Texture2D = sprite["glow"]
+			if glow != null:
+				draw_texture_rect(glow, Rect2(origin, size), false, LightKit.glow(Color(1, 1, 1, 0.25), 1.1 + 0.1 * sin(pickup._time * 5.0)))
+		else:
+			pickup._draw_fallback_emission(self)
+		_draw_glint()
+
+	## 圖示上偶爾閃過的四芒星，提醒這裡有東西可以撿（很短、很小，不干擾閱讀）。
+	func _draw_glint() -> void:
+		var phase := fmod(pickup._time + pickup._glint_offset, GLINT_PERIOD)
+		if phase > GLINT_TIME:
+			return
+		var t := phase / GLINT_TIME
+		var strength := sin(t * PI)
+		var color := Color(Fx.hdr(Palette.WHITE, 2.0), strength)
+		var center := Vector2(3.0, -4.0)
+		var reach := 2.0 + 3.5 * strength
+		draw_line(center - Vector2(reach, 0.0), center + Vector2(reach, 0.0), color, 1.0)
+		draw_line(center - Vector2(0.0, reach), center + Vector2(0.0, reach), color, 1.0)

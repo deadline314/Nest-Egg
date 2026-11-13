@@ -1,0 +1,157 @@
+{
+  "accepted": true,
+  "ticket": "BG57",
+  "base": "92521d0cf3c18bd3dad4b13a316844e70bfaecd0",
+  "ticket_files": {
+    "autoload/settings.gd": "542e84cd7eb56ab6c7597927e31b997bafea7613533545da5c8f192e45be7d3d",
+    "game/cutscene/stage_layers.gd": "3bca06da841ee4040f8973359834b7a10d54669fc6dd5060c4bef9a3b38c5fc0",
+    "game/cutscene/stage_library.gd": "57179949f4ca40b581cfa11aa77353f4409d0938acce03836adcbbf5119f2016",
+    "game/cutscene/stage_prop_hold.gd": "d3507d5d79827831022abddadb3c4f90a0a773930c09ab3ab7d3a353aae055a2",
+    "game/level/lighting_controller.gd": "be32dfa5c3c10da7ef11eca229c1f253d155d74f896fd675c9c8900b82ffc029",
+    "game/pickups/collectible_pickup.gd": "34e80beab06230b6844f26367a2577f74ec353c35b3e68f31c1190dcbf0c8033",
+    "game/pickups/consumable_pickup.gd": "b96823caf54dfef0b54eb567ff4acd40db764bcca0366a16cae2d89d7fde0d6e",
+    "game/pickups/credit_pickup.gd": "e1cf47159bb6adfe211be8f08177919a4b7fb1234092f3dcbd81d532c7ac2ea5",
+    "game/pickups/health_pickup.gd": "4d18702e7d54b6be439b3a9534cba68d6c3ad5bf7ecab39c40f5e97fe94b0282",
+    "game/pickups/pickup.gd": "8ef3c1e33a019a764f316e032cd568a6bdac1874e9890fb9fa8bc78c6e36f1b7",
+    "game/pickups/weapon_pickup.gd": "304c68950602604497cbe2537b6e31f73f35599ef0c692f2dcb4f8f0ddedd89d",
+    "game/props/throwable.gd": "0e7cd51e756443385dc49575aa7f60106ff5c0ed1f01cd193d667bb7c1a5a791",
+    "game/vehicles/vehicle.gd": "bf008eb55ad742e6f17eb74615b7ffa0171cb19438e5a31f4c9727d9ce56f9fc",
+    "tests/helpers/stage_prop_hold_checks.gd": "8e5f9899b948be20aecf4b3c7575febd29c093db43566c9d0fbda8f311438723",
+    "tests/suite/test_environment.gd": "29284e9e889c57ca8a03f4167494f8d92e01eba1b20fd0aef10eb96588ea327f",
+    "tests/helpers/scene_lighting_checks.gd": "984284e7211d20017d17ae7243ff75507226bf380ed53ebb125dcb294fa7ed31",
+    "tests/helpers/scene_lighting_checks.gd.uid": "99eecf8edb481a2e1cf6e5f11c12e0dc0872271be5c39fd02f19ced9bc142dd4",
+    "game/cutscene/cutscene_player.gd": "5affabed28bcbb9d3a89b3ce777b6930437574cfbbee8cb80c5aae90ec6ddf0b"
+  },
+  "ticket_count": 18,
+  "union_count": 80,
+  "runtime_guarded_union_count": 79,
+  "provenance_only_union_files": {
+    "design/21-metroidvania/CHAPTER1.md": "1dee3bee18d7738b55b01288ec1b550c92c78ccbfcdda1eec765c8e2bc183a40"
+  },
+  "official_union": {
+    "checks": 99550,
+    "new_failures": 0,
+    "known_failures": 0,
+    "suites": 87,
+    "wall_seconds": 561.894,
+    "runtime_source_count": 10190
+  },
+  "red_originals": [
+    {
+      "checks": 99481,
+      "new_failures": 20,
+      "known_failures": 0,
+      "suites": 87,
+      "wall_seconds": 656.97,
+      "candidate_count": 74,
+      "runtime_guarded_candidate_count": 73
+    },
+    {
+      "checks": 99539,
+      "new_failures": 4,
+      "known_failures": 0,
+      "suites": 87,
+      "wall_seconds": 561.903,
+      "candidate_count": 80,
+      "runtime_guarded_candidate_count": 79
+    }
+  ],
+  "native": [
+    {
+      "epoch": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\current-four-runtime\\readability-high-v1",
+      "archive_prefix": "native/0",
+      "receipt": "receipt.json",
+      "receipt_sha256": "561b3540637f38455e4a39532b18e0fb4cfbcb92582487685cfec13111c986b9",
+      "wrapper_accepted": true,
+      "review_accepted": null,
+      "expected_diagnostics": []
+    },
+    {
+      "epoch": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\current-four-runtime\\readability-low-v1",
+      "archive_prefix": "native/1",
+      "receipt": "receipt.json",
+      "receipt_sha256": "580d646d02a71dccbe191b309ff307714736fce4d564df3725a5917a17f4813e",
+      "wrapper_accepted": true,
+      "review_accepted": null,
+      "expected_diagnostics": []
+    }
+  ],
+  "cold": [
+    {
+      "epoch": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\current-four-runtime\\cold-final-v1",
+      "archive_prefix": "cold/0",
+      "receipt": "receipt.json",
+      "receipt_sha256": "89687a7b54fe13c9cb9ea9880286e31160b47306a091110e0004c5ff6166124a",
+      "wrapper_accepted": true,
+      "review_accepted": true,
+      "expected_diagnostics": [],
+      "review": "independent-review.json",
+      "review_sha256": "b9e08024e8760ec345247390f13fd09b73e3487988d392a514d00a8ff48bc21f"
+    }
+  ],
+  "focused": [
+    {
+      "epoch": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\current-four-runtime\\focused-v6",
+      "archive_prefix": "focused/0",
+      "receipt": "receipt.json",
+      "receipt_sha256": "cb4ccd53d8216aed3bcf436c9c485c77a34fa35f2fb88e9e086f9a4ff10ae4f3",
+      "wrapper_accepted": false,
+      "review_accepted": true,
+      "expected_diagnostics": [
+        "WARNING: [RunSave] run/level res://data/levels/no_such_level_ne297.tres 無效，退回 res://data/levels/ch1_prologue.tres",
+        "WARNING: [RunSave] run/level res://data/levels/no_such_level_ne297.tres 無效，退回 res://data/levels/ch1_prologue.tres",
+        "WARNING: [Level] res://data/levels/ne297_test_only.tres area/layout_revision：不支援的版面修訂；原存檔保留；原存檔保留。",
+        "WARNING: [Level] res://data/levels/ne297_test_only.tres layout migration：持久鍵衝突 gate@10,50；原存檔保留；原存檔保留。"
+      ],
+      "review": "independent-review.json",
+      "review_sha256": "e5fb61723b395272535ff7e48f5a93a273f6281f81ffef651a99e702a322c598"
+    }
+  ],
+  "native_source_context_comparison": {
+    "accepted": true,
+    "native_epochs": [
+      "readability-high-v1",
+      "readability-low-v1"
+    ],
+    "final_epoch": "changed-v3",
+    "source_count": 10190,
+    "changed": [
+      "tests/helpers/map_layout_migration_checks.gd",
+      "work/root-integration-v1/manifest.json"
+    ],
+    "all_gameplay_map_shader_ui_sources_exact": true,
+    "scope": "One test-only numeric comparison and its private source manifest changed after native14; native14 is not claimed to have identical complete source inventory to final80."
+  },
+  "native_candidate_delta_analysis": [
+    {
+      "epoch": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\current-four-runtime\\readability-high-v1",
+      "candidate_differences": {
+        "tests/helpers/map_layout_migration_checks.gd": {
+          "native": "fe5d33af7de6b5c47d0d828d5fade9c8e55aef61d7c68ca463ae9ad9820b1165",
+          "final": "a10698e5297e896311779dc0c3c25cd714606d92f11deb363f44e39b9575666c"
+        }
+      },
+      "provenance_only_missing": [
+        "design/21-metroidvania/CHAPTER1.md"
+      ],
+      "gameplay_data_runtime_equal": true,
+      "full_source_hash_equal": false
+    },
+    {
+      "epoch": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\current-four-runtime\\readability-low-v1",
+      "candidate_differences": {
+        "tests/helpers/map_layout_migration_checks.gd": {
+          "native": "fe5d33af7de6b5c47d0d828d5fade9c8e55aef61d7c68ca463ae9ad9820b1165",
+          "final": "a10698e5297e896311779dc0c3c25cd714606d92f11deb363f44e39b9575666c"
+        }
+      },
+      "provenance_only_missing": [
+        "design/21-metroidvania/CHAPTER1.md"
+      ],
+      "gameplay_data_runtime_equal": true,
+      "full_source_hash_equal": false
+    }
+  ],
+  "scope": "original changed entry; unchanged selector/registry/filter/known failures; not exclusive performance; fixtures and stock exit diagnostics retained",
+  "raw_zip_sha256": "e2ce666ffbbbec37f3c328338ea0d22788fcb3193e0f5f58d7f175bcea5b85aa"
+}

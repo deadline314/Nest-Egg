@@ -24,8 +24,11 @@ func _fx_kind() -> StringName:
 func _draw_icon() -> void:
 	if _draw_world_sprite("repair_pack"):
 		return
-	var glow := LightKit.glow(Palette.CYAN, 1.8 + 0.4 * sin(_time * 6.0))
 	draw_rect(Rect2(-5, -5, 10, 10), Color(Palette.UI_PANEL, 0.9))
-	draw_rect(Rect2(-5, -5, 10, 10), glow, false, 1.0)
-	draw_line(Vector2(-3, 0), Vector2(3, 0), glow, 2.0)
-	draw_line(Vector2(0, -3), Vector2(0, 3), glow, 2.0)
+
+
+func _draw_fallback_emission(canvas: Node2D) -> void:
+	var glow := LightKit.glow(Palette.CYAN, 1.8 + 0.4 * sin(_time * 6.0))
+	canvas.draw_rect(Rect2(-5, -5, 10, 10), glow, false, 1.0)
+	canvas.draw_line(Vector2(-3, 0), Vector2(3, 0), glow, 2.0)
+	canvas.draw_line(Vector2(0, -3), Vector2(0, 3), glow, 2.0)

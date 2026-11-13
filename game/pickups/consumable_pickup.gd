@@ -40,15 +40,18 @@ func _fx_color() -> Color:
 func _draw_icon() -> void:
 	if _draw_world_sprite(item.icon):
 		return
+	draw_rect(Rect2(-3, -6, 6, 11), Color(Palette.UI_PANEL, 0.9))
+
+
+func _draw_fallback_emission(canvas: Node2D) -> void:
 	var glow := LightKit.glow(item.color, 1.8 + 0.4 * sin(_time * 6.0))
 	var body := Rect2(-3, -6, 6, 11)
-	draw_rect(body, Color(Palette.UI_PANEL, 0.9))
-	draw_rect(body, glow, false, 1.0)
+	canvas.draw_rect(body, glow, false, 1.0)
 	if item.restores_guard:
 		# 電池：上方電極與中間的閃電。
-		draw_rect(Rect2(-1.5, -8, 3, 2), glow)
-		draw_polyline(PackedVector2Array([Vector2(1, -4), Vector2(-1, 0), Vector2(1, 0), Vector2(-1, 4)]), glow, 1.0)
+		canvas.draw_rect(Rect2(-1.5, -8, 3, 2), glow)
+		canvas.draw_polyline(PackedVector2Array([Vector2(1, -4), Vector2(-1, 0), Vector2(1, 0), Vector2(-1, 4)]), glow, 1.0)
 	else:
 		# 醫療針：針頭與藥劑。
-		draw_line(Vector2(0, -6), Vector2(0, -9), glow, 1.0)
-		draw_rect(Rect2(-2, -2, 4, 6), Color(glow, 0.8))
+		canvas.draw_line(Vector2(0, -6), Vector2(0, -9), glow, 1.0)
+		canvas.draw_rect(Rect2(-2, -2, 4, 6), Color(glow, 0.8))

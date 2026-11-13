@@ -91,6 +91,11 @@ static func create(def: Dictionary, where: String) -> Node2D:
 
 ## Finite material states only. Authors cannot address Nodes or execute handlers.
 static func prop_state_problem(def: Dictionary) -> String:
+	if def.has("lighting"):
+		if def.get("kind") != "sprite" or not def.get("lighting") in ["physical", "baked", "emission"]:
+			return "sprite lighting must be physical, baked or emission"
+	if def.get("kind") == "sprite" and sprite_lighting(def) == "physical" and (bool(def.get("life", false)) or bool(def.get("additive", false))):
+		return "physical sprite must keep window-life and additive emission on a separate layer"
 	var effect_issue := _effect_problem(def)
 	if not effect_issue.is_empty():
 		return effect_issue
@@ -119,6 +124,14 @@ static func prop_state_problem(def: Dictionary) -> String:
 		if not path.begins_with("res://art/") or ".." in path or RigLibrary.texture_size(path) == Vector2.ZERO:
 			return "sprite state texture is missing: " + path.left(256)
 	return ""
+
+
+## Existing physical prop libraries opt into normals; complete painted backplates stay baked.
+## An explicit role also allows other asset directories without coupling rendering to an id.
+static func sprite_lighting(def: Dictionary) -> String:
+	var path := str(def.get("path", ""))
+	var physical := path.begins_with("res://art/environment/scene_props/") or path.begins_with("res://art/environment/props/")
+	return str(def.get("lighting", "physical" if physical else "baked"))
 
 
 static func _finite(value: Variant) -> bool:
@@ -334,6 +347,7 @@ class _Glow:
 
 class _Sprite:
 	extends Sprite2D
+	var _lighting_role := "baked"
 	var _state_textures: Dictionary[String, Texture2D] = {}
 	var _state_glows: Dictionary[String, Texture2D] = {}
 	var _state := "default"
@@ -355,6 +369,12 @@ class _Sprite:
 		if tex == null:
 			push_error("[Stage] 找不到圖片：%s" % path)
 			tex = RigLibrary.texture(path, Vector2i(32, 32))
+		_lighting_role = StageLayers.sprite_lighting(def)
+		var physical := _lighting_role == "physical"
+		if physical and ResourceLoader.exists(path):
+			tex = LitTextures.load_texture(path)
+		if not physical:
+			material = LightKit.emissive_material()
 		texture = tex
 		_source_width = float(def.get("source_width", tex.get_width()))
 		_source_region = StageLayers.rect_of(def.get("region"), Rect2(Vector2.ZERO, Vector2(tex.get_size()) * (_source_width / float(tex.get_width()))))
@@ -367,7 +387,7 @@ class _Sprite:
 		var state_paths: Dictionary = {"default": path}
 		for key: String in def.get("states", {}):
 			var state_path: String = def["states"][key]["path"]
-			_state_textures[key] = RigLibrary.optional_texture(state_path)
+			_state_textures[key] = LitTextures.load_texture(state_path) if physical else RigLibrary.optional_texture(state_path)
 			state_paths[key] = state_path
 		for key: String in state_paths:
 			var state_path: String = state_paths[key]
@@ -414,6 +434,9 @@ class _Sprite:
 
 	func prop_state() -> String:
 		return _state
+
+	func physical_surface() -> bool:
+		return _lighting_role == "physical"
 
 	func supports_prop_state(state: String) -> bool:
 		return _state_textures.has(state) and _state_textures[state] != null

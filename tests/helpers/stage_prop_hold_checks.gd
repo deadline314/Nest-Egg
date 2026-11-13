@@ -43,8 +43,12 @@ static func run(s: TestSuite) -> void:
 				var parent := sprite.get_parent()
 				var original_z := sprite.z_index
 				var original_relative := sprite.z_as_relative
+				var original_material := sprite.material
+				var original_tint := sprite.self_modulate
+				var original_texture := sprite.texture
 				var original_width := sprite.texture.get_width() * (stage.global_transform.affine_inverse() * sprite.global_transform).x.length()
 				s.check(stage.hold_prop("held_fixture", actor, hand, source).is_empty(), label + " actual touching prop can be held")
+				s.check(sprite.material == actor.rig._light_material and sprite.texture == original_texture, label + " held physical prop shares the actor response without replacing its diffuse/normal")
 				s.check(stage.prop_held("held_fixture") and sprite.get_instance_id() == instance and sprite.get_parent() == parent, label + " holds the identical stage node without reparenting or cloning")
 				s.check(not stage.hold_prop("held_fixture", actor, hand, source).is_empty(), label + " rejects duplicate ownership of one prop")
 				for frame in 8:
@@ -67,6 +71,7 @@ static func run(s: TestSuite) -> void:
 					s.check(absf(sprite.texture.get_width() * transform.x.length() - original_width) < 0.01, label + " texture resolution change preserves authored prop width")
 				s.check(stage.release_prop("held_fixture") and not stage.prop_held("held_fixture") and not stage.is_processing(), label + " release removes the binding and disables idle hold work")
 				s.check(sprite.z_index == original_z and sprite.z_as_relative == original_relative, label + " release restores its original layer rules")
+				s.check(sprite.material == original_material and sprite.self_modulate == original_tint, label + " release restores the original stage appearance")
 				var released_position := sprite.position
 				actor.position.x += 30
 				actor._process(1.0 / 60.0)
@@ -78,5 +83,6 @@ static func run(s: TestSuite) -> void:
 				actor.free()
 				stage._process(1.0 / 60.0)
 				s.check(not stage.prop_held("held_fixture") and not stage.is_processing() and sprite.z_as_relative == original_relative, label + " disappearing actor safely releases weak hold ownership")
+				s.check(sprite.material == original_material and sprite.self_modulate == original_tint, label + " disappearing actor cannot leave a stale held material behind")
 				stage.free()
 	s.check(int(Performance.get_monitor(Performance.OBJECT_NODE_COUNT)) == initial_nodes, "repeated hold move mirror resize release and owner destruction retain no scene nodes")

@@ -16,6 +16,10 @@ var _original_relative := true
 var _follow_rotation := false
 var _hand_bone: WeakRef
 var _hand_start_angle := 0.0
+var _bound_rig: WeakRef
+var _bound_material: Material
+var _original_material: Material
+var _original_tint := Color.WHITE
 
 
 func setup(id: String, sprite: StageLayers._Sprite, actor: CutsceneActor, hand: StringName, point: Vector2, stage: Node2D, follow_rotation := false) -> String:
@@ -57,6 +61,13 @@ func setup(id: String, sprite: StageLayers._Sprite, actor: CutsceneActor, hand: 
 	_texture_width = float(sprite.texture.get_width())
 	_original_z = sprite.z_index
 	_original_relative = sprite.z_as_relative
+	if sprite.physical_surface():
+		_original_material = sprite.material
+		_original_tint = sprite.self_modulate
+		if not actor.rig.bind_attachment(sprite, _original_tint):
+			return "held physical prop has an incompatible appearance material"
+		_bound_rig = weakref(actor.rig)
+		_bound_material = sprite.material
 	sprite.z_as_relative = false
 	sprite.z_index = WorldLayers.stage_actor_z(actor.layer_slot) + actor.rig.hand_draw_z(hand) - 1
 	actor.keep_hand_with_body(hand)
@@ -70,6 +81,9 @@ func update(stage: Node2D) -> bool:
 		release()
 		return false
 	if sprite.is_queued_for_deletion() or actor.is_queued_for_deletion() or not stage.is_inside_tree():
+		release()
+		return false
+	if _bound_rig != null and _bound_rig.get_ref() != actor.rig:
 		release()
 		return false
 	var palm := actor.hand_contact_global(_hand)
@@ -110,5 +124,16 @@ func owns_hand(actor: CutsceneActor, hand: StringName) -> bool:
 func release() -> void:
 	var sprite := _sprite.get_ref() as StageLayers._Sprite if _sprite != null else null
 	if is_instance_valid(sprite):
+		if _bound_rig != null:
+			var rig := _bound_rig.get_ref() as CharacterRig
+			var restore := sprite.material == _bound_material
+			if is_instance_valid(rig):
+				rig.unbind_attachment(sprite)
+			if restore:
+				sprite.material = _original_material
+				sprite.self_modulate = _original_tint
 		sprite.z_index = _original_z
 		sprite.z_as_relative = _original_relative
+	_bound_rig = null
+	_bound_material = null
+	_original_material = null

@@ -57,11 +57,15 @@ const LARGE_PILE_VALUE := 30
 func _draw_icon() -> void:
 	if _draw_world_sprite("credits_large" if value >= LARGE_PILE_VALUE else "credits_small"):
 		return
-	var glow := LightKit.glow(color, 1.8 + 0.4 * sin(_time * 6.0))
 	var chip := PackedVector2Array([Vector2(0, -5), Vector2(4, 0), Vector2(0, 5), Vector2(-4, 0)])
 	draw_colored_polygon(chip, Color(color.darkened(0.55), 0.9))
-	draw_polyline(chip + PackedVector2Array([chip[0]]), glow, 1.0)
-	draw_line(Vector2(0, -2), Vector2(0, 2), glow, 1.0)
+
+
+func _draw_fallback_emission(canvas: Node2D) -> void:
+	var glow := LightKit.glow(color, 1.8 + 0.4 * sin(_time * 6.0))
+	var chip := PackedVector2Array([Vector2(0, -5), Vector2(4, 0), Vector2(0, 5), Vector2(-4, 0)])
+	canvas.draw_polyline(chip + PackedVector2Array([chip[0]]), glow, 1.0)
+	canvas.draw_line(Vector2(0, -2), Vector2(0, 2), glow, 1.0)
 
 
 func state_key() -> String:

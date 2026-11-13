@@ -47,18 +47,24 @@ func _fx_kind() -> StringName:
 func _draw_icon() -> void:
 	if _draw_world_sprite(item.icon):
 		return
+	if item.category == StoryItemData.Category.RECORDING:
+		draw_rect(Rect2(-4, -5, 8, 10), Color(Palette.UI_PANEL, 0.9))
+	else:
+		var page := PackedVector2Array([Vector2(-4, -6), Vector2(2, -6), Vector2(5, -3), Vector2(5, 6), Vector2(-4, 6)])
+		draw_colored_polygon(page, Color(Palette.UI_PANEL, 0.9))
+
+
+func _draw_fallback_emission(canvas: Node2D) -> void:
 	var glow := LightKit.glow(item.color, 1.8 + 0.4 * sin(_time * 5.0))
 	if item.category == StoryItemData.Category.RECORDING:
 		# 錄音晶片：小方塊加音波。
-		draw_rect(Rect2(-4, -5, 8, 10), Color(Palette.UI_PANEL, 0.9))
-		draw_rect(Rect2(-4, -5, 8, 10), glow, false, 1.0)
+		canvas.draw_rect(Rect2(-4, -5, 8, 10), glow, false, 1.0)
 		for i in 3:
 			var h := 2.0 + 2.0 * absf(sin(_time * 6.0 + i))
-			draw_line(Vector2(-2 + i * 2.0, -h * 0.5), Vector2(-2 + i * 2.0, h * 0.5), glow, 1.0)
+			canvas.draw_line(Vector2(-2 + i * 2.0, -h * 0.5), Vector2(-2 + i * 2.0, h * 0.5), glow, 1.0)
 	else:
 		# 文件：折角的紙。
 		var page := PackedVector2Array([Vector2(-4, -6), Vector2(2, -6), Vector2(5, -3), Vector2(5, 6), Vector2(-4, 6)])
-		draw_colored_polygon(page, Color(Palette.UI_PANEL, 0.9))
-		draw_polyline(page + PackedVector2Array([page[0]]), glow, 1.0)
+		canvas.draw_polyline(page + PackedVector2Array([page[0]]), glow, 1.0)
 		for y in [-2.0, 0.5, 3.0]:
-			draw_line(Vector2(-2, y), Vector2(3, y), Color(glow, 0.7), 1.0)
+			canvas.draw_line(Vector2(-2, y), Vector2(3, y), Color(glow, 0.7), 1.0)

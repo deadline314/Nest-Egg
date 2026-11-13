@@ -326,6 +326,18 @@ func _build_ui() -> void:
 		if child != _stage_holder and child != _root.get_child(0):
 			(child as CanvasItem).z_index = z
 			z += 1
+	_isolate_ui_lighting(_root)
+
+
+## The stage's CanvasModulate and local lights share this canvas with dialogue.
+## UI stays unshaded; the physical stage branch and custom FX shaders stay owned.
+func _isolate_ui_lighting(node: Node) -> void:
+	if node == _stage_holder:
+		return
+	if node is CanvasItem:
+		LightKit.mark_emissive(node)
+	for child: Node in node.get_children():
+		_isolate_ui_lighting(child)
 
 
 func _overlay(color: Color) -> ColorRect:
@@ -952,6 +964,7 @@ func _do_choice(step: Dictionary) -> void:
 		button.mouse_entered.connect(func() -> void: explain.text = note)
 		_choice.add_child(button)
 	_choice.add_child(explain)
+	_isolate_ui_lighting(_choice)
 	_layout_safe_rect(Story.framing.safe_rect())
 	(_choice.get_child(1) as Button).grab_focus()
 	var mouse_mode := Input.mouse_mode

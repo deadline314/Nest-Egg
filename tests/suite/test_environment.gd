@@ -24,6 +24,7 @@ func run() -> void:
 	_test_chapter_one()
 	await _test_contact_shadow()
 	_test_fixture_art()
+	await preload("res://tests/helpers/scene_lighting_checks.gd").run(self)
 	await _test_training_art()
 	await _test_prop_reaction()
 	await _test_local_drip()

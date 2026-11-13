@@ -293,7 +293,6 @@ func _on_exiting() -> void:
 	LightKit.creature_fill = 0.0
 	LightKit.creature_light_cap = LightKit.CHARACTER_LIGHT_CAP_MAX * LightKit.ENEMY_LIGHT_GAIN
 	LightKit.lamp_power = 1.0
-	LitTextures.set_enabled(true)
 	if EventBus.lighting_override_requested.is_connected(set_override):
 		EventBus.lighting_override_requested.disconnect(set_override)
 	if EventBus.lighting_override_cleared.is_connected(clear_override):
