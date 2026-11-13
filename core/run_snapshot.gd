@@ -68,6 +68,9 @@ static func prepare(raw: Dictionary) -> Dictionary:
 	result["level"] = level.resource_path
 	var relocated := not notices.is_empty()
 	if relocated:
+		var source_revision: Variant = result["runtime"].get("layout_revision", 1)
+		if not RunSaveCodec.valid_version(source_revision) or source_revision > 2:
+			return {"error": "run/runtime/layout_revision：不支援的來源修訂；原存檔保留"}
 		_reset_location(result)
 	result["story"]["items"] = items["data"]
 	var repaired := RequiredItemRepair.apply(result["story"]["items"], result["story"]["flags"])
@@ -161,6 +164,12 @@ static func prepare(raw: Dictionary) -> Dictionary:
 	for key in ["register_checkpoint", "free"]:
 		if runtime["death_entry"].has(key):
 			runtime["death_entry"][key] = runtime["death_entry"][key] == true
+	var migration := MapLayoutMigration.prepare_run(result, level)
+	if migration.has("error"):
+		return migration
+	runtime = result["runtime"]
+	if migration.get("relocated", false):
+		notices.append("地圖已更新，從原區域的安全入口續玩；既有進度與已取得內容保留。")
 	var dynamic := _dynamic(runtime, level)
 	if dynamic.has("error"):
 		return dynamic
@@ -252,7 +261,7 @@ static func publish_restored() -> void:
 static func _reset_location(result: Dictionary) -> void:
 	if result.get("runtime") is Dictionary:
 		var runtime: Dictionary = result["runtime"]
-		for key in ["loose", "enemies", "encounters", "encounter_members_version"]:
+		for key in ["loose", "enemies", "encounters", "encounter_members_version", "layout_revision"]:
 			runtime.erase(key)
 		runtime["area"] = {}
 		runtime["world"] = {}

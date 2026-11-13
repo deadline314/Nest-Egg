@@ -1,0 +1,53 @@
+{
+  "base": "92521d0cf3c18bd3dad4b13a316844e70bfaecd0",
+  "owned11": {
+    "core/navigation/map_layout_migration.gd": "e21f447e2bf44334719b62f900dc83b4688f83b754580e116241d3250efee62e",
+    "core/navigation/map_layout_migration.gd.uid": "e082bbd65082e2ac15b95248a446bd40b589066bc0a393aa5db634b0eb2ef49e",
+    "core/navigation/quest_map_state.gd": "b25d93f9348d816dc634f333dfc53909dfb23ed30cdfd65523bf79ca2aec7096",
+    "core/run_snapshot.gd": "9a58cc930586e6ac1cdb6d4eb7432bce811af84f5ac8151278873472a6a9d100",
+    "game/level/level.gd": "b0419860a769dd36c23f2efab692ac7db2feb775d512c77df9b8fdd6677a0122",
+    "game/level/level_layout.gd": "36320007c74e8849ba7aaf1fe214372234e47b52ad4caf4721be805da1781a7d",
+    "tests/suite/test_run_save.gd": "544327af7d199bbf356c22d3cfe352fee0425959e4d98a59306e1bde51f16809",
+    "tests/helpers/map_layout_migration_checks.gd": "42138f343778daf99da8d874361fb8dafb90045d6216f6bbca29ede1e947764f",
+    "tests/helpers/map_layout_migration_checks.gd.uid": "0da66fb3fdc8ab099880da6891c12fea442158c3904f976375e3d578aabe7812",
+    "tests/fixtures/map_revision_2.json": "e2ad16fd0594bd209f836781c79968fc9a21adc6327aa5d5883225264d57a46d",
+    "tests/fixtures/map_revision_2.tres": "b00e88c2ed3aaae0f0edbee7a3cbee23499b1b3eee2c2fe58e6584ac9e5aee8d"
+  },
+  "borrowed21": {
+    "tools/level/build_ch1.py": "d31b85ba96298e194e81cbfbf399da7ebea78780337860146cb6ef168d7ac9a6",
+    "tools/level/level_kit.py": "3a0b6a2281bede7868dabf5e69169c02c7a53f90a78a1a73d5fcf91be855c969",
+    "tools/level/test_level_kit.py": "746af98d84a0ab2f6c989122db191a58e18452a246ef40c3eb279c28047be62a",
+    "core/scene_audit.gd": "c44951cd57b21e4b183e5bf28e37750b94d6c2749d0ed5904edca768c1700b70",
+    "tests/suite/test_scene_sanity.gd": "f3dcad7f6da007644ffed768c8ffcfab8e93071e8a3df9cfbd87921285c75bdf",
+    "tests/suite/test_ch1_map.gd": "628a8ddc4811fa22fa7622809e6a36d0f6bc85b9214423cb735994a29d27b3f0",
+    "tools/story/ch1_closure.py": "e55da1de468ba9218aed8439bb44cb667cf3474cbda8849eaceec87be721a242",
+    "tools/story/ch1_runtime_backend.py": "48567c45b4d9941b392b14d52f6e729c6370193e2ce0a992440200f9f3754e12",
+    "data/story/ch1_kasa.json": "a4a195bbe20fd0d5ecb155aa07c442e8ea9a4e8b3712e1a9febecd448feca2f9",
+    "data/levels/ch1_layout_v2.json": "2794a7e98f368e0b54ba47da4aebea970d550b6567c6514131a5236a1adc6ad4",
+    "tests/fixtures/ch1_layout_v1_cells.json": "3990d9036d20606906b44bad2cbf2d164cffd47ace7a4af4b5470db7e6650d14",
+    "design/21-metroidvania/CHAPTER1.md": "df67a59844b54fa2b6a909bb5e2c772531b5be6fd403da158f81eec25d04bbe2",
+    "data/levels/ch1_design.json": "b935052c6d7239a41fa6eef7e83d8b4a73637e6cf11ca8f204002f85d9ef0b1e",
+    "data/levels/ch1_rooftop.tres": "f2acbaeabf5c3986510a3b3c281c00d1d732859a0d9f20aa0096628a6fc3d5cb",
+    "data/levels/ch1_rooftop_map.json": "c03e16854c1ca1862b54102435ea91d7574bd5b18bd229f6eeeeffb4de93e62e",
+    "data/levels/ch1_street.tres": "507556b9cf34eb3fb6d83d3efe691794b8bed0f40ff008c2201acddf6970748b",
+    "data/levels/ch1_street_map.json": "155d5461b3f2d3cbc8e78b8498d6ac3cc1fb0265d1bf8175a07ea19a78fc444e",
+    "data/levels/ch1_warehouse.tres": "e873b1d81c8a56c343c1bf66d78ab5f267fa6362a9fc2ba789227de374fe14f6",
+    "data/levels/ch1_warehouse_map.json": "572afd5869debfdeb2bd20b5384f3dcba8c62581de3eecc30c6f8cb4b94ab357",
+    "data/levels/ch1_vault.tres": "a1c8356dbb48935bd95c82a0df6c2a61d4baa3100446da41571a771ed99c5ba2",
+    "data/levels/ch1_vault_map.json": "04d79a7261a34371e85d7f4173e9cb9fbf5942e7840dc35f975b0e7b3bc6bd10"
+  },
+  "borrowed_role": "NE298v6 map context only; not NE297 staged source",
+  "root_candidate_manifest_sha256": "15dff7998b7b15f5d6d05828de02dfbff69ffd9914f036285254809960a467c1",
+  "borrowed_preparation_manifest_sha256": "63c42d95d4a03c060831e692dc593a507224ba3d5e171f02516513aa753244b1",
+  "selector_count": 63,
+  "original_legacy_slot_sha256": "a5be720fe21b3a95388a3b59d013034b051249b74fe2474dc436c3fea358d19d",
+  "official_accepted": false,
+  "second_canonical_cold_read_pending": true,
+  "borrowed_immutable_origin": {
+    "source_zip": "D:\\NestEggVerification\\ne294-generator-foundation-20261113\\work\\ne298-layout-proposal-v1\\cpu-freeze-v6\\source.zip",
+    "zip_sha256": "5ea13bd3a08740648fe28306095378c219c10362c935fd0cd6ef29c1221be8e2",
+    "manifest_sha256": "63c42d95d4a03c060831e692dc593a507224ba3d5e171f02516513aa753244b1",
+    "count": 21,
+    "later_NE298_v7_not_backfilled": true
+  }
+}

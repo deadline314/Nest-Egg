@@ -78,6 +78,7 @@ var _entry_portal: StringName = &""
 var _from_checkpoint := false
 ## 本區域這一輪的狀態（GameState.area_state 的參考；非持久世界為空字典）。
 var _area: Dictionary = {}
+var _layout_revision := 1
 var _resumed_presentation_completed := false
 var _resumed_presentation_settled := false
 var _resume_presentation_generation := 0
@@ -127,13 +128,50 @@ func _ready() -> void:
 		return
 
 	# Direct resume callers must obey the same strict identity boundary as RunSave.
+	var definition := MapLayoutMigration.read(data)
+	if definition.has("error"):
+		push_warning("[Level] %s；原存檔保留。" % definition["error"])
+		process_mode = Node.PROCESS_MODE_DISABLED
+		menu_requested.emit.call_deferred()
+		return
+	_layout_revision = int(definition["revision"])
 	if not _resume.is_empty():
+		var migrated := MapLayoutMigration.runtime(_resume, data, _layout)
+		if migrated.has("error"):
+			push_warning("[Level] %s；原存檔保留。" % migrated["error"])
+			process_mode = Node.PROCESS_MODE_DISABLED
+			menu_requested.emit.call_deferred()
+			return
+		_resume = migrated["data"]
 		var membership := ENCOUNTER_SNAPSHOT.prepare(_resume, data, _layout)
 		if membership.has("error"):
 			push_warning("[Level] %s；返回主選單，未套用遭遇狀態。" % membership["error"])
 			process_mode = Node.PROCESS_MODE_DISABLED
 			menu_requested.emit.call_deferred()
 			return
+	var pending_area: Dictionary = {}
+	var restored_checkpoint: Dictionary = {}
+	if data.persistent_world:
+		var previous_area: Variant = GameState.area_states.get(String(data.id), {"consumed": {}, "damage": {}, "world": {}})
+		if not previous_area is Dictionary:
+			push_warning("[Level] %s/area：狀態不是物件；原存檔保留。" % data.resource_path)
+			process_mode = Node.PROCESS_MODE_DISABLED
+			menu_requested.emit.call_deferred()
+			return
+		var migrated_area := MapLayoutMigration.area(previous_area, definition)
+		if migrated_area.has("error"):
+			push_warning("[Level] %s %s；原存檔保留。" % [data.resource_path, migrated_area["error"]])
+			process_mode = Node.PROCESS_MODE_DISABLED
+			menu_requested.emit.call_deferred()
+			return
+		pending_area = migrated_area["data"]
+		if previous_area.get("layout_revision", 1) != _layout_revision and GameState.checkpoint_applies(data.resource_path):
+			restored_checkpoint = MapLayoutMigration.checkpoint(GameState.checkpoint_world, GameState.checkpoint_position, definition, _layout)
+			if restored_checkpoint.has("error"):
+				push_warning("[Level] %s %s；原存檔保留。" % [data.resource_path, restored_checkpoint["error"]])
+				process_mode = Node.PROCESS_MODE_DISABLED
+				menu_requested.emit.call_deferred()
+				return
 	if data.complete_on_flag != &"":
 		GameState.flag_changed.connect(_on_completion_flag)
 		if GameState.has_flag(data.complete_on_flag):
@@ -152,6 +190,10 @@ func _ready() -> void:
 	_from_checkpoint = _entry_portal == &"" and GameState.checkpoint_applies(data.resource_path)
 	if _persistent:
 		_area = GameState.area_state(data.id)
+		_area.merge(pending_area, true)
+		if not restored_checkpoint.is_empty():
+			GameState.checkpoint_world = restored_checkpoint["world"]
+			GameState.checkpoint_position = restored_checkpoint["position"]
 	elif not _resume.is_empty():
 		_area = _resume.get("area", {"consumed": {}, "damage": {}, "world": {}})
 	# 成長進度（信用點、改裝）：從檢查點重生就還原成檢查點當下，否則還原成進入關卡時；要在玩家（武器欄）建立之前。
@@ -1254,7 +1296,7 @@ func run_snapshot() -> Dictionary:
 	var area := _capture_run_area()
 	if _persistent and not died:
 		_area.merge(area, true)
-	return {"position": [player.position.x, player.position.y], "velocity": [player.velocity.x, player.velocity.y],
+	var result := {"position": [player.position.x, player.position.y], "velocity": [player.velocity.x, player.velocity.y],
 		"facing": player.facing, "crouching": player.is_crouching, "guard": player.guard,
 		"aim_dir": [player.aim_dir.x, player.aim_dir.y],
 		"health": player.health.current, "loadout": player.checkpoint_snapshot(), "world": area["world"],
@@ -1263,10 +1305,15 @@ func run_snapshot() -> Dictionary:
 		"can_continue": _death_can_continue,
 		"loose": _capture_loose(), "enemies": enemies, "encounters": encounters,
 		"encounter_members_version": ENCOUNTER_SNAPSHOT.MEMBERS_VERSION}
+	if _layout_revision > 1:
+		result["layout_revision"] = _layout_revision
+	return result
 
 
 func _capture_run_area() -> Dictionary:
 	var result := {"consumed": _area.get("consumed", {}).duplicate(true), "damage": _area.get("damage", {}).duplicate(true), "world": WorldState.capture(get_tree())}
+	if _layout_revision > 1:
+		result["layout_revision"] = _layout_revision
 	for key: String in _tracked:
 		var node: Variant = _tracked[key]
 		var gone := not is_instance_valid(node) or (node as Node).is_queued_for_deletion()
@@ -1289,14 +1336,7 @@ func _safe_resume_position(position: Vector2) -> Vector2:
 
 
 func _resume_position_valid(position: Vector2) -> bool:
-	var body := Rect2(position - Vector2(Player.BODY_SIZE.x * 0.5, Player.BODY_SIZE.y), Player.BODY_SIZE)
-	var valid := position.is_finite() and Rect2(Vector2.ZERO, _layout.pixel_size()).encloses(body)
-	if valid:
-		for solid in _layout.solid_rects:
-			if body.intersects(_layout.cells_to_pixels(solid)):
-				valid = false
-				break
-	return valid
+	return _layout.fits_body(position, Player.BODY_SIZE)
 
 
 ## 已結算的死亡只恢復演出／重試，不再次 register_death 或扣款。

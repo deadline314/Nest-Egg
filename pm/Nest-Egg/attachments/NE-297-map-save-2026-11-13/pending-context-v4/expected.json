@@ -1,0 +1,302 @@
+{
+  "scene": "ch1_t_egret_1",
+  "entry_scene": "ch1_dispatch_brief",
+  "actor_resource": "res://data/npcs/ch1_egret.tres",
+  "actor_id": "ch1_egret",
+  "talk_index": 0,
+  "precondition_flags": {
+    "ch1_dinner_done": true,
+    "ch1_heard_brief": false
+  },
+  "arranged_credits": 17,
+  "configured_talk_reward": false,
+  "source_language": "zh",
+  "cases": {
+    "old": {
+      "cell": [
+        54,
+        17
+      ],
+      "source_id": "npc:ch1_egret@54,17",
+      "context": {
+        "framing_source": "person",
+        "source_id": "npc:ch1_egret@54,17",
+        "talk_index": 0
+      },
+      "lines": [
+        {
+          "step_index": 4,
+          "where": "場景 ch1_t_egret_1 第 4 步（say）",
+          "speaker": "egret",
+          "name": "鷺",
+          "text": "倉庫保險箱裡有一片資料盤，今晚把它取出來。驗收是八百，不是看一眼就算。"
+        },
+        {
+          "step_index": 5,
+          "where": "場景 ch1_t_egret_1 第 5 步（say）",
+          "speaker": "rin",
+          "name": "凜",
+          "text": "一成照舊，先別算進我能花的錢。"
+        },
+        {
+          "step_index": 6,
+          "where": "場景 ch1_t_egret_1 第 6 步（say）",
+          "speaker": "egret",
+          "name": "鷺",
+          "text": "看門狗是倉庫的保全機甲，牠的脾氣可不好。天穹委託的盤，你先照編號取。"
+        },
+        {
+          "step_index": 8,
+          "where": "場景 ch1_t_egret_1 第 8 步（say）",
+          "speaker": "egret",
+          "name": "鷺",
+          "text": "拿到盤後走倉庫上層出口。那條路到復原館外的交接櫃，不用帶著盤再穿一次路障。"
+        },
+        {
+          "step_index": 9,
+          "where": "場景 ch1_t_egret_1 第 9 步（say）",
+          "speaker": "rin",
+          "name": "凜",
+          "text": "復原館就是電話亭旁邊那間夜間店？"
+        },
+        {
+          "step_index": 10,
+          "where": "場景 ch1_t_egret_1 第 10 步（say）",
+          "speaker": "egret",
+          "name": "鷺",
+          "text": "對，交接櫃在店外，不是交給店裡的人。櫃子收盤後吐回執，明早我跟你對錢。"
+        },
+        {
+          "step_index": 12,
+          "where": "場景 ch1_t_egret_1 第 12 步（say）",
+          "speaker": "rin",
+          "name": "凜",
+          "text": "盤放進櫃子裡，回執由我自己收著，我記住了。"
+        }
+      ],
+      "steps": [
+        {
+          "index": 1,
+          "do": "scene",
+          "where": "場景 ch1_t_egret_1 第 1 步（scene）"
+        },
+        {
+          "index": 2,
+          "do": "actor",
+          "where": "場景 ch1_t_egret_1 第 2 步（actor）"
+        },
+        {
+          "index": 3,
+          "do": "actor",
+          "where": "場景 ch1_t_egret_1 第 3 步（actor）"
+        },
+        {
+          "index": 4,
+          "do": "say",
+          "where": "場景 ch1_t_egret_1 第 4 步（say）"
+        },
+        {
+          "index": 5,
+          "do": "say",
+          "where": "場景 ch1_t_egret_1 第 5 步（say）"
+        },
+        {
+          "index": 6,
+          "do": "say",
+          "where": "場景 ch1_t_egret_1 第 6 步（say）"
+        },
+        {
+          "index": 7,
+          "do": "wait",
+          "where": "場景 ch1_t_egret_1 第 7 步（wait）"
+        },
+        {
+          "index": 8,
+          "do": "say",
+          "where": "場景 ch1_t_egret_1 第 8 步（say）"
+        },
+        {
+          "index": 9,
+          "do": "say",
+          "where": "場景 ch1_t_egret_1 第 9 步（say）"
+        },
+        {
+          "index": 10,
+          "do": "say",
+          "where": "場景 ch1_t_egret_1 第 10 步（say）"
+        },
+        {
+          "index": 11,
+          "do": "wait",
+          "where": "場景 ch1_t_egret_1 第 11 步（wait）"
+        },
+        {
+          "index": 12,
+          "do": "say",
+          "where": "場景 ch1_t_egret_1 第 12 步（say）"
+        },
+        {
+          "index": 13,
+          "do": "fade",
+          "where": "場景 ch1_t_egret_1 第 13 步（fade）"
+        }
+      ],
+      "source_sha256": {
+        "data/story/ch1_kasa.json": "641b6bc4f51c27681241230184853e0d0d3735ebd289640f61c0ff46d0c954af",
+        "data/npcs/ch1_egret.tres": "3d84c70e4e340de7cdafe916267b127c2b957f0f8ab29855eb3851b4323a429f",
+        "data/scripts/npc_talk.gd": "ce34b606a4055f2e4161d8b449b83faa9adf7bb6d655cd825da55d067d988401",
+        "data/levels/ch1_rooftop.tres": "7adf46f934d61dc851d1dedd5b3796c21a0a2f7bdd5a609485cf8b2685e67d52",
+        "data/levels/ch1_rooftop_map.json": "91704417bf4763d9582a3d9e1fa4f1e1bb92bcecfc9283b6fef02d2d78b18868",
+        "game/npc/npc_actor.gd": "d44729928180b1d366a371730fd5f841d3df20275d4b164368a99e42b7fd7d73",
+        "game/main.gd": "3a84f70a6b21ec91d9cba16eae9dea4d5897716729bac01a870a41ac8328b3d2",
+        "game/level/level.gd": "c6b4168525e06a05f192cab3361d7350aea58ae2a5f268d12699dd51629e7bb4",
+        "game/story_result_completion.gd": "92be5123c438f662eebc5ec16dbccf5367540b19a26bc2d517995b3316a6192f",
+        "tools/quest_resume_probe.gd": "e34b0defd4385db8c7b1f62ab214dc0f09581bc9c2ea44a6b352dd4c758fdecf",
+        "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+      }
+    },
+    "new": {
+      "cell": [
+        54,
+        49
+      ],
+      "source_id": "npc:ch1_egret@54,49",
+      "context": {
+        "framing_source": "person",
+        "source_id": "npc:ch1_egret@54,49",
+        "talk_index": 0
+      },
+      "lines": [
+        {
+          "step_index": 4,
+          "where": "場景 ch1_t_egret_1 第 4 步（say）",
+          "speaker": "egret",
+          "name": "鷺",
+          "text": "倉庫保險箱裡有一片資料盤，今晚把它取出來。驗收是八百，不是看一眼就算。"
+        },
+        {
+          "step_index": 5,
+          "where": "場景 ch1_t_egret_1 第 5 步（say）",
+          "speaker": "rin",
+          "name": "凜",
+          "text": "一成照舊，先別算進我能花的錢。"
+        },
+        {
+          "step_index": 6,
+          "where": "場景 ch1_t_egret_1 第 6 步（say）",
+          "speaker": "egret",
+          "name": "鷺",
+          "text": "看門狗是倉庫的保全機甲，牠的脾氣可不好。天穹委託的盤，你先照編號取。"
+        },
+        {
+          "step_index": 8,
+          "where": "場景 ch1_t_egret_1 第 8 步（say）",
+          "speaker": "egret",
+          "name": "鷺",
+          "text": "拿到盤後走倉庫上層出口。那條路到復原館外的交接櫃，不用帶著盤再穿一次路障。"
+        },
+        {
+          "step_index": 9,
+          "where": "場景 ch1_t_egret_1 第 9 步（say）",
+          "speaker": "rin",
+          "name": "凜",
+          "text": "復原館就是電話亭旁邊那間夜間店？"
+        },
+        {
+          "step_index": 10,
+          "where": "場景 ch1_t_egret_1 第 10 步（say）",
+          "speaker": "egret",
+          "name": "鷺",
+          "text": "對，交接櫃在店外，不是交給店裡的人。櫃子收盤後吐回執，明早我跟你對錢。"
+        },
+        {
+          "step_index": 12,
+          "where": "場景 ch1_t_egret_1 第 12 步（say）",
+          "speaker": "rin",
+          "name": "凜",
+          "text": "盤放進櫃子裡，回執由我自己收著，我記住了。"
+        }
+      ],
+      "steps": [
+        {
+          "index": 1,
+          "do": "scene",
+          "where": "場景 ch1_t_egret_1 第 1 步（scene）"
+        },
+        {
+          "index": 2,
+          "do": "actor",
+          "where": "場景 ch1_t_egret_1 第 2 步（actor）"
+        },
+        {
+          "index": 3,
+          "do": "actor",
+          "where": "場景 ch1_t_egret_1 第 3 步（actor）"
+        },
+        {
+          "index": 4,
+          "do": "say",
+          "where": "場景 ch1_t_egret_1 第 4 步（say）"
+        },
+        {
+          "index": 5,
+          "do": "say",
+          "where": "場景 ch1_t_egret_1 第 5 步（say）"
+        },
+        {
+          "index": 6,
+          "do": "say",
+          "where": "場景 ch1_t_egret_1 第 6 步（say）"
+        },
+        {
+          "index": 7,
+          "do": "wait",
+          "where": "場景 ch1_t_egret_1 第 7 步（wait）"
+        },
+        {
+          "index": 8,
+          "do": "say",
+          "where": "場景 ch1_t_egret_1 第 8 步（say）"
+        },
+        {
+          "index": 9,
+          "do": "say",
+          "where": "場景 ch1_t_egret_1 第 9 步（say）"
+        },
+        {
+          "index": 10,
+          "do": "say",
+          "where": "場景 ch1_t_egret_1 第 10 步（say）"
+        },
+        {
+          "index": 11,
+          "do": "wait",
+          "where": "場景 ch1_t_egret_1 第 11 步（wait）"
+        },
+        {
+          "index": 12,
+          "do": "say",
+          "where": "場景 ch1_t_egret_1 第 12 步（say）"
+        },
+        {
+          "index": 13,
+          "do": "fade",
+          "where": "場景 ch1_t_egret_1 第 13 步（fade）"
+        }
+      ],
+      "source_sha256": {
+        "data/story/ch1_kasa.json": "a4a195bbe20fd0d5ecb155aa07c442e8ea9a4e8b3712e1a9febecd448feca2f9",
+        "data/npcs/ch1_egret.tres": "3d84c70e4e340de7cdafe916267b127c2b957f0f8ab29855eb3851b4323a429f",
+        "data/scripts/npc_talk.gd": "ce34b606a4055f2e4161d8b449b83faa9adf7bb6d655cd825da55d067d988401",
+        "data/levels/ch1_rooftop.tres": "f2acbaeabf5c3986510a3b3c281c00d1d732859a0d9f20aa0096628a6fc3d5cb",
+        "data/levels/ch1_rooftop_map.json": "c03e16854c1ca1862b54102435ea91d7574bd5b18bd229f6eeeeffb4de93e62e",
+        "game/npc/npc_actor.gd": "d44729928180b1d366a371730fd5f841d3df20275d4b164368a99e42b7fd7d73",
+        "game/main.gd": "3a84f70a6b21ec91d9cba16eae9dea4d5897716729bac01a870a41ac8328b3d2",
+        "game/level/level.gd": "b0419860a769dd36c23f2efab692ac7db2feb775d512c77df9b8fdd6677a0122",
+        "game/story_result_completion.gd": "92be5123c438f662eebc5ec16dbccf5367540b19a26bc2d517995b3316a6192f",
+        "tools/quest_resume_probe.gd": "e34b0defd4385db8c7b1f62ab214dc0f09581bc9c2ea44a6b352dd4c758fdecf",
+        "tools/viewport_capture.gd": "390789818b405f341a6a0a24a880971353349c8c09dc907e9fd9d8538d98addd"
+      }
+    }
+  }
+}

@@ -157,7 +157,15 @@ static func _validate_state(snapshot: Dictionary, context: Dictionary) -> Dictio
 		return _fail("invalid_snapshot", "snapshot/area_states", "expected bounded actual area states")
 	for area_id: Variant in snapshot["area_states"]:
 		var area: Variant = snapshot["area_states"][area_id]
-		if not _id(area_id) or not area is Dictionary or not _keys(area, ["consumed", "damage", "world"]):
+		if not _id(area_id) or not area is Dictionary:
+			return _fail("invalid_snapshot", "snapshot/area_states", "invalid area service shape")
+		var area_keys := ["consumed", "damage", "world"]
+		if area.has("layout_revision"):
+			var revision: Variant = area["layout_revision"]
+			if not RunSaveCodec.valid_version(revision) or revision > 2:
+				return _fail("invalid_snapshot", "snapshot/area_states/" + area_id + "/layout_revision", "unsupported map revision")
+			area_keys.append("layout_revision")
+		if not _keys(area, area_keys):
 			return _fail("invalid_snapshot", "snapshot/area_states", "invalid area service shape")
 		for key: String in ["consumed", "damage", "world"]:
 			if not area[key] is Dictionary or area[key].size() > MAX_ENTRIES:

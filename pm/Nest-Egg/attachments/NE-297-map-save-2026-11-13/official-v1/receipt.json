@@ -1,0 +1,153 @@
+{
+  "accepted": true,
+  "ticket": "NE297",
+  "base": "92521d0cf3c18bd3dad4b13a316844e70bfaecd0",
+  "ticket_files": {
+    "core/navigation/map_layout_migration.gd": "4fd8f5315a230e9567131f77d27cb491a7eceb4e657bfdaaf24e249e0d62f8eb",
+    "core/navigation/map_layout_migration.gd.uid": "e082bbd65082e2ac15b95248a446bd40b589066bc0a393aa5db634b0eb2ef49e",
+    "core/navigation/quest_map_state.gd": "b25d93f9348d816dc634f333dfc53909dfb23ed30cdfd65523bf79ca2aec7096",
+    "core/run_snapshot.gd": "3e2e0bd3c35851decc3e9cab7e9284e75a7c9026ac573cc60fcb342d5f127965",
+    "game/level/level.gd": "b0419860a769dd36c23f2efab692ac7db2feb775d512c77df9b8fdd6677a0122",
+    "game/level/level_layout.gd": "36320007c74e8849ba7aaf1fe214372234e47b52ad4caf4721be805da1781a7d",
+    "tests/suite/test_run_save.gd": "544327af7d199bbf356c22d3cfe352fee0425959e4d98a59306e1bde51f16809",
+    "tests/helpers/map_layout_migration_checks.gd": "a10698e5297e896311779dc0c3c25cd714606d92f11deb363f44e39b9575666c",
+    "tests/helpers/map_layout_migration_checks.gd.uid": "0da66fb3fdc8ab099880da6891c12fea442158c3904f976375e3d578aabe7812",
+    "tests/fixtures/map_revision_2.json": "e2ad16fd0594bd209f836781c79968fc9a21adc6327aa5d5883225264d57a46d",
+    "tests/fixtures/map_revision_2.tres": "b00e88c2ed3aaae0f0edbee7a3cbee23499b1b3eee2c2fe58e6584ac9e5aee8d",
+    "core/story_result_plan.gd": "107b39dcde8eec80c0c4c89e8db96d547b1136a41c54e72f5331940bce23505e",
+    "tests/helpers/story_result_plan_checks.gd": "160634e3bf54f72d417fef02e8c5a0014ef727d977c7ed200a227a24fd7b1b6c",
+    "core/run_destination.gd": "8ed3d44e3fca21e9776e837495aca06a129a94de92b848451bd2c30a633f80bd"
+  },
+  "ticket_count": 14,
+  "union_count": 80,
+  "runtime_guarded_union_count": 79,
+  "provenance_only_union_files": {
+    "design/21-metroidvania/CHAPTER1.md": "1dee3bee18d7738b55b01288ec1b550c92c78ccbfcdda1eec765c8e2bc183a40"
+  },
+  "official_union": {
+    "checks": 99550,
+    "new_failures": 0,
+    "known_failures": 0,
+    "suites": 87,
+    "wall_seconds": 561.894,
+    "runtime_source_count": 10190
+  },
+  "red_originals": [
+    {
+      "checks": 99481,
+      "new_failures": 20,
+      "known_failures": 0,
+      "suites": 87,
+      "wall_seconds": 656.97,
+      "candidate_count": 74,
+      "runtime_guarded_candidate_count": 73
+    },
+    {
+      "checks": 99539,
+      "new_failures": 4,
+      "known_failures": 0,
+      "suites": 87,
+      "wall_seconds": 561.903,
+      "candidate_count": 80,
+      "runtime_guarded_candidate_count": 79
+    }
+  ],
+  "native": [
+    {
+      "epoch": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\current-four-runtime\\readability-high-v1",
+      "archive_prefix": "native/0",
+      "receipt": "receipt.json",
+      "receipt_sha256": "561b3540637f38455e4a39532b18e0fb4cfbcb92582487685cfec13111c986b9",
+      "wrapper_accepted": true,
+      "review_accepted": null,
+      "expected_diagnostics": []
+    },
+    {
+      "epoch": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\current-four-runtime\\readability-low-v1",
+      "archive_prefix": "native/1",
+      "receipt": "receipt.json",
+      "receipt_sha256": "580d646d02a71dccbe191b309ff307714736fce4d564df3725a5917a17f4813e",
+      "wrapper_accepted": true,
+      "review_accepted": null,
+      "expected_diagnostics": []
+    }
+  ],
+  "cold": [
+    {
+      "epoch": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\current-four-runtime\\cold-final-v1",
+      "archive_prefix": "cold/0",
+      "receipt": "receipt.json",
+      "receipt_sha256": "89687a7b54fe13c9cb9ea9880286e31160b47306a091110e0004c5ff6166124a",
+      "wrapper_accepted": true,
+      "review_accepted": true,
+      "expected_diagnostics": [],
+      "review": "independent-review.json",
+      "review_sha256": "b9e08024e8760ec345247390f13fd09b73e3487988d392a514d00a8ff48bc21f"
+    }
+  ],
+  "focused": [
+    {
+      "epoch": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\current-four-runtime\\focused-v6",
+      "archive_prefix": "focused/0",
+      "receipt": "receipt.json",
+      "receipt_sha256": "cb4ccd53d8216aed3bcf436c9c485c77a34fa35f2fb88e9e086f9a4ff10ae4f3",
+      "wrapper_accepted": false,
+      "review_accepted": true,
+      "expected_diagnostics": [
+        "WARNING: [RunSave] run/level res://data/levels/no_such_level_ne297.tres 無效，退回 res://data/levels/ch1_prologue.tres",
+        "WARNING: [RunSave] run/level res://data/levels/no_such_level_ne297.tres 無效，退回 res://data/levels/ch1_prologue.tres",
+        "WARNING: [Level] res://data/levels/ne297_test_only.tres area/layout_revision：不支援的版面修訂；原存檔保留；原存檔保留。",
+        "WARNING: [Level] res://data/levels/ne297_test_only.tres layout migration：持久鍵衝突 gate@10,50；原存檔保留；原存檔保留。"
+      ],
+      "review": "independent-review.json",
+      "review_sha256": "e5fb61723b395272535ff7e48f5a93a273f6281f81ffef651a99e702a322c598"
+    }
+  ],
+  "native_source_context_comparison": {
+    "accepted": true,
+    "native_epochs": [
+      "readability-high-v1",
+      "readability-low-v1"
+    ],
+    "final_epoch": "changed-v3",
+    "source_count": 10190,
+    "changed": [
+      "tests/helpers/map_layout_migration_checks.gd",
+      "work/root-integration-v1/manifest.json"
+    ],
+    "all_gameplay_map_shader_ui_sources_exact": true,
+    "scope": "One test-only numeric comparison and its private source manifest changed after native14; native14 is not claimed to have identical complete source inventory to final80."
+  },
+  "native_candidate_delta_analysis": [
+    {
+      "epoch": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\current-four-runtime\\readability-high-v1",
+      "candidate_differences": {
+        "tests/helpers/map_layout_migration_checks.gd": {
+          "native": "fe5d33af7de6b5c47d0d828d5fade9c8e55aef61d7c68ca463ae9ad9820b1165",
+          "final": "a10698e5297e896311779dc0c3c25cd714606d92f11deb363f44e39b9575666c"
+        }
+      },
+      "provenance_only_missing": [
+        "design/21-metroidvania/CHAPTER1.md"
+      ],
+      "gameplay_data_runtime_equal": true,
+      "full_source_hash_equal": false
+    },
+    {
+      "epoch": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\current-four-runtime\\readability-low-v1",
+      "candidate_differences": {
+        "tests/helpers/map_layout_migration_checks.gd": {
+          "native": "fe5d33af7de6b5c47d0d828d5fade9c8e55aef61d7c68ca463ae9ad9820b1165",
+          "final": "a10698e5297e896311779dc0c3c25cd714606d92f11deb363f44e39b9575666c"
+        }
+      },
+      "provenance_only_missing": [
+        "design/21-metroidvania/CHAPTER1.md"
+      ],
+      "gameplay_data_runtime_equal": true,
+      "full_source_hash_equal": false
+    }
+  ],
+  "scope": "original changed entry; unchanged selector/registry/filter/known failures; not exclusive performance; fixtures and stock exit diagnostics retained",
+  "raw_zip_sha256": "c771a8b8b8d429a1e9b1d302d128386edcdcc629a7eff2d05cef77700b4f5732"
+}

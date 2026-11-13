@@ -96,7 +96,22 @@ func activate(path: String, position: Vector2, tile: int) -> void:
 
 
 func snapshot() -> Dictionary:
-	return {"version": VERSION, "pinned_id": pinned_id, "explored": explored.duplicate(true), "activated": activated.duplicate(true)}
+	var result := {"version": VERSION, "pinned_id": pinned_id, "explored": explored.duplicate(true), "activated": activated.duplicate(true)}
+	var paths: Dictionary = {}
+	for path: String in explored:
+		paths[path] = true
+	for key: String in activated:
+		paths[key.get_slice("@", 0)] = true
+	var versions: Dictionary = {}
+	for path: String in paths:
+		var data := RunSaveCodec.resource(path, "level", "res://data/levels/") as LevelData
+		if data != null:
+			var definition := MapLayoutMigration.read(data)
+			if not definition.has("error") and definition["revision"] > 1:
+				versions[path] = definition["revision"]
+	if not versions.is_empty():
+		result["layout_revisions"] = versions
+	return result
 
 
 func restore(raw: Variant, catalog: QuestCatalog, maps: QuestMapIndex, notify := true) -> void:
@@ -115,28 +130,47 @@ func restore(raw: Variant, catalog: QuestCatalog, maps: QuestMapIndex, notify :=
 			pinned_id = id
 		else:
 			issues.append("navigation.pinned_id: 找不到任務，改為追蹤主線。")
-		var areas: Variant = raw.get("explored", {})
+		var versions: Variant = raw.get("layout_revisions", {})
+		var valid_versions := versions is Dictionary
+		if not valid_versions:
+			issues.append("navigation.layout_revisions: 修訂表無效，改用未探索狀態。")
+		var areas: Variant = raw.get("explored", {}) if valid_versions else {}
 		if areas is Dictionary:
 			for path: Variant in areas:
 				if not path is String or not maps.areas.has(path) or not areas[path] is Dictionary:
 					issues.append("navigation.explored.%s: 無效區域，已略過。" % str(path))
 					continue
 				var layout: LevelLayout = maps.areas[path]["layout"]
+				var migration := _map_migration(path, versions, maps)
+				if migration.has("error"):
+					issues.append(migration["error"])
+					continue
 				for key: Variant in areas[path]:
-					var cell := _parse_cell(key, layout)
+					var mapped: Variant = MapLayoutMigration.explored_key(key, migration["definition"]) if key is String and migration["needed"] else key
+					var cell := _parse_cell(mapped, layout)
 					if cell != Vector2i(-1, -1) and areas[path][key] == true:
 						if not explored.has(path):
 							explored[path] = {}
-						explored[path][key] = true
+						explored[path][mapped] = true
 					else:
 						issues.append("navigation.explored.%s.%s: 無效格座標，已略過。" % [path, key])
 		else:
 			issues.append("navigation.explored: 必須是物件，改用未探索狀態。")
-		var points: Variant = raw.get("activated", {})
+		var points: Variant = raw.get("activated", {}) if valid_versions else {}
 		if points is Dictionary:
 			for key: Variant in points:
-				if key is String and points[key] == true and maps.checkpoint_keys.has(key):
-					activated[key] = true
+				var mapped: Variant = key
+				if key is String:
+					var path: String = key.get_slice("@", 0)
+					if maps.areas.has(path):
+						var migration := _map_migration(path, versions, maps)
+						if migration.has("error"):
+							issues.append(migration["error"])
+							continue
+						if migration["needed"]:
+							mapped = MapLayoutMigration.checkpoint_key(key, migration["definition"])
+				if key is String and points[key] == true and maps.checkpoint_keys.has(mapped):
+					activated[mapped] = true
 				else:
 					issues.append("navigation.activated.%s: 找不到存檔點，已略過。" % str(key))
 		else:
@@ -147,6 +181,16 @@ func restore(raw: Variant, catalog: QuestCatalog, maps: QuestMapIndex, notify :=
 		_touch()
 	else:
 		revision += 1
+
+
+static func _map_migration(path: String, versions: Dictionary, maps: QuestMapIndex) -> Dictionary:
+	var definition := MapLayoutMigration.read(maps.areas[path]["data"])
+	if definition.has("error"):
+		return definition
+	var version: Variant = versions.get(path, 1)
+	if not RunSaveCodec.valid_version(version) or version > definition["revision"]:
+		return {"error": "navigation.layout_revisions.%s: 不支援的版面修訂，改用未探索狀態。" % path}
+	return {"definition": definition, "needed": version != definition["revision"]}
 
 
 static func _parse_cell(key: Variant, layout: LevelLayout) -> Vector2i:

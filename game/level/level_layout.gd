@@ -43,6 +43,16 @@ func is_valid() -> bool:
 	return width > 0 and height > 0 and has_player_start
 
 
+func fits_body(position: Vector2, size: Vector2) -> bool:
+	var body := Rect2(position - Vector2(size.x * 0.5, size.y), size)
+	if not position.is_finite() or not Rect2(Vector2.ZERO, pixel_size()).encloses(body):
+		return false
+	for solid in solid_rects:
+		if body.intersects(cells_to_pixels(solid)):
+			return false
+	return true
+
+
 func pixel_size() -> Vector2:
 	return Vector2(width, height) * tile_size
 

@@ -66,6 +66,7 @@ static func run(suite: TestSuite) -> void:
 	_test_atomic_money(suite)
 	_test_custody(suite)
 	_test_world(suite)
+	_test_area_revisions(suite)
 	_test_rejections(suite)
 	_test_aliases(suite)
 
@@ -256,3 +257,23 @@ static func _test_aliases(s: TestSuite) -> void:
 	first["events"][0]["slot"] = "changed"
 	first["events"].clear()
 	s.check(JSON.stringify([operations, state, context]) == before and JSON.stringify(second) == second_before, "mutating every returned branch and event never aliases inputs or another proposal")
+
+
+static func _test_area_revisions(s: TestSuite) -> void:
+	var operations := [_flag()]
+	var context := _context(operations)
+	for revision: Variant in [1, 2, 2.0]:
+		var state := _snapshot()
+		state["area_states"]["test_area"]["layout_revision"] = revision
+		state["area_states"]["test_area"]["world"] = {"gate@8,50": true}
+		var before := JSON.stringify(state)
+		var proposal := Planner.plan(operations, state, context)
+		s.check(proposal["valid"] and proposal["next"]["area_states"] == state["area_states"] and JSON.stringify(state) == before, "supported map revision survives an authorized story result without mutating its source")
+	for revision: Variant in [0, -1, 3, 1.5, true, "2", null]:
+		var state := _snapshot()
+		state["area_states"]["test_area"]["layout_revision"] = revision
+		_refused(s, operations, state, context, "invalid_snapshot", "invalid map revision " + str(revision))
+	var unknown := _snapshot()
+	unknown["area_states"]["test_area"]["layout_revision"] = 2
+	unknown["area_states"]["test_area"]["unregistered_metadata"] = true
+	_refused(s, operations, unknown, context, "invalid_snapshot", "map metadata does not allow arbitrary area keys")

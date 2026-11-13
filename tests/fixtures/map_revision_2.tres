@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1"]
+[ext_resource type="Resource" path="res://data/enemies/grunt.tres" id="2"]
+[ext_resource type="Resource" path="res://data/props/switch_a.tres" id="3"]
+[ext_resource type="Resource" path="res://data/props/gate_a.tres" id="4"]
+[ext_resource type="Resource" path="res://data/weapons/pistol.tres" id="5"]
+
+[resource]
+script = ExtResource("1")
+id = &"map_revision_fixture"
+display_name = "版面遷移測試"
+height = 56
+layout_path = "res://tests/fixtures/map_revision_2.json"
+persistent_world = true
+legend = Dictionary[String, Resource]({
+"g": ExtResource("2"),
+"s": ExtResource("3"),
+"G": ExtResource("4"),
+"p": ExtResource("5")
+})
