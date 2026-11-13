@@ -12,7 +12,6 @@ import sys
 sys.path.insert(0, os.path.dirname(__file__))
 sys.dont_write_bytecode = True
 import build_ch1 as kit  # noqa: E402
-from scenery_placement import prepare_props  # noqa: E402
 
 kit.PREFIX = 'ch3'
 kit.CHAPTER = 'ch3_clearwater'
@@ -197,7 +196,7 @@ def build_pawnshop():
     return a
 
 
-def build_plaza():
+def _build_plaza_v1():
     """H14 廣場貨梯：控制箱與水尺（C01），貨梯接通後叫車廂（C02），外梯捷徑通泵室上橋，高架維修盒是探索獎勵。"""
     a = Area('plaza', '廣場貨梯', 96, 20)
     a.stand(3, 'h')
@@ -230,7 +229,7 @@ def build_plaza():
     return a
 
 
-def build_pump():
+def _build_pump_v1():
     """泵室：乾燥上橋轉排水輪（C02），下槽的乾地配電盤關支路、接主路；下槽兩場短戰都能從上橋繞過，背面工具櫃有一個秘密盒。"""
     a = Area('pump', '集水槽與泵室', 80, 20, indoor=True)
     a.ceiling(1, 78, 6)
@@ -258,7 +257,7 @@ def build_pump():
     return a
 
 
-def build_mezzanine():
+def _build_mezzanine_v1():
     """M1 夾層通道：貨梯口、B5 電話亭（可登記復原點）、公共通知終端（C03 可選），往右是診所的公開入口；維修帶一場可繞的短戰。"""
     a = Area('mezzanine', '夾層通道', 80, 20, indoor=True)
     a.ceiling(1, 78, 8)
@@ -437,6 +436,54 @@ def build_office_hall():
     return a
 
 
+# NE-300：廣場、泵室與夾層改成看得出上下關係的立體交通（data/levels/ch3_layout_v2.json）。
+# 原內容整批下移 16 格，保留內容 ID 與舊檔格位映射；新的維修豎井和貨梯同一個條件（ch3_freight_ready）。
+LAYOUT_DY = 16
+
+
+def build_plaza():
+    a = kit._v2_area(_build_plaza_v1())
+    a.features.update(vertical='廣場地面、纜輪維修道與高處三層', reward='纜輪上方第 15 列信用點：空中再躍',
+                      loop='纜輪維修道從左側踏台上去、越過貨梯後落到高架維修盒')
+    return a
+
+
+def build_pump():
+    a = kit._v2_area(_build_pump_v1())
+    a.features.update(vertical='下槽、乾燥上橋與天花板上的管線廊三層', reward='管線廊上方第 7 列信用點：空中再躍',
+                      shortcut='管線廊左端的維修豎井 ↔ 夾層（貨梯接通後）')
+    return a
+
+
+def build_mezzanine():
+    a = kit._v2_area(_build_mezzanine_v1())
+    a.features.update(vertical='維修帶、照護步道與天花板上的豎井廊三層', reward='豎井廊上方第 7 列信用點：空中再躍',
+                      loop='貨梯口旁的豎井往上、豎井廊右端下到泵室管線廊，再經外梯或下路回廣場')
+    return a
+
+
+def route_checks(a):
+    """各區的明確路線快照（只是格子近似，不代替真玩家輸入）。"""
+    start = next(((x, y) for y in range(a.h) for x in range(a.w) if a.grid.at(x, y) == 'P'), None)
+    normal = kit.RouteState('normal')
+    late = kit.RouteState('air_jump_bound', jump_tiles=10)
+    scenarios = {
+        'plaza': [(normal, [('control_box', (40, 35)), ('lift', (48, 35)), ('pump', (93, 35)), ('deck', (60, 23)), ('box', (75, 29))],
+                   [('reward', (31, 15))]), (late, [('reward', (31, 15))], [])],
+        'pump': [(normal, [('wheel', (30, 28)), ('panel', (64, 35)), ('ladder', (76, 28)), ('shaft', (4, 15))], [('reward', (41, 7))]),
+                 (late, [('reward', (41, 7))], [])],
+        'mezzanine': [(normal, [('booth', (22, 35)), ('clinic', (76, 35)), ('care', (66, 35)), ('shaft', (74, 15))], [('reward', (57, 7))]),
+                      (late, [('reward', (57, 7))], [])],
+    }
+    problems = []
+    for state, goals, forbidden in scenarios.get(a.id, []):
+        problems += kit.reachable(a, start, goals, state=state)
+        for target in forbidden:
+            if not kit.reachable(a, start, [target], state=state):
+                problems.append(f'{a.id}/{state.name}: {target[0]} 不該用普通跳躍就到得了')
+    return problems
+
+
 PLACEMENT_IDS = {'pawnshop': 'ch1_pawnshop'}
 
 AREAS = (build_pawnshop, build_plaza, build_pump, build_mezzanine, build_clinic, build_gate_hall, build_glass_edge,
@@ -459,6 +506,7 @@ def configure():
     kit.NPCS = {ident: {**{'rig': '', 'loop': '', 'facing': 1}, **spec} for ident, spec in NPCS.items()}
     kit.THEMES = THEMES
     kit.STORY = STORY
+    kit.placement_id = lambda ident: PLACEMENT_IDS.get(ident, f'ch3_{ident}')
 
 
 def main():
@@ -466,16 +514,18 @@ def main():
     areas = [build() for build in AREAS]
     for a in areas:
         zones = {name: (x0, x1, use) for name, x0, x1, use in COMBAT_ZONES.get(a.id, [])}
+        dy = LAYOUT_DY if hasattr(a, 'legacy_layout') else 0
         for name, members in ENCOUNTERS.get(a.id, {}).items():
             x0, x1, _use = zones[name]
-            a.encounter(name, x0, x1, members)
+            # 指定列的敵人（吊軌）跟著版面一起下移。
+            a.encounter(name, x0, x1, [(m[0], m[1], m[2] + dy) if len(m) > 2 else m for m in members])
     problems = []
     for a in areas:
         problems += a.check(flying=('d',) + HANGING)
         start = next(((x, y) for y in range(a.h) for x in range(a.w) if a.grid.at(x, y) == 'P'), None)
         goals = [(a.grid.at(x, y), (x, y)) for y in range(a.h) for x in range(a.w)
                  if a.grid.at(x, y) in (set(kit.RES) - set(HANGING)) | set(PORTALS) | {'C'}]  # 吊軌上的敵人不用走得到
-        problems += kit.reachable(a, start, goals)
+        problems += route_checks(a) if hasattr(a, 'legacy_layout') else kit.reachable(a, start, goals)
     if problems:
         print('\n'.join(problems))
         sys.exit(1)
@@ -488,9 +538,7 @@ def main():
                         for name, x0, x1, use in COMBAT_ZONES.get(a.id, [])]
     kit.write_design(areas)
     for a in areas:
-        extra = {"props": prepare_props(a.props, PLACEMENT_IDS.get(a.id, f'ch3_{a.id}'))}
-        if a.regions:
-            extra["regions"] = a.regions
+        extra = kit._map_extra(a)
         a.grid.write(a.id, (kit.LEVEL_DIR, f'ch3_{a.id}_map.json'), extra)
     by_id = {a.id: a for a in areas}
     # 章末在當舖：接受下一個週日的邀約寫下章末旗標，本章結束（第四章尚未收錄，回到結算畫面）。

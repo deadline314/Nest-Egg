@@ -1,16 +1,17 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=13 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
-[ext_resource type="Resource" path="res://data/enemies/pump_inspector.tres" id="2_pump_inspector"]
-[ext_resource type="Resource" path="res://data/enemies/insulation_inspector.tres" id="3_insulation_inspector"]
-[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="4_portal_data"]
-[ext_resource type="Resource" path="res://data/npcs/ch3_notice_terminal.tres" id="5_ch3_notice_terminal"]
-[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="6_lighting_zone"]
-[ext_resource type="Resource" path="res://data/lighting/transfer.tres" id="7_transfer"]
-[ext_resource type="Resource" path="res://data/environment/themes/ch3_mezzanine.tres" id="8_ch3_mezzanine"]
+[ext_resource type="Resource" path="res://data/props/credits_small.tres" id="2_credits_small"]
+[ext_resource type="Resource" path="res://data/enemies/pump_inspector.tres" id="3_pump_inspector"]
+[ext_resource type="Resource" path="res://data/enemies/insulation_inspector.tres" id="4_insulation_inspector"]
+[ext_resource type="Script" path="res://data/scripts/portal_data.gd" id="5_portal_data"]
+[ext_resource type="Resource" path="res://data/npcs/ch3_notice_terminal.tres" id="6_ch3_notice_terminal"]
+[ext_resource type="Script" path="res://data/scripts/lighting_zone.gd" id="7_lighting_zone"]
+[ext_resource type="Resource" path="res://data/lighting/transfer.tres" id="8_transfer"]
+[ext_resource type="Resource" path="res://data/environment/themes/ch3_mezzanine.tres" id="9_ch3_mezzanine"]
 
 [sub_resource type="Resource" id="Resource_0"]
-script = ExtResource("4_portal_data")
+script = ExtResource("5_portal_data")
 id = &"mezz_lift"
 target_level = "res://data/levels/ch3_plaza.tres"
 target_portal = &"plaza_lift"
@@ -20,7 +21,7 @@ height = 56
 style = "door"
 
 [sub_resource type="Resource" id="Resource_1"]
-script = ExtResource("4_portal_data")
+script = ExtResource("5_portal_data")
 id = &"mezz_clinic"
 target_level = "res://data/levels/ch3_clinic.tres"
 target_portal = &"clinic_mezz"
@@ -28,7 +29,7 @@ prompt = "{interact} 進夾層診所"
 style = "door"
 
 [sub_resource type="Resource" id="Resource_2"]
-script = ExtResource("4_portal_data")
+script = ExtResource("5_portal_data")
 id = &"mezz_care"
 target_level = "res://data/levels/ch3_gate_hall.tres"
 target_portal = &"gate_care"
@@ -38,32 +39,46 @@ prompt = "{interact} 走護理通道外段到門禁大廳"
 style = "door"
 
 [sub_resource type="Resource" id="Resource_3"]
-script = ExtResource("6_lighting_zone")
+script = ExtResource("5_portal_data")
+id = &"mezz_shaft"
+target_level = "res://data/levels/ch3_pump.tres"
+target_portal = &"pump_shaft"
+requires_flag = &"ch3_freight_ready"
+locked_text = "豎井的防水閘和貨梯連動，先把水排掉、讓貨梯接通。"
+prompt = "{interact} 沿維修豎井下到泵室管線廊"
+width = 24
+height = 44
+style = "door"
+
+[sub_resource type="Resource" id="Resource_4"]
+script = ExtResource("7_lighting_zone")
 start_tile = 0
 blend_tiles = 12
-profile = ExtResource("7_transfer")
+profile = ExtResource("8_transfer")
 
 [resource]
 script = ExtResource("1_level_data")
 id = &"ch3_mezzanine"
 display_name = "夾層通道"
 tile_size = 16
-height = 24
+height = 40
 legend = Dictionary[String, Resource]({
-"Ж": ExtResource("2_pump_inspector"),
-"Ш": ExtResource("3_insulation_inspector"),
+"c": ExtResource("2_credits_small"),
+"Ж": ExtResource("3_pump_inspector"),
+"Ш": ExtResource("4_insulation_inspector"),
 "Ⅲ": SubResource("Resource_0"),
 "Ⅳ": SubResource("Resource_1"),
 "Ⅶ": SubResource("Resource_2"),
-"ⓝ": ExtResource("5_ch3_notice_terminal")
+"⇓": SubResource("Resource_3"),
+"ⓝ": ExtResource("6_ch3_notice_terminal")
 })
-hints = PackedStringArray("公開報表的查核往右走。安養病房的來訪要洽護理櫃檯，廠房暫停通行。")
+hints = PackedStringArray("公開報表的查核往右走。安養病房的來訪要洽護理櫃檯，廠房暫停通行。", "上方的維修豎井通到泵室管線廊，貨梯接通後才開。")
 chapter = &"ch3_clearwater"
 persistent_world = true
 show_chapter_card = false
-environment = ExtResource("8_ch3_mezzanine")
+environment = ExtResource("9_ch3_mezzanine")
 layout_path = "res://data/levels/ch3_mezzanine_map.json"
-lighting_zones = Array[ExtResource("6_lighting_zone")]([SubResource("Resource_3")])
+lighting_zones = Array[ExtResource("7_lighting_zone")]([SubResource("Resource_4")])
 intro_scene = &"ch3_c03_arrive"
 story_triggers = PackedStringArray()
 death_credit_cap = 250

@@ -63,7 +63,7 @@ script = ExtResource("1_level_data")
 id = &"ch3_plaza"
 display_name = "廣場貨梯"
 tile_size = 16
-height = 24
+height = 40
 legend = Dictionary[String, Resource]({
 "L": SubResource("Resource_0"),
 "c": ExtResource("3_credits_small"),
@@ -74,7 +74,7 @@ legend = Dictionary[String, Resource]({
 "Ⓘ": ExtResource("5_ch3_water_gauge"),
 "ⓢ": ExtResource("6_ch3_outer_ladder")
 })
-hints = PackedStringArray()
+hints = PackedStringArray("沿纜輪維修道往上走，看得到貨梯、外梯和泵室的入口。")
 chapter = &"ch3_clearwater"
 persistent_world = true
 show_chapter_card = false

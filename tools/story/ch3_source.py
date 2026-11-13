@@ -89,7 +89,7 @@ DOCUMENTS = {
 # 任務步驟的真實格位（人物或物件站的那一格；區域 id 對應 data/levels/ch3_<區域>.tres）。
 QUEST_LOCATIONS = {
     "old_k": ("pawnshop", 50, 19), "old_k_kitchen": ("pawnshop", 93, 19), "shop_radio": ("pawnshop", 66, 19),
-    "control_box": ("plaza", 40, 19), "drain_wheel": ("pump", 30, 12), "branch_panel": ("pump", 64, 19),
+    "control_box": ("plaza", 40, 35), "drain_wheel": ("pump", 30, 28), "branch_panel": ("pump", 64, 35),
     "zhi": ("clinic", 24, 19), "report": ("clinic", 34, 19), "register": ("clinic", 12, 19), "roster": ("clinic", 60, 19),
     "reading_desk": ("clinic", 38, 19), "drawer": ("clinic", 76, 19), "scanner_gate": ("gate_hall", 18, 19),
     "gatekeeper": ("gate_hall", 32, 19), "lin": ("showroom", 16, 19), "petition_box": ("office_hall", 14, 19),
