@@ -487,7 +487,7 @@ func sever(index: int, impulse := Vector2.ZERO) -> bool:
 		var root: Bone2D = (chain["bones"] as Array[Bone2D])[0]
 		var source := root.global_transform * root.rest.affine_inverse() * Transform2D(x_axis, y_axis, origin)
 		var dir := impulse.normalized() if impulse != Vector2.ZERO else Vector2.RIGHT
-		var debris := RigDebris.spawn(tex, source, Vector2.ZERO, Vector2(dir.x * SEVER_SPEED.x, SEVER_SPEED.y) * randf_range(0.8, 1.2))
+		var debris := RigDebris.spawn(tex, source, Vector2.ZERO, Vector2(dir.x * SEVER_SPEED.x, SEVER_SPEED.y) * randf_range(0.8, 1.2), polygon.self_modulate, 1.0, -1.0, polygon.light_mask)
 		if debris != null and not Fx.add_world_node(debris):
 			debris.cancel()
 	tentacle_severed.emit(index)

@@ -13,6 +13,7 @@ const KNOCKBACK := 40.0
 
 
 func run() -> void:
+	preload("res://tests/helpers/character_lighting_checks.gd").debris(self)
 	_test_impact_values()
 	_test_data()
 	await _test_light_hits()

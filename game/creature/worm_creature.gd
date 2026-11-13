@@ -118,6 +118,15 @@ func set_state(new_state: StringName) -> void:
 	state = new_state
 
 
+## The world-coordinate mesh is top-level and does not inherit our modulation.
+## Apply opacity once to each render path; the ordinary head inherits this node.
+func set_opacity(value: float) -> void:
+	var alpha := clampf(value, 0.0, 1.0) if is_finite(value) else 1.0
+	modulate.a = alpha
+	if _mesh != null:
+		_mesh.modulate.a = alpha
+
+
 ## 把整條身體排在頭後面（出生或傳送後用）：沿 direction 的反方向直線排開。
 func reset_trail(direction: Vector2) -> void:
 	var back := -direction.normalized() if direction != Vector2.ZERO else Vector2.LEFT

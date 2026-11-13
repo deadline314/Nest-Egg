@@ -207,10 +207,11 @@ func start(id: String, player: Player, scene: String) -> bool:
 		_disk_scale = float(_spec["width"]) / texture.get_width()
 		_make_carrier(player)
 		_disk = Sprite2D.new()
-		_disk.texture = texture
+		_disk.texture = _held_texture(str(_spec["texture"]), texture)
 		_disk.centered = false
 		_disk.hide()
 		_carrier.add_child(_disk)
+		player._visual.rig.bind_attachment(_disk)
 		_sequence = [{"id":"approach"}, {"id":"pocket", "time":0.4}, {"id":"present", "time":0.4},
 			{"id":"contact", "time":0.6}, {"id":"insert", "time":0.6}, {"id":"release", "time":0.35}]
 	elif _spec["kind"] == "turn":
@@ -362,6 +363,7 @@ func after_frame(rig: CharacterRig) -> void:
 		if _paper == null:
 			_fail("receipt visual is already owned or unavailable")
 			return
+		rig.bind_attachment(_paper, _paper.self_modulate)
 		paper_instance = _paper.get_instance_id()
 		contacts_completed += 1
 		_update_held(reaction, 0.0)
@@ -448,6 +450,10 @@ func _make_carrier(player: Player) -> void:
 
 
 func close() -> void:
+	var player := _player.get_ref() as Player if _player != null else null
+	if is_instance_valid(player) and is_instance_valid(player._visual) and is_instance_valid(player._visual.rig):
+		if is_instance_valid(_disk): player._visual.rig.unbind_attachment(_disk)
+		if is_instance_valid(_paper): player._visual.rig.unbind_attachment(_paper)
 	var camera := _camera.get_ref() as LevelCamera if _camera != null else null
 	if is_instance_valid(camera):
 		camera.release_presentation_focus(self)
@@ -571,14 +577,21 @@ func _start_place(player: Player, prop: PropNode) -> bool:
 	_disk_scale = float(_spec["width"]) / texture.get_width()
 	_make_carrier(player)
 	_disk = Sprite2D.new()
-	_disk.texture = texture
+	_disk.texture = _held_texture(str(_spec["texture"]), texture)
 	_disk.centered = false
 	_disk.hide()
 	_carrier.add_child(_disk)
+	player._visual.rig.bind_attachment(_disk)
 	_sequence = place_sequence(int(_spec.get("scrub_loops", 0)))
 	_enter_phase()
 	_frame_camera(player, prop.global_position.x + prop.data.size.x * 0.5)
 	return true
+
+
+## Existing flat assets remain valid; use an authored normal when one exists.
+static func _held_texture(path: String, fallback: Texture2D) -> Texture2D:
+	var normal := path.get_basename() + "_n." + path.get_extension()
+	return LitTextures.load_texture(path) if ResourceLoader.exists(normal) else fallback
 
 
 ## place 的階段：走過去、伸手、拿起、（繞圈）、放到定點、放手。

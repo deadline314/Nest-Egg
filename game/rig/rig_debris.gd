@@ -8,6 +8,7 @@ const GRAVITY := 900.0
 const FLOOR_BOUNCE := 0.35
 ## 同時在場上的上限，也是池子的容量。
 const MAX_ACTIVE := 24
+const LIGHT_SHADER := preload("res://art/shaders/character_light.gdshader")
 
 static var _pool: Array[RigDebris] = []
 static var _active := 0
@@ -18,10 +19,11 @@ var _age := 0.0
 var _floor_y := INF
 var _sprite: Sprite2D
 var _live := false
+var _light_material: ShaderMaterial
 
 
 ## 取得一片脫落零件（從池子拿，沒有才新建）；場上已滿時回傳 null。
-static func spawn(texture: Texture2D, source: Transform2D, offset: Vector2, velocity: Vector2) -> RigDebris:
+static func spawn(texture: Texture2D, source: Transform2D, offset: Vector2, velocity: Vector2, tint := Color.WHITE, fill := 1.0, cap := -1.0, source_light_mask := 1) -> RigDebris:
 	if _active >= MAX_ACTIVE:
 		return null
 	var debris: RigDebris = null
@@ -31,11 +33,11 @@ static func spawn(texture: Texture2D, source: Transform2D, offset: Vector2, velo
 			debris = candidate
 	if debris == null:
 		debris = RigDebris.new()
-	debris.setup(texture, source, offset, velocity)
+	debris.setup(texture, source, offset, velocity, tint, fill, cap, source_light_mask)
 	return debris
 
 
-func setup(texture: Texture2D, source: Transform2D, offset: Vector2, velocity: Vector2) -> void:
+func setup(texture: Texture2D, source: Transform2D, offset: Vector2, velocity: Vector2, tint := Color.WHITE, fill := 1.0, cap := -1.0, source_light_mask := 1) -> void:
 	transform = source
 	_velocity = velocity
 	_spin = randf_range(-12.0, 12.0)
@@ -48,6 +50,19 @@ func setup(texture: Texture2D, source: Transform2D, offset: Vector2, velocity: V
 		add_child(_sprite)
 	_sprite.texture = texture
 	_sprite.offset = offset
+	_sprite.self_modulate = tint
+	_sprite.light_mask = source_light_mask
+	# Keep a stable base-light response, not the source's transient flash/dissolve.
+	# A pooled piece can next be a normally lit chain segment, so reset both paths.
+	if is_finite(fill) and is_finite(cap) and fill > 0.0 and cap > 0.0:
+		if _light_material == null:
+			_light_material = ShaderMaterial.new()
+			_light_material.shader = LIGHT_SHADER
+		_light_material.set_shader_parameter("fill", fill)
+		_light_material.set_shader_parameter("light_cap", cap)
+		_sprite.material = _light_material
+	else:
+		_sprite.material = null
 	set_physics_process(true)
 	_live = true
 	_active += 1

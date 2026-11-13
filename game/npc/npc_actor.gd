@@ -186,6 +186,9 @@ func _build_visual() -> void:
 		_actor.queue_free()
 		_actor = null
 		return
+	# This actor lives on the level canvas, unlike independent cutscene actors.
+	if _actor.rig != null:
+		_actor.rig.use_level_lighting = true
 	_actor.set_pose(data.current_pose(GameState.has_flag))
 	_actor.set_loop(data.loop, data.loop_scale)
 	_actor.face(data.facing)

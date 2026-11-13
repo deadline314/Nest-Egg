@@ -13,6 +13,7 @@ const DT := 1.0 / 60.0
 
 
 func run() -> void:
+	preload("res://tests/helpers/character_lighting_checks.gd").worm(self)
 	_test_pose_math()
 	_test_mesh_topology()
 	_test_worm_belly_and_neck()
@@ -433,6 +434,15 @@ func _test_cloud_serpent() -> void:
 	serpent.hurtbox.receive(lethal())
 	await physics_frames(1)
 	check(serpent.is_dying(), "an erupted serpent can be defeated")
+	await runner.get_tree().create_timer(0.95).timeout
+	if is_instance_valid(serpent):
+		var worm := serpent.get("worm") as WormCreature
+		var body := worm.get_node("Body") as Polygon2D
+		var head := worm.get_node("Head") as Sprite2D
+		check(worm.modulate.a > 0.0 and worm.modulate.a < 1.0 and is_equal_approx(body.modulate.a, worm.modulate.a * head.modulate.a),
+			"lighting: actual death tween fades world-coordinate body and head once together")
+	else:
+		check(false, "lighting: death fixture remains alive during its original fade interval")
 	await end_level(level)
 	await open_level(10.0)
 	serpent = spawn(SERPENT_PATH, 36.0, FLOOR_Y + 16.0) as Enemy

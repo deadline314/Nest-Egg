@@ -14,6 +14,7 @@ func run() -> void:
 	_test_step_counts()
 	_test_attack_poses()
 	_test_loadout()
+	await _test_reflective_held_materials()
 	await _test_reach_and_dead_zone()
 	await _test_single_hit_and_windows()
 	await _test_charge()
@@ -137,6 +138,30 @@ func _arm(weapon_id: String) -> Player:
 	_aim(player, Vector2.RIGHT)
 	player._melee_cooldown_left = 0.0
 	return player
+
+
+func _test_reflective_held_materials() -> void:
+	await open_level(10.0)
+	for id in WEAPONS:
+		var player := _arm(id)
+		for facing: int in [1, -1]:
+			_aim(player, Vector2(facing, 0))
+			await physics_frames(4)
+			var rig := player._visual.rig
+			var held := player._visual.melee_held()
+			var base := held.get_node("ReflectiveBase") as Sprite2D
+			var art := MeleeArt.art(_weapon(id))
+			check(held.is_visible_in_tree() and base.texture == art["lit_texture"] and base.material == rig._light_material,
+				"lighting: %s/%d held base uses actual hand material and lit texture" % [id, facing])
+			check(held.material == LightKit.emissive_material() and base.show_behind_parent,
+				"lighting: %s/%d glow stays separate and above the reflective base" % [id, facing])
+			check(base.global_position.distance_to(held._origin) < 0.001
+				and (base.global_transform.basis_xform(Vector2(base.texture.get_width(), 0)) - held._direction * (art["size"] as Vector2).x).length() < 0.001,
+				"lighting: %s/%d splitting passes preserves true grip and blade direction/length" % [id, facing])
+			var material := base.material
+			await physics_frames(2)
+			check(base.material == material and rig._attachments.size() == 1, "lighting: swapping weapons reuses its single base binding")
+	await end_level(level)
 
 
 ## 輕型的接續較多、重型較少（NE-236）：連段段數含付費尾招；起手最快的武器段數最多，單擊最重的段數比它少。

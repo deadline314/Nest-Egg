@@ -12,6 +12,9 @@ const AMMO_SIZE := Vector2i(40, 56)
 const STEEL := Color(0.62, 0.68, 0.74)
 const GRIP := Color(0.2, 0.22, 0.26)
 const WHIP_SEGMENTS := 10
+const REFLECTIVE := 1
+const EMISSION := 2
+const ALL_LAYERS := REFLECTIVE | EMISSION
 
 const ART_PATH := "res://data/weapon_art/melee.json"
 
@@ -89,8 +92,9 @@ static func hold_spec(weapon: WeaponData) -> Dictionary:
 ## 畫在 CanvasItem 上：from 是握把位置、direction 是刃尖朝向（單位向量）；glow 是發光亮度（>1 會帶泛光，呼叫端自己限制上限）。
 ## 朝左時把圖上下對調，刃口才不會翻到上面。
 ## reach 大於 0 時，鞭子的細線只畫到這個長度（垂下來不穿過地面）。
-## shade 是本體的明暗（0～1）：這個函式畫的東西不受場景光影響，暗的區域裡由呼叫端把本體壓暗，發光部位不受影響。
-static func draw(item: CanvasItem, from: Vector2, direction: Vector2, weapon: WeaponData, glow := 1.4, shade := 1.0, reach := -1.0) -> void:
+## shade 是本體的明暗（0～1）；受光由呼叫 CanvasItem 的材質決定。
+## 圖示可混畫，世界握持物則將 REFLECTIVE 與 EMISSION 送往各自材質。
+static func draw(item: CanvasItem, from: Vector2, direction: Vector2, weapon: WeaponData, glow := 1.4, shade := 1.0, reach := -1.0, layers := ALL_LAYERS) -> void:
 	var entry := art(weapon)
 	var xf := Transform2D(direction.angle(), from)
 	if not entry.is_empty():
@@ -102,14 +106,17 @@ static func draw(item: CanvasItem, from: Vector2, direction: Vector2, weapon: We
 		_quad[1] = top_left + direction * size.x
 		_quad[2] = _quad[1] + down * size.y
 		_quad[3] = top_left + down * size.y
-		_quad_color[0] = Color(shade, shade, shade)
-		item.draw_polygon(_quad, _quad_color, _quad_uv, entry["texture"])
-		if entry["glow"] != null:
+		if (layers & REFLECTIVE) != 0:
+			_quad_color[0] = Color(shade, shade, shade)
+			item.draw_polygon(_quad, _quad_color, _quad_uv, entry["texture"])
+		if (layers & EMISSION) != 0 and entry["glow"] != null:
 			_quad_color[0] = LightKit.glow(Color.WHITE, glow)
 			item.draw_polygon(_quad, _quad_color, _quad_uv, entry["glow"])
 		if weapon.melee_shape != "whip":
 			return
 	for seg in segments(weapon):
+		if (layers & (EMISSION if bool(seg["glow"]) else REFLECTIVE)) == 0:
+			continue
 		# 有圖的鞭子：握把是圖，只補畫發光的細線。
 		if not entry.is_empty() and not bool(seg["glow"]):
 			continue
@@ -241,13 +248,20 @@ static func _load_art() -> void:
 		if not ResourceLoader.exists(path) or size.x <= 0.0 or size.y <= 0.0:
 			push_error("[MeleeArt] 近戰武器「%s」的圖不存在或大小不對（%s），改用線條" % [id, path])
 			continue
+		var texture := load(path) as Texture2D
+		if texture == null or texture.get_width() <= 0 or texture.get_height() <= 0:
+			push_error("[MeleeArt] 近戰武器「%s」不是有效貼圖（%s），改用線條" % [id, path])
+			continue
 		var glow_path := str(entry.get("glow", ""))
 		var light: Dictionary = entry.get("light", {}) if entry.get("light") is Dictionary else {}
 		if not light.is_empty():
 			light = light.duplicate()
 			light["at"] = float(entry.get("glow_at", size.x * 0.5))
 		_art[StringName(id)] = {
-			"texture": load(path) as Texture2D,
+			"texture": texture,
+			# Legacy melee art has no authored normal: keep a flat lit fallback.
+			# An authored pair uses the shared quality-aware CanvasTexture cache.
+			"lit_texture": LitTextures.load_texture(path) if ResourceLoader.exists(path.get_basename() + "_n." + path.get_extension()) else texture,
 			"glow": load(glow_path) as Texture2D if ResourceLoader.exists(glow_path) else null,
 			"size": size,
 			"grip": _vec2(entry.get("grip")),

@@ -15,6 +15,7 @@ const TEST_SCENE_C := &"test_npc_talk_c"
 
 
 func run() -> void:
+	preload("res://tests/helpers/character_lighting_checks.gd").npc_context(self)
 	_install_test_scenes()
 	_test_data()
 	_test_talk_selection()

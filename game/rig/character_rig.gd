@@ -27,6 +27,7 @@ static var force_rigid_limbs := false
 var skin_id := ""
 ## Stage actors have their own full-bright canvas, outside the level's CanvasModulate.
 var use_level_lighting := true
+var _local_ambient_luma := 1.0
 ## 用敵人的補光倍率（LightKit.enemy_fill）而不是主角的；敵人的骨架設成 true。
 var use_enemy_fill := false
 var animator: HumanoidAnimator  # 或它的子類別（NpcAnimator）
@@ -51,6 +52,9 @@ var _armor: Array[Array] = []
 var _under: Array[CanvasItem] = []
 ## 零件與它們的原始明暗（補光倍率套用在 self_modulate 上，發光層不受影響）。
 var _parts: Array[CanvasItem] = []
+## Reflective held objects share lighting, but are not body/armor/hurt/bounds parts.
+var _attachments: Array[WeakRef] = []
+var _attachment_tints: Array[Color] = []
 ## Validated pose alternatives keyed by the logical parts[].name (not the texture alias).
 ## A slot keeps the armor-controlled base visibility separately from the currently selected node.
 var _pose_slots: Dictionary[StringName, Dictionary] = {}
@@ -310,7 +314,7 @@ func animate(delta: float, input: RigInput) -> void:
 		return
 	facing = input.facing
 	_apply_fill((LightKit.enemy_fill if use_enemy_fill else LightKit.character_fill) if use_level_lighting else 1.0)
-	_apply_light_cap((LightKit.enemy_light_cap if use_enemy_fill else LightKit.character_light_cap) if use_level_lighting else LightKit.character_light_cap_for(1.0, 1.0))
+	_apply_light_cap((LightKit.enemy_light_cap if use_enemy_fill else LightKit.character_light_cap) if use_level_lighting else LightKit.character_light_cap_for(_local_ambient_luma, 1.0))
 	_update_hand_grips(input)
 	animator.update(delta, input)
 	var scene_tree := get_tree()
@@ -321,6 +325,7 @@ func animate(delta: float, input: RigInput) -> void:
 		_flash_left -= delta
 		if _flash_left <= 0.0:
 			_skeleton.modulate = Color.WHITE
+			_sync_attachments(_fill)
 
 
 ## 世界座標的手部接觸（ST-10）：包含鏡像、縮放與父節點旋轉；沒有握持變體時接觸點是手腕。
@@ -505,6 +510,7 @@ func visual_bounds() -> Rect2:
 
 ## 套用補光倍率（環境光很暗時把角色零件補亮，見 LightKit.character_fill）。
 func _apply_fill(fill: float) -> void:
+	_sync_attachments(fill)
 	if is_equal_approx(fill, _fill):
 		return
 	_fill = fill
@@ -514,6 +520,75 @@ func _apply_fill(fill: float) -> void:
 		_parts[i].self_modulate = Color(tint, tint, tint, 1.0)
 	if _weapon_sprite != null:
 		_weapon_sprite.self_modulate = Color(fill, fill, fill, 1.0)
+	if _dissolve_material != null:
+		_dissolve_material.set_shader_parameter("fill", fill)
+
+
+## Independent stages supply their own ambient context, never global level fill.
+## White retains the existing stage response; texture/geometry remain caller-owned.
+func set_local_lighting(ambient: Color) -> void:
+	if not is_finite(ambient.r) or not is_finite(ambient.g) or not is_finite(ambient.b):
+		push_warning("[CharacterRig] %s has non-finite local ambient; keeping previous lighting" % skin_id)
+		return
+	_local_ambient_luma = maxf(0.0, LightKit.luminance(ambient))
+	if not use_level_lighting and _light_material != null:
+		_apply_fill(1.0)
+		_apply_light_cap(LightKit.character_light_cap_for(_local_ambient_luma, 1.0))
+
+
+## Bind only reflective attachments. The caller owns texture/normal, geometry and
+## emission; foreign materials are never silently replaced. Rebinding is idempotent.
+func bind_attachment(item: CanvasItem, tint := Color.WHITE) -> bool:
+	if not is_instance_valid(item) or _light_material == null or item.use_parent_material:
+		return false
+	if item.material != null and item.material != _light_material:
+		return false
+	var index := _attachment_index(item)
+	if index < 0:
+		_attachments.append(weakref(item))
+		_attachment_tints.append(tint)
+	else:
+		_attachment_tints[index] = tint
+	item.material = _light_material
+	item.self_modulate = _attachment_color(item, tint, _fill)
+	return true
+
+
+func unbind_attachment(item: CanvasItem) -> void:
+	var index := _attachment_index(item)
+	if index < 0:
+		return
+	if is_instance_valid(item) and item.material == _light_material:
+		item.material = null
+		item.self_modulate = _attachment_tints[index]
+	_attachments.remove_at(index)
+	_attachment_tints.remove_at(index)
+
+
+func _sync_attachments(fill: float) -> void:
+	for i in range(_attachments.size() - 1, -1, -1):
+		var item := _attachments[i].get_ref() as CanvasItem
+		if not is_instance_valid(item):
+			_attachments.remove_at(i)
+			_attachment_tints.remove_at(i)
+		elif not item.use_parent_material and (item.material == null or item.material == _light_material):
+			var tint := _attachment_tints[i]
+			item.material = _light_material
+			item.self_modulate = _attachment_color(item, tint, fill)
+
+
+func _attachment_index(item: CanvasItem) -> int:
+	for i in _attachments.size():
+		if _attachments[i].get_ref() == item:
+			return i
+	return -1
+
+
+func _attachment_color(item: CanvasItem, tint: Color, fill: float) -> Color:
+	# Most held props are rig children, outside Skeleton's flash chain. If an
+	# attachment is already below Skeleton, its ancestor supplies flash once.
+	var flash_tint := _skeleton.modulate if _skeleton != null and not _skeleton.is_ancestor_of(item) else Color.WHITE
+	return Color(tint.r * fill, tint.g * fill, tint.b * fill, tint.a) * flash_tint
 
 
 ## 套用單盞光的亮度上限（亮場景小、暗場景大，見 LightKit.character_light_cap_for）。
@@ -522,6 +597,8 @@ func _apply_light_cap(cap: float) -> void:
 		return
 	_light_cap = cap
 	_light_material.set_shader_parameter("light_cap", cap)
+	if _dissolve_material != null:
+		_dissolve_material.set_shader_parameter("light_cap", cap)
 
 
 ## 燒融：零件依世界座標的雜訊逐塊燒掉，邊緣發出炭火的光（art/shaders/dissolve.gdshader）。progress 0→1；
@@ -532,6 +609,8 @@ func set_dissolve(progress: float, edge_color := Color("ff7a1a"), rise := 0.0, e
 	if _dissolve_material == null:
 		_dissolve_material = ShaderMaterial.new()
 		_dissolve_material.shader = DISSOLVE_SHADER
+		_dissolve_material.set_shader_parameter("fill", _fill)
+		_dissolve_material.set_shader_parameter("light_cap", _light_cap)
 		_dissolve_material.set_shader_parameter("noise_tex", VfxAtlas.noise_texture())
 		_dissolve_material.set_shader_parameter("foot_y", global_position.y)
 		_dissolve_material.set_shader_parameter("body_height", maxf(20.0, RigLibrary.standing_height(skin_id)))
@@ -564,6 +643,7 @@ func flash(strength := 1.0) -> void:
 	_flash_left = FLASH_TIME
 	var level := lerpf(1.0, FLASH_BRIGHTNESS, clampf(strength, 0.0, 1.0))
 	_skeleton.modulate = Color(level, level, level, 1)
+	_sync_attachments(_fill)
 
 
 ## 設定手持武器外觀（weapons.json 的 id）；空字串代表空手。
@@ -780,6 +860,7 @@ func _build_parts(skin: Dictionary) -> void:
 			part = _make_sprite(texture, glow_texture, pivot, part_pos, part_rot, tint)
 		part.name = part_name
 		part.material = _light_material
+		if part is Polygon2D: part.set_instance_shader_parameter(&"mesh_normal_basis", true)
 		part.z_index = int(entry.get("z", 0))
 		part.self_modulate = Color(tint, tint, tint, 1.0)
 		_parts.append(part)
@@ -1035,6 +1116,7 @@ func _build_pose_parts(skin: Dictionary) -> void:
 				alternate = sprite
 			alternate.name = "Pose_%s__%s" % [pose_key, slot_name]
 			alternate.material = _light_material
+			if alternate is Polygon2D: alternate.set_instance_shader_parameter(&"mesh_normal_basis", true)
 			alternate.z_index = int(item["z"])
 			alternate.self_modulate = base_part.self_modulate
 			alternate.visible = false
@@ -1706,7 +1788,7 @@ func _spawn_debris(part: CanvasItem) -> void:
 	if _armor_debris:
 		var offset: Vector2 = (part as RigPartMesh).pivot_offset if part is RigPartMesh else (part as Sprite2D).offset
 		var texture: Texture2D = (part as RigPartMesh).texture if part is RigPartMesh else (part as Sprite2D).texture
-		var debris := RigDebris.spawn(texture, part.global_transform, offset, Vector2(BREAK_IMPULSE.x * -facing * randf_range(0.6, 1.2), BREAK_IMPULSE.y * randf_range(0.8, 1.2)))
+		var debris := RigDebris.spawn(texture, part.global_transform, offset, Vector2(BREAK_IMPULSE.x * -facing * randf_range(0.6, 1.2), BREAK_IMPULSE.y * randf_range(0.8, 1.2)), part.self_modulate, _fill, _light_cap, part.light_mask)
 		if debris != null and not Fx.add_world_node(debris):
 			debris.cancel()
 		Fx.burst(part.global_position, Palette.ARMOR, 6, 120.0, 0.3)

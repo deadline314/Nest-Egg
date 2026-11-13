@@ -208,7 +208,10 @@ func _play_death() -> void:
 	_set_underground(true)
 	_death_tween = create_tween()
 	_death_tween.tween_interval(DEATH_FADE)
-	_death_tween.tween_property(self, "modulate:a", 0.0, 0.4)
+	if worm != null:
+		_death_tween.tween_method(worm.set_opacity, 1.0, 0.0, 0.4)
+	else:
+		_death_tween.tween_property(self, "modulate:a", 0.0, 0.4)
 	_death_tween.tween_callback(queue_free)
 	_register_corpse()
 

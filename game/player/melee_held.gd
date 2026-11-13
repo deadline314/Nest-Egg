@@ -38,9 +38,6 @@ const WHIP_ARRIVE := 0.75
 const WHIP_THROW_AT := 0.16
 const WHIP_ACTIVE_FROM := 0.4
 const WHIP_ACTIVE_TO := 0.7
-## 武器本體的明暗：最暗的環境剩幾成亮度、環境光每 1.0 增加多少。
-const SHADE_FLOOR := 0.42
-const SHADE_GAIN := 1.5
 ## 雙手招式時後手離前手至少多遠（世界像素，一個拳頭）。
 const SECOND_MIN := 5.0
 ## 後手握在桿尾那一段時，離桿的末端至少留多少（世界像素）。
@@ -68,11 +65,30 @@ var _direction := Vector2.RIGHT
 var _reach := -1.0
 var _shown := false
 var _whip: SoftWhip
+var _base_sprite: ReflectiveBase
+var _base_scale := Vector2.ONE
+
+
+## A real Sprite transform supplies the normal basis. The parent draws only glow.
+class ReflectiveBase extends Sprite2D:
+	var held: MeleeHeld
+
+	func _draw() -> void:
+		if texture == null and held._shown and held._weapon != null:
+			var inverse := global_transform.affine_inverse()
+			MeleeArt.draw(self, inverse * held._origin, inverse.basis_xform(held._direction).normalized(), held._weapon, 1.0, 1.0, held._reach, MeleeArt.REFLECTIVE)
 
 
 func setup(visual: PlayerVisual) -> void:
 	_visual = visual
 	LightKit.mark_emissive(self)
+	_base_sprite = ReflectiveBase.new()
+	_base_sprite.name = "ReflectiveBase"
+	_base_sprite.held = self
+	_base_sprite.centered = false
+	_base_sprite.show_behind_parent = true
+	add_child(_base_sprite)
+	visual.rig.bind_attachment(_base_sprite)
 
 
 ## 每個物理影格在骨架動完之後呼叫：更新握點、武器的角度與要不要畫。
@@ -118,11 +134,13 @@ func update(delta: float) -> void:
 	if _swing_blend < 1.0:
 		_keep_above_floor(player.global_position.y - FLOOR_MARGIN)
 	_direction = Vector2(cos(_angle) * facing, sin(_angle))
+	_update_base()
 	if weapon.melee_shape == "whip":
 		_step_whip(delta, player, facing)
 	elif _whip != null:
 		_whip.clear()
 	queue_redraw()
+	_base_sprite.queue_redraw()
 
 
 ## 這把武器的軟鞭身（不是鞭類或還沒拿出來時是 null 或還沒垂好）。
@@ -227,15 +245,26 @@ func _adopt(weapon: WeaponData) -> void:
 	_spec = DEFAULT.duplicate()
 	_spec.merge(MeleeArt.hold_spec(weapon), true)
 	var entry := MeleeArt.art(weapon)
+	_base_sprite.texture = entry.get("lit_texture")
 	if entry.is_empty():
 		_tip = weapon.melee_length
 		_butt = 5.0
 		_half_width = 1.5
 	else:
+		_base_scale = (entry["size"] as Vector2) / _base_sprite.texture.get_size()
+		_base_sprite.offset = -(entry["grip"] as Vector2) / _base_scale
 		_tip = float((entry["size"] as Vector2).x) - float((entry["grip"] as Vector2).x)
 		_butt = float((entry["grip"] as Vector2).x)
 		_half_width = float((entry["size"] as Vector2).y) * 0.5
 	_settled = false
+
+
+func _update_base() -> void:
+	if _base_sprite.texture == null:
+		_base_sprite.transform = Transform2D.IDENTITY
+		return
+	var down := Vector2(-_direction.y, _direction.x) * (-1.0 if _direction.x < 0.0 else 1.0)
+	_base_sprite.transform = global_transform.affine_inverse() * Transform2D(_direction * _base_scale.x, down * _base_scale.y, _origin)
 
 
 ## 有阻尼的彈簧：角度追目標；落後超過上限就拉住（不讓刀甩到身體後面去）。
@@ -278,12 +307,11 @@ func _draw() -> void:
 		return
 	var player := _visual.player
 	var glow := PlayerVisual.MELEE_GLOW_SWING if player.is_melee_swinging() else PlayerVisual.MELEE_GLOW
-	# 武器不受場景光影響：本體的明暗跟著環境光走，暗的區域裡只有發光的刃口是亮的。
-	var shade := clampf(SHADE_FLOOR + LightKit.ambient_luma * SHADE_GAIN, SHADE_FLOOR, 1.0)
+	# ReflectiveBase is lit by the same material as the hands. Only emission lives here.
 	var inverse := global_transform.affine_inverse()
 	if _weapon.melee_shape == "whip" and _whip != null and _whip.is_laid():
 		# 握把是圖；鞭身不再是一條直線，由軟鞭自己畫。
-		MeleeArt.draw(self, inverse * _origin, inverse.basis_xform(_direction).normalized(), _weapon, glow, shade, 0.01)
+		MeleeArt.draw(self, inverse * _origin, inverse.basis_xform(_direction).normalized(), _weapon, glow, 1.0, 0.01, MeleeArt.EMISSION)
 		_whip.draw(self, inverse, _weapon.color, minf(glow, WHIP_GLOW_MAX))
 		return
-	MeleeArt.draw(self, inverse * _origin, inverse.basis_xform(_direction).normalized(), _weapon, glow, shade, _reach)
+	MeleeArt.draw(self, inverse * _origin, inverse.basis_xform(_direction).normalized(), _weapon, glow, 1.0, _reach, MeleeArt.EMISSION)

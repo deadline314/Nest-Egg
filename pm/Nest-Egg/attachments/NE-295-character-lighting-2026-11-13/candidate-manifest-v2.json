@@ -1,0 +1,160 @@
+{
+  "base_at_capture": "92521d0cf3c18bd3dad4b13a316844e70bfaecd0",
+  "original_candidate_manifest": "candidate-v1.json",
+  "original_candidate_manifest_sha256": "beefec3b2d0647d9e7853b78b325b99ba8b00dff0a0f7ce6d790247f09b16442",
+  "original_source_count": 20,
+  "delivery_count": 22,
+  "files": {
+    "art/shaders/character_light.gdshader": {
+      "base_sha256": "1822c51dcfab7feaaadc2b181eadb2eca47e4bacc737ca83535c6e99d566be60",
+      "sha256": "f5d755e862229294f06f4b48af7cc4f1422a68c0d713b28412721b4c1c990489",
+      "bytes": 3455,
+      "role": "candidate runtime or permanent regression"
+    },
+    "art/shaders/character_light_response.gdshaderinc": {
+      "base_sha256": null,
+      "sha256": "51fde070644e686b9de380be927a26065a6d5a05b978be7e9dc839b02d73d9ca",
+      "bytes": 1481,
+      "role": "candidate runtime or permanent regression"
+    },
+    "art/shaders/dissolve.gdshader": {
+      "base_sha256": "11dac192d82cfea0e7e702d638ae86920c7663d8d7f63ac5fd598bade806de4f",
+      "sha256": "e24354f32f3503fd53a10a4f10fa772f3cb508558109ea5013aaa15b4525623f",
+      "bytes": 2004,
+      "role": "candidate runtime or permanent regression"
+    },
+    "core/melee_art.gd": {
+      "base_sha256": "5971045bffa84fac227957808d028c0078774e69addb9ee6300a0a58777563b3",
+      "sha256": "8f0ad0cfde1663237b0baac0a684119db230c169b986448541e6d80e1994efdc",
+      "bytes": 14432,
+      "role": "candidate runtime or permanent regression"
+    },
+    "game/creature/chain_creature.gd": {
+      "base_sha256": "b2441ac8d59e9d67d8cf82d7f046f66d974d898cb1c70c1ca8f29df7d6c7e7ab",
+      "sha256": "82f8ce2f0fe33cf004673f169c312f1e58251aa388ccdc838c83d6230db158dd",
+      "bytes": 26512,
+      "role": "candidate runtime or permanent regression"
+    },
+    "game/creature/worm_belly.gdshader": {
+      "base_sha256": "937c9d7bbee607a047d1fe5d0f160ae98a7e9e7c655bf3aca97e63c9bb3babb6",
+      "sha256": "17154ec4076bf51b46e1382407dcca5c86bfc19c53de692df4466f13e69ba379",
+      "bytes": 2254,
+      "role": "candidate runtime or permanent regression"
+    },
+    "game/creature/worm_creature.gd": {
+      "base_sha256": "2ac660ca8c6e9c61092f44022504a81a277bdae0d73d6540ad7df2bc57902a95",
+      "sha256": "78f35c049292ef40f4b990cbaa445350921e527867aada6013ed4a3cf5cb0d0c",
+      "bytes": 10744,
+      "role": "candidate runtime or permanent regression"
+    },
+    "game/enemies/cloud_serpent.gd": {
+      "base_sha256": "ddc6a05d00eb150254057fac0b5d1cba923be227b099ca67e668b3625d9eafa9",
+      "sha256": "6aace026497a5ddd7addd114376ed198c9c1904360884ae75c7c400f7fe5fd81",
+      "bytes": 7091,
+      "role": "candidate runtime or permanent regression"
+    },
+    "game/npc/npc_actor.gd": {
+      "base_sha256": "d44729928180b1d366a371730fd5f841d3df20275d4b164368a99e42b7fd7d73",
+      "sha256": "de614318e40eea635fa3e6702cc907983a52c8dc838be649c2355690531dce00",
+      "bytes": 18615,
+      "role": "candidate runtime or permanent regression"
+    },
+    "game/player/melee_held.gd": {
+      "base_sha256": "27c8a629e22ec858c171d1f3487692ee3e9a82d5ea94c2f419f4cb864e42dc4b",
+      "sha256": "ee0963272b5e9be221f4d6679470bee723be53b4dfad1fb13bab43931111baf6",
+      "bytes": 15016,
+      "role": "candidate runtime or permanent regression"
+    },
+    "game/player/world_prop_action.gd": {
+      "base_sha256": "15e96c51a5c5326dbf0597a14b35d1342d226820e2503543603dd935d172ea0f",
+      "sha256": "c4395ee509d2aa6c581bf31f0a0ff8dce0effd90aae594de17bbd839aa258d39",
+      "bytes": 29555,
+      "role": "candidate runtime or permanent regression"
+    },
+    "game/rig/character_rig.gd": {
+      "base_sha256": "8d0db9d94614b5360374cbf43b223e08ff40ae22193ab56faaf12d68138f151b",
+      "sha256": "67035de354713004b3b949f8056faf0019344a845de1592d805216fcddefeaa8",
+      "bytes": 82527,
+      "role": "candidate runtime or permanent regression"
+    },
+    "game/rig/rig_debris.gd": {
+      "base_sha256": "5bd01987586390836c2205a5a0472b3ba46bd91ead9a5206619778bfe8cc6742",
+      "sha256": "18e2765e99d4b3e3dc7ba5e1266a18145d5d5500db09604e09006a837d0930d8",
+      "bytes": 4200,
+      "role": "candidate runtime or permanent regression"
+    },
+    "tests/helpers/character_lighting_checks.gd": {
+      "base_sha256": null,
+      "sha256": "9dd4183071507dba24b84897780579ac3477a48c5f2eb8d2cc14152127ac0986",
+      "bytes": 8645,
+      "role": "candidate runtime or permanent regression"
+    },
+    "tests/suite/test_chain_creature.gd": {
+      "base_sha256": "92f8ae12faecd6ea6defa6d779cf44533570e94f881113ff3a73b42c21beda6e",
+      "sha256": "7ae7fc006cceb12545ac8bb6c68575f200a3c933e1586e1fc5af439793cf026e",
+      "bytes": 23442,
+      "role": "candidate runtime or permanent regression"
+    },
+    "tests/suite/test_enemy_vfx.gd": {
+      "base_sha256": "a102d4a15266b952e0b468e3322d6c312d5d86badddede10a5b45d4f804055f5",
+      "sha256": "9407db256d3a643f9e2423f7ffbca7879420b652b4c5ca457e610ce0e73594fc",
+      "bytes": 7216,
+      "role": "candidate runtime or permanent regression"
+    },
+    "tests/suite/test_hit_reaction.gd": {
+      "base_sha256": "e2a9cae5182b0b503469fbf1fae3ece63e62b101612c46cee234b38607d85b3d",
+      "sha256": "601e1f4ebcc107313be9768e4ac9dbfd5763360cacb93a9e9000e95c6610e49e",
+      "bytes": 28742,
+      "role": "candidate runtime or permanent regression"
+    },
+    "tests/suite/test_melee_weapons.gd": {
+      "base_sha256": "d29caffcdde3ffd3dec08e1fcd5f8fc69dc8ce4c1629206483cf2b8f6755de6a",
+      "sha256": "f5dbcb87fd6e5b0452a01a5a9b57afce1bbbb28725b17e5f52b1b124ceca9a92",
+      "bytes": 61041,
+      "role": "candidate runtime or permanent regression"
+    },
+    "tests/suite/test_npc.gd": {
+      "base_sha256": "65b4056a0ae316b6ec393d063d2dc8f909b846cbcb5ee04ada304201ab48d8c4",
+      "sha256": "9902acac32e7dd7323a9e0e2a12b0b591e9d21d872cf0920e611dc6ff9c488de",
+      "bytes": 42623,
+      "role": "candidate runtime or permanent regression"
+    },
+    "tests/suite/test_rig_mesh.gd": {
+      "base_sha256": "e1dcf18bfd46773a028042f6afd94251516cb3af7db6c17804fde7f7c1d0b746",
+      "sha256": "f5fec0d5564cf6c1b2f313cfa550ba86b419702163781cf3b3c1811fc2535ee9",
+      "bytes": 29939,
+      "role": "candidate runtime or permanent regression"
+    },
+    "art/shaders/character_light_response.gdshaderinc.uid": {
+      "base_sha256": null,
+      "sha256": "62f80ce798ac2fa03666ee591bbfe4c6d97dc6b2e7505c61a67854af9e964e07",
+      "bytes": 19,
+      "role": "owned prospective UID created by original clean import-v1"
+    },
+    "tests/helpers/character_lighting_checks.gd.uid": {
+      "base_sha256": null,
+      "sha256": "60cc4272d50ed67ef0313dff58c470805bd985d80f99e3874b6557ec388603b3",
+      "bytes": 18,
+      "role": "owned prospective UID created by original clean import-v1"
+    }
+  },
+  "excluded_existing_missing_UIDs": [
+    "tests/helpers/freeze_collision_space_checks.gd.uid",
+    "tools/capture_precision_probe.gd.uid",
+    "tools/ne248_natural_core_probe.gd.uid",
+    "tools/quest_map_perf_probe.gd.uid",
+    "tools/test_capture_precision.gd.uid",
+    "tools/test_contrast_probe_geometry.gd.uid",
+    "tools/world_pause_sample.gd.uid"
+  ],
+  "version": "v2",
+  "previous_manifest": "work/ne295-v1/delivery-manifest-v1.json",
+  "changed_after_v1": [
+    "art/shaders/character_light_response.gdshaderinc",
+    "art/shaders/character_light.gdshader",
+    "art/shaders/dissolve.gdshader",
+    "game/rig/character_rig.gd",
+    "game/creature/worm_belly.gdshader",
+    "tests/helpers/character_lighting_checks.gd"
+  ]
+}

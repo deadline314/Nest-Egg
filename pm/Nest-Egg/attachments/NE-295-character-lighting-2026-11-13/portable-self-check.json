@@ -1,0 +1,77 @@
+{
+  "passed": true,
+  "archive_count": 63,
+  "zip_file_entries": 1481,
+  "archive_bytes": 163395886,
+  "selected_originals": 22,
+  "final_source_paths": 22,
+  "results": {
+    "basis": {
+      "reader_exit": 0,
+      "records": 55,
+      "executed_source_objects": [
+        "work/ne295-cause-v1/capture.gd",
+        "work/ne295-renderer-coverage-v1/basis_capture.gd",
+        "work/ne295-renderer-coverage-v1/basis_capture.tscn"
+      ],
+      "source_count": 10215,
+      "native_wall_seconds": 27.977795199956745
+    },
+    "appearance": {
+      "reader_exit": 0,
+      "records": 37,
+      "executed_source_objects": [
+        "work/ne295-cause-v1/capture.gd",
+        "work/ne295-renderer-coverage-v1/appearance_capture.gd",
+        "work/ne295-renderer-coverage-v1/appearance_capture.tscn"
+      ],
+      "source_count": 10240,
+      "native_wall_seconds": 27.96748990000924
+    },
+    "worm": {
+      "reader_exit": 0,
+      "records": 16,
+      "executed_source_objects": [
+        "work/ne295-cause-v1/capture.gd",
+        "work/ne295-worm-oracle-v1/capture.gd",
+        "work/ne295-worm-oracle-v1/capture.tscn"
+      ],
+      "source_count": 10242,
+      "native_wall_seconds": 24.011413000000175
+    },
+    "death": {
+      "reader_exit": 0,
+      "records": 12,
+      "executed_source_objects": [
+        "work/ne295-cause-v1/capture.gd",
+        "work/ne295-death-v1/capture.gd",
+        "work/ne295-death-v1/capture.tscn"
+      ],
+      "source_count": 10247,
+      "native_wall_seconds": 26.658877299982123
+    },
+    "cause": {
+      "reader_exit": 0,
+      "records": 16,
+      "executed_source_objects": [
+        "work/ne295-cause-v1/capture.gd",
+        "work/ne295-cause-v1/capture.tscn"
+      ],
+      "source_count": 10247,
+      "native_wall_seconds": 29.190311099984683
+    },
+    "clone-flags": {
+      "checks": 3,
+      "reader_exit": 0
+    },
+    "death-negatives": {
+      "checks": 5,
+      "reader_exit": 0
+    },
+    "normal-oracle": {
+      "checks": 5,
+      "reader_exit": 0
+    }
+  },
+  "scope": "Offline original bytes and actual renderer data; no new Godot, gameplay or performance run"
+}

@@ -1,0 +1,161 @@
+{
+  "accepted": true,
+  "ticket": "NE295",
+  "base": "92521d0cf3c18bd3dad4b13a316844e70bfaecd0",
+  "ticket_files": {
+    "art/shaders/character_light.gdshader": "f5d755e862229294f06f4b48af7cc4f1422a68c0d713b28412721b4c1c990489",
+    "art/shaders/character_light_response.gdshaderinc": "51fde070644e686b9de380be927a26065a6d5a05b978be7e9dc839b02d73d9ca",
+    "art/shaders/dissolve.gdshader": "e24354f32f3503fd53a10a4f10fa772f3cb508558109ea5013aaa15b4525623f",
+    "core/melee_art.gd": "8f0ad0cfde1663237b0baac0a684119db230c169b986448541e6d80e1994efdc",
+    "game/creature/chain_creature.gd": "82f8ce2f0fe33cf004673f169c312f1e58251aa388ccdc838c83d6230db158dd",
+    "game/creature/worm_belly.gdshader": "17154ec4076bf51b46e1382407dcca5c86bfc19c53de692df4466f13e69ba379",
+    "game/creature/worm_creature.gd": "78f35c049292ef40f4b990cbaa445350921e527867aada6013ed4a3cf5cb0d0c",
+    "game/enemies/cloud_serpent.gd": "6aace026497a5ddd7addd114376ed198c9c1904360884ae75c7c400f7fe5fd81",
+    "game/npc/npc_actor.gd": "de614318e40eea635fa3e6702cc907983a52c8dc838be649c2355690531dce00",
+    "game/player/melee_held.gd": "ee0963272b5e9be221f4d6679470bee723be53b4dfad1fb13bab43931111baf6",
+    "game/player/world_prop_action.gd": "c4395ee509d2aa6c581bf31f0a0ff8dce0effd90aae594de17bbd839aa258d39",
+    "game/rig/character_rig.gd": "67035de354713004b3b949f8056faf0019344a845de1592d805216fcddefeaa8",
+    "game/rig/rig_debris.gd": "18e2765e99d4b3e3dc7ba5e1266a18145d5d5500db09604e09006a837d0930d8",
+    "tests/helpers/character_lighting_checks.gd": "9dd4183071507dba24b84897780579ac3477a48c5f2eb8d2cc14152127ac0986",
+    "tests/suite/test_chain_creature.gd": "7ae7fc006cceb12545ac8bb6c68575f200a3c933e1586e1fc5af439793cf026e",
+    "tests/suite/test_enemy_vfx.gd": "9407db256d3a643f9e2423f7ffbca7879420b652b4c5ca457e610ce0e73594fc",
+    "tests/suite/test_hit_reaction.gd": "601e1f4ebcc107313be9768e4ac9dbfd5763360cacb93a9e9000e95c6610e49e",
+    "tests/suite/test_melee_weapons.gd": "f5dbcb87fd6e5b0452a01a5a9b57afce1bbbb28725b17e5f52b1b124ceca9a92",
+    "tests/suite/test_npc.gd": "9902acac32e7dd7323a9e0e2a12b0b591e9d21d872cf0920e611dc6ff9c488de",
+    "tests/suite/test_rig_mesh.gd": "f5fec0d5564cf6c1b2f313cfa550ba86b419702163781cf3b3c1811fc2535ee9",
+    "art/shaders/character_light_response.gdshaderinc.uid": "62f80ce798ac2fa03666ee591bbfe4c6d97dc6b2e7505c61a67854af9e964e07",
+    "tests/helpers/character_lighting_checks.gd.uid": "60cc4272d50ed67ef0313dff58c470805bd985d80f99e3874b6557ec388603b3"
+  },
+  "ticket_count": 22,
+  "union_count": 80,
+  "runtime_guarded_union_count": 79,
+  "provenance_only_union_files": {
+    "design/21-metroidvania/CHAPTER1.md": "1dee3bee18d7738b55b01288ec1b550c92c78ccbfcdda1eec765c8e2bc183a40"
+  },
+  "official_union": {
+    "checks": 99550,
+    "new_failures": 0,
+    "known_failures": 0,
+    "suites": 87,
+    "wall_seconds": 561.894,
+    "runtime_source_count": 10190
+  },
+  "red_originals": [
+    {
+      "checks": 99481,
+      "new_failures": 20,
+      "known_failures": 0,
+      "suites": 87,
+      "wall_seconds": 656.97,
+      "candidate_count": 74,
+      "runtime_guarded_candidate_count": 73
+    },
+    {
+      "checks": 99539,
+      "new_failures": 4,
+      "known_failures": 0,
+      "suites": 87,
+      "wall_seconds": 561.903,
+      "candidate_count": 80,
+      "runtime_guarded_candidate_count": 79
+    }
+  ],
+  "native": [
+    {
+      "epoch": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\current-four-runtime\\readability-high-v1",
+      "archive_prefix": "native/0",
+      "receipt": "receipt.json",
+      "receipt_sha256": "561b3540637f38455e4a39532b18e0fb4cfbcb92582487685cfec13111c986b9",
+      "wrapper_accepted": true,
+      "review_accepted": null,
+      "expected_diagnostics": []
+    },
+    {
+      "epoch": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\current-four-runtime\\readability-low-v1",
+      "archive_prefix": "native/1",
+      "receipt": "receipt.json",
+      "receipt_sha256": "580d646d02a71dccbe191b309ff307714736fce4d564df3725a5917a17f4813e",
+      "wrapper_accepted": true,
+      "review_accepted": null,
+      "expected_diagnostics": []
+    }
+  ],
+  "cold": [
+    {
+      "epoch": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\current-four-runtime\\cold-final-v1",
+      "archive_prefix": "cold/0",
+      "receipt": "receipt.json",
+      "receipt_sha256": "89687a7b54fe13c9cb9ea9880286e31160b47306a091110e0004c5ff6166124a",
+      "wrapper_accepted": true,
+      "review_accepted": true,
+      "expected_diagnostics": [],
+      "review": "independent-review.json",
+      "review_sha256": "b9e08024e8760ec345247390f13fd09b73e3487988d392a514d00a8ff48bc21f"
+    }
+  ],
+  "focused": [
+    {
+      "epoch": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\current-four-runtime\\focused-v6",
+      "archive_prefix": "focused/0",
+      "receipt": "receipt.json",
+      "receipt_sha256": "cb4ccd53d8216aed3bcf436c9c485c77a34fa35f2fb88e9e086f9a4ff10ae4f3",
+      "wrapper_accepted": false,
+      "review_accepted": true,
+      "expected_diagnostics": [
+        "WARNING: [RunSave] run/level res://data/levels/no_such_level_ne297.tres 無效，退回 res://data/levels/ch1_prologue.tres",
+        "WARNING: [RunSave] run/level res://data/levels/no_such_level_ne297.tres 無效，退回 res://data/levels/ch1_prologue.tres",
+        "WARNING: [Level] res://data/levels/ne297_test_only.tres area/layout_revision：不支援的版面修訂；原存檔保留；原存檔保留。",
+        "WARNING: [Level] res://data/levels/ne297_test_only.tres layout migration：持久鍵衝突 gate@10,50；原存檔保留；原存檔保留。"
+      ],
+      "review": "independent-review.json",
+      "review_sha256": "e5fb61723b395272535ff7e48f5a93a273f6281f81ffef651a99e702a322c598"
+    }
+  ],
+  "native_source_context_comparison": {
+    "accepted": true,
+    "native_epochs": [
+      "readability-high-v1",
+      "readability-low-v1"
+    ],
+    "final_epoch": "changed-v3",
+    "source_count": 10190,
+    "changed": [
+      "tests/helpers/map_layout_migration_checks.gd",
+      "work/root-integration-v1/manifest.json"
+    ],
+    "all_gameplay_map_shader_ui_sources_exact": true,
+    "scope": "One test-only numeric comparison and its private source manifest changed after native14; native14 is not claimed to have identical complete source inventory to final80."
+  },
+  "native_candidate_delta_analysis": [
+    {
+      "epoch": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\current-four-runtime\\readability-high-v1",
+      "candidate_differences": {
+        "tests/helpers/map_layout_migration_checks.gd": {
+          "native": "fe5d33af7de6b5c47d0d828d5fade9c8e55aef61d7c68ca463ae9ad9820b1165",
+          "final": "a10698e5297e896311779dc0c3c25cd714606d92f11deb363f44e39b9575666c"
+        }
+      },
+      "provenance_only_missing": [
+        "design/21-metroidvania/CHAPTER1.md"
+      ],
+      "gameplay_data_runtime_equal": true,
+      "full_source_hash_equal": false
+    },
+    {
+      "epoch": "C:\\Users\\stanl\\Github\\Nest-Egg\\work\\current-four-runtime\\readability-low-v1",
+      "candidate_differences": {
+        "tests/helpers/map_layout_migration_checks.gd": {
+          "native": "fe5d33af7de6b5c47d0d828d5fade9c8e55aef61d7c68ca463ae9ad9820b1165",
+          "final": "a10698e5297e896311779dc0c3c25cd714606d92f11deb363f44e39b9575666c"
+        }
+      },
+      "provenance_only_missing": [
+        "design/21-metroidvania/CHAPTER1.md"
+      ],
+      "gameplay_data_runtime_equal": true,
+      "full_source_hash_equal": false
+    }
+  ],
+  "scope": "original changed entry; unchanged selector/registry/filter/known failures; not exclusive performance; fixtures and stock exit diagnostics retained",
+  "raw_zip_sha256": "fd47dfe5ab1e8b53d3914f7e758ada7aa4e72a9b59181eb015aa048f00b0146c"
+}

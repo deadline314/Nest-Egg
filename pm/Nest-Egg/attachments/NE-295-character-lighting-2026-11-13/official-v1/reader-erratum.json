@@ -1,0 +1,4 @@
+{
+  "original_v1": "preserved; first fresh-copy reader refused CRLF line terminator in aux engine.log versus JSON diagnostics; original raw/source/results unchanged",
+  "v2_change": "reader splitlines handles original CRLF without modifying any raw log or diagnostic content; raw.zip and receipt.json identical to v1"
+}

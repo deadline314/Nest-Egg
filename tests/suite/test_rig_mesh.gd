@@ -10,6 +10,7 @@ const SCALE := 0.1
 
 
 func run() -> void:
+	preload("res://tests/helpers/character_lighting_checks.gd").rig_attachments(self)
 	_test_synthetic()
 	_test_upward_waist()
 	_test_limb_root()

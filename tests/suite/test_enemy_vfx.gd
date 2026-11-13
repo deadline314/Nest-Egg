@@ -8,6 +8,7 @@ const KNOWN_EXTRAS: Array[String] = ["smoke", "steam", "arc", "embers", "coolant
 
 
 func run() -> void:
+	preload("res://tests/helpers/character_lighting_checks.gd").dissolve(self)
 	_test_every_enemy_has_its_own()
 	await _test_playback()
 	_test_missing_file_is_safe()
