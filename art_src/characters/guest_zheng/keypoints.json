@@ -1,0 +1,84 @@
+{
+  "image_size": [
+    1024,
+    1536
+  ],
+  "method": "manual authored rig references; NOT SAM/model predictions or measured hidden anatomy",
+  "source_sha256": "34b5d12f551660b7eeb836679c819b9c678f9f4ace5a976640173937f3788fb4",
+  "points": {
+    "nose": [
+      595,
+      107
+    ],
+    "neck": [
+      501,
+      219
+    ],
+    "right_shoulder": [
+      436,
+      326
+    ],
+    "right_elbow": [
+      451,
+      559
+    ],
+    "right_wrist": [
+      492,
+      762
+    ],
+    "left_hip": [
+      500,
+      797
+    ],
+    "right_hip": [
+      500,
+      797
+    ],
+    "right_knee": [
+      439,
+      1100
+    ],
+    "right_ankle": [
+      425,
+      1440
+    ],
+    "right_big_toe": [
+      553,
+      1476
+    ],
+    "right_heel": [
+      368,
+      1468
+    ],
+    "left_knee": [
+      585,
+      1095
+    ],
+    "left_ankle": [
+      580,
+      1370
+    ],
+    "left_big_toe": [
+      710,
+      1404
+    ],
+    "left_heel": [
+      520,
+      1406
+    ]
+  },
+  "observations": {
+    "hidden_far_shoulder": null,
+    "hidden_far_elbow": null,
+    "hidden_far_wrist": null,
+    "left_hip_anatomical_center": null,
+    "right_hip_anatomical_center": null,
+    "clothed_knee_anatomical_centers": null
+  },
+  "notes": [
+    "Visible cuff, hand, collar, shoes and clothing bends guide authored pivots.",
+    "The shared side-view hip reference is an authored bind candidate inside trouser material, not an observed left/right anatomical point.",
+    "Far shoulder/elbow/wrist remain unobserved and absent; the pipeline reuses the near natural arm with the standard far-side ordering.",
+    "All authored pivots require source ownership, single-bone and native pose validation before acceptance."
+  ]
+}

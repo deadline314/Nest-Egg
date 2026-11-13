@@ -20,6 +20,8 @@ spec["refine"] (every key is optional):
                                                       outline pulled in by `inset` px), with the colour of p's nearest pixel. Two parts of
                                                       different groups only touch: the neck under the head, the shin inside the boot and the
                                                       forearm under the hand need this hidden overlap or the joint opens when it turns
+             {..., "material_point": [x, y]}          optionally use one reviewed opaque pixel of p as the new material colour, so a
+                                                      neighbouring sleeve/trim does not become skin; only newly grown RGB changes
   extend     [{"part": p, "joint": j, "to": k, "radius": r}]  continue a limb part from where it begins up to the joint j it turns on (k = the
                                                       joint at its other end), with its own pixels mirrored and a round end: a far forearm
                                                       of which only the cuff was drawn floats in the air when the arm is raised
@@ -203,11 +205,23 @@ def main() -> None:
         cv2.fillPoly(m, [np.array(e["poly"], np.int32)], 1)
         L, cover = layers[e["part"]], layers[e["under"]][:, :, 3] > 127
         own = L[:, :, 3] > 127
+        material = None
+        if "material_point" in e:
+            point = e["material_point"]
+            if not isinstance(point, list) or len(point) != 2 or any(type(value) not in (int, float) or not np.isfinite(value) for value in point):
+                raise ValueError(f"underlap {e['part']}: material_point requires two finite source-pixel coordinates")
+            px, py = (int(round(value)) for value in point)
+            if not (0 <= px < W and 0 <= py < H) or not own[py, px]:
+                raise ValueError(f"underlap {e['part']}: material_point is outside this part's opaque material: {point}")
+            material = L[py, px, :3].copy()
         cover = ndimage.binary_fill_holes(cv2.morphologyEx(cover.astype(np.uint8), cv2.MORPH_CLOSE, ell(4)) > 0)  # lace loops and finger gaps would punch the overlap
         grow = (m > 0) & ~own & (cv2.erode(cover.astype(np.uint8), ell(e.get("inset", 2))) > 0)
         if own.any() and grow.any():
-            idx = ndimage.distance_transform_edt(~own, return_distances=False, return_indices=True)
-            L[:, :, :3][grow] = L[:, :, :3][idx[0][grow], idx[1][grow]]
+            if material is None:
+                idx = ndimage.distance_transform_edt(~own, return_distances=False, return_indices=True)
+                L[:, :, :3][grow] = L[:, :, :3][idx[0][grow], idx[1][grow]]
+            else:
+                L[:, :, :3][grow] = material
             L[:, :, 3][grow] = 255
         print(f"  underlap {e['part']} under {e['under']}: +{int(grow.sum())} px")
 

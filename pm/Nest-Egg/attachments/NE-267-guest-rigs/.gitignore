@@ -1,0 +1,6 @@
+# Provisional staging inventory, superseded by delivery-files-v2; originals remain locally.
+/delivery-files-v1.json
+/delivery-files-v1.txt
+# 大型原生原件與子資料夾留在本機／外部備份；Git 只保留 README 與小型收據（NE-267）。
+*/
+*.zip

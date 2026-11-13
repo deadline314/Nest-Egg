@@ -1,0 +1,16 @@
+{
+  "command": [
+    "C:\\Users\\stanl\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "tools/comfyui/build_character.py",
+    "--recipe",
+    "tools/comfyui/recipes/guest_zheng.json",
+    "--from",
+    "normals",
+    "--to",
+    "import"
+  ],
+  "log": "eye-and-ownership-import-v1.log",
+  "seconds": 25.13130049999745,
+  "exit_code": 0,
+  "engine_errors": []
+}

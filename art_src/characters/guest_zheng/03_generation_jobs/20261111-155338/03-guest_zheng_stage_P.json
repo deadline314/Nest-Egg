@@ -1,0 +1,123 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "qwen-image-2.1-UC-int8_convrot.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "1c": {
+    "class_type": "QwenImage21Cache",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "device": "cpu",
+      "dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_8b_int8_convrot.safetensors",
+      "type": "qwen_image",
+      "device": "default"
+    }
+  },
+  "3": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
+    }
+  },
+  "4": {
+    "class_type": "TextEncodeQwenImage21",
+    "inputs": {
+      "clip": [
+        "2",
+        0
+      ],
+      "prompt": "This is an RGBA image with transparency. Remove the character's near-side arm entirely, from the shoulder to the fingertips, including its sleeve, its glove and anything it wears, so that a neat round armhole seam is left at the shoulder. The hand and all its fingers are removed too: nothing of the hand remains in front of the hip or the thigh. No arm, no hand and no skin are drawn there. Paint the side of the torso clothing, the belt, the hip and the thigh that were hidden behind the arm, in exactly the same art style and colors. Keep everything else exactly unchanged: the pose, the proportions, the position, the head, the legs and the clothes. The image has alpha channel and the background is transparent.",
+      "negative_prompt": "",
+      "vae": [
+        "3",
+        0
+      ],
+      "resolution": 0,
+      "images.image_1": [
+        "A0",
+        0
+      ]
+    }
+  },
+  "6": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": [
+        "1c",
+        0
+      ],
+      "positive": [
+        "4",
+        0
+      ],
+      "negative": [
+        "4",
+        1
+      ],
+      "latent_image": [
+        "4",
+        2
+      ],
+      "seed": 54,
+      "steps": 25,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0
+    }
+  },
+  "7": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "6",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "8": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "7",
+        0
+      ],
+      "filename_prefix": "guest_zheng_stage_P"
+    }
+  },
+  "L0": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "base_rgba.png"
+    }
+  },
+  "A0": {
+    "class_type": "JoinImageWithAlpha",
+    "inputs": {
+      "image": [
+        "L0",
+        0
+      ],
+      "alpha": [
+        "L0",
+        1
+      ]
+    }
+  }
+}

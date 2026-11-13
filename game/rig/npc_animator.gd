@@ -160,6 +160,16 @@ func posture_progress() -> float:
 	return _posture_u if _trans_t >= 0.0 else 1.0
 
 
+## Whether the last animation update actually used the NPC posture path.
+func posture_active() -> bool:
+	return _use_npc
+
+
+## Consumed posture, including the completed foot-IK handoff; never advances it.
+func posture_ready(target: StringName) -> bool:
+	return _use_npc and _pose_now == target and _trans_t < 0.0
+
+
 ## 讓這個 NPC 做一個指定的手勢或小動作（art/rigs/npc_animations.json 的 gestures）；還沒開始動畫、手勢不存在或姿勢不允許時回傳 false。
 func play_gesture(gesture_name: StringName) -> bool:
 	if _life == null:

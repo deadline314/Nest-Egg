@@ -1,0 +1,51 @@
+{
+  "load": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "base_grey.png"
+    }
+  },
+  "ckpt": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "sam3.1_multiplex_fp16.safetensors"
+    }
+  },
+  "d0": {
+    "class_type": "SAM3_Detect",
+    "inputs": {
+      "model": [
+        "ckpt",
+        0
+      ],
+      "image": [
+        "load",
+        0
+      ],
+      "threshold": 0.3,
+      "refine_iterations": 2,
+      "individual_masks": false,
+      "positive_coords": "[{\"x\": 444, \"y\": 448}, {\"x\": 472, \"y\": 660}, {\"x\": 504, \"y\": 823}]",
+      "negative_coords": "[{\"x\": 501, \"y\": 219}, {\"x\": 439, \"y\": 1100}]"
+    }
+  },
+  "m0": {
+    "class_type": "MaskToImage",
+    "inputs": {
+      "mask": [
+        "d0",
+        0
+      ]
+    }
+  },
+  "s0": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "m0",
+        0
+      ],
+      "filename_prefix": "sampt_1f8565_0"
+    }
+  }
+}

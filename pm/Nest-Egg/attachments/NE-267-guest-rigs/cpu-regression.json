@@ -1,0 +1,25 @@
+{
+  "python_utf8": true,
+  "cases": [
+    {
+      "test": "test_character_source",
+      "exit_code": 0,
+      "log_sha256": "23ecef63c8abfb4a00a861d23985f884302485e22f96ca12d12d491702f3fa9a"
+    },
+    {
+      "test": "test_stage_resolution",
+      "exit_code": 0,
+      "log_sha256": "ef143ac8bdc28b22a0862524393c318b446a54993988beb187950228106dbf0e"
+    },
+    {
+      "test": "test_source_alpha",
+      "exit_code": 0,
+      "log_sha256": "22abd621d5fd372730c7f6ffd4e7f0dce51cae834fb4b9bf8b46914cc01c9e40"
+    },
+    {
+      "test": "test_mask_delivery",
+      "exit_code": 0,
+      "log_sha256": "25a34e28aae965e6ac44be264271af6ac5fd5f144a61a0b14ccccb15bac90073"
+    }
+  ]
+}

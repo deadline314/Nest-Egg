@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\comfyui\test_stage_resolution.py", line 19, in <module>
+    make_parts = importlib.util.module_from_spec(frozen)
+  File "<frozen importlib._bootstrap>", line 810, in module_from_spec
+AttributeError: 'NoneType' object has no attribute 'loader'

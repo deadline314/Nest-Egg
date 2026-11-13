@@ -18,6 +18,7 @@ from ch1_closure import (Option, ProductionSource, Quest, QuestStep, all_of, any
 from build_ch1_story import actor as stage_actor, stage as stage_scene  # noqa: E402
 from chapter_compiler import route_back_to_choices  # noqa: E402
 import towel_staging  # noqa: E402
+import guest_ticket_staging  # noqa: E402
 from ch2_stages import BOOTH, COLLECTION, LEDGER, PAWNSHOP, Cast, Stage  # noqa: E402
 
 # 舞台演出：屋頂的茶沿用第一章的屋頂舞台（地面線 262、凜縮放 2.2；鷺的骨架只比凜高 3%，同舞台用同一個縮放）。
@@ -793,7 +794,28 @@ def _guest_book_frames(source: ProductionSource):
             if segment.options:
                 segment = replace(segment, options=segment.options + (_opt("back", "先回到凜那邊。", None, "剩下的客人之後還能再陪。"),))
         cast = [stage_scene("ch2_guest_book_room", x=320, y=206.3, zoom=0.84, fade_in=0.35, feet=265.5), actor]
-        source.segments[ident] = replace(segment, mode="animated", steps=tuple(cast) + segment.steps)
+        guest_start: tuple[dict, ...] = ()
+        guest_end: tuple[dict, ...] = ()
+        if segment.section == "S18":
+            # NE-267: the guest's speaker and body are separate from his approved portrait.
+            # These dimensions come from the room's right chair, not Ali's seat calibration.
+            support = "右椅座面 x=377.75～442.75、y=209；雙腳落在地板 y=265.5。"
+            guest = stage_actor("zheng", "guest_zheng", 470 if ident == "ch2_t_s18_ticket" else 410, 265.5, facing=-1, scale=3.7, speaker="zheng",
+                                pose="idle" if ident == "ch2_t_s18_ticket" else "sit",
+                                pose_reason="坐下和阿梨談今晚的晚飯。" if ident != "ch2_t_s18_ticket" else None,
+                                pose_support=support if ident != "ch2_t_s18_ticket" else None)
+            guest["seat_sag"] = 0.298
+            cast.append(guest)
+            cast[0]["props"] = guest_ticket_staging.initial(placing=ident == "ch2_t_s18_ticket")
+            if ident == "ch2_t_s18_ticket":
+                # Initialize stand on a real NPC update before targeting sit.
+                guest_start = ({"do": "wait", "time": .25},
+                               {"do": "move", "id": "zheng", "to": [410, 265.5], "time": 1.2, "pose": "walk", "then": "sit", "wait": True, "pose_reason": "沿椅前地板走到預約窗桌後坐下談話。",
+                                "pose_support": support}, {"do": "wait", "time": 1.1}) + guest_ticket_staging.place_steps()
+            elif ident == "ch2_t_s18_done":
+                guest_end = ({"do": "move", "id": "zheng", "to": [470, 265.5], "time": 1.5, "pose": "walk", "then": "idle", "wait": True},
+                             {"do": "wait", "time": 1.3})
+        source.segments[ident] = replace(segment, mode="animated", steps=tuple(cast) + guest_start + segment.steps + guest_end)
 
 
 

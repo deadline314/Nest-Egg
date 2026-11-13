@@ -1,0 +1,172 @@
+[
+  {
+    "path": "tools/story/ch2_source.py",
+    "crlf_before": 0,
+    "sha256": "6d36e34a63a710dd1fd800ccc529b93dd2823d9fa128ad20d28a57088bd88ffe"
+  },
+  {
+    "path": "tools/story/guest_ticket_staging.py",
+    "crlf_before": 0,
+    "sha256": "555709a89da0ed51a9692e473f21492c9b2a1901d26a29d212f5771c09763c9d"
+  },
+  {
+    "path": "tools/story/test_ch2_guest_cast.py",
+    "crlf_before": 0,
+    "sha256": "6b8101a66e65430f0dbcc95ffb6abf210e93a2e80e14dbf7e2a884af1f7219ed"
+  },
+  {
+    "path": "tools/assets/stage_defs.py",
+    "crlf_before": 0,
+    "sha256": "0abab7bfafc18b02c898d638cc056421387af675d4fdf0074ac9816902efe401"
+  },
+  {
+    "path": "tools/assets/build_guest_paper.py",
+    "crlf_before": 0,
+    "sha256": "00f88772f005c099daa2de2c47f43b1021c1af1abd01d28b02eb3563bc20c54a"
+  },
+  {
+    "path": "tools/rig_preview.gd",
+    "crlf_before": 0,
+    "sha256": "b1672794d43afc36e5a52c21f0aa1907fe03f31ecae9ac27e1457632b3694187"
+  },
+  {
+    "path": "tools/rig_joint_audit.gd",
+    "crlf_before": 0,
+    "sha256": "11484a8e2b20706014063abfac6a157bb09149e41a6db28f4588f210b7dad27f"
+  },
+  {
+    "path": "tools/npc_motion_strip.gd",
+    "crlf_before": 0,
+    "sha256": "cd3c504442107d1474e5f2f4e21de059c75756bfcbe8c2b115d2efad2ec75f2c"
+  },
+  {
+    "path": "tools/ne267_guest_scene_probe.gd",
+    "crlf_before": 0,
+    "sha256": "bf1067fca17a07bdb548534d53e216de1ce4fd1206007719c6b5b1dc8194ad2c"
+  },
+  {
+    "path": "tools/ne267_guest_scene_probe.tscn",
+    "crlf_before": 0,
+    "sha256": "2481129d21747388f0618d97f43770d8d8e012dbc207b9d8488f51e39471b8e2"
+  },
+  {
+    "path": "data/story/ch2_heron.json",
+    "crlf_before": 0,
+    "sha256": "7a4d48f2eac3c4efcbd5b8093da850638eb4595f2b728c951c0c5d9600835a78"
+  },
+  {
+    "path": "data/cutscene/stages/ch2_guest_book_room.json",
+    "crlf_before": 149,
+    "sha256": "e982d8e7a54e9125f761c821127e771f08fa01078f9f5de40adb5ae9e03bf7fe"
+  },
+  {
+    "path": "art/rigs/guest_zheng.json",
+    "crlf_before": 142,
+    "sha256": "66962ba25d258de9259817a85622b8504bf62f0822ff0a834f4e9c5836713625"
+  },
+  {
+    "path": "art/motion/guest_zheng.json",
+    "crlf_before": 0,
+    "sha256": "f087752de45a3aae80ee798b4a7f60eb09275b5983717ec70d436fc928cee675"
+  },
+  {
+    "path": "art/characters/guest_zheng/character.json",
+    "crlf_before": 248,
+    "sha256": "513a751e6d3dbab0e3614be657c9f4d76b23b444d41b4323a6da3548b4a74145"
+  },
+  {
+    "path": "tools/comfyui/specs/guest_zheng_side.json",
+    "crlf_before": 944,
+    "sha256": "0b5d99d0c83f1d82117f4e07bd51a6ecf8afc3f2886ea8bed1e4fb31d2d259a6"
+  },
+  {
+    "path": "tools/comfyui/recipes/guest_zheng.json",
+    "crlf_before": 17,
+    "sha256": "3cad247f5112bfd332394281be967d645c0d90ea74bb5e1abf6a0f37cc77e89f"
+  },
+  {
+    "path": "tools/comfyui/build_character.py",
+    "crlf_before": 0,
+    "sha256": "d7e42af56cfa0a4443d56251747d6bf1e5c7b79d0fd1649c07b533cb2d147f2b"
+  },
+  {
+    "path": "tools/comfyui/field_spec.py",
+    "crlf_before": 0,
+    "sha256": "6ca2e8b3e6b3d67d4225052522c3f9f206187cbb8d4cdac0acaa312db72dde2a"
+  },
+  {
+    "path": "tools/comfyui/character_source.py",
+    "crlf_before": 0,
+    "sha256": "dbfa7833c26b9257a70cd43b78521c427639a12e47d789d5b7e543cefcb6dadb"
+  },
+  {
+    "path": "tools/comfyui/make_parts.py",
+    "crlf_before": 0,
+    "sha256": "0909287ab39138aa52af83e806a4e30104c16dc9d6318390059f8d8aeb23f7a1"
+  },
+  {
+    "path": "tools/comfyui/refine_parts.py",
+    "crlf_before": 0,
+    "sha256": "d7ce314ec9aceb6a0e1e44ec5666109378740126bfbf34c4a803fbcd1e829424"
+  },
+  {
+    "path": "tools/comfyui/test_character_source.py",
+    "crlf_before": 0,
+    "sha256": "9fc8c6a36c5a1a5d2dd5790d42fb1622d956f76fc62ff6b3445fa8b635da0406"
+  },
+  {
+    "path": "tools/comfyui/test_stage_resolution.py",
+    "crlf_before": 0,
+    "sha256": "65dab78909ab598ef515bb55f65564b14ca247d13d35989836b5e9c52003bb01"
+  },
+  {
+    "path": "tools/comfyui/test_underlap_material.py",
+    "crlf_before": 0,
+    "sha256": "0e5acef86761474bf73cc6f8cd17f951e67df9258c906d660aa36036769d2964"
+  },
+  {
+    "path": "tools/comfyui/test_guest_contact_source.py",
+    "crlf_before": 0,
+    "sha256": "65191991108f584607efc241fcd534245468c66c932a549fa0cd7a8bf76fdfa9"
+  },
+  {
+    "path": "art_src/characters/guest_zheng/audit_sources.py",
+    "crlf_before": 0,
+    "sha256": "42beff50aca780450a44bfe0dc565d19ba513a6d625565706e5f2c9be0bd5fe2"
+  },
+  {
+    "path": "art_src/characters/guest_zheng/configure_spec.py",
+    "crlf_before": 0,
+    "sha256": "aa938ac9fd6b910ac78e09262d87ccc9111004dddf1ba5233b3a851717b27082"
+  },
+  {
+    "path": "art_src/characters/guest_zheng/make_review.py",
+    "crlf_before": 0,
+    "sha256": "787379c343e0c69156dfe8b8a5489c4e8b11023d4d1cbf379a2fc762482bfcda"
+  },
+  {
+    "path": "art_src/characters/guest_zheng/register_hand_contact.py",
+    "crlf_before": 0,
+    "sha256": "64290e69ed839e0c7171a96ee0aa232b427b9c363af83dc266779a0fc73f3ac6"
+  },
+  {
+    "path": "art_src/characters/guest_zheng/run_native.py",
+    "crlf_before": 0,
+    "sha256": "fd6aa981bbc6bbbd976856dbf3fa41a6a425e9143e7f2e06667ef9940177aaa9"
+  },
+  {
+    "path": "art_src/characters/guest_zheng/run_parts.py",
+    "crlf_before": 0,
+    "sha256": "5a837d31171dd707cdf771a13744c2c1f6deb7eb2ac197ceb21009bd98a64fb0"
+  },
+  {
+    "path": "art_src/characters/guest_zheng/trace_wrist.py",
+    "crlf_before": 0,
+    "sha256": "654928fcb01d92a6833b8aef55f105515956d1f6b801666e54fc8152b67511aa"
+  },
+  {
+    "path": "art_src/characters/guest_zheng/verify_story_outcomes.py",
+    "crlf_before": 0,
+    "sha256": "f44a63a6a44e9f53e63045824ca26cf473c45110c99bde70472a749cac739c08"
+  }
+]

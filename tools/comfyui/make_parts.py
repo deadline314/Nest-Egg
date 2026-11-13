@@ -282,6 +282,10 @@ def main() -> None:
     ap.add_argument("--redo-stage", help="comma list of stage pictures to generate again")
     args = ap.parse_args()
     spec = json.loads(Path(args.spec).read_text(encoding="utf8"))
+    for stage in spec.get("stages", []):
+        resolution = stage.get("resolution", 1024)
+        if type(resolution) is not int or resolution < 0:
+            raise ValueError(f"stage {stage.get('name')}: resolution must be a nonnegative integer")
     preserve_alpha = spec.get("preserve_source_alpha", False)
     if type(preserve_alpha) is not bool:
         ap.error("spec.preserve_source_alpha must be a boolean")
@@ -370,8 +374,19 @@ def main() -> None:
             src = prev_path if st.get("from") is None else sdir / f"{st['from']}.png"
             t0 = time.time()
             made = qwen("This is an RGBA image with transparency. " + st["prompt"] + " The image has alpha channel and the background is transparent.",
-                        images=[str(src)], seed=st.get("seed", 51), prefix=f"{spec['id']}_stage_{st['name']}", w=W, h=H)[0]
-            Image.open(made).convert("RGBA").resize((W, H)).save(sp_)
+                        images=[str(src)], seed=st.get("seed", 51), prefix=f"{spec['id']}_stage_{st['name']}", w=W, h=H,
+                        resolution=st.get("resolution", 1024))[0]
+            with Image.open(made) as generated:
+                if st.get("resolution", 1024) == 0:
+                    # Native stages must already match the source canvas. Do not
+                    # hide an edit-node size mismatch by resampling the anatomy.
+                    if generated.mode != "RGBA" or generated.size != (W, H):
+                        raise ValueError(f"stage {st['name']} native output {made}: expected RGBA {(W, H)}, "
+                                         f"got {generated.mode} {generated.size}; original output retained")
+                    sp_.write_bytes(Path(made).read_bytes())
+                else:
+                    # Existing recipes retain their previous registration behavior.
+                    generated.convert("RGBA").resize((W, H)).save(sp_)
             print(f"stage {st['name']}: {time.time() - t0:.0f}s")
         with Image.open(sp_) as stage_image:
             if stage_image.size != (W, H):

@@ -25,6 +25,47 @@
    "filter": "linear"
   },
   {
+   "kind": "sprite",
+   "id": "zheng_meal_slip",
+   "path": "res://art/items/world/document.png",
+   "pos": [
+    360.0,
+    163.13802083333334
+   ],
+   "scale": 0.19270833333333334,
+   "source_width": 96,
+   "filter": "linear",
+   "glow": false,
+   "visible": false,
+   "depth": "front",
+   "states": {
+    "lay_1": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png"
+    },
+    "lay_2": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_2.png"
+    },
+    "lay_3": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_3.png"
+    },
+    "lay_4": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_4.png"
+    },
+    "lay_5": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_5.png"
+    },
+    "lay_6": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_6.png"
+    },
+    "lay_7": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_7.png"
+    },
+    "lay_8": {
+     "path": "res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_8.png"
+    }
+   }
+  },
+  {
    "kind": "glow",
    "pos": [
     480,

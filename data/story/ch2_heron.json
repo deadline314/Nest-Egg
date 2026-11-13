@@ -6959,7 +6959,18 @@
       206.3
      ],
      "zoom": 0.84,
-     "fade": 0.35
+     "fade": 0.35,
+     "props": {
+      "zheng_meal_slip": {
+       "pos": [
+        379.0,
+        153.0
+       ],
+       "angle": 0.0,
+       "visible": false,
+       "state": "default"
+      }
+     }
     },
     {
      "do": "actor",
@@ -6977,6 +6988,271 @@
      "pose_reason": "坐下陪成年客人談話。",
      "pose_support": "左椅座面 x=204.25～272.25、y=209；腳底在地板 y=265.5。",
      "seat_sag": 0.5
+    },
+    {
+     "do": "actor",
+     "id": "zheng",
+     "kind": "guest_zheng",
+     "pos": [
+      470,
+      265.5
+     ],
+     "facing": -1,
+     "scale": 3.7,
+     "weapon": "",
+     "speaker": "zheng",
+     "pose": "idle",
+     "seat_sag": 0.298
+    },
+    {
+     "do": "wait",
+     "time": 0.25
+    },
+    {
+     "do": "move",
+     "id": "zheng",
+     "to": [
+      410,
+      265.5
+     ],
+     "time": 1.2,
+     "pose": "walk",
+     "then": "sit",
+     "wait": true,
+     "pose_reason": "沿椅前地板走到預約窗桌後坐下談話。",
+     "pose_support": "右椅座面 x=377.75～442.75、y=209；雙腳落在地板 y=265.5。"
+    },
+    {
+     "do": "wait",
+     "time": 1.1
+    },
+    {
+     "do": "reach",
+     "id": "zheng",
+     "hand": "front",
+     "to": [
+      392.875,
+      161.09375
+     ],
+     "contact": [
+      158.156589,
+      42.000018
+     ],
+     "angle": 3.141592653589793,
+     "time": 0.45,
+     "wait": true
+    },
+    {
+     "do": "prop_visible",
+     "id": "zheng_meal_slip",
+     "visible": true
+    },
+    {
+     "do": "prop_hold",
+     "id": "zheng_meal_slip",
+     "actor": "zheng",
+     "hand": "front",
+     "point": [
+      72,
+      42
+     ],
+     "follow_rotation": false
+    },
+    {
+     "do": "reach",
+     "id": "zheng",
+     "hand": "front",
+     "to": [
+      373.875,
+      171.23177083333334
+     ],
+     "contact": [
+      158.156589,
+      42.000018
+     ],
+     "angle": 3.141592653589793,
+     "time": 0.65,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "zheng_meal_slip",
+     "state": "lay_1"
+    },
+    {
+     "do": "reach",
+     "id": "zheng",
+     "hand": "front",
+     "to": [
+      373.875,
+      172.1953125
+     ],
+     "contact": [
+      158.156589,
+      42.000018
+     ],
+     "angle": 3.141592653589793,
+     "time": 0.07,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "zheng_meal_slip",
+     "state": "lay_2"
+    },
+    {
+     "do": "reach",
+     "id": "zheng",
+     "hand": "front",
+     "to": [
+      373.875,
+      172.96614583333334
+     ],
+     "contact": [
+      158.156589,
+      42.000018
+     ],
+     "angle": 3.141592653589793,
+     "time": 0.07,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "zheng_meal_slip",
+     "state": "lay_3"
+    },
+    {
+     "do": "reach",
+     "id": "zheng",
+     "hand": "front",
+     "to": [
+      373.875,
+      173.9296875
+     ],
+     "contact": [
+      158.156589,
+      42.000018
+     ],
+     "angle": 3.141592653589793,
+     "time": 0.07,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "zheng_meal_slip",
+     "state": "lay_4"
+    },
+    {
+     "do": "reach",
+     "id": "zheng",
+     "hand": "front",
+     "to": [
+      373.875,
+      174.70052083333334
+     ],
+     "contact": [
+      158.156589,
+      42.000018
+     ],
+     "angle": 3.141592653589793,
+     "time": 0.07,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "zheng_meal_slip",
+     "state": "lay_5"
+    },
+    {
+     "do": "reach",
+     "id": "zheng",
+     "hand": "front",
+     "to": [
+      373.875,
+      175.47135416666666
+     ],
+     "contact": [
+      158.156589,
+      42.000018
+     ],
+     "angle": 3.141592653589793,
+     "time": 0.07,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "zheng_meal_slip",
+     "state": "lay_6"
+    },
+    {
+     "do": "reach",
+     "id": "zheng",
+     "hand": "front",
+     "to": [
+      373.875,
+      176.43489583333334
+     ],
+     "contact": [
+      158.156589,
+      42.000018
+     ],
+     "angle": 3.141592653589793,
+     "time": 0.07,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "zheng_meal_slip",
+     "state": "lay_7"
+    },
+    {
+     "do": "reach",
+     "id": "zheng",
+     "hand": "front",
+     "to": [
+      373.875,
+      177.20572916666666
+     ],
+     "contact": [
+      158.156589,
+      42.000018
+     ],
+     "angle": 3.141592653589793,
+     "time": 0.07,
+     "wait": true
+    },
+    {
+     "do": "prop",
+     "id": "zheng_meal_slip",
+     "state": "lay_8"
+    },
+    {
+     "do": "reach",
+     "id": "zheng",
+     "hand": "front",
+     "to": [
+      373.875,
+      178.16927083333334
+     ],
+     "contact": [
+      158.156589,
+      42.000018
+     ],
+     "angle": 3.141592653589793,
+     "time": 0.07,
+     "wait": true
+    },
+    {
+     "do": "prop_release",
+     "id": "zheng_meal_slip"
+    },
+    {
+     "do": "reach",
+     "id": "zheng",
+     "hand": "front",
+     "release": true,
+     "time": 0.4,
+     "wait": true
     },
     {
      "do": "say",
@@ -7037,7 +7313,18 @@
       206.3
      ],
      "zoom": 0.84,
-     "fade": 0.35
+     "fade": 0.35,
+     "props": {
+      "zheng_meal_slip": {
+       "pos": [
+        360.0,
+        170.07552083333334
+       ],
+       "angle": 0.0,
+       "visible": true,
+       "state": "lay_8"
+      }
+     }
     },
     {
      "do": "actor",
@@ -7055,6 +7342,23 @@
      "pose_reason": "坐下陪成年客人談話。",
      "pose_support": "左椅座面 x=204.25～272.25、y=209；腳底在地板 y=265.5。",
      "seat_sag": 0.5
+    },
+    {
+     "do": "actor",
+     "id": "zheng",
+     "kind": "guest_zheng",
+     "pos": [
+      410,
+      265.5
+     ],
+     "facing": -1,
+     "scale": 3.7,
+     "weapon": "",
+     "speaker": "zheng",
+     "pose": "sit",
+     "pose_reason": "坐下和阿梨談今晚的晚飯。",
+     "pose_support": "右椅座面 x=377.75～442.75、y=209；雙腳落在地板 y=265.5。",
+     "seat_sag": 0.298
     },
     {
      "do": "say",
@@ -7078,7 +7382,18 @@
       206.3
      ],
      "zoom": 0.84,
-     "fade": 0.35
+     "fade": 0.35,
+     "props": {
+      "zheng_meal_slip": {
+       "pos": [
+        360.0,
+        170.07552083333334
+       ],
+       "angle": 0.0,
+       "visible": true,
+       "state": "lay_8"
+      }
+     }
     },
     {
      "do": "actor",
@@ -7096,6 +7411,23 @@
      "pose_reason": "坐下陪成年客人談話。",
      "pose_support": "左椅座面 x=204.25～272.25、y=209；腳底在地板 y=265.5。",
      "seat_sag": 0.5
+    },
+    {
+     "do": "actor",
+     "id": "zheng",
+     "kind": "guest_zheng",
+     "pos": [
+      410,
+      265.5
+     ],
+     "facing": -1,
+     "scale": 3.7,
+     "weapon": "",
+     "speaker": "zheng",
+     "pose": "sit",
+     "pose_reason": "坐下和阿梨談今晚的晚飯。",
+     "pose_support": "右椅座面 x=377.75～442.75、y=209；雙腳落在地板 y=265.5。",
+     "seat_sag": 0.298
     },
     {
      "do": "say",
@@ -7170,7 +7502,18 @@
       206.3
      ],
      "zoom": 0.84,
-     "fade": 0.35
+     "fade": 0.35,
+     "props": {
+      "zheng_meal_slip": {
+       "pos": [
+        360.0,
+        170.07552083333334
+       ],
+       "angle": 0.0,
+       "visible": true,
+       "state": "lay_8"
+      }
+     }
     },
     {
      "do": "actor",
@@ -7188,6 +7531,23 @@
      "pose_reason": "坐下陪成年客人談話。",
      "pose_support": "左椅座面 x=204.25～272.25、y=209；腳底在地板 y=265.5。",
      "seat_sag": 0.5
+    },
+    {
+     "do": "actor",
+     "id": "zheng",
+     "kind": "guest_zheng",
+     "pos": [
+      410,
+      265.5
+     ],
+     "facing": -1,
+     "scale": 3.7,
+     "weapon": "",
+     "speaker": "zheng",
+     "pose": "sit",
+     "pose_reason": "坐下和阿梨談今晚的晚飯。",
+     "pose_support": "右椅座面 x=377.75～442.75、y=209；雙腳落在地板 y=265.5。",
+     "seat_sag": 0.298
     },
     {
      "do": "say",
@@ -7211,7 +7571,18 @@
       206.3
      ],
      "zoom": 0.84,
-     "fade": 0.35
+     "fade": 0.35,
+     "props": {
+      "zheng_meal_slip": {
+       "pos": [
+        360.0,
+        170.07552083333334
+       ],
+       "angle": 0.0,
+       "visible": true,
+       "state": "lay_8"
+      }
+     }
     },
     {
      "do": "actor",
@@ -7231,6 +7602,23 @@
      "seat_sag": 0.5
     },
     {
+     "do": "actor",
+     "id": "zheng",
+     "kind": "guest_zheng",
+     "pos": [
+      410,
+      265.5
+     ],
+     "facing": -1,
+     "scale": 3.7,
+     "weapon": "",
+     "speaker": "zheng",
+     "pose": "sit",
+     "pose_reason": "坐下和阿梨談今晚的晚飯。",
+     "pose_support": "右椅座面 x=377.75～442.75、y=209；雙腳落在地板 y=265.5。",
+     "seat_sag": 0.298
+    },
+    {
      "do": "say",
      "speaker": "ali",
      "text": "鄭先生，您今天的魚沒有吃完，要不要把刺先放在左邊的小盤？",
@@ -7243,6 +7631,22 @@
      "text": "我想說沒吃完，她大概會笑我。妳不用學她笑，聽我說完就好。",
      "ja": "食べきれなかったと言ったら、あの子はきっと笑っただろうな。笑い方まで真似しなくていい。最後まで聞いてくれればそれでいい。",
      "en": "If I said I hadn't finished, she'd probably have laughed. You don't have to laugh like her. Just listen until I'm done."
+    },
+    {
+     "do": "move",
+     "id": "zheng",
+     "to": [
+      470,
+      265.5
+     ],
+     "time": 1.5,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "wait",
+     "time": 1.3
     }
    ],
    "pose_policy": "supported",

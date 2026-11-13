@@ -1,0 +1,109 @@
+{
+  "source_sha256": "34b5d12f551660b7eeb836679c819b9c678f9f4ace5a976640173937f3788fb4",
+  "groups": {
+    "arm": {
+      "sam": [],
+      "points": {
+        "pos": [
+          [
+            444,
+            448
+          ],
+          [
+            472,
+            660
+          ],
+          [
+            504,
+            823
+          ]
+        ],
+        "neg": [
+          [
+            501,
+            219
+          ],
+          [
+            439,
+            1100
+          ]
+        ]
+      }
+    },
+    "leg_far": {
+      "sam": [],
+      "seeded": true,
+      "y": [
+        1100,
+        1536
+      ],
+      "points": {
+        "pos": [
+          [
+            582,
+            1260
+          ],
+          [
+            580,
+            1370
+          ],
+          [
+            615,
+            1405
+          ]
+        ],
+        "neg": [
+          [
+            439,
+            1100
+          ],
+          [
+            425,
+            1440
+          ],
+          [
+            500,
+            797
+          ],
+          [
+            492,
+            762
+          ]
+        ]
+      }
+    },
+    "head": {
+      "sam": [
+        "head"
+      ]
+    },
+    "body": {
+      "sam": [],
+      "rest": true,
+      "complete": {
+        "stage": "P",
+        "occluders": [
+          "arm"
+        ],
+        "near": 260,
+        "trim": 20,
+        "gap_grow": 30,
+        "edge_trim": 1,
+        "check_removed": [
+          399,
+          762,
+          597,
+          916
+        ],
+        "keep_rim": true,
+        "stage_silhouette": true
+      }
+    }
+  },
+  "mask_sha256": {
+    "sam/head.png": "2b9fbc8058aec476537ea2b1043544f48e753457faecc304cbb42adc27602e03",
+    "sam/points_arm.png": "edadc6a105e9e7d5e75e93c1f411df4797a621e95c47adcaba9c07695e80468b",
+    "sam/points_leg_far.png": "81d3e03062ff6a47875de2dff0170275be7f916f45e210d75604f4a486b22d90"
+  },
+  "review": "Head, near arm and far leg reviewed on original-size gray overlays. Far mask's upper over-selection is excluded by the authored knee-bounded group; masked results are not proof of dynamic seams."
+}

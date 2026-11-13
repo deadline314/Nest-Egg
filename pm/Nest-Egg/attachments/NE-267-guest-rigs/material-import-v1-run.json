@@ -1,0 +1,16 @@
+{
+  "command": [
+    "D:\\ComfyUI\\.venv\\Scripts\\python.exe",
+    "tools/comfyui/build_character.py",
+    "--recipe",
+    "tools/comfyui/recipes/guest_zheng.json",
+    "--from",
+    "normals",
+    "--to",
+    "import"
+  ],
+  "log": "material-import-v1.log",
+  "seconds": 26.828000000008615,
+  "exit_code": 0,
+  "engine_errors": []
+}

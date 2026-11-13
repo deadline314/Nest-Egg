@@ -1,0 +1,23 @@
+{
+  "equal": true,
+  "before_sha256": "5ae47e356a8f47252650bb2b2c15bae171116ee842a0bc0310ffe2e722181547",
+  "after_sha256": "5ae47e356a8f47252650bb2b2c15bae171116ee842a0bc0310ffe2e722181547",
+  "excluded_verbs": [
+    "actor",
+    "camera",
+    "gesture",
+    "move",
+    "pose",
+    "prop",
+    "prop_hold",
+    "prop_move",
+    "prop_release",
+    "prop_visible",
+    "reach",
+    "scene",
+    "stage",
+    "wait"
+  ],
+  "scope": "all original identity/speakers/lines/options/when/completion/on_cancel/flags/quests/documents/transactions retained",
+  "note": "v2 also excludes scene camera/initial prop presentation. The earlier projection kept scene, so its historical hash is not reused."
+}

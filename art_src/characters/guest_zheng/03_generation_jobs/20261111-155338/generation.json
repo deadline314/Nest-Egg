@@ -1,0 +1,101 @@
+{
+  "shared_existing_service": true,
+  "host": "http://127.0.0.1:8188",
+  "client_python": "D:\\ComfyUI\\.venv\\Scripts\\python.exe",
+  "lifecycle_disabled": true,
+  "graph_retries": 0,
+  "qwen_attempts": 1,
+  "started_at": "20261111-155338",
+  "protected_before": {
+    "art_src\\characters\\guest_zheng\\base_rgba.png": "34b5d12f551660b7eeb836679c819b9c678f9f4ace5a976640173937f3788fb4",
+    "art\\portraits\\guest_zheng.png": "60e02dfa76a92e59419fa00fcb4ac8de5f5d16cd402d2c6035a10b2b689d5777"
+  },
+  "graphs": [
+    {
+      "name": "sam_b8ad087d",
+      "graph": "00-sam_b8ad087d.json",
+      "sha256": "62f8b53e62a25ed71a4c5f9fe770d755f64042132ee47a83a896e3f400591fda"
+    },
+    {
+      "name": "sam_7b4faaa5",
+      "graph": "01-sam_7b4faaa5.json",
+      "sha256": "6da36473e52f54c5440e62f424d776b312969229450e1fea14a928cced97b11b"
+    },
+    {
+      "name": "sam_0c8124b1",
+      "graph": "02-sam_0c8124b1.json",
+      "sha256": "cf13adcf5dd9774eb976c47b020ce7457e095e23155e2d091b9d491c272cf35b"
+    },
+    {
+      "name": "guest_zheng_stage_P",
+      "graph": "03-guest_zheng_stage_P.json",
+      "sha256": "82aa2eff90f78eb8113430e6f8d0c6aeeb20ee026bc52871f33473048141c35c"
+    }
+  ],
+  "passed": true,
+  "server_stats_before": {
+    "system": {
+      "os": "win32",
+      "ram_total": 33944813568,
+      "ram_free": 10636046336,
+      "comfyui_version": "0.37.0",
+      "required_frontend_version": "1.53.6",
+      "installed_templates_version": "0.11.70",
+      "required_templates_version": "0.11.70",
+      "comfy_package_versions": [
+        {
+          "name": "comfyui-frontend-package",
+          "installed": "1.53.6",
+          "required": "1.53.6"
+        },
+        {
+          "name": "comfyui-workflow-templates",
+          "installed": "0.11.70",
+          "required": "0.11.70"
+        },
+        {
+          "name": "comfyui-embedded-docs",
+          "installed": "0.5.12",
+          "required": "0.5.12"
+        },
+        {
+          "name": "comfy-kitchen",
+          "installed": "0.2.35",
+          "required": "0.2.35"
+        },
+        {
+          "name": "comfy-aimdo",
+          "installed": "0.5.5",
+          "required": "0.5.5"
+        }
+      ],
+      "python_version": "3.13.15 (tags/v3.13.15:4061bc4, Aug  5 2026, 13:05:39) [MSC v.1944 64 bit (AMD64)]",
+      "pytorch_version": "2.13.0+rocm10.0.0",
+      "embedded_python": false,
+      "deploy_environment": "local-git",
+      "argv": [
+        "D:/ComfyUI/main.py",
+        "--port",
+        "8188",
+        "--disable-pinned-memory"
+      ]
+    },
+    "devices": [
+      {
+        "name": "cuda:0 AMD Radeon RX 9070 XT : native",
+        "type": "cuda",
+        "index": 0,
+        "vram_total": 17095983104,
+        "vram_free": 2882756096,
+        "torch_vram_total": 14713618432,
+        "torch_vram_free": 2139774464
+      }
+    ]
+  },
+  "seconds": 375.0469999999914,
+  "protected_after": {
+    "art_src\\characters\\guest_zheng\\base_rgba.png": "34b5d12f551660b7eeb836679c819b9c678f9f4ace5a976640173937f3788fb4",
+    "art\\portraits\\guest_zheng.png": "60e02dfa76a92e59419fa00fcb4ac8de5f5d16cd402d2c6035a10b2b689d5777"
+  },
+  "protected_unchanged": true
+}

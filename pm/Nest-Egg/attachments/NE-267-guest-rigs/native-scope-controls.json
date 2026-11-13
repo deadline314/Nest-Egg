@@ -1,0 +1,192 @@
+{
+  "classification": "experimental ROI applied only to measured native controls; not full NPC acceptance",
+  "cases": [
+    {
+      "run": "context-shoulder-base-v1",
+      "raw_failed_samples": 2,
+      "scoped_rejected_samples": 0,
+      "results": [
+        {
+          "raw": {
+            "components": 1,
+            "hole_pixels": 1,
+            "enclosed_pixels": 0,
+            "loose_pieces": 0,
+            "center_alpha": 255
+          },
+          "rejected": false,
+          "in_scope": [],
+          "assigned_exterior": [
+            {
+              "pixel": [
+                12,
+                3
+              ],
+              "owner": "neck",
+              "target_distance": 6.363958333281169,
+              "owner_distance": 2.24185913812407
+            }
+          ],
+          "reason": "no target defect; exterior requires complete neighbour coverage",
+          "frame": 22,
+          "facing": 1,
+          "joint": "shoulder_front"
+        },
+        {
+          "raw": {
+            "components": 1,
+            "hole_pixels": 1,
+            "enclosed_pixels": 0,
+            "loose_pieces": 0,
+            "center_alpha": 255
+          },
+          "rejected": false,
+          "in_scope": [],
+          "assigned_exterior": [
+            {
+              "pixel": [
+                3,
+                3
+              ],
+              "owner": "neck",
+              "target_distance": 6.363958333281169,
+              "owner_distance": 2.2418667289372856
+            }
+          ],
+          "reason": "no target defect; exterior requires complete neighbour coverage",
+          "frame": 22,
+          "facing": -1,
+          "joint": "shoulder_front"
+        }
+      ]
+    },
+    {
+      "run": "context-wrist-base-v1",
+      "raw_failed_samples": 2,
+      "scoped_rejected_samples": 2,
+      "results": [
+        {
+          "raw": {
+            "components": 1,
+            "hole_pixels": 1,
+            "enclosed_pixels": 0,
+            "loose_pieces": 0,
+            "center_alpha": 255
+          },
+          "rejected": true,
+          "in_scope": [
+            [
+              15,
+              20
+            ]
+          ],
+          "assigned_exterior": [],
+          "reason": "target open notch",
+          "frame": 136,
+          "facing": 1,
+          "joint": "wrist_front"
+        },
+        {
+          "raw": {
+            "components": 1,
+            "hole_pixels": 1,
+            "enclosed_pixels": 0,
+            "loose_pieces": 0,
+            "center_alpha": 255
+          },
+          "rejected": true,
+          "in_scope": [
+            [
+              20,
+              20
+            ]
+          ],
+          "assigned_exterior": [],
+          "reason": "target open notch",
+          "frame": 136,
+          "facing": -1,
+          "joint": "wrist_front"
+        }
+      ]
+    },
+    {
+      "run": "onepixel-negative-native-v1",
+      "raw_failed_samples": 2,
+      "scoped_rejected_samples": 2,
+      "results": [
+        {
+          "raw": {
+            "components": 1,
+            "hole_pixels": 1,
+            "enclosed_pixels": 1,
+            "loose_pieces": 0,
+            "center_alpha": 255
+          },
+          "rejected": true,
+          "in_scope": [],
+          "assigned_exterior": [],
+          "reason": "centre, connectivity or genuinely enclosed material hole",
+          "frame": 0,
+          "facing": 1,
+          "joint": "wrist_back"
+        },
+        {
+          "raw": {
+            "components": 1,
+            "hole_pixels": 1,
+            "enclosed_pixels": 1,
+            "loose_pieces": 0,
+            "center_alpha": 255
+          },
+          "rejected": true,
+          "in_scope": [],
+          "assigned_exterior": [],
+          "reason": "centre, connectivity or genuinely enclosed material hole",
+          "frame": 0,
+          "facing": -1,
+          "joint": "wrist_back"
+        }
+      ]
+    },
+    {
+      "run": "onepixel-negative-upperarm-v1",
+      "raw_failed_samples": 2,
+      "scoped_rejected_samples": 2,
+      "results": [
+        {
+          "raw": {
+            "components": 1,
+            "hole_pixels": 1,
+            "enclosed_pixels": 1,
+            "loose_pieces": 0,
+            "center_alpha": 255
+          },
+          "rejected": true,
+          "in_scope": [],
+          "assigned_exterior": [],
+          "reason": "centre, connectivity or genuinely enclosed material hole",
+          "frame": 0,
+          "facing": 1,
+          "joint": "wrist_back"
+        },
+        {
+          "raw": {
+            "components": 1,
+            "hole_pixels": 1,
+            "enclosed_pixels": 1,
+            "loose_pieces": 0,
+            "center_alpha": 255
+          },
+          "rejected": true,
+          "in_scope": [],
+          "assigned_exterior": [],
+          "reason": "centre, connectivity or genuinely enclosed material hole",
+          "frame": 0,
+          "facing": -1,
+          "joint": "wrist_back"
+        }
+      ]
+    }
+  ],
+  "framework": "all role render parts use their bone origin, texture pivot is separate"
+}

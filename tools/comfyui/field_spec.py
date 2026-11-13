@@ -104,7 +104,9 @@ def main() -> None:
     ap.add_argument("--id", required=True)
     ap.add_argument("--name", required=True)
     ap.add_argument("--height", type=float, required=True, help="standing height in world pixels (the protagonist is about 63)")
-    ap.add_argument("--seed", type=int, required=True, help="seed of the adopted design picture (recorded in the recipe)")
+    provenance = ap.add_mutually_exclusive_group(required=True)
+    provenance.add_argument("--seed", type=int, help="seed of the adopted local design picture")
+    provenance.add_argument("--source-record", help="retained RGBA source record with original path, dimensions and SHA; no invented seed")
     ap.add_argument("--glow", action="append", default=[], help="part:letter, e.g. head:c (cyan), foot:m (magenta), torso:y (yellow)")
     ap.add_argument("--portrait", action="store_true", help="also cut art/portraits/<id>.png")
     ap.add_argument("--far-tint", type=float, default=0.8)
@@ -131,6 +133,12 @@ def main() -> None:
         if not needed.exists():
             raise SystemExit(f"[field_spec] {needed} is missing")
     rgba = Image.open(base).convert("RGBA")
+    source_record = None
+    if args.source_record:
+        from character_source import read_source
+        source_record, _, original = read_source(ROOT, args.source_record)
+        if base.read_bytes() != original:
+            raise ValueError(f"{base}: must exactly match the retained source before fitting joints")
     alpha = np.asarray(rgba)[:, :, 3] > 127
     (work / ".gdignore").touch()
     gitignore = work / ".gitignore"
@@ -259,9 +267,12 @@ def main() -> None:
     if (work / "05_groups" / "body.png").exists():
         center_hip(spec, work / "05_groups" / "body.png")
     spec_path.write_text(json.dumps(spec, ensure_ascii=False, indent=2) + "\n", encoding="utf8")
-    recipe = {"description": f"{args.name}（{args.id}）的建置配方。來源是功能姿勢的文生圖（art_src/characters/{args.id}/01_design/prompt.txt，seed {args.seed}）；建置從 parts 或之後的步驟開始。",
+    description = f"保留原生來源 {args.source_record}；沒有本機生成 seed" if source_record else f"功能姿勢文生圖，seed {args.seed}"
+    design = {"size": list(rgba.size), "prompt": prompt.read_text(encoding="utf8").strip()}
+    design.update({"source_record": args.source_record} if source_record else {"pick": args.seed})
+    recipe = {"description": f"{args.name}（{args.id}）的建置配方。{description}；原始來源與提示保持，分件及後續步驟另驗。",
               "id": args.id, "name": args.name, "spec": f"tools/comfyui/specs/{args.id}_side.json", "rig": f"art/rigs/{args.id}.json",
-              "work": f"art_src/characters/{args.id}", "design": {"size": list(rgba.size), "pick": args.seed, "prompt": prompt.read_text(encoding="utf8").strip()}}
+              "work": f"art_src/characters/{args.id}", "design": design}
     recipe_path.write_text(json.dumps(recipe, ensure_ascii=False, indent=2) + "\n", encoding="utf8")
     print(f"  wrote {spec_path.relative_to(ROOT)} and {recipe_path.relative_to(ROOT)}: ground_y {ground}, {px_wp} px per world px, knee half-width {knee_w:.0f}, ankle {ankle_w:.0f}")
 

@@ -1,0 +1,110 @@
+{
+  "classification": "unadopted local torso RGB candidate, not a new pose or an edit to the original source",
+  "source": "art_src/characters/guest_zheng/04_stages/P.png",
+  "source_sha256": "3bc89184801d40cd3d2b43327c30d2c16ad830e0b0d305a436957b641fd67d96",
+  "reference": "art_src/characters/guest_zheng/torso_underlayer/raw/reference.png",
+  "reference_sha256": "af63b719e943a587c404f415f88b2ad0be1045ef607ef57b65f7d49e18fdb832",
+  "generated": "art_src/characters/guest_zheng/torso_underlayer/raw/guest_zheng_torso_underlayer_s433_0.png",
+  "generated_sha256": "4fcad02fc1b86d3e5968680109d0e3569a4a01dd21925b80a6012b884f5efbaa",
+  "native_crop": [
+    256,
+    224,
+    768,
+    736
+  ],
+  "requested_resolution": 0,
+  "actual_size": [
+    512,
+    512
+  ],
+  "prompt": "This is an RGBA image with transparency. Edit only the upper side panel of the ochre-brown canvas work jacket. The near arm has been removed for a separate animation layer. Replace the large circular armhole, the concentric black oval rim and the featureless flat oval with continuous worn ochre canvas cloth across the torso beneath the moving arm. Draw a few purposeful angular cel-shaded cloth folds following the side of the chest and armpit, subtle worn canvas grain and irregular hand-inked linework matching the surrounding jacket. This is closed cloth, not a hole or a shoulder socket. No arm, no sleeve, no hand, no round rim, no flat oval patch, no armour, no ornament, no new pocket. Preserve the collar, lapel, front grey shirt, original front pocket, jacket silhouette, waist seam, composition and scale. Keep flat muted colours and hard two-tone shading, matte fabric, no glow, no airbrush gradient. Keep the exact native crop dimensions and transparent outside silhouette.",
+  "seed": 433,
+  "generation_provider": "shared existing ComfyUI service",
+  "proposed_source_polygon": [
+    [
+      506,
+      396
+    ],
+    [
+      503,
+      427
+    ],
+    [
+      493,
+      454
+    ],
+    [
+      477,
+      476
+    ],
+    [
+      458,
+      490
+    ],
+    [
+      436,
+      494
+    ],
+    [
+      414,
+      490
+    ],
+    [
+      395,
+      476
+    ],
+    [
+      379,
+      454
+    ],
+    [
+      369,
+      427
+    ],
+    [
+      366,
+      396
+    ],
+    [
+      369,
+      366
+    ],
+    [
+      379,
+      339
+    ],
+    [
+      395,
+      317
+    ],
+    [
+      414,
+      303
+    ],
+    [
+      436,
+      298
+    ],
+    [
+      458,
+      303
+    ],
+    [
+      477,
+      317
+    ],
+    [
+      493,
+      339
+    ],
+    [
+      503,
+      366
+    ]
+  ],
+  "mask_dilate_source_pixels": 8,
+  "mask_gaussian_sigma": 3,
+  "alpha_exact": true,
+  "outside_saved_mask_exact": true,
+  "adopted": false
+}

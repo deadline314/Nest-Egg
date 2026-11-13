@@ -1,0 +1,52 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+ERROR: [NpcAnimator] res://art/rigs/npc_animations.json 沒有 poses「no_such_pose」，改用「stand」。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _entry (res://game/rig/npc_animator.gd:548)
+       [1] _step_posture (res://game/rig/npc_animator.gd:252)
+       [2] _body_pose (res://game/rig/npc_animator.gd:109)
+       [3] update (res://game/rig/humanoid_animator.gd:269)
+       [4] animate (res://game/rig/character_rig.gd:315)
+       [5] _rig_with (res://tests/suite/test_npc_animation.gd:37)
+       [6] _test_fallbacks (res://tests/suite/test_npc_animation.gd:186)
+       [7] run (res://tests/suite/test_npc_animation.gd:17)
+       [8] _test_loops (res://tests/suite/test_npc_animation.gd:169)
+       [9] _rig_with (res://tests/suite/test_npc_animation.gd:39)
+       [10] frames (res://tests/suite/test_suite.gd:23)
+       [11] _frames (res://tests/smoke_test.gd:125)
+ERROR: [NpcAnimator] res://art/rigs/npc_animations.json 沒有 loops「no_such_loop」，改用無。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _entry (res://game/rig/npc_animator.gd:548)
+       [1] _step_loop (res://game/rig/npc_animator.gd:394)
+       [2] _body_pose (res://game/rig/npc_animator.gd:131)
+       [3] update (res://game/rig/humanoid_animator.gd:269)
+       [4] animate (res://game/rig/character_rig.gd:315)
+       [5] _rig_with (res://tests/suite/test_npc_animation.gd:37)
+       [6] _test_fallbacks (res://tests/suite/test_npc_animation.gd:186)
+       [7] run (res://tests/suite/test_npc_animation.gd:17)
+       [8] _test_loops (res://tests/suite/test_npc_animation.gd:169)
+       [9] _rig_with (res://tests/suite/test_npc_animation.gd:39)
+       [10] frames (res://tests/suite/test_suite.gd:23)
+       [11] _frames (res://tests/smoke_test.gd:125)
+SEAT_STAND_DIAGNOSTIC fitted=-0.60570774078369 baseline=-0.60570774078369 feet_weight=0.0 pose=stand hip=(0.522255, -28.63268)
+SUITE_TIME NpcAnimationSuite 14.5
+ERROR: [HumanoidAnimator] res://art/rigs/action_poses.json 沒有專屬動作「no_such_action」
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:187)
+       [1] report_once (res://game/rig/rig_library.gd:180)
+       [2] _apply_action (res://game/rig/humanoid_animator.gd:1273)
+       [3] update (res://game/rig/humanoid_animator.gd:275)
+       [4] animate (res://game/rig/character_rig.gd:315)
+       [5] _rig (res://tests/suite/test_rig_actions.gd:33)
+       [6] _test_unknown_action (res://tests/suite/test_rig_actions.gd:188)
+       [7] run (res://tests/suite/test_rig_actions.gd:14)
+       [8] _test_death_overrides_enemy_actions (res://tests/suite/test_rig_actions.gd:133)
+       [9] _rig (res://tests/suite/test_rig_actions.gd:35)
+       [10] frames (res://tests/suite/test_suite.gd:23)
+       [11] _frames (res://tests/smoke_test.gd:125)
+SUITE_TIME RigActionsSuite 3.6
+checks: 6488, failures: 0

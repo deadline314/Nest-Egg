@@ -1,0 +1,92 @@
+{
+  "shared_existing_service": true,
+  "host": "http://127.0.0.1:8188",
+  "client_python": "D:\\ComfyUI\\.venv\\Scripts\\python.exe",
+  "pipeline_step": "eye_states",
+  "lifecycle_disabled": true,
+  "graph_retries": 0,
+  "qwen_attempts": 1,
+  "started_at": "20261111-162322",
+  "protected_before": {
+    "art_src\\characters\\guest_zheng\\base_rgba.png": "34b5d12f551660b7eeb836679c819b9c678f9f4ace5a976640173937f3788fb4",
+    "art\\portraits\\guest_zheng.png": "60e02dfa76a92e59419fa00fcb4ac8de5f5d16cd402d2c6035a10b2b689d5777"
+  },
+  "graphs": [
+    {
+      "name": "guest_zheng_eye_half_s421",
+      "graph": "00-guest_zheng_eye_half_s421.json",
+      "sha256": "ffe0e026c6e88122f53f82de8dec0b1bd13d18c2b08dc8b90fffa2918e15ea9f"
+    },
+    {
+      "name": "guest_zheng_eye_closed_s422",
+      "graph": "01-guest_zheng_eye_closed_s422.json",
+      "sha256": "047181d8b3aead59c23a6a284ea2be7987b01a5ae345b8c66393d1669e1b960a"
+    }
+  ],
+  "passed": true,
+  "server_stats_before": {
+    "system": {
+      "os": "win32",
+      "ram_total": 33944813568,
+      "ram_free": 13826445312,
+      "comfyui_version": "0.37.0",
+      "required_frontend_version": "1.53.6",
+      "installed_templates_version": "0.11.70",
+      "required_templates_version": "0.11.70",
+      "comfy_package_versions": [
+        {
+          "name": "comfyui-frontend-package",
+          "installed": "1.53.6",
+          "required": "1.53.6"
+        },
+        {
+          "name": "comfyui-workflow-templates",
+          "installed": "0.11.70",
+          "required": "0.11.70"
+        },
+        {
+          "name": "comfyui-embedded-docs",
+          "installed": "0.5.12",
+          "required": "0.5.12"
+        },
+        {
+          "name": "comfy-kitchen",
+          "installed": "0.2.35",
+          "required": "0.2.35"
+        },
+        {
+          "name": "comfy-aimdo",
+          "installed": "0.5.5",
+          "required": "0.5.5"
+        }
+      ],
+      "python_version": "3.13.15 (tags/v3.13.15:4061bc4, Aug  5 2026, 13:05:39) [MSC v.1944 64 bit (AMD64)]",
+      "pytorch_version": "2.13.0+rocm10.0.0",
+      "embedded_python": false,
+      "deploy_environment": "local-git",
+      "argv": [
+        "D:/ComfyUI/main.py",
+        "--port",
+        "8188",
+        "--disable-pinned-memory"
+      ]
+    },
+    "devices": [
+      {
+        "name": "cuda:0 AMD Radeon RX 9070 XT : native",
+        "type": "cuda",
+        "index": 0,
+        "vram_total": 17095983104,
+        "vram_free": 3054674432,
+        "torch_vram_total": 14713618432,
+        "torch_vram_free": 2121114112
+      }
+    ]
+  },
+  "seconds": 583.2810000000027,
+  "protected_after": {
+    "art_src\\characters\\guest_zheng\\base_rgba.png": "34b5d12f551660b7eeb836679c819b9c678f9f4ace5a976640173937f3788fb4",
+    "art\\portraits\\guest_zheng.png": "60e02dfa76a92e59419fa00fcb4ac8de5f5d16cd402d2c6035a10b2b689d5777"
+  },
+  "protected_unchanged": true
+}

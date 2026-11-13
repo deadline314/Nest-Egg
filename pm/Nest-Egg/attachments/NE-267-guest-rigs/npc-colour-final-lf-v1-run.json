@@ -1,0 +1,48 @@
+{
+  "phase": "colour",
+  "pages": 30,
+  "all_processes_passed": true,
+  "classification": "native full-body phase pages; fixed-step simulation, not human play",
+  "frames_per_page": 4,
+  "zooms": [
+    2.2,
+    3.4,
+    3.7
+  ],
+  "facings": [
+    -1,
+    1
+  ],
+  "pages_definition": [
+    [
+      "sit-entry",
+      "seated_converse",
+      0.8,
+      0.4
+    ],
+    [
+      "sit-converse",
+      "seated_converse",
+      2.0,
+      2.0
+    ],
+    [
+      "sit-exit",
+      "seated_converse",
+      9.9,
+      0.4
+    ],
+    [
+      "wave-entry",
+      "wave",
+      0.4,
+      0.5
+    ],
+    [
+      "wave-exit",
+      "wave",
+      2.5,
+      0.5
+    ]
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "retained_sources": [
+    {
+      "id": "guest_zheng",
+      "original_sha256": "34b5d12f551660b7eeb836679c819b9c678f9f4ace5a976640173937f3788fb4",
+      "base_sha256": "34b5d12f551660b7eeb836679c819b9c678f9f4ace5a976640173937f3788fb4",
+      "portrait_sha256": "60e02dfa76a92e59419fa00fcb4ac8de5f5d16cd402d2c6035a10b2b689d5777",
+      "seed": null
+    },
+    {
+      "id": "guest_chen",
+      "original_sha256": "d5db7c3a6a417c8bdd4f3aa53e81e65a2fd8f589029ccc3cf7f7f7bf925e96f2",
+      "base_sha256": "d5db7c3a6a417c8bdd4f3aa53e81e65a2fd8f589029ccc3cf7f7f7bf925e96f2",
+      "portrait_sha256": "695e5c6697e14c187ac6984a0990869841ce1faf13aceba2d018e8606d96964b",
+      "seed": null
+    },
+    {
+      "id": "guest_hong",
+      "original_sha256": "4261d3d92d389639f49cfc864cc46c7a9dec6418b66a3ca6d79b48ee6f3b25d5",
+      "base_sha256": "4261d3d92d389639f49cfc864cc46c7a9dec6418b66a3ca6d79b48ee6f3b25d5",
+      "portrait_sha256": "493cc8b3919e0b3a9962fc58f0cdad5ce4827dfe9dc31b07966a9ccc2c43c39d",
+      "seed": null
+    }
+  ],
+  "eyes": [
+    {
+      "state": "half",
+      "size": [
+        1024,
+        1536
+      ],
+      "changed_pixels": 719,
+      "alpha_equal": true,
+      "outside_eye_equal": true,
+      "sha256": "8a5cc94beabc76512c93d341c86a342750a75b39535b18ce071ccee0b38770eb"
+    },
+    {
+      "state": "closed",
+      "size": [
+        1024,
+        1536
+      ],
+      "changed_pixels": 725,
+      "alpha_equal": true,
+      "outside_eye_equal": true,
+      "sha256": "5152897205390c6e59d08dbba0219ee8b9e8e38373e4c29e85f3878a646a0343"
+    }
+  ],
+  "reused_paper": {
+    "existing_output": "art\\items\\world\\document.png",
+    "output_sha256": "8a64d648de1fe912de9f5ec5259bedab60a6a3c40ff3572186356253e8272862",
+    "output_size": [
+      96,
+      96
+    ],
+    "raw_source": "assets_src\\generated\\world_items\\document.png",
+    "raw_sha256": "db22e6e4e989364f5b2f66a9824f024dba6316f3dbab10db68dab0230a0b8e72",
+    "raw_size": [
+      640,
+      640
+    ],
+    "receipt": "assets_src\\generated\\world_items\\document.json",
+    "receipt_sha256": "8ad2fbc47c8977440cab2ec2307de3862c0e0da6d91038798f8f68223bc71746",
+    "opaque_bbox_inclusive": [
+      14,
+      8,
+      81,
+      87
+    ],
+    "original_seed": 225014,
+    "adoption": "existing unlettered paper art reused visually as restaurant slip; no source edits or new model job"
+  }
+}

@@ -1,0 +1,5 @@
+# 06_parts 是從 sam／04_stages／05_groups 用 CPU 重建的中間層（build_character.py --from parts，不需要 GPU），不進版控。
+06_parts/
+# 走路輪廓候選由 prepare_walk_contour_candidates.py 重建（約 32 MB），採用結果已寫進部件與 register_walk_repairs.py 的登記，不進版控。
+repair_candidates/walk-contours-v*/
+__pycache__/

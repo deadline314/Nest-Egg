@@ -96,8 +96,15 @@ class Build:
 
     def step_design(self) -> list[Path]:
         self.check(joints=False)
-        from comfy_api import qwen
         d = self.recipe["design"]
+        if "source_record" in d:
+            if self.seed is not None:
+                raise ValueError(f"[{self.id}] retained source has no local generation seed; cannot use --seed")
+            from character_source import publish_source
+            base = publish_source(ROOT, d["source_record"], self.work / "base_rgba.png", self.force)
+            log(f"  retained native source -> {rel(base)}")
+            return [base]
+        from comfy_api import qwen
         seed = self.seed or d["pick"]
         out_dir = self.work / "01_design"
         out_dir.mkdir(exist_ok=True)

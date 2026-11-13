@@ -1,0 +1,14 @@
+{
+  "description": "NE-267: same-source geometric paper tilt states, no new model generation. Original source and approved character art are unchanged.",
+  "source": "art/items/world/document.png",
+  "source_sha256": "8a64d648de1fe912de9f5ec5259bedab60a6a3c40ff3572186356253e8272862",
+  "source_generation_receipt": "assets_src/generated/world_items/document.json",
+  "output": "art/environment/scene_props/guest_book_contacts",
+  "canvas": [96, 96],
+  "anchor": [72, 42],
+  "states": 8,
+  "final_vertical_scale": 0.22,
+  "final_x_shear": 0.12,
+  "resampling": "bicubic premultiplied RGBA; source and canvas retained",
+  "normal": {"profile": "flat", "relief": 0.15, "detail": 0.0}
+}

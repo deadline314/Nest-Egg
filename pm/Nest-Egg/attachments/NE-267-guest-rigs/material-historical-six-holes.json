@@ -1,0 +1,91 @@
+{
+  "classification": "preserved original native defects; all still rejected by unchanged pixel precision/context classifier",
+  "samples": 6,
+  "rejected": 6,
+  "cases": [
+    {
+      "file": "sit_3.4_000.png",
+      "original_png_sha256": "25c91a6a242d596c43cc63bf2677aacb304a51d23672ec4a6ee2bb254955833c",
+      "facing": 1,
+      "pose": "sit",
+      "raw": {
+        "components": 1,
+        "hole_pixels": 1,
+        "enclosed_pixels": 1,
+        "loose_pieces": 0,
+        "center_alpha": 255
+      },
+      "rejected": true
+    },
+    {
+      "file": "sit_3.4_000.png",
+      "original_png_sha256": "25c91a6a242d596c43cc63bf2677aacb304a51d23672ec4a6ee2bb254955833c",
+      "facing": -1,
+      "pose": "sit",
+      "raw": {
+        "components": 1,
+        "hole_pixels": 1,
+        "enclosed_pixels": 1,
+        "loose_pieces": 0,
+        "center_alpha": 255
+      },
+      "rejected": true
+    },
+    {
+      "file": "sit_talk_3.4_000.png",
+      "original_png_sha256": "ee21037a1bf50b0960149221b5752c3f07fd71342b4329711b5319a6fa52debd",
+      "facing": 1,
+      "pose": "sit_talk",
+      "raw": {
+        "components": 1,
+        "hole_pixels": 1,
+        "enclosed_pixels": 1,
+        "loose_pieces": 0,
+        "center_alpha": 255
+      },
+      "rejected": true
+    },
+    {
+      "file": "sit_talk_3.4_000.png",
+      "original_png_sha256": "ee21037a1bf50b0960149221b5752c3f07fd71342b4329711b5319a6fa52debd",
+      "facing": -1,
+      "pose": "sit_talk",
+      "raw": {
+        "components": 1,
+        "hole_pixels": 1,
+        "enclosed_pixels": 1,
+        "loose_pieces": 0,
+        "center_alpha": 255
+      },
+      "rejected": true
+    },
+    {
+      "file": "sit_listen_3.4_000.png",
+      "original_png_sha256": "136647e7dc1b372b8085a26e48b09f575cddb762e6705930d0cd854199990217",
+      "facing": 1,
+      "pose": "sit_listen",
+      "raw": {
+        "components": 1,
+        "hole_pixels": 1,
+        "enclosed_pixels": 1,
+        "loose_pieces": 0,
+        "center_alpha": 255
+      },
+      "rejected": true
+    },
+    {
+      "file": "sit_listen_3.4_000.png",
+      "original_png_sha256": "136647e7dc1b372b8085a26e48b09f575cddb762e6705930d0cd854199990217",
+      "facing": -1,
+      "pose": "sit_listen",
+      "raw": {
+        "components": 1,
+        "hole_pixels": 1,
+        "enclosed_pixels": 1,
+        "loose_pieces": 0,
+        "center_alpha": 255
+      },
+      "rejected": true
+    }
+  ]
+}

@@ -72,12 +72,17 @@ var _gait_speed := 70.0
 var _gait_run_speed := 0.0
 var _seq := ""
 var _npc := false
+## Optional four-pose pages leave enough horizontal room for hands at cutscene scale.
+var _npc_page := -1
 var _joints := false
 var _joint_level := 2
 var _action := ""
 var _loop := "stir"
 var _loop_pose := "stand"
 var _zoom := 6.5
+var _seat_sag := -1.0
+## Optional elapsed-time capture; native FPS must not shorten NPC gesture settling.
+var _settle_seconds := -1.0
 var _rigs: Array[CharacterRig] = []
 var _inputs: Array[RigInput] = []
 var _poses: Array[String] = []
@@ -102,6 +107,20 @@ func _ready() -> void:
 			_out = arg.trim_prefix("--out=")
 		elif arg.begins_with("--zoom="):
 			_zoom = float(arg.trim_prefix("--zoom="))
+		elif arg.begins_with("--seat-sag="):
+			var raw_sag := arg.trim_prefix("--seat-sag=")
+			if not raw_sag.is_valid_float() or not is_finite(float(raw_sag)) or float(raw_sag) < 0.0 or float(raw_sag) > .9:
+				push_error("[rig_preview] --seat-sag requires a finite value in [0,.9]")
+				get_tree().quit(1)
+				return
+			_seat_sag = float(raw_sag)
+		elif arg.begins_with("--settle-seconds="):
+			var raw_seconds := arg.trim_prefix("--settle-seconds=")
+			if not raw_seconds.is_valid_float() or not is_finite(float(raw_seconds)) or float(raw_seconds) <= 0.0 or float(raw_seconds) > 30.0:
+				push_error("[rig_preview] --settle-seconds requires a finite value in (0,30]")
+				get_tree().quit(1)
+				return
+			_settle_seconds = float(raw_seconds)
 		elif arg == "--bright":
 			_bright = true
 		elif arg == "--paint":
@@ -148,6 +167,13 @@ func _ready() -> void:
 			_action = arg.trim_prefix("--action=")
 		elif arg == "--npc":
 			_npc = true
+		elif arg.begins_with("--npc-page="):
+			var raw_page := arg.trim_prefix("--npc-page=")
+			if not raw_page.is_valid_int() or int(raw_page) not in [0, 1]:
+				push_error("[rig_preview] --npc-page requires 0 or 1")
+				get_tree().quit(1)
+				return
+			_npc_page = int(raw_page)
 		elif arg == "--rigid":
 			CharacterRig.force_rigid_limbs = true
 		elif arg == "--joints":
@@ -214,8 +240,10 @@ func _ready() -> void:
 		for i in mini(_chars.size(), 4):
 			_spawn(_chars[i], "", Vector2(80 + i * 160, 330), "stand", _zoom if _zoom != 6.5 else 3.6)
 	elif _npc:
-		for i in NPC_POSES.size():
-			_spawn(_chars[0], "", Vector2(50 + i * 80, 330), NPC_POSES[i], _zoom if _zoom != 6.5 else 2.2)
+		var npc_poses: Array = NPC_POSES.slice(_npc_page * 4, _npc_page * 4 + 4) if _npc_page >= 0 else NPC_POSES
+		for i in npc_poses.size():
+			var x := 80 + i * 160 if _npc_page >= 0 else 50 + i * 80
+			_spawn(_chars[0], "", Vector2(x, 330), npc_poses[i], _zoom if _zoom != 6.5 else 2.2)
 	elif _cloth:
 		for i in CLOTH_POSES.size():
 			_spawn(_chars[0], str(SHEET_WEAPONS.get(_chars[0], "")), Vector2(70 + i * 100, 335), CLOTH_POSES[i], 3.4)
@@ -256,6 +284,8 @@ func _spawn(skin: String, weapon: String, pos: Vector2, pose: String, zoom: floa
 	holder.add_child(rig)
 	if not rig.setup(skin, "npc" if _npc else ""):
 		return
+	if _seat_sag >= 0.0 and rig.animator is NpcAnimator:
+		(rig.animator as NpcAnimator).seated_sag = _seat_sag
 	rig.set_weapon(_weapon_override if _weapon_set else weapon)
 	rig.set_armor_ratio(armor_ratio, false)
 	if _paint:
@@ -497,8 +527,11 @@ func _capture() -> void:
 	if not _seq.is_empty():
 		_preroll_seq()
 		set_process(false)
-	for i in (12 if _sway_extremes else 90):
-		await get_tree().process_frame
+	if _settle_seconds > 0.0:
+		await get_tree().create_timer(_settle_seconds).timeout
+	else:
+		for i in (12 if _sway_extremes else 90):
+			await get_tree().process_frame
 	await RenderingServer.frame_post_draw
 	var image := preload("res://tools/viewport_capture.gd").image(get_viewport())
 	image.save_png(_out)

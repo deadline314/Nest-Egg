@@ -1,0 +1,100 @@
+.FFFFFFF
+======================================================================
+FAIL: test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards (__main__.GuestCastTests.test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards) (scene='ch2_t_s19_quiet')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 36, in test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards
+    self.assertEqual(lines, original.steps)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ({'do[202 chars]o': 'say', 'speaker': 'chen', 'text': '不要蔥，梨湯就好。'}) != ({'do[202 chars]o': 'wait', 'time': 0.35}, {'do': 'say', 'spea[30 chars]好。'})
+
+First differing element 3:
+{'do': 'say', 'speaker': 'chen', 'text': '不要蔥，梨湯就好。'}
+{'do': 'wait', 'time': 0.35}
+
+Second tuple contains 1 additional elements.
+First extra element 4:
+{'do': 'say', 'speaker': 'chen', 'text': '不要蔥，梨湯就好。'}
+
+  ({'do': 'say', 'speaker': 'chen', 'text': '別問我怎麼死的。我記得每一秒，只想吃一口熱的。'},
+   {'do': 'say', 'speaker': 'chen', 'text': '她替我收外套時，都會把帽子翻出來，不讓水流進領子。今晚能替我翻嗎？'},
+   {'do': 'say', 'speaker': 'ali', 'text': '您有不能吃的東西嗎？'},
++  {'do': 'wait', 'time': 0.35},
+   {'do': 'say', 'speaker': 'chen', 'text': '不要蔥，梨湯就好。'})
+
+======================================================================
+FAIL: test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards (__main__.GuestCastTests.test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards) (scene='ch2_t_s21_close')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 36, in test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards
+    self.assertEqual(lines, original.steps)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ({'do[232 chars]o': 'say', 'speaker': 'ali', 'text': '我沒有錨人，真倒[23 chars]完。'}) != ({'do[232 chars]o': 'wait', 'time': 0.35}, {'do': 'say', 'spea[53 chars]完。'})
+
+First differing element 3:
+{'do': 'say', 'speaker': 'ali', 'text': '我沒有錨人，真倒下就沒有下一次。有人能把今天說完，我就先讓他說完。'}
+{'do': 'wait', 'time': 0.35}
+
+Second tuple contains 1 additional elements.
+First extra element 4:
+{'do': 'say', 'speaker': 'ali', 'text': '我沒有錨人，真倒下就沒有下一次。有人能把今天說完，我就先讓他說完。'}
+
+  ({'do': 'say',
+    'speaker': 'ali',
+    'text': '鄭先生不想聽爸爸，陳女士不要蔥，洪先生不想別人替他說沒關係。今天三頁都寫清楚了。'},
+   {'do': 'say', 'speaker': 'label', 'text': '阿梨把一顆梨放進鍋裡。'},
+   {'do': 'say',
+    'speaker': 'ali',
+    'text': '梨嬸教我，湯裡放一顆梨，煮到最後也不容易澀。她在梨攤邊把我抱回去，我能留下的做法就這幾樣。'},
++  {'do': 'wait', 'time': 0.35},
+   {'do': 'say', 'speaker': 'ali', 'text': '我沒有錨人，真倒下就沒有下一次。有人能把今天說完，我就先讓他說完。'})
+
+======================================================================
+FAIL: test_zheng_exists_in_every_real_s18_branch (__main__.GuestCastTests.test_zheng_exists_in_every_real_s18_branch) (scene='ch2_t_s18_ticket')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 22, in test_zheng_exists_in_every_real_s18_branch
+    self.assertEqual(len(actors), 1)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_zheng_exists_in_every_real_s18_branch (__main__.GuestCastTests.test_zheng_exists_in_every_real_s18_branch) (scene='ch2_t_s18_dad')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 22, in test_zheng_exists_in_every_real_s18_branch
+    self.assertEqual(len(actors), 1)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_zheng_exists_in_every_real_s18_branch (__main__.GuestCastTests.test_zheng_exists_in_every_real_s18_branch) (scene='ch2_t_s18_name')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 22, in test_zheng_exists_in_every_real_s18_branch
+    self.assertEqual(len(actors), 1)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_zheng_exists_in_every_real_s18_branch (__main__.GuestCastTests.test_zheng_exists_in_every_real_s18_branch) (scene='ch2_t_s18_wrong')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 22, in test_zheng_exists_in_every_real_s18_branch
+    self.assertEqual(len(actors), 1)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_zheng_exists_in_every_real_s18_branch (__main__.GuestCastTests.test_zheng_exists_in_every_real_s18_branch) (scene='ch2_t_s18_done')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 22, in test_zheng_exists_in_every_real_s18_branch
+    self.assertEqual(len(actors), 1)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.005s
+
+FAILED (failures=7)

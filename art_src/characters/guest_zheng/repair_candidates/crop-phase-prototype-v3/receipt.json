@@ -1,0 +1,26 @@
+{
+  "classification": "independent CPU prototype; no shared cutter or live asset changed",
+  "shared_cutter_sha256": "d9e01c87a53515f7d578326232568fb16a79e3e7ee399e0d0e075f2ecc8d5c2a",
+  "crop_phase": [
+    -33.40700232243931,
+    -43.18540513892454
+  ],
+  "unchanged_source_with_phase_exact": true,
+  "native_canvas": [
+    180,
+    100
+  ],
+  "pivot": [
+    42.40700232243931,
+    43.18540513892454
+  ],
+  "integer_shift": [
+    9,
+    0
+  ],
+  "changed_finger_pixels": 0,
+  "source_finger_rgba_exact": true,
+  "changed_normal_pixels_outside_material_kernel": 0,
+  "changed_finger_normal_pixels": 0,
+  "sampling_method": "retain the original backend sampling call in its immutable reference footprint"
+}

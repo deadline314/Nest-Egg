@@ -8,6 +8,22 @@ const CELL := 128
 var _as_worn := true
 ## Explicit NPC stand→sit and sit→stand timelines; the original combat audit stays the default.
 var _npc_transitions := false
+## Independent NPC performance coverage; does not change the combat audit or transition timelines.
+var _npc_performance := false
+const NPC_PERFORMANCES := ["stand", "sit", "sit_talk", "sit_listen", "wave"]
+## An explicit source-unchanged failure control for the same rendered joint checker.
+var _displace_part := ""
+var _seat_sag := -1.0
+var _zooms: Array[float] = [1.0, 3.4]
+var _trace_joint := ""
+var _trace_frame := 0
+var _only_npc_pose := ""
+## Single-factor diagnostic only: show one named neighbouring material.
+var _diagnostic_include_part := ""
+var _diagnostic_whole_rig := false
+var _alpha_only := false
+var _diagnostic_part_texture := ""
+var _joint_context := false
 const PREVIEW := preload("res://tools/rig_preview.gd")
 const JOINTS := {
 	"waist": [&"chest", "torso", "pelvis"],
@@ -51,14 +67,94 @@ func _run() -> void:
 		elif arg.begins_with("--frames="): frames = int(arg.trim_prefix("--frames="))
 		elif arg == "--pair-only": _as_worn = false
 		elif arg == "--npc-transitions": _npc_transitions = true
-	if out.is_empty() or frames <= 0:
+		elif arg == "--npc-performance": _npc_performance = true
+		elif arg.begins_with("--displace-part="): _displace_part = arg.trim_prefix("--displace-part=")
+		elif arg.begins_with("--trace-joint="): _trace_joint = arg.trim_prefix("--trace-joint=")
+		elif arg.begins_with("--trace-frame="): _trace_frame = int(arg.trim_prefix("--trace-frame="))
+		elif arg.begins_with("--npc-pose="): _only_npc_pose = arg.trim_prefix("--npc-pose=")
+		elif arg.begins_with("--diagnostic-include-part="): _diagnostic_include_part = arg.trim_prefix("--diagnostic-include-part=")
+		elif arg == "--diagnostic-whole-rig": _diagnostic_whole_rig = true
+		elif arg == "--alpha-only": _alpha_only = true
+		elif arg.begins_with("--diagnostic-part-texture="): _diagnostic_part_texture = arg.trim_prefix("--diagnostic-part-texture=")
+		elif arg == "--joint-context": _joint_context = true
+		elif arg.begins_with("--seat-sag="):
+			var raw_sag := arg.trim_prefix("--seat-sag=")
+			if not raw_sag.is_valid_float():
+				push_error("[rig_joint_audit] --seat-sag requires a finite numeric value")
+				get_tree().quit(1)
+				return
+			_seat_sag = float(raw_sag)
+		elif arg.begins_with("--zooms="):
+			_zooms.clear()
+			for value in arg.trim_prefix("--zooms=").split(",", false):
+				if not value.is_valid_float() or not is_finite(float(value)) or float(value) <= 0.0 or float(value) > 6.0:
+					push_error("[rig_joint_audit] --zooms requires finite values in (0,6]")
+					get_tree().quit(1)
+					return
+				_zooms.append(float(value))
+	if _npc_transitions and _npc_performance:
+		push_error("[rig_joint_audit] select either --npc-transitions or --npc-performance")
+		get_tree().quit(1)
+		return
+	if not _only_npc_pose.is_empty() and (not _npc_performance or not _only_npc_pose in NPC_PERFORMANCES):
+		push_error("[rig_joint_audit] --npc-pose requires one existing --npc-performance state")
+		get_tree().quit(1)
+		return
+	if _joint_context and not (_npc_performance or _npc_transitions):
+		push_error("[rig_joint_audit] --joint-context requires an explicit NPC timeline")
+		get_tree().quit(1)
+		return
+	if out.is_empty() or frames <= 0 or _zooms.is_empty():
 		push_error("[rig_joint_audit] requires --out and positive --frames")
 		get_tree().quit(1)
 		return
+	if _trace_frame < 0 or _trace_frame >= frames:
+		push_error("[rig_joint_audit] --trace-frame must be inside the captured timeline")
+		get_tree().quit(1)
+		return
+	if not _trace_joint.is_empty() and (not JOINTS.has(_trace_joint) or not joints.has(_trace_joint)):
+		push_error("[rig_joint_audit] --trace-joint must name one of the selected joints")
+		get_tree().quit(1)
+		return
+	var zoom_labels := {}
+	for zoom in _zooms:
+		var label := "%.1f" % zoom
+		if zoom_labels.has(label):
+			push_error("[rig_joint_audit] zoom output names collide; select distinct labels or separate runs")
+			get_tree().quit(1)
+			return
+		zoom_labels[label] = true
+	if not is_finite(_seat_sag) or _seat_sag > 0.9 or (_seat_sag < 0.0 and _seat_sag != -1.0):
+		push_error("[rig_joint_audit] --seat-sag must be 0..0.9 or omitted")
+		get_tree().quit(1)
+		return
 	DirAccess.make_dir_recursive_absolute(out)
+	var override_part := ""
+	var override_image: Image
+	if not _diagnostic_part_texture.is_empty():
+		var fields := _diagnostic_part_texture.split(":", true, 1)
+		if fields.size() != 2 or not fields[1].is_absolute_path():
+			push_error("[rig_joint_audit] diagnostic texture requires part:absolute-PNG")
+			get_tree().quit(1)
+			return
+		override_part = fields[0]
+		override_image = Image.load_from_file(fields[1])
+		if override_image == null or override_image.get_format() != Image.FORMAT_RGBA8:
+			push_error("[rig_joint_audit] diagnostic texture requires native RGBA8")
+			get_tree().quit(1)
+			return
+	var alpha_material: ShaderMaterial
+	if _alpha_only:
+		var alpha_shader := Shader.new()
+		# Fragment COLOR already contains texture * vertex/modulate alpha:
+		# https://docs.godotengine.org/en/stable/tutorials/shaders/shader_reference/canvas_item_shader.html
+		# Assign RGB only. Native A/A must prove every alpha pixel before adoption.
+		alpha_shader.code = "shader_type canvas_item; render_mode unshaded; void fragment() { COLOR.rgb = vec3(1.0); }"
+		alpha_material = ShaderMaterial.new()
+		alpha_material.shader = alpha_shader
 	var metadata: Array[Dictionary] = []
-	for zoom: float in [1.0, 3.4]:
-		for pose: String in (["sit_down", "stand_up"] if _npc_transitions else POSES):
+	for zoom: float in _zooms:
+		for pose: String in ([_only_npc_pose] if not _only_npc_pose.is_empty() else NPC_PERFORMANCES if _npc_performance else ["sit_down", "stand_up"] if _npc_transitions else POSES):
 			var viewport := SubViewport.new()
 			viewport.size = Vector2i(CELL * joints.size() * 2, CELL * chars.size())
 			viewport.transparent_bg = true
@@ -83,10 +179,30 @@ func _run() -> void:
 						clip.add_child(holder)
 						var rig := CharacterRig.new()
 						holder.add_child(rig)
-						if not rig.setup(chars[row], "npc" if _npc_transitions else ""):
+						if not rig.setup(chars[row], "npc" if _npc_transitions or _npc_performance else ""):
 							get_tree().quit(1)
 							return
+						if _seat_sag >= 0.0 and (_npc_transitions or _npc_performance):
+							(rig.animator as NpcAnimator).seated_sag = _seat_sag
 						rig.set_weapon(str(PREVIEW.SHEET_WEAPONS.get(chars[row], "")))
+						if not override_part.is_empty():
+							var found := false
+							for part in rig._parts:
+								if str(part.name) != override_part:
+									continue
+								var current := part.get("texture") as CanvasTexture
+								if current == null or current.diffuse_texture == null or current.diffuse_texture.get_size() != Vector2(override_image.get_size()):
+									push_error("[rig_joint_audit] diagnostic texture must preserve current native canvas/pivot")
+									get_tree().quit(1)
+									return
+								var replacement := current.duplicate() as CanvasTexture
+								replacement.diffuse_texture = ImageTexture.create_from_image(override_image)
+								part.set("texture", replacement)
+								found = true
+							if not found:
+								push_error("[rig_joint_audit] diagnostic texture part not found: " + override_part)
+								get_tree().quit(1)
+								return
 						if rig.weapon_root() != null: rig.weapon_root().visible = false
 						var pair: Array = JOINTS[joint]
 						var available: Array[String] = []
@@ -94,12 +210,19 @@ func _run() -> void:
 						var keep: Array[String] = []
 						for key: String in pair.slice(1):
 							keep.append(key if available.has(key) else str(ALIASES.get(key, key)))
+						if not _diagnostic_include_part.is_empty():
+							keep.append(_diagnostic_include_part)
+						if _diagnostic_whole_rig:
+							keep.assign(available)
 						if not keep.all(func(key: String) -> bool: return available.has(key)):
 							push_error("[rig_joint_audit] %s %s missing pair %s" % [chars[row], joint, keep])
 							get_tree().quit(1)
 							return
-						var material := CanvasItemMaterial.new()
-						material.light_mode = CanvasItemMaterial.LIGHT_MODE_UNSHADED
+						var material: Material = alpha_material
+						if not _alpha_only:
+							var regular := CanvasItemMaterial.new()
+							regular.light_mode = CanvasItemMaterial.LIGHT_MODE_UNSHADED
+							material = regular
 						# 同一根骨頭上、遊戲裡本來就顯示的其他零件（袖子、護腕、領子、圍裙肩帶）一起畫：玩家看到的接點是它們疊起來的樣子。
 						# 只畫相接的兩片時，支點落在這些零件上的接點每一格都會被判成「中心沒蓋到」。裝甲脫落後的樣子另外用 rig_preview --damage --bare 看。
 						var pair_bones: Array[Node] = []
@@ -133,26 +256,124 @@ func _run() -> void:
 								rig.animate(1.0 / 60.0, input)
 							assert((rig.animator as NpcAnimator)._use_npc)
 							input.npc_pose = &"sit" if pose == "sit_down" else &"stand"
-						entries.append({"rig": rig, "input": input, "holder": holder, "clip": clip, "bone": pair[0], "char": chars[row], "joint": joint, "facing": input.facing, "radius": ceili(8.0 * zoom * rig.body_scale()), "rect": [int(clip.position.x), int(clip.position.y), CELL, CELL]})
+						elif _npc_performance:
+							input.two_handed = false
+							input.npc_pose = &"sit" if pose.begins_with("sit") else &"stand"
+							# Warm the actual resting posture before starting the full performance.
+							for tick in 180:
+								rig.animate(1.0 / 60.0, input)
+							assert((rig.animator as NpcAnimator)._use_npc)
+							input.talking = pose == "sit_talk"
+							input.listening = pose == "sit_listen"
+							input.waving = pose == "wave"
+						var displaced: Node2D = null
+						if not _displace_part.is_empty():
+							for part in rig._parts:
+								if str(part.name) == _displace_part:
+									displaced = part as Node2D
+							if displaced == null:
+								push_error("[rig_joint_audit] negative-control part unavailable: " + _displace_part)
+								get_tree().quit(1)
+								return
+						entries.append({"rig": rig, "input": input, "holder": holder, "clip": clip, "bone": pair[0], "char": chars[row], "joint": joint, "facing": input.facing, "radius": ceili(8.0 * zoom * rig.body_scale()), "rect": [int(clip.position.x), int(clip.position.y), CELL, CELL], "displaced": displaced, "original_position": displaced.position if displaced != null else Vector2.ZERO})
 			var samples: Array[Dictionary] = []
 			for frame in frames:
+				var joint_contexts := {}
 				for entry in entries:
 					var rig: CharacterRig = entry["rig"]
 					rig.animate(1.0 / 60.0, entry["input"])
+					if entry["displaced"] != null:
+						(entry["displaced"] as Node2D).position = entry["original_position"] + Vector2(6.0, 0.0)
 					if rig.weapon_root() != null: rig.weapon_root().visible = false
 					var holder: Node2D = entry["holder"]
 					holder.position += Vector2(CELL, CELL) * 0.5 - (rig.bone(entry["bone"]).global_position - (entry["clip"] as Control).global_position)
+					if frame == _trace_frame and entry["joint"] == _trace_joint:
+						entry["geometry_sample"] = _material_geometry(rig, entry["clip"])
+						if frame == 0:
+							entry["geometry_first"] = entry["geometry_sample"]
+					if _joint_context:
+						var source_key := "%s/%s" % [entry["char"], entry["facing"]]
+						var points := {}
+						var origin := rig.bone(&"hip").global_position
+						for name: String in JOINTS:
+							if name.begins_with("coat_"):
+								continue
+							var point := rig.bone(JOINTS[name][0]).global_position - origin
+							points[name] = [point.x, point.y]
+						if joint_contexts.has(source_key):
+							for name: String in points:
+								var prior: Array = joint_contexts[source_key][name]
+								if Vector2(prior[0], prior[1]).distance_to(Vector2(points[name][0], points[name][1])) > .001:
+									push_error("[rig_joint_audit] isolated rigs disagree on actual native bone positions")
+									get_tree().quit(1)
+									return
+						else:
+							joint_contexts[source_key] = points
 				await RenderingServer.frame_post_draw
 				var file := "%s_%.1f_%03d.png" % [pose, zoom, frame]
 				viewport.get_texture().get_image().save_png(out.path_join(file))
-				samples.append({"file": file, "frame": frame, "seconds": float(frame + 1) / 60.0})
+				var sample := {"file": file, "frame": frame, "seconds": float(frame + 1) / 60.0}
+				if _joint_context:
+					sample["joint_anchors_relative_hip_native_pixels"] = joint_contexts
+				samples.append(sample)
 			var cells: Array[Dictionary] = []
 			for entry in entries:
-				cells.append({"char": entry["char"], "joint": entry["joint"], "facing": entry["facing"], "radius": entry["radius"], "rect": entry["rect"]})
-			metadata.append({"pose": pose, "zoom": zoom, "npc_transitions": _npc_transitions, "fixed_step": 1.0 / 60.0, "prewarm_frames": 180 if _npc_transitions else 0, "cells": cells, "samples": samples})
+				var cell := {"char": entry["char"], "joint": entry["joint"], "facing": entry["facing"], "radius": entry["radius"], "rect": entry["rect"]}
+				if entry.has("geometry_first"):
+					cell["geometry_first"] = entry["geometry_first"]
+				if entry.has("geometry_sample"):
+					cell["geometry_sample"] = entry["geometry_sample"]
+					cell["geometry_frame"] = _trace_frame
+				cell["diagnostic_whole_rig"] = _diagnostic_whole_rig
+				cell["alpha_only_rgb"] = _alpha_only
+				cell["diagnostic_part_texture"] = _diagnostic_part_texture
+				cells.append(cell)
+			metadata.append({"pose": pose, "zoom": zoom, "npc_transitions": _npc_transitions, "npc_performance": _npc_performance, "seat_sag": _seat_sag, "diagnostic_include_part": _diagnostic_include_part, "negative_control_part": _displace_part, "negative_control_offset": [6.0, 0.0] if not _displace_part.is_empty() else [], "fixed_step": 1.0 / 60.0, "prewarm_frames": 180 if _npc_transitions or _npc_performance else 0, "godot": Engine.get_version_info().string, "adapter": RenderingServer.get_video_adapter_name(), "renderer": RenderingServer.get_current_rendering_method(), "cells": cells, "samples": samples})
 			viewport.queue_free()
 			await get_tree().process_frame
 			print("JOINT_FRAMES ", pose, " zoom=", zoom, " frames=", frames)
 	var f := FileAccess.open(out.path_join("frames.json"), FileAccess.WRITE)
 	f.store_string(JSON.stringify(metadata, "\t"))
 	get_tree().quit()
+
+
+## Read-only first-frame material mapping to locate a measured hole in source pixels.
+## It never changes the render, alpha threshold, sampling band or checker verdict.
+func _material_geometry(rig: CharacterRig, clip: Control) -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	for part in rig._parts:
+		if not part.visible:
+			continue
+		var texture: Texture2D
+		if part is Sprite2D:
+			texture = (part as Sprite2D).texture
+		elif part is Polygon2D:
+			texture = (part as Polygon2D).texture
+		if texture is CanvasTexture:
+			texture = (texture as CanvasTexture).diffuse_texture
+		if texture == null:
+			continue
+		var transform := clip.get_global_transform().affine_inverse() * (part as Node2D).global_transform
+		var data := {"part": str(part.name), "texture": texture.resource_path,
+			"size": [texture.get_width(), texture.get_height()],
+			"to_cell": [[transform.x.x, transform.y.x, transform.origin.x], [transform.x.y, transform.y.y, transform.origin.y]]}
+		if part is Sprite2D:
+			var origin := (part as Sprite2D).get_rect().position
+			data["rect_origin"] = [origin.x, origin.y]
+		elif part is Polygon2D:
+			var polygon := part as Polygon2D
+			data["uv"] = _points(polygon.uv)
+			data["vertices"] = _points(polygon.polygon)
+			var triangles: Array = []
+			for indices: PackedInt32Array in polygon.polygons:
+				triangles.append(Array(indices))
+			data["triangles"] = triangles
+		result.append(data)
+	return result
+
+
+func _points(points: PackedVector2Array) -> Array:
+	var values: Array = []
+	for point in points:
+		values.append([point.x, point.y])
+	return values

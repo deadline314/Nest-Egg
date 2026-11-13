@@ -686,6 +686,19 @@ func _do_remove(step: Dictionary) -> void:
 		actor.queue_free()
 
 
+func _live_move_actor(reference: WeakRef, id: StringName) -> CutsceneActor:
+	return _live_step_actor(reference, id)
+
+
+func _standing_ready(actor: CutsceneActor) -> bool:
+	if not is_instance_valid(actor.rig) or not actor.rig.animator is NpcAnimator:
+		return true # Portraits/non-posture actors retain their existing move path.
+	var animation := actor.rig.animator as NpcAnimator
+	if not animation.posture_active():
+		return true # No active NPC posture (e.g. armed); do not wait forever.
+	return animation.posture_ready(&"stand") and (not is_finite(actor.ground_y) or is_equal_approx(actor.position.y, actor.ground_y))
+
+
 func _do_move(step: Dictionary) -> void:
 	var actor := _need_actor(step)
 	if actor == null:
@@ -699,7 +712,27 @@ func _do_move(step: Dictionary) -> void:
 
 
 func _move_job(reference: WeakRef, id: StringName, step: Dictionary) -> void:
-	var actor := _live_step_actor(reference, id)
+	var actor := _live_move_actor(reference, id)
+	if actor == null:
+		if _running and not skipping and bool(step.get("wait", true)):
+			cancel()
+		return
+	var move_pose := StringName(str(step.get("pose", "walk")))
+	if move_pose in [&"walk", &"run"] and actor.pose not in [&"walk", &"run"] and not _standing_ready(actor):
+		if not actor.is_processing():
+			if bool(step.get("wait", true)):
+				cancel()
+			return
+		actor.set_pose(&"idle")
+		while actor != null and not _standing_ready(actor):
+			if not actor.is_processing():
+				if bool(step.get("wait", true)):
+					cancel()
+				return
+			await get_tree().process_frame
+			if not is_instance_valid(self):
+				return
+			actor = _live_move_actor(reference, id)
 	if actor == null:
 		if _running and not skipping and bool(step.get("wait", true)):
 			cancel()
@@ -707,7 +740,7 @@ func _move_job(reference: WeakRef, id: StringName, step: Dictionary) -> void:
 	var target := _vec(step.get("to"), actor.position)
 	if absf(target.x - actor.position.x) > .5:
 		actor.face(1 if target.x > actor.position.x else -1)
-	actor.set_pose(StringName(str(step.get("pose", "walk"))))
+	actor.set_pose(move_pose)
 	var physics_clock := actor.hand_targets_active()
 	var tween := _new_tween()
 	tween.bind_node(actor)

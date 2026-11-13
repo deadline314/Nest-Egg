@@ -1,0 +1,598 @@
+.FFFFFFFFFFFFFFFFFFFFFFF
+======================================================================
+FAIL: test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards (__main__.GuestCastTests.test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards) (scene='ch2_t_s17_book')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 36, in test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards
+    self.assertEqual(lines, original.steps)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ({'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[121 chars]來。'}) != ({'do': 'say', 'speaker': 'ali', 'text': '我可以聽您說，也可[27 chars]。'},)
+
+First differing element 0:
+{'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[38 chars]0.35}
+{'do': 'say', 'speaker': 'ali', 'text': '我可以聽您說，也可[25 chars]位來。'}
+
+First tuple contains 1 additional elements.
+First extra element 1:
+{'do': 'say', 'speaker': 'ali', 'text': '我可以聽您說，也可以照您留下的細節陪您說話。今晚有三位預約，我一位一位來。'}
+
+- ({'do': 'scene',
+-   'fade': 0.35,
+-   'id': 'ch2_guest_book_room',
+-   'pos': [320, 206.3],
+-   'zoom': 0.84},
+-  {'do': 'say',
+? ^
+
++ ({'do': 'say',
+? ^
+
+    'speaker': 'ali',
+-   'text': '我可以聽您說，也可以照您留下的細節陪您說話。今晚有三位預約，我一位一位來。'})
++   'text': '我可以聽您說，也可以照您留下的細節陪您說話。今晚有三位預約，我一位一位來。'},)
+?                                                   +
+
+
+======================================================================
+FAIL: test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards (__main__.GuestCastTests.test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards) (scene='ch2_t_s17_open')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 36, in test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards
+    self.assertEqual(lines, original.steps)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ({'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[104 chars]人。'}) != ({'do': 'say', 'speaker': 'label', 'text': '阿梨翻開客人簿，看下一位預約的客人。'},)
+
+First differing element 0:
+{'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[38 chars]0.35}
+{'do': 'say', 'speaker': 'label', 'text': '阿梨翻開客人簿，看下一位預約的客人。'}
+
+First tuple contains 1 additional elements.
+First extra element 1:
+{'do': 'say', 'speaker': 'label', 'text': '阿梨翻開客人簿，看下一位預約的客人。'}
+
+- ({'do': 'scene',
+-   'fade': 0.35,
+-   'id': 'ch2_guest_book_room',
+-   'pos': [320, 206.3],
+-   'zoom': 0.84},
+-  {'do': 'say', 'speaker': 'label', 'text': '阿梨翻開客人簿，看下一位預約的客人。'})
+? ^
+
++ ({'do': 'say', 'speaker': 'label', 'text': '阿梨翻開客人簿，看下一位預約的客人。'},)
+? ^                                                               +
+
+
+======================================================================
+FAIL: test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards (__main__.GuestCastTests.test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards) (scene='ch2_t_s18_ticket')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 36, in test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards
+    self.assertEqual(lines, original.steps)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ({'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[119 chars]來。'}) != ({'do': 'say', 'speaker': 'zheng', 'text': '我想有人問我今[25 chars]。'},)
+
+First differing element 0:
+{'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[38 chars]0.35}
+{'do': 'say', 'speaker': 'zheng', 'text': '我想有人問我今[23 chars]回來。'}
+
+First tuple contains 1 additional elements.
+First extra element 1:
+{'do': 'say', 'speaker': 'zheng', 'text': '我想有人問我今天吃了什麼，她以前會問。我女兒二十六歲那年沒有回來。'}
+
+- ({'do': 'scene',
+?           ^^^^
+
++ ({'do': 'say',
+?           ^^
+
++   'speaker': 'zheng',
++   'text': '我想有人問我今天吃了什麼，她以前會問。我女兒二十六歲那年沒有回來。'},)
+-   'fade': 0.35,
+-   'id': 'ch2_guest_book_room',
+-   'pos': [320, 206.3],
+-   'zoom': 0.84},
+-  {'do': 'say', 'speaker': 'zheng', 'text': '我想有人問我今天吃了什麼，她以前會問。我女兒二十六歲那年沒有回來。'})
+
+======================================================================
+FAIL: test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards (__main__.GuestCastTests.test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards) (scene='ch2_t_s18_dad')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 36, in test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards
+    self.assertEqual(lines, original.steps)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ({'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[103 chars]好。'}) != ({'do': 'say', 'speaker': 'zheng', 'text': '我剛才想先叫鄭先生，我還沒準備好。'},)
+
+First differing element 0:
+{'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[38 chars]0.35}
+{'do': 'say', 'speaker': 'zheng', 'text': '我剛才想先叫鄭先生，我還沒準備好。'}
+
+First tuple contains 1 additional elements.
+First extra element 1:
+{'do': 'say', 'speaker': 'zheng', 'text': '我剛才想先叫鄭先生，我還沒準備好。'}
+
+- ({'do': 'scene',
+-   'fade': 0.35,
+-   'id': 'ch2_guest_book_room',
+-   'pos': [320, 206.3],
+-   'zoom': 0.84},
+-  {'do': 'say', 'speaker': 'zheng', 'text': '我剛才想先叫鄭先生，我還沒準備好。'})
+? ^
+
++ ({'do': 'say', 'speaker': 'zheng', 'text': '我剛才想先叫鄭先生，我還沒準備好。'},)
+? ^                                                              +
+
+
+======================================================================
+FAIL: test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards (__main__.GuestCastTests.test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards) (scene='ch2_t_s18_name')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 36, in test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards
+    self.assertEqual(lines, original.steps)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ({'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[242 chars]煩。'}) != ({'do': 'say', 'speaker': 'ali', 'text': '您想讓我怎麼稱呼您[147 chars]煩。'})
+
+First differing element 0:
+{'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[38 chars]0.35}
+{'do': 'say', 'speaker': 'ali', 'text': '您想讓我怎麼稱呼您？'}
+
+First tuple contains 1 additional elements.
+First extra element 3:
+{'do': 'say', 'speaker': 'zheng', 'text': '我今天吃了魚，沒吃完。她總把魚刺挑到左邊的小盤，怕我嫌麻煩。'}
+
+- ({'do': 'scene',
+-   'fade': 0.35,
+-   'id': 'ch2_guest_book_room',
+-   'pos': [320, 206.3],
+-   'zoom': 0.84},
+-  {'do': 'say', 'speaker': 'ali', 'text': '您想讓我怎麼稱呼您？'},
+? ^
+
++ ({'do': 'say', 'speaker': 'ali', 'text': '您想讓我怎麼稱呼您？'},
+? ^
+
+   {'do': 'say', 'speaker': 'zheng', 'text': '叫鄭先生就好，今晚不用叫爸爸，那樣我會一直等她。'},
+   {'do': 'say', 'speaker': 'zheng', 'text': '我今天吃了魚，沒吃完。她總把魚刺挑到左邊的小盤，怕我嫌麻煩。'})
+
+======================================================================
+FAIL: test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards (__main__.GuestCastTests.test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards) (scene='ch2_t_s18_wrong')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 36, in test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards
+    self.assertEqual(lines, original.steps)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ({'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[102 chars]次。'}) != ({'do': 'say', 'speaker': 'zheng', 'text': '我今天吃的是魚，我可以再說一次。'},)
+
+First differing element 0:
+{'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[38 chars]0.35}
+{'do': 'say', 'speaker': 'zheng', 'text': '我今天吃的是魚，我可以再說一次。'}
+
+First tuple contains 1 additional elements.
+First extra element 1:
+{'do': 'say', 'speaker': 'zheng', 'text': '我今天吃的是魚，我可以再說一次。'}
+
+- ({'do': 'scene',
+-   'fade': 0.35,
+-   'id': 'ch2_guest_book_room',
+-   'pos': [320, 206.3],
+-   'zoom': 0.84},
+-  {'do': 'say', 'speaker': 'zheng', 'text': '我今天吃的是魚，我可以再說一次。'})
+? ^
+
++ ({'do': 'say', 'speaker': 'zheng', 'text': '我今天吃的是魚，我可以再說一次。'},)
+? ^                                                             +
+
+
+======================================================================
+FAIL: test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards (__main__.GuestCastTests.test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards) (scene='ch2_t_s18_done')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 36, in test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards
+    self.assertEqual(lines, original.steps)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ({'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[187 chars]好。'}) != ({'do': 'say', 'speaker': 'ali', 'text': '鄭先生，您今天的魚[92 chars]好。'})
+
+First differing element 0:
+{'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[38 chars]0.35}
+{'do': 'say', 'speaker': 'ali', 'text': '鄭先生，您今天的魚[16 chars]小盤？'}
+
+First tuple contains 1 additional elements.
+First extra element 2:
+{'do': 'say', 'speaker': 'zheng', 'text': '我想說沒吃完，她大概會笑我。妳不用學她笑，聽我說完就好。'}
+
+- ({'do': 'scene',
+-   'fade': 0.35,
+-   'id': 'ch2_guest_book_room',
+-   'pos': [320, 206.3],
+-   'zoom': 0.84},
+-  {'do': 'say', 'speaker': 'ali', 'text': '鄭先生，您今天的魚沒有吃完，要不要把刺先放在左邊的小盤？'},
+? ^
+
++ ({'do': 'say', 'speaker': 'ali', 'text': '鄭先生，您今天的魚沒有吃完，要不要把刺先放在左邊的小盤？'},
+? ^
+
+   {'do': 'say', 'speaker': 'zheng', 'text': '我想說沒吃完，她大概會笑我。妳不用學她笑，聽我說完就好。'})
+
+======================================================================
+FAIL: test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards (__main__.GuestCastTests.test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards) (scene='ch2_t_s19_band')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 36, in test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards
+    self.assertEqual(lines, original.steps)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ({'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[180 chars]麼？'}) != ({'do': 'say', 'speaker': 'chen', 'text': '我妻子今天在另一[85 chars]麼？'})
+
+First differing element 0:
+{'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[38 chars]0.35}
+{'do': 'say', 'speaker': 'chen', 'text': '我妻子今天在另一[26 chars]這裡。'}
+
+First tuple contains 1 additional elements.
+First extra element 2:
+{'do': 'say', 'speaker': 'ali', 'text': '我坐這邊，您要我先聊什麼？'}
+
+- ({'do': 'scene',
+-   'fade': 0.35,
+-   'id': 'ch2_guest_book_room',
+-   'pos': [320, 206.3],
+-   'zoom': 0.84},
+-  {'do': 'say',
+? ^
+
++ ({'do': 'say',
+? ^
+
+    'speaker': 'chen',
+    'text': '我妻子今天在另一個港口，回不來。我想有人坐這張椅子，不用裝作她真的在這裡。'},
+   {'do': 'say', 'speaker': 'ali', 'text': '我坐這邊，您要我先聊什麼？'})
+
+======================================================================
+FAIL: test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards (__main__.GuestCastTests.test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards) (scene='ch2_t_s19_wrong_death')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 36, in test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards
+    self.assertEqual(lines, original.steps)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ({'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[101 chars]題。'}) != ({'do': 'say', 'speaker': 'chen', 'text': '這件事我今晚不想說，請換個話題。'},)
+
+First differing element 0:
+{'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[38 chars]0.35}
+{'do': 'say', 'speaker': 'chen', 'text': '這件事我今晚不想說，請換個話題。'}
+
+First tuple contains 1 additional elements.
+First extra element 1:
+{'do': 'say', 'speaker': 'chen', 'text': '這件事我今晚不想說，請換個話題。'}
+
+- ({'do': 'scene',
+-   'fade': 0.35,
+-   'id': 'ch2_guest_book_room',
+-   'pos': [320, 206.3],
+-   'zoom': 0.84},
+-  {'do': 'say', 'speaker': 'chen', 'text': '這件事我今晚不想說，請換個話題。'})
+? ^
+
++ ({'do': 'say', 'speaker': 'chen', 'text': '這件事我今晚不想說，請換個話題。'},)
+? ^                                                            +
+
+
+======================================================================
+FAIL: test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards (__main__.GuestCastTests.test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards) (scene='ch2_t_s19_quiet')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 36, in test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards
+    self.assertEqual(lines, original.steps)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ({'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[297 chars]好。'}) != ({'do': 'say', 'speaker': 'chen', 'text': '別問我怎麼死的。[232 chars]好。'})
+
+First differing element 0:
+{'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[38 chars]0.35}
+{'do': 'say', 'speaker': 'chen', 'text': '別問我怎麼死的。我記得每一秒，只想吃一口熱的。'}
+
+- ({'do': 'scene',
+-   'fade': 0.35,
+-   'id': 'ch2_guest_book_room',
+-   'pos': [320, 206.3],
+-   'zoom': 0.84},
+-  {'do': 'say', 'speaker': 'chen', 'text': '別問我怎麼死的。我記得每一秒，只想吃一口熱的。'},
+? ^
+
++ ({'do': 'say', 'speaker': 'chen', 'text': '別問我怎麼死的。我記得每一秒，只想吃一口熱的。'},
+? ^
+
+   {'do': 'say', 'speaker': 'chen', 'text': '她替我收外套時，都會把帽子翻出來，不讓水流進領子。今晚能替我翻嗎？'},
+   {'do': 'say', 'speaker': 'ali', 'text': '您有不能吃的東西嗎？'},
++  {'do': 'wait', 'time': 0.35},
+   {'do': 'say', 'speaker': 'chen', 'text': '不要蔥，梨湯就好。'})
+
+======================================================================
+FAIL: test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards (__main__.GuestCastTests.test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards) (scene='ch2_t_s19_wrong_soup')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 36, in test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards
+    self.assertEqual(lines, original.steps)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ({'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[98 chars]嗎？'}) != ({'do': 'say', 'speaker': 'chen', 'text': '我不能吃蔥，您能換一碗嗎？'},)
+
+First differing element 0:
+{'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[38 chars]0.35}
+{'do': 'say', 'speaker': 'chen', 'text': '我不能吃蔥，您能換一碗嗎？'}
+
+First tuple contains 1 additional elements.
+First extra element 1:
+{'do': 'say', 'speaker': 'chen', 'text': '我不能吃蔥，您能換一碗嗎？'}
+
+- ({'do': 'scene',
+-   'fade': 0.35,
+-   'id': 'ch2_guest_book_room',
+-   'pos': [320, 206.3],
+-   'zoom': 0.84},
+-  {'do': 'say', 'speaker': 'chen', 'text': '我不能吃蔥，您能換一碗嗎？'})
+? ^
+
++ ({'do': 'say', 'speaker': 'chen', 'text': '我不能吃蔥，您能換一碗嗎？'},)
+? ^                                                         +
+
+
+======================================================================
+FAIL: test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards (__main__.GuestCastTests.test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards) (scene='ch2_t_s19_done')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 36, in test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards
+    self.assertEqual(lines, original.steps)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ({'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[171 chars]的。'}) != ({'do': 'say', 'speaker': 'ali', 'text': '這碗梨湯沒有蔥。您[76 chars]的。'})
+
+First differing element 0:
+{'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[38 chars]0.35}
+{'do': 'say', 'speaker': 'ali', 'text': '這碗梨湯沒有蔥。您[14 chars]就好。'}
+
+First tuple contains 1 additional elements.
+First extra element 2:
+{'do': 'say', 'speaker': 'chen', 'text': '我還能聞到湯，今天先不談別的。'}
+
+- ({'do': 'scene',
+-   'fade': 0.35,
+-   'id': 'ch2_guest_book_room',
+-   'pos': [320, 206.3],
+-   'zoom': 0.84},
+-  {'do': 'say', 'speaker': 'ali', 'text': '這碗梨湯沒有蔥。您的雨帽已經翻出來，外套掛著晾就好。'},
+? ^
+
++ ({'do': 'say', 'speaker': 'ali', 'text': '這碗梨湯沒有蔥。您的雨帽已經翻出來，外套掛著晾就好。'},
+? ^
+
+   {'do': 'say', 'speaker': 'chen', 'text': '我還能聞到湯，今天先不談別的。'})
+
+======================================================================
+FAIL: test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards (__main__.GuestCastTests.test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards) (scene='ch2_t_s20_letter')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 36, in test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards
+    self.assertEqual(lines, original.steps)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ({'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[179 chars]您。'}) != ({'do': 'say', 'speaker': 'hong', 'text': '我以前每次都替他[84 chars]您。'})
+
+First differing element 0:
+{'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[38 chars]0.35}
+{'do': 'say', 'speaker': 'hong', 'text': '我以前每次都替他[23 chars]人嗎？'}
+
+First tuple contains 1 additional elements.
+First extra element 2:
+{'do': 'say', 'speaker': 'ali', 'text': '我可以聽，但我不能替他答應您。'}
+
+- ({'do': 'scene',
+-   'fade': 0.35,
+-   'id': 'ch2_guest_book_room',
+-   'pos': [320, 206.3],
+-   'zoom': 0.84},
+-  {'do': 'say', 'speaker': 'hong', 'text': '我以前每次都替他回話，後來他不跟我出海了。你能先當作還願意聽的人嗎？'},
+? ^
+
++ ({'do': 'say', 'speaker': 'hong', 'text': '我以前每次都替他回話，後來他不跟我出海了。你能先當作還願意聽的人嗎？'},
+? ^
+
+   {'do': 'say', 'speaker': 'ali', 'text': '我可以聽，但我不能替他答應您。'})
+
+======================================================================
+FAIL: test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards (__main__.GuestCastTests.test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards) (scene='ch2_t_s20_wrong')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 36, in test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards
+    self.assertEqual(lines, original.steps)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ({'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[160 chars]係。'}) != ({'do': 'say', 'speaker': 'ali', 'text': '我不能替他原諒您，[65 chars]係。'})
+
+First differing element 0:
+{'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[38 chars]0.35}
+{'do': 'say', 'speaker': 'ali', 'text': '我不能替他原諒您，我可以再聽您說一遍。'}
+
+First tuple contains 1 additional elements.
+First extra element 2:
+{'do': 'say', 'speaker': 'hong', 'text': '對，他沒有說過沒關係。'}
+
+- ({'do': 'scene',
+-   'fade': 0.35,
+-   'id': 'ch2_guest_book_room',
+-   'pos': [320, 206.3],
+-   'zoom': 0.84},
+-  {'do': 'say', 'speaker': 'ali', 'text': '我不能替他原諒您，我可以再聽您說一遍。'},
+? ^
+
++ ({'do': 'say', 'speaker': 'ali', 'text': '我不能替他原諒您，我可以再聽您說一遍。'},
+? ^
+
+   {'do': 'say', 'speaker': 'hong', 'text': '對，他沒有說過沒關係。'})
+
+======================================================================
+FAIL: test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards (__main__.GuestCastTests.test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards) (scene='ch2_t_s20_story')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 36, in test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards
+    self.assertEqual(lines, original.steps)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ({'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[252 chars]寄。'}) != ({'do': 'say', 'speaker': 'hong', 'text': '先讓我說完。不要[157 chars]寄。'})
+
+First differing element 0:
+{'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[38 chars]0.35}
+{'do': 'say', 'speaker': 'hong', 'text': '先讓我說完。不要說沒關係，他沒有這麼說過。'}
+
+First tuple contains 1 additional elements.
+First extra element 3:
+{'do': 'say', 'speaker': 'hong', 'text': '我現在想把名字圈掉，信還是得寄。'}
+
+- ({'do': 'scene',
+-   'fade': 0.35,
+-   'id': 'ch2_guest_book_room',
+-   'pos': [320, 206.3],
+-   'zoom': 0.84},
+-  {'do': 'say', 'speaker': 'hong', 'text': '先讓我說完。不要說沒關係，他沒有這麼說過。'},
+? ^
+
++ ({'do': 'say', 'speaker': 'hong', 'text': '先讓我說完。不要說沒關係，他沒有這麼說過。'},
+? ^
+
+   {'do': 'say',
+    'speaker': 'hong',
+    'text': '我那天替他簽了下一趟的名，覺得船位難得，留給他就是幫他。沒問他為什麼不想去。'},
+   {'do': 'say', 'speaker': 'hong', 'text': '我現在想把名字圈掉，信還是得寄。'})
+
+======================================================================
+FAIL: test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards (__main__.GuestCastTests.test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards) (scene='ch2_t_s20_wrong_fine')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 36, in test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards
+    self.assertEqual(lines, original.steps)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ({'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[101 chars]說。'}) != ({'do': 'say', 'speaker': 'hong', 'text': '他沒有說過沒關係，請不要替他說。'},)
+
+First differing element 0:
+{'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[38 chars]0.35}
+{'do': 'say', 'speaker': 'hong', 'text': '他沒有說過沒關係，請不要替他說。'}
+
+First tuple contains 1 additional elements.
+First extra element 1:
+{'do': 'say', 'speaker': 'hong', 'text': '他沒有說過沒關係，請不要替他說。'}
+
+- ({'do': 'scene',
+-   'fade': 0.35,
+-   'id': 'ch2_guest_book_room',
+-   'pos': [320, 206.3],
+-   'zoom': 0.84},
+-  {'do': 'say', 'speaker': 'hong', 'text': '他沒有說過沒關係，請不要替他說。'})
+? ^
+
++ ({'do': 'say', 'speaker': 'hong', 'text': '他沒有說過沒關係，請不要替他說。'},)
+? ^                                                            +
+
+
+======================================================================
+FAIL: test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards (__main__.GuestCastTests.test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards) (scene='ch2_t_s20_done')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 36, in test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards
+    self.assertEqual(lines, original.steps)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ({'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[224 chars]定。'}) != ({'do': 'say', 'speaker': 'ali', 'text': '我聽見了，您可以把[129 chars]定。'})
+
+First differing element 0:
+{'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[38 chars]0.35}
+{'do': 'say', 'speaker': 'ali', 'text': '我聽見了，您可以把沒問過他的事寫進信裡。'}
+
+First tuple contains 1 additional elements.
+First extra element 3:
+{'do': 'say', 'speaker': 'ali', 'text': '信封給您，寄到哪裡也請您自己決定。'}
+
+- ({'do': 'scene',
+-   'fade': 0.35,
+-   'id': 'ch2_guest_book_room',
+-   'pos': [320, 206.3],
+-   'zoom': 0.84},
+-  {'do': 'say', 'speaker': 'ali', 'text': '我聽見了，您可以把沒問過他的事寫進信裡。'},
+? ^
+
++ ({'do': 'say', 'speaker': 'ali', 'text': '我聽見了，您可以把沒問過他的事寫進信裡。'},
+? ^
+
+   {'do': 'say', 'speaker': 'hong', 'text': '我自己寄，不能叫妳替我。'},
+   {'do': 'say', 'speaker': 'ali', 'text': '信封給您，寄到哪裡也請您自己決定。'})
+
+======================================================================
+FAIL: test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards (__main__.GuestCastTests.test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards) (scene='ch2_t_s21_close')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 36, in test_visual_cast_does_not_rewrite_dialogue_choices_or_rewards
+    self.assertEqual(lines, original.steps)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ({'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[350 chars]完。'}) != ({'do': 'say', 'speaker': 'ali', 'text': '鄭先生不想聽爸爸，[285 chars]完。'})
+
+First differing element 0:
+{'do': 'scene', 'id': 'ch2_guest_book_room', 'pos'[38 chars]0.35}
+{'do': 'say', 'speaker': 'ali', 'text': '鄭先生不想聽爸爸，[28 chars]楚了。'}
+
+- ({'do': 'scene',
+-   'fade': 0.35,
+-   'id': 'ch2_guest_book_room',
+-   'pos': [320, 206.3],
+-   'zoom': 0.84},
+-  {'do': 'say',
+? ^
+
++ ({'do': 'say',
+? ^
+
+    'speaker': 'ali',
+    'text': '鄭先生不想聽爸爸，陳女士不要蔥，洪先生不想別人替他說沒關係。今天三頁都寫清楚了。'},
+   {'do': 'say', 'speaker': 'label', 'text': '阿梨把一顆梨放進鍋裡。'},
+   {'do': 'say',
+    'speaker': 'ali',
+    'text': '梨嬸教我，湯裡放一顆梨，煮到最後也不容易澀。她在梨攤邊把我抱回去，我能留下的做法就這幾樣。'},
++  {'do': 'wait', 'time': 0.35},
+   {'do': 'say', 'speaker': 'ali', 'text': '我沒有錨人，真倒下就沒有下一次。有人能把今天說完，我就先讓他說完。'})
+
+======================================================================
+FAIL: test_zheng_exists_in_every_real_s18_branch (__main__.GuestCastTests.test_zheng_exists_in_every_real_s18_branch) (scene='ch2_t_s18_ticket')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 22, in test_zheng_exists_in_every_real_s18_branch
+    self.assertEqual(len(actors), 1)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_zheng_exists_in_every_real_s18_branch (__main__.GuestCastTests.test_zheng_exists_in_every_real_s18_branch) (scene='ch2_t_s18_dad')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 22, in test_zheng_exists_in_every_real_s18_branch
+    self.assertEqual(len(actors), 1)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_zheng_exists_in_every_real_s18_branch (__main__.GuestCastTests.test_zheng_exists_in_every_real_s18_branch) (scene='ch2_t_s18_name')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 22, in test_zheng_exists_in_every_real_s18_branch
+    self.assertEqual(len(actors), 1)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_zheng_exists_in_every_real_s18_branch (__main__.GuestCastTests.test_zheng_exists_in_every_real_s18_branch) (scene='ch2_t_s18_wrong')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 22, in test_zheng_exists_in_every_real_s18_branch
+    self.assertEqual(len(actors), 1)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_zheng_exists_in_every_real_s18_branch (__main__.GuestCastTests.test_zheng_exists_in_every_real_s18_branch) (scene='ch2_t_s18_done')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\story\test_ch2_guest_cast.py", line 22, in test_zheng_exists_in_every_real_s18_branch
+    self.assertEqual(len(actors), 1)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.014s
+
+FAILED (failures=23)

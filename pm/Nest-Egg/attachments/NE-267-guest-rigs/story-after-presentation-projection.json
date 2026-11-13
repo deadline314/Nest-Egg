@@ -1,0 +1,6259 @@
+{
+  "bindings": {},
+  "derived_flags": {},
+  "documents": {
+    "ch2_ali_page": {
+      "body": "阿梨的開攤借款本金600，已還本金400，本金剩200。本期利息60已付清。帳上又錯加一次本期利息60，錯記待付260。今日市場代墊的40另列，尚未併入私人帳。",
+      "description": "帳櫃裡阿梨那一頁的副本。本金兩百她認，錯加的六十她不認。",
+      "icon": "doc_notice",
+      "name": "阿梨私人帳頁副本"
+    },
+    "ch2_check_card": {
+      "body": "持證人可進入市集公眾攤道查核市場修繕代收批號M17。後方帳房與貨道不在放行範圍。本證不是付款憑證，也不能用來免付任何費用。",
+      "description": "鷺給的查核證，只放行市集的公眾攤道。",
+      "icon": "doc_stub",
+      "name": "市場查核證"
+    },
+    "ch2_clinic_index": {
+      "body": "診所報表索引：港區代收批號M17→夾層診所月報17。夾層是港區與日照區之間的工作層，診所從廣場貨梯過去。原始月報只能在診所現場申請閱覽。",
+      "description": "港區代收批號M17對到夾層診所的月報17。這裡只有索引，沒有原表。",
+      "icon": "doc_log",
+      "name": "診所報表索引"
+    },
+    "ch2_evidence_collection": {
+      "body": "批號M17／收款120，其中本金100、利息20／轉送北棟二樓／待收欄120。按合約與收據，正確的待收應該是100。",
+      "description": "裝卸間代收簿的副本：同一批號還記著待收120。",
+      "icon": "doc_log",
+      "name": "代收簿副本"
+    },
+    "ch2_evidence_contract": {
+      "body": "市場修繕代收批號M17。攤位押金本金200信用點，本期利息20信用點。申請核准前不收續租款。蓋章：暫未核准。",
+      "description": "租攤視窗給的合約副本：押金本金200，本期利息20。",
+      "icon": "doc_notice",
+      "name": "租攤合約副本"
+    },
+    "ch2_evidence_receipt": {
+      "body": "市場修繕代收／批號M17／本金200／本期利息20／已付120／本期應付100。蓋章日期清楚。若當天代墊，另有一行「今日代墊40，待查核抵扣」。",
+      "description": "代收處印的收據副本：已付120，本期應付100。",
+      "icon": "doc_stub",
+      "name": "代收收據副本"
+    },
+    "ch2_original_ledger": {
+      "body": "批號M17：待收100。代收簿附加20。收費基準另見夾層診所月報17。",
+      "description": "帳櫃裡的公開原帳：待收100，代收簿多加的20沒有根據。",
+      "icon": "doc_log",
+      "name": "公開原帳副本"
+    },
+    "ch2_radio_clip": {
+      "body": "陌生廣播：今晚先念三個還在等回覆的名字。陳海生、周美蘭、林兆安，你們的家人來過。名字念錯了請告訴我。我還留著一頂帽子，如果有人認得帽沿的補線，請到港區電臺留言。",
+      "description": "收音機錄下的一段尋人廣播：念了三個名字，還提到一頂帽子。",
+      "icon": "recording",
+      "name": "陌生廣播的片段"
+    }
+  },
+  "external_producers": {},
+  "flag_defaults": {
+    "ali_advance_40": 0,
+    "ali_ledger_action": "unset",
+    "ch2_yong_subdued": false,
+    "egret_restoration_count": 213,
+    "xiaowei_read_count": 0,
+    "xiaowei_yellow_umbrella_recognized": true,
+    "yong_alive": true,
+    "yong_link_choice": "unset",
+    "yong_link_restoration_agreed": false,
+    "yong_link_revoked": false
+  },
+  "quests": [
+    {
+      "background": "盤已驗收，報酬尚待核對。",
+      "blocked_reason": "",
+      "complete_flag": "ch2_brief_done",
+      "completion_requires_steps": false,
+      "id": "ch2_settle",
+      "kind": "main",
+      "requires_flags": [],
+      "reward": "淨額七百二十信用點。",
+      "steps": [
+        {
+          "binding": "old_k",
+          "complete_flag": "ch2_morning_settled",
+          "title": "在櫃台和老 K 核對報酬。"
+        },
+        {
+          "binding": "egret",
+          "complete_flag": "ch2_brief_done",
+          "title": "上屋頂向鷺拿查核證。"
+        }
+      ],
+      "suggestion": "",
+      "title": "核對昨晚的委託報酬",
+      "visible_flags": []
+    },
+    {
+      "background": "代收帳沒有付款附件，需要原始證據。",
+      "blocked_reason": "",
+      "complete_flag": "ch2_market_reconciled",
+      "completion_requires_steps": false,
+      "id": "ch2_reconcile",
+      "kind": "main",
+      "requires_flags": [],
+      "reward": "找到原帳的位置。",
+      "steps": [
+        {
+          "binding": "patroller",
+          "complete_flag": "ch2_gate_checked",
+          "title": "出示查核證，進市集的公眾攤道。"
+        },
+        {
+          "binding": "vig",
+          "complete_flag": "ch2_market_contact_done",
+          "title": "到代收處問清楚這筆代收款。"
+        },
+        {
+          "binding": "rent_window",
+          "complete_flag": "ch2_evidence_contract",
+          "title": "到租攤視窗取合約副本。"
+        },
+        {
+          "binding": "collection_book",
+          "complete_flag": "ch2_evidence_collection",
+          "title": "到雨棚背面的裝卸間翻代收簿。"
+        },
+        {
+          "binding": "reconcile",
+          "complete_flag": "ch2_market_reconciled",
+          "title": "在乾燥作業桌比對三張紙。"
+        }
+      ],
+      "suggestion": "",
+      "title": "查清市集重複的利息",
+      "visible_flags": [
+        "ch2_brief_done"
+      ]
+    },
+    {
+      "background": "收據指向阿勇管的帳房。",
+      "blocked_reason": "",
+      "complete_flag": "ch2_egret_returned",
+      "completion_requires_steps": false,
+      "id": "ch2_ledger",
+      "kind": "main",
+      "requires_flags": [],
+      "reward": "制伏阿勇的報酬一百二十信用點。",
+      "steps": [
+        {
+          "binding": "ledger_door",
+          "complete_flag": "ch2_yong_intro_seen",
+          "title": "進帳房，看阿勇怎麼對這筆帳。"
+        },
+        {
+          "binding": "cabinet",
+          "complete_flag": "ch2_original_ledger_taken",
+          "title": "制伏阿勇，打開帳櫃。"
+        },
+        {
+          "binding": "egret_booth",
+          "complete_flag": "ch2_egret_returned",
+          "title": "到市集電話亭等鷺。"
+        }
+      ],
+      "suggestion": "",
+      "title": "到北棟二樓核對原帳",
+      "visible_flags": [
+        "ch2_market_reconciled"
+      ]
+    },
+    {
+      "background": "公開原帳已證明多收，診所索引仍需另查。",
+      "blocked_reason": "",
+      "complete_flag": "ch2_heron_closed",
+      "completion_requires_steps": false,
+      "id": "ch2_audit",
+      "kind": "main",
+      "requires_flags": [],
+      "reward": "查核報酬二百五十信用點。",
+      "steps": [
+        {
+          "binding": "terminal",
+          "complete_flag": "ch2_audit_submitted",
+          "title": "在復原館外的委託終端上傳證據。"
+        },
+        {
+          "binding": "egret",
+          "complete_flag": "ch2_heron_closed",
+          "title": "回當舖屋頂和鷺碰面。"
+        }
+      ],
+      "suggestion": "",
+      "title": "交回查帳結果",
+      "visible_flags": [
+        "ch2_egret_returned"
+      ]
+    },
+    {
+      "background": "阿梨在代收處被催帳，付錢之前可以先問她。",
+      "blocked_reason": "",
+      "complete_flag": "ch2_ali_need_asked",
+      "completion_requires_steps": false,
+      "id": "sq1_ali_need",
+      "kind": "side",
+      "requires_flags": [],
+      "reward": "二十信用點。",
+      "steps": [
+        {
+          "binding": "ali_market",
+          "complete_flag": "ch2_ali_need_asked",
+          "title": "問阿梨現在需要什麼。"
+        }
+      ],
+      "suggestion": "",
+      "title": "問出阿梨的需要",
+      "visible_flags": [
+        "ch2_market_contact_done"
+      ]
+    },
+    {
+      "background": "阿梨邀你去後樓三樓的小廚房。",
+      "blocked_reason": "",
+      "complete_flag": "ch2_ali_home_visit",
+      "completion_requires_steps": false,
+      "id": "sq1_ali_soup",
+      "kind": "side",
+      "requires_flags": [],
+      "reward": "四十信用點與一碗熱湯。",
+      "steps": [
+        {
+          "binding": "ali_home",
+          "complete_flag": "ch2_ali_home_visit",
+          "title": "走後樓外梯，敲阿梨的門。"
+        }
+      ],
+      "suggestion": "",
+      "title": "到阿梨家試湯",
+      "visible_flags": [
+        "ch2_market_contact_done"
+      ]
+    },
+    {
+      "background": "帳櫃裡有阿梨那一頁，錯加的六十要由她自己決定怎麼處理。",
+      "blocked_reason": "",
+      "complete_flag": "sq1_ledger_delivered",
+      "completion_requires_steps": false,
+      "id": "sq1_ali_ledger",
+      "kind": "side",
+      "requires_flags": [],
+      "reward": "四十信用點。",
+      "steps": [
+        {
+          "binding": "ali_lounge",
+          "complete_flag": "sq1_ledger_delivered",
+          "title": "把阿梨的帳頁交給她。"
+        }
+      ],
+      "suggestion": "",
+      "title": "把錯帳交她決定",
+      "visible_flags": [
+        "ch2_audit_submitted"
+      ]
+    },
+    {
+      "background": "阿梨今晚有三位客人，你可以看她怎麼工作。",
+      "blocked_reason": "",
+      "complete_flag": "guest_book_completed",
+      "completion_requires_steps": false,
+      "id": "sq1_guest_book",
+      "kind": "side",
+      "requires_flags": [],
+      "reward": "每位客人二十信用點，收本再四十。",
+      "steps": [
+        {
+          "binding": "guest_entry",
+          "complete_flag": "guest_book_completed",
+          "title": "在復原館外看阿梨的客人簿。"
+        }
+      ],
+      "suggestion": "",
+      "title": "看阿梨的客人簿",
+      "visible_flags": [
+        "ch2_audit_submitted"
+      ]
+    },
+    {
+      "background": "鷺的週日從不接案。",
+      "blocked_reason": "",
+      "complete_flag": "sq2_sunday_heard",
+      "completion_requires_steps": false,
+      "id": "sq2_egret_sunday",
+      "kind": "side",
+      "requires_flags": [],
+      "reward": "二十信用點。",
+      "steps": [
+        {
+          "binding": "egret",
+          "complete_flag": "sq2_sunday_heard",
+          "title": "在屋頂問鷺週日的安排。"
+        }
+      ],
+      "suggestion": "",
+      "title": "問鷺週日的安排",
+      "visible_flags": [
+        "ch2_brief_done"
+      ]
+    },
+    {
+      "background": "工作檯上的收音機接線鬆了。",
+      "blocked_reason": "",
+      "complete_flag": "sq4_broadcast_heard",
+      "completion_requires_steps": false,
+      "id": "sq4_radio",
+      "kind": "side",
+      "requires_flags": [],
+      "reward": "二十信用點。",
+      "steps": [
+        {
+          "binding": "radio",
+          "complete_flag": "sq4_broadcast_heard",
+          "title": "修好工作檯的收音機。"
+        }
+      ],
+      "suggestion": "",
+      "title": "修好並聽清廣播",
+      "visible_flags": []
+    }
+  ],
+  "segments": {
+    "ch2_b_booth_b3": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_b_booth_b3",
+      "mode": "radio",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S05",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "lamp",
+          "text": "這座電話亭可以登記復原位置，港區交通線還沒接通。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_s01_morning": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_s01_morning",
+      "mode": "bubbles",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S01",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "old_k",
+          "text": "起來啦？頭髮先擦乾，再來櫃台把昨晚的帳對一下喔。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_s09_wire": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_s09_wire",
+      "mode": "bubbles",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S09",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "這條電線被人剪斷了。"
+        },
+        {
+          "do": "say",
+          "speaker": "lamp",
+          "text": "電已經斷了，可以從橋上過去。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_s12_bark_egret": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_s12_bark_egret",
+      "mode": "radio",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S12",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "他還會再補一棍。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_s12_bark_mark": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_s12_bark_mark",
+      "mode": "radio",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S12",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "lamp",
+          "text": "踩亮墊能清掉標記。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_s12_defeat_hint": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_s12_defeat_hint",
+      "mode": "radio",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S12",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "lamp",
+          "text": "隔離箱能阻止小薇的讀取，亮墊能清除利息標記。看見鐵棍蓄力再閃避。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_egret_hub": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_egret_hub",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "可選的追問，不影響主線。",
+          "id": "sunday",
+          "intent": [],
+          "target": "ch2_dispatch_sunday",
+          "text": "問鷺週日的安排。",
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "sq2_sunday_heard"
+            }
+          }
+        },
+        {
+          "explanation": "鷺會說一句練法，不影響主線。",
+          "id": "heavy",
+          "intent": [],
+          "target": "ch2_t_s03_heavy",
+          "text": "問重擊怎麼接。",
+          "when": {}
+        },
+        {
+          "explanation": "重聽代收處要找的東西。",
+          "id": "brief",
+          "intent": [],
+          "target": "ch2_t_s03_brief_again",
+          "text": "再確認一次查帳的重點。",
+          "when": {}
+        },
+        {
+          "explanation": "結束對話，之後可以再來。",
+          "id": "leave",
+          "intent": [],
+          "target": null,
+          "text": "先這樣，我去市集。",
+          "when": {}
+        }
+      ],
+      "section": "S03",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "茶還熱，要問什麼就趁現在。"
+        }
+      ],
+      "when": {
+        "all": [
+          {
+            "equals": true,
+            "flag": "ch2_brief_done"
+          },
+          {
+            "not": {
+              "equals": true,
+              "flag": "ch2_audit_submitted"
+            }
+          }
+        ]
+      }
+    },
+    "ch2_t_s01_reaction": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s01_reaction",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S01",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.25,
+          "id": "ch2_pawnshop_counter",
+          "pos": [
+            300,
+            291.5
+          ],
+          "zoom": 0.88
+        },
+        {
+          "do": "say",
+          "speaker": "old_k",
+          "text": "昨晚吃過麵，今天也要吃喔。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "兩頓我分得清楚。"
+        }
+      ],
+      "when": {
+        "all": [
+          {
+            "equals": true,
+            "flag": "knows_ali_address"
+          }
+        ]
+      }
+    },
+    "ch2_t_s01_reaction_left": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s01_reaction_left",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S01",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.25,
+          "id": "ch2_pawnshop_counter",
+          "pos": [
+            300,
+            291.5
+          ],
+          "zoom": 0.88
+        },
+        {
+          "do": "say",
+          "speaker": "old_k",
+          "text": "把欠條和回執分開放，別把人家的晚飯當委託。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "我只是不想混在一起。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "knows_ali_address"
+        }
+      }
+    },
+    "ch2_t_s01_revisit": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s01_revisit",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S01",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "old_k",
+          "text": "錢已經對過了，茶在樓上，別讓她等喔。"
+        }
+      ],
+      "when": {
+        "receipt": "ch1.commission.settled",
+        "status": "recorded"
+      }
+    },
+    "ch2_t_s01_settle": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s01_settle",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "報酬八百、抽成八十、淨額七百二十，只結算一次。",
+          "id": "settle",
+          "intent": [],
+          "target": "ch2_t_s01_settled",
+          "text": "核對三欄後確認結算。",
+          "when": {}
+        },
+        {
+          "explanation": "先不結算，之後再找老 K。",
+          "id": "later",
+          "intent": [],
+          "target": null,
+          "text": "等一下再對帳。",
+          "when": {}
+        }
+      ],
+      "section": "S01",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.8,
+          "id": "ch2_pawnshop_counter",
+          "pos": [
+            300,
+            291.5
+          ],
+          "zoom": 0.88
+        },
+        {
+          "do": "say",
+          "speaker": "old_k",
+          "text": "頭髮先擦乾，昨晚那個鍋我換過了喔。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "鍋不用算進我的帳，我只叫你加水。"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "交接櫃驗收過了，八百信用點，沒有少。"
+        },
+        {
+          "do": "say",
+          "speaker": "old_k",
+          "text": "照原來的一成，我收八十，你拿七百二十。"
+        }
+      ],
+      "when": {
+        "not": {
+          "receipt": "ch1.commission.settled",
+          "status": "recorded"
+        }
+      }
+    },
+    "ch2_t_s01_settled": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch1.commission.settled",
+          "kind": "transaction"
+        },
+        {
+          "id": "ch2_morning_settled",
+          "kind": "flag",
+          "value": true
+        }
+      ],
+      "id": "ch2_t_s01_settled",
+      "mode": "animated",
+      "next_scene": "ch2_t_s01_reaction",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S01",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.25,
+          "id": "ch2_pawnshop_counter",
+          "pos": [
+            300,
+            291.5
+          ],
+          "zoom": 0.88
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "一成照舊，這筆保費我記著。"
+        },
+        {
+          "do": "say",
+          "speaker": "old_k",
+          "text": "你先把今天的帳算好，別連早餐也省了。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "你那本帳不能借我看？"
+        },
+        {
+          "do": "say",
+          "speaker": "old_k",
+          "text": "每個人的東西都記在裡面，不能整本借走啦。"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "資料盤有一筆市場修繕代收，找不到付款附件。委託要我們核對，不是再偷一片盤。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "我拿回執去找收據，盤已經不在我這裡。"
+        },
+        {
+          "do": "say",
+          "speaker": "old_k",
+          "text": "上面指定查這筆，別替他們多接別人的帳。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "我核完才回來，飯留著。"
+        }
+      ],
+      "when": {
+        "not": {
+          "receipt": "ch1.commission.settled",
+          "status": "recorded"
+        }
+      }
+    },
+    "ch2_t_s02_antenna": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s02_antenna",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "把天線接到標著電源的孔。",
+          "id": "power",
+          "intent": [],
+          "target": "ch2_t_s02_antenna_wrong",
+          "text": "接到標著電源的孔。",
+          "when": {}
+        },
+        {
+          "explanation": "把天線接到標著天線的孔。",
+          "id": "antenna",
+          "intent": [],
+          "target": "ch2_t_s02_speaker",
+          "text": "接到標著天線的孔。",
+          "when": {}
+        },
+        {
+          "explanation": "把天線接到標著音源的孔。",
+          "id": "speaker",
+          "intent": [],
+          "target": "ch2_t_s02_antenna_wrong",
+          "text": "接到標著音源的孔。",
+          "when": {}
+        },
+        {
+          "explanation": "不修也能出門，之後可以再來。",
+          "id": "leave",
+          "intent": [],
+          "target": null,
+          "text": "先把收音機放著。",
+          "when": {}
+        }
+      ],
+      "section": "S02",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "三條線都鬆了。現在要接天線，它該接到標著天線的孔。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_radio_repaired"
+        }
+      }
+    },
+    "ch2_t_s02_antenna_wrong": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s02_antenna_wrong",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_back_s02_antenna",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S02",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "喇叭只發出一陣雜訊。天線要接到標著天線的孔，再試一次。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s02_broadcast": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s02_broadcast",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "收音機修好、廣播聽完，片段記進筆記。",
+          "id": "save",
+          "intent": [],
+          "target": "ch2_t_s02_saved",
+          "text": "儲存這段廣播。",
+          "when": {}
+        },
+        {
+          "explanation": "收音機修好、廣播聽完，之後可以回來重聽。",
+          "id": "off",
+          "intent": [],
+          "target": "ch2_t_s02_off",
+          "text": "先關掉收音機。",
+          "when": {}
+        },
+        {
+          "explanation": "這次不算修好，之後可以再來。",
+          "id": "leave",
+          "intent": [],
+          "target": null,
+          "text": "先離開工作檯。",
+          "when": {}
+        }
+      ],
+      "section": "S02",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "weather",
+          "text": "港區午後降雨持續，市場低窪通道請改走上層雨棚。"
+        },
+        {
+          "do": "say",
+          "speaker": "broadcast",
+          "text": "今晚先念三個還在等回覆的名字。陳海生、周美蘭、林兆安，你們的家人來過。"
+        },
+        {
+          "do": "say",
+          "speaker": "broadcast",
+          "text": "如果名字念錯了，請告訴我，我會重新念。"
+        },
+        {
+          "do": "say",
+          "speaker": "broadcast",
+          "text": "名字不該只剩一個編號。"
+        },
+        {
+          "do": "say",
+          "speaker": "broadcast",
+          "text": "我還留著一頂帽子。如果有人認得帽沿的補線，請到港區電臺留言。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "她連帽子也放進尋人名單。"
+        },
+        {
+          "do": "say",
+          "speaker": "old_k",
+          "text": "名字不記得，東西還在，也是個開頭啦。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_radio_repaired"
+        }
+      }
+    },
+    "ch2_t_s02_intro": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s02_intro",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_back_s02_power",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S02",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "這臺還有電，喇叭為什麼沒聲音？"
+        },
+        {
+          "do": "say",
+          "speaker": "old_k",
+          "text": "上次摔到接線鬆了，零件盒有同一款接頭。你要修就拿，別拿槍託敲喔。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_radio_repaired"
+        }
+      }
+    },
+    "ch2_t_s02_off": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2_radio_repaired",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "sq4_broadcast_heard",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "ch2.sq4_radio",
+          "kind": "transaction"
+        }
+      ],
+      "id": "ch2_t_s02_off",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S02",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "先關掉，名字我記得了，之後再回來聽一次。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_radio_repaired"
+        }
+      }
+    },
+    "ch2_t_s02_power": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s02_power",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "把電源線接到標著電源的孔。",
+          "id": "power",
+          "intent": [],
+          "target": "ch2_t_s02_antenna",
+          "text": "接到標著電源的孔。",
+          "when": {}
+        },
+        {
+          "explanation": "把電源線接到標著天線的孔。",
+          "id": "antenna",
+          "intent": [],
+          "target": "ch2_t_s02_power_wrong",
+          "text": "接到標著天線的孔。",
+          "when": {}
+        },
+        {
+          "explanation": "把電源線接到標著音源的孔。",
+          "id": "speaker",
+          "intent": [],
+          "target": "ch2_t_s02_power_wrong",
+          "text": "接到標著音源的孔。",
+          "when": {}
+        },
+        {
+          "explanation": "不修也能出門，之後可以再來。",
+          "id": "leave",
+          "intent": [],
+          "target": null,
+          "text": "先把收音機放著。",
+          "when": {}
+        }
+      ],
+      "section": "S02",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "三條線都鬆了。現在要接電源線，它該接到標著電源的孔。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_radio_repaired"
+        }
+      }
+    },
+    "ch2_t_s02_power_wrong": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s02_power_wrong",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_back_s02_power",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S02",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "喇叭只發出一陣雜訊。電源線要接到標著電源的孔，再試一次。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s02_relisten": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s02_relisten",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "片段記進筆記，不另外給獎勵。",
+          "id": "save",
+          "intent": [],
+          "target": "ch2_t_s02_save_late",
+          "text": "這次把廣播存下來。",
+          "when": {}
+        },
+        {
+          "explanation": "收音機留在工作檯，之後還能再聽。",
+          "id": "off",
+          "intent": [],
+          "target": null,
+          "text": "聽完就好。",
+          "when": {}
+        }
+      ],
+      "section": "S02",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "broadcast",
+          "text": "今晚先念三個還在等回覆的名字。陳海生、周美蘭、林兆安，你們的家人來過。"
+        },
+        {
+          "do": "say",
+          "speaker": "broadcast",
+          "text": "我還留著一頂帽子。如果有人認得帽沿的補線，請到港區電臺留言。"
+        }
+      ],
+      "when": {
+        "all": [
+          {
+            "equals": true,
+            "flag": "ch2_radio_repaired"
+          },
+          {
+            "not": {
+              "equals": true,
+              "flag": "sq4_clip_saved"
+            }
+          }
+        ]
+      }
+    },
+    "ch2_t_s02_revisit": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s02_revisit",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S02",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "收音機修好了，片段已經存在筆記裡。"
+        }
+      ],
+      "when": {
+        "all": [
+          {
+            "equals": true,
+            "flag": "ch2_radio_repaired"
+          },
+          {
+            "equals": true,
+            "flag": "sq4_clip_saved"
+          }
+        ]
+      }
+    },
+    "ch2_t_s02_save_late": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "sq4_clip_saved",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "ch2_radio_clip",
+          "kind": "item_acquire"
+        }
+      ],
+      "id": "ch2_t_s02_save_late",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S02",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "陌生廣播、帽沿補線、港區電臺，這次我記下來了。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "sq4_clip_saved"
+        }
+      }
+    },
+    "ch2_t_s02_saved": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2_radio_repaired",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "sq4_broadcast_heard",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "ch2.sq4_radio",
+          "kind": "transaction"
+        },
+        {
+          "id": "sq4_clip_saved",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "ch2_radio_clip",
+          "kind": "item_acquire"
+        }
+      ],
+      "id": "ch2_t_s02_saved",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S02",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "陌生廣播、帽沿補線、港區電臺，我先記下來。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_radio_repaired"
+        }
+      }
+    },
+    "ch2_t_s02_speaker": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s02_speaker",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "把喇叭線接到標著電源的孔。",
+          "id": "power",
+          "intent": [],
+          "target": "ch2_t_s02_speaker_wrong",
+          "text": "接到標著電源的孔。",
+          "when": {}
+        },
+        {
+          "explanation": "把喇叭線接到標著天線的孔。",
+          "id": "antenna",
+          "intent": [],
+          "target": "ch2_t_s02_speaker_wrong",
+          "text": "接到標著天線的孔。",
+          "when": {}
+        },
+        {
+          "explanation": "把喇叭線接到標著音源的孔。",
+          "id": "speaker",
+          "intent": [],
+          "target": "ch2_t_s02_tune",
+          "text": "接到標著音源的孔。",
+          "when": {}
+        },
+        {
+          "explanation": "不修也能出門，之後可以再來。",
+          "id": "leave",
+          "intent": [],
+          "target": null,
+          "text": "先把收音機放著。",
+          "when": {}
+        }
+      ],
+      "section": "S02",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "三條線都鬆了。現在要接喇叭線，它該接到標著音源的孔。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_radio_repaired"
+        }
+      }
+    },
+    "ch2_t_s02_speaker_wrong": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s02_speaker_wrong",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_back_s02_speaker",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S02",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "喇叭只發出一陣雜訊。喇叭線要接到標著音源的孔，再試一次。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s02_tune": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s02_tune",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "停在聲音最清楚的地方。",
+          "id": "middle",
+          "intent": [],
+          "target": "ch2_t_s02_broadcast",
+          "text": "把指標轉進兩條刻線中間。",
+          "when": {}
+        },
+        {
+          "explanation": "刻線外只有雜訊。",
+          "id": "edge",
+          "intent": [],
+          "target": "ch2_t_s02_tune_wrong",
+          "text": "把指標轉到刻線外面。",
+          "when": {}
+        }
+      ],
+      "section": "S02",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "lamp",
+          "text": "先讓指標進兩條刻線中間，再轉到聲音最清楚的地方。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_radio_repaired"
+        }
+      }
+    },
+    "ch2_t_s02_tune_wrong": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s02_tune_wrong",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_back_s02_tune",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S02",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "刻線外只有低頻的雜訊。把指標轉回兩條刻線中間，再試一次。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s03_brief": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s03_brief",
+      "mode": "animated",
+      "next_scene": "ch2_t_s03_rain",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S03",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.25,
+          "id": "ch1_rooftop",
+          "pos": [
+            320,
+            212.3
+          ],
+          "zoom": 1.0
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "市場查核證只讓你進公眾攤道，後面的帳房還是阿勇管。阿勇是這一帶收帳人的頭。"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "昨晚盤裡那筆代收款有批號，收據卻不在。去代收處找當天的租攤合約和收款存根。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "我先看原本，再聽他們怎麼算。"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "天穹要找誰多收了錢，我只要他們別拿攤商的錢墊掉。你看見不對的地方就寫，不用替誰挑好看的。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "查完這筆就能結案？"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "附件對得上才算，光把收帳的人打趴不會長出收據。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_brief_done"
+        }
+      }
+    },
+    "ch2_t_s03_brief_again": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s03_brief_again",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_back_egret_hub",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S03",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "代收處有收據，租攤視窗有合約，後面裝卸間有代收簿。三張對得上，才找得到原帳。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s03_heavy": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s03_heavy",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_back_egret_hub",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S03",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "把重擊接在收招後，你要的是空檔，不是揮得久。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s03_rain": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2_brief_done",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "ch2_check_card",
+          "kind": "item_acquire"
+        }
+      ],
+      "id": "ch2_t_s03_rain",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S03",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.25,
+          "id": "ch1_rooftop",
+          "pos": [
+            320,
+            212.3
+          ],
+          "zoom": 1.0
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "你看雨別只看腳下。屋頂先響、雨棚再響，你就知道市場哪條路積水了。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "所以你喝茶也在看路。"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "至少我這杯不用你付保費。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_brief_done"
+        }
+      }
+    },
+    "ch2_t_s03_tea": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s03_tea",
+      "mode": "animated",
+      "next_scene": "ch2_t_s03_brief",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S03",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 1.0,
+          "id": "ch1_rooftop",
+          "pos": [
+            320,
+            212.3
+          ],
+          "zoom": 1.0
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "小鬼，坐到裡面來，那塊板凳今天還沒有泡水。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "你每次都說今天，這木頭已經腫了。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "傘骨斷了，你那邊在漏。"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "我這件外套本來就濕，兩邊一起濕才不會歪。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "我記著這杯茶，傘不用算。"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "你還要替雨開一個帳啊？先喝，茶不會等你算完。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_brief_done"
+        }
+      }
+    },
+    "ch2_t_s04_asked": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "sq2_sunday_heard",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "ch2.sq2_sunday",
+          "kind": "transaction"
+        }
+      ],
+      "id": "ch2_t_s04_asked",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_back_egret_hub",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S04",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "你昨晚說要看一個人，週日也去？"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "週日不是空的，我留給別人了。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "有人找你收帳？"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "有個人以前連我發脾氣都會替我端水。我去坐一下，讓她嫌我吵。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "那我不排週日，免得你又趕時間。"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "這句我記下了，哪天有活別又只看價錢。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "我先把今天做完，週日你自己留著。"
+        }
+      ],
+      "when": {
+        "equals": true,
+        "flag": "asked_egret_sunday"
+      }
+    },
+    "ch2_t_s04_new": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "sq2_sunday_heard",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "ch2.sq2_sunday",
+          "kind": "transaction"
+        }
+      ],
+      "id": "ch2_t_s04_new",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_back_egret_hub",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S04",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "你行事曆每個週日都是空的，你不接案？"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "週日不是空的，我留給別人了。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "有人找你收帳？"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "有個人以前連我發脾氣都會替我端水。我去坐一下，讓她嫌我吵。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "那我不排週日，免得你又趕時間。"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "這句我記下了，哪天有活別又只看價錢。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "我先把今天做完，週日你自己留著。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "asked_egret_sunday"
+        }
+      }
+    },
+    "ch2_t_s05_gate": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2_gate_checked",
+          "kind": "flag",
+          "value": true
+        }
+      ],
+      "id": "ch2_t_s05_gate",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S05",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "patroller",
+          "text": "查核的人走雨棚下，貨道沒有放行。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "我去代收處，你把入口留著。"
+        },
+        {
+          "do": "say",
+          "speaker": "lamp",
+          "text": "昨天封路，今天只開了攤道。別跟著貨車鑽進柵門。"
+        }
+      ],
+      "when": {
+        "all": [
+          {
+            "equals": true,
+            "flag": "ch2_brief_done"
+          },
+          {
+            "not": {
+              "equals": true,
+              "flag": "ch2_gate_checked"
+            }
+          }
+        ]
+      }
+    },
+    "ch2_t_s05_no_card": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s05_no_card",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S05",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "patroller",
+          "text": "沒有查核證就只能在外面等。鷺在當舖屋頂，拿了證再來。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_brief_done"
+        }
+      }
+    },
+    "ch2_t_s05_revisit": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s05_revisit",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S05",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "patroller",
+          "text": "攤道往裡走，貨道還是不放行。"
+        }
+      ],
+      "when": {
+        "equals": true,
+        "flag": "ch2_gate_checked"
+      }
+    },
+    "ch2_t_s06_ali_paid_revisit": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s06_ali_paid_revisit",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "完整問一次她需要什麼。",
+          "id": "ask",
+          "intent": [],
+          "target": "ch2_t_s06_ask_late",
+          "text": "先聽攤位的事。",
+          "when": {}
+        },
+        {
+          "explanation": "她會留著申請，等你回來再談。",
+          "id": "later",
+          "intent": [],
+          "target": "ch2_t_s06_later",
+          "text": "我先把委託查完。",
+          "when": {}
+        }
+      ],
+      "section": "S06",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.8,
+          "id": "ch2_collection_desk",
+          "pos": [
+            330,
+            288.6
+          ],
+          "zoom": 1.2
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "你墊的四十我記著，你想先聽攤位的事嗎？"
+        }
+      ],
+      "when": {
+        "all": [
+          {
+            "equals": true,
+            "flag": "ch2_market_contact_done"
+          },
+          {
+            "not": {
+              "equals": true,
+              "flag": "ch2_ali_need_asked"
+            }
+          }
+        ]
+      }
+    },
+    "ch2_t_s06_ali_revisit": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s06_ali_revisit",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S06",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "後樓外梯能找到我，敲門就好。"
+        }
+      ],
+      "when": {
+        "all": [
+          {
+            "equals": true,
+            "flag": "ch2_market_contact_done"
+          },
+          {
+            "equals": true,
+            "flag": "ch2_ali_need_asked"
+          }
+        ]
+      }
+    },
+    "ch2_t_s06_ask": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2_ali_need_asked",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "ch2.sq1_need",
+          "kind": "transaction"
+        },
+        {
+          "id": "ch2_evidence_receipt",
+          "kind": "item_acquire"
+        },
+        {
+          "id": "ch2_evidence_receipt",
+          "kind": "flag",
+          "value": true
+        }
+      ],
+      "id": "ch2_t_s06_ask",
+      "mode": "animated",
+      "next_scene": "ch2_t_s06_invite",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S06",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.25,
+          "id": "ch2_collection_desk",
+          "pos": [
+            330,
+            288.6
+          ],
+          "zoom": 1.2
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "你現在需要什麼？"
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "一塊能煮麵的攤位，還有一張租攤許可。我缺的是這兩樣，不是你口袋裡的錢。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "把已付的收據給我，我先查他為什麼收兩次。"
+        },
+        {
+          "do": "say",
+          "speaker": "vig",
+          "text": "查帳可以，今天還欠四十。"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "這筆有爭議，委託查完前不能往上加。你不簽，我把拒絕查核也寫進去。"
+        },
+        {
+          "do": "say",
+          "speaker": "vig",
+          "text": "您拿存根看，原本不能帶走。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_market_contact_done"
+        }
+      }
+    },
+    "ch2_t_s06_ask_late": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2_ali_need_asked",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "ch2.sq1_need",
+          "kind": "transaction"
+        }
+      ],
+      "id": "ch2_t_s06_ask_late",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S06",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.25,
+          "id": "ch2_collection_desk",
+          "pos": [
+            330,
+            288.6
+          ],
+          "zoom": 1.2
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "你現在需要什麼？"
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "一塊能煮麵的攤位，還有一張租攤許可。我缺的是這兩樣，不是你口袋裡的錢。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "我先查他為什麼收兩次，攤位的事妳自己簽。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_ali_need_asked"
+        }
+      }
+    },
+    "ch2_t_s06_close": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2_market_contact_done",
+          "kind": "flag",
+          "value": true
+        }
+      ],
+      "id": "ch2_t_s06_close",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S06",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.25,
+          "id": "ch2_collection_desk",
+          "pos": [
+            330,
+            288.6
+          ],
+          "zoom": 1.2
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "我先對附件，有空再去吃。"
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "後樓外梯能找到我，想進來就敲門，不用替我跟別人借鑰匙。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s06_invite": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s06_invite",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_s06_supper",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S06",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.25,
+          "id": "ch2_collection_desk",
+          "pos": [
+            330,
+            288.6
+          ],
+          "zoom": 1.2
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "復原館夜班下班了，我在市場找位置，後樓三樓的小廚房還有湯。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s06_invite_left": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s06_invite_left",
+      "mode": "animated",
+      "next_scene": "ch2_t_s06_close",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S06",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.25,
+          "id": "ch2_collection_desk",
+          "pos": [
+            330,
+            288.6
+          ],
+          "zoom": 1.2
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "昨晚你先走，我沒來得及給你留一碗。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "knows_ali_address"
+        }
+      }
+    },
+    "ch2_t_s06_invite_stayed": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s06_invite_stayed",
+      "mode": "animated",
+      "next_scene": "ch2_t_s06_close",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S06",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.25,
+          "id": "ch2_collection_desk",
+          "pos": [
+            330,
+            288.6
+          ],
+          "zoom": 1.2
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "昨晚那碗不是租攤試吃，這次才算。"
+        }
+      ],
+      "when": {
+        "equals": true,
+        "flag": "knows_ali_address"
+      }
+    },
+    "ch2_t_s06_later": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s06_later",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S06",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.25,
+          "id": "ch2_collection_desk",
+          "pos": [
+            330,
+            288.6
+          ],
+          "zoom": 1.2
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "我留著申請，等你回來再談。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s06_open": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s06_open",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "代墊四十信用點，只解除今天的催收，不結清阿梨的債。",
+          "id": "pay",
+          "intent": [],
+          "target": "ch2_t_s06_pay_confirm",
+          "text": "先付四十取得收據。",
+          "when": {}
+        },
+        {
+          "explanation": "把手從口袋拿開，先聽她說。",
+          "id": "ask",
+          "intent": [],
+          "target": "ch2_t_s06_ask",
+          "text": "先問阿梨需要什麼。",
+          "when": {}
+        }
+      ],
+      "section": "S06",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.8,
+          "id": "ch2_collection_desk",
+          "pos": [
+            330,
+            288.6
+          ],
+          "zoom": 1.2
+        },
+        {
+          "do": "say",
+          "speaker": "vig",
+          "text": "今天四十信用點代收款，加上前帳的利息，我才能替您收租攤申請。"
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "申請上沒有這一項，你先把已收的兩筆列出來。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "昨晚收的那筆也算利息？"
+        },
+        {
+          "do": "say",
+          "speaker": "vig",
+          "text": "我是阿勇的副手，大家叫我利息。帳在他那裡，我這裡只負責收。"
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "我來找攤位，不是來續借。你把我的申請壓著，我就得一直回來。"
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "你先問我，好嗎？"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_market_contact_done"
+        }
+      }
+    },
+    "ch2_t_s06_open_again": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s06_open_again",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "代墊四十信用點，只解除今天的催收，不結清阿梨的債。",
+          "id": "pay",
+          "intent": [],
+          "target": "ch2_t_s06_pay_confirm",
+          "text": "先付四十取得收據。",
+          "when": {}
+        },
+        {
+          "explanation": "把手從口袋拿開，先聽她說。",
+          "id": "ask",
+          "intent": [],
+          "target": "ch2_t_s06_ask",
+          "text": "先問阿梨需要什麼。",
+          "when": {}
+        }
+      ],
+      "section": "S06",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.25,
+          "id": "ch2_collection_desk",
+          "pos": [
+            330,
+            288.6
+          ],
+          "zoom": 1.2
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "你先問我，好嗎？"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_market_contact_done"
+        }
+      }
+    },
+    "ch2_t_s06_paid": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2.market_advance",
+          "kind": "transaction"
+        },
+        {
+          "id": "ali_advance_40",
+          "kind": "flag",
+          "value": 40
+        },
+        {
+          "id": "ch2_evidence_receipt",
+          "kind": "item_acquire"
+        },
+        {
+          "id": "ch2_evidence_receipt",
+          "kind": "flag",
+          "value": true
+        }
+      ],
+      "id": "ch2_t_s06_paid",
+      "mode": "animated",
+      "next_scene": "ch2_t_s06_invite",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S06",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.25,
+          "id": "ch2_collection_desk",
+          "pos": [
+            330,
+            288.6
+          ],
+          "zoom": 1.2
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "這四十我先墊，你開收據。"
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "我會把這筆記給你，但攤位的事還沒解決。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_market_contact_done"
+        }
+      }
+    },
+    "ch2_t_s06_pay_confirm": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s06_pay_confirm",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "扣四十信用點，取得蓋章收據。",
+          "id": "confirm",
+          "intent": [],
+          "target": "ch2_t_s06_paid",
+          "text": "確認代墊四十。",
+          "when": {}
+        },
+        {
+          "explanation": "回到剛才的選擇，什麼都不扣。",
+          "id": "back",
+          "intent": [],
+          "target": "ch2_t_s06_open_again",
+          "text": "先不付錢，回到剛才的選擇。",
+          "when": {}
+        }
+      ],
+      "section": "S06",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.25,
+          "id": "ch2_collection_desk",
+          "pos": [
+            330,
+            288.6
+          ],
+          "zoom": 1.2
+        },
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "代墊四十信用點，只解除今天的催收；不結清阿梨的債。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_market_contact_done"
+        }
+      }
+    },
+    "ch2_t_s06_short": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s06_short",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_back_s06_open_again",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S06",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.25,
+          "id": "ch2_collection_desk",
+          "pos": [
+            330,
+            288.6
+          ],
+          "zoom": 1.2
+        },
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "信用點不夠，先問阿梨並核對收據。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s06_vig_revisit": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s06_vig_revisit",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S06",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "vig",
+          "text": "附件帶去帳房，別拿我的存根當免付證。"
+        }
+      ],
+      "when": {
+        "equals": true,
+        "flag": "ch2_market_contact_done"
+      }
+    },
+    "ch2_t_s07_address_known": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s07_address_known",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_back_s07_bowls",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S07",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "還記得兩下再一下，你沒把暗號算成一筆帳吧？"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "我記在人名那頁，沒有標價。"
+        }
+      ],
+      "when": {
+        "equals": true,
+        "flag": "knows_ali_address"
+      }
+    },
+    "ch2_t_s07_address_new": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "knows_ali_address",
+          "kind": "flag",
+          "value": true
+        }
+      ],
+      "id": "ch2_t_s07_address_new",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_back_s07_bowls",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S07",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "你說後樓，我差點走進貨梯。"
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "我是市場後樓三樓，走外梯，敲兩下再敲一下，我就知道是你。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "knows_ali_address"
+        }
+      }
+    },
+    "ch2_t_s07_bowls": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s07_bowls",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "替她洗三隻碗，再試湯。",
+          "id": "wash",
+          "intent": [],
+          "target": "ch2_t_s07_wash",
+          "text": "洗碗試湯。",
+          "when": {}
+        },
+        {
+          "explanation": "地址記下了，下次再來。",
+          "id": "address",
+          "intent": [],
+          "target": "ch2_t_s07_leave",
+          "text": "只記地址，先走。",
+          "when": {}
+        }
+      ],
+      "section": "S07",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "你想喝湯的話，先替我洗這三隻，好嗎？我剛試的都用完了。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_ali_home_visit"
+        }
+      }
+    },
+    "ch2_t_s07_door": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s07_door",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_s07_address",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S07",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "你找到了，門口那把補過的傘就是我的。先把鞋底的水擦一下，好嗎？"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_ali_home_visit"
+        }
+      }
+    },
+    "ch2_t_s07_leave": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2_ali_home_visit",
+          "kind": "flag",
+          "value": true
+        }
+      ],
+      "id": "ch2_t_s07_leave",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S07",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "下次再來，門口會留一盞燈。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s07_revisit": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s07_revisit",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S07",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "碗放左邊就好，今天我先試湯，不收新的攤租。"
+        }
+      ],
+      "when": {
+        "equals": true,
+        "flag": "ch2_ali_home_visit"
+      }
+    },
+    "ch2_t_s07_soup": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2_ali_home_visit",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "sq1_soup_practice_done",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "ch2.sq1_soup",
+          "kind": "transaction"
+        }
+      ],
+      "id": "ch2_t_s07_soup",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S07",
+      "staging": "",
+      "steps": [
+        {
+          "do": "world_action",
+          "id": "ali_bowl_rack"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "這鍋放的梨比昨晚多。"
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "我在試能煮一整晚的湯，梨嬸以前就是這樣教我的。她在梨攤邊撿到我，所以我叫阿梨。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "攤子準備叫什麼？"
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "名字還沒想好，我先想每天要給人吃什麼。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "我可以把攤租先付了。"
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "你先替我把錯的帳找出來。要不要租，我會自己簽，不用你替我答應。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "那你簽，我記要用的東西。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s07_wash": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s07_wash",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "左邊是乾的。",
+          "id": "left",
+          "intent": [],
+          "target": "ch2_t_s07_soup",
+          "text": "放到左邊的乾燥架。",
+          "when": {}
+        },
+        {
+          "explanation": "右邊還在滴水。",
+          "id": "right",
+          "intent": [],
+          "target": "ch2_t_s07_wash_wrong",
+          "text": "放到右邊的架子。",
+          "when": {}
+        },
+        {
+          "explanation": "地址記下了，試湯留到下次。",
+          "id": "stop",
+          "intent": [],
+          "target": null,
+          "text": "先不洗了，下次再來。",
+          "when": {}
+        }
+      ],
+      "section": "S07",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "沖過的碗要放到乾燥架上。左邊的架子是乾的。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s07_wash_wrong": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s07_wash_wrong",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_back_s07_wash",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S07",
+      "staging": "",
+      "steps": [
+        {
+          "do": "world_action",
+          "id": "ali_bowl_wet_end"
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "那邊還滴水，換到左邊就好。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s08_banyan": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2_banyan_heard",
+          "kind": "flag",
+          "value": true
+        }
+      ],
+      "id": "ch2_t_s08_banyan",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S08",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "banyan",
+          "text": "我賣涼茶賣到這把年紀，鷺年輕時把我攤子打翻，賠了三倍，還先付十年的茶錢。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "她現在連茶都拿來借人情。"
+        },
+        {
+          "do": "say",
+          "speaker": "banyan",
+          "text": "她以前最難相處，現在最好說話。以前她總說下回再賠，後來不敢拖了。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_banyan_heard"
+        }
+      }
+    },
+    "ch2_t_s08_banyan_revisit": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s08_banyan_revisit",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S08",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "banyan",
+          "text": "喝茶賒帳我也記著，別裝沒聽見。"
+        }
+      ],
+      "when": {
+        "equals": true,
+        "flag": "ch2_banyan_heard"
+      }
+    },
+    "ch2_t_s08_collection": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2_evidence_collection",
+          "kind": "item_acquire"
+        },
+        {
+          "id": "ch2_evidence_collection",
+          "kind": "flag",
+          "value": true
+        }
+      ],
+      "id": "ch2_t_s08_collection",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S08",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "批號M17，收款120，其中本金100、利息20，轉送北棟二樓。待收欄寫著120。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "本金已還一百，這期利息也付過了，他又塞了二十進去。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_evidence_collection"
+        }
+      }
+    },
+    "ch2_t_s08_collection_revisit": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s08_collection_revisit",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S08",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "代收簿的副本已經在筆記裡，原本留在裝卸間。"
+        }
+      ],
+      "when": {
+        "equals": true,
+        "flag": "ch2_evidence_collection"
+      }
+    },
+    "ch2_t_s08_contract": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2_evidence_contract",
+          "kind": "item_acquire"
+        },
+        {
+          "id": "ch2_evidence_contract",
+          "kind": "flag",
+          "value": true
+        }
+      ],
+      "id": "ch2_t_s08_contract",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S08",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "window_clerk",
+          "text": "攤位押金本金二百，本期利息二十。申請沒有核准前，不收續租款。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "這行要留副本，代收處給我的金額不一樣。"
+        },
+        {
+          "do": "say",
+          "speaker": "window_clerk",
+          "text": "副本給您，章蓋的是暫未核准。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_evidence_contract"
+        }
+      }
+    },
+    "ch2_t_s08_contract_revisit": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s08_contract_revisit",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S08",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "window_clerk",
+          "text": "合約副本給過了，申請核准前我們不收續租款。"
+        }
+      ],
+      "when": {
+        "equals": true,
+        "flag": "ch2_evidence_contract"
+      }
+    },
+    "ch2_t_s08_rumor": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2_rumor_heard",
+          "kind": "flag",
+          "value": true
+        }
+      ],
+      "id": "ch2_t_s08_rumor",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S08",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "hawker",
+          "text": "人家說付帳人遲早來收，你最好別只看今天的價。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "你見過他收什麼？"
+        },
+        {
+          "do": "say",
+          "speaker": "hawker",
+          "text": "我也是聽的，沒見過。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_rumor_heard"
+        }
+      }
+    },
+    "ch2_t_s08_rumor_revisit": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s08_rumor_revisit",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S08",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "hawker",
+          "text": "我只是聽說的，你自己看帳比較準。"
+        }
+      ],
+      "when": {
+        "equals": true,
+        "flag": "ch2_rumor_heard"
+      }
+    },
+    "ch2_t_s08_screen": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s08_screen",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S08",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "shen",
+          "text": "我們先確認一件事：每一份申請，都代表有人還想回家。天穹會繼續讓第二次成為可能。"
+        },
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "天穹週年演說，創辦人沈望。旁邊的氣象欄寫著：今晚降雨偏多，復原申請量預計增加。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s09_guard": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2_guard_seen",
+          "kind": "flag",
+          "value": true
+        }
+      ],
+      "id": "ch2_t_s09_guard",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S09",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "守衛還有呼吸，誰先來過？"
+        },
+        {
+          "do": "say",
+          "speaker": "lamp",
+          "text": "我只看見門沒鎖，查不到人。"
+        },
+        {
+          "do": "say",
+          "speaker": "lamp",
+          "text": "先看門內，別替影子取名字。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_guard_seen"
+        }
+      }
+    },
+    "ch2_t_s09_guard_revisit": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s09_guard_revisit",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S09",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "守衛倚著牆睡著，胸口一起一伏，沒有受傷。"
+        }
+      ],
+      "when": {
+        "equals": true,
+        "flag": "ch2_guard_seen"
+      }
+    },
+    "ch2_t_s09_lever": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2_sc1_open",
+          "kind": "flag",
+          "value": true
+        }
+      ],
+      "id": "ch2_t_s09_lever",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S09",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "從這邊放下橋梯，回代收處就不用繞了。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_sc1_open"
+        }
+      }
+    },
+    "ch2_t_s09_lever_revisit": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s09_lever_revisit",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S09",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "橋梯已經放下，通到代收處。"
+        }
+      ],
+      "when": {
+        "equals": true,
+        "flag": "ch2_sc1_open"
+      }
+    },
+    "ch2_t_s10_batch": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s10_batch",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "三張都有同一批號。",
+          "id": "north",
+          "intent": [],
+          "target": "ch2_t_s10_done",
+          "text": "選代收簿的批號：轉送北棟二樓。",
+          "when": {}
+        },
+        {
+          "explanation": "租攤視窗只開合約，帳不是送到那裡。",
+          "id": "window",
+          "intent": [],
+          "target": "ch2_t_s10_batch_wrong",
+          "text": "選租攤視窗的地址。",
+          "when": {}
+        }
+      ],
+      "section": "S10",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "代收簿還寫一百二十，他把已付的二十再收一次。"
+        },
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "最後確認這筆帳送到哪裡。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s10_batch_wrong": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s10_batch_wrong",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_back_s10_batch",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S10",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "租攤視窗只開合約。代收簿的批號旁寫著帳送去的地方。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s10_done": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2_market_reconciled",
+          "kind": "flag",
+          "value": true
+        }
+      ],
+      "id": "ch2_t_s10_done",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S10",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "lamp",
+          "text": "三張都有同一批號，北棟二樓就是送帳的地方。"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "把這三張留著，我們去找原本。你只查出了這一期，別替所有欠帳的人說已經清了。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "我拿證據去，不拿你的猜測去。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s10_interest": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s10_interest",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "合約與收據都說利息付過了。",
+          "id": "collection",
+          "intent": [],
+          "target": "ch2_t_s10_batch",
+          "text": "選代收簿的待收欄：一百二十。",
+          "when": {}
+        },
+        {
+          "explanation": "合約上的二十是本期該付的利息，不是重複的那筆。",
+          "id": "contract",
+          "intent": [],
+          "target": "ch2_t_s10_interest_wrong",
+          "text": "選合約的利息欄：二十。",
+          "when": {}
+        }
+      ],
+      "section": "S10",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "本金還剩一百，二十的利息已經付過。"
+        },
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "再找出哪一欄把已付的利息又算了一次。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s10_interest_wrong": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s10_interest_wrong",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_back_s10_interest",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S10",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "合約的二十是本期利息，收據寫著已經付過。請找把它又算一次的那一欄。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s10_missing_collection": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s10_missing_collection",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S10",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "還缺代收簿，去雨棚後面的裝卸間核對待收欄。"
+        }
+      ],
+      "when": {
+        "all": [
+          {
+            "not": {
+              "equals": true,
+              "flag": "ch2_market_reconciled"
+            }
+          },
+          {
+            "equals": true,
+            "flag": "ch2_evidence_receipt"
+          },
+          {
+            "not": {
+              "equals": true,
+              "flag": "ch2_evidence_collection"
+            }
+          }
+        ]
+      }
+    },
+    "ch2_t_s10_missing_contract": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s10_missing_contract",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S10",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "還缺租攤合約，去租攤視窗確認這期利息。"
+        }
+      ],
+      "when": {
+        "all": [
+          {
+            "not": {
+              "equals": true,
+              "flag": "ch2_market_reconciled"
+            }
+          },
+          {
+            "equals": true,
+            "flag": "ch2_evidence_receipt"
+          },
+          {
+            "equals": true,
+            "flag": "ch2_evidence_collection"
+          },
+          {
+            "not": {
+              "equals": true,
+              "flag": "ch2_evidence_contract"
+            }
+          }
+        ]
+      }
+    },
+    "ch2_t_s10_missing_receipt": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s10_missing_receipt",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S10",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "先找代收處要已付收據，不能只用對方的帳證明對方。"
+        }
+      ],
+      "when": {
+        "all": [
+          {
+            "not": {
+              "equals": true,
+              "flag": "ch2_market_reconciled"
+            }
+          },
+          {
+            "not": {
+              "equals": true,
+              "flag": "ch2_evidence_receipt"
+            }
+          }
+        ]
+      }
+    },
+    "ch2_t_s10_principal": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s10_principal",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "收據寫本金兩百、已付的一百二裡有一百是本金。",
+          "id": "principal",
+          "intent": [],
+          "target": "ch2_t_s10_interest",
+          "text": "選收據的本金欄：本金還剩一百。",
+          "when": {}
+        },
+        {
+          "explanation": "已付的一百二裡還有利息。",
+          "id": "total",
+          "intent": [],
+          "target": "ch2_t_s10_principal_wrong",
+          "text": "把已付的一百二整筆當本金減掉。",
+          "when": {}
+        }
+      ],
+      "section": "S10",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "拿本金的欄對本金，別拿還款總額整筆減掉。裡面有已付利息。"
+        },
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "三張紙攤在桌上。先找出本金還剩多少。"
+        }
+      ],
+      "when": {
+        "all": [
+          {
+            "all": [
+              {
+                "equals": true,
+                "flag": "ch2_evidence_contract"
+              },
+              {
+                "equals": true,
+                "flag": "ch2_evidence_receipt"
+              },
+              {
+                "equals": true,
+                "flag": "ch2_evidence_collection"
+              }
+            ]
+          },
+          {
+            "not": {
+              "equals": true,
+              "flag": "ch2_market_reconciled"
+            }
+          }
+        ]
+      }
+    },
+    "ch2_t_s10_principal_wrong": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s10_principal_wrong",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_back_s10_principal",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S10",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "收據的一百二包含一百本金與二十利息，請分別比較。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s10_revisit": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s10_revisit",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S10",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "重複的二十已經對出來了，北棟二樓的貨門會放行。"
+        }
+      ],
+      "when": {
+        "equals": true,
+        "flag": "ch2_market_reconciled"
+      }
+    },
+    "ch2_t_s11_boxes": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2_yong_intro_seen",
+          "kind": "flag",
+          "value": true
+        }
+      ],
+      "id": "ch2_t_s11_boxes",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S11",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "lamp",
+          "text": "他的裝甲和復原共用電源，主箱撤銷能一起切掉。斷電後才能卸下棍子和儲能匣。"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "主機在她那層下面，別朝她那邊開槍。"
+        },
+        {
+          "do": "say",
+          "speaker": "lamp",
+          "text": "主箱會永久解除這段連結，側箱只能暫停，但現在被護板擋住。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_yong_intro_seen"
+        }
+      }
+    },
+    "ch2_t_s11_diagram": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s11_diagram",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S11",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "安全撤銷會永久解除這段復原連結，同時斷開動力；不會傷害座位上的人。"
+        },
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "維修暫停閂在側箱內。側箱現在被主機的帶電護板封住，手伸不進去。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s11_intro": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s11_intro",
+      "mode": "animated",
+      "next_scene": "ch2_t_s11_xiaowei",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S11",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "yong",
+          "text": "你們拿幾張副本，就要我把人借出去的錢當沒借？"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "我沒有刪本金，這二十已經付了。"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "把原帳拿出來，先核批號。你不認那個章，也不能叫人再付一次。"
+        },
+        {
+          "do": "say",
+          "speaker": "yong",
+          "text": "上面一天一張收費表，我只能照今天的收。你要說我錯，把今天那張也拿來。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "那就讓我們看。"
+        },
+        {
+          "do": "say",
+          "speaker": "yong",
+          "text": "這裡沒有給你們的鑰匙，拿帳先過我。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_yong_intro_seen"
+        }
+      }
+    },
+    "ch2_t_s11_revisit": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s11_revisit",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S11",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "lamp",
+          "text": "主箱永久解除父女連結，小薇不是攻擊目標。準備好就進帳房。"
+        }
+      ],
+      "when": {
+        "equals": true,
+        "flag": "ch2_yong_intro_seen"
+      }
+    },
+    "ch2_t_s11_xiaowei": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s11_xiaowei",
+      "mode": "animated",
+      "next_scene": "ch2_t_s11_boxes",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S11",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "xiaowei",
+          "text": "爸爸，傘要放在哪裡？"
+        },
+        {
+          "do": "say",
+          "speaker": "yong",
+          "text": "小薇，傘放在腳邊就好，不要離開椅子。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "你把你女兒帶到帳房幹什麼？"
+        },
+        {
+          "do": "say",
+          "speaker": "yong",
+          "text": "小薇是我的錨人，連著終端我才能回來。她要我回來。"
+        },
+        {
+          "do": "say",
+          "speaker": "xiaowei",
+          "text": "我不想爸爸再不見了。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_yong_intro_seen"
+        }
+      }
+    },
+    "ch2_t_s12_choice": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s12_choice",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "接著要親手操作主隔離箱。",
+          "id": "cut",
+          "intent": [
+            {
+              "id": "yong_link_choice",
+              "kind": "flag",
+              "value": "cut"
+            }
+          ],
+          "target": null,
+          "text": "永久解除父女連結，再制伏。",
+          "when": {}
+        },
+        {
+          "explanation": "繼續打，風險如上。",
+          "id": "keep",
+          "intent": [
+            {
+              "id": "yong_link_choice",
+              "kind": "flag",
+              "value": "keep"
+            }
+          ],
+          "target": null,
+          "text": "保留連結資格，繼續迎戰。",
+          "when": {}
+        },
+        {
+          "explanation": "再看一次四段說明。",
+          "id": "back",
+          "intent": [],
+          "target": "ch2_t_s12_choice",
+          "text": "先返回說明。",
+          "when": {}
+        }
+      ],
+      "section": "S12",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "永久解除會切掉動力與讀取。阿勇將失去靠小薇復原的資格，小薇不再承擔這段連結的損耗。"
+        },
+        {
+          "do": "say",
+          "speaker": "lamp",
+          "text": "斷電後打壞棍柄的鎖扣，再卸下儲能匣，就能制伏他。你還是要避開他的反擊。"
+        },
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "保留資格就繼續迎戰。儲能匣仍帶電，攻擊它可能使阿勇過載死亡；復原會讓小薇失去記憶。"
+        },
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "側箱的暫停閂現在被護板擋住，無法使用。繼續打有風險，不能保證兩人都不付出代價。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_yong_subdued"
+        }
+      }
+    },
+    "ch2_t_s12_keep_pause": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "yong_link_isolated",
+          "kind": "flag",
+          "value": true
+        }
+      ],
+      "id": "ch2_t_s12_keep_pause",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S12",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "lamp",
+          "text": "他的匣蓋閉不上，現在斷了電，可以卸下來。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "yong_link_isolated"
+        }
+      }
+    },
+    "ch2_t_s12_keep_revival": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "yong_revival_done",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "xiaowei_read_count",
+          "kind": "flag",
+          "value": 1
+        },
+        {
+          "id": "xiaowei_yellow_umbrella_recognized",
+          "kind": "flag",
+          "value": false
+        }
+      ],
+      "id": "ch2_t_s12_keep_revival",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S12",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "xiaowei",
+          "text": "爸爸，你說回來就吃飯。"
+        },
+        {
+          "do": "say",
+          "speaker": "yong",
+          "text": "我回來了，妳看著我。"
+        },
+        {
+          "do": "say",
+          "speaker": "xiaowei",
+          "text": "這把傘是誰的？"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "yong_revival_done"
+        }
+      }
+    },
+    "ch2_t_s13_cabinet": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2_original_ledger_taken",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "ch2_original_ledger",
+          "kind": "item_acquire"
+        },
+        {
+          "id": "ch2_ali_page",
+          "kind": "item_acquire"
+        },
+        {
+          "id": "ch2_clinic_index",
+          "kind": "item_acquire"
+        }
+      ],
+      "id": "ch2_t_s13_cabinet",
+      "mode": "animated",
+      "next_scene": "ch2_t_s13_fall",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S13",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.25,
+          "id": "ch2_ledger_office",
+          "pos": [
+            320,
+            254.6
+          ],
+          "zoom": 1.2
+        },
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "原帳寫著：待收100；代收簿附加20；收費基準另見夾層診所月報17。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "原本寫一百，代收那二十沒有根據。"
+        },
+        {
+          "do": "say",
+          "speaker": "lamp",
+          "text": "月報十七在夾層診所，這裡只有索引，沒有原始報表。"
+        },
+        {
+          "do": "say",
+          "speaker": "yong",
+          "text": "上面每天改，我拿得到的也是抄本。你想問原來怎麼算，就上去問。"
+        }
+      ],
+      "when": {
+        "all": [
+          {
+            "equals": true,
+            "flag": "ch2_yong_subdued"
+          },
+          {
+            "not": {
+              "equals": true,
+              "flag": "ch2_original_ledger_taken"
+            }
+          }
+        ]
+      }
+    },
+    "ch2_t_s13_cut": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2.yong_subdued",
+          "kind": "transaction"
+        }
+      ],
+      "id": "ch2_t_s13_cut",
+      "mode": "animated",
+      "next_scene": "ch2_t_s13_cabinet",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S13",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.8,
+          "id": "ch2_ledger_office",
+          "pos": [
+            320,
+            254.6
+          ],
+          "zoom": 1.2
+        },
+        {
+          "do": "say",
+          "speaker": "yong",
+          "text": "你永久拆了我和她的連結，還要我認你算的帳？"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "你活著就能對，別拿她再付。"
+        },
+        {
+          "do": "say",
+          "speaker": "xiaowei",
+          "text": "爸爸，我們回家嗎？"
+        },
+        {
+          "do": "say",
+          "speaker": "yong",
+          "text": "傘拿著，門外等我的人會送妳。"
+        }
+      ],
+      "when": {
+        "all": [
+          {
+            "equals": true,
+            "flag": "ch2_yong_subdued"
+          },
+          {
+            "equals": "cut",
+            "flag": "yong_link_choice"
+          },
+          {
+            "not": {
+              "equals": true,
+              "flag": "ch2_original_ledger_taken"
+            }
+          }
+        ]
+      }
+    },
+    "ch2_t_s13_fall": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2_egret_transport_done",
+          "kind": "flag",
+          "value": true
+        }
+      ],
+      "id": "ch2_t_s13_fall",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S13",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.25,
+          "id": "ch2_ledger_office",
+          "pos": [
+            320,
+            254.6
+          ],
+          "zoom": 1.2
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "鷺姐，你先別起來，讓我看看傷在哪裡。"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "這下茶又要重泡了。"
+        },
+        {
+          "do": "say",
+          "speaker": "lamp",
+          "text": "她的復原點在市集亭子，先把門口清出來，有人來接。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "她的傘也帶上，兩根骨都斷了。"
+        }
+      ],
+      "when": {
+        "all": [
+          {
+            "equals": true,
+            "flag": "ch2_original_ledger_taken"
+          },
+          {
+            "not": {
+              "equals": true,
+              "flag": "ch2_egret_transport_done"
+            }
+          }
+        ]
+      }
+    },
+    "ch2_t_s13_keep": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2.yong_subdued",
+          "kind": "transaction"
+        }
+      ],
+      "id": "ch2_t_s13_keep",
+      "mode": "animated",
+      "next_scene": "ch2_t_s13_cabinet",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S13",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.8,
+          "id": "ch2_ledger_office",
+          "pos": [
+            320,
+            254.6
+          ],
+          "zoom": 1.2
+        },
+        {
+          "do": "say",
+          "speaker": "yong",
+          "text": "她連自己的傘都不記得，你們滿意了？"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "是你把她接進來的，原帳也不能靠她付。"
+        },
+        {
+          "do": "say",
+          "speaker": "medic",
+          "text": "連結暫停了，恢復得先讓你們知道代價，再由你們決定。今天不會再讀她。"
+        },
+        {
+          "do": "say",
+          "speaker": "xiaowei",
+          "text": "爸爸，這把傘先讓你拿。我想自己走出去。"
+        },
+        {
+          "do": "say",
+          "speaker": "yong",
+          "text": "好，我走在妳後面。"
+        }
+      ],
+      "when": {
+        "all": [
+          {
+            "equals": true,
+            "flag": "ch2_yong_subdued"
+          },
+          {
+            "not": {
+              "equals": "cut",
+              "flag": "yong_link_choice"
+            }
+          },
+          {
+            "not": {
+              "equals": true,
+              "flag": "ch2_original_ledger_taken"
+            }
+          }
+        ]
+      }
+    },
+    "ch2_t_s13_locked": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s13_locked",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S13",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "帳櫃鎖著，鑰匙掛在阿勇身上。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_yong_subdued"
+        }
+      }
+    },
+    "ch2_t_s13_revisit": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s13_revisit",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S13",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "帳櫃空了，原帳的副本在筆記裡。到市集電話亭等鷺。"
+        }
+      ],
+      "when": {
+        "equals": true,
+        "flag": "ch2_original_ledger_taken"
+      }
+    },
+    "ch2_t_s14_quiet": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2_egret_returned",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "egret_restoration_count",
+          "kind": "flag",
+          "value": 214
+        }
+      ],
+      "id": "ch2_t_s14_quiet",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S14",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.25,
+          "id": "ch2_phone_booth",
+          "pos": [
+            300,
+            248.8
+          ],
+          "zoom": 1.15
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "你不會怕醒不過來？"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "我先把今天過完，不然明天的茶誰喝？"
+        },
+        {
+          "do": "say",
+          "speaker": "lamp",
+          "text": "門口清了，帳目可以上傳了。查完再回屋頂，別漏掉委託結算。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_egret_returned"
+        }
+      }
+    },
+    "ch2_t_s14_return": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s14_return",
+      "mode": "animated",
+      "next_scene": "ch2_t_s14_quiet",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S14",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.8,
+          "id": "ch2_phone_booth",
+          "pos": [
+            300,
+            248.8
+          ],
+          "zoom": 1.15
+        },
+        {
+          "do": "say",
+          "speaker": "voice",
+          "text": "歡迎回來。"
+        },
+        {
+          "do": "say",
+          "speaker": "lamp",
+          "text": "鷺姐，這次是第二百一十四次了。"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "你們連我遲到幾次都不算，這個倒記得清楚。"
+        },
+        {
+          "do": "say",
+          "speaker": "banyan",
+          "text": "喝茶賒帳我也記著，別裝沒聽見。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "兩根傘骨還沒長回來，復原只管你自己？"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "傘要是也收費，我早就用手接雨了。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_egret_returned"
+        }
+      }
+    },
+    "ch2_t_s14_revisit": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s14_revisit",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S14",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "我人回來了，傘沒修，這次紀錄別多算。"
+        }
+      ],
+      "when": {
+        "equals": true,
+        "flag": "ch2_egret_returned"
+      }
+    },
+    "ch2_t_s15_not_ready": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s15_not_ready",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S15",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "terminal",
+          "text": "上傳需要三份證據與原帳。原帳在北棟二樓的帳櫃。"
+        }
+      ],
+      "when": {
+        "all": [
+          {
+            "not": {
+              "equals": true,
+              "flag": "ch2_audit_submitted"
+            }
+          },
+          {
+            "not": {
+              "equals": true,
+              "flag": "ch2_original_ledger_taken"
+            }
+          }
+        ]
+      }
+    },
+    "ch2_t_s15_revisit": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s15_revisit",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S15",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "terminal",
+          "text": "查核已結案。索引保存在你的筆記裡。"
+        }
+      ],
+      "when": {
+        "equals": true,
+        "flag": "ch2_audit_submitted"
+      }
+    },
+    "ch2_t_s15_upload": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2_audit_submitted",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "ch2.audit_settled",
+          "kind": "transaction"
+        }
+      ],
+      "id": "ch2_t_s15_upload",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S15",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "ye",
+          "text": "我是天穹的葉，負責這次帳務抽查。你提出的同批號副本已核對，這一期附加的二十不成立。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "另一張診所月報決定他收多少，我要看原來的。"
+        },
+        {
+          "do": "say",
+          "speaker": "ye",
+          "text": "索引可以給你。夾層診所儲存原始月報，現場申請閱覽，這裡不能替它答。"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "我們對的是市場代收，阿梨自己的舊債由她簽。這筆先結，別混成一本。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "私人那頁我留副本，不幫她銷掉。"
+        },
+        {
+          "do": "say",
+          "speaker": "terminal",
+          "text": "市場查核報酬二百五十信用點，第一次結算。夾層是港區與日照區之間的工作層，診所從廣場貨梯過去。"
+        }
+      ],
+      "when": {
+        "all": [
+          {
+            "all": [
+              {
+                "equals": true,
+                "flag": "ch2_egret_returned"
+              },
+              {
+                "equals": true,
+                "flag": "ch2_original_ledger_taken"
+              },
+              {
+                "equals": true,
+                "flag": "ch2_market_reconciled"
+              }
+            ]
+          },
+          {
+            "not": {
+              "equals": true,
+              "flag": "ch2_audit_submitted"
+            }
+          }
+        ]
+      }
+    },
+    "ch2_t_s15_wait_egret": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s15_wait_egret",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S15",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "lamp",
+          "text": "先到市集電話亭等鷺，她醒了我們再一起上傳。"
+        }
+      ],
+      "when": {
+        "all": [
+          {
+            "not": {
+              "equals": true,
+              "flag": "ch2_audit_submitted"
+            }
+          },
+          {
+            "equals": true,
+            "flag": "ch2_original_ledger_taken"
+          },
+          {
+            "not": {
+              "equals": true,
+              "flag": "ch2_egret_returned"
+            }
+          }
+        ]
+      }
+    },
+    "ch2_t_s16_advance": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s16_advance",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S16",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "妳墊的四十不能拿來抵我沒同意的舊帳，我先把收據夾在旁邊。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "妳決定怎麼用，我不再替你塞進去。"
+        }
+      ],
+      "when": {
+        "equals": 40,
+        "flag": "ali_advance_40"
+      }
+    },
+    "ch2_t_s16_correct": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "sq1_ledger_delivered",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "ali_ledger_action",
+          "kind": "flag",
+          "value": "correct"
+        },
+        {
+          "destination": "ali",
+          "id": "ch2_ali_page",
+          "kind": "item_transfer"
+        },
+        {
+          "id": "ch2.sq1_ledger",
+          "kind": "transaction"
+        }
+      ],
+      "id": "ch2_t_s16_correct",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_s16_close",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S16",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "我陪妳，簽名妳自己寫。"
+        },
+        {
+          "do": "say",
+          "speaker": "terminal",
+          "text": "附加60已暫停，待核對；本金200保留。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s16_hold": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "sq1_ledger_delivered",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "ali_ledger_action",
+          "kind": "flag",
+          "value": "hold"
+        },
+        {
+          "destination": "ali",
+          "id": "ch2_ali_page",
+          "kind": "item_transfer"
+        },
+        {
+          "id": "ch2.sq1_ledger",
+          "kind": "transaction"
+        }
+      ],
+      "id": "ch2_t_s16_hold",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_s16_close",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S16",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "我把證據給妳，何時交由妳決定。"
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "我今天先留著，租攤那邊還等我補資料。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s16_idle": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s16_idle",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S16",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "我在等夜班的客人，你先去忙，湯我會留。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s16_need": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s16_need",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "完整問一次她需要什麼。",
+          "id": "ask",
+          "intent": [],
+          "target": "ch2_t_s06_ask_late",
+          "text": "問攤位的事。",
+          "when": {}
+        },
+        {
+          "explanation": "不影響主線。",
+          "id": "no",
+          "intent": [],
+          "target": null,
+          "text": "今天先不問。",
+          "when": {}
+        }
+      ],
+      "section": "S16",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "你現在想問攤位的事嗎？"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_ali_need_asked"
+        }
+      }
+    },
+    "ch2_t_s16_page": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s16_page",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "附加的六十暫停催收，本金兩百保留。",
+          "id": "correct",
+          "intent": [],
+          "target": "ch2_t_s16_correct",
+          "text": "陪她申請更正，簽名她自己寫。",
+          "when": {}
+        },
+        {
+          "explanation": "她先把紙留著，自己挑日子。",
+          "id": "hold",
+          "intent": [],
+          "target": "ch2_t_s16_hold",
+          "text": "把證據交給她，何時交由她決定。",
+          "when": {}
+        },
+        {
+          "explanation": "紙還在你手上，之後可以再交給她。",
+          "id": "later",
+          "intent": [],
+          "target": null,
+          "text": "先不談這頁。",
+          "when": {}
+        }
+      ],
+      "section": "S16",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "妳這一頁也把付過的利息加了一次，六十，不是市場那筆二十。"
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "本金兩百我認，這六十我不認。"
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "你沒替我刪掉，這樣我能自己去說。你想陪我申請更正，還是先把紙留給我？"
+        }
+      ],
+      "when": {
+        "all": [
+          {
+            "equals": true,
+            "flag": "ch2_audit_submitted"
+          },
+          {
+            "item": "ch2_ali_page"
+          },
+          {
+            "not": {
+              "equals": true,
+              "flag": "sq1_ledger_delivered"
+            }
+          }
+        ]
+      }
+    },
+    "ch2_t_s16_revisit_correct": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s16_revisit_correct",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S16",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "我收到暫停催收的回執，攤位許可還要我補，這不是你欠的。"
+        }
+      ],
+      "when": {
+        "equals": "correct",
+        "flag": "ali_ledger_action"
+      }
+    },
+    "ch2_t_s16_revisit_hold": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s16_revisit_hold",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S16",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "那頁還在我這裡，我會挑自己能去的那天。"
+        }
+      ],
+      "when": {
+        "equals": "hold",
+        "flag": "ali_ledger_action"
+      }
+    },
+    "ch2_t_s17_book": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2_guest_book_entered",
+          "kind": "flag",
+          "value": true
+        }
+      ],
+      "id": "ch2_t_s17_book",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_back_s17_open",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S17",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.35,
+          "id": "ch2_guest_book_room",
+          "pos": [
+            320,
+            206.3
+          ],
+          "zoom": 0.84
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "我可以聽您說，也可以照您留下的細節陪您說話。今晚有三位預約，我一位一位來。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "ch2_guest_book_entered"
+        }
+      }
+    },
+    "ch2_t_s17_offer": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s17_offer",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "接下來是阿梨的夜班；可以隨時回到凜這邊。",
+          "id": "watch",
+          "intent": [],
+          "target": "ch2_dispatch_s17_enter",
+          "text": "看她今天的工作（進入阿梨的視角）。",
+          "when": {}
+        },
+        {
+          "explanation": "客人簿之後還能再看。",
+          "id": "leave",
+          "intent": [],
+          "target": null,
+          "text": "先回屋頂。",
+          "when": {}
+        }
+      ],
+      "section": "S17",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "我有三位客人，晚一點才收店。你先回去，湯我會留。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "別替我把夜班也記成欠，我下次再來。"
+        }
+      ],
+      "when": {
+        "all": [
+          {
+            "equals": true,
+            "flag": "ch2_audit_submitted"
+          },
+          {
+            "not": {
+              "equals": true,
+              "flag": "guest_book_completed"
+            }
+          }
+        ]
+      }
+    },
+    "ch2_t_s17_open": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s17_open",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "他想有人問他今天吃了什麼。",
+          "id": "zheng",
+          "intent": [],
+          "target": "ch2_t_s18_ticket",
+          "text": "第一位客人：鄭先生。",
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "guest_ticket_answered"
+            }
+          }
+        },
+        {
+          "explanation": "她想有人坐在那張椅子上。",
+          "id": "chen",
+          "intent": [],
+          "target": "ch2_t_s19_band",
+          "text": "第二位客人：陳女士。",
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "guest_band_answered"
+            }
+          }
+        },
+        {
+          "explanation": "他想先把話講完。",
+          "id": "hong",
+          "intent": [],
+          "target": "ch2_t_s20_letter",
+          "text": "第三位客人：洪先生。",
+          "when": {
+            "not": {
+              "equals": true,
+              "flag": "guest_letter_answered"
+            }
+          }
+        },
+        {
+          "explanation": "剩下的客人之後還能再陪。",
+          "id": "back",
+          "intent": [],
+          "target": null,
+          "text": "先回到凜那邊。",
+          "when": {}
+        }
+      ],
+      "section": "S17",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.35,
+          "id": "ch2_guest_book_room",
+          "pos": [
+            320,
+            206.3
+          ],
+          "zoom": 0.84
+        },
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "阿梨翻開客人簿，看下一位預約的客人。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "guest_book_completed"
+        }
+      }
+    },
+    "ch2_t_s17_revisit": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s17_revisit",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S17",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "客人簿收好了，今晚的三頁都寫清楚了。"
+        }
+      ],
+      "when": {
+        "equals": true,
+        "flag": "guest_book_completed"
+      }
+    },
+    "ch2_t_s18_dad": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s18_dad",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_back_s18_ticket",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S18",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.35,
+          "id": "ch2_guest_book_room",
+          "pos": [
+            320,
+            206.3
+          ],
+          "zoom": 0.84
+        },
+        {
+          "do": "say",
+          "speaker": "zheng",
+          "text": "我剛才想先叫鄭先生，我還沒準備好。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s18_done": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "guest_ticket_answered",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "ch2.guest_zheng",
+          "kind": "transaction"
+        }
+      ],
+      "id": "ch2_t_s18_done",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_s17_next",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S18",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.35,
+          "id": "ch2_guest_book_room",
+          "pos": [
+            320,
+            206.3
+          ],
+          "zoom": 0.84
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "鄭先生，您今天的魚沒有吃完，要不要把刺先放在左邊的小盤？"
+        },
+        {
+          "do": "say",
+          "speaker": "zheng",
+          "text": "我想說沒吃完，她大概會笑我。妳不用學她笑，聽我說完就好。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s18_name": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s18_name",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "用他剛說過的三件事。",
+          "id": "fish",
+          "intent": [],
+          "target": "ch2_t_s18_done",
+          "text": "照他說的稱呼、沒吃完的魚與左邊的小盤回應他。",
+          "when": {}
+        },
+        {
+          "explanation": "和他說的不一樣。",
+          "id": "meat",
+          "intent": [],
+          "target": "ch2_t_s18_wrong",
+          "text": "問鄭先生今天的肉好不好吃。",
+          "when": {}
+        },
+        {
+          "explanation": "剩下的客人之後還能再陪。",
+          "id": "back",
+          "intent": [],
+          "target": null,
+          "text": "先回到凜那邊。",
+          "when": {}
+        }
+      ],
+      "section": "S18",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.35,
+          "id": "ch2_guest_book_room",
+          "pos": [
+            320,
+            206.3
+          ],
+          "zoom": 0.84
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "您想讓我怎麼稱呼您？"
+        },
+        {
+          "do": "say",
+          "speaker": "zheng",
+          "text": "叫鄭先生就好，今晚不用叫爸爸，那樣我會一直等她。"
+        },
+        {
+          "do": "say",
+          "speaker": "zheng",
+          "text": "我今天吃了魚，沒吃完。她總把魚刺挑到左邊的小盤，怕我嫌麻煩。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s18_ticket": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s18_ticket",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "先問稱呼。",
+          "id": "ask",
+          "intent": [],
+          "target": "ch2_t_s18_name",
+          "text": "問他：「您想讓我怎麼稱呼您？」",
+          "when": {}
+        },
+        {
+          "explanation": "不先問就照角色說。",
+          "id": "dad",
+          "intent": [],
+          "target": "ch2_t_s18_dad",
+          "text": "直接叫他爸爸。",
+          "when": {}
+        },
+        {
+          "explanation": "剩下的客人之後還能再陪。",
+          "id": "back",
+          "intent": [],
+          "target": null,
+          "text": "先回到凜那邊。",
+          "when": {}
+        }
+      ],
+      "section": "S18",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.35,
+          "id": "ch2_guest_book_room",
+          "pos": [
+            320,
+            206.3
+          ],
+          "zoom": 0.84
+        },
+        {
+          "do": "say",
+          "speaker": "zheng",
+          "text": "我想有人問我今天吃了什麼，她以前會問。我女兒二十六歲那年沒有回來。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s18_wrong": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s18_wrong",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_back_s18_name",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S18",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.35,
+          "id": "ch2_guest_book_room",
+          "pos": [
+            320,
+            206.3
+          ],
+          "zoom": 0.84
+        },
+        {
+          "do": "say",
+          "speaker": "zheng",
+          "text": "我今天吃的是魚，我可以再說一次。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s19_band": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s19_band",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "讓她決定要不要說。",
+          "id": "today",
+          "intent": [],
+          "target": "ch2_t_s19_quiet",
+          "text": "問她：「您今晚想談今天，還是只想安靜一點？」",
+          "when": {}
+        },
+        {
+          "explanation": "直接問復原的事。",
+          "id": "death",
+          "intent": [],
+          "target": "ch2_t_s19_wrong_death",
+          "text": "問她怎麼死的。",
+          "when": {}
+        },
+        {
+          "explanation": "剩下的客人之後還能再陪。",
+          "id": "back",
+          "intent": [],
+          "target": null,
+          "text": "先回到凜那邊。",
+          "when": {}
+        }
+      ],
+      "section": "S19",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.35,
+          "id": "ch2_guest_book_room",
+          "pos": [
+            320,
+            206.3
+          ],
+          "zoom": 0.84
+        },
+        {
+          "do": "say",
+          "speaker": "chen",
+          "text": "我妻子今天在另一個港口，回不來。我想有人坐這張椅子，不用裝作她真的在這裡。"
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "我坐這邊，您要我先聊什麼？"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s19_done": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "guest_band_answered",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "ch2.guest_chen",
+          "kind": "transaction"
+        }
+      ],
+      "id": "ch2_t_s19_done",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_s17_next",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S19",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.35,
+          "id": "ch2_guest_book_room",
+          "pos": [
+            320,
+            206.3
+          ],
+          "zoom": 0.84
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "這碗梨湯沒有蔥。您的雨帽已經翻出來，外套掛著晾就好。"
+        },
+        {
+          "do": "say",
+          "speaker": "chen",
+          "text": "我還能聞到湯，今天先不談別的。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s19_quiet": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s19_quiet",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "照她說的四件事：不問死法、熱湯、雨帽、不要蔥。",
+          "id": "soup",
+          "intent": [],
+          "target": "ch2_t_s19_done",
+          "text": "替她翻好雨帽，端一碗沒有蔥的梨湯。",
+          "when": {}
+        },
+        {
+          "explanation": "忘了她不吃蔥。",
+          "id": "scallion",
+          "intent": [],
+          "target": "ch2_t_s19_wrong_soup",
+          "text": "端一碗加了蔥的湯。",
+          "when": {}
+        },
+        {
+          "explanation": "剩下的客人之後還能再陪。",
+          "id": "back",
+          "intent": [],
+          "target": null,
+          "text": "先回到凜那邊。",
+          "when": {}
+        }
+      ],
+      "section": "S19",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.35,
+          "id": "ch2_guest_book_room",
+          "pos": [
+            320,
+            206.3
+          ],
+          "zoom": 0.84
+        },
+        {
+          "do": "say",
+          "speaker": "chen",
+          "text": "別問我怎麼死的。我記得每一秒，只想吃一口熱的。"
+        },
+        {
+          "do": "say",
+          "speaker": "chen",
+          "text": "她替我收外套時，都會把帽子翻出來，不讓水流進領子。今晚能替我翻嗎？"
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "您有不能吃的東西嗎？"
+        },
+        {
+          "do": "say",
+          "speaker": "chen",
+          "text": "不要蔥，梨湯就好。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s19_wrong_death": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s19_wrong_death",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_back_s19_band",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S19",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.35,
+          "id": "ch2_guest_book_room",
+          "pos": [
+            320,
+            206.3
+          ],
+          "zoom": 0.84
+        },
+        {
+          "do": "say",
+          "speaker": "chen",
+          "text": "這件事我今晚不想說，請換個話題。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s19_wrong_soup": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s19_wrong_soup",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_back_s19_quiet",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S19",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.35,
+          "id": "ch2_guest_book_room",
+          "pos": [
+            320,
+            206.3
+          ],
+          "zoom": 0.84
+        },
+        {
+          "do": "say",
+          "speaker": "chen",
+          "text": "我不能吃蔥，您能換一碗嗎？"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s20_done": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "guest_letter_answered",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "ch2.guest_hong",
+          "kind": "transaction"
+        }
+      ],
+      "id": "ch2_t_s20_done",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_s17_next",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S20",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.35,
+          "id": "ch2_guest_book_room",
+          "pos": [
+            320,
+            206.3
+          ],
+          "zoom": 0.84
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "我聽見了，您可以把沒問過他的事寫進信裡。"
+        },
+        {
+          "do": "say",
+          "speaker": "hong",
+          "text": "我自己寄，不能叫妳替我。"
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "信封給您，寄到哪裡也請您自己決定。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s20_letter": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s20_letter",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "讓他先說。",
+          "id": "listen",
+          "intent": [],
+          "target": "ch2_t_s20_story",
+          "text": "問他：「您希望我回答，還是先讓您說完？」",
+          "when": {}
+        },
+        {
+          "explanation": "替不在場的人回答。",
+          "id": "forgive",
+          "intent": [],
+          "target": "ch2_t_s20_wrong",
+          "text": "說：「我替他原諒您。」",
+          "when": {}
+        },
+        {
+          "explanation": "剩下的客人之後還能再陪。",
+          "id": "back",
+          "intent": [],
+          "target": null,
+          "text": "先回到凜那邊。",
+          "when": {}
+        }
+      ],
+      "section": "S20",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.35,
+          "id": "ch2_guest_book_room",
+          "pos": [
+            320,
+            206.3
+          ],
+          "zoom": 0.84
+        },
+        {
+          "do": "say",
+          "speaker": "hong",
+          "text": "我以前每次都替他回話，後來他不跟我出海了。你能先當作還願意聽的人嗎？"
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "我可以聽，但我不能替他答應您。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s20_story": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s20_story",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "不替朋友回答，把筆交給他。",
+          "id": "heard",
+          "intent": [],
+          "target": "ch2_t_s20_done",
+          "text": "回答：「我聽見了，您可以把沒問過他的事寫進信裡。」",
+          "when": {}
+        },
+        {
+          "explanation": "他剛說過不要這句。",
+          "id": "fine",
+          "intent": [],
+          "target": "ch2_t_s20_wrong_fine",
+          "text": "告訴他沒關係，朋友一定會懂。",
+          "when": {}
+        },
+        {
+          "explanation": "剩下的客人之後還能再陪。",
+          "id": "back",
+          "intent": [],
+          "target": null,
+          "text": "先回到凜那邊。",
+          "when": {}
+        }
+      ],
+      "section": "S20",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.35,
+          "id": "ch2_guest_book_room",
+          "pos": [
+            320,
+            206.3
+          ],
+          "zoom": 0.84
+        },
+        {
+          "do": "say",
+          "speaker": "hong",
+          "text": "先讓我說完。不要說沒關係，他沒有這麼說過。"
+        },
+        {
+          "do": "say",
+          "speaker": "hong",
+          "text": "我那天替他簽了下一趟的名，覺得船位難得，留給他就是幫他。沒問他為什麼不想去。"
+        },
+        {
+          "do": "say",
+          "speaker": "hong",
+          "text": "我現在想把名字圈掉，信還是得寄。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s20_wrong": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s20_wrong",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_back_s20_letter",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S20",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.35,
+          "id": "ch2_guest_book_room",
+          "pos": [
+            320,
+            206.3
+          ],
+          "zoom": 0.84
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "我不能替他原諒您，我可以再聽您說一遍。"
+        },
+        {
+          "do": "say",
+          "speaker": "hong",
+          "text": "對，他沒有說過沒關係。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s20_wrong_fine": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s20_wrong_fine",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_back_s20_story",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S20",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.35,
+          "id": "ch2_guest_book_room",
+          "pos": [
+            320,
+            206.3
+          ],
+          "zoom": 0.84
+        },
+        {
+          "do": "say",
+          "speaker": "hong",
+          "text": "他沒有說過沒關係，請不要替他說。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s21_close": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "guest_book_completed",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "ch2.guest_book",
+          "kind": "transaction"
+        }
+      ],
+      "id": "ch2_t_s21_close",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S21",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.35,
+          "id": "ch2_guest_book_room",
+          "pos": [
+            320,
+            206.3
+          ],
+          "zoom": 0.84
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "鄭先生不想聽爸爸，陳女士不要蔥，洪先生不想別人替他說沒關係。今天三頁都寫清楚了。"
+        },
+        {
+          "do": "say",
+          "speaker": "label",
+          "text": "阿梨把一顆梨放進鍋裡。"
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "梨嬸教我，湯裡放一顆梨，煮到最後也不容易澀。她在梨攤邊把我抱回去，我能留下的做法就這幾樣。"
+        },
+        {
+          "do": "say",
+          "speaker": "ali",
+          "text": "我沒有錨人，真倒下就沒有下一次。有人能把今天說完，我就先讓他說完。"
+        }
+      ],
+      "when": {
+        "all": [
+          {
+            "all": [
+              {
+                "equals": true,
+                "flag": "guest_ticket_answered"
+              },
+              {
+                "equals": true,
+                "flag": "guest_band_answered"
+              },
+              {
+                "equals": true,
+                "flag": "guest_letter_answered"
+              }
+            ]
+          },
+          {
+            "not": {
+              "equals": true,
+              "flag": "guest_book_completed"
+            }
+          }
+        ]
+      }
+    },
+    "ch2_t_s22_decided": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s22_decided",
+      "mode": "animated",
+      "next_scene": "ch2_dispatch_s22_sunday",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S22",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.25,
+          "id": "ch1_rooftop",
+          "pos": [
+            320,
+            212.3
+          ],
+          "zoom": 1.0
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "我先看表，房子還差得遠。"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "明天別算我，週日我不接案。"
+        }
+      ],
+      "when": {
+        "all": [
+          {
+            "all": [
+              {
+                "equals": true,
+                "flag": "ch2_audit_submitted"
+              },
+              {
+                "equals": true,
+                "flag": "ch2_egret_returned"
+              }
+            ]
+          },
+          {
+            "not": {
+              "equals": true,
+              "flag": "ch2_heron_closed"
+            }
+          }
+        ]
+      }
+    },
+    "ch2_t_s22_greycoat": {
+      "binding": "",
+      "completion": [
+        {
+          "id": "ch2_heron_closed",
+          "kind": "flag",
+          "value": true
+        },
+        {
+          "id": "harbor_walk_ready",
+          "kind": "flag",
+          "value": true
+        }
+      ],
+      "id": "ch2_t_s22_greycoat",
+      "mode": "animated",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S22",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.25,
+          "id": "ch1_rooftop",
+          "pos": [
+            320,
+            212.3
+          ],
+          "zoom": 1.0
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "對面那個人一直看這邊，他今天是不是先我們進市場？"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "看見了不代表知道，我們明天再看。"
+        },
+        {
+          "do": "say",
+          "speaker": "lamp",
+          "text": "港區的通路都接上了，市場後門能回當舖街口。上層那條還沒通，明天得從廣場走。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "我先回去，老 K 留了飯。"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "喝完再走，這次我真不追妳。"
+        }
+      ],
+      "when": {}
+    },
+    "ch2_t_s22_revisit": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s22_revisit",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S22",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "明天別算我，週日我不接案。"
+        }
+      ],
+      "when": {
+        "equals": true,
+        "flag": "ch2_heron_closed"
+      }
+    },
+    "ch2_t_s22_sunday_known": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s22_sunday_known",
+      "mode": "animated",
+      "next_scene": "ch2_t_s22_greycoat",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S22",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.25,
+          "id": "ch1_rooftop",
+          "pos": [
+            320,
+            212.3
+          ],
+          "zoom": 1.0
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "那個人還在等你嫌吵，我沒排你的活。"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "妳終於沒替我把空白填滿，今天算妳贏一次。"
+        }
+      ],
+      "when": {
+        "equals": true,
+        "flag": "sq2_sunday_heard"
+      }
+    },
+    "ch2_t_s22_sunday_unknown": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s22_sunday_unknown",
+      "mode": "animated",
+      "next_scene": "ch2_t_s22_greycoat",
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S22",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 0.25,
+          "id": "ch1_rooftop",
+          "pos": [
+            320,
+            212.3
+          ],
+          "zoom": 1.0
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "你不是每次都說最後一次，怎麼還留週日？"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "有個人要見，工作不能佔那天。"
+        }
+      ],
+      "when": {
+        "not": {
+          "equals": true,
+          "flag": "sq2_sunday_heard"
+        }
+      }
+    },
+    "ch2_t_s22_tea": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_s22_tea",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [
+        {
+          "explanation": "確認明天的去向，接著聊完今晚的茶。",
+          "id": "go",
+          "intent": [],
+          "target": "ch2_t_s22_decided",
+          "text": "明天去夾層診所核對原表。",
+          "when": {}
+        },
+        {
+          "explanation": "回到屋頂，之後再來確認。",
+          "id": "wait",
+          "intent": [],
+          "target": null,
+          "text": "先把茶喝完再說。",
+          "when": {}
+        }
+      ],
+      "section": "S22",
+      "staging": "",
+      "steps": [
+        {
+          "do": "scene",
+          "fade": 1.0,
+          "id": "ch1_rooftop",
+          "pos": [
+            320,
+            212.3
+          ],
+          "zoom": 1.0
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "這杯先喝，別等我死了才幫我收。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "今天你把人家帳房撞壞了，茶錢恐怕不夠賠。"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "帳對出來了，他的椅子倒下去也值。"
+        },
+        {
+          "do": "say",
+          "speaker": "rin",
+          "text": "代收那筆對完了，可是診所月報還在上面。明天我從廣場貨梯過去，看原來的。"
+        },
+        {
+          "do": "say",
+          "speaker": "egret",
+          "text": "去查表可以，不用每張都有簽名就信它。晴岸也在那邊，就是你那本目錄的日照區住宅。想看就看，不先替老頭子買。"
+        }
+      ],
+      "when": {
+        "all": [
+          {
+            "all": [
+              {
+                "equals": true,
+                "flag": "ch2_audit_submitted"
+              },
+              {
+                "equals": true,
+                "flag": "ch2_egret_returned"
+              }
+            ]
+          },
+          {
+            "not": {
+              "equals": true,
+              "flag": "ch2_heron_closed"
+            }
+          }
+        ]
+      }
+    },
+    "ch2_t_xiaowei_line": {
+      "binding": "",
+      "completion": [],
+      "id": "ch2_t_xiaowei_line",
+      "mode": "dialogue",
+      "next_scene": null,
+      "on_cancel": "return_without_completion",
+      "options": [],
+      "section": "S11",
+      "staging": "",
+      "steps": [
+        {
+          "do": "say",
+          "speaker": "xiaowei",
+          "text": "爸爸說不要離開椅子，我就坐在這裡。"
+        }
+      ],
+      "when": {}
+    }
+  },
+  "speakers": {
+    "ali": {
+      "color": "#f2b8c6",
+      "name": "阿梨",
+      "portrait": "res://art/portraits/ali.png"
+    },
+    "banyan": {
+      "color": "#9fc28a",
+      "name": "榕伯",
+      "portrait": "res://art/portraits/banyan.png"
+    },
+    "broadcast": {
+      "color": "#c8c0e8",
+      "formal": true,
+      "name": "陌生廣播",
+      "portrait": "res://art/portraits/system.png"
+    },
+    "chen": {
+      "color": "#c8b8b0",
+      "name": "陳女士",
+      "portrait": "res://art/portraits/guest_chen.png"
+    },
+    "egret": {
+      "color": "#b8c4d6",
+      "name": "鷺",
+      "portrait": "res://art/portraits/egret.png"
+    },
+    "hawker": {
+      "color": "#c8b090",
+      "name": "小販",
+      "portrait": "res://art/portraits/resident.png"
+    },
+    "hong": {
+      "color": "#b0c8b8",
+      "name": "洪先生",
+      "portrait": "res://art/portraits/guest_hong.png"
+    },
+    "label": {
+      "color": "#ded5b0",
+      "formal": true,
+      "name": "說明",
+      "portrait": "res://art/portraits/system.png"
+    },
+    "lamp": {
+      "color": "#8fe39a",
+      "name": "燈",
+      "portrait": "res://art/portraits/lamp.png"
+    },
+    "medic": {
+      "color": "#a8d0c8",
+      "name": "救護員",
+      "portrait": "res://art/portraits/nurse.png"
+    },
+    "old_k": {
+      "color": "#ffd23f",
+      "name": "老K",
+      "portrait": "res://art/portraits/old_k.png"
+    },
+    "patroller": {
+      "color": "#c0a080",
+      "name": "巡帳員",
+      "portrait": "res://art/portraits/resident.png"
+    },
+    "rin": {
+      "color": "#ff3fa4",
+      "name": "凜",
+      "portrait": "res://art/portraits/rin.png"
+    },
+    "shen": {
+      "color": "#e8e0d0",
+      "formal": true,
+      "name": "沈望",
+      "portrait": "res://art/portraits/system.png"
+    },
+    "terminal": {
+      "color": "#9ad7ff",
+      "formal": true,
+      "name": "委託終端",
+      "portrait": "res://art/portraits/system.png"
+    },
+    "vig": {
+      "color": "#e0a050",
+      "name": "利息",
+      "portrait": "res://art/portraits/vig.png"
+    },
+    "voice": {
+      "color": "#c8c0e8",
+      "formal": true,
+      "name": "錄音",
+      "portrait": "res://art/portraits/system.png"
+    },
+    "weather": {
+      "color": "#9ad7ff",
+      "formal": true,
+      "name": "氣象臺",
+      "portrait": "res://art/portraits/system.png"
+    },
+    "window_clerk": {
+      "color": "#a0b0c0",
+      "formal": true,
+      "name": "視窗員",
+      "portrait": "res://art/portraits/resident.png"
+    },
+    "xiaowei": {
+      "color": "#f4e07a",
+      "name": "小薇",
+      "portrait": "res://art/portraits/xiaowei.png"
+    },
+    "ye": {
+      "color": "#c8d8f0",
+      "formal": true,
+      "name": "葉",
+      "portrait": "res://art/portraits/ye.png"
+    },
+    "yong": {
+      "color": "#d46a4a",
+      "name": "阿勇",
+      "portrait": "res://art/portraits/yong.png"
+    },
+    "zheng": {
+      "color": "#b0b8c8",
+      "name": "鄭先生",
+      "portrait": "res://art/portraits/guest_zheng.png"
+    }
+  },
+  "transactions": {
+    "ch1.commission.settled": {
+      "caller": "chapter2",
+      "resource": "res://data/story_transactions/ch1_commission_settled.tres"
+    },
+    "ch2.audit_settled": {
+      "caller": "chapter2",
+      "resource": "res://data/story_transactions/ch2_audit_settled.tres"
+    },
+    "ch2.guest_book": {
+      "caller": "chapter2",
+      "resource": "res://data/story_transactions/ch2_guest_book.tres"
+    },
+    "ch2.guest_chen": {
+      "caller": "chapter2",
+      "resource": "res://data/story_transactions/ch2_guest_chen.tres"
+    },
+    "ch2.guest_hong": {
+      "caller": "chapter2",
+      "resource": "res://data/story_transactions/ch2_guest_hong.tres"
+    },
+    "ch2.guest_zheng": {
+      "caller": "chapter2",
+      "resource": "res://data/story_transactions/ch2_guest_zheng.tres"
+    },
+    "ch2.market_advance": {
+      "caller": "chapter2",
+      "on_failure": {
+        "insufficient_credits": "ch2_t_s06_short"
+      },
+      "resource": "res://data/story_transactions/ch2_market_advance.tres"
+    },
+    "ch2.sq1_ledger": {
+      "caller": "chapter2",
+      "resource": "res://data/story_transactions/ch2_sq1_ledger.tres"
+    },
+    "ch2.sq1_need": {
+      "caller": "chapter2",
+      "resource": "res://data/story_transactions/ch2_sq1_need.tres"
+    },
+    "ch2.sq1_soup": {
+      "caller": "chapter2",
+      "resource": "res://data/story_transactions/ch2_sq1_soup.tres"
+    },
+    "ch2.sq2_sunday": {
+      "caller": "chapter2",
+      "resource": "res://data/story_transactions/ch2_sq2_sunday.tres"
+    },
+    "ch2.sq4_radio": {
+      "caller": "chapter2",
+      "resource": "res://data/story_transactions/ch2_sq4_radio.tres"
+    },
+    "ch2.yong_subdued": {
+      "caller": "chapter2",
+      "resource": "res://data/story_transactions/ch2_yong_subdued.tres"
+    }
+  }
+}

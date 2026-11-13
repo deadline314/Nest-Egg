@@ -1,0 +1,38 @@
+{
+  "classification": "Independent reader invocations completed with exit0; lossless alpha is derivative evidence, not original RGBA",
+  "reader": "art_src/characters/guest_zheng/read_sensor_evidence.py",
+  "cases": [
+    {
+      "manifest": "npc-performance-material-v2/remote-evidence-manifest.json",
+      "exit_code": 0,
+      "verified_alpha_frames": 7200,
+      "verified_original_failed_rgba_frames": 288,
+      "all_volume_sha_verified": true,
+      "every_alpha_pixel_sha_verified": true,
+      "original_failed_png_bytes_sha_verified": true
+    },
+    {
+      "manifest": "npc-transitions-material-v2/remote-evidence-manifest.json",
+      "exit_code": 0,
+      "verified_alpha_frames": 960,
+      "verified_original_failed_rgba_frames": 6,
+      "all_volume_sha_verified": true,
+      "every_alpha_pixel_sha_verified": true,
+      "original_failed_png_bytes_sha_verified": true
+    }
+  ],
+  "persistent_originals": [
+    {
+      "path": "D:/NestEggVerification/archives/NE-267/npc-performance-material-v2-native-rgba.zip",
+      "sha256": "618f6bfdb5cdf10eaa23dac08e0f6786f711d39ebf08e5b09bc59a4a92546be5",
+      "classification": "complete original native RGBA sensor bytes, alpha-only RGB shader"
+    },
+    {
+      "path": "D:/NestEggVerification/archives/NE-267/npc-transitions-material-v2-native-rgba.zip",
+      "sha256": "9c512a80802f80ef10c396cec6472a2fab1c6c2f2913f9d46ac5c45333849d6d",
+      "classification": "complete original native RGBA sensor bytes, alpha-only RGB shader"
+    }
+  ],
+  "retention": "Original PNGs and complete native archives remain on C and in persistent D archives, outside cleanable worktrees. Earlier full-colour native archives are also retained unchanged.",
+  "remote_archive_limit_bytes": 47185920
+}

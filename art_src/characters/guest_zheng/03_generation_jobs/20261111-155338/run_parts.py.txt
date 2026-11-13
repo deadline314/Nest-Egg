@@ -1,0 +1,87 @@
+"""Run the existing parts pipeline against an existing service without owning its lifecycle.
+
+The normal client takes the repository GPU lock for each submitted graph. This wrapper
+does not acquire a second, non-reentrant lock or start/stop/free/cancel any server job.
+"""
+from __future__ import annotations
+
+import hashlib
+import json
+import os
+import sys
+import time
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[3]
+WORK = Path(__file__).resolve().parent
+os.environ.update(COMFY_HOST="http://127.0.0.1:8188", COMFY_MAX_RETRIES="0",
+                  COMFY_STALL_S="900", COMFY_COLD_STALL_S="900",
+                  COMFY_LOG=str(WORK / "unowned-service-no-log.log"), OUT_DIR=str(WORK / "_gen"))
+sys.path.insert(0, str(ROOT / "tools/comfyui"))
+import comfy_api
+import comfy_guard
+
+
+def require_existing_server():
+    if not comfy_guard.server_up():
+        raise RuntimeError("The shared service is unavailable; this client cannot start or restart it")
+
+
+def refuse_lifecycle(*args, **kwargs):
+    raise RuntimeError("Shared service lifecycle is disabled for this client")
+
+
+def sha(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def main():
+    stamp = time.strftime("%Y%m%d-%H%M%S")
+    receipt = WORK / "03_generation_jobs" / stamp
+    receipt.mkdir(parents=True)
+    protected = [WORK / "base_rgba.png", ROOT / "art/portraits/guest_zheng.png"]
+    before = {str(p.relative_to(ROOT)): sha(p) for p in protected}
+    report = {"shared_existing_service": True, "host": comfy_api.HOST, "client_python": sys.executable,
+              "lifecycle_disabled": True, "graph_retries": 0, "qwen_attempts": 1,
+              "started_at": stamp, "protected_before": before, "graphs": [], "passed": False}
+    comfy_guard.ensure_server = require_existing_server
+    comfy_guard.restart_server = refuse_lifecycle
+    original_run, original_qwen = comfy_api.run, comfy_api.qwen
+
+    def record_run(graph, name, retries=None):
+        member = f"{len(report['graphs']):02d}-{name}.json"
+        data = json.dumps(graph, ensure_ascii=False, indent=2).encode()
+        (receipt / member).write_bytes(data)
+        report["graphs"].append({"name": name, "graph": member, "sha256": hashlib.sha256(data).hexdigest()})
+        return original_run(graph, name, retries=0)
+
+    def one_qwen(*args, **kwargs):
+        kwargs["retries"] = 1  # qwen retries means output attempts; run() retries stays zero.
+        return original_qwen(*args, **kwargs)
+
+    comfy_api.run, comfy_api.qwen = record_run, one_qwen
+    start = time.monotonic()
+    try:
+        require_existing_server()
+        report["server_stats_before"] = json.loads(comfy_api._get("/system_stats"))
+        for path in (Path(__file__), ROOT / "tools/comfyui/specs/guest_zheng_side.json"):
+            (receipt / (path.name + ".txt")).write_bytes(path.read_bytes())
+        import make_parts
+        sys.argv = ["make_parts.py", "--spec", str(ROOT / "tools/comfyui/specs/guest_zheng_side.json"),
+                    "--work", str(WORK), *sys.argv[1:]]
+        make_parts.main()
+        report["passed"] = True
+    except BaseException as error:
+        report["error"] = f"{type(error).__name__}: {error}"
+        raise
+    finally:
+        report["seconds"] = time.monotonic() - start
+        report["protected_after"] = {str(p.relative_to(ROOT)): sha(p) for p in protected}
+        report["protected_unchanged"] = report["protected_after"] == before
+        (receipt / "generation.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        if not report["protected_unchanged"]:
+            raise RuntimeError("Protected source/portrait bytes changed during parts generation")
+
+
+if __name__ == "__main__":
+    main()

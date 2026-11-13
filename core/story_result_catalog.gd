@@ -481,14 +481,41 @@ func _load_migration(path: String = MIGRATION) -> void:
 func _legacy_match(id: String, origin: Dictionary, scenes: Dictionary, sources: Dictionary) -> bool:
 	if not _migration_error.is_empty() or _protected.has(id) or not _migration.get("legacy",{}).has(id): return false
 	var expected: Dictionary = _migration["legacy"][id]
-	if sources.get(id) != expected["source"] or not scenes.get(id) is Dictionary or not RunSaveCodec.validate_tree(scenes[id],32768).is_empty() or not _projection_equal(_effects(scenes[id]),expected["effects"]): return false
+	if sources.get(id) != expected["source"] or not scenes.get(id) is Dictionary or not RunSaveCodec.validate_tree(scenes[id],32768).is_empty() or not _same_effects(scenes[id],expected["effects"]): return false
 	for binding: Dictionary in expected["origins"]:
 		if not _projection_equal(origin,binding): continue
 		var graph: Dictionary = _migration["routes"][binding["entry"]]
 		for node: String in graph:
-			if sources.get(node) != graph[node]["source"] or not scenes.get(node) is Dictionary or not RunSaveCodec.validate_tree(scenes[node],32768).is_empty() or not _projection_equal(_effects(scenes[node]),graph[node]["effects"]): return false
+			if sources.get(node) != graph[node]["source"] or not scenes.get(node) is Dictionary or not RunSaveCodec.validate_tree(scenes[node],32768).is_empty() or not _same_effects(scenes[node],graph[node]["effects"]): return false
 		return true
 	return false
+
+## Stage-only steps (walking, hands reaching, props shown or held) never write flags, items or results;
+## a move step's "then" is the pose after walking, not a scene jump.
+## Both sides drop them, so restaging a sealed scene keeps its legacy outcome.
+const STAGE_ONLY_STEPS := ["move","reach","prop","prop_move","prop_hold","prop_release","prop_visible"]
+
+static func _same_effects(scene: Variant, expected: Variant) -> bool:
+	return _projection_equal(_without_stage_steps(_effects(scene)), _without_stage_steps(expected))
+
+static func _without_stage_steps(raw: Variant) -> Variant:
+	if raw is Array:
+		var values: Array = []
+		for child: Variant in raw:
+			if child is Dictionary and child.get("do") in STAGE_ONLY_STEPS: continue
+			var kept: Variant = _without_stage_steps(child)
+			# A pure step left with nothing but its name carried only stage steps.
+			if kept is Dictionary and (kept.is_empty() or (kept.size() == 1 and kept.get("do") in PURE_STEPS)): continue
+			values.append(kept)
+		return values
+	if raw is Dictionary:
+		var out := {}
+		for key: Variant in raw:
+			var value: Variant = _without_stage_steps(raw[key]) if key in CONTAINERS else raw[key]
+			if key in CONTAINERS and value is Array and value.is_empty(): continue
+			out[key] = value
+		return out
+	return raw
 
 static func _projection_equal(actual: Variant, expected: Variant) -> bool:
 	if expected is bool: return actual is bool and actual == expected

@@ -1,0 +1,36 @@
+{
+  "command": [
+    "C:\\Users\\stanl\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "tools/comfyui/build_character.py",
+    "--recipe",
+    "tools/comfyui/recipes/guest_zheng.json",
+    "--from",
+    "normals",
+    "--to",
+    "import"
+  ],
+  "log": "paper-import-v1.log",
+  "seconds": 7.481133799999952,
+  "exit_code": 1,
+  "engine_errors": [
+    "ERROR: Failed loading resource: res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png.\r",
+    "ERROR: [Story] \u904e\u5834\u5834\u666f ch2_guest_book_room \u7b2c 3 \u5c64: sprite state texture is missing: res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png\r",
+    "ERROR: [Story] \u904e\u5834\u5834\u666f ch2_guest_book_room \u7b2c 3 \u5c64: sprite state texture is missing: res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png\r",
+    "ERROR: [Story] \u904e\u5834\u5834\u666f ch2_guest_book_room \u7b2c 3 \u5c64: sprite state texture is missing: res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png\r",
+    "ERROR: [Story] \u904e\u5834\u5834\u666f ch2_guest_book_room \u7b2c 3 \u5c64: sprite state texture is missing: res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png\r",
+    "ERROR: [Story] \u904e\u5834\u5834\u666f ch2_guest_book_room \u7b2c 3 \u5c64: sprite state texture is missing: res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png\r",
+    "ERROR: [Story] \u904e\u5834\u5834\u666f ch2_guest_book_room \u7b2c 3 \u5c64: sprite state texture is missing: res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png\r",
+    "ERROR: [Story] \u904e\u5834\u5834\u666f ch2_guest_book_room \u7b2c 3 \u5c64: sprite state texture is missing: res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png\r",
+    "ERROR: [Story] \u904e\u5834\u5834\u666f ch2_guest_book_room \u7b2c 3 \u5c64: sprite state texture is missing: res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png\r",
+    "ERROR: [Story] \u904e\u5834\u5834\u666f ch2_guest_book_room \u7b2c 3 \u5c64: sprite state texture is missing: res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png\r",
+    "ERROR: [Story] \u904e\u5834\u5834\u666f ch2_guest_book_room \u7b2c 3 \u5c64: sprite state texture is missing: res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png\r",
+    "ERROR: [Story] \u904e\u5834\u5834\u666f ch2_guest_book_room \u7b2c 3 \u5c64: sprite state texture is missing: res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png\r",
+    "ERROR: [Story] \u904e\u5834\u5834\u666f ch2_guest_book_room \u7b2c 3 \u5c64: sprite state texture is missing: res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png\r",
+    "ERROR: [Story] \u904e\u5834\u5834\u666f ch2_guest_book_room \u7b2c 3 \u5c64: sprite state texture is missing: res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png\r",
+    "ERROR: [Story] \u904e\u5834\u5834\u666f ch2_guest_book_room \u7b2c 3 \u5c64: sprite state texture is missing: res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png\r",
+    "ERROR: [Story] \u904e\u5834\u5834\u666f ch2_guest_book_room \u7b2c 3 \u5c64: sprite state texture is missing: res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png\r",
+    "ERROR: [Story] \u904e\u5834\u5834\u666f ch2_guest_book_room \u7b2c 3 \u5c64: sprite state texture is missing: res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png\r",
+    "ERROR: [Story] \u904e\u5834\u5834\u666f ch2_guest_book_room \u7b2c 3 \u5c64: sprite state texture is missing: res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png\r",
+    "ERROR: [Story] \u904e\u5834\u5834\u666f ch2_guest_book_room \u7b2c 3 \u5c64: sprite state texture is missing: res://art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png\r"
+  ]
+}

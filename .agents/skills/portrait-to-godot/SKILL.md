@@ -55,6 +55,7 @@ description: 從零做一個新角色或新外觀並放進 Nest Egg 的完整流
 `python tools/comfyui/field_spec.py --id <id> --name <名稱> --height <世界像素> --seed <n> [--portrait] [--glow head:c]`
 
 - 高度：主角約 63，一般成人 54～60，壯漢 62。
+- 保留的外部原生來源沒有本機 seed 時，不填假的 seed；先按 character-art-pipeline 的來源紀錄契約原樣發布 base，再以 `--source-record art_src/characters/<id>/01_design/source.json` 取代 `--seed`。未知生成資訊保留 null；原圖與既有批准頭像保持，來源發布不代表全身或骨架通過。
 - 有外套、圍裙、背上的東西這類分層衣物：從產生的規格往下拆（範例 `tools/comfyui/specs/rin_side.json`）。外套分「上身跟胸、下襬跟骨盆、袖子跟手臂」；垂在腿前的裙片跟前側大腿。
 - 手臂的點提示抓得破碎時加 `--arm-text`。
 - 建置停在「points_leg_far … mask value」：兩腿同色又重疊，遠側小腿切不出來，加 `--far-foot-only` 只切遠側的鞋。

@@ -1,0 +1,30 @@
+{
+  "cases": [
+    {
+      "id": "guest_zheng",
+      "base_bytes_match_original": true,
+      "repeat_timestamp_unchanged": true,
+      "source_sha256": "34b5d12f551660b7eeb836679c819b9c678f9f4ace5a976640173937f3788fb4",
+      "approved_portrait_sha256": "60e02dfa76a92e59419fa00fcb4ac8de5f5d16cd402d2c6035a10b2b689d5777",
+      "status": "candidate source prepared; no runtime rig or action acceptance"
+    },
+    {
+      "id": "guest_chen",
+      "base_bytes_match_original": true,
+      "repeat_timestamp_unchanged": true,
+      "source_sha256": "d5db7c3a6a417c8bdd4f3aa53e81e65a2fd8f589029ccc3cf7f7f7bf925e96f2",
+      "approved_portrait_sha256": "695e5c6697e14c187ac6984a0990869841ce1faf13aceba2d018e8606d96964b",
+      "status": "candidate source prepared; no runtime rig or action acceptance"
+    },
+    {
+      "id": "guest_hong",
+      "base_bytes_match_original": true,
+      "repeat_timestamp_unchanged": true,
+      "source_sha256": "4261d3d92d389639f49cfc864cc46c7a9dec6418b66a3ca6d79b48ee6f3b25d5",
+      "approved_portrait_sha256": "493cc8b3919e0b3a9962fc58f0cdad5ce4827dfe9dc31b07966a9ccc2c43c39d",
+      "status": "candidate source prepared; no runtime rig or action acceptance"
+    }
+  ],
+  "source_tool_checks": 7,
+  "source_tool_failures": 0
+}

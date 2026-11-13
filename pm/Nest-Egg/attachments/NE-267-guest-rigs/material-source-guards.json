@@ -1,0 +1,16 @@
+{
+  "classification": "CPU source guards observed after the material candidate rebuild; no native animation claim",
+  "check_seams": {"strict": true, "exit_code": 0, "findings": 0},
+  "check_parts": {"character": "guest_zheng", "normals": true, "exit_code": 0},
+  "check_reassembly": {
+    "exit_code": 0,
+    "max_hole_unchanged": 8,
+    "picture_pixels": 328742,
+    "uncovered_pixels": 45489,
+    "uncovered_components": 1,
+    "unallowed_components": 0,
+    "allowed_bbox": [504, 805, 726, 1435],
+    "covered_rgb_difference_over_24": 7725,
+    "note": "The existing reviewed far-leg/shoe exclusion remains; the test threshold was not changed."
+  }
+}

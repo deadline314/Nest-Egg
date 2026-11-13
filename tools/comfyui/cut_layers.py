@@ -24,6 +24,7 @@ import numpy as np
 from PIL import Image, ImageDraw
 
 from cut_rig_parts import frame, glow_layer
+from crop_phase import snap_integer, validate_crop_phase
 
 PAD = 3
 NOTE = "由 tools/comfyui/cut_layers.py 依分件圖層切出"
@@ -147,6 +148,17 @@ def part_transform(source: Image.Image, part: dict, joints: dict[str, np.ndarray
     lo, hi = part.get("y", (0, source.height))
     pad_top, pad_bottom = (0 if lo > 0 else PAD), (1 if hi < source.height else PAD)
     umin, umax, vmin, vmax = u.min() - PAD, u.max() + PAD, v.min() - pad_top, v.max() + pad_bottom
+    if "crop_phase" in part:
+        config = validate_crop_phase(part["crop_phase"], part, joints, k, source_size=source.size)
+        origin = np.asarray(config["origin"], float)
+        first = np.minimum([math.floor(snap_integer(value)) for value in np.array([umin, vmin]) - origin], 0)
+        last = np.maximum([math.ceil(snap_integer(value)) for value in np.array([umax, vmax]) - origin], config["size"])
+        piv = -(origin + first)
+        # Compose an integer translation onto the immutable reference affine.
+        # Rebuilding the matrix in float32 would move retained source UVs.
+        A = np.asarray(config["affine"], np.float64).copy()
+        A[:, 2] += A[:, :2] @ first
+        return A, int(last[0] - first[0]), int(last[1] - first[1]), piv
     cw, ch = int(math.ceil(umax - umin)), int(math.ceil(vmax - vmin))
     piv = np.array([-umin, -vmin])
     A = np.float32([[ex[0], ey[0], pivot_pt[0] - piv[0] * ex[0] - piv[1] * ey[0]],
@@ -154,7 +166,7 @@ def part_transform(source: Image.Image, part: dict, joints: dict[str, np.ndarray
     return A, cw, ch, piv
 
 
-def render_part(source: Image.Image, transform: tuple[np.ndarray, int, int, np.ndarray], k: float) -> np.ndarray:
+def render_part(source: Image.Image, transform: tuple[np.ndarray, int, int, np.ndarray], k: float, *, crop_phase: dict | None = None) -> np.ndarray:
     """Run the same INTER_AREA resize and premultiplied CUBIC affine warp as cut_layers."""
     A, cw, ch, _ = transform
     prem, a = _resized_premultiplied(source, k)
@@ -163,7 +175,23 @@ def render_part(source: Image.Image, transform: tuple[np.ndarray, int, int, np.n
     wc = cv2.warpAffine(prem, A, (cw, ch), flags=flags)
     col = np.clip(wc / np.maximum(wa[:, :, None] / 255.0, 1e-3), 0, 255)
     col[wa < 4] = 0
-    return np.dstack([col, wa]).astype(np.uint8)
+    result = np.dstack([col, wa]).astype(np.uint8)
+    if crop_phase is not None:
+        # Even integer-translated warpAffine calls can round intermediate sample
+        # coordinates differently. Keep the original backend call in its entire
+        # reference footprint; only newly introduced canvas uses the extension.
+        origin = np.asarray(crop_phase["origin"], float)
+        width, height = crop_phase["size"]
+        shift = transform[3] + origin
+        if not np.allclose(shift, np.rint(shift), rtol=0, atol=1e-8):
+            raise ValueError("crop_phase.origin: rendered canvas is off the reference integer grid")
+        x, y = np.rint(shift).astype(int)
+        if x < 0 or y < 0 or x + width > cw or y + height > ch:
+            raise ValueError("crop_phase.size: reference footprint is outside the rendered canvas")
+        reference = (np.asarray(crop_phase["affine"], np.float32), width, height, -origin)
+        core = render_part(source, reference, k)
+        result[y:y + height, x:x + width] = core
+    return result
 
 
 def make_normal_map(rgba: np.ndarray) -> np.ndarray:
@@ -259,6 +287,12 @@ def main() -> None:
             raise ValueError("spec.eye_states requires spec.parts.head")
         eye_source_path = overrides.get("head", src_dir / "head.png")
         eye_sources = validate_eye_state_sources(eye_config, eye_source_path)
+    # Reject a stale or malformed registration before creating temporary output.
+    for name, part in spec["parts"].items():
+        if "crop_phase" in part:
+            with Image.open(overrides.get(name, src_dir / f"{name}.png")) as source:
+                validate_crop_phase(part["crop_phase"], part, J, k,
+                                    f"spec.parts.{name}.crop_phase", source.size)
     final_parts = Path(args.char) / "parts"
     out_parts = Path(args.char) / "parts.tmp"  # written here first; swapped in only when every part was cut (a failed run keeps the old textures)
     if out_parts.exists():
@@ -266,7 +300,7 @@ def main() -> None:
     out_parts.mkdir(parents=True, exist_ok=True)
     (out_parts / ".gdignore").touch()  # a leftover temp folder must not be imported by the engine
 
-    textures, transforms = {}, {}
+    textures, transforms, precise_pivots = {}, {}, {}
     for name, p in spec["parts"].items():
         source_path = overrides.get(name, src_dir / f"{name}.png")
         with Image.open(source_path) as image:
@@ -276,7 +310,7 @@ def main() -> None:
             print("WARN empty part", name)
             continue
         A, cw, ch, piv = transform
-        rgba = render_part(src, transform, k)
+        rgba = render_part(src, transform, k, crop_phase=p.get("crop_phase"))
         Image.fromarray(rgba).save(out_parts / f"{name}.png")
         entry = {"file": f"parts/{name}.png", "size": [cw, ch], "pivot": [round(float(piv[0]), 2), round(float(piv[1]), 2)], "note": NOTE}
         kind = spec["glow"].get(name)
@@ -290,6 +324,7 @@ def main() -> None:
                 entry["glow"] = f"parts/{name}_glow.png"
         textures[name] = entry
         transforms[name] = (A, cw, ch)
+        precise_pivots[name] = piv
         print(f"  {name}: {cw}x{ch} pivot=({piv[0]:.1f},{piv[1]:.1f})")
 
     eye_runtime = None
@@ -306,7 +341,8 @@ def main() -> None:
             raise ValueError("spec.eye_states texture names must be unique and not collide with existing textures")
         _, state_images = eye_sources
         for state, texture_name in state_names.items():
-            rgba = render_part(state_images[state], transforms[part_name] + (np.array(head_texture["pivot"], dtype=float),), k)
+            rgba = render_part(state_images[state], transforms[part_name] + (precise_pivots[part_name],), k,
+                               crop_phase=spec["parts"][part_name].get("crop_phase"))
             Image.fromarray(rgba).save(out_parts / f"{texture_name}.png")
             entry = {"file": f"parts/{texture_name}.png", "size": list(rgba.shape[1::-1]),
                      "pivot": list(head_texture["pivot"]), "note": NOTE}
@@ -349,7 +385,7 @@ def main() -> None:
             texture = f"{name}_{pose}"
             if texture in textures:
                 raise ValueError(f"spec.pose_parts.{pose}: texture name {texture} is already taken")
-            Image.fromarray(render_part(src, transform, k)).save(out_parts / f"{texture}.png")
+            Image.fromarray(render_part(src, transform, k, crop_phase=spec["parts"][name].get("crop_phase"))).save(out_parts / f"{texture}.png")
             textures[texture] = {"file": f"parts/{texture}.png", "size": [cw, ch], "pivot": [round(float(piv[0]), 2), round(float(piv[1]), 2)], "note": NOTE}
             entries += [{"slot": use["name"], "texture": texture, "bone": use["bone"]} for use in spec["parts"][name]["uses"]]
             print(f"  {texture}: {cw}x{ch} pivot=({piv[0]:.1f},{piv[1]:.1f})")

@@ -41,6 +41,8 @@ func run() -> void:
 	await preload("res://tests/helpers/story_contract_lifetime_checks.gd").run(self)
 	preload("res://tests/helpers/story_contract_passive_context_checks.gd").run(self)
 	await preload("res://tests/helpers/stage_move_clock_checks.gd").run(self)
+	await preload("res://tests/helpers/seated_move_checks.gd").run(self)
+	await preload("res://tests/helpers/seated_move_checks.gd").dispatch(self)
 	preload("res://tests/helpers/world_prop_action_checks.gd").run(self)
 	preload("res://tests/helpers/world_paper_reach_checks.gd").run(self)
 	preload("res://tests/helpers/world_wheel_reach_checks.gd").run(self)

@@ -13,6 +13,7 @@ extends Node2D
 const SCRIPTS := {
 	# [開始秒數, 狀態]：狀態是 idle／talk／listen／wave／sit／sit_talk／lean／lean_listen／squat／loop:名稱[@姿勢]
 	"converse": {"length": 12.0, "step": 0.4, "from": 0.8, "segments": [[0.0, "idle"], [1.0, "talk"], [6.0, "listen"], [10.0, "idle"]]},
+	"seated_converse": {"length": 12.0, "step": 0.4, "from": 0.8, "segments": [[0.0, "idle"], [1.0, "sit"], [2.0, "sit_talk"], [6.0, "sit_listen"], [10.0, "idle"]]},
 	"talk": {"length": 20.0, "step": 0.2, "from": 2.0, "segments": [[0.0, "idle"], [1.0, "talk"]]},
 	"sit_cycle": {"length": 7.0, "step": 0.15, "from": 0.85, "segments": [[0.0, "idle"], [1.0, "sit"], [4.0, "idle"]]},
 	"crouch_cycle": {"length": 7.0, "step": 0.15, "from": 0.85, "segments": [[0.0, "idle"], [1.0, "squat"], [4.0, "idle"]]},
@@ -35,6 +36,7 @@ var _frames := 10
 var _from := -1.0
 var _step := -1.0
 var _zoom := 2.2
+var _seat_sag := -1.0
 var _facing := 1
 var _bright := false
 var _metrics := false
@@ -57,6 +59,13 @@ func _ready() -> void:
 			_step = float(arg.trim_prefix("--step="))
 		elif arg.begins_with("--zoom="):
 			_zoom = float(arg.trim_prefix("--zoom="))
+		elif arg.begins_with("--seat-sag="):
+			var value := arg.trim_prefix("--seat-sag=")
+			if not value.is_valid_float() or not is_finite(float(value)) or float(value) < 0.0 or float(value) > .9:
+				push_error("[npc_motion_strip] --seat-sag requires a finite value in [0,.9]")
+				get_tree().quit(1)
+				return
+			_seat_sag = float(value)
 		elif arg.begins_with("--facing="):
 			_facing = -1 if int(arg.trim_prefix("--facing=")) < 0 else 1
 		elif arg == "--bright":
@@ -114,6 +123,9 @@ static func apply_state(input: RigInput, script: Dictionary, t: float, facing: i
 		"sit_talk":
 			input.npc_pose = &"sit"
 			input.talking = true
+		"sit_listen":
+			input.npc_pose = &"sit"
+			input.listening = true
 		"lean":
 			input.npc_pose = &"lean"
 		"lean_listen":
@@ -134,6 +146,8 @@ func _new_rig(parent: Node, skin: String) -> CharacterRig:
 	if not rig.setup(skin, "npc"):
 		push_error("[npc_motion_strip] 角色不存在：%s" % skin)
 		return null
+	if _seat_sag >= 0.0:
+		(rig.animator as NpcAnimator).seated_sag = _seat_sag
 	rig.set_weapon("")
 	return rig
 

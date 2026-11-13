@@ -1,0 +1,110 @@
+{
+  "classification": "exact job and source bytes; local RGB candidate, not native acceptance",
+  "shared_existing_service": true,
+  "lifecycle_disabled": true,
+  "graph_retries": 0,
+  "archive": "torso-local-job-raw-v1.zip",
+  "sha256": "95c5ac11fcd317bc1fa06a6b6080ae62cf730f60df92b5d71ed531d9d129c258",
+  "members": [
+    {
+      "member": "art_src/characters/guest_zheng/03_generation_jobs/20261111-194543/00-guest_zheng_torso_underlayer_s433.json",
+      "bytes": 2963,
+      "sha256": "5a5df8b391cf0fa5134dc96be4ca8826bcbcce13e4a3e370c5c167b24880d660"
+    },
+    {
+      "member": "art_src/characters/guest_zheng/03_generation_jobs/20261111-194543/generation.json",
+      "bytes": 4494,
+      "sha256": "15125113aa59bda826df3fa7345cd3c81c40e442a989e0e9e9870b774692c213"
+    },
+    {
+      "member": "art_src/characters/guest_zheng/03_generation_jobs/20261111-194543/guest_zheng_side.json.txt",
+      "bytes": 16079,
+      "sha256": "0b5d99d0c83f1d82117f4e07bd51a6ecf8afc3f2886ea8bed1e4fb31d2d259a6"
+    },
+    {
+      "member": "art_src/characters/guest_zheng/03_generation_jobs/20261111-194543/make_torso_underlayer.py.txt",
+      "bytes": 4689,
+      "sha256": "38c8b6fb4c2850ed48dc3231f3800e2082f4d4678dc4d16f3997337a9feb7884"
+    },
+    {
+      "member": "art_src/characters/guest_zheng/03_generation_jobs/20261111-194543/run_parts.py.txt",
+      "bytes": 5074,
+      "sha256": "f99cd69cef0fd1fffe980d613cbd0b5b5f4ab4d269944246e50fb4c9605b2269"
+    },
+    {
+      "member": "art_src/characters/guest_zheng/make_torso_underlayer.py",
+      "bytes": 4689,
+      "sha256": "38c8b6fb4c2850ed48dc3231f3800e2082f4d4678dc4d16f3997337a9feb7884"
+    },
+    {
+      "member": "art_src/characters/guest_zheng/review_torso_candidate.py",
+      "bytes": 2267,
+      "sha256": "826e245a5ba1db1018764ad182886f5244a825dd5250c93394aac63d34bbba50"
+    },
+    {
+      "member": "art_src/characters/guest_zheng/run_parts.py",
+      "bytes": 5074,
+      "sha256": "f99cd69cef0fd1fffe980d613cbd0b5b5f4ab4d269944246e50fb4c9605b2269"
+    },
+    {
+      "member": "art_src/characters/guest_zheng/torso_underlayer/candidate.json",
+      "bytes": 2808,
+      "sha256": "0c90e8314f27141b049b8e2c150aa76aacf25d3d160e8652d5255b85b99b1c44"
+    },
+    {
+      "member": "art_src/characters/guest_zheng/torso_underlayer/candidate_full_canvas.png",
+      "bytes": 1389677,
+      "sha256": "9b1b356ec3af03a9819bdbea0d48b0b415c596d67dc798b3cb682f7f3bc00569"
+    },
+    {
+      "member": "art_src/characters/guest_zheng/torso_underlayer/candidate_torso.png",
+      "bytes": 1285029,
+      "sha256": "8d74339be1ad8f37d95e24b3f066d016cd345902019f62b22ec97dea7573440e"
+    },
+    {
+      "member": "art_src/characters/guest_zheng/torso_underlayer/material-review.json",
+      "bytes": 431,
+      "sha256": "86ab3754b1bc9091d2c14ee7be302c2d7b9c190371e1c502567807c2a6b3e54d"
+    },
+    {
+      "member": "art_src/characters/guest_zheng/torso_underlayer/native-rgb-review.png",
+      "bytes": 205742,
+      "sha256": "723f3fe93c662d6eb224af580940e475059f389399b14c7a8b870b1d83034d5c"
+    },
+    {
+      "member": "art_src/characters/guest_zheng/torso_underlayer/own-job-history.json",
+      "bytes": 5025,
+      "sha256": "79b383d8ce350fa03b2b31d6bf1cbd8c6a3a51f8b29601647caf233ef922a4f9"
+    },
+    {
+      "member": "art_src/characters/guest_zheng/torso_underlayer/queue-observation.json",
+      "bytes": 424,
+      "sha256": "bb9d047bc7d95efde0b63b8aa8bcbfb2de38b8bfba6572a725c1a78764fdf080"
+    },
+    {
+      "member": "art_src/characters/guest_zheng/torso_underlayer/queue-observations.json",
+      "bytes": 810,
+      "sha256": "6d435cf45b1ae093cc45b378912465bd0f013fac0b1107a089c5ed10aa1fc82b"
+    },
+    {
+      "member": "art_src/characters/guest_zheng/torso_underlayer/raw/guest_zheng_torso_underlayer_s433.job.json",
+      "bytes": 64,
+      "sha256": "757e3ea1f160386849a3308d2b06eb303bf5b3ffe990301dd20c630947ec3f7f"
+    },
+    {
+      "member": "art_src/characters/guest_zheng/torso_underlayer/raw/guest_zheng_torso_underlayer_s433_0.png",
+      "bytes": 313455,
+      "sha256": "4fcad02fc1b86d3e5968680109d0e3569a4a01dd21925b80a6012b884f5efbaa"
+    },
+    {
+      "member": "art_src/characters/guest_zheng/torso_underlayer/raw/reference.png",
+      "bytes": 332496,
+      "sha256": "af63b719e943a587c404f415f88b2ad0be1045ef607ef57b65f7d49e18fdb832"
+    },
+    {
+      "member": "art_src/characters/guest_zheng/torso_underlayer/reviewed_region_candidate.png",
+      "bytes": 7190,
+      "sha256": "78d49a679c9afda2a2aa5a96becefc245c88d4be939ac397fcfab4778386d87f"
+    }
+  ]
+}

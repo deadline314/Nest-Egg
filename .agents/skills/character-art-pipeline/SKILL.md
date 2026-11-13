@@ -66,6 +66,8 @@ texture_scale = 1 / tex_px_per_wp
 
 輸出：`01_design/design_s<seed>.png`、核對後的 `base_rgba.png`、來源紀錄。整張定稿批准依票執行。
 
+**沒有本機 seed 的保留來源**：使用既存原生 RGBA 時，在角色來源目錄保存 `01_design/source.json`，記錄 repo 相對 `source`、精確 `sha256`、原生 `dimensions`、實際 provider／artifact／生成紀錄；未知 seed 與 model-job 記 null，不編造本機 seed。`character_source.read_source` 先驗 PNG／RGBA、尺寸、雜湊與透明背景／不透明主體，再由 `publish_source` 原子發布原始 PNG bytes 至 `base_rgba.png`；不得覆寫原圖，異來源替換須明確選擇，重複相同來源不重寫。`field_spec.py --source-record <記錄路徑>` 與 `--seed` 互斥，且核對 base 與原圖 byte-exact；配方 `design.source_record` 讓 design 步驟只讀保留來源，不載入生成模型，傳入 `--seed` 會拒絕。CPU 回歸 `python tools/comfyui/test_character_source.py`。這只建立可追溯的來源採用方式，頭像批准、全身解剖、分件與原生全部件驗收仍分開，不因成功匯入而通過。
+
 透明提示詞、RGBA 輸出模式與實際 alpha 是三件事：本 repo 的 `build_character.py` 已把 RGBA／透明背景說明加到現有提示詞，`comfy_api.py` 已接 Qwen Image 2.1 VAE；不要假設忘記提示詞，也不要用提示詞代替 PNG 驗證。官方工作流文件指出該 VAE 支援四通道 alpha 與透明背景（[Comfy-Org：Qwen Image 2.1](https://github.com/Comfy-Org/docs/blob/main/tutorials/image/qwen/qwen-image-2-1.mdx)）。記錄 RGBA 模式、alpha 分布與人物 bbox；將原始來源以最近鄰原尺寸分別合成黑、灰、白底檢視，並在最終貼圖與實際 Forward+ 畫面複查。alpha=0 的 RGB 可任意，不視為可見雜點；alpha=1 的洋紅點與帶色半透明邊緣可能在重採樣或合成時形成彩邊，須依可見結果判斷，不把整張來源一律閾值化。透明宣告／來源 alpha、分件所有權、最終材質與動態接合各自記錄，不互相代替。沿用現有 `refine.speckle: 30`（`components` 最小連通像素數）、`alpha_floor: 40` 設定清理指定零件；這些是處理參數，不是孔洞或碎片的通過容差，一像素裂縫仍失敗。
 
 ### Qwen 參考編輯的實際資料契約
@@ -105,6 +107,8 @@ texture_scale = 1 / tex_px_per_wp
 穿著外套的接合：固定肩領與連續衣袖／衣襬分開；`uses.root_attach: true` 只對確實需要固定根部的上段部件啟用，不能全面套到其他角色。衣袖沿既有上臂／前臂；連續衣襬的 `uses.bend_partner` 必須指定實際直接子骨，錯誤資料警告並退回剛體。來源 spec、切圖後 character.json、網格綁定、normal／glow 與接點測試都必須相符。根部固定不代表素材孔洞已修好，衣物開口與真正缺底層要對照來源和相鄰部件辨識；不得靠忽略孔洞讓稽核通過。凜局部穿著外套來源及重跑方法見 `art_src/characters/rin_worn_coat/README.md`。
 
 輸出：`sam/`、`04_stages/`、`05_groups/`、`06_parts/ownership.png`、`07_refined/` 與補全依據。錯切、多手或腿重影不進下一關。
+
+保留原生畫布的階段編輯可寫 `stages[].resolution: 0`。make_parts 將該值傳給 Qwen；返回尺寸必須與 base 完全相同且為 RGBA，否則保存原始輸出並停止，不能 resize 對上解剖。成功時保存原始 PNG bytes。未設定的舊配方仍採原 1024 參考解析度與既有對位行為，不自動重建。CPU 守門 `python tools/comfyui/test_stage_resolution.py` 同時覆蓋原生保留、錯尺寸／RGB 拒絕與舊預設相容。
 
 鞋的 `ankle` source joint 是踝部關節，不是高筒靴的筒頂／鞋口；兩個位置分開記錄。腳部 `foot_y`／`y`、pivot 與骨架踝點按可見接合校準；鞋底接地列取鞋底本身的真實最低接觸像素，不取投影、發光、遠鞋或透明邊。近遠手／腳的遮罩所有權、source joints、切件與姿勢中的實際接觸都要分開驗證；SAM 遮罩通過不代表握持、落腳或動態通過。
 
@@ -232,9 +236,12 @@ NE-222 的可重跑來源與單手原生反例見 `art_src/characters/rin_walk_s
 - **關節圓蓋 `parts.<名稱>.caps`**（`make_parts.py`）：同一個剛體關節的兩個零件都多留一個以支點為圓心的圓盤。畫在上面的零件圓盤較大、`feather` 柔邊；壓在下面的較小、硬邊，半徑小於支點到上層零件輪廓的最短距離。`sam` 限定只留指定材質。骨盆的水平切口收到髖點以上，坐、蹲、跪才不會露出直線下緣。大腿（髖）圓盤不超過髖點到背後輪廓的距離（`field_spec.py` 以 `hip_w` 限制；更大會被輪廓切平，坐下時露出直邊）。
 - **支點放在圖的轉動中心**：肩點在肩球球心、肘點在袖子皺摺與機械關節處、腕點在手零件裡面一點；量零件在該高度的左右邊界取中心，不照抄姿勢模型。
 - **精修步驟**（`refine_parts.py`，寫在 spec 的 `refine`）：`underlap` 讓零件往不同群組的鄰件底下長一段（頸在頭下、小腿在靴筒內、前臂在手下、軀幹在肩球下；範圍用支點周圍的小圓，鄰件轉開時才不會露出來）；`inpaint` 把畫到這個零件上的別人的東西重畫掉（脖子上的耳環、袖窿的暗塊）；`trim_spikes` 切掉在遊戲裡不到一個像素寬的突出（靴帶尖）；`close_fill` 補窄縫（指縫）。
+- **補料的材質與座標**：先把實際 render 孔位經 UV／變換反投影到來源，確認應補哪一側；不憑支點位置擴大整個肢體。`underlap.material_point: [x,y]` 可取該零件內已核對的不透明材質點，只改新增重疊的 RGB，避免 nearest pixel 把袖口色補成皮膚；透明、越界與非有限點在發布前拒絕，省略維持舊行為。裁切擴大時以原生材質點重新計算 pivot／接觸座標；保留同一 source 點，不能照抄舊 UV 讓握點漂移。實例 `guest_zheng/register_hand_contact.py` 由既有 source_rebuilds 執行，textures 後重建 Story 並核對正式 reach。
 - **補全設定**：`edge_trim: 1` 加 `keep_rim: true`，去掉前景物黑邊時不把自己的輪廓線一起削掉。
 - **原位重組檢查**：`python tools/comfyui/check_reassembly.py --spec <spec> --work <work> --allow <work>/reassembly_allow.json --max-hole 8`。把精修後的零件疊回原位和原圖比；預期中的缺口（遠側腿）逐塊看過後登記在 allow 檔並寫理由。
 - **進引擎後先看坐、蹲、跪的放大圖**，再跑 `rig_joint_audit` 與 `check_joint_frames.py`。剩下的每一類失敗都要放大看過、歸類成「真的缺口」或「衣物本來的開口」，不能只看數字。
 - 既有握持手可用 `native_grips` 原樣沿用（位元組不變、各自的密度）；`grasp` 以各自手腕為原點換算，握點偏移才會和原本一致。
 
 來源專用的新資料夾要帶`.gdignore`：保留原圖、遮罩、prompt與重建腳本，但不要為它們提交Godot產生的`.png.import`。正式`art/characters/.../parts`與頭像保留各自的正常匯入。修正時逐檔核對來源與runtime PNG的SHA、確認無`res://art_src/...`遊戲依賴，並實際editor import確認來源紀錄不再生成；來源資料不刪。
+
+局部補料擴大裁切時，先驗證未改手指等遠端材質是否被重新取樣。可選 `parts.<part>.crop_phase` 保存原 origin／size／affine／k，沿原格點整像素擴 canvas，reference footprint 保留原 backend 取樣；省略維持舊行為。錯型別、非有限值、密度或骨軸不符在模型前拒絕。來源 diffuse／alpha、UV／接觸點與遠端 normal 分別驗證，CPU normal 零差仍須正式 Godot normal 和同姿態實機對照。規格與失敗原型見 `design/12-cast-redraw/NATIVE_CROP_PHASE.md`。

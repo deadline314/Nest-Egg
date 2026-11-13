@@ -1,0 +1,48 @@
+{
+  "status": "Work-only NPC gait candidate; no formal C adoption or full new material-seam acceptance",
+  "immutable_humanoid_sha256": "2236b4d7dfdb948542672a5cc3797c6bb7d51e0a1fd230336a9b932fb1a758cf",
+  "legacy_grounding_false": {
+    "cases": 40,
+    "frames": 14400,
+    "every_local_and_global_bone_transform_exact": true
+  },
+  "v7_preallocated_targets_refactor": {
+    "reference": "v6",
+    "cases": 80,
+    "frames": 28800,
+    "every_local_and_global_bone_transform_exact": true
+  },
+  "permanent_regression": {
+    "old": {
+      "folder": "npc-gait-permanent-red-v1",
+      "checks": 184,
+      "failures": 12,
+      "exit_code": 1
+    },
+    "candidate": {
+      "folder": "npc-gait-permanent-green-v2",
+      "checks": 256,
+      "failures": 0,
+      "exit_code": 0
+    },
+    "scope": "four actual skins, both ground modes and facings, walking to sit/NPC squat/stand and sit to walking; actual gait positive; legacy matrices; 9 unsupported mode interruptions and pure getter"
+  },
+  "native": {
+    "zheng": "walk-colour-candidate-v2",
+    "other": [
+      "walk-compat-colour-old-k-v3",
+      "walk-compat-colour-rin-v1",
+      "walk-compat-colour-yong-v1"
+    ],
+    "zheng_all32_original_pages_viewed": true,
+    "other_visual_review": "selected full original pages viewed so far; remaining pages still pending",
+    "no_human_playtest": true
+  },
+  "limitations": [
+    "Human crouching fallback is excluded from this narrow NPC adapter; original issues remain visible in 80-case evidence",
+    "Short 72-frame walk-to-posture sequences have no 1.5-second steady moving window: report null and zero coverage, never zero-slip acceptance",
+    "Intentional NPC sit/squat descent is reported separately from gait handoff hip discontinuity; no thresholds changed",
+    "Native material-foot soles, full new walk joint matrix and actual6.216 old performances still pending; CPU ankle coordinates are not those measurements",
+    "Candidate adapter source in work subclass; exact integrated source diff has not been compiled/adopted in C yet"
+  ]
+}

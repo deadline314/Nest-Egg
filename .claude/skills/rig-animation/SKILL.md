@@ -239,6 +239,10 @@ description: 做或調整 Nest Egg 的骨架角色與動畫時使用：新增角
 - 新坐姿大腿仍出現臀下圓球時，先單獨看原骨盆與新大腿的實際runtime貼圖。站姿骨盆的褲子圓蓋可能重複覆在坐姿大腿上；不要只縮窄新大腿反覆試。坐姿來源明確分配襯衫與褲子的所有權，保留站姿定稿。
 - 姿勢專屬draw order是資料決策，不能全域改站姿z或擴大actor圖層跨度；有限整數與整組原子驗證，清除姿勢後恢復原順序。引用姿勢的slot_z先clone再覆寫，避免修改來源姿勢。
 - NPC坐下與起身要用真正NpcAnimator逐格檢查；工具`rig_joint_audit --npc-transitions`不改既有預設戰鬥稽核，並以180格預備後各120格、兩面向與原兩倍率量接點。搭配`rig_preview --seq=npc_sit|npc_stand`看全彩外輪廓；alpha全過不能替代臀、膝的美術檢視。
+- NPC 表演可另用 `rig_joint_audit --npc-performance`，獨立覆蓋站、坐、坐著說話、坐著聆聽與揮手；先以180格穩定原姿勢，`--frames`明列實際覆蓋時間。`--seat-sag`可核對正式演員的座位校準，省略則保留原NPC預設。原combat與npc-transitions模式語義保持。故意位移 `--displace-part=hand_front` 是同來源的失敗控制，應由同一checker拒絕，不能混入正常通過數。`rig_preview --npc --npc-page=0|1`每頁四個姿勢，避免過場倍率的手被八格版面裁掉；仍核對每張實際完整範圍。
+- `--zooms=1,2.2,3.4` 可明列世界、遊戲與過場的實際倍率；省略仍保留原兩倍率。`rig_preview`／`npc_motion_strip` 的可選 `--seat-sag` 應與正式演員一致；`npc_motion_strip --script=seated_converse` 包含站→坐→坐說→坐聽→站，分頁取完整手腳，不以舊預設坐深的診斷圖代替正式校準。
+- 過場 actor 建立後同步立刻 pose，NpcAnimator 可能在首更新直接初始化目標，實際轉換樣本仍是 0；需先讓起始姿勢完成真更新，再切目標，並觀察 0<posture_progress<.999 的真實坐下／站起樣本。不能只以 pose 指令、最後坐姿或 tree.paused 斷言代表動作播出。
+- 活躍演出截圖先在 post_draw 保存實際浮點 Image，整段播放結束後才呼叫共用 viewport_capture.encode，避免逐像素 sRGB 編碼與 PNG IO 拉長下一幀。原格式／尺寸／raw SHA 與同格 PNG 都保存；此項不替代正式遊戲時間或效能量測。
 
 ## 次級動態的擁有者生命週期（NE-257，2026-10-20）
 

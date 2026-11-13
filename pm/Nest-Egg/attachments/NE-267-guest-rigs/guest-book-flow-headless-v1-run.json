@@ -1,0 +1,20 @@
+{
+  "command": [
+    "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe",
+    "--headless",
+    "--path",
+    "C:\\Users\\stanl\\Github\\Nest-Egg",
+    "--max-fps",
+    "120",
+    "--quit-after",
+    "18000",
+    "res://tools/ch2_flow_probe.tscn",
+    "--",
+    "--guest-book-only",
+    "--out=C:\\Users\\stanl\\Github\\Nest-Egg\\pm\\Nest-Egg\\attachments\\NE-267-guest-rigs\\guest-book-flow-headless-v1"
+  ],
+  "log": "guest-book-flow-headless-v1.log",
+  "seconds": 50.310323400000925,
+  "exit_code": 0,
+  "engine_errors": []
+}

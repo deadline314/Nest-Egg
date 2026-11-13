@@ -1,0 +1,14 @@
+{
+  "command": [
+    "D:\\ComfyUI\\.venv\\Scripts\\python.exe",
+    "tools/check_npc_joint_scope.py",
+    "C:\\Users\\stanl\\Github\\Nest-Egg\\pm\\Nest-Egg\\attachments\\NE-267-guest-rigs\\material-true-hole-native-v2",
+    "--expected-chars=guest_zheng",
+    "--expected-zooms=3.4",
+    "--diagnostic"
+  ],
+  "log": "material-true-hole-native-v2-scope-checker.log",
+  "seconds": 0.75,
+  "exit_code": 1,
+  "engine_errors": []
+}

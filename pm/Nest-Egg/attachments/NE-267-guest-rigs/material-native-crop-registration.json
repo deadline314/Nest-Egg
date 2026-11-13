@@ -1,0 +1,46 @@
+{
+  "classification": "actual native Sprite geometry and retained UV/contact correspondence; not a full rendered RGB equality claim",
+  "old_capture": "onepixel-negative-native-v1",
+  "new_capture": "material-true-hole-native-v2",
+  "cases": [
+    {
+      "facing": -1,
+      "native_cell_point_error": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "maximum_native_pixel_error": 0.0,
+      "old_rect_origin": [
+        -33.4099998474121,
+        -43.189998626709
+      ],
+      "new_rect_origin": [
+        -42.4099998474121,
+        -43.189998626709
+      ]
+    },
+    {
+      "facing": 1,
+      "native_cell_point_error": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "maximum_native_pixel_error": 0.0,
+      "old_rect_origin": [
+        -33.4099998474121,
+        -43.189998626709
+      ],
+      "new_rect_origin": [
+        -42.4099998474121,
+        -43.189998626709
+      ]
+    }
+  ],
+  "passed": true
+}

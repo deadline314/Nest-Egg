@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\art_src\characters\guest_zheng\run_parts.py", line 87, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\stanl\Github\Nest-Egg\art_src\characters\guest_zheng\run_parts.py", line 72, in main
+    make_parts.main()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\stanl\Github\Nest-Egg\tools\comfyui\make_parts.py", line 311, in main
+    base_masks = ensure_text_masks(grey, prompts, sam_dir, "base")
+  File "C:\Users\stanl\Github\Nest-Egg\tools\comfyui\make_parts.py", line 242, in ensure_text_masks
+    generated = segment(str(image), missing, str(temp_dir), threshold=threshold, refine=refine)
+  File "C:\Users\stanl\Github\Nest-Egg\tools\comfyui\sam_masks.py", line 28, in segment
+    name = upload(image_path)
+  File "C:\Users\stanl\Github\Nest-Egg\tools\comfyui\comfy_api.py", line 47, in upload
+    import requests
+ModuleNotFoundError: No module named 'requests'

@@ -1,0 +1,17 @@
+[
+  {
+    "test": "test_character_source",
+    "exit_code": 0,
+    "log_sha256": "23ecef63c8abfb4a00a861d23985f884302485e22f96ca12d12d491702f3fa9a"
+  },
+  {
+    "test": "test_stage_resolution",
+    "exit_code": 0,
+    "log_sha256": "ef143ac8bdc28b22a0862524393c318b446a54993988beb187950228106dbf0e"
+  },
+  {
+    "test": "test_source_alpha",
+    "exit_code": 1,
+    "log_sha256": "bbb946d604e8fa2feafa8d339c484858bfcf2182aa95499feb688b1990065097"
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "command": [
+    "D:\\ComfyUI\\.venv\\Scripts\\python.exe",
+    "tools/comfyui/gpu_lock.py",
+    "--",
+    "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe",
+    "--path",
+    "C:\\Users\\stanl\\Github\\Nest-Egg",
+    "--resolution",
+    "1280x720",
+    "--rendering-driver",
+    "vulkan",
+    "--rendering-method",
+    "forward_plus",
+    "--audio-driver",
+    "Dummy",
+    "--max-fps",
+    "120",
+    "--quit-after",
+    "18000",
+    "res://tools/ne267_guest_scene_probe.tscn",
+    "--",
+    "--out=C:\\Users\\stanl\\Github\\Nest-Egg\\pm\\Nest-Egg\\attachments\\NE-267-guest-rigs\\scene-material-v7"
+  ],
+  "log": "scene-material-v7.log",
+  "seconds": 22.546999999991385,
+  "exit_code": 0,
+  "engine_errors": []
+}

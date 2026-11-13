@@ -1,0 +1,28 @@
+[
+  {
+    "observed_utc": "2026-11-11T11:50:03.803571+00:00",
+    "running_count": 1,
+    "pending_count": 4,
+    "our_jobs": [
+      {
+        "state": "queue_pending",
+        "prompt_id": "f73d7374-3c67-41a6-b03f-de9d2a446d4e",
+        "canonical_graph_sha256": "5de47c1b94d37b79fa5625e75060eed5b62b14ec361e098a02fb9e14f7ad19bd"
+      }
+    ],
+    "scope": "read-only queue observation; other graph contents not logged or modified"
+  },
+  {
+    "observed_utc": "2026-11-11T11:53:13.620193+00:00",
+    "running_count": 1,
+    "pending_count": 3,
+    "our_jobs": [
+      {
+        "state": "queue_pending",
+        "index": 1,
+        "prompt_id": "f73d7374-3c67-41a6-b03f-de9d2a446d4e"
+      }
+    ],
+    "scope": "read-only queue observation; no other job contents logged"
+  }
+]

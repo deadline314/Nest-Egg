@@ -1,0 +1,56 @@
+{
+  "classification": "unadopted CPU local joint material candidates; not native acceptance",
+  "live_assets_unchanged": true,
+  "candidates": [
+    {
+      "part": "pelvis",
+      "native_source_box": [
+        622,
+        760,
+        642,
+        807
+      ],
+      "radius_source_pixels": 4,
+      "region_feather_source_pixels": 4,
+      "k": 1.0,
+      "input_sha256": "a0de2a7eae8b32a63a5d40c5b9b689f8ec5393a079d2763d0d40dc9ef84876af",
+      "output_sha256": "210bbec37fc79e37907e7bfb3a9ecb0fd617e438b2cd73044b6d13f83c80b545",
+      "changed_pixels": 220,
+      "original_opaque_rgba_exact": true,
+      "outside_region_rgba_exact": true,
+      "new_runtime_size": [
+        290,
+        311
+      ],
+      "pivot": [
+        161.0,
+        194.0
+      ]
+    },
+    {
+      "part": "leg_lower",
+      "native_source_box": [
+        380,
+        1095,
+        394,
+        1113
+      ],
+      "radius_source_pixels": 4,
+      "region_feather_source_pixels": 4,
+      "k": 1.0,
+      "input_sha256": "359422037acdd04c190c3420f33a2fe368df89eb22137580f4758a80c81495cd",
+      "output_sha256": "37014344b797f9aa9366d82f1e8f48f83bd94c2c680f52be6f5449a2b66c4be5",
+      "changed_pixels": 90,
+      "original_opaque_rgba_exact": true,
+      "outside_region_rgba_exact": true,
+      "new_runtime_size": [
+        186,
+        400
+      ],
+      "pivot": [
+        72.04149480147116,
+        11.98983990763609
+      ]
+    }
+  ]
+}

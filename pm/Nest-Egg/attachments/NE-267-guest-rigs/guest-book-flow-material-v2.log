@@ -1,0 +1,46 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS ch2_t_s17_offer offers option watch
+PASS ch2_t_s17_open offers option back
+PASS every planned choice was offered ["watch", "back"]
+PASS talk with ch2_guest_entry completes with choices ["watch", "back"]
+PASS leaving before a guest pays nothing
+PASS the guest's first question starts
+PASS skip returns from an unfinished guest
+PASS skip does not invent a completed guest or payment
+PASS ch2_t_s17_offer offers option watch
+PASS ch2_t_s17_open offers option zheng
+PASS ch2_t_s18_ticket offers option dad
+PASS ch2_t_s18_ticket offers option ask
+PASS ch2_t_s18_name offers option meat
+PASS ch2_t_s18_name offers option fish
+PASS ch2_t_s17_open offers option back
+PASS every planned choice was offered ["watch", "zheng", "dad", "ask", "meat", "fish", "back"]
+PASS talk with ch2_guest_entry completes with choices ["watch", "zheng", "dad", "ask", "meat", "fish", "back"]
+PASS one guest remains complete after returning to Rin
+PASS one completed guest pays exactly twenty
+PASS ch2_t_s17_offer offers option watch
+PASS ch2_t_s17_open offers option chen
+PASS ch2_t_s19_band offers option death
+PASS ch2_t_s19_band offers option today
+PASS ch2_t_s19_quiet offers option scallion
+PASS ch2_t_s19_quiet offers option soup
+PASS ch2_t_s17_open offers option back
+PASS every planned choice was offered ["watch", "chen", "death", "today", "scallion", "soup", "back"]
+PASS talk with ch2_guest_entry completes with choices ["watch", "chen", "death", "today", "scallion", "soup", "back"]
+PASS re-entry resumes the remaining appointments
+PASS the completed first guest is not paid twice
+PASS ch2_t_s17_offer offers option watch
+PASS ch2_t_s17_open offers option hong
+PASS ch2_t_s20_letter offers option forgive
+PASS ch2_t_s20_letter offers option listen
+PASS ch2_t_s20_story offers option fine
+PASS ch2_t_s20_story offers option heard
+PASS every planned choice was offered ["watch", "hong", "forgive", "listen", "fine", "heard"]
+PASS talk with ch2_guest_entry completes with choices ["watch", "hong", "forgive", "listen", "fine", "heard"]
+PASS three guests plus closing pay one hundred total
+PASS every planned choice was offered []
+PASS talk with ch2_guest_entry completes with choices []
+PASS the finished book revisit never pays again
+PASS returning to Rin releases the story pause
+CH2_GUEST_BOOK_PROBE failures=0

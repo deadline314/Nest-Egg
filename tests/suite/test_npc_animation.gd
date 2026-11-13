@@ -9,6 +9,7 @@ const SKIN := "old_k"
 
 
 func run() -> void:
+	preload("res://tests/helpers/seated_move_checks.gd").readiness(self)
 	_test_data_references_real_bones()
 	await _test_poses()
 	await _test_poses_touch_the_ground()

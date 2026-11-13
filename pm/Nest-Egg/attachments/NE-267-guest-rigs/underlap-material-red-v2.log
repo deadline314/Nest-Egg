@@ -1,0 +1,75 @@
+.FFFFFFF
+======================================================================
+FAIL: test_invalid_or_transparent_material_rejects_before_replacing_output (__main__.UnderlapMaterialTests.test_invalid_or_transparent_material_rejects_before_replacing_output) (point=[1, 1])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\comfyui\test_underlap_material.py", line 80, in test_invalid_or_transparent_material_rejects_before_replacing_output
+    with self.assertRaisesRegex(ValueError, "material_point"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_or_transparent_material_rejects_before_replacing_output (__main__.UnderlapMaterialTests.test_invalid_or_transparent_material_rejects_before_replacing_output) (point=[-1, 22])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\comfyui\test_underlap_material.py", line 80, in test_invalid_or_transparent_material_rejects_before_replacing_output
+    with self.assertRaisesRegex(ValueError, "material_point"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_or_transparent_material_rejects_before_replacing_output (__main__.UnderlapMaterialTests.test_invalid_or_transparent_material_rejects_before_replacing_output) (point=[32, 22])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\comfyui\test_underlap_material.py", line 80, in test_invalid_or_transparent_material_rejects_before_replacing_output
+    with self.assertRaisesRegex(ValueError, "material_point"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_or_transparent_material_rejects_before_replacing_output (__main__.UnderlapMaterialTests.test_invalid_or_transparent_material_rejects_before_replacing_output) (point=[12])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\comfyui\test_underlap_material.py", line 80, in test_invalid_or_transparent_material_rejects_before_replacing_output
+    with self.assertRaisesRegex(ValueError, "material_point"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_or_transparent_material_rejects_before_replacing_output (__main__.UnderlapMaterialTests.test_invalid_or_transparent_material_rejects_before_replacing_output) (point=[True, 22])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\comfyui\test_underlap_material.py", line 80, in test_invalid_or_transparent_material_rejects_before_replacing_output
+    with self.assertRaisesRegex(ValueError, "material_point"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_or_transparent_material_rejects_before_replacing_output (__main__.UnderlapMaterialTests.test_invalid_or_transparent_material_rejects_before_replacing_output) (point=[nan, 22])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\comfyui\test_underlap_material.py", line 80, in test_invalid_or_transparent_material_rejects_before_replacing_output
+    with self.assertRaisesRegex(ValueError, "material_point"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_selected_opaque_material_only_changes_new_overlap_rgb (__main__.UnderlapMaterialTests.test_selected_opaque_material_only_changes_new_overlap_rgb)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\comfyui\test_underlap_material.py", line 66, in test_selected_opaque_material_only_changes_new_overlap_rgb
+    self.assertEqual(result[10, 12].tolist(), [190, 140, 100, 255])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [100, 70, 40, 255] != [190, 140, 100, 255]
+
+First differing element 0:
+100
+190
+
+- [100, 70, 40, 255]
++ [190, 140, 100, 255]
+
+----------------------------------------------------------------------
+Ran 3 tests in 1.074s
+
+FAILED (failures=7)

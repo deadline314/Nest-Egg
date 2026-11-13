@@ -1,0 +1,38 @@
+{
+  "classification": "complete native joint capture analysis, working-tree source bundle",
+  "checks": [
+    {
+      "checker": "raw",
+      "exit_code": 1,
+      "seconds": 9.89100000000326,
+      "command": [
+        "D:\\ComfyUI\\.venv\\Scripts\\python.exe",
+        "-X",
+        "utf8",
+        "tools/check_joint_frames.py",
+        "C:\\Users\\stanl\\Github\\Nest-Egg\\pm\\Nest-Egg\\attachments\\NE-267-guest-rigs\\npc-transitions-material-v2"
+      ],
+      "log_sha256": "446bfac69518c79835185df747587cf6360116de6a82e0214bc8403e98b9ffd0"
+    },
+    {
+      "checker": "scope",
+      "exit_code": 0,
+      "seconds": 13.687999999994645,
+      "command": [
+        "D:\\ComfyUI\\.venv\\Scripts\\python.exe",
+        "-X",
+        "utf8",
+        "tools/check_npc_joint_scope.py",
+        "C:\\Users\\stanl\\Github\\Nest-Egg\\pm\\Nest-Egg\\attachments\\NE-267-guest-rigs\\npc-transitions-material-v2",
+        "--expected-chars=guest_zheng",
+        "--expected-zooms=1,2.2,3.4,3.7"
+      ],
+      "log_sha256": "7b8a236d812fca6944ccf2ab524f2d63a2dd5cfa86a31edfd9a0bf61c4c5554d"
+    }
+  ],
+  "samples": 26880,
+  "raw_failures": 12,
+  "scope_failures": 0,
+  "exterior_scope_samples": 12,
+  "passed": true
+}

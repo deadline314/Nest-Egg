@@ -1,0 +1,228 @@
+{
+  "source": "art/items/world/document.png",
+  "source_sha256": "8a64d648de1fe912de9f5ec5259bedab60a6a3c40ff3572186356253e8272862",
+  "native_size": [
+    96,
+    96
+  ],
+  "generation": "none: deterministic geometric derivative of existing project art",
+  "config": {
+    "description": "NE-267: same-source geometric paper tilt states, no new model generation. Original source and approved character art are unchanged.",
+    "source": "art/items/world/document.png",
+    "source_sha256": "8a64d648de1fe912de9f5ec5259bedab60a6a3c40ff3572186356253e8272862",
+    "source_generation_receipt": "assets_src/generated/world_items/document.json",
+    "output": "art/environment/scene_props/guest_book_contacts",
+    "canvas": [
+      96,
+      96
+    ],
+    "anchor": [
+      72,
+      42
+    ],
+    "states": 8,
+    "final_vertical_scale": 0.22,
+    "final_x_shear": 0.12,
+    "resampling": "bicubic premultiplied RGBA; source and canvas retained",
+    "normal": {
+      "profile": "flat",
+      "relief": 0.15,
+      "detail": 0.0
+    }
+  },
+  "config_sha256": "fb1a6fac279607f6aeeccb167051557adf3847da45bce4a3f01756ece42830cf",
+  "states": [
+    {
+      "id": "lay_1",
+      "path": "art/environment/scene_props/guest_book_contacts/zheng_slip_lay_1.png",
+      "sha256": "19810800868825e016fd0e2a156bbf0571865e15eb1ea52d667c46115ad30bdb",
+      "normal_sha256": "b11e1d8c2460bd10096e4c582e6fed4f61eea6f19f6c5472120061569c3d455b",
+      "vertical_scale": 0.9025,
+      "x_shear": 0.015,
+      "inverse_affine": [
+        1,
+        0.01662049861495845,
+        -0.6980609418282548,
+        0,
+        1.10803324099723,
+        -4.537396121883658
+      ],
+      "opaque_bbox_inclusive": [
+        14,
+        11,
+        80,
+        82
+      ],
+      "material_bottom_pixel_centre": 82.5,
+      "hold_point_alpha": 253
+    },
+    {
+      "id": "lay_2",
+      "path": "art/environment/scene_props/guest_book_contacts/zheng_slip_lay_2.png",
+      "sha256": "5230ce43fa39c9be53aebad66c5b45e07357abf7053d4fae3889f49e00c97677",
+      "normal_sha256": "1cd19280fc4f7ee99fe92d277735944409d2e368b38c2a2c9eeb84f1616fdac3",
+      "vertical_scale": 0.8049999999999999,
+      "x_shear": 0.03,
+      "inverse_affine": [
+        1,
+        0.037267080745341616,
+        -1.565217391304348,
+        0,
+        1.2422360248447206,
+        -10.173913043478265
+      ],
+      "opaque_bbox_inclusive": [
+        15,
+        15,
+        80,
+        78
+      ],
+      "material_bottom_pixel_centre": 78.5,
+      "hold_point_alpha": 253
+    },
+    {
+      "id": "lay_3",
+      "path": "art/environment/scene_props/guest_book_contacts/zheng_slip_lay_3.png",
+      "sha256": "1654874984877f53ac230c77f829acf4729eb409df8c8f70dabc17ffe0241c33",
+      "normal_sha256": "1f61ad54d45bb71767137d5dcdbd14122e4d74968a9f4434766b0317b5982630",
+      "vertical_scale": 0.7075,
+      "x_shear": 0.045,
+      "inverse_affine": [
+        1,
+        0.0636042402826855,
+        -2.6713780918727914,
+        0,
+        1.4134275618374559,
+        -17.363957597173144
+      ],
+      "opaque_bbox_inclusive": [
+        15,
+        18,
+        79,
+        73
+      ],
+      "material_bottom_pixel_centre": 73.5,
+      "hold_point_alpha": 253
+    },
+    {
+      "id": "lay_4",
+      "path": "art/environment/scene_props/guest_book_contacts/zheng_slip_lay_4.png",
+      "sha256": "c97652217f01d77332a24304c24f38028cfe59c12b4d7c8dfe17061cb1db7c0c",
+      "normal_sha256": "0988494f51b17714d3c0d7c49b62752d8e9eed19d8b4669ce745193a2888b399",
+      "vertical_scale": 0.61,
+      "x_shear": 0.06,
+      "inverse_affine": [
+        1,
+        0.09836065573770492,
+        -4.131147540983607,
+        0,
+        1.639344262295082,
+        -26.852459016393443
+      ],
+      "opaque_bbox_inclusive": [
+        15,
+        21,
+        79,
+        69
+      ],
+      "material_bottom_pixel_centre": 69.5,
+      "hold_point_alpha": 253
+    },
+    {
+      "id": "lay_5",
+      "path": "art/environment/scene_props/guest_book_contacts/zheng_slip_lay_5.png",
+      "sha256": "96d19cacaa7810851d073bc32877bd38f293ba4796e9b0e486a347c64658e7a5",
+      "normal_sha256": "b537a4bacd53c16c3aa25050ec95f6462f1c9a9f0928b4533afe7662cc9281dc",
+      "vertical_scale": 0.5125,
+      "x_shear": 0.075,
+      "inverse_affine": [
+        1,
+        0.14634146341463417,
+        -6.146341463414634,
+        0,
+        1.9512195121951221,
+        -39.95121951219513
+      ],
+      "opaque_bbox_inclusive": [
+        15,
+        25,
+        78,
+        65
+      ],
+      "material_bottom_pixel_centre": 65.5,
+      "hold_point_alpha": 253
+    },
+    {
+      "id": "lay_6",
+      "path": "art/environment/scene_props/guest_book_contacts/zheng_slip_lay_6.png",
+      "sha256": "e7c794063fc4a67a85c28e72f7eca26a9310634f6d30116a7c067b12896d826a",
+      "normal_sha256": "3349ad84da7377e0546de88e0d213123062f9a6ddb14132301ff5f1af93dc54f",
+      "vertical_scale": 0.41500000000000004,
+      "x_shear": 0.09,
+      "inverse_affine": [
+        1,
+        0.21686746987951805,
+        -9.108433734939759,
+        0,
+        2.4096385542168672,
+        -59.20481927710843
+      ],
+      "opaque_bbox_inclusive": [
+        14,
+        28,
+        78,
+        60
+      ],
+      "material_bottom_pixel_centre": 60.5,
+      "hold_point_alpha": 254
+    },
+    {
+      "id": "lay_7",
+      "path": "art/environment/scene_props/guest_book_contacts/zheng_slip_lay_7.png",
+      "sha256": "a3c082e9b11df7871b5bcf63b5261ec5bd98f575138f3debbb7f3b9feb3ced6f",
+      "normal_sha256": "e2e02fe2fe56c89cc22f9c88534e1fee5b29038a218c3fb9639fc960c75a9be8",
+      "vertical_scale": 0.3175,
+      "x_shear": 0.105,
+      "inverse_affine": [
+        1,
+        0.3307086614173228,
+        -13.88976377952756,
+        0,
+        3.149606299212598,
+        -90.28346456692913
+      ],
+      "opaque_bbox_inclusive": [
+        14,
+        31,
+        78,
+        56
+      ],
+      "material_bottom_pixel_centre": 56.5,
+      "hold_point_alpha": 254
+    },
+    {
+      "id": "lay_8",
+      "path": "art/environment/scene_props/guest_book_contacts/zheng_slip_lay_8.png",
+      "sha256": "01eee475e8b8a237cd09bc321e995ef11ee6e85b95d06cdb103c3ba19166c07a",
+      "normal_sha256": "f644e7ea728bad6240b5f03fa1e0ecb008ff4ee859f86f0ebef6742db6238469",
+      "vertical_scale": 0.21999999999999997,
+      "x_shear": 0.12,
+      "inverse_affine": [
+        1,
+        0.5454545454545455,
+        -22.909090909090914,
+        0,
+        4.545454545454546,
+        -148.9090909090909
+      ],
+      "opaque_bbox_inclusive": [
+        13,
+        35,
+        78,
+        51
+      ],
+      "material_bottom_pixel_centre": 51.5,
+      "hold_point_alpha": 255
+    }
+  ]
+}

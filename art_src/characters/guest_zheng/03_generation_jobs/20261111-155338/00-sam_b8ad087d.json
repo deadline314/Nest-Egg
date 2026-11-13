@@ -1,0 +1,63 @@
+{
+  "load": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "base_grey.png"
+    }
+  },
+  "ckpt": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "sam3.1_multiplex_fp16.safetensors"
+    }
+  },
+  "t0": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "clip": [
+        "ckpt",
+        1
+      ],
+      "text": "head"
+    }
+  },
+  "d0": {
+    "class_type": "SAM3_Detect",
+    "inputs": {
+      "model": [
+        "ckpt",
+        0
+      ],
+      "image": [
+        "load",
+        0
+      ],
+      "conditioning": [
+        "t0",
+        0
+      ],
+      "threshold": 0.4,
+      "refine_iterations": 2,
+      "individual_masks": false
+    }
+  },
+  "m0": {
+    "class_type": "MaskToImage",
+    "inputs": {
+      "mask": [
+        "d0",
+        0
+      ]
+    }
+  },
+  "s0": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "m0",
+        0
+      ],
+      "filename_prefix": "sam_bc7480_0"
+    }
+  }
+}

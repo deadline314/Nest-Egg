@@ -1,0 +1,16 @@
+{
+  "command": [
+    "C:\\Users\\stanl\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "tools/comfyui/build_character.py",
+    "--recipe",
+    "tools/comfyui/recipes/guest_zheng.json",
+    "--from",
+    "normals",
+    "--to",
+    "import"
+  ],
+  "log": "wrist-import-v1.log",
+  "seconds": 23.395876100010355,
+  "exit_code": 0,
+  "engine_errors": []
+}

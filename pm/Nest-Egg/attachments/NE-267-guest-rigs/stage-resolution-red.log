@@ -1,0 +1,41 @@
+EEFF
+======================================================================
+ERROR: test_existing_recipe_default_retains_previous_canvas_registration (__main__.StageResolutionTests.test_existing_recipe_default_retains_previous_canvas_registration)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\comfyui\test_stage_resolution.py", line 70, in test_existing_recipe_default_retains_previous_canvas_registration
+    self.assertEqual(model.call_args.kwargs["resolution"], 1024)
+                     ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+KeyError: 'resolution'
+
+======================================================================
+ERROR: test_native_stage_keeps_original_png_bytes_without_resampling (__main__.StageResolutionTests.test_native_stage_keeps_original_png_bytes_without_resampling)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\comfyui\test_stage_resolution.py", line 51, in test_native_stage_keeps_original_png_bytes_without_resampling
+    self.assertEqual(model.call_args.kwargs["resolution"], 0)
+                     ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+KeyError: 'resolution'
+
+======================================================================
+FAIL: test_wrong_native_size_or_mode_cannot_publish_or_replace_parts (__main__.StageResolutionTests.test_wrong_native_size_or_mode_cannot_publish_or_replace_parts) (mode='RGBA', size=(16, 32))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\comfyui\test_stage_resolution.py", line 61, in test_wrong_native_size_or_mode_cannot_publish_or_replace_parts
+    with self.assertRaisesRegex(ValueError, "native output"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_wrong_native_size_or_mode_cannot_publish_or_replace_parts (__main__.StageResolutionTests.test_wrong_native_size_or_mode_cannot_publish_or_replace_parts) (mode='RGB', size=(32, 64))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\Github\Nest-Egg\tools\comfyui\test_stage_resolution.py", line 61, in test_wrong_native_size_or_mode_cannot_publish_or_replace_parts
+    with self.assertRaisesRegex(ValueError, "native output"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.083s
+
+FAILED (failures=2, errors=2)

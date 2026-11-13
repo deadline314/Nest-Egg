@@ -1,0 +1,87 @@
+"""Independent crop-grid prototype; do not change the shared cutter until this proves zero finger drift."""
+import hashlib
+import json
+import math
+from pathlib import Path
+import sys
+
+import numpy as np
+from PIL import Image, ImageDraw
+
+ROOT = Path(__file__).resolve().parents[3]
+WORK = Path(__file__).resolve().parent
+OUT = WORK / "repair_candidates/crop-phase-prototype-v1"
+sys.path.insert(0, str(ROOT / "tools/comfyui"))
+import cut_layers
+
+
+def snap(value):
+    rounded = round(float(value))
+    return float(rounded) if abs(value - rounded) < 1e-8 else float(value)
+
+
+def locked(source, part, joints, phase):
+    _, alpha = cut_layers._resized_premultiplied(source, 1.0)
+    ys, xs = np.nonzero(alpha > 20)
+    pivot = joints[part.get("pivot", part["from"])]
+    ex, ey = cut_layers.frame(part["mode"], joints[part["from"]], joints[part["to"]])
+    relative = np.stack([xs, ys], 1) - pivot
+    u, v = relative @ ex, relative @ ey
+    lo, hi = part.get("y", (0, source.height))
+    low = [u.min() - cut_layers.PAD, v.min() - (0 if lo > 0 else cut_layers.PAD)]
+    high = [u.max() + cut_layers.PAD, v.max() + (1 if hi < source.height else cut_layers.PAD)]
+    first = [math.floor(snap(low[i] - phase[i])) for i in range(2)]
+    last = [math.ceil(snap(high[i] - phase[i])) for i in range(2)]
+    bounds = np.asarray(phase) + first
+    piv = -bounds
+    matrix = np.float32([[ex[0], ey[0], pivot[0] - piv[0] * ex[0] - piv[1] * ey[0]],
+                         [ex[1], ey[1], pivot[1] - piv[0] * ex[1] - piv[1] * ey[1]]])
+    return matrix, last[0] - first[0], last[1] - first[1], piv
+
+
+def main():
+    OUT.mkdir(parents=True, exist_ok=False)
+    spec = json.loads((ROOT / "tools/comfyui/specs/guest_zheng_side.json").read_text(encoding="utf8"))
+    joints = {key: np.asarray(value) for key, value in spec["joints"].items()}
+    part = spec["parts"]["hand"]
+    original = Image.open(WORK / "07_refined/hand.png")
+    candidate = Image.open(WORK / "repair_candidates/wrist-v3/hand.png")
+    legacy = cut_layers.part_transform(original, part, joints, 1)
+    phase = np.mod(-legacy[3], 1)
+    old = cut_layers.render_part(original, legacy, 1)
+    locked_old = cut_layers.render_part(original, locked(original, part, joints, phase), 1)
+    assert np.array_equal(old, locked_old)
+    transform = locked(candidate, part, joints, phase)
+    new = cut_layers.render_part(candidate, transform, 1)
+    shift = transform[3] - legacy[3]
+    assert np.max(np.abs(shift - np.rint(shift))) < 1e-8
+    dx, dy = np.rint(shift).astype(int)
+    aligned = np.zeros_like(new)
+    aligned[dy:dy + old.shape[0], dx:dx + old.shape[1]] = old
+    finger = np.any(aligned[:, dx + 60:] != new[:, dx + 60:], axis=2)
+    Image.fromarray(new).save(OUT / "runtime.png")
+    Image.fromarray(aligned).save(OUT / "old-aligned.png")
+    receipt = dict(classification="independent CPU prototype; no shared cutter or live asset changed",
+                   shared_cutter_sha256=hashlib.sha256(Path(cut_layers.__file__).read_bytes()).hexdigest(),
+                   crop_phase=phase.tolist(), unchanged_source_with_phase_exact=True,
+                   native_canvas=[new.shape[1], new.shape[0]], pivot=transform[3].tolist(),
+                   integer_shift=[int(dx), int(dy)], changed_finger_pixels=int(finger.sum()),
+                   source_finger_rgba_exact=True)
+    (OUT / "receipt.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf8")
+    print(json.dumps(receipt, indent=2))
+    assert not finger.any(), "Reject sampling-grid candidate: distal original material drifted"
+    width, height = new.shape[1], new.shape[0]
+    review = Image.new("RGB", (width * 3, height * 2 + 32), (48, 48, 48))
+    draw = ImageDraw.Draw(review)
+    for row, image in enumerate([Image.fromarray(aligned), Image.fromarray(new)]):
+        for column, colour in enumerate([(144, 144, 144), (208, 210, 214), (32, 35, 42)]):
+            tile = Image.new("RGB", image.size, colour)
+            tile.paste(image, mask=image.getchannel("A"))
+            review.paste(tile, (width * column, (height + 16) * row))
+            draw.text((width * column, (height + 16) * row + height),
+                      "old / integer translation" if row == 0 else "candidate / same pixel lattice", fill="white")
+    review.save(OUT / "native-review.png")
+
+
+if __name__ == "__main__":
+    main()

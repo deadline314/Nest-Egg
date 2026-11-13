@@ -12,6 +12,8 @@ import numpy as np
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "tools/story"))
+import guest_ticket_staging
 STAGES = ROOT / "data" / "cutscene" / "stages"
 ART = ROOT / "art" / "environment" / "stages"
 
@@ -114,6 +116,7 @@ STAGE_LAYERS = {
     "ch2_guest_book_room": [
         {"kind": "gradient", "top": "#140a10", "bottom": "#2a141c", "parallax": 0.0},
         {"kind": "sprite", "path": "res://art/environment/scenes/guest_book_seating.png", "pos": [-140.75, -36], "scale": 0.5, "source_width": 1843, "filter": "linear"},
+        guest_ticket_staging.layer(),
         glow([480, 120], 170, "#ffc890", 0.8, 0.4, pulse=0.07, pulse_depth=0.2),
         glow([300, 250], 150, "#ff9a6a", 0.5, 0.18),
         motes(22, "#ffd9b0", 0.35, [120, 40, 420, 230], [1.5, -2.5], 1.1, 46),

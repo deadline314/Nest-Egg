@@ -144,6 +144,21 @@ def check(recipe: dict, spec: dict, need_joints: bool) -> tuple[list[str], list[
     grip_textures = {u["grip_texture"] for p in spec["parts"].values() for u in p.get("uses", []) if isinstance(u.get("grip_texture"), str)}
     for pname, p in spec["parts"].items():
         where = f"spec.parts.{pname}"
+        if "crop_phase" in p:
+            from crop_phase import validate_crop_phase
+            try:
+                density = spec.get("illustration_px_per_wp")
+                if type(density) not in (int, float) or not math.isfinite(density) or density <= 0:
+                    raise ValueError(f"{where}.crop_phase.k: requires positive illustration_px_per_wp before generation")
+                k = spec["tex_px_per_wp"] / density
+                scaled = {name: [v * k for v in point] for name, point in joints.items() if isinstance(point, list)}
+                source_size = recipe.get("design", {}).get("size")
+                if (not isinstance(source_size, list) or len(source_size) != 2 or
+                        any(type(v) is not int or v <= 0 for v in source_size)):
+                    raise ValueError(f"{where}.crop_phase.size: requires native recipe.design.size before generation")
+                validate_crop_phase(p["crop_phase"], p, scaled, k, f"{where}.crop_phase", source_size)
+            except (ValueError, TypeError, KeyError) as problem:
+                err(where, str(problem))
         if "damage_of" in p:
             if p["damage_of"] not in spec["parts"]:
                 err(f"{where}.damage_of", f"unknown part '{p['damage_of']}'")

@@ -1,0 +1,74 @@
+{
+  "classification": "CPU rebuild of material candidates; native pending",
+  "before": {
+    "art/characters/guest_zheng/parts/hand.png": "bc396ab446dc75bdd8ad54b3ae2f97f567dfc9d5bcecfa5484edacd7a076d68d",
+    "art/characters/guest_zheng/parts/torso.png": "fbc4313d5437dc2576bea431057905bc56a4abe01babcdc943ddc16abe1c89ac",
+    "art/characters/guest_zheng/parts/pelvis.png": "b61128c0746e1178bde27131e98a1a37004b7c76b95a26b4af9e3d9fd89519a5",
+    "art/characters/guest_zheng/parts/leg_lower.png": "a44fc6c6c405e9d539fc0656f17f6deadab554cde5c09d8144ab8c9a23d0d64d"
+  },
+  "commands": [
+    {
+      "command": [
+        "D:\\ComfyUI\\.venv\\Scripts\\python.exe",
+        "-X",
+        "utf8",
+        "C:\\Users\\stanl\\Github\\Nest-Egg\\art_src\\characters\\guest_zheng\\configure_spec.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "D:\\ComfyUI\\.venv\\Scripts\\python.exe",
+        "-X",
+        "utf8",
+        "tools/comfyui/check_spec.py",
+        "--recipe",
+        "tools/comfyui/recipes/guest_zheng.json",
+        "--joints"
+      ],
+      "exit_code": 0,
+      "log_sha256": "ddc1e2142514d6d03657ab584b3eefc1bfe748930f242349372c891e3a590015"
+    },
+    {
+      "command": [
+        "D:\\ComfyUI\\.venv\\Scripts\\python.exe",
+        "-X",
+        "utf8",
+        "tools/comfyui/refine_parts.py",
+        "--spec",
+        "tools/comfyui/specs/guest_zheng_side.json",
+        "--work",
+        "C:\\Users\\stanl\\Github\\Nest-Egg\\art_src\\characters\\guest_zheng"
+      ],
+      "exit_code": 0,
+      "log_sha256": "09c9cc2c49f3d899dc2ec8f45cc835d7f1f3ef4d001da9e4179dc9f3fc73f528"
+    },
+    {
+      "command": [
+        "D:\\ComfyUI\\.venv\\Scripts\\python.exe",
+        "-X",
+        "utf8",
+        "tools/comfyui/build_character.py",
+        "--recipe",
+        "tools/comfyui/recipes/guest_zheng.json",
+        "--from",
+        "textures",
+        "--to",
+        "textures"
+      ],
+      "exit_code": 0,
+      "log_sha256": "26e93e575c468c47d971564f36315726b0e06ca1f68140894c1edadd34634810"
+    },
+    {
+      "command": [
+        "D:\\ComfyUI\\.venv\\Scripts\\python.exe",
+        "-X",
+        "utf8",
+        "tools/story/build_ch2_story.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "2cfa0e161b44e91fa17596b2f5d2d0acac04120710def81cf61efab04d0e7135"
+    }
+  ]
+}

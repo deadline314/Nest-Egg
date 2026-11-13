@@ -1,0 +1,79 @@
+[
+  {
+    "label": "shoulder-base",
+    "runner_exit": 1,
+    "samples": 46,
+    "failures": 2,
+    "summary": {
+      "guest_zheng/shoulder_front/wave/1.0/1": 1,
+      "guest_zheng/shoulder_front/wave/1.0/-1": 1
+    }
+  },
+  {
+    "label": "shoulder-head",
+    "runner_exit": 1,
+    "samples": 46,
+    "failures": 2,
+    "summary": {
+      "guest_zheng/shoulder_front/wave/1.0/1": 1,
+      "guest_zheng/shoulder_front/wave/1.0/-1": 1
+    }
+  },
+  {
+    "label": "shoulder-forearm",
+    "runner_exit": 1,
+    "samples": 46,
+    "failures": 2,
+    "summary": {
+      "guest_zheng/shoulder_front/wave/1.0/1": 1,
+      "guest_zheng/shoulder_front/wave/1.0/-1": 1
+    }
+  },
+  {
+    "label": "shoulder-whole",
+    "runner_exit": 1,
+    "samples": 46,
+    "failures": 2,
+    "summary": {
+      "guest_zheng/shoulder_front/wave/1.0/1": 1,
+      "guest_zheng/shoulder_front/wave/1.0/-1": 1
+    }
+  },
+  {
+    "label": "wrist-base",
+    "runner_exit": 1,
+    "samples": 274,
+    "failures": 2,
+    "summary": {
+      "guest_zheng/wrist_front/sit_listen/2.2/1": 1,
+      "guest_zheng/wrist_front/sit_listen/2.2/-1": 1
+    }
+  },
+  {
+    "label": "wrist-upperarm",
+    "runner_exit": 1,
+    "samples": 274,
+    "failures": 2,
+    "summary": {
+      "guest_zheng/wrist_front/sit_listen/2.2/1": 1,
+      "guest_zheng/wrist_front/sit_listen/2.2/-1": 1
+    }
+  },
+  {
+    "label": "knee-base",
+    "runner_exit": 1,
+    "samples": 172,
+    "failures": 2,
+    "summary": {
+      "guest_zheng/knee_front/sit_down/2.2/1": 1,
+      "guest_zheng/knee_front/sit_down/2.2/-1": 1
+    }
+  },
+  {
+    "label": "knee-pelvis",
+    "runner_exit": 0,
+    "samples": 172,
+    "failures": 0,
+    "summary": {}
+  }
+]

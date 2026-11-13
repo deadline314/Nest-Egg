@@ -1,0 +1,86 @@
+{
+  "classification": "actual Godot normal PNG comparison; full animated native acceptance separate",
+  "frozen_archive_sha256": "d8f4dbcfe765bf85e39712b1d46a74470764ccc138586fa6683e628890293418",
+  "parts": [
+    {
+      "part": "arm_lower",
+      "changed_diffuse_pixels": 0,
+      "changed_normal_pixels_outside_material_kernel": 0,
+      "normal_source": "actual Godot NormalMapMaker.make output, not CPU prototype",
+      "actual_normal_sha256": "4c5965afb2c1ca297ec02d6fbc1dd5ef99d532c964d3cd180e0b1ea49951ad12"
+    },
+    {
+      "part": "arm_upper",
+      "changed_diffuse_pixels": 0,
+      "changed_normal_pixels_outside_material_kernel": 0,
+      "normal_source": "actual Godot NormalMapMaker.make output, not CPU prototype",
+      "actual_normal_sha256": "2d5486e6855cb72a5d76c58e88de300b8d38b93f26bd48283278c9c477987e8a"
+    },
+    {
+      "part": "foot",
+      "changed_diffuse_pixels": 0,
+      "changed_normal_pixels_outside_material_kernel": 0,
+      "normal_source": "actual Godot NormalMapMaker.make output, not CPU prototype",
+      "actual_normal_sha256": "0b9c429a4f39f43e30af82f66f0a118987ebdcab524828417a68a5ea350e031e"
+    },
+    {
+      "part": "hand",
+      "changed_diffuse_pixels": 460,
+      "changed_normal_pixels_outside_material_kernel": 0,
+      "normal_source": "actual Godot NormalMapMaker.make output, not CPU prototype",
+      "actual_normal_sha256": "59a98322d6564fa42b02aaac764e32505f27e173f40b08bb96e6e22ee1e9174c",
+      "finger_diffuse_changes": 0,
+      "finger_normal_changes": 0
+    },
+    {
+      "part": "head",
+      "changed_diffuse_pixels": 0,
+      "changed_normal_pixels_outside_material_kernel": 0,
+      "normal_source": "actual Godot NormalMapMaker.make output, not CPU prototype",
+      "actual_normal_sha256": "fd2ae2f8678c6d277804866b0bd17203a77fe99bffbedb1f836a9055ff2a1445"
+    },
+    {
+      "part": "head_closed",
+      "changed_diffuse_pixels": 0,
+      "changed_normal_pixels_outside_material_kernel": 0,
+      "normal_source": "actual Godot NormalMapMaker.make output, not CPU prototype",
+      "actual_normal_sha256": "abe260682ef63d918aa42d9394a5c2b906a73b795e62d06332a4daa31b59e055"
+    },
+    {
+      "part": "head_half",
+      "changed_diffuse_pixels": 0,
+      "changed_normal_pixels_outside_material_kernel": 0,
+      "normal_source": "actual Godot NormalMapMaker.make output, not CPU prototype",
+      "actual_normal_sha256": "17c3ff3f0117d496d7cbc5768e7967654116b426f4fa9693f395acd21aa4294d"
+    },
+    {
+      "part": "leg_lower",
+      "changed_diffuse_pixels": 129,
+      "changed_normal_pixels_outside_material_kernel": 0,
+      "normal_source": "actual Godot NormalMapMaker.make output, not CPU prototype",
+      "actual_normal_sha256": "74cdaee0abfe7ba90a394171273ca79b2fa3f864c88390972eb0809a3e131cfc"
+    },
+    {
+      "part": "leg_upper",
+      "changed_diffuse_pixels": 0,
+      "changed_normal_pixels_outside_material_kernel": 0,
+      "normal_source": "actual Godot NormalMapMaker.make output, not CPU prototype",
+      "actual_normal_sha256": "77705274a43c9a76287b61f4ef6467887fb0e993d851c0ce70f2d63905f16823"
+    },
+    {
+      "part": "pelvis",
+      "changed_diffuse_pixels": 220,
+      "changed_normal_pixels_outside_material_kernel": 0,
+      "normal_source": "actual Godot NormalMapMaker.make output, not CPU prototype",
+      "actual_normal_sha256": "029d048fa467ae5ba68cc929a66b7170b1ec52b89ab4e29b2576e1156698c415"
+    },
+    {
+      "part": "torso",
+      "changed_diffuse_pixels": 28800,
+      "changed_normal_pixels_outside_material_kernel": 0,
+      "normal_source": "actual Godot NormalMapMaker.make output, not CPU prototype",
+      "actual_normal_sha256": "b5fc19b773a70bc2f9067acdf6c820f7b7e3e752e75db0b0a797d243b85a4bde"
+    }
+  ],
+  "passed": true
+}
