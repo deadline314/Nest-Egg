@@ -27,7 +27,9 @@ static func prepare(original: Dictionary, path: String, state_changes: Dictionar
 	if migrated.has("error"):
 		return migrated
 	var checkpoint_here: bool = state["has_checkpoint"] and (str(state["checkpoint_level_path"]).is_empty() or state["checkpoint_level_path"] == path)
+	var checkpoint_migrated := false
 	if checkpoint_here and prior.get("layout_revision", 1) != definition["revision"]:
+		checkpoint_migrated = true
 		var checkpoint := MapLayoutMigration.checkpoint(state["checkpoint_world"], RunSaveCodec.vector(state["checkpoint_position"]), definition, LevelBuilder.parse(destination))
 		if checkpoint.has("error"):
 			return checkpoint
@@ -38,7 +40,9 @@ static func prepare(original: Dictionary, path: String, state_changes: Dictionar
 	if not destination.persistent_world and checkpoint_here:
 		area["world"] = state["checkpoint_world"].duplicate(true)
 	# Keep checkpoint metadata and the saved area in the same revision so reads cannot translate twice.
-	if destination.persistent_world or definition["revision"] > 1:
+	# A first visit without a migrated checkpoint has nothing to translate, and batch result commits
+	# (e.g. a saved skip) may not create new area entries; the revision lives on the runtime entry.
+	if (state["area_states"].has(id) or checkpoint_migrated) and (destination.persistent_world or definition["revision"] > 1):
 		state["area_states"][id] = area.duplicate(true)
 	if definition["revision"] > 1:
 		entry["layout_revision"] = definition["revision"]
