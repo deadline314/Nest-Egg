@@ -1,0 +1,61 @@
+[
+  {
+    "step": "design",
+    "seconds": 0.7,
+    "outputs": [
+      "art_src\\characters\\guest_chen\\base_rgba.png"
+    ]
+  },
+  {
+    "step": "pose",
+    "seconds": 41.0,
+    "outputs": [
+      "art_src\\characters\\guest_chen\\keypoints.json",
+      "art_src\\characters\\guest_chen\\02_pose\\overlay.png",
+      "art_src\\characters\\guest_chen\\02_pose\\joints.png"
+    ]
+  },
+  {
+    "step": "parts",
+    "seconds": 765.5,
+    "outputs": [
+      "art_src\\characters\\guest_chen\\06_parts",
+      "art_src\\characters\\guest_chen\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 4.8,
+    "outputs": [
+      "art_src\\characters\\guest_chen\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 3.8,
+    "outputs": [
+      "art\\characters\\guest_chen\\character.json",
+      "art\\rigs\\guest_chen.json",
+      "art\\characters\\guest_chen\\parts"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 7.2,
+    "outputs": [
+      "art\\characters\\guest_chen\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 18.7,
+    "outputs": [
+      ".godot"
+    ]
+  }
+]
