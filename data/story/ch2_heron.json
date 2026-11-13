@@ -7694,6 +7694,43 @@
      "seat_sag": 0.5
     },
     {
+     "do": "actor",
+     "id": "chen",
+     "kind": "guest_chen",
+     "pos": [
+      470,
+      265.5
+     ],
+     "facing": -1,
+     "scale": 3.7,
+     "weapon": "",
+     "speaker": "chen",
+     "pose": "idle",
+     "seat_sag": 0.298
+    },
+    {
+     "do": "wait",
+     "time": 0.25
+    },
+    {
+     "do": "move",
+     "id": "chen",
+     "to": [
+      410,
+      265.5
+     ],
+     "time": 1.2,
+     "pose": "walk",
+     "then": "sit",
+     "wait": true,
+     "pose_reason": "走到預約窗桌後坐下。",
+     "pose_support": "右椅座面 x=377.75～442.75、y=209；雙腳落在地板 y=265.5。"
+    },
+    {
+     "do": "wait",
+     "time": 1.1
+    },
+    {
      "do": "say",
      "speaker": "chen",
      "text": "我妻子今天在另一個港口，回不來。我想有人坐這張椅子，不用裝作她真的在這裡。",
@@ -7779,6 +7816,23 @@
      "seat_sag": 0.5
     },
     {
+     "do": "actor",
+     "id": "chen",
+     "kind": "guest_chen",
+     "pos": [
+      410,
+      265.5
+     ],
+     "facing": -1,
+     "scale": 3.7,
+     "weapon": "",
+     "speaker": "chen",
+     "pose": "sit",
+     "pose_reason": "坐下和阿梨談今晚想要的那一碗湯。",
+     "pose_support": "右椅座面 x=377.75～442.75、y=209；雙腳落在地板 y=265.5。",
+     "seat_sag": 0.298
+    },
+    {
      "do": "say",
      "speaker": "chen",
      "text": "這件事我今晚不想說，請換個話題。",
@@ -7818,6 +7872,23 @@
      "pose_reason": "坐下陪成年客人談話。",
      "pose_support": "左椅座面 x=204.25～272.25、y=209；腳底在地板 y=265.5。",
      "seat_sag": 0.5
+    },
+    {
+     "do": "actor",
+     "id": "chen",
+     "kind": "guest_chen",
+     "pos": [
+      410,
+      265.5
+     ],
+     "facing": -1,
+     "scale": 3.7,
+     "weapon": "",
+     "speaker": "chen",
+     "pose": "sit",
+     "pose_reason": "坐下和阿梨談今晚想要的那一碗湯。",
+     "pose_support": "右椅座面 x=377.75～442.75、y=209；雙腳落在地板 y=265.5。",
+     "seat_sag": 0.298
     },
     {
      "do": "say",
@@ -7923,6 +7994,23 @@
      "seat_sag": 0.5
     },
     {
+     "do": "actor",
+     "id": "chen",
+     "kind": "guest_chen",
+     "pos": [
+      410,
+      265.5
+     ],
+     "facing": -1,
+     "scale": 3.7,
+     "weapon": "",
+     "speaker": "chen",
+     "pose": "sit",
+     "pose_reason": "坐下和阿梨談今晚想要的那一碗湯。",
+     "pose_support": "右椅座面 x=377.75～442.75、y=209；雙腳落在地板 y=265.5。",
+     "seat_sag": 0.298
+    },
+    {
      "do": "say",
      "speaker": "chen",
      "text": "我不能吃蔥，您能換一碗嗎？",
@@ -7964,6 +8052,23 @@
      "seat_sag": 0.5
     },
     {
+     "do": "actor",
+     "id": "chen",
+     "kind": "guest_chen",
+     "pos": [
+      410,
+      265.5
+     ],
+     "facing": -1,
+     "scale": 3.7,
+     "weapon": "",
+     "speaker": "chen",
+     "pose": "sit",
+     "pose_reason": "坐下和阿梨談今晚想要的那一碗湯。",
+     "pose_support": "右椅座面 x=377.75～442.75、y=209；雙腳落在地板 y=265.5。",
+     "seat_sag": 0.298
+    },
+    {
      "do": "say",
      "speaker": "ali",
      "text": "這碗梨湯沒有蔥。您的雨帽已經翻出來，外套掛著晾就好。",
@@ -7976,6 +8081,22 @@
      "text": "我還能聞到湯，今天先不談別的。",
      "ja": "まだスープの匂いがするわ。今日はほかの話はしないでおく。",
      "en": "I can still smell the soup. I won't talk about anything else today."
+    },
+    {
+     "do": "move",
+     "id": "chen",
+     "to": [
+      470,
+      265.5
+     ],
+     "time": 1.5,
+     "pose": "walk",
+     "then": "idle",
+     "wait": true
+    },
+    {
+     "do": "wait",
+     "time": 1.3
     }
    ],
    "pose_policy": "supported",

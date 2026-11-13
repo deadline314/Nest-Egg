@@ -815,6 +815,23 @@ def _guest_book_frames(source: ProductionSource):
             elif ident == "ch2_t_s18_done":
                 guest_end = ({"do": "move", "id": "zheng", "to": [470, 265.5], "time": 1.5, "pose": "walk", "then": "idle", "wait": True},
                              {"do": "wait", "time": 1.3})
+        elif segment.section == "S19":
+            # NE-267: Ms Chen sits in the same right chair; she walks in on the first beat and leaves after the soup.
+            support = "右椅座面 x=377.75～442.75、y=209；雙腳落在地板 y=265.5。"
+            entering = ident == "ch2_t_s19_band"
+            guest = stage_actor("chen", "guest_chen", 470 if entering else 410, 265.5, facing=-1, scale=3.7, speaker="chen",
+                                pose="idle" if entering else "sit",
+                                pose_reason=None if entering else "坐下和阿梨談今晚想要的那一碗湯。",
+                                pose_support=None if entering else support)
+            guest["seat_sag"] = 0.298
+            cast.append(guest)
+            if entering:
+                guest_start = ({"do": "wait", "time": .25},
+                               {"do": "move", "id": "chen", "to": [410, 265.5], "time": 1.2, "pose": "walk", "then": "sit", "wait": True,
+                                "pose_reason": "走到預約窗桌後坐下。", "pose_support": support}, {"do": "wait", "time": 1.1})
+            elif ident == "ch2_t_s19_done":
+                guest_end = ({"do": "move", "id": "chen", "to": [470, 265.5], "time": 1.5, "pose": "walk", "then": "idle", "wait": True},
+                             {"do": "wait", "time": 1.3})
         source.segments[ident] = replace(segment, mode="animated", steps=tuple(cast) + guest_start + segment.steps + guest_end)
 
 
