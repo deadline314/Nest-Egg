@@ -14,6 +14,7 @@ import time
 import wave
 import zipfile
 from ne277_verify import verify_motion, verify_feedback, verify_gait
+from ne277_contact_verify import verify_contacts
 
 ROOT = Path(__file__).resolve().parents[1]
 WEAPONS = {"blade": "thermal_blade", "dagger": "mono_dagger", "glaive": "ion_glaive", "maul": "hydraulic_maul", "whip": "mono_whip"}
@@ -25,11 +26,16 @@ def sha(path):
 
 
 def write(path, data):
-    path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    path.write_bytes((json.dumps(data, indent=2, ensure_ascii=False) + "\n").encode("utf-8"))
 
 
 def sources(include_feedback_assets=False):
     paths = set(SOURCES)
+    paths.update(["tools/ne277_contact_probe.gd", "tools/ne277_contact_probe.tscn", "tools/ne277_contact_verify.py", "tools/test_ne277_contact_verify.py"])
+    paths.update(["tests/helpers/melee_contact_geometry_checks.gd", "tests/helpers/melee_contact_parts_checks.gd"])
+    weapon_art = json.loads((ROOT / "data/weapon_art/melee.json").read_bytes())
+    for entry in weapon_art["weapons"].values():
+        paths.update(entry[key].removeprefix("res://") for key in ["texture", "glow"] if entry.get(key))
     # Record shared runtime behavior and the frozen batch's audio/light definitions too.
     # Master recordings include background music/ambience, not isolated melee stems.
     for folder in ["game", "core", "autoload"]:
@@ -92,24 +98,37 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--godot", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
-    parser.add_argument("--mode", choices=["motion", "feedback", "gait"], default="motion")
+    parser.add_argument("--mode", choices=["motion", "feedback", "gait", "contacts"], default="motion")
     parser.add_argument("--weapon", choices=WEAPONS)
     parser.add_argument("--facing", choices=["-1", "1", "both"], default="both")
     parser.add_argument("--native", action="store_true")
     parser.add_argument("--verbose", action="store_true")
     parser.add_argument("--negative", choices=["missing-input"])
+    parser.add_argument("--move")
+    parser.add_argument("--contact-control", choices=["early-broad", "late-broad"])
+    parser.add_argument("--context-manifest", type=Path, help="Additional immutable runtime context, with source_sha256 entries")
     parser.add_argument("--timeout", type=int, default=360)
     args = parser.parse_args()
-    if args.negative and args.mode != "motion":
+    if args.negative and args.mode not in ["motion", "contacts"]:
         parser.error("missing-input negative control applies only to held motion")
+    if (args.move or args.contact_control) and args.mode != "contacts":
+        parser.error("contact filters/controls apply only to contacts mode")
     if args.mode == "gait" and (args.native or args.weapon or args.facing != "both"):
         parser.error("gait mode is the complete CPU kinematic/control matrix")
     out = args.out.resolve(); out.mkdir(parents=True, exist_ok=False); (out / ".gdignore").touch()
-    inputs = sources(args.mode == "feedback"); before = {p: sha(ROOT / p) for p in inputs}
+    inputs = sources(args.mode in ["feedback", "contacts"])
+    context = {}
+    if args.context_manifest:
+        context = json.loads(args.context_manifest.read_bytes())["source_sha256"]
+        if not context or any(sha(ROOT / p) != expected for p, expected in context.items()):
+            parser.error("context manifest does not match actual source bytes")
+        inputs = sorted(set(inputs) | set(context))
+        shutil.copyfile(args.context_manifest, out / "context-manifest.json")
+    before = {p: sha(ROOT / p) for p in inputs}
     for p in inputs:
-        if Path(p).suffix in [".gd", ".tscn", ".json", ".py", ".godot", ".tres", ".gdshader"]:
+        if Path(p).suffix in [".gd", ".tscn", ".json", ".py", ".godot", ".tres", ".gdshader"] or p.startswith("art/weapons/melee/"):
             target = out / "source" / p; target.parent.mkdir(parents=True, exist_ok=True); shutil.copyfile(ROOT / p, target)
-    scene = {"motion": "ne277_delivery_probe", "feedback": "ne277_feedback_probe", "gait": "ne277_gait_handoff_probe"}[args.mode]
+    scene = {"motion": "ne277_delivery_probe", "feedback": "ne277_feedback_probe", "gait": "ne277_gait_handoff_probe", "contacts": "ne277_contact_probe"}[args.mode]
     cmd = [str(args.godot.resolve())]
     if args.verbose:
         cmd += ["--verbose"]
@@ -122,6 +141,10 @@ def main():
         cmd += ["--weapon=" + args.weapon]
     if args.negative:
         cmd += ["--negative=" + args.negative]
+    if args.move:
+        cmd += ["--move=" + args.move]
+    if args.contact_control:
+        cmd += ["--contact-control=" + args.contact_control]
     if args.native:
         cmd += ["--capture"]
         cmd = [sys.executable, str(ROOT / "tools/comfyui/gpu_lock.py"), "--"] + cmd
@@ -147,7 +170,7 @@ def main():
         data = json.loads((out / "result.json").read_text(encoding="utf-8"))
         if args.native and (data.get("renderer") != "forward_plus" or data.get("display") == "headless" or not data.get("adapter")):
             errors.append("native Forward+ device observations required")
-        if args.mode == "motion":
+        if args.mode in ["motion", "contacts"]:
             sides = [-1, 1] if args.facing == "both" else [int(args.facing)]
             expected = set()
             for id, profile in WEAPONS.items():
@@ -160,9 +183,13 @@ def main():
                     moves.append(extension["attack"])
                 for side in sides:
                     if not args.negative:
-                        expected.update(f"{id}/{side}/{move}" for move in moves)
-                    expected.add(f"{id}/{side}/{definition['hold']['attack']}-held")
+                        expected.update(f"{id}/{side}/{move}" for move in moves if not args.move or args.move == move)
+                    if not args.move or args.move == definition['hold']['attack']:
+                        expected.add(f"{id}/{side}/{definition['hold']['attack']}-held")
             errors += verify_motion(data, expected, out, args.native)
+            if args.mode == "contacts":
+                contact_data = json.loads((out / "contact-result.json").read_bytes())
+                errors += verify_contacts(contact_data, expected, out, args.native)
         elif args.mode == "feedback":
             expected = set()
             sides = [-1, 1] if args.facing == "both" else [int(args.facing)]
@@ -193,7 +220,7 @@ def main():
     if companion != args.godot and companion.is_file():
         binaries[str(companion.resolve())] = sha(companion)
     receipt = {"command": cmd, "engine_sha256": sha(args.godot), "engine_binaries_sha256": binaries, "source_before_sha256": before, "source_after_sha256": after, "exit": code, "timeout_exceeded": timed_out, "wall_seconds_not_performance": round(time.monotonic() - started, 3), "diagnostics": diagnostics, "verification_errors": errors, "passed": code == 0 and not timed_out and not errors}
-    files = [p for p in out.rglob("*") if p.is_file() and "user" not in p.relative_to(out).parts]
+    files = [p for p in out.rglob("*") if p.is_file() and "user" not in p.relative_to(out).parts and "__pycache__" not in p.parts and p.suffix != ".pyc"]
     receipt["files_sha256"] = {p.relative_to(out).as_posix(): sha(p) for p in files}
     write(out / "run.json", receipt)
     with zipfile.ZipFile(out / "raw.zip", "w", zipfile.ZIP_DEFLATED) as archive:

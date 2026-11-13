@@ -456,6 +456,8 @@ func _physics_process(delta: float) -> void:
 	_input.jumped = false
 	_input.landed = 0.0
 	_input.dash_started = false
+	# Real collision and synchronous hitstop must observe this published weapon pose.
+	player.melee.after_visible_pose()
 
 
 func _process(delta: float) -> void:

@@ -1,0 +1,50 @@
+{
+  "scope": "Matched 42 original action/facing/held identities, four phase windows each; six consecutive original physics steps per version per page. No inference of unrecorded before fields, pixel A/A, gameplay feel, performance or human recognition.",
+  "master_sha256": "50e8230987704a46c578412756268543381e6cd8e0adf4f9541c228eb2b3dbdd",
+  "master_location": "work/ne277-motion-compare-v6/master-pages-original.zip (local retained >100MB master; same original PNG/JSON bytes are in the five published parts)",
+  "parts": [
+    {
+      "weapon": "blade",
+      "file": "motion-before-after-blade.zip",
+      "bytes": 36764000,
+      "sha256": "0062e77d567623d35fbffb39f973db2dd0036cbbb7193f1fb943da051458caab",
+      "pages": 40,
+      "cases": 10
+    },
+    {
+      "weapon": "dagger",
+      "file": "motion-before-after-dagger.zip",
+      "bytes": 35432010,
+      "sha256": "bc0059222619ab1df65b2b1e915f454f5cfcb31c73e39650ef81f7417b57969a",
+      "pages": 40,
+      "cases": 10
+    },
+    {
+      "weapon": "glaive",
+      "file": "motion-before-after-glaive.zip",
+      "bytes": 32035506,
+      "sha256": "cd1b816a4df38d5a1a34ddd01cd81e5a14981f66d0d0ef41736385239eafc03b",
+      "pages": 32,
+      "cases": 8
+    },
+    {
+      "weapon": "maul",
+      "file": "motion-before-after-maul.zip",
+      "bytes": 27923812,
+      "sha256": "4ef6ec890b52949cdd64ce999272d2b36bc0dcfc34293adf0f87f697ebe27d91",
+      "pages": 32,
+      "cases": 8
+    },
+    {
+      "weapon": "whip",
+      "file": "motion-before-after-whip.zip",
+      "bytes": 25391669,
+      "sha256": "77e593dd5811a1118b7dfdd78b4cbc98013bf2851b940195d9d1b7df177beeda",
+      "pages": 24,
+      "cases": 6
+    }
+  ],
+  "original_frame_selections_with_overlapping_windows": 2016,
+  "unique_matched_cases": 42,
+  "phase_windows_per_case": 4
+}

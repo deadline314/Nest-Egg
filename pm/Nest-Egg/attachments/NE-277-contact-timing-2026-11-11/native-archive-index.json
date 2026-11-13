@@ -1,0 +1,58 @@
+{
+  "scope": "Sealed v6 native five-weapon42 and feedback36 proof. Both early-broad and late-broad negative rounds remain intentional rejected controls. Native arrays are not relabelled as v8 source. Final v6 affected65 88777/0 and v8+pureclock affected70 94097/0 have separate small source/log ZIPs; performance qualification remains pending.",
+  "archives": [
+    {
+      "file": "native-blade-final.zip",
+      "bytes": 63979284,
+      "sha256": "4585516fd4153d4454ba3715fd0de5bf9599d5239b358a8c74002a92128344e4"
+    },
+    {
+      "file": "native-dagger-final.zip",
+      "bytes": 42150362,
+      "sha256": "65a0d351c20adb64a0a05032ce6c4bcc833b2327c2a6a5b525d34d8284cae610"
+    },
+    {
+      "file": "native-feedback-final.zip",
+      "bytes": 20409433,
+      "sha256": "9adfae4d0d09972fd02c98a24a4fba5924f644b7a206a74fcc7ee65a606f3358"
+    },
+    {
+      "file": "native-glaive-final.zip",
+      "bytes": 74232914,
+      "sha256": "a19b17ea063b01306016e9f2db035064989bcd56046dededaa622f4415ea443d"
+    },
+    {
+      "file": "native-maul-early-negative.zip",
+      "bytes": 10120278,
+      "sha256": "c8d64d1ce012295a0cffddd568e3188efb02ae7fd3b33b35d1b3cd97b7f4f175"
+    },
+    {
+      "file": "native-maul-final.zip",
+      "bytes": 88385442,
+      "sha256": "e499cb7c4bae93d39b263feec13287212c5e138a69e482fab34e3d88e8986e67"
+    },
+    {
+      "file": "native-whip-early-negative.zip",
+      "bytes": 9134115,
+      "sha256": "13448c7e296d1d85ba0bc4ad222da568b7e139cc89fc22255d70f1f51bb6f2a6"
+    },
+    {
+      "file": "native-whip-final.zip",
+      "bytes": 63607677,
+      "sha256": "76e9c0ea87609eeea8cc854adc992c9ea1724f56418e640c75f37e394afe8705"
+    },
+    {
+      "file": "native-maul-late-negative.zip",
+      "bytes": 10346073,
+      "sha256": "348c4fc32e8a25fe8a34c5355b87c2d93701799d404c17aff2e0af12b26ba8cd"
+    }
+  ],
+  "raw_root": "D:/NestEggDeliveries/NE277-20261112",
+  "source_epochs": {
+    "native": "candidate-v6, original per-archive context retained",
+    "finite_geometry_guard": "candidate-v8; separate 113/0 geometry and 3/0 size controls",
+    "affected_v6": "affected-final-index.json",
+    "affected_v8_pureclock": "affected-v8-clock-joint-index.json",
+    "performance": "No qualified result yet"
+  }
+}

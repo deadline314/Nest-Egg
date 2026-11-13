@@ -8,6 +8,8 @@ const DT := 1.0 / 60.0
 
 func run() -> void:
 	_test_data()
+	await preload("res://tests/helpers/melee_contact_geometry_checks.gd").run(self)
+	await preload("res://tests/helpers/melee_contact_parts_checks.gd").run(self)
 	await _test_phases_and_single_hit()
 	await _test_light_contact_pair_pause()
 	await _test_whiff_recovers_fully()

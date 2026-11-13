@@ -42,6 +42,7 @@ var visual_left := 0.0
 ## 多段判定（MeleeMove.hits）：目前開到第幾段（-1＝還沒開始）、這一段是否已經播過命中聲。
 var hit_window := -1
 var _window_sound_done := false
+var _swing_sound_pending := false
 ## Reused until the first damaging contact is dispatched. LIGHT reactions also share that first pause.
 var _first_contact_targets: Array[Node] = []
 ## 按住招式（MeleeSet.hold）：這一招是不是按住招式、模式（charge 蓄力／sustain 持續／repeat 重複）、
@@ -49,6 +50,19 @@ var _first_contact_targets: Array[Node] = []
 var hold_mode := ""
 var charged := false
 var _sustain_tick := 0.0
+## Armed contacts resolve only after this physics frame's rig and held weapon have been published.
+var _contact_pending := false
+var _contact_previous := 0.0
+var _contact_current := 0.0
+var _sustain_contact_pending := false
+var _manual_contact_pending := false
+var _in_contact_window := false
+var _recovery_pending := false
+var _recovery_pose_from := POSE_RECOVERY_FROM
+var contact_from := 1.0
+var contact_to := 1.0
+var last_contact := Vector2.INF
+
 
 
 func _init(p_host: Player = null) -> void:
@@ -102,7 +116,7 @@ func pose_progress() -> float:
 				return clampf(float(spec.get("hold_at", POSE_RECOVERY_FROM)), POSE_ACTIVE_FROM, POSE_RECOVERY_FROM)
 			return POSE_ACTIVE_FROM + clampf(time / active, 0.0, 1.0) * (POSE_RECOVERY_FROM - POSE_ACTIVE_FROM)
 		Phase.RECOVERY:
-			return POSE_RECOVERY_FROM + clampf(time / maxf(0.001, float(attack["recovery"])), 0.0, 1.0) * (1.0 - POSE_RECOVERY_FROM)
+			return lerpf(_recovery_pose_from, 1.0, clampf(time / maxf(0.001, float(attack["recovery"])), 0.0, 1.0))
 	return -1.0
 
 
@@ -282,9 +296,12 @@ func start_attack(continue_combo: bool) -> bool:
 	_first_contact_targets.clear()
 	hit_window = -1
 	_window_sound_done = false
+	_swing_sound_pending = false
 	hold_mode = ""
 	charged = false
 	_sustain_tick = 0.0
+	_clear_pending_contacts()
+	_recovery_pose_from = POSE_RECOVERY_FROM
 	buffer_left = 0.0
 	combo_left = 0.0
 	visual_left = float(attack["windup"]) + float(attack["active"]) + 0.04
@@ -328,8 +345,10 @@ func _tick_phase(delta: float) -> void:
 			if _keep_sustaining(delta):
 				return
 			if time >= float(attack["active"]):
-				phase = Phase.RECOVERY
-				time = 0.0
+				if _uses_visible_contact():
+					_recovery_pending = true
+				else:
+					_enter_recovery()
 		Phase.RECOVERY:
 			if buffer_left > 0.0 and is_cancellable() and index < chain.size() - 1:
 				if not start_attack(true):
@@ -340,6 +359,8 @@ func _tick_phase(delta: float) -> void:
 
 func end(keep_combo := true) -> void:
 	var was_active := phase != Phase.NONE
+	_finish_swing_sound()
+	_clear_pending_contacts()
 	_first_contact_targets.clear()
 	phase = Phase.NONE
 	visual_left = 0.0
@@ -383,7 +404,7 @@ func interrupt(preserve_risk := false) -> void:
 # 判定與命中回饋
 # ---------------------------------------------------------------------------
 
-## 出招的瞬間：往前衝、判定一次；同一揮對同一目標只命中一次。有 sweep 的招式在出招區間內每個影格再判定。
+## 出招的瞬間：往前衝、排入當格可見姿勢後的判定；同一揮對同一目標只命中一次。有 sweep 的招式在出招區間內每個影格再判定。
 func _strike() -> void:
 	var def := attack
 	host.velocity.x += float(swing_facing) * float(def["advance"])
@@ -392,9 +413,20 @@ func _strike() -> void:
 	MeleeFx.swing(_chest(), host.global_position, direction(def), float(def["range"]), color_of(def),
 			StringName(str(def["impact_fx"])), str((def["trail"] as Dictionary).get("style", "arc")) == "lash")
 	_advance_hit_windows(-1.0)
-	if not landed:
-		var heavy := int(def["stagger"]) >= 3
-		Sfx.play_named(StringName(str(sounds_of(def)["swing"])), -10.0 if not heavy else -6.0)
+	_swing_sound_pending = true
+	if not _uses_visible_contact():
+		_finish_swing_sound()
+
+
+## Visible contact can arrive later in the original active window. Choose the
+## miss sound only after that window has been observed, or an active interruption.
+func _finish_swing_sound() -> void:
+	if not _swing_sound_pending:
+		return
+	_swing_sound_pending = false
+	if not landed and not attack.is_empty():
+		var heavy := int(attack["stagger"]) >= 3
+		Sfx.play_named(StringName(str(sounds_of(attack)["swing"])), -10.0 if not heavy else -6.0)
 
 
 ## 蓄力：按住招式的前搖到了還按著就停在舉起的姿勢繼續蓄，放開或蓄滿（hold.max 秒）才出手；蓄滿的那一下用 hold.full_damage。
@@ -424,9 +456,10 @@ func _keep_sustaining(delta: float) -> bool:
 	_sustain_tick -= delta
 	if _sustain_tick <= 0.0:
 		_sustain_tick = float(spec.get("interval", 0.25))
-		hit_ids.clear()
-		_window_sound_done = false
-		hit_pass()
+		if _uses_visible_contact():
+			_sustain_contact_pending = true
+		else:
+			_sustain_contact()
 	visual_left = maxf(visual_left, 0.05)
 	return true
 
@@ -435,41 +468,138 @@ func _keep_sustaining(delta: float) -> bool:
 ## previous_time 是這一格開始時的出招時間（出招的第一格傳 -1）；一段在這一格開始時還開著，這一格就判定。
 ## 只有一段、從 0 開始、持續整個出招的招式，結果和搬到新格式之前完全一樣。
 func _advance_hit_windows(previous_time: float) -> void:
+	if _uses_visible_contact():
+		_contact_pending = true
+		_contact_previous = previous_time
+		_contact_current = minf(time, float(attack["active"]))
+		return
+	_resolve_hit_windows(previous_time, time)
+
+
+func _uses_visible_contact() -> bool:
+	return host != null and host.holds_melee_weapon() and host._visual != null and host._visual.shows_melee_weapon()
+
+
+func _clear_pending_contacts() -> void:
+	_contact_pending = false
+	_sustain_contact_pending = false
+	_manual_contact_pending = false
+	_in_contact_window = false
+	_recovery_pending = false
+	contact_from = 1.0
+	contact_to = 1.0
+	last_contact = Vector2.INF
+
+
+## PlayerVisual calls once, after rig, weapon, rope and rear-hand updates for this physics tick.
+func after_visible_pose() -> void:
+	if _contact_pending:
+		_contact_pending = false
+		_resolve_hit_windows(_contact_previous, _contact_current)
+	if _sustain_contact_pending:
+		_sustain_contact_pending = false
+		_sustain_contact()
+	if _manual_contact_pending:
+		_manual_contact_pending = false
+		contact_from = 1.0
+		contact_to = 1.0
+		hit_pass()
+	if phase == Phase.ACTIVE and time >= float(attack["active"]):
+		_finish_swing_sound()
+
+	if _recovery_pending and phase == Phase.ACTIVE:
+		_recovery_pending = false
+		_enter_recovery()
+
+
+## A sustained loop can be released at any point in its stroke. Continue from
+## the pose just published, while keeping the original recovery duration.
+func _enter_recovery() -> void:
+	_recovery_pose_from = pose_progress()
+	phase = Phase.RECOVERY
+	time = 0.0
+
+
+func _sustain_contact() -> void:
+	hit_ids.clear()
+	_window_sound_done = false
+	contact_from = 0.0
+	contact_to = 1.0
+	_in_contact_window = true
+	hit_pass()
+	_in_contact_window = false
+
+
+func _window_contact(window: Dictionary, previous_time: float, current_time: float) -> void:
+	contact_from = 1.0
+	contact_to = 1.0
+	if current_time > previous_time and previous_time >= 0.0:
+		var start := maxf(previous_time, float(window["at"]))
+		var stop := minf(current_time, float(window["at"]) + float(window["length"]))
+		if stop < start:
+			return
+		contact_from = clampf((start - previous_time) / (current_time - previous_time), 0.0, 1.0)
+		contact_to = clampf((stop - previous_time) / (current_time - previous_time), 0.0, 1.0)
+	_in_contact_window = true
+	hit_pass()
+	_in_contact_window = false
+
+
+func _resolve_hit_windows(previous_time: float, current_time: float) -> void:
 	var windows := MeleeMove.hits(attack)
 	var opened := false
-	while hit_window + 1 < windows.size() and time >= float((windows[hit_window + 1] as Dictionary)["at"]) - MeleeMove.EPSILON:
+	while hit_window + 1 < windows.size() and current_time >= float((windows[hit_window + 1] as Dictionary)["at"]) - MeleeMove.EPSILON:
 		hit_window += 1
 		opened = true
 		if hit_window > 0:
 			hit_ids.clear()
 		_window_sound_done = false
-		hit_pass()
+		_window_contact(windows[hit_window], previous_time, current_time)
 	if opened or hit_window < 0 or not bool(attack["sweep"]):
 		return
 	var window: Dictionary = windows[hit_window]
 	if previous_time < float(window["at"]) + float(window["length"]):
-		hit_pass()
+		_window_contact(window, previous_time, current_time)
 
 
 ## 這一瞬間判定範圍內、還沒被這一段打過的目標；命中時給傷害、衝擊與回饋。
 func hit_pass() -> void:
+	if attack.is_empty() or phase == Phase.NONE:
+		return
+	if not _in_contact_window:
+		var windows := MeleeMove.hits(attack)
+		if phase != Phase.ACTIVE or hit_window < 0 or hit_window >= windows.size():
+			return
+		var window: Dictionary = windows[hit_window]
+		if time < float(window["at"]) or time >= float(window["at"]) + float(window["length"]):
+			return
+		contact_from = 1.0
+		contact_to = 1.0
+	var visible_contact := _uses_visible_contact()
+	if visible_contact and int(host._visual.melee_held().contact_sweep().get("tick")) != Engine.get_physics_frames():
+		_manual_contact_pending = true
+		return
 	var def := attack
 	var knock: Array = def["knockback"]
 	var heavy := int(def["stagger"]) >= 3
 	var landed_now := false
 	# 武器打到的點：揮擊方向上、攻擊距離約四分之三處；每個目標的回饋放在自己受擊範圍內最靠近這一點的位置（NE-268）。
 	var strike := _chest() + direction(def) * float(def["range"]) * 0.75
-	for target_hurtbox in targets(def):
+	for candidate in targets(def):
+		var target_hurtbox: Hurtbox = _visible_contact_box(candidate, def) if visible_contact else candidate
+		if target_hurtbox == null:
+			continue
 		var id := target_hurtbox.health.get_instance_id() if target_hurtbox.health != null else target_hurtbox.get_instance_id()
 		if hit_ids.has(id):
 			continue
+		var contact := last_contact if visible_contact else target_hurtbox.closest_point(strike)
+		last_contact = contact
 		var info := DamageInfo.create(_damage_now(def), Combat.Team.PLAYER, &"melee", Vector2(swing_facing * float(knock[0]), float(knock[1])))
 		info.stagger = int(def["stagger"])
 		info.impact = float(def["impact"])
 		info.attacker = weakref(host)
 		info.freeze_attacker = not feedback_done and hit_ids.is_empty()
 		info.origin = host.global_position
-		var contact := target_hurtbox.closest_point(strike)
 		info.contact_point = contact
 		var result := target_hurtbox.receive(info)
 		if result != Hurtbox.Result.IGNORED:
@@ -505,6 +635,50 @@ func hit_pass() -> void:
 		_window_sound_done = true
 		for layer in MeleeMove.hit_layers(def):
 			Sfx.play_named(layer, -3.0 if not heavy else 0.0)
+
+
+## Broadphase may nominate an open weak point that the actual blade never reaches.
+## Guarded parts that are really touched intercept before any exposed part/body behind them.
+func _visible_contact_box(candidate: Hurtbox, def: Dictionary) -> Hurtbox:
+	var owner_box := candidate.root()
+	if owner_box.parts_take_melee:
+		for pass_index in 2:
+			for part in owner_box.parts:
+				if not part.enabled or part.guard.is_valid() != (pass_index == 0) or not _contact_in_bounds(part, def):
+					continue
+				var point := host._visual.melee_held().contact_point(part, contact_from, contact_to)
+				if point.is_finite():
+					last_contact = point
+					return part
+	if _contact_in_bounds(owner_box, def):
+		var point := host._visual.melee_held().contact_point(owner_box, contact_from, contact_to)
+		if point.is_finite():
+			last_contact = point
+			return owner_box
+	return null
+
+
+## The same original broadphase footprint and center-based dead-zone/arc rules, applied
+## to a newly selected part rather than granting an out-of-range part a weak hit.
+func _contact_in_bounds(box: Hurtbox, def: Dictionary) -> bool:
+	if not box.enabled or not PhysicsServer2D.area_get_space(box.get_rid()).is_valid():
+		return false
+	var origin := _chest()
+	var dir := direction(def)
+	var offset := box.center() - origin
+	var reach := float(def["range"])
+	if offset.length() < float(def["min_range"]):
+		return false
+	if str(def["shape"]) == "arc":
+		return absf(dir.angle_to(offset)) <= deg_to_rad(float(def["arc_degrees"])) * 0.5 and box.closest_point(origin).distance_squared_to(origin) <= reach * reach
+	var height := float(def["height"]) if float(def["height"]) > 0.0 else Player.BODY_SIZE.y
+	var xf := Transform2D(dir.angle() if bool(def["aim_follow"]) else 0.0, origin + dir * reach * 0.5)
+	var half := Vector2(reach, height) * 0.5
+	var a := xf * -half
+	var b := xf * Vector2(half.x, -half.y)
+	var c := xf * half
+	var d := xf * Vector2(-half.x, half.y)
+	return box.triangle_contact(a, b, c).is_finite() or box.triangle_contact(a, c, d).is_finite()
 
 
 ## 這一下的傷害：多段攻擊看是第幾段；蓄滿的按住招式用 hold.full_damage。

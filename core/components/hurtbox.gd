@@ -205,6 +205,54 @@ func contains_point(point: Vector2, margin := 0.0) -> bool:
 	return absf(local.x) <= _shape.size.x * 0.5 + margin and absf(local.y) <= _shape.size.y * 0.5 + margin
 
 
+## Actual contact with a world-space triangle; INF means no overlap. No shape queries or allocations.
+## Used by weapon silhouettes and their previous-to-current physics sweeps.
+func triangle_contact(a: Vector2, b: Vector2, c: Vector2) -> Vector2:
+	if _shape_node == null or _shape == null:
+		return Vector2.INF
+	if not a.is_finite() or not b.is_finite() or not c.is_finite():
+		return Vector2.INF
+	var xf := _shape_node.global_transform
+	var determinant := xf.determinant()
+	if not xf.is_finite() or not is_finite(determinant) or determinant == 0.0:
+		return Vector2.INF
+	var inverse := xf.affine_inverse()
+	var la := inverse * a
+	var lb := inverse * b
+	var lc := inverse * c
+	if not inverse.is_finite() or not la.is_finite() or not lb.is_finite() or not lc.is_finite():
+		return Vector2.INF
+	var half := _shape.size * 0.5
+	if not half.is_finite():
+		return Vector2.INF
+	var low := la.min(lb).min(lc)
+	var high := la.max(lb).max(lc)
+	if low.x > half.x or high.x < -half.x or low.y > half.y or high.y < -half.y:
+		return Vector2.INF
+	if absf(la.x) <= half.x and absf(la.y) <= half.y:
+		return a
+	if absf(lb.x) <= half.x and absf(lb.y) <= half.y:
+		return b
+	if absf(lc.x) <= half.x and absf(lc.y) <= half.y:
+		return c
+	if absf((lb - la).cross(lc - la)) > 0.000001:
+		for corner in 4:
+			var point := Vector2(half.x if corner & 1 else -half.x, half.y if corner & 2 else -half.y)
+			var ab := (lb - la).cross(point - la)
+			var bc := (lc - lb).cross(point - lb)
+			var ca := (la - lc).cross(point - lc)
+			if (ab >= 0.0 and bc >= 0.0 and ca >= 0.0) or (ab <= 0.0 and bc <= 0.0 and ca <= 0.0):
+				return xf * point
+	var span := _segment_span(a, b - a, 0.0)
+	if span.x >= 0.0 and span.x <= 1.0:
+		return a.lerp(b, span.x)
+	span = _segment_span(b, c - b, 0.0)
+	if span.x >= 0.0 and span.x <= 1.0:
+		return b.lerp(c, span.x)
+	span = _segment_span(c, a - c, 0.0)
+	return c.lerp(a, span.x) if span.x >= 0.0 and span.x <= 1.0 else Vector2.INF
+
+
 func can_receive(info: DamageInfo = null) -> bool:
 	return enabled and (main == null or main.enabled) and health != null and health.can_take_damage(info)
 

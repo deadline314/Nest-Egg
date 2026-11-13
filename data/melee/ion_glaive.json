@@ -1,4 +1,5 @@
 {
+ "contact_span": [29, 50],
  "_說明": "近戰武器的招式組（欄位說明見 data/feel/melee.json 的 _說明）。新增欄位：shape（box 面前矩形／arc 扇形）、height（矩形高，0＝身高）、arc_degrees（扇形總角度）、min_range（近身死角，這段距離內打不到）、aim_follow（跟著準星揮）、sweep（出招區間內每影格判定，同一目標只算一次）、hitstop（命中頓幀秒數）、pose（slash 斜斬／overhead 劈砍／thrust 刺擊／sweep 橫掃，對應角色動作 rin.melee_<pose>）。每揮的電量消耗在武器資料（WeaponData 的 magazine_size、ammo_per_shot、reload_time）。",
  "combo": [
   "thrust",
@@ -372,13 +373,13 @@
     {
      "t": 0.55,
      "angle": 0.35,
-     "reach": 10.5,
+     "reach": 7.0,
      "tilt": -0.35
     },
     {
      "t": 0.7,
      "angle": 0.35,
-     "reach": 10.5,
+     "reach": 7.0,
      "tilt": -0.35
     },
     {

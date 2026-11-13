@@ -11,7 +11,7 @@ extends Node2D
 ## 鞭類武器（NE-276）：握把照上面的方式握，鞭身是一條一直在模擬的軟繩（SoftWhip），從握把的出線口接出去；
 ##     出招時不換畫法，只給鞭梢一個沿著招式路徑走的目標點去拉它。
 ##
-## 只管看得到的樣子：招式打得到的距離、判定與時間照招式資料，和這裡無關。
+## 發布當格可見輪廓與前後格掃掠供近戰模組判斷接觸；招式窗口、射程與傷害仍由模組的資料控制。
 
 ## 預設拿法（朝右時的角度，弧度；0 是水平朝前、正的是往下）。second 是另一隻手握在離握把多遠的地方（世界像素，0＝單手）。
 const DEFAULT := {"carry": 0.5, "couple": 0.3, "freq": 8.0, "damp": 0.6, "lag": 0.5, "swing": 0.0, "second": 0.0}
@@ -45,6 +45,8 @@ const SECOND_TAIL_MARGIN := 2.0
 const SECOND_STEP := 0.5
 ## 搆不到的點的懲罰（比任何搆得到的點都差）。
 const OUT_OF_REACH := 1000.0
+
+var _contact_sweep = preload("res://core/melee_contact_sweep.gd").new()
 
 var _visual: PlayerVisual
 var _weapon: WeaponData
@@ -96,6 +98,7 @@ func update(delta: float) -> void:
 	_shown = _visual.shows_melee_weapon()
 	visible = _shown
 	if not _shown:
+		_contact_sweep.clear()
 		_settled = false
 		if _whip != null:
 			_whip.clear()
@@ -139,6 +142,10 @@ func update(delta: float) -> void:
 		_step_whip(delta, player, facing)
 	elif _whip != null:
 		_whip.clear()
+	if player.melee.is_active():
+		_contact_sweep.capture(weapon, draw_transform(), facing, _whip, global_transform, player.melee.set_in_use.contact_span())
+	else:
+		_contact_sweep.clear()
 	queue_redraw()
 	_base_sprite.queue_redraw()
 
@@ -222,12 +229,27 @@ func remember_second_grip(point: Vector2) -> void:
 func tip_point() -> Vector2:
 	if _whip != null and _whip.is_laid():
 		return _whip.tip()
-	return _origin + _direction * _tip
+	return draw_transform() * Vector2(_tip, 0.0)
 
 
 ## 握把的位置與刃尖的方向（世界座標）：origin 是掌心，x 軸指向刃尖。
 func hold() -> Transform2D:
 	return Transform2D(_direction, _direction.orthogonal(), _origin)
+
+
+## Exact transform used by MeleeArt.draw, including mirrored artwork and canvas squash.
+func draw_transform() -> Transform2D:
+	var inverse := global_transform.affine_inverse()
+	var along := inverse.basis_xform(_direction).normalized()
+	return global_transform * MeleeArt.draw_transform(inverse * _origin, along, not MeleeArt.art(_weapon).is_empty())
+
+
+func contact_sweep() -> RefCounted:
+	return _contact_sweep
+
+
+func contact_point(box: Hurtbox, from_fraction := 0.0, to_fraction := 1.0) -> Vector2:
+	return _contact_sweep.contact(box, from_fraction, to_fraction)
 
 
 ## 武器現在比「該在的方向」落後多少（弧度，朝右空間；量測與測試用）。

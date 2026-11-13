@@ -685,6 +685,20 @@ func _test_platform_strike_contact() -> void:
 		await physics_frames(10)
 		flashes.clear()
 		var standing := player.global_position.y
+		var original_hp := grunt.health.current
+		player._try_melee()
+		var nominated := player.melee.targets(player._melee_attack).has(grunt.hurtbox)
+		await physics_frames(30)
+		check(nominated and flashes.is_empty() and grunt.health.current == original_hp,
+				"a platform target inside the broad rectangle but below the visible blade is not hit (side %d)" % side)
+		# At 2.3 tiles the rectangle's generous width reaches the head, but the
+		# visible diagonal blade passes above it. Move along the same floor until
+		# the actual blade reaches the upper body; keep aim/range/window unchanged.
+		grunt.global_position.x = player.global_position.x + float(side) * 2.8 * 16.0
+		player._interrupt_melee()
+		player._melee_cooldown_left = 0.0
+		player._melee_combo_left = 0.0
+		flashes.clear()
 		player._try_melee()
 		await physics_frames(30)
 		var feet := grunt.global_position

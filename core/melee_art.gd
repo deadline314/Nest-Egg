@@ -89,6 +89,18 @@ static func hold_spec(weapon: WeaponData) -> Dictionary:
 	return art(weapon).get("hold", {})
 
 
+## One coordinate source for the renderer and visible contact geometry.
+## Textured art mirrors its transverse axis on the left; fallback segments retain their old rotation.
+static func draw_transform(from: Vector2, direction: Vector2, textured := true) -> Transform2D:
+	if not textured:
+		return Transform2D(direction.angle(), from)
+	return Transform2D(direction, Vector2(-direction.y, direction.x) * (-1.0 if direction.x < 0.0 else 1.0), from)
+
+
+static func texture_rect(entry: Dictionary) -> Rect2:
+	return Rect2(-(entry["grip"] as Vector2), entry["size"] as Vector2)
+
+
 ## 畫在 CanvasItem 上：from 是握把位置、direction 是刃尖朝向（單位向量）；glow 是發光亮度（>1 會帶泛光，呼叫端自己限制上限）。
 ## 朝左時把圖上下對調，刃口才不會翻到上面。
 ## reach 大於 0 時，鞭子的細線只畫到這個長度（垂下來不穿過地面）。
@@ -96,16 +108,15 @@ static func hold_spec(weapon: WeaponData) -> Dictionary:
 ## 圖示可混畫，世界握持物則將 REFLECTIVE 與 EMISSION 送往各自材質。
 static func draw(item: CanvasItem, from: Vector2, direction: Vector2, weapon: WeaponData, glow := 1.4, shade := 1.0, reach := -1.0, layers := ALL_LAYERS) -> void:
 	var entry := art(weapon)
-	var xf := Transform2D(direction.angle(), from)
+	var xf := draw_transform(from, direction, false)
 	if not entry.is_empty():
-		var size: Vector2 = entry["size"]
-		var grip: Vector2 = entry["grip"]
-		var down := Vector2(-direction.y, direction.x) * (-1.0 if direction.x < 0.0 else 1.0)
-		var top_left := from - direction * grip.x - down * grip.y
+		var rect := texture_rect(entry)
+		var art_xf := draw_transform(from, direction)
+		var top_left := art_xf.origin + art_xf.x * rect.position.x + art_xf.y * rect.position.y
 		_quad[0] = top_left
-		_quad[1] = top_left + direction * size.x
-		_quad[2] = _quad[1] + down * size.y
-		_quad[3] = top_left + down * size.y
+		_quad[1] = top_left + art_xf.x * rect.size.x
+		_quad[2] = _quad[1] + art_xf.y * rect.size.y
+		_quad[3] = top_left + art_xf.y * rect.size.y
 		if (layers & REFLECTIVE) != 0:
 			_quad_color[0] = Color(shade, shade, shade)
 			item.draw_polygon(_quad, _quad_color, _quad_uv, entry["texture"])

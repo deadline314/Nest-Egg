@@ -5,6 +5,17 @@ extends EnemySuiteBase
 
 const WEAPONS: Array[String] = ["melee_dagger", "melee_blade", "melee_maul", "melee_glaive", "melee_whip"]
 
+class ReleasePoseObserver extends Node:
+	var player: Player
+	var frames: Array[Dictionary] = []
+	var active_ticks := 0
+	func _physics_process(_delta: float) -> void:
+		if player.melee.hold_mode != "sustain":
+			return
+		if player.melee.phase == MeleeModule.Phase.ACTIVE:
+			active_ticks += 1
+		frames.append({"tick":Engine.get_physics_frames(), "phase":player.melee.phase, "progress":player.melee.pose_progress(), "visible":player._visual._input.action_t})
+
 
 func run() -> void:
 	_test_growth_contract()
@@ -24,6 +35,7 @@ func run() -> void:
 	await _test_interruptions()
 	await _test_blocked_contact()
 	await _test_held_input()
+	await _test_sustain_release_pose()
 	await _test_late_target_hitstop()
 	await _test_optional_tails()
 	await _test_frozen_paid_tail_refusal()
@@ -39,6 +51,51 @@ func run() -> void:
 
 func _weapon(id: String) -> WeaponData:
 	return load("res://data/weapons/melee/%s.tres" % id) as WeaponData
+
+
+## Public releases at different loop positions must start recovery at the pose
+## actually drawn, rather than teleporting to the end of the active path.
+func _test_sustain_release_pose() -> void:
+	await open_level(10.0)
+	var player := level.player
+	for side in [-1, 1]:
+		for release_tick in [11, 19, 26]:
+			player._interrupt_melee()
+			player.loadout.reset(_weapon("melee_whip"))
+			player._melee_cooldown_left = 0.0
+			place_player(10.0)
+			player.facing = side
+			player.aim_dir = Vector2(side, 0)
+			AimInput.using_gamepad = true
+			AimInput._last_stick_dir = Vector2(side, 0)
+			var observer := ReleasePoseObserver.new()
+			observer.player = player
+			observer.process_physics_priority = 100000
+			runner.add_child(observer)
+			Input.action_press(&"melee")
+			for guard in 240:
+				await physics_frames(1)
+				if observer.active_ticks >= release_tick:
+					break
+			var active_duration := float(player.melee.attack.get("active", 1.0))
+			Input.action_release(&"melee")
+			await physics_frames(30)
+			var transitions := 0
+			var continuous := true
+			var frames := observer.frames
+			for i in range(1, frames.size()):
+				var a: Dictionary = frames[i-1]
+				var b: Dictionary = frames[i]
+				if a.phase == MeleeModule.Phase.ACTIVE and b.phase == MeleeModule.Phase.RECOVERY:
+					transitions += 1
+					var step := 1.0 / 60.0 * (MeleeModule.POSE_RECOVERY_FROM-MeleeModule.POSE_ACTIVE_FROM) / active_duration
+					continuous = continuous and absf(float(b.progress)-float(b.visible)) < 0.00001 and absf(float(b.progress)-float(a.progress)) <= step+0.0001
+			check(observer.active_ticks >= release_tick and transitions == 1 and continuous,
+					"releasing the real held whip at loop tick %d preserves the last published pose (side %d)" % [release_tick, side])
+			observer.queue_free()
+			await physics_frames(2)
+	AimInput.using_gamepad = false
+	await end_level(level)
 
 
 func _test_maul_drawing() -> void:
@@ -350,10 +407,21 @@ func _test_single_hit_and_windows() -> void:
 	while player._melee_phase == Player.MeleePhase.WINDUP:
 		await physics_frames(1)
 	late.global_position.x = player.global_position.x + 24.0
-	await physics_frames(2)
-	check(late.health.current < 999 or player._melee_phase != Player.MeleePhase.ACTIVE, "a target stepping in during the active window can be hit")
+	var late_contacts: Array[DamageInfo] = []
+	var late_phases: Array[int] = []
+	var late_contact_valid: Array[bool] = []
+	var observe_late := func(info: DamageInfo) -> void:
+		late_contacts.append(info)
+		late_phases.append(player.melee.phase)
+		late_contact_valid.append(info.contact_point.is_finite() and late.hurtbox.contains_point(info.contact_point, 1.0))
+	late.hurtbox.hit_received.connect(observe_late)
 	while player._melee_phase != Player.MeleePhase.NONE:
 		await physics_frames(1)
+	check(late_contacts.size() == 1 and late_phases == [MeleeModule.Phase.ACTIVE]
+			and late_contact_valid == [true]
+			and 999 - late.health.current == int(attack["damage"]),
+			"a target stepping in during the active window is hit once at a real visible contact before recovery")
+	late.hurtbox.hit_received.disconnect(observe_late)
 	var hp_after := late.health.current
 	late.global_position.x = player.global_position.x + 20.0
 	await physics_frames(6)
@@ -1026,11 +1094,17 @@ func _test_tail_contacts() -> void:
 		await physics_frames(3)
 		check(player._try_melee() and player._melee_index == set.combo().size(), "%s actual tail starts for contact testing" % id)
 		var expected := int(player._melee_attack.damage)
+		var contacts: Array = []
+		target.health.damaged.connect(func(info: DamageInfo) -> void:
+			var window: Dictionary = MeleeMove.hits(player.melee.attack)[player.melee.hit_window]
+			contacts.append({"phase": player.melee.phase, "at": float(window["at"]), "end": float(window["at"]) + float(window["length"]), "resolved_to": player.melee._contact_current, "point": info.contact_point}))
 		var limit := 240
-		while player._melee_phase != Player.MeleePhase.ACTIVE and limit > 0:
+		while contacts.is_empty() and player._melee_phase in [Player.MeleePhase.WINDUP, Player.MeleePhase.ACTIVE] and limit > 0:
 			await physics_frames(1)
 			limit -= 1
-		check(limit > 0 and player._melee_landed, "%s tail deals damage only at its actual active window" % id)
+		check(limit > 0 and player._melee_landed and contacts.size() == 1 and contacts[0]["phase"] == Player.MeleePhase.ACTIVE
+				and contacts[0]["resolved_to"] >= contacts[0]["at"] - MeleeMove.EPSILON and contacts[0]["resolved_to"] <= contacts[0]["end"] + MeleeMove.EPSILON
+				and (contacts[0]["point"] as Vector2).is_finite(), "%s tail deals damage only at its actual active window" % id)
 		if player._melee_phase == Player.MeleePhase.ACTIVE:
 			player._melee_hit_pass()
 		await _finish_swing(player)

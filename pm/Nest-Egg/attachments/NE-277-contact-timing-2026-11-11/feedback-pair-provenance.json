@@ -1,0 +1,225 @@
+{
+  "scope": "Unscaled original native images under separate labels. Source changes only accessibility settings between separate natural hits; not single-frame pixel A/A, isolated flash energy, human listening or performance.",
+  "pairs": [
+    {
+      "weapon": "blade",
+      "inputs": [
+        {
+          "path": "work/ne277-feedback-final-native-v6/blade-1-cut_1-reduced-false.png",
+          "sha256": "a5412cf1c6781e9576aa0f5cd76c23b4d7626fa73711feebd861fde1531f3d3b",
+          "name": "blade/1/cut_1/reduced-false",
+          "first_hit_tick": 482,
+          "settings": {
+            "flash_scale": 1.0,
+            "reduce_flashes": false,
+            "reduce_ui_motion": false,
+            "shake": 1.0,
+            "zoom_enabled": true
+          },
+          "world_shakes": [
+            {
+              "duration": 0.08,
+              "px": 1.0,
+              "tick": 483
+            },
+            {
+              "duration": 0.08,
+              "px": 1.6,
+              "tick": 483
+            }
+          ]
+        },
+        {
+          "path": "work/ne277-feedback-final-native-v6/blade-1-cut_1-reduced-true.png",
+          "sha256": "2ba30f05e59cb36472046361b246ba5a10c5503280af040eac1ee35019d4ad6d",
+          "name": "blade/1/cut_1/reduced-true",
+          "first_hit_tick": 582,
+          "settings": {
+            "flash_scale": 0.25,
+            "reduce_flashes": true,
+            "reduce_ui_motion": true,
+            "shake": 0.0,
+            "zoom_enabled": false
+          },
+          "world_shakes": []
+        }
+      ],
+      "output": "pm/Nest-Egg/images/NE-277-feedback-blade-normal-reduced.png",
+      "sha256": "e8bbade15b17234c613b60421d43a69b34033ce18942dbdb3e0ec084f6dd2a0d"
+    },
+    {
+      "weapon": "dagger",
+      "inputs": [
+        {
+          "path": "work/ne277-feedback-final-native-v6/dagger-1-stab_1-reduced-false.png",
+          "sha256": "e15a74fd8e5f8ba4fbdb7193d0f6eb82decae725021e2461fa82e063a2e68d25",
+          "name": "dagger/1/stab_1/reduced-false",
+          "first_hit_tick": 823,
+          "settings": {
+            "flash_scale": 1.0,
+            "reduce_flashes": false,
+            "reduce_ui_motion": false,
+            "shake": 1.0,
+            "zoom_enabled": true
+          },
+          "world_shakes": [
+            {
+              "duration": 0.08,
+              "px": 1.6,
+              "tick": 824
+            }
+          ]
+        },
+        {
+          "path": "work/ne277-feedback-final-native-v6/dagger-1-stab_1-reduced-true.png",
+          "sha256": "d3f1bb57b315f6729d50ceb6b77bbea141cac634ee2043b25469a29a6432f35e",
+          "name": "dagger/1/stab_1/reduced-true",
+          "first_hit_tick": 897,
+          "settings": {
+            "flash_scale": 0.25,
+            "reduce_flashes": true,
+            "reduce_ui_motion": true,
+            "shake": 0.0,
+            "zoom_enabled": false
+          },
+          "world_shakes": []
+        }
+      ],
+      "output": "pm/Nest-Egg/images/NE-277-feedback-dagger-normal-reduced.png",
+      "sha256": "aec602829eb39c7d5bcabc5d2c3ef4358e54ad599db098b0ea963cb627a07ace"
+    },
+    {
+      "weapon": "glaive",
+      "inputs": [
+        {
+          "path": "work/ne277-feedback-final-native-v6/glaive-1-thrust-reduced-false.png",
+          "sha256": "05381b3d7a76c88c2f9522bac1206c144076046e922b5c5210d748371fa432ab",
+          "name": "glaive/1/thrust/reduced-false",
+          "first_hit_tick": 1221,
+          "settings": {
+            "flash_scale": 1.0,
+            "reduce_flashes": false,
+            "reduce_ui_motion": false,
+            "shake": 1.0,
+            "zoom_enabled": true
+          },
+          "world_shakes": [
+            {
+              "duration": 0.08,
+              "px": 1.0,
+              "tick": 1222
+            },
+            {
+              "duration": 0.08,
+              "px": 1.6,
+              "tick": 1222
+            }
+          ]
+        },
+        {
+          "path": "work/ne277-feedback-final-native-v6/glaive-1-thrust-reduced-true.png",
+          "sha256": "a9074f3067e35d2c097aa1465c34fd5cef377768704089e94e4af661b5263524",
+          "name": "glaive/1/thrust/reduced-true",
+          "first_hit_tick": 1342,
+          "settings": {
+            "flash_scale": 0.25,
+            "reduce_flashes": true,
+            "reduce_ui_motion": true,
+            "shake": 0.0,
+            "zoom_enabled": false
+          },
+          "world_shakes": []
+        }
+      ],
+      "output": "pm/Nest-Egg/images/NE-277-feedback-glaive-normal-reduced.png",
+      "sha256": "9db068b638a2d74a79e08585beb7b6924a70fe8afb54123b6280e22d617e54d7"
+    },
+    {
+      "weapon": "maul",
+      "inputs": [
+        {
+          "path": "work/ne277-feedback-final-native-v6/maul-1-smash-reduced-false.png",
+          "sha256": "18922921de0dc143e361d14f8f4d9e1b862293a27870fbc183af5fa61a6932fe",
+          "name": "maul/1/smash/reduced-false",
+          "first_hit_tick": 1835,
+          "settings": {
+            "flash_scale": 1.0,
+            "reduce_flashes": false,
+            "reduce_ui_motion": false,
+            "shake": 1.0,
+            "zoom_enabled": true
+          },
+          "world_shakes": [
+            {
+              "duration": 0.08,
+              "px": 1.0,
+              "tick": 1836
+            },
+            {
+              "duration": 0.14,
+              "px": 3.2,
+              "tick": 1836
+            }
+          ]
+        },
+        {
+          "path": "work/ne277-feedback-final-native-v6/maul-1-smash-reduced-true.png",
+          "sha256": "ea5d25d5ff1502fcf38a94e06e8f2c1d008d8cd1aba7d0cc803609f35869888f",
+          "name": "maul/1/smash/reduced-true",
+          "first_hit_tick": 2012,
+          "settings": {
+            "flash_scale": 0.25,
+            "reduce_flashes": true,
+            "reduce_ui_motion": true,
+            "shake": 0.0,
+            "zoom_enabled": false
+          },
+          "world_shakes": []
+        }
+      ],
+      "output": "pm/Nest-Egg/images/NE-277-feedback-maul-normal-reduced.png",
+      "sha256": "4fb0b18e0853654480d92135277991ffe2c9b63b9c666c1df28bb19d21627af6"
+    },
+    {
+      "weapon": "whip",
+      "inputs": [
+        {
+          "path": "work/ne277-feedback-final-native-v6/whip-1-lash-reduced-false.png",
+          "sha256": "a51bed0dff5c4080bc4683478ec93a8416b4d499eb7a174da76eb9c5b8aa0aec",
+          "name": "whip/1/lash/reduced-false",
+          "first_hit_tick": 2299,
+          "settings": {
+            "flash_scale": 1.0,
+            "reduce_flashes": false,
+            "reduce_ui_motion": false,
+            "shake": 1.0,
+            "zoom_enabled": true
+          },
+          "world_shakes": [
+            {
+              "duration": 0.08,
+              "px": 1.6,
+              "tick": 2300
+            }
+          ]
+        },
+        {
+          "path": "work/ne277-feedback-final-native-v6/whip-1-lash-reduced-true.png",
+          "sha256": "2fb5a599afe00aef5d1557d15054d09e8bb2dc71d0ba07275c5f871b910348df",
+          "name": "whip/1/lash/reduced-true",
+          "first_hit_tick": 2362,
+          "settings": {
+            "flash_scale": 0.25,
+            "reduce_flashes": true,
+            "reduce_ui_motion": true,
+            "shake": 0.0,
+            "zoom_enabled": false
+          },
+          "world_shakes": []
+        }
+      ],
+      "output": "pm/Nest-Egg/images/NE-277-feedback-whip-normal-reduced.png",
+      "sha256": "ad9b674feafca46f8415cbcaf45d46d170072eba8bf65893efa027fa48bd77ab"
+    }
+  ]
+}

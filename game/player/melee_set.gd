@@ -96,6 +96,14 @@ func idle_sound() -> StringName:
 	return StringName(str(_data.get("idle_sound", "")))
 
 
+## Visible damaging portion along the weapon's local x axis, in world pixels from the grip.
+## Optional for data-only/fallback weapons; a soft whip uses its actual whole rope instead.
+func contact_span() -> Vector2:
+	_ensure_loaded()
+	var span: Variant = _data.get("contact_span")
+	return Vector2(float(span[0]), float(span[1])) if span != null else Vector2(-512.0, 512.0)
+
+
 func combo_window() -> float:
 	_ensure_loaded()
 	var value: Variant = _data.get("combo_window", 0.5)
@@ -162,8 +170,14 @@ static func definition_problems(raw: Variant, source: String) -> PackedStringArr
 	if not raw is Dictionary or not raw.get("attacks") is Dictionary:
 		return PackedStringArray([source + "/attacks must be an object"])
 	for key: Variant in raw:
-		if not key is String or (key not in ["combo", "combo_window", "attacks", "extension", "idle_sound", "hold"] and not key.begins_with("_")):
+		if not key is String or (key not in ["combo", "combo_window", "attacks", "extension", "idle_sound", "hold", "contact_span"] and not key.begins_with("_")):
 			errors.append("%s/%s unknown field" % [source, key])
+	if raw.has("contact_span"):
+		var span: Variant = raw["contact_span"]
+		if not span is Array or span.size() != 2 or not _number(span[0]) or not _number(span[1]):
+			errors.append(source + "/contact_span must contain two finite numbers")
+		elif float(span[0]) >= float(span[1]) or absf(float(span[0])) > 512.0 or absf(float(span[1])) > 512.0:
+			errors.append(source + "/contact_span must be increasing within [-512,512]")
 	var attacks: Dictionary = raw.attacks
 	var combo: Variant = raw.get("combo")
 	if not combo is Array or combo.is_empty():

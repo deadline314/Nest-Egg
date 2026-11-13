@@ -156,7 +156,7 @@ func _move(id: String, weapon: WeaponData, set: MeleeSet, move: String, side: in
 			if player.melee.phase == MeleeModule.Phase.ACTIVE:
 				active_frames += 1
 			var mode := str(set.hold().get("mode", ""))
-			release_next = (mode == "charge" and player.melee.charged) or (mode == "sustain" and active_frames > int(float(def["active"]) * 60) + 24) or (mode == "repeat" and player.melee.phase == MeleeModule.Phase.RECOVERY)
+			release_next = (mode == "charge" and player.melee.charged) or (mode == "sustain" and active_frames > _sustain_sample_frames(def, set)) or (mode == "repeat" and player.melee.phase == MeleeModule.Phase.RECOVERY)
 		ctx["frame"] = (row["frames"] as Array).size()
 		AnimAudit._measure(ctx, false)
 		var phase: int = player.melee.phase
@@ -198,6 +198,10 @@ func _move(id: String, weapon: WeaponData, set: MeleeSet, move: String, side: in
 	print("NE277_MOVE ", JSON.stringify({"name": name, "frames": (row["frames"] as Array).size(), "ended": ended, "grip": row["palm_max"], "second": row["second_max"]}))
 	Input.action_release(&"melee")
 	player._interrupt_melee()
+
+
+func _sustain_sample_frames(def: Dictionary, _set: MeleeSet) -> int:
+	return int(float(def["active"]) * 60) + 24
 
 
 func _measure_grips(row: Dictionary, frame: Dictionary) -> void:
