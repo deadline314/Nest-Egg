@@ -482,8 +482,11 @@ func _build_map() -> void:
 	info.add_child(UiKit.caption("第一章的區域" if world_mode else "目前區域" if _map_path == player_path else "查看中的區域", Palette.CYAN))
 	var heading := UiKit.heading("世界地圖" if world_mode else data.display_name if data != null else "尚未載入區域")
 	heading.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	# 自動換行的標題先知道欄寬；否則第一次排版以零寬逐字換行，地圖會在同一格多重建一次。
+	heading.custom_minimum_size.x = INFO_WIDTH
 	info.add_child(heading)
-	var stats := UiKit.caption("")
+	# 先佔一行高，填入統計時版面不會再變一次（避免地圖在同一格重建兩次）。
+	var stats := UiKit.caption(" ")
 	info.add_child(stats)
 	if not world_mode:
 		var tools := HFlowContainer.new()
@@ -533,7 +536,7 @@ func _build_map() -> void:
 	frame.add_child(_canvas)
 	_status.text = "未探索處只顯示外框；選擇圖示可以閱讀說明。"
 	_canvas.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	_canvas.refresh.call_deferred()
+	_canvas.queue_refresh()
 
 
 func _map_stats(world_mode: bool) -> String:

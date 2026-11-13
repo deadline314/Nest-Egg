@@ -53,17 +53,36 @@ var _lines: Array[PackedVector2Array] = []
 var _line_colors: PackedColorArray = []
 var _markers: Array[Button] = []
 var _labels: Array[Label] = []
+## Layout passes resize the canvas several times in one frame; rebuild once, at the final size.
+var _refresh_queued := false
+var _built_size := Vector2(-1, -1)
 
 
 func _ready() -> void:
 	clip_contents = true
 	mouse_filter = Control.MOUSE_FILTER_PASS
-	resized.connect(refresh)
+	resized.connect(queue_refresh)
+
+
+## Coalesced rebuild for layout-driven changes: at most once per frame, skipped when the
+## size already matches the last build. Use refresh() after changing zoom, path or goal.
+func queue_refresh() -> void:
+	if _refresh_queued:
+		return
+	_refresh_queued = true
+	_flush_refresh.call_deferred()
+
+
+func _flush_refresh() -> void:
+	_refresh_queued = false
+	if size != _built_size:
+		refresh()
 
 
 func refresh() -> void:
 	if not is_inside_tree() or maps == null or state == null or size.x < 1 or size.y < 1:
 		return
+	_built_size = size
 	for button in _markers:
 		remove_child(button)
 		button.queue_free()
