@@ -1,0 +1,46 @@
+[
+  {
+    "step": "parts",
+    "seconds": 560.4,
+    "outputs": [
+      "art_src\\characters\\ch2_window_clerk\\06_parts",
+      "art_src\\characters\\ch2_window_clerk\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 3.9,
+    "outputs": [
+      "art_src\\characters\\ch2_window_clerk\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.7,
+    "outputs": [
+      "art\\characters\\ch2_window_clerk\\character.json",
+      "art\\rigs\\ch2_window_clerk.json",
+      "art\\characters\\ch2_window_clerk\\parts",
+      "art\\portraits\\ch2_window_clerk.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 12.1,
+    "outputs": [
+      "art\\characters\\ch2_window_clerk\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 16.7,
+    "outputs": [
+      ".godot"
+    ]
+  }
+]

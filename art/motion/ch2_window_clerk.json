@@ -1,0 +1,187 @@
+{
+  "description": "租攤視窗員（成年）的個別動作：坐在窗口、蓋章、說話與聆聽用NPC動畫；不設定敵人行為、武器或戰鬥事件。數值為專案候選，原生動作與全部件接合另驗。",
+  "skin": "ch2_window_clerk",
+  "idle": {
+    "breath_speed": 1.55,
+    "breath_amp": 0.02,
+    "hip_bob": 0.1,
+    "chest": 0.0,
+    "legs": [
+      -0.19,
+      0.17,
+      0.26,
+      0.1
+    ]
+  },
+  "move": {
+    "stride": 37.0,
+    "swing": 0.47,
+    "knee_bend": 0.83,
+    "knee_base": 0.15,
+    "hip_bounce": 0.65,
+    "chest_lean": 0.04,
+    "threshold": 0.08,
+    "level": 1.0,
+    "bounce": 0.7,
+    "rise": 0.4,
+    "bob_slow": 0.65,
+    "duty": 0.62,
+    "lift": 2.1,
+    "reach": 0.96
+  },
+  "crouch": {
+    "hip_drop": 8.0,
+    "chest": 0.18,
+    "legs": [
+      -1.25,
+      2.05,
+      -0.55,
+      1.85
+    ]
+  },
+  "air": {
+    "rise": {
+      "chest": 0.05,
+      "legs": [
+        -0.95,
+        1.4,
+        0.35,
+        0.7
+      ]
+    },
+    "fall": {
+      "chest": -0.05,
+      "legs": [
+        -0.35,
+        0.45,
+        0.45,
+        0.25
+      ]
+    }
+  },
+  "dash": {
+    "forward": {
+      "chest": 0.38,
+      "legs": [
+        -1.0,
+        0.6,
+        0.85,
+        1.0
+      ]
+    },
+    "back": {
+      "chest": -0.22,
+      "legs": [
+        0.5,
+        0.9,
+        -0.7,
+        0.4
+      ]
+    }
+  },
+  "block": {
+    "chest": 0.1,
+    "legs": [
+      -0.4,
+      0.5,
+      0.5,
+      0.2
+    ]
+  },
+  "hurt": {
+    "stagger_chest": -0.35,
+    "kick": 0.21
+  },
+  "look": {
+    "chest": 0.12,
+    "neck": 0.12,
+    "head": 0.24,
+    "head_min": -0.35,
+    "head_max": 0.3
+  },
+  "death": {
+    "duration": 0.71,
+    "rotation": -1.51,
+    "drop": 21.0,
+    "hip_x": -6.0,
+    "chest": 0.15,
+    "head": 0.35,
+    "fold": 0.18,
+    "ease": "out_cubic",
+    "legs": [
+      0.3,
+      0.1,
+      0.45,
+      0.05
+    ],
+    "fold_legs": [
+      -1.4,
+      2.0,
+      -1.2,
+      1.9
+    ]
+  },
+  "npc": {
+    "stand": {
+      "chest": 0.0,
+      "head": 0.0
+    },
+    "talk_speed": 0.83,
+    "talk_amp": 0.73,
+    "life": {
+      "tempo": 0.76,
+      "amount": 0.72,
+      "shift": {
+        "hip_x": 0.55,
+        "every": [
+          9.0,
+          15.5
+        ]
+      },
+      "glance": {
+        "head": 0.11
+      },
+      "breath": {
+        "sigh_every": [
+          13.0,
+          22.0
+        ],
+        "sigh_amp": 1.6
+      },
+      "beat": {
+        "rest": 0.65,
+        "every": [
+          1.8,
+          3.2
+        ],
+        "speed": 0.78,
+        "expanse": 0.72,
+        "vocab": {
+          "open_palm": 3,
+          "beat": 2,
+          "weigh": 1
+        }
+      },
+      "fidget": {
+        "every": [
+          13.0,
+          21.0
+        ],
+        "vocab": {
+          "adjust_collar": 1
+        }
+      },
+      "listen": {
+        "nod_every": [
+          3.5,
+          6.5
+        ],
+        "nod": 0.65
+      },
+      "posture": {
+        "speed": 0.77,
+        "lead": 0.85
+      }
+    }
+  }
+}
