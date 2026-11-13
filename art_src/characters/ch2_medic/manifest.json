@@ -1,0 +1,46 @@
+[
+  {
+    "step": "parts",
+    "seconds": 596.6,
+    "outputs": [
+      "art_src\\characters\\ch2_medic\\06_parts",
+      "art_src\\characters\\ch2_medic\\06_parts\\ownership.png"
+    ]
+  },
+  {
+    "step": "refine",
+    "seconds": 4.2,
+    "outputs": [
+      "art_src\\characters\\ch2_medic\\07_refined"
+    ]
+  },
+  {
+    "step": "damage",
+    "seconds": 0.0,
+    "outputs": []
+  },
+  {
+    "step": "textures",
+    "seconds": 2.9,
+    "outputs": [
+      "art\\characters\\ch2_medic\\character.json",
+      "art\\rigs\\ch2_medic.json",
+      "art\\characters\\ch2_medic\\parts",
+      "art\\portraits\\ch2_medic.png"
+    ]
+  },
+  {
+    "step": "normals",
+    "seconds": 12.5,
+    "outputs": [
+      "art\\characters\\ch2_medic\\parts"
+    ]
+  },
+  {
+    "step": "import",
+    "seconds": 17.6,
+    "outputs": [
+      ".godot"
+    ]
+  }
+]

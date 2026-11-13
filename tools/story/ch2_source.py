@@ -59,7 +59,7 @@ SPEAKERS = {
     "patroller": {"name": "巡帳員", "color": "#c0a080", "portrait": "res://art/portraits/ch2_patroller.png"},
     "window_clerk": {"name": "視窗員", "color": "#a0b0c0", "portrait": "res://art/portraits/resident.png", "formal": True},
     "hawker": {"name": "小販", "color": "#c8b090", "portrait": "res://art/portraits/ch2_hawker.png"},
-    "medic": {"name": "救護員", "color": "#a8d0c8", "portrait": "res://art/portraits/nurse.png"},
+    "medic": {"name": "救護員", "color": "#a8d0c8", "portrait": "res://art/portraits/ch2_medic.png"},
     "broadcast": {"name": "陌生廣播", "color": "#c8c0e8", "portrait": "res://art/portraits/system.png", "formal": True},
     "weather": {"name": "氣象臺", "color": "#9ad7ff", "portrait": "res://art/portraits/system.png", "formal": True},
     "shen": {"name": "沈望", "color": "#e8e0d0", "portrait": "res://art/portraits/system.png", "formal": True},
@@ -871,7 +871,7 @@ FORMAL_FRAMES = {
         "ch2_t_s06_invite", "ch2_t_s06_invite_left", "ch2_t_s06_invite_stayed", "ch2_t_s06_close",
         "ch2_t_s06_ali_paid_revisit", "ch2_t_s06_ask_late", "ch2_t_s06_later")},
     "ch2_t_s13_cut": Frame(LEDGER, _LEDGER_CAST, True),
-    "ch2_t_s13_keep": Frame(LEDGER, _LEDGER_CAST + (Cast("medic", 540, -1, kind="nurse"),), True),
+    "ch2_t_s13_keep": Frame(LEDGER, _LEDGER_CAST + (Cast("medic", 540, -1, kind="ch2_medic"),), True),
     "ch2_t_s13_cabinet": Frame(LEDGER, (Cast("rin", 280, 1), Cast("yong", 440, -1))),
     # 鷺倒下：她跪在地上，凜蹲在旁邊看傷。
     "ch2_t_s13_fall": Frame(LEDGER, (

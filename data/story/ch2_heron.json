@@ -119,7 +119,7 @@
   "medic": {
    "name": "救護員",
    "color": "#a8d0c8",
-   "portrait": "res://art/portraits/nurse.png",
+   "portrait": "res://art/portraits/ch2_medic.png",
    "name_ja": "救護員",
    "name_en": "Medic"
   },
@@ -5765,7 +5765,7 @@
     {
      "do": "actor",
      "id": "medic",
-     "kind": "nurse",
+     "kind": "ch2_medic",
      "pos": [
       540,
       296
@@ -5773,7 +5773,7 @@
      "facing": -1,
      "scale": 1.9,
      "weapon": "",
-     "speaker": "nurse"
+     "speaker": "ch2_medic"
     },
     {
      "do": "say",
