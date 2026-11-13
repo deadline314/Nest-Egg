@@ -187,6 +187,9 @@ func act_melee(params: Dictionary) -> void:
 	if not await _wait(0.3):
 		return
 	arena.aim_right()
+	# 跟著準星揮的招式（鞭）要等瞄準真的轉到右邊再出手；機器忙時瞄準來不及轉，鞭子會甩向別處。
+	if not await _wait_until(func() -> bool: return arena.player == null or arena.player.aim_dir.x > 0.9, 1.0):
+		return
 	var attacks := clampi(int(params.get("attacks", 1)), 1, MeleeData.combo().size())
 	var gap := float(params.get("gap", 0.34))
 	var token := _token
