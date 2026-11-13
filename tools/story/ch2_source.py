@@ -779,6 +779,14 @@ def _guest_book(source: ProductionSource):
     source.add("ch2_t_s17_revisit", "S17", (("ali", "客人簿收好了，今晚的三頁都寫清楚了。"),), when=flag("guest_book_completed"))
 
 
+# 坐在右椅的客人（NE-267）：段落 -> (講者／演員 id, 外觀, 走進來坐下的第一段, 說完起身離開的最後一段, 坐著的理由, 坐深)。
+# 坐深依各自的腿長在正式舞台上量：臀底要落在右椅座面上，不浮空也不陷進去。
+_SEATED_GUESTS = {
+    "S19": ("chen", "guest_chen", "ch2_t_s19_band", "ch2_t_s19_done", "坐下和阿梨談今晚想要的那一碗湯。", 0.298),
+    "S20": ("hong", "guest_hong", "ch2_t_s20_letter", "ch2_t_s20_done", "坐下把想寫給朋友的話說完。", 0.45),
+}
+
+
 def _guest_book_frames(source: ProductionSource):
     """BG-46：整段夜班留在客人簿房間；客人談話用有支撐的坐姿，入口及回訪仍在凜所在的館外。"""
     for ident, segment in list(source.segments.items()):
@@ -815,22 +823,23 @@ def _guest_book_frames(source: ProductionSource):
             elif ident == "ch2_t_s18_done":
                 guest_end = ({"do": "move", "id": "zheng", "to": [470, 265.5], "time": 1.5, "pose": "walk", "then": "idle", "wait": True},
                              {"do": "wait", "time": 1.3})
-        elif segment.section == "S19":
-            # NE-267: Ms Chen sits in the same right chair; she walks in on the first beat and leaves after the soup.
+        elif segment.section in _SEATED_GUESTS:
+            # NE-267: S19/S20 guests use the same right chair; each walks in on the first beat and leaves after the last.
+            speaker, kind, first, last, reason, sag = _SEATED_GUESTS[segment.section]
             support = "右椅座面 x=377.75～442.75、y=209；雙腳落在地板 y=265.5。"
-            entering = ident == "ch2_t_s19_band"
-            guest = stage_actor("chen", "guest_chen", 470 if entering else 410, 265.5, facing=-1, scale=3.7, speaker="chen",
+            entering = ident == first
+            guest = stage_actor(speaker, kind, 470 if entering else 410, 265.5, facing=-1, scale=3.7, speaker=speaker,
                                 pose="idle" if entering else "sit",
-                                pose_reason=None if entering else "坐下和阿梨談今晚想要的那一碗湯。",
+                                pose_reason=None if entering else reason,
                                 pose_support=None if entering else support)
-            guest["seat_sag"] = 0.298
+            guest["seat_sag"] = sag
             cast.append(guest)
             if entering:
                 guest_start = ({"do": "wait", "time": .25},
-                               {"do": "move", "id": "chen", "to": [410, 265.5], "time": 1.2, "pose": "walk", "then": "sit", "wait": True,
+                               {"do": "move", "id": speaker, "to": [410, 265.5], "time": 1.2, "pose": "walk", "then": "sit", "wait": True,
                                 "pose_reason": "走到預約窗桌後坐下。", "pose_support": support}, {"do": "wait", "time": 1.1})
-            elif ident == "ch2_t_s19_done":
-                guest_end = ({"do": "move", "id": "chen", "to": [470, 265.5], "time": 1.5, "pose": "walk", "then": "idle", "wait": True},
+            elif ident == last:
+                guest_end = ({"do": "move", "id": speaker, "to": [470, 265.5], "time": 1.5, "pose": "walk", "then": "idle", "wait": True},
                              {"do": "wait", "time": 1.3})
         source.segments[ident] = replace(segment, mode="animated", steps=tuple(cast) + guest_start + segment.steps + guest_end)
 

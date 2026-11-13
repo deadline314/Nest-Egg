@@ -1,0 +1,16 @@
+{
+  "description": "洪先生（guest_hong）的建置配方。保留原生來源 art_src/characters/guest_hong/01_design/source.json；沒有本機生成 seed；原始來源與提示保持，分件及後續步驟另驗。",
+  "id": "guest_hong",
+  "name": "洪先生",
+  "spec": "tools/comfyui/specs/guest_hong_side.json",
+  "rig": "art/rigs/guest_hong.json",
+  "work": "art_src/characters/guest_hong",
+  "design": {
+    "size": [
+      1024,
+      1536
+    ],
+    "prompt": "This is an RGBA image with transparency. Anime cel-shaded character art in the style of Studio Trigger's Cyberpunk Edgerunners: flat muted colors, bold clean black outlines, hard-edged two-tone shading, at most one small lit accent. Full body, strict side view facing right, the whole figure from the top of the head to the soles inside the frame, tall in the frame: the figure fills nine tenths of the picture height. The character stands upright and still, like a model sheet: weight evenly on both feet, hips and shoulders level, the spine vertical, the chest not pushed out and the lower back not arched, the head level. The near arm hangs straight down beside the thigh with an open empty hand; it is not swept back. The far arm is hidden behind the torso. The feet are a small step apart with the far foot half a step ahead, so the far shin and the far shoe show in front of the near leg. Mr Hong, a clearly adult man aged thirty-five, a harbour deck worker visiting a quiet recovery-clinic lounge. About seven heads tall, lean but not idealized, neutral upright posture. Close-cropped dark hair, sparse dark jaw stubble, a slightly bent nose and one eyebrow higher than the other, worried but attentive adult face. A faded slate-blue waist-length cotton work overshirt with sleeves rolled below the elbows over a washed-out sand-grey undershirt, muted brown-grey work trousers with no thigh straps, worn slate rubber deck boots. No armour, no weapons, no hat, no objects held, no glowing electronics. Empty hands. Uneven rough hand-inked linework with varied line weight, gritty grime and fabric wrinkles where the cloth bends, slightly asymmetrical, lived-in and worn, matte not glossy, not airbrushed, no idealized perfect face. Few large plain shapes, no decorative details beyond the ones described. Even overcast light, no glow, no bloom, no text. The image has alpha channel and the background is transparent. No backdrop, no cast shadow, no UI or labels. Preserve a clean transparent silhouette with opaque material inside the character.",
+    "source_record": "art_src/characters/guest_hong/01_design/source.json"
+  }
+}
