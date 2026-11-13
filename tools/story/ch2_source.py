@@ -58,7 +58,7 @@ SPEAKERS = {
     "ye": {"name": "葉", "color": "#c8d8f0", "portrait": "res://art/portraits/ye.png", "formal": True},
     "patroller": {"name": "巡帳員", "color": "#c0a080", "portrait": "res://art/portraits/ch2_patroller.png"},
     "window_clerk": {"name": "視窗員", "color": "#a0b0c0", "portrait": "res://art/portraits/resident.png", "formal": True},
-    "hawker": {"name": "小販", "color": "#c8b090", "portrait": "res://art/portraits/resident.png"},
+    "hawker": {"name": "小販", "color": "#c8b090", "portrait": "res://art/portraits/ch2_hawker.png"},
     "medic": {"name": "救護員", "color": "#a8d0c8", "portrait": "res://art/portraits/nurse.png"},
     "broadcast": {"name": "陌生廣播", "color": "#c8c0e8", "portrait": "res://art/portraits/system.png", "formal": True},
     "weather": {"name": "氣象臺", "color": "#9ad7ff", "portrait": "res://art/portraits/system.png", "formal": True},

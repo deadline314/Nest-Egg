@@ -48,7 +48,7 @@ NPCS = {
     'ch2_banyan': dict(name='榕伯', speaker='banyan', rig='banyan', loop='stir', facing=1, prompt='{interact} 和榕伯說話',
                        talks=[('ch2_dispatch_banyan', 0)]),
     'ch2_notice_screen': dict(name='公告屏', speaker='label', kind=O, prompt='{interact} 看公告屏', talks=[('ch2_dispatch_notice', 0)]),
-    'ch2_hawker': dict(name='小販', speaker='hawker', rig='resident', loop='sort_gear', facing=-1, prompt='{interact} 和小販說話',
+    'ch2_hawker': dict(name='小販', speaker='hawker', rig='ch2_hawker', loop='sort_gear', facing=-1, prompt='{interact} 和小販說話',
                        talks=[('ch2_dispatch_hawker', 0)]),
     'ch2_ali_home': dict(name='阿梨', speaker='ali', rig='ali', loop='stir', facing=-1, prompt='{interact} 敲門找阿梨',
                          talks=[('ch2_dispatch_ali_home', 0)]),
