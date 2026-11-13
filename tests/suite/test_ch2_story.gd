@@ -77,8 +77,9 @@ func _test_street_line() -> void:
 	if data == null:
 		return
 	var layout := LevelBuilder.parse(data)
-	check(is_equal_approx(layout.ground_y, 20.0 * layout.tile_size), "the street line ignores the wide canopy (%.0f)" % layout.ground_y)
-	check(is_equal_approx(layout.surface_heights[40], 13.0 * layout.tile_size), "the canopy is still the top surface of its columns")
+	# NE-299 加高 16 格：地面第 36 列、雨棚第 29 列。
+	check(is_equal_approx(layout.ground_y, 36.0 * layout.tile_size), "the street line ignores the wide canopy (%.0f)" % layout.ground_y)
+	check(is_equal_approx(layout.surface_heights[40], 29.0 * layout.tile_size), "the canopy is still the top surface of its columns")
 
 
 ## 夜班的開本、三客（含錯誤重試）與收本都留在同一個房間；回到凜才結束舞台。

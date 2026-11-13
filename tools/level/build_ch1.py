@@ -1534,8 +1534,13 @@ def _retired_gate_glyphs(area):
     return retired
 
 
+def placement_id(area_id):
+    """Scenery placement key for an area; chapter builders override this hook."""
+    return area_id
+
+
 def _v2_area(old):
-    path = os.path.join(LEVEL_DIR, 'ch1_layout_v2.json')
+    path = os.path.join(LEVEL_DIR, f'{PREFIX}_layout_v2.json')
     with open(path, encoding='utf-8') as source:
         authored = json.load(source)
     if not isinstance(authored, dict) or authored.get('version') != 2 or not isinstance(authored.get('areas'), dict) or old.id not in authored['areas']:
@@ -1567,7 +1572,7 @@ def _v2_area(old):
     area.material_zones = list(old.material_zones)
     area.regions = [dict(r, y0=r['y0'] + dy, y1=r['y1'] + dy) for r in old.regions]
     area.props = copy.deepcopy(old.props)
-    area.legacy_props = prepare_props(old.props, old.id)
+    area.legacy_props = prepare_props(old.props, placement_id(old.id))
     area.prop_floors = dict(spec.get('prop_floors', {}))
     area.prop_overrides = copy.deepcopy(spec.get('prop_overrides', {}))
     for prop in area.props:
@@ -1624,12 +1629,23 @@ def _v2_area(old):
             area.put(nx, ny, char)
             if [nx, ny] != [x + dx, y + dy]:
                 legacy['cells'][key] = [nx, ny]
+    # Authored additions that did not exist in revision 1 (new pickups and signs).
+    for x, y, char in spec.get('markers', []):
+        if char in PORTALS or char.isdigit():
+            raise ValueError(f'{path}/{old.id}/markers: {char!r} is not a plain content marker')
+        area.put(x, y, char)
+    for x, text, row in spec.get('hints', []):
+        area.hint(x, text, row=row)
     glyphs = {'vault_street':'↞', 'street_vault':'↠', 'street_roof':'↟', 'roof_maintenance':'↧'}
     for portal in spec['portals']:
-        char = glyphs[portal['id']]
+        char = portal.get('glyph') or glyphs[portal['id']]
+        if char in PORTALS and PORTALS[char]['id'] != portal['id']:
+            raise ValueError(f'{path}/{old.id}/portals/{portal["id"]}: glyph {char!r} already used by {PORTALS[char]["id"]}')
         PORTALS[char] = dict(id=portal['id'], to='res://data/levels/' + portal['target_level'] + '.tres',
                             target=portal['target_portal'], requires=portal['requires_flag'], mode=0,
-                            prompt='{interact} 走維修通道', locked='先拿到倉庫的資料盤，維修通道才會開放。', style='door', w=24, h=56)
+                            prompt=portal.get('prompt', '{interact} 走維修通道'),
+                            locked=portal.get('locked', '先拿到倉庫的資料盤，維修通道才會開放。' if portal['requires_flag'] else ''),
+                            style=portal.get('style', 'door'), w=portal.get('w', 24), h=portal.get('h', 56))
         area.put(*portal['cell'], char)
     return area
 
@@ -1686,7 +1702,7 @@ def _v2_route_checks(area):
 
 
 def _map_extra(area):
-    props = prepare_props(area.props, area.id)
+    props = prepare_props(area.props, placement_id(area.id))
     if hasattr(area, 'legacy_layout'):
         # In a tall room, the first platform from above is not necessarily this
         # ground prop's floor. Select an authored solid floor and store its row.

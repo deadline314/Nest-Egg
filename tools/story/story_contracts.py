@@ -306,6 +306,39 @@ def effect_projection(raw):
     return out
 
 
+# Stage-only steps (walking, reaching, props shown or held) never write flags, items or
+# results; a move step's "then" is the pose after walking. Matching drops them on both
+# sides, so restaging a sealed scene keeps its legacy outcome. Mirrors StoryResultCatalog.
+STAGE_ONLY_STEPS = {"move", "reach", "prop", "prop_move", "prop_hold", "prop_release", "prop_visible"}
+
+
+def without_stage_steps(raw):
+    if isinstance(raw, list):
+        kept = []
+        for child in raw:
+            if isinstance(child, dict) and child.get("do") in STAGE_ONLY_STEPS:
+                continue
+            value = without_stage_steps(child)
+            if isinstance(value, dict) and (not value or (len(value) == 1 and value.get("do") in PURE_STEPS)):
+                continue
+            kept.append(value)
+        return kept
+    if isinstance(raw, dict):
+        out = {}
+        for key, value in raw.items():
+            if key in CONTAINERS:
+                value = without_stage_steps(value)
+                if isinstance(value, list) and not value:
+                    continue
+            out[key] = value
+        return out
+    return raw
+
+
+def same_effects(scene, sealed):
+    return _same(without_stage_steps(effect_projection(scene)), without_stage_steps(sealed))
+
+
 # The author may recognize old NPC content, but cannot mint a new legacy role.
 MIGRATION = ROOT / "data/story_contracts/migration-5a.json"
 MIGRATION_SHA = "e86b82e0a7e5d9f6988290cb7b61eb55f7459849901771d6bc95848acf93a8c8"
@@ -400,7 +433,7 @@ def validate_npc_declarations(scenes, path, author, records, entry_ids):
         previous = legacy.get(ident)
         if previous is None:
             raise ValueError(f"{path}/scenes/{ident}: NPC effects/intent require an independent catalog contract")
-        if not _same(effect_projection(scenes[ident]),previous["effects"]):
+        if not same_effects(scenes[ident],previous["effects"]):
             raise ValueError(f"{path}/scenes/{ident}: legacy effects differ from sealed migration")
         segment = author.segments.get(ident)
         origins = previous["origins"]
@@ -410,5 +443,5 @@ def validate_npc_declarations(scenes, path, author, records, entry_ids):
             origins = [origin for origin in origins if origin["entry"] == entry and origin["npc"] == binding.source]
         accepted_legacy.append((ident,origins))
     for ident,origins in accepted_legacy:
-        if not any(all(name in scenes and _same(effect_projection(scenes[name]),row["effects"]) for name,row in migration["routes"][origin["entry"]].items()) for origin in origins):
+        if not any(all(name in scenes and same_effects(scenes[name],row["effects"]) for name,row in migration["routes"][origin["entry"]].items()) for origin in origins):
             raise ValueError(f"{path}/scenes/{ident}: legacy entry projection differs from sealed migration")

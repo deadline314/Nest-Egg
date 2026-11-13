@@ -87,7 +87,7 @@ class StoryContracts(unittest.TestCase):
         migration=json.loads((contracts.ROOT/"data/story_contracts/migration-5a.json").read_text())
         self.assertEqual(len(migration["legacy"]),30)
         for ident,record in migration["legacy"].items():
-            self.assertTrue(contracts._same(contracts.effect_projection(self.chapter["scenes"][ident]),record["effects"]),ident)
+            self.assertTrue(contracts.same_effects(self.chapter["scenes"][ident],record["effects"]),ident)
         source=spec();ident="ch2_t_s01_settled";segment=source.source.segments[ident]
         for name in migration["legacy"]:
             original=source.source.segments[name]

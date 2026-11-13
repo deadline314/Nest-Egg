@@ -117,10 +117,10 @@ DOCUMENTS = {
 
 # 任務步驟的真實格位（人物或物件站的那一格；區域 id 對應 data/levels/ch2_<區域>.tres）。
 QUEST_LOCATIONS = {
-    "old_k": ("pawnshop", 50, 19), "radio": ("pawnshop", 61, 19), "egret": ("rooftop", 40, 17), "patroller": ("market_gate", 18, 19),
-    "vig": ("market", 30, 19), "ali_market": ("market", 25, 19), "rent_window": ("market", 53, 19), "ali_home": ("ali_home", 32, 19),
-    "collection_book": ("loading", 112, 19), "reconcile": ("loading", 128, 19), "ledger_door": ("ledger_front", 46, 19),
-    "cabinet": ("ledger_office", 54, 19), "egret_booth": ("market_gate", 96, 19), "terminal": ("lounge_front", 16, 19),
+    "old_k": ("pawnshop", 50, 19), "radio": ("pawnshop", 61, 19), "egret": ("rooftop", 40, 17), "patroller": ("market_gate", 18, 35),
+    "vig": ("market", 30, 35), "ali_market": ("market", 25, 35), "rent_window": ("market", 53, 35), "ali_home": ("ali_home", 32, 19),
+    "collection_book": ("loading", 112, 35), "reconcile": ("loading", 128, 35), "ledger_door": ("ledger_front", 46, 19),
+    "cabinet": ("ledger_office", 54, 19), "egret_booth": ("market_gate", 96, 35), "terminal": ("lounge_front", 16, 19),
     "ali_lounge": ("lounge_front", 33, 19), "guest_entry": ("lounge_front", 44, 19),
 }
 

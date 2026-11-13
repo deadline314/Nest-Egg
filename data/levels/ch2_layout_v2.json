@@ -1,0 +1,64 @@
+{
+  "version": 2,
+  "areas": {
+    "harbor_street": {
+      "height": 40,
+      "legacy_layout": {"revision": 1, "cell_offset": [0, 16], "cells": {}},
+      "geometry": {
+        "platforms": [[9, 12, 32], [15, 18, 28], [21, 40, 24], [44, 62, 24], [26, 29, 16]]
+      },
+      "markers": [[27, 15, "c"]],
+      "hints": [[10, "踩著雨棚往右走，可以從上層進市集入口。", 31]],
+      "portals": [
+        {"id": "street_upper", "glyph": "⇡", "cell": [61, 23], "target_level": "ch2_market_gate", "target_portal": "gate_upper",
+         "requires_flag": "", "prompt": "{interact} 沿雨棚走到市集入口上層", "style": "road", "w": 28, "h": 44}
+      ],
+      "capability_targets": {"27,15": {"ability": "air_jump", "flag": "ledger_disk_obtained"}}
+    },
+    "market_gate": {
+      "height": 40,
+      "legacy_layout": {"revision": 1, "cell_offset": [0, 16], "cells": {}},
+      "geometry": {
+        "platforms": [[1, 22, 26], [46, 49, 22]]
+      },
+      "markers": [[47, 21, "c"]],
+      "portals": [
+        {"id": "gate_upper", "glyph": "⇣", "cell": [3, 25], "target_level": "ch2_harbor_street", "target_portal": "street_upper",
+         "requires_flag": "", "prompt": "{interact} 沿雨棚回港區街道", "style": "road", "w": 28, "h": 44}
+      ],
+      "capability_targets": {"47,21": {"ability": "air_jump", "flag": "ledger_disk_obtained"}}
+    },
+    "market": {
+      "height": 40,
+      "legacy_layout": {"revision": 1, "cell_offset": [0, 16], "cells": {}},
+      "geometry": {
+        "platforms": [[7, 11, 32], [15, 19, 28], [21, 100, 24], [104, 138, 24], [88, 91, 16]]
+      },
+      "markers": [[89, 15, "c"]],
+      "hints": [[8, "雨棚上層通往阿梨家的後窗與後面的貨道。", 31]],
+      "portals": [
+        {"id": "market_roof", "glyph": "⇠", "cell": [116, 23], "target_level": "ch2_ali_home", "target_portal": "home_roof",
+         "requires_flag": "", "prompt": "{interact} 從後窗進阿梨的小廚房", "style": "door", "w": 24, "h": 44},
+        {"id": "market_canopy", "glyph": "⇢", "cell": [136, 23], "target_level": "ch2_loading", "target_portal": "loading_canopy",
+         "requires_flag": "ch2_market_contact_done", "prompt": "{interact} 沿雨棚走到貨道上層",
+         "locked": "先到代收處問清楚這筆代收款，再去後面查帳。", "style": "road", "w": 28, "h": 44}
+      ],
+      "capability_targets": {"89,15": {"ability": "air_jump", "flag": "ledger_disk_obtained"}}
+    },
+    "loading": {
+      "height": 40,
+      "legacy_layout": {"revision": 1, "cell_offset": [0, 16], "cells": {}},
+      "geometry": {
+        "blocks": [[104, 148, 0, 15]],
+        "platforms": [[60, 63, 21]]
+      },
+      "markers": [[61, 20, "c"]],
+      "portals": [
+        {"id": "loading_canopy", "glyph": "⇤", "cell": [14, 28], "target_level": "ch2_market", "target_portal": "market_canopy",
+         "requires_flag": "ch2_market_contact_done", "prompt": "{interact} 沿雨棚回公眾攤道上層",
+         "locked": "先到代收處問清楚這筆代收款，再去後面查帳。", "style": "road", "w": 28, "h": 44}
+      ],
+      "capability_targets": {"61,20": {"ability": "air_jump", "flag": "ledger_disk_obtained"}}
+    }
+  }
+}

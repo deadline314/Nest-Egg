@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=19 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=20 format=3]
 
 [ext_resource type="Script" path="res://data/scripts/level_data.gd" id="1_level_data"]
 [ext_resource type="Resource" path="res://data/props/credits_small.tres" id="2_credits_small"]
@@ -49,12 +49,24 @@ height = 56
 style = "door"
 
 [sub_resource type="Resource" id="Resource_3"]
+script = ExtResource("3_portal_data")
+id = &"loading_canopy"
+target_level = "res://data/levels/ch2_market.tres"
+target_portal = &"market_canopy"
+requires_flag = &"ch2_market_contact_done"
+locked_text = "先到代收處問清楚這筆代收款，再去後面查帳。"
+prompt = "{interact} 沿雨棚回公眾攤道上層"
+width = 28
+height = 44
+style = "road"
+
+[sub_resource type="Resource" id="Resource_4"]
 script = ExtResource("10_lighting_zone")
 start_tile = 0
 blend_tiles = 12
 profile = ExtResource("11_market")
 
-[sub_resource type="Resource" id="Resource_4"]
+[sub_resource type="Resource" id="Resource_5"]
 script = ExtResource("10_lighting_zone")
 start_tile = 104
 blend_tiles = 6
@@ -65,12 +77,13 @@ script = ExtResource("1_level_data")
 id = &"ch2_loading"
 display_name = "雨棚背面與裝卸間"
 tile_size = 16
-height = 24
+height = 40
 legend = Dictionary[String, Resource]({
 "c": ExtResource("2_credits_small"),
 "Ⅹ": SubResource("Resource_0"),
 "Ⅺ": SubResource("Resource_1"),
 "Ⅻ": SubResource("Resource_2"),
+"⇤": SubResource("Resource_3"),
 "ⓓ": ExtResource("4_ch2_drying_desk"),
 "ⓙ": ExtResource("5_ch2_sc1_lever"),
 "ⓛ": ExtResource("6_ch2_collection_book"),
@@ -84,6 +97,6 @@ persistent_world = true
 show_chapter_card = false
 environment = ExtResource("13_ch2_loading")
 layout_path = "res://data/levels/ch2_loading_map.json"
-lighting_zones = Array[ExtResource("10_lighting_zone")]([SubResource("Resource_3"), SubResource("Resource_4")])
+lighting_zones = Array[ExtResource("10_lighting_zone")]([SubResource("Resource_4"), SubResource("Resource_5")])
 story_triggers = PackedStringArray("ch2_s09_wire")
 death_credit_cap = 250

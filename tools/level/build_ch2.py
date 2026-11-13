@@ -12,7 +12,6 @@ import sys
 sys.path.insert(0, os.path.dirname(__file__))
 sys.dont_write_bytecode = True
 import build_ch1 as kit  # noqa: E402
-from scenery_placement import prepare_props  # noqa: E402
 
 kit.PREFIX = 'ch2'
 kit.CHAPTER = 'ch2_heron'
@@ -116,6 +115,8 @@ PORTALS = {
     'ⅲ': dict(id='office_front', to=AREA('ledger_front'), target='front_office', mode=0, prompt='{interact} 回前室', style='door', w=28, h=56),
     'ⅳ': dict(id='office_family', to=AREA('market_gate'), target='gate_family', mode=0, prompt='{interact} 走家屬出口到市集電話亭', style='door', w=28, h=56,
               requires='ch2_egret_transport_done', locked='先撐開家屬出口，讓人把鷺抬出去。'),
+    # 阿梨小廚房的後窗（NE-299）：和公眾攤道雨棚上層的「market_roof」互通
+    '⇥': dict(id='home_roof', to=AREA('market'), target='market_roof', mode=0, prompt='{interact} 從後窗爬到雨棚上', style='door', w=24, h=44),
     # 復原館外
     'ⅴ': dict(id='lounge_gate', to=AREA('market_gate'), target='gate_lounge', mode=0, prompt='{interact} 回市集入口', style='road', w=28, h=44),
 }
@@ -196,7 +197,7 @@ def build_rooftop():
     return a
 
 
-def build_harbor_street():
+def _build_harbor_street_v1():
     """H5 安全街段：當舖前門到市集入口，中間是 B1 電話亭。"""
     a = Area('harbor_street', '港區街道（白天）', 64, 20)
     a.stand(3, 'h')
@@ -220,7 +221,7 @@ def build_harbor_street():
     return a
 
 
-def build_market_gate():
+def _build_market_gate_v1():
     """H12a 市集入口：巡帳員看證（S05），地面兩個戰鬥區可從上層公眾攤道繞過；B3 電話亭；往復原館、家屬出口。"""
     a = Area('market_gate', '市集入口', 120, 20)
     a.combat = True
@@ -258,7 +259,7 @@ def build_market_gate():
     return a
 
 
-def build_market():
+def _build_market_v1():
     """H12b 公眾攤道：代收處（S06）、租攤視窗（證據 A）、榕伯涼茶攤、公告屏、小販；後樓外梯到阿梨家，往後面的貨道。"""
     a = Area('market', '公眾攤道', 140, 20)
     a.stand(2, 'Ⅴ')
@@ -313,12 +314,13 @@ def build_ali_home():
     a.prop('ali_kitchen__recipe_notes', 40, y=16, support='wall')
     for x in (12, 26, 40):
         a.lamp(x, 11)
+    a.stand(45, '⇥')   # 後窗：爬出去就是公眾攤道的雨棚上層（NE-299）
     a.zone(0, 'residential')
-    a.features = {'landmark': '門口那把補過的油紙傘（x=9）'}
+    a.features = {'landmark': '門口那把補過的油紙傘（x=9）', 'loop': '後窗通到公眾攤道的雨棚上層'}
     return a
 
 
-def build_loading():
+def _build_loading_v1():
     """H12c 雨棚背面：下層貨道與雨棚上層成環，剪斷的電線橋（S09），裝卸間代收簿（證據 C），乾燥作業桌對帳（S10），北棟貨門。"""
     a = Area('loading', '雨棚背面與裝卸間', 150, 20)
     a.combat = True
@@ -440,6 +442,64 @@ def build_lounge_front():
     return a
 
 
+# NE-299：港街、市集入口、公眾攤道與裝卸場改成上下層互通（data/levels/ch2_layout_v2.json）。
+# 原內容整批下移 16 格，保留所有內容 ID 與舊檔格位映射；新的雨棚門只連接本來就能到的區域，
+# 往貨道上層的門和原貨道一樣要先問過代收處（ch2_market_contact_done）。
+def build_harbor_street():
+    a = kit._v2_area(_build_harbor_street_v1())
+    a.features.update(loop='雨棚上層連到市集入口的上層攤道', vertical='街面與雨棚兩層',
+                      reward='雨棚上方第 15 列信用點：空中再躍')
+    return a
+
+
+def build_market_gate():
+    a = kit._v2_area(_build_market_gate_v1())
+    a.features.update(loop='上層攤道往左接回港區街道的雨棚', reward='上層攤道上方第 21 列信用點：空中再躍',
+                      vertical='地面、上層攤道與高處三層')
+    return a
+
+
+def build_market():
+    a = kit._v2_area(_build_market_v1())
+    a.features.update(loop='雨棚上層連到阿梨家的後窗，也接到貨道上層（問過代收處後開放）',
+                      reward='公告屏上方第 15 列信用點：空中再躍', vertical='攤道地面與雨棚兩層',
+                      rest='阿梨的小廚房在回環上，零戰鬥')
+    return a
+
+
+def build_loading():
+    a = kit._v2_area(_build_loading_v1())
+    a.features.update(loop='下層貨道、雨棚上層與公眾攤道雨棚成環', reward='電線橋上方第 20 列信用點：空中再躍',
+                      vertical='地面、雨棚與高處三層')
+    return a
+
+
+def route_checks(a):
+    """各區的明確路線快照（只是格子近似，不代替真玩家輸入）。"""
+    start = next(((x, y) for y in range(a.h) for x in range(a.w) if a.grid.at(x, y) == 'P'), None)
+    normal = kit.RouteState('normal')
+    late = kit.RouteState('air_jump_bound', jump_tiles=10)
+    scenarios = {
+        'harbor_street': [(normal, [('booth', (30, 35)), ('market', (61, 35)), ('upper', (61, 23))], [('reward', (27, 15))]),
+                          (late, [('reward', (27, 15))], [])],
+        'market_gate': [(normal, [('patroller', (18, 35)), ('upper', (3, 25)), ('booth', (92, 35)), ('market', (117, 35))],
+                         [('reward', (47, 21))]),
+                        (late, [('reward', (47, 21))], [])],
+        'market': [(normal, [('vig', (30, 35)), ('roof', (116, 23)), ('canopy', (136, 23)), ('cargo', (137, 35))],
+                    [('reward', (89, 15))]),
+                   (late, [('reward', (89, 15))], [])],
+        'loading': [(normal, [('canopy', (14, 28)), ('lever', (92, 28)), ('ledger', (146, 35))], [('reward', (61, 20))]),
+                    (late, [('reward', (61, 20))], [])],
+    }
+    problems = []
+    for state, goals, forbidden in scenarios.get(a.id, []):
+        problems += kit.reachable(a, start, goals, state=state)
+        for target in forbidden:
+            if not kit.reachable(a, start, [target], state=state):
+                problems.append(f'{a.id}/{state.name}: {target[0]} 不該用普通跳躍就到得了')
+    return problems
+
+
 # 和第一章共用空間的區域沿用第一章審過的擺設位置（scenery_placement.json 的 overrides）。
 PLACEMENT_IDS = {'pawnshop': 'ch1_pawnshop', 'rooftop': 'ch1_rooftop'}
 
@@ -463,6 +523,7 @@ def configure():
     kit.NPCS = {ident: {**{'rig': '', 'loop': '', 'facing': 1}, **spec} for ident, spec in NPCS.items()}
     kit.THEMES = THEMES
     kit.STORY = STORY
+    kit.placement_id = lambda ident: PLACEMENT_IDS.get(ident, f'ch2_{ident}')
 
 
 def main():
@@ -477,16 +538,14 @@ def main():
         start = next(((x, y) for y in range(a.h) for x in range(a.w) if a.grid.at(x, y) == 'P'), None)
         goals = [(a.grid.at(x, y), (x, y)) for y in range(a.h) for x in range(a.w)
                  if a.grid.at(x, y) in set(kit.RES) | set(PORTALS) | {'C'}]
-        problems += kit.reachable(a, start, goals)
+        problems += route_checks(a) if hasattr(a, 'legacy_layout') else kit.reachable(a, start, goals)
     if problems:
         print('\n'.join(problems))
         sys.exit(1)
     kit.write_npc_files()
     kit.write_design(areas)
     for a in areas:
-        extra = {"props": prepare_props(a.props, PLACEMENT_IDS.get(a.id, f'ch2_{a.id}'))}
-        if a.regions:
-            extra["regions"] = a.regions
+        extra = kit._map_extra(a)
         a.grid.write(a.id, (kit.LEVEL_DIR, f'ch2_{a.id}_map.json'), extra)
     by_id = {a.id: a for a in areas}
     kit.write_level(by_id['pawnshop'], show_card=True)

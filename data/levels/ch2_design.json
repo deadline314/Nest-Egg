@@ -20,7 +20,10 @@
    "combat": false,
    "group": "harbor_street",
    "features": {
-    "landmark": "B1 電話亭（x=30）"
+    "landmark": "B1 電話亭（x=30）",
+    "loop": "雨棚上層連到市集入口的上層攤道",
+    "vertical": "街面與雨棚兩層",
+    "reward": "雨棚上方第 15 列信用點：空中再躍"
    },
    "encounters": []
   },
@@ -28,11 +31,11 @@
    "combat": true,
    "group": "market_gate",
    "features": {
-    "loop": "上層公眾攤道（x=24～83，第 14 列）：可以完全繞過地面兩個戰鬥區",
+    "loop": "上層攤道往左接回港區街道的雨棚",
     "landmark": "市場的水位尺（x=112）",
-    "reward": "公眾攤道中段的信用點（x=50）",
+    "reward": "上層攤道上方第 21 列信用點：空中再躍",
     "secret": "無",
-    "vertical": "地面與攤道兩層"
+    "vertical": "地面、上層攤道與高處三層"
    },
    "encounters": [
     {
@@ -66,7 +69,11 @@
    "group": "market",
    "features": {
     "landmark": "公告屏（x=90）：沈望的週年演說",
-    "shortcut": "橋梯捷徑（x=124）：從裝卸間放下後直通"
+    "shortcut": "橋梯捷徑（x=124）：從裝卸間放下後直通",
+    "loop": "雨棚上層連到阿梨家的後窗，也接到貨道上層（問過代收處後開放）",
+    "reward": "公告屏上方第 15 列信用點：空中再躍",
+    "vertical": "攤道地面與雨棚兩層",
+    "rest": "阿梨的小廚房在回環上，零戰鬥"
    },
    "encounters": []
   },
@@ -74,7 +81,8 @@
    "combat": false,
    "group": "ali_home",
    "features": {
-    "landmark": "門口那把補過的油紙傘（x=9）"
+    "landmark": "門口那把補過的油紙傘（x=9）",
+    "loop": "後窗通到公眾攤道的雨棚上層"
    },
    "encounters": []
   },
@@ -82,11 +90,12 @@
    "combat": true,
    "group": "loading",
    "features": {
-    "loop": "下層貨道與雨棚上層（x=10～99）成環",
+    "loop": "下層貨道、雨棚上層與公眾攤道雨棚成環",
     "shortcut": "橋梯捷徑 SC1（x=92 拉桿、x=100 梯口）回代收處",
     "secret": "乾燥盒的信用點（x=134）",
     "landmark": "剪斷電線的橋（x=46～52）",
-    "vertical": "地面與雨棚兩層"
+    "vertical": "地面、雨棚與高處三層",
+    "reward": "電線橋上方第 20 列信用點：空中再躍"
    },
    "encounters": [
     {
