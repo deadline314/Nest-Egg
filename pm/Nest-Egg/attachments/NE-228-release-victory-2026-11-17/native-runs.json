@@ -1,0 +1,128 @@
+[
+  {
+    "case": "en-1280-1.2",
+    "exit": 0,
+    "argv": [
+      "python",
+      "tools/comfyui/gpu_lock.py",
+      "--",
+      "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe",
+      "--path",
+      "C:\\Users\\stanl\\Github\\Nest-Egg",
+      "--rendering-method",
+      "forward_plus",
+      "res://work/ne228-terminal-layout-20261117/capture.tscn",
+      "--",
+      "--language=en",
+      "--width=1280",
+      "--height=720",
+      "--scale=1.2",
+      "--out=C:\\Users\\stanl\\Github\\Nest-Egg\\work\\ne228-terminal-layout-20261117\\en-1280-1.2.png"
+    ]
+  },
+  {
+    "case": "en-1920-1.2",
+    "exit": 0,
+    "argv": [
+      "python",
+      "tools/comfyui/gpu_lock.py",
+      "--",
+      "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe",
+      "--path",
+      "C:\\Users\\stanl\\Github\\Nest-Egg",
+      "--rendering-method",
+      "forward_plus",
+      "res://work/ne228-terminal-layout-20261117/capture.tscn",
+      "--",
+      "--language=en",
+      "--width=1920",
+      "--height=1080",
+      "--scale=1.2",
+      "--out=C:\\Users\\stanl\\Github\\Nest-Egg\\work\\ne228-terminal-layout-20261117\\en-1920-1.2.png"
+    ]
+  },
+  {
+    "case": "ja-1920-1.2",
+    "exit": 0,
+    "argv": [
+      "python",
+      "tools/comfyui/gpu_lock.py",
+      "--",
+      "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe",
+      "--path",
+      "C:\\Users\\stanl\\Github\\Nest-Egg",
+      "--rendering-method",
+      "forward_plus",
+      "res://work/ne228-terminal-layout-20261117/capture.tscn",
+      "--",
+      "--language=ja",
+      "--width=1920",
+      "--height=1080",
+      "--scale=1.2",
+      "--out=C:\\Users\\stanl\\Github\\Nest-Egg\\work\\ne228-terminal-layout-20261117\\ja-1920-1.2.png"
+    ]
+  },
+  {
+    "case": "zh-1280-1.2",
+    "exit": 0,
+    "argv": [
+      "python",
+      "tools/comfyui/gpu_lock.py",
+      "--",
+      "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe",
+      "--path",
+      "C:\\Users\\stanl\\Github\\Nest-Egg",
+      "--rendering-method",
+      "forward_plus",
+      "res://work/ne228-terminal-layout-20261117/capture.tscn",
+      "--",
+      "--language=zh",
+      "--width=1280",
+      "--height=720",
+      "--scale=1.2",
+      "--out=C:\\Users\\stanl\\Github\\Nest-Egg\\work\\ne228-terminal-layout-20261117\\zh-1280-1.2.png"
+    ]
+  },
+  {
+    "case": "en-1280-1.0",
+    "exit": 0,
+    "argv": [
+      "python",
+      "tools/comfyui/gpu_lock.py",
+      "--",
+      "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe",
+      "--path",
+      "C:\\Users\\stanl\\Github\\Nest-Egg",
+      "--rendering-method",
+      "forward_plus",
+      "res://work/ne228-terminal-layout-20261117/capture.tscn",
+      "--",
+      "--language=en",
+      "--width=1280",
+      "--height=720",
+      "--scale=1.0",
+      "--out=C:\\Users\\stanl\\Github\\Nest-Egg\\work\\ne228-terminal-layout-20261117\\en-1280-1.0.png"
+    ]
+  },
+  {
+    "case": "zh-1920-1.0",
+    "exit": 0,
+    "argv": [
+      "python",
+      "tools/comfyui/gpu_lock.py",
+      "--",
+      "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe",
+      "--path",
+      "C:\\Users\\stanl\\Github\\Nest-Egg",
+      "--rendering-method",
+      "forward_plus",
+      "res://work/ne228-terminal-layout-20261117/capture.tscn",
+      "--",
+      "--language=zh",
+      "--width=1920",
+      "--height=1080",
+      "--scale=1.0",
+      "--out=C:\\Users\\stanl\\Github\\Nest-Egg\\work\\ne228-terminal-layout-20261117\\zh-1920-1.0.png"
+    ]
+  }
+]

@@ -1,0 +1,5 @@
+受影響的測試：ApplyPanelSuite,Chapter1MapSuite,Chapter2Suite,ClipEditorSuite,CutsceneSuite,DeathReactionSuite,DevMenuSuite,EncounterSuite,InputFeelSuite,ReadabilityTargetsSuite,RunSaveSuite,SoundLabSuite,SoundStageSuite,StageCoverageCharactersSuite,StageCoverageWeaponsSuite,StageCoverageWorldSuite,UiScreensSuite
+Running 17 groups in 2 processes (logs: C:/NE/evidence-20261117/ne228-final-affected)
+  process 0 (estimated 482 s): StageCoverageWorldSuite,Chapter2Suite,StageCoverageWeaponsSuite,SoundStageSuite,UiScreensSuite,InputFeelSuite,SoundLabSuite,ReadabilityTargetsSuite,DevMenuSuite,ClipEditorSuite,ApplyPanelSuite
+  process 1 (estimated 492 s): RunSaveSuite,Chapter1MapSuite,CutsceneSuite,EncounterSuite,StageCoverageCharactersSuite,DeathReactionSuite
+checks: 7251, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 458 s)

@@ -57,12 +57,13 @@ func _ready() -> void:
 		stats.add_child(row)
 		_rows.append(row)
 	var teaser := str(info.get("teaser", ""))
-	# 累積版本的最後一章：同一行說清楚內容到此、進度已保存，不讓玩家以為下一章壞掉，也不加高面板。
+	# 累積版本的最後一章交代收錄範圍與保存結果；長預告依欄寬換行。
 	if CampaignEdition.current().is_last_chapter(chapter):
 		teaser = ("%s　" % teaser if teaser != "" else "") + EDITION_END_TEXT
 	if teaser != "":
 		panel.body.add_child(UiDivider.new())
 		var teaser_label := UiKit.label(teaser, UiKit.FS_BODY, Palette.NEON_YELLOW)
+		teaser_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		panel.body.add_child(teaser_label)
 		_rows.append(teaser_label)
 

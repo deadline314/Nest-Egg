@@ -24,6 +24,7 @@ func run() -> void:
 	await _test_fullscreen_setting()
 	await _test_death_screen()
 	await _test_victory_screen()
+	await _test_release_victory_layout()
 	await preload("res://tests/helpers/controller_screen_checks.gd").run(self)
 	await preload("res://tests/helpers/navigation_consistency_checks.gd").run(self)
 	await preload("res://tests/helpers/inventory_device_checks.gd").run(self)
@@ -387,6 +388,35 @@ func _test_victory_screen() -> void:
 		break
 	screen.queue_free()
 	await frames(2)
+
+
+func _test_release_victory_layout() -> void:
+	var edition := CampaignEdition.current()
+	var language := Story.language
+	var scale := Settings.get_ui_text_scale()
+	var reduced := Settings.get_reduce_ui_motion()
+	Settings.set_reduce_ui_motion(true)
+	for locale in ["zh", "en", "ja"]:
+		Story.set_language(locale)
+		for text_scale in [1.0, 1.2]:
+			Settings.set_ui_text_scale(text_scale)
+			for chapter_id in [&"ch1_kasa", &"ch2_heron", &"ch3_clearwater"]:
+				CampaignEdition.override_current(edition.describe("through-" + String(chapter_id)))
+				var screen := VictoryScreen.new()
+				screen.chapter = chapter_id
+				runner.add_child(screen)
+				await frames(4)
+				var teaser := screen._rows.back() as Label
+				var expected := str(Story.chapter_info(chapter_id).get("teaser", "")) + "　" + VictoryScreen.EDITION_END_TEXT
+				var bounds := screen.get_global_rect()
+				check(teaser.text == expected and teaser.get_visible_line_count() == teaser.get_line_count() and bounds.encloses(teaser.get_global_rect()), "release ending retains the complete %s %s teaser and edition notice at %.0f%%" % [chapter_id, locale, text_scale * 100])
+				check(screen._buttons.all(func(button: Button) -> bool: return bounds.encloses(button.get_global_rect()) and not button.disabled), "release ending keeps both actions visible and usable for %s %s at %.0f%%" % [chapter_id, locale, text_scale * 100])
+				screen.queue_free()
+				await frames(2)
+	CampaignEdition.override_current(edition)
+	Story.set_language(language)
+	Settings.set_ui_text_scale(scale)
+	Settings.set_reduce_ui_motion(reduced)
 
 
 ## 角色高解析立繪（NE-215）：用骨架在子視窗以 2 倍解析度繪製、平滑濾鏡、只在可見時更新；找不到角色時不崩潰。
