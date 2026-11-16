@@ -1,0 +1,2311 @@
+{
+  "scope": "All 16 non-wave original v12 failures. Every row links the actual original native crop, exact offending pixel, fresh unmodified auditor geometry for its own frame/facing, and SHA-verified v12 source. Classification remains a separate visual decision.",
+  "raw_failures_retained": true,
+  "all_16_have_fresh_matching_geometry_pixel": true,
+  "rows": [
+    {
+      "case": "combat",
+      "joint": "neck",
+      "pose": "dead",
+      "zoom": 1.0,
+      "frame": 21,
+      "facing": 1,
+      "original_png": "art_src/characters/harbor_lamplighter_demo/evidence/matrix-v12-worn-combat/dead_1.0_021.png",
+      "original_png_sha256": "4454f8c13fcc8851a5a4458d2529112cd944eb37640f49d1de8f6cad88e6169c",
+      "original_rect": [
+        1664,
+        0,
+        128,
+        128
+      ],
+      "native_crop": "art_src/characters/harbor_lamplighter_demo/evidence/final-small-items/combat-neck-f021-face1.png",
+      "native_crop_sha256": "390421cf096e6c6bedc60e97558e5a9574c61d6a7327224a66b3597d9c50b03e",
+      "offending_cell_pixels": [
+        [
+          64,
+          61
+        ]
+      ],
+      "resampled_native_crop": false,
+      "diagnostic_trace": "art_src/characters/harbor_lamplighter_demo/evidence/trace-v12-final-neck21",
+      "diagnostic_rgba_equal_to_original": false,
+      "diagnostic_threshold_mask_difference_pixels": 0,
+      "source_mapping": {
+        "pose": "dead",
+        "zoom": 1.0,
+        "frame": 21,
+        "facing": 1,
+        "source_snapshot": "C:\\Users\\stanl\\Github\\Nest-Egg\\art_src\\characters\\harbor_lamplighter_demo\\evidence\\source-v12-matrix",
+        "spec_sha256": "1a51467f574ad3a4adff417c9afe044aaff92ac80225f59d75ded229c02067ff",
+        "cell_pixel": [
+          64,
+          61
+        ],
+        "parts": [
+          {
+            "part": "torso",
+            "texture": [
+              143.6151721367304,
+              79.30786306958359
+            ],
+            "source": [
+              451.85085902621705,
+              211.56871357785798
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              166,
+              137,
+              188,
+              0
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 0,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              208,
+              357
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          },
+          {
+            "part": "head",
+            "texture": [
+              99.94151747145794,
+              169.6302623732028
+            ],
+            "source": [
+              447.05802616698014,
+              191.3893340637195
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              159,
+              122,
+              172,
+              0
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 0,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              153,
+              175
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          }
+        ]
+      },
+      "actual_original_rgba_at_offending_pixel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "diagnostic_rgba_at_offending_pixel": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "case": "combat",
+      "joint": "neck",
+      "pose": "dead",
+      "zoom": 1.0,
+      "frame": 21,
+      "facing": -1,
+      "original_png": "art_src/characters/harbor_lamplighter_demo/evidence/matrix-v12-worn-combat/dead_1.0_021.png",
+      "original_png_sha256": "4454f8c13fcc8851a5a4458d2529112cd944eb37640f49d1de8f6cad88e6169c",
+      "original_rect": [
+        3456,
+        0,
+        128,
+        128
+      ],
+      "native_crop": "art_src/characters/harbor_lamplighter_demo/evidence/final-small-items/combat-neck-f021-face-1.png",
+      "native_crop_sha256": "133f02f3a93a207abc74e4bbd58816ce8f352c160015fc4250552930d74729a5",
+      "offending_cell_pixels": [
+        [
+          63,
+          61
+        ]
+      ],
+      "resampled_native_crop": false,
+      "diagnostic_trace": "art_src/characters/harbor_lamplighter_demo/evidence/trace-v12-final-neck21",
+      "diagnostic_rgba_equal_to_original": true,
+      "diagnostic_threshold_mask_difference_pixels": 0,
+      "source_mapping": {
+        "pose": "dead",
+        "zoom": 1.0,
+        "frame": 21,
+        "facing": -1,
+        "source_snapshot": "C:\\Users\\stanl\\Github\\Nest-Egg\\art_src\\characters\\harbor_lamplighter_demo\\evidence\\source-v12-matrix",
+        "spec_sha256": "1a51467f574ad3a4adff417c9afe044aaff92ac80225f59d75ded229c02067ff",
+        "cell_pixel": [
+          63,
+          61
+        ],
+        "parts": [
+          {
+            "part": "torso",
+            "texture": [
+              143.6152037648023,
+              79.30801234357344
+            ],
+            "source": [
+              451.8508914608048,
+              211.56886665833457
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              166,
+              137,
+              188,
+              0
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 0,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              208,
+              357
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          },
+          {
+            "part": "head",
+            "texture": [
+              99.94147423026378,
+              169.63019951650872
+            ],
+            "source": [
+              447.05798182313555,
+              191.3892696041797
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              159,
+              122,
+              172,
+              0
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 0,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              153,
+              175
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          }
+        ]
+      },
+      "actual_original_rgba_at_offending_pixel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "diagnostic_rgba_at_offending_pixel": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "case": "combat",
+      "joint": "neck",
+      "pose": "dead",
+      "zoom": 1.0,
+      "frame": 22,
+      "facing": 1,
+      "original_png": "art_src/characters/harbor_lamplighter_demo/evidence/matrix-v12-worn-combat/dead_1.0_022.png",
+      "original_png_sha256": "a14fe75882bc3476d07e1c4b6ef9627c68abe9b8dde144c777e47923d5a42fe5",
+      "original_rect": [
+        1664,
+        0,
+        128,
+        128
+      ],
+      "native_crop": "art_src/characters/harbor_lamplighter_demo/evidence/final-small-items/combat-neck-f022-face1.png",
+      "native_crop_sha256": "860f05587bc5e007d357f67ae3bb4f9541ee2b132569021ec0fee414b6531e9b",
+      "offending_cell_pixels": [
+        [
+          64,
+          61
+        ]
+      ],
+      "resampled_native_crop": false,
+      "diagnostic_trace": "art_src/characters/harbor_lamplighter_demo/evidence/trace-v12-final-neck22",
+      "diagnostic_rgba_equal_to_original": true,
+      "diagnostic_threshold_mask_difference_pixels": 0,
+      "source_mapping": {
+        "pose": "dead",
+        "zoom": 1.0,
+        "frame": 22,
+        "facing": 1,
+        "source_snapshot": "C:\\Users\\stanl\\Github\\Nest-Egg\\art_src\\characters\\harbor_lamplighter_demo\\evidence\\source-v12-matrix",
+        "spec_sha256": "1a51467f574ad3a4adff417c9afe044aaff92ac80225f59d75ded229c02067ff",
+        "cell_pixel": [
+          64,
+          61
+        ],
+        "parts": [
+          {
+            "part": "torso",
+            "texture": [
+              143.6121431305764,
+              79.07667541243408
+            ],
+            "source": [
+              451.84775278040615,
+              211.33163063545118
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              157,
+              106,
+              185,
+              0
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 0,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              208,
+              357
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          },
+          {
+            "part": "head",
+            "texture": [
+              99.60599661018682,
+              168.8654717646241
+            ],
+            "source": [
+              446.71394952374663,
+              190.60504129462203
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              159,
+              122,
+              172,
+              0
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 0,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              153,
+              175
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          }
+        ]
+      },
+      "actual_original_rgba_at_offending_pixel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "diagnostic_rgba_at_offending_pixel": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "case": "combat",
+      "joint": "neck",
+      "pose": "dead",
+      "zoom": 1.0,
+      "frame": 22,
+      "facing": -1,
+      "original_png": "art_src/characters/harbor_lamplighter_demo/evidence/matrix-v12-worn-combat/dead_1.0_022.png",
+      "original_png_sha256": "a14fe75882bc3476d07e1c4b6ef9627c68abe9b8dde144c777e47923d5a42fe5",
+      "original_rect": [
+        3456,
+        0,
+        128,
+        128
+      ],
+      "native_crop": "art_src/characters/harbor_lamplighter_demo/evidence/final-small-items/combat-neck-f022-face-1.png",
+      "native_crop_sha256": "1baccc27ef7ab92c830f330626762d7a42242aa3dfcea26e87584e6a1c81e74e",
+      "offending_cell_pixels": [
+        [
+          63,
+          61
+        ]
+      ],
+      "resampled_native_crop": false,
+      "diagnostic_trace": "art_src/characters/harbor_lamplighter_demo/evidence/trace-v12-final-neck22",
+      "diagnostic_rgba_equal_to_original": true,
+      "diagnostic_threshold_mask_difference_pixels": 0,
+      "source_mapping": {
+        "pose": "dead",
+        "zoom": 1.0,
+        "frame": 22,
+        "facing": -1,
+        "source_snapshot": "C:\\Users\\stanl\\Github\\Nest-Egg\\art_src\\characters\\harbor_lamplighter_demo\\evidence\\source-v12-matrix",
+        "spec_sha256": "1a51467f574ad3a4adff417c9afe044aaff92ac80225f59d75ded229c02067ff",
+        "cell_pixel": [
+          63,
+          61
+        ],
+        "parts": [
+          {
+            "part": "torso",
+            "texture": [
+              143.6121754351364,
+              79.07682454150178
+            ],
+            "source": [
+              451.8477859087324,
+              211.33178356731008
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              157,
+              106,
+              185,
+              0
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 0,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              208,
+              357
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          },
+          {
+            "part": "head",
+            "texture": [
+              99.60626219777077,
+              168.86584460612224
+            ],
+            "source": [
+              446.714221883814,
+              190.60542364357838
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              159,
+              122,
+              172,
+              0
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 0,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              153,
+              175
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          }
+        ]
+      },
+      "actual_original_rgba_at_offending_pixel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "diagnostic_rgba_at_offending_pixel": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "case": "combat",
+      "joint": "neck",
+      "pose": "dead",
+      "zoom": 1.0,
+      "frame": 23,
+      "facing": 1,
+      "original_png": "art_src/characters/harbor_lamplighter_demo/evidence/matrix-v12-worn-combat/dead_1.0_023.png",
+      "original_png_sha256": "567428384a98c4630b5f964402b0d42816b798c1f32d0a910258c17a95a60043",
+      "original_rect": [
+        1664,
+        0,
+        128,
+        128
+      ],
+      "native_crop": "art_src/characters/harbor_lamplighter_demo/evidence/final-small-items/combat-neck-f023-face1.png",
+      "native_crop_sha256": "b9a668f010b68dc867e9ad781c5a7b23e7eef363de95ca0ac970afbc9dcc54b2",
+      "offending_cell_pixels": [
+        [
+          64,
+          61
+        ]
+      ],
+      "resampled_native_crop": false,
+      "diagnostic_trace": "art_src/characters/harbor_lamplighter_demo/evidence/trace-v12-final-neck23",
+      "diagnostic_rgba_equal_to_original": true,
+      "diagnostic_threshold_mask_difference_pixels": 0,
+      "source_mapping": {
+        "pose": "dead",
+        "zoom": 1.0,
+        "frame": 23,
+        "facing": 1,
+        "source_snapshot": "C:\\Users\\stanl\\Github\\Nest-Egg\\art_src\\characters\\harbor_lamplighter_demo\\evidence\\source-v12-matrix",
+        "spec_sha256": "1a51467f574ad3a4adff417c9afe044aaff92ac80225f59d75ded229c02067ff",
+        "cell_pixel": [
+          64,
+          61
+        ],
+        "parts": [
+          {
+            "part": "torso",
+            "texture": [
+              143.6089460484135,
+              78.88161888100008
+            ],
+            "source": [
+              451.84447417264806,
+              211.1316001624656
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              157,
+              106,
+              185,
+              0
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 0,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              208,
+              357
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          },
+          {
+            "part": "head",
+            "texture": [
+              99.31629321124484,
+              168.2306793889968
+            ],
+            "source": [
+              446.41685868813164,
+              189.95406171341625
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              195,
+              198,
+              200,
+              23
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 0,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              153,
+              175
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          }
+        ]
+      },
+      "actual_original_rgba_at_offending_pixel": [
+        12,
+        8,
+        5,
+        40
+      ],
+      "diagnostic_rgba_at_offending_pixel": [
+        12,
+        8,
+        5,
+        40
+      ]
+    },
+    {
+      "case": "combat",
+      "joint": "neck",
+      "pose": "dead",
+      "zoom": 1.0,
+      "frame": 23,
+      "facing": -1,
+      "original_png": "art_src/characters/harbor_lamplighter_demo/evidence/matrix-v12-worn-combat/dead_1.0_023.png",
+      "original_png_sha256": "567428384a98c4630b5f964402b0d42816b798c1f32d0a910258c17a95a60043",
+      "original_rect": [
+        3456,
+        0,
+        128,
+        128
+      ],
+      "native_crop": "art_src/characters/harbor_lamplighter_demo/evidence/final-small-items/combat-neck-f023-face-1.png",
+      "native_crop_sha256": "386fbcdc6096fbbc245db0567162e913fab4d2fbc74e44bd96532691468fbd6b",
+      "offending_cell_pixels": [
+        [
+          63,
+          61
+        ]
+      ],
+      "resampled_native_crop": false,
+      "diagnostic_trace": "art_src/characters/harbor_lamplighter_demo/evidence/trace-v12-final-neck23",
+      "diagnostic_rgba_equal_to_original": false,
+      "diagnostic_threshold_mask_difference_pixels": 0,
+      "source_mapping": {
+        "pose": "dead",
+        "zoom": 1.0,
+        "frame": 23,
+        "facing": -1,
+        "source_snapshot": "C:\\Users\\stanl\\Github\\Nest-Egg\\art_src\\characters\\harbor_lamplighter_demo\\evidence\\source-v12-matrix",
+        "spec_sha256": "1a51467f574ad3a4adff417c9afe044aaff92ac80225f59d75ded229c02067ff",
+        "cell_pixel": [
+          63,
+          61
+        ],
+        "parts": [
+          {
+            "part": "torso",
+            "texture": [
+              143.60897892327938,
+              78.88176788538154
+            ],
+            "source": [
+              451.844507885823,
+              211.13175296645878
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              157,
+              106,
+              185,
+              0
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 0,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              208,
+              357
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          },
+          {
+            "part": "head",
+            "texture": [
+              99.31629321124484,
+              168.2306793889968
+            ],
+            "source": [
+              446.41685868813164,
+              189.95406171341625
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              195,
+              198,
+              200,
+              23
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 0,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              153,
+              175
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          }
+        ]
+      },
+      "actual_original_rgba_at_offending_pixel": [
+        12,
+        8,
+        5,
+        40
+      ],
+      "diagnostic_rgba_at_offending_pixel": [
+        12,
+        8,
+        5,
+        40
+      ]
+    },
+    {
+      "case": "combat",
+      "joint": "neck",
+      "pose": "dead",
+      "zoom": 1.0,
+      "frame": 24,
+      "facing": 1,
+      "original_png": "art_src/characters/harbor_lamplighter_demo/evidence/matrix-v12-worn-combat/dead_1.0_024.png",
+      "original_png_sha256": "6b5222d8fb660af203cb430921cc03d05bb9802b3f47bbc8ad0dff1da3e38793",
+      "original_rect": [
+        1664,
+        0,
+        128,
+        128
+      ],
+      "native_crop": "art_src/characters/harbor_lamplighter_demo/evidence/final-small-items/combat-neck-f024-face1.png",
+      "native_crop_sha256": "717dc80f0a15c872f74227c0bf58e318e9bfd281a661187e3a304cbaf520cf06",
+      "offending_cell_pixels": [
+        [
+          64,
+          61
+        ]
+      ],
+      "resampled_native_crop": false,
+      "diagnostic_trace": "art_src/characters/harbor_lamplighter_demo/evidence/trace-v12-final-neck24",
+      "diagnostic_rgba_equal_to_original": true,
+      "diagnostic_threshold_mask_difference_pixels": 0,
+      "source_mapping": {
+        "pose": "dead",
+        "zoom": 1.0,
+        "frame": 24,
+        "facing": 1,
+        "source_snapshot": "C:\\Users\\stanl\\Github\\Nest-Egg\\art_src\\characters\\harbor_lamplighter_demo\\evidence\\source-v12-matrix",
+        "spec_sha256": "1a51467f574ad3a4adff417c9afe044aaff92ac80225f59d75ded229c02067ff",
+        "cell_pixel": [
+          64,
+          61
+        ],
+        "parts": [
+          {
+            "part": "torso",
+            "texture": [
+              143.60553624536618,
+              78.72078755311696
+            ],
+            "source": [
+              451.8409774196231,
+              210.96666763572148
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              157,
+              106,
+              185,
+              0
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 0,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              208,
+              357
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          },
+          {
+            "part": "head",
+            "texture": [
+              99.07217518467334,
+              167.71363970216865
+            ],
+            "source": [
+              446.1665156518826,
+              189.42383751457396
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              138,
+              144,
+              145,
+              71
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 71,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              153,
+              175
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          }
+        ]
+      },
+      "actual_original_rgba_at_offending_pixel": [
+        29,
+        20,
+        12,
+        95
+      ],
+      "diagnostic_rgba_at_offending_pixel": [
+        29,
+        20,
+        12,
+        95
+      ]
+    },
+    {
+      "case": "combat",
+      "joint": "neck",
+      "pose": "dead",
+      "zoom": 1.0,
+      "frame": 24,
+      "facing": -1,
+      "original_png": "art_src/characters/harbor_lamplighter_demo/evidence/matrix-v12-worn-combat/dead_1.0_024.png",
+      "original_png_sha256": "6b5222d8fb660af203cb430921cc03d05bb9802b3f47bbc8ad0dff1da3e38793",
+      "original_rect": [
+        3456,
+        0,
+        128,
+        128
+      ],
+      "native_crop": "art_src/characters/harbor_lamplighter_demo/evidence/final-small-items/combat-neck-f024-face-1.png",
+      "native_crop_sha256": "f988168faafbd8cbfe3fcafa41c3e9ffc8e9f94d9e400a61c823f6a2fb41c273",
+      "offending_cell_pixels": [
+        [
+          63,
+          61
+        ]
+      ],
+      "resampled_native_crop": false,
+      "diagnostic_trace": "art_src/characters/harbor_lamplighter_demo/evidence/trace-v12-final-neck24",
+      "diagnostic_rgba_equal_to_original": false,
+      "diagnostic_threshold_mask_difference_pixels": 0,
+      "source_mapping": {
+        "pose": "dead",
+        "zoom": 1.0,
+        "frame": 24,
+        "facing": -1,
+        "source_snapshot": "C:\\Users\\stanl\\Github\\Nest-Egg\\art_src\\characters\\harbor_lamplighter_demo\\evidence\\source-v12-matrix",
+        "spec_sha256": "1a51467f574ad3a4adff417c9afe044aaff92ac80225f59d75ded229c02067ff",
+        "cell_pixel": [
+          63,
+          61
+        ],
+        "parts": [
+          {
+            "part": "torso",
+            "texture": [
+              143.60553624536627,
+              78.72078755311698
+            ],
+            "source": [
+              451.84097741962313,
+              210.96666763572148
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              157,
+              106,
+              185,
+              0
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 0,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              208,
+              357
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          },
+          {
+            "part": "head",
+            "texture": [
+              99.07217518467334,
+              167.71363970216865
+            ],
+            "source": [
+              446.1665156518826,
+              189.42383751457396
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              138,
+              144,
+              145,
+              71
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 71,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              153,
+              175
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          }
+        ]
+      },
+      "actual_original_rgba_at_offending_pixel": [
+        29,
+        20,
+        12,
+        95
+      ],
+      "diagnostic_rgba_at_offending_pixel": [
+        29,
+        20,
+        12,
+        95
+      ]
+    },
+    {
+      "case": "transitions",
+      "joint": "elbow_front",
+      "pose": "stand_up",
+      "zoom": 3.4,
+      "frame": 25,
+      "facing": 1,
+      "original_png": "art_src/characters/harbor_lamplighter_demo/evidence/matrix-v12-worn-transitions/stand_up_3.4_025.png",
+      "original_png_sha256": "c9b2b39ec500624067846f346963ff332ec2012fcbf1767a7fabc145c862cc87",
+      "original_rect": [
+        1152,
+        0,
+        128,
+        128
+      ],
+      "native_crop": "art_src/characters/harbor_lamplighter_demo/evidence/final-small-items/transitions-elbow_front-f025-face1.png",
+      "native_crop_sha256": "0a917d1682d8fbf6b240cc5d606c528a1479d06b26b77e476dda624e3d7eb1b2",
+      "offending_cell_pixels": [
+        [
+          69,
+          58
+        ]
+      ],
+      "resampled_native_crop": false,
+      "diagnostic_trace": "art_src/characters/harbor_lamplighter_demo/evidence/trace-v12-final-elbow25",
+      "diagnostic_rgba_equal_to_original": false,
+      "diagnostic_threshold_mask_difference_pixels": 0,
+      "source_mapping": {
+        "pose": "stand_up",
+        "zoom": 3.4,
+        "frame": 25,
+        "facing": 1,
+        "source_snapshot": "C:\\Users\\stanl\\Github\\Nest-Egg\\art_src\\characters\\harbor_lamplighter_demo\\evidence\\source-v12-matrix",
+        "spec_sha256": "1a51467f574ad3a4adff417c9afe044aaff92ac80225f59d75ded229c02067ff",
+        "cell_pixel": [
+          69,
+          58
+        ],
+        "parts": [
+          {
+            "part": "arm_upper",
+            "texture": [
+              92.45057176816202,
+              195.63860488768123
+            ],
+            "source": [
+              415.6499827866231,
+              436.2358583466357
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              69,
+              84,
+              96,
+              254
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 254,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              105,
+              223
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          },
+          {
+            "part": "arm_lower",
+            "texture": [
+              97.20559595175192,
+              6.115096517220381
+            ],
+            "source": [
+              415.8823496989742,
+              437.21039751507095
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              68,
+              83,
+              95,
+              254
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 254,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              100,
+              193
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          }
+        ]
+      },
+      "actual_original_rgba_at_offending_pixel": [
+        15,
+        18,
+        20,
+        69
+      ],
+      "diagnostic_rgba_at_offending_pixel": [
+        15,
+        18,
+        20,
+        69
+      ]
+    },
+    {
+      "case": "transitions",
+      "joint": "elbow_front",
+      "pose": "stand_up",
+      "zoom": 3.4,
+      "frame": 25,
+      "facing": -1,
+      "original_png": "art_src/characters/harbor_lamplighter_demo/evidence/matrix-v12-worn-transitions/stand_up_3.4_025.png",
+      "original_png_sha256": "c9b2b39ec500624067846f346963ff332ec2012fcbf1767a7fabc145c862cc87",
+      "original_rect": [
+        2944,
+        0,
+        128,
+        128
+      ],
+      "native_crop": "art_src/characters/harbor_lamplighter_demo/evidence/final-small-items/transitions-elbow_front-f025-face-1.png",
+      "native_crop_sha256": "a32e44b6924f88a9c3f642d16600a2f0890b8674d39030342a9005b75e88b7de",
+      "offending_cell_pixels": [
+        [
+          58,
+          58
+        ]
+      ],
+      "resampled_native_crop": false,
+      "diagnostic_trace": "art_src/characters/harbor_lamplighter_demo/evidence/trace-v12-final-elbow25",
+      "diagnostic_rgba_equal_to_original": false,
+      "diagnostic_threshold_mask_difference_pixels": 0,
+      "source_mapping": {
+        "pose": "stand_up",
+        "zoom": 3.4,
+        "frame": 25,
+        "facing": -1,
+        "source_snapshot": "C:\\Users\\stanl\\Github\\Nest-Egg\\art_src\\characters\\harbor_lamplighter_demo\\evidence\\source-v12-matrix",
+        "spec_sha256": "1a51467f574ad3a4adff417c9afe044aaff92ac80225f59d75ded229c02067ff",
+        "cell_pixel": [
+          58,
+          58
+        ],
+        "parts": [
+          {
+            "part": "arm_upper",
+            "texture": [
+              92.45061926503375,
+              195.63862876113882
+            ],
+            "source": [
+              415.6500316306745,
+              436.2358825563764
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              69,
+              84,
+              96,
+              254
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 254,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              105,
+              223
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          },
+          {
+            "part": "arm_lower",
+            "texture": [
+              97.20559595175195,
+              6.115096517220473
+            ],
+            "source": [
+              415.8823496989743,
+              437.210397515071
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              68,
+              83,
+              95,
+              254
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 254,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              100,
+              193
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          }
+        ]
+      },
+      "actual_original_rgba_at_offending_pixel": [
+        15,
+        18,
+        20,
+        69
+      ],
+      "diagnostic_rgba_at_offending_pixel": [
+        15,
+        18,
+        20,
+        69
+      ]
+    },
+    {
+      "case": "hammer",
+      "joint": "shoulder_front",
+      "pose": "loop:hammer",
+      "zoom": 3.4,
+      "frame": 48,
+      "facing": 1,
+      "original_png": "art_src/characters/harbor_lamplighter_demo/evidence/matrix-v12-worn-hammer/loop_hammer_3.4_048.png",
+      "original_png_sha256": "7b904d03b36b9ca1e98eccd6ca72578384f9c5770d3543075cb337117bd34783",
+      "original_rect": [
+        896,
+        0,
+        128,
+        128
+      ],
+      "native_crop": "art_src/characters/harbor_lamplighter_demo/evidence/final-small-items/hammer-shoulder_front-f048-face1.png",
+      "native_crop_sha256": "5c0d15400b3e69813b980c8002cfa6473939e4b44f341ba7eb6edc4071a62bd4",
+      "offending_cell_pixels": [
+        [
+          81,
+          72
+        ]
+      ],
+      "resampled_native_crop": false,
+      "diagnostic_trace": "art_src/characters/harbor_lamplighter_demo/evidence/trace-v12-final-hammer48",
+      "diagnostic_rgba_equal_to_original": true,
+      "diagnostic_threshold_mask_difference_pixels": 0,
+      "source_mapping": {
+        "pose": "loop:hammer",
+        "zoom": 3.4,
+        "frame": 48,
+        "facing": 1,
+        "source_snapshot": "C:\\Users\\stanl\\Github\\Nest-Egg\\art_src\\characters\\harbor_lamplighter_demo\\evidence\\source-v12-matrix",
+        "spec_sha256": "1a51467f574ad3a4adff417c9afe044aaff92ac80225f59d75ded229c02067ff",
+        "cell_pixel": [
+          81,
+          72
+        ],
+        "parts": [
+          {
+            "part": "torso",
+            "texture": [
+              173.08483236686806,
+              171.38668907305168
+            ],
+            "source": [
+              482.07199559222323,
+              305.99554964441455
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              183,
+              177,
+              197,
+              0
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 0,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              208,
+              357
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          },
+          {
+            "part": "arm_upper",
+            "texture": [
+              5.321594745443366,
+              140.114382172468
+            ],
+            "source": [
+              325.9825160925818,
+              379.795815647337
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              51,
+              63,
+              73,
+              253
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 255,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                159
+              ],
+              [
+                0,
+                158
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              105,
+              223
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          }
+        ]
+      },
+      "actual_original_rgba_at_offending_pixel": [
+        6,
+        7,
+        7,
+        18
+      ],
+      "diagnostic_rgba_at_offending_pixel": [
+        6,
+        7,
+        7,
+        18
+      ]
+    },
+    {
+      "case": "hammer",
+      "joint": "shoulder_front",
+      "pose": "loop:hammer",
+      "zoom": 3.4,
+      "frame": 48,
+      "facing": -1,
+      "original_png": "art_src/characters/harbor_lamplighter_demo/evidence/matrix-v12-worn-hammer/loop_hammer_3.4_048.png",
+      "original_png_sha256": "7b904d03b36b9ca1e98eccd6ca72578384f9c5770d3543075cb337117bd34783",
+      "original_rect": [
+        2688,
+        0,
+        128,
+        128
+      ],
+      "native_crop": "art_src/characters/harbor_lamplighter_demo/evidence/final-small-items/hammer-shoulder_front-f048-face-1.png",
+      "native_crop_sha256": "2cff26a0e9ace7149f2d1ecc648865080433b08091a7b0e37044707fcc72e183",
+      "offending_cell_pixels": [
+        [
+          46,
+          72
+        ]
+      ],
+      "resampled_native_crop": false,
+      "diagnostic_trace": "art_src/characters/harbor_lamplighter_demo/evidence/trace-v12-final-hammer48",
+      "diagnostic_rgba_equal_to_original": true,
+      "diagnostic_threshold_mask_difference_pixels": 0,
+      "source_mapping": {
+        "pose": "loop:hammer",
+        "zoom": 3.4,
+        "frame": 48,
+        "facing": -1,
+        "source_snapshot": "C:\\Users\\stanl\\Github\\Nest-Egg\\art_src\\characters\\harbor_lamplighter_demo\\evidence\\source-v12-matrix",
+        "spec_sha256": "1a51467f574ad3a4adff417c9afe044aaff92ac80225f59d75ded229c02067ff",
+        "cell_pixel": [
+          46,
+          72
+        ],
+        "parts": [
+          {
+            "part": "torso",
+            "texture": [
+              173.08483236686808,
+              171.38668907305168
+            ],
+            "source": [
+              482.0719955922233,
+              305.99554964441455
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              183,
+              177,
+              197,
+              0
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 0,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              208,
+              357
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          },
+          {
+            "part": "arm_upper",
+            "texture": [
+              5.321594745443332,
+              140.11438217246803
+            ],
+            "source": [
+              325.98251609258176,
+              379.79581564733707
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              51,
+              63,
+              73,
+              253
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 255,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                159
+              ],
+              [
+                0,
+                158
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              105,
+              223
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          }
+        ]
+      },
+      "actual_original_rgba_at_offending_pixel": [
+        6,
+        7,
+        7,
+        18
+      ],
+      "diagnostic_rgba_at_offending_pixel": [
+        6,
+        7,
+        7,
+        18
+      ]
+    },
+    {
+      "case": "hammer",
+      "joint": "shoulder_front",
+      "pose": "loop:hammer",
+      "zoom": 3.4,
+      "frame": 50,
+      "facing": 1,
+      "original_png": "art_src/characters/harbor_lamplighter_demo/evidence/matrix-v12-worn-hammer/loop_hammer_3.4_050.png",
+      "original_png_sha256": "c50913a0dcaaaf63e28ff3055e081a5b4b2357298cec230ae9c7667c1358609f",
+      "original_rect": [
+        896,
+        0,
+        128,
+        128
+      ],
+      "native_crop": "art_src/characters/harbor_lamplighter_demo/evidence/final-small-items/hammer-shoulder_front-f050-face1.png",
+      "native_crop_sha256": "031af3f597c7d1f82a55a03c917f81db79873319402bb6accf960f24f5984339",
+      "offending_cell_pixels": [
+        [
+          81,
+          72
+        ]
+      ],
+      "resampled_native_crop": false,
+      "diagnostic_trace": "art_src/characters/harbor_lamplighter_demo/evidence/trace-v12-final-hammer50",
+      "diagnostic_rgba_equal_to_original": true,
+      "diagnostic_threshold_mask_difference_pixels": 0,
+      "source_mapping": {
+        "pose": "loop:hammer",
+        "zoom": 3.4,
+        "frame": 50,
+        "facing": 1,
+        "source_snapshot": "C:\\Users\\stanl\\Github\\Nest-Egg\\art_src\\characters\\harbor_lamplighter_demo\\evidence\\source-v12-matrix",
+        "spec_sha256": "1a51467f574ad3a4adff417c9afe044aaff92ac80225f59d75ded229c02067ff",
+        "cell_pixel": [
+          81,
+          72
+        ],
+        "parts": [
+          {
+            "part": "torso",
+            "texture": [
+              173.0342654010745,
+              171.54829353069425
+            ],
+            "source": [
+              482.02013916880196,
+              306.16127501572697
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              183,
+              177,
+              197,
+              0
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 0,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              208,
+              357
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          },
+          {
+            "part": "arm_upper",
+            "texture": [
+              4.994426068879007,
+              139.97929864368658
+            ],
+            "source": [
+              325.6462359660094,
+              379.6591639884121
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              51,
+              63,
+              73,
+              253
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 255,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              105,
+              223
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          }
+        ]
+      },
+      "actual_original_rgba_at_offending_pixel": [
+        8,
+        9,
+        10,
+        24
+      ],
+      "diagnostic_rgba_at_offending_pixel": [
+        8,
+        9,
+        10,
+        24
+      ]
+    },
+    {
+      "case": "hammer",
+      "joint": "shoulder_front",
+      "pose": "loop:hammer",
+      "zoom": 3.4,
+      "frame": 50,
+      "facing": -1,
+      "original_png": "art_src/characters/harbor_lamplighter_demo/evidence/matrix-v12-worn-hammer/loop_hammer_3.4_050.png",
+      "original_png_sha256": "c50913a0dcaaaf63e28ff3055e081a5b4b2357298cec230ae9c7667c1358609f",
+      "original_rect": [
+        2688,
+        0,
+        128,
+        128
+      ],
+      "native_crop": "art_src/characters/harbor_lamplighter_demo/evidence/final-small-items/hammer-shoulder_front-f050-face-1.png",
+      "native_crop_sha256": "8bc39d1a129d39b76b531840dfd1ac81f779cd15fbd48c41ff9fab1bd7783ab0",
+      "offending_cell_pixels": [
+        [
+          46,
+          72
+        ]
+      ],
+      "resampled_native_crop": false,
+      "diagnostic_trace": "art_src/characters/harbor_lamplighter_demo/evidence/trace-v12-final-hammer50",
+      "diagnostic_rgba_equal_to_original": true,
+      "diagnostic_threshold_mask_difference_pixels": 0,
+      "source_mapping": {
+        "pose": "loop:hammer",
+        "zoom": 3.4,
+        "frame": 50,
+        "facing": -1,
+        "source_snapshot": "C:\\Users\\stanl\\Github\\Nest-Egg\\art_src\\characters\\harbor_lamplighter_demo\\evidence\\source-v12-matrix",
+        "spec_sha256": "1a51467f574ad3a4adff417c9afe044aaff92ac80225f59d75ded229c02067ff",
+        "cell_pixel": [
+          46,
+          72
+        ],
+        "parts": [
+          {
+            "part": "torso",
+            "texture": [
+              173.034265401075,
+              171.54829353069417
+            ],
+            "source": [
+              482.0201391688025,
+              306.1612750157269
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              183,
+              177,
+              197,
+              0
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 0,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              208,
+              357
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          },
+          {
+            "part": "arm_upper",
+            "texture": [
+              4.994424746270016,
+              139.97927624330316
+            ],
+            "source": [
+              325.64623448136416,
+              379.65914102475483
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              51,
+              63,
+              73,
+              253
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 255,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              105,
+              223
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          }
+        ]
+      },
+      "actual_original_rgba_at_offending_pixel": [
+        8,
+        9,
+        10,
+        24
+      ],
+      "diagnostic_rgba_at_offending_pixel": [
+        8,
+        9,
+        10,
+        24
+      ]
+    },
+    {
+      "case": "hammer",
+      "joint": "shoulder_front",
+      "pose": "loop:hammer",
+      "zoom": 3.4,
+      "frame": 110,
+      "facing": 1,
+      "original_png": "art_src/characters/harbor_lamplighter_demo/evidence/matrix-v12-worn-hammer/loop_hammer_3.4_110.png",
+      "original_png_sha256": "51df5bd5d3361acb5ecc6db66a69f697e3cdcf1a444ece16a5355ad55470a99a",
+      "original_rect": [
+        896,
+        0,
+        128,
+        128
+      ],
+      "native_crop": "art_src/characters/harbor_lamplighter_demo/evidence/final-small-items/hammer-shoulder_front-f110-face1.png",
+      "native_crop_sha256": "0cb76071f8ca82efcde137e2303d73de6b376f070e7877963090c23d6a469168",
+      "offending_cell_pixels": [
+        [
+          81,
+          73
+        ]
+      ],
+      "resampled_native_crop": false,
+      "diagnostic_trace": "art_src/characters/harbor_lamplighter_demo/evidence/trace-v12-final-hammer110",
+      "diagnostic_rgba_equal_to_original": true,
+      "diagnostic_threshold_mask_difference_pixels": 0,
+      "source_mapping": {
+        "pose": "loop:hammer",
+        "zoom": 3.4,
+        "frame": 110,
+        "facing": 1,
+        "source_snapshot": "C:\\Users\\stanl\\Github\\Nest-Egg\\art_src\\characters\\harbor_lamplighter_demo\\evidence\\source-v12-matrix",
+        "spec_sha256": "1a51467f574ad3a4adff417c9afe044aaff92ac80225f59d75ded229c02067ff",
+        "cell_pixel": [
+          81,
+          73
+        ],
+        "parts": [
+          {
+            "part": "torso",
+            "texture": [
+              174.5286058853137,
+              175.6002284814591
+            ],
+            "source": [
+              483.55258533538927,
+              310.31653430773633
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              182,
+              172,
+              199,
+              0
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 0,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                69,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              208,
+              357
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          },
+          {
+            "part": "arm_upper",
+            "texture": [
+              4.889317766145354,
+              142.8428444855147
+            ],
+            "source": [
+              325.55485422673866,
+              382.59628655191113
+            ],
+            "part_alpha_at_nearest_source": 253,
+            "base_rgba_at_nearest_source": [
+              52,
+              63,
+              73,
+              253
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 255,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 253,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                11
+              ],
+              [
+                0,
+                107
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              105,
+              223
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          }
+        ]
+      },
+      "actual_original_rgba_at_offending_pixel": [
+        4,
+        5,
+        7,
+        23
+      ],
+      "diagnostic_rgba_at_offending_pixel": [
+        4,
+        5,
+        7,
+        23
+      ]
+    },
+    {
+      "case": "hammer",
+      "joint": "shoulder_front",
+      "pose": "loop:hammer",
+      "zoom": 3.4,
+      "frame": 110,
+      "facing": -1,
+      "original_png": "art_src/characters/harbor_lamplighter_demo/evidence/matrix-v12-worn-hammer/loop_hammer_3.4_110.png",
+      "original_png_sha256": "51df5bd5d3361acb5ecc6db66a69f697e3cdcf1a444ece16a5355ad55470a99a",
+      "original_rect": [
+        2688,
+        0,
+        128,
+        128
+      ],
+      "native_crop": "art_src/characters/harbor_lamplighter_demo/evidence/final-small-items/hammer-shoulder_front-f110-face-1.png",
+      "native_crop_sha256": "80e01d745cdbbdf8802ac884fbf3e92890061f8593ee68d3dcd42715a8b81d77",
+      "offending_cell_pixels": [
+        [
+          46,
+          73
+        ]
+      ],
+      "resampled_native_crop": false,
+      "diagnostic_trace": "art_src/characters/harbor_lamplighter_demo/evidence/trace-v12-final-hammer110",
+      "diagnostic_rgba_equal_to_original": true,
+      "diagnostic_threshold_mask_difference_pixels": 0,
+      "source_mapping": {
+        "pose": "loop:hammer",
+        "zoom": 3.4,
+        "frame": 110,
+        "facing": -1,
+        "source_snapshot": "C:\\Users\\stanl\\Github\\Nest-Egg\\art_src\\characters\\harbor_lamplighter_demo\\evidence\\source-v12-matrix",
+        "spec_sha256": "1a51467f574ad3a4adff417c9afe044aaff92ac80225f59d75ded229c02067ff",
+        "cell_pixel": [
+          46,
+          73
+        ],
+        "parts": [
+          {
+            "part": "torso",
+            "texture": [
+              174.5285616077437,
+              175.60023580283678
+            ],
+            "source": [
+              483.5525399287412,
+              310.31654181580916
+            ],
+            "part_alpha_at_nearest_source": 0,
+            "base_rgba_at_nearest_source": [
+              182,
+              172,
+              199,
+              0
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 0,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 0,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                0
+              ],
+              [
+                69,
+                0
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              208,
+              357
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          },
+          {
+            "part": "arm_upper",
+            "texture": [
+              4.889315242530291,
+              142.84282218848014
+            ],
+            "source": [
+              325.554851511073,
+              382.59626370111704
+            ],
+            "part_alpha_at_nearest_source": 253,
+            "base_rgba_at_nearest_source": [
+              52,
+              63,
+              73,
+              253
+            ],
+            "source_owners_at_nearest": {
+              "pelvis": 0,
+              "torso": 255,
+              "head": 0,
+              "leg_upper": 0,
+              "leg_lower": 0,
+              "foot": 0,
+              "arm_upper": 253,
+              "arm_lower": 0,
+              "hand": 0
+            },
+            "runtime_texture_alpha_2x2_floor_uv": [
+              [
+                0,
+                11
+              ],
+              [
+                0,
+                107
+              ]
+            ],
+            "runtime_texture_alpha_nearest_floor_uv": 0,
+            "runtime_texture_shape": [
+              105,
+              223
+            ],
+            "sampling_note": "UV is a continuous coordinate. This local texel neighbourhood is context, not a claim to reproduce Godot mip/filter coverage from one nearest source pixel."
+          }
+        ]
+      },
+      "actual_original_rgba_at_offending_pixel": [
+        4,
+        5,
+        7,
+        23
+      ],
+      "diagnostic_rgba_at_offending_pixel": [
+        4,
+        5,
+        7,
+        23
+      ]
+    }
+  ]
+}

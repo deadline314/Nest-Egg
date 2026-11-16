@@ -1,0 +1,377 @@
+{
+  "scope": "Unmodified original rig_perf_probe; script animate CPU cost only, not rendered frame or GPU time. RAM is externally sampled for each complete probe process, not separate rigid/mesh phases; the original rigid queue_free is deferred until after the synchronous pair. Same source, engine, count, frames and weapon/action setup. Native Forward+ initialization is recorded in raw logs.",
+  "source_guard_123_unchanged": true,
+  "rows": [
+    {
+      "run": 1,
+      "skin": "rin",
+      "rigid_us_per_10_rigs": 1758.7,
+      "mesh_us_per_10_rigs": 2174.5,
+      "delta_us_per_rig_reported": 41.6,
+      "mesh_over_rigid_fraction": 0.23642463183032913,
+      "vertices_per_rig": 423,
+      "vertex_limit_500_pass": true,
+      "relative_rigid_plus_50pct_pass": true,
+      "ram_family": {
+        "scope": "Entire Godot console/actual-engine process family, never per-mode. Max sampled simultaneous RSS and conservative sum of each PID lifetime peak are both retained.",
+        "godot_processes": [
+          {
+            "pid": 16616,
+            "name": "Godot_v4.7.2-stable_win64_console.exe"
+          },
+          {
+            "pid": 42392,
+            "name": "Godot_v4.7.2-stable_win64.exe"
+          }
+        ],
+        "max_observed_family_rss_bytes": 610304000,
+        "sum_individual_peak_working_set_bytes_conservative_upper_bound": 614658048,
+        "actual_engine_child_observed": true
+      },
+      "log": "01-rin.log",
+      "log_sha256": "b7a424316995198c4bcc3154eb6510da091a8ebaacff09cb299544aecff1db1c",
+      "script_error_count": 0,
+      "error_count": 0,
+      "warning_count": 0,
+      "native_metric_line": "剛體 1758.7 µs/格，關節網格 2174.5 µs/格（多 415.9 µs，每隻多 41.6 µs），網格頂點 423",
+      "delta_us_per_10_rigs_derived_from_rounded_modes": 415.8,
+      "delta_us_per_10_rigs_reported": 415.9
+    },
+    {
+      "run": 1,
+      "skin": "harbor_lamplighter_demo",
+      "rigid_us_per_10_rigs": 1039.6,
+      "mesh_us_per_10_rigs": 1293.3,
+      "delta_us_per_rig_reported": 25.4,
+      "mesh_over_rigid_fraction": 0.24403616775682968,
+      "vertices_per_rig": 213,
+      "vertex_limit_500_pass": true,
+      "relative_rigid_plus_50pct_pass": true,
+      "ram_family": {
+        "scope": "Entire Godot console/actual-engine process family, never per-mode. Max sampled simultaneous RSS and conservative sum of each PID lifetime peak are both retained.",
+        "godot_processes": [
+          {
+            "pid": 33204,
+            "name": "Godot_v4.7.2-stable_win64_console.exe"
+          },
+          {
+            "pid": 36644,
+            "name": "Godot_v4.7.2-stable_win64.exe"
+          }
+        ],
+        "max_observed_family_rss_bytes": 579534848,
+        "sum_individual_peak_working_set_bytes_conservative_upper_bound": 583938048,
+        "actual_engine_child_observed": true
+      },
+      "log": "01-harbor_lamplighter_demo.log",
+      "log_sha256": "91c6f62d8d2bb2176ab333f3bc6e9939617bbead8420233e7c4fee893a162bfa",
+      "script_error_count": 0,
+      "error_count": 0,
+      "warning_count": 0,
+      "native_metric_line": "剛體 1039.6 µs/格，關節網格 1293.3 µs/格（多 253.7 µs，每隻多 25.4 µs），網格頂點 213",
+      "delta_us_per_10_rigs_derived_from_rounded_modes": 253.7,
+      "delta_us_per_10_rigs_reported": 253.7
+    },
+    {
+      "run": 2,
+      "skin": "rin",
+      "rigid_us_per_10_rigs": 1745.9,
+      "mesh_us_per_10_rigs": 2138.5,
+      "delta_us_per_rig_reported": 39.3,
+      "mesh_over_rigid_fraction": 0.2248696947133284,
+      "vertices_per_rig": 423,
+      "vertex_limit_500_pass": true,
+      "relative_rigid_plus_50pct_pass": true,
+      "ram_family": {
+        "scope": "Entire Godot console/actual-engine process family, never per-mode. Max sampled simultaneous RSS and conservative sum of each PID lifetime peak are both retained.",
+        "godot_processes": [
+          {
+            "pid": 20880,
+            "name": "Godot_v4.7.2-stable_win64_console.exe"
+          },
+          {
+            "pid": 41976,
+            "name": "Godot_v4.7.2-stable_win64.exe"
+          }
+        ],
+        "max_observed_family_rss_bytes": 589549568,
+        "sum_individual_peak_working_set_bytes_conservative_upper_bound": 591597568,
+        "actual_engine_child_observed": true
+      },
+      "log": "02-rin.log",
+      "log_sha256": "089ae3d1d2110ae4c3d2650adba83be41bebc4d47c911e993efbb3d4fbb6bd82",
+      "script_error_count": 0,
+      "error_count": 0,
+      "warning_count": 0,
+      "native_metric_line": "剛體 1745.9 µs/格，關節網格 2138.5 µs/格（多 392.7 µs，每隻多 39.3 µs），網格頂點 423",
+      "delta_us_per_10_rigs_derived_from_rounded_modes": 392.6,
+      "delta_us_per_10_rigs_reported": 392.7
+    },
+    {
+      "run": 2,
+      "skin": "harbor_lamplighter_demo",
+      "rigid_us_per_10_rigs": 1019.3,
+      "mesh_us_per_10_rigs": 1270.3,
+      "delta_us_per_rig_reported": 25.1,
+      "mesh_over_rigid_fraction": 0.2462474247032278,
+      "vertices_per_rig": 213,
+      "vertex_limit_500_pass": true,
+      "relative_rigid_plus_50pct_pass": true,
+      "ram_family": {
+        "scope": "Entire Godot console/actual-engine process family, never per-mode. Max sampled simultaneous RSS and conservative sum of each PID lifetime peak are both retained.",
+        "godot_processes": [
+          {
+            "pid": 41516,
+            "name": "Godot_v4.7.2-stable_win64_console.exe"
+          },
+          {
+            "pid": 24196,
+            "name": "Godot_v4.7.2-stable_win64.exe"
+          }
+        ],
+        "max_observed_family_rss_bytes": 581668864,
+        "sum_individual_peak_working_set_bytes_conservative_upper_bound": 585342976,
+        "actual_engine_child_observed": true
+      },
+      "log": "02-harbor_lamplighter_demo.log",
+      "log_sha256": "cd240a6d219c3f6fbcd3cf1acbfe95879338949a109b66c51c684a9860925918",
+      "script_error_count": 0,
+      "error_count": 0,
+      "warning_count": 0,
+      "native_metric_line": "剛體 1019.3 µs/格，關節網格 1270.3 µs/格（多 250.9 µs，每隻多 25.1 µs），網格頂點 213",
+      "delta_us_per_10_rigs_derived_from_rounded_modes": 251.0,
+      "delta_us_per_10_rigs_reported": 250.9
+    },
+    {
+      "run": 3,
+      "skin": "rin",
+      "rigid_us_per_10_rigs": 1745.5,
+      "mesh_us_per_10_rigs": 2124.1,
+      "delta_us_per_rig_reported": 37.9,
+      "mesh_over_rigid_fraction": 0.21690060154683466,
+      "vertices_per_rig": 423,
+      "vertex_limit_500_pass": true,
+      "relative_rigid_plus_50pct_pass": true,
+      "ram_family": {
+        "scope": "Entire Godot console/actual-engine process family, never per-mode. Max sampled simultaneous RSS and conservative sum of each PID lifetime peak are both retained.",
+        "godot_processes": [
+          {
+            "pid": 22272,
+            "name": "Godot_v4.7.2-stable_win64_console.exe"
+          },
+          {
+            "pid": 38732,
+            "name": "Godot_v4.7.2-stable_win64.exe"
+          }
+        ],
+        "max_observed_family_rss_bytes": 591994880,
+        "sum_individual_peak_working_set_bytes_conservative_upper_bound": 592195584,
+        "actual_engine_child_observed": true
+      },
+      "log": "03-rin.log",
+      "log_sha256": "3ebd6471f3aa6d01f6978c106c14619e7fc5df0baf1225661bb6cdbc2d24b20a",
+      "script_error_count": 0,
+      "error_count": 0,
+      "warning_count": 0,
+      "native_metric_line": "剛體 1745.5 µs/格，關節網格 2124.1 µs/格（多 378.6 µs，每隻多 37.9 µs），網格頂點 423",
+      "delta_us_per_10_rigs_derived_from_rounded_modes": 378.6,
+      "delta_us_per_10_rigs_reported": 378.6
+    },
+    {
+      "run": 3,
+      "skin": "harbor_lamplighter_demo",
+      "rigid_us_per_10_rigs": 1017.6,
+      "mesh_us_per_10_rigs": 1288.4,
+      "delta_us_per_rig_reported": 27.1,
+      "mesh_over_rigid_fraction": 0.26611635220125796,
+      "vertices_per_rig": 213,
+      "vertex_limit_500_pass": true,
+      "relative_rigid_plus_50pct_pass": true,
+      "ram_family": {
+        "scope": "Entire Godot console/actual-engine process family, never per-mode. Max sampled simultaneous RSS and conservative sum of each PID lifetime peak are both retained.",
+        "godot_processes": [
+          {
+            "pid": 41260,
+            "name": "Godot_v4.7.2-stable_win64_console.exe"
+          },
+          {
+            "pid": 41312,
+            "name": "Godot_v4.7.2-stable_win64.exe"
+          }
+        ],
+        "max_observed_family_rss_bytes": 583479296,
+        "sum_individual_peak_working_set_bytes_conservative_upper_bound": 585256960,
+        "actual_engine_child_observed": true
+      },
+      "log": "03-harbor_lamplighter_demo.log",
+      "log_sha256": "6f47ada2e658f4105ce701e245d94b7cfa1818a0b527da5321cabed5f6ebfb17",
+      "script_error_count": 0,
+      "error_count": 0,
+      "warning_count": 0,
+      "native_metric_line": "剛體 1017.6 µs/格，關節網格 1288.4 µs/格（多 270.9 µs，每隻多 27.1 µs），網格頂點 213",
+      "delta_us_per_10_rigs_derived_from_rounded_modes": 270.8,
+      "delta_us_per_10_rigs_reported": 270.9
+    },
+    {
+      "run": 4,
+      "skin": "rin",
+      "rigid_us_per_10_rigs": 1756.5,
+      "mesh_us_per_10_rigs": 2144.3,
+      "delta_us_per_rig_reported": 38.8,
+      "mesh_over_rigid_fraction": 0.22077996014802181,
+      "vertices_per_rig": 423,
+      "vertex_limit_500_pass": true,
+      "relative_rigid_plus_50pct_pass": true,
+      "ram_family": {
+        "scope": "Entire Godot console/actual-engine process family, never per-mode. Max sampled simultaneous RSS and conservative sum of each PID lifetime peak are both retained.",
+        "godot_processes": [
+          {
+            "pid": 31932,
+            "name": "Godot_v4.7.2-stable_win64_console.exe"
+          },
+          {
+            "pid": 38920,
+            "name": "Godot_v4.7.2-stable_win64.exe"
+          }
+        ],
+        "max_observed_family_rss_bytes": 583241728,
+        "sum_individual_peak_working_set_bytes_conservative_upper_bound": 588869632,
+        "actual_engine_child_observed": true
+      },
+      "log": "04-rin.log",
+      "log_sha256": "13abc4f80cabb72e5c21d434bf82832d8d55ac2fa05c9fd63bcbc6fbc2a4bee6",
+      "script_error_count": 0,
+      "error_count": 0,
+      "warning_count": 0,
+      "native_metric_line": "剛體 1756.5 µs/格，關節網格 2144.3 µs/格（多 387.8 µs，每隻多 38.8 µs），網格頂點 423",
+      "delta_us_per_10_rigs_derived_from_rounded_modes": 387.8,
+      "delta_us_per_10_rigs_reported": 387.8
+    },
+    {
+      "run": 4,
+      "skin": "harbor_lamplighter_demo",
+      "rigid_us_per_10_rigs": 1014.7,
+      "mesh_us_per_10_rigs": 1277.0,
+      "delta_us_per_rig_reported": 26.2,
+      "mesh_over_rigid_fraction": 0.25850004927564796,
+      "vertices_per_rig": 213,
+      "vertex_limit_500_pass": true,
+      "relative_rigid_plus_50pct_pass": true,
+      "ram_family": {
+        "scope": "Entire Godot console/actual-engine process family, never per-mode. Max sampled simultaneous RSS and conservative sum of each PID lifetime peak are both retained.",
+        "godot_processes": [
+          {
+            "pid": 32204,
+            "name": "Godot_v4.7.2-stable_win64_console.exe"
+          },
+          {
+            "pid": 38620,
+            "name": "Godot_v4.7.2-stable_win64.exe"
+          }
+        ],
+        "max_observed_family_rss_bytes": 578883584,
+        "sum_individual_peak_working_set_bytes_conservative_upper_bound": 583864320,
+        "actual_engine_child_observed": true
+      },
+      "log": "04-harbor_lamplighter_demo.log",
+      "log_sha256": "bb496957344a71b59b30150c7d2ef3eea25f72257a6b32d99611f0ae697e58b3",
+      "script_error_count": 0,
+      "error_count": 0,
+      "warning_count": 0,
+      "native_metric_line": "剛體 1014.7 µs/格，關節網格 1277.0 µs/格（多 262.3 µs，每隻多 26.2 µs），網格頂點 213",
+      "delta_us_per_10_rigs_derived_from_rounded_modes": 262.3,
+      "delta_us_per_10_rigs_reported": 262.3
+    },
+    {
+      "run": 5,
+      "skin": "rin",
+      "rigid_us_per_10_rigs": 1735.3,
+      "mesh_us_per_10_rigs": 2154.5,
+      "delta_us_per_rig_reported": 41.9,
+      "mesh_over_rigid_fraction": 0.24157206246758478,
+      "vertices_per_rig": 423,
+      "vertex_limit_500_pass": true,
+      "relative_rigid_plus_50pct_pass": true,
+      "ram_family": {
+        "scope": "Entire Godot console/actual-engine process family, never per-mode. Max sampled simultaneous RSS and conservative sum of each PID lifetime peak are both retained.",
+        "godot_processes": [
+          {
+            "pid": 42404,
+            "name": "Godot_v4.7.2-stable_win64_console.exe"
+          },
+          {
+            "pid": 42928,
+            "name": "Godot_v4.7.2-stable_win64.exe"
+          }
+        ],
+        "max_observed_family_rss_bytes": 585347072,
+        "sum_individual_peak_working_set_bytes_conservative_upper_bound": 590594048,
+        "actual_engine_child_observed": true
+      },
+      "log": "05-rin.log",
+      "log_sha256": "0c9c3c2fe84d64cac5a2050a6ad0c086e9c7e366344e383333d7fff8981f91cf",
+      "script_error_count": 0,
+      "error_count": 0,
+      "warning_count": 0,
+      "native_metric_line": "剛體 1735.3 µs/格，關節網格 2154.5 µs/格（多 419.1 µs，每隻多 41.9 µs），網格頂點 423",
+      "delta_us_per_10_rigs_derived_from_rounded_modes": 419.2,
+      "delta_us_per_10_rigs_reported": 419.1
+    },
+    {
+      "run": 5,
+      "skin": "harbor_lamplighter_demo",
+      "rigid_us_per_10_rigs": 1016.9,
+      "mesh_us_per_10_rigs": 1293.5,
+      "delta_us_per_rig_reported": 27.7,
+      "mesh_over_rigid_fraction": 0.2720031468187629,
+      "vertices_per_rig": 213,
+      "vertex_limit_500_pass": true,
+      "relative_rigid_plus_50pct_pass": true,
+      "ram_family": {
+        "scope": "Entire Godot console/actual-engine process family, never per-mode. Max sampled simultaneous RSS and conservative sum of each PID lifetime peak are both retained.",
+        "godot_processes": [
+          {
+            "pid": 34304,
+            "name": "Godot_v4.7.2-stable_win64_console.exe"
+          },
+          {
+            "pid": 30528,
+            "name": "Godot_v4.7.2-stable_win64.exe"
+          }
+        ],
+        "max_observed_family_rss_bytes": 580857856,
+        "sum_individual_peak_working_set_bytes_conservative_upper_bound": 585670656,
+        "actual_engine_child_observed": true
+      },
+      "log": "05-harbor_lamplighter_demo.log",
+      "log_sha256": "300daf1f18b124c02dc95c59ee3e50c8984f3ef3e83372fc60c2452564b7268b",
+      "script_error_count": 0,
+      "error_count": 0,
+      "warning_count": 0,
+      "native_metric_line": "剛體 1016.9 µs/格，關節網格 1293.5 µs/格（多 276.7 µs，每隻多 27.7 µs），網格頂點 213",
+      "delta_us_per_10_rigs_derived_from_rounded_modes": 276.6,
+      "delta_us_per_10_rigs_reported": 276.7
+    }
+  ],
+  "medians": {
+    "rin": {
+      "rigid_us_per_10_rigs": 1745.9,
+      "mesh_us_per_10_rigs": 2144.3,
+      "mesh_over_rigid_fraction": 0.2248696947133284
+    },
+    "harbor_lamplighter_demo": {
+      "rigid_us_per_10_rigs": 1017.6,
+      "mesh_us_per_10_rigs": 1288.4,
+      "mesh_over_rigid_fraction": 0.25850004927564796
+    }
+  },
+  "contract_result": {
+    "all_runs_vertex_limit_500_pass": true,
+    "all_runs_relative_rigid_plus_50pct_pass": true,
+    "all_actual_engine_children_observed": true,
+    "rendered_frame_or_gpu_budget_measured": false
+  },
+  "rounding_note": "Original CLI independently formats rigid, mesh and delta to one decimal. Reported delta is preserved; subtracting the two rounded mode values can differ by0.1us.",
+  "first_process_startup_and_every_run_retained": true,
+  "cache_state": "Existing independent Godot cache copied from root is retained. First process startup is included; no OS/GPU disk-cache purge or hard reboot is claimed. ComfyUI resident service is unchanged and idle before/after."
+}

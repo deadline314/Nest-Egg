@@ -1,0 +1,1241 @@
+{
+  "scope": "All123 frozen production files. Raw tested bytes are unchanged; Git filter output is independently matched to either identical bytes or only CRLF-to-LF. Git hash-object writes no objects or index.",
+  "attributes": "* text=auto eol=lf; *.png binary",
+  "core_autocrlf": "true",
+  "raw_source_frozen": true,
+  "child_staged_nothing": true,
+  "changed_by_git_lf_count": 23,
+  "png_binary_unchanged_count": 58,
+  "files": [
+    {
+      "path": "art/characters/harbor_lamplighter_demo/character.json",
+      "tested_raw_sha256": "a4abb9f8cf6fc35d26377f1514392f9a5414916b720887cf8c0b8a1f71df6415",
+      "tested_raw_bytes": 5182,
+      "git_canonical_sha256": "e6c5da0b5997aef11581a35eb4ff8a92bfdac82b2fd42f59a175ba91ced6bd54",
+      "git_canonical_bytes": 4936,
+      "git_blob_oid": "6fa187e983ad171b3e3eda570991726d8b610479",
+      "conversion": "Git-LF-only",
+      "crlf_pairs_in_raw": 246
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/arm_lower.png",
+      "tested_raw_sha256": "d71e22c77d32b699761b5512feee8937c8e441f7a5c70a3bf5b6d8b8223063d1",
+      "tested_raw_bytes": 24723,
+      "git_canonical_sha256": "d71e22c77d32b699761b5512feee8937c8e441f7a5c70a3bf5b6d8b8223063d1",
+      "git_canonical_bytes": 24723,
+      "git_blob_oid": "9e97b431687bf955fc530c9209d3a2cef4647f9c",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/arm_lower.png.import",
+      "tested_raw_sha256": "e2c73f84bfa34b8412f2bd3f1a022b92edc5d171224c72ccbc9012e550d7b806",
+      "tested_raw_bytes": 975,
+      "git_canonical_sha256": "e2c73f84bfa34b8412f2bd3f1a022b92edc5d171224c72ccbc9012e550d7b806",
+      "git_canonical_bytes": 975,
+      "git_blob_oid": "150b0f5c3a3d0de1d2b3a281256c356f918771dd",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/arm_lower_n.png",
+      "tested_raw_sha256": "5f956839d0334fbe3b3b3b32e797fa1fffd4707cb6f2404c2347a9521356cc19",
+      "tested_raw_bytes": 21541,
+      "git_canonical_sha256": "5f956839d0334fbe3b3b3b32e797fa1fffd4707cb6f2404c2347a9521356cc19",
+      "git_canonical_bytes": 21541,
+      "git_blob_oid": "11fb81778650cb4f9d9a47b4dd224fa41b713e52",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 3
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/arm_lower_n.png.import",
+      "tested_raw_sha256": "58cd6657573aefe2b0ffadafa47218d03f013dc17aaded24ea1570834aa59cd4",
+      "tested_raw_bytes": 981,
+      "git_canonical_sha256": "58cd6657573aefe2b0ffadafa47218d03f013dc17aaded24ea1570834aa59cd4",
+      "git_canonical_bytes": 981,
+      "git_blob_oid": "07bbd8a94839def86f05fbe819b5bd6bdf638374",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/arm_upper.png",
+      "tested_raw_sha256": "a270f5aa005296598df08c7154d63362ce16b9be4302a7002951d467743f9dca",
+      "tested_raw_bytes": 25632,
+      "git_canonical_sha256": "a270f5aa005296598df08c7154d63362ce16b9be4302a7002951d467743f9dca",
+      "git_canonical_bytes": 25632,
+      "git_blob_oid": "7f96f9d64397b0fa122d3b1a423422c8bafbfb4e",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/arm_upper.png.import",
+      "tested_raw_sha256": "bd4c32af7152ca1e3581e3998a68f0a72edfcd3e03b40e84a5c022e3fe6610ed",
+      "tested_raw_bytes": 975,
+      "git_canonical_sha256": "bd4c32af7152ca1e3581e3998a68f0a72edfcd3e03b40e84a5c022e3fe6610ed",
+      "git_canonical_bytes": 975,
+      "git_blob_oid": "62f5bac4fb5dc179f43e14bcbc09072f93a0b7ab",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/arm_upper_n.png",
+      "tested_raw_sha256": "a2d87cebd22126dec1a0103f9947ad7b2c82dad300d8656bcbe399eae28172cd",
+      "tested_raw_bytes": 22568,
+      "git_canonical_sha256": "a2d87cebd22126dec1a0103f9947ad7b2c82dad300d8656bcbe399eae28172cd",
+      "git_canonical_bytes": 22568,
+      "git_blob_oid": "ce420dda81a89e454adb731305644a8dd3b2b948",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/arm_upper_n.png.import",
+      "tested_raw_sha256": "5cb3eb83441c84885492c87826cc1b5648e44b5d5b54b792bcd14c8ef3139c21",
+      "tested_raw_bytes": 980,
+      "git_canonical_sha256": "5cb3eb83441c84885492c87826cc1b5648e44b5d5b54b792bcd14c8ef3139c21",
+      "git_canonical_bytes": 980,
+      "git_blob_oid": "0511959feb5649452bc646e7b195fbe0ca210069",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/foot.png",
+      "tested_raw_sha256": "c5a39ea6c17a590505b8ce79f88dbef579a8bf230be9e04a49c1e49558b6e87f",
+      "tested_raw_bytes": 25230,
+      "git_canonical_sha256": "c5a39ea6c17a590505b8ce79f88dbef579a8bf230be9e04a49c1e49558b6e87f",
+      "git_canonical_bytes": 25230,
+      "git_blob_oid": "f144b0417afe0c49058b02e21d144f9cee413152",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/foot.png.import",
+      "tested_raw_sha256": "1db08b2271ad171329a6135b84193f01e5422ed0f5172bd3a5a53c07c3e0e4c7",
+      "tested_raw_bytes": 959,
+      "git_canonical_sha256": "1db08b2271ad171329a6135b84193f01e5422ed0f5172bd3a5a53c07c3e0e4c7",
+      "git_canonical_bytes": 959,
+      "git_blob_oid": "70d8a249a1c202d91053a0b2479e5e5cef8785b2",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/foot_n.png",
+      "tested_raw_sha256": "8b13671f199bfe295a4a5ef0f70c362dfb2f4f625a33ef1eecbae4bad100d40f",
+      "tested_raw_bytes": 26117,
+      "git_canonical_sha256": "8b13671f199bfe295a4a5ef0f70c362dfb2f4f625a33ef1eecbae4bad100d40f",
+      "git_canonical_bytes": 26117,
+      "git_blob_oid": "1f50d1715dcb26b2fdb3d4cc1c5ed3f7ecc78c27",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 2
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/foot_n.png.import",
+      "tested_raw_sha256": "6a48b2b6efb540fff0fbad8f661dd18f6b25d928aeebacd2a167bcccaee444b0",
+      "tested_raw_bytes": 965,
+      "git_canonical_sha256": "6a48b2b6efb540fff0fbad8f661dd18f6b25d928aeebacd2a167bcccaee444b0",
+      "git_canonical_bytes": 965,
+      "git_blob_oid": "15907492c7c85a60bb6b134e5d4c03d1de3a308f",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/hand.png",
+      "tested_raw_sha256": "51be4536cef7453c849344a146703b7572aad969f642a1678e0457c6336a9690",
+      "tested_raw_bytes": 14502,
+      "git_canonical_sha256": "51be4536cef7453c849344a146703b7572aad969f642a1678e0457c6336a9690",
+      "git_canonical_bytes": 14502,
+      "git_blob_oid": "d3972382fc1c43753fdb171c94a49905eeaf498e",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/hand.png.import",
+      "tested_raw_sha256": "9db0ac448edeefa80da5fef8e060f6cf87ac5bc3d0d41147ad30f01cf2762d47",
+      "tested_raw_bytes": 959,
+      "git_canonical_sha256": "9db0ac448edeefa80da5fef8e060f6cf87ac5bc3d0d41147ad30f01cf2762d47",
+      "git_canonical_bytes": 959,
+      "git_blob_oid": "e83b85c2d923781eb03192329750d5fc06db4758",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/hand_n.png",
+      "tested_raw_sha256": "3954d33074d2ed7156835091cd8b5e6f2d9da714d4e246e5b182991a1ba62ed4",
+      "tested_raw_bytes": 14346,
+      "git_canonical_sha256": "3954d33074d2ed7156835091cd8b5e6f2d9da714d4e246e5b182991a1ba62ed4",
+      "git_canonical_bytes": 14346,
+      "git_blob_oid": "a278f0a6a1a443838dea37627befe91088b91605",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/hand_n.png.import",
+      "tested_raw_sha256": "a7677f441a6b9a3bf1e3947cb6dbf0a319b209bb3e6cd29c2598eec8bf1dca9d",
+      "tested_raw_bytes": 966,
+      "git_canonical_sha256": "a7677f441a6b9a3bf1e3947cb6dbf0a319b209bb3e6cd29c2598eec8bf1dca9d",
+      "git_canonical_bytes": 966,
+      "git_blob_oid": "e2377c81b6f1200cfae18d2dbc355af2b44b9c7a",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head.png",
+      "tested_raw_sha256": "5f5874ea4c33eb320720beb65e8a4c01a3aa9d0da95a7a5bdcac6425a4429f84",
+      "tested_raw_bytes": 27310,
+      "git_canonical_sha256": "5f5874ea4c33eb320720beb65e8a4c01a3aa9d0da95a7a5bdcac6425a4429f84",
+      "git_canonical_bytes": 27310,
+      "git_blob_oid": "d2411e9741799ae77726b09df593aad60670fcaf",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 2
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head.png.import",
+      "tested_raw_sha256": "40e508c7ad42751a997e2158a0d56430b5138744ae13413a5306c737f24750d1",
+      "tested_raw_bytes": 960,
+      "git_canonical_sha256": "40e508c7ad42751a997e2158a0d56430b5138744ae13413a5306c737f24750d1",
+      "git_canonical_bytes": 960,
+      "git_blob_oid": "52060a20d8e64c390ca6eef39fa412e3ae64a9bc",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head_closed.png",
+      "tested_raw_sha256": "7f8ccccd9f1faddc4df99647044b70079b96633e0df71a0956564dc136b2ce8b",
+      "tested_raw_bytes": 27201,
+      "git_canonical_sha256": "7f8ccccd9f1faddc4df99647044b70079b96633e0df71a0956564dc136b2ce8b",
+      "git_canonical_bytes": 27201,
+      "git_blob_oid": "69abb2e9bf2f53788b45124f4f6424d5f379ca0b",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head_closed.png.import",
+      "tested_raw_sha256": "9582da8b71de6d8903616cf60f9b23037f48c9d99b4eb5ec262fce8e56e81b6a",
+      "tested_raw_bytes": 980,
+      "git_canonical_sha256": "9582da8b71de6d8903616cf60f9b23037f48c9d99b4eb5ec262fce8e56e81b6a",
+      "git_canonical_bytes": 980,
+      "git_blob_oid": "110bee700b1ddcd5b90182037d5fab4c82959182",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head_closed_n.png",
+      "tested_raw_sha256": "63675cef954194098fa8c4bfc02ad0c9e3ebc4a1b295c110bfc9af4c923d3d83",
+      "tested_raw_bytes": 26485,
+      "git_canonical_sha256": "63675cef954194098fa8c4bfc02ad0c9e3ebc4a1b295c110bfc9af4c923d3d83",
+      "git_canonical_bytes": 26485,
+      "git_blob_oid": "85de851159bc5b14a4b94c7622543a944e830108",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head_closed_n.png.import",
+      "tested_raw_sha256": "66d00f30620c42eb1f1b379adfea469be5b32c67404f61cfbd0306cd76ac53bc",
+      "tested_raw_bytes": 987,
+      "git_canonical_sha256": "66d00f30620c42eb1f1b379adfea469be5b32c67404f61cfbd0306cd76ac53bc",
+      "git_canonical_bytes": 987,
+      "git_blob_oid": "8f1e54fe3d670b50c2582a3c36c39d0552d6810a",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head_half.png",
+      "tested_raw_sha256": "5b1bed78ac74223caa0f9f836fc96ce48afd9cb571be10e1dc05edcbc16a8f74",
+      "tested_raw_bytes": 27425,
+      "git_canonical_sha256": "5b1bed78ac74223caa0f9f836fc96ce48afd9cb571be10e1dc05edcbc16a8f74",
+      "git_canonical_bytes": 27425,
+      "git_blob_oid": "27970d02a665c9fa3d4e48ffe2641726e9b70a57",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head_half.png.import",
+      "tested_raw_sha256": "53e542563149a1f15c1451ce61a345792571b215d1a9940172e78170291dff36",
+      "tested_raw_bytes": 975,
+      "git_canonical_sha256": "53e542563149a1f15c1451ce61a345792571b215d1a9940172e78170291dff36",
+      "git_canonical_bytes": 975,
+      "git_blob_oid": "000cbade6825ea84ee869cb915ea6a93b2214ce0",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head_half_n.png",
+      "tested_raw_sha256": "54d1a08052f3a943db79c6a0fe8e3fbca54cc46adcdde2651b3826372dfd7994",
+      "tested_raw_bytes": 26666,
+      "git_canonical_sha256": "54d1a08052f3a943db79c6a0fe8e3fbca54cc46adcdde2651b3826372dfd7994",
+      "git_canonical_bytes": 26666,
+      "git_blob_oid": "d8447d6c7acfa9c80103c3e720d683a26de370a2",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 2
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head_half_n.png.import",
+      "tested_raw_sha256": "56f151a910517ba0611bda940f4944b9811ab92e86a9767537222070f4cf264a",
+      "tested_raw_bytes": 980,
+      "git_canonical_sha256": "56f151a910517ba0611bda940f4944b9811ab92e86a9767537222070f4cf264a",
+      "git_canonical_bytes": 980,
+      "git_blob_oid": "a0f1109fb8e9221ec06bffde6313a383063f88f0",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head_n.png",
+      "tested_raw_sha256": "550f6b9302ff195091933525565433fd7c9d7b88baf50448c7f6a96ffb67d6c5",
+      "tested_raw_bytes": 26623,
+      "git_canonical_sha256": "550f6b9302ff195091933525565433fd7c9d7b88baf50448c7f6a96ffb67d6c5",
+      "git_canonical_bytes": 26623,
+      "git_blob_oid": "dc6e295da07d355bab226a29d1062cd8c6a7451b",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head_n.png.import",
+      "tested_raw_sha256": "7a13e38b3dfc4b8164a1c32c63c8364d7c8b27e8efeecb337f5d848ff6c56054",
+      "tested_raw_bytes": 966,
+      "git_canonical_sha256": "7a13e38b3dfc4b8164a1c32c63c8364d7c8b27e8efeecb337f5d848ff6c56054",
+      "git_canonical_bytes": 966,
+      "git_blob_oid": "e3134802644f72fa034f108e1185a10514271c60",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/leg_lower.png",
+      "tested_raw_sha256": "07e8b295ebc21403c246053bcd16eb44f1af2de18b081682daafc41bf1e3f4b3",
+      "tested_raw_bytes": 49319,
+      "git_canonical_sha256": "07e8b295ebc21403c246053bcd16eb44f1af2de18b081682daafc41bf1e3f4b3",
+      "git_canonical_bytes": 49319,
+      "git_blob_oid": "383d72c0fbf85f5029262e48b1ce2e73dfb756cc",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 2
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/leg_lower.png.import",
+      "tested_raw_sha256": "0dcbce8fdf80de83f8f88718cbd1416ae1d99620067043b0ab37a500eed9b0a5",
+      "tested_raw_bytes": 975,
+      "git_canonical_sha256": "0dcbce8fdf80de83f8f88718cbd1416ae1d99620067043b0ab37a500eed9b0a5",
+      "git_canonical_bytes": 975,
+      "git_blob_oid": "9b7a0201138258ffad3b3cde5fca249a1deb01e7",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/leg_lower_n.png",
+      "tested_raw_sha256": "063bbe264627ef519e818f94eef3a3b3d41605d98937e81a732703149eb74cba",
+      "tested_raw_bytes": 49021,
+      "git_canonical_sha256": "063bbe264627ef519e818f94eef3a3b3d41605d98937e81a732703149eb74cba",
+      "git_canonical_bytes": 49021,
+      "git_blob_oid": "720dac548c761e87639cf448d6d69b9d0fd259e1",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/leg_lower_n.png.import",
+      "tested_raw_sha256": "10cfd1a2284235416781f237ade05a1aa26f041020cadd75212aea05dc1e7f3c",
+      "tested_raw_bytes": 981,
+      "git_canonical_sha256": "10cfd1a2284235416781f237ade05a1aa26f041020cadd75212aea05dc1e7f3c",
+      "git_canonical_bytes": 981,
+      "git_blob_oid": "36d519cd588ea1e101975eec64cdeed820ad2a4a",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/leg_upper.png",
+      "tested_raw_sha256": "e7327bcd21e0f2415003ed81859474651267741715bd193852849d349b6f8d6f",
+      "tested_raw_bytes": 66424,
+      "git_canonical_sha256": "e7327bcd21e0f2415003ed81859474651267741715bd193852849d349b6f8d6f",
+      "git_canonical_bytes": 66424,
+      "git_blob_oid": "4e0425f691c42f875b3265cf7d5f79eaa011a2d3",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/leg_upper.png.import",
+      "tested_raw_sha256": "dddc1be6e02f47e93770058d2ff938535c7787966eff768fad4ebcf88279460f",
+      "tested_raw_bytes": 974,
+      "git_canonical_sha256": "dddc1be6e02f47e93770058d2ff938535c7787966eff768fad4ebcf88279460f",
+      "git_canonical_bytes": 974,
+      "git_blob_oid": "30e022a7d32801f0c626001852e54ce56798b91b",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/leg_upper_n.png",
+      "tested_raw_sha256": "00dad5ce73856b5bacdf5a2dfb29de3abb1c35491424bf1cd47c9317c11baa9a",
+      "tested_raw_bytes": 64341,
+      "git_canonical_sha256": "00dad5ce73856b5bacdf5a2dfb29de3abb1c35491424bf1cd47c9317c11baa9a",
+      "git_canonical_bytes": 64341,
+      "git_blob_oid": "a599933cf0806fd4490e73e03900fad615f39f33",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/leg_upper_n.png.import",
+      "tested_raw_sha256": "bf3eece085e59b132c6f394776153550ca9f14519cd95bc4d32c08c9356932ce",
+      "tested_raw_bytes": 980,
+      "git_canonical_sha256": "bf3eece085e59b132c6f394776153550ca9f14519cd95bc4d32c08c9356932ce",
+      "git_canonical_bytes": 980,
+      "git_blob_oid": "2731f23cacd001ae6d69ad5d97e398a7455df6ad",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/pelvis.png",
+      "tested_raw_sha256": "80223dc55299d9be759f5bec1ec64e472f774defdc11b53ada16f53695623e92",
+      "tested_raw_bytes": 37976,
+      "git_canonical_sha256": "80223dc55299d9be759f5bec1ec64e472f774defdc11b53ada16f53695623e92",
+      "git_canonical_bytes": 37976,
+      "git_blob_oid": "786073e0a6e9ae4adef5db5fa9f9fc03a036bbba",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 3
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/pelvis.png.import",
+      "tested_raw_sha256": "cbd2e119161b9c720e1b6570bdf1184510f93f560bfd81a517bf9cdaae2f80f7",
+      "tested_raw_bytes": 966,
+      "git_canonical_sha256": "cbd2e119161b9c720e1b6570bdf1184510f93f560bfd81a517bf9cdaae2f80f7",
+      "git_canonical_bytes": 966,
+      "git_blob_oid": "9549cb6c2e139825308c4ca7958726c99f83d706",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/pelvis_n.png",
+      "tested_raw_sha256": "661839e37b278d700b2184dba6f8b088b9113ea897f58243a485fc1fd4c2abe2",
+      "tested_raw_bytes": 32925,
+      "git_canonical_sha256": "661839e37b278d700b2184dba6f8b088b9113ea897f58243a485fc1fd4c2abe2",
+      "git_canonical_bytes": 32925,
+      "git_blob_oid": "e2f2c71f115ef96ec4ba6af8926da33de14240e4",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 2
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/pelvis_n.png.import",
+      "tested_raw_sha256": "0007bf34f7b70308b25ab10575333c228bb4e18da95b438ae6e64b2bbf3352c9",
+      "tested_raw_bytes": 972,
+      "git_canonical_sha256": "0007bf34f7b70308b25ab10575333c228bb4e18da95b438ae6e64b2bbf3352c9",
+      "git_canonical_bytes": 972,
+      "git_blob_oid": "a2533f5f0fc88b1efad94fefe212ab0aecf1da3c",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/torso.png",
+      "tested_raw_sha256": "3c3a99d8da27be1d5fe5dc7eed7ae8993845c1110a9454dbcb22be5fd8352aed",
+      "tested_raw_bytes": 61429,
+      "git_canonical_sha256": "3c3a99d8da27be1d5fe5dc7eed7ae8993845c1110a9454dbcb22be5fd8352aed",
+      "git_canonical_bytes": 61429,
+      "git_blob_oid": "7afc49583352c1900ab0a129841c38ff4858c191",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/torso.png.import",
+      "tested_raw_sha256": "d1726fcfa75c962e3bd18aff03f45e3a45c0eec1e98fe03d354193b3e492f36b",
+      "tested_raw_bytes": 963,
+      "git_canonical_sha256": "d1726fcfa75c962e3bd18aff03f45e3a45c0eec1e98fe03d354193b3e492f36b",
+      "git_canonical_bytes": 963,
+      "git_blob_oid": "98defa1a3bc69035a6eefc040c7f69a1bd28c560",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/torso_n.png",
+      "tested_raw_sha256": "f5f168e03fc98fbac67c1f5f42167653553034181cdf6a4f1ac8f7adcbb252c5",
+      "tested_raw_bytes": 52585,
+      "git_canonical_sha256": "f5f168e03fc98fbac67c1f5f42167653553034181cdf6a4f1ac8f7adcbb252c5",
+      "git_canonical_bytes": 52585,
+      "git_blob_oid": "5093cacde525b263b9ab08b796837067fb709dcb",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 3
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/torso_n.png.import",
+      "tested_raw_sha256": "5b91cd8e13d2a45f01c7bc44c3c131cc89182aa09f5f6c394d86da7a90a410c2",
+      "tested_raw_bytes": 969,
+      "git_canonical_sha256": "5b91cd8e13d2a45f01c7bc44c3c131cc89182aa09f5f6c394d86da7a90a410c2",
+      "git_canonical_bytes": 969,
+      "git_blob_oid": "0de54f2b3f10e74eec9cc5af695544fa86ecad17",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art/motion/harbor_lamplighter_demo.json",
+      "tested_raw_sha256": "de65c9400843a8b688d59673dab13cc83f8cdb5deef5a0ea6c2391ca6e010f3b",
+      "tested_raw_bytes": 2931,
+      "git_canonical_sha256": "2a7239259f3f634611d3fcd40a24b5965d18512a9952e3f50bf139e0f436a8ed",
+      "git_canonical_bytes": 2756,
+      "git_blob_oid": "9922681b1d81e505b6411c40186cbaacecc2ae5d",
+      "conversion": "Git-LF-only",
+      "crlf_pairs_in_raw": 175
+    },
+    {
+      "path": "art/rigs/harbor_lamplighter_demo.json",
+      "tested_raw_sha256": "d05fe945303e2ab13cb48dc3237d4f567f699aa3fc24a38a8badadb7060e0a21",
+      "tested_raw_bytes": 2512,
+      "git_canonical_sha256": "61e457175873daacdf053b74a401a7a4e5ecdcb17b68f70e1e65c4b9c4364e81",
+      "git_canonical_bytes": 2369,
+      "git_blob_oid": "c00bffaeab4ae6899ea188cc215f8ae74cba8fbd",
+      "conversion": "Git-LF-only",
+      "crlf_pairs_in_raw": 143
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/.gdignore",
+      "tested_raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tested_raw_bytes": 0,
+      "git_canonical_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_canonical_bytes": 0,
+      "git_blob_oid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/.gitignore",
+      "tested_raw_sha256": "9f29d86666153f7b93e3a2859cac4acd68e8403be25ac4a37c9920a8770daa3d",
+      "tested_raw_bytes": 384,
+      "git_canonical_sha256": "3602b16a8ebecfd32ed9bd02ff6b32b9197944dcdb45acfa24080382064b08f5",
+      "git_canonical_bytes": 380,
+      "git_blob_oid": "58905c94f09d4b674e7cf5996512773666bf2b21",
+      "conversion": "Git-LF-only",
+      "crlf_pairs_in_raw": 4
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/01_design/character.txt",
+      "tested_raw_sha256": "7e854b6d362c5c70bd7884ebafdb895b0e3a4e08f10b058e6b3d177dbfbd4eca",
+      "tested_raw_bytes": 803,
+      "git_canonical_sha256": "cf864ff6a4dd2e7917d748f6738545288fb87f20839b8177a16f7bad894c227d",
+      "git_canonical_bytes": 802,
+      "git_blob_oid": "e58f5271c25c11609a373d4c5c7f8b7403ec31c3",
+      "conversion": "Git-LF-only",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/01_design/design_s255171.png",
+      "tested_raw_sha256": "4cbdd4ff46e1ee28cabbfce08655e4052ff1cf7ef77dd72314eab6d20f855e59",
+      "tested_raw_bytes": 570670,
+      "git_canonical_sha256": "4cbdd4ff46e1ee28cabbfce08655e4052ff1cf7ef77dd72314eab6d20f855e59",
+      "git_canonical_bytes": 570670,
+      "git_blob_oid": "8e58eb69b81db454fb074f594fb10b97bb88b67f",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 7
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/01_design/prompt.txt",
+      "tested_raw_sha256": "731a5ac701b524b290bb254ea8e3daad5417ad85c1419f957d49bc2ad5ace2ae",
+      "tested_raw_bytes": 2009,
+      "git_canonical_sha256": "e125cd1fda726b774f28e2dcc4399b9da2185e4bb89c984a81e1c4d2af41b6c8",
+      "git_canonical_bytes": 2008,
+      "git_blob_oid": "8b3030fc63518542a45d951b0cd81407d92e21a2",
+      "conversion": "Git-LF-only",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/02_pose/joints.png",
+      "tested_raw_sha256": "b8439f05de2239939bb8b8f7633c633e1408da1fe593bb16a9d6964bf2a6a1fc",
+      "tested_raw_bytes": 248403,
+      "git_canonical_sha256": "b8439f05de2239939bb8b8f7633c633e1408da1fe593bb16a9d6964bf2a6a1fc",
+      "git_canonical_bytes": 248403,
+      "git_blob_oid": "4202cb6f480b7e893eebd816dc581a694d6da3c2",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 13
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/04_stages/P.png",
+      "tested_raw_sha256": "892e94823c8c02954dd3b86925bf9d19f48a90810e2c2817be57f682b9d25871",
+      "tested_raw_bytes": 549963,
+      "git_canonical_sha256": "892e94823c8c02954dd3b86925bf9d19f48a90810e2c2817be57f682b9d25871",
+      "git_canonical_bytes": 549963,
+      "git_blob_oid": "8fcf8d4b67cefe9d0b598bedcb314f0f2b6ee5d0",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 9
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/04_stages/P_grey.png",
+      "tested_raw_sha256": "cc667bb18011a2187378a76606f6036a0d5162298b5b1aecf0aebeebb6cedc26",
+      "tested_raw_bytes": 241051,
+      "git_canonical_sha256": "cc667bb18011a2187378a76606f6036a0d5162298b5b1aecf0aebeebb6cedc26",
+      "git_canonical_bytes": 241051,
+      "git_blob_oid": "4bef464331785d58c7a381df8a2e25fe4b4340eb",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 4
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/04_stages/sam_P/.gdignore",
+      "tested_raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tested_raw_bytes": 0,
+      "git_canonical_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_canonical_bytes": 0,
+      "git_blob_oid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/05_groups/body.key",
+      "tested_raw_sha256": "a93ff86ab1691895ea7f461e6dbbd927a623721ccc79980d0b79b3c3ac0b7263",
+      "tested_raw_bytes": 64,
+      "git_canonical_sha256": "a93ff86ab1691895ea7f461e6dbbd927a623721ccc79980d0b79b3c3ac0b7263",
+      "git_canonical_bytes": 64,
+      "git_blob_oid": "f77c4790a2049d8f329b2cf3e0988c0025ed9479",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/05_groups/body.png",
+      "tested_raw_sha256": "5d23a88533a116e8219d13870deaa48ce4ccf6a580abe56ceb0edcd171f7c842",
+      "tested_raw_bytes": 490123,
+      "git_canonical_sha256": "5d23a88533a116e8219d13870deaa48ce4ccf6a580abe56ceb0edcd171f7c842",
+      "git_canonical_bytes": 490123,
+      "git_blob_oid": "13a2b0dfe7fafbfffe0f330a466c6534bee9d6eb",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 7
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/07_refined/arm_lower.png",
+      "tested_raw_sha256": "0b5053cd57a76e74bdb2f0ffee556f1f6e305c03a3e4b7ba31c35d1bf18dc370",
+      "tested_raw_bytes": 449176,
+      "git_canonical_sha256": "0b5053cd57a76e74bdb2f0ffee556f1f6e305c03a3e4b7ba31c35d1bf18dc370",
+      "git_canonical_bytes": 449176,
+      "git_blob_oid": "c098c98ecadf2c4375f4e4cf4d46116c424de7e2",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 6
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/07_refined/arm_upper.png",
+      "tested_raw_sha256": "6b2407b93cd589cee9569afd2c5bb5590904238a714a44168613db77da60dfcc",
+      "tested_raw_bytes": 449021,
+      "git_canonical_sha256": "6b2407b93cd589cee9569afd2c5bb5590904238a714a44168613db77da60dfcc",
+      "git_canonical_bytes": 449021,
+      "git_blob_oid": "8d0741e66d3b293b8431e3445d1c64d8d09aa12b",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 5
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/07_refined/foot.png",
+      "tested_raw_sha256": "b6bb05876d6139c67dbcddde77fe372dd0c239fd18fdbd3f2a59753e9c2a0237",
+      "tested_raw_bytes": 435126,
+      "git_canonical_sha256": "b6bb05876d6139c67dbcddde77fe372dd0c239fd18fdbd3f2a59753e9c2a0237",
+      "git_canonical_bytes": 435126,
+      "git_blob_oid": "3ddf1ad4c433672e1d7ca99be28ea1e91ce04292",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 9
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/07_refined/hand.png",
+      "tested_raw_sha256": "41347ed0bcc20615f664ae5552e282c156f1a6437084d03976d84d6b3df740b7",
+      "tested_raw_bytes": 448799,
+      "git_canonical_sha256": "41347ed0bcc20615f664ae5552e282c156f1a6437084d03976d84d6b3df740b7",
+      "git_canonical_bytes": 448799,
+      "git_blob_oid": "0ee79cb6f96a58d272290df8e32e04ca87d9adf3",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 9
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/07_refined/head.png",
+      "tested_raw_sha256": "66b3be844e4a03ce9f4b9b90ad816e0a2d7d684b47179611ae3f91a73770ee19",
+      "tested_raw_bytes": 449049,
+      "git_canonical_sha256": "66b3be844e4a03ce9f4b9b90ad816e0a2d7d684b47179611ae3f91a73770ee19",
+      "git_canonical_bytes": 449049,
+      "git_blob_oid": "37eecc70ea4da5c000c8160b48a85c10bcb3eee9",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 11
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/07_refined/leg_lower.png",
+      "tested_raw_sha256": "404c430756cdd3a1d0e1702cca8399b1623394256e450cf6716196b3eee4e34b",
+      "tested_raw_bytes": 436034,
+      "git_canonical_sha256": "404c430756cdd3a1d0e1702cca8399b1623394256e450cf6716196b3eee4e34b",
+      "git_canonical_bytes": 436034,
+      "git_blob_oid": "cb7c6d4e4423fcc5d05b53201decd435d173fc05",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 6
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/07_refined/leg_upper.png",
+      "tested_raw_sha256": "1f3d72d130667743da321b9e0b21197129121b15504a8404720bc02e9b6e66b7",
+      "tested_raw_bytes": 436619,
+      "git_canonical_sha256": "1f3d72d130667743da321b9e0b21197129121b15504a8404720bc02e9b6e66b7",
+      "git_canonical_bytes": 436619,
+      "git_blob_oid": "0e58605c68e959f2e90b135f6f9dc17b75bdfad5",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 8
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/07_refined/ownership.png",
+      "tested_raw_sha256": "332a0ec8ec59e3afb135a88e114eb475e66e15f9f43a12f6aa2edf6eb6d642ad",
+      "tested_raw_bytes": 218192,
+      "git_canonical_sha256": "332a0ec8ec59e3afb135a88e114eb475e66e15f9f43a12f6aa2edf6eb6d642ad",
+      "git_canonical_bytes": 218192,
+      "git_blob_oid": "2120d47b5e9b93582fd7379dec6d7e247556aecd",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 3
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/07_refined/pelvis.png",
+      "tested_raw_sha256": "2c8afb15321e762ceceed272b9e829097aca9d63a675760fee916b358a28e9d0",
+      "tested_raw_bytes": 435823,
+      "git_canonical_sha256": "2c8afb15321e762ceceed272b9e829097aca9d63a675760fee916b358a28e9d0",
+      "git_canonical_bytes": 435823,
+      "git_blob_oid": "bdcd4549306b3605af0a275f162d628d73cf5bd9",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 6
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/07_refined/torso.png",
+      "tested_raw_sha256": "86ec18fe146e1d9fcac0e9a9c7624e2c545e7aac479eb8f69d68af79b5773e51",
+      "tested_raw_bytes": 415160,
+      "git_canonical_sha256": "86ec18fe146e1d9fcac0e9a9c7624e2c545e7aac479eb8f69d68af79b5773e51",
+      "git_canonical_bytes": 415160,
+      "git_blob_oid": "36971ffa8e407371db9b120dee8656313f4b0506",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 10
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/README.md",
+      "tested_raw_sha256": "ebbbdf932b0536ad681fbc39c7cac117ecce91e1be432f7ccac6f8ddff4a102c",
+      "tested_raw_bytes": 10811,
+      "git_canonical_sha256": "1a694f05eb48c9ced8cb4e23d3b7c25ef3dd6e08e21230b323fd3cf1652cc53b",
+      "git_canonical_bytes": 10806,
+      "git_blob_oid": "2f17ada579a655d3c0a02cce94970dce2a9f90e0",
+      "conversion": "Git-LF-only",
+      "crlf_pairs_in_raw": 5
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/.gdignore",
+      "tested_raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tested_raw_bytes": 0,
+      "git_canonical_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_canonical_bytes": 0,
+      "git_blob_oid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_design_s255171.job.json",
+      "tested_raw_sha256": "a4c02a4fab736e91549aff5ac80b6e721c6db924c837ddd0d4a6b16dd0f520f8",
+      "tested_raw_bytes": 67,
+      "git_canonical_sha256": "a4c02a4fab736e91549aff5ac80b6e721c6db924c837ddd0d4a6b16dd0f520f8",
+      "git_canonical_bytes": 67,
+      "git_blob_oid": "0790e3bf32c2b3a11607ade6d531d3bddf37a210",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_design_s255171_0.png",
+      "tested_raw_sha256": "4cbdd4ff46e1ee28cabbfce08655e4052ff1cf7ef77dd72314eab6d20f855e59",
+      "tested_raw_bytes": 570670,
+      "git_canonical_sha256": "4cbdd4ff46e1ee28cabbfce08655e4052ff1cf7ef77dd72314eab6d20f855e59",
+      "git_canonical_bytes": 570670,
+      "git_blob_oid": "8e58eb69b81db454fb074f594fb10b97bb88b67f",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 7
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_eye_closed_s422.job.json",
+      "tested_raw_sha256": "f6e597c293f3f228b5778d4c3579f5b8b75632a7c37c8953ca7b2e991ebfaa0e",
+      "tested_raw_bytes": 64,
+      "git_canonical_sha256": "f6e597c293f3f228b5778d4c3579f5b8b75632a7c37c8953ca7b2e991ebfaa0e",
+      "git_canonical_bytes": 64,
+      "git_blob_oid": "cb19a87b3c9deeb8b44f25b221e8cfb888f2a285",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_eye_closed_s422_0.png",
+      "tested_raw_sha256": "2bdd0c82408873adc93ba4f6668b54801306d6db9974e14ca101ecf53f9fc0af",
+      "tested_raw_bytes": 855032,
+      "git_canonical_sha256": "2bdd0c82408873adc93ba4f6668b54801306d6db9974e14ca101ecf53f9fc0af",
+      "git_canonical_bytes": 855032,
+      "git_blob_oid": "0a5452ace46ea94ddeffc61bf0be33b45a023e28",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 13
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_eye_half_s421.job.json",
+      "tested_raw_sha256": "f531053b86dd4e7b8b5243b1965cf22b1f7bfdae1e87871a654d96f15ed8ce94",
+      "tested_raw_bytes": 64,
+      "git_canonical_sha256": "f531053b86dd4e7b8b5243b1965cf22b1f7bfdae1e87871a654d96f15ed8ce94",
+      "git_canonical_bytes": 64,
+      "git_blob_oid": "1554ef1353ade2f2ac663c726f368fd372ce4eea",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_eye_half_s421_0.png",
+      "tested_raw_sha256": "9002b7ecf598b27be6806740cfe03908ab747a2441cc5966b331621522388b8f",
+      "tested_raw_bytes": 712919,
+      "git_canonical_sha256": "9002b7ecf598b27be6806740cfe03908ab747a2441cc5966b331621522388b8f",
+      "git_canonical_bytes": 712919,
+      "git_blob_oid": "a2650ca0ff30a5b02c584b8718317f4239404f2c",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 9
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_stage_P.job.json",
+      "tested_raw_sha256": "096be2ce1e3ae43f545420a3f9853ead6f0f931b3010745c1ebf80843fe7a45e",
+      "tested_raw_bytes": 63,
+      "git_canonical_sha256": "096be2ce1e3ae43f545420a3f9853ead6f0f931b3010745c1ebf80843fe7a45e",
+      "git_canonical_bytes": 63,
+      "git_blob_oid": "42b0a4003ae001420812b3d08ea77b17dd9eb2e5",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_stage_P_0.png",
+      "tested_raw_sha256": "892e94823c8c02954dd3b86925bf9d19f48a90810e2c2817be57f682b9d25871",
+      "tested_raw_bytes": 549963,
+      "git_canonical_sha256": "892e94823c8c02954dd3b86925bf9d19f48a90810e2c2817be57f682b9d25871",
+      "git_canonical_bytes": 549963,
+      "git_blob_oid": "8fcf8d4b67cefe9d0b598bedcb314f0f2b6ee5d0",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 9
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/sam_180acf9c_0.png",
+      "tested_raw_sha256": "4b0d05cf73e59f621a827963af43b4cb479c8bd4d14c1701d78d9b823650a86c",
+      "tested_raw_bytes": 7705,
+      "git_canonical_sha256": "4b0d05cf73e59f621a827963af43b4cb479c8bd4d14c1701d78d9b823650a86c",
+      "git_canonical_bytes": 7705,
+      "git_blob_oid": "671f0e1a9a528ef44a8e85dc9b2f3d857c5d9ee6",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/sam_366211b0_0.png",
+      "tested_raw_sha256": "b52bbbc468388d0743732434b495c796147ca0a8fc5defbda11f41d451e0d4bb",
+      "tested_raw_bytes": 7697,
+      "git_canonical_sha256": "b52bbbc468388d0743732434b495c796147ca0a8fc5defbda11f41d451e0d4bb",
+      "git_canonical_bytes": 7697,
+      "git_blob_oid": "51af15be4a640a3fdc4f9f0abc742076b44c9d37",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/sam_3ef14a85_0.png",
+      "tested_raw_sha256": "31804d18ef932c7b556abc098559a36200db66636397b4ea50da6d7fc5e47d17",
+      "tested_raw_bytes": 4720,
+      "git_canonical_sha256": "31804d18ef932c7b556abc098559a36200db66636397b4ea50da6d7fc5e47d17",
+      "git_canonical_bytes": 4720,
+      "git_blob_oid": "439e52ce3aeecdbb24d805d6d1f88dbe3b0ae77f",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/sam_9ef0edbf_0.png",
+      "tested_raw_sha256": "9a448878804fd88b1b1ccff30c60021c7522ebfc37bb6773293e6ed8b62b9a50",
+      "tested_raw_bytes": 5955,
+      "git_canonical_sha256": "9a448878804fd88b1b1ccff30c60021c7522ebfc37bb6773293e6ed8b62b9a50",
+      "git_canonical_bytes": 5955,
+      "git_blob_oid": "c203e9b817dea8a783ad5513f17f2823326dfad1",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/sam_aaf03509_0.png",
+      "tested_raw_sha256": "9c06016ef8c36587dbdddf4970841df17e9bb29dc6d4b0dc2e3e853ee6ebb428",
+      "tested_raw_bytes": 5941,
+      "git_canonical_sha256": "9c06016ef8c36587dbdddf4970841df17e9bb29dc6d4b0dc2e3e853ee6ebb428",
+      "git_canonical_bytes": 5941,
+      "git_blob_oid": "3846cf5247c2381faa2a87bf217a008be000ec98",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/sam_d2a4dc87_0.png",
+      "tested_raw_sha256": "10a06d679600fcc3d95f6ad09f819b14f1a846a6af14dbbbfa77176f309fe8ce",
+      "tested_raw_bytes": 4324,
+      "git_canonical_sha256": "10a06d679600fcc3d95f6ad09f819b14f1a846a6af14dbbbfa77176f309fe8ce",
+      "git_canonical_bytes": 4324,
+      "git_blob_oid": "073c9654441c06105f285fb2adc7aedb216b3b07",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/base_grey.png",
+      "tested_raw_sha256": "53760d165a754818b8c7fc638d082bc16efdbc980e67b1d7710ef55657479f1f",
+      "tested_raw_bytes": 243702,
+      "git_canonical_sha256": "53760d165a754818b8c7fc638d082bc16efdbc980e67b1d7710ef55657479f1f",
+      "git_canonical_bytes": 243702,
+      "git_blob_oid": "6668ea5643b4fd101c6bdd6818b1509f9c4e6890",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 5
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/base_rgba.png",
+      "tested_raw_sha256": "4cbdd4ff46e1ee28cabbfce08655e4052ff1cf7ef77dd72314eab6d20f855e59",
+      "tested_raw_bytes": 570670,
+      "git_canonical_sha256": "4cbdd4ff46e1ee28cabbfce08655e4052ff1cf7ef77dd72314eab6d20f855e59",
+      "git_canonical_bytes": 570670,
+      "git_blob_oid": "8e58eb69b81db454fb074f594fb10b97bb88b67f",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 7
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/continuous_normals.py",
+      "tested_raw_sha256": "6627122c35791b5dedf7057ef69b1657342b8d57d3a24093e9c5e1f1b833a726",
+      "tested_raw_bytes": 3549,
+      "git_canonical_sha256": "ecb680de4904e5887e85db5a9bf392ba8f1117c7df8818c0589958ceadcc3e08",
+      "git_canonical_bytes": 3548,
+      "git_blob_oid": "5b0060457e47eec89899f754e196f2402872f5fd",
+      "conversion": "Git-LF-only",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/eyes/closed.png",
+      "tested_raw_sha256": "da8d776ccc504d64a5cb2e0a01c081cb366698d32b53e07ef54f5c666a89cb41",
+      "tested_raw_bytes": 448856,
+      "git_canonical_sha256": "da8d776ccc504d64a5cb2e0a01c081cb366698d32b53e07ef54f5c666a89cb41",
+      "git_canonical_bytes": 448856,
+      "git_blob_oid": "3a8ebd46cdea26abe8c71c7bc2b24d933d1c65df",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 12
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/eyes/half.png",
+      "tested_raw_sha256": "c884ce3754ff1b41f748c772c5271c9649b497b74528512d6a4c6a8f3643bdba",
+      "tested_raw_bytes": 449201,
+      "git_canonical_sha256": "c884ce3754ff1b41f748c772c5271c9649b497b74528512d6a4c6a8f3643bdba",
+      "git_canonical_bytes": 449201,
+      "git_blob_oid": "3b9778ae135d19eba4333db26fc3884e26e1547f",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 8
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/eyes/raw/.gdignore",
+      "tested_raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tested_raw_bytes": 0,
+      "git_canonical_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_canonical_bytes": 0,
+      "git_blob_oid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/eyes/raw/harbor_lamplighter_demo_eye_closed_s422.job.json",
+      "tested_raw_sha256": "f6e597c293f3f228b5778d4c3579f5b8b75632a7c37c8953ca7b2e991ebfaa0e",
+      "tested_raw_bytes": 64,
+      "git_canonical_sha256": "f6e597c293f3f228b5778d4c3579f5b8b75632a7c37c8953ca7b2e991ebfaa0e",
+      "git_canonical_bytes": 64,
+      "git_blob_oid": "cb19a87b3c9deeb8b44f25b221e8cfb888f2a285",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/eyes/raw/harbor_lamplighter_demo_eye_closed_s422_0.png",
+      "tested_raw_sha256": "2bdd0c82408873adc93ba4f6668b54801306d6db9974e14ca101ecf53f9fc0af",
+      "tested_raw_bytes": 855032,
+      "git_canonical_sha256": "2bdd0c82408873adc93ba4f6668b54801306d6db9974e14ca101ecf53f9fc0af",
+      "git_canonical_bytes": 855032,
+      "git_blob_oid": "0a5452ace46ea94ddeffc61bf0be33b45a023e28",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 13
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/eyes/raw/harbor_lamplighter_demo_eye_half_s421.job.json",
+      "tested_raw_sha256": "f531053b86dd4e7b8b5243b1965cf22b1f7bfdae1e87871a654d96f15ed8ce94",
+      "tested_raw_bytes": 64,
+      "git_canonical_sha256": "f531053b86dd4e7b8b5243b1965cf22b1f7bfdae1e87871a654d96f15ed8ce94",
+      "git_canonical_bytes": 64,
+      "git_blob_oid": "1554ef1353ade2f2ac663c726f368fd372ce4eea",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/eyes/raw/harbor_lamplighter_demo_eye_half_s421_0.png",
+      "tested_raw_sha256": "9002b7ecf598b27be6806740cfe03908ab747a2441cc5966b331621522388b8f",
+      "tested_raw_bytes": 712919,
+      "git_canonical_sha256": "9002b7ecf598b27be6806740cfe03908ab747a2441cc5966b331621522388b8f",
+      "git_canonical_bytes": 712919,
+      "git_blob_oid": "a2650ca0ff30a5b02c584b8718317f4239404f2c",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 9
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/eyes/raw/head_reference.png",
+      "tested_raw_sha256": "0a1e21835c81003c5ded48e22819d5417049d36810fdd2b58eed169318cb002a",
+      "tested_raw_bytes": 71455,
+      "git_canonical_sha256": "0a1e21835c81003c5ded48e22819d5417049d36810fdd2b58eed169318cb002a",
+      "git_canonical_bytes": 71455,
+      "git_blob_oid": "19af772d0b1814647b3c622a9973608002239885",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 3
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/eyes/review.png",
+      "tested_raw_sha256": "8a4cecf3f557dd49a8542520ff17e048533c3d84b723bf30ecac374ef9557974",
+      "tested_raw_bytes": 36319,
+      "git_canonical_sha256": "8a4cecf3f557dd49a8542520ff17e048533c3d84b723bf30ecac374ef9557974",
+      "git_canonical_bytes": 36319,
+      "git_blob_oid": "69910b3ea57cd7e10f6be63b2f994a41987f389c",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/keypoints.json",
+      "tested_raw_sha256": "76c22575466f3a47acafc2c72f33859c3be787cfe327669493b43e2148bb7630",
+      "tested_raw_bytes": 2988,
+      "git_canonical_sha256": "525510b5f659e01b85ba74f456283a5dd7947487684634bcba73da6f3b324a60",
+      "git_canonical_bytes": 2701,
+      "git_blob_oid": "275dd96aa58034344ad1f6c2655f05c081b93b18",
+      "conversion": "Git-LF-only",
+      "crlf_pairs_in_raw": 287
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/manifest.json",
+      "tested_raw_sha256": "f652b530a5cd197d18d8d983c78fb54cef48c6783308dd6da4e8d13becdec238",
+      "tested_raw_bytes": 8164,
+      "git_canonical_sha256": "917adbeef9fdb666022e13f0db8b17e19623ad062c3ac72488b40b846c59d5f7",
+      "git_canonical_bytes": 7770,
+      "git_blob_oid": "40d1c211c0264f26b352db14b208c47f0c577f8d",
+      "conversion": "Git-LF-only",
+      "crlf_pairs_in_raw": 394
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/map_joint_holes.py",
+      "tested_raw_sha256": "354b1b20f9663bc72ec915890dd13647ae0a381f60f7b4f714303ffbe7600619",
+      "tested_raw_bytes": 4120,
+      "git_canonical_sha256": "c5030e7bbb9f81afb98bba1729ded6960caadc2c815be65f64302eab5a7202b6",
+      "git_canonical_bytes": 4119,
+      "git_blob_oid": "0e79bd269ef028a8ed074524cd8079e0a2985366",
+      "conversion": "Git-LF-only",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/motion-candidate.json",
+      "tested_raw_sha256": "de65c9400843a8b688d59673dab13cc83f8cdb5deef5a0ea6c2391ca6e010f3b",
+      "tested_raw_bytes": 2931,
+      "git_canonical_sha256": "2a7239259f3f634611d3fcd40a24b5965d18512a9952e3f50bf139e0f436a8ed",
+      "git_canonical_bytes": 2756,
+      "git_blob_oid": "9922681b1d81e505b6411c40186cbaacecc2ae5d",
+      "conversion": "Git-LF-only",
+      "crlf_pairs_in_raw": 175
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/reassembly_allow.json",
+      "tested_raw_sha256": "a1a6ca759cd5ff278d93732831943f791a596b071d15f573a7066106848a3720",
+      "tested_raw_bytes": 395,
+      "git_canonical_sha256": "cb617687430bf636bef2a93c5d9e2edb6dd5e7523bdba20e5dc26d40b0c957eb",
+      "git_canonical_bytes": 383,
+      "git_blob_oid": "a36c2f803b9f23f3e5346a791ee2da297ac8ebca",
+      "conversion": "Git-LF-only",
+      "crlf_pairs_in_raw": 12
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/review_source.py",
+      "tested_raw_sha256": "68a9a169f17136d2a5209219c31cb70df0173fa2cb6f9294bc4a464880046bb7",
+      "tested_raw_bytes": 1220,
+      "git_canonical_sha256": "889f4badd66a93c4587e39f16a1ccea362912c327f3d4c8c6c9a5b41bf4c891b",
+      "git_canonical_bytes": 1219,
+      "git_blob_oid": "eb2cc7d555b2ad887d39289a7bcce12344a692f6",
+      "conversion": "Git-LF-only",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/sam/.gdignore",
+      "tested_raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tested_raw_bytes": 0,
+      "git_canonical_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_canonical_bytes": 0,
+      "git_blob_oid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/sam/.text_mask_cache.json",
+      "tested_raw_sha256": "85adff9226876d94413fad36fbd7ff1e1dc3c694bb5af89965c5adc0b3cbe6d7",
+      "tested_raw_bytes": 166,
+      "git_canonical_sha256": "d8b6a76d5f9aa76b97bd1c7a3d4d21066d7ef45bc1eef77248f7dc2c8cd8a6e7",
+      "git_canonical_bytes": 165,
+      "git_blob_oid": "36ec8da0521ce1bffbf7e22444d6f09450a75652",
+      "conversion": "Git-LF-only",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/sam/head.png",
+      "tested_raw_sha256": "31804d18ef932c7b556abc098559a36200db66636397b4ea50da6d7fc5e47d17",
+      "tested_raw_bytes": 4720,
+      "git_canonical_sha256": "31804d18ef932c7b556abc098559a36200db66636397b4ea50da6d7fc5e47d17",
+      "git_canonical_bytes": 4720,
+      "git_blob_oid": "439e52ce3aeecdbb24d805d6d1f88dbe3b0ae77f",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/sam/points_arm.json",
+      "tested_raw_sha256": "991461cd89295764f27ebe461bea39fa63d09ab0632bfc75b6b10d03e7c4608b",
+      "tested_raw_bytes": 192,
+      "git_canonical_sha256": "991461cd89295764f27ebe461bea39fa63d09ab0632bfc75b6b10d03e7c4608b",
+      "git_canonical_bytes": 192,
+      "git_blob_oid": "a21fc9bc60f9cac9c7d390ee077f332169707bfc",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/sam/points_arm.png",
+      "tested_raw_sha256": "9c06016ef8c36587dbdddf4970841df17e9bb29dc6d4b0dc2e3e853ee6ebb428",
+      "tested_raw_bytes": 5941,
+      "git_canonical_sha256": "9c06016ef8c36587dbdddf4970841df17e9bb29dc6d4b0dc2e3e853ee6ebb428",
+      "git_canonical_bytes": 5941,
+      "git_blob_oid": "3846cf5247c2381faa2a87bf217a008be000ec98",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/sam/points_leg_far.json",
+      "tested_raw_sha256": "ddd457ba56fd20b49e9a7ab088099d6c374447f8a968623f7e6d615ceab98cb6",
+      "tested_raw_bytes": 194,
+      "git_canonical_sha256": "ddd457ba56fd20b49e9a7ab088099d6c374447f8a968623f7e6d615ceab98cb6",
+      "git_canonical_bytes": 194,
+      "git_blob_oid": "a46c7ac8ce33f51c3a01dc9a4a0d2b71e54eab49",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/sam/points_leg_far.png",
+      "tested_raw_sha256": "10a06d679600fcc3d95f6ad09f819b14f1a846a6af14dbbbfa77176f309fe8ce",
+      "tested_raw_bytes": 4324,
+      "git_canonical_sha256": "10a06d679600fcc3d95f6ad09f819b14f1a846a6af14dbbbfa77176f309fe8ce",
+      "git_canonical_bytes": 4324,
+      "git_blob_oid": "073c9654441c06105f285fb2adc7aedb216b3b07",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/shared_service.py",
+      "tested_raw_sha256": "c56566ca1bac0b74528af1e9d920cb684e8810dd835e35009633c6d9abb9bc05",
+      "tested_raw_bytes": 1643,
+      "git_canonical_sha256": "2221de11912aeb62692270bd610fdec3a1e092ec96cf95743d1e6a20ac416307",
+      "git_canonical_bytes": 1640,
+      "git_blob_oid": "20382592fba35fb2885ad67184563f03bcb0c88a",
+      "conversion": "Git-LF-only",
+      "crlf_pairs_in_raw": 3
+    },
+    {
+      "path": "tools/comfyui/recipes/harbor_lamplighter_demo.json",
+      "tested_raw_sha256": "9cbf1e49722563da1daf1608299d6828795779709343fae56761951f76c0e103",
+      "tested_raw_bytes": 2681,
+      "git_canonical_sha256": "372407573f21e716a1087923cea96b46c246c4dc4c9a9b50960f56206589c00c",
+      "git_canonical_bytes": 2662,
+      "git_blob_oid": "ad0853120eaaef7592f3f28c36692b4014e21b63",
+      "conversion": "Git-LF-only",
+      "crlf_pairs_in_raw": 19
+    },
+    {
+      "path": "tools/comfyui/specs/harbor_lamplighter_demo_side.json",
+      "tested_raw_sha256": "1a51467f574ad3a4adff417c9afe044aaff92ac80225f59d75ded229c02067ff",
+      "tested_raw_bytes": 18485,
+      "git_canonical_sha256": "5e2c246bd2f6d14f2c3825420a1e68f2ed06096b1d089e862e4f34124a2566a5",
+      "git_canonical_bytes": 17454,
+      "git_blob_oid": "984b58df42213289a9f8930df1a525d1e1af20e0",
+      "conversion": "Git-LF-only",
+      "crlf_pairs_in_raw": 1031
+    },
+    {
+      "path": "tools/fixtures/harbor_lamplighter_demo/map.json",
+      "tested_raw_sha256": "365ad062a267103ce398d97bbbab7828e22daff6386c58f81204152473581ae6",
+      "tested_raw_bytes": 1570,
+      "git_canonical_sha256": "c4a118282d810a525c18ea02bd07937d964e6cd5cd0483926cd32eaaac5a072a",
+      "git_canonical_bytes": 1532,
+      "git_blob_oid": "caa05b36cbc6cf9df10dc7a0adb8f311bec1a2e0",
+      "conversion": "Git-LF-only",
+      "crlf_pairs_in_raw": 38
+    },
+    {
+      "path": "tools/fixtures/harbor_lamplighter_demo/preview_npc.tres",
+      "tested_raw_sha256": "f2717e9036d311dd59438205230c75b728373785136fd2bac832c3e76753b3d7",
+      "tested_raw_bytes": 635,
+      "git_canonical_sha256": "f2717e9036d311dd59438205230c75b728373785136fd2bac832c3e76753b3d7",
+      "git_canonical_bytes": 635,
+      "git_blob_oid": "0b37e9e392297f32fb2ba33b79a1eb28adeac4c5",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "tools/harbor_lamplighter_demo_gameplay.gd",
+      "tested_raw_sha256": "50e03a92a9c80ee59073aeb75809dd2b489a9449c74b1b9185cf2d9c94900c8d",
+      "tested_raw_bytes": 7762,
+      "git_canonical_sha256": "50e03a92a9c80ee59073aeb75809dd2b489a9449c74b1b9185cf2d9c94900c8d",
+      "git_canonical_bytes": 7762,
+      "git_blob_oid": "8c9d99d36e0e45185df335b1b2db4ddfa4c5b421",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "tools/harbor_lamplighter_demo_gameplay.gd.uid",
+      "tested_raw_sha256": "ea767f2608db55c2f693d202f89e026849c3a8cc47c732d674102330b08f2163",
+      "tested_raw_bytes": 20,
+      "git_canonical_sha256": "ea767f2608db55c2f693d202f89e026849c3a8cc47c732d674102330b08f2163",
+      "git_canonical_bytes": 20,
+      "git_blob_oid": "818ee5c1590c31c85deafe9242f964c36e6d1b20",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "tools/harbor_lamplighter_demo_gameplay.tscn",
+      "tested_raw_sha256": "7a5f6744148c3c3194657f84ac900094974d623f3f0ea1e1320fbce28bfe725a",
+      "tested_raw_bytes": 221,
+      "git_canonical_sha256": "7a5f6744148c3c3194657f84ac900094974d623f3f0ea1e1320fbce28bfe725a",
+      "git_canonical_bytes": 221,
+      "git_blob_oid": "4ad923d410f67b6b7ab53481c4ed3c31046f1b5d",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "tools/harbor_lamplighter_demo_probe.gd",
+      "tested_raw_sha256": "b1e7c0700c17ef283994a2a5dbf69b3beeb22986d13df2364c73b54047443e12",
+      "tested_raw_bytes": 6259,
+      "git_canonical_sha256": "5a6aeee3110b87c57a7da329f3ccb4f6f2a58e10f3441e971be2c5ab0b6a0ded",
+      "git_canonical_bytes": 6257,
+      "git_blob_oid": "4d22286d1255ad4f82be96240ae7fe2a223b4798",
+      "conversion": "Git-LF-only",
+      "crlf_pairs_in_raw": 2
+    },
+    {
+      "path": "tools/harbor_lamplighter_demo_probe.gd.uid",
+      "tested_raw_sha256": "dcb2e4c66b2cf203a13ed6b78c763a6ce14bb0e7fafe3b938a7c51110c7761f9",
+      "tested_raw_bytes": 20,
+      "git_canonical_sha256": "dcb2e4c66b2cf203a13ed6b78c763a6ce14bb0e7fafe3b938a7c51110c7761f9",
+      "git_canonical_bytes": 20,
+      "git_blob_oid": "3583ffe892a81a58686b06faf2ade36caf833b35",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "tools/harbor_lamplighter_demo_probe.tscn",
+      "tested_raw_sha256": "44adce5828d2b574777943c4614b46d0f946f168be97f250a95174232505b177",
+      "tested_raw_bytes": 201,
+      "git_canonical_sha256": "4e41833ade568fdf4b0ccee4fc14656fceb8da867455ff39b5dfa17871883a97",
+      "git_canonical_bytes": 200,
+      "git_blob_oid": "d750cee04076766ecfef9702e250ba7508561ec4",
+      "conversion": "Git-LF-only",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "tools/harbor_lamplighter_demo_snapshot_audit.gd",
+      "tested_raw_sha256": "4a2071e5b60e6e71dfe6516161893bcf4ed68e7f4d8966329f43ade73aafb302",
+      "tested_raw_bytes": 2168,
+      "git_canonical_sha256": "c6a2699b013a20810c2eed8c7342fea69147d422de5a187bcbea3bef00376a44",
+      "git_canonical_bytes": 2167,
+      "git_blob_oid": "9972b274b9e95d443e2c8d465a217da51f73bc52",
+      "conversion": "Git-LF-only",
+      "crlf_pairs_in_raw": 1
+    },
+    {
+      "path": "tools/harbor_lamplighter_demo_snapshot_audit.gd.uid",
+      "tested_raw_sha256": "c23ab5816fdedeec142e00795d2bfbe137c68deb8c9a1a0e5cb423cb9df2bfc0",
+      "tested_raw_bytes": 20,
+      "git_canonical_sha256": "c23ab5816fdedeec142e00795d2bfbe137c68deb8c9a1a0e5cb423cb9df2bfc0",
+      "git_canonical_bytes": 20,
+      "git_blob_oid": "a8513c4c089c64bac53ef59d86a17e532c642304",
+      "conversion": "raw-bytes",
+      "crlf_pairs_in_raw": 0
+    },
+    {
+      "path": "tools/harbor_lamplighter_demo_snapshot_audit.tscn",
+      "tested_raw_sha256": "42159c2c089be3d4969004e83d1dffb4289f1ec74b59c4b5adeac705fc96c4eb",
+      "tested_raw_bytes": 216,
+      "git_canonical_sha256": "15ad949c6fbb3f89bf9c1b83aa0e26ab5065f27cc503cbe1ee6ee38d87af6c9f",
+      "git_canonical_bytes": 215,
+      "git_blob_oid": "77bfb0d87448ca40220ff8950cecdbb4b0ba020b",
+      "conversion": "Git-LF-only",
+      "crlf_pairs_in_raw": 1
+    }
+  ]
+}

@@ -1,0 +1,335 @@
+{
+	"failures": [],
+	"inapplicable": [
+		{
+			"metric": "grip_gap",
+			"mode": "combat",
+			"reason": "Not measured by original audit for this empty-hand/seated state"
+		},
+		{
+			"metric": "foot_below_ground",
+			"mode": "sit",
+			"reason": "Not measured by original audit for this empty-hand/seated state"
+		},
+		{
+			"metric": "foot_floating",
+			"mode": "sit",
+			"reason": "Not measured by original audit for this empty-hand/seated state"
+		}
+	],
+	"policy": "Unchanged AnimAuditSuite limits, including its existing NPC foot-floating multiplier",
+	"reports": {
+		"combat": {
+			"angle_pop": {
+				"limit": 0.9,
+				"value": 0.424139767885208,
+				"where": "run-relaxed 120 #41"
+			},
+			"bone_stretch": {
+				"limit": 0.3,
+				"value": 0.00000286102294921875,
+				"where": "idle #15"
+			},
+			"corpse_below_ground": {
+				"limit": 3.0,
+				"value": -2.99999904632568,
+				"where": "death front light #90"
+			},
+			"corpse_height": {
+				"limit": 0.5,
+				"value": 0.329867373901573,
+				"where": "death front light (最高的骨頭 head, 站高 57) #90"
+			},
+			"elbow_hyper": {
+				"limit": 0.6,
+				"value": -0.0388772673904896,
+				"where": "death front light #0"
+			},
+			"foot_below_ground": {
+				"limit": 2.0,
+				"value": 0.931422233581543,
+				"where": "stop #6"
+			},
+			"foot_floating": {
+				"limit": 0.5,
+				"value": 0.00000286102294921875,
+				"where": "idle #7"
+			},
+			"head_turn": {
+				"limit": 1.0,
+				"value": 0.449999995529652,
+				"where": "death front light #71"
+			},
+			"knee_hyper": {
+				"limit": 0.1,
+				"value": -0.0259181782603264,
+				"where": "idle #0"
+			},
+			"limb_pinch": {
+				"limit": 0.75,
+				"value": 0.480896245724677,
+				"where": "crouch #39"
+			},
+			"mesh_fold": {
+				"limit": 0.4,
+				"value": 0.166666666666667,
+				"where": "run 30 #22"
+			},
+			"trunk_lean": {
+				"limit": 1.15,
+				"value": 0.410156220197678,
+				"where": "hurt-recover #1"
+			}
+		},
+		"crouch": {
+			"angle_pop": {
+				"limit": 0.9,
+				"value": 0.0499217137694359,
+				"where": "crouch idle #1"
+			},
+			"bone_stretch": {
+				"limit": 0.3,
+				"value": 0.00000286102294921875,
+				"where": "crouch idle #15"
+			},
+			"elbow_hyper": {
+				"limit": 0.6,
+				"value": -0.0799999982118607,
+				"where": "crouch idle #0"
+			},
+			"foot_below_ground": {
+				"limit": 2.0,
+				"value": 0.00000286102294921875,
+				"where": "crouch idle #0"
+			},
+			"foot_floating": {
+				"limit": 0.5,
+				"value": 0.00000286102294921875,
+				"where": "crouch idle #7"
+			},
+			"head_turn": {
+				"limit": 1.0,
+				"value": 0.0,
+				"where": "crouch idle #0"
+			},
+			"knee_hyper": {
+				"limit": 0.1,
+				"value": -0.0259181782603264,
+				"where": "crouch idle #0"
+			},
+			"limb_pinch": {
+				"limit": 0.75,
+				"value": 0.00404735527714883,
+				"where": "crouch idle #0"
+			},
+			"mesh_fold": {
+				"limit": 0.4,
+				"value": 0.0,
+				"where": "crouch idle #0"
+			},
+			"trunk_lean": {
+				"limit": 1.15,
+				"value": 0.0238668415695429,
+				"where": "crouch listen #0"
+			}
+		},
+		"hammer": {
+			"angle_pop": {
+				"limit": 0.9,
+				"value": 0.0499217137694359,
+				"where": "stand idle #1"
+			},
+			"bone_stretch": {
+				"limit": 0.3,
+				"value": 0.00000286102294921875,
+				"where": "stand idle #15"
+			},
+			"elbow_hyper": {
+				"limit": 0.6,
+				"value": -0.0799999982118607,
+				"where": "stand idle #0"
+			},
+			"foot_below_ground": {
+				"limit": 2.0,
+				"value": 0.00000286102294921875,
+				"where": "stand idle #0"
+			},
+			"foot_floating": {
+				"limit": 0.5,
+				"value": 0.00000286102294921875,
+				"where": "stand idle #7"
+			},
+			"head_turn": {
+				"limit": 1.0,
+				"value": 0.0,
+				"where": "stand idle #0"
+			},
+			"knee_hyper": {
+				"limit": 0.1,
+				"value": -0.0259181782603264,
+				"where": "stand idle #0"
+			},
+			"limb_pinch": {
+				"limit": 0.75,
+				"value": 0.00404735527714883,
+				"where": "stand idle #0"
+			},
+			"mesh_fold": {
+				"limit": 0.4,
+				"value": 0.0,
+				"where": "stand idle #0"
+			},
+			"trunk_lean": {
+				"limit": 1.15,
+				"value": 0.0238670166581869,
+				"where": "stand loop hammer x1.6 #22"
+			}
+		},
+		"lean": {
+			"angle_pop": {
+				"limit": 0.9,
+				"value": 0.0499217137694359,
+				"where": "lean idle #1"
+			},
+			"bone_stretch": {
+				"limit": 0.3,
+				"value": 0.00000286102294921875,
+				"where": "lean idle #15"
+			},
+			"elbow_hyper": {
+				"limit": 0.6,
+				"value": -0.0799999982118607,
+				"where": "lean idle #0"
+			},
+			"foot_below_ground": {
+				"limit": 2.0,
+				"value": 0.00000286102294921875,
+				"where": "lean idle #0"
+			},
+			"foot_floating": {
+				"limit": 0.5,
+				"value": 0.00000286102294921875,
+				"where": "lean idle #7"
+			},
+			"head_turn": {
+				"limit": 1.0,
+				"value": 0.0,
+				"where": "lean idle #0"
+			},
+			"knee_hyper": {
+				"limit": 0.1,
+				"value": -0.0259181782603264,
+				"where": "lean idle #0"
+			},
+			"limb_pinch": {
+				"limit": 0.75,
+				"value": 0.00404735527714883,
+				"where": "lean idle #0"
+			},
+			"mesh_fold": {
+				"limit": 0.4,
+				"value": 0.0,
+				"where": "lean idle #0"
+			},
+			"trunk_lean": {
+				"limit": 1.15,
+				"value": 0.0238668415695429,
+				"where": "lean listen #0"
+			}
+		},
+		"sit": {
+			"angle_pop": {
+				"limit": 0.9,
+				"value": 0.0499217137694359,
+				"where": "sit idle #1"
+			},
+			"bone_stretch": {
+				"limit": 0.3,
+				"value": 0.00000286102294921875,
+				"where": "sit idle #15"
+			},
+			"elbow_hyper": {
+				"limit": 0.6,
+				"value": -0.0799999982118607,
+				"where": "sit idle #0"
+			},
+			"head_turn": {
+				"limit": 1.0,
+				"value": 0.0,
+				"where": "sit idle #0"
+			},
+			"knee_hyper": {
+				"limit": 0.1,
+				"value": -0.0259181782603264,
+				"where": "sit idle #0"
+			},
+			"limb_pinch": {
+				"limit": 0.75,
+				"value": 0.00404735527714883,
+				"where": "sit idle #0"
+			},
+			"mesh_fold": {
+				"limit": 0.4,
+				"value": 0.0,
+				"where": "sit idle #0"
+			},
+			"trunk_lean": {
+				"limit": 1.15,
+				"value": 0.0238668415695429,
+				"where": "sit listen #0"
+			}
+		},
+		"stand": {
+			"angle_pop": {
+				"limit": 0.9,
+				"value": 0.0499217137694359,
+				"where": "stand idle #1"
+			},
+			"bone_stretch": {
+				"limit": 0.3,
+				"value": 0.00000286102294921875,
+				"where": "stand idle #15"
+			},
+			"elbow_hyper": {
+				"limit": 0.6,
+				"value": -0.0799999982118607,
+				"where": "stand idle #0"
+			},
+			"foot_below_ground": {
+				"limit": 2.0,
+				"value": 0.00000286102294921875,
+				"where": "stand idle #0"
+			},
+			"foot_floating": {
+				"limit": 0.5,
+				"value": 0.00000286102294921875,
+				"where": "stand idle #7"
+			},
+			"head_turn": {
+				"limit": 1.0,
+				"value": 0.0,
+				"where": "stand idle #0"
+			},
+			"knee_hyper": {
+				"limit": 0.1,
+				"value": -0.0259181782603264,
+				"where": "stand idle #0"
+			},
+			"limb_pinch": {
+				"limit": 0.75,
+				"value": 0.00404735527714883,
+				"where": "stand idle #0"
+			},
+			"mesh_fold": {
+				"limit": 0.4,
+				"value": 0.0,
+				"where": "stand idle #0"
+			},
+			"trunk_lean": {
+				"limit": 1.15,
+				"value": 0.0238668415695429,
+				"where": "stand listen #0"
+			}
+		}
+	}
+}

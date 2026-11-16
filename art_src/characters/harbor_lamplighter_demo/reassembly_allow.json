@@ -1,0 +1,13 @@
+{
+  "holes": [
+    [
+      412,
+      596,
+      541,
+      1149
+    ]
+  ],
+  "reasons": [
+    "Reviewed native holes.png and source: the omitted far-side trouser strip and far shoe. The runtime back leg reuses the complete near-leg texture; this region is intentionally not duplicated into near parts. This allowance is for source reassembly only, never dynamic joint checks."
+  ]
+}

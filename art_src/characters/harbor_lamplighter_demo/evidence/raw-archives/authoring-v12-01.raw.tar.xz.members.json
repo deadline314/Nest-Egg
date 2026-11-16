@@ -1,0 +1,743 @@
+{
+  "archive": "authoring-v12-01.raw.tar.xz",
+  "members": [
+    {
+      "path": "art/characters/harbor_lamplighter_demo/character.json",
+      "size": 5182,
+      "sha256": "a4abb9f8cf6fc35d26377f1514392f9a5414916b720887cf8c0b8a1f71df6415",
+      "original_mtime_ns": 1794864417535487300
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/arm_lower.png",
+      "size": 24723,
+      "sha256": "d71e22c77d32b699761b5512feee8937c8e441f7a5c70a3bf5b6d8b8223063d1",
+      "original_mtime_ns": 1794864417301781800
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/arm_lower.png.import",
+      "size": 975,
+      "sha256": "e2c73f84bfa34b8412f2bd3f1a022b92edc5d171224c72ccbc9012e550d7b806",
+      "original_mtime_ns": 1794864417510172000
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/arm_lower_n.png",
+      "size": 21541,
+      "sha256": "5f956839d0334fbe3b3b3b32e797fa1fffd4707cb6f2404c2347a9521356cc19",
+      "original_mtime_ns": 1794864422877171000
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/arm_lower_n.png.import",
+      "size": 981,
+      "sha256": "58cd6657573aefe2b0ffadafa47218d03f013dc17aaded24ea1570834aa59cd4",
+      "original_mtime_ns": 1794864417511699600
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/arm_upper.png",
+      "size": 25632,
+      "sha256": "a270f5aa005296598df08c7154d63362ce16b9be4302a7002951d467743f9dca",
+      "original_mtime_ns": 1794864417195395800
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/arm_upper.png.import",
+      "size": 975,
+      "sha256": "bd4c32af7152ca1e3581e3998a68f0a72edfcd3e03b40e84a5c022e3fe6610ed",
+      "original_mtime_ns": 1794864417511699600
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/arm_upper_n.png",
+      "size": 22568,
+      "sha256": "a2d87cebd22126dec1a0103f9947ad7b2c82dad300d8656bcbe399eae28172cd",
+      "original_mtime_ns": 1794864422942797700
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/arm_upper_n.png.import",
+      "size": 980,
+      "sha256": "5cb3eb83441c84885492c87826cc1b5648e44b5d5b54b792bcd14c8ef3139c21",
+      "original_mtime_ns": 1794864417511699600
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/foot.png",
+      "size": 25230,
+      "sha256": "c5a39ea6c17a590505b8ce79f88dbef579a8bf230be9e04a49c1e49558b6e87f",
+      "original_mtime_ns": 1794864417092423600
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/foot.png.import",
+      "size": 959,
+      "sha256": "1db08b2271ad171329a6135b84193f01e5422ed0f5172bd3a5a53c07c3e0e4c7",
+      "original_mtime_ns": 1794864417511699600
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/foot_n.png",
+      "size": 26117,
+      "sha256": "8b13671f199bfe295a4a5ef0f70c362dfb2f4f625a33ef1eecbae4bad100d40f",
+      "original_mtime_ns": 1794864425348739900
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/foot_n.png.import",
+      "size": 965,
+      "sha256": "6a48b2b6efb540fff0fbad8f661dd18f6b25d928aeebacd2a167bcccaee444b0",
+      "original_mtime_ns": 1794864417514674200
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/hand.png",
+      "size": 14502,
+      "sha256": "51be4536cef7453c849344a146703b7572aad969f642a1678e0457c6336a9690",
+      "original_mtime_ns": 1794864417404729600
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/hand.png.import",
+      "size": 959,
+      "sha256": "9db0ac448edeefa80da5fef8e060f6cf87ac5bc3d0d41147ad30f01cf2762d47",
+      "original_mtime_ns": 1794864417514674200
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/hand_n.png",
+      "size": 14346,
+      "sha256": "3954d33074d2ed7156835091cd8b5e6f2d9da714d4e246e5b182991a1ba62ed4",
+      "original_mtime_ns": 1794864423053068500
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/hand_n.png.import",
+      "size": 966,
+      "sha256": "a7677f441a6b9a3bf1e3947cb6dbf0a319b209bb3e6cd29c2598eec8bf1dca9d",
+      "original_mtime_ns": 1794864417516375200
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head.png",
+      "size": 27310,
+      "sha256": "5f5874ea4c33eb320720beb65e8a4c01a3aa9d0da95a7a5bdcac6425a4429f84",
+      "original_mtime_ns": 1794864416761123000
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head.png.import",
+      "size": 960,
+      "sha256": "40e508c7ad42751a997e2158a0d56430b5138744ae13413a5306c737f24750d1",
+      "original_mtime_ns": 1794864417516375200
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head_closed.png",
+      "size": 27201,
+      "sha256": "7f8ccccd9f1faddc4df99647044b70079b96633e0df71a0956564dc136b2ce8b",
+      "original_mtime_ns": 1794864417510172000
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head_closed.png.import",
+      "size": 980,
+      "sha256": "9582da8b71de6d8903616cf60f9b23037f48c9d99b4eb5ec262fce8e56e81b6a",
+      "original_mtime_ns": 1794864417518397400
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head_closed_n.png",
+      "size": 26485,
+      "sha256": "63675cef954194098fa8c4bfc02ad0c9e3ebc4a1b295c110bfc9af4c923d3d83",
+      "original_mtime_ns": 1794864423198772700
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head_closed_n.png.import",
+      "size": 987,
+      "sha256": "66d00f30620c42eb1f1b379adfea469be5b32c67404f61cfbd0306cd76ac53bc",
+      "original_mtime_ns": 1794864417518397400
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head_half.png",
+      "size": 27425,
+      "sha256": "5b1bed78ac74223caa0f9f836fc96ce48afd9cb571be10e1dc05edcbc16a8f74",
+      "original_mtime_ns": 1794864417458950300
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head_half.png.import",
+      "size": 975,
+      "sha256": "53e542563149a1f15c1451ce61a345792571b215d1a9940172e78170291dff36",
+      "original_mtime_ns": 1794864417518397400
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head_half_n.png",
+      "size": 26666,
+      "sha256": "54d1a08052f3a943db79c6a0fe8e3fbca54cc46adcdde2651b3826372dfd7994",
+      "original_mtime_ns": 1794864423271292500
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head_half_n.png.import",
+      "size": 980,
+      "sha256": "56f151a910517ba0611bda940f4944b9811ab92e86a9767537222070f4cf264a",
+      "original_mtime_ns": 1794864417520401500
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head_n.png",
+      "size": 26623,
+      "sha256": "550f6b9302ff195091933525565433fd7c9d7b88baf50448c7f6a96ffb67d6c5",
+      "original_mtime_ns": 1794864423125610000
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/head_n.png.import",
+      "size": 966,
+      "sha256": "7a13e38b3dfc4b8164a1c32c63c8364d7c8b27e8efeecb337f5d848ff6c56054",
+      "original_mtime_ns": 1794864417520401500
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/leg_lower.png",
+      "size": 49319,
+      "sha256": "07e8b295ebc21403c246053bcd16eb44f1af2de18b081682daafc41bf1e3f4b3",
+      "original_mtime_ns": 1794864416984495600
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/leg_lower.png.import",
+      "size": 975,
+      "sha256": "0dcbce8fdf80de83f8f88718cbd1416ae1d99620067043b0ab37a500eed9b0a5",
+      "original_mtime_ns": 1794864432860422300
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/leg_lower_n.png",
+      "size": 49021,
+      "sha256": "063bbe264627ef519e818f94eef3a3b3d41605d98937e81a732703149eb74cba",
+      "original_mtime_ns": 1794864425179605100
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/leg_lower_n.png.import",
+      "size": 981,
+      "sha256": "10cfd1a2284235416781f237ade05a1aa26f041020cadd75212aea05dc1e7f3c",
+      "original_mtime_ns": 1794864432859421100
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/leg_upper.png",
+      "size": 66424,
+      "sha256": "e7327bcd21e0f2415003ed81859474651267741715bd193852849d349b6f8d6f",
+      "original_mtime_ns": 1794864416875363000
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/leg_upper.png.import",
+      "size": 974,
+      "sha256": "dddc1be6e02f47e93770058d2ff938535c7787966eff768fad4ebcf88279460f",
+      "original_mtime_ns": 1794864417522404900
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/leg_upper_n.png",
+      "size": 64341,
+      "sha256": "00dad5ce73856b5bacdf5a2dfb29de3abb1c35491424bf1cd47c9317c11baa9a",
+      "original_mtime_ns": 1794864425012317800
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/leg_upper_n.png.import",
+      "size": 980,
+      "sha256": "bf3eece085e59b132c6f394776153550ca9f14519cd95bc4d32c08c9356932ce",
+      "original_mtime_ns": 1794864417524407800
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/pelvis.png",
+      "size": 37976,
+      "sha256": "80223dc55299d9be759f5bec1ec64e472f774defdc11b53ada16f53695623e92",
+      "original_mtime_ns": 1794864416545435600
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/pelvis.png.import",
+      "size": 966,
+      "sha256": "cbd2e119161b9c720e1b6570bdf1184510f93f560bfd81a517bf9cdaae2f80f7",
+      "original_mtime_ns": 1794864417524407800
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/pelvis_n.png",
+      "size": 32925,
+      "sha256": "661839e37b278d700b2184dba6f8b088b9113ea897f58243a485fc1fd4c2abe2",
+      "original_mtime_ns": 1794864423699223700
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/pelvis_n.png.import",
+      "size": 972,
+      "sha256": "0007bf34f7b70308b25ab10575333c228bb4e18da95b438ae6e64b2bbf3352c9",
+      "original_mtime_ns": 1794864417524407800
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/torso.png",
+      "size": 61429,
+      "sha256": "3c3a99d8da27be1d5fe5dc7eed7ae8993845c1110a9454dbcb22be5fd8352aed",
+      "original_mtime_ns": 1794864416657967000
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/torso.png.import",
+      "size": 963,
+      "sha256": "d1726fcfa75c962e3bd18aff03f45e3a45c0eec1e98fe03d354193b3e492f36b",
+      "original_mtime_ns": 1794864417526411000
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/torso_n.png",
+      "size": 52585,
+      "sha256": "f5f168e03fc98fbac67c1f5f42167653553034181cdf6a4f1ac8f7adcbb252c5",
+      "original_mtime_ns": 1794864423899426400
+    },
+    {
+      "path": "art/characters/harbor_lamplighter_demo/parts/torso_n.png.import",
+      "size": 969,
+      "sha256": "5b91cd8e13d2a45f01c7bc44c3c131cc89182aa09f5f6c394d86da7a90a410c2",
+      "original_mtime_ns": 1794864417526411000
+    },
+    {
+      "path": "art/motion/harbor_lamplighter_demo.json",
+      "size": 2931,
+      "sha256": "de65c9400843a8b688d59673dab13cc83f8cdb5deef5a0ea6c2391ca6e010f3b",
+      "original_mtime_ns": 1794861217770534600
+    },
+    {
+      "path": "art/rigs/harbor_lamplighter_demo.json",
+      "size": 2512,
+      "sha256": "d05fe945303e2ab13cb48dc3237d4f567f699aa3fc24a38a8badadb7060e0a21",
+      "original_mtime_ns": 1794864417531571900
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/.gdignore",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_mtime_ns": 1794864415591132500
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/.gitignore",
+      "size": 384,
+      "sha256": "9f29d86666153f7b93e3a2859cac4acd68e8403be25ac4a37c9920a8770daa3d",
+      "original_mtime_ns": 1794862938138023700
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/01_design/character.txt",
+      "size": 803,
+      "sha256": "7e854b6d362c5c70bd7884ebafdb895b0e3a4e08f10b058e6b3d177dbfbd4eca",
+      "original_mtime_ns": 1794858051104718900
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/01_design/design_s255171.png",
+      "size": 570670,
+      "sha256": "4cbdd4ff46e1ee28cabbfce08655e4052ff1cf7ef77dd72314eab6d20f855e59",
+      "original_mtime_ns": 1794858374345431600
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/01_design/prompt.txt",
+      "size": 2009,
+      "sha256": "731a5ac701b524b290bb254ea8e3daad5417ad85c1419f957d49bc2ad5ace2ae",
+      "original_mtime_ns": 1794858374345431600
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/02_pose/joints.png",
+      "size": 248403,
+      "sha256": "b8439f05de2239939bb8b8f7633c633e1408da1fe593bb16a9d6964bf2a6a1fc",
+      "original_mtime_ns": 1794858477444145200
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/04_stages/P.png",
+      "size": 549963,
+      "sha256": "892e94823c8c02954dd3b86925bf9d19f48a90810e2c2817be57f682b9d25871",
+      "original_mtime_ns": 1794858648241982100
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/04_stages/P_grey.png",
+      "size": 241051,
+      "sha256": "cc667bb18011a2187378a76606f6036a0d5162298b5b1aecf0aebeebb6cedc26",
+      "original_mtime_ns": 1794858826982585900
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/04_stages/sam_P/.gdignore",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_mtime_ns": 1794858826983588900
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/05_groups/body.key",
+      "size": 64,
+      "sha256": "a93ff86ab1691895ea7f461e6dbbd927a623721ccc79980d0b79b3c3ac0b7263",
+      "original_mtime_ns": 1794858777315159900
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/05_groups/body.png",
+      "size": 490123,
+      "sha256": "5d23a88533a116e8219d13870deaa48ce4ccf6a580abe56ceb0edcd171f7c842",
+      "original_mtime_ns": 1794858777313656600
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/07_refined/arm_lower.png",
+      "size": 449176,
+      "sha256": "0b5053cd57a76e74bdb2f0ffee556f1f6e305c03a3e4b7ba31c35d1bf18dc370",
+      "original_mtime_ns": 1794864413929718200
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/07_refined/arm_upper.png",
+      "size": 449021,
+      "sha256": "6b2407b93cd589cee9569afd2c5bb5590904238a714a44168613db77da60dfcc",
+      "original_mtime_ns": 1794864413813295700
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/07_refined/foot.png",
+      "size": 435126,
+      "sha256": "b6bb05876d6139c67dbcddde77fe372dd0c239fd18fdbd3f2a59753e9c2a0237",
+      "original_mtime_ns": 1794864413703475900
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/07_refined/hand.png",
+      "size": 448799,
+      "sha256": "41347ed0bcc20615f664ae5552e282c156f1a6437084d03976d84d6b3df740b7",
+      "original_mtime_ns": 1794864414043775700
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/07_refined/head.png",
+      "size": 449049,
+      "sha256": "66b3be844e4a03ce9f4b9b90ad816e0a2d7d684b47179611ae3f91a73770ee19",
+      "original_mtime_ns": 1794864413368884600
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/07_refined/leg_lower.png",
+      "size": 436034,
+      "sha256": "404c430756cdd3a1d0e1702cca8399b1623394256e450cf6716196b3eee4e34b",
+      "original_mtime_ns": 1794864413592270800
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/07_refined/leg_upper.png",
+      "size": 436619,
+      "sha256": "1f3d72d130667743da321b9e0b21197129121b15504a8404720bc02e9b6e66b7",
+      "original_mtime_ns": 1794864413479426100
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/07_refined/ownership.png",
+      "size": 218192,
+      "sha256": "332a0ec8ec59e3afb135a88e114eb475e66e15f9f43a12f6aa2edf6eb6d642ad",
+      "original_mtime_ns": 1794864414045779400
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/07_refined/pelvis.png",
+      "size": 435823,
+      "sha256": "2c8afb15321e762ceceed272b9e829097aca9d63a675760fee916b358a28e9d0",
+      "original_mtime_ns": 1794864413136728600
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/07_refined/torso.png",
+      "size": 415160,
+      "sha256": "86ec18fe146e1d9fcac0e9a9c7624e2c545e7aac479eb8f69d68af79b5773e51",
+      "original_mtime_ns": 1794864413252529600
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/README.md",
+      "size": 10811,
+      "sha256": "ebbbdf932b0536ad681fbc39c7cac117ecce91e1be432f7ccac6f8ddff4a102c",
+      "original_mtime_ns": 1794865406084127000
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/.gdignore",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_mtime_ns": 1794859037399619600
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_design_s255171.job.json",
+      "size": 67,
+      "sha256": "a4c02a4fab736e91549aff5ac80b6e721c6db924c837ddd0d4a6b16dd0f520f8",
+      "original_mtime_ns": 1794858301233266600
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_design_s255171_0.png",
+      "size": 570670,
+      "sha256": "4cbdd4ff46e1ee28cabbfce08655e4052ff1cf7ef77dd72314eab6d20f855e59",
+      "original_mtime_ns": 1794858301186666900
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_eye_closed_s422.job.json",
+      "size": 64,
+      "sha256": "f6e597c293f3f228b5778d4c3579f5b8b75632a7c37c8953ca7b2e991ebfaa0e",
+      "original_mtime_ns": 1794859037441868800
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_eye_closed_s422_0.png",
+      "size": 855032,
+      "sha256": "2bdd0c82408873adc93ba4f6668b54801306d6db9974e14ca101ecf53f9fc0af",
+      "original_mtime_ns": 1794859037420867100
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_eye_half_s421.job.json",
+      "size": 64,
+      "sha256": "f531053b86dd4e7b8b5243b1965cf22b1f7bfdae1e87871a654d96f15ed8ce94",
+      "original_mtime_ns": 1794858944382253000
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_eye_half_s421_0.png",
+      "size": 712919,
+      "sha256": "9002b7ecf598b27be6806740cfe03908ab747a2441cc5966b331621522388b8f",
+      "original_mtime_ns": 1794858944361744600
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_stage_P.job.json",
+      "size": 63,
+      "sha256": "096be2ce1e3ae43f545420a3f9853ead6f0f931b3010745c1ebf80843fe7a45e",
+      "original_mtime_ns": 1794858648240982700
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_stage_P_0.png",
+      "size": 549963,
+      "sha256": "892e94823c8c02954dd3b86925bf9d19f48a90810e2c2817be57f682b9d25871",
+      "original_mtime_ns": 1794858648225982000
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/sam_180acf9c_0.png",
+      "size": 7705,
+      "sha256": "4b0d05cf73e59f621a827963af43b4cb479c8bd4d14c1701d78d9b823650a86c",
+      "original_mtime_ns": 1794858701971732200
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/sam_366211b0_0.png",
+      "size": 7697,
+      "sha256": "b52bbbc468388d0743732434b495c796147ca0a8fc5defbda11f41d451e0d4bb",
+      "original_mtime_ns": 1794858543815282200
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/sam_3ef14a85_0.png",
+      "size": 4720,
+      "sha256": "31804d18ef932c7b556abc098559a36200db66636397b4ea50da6d7fc5e47d17",
+      "original_mtime_ns": 1794858539552473800
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/sam_9ef0edbf_0.png",
+      "size": 5955,
+      "sha256": "9a448878804fd88b1b1ccff30c60021c7522ebfc37bb6773293e6ed8b62b9a50",
+      "original_mtime_ns": 1794858541677008400
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/sam_aaf03509_0.png",
+      "size": 5941,
+      "sha256": "9c06016ef8c36587dbdddf4970841df17e9bb29dc6d4b0dc2e3e853ee6ebb428",
+      "original_mtime_ns": 1794858699779621700
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/_gen/sam_d2a4dc87_0.png",
+      "size": 4324,
+      "sha256": "10a06d679600fcc3d95f6ad09f819b14f1a846a6af14dbbbfa77176f309fe8ce",
+      "original_mtime_ns": 1794858775480606500
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/base_grey.png",
+      "size": 243702,
+      "sha256": "53760d165a754818b8c7fc638d082bc16efdbc980e67b1d7710ef55657479f1f",
+      "original_mtime_ns": 1794858826871944100
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/base_rgba.png",
+      "size": 570670,
+      "sha256": "4cbdd4ff46e1ee28cabbfce08655e4052ff1cf7ef77dd72314eab6d20f855e59",
+      "original_mtime_ns": 1794858374351774500
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/continuous_normals.py",
+      "size": 3549,
+      "sha256": "6627122c35791b5dedf7057ef69b1657342b8d57d3a24093e9c5e1f1b833a726",
+      "original_mtime_ns": 1794860289760697700
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/eyes/closed.png",
+      "size": 448856,
+      "sha256": "da8d776ccc504d64a5cb2e0a01c081cb366698d32b53e07ef54f5c666a89cb41",
+      "original_mtime_ns": 1794863972087575000
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/eyes/half.png",
+      "size": 449201,
+      "sha256": "c884ce3754ff1b41f748c772c5271c9649b497b74528512d6a4c6a8f3643bdba",
+      "original_mtime_ns": 1794863972020231500
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/eyes/raw/.gdignore",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_mtime_ns": 1794863971908999500
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/eyes/raw/harbor_lamplighter_demo_eye_closed_s422.job.json",
+      "size": 64,
+      "sha256": "f6e597c293f3f228b5778d4c3579f5b8b75632a7c37c8953ca7b2e991ebfaa0e",
+      "original_mtime_ns": 1794862719627524200
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/eyes/raw/harbor_lamplighter_demo_eye_closed_s422_0.png",
+      "size": 855032,
+      "sha256": "2bdd0c82408873adc93ba4f6668b54801306d6db9974e14ca101ecf53f9fc0af",
+      "original_mtime_ns": 1794862719605227200
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/eyes/raw/harbor_lamplighter_demo_eye_half_s421.job.json",
+      "size": 64,
+      "sha256": "f531053b86dd4e7b8b5243b1965cf22b1f7bfdae1e87871a654d96f15ed8ce94",
+      "original_mtime_ns": 1794862616542218700
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/eyes/raw/harbor_lamplighter_demo_eye_half_s421_0.png",
+      "size": 712919,
+      "sha256": "9002b7ecf598b27be6806740cfe03908ab747a2441cc5966b331621522388b8f",
+      "original_mtime_ns": 1794862616521998200
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/eyes/raw/head_reference.png",
+      "size": 71455,
+      "sha256": "0a1e21835c81003c5ded48e22819d5417049d36810fdd2b58eed169318cb002a",
+      "original_mtime_ns": 1794863971915506200
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/eyes/review.png",
+      "size": 36319,
+      "sha256": "8a4cecf3f557dd49a8542520ff17e048533c3d84b723bf30ecac374ef9557974",
+      "original_mtime_ns": 1794863972107113300
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/keypoints.json",
+      "size": 2988,
+      "sha256": "76c22575466f3a47acafc2c72f33859c3be787cfe327669493b43e2148bb7630",
+      "original_mtime_ns": 1794858459206324900
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/manifest.json",
+      "size": 8164,
+      "sha256": "f652b530a5cd197d18d8d983c78fb54cef48c6783308dd6da4e8d13becdec238",
+      "original_mtime_ns": 1794864434499575800
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/map_joint_holes.py",
+      "size": 4120,
+      "sha256": "354b1b20f9663bc72ec915890dd13647ae0a381f60f7b4f714303ffbe7600619",
+      "original_mtime_ns": 1794864934684193700
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/motion-candidate.json",
+      "size": 2931,
+      "sha256": "de65c9400843a8b688d59673dab13cc83f8cdb5deef5a0ea6c2391ca6e010f3b",
+      "original_mtime_ns": 1794861217776039300
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/reassembly_allow.json",
+      "size": 395,
+      "sha256": "a1a6ca759cd5ff278d93732831943f791a596b071d15f573a7066106848a3720",
+      "original_mtime_ns": 1794858878972488800
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/review_source.py",
+      "size": 1220,
+      "sha256": "68a9a169f17136d2a5209219c31cb70df0173fa2cb6f9294bc4a464880046bb7",
+      "original_mtime_ns": 1794858170117232100
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/sam/.gdignore",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_mtime_ns": 1794858826871944100
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/sam/.text_mask_cache.json",
+      "size": 166,
+      "sha256": "85adff9226876d94413fad36fbd7ff1e1dc3c694bb5af89965c5adc0b3cbe6d7",
+      "original_mtime_ns": 1794858539556473300
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/sam/head.png",
+      "size": 4720,
+      "sha256": "31804d18ef932c7b556abc098559a36200db66636397b4ea50da6d7fc5e47d17",
+      "original_mtime_ns": 1794858539553473700
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/sam/points_arm.json",
+      "size": 192,
+      "sha256": "991461cd89295764f27ebe461bea39fa63d09ab0632bfc75b6b10d03e7c4608b",
+      "original_mtime_ns": 1794858699783622600
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/sam/points_arm.png",
+      "size": 5941,
+      "sha256": "9c06016ef8c36587dbdddf4970841df17e9bb29dc6d4b0dc2e3e853ee6ebb428",
+      "original_mtime_ns": 1794858699782622300
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/sam/points_leg_far.json",
+      "size": 194,
+      "sha256": "ddd457ba56fd20b49e9a7ab088099d6c374447f8a968623f7e6d615ceab98cb6",
+      "original_mtime_ns": 1794858775484606900
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/sam/points_leg_far.png",
+      "size": 4324,
+      "sha256": "10a06d679600fcc3d95f6ad09f819b14f1a846a6af14dbbbfa77176f309fe8ce",
+      "original_mtime_ns": 1794858775484606900
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/shared_service.py",
+      "size": 1643,
+      "sha256": "c56566ca1bac0b74528af1e9d920cb684e8810dd835e35009633c6d9abb9bc05",
+      "original_mtime_ns": 1794862976193410600
+    },
+    {
+      "path": "tools/comfyui/recipes/harbor_lamplighter_demo.json",
+      "size": 2681,
+      "sha256": "9cbf1e49722563da1daf1608299d6828795779709343fae56761951f76c0e103",
+      "original_mtime_ns": 1794860290170173400
+    },
+    {
+      "path": "tools/comfyui/specs/harbor_lamplighter_demo_side.json",
+      "size": 18485,
+      "sha256": "1a51467f574ad3a4adff417c9afe044aaff92ac80225f59d75ded229c02067ff",
+      "original_mtime_ns": 1794864411808197100
+    },
+    {
+      "path": "tools/fixtures/harbor_lamplighter_demo/map.json",
+      "size": 1570,
+      "sha256": "365ad062a267103ce398d97bbbab7828e22daff6386c58f81204152473581ae6",
+      "original_mtime_ns": 1794863831263218700
+    },
+    {
+      "path": "tools/fixtures/harbor_lamplighter_demo/preview_npc.tres",
+      "size": 635,
+      "sha256": "f2717e9036d311dd59438205230c75b728373785136fd2bac832c3e76753b3d7",
+      "original_mtime_ns": 1794863740991566300
+    },
+    {
+      "path": "tools/harbor_lamplighter_demo_gameplay.gd",
+      "size": 7762,
+      "sha256": "50e03a92a9c80ee59073aeb75809dd2b489a9449c74b1b9185cf2d9c94900c8d",
+      "original_mtime_ns": 1794864313611923400
+    },
+    {
+      "path": "tools/harbor_lamplighter_demo_gameplay.gd.uid",
+      "size": 20,
+      "sha256": "ea767f2608db55c2f693d202f89e026849c3a8cc47c732d674102330b08f2163",
+      "original_mtime_ns": 1794863493070057100
+    },
+    {
+      "path": "tools/harbor_lamplighter_demo_gameplay.tscn",
+      "size": 221,
+      "sha256": "7a5f6744148c3c3194657f84ac900094974d623f3f0ea1e1320fbce28bfe725a",
+      "original_mtime_ns": 1794863444933127400
+    },
+    {
+      "path": "tools/harbor_lamplighter_demo_probe.gd",
+      "size": 6259,
+      "sha256": "b1e7c0700c17ef283994a2a5dbf69b3beeb22986d13df2364c73b54047443e12",
+      "original_mtime_ns": 1794863781695203700
+    },
+    {
+      "path": "tools/harbor_lamplighter_demo_probe.gd.uid",
+      "size": 20,
+      "sha256": "dcb2e4c66b2cf203a13ed6b78c763a6ce14bb0e7fafe3b938a7c51110c7761f9",
+      "original_mtime_ns": 1794860211290835500
+    },
+    {
+      "path": "tools/harbor_lamplighter_demo_probe.tscn",
+      "size": 201,
+      "sha256": "44adce5828d2b574777943c4614b46d0f946f168be97f250a95174232505b177",
+      "original_mtime_ns": 1794860047722921800
+    },
+    {
+      "path": "tools/harbor_lamplighter_demo_snapshot_audit.gd",
+      "size": 2168,
+      "sha256": "4a2071e5b60e6e71dfe6516161893bcf4ed68e7f4d8966329f43ade73aafb302",
+      "original_mtime_ns": 1794861841504059000
+    },
+    {
+      "path": "tools/harbor_lamplighter_demo_snapshot_audit.gd.uid",
+      "size": 20,
+      "sha256": "c23ab5816fdedeec142e00795d2bfbe137c68deb8c9a1a0e5cb423cb9df2bfc0",
+      "original_mtime_ns": 1794862789712822700
+    },
+    {
+      "path": "tools/harbor_lamplighter_demo_snapshot_audit.tscn",
+      "size": 216,
+      "sha256": "42159c2c089be3d4969004e83d1dffb4289f1ec74b59c4b5adeac705fc96c4eb",
+      "original_mtime_ns": 1794861841505099000
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+# 06_parts 是從 sam／04_stages／05_groups 用 CPU 重建的中間層（build_character.py --from parts，不需要 GPU），不進版控。
+/06_parts/
+# Rendered per-frame audit PNGs remain locally as raw evidence; reports, frame manifests
+# and representative failure crops are versioned and can reproduce the audit.
+evidence/joints-*/*.png
+evidence/**/*_[0-9][0-9][0-9].png

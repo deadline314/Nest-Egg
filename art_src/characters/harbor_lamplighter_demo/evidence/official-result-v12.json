@@ -1,0 +1,45 @@
+{
+  "baseline": "3713db51062b14ed33ab61488559109fc41e2bfd",
+  "worktree": "D:\\NestEggVerification\\role-20261117",
+  "runner": "tools/run_tests_changed.sh",
+  "SHARDS": 2,
+  "groups": 88,
+  "checks": 100552,
+  "new_failures": 0,
+  "known_failures": 0,
+  "runner_exit": 0,
+  "session_70608_exit": 0,
+  "wall_seconds_shared_load_not_performance": 1539,
+  "source_guard": {
+    "changed_source": {},
+    "checked_files": 13700,
+    "frozen_123_match": true
+  },
+  "tracked_diff_empty": true,
+  "untracked_exact_frozen_123": true,
+  "shards": [
+    {
+      "file": "shard_0.log",
+      "checks": 27972,
+      "failures": 0,
+      "suite_count": 47,
+      "fail_lines": 0,
+      "script_errors": 0,
+      "warning_lines": 487,
+      "error_lines": 189,
+      "sha256": "db80ec620c9813a76c63e24c6b52c7ba49d8f8636a42409133a31e18047c9fcb"
+    },
+    {
+      "file": "shard_1.log",
+      "checks": 72580,
+      "failures": 0,
+      "suite_count": 41,
+      "fail_lines": 0,
+      "script_errors": 0,
+      "warning_lines": 262,
+      "error_lines": 87,
+      "sha256": "dfc6de8611f960e9b855735eb6a4944286b8943c168fe4c88e8f04dd4ea85df7"
+    }
+  ],
+  "diagnostic_note": "Original accepted runner exit0 is preserved. WARNING/ERROR cleanup and negative-test diagnostics in raw logs are not relabelled as zero diagnostics. No FAIL or SCRIPT ERROR lines."
+}

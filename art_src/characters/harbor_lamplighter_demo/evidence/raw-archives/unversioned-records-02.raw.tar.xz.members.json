@@ -1,0 +1,611 @@
+{
+  "archive": "unversioned-records-02.raw.tar.xz",
+  "members": [
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/raw-input-inventory-before-pack.json",
+      "size": 11519965,
+      "sha256": "c12089861608e54fe7ac2e73cea520180ce3a3636e7ecd314a1d449be9ba8e3c",
+      "original_mtime_ns": 1794868692859236100
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/raw-xz-sample-results.json",
+      "size": 790,
+      "sha256": "0c546eece4ab4803ba70896dcdb07d97a13e28c6393c0988d0302efbb30aa487",
+      "original_mtime_ns": 1794868748331217000
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-farfoot.log",
+      "size": 1466,
+      "sha256": "e62bc5f39b116a9ce9ad8e9e2ab52fbbb27872b370cd5f06574dcb94004707f1",
+      "original_mtime_ns": 1794858792503683300
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-farfoot/.gdignore",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_mtime_ns": 1794858792404342700
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-farfoot/holes.png",
+      "size": 149541,
+      "sha256": "c4cc2d7b15cdf8f1a85d979acae910f7d0dd3d39950551a23d8bc3f1f8cbc698",
+      "original_mtime_ns": 1794858792484035800
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-farfoot/reassembled.png",
+      "size": 256369,
+      "sha256": "29c71e47352d6fccc89ea50151c6015878e5e3ba619a60e2109dae66d72dd602",
+      "original_mtime_ns": 1794858792440729800
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-final.log",
+      "size": 202,
+      "sha256": "7e9c5de16ef1dccbfdc09ca4bcabf4f7439e284b65bae5fe7ddc45dc557c6095",
+      "original_mtime_ns": 1794858924025003900
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-final/.gdignore",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_mtime_ns": 1794858923930912500
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-final/holes.png",
+      "size": 145530,
+      "sha256": "14b9bce921a875a1c54137ca100fc001c203cbef848f1eadb7c1e5d17423b304",
+      "original_mtime_ns": 1794858924013492900
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-final/reassembled.png",
+      "size": 252969,
+      "sha256": "23b4132b452329c9f01bf2ed5cd98b6e7818171571d4891288e56af91f983b47",
+      "original_mtime_ns": 1794858923968441700
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-magenta.log",
+      "size": 1390,
+      "sha256": "c49ac3dee67b9691986a77674282028cfb7a0f743af031f35c91d9842cbd3fd4",
+      "original_mtime_ns": 1794859251651535500
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-magenta/.gdignore",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_mtime_ns": 1794859251555826200
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-magenta/holes.png",
+      "size": 145778,
+      "sha256": "0dfa5e222fed4a36ddded4efcdaa3b4053bff24d0525dca130b7c86d8e356463",
+      "original_mtime_ns": 1794859251642533700
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-magenta/reassembled.png",
+      "size": 250261,
+      "sha256": "f5063bda23dc61869fb4b9c7513fc73cadfedbf744052f7d5d735f1865a69a5f",
+      "original_mtime_ns": 1794859251595512600
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-reviewed.log",
+      "size": 1390,
+      "sha256": "fb0d9f07e199367748b6e6c969140a7327ce2f860869ab6fd071e9739e879ba3",
+      "original_mtime_ns": 1794858880222954400
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-reviewed/.gdignore",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_mtime_ns": 1794858880109119100
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-reviewed/holes.png",
+      "size": 145775,
+      "sha256": "ca201fed9f589e48d2ccf5a610bddf4bcf86aeee994388d1cff93383a18988e5",
+      "original_mtime_ns": 1794858880204444800
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-reviewed/reassembled.png",
+      "size": 250224,
+      "sha256": "6af39b5a1047f0325ed10c9bd914b56034eb078c5f43e3b7ae25de2e6b21a087",
+      "original_mtime_ns": 1794858880152136800
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-shinline.log",
+      "size": 1380,
+      "sha256": "aff9dad209d70d546f892ed26c21e958a6c77cbf5b98fcbf9c5411230c6657e0",
+      "original_mtime_ns": 1794858868544645100
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-shinline/.gdignore",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_mtime_ns": 1794858868368485200
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-shinline/holes.png",
+      "size": 145775,
+      "sha256": "ca201fed9f589e48d2ccf5a610bddf4bcf86aeee994388d1cff93383a18988e5",
+      "original_mtime_ns": 1794858868483125800
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-shinline/reassembled.png",
+      "size": 250224,
+      "sha256": "6af39b5a1047f0325ed10c9bd914b56034eb078c5f43e3b7ae25de2e6b21a087",
+      "original_mtime_ns": 1794858868430507300
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-unsmoothed.log",
+      "size": 370,
+      "sha256": "314d2508ca001744517cb25721b0046d5f790f20a9b7eedc5360b59920babc67",
+      "original_mtime_ns": 1794858909067755400
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-unsmoothed/.gdignore",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_mtime_ns": 1794858908969051200
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-unsmoothed/holes.png",
+      "size": 145563,
+      "sha256": "28c4857fcb82a2402ad04ae162eedb5b627241f2c9b800b495b7242eab7966aa",
+      "original_mtime_ns": 1794858909056749900
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly-unsmoothed/reassembled.png",
+      "size": 252941,
+      "sha256": "1b7f48d408fde11b1562e1f59e9965308773580411085143dde1e16510eccd9d",
+      "original_mtime_ns": 1794858909007568600
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly.log",
+      "size": 1380,
+      "sha256": "b758c8fdb50ef213d524ff15c9144b33e9394b3f4608580c6b453d066383d1ad",
+      "original_mtime_ns": 1794858727627289100
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly/.gdignore",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_mtime_ns": 1794858727523513700
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly/holes.png",
+      "size": 139187,
+      "sha256": "278fec7c579dfd0cf9909f3cc73c8420497c506fc24c0ccc18f45c9ccef59115",
+      "original_mtime_ns": 1794858727605122900
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/reassembly/reassembled.png",
+      "size": 239776,
+      "sha256": "8e66c4f47948d9ea1ef8bded785dd046b9a20e37f13893ec96f8999c7846fa76",
+      "original_mtime_ns": 1794858727559605700
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/refine-farfoot.log",
+      "size": 281,
+      "sha256": "044c80d176c1c2e8cb6bebfb03008762c99b0ff98c9af006c79d932c6bd9f971",
+      "original_mtime_ns": 1794858781533162100
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/refine-magenta.log",
+      "size": 220,
+      "sha256": "2b6befe1365caa8d48fd3d4a53c13b7470bfd84abcab2f06ae7fb80edbf62088",
+      "original_mtime_ns": 1794859250741228200
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/refine-shinline.log",
+      "size": 220,
+      "sha256": "2b6befe1365caa8d48fd3d4a53c13b7470bfd84abcab2f06ae7fb80edbf62088",
+      "original_mtime_ns": 1794858831102279000
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/refine.log",
+      "size": 220,
+      "sha256": "2b6befe1365caa8d48fd3d4a53c13b7470bfd84abcab2f06ae7fb80edbf62088",
+      "original_mtime_ns": 1794858707992608600
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/retired-local-repair/restore_torso.py",
+      "size": 2055,
+      "sha256": "8d564a415b57d5ea7b876c972ff940d85d5875e5f2a3bdc165a17315d912f879",
+      "original_mtime_ns": 1794859339921302300
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/retired-local-repair/torso.png",
+      "size": 416034,
+      "sha256": "888bf4e9d02b1ea37ac9c8467f0a448147a647c4a73e69e662856070333c880e",
+      "original_mtime_ns": 1794859421187152300
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/rocm-planonly.json",
+      "size": 486,
+      "sha256": "f8bc587b4b052262d097d4c813f3f75cb8cdd561880e9b0e7b6a604b89843dc8",
+      "original_mtime_ns": 1794858139948856600
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/runtime-exercise.json",
+      "size": 257,
+      "sha256": "5e932a5e98cc8a8d8ca47de5cfad32d89db3fd1d91d688b163d9e75ebe6c1155",
+      "original_mtime_ns": 1794858247609699900
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/shared-system-stats.json",
+      "size": 1542,
+      "sha256": "3a5f3f71e82b15e08c1fe37d520ad6abf680e29b0c11e713382ad9dbe2810e6c",
+      "original_mtime_ns": 1794858137483766400
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/source-alpha.json",
+      "size": 2675,
+      "sha256": "8e3cc133e121522b110b76d8fa79e310b4fbc73d6b28f96bbb85b621a00d4245",
+      "original_mtime_ns": 1794858305916471900
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/source-black.png",
+      "size": 333693,
+      "sha256": "63fa257488782a744193030ba71aed75276bd120b62447dfe96cedfa95d83a1a",
+      "original_mtime_ns": 1794858305957774800
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/source-grey.png",
+      "size": 243702,
+      "sha256": "53760d165a754818b8c7fc638d082bc16efdbc980e67b1d7710ef55657479f1f",
+      "original_mtime_ns": 1794858305987750400
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/source-review.json",
+      "size": 590,
+      "sha256": "fafa2a7a268442ee127545c81deb36089365adea990d42adf28995214a47916d",
+      "original_mtime_ns": 1794858374648130800
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/source-white.png",
+      "size": 337158,
+      "sha256": "d2e23f0b7b47aad75ac76ad19d18ea3bc1d369e0d40788231475646d458de170",
+      "original_mtime_ns": 1794858306031503000
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/spec-farfoot.log",
+      "size": 186,
+      "sha256": "d7208499dc0251386077b65aee7ed7bce6257771a39f6b1f728a85010fe79eb7",
+      "original_mtime_ns": 1794858772337204200
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/spec-first.log",
+      "size": 757,
+      "sha256": "63b34dd98094d37fc14add96e6078484fc41246a77ba0a92b472ed506eedd251",
+      "original_mtime_ns": 1794858461867675000
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/spec-second.log",
+      "size": 186,
+      "sha256": "d7208499dc0251386077b65aee7ed7bce6257771a39f6b1f728a85010fe79eb7",
+      "original_mtime_ns": 1794858696424678700
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/style-comparison.png",
+      "size": 870560,
+      "sha256": "116dd7d55d5e38ae0c994bafbf4a6f5fd6cf2cac85db7359db6f8d05cf6048c5",
+      "original_mtime_ns": 1794858374647131200
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/textures.log",
+      "size": 157,
+      "sha256": "aad3eb38706306c5bd3e3f7bdbd7273e8f9561722832dafe0be25f3885093f09",
+      "original_mtime_ns": 1794859070480682300
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/tool-regression/continuous_normals-three-limb.py",
+      "size": 3549,
+      "sha256": "6627122c35791b5dedf7057ef69b1657342b8d57d3a24093e9c5e1f1b833a726",
+      "original_mtime_ns": 1794860289760697700
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/tool-regression/limb-zone-green.log",
+      "size": 106,
+      "sha256": "3deda57e3233c2ba037029a1a8c53768a15d5226ad0f5475eb043bb14db90382",
+      "original_mtime_ns": 1794861608154260200
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/tool-regression/normal-rebuilds-green.log",
+      "size": 108,
+      "sha256": "eb9d8f2b34e014400cd2667aab56cfd935a5b9e9e19c6a7f3354fcdf280879cd",
+      "original_mtime_ns": 1794861607221336700
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/torso-back-diagnostic.png",
+      "size": 57274,
+      "sha256": "3dfd67485222a0fbd2cebd73d2dbdb23d4d2d48b6cee5a2006fac7cbf865dc9d",
+      "original_mtime_ns": 1794859214263549600
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/torso-source-repair.json",
+      "size": 1563,
+      "sha256": "9082a3b3cc971f08d2bd5c6ee433e68071acfbd3d93752e6ccafc48e127cad63",
+      "original_mtime_ns": 1794859421195291800
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/verifier-selfchecks/positive.log",
+      "size": 111,
+      "sha256": "8e8e0ec36728754386b7b14bc899d0971a51db1f6cd725f877963a0014a656c3",
+      "original_mtime_ns": 1794867215526782800
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/verifier-selfchecks/positive/control.members.json",
+      "size": 331,
+      "sha256": "02603bf448c5769a245c3ae9de425d3176ee3e3d1fdbaba2ab7a6d2fa31e4fed",
+      "original_mtime_ns": 1794867215379727600
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/verifier-selfchecks/positive/control.raw.tar.xz",
+      "size": 236,
+      "sha256": "0409db5be22277851b9d406b34da3caa4f22dda82299abcf638d0eb9e088fd21",
+      "original_mtime_ns": 1794867215378723600
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/verifier-selfchecks/positive/index.json",
+      "size": 404,
+      "sha256": "620d38075d15c8bd05913b252624b352e3527b21ba7b14643a6d6cffffa8a8e4",
+      "original_mtime_ns": 1794867215388732800
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/verifier-selfchecks/result.json",
+      "size": 425,
+      "sha256": "9ec1b47be1412a1f5f1f97773ef4c076d092f56ea8ab4dd7954dd83658322b4d",
+      "original_mtime_ns": 1794867215642492800
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/verifier-selfchecks/wrong-member-hash.log",
+      "size": 593,
+      "sha256": "b7b9544602418a462947d5405beb1c32729a473ab29b594184da4079c1ed5e16",
+      "original_mtime_ns": 1794867215641492500
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/verifier-selfchecks/wrong-member-hash/control.members.json",
+      "size": 331,
+      "sha256": "60a937e022c5c47280f1c5df97e641c29319224e47cd59f19224fc0cbf86150d",
+      "original_mtime_ns": 1794867215392736000
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/verifier-selfchecks/wrong-member-hash/control.raw.tar.xz",
+      "size": 236,
+      "sha256": "0409db5be22277851b9d406b34da3caa4f22dda82299abcf638d0eb9e088fd21",
+      "original_mtime_ns": 1794867215378723600
+    },
+    {
+      "path": "art_src/characters/harbor_lamplighter_demo/evidence/verifier-selfchecks/wrong-member-hash/index.json",
+      "size": 404,
+      "sha256": "7c8ccced412445708b90b24d9d3d6396f70fe82947ea2d5c5441df0401458fbd",
+      "original_mtime_ns": 1794867215399733200
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/actions-left.log",
+      "size": 246,
+      "sha256": "87b411b1825cc5f7ef25de5a9b93dce3be044eab2f5a9beadc0418000d0a1057",
+      "original_mtime_ns": 1794859196177940600
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/actions-left.png",
+      "size": 411966,
+      "sha256": "96b1e35f29594196b4d433a0c35146616e24a42de90696f87abddbe45ba859c1",
+      "original_mtime_ns": 1794859195992867100
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/actions-right.log",
+      "size": 247,
+      "sha256": "2cf0412e8c3b2fe0bb6b549b5425d6fa11997470e3d7ce38ce89bfe56127dfc0",
+      "original_mtime_ns": 1794859189803585000
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/actions-right.png",
+      "size": 413805,
+      "sha256": "e58cbb9b2698701c46f633d1f6a9f22e9b297490e339d9dea29fb93da055bf7e",
+      "original_mtime_ns": 1794859189623248700
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/knee-continuous-mesh-normal-off.png",
+      "size": 241972,
+      "sha256": "af057fcb68e7154deca0cf01b49d031eac7cdee669df74c7888b2c2474920e7f",
+      "original_mtime_ns": 1794860321823822100
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/knee-continuous-mesh-normal-on.png",
+      "size": 243090,
+      "sha256": "d55084bdc1aa2d8c328cfeaef0b5600e1fae32f0f3c67d4884af8591fe60927f",
+      "original_mtime_ns": 1794860321569359600
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/knee-continuous-rigid-normal-off.png",
+      "size": 243738,
+      "sha256": "0b82c0ca26fb1e225818d38bebbe1da0a25528067722f9debafee406a9a9b610",
+      "original_mtime_ns": 1794860321315241600
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/knee-continuous-rigid-normal-on.png",
+      "size": 244573,
+      "sha256": "9fae6e27867f98716ca41a3201c29ef1e6ee2a0e7e8c15a935b82958816cffdb",
+      "original_mtime_ns": 1794860321063460700
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/knee-continuous.json",
+      "size": 6792,
+      "sha256": "9b4f9f2f38cf23a778eb70656f2f79d618462166fe4cf194a5209f78d5b94ff0",
+      "original_mtime_ns": 1794860321824826300
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/knee-stand-mesh-normal-off.png",
+      "size": 241972,
+      "sha256": "af057fcb68e7154deca0cf01b49d031eac7cdee669df74c7888b2c2474920e7f",
+      "original_mtime_ns": 1794860101289020100
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/knee-stand-mesh-normal-on.png",
+      "size": 242725,
+      "sha256": "ad80e6245134a96e0b272ee8af46468e2d053374946a08ee1a24a21f848e08c9",
+      "original_mtime_ns": 1794860101032779000
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/knee-stand-rigid-normal-off.png",
+      "size": 243738,
+      "sha256": "0b82c0ca26fb1e225818d38bebbe1da0a25528067722f9debafee406a9a9b610",
+      "original_mtime_ns": 1794860100778061700
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/knee-stand-rigid-normal-on.png",
+      "size": 244247,
+      "sha256": "ca3a933dc6268b8a65c02d18dd9c32a761846fb53d4857bf12b82b8e0f07702f",
+      "original_mtime_ns": 1794860100526224400
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/knee-stand.json",
+      "size": 6772,
+      "sha256": "668f9b520caecf382315bb8a69d4143fbd68ba7e47bc9e61a1ea292190c3ca7e",
+      "original_mtime_ns": 1794860101289020100
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/knee-zone-0.2.png",
+      "size": 249602,
+      "sha256": "9d8af6845a8867c3c0ba0057e81193b04ddf98c3cd6364679a4cf2cc71eab147",
+      "original_mtime_ns": 1794860851919779300
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/knee-zone-0.4.png",
+      "size": 249858,
+      "sha256": "6336b2c75fe97d4f86e1776f85da074d20b5c42281355a4ee614a8ddfd89dae3",
+      "original_mtime_ns": 1794860866340471300
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/knee-zone-0.5.png",
+      "size": 250018,
+      "sha256": "184115b72807fc27fbbf46f990a71580230bce4fb1139a50c6b548341c4adc84",
+      "original_mtime_ns": 1794860880861867300
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/wave-frame26-mesh-normal-off.png",
+      "size": 253056,
+      "sha256": "81a1524953495ba7f41408d38753a9a619eccd5e6ff1ed505477e35ae3ae8bc0",
+      "original_mtime_ns": 1794861405050816100
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/wave-frame26-mesh-normal-on.png",
+      "size": 253924,
+      "sha256": "39b9dfb3e9097b93deb8d0755be09022d5d4cd1bb47452d9c9fb205c16265ac6",
+      "original_mtime_ns": 1794861404797923800
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/wave-frame26-rigid-normal-off.png",
+      "size": 254432,
+      "sha256": "f933abb147c93eabebaa7a12aaa626139546a81cd1b07b4cd83fbdf0157c3296",
+      "original_mtime_ns": 1794861404548484300
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/wave-frame26-rigid-normal-on.png",
+      "size": 255671,
+      "sha256": "77c0947f22d5f0c7e020a5da712b51937f35bcc534ee996ec6d5aaf673041e57",
+      "original_mtime_ns": 1794861404301367400
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/wave-frame26.json",
+      "size": 6793,
+      "sha256": "f5b6ce91586468a5b99fcec0cccc62506a5eb6fe2e2eddf907690f41d63dca8d",
+      "original_mtime_ns": 1794861405051819900
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/gait-left.log",
+      "size": 243,
+      "sha256": "d6038d2dcf60e201e5b629b02af951a239e9b6b97fb2a84174bc59fa1b6a5d77",
+      "original_mtime_ns": 1794859222112400100
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/gait-left.png",
+      "size": 394147,
+      "sha256": "c68ad7af2ba269dbbc568e163187751de715415ca7589d38b95b35579c7d5d91",
+      "original_mtime_ns": 1794859221930054400
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/gait-right.log",
+      "size": 244,
+      "sha256": "3832032f7163aa0a1967d8a725e2dd5a370d045ec7387cdc5d22100537a67959",
+      "original_mtime_ns": 1794859215508363900
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/gait-right.png",
+      "size": 394910,
+      "sha256": "8d66d5b86e02d83a95475d7a86070aabdc5b3465ce8b4850dc8dc2a595f48d36",
+      "original_mtime_ns": 1794859215310690500
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/npc-page0-left.log",
+      "size": 248,
+      "sha256": "506dd81da8ef8520a3cc3a70a01432161f3b77aba818fac40f35179b399d070d",
+      "original_mtime_ns": 1794859177177531100
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/npc-page0-left.png",
+      "size": 251490,
+      "sha256": "1941b8a91aa6819f66e2b99e1e4ebc3308f59f0f493ba1443f5a58da18c1c18a",
+      "original_mtime_ns": 1794859176978829800
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/npc-page0-right.log",
+      "size": 249,
+      "sha256": "299eb03d25938c20b355cc21d1edce491e94c46e85dfb489ca94cb6f828fdc0a",
+      "original_mtime_ns": 1794859164030110900
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/npc-page0-right.png",
+      "size": 251337,
+      "sha256": "7e17cf5525b49a89a11e0a88692d42edb508f7960114e9bcb7255bf5e4ad9d11",
+      "original_mtime_ns": 1794859163808856300
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/npc-page1-left.log",
+      "size": 248,
+      "sha256": "2e68ed9df6c7969596dbe1d8aa19e73cd80f5f1ae5f454ef561adb27bc12fc6e",
+      "original_mtime_ns": 1794859183483435000
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/npc-page1-left.png",
+      "size": 254833,
+      "sha256": "df5e4b1676328ce5e6a08cccce519d2ac47ac0a4a151c2f886ea764ccb2fda93",
+      "original_mtime_ns": 1794859183299532100
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/npc-page1-right.log",
+      "size": 249,
+      "sha256": "c6a8ba6b60526d67a5e47915d39b60d5f8054dc0502f5b90c2cc9c4a6a8e2ceb",
+      "original_mtime_ns": 1794859170636350000
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/npc-page1-right.png",
+      "size": 255273,
+      "sha256": "eec34a39b2bab37f0d5c5ee9f0495db5c7c652463280f8c4bc6be06bd0cf4b79",
+      "original_mtime_ns": 1794859170452464900
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/stand-combat.log",
+      "size": 246,
+      "sha256": "fba7e22b9a1c29ec27a7266874883fa6541fdd205910c1cb5c4fd88e0d7c8b7e",
+      "original_mtime_ns": 1794859208850973900
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/stand-combat.png",
+      "size": 170700,
+      "sha256": "8168491133568deeb6f21859cf5a64a6f96e9276b7cda2bbab8d3011de479822",
+      "original_mtime_ns": 1794859208668362800
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/stand-npc.log",
+      "size": 243,
+      "sha256": "caa8cec9b89b6e085ac01bb9705c47536b549847cbb078155e3c2b2ebfcffcfd",
+      "original_mtime_ns": 1794859202489769300
+    },
+    {
+      "path": "pm/Nest-Egg/images/NE-255-fresh-character/stand-npc.png",
+      "size": 158512,
+      "sha256": "18cfce9798510ab213a35b7a82883c6c01dbbd002f2b893308659ffd55463001",
+      "original_mtime_ns": 1794859202311303500
+    }
+  ]
+}

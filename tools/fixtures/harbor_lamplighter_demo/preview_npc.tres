@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="NpcData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/scripts/npc_data.gd" id="1"]
+[ext_resource type="Script" path="res://data/scripts/npc_talk.gd" id="2"]
+
+[sub_resource type="Resource" id="Talk"]
+script = ExtResource("2")
+scene = &"harbor_lamplighter_demo_preview_talk"
+
+[resource]
+script = ExtResource("1")
+id = &"harbor_lamplighter_demo_preview"
+display_name = "修燈工"
+prompt = "{interact} 說話"
+speaker = "harbor_lamplighter_demo_preview"
+rig_id = "harbor_lamplighter_demo"
+pose = &"idle"
+facing = -1
+talks = Array[ExtResource("2")]([SubResource("Talk")])

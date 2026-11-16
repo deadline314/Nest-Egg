@@ -1,0 +1,79 @@
+{
+  "worn": {
+    "samples": 120960,
+    "failed_samples": 358,
+    "enclosed_samples": 188,
+    "cases": {
+      "combat": {
+        "samples": 53760,
+        "failed_samples": 8,
+        "edge_notch_only_samples": 8
+      },
+      "npc": {
+        "samples": 33600,
+        "failed_samples": 342,
+        "edge_notch_only_samples": 154
+      },
+      "transitions": {
+        "samples": 13440,
+        "failed_samples": 2,
+        "edge_notch_only_samples": 2
+      },
+      "lean": {
+        "samples": 6720,
+        "failed_samples": 0,
+        "edge_notch_only_samples": 0
+      },
+      "crouch": {
+        "samples": 6720,
+        "failed_samples": 0,
+        "edge_notch_only_samples": 0
+      },
+      "hammer": {
+        "samples": 6720,
+        "failed_samples": 6,
+        "edge_notch_only_samples": 6
+      }
+    }
+  },
+  "pair": {
+    "samples": 120960,
+    "failed_samples": 358,
+    "enclosed_samples": 188,
+    "cases": {
+      "combat": {
+        "samples": 53760,
+        "failed_samples": 8,
+        "edge_notch_only_samples": 8
+      },
+      "npc": {
+        "samples": 33600,
+        "failed_samples": 342,
+        "edge_notch_only_samples": 154
+      },
+      "transitions": {
+        "samples": 13440,
+        "failed_samples": 2,
+        "edge_notch_only_samples": 2
+      },
+      "lean": {
+        "samples": 6720,
+        "failed_samples": 0,
+        "edge_notch_only_samples": 0
+      },
+      "crouch": {
+        "samples": 6720,
+        "failed_samples": 0,
+        "edge_notch_only_samples": 0
+      },
+      "hammer": {
+        "samples": 6720,
+        "failed_samples": 6,
+        "edge_notch_only_samples": 6
+      }
+    }
+  },
+  "runtime_tool_hash_changes": {},
+  "production_123_unchanged": true,
+  "automatic_joint_acceptance": false
+}

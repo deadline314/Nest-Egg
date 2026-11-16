@@ -14,7 +14,7 @@ description: 從零做一個新角色或新外觀並放進 Nest Egg 的完整流
 
 環境（2026-11-11）：本機顯卡為 Radeon RX 9070 XT；`COMFYUI_DIR=D:/ComfyUI`，新環境指定 `COMFYUI_PYTHON=D:/ComfyUI/.venv-rocm/Scripts/python.exe`（Python 3.13.15／PyTorch 2.13.0+rocm10.0.0，ROCm 使用 `torch.cuda` 裝置命名空間）。舊 `.venv` CUDA 環境保留。PowerShell 先設 `$env:PYTHONUTF8='1'`；Godot 用 `C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe`。先用指定直譯器跑 `tools/comfyui/runtime_probe.py --exercise`，再以 `start_comfyui.ps1 -PlanOnly -Port <埠>` 核對實際後端與路徑；預覽不啟停服務，不能和 `-Stop`／`-Restart` 合用。客戶端 `COMFY_HOST` 要指向同一埠，重試才會沿用同一服務。非預設埠的資料與 log 自動隔離，避免共用資料庫鎖。
 
-生成一次一張；生成客戶端與原生 Godot 驗證共用 `tools/comfyui/gpu_lock.py -- …` 的鎖。此鎖只協調本 repo／其 worktree，其他專案的 GPU 工作仍須觀察排隊與記憶體。先辨識既有服務的直譯器、埠與工作；只有自己啟動的服務才用 `start_comfyui.ps1 -Stop -Port <埠>` 收掉，不能停止或重啟其他工作持有的服務。指定埠若由另一環境提供，腳本會報錯，改用空埠；不以靜默切 CPU 或停掉別人的工作解決。下面各關的 `python` 指明確選定的 GPU 環境直譯器。安裝、實測與共享服務生成的界線見 `design/03-art-pipeline/RADEON_RUNTIME.md`。
+生成一次一張；生成客戶端與原生 Godot 驗證共用 `tools/comfyui/gpu_lock.py -- …` 的鎖。生成客戶端已自行取得鎖，不要在外面再包同一把鎖；原生 Godot 等未自行上鎖的命令才使用該 wrapper。此鎖只協調本 repo／其 worktree，其他專案的 GPU 工作仍須觀察排隊與記憶體。先辨識既有服務的直譯器、埠與工作；只有自己啟動的服務才用 `start_comfyui.ps1 -Stop -Port <埠>` 收掉，不能停止或重啟其他工作持有的服務。指定埠若由另一環境提供，腳本會報錯，改用空埠；不以靜默切 CPU 或停掉別人的工作解決。下面各關的 `python` 指明確選定的 GPU 環境直譯器。安裝、實測與共享服務生成的界線見 `design/03-art-pipeline/RADEON_RUNTIME.md`。
 
 ## 三類問題的總表
 
@@ -144,7 +144,7 @@ python tools/comfyui/gpu_lock.py -- <godot> --path . res://tools/rig_joint_audit
 python tools/check_joint_frames.py <同一個目錄>
 ```
 
-每一類失敗都放大看過再處理，數字記在票上，沒歸零就不勾「接點」的驗收條件：
+每一類失敗都放大看過再處理，原始計數與分類記在票上；真正的接合缺陷沒歸零，就不勾「接點」的驗收條件。下列正常衣口、姿勢空隙仍保留原始失敗數，不能把分類結果改寫成工具全過：
 
 - 兩個連通塊：不同群組的零件只是相接（`refine.underlap`，範圍用支點周圍的小圓），或有游離碎片（`speckle`、`trim_spikes`）
 - 封閉小洞：兩個零件之間的小凹口（`close_fill`）、補全時削掉的輪廓（`edge_trim: 1`、`keep_rim`）
@@ -153,7 +153,8 @@ python tools/check_joint_frames.py <同一個目錄>
 - 衣領、袖口的開口是衣物本來的形狀：寫明是哪一類，不改門檻
 - 頸後的封閉小洞怎麼判：站姿就有，或洞邊有一條被切斷的皮膚 → 真缺口，在頸根加 `refine.underlap` 小圓。只有抬頭（`aim_up`）時後頸、髮尾與衣領才圍出來，兩邊零件各自完整 → 姿勢圍出的空隙，照實記數、不改門檻
 - 稽核預設連同一根骨頭上的其他零件一起畫（穿著的樣子）；`--pair-only` 只畫那一對。兩種都失敗的才是真缺口：`python tools/joint_audit_both.py <pair-only 目錄> <預設目錄>`
-- 加 `--sheet=<png>` 會把每一類失敗（哪個接點、哪一種）各取一張放大，出問題的像素框起來。每一格都看過再歸類：兩個零件之間裂開、衣物自己的開口（敞開的外套與身體之間）、姿勢圍出來的空隙（頸後短髮與衣領之間）、游離小點。只有「只畫一對」才失敗的也要看：外套被打掉之後玩家看到的就是那個畫面
+- `python tools/joint_audit_both.py <pair-only 目錄> <預設目錄> --sheet=<png>` 會把每一類失敗（哪個接點、哪一種）各取一張放大，出問題的像素框起來。每一格都看過再歸類：兩個零件之間裂開、衣物自己的開口（敞開的外套與身體之間）、姿勢圍出來的空隙（頸後短髮與衣領之間）、游離小點。只有「只畫一對」才失敗的也要看：外套被打掉之後玩家看到的就是那個畫面
+- 分類不能只憑縮圖或同類代表格：保留完整影格／面向／倍率索引；小項逐一看未縮放原生裁切，疑似外輪廓抗鋸齒要核對同格真實三角形、UV、來源 owner 與 alpha。來源本來透明不代表所有影格都正確；輪廓內裂線、未認領材質與來源不符仍須修復。
 - 試過又退回的規格改動：`06_parts` 不在版本庫裡，要重跑 `--from parts` 才會回到原樣；用 git 還原貼圖之後要跑一次 `--only import`，否則引擎還在用舊的匯入快取
 
 ## 第 7 關：接到遊戲

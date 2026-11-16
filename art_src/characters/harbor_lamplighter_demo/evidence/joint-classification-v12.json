@@ -1,0 +1,86 @@
+{
+  "version": "v12 frozen production123",
+  "policy": "Existing clothing/collar/sleeve, pose-air and outer-AA review rule; original checker pixels, thresholds, reports and exits unchanged.",
+  "raw_failures_per_mode": 358,
+  "raw_samples_per_mode": 120960,
+  "automatic_joint_acceptance": false,
+  "all_raw_failures_classified": true,
+  "unclassified_raw_failures": 0,
+  "confirmed_internal_missing_material_or_detached_joint_findings": 0,
+  "finding_scope": "Manual original native/source/ownership/geometry review, not an automatic checker score or a claim to trace every wave pixel. Final user signoff is not delegated.",
+  "classes": [
+    {
+      "name": "wave pose opening",
+      "samples": 342,
+      "enclosed_samples": 188,
+      "evidence": "Current480cell family comparison:1072 hole occurrences all in main region; whole covers0. Source-backed representative frame26 plus native whole poses. No old rectangular underlap secondary pocket in v12.",
+      "classification": "Air between jaw and lifted sleeve; does not cut through a joint root.",
+      "limits": "Not all1072 occurrences individually UV-backprojected; v7 independent report is historical, not current proof."
+    },
+    {
+      "name": "dead neck outer contour",
+      "samples": 8,
+      "frames": [
+        21,
+        22,
+        23,
+        24
+      ],
+      "facings": [
+        1,
+        -1
+      ],
+      "zoom": 1,
+      "classification": "Open outer neck/low-coverage AA, no internal separation in original native crops.",
+      "source_proof": "21/22 head+torso baseA0;23/24 head baseA23/71, runtime2x2A0, actual nativeA40/95; torso baseA0. Not eight all-base-transparent points."
+    },
+    {
+      "name": "stand_up elbow inner sleeve edge",
+      "samples": 2,
+      "frames": [
+        25
+      ],
+      "facings": [
+        1,
+        -1
+      ],
+      "zoom": 3.4,
+      "classification": "Open sleeve/arm outline at source torso ownership boundary; no missing arm material or native internal split.",
+      "source_proof": "Both arm sourceA0; original owner torso254, nativeA69. Root independently reviewed original base/torso/upper/lower four-panel."
+    },
+    {
+      "name": "hammer shoulder outer outline",
+      "samples": 4,
+      "frames": [
+        48,
+        50
+      ],
+      "facings": [
+        1,
+        -1
+      ],
+      "zoom": 3.4,
+      "classification": "Open clothing outline/low AA coverage; not an internal shoulder detachment.",
+      "source_proof": "Torso baseA0; arm sourceA0 while original base/torso-owner253; actual nativeA18/24."
+    },
+    {
+      "name": "hammer shoulder subpixel contour coverage",
+      "samples": 2,
+      "frames": [
+        110
+      ],
+      "facings": [
+        1,
+        -1
+      ],
+      "zoom": 3.4,
+      "classification": "Outer contour low coverage in original128px crops and actual geometry; no visible internal separation. Not labelled an opaque-covered hole.",
+      "source_proof": "Torso sourceA0; nearest original arm/baseA253 but runtimeUV~(4.889,142.843), alpha2x2[[0,11],[0,107]], actual nativeA23.",
+      "limits": "Local2x2 is coverage context, not a recreation of full Godot filtering/mips. The nearest-sourceA253 is retained, not relabelled transparent."
+    }
+  ],
+  "source_mapping_all_16": "final-small-items/source-mapping-all-16.json",
+  "all_16_threshold_replay_difference_pixels": 0,
+  "native_review": "All16 original128px crops, diagnostic locator and final full-colour native pose sheets read by child and independently by root.",
+  "pending_user_visual_signoff": true
+}

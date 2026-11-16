@@ -1,0 +1,2498 @@
+{
+  "asset_version": "v12 frozen production123; final evidence65 volumes",
+  "formal_source_frozen": true,
+  "final_native_matrix_complete": true,
+  "automatic_joint_acceptance": false,
+  "raw_joint_failures_per_mode": 358,
+  "confirmed_internal_joint_defects_after_source_native_review": 0,
+  "pending_user_visual_signoff": true,
+  "technical_delivery_ready_for_parent_actual_stage_verification": true,
+  "counts": {
+    "runtime": 47,
+    "authoring": 65,
+    "preview_tools_and_fixtures": 11,
+    "evidence": 154,
+    "images": 28
+  },
+  "total_paths": 305,
+  "paths": {
+    "runtime": [
+      "art/characters/harbor_lamplighter_demo/character.json",
+      "art/characters/harbor_lamplighter_demo/parts/arm_lower.png",
+      "art/characters/harbor_lamplighter_demo/parts/arm_lower.png.import",
+      "art/characters/harbor_lamplighter_demo/parts/arm_lower_n.png",
+      "art/characters/harbor_lamplighter_demo/parts/arm_lower_n.png.import",
+      "art/characters/harbor_lamplighter_demo/parts/arm_upper.png",
+      "art/characters/harbor_lamplighter_demo/parts/arm_upper.png.import",
+      "art/characters/harbor_lamplighter_demo/parts/arm_upper_n.png",
+      "art/characters/harbor_lamplighter_demo/parts/arm_upper_n.png.import",
+      "art/characters/harbor_lamplighter_demo/parts/foot.png",
+      "art/characters/harbor_lamplighter_demo/parts/foot.png.import",
+      "art/characters/harbor_lamplighter_demo/parts/foot_n.png",
+      "art/characters/harbor_lamplighter_demo/parts/foot_n.png.import",
+      "art/characters/harbor_lamplighter_demo/parts/hand.png",
+      "art/characters/harbor_lamplighter_demo/parts/hand.png.import",
+      "art/characters/harbor_lamplighter_demo/parts/hand_n.png",
+      "art/characters/harbor_lamplighter_demo/parts/hand_n.png.import",
+      "art/characters/harbor_lamplighter_demo/parts/head.png",
+      "art/characters/harbor_lamplighter_demo/parts/head.png.import",
+      "art/characters/harbor_lamplighter_demo/parts/head_closed.png",
+      "art/characters/harbor_lamplighter_demo/parts/head_closed.png.import",
+      "art/characters/harbor_lamplighter_demo/parts/head_closed_n.png",
+      "art/characters/harbor_lamplighter_demo/parts/head_closed_n.png.import",
+      "art/characters/harbor_lamplighter_demo/parts/head_half.png",
+      "art/characters/harbor_lamplighter_demo/parts/head_half.png.import",
+      "art/characters/harbor_lamplighter_demo/parts/head_half_n.png",
+      "art/characters/harbor_lamplighter_demo/parts/head_half_n.png.import",
+      "art/characters/harbor_lamplighter_demo/parts/head_n.png",
+      "art/characters/harbor_lamplighter_demo/parts/head_n.png.import",
+      "art/characters/harbor_lamplighter_demo/parts/leg_lower.png",
+      "art/characters/harbor_lamplighter_demo/parts/leg_lower.png.import",
+      "art/characters/harbor_lamplighter_demo/parts/leg_lower_n.png",
+      "art/characters/harbor_lamplighter_demo/parts/leg_lower_n.png.import",
+      "art/characters/harbor_lamplighter_demo/parts/leg_upper.png",
+      "art/characters/harbor_lamplighter_demo/parts/leg_upper.png.import",
+      "art/characters/harbor_lamplighter_demo/parts/leg_upper_n.png",
+      "art/characters/harbor_lamplighter_demo/parts/leg_upper_n.png.import",
+      "art/characters/harbor_lamplighter_demo/parts/pelvis.png",
+      "art/characters/harbor_lamplighter_demo/parts/pelvis.png.import",
+      "art/characters/harbor_lamplighter_demo/parts/pelvis_n.png",
+      "art/characters/harbor_lamplighter_demo/parts/pelvis_n.png.import",
+      "art/characters/harbor_lamplighter_demo/parts/torso.png",
+      "art/characters/harbor_lamplighter_demo/parts/torso.png.import",
+      "art/characters/harbor_lamplighter_demo/parts/torso_n.png",
+      "art/characters/harbor_lamplighter_demo/parts/torso_n.png.import",
+      "art/motion/harbor_lamplighter_demo.json",
+      "art/rigs/harbor_lamplighter_demo.json"
+    ],
+    "authoring": [
+      "art_src/characters/harbor_lamplighter_demo/.gdignore",
+      "art_src/characters/harbor_lamplighter_demo/.gitignore",
+      "art_src/characters/harbor_lamplighter_demo/01_design/character.txt",
+      "art_src/characters/harbor_lamplighter_demo/01_design/design_s255171.png",
+      "art_src/characters/harbor_lamplighter_demo/01_design/prompt.txt",
+      "art_src/characters/harbor_lamplighter_demo/02_pose/joints.png",
+      "art_src/characters/harbor_lamplighter_demo/04_stages/P.png",
+      "art_src/characters/harbor_lamplighter_demo/04_stages/P_grey.png",
+      "art_src/characters/harbor_lamplighter_demo/04_stages/sam_P/.gdignore",
+      "art_src/characters/harbor_lamplighter_demo/05_groups/body.key",
+      "art_src/characters/harbor_lamplighter_demo/05_groups/body.png",
+      "art_src/characters/harbor_lamplighter_demo/07_refined/arm_lower.png",
+      "art_src/characters/harbor_lamplighter_demo/07_refined/arm_upper.png",
+      "art_src/characters/harbor_lamplighter_demo/07_refined/foot.png",
+      "art_src/characters/harbor_lamplighter_demo/07_refined/hand.png",
+      "art_src/characters/harbor_lamplighter_demo/07_refined/head.png",
+      "art_src/characters/harbor_lamplighter_demo/07_refined/leg_lower.png",
+      "art_src/characters/harbor_lamplighter_demo/07_refined/leg_upper.png",
+      "art_src/characters/harbor_lamplighter_demo/07_refined/ownership.png",
+      "art_src/characters/harbor_lamplighter_demo/07_refined/pelvis.png",
+      "art_src/characters/harbor_lamplighter_demo/07_refined/torso.png",
+      "art_src/characters/harbor_lamplighter_demo/README.md",
+      "art_src/characters/harbor_lamplighter_demo/_gen/.gdignore",
+      "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_design_s255171.job.json",
+      "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_design_s255171_0.png",
+      "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_eye_closed_s422.job.json",
+      "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_eye_closed_s422_0.png",
+      "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_eye_half_s421.job.json",
+      "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_eye_half_s421_0.png",
+      "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_stage_P.job.json",
+      "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_stage_P_0.png",
+      "art_src/characters/harbor_lamplighter_demo/_gen/sam_180acf9c_0.png",
+      "art_src/characters/harbor_lamplighter_demo/_gen/sam_366211b0_0.png",
+      "art_src/characters/harbor_lamplighter_demo/_gen/sam_3ef14a85_0.png",
+      "art_src/characters/harbor_lamplighter_demo/_gen/sam_9ef0edbf_0.png",
+      "art_src/characters/harbor_lamplighter_demo/_gen/sam_aaf03509_0.png",
+      "art_src/characters/harbor_lamplighter_demo/_gen/sam_d2a4dc87_0.png",
+      "art_src/characters/harbor_lamplighter_demo/base_grey.png",
+      "art_src/characters/harbor_lamplighter_demo/base_rgba.png",
+      "art_src/characters/harbor_lamplighter_demo/continuous_normals.py",
+      "art_src/characters/harbor_lamplighter_demo/eyes/closed.png",
+      "art_src/characters/harbor_lamplighter_demo/eyes/half.png",
+      "art_src/characters/harbor_lamplighter_demo/eyes/raw/.gdignore",
+      "art_src/characters/harbor_lamplighter_demo/eyes/raw/harbor_lamplighter_demo_eye_closed_s422.job.json",
+      "art_src/characters/harbor_lamplighter_demo/eyes/raw/harbor_lamplighter_demo_eye_closed_s422_0.png",
+      "art_src/characters/harbor_lamplighter_demo/eyes/raw/harbor_lamplighter_demo_eye_half_s421.job.json",
+      "art_src/characters/harbor_lamplighter_demo/eyes/raw/harbor_lamplighter_demo_eye_half_s421_0.png",
+      "art_src/characters/harbor_lamplighter_demo/eyes/raw/head_reference.png",
+      "art_src/characters/harbor_lamplighter_demo/eyes/review.png",
+      "art_src/characters/harbor_lamplighter_demo/keypoints.json",
+      "art_src/characters/harbor_lamplighter_demo/manifest.json",
+      "art_src/characters/harbor_lamplighter_demo/map_joint_holes.py",
+      "art_src/characters/harbor_lamplighter_demo/motion-candidate.json",
+      "art_src/characters/harbor_lamplighter_demo/reassembly_allow.json",
+      "art_src/characters/harbor_lamplighter_demo/review_source.py",
+      "art_src/characters/harbor_lamplighter_demo/sam/.gdignore",
+      "art_src/characters/harbor_lamplighter_demo/sam/.text_mask_cache.json",
+      "art_src/characters/harbor_lamplighter_demo/sam/head.png",
+      "art_src/characters/harbor_lamplighter_demo/sam/points_arm.json",
+      "art_src/characters/harbor_lamplighter_demo/sam/points_arm.png",
+      "art_src/characters/harbor_lamplighter_demo/sam/points_leg_far.json",
+      "art_src/characters/harbor_lamplighter_demo/sam/points_leg_far.png",
+      "art_src/characters/harbor_lamplighter_demo/shared_service.py",
+      "tools/comfyui/recipes/harbor_lamplighter_demo.json",
+      "tools/comfyui/specs/harbor_lamplighter_demo_side.json"
+    ],
+    "preview_tools_and_fixtures": [
+      "tools/fixtures/harbor_lamplighter_demo/map.json",
+      "tools/fixtures/harbor_lamplighter_demo/preview_npc.tres",
+      "tools/harbor_lamplighter_demo_gameplay.gd",
+      "tools/harbor_lamplighter_demo_gameplay.gd.uid",
+      "tools/harbor_lamplighter_demo_gameplay.tscn",
+      "tools/harbor_lamplighter_demo_probe.gd",
+      "tools/harbor_lamplighter_demo_probe.gd.uid",
+      "tools/harbor_lamplighter_demo_probe.tscn",
+      "tools/harbor_lamplighter_demo_snapshot_audit.gd",
+      "tools/harbor_lamplighter_demo_snapshot_audit.gd.uid",
+      "tools/harbor_lamplighter_demo_snapshot_audit.tscn"
+    ],
+    "evidence": [
+      "art_src/characters/harbor_lamplighter_demo/evidence/.gitignore",
+      "art_src/characters/harbor_lamplighter_demo/evidence/COMMIT-final-draft.md",
+      "art_src/characters/harbor_lamplighter_demo/evidence/README.md",
+      "art_src/characters/harbor_lamplighter_demo/evidence/REVIEW-v12.md",
+      "art_src/characters/harbor_lamplighter_demo/evidence/anim-v12.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/append_performance_archive.py",
+      "art_src/characters/harbor_lamplighter_demo/evidence/archive-copy-receipt.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/component-ledger.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/delivery-files.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/final-small-items/index.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/final-small-items/source-mapping-all-16.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/fixture-v12-receipt.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/git-canonical-production-v12.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/joint-classification-v12.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/matrix-v12-summary.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/official-result-v12.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/pack_raw_evidence.py",
+      "art_src/characters/harbor_lamplighter_demo/evidence/performance-v12-summary.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/production-v12-freeze-123.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/authoring-v12-01.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/authoring-v12-01.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/index.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/unversioned-records-01.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/unversioned-records-01.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/unversioned-records-02.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/unversioned-records-02.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-01.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-01.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-02.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-02.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-03.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-03.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-04.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-04.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-05.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-05.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-06.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-06.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-07.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-07.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v03-01.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v03-01.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v04-01.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v04-01.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v05-01.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v05-01.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v06-01.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v06-01.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v07-01.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v07-01.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v07-02.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v07-02.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v07-independent-review-01.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v07-independent-review-01.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-01.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-01.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-02.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-02.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-03.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-03.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-04.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-04.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-05.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-05.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-06.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-06.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-07.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-07.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-08.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-08.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-01.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-01.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-02.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-02.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-03.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-03.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-04.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-04.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-05.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-05.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-06.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-06.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-07.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-07.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-08.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-08.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-09.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-09.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-10.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-10.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-11.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-11.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-12.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-12.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-13.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-13.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-14.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-14.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-15.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-15.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-16.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-16.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-independent-review-01.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-independent-review-01.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v10-01.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v10-01.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v11-01.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v11-01.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-01.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-01.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-02.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-02.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-03.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-03.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-04.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-04.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-05.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-05.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-06.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-06.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-07.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-07.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-08.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-08.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-09.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-09.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-10.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-10.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-11.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-11.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-12.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-12.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-13.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-13.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-14.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-14.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-15.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-15.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-16.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-16.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-17.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-17.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-18.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-18.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-independent-review-01.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-independent-review-01.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-intermediates-01.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-intermediates-01.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-performance-01.raw.tar.xz",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-performance-01.raw.tar.xz.members.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-verification-final-C.log",
+      "art_src/characters/harbor_lamplighter_demo/evidence/raw-verification-result.json",
+      "art_src/characters/harbor_lamplighter_demo/evidence/verify_raw_archives.py",
+      "art_src/characters/harbor_lamplighter_demo/evidence/wave-v12-pair-whole-comparison.json"
+    ],
+    "images": [
+      "pm/Nest-Egg/images/NE-255-fresh-character/.gitignore",
+      "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/cuff-v12-sit-mesh-normal-on.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/dead-v10-frame25-mesh-normal-on.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/dead-v11-frame25-mesh-normal-on.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/knee-continuous-mesh-normal-on.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/knee-stand-mesh-normal-on.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/fixture-v12/01-map-stand.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/fixture-v12/02-sit-enter.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/fixture-v12/03-sit-settled.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/fixture-v12/04-sit-exit.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/fixture-v12/05-real-conversation.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/fixture-v12/06-conversation-return.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/review-v12/all-16-locator.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/review-v12/wave-main-pocket-frame26.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/actions-left.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/actions-right.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/combat-idle-left.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/combat-idle-right.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/crouch-left.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/crouch-right.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/gait-left.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/gait-right.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/npc-page0-bright.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/npc-page0-left.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/npc-page0-right.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/npc-page1-bright.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/npc-page1-left.png",
+      "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/npc-page1-right.png"
+    ]
+  },
+  "file_byte_contracts": {
+    "art/characters/harbor_lamplighter_demo/character.json": {
+      "raw_sha256": "a4abb9f8cf6fc35d26377f1514392f9a5414916b720887cf8c0b8a1f71df6415",
+      "git_canonical_sha256": "e6c5da0b5997aef11581a35eb4ff8a92bfdac82b2fd42f59a175ba91ced6bd54",
+      "git_blob_oid": "6fa187e983ad171b3e3eda570991726d8b610479",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 5182
+    },
+    "art/characters/harbor_lamplighter_demo/parts/arm_lower.png": {
+      "raw_sha256": "d71e22c77d32b699761b5512feee8937c8e441f7a5c70a3bf5b6d8b8223063d1",
+      "git_canonical_sha256": "d71e22c77d32b699761b5512feee8937c8e441f7a5c70a3bf5b6d8b8223063d1",
+      "git_blob_oid": "9e97b431687bf955fc530c9209d3a2cef4647f9c",
+      "conversion": "raw-bytes",
+      "raw_bytes": 24723
+    },
+    "art/characters/harbor_lamplighter_demo/parts/arm_lower.png.import": {
+      "raw_sha256": "e2c73f84bfa34b8412f2bd3f1a022b92edc5d171224c72ccbc9012e550d7b806",
+      "git_canonical_sha256": "e2c73f84bfa34b8412f2bd3f1a022b92edc5d171224c72ccbc9012e550d7b806",
+      "git_blob_oid": "150b0f5c3a3d0de1d2b3a281256c356f918771dd",
+      "conversion": "raw-bytes",
+      "raw_bytes": 975
+    },
+    "art/characters/harbor_lamplighter_demo/parts/arm_lower_n.png": {
+      "raw_sha256": "5f956839d0334fbe3b3b3b32e797fa1fffd4707cb6f2404c2347a9521356cc19",
+      "git_canonical_sha256": "5f956839d0334fbe3b3b3b32e797fa1fffd4707cb6f2404c2347a9521356cc19",
+      "git_blob_oid": "11fb81778650cb4f9d9a47b4dd224fa41b713e52",
+      "conversion": "raw-bytes",
+      "raw_bytes": 21541
+    },
+    "art/characters/harbor_lamplighter_demo/parts/arm_lower_n.png.import": {
+      "raw_sha256": "58cd6657573aefe2b0ffadafa47218d03f013dc17aaded24ea1570834aa59cd4",
+      "git_canonical_sha256": "58cd6657573aefe2b0ffadafa47218d03f013dc17aaded24ea1570834aa59cd4",
+      "git_blob_oid": "07bbd8a94839def86f05fbe819b5bd6bdf638374",
+      "conversion": "raw-bytes",
+      "raw_bytes": 981
+    },
+    "art/characters/harbor_lamplighter_demo/parts/arm_upper.png": {
+      "raw_sha256": "a270f5aa005296598df08c7154d63362ce16b9be4302a7002951d467743f9dca",
+      "git_canonical_sha256": "a270f5aa005296598df08c7154d63362ce16b9be4302a7002951d467743f9dca",
+      "git_blob_oid": "7f96f9d64397b0fa122d3b1a423422c8bafbfb4e",
+      "conversion": "raw-bytes",
+      "raw_bytes": 25632
+    },
+    "art/characters/harbor_lamplighter_demo/parts/arm_upper.png.import": {
+      "raw_sha256": "bd4c32af7152ca1e3581e3998a68f0a72edfcd3e03b40e84a5c022e3fe6610ed",
+      "git_canonical_sha256": "bd4c32af7152ca1e3581e3998a68f0a72edfcd3e03b40e84a5c022e3fe6610ed",
+      "git_blob_oid": "62f5bac4fb5dc179f43e14bcbc09072f93a0b7ab",
+      "conversion": "raw-bytes",
+      "raw_bytes": 975
+    },
+    "art/characters/harbor_lamplighter_demo/parts/arm_upper_n.png": {
+      "raw_sha256": "a2d87cebd22126dec1a0103f9947ad7b2c82dad300d8656bcbe399eae28172cd",
+      "git_canonical_sha256": "a2d87cebd22126dec1a0103f9947ad7b2c82dad300d8656bcbe399eae28172cd",
+      "git_blob_oid": "ce420dda81a89e454adb731305644a8dd3b2b948",
+      "conversion": "raw-bytes",
+      "raw_bytes": 22568
+    },
+    "art/characters/harbor_lamplighter_demo/parts/arm_upper_n.png.import": {
+      "raw_sha256": "5cb3eb83441c84885492c87826cc1b5648e44b5d5b54b792bcd14c8ef3139c21",
+      "git_canonical_sha256": "5cb3eb83441c84885492c87826cc1b5648e44b5d5b54b792bcd14c8ef3139c21",
+      "git_blob_oid": "0511959feb5649452bc646e7b195fbe0ca210069",
+      "conversion": "raw-bytes",
+      "raw_bytes": 980
+    },
+    "art/characters/harbor_lamplighter_demo/parts/foot.png": {
+      "raw_sha256": "c5a39ea6c17a590505b8ce79f88dbef579a8bf230be9e04a49c1e49558b6e87f",
+      "git_canonical_sha256": "c5a39ea6c17a590505b8ce79f88dbef579a8bf230be9e04a49c1e49558b6e87f",
+      "git_blob_oid": "f144b0417afe0c49058b02e21d144f9cee413152",
+      "conversion": "raw-bytes",
+      "raw_bytes": 25230
+    },
+    "art/characters/harbor_lamplighter_demo/parts/foot.png.import": {
+      "raw_sha256": "1db08b2271ad171329a6135b84193f01e5422ed0f5172bd3a5a53c07c3e0e4c7",
+      "git_canonical_sha256": "1db08b2271ad171329a6135b84193f01e5422ed0f5172bd3a5a53c07c3e0e4c7",
+      "git_blob_oid": "70d8a249a1c202d91053a0b2479e5e5cef8785b2",
+      "conversion": "raw-bytes",
+      "raw_bytes": 959
+    },
+    "art/characters/harbor_lamplighter_demo/parts/foot_n.png": {
+      "raw_sha256": "8b13671f199bfe295a4a5ef0f70c362dfb2f4f625a33ef1eecbae4bad100d40f",
+      "git_canonical_sha256": "8b13671f199bfe295a4a5ef0f70c362dfb2f4f625a33ef1eecbae4bad100d40f",
+      "git_blob_oid": "1f50d1715dcb26b2fdb3d4cc1c5ed3f7ecc78c27",
+      "conversion": "raw-bytes",
+      "raw_bytes": 26117
+    },
+    "art/characters/harbor_lamplighter_demo/parts/foot_n.png.import": {
+      "raw_sha256": "6a48b2b6efb540fff0fbad8f661dd18f6b25d928aeebacd2a167bcccaee444b0",
+      "git_canonical_sha256": "6a48b2b6efb540fff0fbad8f661dd18f6b25d928aeebacd2a167bcccaee444b0",
+      "git_blob_oid": "15907492c7c85a60bb6b134e5d4c03d1de3a308f",
+      "conversion": "raw-bytes",
+      "raw_bytes": 965
+    },
+    "art/characters/harbor_lamplighter_demo/parts/hand.png": {
+      "raw_sha256": "51be4536cef7453c849344a146703b7572aad969f642a1678e0457c6336a9690",
+      "git_canonical_sha256": "51be4536cef7453c849344a146703b7572aad969f642a1678e0457c6336a9690",
+      "git_blob_oid": "d3972382fc1c43753fdb171c94a49905eeaf498e",
+      "conversion": "raw-bytes",
+      "raw_bytes": 14502
+    },
+    "art/characters/harbor_lamplighter_demo/parts/hand.png.import": {
+      "raw_sha256": "9db0ac448edeefa80da5fef8e060f6cf87ac5bc3d0d41147ad30f01cf2762d47",
+      "git_canonical_sha256": "9db0ac448edeefa80da5fef8e060f6cf87ac5bc3d0d41147ad30f01cf2762d47",
+      "git_blob_oid": "e83b85c2d923781eb03192329750d5fc06db4758",
+      "conversion": "raw-bytes",
+      "raw_bytes": 959
+    },
+    "art/characters/harbor_lamplighter_demo/parts/hand_n.png": {
+      "raw_sha256": "3954d33074d2ed7156835091cd8b5e6f2d9da714d4e246e5b182991a1ba62ed4",
+      "git_canonical_sha256": "3954d33074d2ed7156835091cd8b5e6f2d9da714d4e246e5b182991a1ba62ed4",
+      "git_blob_oid": "a278f0a6a1a443838dea37627befe91088b91605",
+      "conversion": "raw-bytes",
+      "raw_bytes": 14346
+    },
+    "art/characters/harbor_lamplighter_demo/parts/hand_n.png.import": {
+      "raw_sha256": "a7677f441a6b9a3bf1e3947cb6dbf0a319b209bb3e6cd29c2598eec8bf1dca9d",
+      "git_canonical_sha256": "a7677f441a6b9a3bf1e3947cb6dbf0a319b209bb3e6cd29c2598eec8bf1dca9d",
+      "git_blob_oid": "e2377c81b6f1200cfae18d2dbc355af2b44b9c7a",
+      "conversion": "raw-bytes",
+      "raw_bytes": 966
+    },
+    "art/characters/harbor_lamplighter_demo/parts/head.png": {
+      "raw_sha256": "5f5874ea4c33eb320720beb65e8a4c01a3aa9d0da95a7a5bdcac6425a4429f84",
+      "git_canonical_sha256": "5f5874ea4c33eb320720beb65e8a4c01a3aa9d0da95a7a5bdcac6425a4429f84",
+      "git_blob_oid": "d2411e9741799ae77726b09df593aad60670fcaf",
+      "conversion": "raw-bytes",
+      "raw_bytes": 27310
+    },
+    "art/characters/harbor_lamplighter_demo/parts/head.png.import": {
+      "raw_sha256": "40e508c7ad42751a997e2158a0d56430b5138744ae13413a5306c737f24750d1",
+      "git_canonical_sha256": "40e508c7ad42751a997e2158a0d56430b5138744ae13413a5306c737f24750d1",
+      "git_blob_oid": "52060a20d8e64c390ca6eef39fa412e3ae64a9bc",
+      "conversion": "raw-bytes",
+      "raw_bytes": 960
+    },
+    "art/characters/harbor_lamplighter_demo/parts/head_closed.png": {
+      "raw_sha256": "7f8ccccd9f1faddc4df99647044b70079b96633e0df71a0956564dc136b2ce8b",
+      "git_canonical_sha256": "7f8ccccd9f1faddc4df99647044b70079b96633e0df71a0956564dc136b2ce8b",
+      "git_blob_oid": "69abb2e9bf2f53788b45124f4f6424d5f379ca0b",
+      "conversion": "raw-bytes",
+      "raw_bytes": 27201
+    },
+    "art/characters/harbor_lamplighter_demo/parts/head_closed.png.import": {
+      "raw_sha256": "9582da8b71de6d8903616cf60f9b23037f48c9d99b4eb5ec262fce8e56e81b6a",
+      "git_canonical_sha256": "9582da8b71de6d8903616cf60f9b23037f48c9d99b4eb5ec262fce8e56e81b6a",
+      "git_blob_oid": "110bee700b1ddcd5b90182037d5fab4c82959182",
+      "conversion": "raw-bytes",
+      "raw_bytes": 980
+    },
+    "art/characters/harbor_lamplighter_demo/parts/head_closed_n.png": {
+      "raw_sha256": "63675cef954194098fa8c4bfc02ad0c9e3ebc4a1b295c110bfc9af4c923d3d83",
+      "git_canonical_sha256": "63675cef954194098fa8c4bfc02ad0c9e3ebc4a1b295c110bfc9af4c923d3d83",
+      "git_blob_oid": "85de851159bc5b14a4b94c7622543a944e830108",
+      "conversion": "raw-bytes",
+      "raw_bytes": 26485
+    },
+    "art/characters/harbor_lamplighter_demo/parts/head_closed_n.png.import": {
+      "raw_sha256": "66d00f30620c42eb1f1b379adfea469be5b32c67404f61cfbd0306cd76ac53bc",
+      "git_canonical_sha256": "66d00f30620c42eb1f1b379adfea469be5b32c67404f61cfbd0306cd76ac53bc",
+      "git_blob_oid": "8f1e54fe3d670b50c2582a3c36c39d0552d6810a",
+      "conversion": "raw-bytes",
+      "raw_bytes": 987
+    },
+    "art/characters/harbor_lamplighter_demo/parts/head_half.png": {
+      "raw_sha256": "5b1bed78ac74223caa0f9f836fc96ce48afd9cb571be10e1dc05edcbc16a8f74",
+      "git_canonical_sha256": "5b1bed78ac74223caa0f9f836fc96ce48afd9cb571be10e1dc05edcbc16a8f74",
+      "git_blob_oid": "27970d02a665c9fa3d4e48ffe2641726e9b70a57",
+      "conversion": "raw-bytes",
+      "raw_bytes": 27425
+    },
+    "art/characters/harbor_lamplighter_demo/parts/head_half.png.import": {
+      "raw_sha256": "53e542563149a1f15c1451ce61a345792571b215d1a9940172e78170291dff36",
+      "git_canonical_sha256": "53e542563149a1f15c1451ce61a345792571b215d1a9940172e78170291dff36",
+      "git_blob_oid": "000cbade6825ea84ee869cb915ea6a93b2214ce0",
+      "conversion": "raw-bytes",
+      "raw_bytes": 975
+    },
+    "art/characters/harbor_lamplighter_demo/parts/head_half_n.png": {
+      "raw_sha256": "54d1a08052f3a943db79c6a0fe8e3fbca54cc46adcdde2651b3826372dfd7994",
+      "git_canonical_sha256": "54d1a08052f3a943db79c6a0fe8e3fbca54cc46adcdde2651b3826372dfd7994",
+      "git_blob_oid": "d8447d6c7acfa9c80103c3e720d683a26de370a2",
+      "conversion": "raw-bytes",
+      "raw_bytes": 26666
+    },
+    "art/characters/harbor_lamplighter_demo/parts/head_half_n.png.import": {
+      "raw_sha256": "56f151a910517ba0611bda940f4944b9811ab92e86a9767537222070f4cf264a",
+      "git_canonical_sha256": "56f151a910517ba0611bda940f4944b9811ab92e86a9767537222070f4cf264a",
+      "git_blob_oid": "a0f1109fb8e9221ec06bffde6313a383063f88f0",
+      "conversion": "raw-bytes",
+      "raw_bytes": 980
+    },
+    "art/characters/harbor_lamplighter_demo/parts/head_n.png": {
+      "raw_sha256": "550f6b9302ff195091933525565433fd7c9d7b88baf50448c7f6a96ffb67d6c5",
+      "git_canonical_sha256": "550f6b9302ff195091933525565433fd7c9d7b88baf50448c7f6a96ffb67d6c5",
+      "git_blob_oid": "dc6e295da07d355bab226a29d1062cd8c6a7451b",
+      "conversion": "raw-bytes",
+      "raw_bytes": 26623
+    },
+    "art/characters/harbor_lamplighter_demo/parts/head_n.png.import": {
+      "raw_sha256": "7a13e38b3dfc4b8164a1c32c63c8364d7c8b27e8efeecb337f5d848ff6c56054",
+      "git_canonical_sha256": "7a13e38b3dfc4b8164a1c32c63c8364d7c8b27e8efeecb337f5d848ff6c56054",
+      "git_blob_oid": "e3134802644f72fa034f108e1185a10514271c60",
+      "conversion": "raw-bytes",
+      "raw_bytes": 966
+    },
+    "art/characters/harbor_lamplighter_demo/parts/leg_lower.png": {
+      "raw_sha256": "07e8b295ebc21403c246053bcd16eb44f1af2de18b081682daafc41bf1e3f4b3",
+      "git_canonical_sha256": "07e8b295ebc21403c246053bcd16eb44f1af2de18b081682daafc41bf1e3f4b3",
+      "git_blob_oid": "383d72c0fbf85f5029262e48b1ce2e73dfb756cc",
+      "conversion": "raw-bytes",
+      "raw_bytes": 49319
+    },
+    "art/characters/harbor_lamplighter_demo/parts/leg_lower.png.import": {
+      "raw_sha256": "0dcbce8fdf80de83f8f88718cbd1416ae1d99620067043b0ab37a500eed9b0a5",
+      "git_canonical_sha256": "0dcbce8fdf80de83f8f88718cbd1416ae1d99620067043b0ab37a500eed9b0a5",
+      "git_blob_oid": "9b7a0201138258ffad3b3cde5fca249a1deb01e7",
+      "conversion": "raw-bytes",
+      "raw_bytes": 975
+    },
+    "art/characters/harbor_lamplighter_demo/parts/leg_lower_n.png": {
+      "raw_sha256": "063bbe264627ef519e818f94eef3a3b3d41605d98937e81a732703149eb74cba",
+      "git_canonical_sha256": "063bbe264627ef519e818f94eef3a3b3d41605d98937e81a732703149eb74cba",
+      "git_blob_oid": "720dac548c761e87639cf448d6d69b9d0fd259e1",
+      "conversion": "raw-bytes",
+      "raw_bytes": 49021
+    },
+    "art/characters/harbor_lamplighter_demo/parts/leg_lower_n.png.import": {
+      "raw_sha256": "10cfd1a2284235416781f237ade05a1aa26f041020cadd75212aea05dc1e7f3c",
+      "git_canonical_sha256": "10cfd1a2284235416781f237ade05a1aa26f041020cadd75212aea05dc1e7f3c",
+      "git_blob_oid": "36d519cd588ea1e101975eec64cdeed820ad2a4a",
+      "conversion": "raw-bytes",
+      "raw_bytes": 981
+    },
+    "art/characters/harbor_lamplighter_demo/parts/leg_upper.png": {
+      "raw_sha256": "e7327bcd21e0f2415003ed81859474651267741715bd193852849d349b6f8d6f",
+      "git_canonical_sha256": "e7327bcd21e0f2415003ed81859474651267741715bd193852849d349b6f8d6f",
+      "git_blob_oid": "4e0425f691c42f875b3265cf7d5f79eaa011a2d3",
+      "conversion": "raw-bytes",
+      "raw_bytes": 66424
+    },
+    "art/characters/harbor_lamplighter_demo/parts/leg_upper.png.import": {
+      "raw_sha256": "dddc1be6e02f47e93770058d2ff938535c7787966eff768fad4ebcf88279460f",
+      "git_canonical_sha256": "dddc1be6e02f47e93770058d2ff938535c7787966eff768fad4ebcf88279460f",
+      "git_blob_oid": "30e022a7d32801f0c626001852e54ce56798b91b",
+      "conversion": "raw-bytes",
+      "raw_bytes": 974
+    },
+    "art/characters/harbor_lamplighter_demo/parts/leg_upper_n.png": {
+      "raw_sha256": "00dad5ce73856b5bacdf5a2dfb29de3abb1c35491424bf1cd47c9317c11baa9a",
+      "git_canonical_sha256": "00dad5ce73856b5bacdf5a2dfb29de3abb1c35491424bf1cd47c9317c11baa9a",
+      "git_blob_oid": "a599933cf0806fd4490e73e03900fad615f39f33",
+      "conversion": "raw-bytes",
+      "raw_bytes": 64341
+    },
+    "art/characters/harbor_lamplighter_demo/parts/leg_upper_n.png.import": {
+      "raw_sha256": "bf3eece085e59b132c6f394776153550ca9f14519cd95bc4d32c08c9356932ce",
+      "git_canonical_sha256": "bf3eece085e59b132c6f394776153550ca9f14519cd95bc4d32c08c9356932ce",
+      "git_blob_oid": "2731f23cacd001ae6d69ad5d97e398a7455df6ad",
+      "conversion": "raw-bytes",
+      "raw_bytes": 980
+    },
+    "art/characters/harbor_lamplighter_demo/parts/pelvis.png": {
+      "raw_sha256": "80223dc55299d9be759f5bec1ec64e472f774defdc11b53ada16f53695623e92",
+      "git_canonical_sha256": "80223dc55299d9be759f5bec1ec64e472f774defdc11b53ada16f53695623e92",
+      "git_blob_oid": "786073e0a6e9ae4adef5db5fa9f9fc03a036bbba",
+      "conversion": "raw-bytes",
+      "raw_bytes": 37976
+    },
+    "art/characters/harbor_lamplighter_demo/parts/pelvis.png.import": {
+      "raw_sha256": "cbd2e119161b9c720e1b6570bdf1184510f93f560bfd81a517bf9cdaae2f80f7",
+      "git_canonical_sha256": "cbd2e119161b9c720e1b6570bdf1184510f93f560bfd81a517bf9cdaae2f80f7",
+      "git_blob_oid": "9549cb6c2e139825308c4ca7958726c99f83d706",
+      "conversion": "raw-bytes",
+      "raw_bytes": 966
+    },
+    "art/characters/harbor_lamplighter_demo/parts/pelvis_n.png": {
+      "raw_sha256": "661839e37b278d700b2184dba6f8b088b9113ea897f58243a485fc1fd4c2abe2",
+      "git_canonical_sha256": "661839e37b278d700b2184dba6f8b088b9113ea897f58243a485fc1fd4c2abe2",
+      "git_blob_oid": "e2f2c71f115ef96ec4ba6af8926da33de14240e4",
+      "conversion": "raw-bytes",
+      "raw_bytes": 32925
+    },
+    "art/characters/harbor_lamplighter_demo/parts/pelvis_n.png.import": {
+      "raw_sha256": "0007bf34f7b70308b25ab10575333c228bb4e18da95b438ae6e64b2bbf3352c9",
+      "git_canonical_sha256": "0007bf34f7b70308b25ab10575333c228bb4e18da95b438ae6e64b2bbf3352c9",
+      "git_blob_oid": "a2533f5f0fc88b1efad94fefe212ab0aecf1da3c",
+      "conversion": "raw-bytes",
+      "raw_bytes": 972
+    },
+    "art/characters/harbor_lamplighter_demo/parts/torso.png": {
+      "raw_sha256": "3c3a99d8da27be1d5fe5dc7eed7ae8993845c1110a9454dbcb22be5fd8352aed",
+      "git_canonical_sha256": "3c3a99d8da27be1d5fe5dc7eed7ae8993845c1110a9454dbcb22be5fd8352aed",
+      "git_blob_oid": "7afc49583352c1900ab0a129841c38ff4858c191",
+      "conversion": "raw-bytes",
+      "raw_bytes": 61429
+    },
+    "art/characters/harbor_lamplighter_demo/parts/torso.png.import": {
+      "raw_sha256": "d1726fcfa75c962e3bd18aff03f45e3a45c0eec1e98fe03d354193b3e492f36b",
+      "git_canonical_sha256": "d1726fcfa75c962e3bd18aff03f45e3a45c0eec1e98fe03d354193b3e492f36b",
+      "git_blob_oid": "98defa1a3bc69035a6eefc040c7f69a1bd28c560",
+      "conversion": "raw-bytes",
+      "raw_bytes": 963
+    },
+    "art/characters/harbor_lamplighter_demo/parts/torso_n.png": {
+      "raw_sha256": "f5f168e03fc98fbac67c1f5f42167653553034181cdf6a4f1ac8f7adcbb252c5",
+      "git_canonical_sha256": "f5f168e03fc98fbac67c1f5f42167653553034181cdf6a4f1ac8f7adcbb252c5",
+      "git_blob_oid": "5093cacde525b263b9ab08b796837067fb709dcb",
+      "conversion": "raw-bytes",
+      "raw_bytes": 52585
+    },
+    "art/characters/harbor_lamplighter_demo/parts/torso_n.png.import": {
+      "raw_sha256": "5b91cd8e13d2a45f01c7bc44c3c131cc89182aa09f5f6c394d86da7a90a410c2",
+      "git_canonical_sha256": "5b91cd8e13d2a45f01c7bc44c3c131cc89182aa09f5f6c394d86da7a90a410c2",
+      "git_blob_oid": "0de54f2b3f10e74eec9cc5af695544fa86ecad17",
+      "conversion": "raw-bytes",
+      "raw_bytes": 969
+    },
+    "art/motion/harbor_lamplighter_demo.json": {
+      "raw_sha256": "de65c9400843a8b688d59673dab13cc83f8cdb5deef5a0ea6c2391ca6e010f3b",
+      "git_canonical_sha256": "2a7239259f3f634611d3fcd40a24b5965d18512a9952e3f50bf139e0f436a8ed",
+      "git_blob_oid": "9922681b1d81e505b6411c40186cbaacecc2ae5d",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 2931
+    },
+    "art/rigs/harbor_lamplighter_demo.json": {
+      "raw_sha256": "d05fe945303e2ab13cb48dc3237d4f567f699aa3fc24a38a8badadb7060e0a21",
+      "git_canonical_sha256": "61e457175873daacdf053b74a401a7a4e5ecdcb17b68f70e1e65c4b9c4364e81",
+      "git_blob_oid": "c00bffaeab4ae6899ea188cc215f8ae74cba8fbd",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 2512
+    },
+    "art_src/characters/harbor_lamplighter_demo/.gdignore": {
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_canonical_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob_oid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "conversion": "raw-bytes",
+      "raw_bytes": 0
+    },
+    "art_src/characters/harbor_lamplighter_demo/.gitignore": {
+      "raw_sha256": "9f29d86666153f7b93e3a2859cac4acd68e8403be25ac4a37c9920a8770daa3d",
+      "git_canonical_sha256": "3602b16a8ebecfd32ed9bd02ff6b32b9197944dcdb45acfa24080382064b08f5",
+      "git_blob_oid": "58905c94f09d4b674e7cf5996512773666bf2b21",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 384
+    },
+    "art_src/characters/harbor_lamplighter_demo/01_design/character.txt": {
+      "raw_sha256": "7e854b6d362c5c70bd7884ebafdb895b0e3a4e08f10b058e6b3d177dbfbd4eca",
+      "git_canonical_sha256": "cf864ff6a4dd2e7917d748f6738545288fb87f20839b8177a16f7bad894c227d",
+      "git_blob_oid": "e58f5271c25c11609a373d4c5c7f8b7403ec31c3",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 803
+    },
+    "art_src/characters/harbor_lamplighter_demo/01_design/design_s255171.png": {
+      "raw_sha256": "4cbdd4ff46e1ee28cabbfce08655e4052ff1cf7ef77dd72314eab6d20f855e59",
+      "git_canonical_sha256": "4cbdd4ff46e1ee28cabbfce08655e4052ff1cf7ef77dd72314eab6d20f855e59",
+      "git_blob_oid": "8e58eb69b81db454fb074f594fb10b97bb88b67f",
+      "conversion": "raw-bytes",
+      "raw_bytes": 570670
+    },
+    "art_src/characters/harbor_lamplighter_demo/01_design/prompt.txt": {
+      "raw_sha256": "731a5ac701b524b290bb254ea8e3daad5417ad85c1419f957d49bc2ad5ace2ae",
+      "git_canonical_sha256": "e125cd1fda726b774f28e2dcc4399b9da2185e4bb89c984a81e1c4d2af41b6c8",
+      "git_blob_oid": "8b3030fc63518542a45d951b0cd81407d92e21a2",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 2009
+    },
+    "art_src/characters/harbor_lamplighter_demo/02_pose/joints.png": {
+      "raw_sha256": "b8439f05de2239939bb8b8f7633c633e1408da1fe593bb16a9d6964bf2a6a1fc",
+      "git_canonical_sha256": "b8439f05de2239939bb8b8f7633c633e1408da1fe593bb16a9d6964bf2a6a1fc",
+      "git_blob_oid": "4202cb6f480b7e893eebd816dc581a694d6da3c2",
+      "conversion": "raw-bytes",
+      "raw_bytes": 248403
+    },
+    "art_src/characters/harbor_lamplighter_demo/04_stages/P.png": {
+      "raw_sha256": "892e94823c8c02954dd3b86925bf9d19f48a90810e2c2817be57f682b9d25871",
+      "git_canonical_sha256": "892e94823c8c02954dd3b86925bf9d19f48a90810e2c2817be57f682b9d25871",
+      "git_blob_oid": "8fcf8d4b67cefe9d0b598bedcb314f0f2b6ee5d0",
+      "conversion": "raw-bytes",
+      "raw_bytes": 549963
+    },
+    "art_src/characters/harbor_lamplighter_demo/04_stages/P_grey.png": {
+      "raw_sha256": "cc667bb18011a2187378a76606f6036a0d5162298b5b1aecf0aebeebb6cedc26",
+      "git_canonical_sha256": "cc667bb18011a2187378a76606f6036a0d5162298b5b1aecf0aebeebb6cedc26",
+      "git_blob_oid": "4bef464331785d58c7a381df8a2e25fe4b4340eb",
+      "conversion": "raw-bytes",
+      "raw_bytes": 241051
+    },
+    "art_src/characters/harbor_lamplighter_demo/04_stages/sam_P/.gdignore": {
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_canonical_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob_oid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "conversion": "raw-bytes",
+      "raw_bytes": 0
+    },
+    "art_src/characters/harbor_lamplighter_demo/05_groups/body.key": {
+      "raw_sha256": "a93ff86ab1691895ea7f461e6dbbd927a623721ccc79980d0b79b3c3ac0b7263",
+      "git_canonical_sha256": "a93ff86ab1691895ea7f461e6dbbd927a623721ccc79980d0b79b3c3ac0b7263",
+      "git_blob_oid": "f77c4790a2049d8f329b2cf3e0988c0025ed9479",
+      "conversion": "raw-bytes",
+      "raw_bytes": 64
+    },
+    "art_src/characters/harbor_lamplighter_demo/05_groups/body.png": {
+      "raw_sha256": "5d23a88533a116e8219d13870deaa48ce4ccf6a580abe56ceb0edcd171f7c842",
+      "git_canonical_sha256": "5d23a88533a116e8219d13870deaa48ce4ccf6a580abe56ceb0edcd171f7c842",
+      "git_blob_oid": "13a2b0dfe7fafbfffe0f330a466c6534bee9d6eb",
+      "conversion": "raw-bytes",
+      "raw_bytes": 490123
+    },
+    "art_src/characters/harbor_lamplighter_demo/07_refined/arm_lower.png": {
+      "raw_sha256": "0b5053cd57a76e74bdb2f0ffee556f1f6e305c03a3e4b7ba31c35d1bf18dc370",
+      "git_canonical_sha256": "0b5053cd57a76e74bdb2f0ffee556f1f6e305c03a3e4b7ba31c35d1bf18dc370",
+      "git_blob_oid": "c098c98ecadf2c4375f4e4cf4d46116c424de7e2",
+      "conversion": "raw-bytes",
+      "raw_bytes": 449176
+    },
+    "art_src/characters/harbor_lamplighter_demo/07_refined/arm_upper.png": {
+      "raw_sha256": "6b2407b93cd589cee9569afd2c5bb5590904238a714a44168613db77da60dfcc",
+      "git_canonical_sha256": "6b2407b93cd589cee9569afd2c5bb5590904238a714a44168613db77da60dfcc",
+      "git_blob_oid": "8d0741e66d3b293b8431e3445d1c64d8d09aa12b",
+      "conversion": "raw-bytes",
+      "raw_bytes": 449021
+    },
+    "art_src/characters/harbor_lamplighter_demo/07_refined/foot.png": {
+      "raw_sha256": "b6bb05876d6139c67dbcddde77fe372dd0c239fd18fdbd3f2a59753e9c2a0237",
+      "git_canonical_sha256": "b6bb05876d6139c67dbcddde77fe372dd0c239fd18fdbd3f2a59753e9c2a0237",
+      "git_blob_oid": "3ddf1ad4c433672e1d7ca99be28ea1e91ce04292",
+      "conversion": "raw-bytes",
+      "raw_bytes": 435126
+    },
+    "art_src/characters/harbor_lamplighter_demo/07_refined/hand.png": {
+      "raw_sha256": "41347ed0bcc20615f664ae5552e282c156f1a6437084d03976d84d6b3df740b7",
+      "git_canonical_sha256": "41347ed0bcc20615f664ae5552e282c156f1a6437084d03976d84d6b3df740b7",
+      "git_blob_oid": "0ee79cb6f96a58d272290df8e32e04ca87d9adf3",
+      "conversion": "raw-bytes",
+      "raw_bytes": 448799
+    },
+    "art_src/characters/harbor_lamplighter_demo/07_refined/head.png": {
+      "raw_sha256": "66b3be844e4a03ce9f4b9b90ad816e0a2d7d684b47179611ae3f91a73770ee19",
+      "git_canonical_sha256": "66b3be844e4a03ce9f4b9b90ad816e0a2d7d684b47179611ae3f91a73770ee19",
+      "git_blob_oid": "37eecc70ea4da5c000c8160b48a85c10bcb3eee9",
+      "conversion": "raw-bytes",
+      "raw_bytes": 449049
+    },
+    "art_src/characters/harbor_lamplighter_demo/07_refined/leg_lower.png": {
+      "raw_sha256": "404c430756cdd3a1d0e1702cca8399b1623394256e450cf6716196b3eee4e34b",
+      "git_canonical_sha256": "404c430756cdd3a1d0e1702cca8399b1623394256e450cf6716196b3eee4e34b",
+      "git_blob_oid": "cb7c6d4e4423fcc5d05b53201decd435d173fc05",
+      "conversion": "raw-bytes",
+      "raw_bytes": 436034
+    },
+    "art_src/characters/harbor_lamplighter_demo/07_refined/leg_upper.png": {
+      "raw_sha256": "1f3d72d130667743da321b9e0b21197129121b15504a8404720bc02e9b6e66b7",
+      "git_canonical_sha256": "1f3d72d130667743da321b9e0b21197129121b15504a8404720bc02e9b6e66b7",
+      "git_blob_oid": "0e58605c68e959f2e90b135f6f9dc17b75bdfad5",
+      "conversion": "raw-bytes",
+      "raw_bytes": 436619
+    },
+    "art_src/characters/harbor_lamplighter_demo/07_refined/ownership.png": {
+      "raw_sha256": "332a0ec8ec59e3afb135a88e114eb475e66e15f9f43a12f6aa2edf6eb6d642ad",
+      "git_canonical_sha256": "332a0ec8ec59e3afb135a88e114eb475e66e15f9f43a12f6aa2edf6eb6d642ad",
+      "git_blob_oid": "2120d47b5e9b93582fd7379dec6d7e247556aecd",
+      "conversion": "raw-bytes",
+      "raw_bytes": 218192
+    },
+    "art_src/characters/harbor_lamplighter_demo/07_refined/pelvis.png": {
+      "raw_sha256": "2c8afb15321e762ceceed272b9e829097aca9d63a675760fee916b358a28e9d0",
+      "git_canonical_sha256": "2c8afb15321e762ceceed272b9e829097aca9d63a675760fee916b358a28e9d0",
+      "git_blob_oid": "bdcd4549306b3605af0a275f162d628d73cf5bd9",
+      "conversion": "raw-bytes",
+      "raw_bytes": 435823
+    },
+    "art_src/characters/harbor_lamplighter_demo/07_refined/torso.png": {
+      "raw_sha256": "86ec18fe146e1d9fcac0e9a9c7624e2c545e7aac479eb8f69d68af79b5773e51",
+      "git_canonical_sha256": "86ec18fe146e1d9fcac0e9a9c7624e2c545e7aac479eb8f69d68af79b5773e51",
+      "git_blob_oid": "36971ffa8e407371db9b120dee8656313f4b0506",
+      "conversion": "raw-bytes",
+      "raw_bytes": 415160
+    },
+    "art_src/characters/harbor_lamplighter_demo/README.md": {
+      "raw_sha256": "ebbbdf932b0536ad681fbc39c7cac117ecce91e1be432f7ccac6f8ddff4a102c",
+      "git_canonical_sha256": "1a694f05eb48c9ced8cb4e23d3b7c25ef3dd6e08e21230b323fd3cf1652cc53b",
+      "git_blob_oid": "2f17ada579a655d3c0a02cce94970dce2a9f90e0",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 10811
+    },
+    "art_src/characters/harbor_lamplighter_demo/_gen/.gdignore": {
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_canonical_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob_oid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "conversion": "raw-bytes",
+      "raw_bytes": 0
+    },
+    "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_design_s255171.job.json": {
+      "raw_sha256": "a4c02a4fab736e91549aff5ac80b6e721c6db924c837ddd0d4a6b16dd0f520f8",
+      "git_canonical_sha256": "a4c02a4fab736e91549aff5ac80b6e721c6db924c837ddd0d4a6b16dd0f520f8",
+      "git_blob_oid": "0790e3bf32c2b3a11607ade6d531d3bddf37a210",
+      "conversion": "raw-bytes",
+      "raw_bytes": 67
+    },
+    "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_design_s255171_0.png": {
+      "raw_sha256": "4cbdd4ff46e1ee28cabbfce08655e4052ff1cf7ef77dd72314eab6d20f855e59",
+      "git_canonical_sha256": "4cbdd4ff46e1ee28cabbfce08655e4052ff1cf7ef77dd72314eab6d20f855e59",
+      "git_blob_oid": "8e58eb69b81db454fb074f594fb10b97bb88b67f",
+      "conversion": "raw-bytes",
+      "raw_bytes": 570670
+    },
+    "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_eye_closed_s422.job.json": {
+      "raw_sha256": "f6e597c293f3f228b5778d4c3579f5b8b75632a7c37c8953ca7b2e991ebfaa0e",
+      "git_canonical_sha256": "f6e597c293f3f228b5778d4c3579f5b8b75632a7c37c8953ca7b2e991ebfaa0e",
+      "git_blob_oid": "cb19a87b3c9deeb8b44f25b221e8cfb888f2a285",
+      "conversion": "raw-bytes",
+      "raw_bytes": 64
+    },
+    "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_eye_closed_s422_0.png": {
+      "raw_sha256": "2bdd0c82408873adc93ba4f6668b54801306d6db9974e14ca101ecf53f9fc0af",
+      "git_canonical_sha256": "2bdd0c82408873adc93ba4f6668b54801306d6db9974e14ca101ecf53f9fc0af",
+      "git_blob_oid": "0a5452ace46ea94ddeffc61bf0be33b45a023e28",
+      "conversion": "raw-bytes",
+      "raw_bytes": 855032
+    },
+    "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_eye_half_s421.job.json": {
+      "raw_sha256": "f531053b86dd4e7b8b5243b1965cf22b1f7bfdae1e87871a654d96f15ed8ce94",
+      "git_canonical_sha256": "f531053b86dd4e7b8b5243b1965cf22b1f7bfdae1e87871a654d96f15ed8ce94",
+      "git_blob_oid": "1554ef1353ade2f2ac663c726f368fd372ce4eea",
+      "conversion": "raw-bytes",
+      "raw_bytes": 64
+    },
+    "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_eye_half_s421_0.png": {
+      "raw_sha256": "9002b7ecf598b27be6806740cfe03908ab747a2441cc5966b331621522388b8f",
+      "git_canonical_sha256": "9002b7ecf598b27be6806740cfe03908ab747a2441cc5966b331621522388b8f",
+      "git_blob_oid": "a2650ca0ff30a5b02c584b8718317f4239404f2c",
+      "conversion": "raw-bytes",
+      "raw_bytes": 712919
+    },
+    "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_stage_P.job.json": {
+      "raw_sha256": "096be2ce1e3ae43f545420a3f9853ead6f0f931b3010745c1ebf80843fe7a45e",
+      "git_canonical_sha256": "096be2ce1e3ae43f545420a3f9853ead6f0f931b3010745c1ebf80843fe7a45e",
+      "git_blob_oid": "42b0a4003ae001420812b3d08ea77b17dd9eb2e5",
+      "conversion": "raw-bytes",
+      "raw_bytes": 63
+    },
+    "art_src/characters/harbor_lamplighter_demo/_gen/harbor_lamplighter_demo_stage_P_0.png": {
+      "raw_sha256": "892e94823c8c02954dd3b86925bf9d19f48a90810e2c2817be57f682b9d25871",
+      "git_canonical_sha256": "892e94823c8c02954dd3b86925bf9d19f48a90810e2c2817be57f682b9d25871",
+      "git_blob_oid": "8fcf8d4b67cefe9d0b598bedcb314f0f2b6ee5d0",
+      "conversion": "raw-bytes",
+      "raw_bytes": 549963
+    },
+    "art_src/characters/harbor_lamplighter_demo/_gen/sam_180acf9c_0.png": {
+      "raw_sha256": "4b0d05cf73e59f621a827963af43b4cb479c8bd4d14c1701d78d9b823650a86c",
+      "git_canonical_sha256": "4b0d05cf73e59f621a827963af43b4cb479c8bd4d14c1701d78d9b823650a86c",
+      "git_blob_oid": "671f0e1a9a528ef44a8e85dc9b2f3d857c5d9ee6",
+      "conversion": "raw-bytes",
+      "raw_bytes": 7705
+    },
+    "art_src/characters/harbor_lamplighter_demo/_gen/sam_366211b0_0.png": {
+      "raw_sha256": "b52bbbc468388d0743732434b495c796147ca0a8fc5defbda11f41d451e0d4bb",
+      "git_canonical_sha256": "b52bbbc468388d0743732434b495c796147ca0a8fc5defbda11f41d451e0d4bb",
+      "git_blob_oid": "51af15be4a640a3fdc4f9f0abc742076b44c9d37",
+      "conversion": "raw-bytes",
+      "raw_bytes": 7697
+    },
+    "art_src/characters/harbor_lamplighter_demo/_gen/sam_3ef14a85_0.png": {
+      "raw_sha256": "31804d18ef932c7b556abc098559a36200db66636397b4ea50da6d7fc5e47d17",
+      "git_canonical_sha256": "31804d18ef932c7b556abc098559a36200db66636397b4ea50da6d7fc5e47d17",
+      "git_blob_oid": "439e52ce3aeecdbb24d805d6d1f88dbe3b0ae77f",
+      "conversion": "raw-bytes",
+      "raw_bytes": 4720
+    },
+    "art_src/characters/harbor_lamplighter_demo/_gen/sam_9ef0edbf_0.png": {
+      "raw_sha256": "9a448878804fd88b1b1ccff30c60021c7522ebfc37bb6773293e6ed8b62b9a50",
+      "git_canonical_sha256": "9a448878804fd88b1b1ccff30c60021c7522ebfc37bb6773293e6ed8b62b9a50",
+      "git_blob_oid": "c203e9b817dea8a783ad5513f17f2823326dfad1",
+      "conversion": "raw-bytes",
+      "raw_bytes": 5955
+    },
+    "art_src/characters/harbor_lamplighter_demo/_gen/sam_aaf03509_0.png": {
+      "raw_sha256": "9c06016ef8c36587dbdddf4970841df17e9bb29dc6d4b0dc2e3e853ee6ebb428",
+      "git_canonical_sha256": "9c06016ef8c36587dbdddf4970841df17e9bb29dc6d4b0dc2e3e853ee6ebb428",
+      "git_blob_oid": "3846cf5247c2381faa2a87bf217a008be000ec98",
+      "conversion": "raw-bytes",
+      "raw_bytes": 5941
+    },
+    "art_src/characters/harbor_lamplighter_demo/_gen/sam_d2a4dc87_0.png": {
+      "raw_sha256": "10a06d679600fcc3d95f6ad09f819b14f1a846a6af14dbbbfa77176f309fe8ce",
+      "git_canonical_sha256": "10a06d679600fcc3d95f6ad09f819b14f1a846a6af14dbbbfa77176f309fe8ce",
+      "git_blob_oid": "073c9654441c06105f285fb2adc7aedb216b3b07",
+      "conversion": "raw-bytes",
+      "raw_bytes": 4324
+    },
+    "art_src/characters/harbor_lamplighter_demo/base_grey.png": {
+      "raw_sha256": "53760d165a754818b8c7fc638d082bc16efdbc980e67b1d7710ef55657479f1f",
+      "git_canonical_sha256": "53760d165a754818b8c7fc638d082bc16efdbc980e67b1d7710ef55657479f1f",
+      "git_blob_oid": "6668ea5643b4fd101c6bdd6818b1509f9c4e6890",
+      "conversion": "raw-bytes",
+      "raw_bytes": 243702
+    },
+    "art_src/characters/harbor_lamplighter_demo/base_rgba.png": {
+      "raw_sha256": "4cbdd4ff46e1ee28cabbfce08655e4052ff1cf7ef77dd72314eab6d20f855e59",
+      "git_canonical_sha256": "4cbdd4ff46e1ee28cabbfce08655e4052ff1cf7ef77dd72314eab6d20f855e59",
+      "git_blob_oid": "8e58eb69b81db454fb074f594fb10b97bb88b67f",
+      "conversion": "raw-bytes",
+      "raw_bytes": 570670
+    },
+    "art_src/characters/harbor_lamplighter_demo/continuous_normals.py": {
+      "raw_sha256": "6627122c35791b5dedf7057ef69b1657342b8d57d3a24093e9c5e1f1b833a726",
+      "git_canonical_sha256": "ecb680de4904e5887e85db5a9bf392ba8f1117c7df8818c0589958ceadcc3e08",
+      "git_blob_oid": "5b0060457e47eec89899f754e196f2402872f5fd",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 3549
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/.gitignore": {
+      "raw_sha256": "2f9798451e2442e518d3e4d32eea999bc9d3b45efce24b76216895ee2debc243",
+      "git_canonical_sha256": "03b2d9c3ade8a027dff3829ac3e8be06128cc077512ba115a4e6571a41b6e94b",
+      "git_blob_oid": "de71b945c7606e4bf43f9bc5ac146cf6d68ae692",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 661
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/COMMIT-final-draft.md": {
+      "raw_sha256": "ff8dfb7ddff0e536e54e6e18848a12ee8b91c35d47df42f741f1796d69d80116",
+      "git_canonical_sha256": "de7172410b0a73c40857def7cf421ff3d51a4de48659e9bc3176902892b8d236",
+      "git_blob_oid": "119625faef7683c74bf2c6b1de65a0a86dcf809a",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 2460
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/README.md": {
+      "raw_sha256": "9c19876588a5ead80b2cf2c56a58812e79445e604889231f14ec8df8a63533e5",
+      "git_canonical_sha256": "c447533b760ddd5e8258e5f84d99baff2dd85f0d008eafbbbd9dfb974d612c10",
+      "git_blob_oid": "7dd1fe64acb306d10b4f64946259b56a7623e305",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 4896
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/REVIEW-v12.md": {
+      "raw_sha256": "f349ba7530c53481230e0898dcd75144423005dd10f448eedf59d5438387c5d8",
+      "git_canonical_sha256": "d6c7a539b5d376d1a37ff5e425e097e699b3acfdd45d89e90f8c12cf9009b69c",
+      "git_blob_oid": "36872ec0e91d2407d26c842a56464cc38890b397",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 15961
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/anim-v12.json": {
+      "raw_sha256": "da84fab6d33131817f625deac16c724ee58ccff7495d2afc4816df92c3f2ee06",
+      "git_canonical_sha256": "da84fab6d33131817f625deac16c724ee58ccff7495d2afc4816df92c3f2ee06",
+      "git_blob_oid": "53bbf484cfc29dd95a6577e75745cfdbf286d3d8",
+      "conversion": "raw-bytes",
+      "raw_bytes": 7016
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/append_performance_archive.py": {
+      "raw_sha256": "ebb35ab6c00fba378fee29a3fd94c79c6118df06f510ab4658a36d8345bcbe61",
+      "git_canonical_sha256": "b6d5f888c479dc4b9289a7852cf7fa442d3e4a2845dd1948ede7c74ab7f5bbae",
+      "git_blob_oid": "3c637c76f7ce8cd7f09a597acff1882e580e8f45",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 3376
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/archive-copy-receipt.json": {
+      "raw_sha256": "2abdeb8765bea64189c4a59f6f588a8a008b10322de9ce42938c58eeb7642fe7",
+      "git_canonical_sha256": "3b704ba139b5be7de536156957a3acfb4182fcbb733b29d5543971a6bbc8b733",
+      "git_blob_oid": "10fa48d1d7de9410c6184b18d6ad6d83a9672c12",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 601
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/component-ledger.json": {
+      "raw_sha256": "57da5fd67c7b4d941fe2c3543e97e1285a823dcfdcef3538ad996e441d9cd56f",
+      "git_canonical_sha256": "83f5667d6673efab3298e4ee97a97c2130ce2642c28504d76aeb811342482fba",
+      "git_blob_oid": "cb6f5a5149b474a9261c758d55495b2184a0467c",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 20994
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/final-small-items/index.json": {
+      "raw_sha256": "06355f0e8faca11538ebfd82f59e497416b41b036e88df83e9690cba462c6982",
+      "git_canonical_sha256": "c775e94ce5902086ab962265ca5cd7745c378f27737093fb64ce9efb4a62273d",
+      "git_blob_oid": "6cb3d8e485153b44f00d6d1d5c869aff7427c335",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 13323
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/final-small-items/source-mapping-all-16.json": {
+      "raw_sha256": "f2a439573338250a2d16af15322a50420cd78b7a82aafa4dcac9d298e4ea65fc",
+      "git_canonical_sha256": "f08493d6138c53d29f55bcf92b472e1d08509f6034a27e3b118d571f43f5194a",
+      "git_blob_oid": "8e7cf2de91d4cdc8324b4eae9e8584234410a464",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 70578
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/fixture-v12-receipt.json": {
+      "raw_sha256": "323c9eca8b966fe0b75a493882faa49fa0f5f1846b47e9fc7a0e31af5e6c22ef",
+      "git_canonical_sha256": "323c9eca8b966fe0b75a493882faa49fa0f5f1846b47e9fc7a0e31af5e6c22ef",
+      "git_blob_oid": "8734607544282f16cbbf53a3ef90c6011e0dca52",
+      "conversion": "raw-bytes",
+      "raw_bytes": 2597
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/git-canonical-production-v12.json": {
+      "raw_sha256": "6075cd8eb1d7ed10fff883389c9c31bb781b3fa8853aa622a0fded9b58bca093",
+      "git_canonical_sha256": "05f69ef93e50d0d4c93e072809b6eaea8ff344530846e8a14da1674952c2da38",
+      "git_blob_oid": "f87fdb112e25c4cb65b51df24f608d308d24a195",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 60993
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/joint-classification-v12.json": {
+      "raw_sha256": "59bd4d48a56cc3a4be078dd071d55d6078dfa40b0298d4f66672130b5232e949",
+      "git_canonical_sha256": "b96bfbf1591286fa5696f97911fa623f2b328c0a1f1c79303161e658f89fbc2b",
+      "git_blob_oid": "4d2a9d91757d482f77ed98ccb12632198460f5ad",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 3642
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/matrix-v12-summary.json": {
+      "raw_sha256": "66b94f3a5a673ee3e8c9eda3d064763194e8a96b3ade909ef06e3752228dd8c2",
+      "git_canonical_sha256": "fdb1c5f5ad5ca75a2b6b136b225704625efaeae528e3b8ddbd484c28dbbb4acf",
+      "git_blob_oid": "4c49b3e8e11ffd59f299ddda266916862d3b07b4",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 1854
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/official-result-v12.json": {
+      "raw_sha256": "ea84cf91d7d5daf82f39a8e8b01d13757644bf70de2163df103ae2a3336b0c59",
+      "git_canonical_sha256": "838f940feacc7f181d586ff5add9f26b3519398936ab766cf632c45e83faa84e",
+      "git_blob_oid": "88c0d7e9b0fe66b530c622f6c8f909fb0e79f0e8",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 1389
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/pack_raw_evidence.py": {
+      "raw_sha256": "e007add5efd6fe5e9c05ccf762dd1697c6a2ea2c26770caf323d0449eeaddb6e",
+      "git_canonical_sha256": "346bc3143751ec61526dcd1c5af961033e0e63a5d1818d2a143c4661ccc8dc67",
+      "git_blob_oid": "7da430383cf55b24eff898757312935e2bd62691",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 6775
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/performance-v12-summary.json": {
+      "raw_sha256": "022647e9e8fafad8f2fb0cbc36ad2bcf6ff1385022c2a2703badc407a9ef3709",
+      "git_canonical_sha256": "c19b2d8f54dda9eb4223af24a388cb85dabfb6a21eced0b6562eadb899b8c52d",
+      "git_blob_oid": "9bde099973ad77e6de0f7102c6192b9b7f6d0fd5",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 16360
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/production-v12-freeze-123.json": {
+      "raw_sha256": "a42c34f585b055718704a53979a7bd4a4755746a721b8af7abc2aa57754813b4",
+      "git_canonical_sha256": "6d560ca4cacc65c3f21088de950e72dcbc064c916abe2a878d8bb3923a908045",
+      "git_blob_oid": "00921c9b18e5658c0003ccfbc8f91283ab1e7b30",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 17355
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/authoring-v12-01.raw.tar.xz": {
+      "raw_sha256": "f9fc292ef2d5b0a34f02683d9e9663a2fb140d4e5e6d797623902b76d09ac3fc",
+      "git_canonical_sha256": "f9fc292ef2d5b0a34f02683d9e9663a2fb140d4e5e6d797623902b76d09ac3fc",
+      "git_blob_oid": "bdd984626aa4d1a02096a8b5c781d73a14434a21",
+      "conversion": "raw-bytes",
+      "raw_bytes": 9980276
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/authoring-v12-01.raw.tar.xz.members.json": {
+      "raw_sha256": "c90f6f40b5f073555a8f0aacf12eab4e4f18655433bdf1dc14e2a4f924ae7e77",
+      "git_canonical_sha256": "c90f6f40b5f073555a8f0aacf12eab4e4f18655433bdf1dc14e2a4f924ae7e77",
+      "git_blob_oid": "30fa6aa3f7f2acdfb6ada9a60cbfb6c70b39242d",
+      "conversion": "raw-bytes",
+      "raw_bytes": 30148
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/index.json": {
+      "raw_sha256": "d6db65dc6960a369ad1a5d847caddfec235acc8ed6310f208dd707bed7c47736",
+      "git_canonical_sha256": "d6db65dc6960a369ad1a5d847caddfec235acc8ed6310f208dd707bed7c47736",
+      "git_blob_oid": "7bf681ad01c7fab5d794fada9e513fa65bfff112",
+      "conversion": "raw-bytes",
+      "raw_bytes": 23665
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/unversioned-records-01.raw.tar.xz": {
+      "raw_sha256": "9337f5ee56a076582b257f01e791e75067653af44b42ad531c7175977cb4caea",
+      "git_canonical_sha256": "9337f5ee56a076582b257f01e791e75067653af44b42ad531c7175977cb4caea",
+      "git_blob_oid": "28ca04910e3b990b0f69558346091c72ad200345",
+      "conversion": "raw-bytes",
+      "raw_bytes": 20146304
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/unversioned-records-01.raw.tar.xz.members.json": {
+      "raw_sha256": "bba2aae7fdca2925a113443b5031b8160189c7671b76d0dd55bda66c217b843d",
+      "git_canonical_sha256": "bba2aae7fdca2925a113443b5031b8160189c7671b76d0dd55bda66c217b843d",
+      "git_blob_oid": "f3023ae86cb6dee928b9d920ebdf108214e7c1bb",
+      "conversion": "raw-bytes",
+      "raw_bytes": 481318
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/unversioned-records-02.raw.tar.xz": {
+      "raw_sha256": "897371e93f48e6a657fdb9957ecc5266fd74ecd4a859d4c122cdf76a96c84194",
+      "git_canonical_sha256": "897371e93f48e6a657fdb9957ecc5266fd74ecd4a859d4c122cdf76a96c84194",
+      "git_blob_oid": "782974b21c3829256a5236038b392fe126e520c5",
+      "conversion": "raw-bytes",
+      "raw_bytes": 11296504
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/unversioned-records-02.raw.tar.xz.members.json": {
+      "raw_sha256": "90e6fff645e8a9aabd9c24fb9dee2db96cc8a627e610c67ef28a65e1a5ad80b9",
+      "git_canonical_sha256": "90e6fff645e8a9aabd9c24fb9dee2db96cc8a627e610c67ef28a65e1a5ad80b9",
+      "git_blob_oid": "09d6890d6d3cd444ffd770bcc655b9832e486611",
+      "conversion": "raw-bytes",
+      "raw_bytes": 26132
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-01.raw.tar.xz": {
+      "raw_sha256": "57ad5fee34c4de9c2157c6c157afc79be99bfd3b7b2ed084e6705d4d302abc4f",
+      "git_canonical_sha256": "57ad5fee34c4de9c2157c6c157afc79be99bfd3b7b2ed084e6705d4d302abc4f",
+      "git_blob_oid": "409a1bbbfb12af47ade6c6cf60740f5c8a030e33",
+      "conversion": "raw-bytes",
+      "raw_bytes": 29868004
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-01.raw.tar.xz.members.json": {
+      "raw_sha256": "383927eafe464f5432b1215d9ef74425a71becb00efff790d35faeddd343ebb8",
+      "git_canonical_sha256": "383927eafe464f5432b1215d9ef74425a71becb00efff790d35faeddd343ebb8",
+      "git_blob_oid": "91087ebdc541f7f1618a39549a90cbe60ddb92b5",
+      "conversion": "raw-bytes",
+      "raw_bytes": 176226
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-02.raw.tar.xz": {
+      "raw_sha256": "d45101ff2157099e8075df9dc047a046e07991b8455e35b16c0a52aba287fd85",
+      "git_canonical_sha256": "d45101ff2157099e8075df9dc047a046e07991b8455e35b16c0a52aba287fd85",
+      "git_blob_oid": "44be0e97570bbf21f1faed4389d8bd878cc352d2",
+      "conversion": "raw-bytes",
+      "raw_bytes": 18133880
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-02.raw.tar.xz.members.json": {
+      "raw_sha256": "53e029e591609bd6872dd2bb227c1b39ec449ca99285338c0bf30ace41fd4e8f",
+      "git_canonical_sha256": "53e029e591609bd6872dd2bb227c1b39ec449ca99285338c0bf30ace41fd4e8f",
+      "git_blob_oid": "74f1c67b12d2c1dd59b83e4e8a7ac230498ee6fc",
+      "conversion": "raw-bytes",
+      "raw_bytes": 147915
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-03.raw.tar.xz": {
+      "raw_sha256": "2872a67dbb24806f1b0105792566509d44c3c55576e8a50516609101035ac20d",
+      "git_canonical_sha256": "2872a67dbb24806f1b0105792566509d44c3c55576e8a50516609101035ac20d",
+      "git_blob_oid": "2b6a40e34a34d3fce264e00b151ab4a2031c824a",
+      "conversion": "raw-bytes",
+      "raw_bytes": 22808708
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-03.raw.tar.xz.members.json": {
+      "raw_sha256": "c42138222947f83c010e6fed2a7648781a9d32111832d7221eb39249ba86b592",
+      "git_canonical_sha256": "c42138222947f83c010e6fed2a7648781a9d32111832d7221eb39249ba86b592",
+      "git_blob_oid": "1bd666a5a378248c688a47da789395365de44511",
+      "conversion": "raw-bytes",
+      "raw_bytes": 174913
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-04.raw.tar.xz": {
+      "raw_sha256": "21496a13dc5c967395a35699c4d8e8c8029f993ebfcfc7d7e49adbeeca5a307d",
+      "git_canonical_sha256": "21496a13dc5c967395a35699c4d8e8c8029f993ebfcfc7d7e49adbeeca5a307d",
+      "git_blob_oid": "53eac67a21b2825dde451951e346edec8b7308d0",
+      "conversion": "raw-bytes",
+      "raw_bytes": 25685716
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-04.raw.tar.xz.members.json": {
+      "raw_sha256": "e68dd5b9a8b7d75068ac2e3d7089625d94c89fa535f7fdd3860e575cf176db18",
+      "git_canonical_sha256": "e68dd5b9a8b7d75068ac2e3d7089625d94c89fa535f7fdd3860e575cf176db18",
+      "git_blob_oid": "734d51ae3e571b222bd1ac3ce340b35473d515b0",
+      "conversion": "raw-bytes",
+      "raw_bytes": 156303
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-05.raw.tar.xz": {
+      "raw_sha256": "a7465d5cd1f7b1527701b879ce40bb70d076a384f0326bdc93801f07d14743b4",
+      "git_canonical_sha256": "a7465d5cd1f7b1527701b879ce40bb70d076a384f0326bdc93801f07d14743b4",
+      "git_blob_oid": "c1024c6dbc2b0b5e0c915dde623b63dd2bb7bf51",
+      "conversion": "raw-bytes",
+      "raw_bytes": 32329736
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-05.raw.tar.xz.members.json": {
+      "raw_sha256": "bef50e0da1336129ce4621a945dc74ef91e37862b6581b87814340f756134468",
+      "git_canonical_sha256": "bef50e0da1336129ce4621a945dc74ef91e37862b6581b87814340f756134468",
+      "git_blob_oid": "b7923b6100df3455ece4f09ebc1a66b6588e9642",
+      "conversion": "raw-bytes",
+      "raw_bytes": 183632
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-06.raw.tar.xz": {
+      "raw_sha256": "d7c8701959896d2aa2a3be4d14ee0c7c9a7f4b395febac798422fde4bf67dfb0",
+      "git_canonical_sha256": "d7c8701959896d2aa2a3be4d14ee0c7c9a7f4b395febac798422fde4bf67dfb0",
+      "git_blob_oid": "6191e25f95632c23cdc0fe782950d779bfccfbf4",
+      "conversion": "raw-bytes",
+      "raw_bytes": 33830604
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-06.raw.tar.xz.members.json": {
+      "raw_sha256": "2ee3cdcf9882d6938c42595b78b62f64b9c3fc95b12f5988847d33e0599c211b",
+      "git_canonical_sha256": "2ee3cdcf9882d6938c42595b78b62f64b9c3fc95b12f5988847d33e0599c211b",
+      "git_blob_oid": "9f12bc95a0a231a79960f2e71f61c5a74991cba9",
+      "conversion": "raw-bytes",
+      "raw_bytes": 157696
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-07.raw.tar.xz": {
+      "raw_sha256": "4ba01add72201a40d723fb8a0361fe45ac908ef9cf6936e7878d769ba0bd70cf",
+      "git_canonical_sha256": "4ba01add72201a40d723fb8a0361fe45ac908ef9cf6936e7878d769ba0bd70cf",
+      "git_blob_oid": "a905f66e0da01465966cb9447e0dee1dca8b6635",
+      "conversion": "raw-bytes",
+      "raw_bytes": 3321392
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v02-07.raw.tar.xz.members.json": {
+      "raw_sha256": "f1b84345ad819fcf0274f13eca5273e00864882ce35e7ccfd473c82c574180a8",
+      "git_canonical_sha256": "f1b84345ad819fcf0274f13eca5273e00864882ce35e7ccfd473c82c574180a8",
+      "git_blob_oid": "c39fc899c9f298f3d84f383d45a76ad31dbce3a8",
+      "conversion": "raw-bytes",
+      "raw_bytes": 8043
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v03-01.raw.tar.xz": {
+      "raw_sha256": "875a6cb5dab2e66f7d1da4850e827e6757297dcbbdeac3039ad98fb4e20fb690",
+      "git_canonical_sha256": "875a6cb5dab2e66f7d1da4850e827e6757297dcbbdeac3039ad98fb4e20fb690",
+      "git_blob_oid": "f85373e431468c0764cef52231ea222ea76bf1a5",
+      "conversion": "raw-bytes",
+      "raw_bytes": 2287816
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v03-01.raw.tar.xz.members.json": {
+      "raw_sha256": "1529805969301a67d17e51b3b42d7d2e32a754a02905376df75a50d6ed8d383a",
+      "git_canonical_sha256": "1529805969301a67d17e51b3b42d7d2e32a754a02905376df75a50d6ed8d383a",
+      "git_blob_oid": "7b73a6a757cca1d5190adb8517a7277d94ccb236",
+      "conversion": "raw-bytes",
+      "raw_bytes": 6142
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v04-01.raw.tar.xz": {
+      "raw_sha256": "b365ecbe83501a2ad22535f2a6739755dbdfdd9bd17e3872e6f6970533d82226",
+      "git_canonical_sha256": "b365ecbe83501a2ad22535f2a6739755dbdfdd9bd17e3872e6f6970533d82226",
+      "git_blob_oid": "e965478d4f637ddec1d7d6e26b5516cf61321daf",
+      "conversion": "raw-bytes",
+      "raw_bytes": 2990888
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v04-01.raw.tar.xz.members.json": {
+      "raw_sha256": "825a4a988d5276adbe7b2462cc81de39ac53633b89c9bbd4d15754b0a2c0398f",
+      "git_canonical_sha256": "825a4a988d5276adbe7b2462cc81de39ac53633b89c9bbd4d15754b0a2c0398f",
+      "git_blob_oid": "5d3a2f5259490e9fd29d2329120852bafe8c2fcb",
+      "conversion": "raw-bytes",
+      "raw_bytes": 105149
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v05-01.raw.tar.xz": {
+      "raw_sha256": "8c33122f23eeea9867e0b72c63ae330072f0000760f1890d88ffaefbd47d623b",
+      "git_canonical_sha256": "8c33122f23eeea9867e0b72c63ae330072f0000760f1890d88ffaefbd47d623b",
+      "git_blob_oid": "ea27a84191fc4f7c132ee4746b0e1ad0377d2d2d",
+      "conversion": "raw-bytes",
+      "raw_bytes": 2241792
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v05-01.raw.tar.xz.members.json": {
+      "raw_sha256": "3f57dc8f7f3b40a47bd6ff4c9a32d3e4135a29c0754d6b27792bcf498d9f67e9",
+      "git_canonical_sha256": "3f57dc8f7f3b40a47bd6ff4c9a32d3e4135a29c0754d6b27792bcf498d9f67e9",
+      "git_blob_oid": "573cb1cf9186c58f43ef34d53920553298e28c79",
+      "conversion": "raw-bytes",
+      "raw_bytes": 104203
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v06-01.raw.tar.xz": {
+      "raw_sha256": "a1f26ead3902250acb1ea56e644111c35d8c9622e6d156fb2410020210665688",
+      "git_canonical_sha256": "a1f26ead3902250acb1ea56e644111c35d8c9622e6d156fb2410020210665688",
+      "git_blob_oid": "7ff07697aab0d22cd65a1bdf9885f550cb4f2e91",
+      "conversion": "raw-bytes",
+      "raw_bytes": 752
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v06-01.raw.tar.xz.members.json": {
+      "raw_sha256": "b863720626794052e57302059d42d9d509b61b8119890e551eba3f6faa18abda",
+      "git_canonical_sha256": "b863720626794052e57302059d42d9d509b61b8119890e551eba3f6faa18abda",
+      "git_blob_oid": "2bc7ac93f13070b9b39dacaa4b1a805827e5c45d",
+      "conversion": "raw-bytes",
+      "raw_bytes": 311
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v07-01.raw.tar.xz": {
+      "raw_sha256": "7a259c93f6affce4d127f7603168506c101e4d389c497723a424e9cda0b918e2",
+      "git_canonical_sha256": "7a259c93f6affce4d127f7603168506c101e4d389c497723a424e9cda0b918e2",
+      "git_blob_oid": "74139546cb500bf2f8f65b4876ee19bc52e80753",
+      "conversion": "raw-bytes",
+      "raw_bytes": 30189004
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v07-01.raw.tar.xz.members.json": {
+      "raw_sha256": "681e95df730ae0196a08ab0ebe4f3cd5f6351393b2699f82db402936f8b31ccf",
+      "git_canonical_sha256": "681e95df730ae0196a08ab0ebe4f3cd5f6351393b2699f82db402936f8b31ccf",
+      "git_blob_oid": "ef8e5cfb27ae7c56f85e88d20c41102bd78775aa",
+      "conversion": "raw-bytes",
+      "raw_bytes": 405809
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v07-02.raw.tar.xz": {
+      "raw_sha256": "6f24811864791f8f1e2f3bbdcab82a7a75ad7c627c3eed4dc64bc96e51d97a1e",
+      "git_canonical_sha256": "6f24811864791f8f1e2f3bbdcab82a7a75ad7c627c3eed4dc64bc96e51d97a1e",
+      "git_blob_oid": "894c1bfb1a0eaed0ccd00b38ac143a352f34c2d9",
+      "conversion": "raw-bytes",
+      "raw_bytes": 8638460
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v07-02.raw.tar.xz.members.json": {
+      "raw_sha256": "e1308d08ba5b66da83ff9ec88d1e3ba27dd59b1b40e75bf82476bc9a437a237c",
+      "git_canonical_sha256": "e1308d08ba5b66da83ff9ec88d1e3ba27dd59b1b40e75bf82476bc9a437a237c",
+      "git_blob_oid": "d3c36533004b9d0e1bb1e30aa1b2305f014e5f27",
+      "conversion": "raw-bytes",
+      "raw_bytes": 157566
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v07-independent-review-01.raw.tar.xz": {
+      "raw_sha256": "3a6eb21eb34446b2b4b12445001e0eed1b3506b186cff5afb8a164384da09aba",
+      "git_canonical_sha256": "3a6eb21eb34446b2b4b12445001e0eed1b3506b186cff5afb8a164384da09aba",
+      "git_blob_oid": "47a954abdde7a1f0160346018852c7b1bb44e0a8",
+      "conversion": "raw-bytes",
+      "raw_bytes": 12312
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v07-independent-review-01.raw.tar.xz.members.json": {
+      "raw_sha256": "13bab2e712c2219e173b6f4a985a2da7a0d244d5f0e52f363402b7cc84e6e2d6",
+      "git_canonical_sha256": "13bab2e712c2219e173b6f4a985a2da7a0d244d5f0e52f363402b7cc84e6e2d6",
+      "git_blob_oid": "3739f2533f792d7c103b19d0fee569e1239dfc1b",
+      "conversion": "raw-bytes",
+      "raw_bytes": 767
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-01.raw.tar.xz": {
+      "raw_sha256": "c81957b4acc3870604a7fd6c58f2b14812f50500fa2f91a85a81cf25b10942da",
+      "git_canonical_sha256": "c81957b4acc3870604a7fd6c58f2b14812f50500fa2f91a85a81cf25b10942da",
+      "git_blob_oid": "19ee39894dd2d58941b27339f81d24c071b62c77",
+      "conversion": "raw-bytes",
+      "raw_bytes": 29839624
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-01.raw.tar.xz.members.json": {
+      "raw_sha256": "55adfc283e37b7ba4c6b01a21b5b87b1976187d8f5b37fa70c73191a1b9f4780",
+      "git_canonical_sha256": "55adfc283e37b7ba4c6b01a21b5b87b1976187d8f5b37fa70c73191a1b9f4780",
+      "git_blob_oid": "07b262bea0a4ad8ae013c4b79794944fa2b89a84",
+      "conversion": "raw-bytes",
+      "raw_bytes": 175305
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-02.raw.tar.xz": {
+      "raw_sha256": "0cf6d77b2f73a11ca55fd699b14454785236a7d54cea041dcc2143f7458a748d",
+      "git_canonical_sha256": "0cf6d77b2f73a11ca55fd699b14454785236a7d54cea041dcc2143f7458a748d",
+      "git_blob_oid": "7bea3ee1a8e72752181ce142e1200c61e077c09d",
+      "conversion": "raw-bytes",
+      "raw_bytes": 18000628
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-02.raw.tar.xz.members.json": {
+      "raw_sha256": "427e67d9b01b5f11614a213edc2985f3ebe5afe3cbed133a00d35a3e646ad305",
+      "git_canonical_sha256": "427e67d9b01b5f11614a213edc2985f3ebe5afe3cbed133a00d35a3e646ad305",
+      "git_blob_oid": "846259dcbf98dbb016fab102880b277c4fa0b3d8",
+      "conversion": "raw-bytes",
+      "raw_bytes": 147369
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-03.raw.tar.xz": {
+      "raw_sha256": "27ed222417f3b43c16f00e6176a33d98dd91ebb3d9e5f6a64f915ecd79a5dcfc",
+      "git_canonical_sha256": "27ed222417f3b43c16f00e6176a33d98dd91ebb3d9e5f6a64f915ecd79a5dcfc",
+      "git_blob_oid": "69ca0acfb13e962e42183547b3c3fde03e2cf8d7",
+      "conversion": "raw-bytes",
+      "raw_bytes": 23185932
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-03.raw.tar.xz.members.json": {
+      "raw_sha256": "de871c59f2a698c0618b1aa331eb18b5deb7526c37fda71d19b0706fdda98cce",
+      "git_canonical_sha256": "de871c59f2a698c0618b1aa331eb18b5deb7526c37fda71d19b0706fdda98cce",
+      "git_blob_oid": "38c0f69c081423a3b89952bfce09fe82d0270bf7",
+      "conversion": "raw-bytes",
+      "raw_bytes": 172614
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-04.raw.tar.xz": {
+      "raw_sha256": "2cb27f38b17b7484d749ec1ef0ae20ffd614cd6dc081d646d57785dd2ba1af69",
+      "git_canonical_sha256": "2cb27f38b17b7484d749ec1ef0ae20ffd614cd6dc081d646d57785dd2ba1af69",
+      "git_blob_oid": "e0b8e3024f726a617d17ea496ff07de3e753f843",
+      "conversion": "raw-bytes",
+      "raw_bytes": 25729636
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-04.raw.tar.xz.members.json": {
+      "raw_sha256": "66d8c37136d7bd324d6f9a670fc7eff960cf89b1dd54b94850a17a75b01f75dd",
+      "git_canonical_sha256": "66d8c37136d7bd324d6f9a670fc7eff960cf89b1dd54b94850a17a75b01f75dd",
+      "git_blob_oid": "bb64af020900b4b011425d778b913dfc866b1a2d",
+      "conversion": "raw-bytes",
+      "raw_bytes": 151059
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-05.raw.tar.xz": {
+      "raw_sha256": "c8ae790e5a069cdab660213e4f1f6e5bb492715fa0dfcd73984849291c816935",
+      "git_canonical_sha256": "c8ae790e5a069cdab660213e4f1f6e5bb492715fa0dfcd73984849291c816935",
+      "git_blob_oid": "e81f23bd7a1fe24a60ecbf0f1ec9345301735805",
+      "conversion": "raw-bytes",
+      "raw_bytes": 31827760
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-05.raw.tar.xz.members.json": {
+      "raw_sha256": "2a1ee4087a890413552db9ed79c6266c94330e7415308bc8ead3675cfe008ffe",
+      "git_canonical_sha256": "2a1ee4087a890413552db9ed79c6266c94330e7415308bc8ead3675cfe008ffe",
+      "git_blob_oid": "aabce1143c5254f4a51d1bf557c02e4868ea21c5",
+      "conversion": "raw-bytes",
+      "raw_bytes": 175735
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-06.raw.tar.xz": {
+      "raw_sha256": "dbcd56dc0705a4b0ad0f6ea286cc04b5141859eecb6a022ed7b5e47aa0d3d333",
+      "git_canonical_sha256": "dbcd56dc0705a4b0ad0f6ea286cc04b5141859eecb6a022ed7b5e47aa0d3d333",
+      "git_blob_oid": "51ed34e045433d3dff010b8bb2efbb600c897b28",
+      "conversion": "raw-bytes",
+      "raw_bytes": 33006000
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-06.raw.tar.xz.members.json": {
+      "raw_sha256": "b7a2cb609ab7bf629c304fcd5a463ff8b488b869db0cc3f8354ef384d928bc0d",
+      "git_canonical_sha256": "b7a2cb609ab7bf629c304fcd5a463ff8b488b869db0cc3f8354ef384d928bc0d",
+      "git_blob_oid": "9b4ff5646a6ae1b832e46fc3a1f02d4023d2517e",
+      "conversion": "raw-bytes",
+      "raw_bytes": 149433
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-07.raw.tar.xz": {
+      "raw_sha256": "e50e4fea377faa41fc8488a6e9c8c22c6fc4d8365057fa1a240976fb918cdc57",
+      "git_canonical_sha256": "e50e4fea377faa41fc8488a6e9c8c22c6fc4d8365057fa1a240976fb918cdc57",
+      "git_blob_oid": "9e90461a1e577cce587dfd6558893b5f73a9de98",
+      "conversion": "raw-bytes",
+      "raw_bytes": 32883632
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-07.raw.tar.xz.members.json": {
+      "raw_sha256": "f4c8d3fb499943f7e7ee522bdd073ae1dfe0ed5f65a50188aad2c7dee4e7f312",
+      "git_canonical_sha256": "f4c8d3fb499943f7e7ee522bdd073ae1dfe0ed5f65a50188aad2c7dee4e7f312",
+      "git_blob_oid": "254633a511159232bf7387eb0317b9b53f5d7334",
+      "conversion": "raw-bytes",
+      "raw_bytes": 179253
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-08.raw.tar.xz": {
+      "raw_sha256": "e7f89a90ddde285d3b2e5f722044c19efe8214fcd857820d1e797785f35bcf1f",
+      "git_canonical_sha256": "e7f89a90ddde285d3b2e5f722044c19efe8214fcd857820d1e797785f35bcf1f",
+      "git_blob_oid": "fad824f23f1eb203d98b951ad5adcd19f22148dd",
+      "conversion": "raw-bytes",
+      "raw_bytes": 24924552
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v08-08.raw.tar.xz.members.json": {
+      "raw_sha256": "2768d8b5f8e53e17d973e3c5bb7ac56b1afe31304bec7f28d3abe4742fa4acd4",
+      "git_canonical_sha256": "2768d8b5f8e53e17d973e3c5bb7ac56b1afe31304bec7f28d3abe4742fa4acd4",
+      "git_blob_oid": "f9072035c9fee79475a9abfb79109b018537aaf3",
+      "conversion": "raw-bytes",
+      "raw_bytes": 383380
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-01.raw.tar.xz": {
+      "raw_sha256": "44ea89dfe7e1130868b28bd3e24a8890e1010eeb3efc8bf2e07b80b4502ca48f",
+      "git_canonical_sha256": "44ea89dfe7e1130868b28bd3e24a8890e1010eeb3efc8bf2e07b80b4502ca48f",
+      "git_blob_oid": "300b0072d57a9b5d9fb17673938a7c51b97f2ce3",
+      "conversion": "raw-bytes",
+      "raw_bytes": 15712976
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-01.raw.tar.xz.members.json": {
+      "raw_sha256": "2b767ffc8582fdec25cf7f2619ea2686f1e282f1cc29431d9367169526384364",
+      "git_canonical_sha256": "2b767ffc8582fdec25cf7f2619ea2686f1e282f1cc29431d9367169526384364",
+      "git_blob_oid": "ff167553b2b8ac27990048adcd94e1427e271bbe",
+      "conversion": "raw-bytes",
+      "raw_bytes": 209645
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-02.raw.tar.xz": {
+      "raw_sha256": "c04d95c1b9ab081d38ff2afd06223364f775c8b724f44bc168310af12bfec468",
+      "git_canonical_sha256": "c04d95c1b9ab081d38ff2afd06223364f775c8b724f44bc168310af12bfec468",
+      "git_blob_oid": "89f5a111bd0a3ae5e2a1354285ad1a4064d43067",
+      "conversion": "raw-bytes",
+      "raw_bytes": 14736576
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-02.raw.tar.xz.members.json": {
+      "raw_sha256": "c4e83982f697f6dad1e646168465bc08cc5af353fa4fd2b1af5547a5fb3d23fa",
+      "git_canonical_sha256": "c4e83982f697f6dad1e646168465bc08cc5af353fa4fd2b1af5547a5fb3d23fa",
+      "git_blob_oid": "4fb0cf2292768aee9096e733aa93bd4e9699a8b5",
+      "conversion": "raw-bytes",
+      "raw_bytes": 150025
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-03.raw.tar.xz": {
+      "raw_sha256": "5a3bb296ebafad95404f49f300928ed7c7ce27c34a281f5da96c4635516d59b5",
+      "git_canonical_sha256": "5a3bb296ebafad95404f49f300928ed7c7ce27c34a281f5da96c4635516d59b5",
+      "git_blob_oid": "d0f6a218dc1fcf6833785400f9ef183a587008ba",
+      "conversion": "raw-bytes",
+      "raw_bytes": 6330932
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-03.raw.tar.xz.members.json": {
+      "raw_sha256": "0803becab29c6ad978f1062f3d349b8a76e5a520ab0066daa88148655ef126ce",
+      "git_canonical_sha256": "0803becab29c6ad978f1062f3d349b8a76e5a520ab0066daa88148655ef126ce",
+      "git_blob_oid": "ba679e1b0c457234aaf6a1fa11d3d4b6685f2802",
+      "conversion": "raw-bytes",
+      "raw_bytes": 149712
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-04.raw.tar.xz": {
+      "raw_sha256": "39e1f9367f1173d7213be5e72319f563ea16088c043fcdecfb0100152004b461",
+      "git_canonical_sha256": "39e1f9367f1173d7213be5e72319f563ea16088c043fcdecfb0100152004b461",
+      "git_blob_oid": "d7cbdc251a3046d7d37f15dd8b46f0a90a1c7d64",
+      "conversion": "raw-bytes",
+      "raw_bytes": 12052004
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-04.raw.tar.xz.members.json": {
+      "raw_sha256": "24f68dc3800f56dbee0eda64133829faef6108f50596d4cda3f7c272c51f8f54",
+      "git_canonical_sha256": "24f68dc3800f56dbee0eda64133829faef6108f50596d4cda3f7c272c51f8f54",
+      "git_blob_oid": "a91bbaab1d65bbbd5b2b620a70728b79e4fd7f5f",
+      "conversion": "raw-bytes",
+      "raw_bytes": 150506
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-05.raw.tar.xz": {
+      "raw_sha256": "3b6b15de9260b6ac0d46c10f041a495a97e7febdde7961eec665714bb9802fcd",
+      "git_canonical_sha256": "3b6b15de9260b6ac0d46c10f041a495a97e7febdde7961eec665714bb9802fcd",
+      "git_blob_oid": "4dbeaa7587fc20ff3f2022a4f659b458dd0834dc",
+      "conversion": "raw-bytes",
+      "raw_bytes": 7281608
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-05.raw.tar.xz.members.json": {
+      "raw_sha256": "881d616898800e7901906dba4330d2ca49df5fd6981de82b73e33e156c5f0142",
+      "git_canonical_sha256": "881d616898800e7901906dba4330d2ca49df5fd6981de82b73e33e156c5f0142",
+      "git_blob_oid": "6e880fa25e13c80a7f29114239336b77ed78db0e",
+      "conversion": "raw-bytes",
+      "raw_bytes": 202899
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-06.raw.tar.xz": {
+      "raw_sha256": "bcadc4a44b91984cd1a6cc0bf281b4eaa63e84427564f935ac1bba968298cf8f",
+      "git_canonical_sha256": "bcadc4a44b91984cd1a6cc0bf281b4eaa63e84427564f935ac1bba968298cf8f",
+      "git_blob_oid": "5c15edf926e75976994d19ffb1ce845811594ac3",
+      "conversion": "raw-bytes",
+      "raw_bytes": 16247016
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-06.raw.tar.xz.members.json": {
+      "raw_sha256": "04731cb938ac1f4f895398a829758b8c1021b17cfcd42f0f5f1538dfd5c32aa1",
+      "git_canonical_sha256": "04731cb938ac1f4f895398a829758b8c1021b17cfcd42f0f5f1538dfd5c32aa1",
+      "git_blob_oid": "558a4e0ced6016d7b595b7473280f21b79b5e343",
+      "conversion": "raw-bytes",
+      "raw_bytes": 149303
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-07.raw.tar.xz": {
+      "raw_sha256": "b00663505bf71dd98a2b455cf06ef70f6deb20869496bf6f23d2c88149172787",
+      "git_canonical_sha256": "b00663505bf71dd98a2b455cf06ef70f6deb20869496bf6f23d2c88149172787",
+      "git_blob_oid": "28d966cf28b6fa68358b607e49d6f9c4d8e087ba",
+      "conversion": "raw-bytes",
+      "raw_bytes": 9136048
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-07.raw.tar.xz.members.json": {
+      "raw_sha256": "fc8cb6c8ecb3b41c26132bb2f44a2f122cbfdd6d37afe5453276e0c7ebe18bf5",
+      "git_canonical_sha256": "fc8cb6c8ecb3b41c26132bb2f44a2f122cbfdd6d37afe5453276e0c7ebe18bf5",
+      "git_blob_oid": "53952d6aa3713f1fe95fceb9971867ebff02801f",
+      "conversion": "raw-bytes",
+      "raw_bytes": 151172
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-08.raw.tar.xz": {
+      "raw_sha256": "309a922933fb20f151c5391d4e89a74c1c2dea09f715539b79267a28da99d167",
+      "git_canonical_sha256": "309a922933fb20f151c5391d4e89a74c1c2dea09f715539b79267a28da99d167",
+      "git_blob_oid": "090412f7e38f4c280cc9cf20e3a4989879a85bca",
+      "conversion": "raw-bytes",
+      "raw_bytes": 16910888
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-08.raw.tar.xz.members.json": {
+      "raw_sha256": "77f3f03ea65faacd9d2f0a6866de6d0f3f04abd5a72d624e5ef73b0ff606785f",
+      "git_canonical_sha256": "77f3f03ea65faacd9d2f0a6866de6d0f3f04abd5a72d624e5ef73b0ff606785f",
+      "git_blob_oid": "396e655e7233ed26f4f5cb4745fcc36d5c5875d5",
+      "conversion": "raw-bytes",
+      "raw_bytes": 156213
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-09.raw.tar.xz": {
+      "raw_sha256": "01e784d06cc76c1c9ea18c82c9299f1fd5bba9e8a836e7a7c2254fa12b6a1eee",
+      "git_canonical_sha256": "01e784d06cc76c1c9ea18c82c9299f1fd5bba9e8a836e7a7c2254fa12b6a1eee",
+      "git_blob_oid": "3eea3e79d8f7268b21e8f854a0d3e60147b8389a",
+      "conversion": "raw-bytes",
+      "raw_bytes": 15411344
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-09.raw.tar.xz.members.json": {
+      "raw_sha256": "197022deb7b4bc73235eacd9c545367ffa0dc66899305f342b949246aa50fe8d",
+      "git_canonical_sha256": "197022deb7b4bc73235eacd9c545367ffa0dc66899305f342b949246aa50fe8d",
+      "git_blob_oid": "e1098f5f5df88b4ead25db63083f9a0f17936da5",
+      "conversion": "raw-bytes",
+      "raw_bytes": 187441
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-10.raw.tar.xz": {
+      "raw_sha256": "2c51d58a4844e8fc2bb6e436f15ade4e3123148d03216ce0d892b6a658efcb01",
+      "git_canonical_sha256": "2c51d58a4844e8fc2bb6e436f15ade4e3123148d03216ce0d892b6a658efcb01",
+      "git_blob_oid": "1af450b835617107fd9479adab1d2285489bb13b",
+      "conversion": "raw-bytes",
+      "raw_bytes": 16869052
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-10.raw.tar.xz.members.json": {
+      "raw_sha256": "b012fb8cf8d22a439e8e44bbeb4fd299f1db6e1ea754a6bcc020646c6a6442b9",
+      "git_canonical_sha256": "b012fb8cf8d22a439e8e44bbeb4fd299f1db6e1ea754a6bcc020646c6a6442b9",
+      "git_blob_oid": "2bc143d2c236bed6162fa13078c261ffdc15911a",
+      "conversion": "raw-bytes",
+      "raw_bytes": 170328
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-11.raw.tar.xz": {
+      "raw_sha256": "be1e98a5e3c8160d2e623bc15933e1b1d1288772e443221fe97fbb97690cc296",
+      "git_canonical_sha256": "be1e98a5e3c8160d2e623bc15933e1b1d1288772e443221fe97fbb97690cc296",
+      "git_blob_oid": "cfdf1bb1a077c0f4e70b5366ff4c22ab5eed7c1e",
+      "conversion": "raw-bytes",
+      "raw_bytes": 17382064
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-11.raw.tar.xz.members.json": {
+      "raw_sha256": "9b30bba0b49dc43b797d1a8eef56c1c29793838b84fa8d95cfbfe8e873b78c0f",
+      "git_canonical_sha256": "9b30bba0b49dc43b797d1a8eef56c1c29793838b84fa8d95cfbfe8e873b78c0f",
+      "git_blob_oid": "c27e0456739e3207042fe33bc00b99dbeb896248",
+      "conversion": "raw-bytes",
+      "raw_bytes": 153072
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-12.raw.tar.xz": {
+      "raw_sha256": "675887d23e7c3c8495a093d2e187ec30f15f6f9c757312a771b315ca0c672168",
+      "git_canonical_sha256": "675887d23e7c3c8495a093d2e187ec30f15f6f9c757312a771b315ca0c672168",
+      "git_blob_oid": "e76804e2710c7a1252768dac05a5987d12e8f9c9",
+      "conversion": "raw-bytes",
+      "raw_bytes": 16104172
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-12.raw.tar.xz.members.json": {
+      "raw_sha256": "7c46e5ada96da740b4f0f74850e8730a93d7a4de16bf8f972eca9fa25e41a58e",
+      "git_canonical_sha256": "7c46e5ada96da740b4f0f74850e8730a93d7a4de16bf8f972eca9fa25e41a58e",
+      "git_blob_oid": "4b2f2f693312e731808b35000d7e1f9467333790",
+      "conversion": "raw-bytes",
+      "raw_bytes": 151626
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-13.raw.tar.xz": {
+      "raw_sha256": "c5538b351f613e20261c14a856f26f4eb3486856f324e37ca27312e22b113f0b",
+      "git_canonical_sha256": "c5538b351f613e20261c14a856f26f4eb3486856f324e37ca27312e22b113f0b",
+      "git_blob_oid": "d7fef9ef4eef73dfc1c43d2220976836d83302cc",
+      "conversion": "raw-bytes",
+      "raw_bytes": 15899824
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-13.raw.tar.xz.members.json": {
+      "raw_sha256": "0ba90dad4cb7d106a06941e6e29fc15b5c787cf52e6fc7d00bce1961a4692a73",
+      "git_canonical_sha256": "0ba90dad4cb7d106a06941e6e29fc15b5c787cf52e6fc7d00bce1961a4692a73",
+      "git_blob_oid": "9f5be4faa3bc2084322288f66eda7f48d90ceff2",
+      "conversion": "raw-bytes",
+      "raw_bytes": 208794
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-14.raw.tar.xz": {
+      "raw_sha256": "db77615502f224c82330cb6073bde525282a8f062863df244236bf7721a4a4f6",
+      "git_canonical_sha256": "db77615502f224c82330cb6073bde525282a8f062863df244236bf7721a4a4f6",
+      "git_blob_oid": "1e1e8bb5b178cb509a767f14a4034a3cb5b3c7a7",
+      "conversion": "raw-bytes",
+      "raw_bytes": 17483520
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-14.raw.tar.xz.members.json": {
+      "raw_sha256": "6b2cf6af733db3868f84bbbdad8276cebdbe363cc8fde7f5543d6339487c58ce",
+      "git_canonical_sha256": "6b2cf6af733db3868f84bbbdad8276cebdbe363cc8fde7f5543d6339487c58ce",
+      "git_blob_oid": "ff2f89f72d432a0e407766c0a3ac723c536b18e4",
+      "conversion": "raw-bytes",
+      "raw_bytes": 156032
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-15.raw.tar.xz": {
+      "raw_sha256": "67f9ebaf8d7be95e6425362b775a675f837626295211df08562e0f6e091c2bef",
+      "git_canonical_sha256": "67f9ebaf8d7be95e6425362b775a675f837626295211df08562e0f6e091c2bef",
+      "git_blob_oid": "4a205cc21dcbd0875339a4496581089bdff99832",
+      "conversion": "raw-bytes",
+      "raw_bytes": 16877600
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-15.raw.tar.xz.members.json": {
+      "raw_sha256": "927ae1195888c8aa5ee46a2d8490d266f9fe701f33a22093c4209a670aecc5db",
+      "git_canonical_sha256": "927ae1195888c8aa5ee46a2d8490d266f9fe701f33a22093c4209a670aecc5db",
+      "git_blob_oid": "4b8d1be19d16e359ec9bf51276c9055c334913d8",
+      "conversion": "raw-bytes",
+      "raw_bytes": 559987
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-16.raw.tar.xz": {
+      "raw_sha256": "3f3d11422552a1a73dfe9c9575ec0c3537f694b35cd1544a7a2903953a92d9d1",
+      "git_canonical_sha256": "3f3d11422552a1a73dfe9c9575ec0c3537f694b35cd1544a7a2903953a92d9d1",
+      "git_blob_oid": "cb2b0c0e0c3f9885e1dde0392293873445eb8014",
+      "conversion": "raw-bytes",
+      "raw_bytes": 13804660
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-16.raw.tar.xz.members.json": {
+      "raw_sha256": "037c73aa60d75b0d6d3fa3a96ca6c2e8bd1c69b617cf1dfc9a40845478223009",
+      "git_canonical_sha256": "037c73aa60d75b0d6d3fa3a96ca6c2e8bd1c69b617cf1dfc9a40845478223009",
+      "git_blob_oid": "466aafa244e90612b6a8780e3b28b95ef4a63314",
+      "conversion": "raw-bytes",
+      "raw_bytes": 281154
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-independent-review-01.raw.tar.xz": {
+      "raw_sha256": "9ac0315124c519fec47947bf3a528d447aeac69d1eb034bc22a0b49b897a7d49",
+      "git_canonical_sha256": "9ac0315124c519fec47947bf3a528d447aeac69d1eb034bc22a0b49b897a7d49",
+      "git_blob_oid": "43a007d7dfb80a49804ba3efa13b4e8ed84307b5",
+      "conversion": "raw-bytes",
+      "raw_bytes": 51160
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v09-independent-review-01.raw.tar.xz.members.json": {
+      "raw_sha256": "d5d7f0b6b5b7ef492573fda4c8b93ba63f28b411b5915654f8719e90c630c146",
+      "git_canonical_sha256": "d5d7f0b6b5b7ef492573fda4c8b93ba63f28b411b5915654f8719e90c630c146",
+      "git_blob_oid": "260b38c9210fd8098f957bf93730b21afa466498",
+      "conversion": "raw-bytes",
+      "raw_bytes": 310
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v10-01.raw.tar.xz": {
+      "raw_sha256": "ea0a397113d5435dbaca200a20c251351c7d56bfb0eec9edb3cdae1e2f942401",
+      "git_canonical_sha256": "ea0a397113d5435dbaca200a20c251351c7d56bfb0eec9edb3cdae1e2f942401",
+      "git_blob_oid": "1fba083bf8d2700656b89065f1d9b937bb0fccb8",
+      "conversion": "raw-bytes",
+      "raw_bytes": 16961284
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v10-01.raw.tar.xz.members.json": {
+      "raw_sha256": "816e0987426e7ef0d94b58d46b885b78dfad6a7ec5aabac7cdeddcd9de44e34f",
+      "git_canonical_sha256": "816e0987426e7ef0d94b58d46b885b78dfad6a7ec5aabac7cdeddcd9de44e34f",
+      "git_blob_oid": "267312fe1b941a3170f6c38dbc9bf833848b4e8c",
+      "conversion": "raw-bytes",
+      "raw_bytes": 804435
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v11-01.raw.tar.xz": {
+      "raw_sha256": "ff0f2fc37b6b5d55079f4a69a55363e9a62dabaf1f1f7b00666620a646d132bb",
+      "git_canonical_sha256": "ff0f2fc37b6b5d55079f4a69a55363e9a62dabaf1f1f7b00666620a646d132bb",
+      "git_blob_oid": "1ef6b765aa768abd8971255a9bda22cf0c9e07c9",
+      "conversion": "raw-bytes",
+      "raw_bytes": 22829608
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v11-01.raw.tar.xz.members.json": {
+      "raw_sha256": "31bd3f1eb3dc251dbce821491caf51703fb476388b8ffd2861f37032869ad1e5",
+      "git_canonical_sha256": "31bd3f1eb3dc251dbce821491caf51703fb476388b8ffd2861f37032869ad1e5",
+      "git_blob_oid": "85921b162a981c6c8c13a389d680efedbd5b49de",
+      "conversion": "raw-bytes",
+      "raw_bytes": 809004
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-01.raw.tar.xz": {
+      "raw_sha256": "eccdf535717fdbccaf135bcff8655f2dfbf2f231fba0dd4b091793eb70c00234",
+      "git_canonical_sha256": "eccdf535717fdbccaf135bcff8655f2dfbf2f231fba0dd4b091793eb70c00234",
+      "git_blob_oid": "11b9a59e8d58541b11f63b548d36bf3c713ead8c",
+      "conversion": "raw-bytes",
+      "raw_bytes": 14407776
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-01.raw.tar.xz.members.json": {
+      "raw_sha256": "a48bb2637eaefc92964f3735fc097e35410b6aec1b4831b994b78f7058fafb3c",
+      "git_canonical_sha256": "a48bb2637eaefc92964f3735fc097e35410b6aec1b4831b994b78f7058fafb3c",
+      "git_blob_oid": "29af392674718105cfe7bbbdc0299faaccc9204d",
+      "conversion": "raw-bytes",
+      "raw_bytes": 760443
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-02.raw.tar.xz": {
+      "raw_sha256": "6945154e15bc92df9076cd7da7e97dee28d1d3da608082b625f0f0e7fafe0fb0",
+      "git_canonical_sha256": "6945154e15bc92df9076cd7da7e97dee28d1d3da608082b625f0f0e7fafe0fb0",
+      "git_blob_oid": "5a081530da18f91e3105e8f53598bc60c1b2c2eb",
+      "conversion": "raw-bytes",
+      "raw_bytes": 15829552
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-02.raw.tar.xz.members.json": {
+      "raw_sha256": "8f95049e5207cb86dea26b0b755d9e6fa3a5308a717b6c1037fd1f7575071299",
+      "git_canonical_sha256": "8f95049e5207cb86dea26b0b755d9e6fa3a5308a717b6c1037fd1f7575071299",
+      "git_blob_oid": "ee9bb04a34b2f20b38166fba4124f373f6f80024",
+      "conversion": "raw-bytes",
+      "raw_bytes": 151212
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-03.raw.tar.xz": {
+      "raw_sha256": "b9e26934a05fbc7bdb1fd793f548ad0fa4420a6a746d2a11d22830211946377c",
+      "git_canonical_sha256": "b9e26934a05fbc7bdb1fd793f548ad0fa4420a6a746d2a11d22830211946377c",
+      "git_blob_oid": "b98d06e0779f0520bbf0ba7008c3d449645a2f4b",
+      "conversion": "raw-bytes",
+      "raw_bytes": 8825752
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-03.raw.tar.xz.members.json": {
+      "raw_sha256": "c2dfd8e2455988d48e4ea23d6f8a4115d01291233f9ce761d9b64a085408a7ce",
+      "git_canonical_sha256": "c2dfd8e2455988d48e4ea23d6f8a4115d01291233f9ce761d9b64a085408a7ce",
+      "git_blob_oid": "b7ca84f2136dc7fcfd7ac22404356eeba5fb5a94",
+      "conversion": "raw-bytes",
+      "raw_bytes": 149870
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-04.raw.tar.xz": {
+      "raw_sha256": "8fc879c659489ad2e10d5bf55d1cf24f092192d42be133ea908f79ff73af22d5",
+      "git_canonical_sha256": "8fc879c659489ad2e10d5bf55d1cf24f092192d42be133ea908f79ff73af22d5",
+      "git_blob_oid": "f02a99e1653e2a23177de7ccb6cd8963c672b038",
+      "conversion": "raw-bytes",
+      "raw_bytes": 7896528
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-04.raw.tar.xz.members.json": {
+      "raw_sha256": "0c7f0e90f0126dc0336d76f656f6ac885dfe510b9affc9d93e1ec0f3f8d1383b",
+      "git_canonical_sha256": "0c7f0e90f0126dc0336d76f656f6ac885dfe510b9affc9d93e1ec0f3f8d1383b",
+      "git_blob_oid": "d90f813c35df92e730c822ec18740930f5fcedd0",
+      "conversion": "raw-bytes",
+      "raw_bytes": 205302
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-05.raw.tar.xz": {
+      "raw_sha256": "fbb3b47788a17f0750f46d83a1db1d1ed93ae257ee0b46ee36c96990caf05077",
+      "git_canonical_sha256": "fbb3b47788a17f0750f46d83a1db1d1ed93ae257ee0b46ee36c96990caf05077",
+      "git_blob_oid": "aba5cf8c9fecadabb27278d0e0ba477210f5b7bf",
+      "conversion": "raw-bytes",
+      "raw_bytes": 14938192
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-05.raw.tar.xz.members.json": {
+      "raw_sha256": "f472d4d6e9e147321cf5dfa4e83daa275cc325349afacc77f9eae49306122af1",
+      "git_canonical_sha256": "f472d4d6e9e147321cf5dfa4e83daa275cc325349afacc77f9eae49306122af1",
+      "git_blob_oid": "9543f09b30e3c32a72c232b64d3999ae06c59f5b",
+      "conversion": "raw-bytes",
+      "raw_bytes": 151066
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-06.raw.tar.xz": {
+      "raw_sha256": "c8e2f0033ee3a6318cd08f0b3a1cb033d37bc9aa85abcb4025bd2f7b8e316dfd",
+      "git_canonical_sha256": "c8e2f0033ee3a6318cd08f0b3a1cb033d37bc9aa85abcb4025bd2f7b8e316dfd",
+      "git_blob_oid": "dc30a39d87bdd811dcff8ce8cd461b2bb63e84d2",
+      "conversion": "raw-bytes",
+      "raw_bytes": 9657268
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-06.raw.tar.xz.members.json": {
+      "raw_sha256": "78db7fe543137d969225cac37f95e056a6eb36d2b110b35cbbef91bac5de8f4d",
+      "git_canonical_sha256": "78db7fe543137d969225cac37f95e056a6eb36d2b110b35cbbef91bac5de8f4d",
+      "git_blob_oid": "298c4aa49fae0ae1690fdf92d6638a56921cd326",
+      "conversion": "raw-bytes",
+      "raw_bytes": 149296
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-07.raw.tar.xz": {
+      "raw_sha256": "6c144b47d9ebac6ac58900dc67f900c026d66dfd99b352a4ab5bdd7f931324d0",
+      "git_canonical_sha256": "6c144b47d9ebac6ac58900dc67f900c026d66dfd99b352a4ab5bdd7f931324d0",
+      "git_blob_oid": "f103d35f39ee620cc9c69297f6311dc55e8b95de",
+      "conversion": "raw-bytes",
+      "raw_bytes": 9660668
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-07.raw.tar.xz.members.json": {
+      "raw_sha256": "7ef15ee361411cb73d1005ac37faf80c6c891a7904beba739716cfa26e7784e1",
+      "git_canonical_sha256": "7ef15ee361411cb73d1005ac37faf80c6c891a7904beba739716cfa26e7784e1",
+      "git_blob_oid": "9f7a17490c99612358ee6c83551e725574a6d96e",
+      "conversion": "raw-bytes",
+      "raw_bytes": 150374
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-08.raw.tar.xz": {
+      "raw_sha256": "a4a9801049a71cf8a46b539a11e5d73e80a4afcdacf0495bcf09bb97638855aa",
+      "git_canonical_sha256": "a4a9801049a71cf8a46b539a11e5d73e80a4afcdacf0495bcf09bb97638855aa",
+      "git_blob_oid": "87d7146182f8ce6a91dfbc6a0902bdb34c35749f",
+      "conversion": "raw-bytes",
+      "raw_bytes": 14976384
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-08.raw.tar.xz.members.json": {
+      "raw_sha256": "d8cc3137d692bd1bfeaf2443ee3783e35c57f726a98e060c33a3e945529ab50c",
+      "git_canonical_sha256": "d8cc3137d692bd1bfeaf2443ee3783e35c57f726a98e060c33a3e945529ab50c",
+      "git_blob_oid": "23e284eb48e4ca146a5565f98b83b36fb961ee30",
+      "conversion": "raw-bytes",
+      "raw_bytes": 197070
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-09.raw.tar.xz": {
+      "raw_sha256": "9ad7d7c6874089318d11c5f3713a4383915c93812c837f56164db31a76f56d36",
+      "git_canonical_sha256": "9ad7d7c6874089318d11c5f3713a4383915c93812c837f56164db31a76f56d36",
+      "git_blob_oid": "4a82491d4083743f711cfa2637a0e96238bc4954",
+      "conversion": "raw-bytes",
+      "raw_bytes": 16451244
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-09.raw.tar.xz.members.json": {
+      "raw_sha256": "eb314900bb2272065bc3596b1d85fadcda42f1bf5d85430849fe866592882789",
+      "git_canonical_sha256": "eb314900bb2272065bc3596b1d85fadcda42f1bf5d85430849fe866592882789",
+      "git_blob_oid": "f8c35cf23f138bf9b76e24f8f0d56e48a4b1428d",
+      "conversion": "raw-bytes",
+      "raw_bytes": 168366
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-10.raw.tar.xz": {
+      "raw_sha256": "ae8983cb653ef12a49c2946bce3c267c318ec8a47e6670099e6332a97a4efcd1",
+      "git_canonical_sha256": "ae8983cb653ef12a49c2946bce3c267c318ec8a47e6670099e6332a97a4efcd1",
+      "git_blob_oid": "e4937dd52a51f8ae83a4450692e4730f11935a36",
+      "conversion": "raw-bytes",
+      "raw_bytes": 16171420
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-10.raw.tar.xz.members.json": {
+      "raw_sha256": "9c33bd8c0fd2ae2c5d02cc5d740996060d1df8b666b6de23b4f3fd3f60d16c74",
+      "git_canonical_sha256": "9c33bd8c0fd2ae2c5d02cc5d740996060d1df8b666b6de23b4f3fd3f60d16c74",
+      "git_blob_oid": "e70d753fc3e7cd2c6ba5471a7c4a4c4ba63f6633",
+      "conversion": "raw-bytes",
+      "raw_bytes": 150234
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-11.raw.tar.xz": {
+      "raw_sha256": "8eb6f0253833e1547011375a210a49eaf15f30504b1fc4fb03e0cdf8ca330fc2",
+      "git_canonical_sha256": "8eb6f0253833e1547011375a210a49eaf15f30504b1fc4fb03e0cdf8ca330fc2",
+      "git_blob_oid": "f9446a7d13b98e24adbc88e1be9e3054002f8aa8",
+      "conversion": "raw-bytes",
+      "raw_bytes": 17029388
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-11.raw.tar.xz.members.json": {
+      "raw_sha256": "3d09d18a1c5e31de8019e85166b6bb93637001424ac94f6c658c36a5736f0a6f",
+      "git_canonical_sha256": "3d09d18a1c5e31de8019e85166b6bb93637001424ac94f6c658c36a5736f0a6f",
+      "git_blob_oid": "56db7df62bb3230fc2741632149a4ac63e5ba96b",
+      "conversion": "raw-bytes",
+      "raw_bytes": 153572
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-12.raw.tar.xz": {
+      "raw_sha256": "04a7452d8387c58d3c90bc14c30aeffa2c20db123aa92c784a2b357789949908",
+      "git_canonical_sha256": "04a7452d8387c58d3c90bc14c30aeffa2c20db123aa92c784a2b357789949908",
+      "git_blob_oid": "299ff9689125bc10c7bd0e7ee49734ac67106e58",
+      "conversion": "raw-bytes",
+      "raw_bytes": 16924604
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-12.raw.tar.xz.members.json": {
+      "raw_sha256": "3b49c6f2a6efc79a01fb36fb2a47ca8c85a13e5cd7eeca0dc84200dcb22b1619",
+      "git_canonical_sha256": "3b49c6f2a6efc79a01fb36fb2a47ca8c85a13e5cd7eeca0dc84200dcb22b1619",
+      "git_blob_oid": "17b40ab9917b0cca1d9ae2aa6e648d9564b5c4fc",
+      "conversion": "raw-bytes",
+      "raw_bytes": 204072
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-13.raw.tar.xz": {
+      "raw_sha256": "47a1202ee18e00691675d9a8e12588bfe59e1448aabbc8b7d2ab61f431d90c6f",
+      "git_canonical_sha256": "47a1202ee18e00691675d9a8e12588bfe59e1448aabbc8b7d2ab61f431d90c6f",
+      "git_blob_oid": "54672d7629f443232237802ee578ba801731e10f",
+      "conversion": "raw-bytes",
+      "raw_bytes": 15881760
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-13.raw.tar.xz.members.json": {
+      "raw_sha256": "323a13bbd38b385350c211543fd0151b289ef2908294c2040199c73401264c63",
+      "git_canonical_sha256": "323a13bbd38b385350c211543fd0151b289ef2908294c2040199c73401264c63",
+      "git_blob_oid": "79fcb42880d2890055ad030b9551e74037fb4e68",
+      "conversion": "raw-bytes",
+      "raw_bytes": 155096
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-14.raw.tar.xz": {
+      "raw_sha256": "5dddf59f1762b742291a070f6797e7d8e34a7f63dfbabc19449a3ce772e5a522",
+      "git_canonical_sha256": "5dddf59f1762b742291a070f6797e7d8e34a7f63dfbabc19449a3ce772e5a522",
+      "git_blob_oid": "ec4e072924a33f5d2e705b32865860daad76d7c1",
+      "conversion": "raw-bytes",
+      "raw_bytes": 16913120
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-14.raw.tar.xz.members.json": {
+      "raw_sha256": "8daf3e34d9ef85b3ea1ce2991a8e91ba4dfedc7bc2b8e87f241145dbaf4c23b2",
+      "git_canonical_sha256": "8daf3e34d9ef85b3ea1ce2991a8e91ba4dfedc7bc2b8e87f241145dbaf4c23b2",
+      "git_blob_oid": "a6b08d05f67d468ee9ecca3153d3a17a0eabda76",
+      "conversion": "raw-bytes",
+      "raw_bytes": 156458
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-15.raw.tar.xz": {
+      "raw_sha256": "c06b8e6ab3717af9b6b3e0588865bbdab2de1c171bf9cf414dd2e560aa293762",
+      "git_canonical_sha256": "c06b8e6ab3717af9b6b3e0588865bbdab2de1c171bf9cf414dd2e560aa293762",
+      "git_blob_oid": "c6e3ed3902c9314d1496c6336594fb53c8175707",
+      "conversion": "raw-bytes",
+      "raw_bytes": 17271440
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-15.raw.tar.xz.members.json": {
+      "raw_sha256": "51bb443cd44ca96c2c5413d613280fe9e2b40d0725b462c67251495b4e6904dc",
+      "git_canonical_sha256": "51bb443cd44ca96c2c5413d613280fe9e2b40d0725b462c67251495b4e6904dc",
+      "git_blob_oid": "dd4a87833ed96a2acece73cd0c1b2aa35b53dc63",
+      "conversion": "raw-bytes",
+      "raw_bytes": 157152
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-16.raw.tar.xz": {
+      "raw_sha256": "558a773874d4aa5c38bfe9f81617fd692f5ca07c4c22ebac627d0b6d72b83f36",
+      "git_canonical_sha256": "558a773874d4aa5c38bfe9f81617fd692f5ca07c4c22ebac627d0b6d72b83f36",
+      "git_blob_oid": "73110f19ee5f77b5f4d6d356794ce71d4cfd4f8a",
+      "conversion": "raw-bytes",
+      "raw_bytes": 14823008
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-16.raw.tar.xz.members.json": {
+      "raw_sha256": "02097e9ff2f5b6f295f85141be78761d2b6e223aa7aff1b7fe3c5ce5c0a4923e",
+      "git_canonical_sha256": "02097e9ff2f5b6f295f85141be78761d2b6e223aa7aff1b7fe3c5ce5c0a4923e",
+      "git_blob_oid": "343c48d83dcfb955ed9bf7eab84dda6d7d897bfa",
+      "conversion": "raw-bytes",
+      "raw_bytes": 397197
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-17.raw.tar.xz": {
+      "raw_sha256": "f23b4220f1188cc8c30d40862b9655b868c7e944cf1938729c521338fae2c27f",
+      "git_canonical_sha256": "f23b4220f1188cc8c30d40862b9655b868c7e944cf1938729c521338fae2c27f",
+      "git_blob_oid": "5fc2f36b6fa8f936dad94b545916ca79a4bc112c",
+      "conversion": "raw-bytes",
+      "raw_bytes": 2440300
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-17.raw.tar.xz.members.json": {
+      "raw_sha256": "daef4d06137bf487c69bee7f0383705cf2cf5a78cf5dc21359d2d39d86628ae1",
+      "git_canonical_sha256": "daef4d06137bf487c69bee7f0383705cf2cf5a78cf5dc21359d2d39d86628ae1",
+      "git_blob_oid": "286fa2af2bc893ff383b5d675ea0a203a03c1916",
+      "conversion": "raw-bytes",
+      "raw_bytes": 66594
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-18.raw.tar.xz": {
+      "raw_sha256": "63ea17ff537cc70a0affd524aa12f28b6f7423c2acc8bdb39ce6ad78e58e9c57",
+      "git_canonical_sha256": "63ea17ff537cc70a0affd524aa12f28b6f7423c2acc8bdb39ce6ad78e58e9c57",
+      "git_blob_oid": "afc8daabe4dbfc3904ecbed5f8fee074ecc35294",
+      "conversion": "raw-bytes",
+      "raw_bytes": 13264296
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-18.raw.tar.xz.members.json": {
+      "raw_sha256": "a04cd1ae45149a1df70973fd8ee753ae9297404de1eaf786a07f3569b72e1e78",
+      "git_canonical_sha256": "a04cd1ae45149a1df70973fd8ee753ae9297404de1eaf786a07f3569b72e1e78",
+      "git_blob_oid": "0b11e2f202d559ac5fb67ea91ac09d67339073bb",
+      "conversion": "raw-bytes",
+      "raw_bytes": 215536
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-independent-review-01.raw.tar.xz": {
+      "raw_sha256": "b86ba63cfab54e905c4f97d42c44ff748fc5aaaa20eee78d07ccf91ca11c0881",
+      "git_canonical_sha256": "b86ba63cfab54e905c4f97d42c44ff748fc5aaaa20eee78d07ccf91ca11c0881",
+      "git_blob_oid": "fc04bd10ec980d434d7d2b04c79ab0e06812f30f",
+      "conversion": "raw-bytes",
+      "raw_bytes": 109504
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-independent-review-01.raw.tar.xz.members.json": {
+      "raw_sha256": "ba5a3e0aa5779f74a1fc5d8c6e62a81b2696642e881629d37f52b3875731a054",
+      "git_canonical_sha256": "ba5a3e0aa5779f74a1fc5d8c6e62a81b2696642e881629d37f52b3875731a054",
+      "git_blob_oid": "49925f4dfd0db9a07d73089b690e0f9f45c74b22",
+      "conversion": "raw-bytes",
+      "raw_bytes": 317
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-intermediates-01.raw.tar.xz": {
+      "raw_sha256": "dd4d56ccf35e384198b233a71277d54ea920a23d79cb7d3bdba2ac5cdee97863",
+      "git_canonical_sha256": "dd4d56ccf35e384198b233a71277d54ea920a23d79cb7d3bdba2ac5cdee97863",
+      "git_blob_oid": "42adfbe57f05a36c2933d352c2ec33a59f623831",
+      "conversion": "raw-bytes",
+      "raw_bytes": 3150660
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-intermediates-01.raw.tar.xz.members.json": {
+      "raw_sha256": "049dfed495158a4b2e00bb13c50211241789aecaf3423bd32c422e7d4d2b1faa",
+      "git_canonical_sha256": "049dfed495158a4b2e00bb13c50211241789aecaf3423bd32c422e7d4d2b1faa",
+      "git_blob_oid": "2866bcb3dcc5fd756812d721967610e40ec589ed",
+      "conversion": "raw-bytes",
+      "raw_bytes": 2538
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-performance-01.raw.tar.xz": {
+      "raw_sha256": "791fc1b922de35d8201c36a784c1a7353fdb44493c32d523000e1938e72f49b1",
+      "git_canonical_sha256": "791fc1b922de35d8201c36a784c1a7353fdb44493c32d523000e1938e72f49b1",
+      "git_blob_oid": "b26931997f8d2b51b4be5d948212003367c25ab4",
+      "conversion": "raw-bytes",
+      "raw_bytes": 1844236
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-archives/v12-performance-01.raw.tar.xz.members.json": {
+      "raw_sha256": "eb663a4efc401dd3daec5ed230f7db625a820686d97b9a19408d97269eccf562",
+      "git_canonical_sha256": "eb663a4efc401dd3daec5ed230f7db625a820686d97b9a19408d97269eccf562",
+      "git_blob_oid": "0adcb2efc07346c37841042532dd3ff9e6d1e2c7",
+      "conversion": "raw-bytes",
+      "raw_bytes": 33919
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-verification-final-C.log": {
+      "raw_sha256": "a1d190f967d6aa79441ebf5b64143b4681aa66be094cf268ac34d495012d3550",
+      "git_canonical_sha256": "0233ee4674664f721627f2534507d6e99b23a28b4be67e08648ad4b43b5fb520",
+      "git_blob_oid": "41696f09ef45eab0a4795ce9949b5a31bc266e4b",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 3065
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/raw-verification-result.json": {
+      "raw_sha256": "e4fe6d28287b96a455fefccb247ce4f317e46332c4f6305e75aa7b8da430e383",
+      "git_canonical_sha256": "e4fe6d28287b96a455fefccb247ce4f317e46332c4f6305e75aa7b8da430e383",
+      "git_blob_oid": "c5fb254d580d9b4c5e004567be560e5cbd21fe8e",
+      "conversion": "raw-bytes",
+      "raw_bytes": 792
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/verify_raw_archives.py": {
+      "raw_sha256": "72fd8855e823c889e8bda9153209b53c9081f68410b941d03427d24168dd03f3",
+      "git_canonical_sha256": "c9955a0e79d00dd678899564a336ceda2089d0832fbc638d871617687e5be3d3",
+      "git_blob_oid": "f2e59edf9ca39baf65e34c471a596feb3083682b",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 4678
+    },
+    "art_src/characters/harbor_lamplighter_demo/evidence/wave-v12-pair-whole-comparison.json": {
+      "raw_sha256": "db80d205d1ee28e075e19af3e400a5d93a6cb23d063902f513624cf14672e2ea",
+      "git_canonical_sha256": "8dcd7dad07c221faa03e620a353381672277cab37c795f3470def4177e4abbe4",
+      "git_blob_oid": "22d89fa58bb33cb3a23e0d0d5860e9984b84a999",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 8954
+    },
+    "art_src/characters/harbor_lamplighter_demo/eyes/closed.png": {
+      "raw_sha256": "da8d776ccc504d64a5cb2e0a01c081cb366698d32b53e07ef54f5c666a89cb41",
+      "git_canonical_sha256": "da8d776ccc504d64a5cb2e0a01c081cb366698d32b53e07ef54f5c666a89cb41",
+      "git_blob_oid": "3a8ebd46cdea26abe8c71c7bc2b24d933d1c65df",
+      "conversion": "raw-bytes",
+      "raw_bytes": 448856
+    },
+    "art_src/characters/harbor_lamplighter_demo/eyes/half.png": {
+      "raw_sha256": "c884ce3754ff1b41f748c772c5271c9649b497b74528512d6a4c6a8f3643bdba",
+      "git_canonical_sha256": "c884ce3754ff1b41f748c772c5271c9649b497b74528512d6a4c6a8f3643bdba",
+      "git_blob_oid": "3b9778ae135d19eba4333db26fc3884e26e1547f",
+      "conversion": "raw-bytes",
+      "raw_bytes": 449201
+    },
+    "art_src/characters/harbor_lamplighter_demo/eyes/raw/.gdignore": {
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_canonical_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob_oid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "conversion": "raw-bytes",
+      "raw_bytes": 0
+    },
+    "art_src/characters/harbor_lamplighter_demo/eyes/raw/harbor_lamplighter_demo_eye_closed_s422.job.json": {
+      "raw_sha256": "f6e597c293f3f228b5778d4c3579f5b8b75632a7c37c8953ca7b2e991ebfaa0e",
+      "git_canonical_sha256": "f6e597c293f3f228b5778d4c3579f5b8b75632a7c37c8953ca7b2e991ebfaa0e",
+      "git_blob_oid": "cb19a87b3c9deeb8b44f25b221e8cfb888f2a285",
+      "conversion": "raw-bytes",
+      "raw_bytes": 64
+    },
+    "art_src/characters/harbor_lamplighter_demo/eyes/raw/harbor_lamplighter_demo_eye_closed_s422_0.png": {
+      "raw_sha256": "2bdd0c82408873adc93ba4f6668b54801306d6db9974e14ca101ecf53f9fc0af",
+      "git_canonical_sha256": "2bdd0c82408873adc93ba4f6668b54801306d6db9974e14ca101ecf53f9fc0af",
+      "git_blob_oid": "0a5452ace46ea94ddeffc61bf0be33b45a023e28",
+      "conversion": "raw-bytes",
+      "raw_bytes": 855032
+    },
+    "art_src/characters/harbor_lamplighter_demo/eyes/raw/harbor_lamplighter_demo_eye_half_s421.job.json": {
+      "raw_sha256": "f531053b86dd4e7b8b5243b1965cf22b1f7bfdae1e87871a654d96f15ed8ce94",
+      "git_canonical_sha256": "f531053b86dd4e7b8b5243b1965cf22b1f7bfdae1e87871a654d96f15ed8ce94",
+      "git_blob_oid": "1554ef1353ade2f2ac663c726f368fd372ce4eea",
+      "conversion": "raw-bytes",
+      "raw_bytes": 64
+    },
+    "art_src/characters/harbor_lamplighter_demo/eyes/raw/harbor_lamplighter_demo_eye_half_s421_0.png": {
+      "raw_sha256": "9002b7ecf598b27be6806740cfe03908ab747a2441cc5966b331621522388b8f",
+      "git_canonical_sha256": "9002b7ecf598b27be6806740cfe03908ab747a2441cc5966b331621522388b8f",
+      "git_blob_oid": "a2650ca0ff30a5b02c584b8718317f4239404f2c",
+      "conversion": "raw-bytes",
+      "raw_bytes": 712919
+    },
+    "art_src/characters/harbor_lamplighter_demo/eyes/raw/head_reference.png": {
+      "raw_sha256": "0a1e21835c81003c5ded48e22819d5417049d36810fdd2b58eed169318cb002a",
+      "git_canonical_sha256": "0a1e21835c81003c5ded48e22819d5417049d36810fdd2b58eed169318cb002a",
+      "git_blob_oid": "19af772d0b1814647b3c622a9973608002239885",
+      "conversion": "raw-bytes",
+      "raw_bytes": 71455
+    },
+    "art_src/characters/harbor_lamplighter_demo/eyes/review.png": {
+      "raw_sha256": "8a4cecf3f557dd49a8542520ff17e048533c3d84b723bf30ecac374ef9557974",
+      "git_canonical_sha256": "8a4cecf3f557dd49a8542520ff17e048533c3d84b723bf30ecac374ef9557974",
+      "git_blob_oid": "69910b3ea57cd7e10f6be63b2f994a41987f389c",
+      "conversion": "raw-bytes",
+      "raw_bytes": 36319
+    },
+    "art_src/characters/harbor_lamplighter_demo/keypoints.json": {
+      "raw_sha256": "76c22575466f3a47acafc2c72f33859c3be787cfe327669493b43e2148bb7630",
+      "git_canonical_sha256": "525510b5f659e01b85ba74f456283a5dd7947487684634bcba73da6f3b324a60",
+      "git_blob_oid": "275dd96aa58034344ad1f6c2655f05c081b93b18",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 2988
+    },
+    "art_src/characters/harbor_lamplighter_demo/manifest.json": {
+      "raw_sha256": "f652b530a5cd197d18d8d983c78fb54cef48c6783308dd6da4e8d13becdec238",
+      "git_canonical_sha256": "917adbeef9fdb666022e13f0db8b17e19623ad062c3ac72488b40b846c59d5f7",
+      "git_blob_oid": "40d1c211c0264f26b352db14b208c47f0c577f8d",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 8164
+    },
+    "art_src/characters/harbor_lamplighter_demo/map_joint_holes.py": {
+      "raw_sha256": "354b1b20f9663bc72ec915890dd13647ae0a381f60f7b4f714303ffbe7600619",
+      "git_canonical_sha256": "c5030e7bbb9f81afb98bba1729ded6960caadc2c815be65f64302eab5a7202b6",
+      "git_blob_oid": "0e79bd269ef028a8ed074524cd8079e0a2985366",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 4120
+    },
+    "art_src/characters/harbor_lamplighter_demo/motion-candidate.json": {
+      "raw_sha256": "de65c9400843a8b688d59673dab13cc83f8cdb5deef5a0ea6c2391ca6e010f3b",
+      "git_canonical_sha256": "2a7239259f3f634611d3fcd40a24b5965d18512a9952e3f50bf139e0f436a8ed",
+      "git_blob_oid": "9922681b1d81e505b6411c40186cbaacecc2ae5d",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 2931
+    },
+    "art_src/characters/harbor_lamplighter_demo/reassembly_allow.json": {
+      "raw_sha256": "a1a6ca759cd5ff278d93732831943f791a596b071d15f573a7066106848a3720",
+      "git_canonical_sha256": "cb617687430bf636bef2a93c5d9e2edb6dd5e7523bdba20e5dc26d40b0c957eb",
+      "git_blob_oid": "a36c2f803b9f23f3e5346a791ee2da297ac8ebca",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 395
+    },
+    "art_src/characters/harbor_lamplighter_demo/review_source.py": {
+      "raw_sha256": "68a9a169f17136d2a5209219c31cb70df0173fa2cb6f9294bc4a464880046bb7",
+      "git_canonical_sha256": "889f4badd66a93c4587e39f16a1ccea362912c327f3d4c8c6c9a5b41bf4c891b",
+      "git_blob_oid": "eb2cc7d555b2ad887d39289a7bcce12344a692f6",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 1220
+    },
+    "art_src/characters/harbor_lamplighter_demo/sam/.gdignore": {
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_canonical_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob_oid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "conversion": "raw-bytes",
+      "raw_bytes": 0
+    },
+    "art_src/characters/harbor_lamplighter_demo/sam/.text_mask_cache.json": {
+      "raw_sha256": "85adff9226876d94413fad36fbd7ff1e1dc3c694bb5af89965c5adc0b3cbe6d7",
+      "git_canonical_sha256": "d8b6a76d5f9aa76b97bd1c7a3d4d21066d7ef45bc1eef77248f7dc2c8cd8a6e7",
+      "git_blob_oid": "36ec8da0521ce1bffbf7e22444d6f09450a75652",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 166
+    },
+    "art_src/characters/harbor_lamplighter_demo/sam/head.png": {
+      "raw_sha256": "31804d18ef932c7b556abc098559a36200db66636397b4ea50da6d7fc5e47d17",
+      "git_canonical_sha256": "31804d18ef932c7b556abc098559a36200db66636397b4ea50da6d7fc5e47d17",
+      "git_blob_oid": "439e52ce3aeecdbb24d805d6d1f88dbe3b0ae77f",
+      "conversion": "raw-bytes",
+      "raw_bytes": 4720
+    },
+    "art_src/characters/harbor_lamplighter_demo/sam/points_arm.json": {
+      "raw_sha256": "991461cd89295764f27ebe461bea39fa63d09ab0632bfc75b6b10d03e7c4608b",
+      "git_canonical_sha256": "991461cd89295764f27ebe461bea39fa63d09ab0632bfc75b6b10d03e7c4608b",
+      "git_blob_oid": "a21fc9bc60f9cac9c7d390ee077f332169707bfc",
+      "conversion": "raw-bytes",
+      "raw_bytes": 192
+    },
+    "art_src/characters/harbor_lamplighter_demo/sam/points_arm.png": {
+      "raw_sha256": "9c06016ef8c36587dbdddf4970841df17e9bb29dc6d4b0dc2e3e853ee6ebb428",
+      "git_canonical_sha256": "9c06016ef8c36587dbdddf4970841df17e9bb29dc6d4b0dc2e3e853ee6ebb428",
+      "git_blob_oid": "3846cf5247c2381faa2a87bf217a008be000ec98",
+      "conversion": "raw-bytes",
+      "raw_bytes": 5941
+    },
+    "art_src/characters/harbor_lamplighter_demo/sam/points_leg_far.json": {
+      "raw_sha256": "ddd457ba56fd20b49e9a7ab088099d6c374447f8a968623f7e6d615ceab98cb6",
+      "git_canonical_sha256": "ddd457ba56fd20b49e9a7ab088099d6c374447f8a968623f7e6d615ceab98cb6",
+      "git_blob_oid": "a46c7ac8ce33f51c3a01dc9a4a0d2b71e54eab49",
+      "conversion": "raw-bytes",
+      "raw_bytes": 194
+    },
+    "art_src/characters/harbor_lamplighter_demo/sam/points_leg_far.png": {
+      "raw_sha256": "10a06d679600fcc3d95f6ad09f819b14f1a846a6af14dbbbfa77176f309fe8ce",
+      "git_canonical_sha256": "10a06d679600fcc3d95f6ad09f819b14f1a846a6af14dbbbfa77176f309fe8ce",
+      "git_blob_oid": "073c9654441c06105f285fb2adc7aedb216b3b07",
+      "conversion": "raw-bytes",
+      "raw_bytes": 4324
+    },
+    "art_src/characters/harbor_lamplighter_demo/shared_service.py": {
+      "raw_sha256": "c56566ca1bac0b74528af1e9d920cb684e8810dd835e35009633c6d9abb9bc05",
+      "git_canonical_sha256": "2221de11912aeb62692270bd610fdec3a1e092ec96cf95743d1e6a20ac416307",
+      "git_blob_oid": "20382592fba35fb2885ad67184563f03bcb0c88a",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 1643
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/.gitignore": {
+      "raw_sha256": "f5784bc1d2babc2ddbfd5e0bc4a67e4a2bdfefc88effa0d4594facb627bcba04",
+      "git_canonical_sha256": "c2288f71c2dff559921e325b417e6f6cd72d5b11e2e672d7d53b8de15d8e8073",
+      "git_blob_oid": "c8e08835822d8d91562fb22d20009c8cdb244a0b",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 399
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/cuff-v12-sit-mesh-normal-on.png": {
+      "raw_sha256": "f3f2e284da85ecfd9c478bcfc64837680268c221efb8376d9b26fca5e73880a5",
+      "git_canonical_sha256": "f3f2e284da85ecfd9c478bcfc64837680268c221efb8376d9b26fca5e73880a5",
+      "git_blob_oid": "2f6efc6718decfdf4e1c07c9ddca89e658031403",
+      "conversion": "raw-bytes",
+      "raw_bytes": 293347
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/dead-v10-frame25-mesh-normal-on.png": {
+      "raw_sha256": "9637018628f53dcdc4048517971628c291f224c402c3b3be5495d1e3b7cbf58a",
+      "git_canonical_sha256": "9637018628f53dcdc4048517971628c291f224c402c3b3be5495d1e3b7cbf58a",
+      "git_blob_oid": "2486755682c88f134af95aa7354c8baab8a14a04",
+      "conversion": "raw-bytes",
+      "raw_bytes": 281021
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/dead-v11-frame25-mesh-normal-on.png": {
+      "raw_sha256": "328ccad5c33690779fa71dc2acd8c5635cdb4806c4cce84d7177519b45a277fd",
+      "git_canonical_sha256": "328ccad5c33690779fa71dc2acd8c5635cdb4806c4cce84d7177519b45a277fd",
+      "git_blob_oid": "5c86a37f72d314b9287a9fa10ab12cfa97e23996",
+      "conversion": "raw-bytes",
+      "raw_bytes": 280946
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/knee-continuous-mesh-normal-on.png": {
+      "raw_sha256": "d55084bdc1aa2d8c328cfeaef0b5600e1fae32f0f3c67d4884af8591fe60927f",
+      "git_canonical_sha256": "d55084bdc1aa2d8c328cfeaef0b5600e1fae32f0f3c67d4884af8591fe60927f",
+      "git_blob_oid": "7f32656d7f6f3d2d09a6213407f89a1e005b876a",
+      "conversion": "raw-bytes",
+      "raw_bytes": 243090
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/diagnostic/knee-stand-mesh-normal-on.png": {
+      "raw_sha256": "ad80e6245134a96e0b272ee8af46468e2d053374946a08ee1a24a21f848e08c9",
+      "git_canonical_sha256": "ad80e6245134a96e0b272ee8af46468e2d053374946a08ee1a24a21f848e08c9",
+      "git_blob_oid": "671a33e2c76441f9bdbeec4b96b07126029e0636",
+      "conversion": "raw-bytes",
+      "raw_bytes": 242725
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/fixture-v12/01-map-stand.png": {
+      "raw_sha256": "16de35922a87531fbc9b82655dd9d14ff82a07dc7ce4395b03d71f151d954332",
+      "git_canonical_sha256": "16de35922a87531fbc9b82655dd9d14ff82a07dc7ce4395b03d71f151d954332",
+      "git_blob_oid": "109c7b199da2e12f6f97a252299f09388877ca84",
+      "conversion": "raw-bytes",
+      "raw_bytes": 231005
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/fixture-v12/02-sit-enter.png": {
+      "raw_sha256": "50fefebc5a1b47810722fa9dce03711015d56a0159bfa66328b6651f3d3eaa34",
+      "git_canonical_sha256": "50fefebc5a1b47810722fa9dce03711015d56a0159bfa66328b6651f3d3eaa34",
+      "git_blob_oid": "100a55c9657daf5ab8bf947e6fabf9d33a92d474",
+      "conversion": "raw-bytes",
+      "raw_bytes": 231070
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/fixture-v12/03-sit-settled.png": {
+      "raw_sha256": "c0eb579e341d3d488073759df84d29df38773a17ec8a7410a3be3ac6b4ea6ad3",
+      "git_canonical_sha256": "c0eb579e341d3d488073759df84d29df38773a17ec8a7410a3be3ac6b4ea6ad3",
+      "git_blob_oid": "1fe0da475cc76d93d58b4e9a5e779c4768a4c400",
+      "conversion": "raw-bytes",
+      "raw_bytes": 230933
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/fixture-v12/04-sit-exit.png": {
+      "raw_sha256": "3909fa654b40ac84797351f2638e9a32404af41a2c70c3ef0eb2783793c52208",
+      "git_canonical_sha256": "3909fa654b40ac84797351f2638e9a32404af41a2c70c3ef0eb2783793c52208",
+      "git_blob_oid": "6d7e1f61b61e09fd06379b65781f762a1be8ab4a",
+      "conversion": "raw-bytes",
+      "raw_bytes": 237526
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/fixture-v12/05-real-conversation.png": {
+      "raw_sha256": "cb36c67cf53719570ea72c64fb8a3eb48d08ef9fc9c5e2705e247e3a48ba5069",
+      "git_canonical_sha256": "cb36c67cf53719570ea72c64fb8a3eb48d08ef9fc9c5e2705e247e3a48ba5069",
+      "git_blob_oid": "4f78f51ff89737c0dba34cc336c240f363d546ab",
+      "conversion": "raw-bytes",
+      "raw_bytes": 150233
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/fixture-v12/06-conversation-return.png": {
+      "raw_sha256": "6d5e83dd2f94a1476d9ec8b2365429d2782aacb7827fd385c5fb12867fdd898b",
+      "git_canonical_sha256": "6d5e83dd2f94a1476d9ec8b2365429d2782aacb7827fd385c5fb12867fdd898b",
+      "git_blob_oid": "42f34c1906a65da2bd0ff80ad3a3a2cf868cdd0c",
+      "conversion": "raw-bytes",
+      "raw_bytes": 256488
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/review-v12/all-16-locator.png": {
+      "raw_sha256": "0517021fdf26cfb99498b13388fc2133f097014ae0aef13f035f1472a7e36198",
+      "git_canonical_sha256": "0517021fdf26cfb99498b13388fc2133f097014ae0aef13f035f1472a7e36198",
+      "git_blob_oid": "0894a81d4c5bf4ff512d01779a2cb76c43c439fa",
+      "conversion": "raw-bytes",
+      "raw_bytes": 62283
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/review-v12/wave-main-pocket-frame26.png": {
+      "raw_sha256": "6cb90050f89c09de786c387901c9f18af12393fcdb59cc51561020cca0b4644d",
+      "git_canonical_sha256": "6cb90050f89c09de786c387901c9f18af12393fcdb59cc51561020cca0b4644d",
+      "git_blob_oid": "f33f5721e853d4baaa063ce8e05491a6a7bf5ddb",
+      "conversion": "raw-bytes",
+      "raw_bytes": 8853
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/actions-left.png": {
+      "raw_sha256": "c6ac15c3a1ac706165018f8ecb31a4efc69900a6d19f23eacf9c46c65417b782",
+      "git_canonical_sha256": "c6ac15c3a1ac706165018f8ecb31a4efc69900a6d19f23eacf9c46c65417b782",
+      "git_blob_oid": "6c21b346a06b82f8178daceea5e19cda3290ac5e",
+      "conversion": "raw-bytes",
+      "raw_bytes": 230161
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/actions-right.png": {
+      "raw_sha256": "bda4723f3ea422eb858fe2bbe5cee3a53e13655c416912c37f6242af76b2ded7",
+      "git_canonical_sha256": "bda4723f3ea422eb858fe2bbe5cee3a53e13655c416912c37f6242af76b2ded7",
+      "git_blob_oid": "7d7233624d27b253d138c121fe95117aac0616af",
+      "conversion": "raw-bytes",
+      "raw_bytes": 230273
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/combat-idle-left.png": {
+      "raw_sha256": "3af385fba25ec018f3d059418342fa114fd968101ad514db248f492a116a8989",
+      "git_canonical_sha256": "3af385fba25ec018f3d059418342fa114fd968101ad514db248f492a116a8989",
+      "git_blob_oid": "8612819273f67bc51f40abb831cdf33dca678ee0",
+      "conversion": "raw-bytes",
+      "raw_bytes": 119628
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/combat-idle-right.png": {
+      "raw_sha256": "768fb7b1cc74680636ee81d8adf9eb7e329cc25b5c791b401bfea56bdef160ea",
+      "git_canonical_sha256": "768fb7b1cc74680636ee81d8adf9eb7e329cc25b5c791b401bfea56bdef160ea",
+      "git_blob_oid": "e5763f1196340319baa905358e50c4f49c79cfce",
+      "conversion": "raw-bytes",
+      "raw_bytes": 119987
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/crouch-left.png": {
+      "raw_sha256": "db7dd9082ee7dc63c947ce5deb2350f1714753ebbd6e1916de4b9486223dd8f9",
+      "git_canonical_sha256": "db7dd9082ee7dc63c947ce5deb2350f1714753ebbd6e1916de4b9486223dd8f9",
+      "git_blob_oid": "d32c11a34c02225e3e9e295a431475825cf3e91d",
+      "conversion": "raw-bytes",
+      "raw_bytes": 115165
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/crouch-right.png": {
+      "raw_sha256": "5658991645e1af4492f277bfd7bb94c015d001174ee0644e31c963e2373bb66b",
+      "git_canonical_sha256": "5658991645e1af4492f277bfd7bb94c015d001174ee0644e31c963e2373bb66b",
+      "git_blob_oid": "80cae5b0c23ea3a05b145e74c1a0f53772fd18ec",
+      "conversion": "raw-bytes",
+      "raw_bytes": 116353
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/gait-left.png": {
+      "raw_sha256": "4598108930bf3291afe43ce9b979f744c4a1abbcf90e5a294f8c383b1db09082",
+      "git_canonical_sha256": "4598108930bf3291afe43ce9b979f744c4a1abbcf90e5a294f8c383b1db09082",
+      "git_blob_oid": "aa5a9aeb20e5fc6edaec245a4500e238baee70a0",
+      "conversion": "raw-bytes",
+      "raw_bytes": 218291
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/gait-right.png": {
+      "raw_sha256": "df4de3a4f10cf4b897f22ec503de3b40ba403deab01007094f71ea2df8cad54b",
+      "git_canonical_sha256": "df4de3a4f10cf4b897f22ec503de3b40ba403deab01007094f71ea2df8cad54b",
+      "git_blob_oid": "48ffbefdea774977d2f0e403388b6aafb3203622",
+      "conversion": "raw-bytes",
+      "raw_bytes": 218464
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/npc-page0-bright.png": {
+      "raw_sha256": "d82c750f89439a480728a118c4f79ba2153be8ac68e2dea63c042d5e58d4db0d",
+      "git_canonical_sha256": "d82c750f89439a480728a118c4f79ba2153be8ac68e2dea63c042d5e58d4db0d",
+      "git_blob_oid": "e4e5713fe60b3d1b31e3f7a17fe0cfb4dea1eea8",
+      "conversion": "raw-bytes",
+      "raw_bytes": 252414
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/npc-page0-left.png": {
+      "raw_sha256": "263f0059cd0ef406211aa5fc95b079bce2f1c716d10d6c80fcc259e644244ac6",
+      "git_canonical_sha256": "263f0059cd0ef406211aa5fc95b079bce2f1c716d10d6c80fcc259e644244ac6",
+      "git_blob_oid": "46ee2509ad9f14c14d67d43389cf4661499d35bf",
+      "conversion": "raw-bytes",
+      "raw_bytes": 220296
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/npc-page0-right.png": {
+      "raw_sha256": "76a757e9200e8ddcc5a81500445c8446655a14772eaeb96abe86d0815ee26bc7",
+      "git_canonical_sha256": "76a757e9200e8ddcc5a81500445c8446655a14772eaeb96abe86d0815ee26bc7",
+      "git_blob_oid": "156eb087f9960237913e04aa57a1bc2d76e091c8",
+      "conversion": "raw-bytes",
+      "raw_bytes": 220012
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/npc-page1-bright.png": {
+      "raw_sha256": "f4c55b14b58d5c4aa9fa7435f67be1125c23155503a5caace1779b69066d3c13",
+      "git_canonical_sha256": "f4c55b14b58d5c4aa9fa7435f67be1125c23155503a5caace1779b69066d3c13",
+      "git_blob_oid": "90a5db574fab817b4cba5ee6f23150d8b0159761",
+      "conversion": "raw-bytes",
+      "raw_bytes": 251295
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/npc-page1-left.png": {
+      "raw_sha256": "8e33fffe91def6a668c306e61c5e11a4efda7418f7fbda43ae59300d05427ef1",
+      "git_canonical_sha256": "8e33fffe91def6a668c306e61c5e11a4efda7418f7fbda43ae59300d05427ef1",
+      "git_blob_oid": "c486ae814739aaad24b938477dfe9dd697ff729c",
+      "conversion": "raw-bytes",
+      "raw_bytes": 216582
+    },
+    "pm/Nest-Egg/images/NE-255-fresh-character/v12-native/npc-page1-right.png": {
+      "raw_sha256": "e9f180bc29bc93736787eebf5813bf7be2c2d30a5e0928387b9e77407ca823eb",
+      "git_canonical_sha256": "e9f180bc29bc93736787eebf5813bf7be2c2d30a5e0928387b9e77407ca823eb",
+      "git_blob_oid": "64b29e87a0ad3b98c2d3625e2e2a12f7c1eac691",
+      "conversion": "raw-bytes",
+      "raw_bytes": 216593
+    },
+    "tools/comfyui/recipes/harbor_lamplighter_demo.json": {
+      "raw_sha256": "9cbf1e49722563da1daf1608299d6828795779709343fae56761951f76c0e103",
+      "git_canonical_sha256": "372407573f21e716a1087923cea96b46c246c4dc4c9a9b50960f56206589c00c",
+      "git_blob_oid": "ad0853120eaaef7592f3f28c36692b4014e21b63",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 2681
+    },
+    "tools/comfyui/specs/harbor_lamplighter_demo_side.json": {
+      "raw_sha256": "1a51467f574ad3a4adff417c9afe044aaff92ac80225f59d75ded229c02067ff",
+      "git_canonical_sha256": "5e2c246bd2f6d14f2c3825420a1e68f2ed06096b1d089e862e4f34124a2566a5",
+      "git_blob_oid": "984b58df42213289a9f8930df1a525d1e1af20e0",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 18485
+    },
+    "tools/fixtures/harbor_lamplighter_demo/map.json": {
+      "raw_sha256": "365ad062a267103ce398d97bbbab7828e22daff6386c58f81204152473581ae6",
+      "git_canonical_sha256": "c4a118282d810a525c18ea02bd07937d964e6cd5cd0483926cd32eaaac5a072a",
+      "git_blob_oid": "caa05b36cbc6cf9df10dc7a0adb8f311bec1a2e0",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 1570
+    },
+    "tools/fixtures/harbor_lamplighter_demo/preview_npc.tres": {
+      "raw_sha256": "f2717e9036d311dd59438205230c75b728373785136fd2bac832c3e76753b3d7",
+      "git_canonical_sha256": "f2717e9036d311dd59438205230c75b728373785136fd2bac832c3e76753b3d7",
+      "git_blob_oid": "0b37e9e392297f32fb2ba33b79a1eb28adeac4c5",
+      "conversion": "raw-bytes",
+      "raw_bytes": 635
+    },
+    "tools/harbor_lamplighter_demo_gameplay.gd": {
+      "raw_sha256": "50e03a92a9c80ee59073aeb75809dd2b489a9449c74b1b9185cf2d9c94900c8d",
+      "git_canonical_sha256": "50e03a92a9c80ee59073aeb75809dd2b489a9449c74b1b9185cf2d9c94900c8d",
+      "git_blob_oid": "8c9d99d36e0e45185df335b1b2db4ddfa4c5b421",
+      "conversion": "raw-bytes",
+      "raw_bytes": 7762
+    },
+    "tools/harbor_lamplighter_demo_gameplay.gd.uid": {
+      "raw_sha256": "ea767f2608db55c2f693d202f89e026849c3a8cc47c732d674102330b08f2163",
+      "git_canonical_sha256": "ea767f2608db55c2f693d202f89e026849c3a8cc47c732d674102330b08f2163",
+      "git_blob_oid": "818ee5c1590c31c85deafe9242f964c36e6d1b20",
+      "conversion": "raw-bytes",
+      "raw_bytes": 20
+    },
+    "tools/harbor_lamplighter_demo_gameplay.tscn": {
+      "raw_sha256": "7a5f6744148c3c3194657f84ac900094974d623f3f0ea1e1320fbce28bfe725a",
+      "git_canonical_sha256": "7a5f6744148c3c3194657f84ac900094974d623f3f0ea1e1320fbce28bfe725a",
+      "git_blob_oid": "4ad923d410f67b6b7ab53481c4ed3c31046f1b5d",
+      "conversion": "raw-bytes",
+      "raw_bytes": 221
+    },
+    "tools/harbor_lamplighter_demo_probe.gd": {
+      "raw_sha256": "b1e7c0700c17ef283994a2a5dbf69b3beeb22986d13df2364c73b54047443e12",
+      "git_canonical_sha256": "5a6aeee3110b87c57a7da329f3ccb4f6f2a58e10f3441e971be2c5ab0b6a0ded",
+      "git_blob_oid": "4d22286d1255ad4f82be96240ae7fe2a223b4798",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 6259
+    },
+    "tools/harbor_lamplighter_demo_probe.gd.uid": {
+      "raw_sha256": "dcb2e4c66b2cf203a13ed6b78c763a6ce14bb0e7fafe3b938a7c51110c7761f9",
+      "git_canonical_sha256": "dcb2e4c66b2cf203a13ed6b78c763a6ce14bb0e7fafe3b938a7c51110c7761f9",
+      "git_blob_oid": "3583ffe892a81a58686b06faf2ade36caf833b35",
+      "conversion": "raw-bytes",
+      "raw_bytes": 20
+    },
+    "tools/harbor_lamplighter_demo_probe.tscn": {
+      "raw_sha256": "44adce5828d2b574777943c4614b46d0f946f168be97f250a95174232505b177",
+      "git_canonical_sha256": "4e41833ade568fdf4b0ccee4fc14656fceb8da867455ff39b5dfa17871883a97",
+      "git_blob_oid": "d750cee04076766ecfef9702e250ba7508561ec4",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 201
+    },
+    "tools/harbor_lamplighter_demo_snapshot_audit.gd": {
+      "raw_sha256": "4a2071e5b60e6e71dfe6516161893bcf4ed68e7f4d8966329f43ade73aafb302",
+      "git_canonical_sha256": "c6a2699b013a20810c2eed8c7342fea69147d422de5a187bcbea3bef00376a44",
+      "git_blob_oid": "9972b274b9e95d443e2c8d465a217da51f73bc52",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 2168
+    },
+    "tools/harbor_lamplighter_demo_snapshot_audit.gd.uid": {
+      "raw_sha256": "c23ab5816fdedeec142e00795d2bfbe137c68deb8c9a1a0e5cb423cb9df2bfc0",
+      "git_canonical_sha256": "c23ab5816fdedeec142e00795d2bfbe137c68deb8c9a1a0e5cb423cb9df2bfc0",
+      "git_blob_oid": "a8513c4c089c64bac53ef59d86a17e532c642304",
+      "conversion": "raw-bytes",
+      "raw_bytes": 20
+    },
+    "tools/harbor_lamplighter_demo_snapshot_audit.tscn": {
+      "raw_sha256": "42159c2c089be3d4969004e83d1dffb4289f1ec74b59c4b5adeac705fc96c4eb",
+      "git_canonical_sha256": "15ad949c6fbb3f89bf9c1b83aa0e26ab5065f27cc503cbe1ee6ee38d87af6c9f",
+      "git_blob_oid": "77bfb0d87448ca40220ff8950cecdbb4b0ba020b",
+      "conversion": "Git-LF-only",
+      "raw_bytes": 216
+    }
+  },
+  "self_manifest_hash_omitted_to_avoid_circularity": true,
+  "note": "Exact appearance-only stage list. No old loose frames/reports or ignored runtime intermediates are added. All historical raw evidence remains in65 independently verified <50MB volumes. Production123 tested-raw bytes remain frozen;23 text files have explicit Git LF mapping,58 PNGs remain exact. Parent owns staging/commit/push and compares actual staged bytes.",
+  "official_result": {
+    "groups": 88,
+    "checks": 100552,
+    "new_failures": 0,
+    "known_failures": 0,
+    "source_hashes_unchanged": 13700
+  },
+  "archive_result": {
+    "archives": 65,
+    "members": 45500,
+    "original_member_bytes": 1911654260,
+    "archive_bytes": 989709348,
+    "largest_archive_bytes": 33830604,
+    "archive_payload_limit_bytes": 50000000,
+    "initial_64_archive_payloads_unchanged": true,
+    "original_65_CRLF_metadata_preserved_in_supplement": true,
+    "delivery_metadata_canonical_LF": true,
+    "production_mappings_checked": 123,
+    "production_text_Git_LF_changes": 23,
+    "production_PNG_raw_unchanged": 58,
+    "D_verifier_exit": 0,
+    "C_verifier_exit": 0,
+    "D_session": 96645,
+    "C_session": 51997,
+    "no_extraction": true,
+    "index_sha256": "d6db65dc6960a369ad1a5d847caddfec235acc8ed6310f208dd707bed7c47736",
+    "verifier_sha256": "72fd8855e823c889e8bda9153209b53c9081f68410b941d03427d24168dd03f3",
+    "actual_staging_owned_by_parent": true
+  },
+  "all_intended_paths_unignored": true,
+  "git_stdin_validation": "NUL bytes for check-ignore and explicit LF bytes for hash-object; no Windows text-pipe filename CR suffix."
+}

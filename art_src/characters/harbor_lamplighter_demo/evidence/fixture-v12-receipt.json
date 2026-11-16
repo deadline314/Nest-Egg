@@ -1,0 +1,105 @@
+{
+	"failures": [],
+	"fixture": "real Level + map-loaded NpcActor",
+	"observations": [
+		{
+			"actor_class": "Area2D",
+			"level_lighting": true,
+			"observed_loop": "",
+			"observed_npc_pose": "stand",
+			"phase": "map_stand",
+			"requested_actor_pose": "idle",
+			"rig": "harbor_lamplighter_demo",
+			"script": "res://game/npc/npc_actor.gd",
+			"talk_input": false,
+			"talking": false
+		},
+		{
+			"part_z_indices": {
+				"arm_back_lower": -7,
+				"arm_back_upper": -7,
+				"arm_front_lower": 8,
+				"arm_front_upper": 8,
+				"foot_back": -5,
+				"foot_front": 3,
+				"hand_back": -6,
+				"hand_front": 10,
+				"head": 5,
+				"leg_back_lower": -5,
+				"leg_back_upper": -5,
+				"leg_front_lower": 3,
+				"leg_front_upper": 3,
+				"pelvis": 0,
+				"torso": 1
+			},
+			"phase": "layer_order"
+		},
+		{
+			"actor_class": "Area2D",
+			"level_lighting": true,
+			"observed_loop": "",
+			"observed_npc_pose": "sit",
+			"phase": "sit_enter",
+			"requested_actor_pose": "sit",
+			"rig": "harbor_lamplighter_demo",
+			"script": "res://game/npc/npc_actor.gd",
+			"talk_input": false,
+			"talking": false
+		},
+		{
+			"actor_class": "Area2D",
+			"level_lighting": true,
+			"observed_loop": "",
+			"observed_npc_pose": "sit",
+			"phase": "sit_settled",
+			"requested_actor_pose": "sit",
+			"rig": "harbor_lamplighter_demo",
+			"script": "res://game/npc/npc_actor.gd",
+			"talk_input": false,
+			"talking": false
+		},
+		{
+			"actor_class": "Area2D",
+			"level_lighting": true,
+			"observed_loop": "",
+			"observed_npc_pose": "stand",
+			"phase": "sit_exit",
+			"requested_actor_pose": "idle",
+			"rig": "harbor_lamplighter_demo",
+			"script": "res://game/npc/npc_actor.gd",
+			"talk_input": false,
+			"talking": false
+		},
+		{
+			"actor_class": "Area2D",
+			"level_lighting": true,
+			"observed_loop": "",
+			"observed_npc_pose": "stand",
+			"phase": "conversation",
+			"requested_actor_pose": "idle",
+			"rig": "harbor_lamplighter_demo",
+			"script": "res://game/npc/npc_actor.gd",
+			"talk_input": true,
+			"talking": true
+		},
+		{
+			"actor_class": "Area2D",
+			"level_lighting": true,
+			"observed_loop": "",
+			"observed_npc_pose": "stand",
+			"phase": "conversation_return",
+			"requested_actor_pose": "idle",
+			"rig": "harbor_lamplighter_demo",
+			"script": "res://game/npc/npc_actor.gd",
+			"talk_input": false,
+			"talking": false
+		},
+		{
+			"all_owned_nodes_released": true,
+			"phase": "released",
+			"texture_cache_policy": "Existing autoload texture cache retention is unchanged; node release does not claim zero cached GPU resources.",
+			"tracked_nodes": 6
+		}
+	],
+	"performance_claim": false
+}

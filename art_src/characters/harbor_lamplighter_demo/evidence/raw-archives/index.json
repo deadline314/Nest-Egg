@@ -1,0 +1,597 @@
+{
+  "format": 1,
+  "maximum_archive_bytes": 50000000,
+  "original_files_retained_locally": true,
+  "epoch_rule": "Explicit vN labels in original paths; unlabelled original generation/diagnostics remain separate. Formal frozen production has its own volume.",
+  "source_files": 45500,
+  "source_bytes": 1911654260,
+  "archives": [
+    {
+      "file": "authoring-v12-01.raw.tar.xz",
+      "epoch": "authoring-v12",
+      "size": 9980276,
+      "sha256": "f9fc292ef2d5b0a34f02683d9e9663a2fb140d4e5e6d797623902b76d09ac3fc",
+      "manifest": "authoring-v12-01.raw.tar.xz.members.json",
+      "manifest_sha256": "c90f6f40b5f073555a8f0aacf12eab4e4f18655433bdf1dc14e2a4f924ae7e77",
+      "member_count": 123
+    },
+    {
+      "file": "unversioned-records-01.raw.tar.xz",
+      "epoch": "unversioned-records",
+      "size": 20146304,
+      "sha256": "9337f5ee56a076582b257f01e791e75067653af44b42ad531c7175977cb4caea",
+      "manifest": "unversioned-records-01.raw.tar.xz.members.json",
+      "manifest_sha256": "bba2aae7fdca2925a113443b5031b8160189c7671b76d0dd55bda66c217b843d",
+      "member_count": 1804
+    },
+    {
+      "file": "unversioned-records-02.raw.tar.xz",
+      "epoch": "unversioned-records",
+      "size": 11296504,
+      "sha256": "897371e93f48e6a657fdb9957ecc5266fd74ecd4a859d4c122cdf76a96c84194",
+      "manifest": "unversioned-records-02.raw.tar.xz.members.json",
+      "manifest_sha256": "90e6fff645e8a9aabd9c24fb9dee2db96cc8a627e610c67ef28a65e1a5ad80b9",
+      "member_count": 101
+    },
+    {
+      "file": "v02-01.raw.tar.xz",
+      "epoch": "v02",
+      "size": 29868004,
+      "sha256": "57ad5fee34c4de9c2157c6c157afc79be99bfd3b7b2ed084e6705d4d302abc4f",
+      "manifest": "v02-01.raw.tar.xz.members.json",
+      "manifest_sha256": "383927eafe464f5432b1215d9ef74425a71becb00efff790d35faeddd343ebb8",
+      "member_count": 650
+    },
+    {
+      "file": "v02-02.raw.tar.xz",
+      "epoch": "v02",
+      "size": 18133880,
+      "sha256": "d45101ff2157099e8075df9dc047a046e07991b8455e35b16c0a52aba287fd85",
+      "manifest": "v02-02.raw.tar.xz.members.json",
+      "manifest_sha256": "53e029e591609bd6872dd2bb227c1b39ec449ca99285338c0bf30ace41fd4e8f",
+      "member_count": 548
+    },
+    {
+      "file": "v02-03.raw.tar.xz",
+      "epoch": "v02",
+      "size": 22808708,
+      "sha256": "2872a67dbb24806f1b0105792566509d44c3c55576e8a50516609101035ac20d",
+      "manifest": "v02-03.raw.tar.xz.members.json",
+      "manifest_sha256": "c42138222947f83c010e6fed2a7648781a9d32111832d7221eb39249ba86b592",
+      "member_count": 648
+    },
+    {
+      "file": "v02-04.raw.tar.xz",
+      "epoch": "v02",
+      "size": 25685716,
+      "sha256": "21496a13dc5c967395a35699c4d8e8c8029f993ebfcfc7d7e49adbeeca5a307d",
+      "manifest": "v02-04.raw.tar.xz.members.json",
+      "manifest_sha256": "e68dd5b9a8b7d75068ac2e3d7089625d94c89fa535f7fdd3860e575cf176db18",
+      "member_count": 560
+    },
+    {
+      "file": "v02-05.raw.tar.xz",
+      "epoch": "v02",
+      "size": 32329736,
+      "sha256": "a7465d5cd1f7b1527701b879ce40bb70d076a384f0326bdc93801f07d14743b4",
+      "manifest": "v02-05.raw.tar.xz.members.json",
+      "manifest_sha256": "bef50e0da1336129ce4621a945dc74ef91e37862b6581b87814340f756134468",
+      "member_count": 657
+    },
+    {
+      "file": "v02-06.raw.tar.xz",
+      "epoch": "v02",
+      "size": 33830604,
+      "sha256": "d7c8701959896d2aa2a3be4d14ee0c7c9a7f4b395febac798422fde4bf67dfb0",
+      "manifest": "v02-06.raw.tar.xz.members.json",
+      "manifest_sha256": "2ee3cdcf9882d6938c42595b78b62f64b9c3fc95b12f5988847d33e0599c211b",
+      "member_count": 561
+    },
+    {
+      "file": "v02-07.raw.tar.xz",
+      "epoch": "v02",
+      "size": 3321392,
+      "sha256": "4ba01add72201a40d723fb8a0361fe45ac908ef9cf6936e7878d769ba0bd70cf",
+      "manifest": "v02-07.raw.tar.xz.members.json",
+      "manifest_sha256": "f1b84345ad819fcf0274f13eca5273e00864882ce35e7ccfd473c82c574180a8",
+      "member_count": 31
+    },
+    {
+      "file": "v03-01.raw.tar.xz",
+      "epoch": "v03",
+      "size": 2287816,
+      "sha256": "875a6cb5dab2e66f7d1da4850e827e6757297dcbbdeac3039ad98fb4e20fb690",
+      "manifest": "v03-01.raw.tar.xz.members.json",
+      "manifest_sha256": "1529805969301a67d17e51b3b42d7d2e32a754a02905376df75a50d6ed8d383a",
+      "member_count": 24
+    },
+    {
+      "file": "v04-01.raw.tar.xz",
+      "epoch": "v04",
+      "size": 2990888,
+      "sha256": "b365ecbe83501a2ad22535f2a6739755dbdfdd9bd17e3872e6f6970533d82226",
+      "manifest": "v04-01.raw.tar.xz.members.json",
+      "manifest_sha256": "825a4a988d5276adbe7b2462cc81de39ac53633b89c9bbd4d15754b0a2c0398f",
+      "member_count": 396
+    },
+    {
+      "file": "v05-01.raw.tar.xz",
+      "epoch": "v05",
+      "size": 2241792,
+      "sha256": "8c33122f23eeea9867e0b72c63ae330072f0000760f1890d88ffaefbd47d623b",
+      "manifest": "v05-01.raw.tar.xz.members.json",
+      "manifest_sha256": "3f57dc8f7f3b40a47bd6ff4c9a32d3e4135a29c0754d6b27792bcf498d9f67e9",
+      "member_count": 392
+    },
+    {
+      "file": "v06-01.raw.tar.xz",
+      "epoch": "v06",
+      "size": 752,
+      "sha256": "a1f26ead3902250acb1ea56e644111c35d8c9622e6d156fb2410020210665688",
+      "manifest": "v06-01.raw.tar.xz.members.json",
+      "manifest_sha256": "b863720626794052e57302059d42d9d509b61b8119890e551eba3f6faa18abda",
+      "member_count": 1
+    },
+    {
+      "file": "v07-01.raw.tar.xz",
+      "epoch": "v07",
+      "size": 30189004,
+      "sha256": "7a259c93f6affce4d127f7603168506c101e4d389c497723a424e9cda0b918e2",
+      "manifest": "v07-01.raw.tar.xz.members.json",
+      "manifest_sha256": "681e95df730ae0196a08ab0ebe4f3cd5f6351393b2699f82db402936f8b31ccf",
+      "member_count": 1519
+    },
+    {
+      "file": "v07-02.raw.tar.xz",
+      "epoch": "v07",
+      "size": 8638460,
+      "sha256": "6f24811864791f8f1e2f3bbdcab82a7a75ad7c627c3eed4dc64bc96e51d97a1e",
+      "manifest": "v07-02.raw.tar.xz.members.json",
+      "manifest_sha256": "e1308d08ba5b66da83ff9ec88d1e3ba27dd59b1b40e75bf82476bc9a437a237c",
+      "member_count": 580
+    },
+    {
+      "file": "v07-independent-review-01.raw.tar.xz",
+      "epoch": "v07-independent-review",
+      "size": 12312,
+      "sha256": "3a6eb21eb34446b2b4b12445001e0eed1b3506b186cff5afb8a164384da09aba",
+      "manifest": "v07-independent-review-01.raw.tar.xz.members.json",
+      "manifest_sha256": "13bab2e712c2219e173b6f4a985a2da7a0d244d5f0e52f363402b7cc84e6e2d6",
+      "member_count": 3
+    },
+    {
+      "file": "v08-01.raw.tar.xz",
+      "epoch": "v08",
+      "size": 29839624,
+      "sha256": "c81957b4acc3870604a7fd6c58f2b14812f50500fa2f91a85a81cf25b10942da",
+      "manifest": "v08-01.raw.tar.xz.members.json",
+      "manifest_sha256": "55adfc283e37b7ba4c6b01a21b5b87b1976187d8f5b37fa70c73191a1b9f4780",
+      "member_count": 649
+    },
+    {
+      "file": "v08-02.raw.tar.xz",
+      "epoch": "v08",
+      "size": 18000628,
+      "sha256": "0cf6d77b2f73a11ca55fd699b14454785236a7d54cea041dcc2143f7458a748d",
+      "manifest": "v08-02.raw.tar.xz.members.json",
+      "manifest_sha256": "427e67d9b01b5f11614a213edc2985f3ebe5afe3cbed133a00d35a3e646ad305",
+      "member_count": 548
+    },
+    {
+      "file": "v08-03.raw.tar.xz",
+      "epoch": "v08",
+      "size": 23185932,
+      "sha256": "27ed222417f3b43c16f00e6176a33d98dd91ebb3d9e5f6a64f915ecd79a5dcfc",
+      "manifest": "v08-03.raw.tar.xz.members.json",
+      "manifest_sha256": "de871c59f2a698c0618b1aa331eb18b5deb7526c37fda71d19b0706fdda98cce",
+      "member_count": 642
+    },
+    {
+      "file": "v08-04.raw.tar.xz",
+      "epoch": "v08",
+      "size": 25729636,
+      "sha256": "2cb27f38b17b7484d749ec1ef0ae20ffd614cd6dc081d646d57785dd2ba1af69",
+      "manifest": "v08-04.raw.tar.xz.members.json",
+      "manifest_sha256": "66d8c37136d7bd324d6f9a670fc7eff960cf89b1dd54b94850a17a75b01f75dd",
+      "member_count": 554
+    },
+    {
+      "file": "v08-05.raw.tar.xz",
+      "epoch": "v08",
+      "size": 31827760,
+      "sha256": "c8ae790e5a069cdab660213e4f1f6e5bb492715fa0dfcd73984849291c816935",
+      "manifest": "v08-05.raw.tar.xz.members.json",
+      "manifest_sha256": "2a1ee4087a890413552db9ed79c6266c94330e7415308bc8ead3675cfe008ffe",
+      "member_count": 658
+    },
+    {
+      "file": "v08-06.raw.tar.xz",
+      "epoch": "v08",
+      "size": 33006000,
+      "sha256": "dbcd56dc0705a4b0ad0f6ea286cc04b5141859eecb6a022ed7b5e47aa0d3d333",
+      "manifest": "v08-06.raw.tar.xz.members.json",
+      "manifest_sha256": "b7a2cb609ab7bf629c304fcd5a463ff8b488b869db0cc3f8354ef384d928bc0d",
+      "member_count": 556
+    },
+    {
+      "file": "v08-07.raw.tar.xz",
+      "epoch": "v08",
+      "size": 32883632,
+      "sha256": "e50e4fea377faa41fc8488a6e9c8c22c6fc4d8365057fa1a240976fb918cdc57",
+      "manifest": "v08-07.raw.tar.xz.members.json",
+      "manifest_sha256": "f4c8d3fb499943f7e7ee522bdd073ae1dfe0ed5f65a50188aad2c7dee4e7f312",
+      "member_count": 657
+    },
+    {
+      "file": "v08-08.raw.tar.xz",
+      "epoch": "v08",
+      "size": 24924552,
+      "sha256": "e7f89a90ddde285d3b2e5f722044c19efe8214fcd857820d1e797785f35bcf1f",
+      "manifest": "v08-08.raw.tar.xz.members.json",
+      "manifest_sha256": "2768d8b5f8e53e17d973e3c5bb7ac56b1afe31304bec7f28d3abe4742fa4acd4",
+      "member_count": 1405
+    },
+    {
+      "file": "v09-01.raw.tar.xz",
+      "epoch": "v09",
+      "size": 15712976,
+      "sha256": "44ea89dfe7e1130868b28bd3e24a8890e1010eeb3efc8bf2e07b80b4502ca48f",
+      "manifest": "v09-01.raw.tar.xz.members.json",
+      "manifest_sha256": "2b767ffc8582fdec25cf7f2619ea2686f1e282f1cc29431d9367169526384364",
+      "member_count": 763
+    },
+    {
+      "file": "v09-02.raw.tar.xz",
+      "epoch": "v09",
+      "size": 14736576,
+      "sha256": "c04d95c1b9ab081d38ff2afd06223364f775c8b724f44bc168310af12bfec468",
+      "manifest": "v09-02.raw.tar.xz.members.json",
+      "manifest_sha256": "c4e83982f697f6dad1e646168465bc08cc5af353fa4fd2b1af5547a5fb3d23fa",
+      "member_count": 545
+    },
+    {
+      "file": "v09-03.raw.tar.xz",
+      "epoch": "v09",
+      "size": 6330932,
+      "sha256": "5a3bb296ebafad95404f49f300928ed7c7ce27c34a281f5da96c4635516d59b5",
+      "manifest": "v09-03.raw.tar.xz.members.json",
+      "manifest_sha256": "0803becab29c6ad978f1062f3d349b8a76e5a520ab0066daa88148655ef126ce",
+      "member_count": 546
+    },
+    {
+      "file": "v09-04.raw.tar.xz",
+      "epoch": "v09",
+      "size": 12052004,
+      "sha256": "39e1f9367f1173d7213be5e72319f563ea16088c043fcdecfb0100152004b461",
+      "manifest": "v09-04.raw.tar.xz.members.json",
+      "manifest_sha256": "24f68dc3800f56dbee0eda64133829faef6108f50596d4cda3f7c272c51f8f54",
+      "member_count": 550
+    },
+    {
+      "file": "v09-05.raw.tar.xz",
+      "epoch": "v09",
+      "size": 7281608,
+      "sha256": "3b6b15de9260b6ac0d46c10f041a495a97e7febdde7961eec665714bb9802fcd",
+      "manifest": "v09-05.raw.tar.xz.members.json",
+      "manifest_sha256": "881d616898800e7901906dba4330d2ca49df5fd6981de82b73e33e156c5f0142",
+      "member_count": 743
+    },
+    {
+      "file": "v09-06.raw.tar.xz",
+      "epoch": "v09",
+      "size": 16247016,
+      "sha256": "bcadc4a44b91984cd1a6cc0bf281b4eaa63e84427564f935ac1bba968298cf8f",
+      "manifest": "v09-06.raw.tar.xz.members.json",
+      "manifest_sha256": "04731cb938ac1f4f895398a829758b8c1021b17cfcd42f0f5f1538dfd5c32aa1",
+      "member_count": 543
+    },
+    {
+      "file": "v09-07.raw.tar.xz",
+      "epoch": "v09",
+      "size": 9136048,
+      "sha256": "b00663505bf71dd98a2b455cf06ef70f6deb20869496bf6f23d2c88149172787",
+      "manifest": "v09-07.raw.tar.xz.members.json",
+      "manifest_sha256": "fc8cb6c8ecb3b41c26132bb2f44a2f122cbfdd6d37afe5453276e0c7ebe18bf5",
+      "member_count": 548
+    },
+    {
+      "file": "v09-08.raw.tar.xz",
+      "epoch": "v09",
+      "size": 16910888,
+      "sha256": "309a922933fb20f151c5391d4e89a74c1c2dea09f715539b79267a28da99d167",
+      "manifest": "v09-08.raw.tar.xz.members.json",
+      "manifest_sha256": "77f3f03ea65faacd9d2f0a6866de6d0f3f04abd5a72d624e5ef73b0ff606785f",
+      "member_count": 559
+    },
+    {
+      "file": "v09-09.raw.tar.xz",
+      "epoch": "v09",
+      "size": 15411344,
+      "sha256": "01e784d06cc76c1c9ea18c82c9299f1fd5bba9e8a836e7a7c2254fa12b6a1eee",
+      "manifest": "v09-09.raw.tar.xz.members.json",
+      "manifest_sha256": "197022deb7b4bc73235eacd9c545367ffa0dc66899305f342b949246aa50fe8d",
+      "member_count": 691
+    },
+    {
+      "file": "v09-10.raw.tar.xz",
+      "epoch": "v09",
+      "size": 16869052,
+      "sha256": "2c51d58a4844e8fc2bb6e436f15ade4e3123148d03216ce0d892b6a658efcb01",
+      "manifest": "v09-10.raw.tar.xz.members.json",
+      "manifest_sha256": "b012fb8cf8d22a439e8e44bbeb4fd299f1db6e1ea754a6bcc020646c6a6442b9",
+      "member_count": 624
+    },
+    {
+      "file": "v09-11.raw.tar.xz",
+      "epoch": "v09",
+      "size": 17382064,
+      "sha256": "be1e98a5e3c8160d2e623bc15933e1b1d1288772e443221fe97fbb97690cc296",
+      "manifest": "v09-11.raw.tar.xz.members.json",
+      "manifest_sha256": "9b30bba0b49dc43b797d1a8eef56c1c29793838b84fa8d95cfbfe8e873b78c0f",
+      "member_count": 556
+    },
+    {
+      "file": "v09-12.raw.tar.xz",
+      "epoch": "v09",
+      "size": 16104172,
+      "sha256": "675887d23e7c3c8495a093d2e187ec30f15f6f9c757312a771b315ca0c672168",
+      "manifest": "v09-12.raw.tar.xz.members.json",
+      "manifest_sha256": "7c46e5ada96da740b4f0f74850e8730a93d7a4de16bf8f972eca9fa25e41a58e",
+      "member_count": 557
+    },
+    {
+      "file": "v09-13.raw.tar.xz",
+      "epoch": "v09",
+      "size": 15899824,
+      "sha256": "c5538b351f613e20261c14a856f26f4eb3486856f324e37ca27312e22b113f0b",
+      "manifest": "v09-13.raw.tar.xz.members.json",
+      "manifest_sha256": "0ba90dad4cb7d106a06941e6e29fc15b5c787cf52e6fc7d00bce1961a4692a73",
+      "member_count": 761
+    },
+    {
+      "file": "v09-14.raw.tar.xz",
+      "epoch": "v09",
+      "size": 17483520,
+      "sha256": "db77615502f224c82330cb6073bde525282a8f062863df244236bf7721a4a4f6",
+      "manifest": "v09-14.raw.tar.xz.members.json",
+      "manifest_sha256": "6b2cf6af733db3868f84bbbdad8276cebdbe363cc8fde7f5543d6339487c58ce",
+      "member_count": 552
+    },
+    {
+      "file": "v09-15.raw.tar.xz",
+      "epoch": "v09",
+      "size": 16877600,
+      "sha256": "67f9ebaf8d7be95e6425362b775a675f837626295211df08562e0f6e091c2bef",
+      "manifest": "v09-15.raw.tar.xz.members.json",
+      "manifest_sha256": "927ae1195888c8aa5ee46a2d8490d266f9fe701f33a22093c4209a670aecc5db",
+      "member_count": 2109
+    },
+    {
+      "file": "v09-16.raw.tar.xz",
+      "epoch": "v09",
+      "size": 13804660,
+      "sha256": "3f3d11422552a1a73dfe9c9575ec0c3537f694b35cd1544a7a2903953a92d9d1",
+      "manifest": "v09-16.raw.tar.xz.members.json",
+      "manifest_sha256": "037c73aa60d75b0d6d3fa3a96ca6c2e8bd1c69b617cf1dfc9a40845478223009",
+      "member_count": 1029
+    },
+    {
+      "file": "v09-independent-review-01.raw.tar.xz",
+      "epoch": "v09-independent-review",
+      "size": 51160,
+      "sha256": "9ac0315124c519fec47947bf3a528d447aeac69d1eb034bc22a0b49b897a7d49",
+      "manifest": "v09-independent-review-01.raw.tar.xz.members.json",
+      "manifest_sha256": "d5d7f0b6b5b7ef492573fda4c8b93ba63f28b411b5915654f8719e90c630c146",
+      "member_count": 1
+    },
+    {
+      "file": "v10-01.raw.tar.xz",
+      "epoch": "v10",
+      "size": 16961284,
+      "sha256": "ea0a397113d5435dbaca200a20c251351c7d56bfb0eec9edb3cdae1e2f942401",
+      "manifest": "v10-01.raw.tar.xz.members.json",
+      "manifest_sha256": "816e0987426e7ef0d94b58d46b885b78dfad6a7ec5aabac7cdeddcd9de44e34f",
+      "member_count": 2933
+    },
+    {
+      "file": "v11-01.raw.tar.xz",
+      "epoch": "v11",
+      "size": 22829608,
+      "sha256": "ff0f2fc37b6b5d55079f4a69a55363e9a62dabaf1f1f7b00666620a646d132bb",
+      "manifest": "v11-01.raw.tar.xz.members.json",
+      "manifest_sha256": "31bd3f1eb3dc251dbce821491caf51703fb476388b8ffd2861f37032869ad1e5",
+      "member_count": 2954
+    },
+    {
+      "file": "v12-01.raw.tar.xz",
+      "epoch": "v12",
+      "size": 14407776,
+      "sha256": "eccdf535717fdbccaf135bcff8655f2dfbf2f231fba0dd4b091793eb70c00234",
+      "manifest": "v12-01.raw.tar.xz.members.json",
+      "manifest_sha256": "a48bb2637eaefc92964f3735fc097e35410b6aec1b4831b994b78f7058fafb3c",
+      "member_count": 2756
+    },
+    {
+      "file": "v12-02.raw.tar.xz",
+      "epoch": "v12",
+      "size": 15829552,
+      "sha256": "6945154e15bc92df9076cd7da7e97dee28d1d3da608082b625f0f0e7fafe0fb0",
+      "manifest": "v12-02.raw.tar.xz.members.json",
+      "manifest_sha256": "8f95049e5207cb86dea26b0b755d9e6fa3a5308a717b6c1037fd1f7575071299",
+      "member_count": 548
+    },
+    {
+      "file": "v12-03.raw.tar.xz",
+      "epoch": "v12",
+      "size": 8825752,
+      "sha256": "b9e26934a05fbc7bdb1fd793f548ad0fa4420a6a746d2a11d22830211946377c",
+      "manifest": "v12-03.raw.tar.xz.members.json",
+      "manifest_sha256": "c2dfd8e2455988d48e4ea23d6f8a4115d01291233f9ce761d9b64a085408a7ce",
+      "member_count": 542
+    },
+    {
+      "file": "v12-04.raw.tar.xz",
+      "epoch": "v12",
+      "size": 7896528,
+      "sha256": "8fc879c659489ad2e10d5bf55d1cf24f092192d42be133ea908f79ff73af22d5",
+      "manifest": "v12-04.raw.tar.xz.members.json",
+      "manifest_sha256": "0c7f0e90f0126dc0336d76f656f6ac885dfe510b9affc9d93e1ec0f3f8d1383b",
+      "member_count": 748
+    },
+    {
+      "file": "v12-05.raw.tar.xz",
+      "epoch": "v12",
+      "size": 14938192,
+      "sha256": "fbb3b47788a17f0750f46d83a1db1d1ed93ae257ee0b46ee36c96990caf05077",
+      "manifest": "v12-05.raw.tar.xz.members.json",
+      "manifest_sha256": "f472d4d6e9e147321cf5dfa4e83daa275cc325349afacc77f9eae49306122af1",
+      "member_count": 550
+    },
+    {
+      "file": "v12-06.raw.tar.xz",
+      "epoch": "v12",
+      "size": 9657268,
+      "sha256": "c8e2f0033ee3a6318cd08f0b3a1cb033d37bc9aa85abcb4025bd2f7b8e316dfd",
+      "manifest": "v12-06.raw.tar.xz.members.json",
+      "manifest_sha256": "78db7fe543137d969225cac37f95e056a6eb36d2b110b35cbbef91bac5de8f4d",
+      "member_count": 545
+    },
+    {
+      "file": "v12-07.raw.tar.xz",
+      "epoch": "v12",
+      "size": 9660668,
+      "sha256": "6c144b47d9ebac6ac58900dc67f900c026d66dfd99b352a4ab5bdd7f931324d0",
+      "manifest": "v12-07.raw.tar.xz.members.json",
+      "manifest_sha256": "7ef15ee361411cb73d1005ac37faf80c6c891a7904beba739716cfa26e7784e1",
+      "member_count": 543
+    },
+    {
+      "file": "v12-08.raw.tar.xz",
+      "epoch": "v12",
+      "size": 14976384,
+      "sha256": "a4a9801049a71cf8a46b539a11e5d73e80a4afcdacf0495bcf09bb97638855aa",
+      "manifest": "v12-08.raw.tar.xz.members.json",
+      "manifest_sha256": "d8cc3137d692bd1bfeaf2443ee3783e35c57f726a98e060c33a3e945529ab50c",
+      "member_count": 710
+    },
+    {
+      "file": "v12-09.raw.tar.xz",
+      "epoch": "v12",
+      "size": 16451244,
+      "sha256": "9ad7d7c6874089318d11c5f3713a4383915c93812c837f56164db31a76f56d36",
+      "manifest": "v12-09.raw.tar.xz.members.json",
+      "manifest_sha256": "eb314900bb2272065bc3596b1d85fadcda42f1bf5d85430849fe866592882789",
+      "member_count": 608
+    },
+    {
+      "file": "v12-10.raw.tar.xz",
+      "epoch": "v12",
+      "size": 16171420,
+      "sha256": "ae8983cb653ef12a49c2946bce3c267c318ec8a47e6670099e6332a97a4efcd1",
+      "manifest": "v12-10.raw.tar.xz.members.json",
+      "manifest_sha256": "9c33bd8c0fd2ae2c5d02cc5d740996060d1df8b666b6de23b4f3fd3f60d16c74",
+      "member_count": 554
+    },
+    {
+      "file": "v12-11.raw.tar.xz",
+      "epoch": "v12",
+      "size": 17029388,
+      "sha256": "8eb6f0253833e1547011375a210a49eaf15f30504b1fc4fb03e0cdf8ca330fc2",
+      "manifest": "v12-11.raw.tar.xz.members.json",
+      "manifest_sha256": "3d09d18a1c5e31de8019e85166b6bb93637001424ac94f6c658c36a5736f0a6f",
+      "member_count": 556
+    },
+    {
+      "file": "v12-12.raw.tar.xz",
+      "epoch": "v12",
+      "size": 16924604,
+      "sha256": "04a7452d8387c58d3c90bc14c30aeffa2c20db123aa92c784a2b357789949908",
+      "manifest": "v12-12.raw.tar.xz.members.json",
+      "manifest_sha256": "3b49c6f2a6efc79a01fb36fb2a47ca8c85a13e5cd7eeca0dc84200dcb22b1619",
+      "member_count": 743
+    },
+    {
+      "file": "v12-13.raw.tar.xz",
+      "epoch": "v12",
+      "size": 15881760,
+      "sha256": "47a1202ee18e00691675d9a8e12588bfe59e1448aabbc8b7d2ab61f431d90c6f",
+      "manifest": "v12-13.raw.tar.xz.members.json",
+      "manifest_sha256": "323a13bbd38b385350c211543fd0151b289ef2908294c2040199c73401264c63",
+      "member_count": 570
+    },
+    {
+      "file": "v12-14.raw.tar.xz",
+      "epoch": "v12",
+      "size": 16913120,
+      "sha256": "5dddf59f1762b742291a070f6797e7d8e34a7f63dfbabc19449a3ce772e5a522",
+      "manifest": "v12-14.raw.tar.xz.members.json",
+      "manifest_sha256": "8daf3e34d9ef85b3ea1ce2991a8e91ba4dfedc7bc2b8e87f241145dbaf4c23b2",
+      "member_count": 559
+    },
+    {
+      "file": "v12-15.raw.tar.xz",
+      "epoch": "v12",
+      "size": 17271440,
+      "sha256": "c06b8e6ab3717af9b6b3e0588865bbdab2de1c171bf9cf414dd2e560aa293762",
+      "manifest": "v12-15.raw.tar.xz.members.json",
+      "manifest_sha256": "51bb443cd44ca96c2c5413d613280fe9e2b40d0725b462c67251495b4e6904dc",
+      "member_count": 554
+    },
+    {
+      "file": "v12-16.raw.tar.xz",
+      "epoch": "v12",
+      "size": 14823008,
+      "sha256": "558a773874d4aa5c38bfe9f81617fd692f5ca07c4c22ebac627d0b6d72b83f36",
+      "manifest": "v12-16.raw.tar.xz.members.json",
+      "manifest_sha256": "02097e9ff2f5b6f295f85141be78761d2b6e223aa7aff1b7fe3c5ce5c0a4923e",
+      "member_count": 1446
+    },
+    {
+      "file": "v12-17.raw.tar.xz",
+      "epoch": "v12",
+      "size": 2440300,
+      "sha256": "f23b4220f1188cc8c30d40862b9655b868c7e944cf1938729c521338fae2c27f",
+      "manifest": "v12-17.raw.tar.xz.members.json",
+      "manifest_sha256": "daef4d06137bf487c69bee7f0383705cf2cf5a78cf5dc21359d2d39d86628ae1",
+      "member_count": 246
+    },
+    {
+      "file": "v12-18.raw.tar.xz",
+      "epoch": "v12",
+      "size": 13264296,
+      "sha256": "63ea17ff537cc70a0affd524aa12f28b6f7423c2acc8bdb39ce6ad78e58e9c57",
+      "manifest": "v12-18.raw.tar.xz.members.json",
+      "manifest_sha256": "a04cd1ae45149a1df70973fd8ee753ae9297404de1eaf786a07f3569b72e1e78",
+      "member_count": 768
+    },
+    {
+      "file": "v12-independent-review-01.raw.tar.xz",
+      "epoch": "v12-independent-review",
+      "size": 109504,
+      "sha256": "b86ba63cfab54e905c4f97d42c44ff748fc5aaaa20eee78d07ccf91ca11c0881",
+      "manifest": "v12-independent-review-01.raw.tar.xz.members.json",
+      "manifest_sha256": "ba5a3e0aa5779f74a1fc5d8c6e62a81b2696642e881629d37f52b3875731a054",
+      "member_count": 1
+    },
+    {
+      "file": "v12-intermediates-01.raw.tar.xz",
+      "epoch": "v12-intermediates",
+      "size": 3150660,
+      "sha256": "dd4d56ccf35e384198b233a71277d54ea920a23d79cb7d3bdba2ac5cdee97863",
+      "manifest": "v12-intermediates-01.raw.tar.xz.members.json",
+      "manifest_sha256": "049dfed495158a4b2e00bb13c50211241789aecaf3423bd32c422e7d4d2b1faa",
+      "member_count": 10
+    },
+    {
+      "file": "v12-performance-01.raw.tar.xz",
+      "epoch": "v12-performance",
+      "size": 1844236,
+      "sha256": "791fc1b922de35d8201c36a784c1a7353fdb44493c32d523000e1938e72f49b1",
+      "manifest": "v12-performance-01.raw.tar.xz.members.json",
+      "manifest_sha256": "eb663a4efc401dd3daec5ed230f7db625a820686d97b9a19408d97269eccf562",
+      "member_count": 112
+    }
+  ],
+  "metadata_contract": "Index and member sidecars use canonical LF bytes; every archive payload remains unchanged. Original CRLF metadata is retained in final supplementary volume.",
+  "performance_supplement_note": "Later original probe records added; all earlier archive bytes retained unchanged."
+}

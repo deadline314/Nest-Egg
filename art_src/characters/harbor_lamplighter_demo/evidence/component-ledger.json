@@ -1,0 +1,736 @@
+{
+  "coordinate_contract": {
+    "source_canvas": [
+      832,
+      1216
+    ],
+    "world_height": 57,
+    "source_pixels_per_world_pixel": 20.51,
+    "texture_pixels_per_world_pixel": 20.0,
+    "resampling_factor": 0.9751340809361286,
+    "reason": "Existing adult NPC contract: 20 texture pixels/world pixel. This source is 20.51, so output downsamples by about 2.49%; native source is retained for inspection.",
+    "maximum_review_zoom": 10
+  },
+  "parts": {
+    "pelvis": {
+      "group": "body",
+      "from": "waist",
+      "to": "hip",
+      "uses": [
+        {
+          "name": "pelvis",
+          "bone": "hip",
+          "z": 0
+        }
+      ],
+      "source_cut": {
+        "y": [
+          484,
+          584
+        ],
+        "caps": [
+          {
+            "joint": "hip",
+            "radius": 80,
+            "feather": 1.5
+          }
+        ]
+      },
+      "review": "Original-size source silhouette/material inspected on light grey, dark grey and checker backgrounds in evidence/parts-v12-review; current native/matrix acceptance is tracked separately.",
+      "refined_source_sha256": "2c8afb15321e762ceceed272b9e829097aca9d63a675760fee916b358a28e9d0"
+    },
+    "torso": {
+      "group": "body",
+      "from": "waist",
+      "to": "neck",
+      "uses": [
+        {
+          "name": "torso",
+          "bone": "chest",
+          "z": 1
+        }
+      ],
+      "source_cut": {
+        "y": [
+          0,
+          484
+        ]
+      },
+      "review": "Original-size source silhouette/material inspected on light grey, dark grey and checker backgrounds in evidence/parts-v12-review; current native/matrix acceptance is tracked separately.",
+      "refined_source_sha256": "86ec18fe146e1d9fcac0e9a9c7624e2c545e7aac479eb8f69d68af79b5773e51"
+    },
+    "head": {
+      "group": "head",
+      "from": "head",
+      "to": "head_top",
+      "uses": [
+        {
+          "name": "head",
+          "bone": "head",
+          "z": 5
+        }
+      ],
+      "source_cut": {},
+      "review": "Original-size source silhouette/material inspected on light grey, dark grey and checker backgrounds in evidence/parts-v12-review; current native/matrix acceptance is tracked separately.",
+      "refined_source_sha256": "66b3be844e4a03ce9f4b9b90ad816e0a2d7d684b47179611ae3f91a73770ee19"
+    },
+    "leg_upper": {
+      "group": "body",
+      "from": "hip",
+      "to": "knee",
+      "uses": [
+        {
+          "name": "leg_back_upper",
+          "bone": "leg_back_upper",
+          "z": -5,
+          "tint": 0.8
+        },
+        {
+          "name": "leg_front_upper",
+          "bone": "leg_front_upper",
+          "z": 3
+        }
+      ],
+      "source_cut": {
+        "y": [
+          596,
+          856
+        ],
+        "caps": [
+          {
+            "joint": "hip",
+            "radius": 82,
+            "feather": 6
+          }
+        ],
+        "front_line": {}
+      },
+      "review": "Original-size source silhouette/material inspected on light grey, dark grey and checker backgrounds in evidence/parts-v12-review; current native/matrix acceptance is tracked separately.",
+      "refined_source_sha256": "1f3d72d130667743da321b9e0b21197129121b15504a8404720bc02e9b6e66b7"
+    },
+    "leg_lower": {
+      "group": "body",
+      "from": "knee",
+      "to": "ankle",
+      "uses": [
+        {
+          "name": "leg_back_lower",
+          "bone": "leg_back_lower",
+          "z": -5,
+          "tint": 0.8
+        },
+        {
+          "name": "leg_front_lower",
+          "bone": "leg_front_lower",
+          "z": 3
+        }
+      ],
+      "source_cut": {
+        "y": [
+          856,
+          1129
+        ],
+        "caps": [
+          {
+            "joint": "ankle",
+            "radius": 43,
+            "feather": 1.5
+          }
+        ],
+        "front_line": {
+          "from": "knee",
+          "to": "ankle",
+          "margin": 0
+        },
+        "front_ramp": 0.08,
+        "end_disc": "foot"
+      },
+      "review": "Original-size source silhouette/material inspected on light grey, dark grey and checker backgrounds in evidence/parts-v12-review; current native/matrix acceptance is tracked separately.",
+      "refined_source_sha256": "404c430756cdd3a1d0e1702cca8399b1623394256e450cf6716196b3eee4e34b"
+    },
+    "foot": {
+      "group": "body",
+      "from": "ankle",
+      "to": "toe",
+      "uses": [
+        {
+          "name": "foot_back",
+          "bone": "foot_back",
+          "z": -5,
+          "tint": 0.8
+        },
+        {
+          "name": "foot_front",
+          "bone": "foot_front",
+          "z": 3
+        }
+      ],
+      "source_cut": {
+        "y": [
+          1107,
+          3000
+        ],
+        "caps": [
+          {
+            "joint": "ankle",
+            "radius": 65,
+            "feather": 6
+          }
+        ]
+      },
+      "review": "Original-size source silhouette/material inspected on light grey, dark grey and checker backgrounds in evidence/parts-v12-review; current native/matrix acceptance is tracked separately.",
+      "refined_source_sha256": "b6bb05876d6139c67dbcddde77fe372dd0c239fd18fdbd3f2a59753e9c2a0237"
+    },
+    "arm_upper": {
+      "group": "arm",
+      "from": "shoulder",
+      "to": "elbow",
+      "uses": [
+        {
+          "name": "arm_back_upper",
+          "bone": "arm_back_upper",
+          "z": -7,
+          "tint": 0.8
+        },
+        {
+          "name": "arm_front_upper",
+          "bone": "arm_front_upper",
+          "z": 8
+        }
+      ],
+      "source_cut": {
+        "y": [
+          0,
+          450
+        ]
+      },
+      "review": "Original-size source silhouette/material inspected on light grey, dark grey and checker backgrounds in evidence/parts-v12-review; current native/matrix acceptance is tracked separately.",
+      "refined_source_sha256": "6b2407b93cd589cee9569afd2c5bb5590904238a714a44168613db77da60dfcc"
+    },
+    "arm_lower": {
+      "group": "arm",
+      "from": "elbow",
+      "to": "palm",
+      "uses": [
+        {
+          "name": "arm_back_lower",
+          "bone": "arm_back_lower",
+          "z": -7,
+          "tint": 0.8
+        },
+        {
+          "name": "arm_front_lower",
+          "bone": "arm_front_lower",
+          "z": 8
+        }
+      ],
+      "source_cut": {
+        "y": [
+          450,
+          620
+        ]
+      },
+      "review": "Original-size source silhouette/material inspected on light grey, dark grey and checker backgrounds in evidence/parts-v12-review; current native/matrix acceptance is tracked separately.",
+      "refined_source_sha256": "0b5053cd57a76e74bdb2f0ffee556f1f6e305c03a3e4b7ba31c35d1bf18dc370"
+    },
+    "hand": {
+      "group": "arm",
+      "from": "palm",
+      "to": "fingertip",
+      "uses": [
+        {
+          "name": "hand_back",
+          "bone": "hand_back",
+          "z": -6,
+          "tint": 0.8
+        },
+        {
+          "name": "hand_front",
+          "bone": "hand_front",
+          "z": 10
+        }
+      ],
+      "source_cut": {
+        "y": [
+          620,
+          3000
+        ]
+      },
+      "review": "Original-size source silhouette/material inspected on light grey, dark grey and checker backgrounds in evidence/parts-v12-review; current native/matrix acceptance is tracked separately.",
+      "refined_source_sha256": "41347ed0bcc20615f664ae5552e282c156f1a6437084d03976d84d6b3df740b7"
+    }
+  },
+  "joints": [
+    "neck",
+    "waist",
+    "shoulder_front",
+    "shoulder_back",
+    "elbow_front",
+    "elbow_back",
+    "wrist_front",
+    "wrist_back",
+    "hip_front",
+    "hip_back",
+    "knee_front",
+    "knee_back",
+    "ankle_front",
+    "ankle_back"
+  ],
+  "inapplicable": {
+    "coats_aprons": "Short tucked shirt has no hanging hem",
+    "weapons": "Empty-handed civilian demonstration",
+    "armour_damage": "No armour or damage layers",
+    "separate_hair_hat_accessories": "Short hair is integrated into head; no accessories",
+    "story_portrait": "Not assigned a story speaker or campaign placement"
+  },
+  "occluded_source_anatomy": {
+    "far_arm": "Fully occluded in source. Its original wrist/palm are not claimed as measured. Runtime uses the reviewed near arm/hand texture under the existing symmetric civilian mechanism.",
+    "far_leg": "Only far shin/shoe partly visible; source remainder is not used as a complete texture. Runtime uses near-leg texture with separate bones and far tint."
+  },
+  "source_checks": {
+    "reassembly": "0 unallowed pixels at default max-hole=0 after explicit expected far-leg source allowance",
+    "seam_shape": "0 warnings after near-shin geometric split",
+    "smoothing": "Removed per-character smooth_alpha because it lost 1 to 2 pixels of native contour; no tolerance changed"
+  },
+  "version": "v12 frozen",
+  "acceptance_status": "Final native material review and full pair/as-worn matrices complete; original checker358 failures in each mode remain recorded and automatic acceptance=false. Parent source-backed review retains natural opening/outline coverage classification. Isolated original88 groups passed100552 checks/0 new failures;13700 source hashes unchanged. Quiet-window original10 script probes pass500 vertices and relative rigid+50% limits; actual engine children observed. Not a rendered-frame/GPU budget claim.",
+  "rig": {
+    "bones": [
+      {
+        "name": "hip",
+        "parent": "",
+        "pos": [
+          0.0,
+          -29.01
+        ]
+      },
+      {
+        "name": "chest",
+        "parent": "hip",
+        "pos": [
+          -0.39,
+          -6.44
+        ]
+      },
+      {
+        "name": "neck",
+        "parent": "chest",
+        "pos": [
+          -0.44,
+          -11.99
+        ]
+      },
+      {
+        "name": "head",
+        "parent": "neck",
+        "pos": [
+          0.0,
+          -0.29
+        ]
+      },
+      {
+        "name": "arm_back_upper",
+        "parent": "chest",
+        "pos": [
+          -2.45,
+          -9.41
+        ]
+      },
+      {
+        "name": "arm_back_lower",
+        "parent": "arm_back_upper",
+        "pos": [
+          0.0,
+          8.73
+        ]
+      },
+      {
+        "name": "hand_back",
+        "parent": "arm_back_lower",
+        "pos": [
+          0.0,
+          8.39
+        ]
+      },
+      {
+        "name": "arm_front_upper",
+        "parent": "chest",
+        "pos": [
+          -1.85,
+          -9.41
+        ]
+      },
+      {
+        "name": "arm_front_lower",
+        "parent": "arm_front_upper",
+        "pos": [
+          0.0,
+          8.73
+        ]
+      },
+      {
+        "name": "hand_front",
+        "parent": "arm_front_lower",
+        "pos": [
+          0.0,
+          8.39
+        ]
+      },
+      {
+        "name": "leg_back_upper",
+        "parent": "hip",
+        "pos": [
+          -0.7,
+          0.0
+        ]
+      },
+      {
+        "name": "leg_back_lower",
+        "parent": "leg_back_upper",
+        "pos": [
+          0.0,
+          12.73
+        ]
+      },
+      {
+        "name": "foot_back",
+        "parent": "leg_back_lower",
+        "pos": [
+          0.0,
+          12.72
+        ]
+      },
+      {
+        "name": "leg_front_upper",
+        "parent": "hip",
+        "pos": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "name": "leg_front_lower",
+        "parent": "leg_front_upper",
+        "pos": [
+          0.0,
+          12.73
+        ]
+      },
+      {
+        "name": "foot_front",
+        "parent": "leg_front_lower",
+        "pos": [
+          0.0,
+          12.72
+        ]
+      }
+    ],
+    "limb_zone": 0.2,
+    "runtime_draw_parts": [
+      {
+        "name": "arm_back_upper",
+        "texture": "arm_upper",
+        "bone": "arm_back_upper",
+        "z": -7,
+        "tint": 0.8
+      },
+      {
+        "name": "arm_back_lower",
+        "texture": "arm_lower",
+        "bone": "arm_back_lower",
+        "z": -7,
+        "tint": 0.8
+      },
+      {
+        "name": "hand_back",
+        "texture": "hand",
+        "bone": "hand_back",
+        "z": -6,
+        "tint": 0.8
+      },
+      {
+        "name": "leg_back_upper",
+        "texture": "leg_upper",
+        "bone": "leg_back_upper",
+        "z": -5,
+        "tint": 0.8
+      },
+      {
+        "name": "leg_back_lower",
+        "texture": "leg_lower",
+        "bone": "leg_back_lower",
+        "z": -5,
+        "tint": 0.8
+      },
+      {
+        "name": "foot_back",
+        "texture": "foot",
+        "bone": "foot_back",
+        "z": -5,
+        "tint": 0.8
+      },
+      {
+        "name": "pelvis",
+        "texture": "pelvis",
+        "bone": "hip",
+        "z": 0
+      },
+      {
+        "name": "torso",
+        "texture": "torso",
+        "bone": "chest",
+        "z": 1
+      },
+      {
+        "name": "leg_front_upper",
+        "texture": "leg_upper",
+        "bone": "leg_front_upper",
+        "z": 3
+      },
+      {
+        "name": "leg_front_lower",
+        "texture": "leg_lower",
+        "bone": "leg_front_lower",
+        "z": 3
+      },
+      {
+        "name": "foot_front",
+        "texture": "foot",
+        "bone": "foot_front",
+        "z": 3
+      },
+      {
+        "name": "head",
+        "texture": "head",
+        "bone": "head",
+        "z": 5
+      },
+      {
+        "name": "arm_front_upper",
+        "texture": "arm_upper",
+        "bone": "arm_front_upper",
+        "z": 8
+      },
+      {
+        "name": "arm_front_lower",
+        "texture": "arm_lower",
+        "bone": "arm_front_lower",
+        "z": 8
+      },
+      {
+        "name": "hand_front",
+        "texture": "hand",
+        "bone": "hand_front",
+        "z": 10
+      }
+    ]
+  },
+  "runtime_textures": {
+    "pelvis": {
+      "file": "art/characters/harbor_lamplighter_demo/parts/pelvis.png",
+      "dimensions": [
+        203,
+        211
+      ],
+      "pivot_texture_pixels": [
+        103.66,
+        121.18
+      ],
+      "diffuse_sha256": "80223dc55299d9be759f5bec1ec64e472f774defdc11b53ada16f53695623e92",
+      "normal_sha256": "661839e37b278d700b2184dba6f8b088b9113ea897f58243a485fc1fd4c2abe2",
+      "normal_dimensions_match": true,
+      "normal_alpha_matches_diffuse": true
+    },
+    "torso": {
+      "file": "art/characters/harbor_lamplighter_demo/parts/torso.png",
+      "dimensions": [
+        208,
+        357
+      ],
+      "pivot_texture_pixels": [
+        100.85,
+        325.46
+      ],
+      "diffuse_sha256": "3c3a99d8da27be1d5fe5dc7eed7ae8993845c1110a9454dbcb22be5fd8352aed",
+      "normal_sha256": "f5f168e03fc98fbac67c1f5f42167653553034181cdf6a4f1ac8f7adcbb252c5",
+      "normal_dimensions_match": true,
+      "normal_alpha_matches_diffuse": true
+    },
+    "head": {
+      "file": "art/characters/harbor_lamplighter_demo/parts/head.png",
+      "dimensions": [
+        153,
+        175
+      ],
+      "pivot_texture_pixels": [
+        53.08,
+        189.73
+      ],
+      "diffuse_sha256": "5f5874ea4c33eb320720beb65e8a4c01a3aa9d0da95a7a5bdcac6425a4429f84",
+      "normal_sha256": "550f6b9302ff195091933525565433fd7c9d7b88baf50448c7f6a96ffb67d6c5",
+      "normal_dimensions_match": true,
+      "normal_alpha_matches_diffuse": true
+    },
+    "leg_upper": {
+      "file": "art/characters/harbor_lamplighter_demo/parts/leg_upper.png",
+      "dimensions": [
+        177,
+        359
+      ],
+      "pivot_texture_pixels": [
+        90.74,
+        91.03
+      ],
+      "diffuse_sha256": "e7327bcd21e0f2415003ed81859474651267741715bd193852849d349b6f8d6f",
+      "normal_sha256": "00dad5ce73856b5bacdf5a2dfb29de3abb1c35491424bf1cd47c9317c11baa9a",
+      "normal_dimensions_match": true,
+      "normal_alpha_matches_diffuse": true
+    },
+    "leg_lower": {
+      "file": "art/characters/harbor_lamplighter_demo/parts/leg_lower.png",
+      "dimensions": [
+        147,
+        322
+      ],
+      "pivot_texture_pixels": [
+        71.03,
+        12.42
+      ],
+      "diffuse_sha256": "07e8b295ebc21403c246053bcd16eb44f1af2de18b081682daafc41bf1e3f4b3",
+      "normal_sha256": "063bbe264627ef519e818f94eef3a3b3d41605d98937e81a732703149eb74cba",
+      "normal_dimensions_match": true,
+      "normal_alpha_matches_diffuse": true
+    },
+    "foot": {
+      "file": "art/characters/harbor_lamplighter_demo/parts/foot.png",
+      "dimensions": [
+        191,
+        152
+      ],
+      "pivot_texture_pixels": [
+        58.02,
+        74.27
+      ],
+      "diffuse_sha256": "c5a39ea6c17a590505b8ce79f88dbef579a8bf230be9e04a49c1e49558b6e87f",
+      "normal_sha256": "8b13671f199bfe295a4a5ef0f70c362dfb2f4f625a33ef1eecbae4bad100d40f",
+      "normal_dimensions_match": true,
+      "normal_alpha_matches_diffuse": true
+    },
+    "arm_upper": {
+      "file": "art/characters/harbor_lamplighter_demo/parts/arm_upper.png",
+      "dimensions": [
+        105,
+        223
+      ],
+      "pivot_texture_pixels": [
+        48.84,
+        34.27
+      ],
+      "diffuse_sha256": "a270f5aa005296598df08c7154d63362ce16b9be4302a7002951d467743f9dca",
+      "normal_sha256": "a2d87cebd22126dec1a0103f9947ad7b2c82dad300d8656bcbe399eae28172cd",
+      "normal_dimensions_match": true,
+      "normal_alpha_matches_diffuse": true
+    },
+    "arm_lower": {
+      "file": "art/characters/harbor_lamplighter_demo/parts/arm_lower.png",
+      "dimensions": [
+        100,
+        193
+      ],
+      "pivot_texture_pixels": [
+        52.06,
+        11.83
+      ],
+      "diffuse_sha256": "d71e22c77d32b699761b5512feee8937c8e441f7a5c70a3bf5b6d8b8223063d1",
+      "normal_sha256": "5f956839d0334fbe3b3b3b32e797fa1fffd4707cb6f2404c2347a9521356cc19",
+      "normal_dimensions_match": true,
+      "normal_alpha_matches_diffuse": true
+    },
+    "hand": {
+      "file": "art/characters/harbor_lamplighter_demo/parts/hand.png",
+      "dimensions": [
+        133,
+        77
+      ],
+      "pivot_texture_pixels": [
+        21.0,
+        40.59
+      ],
+      "diffuse_sha256": "51be4536cef7453c849344a146703b7572aad969f642a1678e0457c6336a9690",
+      "normal_sha256": "3954d33074d2ed7156835091cd8b5e6f2d9da714d4e246e5b182991a1ba62ed4",
+      "normal_dimensions_match": true,
+      "normal_alpha_matches_diffuse": true
+    },
+    "head_half": {
+      "file": "art/characters/harbor_lamplighter_demo/parts/head_half.png",
+      "dimensions": [
+        153,
+        175
+      ],
+      "pivot_texture_pixels": [
+        53.08,
+        189.73
+      ],
+      "diffuse_sha256": "5b1bed78ac74223caa0f9f836fc96ce48afd9cb571be10e1dc05edcbc16a8f74",
+      "normal_sha256": "54d1a08052f3a943db79c6a0fe8e3fbca54cc46adcdde2651b3826372dfd7994",
+      "normal_dimensions_match": true,
+      "normal_alpha_matches_diffuse": true
+    },
+    "head_closed": {
+      "file": "art/characters/harbor_lamplighter_demo/parts/head_closed.png",
+      "dimensions": [
+        153,
+        175
+      ],
+      "pivot_texture_pixels": [
+        53.08,
+        189.73
+      ],
+      "diffuse_sha256": "7f8ccccd9f1faddc4df99647044b70079b96633e0df71a0956564dc136b2ce8b",
+      "normal_sha256": "63675cef954194098fa8c4bfc02ad0c9e3ebc4a1b295c110bfc9af4c923d3d83",
+      "normal_dimensions_match": true,
+      "normal_alpha_matches_diffuse": true
+    }
+  },
+  "actual_game_fixture": {
+    "scene": "tools/harbor_lamplighter_demo_gameplay.tscn",
+    "npc_data": "tools/fixtures/harbor_lamplighter_demo/preview_npc.tres",
+    "map": "tools/fixtures/harbor_lamplighter_demo/map.json",
+    "loader_chain": [
+      "Level",
+      "NpcActor",
+      "CutsceneActor",
+      "CharacterRig"
+    ],
+    "formal_story_or_map_modified": false
+  },
+  "applicable_states": {
+    "npc": [
+      "stand",
+      "sit",
+      "lean",
+      "crouch",
+      "talk",
+      "listen",
+      "wave",
+      "stand_to_sit",
+      "sit_to_stand",
+      "loop:hammer"
+    ],
+    "shared_rig_diagnostic": [
+      "idle",
+      "run",
+      "aim_up",
+      "crouch",
+      "jump",
+      "block",
+      "stagger",
+      "dead"
+    ],
+    "reason": "Civilian performance is the gameplay scope. All already-run shared-rig failures remain recorded; diagnostic status does not erase actual source defects."
+  },
+  "performance_summary": "performance-v12-summary.json",
+  "joint_classification": "joint-classification-v12.json",
+  "archive_verification": "raw-verification-result.json",
+  "delivery_phase": "Technical/native/source/official/performance/archive validation complete; parent owns final actual-staged-byte verification and ticket publication. User personal visual signoff is not claimed."
+}
