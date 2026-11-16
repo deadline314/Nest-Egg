@@ -21,6 +21,27 @@ var _emission: _Emission
 var _world_sprite: Dictionary = {}
 
 
+## 延後交付不綁在可能先離場的父節點；已交給別人的物件不再接管。
+static func add_deferred(parent: Node, child: Node) -> void:
+	if not is_instance_valid(child) or child.get_parent() != null:
+		return
+	if not is_instance_valid(parent) or parent.is_queued_for_deletion() or not parent.is_inside_tree():
+		child.free()
+		return
+	_attach_deferred.call_deferred(weakref(parent), weakref(child))
+
+
+static func _attach_deferred(parent_ref: WeakRef, child_ref: WeakRef) -> void:
+	var child := child_ref.get_ref() as Node
+	if child == null or child.get_parent() != null or child.is_queued_for_deletion():
+		return
+	var parent := parent_ref.get_ref() as Node
+	if parent == null or parent.is_queued_for_deletion() or not parent.is_inside_tree():
+		child.free()
+		return
+	parent.add_child(child)
+
+
 func _ready() -> void:
 	collision_layer = 0
 	collision_mask = Layers.PLAYER

@@ -1,0 +1,397 @@
+[
+  {
+    "path": "corrected-original-controls/box-alive-quit.log",
+    "bytes": 127,
+    "sha256": "6a86d8010f5a424030966057ac6232c04e61f84de8ecedabe89df36220f513a9"
+  },
+  {
+    "path": "corrected-original-controls/box-alive-settle.log",
+    "bytes": 376,
+    "sha256": "30ea91381e7381de9d9547b8d6321e9a595f542c348b75a7f89e0bb619ad4237"
+  },
+  {
+    "path": "corrected-original-controls/box-retire-quit.log",
+    "bytes": 567,
+    "sha256": "864a01af1d27fed8891141251356dcc5fd3348dca80ece0253c620dd293941f8"
+  },
+  {
+    "path": "corrected-original-controls/box-retire-settle.log",
+    "bytes": 994,
+    "sha256": "cd7bc7cae6e9b2f8a5b9aaf7b775f7144fe255fda38c15a85134db548d70b9cb"
+  },
+  {
+    "path": "corrected-original-controls/candidate-restored-shas.json",
+    "bytes": 292,
+    "sha256": "e78c6b8bb10bb480346480e636069ecf3bd3dbe6a08d1956760482a8fd878e40"
+  },
+  {
+    "path": "corrected-original-controls/credit-alive-quit.log",
+    "bytes": 130,
+    "sha256": "73ff8ca4845e651458696a6c9df00b345598b0d1085618be31cae118f0fca4d4"
+  },
+  {
+    "path": "corrected-original-controls/credit-alive-settle.log",
+    "bytes": 379,
+    "sha256": "38c9f6c90babea00f731b6cbb321ba3761c4ba323b0ad9971b78fc969dc0024d"
+  },
+  {
+    "path": "corrected-original-controls/credit-retire-quit.log",
+    "bytes": 568,
+    "sha256": "a40417fd1e2d9b3870a6703061df20b68b798d48f6e8897c163ef9c0c2e54bf8"
+  },
+  {
+    "path": "corrected-original-controls/credit-retire-settle.log",
+    "bytes": 906,
+    "sha256": "05ffdc26242c2d7f8f8d8abb6371ce54b2b4797e9bc9244261e6666356cbc94d"
+  },
+  {
+    "path": "corrected-original-controls/health-alive-quit.log",
+    "bytes": 130,
+    "sha256": "eadc1792bb32432e9dea150ac9406f9a9c78965a1e6ddc1d5864ffbb526a5bd6"
+  },
+  {
+    "path": "corrected-original-controls/health-alive-settle.log",
+    "bytes": 379,
+    "sha256": "f525a8327b0d5113cf4a1334c70d8fade5a69f4496d0567a6085c545af404beb"
+  },
+  {
+    "path": "corrected-original-controls/health-retire-quit.log",
+    "bytes": 568,
+    "sha256": "ad4cebe22aa1a33fc3ef96e7c26be0ece187a5270d6460d429d162a391f4602f"
+  },
+  {
+    "path": "corrected-original-controls/health-retire-settle.log",
+    "bytes": 906,
+    "sha256": "80557e92f4e68ff992142355a67b7deb81bde84dfe6c1d33134ec274a3c0df1b"
+  },
+  {
+    "path": "corrected-original-controls/results.json",
+    "bytes": 1691,
+    "sha256": "330e58b17577049270466171eb2dbb0e71df4ba21c8a38b4278b47a443460667"
+  },
+  {
+    "path": "corrected-original-controls/source/game/enemies/enemy.gd",
+    "bytes": 39549,
+    "sha256": "4d2b5b7d25a9d48accc836953a705dc7141bcb02f1f435eda3ccf43d0b0f57fe"
+  },
+  {
+    "path": "corrected-original-controls/source/game/level/level.gd",
+    "bytes": 67298,
+    "sha256": "b0419860a769dd36c23f2efab692ac7db2feb775d512c77df9b8fdd6677a0122"
+  },
+  {
+    "path": "corrected-original-controls/source/game/pickups/pickup.gd",
+    "bytes": 5370,
+    "sha256": "8ef3c1e33a019a764f316e032cd568a6bdac1874e9890fb9fa8bc78c6e36f1b7"
+  },
+  {
+    "path": "corrected-probe.gd.txt",
+    "bytes": 2451,
+    "sha256": "1c603469530c2d19a677cad3ce131ef58c26226b6e8475566f3e9d2d2b85e888"
+  },
+  {
+    "path": "cpu-fx-pickups-first-exit.txt",
+    "bytes": 2,
+    "sha256": "1bad6b8cf97131fceab8543e81f7757195fbb1d36b376ee994ad1cf17699c464"
+  },
+  {
+    "path": "cpu-fx-pickups-first.log",
+    "bytes": 1831,
+    "sha256": "d64fcb80d57712ef9faec9c60c9856a73f767634577be92717d6b7cafe02fdd7"
+  },
+  {
+    "path": "cpu-fx-pickups-second-exit.txt",
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  {
+    "path": "cpu-fx-pickups-second.log",
+    "bytes": 2443,
+    "sha256": "1cc18f3740c1f4c96d29789f04d30005990c380303e5c0db3594fb0d817f6390"
+  },
+  {
+    "path": "cpu-fx-pickups-third-exit.txt",
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  {
+    "path": "cpu-fx-pickups-third.log",
+    "bytes": 1337,
+    "sha256": "936861dcaf781932ce9d20ab7561de6604e854a992250e24af8a04a804d0f929"
+  },
+  {
+    "path": "external-mainloop-probe.gd",
+    "bytes": 192,
+    "sha256": "7635b88aa44ea0f473963f5efe68554f1c21c44edcc974a6588a1014a18f91bc"
+  },
+  {
+    "path": "external-mainloop-probe.log",
+    "bytes": 134,
+    "sha256": "d189fab1480173fb7346c1212cc590d757abdf27ee68d74dc3ace1c3294db646"
+  },
+  {
+    "path": "external-scene-probe.log",
+    "bytes": 116,
+    "sha256": "6e5a361cd52ffd8dbcfd29f0d5229fead3e91d9c08c0ef887db865613c3aeb24"
+  },
+  {
+    "path": "external_scene_probe.gd",
+    "bytes": 161,
+    "sha256": "195360eef2b802aed3133f4ad9674a1e86f8584bc5cb8f0f4f97f579a21b5209"
+  },
+  {
+    "path": "external_scene_probe.tscn",
+    "bytes": 222,
+    "sha256": "38dc156c6e80b6cd127b1adc8441322750064784142c3ea2bff62db6f7d1b48a"
+  },
+  {
+    "path": "frozen-fixtures/ne301-lifetime-probe/probe.gd",
+    "bytes": 2451,
+    "sha256": "1c603469530c2d19a677cad3ce131ef58c26226b6e8475566f3e9d2d2b85e888"
+  },
+  {
+    "path": "frozen-fixtures/ne301-lifetime-probe/probe.tscn",
+    "bytes": 193,
+    "sha256": "7f2eba660e564afb6aada8f83839f8a28d3406084ea656f23fea43e39fd52544"
+  },
+  {
+    "path": "native-first-exit.txt",
+    "bytes": 1,
+    "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+  },
+  {
+    "path": "native-first.log",
+    "bytes": 560,
+    "sha256": "8f318bbfd90b64c6a82c683bd4ce3612401acd15d064dd772b40ca6c0fe13e40"
+  },
+  {
+    "path": "native-fourth/NE-301-box-drop.png",
+    "bytes": 478349,
+    "sha256": "c59af3e10ddbdd15cef3169c1251231789fde58cf290c7695bee9809c32dff4e"
+  },
+  {
+    "path": "native-fourth/NE-301-collected.png",
+    "bytes": 465075,
+    "sha256": "0a170bf0f829de3f5c2feb8ebb43729b1a0db405caeee6f96e2f43ec3677fe5e"
+  },
+  {
+    "path": "native-fourth/NE-301-enemy-drops.png",
+    "bytes": 459106,
+    "sha256": "d3c9de2a4a63a95766c77a6351c9b02e2bd9d514fe004a966ddf3d2aca0de816"
+  },
+  {
+    "path": "native-fourth/summary.json",
+    "bytes": 1355,
+    "sha256": "a72127c51d4435de431efda733dd02dd6abc693dc02a50a63f89b7a37333bbfa"
+  },
+  {
+    "path": "native-fourth-exit.txt",
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  {
+    "path": "native-fourth.log",
+    "bytes": 895,
+    "sha256": "75c685e6f088e2827b6d19512fc08bbc6451bf73180112a20a436039c879a72c"
+  },
+  {
+    "path": "native-scene-third.gd.txt",
+    "bytes": 5771,
+    "sha256": "1e50cfa8af34a3f62932bc01fad5532bd513b73a83bde13d2bbb132fdcf83d9b"
+  },
+  {
+    "path": "native-second-exit.txt",
+    "bytes": 2,
+    "sha256": "1bad6b8cf97131fceab8543e81f7757195fbb1d36b376ee994ad1cf17699c464"
+  },
+  {
+    "path": "native-second.log",
+    "bytes": 1834,
+    "sha256": "ccf8dd337a7006a9ced8fbafae377365c3736cc6961a0c6df446c61292109780"
+  },
+  {
+    "path": "native-source-snapshot.json",
+    "bytes": 875,
+    "sha256": "68bd72dc42939af5ea6178d9af17a58f5a4e8d49e5ff11049b884ead70b907e8"
+  },
+  {
+    "path": "native-third/NE-301-box-drop.png",
+    "bytes": 473271,
+    "sha256": "33d81acd31415922393062531e8cc287cdbfc8b5ce6f9c44905b1d12349e1936"
+  },
+  {
+    "path": "native-third/NE-301-collected.png",
+    "bytes": 464938,
+    "sha256": "72bedb574a7ade12973e9b03b36c38c1a82c789dcc74ff44db59aa4211ff38c6"
+  },
+  {
+    "path": "native-third/NE-301-enemy-drops.png",
+    "bytes": 457373,
+    "sha256": "4370692123f3782289b01b56deba92540263ff8aa148ce3813bc7dab039171ba"
+  },
+  {
+    "path": "native-third/summary.json",
+    "bytes": 1059,
+    "sha256": "563bc46a68755e528e9c9b87a58a851d23201d0a393ded09019f325ce70bd7d6"
+  },
+  {
+    "path": "native-third-exit.txt",
+    "bytes": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  {
+    "path": "native-third.log",
+    "bytes": 831,
+    "sha256": "1b54a55a6ddf3ffdd9b9cfd1ab8ce7f6adf6d9bb59c6ac208a915a3522ba0397"
+  },
+  {
+    "path": "native-witness-first.gd.txt",
+    "bytes": 5779,
+    "sha256": "b1dea1acb854df530b062c589af1118d1646fa2514e4437b96701eea5981830d"
+  },
+  {
+    "path": "native-witness-second.gd.txt",
+    "bytes": 5985,
+    "sha256": "4b126f0586687acc3a0119b12affe654cead426e4430d3d15b98884e8305223e"
+  },
+  {
+    "path": "native_scene_witness.gd",
+    "bytes": 5923,
+    "sha256": "1a72cb0b5c40352d11bfecaafdcfd5c8d2a839cadbbc0190d8070fe07e5fe861"
+  },
+  {
+    "path": "native_scene_witness.tscn",
+    "bytes": 223,
+    "sha256": "5ae68a5d52aabbe83ff241e4c04b26793c1febef79a8a78659bdcc189b6f1c18"
+  },
+  {
+    "path": "native_witness.gd",
+    "bytes": 5985,
+    "sha256": "4b126f0586687acc3a0119b12affe654cead426e4430d3d15b98884e8305223e"
+  },
+  {
+    "path": "observations.json",
+    "bytes": 1429,
+    "sha256": "d5c1f36d5a1b7c9cd6f857862d688fc5ed2760d1dc0a4712c66afa71e019033d"
+  },
+  {
+    "path": "official-aae/base.txt",
+    "bytes": 41,
+    "sha256": "d4e5ec77c29864387ebed535c6a6a8c639d48c96239fcaa487d6575eb85acae6"
+  },
+  {
+    "path": "official-aae/console.log",
+    "bytes": 2795,
+    "sha256": "bdfeb1ef1f46c93f7410e9acf9e1a590fcad64edd8948623d441f6952f6e9bb5"
+  },
+  {
+    "path": "official-aae/exit.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "official-aae/shard_0.log",
+    "bytes": 352481,
+    "sha256": "c70df5c79cd255fb6a0d94e5386e9237ab9b7de3295cca2b63d5d47f93e3b495"
+  },
+  {
+    "path": "official-aae/shard_1.log",
+    "bytes": 334280,
+    "sha256": "3f6e46990d16b73baeebfbd7c2fd5f25a9964f36d38446870a876183808e089a"
+  },
+  {
+    "path": "omit-cleanup-control/console.log",
+    "bytes": 2731,
+    "sha256": "c942a354223b5eb6b789abf9bebbaae99041f0b2ba1b887e5fe7fff2840fcc4d"
+  },
+  {
+    "path": "omit-cleanup-control/exit.txt",
+    "bytes": 3,
+    "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+  },
+  {
+    "path": "omit-cleanup-control/pickup-without-cleanup.gd.txt",
+    "bytes": 6235,
+    "sha256": "8b8246cbe98afe08568e73f284de1f7b5e3e50866e9fe288bec54b83997d8eb4"
+  },
+  {
+    "path": "omit-cleanup-control/restored-sha256.txt",
+    "bytes": 66,
+    "sha256": "64249fd39d87651fb11e2b2ae11ab059f424fa8bfa572bababad1d59d5e31272"
+  },
+  {
+    "path": "prototype-first-probe.gd.txt",
+    "bytes": 2322,
+    "sha256": "88b8e2d9e327d76081287615e237062879f7f8e86ed648a3cf194859d0cfb553"
+  },
+  {
+    "path": "source-epoch-aliases.json",
+    "bytes": 357,
+    "sha256": "a0e0ebb8b7e80e00f1d32fe2a26bc66d78d5e5f3cffd9051a5616edf3a64bd80"
+  },
+  {
+    "path": "static-prototype-controls/box-alive-quit.log",
+    "bytes": 127,
+    "sha256": "6a86d8010f5a424030966057ac6232c04e61f84de8ecedabe89df36220f513a9"
+  },
+  {
+    "path": "static-prototype-controls/box-alive-settle.log",
+    "bytes": 376,
+    "sha256": "af96b7a4224aabaeb6e20369fde43f1df7cdf82e25be524de3c7ddb1ee764762"
+  },
+  {
+    "path": "static-prototype-controls/box-retire-quit.log",
+    "bytes": 126,
+    "sha256": "6fc1883bebe39f111425284c3832803b3f94d7c95fde3dfdfba1d581500ca1c5"
+  },
+  {
+    "path": "static-prototype-controls/box-retire-settle.log",
+    "bytes": 375,
+    "sha256": "3b1e1231f2fdd5f1ec6b3298ff3872241fe0c70c89e9bfc75c3c7c1c613cb188"
+  },
+  {
+    "path": "static-prototype-controls/credit-alive-quit.log",
+    "bytes": 130,
+    "sha256": "73ff8ca4845e651458696a6c9df00b345598b0d1085618be31cae118f0fca4d4"
+  },
+  {
+    "path": "static-prototype-controls/credit-alive-settle.log",
+    "bytes": 379,
+    "sha256": "33235b8eb7bd17e52a85e4e9474276d687a982053da7c83d822c88b0b2e5bb39"
+  },
+  {
+    "path": "static-prototype-controls/credit-retire-quit.log",
+    "bytes": 129,
+    "sha256": "6b001061275a87c2aac6dfd3f54da34964e36c1908165727b37faf1edbae55d5"
+  },
+  {
+    "path": "static-prototype-controls/credit-retire-settle.log",
+    "bytes": 378,
+    "sha256": "ea79b6c2035871a178f76eb9029da212b4049caa14d5a59c3634870b0e1c3a77"
+  },
+  {
+    "path": "static-prototype-controls/health-alive-quit.log",
+    "bytes": 130,
+    "sha256": "eadc1792bb32432e9dea150ac9406f9a9c78965a1e6ddc1d5864ffbb526a5bd6"
+  },
+  {
+    "path": "static-prototype-controls/health-alive-settle.log",
+    "bytes": 379,
+    "sha256": "8d3c641075f8d1a2df9026a1e9de6c828612ecb8d234bd522a80d9123700aa19"
+  },
+  {
+    "path": "static-prototype-controls/health-retire-quit.log",
+    "bytes": 129,
+    "sha256": "afa640180f3949b9efad6299bbcb5b597f78926433563b40e9df0d64970dfb23"
+  },
+  {
+    "path": "static-prototype-controls/health-retire-settle.log",
+    "bytes": 378,
+    "sha256": "fe770c024d3325d5386411a42b265642b69e2564bcb621d6981a51ffb5ee9dc8"
+  },
+  {
+    "path": "static-prototype-controls/results.json",
+    "bytes": 1691,
+    "sha256": "321fb3a09743a59068dfd92d99a292ece93feea1cc5b114aa1bf9af53c474c55"
+  }
+]

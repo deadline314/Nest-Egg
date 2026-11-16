@@ -1,0 +1,23 @@
+{
+  "groups": 76,
+  "processes": 2,
+  "checks": 97199,
+  "new_failures": 0,
+  "known_failures": 0,
+  "wall_seconds": 1559,
+  "natural_exit": 0,
+  "shards": [
+    {
+      "number": 0,
+      "checks": 49591,
+      "failures": 0,
+      "complete_eof_after_summary": ""
+    },
+    {
+      "number": 1,
+      "checks": 47608,
+      "failures": 0,
+      "complete_eof_after_summary": "WARNING: 1 RID of type \"CanvasItem\" was leaked.\n   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)\nWARNING: 9 ObjectDB instances were leaked at exit (run with `--verbose` for details).\n   at: cleanup (core/object/object.cpp:2536)\nERROR: 5 resources still in use at exit (run with --verbose for details).\n   at: clear (core/io/resource.cpp:822)"
+    }
+  ]
+}

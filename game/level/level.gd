@@ -878,7 +878,7 @@ func _on_breakable_broken(breakable: Breakable) -> void:
 		var credits := CreditPickup.new()
 		credits.value = breakable.data.credit_drop
 		credits.position = position
-		_entities.add_child.call_deferred(credits)
+		Pickup.add_deferred(_entities, credits)
 	var drop := breakable.roll_drop()
 	var item: Node2D = null
 	if drop["resource"] != null:
@@ -888,7 +888,7 @@ func _on_breakable_broken(breakable: Breakable) -> void:
 	if item == null:
 		return
 	item.position = position
-	_entities.add_child.call_deferred(item)
+	Pickup.add_deferred(_entities, item)
 
 
 func _create_enemy(enemy_data: EnemyData) -> Enemy:

@@ -1,0 +1,11 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+NE301_DROP_OWNER_CONTROL case=health retire=true before=0 after=1 added=1 enemy_sha=4d2b5b7d25a9d48accc836953a705dc7141bcb02f1f435eda3ccf43d0b0f57fe level_sha=b0419860a769dd36c23f2efab692ac7db2feb775d512c77df9b8fdd6677a0122 prefetch_sha=9e6e6ecfe8faf1ef80eaf2655321843ca0b6df1a704cac74380910fc78d341b8
+558916176808 - Stray Node:  (Type: Area2D) (Source:res://game/pickups/health_pickup.gd)
+ERROR: 1 RID allocations of type 'P11GodotArea2D' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 2 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

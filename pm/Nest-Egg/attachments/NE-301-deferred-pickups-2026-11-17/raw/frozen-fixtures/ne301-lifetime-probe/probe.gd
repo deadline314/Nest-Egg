@@ -1,0 +1,65 @@
+extends Node
+class DropEnemy extends Enemy:
+	func _setup_states() -> void:
+		fsm.add(&"drop_test_idle", func(_delta: float) -> void: pass)
+		fsm.start(&"drop_test_idle")
+	func _draw_body(_color: Color) -> void: pass
+class DropLevel extends Level:
+	func _ready() -> void:
+		set_process(false)
+		set_physics_process(false)
+func _ready() -> void:
+	_run.call_deferred()
+func _run() -> void:
+	var kind := "credit"
+	var retire := true
+	var quit_early := false
+	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--case="): kind = arg.trim_prefix("--case=")
+		if arg == "--keep-owner": retire = false
+		if arg == "--quit-before-deferred": quit_early = true
+	var before := int(Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT))
+	var owner: Node2D
+	if kind == "box":
+		var level := DropLevel.new()
+		level._entities = Node2D.new()
+		level.add_child(level._entities)
+		get_tree().root.add_child(level)
+		owner = level
+		var box := Breakable.new()
+		var spec := BreakableData.new()
+		spec.credit_drop = 10
+		spec.health_drop_chance = 1.0
+		box.configure(spec, Vector2i(1, 1), 16)
+		level._entities.add_child(box)
+		level._on_breakable_broken(box)
+	else:
+		owner = Node2D.new()
+		get_tree().root.add_child(owner)
+		var enemy := DropEnemy.new()
+		enemy.data = EnemyData.new()
+		enemy.data.id = &"ch1_inspector"
+		enemy.data.credit_value = 10 if kind == "credit" else 0
+		enemy.data.health_drop_chance = 1.0
+		owner.add_child(enemy)
+		enemy.set_process(false)
+		enemy.set_physics_process(false)
+		if kind == "credit": enemy._drop_credits()
+		else: enemy._try_drop(false)
+	if retire: owner.free()
+	if quit_early:
+		print("NE301_TRUE_TREE_QUIT case=", kind, " retire=", retire, " frame=", Engine.get_process_frames())
+		get_tree().quit()
+		return
+	await get_tree().process_frame
+	await get_tree().process_frame
+	if not retire: owner.free()
+	await get_tree().process_frame
+	var after := int(Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT))
+	print("NE301_DROP_OWNER_CONTROL case=", kind, " retire=", retire,
+		" before=", before, " after=", after, " added=", after-before,
+		" enemy_sha=", FileAccess.get_sha256("res://game/enemies/enemy.gd"),
+		" level_sha=", FileAccess.get_sha256("res://game/level/level.gd"),
+		" prefetch_sha=", FileAccess.get_sha256("res://core/asset_prefetch.gd"))
+	Node.print_orphan_nodes()
+	get_tree().quit(1 if after > before else 0)

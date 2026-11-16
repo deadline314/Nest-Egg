@@ -1,0 +1,30 @@
+{
+  "adapter": "AMD Radeon RX 9070 XT",
+  "checks": 9,
+  "credits_after": 17,
+  "credits_before": 0,
+  "failures": [],
+  "final_position": [
+    230.333343505859,
+    832.0
+  ],
+  "hdr_2d": true,
+  "health": 7,
+  "med_count": 1,
+  "origin": [
+    72.0,
+    832.0
+  ],
+  "renderer": "forward_plus",
+  "scope": "Controlled actual ch1_street Level, cloned production grunt data, real source methods and physical movement; not full Main/human play/performance proof",
+  "shots": [
+    "D:/NestEggVerification/evidence-20261117/ne301/native-third/NE-301-enemy-drops.png",
+    "D:/NestEggVerification/evidence-20261117/ne301/native-third/NE-301-box-drop.png",
+    "D:/NestEggVerification/evidence-20261117/ne301/native-third/NE-301-collected.png"
+  ],
+  "source_shas": {
+    "game/enemies/enemy.gd": "cd34a0933fea858759b392afd3c907b39bf50179d28af0c35943976f6f69fdc3",
+    "game/level/level.gd": "44d219054c975ea8391df3a429f3694b64ce6116faf2ff9bc0c08a6d699fd70f",
+    "game/pickups/pickup.gd": "eba376eb180bd6a05d630cdbfb26fd0c196890452449c1f593f85e1fd7a3033b"
+  }
+}

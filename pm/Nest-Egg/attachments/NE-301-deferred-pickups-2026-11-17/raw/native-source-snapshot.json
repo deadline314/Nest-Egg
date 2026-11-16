@@ -1,0 +1,22 @@
+{
+  "recorded_after_native_run": true,
+  "note": "Exact owned source files retained unchanged after their respective runs; product SHA values are also captured by the successful native observer. This metadata is not an embedded pre-run tool hash.",
+  "files": {
+    "native_scene_witness.gd": {
+      "bytes": 5771,
+      "sha256": "1e50cfa8af34a3f62932bc01fad5532bd513b73a83bde13d2bbb132fdcf83d9b"
+    },
+    "native_scene_witness.tscn": {
+      "bytes": 223,
+      "sha256": "5ae68a5d52aabbe83ff241e4c04b26793c1febef79a8a78659bdcc189b6f1c18"
+    },
+    "native-witness-first.gd.txt": {
+      "bytes": 5779,
+      "sha256": "b1dea1acb854df530b062c589af1118d1646fa2514e4437b96701eea5981830d"
+    },
+    "native-witness-second.gd.txt": {
+      "bytes": 5985,
+      "sha256": "4b126f0586687acc3a0119b12affe654cead426e4430d3d15b98884e8305223e"
+    }
+  }
+}

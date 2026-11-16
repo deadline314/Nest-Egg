@@ -1,0 +1,22 @@
+[
+  {
+    "stage": "permanent regression first compile",
+    "problem": "WeakRef inferred from Variant was treated as a compile error",
+    "resolution": "Use explicit WeakRef type; only own stuck Godot PIDs 23108/27800 were terminated; failed log preserved; not a natural test pass"
+  },
+  {
+    "stage": "Fx suite 87/0 second run",
+    "problem": "Existing _test_pickup_kinds allocated six unowned nodes and never freed them; new box fixtures also reused one state key",
+    "resolution": "Retain same kind/color assertions and free fixtures; give each added box a unique cell; third run 87/0 with clean EOF except existing intentional test_no_such_attack errors"
+  },
+  {
+    "stage": "native attempts 1/2",
+    "problem": "Custom --script SceneTree startup does not register project autoload identifiers for dependent script compilation",
+    "resolution": "Use normal external .tscn, verified headless autoload aliases first; stopped only own failed native PIDs 20992/42584; retain both logs and script epochs"
+  },
+  {
+    "stage": "native third",
+    "problem": "Launcher did not explicitly isolate profile",
+    "resolution": "Keep original successful images/log, do not claim isolated or byte-identical personal profile. No inspection or rollback of personal data. Fourth uses explicit task APPDATA/LOCALAPPDATA/XDG and records actual user data dir/tool SHA; final public images use fourth."
+  }
+]

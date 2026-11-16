@@ -1,0 +1,26 @@
+{
+  "base": "aae101cfc85b192af9558d5b38d250aea4f1e726",
+  "source_files": {
+    "game/pickups/pickup.gd": {
+      "sha256": "eba376eb180bd6a05d630cdbfb26fd0c196890452449c1f593f85e1fd7a3033b",
+      "bytes": 6184
+    },
+    "game/enemies/enemy.gd": {
+      "sha256": "cd34a0933fea858759b392afd3c907b39bf50179d28af0c35943976f6f69fdc3",
+      "bytes": 39543
+    },
+    "game/level/level.gd": {
+      "sha256": "44d219054c975ea8391df3a429f3694b64ce6116faf2ff9bc0c08a6d699fd70f",
+      "bytes": 67292
+    },
+    "tests/suite/test_fx_melee_pickups.gd": {
+      "sha256": "53df2ad56e5c9c888becdefe3b74de93d882e3c9654a93f1653daf9c69b1ae58",
+      "bytes": 11346
+    },
+    "tests/helpers/deferred_pickup_checks.gd": {
+      "sha256": "bfae936052a12e56cb0a48cc86deed036e1d5fb97f48d070c03c9b2216bbdbe8",
+      "bytes": 9803
+    }
+  },
+  "status": " M game/enemies/enemy.gd\n M game/level/level.gd\n M game/pickups/pickup.gd\n M tests/suite/test_fx_melee_pickups.gd\n?? tests/helpers/deferred_pickup_checks.gd\n"
+}

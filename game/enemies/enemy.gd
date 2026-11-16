@@ -871,7 +871,7 @@ func _try_drop(by_finisher: bool) -> void:
 		return
 	var pickup := HealthPickup.new()
 	pickup.position = position + Vector2(0, -4)
-	get_parent().add_child.call_deferred(pickup)
+	Pickup.add_deferred(get_parent(), pickup)
 
 
 func _drop_credits() -> void:
@@ -880,7 +880,7 @@ func _drop_credits() -> void:
 	var credits := CreditPickup.new()
 	credits.value = data.credit_value
 	credits.position = position + Vector2(randf_range(-6.0, 6.0), -4)
-	get_parent().add_child.call_deferred(credits)
+	Pickup.add_deferred(get_parent(), credits)
 
 
 # ---------------------------------------------------------------------------

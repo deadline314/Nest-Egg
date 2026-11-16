@@ -17,6 +17,7 @@ func run() -> void:
 	_test_pickup_outline()
 	await _test_pickup_prompt_lifecycle()
 	await _test_pickup_collect()
+	await preload("res://tests/helpers/deferred_pickup_checks.gd").run(self)
 	await _test_explosion_budget()
 
 
@@ -165,13 +166,18 @@ func _test_trail_styles() -> void:
 
 
 func _test_pickup_kinds() -> void:
-	check(HealthPickup.new()._fx_kind() == &"heal" and HealthPickup.new()._fx_color() == Palette.NEON_GREEN, "health pickups play the heal effect in green")
-	check(CreditPickup.new()._fx_kind() == &"credit", "credit pickups play the credit effect")
+	var health := HealthPickup.new()
+	var credits := CreditPickup.new()
+	var collectible := CollectiblePickup.new()
+	var consumable := ConsumablePickup.new()
+	check(health._fx_kind() == &"heal" and health._fx_color() == Palette.NEON_GREEN, "health pickups play the heal effect in green")
+	check(credits._fx_kind() == &"credit", "credit pickups play the credit effect")
 	var weapon_pickup := WeaponPickup.new()
 	weapon_pickup.configure(_weapon("melee_whip"))
 	check(weapon_pickup._fx_kind() == &"weapon" and weapon_pickup._fx_color() == _weapon("melee_whip").color, "weapon pickups play the weapon effect in the weapon's color")
-	check(CollectiblePickup.new()._fx_kind() == &"story", "story items play the story effect")
-	check(ConsumablePickup.new()._fx_kind() == &"item", "consumables play the item effect")
+	check(collectible._fx_kind() == &"story", "story items play the story effect")
+	check(consumable._fx_kind() == &"item", "consumables play the item effect")
+	for fixture: Pickup in [health, credits, weapon_pickup, collectible, consumable]: fixture.free()
 
 
 func _test_pickup_collect() -> void:

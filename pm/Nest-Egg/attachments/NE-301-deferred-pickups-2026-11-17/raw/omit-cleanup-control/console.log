@@ -1,0 +1,44 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+ERROR: [MeleeSet] res://data/melee/test_no_such_attack.json/attacks must be an object; using safe default attack
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ensure_loaded (res://game/player/melee_set.gd:51)
+       [1] attack (res://game/player/melee_set.gd:125)
+       [2] _test_melee_data (res://tests/suite/test_fx_melee_pickups.gd:104)
+       [3] run (res://tests/suite/test_fx_melee_pickups.gd:13)
+       [4] _run_suites (res://tests/smoke_test.gd:110)
+       [5] _run (res://tests/smoke_test.gd:38)
+ERROR: [MeleeSet] res://data/melee/test_no_such_attack.json 沒有招式「x」，改用預設
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attack (res://game/player/melee_set.gd:133)
+       [1] _test_melee_data (res://tests/suite/test_fx_melee_pickups.gd:104)
+       [2] run (res://tests/suite/test_fx_melee_pickups.gd:13)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+FX_PERF idle=0.89 ms, 12 explosions=1.08 ms per frame, particles=327, nodes +0
+SUITE_TIME FxMeleePickupsSuite 26.7
+checks: 87, failures: 14
+FAIL: pending pickup is actually released: parent_free id=2100658443643
+FAIL: pending pickup is actually released: parent_queued id=2100876547457
+FAIL: pending pickup is actually released: parent_detached id=2101094651271
+FAIL: ownership races leave no additional orphan nodes
+FAIL: actual credit drop retires with its receiver (queued=false)
+FAIL: actual credit drop retires with its receiver (queued=true)
+FAIL: actual health drop retires with its receiver (queued=false)
+FAIL: actual health drop retires with its receiver (queued=true)
+FAIL: actual box drop retires with its receiver (queued=false)
+FAIL: actual box drop retires with its receiver (queued=true)
+FAIL: actual weapon drop retires with its receiver (queued=false)
+FAIL: actual weapon drop retires with its receiver (queued=true)
+FAIL: actual consumable drop retires with its receiver (queued=false)
+FAIL: actual consumable drop retires with its receiver (queued=true)
+ERROR: 11 RID allocations of type 'P11GodotArea2D' were leaked at exit.
+WARNING: 11 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 25 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 11 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

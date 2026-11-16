@@ -1,0 +1,86 @@
+[
+  {
+    "case": "credit",
+    "retire": false,
+    "quit_early": false,
+    "natural_exit": 0,
+    "log": "credit-alive-settle.log"
+  },
+  {
+    "case": "credit",
+    "retire": false,
+    "quit_early": true,
+    "natural_exit": 0,
+    "log": "credit-alive-quit.log"
+  },
+  {
+    "case": "credit",
+    "retire": true,
+    "quit_early": false,
+    "natural_exit": 1,
+    "log": "credit-retire-settle.log"
+  },
+  {
+    "case": "credit",
+    "retire": true,
+    "quit_early": true,
+    "natural_exit": 0,
+    "log": "credit-retire-quit.log"
+  },
+  {
+    "case": "health",
+    "retire": false,
+    "quit_early": false,
+    "natural_exit": 0,
+    "log": "health-alive-settle.log"
+  },
+  {
+    "case": "health",
+    "retire": false,
+    "quit_early": true,
+    "natural_exit": 0,
+    "log": "health-alive-quit.log"
+  },
+  {
+    "case": "health",
+    "retire": true,
+    "quit_early": false,
+    "natural_exit": 1,
+    "log": "health-retire-settle.log"
+  },
+  {
+    "case": "health",
+    "retire": true,
+    "quit_early": true,
+    "natural_exit": 0,
+    "log": "health-retire-quit.log"
+  },
+  {
+    "case": "box",
+    "retire": false,
+    "quit_early": false,
+    "natural_exit": 0,
+    "log": "box-alive-settle.log"
+  },
+  {
+    "case": "box",
+    "retire": false,
+    "quit_early": true,
+    "natural_exit": 0,
+    "log": "box-alive-quit.log"
+  },
+  {
+    "case": "box",
+    "retire": true,
+    "quit_early": false,
+    "natural_exit": 1,
+    "log": "box-retire-settle.log"
+  },
+  {
+    "case": "box",
+    "retire": true,
+    "quit_early": true,
+    "natural_exit": 0,
+    "log": "box-retire-quit.log"
+  }
+]
