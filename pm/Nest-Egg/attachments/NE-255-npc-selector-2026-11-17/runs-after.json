@@ -1,0 +1,139 @@
+[
+  {
+    "name": "after-lean",
+    "exit": 0,
+    "argv": [
+      "python",
+      "tools/comfyui/gpu_lock.py",
+      "--",
+      "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe",
+      "--path",
+      "C:\\Users\\stanl\\Github\\Nest-Egg",
+      "--rendering-method",
+      "forward_plus",
+      "res://tools/rig_joint_audit.tscn",
+      "--",
+      "--out=C:\\Users\\stanl\\Github\\Nest-Egg\\work\\ne255-npc-audit-20261117\\after-lean",
+      "--chars=old_k",
+      "--joints=elbow_front",
+      "--zooms=1",
+      "--frames=2",
+      "--npc-performance",
+      "--npc-pose=lean"
+    ]
+  },
+  {
+    "name": "after-crouch",
+    "exit": 0,
+    "argv": [
+      "python",
+      "tools/comfyui/gpu_lock.py",
+      "--",
+      "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe",
+      "--path",
+      "C:\\Users\\stanl\\Github\\Nest-Egg",
+      "--rendering-method",
+      "forward_plus",
+      "res://tools/rig_joint_audit.tscn",
+      "--",
+      "--out=C:\\Users\\stanl\\Github\\Nest-Egg\\work\\ne255-npc-audit-20261117\\after-crouch",
+      "--chars=old_k",
+      "--joints=elbow_front",
+      "--zooms=1",
+      "--frames=2",
+      "--npc-performance",
+      "--npc-pose=crouch"
+    ]
+  },
+  {
+    "name": "after-loop",
+    "exit": 0,
+    "argv": [
+      "python",
+      "tools/comfyui/gpu_lock.py",
+      "--",
+      "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe",
+      "--path",
+      "C:\\Users\\stanl\\Github\\Nest-Egg",
+      "--rendering-method",
+      "forward_plus",
+      "res://tools/rig_joint_audit.tscn",
+      "--",
+      "--out=C:\\Users\\stanl\\Github\\Nest-Egg\\work\\ne255-npc-audit-20261117\\after-loop",
+      "--chars=old_k",
+      "--joints=elbow_front",
+      "--zooms=1",
+      "--frames=2",
+      "--npc-performance",
+      "--npc-pose=loop:hammer"
+    ]
+  },
+  {
+    "name": "after-invalid-loop",
+    "exit": 1,
+    "argv": [
+      "python",
+      "tools/comfyui/gpu_lock.py",
+      "--",
+      "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe",
+      "--path",
+      "C:\\Users\\stanl\\Github\\Nest-Egg",
+      "--rendering-method",
+      "forward_plus",
+      "res://tools/rig_joint_audit.tscn",
+      "--",
+      "--out=C:\\Users\\stanl\\Github\\Nest-Egg\\work\\ne255-npc-audit-20261117\\after-invalid-loop",
+      "--chars=old_k",
+      "--joints=elbow_front",
+      "--zooms=1",
+      "--frames=2",
+      "--npc-performance",
+      "--npc-pose=loop:no_such_registered_work"
+    ]
+  },
+  {
+    "name": "missing-loop-input",
+    "exit": 1,
+    "argv": [
+      "python",
+      "tools/comfyui/gpu_lock.py",
+      "--",
+      "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe",
+      "--path",
+      "C:\\Users\\stanl\\Github\\Nest-Egg",
+      "--rendering-method",
+      "forward_plus",
+      "res://work/ne255-npc-audit-20261117/audit-missing-loop.tscn",
+      "--",
+      "--out=C:\\Users\\stanl\\Github\\Nest-Egg\\work\\ne255-npc-audit-20261117\\missing-loop-input",
+      "--chars=old_k",
+      "--joints=elbow_front",
+      "--zooms=1",
+      "--frames=2",
+      "--npc-performance",
+      "--npc-pose=loop:hammer"
+    ]
+  },
+  {
+    "name": "defaults",
+    "exit": 0,
+    "argv": [
+      "python",
+      "tools/comfyui/gpu_lock.py",
+      "--",
+      "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe",
+      "--path",
+      "C:\\Users\\stanl\\Github\\Nest-Egg",
+      "--rendering-method",
+      "forward_plus",
+      "res://tools/rig_joint_audit.tscn",
+      "--",
+      "--out=C:\\Users\\stanl\\Github\\Nest-Egg\\work\\ne255-npc-audit-20261117\\defaults",
+      "--chars=old_k",
+      "--joints=elbow_front",
+      "--zooms=1",
+      "--frames=2",
+      "--npc-performance"
+    ]
+  }
+]

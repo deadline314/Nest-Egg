@@ -5,6 +5,8 @@
 Inputs : <work>/06_parts/<part>.png, <work>/05_groups/<group>.png, <work>/base_rgba.png, spec["refine"]
 Outputs: <work>/07_refined/<part>.png   same size and pixel coordinates as the input (cut_layers.py reads this folder when it exists)
 
+In preserve_source_alpha mode, fills ignore alpha-zero RGB and only replace the requested fill region; legacy output is retained otherwise.
+
 spec["refine"] (every key is optional):
   far_side   {"parts": [...], "min_area": N, "y_min": Y}        remove the far-side leg / boot that Qwen drew as a flat teal silhouette behind the near leg
   erase      [{"part": p, "poly": [[x, y], ...]}]    clear a polygon (pixel coordinates of base_rgba.png)
@@ -138,6 +140,9 @@ def main() -> None:
     only = {name.strip() for name in args.only.split(",")} if args.only is not None else names
     if not only or "" in only or not only <= names:
         ap.error("--only requires nonempty, non-damage part names from spec.parts")
+    preserve_alpha = spec.get("preserve_source_alpha", False)
+    if type(preserve_alpha) is not bool:
+        ap.error("spec.preserve_source_alpha must be a boolean")
     cfg = spec.get("refine", {})
     work = Path(args.work)
     src_dir, out_dir = work / "06_parts", work / "07_refined"
@@ -265,7 +270,16 @@ def main() -> None:
             solid = (L[:, :, 3] > 127).astype(np.uint8)
             closed = cv2.morphologyEx(solid, cv2.MORPH_CLOSE, ell(cf.get("radius", 10))) > 0
             new = closed & (solid == 0)
-            L[:, :, :3] = cv2.inpaint(L[:, :, :3], new.astype(np.uint8) * 255, 5, cv2.INPAINT_TELEA)
+            if preserve_alpha:
+                ys, xs = np.nonzero(new)
+                if len(ys):
+                    y0, y1, x0, x1 = max(0, ys.min() - 12), ys.max() + 13, max(0, xs.min() - 12), xs.max() + 13
+                    box, target = L[y0:y1, x0:x1], new[y0:y1, x0:x1]
+                    unknown = target | (box[:, :, 3] == 0)
+                    painted = cv2.inpaint(np.ascontiguousarray(box[:, :, :3]), unknown.astype(np.uint8) * 255, 5, cv2.INPAINT_TELEA)
+                    box[:, :, :3][target] = painted[target]
+            else:
+                L[:, :, :3] = cv2.inpaint(L[:, :, :3], new.astype(np.uint8) * 255, 5, cv2.INPAINT_TELEA)
             L[:, :, 3][new] = 255
             print(f"  close_fill {n}: +{int(new.sum())} px")
 
@@ -366,7 +380,15 @@ def main() -> None:
             small = np.isin(holes, [i for i in range(1, count + 1) if (holes == i).sum() < fh.get("max_area", 200)])
             if small.any():
                 small = cv2.dilate(small.astype(np.uint8), ell(1)) > 0
-                L[:, :, :3] = cv2.inpaint(L[:, :, :3], small.astype(np.uint8) * 255, 5, cv2.INPAINT_TELEA)
+                if preserve_alpha:
+                    ys, xs = np.nonzero(small)
+                    y0, y1, x0, x1 = max(0, ys.min() - 12), ys.max() + 13, max(0, xs.min() - 12), xs.max() + 13
+                    box, target = L[y0:y1, x0:x1], small[y0:y1, x0:x1]
+                    unknown = target | (box[:, :, 3] == 0)
+                    painted = cv2.inpaint(np.ascontiguousarray(box[:, :, :3]), unknown.astype(np.uint8) * 255, 5, cv2.INPAINT_TELEA)
+                    box[:, :, :3][target] = painted[target]
+                else:
+                    L[:, :, :3] = cv2.inpaint(L[:, :, :3], small.astype(np.uint8) * 255, 5, cv2.INPAINT_TELEA)
                 L[:, :, 3][small] = 255
                 print(f"  fill_holes {n}: +{int(small.sum())} px")
         if "defringe" in cfg:

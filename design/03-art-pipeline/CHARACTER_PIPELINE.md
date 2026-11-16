@@ -259,3 +259,10 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py --recipe to
 SAM3D 獨立程序完成推論後，ComfyUI 的全域載入清單仍可能持有模型，直到模組清空才執行 ModelPatcher 的解除回呼，產生 ON_DETACH 的 NoneType traceback。退出碼0不能代表乾淨退出。姿勢工具在 finally 使用 ComfyUI 原有卸載 API，釋放自己的模型參照並回收循環；成功、無人物與推論失敗都經過同一清理，不修改共用服務或第三方安裝。
 
 CPU 生命週期回歸納入現有美術工作流程；9070 XT 以相同原生來源重跑，70點與 overlay PNG 逐位元組相同，原退出 traceback 消失。新角色的分件、人體與全動作驗收仍分開。原始證據見 pm/Nest-Egg/attachments/NE-255-pose-cleanup-2026-11-17/。
+
+
+## 2026-11-17：補洞取色與NPC驗收覆蓋（NE-255）
+
+保留來源透明度的分件補洞，不得把alpha=0的任意RGB當成布料。close_fill/fill_holes以實際不透明材料局部補色，僅發布原填補mask；缺省／false維持舊輸出。相同固定來源以黑灰／洋紅兩種透明RGB作控制，兩操作的可見結果必須一致，原mask外RGBA在隔離操作保持；完整後續defringe另行判讀。實際角色指定區域色相污染28→0，相對原流程全部alpha相同，舊模式9件與ownership PNG bytes相同。
+
+NPC接點工具沿既有--npc-pose入口明選lean/crouch/loop:<registered>，不改原五項預設與combat／transition。每格核對真正動畫器狀態；缺loop輸入仍由同一檢查拒絕。原30張legacy控制PNG及既有metadata相同，新增三項明選只作小樣本工具自檢，角色仍須依自己完整動作和周期驗收。證據在pm/Nest-Egg/attachments/NE-255-refine-fill-2026-11-17/與NE-255-npc-selector-2026-11-17/。

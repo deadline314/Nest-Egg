@@ -247,3 +247,8 @@ NE-222 的可重跑來源與單手原生反例見 `art_src/characters/rin_walk_s
 來源專用的新資料夾要帶`.gdignore`：保留原圖、遮罩、prompt與重建腳本，但不要為它們提交Godot產生的`.png.import`。正式`art/characters/.../parts`與頭像保留各自的正常匯入。修正時逐檔核對來源與runtime PNG的SHA、確認無`res://art_src/...`遊戲依賴，並實際editor import確認來源紀錄不再生成；來源資料不刪。
 
 局部補料擴大裁切時，先驗證未改手指等遠端材質是否被重新取樣。可選 `parts.<part>.crop_phase` 保存原 origin／size／affine／k，沿原格點整像素擴 canvas，reference footprint 保留原 backend 取樣；省略維持舊行為。錯型別、非有限值、密度或骨軸不符在模型前拒絕。來源 diffuse／alpha、UV／接觸點與遠端 normal 分別驗證，CPU normal 零差仍須正式 Godot normal 和同姿態實機對照。規格與失敗原型見 `design/12-cast-redraw/NATIVE_CROP_PHASE.md`。
+
+
+## 補洞時排除透明背景色（NE-255，2026-11-17）
+
+preserve_source_alpha為true時，close_fill與fill_holes沿既有局部inpaint方式將alpha=0列為未知材料，只寫回原填補區；原操作之外的RGBA在隔離測試保持，後續defringe仍依新填色正常執行。缺省／false沿舊流程，不自動重建批准素材。這次只修補色來源，原輪廓與全部動態接點仍分開驗收。回歸：python tools/comfyui/test_refine_fill.py；固定同alpha與可見RGB、只改透明RGB的負控制必須得到相同可見結果。

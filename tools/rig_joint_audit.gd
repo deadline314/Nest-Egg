@@ -96,10 +96,13 @@ func _run() -> void:
 		push_error("[rig_joint_audit] select either --npc-transitions or --npc-performance")
 		get_tree().quit(1)
 		return
-	if not _only_npc_pose.is_empty() and (not _npc_performance or not _only_npc_pose in NPC_PERFORMANCES):
-		push_error("[rig_joint_audit] --npc-pose requires one existing --npc-performance state")
-		get_tree().quit(1)
-		return
+	if not _only_npc_pose.is_empty():
+		var registered_pose := _only_npc_pose in NPC_PERFORMANCES or _only_npc_pose in ["lean", "crouch"]
+		var registered_loop := _only_npc_pose.begins_with("loop:") and NpcAnimator.loop_names().has(_only_npc_pose.trim_prefix("loop:"))
+		if not _npc_performance or not (registered_pose or registered_loop):
+			push_error("[rig_joint_audit] --npc-pose requires --npc-performance and an existing pose or loop:<registered name>")
+			get_tree().quit(1)
+			return
 	if _joint_context and not (_npc_performance or _npc_transitions):
 		push_error("[rig_joint_audit] --joint-context requires an explicit NPC timeline")
 		get_tree().quit(1)
@@ -155,6 +158,8 @@ func _run() -> void:
 	var metadata: Array[Dictionary] = []
 	for zoom: float in _zooms:
 		for pose: String in ([_only_npc_pose] if not _only_npc_pose.is_empty() else NPC_PERFORMANCES if _npc_performance else ["sit_down", "stand_up"] if _npc_transitions else POSES):
+			var expected_npc_pose := &"sit" if pose.begins_with("sit") else StringName(pose) if pose in ["lean", "crouch"] else &"stand"
+			var expected_npc_loop := StringName(pose.trim_prefix("loop:")) if pose.begins_with("loop:") else &""
 			var viewport := SubViewport.new()
 			viewport.size = Vector2i(CELL * joints.size() * 2, CELL * chars.size())
 			viewport.transparent_bg = true
@@ -258,11 +263,13 @@ func _run() -> void:
 							input.npc_pose = &"sit" if pose == "sit_down" else &"stand"
 						elif _npc_performance:
 							input.two_handed = false
-							input.npc_pose = &"sit" if pose.begins_with("sit") else &"stand"
+							input.crouching = false
+							input.npc_pose = expected_npc_pose
 							# Warm the actual resting posture before starting the full performance.
 							for tick in 180:
 								rig.animate(1.0 / 60.0, input)
 							assert((rig.animator as NpcAnimator)._use_npc)
+							input.npc_loop = expected_npc_loop
 							input.talking = pose == "sit_talk"
 							input.listening = pose == "sit_listen"
 							input.waving = pose == "wave"
@@ -282,6 +289,12 @@ func _run() -> void:
 				for entry in entries:
 					var rig: CharacterRig = entry["rig"]
 					rig.animate(1.0 / 60.0, entry["input"])
+					if _npc_performance:
+						var animator := rig.animator as NpcAnimator
+						if not animator._use_npc or animator._pose_now != expected_npc_pose or animator._loop_name != expected_npc_loop:
+							push_error("[rig_joint_audit] %s %s facing=%s frame=%s requested NPC %s/%s, observed %s/%s (active=%s)" % [entry["char"], entry["joint"], entry["facing"], frame, expected_npc_pose, expected_npc_loop, animator._pose_now, animator._loop_name, animator._use_npc])
+							get_tree().quit(1)
+							return
 					if entry["displaced"] != null:
 						(entry["displaced"] as Node2D).position = entry["original_position"] + Vector2(6.0, 0.0)
 					if rig.weapon_root() != null: rig.weapon_root().visible = false
@@ -310,7 +323,7 @@ func _run() -> void:
 						else:
 							joint_contexts[source_key] = points
 				await RenderingServer.frame_post_draw
-				var file := "%s_%.1f_%03d.png" % [pose, zoom, frame]
+				var file := "%s_%.1f_%03d.png" % [pose.validate_filename(), zoom, frame]
 				viewport.get_texture().get_image().save_png(out.path_join(file))
 				var sample := {"file": file, "frame": frame, "seconds": float(frame + 1) / 60.0}
 				if _joint_context:
@@ -319,6 +332,10 @@ func _run() -> void:
 			var cells: Array[Dictionary] = []
 			for entry in entries:
 				var cell := {"char": entry["char"], "joint": entry["joint"], "facing": entry["facing"], "radius": entry["radius"], "rect": entry["rect"]}
+				if _npc_performance:
+					var animator := (entry["rig"] as CharacterRig).animator as NpcAnimator
+					cell["npc_pose_observed"] = String(animator._pose_now)
+					cell["npc_loop_observed"] = String(animator._loop_name)
 				if entry.has("geometry_first"):
 					cell["geometry_first"] = entry["geometry_first"]
 				if entry.has("geometry_sample"):

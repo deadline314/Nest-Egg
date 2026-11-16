@@ -1,0 +1,297 @@
+[
+	{
+		"adapter": "AMD Radeon RX 9070 XT",
+		"cells": [
+			{
+				"alpha_only_rgb": false,
+				"char": "old_k",
+				"diagnostic_part_texture": "",
+				"diagnostic_whole_rig": false,
+				"facing": 1,
+				"joint": "elbow_front",
+				"radius": 8,
+				"rect": [
+					0,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"alpha_only_rgb": false,
+				"char": "old_k",
+				"diagnostic_part_texture": "",
+				"diagnostic_whole_rig": false,
+				"facing": -1,
+				"joint": "elbow_front",
+				"radius": 8,
+				"rect": [
+					128,
+					0,
+					128,
+					128
+				]
+			}
+		],
+		"diagnostic_include_part": "",
+		"fixed_step": 0.0166666666666667,
+		"godot": "4.7.2-stable (official)",
+		"negative_control_offset": [],
+		"negative_control_part": "",
+		"npc_performance": true,
+		"npc_transitions": false,
+		"pose": "stand",
+		"prewarm_frames": 180,
+		"renderer": "forward_plus",
+		"samples": [
+			{
+				"file": "stand_1.0_000.png",
+				"frame": 0,
+				"seconds": 0.0166666666666667
+			},
+			{
+				"file": "stand_1.0_001.png",
+				"frame": 1,
+				"seconds": 0.0333333333333333
+			}
+		],
+		"seat_sag": -1.0,
+		"zoom": 1.0
+	},
+	{
+		"adapter": "AMD Radeon RX 9070 XT",
+		"cells": [
+			{
+				"alpha_only_rgb": false,
+				"char": "old_k",
+				"diagnostic_part_texture": "",
+				"diagnostic_whole_rig": false,
+				"facing": 1,
+				"joint": "elbow_front",
+				"radius": 8,
+				"rect": [
+					0,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"alpha_only_rgb": false,
+				"char": "old_k",
+				"diagnostic_part_texture": "",
+				"diagnostic_whole_rig": false,
+				"facing": -1,
+				"joint": "elbow_front",
+				"radius": 8,
+				"rect": [
+					128,
+					0,
+					128,
+					128
+				]
+			}
+		],
+		"diagnostic_include_part": "",
+		"fixed_step": 0.0166666666666667,
+		"godot": "4.7.2-stable (official)",
+		"negative_control_offset": [],
+		"negative_control_part": "",
+		"npc_performance": true,
+		"npc_transitions": false,
+		"pose": "sit",
+		"prewarm_frames": 180,
+		"renderer": "forward_plus",
+		"samples": [
+			{
+				"file": "sit_1.0_000.png",
+				"frame": 0,
+				"seconds": 0.0166666666666667
+			},
+			{
+				"file": "sit_1.0_001.png",
+				"frame": 1,
+				"seconds": 0.0333333333333333
+			}
+		],
+		"seat_sag": -1.0,
+		"zoom": 1.0
+	},
+	{
+		"adapter": "AMD Radeon RX 9070 XT",
+		"cells": [
+			{
+				"alpha_only_rgb": false,
+				"char": "old_k",
+				"diagnostic_part_texture": "",
+				"diagnostic_whole_rig": false,
+				"facing": 1,
+				"joint": "elbow_front",
+				"radius": 8,
+				"rect": [
+					0,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"alpha_only_rgb": false,
+				"char": "old_k",
+				"diagnostic_part_texture": "",
+				"diagnostic_whole_rig": false,
+				"facing": -1,
+				"joint": "elbow_front",
+				"radius": 8,
+				"rect": [
+					128,
+					0,
+					128,
+					128
+				]
+			}
+		],
+		"diagnostic_include_part": "",
+		"fixed_step": 0.0166666666666667,
+		"godot": "4.7.2-stable (official)",
+		"negative_control_offset": [],
+		"negative_control_part": "",
+		"npc_performance": true,
+		"npc_transitions": false,
+		"pose": "sit_talk",
+		"prewarm_frames": 180,
+		"renderer": "forward_plus",
+		"samples": [
+			{
+				"file": "sit_talk_1.0_000.png",
+				"frame": 0,
+				"seconds": 0.0166666666666667
+			},
+			{
+				"file": "sit_talk_1.0_001.png",
+				"frame": 1,
+				"seconds": 0.0333333333333333
+			}
+		],
+		"seat_sag": -1.0,
+		"zoom": 1.0
+	},
+	{
+		"adapter": "AMD Radeon RX 9070 XT",
+		"cells": [
+			{
+				"alpha_only_rgb": false,
+				"char": "old_k",
+				"diagnostic_part_texture": "",
+				"diagnostic_whole_rig": false,
+				"facing": 1,
+				"joint": "elbow_front",
+				"radius": 8,
+				"rect": [
+					0,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"alpha_only_rgb": false,
+				"char": "old_k",
+				"diagnostic_part_texture": "",
+				"diagnostic_whole_rig": false,
+				"facing": -1,
+				"joint": "elbow_front",
+				"radius": 8,
+				"rect": [
+					128,
+					0,
+					128,
+					128
+				]
+			}
+		],
+		"diagnostic_include_part": "",
+		"fixed_step": 0.0166666666666667,
+		"godot": "4.7.2-stable (official)",
+		"negative_control_offset": [],
+		"negative_control_part": "",
+		"npc_performance": true,
+		"npc_transitions": false,
+		"pose": "sit_listen",
+		"prewarm_frames": 180,
+		"renderer": "forward_plus",
+		"samples": [
+			{
+				"file": "sit_listen_1.0_000.png",
+				"frame": 0,
+				"seconds": 0.0166666666666667
+			},
+			{
+				"file": "sit_listen_1.0_001.png",
+				"frame": 1,
+				"seconds": 0.0333333333333333
+			}
+		],
+		"seat_sag": -1.0,
+		"zoom": 1.0
+	},
+	{
+		"adapter": "AMD Radeon RX 9070 XT",
+		"cells": [
+			{
+				"alpha_only_rgb": false,
+				"char": "old_k",
+				"diagnostic_part_texture": "",
+				"diagnostic_whole_rig": false,
+				"facing": 1,
+				"joint": "elbow_front",
+				"radius": 8,
+				"rect": [
+					0,
+					0,
+					128,
+					128
+				]
+			},
+			{
+				"alpha_only_rgb": false,
+				"char": "old_k",
+				"diagnostic_part_texture": "",
+				"diagnostic_whole_rig": false,
+				"facing": -1,
+				"joint": "elbow_front",
+				"radius": 8,
+				"rect": [
+					128,
+					0,
+					128,
+					128
+				]
+			}
+		],
+		"diagnostic_include_part": "",
+		"fixed_step": 0.0166666666666667,
+		"godot": "4.7.2-stable (official)",
+		"negative_control_offset": [],
+		"negative_control_part": "",
+		"npc_performance": true,
+		"npc_transitions": false,
+		"pose": "wave",
+		"prewarm_frames": 180,
+		"renderer": "forward_plus",
+		"samples": [
+			{
+				"file": "wave_1.0_000.png",
+				"frame": 0,
+				"seconds": 0.0166666666666667
+			},
+			{
+				"file": "wave_1.0_001.png",
+				"frame": 1,
+				"seconds": 0.0333333333333333
+			}
+		],
+		"seat_sag": -1.0,
+		"zoom": 1.0
+	}
+]

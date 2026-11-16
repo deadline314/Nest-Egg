@@ -1,0 +1,34 @@
+{
+  "baseline": "eaf2ccc97b5d60d049ba12e26d48ced66619f0c1",
+  "game_selection": {
+    "command": "tools/run_tests_changed.sh eaf2ccc97",
+    "workspace": "C:/NE/queue-20261117",
+    "suites": [],
+    "exit": 0
+  },
+  "isolated_refine_tests": {
+    "tests": 3,
+    "failures": 0
+  },
+  "sources": {
+    "tools/comfyui/refine_parts.py": "20b40c49eb4f273fe1c4bc69f3203f5bbe0e8ae143730939ac671c62875823aa",
+    "tools/comfyui/test_refine_fill.py": "985d5f631e9b9851e9fca0055bd8758e9ab280fa171b2bef9360aa6d1cf24124",
+    "tools/rig_joint_audit.gd": "a84cff17b8ba0c513c03261d4d7c215bce87aba15c4bdb04d72903febd139bd9",
+    ".github/workflows/art-cuts.yml": "b53734e7de1c5ec871d6a181e6a7ad5e177a7d636311dfa38b0cd42e6ffda90a"
+  },
+  "files": {
+    ".gdignore": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".gitattributes": "920781736b28385b1c3625f2a8a187763ea8facb06daa3f6bb319bee46182807",
+    "archive.json": "94ef612062dcd8d60e9899c956ccc9a01f65c7d7c0e00e7fe026d4e5c0a6cfe8",
+    "ci-original.json": "a3605d893b7d30fda9e0de766884118079a66834f4cf3c892bca38b515c8e6a2",
+    "ci-original.log": "59d96a4f52f0293c77c93958e0f29e75ed86391801ef820686cb1753a70e32ba",
+    "close_fill-after.png": "3c2cad10da21867207b1487499f117d982fc54ac3420e232f7d7a031cbb3dfae",
+    "close_fill-before.png": "d229ec9e4c602ee5a8c0d468e3e06745bb4f58393323f49c4cd785889219221f",
+    "fill_holes-after.png": "de96756569bec34fff5e3e3a12939baf054858b35d85184a215044519c049e13",
+    "fill_holes-before.png": "10685d47a4dd7484b13afdca9a508ab39dba20877cbe0e2227782f911aa4bab6",
+    "originals.tar.xz": "92fed8511f1d86b28c150f5f9d9f01886122b3402ed32b851cedabd72c9eac26",
+    "README.md": "30e8f12238e1bb138a04c66d8cf4f84ea62f73dfdd6293157c3ee4a51d695332",
+    "selected-tests.log": "8b4beb6d944339a1a7d1d2729730ba259cd580e8d03d8a9b48f2f6407a289039",
+    "unit-isolated.log": "1b4f9c274bf50551b865dbe36eb5d00f6d7e06ce2ccf75614e251b2f93b5683a"
+  }
+}
