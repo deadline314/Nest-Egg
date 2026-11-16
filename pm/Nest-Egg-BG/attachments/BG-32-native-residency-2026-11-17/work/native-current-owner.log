@@ -1,0 +1,34 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.359 - Forward+ - Using Device #0: AMD - AMD Radeon RX 9070 XT
+
+ROUTE level=ch1_street payload=88220632 stage_residents=0 built=1 enter_max_ms=2934.083
+ROUTE level=ch1_booth_alley payload=55547880 stage_residents=0 built=1 enter_max_ms=79.626
+ROUTE level=ch1_street payload=100698736 stage_residents=0 built=1 enter_max_ms=207.801
+ROUTE level=ch1_warehouse payload=71722120 stage_residents=0 built=1 enter_max_ms=239.849
+ROUTE level=ch1_vault payload=77510836 stage_residents=0 built=1 enter_max_ms=148.342
+ROUTE level=ch1_lounge payload=63636036 stage_residents=0 built=2 enter_max_ms=229.301
+ROUTE level=ch1_stall payload=66343688 stage_residents=0 built=2 enter_max_ms=101.552
+ERROR: [TextureRouteProbe] ch1_pawnshop_dawn: stage textures remain while no cutscene is playing: [{"bytes":6300096,"format":5,"height":942,"mipmaps":false,"owners":["prefetch"],"path":"res://art/environment/scenes/pawnshop_kitchen_contacts.png","prefetch_scope":"neighbors:res://data/levels/ch1_pawnshop_dawn.tres:ch1_pawnshop_dawn","width":1672},{"bytes":6300096,"format":5,"height":942,"mipmaps":false,"owners":["prefetch"],"path":"res://art/environment/scenes/pawnshop_kitchen_contacts_n.png","prefetch_scope":"neighbors:res://data/levels/ch1_pawnshop_dawn.tres:ch1_pawnshop_dawn","width":1672}]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tools/texture_route_probe.gd:57)
+       [1] _visit (res://tools/texture_route_probe.gd:147)
+       [2] _capture (res://tools/texture_route_probe.gd:343)
+ROUTE level=ch1_pawnshop_dawn payload=98183928 stage_residents=2 built=2 enter_max_ms=216.095
+ROUTE level=ch1_rooftop payload=79395480 stage_residents=0 built=2 enter_max_ms=145.290
+ROUTE level=ch1_pawnshop payload=79036944 stage_residents=0 built=1 enter_max_ms=92.930
+ROUTE level=ch1_street payload=101137008 stage_residents=0 built=1 enter_max_ms=194.511
+ERROR: [TextureRouteProbe] returned environment payload ratio 1.146410 exceeds original 110% gate
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tools/texture_route_probe.gd:57)
+       [1] _run (res://tools/texture_route_probe.gd:87)
+       [2] _visit (res://tools/texture_route_probe.gd:149)
+       [3] _capture (res://tools/texture_route_probe.gd:343)
+ERROR: [TextureRouteProbe] engine or script errors occurred; inspect observer/raw log
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tools/texture_route_probe.gd:57)
+       [1] _run (res://tools/texture_route_probe.gd:99)
+       [2] settle (res://core/audio/audio_release.gd:37)
+ROUTE_SUMMARY ratio_with_prefetch=1.146410 stages_built=15 failures=3

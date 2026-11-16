@@ -1,0 +1,76 @@
+{
+  "head": "986b3a6b841fa2e75530d000d47ae6b257cfc822",
+  "target_commit": "3713db51062b14ed33ab61488559109fc41e2bfd",
+  "status": [
+    {
+      "status": " M",
+      "path": "core/asset_prefetch.gd"
+    },
+    {
+      "status": " M",
+      "path": "tests/suite/test_ch1_map.gd"
+    },
+    {
+      "status": " M",
+      "path": "tools/texture_route_probe.gd"
+    },
+    {
+      "status": "??",
+      "path": "tests/helpers/prefetch_scope_checks.gd"
+    },
+    {
+      "status": "??",
+      "path": "work/bg32-main-E/"
+    },
+    {
+      "status": "??",
+      "path": "work/bg32-main-E2/"
+    },
+    {
+      "status": "??",
+      "path": "work/bg32-main-E3/"
+    },
+    {
+      "status": "??",
+      "path": "work/bg32-main-E4/"
+    },
+    {
+      "status": "??",
+      "path": "work/bg32-main/"
+    },
+    {
+      "status": "??",
+      "path": "work/bg32-scope-regression.gd"
+    },
+    {
+      "status": "??",
+      "path": "work/bg32-scope-regression.tscn"
+    },
+    {
+      "status": "??",
+      "path": "work/bg32-walk-diagnostic.gd"
+    },
+    {
+      "status": "??",
+      "path": "work/bg32-walk-diagnostic.tscn"
+    }
+  ],
+  "files": {
+    "core/asset_prefetch.gd": {
+      "sha256": "4ed88b062cdd65b77692a2d0ba25f79b601612884dd50ba0cb9280083f363b4f",
+      "bytes": 24269
+    },
+    "tests/suite/test_ch1_map.gd": {
+      "sha256": "64889e613170ebd858b6c573d2f383f6ca900f15176f30be15789b534e29db0e",
+      "bytes": 86400
+    },
+    "tests/helpers/prefetch_scope_checks.gd": {
+      "sha256": "b8da74cd2647d95637906e8f99d0de4c6e434d2902327783f34f89e89be36373",
+      "bytes": 1800
+    },
+    "tools/texture_route_probe.gd": {
+      "sha256": "7cbc5051e2310bf06d0efe17f1a15a785b42beb5612da9dc9f1e676a6c7f977f",
+      "bytes": 23041
+    }
+  }
+}

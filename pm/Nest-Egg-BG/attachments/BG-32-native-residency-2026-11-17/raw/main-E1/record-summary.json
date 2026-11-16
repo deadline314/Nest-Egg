@@ -1,0 +1,2086 @@
+{
+	"checks": 29,
+	"cold_record_pid": 0,
+	"complete_authored_lines_accepted": 6,
+	"events": [
+		{
+			"display": "Windows",
+			"engine": {
+				"build": "official",
+				"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+				"hex": 263938,
+				"major": 4,
+				"minor": 7,
+				"patch": 2,
+				"status": "stable",
+				"string": "4.7.2-stable (official)",
+				"timestamp": 0
+			},
+			"engine_node_count": 95,
+			"engine_object_count": 2871,
+			"engine_orphan_nodes": 0,
+			"engine_static_bytes": 164608094,
+			"phase": "record",
+			"physics_frame": 1,
+			"pid": 40420,
+			"policy": "main-thread-rd-472",
+			"prefetch": {
+				"busy_skips_total": 0,
+				"cached": 0,
+				"collected_total": 0,
+				"estimated_bytes": 0,
+				"evicted_total": 0,
+				"failed_total": 0,
+				"generation": 0,
+				"inflight": 0,
+				"inflight_limit": 1,
+				"main_assets_per_frame_limit": 1,
+				"main_last_frame": -1,
+				"main_last_load_us": 0,
+				"main_last_work_us": 0,
+				"main_load_total": 0,
+				"main_max_load_us": 0,
+				"main_max_work_us": 0,
+				"main_over_budget_total": 0,
+				"main_soft_budget_us": 2000,
+				"queued": 0,
+				"requested_total": 0,
+				"retiring": 0,
+				"scope": "",
+				"strategy": 2,
+				"threaded_request_calls": 0,
+				"warm_files_total": 0,
+				"warm_timeouts_total": 0,
+				"warm_waits_total": 0
+			},
+			"prefetch_sha256": "115774bc7495cb26dee69f87c1dde9529db498fd06c0b2fc0abcfde8a2293e84",
+			"process_frame": 0,
+			"render_texture_bytes": 0,
+			"render_video_bytes": 0,
+			"renderer": "forward_plus",
+			"since_previous_stage_max_frame_ms": 0.0,
+			"slot": "C:/NE/evidence-20261117/bg32/main-E1/slot.json",
+			"stage": "probe-entry",
+			"ticks_ms": 5939
+		},
+		{
+			"engine_node_count": 173,
+			"engine_object_count": 3263,
+			"engine_orphan_nodes": 0,
+			"engine_static_bytes": 172413213,
+			"environment_residency": {
+				"payload_bytes": 45667296,
+				"renderer_texture_bytes": 105641488,
+				"stage_residents": [
+					{
+						"bytes": 3981312,
+						"format": 4,
+						"height": 864,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scenes/pawnshop_front.webp",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 1536
+					},
+					{
+						"bytes": 5308416,
+						"format": 5,
+						"height": 864,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scenes/pawnshop_front_glow.webp",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 1536
+					}
+				],
+				"textures": [
+					{
+						"bytes": 28800,
+						"format": 5,
+						"height": 120,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/harbor_street/harbor_street__umbrella_stand.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 60
+					},
+					{
+						"bytes": 28800,
+						"format": 5,
+						"height": 120,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/harbor_street/harbor_street__umbrella_stand_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 60
+					},
+					{
+						"bytes": 385344,
+						"format": 5,
+						"height": 432,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/pawnshop_front/pawnshop_front__tag_shelf.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 223
+					},
+					{
+						"bytes": 385344,
+						"format": 5,
+						"height": 432,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/pawnshop_front/pawnshop_front__tag_shelf_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 223
+					},
+					{
+						"bytes": 229824,
+						"format": 5,
+						"height": 189,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/pawnshop_front/pawnshop_front__arms_workbench.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 304
+					},
+					{
+						"bytes": 229824,
+						"format": 5,
+						"height": 189,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/pawnshop_front/pawnshop_front__arms_workbench_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 304
+					},
+					{
+						"bytes": 229824,
+						"format": 5,
+						"height": 189,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/pawnshop_front/pawnshop_front__arms_workbench_glow.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 304
+					},
+					{
+						"bytes": 124992,
+						"format": 5,
+						"height": 252,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/pawnshop_front/pawnshop_front__leak_bucket.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 124
+					},
+					{
+						"bytes": 124992,
+						"format": 5,
+						"height": 252,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/pawnshop_front/pawnshop_front__leak_bucket_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 124
+					},
+					{
+						"bytes": 124992,
+						"format": 5,
+						"height": 252,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/pawnshop_front/pawnshop_front__leak_bucket_glow.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 124
+					},
+					{
+						"bytes": 16384,
+						"format": 5,
+						"height": 16,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/props/floor_marking.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 256
+					},
+					{
+						"bytes": 16384,
+						"format": 5,
+						"height": 16,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/props/floor_marking_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 256
+					},
+					{
+						"bytes": 265920,
+						"format": 5,
+						"height": 240,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/pawnshop_front/pawnshop_front__range_bench.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 277
+					},
+					{
+						"bytes": 265920,
+						"format": 5,
+						"height": 240,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/pawnshop_front/pawnshop_front__range_bench_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 277
+					},
+					{
+						"bytes": 68640,
+						"format": 5,
+						"height": 132,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/pawnshop_front/pawnshop_front__range_target_rack.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 130
+					},
+					{
+						"bytes": 68640,
+						"format": 5,
+						"height": 132,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/pawnshop_front/pawnshop_front__range_target_rack_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 130
+					},
+					{
+						"bytes": 372708,
+						"format": 5,
+						"height": 261,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/pawnshop_front/pawnshop_front__range_backstop.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 357
+					},
+					{
+						"bytes": 372708,
+						"format": 5,
+						"height": 261,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/pawnshop_front/pawnshop_front__range_backstop_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 357
+					},
+					{
+						"bytes": 46980,
+						"format": 5,
+						"height": 135,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/pawnshop_front/pawnshop_front__range_tally_board.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 87
+					},
+					{
+						"bytes": 46980,
+						"format": 5,
+						"height": 135,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/pawnshop_front/pawnshop_front__range_tally_board_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 87
+					},
+					{
+						"bytes": 67488,
+						"format": 5,
+						"height": 114,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/pawnshop_front/pawnshop_front__tire_stack.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 148
+					},
+					{
+						"bytes": 67488,
+						"format": 5,
+						"height": 114,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/pawnshop_front/pawnshop_front__tire_stack_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 148
+					},
+					{
+						"bytes": 234192,
+						"format": 5,
+						"height": 204,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/pawnshop_front/pawnshop_front__trainer_power_cart.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 287
+					},
+					{
+						"bytes": 234192,
+						"format": 5,
+						"height": 204,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/pawnshop_front/pawnshop_front__trainer_power_cart_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 287
+					},
+					{
+						"bytes": 234192,
+						"format": 5,
+						"height": 204,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/pawnshop_front/pawnshop_front__trainer_power_cart_glow.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 287
+					},
+					{
+						"bytes": 144144,
+						"format": 5,
+						"height": 198,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/pawnshop_front/pawnshop_front__crate_pile.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 182
+					},
+					{
+						"bytes": 144144,
+						"format": 5,
+						"height": 198,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scene_props/pawnshop_front/pawnshop_front__crate_pile_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 182
+					},
+					{
+						"bytes": 786432,
+						"format": 4,
+						"height": 512,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/materials/concrete_body.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 512
+					},
+					{
+						"bytes": 786432,
+						"format": 4,
+						"height": 512,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/materials/concrete_body_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 512
+					},
+					{
+						"bytes": 73728,
+						"format": 4,
+						"height": 48,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/materials/concrete_top.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 512
+					},
+					{
+						"bytes": 73728,
+						"format": 4,
+						"height": 48,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/materials/concrete_top_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 512
+					},
+					{
+						"bytes": 73728,
+						"format": 4,
+						"height": 512,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/materials/concrete_side.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 48
+					},
+					{
+						"bytes": 73728,
+						"format": 4,
+						"height": 512,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/materials/concrete_side_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 48
+					},
+					{
+						"bytes": 368640,
+						"format": 5,
+						"height": 240,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/shopfront_g0.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 368640,
+						"format": 5,
+						"height": 240,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/shopfront_g0_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 368640,
+						"format": 5,
+						"height": 240,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/shopfront_g0_glow.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 368640,
+						"format": 5,
+						"height": 240,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/shopfront_g1.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 368640,
+						"format": 5,
+						"height": 240,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/shopfront_g1_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 368640,
+						"format": 5,
+						"height": 240,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/shopfront_g1_glow.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/shopfront_b0.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/shopfront_b0_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/shopfront_b0_glow.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/shopfront_b1.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/shopfront_b1_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/shopfront_b1_glow.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/shopfront_b2.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/shopfront_b2_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/shopfront_b2_glow.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/shopfront_b3.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/shopfront_b3_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/shopfront_b3_glow.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 73728,
+						"format": 5,
+						"height": 48,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/shopfront_cap0.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 73728,
+						"format": 5,
+						"height": 48,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/shopfront_cap0_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 73728,
+						"format": 5,
+						"height": 48,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/shopfront_cap0_glow.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 368640,
+						"format": 5,
+						"height": 240,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_g0.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 368640,
+						"format": 5,
+						"height": 240,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_g0_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 368640,
+						"format": 5,
+						"height": 240,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_g0_glow.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 368640,
+						"format": 5,
+						"height": 240,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_g1.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 368640,
+						"format": 5,
+						"height": 240,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_g1_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 368640,
+						"format": 5,
+						"height": 240,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_g1_glow.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 368640,
+						"format": 5,
+						"height": 240,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_g2.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 368640,
+						"format": 5,
+						"height": 240,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_g2_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 368640,
+						"format": 5,
+						"height": 240,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_g2_glow.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_b0.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_b0_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_b0_glow.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_b1.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_b1_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_b1_glow.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_b2.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_b2_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_b2_glow.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_b3.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_b3_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_b3_glow.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_b4.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_b4_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_b4_glow.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_b5.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_b5_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 294912,
+						"format": 5,
+						"height": 192,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_b5_glow.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 73728,
+						"format": 5,
+						"height": 48,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_cap0.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 73728,
+						"format": 5,
+						"height": 48,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/facades/brick_block_cap0_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 442368,
+						"format": 4,
+						"height": 384,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/materials/brick_body.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 442368,
+						"format": 4,
+						"height": 384,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/materials/brick_body_n.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 384
+					},
+					{
+						"bytes": 1740800,
+						"format": 5,
+						"height": 340,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/backdrop/far_skyline.webp",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 1280
+					},
+					{
+						"bytes": 1740800,
+						"format": 5,
+						"height": 340,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/backdrop/far_skyline_glow.webp",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 1280
+					},
+					{
+						"bytes": 2252800,
+						"format": 5,
+						"height": 440,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/backdrop/mid_buildings.webp",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 1280
+					},
+					{
+						"bytes": 2252800,
+						"format": 5,
+						"height": 440,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/backdrop/mid_buildings_glow.webp",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 1280
+					},
+					{
+						"bytes": 1536000,
+						"format": 5,
+						"height": 300,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/backdrop/near_foreground.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 1280
+					},
+					{
+						"bytes": 1536000,
+						"format": 5,
+						"height": 300,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/backdrop/near_foreground_glow.png",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 1280
+					},
+					{
+						"bytes": 3260416,
+						"format": 5,
+						"height": 398,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/backdrop/sky_storm.webp",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 2048
+					},
+					{
+						"bytes": 3981312,
+						"format": 4,
+						"height": 864,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scenes/pawnshop_front.webp",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 1536
+					},
+					{
+						"bytes": 5308416,
+						"format": 5,
+						"height": 864,
+						"mipmaps": false,
+						"owners": [
+							"prefetch"
+						],
+						"path": "res://art/environment/scenes/pawnshop_front_glow.webp",
+						"prefetch_scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+						"width": 1536
+					}
+				]
+			},
+			"physics_frame": 60,
+			"pid": 40420,
+			"prefetch": {
+				"busy_skips_total": 2,
+				"cached": 94,
+				"collected_total": 94,
+				"estimated_bytes": 63882544,
+				"evicted_total": 0,
+				"failed_total": 0,
+				"generation": 1,
+				"inflight": 0,
+				"inflight_limit": 1,
+				"main_assets_per_frame_limit": 1,
+				"main_last_frame": 96,
+				"main_last_load_us": 4570,
+				"main_last_work_us": 4587,
+				"main_load_total": 94,
+				"main_max_load_us": 15474,
+				"main_max_work_us": 15489,
+				"main_over_budget_total": 11,
+				"main_soft_budget_us": 2000,
+				"queued": 0,
+				"requested_total": 94,
+				"retiring": 0,
+				"scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+				"strategy": 2,
+				"threaded_request_calls": 0,
+				"warm_files_total": 94,
+				"warm_timeouts_total": 0,
+				"warm_waits_total": 1
+			},
+			"process_frame": 107,
+			"render_texture_bytes": 105641488,
+			"render_video_bytes": 153958768,
+			"since_previous_stage_max_frame_ms": 142.306,
+			"stage": "initial-menu",
+			"ticks_ms": 6863
+		},
+		{
+			"engine_node_count": 173,
+			"engine_object_count": 3255,
+			"engine_orphan_nodes": 0,
+			"engine_static_bytes": 176231861,
+			"kind": "menu",
+			"path": "C:/NE/evidence-20261117/bg32/main-E1/BG32-primary-menu.png",
+			"physics_frame": 81,
+			"pid": 40420,
+			"prefetch": {
+				"busy_skips_total": 2,
+				"cached": 94,
+				"collected_total": 94,
+				"estimated_bytes": 63882544,
+				"evicted_total": 0,
+				"failed_total": 0,
+				"generation": 1,
+				"inflight": 0,
+				"inflight_limit": 1,
+				"main_assets_per_frame_limit": 1,
+				"main_last_frame": 96,
+				"main_last_load_us": 4570,
+				"main_last_work_us": 4587,
+				"main_load_total": 94,
+				"main_max_load_us": 15474,
+				"main_max_work_us": 15489,
+				"main_over_budget_total": 11,
+				"main_soft_budget_us": 2000,
+				"queued": 0,
+				"requested_total": 94,
+				"retiring": 0,
+				"scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+				"strategy": 2,
+				"threaded_request_calls": 0,
+				"warm_files_total": 94,
+				"warm_timeouts_total": 0,
+				"warm_waits_total": 1
+			},
+			"process_frame": 155,
+			"render_texture_bytes": 105641488,
+			"render_video_bytes": 154019200,
+			"since_previous_stage_max_frame_ms": 7.7,
+			"stage": "viewport-captured",
+			"ticks_ms": 7443
+		},
+		{
+			"button": "MainMenu / 開始任務",
+			"engine_node_count": 173,
+			"engine_object_count": 3255,
+			"engine_orphan_nodes": 0,
+			"engine_static_bytes": 176235369,
+			"instance": 672867027982,
+			"physics_frame": 81,
+			"pid": 40420,
+			"prefetch": {
+				"busy_skips_total": 2,
+				"cached": 94,
+				"collected_total": 94,
+				"estimated_bytes": 63882544,
+				"evicted_total": 0,
+				"failed_total": 0,
+				"generation": 1,
+				"inflight": 0,
+				"inflight_limit": 1,
+				"main_assets_per_frame_limit": 1,
+				"main_last_frame": 96,
+				"main_last_load_us": 4570,
+				"main_last_work_us": 4587,
+				"main_load_total": 94,
+				"main_max_load_us": 15474,
+				"main_max_work_us": 15489,
+				"main_over_budget_total": 11,
+				"main_soft_budget_us": 2000,
+				"queued": 0,
+				"requested_total": 94,
+				"retiring": 0,
+				"scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+				"strategy": 2,
+				"threaded_request_calls": 0,
+				"warm_files_total": 94,
+				"warm_timeouts_total": 0,
+				"warm_waits_total": 1
+			},
+			"process_frame": 155,
+			"render_texture_bytes": 105641488,
+			"render_video_bytes": 154019200,
+			"since_previous_stage_max_frame_ms": 0.0,
+			"stage": "button-input",
+			"ticks_ms": 7443
+		},
+		{
+			"button": "difficulty / 出發",
+			"engine_node_count": 173,
+			"engine_object_count": 3269,
+			"engine_orphan_nodes": 0,
+			"engine_static_bytes": 173349597,
+			"instance": 674427309163,
+			"physics_frame": 90,
+			"pid": 40420,
+			"prefetch": {
+				"busy_skips_total": 2,
+				"cached": 94,
+				"collected_total": 94,
+				"estimated_bytes": 63882544,
+				"evicted_total": 0,
+				"failed_total": 0,
+				"generation": 1,
+				"inflight": 0,
+				"inflight_limit": 1,
+				"main_assets_per_frame_limit": 1,
+				"main_last_frame": 96,
+				"main_last_load_us": 4570,
+				"main_last_work_us": 4587,
+				"main_load_total": 94,
+				"main_max_load_us": 15474,
+				"main_max_work_us": 15489,
+				"main_over_budget_total": 11,
+				"main_soft_budget_us": 2000,
+				"queued": 0,
+				"requested_total": 94,
+				"retiring": 0,
+				"scope": "level:res://data/levels/ch1_prologue.tres:ch1_prologue",
+				"strategy": 2,
+				"threaded_request_calls": 0,
+				"warm_files_total": 94,
+				"warm_timeouts_total": 0,
+				"warm_waits_total": 1
+			},
+			"process_frame": 157,
+			"render_texture_bytes": 105641488,
+			"render_video_bytes": 154022720,
+			"since_previous_stage_max_frame_ms": 0.457,
+			"stage": "button-input",
+			"ticks_ms": 7452
+		},
+		{
+			"engine_node_count": 1148,
+			"engine_object_count": 6946,
+			"engine_orphan_nodes": 69,
+			"engine_static_bytes": 221460089,
+			"mode": "animated",
+			"physics_frame": 121,
+			"pid": 40420,
+			"prefetch": {
+				"busy_skips_total": 2,
+				"cached": 77,
+				"collected_total": 94,
+				"estimated_bytes": 46555012,
+				"evicted_total": 17,
+				"failed_total": 0,
+				"generation": 2,
+				"inflight": 0,
+				"inflight_limit": 1,
+				"main_assets_per_frame_limit": 1,
+				"main_last_frame": 96,
+				"main_last_load_us": 4570,
+				"main_last_work_us": 4587,
+				"main_load_total": 94,
+				"main_max_load_us": 15474,
+				"main_max_work_us": 15489,
+				"main_over_budget_total": 11,
+				"main_soft_budget_us": 2000,
+				"queued": 35,
+				"requested_total": 94,
+				"retiring": 0,
+				"scope": "neighbors:res://data/levels/ch1_prologue.tres:ch1_prologue",
+				"strategy": 2,
+				"threaded_request_calls": 0,
+				"warm_files_total": 94,
+				"warm_timeouts_total": 0,
+				"warm_waits_total": 1
+			},
+			"process_frame": 214,
+			"render_texture_bytes": 106296848,
+			"render_video_bytes": 154621456,
+			"scene": "ch1_p01_door",
+			"since_previous_stage_max_frame_ms": 1270.484,
+			"stage": "story-started",
+			"ticks_ms": 11207
+		},
+		{
+			"engine_node_count": 1290,
+			"engine_object_count": 7064,
+			"engine_orphan_nodes": 0,
+			"engine_static_bytes": 223828943,
+			"kind": "cinematic",
+			"path": "C:/NE/evidence-20261117/bg32/main-E1/BG32-primary-cinematic.png",
+			"physics_frame": 697,
+			"pid": 40420,
+			"prefetch": {
+				"busy_skips_total": 4,
+				"cached": 112,
+				"collected_total": 129,
+				"estimated_bytes": 54439738,
+				"evicted_total": 17,
+				"failed_total": 0,
+				"generation": 2,
+				"inflight": 0,
+				"inflight_limit": 1,
+				"main_assets_per_frame_limit": 1,
+				"main_last_frame": 251,
+				"main_last_load_us": 922,
+				"main_last_work_us": 934,
+				"main_load_total": 129,
+				"main_max_load_us": 15474,
+				"main_max_work_us": 15489,
+				"main_over_budget_total": 12,
+				"main_soft_budget_us": 2000,
+				"queued": 0,
+				"requested_total": 129,
+				"retiring": 0,
+				"scope": "neighbors:res://data/levels/ch1_prologue.tres:ch1_prologue",
+				"strategy": 2,
+				"threaded_request_calls": 0,
+				"warm_files_total": 129,
+				"warm_timeouts_total": 0,
+				"warm_waits_total": 2
+			},
+			"process_frame": 1559,
+			"render_texture_bytes": 163568400,
+			"render_video_bytes": 212040032,
+			"since_previous_stage_max_frame_ms": 457.729,
+			"stage": "viewport-captured",
+			"ticks_ms": 21738
+		},
+		{
+			"engine_node_count": 1290,
+			"engine_object_count": 7064,
+			"engine_orphan_nodes": 0,
+			"engine_static_bytes": 223831971,
+			"physics_frame": 697,
+			"pid": 40420,
+			"prefetch": {
+				"busy_skips_total": 4,
+				"cached": 112,
+				"collected_total": 129,
+				"estimated_bytes": 54439738,
+				"evicted_total": 17,
+				"failed_total": 0,
+				"generation": 2,
+				"inflight": 0,
+				"inflight_limit": 1,
+				"main_assets_per_frame_limit": 1,
+				"main_last_frame": 251,
+				"main_last_load_us": 922,
+				"main_last_work_us": 934,
+				"main_load_total": 129,
+				"main_max_load_us": 15474,
+				"main_max_work_us": 15489,
+				"main_over_budget_total": 12,
+				"main_soft_budget_us": 2000,
+				"queued": 0,
+				"requested_total": 129,
+				"retiring": 0,
+				"scope": "neighbors:res://data/levels/ch1_prologue.tres:ch1_prologue",
+				"strategy": 2,
+				"threaded_request_calls": 0,
+				"warm_files_total": 129,
+				"warm_timeouts_total": 0,
+				"warm_waits_total": 2
+			},
+			"process_frame": 1559,
+			"render_texture_bytes": 163568400,
+			"render_video_bytes": 212040032,
+			"scene": "ch1_p01_door",
+			"since_previous_stage_max_frame_ms": 0.0,
+			"stage": "authored-line-accept",
+			"text": "沉港市復原服務提醒您，出門前請確認自己的登記與接應地點。",
+			"ticks_ms": 21738,
+			"where": "場景 ch1_p01_door 第 8 步（say）"
+		},
+		{
+			"engine_node_count": 1290,
+			"engine_object_count": 7062,
+			"engine_orphan_nodes": 0,
+			"engine_static_bytes": 220145155,
+			"physics_frame": 723,
+			"pid": 40420,
+			"prefetch": {
+				"busy_skips_total": 4,
+				"cached": 112,
+				"collected_total": 129,
+				"estimated_bytes": 54439738,
+				"evicted_total": 17,
+				"failed_total": 0,
+				"generation": 2,
+				"inflight": 0,
+				"inflight_limit": 1,
+				"main_assets_per_frame_limit": 1,
+				"main_last_frame": 251,
+				"main_last_load_us": 922,
+				"main_last_work_us": 934,
+				"main_load_total": 129,
+				"main_max_load_us": 15474,
+				"main_max_work_us": 15489,
+				"main_over_budget_total": 12,
+				"main_soft_budget_us": 2000,
+				"queued": 0,
+				"requested_total": 129,
+				"retiring": 0,
+				"scope": "neighbors:res://data/levels/ch1_prologue.tres:ch1_prologue",
+				"strategy": 2,
+				"threaded_request_calls": 0,
+				"warm_files_total": 129,
+				"warm_timeouts_total": 0,
+				"warm_waits_total": 2
+			},
+			"process_frame": 1602,
+			"render_texture_bytes": 163699472,
+			"render_video_bytes": 212171104,
+			"scene": "ch1_p01_door",
+			"since_previous_stage_max_frame_ms": 8.365,
+			"stage": "authored-line-accept",
+			"text": "把門帶上喔，雨都跑進來了。",
+			"ticks_ms": 22023,
+			"where": "場景 ch1_p01_door 第 9 步（say）"
+		},
+		{
+			"engine_node_count": 1290,
+			"engine_object_count": 7065,
+			"engine_orphan_nodes": 0,
+			"engine_static_bytes": 220185803,
+			"physics_frame": 754,
+			"pid": 40420,
+			"prefetch": {
+				"busy_skips_total": 4,
+				"cached": 112,
+				"collected_total": 129,
+				"estimated_bytes": 54439738,
+				"evicted_total": 17,
+				"failed_total": 0,
+				"generation": 2,
+				"inflight": 0,
+				"inflight_limit": 1,
+				"main_assets_per_frame_limit": 1,
+				"main_last_frame": 251,
+				"main_last_load_us": 922,
+				"main_last_work_us": 934,
+				"main_load_total": 129,
+				"main_max_load_us": 15474,
+				"main_max_work_us": 15489,
+				"main_over_budget_total": 12,
+				"main_soft_budget_us": 2000,
+				"queued": 0,
+				"requested_total": 129,
+				"retiring": 0,
+				"scope": "neighbors:res://data/levels/ch1_prologue.tres:ch1_prologue",
+				"strategy": 2,
+				"threaded_request_calls": 0,
+				"warm_files_total": 129,
+				"warm_timeouts_total": 0,
+				"warm_waits_total": 2
+			},
+			"process_frame": 1676,
+			"render_texture_bytes": 164092688,
+			"render_video_bytes": 212564320,
+			"scene": "ch1_p01_door",
+			"since_previous_stage_max_frame_ms": 9.39,
+			"stage": "authored-line-accept",
+			"text": "外面那個門扣又鬆了，我等一下看。",
+			"ticks_ms": 22537,
+			"where": "場景 ch1_p01_door 第 10 步（say）"
+		},
+		{
+			"engine_node_count": 1290,
+			"engine_object_count": 7065,
+			"engine_orphan_nodes": 0,
+			"engine_static_bytes": 220199391,
+			"physics_frame": 831,
+			"pid": 40420,
+			"prefetch": {
+				"busy_skips_total": 4,
+				"cached": 112,
+				"collected_total": 129,
+				"estimated_bytes": 54439738,
+				"evicted_total": 17,
+				"failed_total": 0,
+				"generation": 2,
+				"inflight": 0,
+				"inflight_limit": 1,
+				"main_assets_per_frame_limit": 1,
+				"main_last_frame": 251,
+				"main_last_load_us": 922,
+				"main_last_work_us": 934,
+				"main_load_total": 129,
+				"main_max_load_us": 15474,
+				"main_max_work_us": 15489,
+				"main_over_budget_total": 12,
+				"main_soft_budget_us": 2000,
+				"queued": 0,
+				"requested_total": 129,
+				"retiring": 0,
+				"scope": "neighbors:res://data/levels/ch1_prologue.tres:ch1_prologue",
+				"strategy": 2,
+				"threaded_request_calls": 0,
+				"warm_files_total": 129,
+				"warm_timeouts_total": 0,
+				"warm_waits_total": 2
+			},
+			"process_frame": 1860,
+			"render_texture_bytes": 164092688,
+			"render_video_bytes": 212564320,
+			"scene": "ch1_p01_door",
+			"since_previous_stage_max_frame_ms": 7.416,
+			"stage": "authored-line-accept",
+			"text": "先把鞋擦乾。巢蛋當舖收貨，不收你一路踩進來的水。",
+			"ticks_ms": 23815,
+			"where": "場景 ch1_p01_door 第 12 步（say）"
+		},
+		{
+			"engine_node_count": 1290,
+			"engine_object_count": 7065,
+			"engine_orphan_nodes": 0,
+			"engine_static_bytes": 220330903,
+			"physics_frame": 849,
+			"pid": 40420,
+			"prefetch": {
+				"busy_skips_total": 4,
+				"cached": 112,
+				"collected_total": 129,
+				"estimated_bytes": 54439738,
+				"evicted_total": 17,
+				"failed_total": 0,
+				"generation": 2,
+				"inflight": 0,
+				"inflight_limit": 1,
+				"main_assets_per_frame_limit": 1,
+				"main_last_frame": 251,
+				"main_last_load_us": 922,
+				"main_last_work_us": 934,
+				"main_load_total": 129,
+				"main_max_load_us": 15474,
+				"main_max_work_us": 15489,
+				"main_over_budget_total": 12,
+				"main_soft_budget_us": 2000,
+				"queued": 0,
+				"requested_total": 129,
+				"retiring": 0,
+				"scope": "neighbors:res://data/levels/ch1_prologue.tres:ch1_prologue",
+				"strategy": 2,
+				"threaded_request_calls": 0,
+				"warm_files_total": 129,
+				"warm_timeouts_total": 0,
+				"warm_waits_total": 2
+			},
+			"process_frame": 1903,
+			"render_texture_bytes": 164223760,
+			"render_video_bytes": 212695392,
+			"scene": "ch1_p01_door",
+			"since_previous_stage_max_frame_ms": 7.636,
+			"stage": "authored-line-accept",
+			"text": "你今天收了什麼要我試？",
+			"ticks_ms": 24114,
+			"where": "場景 ch1_p01_door 第 13 步（say）"
+		},
+		{
+			"engine_node_count": 1290,
+			"engine_object_count": 7065,
+			"engine_orphan_nodes": 0,
+			"engine_static_bytes": 220341251,
+			"physics_frame": 922,
+			"pid": 40420,
+			"prefetch": {
+				"busy_skips_total": 4,
+				"cached": 112,
+				"collected_total": 129,
+				"estimated_bytes": 54439738,
+				"evicted_total": 17,
+				"failed_total": 0,
+				"generation": 2,
+				"inflight": 0,
+				"inflight_limit": 1,
+				"main_assets_per_frame_limit": 1,
+				"main_last_frame": 251,
+				"main_last_load_us": 922,
+				"main_last_work_us": 934,
+				"main_load_total": 129,
+				"main_max_load_us": 15474,
+				"main_max_work_us": 15489,
+				"main_over_budget_total": 12,
+				"main_soft_budget_us": 2000,
+				"queued": 0,
+				"requested_total": 129,
+				"retiring": 0,
+				"scope": "neighbors:res://data/levels/ch1_prologue.tres:ch1_prologue",
+				"strategy": 2,
+				"threaded_request_calls": 0,
+				"warm_files_total": 129,
+				"warm_timeouts_total": 0,
+				"warm_waits_total": 2
+			},
+			"process_frame": 2079,
+			"render_texture_bytes": 164223760,
+			"render_video_bytes": 212695392,
+			"scene": "ch1_p01_door",
+			"since_previous_stage_max_frame_ms": 7.563,
+			"stage": "authored-line-accept",
+			"text": "靶跟訓練器都在後面，工作桌上有貨單。今天剛收的，別急著拿出去用。",
+			"ticks_ms": 25336,
+			"where": "場景 ch1_p01_door 第 14 步（say）"
+		},
+		{
+			"engine_node_count": 1290,
+			"engine_object_count": 7088,
+			"engine_orphan_nodes": 0,
+			"engine_static_bytes": 220396959,
+			"physics_frame": 971,
+			"pid": 40420,
+			"prefetch": {
+				"busy_skips_total": 4,
+				"cached": 112,
+				"collected_total": 129,
+				"estimated_bytes": 54439738,
+				"evicted_total": 17,
+				"failed_total": 0,
+				"generation": 2,
+				"inflight": 0,
+				"inflight_limit": 1,
+				"main_assets_per_frame_limit": 1,
+				"main_last_frame": 251,
+				"main_last_load_us": 922,
+				"main_last_work_us": 934,
+				"main_load_total": 129,
+				"main_max_load_us": 15474,
+				"main_max_work_us": 15489,
+				"main_over_budget_total": 12,
+				"main_soft_budget_us": 2000,
+				"queued": 0,
+				"requested_total": 129,
+				"retiring": 0,
+				"scope": "neighbors:res://data/levels/ch1_prologue.tres:ch1_prologue",
+				"strategy": 2,
+				"threaded_request_calls": 0,
+				"warm_files_total": 129,
+				"warm_timeouts_total": 0,
+				"warm_waits_total": 2
+			},
+			"process_frame": 2196,
+			"render_texture_bytes": 164223760,
+			"render_video_bytes": 212695392,
+			"scene": "ch1_p01_door",
+			"since_previous_stage_max_frame_ms": 7.293,
+			"stage": "story-finished",
+			"ticks_ms": 26166
+		},
+		{
+			"engine_node_count": 1148,
+			"engine_object_count": 6873,
+			"engine_orphan_nodes": 0,
+			"engine_static_bytes": 219787895,
+			"physics_frame": 979,
+			"pid": 40420,
+			"prefetch": {
+				"busy_skips_total": 4,
+				"cached": 112,
+				"collected_total": 129,
+				"estimated_bytes": 54439738,
+				"evicted_total": 17,
+				"failed_total": 0,
+				"generation": 2,
+				"inflight": 0,
+				"inflight_limit": 1,
+				"main_assets_per_frame_limit": 1,
+				"main_last_frame": 251,
+				"main_last_load_us": 922,
+				"main_last_work_us": 934,
+				"main_load_total": 129,
+				"main_max_load_us": 15474,
+				"main_max_work_us": 15489,
+				"main_over_budget_total": 12,
+				"main_soft_budget_us": 2000,
+				"queued": 0,
+				"requested_total": 129,
+				"retiring": 0,
+				"scope": "neighbors:res://data/levels/ch1_prologue.tres:ch1_prologue",
+				"strategy": 2,
+				"threaded_request_calls": 0,
+				"warm_files_total": 129,
+				"warm_timeouts_total": 0,
+				"warm_waits_total": 2
+			},
+			"process_frame": 2197,
+			"render_texture_bytes": 172917792,
+			"render_video_bytes": 224413520,
+			"since_previous_stage_max_frame_ms": 447.633,
+			"stage": "initial-world",
+			"ticks_ms": 26632
+		},
+		{
+			"engine_node_count": 1148,
+			"engine_object_count": 6873,
+			"engine_orphan_nodes": 0,
+			"engine_static_bytes": 223475335,
+			"kind": "world",
+			"path": "C:/NE/evidence-20261117/bg32/main-E1/BG32-primary-world.png",
+			"physics_frame": 979,
+			"pid": 40420,
+			"prefetch": {
+				"busy_skips_total": 4,
+				"cached": 112,
+				"collected_total": 129,
+				"estimated_bytes": 54439738,
+				"evicted_total": 17,
+				"failed_total": 0,
+				"generation": 2,
+				"inflight": 0,
+				"inflight_limit": 1,
+				"main_assets_per_frame_limit": 1,
+				"main_last_frame": 251,
+				"main_last_load_us": 922,
+				"main_last_work_us": 934,
+				"main_load_total": 129,
+				"main_max_load_us": 15474,
+				"main_max_work_us": 15489,
+				"main_over_budget_total": 12,
+				"main_soft_budget_us": 2000,
+				"queued": 0,
+				"requested_total": 129,
+				"retiring": 0,
+				"scope": "neighbors:res://data/levels/ch1_prologue.tres:ch1_prologue",
+				"strategy": 2,
+				"threaded_request_calls": 0,
+				"warm_files_total": 129,
+				"warm_timeouts_total": 0,
+				"warm_waits_total": 2
+			},
+			"process_frame": 2197,
+			"render_texture_bytes": 172917792,
+			"render_video_bytes": 224413520,
+			"since_previous_stage_max_frame_ms": 0.103,
+			"stage": "viewport-captured",
+			"ticks_ms": 26855
+		},
+		{
+			"engine_node_count": 1148,
+			"engine_object_count": 6872,
+			"engine_orphan_nodes": 0,
+			"engine_static_bytes": 223476783,
+			"physics_frame": 979,
+			"pid": 40420,
+			"prefetch": {
+				"busy_skips_total": 4,
+				"cached": 112,
+				"collected_total": 129,
+				"estimated_bytes": 54439738,
+				"evicted_total": 17,
+				"failed_total": 0,
+				"generation": 2,
+				"inflight": 0,
+				"inflight_limit": 1,
+				"main_assets_per_frame_limit": 1,
+				"main_last_frame": 251,
+				"main_last_load_us": 922,
+				"main_last_work_us": 934,
+				"main_load_total": 129,
+				"main_max_load_us": 15474,
+				"main_max_work_us": 15489,
+				"main_over_budget_total": 12,
+				"main_soft_budget_us": 2000,
+				"queued": 0,
+				"requested_total": 129,
+				"retiring": 0,
+				"scope": "neighbors:res://data/levels/ch1_prologue.tres:ch1_prologue",
+				"strategy": 2,
+				"threaded_request_calls": 0,
+				"warm_files_total": 129,
+				"warm_timeouts_total": 0,
+				"warm_waits_total": 2
+			},
+			"process_frame": 2197,
+			"render_texture_bytes": 172917792,
+			"render_video_bytes": 224413520,
+			"since_previous_stage_max_frame_ms": 0.0,
+			"stage": "arranged-pawnshop-route",
+			"target": "res://data/levels/ch1_pawnshop.tres",
+			"ticks_ms": 26855
+		},
+		{
+			"direction": "move_right",
+			"engine_node_count": 1084,
+			"engine_object_count": 6884,
+			"engine_orphan_nodes": 0,
+			"engine_static_bytes": 220726281,
+			"label": "record",
+			"person_x": 1384.0,
+			"physics_frame": 1027,
+			"pid": 40420,
+			"player_x": 648.0,
+			"prefetch": {
+				"busy_skips_total": 5,
+				"cached": 105,
+				"collected_total": 177,
+				"estimated_bytes": 60838352,
+				"evicted_total": 72,
+				"failed_total": 0,
+				"generation": 3,
+				"inflight": 0,
+				"inflight_limit": 1,
+				"main_assets_per_frame_limit": 1,
+				"main_last_frame": 2272,
+				"main_last_load_us": 1022,
+				"main_last_work_us": 1062,
+				"main_load_total": 177,
+				"main_max_load_us": 15474,
+				"main_max_work_us": 15489,
+				"main_over_budget_total": 17,
+				"main_soft_budget_us": 2000,
+				"queued": 134,
+				"requested_total": 177,
+				"retiring": 0,
+				"scope": "neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop",
+				"strategy": 2,
+				"threaded_request_calls": 0,
+				"warm_files_total": 311,
+				"warm_timeouts_total": 0,
+				"warm_waits_total": 3
+			},
+			"process_frame": 2273,
+			"render_texture_bytes": 177200416,
+			"render_video_bytes": 228611008,
+			"scene": "ch1_t_oldk_1",
+			"since_previous_stage_max_frame_ms": 841.405,
+			"stage": "npc-walk-input",
+			"talk_count": 0,
+			"ticks_ms": 28789
+		},
+		{
+			"engine_node_count": 1074,
+			"engine_object_count": 7004,
+			"engine_orphan_nodes": 0,
+			"engine_static_bytes": 221772214,
+			"failures": 1,
+			"physics_frame": 1968,
+			"pid": 40420,
+			"prefetch": {
+				"busy_skips_total": 7,
+				"cached": 239,
+				"collected_total": 311,
+				"estimated_bytes": 103288678,
+				"evicted_total": 72,
+				"failed_total": 0,
+				"generation": 3,
+				"inflight": 0,
+				"inflight_limit": 1,
+				"main_assets_per_frame_limit": 1,
+				"main_last_frame": 2408,
+				"main_last_load_us": 997,
+				"main_last_work_us": 1008,
+				"main_load_total": 311,
+				"main_max_load_us": 15474,
+				"main_max_work_us": 15489,
+				"main_over_budget_total": 38,
+				"main_soft_budget_us": 2000,
+				"queued": 0,
+				"requested_total": 311,
+				"retiring": 0,
+				"scope": "neighbors:res://data/levels/ch1_pawnshop.tres:ch1_pawnshop",
+				"strategy": 2,
+				"threaded_request_calls": 0,
+				"warm_files_total": 311,
+				"warm_timeouts_total": 0,
+				"warm_waits_total": 3
+			},
+			"process_frame": 4394,
+			"render_texture_bytes": 227421984,
+			"render_video_bytes": 278852704,
+			"since_previous_stage_max_frame_ms": 2218.387,
+			"stage": "pre-real-main-quit",
+			"ticks_ms": 48795
+		}
+	],
+	"failures": 1,
+	"images": [
+		{
+			"height": 720,
+			"kind": "menu",
+			"path": "C:/NE/evidence-20261117/bg32/main-E1/BG32-primary-menu.png",
+			"pid": 40420,
+			"process_frame": 155,
+			"sha256": "a3968cb62212cb5cc8390d4f0d0608cf834db998f017e08ebb00449741d6a8b6",
+			"width": 1280
+		},
+		{
+			"height": 720,
+			"kind": "cinematic",
+			"path": "C:/NE/evidence-20261117/bg32/main-E1/BG32-primary-cinematic.png",
+			"pid": 40420,
+			"process_frame": 1559,
+			"sha256": "916731894fc07dd09a5d0e52e8666f465e44c3a5c17784c2b95fa0c58e82882a",
+			"width": 1280
+		},
+		{
+			"height": 720,
+			"kind": "world",
+			"path": "C:/NE/evidence-20261117/bg32/main-E1/BG32-primary-world.png",
+			"pid": 40420,
+			"process_frame": 2197,
+			"sha256": "9a0137d26dd2fcc8f6eba90033ecd2c48821ca3e47c67eb93c666b550ce40cde",
+			"width": 1280
+		}
+	],
+	"interact_presses": 0,
+	"memory_scope": "stage engine static bytes, object counts and renderer-reported texture/video bytes; process WorkingSet/Private sampled externally by PID",
+	"npc_lines_accepted": 0,
+	"npc_talks": [],
+	"opening_finishes": 1,
+	"opening_starts": 1,
+	"phase": "record",
+	"pid": 40420,
+	"policy": "main-thread-rd-472",
+	"prefetch_sha256": "115774bc7495cb26dee69f87c1dde9529db498fd06c0b2fc0abcfde8a2293e84",
+	"raw_error_gate": "Root wrapper must reject all ERROR/SCRIPT/Parse/Compile output through natural EOF, including real Main quit",
+	"rounds_requested": 3,
+	"scope": "primary real Main rendering lifecycle; semantic UI, not human/full-chapter/NE246/Source authority proof",
+	"slot": "C:/NE/evidence-20261117/bg32/main-E1/slot.json",
+	"slot_sha256_after_record": "95b7a0c09a3731ce03787a25dffe141b9ce781091c828c0ed638b537d2e753f1",
+	"tool_sha256": "23dfbbe3de1a71d773802523ca6a549f7f1d778c7ebffb11a3e334d27b693a61"
+}

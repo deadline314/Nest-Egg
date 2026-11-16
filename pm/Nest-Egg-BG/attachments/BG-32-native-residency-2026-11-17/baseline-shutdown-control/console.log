@@ -1,0 +1,2117 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+[NE297 destination reader] {"component_types":[3,3],"error":"","exact_coordinate_equal":true,"has_data":true,"position":[-1.0,-1.0],"raw_container_equal":false,"source_revision":1,"target":"res://data/levels/ne297_test_only.tres"}
+[NE297 destination reader] {"component_types":[3,3],"error":"","exact_coordinate_equal":true,"has_data":true,"position":[-1.0,-1.0],"raw_container_equal":false,"source_revision":1,"target":"res://data/levels/level_01.tres"}
+[NE297 destination reader] {"component_types":[3,3],"error":"","exact_coordinate_equal":true,"has_data":true,"position":[-1.0,-1.0],"raw_container_equal":false,"source_revision":2,"target":"res://data/levels/ne297_test_only.tres"}
+[NE297 destination reader] {"component_types":[3,3],"error":"","exact_coordinate_equal":true,"has_data":true,"position":[-1.0,-1.0],"raw_container_equal":false,"source_revision":2,"target":"res://data/levels/level_01.tres"}
+WARNING: [RunSave] run/level res://data/levels/no_such_level_ne297.tres 無效，退回 res://data/levels/ch1_prologue.tres
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:46)
+       [1] _destination_entries (res://tests/helpers/map_layout_migration_checks.gd:197)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:70)
+       [3] run (res://tests/suite/test_run_save.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:110)
+       [5] _run (res://tests/smoke_test.gd:38)
+WARNING: [RunSave] run/level res://data/levels/no_such_level_ne297.tres 無效，退回 res://data/levels/ch1_prologue.tres
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:46)
+       [1] _destination_entries (res://tests/helpers/map_layout_migration_checks.gd:200)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:70)
+       [3] run (res://tests/suite/test_run_save.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:110)
+       [5] _run (res://tests/smoke_test.gd:38)
+WARNING: [Level] res://data/levels/ne297_test_only.tres area/layout_revision：不支援的版面修訂；原存檔保留；原存檔保留。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/level/level.gd:163)
+       [1] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:124)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:72)
+       [3] _direct_level (res://tests/helpers/map_layout_migration_checks.gd:107)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [Level] res://data/levels/ne297_test_only.tres layout migration：持久鍵衝突 gate@10,50；原存檔保留；原存檔保留。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/level/level.gd:171)
+       [1] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:124)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:73)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [RunSave] world/npc:reaction_fixture@1,2/reacted invalid reaction indices omitted
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _world (res://core/run_snapshot.gd:362)
+       [1] run (res://tests/helpers/npc_reaction_save_checks.gd:14)
+       [2] run (res://tests/suite/test_run_save.gd:17)
+       [3] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [4] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:634)
+       [7] _frames (res://tests/smoke_test.gd:125)
+WARNING: [RunSave] world/npc:reaction_fixture@1,2/reacted invalid reaction indices omitted
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _world (res://core/run_snapshot.gd:362)
+       [1] run (res://tests/helpers/npc_reaction_save_checks.gd:14)
+       [2] run (res://tests/suite/test_run_save.gd:17)
+       [3] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [4] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:634)
+       [7] _frames (res://tests/smoke_test.gd:125)
+WARNING: [RunSave] world/npc:reaction_fixture@1,2/reacted invalid reaction indices omitted
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _world (res://core/run_snapshot.gd:362)
+       [1] run (res://tests/helpers/npc_reaction_save_checks.gd:16)
+       [2] run (res://tests/suite/test_run_save.gd:17)
+       [3] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [4] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:634)
+       [7] _frames (res://tests/smoke_test.gd:125)
+[RunSaveSuite] initial preparation: OK
+WARNING: [RunSave] run/level user://foreign.tres 無效，退回 res://data/levels/ch1_prologue.tres
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] prepare (res://core/run_snapshot.gd:46)
+       [1] run (res://tests/suite/test_run_save.gd:100)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [RunSave] run/loadout/weapons/0 無效資源：res://autoload/story.gd，略過該欄
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _loadout (res://core/run_snapshot.gd:319)
+       [1] prepare (res://core/run_snapshot.gd:122)
+       [2] run (res://tests/suite/test_run_save.gd:104)
+       [3] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [4] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:634)
+       [7] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_supper_choice 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_dinner_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_heard_brief 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_disk_delivered 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_disk_receipt_taken 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_market_summary_known 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_handoff_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_ali_reception_selected 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_met_ali 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_ali_evening_talk_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_lounge_evening_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_supper_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_supper_host_accepted 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_supper_meal_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/knows_ali_address 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/sq1_first_supper_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_first_death_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_home_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_complete 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_sunday_accepted 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/asked_egret_sunday 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_label_watch_seen 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_label_guitar_seen 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_label_raincoat_seen 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_label_fare_seen 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_voice_accepted 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_lamp_voice_asked 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/sq5_lamp_voice_noticed 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_grey_cloth_examined 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/has_grey_cloth 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_service_heard 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_exit 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_street_route_open 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/watchdog_defeated 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_flood_gate_open 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ledger_disk_obtained 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_recording_heard 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_booth_restoration_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_lounge_ordered 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_lounge_tab_settled 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_labels_started 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/sq8_first_labels_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_supper_can_rechoose 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_previous_job_settled 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_bench_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_jump_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_range_reached 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_shot_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_high_shot_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_trainer_reached 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_melee_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_guard_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_dash_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_fall_shown 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch1_prologue_skipped 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/yong_link_choice 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ali_ledger_action 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ali_advance_40 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/xiaowei_read_count 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/xiaowei_yellow_umbrella_recognized 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/yong_alive 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/egret_restoration_count 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/yong_link_revoked 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/yong_link_restoration_agreed 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_yong_subdued 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_morning_settled 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_radio_repaired 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/sq4_broadcast_heard 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/sq4_clip_saved 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_brief_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/sq2_sunday_heard 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_heron_closed 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/harbor_walk_ready 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_gate_checked 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_evidence_receipt 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_ali_need_asked 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_market_contact_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_evidence_contract 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_banyan_heard 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_rumor_heard 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_evidence_collection 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_ali_home_visit 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/sq1_soup_practice_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_guard_seen 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_sc1_open 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_market_reconciled 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_yong_intro_seen 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/yong_revival_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/yong_link_isolated 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_original_ledger_taken 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_egret_transport_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_egret_returned 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_audit_submitted 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/sq1_ledger_delivered 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch2_guest_book_entered 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/guest_ticket_answered 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/guest_band_answered 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/guest_letter_answered 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/guest_book_completed 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/room_choice 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_janus_disabled 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_janus_device_stability 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_janus_shield_misses 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_janus_comm_broken 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_janus_lost_once 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_breakfast_heard 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_departure_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_interlock_seen 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_freight_ready 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_outer_ladder_down 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_pump_low 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_wet_branch_isolated 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_lift_powered 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_mezzanine_reached 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_clinic_access 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_public_report_taken 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_nursing_roster_taken 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_followup_register_taken 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_report_reconciled 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/sq7_ahan_clip_heard 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/sq7_ahan_recording_held 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_janus_intro_seen 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_janus_aftercare_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_care_passage_open 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/m3_available 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/m3_seen 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_sunlight_reached 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_sunlight_pause_seen 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_clearwater_tour_started 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/room_morning_measured 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/room_quiet_measured 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/room_late_measured 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/sq3_room_proposal_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_lin_asked 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_clearwater_tour_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_petition_receipt_taken 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_k_at_office_seen 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ye_handwriting_seen 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/sq7_ye_name_seen 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_trade_half_heard 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_trade_listened 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_trade_overheard 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_l2_route_announced 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_umbrella_asked_twice 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_home_supper_done 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_told_egret_trade 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_egret_call_heard 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_next_sunday_agreed 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [GameState] user://story_progress.json/flags/ch3_shore_closed 缺漏，退回預設值
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore_story_progress (res://autoload/game_state.gd:470)
+       [1] run (res://tests/suite/test_run_save.gd:115)
+       [2] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [3] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [StoryItems] user://story_progress.json/items/owned 必須是有界物品陣列（上限 49），保留原資料；目前物品保持
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://autoload/story_items.gd:295)
+       [1] restore_story_progress (res://autoload/game_state.gd:472)
+       [2] run (res://tests/suite/test_run_save.gd:115)
+       [3] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [4] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:634)
+       [7] _frames (res://tests/smoke_test.gd:125)
+WARNING: [RunSave] user://ne230-suite/unit.json：未知版本保留；請明確選擇新遊戲覆寫
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:142)
+       [2] run (res://tests/suite/test_run_save.gd:137)
+       [3] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [4] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:634)
+       [7] _frames (res://tests/smoke_test.gd:125)
+WARNING: [RunSave] user://ne230-suite/unknown_backup.json：未知版本保留；請明確選擇新遊戲覆寫
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:142)
+       [2] run (res://tests/suite/test_run_save.gd:145)
+       [3] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [4] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:634)
+       [7] _frames (res://tests/smoke_test.gd:125)
+WARNING: [RunSave] user://ne230-suite/unknown_backup.json：未知版本保留；請明確選擇新遊戲覆寫
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:142)
+       [2] run (res://tests/suite/test_run_save.gd:150)
+       [3] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [4] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:634)
+       [7] _frames (res://tests/smoke_test.gd:125)
+WARNING: [RunSave] user://ne230-suite/unit.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] run (res://tests/suite/test_run_save.gd:157)
+       [3] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [4] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:634)
+       [7] _frames (res://tests/smoke_test.gd:125)
+WARNING: [RunSave] user://ne230-suite/unit.json/blocked.json.tmp：無法寫入（7）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] run (res://tests/suite/test_run_save.gd:162)
+       [3] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [4] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:634)
+       [7] _frames (res://tests/smoke_test.gd:125)
+WARNING: [RunSave] user://ne230-suite/rollback.json：新輪替換失敗；原存檔已回復
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] _install_new_run (res://core/run_save_store.gd:224)
+       [2] write (res://core/run_save_store.gd:162)
+       [3] run (res://tests/suite/test_run_save.gd:177)
+       [4] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [5] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:634)
+       [8] _frames (res://tests/smoke_test.gd:125)
+WARNING: [RunSave] user://ne230-suite/unknown_transaction.json.newrun：user://ne230-suite/unknown_transaction.json版本較新，新輪恢復未覆寫原件
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] read (res://core/run_save_store.gd:86)
+       [2] run (res://tests/suite/test_run_save.gd:215)
+       [3] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [4] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:634)
+       [7] _frames (res://tests/smoke_test.gd:125)
+[StoryDurableChecks] SKIP symbolic/reparse case : platform permission/API 1; not validated
+[StoryDurableChecks] SKIP symbolic/reparse case .bak: platform permission/API 1; not validated
+[StoryDurableChecks] SKIP symbolic/reparse case .tmp: platform permission/API 1; not validated
+[StoryDurableChecks] SKIP symbolic/reparse case .newrun: platform permission/API 1; not validated
+[StoryDurableChecks] SKIP symbolic/reparse case .dangling: platform permission/API 1; not validated
+[StoryDurableChecks] old seed JSON boundary changes encoding of component: navigation
+[StoryDurableChecks] old seed JSON boundary changes encoding of component: progression
+[StoryDurableChecks] old seed JSON boundary changes encoding of component: state
+[StoryDurableChecks] old seed JSON boundary changes encoding of component: story
+[StoryDurableChecks] old seed JSON boundary changes encoding of component: version
+WARNING: [RunSave] user://ne230-editions/runs/through-ch1_kasa/slot-1.json：新輪交易未完成，請先用「序章至第一章」開啟一次；不從本版本修改。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] find_other_editions (res://core/run_save_store.gd:48)
+       [1] run (res://tests/helpers/campaign_edition_checks.gd:82)
+       [2] run (res://tests/suite/test_run_save.gd:229)
+       [3] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [4] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:634)
+       [7] _frames (res://tests/smoke_test.gd:125)
+[Main] 序章至第一章 收錄到此；下一章 chapter_02 不在本版本。
+[Main] 序章至第一章 收錄到此；下一章 ch2_heron 不在本版本。
+WARNING: [RunSave] run/story/items/held 缺少 ch1_data_disk，依旗標 ledger_disk_obtained 補回
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] apply (res://core/required_item_repair.gd:34)
+       [1] prepare (res://core/run_snapshot.gd:76)
+       [2] run (res://tests/helpers/required_item_checks.gd:14)
+       [3] run (res://tests/suite/test_run_save.gd:230)
+       [4] run (res://tests/helpers/map_layout_migration_checks.gd:75)
+       [5] _rejection_is_atomic (res://tests/helpers/map_layout_migration_checks.gd:129)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:634)
+       [8] _frames (res://tests/smoke_test.gd:125)
+WARNING: [RunSave] user://ne246-completion/first-save.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] run (res://tests/helpers/radio_completion_checks.gd:40)
+       [3] start_level (res://tests/suite/test_suite.gd:34)
+       [4] spawn_level (res://tests/suite/test_suite.gd:43)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [RunSave] user://ne246-completion/first-save.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] _commit (res://game/story_flag_completion.gd:158)
+       [3] run (res://tests/helpers/radio_completion_checks.gd:43)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:125)
+WARNING: [RunSave] run/story/items/held 缺少 ch1_data_disk，依旗標 ledger_disk_obtained 補回
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] apply (res://core/required_item_repair.gd:34)
+       [1] prepare (res://core/run_snapshot.gd:76)
+       [2] _durable_prepare_snapshot (res://core/run_save_store.gd:402)
+       [3] prepare_existing_write (res://core/run_save_store.gd:509)
+       [4] _commit (res://game/story_flag_completion.gd:160)
+       [5] run (res://tests/helpers/radio_completion_checks.gd:80)
+       [6] start_level (res://tests/suite/test_suite.gd:34)
+       [7] spawn_level (res://tests/suite/test_suite.gd:43)
+       [8] frames (res://tests/suite/test_suite.gd:23)
+       [9] _frames (res://tests/smoke_test.gd:125)
+WARNING: [RunSave] run/story/items/held 缺少 ch1_data_disk，依旗標 ledger_disk_obtained 補回
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] apply (res://core/required_item_repair.gd:34)
+       [1] prepare (res://core/run_snapshot.gd:76)
+       [2] _commit (res://game/story_flag_completion.gd:168)
+       [3] run (res://tests/helpers/radio_completion_checks.gd:80)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:125)
+WARNING: [RunSave] user://ne230-destination-refusal/area-refuse.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] _save_run (res://game/main.gd:483)
+       [3] _on_area_requested (res://game/main.gd:344)
+       [4] run (res://tests/helpers/destination_save_checks.gd:57)
+       [5] start_level (res://tests/suite/test_suite.gd:34)
+       [6] spawn_level (res://tests/suite/test_suite.gd:43)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:125)
+WARNING: [RunSave] user://ne230-destination-refusal/area-refuse.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] _save_destination (res://game/main.gd:498)
+       [3] _on_area_requested (res://game/main.gd:349)
+       [4] run (res://tests/helpers/destination_save_checks.gd:57)
+       [5] start_level (res://tests/suite/test_suite.gd:34)
+       [6] spawn_level (res://tests/suite/test_suite.gd:43)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:125)
+WARNING: [RunSave] user://ne230-destination-refusal/retry_persistent-refuse.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] _save_destination (res://game/main.gd:498)
+       [3] _on_retry_requested (res://game/main.gd:314)
+       [4] run (res://tests/helpers/destination_save_checks.gd:59)
+       [5] start_level (res://tests/suite/test_suite.gd:34)
+       [6] spawn_level (res://tests/suite/test_suite.gd:43)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:125)
+WARNING: [RunSave] user://ne230-destination-refusal/retry_nonpersistent-refuse.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] _save_destination (res://game/main.gd:498)
+       [3] _on_retry_requested (res://game/main.gd:314)
+       [4] run (res://tests/helpers/destination_save_checks.gd:59)
+       [5] start_level (res://tests/suite/test_suite.gd:34)
+       [6] spawn_level (res://tests/suite/test_suite.gd:43)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:125)
+WARNING: [RunSave] user://ne230-destination-refusal/chapter-refuse.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] _save_destination (res://game/main.gd:498)
+       [3] _enter_next_level (res://game/main.gd:264)
+       [4] run (res://tests/helpers/destination_save_checks.gd:61)
+       [5] start_level (res://tests/suite/test_suite.gd:34)
+       [6] spawn_level (res://tests/suite/test_suite.gd:43)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:125)
+[Main] 序章至第一章 收錄到此；下一章 ch2_heron 不在本版本。
+[Main] 序章至第一章 收錄到此；下一章 ch2_heron 不在本版本。
+WARNING: [RunSave] user://ne230-terminal-refusal.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] _on_level_completed (res://game/main.gd:378)
+       [3] run (res://tests/helpers/terminal_save_checks.gd:34)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] spawn_level (res://tests/suite/test_suite.gd:43)
+       [6] frames (res://tests/suite/test_suite.gd:23)
+       [7] _frames (res://tests/smoke_test.gd:125)
+[Main] 序章至第一章 收錄到此；下一章 ch2_heron 不在本版本。
+WARNING: [StoryFlagCompletion] ch1_c14_home: durable/source is a directory: D:/NestEggVerification/evidence-20261117/bg32/baseline-shutdown-control-02/profile/Godot/app_userdata/Nest Egg/st9-home-completion.json.tmp
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] complete (res://game/story_flag_completion.gd:64)
+       [1] _on_cinematic_finished (res://autoload/story.gd:1246)
+       [2] _finish_auto_skip (res://autoload/story.gd:1230)
+WARNING: [StoryFlagCompletion] ch1_c14_home: flag segment differs from its finite authored source
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] complete (res://game/story_flag_completion.gd:64)
+       [1] run (res://tests/helpers/home_completion_checks.gd:92)
+       [2] frames (res://tests/suite/test_suite.gd:23)
+       [3] _frames (res://tests/smoke_test.gd:125)
+WARNING: [StoryResultCompletion] ch1_t_label_watch: durable/source is a directory: D:/NestEggVerification/evidence-20261117/bg32/baseline-shutdown-control-02/profile/Godot/app_userdata/Nest Egg/ne230-suite/npc-terminal.json.tmp
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] complete (res://game/story_result_completion.gd:186)
+       [1] _on_cinematic_finished (res://autoload/story.gd:1244)
+       [2] finish_cinematic (res://ui/dialogue_layer.gd:159)
+       [3] advance (res://ui/dialogue_layer.gd:145)
+       [4] run (res://tests/helpers/npc_terminal_save_checks.gd:56)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [StoryResultCompletion] ch1_t_label_guitar: durable/source is a directory: D:/NestEggVerification/evidence-20261117/bg32/baseline-shutdown-control-02/profile/Godot/app_userdata/Nest Egg/ne230-suite/npc-terminal.json.tmp
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] complete (res://game/story_result_completion.gd:186)
+       [1] _on_cinematic_finished (res://autoload/story.gd:1244)
+       [2] finish_cinematic (res://ui/dialogue_layer.gd:159)
+       [3] advance (res://ui/dialogue_layer.gd:145)
+       [4] run (res://tests/helpers/npc_terminal_save_checks.gd:56)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [StoryResultCompletion] ch1_t_label_raincoat: durable/source is a directory: D:/NestEggVerification/evidence-20261117/bg32/baseline-shutdown-control-02/profile/Godot/app_userdata/Nest Egg/ne230-suite/npc-terminal.json.tmp
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] complete (res://game/story_result_completion.gd:186)
+       [1] _on_cinematic_finished (res://autoload/story.gd:1244)
+       [2] finish_cinematic (res://ui/dialogue_layer.gd:159)
+       [3] advance (res://ui/dialogue_layer.gd:145)
+       [4] run (res://tests/helpers/npc_terminal_save_checks.gd:56)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [StoryResultCompletion] ch1_t_label_fare: durable/source is a directory: D:/NestEggVerification/evidence-20261117/bg32/baseline-shutdown-control-02/profile/Godot/app_userdata/Nest Egg/ne230-suite/npc-terminal.json.tmp
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] complete (res://game/story_result_completion.gd:186)
+       [1] _on_cinematic_finished (res://autoload/story.gd:1244)
+       [2] finish_cinematic (res://ui/dialogue_layer.gd:159)
+       [3] advance (res://ui/dialogue_layer.gd:145)
+       [4] run (res://tests/helpers/npc_terminal_save_checks.gd:56)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [RunSave] run/story/items/held 缺少 ch1_data_disk，依旗標 ledger_disk_obtained 補回
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] apply (res://core/required_item_repair.gd:34)
+       [1] prepare (res://core/run_snapshot.gd:76)
+       [2] _prepare_and_commit (res://game/story_result_completion.gd:242)
+       [3] complete (res://game/story_result_completion.gd:175)
+       [4] _on_cinematic_finished (res://autoload/story.gd:1244)
+       [5] finish_cinematic (res://ui/dialogue_layer.gd:159)
+       [6] advance (res://ui/dialogue_layer.gd:145)
+       [7] run (res://tests/helpers/npc_repair_boundary_checks.gd:43)
+       [8] frames (res://tests/suite/test_suite.gd:23)
+       [9] _frames (res://tests/smoke_test.gd:125)
+WARNING: [RunSave] run/story/items/held 缺少 ch1_data_disk，依旗標 ledger_disk_obtained 補回
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] apply (res://core/required_item_repair.gd:34)
+       [1] prepare (res://core/run_snapshot.gd:76)
+       [2] _durable_prepare_snapshot (res://core/run_save_store.gd:402)
+       [3] prepare_existing_write (res://core/run_save_store.gd:509)
+       [4] _prepare_and_commit (res://game/story_result_completion.gd:294)
+       [5] complete (res://game/story_result_completion.gd:175)
+       [6] _on_cinematic_finished (res://autoload/story.gd:1244)
+       [7] finish_cinematic (res://ui/dialogue_layer.gd:159)
+       [8] advance (res://ui/dialogue_layer.gd:145)
+       [9] run (res://tests/helpers/npc_repair_boundary_checks.gd:43)
+       [10] frames (res://tests/suite/test_suite.gd:23)
+       [11] _frames (res://tests/smoke_test.gd:125)
+WARNING: [StoryResultCompletion] ch1_t_label_watch: terminal results need a whole-run repair before retry
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] complete (res://game/story_result_completion.gd:186)
+       [1] _on_cinematic_finished (res://autoload/story.gd:1244)
+       [2] finish_cinematic (res://ui/dialogue_layer.gd:159)
+       [3] advance (res://ui/dialogue_layer.gd:145)
+       [4] run (res://tests/helpers/npc_repair_boundary_checks.gd:43)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:125)
+SUITE_TIME RunSaveSuite 142.1
+SUITE_TIME Chapter2Suite 63.3
+WARNING: [QuestMap] navigation.explored.: 無效區域，已略過。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:179)
+       [1] _apply_components_silent (res://core/run_snapshot.gd:250)
+       [2] apply (res://core/run_snapshot.gd:211)
+       [3] _roundtrip (res://tests/helpers/encounter_resume_checks.gd:145)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [QuestMap] navigation.explored.: 無效區域，已略過。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] restore (res://core/navigation/quest_map_state.gd:179)
+       [1] _apply_components_silent (res://core/run_snapshot.gd:250)
+       [2] apply (res://core/run_snapshot.gd:211)
+       [3] _roundtrip (res://tests/helpers/encounter_resume_checks.gd:184)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [Level] run/runtime/enemies/0/key重複或敵人已消滅：drone@104,23；返回主選單，未套用遭遇狀態。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/level/level.gd:148)
+       [1] _swap_screen (res://game/main.gd:109)
+       [2] _failed_restore (res://tests/helpers/encounter_restore_guard_checks.gd:154)
+       [3] run (res://tests/helpers/encounter_restore_guard_checks.gd:101)
+       [4] end_level (res://tests/suite/test_suite.gd:47)
+       [5] _end_level (res://tests/smoke_test.gd:634)
+       [6] _frames (res://tests/smoke_test.gd:125)
+WARNING: [Level] run/runtime/enemies/enemy:0/key：drone@104,23 無法還原已識別敵人；返回主選單，原存檔保留。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _restore_run_entities (res://game/level/level.gd:1532)
+       [1] _restore_run_entities (res://tests/helpers/encounter_restore_guard_checks.gd:23)
+       [2] _ready (res://game/level/level.gd:309)
+       [3] _swap_screen (res://game/main.gd:109)
+       [4] _failed_restore (res://tests/helpers/encounter_restore_guard_checks.gd:154)
+       [5] run (res://tests/helpers/encounter_restore_guard_checks.gd:101)
+       [6] _failed_restore (res://tests/helpers/encounter_restore_guard_checks.gd:178)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:125)
+WARNING: [Level] run/runtime/enemies/enemy:16/key： 無法還原已識別敵人；返回主選單，原存檔保留。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _restore_run_entities (res://game/level/level.gd:1532)
+       [1] _restore_run_entities (res://tests/helpers/encounter_restore_guard_checks.gd:23)
+       [2] _ready (res://game/level/level.gd:309)
+       [3] _swap_screen (res://game/main.gd:109)
+       [4] _failed_restore (res://tests/helpers/encounter_restore_guard_checks.gd:154)
+       [5] run (res://tests/helpers/encounter_restore_guard_checks.gd:101)
+       [6] _failed_restore (res://tests/helpers/encounter_restore_guard_checks.gd:178)
+       [7] frames (res://tests/suite/test_suite.gd:23)
+       [8] _frames (res://tests/smoke_test.gd:125)
+WARNING: [EncounterZone] test_encounter（格 (30, 20)）鎖場超過 10 秒，強制解鎖（還有 1 個成員活著）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _physics_process (res://game/props/encounter_zone.gd:115)
+SUITE_TIME EncounterSuite 24.8
+ERROR: [InputFeel] res://data/feel/input.json 沒有 windows.test_no_such_window，改用預設 0.07
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://core/input_feel.gd:151)
+       [1] window (res://core/input_feel.gd:37)
+       [2] _test_windows_from_data (res://tests/suite/test_input_feel.gd:348)
+       [3] run (res://tests/suite/test_input_feel.gd:10)
+       [4] run (res://tests/helpers/vehicle_deferred_input_checks.gd:88)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:634)
+       [7] _frames (res://tests/smoke_test.gd:125)
+WARNING: [InputBindings] controller/aim_deadzone 不是有效數值，使用預設值。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _number_option (res://autoload/input_bindings.gd:636)
+       [1] _reload_controller_options (res://autoload/input_bindings.gd:622)
+       [2] reload_from_settings (res://autoload/input_bindings.gd:429)
+       [3] _test_controller_options (res://tests/suite/test_input_feel.gd:184)
+       [4] _test_controller_flow (res://tests/suite/test_input_feel.gd:111)
+       [5] run (res://tests/suite/test_input_feel.gd:13)
+       [6] run (res://tests/helpers/vehicle_deferred_input_checks.gd:88)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:634)
+       [9] _frames (res://tests/smoke_test.gd:125)
+WARNING: [InputBindings] controller/vibration_strength 不是有效數值，使用預設值。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _number_option (res://autoload/input_bindings.gd:636)
+       [1] _reload_controller_options (res://autoload/input_bindings.gd:623)
+       [2] reload_from_settings (res://autoload/input_bindings.gd:429)
+       [3] _test_controller_options (res://tests/suite/test_input_feel.gd:184)
+       [4] _test_controller_flow (res://tests/suite/test_input_feel.gd:111)
+       [5] run (res://tests/suite/test_input_feel.gd:13)
+       [6] run (res://tests/helpers/vehicle_deferred_input_checks.gd:88)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:634)
+       [9] _frames (res://tests/smoke_test.gd:125)
+WARNING: [InputBindings] controller/invert_aim_y 不是布林值，使用預設值。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _reload_controller_options (res://autoload/input_bindings.gd:627)
+       [1] reload_from_settings (res://autoload/input_bindings.gd:429)
+       [2] _test_controller_options (res://tests/suite/test_input_feel.gd:184)
+       [3] _test_controller_flow (res://tests/suite/test_input_feel.gd:111)
+       [4] run (res://tests/suite/test_input_feel.gd:13)
+       [5] run (res://tests/helpers/vehicle_deferred_input_checks.gd:88)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:634)
+       [8] _frames (res://tests/smoke_test.gd:125)
+NE229_PHYSICAL_JOYPADS [] | probe uses synthetic device 999
+NE229_SYNTHETIC_FLOW checks=38 failures=0
+SUITE_TIME InputFeelSuite 16.7
+WARNING: [AssetPrefetch] 找不到要預載的貼圖：res://art/no_such_prefetch_texture.png
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:171)
+       [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:717)
+       [2] run (res://tests/suite/test_ch1_map.gd:47)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] run (res://tests/suite/test_input_feel.gd:16)
+       [5] _test_air_jump (res://tests/suite/test_input_feel.gd:75)
+       [6] end_level (res://tests/suite/test_suite.gd:47)
+       [7] _end_level (res://tests/smoke_test.gd:634)
+       [8] _frames (res://tests/smoke_test.gd:125)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://data/levels/no_such_level.tres
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _resolve_level (res://core/asset_prefetch.gd:102)
+       [1] warm_level (res://core/asset_prefetch.gd:87)
+       [2] _test_prefetch (res://tests/suite/test_ch1_map.gd:719)
+       [3] run (res://tests/suite/test_ch1_map.gd:47)
+       [4] _run_suites (res://tests/smoke_test.gd:110)
+       [5] run (res://tests/suite/test_input_feel.gd:16)
+       [6] _test_air_jump (res://tests/suite/test_input_feel.gd:75)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:634)
+       [9] _frames (res://tests/smoke_test.gd:125)
+WARNING: [AssetPrefetch] 待載已達 512，略過本次剩餘貼圖（首項：res://art/characters/night_worker/parts/arm_lower.png）。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:174)
+       [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:776)
+       [2] _prefetch_drain (res://tests/suite/test_ch1_map.gd:1041)
+WARNING: [AssetPrefetch] 待載已達 512，略過本次剩餘貼圖（首項：res://art/characters/resident/parts/hand_n.png）。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:174)
+       [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:776)
+       [2] _prefetch_drain (res://tests/suite/test_ch1_map.gd:1041)
+WARNING: [AssetPrefetch] 待載已達 512，略過本次剩餘貼圖（首項：res://art/characters/night_worker/parts/arm_lower.png）。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:174)
+       [1] _run_main_thread_prefetch_fixture (res://tests/suite/test_ch1_map.gd:903)
+       [2] _prefetch_drain (res://tests/suite/test_ch1_map.gd:1041)
+WARNING: [AssetPrefetch] 待載已達 512，略過本次剩餘貼圖（首項：res://art/characters/resident/parts/head.png）。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:174)
+       [1] _run_main_thread_prefetch_fixture (res://tests/suite/test_ch1_map.gd:903)
+       [2] _prefetch_drain (res://tests/suite/test_ch1_map.gd:1041)
+WARNING: [Cutscene] 場景 test_playthrough_ch1_t_handoff_accept 第 1 步（world_action） world action cancelled: 
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _world_action_failed (res://game/cutscene/cutscene_player.gd:122)
+       [1] _do_world_action (res://game/cutscene/cutscene_player.gd:110)
+       [2] _run (res://game/cutscene/cutscene_player.gd:191)
+WARNING: [Cutscene] 場景 test_playthrough_ch1_t_handoff_receipt 第 1 步（world_action） world action cancelled: 
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _world_action_failed (res://game/cutscene/cutscene_player.gd:122)
+       [1] _do_world_action (res://game/cutscene/cutscene_player.gd:110)
+       [2] _run (res://game/cutscene/cutscene_player.gd:191)
+SUITE_TIME Chapter1MapSuite 119.0
+checks: 3435, failures: 0
+ERROR: 1 RID allocations of type 'P11GodotArea2D' were leaked at exit.
+WARNING: 1 RID of type "CanvasItem" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 2 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

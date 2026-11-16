@@ -1,0 +1,6 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: [BG32Main] requires native Forward+, absolute isolated --out/--slot=.json and record|cold
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://work/bg32-main/probe.gd:65)

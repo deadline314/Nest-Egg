@@ -1,0 +1,4 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://work/bg32-drop-repro/probe.gd" id="1"]
+[node name="DropOwnerControl" type="Node"]
+script = ExtResource("1")

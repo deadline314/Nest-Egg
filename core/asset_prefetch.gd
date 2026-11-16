@@ -4,8 +4,8 @@ extends RefCounted
 ## 4.7.2 原生 RD 由主線 Pump 逐影格載入；其他後端保留真正背景請求。
 ## 主線載入前先由背景執行緒把檔案讀進系統快取（見「檔案暖身」），主線那一格只剩解碼與上傳，不等磁碟。
 
-## 一個區域一次送出的上限。第一章街道有四種各自外觀的敵人（NE-218），連同場景貼圖約 200 張；上限太低時剩下的不會被預載，換區才臨時讀檔。
-const MAX_REQUESTS_PER_CALL := 256
+## 一個區域一次送出的上限。現有第一章街道鄰居已超過 256 張；與既有 512 張佇列容量對齊，避免第一次預載漏掉尾段。
+const MAX_REQUESTS_PER_CALL := 512
 const MAX_INFLIGHT := 4
 const MAIN_SOFT_BUDGET_US := 2000
 const STRATEGY_THREADED_NATIVE := 0
@@ -103,7 +103,7 @@ static func _resolve_level(data: Variant) -> LevelData:
 	return null
 
 
-## 全部鄰居與過場共用同一範圍，不讓逐個鄰居互相清除。
+## 鄰居共用同一範圍，不讓逐個鄰居互相清除。
 static func warm_neighbors(data: LevelData) -> int:
 	if data == null:
 		return 0
@@ -117,14 +117,21 @@ static func warm_neighbors(data: LevelData) -> int:
 		var neighbor := _resolve_level(path)
 		if neighbor != null:
 			wanted.append_array(level_texture_paths(neighbor))
-	wanted.append_array(scene_texture_paths(data.intro_scene))
-	for scene in data.story_triggers:
-		wanted.append_array(scene_texture_paths(StringName(scene)))
-	for scene in data.channel_scenes.values():
-		wanted.append_array(scene_texture_paths(scene))
-	for scene in Story.respawn_scene_ids(data.chapter, 1):
-		wanted.append_array(scene_texture_paths(scene))
-	# 只留這個區域的鄰居與過場用得到的：前幾個區域留下來的預載不再佔著記憶體（BG-32）。
+	# 鄰居的天空與遠景只保留目前主題也會用到的圖（含同名法線／發光變體）。
+	var current := PackedStringArray()
+	if data.environment != null:
+		for layer: BackdropLayer in data.environment.backdrop:
+			if layer != null:
+				_add_with_variants(current, layer.texture)
+		if data.environment.sky != null:
+			_add_with_variants(current, data.environment.sky.texture)
+	var retained := PackedStringArray()
+	for path: String in wanted:
+		if not path.begins_with("res://art/environment/backdrop/") or current.has(path):
+			retained.append(path)
+	wanted = retained
+	# 閒置區域不固定持有過場舞台；播放中的 CutscenePlayer 自己持有。
+	# 只留這個區域的鄰居所需資產：前幾個區域留下來的預載不再佔著記憶體（BG-32）。
 	_retain_only(wanted)
 	return request(wanted)
 

@@ -1,0 +1,23 @@
+{
+  "base": "3713db51062b14ed33ab61488559109fc41e2bfd",
+  "source_files": {
+    "core/asset_prefetch.gd": {
+      "sha256": "4ed88b062cdd65b77692a2d0ba25f79b601612884dd50ba0cb9280083f363b4f",
+      "bytes": 24269
+    },
+    "tests/suite/test_ch1_map.gd": {
+      "sha256": "64889e613170ebd858b6c573d2f383f6ca900f15176f30be15789b534e29db0e",
+      "bytes": 86400
+    },
+    "tests/helpers/prefetch_scope_checks.gd": {
+      "sha256": "b8da74cd2647d95637906e8f99d0de4c6e434d2902327783f34f89e89be36373",
+      "bytes": 1800
+    },
+    "tools/texture_route_probe.gd": {
+      "sha256": "7cbc5051e2310bf06d0efe17f1a15a785b42beb5612da9dc9f1e676a6c7f977f",
+      "bytes": 23041
+    }
+  },
+  "status": " M core/asset_prefetch.gd\n M tests/suite/test_ch1_map.gd\n M tools/texture_route_probe.gd\n?? tests/helpers/prefetch_scope_checks.gd\n",
+  "note": "Own dirty sources backed up, own probes preserved outside project; no hard reset or unrelated cleanup."
+}

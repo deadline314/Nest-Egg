@@ -1,0 +1,12 @@
+{
+  "native_E_sha256": "115774bc7495cb26dee69f87c1dde9529db498fd06c0b2fc0abcfde8a2293e84",
+  "final_comment_only_sha256": "4ed88b062cdd65b77692a2d0ba25f79b601612884dd50ba0cb9280083f363b4f",
+  "noncomment_lines_identical": true,
+  "replacements": {
+    "## 一個區域一次送出的上限。第一章街道有四種各自外觀的敵人（NE-218），連同場景貼圖約 200 張；上限太低時剩下的不會被預載，換區才臨時讀檔。": "## 一個區域一次送出的上限。現有第一章街道鄰居已超過 256 張；與既有 512 張佇列容量對齊，避免第一次預載漏掉尾段。",
+    "## 全部鄰居與過場共用同一範圍，不讓逐個鄰居互相清除。": "## 鄰居共用同一範圍，不讓逐個鄰居互相清除。",
+    "# Do not pin a neighboring sky that the current theme never uses.": "# 鄰居的天空與遠景只保留目前主題也會用到的圖（含同名法線／發光變體）。",
+    "# Idle areas retain neighbors only; active CutscenePlayer owns its stage.": "# 閒置區域不固定持有過場舞台；播放中的 CutscenePlayer 自己持有。",
+    "# 只留這個區域的鄰居與過場用得到的：前幾個區域留下來的預載不再佔著記憶體（BG-32）。": "# 只留這個區域的鄰居所需資產：前幾個區域留下來的預載不再佔著記憶體（BG-32）。"
+  }
+}

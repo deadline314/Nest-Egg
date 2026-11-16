@@ -1,0 +1,120 @@
+Loading resource: res://art/environment/facades/warehouse_b4_glow.png remapped: res://art/environment/facades/warehouse_b4_glow.png
+Loading resource: res://.godot/imported/warehouse_b4_glow.png-57b394a3cb5a133eed6bf66c0da6216f.ctex remapped: res://.godot/imported/warehouse_b4_glow.png-57b394a3cb5a133eed6bf66c0da6216f.ctex
+Completed load for: 'res://art/environment/facades/warehouse_b4_glow.png' remapped 'res://art/environment/facades/warehouse_b4_glow.png' at thread 2
+Loading resource: res://art/environment/facades/warehouse_b5.png remapped: res://art/environment/facades/warehouse_b5.png
+Loading resource: res://.godot/imported/warehouse_b5.png-7f2d924124f75c780471acb787c593ae.ctex remapped: res://.godot/imported/warehouse_b5.png-7f2d924124f75c780471acb787c593ae.ctex
+Completed load for: 'res://art/environment/facades/warehouse_b5.png' remapped 'res://art/environment/facades/warehouse_b5.png' at thread 3
+Loading resource: res://art/environment/facades/warehouse_b5_n.png remapped: res://art/environment/facades/warehouse_b5_n.png
+Loading resource: res://.godot/imported/warehouse_b5_n.png-005b30537610598e2949aea42f893faa.ctex remapped: res://.godot/imported/warehouse_b5_n.png-005b30537610598e2949aea42f893faa.ctex
+Completed load for: 'res://art/environment/facades/warehouse_b5_n.png' remapped 'res://art/environment/facades/warehouse_b5_n.png' at thread 4
+Loading resource: res://art/environment/facades/warehouse_b5_glow.png remapped: res://art/environment/facades/warehouse_b5_glow.png
+Loading resource: res://.godot/imported/warehouse_b5_glow.png-afa5aa7cad7e5d05cd4321cdcf1fbc91.ctex remapped: res://.godot/imported/warehouse_b5_glow.png-afa5aa7cad7e5d05cd4321cdcf1fbc91.ctex
+Completed load for: 'res://art/environment/facades/warehouse_b5_glow.png' remapped 'res://art/environment/facades/warehouse_b5_glow.png' at thread 5
+Loading resource: res://art/environment/facades/warehouse_cap0.png remapped: res://art/environment/facades/warehouse_cap0.png
+Loading resource: res://.godot/imported/warehouse_cap0.png-8d71946d6c92abb26798f3acc9dc9c4d.ctex remapped: res://.godot/imported/warehouse_cap0.png-8d71946d6c92abb26798f3acc9dc9c4d.ctex
+Completed load for: 'res://art/environment/facades/warehouse_cap0.png' remapped 'res://art/environment/facades/warehouse_cap0.png' at thread 6
+Loading resource: res://art/environment/facades/warehouse_cap0_n.png remapped: res://art/environment/facades/warehouse_cap0_n.png
+Loading resource: res://.godot/imported/warehouse_cap0_n.png-57b8277e4fdd29bc0988c75a173d35cf.ctex remapped: res://.godot/imported/warehouse_cap0_n.png-57b8277e4fdd29bc0988c75a173d35cf.ctex
+Completed load for: 'res://art/environment/facades/warehouse_cap0_n.png' remapped 'res://art/environment/facades/warehouse_cap0_n.png' at thread 7
+Loading resource: res://art/environment/materials/hangar_wall_body.png remapped: res://art/environment/materials/hangar_wall_body.png
+Loading resource: res://.godot/imported/hangar_wall_body.png-742a4a1ec06f83d5b2ea2c30644093e5.ctex remapped: res://.godot/imported/hangar_wall_body.png-742a4a1ec06f83d5b2ea2c30644093e5.ctex
+Completed load for: 'res://art/environment/materials/hangar_wall_body.png' remapped 'res://art/environment/materials/hangar_wall_body.png' at thread 0
+Loading resource: res://art/environment/materials/hangar_wall_body_n.png remapped: res://art/environment/materials/hangar_wall_body_n.png
+Loading resource: res://.godot/imported/hangar_wall_body_n.png-da6fa8627756cdef06cb90d9192e076f.ctex remapped: res://.godot/imported/hangar_wall_body_n.png-da6fa8627756cdef06cb90d9192e076f.ctex
+Completed load for: 'res://art/environment/materials/hangar_wall_body_n.png' remapped 'res://art/environment/materials/hangar_wall_body_n.png' at thread 1
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"
+ERROR: 1 RID allocations of type 'P11GodotArea2D' were leaked at exit.
+Leaked instance: GDScriptNativeClass:9223372042022158617 - Reference count: 2
+Leaked instance: GDScript:9223372095860246147 - Reference count: 1
+Leaked instance: GDScript:9223372123592984321 - Reference count: 2
+Leaked instance: Area2D:37254546333047 - Node path: 
+Hint: Leaked instances typically happen when nodes are removed from the scene tree (with `remove_child()`) but not freed (with `free()` or `queue_free()`).
+Resource still in use: res://game/pickups/pickup.gd (GDScript)
+Resource still in use: res://game/pickups/credit_pickup.gd (GDScript)
+Orphan StringName: _retry_left (static: 0, total: 4)
+Orphan StringName: CreditPickup (static: 0, total: 3)
+Orphan StringName: Vector2 (static: 0, total: 1)
+Orphan StringName: Vector3 (static: 0, total: 1)
+Orphan StringName: Vector4 (static: 0, total: 1)
+Orphan StringName: _fx_color (static: 0, total: 2)
+Orphan StringName: _ready (static: 1, total: 3)
+Orphan StringName: cell (static: 0, total: 4)
+Orphan StringName: PackedVector4Array (static: 0, total: 1)
+Orphan StringName: RID (static: 0, total: 1)
+Orphan StringName: BOB_SPEED (static: 0, total: 1)
+Orphan StringName: _fx_kind (static: 0, total: 2)
+Orphan StringName: Color (static: 0, total: 1)
+Orphan StringName: resolve_player (static: 0, total: 1)
+Orphan StringName: _world_sprite (static: 0, total: 3)
+Orphan StringName: color (static: 0, total: 4)
+Orphan StringName: GLINT_PERIOD (static: 0, total: 1)
+Orphan StringName: PackedByteArray (static: 0, total: 1)
+Orphan StringName: capture_state (static: 0, total: 1)
+Orphan StringName: collected (static: 0, total: 4)
+Orphan StringName: _Emission (static: 0, total: 1)
+Orphan StringName: _glint_offset (static: 0, total: 3)
+Orphan StringName: Area2D (static: 0, total: 1)
+Orphan StringName: _draw_fallback_emission (static: 0, total: 2)
+Orphan StringName: _draw_world_sprite (static: 0, total: 1)
+Orphan StringName: value (static: 0, total: 4)
+Orphan StringName: Vector2i (static: 0, total: 1)
+Orphan StringName: Callable (static: 0, total: 1)
+Orphan StringName: Vector3i (static: 0, total: 1)
+Orphan StringName: Vector4i (static: 0, total: 1)
+Orphan StringName: configure_pile (static: 0, total: 1)
+Orphan StringName: PackedStringArray (static: 0, total: 1)
+Orphan StringName: Basis (static: 0, total: 1)
+Orphan StringName: int (static: 0, total: 1)
+Orphan StringName: _time (static: 0, total: 4)
+Orphan StringName: _collection_finished (static: 0, total: 4)
+Orphan StringName: PackedFloat32Array (static: 0, total: 1)
+Orphan StringName: LARGE_PILE_VALUE (static: 0, total: 1)
+Orphan StringName: Plane (static: 0, total: 1)
+Orphan StringName: PackedFloat64Array (static: 0, total: 1)
+Orphan StringName: NodePath (static: 0, total: 1)
+Orphan StringName: Signal (static: 0, total: 1)
+Orphan StringName: StringName (static: 0, total: 1)
+Orphan StringName: String (static: 0, total: 1)
+Orphan StringName: _process (static: 3, total: 4)
+Orphan StringName: GLINT_TIME (static: 0, total: 1)
+Orphan StringName: Transform2D (static: 0, total: 1)
+Orphan StringName: Transform3D (static: 0, total: 1)
+Orphan StringName: RETRY_INTERVAL (static: 0, total: 1)
+Orphan StringName: Array (static: 1, total: 2)
+Orphan StringName: Quaternion (static: 0, total: 1)
+Orphan StringName: bool (static: 0, total: 1)
+Orphan StringName: _apply (static: 0, total: 2)
+Orphan StringName: restore_state (static: 0, total: 1)
+Orphan StringName: hint_text (static: 0, total: 2)
+Orphan StringName: PackedColorArray (static: 0, total: 1)
+Orphan StringName: _on_body_entered (static: 0, total: 1)
+Orphan StringName: PackedVector2Array (static: 0, total: 1)
+Orphan StringName: state_key (static: 0, total: 1)
+Orphan StringName: Object (static: 1, total: 2)
+Orphan StringName: AABB (static: 0, total: 1)
+Orphan StringName: _emission (static: 0, total: 3)
+Orphan StringName: BOB_HEIGHT (static: 0, total: 1)
+Orphan StringName: _draw (static: 2, total: 3)
+Orphan StringName: float (static: 0, total: 1)
+Orphan StringName: Pickup (static: 0, total: 3)
+Orphan StringName: Dictionary (static: 1, total: 2)
+Orphan StringName: Projection (static: 0, total: 1)
+Orphan StringName: complete_collection (static: 0, total: 1)
+Orphan StringName: Rect2 (static: 0, total: 1)
+Orphan StringName: PackedVector3Array (static: 0, total: 1)
+Orphan StringName: PackedInt32Array (static: 0, total: 1)
+Orphan StringName: Rect2i (static: 0, total: 1)
+Orphan StringName: _draw_icon (static: 0, total: 2)
+Orphan StringName: PackedInt64Array (static: 0, total: 1)
+WARNING: 1 RID of type "CanvasItem" was leaked.
+Orphan StringName: _consume (static: 0, total: 2)
+StringName: 76 unclaimed string names at exit.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: Cannot get path of node as it is not in a scene tree.
+   at: get_path (scene/main/node.cpp:2431)
+ERROR: 2 resources still in use at exit.
+   at: clear (core/io/resource.cpp:817)

@@ -1,0 +1,10 @@
+{
+  "base": "3713db51062b14ed33ab61488559109fc41e2bfd",
+  "status": "",
+  "source_files": {
+    "core/asset_prefetch.gd": "9e6e6ecfe8faf1ef80eaf2655321843ca0b6df1a704cac74380910fc78d341b8",
+    "tests/suite/test_ch1_map.gd": "628a8ddc4811fa22fa7622809e6a36d0f6bc85b9214423cb735994a29d27b3f0",
+    "tools/texture_route_probe.gd": "e9fc052c47f49f3d4230fc2e9080e94584ab993f7944eea42a27b69a8eeb0e02"
+  },
+  "suites": "RunSaveSuite,InputFeelSuite,EncounterSuite,Chapter2Suite,Chapter1MapSuite"
+}

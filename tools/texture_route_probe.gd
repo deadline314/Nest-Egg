@@ -1,199 +1,409 @@
 extends Node
-## 走一輪區域與過場，量「已載入的環境貼圖」會不會越積越多、換區域時最長的一格有多長（BG-32）。
-##
-## 用法（原生）：
-##   godot --path . res://tools/texture_route_probe.tscn -- [--levels=ch1_street,ch1_booth_alley,...] [--rounds=2] [--dwell=40]
-## --dwell：在每個區域多待幾個影格才量、才離開（真的玩會待上幾分鐘；待得夠久，預載才來得及把隔壁區域的圖準備好）。
-## 依序進入每個區域（真的建立關卡、釋放上一個），在每個區域把它會播的過場的舞台都建出來再拆掉（等於看過那些過場），
-## 然後記錄：快取裡的環境貼圖（張數與匯入後的大小）、只被預載拿著的環境貼圖、渲染器的貼圖記憶體、
-## 進入這個區域後 90 個影格裡最長的一格。路線的最後一站回到第一站，兩者相比就是「走一圈之後多留了多少」。
-## 同一支腳本可以原封不動拿去量還沒有釋放機制的舊版本（複製過去跑），修前修後用同一台機器。
-## 輸出 ROUTE 開頭的行；結尾的 ROUTE_SUMMARY 是最後一站相對第一站的比例。
-
-## 預設路線：照第一章出入口實際連接的順序走完所有區域再回到街道（玩家只能經出入口移動，預載也是針對隔壁的區域）。
-const DEFAULT_LEVELS: PackedStringArray = ["ch1_street", "ch1_booth_alley", "ch1_street", "ch1_warehouse", "ch1_vault", "ch1_lounge",
-	"ch1_stall", "ch1_pawnshop_dawn", "ch1_rooftop", "ch1_pawnshop", "ch1_street"]
+## BG-32 managed environment residency. Direct stage construction, never story play.
+## Native: --out=<absolute> [--rounds=1] [--dwell=300] [--levels=a,b,a]
+## CPU: --self-test. Native negative control: --control=skip-stage|hold-stage.
+const DEFAULT_LEVELS: PackedStringArray = ["ch1_street", "ch1_booth_alley", "ch1_street", "ch1_warehouse", "ch1_vault", "ch1_lounge", "ch1_stall", "ch1_pawnshop_dawn", "ch1_rooftop", "ch1_pawnshop", "ch1_street"]
+const ENV := "res://art/environment/"
 const ENTER_FRAMES := 90
 const STAGE_FRAMES := 12
-const SETTLE_FRAMES := 40
-const ENV := "res://art/environment/"
-## 一站的畫面上純白像素最多佔多少（正常的夜景不到 1%）。
 const MAX_WHITE_SHARE := 0.05
-
+const MAX_RATIO := 1.10
+const MAX_SCENES := 1024
 var _levels := DEFAULT_LEVELS
 var _rounds := 1
-var _dwell := SETTLE_FRAMES
+var _dwell := 300
+var _out := ""
+var _control := ""
 var _level: Level
+var _held_control: Texture2D
+var _failures: Array[String] = []
+var _records: Array[Dictionary] = []
+var _self_test := false
+var _skipped_control := false
+var _observer := ErrorObserver.new()
+var _owner_runs: Array[Dictionary] = []
+var _checks := 0
+var _source_shas := {}
 
+# Same bounded, thread-safe Logger pattern as the existing BG-31 native probe.
+class ErrorObserver extends Logger:
+	var mutex := Mutex.new()
+	var count := 0
+	var rows: Array[Dictionary] = []
+	func _log_error(function: String, file: String, line: int, code: String, rationale: String, _notify: bool, kind: int, _traces: Array[ScriptBacktrace]) -> void:
+		# Gate failures already live in _failures; the engine reports push_error
+		# as variant_utility.cpp, so distinguish our exact diagnostic prefix.
+		if kind == Logger.ERROR_TYPE_WARNING or code.begins_with("[TextureRouteProbe] "): return
+		mutex.lock()
+		count += 1
+		if rows.size() < 16: rows.append({"function": function, "file": file, "line": line, "code": code, "rationale": rationale, "type": kind})
+		mutex.unlock()
+	func snapshot() -> Dictionary:
+		mutex.lock()
+		var result := {"count": count, "rows": rows.duplicate(true)}
+		mutex.unlock()
+		return result
 
 func _ready() -> void:
-	for argument: String in OS.get_cmdline_user_args():
-		if argument.begins_with("--levels="):
-			_levels = argument.trim_prefix("--levels=").split(",", false)
-		elif argument.begins_with("--rounds="):
-			_rounds = maxi(1, int(argument.trim_prefix("--rounds=")))
-		elif argument.begins_with("--dwell="):
-			_dwell = maxi(SETTLE_FRAMES, int(argument.trim_prefix("--dwell=")))
+	OS.add_logger(_observer)
+	for path: String in ["core/asset_prefetch.gd", "core/texture_release.gd", "core/lit_textures.gd", "game/rig/rig_library.gd"]:
+		_source_shas[path] = FileAccess.get_sha256("res://" + path)
+	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--levels="): _levels = arg.trim_prefix("--levels=").split(",", false)
+		elif arg.begins_with("--rounds="): _rounds = int(arg.trim_prefix("--rounds="))
+		elif arg.begins_with("--dwell="): _dwell = int(arg.trim_prefix("--dwell="))
+		elif arg.begins_with("--out="): _out = arg.trim_prefix("--out=")
+		elif arg.begins_with("--control="): _control = arg.trim_prefix("--control=")
+		elif arg == "--self-test": _self_test = true
 	_run.call_deferred()
 
+func _check(ok: bool, message: String) -> void:
+	_checks += 1
+	if not ok:
+		_failures.append(message)
+		push_error("[TextureRouteProbe] " + message)
 
 func _run() -> void:
+	if _self_test:
+		_self_checks()
+		if _control == "engine-error": push_error("[BG32 self-test] intentional Logger negative control")
+		get_tree().quit(0 if _failures.is_empty() and _observer.snapshot()["count"] == 0 else 1)
+		return
+	_check(DisplayServer.get_name() != "headless" and RenderingServer.get_current_rendering_method() == "forward_plus", "acceptance requires native Forward+")
+	_check(_levels.size() >= 2 and _levels[0] == _levels[-1] and _rounds in range(1, 5) and _dwell in range(40, 3601), "route must be bounded, nonempty, and return to its first area")
+	_check(_out.is_absolute_path() and not FileAccess.file_exists(_out.path_join("report.json")), "fresh absolute output directory required")
+	_check(_control in ["", "skip-stage", "hold-stage"], "unknown negative control")
+	if not _failures.is_empty():
+		get_tree().quit(2)
+		return
+	_check(DirAccess.make_dir_recursive_absolute(_out) == OK, "create output directory")
 	Story.auto_skip = true
-	for id: String in Story.scene_ids():
-		Story._seen[StringName(id)] = true
-	add_child(LightKit.create_environment())
+	GameState.story_autosave = false
 	GameState.start_new_run(GameState.difficulties[1])
+	for id: String in Story.scene_ids(): Story._seen[StringName(id)] = true
+	add_child(LightKit.create_environment())
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	Engine.max_fps = 0
-	var first := {}
-	var last := {}
-	var worst_enter := 0.0
-	var worst_white := 0.0
 	for round_index in _rounds:
 		for index in _levels.size():
-			var record := await _visit(_levels[index])
-			if first.is_empty():
-				first = record
-			last = record
-			if not (round_index == 0 and index == 0):
-				worst_enter = maxf(worst_enter, float(record["enter_max_ms"]))
-			worst_white = maxf(worst_white, float(record["white_share"]))
-			print("ROUTE round=%d stop=%d level=%s cached=%d cached_bytes=%d prefetch_only=%d prefetch_bytes=%d stage_cached=%d renderer_texture_bytes=%d enter_max_ms=%.1f enter_median_ms=%.2f stages_built=%d white_share=%.4f" % [
-				round_index + 1, index + 1, _levels[index], record["count"], record["bytes"], record["prefetch_count"], record["prefetch_bytes"],
-				record["stage_count"], record["renderer"], record["enter_max_ms"], record["enter_median_ms"], record["stages"], record["white_share"]])
-	var library: Script = RigLibrary
-	var reloads := int(library.get("reloads_after_release")) if "reloads_after_release" in library else -1
-	var total_first := int(first["bytes"]) + int(first["prefetch_bytes"])
-	var total_last := int(last["bytes"]) + int(last["prefetch_bytes"])
-	print("ROUTE_SUMMARY first_bytes=%d last_bytes=%d ratio=%.3f first_with_prefetch=%d last_with_prefetch=%d ratio_with_prefetch=%.3f renderer_first=%d renderer_last=%d worst_enter_ms=%.1f reloads_after_release=%d worst_white_share=%.4f" % [
-		first["bytes"], last["bytes"], float(last["bytes"]) / maxf(1.0, float(first["bytes"])), total_first, total_last,
-		float(total_last) / maxf(1.0, float(total_first)), first["renderer"], last["renderer"], worst_enter, reloads, worst_white])
-	if worst_white > MAX_WHITE_SHARE:
-		push_error("[TextureRouteProbe] 有一站畫面上純白的比例到 %.1f%%：有貼圖被錯放掉了？" % (worst_white * 100.0))
-	if is_instance_valid(_level):
-		_level.queue_free()
-	for i in 6:
-		await get_tree().process_frame
-	if ResourceLoader.exists("res://core/audio/audio_release.gd"):
-		await load("res://core/audio/audio_release.gd").settle(get_tree())
-	get_tree().quit()
+			var record := await _visit(_levels[index], round_index + 1, index + 1)
+			_records.append(record)
+			print("ROUTE level=%s payload=%d stage_residents=%d built=%d enter_max_ms=%.3f" % [_levels[index], record["payload_bytes"], record.get("stage_residents", []).size(), record["built_stages"].size(), record.get("enter_max_ms", 0)])
+	var first: Dictionary = _records[0]
+	var last: Dictionary = _records[-1]
+	var ratio := float(last["payload_bytes"]) / maxf(1.0, float(first["payload_bytes"]))
+	_check(first["payload_bytes"] > 0 and ratio <= MAX_RATIO, "returned environment payload ratio %.6f exceeds original 110%% gate" % ratio)
+	var built := 0
+	for row: Dictionary in _records: built += row["built_stages"].size()
+	_check(built > 0, "route did not exercise any actual stage")
+	if _control != "": _check(not _failures.is_empty(), "negative control failed to trigger a gate")
+	var report := {"schema": 2, "scope": "direct Level/stage resource lifecycle plus representative actual CutscenePlayer; not natural story or Main route", "engine": Engine.get_version_info(), "adapter": RenderingServer.get_video_adapter_name(), "renderer": RenderingServer.get_current_rendering_method(), "tool_sha256": FileAccess.get_sha256(get_script().resource_path), "source_shas": _source_shas, "control": _control, "ratio": ratio, "records": _records, "owner_runs": _owner_runs, "checks": _checks, "failures": _failures, "prefetch": AssetPrefetch.stats()}
+	report["runtime"] = {"light_quality": Settings.get_light_quality(), "viewport": [get_viewport().size.x, get_viewport().size.y], "hdr_2d": get_viewport().use_hdr_2d, "vsync": DisplayServer.window_get_vsync_mode(), "max_fps": Engine.max_fps}
+	Story.reset_active_presentation(&"probe_cleanup")
+	if is_instance_valid(_level): _level.queue_free()
+	_held_control = null
+	for frame in 6: await get_tree().process_frame
+	await AudioRelease.settle(get_tree())
+	report["observer"] = _observer.snapshot()
+	_check(report["observer"]["count"] == 0, "engine or script errors occurred; inspect observer/raw log")
+	var file := FileAccess.open(_out.path_join("report.json"), FileAccess.WRITE)
+	_check(file != null, "report must be writable")
+	if file != null:
+		file.store_string(JSON.stringify(report, "\t"))
+		file.flush()
+		_check(file.get_error() == OK, "report write must succeed")
+		file.close()
+	print("ROUTE_SUMMARY ratio_with_prefetch=%.6f stages_built=%d failures=%d" % [ratio, built, _failures.size()])
+	get_tree().quit(0 if _failures.is_empty() else 1)
 
+func _exit_tree() -> void:
+	OS.remove_logger(_observer)
 
-func _visit(level_id: String) -> Dictionary:
-	if is_instance_valid(_level):
-		_level.queue_free()
-		_level = null
-	var data := load("res://data/levels/%s.tres" % level_id) as LevelData
-	# 這裡是直接換區域、不是走出入口：不帶上一站的出入口，從這個區域的起點進去。
+func _visit(id: String, round_index: int, stop: int) -> Dictionary:
+	var started := Time.get_ticks_usec() # Before synchronous old teardown/load/configure/add_child.
+	Story.reset_active_presentation(&"route")
+	if is_instance_valid(_level): _level.queue_free()
+	_level = null
+	var data := load("res://data/levels/%s.tres" % id) as LevelData
+	_check(data != null, "missing LevelData: " + id)
+	if data == null: return {"payload_bytes": 0, "built_stages": []}
 	GameState.pending_portal = &""
 	_level = Level.new()
 	_level.configure(data)
 	add_child(_level)
-	# 進入這個區域後的每一格：最長的一格就是換區域的停頓。
+	var sync_ms := (Time.get_ticks_usec() - started) / 1000.0
+	var entering := await _frame_times(ENTER_FRAMES, started)
+	_level.hud.visible = false
+	for enemy: Node in get_tree().get_nodes_in_group(&"enemies"): enemy.queue_free()
+	var coverage := _coverage(data, _level._layout)
+	for issue: String in coverage["issues"]: _check(false, id + ": " + issue)
+	var stages := await _watch_scenes(coverage["stages"])
+	if round_index == 1 and stop == 1:
+		await _exercise_owner(false)
+		await _exercise_owner(true)
+	await _drain()
+	for frame in _dwell: await get_tree().process_frame
+	TextureRelease.request()
+	for frame in 6: await get_tree().process_frame
+	if _control == "hold-stage" and _held_control == null and not coverage["stages"].is_empty():
+		var definition := StageLibrary.definition(StringName(coverage["stages"].keys()[0]))
+		for layer: Dictionary in definition.get("layers", []):
+			if layer.get("kind") == "sprite" and _is_stage(str(layer.get("path", ""))):
+				_held_control = RigLibrary.texture(layer["path"])
+				break
+	var record := _loaded()
+	record["neighbor_requests"] = _neighbor_inventory(data)
+	record["unexpected_backdrop"] = _unexpected_backdrop(record, data)
+	_check(record["unexpected_backdrop"].is_empty(), id + ": backdrop textures not used by the current theme: " + JSON.stringify(record["unexpected_backdrop"]))
+	var white := await _capture("r%d-s%02d-%s" % [round_index, stop, id])
+	for issue: String in _record_issues(record, coverage["stages"].keys(), stages["built"], white): _check(false, id + ": " + issue)
+	record.merge({"round": round_index, "stop": stop, "level": id, "sync_load_build_ms": sync_ms, "enter_frames_ms": entering, "enter_max_ms": entering.max(), "white_share": white, "coverage": coverage, "built_stages": stages["built"], "stage_timings": stages["timings"], "prefetch": AssetPrefetch.stats()})
+	return record
+
+static func _unexpected_backdrop(record: Dictionary, data: LevelData) -> Array:
+	var wanted := {}
+	# Every real Level creates ForegroundLayer. These are live foreground strips,
+	# despite sharing the backdrop directory; use its authored constants.
+	for path: String in [ForegroundLayer.TOP_TEXTURE, ForegroundLayer.BOTTOM_TEXTURE]:
+		wanted[path] = true
+		wanted[path.get_basename() + "_glow." + path.get_extension()] = true
+	if data.environment != null:
+		var layers: Array = Array(data.environment.backdrop)
+		if data.environment.sky != null: layers.append(data.environment.sky)
+		for layer: BackdropLayer in layers:
+			if layer == null: continue
+			for path: String in [layer.texture, layer.glow_path(), layer.texture.get_basename() + "_n." + layer.texture.get_extension()]: wanted[path] = true
+	var unused: Array = []
+	for row: Dictionary in record.get("textures", []):
+		if row["path"].begins_with(ENV + "backdrop/") and not wanted.has(row["path"]): unused.append(row)
+	return unused
+
+static func _neighbor_inventory(data: LevelData) -> Dictionary:
+	var expected := {}
+	for resource: Resource in data.legend.values():
+		if resource is PortalData and not resource.target_level.is_empty():
+			var neighbor := load(resource.target_level) as LevelData
+			if neighbor != null:
+				for path: String in AssetPrefetch.level_texture_paths(neighbor): expected[path] = true
+	var missing: Array[String] = []
+	for path: String in expected:
+		if not AssetPrefetch._cache.has(path): missing.append(path)
+	return {"expected_unique": expected.size(), "missing_from_prefetch": missing, "note": "budget eviction may explain misses; this is an observation, not an extra cache-size gate"}
+
+func _drain() -> void:
+	var deadline := Time.get_ticks_msec() + 30000
+	while Time.get_ticks_msec() < deadline:
+		var stats := AssetPrefetch.stats()
+		if stats["queued"] == 0 and stats["inflight"] == 0 and stats["retiring"] == 0: return
+		await get_tree().process_frame
+	_check(false, "prefetch failed to drain before bounded deadline")
+
+func _frame_times(count: int, previous: int) -> Array[float]:
 	var times: Array[float] = []
-	var previous := Time.get_ticks_usec()
-	for i in ENTER_FRAMES:
+	for frame in count:
 		await get_tree().process_frame
 		var now := Time.get_ticks_usec()
-		times.append(float(now - previous) / 1000.0)
+		times.append((now - previous) / 1000.0)
 		previous = now
-	_level.hud.visible = false
-	for enemy: Node in get_tree().get_nodes_in_group(&"enemies"):
-		enemy.queue_free()
-	var stages := await _watch_scenes(data)
-	for i in _dwell:
+	return times
+
+## Traverse all authored alternatives, without evaluating eligibility or writing outcomes.
+static func _scene_manifest(seeds: Dictionary, scenes: Dictionary) -> Dictionary:
+	var pending: Array = seeds.keys()
+	var sources := seeds.duplicate(true)
+	var visited := {}
+	var stages := {}
+	var issues: Array[String] = []
+	while not pending.is_empty() and visited.size() < MAX_SCENES:
+		var id: String = str(pending.pop_front())
+		if visited.has(id) or id.is_empty(): continue
+		visited[id] = true
+		if not scenes.get(id) is Dictionary:
+			issues.append("missing authored scene " + id)
+			continue
+		var scene: Dictionary = scenes[id]
+		var entries := StoryRules.entries(scene)
+		# Dispatch routes are intentionally not containers in StoryRules.entries.
+		for route: Variant in scene.get("routes", []):
+			if route is Dictionary: entries.append_array(StoryRules.entries(route))
+		for entry: Dictionary in entries:
+			if entry.get("do") == "scene":
+				var stage: String = str(entry.get("id", ""))
+				if stage.is_empty(): issues.append("empty stage in " + id)
+				elif not stages.has(stage): stages[stage] = {"scene": id, "source": sources[id]}
+			# move.then is the post-movement pose, never a story edge.
+			var targets: Array = [entry.get("then", "") if entry.get("do") != "move" else "", entry.get("target", "")]
+			var failures: Variant = entry.get("on_failure", {})
+			if failures is Dictionary: targets.append_array(failures.values())
+			for target: Variant in targets:
+				if target is String and not target.is_empty() and not visited.has(target):
+					if not sources.has(target): sources[target] = str(sources[id]) + " -> " + id
+					pending.append(target)
+	if not pending.is_empty(): issues.append("scene graph exceeds bounded coverage")
+	return {"stages": stages, "scenes": visited.keys(), "seeds": seeds, "issues": issues}
+
+static func _coverage(data: LevelData, layout: LevelLayout) -> Dictionary:
+	var seeds := {}
+	if data.intro_scene != &"": seeds[String(data.intro_scene)] = "level intro: " + data.resource_path
+	for id: String in data.story_triggers: seeds[id] = "level trigger: " + data.resource_path
+	for id: Variant in data.channel_scenes.values(): seeds[String(id)] = "level channel: " + data.resource_path
+	for spawn: Dictionary in layout.spawns:
+		var npc := spawn["resource"] as NpcData
+		if npc == null: continue
+		for talk: NpcTalk in npc.talks:
+			if talk != null and talk.scene != &"": seeds[String(talk.scene)] = "NPC " + npc.resource_path + " @ " + str(spawn["cell"])
+	for key: String in ["_death_scenes", "_respawn_scenes"]:
+		var chapter: Variant = Story.get(key).get(data.chapter, [])
+		for entry: Variant in chapter:
+			if entry is Dictionary and not str(entry.get("scene", "")).is_empty(): seeds[str(entry["scene"])] = key + ": " + String(data.chapter)
+	return _scene_manifest(seeds, Story._scenes)
+
+func _watch_scenes(expected: Dictionary) -> Dictionary:
+	var layer := CanvasLayer.new()
+	layer.layer = 90
+	add_child(layer)
+	var built: Array[String] = []
+	var timings: Array[Dictionary] = []
+	for id: String in expected:
+		if _control == "skip-stage" and not _skipped_control:
+			_skipped_control = true
+			continue
+		if not ResourceLoader.exists(StageLibrary.path_of(StringName(id))):
+			_check(false, "missing stage resource " + id)
+			continue
+		var started := Time.get_ticks_usec()
+		var stage := StageLibrary.build(StringName(id))
+		if stage == null:
+			_check(false, "stage build failed " + id)
+			continue
+		layer.add_child(stage)
+		var sync := (Time.get_ticks_usec() - started) / 1000.0
+		var enter := await _frame_times(STAGE_FRAMES, started)
+		started = Time.get_ticks_usec()
+		stage.queue_free()
+		TextureRelease.request()
+		var leaving := await _frame_times(6, started)
+		built.append(id)
+		timings.append({"stage": id, "source": expected[id], "sync_build_ms": sync, "enter_frames_ms": enter, "exit_release_frames_ms": leaving})
+	layer.queue_free()
+	return {"built": built, "timings": timings}
+
+## Actual authored scene and actual player UI/tweens/actor/FX holder lifecycle.
+## Standalone owner: does not simulate a real death or commit Story results.
+func _exercise_owner(cancelled: bool) -> void:
+	var id := &"ch1_c09_wake"
+	var before := var_to_bytes([GameState.story_progress_snapshot(), Progression.snapshot()])
+	var player := CutscenePlayer.new()
+	add_child(player)
+	var finished := [false]
+	player.finished.connect(func(_id: StringName) -> void: finished[0] = true)
+	var retired: WeakRef = weakref(player)
+	var started := Time.get_ticks_usec()
+	player.play(id, Story._scenes[String(id)])
+	var sync_play_ms := (Time.get_ticks_usec() - started) / 1000.0
+	var samples: Array[float] = []
+	var observed := false
+	var held: Dictionary = {}
+	var previous := started
+	var deadline := Time.get_ticks_msec() + 30000
+	while is_instance_valid(player) and player.is_running() and Time.get_ticks_msec() < deadline:
 		await get_tree().process_frame
-	var record := _loaded()
-	# 畫面上純白的比例：貼圖被錯放掉的話，用它畫的東西會變成白色方塊（背牆曾經整面變白）。
+		var now := Time.get_ticks_usec()
+		samples.append((now - previous) / 1000.0)
+		previous = now
+		if not is_instance_valid(player): break
+		if player._stage != null and not observed:
+			observed = true
+			# Readback is excluded from this frame clock, as in the per-area inventory.
+			held = _loaded()
+			held["stage_instance"] = player._stage.get_instance_id()
+			held["scene"] = String(id)
+			previous = Time.get_ticks_usec()
+			if cancelled: player.cancel()
+		if is_instance_valid(player) and player._dialogue.visible:
+			player._dialogue.complete()
+			player._advance_requested = true
+	if is_instance_valid(player): player.cancel()
+	player = null
+	var release_started := Time.get_ticks_usec()
+	var release := await _frame_times(6, release_started)
+	_check(observed and retired.get_ref() == null and finished[0] != cancelled, "actual CutscenePlayer must enter and naturally finish/cancel, then retire")
+	_check(before == var_to_bytes([GameState.story_progress_snapshot(), Progression.snapshot()]), "standalone player lifecycle must not apply story outcomes")
+	var after := _loaded()
+	_check(after["stage_residents"].is_empty(), "actual CutscenePlayer teardown left a stage texture")
+	_owner_runs.append({"scene": String(id), "cancelled": cancelled, "finished_signal": finished[0], "held": held, "sync_play_ms": sync_play_ms, "frames_ms": samples, "exit_release_frames_ms": release, "after": after})
+
+static func _is_stage(path: String) -> bool:
+	return path.begins_with(ENV) and (path.contains("/stages/") or path.contains("/scenes/"))
+
+## Exact imported image payload, outside timing. This is not dedicated VRAM.
+static func _loaded() -> Dictionary:
+	var textures := {}
+	var owners := {}
+	var groups := {"rig_cache": RigLibrary._texture_cache, "lit_normal": {}, "prefetch": AssetPrefetch._cache, "prefetch_retiring": {}}
+	for path: String in LitTextures._normals:
+		var normal: Texture2D = LitTextures._normals[path]
+		groups["lit_normal"][normal.resource_path] = normal
+	for texture: Texture2D in AssetPrefetch._retiring: groups["prefetch_retiring"][texture.resource_path] = texture
+	for owner: String in groups:
+		for path: String in groups[owner]:
+			if not path.begins_with(ENV): continue
+			textures[path] = groups[owner][path]
+			if not owners.has(path): owners[path] = []
+			owners[path].append(owner)
+	var renderer := int(RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TEXTURE_MEM_USED))
+	var scope: String = AssetPrefetch.stats()["scope"]
+	var rows: Array[Dictionary] = []
+	var stages: Array[Dictionary] = []
+	var bytes := 0
+	for path: String in textures:
+		var texture: Texture2D = textures[path]
+		var image := texture.get_image()
+		var row := {"path": path, "owners": owners[path], "prefetch_scope": scope if owners[path].has("prefetch") else "", "bytes": image.get_data_size() if image != null else 0, "width": texture.get_width(), "height": texture.get_height(), "format": image.get_format() if image != null else -1, "mipmaps": image.has_mipmaps() if image != null else false}
+		bytes += row["bytes"]
+		rows.append(row)
+		if _is_stage(path): stages.append(row)
+	return {"payload_bytes": bytes, "textures": rows, "stage_residents": stages, "renderer_texture_bytes": renderer}
+
+static func _record_issues(record: Dictionary, expected: Array, built: Array, white: float) -> Array[String]:
+	var issues: Array[String] = []
+	for id: String in expected:
+		if not built.has(id): issues.append("missing stage coverage: " + id)
+	if not record.get("stage_residents", []).is_empty(): issues.append("stage textures remain while no cutscene is playing: " + JSON.stringify(record["stage_residents"]))
+	if not is_finite(white) or white > MAX_WHITE_SHARE: issues.append("white share exceeds original 5% gate: " + str(white))
+	if record.get("payload_bytes", 0) <= 0: issues.append("empty environment inventory")
+	return issues
+
+func _capture(name: String) -> float:
 	await RenderingServer.frame_post_draw
-	var image: Image = preload("res://tools/viewport_capture.gd").image(get_viewport())
+	var image := preload("res://tools/viewport_capture.gd").image(get_viewport())
+	_check(image != null and not image.is_empty(), "native viewport readback")
+	if image == null or image.is_empty(): return INF
+	_check(image.save_png(_out.path_join(name + ".png")) == OK, "native screenshot write: " + name)
 	image.resize(160, 90, Image.INTERPOLATE_BILINEAR)
 	var white := 0
 	for y in image.get_height():
 		for x in image.get_width():
 			var pixel := image.get_pixel(x, y)
-			if pixel.r > 0.92 and pixel.g > 0.92 and pixel.b > 0.92:
-				white += 1
-	record["white_share"] = float(white) / float(image.get_width() * image.get_height())
-	var sorted := times.duplicate()
-	sorted.sort()
-	record["enter_max_ms"] = sorted[sorted.size() - 1]
-	record["enter_median_ms"] = sorted[sorted.size() / 2]
-	record["stages"] = stages
-	return record
+			if pixel.r > .92 and pixel.g > .92 and pixel.b > .92: white += 1
+	return float(white) / (image.get_width() * image.get_height())
 
-
-## 這個區域會播的過場：把每一個舞台真的建出來放一下再拆掉（貼圖會被載入、用過、放開）。回傳建了幾個。
-func _watch_scenes(data: LevelData) -> int:
-	var scene_ids: Array = [data.intro_scene]
-	scene_ids.append_array(data.story_triggers)
-	scene_ids.append_array(data.channel_scenes.values())
-	var stage_ids: Dictionary = {}
-	for scene: Variant in scene_ids:
-		var id := str(scene)
-		var seen: Dictionary = {}
-		while id != "" and not seen.has(id) and Story.has_scene(StringName(id)):
-			seen[id] = true
-			var definition: Dictionary = Story._scenes[id]
-			for step: Variant in definition.get("steps", []):
-				if typeof(step) == TYPE_DICTIONARY and str(step.get("do", "")) == "scene":
-					stage_ids[str(step.get("id", ""))] = true
-			id = str(definition.get("then", ""))
-	var layer := CanvasLayer.new()
-	layer.layer = 90
-	add_child(layer)
-	var built := 0
-	for stage_id: String in stage_ids:
-		if stage_id.is_empty() or not ResourceLoader.exists(StageLibrary.path_of(StringName(stage_id))):
-			continue
-		var stage := StageLibrary.build(StringName(stage_id))
-		if stage == null:
-			continue
-		layer.add_child(stage)
-		built += 1
-		for i in STAGE_FRAMES:
-			await get_tree().process_frame
-		stage.queue_free()
-		for i in 2:
-			await get_tree().process_frame
-	layer.queue_free()
-	# 有釋放機制的版本：過場結束時遊戲自己會要求釋放；這裡照樣要求一次（舊版本沒有就略過）。
-	if ResourceLoader.exists("res://core/texture_release.gd"):
-		load("res://core/texture_release.gd").request()
-	return built
-
-
-## 現在快取裡的環境貼圖（RigLibrary 的快取加上受光貼圖的法線）、只被預載拿著的環境貼圖、渲染器的貼圖記憶體。
-func _loaded() -> Dictionary:
-	var textures: Dictionary = RigLibrary._texture_cache.duplicate()
-	for path: String in LitTextures._normals:
-		var normal: Texture2D = LitTextures._normals[path]
-		textures[normal.resource_path] = normal
-	var bytes := 0
-	var count := 0
-	var stage_count := 0
-	for path: String in textures:
-		if not path.begins_with(ENV):
-			continue
-		var texture: Texture2D = textures[path]
-		bytes += _payload(texture)
-		count += 1
-		if path.contains("/stages/") or path.contains("/scenes/"):
-			stage_count += 1
-	var prefetch_bytes := 0
-	var prefetch_count := 0
-	for path: String in AssetPrefetch._cache:
-		if not path.begins_with(ENV) or textures.has(path):
-			continue
-		prefetch_bytes += _payload(AssetPrefetch._cache[path] as Texture2D)
-		prefetch_count += 1
-	textures.clear()
-	return {"count": count, "bytes": bytes, "stage_count": stage_count, "prefetch_count": prefetch_count, "prefetch_bytes": prefetch_bytes,
-		"renderer": int(RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TEXTURE_MEM_USED))}
-
-
-## 匯入後的大小估算（寬 × 高 × 4，含 mipmap 再乘 4/3）：不讀回像素，量測本身不佔記憶體也不花時間。
-func _payload(texture: Texture2D) -> int:
-	if texture == null:
-		return 0
-	return int(float(texture.get_width()) * float(texture.get_height()) * 4.0)
+func _self_checks() -> void:
+	var fixtures := {"root": {"routes": [{"target": "choice"}]}, "choice": {"steps": [{"do": "branch", "steps": [{"do": "choice", "options": [{"target": "stage"}]}]}]}, "stage": {"steps": [{"do": "scene", "id": "real"}, {"do": "move", "then": "idle"}], "then": "root"}}
+	var result := _scene_manifest({"root": "actual fixture NPC"}, fixtures)
+	_check(result["issues"].is_empty() and result["stages"].has("real") and result["scenes"].size() == 3, "dispatch/branch/choice/cycle coverage")
+	_check(not _scene_manifest({"missing": "source"}, fixtures)["issues"].is_empty(), "missing scene must fail")
+	var valid := {"payload_bytes": 100, "stage_residents": []}
+	_check(_record_issues(valid, ["real"], ["real"], .05).is_empty(), "original exact white boundary passes")
+	_check(not _record_issues(valid, ["real"], [], .0).is_empty(), "omitted stage cannot pass")
+	_check(not _record_issues({"payload_bytes": 100, "stage_residents": [{"owners": ["prefetch"]}]}, [], [], .0).is_empty(), "prefetch-only stage cannot pass")
+	_check(not _record_issues(valid, [], [], .05001).is_empty(), "white gate cannot pass above 5%")
+	_check(not _record_issues({"payload_bytes": 0}, [], [], .0).is_empty(), "empty inventory cannot pass")
+	_check(110.0 / 100.0 <= MAX_RATIO and not 110.01 / 100.0 <= MAX_RATIO, "original 110% ratio boundary remains strict")
+	var street := load("res://data/levels/ch1_street.tres") as LevelData
+	var actual := _coverage(street, LevelBuilder.parse(street))
+	_check(actual["issues"].is_empty() and actual["stages"].has("ch1_revival_room"), "actual chapter death stage is covered beyond old trigger-only scan")
+	_check(_unexpected_backdrop({"textures": [{"path": ENV + "backdrop/sky_storm.webp"}]}, street).is_empty(), "the real street sky is admitted")
+	_check(not _unexpected_backdrop({"textures": [{"path": ENV + "backdrop/sky_dawn.webp", "owners": ["prefetch"]}]}, street).is_empty(), "an unused prefetched sky cannot pass")
+	_check(_unexpected_backdrop({"textures": [{"path": ForegroundLayer.TOP_TEXTURE}]}, street).is_empty(), "a real current Level foreground strip is not an unused sky")
+	print("ROUTE_SELF_TEST checks=", _checks, " failures=", _failures.size(), " actual_stages=", actual["stages"].keys())

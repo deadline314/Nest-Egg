@@ -1,0 +1,38 @@
+[
+  {
+    "case": "credit",
+    "retire": false,
+    "natural_exit": 0,
+    "log": "credit-alive.log"
+  },
+  {
+    "case": "credit",
+    "retire": true,
+    "natural_exit": 1,
+    "log": "credit-retire.log"
+  },
+  {
+    "case": "health",
+    "retire": false,
+    "natural_exit": 0,
+    "log": "health-alive.log"
+  },
+  {
+    "case": "health",
+    "retire": true,
+    "natural_exit": 1,
+    "log": "health-retire.log"
+  },
+  {
+    "case": "box",
+    "retire": false,
+    "natural_exit": 0,
+    "log": "box-alive.log"
+  },
+  {
+    "case": "box",
+    "retire": true,
+    "natural_exit": 1,
+    "log": "box-retire.log"
+  }
+]

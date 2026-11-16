@@ -1,0 +1,6 @@
+{
+  "stage": "setup before Godot",
+  "error": "WinError 17: os.replace cannot move files between C: and D:",
+  "candidate_finally_restored": true,
+  "fix": "Copy exact owned SHA-verified helper to D, then unlink that owned source; retry in new control-02 output."
+}

@@ -1,0 +1,5 @@
+受影響的測試：Chapter1MapSuite,Chapter2StorySuite,Chapter2Suite,DeathReactionSuite,EncounterSuite,EnvironmentSuite,InputFeelSuite,ReadabilityTargetsSuite,RunSaveSuite,UiScreensSuite
+Running 10 groups in 2 processes (logs: C:/NE/evidence-20261117/bg32/official-3713)
+  process 0 (estimated 125 s): UiScreensSuite,ReadabilityTargetsSuite,EnvironmentSuite,DeathReactionSuite,Chapter2StorySuite
+  process 1 (estimated 125 s): RunSaveSuite,InputFeelSuite,EncounterSuite,Chapter2Suite,Chapter1MapSuite
+checks: 11759, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 390 s)

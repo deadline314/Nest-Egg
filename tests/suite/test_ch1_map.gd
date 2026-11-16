@@ -45,6 +45,7 @@ func run() -> void:
 	_test_story_hooks()
 	_test_quest_markers()
 	await _test_prefetch()
+	await preload("res://tests/helpers/prefetch_scope_checks.gd").run(self)
 	_test_staging()
 	await _test_replay()
 	await _test_story_flags()

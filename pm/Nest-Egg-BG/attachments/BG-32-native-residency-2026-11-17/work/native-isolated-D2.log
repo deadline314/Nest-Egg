@@ -1,0 +1,70 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.359 - Forward+ - Using Device #0: AMD - AMD Radeon RX 9070 XT
+
+ERROR: [TextureRouteProbe] ch1_street: backdrop textures not used by the current theme: [{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_top.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_top_glow.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_bottom.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_bottom_glow.webp","prefetch_scope":"","width":1536}]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tools/texture_route_probe.gd:64)
+       [1] _visit (res://tools/texture_route_probe.gd:157)
+ROUTE level=ch1_street payload=98655808 stage_residents=0 built=1 enter_max_ms=2907.279
+ERROR: [TextureRouteProbe] ch1_booth_alley: backdrop textures not used by the current theme: [{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_top.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_top_glow.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_bottom.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_bottom_glow.webp","prefetch_scope":"","width":1536}]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tools/texture_route_probe.gd:64)
+       [1] _visit (res://tools/texture_route_probe.gd:157)
+ROUTE level=ch1_booth_alley payload=55547880 stage_residents=0 built=1 enter_max_ms=74.872
+ERROR: [TextureRouteProbe] ch1_street: backdrop textures not used by the current theme: [{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_top.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_top_glow.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_bottom.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_bottom_glow.webp","prefetch_scope":"","width":1536}]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tools/texture_route_probe.gd:64)
+       [1] _visit (res://tools/texture_route_probe.gd:157)
+ROUTE level=ch1_street payload=100698736 stage_residents=0 built=1 enter_max_ms=195.923
+ERROR: [TextureRouteProbe] ch1_warehouse: backdrop textures not used by the current theme: [{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_top.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_top_glow.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_bottom.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_bottom_glow.webp","prefetch_scope":"","width":1536}]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tools/texture_route_probe.gd:64)
+       [1] _visit (res://tools/texture_route_probe.gd:157)
+ROUTE level=ch1_warehouse payload=71722120 stage_residents=0 built=1 enter_max_ms=239.237
+ERROR: [TextureRouteProbe] ch1_vault: backdrop textures not used by the current theme: [{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_top.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_top_glow.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_bottom.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_bottom_glow.webp","prefetch_scope":"","width":1536}]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tools/texture_route_probe.gd:64)
+       [1] _visit (res://tools/texture_route_probe.gd:157)
+ROUTE level=ch1_vault payload=77510836 stage_residents=0 built=1 enter_max_ms=140.952
+ERROR: [TextureRouteProbe] ch1_lounge: backdrop textures not used by the current theme: [{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_top.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_top_glow.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_bottom.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_bottom_glow.webp","prefetch_scope":"","width":1536}]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tools/texture_route_probe.gd:64)
+       [1] _visit (res://tools/texture_route_probe.gd:157)
+ROUTE level=ch1_lounge payload=61030980 stage_residents=0 built=2 enter_max_ms=205.564
+ERROR: [TextureRouteProbe] ch1_stall: backdrop textures not used by the current theme: [{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_top.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_top_glow.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_bottom.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_bottom_glow.webp","prefetch_scope":"","width":1536}]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tools/texture_route_probe.gd:64)
+       [1] _visit (res://tools/texture_route_probe.gd:157)
+ROUTE level=ch1_stall payload=63083272 stage_residents=0 built=2 enter_max_ms=96.890
+ERROR: [TextureRouteProbe] ch1_pawnshop_dawn: backdrop textures not used by the current theme: [{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_top.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_top_glow.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_bottom.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_bottom_glow.webp","prefetch_scope":"","width":1536}]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tools/texture_route_probe.gd:64)
+       [1] _visit (res://tools/texture_route_probe.gd:157)
+ROUTE level=ch1_pawnshop_dawn payload=79287096 stage_residents=0 built=2 enter_max_ms=200.995
+ERROR: [TextureRouteProbe] ch1_rooftop: backdrop textures not used by the current theme: [{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_top.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_top_glow.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_bottom.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_bottom_glow.webp","prefetch_scope":"","width":1536}]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tools/texture_route_probe.gd:64)
+       [1] _visit (res://tools/texture_route_probe.gd:157)
+ROUTE level=ch1_rooftop payload=79395480 stage_residents=0 built=2 enter_max_ms=132.225
+ERROR: [TextureRouteProbe] ch1_pawnshop: backdrop textures not used by the current theme: [{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_top.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_top_glow.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_bottom.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_bottom_glow.webp","prefetch_scope":"","width":1536}]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tools/texture_route_probe.gd:64)
+       [1] _visit (res://tools/texture_route_probe.gd:157)
+ROUTE level=ch1_pawnshop payload=79036944 stage_residents=0 built=1 enter_max_ms=88.466
+ERROR: [TextureRouteProbe] ch1_street: backdrop textures not used by the current theme: [{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_top.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_top_glow.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_bottom.webp","prefetch_scope":"","width":1536},{"bytes":1572864,"format":5,"height":256,"mipmaps":false,"owners":["rig_cache"],"path":"res://art/environment/backdrop/fg_bottom_glow.webp","prefetch_scope":"","width":1536}]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tools/texture_route_probe.gd:64)
+       [1] _visit (res://tools/texture_route_probe.gd:157)
+ROUTE level=ch1_street payload=101137008 stage_residents=0 built=1 enter_max_ms=186.256
+ROUTE_SUMMARY ratio_with_prefetch=1.025150 stages_built=15 failures=11

@@ -1,0 +1,7 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ROUTE_SELF_TEST checks=9 failures=0 actual_stages=["ch1_revival_room"]
+ERROR: [BG32 self-test] intentional Logger negative control
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tools/texture_route_probe.gd:69)

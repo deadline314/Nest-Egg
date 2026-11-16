@@ -1,0 +1,590 @@
+{
+  "A1": {
+    "ratio": 1.14640992370129,
+    "first_payload": 88220632,
+    "last_payload": 101137008,
+    "failures": [
+      "ch1_pawnshop_dawn: stage textures remain while no cutscene is playing: [{\"bytes\":6300096,\"format\":5,\"height\":942,\"mipmaps\":false,\"owners\":[\"prefetch\"],\"path\":\"res://art/environment/scenes/pawnshop_kitchen_contacts.png\",\"prefetch_scope\":\"neighbors:res://data/levels/ch1_pawnshop_dawn.tres:ch1_pawnshop_dawn\",\"width\":1672},{\"bytes\":6300096,\"format\":5,\"height\":942,\"mipmaps\":false,\"owners\":[\"prefetch\"],\"path\":\"res://art/environment/scenes/pawnshop_kitchen_contacts_n.png\",\"prefetch_scope\":\"neighbors:res://data/levels/ch1_pawnshop_dawn.tres:ch1_pawnshop_dawn\",\"width\":1672}]",
+      "returned environment payload ratio 1.146410 exceeds original 110% gate"
+    ],
+    "actual_engine_errors": 0,
+    "first_prefetch_cached": 256,
+    "last_prefetch_cached": 331,
+    "first_neighbor_misses": 88,
+    "last_neighbor_misses": 13,
+    "stages_built": 15,
+    "stage_resident_count": 2,
+    "unexpected_backdrop_count": null,
+    "enter_max_mean_except_startup_ms": 315.469,
+    "enter_max_except_startup_ms": 804.852,
+    "stage_sync_max_ms": 57.748,
+    "stage_enter_max_ms": 61.859,
+    "stage_exit_max_ms": 4.254,
+    "owners": [
+      {
+        "cancelled": false,
+        "finished": true,
+        "max_frame_ms": 20.074,
+        "release_max_ms": 2.68,
+        "after_stage_count": 0
+      },
+      {
+        "cancelled": true,
+        "finished": false,
+        "max_frame_ms": 18.665,
+        "release_max_ms": 5.41,
+        "after_stage_count": 0
+      }
+    ],
+    "tool_sha": "064d3c64d90ca793ea2d1aa15636d74c159049dd881f145ee14836a7ad5bd62c",
+    "source_shas": {
+      "core/asset_prefetch.gd": "9e6e6ecfe8faf1ef80eaf2655321843ca0b6df1a704cac74380910fc78d341b8",
+      "core/lit_textures.gd": "c38e209e9ec732889a2940858c9b7ad638ccb66a5828673020a9207ca047acab",
+      "core/texture_release.gd": "69a7af0dceb9d5eb99eec9b20cc31beedce9002116272e0fba465dec9a45fbd0",
+      "game/rig/rig_library.gd": "ffac4b9a2a978eafa3b4b3a05579a2e5e6b814d711e060ccd1b825eb17256d98"
+    }
+  },
+  "B1": {
+    "ratio": 1.02515006516393,
+    "first_payload": 98655808,
+    "last_payload": 101137008,
+    "failures": [
+      "ch1_pawnshop_dawn: stage textures remain while no cutscene is playing: [{\"bytes\":6300096,\"format\":5,\"height\":942,\"mipmaps\":false,\"owners\":[\"prefetch\"],\"path\":\"res://art/environment/scenes/pawnshop_kitchen_contacts.png\",\"prefetch_scope\":\"neighbors:res://data/levels/ch1_pawnshop_dawn.tres:ch1_pawnshop_dawn\",\"width\":1672},{\"bytes\":6300096,\"format\":5,\"height\":942,\"mipmaps\":false,\"owners\":[\"prefetch\"],\"path\":\"res://art/environment/scenes/pawnshop_kitchen_contacts_n.png\",\"prefetch_scope\":\"neighbors:res://data/levels/ch1_pawnshop_dawn.tres:ch1_pawnshop_dawn\",\"width\":1672}]"
+    ],
+    "actual_engine_errors": 0,
+    "first_prefetch_cached": 331,
+    "last_prefetch_cached": 331,
+    "first_neighbor_misses": 13,
+    "last_neighbor_misses": 13,
+    "stages_built": 15,
+    "stage_resident_count": 2,
+    "unexpected_backdrop_count": null,
+    "enter_max_mean_except_startup_ms": 149.4656,
+    "enter_max_except_startup_ms": 215.782,
+    "stage_sync_max_ms": 32.121,
+    "stage_enter_max_ms": 34.838,
+    "stage_exit_max_ms": 4.211,
+    "owners": [
+      {
+        "cancelled": false,
+        "finished": true,
+        "max_frame_ms": 19.639,
+        "release_max_ms": 2.205,
+        "after_stage_count": 0
+      },
+      {
+        "cancelled": true,
+        "finished": false,
+        "max_frame_ms": 20.143,
+        "release_max_ms": 6.328,
+        "after_stage_count": 0
+      }
+    ],
+    "tool_sha": "064d3c64d90ca793ea2d1aa15636d74c159049dd881f145ee14836a7ad5bd62c",
+    "source_shas": {
+      "core/asset_prefetch.gd": "c773db7719ac3e351e3f3e17f28eeab7ffa08da6c79cde79aa30b4e277d8822a",
+      "core/lit_textures.gd": "c38e209e9ec732889a2940858c9b7ad638ccb66a5828673020a9207ca047acab",
+      "core/texture_release.gd": "69a7af0dceb9d5eb99eec9b20cc31beedce9002116272e0fba465dec9a45fbd0",
+      "game/rig/rig_library.gd": "ffac4b9a2a978eafa3b4b3a05579a2e5e6b814d711e060ccd1b825eb17256d98"
+    }
+  },
+  "C1": {
+    "ratio": 1.02515006516393,
+    "first_payload": 98655808,
+    "last_payload": 101137008,
+    "failures": [],
+    "actual_engine_errors": 0,
+    "first_prefetch_cached": 331,
+    "last_prefetch_cached": 331,
+    "first_neighbor_misses": 13,
+    "last_neighbor_misses": 13,
+    "stages_built": 15,
+    "stage_resident_count": 0,
+    "unexpected_backdrop_count": null,
+    "enter_max_mean_except_startup_ms": 152.8562,
+    "enter_max_except_startup_ms": 221.232,
+    "stage_sync_max_ms": 32.877,
+    "stage_enter_max_ms": 35.257,
+    "stage_exit_max_ms": 4.344,
+    "owners": [
+      {
+        "cancelled": false,
+        "finished": true,
+        "max_frame_ms": 19.282,
+        "release_max_ms": 2.721,
+        "after_stage_count": 0
+      },
+      {
+        "cancelled": true,
+        "finished": false,
+        "max_frame_ms": 20.411,
+        "release_max_ms": 6.196,
+        "after_stage_count": 0
+      }
+    ],
+    "tool_sha": "064d3c64d90ca793ea2d1aa15636d74c159049dd881f145ee14836a7ad5bd62c",
+    "source_shas": {
+      "core/asset_prefetch.gd": "5375abcdef72674a53f2f6f866f6ac941b6db4f2d4e0b036debc4680514c2488",
+      "core/lit_textures.gd": "c38e209e9ec732889a2940858c9b7ad638ccb66a5828673020a9207ca047acab",
+      "core/texture_release.gd": "69a7af0dceb9d5eb99eec9b20cc31beedce9002116272e0fba465dec9a45fbd0",
+      "game/rig/rig_library.gd": "ffac4b9a2a978eafa3b4b3a05579a2e5e6b814d711e060ccd1b825eb17256d98"
+    }
+  },
+  "A2": {
+    "ratio": 1.14640992370129,
+    "first_payload": 88220632,
+    "last_payload": 101137008,
+    "failures": [
+      "ch1_pawnshop_dawn: stage textures remain while no cutscene is playing: [{\"bytes\":6300096,\"format\":5,\"height\":942,\"mipmaps\":false,\"owners\":[\"prefetch\"],\"path\":\"res://art/environment/scenes/pawnshop_kitchen_contacts.png\",\"prefetch_scope\":\"neighbors:res://data/levels/ch1_pawnshop_dawn.tres:ch1_pawnshop_dawn\",\"width\":1672},{\"bytes\":6300096,\"format\":5,\"height\":942,\"mipmaps\":false,\"owners\":[\"prefetch\"],\"path\":\"res://art/environment/scenes/pawnshop_kitchen_contacts_n.png\",\"prefetch_scope\":\"neighbors:res://data/levels/ch1_pawnshop_dawn.tres:ch1_pawnshop_dawn\",\"width\":1672}]",
+      "returned environment payload ratio 1.146410 exceeds original 110% gate"
+    ],
+    "actual_engine_errors": 0,
+    "first_prefetch_cached": 256,
+    "last_prefetch_cached": 331,
+    "first_neighbor_misses": 88,
+    "last_neighbor_misses": 13,
+    "stages_built": 15,
+    "stage_resident_count": 2,
+    "unexpected_backdrop_count": null,
+    "enter_max_mean_except_startup_ms": 148.4759,
+    "enter_max_except_startup_ms": 214.787,
+    "stage_sync_max_ms": 32.315,
+    "stage_enter_max_ms": 35.089,
+    "stage_exit_max_ms": 3.926,
+    "owners": [
+      {
+        "cancelled": false,
+        "finished": true,
+        "max_frame_ms": 20.678,
+        "release_max_ms": 2.287,
+        "after_stage_count": 0
+      },
+      {
+        "cancelled": true,
+        "finished": false,
+        "max_frame_ms": 19.993,
+        "release_max_ms": 5.679,
+        "after_stage_count": 0
+      }
+    ],
+    "tool_sha": "064d3c64d90ca793ea2d1aa15636d74c159049dd881f145ee14836a7ad5bd62c",
+    "source_shas": {
+      "core/asset_prefetch.gd": "9e6e6ecfe8faf1ef80eaf2655321843ca0b6df1a704cac74380910fc78d341b8",
+      "core/lit_textures.gd": "c38e209e9ec732889a2940858c9b7ad638ccb66a5828673020a9207ca047acab",
+      "core/texture_release.gd": "69a7af0dceb9d5eb99eec9b20cc31beedce9002116272e0fba465dec9a45fbd0",
+      "game/rig/rig_library.gd": "ffac4b9a2a978eafa3b4b3a05579a2e5e6b814d711e060ccd1b825eb17256d98"
+    }
+  },
+  "C2": {
+    "ratio": 1.02515006516393,
+    "first_payload": 98655808,
+    "last_payload": 101137008,
+    "failures": [],
+    "actual_engine_errors": 0,
+    "first_prefetch_cached": 331,
+    "last_prefetch_cached": 331,
+    "first_neighbor_misses": 13,
+    "last_neighbor_misses": 13,
+    "stages_built": 15,
+    "stage_resident_count": 0,
+    "unexpected_backdrop_count": null,
+    "enter_max_mean_except_startup_ms": 147.3627,
+    "enter_max_except_startup_ms": 210.345,
+    "stage_sync_max_ms": 32.415,
+    "stage_enter_max_ms": 36.202,
+    "stage_exit_max_ms": 3.958,
+    "owners": [
+      {
+        "cancelled": false,
+        "finished": true,
+        "max_frame_ms": 19.026,
+        "release_max_ms": 2.751,
+        "after_stage_count": 0
+      },
+      {
+        "cancelled": true,
+        "finished": false,
+        "max_frame_ms": 20.723,
+        "release_max_ms": 6.115,
+        "after_stage_count": 0
+      }
+    ],
+    "tool_sha": "064d3c64d90ca793ea2d1aa15636d74c159049dd881f145ee14836a7ad5bd62c",
+    "source_shas": {
+      "core/asset_prefetch.gd": "5375abcdef72674a53f2f6f866f6ac941b6db4f2d4e0b036debc4680514c2488",
+      "core/lit_textures.gd": "c38e209e9ec732889a2940858c9b7ad638ccb66a5828673020a9207ca047acab",
+      "core/texture_release.gd": "69a7af0dceb9d5eb99eec9b20cc31beedce9002116272e0fba465dec9a45fbd0",
+      "game/rig/rig_library.gd": "ffac4b9a2a978eafa3b4b3a05579a2e5e6b814d711e060ccd1b825eb17256d98"
+    }
+  },
+  "D1": {
+    "ratio": 1.02515006516393,
+    "first_payload": 98655808,
+    "last_payload": 101137008,
+    "failures": [
+      "ch1_street: backdrop textures not used by the current theme: [{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536}]",
+      "ch1_booth_alley: backdrop textures not used by the current theme: [{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536}]",
+      "ch1_street: backdrop textures not used by the current theme: [{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536}]",
+      "ch1_warehouse: backdrop textures not used by the current theme: [{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536}]",
+      "ch1_vault: backdrop textures not used by the current theme: [{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536}]",
+      "ch1_lounge: backdrop textures not used by the current theme: [{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536}]",
+      "ch1_stall: backdrop textures not used by the current theme: [{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536}]",
+      "ch1_pawnshop_dawn: backdrop textures not used by the current theme: [{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536}]",
+      "ch1_rooftop: backdrop textures not used by the current theme: [{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536}]",
+      "ch1_pawnshop: backdrop textures not used by the current theme: [{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536}]",
+      "ch1_street: backdrop textures not used by the current theme: [{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536}]"
+    ],
+    "actual_engine_errors": 0,
+    "first_prefetch_cached": 331,
+    "last_prefetch_cached": 331,
+    "first_neighbor_misses": 13,
+    "last_neighbor_misses": 13,
+    "stages_built": 15,
+    "stage_resident_count": 0,
+    "unexpected_backdrop_count": 44,
+    "enter_max_mean_except_startup_ms": 153.6789,
+    "enter_max_except_startup_ms": 219.23,
+    "stage_sync_max_ms": 32.875,
+    "stage_enter_max_ms": 34.867,
+    "stage_exit_max_ms": 3.778,
+    "owners": [
+      {
+        "cancelled": false,
+        "finished": true,
+        "max_frame_ms": 19.276,
+        "release_max_ms": 2.225,
+        "after_stage_count": 0
+      },
+      {
+        "cancelled": true,
+        "finished": false,
+        "max_frame_ms": 21.164,
+        "release_max_ms": 7.1,
+        "after_stage_count": 0
+      }
+    ],
+    "tool_sha": "6e8742b6cbe466a000dc4226626475c9ba4275c525e038256e7d27d594934347",
+    "source_shas": {
+      "core/asset_prefetch.gd": "dc04424dcb2034063dab30d6a80a7a3a999be1cfbe6df7507d6c90abb9a98ecc",
+      "core/lit_textures.gd": "c38e209e9ec732889a2940858c9b7ad638ccb66a5828673020a9207ca047acab",
+      "core/texture_release.gd": "69a7af0dceb9d5eb99eec9b20cc31beedce9002116272e0fba465dec9a45fbd0",
+      "game/rig/rig_library.gd": "ffac4b9a2a978eafa3b4b3a05579a2e5e6b814d711e060ccd1b825eb17256d98"
+    }
+  },
+  "D2": {
+    "ratio": 1.02515006516393,
+    "first_payload": 98655808,
+    "last_payload": 101137008,
+    "failures": [
+      "ch1_street: backdrop textures not used by the current theme: [{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536}]",
+      "ch1_booth_alley: backdrop textures not used by the current theme: [{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536}]",
+      "ch1_street: backdrop textures not used by the current theme: [{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536}]",
+      "ch1_warehouse: backdrop textures not used by the current theme: [{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536}]",
+      "ch1_vault: backdrop textures not used by the current theme: [{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536}]",
+      "ch1_lounge: backdrop textures not used by the current theme: [{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536}]",
+      "ch1_stall: backdrop textures not used by the current theme: [{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536}]",
+      "ch1_pawnshop_dawn: backdrop textures not used by the current theme: [{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536}]",
+      "ch1_rooftop: backdrop textures not used by the current theme: [{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536}]",
+      "ch1_pawnshop: backdrop textures not used by the current theme: [{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536}]",
+      "ch1_street: backdrop textures not used by the current theme: [{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_top_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom.webp\",\"prefetch_scope\":\"\",\"width\":1536},{\"bytes\":1572864,\"format\":5,\"height\":256,\"mipmaps\":false,\"owners\":[\"rig_cache\"],\"path\":\"res://art/environment/backdrop/fg_bottom_glow.webp\",\"prefetch_scope\":\"\",\"width\":1536}]"
+    ],
+    "actual_engine_errors": 0,
+    "first_prefetch_cached": 331,
+    "last_prefetch_cached": 331,
+    "first_neighbor_misses": 13,
+    "last_neighbor_misses": 13,
+    "stages_built": 15,
+    "stage_resident_count": 0,
+    "unexpected_backdrop_count": 44,
+    "enter_max_mean_except_startup_ms": 156.13799999999998,
+    "enter_max_except_startup_ms": 239.237,
+    "stage_sync_max_ms": 32.472,
+    "stage_enter_max_ms": 35.175,
+    "stage_exit_max_ms": 4.231,
+    "owners": [
+      {
+        "cancelled": false,
+        "finished": true,
+        "max_frame_ms": 20.291,
+        "release_max_ms": 2.186,
+        "after_stage_count": 0
+      },
+      {
+        "cancelled": true,
+        "finished": false,
+        "max_frame_ms": 19.875,
+        "release_max_ms": 7.454,
+        "after_stage_count": 0
+      }
+    ],
+    "tool_sha": "6e8742b6cbe466a000dc4226626475c9ba4275c525e038256e7d27d594934347",
+    "source_shas": {
+      "core/asset_prefetch.gd": "dc04424dcb2034063dab30d6a80a7a3a999be1cfbe6df7507d6c90abb9a98ecc",
+      "core/lit_textures.gd": "c38e209e9ec732889a2940858c9b7ad638ccb66a5828673020a9207ca047acab",
+      "core/texture_release.gd": "69a7af0dceb9d5eb99eec9b20cc31beedce9002116272e0fba465dec9a45fbd0",
+      "game/rig/rig_library.gd": "ffac4b9a2a978eafa3b4b3a05579a2e5e6b814d711e060ccd1b825eb17256d98"
+    }
+  },
+  "D3": {
+    "ratio": 1.02515006516393,
+    "first_payload": 98655808,
+    "last_payload": 101137008,
+    "failures": [],
+    "actual_engine_errors": 0,
+    "first_prefetch_cached": 331,
+    "last_prefetch_cached": 331,
+    "first_neighbor_misses": 13,
+    "last_neighbor_misses": 13,
+    "stages_built": 15,
+    "stage_resident_count": 0,
+    "unexpected_backdrop_count": 0,
+    "enter_max_mean_except_startup_ms": 155.274,
+    "enter_max_except_startup_ms": 222.99,
+    "stage_sync_max_ms": 33.732,
+    "stage_enter_max_ms": 37.483,
+    "stage_exit_max_ms": 5.014,
+    "owners": [
+      {
+        "cancelled": false,
+        "finished": true,
+        "max_frame_ms": 19.873,
+        "release_max_ms": 2.935,
+        "after_stage_count": 0
+      },
+      {
+        "cancelled": true,
+        "finished": false,
+        "max_frame_ms": 21.278,
+        "release_max_ms": 9.708,
+        "after_stage_count": 0
+      }
+    ],
+    "tool_sha": "7cbc5051e2310bf06d0efe17f1a15a785b42beb5612da9dc9f1e676a6c7f977f",
+    "source_shas": {
+      "core/asset_prefetch.gd": "dc04424dcb2034063dab30d6a80a7a3a999be1cfbe6df7507d6c90abb9a98ecc",
+      "core/lit_textures.gd": "c38e209e9ec732889a2940858c9b7ad638ccb66a5828673020a9207ca047acab",
+      "core/texture_release.gd": "69a7af0dceb9d5eb99eec9b20cc31beedce9002116272e0fba465dec9a45fbd0",
+      "game/rig/rig_library.gd": "ffac4b9a2a978eafa3b4b3a05579a2e5e6b814d711e060ccd1b825eb17256d98"
+    }
+  },
+  "D4": {
+    "ratio": 1.02515006516393,
+    "first_payload": 98655808,
+    "last_payload": 101137008,
+    "failures": [],
+    "actual_engine_errors": 0,
+    "first_prefetch_cached": 331,
+    "last_prefetch_cached": 331,
+    "first_neighbor_misses": 13,
+    "last_neighbor_misses": 13,
+    "stages_built": 15,
+    "stage_resident_count": 0,
+    "unexpected_backdrop_count": 0,
+    "enter_max_mean_except_startup_ms": 156.2324,
+    "enter_max_except_startup_ms": 219.281,
+    "stage_sync_max_ms": 32.948,
+    "stage_enter_max_ms": 35.647,
+    "stage_exit_max_ms": 4.276,
+    "owners": [
+      {
+        "cancelled": false,
+        "finished": true,
+        "max_frame_ms": 19.704,
+        "release_max_ms": 3.007,
+        "after_stage_count": 0
+      },
+      {
+        "cancelled": true,
+        "finished": false,
+        "max_frame_ms": 19.798,
+        "release_max_ms": 5.867,
+        "after_stage_count": 0
+      }
+    ],
+    "tool_sha": "7cbc5051e2310bf06d0efe17f1a15a785b42beb5612da9dc9f1e676a6c7f977f",
+    "source_shas": {
+      "core/asset_prefetch.gd": "dc04424dcb2034063dab30d6a80a7a3a999be1cfbe6df7507d6c90abb9a98ecc",
+      "core/lit_textures.gd": "c38e209e9ec732889a2940858c9b7ad638ccb66a5828673020a9207ca047acab",
+      "core/texture_release.gd": "69a7af0dceb9d5eb99eec9b20cc31beedce9002116272e0fba465dec9a45fbd0",
+      "game/rig/rig_library.gd": "ffac4b9a2a978eafa3b4b3a05579a2e5e6b814d711e060ccd1b825eb17256d98"
+    }
+  },
+  "A3": {
+    "ratio": 1.14640992370129,
+    "first_payload": 88220632,
+    "last_payload": 101137008,
+    "failures": [
+      "ch1_lounge: backdrop textures not used by the current theme: [{\"bytes\":2605056,\"format\":5,\"height\":318,\"mipmaps\":false,\"owners\":[\"prefetch\"],\"path\":\"res://art/environment/backdrop/sky_dawn.webp\",\"prefetch_scope\":\"neighbors:res://data/levels/ch1_lounge.tres:ch1_lounge\",\"width\":2048}]",
+      "ch1_stall: backdrop textures not used by the current theme: [{\"bytes\":3260416,\"format\":5,\"height\":398,\"mipmaps\":false,\"owners\":[\"rig_cache\",\"prefetch\"],\"path\":\"res://art/environment/backdrop/sky_storm.webp\",\"prefetch_scope\":\"neighbors:res://data/levels/ch1_stall.tres:ch1_stall\",\"width\":2048}]",
+      "ch1_pawnshop_dawn: stage textures remain while no cutscene is playing: [{\"bytes\":6300096,\"format\":5,\"height\":942,\"mipmaps\":false,\"owners\":[\"prefetch\"],\"path\":\"res://art/environment/scenes/pawnshop_kitchen_contacts.png\",\"prefetch_scope\":\"neighbors:res://data/levels/ch1_pawnshop_dawn.tres:ch1_pawnshop_dawn\",\"width\":1672},{\"bytes\":6300096,\"format\":5,\"height\":942,\"mipmaps\":false,\"owners\":[\"prefetch\"],\"path\":\"res://art/environment/scenes/pawnshop_kitchen_contacts_n.png\",\"prefetch_scope\":\"neighbors:res://data/levels/ch1_pawnshop_dawn.tres:ch1_pawnshop_dawn\",\"width\":1672}]",
+      "returned environment payload ratio 1.146410 exceeds original 110% gate"
+    ],
+    "actual_engine_errors": 0,
+    "first_prefetch_cached": 256,
+    "last_prefetch_cached": 331,
+    "first_neighbor_misses": 88,
+    "last_neighbor_misses": 13,
+    "stages_built": 15,
+    "stage_resident_count": 2,
+    "unexpected_backdrop_count": 2,
+    "enter_max_mean_except_startup_ms": 303.8679,
+    "enter_max_except_startup_ms": 732.174,
+    "stage_sync_max_ms": 52.609,
+    "stage_enter_max_ms": 57.189,
+    "stage_exit_max_ms": 3.982,
+    "owners": [
+      {
+        "cancelled": false,
+        "finished": true,
+        "max_frame_ms": 22.666,
+        "release_max_ms": 2.252,
+        "after_stage_count": 0
+      },
+      {
+        "cancelled": true,
+        "finished": false,
+        "max_frame_ms": 22.514,
+        "release_max_ms": 7.476,
+        "after_stage_count": 0
+      }
+    ],
+    "tool_sha": "7cbc5051e2310bf06d0efe17f1a15a785b42beb5612da9dc9f1e676a6c7f977f",
+    "source_shas": {
+      "core/asset_prefetch.gd": "9e6e6ecfe8faf1ef80eaf2655321843ca0b6df1a704cac74380910fc78d341b8",
+      "core/lit_textures.gd": "c38e209e9ec732889a2940858c9b7ad638ccb66a5828673020a9207ca047acab",
+      "core/texture_release.gd": "69a7af0dceb9d5eb99eec9b20cc31beedce9002116272e0fba465dec9a45fbd0",
+      "game/rig/rig_library.gd": "ffac4b9a2a978eafa3b4b3a05579a2e5e6b814d711e060ccd1b825eb17256d98"
+    }
+  },
+  "E1": {
+    "ratio": 1.02515006516393,
+    "first_payload": 98655808,
+    "last_payload": 101137008,
+    "failures": [],
+    "actual_engine_errors": 0,
+    "first_prefetch_cached": 331,
+    "last_prefetch_cached": 331,
+    "first_neighbor_misses": 13,
+    "last_neighbor_misses": 13,
+    "stages_built": 15,
+    "stage_resident_count": 0,
+    "unexpected_backdrop_count": 0,
+    "enter_max_mean_except_startup_ms": 150.4382,
+    "enter_max_except_startup_ms": 218.725,
+    "stage_sync_max_ms": 32.61,
+    "stage_enter_max_ms": 35.67,
+    "stage_exit_max_ms": 4.341,
+    "owners": [
+      {
+        "cancelled": false,
+        "finished": true,
+        "max_frame_ms": 20.743,
+        "release_max_ms": 2.903,
+        "after_stage_count": 0
+      },
+      {
+        "cancelled": true,
+        "finished": false,
+        "max_frame_ms": 19.863,
+        "release_max_ms": 6.089,
+        "after_stage_count": 0
+      }
+    ],
+    "tool_sha": "7cbc5051e2310bf06d0efe17f1a15a785b42beb5612da9dc9f1e676a6c7f977f",
+    "source_shas": {
+      "core/asset_prefetch.gd": "115774bc7495cb26dee69f87c1dde9529db498fd06c0b2fc0abcfde8a2293e84",
+      "core/lit_textures.gd": "c38e209e9ec732889a2940858c9b7ad638ccb66a5828673020a9207ca047acab",
+      "core/texture_release.gd": "69a7af0dceb9d5eb99eec9b20cc31beedce9002116272e0fba465dec9a45fbd0",
+      "game/rig/rig_library.gd": "ffac4b9a2a978eafa3b4b3a05579a2e5e6b814d711e060ccd1b825eb17256d98"
+    }
+  },
+  "A4": {
+    "ratio": 1.14640992370129,
+    "first_payload": 88220632,
+    "last_payload": 101137008,
+    "failures": [
+      "ch1_lounge: backdrop textures not used by the current theme: [{\"bytes\":2605056,\"format\":5,\"height\":318,\"mipmaps\":false,\"owners\":[\"prefetch\"],\"path\":\"res://art/environment/backdrop/sky_dawn.webp\",\"prefetch_scope\":\"neighbors:res://data/levels/ch1_lounge.tres:ch1_lounge\",\"width\":2048}]",
+      "ch1_stall: backdrop textures not used by the current theme: [{\"bytes\":3260416,\"format\":5,\"height\":398,\"mipmaps\":false,\"owners\":[\"rig_cache\",\"prefetch\"],\"path\":\"res://art/environment/backdrop/sky_storm.webp\",\"prefetch_scope\":\"neighbors:res://data/levels/ch1_stall.tres:ch1_stall\",\"width\":2048}]",
+      "ch1_pawnshop_dawn: stage textures remain while no cutscene is playing: [{\"bytes\":6300096,\"format\":5,\"height\":942,\"mipmaps\":false,\"owners\":[\"prefetch\"],\"path\":\"res://art/environment/scenes/pawnshop_kitchen_contacts.png\",\"prefetch_scope\":\"neighbors:res://data/levels/ch1_pawnshop_dawn.tres:ch1_pawnshop_dawn\",\"width\":1672},{\"bytes\":6300096,\"format\":5,\"height\":942,\"mipmaps\":false,\"owners\":[\"prefetch\"],\"path\":\"res://art/environment/scenes/pawnshop_kitchen_contacts_n.png\",\"prefetch_scope\":\"neighbors:res://data/levels/ch1_pawnshop_dawn.tres:ch1_pawnshop_dawn\",\"width\":1672}]",
+      "returned environment payload ratio 1.146410 exceeds original 110% gate"
+    ],
+    "actual_engine_errors": 0,
+    "first_prefetch_cached": 256,
+    "last_prefetch_cached": 331,
+    "first_neighbor_misses": 88,
+    "last_neighbor_misses": 13,
+    "stages_built": 15,
+    "stage_resident_count": 2,
+    "unexpected_backdrop_count": 2,
+    "enter_max_mean_except_startup_ms": 150.8713,
+    "enter_max_except_startup_ms": 221.734,
+    "stage_sync_max_ms": 32.536,
+    "stage_enter_max_ms": 35.644,
+    "stage_exit_max_ms": 3.571,
+    "owners": [
+      {
+        "cancelled": false,
+        "finished": true,
+        "max_frame_ms": 21.695,
+        "release_max_ms": 2.243,
+        "after_stage_count": 0
+      },
+      {
+        "cancelled": true,
+        "finished": false,
+        "max_frame_ms": 21.369,
+        "release_max_ms": 6.335,
+        "after_stage_count": 0
+      }
+    ],
+    "tool_sha": "7cbc5051e2310bf06d0efe17f1a15a785b42beb5612da9dc9f1e676a6c7f977f",
+    "source_shas": {
+      "core/asset_prefetch.gd": "9e6e6ecfe8faf1ef80eaf2655321843ca0b6df1a704cac74380910fc78d341b8",
+      "core/lit_textures.gd": "c38e209e9ec732889a2940858c9b7ad638ccb66a5828673020a9207ca047acab",
+      "core/texture_release.gd": "69a7af0dceb9d5eb99eec9b20cc31beedce9002116272e0fba465dec9a45fbd0",
+      "game/rig/rig_library.gd": "ffac4b9a2a978eafa3b4b3a05579a2e5e6b814d711e060ccd1b825eb17256d98"
+    }
+  },
+  "E2": {
+    "ratio": 1.02515006516393,
+    "first_payload": 98655808,
+    "last_payload": 101137008,
+    "failures": [],
+    "actual_engine_errors": 0,
+    "first_prefetch_cached": 331,
+    "last_prefetch_cached": 331,
+    "first_neighbor_misses": 13,
+    "last_neighbor_misses": 13,
+    "stages_built": 15,
+    "stage_resident_count": 0,
+    "unexpected_backdrop_count": 0,
+    "enter_max_mean_except_startup_ms": 148.7623,
+    "enter_max_except_startup_ms": 214.769,
+    "stage_sync_max_ms": 32.866,
+    "stage_enter_max_ms": 36.445,
+    "stage_exit_max_ms": 4.185,
+    "owners": [
+      {
+        "cancelled": false,
+        "finished": true,
+        "max_frame_ms": 19.101,
+        "release_max_ms": 2.832,
+        "after_stage_count": 0
+      },
+      {
+        "cancelled": true,
+        "finished": false,
+        "max_frame_ms": 21.591,
+        "release_max_ms": 8.265,
+        "after_stage_count": 0
+      }
+    ],
+    "tool_sha": "7cbc5051e2310bf06d0efe17f1a15a785b42beb5612da9dc9f1e676a6c7f977f",
+    "source_shas": {
+      "core/asset_prefetch.gd": "115774bc7495cb26dee69f87c1dde9529db498fd06c0b2fc0abcfde8a2293e84",
+      "core/lit_textures.gd": "c38e209e9ec732889a2940858c9b7ad638ccb66a5828673020a9207ca047acab",
+      "core/texture_release.gd": "69a7af0dceb9d5eb99eec9b20cc31beedce9002116272e0fba465dec9a45fbd0",
+      "game/rig/rig_library.gd": "ffac4b9a2a978eafa3b4b3a05579a2e5e6b814d711e060ccd1b825eb17256d98"
+    }
+  }
+}

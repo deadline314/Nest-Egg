@@ -1,0 +1,119 @@
+{
+  "candidate_checks": 11759,
+  "candidate_new_failures": 0,
+  "candidate_known_failures": 0,
+  "candidate_natural_exit": 0,
+  "candidate_wall_seconds": 390,
+  "baseline_shard_checks": 3435,
+  "baseline_natural_exit": 0,
+  "same_eof_diagnostics": false,
+  "candidate_eof_diagnostics": [
+    "ERROR: 2 RID allocations of type 'P11GodotArea2D' were leaked at exit.",
+    "WARNING: 2 RIDs of type \"CanvasItem\" were leaked.",
+    "   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)",
+    "WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+    "   at: cleanup (core/object/object.cpp:2536)",
+    "ERROR: 3 resources still in use at exit (run with --verbose for details).",
+    "   at: clear (core/io/resource.cpp:822)"
+  ],
+  "baseline_eof_diagnostics": [
+    "ERROR: 1 RID allocations of type 'P11GodotArea2D' were leaked at exit.",
+    "WARNING: 1 RID of type \"CanvasItem\" was leaked.",
+    "   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)",
+    "WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+    "   at: cleanup (core/object/object.cpp:2536)",
+    "ERROR: 2 resources still in use at exit (run with --verbose for details).",
+    "   at: clear (core/io/resource.cpp:822)"
+  ],
+  "scope": "Same 5 suites, same full3713 clean baseline, same engine, new isolated profile; no changed filters.",
+  "related_ticket": "NE-301",
+  "original_drop_reproduction": [
+    {
+      "case": "credit",
+      "retire": false,
+      "natural_exit": 0,
+      "log": "credit-alive.log",
+      "before": 0,
+      "after": 0,
+      "added": 0,
+      "prefetch_sha": "9e6e6ecfe8faf1ef80eaf2655321843ca0b6df1a704cac74380910fc78d341b8",
+      "stray_nodes": []
+    },
+    {
+      "case": "credit",
+      "retire": true,
+      "natural_exit": 1,
+      "log": "credit-retire.log",
+      "before": 0,
+      "after": 1,
+      "added": 1,
+      "prefetch_sha": "9e6e6ecfe8faf1ef80eaf2655321843ca0b6df1a704cac74380910fc78d341b8",
+      "stray_nodes": [
+        {
+          "id": 572505721767,
+          "source": "res://game/pickups/credit_pickup.gd"
+        }
+      ]
+    },
+    {
+      "case": "health",
+      "retire": false,
+      "natural_exit": 0,
+      "log": "health-alive.log",
+      "before": 0,
+      "after": 0,
+      "added": 0,
+      "prefetch_sha": "9e6e6ecfe8faf1ef80eaf2655321843ca0b6df1a704cac74380910fc78d341b8",
+      "stray_nodes": []
+    },
+    {
+      "case": "health",
+      "retire": true,
+      "natural_exit": 1,
+      "log": "health-retire.log",
+      "before": 0,
+      "after": 1,
+      "added": 1,
+      "prefetch_sha": "9e6e6ecfe8faf1ef80eaf2655321843ca0b6df1a704cac74380910fc78d341b8",
+      "stray_nodes": [
+        {
+          "id": 572505721767,
+          "source": "res://game/pickups/health_pickup.gd"
+        }
+      ]
+    },
+    {
+      "case": "box",
+      "retire": false,
+      "natural_exit": 0,
+      "log": "box-alive.log",
+      "before": 0,
+      "after": 0,
+      "added": 0,
+      "prefetch_sha": "9e6e6ecfe8faf1ef80eaf2655321843ca0b6df1a704cac74380910fc78d341b8",
+      "stray_nodes": []
+    },
+    {
+      "case": "box",
+      "retire": true,
+      "natural_exit": 1,
+      "log": "box-retire.log",
+      "before": 0,
+      "after": 2,
+      "added": 2,
+      "prefetch_sha": "9e6e6ecfe8faf1ef80eaf2655321843ca0b6df1a704cac74380910fc78d341b8",
+      "stray_nodes": [
+        {
+          "id": 572572830623,
+          "source": "res://game/pickups/credit_pickup.gd"
+        },
+        {
+          "id": 572606385056,
+          "source": "res://game/pickups/health_pickup.gd"
+        }
+      ]
+    }
+  ],
+  "classification": "Original deferred pickup family independently reproduced. Candidate verbose repeated 1 area/4 objects/2 resources; first candidate nonverbose had 2/6/3 and its extra ID is not individually recoverable after exit. Do not assert exact ID attribution or identical counts.",
+  "native_main_error_scope": "Both independent native Main logs clean; official headless test runner retains its pre-existing exit-diagnostic policy unchanged."
+}

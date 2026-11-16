@@ -1,0 +1,15 @@
+[
+  {
+    "observer": "parent",
+    "stage": "in-progress packet, after final-result gate was added and before baseline finished",
+    "result": "FileNotFoundError: official-result.json",
+    "scope": "Evidence packaging timing, not a product or Godot test failure",
+    "earlier_1048_checks": "Child local pass before adding final-result gate; parent did not complete this verification",
+    "resolution": "Publish final-ready only after original control, restoration, result, manifest and full portable verification are complete"
+  },
+  {
+    "stage": "Provisional numeric EOF equality gate rejected actual result",
+    "observation": "Original 1/4/2; first candidate 2/6/3; candidate verbose 1/4/2. Independent original source reproduces Credit/Health deferred-owner orphan family.",
+    "resolution": "Preserve unequal counts and unknown first extra ID; separate NE-301; verifier checks original evidence classification rather than inventing equality. Native runtime gates and formal filters unchanged."
+  }
+]

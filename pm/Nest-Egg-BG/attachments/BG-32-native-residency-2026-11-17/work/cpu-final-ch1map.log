@@ -1,0 +1,58 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+WARNING: [AssetPrefetch] 找不到要預載的貼圖：res://art/no_such_prefetch_texture.png
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:178)
+       [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:718)
+       [2] run (res://tests/suite/test_ch1_map.gd:47)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] _run (res://tests/smoke_test.gd:38)
+WARNING: [AssetPrefetch] 找不到要預載的區域：res://data/levels/no_such_level.tres
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _resolve_level (res://core/asset_prefetch.gd:102)
+       [1] warm_level (res://core/asset_prefetch.gd:87)
+       [2] _test_prefetch (res://tests/suite/test_ch1_map.gd:720)
+       [3] run (res://tests/suite/test_ch1_map.gd:47)
+       [4] _run_suites (res://tests/smoke_test.gd:110)
+       [5] _run (res://tests/smoke_test.gd:38)
+WARNING: [AssetPrefetch] 待載已達 512，略過本次剩餘貼圖（首項：res://art/characters/night_worker/parts/arm_lower.png）。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:181)
+       [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:777)
+       [2] _prefetch_drain (res://tests/suite/test_ch1_map.gd:1042)
+WARNING: [AssetPrefetch] 待載已達 512，略過本次剩餘貼圖（首項：res://art/characters/resident/parts/hand_n.png）。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:181)
+       [1] _test_prefetch (res://tests/suite/test_ch1_map.gd:777)
+       [2] _prefetch_drain (res://tests/suite/test_ch1_map.gd:1042)
+WARNING: [AssetPrefetch] 待載已達 512，略過本次剩餘貼圖（首項：res://art/characters/night_worker/parts/arm_lower.png）。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:181)
+       [1] _run_main_thread_prefetch_fixture (res://tests/suite/test_ch1_map.gd:904)
+       [2] _prefetch_drain (res://tests/suite/test_ch1_map.gd:1042)
+WARNING: [AssetPrefetch] 待載已達 512，略過本次剩餘貼圖（首項：res://art/characters/resident/parts/head.png）。
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] request (res://core/asset_prefetch.gd:181)
+       [1] _run_main_thread_prefetch_fixture (res://tests/suite/test_ch1_map.gd:904)
+       [2] _prefetch_drain (res://tests/suite/test_ch1_map.gd:1042)
+WARNING: [Cutscene] 場景 test_playthrough_ch1_t_handoff_accept 第 1 步（world_action） world action cancelled: 
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _world_action_failed (res://game/cutscene/cutscene_player.gd:122)
+       [1] _do_world_action (res://game/cutscene/cutscene_player.gd:110)
+       [2] _run (res://game/cutscene/cutscene_player.gd:191)
+WARNING: [Cutscene] 場景 test_playthrough_ch1_t_handoff_receipt 第 1 步（world_action） world action cancelled: 
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _world_action_failed (res://game/cutscene/cutscene_player.gd:122)
+       [1] _do_world_action (res://game/cutscene/cutscene_player.gd:110)
+       [2] _run (res://game/cutscene/cutscene_player.gd:191)
+SUITE_TIME Chapter1MapSuite 130.2
+checks: 1962, failures: 0

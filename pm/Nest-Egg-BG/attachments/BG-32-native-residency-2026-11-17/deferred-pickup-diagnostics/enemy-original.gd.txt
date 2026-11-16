@@ -1,0 +1,1039 @@
+@abstract
+class_name Enemy
+extends CharacterBody2D
+## 敵人基底類別（框架）。
+##
+## 基底負責：元件組裝（生命／受擊框／接觸傷害）、受擊回饋、破防與終結技、
+##           死亡與掉落、畫面外自動休眠、常用感知與攻擊輔助函式。
+## 子類別負責：
+##   _setup_states()      註冊狀態機（fsm）的各狀態並 start
+##   _draw_body(color)    繪製外觀（color 已處理受擊閃白）；有骨架外觀（data.rig_skin）時改用骨架，僅在骨架載入失敗時使用
+##   _rig_aim()           （可選）骨架手持武器的瞄準方向（世界座標單位向量）
+##   _draw_overlay()      （可選）繪製預兆，如瞄準線、落點圈
+##   _guard(info) -> Hurtbox.Guard （可選）格擋判定，例如盾牌（支援型敵人給的護盾由基底處理，不需要寫在這裡）
+##   _on_stunned()        （可選）被暈眩時切回安全狀態
+##   _on_defeated(info)   （可選）死亡時的特殊效果，例如連鎖爆炸
+##   _play_death()        （可選）自訂死亡演出
+## 原點位於腳底。
+
+const FLASH_TIME := 0.08
+## 同一隻敵人兩次受擊叫聲之間至少隔幾秒。
+const HURT_VOICE_INTERVAL := 0.45
+## 受擊分層：累積的衝擊力每秒回復多少；單次衝擊達韌性的 STAGGER_RATIO 倍就硬直（出招中要 BREAK_RATIO 倍）；反應完有 REACTION_GRACE 秒不會再被畏縮或硬直（避免被連續射擊鎖死）。
+const POISE_RECOVER := 2.0
+const STAGGER_RATIO := 1.5
+const BREAK_RATIO := 2.5
+const REACTION_GRACE := 0.5
+## 衝擊力 1（輕擊）到 1 + DEATH_FORCE_RANGE 之間算死亡力道 0～1；重擊致死時往上彈起的速度。
+const DEATH_FORCE_RANGE := 6.0
+const DEATH_HOP := 90.0
+## 同時倒在場上的屍體上限，超過時最舊的快速淡出。
+const MAX_CORPSES := 8
+## 機械類身體反應：各層的力道、每秒衰減量與晃動頻率；損傷狀態的冒煙間隔（越嚴重越密）與外觀變舊的程度。
+const BODY_KICK_BY_TIER := [0.35, 0.8, 1.0]
+const BODY_KICK_DECAY := 4.0
+const BODY_WOBBLE_HZ := 55.0
+const STALL_DROP := 70.0
+## 飛行機墜落：旋轉的弧度、往下掉的像素與時間。
+const STALL_DEATH_SPIN := 9.0
+const STALL_DEATH_FALL := 46.0
+const STALL_DEATH_TIME := 0.5
+const DAMAGE_SMOKE_INTERVAL := [0.0, 1.3, 0.7]
+## 機械類的受擊閃白：往白色混多少、再提亮多少（外形與顏色仍然看得出來，不糊成一團白）。
+const MACHINE_FLASH_WHITE := 0.65
+const MACHINE_FLASH_GLOW := 1.25
+const DAMAGE_WEAR := 0.22
+const DAMAGE_WEAR_COLOR := Color(0.22, 0.14, 0.1)
+const CORPSE_FAST_FADE := 0.2
+const LIGHT_HURT_SCALE := 0.4
+const FLINCH_HURT_SCALE := 1.2
+const STAGGER_HURT_SCALE := 2.2
+## 受擊反應的種類。
+enum HitTier { LIGHT, FLINCH, STAGGER }
+const MAX_FALL_SPEED := 520.0
+## 畫面外此距離內仍保持運作，避免敵人在鏡頭邊緣卡住；鏡頭拉近（視野變小）後加大，讓畫面外的敵人在進入攻擊距離前就已經啟動。
+const ACTIVATION_MARGIN := 120.0
+## 瞄準玩家身體中心的高度偏移。
+const TARGET_HEIGHT := 24.0
+const RIG_DEATH_TIME := 0.9
+## 護盾最多疊幾層（每層擋掉一次攻擊；爆炸與終結技無視護盾）。
+const MAX_SHIELD := 3
+## 被警報引來（raise_alert）時：偵測範圍的倍率與巡邏移動的速度倍率；抵達警報地點附近就停止聚集。
+const ALERT_RANGE_SCALE := 1.5
+const ALERT_SPEED_SCALE := 1.5
+const ALERT_ARRIVE_DISTANCE := 28.0
+
+## 場上的屍體（由舊到新）。
+static var _corpses: Array[Enemy] = []
+
+## 開發檢查：畫出所有部位受擊框的形狀（黃＝弱點、青＝一般部位）。
+static var debug_hurtboxes := false
+
+## 畫面外休眠的總開關（無頭測試等沒有畫面的環境會關閉）。
+static var activation_culling_enabled := true
+
+var data: EnemyData
+var health: HealthComponent
+var hurtbox: Hurtbox
+var contact: ContactHitbox
+var fsm := StateMachine.new()
+var facing: int = -1
+## 護盾層數（支援型敵人給的）：每層擋掉一次攻擊。
+var shield := 0
+## 骨架外觀（人形敵人）；機械類敵人為 null，改用 _draw_body 程式繪製。
+var rig: CharacterRig
+## 零件式外觀（非人形敵人）；載入失敗時為 null，改用 _draw_body 的程式繪製。
+var creature: PartCreature
+
+# Cached presentation envelope; querying reading clearance never skins meshes.
+var _prompt_bounds := Rect2()
+var _prompt_head_gap := 0.0
+var _prompt_has_head := false
+
+var _rig_input := RigInput.new()
+## 部位受擊框的資料（box、bone、offset、size、mult），給 _update_hurt_parts 與弱點標記用。
+var _parts: Array[Dictionary] = []
+## 專屬特效（art/vfx/enemies/<id>.json）：腳步、受擊、死亡、招式狀態切換。
+var vfx: EnemyVfx
+var _vfx_state: StringName = &""
+
+var _gravity: float = 900.0
+var _flash_left := 0.0
+var _stun_left := 0.0
+## 畏縮剩餘秒數、累積的衝擊力（韌性條），以及剛反應完不再被打斷的保護時間。
+var _flinch_left := 0.0
+var _death_tween: Tween
+## 機械類敵人（沒有骨架）的受擊身體反應：0~1 隨時間衰減，方向是被推的方向；損傷階段與冒煙計時。
+var _body_kick := 0.0
+var _body_kick_dir := 1.0
+var _damage_stage := 0
+var _damage_fx_left := 0.0
+var _poise_load := 0.0
+var _reaction_grace_left := 0.0
+const TELEGRAPH_LIGHT_RADIUS := 90.0
+var _telegraph_left := 0.0
+## 攻擊預兆的紅光（第一次預兆時才建立；不受預算管理，數量少、只在預兆期間亮）。
+var _telegraph_light: PointLight2D
+var _telegraph_time := 0.0
+var _anim_time := 0.0
+var _is_finishable := false
+var _dying := false
+## 戒備：被探照無人機等警報引來，剩餘秒數與聚集的地點（世界座標）。
+var _alert_left := 0.0
+## 受擊叫聲的冷卻：連發子彈打中同一隻敵人時，叫聲不會每發都響。
+var _hurt_voice_left := 0.0
+var _alert_point := Vector2.ZERO
+var _home := Vector2.ZERO
+var _target_ref: WeakRef
+
+
+func configure(p_data: EnemyData) -> void:
+	data = p_data
+
+
+func _ready() -> void:
+	LightKit.mark_emissive(self)
+	if data == null:
+		push_error("[Enemy] %s 缺少 EnemyData，已移除。" % name)
+		queue_free()
+		return
+	_gravity = float(ProjectSettings.get_setting("physics/2d/default_gravity", 900.0))
+	_home = global_position
+	add_to_group(&"enemies")
+	collision_layer = Layers.ENEMY
+	collision_mask = Layers.SOLID if data.uses_gravity else Layers.WORLD
+	_build_components()
+	_cache_prompt_bounds()
+	PromptLayout.add_obstacle(self, prompt_obstacle_rect)
+	if activation_culling_enabled and _uses_activation_culling():
+		var enabler := VisibleOnScreenEnabler2D.new()
+		var size := data.body_size
+		enabler.rect = Rect2(-size.x * 0.5 - ACTIVATION_MARGIN, -size.y - ACTIVATION_MARGIN,
+				size.x + ACTIVATION_MARGIN * 2.0, size.y + ACTIVATION_MARGIN * 2.0)
+		add_child(enabler)
+	_setup_states()
+	vfx = EnemyVfx.load_for(String(data.id))
+	if fsm.current == &"":
+		push_warning("[Enemy] %s 沒有啟動狀態機。" % data.id)
+
+
+func _cache_prompt_bounds() -> void:
+	_prompt_bounds = Rect2(Vector2(-data.body_size.x * 0.5, -data.body_size.y), data.body_size)
+	if is_zero_approx(global_transform.determinant()):
+		return
+	var visible_bounds := Rect2()
+	if is_instance_valid(rig):
+		visible_bounds = rig.visual_bounds()
+	elif is_instance_valid(creature):
+		for part: Dictionary in creature._parts:
+			var sprite := part["sprite"] as Sprite2D
+			if sprite.texture != null and sprite.is_visible_in_tree():
+				var rect := sprite.global_transform * sprite.get_rect()
+				visible_bounds = visible_bounds.merge(rect) if visible_bounds.has_area() else rect
+	if visible_bounds.has_area():
+		var local := (global_transform.affine_inverse() * visible_bounds).grow(8.0)
+		var half_width := maxf(absf(local.position.x), absf(local.end.x))
+		_prompt_bounds = _prompt_bounds.merge(Rect2(-half_width, local.position.y, half_width * 2.0, local.size.y))
+	if is_instance_valid(rig) and rig.has_bone(&"head"):
+		_prompt_head_gap = _prompt_bounds.position.y - to_local(rig.bone(&"head").global_position).y
+		_prompt_has_head = true
+
+
+## Protect visible threats, including the head above their physical collider.
+func prompt_obstacle_rect() -> Rect2:
+	if not is_visible_in_tree() or _dying:
+		return Rect2()
+	var bounds := _prompt_bounds
+	if _prompt_has_head and is_instance_valid(rig) and rig.has_bone(&"head") and not is_zero_approx(global_transform.determinant()):
+		var top := minf(-data.body_size.y, to_local(rig.bone(&"head").global_position).y + _prompt_head_gap)
+		bounds.size.y = bounds.end.y - top
+		bounds.position.y = top
+	return global_transform * bounds
+
+
+func _build_components() -> void:
+	var size := data.body_size
+	# 站在地上的敵人才有腳下的陰影；飛行、掛牆與固定在天花板的沒有。
+	if data.uses_gravity:
+		ContactShadow.attach(self, size.x * 0.5 + 3.0)
+	var center := Vector2(0, -size.y * 0.5)
+	var body := CollisionShape2D.new()
+	var body_shape := RectangleShape2D.new()
+	body_shape.size = size
+	body.shape = body_shape
+	body.position = center
+	add_child(body)
+
+	health = HealthComponent.new()
+	health.setup(data.max_health, 0.0)
+	add_child(health)
+	health.damaged.connect(_on_damaged)
+	health.died.connect(_on_died)
+
+	hurtbox = Hurtbox.new()
+	add_child(hurtbox)
+	hurtbox.setup(Combat.Team.ENEMY, health, size, center)
+	hurtbox.hit_material = data.hit_material
+	hurtbox.guard = _guard_with_shield
+	hurtbox.hit_blocked.connect(_on_blocked)
+
+	if not data.rig_skin.is_empty():
+		_build_rig()
+	if rig == null and not data.creature_skin.is_empty():
+		_build_creature()
+	_build_hurt_parts()
+	# 自帶光源的敵人（資料的 Light 群組有設定才會有）。
+	EnemyGlow.attach(self)
+
+	if data.contact_damage > 0:
+		contact = ContactHitbox.new()
+		add_child(contact)
+		contact.setup(Combat.Team.ENEMY, data.contact_damage, data.contact_source_id, size * 0.8, center)
+
+
+func _build_creature() -> void:
+	creature = PartCreature.new()
+	creature.name = "Creature"
+	add_child(creature)
+	if not creature.setup(data.creature_skin):
+		push_error("[Enemy] %s 的零件式外觀載入失敗：%s，改用程式繪製。" % [data.id, data.creature_skin])
+		creature.queue_free()
+		creature = null
+		return
+	creature.show_behind_parent = true
+
+
+## 目前零件動畫的狀態：資料對應的名稱，沒對應就用狀態機同名的動畫。
+func _creature_state() -> StringName:
+	return StringName(str(data.creature_states.get(String(fsm.current), String(fsm.current))))
+
+
+## （可選）零件動畫的瞄準角度（相對面向，弧度）。
+func _creature_aim() -> float:
+	return 0.0
+
+
+func _drive_creature(delta: float) -> void:
+	if creature == null:
+		return
+	creature.set_lighting(LightKit.creature_fill, LightKit.creature_light_cap)
+	var params := _body_kick_params()
+	creature.extra_position = params[0]
+	creature.extra_rotation = params[1]
+	creature.extra_scale = params[2]
+	creature.set_wear(data.color.lerp(Color.WHITE, 1.0).lerp(DAMAGE_WEAR_COLOR.lightened(0.55), DAMAGE_WEAR * _damage_stage))
+	creature.animate(delta, _creature_state(), velocity, facing, _creature_aim())
+
+
+## 依 hit_style 與目前受擊力道算出機械類身體反應的變換：[位移, 旋轉, 縮放]（繪製與零件式外觀共用）。
+func _body_kick_params() -> Array:
+	if _body_kick <= 0.0:
+		return [Vector2.ZERO, 0.0, Vector2.ONE]
+	var k := _body_kick
+	match data.hit_style:
+		"stall":
+			return [Vector2(0.0, k * 2.0), _body_kick_dir * k * 0.45 * data.hit_amount, Vector2.ONE]
+		"stumble":
+			var squash := 1.0 + 0.16 * k
+			return [Vector2(_body_kick_dir * k * data.hit_amount * 1.5, 0.0), 0.0, Vector2(squash, 2.0 - squash)]
+	return [Vector2(sin(_anim_time * BODY_WOBBLE_HZ) * k * data.hit_amount * 1.5, 0.0), 0.0, Vector2.ONE]
+
+
+## 依資料建立部位受擊框（頭、核心等弱點）；資料有誤時記錄位置並略過那一筆。
+func _build_hurt_parts() -> void:
+	for def in data.hurt_parts:
+		var id := StringName(str(def.get("id", "")))
+		var size := Vector2(def.get("size", Vector2(10, 10)))
+		var mult := float(def.get("mult", 1.0))
+		if id == &"" or size.x <= 0.0 or size.y <= 0.0 or mult <= 0.0:
+			push_error("[Enemy] %s 的 hurt_parts 有無效的部位（id、size、mult）：%s" % [data.id, def])
+			continue
+		var bone := StringName(str(def.get("bone", "")))
+		if bone != &"" and anchor_node(bone) == null:
+			push_warning("[Enemy] %s 的部位 %s 找不到骨頭或零件 %s，改用固定位置。" % [data.id, id, bone])
+			bone = &""
+		var offset := Vector2(def.get("offset", Vector2.ZERO))
+		var part := hurtbox.add_part(id, size, offset, mult)
+		_parts.append({"box": part, "bone": bone, "offset": offset, "size": size, "mult": mult})
+
+
+## 部位判定每影格跟著骨頭（或固定位置）移動。
+func _update_hurt_parts() -> void:
+	for entry in _parts:
+		var bone: StringName = entry["bone"]
+		if bone == &"":
+			continue
+		var anchor := anchor_node(bone)
+		if anchor == null:
+			continue
+		var offset: Vector2 = entry["offset"]
+		var at := anchor.global_position - global_position + Vector2(offset.x * facing, offset.y)
+		hurtbox.move_part(entry["box"], at)
+
+
+## 部位或特效的掛點：骨架外觀找同名骨頭，零件式外觀找同名零件的關節；都沒有回傳 null。
+func anchor_node(name_id: StringName) -> Node2D:
+	if rig != null:
+		return rig.bone(name_id) if rig.has_bone(name_id) else null
+	if creature != null:
+		return creature.joint_of(String(name_id))
+	return null
+
+
+func _build_rig() -> void:
+	rig = CharacterRig.new()
+	rig.name = "Rig"
+	rig.use_enemy_fill = true
+	add_child(rig)
+	if not rig.setup(data.rig_skin):
+		push_error("[Enemy] %s 的骨架外觀載入失敗：%s，改用程式繪製。" % [data.id, data.rig_skin])
+		rig.queue_free()
+		rig = null
+		return
+	rig.set_weapon(data.rig_weapon)
+	# 骨架畫在敵人自身的疊加圖層（預兆線、標記）之下。
+	rig.show_behind_parent = true
+	_rig_input.two_handed = data.rig_two_handed
+	_rig_input.shield_forward = data.rig_shield
+	_rig_input.run_speed = maxf(40.0, data.move_speed * 2.0)
+
+
+func _drive_rig(delta: float) -> void:
+	if rig == null:
+		return
+	_rig_input.velocity = velocity
+	_rig_input.on_floor = is_on_floor() or not data.uses_gravity
+	_rig_input.facing = facing
+	_rig_input.aim_dir = _rig_aim()
+	_rig_input.staggered = _stun_left > 0.0
+	_rig_input.relaxed = _alert_left <= 0.0 and data.relaxed_states.has(String(fsm.current))
+	_rig_input.dead = _dying
+	_update_rig_action()
+	_rig_state(_rig_input)
+	rig.animate(delta, _rig_input)
+	_rig_input.recoil = 0.0
+	_rig_input.hurt = false
+
+
+# ---------------------------------------------------------------------------
+# 可覆寫的掛鉤
+# ---------------------------------------------------------------------------
+
+@abstract func _setup_states() -> void
+
+
+func _uses_activation_culling() -> bool:
+	return true
+
+
+func _guard(_info: DamageInfo) -> Hurtbox.Guard:
+	return Hurtbox.Guard.NONE
+
+
+## 專屬特效：狀態一變就播進入特效、依移動距離播腳步。
+func _tick_vfx() -> void:
+	if vfx == null or vfx.is_empty():
+		return
+	if fsm.current != _vfx_state:
+		_vfx_state = fsm.current
+		vfx.play_state(_vfx_state, global_position, _center(), _muzzle())
+	vfx.tick_step(global_position, is_on_floor() and absf(velocity.x) > 8.0)
+
+
+## 目前狀態有沒有對應的專屬動作（EnemyData.rig_actions）：有就依停留時間播放進度，沒有就清掉。
+func _update_rig_action() -> void:
+	var action := StringName(str(data.rig_actions.get(String(fsm.current), "")))
+	_rig_input.action = action
+	if action == &"":
+		_rig_input.action_t = 0.0
+		return
+	var actions: Variant = RigLibrary.load_json(HumanoidAnimator.ACTIONS_PATH).get("actions", {})
+	var duration := 0.5
+	if typeof(actions) == TYPE_DICTIONARY and (actions as Dictionary).has(String(action)):
+		duration = maxf(0.05, float(((actions as Dictionary)[String(action)] as Dictionary).get("duration", 0.5)))
+	_rig_input.action_t = clampf(fsm.time_in_state / duration, 0.0, 1.0)
+
+
+## （可選）骨架動畫輸入的補充（例如蓄力時蹲下），每影格在播放動畫前呼叫。
+func _rig_state(_input: RigInput) -> void:
+	pass
+
+
+## 先扣護盾，再交給子類別的格擋判定。
+func _guard_with_shield(info: DamageInfo) -> Hurtbox.Guard:
+	if shield > 0:
+		shield -= 1
+		Fx.impact(_center(), Vector2(-signf(info.knockback.x) if info.knockback.x != 0.0 else -facing, -0.3), Palette.CYAN, 6)
+		Sfx.play(&"guard_break" if shield == 0 else &"block", -6.0 if shield == 0 else -4.0)
+		return Hurtbox.Guard.BLOCK
+	return _guard(info)
+
+
+@abstract func _draw_body(color: Color) -> void
+
+
+func _rig_aim() -> Vector2:
+	return Vector2(facing, 0.05).normalized()
+
+
+func _draw_overlay() -> void:
+	pass
+
+
+## （可選）零件式外觀之外補畫的發光（眼睛、導航燈）。
+func _draw_creature_extras() -> void:
+	pass
+
+
+func _on_hit(_info: DamageInfo) -> void:
+	pass
+
+
+## 被暈眩時呼叫：子類別應切回安全狀態，避免暈眩結束後立刻出手。
+func _on_stunned() -> void:
+	pass
+
+
+func _on_defeated(_info: DamageInfo) -> void:
+	pass
+
+
+func _play_death() -> void:
+	_death_tween = create_tween()
+	if rig != null:
+		# 骨架角色：倒地動畫播完後淡出。
+		_death_tween.tween_interval(RIG_DEATH_TIME)
+		_death_tween.tween_property(self, "modulate:a", 0.0, 0.4)
+		_register_corpse()
+	elif data.hit_style == "stall":
+		# 飛行機墜落：打轉、往下掉、淡出。
+		var spin := _body_kick_dir * STALL_DEATH_SPIN
+		_death_tween.set_parallel(true)
+		_death_tween.tween_property(self, "rotation", spin, STALL_DEATH_TIME).set_ease(Tween.EASE_IN)
+		_death_tween.tween_property(self, "position:y", position.y + STALL_DEATH_FALL, STALL_DEATH_TIME).set_ease(Tween.EASE_IN)
+		_death_tween.tween_property(self, "modulate:a", 0.0, STALL_DEATH_TIME * 0.6).set_delay(STALL_DEATH_TIME * 0.4)
+		_death_tween.chain().tween_callback(queue_free)
+		return
+	else:
+		_death_tween.tween_property(self, "scale", Vector2(1.4, 0.1), 0.12)
+	_death_tween.tween_callback(queue_free)
+
+
+## 登記屍體；同時倒在場上的超過上限時，最舊的快速淡出。
+func _register_corpse() -> void:
+	for i in range(_corpses.size() - 1, -1, -1):
+		if not is_instance_valid(_corpses[i]):
+			_corpses.remove_at(i)
+	_corpses.append(self)
+	while _corpses.size() > MAX_CORPSES:
+		_corpses.pop_front()._fade_corpse_now()
+
+
+func _fade_corpse_now() -> void:
+	if _death_tween != null:
+		_death_tween.kill()
+	_death_tween = create_tween()
+	_death_tween.tween_property(self, "modulate:a", 0.0, CORPSE_FAST_FADE)
+	_death_tween.tween_callback(queue_free)
+
+
+# ---------------------------------------------------------------------------
+# 主迴圈
+# ---------------------------------------------------------------------------
+
+func _physics_process(delta: float) -> void:
+	if _dying:
+		if rig != null:
+			velocity.x = move_toward(velocity.x, 0.0, 400.0 * delta)
+			if data.uses_gravity and not is_on_floor():
+				velocity.y = minf(velocity.y + _gravity * delta, MAX_FALL_SPEED)
+			move_and_slide()
+			_drive_rig(delta)
+		return
+	_anim_time += delta
+	_flash_left = maxf(0.0, _flash_left - delta)
+	_alert_left = maxf(0.0, _alert_left - delta)
+	_hurt_voice_left = maxf(0.0, _hurt_voice_left - delta)
+	_body_kick = maxf(0.0, _body_kick - BODY_KICK_DECAY * delta)
+	_tick_damage_fx(delta)
+	_poise_load = maxf(0.0, _poise_load - POISE_RECOVER * delta)
+	_reaction_grace_left = maxf(0.0, _reaction_grace_left - delta)
+	if data.uses_gravity and not is_on_floor():
+		velocity.y = minf(velocity.y + _gravity * delta, MAX_FALL_SPEED)
+	if _stun_left > 0.0:
+		_stun_left -= delta
+		velocity.x = move_toward(velocity.x, 0.0, 600.0 * delta)
+		if not data.uses_gravity:
+			velocity = velocity.move_toward(Vector2.ZERO, 600.0 * delta)
+	elif _flinch_left > 0.0:
+		# 畏縮：動作暫停（預兆與狀態計時一起停），之後從原處繼續。
+		_flinch_left -= delta
+		velocity.x = move_toward(velocity.x, 0.0, 600.0 * delta)
+		if not data.uses_gravity:
+			velocity = velocity.move_toward(Vector2.ZERO, 600.0 * delta)
+	else:
+		_telegraph_left = maxf(0.0, _telegraph_left - delta)
+		fsm.tick(delta)
+	_tick_vfx()
+	_update_telegraph_light(delta)
+	move_and_slide()
+	_drive_rig(delta)
+	_drive_creature(delta)
+	_update_hurt_parts()
+	queue_redraw()
+
+
+func _draw() -> void:
+	if data == null:
+		return
+	if rig == null and creature == null:
+		var color := LightKit.glow(data.color.lerp(Palette.WHITE, MACHINE_FLASH_WHITE), MACHINE_FLASH_GLOW) if _flash_left > 0.0 				else data.color.lerp(DAMAGE_WEAR_COLOR, DAMAGE_WEAR * _damage_stage)
+		_apply_body_kick_transform()
+		_draw_body(color)
+		draw_set_transform(Vector2.ZERO)
+	elif creature != null:
+		_draw_creature_extras()
+	_draw_overlay()
+	var top := -data.body_size.y - 8.0
+	if shield > 0:
+		_draw_shield()
+	if is_telegraphing():
+		# 攻擊預兆：發光驚嘆號。
+		var red := LightKit.glow(Palette.DANGER, 2.5)
+		draw_line(Vector2(0, top - 6), Vector2(0, top - 1), red, 2.0)
+		draw_circle(Vector2(0, top + 2), 1.2, red)
+	if _alert_left > 0.0 and not _dying and not is_telegraphing():
+		# 戒備標記：頭上的黃色三角，提醒玩家這隻已經被引來。
+		var alert_color := LightKit.glow(Palette.WARNING, 1.4)
+		var tip := Vector2(0, top - 1)
+		draw_colored_polygon(PackedVector2Array([tip + Vector2(-3, -5), tip + Vector2(3, -5), tip]), alert_color)
+	_draw_hurtbox_debug()
+	if _is_finishable and not _dying:
+		# 可終結標記：閃爍的青色菱形。
+		var pulse := 0.6 + 0.4 * sin(_anim_time * 14.0)
+		var c := LightKit.glow(Palette.CYAN, 1.5 + pulse)
+		var p := Vector2(0, top - 2)
+		draw_colored_polygon(PackedVector2Array([p + Vector2(0, -4), p + Vector2(3, 0), p + Vector2(0, 4), p + Vector2(-3, 0)]), c)
+
+
+## 機械類敵人的身體反應：依 hit_style 讓整個外觀震動、傾斜下沉或踉蹌壓扁（每影格只改繪製變換，不配置物件）。
+func _apply_body_kick_transform() -> void:
+	if _body_kick <= 0.0:
+		return
+	var params := _body_kick_params()
+	draw_set_transform(params[0], params[1], params[2])
+
+
+## 損傷階段：生命比例降到 damage_states 的第幾個門檻以下（0＝完好）；進入新階段時噴一小團火花。
+func _update_damage_stage() -> void:
+	if rig != null or data.damage_states.is_empty() or health.current <= 0:
+		return
+	var ratio := health.ratio()
+	var stage := 0
+	for threshold in data.damage_states:
+		if ratio <= threshold + 0.0001:
+			stage += 1
+	if stage > _damage_stage:
+		_damage_stage = stage
+		_damage_fx_left = 0.0
+		Fx.sparks(_center(), Palette.WARNING, 5, 130.0, 0.3)
+
+
+## 受損的機械持續冒煙與漏電（越嚴重越密，克制的數量）。
+func _tick_damage_fx(delta: float) -> void:
+	if _damage_stage <= 0 or _dying:
+		return
+	_damage_fx_left -= delta
+	if _damage_fx_left > 0.0:
+		return
+	var interval: float = DAMAGE_SMOKE_INTERVAL[mini(_damage_stage, DAMAGE_SMOKE_INTERVAL.size() - 1)]
+	if interval <= 0.0:
+		return
+	_damage_fx_left = interval * randf_range(0.8, 1.3)
+	var at := _center() + Vector2(randf_range(-0.3, 0.3) * data.body_size.x, -data.body_size.y * 0.2)
+	Fx.smoke(at, 1, 4.0, 0.9, 8.0)
+	if _damage_stage >= 2:
+		Fx.sparks(at, Palette.WARNING, 2, 90.0, 0.25)
+
+
+## 開發檢查時（debug_hurtboxes）畫出每個部位的受擊框：弱點黃色、其他青色。平常不畫任何標記：
+## 頭部是弱點不需要另外標示，特殊的弱點（外露的核心…）由它自己的外觀表示。
+func _draw_hurtbox_debug() -> void:
+	if _dying or not debug_hurtboxes:
+		return
+	for entry in _parts:
+		var box: Hurtbox = entry["box"]
+		if not box.enabled:
+			continue  # 現在不存在的部位（例如打壞脫落的砲塔）不畫，免得看起來還打得到
+		var size: Vector2 = entry["size"]
+		var mult: float = entry["mult"]
+		draw_rect(Rect2(box.shape_offset() - size * 0.5, size), Color(1.0, 0.9, 0.2, 0.9) if mult > 1.0 else Color(0.2, 1.0, 0.9, 0.9), false, 1.0)
+
+
+## 護盾外觀：身體外圍的青色六角形，層數越多越亮。
+func _draw_shield() -> void:
+	var radius := maxf(data.body_size.x, data.body_size.y) * 0.62
+	var center := Vector2(0, -data.body_size.y * 0.5)
+	var color := LightKit.glow(Palette.CYAN, 1.0 + 0.5 * shield + 0.3 * sin(_anim_time * 6.0))
+	color.a = 0.55 + 0.1 * shield
+	var points := PackedVector2Array()
+	for i in 7:
+		points.append(center + Vector2.RIGHT.rotated(TAU * i / 6.0 + PI / 6.0) * radius)
+	draw_polyline(points, color, 1.5)
+
+
+# ---------------------------------------------------------------------------
+# 受擊、破防、死亡
+# ---------------------------------------------------------------------------
+
+## A completed original world action may supply a channel without a death.
+## Ordinary enemies have no result; legacy death-channel enemies retain theirs.
+func completed_channel() -> StringName:
+	if is_dying() and has_method("_gate_channel"):
+		return StringName(call("_gate_channel"))
+	return &""
+
+
+func is_dying() -> bool:
+	return _dying
+
+
+## 已經損失的血量（持久世界保存用）。
+func lost_health() -> int:
+	return maxi(0, health.max_health - health.current) if health != null else 0
+
+
+## 還原先前受的傷（持久世界）：至少留 1 點血，不會一出場就死。要在加入場景樹（_ready）之後呼叫。
+func restore_lost_health(lost: int) -> void:
+	if health == null or lost <= 0 or _dying:
+		return
+	health.current = clampi(health.max_health - lost, 1, health.max_health)
+	health.health_changed.emit(health.current, health.max_health)
+
+
+## 被警報引來：seconds 秒內偵測範圍變大、巡邏改為往 point 聚集（取較長的戒備時間）。
+func raise_alert(point: Vector2, seconds: float) -> void:
+	if _dying:
+		return
+	if _alert_left <= 0.0:
+		CharacterSounds.play(data.id, &"alert", -6.0)
+	_alert_left = maxf(_alert_left, seconds)
+	_alert_point = point
+
+
+func is_alerted() -> bool:
+	return _alert_left > 0.0
+
+
+## 是否進入戰鬥：還活著，而且被警報引來或不在放鬆的狀態（巡邏、待機、潛行以外）。背景音樂依此切換戰鬥曲。
+func is_engaged() -> bool:
+	return not _dying and health.current > 0 and (_alert_left > 0.0 or not data.relaxed_states.has(String(fsm.current)))
+
+
+## 支援型敵人替這個敵人加護盾（上限 MAX_SHIELD 層）。
+func add_shield(layers: int) -> void:
+	if _dying:
+		return
+	shield = mini(MAX_SHIELD, shield + maxi(0, layers))
+
+
+func can_be_finished() -> bool:
+	return _is_finishable and not _dying
+
+
+func is_stunned() -> bool:
+	return _stun_left > 0.0
+
+
+## 由玩家終結技呼叫：直接擊殺並計為終結。
+func execute_finisher() -> void:
+	if not can_be_finished():
+		return
+	var info := DamageInfo.create(health.current, Combat.Team.PLAYER, &"finisher")
+	info.is_finisher = true
+	info.ignore_invulnerability = true
+	info.bypass_guard = true
+	info.origin = global_position
+	health.take_damage(info)
+
+
+## 讓敵人暈眩（停止 AI）。
+func stun(seconds: float) -> void:
+	_stun_left = maxf(_stun_left, seconds)
+	_telegraph_left = 0.0
+	_on_stunned()
+
+
+func _on_damaged(info: DamageInfo) -> void:
+	if _hurt_voice_left <= 0.0:
+		_hurt_voice_left = HURT_VOICE_INTERVAL
+		CharacterSounds.play(data.id, &"hurt", -4.0)
+	if info.weak_hit:
+		_weak_point_feedback(info)
+	var tier := _resolve_hit_tier(info) if health.current > 0 else HitTier.LIGHT
+	if creature != null:
+		creature.flash()
+	if rig == null:
+		_body_kick = maxf(_body_kick, BODY_KICK_BY_TIER[tier])
+		_body_kick_dir = -1.0 if info.knockback.x < 0.0 else 1.0
+		if tier != HitTier.LIGHT and data.hit_style == "stall" and not data.uses_gravity:
+			velocity.y += STALL_DROP * (1.0 if tier == HitTier.FLINCH else 1.6)
+		queue_redraw()  # 頓幀凍結期間不會跑主迴圈，要先要求重畫，受擊的第一格才看得到反應
+	_update_damage_stage()
+	_flash_left = FLASH_TIME
+	if vfx != null:
+		vfx.play_hit(info.contact_point if info.contact_point.is_finite() else _center(), -info.knockback.normalized() if info.knockback != Vector2.ZERO else Vector2.UP)
+	if rig != null:
+		rig.flash(0.5 if tier == HitTier.LIGHT else 1.0)
+		rig.set_armor_ratio(health.ratio())
+		_rig_input.hurt = true
+		_rig_input.hurt_scale = [LIGHT_HURT_SCALE, FLINCH_HURT_SCALE, STAGGER_HURT_SCALE][tier]
+		_rig_input.hurt_dir = 1.0 if _hit_from_front(info) else -1.0
+	if info.knockback != Vector2.ZERO and data.knockback_scale > 0.0:
+		velocity += info.knockback * data.knockback_scale
+	if not _is_finishable and data.finish_health_ratio > 0.0 and health.current > 0 \
+			and health.current <= ceili(health.max_health * data.finish_health_ratio):
+		_is_finishable = true
+		stun(data.stagger_duration)
+		Fx.burst(_center(), Palette.CYAN, 8, 90.0)
+	elif health.current > 0:
+		_apply_hit_tier(tier, info)
+	_on_hit(info)
+
+
+## 打中弱點的回饋：金色火花與較亮的命中聲，克制（少量粒子，不另外震動）。
+func _weak_point_feedback(info: DamageInfo) -> void:
+	var at := _center()
+	for entry in _parts:
+		if (entry["box"] as Hurtbox).part_id == info.part:
+			at = global_position + (entry["box"] as Hurtbox).shape_offset()
+	Fx.sparks(at, Palette.WARNING, 6, 150.0, 0.25, -info.knockback.normalized() if info.knockback != Vector2.ZERO else Vector2.UP, 1.6)
+	Sfx.play_event(&"hit_enemy")
+
+
+## 這一擊是不是從正面來（受力方向與面向相反）；沒有方向資訊時當作正面。
+func _hit_from_front(info: DamageInfo) -> bool:
+	if info == null:
+		return true
+	var push := info.knockback.x
+	if is_zero_approx(push) and info.origin != Vector2.ZERO:
+		push = global_position.x - info.origin.x
+	return is_zero_approx(push) or push * facing < 0.0
+
+
+## 出招中（資料的 armor_states）：輕擊與累積都打不斷。
+func _is_armored() -> bool:
+	return data.armor_states.has(String(fsm.current))
+
+
+## 這一擊造成哪一層反應：單次重擊 → 硬直；累積夠了 → 畏縮；其餘只有閃白。反應後有保護時間，不會被連續射擊鎖死。
+func _resolve_hit_tier(info: DamageInfo) -> HitTier:
+	var impact := info.get_impact()
+	var poise := maxf(0.1, data.poise)
+	var armored := _is_armored()
+	var stagger_at := poise * (BREAK_RATIO if armored else STAGGER_RATIO)
+	if impact >= stagger_at:
+		return HitTier.STAGGER
+	if _reaction_grace_left > 0.0:
+		return HitTier.LIGHT
+	_poise_load += impact
+	if not armored and _poise_load >= poise:
+		return HitTier.FLINCH
+	return HitTier.LIGHT
+
+
+func _apply_hit_tier(tier: HitTier, info: DamageInfo) -> void:
+	if tier == HitTier.LIGHT:
+		return
+	_poise_load = 0.0
+	if tier == HitTier.FLINCH:
+		_flinch_left = data.flinch_time
+		_reaction_grace_left = REACTION_GRACE + data.flinch_time
+		Feel.play(&"enemy_flinch", {"targets": [self, info.attacker_feedback_target()]})
+		return
+	stun(data.stagger_time)
+	_reaction_grace_left = REACTION_GRACE + data.stagger_time
+	Feel.play(&"enemy_stagger", {"targets": [self, info.attacker_feedback_target()]})
+
+
+func _on_blocked(_info: DamageInfo) -> void:
+	_flash_left = FLASH_TIME * 0.5
+
+
+## 清場標點：幾秒內連殺數隻、場上沒有活著的敵人時播清場回饋（慢動作走白名單，有冷卻）。
+static var _recent_kills: Array[int] = []
+const CLEAR_OUT_KILLS := 3
+const CLEAR_OUT_WINDOW_MSEC := 6000
+
+
+func _note_kill() -> void:
+	var now := Time.get_ticks_msec()
+	_recent_kills.append(now)
+	while not _recent_kills.is_empty() and now - _recent_kills[0] > CLEAR_OUT_WINDOW_MSEC:
+		_recent_kills.pop_front()
+	if _recent_kills.size() < CLEAR_OUT_KILLS:
+		return
+	for node in get_tree().get_nodes_in_group(&"enemies"):
+		var other := node as Enemy
+		if other != null and other != self and not other.is_dying():
+			return
+	_recent_kills.clear()
+	Feel.play(&"clear_out")
+	Sfx.play_event(&"clear_out")
+
+
+func _exit_tree() -> void:
+	AttackTokens.enemy_release(self)
+
+
+func _on_died(info: DamageInfo) -> void:
+	if _dying:
+		return
+	_dying = true
+	AttackTokens.enemy_release(self)
+	set_deferred(&"collision_layer", 0)
+	hurtbox.enabled = false
+	if contact != null:
+		contact.active = false
+	var force := clampf((info.get_impact() - 1.0) / DEATH_FORCE_RANGE, 0.0, 1.0) if info != null else 0.0
+	_rig_input.death_dir = 1.0 if _hit_from_front(info) else -1.0
+	_rig_input.death_force = force
+	# 倒下時順著最後一擊的方向被推走，越重推得越遠（頭目不被推）。
+	velocity = Vector2.ZERO
+	if rig != null and info != null and data.knockback_scale > 0.0:
+		# 向上的擊退（爆炸把人炸飛）也算進去；終結技沒有擊退，原地倒下。
+		velocity = Vector2(info.knockback.x * data.knockback_scale * lerpf(0.6, 1.4, force),
+				-DEATH_HOP * force + minf(0.0, info.knockback.y) * data.knockback_scale)
+	var by_player := info != null and info.team == Combat.Team.PLAYER
+	var by_finisher := info != null and info.is_finisher
+	var center := _center()
+	if vfx != null and not vfx.is_empty():
+		vfx.play_death(center, global_position, self, rig)  # 這個敵人自己的死亡演出
+	else:
+		Fx.burst(center, data.color, 16, 170.0, 0.45)
+		Fx.flash_light(center, data.color, 70.0, 1.2, 0.25)
+	if by_finisher:
+		Fx.burst(center, Palette.CYAN, 24, 240.0, 0.5)
+	Feel.play(&"enemy_kill", {"targets": [self, info.attacker_feedback_target() if info != null else null]})
+	CharacterSounds.play(data.id, &"death")
+	if by_player:
+		_note_kill()
+		EventBus.enemy_killed.emit(data.id, by_finisher)
+		_try_drop(by_finisher)
+	_on_defeated(info)
+	_play_death()
+
+
+func _try_drop(by_finisher: bool) -> void:
+	_drop_credits()
+	var chance := data.health_drop_chance + (0.25 if by_finisher else 0.0)
+	if randf() >= chance or get_parent() == null:
+		return
+	var pickup := HealthPickup.new()
+	pickup.position = position + Vector2(0, -4)
+	get_parent().add_child.call_deferred(pickup)
+
+
+func _drop_credits() -> void:
+	if data.credit_value <= 0 or get_parent() == null:
+		return
+	var credits := CreditPickup.new()
+	credits.value = data.credit_value
+	credits.position = position + Vector2(randf_range(-6.0, 6.0), -4)
+	get_parent().add_child.call_deferred(credits)
+
+
+# ---------------------------------------------------------------------------
+# 感知與攻擊輔助
+# ---------------------------------------------------------------------------
+
+func _target() -> Node2D:
+	var target: Node2D = null
+	if _target_ref != null:
+		target = _target_ref.get_ref() as Node2D
+	if target == null:
+		target = get_tree().get_first_node_in_group(&"player") as Node2D
+		_target_ref = weakref(target) if target != null else null
+	if target is Player and not (target as Player).is_targetable():
+		return null
+	return target
+
+
+func _target_point() -> Vector2:
+	var target := _target()
+	return target.global_position + Vector2(0, -TARGET_HEIGHT) if target != null else global_position
+
+
+func _center() -> Vector2:
+	return global_position + Vector2(0, -data.body_size.y * 0.5)
+
+
+## 核心（弱點光環）的本地座標：骨架外觀優先取專屬骨頭 core_port（有宣告的角色，位置由規格決定），其次胸骨，
+## 都沒有（程式繪製的敵人）就用碰撞框高度的比例。
+func _core_point() -> Vector2:
+	if rig != null:
+		for bone_name: StringName in [&"core_port", &"chest"]:
+			if rig.has_bone(bone_name):
+				return to_local(rig.bone(bone_name).global_position)
+	return Vector2(0, -data.body_size.y * 0.62)
+
+
+func _muzzle() -> Vector2:
+	if rig != null and not data.rig_weapon.is_empty():
+		return rig.muzzle_global()
+	return _center() + Vector2(facing * data.body_size.x * 0.5, 0)
+
+
+func _distance_to_target() -> float:
+	var target := _target()
+	return global_position.distance_to(target.global_position) if target != null else INF
+
+
+func _face_target() -> void:
+	var target := _target()
+	if target != null and absf(target.global_position.x - global_position.x) > 2.0:
+		facing = 1 if target.global_position.x > global_position.x else -1
+
+
+func _direction_to_target() -> Vector2:
+	return (_target_point() - _muzzle()).normalized()
+
+
+## 與目標之間是否沒有牆壁阻擋。
+func _has_line_of_sight() -> bool:
+	if _target() == null:
+		return false
+	var query := PhysicsRayQueryParameters2D.create(_center(), _target_point(), Layers.WORLD)
+	return get_world_2d().direct_space_state.intersect_ray(query).is_empty()
+
+
+## 目標在偵測範圍內、高度差可接受、且視線未被阻擋。
+func _can_see_target(max_range: float, max_height_diff := 120.0) -> bool:
+	var target := _target()
+	if target == null:
+		return false
+	if _alert_left > 0.0:
+		max_range *= ALERT_RANGE_SCALE
+		max_height_diff *= ALERT_RANGE_SCALE
+	var offset := target.global_position - global_position
+	return offset.length() <= max_range and absf(offset.y) <= max_height_diff and _has_line_of_sight()
+
+
+## 前方腳下是否為懸崖（巡邏時避免掉落）。
+func _is_ledge_ahead() -> bool:
+	var from := global_position + Vector2(facing * (data.body_size.x * 0.5 + 2.0), -2.0)
+	var query := PhysicsRayQueryParameters2D.create(from, from + Vector2(0, 18), Layers.SOLID)
+	return get_world_2d().direct_space_state.intersect_ray(query).is_empty()
+
+
+## 攻擊令牌有空位（同時攻擊的敵人數上限，見 AttackTokens）：行為決定「要不要開始攻擊」時，
+## 在自己的冷卻判斷後面加上這一項（`_cooldown <= 0.0 and _token_free() and ...`）。頭目不受限。
+func _token_free() -> bool:
+	return data.is_boss or AttackTokens.enemy_allows(self, data.attack_category)
+
+
+func _start_telegraph(seconds: float) -> void:
+	if not data.is_boss:
+		AttackTokens.enemy_claim(self, data.attack_category, seconds)
+	_telegraph_left = seconds
+	_ensure_telegraph_light()
+	CharacterSounds.play(data.id, &"telegraph", 0.0, {"attack_category": data.attack_category})
+
+
+func _ensure_telegraph_light() -> void:
+	if _telegraph_light != null:
+		return
+	_telegraph_light = LightKit.create_point_light(Palette.DANGER, TELEGRAPH_LIGHT_RADIUS, 0.0, false, false)
+	_telegraph_light.position = Vector2(0, -data.body_size.y * 0.5)
+	_telegraph_light.enabled = false
+	add_child(_telegraph_light)
+
+
+## 預兆期間的紅光脈動，讓暗處也看得到「要出招了」。
+func _update_telegraph_light(delta: float) -> void:
+	if _telegraph_light == null:
+		return
+	if _telegraph_left > 0.0:
+		_telegraph_time += delta
+		_telegraph_light.enabled = true
+		_telegraph_light.energy = 1.1 + 0.5 * sin(_telegraph_time * 22.0)
+	elif _telegraph_light.enabled:
+		_telegraph_light.enabled = false
+
+
+func is_telegraphing() -> bool:
+	return _telegraph_left > 0.0
+
+
+func _scaled_cooldown(base: float) -> float:
+	return base * GameState.difficulty.enemy_cooldown_multiplier
+
+
+func _projectile_speed_multiplier() -> float:
+	return GameState.difficulty.enemy_projectile_speed_multiplier
+
+
+func _shoot(spec: ProjectileSpec, direction: Vector2, origin := Vector2.INF) -> void:
+	if spec == null:
+		return
+	var from := _muzzle() if origin == Vector2.INF else origin
+	_rig_input.recoil = 1.0
+	if creature != null:
+		creature.kick()
+	if ProjectilePool.spawn(spec, from, direction, Combat.Team.ENEMY, _projectile_speed_multiplier()) != null:
+		Fx.flash_light(from, spec.color, 40.0, 0.9, 0.08)
+		Fx.flare(from, spec.color, 12.0, 0.05)
+		Fx.sparks(from, spec.color, 2, 220.0, 0.12, direction, 0.7, 200.0)
+		CharacterSounds.play(data.id, &"attack", -10.0)
+
+
+## 巡邏移動：碰牆或遇到懸崖就回頭。戒備中改為往警報地點聚集（遇到懸崖或牆就停下）。
+func _patrol(speed: float) -> void:
+	if _alert_left > 0.0 and absf(_alert_point.x - global_position.x) > ALERT_ARRIVE_DISTANCE:
+		facing = 1 if _alert_point.x > global_position.x else -1
+		var blocked := is_on_floor() and (is_on_wall() or _is_ledge_ahead())
+		velocity.x = 0.0 if blocked else facing * speed * ALERT_SPEED_SCALE
+		return
+	if is_on_floor() and (is_on_wall() or _is_ledge_ahead()):
+		facing = -facing
+	velocity.x = facing * speed
