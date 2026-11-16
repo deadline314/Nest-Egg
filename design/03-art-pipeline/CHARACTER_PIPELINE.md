@@ -252,3 +252,10 @@ D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/build_character.py --recipe to
 舊工具的PNG仍畫出網格，但JSON只記錄9件，漏掉軀幹與四肢的座標。修正後一般完整服裝參考記錄16件，雙側坐／蹲22件。body會顯示既有護甲下層，凜的這些層是受損衣物，不能當完整未受傷立繪。實際輸出及來源雜湊見`art_src/characters/rin_pose_variants/00_bind_reference/`。
 
 `cut_parts.py`對網格採用三角形的UV反算，不將已彎圖当剛體再折一次；直接採樣至目標貼圖，不先縮後放或自動銳化。兩個pass的幾何在任何寫圖前檢查，非法UV／頂點／索引／退化三角形拒絕。近遠側共用來源貼圖時，兩個姿勢不得寫入同一輸出，工具會拒絕，要求各側隔離後交付獨立attachment。這是坐標流程修復，舊工具的最近色填補仍不代表完整隱藏層；正式角色仍按character-art-pipeline及rig-animation全部件驗收。
+
+
+## 2026-11-17：姿勢預測的模型生命週期（NE-255）
+
+SAM3D 獨立程序完成推論後，ComfyUI 的全域載入清單仍可能持有模型，直到模組清空才執行 ModelPatcher 的解除回呼，產生 ON_DETACH 的 NoneType traceback。退出碼0不能代表乾淨退出。姿勢工具在 finally 使用 ComfyUI 原有卸載 API，釋放自己的模型參照並回收循環；成功、無人物與推論失敗都經過同一清理，不修改共用服務或第三方安裝。
+
+CPU 生命週期回歸納入現有美術工作流程；9070 XT 以相同原生來源重跑，70點與 overlay PNG 逐位元組相同，原退出 traceback 消失。新角色的分件、人體與全動作驗收仍分開。原始證據見 pm/Nest-Egg/attachments/NE-255-pose-cleanup-2026-11-17/。

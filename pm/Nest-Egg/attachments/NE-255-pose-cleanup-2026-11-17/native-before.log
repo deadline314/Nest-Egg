@@ -1,0 +1,10 @@
+
+SAM3D body inference:   0%|          | 0/1 [00:00<?, ?it/s]
+SAM3D body inference: 100%|██████████| 1/1 [00:05<00:00,  5.65s/it]
+SAM3D body inference: 100%|██████████| 1/1 [00:05<00:00,  5.66s/it]
+keypoints: (70, 2)
+Exception ignored in: <function ModelPatcher.__del__ at 0x0000024E3A087100>
+Traceback (most recent call last):
+  File "D:\ComfyUI\comfy\model_patcher.py", line 1750, in __del__
+  File "D:\ComfyUI\comfy\model_patcher.py", line 1303, in detach
+AttributeError: 'NoneType' object has no attribute 'ON_DETACH'

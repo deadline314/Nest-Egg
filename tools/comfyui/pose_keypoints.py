@@ -1,7 +1,7 @@
 """Predict body keypoints (shoulder, elbow, wrist, hip, knee, ankle...) of the character in a picture with SAM 3D Body.
 
 Runs ComfyUI's own SAM 3D Body nodes in-process, so use ComfyUI's python:
-    D:/ComfyUI/.venv/Scripts/python.exe tools/comfyui/pose_keypoints.py --image base.png --out keypoints.json [--overlay overlay.png]
+    D:/ComfyUI/.venv-rocm/Scripts/python.exe tools/comfyui/pose_keypoints.py --image base.png --out keypoints.json [--overlay overlay.png]
 
 Needs models/detection/sam_3d_body_dinov3_bf16.safetensors (https://huggingface.co/Comfy-Org/sam-3d-body).
 Output JSON: {"image_size": [w, h], "points": {"left_elbow": [x, y], ...}} in pixels of the input picture.
@@ -9,6 +9,7 @@ MHR70 layout (Meta): 0 nose, 1-2 eyes, 3-4 ears, 5/6 shoulders, 7/8 elbows, 9/10
 21-41 right hand (41 = wrist), 42-62 left hand (62 = wrist), 63-66 elbow detail, 67/68 acromion, 69 neck.
 """
 import argparse
+import gc
 import json
 import sys
 from pathlib import Path
@@ -33,26 +34,34 @@ def main() -> None:
     import torch
     from PIL import Image, ImageDraw
     import comfy_extras.nodes_sam3d_body as nb
+    import comfy.model_management as model_management
 
     img = Image.open(args.image).convert("RGB")
     arr = torch.from_numpy(np.asarray(img).astype(np.float32) / 255.0)[None]
     torch.set_grad_enabled(False)  # ComfyUI runs nodes without autograd
-    model = nb.SAM3DBody_Loader.execute(args.model).args[0]
-    data = nb.SAM3DBody_Predict.execute(model, arr, run_hand_refinement=args.hands).args[0]
-    people = data["frames"][0]
-    if not people:
-        sys.exit("SAM 3D Body found nobody in the picture")
-    kp = np.asarray(people[0]["pred_keypoints_2d"], dtype=float)
-    print("keypoints:", kp.shape)
-    points = {NAMES.get(i, f"kp{i}"): [round(float(x), 1), round(float(y), 1)] for i, (x, y) in enumerate(kp[:, :2])}
-    Path(args.out).write_text(json.dumps({"image_size": list(img.size), "points": points}, indent=1), encoding="utf8")
-    if args.overlay:
-        d = ImageDraw.Draw(img)
-        for i, (x, y) in enumerate(kp[:, :2]):
-            if i in NAMES or i in (63, 64, 65, 66):
-                d.ellipse([x - 5, y - 5, x + 5, y + 5], outline=(255, 0, 0), width=2)
-                d.text((x + 7, y - 6), str(i), fill=(255, 0, 0))
-        img.save(args.overlay)
+    model = None
+    try:
+        model = nb.SAM3DBody_Loader.execute(args.model).args[0]
+        data = nb.SAM3DBody_Predict.execute(model, arr, run_hand_refinement=args.hands).args[0]
+        people = data["frames"][0]
+        if not people:
+            sys.exit("SAM 3D Body found nobody in the picture")
+        kp = np.asarray(people[0]["pred_keypoints_2d"], dtype=float)
+        print("keypoints:", kp.shape)
+        points = {NAMES.get(i, f"kp{i}"): [round(float(x), 1), round(float(y), 1)] for i, (x, y) in enumerate(kp[:, :2])}
+        Path(args.out).write_text(json.dumps({"image_size": list(img.size), "points": points}, indent=1), encoding="utf8")
+        if args.overlay:
+            d = ImageDraw.Draw(img)
+            for i, (x, y) in enumerate(kp[:, :2]):
+                if i in NAMES or i in (63, 64, 65, 66):
+                    d.ellipse([x - 5, y - 5, x + 5, y + 5], outline=(255, 0, 0), width=2)
+                    d.text((x + 7, y - 6), str(i), fill=(255, 0, 0))
+            img.save(args.overlay)
+    finally:
+        # Release this process's model before ComfyUI's callback modules shut down.
+        model_management.unload_all_models()
+        model = None
+        gc.collect()
 
 
 if __name__ == "__main__":

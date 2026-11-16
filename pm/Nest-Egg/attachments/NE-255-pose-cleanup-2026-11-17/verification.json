@@ -1,0 +1,57 @@
+{
+  "baseline": "61229f7ad8787f4b5b776a93e2004408418a4ffa",
+  "python": "D:/ComfyUI/.venv-rocm/Scripts/python.exe",
+  "gpu": "AMD Radeon RX 9070 XT",
+  "source": "new harbor_lamplighter_demo seed 255171; grey review image, no source mutation",
+  "points_equal": true,
+  "point_count": 70,
+  "overlay_bytes_equal": true,
+  "before_exit": 0,
+  "after_exit": 0,
+  "before_diagnostics": "ModelPatcher.__del__: AttributeError ON_DETACH",
+  "after_diagnostics": [],
+  "unit_before": {
+    "tests": 3,
+    "failures": 3
+  },
+  "unit_after": {
+    "tests": 3,
+    "failures": 0
+  },
+  "files": {
+    ".gdignore": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".gitattributes": "730a35ae3d558080083c3103d9ac8100c3f6561678092abe341701dfa331eb1d",
+    "input.png": "53760d165a754818b8c7fc638d082bc16efdbc980e67b1d7710ef55657479f1f",
+    "keypoints-after.json": "76c22575466f3a47acafc2c72f33859c3be787cfe327669493b43e2148bb7630",
+    "keypoints-before.json": "76c22575466f3a47acafc2c72f33859c3be787cfe327669493b43e2148bb7630",
+    "native-after-exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "native-after.log": "578ed994a60e3f212725e0f76d47632b472d2b5535d2a2505602b1089088dc94",
+    "native-before-exit.txt": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "native-before.log": "5e1eab9e96f22c0b0ff01425ba18d31685a65aa44b2613b034bc0b78282639cb",
+    "overlay-after.png": "a06dad6ab97a2e2fe3d91a9aa7f5c09fb962cb12df0e8f5abf123d4380e0606f",
+    "overlay-before.png": "a06dad6ab97a2e2fe3d91a9aa7f5c09fb962cb12df0e8f5abf123d4380e0606f",
+    "pose_keypoints-after.py": "bc75627959b523984a93bc6a10e91e2dcaa04424e7f4324ebd2b16982cb87ad9",
+    "pose_keypoints-before.py": "3156fd08b9f939ce7db84c97e51f71b19e24e500cb3b82dca78900873080ee04",
+    "README.md": "0825b6ce610787b5c217cb79ccd8626c1c414449578da669200409dab6d8c807",
+    "selected-tests.log": "8b4beb6d944339a1a7d1d2729730ba259cd580e8d03d8a9b48f2f6407a289039",
+    "unit-after-final.log": "d731141da8521c347717d4639d656541efdae92e45a4eeed7d8a37a8cc772a26",
+    "unit-after.log": "b121c3451697832b6eae3b524f9b038d192120b2e5a53eb36915ed7fc04821a6",
+    "unit-before-final.log": "bb41d433e7a9c3055cfa0108208908d45168765637c215a8e0ee3a39b9347795",
+    "unit-before.log": "96d4b89eab79b70b2a6499896262d27f43b108278220055be44e04ad0247f97c",
+    "unit-no-release-control.log": "811e7b370b03b8d1ca2e67d2d3de75111c713f3e0a705cdcf5074ceb912fd11a"
+  },
+  "unit_final": {
+    "tests": 3,
+    "failures": 0,
+    "cyclic_model": true,
+    "error_frame_model_reference_cleared": true,
+    "before_failures": 3,
+    "release_removed_control_failures": 3
+  },
+  "game_selection": {
+    "exit": 0,
+    "suites": [],
+    "baseline": "732fcbf1491e4fbad6bdcfa318126a6b9e81a639",
+    "workspace": "C:/NE/queue-20261117"
+  }
+}

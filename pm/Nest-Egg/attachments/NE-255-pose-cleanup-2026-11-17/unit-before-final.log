@@ -1,0 +1,103 @@
+FFF
+======================================================================
+FAIL: test_no_person_still_releases_model (__main__.PoseKeypointsTests.test_no_person_still_releases_model)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\AppData\Local\Temp\tmpqlezg6in\test_pose_keypoints.py", line 55, in run_prediction
+    tool.main()
+    ~~~~~~~~~^^
+  File "C:\Users\stanl\AppData\Local\Temp\tmpqlezg6in\pose_keypoints.py", line 44, in main
+    sys.exit("SAM 3D Body found nobody in the picture")
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SystemExit: SAM 3D Body found nobody in the picture
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\stanl\AppData\Local\Temp\tmpqlezg6in\test_pose_keypoints.py", line 60, in run_prediction
+    self.assertIsNone(traceback.tb_frame.f_locals.get("model"))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: <__main__.PoseKeypointsTests.run_prediction.<locals>.Model object at 0x0000028934C6D7F0> is not None
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\stanl\AppData\Local\Temp\tmpqlezg6in\test_pose_keypoints.py", line 76, in test_no_person_still_releases_model
+    self.run_prediction(lambda *_args, **_kwargs: types.SimpleNamespace(args=[{"frames": [[]]}]))
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\stanl\AppData\Local\Temp\tmpqlezg6in\test_pose_keypoints.py", line 64, in run_prediction
+    self.assertEqual(events[:1], ["unloaded"])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['unloaded']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'unloaded'
+
+- []
++ ['unloaded']
+
+======================================================================
+FAIL: test_prediction_error_still_releases_model (__main__.PoseKeypointsTests.test_prediction_error_still_releases_model)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\AppData\Local\Temp\tmpqlezg6in\test_pose_keypoints.py", line 55, in run_prediction
+    tool.main()
+    ~~~~~~~~~^^
+  File "C:\Users\stanl\AppData\Local\Temp\tmpqlezg6in\pose_keypoints.py", line 41, in main
+    data = nb.SAM3DBody_Predict.execute(model, arr, run_hand_refinement=args.hands).args[0]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\stanl\AppData\Local\Temp\tmpqlezg6in\test_pose_keypoints.py", line 80, in reject
+    raise RuntimeError("prediction failed")
+RuntimeError: prediction failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\stanl\AppData\Local\Temp\tmpqlezg6in\test_pose_keypoints.py", line 60, in run_prediction
+    self.assertIsNone(traceback.tb_frame.f_locals.get("model"))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: <__main__.PoseKeypointsTests.run_prediction.<locals>.Model object at 0x00000289342FFB60> is not None
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\stanl\AppData\Local\Temp\tmpqlezg6in\test_pose_keypoints.py", line 82, in test_prediction_error_still_releases_model
+    self.run_prediction(reject)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\stanl\AppData\Local\Temp\tmpqlezg6in\test_pose_keypoints.py", line 64, in run_prediction
+    self.assertEqual(events[:1], ["unloaded"])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['unloaded']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'unloaded'
+
+- []
++ ['unloaded']
+
+======================================================================
+FAIL: test_success_keeps_points_and_releases_model (__main__.PoseKeypointsTests.test_success_keeps_points_and_releases_model)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\AppData\Local\Temp\tmpqlezg6in\test_pose_keypoints.py", line 70, in test_success_keeps_points_and_releases_model
+    result = self.run_prediction(lambda *_args, **_kwargs: types.SimpleNamespace(
+        args=[{"frames": [[{"pred_keypoints_2d": np.array([[2.3, 4.5]])}]]}]))
+  File "C:\Users\stanl\AppData\Local\Temp\tmpqlezg6in\test_pose_keypoints.py", line 64, in run_prediction
+    self.assertEqual(events[:1], ["unloaded"])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['unloaded']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'unloaded'
+
+- []
++ ['unloaded']
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.063s
+
+FAILED (failures=3)
+keypoints: (1, 2)

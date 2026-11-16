@@ -1,0 +1,73 @@
+FFF
+======================================================================
+FAIL: test_no_person_still_releases_model (__main__.PoseKeypointsTests.test_no_person_still_releases_model)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\AppData\Local\Temp\tmpngczytff\test_pose_keypoints.py", line 55, in run_prediction
+    tool.main()
+    ~~~~~~~~~^^
+  File "C:\Users\stanl\AppData\Local\Temp\tmpngczytff\pose_keypoints.py", line 48, in main
+    sys.exit("SAM 3D Body found nobody in the picture")
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SystemExit: SAM 3D Body found nobody in the picture
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\stanl\AppData\Local\Temp\tmpngczytff\test_pose_keypoints.py", line 76, in test_no_person_still_releases_model
+    self.run_prediction(lambda *_args, **_kwargs: types.SimpleNamespace(args=[{"frames": [[]]}]))
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\stanl\AppData\Local\Temp\tmpngczytff\test_pose_keypoints.py", line 60, in run_prediction
+    self.assertIsNone(traceback.tb_frame.f_locals.get("model"))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: <__main__.PoseKeypointsTests.run_prediction.<locals>.Model object at 0x000002AAF137D7F0> is not None
+
+======================================================================
+FAIL: test_prediction_error_still_releases_model (__main__.PoseKeypointsTests.test_prediction_error_still_releases_model)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\AppData\Local\Temp\tmpngczytff\test_pose_keypoints.py", line 55, in run_prediction
+    tool.main()
+    ~~~~~~~~~^^
+  File "C:\Users\stanl\AppData\Local\Temp\tmpngczytff\pose_keypoints.py", line 45, in main
+    data = nb.SAM3DBody_Predict.execute(model, arr, run_hand_refinement=args.hands).args[0]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\stanl\AppData\Local\Temp\tmpngczytff\test_pose_keypoints.py", line 80, in reject
+    raise RuntimeError("prediction failed")
+RuntimeError: prediction failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\stanl\AppData\Local\Temp\tmpngczytff\test_pose_keypoints.py", line 82, in test_prediction_error_still_releases_model
+    self.run_prediction(reject)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\stanl\AppData\Local\Temp\tmpngczytff\test_pose_keypoints.py", line 60, in run_prediction
+    self.assertIsNone(traceback.tb_frame.f_locals.get("model"))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: <__main__.PoseKeypointsTests.run_prediction.<locals>.Model object at 0x000002AAF0A1FB60> is not None
+
+======================================================================
+FAIL: test_success_keeps_points_and_releases_model (__main__.PoseKeypointsTests.test_success_keeps_points_and_releases_model)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\stanl\AppData\Local\Temp\tmpngczytff\test_pose_keypoints.py", line 70, in test_success_keeps_points_and_releases_model
+    result = self.run_prediction(lambda *_args, **_kwargs: types.SimpleNamespace(
+        args=[{"frames": [[{"pred_keypoints_2d": np.array([[2.3, 4.5]])}]]}]))
+  File "C:\Users\stanl\AppData\Local\Temp\tmpngczytff\test_pose_keypoints.py", line 65, in run_prediction
+    self.assertEqual(events, ["unloaded", "released"])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['unloaded'] != ['unloaded', 'released']
+
+Second list contains 1 additional elements.
+First extra element 1:
+'released'
+
+- ['unloaded']
++ ['unloaded', 'released']
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.049s
+
+FAILED (failures=3)
+keypoints: (1, 2)

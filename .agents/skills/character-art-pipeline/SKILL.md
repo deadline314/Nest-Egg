@@ -93,6 +93,8 @@ texture_scale = 1 / tex_px_per_wp
 
 輸出：`keypoints.json`、骨架 overlay、spec.joints／bones。原圖與 overlay 都要可核對。
 
+`pose_keypoints.py` 在獨立程序的成功與失敗出口都卸載模型並回收循環，須在 ComfyUI 模組退出前完成；不要把 exit 0 但帶 `ModelPatcher.__del__` traceback 的執行寫成零診斷，也不要消音錯誤或重啟共用服務。CPU 回歸為 `python tools/comfyui/test_pose_keypoints.py`；真 GPU 重跑另外核對原圖、全部點位及 overlay 不變。
+
 ## 4. 分群、補底層與切件
 
 1. 按 spec.groups 的優先序取得 SAM 3.1 遮罩，分件前檢查群組覆蓋／互斥／未認領像素。提示或遮罩錯誤先修，不讓最近像素分配把手、衣袖或遠腿偷偷分進軀幹。

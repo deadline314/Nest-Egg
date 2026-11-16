@@ -45,3 +45,4 @@ jobs:
           python tools/comfyui/test_registered_layers.py
           python tools/comfyui/test_hand_attachments.py
           python tools/comfyui/test_final_overrides.py
+          python tools/comfyui/test_pose_keypoints.py
