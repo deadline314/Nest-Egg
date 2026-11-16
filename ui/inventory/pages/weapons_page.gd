@@ -124,6 +124,5 @@ func _activate_entry(index: int) -> bool:
 	if loadout.active_slot != index:
 		context.say("%s 沒有彈藥了" % weapon.display_name, true)
 		return false
-	Sfx.play(&"reload_done", -6.0)
 	context.say("已換成 %s" % weapon.display_name)
 	return true

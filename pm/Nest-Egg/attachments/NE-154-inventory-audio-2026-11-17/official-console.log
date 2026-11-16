@@ -1,0 +1,5 @@
+受影響的測試：AmmoIconsSuite,CollectiblesSuite,DevMenuSuite,EconomySuite,FxUpgradesSuite,MeleeWeaponsSuite,ProgressionSuite,ReadabilityTargetsSuite,SupplySuite,UiScreensSuite,main
+Running 11 groups in 2 processes (logs: C:/NE/evidence-20261117/ne154-official/changed-tests)
+  process 0 (estimated 277 s): MeleeWeaponsSuite,UiScreensSuite,CollectiblesSuite,ProgressionSuite,AmmoIconsSuite
+  process 1 (estimated 276 s): FxUpgradesSuite,main,SupplySuite,EconomySuite,ReadabilityTargetsSuite,DevMenuSuite
+checks: 6426, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 293 s)

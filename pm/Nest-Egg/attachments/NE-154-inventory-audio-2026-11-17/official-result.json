@@ -1,0 +1,13 @@
+{
+  "base": "986b3a6b841fa2e75530d000d47ae6b257cfc822",
+  "suites": 11,
+  "checks": 6426,
+  "new_failures": 0,
+  "known_failures": 0,
+  "exit": 0,
+  "wall_seconds": 293,
+  "command": "GODOT=C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe SHARDS=2 tools/run_tests_changed.sh 986b3a6b841fa2e75530d000d47ae6b257cfc822",
+  "all5_product_sources_unchanged": true,
+  "scope": "Only five inventory page audio call changes in isolated checkout; no new NPC/art or pending BG32/capture changes.",
+  "log_limit": "Deliberate fault-fixture and resources-at-exit diagnostics retained. No SCRIPT ERROR; not a zero-ERROR claim."
+}

@@ -85,7 +85,7 @@ func _activate_entry(index: int) -> bool:
 	var reason := Progression.ability_unlock_block_reason(ability)
 	if not reason.is_empty():
 		context.say(reason, true)
-		Sfx.play(&"empty", -6.0)
+		Sfx.play(&"ui_error", -6.0)
 		return false
 	if not Progression.unlock_ability(ability):
 		return false

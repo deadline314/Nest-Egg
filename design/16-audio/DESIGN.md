@@ -200,3 +200,7 @@ NE-261 現行五種按住模式的兩次實際錄音均在液壓錘待機段出�
 原錄音的wall-clock索引末端超過OGG，且Master已有limiter，不能直接以Master減SFX當背景。新探針直接錄四匯流排PCM，先固定停止邊界再存檔，Music與Ambience按實際穩定bus gain對齊SFX量測平面。每段用實際sample counter，丟幀／不匹配／越界拒絕；保留原兩個公開WAV檔名，與匯流排WAV逐位元一致。一般報告不要求驗證wrapper的私有sidecar，正式交付讀取器仍驗真退出碼與來源。讀取器用固定區塊量化比對，避免為整段錄音配置大量Python物件。
 
 原24段新錄音與原手槍、6dB腳步／10dB背景規則通過；另補現行五按住模式兩輪，真路由／32傷害通過但液壓錘待機在換曲音床谷未過10dB，不改原結果。此項由NE-293繼續處理，NE-261維持進行中。[完整來源、工具、原錄音封存索引與讀取器](../../pm/Nest-Egg/attachments/NE-261-pcm-recording-2026-11-12/README.md)。
+
+## 2026-11-17：背包交易回饋使用介面錄音（NE-154）
+
+通用empty與reload_done保留缺素材時的合成退路，不能當一般背包交易音。購買／典當／贖回／義體解鎖被拒絕時使用既有ui_error，改裝成功使用既有ui_confirm；音量與訊息沿原值。武器頁成功切換只由Loadout.weapon_switched播放該武器正式equip，不再額外疊通用reload_done。所有錄音沿現有sound_bank／pipeline／CC0登記，不另複製素材或新增別名；專屬槍械聲及故障退路保持原契約。核對實際頁面回呼的聲音事件與原始混音，交易金額、裝備、拒絕原因與存檔結果不變。

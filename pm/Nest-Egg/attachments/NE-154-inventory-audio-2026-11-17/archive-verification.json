@@ -1,0 +1,2103 @@
+{
+  "schema": "ne154-portable-archive-verification-v1",
+  "archive_sha256": "0538211974cad41f362a5b348fed63e8fdc72e73f35bc73a5a15b9fa3f6597da",
+  "members_verified": 93,
+  "pairs": [
+    {
+      "name": "headless-v3",
+      "original": {
+        "folder": "archive:valid/headless-original-v3",
+        "variant": "original",
+        "display": "headless",
+        "driver": "WASAPI",
+        "adapter": "",
+        "reader_version": "ne261-capture-reader-v2-chunked",
+        "mix_rate": 48000,
+        "semantic_audio_failures": 9,
+        "cases": [
+          {
+            "name": "weapon-upgrade-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "empty"
+            ],
+            "sources": [
+              {
+                "id": "empty",
+                "source": "synth"
+              }
+            ],
+            "semantic_audio_ok": false,
+            "sample_start": 15872,
+            "sample_end": 48128,
+            "frames": 32256,
+            "seconds_diagnostic": 0.672,
+            "raw_f32_peak": 0.05442569777369499,
+            "raw_f32_energy_sum_both_channels": 2.2328059432404683,
+            "raw_f32_rms": 0.00588308653731087,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "weapon-upgrade-bought",
+            "return": true,
+            "expected": "ui_confirm",
+            "events": [
+              "reload_done"
+            ],
+            "sources": [
+              {
+                "id": "reload_done",
+                "source": "synth"
+              }
+            ],
+            "semantic_audio_ok": false,
+            "sample_start": 65024,
+            "sample_end": 96256,
+            "frames": 31232,
+            "seconds_diagnostic": 0.6506666666666666,
+            "raw_f32_peak": 0.22610166668891907,
+            "raw_f32_energy_sum_both_channels": 7.52889945481277,
+            "raw_f32_rms": 0.01097869835654228,
+            "before": {
+              "abilities": [],
+              "credits": 1000,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 880,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {
+                "rifle": [
+                  "mag_boost"
+                ]
+              },
+              "version": 1
+            }
+          },
+          {
+            "name": "arm-part-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "empty"
+            ],
+            "sources": [
+              {
+                "id": "empty",
+                "source": "synth"
+              }
+            ],
+            "semantic_audio_ok": false,
+            "sample_start": 113152,
+            "sample_end": 144896,
+            "frames": 31744,
+            "seconds_diagnostic": 0.6613333333333333,
+            "raw_f32_peak": 0.05421651899814606,
+            "raw_f32_energy_sum_both_channels": 2.100425715131921,
+            "raw_f32_rms": 0.005751853820983278,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "arm-part-bought",
+            "return": true,
+            "expected": "ui_confirm",
+            "events": [
+              "reload_done"
+            ],
+            "sources": [
+              {
+                "id": "reload_done",
+                "source": "synth"
+              }
+            ],
+            "semantic_audio_ok": false,
+            "sample_start": 161280,
+            "sample_end": 193024,
+            "frames": 31744,
+            "seconds_diagnostic": 0.6613333333333333,
+            "raw_f32_peak": 0.22608469426631927,
+            "raw_f32_energy_sum_both_channels": 7.566255765842146,
+            "raw_f32_rms": 0.010916783206877898,
+            "before": {
+              "abilities": [],
+              "credits": 1000,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "arm_shield": [
+                "reaction_chip"
+              ],
+              "credits": 880,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "shop-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "empty"
+            ],
+            "sources": [
+              {
+                "id": "empty",
+                "source": "synth"
+              }
+            ],
+            "semantic_audio_ok": false,
+            "sample_start": 209920,
+            "sample_end": 241664,
+            "frames": 31744,
+            "seconds_diagnostic": 0.6613333333333333,
+            "raw_f32_peak": 0.05442682281136513,
+            "raw_f32_energy_sum_both_channels": 2.223059310306047,
+            "raw_f32_rms": 0.005917383300457071,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "pawn-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "empty"
+            ],
+            "sources": [
+              {
+                "id": "empty",
+                "source": "synth"
+              }
+            ],
+            "semantic_audio_ok": false,
+            "sample_start": 259072,
+            "sample_end": 289792,
+            "frames": 30720,
+            "seconds_diagnostic": 0.64,
+            "raw_f32_peak": 0.05374601110816002,
+            "raw_f32_energy_sum_both_channels": 2.058988554441102,
+            "raw_f32_rms": 0.005788970850097031,
+            "before": {
+              "abilities": [],
+              "credits": 99999,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 99999,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "redeem-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "empty"
+            ],
+            "sources": [
+              {
+                "id": "empty",
+                "source": "synth"
+              }
+            ],
+            "semantic_audio_ok": false,
+            "sample_start": 307200,
+            "sample_end": 337920,
+            "frames": 30720,
+            "seconds_diagnostic": 0.64,
+            "raw_f32_peak": 0.05401840806007385,
+            "raw_f32_energy_sum_both_channels": 2.130165166705705,
+            "raw_f32_rms": 0.005888179430875388,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "cyber-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "empty"
+            ],
+            "sources": [
+              {
+                "id": "empty",
+                "source": "synth"
+              }
+            ],
+            "semantic_audio_ok": false,
+            "sample_start": 355328,
+            "sample_end": 386560,
+            "frames": 31232,
+            "seconds_diagnostic": 0.6506666666666666,
+            "raw_f32_peak": 0.05374112352728844,
+            "raw_f32_energy_sum_both_channels": 2.0833466424192677,
+            "raw_f32_rms": 0.005775184626227051,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "weapon-switch",
+            "return": true,
+            "expected": "equip_ballistic",
+            "events": [
+              "equip_ballistic",
+              "reload_done"
+            ],
+            "sources": [
+              {
+                "id": "equip_ballistic",
+                "source": "file"
+              },
+              {
+                "id": "reload_done",
+                "source": "synth"
+              }
+            ],
+            "semantic_audio_ok": false,
+            "sample_start": 403456,
+            "sample_end": 435200,
+            "frames": 31744,
+            "seconds_diagnostic": 0.6613333333333333,
+            "raw_f32_peak": 0.17917105555534363,
+            "raw_f32_energy_sum_both_channels": 13.917939678173829,
+            "raw_f32_rms": 0.01480613319244309,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          }
+        ],
+        "negative_controls": [
+          {
+            "name": "unchanged-reader-empty-window",
+            "rejected": true,
+            "reason": "segment exceeds actual PCM"
+          },
+          {
+            "name": "unchanged-reader-out-of-range-window",
+            "rejected": true,
+            "reason": "segment exceeds actual PCM"
+          },
+          {
+            "name": "strict-window-empty",
+            "rejected": true,
+            "reason": "Empty, noninteger, negative or out-of-range sample window"
+          },
+          {
+            "name": "strict-window-negative",
+            "rejected": true,
+            "reason": "Empty, noninteger, negative or out-of-range sample window"
+          },
+          {
+            "name": "strict-window-past-end",
+            "rejected": true,
+            "reason": "Empty, noninteger, negative or out-of-range sample window"
+          },
+          {
+            "name": "strict-window-empty-pcm",
+            "rejected": true,
+            "reason": "Empty, noninteger, negative or out-of-range sample window"
+          },
+          {
+            "name": "unchanged-reader-empty-raw-file",
+            "rejected": true,
+            "reason": "float PCM size mismatch"
+          }
+        ],
+        "evidence_sha256": {
+          "bus-Ambience.f32": "6ea662d5aa23d3249bd87ba5d7dbff21311c8ab672d79fe834c0c11310c76fbc",
+          "bus-Ambience.wav": "b4105ed0f35ea40d96568db1ddc9119013d95b8ff22dc7a204d0a096e5436bf5",
+          "bus-Master.f32": "c72c054b5d881042ade3e8cbb66781df069c7e9bf72e595d9c146790bc0b5043",
+          "bus-Master.wav": "2426926ba309bd2f7082a44e4f9dd3f75441f3a41c641c73c4742ac3edcc3ae7",
+          "bus-Music.f32": "1e4ac01f9b9aea321bdfc5a591aa1a9e88b7c3f4a89c467a1c9b6822216979ae",
+          "bus-Music.wav": "673a6c21e70148fb77cc845dadb7543546375701949032b6eda4cc71690b5e93",
+          "bus-SFX.f32": "68610142544e4b398aae9965452ac81cb0b6a01d0072351d7a25659d7ada8b29",
+          "bus-SFX.wav": "65987b4a1ae5332368240e8d7f10143c3ad68c7126b7ac58ec162580fde894c3",
+          "console.log": "1fa011ea678383363f2c1738ff8fb8303aa93b239ca0365d60ef2e0a49e649e3",
+          "melee-master.wav": "2426926ba309bd2f7082a44e4f9dd3f75441f3a41c641c73c4742ac3edcc3ae7",
+          "melee-sfx.wav": "65987b4a1ae5332368240e8d7f10143c3ad68c7126b7ac58ec162580fde894c3",
+          "report.json": "1794349700463a5a99e44aa512cb31d3823ce652d78389fd784759a625c65112"
+        }
+      },
+      "candidate": {
+        "folder": "archive:valid/headless-candidate-v3",
+        "variant": "candidate",
+        "display": "headless",
+        "driver": "WASAPI",
+        "adapter": "",
+        "reader_version": "ne261-capture-reader-v2-chunked",
+        "mix_rate": 48000,
+        "semantic_audio_failures": 0,
+        "cases": [
+          {
+            "name": "weapon-upgrade-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "ui_error"
+            ],
+            "sources": [
+              {
+                "id": "ui_error",
+                "source": "file"
+              }
+            ],
+            "semantic_audio_ok": true,
+            "sample_start": 15872,
+            "sample_end": 47616,
+            "frames": 31744,
+            "seconds_diagnostic": 0.6613333333333333,
+            "raw_f32_peak": 0.06273350119590759,
+            "raw_f32_energy_sum_both_channels": 7.9350355270031665,
+            "raw_f32_rms": 0.011179660485813012,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "weapon-upgrade-bought",
+            "return": true,
+            "expected": "ui_confirm",
+            "events": [
+              "ui_confirm"
+            ],
+            "sources": [
+              {
+                "id": "ui_confirm",
+                "source": "file"
+              }
+            ],
+            "semantic_audio_ok": true,
+            "sample_start": 64512,
+            "sample_end": 96256,
+            "frames": 31744,
+            "seconds_diagnostic": 0.6613333333333333,
+            "raw_f32_peak": 0.18918824195861816,
+            "raw_f32_energy_sum_both_channels": 42.40862250332883,
+            "raw_f32_rms": 0.02584528109839304,
+            "before": {
+              "abilities": [],
+              "credits": 1000,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 880,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {
+                "rifle": [
+                  "mag_boost"
+                ]
+              },
+              "version": 1
+            }
+          },
+          {
+            "name": "arm-part-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "ui_error"
+            ],
+            "sources": [
+              {
+                "id": "ui_error",
+                "source": "file"
+              }
+            ],
+            "semantic_audio_ok": true,
+            "sample_start": 113152,
+            "sample_end": 144384,
+            "frames": 31232,
+            "seconds_diagnostic": 0.6506666666666666,
+            "raw_f32_peak": 0.06280437856912613,
+            "raw_f32_energy_sum_both_channels": 7.6687938556452355,
+            "raw_f32_rms": 0.011080226442952661,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "arm-part-bought",
+            "return": true,
+            "expected": "ui_confirm",
+            "events": [
+              "ui_confirm"
+            ],
+            "sources": [
+              {
+                "id": "ui_confirm",
+                "source": "file"
+              }
+            ],
+            "semantic_audio_ok": true,
+            "sample_start": 161792,
+            "sample_end": 192512,
+            "frames": 30720,
+            "seconds_diagnostic": 0.64,
+            "raw_f32_peak": 0.12816505134105682,
+            "raw_f32_energy_sum_both_channels": 42.013155003479724,
+            "raw_f32_rms": 0.026149720101461146,
+            "before": {
+              "abilities": [],
+              "credits": 1000,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "arm_shield": [
+                "reaction_chip"
+              ],
+              "credits": 880,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "shop-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "ui_error"
+            ],
+            "sources": [
+              {
+                "id": "ui_error",
+                "source": "file"
+              }
+            ],
+            "semantic_audio_ok": true,
+            "sample_start": 209408,
+            "sample_end": 241152,
+            "frames": 31744,
+            "seconds_diagnostic": 0.6613333333333333,
+            "raw_f32_peak": 0.06280183047056198,
+            "raw_f32_energy_sum_both_channels": 7.787505550892844,
+            "raw_f32_rms": 0.011075245493196858,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "pawn-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "ui_error"
+            ],
+            "sources": [
+              {
+                "id": "ui_error",
+                "source": "file"
+              }
+            ],
+            "semantic_audio_ok": true,
+            "sample_start": 258048,
+            "sample_end": 289792,
+            "frames": 31744,
+            "seconds_diagnostic": 0.6613333333333333,
+            "raw_f32_peak": 0.06273943930864334,
+            "raw_f32_energy_sum_both_channels": 7.842013169866202,
+            "raw_f32_rms": 0.011113937766633582,
+            "before": {
+              "abilities": [],
+              "credits": 99999,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 99999,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "redeem-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "ui_error"
+            ],
+            "sources": [
+              {
+                "id": "ui_error",
+                "source": "file"
+              }
+            ],
+            "semantic_audio_ok": true,
+            "sample_start": 306688,
+            "sample_end": 337920,
+            "frames": 31232,
+            "seconds_diagnostic": 0.6506666666666666,
+            "raw_f32_peak": 0.06279762834310532,
+            "raw_f32_energy_sum_both_channels": 7.994756807919986,
+            "raw_f32_rms": 0.011313259082572791,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "cyber-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "ui_error"
+            ],
+            "sources": [
+              {
+                "id": "ui_error",
+                "source": "file"
+              }
+            ],
+            "semantic_audio_ok": true,
+            "sample_start": 354816,
+            "sample_end": 386048,
+            "frames": 31232,
+            "seconds_diagnostic": 0.6506666666666666,
+            "raw_f32_peak": 0.06280481070280075,
+            "raw_f32_energy_sum_both_channels": 7.855392727703146,
+            "raw_f32_rms": 0.011214219574555965,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "weapon-switch",
+            "return": true,
+            "expected": "equip_ballistic",
+            "events": [
+              "equip_ballistic"
+            ],
+            "sources": [
+              {
+                "id": "equip_ballistic",
+                "source": "file"
+              }
+            ],
+            "semantic_audio_ok": true,
+            "sample_start": 402944,
+            "sample_end": 434688,
+            "frames": 31744,
+            "seconds_diagnostic": 0.6613333333333333,
+            "raw_f32_peak": 0.10118221491575241,
+            "raw_f32_energy_sum_both_channels": 8.623996090381578,
+            "raw_f32_rms": 0.011654897338370501,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          }
+        ],
+        "negative_controls": [
+          {
+            "name": "unchanged-reader-empty-window",
+            "rejected": true,
+            "reason": "segment exceeds actual PCM"
+          },
+          {
+            "name": "unchanged-reader-out-of-range-window",
+            "rejected": true,
+            "reason": "segment exceeds actual PCM"
+          },
+          {
+            "name": "strict-window-empty",
+            "rejected": true,
+            "reason": "Empty, noninteger, negative or out-of-range sample window"
+          },
+          {
+            "name": "strict-window-negative",
+            "rejected": true,
+            "reason": "Empty, noninteger, negative or out-of-range sample window"
+          },
+          {
+            "name": "strict-window-past-end",
+            "rejected": true,
+            "reason": "Empty, noninteger, negative or out-of-range sample window"
+          },
+          {
+            "name": "strict-window-empty-pcm",
+            "rejected": true,
+            "reason": "Empty, noninteger, negative or out-of-range sample window"
+          },
+          {
+            "name": "unchanged-reader-empty-raw-file",
+            "rejected": true,
+            "reason": "float PCM size mismatch"
+          }
+        ],
+        "evidence_sha256": {
+          "bus-Ambience.f32": "363ea62028464d58e113a0ffd5e23fa6fd7d7e965cbbb0fd09f52c6d7f3bb0cf",
+          "bus-Ambience.wav": "de6fba9ba1eefd3340cfc82242f24f8dedc57b695811ba1d513fb9475f5b371f",
+          "bus-Master.f32": "e44726a92c59fc26c50625ed6d20ad487d8beb6ed9a9a12096f452b149f11c27",
+          "bus-Master.wav": "931d50265372ebc2d5748189d1e92ba804772a72663580f5df62c1f7c3163b0c",
+          "bus-Music.f32": "86cf95917360e1f21e31ccfb31a79ee35de24b26839ebf0dea9967fa350da18a",
+          "bus-Music.wav": "e6701c6146758ce6204129ab30b76605eb8557cbc3cd5a0c7a82014757937e82",
+          "bus-SFX.f32": "7b2ca3213016526678e5e5d81ac9c704edfd569203a7ac30f20836444ec8c076",
+          "bus-SFX.wav": "42fb384e77bb533ed1f2970e777bf4c28b33219e12cab1a11307393d71f68aef",
+          "console.log": "46c78b640fb9441baac1d83e2ca215ca350e9b14cfe9005d895e796960691399",
+          "melee-master.wav": "931d50265372ebc2d5748189d1e92ba804772a72663580f5df62c1f7c3163b0c",
+          "melee-sfx.wav": "42fb384e77bb533ed1f2970e777bf4c28b33219e12cab1a11307393d71f68aef",
+          "report.json": "f23e99803b264e526f2217263cfb28e38a5fdb463b5c8954dd2f358f8a4c57f9"
+        }
+      },
+      "progression_comparisons": [
+        {
+          "name": "weapon-upgrade-refused",
+          "return": true,
+          "before": true,
+          "after": true
+        },
+        {
+          "name": "weapon-upgrade-bought",
+          "return": true,
+          "before": true,
+          "after": true
+        },
+        {
+          "name": "arm-part-refused",
+          "return": true,
+          "before": true,
+          "after": true
+        },
+        {
+          "name": "arm-part-bought",
+          "return": true,
+          "before": true,
+          "after": true
+        },
+        {
+          "name": "shop-refused",
+          "return": true,
+          "before": true,
+          "after": true
+        },
+        {
+          "name": "pawn-refused",
+          "return": true,
+          "before": true,
+          "after": true
+        },
+        {
+          "name": "redeem-refused",
+          "return": true,
+          "before": true,
+          "after": true
+        },
+        {
+          "name": "cyber-refused",
+          "return": true,
+          "before": true,
+          "after": true
+        },
+        {
+          "name": "weapon-switch",
+          "return": true,
+          "before": true,
+          "after": true
+        }
+      ]
+    },
+    {
+      "name": "independent-native",
+      "original": {
+        "folder": "archive:valid/native-original",
+        "variant": "original",
+        "display": "Windows",
+        "driver": "WASAPI",
+        "adapter": "AMD Radeon RX 9070 XT",
+        "reader_version": "ne261-capture-reader-v2-chunked",
+        "mix_rate": 48000,
+        "semantic_audio_failures": 9,
+        "cases": [
+          {
+            "name": "weapon-upgrade-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "empty"
+            ],
+            "sources": [
+              {
+                "id": "empty",
+                "source": "synth"
+              }
+            ],
+            "semantic_audio_ok": false,
+            "sample_start": 19456,
+            "sample_end": 50688,
+            "frames": 31232,
+            "seconds_diagnostic": 0.6506666666666666,
+            "raw_f32_peak": 0.05424429476261139,
+            "raw_f32_energy_sum_both_channels": 2.234944467283496,
+            "raw_f32_rms": 0.005981615216277205,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "weapon-upgrade-bought",
+            "return": true,
+            "expected": "ui_confirm",
+            "events": [
+              "reload_done"
+            ],
+            "sources": [
+              {
+                "id": "reload_done",
+                "source": "synth"
+              }
+            ],
+            "semantic_audio_ok": false,
+            "sample_start": 67584,
+            "sample_end": 99328,
+            "frames": 31744,
+            "seconds_diagnostic": 0.6613333333333333,
+            "raw_f32_peak": 0.2256544679403305,
+            "raw_f32_energy_sum_both_channels": 7.613113954830956,
+            "raw_f32_rms": 0.01095053511471575,
+            "before": {
+              "abilities": [],
+              "credits": 1000,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 880,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {
+                "rifle": [
+                  "mag_boost"
+                ]
+              },
+              "version": 1
+            }
+          },
+          {
+            "name": "arm-part-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "empty"
+            ],
+            "sources": [
+              {
+                "id": "empty",
+                "source": "synth"
+              }
+            ],
+            "semantic_audio_ok": false,
+            "sample_start": 115712,
+            "sample_end": 146944,
+            "frames": 31232,
+            "seconds_diagnostic": 0.6506666666666666,
+            "raw_f32_peak": 0.05371389165520668,
+            "raw_f32_energy_sum_both_channels": 2.0730309663787394,
+            "raw_f32_rms": 0.005760868990551597,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "arm-part-bought",
+            "return": true,
+            "expected": "ui_confirm",
+            "events": [
+              "reload_done"
+            ],
+            "sources": [
+              {
+                "id": "reload_done",
+                "source": "synth"
+              }
+            ],
+            "semantic_audio_ok": false,
+            "sample_start": 164352,
+            "sample_end": 195584,
+            "frames": 31232,
+            "seconds_diagnostic": 0.6506666666666666,
+            "raw_f32_peak": 0.22706855833530426,
+            "raw_f32_energy_sum_both_channels": 7.41519669180859,
+            "raw_f32_rms": 0.01089548185750791,
+            "before": {
+              "abilities": [],
+              "credits": 1000,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "arm_shield": [
+                "reaction_chip"
+              ],
+              "credits": 880,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "shop-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "empty"
+            ],
+            "sources": [
+              {
+                "id": "empty",
+                "source": "synth"
+              }
+            ],
+            "semantic_audio_ok": false,
+            "sample_start": 212480,
+            "sample_end": 244224,
+            "frames": 31744,
+            "seconds_diagnostic": 0.6613333333333333,
+            "raw_f32_peak": 0.05442618206143379,
+            "raw_f32_energy_sum_both_channels": 2.232460774221966,
+            "raw_f32_rms": 0.005929882600733855,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "pawn-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "empty"
+            ],
+            "sources": [
+              {
+                "id": "empty",
+                "source": "synth"
+              }
+            ],
+            "semantic_audio_ok": false,
+            "sample_start": 260608,
+            "sample_end": 291840,
+            "frames": 31232,
+            "seconds_diagnostic": 0.6506666666666666,
+            "raw_f32_peak": 0.054246921092271805,
+            "raw_f32_energy_sum_both_channels": 2.2347810950721643,
+            "raw_f32_rms": 0.005981396587228742,
+            "before": {
+              "abilities": [],
+              "credits": 99999,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 99999,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "redeem-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "empty"
+            ],
+            "sources": [
+              {
+                "id": "empty",
+                "source": "synth"
+              }
+            ],
+            "semantic_audio_ok": false,
+            "sample_start": 308736,
+            "sample_end": 339968,
+            "frames": 31232,
+            "seconds_diagnostic": 0.6506666666666666,
+            "raw_f32_peak": 0.05442646145820618,
+            "raw_f32_energy_sum_both_channels": 2.2426741355238438,
+            "raw_f32_rms": 0.005991950147082585,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "cyber-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "empty"
+            ],
+            "sources": [
+              {
+                "id": "empty",
+                "source": "synth"
+              }
+            ],
+            "semantic_audio_ok": false,
+            "sample_start": 357376,
+            "sample_end": 388608,
+            "frames": 31232,
+            "seconds_diagnostic": 0.6506666666666666,
+            "raw_f32_peak": 0.05428912863135338,
+            "raw_f32_energy_sum_both_channels": 2.0673601569081823,
+            "raw_f32_rms": 0.005752984119782499,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "weapon-switch",
+            "return": true,
+            "expected": "equip_ballistic",
+            "events": [
+              "equip_ballistic",
+              "reload_done"
+            ],
+            "sources": [
+              {
+                "id": "equip_ballistic",
+                "source": "file"
+              },
+              {
+                "id": "reload_done",
+                "source": "synth"
+              }
+            ],
+            "semantic_audio_ok": false,
+            "sample_start": 405504,
+            "sample_end": 437248,
+            "frames": 31744,
+            "seconds_diagnostic": 0.6613333333333333,
+            "raw_f32_peak": 0.1800711303949356,
+            "raw_f32_energy_sum_both_channels": 13.881958281162875,
+            "raw_f32_rms": 0.014786982005733047,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          }
+        ],
+        "negative_controls": [
+          {
+            "name": "unchanged-reader-empty-window",
+            "rejected": true,
+            "reason": "segment exceeds actual PCM"
+          },
+          {
+            "name": "unchanged-reader-out-of-range-window",
+            "rejected": true,
+            "reason": "segment exceeds actual PCM"
+          },
+          {
+            "name": "strict-window-empty",
+            "rejected": true,
+            "reason": "Empty, noninteger, negative or out-of-range sample window"
+          },
+          {
+            "name": "strict-window-negative",
+            "rejected": true,
+            "reason": "Empty, noninteger, negative or out-of-range sample window"
+          },
+          {
+            "name": "strict-window-past-end",
+            "rejected": true,
+            "reason": "Empty, noninteger, negative or out-of-range sample window"
+          },
+          {
+            "name": "strict-window-empty-pcm",
+            "rejected": true,
+            "reason": "Empty, noninteger, negative or out-of-range sample window"
+          },
+          {
+            "name": "unchanged-reader-empty-raw-file",
+            "rejected": true,
+            "reason": "float PCM size mismatch"
+          }
+        ],
+        "evidence_sha256": {
+          "bus-Ambience.f32": "962d518df54cb52bb5201c25756c2d1147763d4a74b868ab7e762b02910d1c9a",
+          "bus-Ambience.wav": "23e0585c6239eaa439f6aeaa0c772365d1e6c773ad9e6604cc31ffbb3d5b4008",
+          "bus-Master.f32": "3c93f6dc25be59d41470345354d23fd8f6a4207e557eabaf21313d39c54a5529",
+          "bus-Master.wav": "85d22932ce771e39d1da93889c8f0d533a28e7deab1f7f0a972b576c3a8faf3a",
+          "bus-Music.f32": "720fc9caea7488eefe2072e65f346fdac181864f51282295640b31fdc5114f07",
+          "bus-Music.wav": "71b6d4e8e16834ab7bfe121b5874d0b9e4e9ace53a65bdaccca12809f3c7960b",
+          "bus-SFX.f32": "f3a106fa0e37e9846606826a0fac97d493e37d3b1bbc05599f0e2ce47bf1a7cf",
+          "bus-SFX.wav": "c6b151712a81bb59adc70a0dc6a1d85cc8f3613da0190139ecdc20369fa92eb5",
+          "console.log": "cc01c9b9a46c939ed0cada7a3d46b7b83dbc60c93c8807ef858d48467165a38d",
+          "inventory-context.png": "50061abca170ca60105192f4a33a74e4ee3b68e46960ad64dda35f73909b51cd",
+          "melee-master.wav": "85d22932ce771e39d1da93889c8f0d533a28e7deab1f7f0a972b576c3a8faf3a",
+          "melee-sfx.wav": "c6b151712a81bb59adc70a0dc6a1d85cc8f3613da0190139ecdc20369fa92eb5",
+          "process-receipt.json": "1ce043ea9071bbfdb81a4fe05973c2d7551e8e50c537c86c17f2033c4b6655d6",
+          "report.json": "9e537d55cb9bc0a8e8e599768a9302c43fc57069338f3bddb5e3a30dbeb485ec"
+        },
+        "producer_exit_code": 1
+      },
+      "candidate": {
+        "folder": "archive:valid/native-candidate",
+        "variant": "candidate",
+        "display": "Windows",
+        "driver": "WASAPI",
+        "adapter": "AMD Radeon RX 9070 XT",
+        "reader_version": "ne261-capture-reader-v2-chunked",
+        "mix_rate": 48000,
+        "semantic_audio_failures": 0,
+        "cases": [
+          {
+            "name": "weapon-upgrade-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "ui_error"
+            ],
+            "sources": [
+              {
+                "id": "ui_error",
+                "source": "file"
+              }
+            ],
+            "semantic_audio_ok": true,
+            "sample_start": 16384,
+            "sample_end": 48128,
+            "frames": 31744,
+            "seconds_diagnostic": 0.6613333333333333,
+            "raw_f32_peak": 0.06275284290313721,
+            "raw_f32_energy_sum_both_channels": 7.491002606692824,
+            "raw_f32_rms": 0.01086235897350709,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "weapon-upgrade-bought",
+            "return": true,
+            "expected": "ui_confirm",
+            "events": [
+              "ui_confirm"
+            ],
+            "sources": [
+              {
+                "id": "ui_confirm",
+                "source": "file"
+              }
+            ],
+            "semantic_audio_ok": true,
+            "sample_start": 64512,
+            "sample_end": 95744,
+            "frames": 31232,
+            "seconds_diagnostic": 0.6506666666666666,
+            "raw_f32_peak": 0.18947733938694,
+            "raw_f32_energy_sum_both_channels": 41.07026665564525,
+            "raw_f32_rms": 0.02564182107829968,
+            "before": {
+              "abilities": [],
+              "credits": 1000,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 880,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {
+                "rifle": [
+                  "mag_boost"
+                ]
+              },
+              "version": 1
+            }
+          },
+          {
+            "name": "arm-part-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "ui_error"
+            ],
+            "sources": [
+              {
+                "id": "ui_error",
+                "source": "file"
+              }
+            ],
+            "semantic_audio_ok": true,
+            "sample_start": 113152,
+            "sample_end": 144384,
+            "frames": 31232,
+            "seconds_diagnostic": 0.6506666666666666,
+            "raw_f32_peak": 0.06280472874641418,
+            "raw_f32_energy_sum_both_channels": 7.894893738173786,
+            "raw_f32_rms": 0.011242379689594439,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "arm-part-bought",
+            "return": true,
+            "expected": "ui_confirm",
+            "events": [
+              "ui_confirm"
+            ],
+            "sources": [
+              {
+                "id": "ui_confirm",
+                "source": "file"
+              }
+            ],
+            "semantic_audio_ok": true,
+            "sample_start": 161792,
+            "sample_end": 193024,
+            "frames": 31232,
+            "seconds_diagnostic": 0.6506666666666666,
+            "raw_f32_peak": 0.17394845187664032,
+            "raw_f32_energy_sum_both_channels": 68.6019461319899,
+            "raw_f32_rms": 0.0331400624324237,
+            "before": {
+              "abilities": [],
+              "credits": 1000,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "arm_shield": [
+                "reaction_chip"
+              ],
+              "credits": 880,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "shop-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "ui_error"
+            ],
+            "sources": [
+              {
+                "id": "ui_error",
+                "source": "file"
+              }
+            ],
+            "semantic_audio_ok": true,
+            "sample_start": 209408,
+            "sample_end": 241152,
+            "frames": 31744,
+            "seconds_diagnostic": 0.6613333333333333,
+            "raw_f32_peak": 0.06279988586902618,
+            "raw_f32_energy_sum_both_channels": 7.586677098760774,
+            "raw_f32_rms": 0.010931505484857097,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "pawn-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "ui_error"
+            ],
+            "sources": [
+              {
+                "id": "ui_error",
+                "source": "file"
+              }
+            ],
+            "semantic_audio_ok": true,
+            "sample_start": 258048,
+            "sample_end": 289280,
+            "frames": 31232,
+            "seconds_diagnostic": 0.6506666666666666,
+            "raw_f32_peak": 0.06280361115932465,
+            "raw_f32_energy_sum_both_channels": 7.761917634748835,
+            "raw_f32_rms": 0.011147298202530416,
+            "before": {
+              "abilities": [],
+              "credits": 99999,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 99999,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "redeem-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "ui_error"
+            ],
+            "sources": [
+              {
+                "id": "ui_error",
+                "source": "file"
+              }
+            ],
+            "semantic_audio_ok": true,
+            "sample_start": 306688,
+            "sample_end": 337920,
+            "frames": 31232,
+            "seconds_diagnostic": 0.6506666666666666,
+            "raw_f32_peak": 0.06277979165315628,
+            "raw_f32_energy_sum_both_channels": 7.669782283828555,
+            "raw_f32_rms": 0.01108094048321913,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "cyber-refused",
+            "return": false,
+            "expected": "ui_error",
+            "events": [
+              "ui_error"
+            ],
+            "sources": [
+              {
+                "id": "ui_error",
+                "source": "file"
+              }
+            ],
+            "semantic_audio_ok": true,
+            "sample_start": 354816,
+            "sample_end": 386048,
+            "frames": 31232,
+            "seconds_diagnostic": 0.6506666666666666,
+            "raw_f32_peak": 0.0628037378191948,
+            "raw_f32_energy_sum_both_channels": 7.891653474380602,
+            "raw_f32_rms": 0.011240072374537136,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          },
+          {
+            "name": "weapon-switch",
+            "return": true,
+            "expected": "equip_ballistic",
+            "events": [
+              "equip_ballistic"
+            ],
+            "sources": [
+              {
+                "id": "equip_ballistic",
+                "source": "file"
+              }
+            ],
+            "semantic_audio_ok": true,
+            "sample_start": 402944,
+            "sample_end": 434176,
+            "frames": 31232,
+            "seconds_diagnostic": 0.6506666666666666,
+            "raw_f32_peak": 0.09716275334358215,
+            "raw_f32_energy_sum_both_channels": 8.678228746923041,
+            "raw_f32_rms": 0.011786928548230827,
+            "before": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            },
+            "after": {
+              "abilities": [],
+              "credits": 0,
+              "equipped": "",
+              "pawned": {},
+              "story_transactions": {
+                "receipts": {},
+                "version": 1
+              },
+              "upgrades": {},
+              "version": 1
+            }
+          }
+        ],
+        "negative_controls": [
+          {
+            "name": "unchanged-reader-empty-window",
+            "rejected": true,
+            "reason": "segment exceeds actual PCM"
+          },
+          {
+            "name": "unchanged-reader-out-of-range-window",
+            "rejected": true,
+            "reason": "segment exceeds actual PCM"
+          },
+          {
+            "name": "strict-window-empty",
+            "rejected": true,
+            "reason": "Empty, noninteger, negative or out-of-range sample window"
+          },
+          {
+            "name": "strict-window-negative",
+            "rejected": true,
+            "reason": "Empty, noninteger, negative or out-of-range sample window"
+          },
+          {
+            "name": "strict-window-past-end",
+            "rejected": true,
+            "reason": "Empty, noninteger, negative or out-of-range sample window"
+          },
+          {
+            "name": "strict-window-empty-pcm",
+            "rejected": true,
+            "reason": "Empty, noninteger, negative or out-of-range sample window"
+          },
+          {
+            "name": "unchanged-reader-empty-raw-file",
+            "rejected": true,
+            "reason": "float PCM size mismatch"
+          }
+        ],
+        "evidence_sha256": {
+          "bus-Ambience.f32": "d1b7a3152a09b00c6149b6a7a512386ed0c21078c8b6d20e0ea7243a41943a0b",
+          "bus-Ambience.wav": "38e2a634e2a3a9e21ef483c22c5c4834eac1bbc473accea4350fd3ad39c632f9",
+          "bus-Master.f32": "600e187834355acf11f1c0979ac90c9ce6a48a64c2df13227acea20d5792a8bc",
+          "bus-Master.wav": "e266c20125a3d3aae1363b35d4d1f9bbc042ee60214ce7d163f0ffd04135ba3d",
+          "bus-Music.f32": "8a1061d69076b886e8c32c28636bdf48f80e5f0c41c19fd1bde91411ba0f2d64",
+          "bus-Music.wav": "7d90fd34778e5f4706cdd9feecb1e1f80db3e141f35924b2127fdee39799e0bd",
+          "bus-SFX.f32": "a2aad029c4ffc2110e833dac50cc5cae3e6f161b51c675f3c7d89b71f5f8a740",
+          "bus-SFX.wav": "44cf2e0df596a903289b25c830a98392f247d5d2e02219063703f70039dedf40",
+          "console.log": "0ba5fe8869e8e741d5dce1730ed4091ef5599d5c37c1b4f313f6c809cd1b5d22",
+          "inventory-context.png": "0012de332e7b6861e5a9dba54b6fc62f380390767cc3e538d98d3620624cbd67",
+          "melee-master.wav": "e266c20125a3d3aae1363b35d4d1f9bbc042ee60214ce7d163f0ffd04135ba3d",
+          "melee-sfx.wav": "44cf2e0df596a903289b25c830a98392f247d5d2e02219063703f70039dedf40",
+          "process-receipt.json": "d4cd3dcc692487718164ab7f32d3defa0fb1b949cdd89398837e9b988dac2c65",
+          "report.json": "3b11c9a98ce39b71cbe0b20b390971070e1dc881a622523372effa43034a439a"
+        },
+        "producer_exit_code": 0
+      },
+      "progression_comparisons": [
+        {
+          "name": "weapon-upgrade-refused",
+          "return": true,
+          "before": true,
+          "after": true
+        },
+        {
+          "name": "weapon-upgrade-bought",
+          "return": true,
+          "before": true,
+          "after": true
+        },
+        {
+          "name": "arm-part-refused",
+          "return": true,
+          "before": true,
+          "after": true
+        },
+        {
+          "name": "arm-part-bought",
+          "return": true,
+          "before": true,
+          "after": true
+        },
+        {
+          "name": "shop-refused",
+          "return": true,
+          "before": true,
+          "after": true
+        },
+        {
+          "name": "pawn-refused",
+          "return": true,
+          "before": true,
+          "after": true
+        },
+        {
+          "name": "redeem-refused",
+          "return": true,
+          "before": true,
+          "after": true
+        },
+        {
+          "name": "cyber-refused",
+          "return": true,
+          "before": true,
+          "after": true
+        },
+        {
+          "name": "weapon-switch",
+          "return": true,
+          "before": true,
+          "after": true
+        }
+      ]
+    }
+  ],
+  "scope": "Frozen actual-page/sample-clock verification; no human hearing/full chapter claim",
+  "historical_checks": {
+    "initial_script_error_preserved": true,
+    "incorrect_pawn_reports": [
+      {
+        "group": "original-final",
+        "rows": 9,
+        "failed": 9,
+        "valid_nine_case_fixture": false
+      },
+      {
+        "group": "candidate-final",
+        "rows": 9,
+        "failed": 1,
+        "valid_nine_case_fixture": false
+      }
+    ]
+  },
+  "expected_audio_only_source_transform_after_explicit_crlf_to_lf": {
+    "weapons": true,
+    "upgrades": true,
+    "shop": true,
+    "pawn": true,
+    "cyber": true
+  },
+  "negative_controls_rejected": 28
+}

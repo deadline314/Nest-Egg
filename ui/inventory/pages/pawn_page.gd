@@ -109,7 +109,7 @@ func _do_pawn(item: ConsumableData) -> bool:
 	var reason := Progression.pawn_block_reason(item)
 	if not reason.is_empty():
 		context.say(reason, true)
-		Sfx.play(&"empty", -6.0)
+		Sfx.play(&"ui_error", -6.0)
 		return false
 	# 先從背包拿走再記帳；記帳失敗就還回去，不會讓東西憑空消失。
 	if not context.player.consumables.take(item.id):
@@ -129,7 +129,7 @@ func _do_redeem(item: ConsumableData) -> bool:
 	var reason := _redeem_reason(item)
 	if not reason.is_empty():
 		context.say(reason, true)
-		Sfx.play(&"empty", -6.0)
+		Sfx.play(&"ui_error", -6.0)
 		return false
 	# 先確認放得進背包再扣款，失敗不會白花錢。
 	if not context.player.consumables.add(item):

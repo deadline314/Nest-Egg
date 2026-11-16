@@ -167,12 +167,12 @@ func _activate_entry(index: int) -> bool:
 	var reason := Progression.upgrade_block_reason(weapon, upgrade)
 	if not reason.is_empty():
 		context.say(reason, true)
-		Sfx.play(&"empty", -6.0)
+		Sfx.play(&"ui_error", -6.0)
 		return false
 	if not Progression.buy_upgrade(weapon, upgrade):
 		context.say("改裝失敗", true)
 		return false
-	Sfx.play(&"reload_done", -4.0)
+	Sfx.play(&"ui_confirm", -4.0)
 	context.say("已替 %s 安裝 %s，花費 ¥%d。" % [WeaponTuning.base_of(weapon).display_name, upgrade.display_name, upgrade.cost])
 	return true
 
@@ -181,12 +181,12 @@ func _activate_arm(part: ArmShieldPartData) -> bool:
 	var reason := Progression.arm_shield_block_reason(part)
 	if not reason.is_empty():
 		context.say(reason, true)
-		Sfx.play(&"empty", -6.0)
+		Sfx.play(&"ui_error", -6.0)
 		return false
 	if not Progression.buy_arm_shield_part(part):
 		context.say("安裝失敗", true)
 		return false
-	Sfx.play(&"reload_done", -4.0)
+	Sfx.play(&"ui_confirm", -4.0)
 	context.say("臂盾裝上了%s，花費 ¥%d。%s。" % [part.display_name, part.cost, part.description])
 	return true
 

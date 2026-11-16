@@ -1,0 +1,173 @@
+{
+  "contract": "Raw archive bytes and SHA are retained; this mapping is analysis-only CRLF-to-LF normalization",
+  "members": [
+    {
+      "member": "source/autoload/progression.gd",
+      "raw_sha256": "c025b901d051fb36b813dda2a1d19333413e64a61576148fff4c6f380998de23",
+      "crlf_pairs": 0,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "c025b901d051fb36b813dda2a1d19333413e64a61576148fff4c6f380998de23"
+    },
+    {
+      "member": "source/autoload/sfx.gd",
+      "raw_sha256": "fa8ee84c0ecc8c3c885f6573d03151a5183331dec873713af9114f3681789f9d",
+      "crlf_pairs": 0,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "fa8ee84c0ecc8c3c885f6573d03151a5183331dec873713af9114f3681789f9d"
+    },
+    {
+      "member": "source/core/audio/sound_bank.gd",
+      "raw_sha256": "220ecbeb714fbe3d2a4ab9937a9d8456d2a9155287dfa6955e052b00fb085b58",
+      "crlf_pairs": 0,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "220ecbeb714fbe3d2a4ab9937a9d8456d2a9155287dfa6955e052b00fb085b58"
+    },
+    {
+      "member": "source/data/audio/sound_bank.json",
+      "raw_sha256": "5a06d4f17a5ceb5a2674888a24fc9d634b986a80ec3199fb82ad4dae677688a7",
+      "crlf_pairs": 0,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "5a06d4f17a5ceb5a2674888a24fc9d634b986a80ec3199fb82ad4dae677688a7"
+    },
+    {
+      "member": "source/game/player/loadout.gd",
+      "raw_sha256": "5c2f370e966c22be7cb8a1aef223a974d983556a82897f319888ae311e6dfc1d",
+      "crlf_pairs": 0,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "5c2f370e966c22be7cb8a1aef223a974d983556a82897f319888ae311e6dfc1d"
+    },
+    {
+      "member": "source/game/player/player.gd",
+      "raw_sha256": "399d44009fef7c7c330c2c3018c46c3868271a10770525f7bfac0459c30752ca",
+      "crlf_pairs": 0,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "399d44009fef7c7c330c2c3018c46c3868271a10770525f7bfac0459c30752ca"
+    },
+    {
+      "member": "source/project.godot",
+      "raw_sha256": "3816650dfb5570f2ba965947c84d105cfa15f043fae335e0c1b01e422d39ef31",
+      "crlf_pairs": 0,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "3816650dfb5570f2ba965947c84d105cfa15f043fae335e0c1b01e422d39ef31"
+    },
+    {
+      "member": "source/tools/audio/melee_pcm_clock.gd",
+      "raw_sha256": "a2b9608ec12220f0a7da7ebd9c5bf40e09c7e754f51eff2d23e72151fe4aa027",
+      "crlf_pairs": 0,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "a2b9608ec12220f0a7da7ebd9c5bf40e09c7e754f51eff2d23e72151fe4aa027"
+    },
+    {
+      "member": "source/tools/audio/melee_pcm_reader.py",
+      "raw_sha256": "3279ca1209580fe154279448a879eb162c833fbb0fae75b2242df4ea28473d33",
+      "crlf_pairs": 0,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "3279ca1209580fe154279448a879eb162c833fbb0fae75b2242df4ea28473d33"
+    },
+    {
+      "member": "source/tools/comfyui/gpu_lock.py",
+      "raw_sha256": "72b358e596612986bba2debf4606d6e565948e1e3f147e353f3f439f7f6c112e",
+      "crlf_pairs": 0,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "72b358e596612986bba2debf4606d6e565948e1e3f147e353f3f439f7f6c112e"
+    },
+    {
+      "member": "source/tools/scenarios/scenario_base.gd",
+      "raw_sha256": "ef1199a05afaec1399a01f7d0f5b7d54643ae703a1ffaa525b702c25da3ac66d",
+      "crlf_pairs": 0,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "ef1199a05afaec1399a01f7d0f5b7d54643ae703a1ffaa525b702c25da3ac66d"
+    },
+    {
+      "member": "source/ui/inventory/inventory_context.gd",
+      "raw_sha256": "07bef67cf7a05d953d128630cbcf88d0e1cd65057269ac0cb6a5072c50a1dd2e",
+      "crlf_pairs": 0,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "07bef67cf7a05d953d128630cbcf88d0e1cd65057269ac0cb6a5072c50a1dd2e"
+    },
+    {
+      "member": "source/ui/inventory/pages/cyber_page.gd",
+      "raw_sha256": "07d0ca10619fca6a4a851f9dc6855802697b5a03ee7ebaaf3e1470d9af2b2940",
+      "crlf_pairs": 0,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "07d0ca10619fca6a4a851f9dc6855802697b5a03ee7ebaaf3e1470d9af2b2940"
+    },
+    {
+      "member": "source/ui/inventory/pages/pawn_page.gd",
+      "raw_sha256": "a7312d52e477bd0a111bb177727950c6a5a0bab25e4a1e340db4e45853f69b41",
+      "crlf_pairs": 0,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "a7312d52e477bd0a111bb177727950c6a5a0bab25e4a1e340db4e45853f69b41"
+    },
+    {
+      "member": "source/ui/inventory/pages/shop_page.gd",
+      "raw_sha256": "3bab4f60da98ac5f4f13c5eea298da32abf00b37bb560e222d42a9eb05cd7285",
+      "crlf_pairs": 0,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "3bab4f60da98ac5f4f13c5eea298da32abf00b37bb560e222d42a9eb05cd7285"
+    },
+    {
+      "member": "source/ui/inventory/pages/upgrades_page.gd",
+      "raw_sha256": "24b07ec7f21f9739135f08b37c4d404240f9263b8281d7538250032009b394cd",
+      "crlf_pairs": 0,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "24b07ec7f21f9739135f08b37c4d404240f9263b8281d7538250032009b394cd"
+    },
+    {
+      "member": "source/ui/inventory/pages/weapons_page.gd",
+      "raw_sha256": "abcc080133d784e38ffe9ab223aac06170fb5ccbbed96061e8f244ae942dc750",
+      "crlf_pairs": 0,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "abcc080133d784e38ffe9ab223aac06170fb5ccbbed96061e8f244ae942dc750"
+    },
+    {
+      "member": "source/work/ne154-inventory-audio-20261117/original-cyber.gd.txt",
+      "raw_sha256": "6ec11a23a2bfd9beb01f2e178d735c7a3683a69f077020a26bbebf9f02e0500c",
+      "crlf_pairs": 0,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "6ec11a23a2bfd9beb01f2e178d735c7a3683a69f077020a26bbebf9f02e0500c"
+    },
+    {
+      "member": "source/work/ne154-inventory-audio-20261117/original-pawn.gd.txt",
+      "raw_sha256": "816be4de8b8a8e50d3face97f5fef8340d40e51e024548c39cb16db8b1fb3da9",
+      "crlf_pairs": 0,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "816be4de8b8a8e50d3face97f5fef8340d40e51e024548c39cb16db8b1fb3da9"
+    },
+    {
+      "member": "source/work/ne154-inventory-audio-20261117/original-shop.gd.txt",
+      "raw_sha256": "c45ed7cd5c5534689d8fd704ef54d53a997388e9d3e544e357e3f19d88030927",
+      "crlf_pairs": 0,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "c45ed7cd5c5534689d8fd704ef54d53a997388e9d3e544e357e3f19d88030927"
+    },
+    {
+      "member": "source/work/ne154-inventory-audio-20261117/original-upgrades.gd.txt",
+      "raw_sha256": "9599f74a14ad64b571cc6319fac734fc2f78c074cb210a7c835702e14a0d7be6",
+      "crlf_pairs": 0,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "9599f74a14ad64b571cc6319fac734fc2f78c074cb210a7c835702e14a0d7be6"
+    },
+    {
+      "member": "source/work/ne154-inventory-audio-20261117/original-weapons.gd.txt",
+      "raw_sha256": "fc9fd1a0b288088a81c4a71968d541da6d9101e28c7ce36a4b7bbd89c1b2a4e9",
+      "crlf_pairs": 0,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "fc9fd1a0b288088a81c4a71968d541da6d9101e28c7ce36a4b7bbd89c1b2a4e9"
+    },
+    {
+      "member": "source/work/ne154-inventory-audio-20261117/probe.gd",
+      "raw_sha256": "98b9cec1bb12ef3c1c044b153ffc1d54651af7397b61d92127bcf87c83c39de3",
+      "crlf_pairs": 0,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "98b9cec1bb12ef3c1c044b153ffc1d54651af7397b61d92127bcf87c83c39de3"
+    },
+    {
+      "member": "source/work/ne154-inventory-audio-20261117/probe.tscn",
+      "raw_sha256": "a5120ee68dd48a9480d9d5672dc6970b67624dc42515927ee338b5a6b06186ea",
+      "crlf_pairs": 6,
+      "lone_cr": 0,
+      "crlf_to_lf_sha256": "ac414e0c973cd92a5cee40da29eb0387a43f1c7d8f397d0cda1d5fa35ae036c3"
+    }
+  ]
+}

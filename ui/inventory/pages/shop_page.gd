@@ -68,7 +68,7 @@ func _activate_entry(index: int) -> bool:
 	var reason := _block_reason(item)
 	if not reason.is_empty():
 		context.say(reason, true)
-		Sfx.play(&"empty", -6.0)
+		Sfx.play(&"ui_error", -6.0)
 		return false
 	# 先確認放得進背包再扣款，失敗不會白花錢。
 	if not context.player.consumables.add(item):
