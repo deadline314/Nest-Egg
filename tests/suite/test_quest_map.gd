@@ -580,6 +580,7 @@ func _check_filter_groups(screen: QuestMapScreen) -> void:
 
 func _test_runtime() -> void:
 	var level := await start_level(load(PAWN) as LevelData)
+	await _test_pause_warmup(level)
 	await _test_pause_navigation(level)
 	await _check_fixed_hud_reading_space(level)
 	await _check_caption_avoids_actor(level)
@@ -595,6 +596,23 @@ func _test_runtime() -> void:
 	await end_level(level)
 	GameState.start_new_run(GameState.difficulties[1])
 	check(not is_same(state, QuestMapState.for_run()) and QuestMapState.for_run().explored.is_empty(), "new run clears previous exploration")
+
+
+func _test_pause_warmup(level: Level) -> void:
+	var focus := UiKit.button("Existing focus fixture", Callable())
+	runner.add_child(focus)
+	focus.grab_focus()
+	var navigation := level.hud.quest_guidance.state
+	var before := var_to_bytes([GameState.world_flags, navigation.snapshot(), Progression.snapshot()])
+	PauseMenu._navigation_warmed = false
+	var pause := PauseMenu.new()
+	level.add_child(pause)
+	check(PauseMenu._navigation_warmed and not is_instance_valid(pause._navigation) and pause._root.get_child_count() == level._pause_menu._root.get_child_count(), "loading warms the real journal once and releases every temporary screen node")
+	check(not pause._root.visible and not runner.get_tree().paused and before == var_to_bytes([GameState.world_flags, navigation.snapshot(), Progression.snapshot()]), "hidden journal warmup preserves gameplay, story, exploration, pin and progression")
+	await frames(3)
+	check(focus.has_focus(), "the discarded warmup journal cannot steal deferred focus")
+	pause.free()
+	focus.free()
 
 
 func _test_pause_navigation(level: Level) -> void:

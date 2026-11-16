@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-17",
+  "context": "Shared main workspace; relevant UI baseline copied before edits. Other independent combat/art work may be present; not a frozen whole-repository comparison.",
+  "baseline_ui_text_matches_head_after_crlf_normalization": true,
+  "measurements": "Four native rounds at 1280x720. Final run explicitly uses --shared-workload. Initial and rejected runs omitted that flag despite other headless work; their false field is not proof of isolation. No performance acceptance or physical-controller claim.",
+  "receipt_check": "The first baseline byte-equality check rejected Windows CRLF versus Git LF. Both raw snapshots remain; the explicit normalized-text comparison below succeeds, and every retained artifact has its raw SHA-256.",
+  "files": {
+    ".gitattributes": "920781736b28385b1c3625f2a8a187763ea8facb06daa3f6bb319bee46182807",
+    "affected-shard-0.log": "9cd94b9810af0d9d8716e37227f55ae48e37d3fde1d3bc0a5bff5765a14ba63c",
+    "affected-shard-1.log": "46152b52efba5666c2db380346cd5a6e06e9c36eb051faafa75604daea6a3d33",
+    "affected-summary.log": "03f7bc3de0943273c8b27b9fcafe76428dab753c75fffbe4a302b5e506212480",
+    "after.json": "97e75b9c0f97f04dfcd4dea60d86bb88cfcaab1d7842818fa10b3c34f1c042a8",
+    "after.log": "dc7fa994f3d0e706395c9b70f4ff04b8d694327ce513c52b0c977aa7faab40f5",
+    "before.json": "0c341c28d2aa16610c1c436b688b3c06bf1b511c425d2dfbff0f0c21a30072ad",
+    "before.log": "b63d83ef29f392d5f835a2d41b3cb6a0e2d710e2c611992699d66578a38053c8",
+    "pause-after.txt": "fb645188b77475eb9065866b899c0824615fa010abce339b1fe73b77e6e2c12e",
+    "pause-before.txt": "dfac24ea3619ec4f593d2072988cf3cae095fe3ae79612935352cb49ce0c8c66",
+    "quest-tests-after.txt": "de5f9380ade38c2f4830f51a3620718e9fbe36fd439fdec18edcebf8e3ceefc0",
+    "README.md": "eb297438b00ae354514c4984f72cc832f7a93113a5695f476aa0bfc4c53fe2bf",
+    "rejected-detached.json": "bc9f3f939129e14c0319c9b55f9780746d6b9d39444665aa704587d4b61d808d",
+    "rejected-detached.log": "ad8c021c18b46112d41d4507c2b17e1a124c06123f97d54da6ac84d68c77aed0",
+    "screen-before.txt": "ee9ba169a7f9d8e8fcb1b34085563a67d4492a2fec84c11818071d83f0fd995b",
+    "ui-tests.log": "df4cc6ad60ae87c7f6da08b7d693ed7c502a686873188f350a1a36e9c9dfbc2a"
+  },
+  "screenshots": {
+    "pm/Nest-Egg/images/NE-223-first-open-after.png": "6b4480c8841f004b96141ca6fceb37e764c2352ca033924596cb15ca4de7e6f3",
+    "pm/Nest-Egg/images/NE-223-first-open-before.png": "7e39b5b65d18ced3e987fee2a7d0e9cd31acabe7da7c173800cbdd5cd296aaa8",
+    "pm/Nest-Egg/images/NE-223-first-open-region.png": "cf6c4111854df5b41812f168a8672721c6823152b5b81a2f72e0fa97bbd6adf6",
+    "pm/Nest-Egg/images/NE-223-first-open-world.png": "5be411dc662703d9417587a0d736a5acd6ba6b1121a63931215f7d0ef26075c8"
+  },
+  "affected_tests": {
+    "baseline": "0092c6ac753fcf38bc67fa852005582507cde59f",
+    "workspace": "C:/NE/queue-20261117",
+    "command": "tools/run_tests_changed.sh 0092c6ac",
+    "suites": 15,
+    "checks": 8377,
+    "new_failures": 0,
+    "known_failures": 0,
+    "seconds": 403,
+    "exit": 0
+  }
+}

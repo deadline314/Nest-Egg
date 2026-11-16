@@ -10,6 +10,8 @@ signal skip_requested
 ## 長按略過按鈕多久直接略過（秒）；短按改開確認畫面（XAG107：長按要有單次確認的替代方式）。
 const SKIP_HOLD := 1.0
 
+static var _navigation_warmed := false
+
 ## 死亡或過關畫面出現時由關卡關閉，避免同時開兩個選單。
 var allowed := true
 
@@ -85,6 +87,13 @@ func _ready() -> void:
 	_root.visible = false
 	InputBindings.bindings_changed.connect(_on_bindings_changed)
 	_on_bindings_changed()
+	# Warm the actual first journal layout during level loading, then release it.
+	if not _navigation_warmed:
+		_open_navigation("quests")
+		if is_instance_valid(_navigation):
+			_navigation.free()
+			_navigation = null
+			_navigation_warmed = true
 
 
 func _on_bindings_changed() -> void:

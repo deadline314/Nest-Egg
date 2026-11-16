@@ -89,3 +89,9 @@
 同一當格的實際 HUD 矩形、canvas transform 與世界矩形分開記錄，使用獨立四角變換重投影核對。首個正向候選 32／0，123 份觀察重投影的最大誤差約 0.000107 螢幕像素；當格世界列投回 `[143, 50, 354, 27]`，與實際 HUD 列相同。此結果是無頭座標與更新時序驗證，不代稱原生視覺、手把或效能驗收。真正錯誤目標與停止提示處理的故障負控制，及正式受影響範圍，須另外保留各自來源與判定。
 
 [Godot SceneTree 的信號規範](https://docs.godotengine.org/en/stable/classes/class_scenetree.html#signals)明確把 physics_frame／process_frame 放在該輪節點更新之前；等待信號本身不能代表更新完成。[CanvasItem 的 canvas transform 規範](https://docs.godotengine.org/en/stable/classes/class_canvasitem.html#class-canvasitem-method-get-canvas-transform)則定義 canvas 到 viewport 的座標變換。這些只說明更新與變換契約，本次因果仍由相同九份來源、原始時序與實際四角重投影證明。
+
+## 10. 首次任務頁的建立時機（NE-223，2026-11-17）
+
+第一次任務頁的同步建立移到首次關卡載入期間，避免玩家按任務鍵才承擔首次版面成本。沿用真正的任務來源與畫面入口，在尚未顯示的暫停選單下建立一次後立即釋放；不保留第二套畫面、修改進度或累積常駐節點。同一程序的後續關卡不重複準備。
+
+隱藏建立不能開啟暫停、改動旗標、釘選、探索或成長，也不能在延後回呼中搶走原焦點。正式開啟仍讀當下的任務、語言、位置及裝置狀態。效能比較仍使用真正凍結的原生探針，首次和暖開分列；共享機器上的其他工作必須明列，不能以共享負載數字代替孤立效能與真人無停頓驗收。
