@@ -1,0 +1,79 @@
+{
+  "archives": [
+    {
+      "file": "diagnostic-exposure-history.tar.xz",
+      "sha256": "ce1018c18d0ee5a41dd974ed8bfe15e422c7899fc71153d63a12e958ac61479f",
+      "members_verified": 208
+    },
+    {
+      "file": "diagnostic-fixtures.tar.xz",
+      "sha256": "cd5d2510d77d848a3c48e9b2e4d5b47fd170f19a35f01265a20290ccc87376ee",
+      "members_verified": 238
+    },
+    {
+      "file": "diagnostic-visual-high.tar.xz",
+      "sha256": "44a485944b8cb7398014a54facdeebf75801726662008ac2a4c75067b4ff3894",
+      "members_verified": 186
+    },
+    {
+      "file": "diagnostic-visual-low.tar.xz",
+      "sha256": "8d0211490f2bcd447172729555f51368fd07f176cdc6241b42b1b15055caa9ea",
+      "members_verified": 186
+    },
+    {
+      "file": "diagnostic-visual-medium.tar.xz",
+      "sha256": "eccb957db6497789c222dc8172eebe4ceea5af91d745119f615dcf01d887bd82",
+      "members_verified": 186
+    },
+    {
+      "file": "native-high.tar.xz",
+      "sha256": "60f7b024d30909edb80d79e047514b06248ab01c788ad87c23fc579d8c221d55",
+      "members_verified": 274
+    },
+    {
+      "file": "native-low.tar.xz",
+      "sha256": "e7fe3fbbb56e5473f5941cedd9d23d7218bbe519c97e80806e4b4e7edcb1c083",
+      "members_verified": 266
+    },
+    {
+      "file": "native-medium.tar.xz",
+      "sha256": "b406f0977a0ed99552d70b40aa5f907ef6e85c371c9f7bf46d6170b0a8c011e5",
+      "members_verified": 266
+    },
+    {
+      "file": "source-and-checks.tar.xz",
+      "sha256": "349f5cec10c505b78455be6ed6dc0c4afe49c2ba1cd3b62237cd963aa2d48201",
+      "members_verified": 424
+    }
+  ],
+  "native_frames": 273,
+  "metric_frames": 198,
+  "head_frames": 54,
+  "performance_pairs": 180,
+  "source_blobs": 409,
+  "blank_head_rejected": true,
+  "reader_negative_controls": {
+    "valid_baseline_pairs": 60,
+    "negative_controls_rejected": [
+      "engine_exit",
+      "engine_error",
+      "source_drift",
+      "reported_failure",
+      "vsync_enabled",
+      "missing_pair",
+      "empty_frame_window",
+      "nonfinite_frame",
+      "zero_frame",
+      "forged_median",
+      "missing_projectile",
+      "wrong_body_glow",
+      "disabled_on_light",
+      "forged_ratio",
+      "consistent_raw_timing_exceeds_105_percent"
+    ],
+    "failures": 0
+  },
+  "legacy_low_guard": "raw false retained; exact one-comment insertion verified",
+  "official_selected_suites": 0,
+  "failures": 0
+}

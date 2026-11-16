@@ -1,0 +1,86 @@
+{
+  "autoload/event_bus.gd": {
+    "sha256": "8c0c7c118e8fadb0529fc8972b03c3c292e29058520f9750650f2a4398cb7d2d",
+    "size": 3747
+  },
+  "ui/dialogue_layer.gd": {
+    "sha256": "4ec5415cd1f2de374dc9f356f3b2c90f2ba1c09dde2537128ea9a9866cb5e62b",
+    "size": 24773
+  },
+  "game/cutscene/cutscene_player.gd": {
+    "sha256": "e04810ebeaf5a1fc39aca1852ae1fb673fe1da11c50160a4b16a3f0e94b2c37f",
+    "size": 40388
+  },
+  "game/player/weapon_light.gd": {
+    "sha256": "7ba0db482b70b756498d3cb54fef92cbf4a9dca302db97b45b3e20078bf73eb0",
+    "size": 5066
+  },
+  "design/08-lighting/LIGHT_SOURCES.md": {
+    "sha256": "f7a95b66e6cd5be34f54b17b5cc3f9db7487d54b68bf83469bb3b1df0b0b1423",
+    "size": 33207
+  },
+  "work/ne258-light-owner-20261117/owner_probe.gd": {
+    "sha256": "dca94c7408d1a226aaa1e98999518cbb2b74738e14ac3edbcf39844831212eea",
+    "size": 15584
+  },
+  "work/ne258-light-owner-20261117/owner_probe.tscn": {
+    "sha256": "f7bab5fd7d93a7ce42ee3ad3b30cf72835996f6c46ec34206bf73c1539869863",
+    "size": 199
+  },
+  "work/ne258-light-owner-20261117/run_owner.py": {
+    "sha256": "9a43fcb39fa67bcadd0253af194fe9ff68fdc26cd670de4c1ddecd3383a82499",
+    "size": 2794
+  },
+  "autoload/gameplay_lock.gd": {
+    "sha256": "480186ea7a8ec02ea61836b528b6bc30266add801b9c6222e3b18480bf994257",
+    "size": 3971
+  },
+  "tests/suite/test_exposure.gd": {
+    "sha256": "bbe3632db94d9af77c32e659fa20d0635e9b495fe03b1216aba918ac4c32b98f",
+    "size": 26675
+  },
+  "tests/suite/test_cutscene.gd": {
+    "sha256": "fc5153ed17440fc3a8b38f616879be913ce8991d9b6d8506ba31672228c3889e",
+    "size": 77810
+  },
+  "tests/helpers/gameplay_lock_owner_checks.gd": {
+    "sha256": "68679bba12c6d32e0ee05982b1858412131006cf479e7cfb518a70c0ea94cb8e",
+    "size": 1545
+  },
+  "core/light_kit.gd": {
+    "sha256": "b90bcadfaddea6da835d53d8276581aa958969bad63db06bbcc2af666b8389d0",
+    "size": 16359
+  },
+  "game/level/terrain.gd": {
+    "sha256": "f8c85c23db14e673051e1d1d9823dabdea9578444731e08525ded2c7440b6e8d",
+    "size": 15405
+  },
+  "game/level/environment/prop_node.gd": {
+    "sha256": "14c2026fd39aea4a37bc928979308bdd616e223976f0452e364cd09e628e13cc",
+    "size": 8257
+  },
+  "game/props/gate.gd": {
+    "sha256": "76b4dd0c51766c0d80ce92db495eab0cd62c37ed9563d433d0691a2671ab2690",
+    "size": 4338
+  },
+  "tests/helpers/weapon_light_occlusion_checks.gd": {
+    "sha256": "25aa716c5ccec3f7cf29a8a0603fdfc8505c8c43d7f6bee4d273b0173ffa1630",
+    "size": 4740
+  },
+  "work/ne258-light-owner-20261117/wall_probe.gd": {
+    "sha256": "b085bf9695067c14343e3622774ab5f0e14c3071d7e2e0ad76d0e71711ff2ffe",
+    "size": 4866
+  },
+  "work/ne258-light-owner-20261117/wall_probe.tscn": {
+    "sha256": "c9c932c8d0a1959687524cdd5e9721025778d12fa353c4123e0e8e1e8afe344d",
+    "size": 203
+  },
+  "work/ne258-light-owner-20261117/run_wall.py": {
+    "sha256": "80026c06848f32da1f3924e7dd7a0589511cd935c8738513cd43ba6b51aeb31f",
+    "size": 2997
+  },
+  "work/ne258-light-owner-20261117/verify_wall.py": {
+    "sha256": "661189aa90994721fe3de76598ace31b84f0c7daa1b273aed51a24a1727cb5c3",
+    "size": 2803
+  }
+}

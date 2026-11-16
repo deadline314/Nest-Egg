@@ -1,0 +1,65 @@
+{
+  "low": {
+    "min_gun_enemy_contrast": 0.849402229354019,
+    "min_gun_edge_contrast": 3.80144682516527,
+    "rifle_on_bright": 0.162074743652344,
+    "rifle_off_bright": 0.00112151489257813,
+    "max_white_upper_bound": 0.0159680638722555,
+    "reduce": [
+      {
+        "peak_jitter_radians": 0.0363316424190998,
+        "peak_muzzle_energy": 0.840277791023254,
+        "projectiles_spawned": 7,
+        "reduced": false
+      },
+      {
+        "peak_jitter_radians": 0.00908290967345238,
+        "peak_muzzle_energy": 0.210069447755814,
+        "projectiles_spawned": 7,
+        "reduced": true
+      }
+    ]
+  },
+  "medium": {
+    "min_gun_enemy_contrast": 0.992397454436355,
+    "min_gun_edge_contrast": 3.84991750538795,
+    "rifle_on_bright": 0.15869130859375,
+    "rifle_off_bright": 0.00118210754394531,
+    "max_white_upper_bound": 0.0178926441351889,
+    "reduce": [
+      {
+        "peak_jitter_radians": 0.0363316424190998,
+        "peak_muzzle_energy": 0.840277791023254,
+        "projectiles_spawned": 7,
+        "reduced": false
+      },
+      {
+        "peak_jitter_radians": 0.00908290967345238,
+        "peak_muzzle_energy": 0.20860344171524,
+        "projectiles_spawned": 7,
+        "reduced": true
+      }
+    ]
+  },
+  "high": {
+    "min_gun_enemy_contrast": 0.991984869232818,
+    "min_gun_edge_contrast": 3.85459746835741,
+    "rifle_on_bright": 0.160152978515625,
+    "rifle_off_bright": 0.00116778564453125,
+    "max_white_upper_bound": 0.0159680638722555,
+    "reduce": [
+      {
+        "peak_jitter_radians": 0.0363316424190998,
+        "peak_muzzle_energy": 0.840277791023254,
+        "projectiles_spawned": 7,
+        "reduced": false
+      },
+      {
+        "peak_jitter_radians": 0.00908290967345238,
+        "peak_muzzle_energy": 0.216483414173126,
+        "projectiles_spawned": 7,
+        "reduced": true
+      }
+    ]
+  }
+}

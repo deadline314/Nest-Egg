@@ -1,0 +1,960 @@
+{
+  "file": "diagnostic-fixtures.tar.xz",
+  "size": 30788792,
+  "sha256": "cd5d2510d77d848a3c48e9b2e4d5b47fd170f19a35f01265a20290ccc87376ee",
+  "members": {
+    "runs/ne258-exposure-blank-mask-v1/console.log": {
+      "size": 396,
+      "sha256": "c68c65b3f86a7a8d6708acd3acdbfd119e7fdba2dc686d78f435e8aca7752efd"
+    },
+    "runs/ne258-exposure-blank-mask-v1/matrix-idle-head-alpha.bin": {
+      "size": 7372800,
+      "sha256": "e6aa3323d1ffe648b52c2fcc3a7f250aed4ff56f1e109d700a4950f658dd3f57"
+    },
+    "runs/ne258-exposure-blank-mask-v1/matrix-idle-head-alpha.png": {
+      "size": 3666,
+      "sha256": "2538976d9f4540eb768613e68e9f682d764bd78e794a5f928f266c2cd13d5fe3"
+    },
+    "runs/ne258-exposure-blank-mask-v1/matrix-idle.bin": {
+      "size": 5529600,
+      "sha256": "f3d2704f6b9ee263db821f58ed15b3beef0f38f63237f2d8cd535b311c318d1a"
+    },
+    "runs/ne258-exposure-blank-mask-v1/matrix-idle.png": {
+      "size": 176480,
+      "sha256": "28a7408c02d8301bb35226faf78a37c36861f9c169a6c24272301c53940d3c4d"
+    },
+    "runs/ne258-exposure-blank-mask-v1/matrix-index.json": {
+      "size": 2031,
+      "sha256": "4ed41500def5215a4961f2737554abb0e19efd2f72d94f77c249e70be6ce7af3"
+    },
+    "runs/ne258-exposure-blank-mask-v1/probe-settings.cfg": {
+      "size": 27,
+      "sha256": "18f3589ea8c83e049fe65530bceca783ac22fec78ebf0aa0061880a5a8ad153f"
+    },
+    "runs/ne258-exposure-blank-mask-v1/process-receipt.json": {
+      "size": 84463,
+      "sha256": "2e26b59de4c787329a03cc041dd75750afc237bf7a8c37d16264ad79f98ddeac"
+    },
+    "runs/ne258-matrix-default-quality-v1/console.log": {
+      "size": 851,
+      "sha256": "80ca5b1826b77ab5f64e0ed61a0e45e8e87757347858861f4166859cd838b37b"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed-body150-off.hdr.bin": {
+      "size": 5529600,
+      "sha256": "0a8d15db8f40e6cf1bb68b337c1c3dd6f4cf49769cd092846ba23a9566269cdc"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed-body150-off.png": {
+      "size": 144311,
+      "sha256": "d50341c30c8d7877218a94f2923e19b8d5baeb3277819a91797358d35437c68c"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed-body150-on.hdr.bin": {
+      "size": 5529600,
+      "sha256": "094d8edc3261f685a6a62ba81c6dd39acd961784589201b38500bd609250e9cb"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed-body150-on.png": {
+      "size": 186911,
+      "sha256": "e15d48a401c6a60082d44b3ca56352b753422035674fab9c71ecf5ddde1f40c4"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-off-sample-0.hdr.bin": {
+      "size": 5529600,
+      "sha256": "b92044e1ac1954ae52c927b2897a2171000bd92293325c1302219dda3f2cccc3"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-off-sample-0.png": {
+      "size": 144720,
+      "sha256": "cd6e08ec147dc76d9db18647ddd9ecdab4bda132678e119ff16b3ce994d89205"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-off-sample-1.hdr.bin": {
+      "size": 5529600,
+      "sha256": "f850f39360af00d8ce28f4c5f30fa3a9a9682820dfaa08208736a325799537af"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-off-sample-1.png": {
+      "size": 145021,
+      "sha256": "ce9d6919bb61b39c6325b3a975274e15123a43f4ef34d19a7c0a5522fa6ddf8d"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-off-sample-2.hdr.bin": {
+      "size": 5529600,
+      "sha256": "05ca1829e60a1822dbb03fc7d67e6b1453823686f51f47e9c23702440107d1fd"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-off-sample-2.png": {
+      "size": 144907,
+      "sha256": "f193cf5cc5c02c57ae9db8932a17235e35afea9f780ce8496b7b6dc7f0ceae78"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-off-sample-3.hdr.bin": {
+      "size": 5529600,
+      "sha256": "bce192cb4cf95572785ef76a437d93d870ce8d90f991b2ee4f82152b09267958"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-off-sample-3.png": {
+      "size": 144752,
+      "sha256": "b345e4db73961ee43f24be255dcc63b5aa83a8f67ed4146b14ded295fd659c4d"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-off-sample-4.hdr.bin": {
+      "size": 5529600,
+      "sha256": "997c9c2e7b85e33a7cb5b1e71dc4bc4f1e751884439f2a6d6c96c6f2c33f5647"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-off-sample-4.png": {
+      "size": 144663,
+      "sha256": "7480346488c9a71b20fbdd78835857afde4af49de64928ef6a9d6fecfcfed38a"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-off-sample-5.hdr.bin": {
+      "size": 5529600,
+      "sha256": "0a8d15db8f40e6cf1bb68b337c1c3dd6f4cf49769cd092846ba23a9566269cdc"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-off-sample-5.png": {
+      "size": 144311,
+      "sha256": "d50341c30c8d7877218a94f2923e19b8d5baeb3277819a91797358d35437c68c"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-on-sample-0.hdr.bin": {
+      "size": 5529600,
+      "sha256": "c24092df7c842700c23280f24282ae25966b518fcd84048a6dc329f72f87dbde"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-on-sample-0.png": {
+      "size": 187052,
+      "sha256": "ddf4c613f7a1f5b1efaf4c7291c8891b07aa0657a976a3c8b5aea5c14c87d99b"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-on-sample-1.hdr.bin": {
+      "size": 5529600,
+      "sha256": "91fb41b1392ffa837984509da8b459d730017e2a7da0a4c3c582131ea7cafcec"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-on-sample-1.png": {
+      "size": 187313,
+      "sha256": "c2bb21780686d9a10c4d562a2184b1560328ccc3436fcd9a78deb38c820c2b5f"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-on-sample-2.hdr.bin": {
+      "size": 5529600,
+      "sha256": "cc160f2e3865fc6bb9ea0e9be8344dd84032782905a1a9fa84f2fb66c51519f9"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-on-sample-2.png": {
+      "size": 187202,
+      "sha256": "fee85dd8fbb727a051dd35f4db014320917ebb8eac09b0740701dfe4a741a5cc"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-on-sample-3.hdr.bin": {
+      "size": 5529600,
+      "sha256": "dd9d482542a46f6d0e683d544da85f73682738c039af7232c6eb1025273092fe"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-on-sample-3.png": {
+      "size": 187319,
+      "sha256": "9fbe00d7881f9b3d7fd2515fd71feeef972addfcf3c8460049f776e3f8019d28"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-on-sample-4.hdr.bin": {
+      "size": 5529600,
+      "sha256": "04fa94de7adf1b365db692c4fd459d37d7ff2522710892e038e5ecdcae46b752"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-on-sample-4.png": {
+      "size": 187399,
+      "sha256": "4149f5033d53918a1142586df1e471c6f7238589b7d8789df5c63cb7af372be4"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-on-sample-5.hdr.bin": {
+      "size": 5529600,
+      "sha256": "094d8edc3261f685a6a62ba81c6dd39acd961784589201b38500bd609250e9cb"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-fixed_body150-on-sample-5.png": {
+      "size": 186911,
+      "sha256": "e15d48a401c6a60082d44b3ca56352b753422035674fab9c71ecf5ddde1f40c4"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-index.json": {
+      "size": 48651,
+      "sha256": "3602ec93152bf14224d5039678b3363c9fb3b1efabf5a533c8fb47657aab303e"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-off.hdr.bin": {
+      "size": 5529600,
+      "sha256": "a78aee0c74526bd6b145df263b02e232b0a62a3e3304b79e061853766222ac52"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-off.png": {
+      "size": 144892,
+      "sha256": "9cd30d918a4f7fd05137f13f386bfc82674f99ba6627ca69285735db4de1fb9b"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-on.hdr.bin": {
+      "size": 5529600,
+      "sha256": "c831e90362ab2ed7da1e3f09ee941d7ad37e8229177db101e1f4c3df2e88f691"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-on.png": {
+      "size": 175882,
+      "sha256": "edfb25ff4dd4c33417f76c346d20dfa2fc3c3f7082f055912c720ef58a2b6ece"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-rifle-down_left.hdr.bin": {
+      "size": 5529600,
+      "sha256": "c2f7c741221d1b5883a1da127a3431f5a82ca5d2d263986c5207320f4a65a9a3"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-rifle-down_left.png": {
+      "size": 148114,
+      "sha256": "e962b83cc13a0416f05781fda8daa5ce93b3cfc5a69b8f5dfe1211547514bac4"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-rifle-right.hdr.bin": {
+      "size": 5529600,
+      "sha256": "ad1b6c302cdfc8297cb34302ed213bff4e5e1c6a5f7cc651919ba3b051bcdf64"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-rifle-right.png": {
+      "size": 175618,
+      "sha256": "9b598055324918c9d47b8a35710d2fe72c2a308650f669192a98f9af65559205"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-rifle-up.hdr.bin": {
+      "size": 5529600,
+      "sha256": "f7564b29abcd5338125351b06b163b5bbcdc976dcf85d25dd9b651e4dfd5c572"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-rifle-up.png": {
+      "size": 155927,
+      "sha256": "0d19da4a89e70002c0ba1571d8aae4fbfbdc0f10c1a89a6a14941882d86f4187"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-off-sample-0.hdr.bin": {
+      "size": 5529600,
+      "sha256": "4d69f27bcd1e4a60224a7b450694bddbf74e85ae6559068b7f8a03c170c22500"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-off-sample-0.png": {
+      "size": 144906,
+      "sha256": "c89598aa480cbec24251496c1a87dfcbb14736a74d29dda98e87ab2a3f1c5303"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-off-sample-1.hdr.bin": {
+      "size": 5529600,
+      "sha256": "0a51b60079458ea460b5527a3bfff053ecde8ab73a3cfa74f2d9d55adc17f0ad"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-off-sample-1.png": {
+      "size": 144840,
+      "sha256": "a9b8f5e081aedd1965051ca9f890f1c4f140a6c12309dce6aae6fe0f2e4baacc"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-off-sample-2.hdr.bin": {
+      "size": 5529600,
+      "sha256": "68d36aa531480a274784e2b56d0bb3609e0ac4284a0f4e5aac8126e26e9e1987"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-off-sample-2.png": {
+      "size": 144931,
+      "sha256": "e5fa087974cfb3ae760d9057503ad87e43e378bea0d8fb5e5c812de7bb8a74e6"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-off-sample-3.hdr.bin": {
+      "size": 5529600,
+      "sha256": "a62caaebc814b8a28fa39f584677af4564497e0c0c3f08b7879cc3b93755d2b8"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-off-sample-3.png": {
+      "size": 144726,
+      "sha256": "b63e11abaf4e657e52973ec48d475f44de6f49e11eaf70d1109e41d1e885f20f"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-off-sample-4.hdr.bin": {
+      "size": 5529600,
+      "sha256": "11d483d63896324f8771108e9841ea8228438a1e9ccfc33f7532dee2f254e32f"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-off-sample-4.png": {
+      "size": 144864,
+      "sha256": "67d9b351ec03201bdcbf80b551fef998657f05b0fc519adbc8dcb04bfb2dbc0d"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-off-sample-5.hdr.bin": {
+      "size": 5529600,
+      "sha256": "a78aee0c74526bd6b145df263b02e232b0a62a3e3304b79e061853766222ac52"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-off-sample-5.png": {
+      "size": 144892,
+      "sha256": "9cd30d918a4f7fd05137f13f386bfc82674f99ba6627ca69285735db4de1fb9b"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-on-sample-0.hdr.bin": {
+      "size": 5529600,
+      "sha256": "4a9b56a3012d2747f731f26933e121f82001137d59649b59f3d8091b75f06a21"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-on-sample-0.png": {
+      "size": 176881,
+      "sha256": "3fd672040c7a3b302260a89fd95c246a966ebb14af314448c85286139cadf17b"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-on-sample-1.hdr.bin": {
+      "size": 5529600,
+      "sha256": "293095db1a10f7f27757ab33249f7e0010f006f4cf5efe7eb48f4523d20bbbe0"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-on-sample-1.png": {
+      "size": 176443,
+      "sha256": "d99848fda0dcef85ac5c7370a2bca5d0d9a90d7b6f3fe0a9d56d8bc851994925"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-on-sample-2.hdr.bin": {
+      "size": 5529600,
+      "sha256": "6f4a5744ca2133b462f16fe028d488f636aa063b43cfaea6d15af62623207804"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-on-sample-2.png": {
+      "size": 176364,
+      "sha256": "90ee765a471ab6cfbdf4b0c3c00c629aaf392c91b07ca210ea7b5e7936634768"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-on-sample-3.hdr.bin": {
+      "size": 5529600,
+      "sha256": "219ec9a48711793642d13a3224f70e1e7bdc17923733e1a5c3ed8653f2af16d7"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-on-sample-3.png": {
+      "size": 176095,
+      "sha256": "4ead5ab791e69f8ab9838c8cfb40ecc73b87ef75c3e06b52043b0a71d4bf0a5a"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-on-sample-4.hdr.bin": {
+      "size": 5529600,
+      "sha256": "53b3fd4d62336a60b7a25f0ab187fdacee883828458881dfcdb253ea5bc7c27e"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-on-sample-4.png": {
+      "size": 175998,
+      "sha256": "164ed5fbfa90b2245f5ae58c1a731d709557b6dc3a180c6e11056795e84d9a69"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-on-sample-5.hdr.bin": {
+      "size": 5529600,
+      "sha256": "c831e90362ab2ed7da1e3f09ee941d7ad37e8229177db101e1f4c3df2e88f691"
+    },
+    "runs/ne258-matrix-default-quality-v1/matrix-whole_feature-on-sample-5.png": {
+      "size": 175882,
+      "sha256": "edfb25ff4dd4c33417f76c346d20dfa2fc3c3f7082f055912c720ef58a2b6ece"
+    },
+    "runs/ne258-matrix-default-quality-v1/probe-settings.cfg": {
+      "size": 27,
+      "sha256": "18f3589ea8c83e049fe65530bceca783ac22fec78ebf0aa0061880a5a8ad153f"
+    },
+    "runs/ne258-matrix-default-quality-v1/process-receipt.json": {
+      "size": 84421,
+      "sha256": "da9ae5aaec45739d3aced9c58da9374d2149ae5115dda74f8eebf353cde9324c"
+    },
+    "runs/ne258-matrix-invalid-quality/console.log": {
+      "size": 297,
+      "sha256": "590ffba454d5ea4dc68183a48d64a299a12459f1cb3cda37fb0cd1b85df76f6d"
+    },
+    "runs/ne258-matrix-rifle-high-v1/console.log": {
+      "size": 5352,
+      "sha256": "b5038751749fed927e75abb8f83b03c2194742020bde45edcf9b78da60721a08"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-index.json": {
+      "size": 19606,
+      "sha256": "76869d48fe1d2a7d3f3707774282ed6d7a981da20208e6ae0f1e64667e8aa911"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-off-sample-0.hdr.bin": {
+      "size": 5529600,
+      "sha256": "813d630b37cd235cfd3a1ea3183baa32101109839340aab79fdc2c28d5f33aff"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-off-sample-0.png": {
+      "size": 145005,
+      "sha256": "f8aa4372302f2becc6c110df5260ccc49d8f54d5fca832cb065ba0994b63bef9"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-off-sample-1.hdr.bin": {
+      "size": 5529600,
+      "sha256": "49880ca32f2d0d62365c6ca6f2ccb2fc06fbca8f970085a2ff1145e84b288a4f"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-off-sample-1.png": {
+      "size": 145132,
+      "sha256": "756413f23efa82e3c28bd3159699cf2602bdabc2f3d0ed7d8a1660169b54cfc3"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-off-sample-2.hdr.bin": {
+      "size": 5529600,
+      "sha256": "8597024382475ccf5c42d206ebfeb7a3e10289872fd1e39dc9ffb4b41c315aad"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-off-sample-2.png": {
+      "size": 144802,
+      "sha256": "5eb6ce99824e2860bf56bbd68256f5a19764a743b72939213494d701f85e1c08"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-off-sample-3.hdr.bin": {
+      "size": 5529600,
+      "sha256": "c4b5a0a1e78ece908972669ceefefd803c5116f14a603d26003ca06bac851bed"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-off-sample-3.png": {
+      "size": 144698,
+      "sha256": "e84227c2b9c4b545ecfc1f96c922cf9774f6d30f1eb563c08504bee91d3ac7eb"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-off-sample-4.hdr.bin": {
+      "size": 5529600,
+      "sha256": "349ae2c256bbf554c52d33bb080eb41c7f8b57a85798d09c73de8a1135150d30"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-off-sample-4.png": {
+      "size": 144684,
+      "sha256": "998bc286a14b2c72b30d1c759dbe5a550e8c8ee8445addbb662e5e988f344d03"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-off-sample-5.hdr.bin": {
+      "size": 5529600,
+      "sha256": "defec9f98562129fc452112559e7e11b1fe05a03dddd7e3620bb6ad04084f955"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-off-sample-5.png": {
+      "size": 144782,
+      "sha256": "850570af9acddfd9fc3849b3e6708469023927207a5213c928cb13952c03f5ff"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-off.hdr.bin": {
+      "size": 5529600,
+      "sha256": "defec9f98562129fc452112559e7e11b1fe05a03dddd7e3620bb6ad04084f955"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-off.png": {
+      "size": 144782,
+      "sha256": "850570af9acddfd9fc3849b3e6708469023927207a5213c928cb13952c03f5ff"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-on-sample-0.hdr.bin": {
+      "size": 5529600,
+      "sha256": "4aef0e754d63fa03551e41aa296aad58361f2060dc987a454f00b6cc260fcefd"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-on-sample-0.png": {
+      "size": 177003,
+      "sha256": "c46871a5148fee02f0bef6f6dde819e37c778c12e0e5d4c594f6eb8f57aef095"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-on-sample-1.hdr.bin": {
+      "size": 5529600,
+      "sha256": "bede6125590f93fbc8b2eb8ba7b2a86dcfb15ab076034fd069eb9c732c927c1c"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-on-sample-1.png": {
+      "size": 176532,
+      "sha256": "a8cb6d08c991c1908e96b860e149c6363b82b00adca7a5786e8915afeefffc5a"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-on-sample-2.hdr.bin": {
+      "size": 5529600,
+      "sha256": "e2cec0d77870ba11c89b878b466a76da9e044bbd14485af90857d1791f6e4137"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-on-sample-2.png": {
+      "size": 176417,
+      "sha256": "8694976170df187432003c10e68cdbc8a6a1f49d03ae23f0815a81ad8ddd08a6"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-on-sample-3.hdr.bin": {
+      "size": 5529600,
+      "sha256": "cf512e802a50b13a73edb65cc71bf16ab3d6b9a44821a06ad6865fdd410808ab"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-on-sample-3.png": {
+      "size": 176122,
+      "sha256": "f6e07267a981acc88968cb87772a5dbb3c308fb3471f1abe0f7b7e2087946622"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-on-sample-4.hdr.bin": {
+      "size": 5529600,
+      "sha256": "2be513342ac05ca18bf2a1726315e252ada1fa82f67de8b9852876123e93bbab"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-on-sample-4.png": {
+      "size": 176019,
+      "sha256": "f8d228b1e6e83d16de35856652fdb5b2fc6d164b7ea10213b3c66eff311e9c43"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-on-sample-5.hdr.bin": {
+      "size": 5529600,
+      "sha256": "d1ef97151a9c0981a2c45191fb1eb3f0b65d82d498ff9b78fefad061ee5b74bd"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-on-sample-5.png": {
+      "size": 175708,
+      "sha256": "06df56461a86c3fee55385a97ca667f20ec295cbcc17b65dab0bbc0be558dc50"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-on.hdr.bin": {
+      "size": 5529600,
+      "sha256": "d1ef97151a9c0981a2c45191fb1eb3f0b65d82d498ff9b78fefad061ee5b74bd"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-on.png": {
+      "size": 175708,
+      "sha256": "06df56461a86c3fee55385a97ca667f20ec295cbcc17b65dab0bbc0be558dc50"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-rifle-down_left.hdr.bin": {
+      "size": 5529600,
+      "sha256": "cdace8ce9e2984cd4b4b5ee3078a9b7f196495f1cac5585063db534e89533a00"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-rifle-down_left.png": {
+      "size": 147679,
+      "sha256": "af65394a896dc8e193da2012d6f557add56f3a839bdd3e0bf2bf4e0da966c86c"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-rifle-right.hdr.bin": {
+      "size": 5529600,
+      "sha256": "f25a61cb35c4dd334aeb52fb284b891380341250be22dbb0752934e4e7391762"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-rifle-right.png": {
+      "size": 175474,
+      "sha256": "e88795545adc3a52a121880ba4100705eedf7545a26b928a405b0fb332acd750"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-rifle-up.hdr.bin": {
+      "size": 5529600,
+      "sha256": "a241b1b4ce36c992d098e888ae6b1fe374ba7b461c5a251bc0f172a29bf89983"
+    },
+    "runs/ne258-matrix-rifle-high-v1/matrix-rifle-up.png": {
+      "size": 155794,
+      "sha256": "3bdafd74f9e78820f0ce8d4cceee0edd6dc8567a9ba5491c0d0e683b6d4dcf0c"
+    },
+    "runs/ne258-matrix-rifle-high-v1/probe-settings.cfg": {
+      "size": 27,
+      "sha256": "18f3589ea8c83e049fe65530bceca783ac22fec78ebf0aa0061880a5a8ad153f"
+    },
+    "runs/ne258-matrix-rifle-high-v1/process-receipt.json": {
+      "size": 9475,
+      "sha256": "2a809358964088f5e22515e8324edd2c693c145f036b1ba8b1e02f6748cad246"
+    },
+    "runs/ne258-natural-counter-cpu-v1/console.log": {
+      "size": 143,
+      "sha256": "4e8ce9d1c0876e596556af1ec0e5fa5c89c07f2476bf1355e9b16f32bcb2af39"
+    },
+    "runs/ne258-natural-counter-cpu-v1/probe-settings.cfg": {
+      "size": 27,
+      "sha256": "18f3589ea8c83e049fe65530bceca783ac22fec78ebf0aa0061880a5a8ad153f"
+    },
+    "runs/ne258-natural-counter-cpu-v2/console.log": {
+      "size": 544,
+      "sha256": "2753ae53a7c46c3344484209090f1fdae018867fa9e6b15a9a0ee4e421a6fa7d"
+    },
+    "runs/ne258-natural-counter-cpu-v2/cpu-counter-index.json": {
+      "size": 785,
+      "sha256": "403885e7a441947dbaa6950811e586bd9b447df65ba357f277f6c89b6636986b"
+    },
+    "runs/ne258-natural-counter-cpu-v2/probe-settings.cfg": {
+      "size": 27,
+      "sha256": "18f3589ea8c83e049fe65530bceca783ac22fec78ebf0aa0061880a5a8ad153f"
+    },
+    "runs/ne258-reload-route-native/console.log": {
+      "size": 1188,
+      "sha256": "fb1f40d709cb7bf8ec80a8219c3bf8614d3980de3949d25b365fe149737d7f16"
+    },
+    "runs/ne258-reload-route-native/light-index.json": {
+      "size": 1150,
+      "sha256": "1f4b9fbc78336aa572536fdccef45f21769b807d49e2b2907043d402d88a782e"
+    },
+    "runs/ne258-reload-route-native/probe-settings.cfg": {
+      "size": 27,
+      "sha256": "18f3589ea8c83e049fe65530bceca783ac22fec78ebf0aa0061880a5a8ad153f"
+    },
+    "runs/ne258-reload-after-head-native/console.log": {
+      "size": 3513,
+      "sha256": "d6e27e6c8776719c4438e0891949214b8d41897fde00b5b81efddac6317a5631"
+    },
+    "runs/ne258-reload-after-head-native/light-index.json": {
+      "size": 2648,
+      "sha256": "0e2b3ae713c3dbb534845b80053797515bacef6de6c5a125c33222bc1e0c9a48"
+    },
+    "runs/ne258-reload-after-head-native/light-reload-route-head-head-alpha.bin": {
+      "size": 7372800,
+      "sha256": "f6416d376baab2a857411131eaa08de7193a3b5fa8bce6b4fdcc597362bd10e4"
+    },
+    "runs/ne258-reload-after-head-native/light-reload-route-head-head-alpha.png": {
+      "size": 4085,
+      "sha256": "875db29424d6dbd13665f6466ac1aa7742231aa1707ed2d27cd615e604a6f3f2"
+    },
+    "runs/ne258-reload-after-head-native/light-reload-route-head.bin": {
+      "size": 5529600,
+      "sha256": "0c768f782111785116348c0f26dca2f764ac5506731a4352ad1ca2bb0e4fb569"
+    },
+    "runs/ne258-reload-after-head-native/light-reload-route-head.png": {
+      "size": 173614,
+      "sha256": "77cbe26e8e0140d94d22a0605723a412631c2345d605e2cb8a65cf2214473b9f"
+    },
+    "runs/ne258-reload-after-head-native/probe-settings.cfg": {
+      "size": 27,
+      "sha256": "18f3589ea8c83e049fe65530bceca783ac22fec78ebf0aa0061880a5a8ad153f"
+    },
+    "runs/ne258-input-action-route/console.log": {
+      "size": 146,
+      "sha256": "4898311938111661e3f0347d1d96c802ed6476b77cfd13804703f542c4f69a9f"
+    },
+    "runs/ne258-matrix-selfcheck-v1/console.log": {
+      "size": 120,
+      "sha256": "44d1fe65442aff6bf38d6907b8e218908ce8924a7ef3fb52dcb5602c4bc85e10"
+    },
+    "runs/ne258-matrix-selfcheck-v2/console.log": {
+      "size": 120,
+      "sha256": "44d1fe65442aff6bf38d6907b8e218908ce8924a7ef3fb52dcb5602c4bc85e10"
+    },
+    "runs/ne258-matrix-selfcheck-v3/console.log": {
+      "size": 120,
+      "sha256": "44d1fe65442aff6bf38d6907b8e218908ce8924a7ef3fb52dcb5602c4bc85e10"
+    },
+    "runs/ne258-matrix-selfcheck-v4/console.log": {
+      "size": 120,
+      "sha256": "713f8c30c35c6855d1518ca6572f23e36d9e92d5af24705b2b27478db4cafd74"
+    },
+    "runs/ne258-matrix-selfcheck-v5/console.log": {
+      "size": 120,
+      "sha256": "713f8c30c35c6855d1518ca6572f23e36d9e92d5af24705b2b27478db4cafd74"
+    },
+    "runs/ne258-matrix-selfcheck-v6/console.log": {
+      "size": 120,
+      "sha256": "713f8c30c35c6855d1518ca6572f23e36d9e92d5af24705b2b27478db4cafd74"
+    },
+    "runs/ne258-matrix-selfcheck-v7/console.log": {
+      "size": 120,
+      "sha256": "713f8c30c35c6855d1518ca6572f23e36d9e92d5af24705b2b27478db4cafd74"
+    },
+    "runs/exposure-high-all7-v1/console.log": {
+      "size": 4649,
+      "sha256": "826f8326134a3ee548194baecee2a2d545c9962e572276c1b5591b9a73508fcd"
+    },
+    "runs/exposure-high-all7-v1/matrix-block-head-alpha.bin": {
+      "size": 7372800,
+      "sha256": "95e3aecc7f77d5534e553a9745d722ea797d44cc9c44282777b51cb6f19965d1"
+    },
+    "runs/exposure-high-all7-v1/matrix-block-head-alpha.png": {
+      "size": 4179,
+      "sha256": "c80b8aec92e1eee12dc94e48ee1c1145c73d890c5482a33f1eb018ab0e532075"
+    },
+    "runs/exposure-high-all7-v1/matrix-block.bin": {
+      "size": 5529600,
+      "sha256": "6df321cdf9293315c20ec834adba1dce4aefe345977bedf6d52635b29ee46fb4"
+    },
+    "runs/exposure-high-all7-v1/matrix-block.png": {
+      "size": 131681,
+      "sha256": "2d0e0d7751efb02419e8cd6ccca7ad7864ea738ba4ac78c0c562d4a2d577db43"
+    },
+    "runs/exposure-high-all7-v1/matrix-dash-head-alpha.bin": {
+      "size": 7372800,
+      "sha256": "e5e9ac802ce8ea02dfc9190d7a42f67aeb20d78a8d623beee4e65b4ad026a97f"
+    },
+    "runs/exposure-high-all7-v1/matrix-dash-head-alpha.png": {
+      "size": 4111,
+      "sha256": "0c5758d55834567bb902657d1ed9f91937bc676fca63c93b94798f5d5be2d7b8"
+    },
+    "runs/exposure-high-all7-v1/matrix-dash.bin": {
+      "size": 5529600,
+      "sha256": "44bd3eca13852063a695b4bc2ebbdeb821bc34b06d8112baac408971e7cc98b3"
+    },
+    "runs/exposure-high-all7-v1/matrix-dash.png": {
+      "size": 119484,
+      "sha256": "b71b1284c976b505fbfca65c3ba8e819d3cbbbce7c75b66d2b4f723132ba9c8b"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-false-1-head-alpha.bin": {
+      "size": 7372800,
+      "sha256": "71337fa23f35eb1437f3b0d4c15368a61a2370b91ae41facaa671d8c5183d4cb"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-false-1-head-alpha.png": {
+      "size": 4105,
+      "sha256": "31834957e95e45ba5c3fd9c16457ac127e03941924ea3ed0f34868614d472848"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-false-1.bin": {
+      "size": 5529600,
+      "sha256": "3681e186adc2163e916f4a3ab8f1bbec9d3a10364bdd574e6ba806b5a384b816"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-false-1.png": {
+      "size": 87779,
+      "sha256": "3234be2f4f93148166d346d15a157a7703d01e4441edbb068fc3fe59d4d41409"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-false-4-head-alpha.bin": {
+      "size": 7372800,
+      "sha256": "774891b4452f4d922a47048a804130bb7b9b7025db59977ed2028c2277c018cc"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-false-4-head-alpha.png": {
+      "size": 4157,
+      "sha256": "f6fb5bbdc5429e58413820c27b480a996c623a79c13b1a3e96371aa363aa2f08"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-false-4.bin": {
+      "size": 5529600,
+      "sha256": "65c6f351371c08597abb3624647ca0535ca74947f8bd66c2295f00ed7239f6c6"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-false-4.png": {
+      "size": 88087,
+      "sha256": "64610fd38afa12cf8d801c3d75b92d5c9b206dfbca820b5e84ef3f50711a0e18"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-false-8-head-alpha.bin": {
+      "size": 7372800,
+      "sha256": "34a831481883efcb8f391ff31c425eca7f5bcd6c9b69da2e0c38e284bb4f85b3"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-false-8-head-alpha.png": {
+      "size": 4079,
+      "sha256": "c3de85e433e92f79edd5dc3c01f7c2b44288235c2936ffa140039f39f1f69496"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-false-8.bin": {
+      "size": 5529600,
+      "sha256": "73d29090cb1dc0a809ee71cb3ebc9d4c6aa8b6bd94c0c63019fe98217f2d5a63"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-false-8.png": {
+      "size": 87351,
+      "sha256": "b8a88c401045729b1da0c49a0515d391f879c24e4ecba0f0ecd761b52ac02d16"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-laser-head-alpha.bin": {
+      "size": 7372800,
+      "sha256": "e22b9045d9083dc78a53e276b7ad6c4c2d39d2281521f1ec13ed4499b5119752"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-laser-head-alpha.png": {
+      "size": 4133,
+      "sha256": "4f8e961afd804c11c228019ab263d412017805c1a3b4b24a0c3ebd2a52256134"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-laser.bin": {
+      "size": 5529600,
+      "sha256": "1d3dfb1f8f86227666383e8f2f8baadaa7c3262b7e842bd393dae3b7f1934092"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-laser.png": {
+      "size": 121158,
+      "sha256": "4d50a59c5fc773053feaa2daab9f42fba996522348d783f49d88095c0238387b"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-launcher-head-alpha.bin": {
+      "size": 7372800,
+      "sha256": "0f61efcc6c0aeb34ad29c0f91dfb5ec300f2f3eba7b3dd1c8bf78b075687a787"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-launcher-head-alpha.png": {
+      "size": 4072,
+      "sha256": "b355129570e9cf4b87cb8f1ca755c9b5f35ea09857b6f378705c43e9f40b83d8"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-launcher.bin": {
+      "size": 5529600,
+      "sha256": "9caea6b174ad7c4cdd3b31f3d4e2421b1240fc88ffa5817903fc6b945fb553aa"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-launcher.png": {
+      "size": 275784,
+      "sha256": "f156c3ebe67453f2ae9a803a5b759a65e94ce7a6862bff8a64bf0527b4dbc8df"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-pistol-head-alpha.bin": {
+      "size": 7372800,
+      "sha256": "f63a7ca684509e820cbfc4864f80885718504d54ebe76a4a7786b828b58a7610"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-pistol-head-alpha.png": {
+      "size": 4120,
+      "sha256": "90bf798bdba34be6f0be5096398ea8849195e0c395b3ee13d286c0c6d7cfb494"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-pistol.bin": {
+      "size": 5529600,
+      "sha256": "7746457d2317ab47f43dd0d9843694090de1b373165609b876460dd94768e96d"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-pistol.png": {
+      "size": 110650,
+      "sha256": "a4a6f2e3497b80e7c03831f2090655409536b3b8ddb7b6459911dba3199cf6c7"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-railgun-head-alpha.bin": {
+      "size": 7372800,
+      "sha256": "6b7a0ee0eccad1a9166a40ede30a8330ef3c088b15929b76cf795233db15b7be"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-railgun-head-alpha.png": {
+      "size": 4119,
+      "sha256": "fa00c663af5e3853815d055c73a7704db2a581d67e0a28e3fa3bd54b47544099"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-railgun.bin": {
+      "size": 5529600,
+      "sha256": "9d95d096cd8b532d3361e09bd66bdbb070ff8c92db59530cb40bb220c64f6165"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-railgun.png": {
+      "size": 141006,
+      "sha256": "e1ca9794d0d9170efec7498d0d8c58e9d6e1c2bb23c70539edcb30f91112d642"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-rifle-head-alpha.bin": {
+      "size": 7372800,
+      "sha256": "a4da1c5fd7207d762c1e1b3a878ae2f074b41a31a92eb63890a3db182cdd264e"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-rifle-head-alpha.png": {
+      "size": 4086,
+      "sha256": "83c87c69f7a4202c9f2099ccd9b6dcf47f21b40a1df7481dd8ff76988980de48"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-rifle.bin": {
+      "size": 5529600,
+      "sha256": "911e4a8e5521eee3a916013bc174ef042ae11ba06537567653e80ab66cfb1192"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-rifle.png": {
+      "size": 131760,
+      "sha256": "8c5ac9037d6af70bbef246977e0c7d8fa9c776ca60d96e24bd710a82e706681c"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-smg-head-alpha.bin": {
+      "size": 7372800,
+      "sha256": "ec243f44e416e51535dc811a09d907802357ee087e01e87fb72b8f49230fd0b4"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-smg-head-alpha.png": {
+      "size": 4107,
+      "sha256": "5a87be2e46f350cfa9c8a2f080f001b258ef26b9e47ead84ba9e8b11dc7b1df2"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-smg.bin": {
+      "size": 5529600,
+      "sha256": "816a0681531d50827392f0ca946aeb6169a939ce3a4d9bb038e9090323cf5f1c"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-smg.png": {
+      "size": 96669,
+      "sha256": "9c08795566911d4f69bc0675911f653ef020c57af28ac47642be120f9aff846c"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-spread-head-alpha.bin": {
+      "size": 7372800,
+      "sha256": "c853c3fb13c66c36d0226518712e0492f1d0151b37330ede6caa10be6e324826"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-spread-head-alpha.png": {
+      "size": 4074,
+      "sha256": "6aea476fe90999b11c1b4256c21f20b1f937e52a86335da940b11a2dbca1a9cc"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-spread.bin": {
+      "size": 5529600,
+      "sha256": "7e0685b2e2c5a7098b54bf508ec58f2bd6c33122a9a35802288ac950426c7d56"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-spread.png": {
+      "size": 153408,
+      "sha256": "9a8075842ffd47c433546e5fc43b68e80cf2e500ef046637e6b19781af3fc125"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-true-1-head-alpha.bin": {
+      "size": 7372800,
+      "sha256": "9096ecdafd0bd39e046f86da034b266305f10e80ed89e8d6c7d78772058753ca"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-true-1-head-alpha.png": {
+      "size": 4077,
+      "sha256": "2c748a9f871ac0ab8c401273cfea237d7570181497cf9b448fc7b082854a1753"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-true-1.bin": {
+      "size": 5529600,
+      "sha256": "ce0707ad0362c4da5fe47a1ea1a3b6200f3b07c5febe0cf19cde4170b1198e42"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-true-1.png": {
+      "size": 90260,
+      "sha256": "819ae742e85aab796c6abfd42f3bc926ac5c1892a5b8190baabc595b9f8a7394"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-true-4-head-alpha.bin": {
+      "size": 7372800,
+      "sha256": "b30e5a56dcb35a52a6eb9f4b662844050459af33279c6d1831bd6c9cad1d244c"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-true-4-head-alpha.png": {
+      "size": 4091,
+      "sha256": "665d8e5a10666e193af2286de43efb50736c410a3f07c776fcb65848d9ad355e"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-true-4.bin": {
+      "size": 5529600,
+      "sha256": "77a9e2837d37e882b26977d1faf98b66b37c6deb29ba3a1082487487c0611b04"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-true-4.png": {
+      "size": 95390,
+      "sha256": "b6e2ba24ddc38c9fad056c8d152088674ee9974abb8c48ef9460774ec861df09"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-true-8-head-alpha.bin": {
+      "size": 7372800,
+      "sha256": "7d5091bf5396fc5324cb4402a4fd86b94551dc4a3ed53de459f1fadf99749846"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-true-8-head-alpha.png": {
+      "size": 4125,
+      "sha256": "6f448430d7b0e39ae65002de9f150ea0507b064791d962af664340a46e1b3ee3"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-true-8.bin": {
+      "size": 5529600,
+      "sha256": "167138ddf60e713b9052735318a464adaed82e2deea5665298a9450735b8cb13"
+    },
+    "runs/exposure-high-all7-v1/matrix-fire-true-8.png": {
+      "size": 93728,
+      "sha256": "f3bb871d5b4339f6eae01e2c89f21e18136b67ab6e65aff95e3d375ae1953865"
+    },
+    "runs/exposure-high-all7-v1/matrix-hurt-head-alpha.bin": {
+      "size": 7372800,
+      "sha256": "f3542ebb7b8c212c1f46ef16ed46b8b4ab315c9c86332de636b1f9166ea8a2c7"
+    },
+    "runs/exposure-high-all7-v1/matrix-hurt-head-alpha.png": {
+      "size": 4082,
+      "sha256": "36c3d16b1a3d0c1ddb496020765a5724bc297ce4263f24d53cbf875bb3f8c4d5"
+    },
+    "runs/exposure-high-all7-v1/matrix-hurt.bin": {
+      "size": 5529600,
+      "sha256": "f764e049ffac2efa4656a51377f38b65bda06fdf7b9cb8d36c89f13776907d20"
+    },
+    "runs/exposure-high-all7-v1/matrix-hurt.png": {
+      "size": 117124,
+      "sha256": "50427764ae0823729d8bd13392ab1c29cce3845805540d13535b428006de17c0"
+    },
+    "runs/exposure-high-all7-v1/matrix-idle-head-alpha.bin": {
+      "size": 7372800,
+      "sha256": "ab28912780fd1e63caaf656eb06216d267d6974dff581c5d0168a6b68825b72f"
+    },
+    "runs/exposure-high-all7-v1/matrix-idle-head-alpha.png": {
+      "size": 4148,
+      "sha256": "78e2d1aee47d6722c77ea86d9ad02191850c6a1c7896aa2a384273fae5d9e700"
+    },
+    "runs/exposure-high-all7-v1/matrix-idle.bin": {
+      "size": 5529600,
+      "sha256": "3bba5daa06b8c93cdfa1e4f41509b9c4f4b511fb6e581762882dd46915da7100"
+    },
+    "runs/exposure-high-all7-v1/matrix-idle.png": {
+      "size": 123510,
+      "sha256": "9020b11151e08e71afa6434e96b1d8fc1fcffd230b2650293f09b9d3383e89dc"
+    },
+    "runs/exposure-high-all7-v1/matrix-index.json": {
+      "size": 31296,
+      "sha256": "4b52935da6e13419ed2c478b3e7de837eb79e1503a79252a0ce27ee39e1ae5c8"
+    },
+    "runs/exposure-high-all7-v1/matrix-reload-head-alpha.bin": {
+      "size": 7372800,
+      "sha256": "bed4e0850ba7ae95ab8500cb77b9291891e64529a71421c3b73e904be92897a8"
+    },
+    "runs/exposure-high-all7-v1/matrix-reload-head-alpha.png": {
+      "size": 4139,
+      "sha256": "b3f2af68e353a87c2b9b9d5bd61fdc39d2d5c5760dd6a2e1770b339270aed031"
+    },
+    "runs/exposure-high-all7-v1/matrix-reload.bin": {
+      "size": 5529600,
+      "sha256": "deb176b0c0e0fab65a8757a9d2d04fb77cd2501f2b6e94d5d66253ed62f3bae7"
+    },
+    "runs/exposure-high-all7-v1/matrix-reload.png": {
+      "size": 84843,
+      "sha256": "88202002a33327062a0744f0602ff1c838c9e44d661a1ed715895d9be13cb650"
+    },
+    "runs/exposure-high-all7-v1/probe-settings.cfg": {
+      "size": 48,
+      "sha256": "711f2c07b692d691ba1508edced5b6069c905bd9ed79cc661fbb5c53435a72f4"
+    },
+    "runs/exposure-high-all7-v1/process-receipt.json": {
+      "size": 84684,
+      "sha256": "5eab2a75ca79aa368867fd31973506c004800d9540b88c7273c9ea8caf1214bd"
+    },
+    "source/.gdignore": {
+      "size": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    "source/counter_probe.gd": {
+      "size": 2000,
+      "sha256": "30faa0f5d3562f53059da0be8ad18e42644dee9152e0fb66c3d551ac24fe9c21"
+    },
+    "source/counter_probe.v1.gd.txt": {
+      "size": 1751,
+      "sha256": "797eb684c0cbcf55ba52879d0ada87fdfc6cef1ee8eb1f819579d236d67f296a"
+    },
+    "source/input_action_route_probe.gd": {
+      "size": 907,
+      "sha256": "0f52298471389340f4b81124a09b7bc7eaaca1b29a052e3d0e532f4c467ff840"
+    },
+    "source/lock_identity_probe.gd": {
+      "size": 970,
+      "sha256": "c3f61433a235f80af0137be1e108996bbab4f2d0e18a3e78eb6b6aa45a4657e2"
+    },
+    "source/lock_suite_probe.gd": {
+      "size": 508,
+      "sha256": "fdb6197acaa900f28283d170e27885da5d72749e9d6336c14bdc8a88c5016228"
+    },
+    "source/owner_probe.gd": {
+      "size": 15584,
+      "sha256": "dca94c7408d1a226aaa1e98999518cbb2b74738e14ac3edbcf39844831212eea"
+    },
+    "source/owner_probe.v1.gd.txt": {
+      "size": 7758,
+      "sha256": "a71ce141f46650a80e2e28503c1edc0e1fb7e67415e04448bbb8760091637ac7"
+    },
+    "source/owner_probe.v2.gd.txt": {
+      "size": 8683,
+      "sha256": "1ae499bcc785b1e266f72348659ce9c06a7a0566747a4ca87380132fea74eae2"
+    },
+    "source/owner_probe.v3.gd.txt": {
+      "size": 10811,
+      "sha256": "f1cf9bbe977a59d9e9b1677bb2b8a0d60a37052e25afc0050506be665d2f571a"
+    },
+    "source/owner_probe.v4.gd.txt": {
+      "size": 11220,
+      "sha256": "977ef990ef46d5c430c08a8bdcfb595d3d74b99afbe530b8133e6c71bd2dc054"
+    },
+    "source/reload_probe.gd": {
+      "size": 1848,
+      "sha256": "d42d9cdb619d3c602ddaf161866683512d160a8ff632511fee65b54deb7e0e51"
+    },
+    "source/reload_probe.v1.gd.txt": {
+      "size": 1788,
+      "sha256": "04801b2c4449ff5c6c1f08176b31277a273c9b8244fd5f62fcd1cbf450519d54"
+    },
+    "source/wall_probe.gd": {
+      "size": 4866,
+      "sha256": "b085bf9695067c14343e3622774ab5f0e14c3071d7e2e0ad76d0e71711ff2ffe"
+    },
+    "source/weapon_head_probe.exposure-v1.gd.txt": {
+      "size": 6874,
+      "sha256": "21a02df3a99dcf41e7db7b6b0cd5acca7a6d921564098bea44e07a5ce781a04d"
+    },
+    "source/weapon_head_probe.exposure-v2.gd.txt": {
+      "size": 7083,
+      "sha256": "f74bdcb01c11288d7bc5dc5c9df7269c4124bf127aae50025d6ce72060ca793e"
+    },
+    "source/weapon_light_probe.exposure-v1.gd.txt": {
+      "size": 27227,
+      "sha256": "88f20808d1e2bef233b524e040208a6474fdf8da0b6facf686191f50a121b459"
+    },
+    "source/weapon_light_probe.exposure-v2.gd.txt": {
+      "size": 27690,
+      "sha256": "3c4366997e6bbdce77b6482e8c56977347cec52d6bf503117861dab8aca7b682"
+    },
+    "source/weapon_light_probe.exposure-v3.gd.txt": {
+      "size": 28749,
+      "sha256": "857cfb7659b747990e0c23293443ddee347472353df0c1fd8b9d6446909beab3"
+    },
+    "source/weapon_light_probe.matrix-v2.gd.txt": {
+      "size": 17055,
+      "sha256": "7357f16745925a01dfc028884a001c1447fdf160db6e64537e492f570e52f7c3"
+    },
+    "source/exposure-all7-v1-source/weapon_head_probe.gd": {
+      "size": 7083,
+      "sha256": "f74bdcb01c11288d7bc5dc5c9df7269c4124bf127aae50025d6ce72060ca793e"
+    },
+    "source/exposure-all7-v1-source/weapon_light_probe.gd": {
+      "size": 30946,
+      "sha256": "6e2f4b7fc66b61d3dcf8ee3ad2f95379c718e049270c4e7d97fb8d9ea8689407"
+    },
+    "source/matrix-tool-v8-source/hashes.json": {
+      "size": 206,
+      "sha256": "c474afbb18c0789358226f7aa6176717df0ae3fe609cebac255c12da840d2241"
+    },
+    "source/matrix-tool-v8-source/weapon_head_probe.gd": {
+      "size": 7617,
+      "sha256": "d5ee3884dc8c11a08ffec1eb99459fc78f392a5f852d8bf802964b718824cc05"
+    },
+    "source/matrix-tool-v8-source/weapon_light_probe.gd": {
+      "size": 30999,
+      "sha256": "c292984534b6ad9d433ecfcbf6db69de9a7cba9a671917c6622fdbf469ba0bfd"
+    },
+    "source/original-weapon-light-probe.gd": {
+      "size": 9268,
+      "sha256": "925406ccbd391196ca6baa9ffde29932a356dbc1ca8d6764093a98f4c9c26895"
+    }
+  },
+  "uncompressed_bytes": 534483567
+}

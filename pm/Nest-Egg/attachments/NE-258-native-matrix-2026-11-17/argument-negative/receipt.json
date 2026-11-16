@@ -1,0 +1,21 @@
+{
+  "command": [
+    "C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe",
+    "--headless",
+    "--path",
+    "C:\\Users\\stanl\\Github\\Nest-Egg",
+    "res://tools/weapon_light_probe.tscn",
+    "--",
+    "--quality=unknown"
+  ],
+  "exit_code": 2,
+  "before": {
+    "tools/weapon_light_probe.gd": "c292984534b6ad9d433ecfcbf6db69de9a7cba9a671917c6622fdbf469ba0bfd",
+    "tools/weapon_head_probe.gd": "d5ee3884dc8c11a08ffec1eb99459fc78f392a5f852d8bf802964b718824cc05"
+  },
+  "after": {
+    "tools/weapon_light_probe.gd": "c292984534b6ad9d433ecfcbf6db69de9a7cba9a671917c6622fdbf469ba0bfd",
+    "tools/weapon_head_probe.gd": "d5ee3884dc8c11a08ffec1eb99459fc78f392a5f852d8bf802964b718824cc05"
+  },
+  "source_unchanged": true
+}

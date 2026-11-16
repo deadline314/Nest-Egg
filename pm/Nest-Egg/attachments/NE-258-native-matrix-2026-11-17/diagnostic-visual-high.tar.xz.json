@@ -1,0 +1,752 @@
+{
+  "file": "diagnostic-visual-high.tar.xz",
+  "size": 45589420,
+  "sha256": "44a485944b8cb7398014a54facdeebf75801726662008ac2a4c75067b4ff3894",
+  "members": {
+    "runs/visual-high-v1/console.log": {
+      "size": 2709,
+      "sha256": "43dcddb2f67bfe20d1c9da5a31b512fd78706ea08141bb01bf9064e60d11e8b6"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-laser-on-sample-0.hdr.bin": {
+      "size": 5529600,
+      "sha256": "18a62fa85cb4f73664f461dc3aecd6a576fe1d1b54a0e19d0624c252657bbfaf"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-laser-on-sample-0.png": {
+      "size": 149959,
+      "sha256": "b915105302844d82bbe3d4797790a3f7ff9a27361c9f90a644cdf012e0b679be"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-laser-on-sample-1.hdr.bin": {
+      "size": 5529600,
+      "sha256": "d80e6ddc251b34cc916ad67c7435f3a59e0b2df8c0410d24c5912d3b6cf36d85"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-laser-on-sample-1.png": {
+      "size": 149908,
+      "sha256": "36b1af72fe22d39bf2edd428ad278b14d50e15616283582b2232de252fa8546b"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-laser-on-sample-2.hdr.bin": {
+      "size": 5529600,
+      "sha256": "8bcccd1c0ce901b46533fb5d62030b7e6dd6eba6c396179655ac64512f1a80a1"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-laser-on-sample-2.png": {
+      "size": 149484,
+      "sha256": "27f4f7eb5ec7b9f7eaca01de0f2d9120c714db1569a9d76d38c9687b08db2278"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-laser-on-sample-3.hdr.bin": {
+      "size": 5529600,
+      "sha256": "27465e68a9511759c589aeb9fdf7cab94d09f89684ce5bf87531021fea3b500d"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-laser-on-sample-3.png": {
+      "size": 149018,
+      "sha256": "5a0a80ab153958f0823136197d22dffc9b6ea00bd0257e7c5f152e664e98a028"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-laser-on-sample-4.hdr.bin": {
+      "size": 5529600,
+      "sha256": "0581c55f44e499876f6d22d7bfabdd4547802fb9ca7eaa24c83845c03e27fa41"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-laser-on-sample-4.png": {
+      "size": 148752,
+      "sha256": "137367bdd8148e14942484a3d4e241b36f42b4db104e178e67a5961572cb32be"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-laser-on-sample-5.hdr.bin": {
+      "size": 5529600,
+      "sha256": "a94c14503c9aa3ce8fa1dd01843907f9f63973f594f1a33a76d5f1e0b29588f4"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-laser-on-sample-5.png": {
+      "size": 148614,
+      "sha256": "60add8ffef343340fafa7b1beab2ae3ef939ed15c8861cb2b6044e24dca6edc6"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-launcher-on-sample-0.hdr.bin": {
+      "size": 5529600,
+      "sha256": "bd8e6c3f34d3f1e23b79601b0dfccc9f8325db91d974e8487b7d639babf92ee2"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-launcher-on-sample-0.png": {
+      "size": 185392,
+      "sha256": "e37e8b57b2a3029e9c4e16da1287a3dd13f1b97c11b42a2ecc741db4933c4884"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-launcher-on-sample-1.hdr.bin": {
+      "size": 5529600,
+      "sha256": "dc3170fc89f826f0859da1fe5f558362f8ff45d577c22181a8ec924a6cc2bea4"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-launcher-on-sample-1.png": {
+      "size": 184753,
+      "sha256": "5f3fd5057bae194270c4c7ffc8e45b0d8c96e2d7aa6a2abbf51dcd0a21a92d4f"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-launcher-on-sample-2.hdr.bin": {
+      "size": 5529600,
+      "sha256": "cf70ef46cc3843021cf1962dcca9521a0e8bd348c66fe9966d7d013e3e2c9060"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-launcher-on-sample-2.png": {
+      "size": 183798,
+      "sha256": "5260ef52f8f5f09832982167a4fa1c5087fac28c70d31a9f6d62498875e7c17a"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-launcher-on-sample-3.hdr.bin": {
+      "size": 5529600,
+      "sha256": "238908c633b1d1ab95053739e6c3a46f39b9d61fe600f57e0c363ed427a08a80"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-launcher-on-sample-3.png": {
+      "size": 183010,
+      "sha256": "044435ab7ccb8874f923a1cd9b46ee9f267e546a4316765153c4a40eda993dd3"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-launcher-on-sample-4.hdr.bin": {
+      "size": 5529600,
+      "sha256": "447a9c97bdd861e1e99f9c8f2e375fdf2917f9ba506d8b084b2140fe5d3e3e37"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-launcher-on-sample-4.png": {
+      "size": 182545,
+      "sha256": "c27f3f3ad52ee1534b39ddd3bd5213b0d502844233d7a9d283cc0b85bc35fe4b"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-launcher-on-sample-5.hdr.bin": {
+      "size": 5529600,
+      "sha256": "5774e980cbe3e5641457dc435dadbf9533be3de87d88fead39482170a531e657"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-launcher-on-sample-5.png": {
+      "size": 182000,
+      "sha256": "bf948434b889bda3713862d3d30dba8c4023b754a12e4270b4f447a8a6eb0a5b"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-pistol-on-sample-0.hdr.bin": {
+      "size": 5529600,
+      "sha256": "d802a0a317352b6ffc279cfae1adf6b538308d2289293d14f4d88db50dae668e"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-pistol-on-sample-0.png": {
+      "size": 186038,
+      "sha256": "f4c4e6d92b7a517a14d34c5547c0ce11dd57eb8d199e917cd33169c9d4840862"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-pistol-on-sample-1.hdr.bin": {
+      "size": 5529600,
+      "sha256": "dc0f69d1a30ff1fbdf4f35eb9784f7b0792dd16017dcbf394db11173d661e996"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-pistol-on-sample-1.png": {
+      "size": 185171,
+      "sha256": "3a24fa5b2fc8d6c1acfb642f5422386d0a2b90c5cf845f8c95acc0ed09f42897"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-pistol-on-sample-2.hdr.bin": {
+      "size": 5529600,
+      "sha256": "421bf3376090bd65da08e1d3170323fbbb1adb027eac2858762eaf7f27161835"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-pistol-on-sample-2.png": {
+      "size": 185199,
+      "sha256": "cc5131da702f98f0cc780cf75ec3e9925d6794731a6cb0f8330882893320b999"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-pistol-on-sample-3.hdr.bin": {
+      "size": 5529600,
+      "sha256": "d009da9b2291ad5e74a0fafeb51ba9bedbb44b7ab52b9dc3278b27fd495630de"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-pistol-on-sample-3.png": {
+      "size": 184299,
+      "sha256": "a802045a8f51c950bdfdeaea42a4553c8724e6627c32e0353568f6b5803117d4"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-pistol-on-sample-4.hdr.bin": {
+      "size": 5529600,
+      "sha256": "0b7f9a098e792ffa9dcc922e3b90696a2fbea98c36d3a89a73c133911e181599"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-pistol-on-sample-4.png": {
+      "size": 184718,
+      "sha256": "bfc66e935ac959fb1ac10bb63d5c229b16a8cc3b175a884d46a56495a4e675f9"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-pistol-on-sample-5.hdr.bin": {
+      "size": 5529600,
+      "sha256": "bbeac92e5093ff6505ca1f8e0dd9b2aaaa89f2c3642a3d24cc30530edabc2833"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-pistol-on-sample-5.png": {
+      "size": 184301,
+      "sha256": "1a5b33ec35e7e8d21ecf6a419a986106132ac0c68f6be196ac66b8478451b434"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-railgun-on-sample-0.hdr.bin": {
+      "size": 5529600,
+      "sha256": "38978cd0143a6664b5e167d3931f9e8655f9e056f3b33a70e3a28228347c4930"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-railgun-on-sample-0.png": {
+      "size": 160949,
+      "sha256": "2e3e1b37f70d973fe4f3902975d615d14520576f3947a2ffe30eae4372ba6f5c"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-railgun-on-sample-1.hdr.bin": {
+      "size": 5529600,
+      "sha256": "24257b0407b41ea6713cdd810e72af530e01ec5b8dd24fdea08b5454264793d7"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-railgun-on-sample-1.png": {
+      "size": 159430,
+      "sha256": "66656d2af8ef7c3f3417b97f5d90b150cae39cc5ede71872c1979ac78c87dc72"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-railgun-on-sample-2.hdr.bin": {
+      "size": 5529600,
+      "sha256": "35f2ebb3b97d41a3d8150db68216b8d15194b9f44d6e01b8778a46aefa6d3041"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-railgun-on-sample-2.png": {
+      "size": 159444,
+      "sha256": "f5ee20b23d25afd40260e1a2022b6a46e56194fa161c8c9ccbed2ed6ea9ceb09"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-railgun-on-sample-3.hdr.bin": {
+      "size": 5529600,
+      "sha256": "bef4e294c19ac61e96481c70a923717687619c6c5e9ffa89e5b4a3bf097842b5"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-railgun-on-sample-3.png": {
+      "size": 158745,
+      "sha256": "49e89d8a571d5570c3f2d3f48531e5029d8c1cbe57e1e83a16631e9cfc1bb1b5"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-railgun-on-sample-4.hdr.bin": {
+      "size": 5529600,
+      "sha256": "7571168adc2a51f1e2cf0d3bbaa04996e2d2fbad8b0e2018310afde56a205b33"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-railgun-on-sample-4.png": {
+      "size": 158988,
+      "sha256": "04b81f8df1739c40296ef92703fd8ce98e6ccb3cc9c305a0695ec31303bfc72b"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-railgun-on-sample-5.hdr.bin": {
+      "size": 5529600,
+      "sha256": "be39a337f464fac966d9d17c62a9317ff74e78e4fcd9667175c8c6fe3f3242ca"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-railgun-on-sample-5.png": {
+      "size": 158890,
+      "sha256": "f55f6cffba33582e023a7f37f4bd3859052a4fe243b0295477c65b5d4768eea5"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-rifle-on-sample-0.hdr.bin": {
+      "size": 5529600,
+      "sha256": "ce09d1d71dbbc770df961016827c3de085e87c91c7092dc05a5ba446b8f706be"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-rifle-on-sample-0.png": {
+      "size": 172298,
+      "sha256": "d062de471abed37a31b7d414c0a030759437dd891f27c3d8363f716cc51dc68b"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-rifle-on-sample-1.hdr.bin": {
+      "size": 5529600,
+      "sha256": "703da2e9f86d564aad6489ad8b583f622dc3d83ddb5b9a49e32c2f23b98c8c4a"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-rifle-on-sample-1.png": {
+      "size": 172193,
+      "sha256": "e1efdb8d09677f20c9a7c293de257961df0f51a0772a23d6bedec13048621e8f"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-rifle-on-sample-2.hdr.bin": {
+      "size": 5529600,
+      "sha256": "8fc3ea8d4a3d3d53cae1d4ae46ebf34a6037d27faeb4e53eb56c07402e9c8331"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-rifle-on-sample-2.png": {
+      "size": 172122,
+      "sha256": "167ec603f23f0fb32add63ee08a03f1a5ea676b97385e39941ccc5f7d2bcaecb"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-rifle-on-sample-3.hdr.bin": {
+      "size": 5529600,
+      "sha256": "3842631944acba0d6937e4dafbf7cacedadc0d24c0be2576473858c4b645f834"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-rifle-on-sample-3.png": {
+      "size": 171762,
+      "sha256": "af72140348fc64e621584a7f356ed3c6ef4cf60a9d162cdb5027d8494ac110ae"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-rifle-on-sample-4.hdr.bin": {
+      "size": 5529600,
+      "sha256": "c0a93e44706615cf7b78d19839a172af71d65925c160dbf482d2daf14e137a52"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-rifle-on-sample-4.png": {
+      "size": 172068,
+      "sha256": "04809f684ad447727d305ac5f2e579f19d5addf0cf4e859a3dce1fd0d9ba0a37"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-rifle-on-sample-5.hdr.bin": {
+      "size": 5529600,
+      "sha256": "ac0c557e78b46e34df228b410d5e4a0ee1f8b95db60b4274643619a0d4eed104"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-rifle-on-sample-5.png": {
+      "size": 172158,
+      "sha256": "64bdf0e1c3900adfe004916cd75296d4bbe3f2beb8e54cf7804806d2c3bb6d09"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-smg-on-sample-0.hdr.bin": {
+      "size": 5529600,
+      "sha256": "2ba6df508e8f6ee2e25ab1177ada290facf064ce62b5660fff6033fda6f54c9f"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-smg-on-sample-0.png": {
+      "size": 180056,
+      "sha256": "e6700890bbf91c379c5c51f1031e2c9a56bf1a13d768a606f4ee3755b5dd11d2"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-smg-on-sample-1.hdr.bin": {
+      "size": 5529600,
+      "sha256": "fa12ccc6a136f5ddd629f1db0d1f70c6e2c2ed7365bcc14aa32997a12cd9b9ba"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-smg-on-sample-1.png": {
+      "size": 179300,
+      "sha256": "6a337634849291bd587ab3b72554e177b8262c0a773d20db1473cbec0c58d6c4"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-smg-on-sample-2.hdr.bin": {
+      "size": 5529600,
+      "sha256": "97b8fd5543f8689f54744a2044c02435e5d06dcf517ca4fdaf5ca76a1efb9783"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-smg-on-sample-2.png": {
+      "size": 179052,
+      "sha256": "3f479ef3c5a69a8a6797f7a192d88f23c7a749fe10697f82afb20b565df47ec3"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-smg-on-sample-3.hdr.bin": {
+      "size": 5529600,
+      "sha256": "e99c6009cbb7e55706adff0ddb8da7683a0caf46888df38f83af94c1bf1dba10"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-smg-on-sample-3.png": {
+      "size": 179002,
+      "sha256": "2ed3076de356a48bc0561f3826b470f4ac408559b810f22d7caa192fc6141374"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-smg-on-sample-4.hdr.bin": {
+      "size": 5529600,
+      "sha256": "ebddbc1392b9f967ef43cb703faa65d031132bd7e18c6f5f4d9a79b5ef26ed17"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-smg-on-sample-4.png": {
+      "size": 179293,
+      "sha256": "7a1f1519626f8660ffb79d339fcdf9f13c82da3013f2f5e9edfbb907258707d3"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-smg-on-sample-5.hdr.bin": {
+      "size": 5529600,
+      "sha256": "a1850f81567984436bb9d7c91a502dac29cb3268073ff5889d1f99fd0be69aff"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-smg-on-sample-5.png": {
+      "size": 179586,
+      "sha256": "5335194d3d389e180de1506bf568364376179b99d32c003eac27d6b5930a0051"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-spread-on-sample-0.hdr.bin": {
+      "size": 5529600,
+      "sha256": "362ecffa55bcfa260ecda01f696a8d514a233f41eee6a7a36ccd674363424b07"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-spread-on-sample-0.png": {
+      "size": 181453,
+      "sha256": "160b3c28eadbd37bcaea20a28d8ad0911f6b44c70f8246dd8553ac6cda7b9e1d"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-spread-on-sample-1.hdr.bin": {
+      "size": 5529600,
+      "sha256": "7cb3a29196584540a78bd6d2e76b660e938c6d04bf42074ba4c9ff5c6d4a5e8e"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-spread-on-sample-1.png": {
+      "size": 181746,
+      "sha256": "b487b619148044563526551fc28bb30337829136eedebee82e4cc2d21826d5b7"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-spread-on-sample-2.hdr.bin": {
+      "size": 5529600,
+      "sha256": "57baafdef470b0bdfaa1d6924eae7a75f8dbfbca1e616f00fd581586f18b3623"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-spread-on-sample-2.png": {
+      "size": 181330,
+      "sha256": "5a5577540cc6fe9faf1ae80dd23197223ecf177cc9ec766c955ee32e04fc6f6a"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-spread-on-sample-3.hdr.bin": {
+      "size": 5529600,
+      "sha256": "f7bdf96480324d094e2acdfe931243276f2f190542f9a692081652d67a126982"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-spread-on-sample-3.png": {
+      "size": 181076,
+      "sha256": "fc8835b25efb0582f9b14c1a045afbf652e2a69569eefd2843ef980ac75b4021"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-spread-on-sample-4.hdr.bin": {
+      "size": 5529600,
+      "sha256": "cd7e75c4b92f51645ac6f336e3c59d947b3ace1ee30d59640f14868eaba61e85"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-spread-on-sample-4.png": {
+      "size": 181264,
+      "sha256": "2459de19da63b34e972bf2db79816eb2a179f35c298f10cecf8794b5e4d1c1a1"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-spread-on-sample-5.hdr.bin": {
+      "size": 5529600,
+      "sha256": "9a2bbec6db48f19ffc584d605338c20fd1d2f7c82d3842e2762cbb7dd7f11544"
+    },
+    "runs/visual-high-v1/matrix-aimed-eight-tiles-spread-on-sample-5.png": {
+      "size": 181021,
+      "sha256": "8c46f72761573905f45e425adca982de45706754650572dc4883e8c3d3e482ee"
+    },
+    "runs/visual-high-v1/matrix-fixed-body150-off.hdr.bin": {
+      "size": 5529600,
+      "sha256": "12a31e7467252c43cedf17409b517b9ede5def56b81d87c67c7aa9a9acc5ee18"
+    },
+    "runs/visual-high-v1/matrix-fixed-body150-off.png": {
+      "size": 143870,
+      "sha256": "249d4e899febc7063e687c15d3a1087895463b583293f6456507eaefa67b344d"
+    },
+    "runs/visual-high-v1/matrix-fixed-body150-on.hdr.bin": {
+      "size": 5529600,
+      "sha256": "8c3a914b1f7319804c4261e64786663eaf06a164250c53e157c98cad0cfe4729"
+    },
+    "runs/visual-high-v1/matrix-fixed-body150-on.png": {
+      "size": 187681,
+      "sha256": "cd3c0102146cb737bed7ec320f1f1ee3cd719cd8adcbe026572517aa15ad37df"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-off-sample-0.hdr.bin": {
+      "size": 5529600,
+      "sha256": "845b73fb68080217289c4952f1c2e42711cd98ef397c5b6fa885b88e1caaecc2"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-off-sample-0.png": {
+      "size": 143726,
+      "sha256": "f43cfd33e565ae5c5f43581095adf54fdcfddd793fae37c6efd0402f2b73a1a8"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-off-sample-1.hdr.bin": {
+      "size": 5529600,
+      "sha256": "7fd81780b4551c0726b5e1123b6499b28f8eb55cbdedafab2346638fd3094b76"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-off-sample-1.png": {
+      "size": 143724,
+      "sha256": "ed004364113c73727aa94944753bd47581e9369fbfcdfe7666d49271242abacd"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-off-sample-2.hdr.bin": {
+      "size": 5529600,
+      "sha256": "790903f38862920e94f08641091ad88bd5e8c137492a0be63bb5ee27c9d4b241"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-off-sample-2.png": {
+      "size": 143655,
+      "sha256": "3be281003628b2371b2bebe1785838dbdba43d16da0d47f81f41eca3282b2491"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-off-sample-3.hdr.bin": {
+      "size": 5529600,
+      "sha256": "58b7253dca76162dc0546da0e31452075a2a8708e18394d00c188947179e6a08"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-off-sample-3.png": {
+      "size": 143796,
+      "sha256": "7eb4aab432ebc196f4e5536491786cd59582d6b7722600cbf3eadd77de80f4bf"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-off-sample-4.hdr.bin": {
+      "size": 5529600,
+      "sha256": "4998eb1bef758cd4ad0720f2b851c153d2d971b4d742e0b5b175344fb16702cc"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-off-sample-4.png": {
+      "size": 143901,
+      "sha256": "c6cc63ebd3a8369580d5d001f92ccaabd0c9efd34bef5e405901b15454a096fe"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-off-sample-5.hdr.bin": {
+      "size": 5529600,
+      "sha256": "12a31e7467252c43cedf17409b517b9ede5def56b81d87c67c7aa9a9acc5ee18"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-off-sample-5.png": {
+      "size": 143870,
+      "sha256": "249d4e899febc7063e687c15d3a1087895463b583293f6456507eaefa67b344d"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-on-sample-0.hdr.bin": {
+      "size": 5529600,
+      "sha256": "7c1d95a01cca976392496934f754b7daae5a8d8e73a4831277f0a904d1da9efe"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-on-sample-0.png": {
+      "size": 185688,
+      "sha256": "f7fd37a39ab670b890fd14b60be5664415d65baf51ec1bf0c77867ca7e66a6a0"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-on-sample-1.hdr.bin": {
+      "size": 5529600,
+      "sha256": "48f3e21186955ef81f8d0902cc85b1f333819e21b5900e0d7d75e606b25fe8d5"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-on-sample-1.png": {
+      "size": 185473,
+      "sha256": "3504f07757aaacf0fd4d85002e91647f2bd5603200a90fee4d8e7467a0d23d72"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-on-sample-2.hdr.bin": {
+      "size": 5529600,
+      "sha256": "71331be753f5f55d8182d2e7ca42c1331d948e009c2cfed4646d6a4787772db6"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-on-sample-2.png": {
+      "size": 185500,
+      "sha256": "fee1a8533c859799b661d9281980516e178841d3186848c0c4f4750525c02fb9"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-on-sample-3.hdr.bin": {
+      "size": 5529600,
+      "sha256": "9869454723bf9e08442abe464c062ac19b1be86d944d79c1d05bb56316ac8190"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-on-sample-3.png": {
+      "size": 185712,
+      "sha256": "d838046ade80b6fd2d8098fc312619c669f34f4dd572929a5fdc7eb4025835cb"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-on-sample-4.hdr.bin": {
+      "size": 5529600,
+      "sha256": "c9b899bb6ae0a47896fd703568179c519ee3a6d8c575ac92c3630666a84773fa"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-on-sample-4.png": {
+      "size": 187570,
+      "sha256": "87de311bd9cdaf6a0a831b027203035229e7237c9519e0da1eda1e383864778b"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-on-sample-5.hdr.bin": {
+      "size": 5529600,
+      "sha256": "8c3a914b1f7319804c4261e64786663eaf06a164250c53e157c98cad0cfe4729"
+    },
+    "runs/visual-high-v1/matrix-fixed_body150-on-sample-5.png": {
+      "size": 187681,
+      "sha256": "cd3c0102146cb737bed7ec320f1f1ee3cd719cd8adcbe026572517aa15ad37df"
+    },
+    "runs/visual-high-v1/matrix-index.json": {
+      "size": 142692,
+      "sha256": "55a57a1c62f8c3db8f15406b4b6bf13fe2fe1b24b17e895ce51d6a58a2dec3a5"
+    },
+    "runs/visual-high-v1/matrix-laser-down_left.hdr.bin": {
+      "size": 5529600,
+      "sha256": "3c8ddf7d65055a927ad9575cffb02b4227d37f741b68700148d0c20a8bf78d4f"
+    },
+    "runs/visual-high-v1/matrix-laser-down_left.png": {
+      "size": 137846,
+      "sha256": "bcf71bc2e60a75aa3644f1d1cb1504d57fde49caec8885d6eb99e0a95832e616"
+    },
+    "runs/visual-high-v1/matrix-laser-right.hdr.bin": {
+      "size": 5529600,
+      "sha256": "50c87e9991b248d4126ccac1a3d8194e5629ff6023d364cd1b1ef6b181ca4e3f"
+    },
+    "runs/visual-high-v1/matrix-laser-right.png": {
+      "size": 140398,
+      "sha256": "1378f491c01bd1709932e514d17583bf63812bb178fd8af60ae955fe914e83d4"
+    },
+    "runs/visual-high-v1/matrix-laser-up.hdr.bin": {
+      "size": 5529600,
+      "sha256": "6d993ddd401dcef798447cb2a5ed42c070b58f292f7a0ac3a9dcd0ab6fb2f78e"
+    },
+    "runs/visual-high-v1/matrix-laser-up.png": {
+      "size": 138548,
+      "sha256": "d46dd09a8b3e21f327091d151cff2c6b6892600ad097bab3b709bd97779a2071"
+    },
+    "runs/visual-high-v1/matrix-launcher-down_left.hdr.bin": {
+      "size": 5529600,
+      "sha256": "302d8e2c835ca20a726de1ff55d4b0952cac8f8e6a0bb6abcc04b6eb00793463"
+    },
+    "runs/visual-high-v1/matrix-launcher-down_left.png": {
+      "size": 150781,
+      "sha256": "e109b9b56f2330b098d75006d2bc66573560668dcc53fe7309c9b1785afc2df8"
+    },
+    "runs/visual-high-v1/matrix-launcher-right.hdr.bin": {
+      "size": 5529600,
+      "sha256": "0b17a759dc5e628557d4408d6e8fc6e839ca5118a5580303102b0c08c878ff30"
+    },
+    "runs/visual-high-v1/matrix-launcher-right.png": {
+      "size": 169532,
+      "sha256": "a260d61b8c62215d5e1613f7158b6721f510283c045b2c7fc2dd9927f9eabd11"
+    },
+    "runs/visual-high-v1/matrix-launcher-up.hdr.bin": {
+      "size": 5529600,
+      "sha256": "a3293df4c3bd8a11c949e9af35d3ba7d7257ebebb52c9825eb03901ad6a92e4e"
+    },
+    "runs/visual-high-v1/matrix-launcher-up.png": {
+      "size": 150868,
+      "sha256": "bb2b527afefca5b54922df71fb6da5556d3d1af1f43d43b6d41ff7f884263d80"
+    },
+    "runs/visual-high-v1/matrix-off.hdr.bin": {
+      "size": 5529600,
+      "sha256": "30705fc18f6a971f8aaaec56aad80328377a4f412a78cbc7513a305d98254124"
+    },
+    "runs/visual-high-v1/matrix-off.png": {
+      "size": 142059,
+      "sha256": "2d4168795fcb2ec0bb0e302cad204549f8d9b4f718a1a9f69edbc4f997fac9ab"
+    },
+    "runs/visual-high-v1/matrix-on.hdr.bin": {
+      "size": 5529600,
+      "sha256": "cf9f7471a7ba6ad0e2bf1cd20f573d5c0ae7be0223b166c788f1f1dec2403e83"
+    },
+    "runs/visual-high-v1/matrix-on.png": {
+      "size": 170997,
+      "sha256": "6ddda2cea04874021fe5a21995c59a51df8be4f3fffb522d4fb1931e27b5cce6"
+    },
+    "runs/visual-high-v1/matrix-pistol-down_left.hdr.bin": {
+      "size": 5529600,
+      "sha256": "7c325babf022bf626fd26da789a43290e2a4f9a09c2abf9c5176361a3ddfd6d2"
+    },
+    "runs/visual-high-v1/matrix-pistol-down_left.png": {
+      "size": 148224,
+      "sha256": "83accd8a3639ef3974cb80f9dc75b4413f4b4e127412162abd858a0bae178610"
+    },
+    "runs/visual-high-v1/matrix-pistol-right.hdr.bin": {
+      "size": 5529600,
+      "sha256": "da22471fbc6a5eb0129d80e807e38f01689ea7ff3ef22d51746ff31cb569fb3a"
+    },
+    "runs/visual-high-v1/matrix-pistol-right.png": {
+      "size": 178486,
+      "sha256": "1f4fb47443585a97a9261310b81ff3ff379886385a3e1512365d956e26110b6f"
+    },
+    "runs/visual-high-v1/matrix-pistol-up.hdr.bin": {
+      "size": 5529600,
+      "sha256": "7129f63158b70c36a2213a7bbedb4b7aa5e5c874851aa57e96769a8f7b77777a"
+    },
+    "runs/visual-high-v1/matrix-pistol-up.png": {
+      "size": 153095,
+      "sha256": "b79383e0064bc7aa3ae6d96ebd577d198a83026b6fb8aac76f0823fe188ff96b"
+    },
+    "runs/visual-high-v1/matrix-railgun-down_left.hdr.bin": {
+      "size": 5529600,
+      "sha256": "712fa4d7be246b8e377f5ed9726ba7a6eb0207c4059574b4e1758663a871750c"
+    },
+    "runs/visual-high-v1/matrix-railgun-down_left.png": {
+      "size": 138959,
+      "sha256": "a1993cc3e3445ab1fd4e7da62dd700bfd35ac3fa6a30e383f2a5cbfd2ea84ebe"
+    },
+    "runs/visual-high-v1/matrix-railgun-right.hdr.bin": {
+      "size": 5529600,
+      "sha256": "106a54f02f2fbe5d4deb21a1a867c2eca31d87141165f79ba02f5790c32789f2"
+    },
+    "runs/visual-high-v1/matrix-railgun-right.png": {
+      "size": 158600,
+      "sha256": "4b7fd66580692ec1241fde82ddf2ddcf1a45cb72f83f89859673364825760855"
+    },
+    "runs/visual-high-v1/matrix-railgun-up.hdr.bin": {
+      "size": 5529600,
+      "sha256": "985bd4237bbc4cc9d304ebbb262aa234bb7c4d52c167cb16168efa840127d731"
+    },
+    "runs/visual-high-v1/matrix-railgun-up.png": {
+      "size": 143282,
+      "sha256": "c5d87bcb994d8aef86c16b703b925ae9ff7512a7310de38640ba2ee981b2f91e"
+    },
+    "runs/visual-high-v1/matrix-rifle-down_left.hdr.bin": {
+      "size": 5529600,
+      "sha256": "18149bc811a26b558c379b7ca0331ace8b1e2072bf76df28c4b5c41e1a729b38"
+    },
+    "runs/visual-high-v1/matrix-rifle-down_left.png": {
+      "size": 144919,
+      "sha256": "baf7c7d2ba1f64963d452dd0a3b04eb8d458105e8c23c9c267cee8438846594b"
+    },
+    "runs/visual-high-v1/matrix-rifle-right.hdr.bin": {
+      "size": 5529600,
+      "sha256": "41f6624f1678a7bcacbfa96085530bdd23a9bc03920f11e6151e2d632b23d547"
+    },
+    "runs/visual-high-v1/matrix-rifle-right.png": {
+      "size": 174042,
+      "sha256": "1529104b97db5bf5b9190ed9737c91bd9dd2aa2afe224ad4f0db30a5cc4243a3"
+    },
+    "runs/visual-high-v1/matrix-rifle-up.hdr.bin": {
+      "size": 5529600,
+      "sha256": "7b79060401bac3bcf01286e22b00b0b203dabcde0c593c00d2e300c246a6c316"
+    },
+    "runs/visual-high-v1/matrix-rifle-up.png": {
+      "size": 152792,
+      "sha256": "951140ed97e1f8303e89dac466dae10036718724c5cb4273e807b81e3b0a1825"
+    },
+    "runs/visual-high-v1/matrix-smg-down_left.hdr.bin": {
+      "size": 5529600,
+      "sha256": "9f27f4c2cf892369462f88540bf6cbea51a78fa0b8dd14f4fb58fa9877ec5840"
+    },
+    "runs/visual-high-v1/matrix-smg-down_left.png": {
+      "size": 143652,
+      "sha256": "1d3e2dfa2aa9fb19d1c22e8c8a062e610c798d71ea795be3d4173fa74d61fe87"
+    },
+    "runs/visual-high-v1/matrix-smg-right.hdr.bin": {
+      "size": 5529600,
+      "sha256": "dc4195c961f8880f0dff74f36faf980542e7fe1de84a4abfeedf5c5b466f2464"
+    },
+    "runs/visual-high-v1/matrix-smg-right.png": {
+      "size": 170588,
+      "sha256": "694ef741b0c554c21f310d24d8c74c69b0f2334d24dbbd2a5a211e34cc4e218d"
+    },
+    "runs/visual-high-v1/matrix-smg-up.hdr.bin": {
+      "size": 5529600,
+      "sha256": "76527cbf2c36bbe29add62fed9645500301a4bac711530bdcf0ae5e1d37520af"
+    },
+    "runs/visual-high-v1/matrix-smg-up.png": {
+      "size": 145660,
+      "sha256": "0b4038410a62411d0022632cc6f55d038f63c3037b2120097c1b904765e5298b"
+    },
+    "runs/visual-high-v1/matrix-spread-down_left.hdr.bin": {
+      "size": 5529600,
+      "sha256": "593bf8462df6f9adb904382601cbcd763a0023bc82bb82fd733e41ec077e1ec4"
+    },
+    "runs/visual-high-v1/matrix-spread-down_left.png": {
+      "size": 141879,
+      "sha256": "a4434279d96648880ce2407faaf2f262a06405f6fe4bae73e9428c6af7a0375b"
+    },
+    "runs/visual-high-v1/matrix-spread-right.hdr.bin": {
+      "size": 5529600,
+      "sha256": "d80b25743123537872734bc924c0554add0774121b052619e91e012119243366"
+    },
+    "runs/visual-high-v1/matrix-spread-right.png": {
+      "size": 183977,
+      "sha256": "aa93bbd260e45da4152f59866064238c00ca63a538b6216f53b08cf97de2bf63"
+    },
+    "runs/visual-high-v1/matrix-spread-up.hdr.bin": {
+      "size": 5529600,
+      "sha256": "feb0a53883097c477d71d3a62d0e00dcc99af6cbb73bfff11a721e05fcaacd13"
+    },
+    "runs/visual-high-v1/matrix-spread-up.png": {
+      "size": 146767,
+      "sha256": "f34d273c390ac97cfa7a8e1a5abdef610a2af01b7334aaff4cb3d9ff6ece960b"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-off-sample-0.hdr.bin": {
+      "size": 5529600,
+      "sha256": "b22a0bcc7096c0b6e15628c182409fa5778ae738fc5f9f84cc0f45163538abb3"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-off-sample-0.png": {
+      "size": 142073,
+      "sha256": "5dafb1eb3abb54a12a826904ddf915c9120a45b3a967ac401733c57d2f6a513f"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-off-sample-1.hdr.bin": {
+      "size": 5529600,
+      "sha256": "81b1e0938ce4ecff696b01254591bed0b7759f2da4bc0cfea737355c99d901fb"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-off-sample-1.png": {
+      "size": 142173,
+      "sha256": "a3524437a93aa3bd2376b1af80c2215e4adba144d22f23112910247bfc4c2947"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-off-sample-2.hdr.bin": {
+      "size": 5529600,
+      "sha256": "f5edb3580bfc4584729852a672eb1e254f2106a10acc92b75e0578dc918a4a38"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-off-sample-2.png": {
+      "size": 141771,
+      "sha256": "6fa81eae0faeca198134a2800c1f70a805364107ffb0caec3f6730634c4f3fbd"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-off-sample-3.hdr.bin": {
+      "size": 5529600,
+      "sha256": "8380b03e0bc6117a71d69126124730bcce31e90bb5a073565881d69734f99710"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-off-sample-3.png": {
+      "size": 141905,
+      "sha256": "f8ec64f61796225b2ff6b0854a2a88d75fe2b1e2a6b4c123de7da7a058ccc9ad"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-off-sample-4.hdr.bin": {
+      "size": 5529600,
+      "sha256": "c108f55e3c87438feffa6e2ade4db322a7c354d5a5b9740d4df8049c71be0ea7"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-off-sample-4.png": {
+      "size": 141771,
+      "sha256": "788c6b9255d0b1ec7960b50141aa38f431e721030890cae350187871f4a4f1c2"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-off-sample-5.hdr.bin": {
+      "size": 5529600,
+      "sha256": "30705fc18f6a971f8aaaec56aad80328377a4f412a78cbc7513a305d98254124"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-off-sample-5.png": {
+      "size": 142059,
+      "sha256": "2d4168795fcb2ec0bb0e302cad204549f8d9b4f718a1a9f69edbc4f997fac9ab"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-on-sample-0.hdr.bin": {
+      "size": 5529600,
+      "sha256": "891bad9aa3b72ed87bdb261df32ed57538417d2665e1bd8936f5e96f40777637"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-on-sample-0.png": {
+      "size": 171642,
+      "sha256": "b4c0748a85ada66a2d085b0bf9703de48b5ffe10f19e217f39d9b9b0e8ffd88f"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-on-sample-1.hdr.bin": {
+      "size": 5529600,
+      "sha256": "d35e48d97ec9fad816822cfa145cee34d2b1be8982ecec922ab06d6c6cd694ed"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-on-sample-1.png": {
+      "size": 171608,
+      "sha256": "5992ce7e28da0441b3b9d0ad54c5841ebf985279526645e7600db52f3a29bedb"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-on-sample-2.hdr.bin": {
+      "size": 5529600,
+      "sha256": "534e7e7f04d358c224ac9d39b79a145c3e22dcbcc59277b5d94007d16ba6479e"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-on-sample-2.png": {
+      "size": 171310,
+      "sha256": "3e89a6f7df42a88e17f9d7197a1b93f05618ea2dad12b8e5c8930940f6d52c30"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-on-sample-3.hdr.bin": {
+      "size": 5529600,
+      "sha256": "e707d4c255ab6e5467ac81e2e89a9ccc06446773070847f7d4bb5e5d936bc8ad"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-on-sample-3.png": {
+      "size": 170965,
+      "sha256": "c070334139ad1b5109a3c921be4a8966a274dd23432aa13b3fe3fb44723c564f"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-on-sample-4.hdr.bin": {
+      "size": 5529600,
+      "sha256": "83fe4b7d23a8bc490b2da628035e242602ea6b9d71ac4831e7eb2838e75167ed"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-on-sample-4.png": {
+      "size": 171309,
+      "sha256": "f618968a24060344759a5cc47d3fa377a25dd8f891367e327771585779caea19"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-on-sample-5.hdr.bin": {
+      "size": 5529600,
+      "sha256": "cf9f7471a7ba6ad0e2bf1cd20f573d5c0ae7be0223b166c788f1f1dec2403e83"
+    },
+    "runs/visual-high-v1/matrix-whole_feature-on-sample-5.png": {
+      "size": 170997,
+      "sha256": "6ddda2cea04874021fe5a21995c59a51df8be4f3fffb522d4fb1931e27b5cce6"
+    },
+    "runs/visual-high-v1/probe-settings.cfg": {
+      "size": 27,
+      "sha256": "18f3589ea8c83e049fe65530bceca783ac22fec78ebf0aa0061880a5a8ad153f"
+    },
+    "runs/visual-high-v1/process-receipt.json": {
+      "size": 84530,
+      "sha256": "697db668af1d3099dcae7f4bf2a18f0e40080bfd5298f39ff8e926b492b5386f"
+    }
+  },
+  "uncompressed_bytes": 518401124
+}

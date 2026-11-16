@@ -1,0 +1,28 @@
+{
+  "accepted_runs": [
+    "visual-low-ui-free-v2",
+    "visual-medium-ui-free-v2",
+    "visual-high-ui-free-v2",
+    "exposure-low-all7-v2",
+    "exposure-medium-all7-v2",
+    "exposure-high-all7-v2",
+    "perf-low-whole-v1",
+    "perf-medium-whole-v1",
+    "perf-high-whole-v1"
+  ],
+  "blank_negative": "exposure-high-blank-v2",
+  "guarded_source_blobs": 409,
+  "diagnostic_scope": "older original bytes retained; old visual-v1 only has the original source SHA, not a complete tool source snapshot; it is not final acceptance",
+  "profile_policy": "exclude every profile subtree; include only fixture-local probe-settings.cfg",
+  "archives": [
+    "diagnostic-exposure-history.tar.xz",
+    "diagnostic-fixtures.tar.xz",
+    "diagnostic-visual-high.tar.xz",
+    "diagnostic-visual-low.tar.xz",
+    "diagnostic-visual-medium.tar.xz",
+    "native-high.tar.xz",
+    "native-low.tar.xz",
+    "native-medium.tar.xz",
+    "source-and-checks.tar.xz"
+  ]
+}
