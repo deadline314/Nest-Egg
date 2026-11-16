@@ -1,0 +1,5 @@
+受影響的測試：AmmoIconsSuite,AmmoTraySuite,CombatHudSuite,CutsceneSuite,EnvironmentSuite,FeelSuite,InputFeelSuite,NpcSuite,PropsSuite,ReadabilityTargetsSuite,ThrowablesSuite,UiScreensSuite
+Running 12 groups in 2 processes (logs: C:/NE/evidence-20261117/ne254-final-affected)
+  process 0 (estimated 265 s): EnvironmentSuite,UiScreensSuite,NpcSuite,PropsSuite,FeelSuite,ReadabilityTargetsSuite,AmmoIconsSuite
+  process 1 (estimated 272 s): CutsceneSuite,ThrowablesSuite,AmmoTraySuite,CombatHudSuite,InputFeelSuite
+checks: 13031, new failures: 0, known failures (tests/known_failures.txt): 0  (wall time 246 s)

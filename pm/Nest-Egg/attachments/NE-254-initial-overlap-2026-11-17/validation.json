@@ -1,0 +1,48 @@
+{
+  "unit_before": {
+    "checks": 451,
+    "failures": 10,
+    "exit": 1,
+    "seconds": 107.1
+  },
+  "unit_first_candidate": {
+    "checks": 451,
+    "failures": 0,
+    "exit": 0,
+    "seconds": 106.4
+  },
+  "wall_first_candidate": {
+    "checks": 4,
+    "failures": 2,
+    "exit": 1
+  },
+  "wall_final": {
+    "checks": 4,
+    "failures": 0,
+    "exit": 0
+  },
+  "unit_final": {
+    "checks": 455,
+    "failures": 0,
+    "exit": 0,
+    "seconds": 101.6
+  },
+  "native_before": {
+    "checks": 8,
+    "failures": 2,
+    "exit": 1
+  },
+  "native_first_candidate": {
+    "checks": 8,
+    "failures": 0,
+    "exit": 0
+  },
+  "native_final": {
+    "checks": 8,
+    "failures": 0,
+    "exit": 0
+  },
+  "logs_have_engine_errors_or_leaks": false,
+  "all_12_native_images_reviewed": true,
+  "final_sources_match_snapshots": true
+}

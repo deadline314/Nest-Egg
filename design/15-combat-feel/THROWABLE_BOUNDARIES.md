@@ -57,3 +57,13 @@
 驗證以真正CollisionShape2D的global_position為獨立參照；12種種類／角度中心、左右實際命中與空處誤判、真_fly的油桶第一撞擊中心與預覽均保留原版負控制。原重力保留，單步命中fixture以初速抵銷該步重力，旋轉後角度明示。正式Main另經公開撿取／投擲讓油桶真正爆炸，觀察者只記錄中心後呼叫原爆炸，不以假回呼或直接指定爆炸位置過關。
 
 開始前重新讀User-guide與同類Katana ZERO官方研究圖；圖片只參照互動與場景可讀性，不證明其物理演算法。[Godot同版本Node2D.to_global](https://github.com/godotengine/godot/blob/4.7.2-stable/doc/classes/Node2D.xml)明列局部座標應轉換到全域；查詢矩陣語義亦核對同版本PhysicsShapeQueryParameters2D。共用中心轉換由真飛行與預覽使用，避免公式分岔。
+
+## 2026-11-17：投出第一步已碰到敵人
+
+物件丟出時可能已經與近身敵人或飛行敵人的受擊形狀相交，飛行中的旋轉也可能造成同一情況。Godot 的 cast_motion 明確忽略查詢起點已重疊的形狀；只掃後續位移會讓已碰到的目標被穿過。
+
+先用同一個完整旋轉形狀查詢起點重疊，再沿原本經地形裁切的位移掃掠。沿用原陣營、可受擊、物件自身排除及每個目標只傷一次的篩選；起點命中記為位移比例0，原鐵管反彈、木箱破碎、油桶爆炸各走既有結果。投擲速度、傷害、重力、旋轉與地形順序都不改。每個飛行物每個物理步多一次最多4筆的形狀查詢，起點接觸候選再以重用射線排除實心牆遮擋，避免手持位置或旋轉讓形狀部分跨牆時傷到遠側敵人；單向平台不作封閉牆。重用查詢物件，不新增節點或貼圖。
+
+以左右方向、鐵管／木箱／油桶、起點真正重疊／遠處未接觸作對照，並驗鐵管留在同一目標內不重複傷害；原薄牆順序與其餘投擲套件保持。原生以本機9070 XT的Forward+及正式第一章街道，公開撿取／投擲輸入重現；近身靜止監視蜂與物件為明示排列，不能冒稱自然章節或真人／實體手把體驗。
+
+來源：[Godot PhysicsDirectSpaceState2D 官方文件，cast_motion](https://docs.godotengine.org/en/stable/classes/class_physicsdirectspacestate2d.html#class-physicsdirectspacestate2d-method-cast-motion)。文件說明起點已相交的形狀會被忽略；intersect_shape另能回傳當前相交物件，本專案仍另跑相同原版負控制與實際飛行。

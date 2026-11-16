@@ -18,6 +18,8 @@ func run() -> void:
 	await _test_thrown_barrel_explodes_on_contact()
 	await _test_terrain()
 	await _test_collision_order()
+	await _test_initial_target_overlap()
+	await _test_initial_overlap_wall()
 	await _test_barrel_aim_priority()
 	await _test_pickup_prompt_target()
 	await _test_pickup_terrain_reach()
@@ -86,6 +88,91 @@ func _test_collision_order() -> void:
 				target.queue_free()
 				wall.queue_free()
 				await physics_frames(2)
+	await end_level(level)
+
+
+## A close target may already overlap the rotating prop at the start of a flight step.
+func _test_initial_target_overlap() -> void:
+	await open_level(10.0)
+	level.player.set_physics_process(false)
+	for direction: float in [-1.0, 1.0]:
+		for path: String in [PIPE, CRATE, BARREL]:
+			for overlapping: bool in [false, true]:
+				var item := _place(path, 25.0, 200.0)
+				item.set_physics_process(false)
+				var target := Node2D.new()
+				target.position = item.world_center() + Vector2(0 if overlapping else direction * 80, 0)
+				level.add_child(target)
+				var health := HealthComponent.new()
+				target.add_child(health)
+				health.setup(20, 0)
+				var box := Hurtbox.new()
+				target.add_child(box)
+				box.setup(Combat.Team.ENEMY, health, Vector2(8, 10))
+				await physics_frames(2)
+				var query := PhysicsShapeQueryParameters2D.new()
+				query.shape = item._sweep_shape
+				query.transform = Transform2D(0, item.world_center())
+				query.collision_mask = Layers.ENEMY_HURTBOX
+				query.collide_with_areas = true
+				query.collide_with_bodies = false
+				var touches_target := level.get_world_2d().direct_space_state.intersect_shape(query).any(func(hit: Dictionary) -> bool: return hit["collider"] == box)
+				check(touches_target == overlapping, "actual shapes confirm initial target overlap: %s %s %s" % [direction, path, overlapping])
+				var step := 1.0 / 60.0
+				item.launch(item.global_position, Vector2(direction * 200, -item.data.gravity * step), Combat.Team.PLAYER)
+				item.rotation = -item._spin * step
+				item._fly(step)
+				var gone := item.state == Throwable.State.GONE
+				if path == PIPE and overlapping:
+					var first_health := health.current
+					item._fly(step)
+					check(health.current == first_health, "remaining overlap cannot damage the same target twice")
+				await physics_frames(3)
+				check((health.current < 20) == overlapping, "flight hits initial overlap without inventing distant contact: %s %s %s hp %s" % [direction, path, overlapping, health.current])
+				check(gone == (overlapping and path != PIPE), "initial overlap preserves each prop's break/explosion rule: %s %s %s" % [direction, path, overlapping])
+				if is_instance_valid(item): item.queue_free()
+				target.queue_free()
+				await physics_frames(3)
+	await end_level(level)
+
+
+## Held placement or rotation can overlap a thin wall: the far side must stay protected.
+func _test_initial_overlap_wall() -> void:
+	await open_level(10.0)
+	level.player.set_physics_process(false)
+	for direction: float in [-1.0, 1.0]:
+		for wall_between: bool in [false, true]:
+			var wall := StaticBody2D.new()
+			wall.collision_layer = Layers.WORLD
+			wall.position = Vector2(400, 280)
+			var wall_shape := CollisionShape2D.new()
+			var rectangle := RectangleShape2D.new()
+			rectangle.size = Vector2(3, 60)
+			wall_shape.shape = rectangle
+			wall.add_child(wall_shape)
+			level.add_child(wall)
+			var target := Node2D.new()
+			target.position = Vector2(400 + direction * (3 if wall_between else -5), 280)
+			level.add_child(target)
+			var health := HealthComponent.new()
+			target.add_child(health)
+			health.setup(20, 0)
+			var box := Hurtbox.new()
+			target.add_child(box)
+			box.setup(Combat.Team.ENEMY, health, Vector2(2, 10))
+			var item := _place(PIPE, 0, 282.5)
+			item.position.x = 400 - direction * 4
+			item.set_physics_process(false)
+			await physics_frames(2)
+			var step := 1.0 / 60.0
+			item.launch(item.global_position, Vector2(direction * 200, -item.data.gravity * step), Combat.Team.PLAYER)
+			item.rotation = -item._spin * step
+			item._fly(step)
+			check((health.current < 20) == not wall_between, "initial contact respects wall side: direction %s wall_between %s hp %s" % [direction, wall_between, health.current])
+			item.queue_free()
+			target.queue_free()
+			wall.queue_free()
+			await physics_frames(3)
 	await end_level(level)
 
 

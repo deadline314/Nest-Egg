@@ -1,0 +1,228 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME PropsSuite 20.3
+ERROR: [RigLibrary] 無法讀取定義檔：res://art/characters/test_no_such_character/character.json
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:187)
+       [1] load_json (res://game/rig/rig_library.gd:26)
+       [2] character (res://game/rig/rig_library.gd:34)
+       [3] setup (res://game/rig/character_rig.gd:110)
+       [4] _ready (res://ui/inventory/hd_portrait.gd:48)
+       [5] _test_hd_portrait (res://tests/suite/test_ui_screens.gd:429)
+       [6] frames (res://tests/suite/test_ui_screens.gd:9)
+ERROR: [HdPortrait] 找不到角色骨架「test_no_such_character」，立繪不顯示。
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://ui/inventory/hd_portrait.gd:49)
+       [1] _test_hd_portrait (res://tests/suite/test_ui_screens.gd:429)
+       [2] frames (res://tests/suite/test_ui_screens.gd:9)
+SUITE_TIME UiScreensSuite 46.0
+WARNING: [PropLibrary] 找不到道具「no_such_prop」（res://data/environment/props）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] find (res://core/prop_library.gd:14)
+       [1] _test_props (res://tests/suite/test_environment.gd:111)
+       [2] run (res://tests/suite/test_environment.gd:10)
+       [3] _run_suites (res://tests/smoke_test.gd:110)
+       [4] run (res://tests/suite/test_ui_screens.gd:33)
+       [5] run (res://tests/helpers/contextual_priority_checks.gd:9)
+       [6] _actual_hud_obstacles (res://tests/helpers/contextual_priority_checks.gd:286)
+       [7] end_level (res://tests/suite/test_suite.gd:47)
+       [8] _end_level (res://tests/smoke_test.gd:634)
+       [9] _frames (res://tests/smoke_test.gd:125)
+ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/environment/props/test_missing_prop.png
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:187)
+       [1] texture (res://game/rig/rig_library.gd:86)
+       [2] load_texture (res://core/lit_textures.gd:20)
+       [3] _ready (res://game/level/environment/prop_node.gd:45)
+       [4] _test_missing_texture (res://tests/suite/test_environment.gd:173)
+       [5] run (res://tests/suite/test_environment.gd:14)
+       [6] _run_suites (res://tests/smoke_test.gd:110)
+       [7] run (res://tests/suite/test_ui_screens.gd:33)
+       [8] run (res://tests/helpers/contextual_priority_checks.gd:9)
+       [9] _actual_hud_obstacles (res://tests/helpers/contextual_priority_checks.gd:286)
+       [10] end_level (res://tests/suite/test_suite.gd:47)
+       [11] _end_level (res://tests/smoke_test.gd:634)
+       [12] _frames (res://tests/smoke_test.gd:125)
+WARNING: [LevelBackground] 找不到天空貼圖，改用程式天空：res://art/environment/backdrop/test_missing_prop_sky.webp
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _add_photo_sky (res://game/level/level_background.gd:46)
+       [1] _ready (res://game/level/level_background.gd:24)
+       [2] _test_sky (res://tests/suite/test_environment.gd:200)
+       [3] run (res://tests/suite/test_environment.gd:15)
+       [4] _run_suites (res://tests/smoke_test.gd:110)
+       [5] run (res://tests/suite/test_ui_screens.gd:33)
+       [6] run (res://tests/helpers/contextual_priority_checks.gd:9)
+       [7] _actual_hud_obstacles (res://tests/helpers/contextual_priority_checks.gd:286)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:634)
+       [10] _frames (res://tests/smoke_test.gd:125)
+BG25_TEST_RESUME before=0.146716 after=0.167650
+WARNING: [PropNode] anchor_phone_booth__gutter_downpipe 局部水流 UV 無效，保留靜態圖
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/level/environment/prop_node.gd:81)
+       [1] _test_local_water_flow (res://tests/suite/test_environment.gd:493)
+       [2] _motion_process_frames (res://tests/suite/test_environment.gd:501)
+WARNING: [PropNode] pawnshop_kitchen__kettle_stove 蒸汽散布無效，使用預設 2
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/level/environment/prop_node.gd:72)
+       [1] _test_kettle_steam_anchor (res://tests/suite/test_environment.gd:523)
+       [2] _motion_process_frames (res://tests/suite/test_environment.gd:501)
+ERROR: [Foreground] 找不到前景貼圖，改用程式繪製的剪影：res://art/test_missing_prop_fg.webp
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _add_strip (res://game/level/environment/foreground_layer.gd:80)
+       [1] _test_foreground (res://tests/suite/test_environment.gd:330)
+       [2] run (res://tests/suite/test_environment.gd:21)
+       [3] _test_kettle_steam_anchor (res://tests/suite/test_environment.gd:526)
+       [4] _motion_process_frames (res://tests/suite/test_environment.gd:501)
+ERROR: [FixtureArt] 找不到固定物件貼圖，改用簡單畫法：res://art/environment/fixtures/test_missing_prop_fixture.png
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://game/props/fixture_art.gd:29)
+       [1] attach (res://game/props/fixture_art.gd:37)
+       [2] _test_fixture_art (res://tests/suite/test_environment.gd:601)
+       [3] run (res://tests/suite/test_environment.gd:26)
+       [4] _test_contact_shadow (res://tests/suite/test_environment.gd:569)
+       [5] physics_frames (res://tests/suite/test_suite.gd:28)
+ERROR: [PropReaction] res://data/environment/prop_reactions.json 沒有 test_missing_prop_reaction 這個反應，擺設維持原樣
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] attach (res://game/level/environment/prop_reaction.gd:57)
+       [1] _test_prop_reaction (res://tests/suite/test_environment.gd:733)
+WARNING: [PropLibrary] 找不到道具「test_missing_prop_swap」（res://data/environment/scene_props/clinic）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] find (res://core/prop_library.gd:14)
+       [1] _setup (res://game/level/environment/prop_reaction.gd:113)
+       [2] attach (res://game/level/environment/prop_reaction.gd:62)
+       [3] _test_prop_reaction (res://tests/suite/test_environment.gd:761)
+ERROR: [PropReaction] test_swap_bad 的 swap 要有 flag，而且 prop（test_missing_prop_swap）要在 res://data/environment/scene_props/clinic 裡；略過換樣子
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _setup (res://game/level/environment/prop_reaction.gd:115)
+       [1] attach (res://game/level/environment/prop_reaction.gd:62)
+       [2] _test_prop_reaction (res://tests/suite/test_environment.gd:761)
+ERROR: [PropReaction] test_missing_prop_dial 的 dial 沒有 flag，略過指針
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _setup (res://game/level/environment/prop_reaction.gd:107)
+       [1] attach (res://game/level/environment/prop_reaction.gd:62)
+       [2] _test_prop_reaction (res://tests/suite/test_environment.gd:785)
+WARNING: [PropNode] pawnshop_front__leak_bucket 滴水資料無效（出水口要在承接面上方、都在貼圖範圍內），保留靜態圖
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/level/environment/prop_node.gd:89)
+       [1] _test_local_drip (res://tests/suite/test_environment.gd:864)
+       [2] _motion_process_frames (res://tests/suite/test_environment.gd:501)
+ERROR: [LampFlicker] 沒有「test_missing_prop_supply」這種供電狀況（res://data/environment/lamp_flicker.json），當成穩定
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://core/lamp_flicker.gd:261)
+       [1] state_for (res://core/lamp_flicker.gd:69)
+       [2] _test_lamp_flicker (res://tests/suite/test_environment.gd:992)
+       [3] run (res://tests/suite/test_environment.gd:32)
+       [4] _test_lamp_fixtures (res://tests/suite/test_environment.gd:946)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:634)
+       [7] _frames (res://tests/smoke_test.gd:125)
+ERROR: [EnemyGlow] 敵人「sweeper」找不到光要跟著的零件「test_missing_prop_bone」，改用相對於腳底的位置
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:187)
+       [1] report_once (res://game/rig/rig_library.gd:180)
+       [2] _place (res://game/enemies/enemy_glow.gd:117)
+       [3] _ready (res://game/enemies/enemy_glow.gd:51)
+       [4] attach (res://game/enemies/enemy_glow.gd:39)
+       [5] _build_components (res://game/enemies/enemy.gd:226)
+       [6] _ready (res://game/enemies/enemy.gd:145)
+       [7] _test_enemy_glow (res://tests/suite/test_environment.gd:1352)
+       [8] frames (res://tests/suite/test_suite.gd:23)
+       [9] _frames (res://tests/smoke_test.gd:125)
+SOFT_WHIP straightness max 0.965, largest one-frame straightening during the move 0.223, bow at reach 0.144, tip gap 4.6
+SUITE_TIME EnvironmentSuite 79.6
+ERROR: [RigLibrary] 找不到零件圖片，改用替代圖：res://art/ammo/test_missing_ammo.png
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/rig/rig_library.gd:187)
+       [1] texture (res://game/rig/rig_library.gd:86)
+       [2] texture (res://core/ammo_icons.gd:36)
+       [3] _test_missing_icon (res://tests/suite/test_ammo_icons.gd:48)
+       [4] run (res://tests/suite/test_ammo_icons.gd:10)
+       [5] _run_suites (res://tests/smoke_test.gd:110)
+       [6] run (res://tests/suite/test_environment.gd:39)
+       [7] _test_texture_release (res://tests/suite/test_environment.gd:1713)
+       [8] frames (res://tests/suite/test_suite.gd:23)
+       [9] _frames (res://tests/smoke_test.gd:125)
+SUITE_TIME AmmoIconsSuite 2.0
+ERROR: [NpcActor] 格 (34, 19)：人物 test_npc_bad 沒有任何對話
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://game/npc/npc_actor.gd:69)
+       [1] _spawn_static_entities (res://game/level/level.gd:601)
+       [2] _ready (res://game/level/level.gd:280)
+       [3] spawn_level (res://tests/suite/test_suite.gd:41)
+       [4] start_level (res://tests/suite/test_suite.gd:34)
+       [5] _test_fallbacks (res://tests/suite/test_npc.gd:689)
+       [6] run (res://tests/suite/test_npc.gd:29)
+       [7] _test_real_npcs (res://tests/suite/test_npc.gd:677)
+       [8] end_level (res://tests/suite/test_suite.gd:47)
+       [9] _end_level (res://tests/smoke_test.gd:634)
+       [10] _frames (res://tests/smoke_test.gd:125)
+WARNING: [Story] 找不到劇情場景：test_no_such_scene
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _enqueue_request (res://autoload/story.gd:1089)
+       [1] play_and_wait (res://autoload/story.gd:1143)
+       [2] _present_talk (res://game/npc/npc_actor.gd:286)
+       [3] _talk (res://game/npc/npc_actor.gd:268)
+       [4] _test_fallbacks (res://tests/suite/test_npc.gd:710)
+       [5] frames (res://tests/suite/test_suite.gd:23)
+       [6] _frames (res://tests/smoke_test.gd:125)
+SUITE_TIME NpcSuite 44.1
+ERROR: [Feel] 沒有這個回饋事件「test_no_such_feel_event」（res://data/feel/events.json）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://autoload/feel.gd:241)
+       [1] play (res://autoload/feel.gd:126)
+       [2] _test_bad_events_are_safe (res://tests/suite/test_feel.gd:94)
+       [3] run (res://tests/suite/test_feel.gd:13)
+       [4] _test_shake_duration_is_honored (res://tests/suite/test_feel.gd:89)
+DUCK_RECOVERY_BEFORE {"hold_until":213727,"now":213627}
+DUCK_REAL_ELAPSED_MS 304
+DUCK_RECOVERY_OBSERVATION {"base_db":-2.0,"duck_db":0.0,"duck_priority":9,"hold_until":213727,"length":2.39854884147644,"now":213931,"playing":true,"priority":1,"scale":1.0,"voice_db":-2.0}
+ERROR: [Sfx] 沒有這個聲音事件「test_no_such_sound_event」（res://data/feel/sound_events.json），改播「hit」
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report_once (res://autoload/sfx.gd:744)
+       [1] play_event (res://autoload/sfx.gd:651)
+       [2] _test_sound_events (res://tests/suite/test_feel.gd:462)
+ERROR: [HitFeedback] 沒有這個命中材質「test_no_such_material」（res://data/feel/materials.json），改用 generic
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://game/fx/hit_feedback.gd:159)
+       [1] play (res://game/fx/hit_feedback.gd:81)
+       [2] _test_hit_materials (res://tests/suite/test_feel.gd:479)
+       [3] run (res://tests/suite/test_feel.gd:24)
+       [4] _test_sound_events (res://tests/suite/test_feel.gd:463)
+ERROR: [Feel] 沒有這個預設組合「test_no_such_preset」（res://data/feel/presets.json）
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _report (res://autoload/feel.gd:241)
+       [1] set_preset (res://autoload/feel.gd:62)
+       [2] _test_params_and_presets (res://tests/suite/test_feel.gd:641)
+       [3] run (res://tests/suite/test_feel.gd:28)
+       [4] _test_block_feel (res://tests/suite/test_feel.gd:613)
+       [5] end_level (res://tests/suite/test_suite.gd:47)
+       [6] _end_level (res://tests/smoke_test.gd:634)
+       [7] _frames (res://tests/smoke_test.gd:125)
+SUITE_TIME FeelSuite 11.8
+SUITE_TIME ReadabilityTargetsSuite 0.3
+checks: 10038, failures: 0

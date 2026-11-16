@@ -1,0 +1,15 @@
+{
+  "baseline": "61229f7ad8787f4b5b776a93e2004408418a4ffa",
+  "workspace": "C:/NE/queue-20261117",
+  "command": "GODOT=C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe SHARDS=2 tools/run_tests_changed.sh 61229f7ad8787f4b5b776a93e2004408418a4ffa",
+  "suites": 12,
+  "checks": 13031,
+  "new_failures": 0,
+  "known_failures": 0,
+  "seconds": 246,
+  "exit_code": 0,
+  "sources": {
+    "game/props/throwable.gd": "1d064cba8f0261986677c37138bab689e6cafa078610a1a4606a448bd71ab5f9",
+    "tests/suite/test_throwables.gd": "b52d356a03521247cef0bb07a6582ff47a9b71fab575d98906c9236bae077d2c"
+  }
+}

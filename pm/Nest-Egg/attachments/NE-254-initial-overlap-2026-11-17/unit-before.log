@@ -1,0 +1,15 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+SUITE_TIME ThrowablesSuite 107.1
+checks: 451, failures: 10
+FAIL: flight hits initial overlap without inventing distant contact: -1.0 res://data/throwables/pipe.tres true hp 20
+FAIL: flight hits initial overlap without inventing distant contact: -1.0 res://data/throwables/crate_small.tres true hp 20
+FAIL: initial overlap preserves each prop's break/explosion rule: -1.0 res://data/throwables/crate_small.tres true
+FAIL: flight hits initial overlap without inventing distant contact: -1.0 res://data/throwables/fuel_barrel.tres true hp 20
+FAIL: initial overlap preserves each prop's break/explosion rule: -1.0 res://data/throwables/fuel_barrel.tres true
+FAIL: flight hits initial overlap without inventing distant contact: 1.0 res://data/throwables/pipe.tres true hp 20
+FAIL: flight hits initial overlap without inventing distant contact: 1.0 res://data/throwables/crate_small.tres true hp 20
+FAIL: initial overlap preserves each prop's break/explosion rule: 1.0 res://data/throwables/crate_small.tres true
+FAIL: flight hits initial overlap without inventing distant contact: 1.0 res://data/throwables/fuel_barrel.tres true hp 20
+FAIL: initial overlap preserves each prop's break/explosion rule: 1.0 res://data/throwables/fuel_barrel.tres true

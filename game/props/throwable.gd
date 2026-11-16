@@ -32,6 +32,7 @@ var _hit_ids: Dictionary[int, bool] = {}
 var _sweep := PhysicsShapeQueryParameters2D.new()
 var _sweep_shape := RectangleShape2D.new()
 var _terrain_collision := KinematicCollision2D.new()
+var _contact_ray := PhysicsRayQueryParameters2D.new()
 var _prompt: WorldPrompt
 var _flash := 0.0
 var _emission: _Emission
@@ -52,6 +53,8 @@ func _ready() -> void:
 		push_error("[Throwable] %s" % problem)
 	collision_layer = 0
 	collision_mask = Layers.SOLID
+	_contact_ray.collision_mask = Layers.WORLD
+	_contact_ray.hit_from_inside = true
 	var shape := RectangleShape2D.new()
 	shape.size = data.size
 	var node := CollisionShape2D.new()
@@ -209,22 +212,33 @@ func _sweep_targets(motion: Vector2) -> Dictionary:
 	var pose := global_transform
 	pose.origin = center_at(pose)
 	_sweep.transform = pose
-	_sweep.motion = motion
 	var space := get_world_2d().direct_space_state
-	var fractions := space.cast_motion(_sweep)
-	if fractions.size() < 2 or fractions[1] >= 1.0:
-		return {}
-	pose.origin += motion * fractions[1]
-	_sweep.transform = pose
 	_sweep.motion = Vector2.ZERO
-	for hit in space.intersect_shape(_sweep, 4):
-		var box := hit["collider"] as Hurtbox
-		if box == null or box.team == team or not box.can_receive():
-			continue
-		var id := box.health.get_instance_id() if box.health != null else box.get_instance_id()
-		if _hit_ids.has(id) or (hurtbox != null and box.root() == hurtbox):
-			continue
-		return {"fraction": fractions[1], "hurtbox": box}
+	# cast_motion ignores initial overlaps, including contact caused by this step's spin.
+	for pass_index in 2:
+		var fraction := 0.0
+		if pass_index == 1:
+			_sweep.motion = motion
+			var fractions := space.cast_motion(_sweep)
+			if fractions.size() < 2 or fractions[1] >= 1.0:
+				return {}
+			fraction = fractions[1]
+			pose.origin += motion * fraction
+			_sweep.transform = pose
+			_sweep.motion = Vector2.ZERO
+		for hit in space.intersect_shape(_sweep, 4):
+			var box := hit["collider"] as Hurtbox
+			if box == null or box.team == team or not box.can_receive():
+				continue
+			var id := box.health.get_instance_id() if box.health != null else box.get_instance_id()
+			if _hit_ids.has(id) or (hurtbox != null and box.root() == hurtbox):
+				continue
+			if pass_index == 0:
+				_contact_ray.from = world_center()
+				_contact_ray.to = box.center()
+				if not space.intersect_ray(_contact_ray).is_empty():
+					continue
+			return {"fraction": fraction, "hurtbox": box}
 	return {}
 
 

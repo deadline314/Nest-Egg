@@ -1,0 +1,4 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://work/ne254-initial-overlap-20261117/wall_probe.gd" id="1"]
+[node name="WallProbe" type="Node"]
+script = ExtResource("1")
