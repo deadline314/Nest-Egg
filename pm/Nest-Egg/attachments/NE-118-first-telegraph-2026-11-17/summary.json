@@ -1,0 +1,16 @@
+{
+  "archive_sha256": "362e7f52c0ff758ef696092d4eeb408487b80a16b7c2f68e05b0504b04924b54",
+  "archive_bytes": 17319696,
+  "member_count": 119,
+  "png_count": 48,
+  "official_suites": 32,
+  "official_checks": 56758,
+  "official_seconds": 666,
+  "official_source_sha256": {
+    "game/enemies/chain_hook.gd": "c951b9c9bed517d4160fffb20b0e2353e9977e7fcb1fd8dda19a117eb891c9f3",
+    "tests/suite/test_strike_enemies.gd": "ec73783cad05bd28378b14db38866bc9b0aedc7500a34e6131d3bb9b99c93659",
+    "tools/scenarios/strike_enemies_scenario.gd": "97d5b4dc0e3b25ef12189ab86fda4e9e2493da10dc034721010cbac784bbe379",
+    "tools/scenarios/strike_placement_scenario.gd": "b7f4d89b6f4347a877f7b7ca3d9e34552ea1b20b2e240076c027d5bce8aae6dd"
+  },
+  "control_note": "Original CPU control accidentally ran in the primary worktree. The source was archived after the control and before correction; it is not called a pre-run measurement. Native controls and final official run use the isolated 3713 worktree."
+}

@@ -25,8 +25,11 @@ func run() -> void:
 			while not enemy.fsm.is_in(state) and guard < 600:
 				await get_tree().physics_frame
 				guard += 1
-			await wait(0.18 if state != &"windup" else 0.45)
+			assert(enemy.fsm.is_in(state), "%s never reached %s" % [id, state])
+			enemy.set_physics_process(false)
+			await settle(2)
 			capture("%s_%s" % [id, state])
+			enemy.set_physics_process(true)
 		await wait(0.8)
 		enemy.queue_free()
 		player.end_pull()

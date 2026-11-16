@@ -40,6 +40,11 @@ func _exit_tree() -> void:
 
 
 ## 預兆：鎖鏈的路線（直線）取代矩形，讓玩家看出鉤子會往哪裡飛；後段鎖定方向。
+func _windup_enter() -> void:
+	super._windup_enter()
+	_throw_dir = _aim_at_target()
+
+
 func _windup_tick(delta: float) -> void:
 	super._windup_tick(delta)
 	if fsm.time_in_state < data.telegraph_time * FACE_LOCK_RATIO:

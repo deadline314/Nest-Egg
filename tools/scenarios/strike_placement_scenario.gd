@@ -15,9 +15,13 @@ func run() -> void:
 		level = Level.new()
 		level.configure(data)
 		add_child(level)
-		await settle(3)
+		await settle(30)
 		player = level.player
 		player.health.setup(9999, 0.0)
+		level.hud.visible = false
+		for node in level.find_children("*", "Node2D", true, false):
+			if node is WorldPrompt:
+				node.enabled = false # 拍攝攻擊外觀時不讓附近道具說明遮住敵人。
 		var focus: StrikeEnemy
 		for enemy in get_tree().get_nodes_in_group(&"enemies"):
 			enemy.set_physics_process(false)
@@ -32,6 +36,7 @@ func run() -> void:
 		focus._drive_rig(0.0)
 		await wait(1.2)
 		capture("NE-118-%s-placement" % target[0])
+		player.visible = false # 近身接觸時仍保留判定，只隱藏會擋住武器的主角圖像。
 		focus.set_physics_process(true)
 		var frames := 0
 		while not focus.fsm.is_in(&"windup") and frames < 360:
