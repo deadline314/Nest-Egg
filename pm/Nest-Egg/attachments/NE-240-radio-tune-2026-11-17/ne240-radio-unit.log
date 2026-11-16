@@ -1,0 +1,29 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Identifier "StoryResultCatalog" not declared in the current scope.
+   at: GDScript::reload (res://tests/helpers/radio_tune_checks.gd:27)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "catalog" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://tests/helpers/radio_tune_checks.gd:27)
+SCRIPT ERROR: Parse Error: Identifier "StoryResultCatalog" not declared in the current scope.
+   at: GDScript::reload (res://tests/helpers/radio_tune_checks.gd:30)
+SCRIPT ERROR: Parse Error: Identifier "StoryResultCatalog" not declared in the current scope.
+   at: GDScript::reload (res://tests/helpers/radio_tune_checks.gd:34)
+SCRIPT ERROR: Parse Error: Identifier "StoryResultCatalog" not declared in the current scope.
+   at: GDScript::reload (res://tests/helpers/radio_tune_checks.gd:37)
+SCRIPT ERROR: Parse Error: Identifier "StoryResultCatalog" not declared in the current scope.
+   at: GDScript::reload (res://tests/helpers/radio_tune_checks.gd:40)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://tests/suite/test_ch2_story.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://tests/smoke_test.gd:0)
+ERROR: Failed to load script "res://tests/smoke_test.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+== Nest Egg smoke test ==
+SCRIPT ERROR: Invalid call. Nonexistent function 'run' in base 'GDScript'.
+   at: Chapter2StorySuite.run (res://tests/suite/test_ch2_story.gd:25)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/suite/test_ch2_story.gd:25)
+       [1] _run_suites (res://tests/smoke_test.gd:110)
+       [2] _run (res://tests/smoke_test.gd:38)
+SUITE_TIME Chapter2StorySuite 1.6
+checks: 172, failures: 0

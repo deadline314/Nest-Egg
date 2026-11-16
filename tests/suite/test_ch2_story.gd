@@ -22,6 +22,8 @@ func run() -> void:
 	_test_ledger_install()
 	_test_street_line()
 	_test_guest_book_stage()
+	preload("res://tests/helpers/radio_tune_checks.gd").run(self)
+	await preload("res://tests/helpers/radio_tune_lifecycle_checks.gd").run(self)
 	Checks.check_staging(self, "chapter 2", "ch2", 26)
 	await _test_chapter_link()
 

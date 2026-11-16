@@ -1558,6 +1558,10 @@
    "mode": "animated",
    "steps": [
     {
+     "do": "world_action",
+     "id": "radio_tune_noise"
+    },
+    {
      "do": "say",
      "speaker": "label",
      "text": "刻線外只有低頻的雜訊。把指標轉回兩條刻線中間，再試一次。",
@@ -1571,6 +1575,10 @@
   "ch2_t_s02_broadcast": {
    "mode": "animated",
    "steps": [
+    {
+     "do": "world_action",
+     "id": "radio_tune_clear"
+    },
     {
      "do": "say",
      "speaker": "weather",

@@ -193,16 +193,17 @@ def _morning(source: ProductionSource):
     source.add("ch2_t_s02_tune", "S02", (("lamp", "先讓指標進兩條刻線中間，再轉到聲音最清楚的地方。"),), when=negate(repaired), options=(
         _opt("middle", "把指標轉進兩條刻線中間。", "ch2_t_s02_broadcast", "停在聲音最清楚的地方。"),
         _opt("edge", "把指標轉到刻線外面。", "ch2_t_s02_tune_wrong", "刻線外只有雜訊。")))
-    source.add("ch2_t_s02_tune_wrong", "S02", (("label", "刻線外只有低頻的雜訊。把指標轉回兩條刻線中間，再試一次。"),),
+    source.add("ch2_t_s02_tune_wrong", "S02", steps=[dict(do="world_action", id="radio_tune_noise"), *beats(
+        ("label", "刻線外只有低頻的雜訊。把指標轉回兩條刻線中間，再試一次。"))],
                mode="animated", next_scene="ch2_t_s02_tune")
-    source.add("ch2_t_s02_broadcast", "S02", (
+    source.add("ch2_t_s02_broadcast", "S02", steps=[dict(do="world_action", id="radio_tune_clear"), *beats(
         ("weather", "港區午後降雨持續，市場低窪通道請改走上層雨棚。"),
         ("broadcast", "今晚先念三個還在等回覆的名字。陳海生、周美蘭、林兆安，你們的家人來過。"),
         ("broadcast", "如果名字念錯了，請告訴我，我會重新念。"),
         ("broadcast", "名字不該只剩一個編號。"),
         ("broadcast", "我還留著一頂帽子。如果有人認得帽沿的補線，請到港區電臺留言。"),
         ("rin", "她連帽子也放進尋人名單。"),
-        ("old_k", "名字不記得，東西還在，也是個開頭啦。")),
+        ("old_k", "名字不記得，東西還在，也是個開頭啦。"))],
         when=negate(repaired), options=(
             _opt("save", "儲存這段廣播。", "ch2_t_s02_saved", "收音機修好、廣播聽完，片段記進筆記。"),
             _opt("off", "先關掉收音機。", "ch2_t_s02_off", "收音機修好、廣播聽完，之後可以回來重聽。"),

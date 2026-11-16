@@ -100,5 +100,35 @@
     "scrub": [1.2, 1.2],
     "scrub_loops": 1,
     "drop": [25.5, 8.0]
+  },
+  "radio_tune_clear": {
+    "scene": "ch2_t_s02_broadcast",
+    "level": "res://data/levels/ch2_pawnshop.tres",
+    "source": "res://data/npcs/ch2_radio.tres",
+    "prop": "radio_workbench__radio_open_bench",
+    "kind": "turn",
+    "station": [18, 30],
+    "facing": 1,
+    "crouch": true,
+    "hub": [23.3, 15.6],
+    "radius": [1.7, 0.3],
+    "sweep": [180, 100],
+    "strokes": 1,
+    "stall": 1.0
+  },
+  "radio_tune_noise": {
+    "scene": "ch2_t_s02_tune_wrong",
+    "level": "res://data/levels/ch2_pawnshop.tres",
+    "source": "res://data/npcs/ch2_radio.tres",
+    "prop": "radio_workbench__radio_open_bench",
+    "kind": "turn",
+    "station": [18, 30],
+    "facing": 1,
+    "crouch": true,
+    "hub": [23.3, 15.6],
+    "radius": [1.7, 0.3],
+    "sweep": [100, 180],
+    "strokes": 1,
+    "stall": 0.4
   }
 }

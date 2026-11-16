@@ -76,8 +76,10 @@ static func problem(id: Variant, scene: String, overlay: Variant) -> String:
 	var required: Array[String] = ["level", "source", "prop", "reaction"]
 	if spec["kind"] == "support":
 		required = ["level", "source", "bone", "pose"]
-	elif spec["kind"] == "place":
+	elif spec["kind"] in ["place", "turn"]:
 		required = ["level", "source", "prop"]
+		if spec["kind"] == "turn" and spec.has("reaction"):
+			required.append("reaction")
 	for key: String in required:
 		if not spec.get(key) is String or spec[key].is_empty():
 			return "world_action requires " + key
@@ -87,6 +89,8 @@ static func problem(id: Variant, scene: String, overlay: Variant) -> String:
 		return "world_action level/source is unavailable"
 	if typeof(spec.get("facing")) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(spec["facing"])) or absf(float(spec["facing"])) != 1.0:
 		return "world_action facing must be -1 or 1"
+	if typeof(spec.get("crouch", false)) != TYPE_BOOL:
+		return "world_action crouch must be a boolean"
 	var points: Array[String] = ["station"]
 	if spec["kind"] == "insert":
 		points.append_array(["grip", "tip"])
@@ -179,15 +183,15 @@ func start(id: String, player: Player, scene: String) -> bool:
 		return _start_place(player, prop)
 	var reaction: PropReaction
 	for child in prop.get_children():
-		if child is PropReaction and String(child.reaction_id) == _spec["reaction"]:
+		if child is PropReaction and String(child.reaction_id) == _spec.get("reaction", ""):
 			if reaction != null:
 				return _fail("world action reaction is ambiguous")
 			reaction = child
-	if reaction == null or not player._visual.rig.has_hand_grip(&"front"):
+	if (reaction == null and not _without_reaction()) or not player._visual.rig.has_hand_grip(&"front"):
 		return _fail("world action requires a fixture reaction and registered grip")
 	_player = weakref(player)
 	_prop = weakref(prop)
-	_reaction = weakref(reaction)
+	_reaction = weakref(reaction) if reaction != null else null
 	_start_position = player.global_position
 	_station = prop.to_global(Vector2(_spec["station"][0], _spec["station"][1]))
 	if not route_clear(player, _station):
@@ -263,6 +267,8 @@ static func route_clear(player: Player, station: Vector2) -> bool:
 func before_frame(input: RigInput, delta: float) -> void:
 	input.velocity = Vector2.ZERO
 	input.hand_grip_front = false
+	if _spec.get("crouch", false):
+		input.crouching = not done and phase not in ["approach", "release"]
 	if done:
 		return
 	var player := _live_player()
@@ -452,6 +458,9 @@ func _make_carrier(player: Player) -> void:
 func close() -> void:
 	var player := _player.get_ref() as Player if _player != null else null
 	if is_instance_valid(player) and is_instance_valid(player._visual) and is_instance_valid(player._visual.rig):
+		if _spec.get("crouch", false) and player._visual.interaction_action == self:
+			player._visual._interaction_input.crouching = false
+			player._visual._interaction_input.hand_grip_front = false
 		if is_instance_valid(_disk): player._visual.rig.unbind_attachment(_disk)
 		if is_instance_valid(_paper): player._visual.rig.unbind_attachment(_paper)
 	var camera := _camera.get_ref() as LevelCamera if _camera != null else null
@@ -554,7 +563,7 @@ func support_global() -> Vector2:
 
 
 func _without_reaction() -> bool:
-	return _spec.get("kind") in ["support", "place"]
+	return _spec.get("kind") in ["support", "place"] or (_spec.get("kind") == "turn" and not _spec.has("reaction"))
 
 
 ## place：走到擺設前、伸手到 pick 點、拿起要呈現的東西、繞小圈、放到 drop 點、放手。

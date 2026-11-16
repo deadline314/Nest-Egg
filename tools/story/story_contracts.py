@@ -306,10 +306,10 @@ def effect_projection(raw):
     return out
 
 
-# Stage-only steps (walking, reaching, props shown or held) never write flags, items or
+# Stage-only steps (walking, reaching, map hands, props shown or held) never write flags, items or
 # results; a move step's "then" is the pose after walking. Matching drops them on both
 # sides, so restaging a sealed scene keeps its legacy outcome. Mirrors StoryResultCatalog.
-STAGE_ONLY_STEPS = {"move", "reach", "prop", "prop_move", "prop_hold", "prop_release", "prop_visible"}
+STAGE_ONLY_STEPS = {"move", "reach", "prop", "prop_move", "prop_hold", "prop_release", "prop_visible", "world_action"}
 
 
 def without_stage_steps(raw):

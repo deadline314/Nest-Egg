@@ -490,10 +490,10 @@ func _legacy_match(id: String, origin: Dictionary, scenes: Dictionary, sources: 
 		return true
 	return false
 
-## Stage-only steps (walking, hands reaching, props shown or held) never write flags, items or results;
+## Stage-only steps (walking, hands reaching in a stage/map, props shown or held) never write flags, items or results;
 ## a move step's "then" is the pose after walking, not a scene jump.
 ## Both sides drop them, so restaging a sealed scene keeps its legacy outcome.
-const STAGE_ONLY_STEPS := ["move","reach","prop","prop_move","prop_hold","prop_release","prop_visible"]
+const STAGE_ONLY_STEPS := ["move","reach","prop","prop_move","prop_hold","prop_release","prop_visible","world_action"]
 
 static func _same_effects(scene: Variant, expected: Variant) -> bool:
 	return _projection_equal(_without_stage_steps(_effects(scene)), _without_stage_steps(expected))

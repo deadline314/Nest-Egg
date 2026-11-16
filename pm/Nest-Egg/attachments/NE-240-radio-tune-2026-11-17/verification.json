@@ -1,0 +1,23 @@
+{
+  "sampled_frames": 194,
+  "contact_frames": 65,
+  "worst_contact_error_world_px": 0.000125827195006423,
+  "contact_tolerance_world_px": 0.25,
+  "frames_by_scene_phase": {
+    "ch2_t_s02_tune_wrong:approach": 19,
+    "ch2_t_s02_tune_wrong:reach": 21,
+    "ch2_t_s02_tune_wrong:turn": 14,
+    "ch2_t_s02_tune_wrong:recoil": 18,
+    "ch2_t_s02_tune_wrong:release": 21,
+    "ch2_t_s02_tune_wrong:restored": 2,
+    "ch2_t_s02_tune:restored": 2,
+    "ch2_t_s02_broadcast:approach": 6,
+    "ch2_t_s02_broadcast:reach": 21,
+    "ch2_t_s02_broadcast:turn": 33,
+    "ch2_t_s02_broadcast:release": 21,
+    "ch2_t_s02_broadcast:restored": 16
+  },
+  "raw_captures": 45,
+  "sealed_bytes": 141463,
+  "sealed_sha256": "e86b82e0a7e5d9f6988290cb7b61eb55f7459849901771d6bc95848acf93a8c8"
+}

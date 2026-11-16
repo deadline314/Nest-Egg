@@ -19,6 +19,23 @@ class StoryContracts(unittest.TestCase):
         self.assertEqual(len(self.records),48)
         contracts.validate_generated(self.chapter["scenes"],"res://data/story/ch2_heron.json",self.records)
 
+    def test_map_hand_presentation_keeps_sealed_radio_effects(self):
+        sealed = contracts._sealed_migration()["routes"]["ch2_dispatch_radio"]["ch2_t_s02_broadcast"]["effects"]
+        scene = self.chapter["scenes"]["ch2_t_s02_broadcast"]
+        self.assertEqual(scene["steps"][0], {"do": "world_action", "id": "radio_tune_clear"})
+        self.assertTrue(contracts.same_effects(scene, sealed))
+        for field, value in [("set_flags", {"forbidden": True}), ("results", [{"kind": "item_grant", "id": "ch2_radio_clip"}]), ("then", "ch2_t_s02_off")]:
+            changed = copy.deepcopy(scene)
+            changed[field] = value
+            with self.subTest(field=field):
+                self.assertFalse(contracts.same_effects(changed, sealed))
+        changed = copy.deepcopy(scene)
+        changed["steps"][-1]["set_flags"] = {"forbidden": True}
+        self.assertFalse(contracts.same_effects(changed, sealed))
+        changed = copy.deepcopy(scene)
+        changed["steps"][-1]["options"][0]["target"] = "ch2_t_s02_off"
+        self.assertFalse(contracts.same_effects(changed, sealed))
+
     def _load_changed(self, mutate):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

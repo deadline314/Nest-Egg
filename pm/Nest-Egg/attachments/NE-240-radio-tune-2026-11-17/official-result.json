@@ -1,0 +1,14 @@
+{
+  "base": "1fb788dfcc284af8e38d275f228c06bc7dcc853d",
+  "command": "GODOT=C:/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe SHARDS=2 tools/run_tests_changed.sh 1fb788dfcc284af8e38d275f228c06bc7dcc853d",
+  "worktree": "C:/NE/queue-20261117",
+  "suites": 44,
+  "checks": 54690,
+  "new_failures": 0,
+  "known_failures": 0,
+  "exit": 0,
+  "wall_seconds": 1124,
+  "all14_snapshot_sources_unchanged": true,
+  "scope": "All copied bytes still equal final source; native sampler separately verified by native run. No uncommitted audio UI or fresh role included.",
+  "logs": "Raw deliberate fault-fixture diagnostics and resources-at-exit diagnostics retained; not a zero-ERROR claim."
+}

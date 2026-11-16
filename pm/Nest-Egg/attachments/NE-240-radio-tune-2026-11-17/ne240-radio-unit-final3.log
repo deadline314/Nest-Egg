@@ -1,0 +1,131 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== Nest Egg smoke test ==
+WARNING: [RunSave] user://radio-tune/baseline.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] _save_run (res://game/main.gd:483)
+       [3] _flush_save (res://game/main.gd:458)
+WARNING: [RunSave] user://radio-tune/baseline.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] _save_run (res://game/main.gd:483)
+       [3] _flush_save (res://game/main.gd:458)
+WARNING: [RunSave] user://radio-tune/baseline.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] _save_run (res://game/main.gd:483)
+       [3] _flush_save (res://game/main.gd:458)
+WARNING: [RunSave] user://radio-tune/baseline.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] _save_run (res://game/main.gd:483)
+       [3] _flush_save (res://game/main.gd:458)
+WARNING: [RunSave] user://radio-tune/baseline.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] _save_run (res://game/main.gd:483)
+       [3] _flush_save (res://game/main.gd:458)
+WARNING: [RunSave] user://radio-tune/baseline.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] _save_run (res://game/main.gd:483)
+       [3] _flush_save (res://game/main.gd:458)
+WARNING: [RunSave] user://radio-tune/baseline.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] _save_run (res://game/main.gd:483)
+       [3] _flush_save (res://game/main.gd:458)
+WARNING: [RunSave] user://radio-tune/baseline.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] _save_run (res://game/main.gd:483)
+       [3] _flush_save (res://game/main.gd:458)
+RADIO_LEGACY_REFUSED baseline {"autosave":false,"cinematic":"","clip":true,"credits":20,"disk_unchanged":true,"pending":{},"prompt":false,"repaired":true}
+RADIO_LEGACY_SAVED baseline {"autosave":false,"cinematic":"","items":{"custody_version":1,"held":["wataru_photo","nest_egg_chip","ch2_radio_clip"],"owned":["wataru_photo","nest_egg_chip","ch2_radio_clip"],"transferred":[],"unseen":["wataru_photo","nest_egg_chip","ch2_radio_clip"]},"pending":{},"progression":{"abilities":[],"credits":20,"equipped":"","pawned":{},"story_transactions":{"receipts":{"ch2.sq4_radio":{"credits_delta":20.0,"definition_fingerprint":"ff450907e86a0dc0768066cf61930a862186039ea044849627cc2d5ae4567352"}},"version":1.0},"upgrades":{},"version":1.0},"repaired":true}
+WARNING: [Cutscene] 場景 ch2_t_s02_broadcast 第 1 步（world_action） world action cancelled: world action contact is unavailable
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _world_action_failed (res://game/cutscene/cutscene_player.gd:122)
+       [1] _do_world_action (res://game/cutscene/cutscene_player.gd:118)
+WARNING: [Cutscene] 場景 ch2_t_s02_broadcast 第 1 步（world_action） world action cancelled: world action owner/request retired
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _world_action_failed (res://game/cutscene/cutscene_player.gd:122)
+       [1] _do_world_action (res://game/cutscene/cutscene_player.gd:118)
+WARNING: [RunSave] user://radio-tune/save.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] _save_run (res://game/main.gd:483)
+       [3] _flush_save (res://game/main.gd:458)
+WARNING: [RunSave] user://radio-tune/save.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] _save_run (res://game/main.gd:483)
+       [3] _flush_save (res://game/main.gd:458)
+WARNING: [RunSave] user://radio-tune/save.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] _save_run (res://game/main.gd:483)
+       [3] _flush_save (res://game/main.gd:458)
+WARNING: [RunSave] user://radio-tune/save.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] _save_run (res://game/main.gd:483)
+       [3] _flush_save (res://game/main.gd:458)
+WARNING: [RunSave] user://radio-tune/save.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] _save_run (res://game/main.gd:483)
+       [3] _flush_save (res://game/main.gd:458)
+WARNING: [RunSave] user://radio-tune/save.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] _save_run (res://game/main.gd:483)
+       [3] _flush_save (res://game/main.gd:458)
+WARNING: [RunSave] user://radio-tune/save.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] _save_run (res://game/main.gd:483)
+       [3] _flush_save (res://game/main.gd:458)
+WARNING: [RunSave] user://radio-tune/save.json.tmp：無法寫入（12）
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _failure (res://core/run_save_store.gd:330)
+       [1] write (res://core/run_save_store.gd:153)
+       [2] _save_run (res://game/main.gd:483)
+       [3] _flush_save (res://game/main.gd:458)
+RADIO_LEGACY_REFUSED save {"autosave":false,"cinematic":"","clip":true,"credits":20,"disk_unchanged":true,"pending":{},"prompt":false,"repaired":true}
+RADIO_LEGACY_SAVED save {"autosave":false,"cinematic":"","items":{"custody_version":1,"held":["wataru_photo","nest_egg_chip","ch2_radio_clip"],"owned":["wataru_photo","nest_egg_chip","ch2_radio_clip"],"transferred":[],"unseen":["wataru_photo","nest_egg_chip","ch2_radio_clip"]},"pending":{},"progression":{"abilities":[],"credits":20,"equipped":"","pawned":{},"story_transactions":{"receipts":{"ch2.sq4_radio":{"credits_delta":20.0,"definition_fingerprint":"ff450907e86a0dc0768066cf61930a862186039ea044849627cc2d5ae4567352"}},"version":1.0},"upgrades":{},"version":1.0},"repaired":true}
+SUITE_TIME Chapter2StorySuite 16.3
+checks: 266, failures: 0
