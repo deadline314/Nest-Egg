@@ -1,0 +1,22 @@
+{
+  "id": "rig",
+  "description": "人形骨架（7.5 頭身版）。座標單位為世界像素，原點在腳底，面向右（+X），Y 軸向下；骨頭靜止時沿 +Y 延伸。長度由立繪量出（由 tools/comfyui/cut_layers.py 依分件圖層切出）。",
+  "bones": [
+    {
+      "name": "hip",
+      "parent": "",
+      "pos": [
+        0.0,
+        -8.0
+      ]
+    }
+  ],
+  "weapon_anchor": {
+    "bone": "hip",
+    "pos": [
+      0.0,
+      7.0
+    ],
+    "reach": 1
+  }
+}

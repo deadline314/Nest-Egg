@@ -1,0 +1,74 @@
+[
+  {
+    "command": [
+      "D:/ComfyUI/.venv-rocm/Scripts/python.exe",
+      "tools/comfyui/test_limb_zone.py"
+    ],
+    "exit": 1,
+    "log": "original-final-test-limb_zone.log"
+  },
+  {
+    "command": [
+      "D:/ComfyUI/.venv-rocm/Scripts/python.exe",
+      "tools/comfyui/test_normal_rebuilds.py"
+    ],
+    "exit": 0,
+    "log": "final-normal_rebuilds.log"
+  },
+  {
+    "command": [
+      "D:/ComfyUI/.venv-rocm/Scripts/python.exe",
+      "tools/comfyui/test_limb_zone.py"
+    ],
+    "exit": 0,
+    "log": "final-limb_zone.log"
+  },
+  {
+    "command": [
+      "D:/ComfyUI/.venv-rocm/Scripts/python.exe",
+      "tools/comfyui/test_joint_caps.py"
+    ],
+    "exit": 0,
+    "log": "final-joint_caps.log"
+  },
+  {
+    "command": [
+      "D:/ComfyUI/.venv-rocm/Scripts/python.exe",
+      "tools/comfyui/test_registered_layers.py"
+    ],
+    "exit": 0,
+    "log": "final-registered_layers.log"
+  },
+  {
+    "command": [
+      "D:/ComfyUI/.venv-rocm/Scripts/python.exe",
+      "tools/comfyui/test_hand_attachments.py"
+    ],
+    "exit": 0,
+    "log": "final-hand_attachments.log"
+  },
+  {
+    "command": [
+      "D:/ComfyUI/.venv-rocm/Scripts/python.exe",
+      "tools/comfyui/test_final_overrides.py"
+    ],
+    "exit": 0,
+    "log": "final-final_overrides.log"
+  },
+  {
+    "command": [
+      "D:/ComfyUI/.venv-rocm/Scripts/python.exe",
+      "tools/comfyui/test_source_alpha.py"
+    ],
+    "exit": 0,
+    "log": "final-source_alpha.log"
+  },
+  {
+    "command": [
+      "D:/ComfyUI/.venv-rocm/Scripts/python.exe",
+      "tools/comfyui/test_refine_fill.py"
+    ],
+    "exit": 0,
+    "log": "final-refine_fill.log"
+  }
+]

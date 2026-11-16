@@ -252,3 +252,9 @@ NE-222 的可重跑來源與單手原生反例見 `art_src/characters/rin_walk_s
 ## 補洞時排除透明背景色（NE-255，2026-11-17）
 
 preserve_source_alpha為true時，close_fill與fill_holes沿既有局部inpaint方式將alpha=0列為未知材料，只寫回原填補區；原操作之外的RGBA在隔離測試保持，後續defringe仍依新填色正常執行。缺省／false沿舊流程，不自動重建批准素材。這次只修補色來源，原輪廓與全部動態接點仍分開驗收。回歸：python tools/comfyui/test_refine_fill.py；固定同alpha與可見RGB、只改透明RGB的負控制必須得到相同可見結果。
+
+## 法線重建與關節設定（NE-255，2026-11-17）
+
+內部切口出現亮線時，先固定來源、姿勢、光照與時間，比較法線開／關和剛體／網格四組。確認是分件法線各自把內部切線當外輪廓後，才以同一來源座標重建相鄰法線；不以裁掉衣物、關法線或補大塊底層掩蓋。保留diffuse／alpha、pivot與非目標法線的hash。配方可登記normal_rebuilds腳本清單：先跑原paint_normals，再按順序執行登記腳本，最後import。全部路徑先驗為art_src/characters內現存.py；空名稱、錯型別、越界或執行失敗均停止。未登記沿原流程。回歸：python tools/comfyui/test_normal_rebuilds.py。
+
+若已核對的關節彎曲範圍需要不同於預設，在來源spec登記limb_zone；cut_layers原樣寫入rig，不能手改匯出檔，否則重建會遺失。只接受runtime原有範圍0.05至0.6的有限數值；布林值、文字與非有限值在任何輸出前拒絕。省略不新增欄位，不改其他角色。回歸：python tools/comfyui/test_limb_zone.py，預設對照為固定原輸出，不能以當前HEAD自我比較。資料可重建仍須全接點及全彩驗收。

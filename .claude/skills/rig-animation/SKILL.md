@@ -269,3 +269,9 @@ description: 做或調整 Nest Egg 的骨架角色與動畫時使用：新增角
 ## 明選NPC姿勢與工作循環（NE-255，2026-11-17）
 
 rig_joint_audit的--npc-performance省略--npc-pose時保持原五種動作。全角色適用動作需額外明選--npc-pose=lean、crouch及loop:<已登記名稱>，例如loop:hammer；依實際週期決定frames，不把兩格工具自檢當完整動作驗收。沿原180格預備、1/60步進與像素規則，每格核對真正NPC姿勢及循環；故意丟失loop輸入必須失敗。Windows圖名將冒號轉成合法字元，metadata保留原動作名稱與實際狀態。工具小樣本與新角色的全接點／全彩驗收分開記錄。
+
+## 切口亮線與來源中的彎曲範圍（NE-255，2026-11-17）
+
+相鄰件各自生成normal可能把同一條內部切線刻成兩道邊。先用相同來源／姿勢／光照／時間，比較normal開關×剛體網格四組，再判定材質或幾何原因。需要連續法線時，配方normal_rebuilds在原painter後執行來源腳本；來源、取樣座標、目標normal及其他部件不變的hash分別記錄，不能靠關閉法線驗收。細節見character-art-pipeline。
+
+runtime原有limb_zone範圍0.05至0.6，可由來源spec經cut_layers登記到rig；省略維持原0.3行為，非法值在切圖前拒絕。彎曲範圍只調整既有權重，不補缺料、不改checker或門檻；兩面向、遊戲／過場倍率的接點與全彩輪廓仍需檢查。

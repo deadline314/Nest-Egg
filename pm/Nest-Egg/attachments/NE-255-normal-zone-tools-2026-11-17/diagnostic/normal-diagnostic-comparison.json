@@ -1,0 +1,27 @@
+{
+  "measure": "8-bit RGB absolute difference, same native pose/position/light/time; diagnostic only, no new acceptance tolerance",
+  "results": {
+    "rigid": {
+      "rect_xywh": [
+        604,
+        340,
+        100,
+        20
+      ],
+      "before_mean_absolute_difference_from_flat": 1.1826666666666668,
+      "continuous_mean_absolute_difference_from_flat": 0.057666666666666665,
+      "changed_pixels": 627
+    },
+    "mesh": {
+      "rect_xywh": [
+        604,
+        340,
+        100,
+        20
+      ],
+      "before_mean_absolute_difference_from_flat": 1.1828333333333334,
+      "continuous_mean_absolute_difference_from_flat": 0.058333333333333334,
+      "changed_pixels": 630
+    }
+  }
+}

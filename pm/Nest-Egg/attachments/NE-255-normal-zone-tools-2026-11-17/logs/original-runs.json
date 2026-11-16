@@ -1,0 +1,20 @@
+[
+  {
+    "command": [
+      "D:/ComfyUI/.venv-rocm/Scripts/python.exe",
+      "tools/comfyui/test_normal_rebuilds.py"
+    ],
+    "exit": 1,
+    "log": "original-normal_rebuilds.log",
+    "source": "e6017a0fc"
+  },
+  {
+    "command": [
+      "D:/ComfyUI/.venv-rocm/Scripts/python.exe",
+      "tools/comfyui/test_limb_zone.py"
+    ],
+    "exit": 1,
+    "log": "original-limb_zone.log",
+    "source": "e6017a0fc"
+  }
+]

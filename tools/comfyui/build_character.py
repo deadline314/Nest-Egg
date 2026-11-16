@@ -206,8 +206,17 @@ class Build:
         return outs
 
     def step_normals(self) -> list[Path]:
+        registered = self.recipe.get("normal_rebuilds", [])
+        if not isinstance(registered, list) or any(not isinstance(item, str) or not item for item in registered):
+            sys.exit("[normals] normal_rebuilds must be a list of nonempty source script paths")
+        callbacks = [(ROOT / item).resolve() for item in registered]
+        for path in callbacks:
+            if not path.is_relative_to(ROOT / "art_src/characters") or path.suffix != ".py" or not path.is_file():
+                sys.exit(f"[normals] invalid registered normal rebuild: {path}")
         out = godot("--headless", "res://tools/art/paint_normals.tscn", "--", f"--only={self.id}")
         log("  " + (out.strip().splitlines() or [""])[-1])
+        for path in callbacks:
+            log("  " + run([sys.executable, str(path)], "registered normals").strip())
         return [self.char_dir / "parts"]
 
     def step_import(self) -> list[Path]:

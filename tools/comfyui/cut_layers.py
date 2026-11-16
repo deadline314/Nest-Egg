@@ -257,6 +257,15 @@ def pose_slot_depths(entries: list[dict], changes: dict, min_z: int, max_z: int,
     return result
 
 
+def limb_zone(spec: dict) -> float | None:
+    if "limb_zone" not in spec:
+        return None
+    value = spec["limb_zone"]
+    if type(value) not in (int, float) or not math.isfinite(value) or not 0.05 <= value <= 0.6:
+        raise ValueError("spec.limb_zone must be a finite number in [0.05, 0.6]")
+    return value
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--spec", required=True)
@@ -265,6 +274,7 @@ def main() -> None:
     ap.add_argument("--rig", required=True)
     args = ap.parse_args()
     spec = json.loads(Path(args.spec).read_text(encoding="utf8"))
+    blend_zone = limb_zone(spec)
     native_grips = load_native_grips(spec, Path(__file__).resolve().parents[2])
     work = Path(args.work)
     k = spec["tex_px_per_wp"] / spec["illustration_px_per_wp"]
@@ -467,6 +477,8 @@ def main() -> None:
            "bones": bones,
            **({"springs": springs} if springs else {}),
            "weapon_anchor": {"bone": ac["bone"], "pos": [round(float(anchor[0]) + ac["dx"], 2), round(float(anchor[1]) + ac["dy"], 2)], "reach": ac["reach"]}}
+    if blend_zone is not None:
+        rig["limb_zone"] = blend_zone
     rig_text = json.dumps(rig, ensure_ascii=False, indent=2) + "\n"
 
     # ---- character -----------------------------------------------------------------------------------------------

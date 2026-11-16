@@ -1,0 +1,176 @@
+{
+  "baseline": "e6017a0fc40dc3f6c55ce260b644ad441e972ff9",
+  "scope": "shared tool behavior and frozen minimal default fixture; diagnostic images are not final character acceptance",
+  "files": {
+    ".gdignore": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    ".gitattributes": {
+      "sha256": "5c293bc4a8762da239e872f399f00ec843850aaa6fc9192ef734866aef22219b",
+      "bytes": 49
+    },
+    "diagnostic/continuous-normals-build.log": {
+      "sha256": "df95f74a48ef7d68353fca5e490461d7608e995bc176564bcce0d7aec9fe85fc",
+      "bytes": 1179
+    },
+    "diagnostic/normal-diagnostic-comparison.json": {
+      "sha256": "f5c9233ec0fa4db24725ecf5012a8d23df193106a98bee268b93cd146f0207c1",
+      "bytes": 732
+    },
+    "diagnostic/shared-v3-file-hashes.json": {
+      "sha256": "34fe40af9c401491e4ecf822909ce72e50e7a49a3d8e1131adbf92caa8b5632d",
+      "bytes": 9138
+    },
+    "diagnostic/tool-regression/continuous_normals-three-limb.py": {
+      "sha256": "6627122c35791b5dedf7057ef69b1657342b8d57d3a24093e9c5e1f1b833a726",
+      "bytes": 3549
+    },
+    "knee-continuous-mesh-normal-on.png": {
+      "sha256": "d55084bdc1aa2d8c328cfeaef0b5600e1fae32f0f3c67d4884af8591fe60927f",
+      "bytes": 243090
+    },
+    "knee-continuous-rigid-normal-on.png": {
+      "sha256": "9fae6e27867f98716ca41a3201c29ef1e6ee2a0e7e8c15a935b82958816cffdb",
+      "bytes": 244573
+    },
+    "knee-continuous.json": {
+      "sha256": "9b4f9f2f38cf23a778eb70656f2f79d618462166fe4cf194a5209f78d5b94ff0",
+      "bytes": 6792
+    },
+    "knee-stand-mesh-normal-off.png": {
+      "sha256": "af057fcb68e7154deca0cf01b49d031eac7cdee669df74c7888b2c2474920e7f",
+      "bytes": 241972
+    },
+    "knee-stand-mesh-normal-on.png": {
+      "sha256": "ad80e6245134a96e0b272ee8af46468e2d053374946a08ee1a24a21f848e08c9",
+      "bytes": 242725
+    },
+    "knee-stand-rigid-normal-off.png": {
+      "sha256": "0b82c0ca26fb1e225818d38bebbe1da0a25528067722f9debafee406a9a9b610",
+      "bytes": 243738
+    },
+    "knee-stand-rigid-normal-on.png": {
+      "sha256": "ca3a933dc6268b8a65c02d18dd9c32a761846fb53d4857bf12b82b8e0f07702f",
+      "bytes": 244247
+    },
+    "knee-stand.json": {
+      "sha256": "668f9b520caecf382315bb8a69d4143fbd68ba7e47bc9e61a1ea292190c3ca7e",
+      "bytes": 6772
+    },
+    "logs/changed-selector.log": {
+      "sha256": "8b4beb6d944339a1a7d1d2729730ba259cd580e8d03d8a9b48f2f6407a289039",
+      "bytes": 89
+    },
+    "logs/final-changed-selector.log": {
+      "sha256": "8b4beb6d944339a1a7d1d2729730ba259cd580e8d03d8a9b48f2f6407a289039",
+      "bytes": 89
+    },
+    "logs/final-final_overrides.log": {
+      "sha256": "402bad1b659648d93fa1ed971807a4458126bef0e8a03aa0003d1e469720e613",
+      "bytes": 1284
+    },
+    "logs/final-hand_attachments.log": {
+      "sha256": "7ef7a04d42d1c87c631438714698bb80f394fad1fe96b9aa3ff42fda53199a38",
+      "bytes": 745
+    },
+    "logs/final-joint_caps.log": {
+      "sha256": "2181b1693f2ac6f70dfcec7984f4c9e8bde57f3d1e11ca266b98dec4b58b89b0",
+      "bytes": 21
+    },
+    "logs/final-limb_zone.log": {
+      "sha256": "a6b68a0c02ad8c25ab6cd309a376eb2d9d1b07b14e95ed971df9c8d8f183552d",
+      "bytes": 106
+    },
+    "logs/final-normal_rebuilds.log": {
+      "sha256": "be9633288c1d811ac847cbbb8461db48b561f7e9f139c7ad14fd591bbf787ede",
+      "bytes": 108
+    },
+    "logs/final-refine_fill.log": {
+      "sha256": "4c10a760646638512ddcb32b1cb5e4194b99a93e088cde5b06cdb5caac6a6f6b",
+      "bytes": 106
+    },
+    "logs/final-registered_layers.log": {
+      "sha256": "a65e71efc7ec588a7ef1e0570446a64fb94499bedf7cf460583023c9054aabe0",
+      "bytes": 3454
+    },
+    "logs/final-runs.json": {
+      "sha256": "529cf6cc582a2b770e70f438ae70ee7924cfb5fb34669c0119558cbe22a7d1fb",
+      "bytes": 1696
+    },
+    "logs/final-source_alpha.log": {
+      "sha256": "3d00642fc4076ced93983b06fddbd49272f1175b7d0d7fd83909b8ba698a688e",
+      "bytes": 1594
+    },
+    "logs/original-final-test-limb_zone.log": {
+      "sha256": "e74cc7844425d2db5f6fc4bbad04dae07eeedc6455e1515bc1728c2e5325e3b9",
+      "bytes": 10185
+    },
+    "logs/original-limb_zone.log": {
+      "sha256": "1792d513802c750d0efdf9da062c51ff7b70677a14923da8162ec34c65f55524",
+      "bytes": 10185
+    },
+    "logs/original-normal_rebuilds.log": {
+      "sha256": "66f5f74a81e16cc32e79af43273e7483a2f1c15274ee4000af6349e16da02504",
+      "bytes": 6982
+    },
+    "logs/original-runs.json": {
+      "sha256": "4b0d6cb2a94693b24010f50884097c518b09228447ee6bc7e80021082fcf86af",
+      "bytes": 437
+    },
+    "original/build_character.py": {
+      "sha256": "449eb02202997b33183c08d975ce34b7f3f58e5b7509ed331ca77b98484f55af",
+      "bytes": 14964
+    },
+    "original/cut_layers.py": {
+      "sha256": "3c81330cc1be02ca31905660f0f297d92499db52e6ba6d36c477f0d6767abef5",
+      "bytes": 31926
+    },
+    "README.md": {
+      "sha256": "768e9631c60cd587e8942519aa6bf90c0129cbf9ed8c29b78eab3ac0cbcd4284",
+      "bytes": 2441
+    },
+    "source/.github/workflows/art-cuts.yml": {
+      "sha256": "20a0d4e3d76da605e8586f949c6108e5a945158529d8724a84c53fc002306fef",
+      "bytes": 1832
+    },
+    "source/tools/comfyui/build_character.py": {
+      "sha256": "0eec8c75c8ace7b0d27727e47b56b94c2a7513fd495250307892fcc24fe2dfab",
+      "bytes": 15649
+    },
+    "source/tools/comfyui/cut_layers.py": {
+      "sha256": "dcc55a9e2c7f99530cb7b10b912c9eb4117af2ca8a0f834d08c1adf07cf2b0d0",
+      "bytes": 32350
+    },
+    "source/tools/comfyui/fixtures/limb_zone_defaults/.gdignore": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "source/tools/comfyui/fixtures/limb_zone_defaults/character.json": {
+      "sha256": "a462ce898ca5d196e697ec48e11110c56e50b6fe6392d1fd7e3a8cb1c7750020",
+      "bytes": 708
+    },
+    "source/tools/comfyui/fixtures/limb_zone_defaults/pelvis.png": {
+      "sha256": "50ba525a7c6a3d083fe7035e7c4ebb3ce7fa27a03f9ae5fa2d8112ea314d2f4b",
+      "bytes": 102
+    },
+    "source/tools/comfyui/fixtures/limb_zone_defaults/rig.json": {
+      "sha256": "352c4c5488acb22bcece29c891b58dbc8c7e4faf26c8ce8947e9a931d74299dd",
+      "bytes": 512
+    },
+    "source/tools/comfyui/test_limb_zone.py": {
+      "sha256": "fdb8804fafcf36705479b4dc407be5e573d358c92960f90804f51f719a170b7e",
+      "bytes": 3692
+    },
+    "source/tools/comfyui/test_normal_rebuilds.py": {
+      "sha256": "712109f31174189aec3ae899e1cd00e14a70490d8820af4e798ef9aafee093bd",
+      "bytes": 4036
+    }
+  },
+  "original": {
+    "normal_rebuilds": "5 tests,10 failing assertions/subcases",
+    "limb_zone": "3 tests,12 failures/4 missing-field errors"
+  },
+  "final": "normal5 + zone3 pass; relatedcaps/registered/hand/final-overrides/source-alpha/fill pass; affected game selector empty exit0",
+  "diagnostic_limit": "old full spec/parts/motion not frozen; current role evolving; native images and bone traces retained as diagnosis only. Frozen callback is archival bytes and not executable from its moved path."
+}

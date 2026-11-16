@@ -1,0 +1,149 @@
+FFFFFFFFFFFFEEEE.
+======================================================================
+ERROR: test_runtime_range_values_are_exported (__main__.LimbZoneTests.test_runtime_range_values_are_exported) (value=0.05)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_limb_zone.py", line 32, in test_runtime_range_values_are_exported
+    self.assertEqual(json.loads((out/'rig.json').read_text(encoding='utf8'))['limb_zone'],value)
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+KeyError: 'limb_zone'
+
+======================================================================
+ERROR: test_runtime_range_values_are_exported (__main__.LimbZoneTests.test_runtime_range_values_are_exported) (value=0.2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_limb_zone.py", line 32, in test_runtime_range_values_are_exported
+    self.assertEqual(json.loads((out/'rig.json').read_text(encoding='utf8'))['limb_zone'],value)
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+KeyError: 'limb_zone'
+
+======================================================================
+ERROR: test_runtime_range_values_are_exported (__main__.LimbZoneTests.test_runtime_range_values_are_exported) (value=0.4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_limb_zone.py", line 32, in test_runtime_range_values_are_exported
+    self.assertEqual(json.loads((out/'rig.json').read_text(encoding='utf8'))['limb_zone'],value)
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+KeyError: 'limb_zone'
+
+======================================================================
+ERROR: test_runtime_range_values_are_exported (__main__.LimbZoneTests.test_runtime_range_values_are_exported) (value=0.6)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_limb_zone.py", line 32, in test_runtime_range_values_are_exported
+    self.assertEqual(json.loads((out/'rig.json').read_text(encoding='utf8'))['limb_zone'],value)
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+KeyError: 'limb_zone'
+
+======================================================================
+FAIL: test_invalid_data_does_not_replace_existing_delivery (__main__.LimbZoneTests.test_invalid_data_does_not_replace_existing_delivery) (value=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_limb_zone.py", line 37, in test_invalid_data_does_not_replace_existing_delivery
+    with self.assertRaisesRegex(ValueError,'spec.limb_zone'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_data_does_not_replace_existing_delivery (__main__.LimbZoneTests.test_invalid_data_does_not_replace_existing_delivery) (value=False)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_limb_zone.py", line 37, in test_invalid_data_does_not_replace_existing_delivery
+    with self.assertRaisesRegex(ValueError,'spec.limb_zone'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_data_does_not_replace_existing_delivery (__main__.LimbZoneTests.test_invalid_data_does_not_replace_existing_delivery) (value=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_limb_zone.py", line 37, in test_invalid_data_does_not_replace_existing_delivery
+    with self.assertRaisesRegex(ValueError,'spec.limb_zone'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_data_does_not_replace_existing_delivery (__main__.LimbZoneTests.test_invalid_data_does_not_replace_existing_delivery) (value='0.2')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_limb_zone.py", line 37, in test_invalid_data_does_not_replace_existing_delivery
+    with self.assertRaisesRegex(ValueError,'spec.limb_zone'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_data_does_not_replace_existing_delivery (__main__.LimbZoneTests.test_invalid_data_does_not_replace_existing_delivery) (value=[])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_limb_zone.py", line 37, in test_invalid_data_does_not_replace_existing_delivery
+    with self.assertRaisesRegex(ValueError,'spec.limb_zone'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_data_does_not_replace_existing_delivery (__main__.LimbZoneTests.test_invalid_data_does_not_replace_existing_delivery) (value={})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_limb_zone.py", line 37, in test_invalid_data_does_not_replace_existing_delivery
+    with self.assertRaisesRegex(ValueError,'spec.limb_zone'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_data_does_not_replace_existing_delivery (__main__.LimbZoneTests.test_invalid_data_does_not_replace_existing_delivery) (value=nan)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_limb_zone.py", line 37, in test_invalid_data_does_not_replace_existing_delivery
+    with self.assertRaisesRegex(ValueError,'spec.limb_zone'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_data_does_not_replace_existing_delivery (__main__.LimbZoneTests.test_invalid_data_does_not_replace_existing_delivery) (value=inf)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_limb_zone.py", line 37, in test_invalid_data_does_not_replace_existing_delivery
+    with self.assertRaisesRegex(ValueError,'spec.limb_zone'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_data_does_not_replace_existing_delivery (__main__.LimbZoneTests.test_invalid_data_does_not_replace_existing_delivery) (value=-inf)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_limb_zone.py", line 37, in test_invalid_data_does_not_replace_existing_delivery
+    with self.assertRaisesRegex(ValueError,'spec.limb_zone'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_data_does_not_replace_existing_delivery (__main__.LimbZoneTests.test_invalid_data_does_not_replace_existing_delivery) (value=0.049)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_limb_zone.py", line 37, in test_invalid_data_does_not_replace_existing_delivery
+    with self.assertRaisesRegex(ValueError,'spec.limb_zone'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_data_does_not_replace_existing_delivery (__main__.LimbZoneTests.test_invalid_data_does_not_replace_existing_delivery) (value=0.601)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_limb_zone.py", line 37, in test_invalid_data_does_not_replace_existing_delivery
+    with self.assertRaisesRegex(ValueError,'spec.limb_zone'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_data_does_not_replace_existing_delivery (__main__.LimbZoneTests.test_invalid_data_does_not_replace_existing_delivery) (value=-1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_limb_zone.py", line 37, in test_invalid_data_does_not_replace_existing_delivery
+    with self.assertRaisesRegex(ValueError,'spec.limb_zone'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.295s
+
+FAILED (failures=12, errors=4)

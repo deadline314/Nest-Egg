@@ -1,0 +1,13 @@
+test_all_overrides_validate_before_first_delivery_change (__main__.FinalOverrideDeliveryTests.test_all_overrides_validate_before_first_delivery_change) ... ok
+test_tiff_named_png_refuses_before_delivery_changes (__main__.FinalOverrideDeliveryTests.test_tiff_named_png_refuses_before_delivery_changes) ... ok
+test_truncated_png_refuses_before_delivery_changes (__main__.FinalOverrideDeliveryTests.test_truncated_png_refuses_before_delivery_changes) ... ok
+test_unknown_part_refuses_before_delivery_changes (__main__.FinalOverrideDeliveryTests.test_unknown_part_refuses_before_delivery_changes) ... ok
+test_valid_crc_broken_idat_requires_complete_decode (__main__.FinalOverrideDeliveryTests.test_valid_crc_broken_idat_requires_complete_decode) ... ok
+test_valid_png_keeps_its_original_encoded_bytes (__main__.FinalOverrideDeliveryTests.test_valid_png_keeps_its_original_encoded_bytes) ... ok
+test_wrong_mode_refuses_before_delivery_changes (__main__.FinalOverrideDeliveryTests.test_wrong_mode_refuses_before_delivery_changes) ... ok
+test_wrong_size_refuses_before_delivery_changes (__main__.FinalOverrideDeliveryTests.test_wrong_size_refuses_before_delivery_changes) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 14.181s
+
+OK

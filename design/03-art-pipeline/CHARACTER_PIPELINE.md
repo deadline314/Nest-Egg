@@ -266,3 +266,9 @@ CPU 生命週期回歸納入現有美術工作流程；9070 XT 以相同原生�
 保留來源透明度的分件補洞，不得把alpha=0的任意RGB當成布料。close_fill/fill_holes以實際不透明材料局部補色，僅發布原填補mask；缺省／false維持舊輸出。相同固定來源以黑灰／洋紅兩種透明RGB作控制，兩操作的可見結果必須一致，原mask外RGBA在隔離操作保持；完整後續defringe另行判讀。實際角色指定區域色相污染28→0，相對原流程全部alpha相同，舊模式9件與ownership PNG bytes相同。
 
 NPC接點工具沿既有--npc-pose入口明選lean/crouch/loop:<registered>，不改原五項預設與combat／transition。每格核對真正動畫器狀態；缺loop輸入仍由同一檢查拒絕。原30張legacy控制PNG及既有metadata相同，新增三項明選只作小樣本工具自檢，角色仍須依自己完整動作和周期驗收。證據在pm/Nest-Egg/attachments/NE-255-refine-fill-2026-11-17/與NE-255-npc-selector-2026-11-17/。
+
+## 2026-11-17：重建保留法線修復與彎曲範圍（NE-255）
+
+全新角色試做中，膝切線的亮邊經normal開關×剛體網格的同姿態控制定位為法線，不是兩段素材之間缺料。來源專用連續法線不可放在textures前的source_rebuilds，因後續paint_normals會覆蓋；配方normal_rebuilds在原painter成功後依序執行，再由原import載入。腳本清單及全部路徑於painter前驗證；只允許art_src/characters內已存在.py，失敗停止建置，不動共用生成服務。未登記不增加任何呼叫。
+
+切圖原本漏掉runtime已支援的limb_zone，導致直接修改匯出rig的校準無法重建。來源spec現可保留該有限數值，沿runtime原範圍[0.05,0.6]驗證，布林／文字／非有限值拒絕且不觸碰舊產物；省略不寫欄位。兩項CPU回歸加入現有美術CI，固定最小原輸出避免提交後以HEAD自我比較。這兩項為工具流程交付；新角色全動作、全部接點與人體品質仍按原驗收。

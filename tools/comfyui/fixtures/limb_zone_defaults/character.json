@@ -1,0 +1,30 @@
+{
+  "id": "example",
+  "display_name": "Example",
+  "rig": "res://art/rigs/rig.json",
+  "texture_scale": 1.0,
+  "scale": 1,
+  "description": "外觀（skin）定義：textures 是零件圖片的尺寸與支點；parts 是把圖片掛到骨頭上的方式。由 tools/comfyui/cut_layers.py 依分件圖層切出。",
+  "textures": {
+    "pelvis": {
+      "file": "parts/pelvis.png",
+      "size": [
+        15,
+        18
+      ],
+      "pivot": [
+        8.0,
+        9.0
+      ],
+      "note": "由 tools/comfyui/cut_layers.py 依分件圖層切出"
+    }
+  },
+  "parts": [
+    {
+      "name": "pelvis",
+      "texture": "pelvis",
+      "bone": "hip",
+      "z": 0
+    }
+  ]
+}

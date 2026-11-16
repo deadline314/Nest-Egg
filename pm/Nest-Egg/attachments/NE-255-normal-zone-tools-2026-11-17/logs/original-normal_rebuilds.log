@@ -1,0 +1,98 @@
+FFFFFFFFFF.
+======================================================================
+FAIL: test_callback_failure_is_propagated (__main__.NormalRebuildsTest.test_callback_failure_is_propagated)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_normal_rebuilds.py", line 76, in test_callback_failure_is_propagated
+    with self.assertRaisesRegex(SystemExit, 'registered normals.*failed'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: SystemExit not raised
+
+======================================================================
+FAIL: test_invalid_sources_are_rejected_before_standard_normals (__main__.NormalRebuildsTest.test_invalid_sources_are_rejected_before_standard_normals) (item='outside.py')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_normal_rebuilds.py", line 47, in test_invalid_sources_are_rejected_before_standard_normals
+    with self.assertRaisesRegex(SystemExit, 'invalid registered normal rebuild'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: SystemExit not raised
+
+======================================================================
+FAIL: test_invalid_sources_are_rejected_before_standard_normals (__main__.NormalRebuildsTest.test_invalid_sources_are_rejected_before_standard_normals) (item='art_src/characters/example/../../../outside.py')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_normal_rebuilds.py", line 47, in test_invalid_sources_are_rejected_before_standard_normals
+    with self.assertRaisesRegex(SystemExit, 'invalid registered normal rebuild'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: SystemExit not raised
+
+======================================================================
+FAIL: test_invalid_sources_are_rejected_before_standard_normals (__main__.NormalRebuildsTest.test_invalid_sources_are_rejected_before_standard_normals) (item='C:\\Users\\stanl\\AppData\\Local\\Temp\\tmpfyugpbuo\\outside.py')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_normal_rebuilds.py", line 47, in test_invalid_sources_are_rejected_before_standard_normals
+    with self.assertRaisesRegex(SystemExit, 'invalid registered normal rebuild'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: SystemExit not raised
+
+======================================================================
+FAIL: test_invalid_sources_are_rejected_before_standard_normals (__main__.NormalRebuildsTest.test_invalid_sources_are_rejected_before_standard_normals) (item='C:\\Users\\stanl\\AppData\\Local\\Temp\\tmpfyugpbuo\\art_src\\characters\\example\\callback.txt')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_normal_rebuilds.py", line 47, in test_invalid_sources_are_rejected_before_standard_normals
+    with self.assertRaisesRegex(SystemExit, 'invalid registered normal rebuild'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: SystemExit not raised
+
+======================================================================
+FAIL: test_invalid_sources_are_rejected_before_standard_normals (__main__.NormalRebuildsTest.test_invalid_sources_are_rejected_before_standard_normals) (item='art_src/characters/example/missing.py')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_normal_rebuilds.py", line 47, in test_invalid_sources_are_rejected_before_standard_normals
+    with self.assertRaisesRegex(SystemExit, 'invalid registered normal rebuild'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: SystemExit not raised
+
+======================================================================
+FAIL: test_malformed_registration_is_rejected (__main__.NormalRebuildsTest.test_malformed_registration_is_rejected) (value='callback.py')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_normal_rebuilds.py", line 56, in test_malformed_registration_is_rejected
+    with self.assertRaisesRegex(SystemExit, 'normal_rebuilds must be a list'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: SystemExit not raised
+
+======================================================================
+FAIL: test_malformed_registration_is_rejected (__main__.NormalRebuildsTest.test_malformed_registration_is_rejected) (value=[None])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_normal_rebuilds.py", line 56, in test_malformed_registration_is_rejected
+    with self.assertRaisesRegex(SystemExit, 'normal_rebuilds must be a list'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: SystemExit not raised
+
+======================================================================
+FAIL: test_malformed_registration_is_rejected (__main__.NormalRebuildsTest.test_malformed_registration_is_rejected) (value=[''])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_normal_rebuilds.py", line 56, in test_malformed_registration_is_rejected
+    with self.assertRaisesRegex(SystemExit, 'normal_rebuilds must be a list'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: SystemExit not raised
+
+======================================================================
+FAIL: test_real_callback_executes_after_standard_normals (__main__.NormalRebuildsTest.test_real_callback_executes_after_standard_normals)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NE\queue-20261117\tools\comfyui\test_normal_rebuilds.py", line 69, in test_real_callback_executes_after_standard_normals
+    self.assertEqual(self.normal.read_text(), 'registered')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'standard' != 'registered'
+- standard
++ registered
+
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.036s
+
+FAILED (failures=10)

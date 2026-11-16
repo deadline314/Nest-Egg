@@ -1,0 +1,75 @@
+test_atomic_write_and_publication_failure_preserve_original (__main__.RegisteredLayerTests.test_atomic_write_and_publication_failure_preserve_original) ... ok
+test_different_png_encoding_preserves_exact_approved_bytes (__main__.RegisteredLayerTests.test_different_png_encoding_preserves_exact_approved_bytes) ... ok
+test_existing_identical_file_does_not_rewrite (__main__.RegisteredLayerTests.test_existing_identical_file_does_not_rewrite) ... ok
+test_late_validation_failure_publishes_nothing (__main__.RegisteredLayerTests.test_late_validation_failure_publishes_nothing) ... ok
+test_missing_or_extra_registration_fails (__main__.RegisteredLayerTests.test_missing_or_extra_registration_fails) ... ok
+test_one_changed_visible_pixel_fails (__main__.RegisteredLayerTests.test_one_changed_visible_pixel_fails) ... ok
+test_reencoded_approved_source_is_rejected_even_with_equal_pixels (__main__.RegisteredLayerTests.test_reencoded_approved_source_is_rejected_even_with_equal_pixels) ... ok
+test_source_path_escape_fails (__main__.RegisteredLayerTests.test_source_path_escape_fails) ... ok
+test_sync_failure_preserves_previous_file (__main__.RegisteredLayerTests.test_sync_failure_preserves_previous_file) ... ok
+test_transparent_rgb_and_alpha_are_still_exact (__main__.RegisteredLayerTests.test_transparent_rgb_and_alpha_are_still_exact) ... ok
+test_wrong_format_and_dimensions_fail (__main__.RegisteredLayerTests.test_wrong_format_and_dimensions_fail) ... ok
+test_actual_source_matches_approved_bytes_and_repeats (__main__.SupportSourceTests.test_actual_source_matches_approved_bytes_and_repeats) ... ok
+test_changed_normal_pixels_preserve_existing_outputs (__main__.SupportSourceTests.test_changed_normal_pixels_preserve_existing_outputs) ... ok
+test_corrupted_frozen_input_stops_before_publication (__main__.SupportSourceTests.test_corrupted_frozen_input_stops_before_publication) ... ok
+test_normal_algorithm_and_duplicate_definition_are_rejected (__main__.SupportSourceTests.test_normal_algorithm_and_duplicate_definition_are_rejected) ... ok
+test_unrelated_cutter_change_keeps_normal_contract (__main__.SupportSourceTests.test_unrelated_cutter_change_keeps_normal_contract) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.440s
+
+OK
+{
+  "status": "REGISTERED_NATIVE_SUPPORT_HAND_PARTIAL_DELIVERY",
+  "checks": 48,
+  "bbox": [
+    267,
+    358,
+    493,
+    500
+  ],
+  "size": [
+    226,
+    142
+  ],
+  "hashes": {
+    "hand_back.png": "d4da7778be1c6df46797795d2aff09799bb928fa645df278afe16825a2ee4f89",
+    "hand_back_n.png": "22e3eeeb6699cdfd7b0141b2418661b85d40e2ebe9ffb78afd33e96d5ef8e6a7"
+  }
+}
+{
+  "status": "REGISTERED_NATIVE_SUPPORT_HAND_PARTIAL_DELIVERY",
+  "checks": 48,
+  "bbox": [
+    267,
+    358,
+    493,
+    500
+  ],
+  "size": [
+    226,
+    142
+  ],
+  "hashes": {
+    "hand_back.png": "d4da7778be1c6df46797795d2aff09799bb928fa645df278afe16825a2ee4f89",
+    "hand_back_n.png": "22e3eeeb6699cdfd7b0141b2418661b85d40e2ebe9ffb78afd33e96d5ef8e6a7"
+  }
+}
+{
+  "status": "REGISTERED_NATIVE_SUPPORT_HAND_PARTIAL_DELIVERY",
+  "checks": 48,
+  "bbox": [
+    267,
+    358,
+    493,
+    500
+  ],
+  "size": [
+    226,
+    142
+  ],
+  "hashes": {
+    "hand_back.png": "d4da7778be1c6df46797795d2aff09799bb928fa645df278afe16825a2ee4f89",
+    "hand_back_n.png": "22e3eeeb6699cdfd7b0141b2418661b85d40e2ebe9ffb78afd33e96d5ef8e6a7"
+  }
+}
