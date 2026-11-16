@@ -113,8 +113,44 @@ const SCENE_LIGHTS := &"scene_lights"
 ## 光源「想要陰影」的標記（預算決定實際給不給）。
 ## 朝某個方向照的光（槍燈）的群組與它記在光源上的資料。
 const AIMED_LIGHTS := &"aimed_lights"
+const SHADOW_OCCLUDERS := &"light_shadow_occluders"
 const META_REACH := &"aimed_reach"
 const META_HALF_ANGLE := &"aimed_half_angle"
+
+
+## Register the renderer's actual polygon; group membership follows the node's lifetime.
+static func mark_shadow_occluder(occluder: LightOccluder2D) -> void:
+	occluder.add_to_group(SHADOW_OCCLUDERS)
+
+
+## Gameplay visibility uses the actual shadow geometry, not unrelated physics colliders.
+## This is a blocked/interior test, not an estimate of PCF penumbra or shadow pixel luminance.
+static func _aimed_shadow_blocks(tree: SceneTree, light: PointLight2D, position: Vector2) -> bool:
+	if not light.shadow_enabled:
+		return false
+	for node in tree.get_nodes_in_group(SHADOW_OCCLUDERS):
+		var blocker := node as LightOccluder2D
+		if blocker == null or blocker.is_queued_for_deletion() or not blocker.is_visible_in_tree() \
+				or blocker.occluder == null or blocker.get_canvas() != light.get_canvas() \
+				or (blocker.occluder_light_mask & light.shadow_item_cull_mask) == 0:
+			continue
+		var polygon := blocker.occluder
+		# shortcut: query double-sided blockers; add side-specific tests when directional blockers are authored.
+		if polygon.cull_mode != OccluderPolygon2D.CULL_DISABLED:
+			if not blocker.has_meta(&"light_query_cull_warning"):
+				blocker.set_meta(&"light_query_cull_warning", true)
+				push_warning("[LightKit] %s: directional occluder cull mode %d is unsupported by gameplay light visibility; retaining its original contribution" % [blocker.get_path(), polygon.cull_mode])
+			continue
+		var points := polygon.polygon
+		if points.size() < 2:
+			continue
+		var local_from := blocker.to_local(light.global_position)
+		var local_to := blocker.to_local(position)
+		var edges := points.size() if polygon.closed else points.size() - 1
+		for index in edges:
+			if Geometry2D.segment_intersects_segment(local_from, local_to, points[index], points[(index + 1) % points.size()]) != null:
+				return true
+	return false
 ## 光錐貼圖的邊長，以及光錐的形狀：兩側從張角的幾成開始變暗、頂點附近多遠以內是暗的、多遠達到全亮（都是相對於照射距離）。
 const CONE_TEXTURE_SIZE := 192
 const CONE_SOFT_EDGE := 0.5
@@ -165,7 +201,8 @@ static func light_level_at(tree: SceneTree, position: Vector2) -> float:
 		if distance >= reach or distance < 1.0:
 			continue
 		if absf(angle_difference(light.global_rotation, offset.angle())) <= float(light.get_meta(META_HALF_ANGLE, 0.0)):
-			level += light.energy * (1.0 - distance / reach)
+			if not _aimed_shadow_blocks(tree, light, position):
+				level += light.energy * (1.0 - distance / reach)
 	return level
 
 

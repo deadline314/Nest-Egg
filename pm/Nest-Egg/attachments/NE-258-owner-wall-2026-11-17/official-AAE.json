@@ -1,0 +1,48 @@
+{
+  "file": "official-AAE.tar.xz",
+  "sha256": "91e33d79758a45d0b333329afd6c20529cbe01efd943f56572152ef9166175cd",
+  "size": 605028,
+  "members": {
+    "preparation.json": {
+      "sha256": "79017b9a37c39cad43b16264a7906aeacc06f1c0e64edef5a6b719610a318ca5",
+      "size": 2367
+    },
+    "process-receipt.json": {
+      "sha256": "d48776441409ca7167298ac64785e6b39ff07cc10c86a6f56349311c9a28e5ad",
+      "size": 645
+    },
+    "run.sh": {
+      "sha256": "d0621db1108c4bb7e8ceb2eda7e2c696088dbad635a3d37d5ac03da3fbc81155",
+      "size": 481
+    },
+    "runner.log": {
+      "sha256": "a236f7d810cce47281d767631fd6cbc083cb87871198fa83b1c09b6144f14a81",
+      "size": 2853
+    },
+    "shards/shard_0.log": {
+      "sha256": "a1b10adbff3b814c30859bc5b5b174d84ef56d80bcc0df9c4f810c5ec1bc8816",
+      "size": 89347
+    },
+    "shards/shard_1.log": {
+      "sha256": "a9e17e6b07140e04212c718a6bc8c4047a1c1fbd37048f332fde32837ade74f9",
+      "size": 98207
+    },
+    "shards/shard_2.log": {
+      "sha256": "0e108c3f1100bf0f7ef2fdaaed17ba224070f3fe7928de0084a0449cffe44c38",
+      "size": 489034
+    },
+    "source-after.json": {
+      "sha256": "9888b7221b04ad3e32021aa5e8101df92432d86ee4dc89e75af5839e50bc09b7",
+      "size": 2360572
+    },
+    "source-before.json": {
+      "sha256": "9888b7221b04ad3e32021aa5e8101df92432d86ee4dc89e75af5839e50bc09b7",
+      "size": 2360572
+    },
+    "worktree.log": {
+      "sha256": "23b8623df2c014dbfb1630f372818fdbb4b4ecdaadb1c1c437517eb5cc4e327c",
+      "size": 5109
+    }
+  },
+  "profile_data_included": false
+}

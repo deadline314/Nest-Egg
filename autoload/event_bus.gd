@@ -4,6 +4,8 @@ extends Node
 
 ## Actual panel visibility/owner lifecycle, independent of Story completion.
 signal radio_visibility_changed
+## A dialogue or animated presentation has accepted its content, before freezing the world.
+signal cinematic_started
 
 signal player_spawned(player: Node2D)
 signal player_health_changed(current: int, maximum: int)

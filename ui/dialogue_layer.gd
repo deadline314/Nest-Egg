@@ -122,6 +122,7 @@ func start_cinematic(id: StringName, lines: Array[Dictionary]) -> void:
 	# Cancelling this presentation must not clear the caller's reusable line array.
 	_cinematic_lines = lines.duplicate()
 	_cinematic_index = 0
+	EventBus.cinematic_started.emit()
 	_lock_token = GameplayLock.acquire(self, Input.MOUSE_MODE_VISIBLE)
 	Fx.reset_time()
 	_cinematic_root.visible = true

@@ -51,7 +51,8 @@ func acquire(owner: Node, mouse_mode := -1, allow_menu := false) -> int:
 		_base_mouse_mode = Input.mouse_mode
 	_next_token += 1
 	var token := _next_token
-	var cleanup := release.bind(token)
+	# Distinct closures keep same-owner cleanup unique when bound callables compare equal.
+	var cleanup := func() -> void: release(token)
 	_locks[token] = {"owner": weakref(owner), "cleanup": cleanup, "mouse_mode": mouse_mode, "menu_allowed": allow_menu}
 	owner.tree_exiting.connect(cleanup, CONNECT_ONE_SHOT)
 	maintain_pause()

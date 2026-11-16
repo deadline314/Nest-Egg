@@ -50,6 +50,7 @@ func _ready() -> void:
 	var polygon := OccluderPolygon2D.new()
 	polygon.polygon = PackedVector2Array([Vector2(-_size.x * 0.5, -_size.y), Vector2(_size.x * 0.5, -_size.y), Vector2(_size.x * 0.5, 0), Vector2(-_size.x * 0.5, 0)])
 	occluder.occluder = polygon
+	LightKit.mark_shadow_occluder(occluder)
 	add_child(occluder)
 	if not data.hint.is_empty():
 		_prompt = WorldPrompt.new()

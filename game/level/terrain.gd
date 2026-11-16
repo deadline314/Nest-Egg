@@ -102,6 +102,7 @@ func _make_occluder(rect: Rect2) -> LightOccluder2D:
 	])
 	var occluder := LightOccluder2D.new()
 	occluder.occluder = polygon
+	LightKit.mark_shadow_occluder(occluder)
 	return occluder
 
 

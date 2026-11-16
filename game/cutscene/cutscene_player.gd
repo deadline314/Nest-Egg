@@ -147,6 +147,7 @@ func play(id: StringName, scene: Dictionary) -> void:
 	Story.framing.safe_rect_changed.connect(_layout_safe_rect)
 	InputBindings.bindings_changed.connect(_refresh_skip_hint)
 	_layout_safe_rect(Story.framing.safe_rect())
+	EventBus.cinematic_started.emit()
 	_lock_token = GameplayLock.acquire(self, Input.MOUSE_MODE_HIDDEN)
 	Fx.reset_time()
 	_running = true

@@ -196,6 +196,7 @@ func _add_occluder() -> void:
 	polygon.polygon = PackedVector2Array([rect.position, Vector2(rect.end.x, rect.position.y), rect.end, Vector2(rect.position.x, rect.end.y)])
 	var occluder := LightOccluder2D.new()
 	occluder.occluder = polygon
+	LightKit.mark_shadow_occluder(occluder)
 	add_child(occluder)
 
 

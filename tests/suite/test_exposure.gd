@@ -24,6 +24,8 @@ func run() -> void:
 	await _test_player_light_follows_the_scene()
 	await _test_enemy_fill_is_separate()
 	await _test_weapon_light()
+	await _test_weapon_light_presentations()
+	await preload("res://tests/helpers/weapon_light_occlusion_checks.gd").run(self)
 	_test_brightness_tiers()
 
 
@@ -356,6 +358,60 @@ func _test_weapon_light() -> void:
 	check(flash[0] > 0.0 and flash[1] < flash[0] * 0.75, "reduce-flashes dims the muzzle flash light (%.2f → %.2f)" % [flash[0], flash[1]])
 	light.extinguish()
 	check(not light.is_lit() and not light._light.enabled, "dying puts the light out at once")
+	AimInput.using_gamepad = false
+	await end_level(level)
+
+
+## Real presentation owners must stop the light before physics is paused, including nested locks.
+func _test_weapon_light_presentations() -> void:
+	var level := await start_level(NewEnemiesSuite.arena_data())
+	var player := level.player
+	var light := player._weapon_light
+	AimInput.using_gamepad = true
+	AimInput.restore_direction(Vector2.RIGHT)
+	player.loadout.equip(load("res://data/weapons/rifle.tres"))
+	await physics_frames(40)
+	check(light.is_lit(), "presentation light fixture begins with an actually lit rifle")
+	var layer := DialogueLayer.new()
+	runner.get_tree().root.add_child(layer)
+	var lines: Array[Dictionary] = [{"name": "凜", "color": Palette.MAGENTA, "portrait": "", "text": "槍燈呈現回歸。"}]
+	layer.start_cinematic(&"test_empty_light_dialogue", [])
+	check(light.is_lit() and not layer.is_cinematic_active(), "empty dialogue leaves the gameplay light unchanged")
+	var energy := light._light.energy
+	GameplayLock.set_base_paused(true)
+	await frames(2)
+	check(not player.can_process() and light.is_lit() and light._light.energy == energy, "ordinary pause preserves the frozen gun light")
+	GameplayLock.set_base_paused(false)
+	layer.enqueue_radio(&"test_light_radio", lines, true)
+	await frames(2)
+	check(layer.is_radio_frozen() and not player.can_process() and light.is_lit() and light._light.energy == energy, "important radio preserves the frozen gun light")
+	layer.start_cinematic(&"test_light_dialogue", lines)
+	check(layer.is_cinematic_active() and not light.is_lit() and not light._light.enabled, "real dialogue immediately extinguishes inside an existing radio lock")
+	layer.finish_cinematic()
+	check(layer.is_radio_frozen() and not light.is_lit(), "ending nested dialogue retains the radio lock and the extinguished light")
+	layer.cancel_radio()
+	await physics_frames(40)
+	check(light.is_lit() and not GameplayLock.is_locked(), "normal player physics restores the light after dialogue and radio finish")
+	var animation := CutscenePlayer.new()
+	runner.get_tree().root.add_child(animation)
+	animation.play(&"test_light_animation", {"overlay": true, "steps": [{"do": "wait", "time": 30.0}]})
+	check(animation.is_running() and not light.is_lit() and not light._light.enabled, "real animated entry immediately extinguishes the gun light")
+	animation.cancel()
+	await frames(2)
+	await physics_frames(40)
+	check(light.is_lit() and not GameplayLock.is_locked(), "normal player physics restores the light after animation cancellation")
+	var connections := EventBus.get_signal_connection_list(&"cinematic_started").size()
+	var transient := WeaponLight.new()
+	runner.get_tree().root.add_child(transient)
+	check(EventBus.get_signal_connection_list(&"cinematic_started").size() == connections + 1, "a new gun light subscribes once to presentation starts")
+	transient.queue_free()
+	await frames(2)
+	check(EventBus.get_signal_connection_list(&"cinematic_started").size() == connections, "freeing a gun light releases its presentation connection")
+	layer.start_cinematic(&"test_removed_light_dialogue", lines)
+	layer.queue_free()
+	await frames(2)
+	await physics_frames(40)
+	check(light.is_lit() and not GameplayLock.is_locked(), "removing an active dialogue owner releases its lock and lets physics restore the light")
 	AimInput.using_gamepad = false
 	await end_level(level)
 

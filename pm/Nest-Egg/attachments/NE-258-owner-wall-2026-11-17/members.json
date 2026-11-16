@@ -1,0 +1,958 @@
+{
+  "runs/ne258-cpu-baseline/exposure/console.log": {
+    "sha256": "3f420ddd936e75961aa48a984714006680f24e6fe10cc11234d4b723d513cca9",
+    "size": 159
+  },
+  "runs/ne258-cpu-baseline/exposure/process-receipt.json": {
+    "sha256": "3ca665a45415898177b6685d90359b5b79e94da9ceb26bfba407ccd8610949be",
+    "size": 5698
+  },
+  "runs/ne258-cpu-baseline/geometry/console.log": {
+    "sha256": "5c05e435f09967aedfd7cab52ec0a473e82fe69bc4f746ff3938db7a99d305a7",
+    "size": 6530
+  },
+  "runs/ne258-cpu-baseline/geometry/process-receipt.json": {
+    "sha256": "051c3463770579e2b7e1cd1afab9533e83d5777d6b3c3b5c43181b267a57ee3c",
+    "size": 5687
+  },
+  "runs/ne258-cpu-baseline/geometry/report.json": {
+    "sha256": "ca1d7b1059de54719ad81ffc268f078f70df834cb029646ed831c4d657c02257",
+    "size": 12606
+  },
+  "runs/ne258-exposure-candidate-v1/console.log": {
+    "sha256": "4b5b788af27e1b2e28dbc75fcf44eee58f2069c8f526fa1eeaa69b953187fc2b",
+    "size": 685
+  },
+  "runs/ne258-exposure-candidate-v2/console.log": {
+    "sha256": "c10e1d45834947f2601eb38c4c66152974d7498e49b6517b84557826d2af87d5",
+    "size": 159
+  },
+  "runs/ne258-exposure-wall-v1/console.log": {
+    "sha256": "a6b76712931eb2249095202c306a5984cbf08c0f0cb55fb2fd141d278fd8f5cb",
+    "size": 159
+  },
+  "runs/ne258-exposure-wall-v2/console.log": {
+    "sha256": "e9196d95991306b2c9f537b3fe84907a897bb3bd828679c35a2ddbeec22c9929",
+    "size": 1054
+  },
+  "runs/ne258-lock-original/console.log": {
+    "sha256": "5b2a01b87f564789f6472a6db0e85f09452cbd869ece9c9b0952831c15a39cc4",
+    "size": 578
+  },
+  "runs/ne258-lock-suite-candidate/console.log": {
+    "sha256": "a040937912a6098dc6927774205abb5cc7d708bb4ad57c76b083e3685b65319d",
+    "size": 429
+  },
+  "runs/ne258-lock-suite-original/console.log": {
+    "sha256": "7a53eb095f334eacb99809040f1123f838d5b6746041df4cd67419fdf70340a8",
+    "size": 1276
+  },
+  "runs/ne258-owner-candidate-v4-cpu/console.log": {
+    "sha256": "d5692c5b9720ececb07f60e817c8fcfa1bd78388456bbae2fdc46aa15e387034",
+    "size": 11610
+  },
+  "runs/ne258-owner-candidate-v4-cpu/owner-report.json": {
+    "sha256": "c8a183b8a0013f1278eaaacba1bcebfc65687f398be8064d1991a28a47cc9b7c",
+    "size": 16234
+  },
+  "runs/ne258-owner-candidate-v4-cpu/process-receipt.json": {
+    "sha256": "8e2021c5687e76b09714a8ebde5c17d237e5ec38d43b5258150a569ed796e05f",
+    "size": 6144
+  },
+  "runs/ne258-owner-candidate-v5-cpu/console.log": {
+    "sha256": "0d415a748df4a344b3994f8fa6f27cc8fb348f4b771b1b54d6d6e1c61a2a27b6",
+    "size": 14292
+  },
+  "runs/ne258-owner-candidate-v5-cpu/owner-report.json": {
+    "sha256": "6498f8aa1db19b083041903d895c0217512443d5421cdbcf4b85accb0e78efb2",
+    "size": 18614
+  },
+  "runs/ne258-owner-candidate-v5-cpu/process-receipt.json": {
+    "sha256": "c36f3d33549e61d85d5677aaf93b485689583d4f46765f7730ba8de2f4056e66",
+    "size": 6144
+  },
+  "runs/ne258-owner-candidate-v5-native/before-important-radio.hdr.bin": {
+    "sha256": "14921200af37659bc18f0a900fc81de920ec18146bdbde3a95229f7bea523953",
+    "size": 5529600
+  },
+  "runs/ne258-owner-candidate-v5-native/before-important-radio.png": {
+    "sha256": "4bd90381c5f5ce279b15af2d772f2dade3bb802153a284a193a18c9a9dadf787",
+    "size": 88381
+  },
+  "runs/ne258-owner-candidate-v5-native/before-layer-cinematic.hdr.bin": {
+    "sha256": "a7ccb7f1a69fdac4d41b2dbf5e20e041250974b559eb45317322b9a91851014c",
+    "size": 5529600
+  },
+  "runs/ne258-owner-candidate-v5-native/before-layer-cinematic.png": {
+    "sha256": "85c3e5e612e6fad4dd1350d0c578b96b140260016bd343940adccc0f04a9ce92",
+    "size": 86133
+  },
+  "runs/ne258-owner-candidate-v5-native/console.log": {
+    "sha256": "f68ba52086d05055eaeea392f3f9856f89309737e147c9ae07fdb800e526da26",
+    "size": 18650
+  },
+  "runs/ne258-owner-candidate-v5-native/during-important-radio.hdr.bin": {
+    "sha256": "28d17e5a023e4e56bf0bbc7a420f77895f30aa00fe0e5df7e461654f6351a7cf",
+    "size": 5529600
+  },
+  "runs/ne258-owner-candidate-v5-native/during-important-radio.png": {
+    "sha256": "1d3a783658413c1417f599df865cde47942fd59aa8ad930129f4c3d6dcee1051",
+    "size": 68533
+  },
+  "runs/ne258-owner-candidate-v5-native/during-layer-cinematic.hdr.bin": {
+    "sha256": "f4262d49e3f77b439d9669efb60312ed77977452168655fdae4e8b07a55b3e12",
+    "size": 5529600
+  },
+  "runs/ne258-owner-candidate-v5-native/during-layer-cinematic.png": {
+    "sha256": "a2ebff2e303fc20dec09c4ec04a97d1f1a025093d2eb735372ed6ca56424f50a",
+    "size": 63617
+  },
+  "runs/ne258-owner-candidate-v5-native/during-ne258_animated_overlay_fixture.hdr.bin": {
+    "sha256": "248e6f9e32ae2461099d0beaf70bc4dade938f5520614e663fb1ccc99bffa8be",
+    "size": 5529600
+  },
+  "runs/ne258-owner-candidate-v5-native/during-ne258_animated_overlay_fixture.png": {
+    "sha256": "dd1ffaa61b4e5534239c576383632d67de24277eea5c1688da549fd980b2488d",
+    "size": 63324
+  },
+  "runs/ne258-owner-candidate-v5-native/during-ne258_animated_stage_fixture.hdr.bin": {
+    "sha256": "4891d63338255a5ca683afdc01dfc6c86bdf9cbab8fe640029f39294f14cb367",
+    "size": 5529600
+  },
+  "runs/ne258-owner-candidate-v5-native/during-ne258_animated_stage_fixture.png": {
+    "sha256": "b5e01263e336993e5d25bd51e60197518159c5031042cbcb4d0b11b577999f41",
+    "size": 207769
+  },
+  "runs/ne258-owner-candidate-v5-native/during-story-dialogue.hdr.bin": {
+    "sha256": "a2e2beb14483b075e234431dbf5741219e6e729fa0f73f71b19058912a1ed3f5",
+    "size": 5529600
+  },
+  "runs/ne258-owner-candidate-v5-native/during-story-dialogue.png": {
+    "sha256": "39a0581dd5d8e55f9577317916ebbf66cc292f208be6c2bbc0c9f95292c90620",
+    "size": 80032
+  },
+  "runs/ne258-owner-candidate-v5-native/owner-report.json": {
+    "sha256": "e1d0caccf537a08a0284315fcd466d262d5814ff7c41d8f186b2ec1c29fac469",
+    "size": 31303
+  },
+  "runs/ne258-owner-candidate-v5-native/process-receipt.json": {
+    "sha256": "0eb9b5103745613942c28d5e091a3dc72f51f1ab36b763c9f48770ce1d5a74ef",
+    "size": 6426
+  },
+  "runs/ne258-owner-candidate-v6-cpu/console.log": {
+    "sha256": "84d29896c433db76af60603755cc8317cdf2f2fd1c3d876a5060825b3905cb0d",
+    "size": 13799
+  },
+  "runs/ne258-owner-candidate-v6-cpu/owner-report.json": {
+    "sha256": "98d461afd8dbd18f25ffe603e35da2942c051c935d21ac6190f9e76c31750b16",
+    "size": 18614
+  },
+  "runs/ne258-owner-candidate-v6-cpu/process-receipt.json": {
+    "sha256": "9b1e6385f9eb2a516225a3e8f77bc5f51d311b5b001330191d848b448f40da51",
+    "size": 6144
+  },
+  "runs/ne258-owner-candidate-v7-cpu/console.log": {
+    "sha256": "784ff7aa6bdb2093e91e194bf9f0c8d63c5631f88970f5d039f4af334542d50b",
+    "size": 13799
+  },
+  "runs/ne258-owner-candidate-v7-cpu/owner-report.json": {
+    "sha256": "e7dad8223fdb555a59ea047067013cb54e1d0245ab9470b08009e2e4f037f0a5",
+    "size": 18614
+  },
+  "runs/ne258-owner-candidate-v7-cpu/process-receipt.json": {
+    "sha256": "8e6c7d4008b2d20df8f77b0f7b742e4232d7d9a6c8e496956815899a62a6fc1b",
+    "size": 6812
+  },
+  "runs/ne258-owner-candidate-v7-native/before-important-radio.hdr.bin": {
+    "sha256": "d3e62bdb038a68ff069cd58c66fac26bc7688d94b18e248f6f52621e7a5917ce",
+    "size": 5529600
+  },
+  "runs/ne258-owner-candidate-v7-native/before-important-radio.png": {
+    "sha256": "b665dcefe714df014502184be765312945a9b6ff9ddb6fdd1088a26b61cce16a",
+    "size": 88260
+  },
+  "runs/ne258-owner-candidate-v7-native/before-layer-cinematic.hdr.bin": {
+    "sha256": "13b55a5f385b4a76f1b6f98c1540b95666997034be652d2434dd242a5dea2b42",
+    "size": 5529600
+  },
+  "runs/ne258-owner-candidate-v7-native/before-layer-cinematic.png": {
+    "sha256": "ed327cb7386565fbc36da899880302f8165a646461d33c4d95319e0a3338fcb6",
+    "size": 85744
+  },
+  "runs/ne258-owner-candidate-v7-native/console.log": {
+    "sha256": "a5d771b81a06518d804936bdcc2b67b661ed72ec6c83c616e2da1c730c769fcf",
+    "size": 18159
+  },
+  "runs/ne258-owner-candidate-v7-native/during-important-radio.hdr.bin": {
+    "sha256": "f21640f7eaed51ae05c07191b72015d8663d7317a63301558558bbb7104849d3",
+    "size": 5529600
+  },
+  "runs/ne258-owner-candidate-v7-native/during-important-radio.png": {
+    "sha256": "a2e4469c99c24a4772c44ef5a5d553945ea96eaeccb8f69626ea6c78f5df71ff",
+    "size": 68395
+  },
+  "runs/ne258-owner-candidate-v7-native/during-layer-cinematic.hdr.bin": {
+    "sha256": "aed20a9d91559d69e6f23f91b4fe3afa3ea938a2ac4b4257796ecaf366f83238",
+    "size": 5529600
+  },
+  "runs/ne258-owner-candidate-v7-native/during-layer-cinematic.png": {
+    "sha256": "2542f542e6985edcc2886c106c5f57acf934dcf705ca7a4d9f94ed1e0bf74f6a",
+    "size": 63496
+  },
+  "runs/ne258-owner-candidate-v7-native/during-ne258_animated_overlay_fixture.hdr.bin": {
+    "sha256": "738b24e0ba34bfa933aaf7bfcf0875bec25683cad3066c26cf64c00aad890a5f",
+    "size": 5529600
+  },
+  "runs/ne258-owner-candidate-v7-native/during-ne258_animated_overlay_fixture.png": {
+    "sha256": "7aac4a8545598790d1d14389e1dd87496f369aa4d466f30d62760abfeafbe363",
+    "size": 62966
+  },
+  "runs/ne258-owner-candidate-v7-native/during-ne258_animated_stage_fixture.hdr.bin": {
+    "sha256": "297ce2951091d0ec09fd55bcb4fac57b3ee6dd6484435fcd1ac90e625f4cfd8b",
+    "size": 5529600
+  },
+  "runs/ne258-owner-candidate-v7-native/during-ne258_animated_stage_fixture.png": {
+    "sha256": "016dee9a967b84cf5eec5f71530103d3c9aad37050f8fb320d507c2f80bf2bc9",
+    "size": 207776
+  },
+  "runs/ne258-owner-candidate-v7-native/during-story-dialogue.hdr.bin": {
+    "sha256": "94c1d6986f529dd5cb18cdbb741776d863afa0834156d765025a39718bcf4d31",
+    "size": 5529600
+  },
+  "runs/ne258-owner-candidate-v7-native/during-story-dialogue.png": {
+    "sha256": "31e349097ff55f142d94128f8851a45cdd55b66f414e93137cd487dd4831b2aa",
+    "size": 80152
+  },
+  "runs/ne258-owner-candidate-v7-native/owner-report.json": {
+    "sha256": "57dd32c1d7c62c515c08034b34b62014286f38a6fc6dadddb2494df6dffc0f1c",
+    "size": 32257
+  },
+  "runs/ne258-owner-candidate-v7-native/process-receipt.json": {
+    "sha256": "b704d13c24937678052c17e6b3c6fecdd8039b4056d51e48d1ad3aa9256f5db1",
+    "size": 7094
+  },
+  "runs/ne258-owner-original/console.log": {
+    "sha256": "3d91e9048290b57b25202c0f90489960db1bbe76eeb2d4d7511881c7fe9c9074",
+    "size": 6795
+  },
+  "runs/ne258-owner-original/owner-report.json": {
+    "sha256": "12bf0932c0c965eb0ad26e5e6ad9468401e81412e89850111695cafc5daf981a",
+    "size": 9753
+  },
+  "runs/ne258-owner-original/process-receipt.json": {
+    "sha256": "7da1fae48c0837dfa80ac809962c7154e362f1d38749139ea8dc0b2ef5ac7754",
+    "size": 5521
+  },
+  "runs/ne258-owner-original-v2/console.log": {
+    "sha256": "8d635f6449a960f143d452ea1d73bba382ea4584bfcba3aa4f6b0fb9311de819",
+    "size": 9376
+  },
+  "runs/ne258-owner-original-v2/owner-report.json": {
+    "sha256": "a46cd39fcb0bd3c27b835a7c3f11a0e8473a3e54ee935f2c22a82ddd12010418",
+    "size": 12944
+  },
+  "runs/ne258-owner-original-v2/process-receipt.json": {
+    "sha256": "378cba7bd05375c7f79044368e0e31d443f90568c52161d901c9c2afc937fd8c",
+    "size": 6129
+  },
+  "runs/ne258-owner-original-v3-cpu/console.log": {
+    "sha256": "c8268eaa225a82c1bc3795079e5fa76ed0cc755d75b745a39b55fb031c90ad8c",
+    "size": 11051
+  },
+  "runs/ne258-owner-original-v3-cpu/owner-report.json": {
+    "sha256": "9aac038a843fad9af776e5416f387d4d300aff84dc06759f4086895caeb970c2",
+    "size": 15466
+  },
+  "runs/ne258-owner-original-v3-cpu/process-receipt.json": {
+    "sha256": "e564c3f49dab85a92b340bef0efde0a33b9f826710e5a7e9e1d4a561d9ddcb97",
+    "size": 6141
+  },
+  "runs/ne258-owner-original-v3-native/before-important-radio.hdr.bin": {
+    "sha256": "36b3b53701308100c9f609c0c992ab225c81c6f510a86e1cd16291625c47e2ec",
+    "size": 5529600
+  },
+  "runs/ne258-owner-original-v3-native/before-important-radio.png": {
+    "sha256": "8498b1c0be0b167db4cb2d72a388ebdf42db7959eff05bafc169402ad500a608",
+    "size": 88465
+  },
+  "runs/ne258-owner-original-v3-native/before-layer-cinematic.hdr.bin": {
+    "sha256": "dc82c3f85735bd0275be6e33af2926b0183fa8d29f772a37a2b0ac439253e645",
+    "size": 5529600
+  },
+  "runs/ne258-owner-original-v3-native/before-layer-cinematic.png": {
+    "sha256": "456470c0c7b0166ee2c5d2a7d4224d5a2f32dac93ac5c8913695df6f317c555e",
+    "size": 85814
+  },
+  "runs/ne258-owner-original-v3-native/console.log": {
+    "sha256": "336930c7fd21d684752f60581b188f212341207760a2836b72782ca09290151e",
+    "size": 15522
+  },
+  "runs/ne258-owner-original-v3-native/during-important-radio.hdr.bin": {
+    "sha256": "20eae0ab093ba2b23aa5ad6f62fd314466a3574400d94615c5ded2514fae3747",
+    "size": 5529600
+  },
+  "runs/ne258-owner-original-v3-native/during-important-radio.png": {
+    "sha256": "09bd178bc64a7f696338a06936630da6bad2bb531dee14fbc3bcdb520cb5d00d",
+    "size": 69108
+  },
+  "runs/ne258-owner-original-v3-native/during-layer-cinematic.hdr.bin": {
+    "sha256": "104d43a975ca974cf86ed5ed0761916771bab95093a519fd0660563081b46e1a",
+    "size": 5529600
+  },
+  "runs/ne258-owner-original-v3-native/during-layer-cinematic.png": {
+    "sha256": "7d86680c487191a9d05cc76d1e2d6bcb7fb8e3e81ed5448a8ac78761d6c39ede",
+    "size": 66682
+  },
+  "runs/ne258-owner-original-v3-native/during-ne258_animated_overlay_fixture.hdr.bin": {
+    "sha256": "ee7b13ff0f0f8cdb55378a2adb50852f9c2c3a492212b695caf93b88181cc7a7",
+    "size": 5529600
+  },
+  "runs/ne258-owner-original-v3-native/during-ne258_animated_overlay_fixture.png": {
+    "sha256": "7f177bebfc153a139fcb65bc8003875decf771133f29e695d076162498317a22",
+    "size": 65897
+  },
+  "runs/ne258-owner-original-v3-native/during-ne258_animated_stage_fixture.hdr.bin": {
+    "sha256": "891521be56905f12092bc1ddf7e59e430ee6af4b843ff382f50bbe11e1e9a360",
+    "size": 5529600
+  },
+  "runs/ne258-owner-original-v3-native/during-ne258_animated_stage_fixture.png": {
+    "sha256": "73f544c39902028e9cae7de666beec2254a41a614fca84206db3d6b27d62cfb9",
+    "size": 10028
+  },
+  "runs/ne258-owner-original-v3-native/during-story-dialogue.hdr.bin": {
+    "sha256": "fe9ae2541b2a8e66d9c298bd346755784d5a41a030e9890977859c62d4cf30dc",
+    "size": 5529600
+  },
+  "runs/ne258-owner-original-v3-native/during-story-dialogue.png": {
+    "sha256": "1e399a2b0f2bb0b64abb24bf6201a5dc1f5d18907fcb81019107946d130082a7",
+    "size": 83980
+  },
+  "runs/ne258-owner-original-v3-native/owner-report.json": {
+    "sha256": "0f3f9dec5f907e35302c0bbc256d94635d22a93d3e535e80085877fb60c633b7",
+    "size": 28248
+  },
+  "runs/ne258-owner-original-v3-native/process-receipt.json": {
+    "sha256": "112cc9d16958a80d48ef709cdc5c08889e1db0eb43ae65450f27c66fadb47861",
+    "size": 6423
+  },
+  "runs/ne258-owner-original-v4-native/before-important-radio.hdr.bin": {
+    "sha256": "3cdd2463ecff0b1ecde29eecb0ab0f2a0ddbbc675482516056b3c40078ceba99",
+    "size": 5529600
+  },
+  "runs/ne258-owner-original-v4-native/before-important-radio.png": {
+    "sha256": "12d48cd8098396c4c9c3548032b5136f3f4d6f6a8f33e1e39cd530fbb1a5df3e",
+    "size": 88455
+  },
+  "runs/ne258-owner-original-v4-native/before-layer-cinematic.hdr.bin": {
+    "sha256": "fdf1a3286474ad7030a6bba0564ab026c06d4d82244f9affd9420f61a6ab1ea8",
+    "size": 5529600
+  },
+  "runs/ne258-owner-original-v4-native/before-layer-cinematic.png": {
+    "sha256": "61b14f55231efcde26442fa29835d6a2ecae3c0aa8ab7d55a590c217dac6ce27",
+    "size": 85942
+  },
+  "runs/ne258-owner-original-v4-native/console.log": {
+    "sha256": "c84ffa28ab0541f4c1dd0d5e4b6d1b3e20dc74a186f81f677c42bfba257cb606",
+    "size": 16062
+  },
+  "runs/ne258-owner-original-v4-native/during-important-radio.hdr.bin": {
+    "sha256": "86773fb6967e8eb3d17f2bc7012cf4dce405118a8d9fca567c927e9219c9ec52",
+    "size": 5529600
+  },
+  "runs/ne258-owner-original-v4-native/during-important-radio.png": {
+    "sha256": "c6a45e74a6512dc38f4babee63de35f3e9919adede54298b163fcf7a27460687",
+    "size": 69247
+  },
+  "runs/ne258-owner-original-v4-native/during-layer-cinematic.hdr.bin": {
+    "sha256": "b8d1781938618792b4da00ad496d74e1205ff32c2a672b08ba056a1fb961465b",
+    "size": 5529600
+  },
+  "runs/ne258-owner-original-v4-native/during-layer-cinematic.png": {
+    "sha256": "7c7c79ac3173ddb665ec3301e97faaff4ff1df0e69f90686b1e4d565d935afd2",
+    "size": 67715
+  },
+  "runs/ne258-owner-original-v4-native/during-ne258_animated_overlay_fixture.hdr.bin": {
+    "sha256": "10deac4640ad4efc572650f813a96d1d74d3e7b9c8c1ad24fc8e616b82088277",
+    "size": 5529600
+  },
+  "runs/ne258-owner-original-v4-native/during-ne258_animated_overlay_fixture.png": {
+    "sha256": "ada0b4cc2541e7d84aa308eb547a0baa4712325c29603cccdb810f94d13babc4",
+    "size": 66499
+  },
+  "runs/ne258-owner-original-v4-native/during-ne258_animated_stage_fixture.hdr.bin": {
+    "sha256": "4891d63338255a5ca683afdc01dfc6c86bdf9cbab8fe640029f39294f14cb367",
+    "size": 5529600
+  },
+  "runs/ne258-owner-original-v4-native/during-ne258_animated_stage_fixture.png": {
+    "sha256": "b5e01263e336993e5d25bd51e60197518159c5031042cbcb4d0b11b577999f41",
+    "size": 207769
+  },
+  "runs/ne258-owner-original-v4-native/during-story-dialogue.hdr.bin": {
+    "sha256": "93d575531b7ae6348a0beae1d0befc58ae84c0c60c1a3963f0e13b7376888ede",
+    "size": 5529600
+  },
+  "runs/ne258-owner-original-v4-native/during-story-dialogue.png": {
+    "sha256": "8ae88015147e1077140d06c0e1a788201447a48647656a54c983ce0b98c03d84",
+    "size": 84084
+  },
+  "runs/ne258-owner-original-v4-native/owner-report.json": {
+    "sha256": "059b0b37ce54fb45005313fd078835fa9b93e0d4021b6b67a85db72e50bcbd1e",
+    "size": 29061
+  },
+  "runs/ne258-owner-original-v4-native/process-receipt.json": {
+    "sha256": "281eba4df888b29a506aaa913330b7b0adc47a1410705010dce016aeb5b5a23b",
+    "size": 6423
+  },
+  "runs/ne258-wall-candidate-v1-cpu/console.log": {
+    "sha256": "bbde343ccb63708f3247acc1fd97df7079225001bbfc591c180cb76d188d4da3",
+    "size": 4198
+  },
+  "runs/ne258-wall-candidate-v1-cpu/process-receipt.json": {
+    "sha256": "c55e3f1e3783abc43981dd45747c5a29ced15b287b06642f221ad314bb100e94",
+    "size": 6632
+  },
+  "runs/ne258-wall-candidate-v1-cpu/wall-report.json": {
+    "sha256": "50ceb14852e3ae8d22fda3b40582163b3e072381b6118534d83c102acdcf63a5",
+    "size": 3732
+  },
+  "runs/ne258-wall-candidate-v1-native/console.log": {
+    "sha256": "bad4a0f905ec98b5aaf10785dd0b01fa8920d818f47b8cbcab7194f1d67795da",
+    "size": 6010
+  },
+  "runs/ne258-wall-candidate-v1-native/open-aim-at.hdr.bin": {
+    "sha256": "40a64e88690398b6726ebd60f0e525479c3dd08ae7209e7fb4ddcc72331fbcb8",
+    "size": 5529600
+  },
+  "runs/ne258-wall-candidate-v1-native/open-aim-at.png": {
+    "sha256": "0f60f734e3de251bc4f5767789990ce59cd18d7fb04afe8a66b40dd880a8b789",
+    "size": 88551
+  },
+  "runs/ne258-wall-candidate-v1-native/process-receipt.json": {
+    "sha256": "9c5c57626f517519fb1fab42e7a77c37d881bf1b8bc8375e7de233adcd517ad6",
+    "size": 6915
+  },
+  "runs/ne258-wall-candidate-v1-native/wall-aim-away.hdr.bin": {
+    "sha256": "13a1dd098809079166f4c534843a04c8163b2fdd840c7817b2a0da331318e03d",
+    "size": 5529600
+  },
+  "runs/ne258-wall-candidate-v1-native/wall-aim-away.png": {
+    "sha256": "47a621941bbab1cb32383b3c37d8afc2ce3a61173f6554ac1426bdc43ce7975c",
+    "size": 88362
+  },
+  "runs/ne258-wall-candidate-v1-native/wall-aim-through.hdr.bin": {
+    "sha256": "bba888c26499797137ad0b446caca0ece1c35cfb1c796176d0c7c4cb2b941c9e",
+    "size": 5529600
+  },
+  "runs/ne258-wall-candidate-v1-native/wall-aim-through.png": {
+    "sha256": "aed4e279360904f2c9ffc671c498ec2c83ef22c2ec22e80bab5a797671aa3837",
+    "size": 83998
+  },
+  "runs/ne258-wall-candidate-v1-native/wall-report.json": {
+    "sha256": "f715e7ac690bfe850665725f5bf8328b6d84d6569ab991dc7df8b6c80704519a",
+    "size": 8914
+  },
+  "runs/ne258-wall-candidate-v2-native/console.log": {
+    "sha256": "f2103d700bf2f09261a0562197a77db66a819e0aa0dcd69c6363a31250984572",
+    "size": 6367
+  },
+  "runs/ne258-wall-candidate-v2-native/open-aim-at.hdr.bin": {
+    "sha256": "efd3944575819f1ea17c479a1636507a09552490ad7ff68e7c0c86dbbbea2967",
+    "size": 5529600
+  },
+  "runs/ne258-wall-candidate-v2-native/open-aim-at.png": {
+    "sha256": "108b5bb89868f66d4e6832c608b7f403a0d1b13a3842859b77698e1be497a937",
+    "size": 88357
+  },
+  "runs/ne258-wall-candidate-v2-native/process-receipt.json": {
+    "sha256": "6b485c47ad77632917d0cb2bccb1085659ef15a33fee40d32278215dfd75bade",
+    "size": 7582
+  },
+  "runs/ne258-wall-candidate-v2-native/reader-occlusion-negative.log": {
+    "sha256": "dcd3371e154ba7ebb78a52da6386897cf3675042f74d98780ff8e5ee4e98e1a5",
+    "size": 382
+  },
+  "runs/ne258-wall-candidate-v2-native/reader-v1.log": {
+    "sha256": "8c35cce91358a4b4366306a98e061a043e61207ce9633b52a9f391e02aeedcd3",
+    "size": 308
+  },
+  "runs/ne258-wall-candidate-v2-native/wall-aim-away.hdr.bin": {
+    "sha256": "e161f338e3e2038780a5e018f12af091f85e9fc445fd30c4f6d5b20f13baf8e4",
+    "size": 5529600
+  },
+  "runs/ne258-wall-candidate-v2-native/wall-aim-away.png": {
+    "sha256": "8ac2c54fc0726264553f65551e38644746d46e5349106ae3caaac456cb8be151",
+    "size": 88199
+  },
+  "runs/ne258-wall-candidate-v2-native/wall-aim-through.hdr.bin": {
+    "sha256": "bb71d3506f19c6fc3475cc293963db5b7af71cdf05a482e1a3c1dc405a2272f6",
+    "size": 5529600
+  },
+  "runs/ne258-wall-candidate-v2-native/wall-aim-through.png": {
+    "sha256": "ceeb402626204e94de9d9f780d383e059bef7ea4d28fdbd24024dcfeb9e7c3b7",
+    "size": 83989
+  },
+  "runs/ne258-wall-candidate-v2-native/wall-report.json": {
+    "sha256": "1e64a813c8fc0e6670d18a317d179876f1e114bfeb824a05eb8d1d4fd87112b5",
+    "size": 10087
+  },
+  "runs/ne258-wall-candidate-v3-native/console.log": {
+    "sha256": "72a449e51dd6663c35cfb1fa288784d72f23b333d5fc45dd5c5624b76c83a851",
+    "size": 6326
+  },
+  "runs/ne258-wall-candidate-v3-native/open-aim-at.hdr.bin": {
+    "sha256": "d23b3dc36f181f4beeef5f309ace78e0a843c38a3e3cbae17f6a5feb379c6b1e",
+    "size": 5529600
+  },
+  "runs/ne258-wall-candidate-v3-native/open-aim-at.png": {
+    "sha256": "dc0ce5f8391c30553d41cdeae95f3888664d4774c2065412e242a605f2e59d9e",
+    "size": 88360
+  },
+  "runs/ne258-wall-candidate-v3-native/process-receipt.json": {
+    "sha256": "66cded82266837459486b24126242ff011e690683d5e51f6ac87cbe8bd2ab433",
+    "size": 7582
+  },
+  "runs/ne258-wall-candidate-v3-native/wall-aim-away.hdr.bin": {
+    "sha256": "ea26162511937a77b6c7acdbfd117a92728c383b85673e0b910cc025f792f1bc",
+    "size": 5529600
+  },
+  "runs/ne258-wall-candidate-v3-native/wall-aim-away.png": {
+    "sha256": "a8c558739d38c64f389db3ff2766f9383cbe406083fefeebe26add208b17760b",
+    "size": 88151
+  },
+  "runs/ne258-wall-candidate-v3-native/wall-aim-through.hdr.bin": {
+    "sha256": "dff0de4d5efe5ee60eb3ffeccf011ad8d340ec41c4d5e69d5f4cdda0605cee6e",
+    "size": 5529600
+  },
+  "runs/ne258-wall-candidate-v3-native/wall-aim-through.png": {
+    "sha256": "19caba06fcc0e6bbf1f3947733098357abb01a0956251effdc57115c0703a4ba",
+    "size": 82209
+  },
+  "runs/ne258-wall-candidate-v3-native/wall-report.json": {
+    "sha256": "50c79bcbb5ce0ea2f0ef9df6cc328ece98d43b20368b60783f709a8cb1fa1c0d",
+    "size": 10046
+  },
+  "runs/ne258-wall-candidate-v4-native/console.log": {
+    "sha256": "b1930dc9ea8441f620c547f9bc35d68d0eb5657ee61ea464c9606fdfa1b6c301",
+    "size": 8481
+  },
+  "runs/ne258-wall-candidate-v4-native/open-aim-at.hdr.bin": {
+    "sha256": "7f5de87c62b3ed6a5a13d4d0b09cda76c67ca5a7014f0bc58f46cf79b085a5b1",
+    "size": 5529600
+  },
+  "runs/ne258-wall-candidate-v4-native/open-aim-at.png": {
+    "sha256": "3674be3640f91f4d07bf0e7dd26a37f4893e6258c1a538259d360fc661a25288",
+    "size": 88444
+  },
+  "runs/ne258-wall-candidate-v4-native/open-aim-away.hdr.bin": {
+    "sha256": "3c983d906507948c60990a6749d5e2ba103adeca7fae82b5d7eb9fcb70faf5f2",
+    "size": 5529600
+  },
+  "runs/ne258-wall-candidate-v4-native/open-aim-away.png": {
+    "sha256": "3851ffcf58c9b5d2b6fe6101d0b7a4acc10394e928a57134d6dc136d02a98cc7",
+    "size": 66030
+  },
+  "runs/ne258-wall-candidate-v4-native/process-receipt.json": {
+    "sha256": "82af02a50bd89570007a4c1e4a6ab0a614ccfe529548de22c0fcce3aabf8b854",
+    "size": 8678
+  },
+  "runs/ne258-wall-candidate-v4-native/wall-aim-away.hdr.bin": {
+    "sha256": "3e0423adc57e0ae249fa2c910c2e7abbac4b1383eb94fee9d6ef916243fb6b13",
+    "size": 5529600
+  },
+  "runs/ne258-wall-candidate-v4-native/wall-aim-away.png": {
+    "sha256": "ae11cca3af6170286e682709361d635f1ac996b7b1a81419365a57078fa282a8",
+    "size": 88149
+  },
+  "runs/ne258-wall-candidate-v4-native/wall-aim-through.hdr.bin": {
+    "sha256": "92105c0595dac80e0aad9e6dbe9e9bc6b36fc52aa225ef74c22c9270e9bcaf11",
+    "size": 5529600
+  },
+  "runs/ne258-wall-candidate-v4-native/wall-aim-through.png": {
+    "sha256": "ead5674a4b80442659feb9552224f6fe5add3f206500d2a233561eb931b9d809",
+    "size": 81740
+  },
+  "runs/ne258-wall-candidate-v4-native/wall-report.json": {
+    "sha256": "fb46d8a51928e8182c8faf531253394f50290a53e3accda9fb450b553cef99a4",
+    "size": 13487
+  },
+  "source/cpu-receipts.json": {
+    "sha256": "2d776149d3803899a315f5c6be176a7c41569e6ab418e1ae9573a94b853937b6",
+    "size": 11692
+  },
+  "source/freeze-owner-v5/autoload/event_bus.gd": {
+    "sha256": "8c0c7c118e8fadb0529fc8972b03c3c292e29058520f9750650f2a4398cb7d2d",
+    "size": 3747
+  },
+  "source/freeze-owner-v5/design/08-lighting/LIGHT_SOURCES.md": {
+    "sha256": "d2d54523c32ba126486ac12f4436f8eb852da498b1e3ff343c291ded225f701f",
+    "size": 32637
+  },
+  "source/freeze-owner-v5/game/cutscene/cutscene_player.gd": {
+    "sha256": "e04810ebeaf5a1fc39aca1852ae1fb673fe1da11c50160a4b16a3f0e94b2c37f",
+    "size": 40388
+  },
+  "source/freeze-owner-v5/game/player/weapon_light.gd": {
+    "sha256": "7ba0db482b70b756498d3cb54fef92cbf4a9dca302db97b45b3e20078bf73eb0",
+    "size": 5066
+  },
+  "source/freeze-owner-v5/ui/dialogue_layer.gd": {
+    "sha256": "4ec5415cd1f2de374dc9f356f3b2c90f2ba1c09dde2537128ea9a9866cb5e62b",
+    "size": 24773
+  },
+  "source/freeze-owner-v5/work/ne258-light-owner-20261117/owner_probe.gd": {
+    "sha256": "e6b2ba3b6061a464f0efdea659a659361115bc568520a7fcb1d57f31c6df8b1d",
+    "size": 15462
+  },
+  "source/freeze-owner-v5/work/ne258-light-owner-20261117/owner_probe.tscn": {
+    "sha256": "f7bab5fd7d93a7ce42ee3ad3b30cf72835996f6c46ec34206bf73c1539869863",
+    "size": 199
+  },
+  "source/freeze-owner-v5/work/ne258-light-owner-20261117/run_owner.py": {
+    "sha256": "16a3d80ac7f75521bdddd5d9c7b9625ca29d63e0947b438a539df112a08a7426",
+    "size": 2133
+  },
+  "source/freeze-owner-v5.json": {
+    "sha256": "24df3a9d96aab2ef4b5d406245b5b35a2f4d66c2da28e247e33bc90523ac3972",
+    "size": 1207
+  },
+  "source/freeze-owner-v7/autoload/event_bus.gd": {
+    "sha256": "8c0c7c118e8fadb0529fc8972b03c3c292e29058520f9750650f2a4398cb7d2d",
+    "size": 3747
+  },
+  "source/freeze-owner-v7/autoload/gameplay_lock.gd": {
+    "sha256": "480186ea7a8ec02ea61836b528b6bc30266add801b9c6222e3b18480bf994257",
+    "size": 3971
+  },
+  "source/freeze-owner-v7/design/08-lighting/LIGHT_SOURCES.md": {
+    "sha256": "d2d54523c32ba126486ac12f4436f8eb852da498b1e3ff343c291ded225f701f",
+    "size": 32637
+  },
+  "source/freeze-owner-v7/game/cutscene/cutscene_player.gd": {
+    "sha256": "e04810ebeaf5a1fc39aca1852ae1fb673fe1da11c50160a4b16a3f0e94b2c37f",
+    "size": 40388
+  },
+  "source/freeze-owner-v7/game/player/weapon_light.gd": {
+    "sha256": "7ba0db482b70b756498d3cb54fef92cbf4a9dca302db97b45b3e20078bf73eb0",
+    "size": 5066
+  },
+  "source/freeze-owner-v7/tests/helpers/gameplay_lock_owner_checks.gd": {
+    "sha256": "68679bba12c6d32e0ee05982b1858412131006cf479e7cfb518a70c0ea94cb8e",
+    "size": 1545
+  },
+  "source/freeze-owner-v7/tests/suite/test_cutscene.gd": {
+    "sha256": "fc5153ed17440fc3a8b38f616879be913ce8991d9b6d8506ba31672228c3889e",
+    "size": 77810
+  },
+  "source/freeze-owner-v7/tests/suite/test_exposure.gd": {
+    "sha256": "fceacb24cc3ab62f6b5ff8633a004c1ce077601348b4600ba4b0d1a89e7cbefa",
+    "size": 26594
+  },
+  "source/freeze-owner-v7/ui/dialogue_layer.gd": {
+    "sha256": "4ec5415cd1f2de374dc9f356f3b2c90f2ba1c09dde2537128ea9a9866cb5e62b",
+    "size": 24773
+  },
+  "source/freeze-owner-v7/work/ne258-light-owner-20261117/owner_probe.gd": {
+    "sha256": "dca94c7408d1a226aaa1e98999518cbb2b74738e14ac3edbcf39844831212eea",
+    "size": 15584
+  },
+  "source/freeze-owner-v7/work/ne258-light-owner-20261117/owner_probe.tscn": {
+    "sha256": "f7bab5fd7d93a7ce42ee3ad3b30cf72835996f6c46ec34206bf73c1539869863",
+    "size": 199
+  },
+  "source/freeze-owner-v7/work/ne258-light-owner-20261117/run_owner.py": {
+    "sha256": "9a43fcb39fa67bcadd0253af194fe9ff68fdc26cd670de4c1ddecd3383a82499",
+    "size": 2794
+  },
+  "source/freeze-owner-v7.json": {
+    "sha256": "133c52bfc919a183144fa795e3af3734bda81f4ec9c423d056cf4eb22aed06f2",
+    "size": 1797
+  },
+  "source/freeze-wall-v4/autoload/event_bus.gd": {
+    "sha256": "8c0c7c118e8fadb0529fc8972b03c3c292e29058520f9750650f2a4398cb7d2d",
+    "size": 3747
+  },
+  "source/freeze-wall-v4/autoload/gameplay_lock.gd": {
+    "sha256": "480186ea7a8ec02ea61836b528b6bc30266add801b9c6222e3b18480bf994257",
+    "size": 3971
+  },
+  "source/freeze-wall-v4/core/light_kit.gd": {
+    "sha256": "b90bcadfaddea6da835d53d8276581aa958969bad63db06bbcc2af666b8389d0",
+    "size": 16359
+  },
+  "source/freeze-wall-v4/design/08-lighting/LIGHT_SOURCES.md": {
+    "sha256": "f7a95b66e6cd5be34f54b17b5cc3f9db7487d54b68bf83469bb3b1df0b0b1423",
+    "size": 33207
+  },
+  "source/freeze-wall-v4/game/cutscene/cutscene_player.gd": {
+    "sha256": "e04810ebeaf5a1fc39aca1852ae1fb673fe1da11c50160a4b16a3f0e94b2c37f",
+    "size": 40388
+  },
+  "source/freeze-wall-v4/game/level/environment/prop_node.gd": {
+    "sha256": "14c2026fd39aea4a37bc928979308bdd616e223976f0452e364cd09e628e13cc",
+    "size": 8257
+  },
+  "source/freeze-wall-v4/game/level/terrain.gd": {
+    "sha256": "f8c85c23db14e673051e1d1d9823dabdea9578444731e08525ded2c7440b6e8d",
+    "size": 15405
+  },
+  "source/freeze-wall-v4/game/player/weapon_light.gd": {
+    "sha256": "7ba0db482b70b756498d3cb54fef92cbf4a9dca302db97b45b3e20078bf73eb0",
+    "size": 5066
+  },
+  "source/freeze-wall-v4/game/props/gate.gd": {
+    "sha256": "76b4dd0c51766c0d80ce92db495eab0cd62c37ed9563d433d0691a2671ab2690",
+    "size": 4338
+  },
+  "source/freeze-wall-v4/tests/helpers/gameplay_lock_owner_checks.gd": {
+    "sha256": "68679bba12c6d32e0ee05982b1858412131006cf479e7cfb518a70c0ea94cb8e",
+    "size": 1545
+  },
+  "source/freeze-wall-v4/tests/helpers/weapon_light_occlusion_checks.gd": {
+    "sha256": "25aa716c5ccec3f7cf29a8a0603fdfc8505c8c43d7f6bee4d273b0173ffa1630",
+    "size": 4740
+  },
+  "source/freeze-wall-v4/tests/suite/test_cutscene.gd": {
+    "sha256": "fc5153ed17440fc3a8b38f616879be913ce8991d9b6d8506ba31672228c3889e",
+    "size": 77810
+  },
+  "source/freeze-wall-v4/tests/suite/test_exposure.gd": {
+    "sha256": "bbe3632db94d9af77c32e659fa20d0635e9b495fe03b1216aba918ac4c32b98f",
+    "size": 26675
+  },
+  "source/freeze-wall-v4/ui/dialogue_layer.gd": {
+    "sha256": "4ec5415cd1f2de374dc9f356f3b2c90f2ba1c09dde2537128ea9a9866cb5e62b",
+    "size": 24773
+  },
+  "source/freeze-wall-v4/work/ne258-light-owner-20261117/owner_probe.gd": {
+    "sha256": "dca94c7408d1a226aaa1e98999518cbb2b74738e14ac3edbcf39844831212eea",
+    "size": 15584
+  },
+  "source/freeze-wall-v4/work/ne258-light-owner-20261117/owner_probe.tscn": {
+    "sha256": "f7bab5fd7d93a7ce42ee3ad3b30cf72835996f6c46ec34206bf73c1539869863",
+    "size": 199
+  },
+  "source/freeze-wall-v4/work/ne258-light-owner-20261117/run_owner.py": {
+    "sha256": "9a43fcb39fa67bcadd0253af194fe9ff68fdc26cd670de4c1ddecd3383a82499",
+    "size": 2794
+  },
+  "source/freeze-wall-v4/work/ne258-light-owner-20261117/run_wall.py": {
+    "sha256": "80026c06848f32da1f3924e7dd7a0589511cd935c8738513cd43ba6b51aeb31f",
+    "size": 2997
+  },
+  "source/freeze-wall-v4/work/ne258-light-owner-20261117/verify_wall.py": {
+    "sha256": "661189aa90994721fe3de76598ace31b84f0c7daa1b273aed51a24a1727cb5c3",
+    "size": 2803
+  },
+  "source/freeze-wall-v4/work/ne258-light-owner-20261117/wall_probe.gd": {
+    "sha256": "b085bf9695067c14343e3622774ab5f0e14c3071d7e2e0ad76d0e71711ff2ffe",
+    "size": 4866
+  },
+  "source/freeze-wall-v4/work/ne258-light-owner-20261117/wall_probe.tscn": {
+    "sha256": "c9c932c8d0a1959687524cdd5e9721025778d12fa353c4123e0e8e1e8afe344d",
+    "size": 203
+  },
+  "source/freeze-wall-v4.json": {
+    "sha256": "f8777a284de5df10bb65fd7976c01c8e80ac67815a87931a803fa8ae7aca1696",
+    "size": 3160
+  },
+  "source/freeze.py": {
+    "sha256": "4ff34b30fd5825a344878fb3ed8669aeab138d947538c241c71f22ba721cab5e",
+    "size": 1304
+  },
+  "source/freeze_wall.py": {
+    "sha256": "85d0946f440284f81203fa8e0f8fda98f7b852ce451d3690149b989d0f2185b6",
+    "size": 1190
+  },
+  "source/LOCK-AUDIT.md": {
+    "sha256": "b3e6f886d1015c5aa5db45857093c32b5ffaa23388824342e4bff23109b2fd1c",
+    "size": 6712
+  },
+  "source/lock_identity_probe.gd": {
+    "sha256": "c3f61433a235f80af0137be1e108996bbab4f2d0e18a3e78eb6b6aa45a4657e2",
+    "size": 970
+  },
+  "source/lock_suite_probe.gd": {
+    "sha256": "fdb6197acaa900f28283d170e27885da5d72749e9d6336c14bdc8a88c5016228",
+    "size": 508
+  },
+  "source/lock_suite_probe.tscn": {
+    "sha256": "76b34b4a53fedcb55025cd84a625fd9baca42987d203b8d65b843cebd0ce4686",
+    "size": 203
+  },
+  "source/original-source/autoload/gameplay_lock.gd": {
+    "sha256": "9efdc042fe0efd430df2a87ff30be326db1ab2d0aa4ea39f921907301437e42c",
+    "size": 3872
+  },
+  "source/original-source/autoload/input_bindings.gd": {
+    "sha256": "a3da67e4ecdd0d2d9972c7f0c738ae648f10493a9241c571080bf0a16886944e",
+    "size": 31918
+  },
+  "source/original-source/autoload/story.gd": {
+    "sha256": "bbef24654f123296bb130538fe3d7ffedf0ac0fb3cb767e991d4ccb4df0f214b",
+    "size": 66228
+  },
+  "source/original-source/autoload/transition.gd": {
+    "sha256": "88c75e70224d796849e9661e475831aa6974dfc2e3d2e7decffd77ef9d4ca85e",
+    "size": 7870
+  },
+  "source/original-source/core/light_kit.gd": {
+    "sha256": "d8ee9b71a5144dda7fb2a75e15834ab7fefcd96d44c7a2a6c3c036c7b2649eed",
+    "size": 14531
+  },
+  "source/original-source/core/light_quality.gd": {
+    "sha256": "7a3527f88b75a7c36583abfc916ff04984e3ff04a8d9faa95509e479bbd3f37f",
+    "size": 2590
+  },
+  "source/original-source/game/channel_completion.gd": {
+    "sha256": "42e96e06e92c9cff93f22dcd9ca645a1f8055f029f5c68967b38dd2796dc9c71",
+    "size": 15245
+  },
+  "source/original-source/game/cutscene/cutscene_player.gd": {
+    "sha256": "2004fc83a1c061e99ecb3cff7a256e6c938be1129ee54abd2e700815d9ab8331",
+    "size": 40353
+  },
+  "source/original-source/game/enemies/stalker.gd": {
+    "sha256": "8aecbb523ae6c8a8acea33210b56807539d65c855758e1ef1818a1a21f31f555",
+    "size": 6300
+  },
+  "source/original-source/game/main.gd": {
+    "sha256": "3a84f70a6b21ec91d9cba16eae9dea4d5897716729bac01a870a41ac8328b3d2",
+    "size": 28002
+  },
+  "source/original-source/game/player/player.gd": {
+    "sha256": "399d44009fef7c7c330c2c3018c46c3868271a10770525f7bfac0459c30752ca",
+    "size": 50123
+  },
+  "source/original-source/game/player/weapon_light.gd": {
+    "sha256": "44562c4693153a4f0d91be2c2aa3a915e72667fb8305b308ec1cf85890fdf8dd",
+    "size": 4933
+  },
+  "source/original-source/game/skip_completion.gd": {
+    "sha256": "c8ae3e6e01ab25c16f09d0fc2b433a785731da226961903efbde109441d4a013",
+    "size": 5567
+  },
+  "source/original-source/game/story_flag_completion.gd": {
+    "sha256": "6fa83e40855c3005e136c6324206d49321786287c69a912e82ccdc073d156cb3",
+    "size": 12522
+  },
+  "source/original-source/game/story_result_completion.gd": {
+    "sha256": "92be5123c438f662eebc5ec16dbccf5367540b19a26bc2d517995b3316a6192f",
+    "size": 32071
+  },
+  "source/original-source/game/training_completion.gd": {
+    "sha256": "fa06b27dbcdf3601636c68cded8bc76f34f8a20cbccc30e6fb60d09891c462b4",
+    "size": 5837
+  },
+  "source/original-source/game/vehicles/vehicle.gd": {
+    "sha256": "bf008eb55ad742e6f17eb74615b7ffa0171cb19438e5a31f4c9727d9ce56f9fc",
+    "size": 9350
+  },
+  "source/original-source/game/world_item_completion.gd": {
+    "sha256": "b3c00a91df63f628a9dde856e5d02786e719ea919f3dba4b4f0a128b3225ae99",
+    "size": 8622
+  },
+  "source/original-source/tests/suite/test_exposure.gd": {
+    "sha256": "fa7401af59b67bc678c0d886a7890f805af15d14812edd97fecd0be3a7843a9e",
+    "size": 23259
+  },
+  "source/original-source/tools/contrast_probe.gd": {
+    "sha256": "7620b2fa090cd67d7407908f78e94492cc4164114ff9808199fd096aa0ef5b9a",
+    "size": 5858
+  },
+  "source/original-source/tools/test_contrast_probe_geometry.gd": {
+    "sha256": "777cb68ea11df5d62eec59a0c17c23e057fa78a3e37cfcc7b85a96319acf3499",
+    "size": 9445
+  },
+  "source/original-source/tools/weapon_light_probe.gd": {
+    "sha256": "925406ccbd391196ca6baa9ffde29932a356dbc1ca8d6764093a98f4c9c26895",
+    "size": 9268
+  },
+  "source/original-source/ui/chapter_card.gd": {
+    "sha256": "fd5b5fa36052b9e0853da38616278d638734959c7985646eee81a2b691350c86",
+    "size": 4578
+  },
+  "source/original-source/ui/dialogue_layer.gd": {
+    "sha256": "85680e1db1f82524b5aa7e1f2930c8074e1ca1fa9aa27a8aa01757a8fa1bb7ff",
+    "size": 24738
+  },
+  "source/original-source-hashes.json": {
+    "sha256": "c13dacd5ee9d10842ed87222328ff8e7d39a1815d2b3da0fbab00aad30bf7b34",
+    "size": 2388
+  },
+  "source/OWNER-RESULTS.md": {
+    "sha256": "c334cdbd8e3aeeb850a6bf412560bb010f271df5b6f3307b0c96025b31f333ff",
+    "size": 5457
+  },
+  "source/owner_probe.gd": {
+    "sha256": "dca94c7408d1a226aaa1e98999518cbb2b74738e14ac3edbcf39844831212eea",
+    "size": 15584
+  },
+  "source/owner_probe.tscn": {
+    "sha256": "f7bab5fd7d93a7ce42ee3ad3b30cf72835996f6c46ec34206bf73c1539869863",
+    "size": 199
+  },
+  "source/owner_probe.v1.gd.txt": {
+    "sha256": "a71ce141f46650a80e2e28503c1edc0e1fb7e67415e04448bbb8760091637ac7",
+    "size": 7758
+  },
+  "source/owner_probe.v2.gd.txt": {
+    "sha256": "1ae499bcc785b1e266f72348659ce9c06a7a0566747a4ca87380132fea74eae2",
+    "size": 8683
+  },
+  "source/owner_probe.v3.gd.txt": {
+    "sha256": "f1cf9bbe977a59d9e9b1677bb2b8a0d60a37052e25afc0050506be665d2f571a",
+    "size": 10811
+  },
+  "source/owner_probe.v4.gd.txt": {
+    "sha256": "977ef990ef46d5c430c08a8bdcfb595d3d74b99afbe530b8133e6c71bd2dc054",
+    "size": 11220
+  },
+  "source/package_owner_wall.py": {
+    "sha256": "861431a4f755459ca7589dca9e3f2a9918449a7a5e8c4ce3bcdfd2de1d7b9655",
+    "size": 1660
+  },
+  "source/run_cpu.py": {
+    "sha256": "5c78ad876d2d587ccda739b37ada8d34011a47914538f0de5687b2dc8ac97939",
+    "size": 3838
+  },
+  "source/run_owner.py": {
+    "sha256": "9a43fcb39fa67bcadd0253af194fe9ff68fdc26cd670de4c1ddecd3383a82499",
+    "size": 2794
+  },
+  "source/run_owner.v1.py.txt": {
+    "sha256": "66da5c7f7d4f181fce733d06f5bc853ed74474c146a71f509ca35b24fa40a354",
+    "size": 1831
+  },
+  "source/run_wall.py": {
+    "sha256": "80026c06848f32da1f3924e7dd7a0589511cd935c8738513cd43ba6b51aeb31f",
+    "size": 2997
+  },
+  "source/verify_wall.py": {
+    "sha256": "661189aa90994721fe3de76598ace31b84f0c7daa1b273aed51a24a1727cb5c3",
+    "size": 2803
+  },
+  "source/verify_wall.v1.py.txt": {
+    "sha256": "512d0f8870ed593feb152032c6eb28e586e70f89f01d762a6e60afe1da17faf2",
+    "size": 2125
+  },
+  "source/WALL-PLAN.md": {
+    "sha256": "6d86bfdaa91362e3c5a51b40eb0811bf7fa99bce023108ed40fcce29423223a2",
+    "size": 4665
+  },
+  "source/wall-verification-v2.json": {
+    "sha256": "6b973360cc01c02f035e0e1ff43e92957eb839367c6ff4e5c285cea8a891d107",
+    "size": 3347
+  },
+  "source/wall-verification-v4.json": {
+    "sha256": "09e4d6fa191cb1a00666eb33f0f38c05836ce0c47a9e67a91a01d795b994670e",
+    "size": 4346
+  },
+  "source/wall_probe.gd": {
+    "sha256": "b085bf9695067c14343e3622774ab5f0e14c3071d7e2e0ad76d0e71711ff2ffe",
+    "size": 4866
+  },
+  "source/wall_probe.tscn": {
+    "sha256": "c9c932c8d0a1959687524cdd5e9721025778d12fa353c4123e0e8e1e8afe344d",
+    "size": 203
+  }
+}

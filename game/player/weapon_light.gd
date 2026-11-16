@@ -38,6 +38,8 @@ func _ready() -> void:
 	_sight_ray.enabled = false
 	add_child(_sight_ray)
 	LightKit.mark_emissive(self)
+	# The owning Player stops processing during a presentation; stop before that pause.
+	EventBus.cinematic_started.connect(extinguish)
 
 
 ## 換成這把武器的光。沒有槍燈的武器（近戰、載具武器、light_range 為 0）會把光關掉。
