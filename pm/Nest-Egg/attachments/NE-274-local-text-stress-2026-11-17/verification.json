@@ -1,0 +1,159 @@
+{
+  "negative_control": {
+    "actual": 13,
+    "base": 11,
+    "effective": 1.2,
+    "passed": false,
+    "requested": 1.5,
+    "required": 17,
+    "scope": "Original public-setter/label path only, not native character capture"
+  },
+  "self_check": {
+    "candidate": {
+      "actual_font_sizes": [
+        17
+      ],
+      "actual_renderer_ratios": [
+        1.54545454545455
+      ],
+      "base_font_size": 11,
+      "effective_setting_scale": 1.2,
+      "expected_font_size": 17,
+      "font_sizes_match": true,
+      "local_font_override": true,
+      "requested_scale": 1.5
+    },
+    "original_without_override": {
+      "actual_font_sizes": [
+        13
+      ],
+      "actual_renderer_ratios": [
+        1.18181818181818
+      ],
+      "base_font_size": 11,
+      "effective_setting_scale": 1.2,
+      "expected_font_size": 17,
+      "font_sizes_match": false,
+      "local_font_override": false,
+      "requested_scale": 1.5
+    },
+    "passed": true,
+    "self_check": true
+  },
+  "receipts": [
+    {
+      "tag": "original-negative",
+      "exit_code": 1
+    },
+    {
+      "tag": "self-check",
+      "exit_code": 0
+    },
+    {
+      "tag": "normal",
+      "exit_code": 0
+    },
+    {
+      "tag": "large",
+      "exit_code": 0
+    },
+    {
+      "tag": "reduced",
+      "exit_code": 0
+    }
+  ],
+  "native": [
+    {
+      "tag": "normal",
+      "speakers": 5,
+      "main_captures": 15,
+      "label_font_sizes": [
+        11,
+        11,
+        11
+      ],
+      "renderer_ratio": 1.0,
+      "min_contrast": 16.172083057237387,
+      "max_contrast": 16.172083057237387,
+      "long_to_short": {
+        "long_height": 69.0,
+        "short_height": 53.0
+      },
+      "decoration": []
+    },
+    {
+      "tag": "large",
+      "speakers": 5,
+      "main_captures": 15,
+      "label_font_sizes": [
+        17,
+        17,
+        17
+      ],
+      "renderer_ratio": 1.5454545454545454,
+      "min_contrast": 16.172083057237387,
+      "max_contrast": 16.172083057237387,
+      "long_to_short": {
+        "long_height": 121.0,
+        "short_height": 65.0
+      },
+      "decoration": []
+    },
+    {
+      "tag": "reduced",
+      "speakers": 5,
+      "main_captures": 15,
+      "label_font_sizes": [
+        11,
+        11,
+        11
+      ],
+      "renderer_ratio": 1.0,
+      "min_contrast": 16.172083057237387,
+      "max_contrast": 16.172083057237387,
+      "long_to_short": {
+        "long_height": 69.0,
+        "short_height": 53.0
+      },
+      "decoration": [
+        {
+          "speaker": "rin",
+          "two_regions_two_frames_byte_identical": true
+        },
+        {
+          "speaker": "old_k",
+          "two_regions_two_frames_byte_identical": true
+        },
+        {
+          "speaker": "mei",
+          "two_regions_two_frames_byte_identical": true
+        },
+        {
+          "speaker": "system",
+          "two_regions_two_frames_byte_identical": true
+        },
+        {
+          "speaker": "unknown",
+          "two_regions_two_frames_byte_identical": true
+        }
+      ]
+    }
+  ],
+  "archive_sha256": "ec491c975ea114a15952bd27be35ddd2ede342c43eb460e2e81d3de2aba36dbd",
+  "members_verified": 230,
+  "historical": [
+    {
+      "version": "v1",
+      "failures_preserved": 5,
+      "same_decoration_pixel_hash_samples": 2,
+      "scope": "Historical capture/checker arrangement, not product animation failure count"
+    },
+    {
+      "version": "v2",
+      "failures_preserved": 2,
+      "same_decoration_pixel_hash_samples": 5,
+      "scope": "Historical capture/checker arrangement, not product animation failure count"
+    }
+  ],
+  "historical_parse_error_preserved": true
+}

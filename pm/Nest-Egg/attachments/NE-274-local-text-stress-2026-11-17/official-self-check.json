@@ -1,0 +1,32 @@
+{
+	"candidate": {
+		"actual_font_sizes": [
+			17
+		],
+		"actual_renderer_ratios": [
+			1.54545454545455
+		],
+		"base_font_size": 11,
+		"effective_setting_scale": 1.2,
+		"expected_font_size": 17,
+		"font_sizes_match": true,
+		"local_font_override": true,
+		"requested_scale": 1.5
+	},
+	"original_without_override": {
+		"actual_font_sizes": [
+			13
+		],
+		"actual_renderer_ratios": [
+			1.18181818181818
+		],
+		"base_font_size": 11,
+		"effective_setting_scale": 1.2,
+		"expected_font_size": 17,
+		"font_sizes_match": false,
+		"local_font_override": false,
+		"requested_scale": 1.5
+	},
+	"passed": true,
+	"self_check": true
+}

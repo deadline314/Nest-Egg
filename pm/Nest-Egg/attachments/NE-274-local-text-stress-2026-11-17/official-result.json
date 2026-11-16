@@ -1,0 +1,19 @@
+{
+  "base": "d1224e2ed9bbcd5de050d55305d39f7fb366c063",
+  "tool_sha256": "c7dff8ef0aca5590e46e2c48ebee5f6f0d9ea1d21c4cce05e7587de4be63d090",
+  "changed_selector_exit": 0,
+  "changed_game_suites": 0,
+  "related_widget_suites": [
+    "CombatHudSuite",
+    "UiScreensSuite"
+  ],
+  "checks": 603,
+  "new_failures": 0,
+  "known_failures": 0,
+  "exit": 0,
+  "wall_seconds": 59,
+  "self_check_exit": 0,
+  "omit_override_control_exit": 1,
+  "no_script_errors": true,
+  "note": "Tool negative source reconstructed with the exact logged single-line replacement and matches the actual producer source SHA. Related widget logs retain deliberate missing-actor fault diagnostics; not a zero-ERROR game-log claim."
+}
