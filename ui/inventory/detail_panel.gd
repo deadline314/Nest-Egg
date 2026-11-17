@@ -24,6 +24,9 @@ var _stats: VBoxContainer
 var _body: Label
 var _empty: Label
 var _content: VBoxContainer
+var _layout: VBoxContainer
+var _scroll: ScrollContainer
+var _scroll_hint: Label
 var _action: Button
 var _tween: Tween
 var _action_hint := ""
@@ -33,9 +36,18 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	for side in ["left", "right", "top", "bottom"]:
 		add_theme_constant_override("margin_" + side, 12)
+	_layout = VBoxContainer.new()
+	_layout.add_theme_constant_override(&"separation", 8)
+	add_child(_layout)
+	_scroll = ScrollContainer.new()
+	_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	_layout.add_child(_scroll)
 	_content = VBoxContainer.new()
+	_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_content.add_theme_constant_override(&"separation", 8)
-	add_child(_content)
+	_scroll.add_child(_content)
 	var column := _content
 
 	var header := VBoxContainer.new()
@@ -76,13 +88,19 @@ func _ready() -> void:
 	_body.custom_minimum_size = Vector2(BODY_MIN_WIDTH, 0)
 	_body.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	column.add_child(_body)
+	_scroll_hint = UiKit.caption("", Palette.UI_MUTED)
+	_scroll_hint.hide()
+	_layout.add_child(_scroll_hint)
 
 	_action = UiKit.button("", _on_action, "")
 	_action.custom_minimum_size = Vector2(150, 0)
 	_action.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	_action.focus_mode = Control.FOCUS_NONE
 	_action.mouse_entered.connect(func() -> void: action_hovered.emit(_action_hint))
-	column.add_child(_action)
+	_layout.add_child(_action)
+	ScrollCue.attach(_scroll).overflow_changed.connect(func(below: bool, above: bool) -> void: _scroll_hint.visible = below or above)
+	InputBindings.bindings_changed.connect(_refresh_scroll_hint)
+	_refresh_scroll_hint()
 
 	_empty = UiKit.label("", 11, Palette.UI_MUTED, HORIZONTAL_ALIGNMENT_CENTER)
 	_empty.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
@@ -90,6 +108,7 @@ func _ready() -> void:
 	_empty.custom_minimum_size = Vector2(BODY_MIN_WIDTH, 0)
 	add_child(_empty)
 	_content.visible = false
+	_layout.visible = false
 
 
 func _draw() -> void:
@@ -101,8 +120,10 @@ func show_entry(entry: InventoryEntry, empty_text := "", animate := true) -> voi
 	_empty.text = empty_text
 	_empty.visible = entry == null
 	_content.visible = entry != null
+	_layout.visible = entry != null
 	if entry == null:
 		return
+	_scroll.scroll_vertical = 0
 	_plate.show_icon(entry.detail_icon if entry.detail_icon != null else entry.icon, 1 if entry.detail_icon != null else entry.detail_icon_scale, entry.accent, entry.dimmed, entry.detail_icon != null)
 	_title.text = entry.title
 	_title.tooltip_text = entry.title
@@ -132,14 +153,31 @@ func _pop_in() -> void:
 		_tween.kill()
 	if Settings.get_reduce_ui_motion():
 		_plate.scale = Vector2.ONE
-		_content.modulate.a = 1.0
+		_layout.modulate.a = 1.0
 		return
 	_plate.pivot_offset = PLATE * 0.5
 	_plate.scale = Vector2.ONE * POP_FROM
-	_content.modulate.a = FADE_FROM
+	_layout.modulate.a = FADE_FROM
 	_tween = create_tween().set_parallel(true)
 	_tween.tween_property(_plate, "scale", Vector2.ONE, POP_TIME).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	_tween.tween_property(_content, "modulate:a", 1.0, POP_TIME)
+	_tween.tween_property(_layout, "modulate:a", 1.0, POP_TIME)
+
+
+func _refresh_scroll_hint() -> void:
+	var keys := InputBindings.format("{aim_up}/{aim_down}") if InputBindings.using_gamepad else "PgUp/PgDn"
+	_scroll_hint.text = ("%s 詳細" if Story.language == "ja" else "%s Details" if Story.language == "en" else "%s 詳情") % keys
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not _content.is_visible_in_tree() or GameplayLock.is_locked():
+		return
+	# A focused sibling reader/modal owns its input; never scroll behind it.
+	var focus := get_viewport().gui_get_focus_owner()
+	if focus != null and not is_ancestor_of(focus):
+		return
+	var direction := 1 if event.is_action_pressed(&"ui_page_down") or event.is_action_pressed(&"aim_down") else -1 if event.is_action_pressed(&"ui_page_up") or event.is_action_pressed(&"aim_up") else 0
+	if direction != 0 and ScrollCue.step(_scroll, direction):
+		get_viewport().set_input_as_handled()
 
 
 func _on_action() -> void:

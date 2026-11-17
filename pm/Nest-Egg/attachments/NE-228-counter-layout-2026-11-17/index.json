@@ -1,0 +1,132 @@
+{
+  "format": 1,
+  "archives": [
+    {
+      "path": "history-v1.tar.xz",
+      "size": 21785740,
+      "sha256": "c45e9b202b5fef8ce00ce18df3fae64da4823bd50aa51b8ac9571409ed82044a",
+      "members": "history-v1.members.json",
+      "members_sha256": "2040f7322fed8b93b642a3dec8a4dd00480b2fdd7d04285027c0886ae0ea60ba",
+      "member_count": 7750,
+      "role": "history-v1"
+    },
+    {
+      "path": "history-v3.tar.xz",
+      "size": 22334000,
+      "sha256": "c08a28d24a59431e8fb995383619f8595e5ea1df3dfbd5cb86f4a962d60fb87b",
+      "members": "history-v3.members.json",
+      "members_sha256": "f9f37bc391fea10c15d8543bf4f140bb1eaaae720b7ec4a382c595da06341e5a",
+      "member_count": 7750,
+      "role": "history-v3"
+    },
+    {
+      "path": "controls.tar.xz",
+      "size": 16024976,
+      "sha256": "a543a64b493f43c3f9ec84ff2cecaa4a455f698eed54c139461f5f01e231d17b",
+      "members": "controls.members.json",
+      "members_sha256": "72681c3eb8a847249ae12e5b742aff519d60c745865208b0382204ed826b9db4",
+      "member_count": 6225,
+      "role": "controls"
+    },
+    {
+      "path": "history-v5.tar.xz",
+      "size": 22131812,
+      "sha256": "d0ca7dc43e75544bcbf568d28ba6ecbd277d0ad8128f76ad46c81b16278a61cf",
+      "members": "history-v5.members.json",
+      "members_sha256": "7da842ca3d2a0e6871d9009fa8af658a243c7c2fc4d31ce8f06fdad62cd0f200",
+      "member_count": 7750,
+      "role": "history-v5"
+    },
+    {
+      "path": "final-1080.tar.xz",
+      "size": 39851976,
+      "sha256": "a32dd19b35aa8b811862f6bffe205084016602d46f1f72116b6a8b420b80d6d1",
+      "members": "final-1080.members.json",
+      "members_sha256": "b05f57dccb8b0d3afc21f9202f6814d49c887aedd899e21bd41c24d9193c443e",
+      "member_count": 3176,
+      "role": "final-1080"
+    },
+    {
+      "path": "final-720.tar.xz",
+      "size": 24396900,
+      "sha256": "b0b494ac1d1809a6c608fa83cea642769a14bb3922b4e1e1030470319bc074e7",
+      "members": "final-720.members.json",
+      "members_sha256": "b5c2d67b68601c1d86ef3cba0f4a25a194345bb4d5fdb3dec91dda07632aacad",
+      "member_count": 3176,
+      "role": "final-720"
+    },
+    {
+      "path": "final-wide.tar.xz",
+      "size": 22077908,
+      "sha256": "8c2abca16ff5a42071da77e604bbd8c0dcf944741e5773129b02d15888705439",
+      "members": "final-wide.members.json",
+      "members_sha256": "ac238ca2b95ad24b5bfd8c4b43038fbd4601e477203eead6eabe30bba5bb13ab",
+      "member_count": 1589,
+      "role": "final-wide"
+    },
+    {
+      "path": "public-flow.tar.xz",
+      "size": 10524688,
+      "sha256": "7e1a919ab3ca813d9e1fc4f519e1466bc174650492a4b66a04090305158d18d9",
+      "members": "public-flow.members.json",
+      "members_sha256": "1378d9d072afe146f5908f31fa9937a1c0719b3f0f0b8aca4b06966806a6f588",
+      "member_count": 3124,
+      "role": "public-flow"
+    },
+    {
+      "path": "pixel.tar.xz",
+      "size": 15492972,
+      "sha256": "e3b522d94bccdc47f04d38a91281414fb9e81051753c4f134cff9ea92624fa27",
+      "members": "pixel.members.json",
+      "members_sha256": "f106a453fa9518db733d06df3de371cc321618af9e0a3948884df999921b57ba",
+      "member_count": 1588,
+      "role": "pixel"
+    },
+    {
+      "path": "official.tar.xz",
+      "size": 740800,
+      "sha256": "28f0f5c5880998fe86d6d0f065f102a1c20a7683edf15b41474ae7d081fd4fa9",
+      "members": "official.members.json",
+      "members_sha256": "b5248da1af8801c9f5e5b0260bbd6a0f23866a6272535a02772e667fc6e7c8d9",
+      "member_count": 34,
+      "role": "official"
+    },
+    {
+      "path": "work-source.tar.xz",
+      "size": 40960,
+      "sha256": "806ccaf477063af6cf57a6d52bfbd0a08e01522307278e4cbd582bf0e60aa54d",
+      "members": "work-source.members.json",
+      "members_sha256": "9e8833ea9d57400ed5ad42554ee4d51b2db55837c140b16a61d61b2b28a618d3",
+      "member_count": 71,
+      "role": "work-source"
+    },
+    {
+      "path": "review-contacts.tar.xz",
+      "size": 21472876,
+      "sha256": "af04415cf31320f43474bc876a11f555941f33d80b270e9a59e2950c3f8d5196",
+      "members": "review-contacts.members.json",
+      "members_sha256": "b02ca0bb4d5d3d315351757eff83affa1dc77b5457a2ab31ba8c3ae3a6e990a8",
+      "member_count": 36,
+      "role": "review-contacts"
+    },
+    {
+      "path": "stats-validation.tar.xz",
+      "size": 46190076,
+      "sha256": "00231ed87e730dc972e9a5d59f8e522fed449206e37a110d17a9e1a6feaa5141",
+      "members": "stats-validation.members.json",
+      "members_sha256": "e077670c52cc48dfd0b64d4ebe0e4ccd62f9ef50cff02e2441d16f219f2279e2",
+      "member_count": 6298,
+      "role": "stats-validation"
+    }
+  ],
+  "omitted_historical_png_inventory": "omitted-historical-png.json",
+  "candidate_files": {
+    "ui/inventory/inventory_screen.gd": "687c3e407ec13046984b5eb967714631c5979c6776e9bae03c1c2e598908e58e",
+    "ui/inventory/detail_panel.gd": "dad004c00ba48754455fccf959292e86c819aa86b9c408abbd6e0a7be068454a",
+    "tests/suite/test_ui_screens.gd": "bb0cdff1eca8c0732c6713a95afb8e45e696c52801c3978452de19850feafaec",
+    "tests/helpers/inventory_layout_checks.gd": "07501a88f8660d13ca209dd1b92a239d0d29fe602afaa65889ff6453167a1aee"
+  },
+  "profile_policy": "APPDATA/LOCALAPPDATA/save/profile contents excluded; logs retain original path strings only",
+  "accepted_native": "five smooth v6 configurations (210 states) + supplemental pixel v6 (42 states), six reading-end originals, plus two original public synthetic CLI flows (28 PNG/76 checks); never physical or human acceptance",
+  "omitted_inventory_sha256": "1ecc6466f46feb3131da89f9dabd07962611aa14a315d8693bb94db8dfe75223"
+}

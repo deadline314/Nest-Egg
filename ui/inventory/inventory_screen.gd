@@ -35,6 +35,7 @@ var _pages: Array[InventoryPage] = []
 var _current := 0
 var _root: Control
 var _frame: Control
+var _title: Label
 var _scan: ColorRect
 var _tabs: HBoxContainer
 var _tab_buttons: Array[Button] = []
@@ -188,14 +189,15 @@ func _build_layout() -> void:
 	_root.add_child(_frame)
 	_frame.resized.connect(func() -> void: _frame.pivot_offset = _frame.size * 0.5)
 
-	var title := UiKit.label(_screen_title(), 18, Palette.CYAN)
-	title.position = Vector2(MARGIN.x, MARGIN.y + 2)
-	_frame.add_child(title)
+	_title = UiKit.label(_screen_title(), 18, Palette.CYAN)
+	_title.position = Vector2(MARGIN.x, MARGIN.y + 2)
+	_frame.add_child(_title)
 
 	_tabs = HBoxContainer.new()
 	_tabs.position = Vector2(TABS_LEFT, MARGIN.y)
 	_tabs.add_theme_constant_override(&"separation", TAB_GAP)
 	_frame.add_child(_tabs)
+	_title.minimum_size_changed.connect(_layout_header)
 
 	_page_host = Control.new()
 	_page_host.position = Vector2(MARGIN.x, MARGIN.y + HEADER_HEIGHT + 8)
@@ -295,6 +297,18 @@ func _create_pages() -> void:
 	# 只有一個分頁（補給點）時不需要分頁標籤。
 	_tabs.visible = pages.size() > 1
 	_refresh_tab_labels()
+	_layout_header()
+
+
+## Counter names can be wider than the bag title, including after text-size changes.
+func _layout_header() -> void:
+	if _tab_buttons.is_empty():
+		return
+	_tabs.position.x = maxf(TABS_LEFT, _title.position.x + _title.get_combined_minimum_size().x + 12.0)
+	var available := maxf(0.0, 640.0 - _tabs.position.x - MARGIN.x - TAB_GAP * (_tab_buttons.size() - 1))
+	var width := minf(TAB_MAX_WIDTH, available / _tab_buttons.size())
+	for button in _tab_buttons:
+		button.custom_minimum_size.x = width
 
 
 func _refresh_tab_labels() -> void:
