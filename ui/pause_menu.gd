@@ -91,9 +91,47 @@ func _ready() -> void:
 	if not _navigation_warmed:
 		_open_navigation("quests")
 		if is_instance_valid(_navigation):
+			_refresh_info()
+			_warm_text(_root)
 			_navigation.free()
 			_navigation = null
 			_navigation_warmed = true
+
+
+## Hidden layout alone does not rasterize the viewport-sized glyphs used on first display.
+## This unparented canvas never reaches the screen; the Font owns its bounded startup cache.
+func _warm_text(root: Control) -> void:
+	var viewport := root.get_viewport()
+	var oversampling := 1.0
+	if viewport.is_using_oversampling():
+		oversampling = viewport.oversampling_override if viewport.oversampling_override > 0.0 else viewport.get_final_transform().get_scale().x
+	var canvas := RenderingServer.canvas_item_create()
+	if not canvas.is_valid():
+		push_warning("[PauseMenu] Cannot prepare journal glyphs: temporary canvas unavailable.")
+		return
+	for node in root.find_children("*", "Control", true, false):
+		var text := ""
+		if node is Label:
+			text = node.text
+		elif node is Button:
+			text = node.text
+		if text.is_empty():
+			continue
+		var control := node as Control
+		var font := control.get_theme_font(&"font")
+		var size := control.get_theme_font_size(&"font_size")
+		if font == null or size <= 0:
+			push_warning("[PauseMenu] Cannot prepare glyphs for %s: missing font or invalid size." % control.get_path())
+			continue
+		var line := text.replace("\n", " ")
+		font.draw_string(canvas, Vector2.ZERO, line, HORIZONTAL_ALIGNMENT_LEFT, -1, size, Color.WHITE,
+			TextServer.JUSTIFICATION_WORD_BOUND | TextServer.JUSTIFICATION_KASHIDA, TextServer.DIRECTION_AUTO, TextServer.ORIENTATION_HORIZONTAL, oversampling)
+		if control.has_theme_constant(&"outline_size") and control.get_theme_constant(&"outline_size") > 0 \
+				and control.has_theme_color(&"font_outline_color") and control.get_theme_color(&"font_outline_color").a > 0.0:
+			font.draw_string_outline(canvas, Vector2.ZERO, line, HORIZONTAL_ALIGNMENT_LEFT, -1, size,
+				control.get_theme_constant(&"outline_size"), Color.WHITE, TextServer.JUSTIFICATION_WORD_BOUND | TextServer.JUSTIFICATION_KASHIDA,
+				TextServer.DIRECTION_AUTO, TextServer.ORIENTATION_HORIZONTAL, oversampling)
+	RenderingServer.free_rid(canvas)
 
 
 func _on_bindings_changed() -> void:

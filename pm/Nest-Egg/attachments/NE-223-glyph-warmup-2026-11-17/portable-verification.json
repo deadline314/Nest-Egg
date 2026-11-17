@@ -1,0 +1,67 @@
+{
+  "archive_sha256": "fc95573b8ec84f4aaaf7241af897e43edad6284e59f87f295d260ad72cd3301b",
+  "members_verified": 2032,
+  "recomputation": {
+    "ne223-quiet-native": {
+      "gate_exit_code": 1,
+      "failed_raw_samples": [
+        {
+          "width": 1920,
+          "action": "journal",
+          "first_open": true,
+          "frame_ms": 41.839,
+          "input_ms": 15.797,
+          "round": 0
+        }
+      ]
+    },
+    "ne223-quiet-native-after": {
+      "gate_exit_code": 0,
+      "failed_raw_samples": []
+    }
+  },
+  "permanent_regression": {
+    "checks_each": 424,
+    "old_failures": 1,
+    "candidate_failures": 0
+  },
+  "glyph_diagnostic": {
+    "unprimed_33px": [
+      127,
+      200
+    ],
+    "primed_33px": [
+      199,
+      199
+    ],
+    "control_prime_source_equal": true,
+    "shared_timing_not_acceptance": true
+  },
+  "affected": {
+    "groups": [
+      "ApplyPanelSuite",
+      "Chapter1MapSuite",
+      "ClipEditorSuite",
+      "CombatHudSuite",
+      "CutsceneSuite",
+      "DevMenuSuite",
+      "QuestMapSuite",
+      "ReadabilityTargetsSuite",
+      "SoundLabSuite",
+      "SoundStageSuite",
+      "StageCoverageCharactersSuite",
+      "StageCoverageWeaponsSuite",
+      "StageCoverageWorldSuite",
+      "UiScreensSuite",
+      "main"
+    ],
+    "checks": 8436,
+    "members_verified": 17,
+    "source_files_held": 14478,
+    "new_failures": 0,
+    "known_failures": 0
+  },
+  "public_images_match_archived_originals": 7,
+  "world_frozen_rounds_each_resolution": 16,
+  "issues": []
+}

@@ -1,0 +1,20 @@
+{
+  "common_changed": {
+    "ui/pause_menu.gd": {
+      "before": "fb645188b77475eb9065866b899c0824615fa010abce339b1fe73b77e6e2c12e",
+      "after": "0dbeb47f25fdd933bdb03052acc97748132676259f4f0f487485dde63f804db9"
+    },
+    "game/level/camera_tuning.gd": {
+      "before": "b247b15222cebc7fb5c74e04e48f56d81cebbf748a055f71eeccc5afda5e21a3",
+      "after": "c2975c0d8fcb8d2556673b8c177536742d9b61fc4422713249d85ed13290e37c"
+    }
+  },
+  "only_before": [],
+  "only_after": [
+    "art/fonts/Cubic_11.ttf",
+    "art/fonts/NotoSansTC-Regular-subset.ttf",
+    "data/feel/camera.json",
+    "project.godot"
+  ],
+  "interpretation": "Each run held its own sources. Absolute final 33ms acceptance; quiet before/after includes parent camera source difference and is not a single-factor comparison."
+}

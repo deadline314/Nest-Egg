@@ -1,0 +1,75 @@
+{
+  "file": "official.tar.xz",
+  "size": 623028,
+  "sha256": "11c05b80b3a60535e894e45ba2cdf55a9c3f8886b5a0754be6d516bd300ef295",
+  "members": {
+    "caller/run_official.py": {
+      "size": 2702,
+      "sha256": "bc94844d7230ef0074237eeac06621a9c719d7c98088f856c7d707e88a9003d2"
+    },
+    "official/preparation.json": {
+      "size": 771,
+      "sha256": "6750d604ab8179d1c7a7da0aa4b1b58f3b28a8f0b7dca631b8065a1c0cc9b1cb"
+    },
+    "official/process-receipt.json": {
+      "size": 641,
+      "sha256": "8b12e67f02a08f641339e10f317bd31731283d8739f5ef50a707f25a09704bfa"
+    },
+    "official/run.sh": {
+      "size": 478,
+      "sha256": "76a2249a4874491e4eaa31902476c8d67505f715e1b64ea2bf6e3974b6c77daf"
+    },
+    "official/runner.log": {
+      "size": 809,
+      "sha256": "b8609cbcf5455a34c3316ed2eed8cf1bcd6e6c66d0785540228e0dae5b2e7414"
+    },
+    "official/shards/shard_0.log": {
+      "size": 12858,
+      "sha256": "d2b79da1edd6bbe637a3b3054b7d23e21059c8ce11f1eb695a036e795b4c8cf0"
+    },
+    "official/shards/shard_1.log": {
+      "size": 236076,
+      "sha256": "aa1341a4d08c42cd4f9642011e6d8d463c515556bf791eaac8c066375afe324b"
+    },
+    "official/source-after.json": {
+      "size": 2414781,
+      "sha256": "400114caf5725b360cac6e7fdc810170691a8ff87450f9a086d1bdf99ddbd60b"
+    },
+    "official/source-before.json": {
+      "size": 2414781,
+      "sha256": "400114caf5725b360cac6e7fdc810170691a8ff87450f9a086d1bdf99ddbd60b"
+    },
+    "official/status-after.txt": {
+      "size": 361,
+      "sha256": "48a14bb13e663abc71444c13a6e38d5096383099ed32278736423c6dec7e61f0"
+    },
+    "source/tests/known_failures.txt": {
+      "size": 381,
+      "sha256": "b1c97717a1a97d015dabbcbc71953d4eec383cbabe13967ee2f313101a84a3bf"
+    },
+    "source/tests/suite/test_quest_map.gd": {
+      "size": 52478,
+      "sha256": "846fa7a952fb9a79e803992d4414356f88fca3c57faa35a710fa5e7e5212a022"
+    },
+    "source/tools/run_tests_changed.sh": {
+      "size": 2430,
+      "sha256": "71bbbd76f1941fda43a4db6f061538a2ae37bcb77765674908a9957899b8f336"
+    },
+    "source/tools/run_tests_parallel.sh": {
+      "size": 4733,
+      "sha256": "0971fa76cae58c1e3758e38f3200d5fba0b252a81072f55177952232e333d8ba"
+    },
+    "source/tools/select_tests.py": {
+      "size": 10446,
+      "sha256": "07fe95c5c5f75f35e35ba70b9b3a4c801547f6c7213ae7a13de15ee3dc765c81"
+    },
+    "source/tools/test_filters.sh": {
+      "size": 1995,
+      "sha256": "509706b8257b8e46f6e8c01ebeda0ecd976b6607975f66430bd6774461500c80"
+    },
+    "source/ui/pause_menu.gd": {
+      "size": 12187,
+      "sha256": "0dbeb47f25fdd933bdb03052acc97748132676259f4f0f487485dde63f804db9"
+    }
+  }
+}

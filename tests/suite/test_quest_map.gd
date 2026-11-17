@@ -604,9 +604,23 @@ func _test_pause_warmup(level: Level) -> void:
 	focus.grab_focus()
 	var navigation := level.hud.quest_guidance.state
 	var before := var_to_bytes([GameState.world_flags, navigation.snapshot(), Progression.snapshot()])
+	# A fractional viewport scale gives this integration check a new physical glyph size.
+	var viewport := runner.get_viewport()
+	var old_oversampling := viewport.oversampling_override
+	var used_oversampling := viewport.is_using_oversampling()
+	viewport.set_use_oversampling(true)
+	viewport.oversampling_override = 3.125
+	var server := TextServerManager.get_primary_interface()
+	var font := UiKit.font().get_rids()[0]
+	var pixels := floori(UiKit.scaled_size(UiKit.FS_BODY) * viewport.oversampling_override)
+	var at_size := func(entry: Dictionary) -> bool: return entry["size_px"].x == pixels and entry["size_px"].y == 0 and entry["glyphs"] > 0
+	var before_sizes := server.font_get_size_cache_info(font).filter(at_size).size()
 	PauseMenu._navigation_warmed = false
 	var pause := PauseMenu.new()
 	level.add_child(pause)
+	check(server.font_get_size_cache_info(font).filter(at_size).size() > before_sizes, "loading primes real viewport-sized glyphs before the hidden journal is first displayed")
+	viewport.oversampling_override = old_oversampling
+	viewport.set_use_oversampling(used_oversampling)
 	check(PauseMenu._navigation_warmed and not is_instance_valid(pause._navigation) and pause._root.get_child_count() == level._pause_menu._root.get_child_count(), "loading warms the real journal once and releases every temporary screen node")
 	check(not pause._root.visible and not runner.get_tree().paused and before == var_to_bytes([GameState.world_flags, navigation.snapshot(), Progression.snapshot()]), "hidden journal warmup preserves gameplay, story, exploration, pin and progression")
 	await frames(3)
