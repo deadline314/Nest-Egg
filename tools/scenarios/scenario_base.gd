@@ -10,6 +10,7 @@ const TITLE_CARD_TIME := 3.8
 var out_dir := ""
 var level: Level
 var player: Player
+var failures := 0
 
 
 ## 覆寫：拍攝流程（可以 await）。
@@ -30,6 +31,9 @@ func capture(file_name: String) -> void:
 	var image := preload("res://tools/viewport_capture.gd").image(get_viewport())
 	var path := out_dir.path_join(file_name + ".png")
 	var err := image.save_png(path)
+	if err != OK:
+		failures += 1
+		push_error("[ScenarioBase] 無法儲存截圖 %s：%s" % [path, error_string(err)])
 	print("saved %s (%s)" % [path, error_string(err)])
 
 

@@ -73,13 +73,16 @@ static func has_scenario(scenario: String) -> bool:
 
 
 ## 執行情境（節點加到 host 底下，跑完移除）。
-static func run(host: Node, scenario: String, out_dir: String) -> void:
-	var script := load(str(SCENARIOS[scenario])) as GDScript
+static func run(host: Node, scenario: String, out_dir: String) -> int:
+	var path := str(SCENARIOS.get(scenario, ""))
+	var script := load(path) as GDScript if not path.is_empty() else null
 	var runner := script.new() as ScenarioBase if script != null else null
 	if runner == null:
-		push_error("[EnemyScenarios] 無法載入情境腳本：%s" % SCENARIOS[scenario])
-		return
+		push_error("[EnemyScenarios] 無法載入情境腳本：%s（%s）" % [scenario, path])
+		return 1
 	runner.out_dir = out_dir
 	host.add_child(runner)
 	await runner.run()
+	var failures := runner.failures
 	runner.queue_free()
+	return failures

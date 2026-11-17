@@ -1,0 +1,554 @@
+{
+  "drivers/run-ne266-candidate-20261117.py": {
+    "sha256": "f1855771def062d817671516dc1f2bf7b1f5402e30009590fc88ca053d7e09a1",
+    "bytes": 3133
+  },
+  "drivers/run-ne266-checks-20261117.py": {
+    "sha256": "c591ee815e5e1194eefcf0e4a4cfc5c778ff0323d0756736e28df745faf27b22",
+    "bytes": 2690
+  },
+  "drivers/run-ne266-context-20261117.py": {
+    "sha256": "c7fcd2f7da604069580d407d72bb17b9c24985150067466ec036c19ab6863792",
+    "bytes": 3143
+  },
+  "drivers/run-ne266-final-v4-20261117.py": {
+    "sha256": "ceb715b3968961d7ddb1fd2afe7d39b9dcb2340a18bcf0f183ca1b0ea1b62c20",
+    "bytes": 3321
+  },
+  "drivers/run-ne266-freeze-control-20261117.py": {
+    "sha256": "0e8cd1e7f0981144b1515cecce12e3195778247d923760adab65052f82b16e49",
+    "bytes": 3437
+  },
+  "drivers/run-ne266-freeze-trace-20261117.py": {
+    "sha256": "1943f6c88f4690fe56b6b78777cd7dda3856ebf96f963fe75c7f34339146f937",
+    "bytes": 3321
+  },
+  "drivers/run-ne266-original-20261117.py": {
+    "sha256": "03fed8bea03a8144f37f37c3b4c3a527696c923dcd1f80a5ad1da45c552e2953",
+    "bytes": 3047
+  },
+  "drivers/run-ne266-private-position-20261117.py": {
+    "sha256": "fd7bdfde4e4d3f5fa6e7be01cf04ac910c3b31603639a02bf5ed9f5e1592c5b2",
+    "bytes": 3315
+  },
+  "drivers/run-ne266-public-v3-20261117.py": {
+    "sha256": "e2879cb0ad95b1ffeae8ed0a515abcf46352c79b10b007d89434815d40bdb71e",
+    "bytes": 3325
+  },
+  "drivers/run-ne266-save-conflict-v4-20261117.py": {
+    "sha256": "4b6eeeea110d97539e18de1460d7b99161aad48b389bedc099ad5b3ceb445827",
+    "bytes": 3559
+  },
+  "private-fixtures/ne266-freeze-control/host.gd": {
+    "sha256": "ec50d49652c3c34cb315b13329398d97ed26a2772b0a277f18f782d0bb87fe5d",
+    "bytes": 492
+  },
+  "private-fixtures/ne266-freeze-control/host.tscn": {
+    "sha256": "03e0b0034ba494f1a186161a1a346a22341112166a9b77b37d7b294a18fedf77",
+    "bytes": 187
+  },
+  "private-fixtures/ne266-freeze-control/trace.gd": {
+    "sha256": "6001060d2a10d99f03c9160dac49f102a518f1fccadb3db7329b342a4dafecdf",
+    "bytes": 996
+  },
+  "private-fixtures/ne266-freeze-trace/host.gd": {
+    "sha256": "c4b00316f7405bb9b20a2354cdc7bc865a9034340f2829852af872e95bcb2019",
+    "bytes": 490
+  },
+  "private-fixtures/ne266-freeze-trace/host.tscn": {
+    "sha256": "57d80b2f95d67cf1d49d0126417197bcc456b88777cabb608fcb16f1650607b8",
+    "bytes": 185
+  },
+  "private-fixtures/ne266-freeze-trace/trace.gd": {
+    "sha256": "6d092187a15e5a3da2e81a87c205cbee074d39d2e17b089f6fcb3d6b6c07e9b4",
+    "bytes": 931
+  },
+  "private-fixtures/ne266-position/host.gd": {
+    "sha256": "39a3f69c4b352a584da414c52646532b3cdbb8995e8cc312d794725484265e51",
+    "bytes": 486
+  },
+  "private-fixtures/ne266-position/host.tscn": {
+    "sha256": "b56867c2c021af2e87e0db8e01878e192afb10cd4a130062dc501188df8a2add",
+    "bytes": 181
+  },
+  "private-fixtures/ne266-position/trace.gd": {
+    "sha256": "557407523aa75168719736878542c0a273fbd3587656a9eb38b9dd35c7b20980",
+    "bytes": 789
+  },
+  "raw/candidate-market-scenario-v1/NE-266-bypass-walkway.png": {
+    "sha256": "520afaf865b79bbdcd8af3c94ed92a5f245e960a71cebbb5e991ae361a41c498",
+    "bytes": 472268
+  },
+  "raw/candidate-market-scenario-v1/NE-266-escort-dash.png": {
+    "sha256": "bc3adc216fb725678523d373765aa54198931d16ad1870564f8b7919fb57bd72",
+    "bytes": 434313
+  },
+  "raw/candidate-market-scenario-v1/NE-266-escort-windup.png": {
+    "sha256": "9dca7d27dd948e128dcf5fe807d635ec046470c63a954cb5ff756ff7c404d55b",
+    "bytes": 572738
+  },
+  "raw/candidate-market-scenario-v1/native.log": {
+    "sha256": "e9ce3bf6c741a1248e04088b4e930ef4628450a1646f3321b81bb7f2b139d57f",
+    "bytes": 835
+  },
+  "raw/candidate-market-scenario-v1/request.json": {
+    "sha256": "6a3888883f7c4b5e94ed26bf68de5722613d228a3c0671bbbefe96a03bbba8d9",
+    "bytes": 1965
+  },
+  "raw/candidate-market-scenario-v1/result.json": {
+    "sha256": "21a82bfa3c6da67825df4584b06b49794dc6d1ad8c646a4ad223f518166d86a4",
+    "bytes": 104
+  },
+  "raw/candidate-market-scenario-v1/source-after.json": {
+    "sha256": "571da84d01e4c04fca53c273d626d0c139d204de8bd2e7b5281612aa7153ee27",
+    "bytes": 501418
+  },
+  "raw/candidate-market-scenario-v1/source-before.json": {
+    "sha256": "571da84d01e4c04fca53c273d626d0c139d204de8bd2e7b5281612aa7153ee27",
+    "bytes": 501418
+  },
+  "raw/candidate-market-scenario-v1/source/tools/scenarios/ch2_market_enemies_scenario.gd": {
+    "sha256": "8943689b1cb2d0762487669dd4fdf22f9a77b9e1a3d228131f5e2e1645da7cdf",
+    "bytes": 4535
+  },
+  "raw/candidate-market-scenario-v1/source/tools/scenarios/enemy_scenarios.gd": {
+    "sha256": "bc30be9c4f3b8edc677783d9c8bf8031fada53d1cf1772af18b41a1e6724e600",
+    "bytes": 5020
+  },
+  "raw/candidate-market-scenario-v1/source/tools/scenarios/scenario_base.gd": {
+    "sha256": "00a82575759e37e6154ce829bdbabe154c5dc14a65cae8d37abaab5171c66a80",
+    "bytes": 2661
+  },
+  "raw/candidate-market-scenario-v1/source/tools/screenshot.gd": {
+    "sha256": "6e47fa0076e35384eb2a075f0208c51d7f7835aa25dccafa4aaa5a3945feda1e",
+    "bytes": 99463
+  },
+  "raw/candidate-market-scenario-v2-context/NE-266-bypass-walkway.png": {
+    "sha256": "7fe6e852ba20c3ad9f83441bad463539e8b716f83d4635df93af2acc54893417",
+    "bytes": 471537
+  },
+  "raw/candidate-market-scenario-v2-context/NE-266-escort-dash.png": {
+    "sha256": "fdde5291cd11a065f0cfed30a56af4a34abce3230cb8b5c8f5b0648225dc0e9c",
+    "bytes": 435705
+  },
+  "raw/candidate-market-scenario-v2-context/NE-266-escort-windup.png": {
+    "sha256": "de198f40a1d9169cbb09c053d9a12b9381c6d42d3551e27c0c5a6fd269ff78b2",
+    "bytes": 573104
+  },
+  "raw/candidate-market-scenario-v2-context/native.log": {
+    "sha256": "952637b1be89480f005617e8ce3c3f417586164098a6ab2762ae60d3ba79a316",
+    "bytes": 1033
+  },
+  "raw/candidate-market-scenario-v2-context/request.json": {
+    "sha256": "56692cbaef8764428519c4d60049db62e07f37606a824d5999d4c156b1b6b27e",
+    "bytes": 1654
+  },
+  "raw/candidate-market-scenario-v2-context/result.json": {
+    "sha256": "eb8cac0be84e5af86ec7e8d04f2f95236601624bd7a86d9dae86738b8c75e3c5",
+    "bytes": 103
+  },
+  "raw/candidate-market-scenario-v2-context/source-after.json": {
+    "sha256": "04304cd7eff71ea56e20a3df0a7c0dc4a781232c1f479b6f790c0285c2968a86",
+    "bytes": 501418
+  },
+  "raw/candidate-market-scenario-v2-context/source-before.json": {
+    "sha256": "04304cd7eff71ea56e20a3df0a7c0dc4a781232c1f479b6f790c0285c2968a86",
+    "bytes": 501418
+  },
+  "raw/candidate-market-scenario-v2-context/source/tools/scenarios/ch2_market_enemies_scenario.gd": {
+    "sha256": "478be4b985b874998340bce60bdd5d4ea8952ee98e9198e8f9bece5eb558d6c8",
+    "bytes": 4835
+  },
+  "raw/candidate-market-scenario-v2-context/source/tools/scenarios/enemy_scenarios.gd": {
+    "sha256": "bc30be9c4f3b8edc677783d9c8bf8031fada53d1cf1772af18b41a1e6724e600",
+    "bytes": 5020
+  },
+  "raw/candidate-market-scenario-v2-context/source/tools/scenarios/scenario_base.gd": {
+    "sha256": "00a82575759e37e6154ce829bdbabe154c5dc14a65cae8d37abaab5171c66a80",
+    "bytes": 2661
+  },
+  "raw/candidate-market-scenario-v2-context/source/tools/screenshot.gd": {
+    "sha256": "6e47fa0076e35384eb2a075f0208c51d7f7835aa25dccafa4aaa5a3945feda1e",
+    "bytes": 99463
+  },
+  "raw/candidate-market-scenario-v3/NE-266-bypass-walkway.png": {
+    "sha256": "5bdea21e48385ca0923a6e41f7e56d57272ac285957d612ffe615d5cea0325fd",
+    "bytes": 466543
+  },
+  "raw/candidate-market-scenario-v3/NE-266-escort-dash.png": {
+    "sha256": "8c587e068a7d9c5cf299571441d54ae6683ad527c283e11e606abd93fff56f50",
+    "bytes": 520420
+  },
+  "raw/candidate-market-scenario-v3/NE-266-escort-windup.png": {
+    "sha256": "5e7617665c8a3ecd8e7e6607379235ef6219b1321618721ee003a2663d505c41",
+    "bytes": 568009
+  },
+  "raw/candidate-market-scenario-v3/NE-266-thrower-sheets.png": {
+    "sha256": "c96510ef9785278e8d15dcb3a7db81dd1b9333898b584e4515855cd055308dce",
+    "bytes": 373793
+  },
+  "raw/candidate-market-scenario-v3/NE-266-thrower-windup.png": {
+    "sha256": "331f5a0ffdf908d76690419cca66b9b0ac405b661981e0c11adfb2f2b8b287c4",
+    "bytes": 427771
+  },
+  "raw/candidate-market-scenario-v3/native.log": {
+    "sha256": "7744d2ff8b3412a5ce47b2a9e6b498ece4db8b653df0882e986d61a17ddc1d84",
+    "bytes": 1376
+  },
+  "raw/candidate-market-scenario-v3/request.json": {
+    "sha256": "f647796e37ca40a297e1043dc3bd31ad6a0a482c3bb4098a9b368245f0b0e888",
+    "bytes": 1532
+  },
+  "raw/candidate-market-scenario-v3/result.json": {
+    "sha256": "f3f544cf14b6eb2a04228b94a30c82c8d3a3534c07b2ad811fac44edc8b56bcb",
+    "bytes": 104
+  },
+  "raw/candidate-market-scenario-v3/source-after.json": {
+    "sha256": "994340377b00f5bb4281e813f3d655bbafa83c1e5bfd9826aac28c72a73bd4e4",
+    "bytes": 501418
+  },
+  "raw/candidate-market-scenario-v3/source-before.json": {
+    "sha256": "994340377b00f5bb4281e813f3d655bbafa83c1e5bfd9826aac28c72a73bd4e4",
+    "bytes": 501418
+  },
+  "raw/candidate-market-scenario-v3/source/tools/scenarios/ch2_market_enemies_scenario.gd": {
+    "sha256": "6829900897721bf4d6c6bf8901f497bbf72282a10de0bbbe757ea0c41c31b6e2",
+    "bytes": 5577
+  },
+  "raw/candidate-market-scenario-v3/source/tools/scenarios/enemy_scenarios.gd": {
+    "sha256": "bc30be9c4f3b8edc677783d9c8bf8031fada53d1cf1772af18b41a1e6724e600",
+    "bytes": 5020
+  },
+  "raw/candidate-market-scenario-v3/source/tools/scenarios/scenario_base.gd": {
+    "sha256": "00a82575759e37e6154ce829bdbabe154c5dc14a65cae8d37abaab5171c66a80",
+    "bytes": 2661
+  },
+  "raw/candidate-market-scenario-v3/source/tools/screenshot.gd": {
+    "sha256": "6e47fa0076e35384eb2a075f0208c51d7f7835aa25dccafa4aaa5a3945feda1e",
+    "bytes": 99463
+  },
+  "raw/final-market-scenario-v4/NE-266-bypass-walkway.png": {
+    "sha256": "793e365686cade2bba3856fe60fecdc6630e8a451f7f3b7835c7a45dca33c24a",
+    "bytes": 466317
+  },
+  "raw/final-market-scenario-v4/NE-266-escort-dash.png": {
+    "sha256": "2a90c167e07c901e64465e082fc834d3a60cf4dce30f9f6e7f7a11c8cc75a539",
+    "bytes": 520700
+  },
+  "raw/final-market-scenario-v4/NE-266-escort-windup.png": {
+    "sha256": "e2e4ec6e10485367fc66ac47b8714e98fdea6dec20a023c7347ec03cbb57cf8a",
+    "bytes": 568930
+  },
+  "raw/final-market-scenario-v4/NE-266-thrower-sheets.png": {
+    "sha256": "914918f4f11a11d072577b9ab3a59b4f8501f99f2751d552da2f49176af66ba0",
+    "bytes": 374064
+  },
+  "raw/final-market-scenario-v4/NE-266-thrower-windup.png": {
+    "sha256": "d9eb9a85677dc9111bc838866eee2ed3e4e5e46de53d6d6ed6b3670a8a65ed99",
+    "bytes": 427800
+  },
+  "raw/final-market-scenario-v4/native.log": {
+    "sha256": "34d01134372db071a3db465e942f77e3d4db645c61afa76743d9392e4c51f4c5",
+    "bytes": 1356
+  },
+  "raw/final-market-scenario-v4/request.json": {
+    "sha256": "e87f1e28e209581ad40233cfe1ca4d5be26e0a3e9f4ffac8357a9d678320bf4e",
+    "bytes": 1528
+  },
+  "raw/final-market-scenario-v4/result.json": {
+    "sha256": "9e68fa9626a259fffd2915adf8f098469e11682bc0afa1cbfb14139555ee621e",
+    "bytes": 104
+  },
+  "raw/final-market-scenario-v4/source-after.json": {
+    "sha256": "ddd6fe53b3a30c4abec844f00d623db15a26c0fb3b8b19e4226eb969182bd576",
+    "bytes": 501418
+  },
+  "raw/final-market-scenario-v4/source-before.json": {
+    "sha256": "ddd6fe53b3a30c4abec844f00d623db15a26c0fb3b8b19e4226eb969182bd576",
+    "bytes": 501418
+  },
+  "raw/formal-v4/changed/runner.log": {
+    "sha256": "e6eb8ac520f316731c73a2106564e312403b20d2fe66bb919235c73a1fc5bc35",
+    "bytes": 372
+  },
+  "raw/formal-v4/changed/shards/data_0/Godot/app_userdata/Nest Egg/codex.cfg": {
+    "sha256": "3c43e431fc6aa021f1acff614a6e0485384cbddacb371703883eaa95ddfd45fa",
+    "bytes": 41
+  },
+  "raw/formal-v4/changed/shards/data_0/Godot/app_userdata/Nest Egg/logs/godot.log": {
+    "sha256": "5bc2267b5b4d2cf2b0fd955399e8fb915a4173f3e2f0d249fc3ec810fdce6fbc",
+    "bytes": 5678
+  },
+  "raw/formal-v4/changed/shards/data_0/Godot/app_userdata/Nest Egg/settings.cfg": {
+    "sha256": "eb39d47c324261706e4b49a57e267cf2c8c18ba37912f5b22be3edb73a54ef1b",
+    "bytes": 30
+  },
+  "raw/formal-v4/changed/shards/data_1/Godot/app_userdata/Nest Egg/logs/godot.log": {
+    "sha256": "c29ce416afd97280e6747b1dec8a635c45a2e1421d91c71a14d1184f01f83153",
+    "bytes": 2262
+  },
+  "raw/formal-v4/changed/shards/shard_0.log": {
+    "sha256": "9759e4f524f8afb2c24e1f60ca8fd26073ba75958174b0daf1082d3ce89855fa",
+    "bytes": 5777
+  },
+  "raw/formal-v4/changed/shards/shard_1.log": {
+    "sha256": "db516951553cf30819554536952778643dfbb7a37cb2de092de3dd90e9855911",
+    "bytes": 2301
+  },
+  "raw/formal-v4/chapter2-enemies/runner.log": {
+    "sha256": "1c946dbd472fd4c369f7e54b54021730217f8aeb22117e2cf796bf1b23731066",
+    "bytes": 266
+  },
+  "raw/formal-v4/chapter2-enemies/shards/data_0/Godot/app_userdata/Nest Egg/logs/godot.log": {
+    "sha256": "4e0a0956b83bfa618fbf788afa798d540945c674fc8cbe299ee70200b0d24e8a",
+    "bytes": 161
+  },
+  "raw/formal-v4/chapter2-enemies/shards/shard_0.log": {
+    "sha256": "a9cca1ed5514e31dd6ee756c6f4f61dacf78c485639ab2db3960e0bc5ad7515c",
+    "bytes": 166
+  },
+  "raw/formal-v4/result.json": {
+    "sha256": "ff4214f5dbb87b9c7ffd550a19879661334818217b13eb22df5ca0fd4dd889cb",
+    "bytes": 1054
+  },
+  "raw/formal-v4/source-after.json": {
+    "sha256": "63a81db7de6e1d781eca1bdac57140fee59780affd79609619a73a114efcbd8a",
+    "bytes": 230035
+  },
+  "raw/formal-v4/source-before.json": {
+    "sha256": "63a81db7de6e1d781eca1bdac57140fee59780affd79609619a73a114efcbd8a",
+    "bytes": 230035
+  },
+  "raw/freeze-control-v1/NE-266-bypass-walkway.png": {
+    "sha256": "0aed81e22c0983d0fbde9937fde7814741fb6593c8225796448ed50961106e4c",
+    "bytes": 467366
+  },
+  "raw/freeze-control-v1/NE-266-escort-dash.png": {
+    "sha256": "8a3d5824f765f41f7cf02b10039841418ce197fb97b193ce6f1fd8b013049831",
+    "bytes": 520396
+  },
+  "raw/freeze-control-v1/NE-266-escort-windup.png": {
+    "sha256": "704f573466d65320edf1f1ea08d82d0a1c5209535e0ae151a2211862db28eb86",
+    "bytes": 569826
+  },
+  "raw/freeze-control-v1/NE-266-thrower-sheets.png": {
+    "sha256": "ef3f95aeabc855859fa25ab5942e74d87e6c944f8e2dc61d7fa1bbc76c6afe6f",
+    "bytes": 374073
+  },
+  "raw/freeze-control-v1/NE-266-thrower-windup.png": {
+    "sha256": "5e31680c754ebc09bc25daa002be0161ff65660d3669f5f98d2cb2cffbb75e60",
+    "bytes": 427992
+  },
+  "raw/freeze-control-v1/native.log": {
+    "sha256": "dbde31decdd65ebfb6d42e00b2e6ff9c87c9cd0dd440566397f506e38f58ae79",
+    "bytes": 3154
+  },
+  "raw/freeze-control-v1/request.json": {
+    "sha256": "cb06cb02f0777c0ce3bde84f5418cf43dcf09df24794ed03db052ba85aa0c4ba",
+    "bytes": 1519
+  },
+  "raw/freeze-control-v1/result.json": {
+    "sha256": "f9d1753705c418ee66fd36788ffba257bb4b107c162e7d8d8e8def864c9de52f",
+    "bytes": 104
+  },
+  "raw/freeze-control-v1/source-after.json": {
+    "sha256": "77789d8468959e29ca8a3a1c89d3f54549584ca90d164031305e6bed5ca22273",
+    "bytes": 501745
+  },
+  "raw/freeze-control-v1/source-before.json": {
+    "sha256": "77789d8468959e29ca8a3a1c89d3f54549584ca90d164031305e6bed5ca22273",
+    "bytes": 501745
+  },
+  "raw/freeze-trace-v1/NE-266-bypass-walkway.png": {
+    "sha256": "253399532330c3f73d1c74f896efd791499c27182c728754f53c1a023b09a1f9",
+    "bytes": 471252
+  },
+  "raw/freeze-trace-v1/NE-266-escort-dash.png": {
+    "sha256": "6aca9076a1415acd019b6da3a9725fcf7c7d110003112d5c2da2ca8c2d822274",
+    "bytes": 431885
+  },
+  "raw/freeze-trace-v1/NE-266-escort-windup.png": {
+    "sha256": "d19c8c60c01c53d4e06af449a6eaa976e55ae4875d5dedddf0cef49e284cfdea",
+    "bytes": 571906
+  },
+  "raw/freeze-trace-v1/native.log": {
+    "sha256": "282b7d2d923d648ff9dc3f5ec92d820f9d50bbbc266b8e7d2975268c3ecc9d46",
+    "bytes": 3393
+  },
+  "raw/freeze-trace-v1/request.json": {
+    "sha256": "63c995585d784e4e789f2a581979993810b71c242ca94a0a175e758399c9570f",
+    "bytes": 1409
+  },
+  "raw/freeze-trace-v1/result.json": {
+    "sha256": "e2dde2311c34163142bc8dafbd750fccb0fb1106f0e260b41bf57db4f5dc40c6",
+    "bytes": 103
+  },
+  "raw/freeze-trace-v1/source-after.json": {
+    "sha256": "a8b523a24b4a06c72b8e643792eaa271b4e3fe0c247524f235258824e9769e66",
+    "bytes": 501739
+  },
+  "raw/freeze-trace-v1/source-before.json": {
+    "sha256": "a8b523a24b4a06c72b8e643792eaa271b4e3fe0c247524f235258824e9769e66",
+    "bytes": 501739
+  },
+  "raw/hypotheses-after-v1.json": {
+    "sha256": "002f9b2e27154d0d1248e39e1a6260997eaedd00529f74c319645dfa483e5eea",
+    "bytes": 678
+  },
+  "raw/negative-mkdir-v4/file-blocker": {
+    "sha256": "87c5efea2022c6f6d58b7a3e7822a267e14c8c96cda91631af49f72ce1c20eaa",
+    "bytes": 47
+  },
+  "raw/negative-mkdir-v4/native.log": {
+    "sha256": "94c7b7fb5aff823b15ed75dd237f256d06305c9d2fb3bbf3e0195a95697f4d6d",
+    "bytes": 648
+  },
+  "raw/negative-mkdir-v4/result.json": {
+    "sha256": "ed8cb77dff325d7ffb865c4c32311c84e141beb963dc642c95144cd17baadf7c",
+    "bytes": 1601
+  },
+  "raw/negative-save-conflict-v4/NE-266-bypass-walkway.png": {
+    "sha256": "a52efd32fb3788c0d5a24d457aafb3a8e283bae306b2b1662434e0f562554b40",
+    "bytes": 466209
+  },
+  "raw/negative-save-conflict-v4/NE-266-escort-dash.png": {
+    "sha256": "8f6dcb9d100b10e209b37e820a122bcbffba26b7e95e4fedf2c1e6f25b17a4ad",
+    "bytes": 519204
+  },
+  "raw/negative-save-conflict-v4/NE-266-thrower-sheets.png": {
+    "sha256": "301c3f446ed0f3d272987925ead7f2b50452ba3154b4a6943d372a5f182c5e72",
+    "bytes": 373769
+  },
+  "raw/negative-save-conflict-v4/NE-266-thrower-windup.png": {
+    "sha256": "46eb36d7849db756646bc34766d90fc6603b1b7b461dea93e1e30df7efa3565a",
+    "bytes": 427526
+  },
+  "raw/negative-save-conflict-v4/native.log": {
+    "sha256": "449ad5557ba04a7255015a4e5ea5d7a2fa74090559017e615e079c9bac933a35",
+    "bytes": 2181
+  },
+  "raw/negative-save-conflict-v4/request.json": {
+    "sha256": "a847eef43cad5717851a2eead790ed37fd3bea05cddc3ccf8e57108659b3809b",
+    "bytes": 1723
+  },
+  "raw/negative-save-conflict-v4/result.json": {
+    "sha256": "7e09eac98981a5c9fc7dfd0e8b7fa92d57f1acca363157afe4c8485971057de4",
+    "bytes": 104
+  },
+  "raw/negative-save-conflict-v4/source-after.json": {
+    "sha256": "ddd6fe53b3a30c4abec844f00d623db15a26c0fb3b8b19e4226eb969182bd576",
+    "bytes": 501418
+  },
+  "raw/negative-save-conflict-v4/source-before.json": {
+    "sha256": "ddd6fe53b3a30c4abec844f00d623db15a26c0fb3b8b19e4226eb969182bd576",
+    "bytes": 501418
+  },
+  "raw/original-market-scenario/NE-266-bypass-walkway.png": {
+    "sha256": "da52cd476d79d1ec7ddf735c6276fef8c67473d34d7e254b68867067f797c7fc",
+    "bytes": 247470
+  },
+  "raw/original-market-scenario/NE-266-escort-dash.png": {
+    "sha256": "263f64dda8623a1818e296c981fe5f7dceff82b46512e0f13b4bef5e08924062",
+    "bytes": 240864
+  },
+  "raw/original-market-scenario/NE-266-escort-windup.png": {
+    "sha256": "60f986d8ac31dc14a0787d0b5b96f938f62b74d3980ff3cf9137bbdaf4727b60",
+    "bytes": 234103
+  },
+  "raw/original-market-scenario/NE-266-thrower-sheets.png": {
+    "sha256": "ed85a3390c8ac8f713b652e18168032ae5bb875bc1a5801c35e68092fb284562",
+    "bytes": 241705
+  },
+  "raw/original-market-scenario/NE-266-thrower-windup.png": {
+    "sha256": "829a7a5367651458b9ab8c26e921d52ea69f58ff5feb5f11d5236aeedc85ce2b",
+    "bytes": 246248
+  },
+  "raw/original-market-scenario/native.log": {
+    "sha256": "edc3fe1ad6348f14ce02c2a15ead358ef6667bdffe320271937b9841adadf06d",
+    "bytes": 849
+  },
+  "raw/original-market-scenario/request.json": {
+    "sha256": "9bb3178808df7abffc3bc78ed188806a1aba038ccd6b0ad099f0726095a6d491",
+    "bytes": 1449
+  },
+  "raw/original-market-scenario/result.json": {
+    "sha256": "52bd89a504e564ed54877ce54a9f045461d8239dabc0b669c22d78e043884a68",
+    "bytes": 104
+  },
+  "raw/original-market-scenario/source-after.json": {
+    "sha256": "0940e2d6669d398dc5147eae1c76c53a7d2b2b835fbbe3f5d305a16e69f3e4d5",
+    "bytes": 501418
+  },
+  "raw/original-market-scenario/source-before.json": {
+    "sha256": "0940e2d6669d398dc5147eae1c76c53a7d2b2b835fbbe3f5d305a16e69f3e4d5",
+    "bytes": 501418
+  },
+  "raw/private-position-trace-v1/NE-266-bypass-walkway.png": {
+    "sha256": "5f9eeb80a8b71d397646328113cc83399b2843f396d9f91eec4e974d27e8c219",
+    "bytes": 471466
+  },
+  "raw/private-position-trace-v1/NE-266-escort-dash.png": {
+    "sha256": "a9db0e43891d50b31d4b39f4df1b37fb13d0668926869930080f4eff2a7f4c62",
+    "bytes": 436392
+  },
+  "raw/private-position-trace-v1/NE-266-escort-windup.png": {
+    "sha256": "79ffce78a7784f1cf704fada213e04f535d47f5a03b735b57e21ae401649647a",
+    "bytes": 572095
+  },
+  "raw/private-position-trace-v1/native.log": {
+    "sha256": "6dfea181d8c8e83cd704bde15e2ab1f3a141ffd9ee062493cdd61aa74afa366f",
+    "bytes": 2937
+  },
+  "raw/private-position-trace-v1/request.json": {
+    "sha256": "5eda921fdcdc2d60c3bd0becfe3b4f0bae37a30dc4bcee4203e270825dcd275c",
+    "bytes": 1415
+  },
+  "raw/private-position-trace-v1/result.json": {
+    "sha256": "5d58e74693546adebc6b760e57baf681290c0a2f7cb81831c015ce7f3b7fe7f4",
+    "bytes": 104
+  },
+  "raw/private-position-trace-v1/source-after.json": {
+    "sha256": "128cfdf23f1ca4896a60b477c75ed2c161d7777b51ad9e25dba4027f4723d917",
+    "bytes": 501727
+  },
+  "raw/private-position-trace-v1/source-before.json": {
+    "sha256": "128cfdf23f1ca4896a60b477c75ed2c161d7777b51ad9e25dba4027f4723d917",
+    "bytes": 501727
+  },
+  "source/baseline/tests/suite/test_ch2_enemies.gd": {
+    "sha256": "30f8361d700273671d4004ed114913b17d4d413c0926bdb99cad3e41cb581299",
+    "bytes": 20133
+  },
+  "source/baseline/tools/scenarios/ch2_market_enemies_scenario.gd": {
+    "sha256": "2c939e5d02c89654746f34ac93c1cf9c83d3ea78611863a10f922a20b8e3775b",
+    "bytes": 3311
+  },
+  "source/baseline/tools/scenarios/enemy_scenarios.gd": {
+    "sha256": "658affc1fba25490f72a8d1c2ea4d9e62d22e51036430c4198ed7432fd7eb601",
+    "bytes": 4905
+  },
+  "source/baseline/tools/scenarios/scenario_base.gd": {
+    "sha256": "ef1199a05afaec1399a01f7d0f5b7d54643ae703a1ffaa525b702c25da3ac66d",
+    "bytes": 2526
+  },
+  "source/baseline/tools/screenshot.gd": {
+    "sha256": "dbaa01639ed47fd2aa0457c4f9d10ff87c07c8a9b97dc013f7c47eeb775a87ec",
+    "bytes": 99383
+  },
+  "source/final/tools/scenarios/ch2_market_enemies_scenario.gd": {
+    "sha256": "6829900897721bf4d6c6bf8901f497bbf72282a10de0bbbe757ea0c41c31b6e2",
+    "bytes": 5577
+  },
+  "source/final/tools/scenarios/enemy_scenarios.gd": {
+    "sha256": "bc30be9c4f3b8edc677783d9c8bf8031fada53d1cf1772af18b41a1e6724e600",
+    "bytes": 5020
+  },
+  "source/final/tools/scenarios/scenario_base.gd": {
+    "sha256": "00a82575759e37e6154ce829bdbabe154c5dc14a65cae8d37abaab5171c66a80",
+    "bytes": 2661
+  },
+  "source/final/tools/screenshot.gd": {
+    "sha256": "1fc66fa0c3a26346bb6ae58d11e6640e78cc7d4ec13ae25ddad00a8d3359e4da",
+    "bytes": 99576
+  }
+}

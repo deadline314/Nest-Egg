@@ -64,7 +64,10 @@ func _ready() -> void:
 				DisplayMode.ensure_scaling(get_window())
 			else:
 				push_error("[screenshot] --size 格式是 寬x高，且不小於 640x360：%s" % arg)
-	DirAccess.make_dir_recursive_absolute(_out_dir)
+	if DirAccess.make_dir_recursive_absolute(_out_dir) != OK:
+		push_error("[Screenshot] 無法建立截圖資料夾：%s" % _out_dir)
+		get_tree().quit(2)
+		return
 	_run.call_deferred()
 
 
@@ -349,8 +352,9 @@ func _run() -> void:
 		get_tree().quit()
 		return
 	if EnemyScenarios.has_scenario(_scenario):
-		await EnemyScenarios.run(self, _scenario, _out_dir)
-		get_tree().quit()
+		var failures := await EnemyScenarios.run(self, _scenario, _out_dir)
+		await AudioRelease.settle(get_tree())
+		get_tree().quit(1 if failures > 0 else 0)
 		return
 	var menu := MainMenu.new()
 	add_child(menu)
