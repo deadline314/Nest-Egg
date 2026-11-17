@@ -1,0 +1,645 @@
+{
+  "base": "e053354ce390eb399e99dbb36db08f1566ec2b2a",
+  "runs": [
+    {
+      "name": "blank-mask-v6",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 8,
+        "failures": 1,
+        "mode": "isolated",
+        "cause": "flood"
+      },
+      "cancelled_before_godot": false,
+      "role": "previous native/source epoch; retained without rewriting"
+    },
+    {
+      "name": "blank-mask-v8",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 8,
+        "failures": 1,
+        "mode": "isolated",
+        "cause": "flood"
+      },
+      "cancelled_before_godot": false,
+      "role": "frame-validity native"
+    },
+    {
+      "name": "cpu-blackbar-v11",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "CPU gate result; see preliminary history for failed candidates"
+    },
+    {
+      "name": "cpu-blackbar-v8",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "frame-validity native"
+    },
+    {
+      "name": "cpu-blank-v1",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "CPU gate result; see preliminary history for failed candidates"
+    },
+    {
+      "name": "cpu-blank-v11",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "CPU gate result; see preliminary history for failed candidates"
+    },
+    {
+      "name": "cpu-blank-v6",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "CPU gate result; see preliminary history for failed candidates"
+    },
+    {
+      "name": "cpu-blank-v8",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "frame-validity native"
+    },
+    {
+      "name": "cpu-nonhdr-v1",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "CPU gate result; see preliminary history for failed candidates"
+    },
+    {
+      "name": "cpu-nonhdr-v11",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "CPU gate result; see preliminary history for failed candidates"
+    },
+    {
+      "name": "cpu-nonhdr-v6",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "CPU gate result; see preliminary history for failed candidates"
+    },
+    {
+      "name": "cpu-nonhdr-v8",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "frame-validity native"
+    },
+    {
+      "name": "cpu-valid-v1",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "CPU gate result; see preliminary history for failed candidates"
+    },
+    {
+      "name": "cpu-valid-v10",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "CPU gate result; see preliminary history for failed candidates"
+    },
+    {
+      "name": "cpu-valid-v11",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "CPU gate result; see preliminary history for failed candidates"
+    },
+    {
+      "name": "cpu-valid-v12",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "CPU gate result; see preliminary history for failed candidates"
+    },
+    {
+      "name": "cpu-valid-v2",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "CPU gate result; see preliminary history for failed candidates"
+    },
+    {
+      "name": "cpu-valid-v6",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "CPU gate result; see preliminary history for failed candidates"
+    },
+    {
+      "name": "cpu-valid-v7",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "CPU gate result; see preliminary history for failed candidates"
+    },
+    {
+      "name": "cpu-valid-v8",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "frame-validity native"
+    },
+    {
+      "name": "cpu-valid-v9",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "CPU gate result; see preliminary history for failed candidates"
+    },
+    {
+      "name": "cpu-washed-v1",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "CPU gate result; see preliminary history for failed candidates"
+    },
+    {
+      "name": "cpu-washed-v11",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "CPU gate result; see preliminary history for failed candidates"
+    },
+    {
+      "name": "cpu-washed-v6",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "CPU gate result; see preliminary history for failed candidates"
+    },
+    {
+      "name": "cpu-washed-v8",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "frame-validity native"
+    },
+    {
+      "name": "cpu-white-v1",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "CPU gate result; see preliminary history for failed candidates"
+    },
+    {
+      "name": "cpu-white-v11",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "CPU gate result; see preliminary history for failed candidates"
+    },
+    {
+      "name": "cpu-white-v6",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "CPU gate result; see preliminary history for failed candidates"
+    },
+    {
+      "name": "cpu-white-v8",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": false,
+      "role": "frame-validity native"
+    },
+    {
+      "name": "deaths3-v6",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 51,
+        "failures": 0,
+        "mode": "route",
+        "cause": "flood"
+      },
+      "cancelled_before_godot": false,
+      "role": "previous native/source epoch; retained without rewriting"
+    },
+    {
+      "name": "deaths3-v7",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 51,
+        "failures": 0,
+        "mode": "route",
+        "cause": "flood"
+      },
+      "cancelled_before_godot": false,
+      "role": "previous native/source epoch; retained without rewriting"
+    },
+    {
+      "name": "isolated-v1",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 10,
+        "failures": 0,
+        "mode": "isolated",
+        "cause": "flood"
+      },
+      "cancelled_before_godot": false,
+      "role": "previous native/source epoch; retained without rewriting"
+    },
+    {
+      "name": "legacy-fill-v6",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 39,
+        "failures": 1,
+        "mode": "route",
+        "cause": "flood"
+      },
+      "cancelled_before_godot": false,
+      "role": "previous native/source epoch; retained without rewriting"
+    },
+    {
+      "name": "resume-flood-v6",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 44,
+        "failures": 0,
+        "mode": "resume",
+        "cause": "flood"
+      },
+      "cancelled_before_godot": false,
+      "role": "previous native/source epoch; retained without rewriting"
+    },
+    {
+      "name": "resume-flood-v7",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 44,
+        "failures": 0,
+        "mode": "resume",
+        "cause": "flood"
+      },
+      "cancelled_before_godot": false,
+      "role": "previous native/source epoch; retained without rewriting"
+    },
+    {
+      "name": "route-flood-v2",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 7,
+        "failures": 1,
+        "mode": "route",
+        "cause": "flood"
+      },
+      "cancelled_before_godot": false,
+      "role": "previous native/source epoch; retained without rewriting"
+    },
+    {
+      "name": "route-flood-v3",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 30,
+        "failures": 1,
+        "mode": "route",
+        "cause": "flood"
+      },
+      "cancelled_before_godot": false,
+      "role": "previous native/source epoch; retained without rewriting"
+    },
+    {
+      "name": "route-flood-v4-contact",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 30,
+        "failures": 1,
+        "mode": "route",
+        "cause": "flood"
+      },
+      "cancelled_before_godot": false,
+      "role": "previous native/source epoch; retained without rewriting"
+    },
+    {
+      "name": "route-flood-v5",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 38,
+        "failures": 0,
+        "mode": "route",
+        "cause": "flood"
+      },
+      "cancelled_before_godot": false,
+      "role": "previous native/source epoch; retained without rewriting"
+    },
+    {
+      "name": "route-flood-v6",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 39,
+        "failures": 0,
+        "mode": "route",
+        "cause": "flood"
+      },
+      "cancelled_before_godot": false,
+      "role": "previous native/source epoch; retained without rewriting"
+    },
+    {
+      "name": "route-flood-v7",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 39,
+        "failures": 0,
+        "mode": "route",
+        "cause": "flood"
+      },
+      "cancelled_before_godot": false,
+      "role": "previous native/source epoch; retained without rewriting"
+    },
+    {
+      "name": "route-hit-v6",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 37,
+        "failures": 0,
+        "mode": "route",
+        "cause": "hit"
+      },
+      "cancelled_before_godot": false,
+      "role": "previous native/source epoch; retained without rewriting"
+    },
+    {
+      "name": "route-hit-v7",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 37,
+        "failures": 0,
+        "mode": "route",
+        "cause": "hit"
+      },
+      "cancelled_before_godot": false,
+      "role": "previous native/source epoch; retained without rewriting"
+    },
+    {
+      "name": "sweep-dark-v10",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 197,
+        "failures": 0,
+        "mode": "sweep",
+        "cause": "flood"
+      },
+      "cancelled_before_godot": false,
+      "role": "previous native/source epoch; retained without rewriting"
+    },
+    {
+      "name": "sweep-dark-v11",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 289,
+        "failures": 0,
+        "mode": "sweep",
+        "cause": "flood"
+      },
+      "cancelled_before_godot": false,
+      "role": "previous native/source epoch; retained without rewriting"
+    },
+    {
+      "name": "sweep-dark-v12",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 289,
+        "failures": 0,
+        "mode": "sweep",
+        "cause": "flood"
+      },
+      "cancelled_before_godot": false,
+      "role": "final source dark-stage affine-coordinate native"
+    },
+    {
+      "name": "sweep-dark-v7",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 189,
+        "failures": 0,
+        "mode": "sweep",
+        "cause": "flood"
+      },
+      "cancelled_before_godot": false,
+      "role": "previous native/source epoch; retained without rewriting"
+    },
+    {
+      "name": "sweep-dark-v8",
+      "natural_exit": 1,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 197,
+        "failures": 2,
+        "mode": "sweep",
+        "cause": "flood"
+      },
+      "cancelled_before_godot": false,
+      "role": "frame-validity native"
+    },
+    {
+      "name": "sweep-dark-v9",
+      "natural_exit": 4294967295,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": null,
+      "cancelled_before_godot": true,
+      "role": "cancelled queued wrapper; not a natural Godot run"
+    },
+    {
+      "name": "sweep-v6",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 160,
+        "failures": 0,
+        "mode": "sweep",
+        "cause": "flood"
+      },
+      "cancelled_before_godot": false,
+      "role": "previous native/source epoch; retained without rewriting"
+    },
+    {
+      "name": "wake-smoke-v11",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 41,
+        "failures": 0,
+        "mode": "route",
+        "cause": "flood"
+      },
+      "cancelled_before_godot": false,
+      "role": "previous native/source epoch; retained without rewriting"
+    },
+    {
+      "name": "wake-smoke-v8",
+      "natural_exit": 0,
+      "script_errors": 0,
+      "error_lines": 0,
+      "source_unchanged": true,
+      "summary": {
+        "checks": 39,
+        "failures": 0,
+        "mode": "route",
+        "cause": "flood"
+      },
+      "cancelled_before_godot": false,
+      "role": "frame-validity native"
+    }
+  ]
+}
