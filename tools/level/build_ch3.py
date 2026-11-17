@@ -251,7 +251,7 @@ def _build_pump_v1():
     a.stand(76, 'Ⅵ', row=12)
     for x in (14, 34, 54, 70):
         a.lamp(x, 8)
-    a.zone(0, 'power_room')
+    a.zone(0, 'pump_room')
     a.features = {'loop': '乾燥上橋（第 13 列）與下槽成環', 'secret': '下槽背面的工具櫃（x=74）',
                   'landmark': '排水輪（x=30，上橋上）', 'vertical': '上橋與下槽兩層', 'shortcut': '外梯 SC5（x=76）回廣場'}
     return a
@@ -281,6 +281,7 @@ def _build_mezzanine_v1():
     a.stand(76, 'Ⅳ')
     for x in (12, 28, 46, 64, 74):
         a.lamp(x, 9)
+    a.material_zones = [(0, 'mezzanine_steel_plate'), (20, 'steel_plate')]
     a.zone(0, 'transfer')
     a.features = {'loop': '照護步道（第 14 列）與維修帶成環', 'landmark': 'B5 電話亭（x=22）與朝內的診所招牌',
                   'secret': '公共通知終端的父女狀態（x=32，可選）', 'vertical': '維修帶與照護步道兩層',

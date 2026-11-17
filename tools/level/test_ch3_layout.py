@@ -49,6 +49,14 @@ class ChapterThreeLayoutTests(unittest.TestCase):
                         if char not in TERRAIN:
                             self.assertEqual(new.grid.at(x, y + 16), char, (ident, x, y))
 
+    def test_notice_terminal_stands_at_its_interaction_floor(self):
+        area = self.build('mezzanine')
+        prop = next(p for p in kit._map_extra(area)['props'] if p['id'] == 'mezzanine__notice_terminal')
+        npc = next((x, y) for y, row in enumerate(area.grid.rows()) for x, char in enumerate(row) if char == 'ⓝ')
+        self.assertEqual((prop['x'], prop['y']), npc)
+        self.assertFalse(prop['ground'])
+        self.assertEqual(area.grid.at(npc[0], npc[1] + 1), '#')
+
     def test_shaft_doors_are_reciprocal_and_follow_the_freight_lift(self):
         ports = {}
         for ident in TALL:
