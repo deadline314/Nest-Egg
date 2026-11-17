@@ -70,10 +70,10 @@ func _run() -> void:
 		records.append(_add_bay(bays[index][0], origin, bays[index][1]))
 	LightKit.lamp_power = 1.0
 	await _settle(30)
-	Capture.image(get_viewport()).save_png(_out.path_join(_tag + "-lit.png"))
+	failures += int(Capture.image(get_viewport()).save_png(_out.path_join(_tag + "-lit.png")) != OK)
 	LightKit.lamp_power = 0.0
 	await _settle(20)
-	Capture.image(get_viewport()).save_png(_out.path_join(_tag + "-unlit.png"))
+	failures += int(Capture.image(get_viewport()).save_png(_out.path_join(_tag + "-unlit.png")) != OK)
 	LightKit.lamp_power = 1.0
 	for index in _lamps.size():
 		records[index]["supported"] = _lamps[index].is_supported()
