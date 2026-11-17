@@ -42,6 +42,7 @@ func _run() -> void:
 	_carry_ch1_results()
 	await _play_chapter()
 	print("CH2_FLOW_PROBE route=%s supper=%s pay=%s failures=%d" % [_route, _supper, _pay, _failures])
+	await AudioRelease.settle(get_tree())
 	get_tree().quit(1 if _failures > 0 else 0)
 
 
@@ -223,4 +224,5 @@ func _run_guest_book_only() -> void:
 	if is_instance_valid(_level):
 		_level.queue_free()
 		await _settle(3)
+	await AudioRelease.settle(get_tree())
 	get_tree().quit(1 if _failures > 0 else 0)
